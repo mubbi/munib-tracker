@@ -52,7 +52,7 @@ import {
 } from "@/lib/khatm-motivation";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
-import { pageToStartAyah } from "@/lib/quran";
+import { pageToStartAyah } from "@/lib/quran-meta";
 import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useEnsureKhatmLoaded, useKhatm, useKhatmActions } from "@/stores/khatm-store";

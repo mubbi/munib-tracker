@@ -10,6 +10,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ThemedText } from "@/components/themed-text";
+import { ToggleChip } from "@/components/ui/chip";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
@@ -341,6 +342,9 @@ export function QuranReadingToolbar({
   );
 }
 
+/** Re-exported for `practice-toolbar.tsx`; the one implementation lives in `ui/chip`. */
+export { ToggleChip };
+
 /** Value chip that opens a picker sheet (reciter / translation). */
 export function SelectChip({
   icon,
@@ -398,55 +402,6 @@ export function SelectChip({
         size={tv ? 16 : 12}
         tintColor={active ? colors.accent : colors.mutedForeground}
       />
-    </PressableScale>
-  );
-}
-
-/** On/off chip for a visibility preference (transliteration / translation). */
-export function ToggleChip({
-  icon,
-  label,
-  enabled,
-  accessibilityLabel,
-  onPress,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  enabled: boolean;
-  accessibilityLabel: string;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-  const tint = enabled ? colors.accent : colors.mutedForeground;
-  return (
-    <PressableScale
-      haptic="selection"
-      accessibilityRole="switch"
-      accessibilityLabel={accessibilityLabel}
-      accessibilityState={{ checked: enabled }}
-      onPress={onPress}
-      style={[
-        styles.chip,
-        tv && styles.chipTv,
-        {
-          backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-          borderColor: enabled
-            ? tv
-              ? withAlpha(colors.accent, 0.35)
-              : colors.accent
-            : "transparent",
-        },
-      ]}
-    >
-      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={tint} />
-      <ThemedText
-        type="smallBold"
-        numberOfLines={1}
-        style={{ color: tint, fontSize: tv ? TvLayout.bodyFontSize : undefined }}
-      >
-        {label}
-      </ThemedText>
     </PressableScale>
   );
 }

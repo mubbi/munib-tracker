@@ -45,7 +45,7 @@ export type VoicePipelineOptions = {
   onLevel?: (db: number) => void;
   /** The model or the microphone failed mid-session. */
   onFailure: (code: PracticeErrorCode) => void;
-  /** A call, Siri or another app took the microphone. */
+  /** A call, Siri, another app or another in-app listener took the microphone. */
   onInterrupted: () => void;
 };
 
@@ -64,7 +64,7 @@ export async function startVoicePipeline(options: VoicePipelineOptions): Promise
     if (stopped) return;
     stopped = true;
     listener?.dispose();
-    releaseMicrophone(stop);
+    releaseMicrophone(preempted);
     const steps = [
       () => options.capture.stop(),
       () => runner?.release(),
@@ -79,8 +79,15 @@ export async function startVoicePipeline(options: VoicePipelineOptions): Promise
     }
   };
 
+  // Another feature claimed the mic: stop, then tell the screen (same as a call).
+  const preempted = async () => {
+    if (stopped) return;
+    await stop();
+    options.onInterrupted();
+  };
+
   try {
-    await claimMicrophone("tasbeeh-voice", stop);
+    await claimMicrophone("tasbeeh-voice", preempted);
     if (options.mode !== "spotter") {
       // No model: pause count (D24), taught pattern (D48–D51) or teaching.
       const { onHit, onSpeech, onLevel } = options;

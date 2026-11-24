@@ -9,7 +9,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
-import { getPageList } from "@/lib/quran";
+import { getPageList } from "@/lib/quran-meta";
 
 type PagePickerSheetProps = {
   visible: boolean;

@@ -16,7 +16,7 @@ import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
-import { getJuzList, juzForAyah } from "@/lib/quran";
+import { getJuzList, juzForAyah } from "@/lib/quran-meta";
 import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLastRead } from "@/stores/quran-store";

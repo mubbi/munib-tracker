@@ -4,6 +4,7 @@ import { type ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { AppState, Platform } from "react-native";
 import { maybeOpenReviewFunnelFromNotificationData } from "@/features/reviews/lib/reviewNotificationTap";
+import i18next from "@/i18n";
 import { markColdStartReady } from "@/lib/boot/cold-start";
 import { circleEventHref, parseCircleRouteData } from "@/lib/circles/inbox";
 import {
@@ -19,6 +20,7 @@ import {
   registerExpoPushTokenWithApi,
   registerWebPushSubscriptionWithApi,
 } from "@/lib/notifications/register-push-token";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { tryPlayWebAdhanForReminder } from "@/lib/notifications/web-adhan-playback";
 import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
 import { isTV } from "@/lib/platform/is-tv";
@@ -26,7 +28,6 @@ import {
   configureNotifications,
   MARK_ACTION_IDENTIFIER,
   markFromNotification,
-  rescheduleAll,
   SNOOZE_ACTION_IDENTIFIER,
   snoozeNotification,
 } from "@/notifications/scheduler";
@@ -52,7 +53,9 @@ function shouldDeliverReminder(reminderId: string): boolean {
 
 /**
  * Owns the local-notification lifecycle: configures channels once, reschedules
- * whenever preferences or location change, and routes taps to the notification centre.
+ * whenever a reminder input changes (and on every foreground, to roll the
+ * `SCHEDULE_DAYS_AHEAD` window), and routes taps to the notification centre.
+ * Native phones arm OS notifications; web arms in-tab timers (`scheduler.web.ts`).
  * No-op on TV (no local OS reminders / Live Activity / push registration).
  */
 export function NotificationProvider({ children }: { children: ReactNode }) {
@@ -86,6 +89,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   });
   const tv = isTV();
   const notificationsOk = !tv && isLocalNotificationSupported();
+  // Web has no OS scheduler but arms in-tab timers + browser notifications, so it
+  // needs the same reschedule triggers (it used to arm only after a settings write).
+  const remindersOk = notificationsOk || (!tv && isWeb);
 
   useEffect(() => {
     if (!activeLocale || !notificationsOk) return;
@@ -149,27 +155,26 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     return () => setWebReminderFireHandler(null);
   }, [deliver, tv]);
 
+  // Rebuild whenever a reminder input changes. The subscribed values are only
+  // triggers — the pass reads the freshest prefs + location from the stores.
+  // qazaDebtKey drops OS Qaza nudges once the debt is cleared; activeExcusedReason
+  // pauses / re-arms nudges at once (D31 / rule 5).
   useEffect(() => {
-    if (
-      !onboardingDone ||
-      !notificationsOk ||
-      !activeLocale ||
-      !ready ||
-      !locationReady ||
-      !trackerReady
-    ) {
-      return;
-    }
-    // qazaDebtKey keeps this effect tied to remaining debt so OS nudges drop when cleared.
-    void qazaDebtKey;
-    void activeExcusedReason;
-    const prefs = preferencesStore.getState().prefs;
-    void rescheduleAll(
-      { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime, adhanStyleId },
+    if (!onboardingDone || !remindersOk || !activeLocale || !ready || !locationReady) return;
+    if (!trackerReady) return;
+    void [
+      qazaDebtKey,
+      activeExcusedReason,
+      notificationPrefs,
+      prayerAlerts,
+      prayerReminderOffsets,
+      bedtime,
+      adhanStyleId,
       location,
-    );
+    ];
+    requestReminderReschedule();
   }, [
-    notificationsOk,
+    remindersOk,
     ready,
     locationReady,
     trackerReady,
@@ -185,31 +190,23 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     onboardingDone,
   ]);
 
+  // Foreground: roll the schedule window forward and refresh the push token.
   useEffect(() => {
-    if (!onboardingDone || !notificationsOk || !activeLocale) return;
+    if (!onboardingDone || !remindersOk || !activeLocale) return;
     const sub = AppState.addEventListener("change", (status) => {
       if (status !== "active" || !ready || !locationReady) return;
-      const prefs = preferencesStore.getState().prefs;
-      void rescheduleAll(
-        { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime, adhanStyleId },
-        location,
-      );
-      if (isAuthenticated && session?.accessToken) {
+      requestReminderReschedule();
+      if (notificationsOk && isAuthenticated && session?.accessToken) {
         void registerExpoPushTokenWithApi(session.accessToken);
       }
     });
     return () => sub.remove();
   }, [
+    remindersOk,
     notificationsOk,
     ready,
     locationReady,
-    notificationPrefs,
-    prayerAlerts,
-    prayerReminderOffsets,
-    bedtime,
-    adhanStyleId,
     activeLocale,
-    location,
     isAuthenticated,
     session?.accessToken,
     onboardingDone,
@@ -264,7 +261,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       receivedSub = Notifications.addNotificationReceivedListener((notification) => {
         const { content } = notification.request;
         if (!shouldDeliverReminder(notification.request.identifier)) return;
-        const title = content.title ?? "Reminder";
+        const title = content.title ?? i18next.t("notif.defaultTitle");
         const body = content.body ?? "";
         const route = (content.data as { route?: string } | undefined)?.route;
         void deliver({

@@ -1,14 +1,14 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { PagePickerSheet } from "@/components/quran/page-picker-sheet";
-import type { PageListEntry } from "@/lib/quran";
+import type { PageListEntry } from "@/lib/quran-meta";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 
 // `PAGE_LIST` is read at import time, so the fixture rows live inside the factory.
-jest.mock("@/lib/quran", () => {
+jest.mock("@/lib/quran-meta", () => {
   const fatihah = {
     surah: 1,
     surahNameEnglish: "The Opening",
@@ -26,7 +26,7 @@ jest.mock("@/lib/quran", () => {
     { page: 2, ayah: 1, juz: 1, ...baqarah },
     { page: 12, ayah: 77, juz: 1, ...baqarah },
   ];
-  return { getPageList: () => pages };
+  return { ...jest.requireActual("@/lib/quran-meta"), getPageList: () => pages };
 });
 
 type Props = Parameters<typeof PagePickerSheet>[0];

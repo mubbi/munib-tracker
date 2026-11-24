@@ -4,7 +4,7 @@ import { PracticeError, toPracticeErrorCode } from "@/lib/quran-companion/error-
 import type { LoadedModelAssets } from "@/lib/quran-companion/model/types";
 import { isFastConformerManifest, openFastConformerRunner } from "@/lib/speech/fastconformer";
 import type { CtcLogprobs, FastConformerRunner } from "@/lib/speech/fastconformer-runner";
-import { claimMicrophone, releaseMicrophone } from "@/lib/speech/mic-owner";
+import { claimMicrophone, type MicRelease, releaseMicrophone } from "@/lib/speech/mic-owner";
 import { loadInstalledModel } from "@/stores/quran-listener-store";
 
 import {
@@ -39,7 +39,7 @@ export type PronunciationModel = {
 
 export type TakeCallbacks = {
   onLevel?: (level: number) => void;
-  /** A call, Siri or another app took the microphone. */
+  /** A call, Siri, another app or another in-app listener took the microphone. */
   onInterrupted?: () => void;
   /** The take reached {@link MAX_TAKE_MS}. */
   onCap?: () => void;
@@ -86,11 +86,13 @@ export async function openPronunciationRecorder(): Promise<PronunciationRecorder
   let chunks: Float32Array[] = [];
   let samples = 0;
   let recording = false;
+  /** This take's mic-owner preemption handler (stable for the take). */
+  let onPreempted: MicRelease = cancelTake;
 
   const stopCapture = async () => {
     if (!recording) return;
     recording = false;
-    releaseMicrophone(cancelTake);
+    releaseMicrophone(onPreempted);
     try {
       await capture?.stop();
     } catch {
@@ -114,7 +116,14 @@ export async function openPronunciationRecorder(): Promise<PronunciationRecorder
     async startTake(nextCapture, callbacks = {}) {
       if (!runner) throw new PracticeError("engine-init-failed");
       await cancelTake();
-      await claimMicrophone("pronunciation", cancelTake);
+      // Another feature claimed the mic: stop capture (keep the take) and let the
+      // screen finish it, exactly like a call interrupting.
+      onPreempted = async () => {
+        if (!recording) return;
+        await stopCapture();
+        callbacks.onInterrupted?.();
+      };
+      await claimMicrophone("pronunciation", onPreempted);
       capture = nextCapture;
       chunks = [];
       samples = 0;

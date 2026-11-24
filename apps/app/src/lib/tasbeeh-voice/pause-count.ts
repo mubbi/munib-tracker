@@ -1,6 +1,7 @@
 import type { TimedHit } from "./hit-dedupe";
 import type { VoiceListener } from "./listener";
-import { createSegmenter, VAD_SAMPLE_RATE } from "./vad";
+import { createLevelReporter, createMuteWindows, samplesToMs as toMs } from "./listener-shared";
+import { createSegmenter } from "./vad";
 
 /**
  * "Pause count (basic)" — the NF-3.20 documented fallback (D24): every separate
@@ -22,11 +23,10 @@ export type PauseCounterOptions = {
 export function createPauseCounter(options: PauseCounterOptions): VoiceListener {
   const segmenter = createSegmenter();
   const minMs = options.minSegmentMs ?? PAUSE_MIN_SEGMENT_MS;
-  const mutes: { from: number; to: number }[] = [];
+  const mutes = createMuteWindows();
+  const reportLevel = createLevelReporter(options.onLevel);
   let segmentStart: number | null = null;
   let disposed = false;
-  let lastLevelAt = 0;
-  const toMs = (samples: number) => (samples / VAD_SAMPLE_RATE) * 1000;
 
   const handle = (events: ReturnType<typeof segmenter.push>) => {
     for (const event of events) {
@@ -44,7 +44,7 @@ export function createPauseCounter(options: PauseCounterOptions): VoiceListener 
         segmentStart = null;
         // The segment includes ~0.5 s of pre-roll + hangover around the voice.
         if (hit.endMs - hit.startMs < minMs + 500) continue;
-        if (mutes.some((m) => hit.startMs < m.to && m.from < hit.endMs)) continue;
+        if (mutes.covers(hit)) continue;
         if (!disposed) options.onHit(hit);
       }
     }
@@ -54,15 +54,10 @@ export function createPauseCounter(options: PauseCounterOptions): VoiceListener 
     feed(pcm) {
       if (disposed) return;
       handle(segmenter.push(pcm));
-      if (options.onLevel && segmenter.samples - lastLevelAt >= VAD_SAMPLE_RATE / 10) {
-        lastLevelAt = segmenter.samples;
-        options.onLevel(segmenter.levelDb);
-      }
+      reportLevel(segmenter.samples, segmenter.levelDb);
     },
     mute(durationMs) {
-      const from = toMs(segmenter.samples);
-      mutes.push({ from, to: from + durationMs });
-      if (mutes.length > 16) mutes.shift();
+      mutes.add(toMs(segmenter.samples), durationMs);
     },
     async finish() {
       if (!disposed) handle(segmenter.flush());

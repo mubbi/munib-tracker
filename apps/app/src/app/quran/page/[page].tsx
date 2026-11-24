@@ -2,7 +2,7 @@ import { QURAN_TOTAL_PAGES } from "@munib-tracker/shared/constants/quran";
 import { getTafsirEdition } from "@munib-tracker/shared/i18n";
 import type { QuranReaderLayout } from "@munib-tracker/shared/types";
 import { useQueries } from "@tanstack/react-query";
-import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
@@ -17,9 +17,17 @@ import { PagePickerSheet } from "@/components/quran/page-picker-sheet";
 import { PageReaderFooter } from "@/components/quran/page-reader-footer";
 import PagerView, { type PagerViewHandle } from "@/components/quran/pager-view";
 import { QuranNotesSheetHost } from "@/components/quran/quran-notes-sheet-host";
+import {
+  type ReaderEditionSheet,
+  ReaderEditionSheets,
+} from "@/components/quran/reader-edition-sheets";
+import {
+  RECITER_OPTIONS,
+  useBookmarkedAyahSet,
+  useReaderLayoutOptions,
+  useReaderWebKeys,
+} from "@/components/quran/reader-shared";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
-import { TafsirPickerSheet } from "@/components/quran/tafsir-picker-sheet";
-import { TranslationPickerSheet } from "@/components/quran/translation-picker-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
@@ -32,7 +40,6 @@ import { useQuranReadingRecorder } from "@/hooks/use-quran-reading-recorder";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTvKeyDown, type TvHwEvent } from "@/hooks/use-tv-event-handler";
-import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { runAfterSheetDismiss } from "@/lib/platform/run-after-sheet-dismiss";
@@ -71,15 +78,7 @@ import { resolveQuranEditionId } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { usePreferences } from "@/stores/preferences-store";
 import { openQuranNoteEditor } from "@/stores/quran-notes-store";
-import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
-
-const LAYOUT_OPTIONS: Array<{ id: QuranReaderLayout; labelKey: string }> = [
-  { id: "page", labelKey: "quran.layoutPage" },
-  { id: "mushaf", labelKey: "quran.layoutMushaf" },
-  { id: "ayah", labelKey: "quran.layoutAyah" },
-];
-
-const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
+import { useQuranActions, useQuranPrefs } from "@/stores/quran-store";
 
 const LAST_READ_FLUSH_MS = 600;
 /** Pager siblings kept mounted around the visible page (current ± this window). */
@@ -146,7 +145,8 @@ export default function QuranPageReaderScreen() {
   const updatePrefs = updateQuranPrefs;
   const { showTranslation, showTransliteration, toggleTranslation, toggleTransliteration } =
     useReadingDisplayToggles();
-  const bookmarks = useQuranBookmarks();
+  const bookmarkedSet = useBookmarkedAyahSet();
+  const layoutOptions = useReaderLayoutOptions();
   const audio = useAudioPlayerContext();
   const pagerRef = useRef<PagerViewHandle>(null);
   const readingProgress = useSharedValue((initialPage - 1) / (getPageCount() - 1));
@@ -155,9 +155,7 @@ export default function QuranPageReaderScreen() {
   const [pagePickerOpen, setPagePickerOpen] = useState(false);
   const [layoutPickerOpen, setLayoutPickerOpen] = useState(false);
   const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
-  const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
-  const [secondaryPickerOpen, setSecondaryPickerOpen] = useState(false);
-  const [tafsirPickerOpen, setTafsirPickerOpen] = useState(false);
+  const [editionSheet, setEditionSheet] = useState<ReaderEditionSheet | null>(null);
   const [actionAyah, setActionAyah] = useState<{ surah: number; ayah: number } | null>(null);
   const [mushafFontLoading, setMushafFontLoading] = useState(false);
   const navigatingRef = useRef(false);
@@ -337,10 +335,6 @@ export default function QuranPageReaderScreen() {
   const secondaryDir = secondaryEdition?.direction ?? "ltr";
 
   const { share, SnapshotHost } = useShareContentCard();
-  const bookmarkedSet = useMemo(
-    () => new Set(bookmarks.map((b) => `${b.surah}:${b.ayah}`)),
-    [bookmarks],
-  );
 
   const persistPage = useCallback(
     (page: number) => {
@@ -509,46 +503,25 @@ export default function QuranPageReaderScreen() {
   };
   const pageAudioPlaying =
     audio.isPlaying && audio.current != null && audio.sourceHref?.startsWith("/quran/") === true;
-  const playPausePageRef = useRef(playPausePage);
-  playPausePageRef.current = playPausePage;
 
   // Web keyboard — mushaf binding like the TV remote and the footer: ← next
-  // page, → previous page; Space play/pause. Off while typing, while a sheet is
-  // open, or when this route is not focused (stack screens stay mounted on web).
-  const [screenFocused, setScreenFocused] = useState(true);
-  useFocusEffect(
-    useCallback(() => {
-      setScreenFocused(true);
-      return () => setScreenFocused(false);
-    }, []),
-  );
+  // page, → previous page; Space play/pause. Off while a sheet is open (typing /
+  // unfocused route: built in).
   const anySheetOpen =
     pagePickerOpen ||
     layoutPickerOpen ||
     reciterPickerOpen ||
-    translationPickerOpen ||
-    secondaryPickerOpen ||
-    tafsirPickerOpen ||
+    editionSheet != null ||
     actionAyah != null;
-  useWebScreenKeyHandler(
-    (event) => {
-      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-        if (event.shiftKey) return undefined;
-        if ((event.target as HTMLElement | null)?.getAttribute?.("role") === "slider") {
-          return undefined;
-        }
-        const target = currentPage + (event.key === "ArrowLeft" ? 1 : -1);
+  useReaderWebKeys(
+    {
+      onArrow: (key) => {
+        const target = currentPage + (key === "ArrowLeft" ? 1 : -1);
         if (target >= 1 && target <= getPageCount()) void navigateToPage(target);
-        return true;
-      }
-      if (event.key === " ") {
-        if (isWebInteractiveTarget(event.target)) return undefined;
-        playPausePageRef.current();
-        return true;
-      }
-      return undefined;
+      },
+      onSpace: playPausePage,
     },
-    Platform.OS === "web" && !tv && screenFocused && !anySheetOpen,
+    !anySheetOpen,
   );
 
   const openAyahReader = useCallback(() => {
@@ -560,8 +533,6 @@ export default function QuranPageReaderScreen() {
       params: { surah: String(start.surah), ayah: String(start.ayah) },
     });
   }, [currentPage, router]);
-
-  const layoutOptions = LAYOUT_OPTIONS.map((o) => ({ id: o.id, label: t(o.labelKey) }));
 
   const handleLayoutSelect = (id: string) => {
     const next = id as QuranReaderLayout;
@@ -795,9 +766,9 @@ export default function QuranPageReaderScreen() {
             layoutLabel={t(layout === "mushaf" ? "quran.layoutMushaf" : "quran.layoutPage")}
             onOpenLayout={() => setLayoutPickerOpen(true)}
             onOpenReciter={() => setReciterPickerOpen(true)}
-            onOpenTranslation={() => setTranslationPickerOpen(true)}
-            onOpenSecondary={() => setSecondaryPickerOpen(true)}
-            onOpenTafsir={() => setTafsirPickerOpen(true)}
+            onOpenTranslation={() => setEditionSheet("translation")}
+            onOpenSecondary={() => setEditionSheet("secondary")}
+            onOpenTafsir={() => setEditionSheet("tafsir")}
             onToggleTransliteration={() => void toggleTransliteration()}
             onToggleTranslation={() => void toggleTranslation()}
           />
@@ -926,31 +897,12 @@ export default function QuranPageReaderScreen() {
         onSelect={handleReciterSelect}
         onClose={() => setReciterPickerOpen(false)}
       />
-      <TranslationPickerSheet
-        visible={translationPickerOpen}
-        title={t("quran.translation")}
-        selectedId={primaryEditionId}
-        preferredLanguages={[translationLocale, appLocale]}
-        onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
-        onClose={() => setTranslationPickerOpen(false)}
-      />
-      <TranslationPickerSheet
-        visible={secondaryPickerOpen}
-        title={t("quran.secondTranslation")}
-        allowNone
-        selectedId={secondaryId ?? ""}
-        preferredLanguages={[translationLocale, appLocale]}
-        onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
-        onClose={() => setSecondaryPickerOpen(false)}
-      />
-      <TafsirPickerSheet
-        visible={tafsirPickerOpen}
-        title={t("quran.tafsir")}
-        allowNone
-        selectedId={activeTafsirId ?? ""}
-        preferredLanguages={[translationLocale, appLocale]}
-        onSelect={(id) => updatePrefs({ preferredTafsirId: id })}
-        onClose={() => setTafsirPickerOpen(false)}
+      <ReaderEditionSheets
+        open={editionSheet}
+        onClose={() => setEditionSheet(null)}
+        translationId={primaryEditionId}
+        secondaryId={secondaryId}
+        tafsirId={activeTafsirId}
       />
       <AyahActionSheet
         visible={actionAyah != null}

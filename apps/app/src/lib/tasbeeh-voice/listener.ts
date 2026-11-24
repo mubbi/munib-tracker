@@ -3,7 +3,8 @@ import { FASTCONFORMER_FRAME_MS } from "@/lib/speech/fastconformer-runner";
 
 import { type CompiledPhrase, type SpotterVocab, spotPhrase } from "./ctc-keyword-spotter";
 import { createHitTracker, type TimedHit } from "./hit-dedupe";
-import { createSegmenter, VAD_SAMPLE_RATE } from "./vad";
+import { createLevelReporter, createMuteWindows, samplesToMs as toMs } from "./listener-shared";
+import { createSegmenter } from "./vad";
 
 /**
  * The voice-counting pipeline for one listening session (NF-3.20):
@@ -70,17 +71,14 @@ export function createVoiceListener(options: VoiceListenerOptions): VoiceListene
   const tracker = createHitTracker(options.minGapMs);
   const maxPending = options.maxPendingWindows ?? 2;
   const queue: Window[] = [];
-  const mutes: { from: number; to: number }[] = [];
+  const mutes = createMuteWindows();
+  const reportLevel = createLevelReporter(options.onLevel);
   let running: Promise<void> | null = null;
   let disposed = false;
-  let lastLevelAt = 0;
-
-  const toMs = (samples: number) => (samples / VAD_SAMPLE_RATE) * 1000;
-  const muted = (hit: TimedHit) => mutes.some((m) => hit.startMs < m.to && m.from < hit.endMs);
 
   const emit = (hits: TimedHit[]) => {
     for (const hit of hits) {
-      if (disposed || muted(hit)) continue;
+      if (disposed || mutes.covers(hit)) continue;
       options.onHit(hit);
     }
   };
@@ -131,16 +129,10 @@ export function createVoiceListener(options: VoiceListenerOptions): VoiceListene
     feed(pcm) {
       if (disposed) return;
       handleEvents(segmenter.push(pcm));
-      const now = segmenter.samples;
-      if (options.onLevel && now - lastLevelAt >= VAD_SAMPLE_RATE / 10) {
-        lastLevelAt = now;
-        options.onLevel(segmenter.levelDb);
-      }
+      reportLevel(segmenter.samples, segmenter.levelDb);
     },
     mute(durationMs) {
-      const from = toMs(segmenter.samples);
-      mutes.push({ from, to: from + durationMs });
-      if (mutes.length > 16) mutes.shift();
+      mutes.add(toMs(segmenter.samples), durationMs);
     },
     async finish() {
       if (disposed) return;

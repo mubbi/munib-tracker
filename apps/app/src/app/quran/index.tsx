@@ -14,6 +14,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { Chip } from "@/components/ui/chip";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
@@ -209,60 +210,6 @@ function SearchShell({ children }: { children: ReactNode }) {
     </Card>
   ) : (
     <View style={styles.searchPlain}>{children}</View>
-  );
-}
-
-function RevelationFilterChip({
-  label,
-  active,
-  onPress,
-}: {
-  label: string;
-  active: boolean;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-  return (
-    <PressableScale
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityState={{ selected: active }}
-      accessibilityLabel={label}
-      onPress={onPress}
-      scaleTo={0.95}
-      style={[
-        styles.filterChip,
-        tv && styles.filterChipTv,
-        active
-          ? tv
-            ? {
-                // Outline selected — solid/soft green fill reads as “focused” on TV.
-                backgroundColor: colors.muted,
-                borderColor: withAlpha(colors.accent, tokens.isDark ? 0.55 : 0.4),
-              }
-            : { backgroundColor: colors.accent, borderColor: colors.accent }
-          : {
-              // TV chips sit inside the search card; elsewhere directly on the page.
-              backgroundColor: tv ? colors.background : colors.card,
-              borderColor: withAlpha(colors.border, tokens.isDark ? 0.55 : 0.85),
-            },
-      ]}
-    >
-      <ThemedText
-        type="smallBold"
-        style={{
-          color: active
-            ? tv
-              ? colors.accentText
-              : colors.accentForeground
-            : colors.mutedForeground,
-          fontSize: tv ? TvLayout.bodyFontSize : undefined,
-        }}
-      >
-        {label}
-      </ThemedText>
-    </PressableScale>
   );
 }
 
@@ -929,10 +876,13 @@ export default function QuranHomeScreen() {
               contentContainerStyle={[styles.filterRow, tv && styles.filterRowTv]}
             >
               {REVELATION_FILTERS.map((filter) => (
-                <RevelationFilterChip
+                <Chip
                   key={filter}
+                  role="radio"
+                  variant="solid"
                   label={revelationFilterLabel(filter)}
-                  active={revelationFilter === filter}
+                  selected={revelationFilter === filter}
+                  style={tv ? styles.filterChipTv : undefined}
                   onPress={() => setRevelationFilter(filter)}
                 />
               ))}
@@ -1245,16 +1195,7 @@ const styles = StyleSheet.create({
     // Don't stretch chips to the scroller's height (rendered as tall ovals on tvOS).
     alignItems: "center",
   },
-  filterChip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: 1,
-  },
   filterChipTv: {
-    minHeight: TvLayout.chipMinHeight,
-    paddingHorizontal: Spacing.four,
     // minHeight already gives the focus target; extra padding made chips taller
     // than wide, so the pill radius turned short labels ("All") into ovals.
     paddingVertical: Spacing.one,

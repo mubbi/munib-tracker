@@ -30,14 +30,14 @@ import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
-import type { PageListEntry } from "@/lib/quran";
-import { getPageCount, getPageForAyah, getPageList } from "@/lib/quran";
+import type { PageListEntry } from "@/lib/quran-meta";
+import { getPageForAyah, getPageList, QURAN_TOTAL_PAGES } from "@/lib/quran-meta";
 import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLastRead } from "@/stores/quran-store";
 
 const PAGE_LIST = getPageList();
-const PAGE_COUNT = getPageCount();
+const PAGE_COUNT = QURAN_TOTAL_PAGES;
 /** Shared height for the go-to-page input + Go button so the row stays flush. */
 const GO_CONTROL_HEIGHT = 40;
 /** Approximate row height for scroll-to-continue (padding + badge + caption). */

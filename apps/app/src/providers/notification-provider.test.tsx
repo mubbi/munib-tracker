@@ -248,6 +248,22 @@ describe("rescheduling", () => {
     expect(rescheduleAll).toHaveBeenCalledTimes(2);
   });
 
+  it("arms the web in-tab reminders at launch and on foreground (no OS scheduler)", async () => {
+    // Regression: web reminders were only armed after a settings write.
+    mockEnv.localSupported = false;
+    mockEnv.web = true;
+    signIn();
+    await setup();
+    expect(configureNotifications).not.toHaveBeenCalled();
+    expect(rescheduleAll).toHaveBeenCalledTimes(1);
+
+    jest.clearAllMocks();
+    await act(async () => appState.emit("active"));
+    expect(rescheduleAll).toHaveBeenCalledTimes(1);
+    // Native push registration stays native-only.
+    expect(registerExpoPushTokenWithApi).not.toHaveBeenCalled();
+  });
+
   it.each([
     ["onboarding is incomplete", () => setOnboarded(false)],
     ["prefs are loading", () => mockPreferences.setState({ isReady: false })],

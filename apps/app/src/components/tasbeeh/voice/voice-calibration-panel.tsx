@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { AppState, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -48,6 +48,7 @@ export function VoiceCalibrationPanel({
   const scores = useRef<number[]>([]);
   const pipeline = useRef<VoicePipeline | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const unmounted = useRef(false);
 
   const finish = useCallback(async () => {
     if (timer.current) clearTimeout(timer.current);
@@ -71,7 +72,7 @@ export function VoiceCalibrationPanel({
     setPhase("listening");
     try {
       const { startVoicePipeline } = await import("@/lib/tasbeeh-voice/pipeline");
-      pipeline.current = await startVoicePipeline({
+      const started = await startVoicePipeline({
         capture,
         mode: "spotter",
         phrase,
@@ -84,14 +85,30 @@ export function VoiceCalibrationPanel({
         onFailure: () => void finish(),
         onInterrupted: () => void finish(),
       });
+      if (unmounted.current) {
+        // The panel closed while the model was loading: never leave the mic open.
+        await started.stop();
+        return;
+      }
+      pipeline.current = started;
       timer.current = setTimeout(() => void finish(), CALIBRATION_TIMEOUT_MS);
     } catch {
       setPhase("failed");
     }
   };
 
+  // No background microphone (privacy, store review): end the read early.
+  useEffect(() => {
+    if (phase !== "listening") return;
+    const sub = AppState.addEventListener("change", (next) => {
+      if (next !== "active") void finish();
+    });
+    return () => sub.remove();
+  }, [finish, phase]);
+
   useEffect(
     () => () => {
+      unmounted.current = true;
       if (timer.current) clearTimeout(timer.current);
       void pipeline.current?.stop();
     },

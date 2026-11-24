@@ -1,8 +1,14 @@
 import { framesToMs } from "./features";
 import type { TimedHit } from "./hit-dedupe";
 import type { VoiceListener } from "./listener";
+import {
+  createLevelReporter,
+  createMuteWindows,
+  samplesToMs as ms,
+  msToSamples as samplesOf,
+} from "./listener-shared";
 import { MAX_SAMPLE_MS, MIN_SAMPLE_MS, matchUtterance, type TaughtPattern } from "./matcher";
-import { createSegmenter, VAD_SAMPLE_RATE } from "./vad";
+import { createSegmenter } from "./vad";
 
 /**
  * Listeners for "teach a zikr" counting (NF-3.20, D48–D51). Pure (no React, no
@@ -16,9 +22,6 @@ import { createSegmenter, VAD_SAMPLE_RATE } from "./vad";
  * - `createTeachRecorder`: each spoken burst while teaching is handed over as one
  *   sample (its PCM lives only in memory, until it is turned into features).
  */
-
-const ms = (samples: number) => (samples / VAD_SAMPLE_RATE) * 1000;
-const samplesOf = (milliseconds: number) => Math.round((milliseconds * VAD_SAMPLE_RATE) / 1000);
 
 /** Audio kept before a burst starts (the VAD's pre-roll reaches back this far). */
 const LOOKBACK_MS = 1000;
@@ -90,7 +93,8 @@ export type TemplateCounterOptions = {
 export function createTemplateCounter(options: TemplateCounterOptions): VoiceListener {
   const segmenter = createSegmenter();
   const buffer = new PcmBuffer();
-  const mutes: { from: number; to: number }[] = [];
+  const mutes = createMuteWindows();
+  const reportLevel = createLevelReporter(options.onLevel);
   const longestTemplateMs = Math.max(
     ...options.pattern.templates.map((t) => framesToMs(t.frames)),
     MIN_SAMPLE_MS,
@@ -98,9 +102,6 @@ export function createTemplateCounter(options: TemplateCounterOptions): VoiceLis
   let burstFrom: number | null = null;
   let lastSearchAt = 0;
   let disposed = false;
-  let lastLevelAt = 0;
-
-  const muted = (hit: TimedHit) => mutes.some((m) => hit.startMs < m.to && m.from < hit.endMs);
 
   /** Search absolute [from, to); count matches that end before `settledBefore`. Returns where the next search starts. */
   const search = (from: number, to: number, settledBefore: number): number => {
@@ -114,7 +115,7 @@ export function createTemplateCounter(options: TemplateCounterOptions): VoiceLis
       };
       if (hit.endMs > ms(settledBefore)) break;
       next = from + samplesOf(match.endMs);
-      if (!disposed && !muted(hit)) options.onHit(hit);
+      if (!disposed && !mutes.covers(hit)) options.onHit(hit);
     }
     return next;
   };
@@ -158,15 +159,10 @@ export function createTemplateCounter(options: TemplateCounterOptions): VoiceLis
       handle(segmenter.push(pcm));
       searchOpenBurst();
       if (burstFrom == null) buffer.dropBefore(segmenter.samples - samplesOf(LOOKBACK_MS));
-      if (options.onLevel && segmenter.samples - lastLevelAt >= VAD_SAMPLE_RATE / 10) {
-        lastLevelAt = segmenter.samples;
-        options.onLevel(segmenter.levelDb);
-      }
+      reportLevel(segmenter.samples, segmenter.levelDb);
     },
     mute(durationMs) {
-      const from = ms(segmenter.samples);
-      mutes.push({ from, to: from + durationMs });
-      if (mutes.length > 16) mutes.shift();
+      mutes.add(ms(segmenter.samples), durationMs);
     },
     async finish() {
       if (!disposed) handle(segmenter.flush());
@@ -193,9 +189,9 @@ export type TeachRecorderOptions = {
 export function createTeachRecorder(options: TeachRecorderOptions): VoiceListener {
   const segmenter = createSegmenter();
   const buffer = new PcmBuffer();
+  const reportLevel = createLevelReporter(options.onLevel);
   let burstFrom: number | null = null;
   let disposed = false;
-  let lastLevelAt = 0;
   let tooLong = false;
 
   const handle = (events: ReturnType<typeof segmenter.push>) => {
@@ -225,10 +221,7 @@ export function createTeachRecorder(options: TeachRecorderOptions): VoiceListene
         options.onTooLong?.();
       }
       if (burstFrom == null || tooLong) buffer.dropBefore(now - samplesOf(LOOKBACK_MS));
-      if (options.onLevel && now - lastLevelAt >= VAD_SAMPLE_RATE / 10) {
-        lastLevelAt = now;
-        options.onLevel(segmenter.levelDb);
-      }
+      reportLevel(now, segmenter.levelDb);
     },
     mute() {},
     async finish() {

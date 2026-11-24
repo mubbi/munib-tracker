@@ -1,7 +1,6 @@
 import type { TajweedDrillHeadId, TajweedListenCategory } from "@munib-tracker/shared/types";
-
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import type { DrillVerdict } from "@/lib/quran-companion/pronunciation/judge";
-import { requestReminderReschedule } from "@/lib/quran-companion/reschedule";
 import { quranCompanionPrefsStore } from "@/stores/quran-companion-prefs-store";
 import { tajweedCoachingStore } from "@/stores/tajweed-coaching-store";
 
