@@ -1,0 +1,17 @@
+{
+  "en": {
+    "kids.salahPath.title": "Salah path",
+    "kids.salahPath.intro": "Learn it step by step: first wudu, then the five daily Salah, then how to pray.",
+    "kids.salahPath.step.wudu": "Wudu",
+    "kids.salahPath.step.fivePrayers": "Five Salah",
+    "kids.salahPath.step.howToPray": "How to pray",
+    "kids.prophets.title": "Stories of the prophets",
+    "kids.prophets.intro": "Read about the prophets Allah sent to guide people.",
+    "kids.prophets.notFound": "This story isn't in kids mode.",
+    "kids.consentPending.title": "Waiting for your parent",
+    "kids.consentPending.body": "Keep tapping your Salah as usual. Your taps are kept on this device and will be shared once your parent says it's okay.",
+    "kids.graduate.reprompt": "You can move to your own account whenever you're ready. Schools differ on the age of maturity (bulugh); its signs are the real marker.",
+    "kids.graduate.notNow": "Not now",
+    "family.graduation.reprompt": "Offered again: ready to move to their own account. Schools differ on the age of maturity (bulugh); its signs are the real marker."
+  }
+}

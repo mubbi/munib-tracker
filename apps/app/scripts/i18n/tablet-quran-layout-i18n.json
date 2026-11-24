@@ -40,9 +40,9 @@
     "quran.openReader": "Оқу режимін ашу"
   },
   "ku": {
-    "quran.surahNumber": "Sûreya {{number}}",
-    "quran.selectSurah": "Sûreyekê hilbijêre",
-    "quran.openReader": "Xwendekarê veke"
+    "quran.surahNumber": "سوورەتی {{number}}",
+    "quran.selectSurah": "سوورەتێک هەڵبژێرە",
+    "quran.openReader": "کردنەوەی خوێنەر"
   },
   "ky": {
     "quran.surahNumber": "Сүрө {{number}}",

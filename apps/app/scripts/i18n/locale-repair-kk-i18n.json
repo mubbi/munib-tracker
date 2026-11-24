@@ -1,0 +1,13 @@
+{
+  "kk": {
+    "quran.tajweed.rules.hamWasl": "Хамзатул-уасл",
+    "quran.tajweed.rules.idghamGhunnah": "Идғам (ғұннамен)",
+    "quran.tajweed.rules.idghamNoGhunnah": "Идғам (ғұннасыз)",
+    "quran.tajweed.rules.idghamShafawi": "Идғам шафауи",
+    "quran.tajweed.rules.ikhafaShafawi": "Ихфа шафауи",
+    "quran.tajweed.rules.iqlab": "Иқлаб",
+    "quran.tajweed.rules.lamShamsiyah": "Лам шамсия",
+    "quran.tajweed.rules.maddNecessary": "Мадд (6)",
+    "quran.tajweed.rules.maddNormal": "Мадд (2)"
+  }
+}

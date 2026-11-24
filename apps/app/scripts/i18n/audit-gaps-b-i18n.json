@@ -1,0 +1,13 @@
+{
+  "en": {
+    "mirath.chart.unallocated": "Unassigned rest",
+    "mirath.chart.a11y": "Share chart: {{shares}}",
+    "coach.rule.focus_emergency.title": "Your focus lock this week",
+    "coach.rule.focus_emergency.body": "Emergency unlock was used {{done}} times this week. That is simply a count, and some days need it. If the salah windows or the unlock mode don't fit your routine, you're welcome to adjust them.",
+    "coach.action.focusLock": "Review focus lock",
+    "fiqh.diff.umrah.taqsir.title": "How much a man shortens (taqsir)",
+    "fiqh.diff.umrah.taqsir.hanafi": "At least a quarter of the head must be shaved or shortened.",
+    "fiqh.diff.umrah.taqsir.shafii": "At least three hairs of the head, shaved or shortened, are enough.",
+    "fiqh.diff.umrah.taqsir.wholeHead": "The whole head: shortening only part of it is not enough."
+  }
+}

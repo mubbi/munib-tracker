@@ -1,0 +1,29 @@
+{
+  "sw": {
+    "duaCat.hajj": "Hija na Umra",
+    "flashCards.category.hajj": "Hija",
+    "hajj.disclaimer": "Muhtasari wa kielimu wa vitendo, si kitabu cha fiqhi. Madhehebu hutofautiana katika maelezo — fuata mwongozo aliyehitimu kwa hukumu na hali zisizotarajiwa.",
+    "hajj.hajjChecklistIntro": "Weka alama kwenye kila ibada unapoikamilisha. Hiki ni kikumbusho — si fatwa.",
+    "hajj.hajjChecklistSubtitle": "Fuatilia ibada za Hija kuanzia siku ya Tarwiya hadi tawafu ya kuaga.",
+    "hajj.hajjChecklistTitle": "Orodha ya Hija",
+    "hajj.intro": "Jifunze wajibu, ihramu, Umra na siku za Hija kwa marejeo sahihi. Tumia orodha kwa ibada pekee — vidokezo vya maandalizi vinabaki kwenye mada za Jifunze.",
+    "hajj.resetConfirmMsg": "Hii itaondoa alama kwenye kila ibada. Maendeleo yako hayawezi kurejeshwa.",
+    "hajj.resetConfirmTitle": "Weka upya orodha?",
+    "hajj.section.hajj": "Siku za Hija",
+    "hajj.section.ihram": "Miqati na ihramu",
+    "hajj.section.rulings": "Hukumu na adabu",
+    "hajj.section.types": "Aina za Hija",
+    "hajj.section.umrah": "Umra",
+    "hajj.subtitle": "Jifunze ibada kutoka Qur'an na Sunnah, kisha fuatilia Hija na Umra kila moja peke yake.",
+    "hajj.title": "Hija na Umra",
+    "hajj.umrahChecklistHint": "Kutoka ihramu hadi kunyoa au kupunguza nywele",
+    "hajj.umrahChecklistIntro": "Weka alama kwenye kila ibada ya Umra unapoikamilisha. Fungua Jifunze kwa maelezo na ushahidi.",
+    "hajj.umrahChecklistSubtitle": "Fuatilia hatua za Umra kwa mpangilio.",
+    "hajj.umrahChecklistTitle": "Orodha ya Umra",
+    "quran.tajweed.rules.idghamGhunnah": "Idgham (pamoja na Ghunnah)",
+    "quran.tajweed.rules.idghamNoGhunnah": "Idgham (bila Ghunnah)",
+    "quran.tajweed.rules.maddObligatory": "Madd (4-5)",
+    "seasonalTheme.hajjBannerTitle": "Siku kumi bora",
+    "seasonalTheme.hajjEyebrow": "Dhul-Hijja"
+  }
+}

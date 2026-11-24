@@ -1,0 +1,19 @@
+{
+  "tr": {
+    "quran.tajweed.rules.ghunnah": "Gunne",
+    "quran.tajweed.rules.hamWasl": "Vasl hemzesi",
+    "quran.tajweed.rules.idghamGhunnah": "İdğam maa'l-gunne",
+    "quran.tajweed.rules.idghamNoGhunnah": "İdğam bilâ gunne",
+    "quran.tajweed.rules.idghamShafawi": "İdğam-ı şefevî",
+    "quran.tajweed.rules.ikhafa": "İhfâ",
+    "quran.tajweed.rules.ikhafaShafawi": "İhfâ-i şefevî",
+    "quran.tajweed.rules.iqlab": "İklâb",
+    "quran.tajweed.rules.lamShamsiyah": "Lâm-ı şemsiyye",
+    "quran.tajweed.rules.maddNecessary": "Med (6)",
+    "quran.tajweed.rules.maddNormal": "Med (2)",
+    "quran.tajweed.rules.maddObligatory": "Med (4-5)",
+    "quran.tajweed.rules.maddPermissible": "Med (2-4-6)",
+    "quran.tajweed.rules.qalqalah": "Kalkale",
+    "quran.tajweed.rules.silent": "Okunmaz"
+  }
+}

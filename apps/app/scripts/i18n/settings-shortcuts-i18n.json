@@ -1,0 +1,170 @@
+{
+  "en": {
+    "settingsPanel.section.readingDisplay": "Translation & transliteration",
+    "settingsPanel.readingDisplaySub": "Applies everywhere you read: Qur'an, practice, hadith, duas, adhkar, duroods and tasbeeh",
+    "settingsPanel.kw.readingDisplay": "translation, transliteration, meaning, roman, hide translation",
+    "settingsPanel.moreInSettings": "More in Settings",
+    "settingsPanel.moreInSettingsHint": "Opens these options in Settings"
+  },
+  "ar": {
+    "settingsPanel.section.readingDisplay": "الترجمة والنقحرة",
+    "settingsPanel.readingDisplaySub": "ينطبق على كل ما تقرؤه: القرآن والتدريب والحديث والأدعية والأذكار والصلوات على النبي والتسبيح",
+    "settingsPanel.kw.readingDisplay": "ترجمة، نقحرة، معنى، إخفاء الترجمة",
+    "settingsPanel.moreInSettings": "المزيد في الإعدادات",
+    "settingsPanel.moreInSettingsHint": "يفتح هذه الخيارات في الإعدادات"
+  },
+  "ur": {
+    "settingsPanel.section.readingDisplay": "ترجمہ اور نقل حرفی",
+    "settingsPanel.readingDisplaySub": "ہر جگہ لاگو: قرآن، مشق، حدیث، دعائیں، اذکار، درود اور تسبیح",
+    "settingsPanel.kw.readingDisplay": "ترجمہ، نقل حرفی، معنی، رومن، ترجمہ چھپائیں",
+    "settingsPanel.moreInSettings": "ترتیبات میں مزید",
+    "settingsPanel.moreInSettingsHint": "یہ اختیارات ترتیبات میں کھولتا ہے"
+  },
+  "id": {
+    "settingsPanel.section.readingDisplay": "Terjemahan & transliterasi",
+    "settingsPanel.readingDisplaySub": "Berlaku di semua bacaan: Al-Qur'an, latihan, hadis, doa, zikir, shalawat, dan tasbih",
+    "settingsPanel.kw.readingDisplay": "terjemahan, transliterasi, arti, latin, sembunyikan terjemahan",
+    "settingsPanel.moreInSettings": "Lainnya di Pengaturan",
+    "settingsPanel.moreInSettingsHint": "Membuka opsi ini di Pengaturan"
+  },
+  "tr": {
+    "settingsPanel.section.readingDisplay": "Meal ve transliterasyon",
+    "settingsPanel.readingDisplaySub": "Okuduğunuz her yerde geçerli: Kur'an, pratik, hadis, dualar, zikirler, salavatlar ve tesbih",
+    "settingsPanel.kw.readingDisplay": "meal, çeviri, transliterasyon, anlam, latin, meali gizle",
+    "settingsPanel.moreInSettings": "Ayarlar'da daha fazlası",
+    "settingsPanel.moreInSettingsHint": "Bu seçenekleri Ayarlar'da açar"
+  },
+  "bn": {
+    "settingsPanel.section.readingDisplay": "অনুবাদ ও লিপ্যন্তর",
+    "settingsPanel.readingDisplaySub": "যেখানেই পড়ুন প্রযোজ্য: কুরআন, অনুশীলন, হাদিস, দোয়া, আযকার, দরুদ ও তাসবীহ",
+    "settingsPanel.kw.readingDisplay": "অনুবাদ, লিপ্যন্তর, অর্থ, অনুবাদ লুকান",
+    "settingsPanel.moreInSettings": "সেটিংসে আরও",
+    "settingsPanel.moreInSettingsHint": "এই বিকল্পগুলো সেটিংসে খোলে"
+  },
+  "ms": {
+    "settingsPanel.section.readingDisplay": "Terjemahan & transliterasi",
+    "settingsPanel.readingDisplaySub": "Terpakai di semua bacaan: Al-Quran, latihan, hadis, doa, zikir, selawat dan tasbih",
+    "settingsPanel.kw.readingDisplay": "terjemahan, transliterasi, maksud, rumi, sembunyi terjemahan",
+    "settingsPanel.moreInSettings": "Lagi dalam Tetapan",
+    "settingsPanel.moreInSettingsHint": "Membuka pilihan ini dalam Tetapan"
+  },
+  "fa": {
+    "settingsPanel.section.readingDisplay": "ترجمه و آوانگاری",
+    "settingsPanel.readingDisplaySub": "در همه‌جا اعمال می‌شود: قرآن، تمرین، حدیث، دعاها، اذکار، صلوات و تسبیح",
+    "settingsPanel.kw.readingDisplay": "ترجمه، آوانگاری، معنا، پنهان کردن ترجمه",
+    "settingsPanel.moreInSettings": "موارد بیشتر در تنظیمات",
+    "settingsPanel.moreInSettingsHint": "این گزینه‌ها را در تنظیمات باز می‌کند"
+  },
+  "fr": {
+    "settingsPanel.section.readingDisplay": "Traduction et translittération",
+    "settingsPanel.readingDisplaySub": "S'applique partout où vous lisez : Coran, pratique, hadith, duas, adhkar, salawat et tasbeeh",
+    "settingsPanel.kw.readingDisplay": "traduction, translittération, sens, phonétique, masquer la traduction",
+    "settingsPanel.moreInSettings": "Plus dans les Paramètres",
+    "settingsPanel.moreInSettingsHint": "Ouvre ces options dans les Paramètres"
+  },
+  "ha": {
+    "settingsPanel.section.readingDisplay": "Fassara da rubutun lafazi",
+    "settingsPanel.readingDisplaySub": "Yana aiki a duk inda kake karatu: Alƙur'ani, atisaye, hadisi, addu'o'i, adkar, salati da tasbihi",
+    "settingsPanel.kw.readingDisplay": "fassara, rubutun lafazi, ma'ana, ɓoye fassara",
+    "settingsPanel.moreInSettings": "Ƙari a Saituna",
+    "settingsPanel.moreInSettingsHint": "Yana buɗe waɗannan zaɓuɓɓuka a Saituna"
+  },
+  "sw": {
+    "settingsPanel.section.readingDisplay": "Tafsiri na unukuzi",
+    "settingsPanel.readingDisplaySub": "Inatumika kila unaposoma: Qur'an, mazoezi, hadithi, dua, adhkar, swalawat na tasbihi",
+    "settingsPanel.kw.readingDisplay": "tafsiri, unukuzi, maana, ficha tafsiri",
+    "settingsPanel.moreInSettings": "Zaidi katika Mipangilio",
+    "settingsPanel.moreInSettingsHint": "Hufungua chaguo hizi katika Mipangilio"
+  },
+  "ru": {
+    "settingsPanel.section.readingDisplay": "Перевод и транслитерация",
+    "settingsPanel.readingDisplaySub": "Действует везде, где вы читаете: Коран, практика, хадисы, дуа, азкары, салаваты и тасбих",
+    "settingsPanel.kw.readingDisplay": "перевод, транслитерация, смысл, латиница, скрыть перевод",
+    "settingsPanel.moreInSettings": "Ещё в настройках",
+    "settingsPanel.moreInSettingsHint": "Открывает эти параметры в настройках"
+  },
+  "az": {
+    "settingsPanel.section.readingDisplay": "Tərcümə və transliterasiya",
+    "settingsPanel.readingDisplaySub": "Oxuduğunuz hər yerdə tətbiq olunur: Quran, məşq, hədis, dualar, zikrlər, salavatlar və təsbeh",
+    "settingsPanel.kw.readingDisplay": "tərcümə, transliterasiya, məna, latın, tərcüməni gizlət",
+    "settingsPanel.moreInSettings": "Parametrlərdə daha çox",
+    "settingsPanel.moreInSettingsHint": "Bu seçimləri Parametrlərdə açır"
+  },
+  "ps": {
+    "settingsPanel.section.readingDisplay": "ژباړه او تلفظي لیکنه",
+    "settingsPanel.readingDisplaySub": "هر ځای پلي کېږي: قرآن، تمرین، حدیث، دعاګانې، اذکار، درودونه او تسبیح",
+    "settingsPanel.kw.readingDisplay": "ژباړه، تلفظي لیکنه، مانا، ژباړه پټول",
+    "settingsPanel.moreInSettings": "په تنظیماتو کې نور",
+    "settingsPanel.moreInSettingsHint": "دا انتخابونه په تنظیماتو کې پرانیزي"
+  },
+  "so": {
+    "settingsPanel.section.readingDisplay": "Tarjumaad iyo qoraal-dhawaaq",
+    "settingsPanel.readingDisplaySub": "Waxay khusaysaa meel kasta oo aad akhrido: Qur'aanka, layliga, xadiiska, ducooyinka, adkaarta, salawaatka iyo tasbiixa",
+    "settingsPanel.kw.readingDisplay": "tarjumaad, qoraal-dhawaaq, macne, qari tarjumaadda",
+    "settingsPanel.moreInSettings": "Wax badan oo Dejinta ah",
+    "settingsPanel.moreInSettingsHint": "Waxay ku furaysaa xulashooyinkan Dejinta"
+  },
+  "uz": {
+    "settingsPanel.section.readingDisplay": "Tarjima va transliteratsiya",
+    "settingsPanel.readingDisplaySub": "O'qigan hamma joyingizda amal qiladi: Qur'on, mashq, hadis, duolar, zikrlar, salavotlar va tasbeh",
+    "settingsPanel.kw.readingDisplay": "tarjima, transliteratsiya, ma'no, lotin, tarjimani yashirish",
+    "settingsPanel.moreInSettings": "Sozlamalarda yana",
+    "settingsPanel.moreInSettingsHint": "Bu parametrlarni Sozlamalarda ochadi"
+  },
+  "kk": {
+    "settingsPanel.section.readingDisplay": "Аударма және транслитерация",
+    "settingsPanel.readingDisplaySub": "Оқитын барлық жерде қолданылады: Құран, жаттығу, хадис, дұғалар, зікірлер, салауаттар және тәсбих",
+    "settingsPanel.kw.readingDisplay": "аударма, транслитерация, мағына, латын, аударманы жасыру",
+    "settingsPanel.moreInSettings": "Баптауларда толығырақ",
+    "settingsPanel.moreInSettingsHint": "Бұл параметрлерді Баптауларда ашады"
+  },
+  "ku": {
+    "settingsPanel.section.readingDisplay": "وەرگێڕان و نووسینی لاتینی",
+    "settingsPanel.readingDisplaySub": "لە هەموو شوێنێک کە دەیخوێنیتەوە جێبەجێ دەبێت: قورئان، ڕاهێنان، فەرموودە، دوعاکان، زیکرەکان، صەڵاوات و تەسبیح",
+    "settingsPanel.kw.readingDisplay": "وەرگێڕان، نووسینی لاتینی، مانا، ڕۆمی، شاردنەوەی وەرگێڕان",
+    "settingsPanel.moreInSettings": "زیاتر لە ڕێکخستنەکان",
+    "settingsPanel.moreInSettingsHint": "ئەم هەڵبژاردنانە لە ڕێکخستنەکاندا دەکاتەوە"
+  },
+  "bs": {
+    "settingsPanel.section.readingDisplay": "Prijevod i transliteracija",
+    "settingsPanel.readingDisplaySub": "Važi svugdje gdje čitate: Kur'an, vježba, hadis, dove, adhkar, salavati i tesbih",
+    "settingsPanel.kw.readingDisplay": "prijevod, transliteracija, značenje, latinica, sakrij prijevod",
+    "settingsPanel.moreInSettings": "Više u Postavkama",
+    "settingsPanel.moreInSettingsHint": "Otvara ove opcije u Postavkama"
+  },
+  "sq": {
+    "settingsPanel.section.readingDisplay": "Përkthimi dhe transliterimi",
+    "settingsPanel.readingDisplaySub": "Vlen kudo që lexoni: Kur'ani, ushtrimi, hadithi, duatë, adhkari, salavatet dhe tesbihu",
+    "settingsPanel.kw.readingDisplay": "përkthim, transliterim, kuptim, fshih përkthimin",
+    "settingsPanel.moreInSettings": "Më shumë te Cilësimet",
+    "settingsPanel.moreInSettingsHint": "I hap këto opsione te Cilësimet"
+  },
+  "ky": {
+    "settingsPanel.section.readingDisplay": "Котормо жана транслитерация",
+    "settingsPanel.readingDisplaySub": "Окуган бардык жерде колдонулат: Куран, машыгуу, хадис, дубалар, зикирлер, салаваттар жана тасбих",
+    "settingsPanel.kw.readingDisplay": "котормо, транслитерация, маани, латын, котормону жашыруу",
+    "settingsPanel.moreInSettings": "Жөндөөлөрдө дагы",
+    "settingsPanel.moreInSettingsHint": "Бул параметрлерди Жөндөөлөрдө ачат"
+  },
+  "tg": {
+    "settingsPanel.section.readingDisplay": "Тарҷума ва транслитератсия",
+    "settingsPanel.readingDisplaySub": "Дар ҳама ҷое ки мехонед амал мекунад: Қуръон, машқ, ҳадис, дуоҳо, зикрҳо, салавотҳо ва тасбеҳ",
+    "settingsPanel.kw.readingDisplay": "тарҷума, транслитератсия, маъно, лотинӣ, пинҳон кардани тарҷума",
+    "settingsPanel.moreInSettings": "Бештар дар Танзимот",
+    "settingsPanel.moreInSettingsHint": "Ин имконотро дар Танзимот мекушояд"
+  },
+  "tk": {
+    "settingsPanel.section.readingDisplay": "Terjime we transliterasiýa",
+    "settingsPanel.readingDisplaySub": "Okaýan ähli ýeriňizde ulanylýar: Kuran, türgenleşik, hadys, dogalar, zikirler, salawatlar we tesbih",
+    "settingsPanel.kw.readingDisplay": "terjime, transliterasiýa, many, latyn, terjimäni gizle",
+    "settingsPanel.moreInSettings": "Sazlamalarda has köp",
+    "settingsPanel.moreInSettingsHint": "Bu saýlawlary Sazlamalarda açýar"
+  },
+  "hi": {
+    "settingsPanel.section.readingDisplay": "अनुवाद और लिप्यंतरण",
+    "settingsPanel.readingDisplaySub": "हर जगह लागू: क़ुरआन, अभ्यास, हदीस, दुआएँ, अज़कार, दुरूद और तस्बीह",
+    "settingsPanel.kw.readingDisplay": "अनुवाद, लिप्यंतरण, अर्थ, रोमन, अनुवाद छिपाएँ",
+    "settingsPanel.moreInSettings": "सेटिंग्स में और",
+    "settingsPanel.moreInSettingsHint": "ये विकल्प सेटिंग्स में खोलता है"
+  }
+}

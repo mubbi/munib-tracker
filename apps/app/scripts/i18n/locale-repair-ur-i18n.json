@@ -1,0 +1,10 @@
+{
+  "ur": {
+    "quran.tajweed.rules.ikhafa": "اخفاء",
+    "quran.tajweed.rules.iqlab": "اقلاب",
+    "quran.tajweed.rules.maddNecessary": "مد (6)",
+    "quran.tajweed.rules.maddNormal": "مد (2)",
+    "quran.tajweed.rules.maddObligatory": "مد (4-5)",
+    "quran.tajweed.rules.silent": "غیر ملفوظ"
+  }
+}

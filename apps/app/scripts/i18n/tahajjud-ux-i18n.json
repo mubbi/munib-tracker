@@ -170,14 +170,14 @@
     "tahajjud.inWindow": "Қазір ең жақсы уақыт"
   },
   "ku": {
-    "tahajjud.tonightTitle": "Îşev",
-    "tahajjud.bestLabel": "Rêza herî baş",
-    "tahajjud.totalLabel": "Hemû şev",
-    "tahajjud.startTonight": "Rêza te îşev dest pê dike.",
-    "tahajjud.calendarHint": "Ji bo tomarkirin an jêbirinê li şeveke borî bitikîne.",
-    "tahajjud.calendarHintTv": "Ji bo tomarkirin an jêbirinê şeveke borî hilbijêre.",
-    "tahajjud.legendPrayed": "Hat kirin",
-    "tahajjud.inWindow": "Niha dema herî baş"
+    "tahajjud.tonightTitle": "ئەمشەو",
+    "tahajjud.bestLabel": "باشترین زنجیرە",
+    "tahajjud.totalLabel": "کۆی شەوەکان",
+    "tahajjud.startTonight": "زنجیرەکەت لە ئەمشەوەوە دەست پێ دەکات.",
+    "tahajjud.calendarHint": "پەنجە لە شەوێکی ڕابردوو بنێ بۆ تۆمارکردن یان سڕینەوەی.",
+    "tahajjud.calendarHintTv": "شەوێکی ڕابردوو هەڵبژێرە بۆ تۆمارکردن یان سڕینەوەی.",
+    "tahajjud.legendPrayed": "کرا",
+    "tahajjud.inWindow": "ئێستا باشترین کاتە"
   },
   "bs": {
     "tahajjud.tonightTitle": "Večeras",

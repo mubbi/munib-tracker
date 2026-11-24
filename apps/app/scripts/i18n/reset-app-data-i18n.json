@@ -192,16 +192,16 @@
     "profile.deleteTitle": "Есептік жазба жойылсын ба?"
   },
   "ku": {
-    "profile.dangerHint": "Daneyên sepane bêyî jêbirina hesabê nû ve saz bike, an jî hesabê xwe bi domdarî bigire.",
-    "profile.resetData": "Daneyên sepane nû ve saz bike",
-    "profile.resetDataTitle": "Daneyên sepane nû ve saz bibin?",
-    "profile.resetDataMsg": "Ev bi domdarî hemî daneyên sepane li ser vê cîhazê jê dike. Seansa mêvan a te çalak dimîne. Ev nayê vegerandin.",
-    "profile.resetDataMsgAccount": "Ev bi domdarî daneyên sepane li ser vê cîhazê û ji hevdemkirina ewrê jê dike. Hesabê te çalak û têketî dimîne. Ev nayê vegerandin.",
-    "profile.resetDataConfirm": "Dane nû ve saz bike",
-    "profile.resetDataFailed": "Daneyên sepane nehatin nûvesazkirin. Têkiliya xwe kontrol bikin û dîsa biceribînin.",
-    "profile.resetDataSuccess": "Daneyên sepane yên te nû ve hatin sazkirin",
-    "profile.deleteAccount": "Hesabê jê bibe",
-    "profile.deleteTitle": "Hesab jê bibe?"
+    "profile.dangerHint": "زانیارییەکانی ئەپەکە ڕێکبخەرەوە بەبێ سڕینەوەی هەژمارەکەت، یان هەژمارەکەت بە یەکجاری دابخە.",
+    "profile.resetData": "ڕێکخستنەوەی زانیارییەکانی ئەپ",
+    "profile.resetDataTitle": "زانیارییەکانی ئەپ ڕێکبخرێنەوە؟",
+    "profile.resetDataMsg": "ئەمە هەموو زانیارییەکانی ئەپ لەسەر ئەم ئامێرە بە یەکجاری دەسڕێتەوە. دانیشتنی میوانەکەت چالاک دەمێنێتەوە. ناتوانرێت پاشگەز ببیتەوە.",
+    "profile.resetDataMsgAccount": "ئەمە زانیارییەکانی ئەپ لەسەر ئەم ئامێرە و لە هاوکاتکردنی هەوردا بە یەکجاری دەسڕێتەوە. هەژمارەکەت چالاک و چوونەژوورەوە دەمێنێتەوە. ناتوانرێت پاشگەز ببیتەوە.",
+    "profile.resetDataConfirm": "ڕێکخستنەوەی زانیارییەکان",
+    "profile.resetDataFailed": "نەتوانرا زانیارییەکانی ئەپەکەت ڕێکبخرێنەوە. پەیوەندییەکەت بپشکنە و دووبارە هەوڵ بدەرەوە.",
+    "profile.resetDataSuccess": "زانیارییەکانی ئەپەکەت ڕێکخرانەوە",
+    "profile.deleteAccount": "سڕینەوەی هەژمار",
+    "profile.deleteTitle": "هەژمار بسڕدرێتەوە؟"
   },
   "bs": {
     "profile.dangerHint": "Resetujte podatke aplikacije bez brisanja računa ili trajno zatvorite račun.",

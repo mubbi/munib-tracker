@@ -1,0 +1,20 @@
+{
+  "en": {
+    "debts.obligations.zakatValue": "{{amount}} · nisab: {{basis}}",
+    "debts.obligations.zakatValueAllViews": "{{amount}} · all views, nisab: {{basis}} (as on the Zakat screen)",
+    "debts.photo.title": "Document photo",
+    "debts.photo.privacy": "Optional photo of a signed note or receipt. It is encrypted and stays on this device only — never synced or backed up.",
+    "debts.photo.camera": "Take photo",
+    "debts.photo.choose": "Choose photo",
+    "debts.photo.replace": "Replace photo",
+    "debts.photo.remove": "Remove photo",
+    "debts.photo.imageA11y": "Document photo for this record",
+    "debts.photo.elsewhere": "A photo was added on another device. Photos stay on the device they were added on.",
+    "debts.photo.unavailable": "This photo can't be opened on this device.",
+    "debts.photo.error.too-large": "This photo is too large. Try a smaller photo or take a new one.",
+    "debts.photo.error.unsupported": "Choose a JPEG or PNG photo.",
+    "debts.photo.error.read-failed": "The photo could not be read. Please try again.",
+    "debts.photo.error.permission": "Photo access is off. You can turn it on in your device settings.",
+    "debts.photo.error.save-failed": "The photo could not be saved. Please try again."
+  }
+}

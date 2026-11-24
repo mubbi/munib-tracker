@@ -10,8 +10,13 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const I18N_DIR = join(__dirname, "../../src/i18n");
 
+// `locale-repair-<loc>-i18n.json` files fix pre-existing corrupted values (stripped/mangled English,
+// Kurmanji left in the Sorani `ku` catalog). They are applied LAST so a feature patch that still
+// carries the old corrupted value for the same key cannot re-break it.
+const isRepair = (name) => name.startsWith("locale-repair-");
 const PATCH_FILES = readdirSync(__dirname)
   .filter((name) => name.endsWith("-i18n.json"))
+  .sort((a, b) => Number(isRepair(a)) - Number(isRepair(b)) || a.localeCompare(b))
   .map((name) => join(__dirname, name));
 
 function setByPath(obj, path, value) {

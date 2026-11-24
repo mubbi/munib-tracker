@@ -1,0 +1,14 @@
+{
+  "hi": {
+    "quran.tajweed.rules.ghunnah": "ग़ुन्ना",
+    "quran.tajweed.rules.idghamGhunnah": "इदग़ाम (ग़ुन्ना के साथ)",
+    "quran.tajweed.rules.idghamNoGhunnah": "इदग़ाम (बिना ग़ुन्ना)",
+    "quran.tajweed.rules.idghamShafawi": "इदग़ाम शफ़वी",
+    "quran.tajweed.rules.lamShamsiyah": "लाम शम्सिया",
+    "quran.tajweed.rules.maddNecessary": "मद (6)",
+    "quran.tajweed.rules.maddNormal": "मद (2)",
+    "quran.tajweed.rules.maddObligatory": "मद (4-5)",
+    "quran.tajweed.rules.maddPermissible": "मद (2-4-6)",
+    "quran.tajweed.rules.silent": "अनुच्चारित"
+  }
+}

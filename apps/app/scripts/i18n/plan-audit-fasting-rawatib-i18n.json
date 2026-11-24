@@ -1,0 +1,15 @@
+{
+  "en": {
+    "voluntaryFasting.blocked.nifas": "Fasting isn't valid during nifas, so this day can't be marked as fasted.",
+    "voluntaryFasting.settings.pilgrimSeasonHint": "Arafah is not suggested for the pilgrim at Arafah. Applies to this year's Hajj only and turns itself off afterwards.",
+    "dhulHijjah.arafah.pilgrimTitle": "For pilgrims at Arafah",
+    "dhulHijjah.reminder.arafahEveBodyPilgrim": "Prepare your duas for the Day of Arafah.",
+    "dhulHijjah.reminder.morningBodyArafahPilgrim": "Make much dua today, from Asr to Maghrib.",
+    "tracker.whiteDays.intended": "Intended",
+    "home.whiteDaysCard.allDoneMonth": "This month's White Days are all marked — may Allah accept your fasts.",
+    "rawatib.chip.late": "Made up late",
+    "rawatib.chip.chooseRakahs": "2 or 4",
+    "rawatib.chip.chooseRakahsA11y": "Choose 2 or 4 rakahs for {{name}}",
+    "rawatib.stats.evidenceTitle": "Evidence"
+  }
+}

@@ -80,9 +80,9 @@
     "customAdhkar.field.arabic": "Араб мәтіні (міндетті емес)"
   },
   "ku": {
-    "customAdhkar.saveFailed": "Ev adhkar nehat tomarkirin. Dîsa biceribîne.",
-    "customAdhkar.emptyDesc": "Zikra xwe zêde bike — sernav bes e; erebî, translîterasyon û wate ne ferz in.",
-    "customAdhkar.field.arabic": "Nivîsa erebî (ne ferz)"
+    "customAdhkar.saveFailed": "نەتوانرا ئەم زیکرە پاشەکەوت بکرێت. دووبارە هەوڵ بدەرەوە.",
+    "customAdhkar.emptyDesc": "زیکری خۆت زیاد بکە — ناونیشان بەسە؛ دەقی عەرەبی، گۆڕینی پیت و مانا ئارەزوومەندانەن.",
+    "customAdhkar.field.arabic": "دەقی عەرەبی (ئارەزوومەندانە)"
   },
   "bs": {
     "customAdhkar.saveFailed": "Nije moguće sačuvati ovaj adhkar. Pokušajte ponovo.",

@@ -1,0 +1,9 @@
+{
+  "en": {
+    "preferredTimeReminder.title": "Preferred time for {{prayer}}",
+    "preferredTimeReminder.body": "The preferred time for {{prayer}} has begun. The whole time stays valid.",
+    "preferredTimeReminder.settingTitle": "Remind me at the preferred time",
+    "preferredTimeReminder.settingSub": "One extra reminder when your school's preferred time for Fajr, Asr or Isha begins (where it differs from the start). Times are approximate.",
+    "preferredTimeReminder.keywords": "preferred time, mustahabb, isfar, best time, delay, third of the night, madhhab"
+  }
+}

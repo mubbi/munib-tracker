@@ -25,9 +25,9 @@
     "quran.noSurahResults": "هیڅ سورت ستاسو د لټون سره سمون نه خوري."
   },
   "ku": {
-    "quran.searchAyahs": "Li ayetan bigere",
-    "quran.findSurah": "Sûreyekê bibîne",
-    "quran.noSurahResults": "Tu sûre li gorî lêgerîna te nehat dîtin."
+    "quran.searchAyahs": "گەڕان لە ئایەتەکان",
+    "quran.findSurah": "سوورەتێک بدۆزەرەوە",
+    "quran.noSurahResults": "هیچ سوورەتێک لەگەڵ گەڕانەکەتدا نەگونجا."
   },
   "tr": {
     "quran.searchAyahs": "Ayet ara",

@@ -1,0 +1,10 @@
+{
+  "en": {
+    "focusLock.form.jumuahDuration": "Jumu'ah window length (minutes)",
+    "focusLock.form.jumuahDurationHint": "Fridays only. Counted from your home Masjid's Jumu'ah time when it has one, otherwise from the Dhuhr Adhan.",
+    "focusLock.form.weekendHint": "Skip your weekend days. Your Jumu'ah window still runs on Friday. The days start from your region's weekend; change them below.",
+    "focusLock.form.weekendDaysTitle": "Weekend days",
+    "focusLock.form.weekendReset": "Use my region's weekend",
+    "focusLock.form.modeHint.gentleIos": "Tap “I'll pray now” on the block screen to unlock. On iPhone and iPad one tap is enough (no press-and-hold)."
+  }
+}

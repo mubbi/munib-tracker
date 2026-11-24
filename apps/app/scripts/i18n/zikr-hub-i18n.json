@@ -136,12 +136,12 @@
     "zikr.group.salah": "Намаз төңірегінде"
   },
   "ku": {
-    "zikr.dueNow": "Niha dema wê ye",
-    "zikr.caughtUpTitle": "Te hemû temam kirin",
-    "zikr.caughtUpNext": "Ya din: {{set}} di {{time}} de",
-    "zikr.caughtUpBody": "Hemû zîkrên vê demê temam bûn — Xwedê qebûl bike.",
-    "zikr.group.daily": "Rojeva rojane",
-    "zikr.group.salah": "Li dora nimêjê"
+    "zikr.dueNow": "ئێستا کاتیەتی",
+    "zikr.caughtUpTitle": "هەمووت تەواو کردووە",
+    "zikr.caughtUpNext": "دواتر: {{set}} لە {{time}}",
+    "zikr.caughtUpBody": "هەموو ئەو کۆمەڵانەی ئێستا کاتیانە تەواو بوون — خوا لێت قبووڵ بکات.",
+    "zikr.group.daily": "ڕیتمی ڕۆژانە",
+    "zikr.group.salah": "لە دەوری نوێژ"
   },
   "bs": {
     "zikr.dueNow": "Sada je vrijeme",

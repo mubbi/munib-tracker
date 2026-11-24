@@ -1,0 +1,13 @@
+{
+  "tk": {
+    "quran.tajweed.rules.hamWasl": "Hemzetul-wasl",
+    "quran.tajweed.rules.idghamGhunnah": "Idgam (gunna bilen)",
+    "quran.tajweed.rules.idghamNoGhunnah": "Idgam (gunnasyz)",
+    "quran.tajweed.rules.idghamShafawi": "Idgam şefewi",
+    "quran.tajweed.rules.ikhafa": "Yhfa",
+    "quran.tajweed.rules.ikhafaShafawi": "Yhfa şefewi",
+    "quran.tajweed.rules.lamShamsiyah": "Lam şemsiýýe",
+    "quran.tajweed.rules.qalqalah": "Kalkala",
+    "quran.tajweed.rules.silent": "Okalmaýar"
+  }
+}

@@ -66,6 +66,9 @@ describe("i18n terminology (English source)", () => {
       // `prayerInfo.*` is long-form educational prose that intentionally keeps
       // proper compound terms (e.g. "Salat al-Wusta") — exempt it.
       if (path.startsWith("prayerInfo.")) continue;
+      // `settingsPanel.kw.*` are search synonyms: they must list the variant
+      // spellings people type ("azan", "mosque") so settings search finds them.
+      if (path.startsWith("settingsPanel.kw.")) continue;
       for (const { re, use } of BANNED_TERMS) {
         if (re.test(value)) offenders.push(`${path}: use "${use}" — "${value.slice(0, 70)}"`);
       }
@@ -129,12 +132,16 @@ describe("i18n key coverage", () => {
 // ---------------------------------------------------------------------------
 // Key paths whose values legitimately contain Latin script (formats, brand/URL).
 const LATIN_OK_KEYS =
-  /appName|authorValue|placeholder|[Tt]ransliteration|brandDua|\.email|\.url|version|formatHint|importSub|sourceNote|methods\.|footer$|iosPwa|webUseAllow|permissionDismissed|expoGoMessage|webGrantedMobileNote|webLimited|installBannerMessage|installStepsViaSafari|installLinkCopied|installCopyLink|downloadIos|downloadAndroid|proofIos|proofAndroid|proofQr|knowledgeMotivation|update\.web|externalCommands\.(siriHint|assistantHint|titleIos|titleAndroid|settingsSubtitleIos|settingsSubtitleAndroid|introIos|introAndroid)/;
+  /appName|authorValue|placeholder|[Tt]ransliteration|brandDua|\.email|\.url|version|formatHint|importSub|sourceNote|methods\.|footer$|iosPwa|webUseAllow|permissionDismissed|expoGoMessage|webGrantedMobileNote|webLimited|installBannerMessage|installStepsViaSafari|installLinkCopied|installCopyLink|downloadIos|downloadAndroid|proofIos|proofAndroid|proofQr|knowledgeMotivation|update\.web|externalCommands\.(siriHint|assistantHint|titleIos|titleAndroid|settingsSubtitleIos|settingsSubtitleAndroid|introIos|introAndroid)|circles\.hub\.codeHint/;
+// circles.hub.codeHint: shows a sample Latin invite code (e.g. ABCDE-FGH23) users must type verbatim.
 // Proper nouns / acronyms that stay in Latin even in Urdu/Arabic. Extend as needed.
 // Quran Tilawa Tanzil TajweedFormer: project/model names credited in Qur'an practice
 // (Quran Lab, the Tilawa project, Tanzil text, Quran.com, the TajweedFormer model).
+// OpenStreetMap: the masjid finder's data source, named in its ODbL attribution (NF-3.11).
+// FastConformer: the pronunciation-check speech model; jsDelivr: the public CDN named in the
+// timetable-import web download disclosure (privacy: users see which third party serves data).
 const LATIN_OK_WORDS = new Set(
-  "Quran Tilawa Tanzil TajweedFormer Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV JPEG WebP ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet Siri Shortcuts Assistant Watch Wear TestFlight Store Salah EAS Qur'an Jumu'ah Bukhari Muslim Pickthall DELETE Fidyah Kaffarah Janazah Sadaqah Hisnul Maryam Imran Negus".split(
+  "OpenStreetMap FastConformer jsDelivr Quran Tilawa Tanzil TajweedFormer Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV JPEG WebP ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet Siri Shortcuts Assistant Watch Wear TestFlight Store Salah EAS Qur'an Jumu'ah Bukhari Muslim Pickthall DELETE Fidyah Kaffarah Janazah Sadaqah Hisnul Maryam Imran Negus".split(
     " ",
   ),
 );

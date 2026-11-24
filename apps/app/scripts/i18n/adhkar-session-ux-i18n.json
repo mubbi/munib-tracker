@@ -204,16 +204,16 @@
     "zikrSession.padCount": "Санау үшін басыңыз"
   },
   "ku": {
-    "zikrSession.once": "Carekê",
-    "zikrSession.optional": "Bijarte",
-    "zikrSession.optionalNote": "Bijarte — tenê rîwayetên zeîf piştgiriya vê zikrê dikin, ji ber vê ji bo temamkirina komê ne pêwîst e.",
-    "zikrSession.tapRingToCount": "Ji bo hejmartinê li xelekê bitikîne an Space bitikîne",
-    "zikrSession.nextUp": "Ya din: {{title}} · {{times}}",
-    "zikrSession.now": "Niha",
-    "zikrSession.sessionEyebrow": "Danişîna rêberî",
-    "zikrSession.outline": "Ev kom · {{total}}",
-    "zikrSession.padOnce": "Piştî xwendinê bitikîne",
-    "zikrSession.padCount": "Ji bo hejmartinê bitikîne"
+    "zikrSession.once": "یەک جار",
+    "zikrSession.optional": "ئارەزوومەندانە",
+    "zikrSession.optionalNote": "ئارەزوومەندانە — تەنها ڕیوایەتی لاواز پشتگیریی ئەم زیکرە دەکەن، بۆیە بۆ تەواوکردنی کۆمەڵەکە پێویست نییە.",
+    "zikrSession.tapRingToCount": "بۆ ژماردن پەنجە لە بازنەکە بنێ یان Space دابگرە",
+    "zikrSession.nextUp": "دواتر: {{title}} · {{times}}",
+    "zikrSession.now": "ئێستا",
+    "zikrSession.sessionEyebrow": "دانیشتنی ڕێنماییکراو",
+    "zikrSession.outline": "ئەم کۆمەڵەیە · {{total}}",
+    "zikrSession.padOnce": "دوای خوێندنەوە پەنجە بنێ",
+    "zikrSession.padCount": "بۆ ژماردن پەنجە بنێ"
   },
   "bs": {
     "zikrSession.once": "Jednom",

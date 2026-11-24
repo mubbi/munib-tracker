@@ -119,11 +119,11 @@
     "zikrSession.loggingPreviousDay": "{{date}} үшін жазылуда — түн таң намазына дейін созылады."
   },
   "ku": {
-    "statistics.todayAdhkarSets": "Komên zikrê",
-    "statistics.adhkarBySet": "Zikr li gorî nimêj û demê",
-    "statistics.adhkarBySetHint": "Rojên vê heyamê ku her zikrê pêwîst ê komê hate tomarkirin.",
-    "statistics.adhkarDays": "{{done}}/{{days}} roj",
-    "zikrSession.loggingPreviousDay": "Ji bo {{date}} tê tomarkirin — şev heta sibehê didome."
+    "statistics.todayAdhkarSets": "کۆمەڵە زیکرەکان",
+    "statistics.adhkarBySet": "زیکرەکان بەپێی نوێژ و کاتی ڕۆژ",
+    "statistics.adhkarBySetHint": "ئەو ڕۆژانەی ئەم ماوەیە کە هەموو زیکرە پێویستەکانی کۆمەڵەکە تێیاندا تۆمار کران.",
+    "statistics.adhkarDays": "{{done}}/{{days}} ڕۆژ",
+    "zikrSession.loggingPreviousDay": "تۆمارکردن بۆ {{date}} — شەو تا بەیانی (فەجر) بەردەوامە."
   },
   "bs": {
     "statistics.todayAdhkarSets": "Setovi zikra",
