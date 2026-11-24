@@ -1,6 +1,6 @@
 import type { DuaItem } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -18,10 +18,11 @@ import { Stagger } from "@/components/ui/stagger";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { loadDuaItems } from "@/lib/content-loaders";
+import { DUA_CORPUS } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
 import { duaNeighbors, formatDuaHeading } from "@/lib/dua-browse";
@@ -55,10 +56,7 @@ export default function DuaDetailScreen() {
   // crowd the Arabic and fight D-pad focus (same pattern as hadith reader).
   const showSideFilters = isListDetail && !tv;
   const params = useLocalSearchParams<{ id: string }>();
-  const [items, setItems] = useState<Awaited<ReturnType<typeof loadDuaItems>>>([]);
-  useEffect(() => {
-    void loadDuaItems().then(setItems);
-  }, []);
+  const { items } = useContentCorpus(DUA_CORPUS);
   const item = params.id ? items.find((dua) => dua.id === params.id) : undefined;
   useEnsureDuaFavoritesLoaded();
   const isFavorite = useIsFavoriteDua(item?.id ?? "");

@@ -1,7 +1,6 @@
 import type { MadhhabId } from "@munib-tracker/shared/fiqh";
-
+import { rescheduleReminders } from "@/lib/notifications/reschedule";
 import type { MadhabKey } from "@/lib/prayer-times";
-import { rescheduleAll } from "@/notifications/scheduler";
 import { locationStore } from "@/stores/location-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -44,7 +43,7 @@ export interface SetMadhhabResult {
 
 async function rescheduleQuietly(): Promise<void> {
   try {
-    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+    await rescheduleReminders();
   } catch {
     // Scheduling is best-effort (web / TV no-op); the preference is already saved.
   }

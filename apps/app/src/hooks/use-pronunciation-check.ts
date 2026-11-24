@@ -1,7 +1,7 @@
-import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { AppState, Platform } from "react-native";
+import { AppState } from "react-native";
 
+import { setTaggedKeepAwake } from "@/lib/audio-keep-awake";
 import { isTV } from "@/lib/platform/is-tv";
 import { alignPracticeWords } from "@/lib/quran-companion/align-words";
 import { useRecitationCapture } from "@/lib/quran-companion/audio/capture";
@@ -37,12 +37,7 @@ import { quranListenerStore, useListenerState } from "@/stores/quran-listener-st
 const KEEP_AWAKE_TAG = "quran-pronunciation";
 
 function releaseKeepAwake(): void {
-  if (Platform.OS === "web") return;
-  void Promise.resolve()
-    .then(() => deactivateKeepAwake(KEEP_AWAKE_TAG))
-    .catch(() => {
-      // not active
-    });
+  void setTaggedKeepAwake(KEEP_AWAKE_TAG, false);
 }
 
 export type CheckStartResult =
@@ -158,7 +153,7 @@ export function usePronunciationCheck(): PronunciationCheck {
       send({ type: "prepare" });
       // Recitation through the speaker would be heard as the take: pause the player.
       if (audio?.isPlaying) audio.toggle();
-      if (Platform.OS !== "web") void activateKeepAwakeAsync(KEEP_AWAKE_TAG).catch(() => {});
+      void setTaggedKeepAwake(KEEP_AWAKE_TAG, true);
       try {
         if (!recorderRef.current) {
           // Loaded on first use: the runner and its ORT loader stay out of the route's startup graph.

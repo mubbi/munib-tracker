@@ -18,22 +18,31 @@ function isKeepAwakeSupported(): boolean {
 }
 
 /**
- * Prevent auto-lock while the shared audio player is actively playing so users
- * can keep reading on-screen without touching (Qur'an, adhkar, TTS, etc.).
- * No-op on web/TV. Safe to call repeatedly.
+ * Hold or release one feature's screen wake lock. Each feature uses its own tag
+ * (audio playback, Qur'an practice, pronunciation, voice tasbeeh) so releasing
+ * one never drops another's. iOS / Android phones only (no-op on web and TV);
+ * failures are swallowed so the feature is never blocked. Safe to call repeatedly.
  */
-export async function setAudioKeepAwake(active: boolean): Promise<void> {
+export async function setTaggedKeepAwake(tag: string, active: boolean): Promise<void> {
   if (!isKeepAwakeSupported()) return;
   if (isTV()) return;
   try {
     if (active) {
-      await activateKeepAwakeAsync(AUDIO_KEEP_AWAKE_TAG);
+      await activateKeepAwakeAsync(tag);
       return;
     }
-    await deactivateKeepAwake(AUDIO_KEEP_AWAKE_TAG);
+    await deactivateKeepAwake(tag);
   } catch {
-    // Wake-lock APIs can fail on some devices; never block playback for this.
+    // Wake-lock APIs can fail on some devices; never block the feature for this.
   }
+}
+
+/**
+ * Prevent auto-lock while the shared audio player is actively playing so users
+ * can keep reading on-screen without touching (Qur'an, adhkar, TTS, etc.).
+ */
+export function setAudioKeepAwake(active: boolean): Promise<void> {
+  return setTaggedKeepAwake(AUDIO_KEEP_AWAKE_TAG, active);
 }
 
 /**

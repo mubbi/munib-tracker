@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -11,8 +11,9 @@ import { IconButton } from "@/components/ui/icon-button";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { loadNamesOfAllah } from "@/lib/content-loaders";
+import { NAMES_CORPUS } from "@/lib/content-loaders";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -30,14 +31,7 @@ export default function NameFavoritesScreen() {
   useEnsureNameFavoritesLoaded();
   const favoriteIds = useFavoriteNameIds();
   const { toggle } = useNameFavoritesActions();
-  const [names, setNames] = useState<Awaited<ReturnType<typeof loadNamesOfAllah>>>([]);
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    void loadNamesOfAllah().then((loaded) => {
-      setNames(loaded);
-      setCorpusReady(true);
-    });
-  }, []);
+  const { items: names, ready: corpusReady } = useContentCorpus(NAMES_CORPUS);
   const byId = useMemo(() => new Map(names.map((name) => [name.id, name])), [names]);
   const numberById = useMemo(
     () => new Map(names.map((name, index) => [name.id, index + 1])),

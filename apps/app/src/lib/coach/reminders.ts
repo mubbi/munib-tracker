@@ -1,11 +1,12 @@
 import type { UserPreferences } from "@munib-tracker/shared/types";
-import { normalizeCoachWeekday } from "@munib-tracker/shared/utils";
+import { getLocalDateString, normalizeCoachWeekday } from "@munib-tracker/shared/utils";
 
 import i18n from "@/i18n";
 import { digestFireAt } from "@/lib/family-ties/reminders";
 import type { StoredLocation } from "@/lib/location";
 import type { BuiltReminder } from "@/lib/notifications/build-reminders";
 import { priorityForKind } from "@/lib/notifications/reminder-budget";
+import { isPastFireTime } from "@/lib/notifications/reminder-clock";
 import { prayerDayAnchor, shiftPrayerDay } from "@/lib/time";
 
 import { COACH_ROUTE } from "./constants";
@@ -24,10 +25,6 @@ export interface CoachReminderInput {
   coach?: { hasRecentActivity: boolean };
 }
 
-function dayKeyOf(day: Date): string {
-  return `${day.getFullYear()}-${`${day.getMonth() + 1}`.padStart(2, "0")}-${`${day.getDate()}`.padStart(2, "0")}`;
-}
-
 export function pushCoachReminders(
   reminders: BuiltReminder[],
   prefs: UserPreferences,
@@ -44,9 +41,9 @@ export function pushCoachReminders(
     const day = shiftPrayerDay(anchor, offset);
     if (day.getDay() !== weekday) continue;
     const fireAt = digestFireAt(day, "after-jumuah", location);
-    if (fireAt.getTime() <= now.getTime() - 60_000) continue;
+    if (isPastFireTime(fireAt, now)) continue;
     reminders.push({
-      id: `coach:${dayKeyOf(day)}`,
+      id: `coach:${getLocalDateString(day)}`,
       fireAt,
       title: i18n.t("coach.notif.title"),
       body: i18n.t("coach.notif.body"),

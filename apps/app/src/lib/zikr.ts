@@ -1,7 +1,7 @@
 import { ZIKR_CATEGORY_IDS, ZIKR_CATEGORY_LABELS } from "@munib-tracker/shared/constants";
 import type { ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
 import type { SymbolViewProps } from "expo-symbols";
-import { loadZikrItems } from "@/lib/content-loaders";
+import { type ContentCorpus, loadZikrItems } from "@/lib/content-loaders";
 import { deriveSeasonalZikr } from "@/lib/seasonal-zikr";
 import { ZIKR_CATEGORY_ICONS } from "@/lib/zikr-ui";
 
@@ -30,6 +30,12 @@ function getZikrItemsSync(): ZikrItem[] {
 export async function ensureZikrCorpus(): Promise<ZikrItem[]> {
   return ensureZikrItems();
 }
+
+/** The zikr corpus for `useContentCorpus` (shares this module's cache). */
+export const ZIKR_CORPUS: ContentCorpus<ZikrItem> = {
+  load: ensureZikrItems,
+  peek: () => zikrItemsCache,
+};
 
 export function zikrByCategory(categoryId: ZikrCategoryId): ZikrItem[] {
   // Kick off async load when empty (web/native after navigation); Jest warms via setup.

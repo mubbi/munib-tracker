@@ -51,6 +51,7 @@ import {
 import type { QuranReadingProgress } from "@/db/repositories/quran-repository";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   adhkarSetHistory,
@@ -79,7 +80,7 @@ import {
   summarizeQuranReading,
   sumQazaMadeUp,
 } from "@/lib/statistics";
-import { ensureZikrCorpus } from "@/lib/zikr";
+import { ZIKR_CORPUS } from "@/lib/zikr";
 import { useEnsureFastingLoaded, useFastingDays } from "@/stores/fasting-store";
 import {
   useAchievementStats,
@@ -149,10 +150,7 @@ export default function StatisticsScreen() {
   const [data, setData] = useState<LoadedData | null>(null);
   // The corpus maps stored zikr ids to their set — memos below must recompute
   // once it lands, or a cold open shows every adhkar set as empty.
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    void ensureZikrCorpus().then(() => setCorpusReady(true));
-  }, []);
+  const { ready: corpusReady } = useContentCorpus(ZIKR_CORPUS);
 
   const locale = i18n.language?.split("-")[0];
   const formatCount = useCallback((value: number) => value.toLocaleString(locale), [locale]);

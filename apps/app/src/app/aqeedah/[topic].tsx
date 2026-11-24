@@ -1,15 +1,7 @@
-import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { useTranslation } from "react-i18next";
+import { useLocalSearchParams } from "expo-router";
 import { AqeedahTopicAside } from "@/components/aqeedah/aqeedah-aside";
 import { AqeedahTopicContent } from "@/components/aqeedah/topic-content";
-import { JannahDisclaimer } from "@/components/jannah/primitives";
-import { LearnContentLoading } from "@/components/learn-content-loading";
-import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { EmptyState } from "@/components/ui/empty-state";
-import { Stagger } from "@/components/ui/stagger";
+import { LearnTopicArticle } from "@/components/learn-guide/learn-topic-article";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import {
@@ -18,9 +10,7 @@ import {
   getAqeedahTopics,
   isAqeedahContentReady,
 } from "@/lib/aqeedah";
-import { goBackOrReplace } from "@/lib/navigation";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureAqeedahProgressLoaded } from "@/stores/aqeedah-progress-store";
 
 export function generateStaticParams(): Array<{ topic: string }> {
@@ -28,72 +18,24 @@ export function generateStaticParams(): Array<{ topic: string }> {
 }
 
 export default function AqeedahTopicScreen() {
-  const router = useRouter();
-  const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureAqeedahContent, isAqeedahContentReady);
+  const { ready } = useEnsureContent(ensureAqeedahContent, isAqeedahContentReady);
   const topic = getAqeedahTopic(topicId);
   const reportRef = useGuideContentReportRef("aqeedah", topic, "/aqeedah");
   useEnsureAqeedahProgressLoaded();
-  const { maxContentWidth } = useLearnWideLayout();
-
-  const detailPath = topic ? `/aqeedah/${topic.id}` : "/aqeedah";
-  const crumbs = topic
-    ? [
-        { name: t("tabs.home"), path: "/" },
-        { name: t("aqeedah.title"), path: "/aqeedah" },
-        { name: topic.title, path: detailPath },
-      ]
-    : undefined;
 
   return (
-    <ScreenLayout
-      eyebrow={t("aqeedah.eyebrow")}
-      title={topic?.title ?? t("aqeedah.title")}
-      subtitle={topic?.summary ?? ""}
-      onBack={() => goBackOrReplace(router, "/aqeedah" as Href)}
-      maxContentWidth={maxContentWidth}
+    <LearnTopicArticle
+      ns="aqeedah"
+      basePath="/aqeedah"
+      topic={topic}
+      ready={ready}
+      surface="aqeedah"
+      contentRef={reportRef}
+      aside={(current) => <AqeedahTopicAside currentId={current.id} />}
     >
-      <Seo
-        path={detailPath}
-        title={topic?.title}
-        description={topic?.summary}
-        type={topic ? "article" : undefined}
-        index={!!topic}
-        breadcrumbs={crumbs}
-        jsonLd={
-          topic
-            ? [
-                articleSchema({
-                  path: detailPath,
-                  headline: topic.title,
-                  description: topic.summary ?? "",
-                  breadcrumbs: crumbs,
-                }),
-              ]
-            : undefined
-        }
-      />
-      {!contentReady ? (
-        <LearnContentLoading />
-      ) : !topic ? (
-        <EmptyState
-          icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
-          title={t("aqeedah.notFound")}
-          actionLabel={t("aqeedah.title")}
-          onAction={() => router.replace("/aqeedah" as Href)}
-        />
-      ) : (
-        <LearnSplitLayout aside={<AqeedahTopicAside currentId={topic.id} />}>
-          <Stagger>
-            <LearnReadingChrome surface="aqeedah">
-              <AqeedahTopicContent topic={topic} />
-            </LearnReadingChrome>
-            <JannahDisclaimer textKey="aqeedah.disclaimer" contentRef={reportRef} />
-          </Stagger>
-        </LearnSplitLayout>
-      )}
-    </ScreenLayout>
+      {(current) => <AqeedahTopicContent topic={current} />}
+    </LearnTopicArticle>
   );
 }
 

@@ -2,36 +2,24 @@ import {
   JANAZAH_GUIDE_SECTION_ORDER,
   JANAZAH_GUIDE_TOPICS,
 } from "@munib-tracker/shared/content/janazah-guide";
-import type { LearnGuideTopic } from "@munib-tracker/shared/types";
-import { localizeList } from "@/lib/content-i18n";
-import { overlayList } from "@/lib/content-overlay-registry";
+import {
+  createSectionedGuide,
+  ensureBundledGuideContent,
+  type LearnGuideConfig,
+} from "@/lib/sectioned-guide";
 
-type JanazahGuideSection = (typeof JANAZAH_GUIDE_SECTION_ORDER)[number];
+/** English corpus ships with the `/janazah` route chunk — sync for reliable first paint. */
+const guide = createSectionedGuide({
+  topics: JANAZAH_GUIDE_TOPICS,
+  sectionOrder: JANAZAH_GUIDE_SECTION_ORDER,
+  overlayKey: "JANAZAH_GUIDE_TOPICS",
+});
 
-export async function ensureJanazahGuideContent(): Promise<void> {
-  // Sync corpus — kept for API parity with other guides.
-}
+export const ensureJanazahGuideContent = ensureBundledGuideContent;
+export const getJanazahGuideTopics = guide.getTopics;
+export const getJanazahGuideTopic = guide.getTopic;
+export const getJanazahGuideSectionOrder = guide.getSectionOrder;
+export const getJanazahGuideTopicsBySection = guide.getTopicsBySection;
 
-export function getJanazahGuideTopics(): LearnGuideTopic[] {
-  return localizeList(JANAZAH_GUIDE_TOPICS, overlayList("JANAZAH_GUIDE_TOPICS"));
-}
-
-export function getJanazahGuideTopic(id: string | undefined): LearnGuideTopic | undefined {
-  if (!id) return undefined;
-  return getJanazahGuideTopics().find((topic) => topic.id === id);
-}
-
-export function getJanazahGuideSectionOrder(): readonly JanazahGuideSection[] {
-  return JANAZAH_GUIDE_SECTION_ORDER;
-}
-
-export function getJanazahGuideTopicsBySection(): Record<JanazahGuideSection, LearnGuideTopic[]> {
-  const grouped = Object.fromEntries(
-    JANAZAH_GUIDE_SECTION_ORDER.map((section) => [section, [] as LearnGuideTopic[]]),
-  ) as Record<JanazahGuideSection, LearnGuideTopic[]>;
-  for (const topic of getJanazahGuideTopics()) {
-    const bucket = grouped[topic.section as JanazahGuideSection];
-    if (bucket) bucket.push(topic);
-  }
-  return grouped;
-}
+/** Shared Learn hub / topic screens (`components/learn-guide/learn-guide-screens`). */
+export const janazahGuideConfig: LearnGuideConfig = { ns: "janazah", basePath: "/janazah", guide };

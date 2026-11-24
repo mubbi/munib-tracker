@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type FlatList,
@@ -28,9 +28,10 @@ import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { loadDuroodItems } from "@/lib/content-loaders";
+import { DUROOD_CORPUS, type loadDuroodItems } from "@/lib/content-loaders";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -57,19 +58,11 @@ export default function DuroodFavoritesScreen() {
   const favoriteIds = useFavoriteDuroodIds();
   const { toggle } = useDuroodFavoritesActions();
   const visibility = useReadingDisplay();
-  const [duroodItems, setDuroodItems] = useState<DuroodItem[]>([]);
-  const [corpusReady, setCorpusReady] = useState(false);
+  const { items: duroodItems, ready: corpusReady } = useContentCorpus(DUROOD_CORPUS);
   const listRef = useRef<FlatList<DuroodItem>>(null);
   const [toolbarVisible, setToolbarVisible] = useState(false);
   const headerCardHeightRef = useRef(0);
   const readingProgress = useSharedValue(0);
-
-  useEffect(() => {
-    void loadDuroodItems().then((items) => {
-      setDuroodItems(items);
-      setCorpusReady(true);
-    });
-  }, []);
 
   const byId = useMemo(() => new Map(duroodItems.map((item) => [item.id, item])), [duroodItems]);
   const items = favoriteIds

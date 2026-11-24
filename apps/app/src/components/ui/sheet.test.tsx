@@ -114,6 +114,35 @@ describe("Sheet on web", () => {
     expect(screen.queryByTestId("blur-view", hidden)).toBeNull();
     expect(screen.queryByTestId("glass-view", hidden)).toBeNull();
   });
+
+  it("hides the drag grabber from assistive tech (Escape and the scrim close)", async () => {
+    await renderSheet({ variant: "bottom" });
+
+    expect(screen.queryByLabelText("Drag down to close")).toBeNull();
+  });
+});
+
+describe("Sheet assistive-tech dismissal", () => {
+  it.each(["decrement", "activate"])("the grabber's %s action closes", async (actionName) => {
+    const { onClose } = await renderSheet({ variant: "bottom" });
+
+    await fireEvent(screen.getByLabelText("Drag down to close"), "accessibilityAction", {
+      nativeEvent: { actionName },
+    });
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it.each(["bottom", "center"] as const)(
+    "the VoiceOver escape gesture closes a %s sheet",
+    async (variant) => {
+      const { onClose } = await renderSheet({ variant });
+
+      await fireEvent(screen.getByText("Sheet body"), "accessibilityEscape");
+
+      expect(onClose).toHaveBeenCalledTimes(1);
+    },
+  );
 });
 
 describe("Sheet on Android", () => {

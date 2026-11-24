@@ -1,6 +1,6 @@
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { DuaListRow } from "@/components/dua/dua-list-row";
@@ -16,8 +16,9 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
 import { Spacing } from "@/constants/theme";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useNow } from "@/hooks/use-now";
-import { loadDuaItems } from "@/lib/content-loaders";
+import { DUA_CORPUS } from "@/lib/content-loaders";
 import {
   DUA_CATEGORY_GROUPS,
   DUA_CATEGORY_ICONS,
@@ -59,19 +60,7 @@ export default function DuaHomeScreen() {
   const favoriteCount = useFavoriteDuaIds().length;
   const recentIds = useRecentDuaIds();
   const [query, setQuery] = useState("");
-  const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    let active = true;
-    void loadDuaItems().then((items) => {
-      if (!active) return;
-      setDuaItems(items);
-      setCorpusReady(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  const { items: duaItems, ready: corpusReady } = useContentCorpus(DUA_CORPUS);
   const searching = query.trim().length > 0;
 
   const searchIndex = useMemo(() => createDuaSearch(duaItems), [duaItems]);

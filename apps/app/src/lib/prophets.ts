@@ -8,6 +8,7 @@ import type {
 } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
+import { groupBySection } from "@/lib/sectioned-guide";
 
 /**
  * English corpus is statically imported with the `/prophets` route chunk.
@@ -60,15 +61,7 @@ export function getProphetsTopic(id: string | undefined): ProphetsTopic | undefi
 }
 
 export function getProphetsTopicsBySection(): Record<ProphetsSection, ProphetsTopic[]> {
-  const grouped = Object.fromEntries(
-    corpus.PROPHETS_SECTION_ORDER.map((section) => [section, [] as ProphetsTopic[]]),
-  ) as Record<ProphetsSection, ProphetsTopic[]>;
-
-  for (const topic of getProphetsTopics()) {
-    const bucket = grouped[topic.section];
-    if (bucket) bucket.push(topic);
-  }
-  return grouped;
+  return groupBySection(getProphetsTopics(), corpus.PROPHETS_SECTION_ORDER);
 }
 
 export function getProphetsTimeline(): ProphetsTimelineEvent[] {

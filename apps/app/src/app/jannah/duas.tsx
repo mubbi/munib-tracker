@@ -1,6 +1,6 @@
 import type { DuaItem, JannahDuaEntry } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -20,9 +20,10 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { loadDuaItems } from "@/lib/content-loaders";
+import { DUA_CORPUS } from "@/lib/content-loaders";
 import { ensureJannahContent, getJannahDuas, isJannahContentReady } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -91,16 +92,8 @@ export default function JannahDuasScreen() {
     ensureJannahContent,
     isJannahContentReady,
   );
-  const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
-  const [duasCatalogReady, setDuasCatalogReady] = useState(false);
-  useEffect(() => {
-    void loadDuaItems()
-      .then(setDuaItems)
-      .catch(() => {
-        // Show jannah entries once catalog resolve settles (empty map → Empty-ish rows).
-      })
-      .then(() => setDuasCatalogReady(true));
-  }, []);
+  // Settles even if the catalog fails (missing entries skip their rows below).
+  const { items: duaItems, ready: duasCatalogReady } = useContentCorpus(DUA_CORPUS);
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when jannah content finishes loading
   const entries = useMemo(() => getJannahDuas(), [contentVersion]);
   const byId = new Map(duaItems.map((item) => [item.id, item]));

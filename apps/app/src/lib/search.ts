@@ -5,10 +5,17 @@ import type {
   NameOfAllah,
   RevelationPlace,
   Surah,
+  UserPreferences,
   ZikrItem,
 } from "@munib-tracker/shared/types";
 import Fuse from "fuse.js";
 
+import {
+  DUA_CORPUS,
+  DUROOD_CORPUS,
+  loadZikrItems as loadZikrCorpus,
+  NAMES_CORPUS,
+} from "@/lib/content-loaders";
 import { ensureBundledCollection, getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { getSurahMeta } from "@/lib/quran-meta";
 import {
@@ -16,11 +23,12 @@ import {
   type FuseDoc,
   type FuzzyField,
   type FuzzyIndex,
+  fuseOptions,
   fusePattern,
   fuseSearch,
   MIN_TOKEN_LENGTH,
   makeFuse,
-  normalize,
+  toFuseDocs,
   tokenize,
 } from "@/lib/search-fuse";
 import {
@@ -85,6 +93,7 @@ let duroodFuse: Fuse<FuseDoc<DurudItem>> | null = null;
 let nameFuse: Fuse<FuseDoc<NameOfAllah>> | null = null;
 let surahFuse: Fuse<FuseDoc<Surah>> | null = null;
 let hadithFuse: Fuse<FuseDoc<HadithItem>> | null = null;
+let hadithFuseLocale: UserPreferences["translationLocale"] | null = null;
 let namePosition: Map<string, number> | null = null;
 
 let duaItemsCache: DuaItem[] | undefined;
@@ -138,32 +147,28 @@ export function __setQuranModuleForTests(mod: typeof import("@/lib/quran")): voi
 
 async function ensureDuaItems(): Promise<DuaItem[]> {
   if (duaItemsCache) return duaItemsCache;
-  const mod = await import("@munib-tracker/shared/content/duas");
-  duaItemsCache = mod.DUA_ITEMS;
+  duaItemsCache = await DUA_CORPUS.load();
   duaFuse = null;
   return duaItemsCache;
 }
 
 async function ensureZikrItems(): Promise<ZikrItem[]> {
   if (zikrItemsCache) return zikrItemsCache;
-  const mod = await import("@munib-tracker/shared/content/zikr");
-  zikrItemsCache = mod.ZIKR_ITEMS;
+  zikrItemsCache = await loadZikrCorpus();
   zikrFuse = null;
   return zikrItemsCache;
 }
 
 async function ensureDuroodItems(): Promise<DurudItem[]> {
   if (duroodItemsCache) return duroodItemsCache;
-  const mod = await import("@munib-tracker/shared/content/duroods");
-  duroodItemsCache = mod.DUROOD_ITEMS;
+  duroodItemsCache = await DUROOD_CORPUS.load();
   duroodFuse = null;
   return duroodItemsCache;
 }
 
 async function ensureNames(): Promise<NameOfAllah[]> {
   if (namesCache) return namesCache;
-  const mod = await import("@munib-tracker/shared/content/names");
-  namesCache = mod.NAMES_OF_ALLAH;
+  namesCache = await NAMES_CORPUS.load();
   nameFuse = null;
   namePosition = null;
   return namesCache;
@@ -341,23 +346,37 @@ function exactSurahNumberMatch(query: string): Surah | null {
   return getSurahMeta().find((surah) => surah.number === number) ?? null;
 }
 
-/** Shared hadith field weights for the universal (Nawawi) Fuse index. */
-const HADITH_FIELDS: FuzzyField<HadithItem>[] = [
-  { key: "english", weight: 3, get: (h) => h.english },
-  {
-    key: "translation",
-    weight: 3,
-    get: (h) => resolveHadithTranslation(h, preferencesStore.getState().prefs),
-  },
-  { key: "narrator", weight: 2, get: (h) => h.narrator },
-  { key: "reference", weight: 2, get: (h) => h.reference },
-  { key: "book", weight: 2, get: (h) => h.book },
-  { key: "number", weight: 2, get: (h) => h.number },
-  { key: "arabic", weight: 1, get: (h) => h.arabic },
-];
+/**
+ * Hadith field weights (universal index and in-collection search). The
+ * translation field follows the reader's `translationLocale`, so an index built
+ * with these fields belongs to that locale.
+ */
+function hadithFields(translationLocale: TranslationLocale): FuzzyField<HadithItem>[] {
+  return [
+    { key: "english", weight: 3, get: (h) => h.english },
+    {
+      key: "translation",
+      weight: 3,
+      get: (h) => resolveHadithTranslation(h, { translationLocale }),
+    },
+    { key: "narrator", weight: 2, get: (h) => h.narrator },
+    { key: "reference", weight: 2, get: (h) => h.reference },
+    { key: "book", weight: 2, get: (h) => h.book },
+    { key: "number", weight: 2, get: (h) => h.number },
+    { key: "arabic", weight: 1, get: (h) => h.arabic },
+  ];
+}
+
+type TranslationLocale = UserPreferences["translationLocale"];
+
+function currentTranslationLocale(): TranslationLocale {
+  return preferencesStore.getState().prefs.translationLocale;
+}
 
 function getHadithFuse(): Fuse<FuseDoc<HadithItem>> {
-  if (!hadithFuse) {
+  const locale = currentTranslationLocale();
+  // Rebuilt when the translation language changes (the translation field is per locale).
+  if (!hadithFuse || hadithFuseLocale !== locale) {
     const items: HadithItem[] = [];
     // Universal / light search indexes Nawawi only. Riyad (~2.2 MB) stays lazy —
     // open that collection (or call ensureRiyadHadithSearch) to search it.
@@ -366,22 +385,14 @@ function getHadithFuse(): Fuse<FuseDoc<HadithItem>> {
       const bundled = getBundledCollection(collection.id);
       if (bundled) items.push(...bundled.items);
     }
-    hadithFuse = makeFuse(items, HADITH_FIELDS);
+    hadithFuse = makeFuse(items, hadithFields(locale));
+    hadithFuseLocale = locale;
   }
   return hadithFuse;
 }
 
-type HadithSearchDoc = {
-  item: HadithItem;
-  haystack: string;
-  english: string;
-  translation: string;
-  narrator: string;
-  reference: string;
-  book: string;
-  number: string;
-  arabic: string;
-};
+/** Fuse doc plus `haystack`: every field, normalized and joined (not a Fuse key). */
+type HadithSearchDoc = FuseDoc<HadithItem>;
 
 /**
  * In-collection hadith search for bundled highlights and downloaded full books.
@@ -395,49 +406,19 @@ type HadithSearchDoc = {
  * Memoize per item list (stable once loaded) — never rebuild on each keystroke.
  */
 export function createHadithSearch(items: HadithItem[]): FuzzyIndex<HadithItem> {
-  const prefs = preferencesStore.getState().prefs;
-  const docs: HadithSearchDoc[] = items.map((item) => {
-    const english = normalize(item.english);
-    const translation = normalize(resolveHadithTranslation(item, prefs));
-    const narrator = normalize(item.narrator ?? "");
-    const reference = normalize(item.reference);
-    const book = normalize(item.book ?? "");
-    const number = normalize(item.number ?? "");
-    const arabic = normalize(item.arabic ?? "");
-    const haystack = [english, translation, narrator, reference, book, number, arabic]
+  const fields = hadithFields(currentTranslationLocale());
+  // One pre-normalized haystack per item, in field order, for the fast path.
+  const docs: HadithSearchDoc[] = toFuseDocs(items, fields);
+  for (const doc of docs) {
+    doc.haystack = fields
+      .map((field) => doc[field.key])
       .filter(Boolean)
       .join(" ");
-    return {
-      item,
-      haystack,
-      english,
-      translation,
-      narrator,
-      reference,
-      book,
-      number,
-      arabic,
-    };
-  });
+  }
 
   let fuse: Fuse<HadithSearchDoc> | null = null;
   const getFuse = (): Fuse<HadithSearchDoc> => {
-    fuse ??= new Fuse(docs, {
-      includeScore: true,
-      ignoreLocation: true,
-      threshold: 0.2,
-      minMatchCharLength: MIN_TOKEN_LENGTH,
-      useExtendedSearch: true,
-      keys: [
-        { name: "english", weight: 3 },
-        { name: "translation", weight: 3 },
-        { name: "narrator", weight: 2 },
-        { name: "reference", weight: 2 },
-        { name: "book", weight: 2 },
-        { name: "number", weight: 2 },
-        { name: "arabic", weight: 1 },
-      ],
-    });
+    fuse ??= new Fuse(docs, fuseOptions(fields));
     return fuse;
   };
 

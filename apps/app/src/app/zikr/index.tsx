@@ -1,7 +1,7 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
 import type { ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -19,6 +19,7 @@ import { ZikrRow } from "@/components/zikr/zikr-row";
 import { type CategoryHueKey, Spacing } from "@/constants/theme";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useTimeFormat } from "@/hooks/use-time-format";
 import { type AdhkarScope, adhkarDueNow, type TimedAdhkarSet } from "@/lib/adhkar-session";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
@@ -28,7 +29,7 @@ import { formatPrayerTime } from "@/lib/prayer-times";
 import { createZikrSearch } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
-import { ensureZikrCorpus, ZIKR_CATEGORY_ICONS, zikrByCategory } from "@/lib/zikr";
+import { ZIKR_CATEGORY_ICONS, ZIKR_CORPUS, zikrByCategory } from "@/lib/zikr";
 import { zikrCategoryTodayProgress, zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useLocation } from "@/stores/location-store";
@@ -73,22 +74,9 @@ export default function ZikrHomeScreen() {
   // Progress follows the adhkar day (Fajr → Fajr), like the sessions that log it.
   const clock = useAdhkarClock();
   const zikrCounts = useAdhkarDayCounts(clock.date).counts;
-  const [zikrReady, setZikrReady] = useState(false);
-  const [zikrItems, setZikrItems] = useState<ZikrItem[]>([]);
+  const { items: zikrItems, ready: zikrReady } = useContentCorpus(ZIKR_CORPUS);
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
-
-  useEffect(() => {
-    let active = true;
-    void ensureZikrCorpus().then((items) => {
-      if (!active) return;
-      setZikrItems(items);
-      setZikrReady(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
 
   const searchIndex = useMemo(() => createZikrSearch(zikrItems), [zikrItems]);
   const results = useMemo(

@@ -1,5 +1,5 @@
 import { resolveTheme } from "@munib-tracker/theme/resolve";
-import { Brand, Mushaf, StatusPalette, withAlpha } from "@/constants/theme";
+import { Brand, CelebrationPalette, Mushaf, StatusPalette, withAlpha } from "@/constants/theme";
 import { computeThemeTokens } from "@/lib/theme-tokens";
 
 describe("computeThemeTokens", () => {
@@ -41,6 +41,14 @@ describe("computeThemeTokens", () => {
     expect(tokens.mushaf.highlight).toBe(withAlpha(Mushaf.inkDark, 0.24));
     const [key] = Object.keys(StatusPalette) as (keyof typeof StatusPalette)[];
     expect(tokens.status[key].border).toBe(withAlpha(StatusPalette[key], 0.4));
+  });
+
+  it("exposes the constant celebration palette in both schemes", () => {
+    const light = computeThemeTokens(resolveTheme("light", "light", "ocean"), "light");
+    const dark = computeThemeTokens(resolveTheme("dark", "dark", "rose"), "dark");
+    expect(light.celebration).toEqual(["#D4AF37", "#4CAF7D", "#5AA9E6", "#F2C94C"]);
+    expect(light.celebration).toBe(CelebrationPalette);
+    expect(dark.celebration).toBe(CelebrationPalette);
   });
 
   it("caches per colors object and recomputes when the scheme flips", () => {

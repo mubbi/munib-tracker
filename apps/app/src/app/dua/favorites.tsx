@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -8,7 +7,8 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FavoritesOrderRow } from "@/components/ui/favorites-order-row";
 import { Spacing } from "@/constants/theme";
-import { loadDuaItems } from "@/lib/content-loaders";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
+import { DUA_CORPUS } from "@/lib/content-loaders";
 import { formatDuaHeading } from "@/lib/dua-browse";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -29,14 +29,7 @@ export default function DuaFavoritesScreen() {
   useEnsureDuaFavoritesLoaded();
   const order = useFavoriteDuaIds();
   const { setOrder, toggle } = useDuaFavoritesActions();
-  const [duaItems, setDuaItems] = useState<Awaited<ReturnType<typeof loadDuaItems>>>([]);
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    void loadDuaItems().then((items) => {
-      setDuaItems(items);
-      setCorpusReady(true);
-    });
-  }, []);
+  const { items: duaItems, ready: corpusReady } = useContentCorpus(DUA_CORPUS);
 
   const items = order
     .map((id) => duaItems.find((item) => item.id === id))

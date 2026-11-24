@@ -1,8 +1,9 @@
 import { useSpeechRecognitionEvent } from "expo-speech-recognition";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { Platform } from "react-native";
+import { AppState, Platform } from "react-native";
 import { type SharedValue, useSharedValue, withTiming } from "react-native-reanimated";
 import { isTV } from "@/lib/platform/is-tv";
+import { claimMicrophone, releaseMicrophone } from "@/lib/speech/mic-owner";
 import {
   abortStt,
   classifySttError,
@@ -92,15 +93,20 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
     setAvailable(!isTV() && isSttAvailable());
   }, []);
 
+  /** Mic-owner preemption handler (stable): another listener took the mic. */
+  const abortRef = useRef<() => void>(() => {});
+  const onMicPreempted = useCallback(() => abortRef.current(), []);
+
   // Release ownership (and the mic) if this screen unmounts mid-session.
   useEffect(
     () => () => {
+      releaseMicrophone(onMicPreempted);
       if (activeOwner === ownerId) {
         activeOwner = null;
         abortStt();
       }
     },
-    [ownerId],
+    [onMicPreempted, ownerId],
   );
 
   const owns = () => activeOwner === ownerId;
@@ -132,6 +138,7 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
       }
     }
     activeOwner = null;
+    releaseMicrophone(onMicPreempted);
     listeningRef.current = false;
     setListening(false);
     setActiveField(null);
@@ -200,11 +207,22 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
     }
     abortStt();
     activeOwner = null;
+    releaseMicrophone(onMicPreempted);
     listeningRef.current = false;
     setListening(false);
     setActiveField(null);
     resetLevel();
-  }, [ownerId, resetLevel]);
+  }, [onMicPreempted, ownerId, resetLevel]);
+  abortRef.current = abort;
+
+  // No background microphone (privacy, store review): drop the dictation.
+  useEffect(() => {
+    if (!listening) return;
+    const sub = AppState.addEventListener("change", (next) => {
+      if (next !== "active") abortRef.current();
+    });
+    return () => sub.remove();
+  }, [listening]);
 
   const stop = useCallback(() => {
     if (activeOwner !== ownerId) return;
@@ -222,14 +240,17 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
         return false;
       }
 
-      // Stop any session — ours or another mounted screen's — before taking over.
-      if (activeOwner !== null) {
-        abortedRef.current = activeOwner === ownerId;
+      // Restarting our own session: stop it first. Another screen's dictation (or
+      // voice tasbeeh / Qur'an practice / pronunciation) is stopped by the claim.
+      if (activeOwner === ownerId) {
+        abortedRef.current = true;
         abortStt();
       }
+      await claimMicrophone("dictation", onMicPreempted);
 
       const permission = await requestSttPermissions();
       if (!permission.granted) {
+        releaseMicrophone(onMicPreempted);
         onErrorRef.current?.("permission");
         return false;
       }
@@ -250,12 +271,13 @@ export function useSpeechToText(options: UseSpeechToTextOptions): UseSpeechToTex
         return true;
       } catch {
         activeOwner = null;
+        releaseMicrophone(onMicPreempted);
         setActiveField(null);
         onErrorRef.current?.("unavailable");
         return false;
       }
     },
-    [launch, level, ownerId, uiLocale],
+    [launch, level, onMicPreempted, ownerId, uiLocale],
   );
 
   return {

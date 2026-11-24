@@ -1,7 +1,14 @@
 import { accentOnSurface } from "@munib-tracker/theme/color";
 import type { ThemeColors } from "@munib-tracker/theme/types";
 
-import { Brand, Mushaf, type StatusKey, StatusPalette, withAlpha } from "@/constants/theme";
+import {
+  Brand,
+  CelebrationPalette,
+  Mushaf,
+  type StatusKey,
+  StatusPalette,
+  withAlpha,
+} from "@/constants/theme";
 
 export type StatusToken = {
   /** Raw status hue — use for fills, icons, borders (not small text). */
@@ -41,6 +48,8 @@ export type ThemeTokens = {
     highlight: string;
   };
   status: Record<StatusKey, StatusToken>;
+  /** Confetti hues for completion bursts — the default `PartyPopper` palette. */
+  celebration: readonly string[];
 };
 
 /** Stable token objects for cached theme color refs — toggles reuse the same map entry. */
@@ -105,6 +114,7 @@ export function computeThemeTokens(colors: ThemeColors, scheme: "light" | "dark"
       highlight: withAlpha(isDark ? Mushaf.inkDark : Mushaf.goldLight, isDark ? 0.24 : 0.18),
     },
     status,
+    celebration: CelebrationPalette,
   };
   themeTokenCache.set(colors, tokens);
   return tokens;

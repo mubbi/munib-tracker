@@ -1,3 +1,4 @@
+import { haversineKm } from "@munib-tracker/shared/utils";
 import { Coordinates, Qibla } from "adhan";
 import * as Location from "expo-location";
 import { type Href, useRouter } from "expo-router";
@@ -51,16 +52,6 @@ const KAABA = { lat: 21.4225, lng: 39.8262 };
 
 const ALIGN_THRESHOLD = 5;
 const SMOOTHING = 0.15;
-
-function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
-  const toRad = (d: number) => (d * Math.PI) / 180;
-  const dLat = toRad(lat2 - lat1);
-  const dLng = toRad(lng2 - lng1);
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
-  return Math.round(6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-}
 
 function smoothHeading(prev: number, next: number, alpha: number): number {
   const delta = ((next - prev + 540) % 360) - 180;
@@ -254,7 +245,13 @@ export default function QiblaScreen() {
     [location.latitude, location.longitude],
   );
   const distance = useMemo(
-    () => haversineKm(location.latitude, location.longitude, KAABA.lat, KAABA.lng),
+    () =>
+      Math.round(
+        haversineKm(
+          { latitude: location.latitude, longitude: location.longitude },
+          { latitude: KAABA.lat, longitude: KAABA.lng },
+        ),
+      ),
     [location.latitude, location.longitude],
   );
   const locationError = useMemo(() => {

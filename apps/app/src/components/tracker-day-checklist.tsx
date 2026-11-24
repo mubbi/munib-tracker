@@ -27,6 +27,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { WhiteDaysTrackerSection } from "@/components/white-days-tracker-section";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { afterSalahProgressForPrayer } from "@/lib/after-salah-adhkar-progress";
@@ -38,7 +39,7 @@ import type { PrayerCombined } from "@/lib/prayer-combining";
 import { RAWATIB_TRACKER_FOCUS } from "@/lib/rawatib";
 import { useChevronForward } from "@/lib/rtl";
 import { isWhiteDayDateString, WHITE_DAYS_CHECKLIST_FOCUS } from "@/lib/white-days";
-import { ensureZikrCorpus, zikrCategories } from "@/lib/zikr";
+import { ZIKR_CORPUS, zikrCategories } from "@/lib/zikr";
 import { zikrCategoryBadge } from "@/lib/zikr-list-progress";
 import { useDayExcused } from "@/stores/tracker-store";
 
@@ -122,7 +123,8 @@ export function TrackerDayChecklist({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForward = useChevronForward();
-  const [, setZikrReady] = useState(false);
+  // Re-render once the zikr corpus lands (the adhkar sets below read it).
+  useContentCorpus(ZIKR_CORPUS);
   const fridaySectionRef = useRef<ViewInstance>(null);
   const [fridayHighlight, setFridayHighlight] = useState(false);
   const showFriday = isFridayDateString(date);
@@ -149,16 +151,6 @@ export function TrackerDayChecklist({
   );
   const witrDone = status[WITR_PRAYER] === "completed" ? 1 : 0;
   const sunnahDone = useMemo(() => countCompleted(SUNNAH_PRAYERS, status), [status]);
-
-  useEffect(() => {
-    let active = true;
-    void ensureZikrCorpus().then(() => {
-      if (active) setZikrReady(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
 
   useEffect(() => {
     if (!fridayFocused) return;

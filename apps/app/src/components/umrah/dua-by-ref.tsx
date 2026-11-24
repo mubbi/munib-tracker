@@ -1,10 +1,10 @@
 import type { DuaItem } from "@munib-tracker/shared/types";
-import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { ReadingCard } from "@/components/content/reading-card";
 import { Spacing } from "@/constants/theme";
-import { loadDuaItems } from "@/lib/content-loaders";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
+import { DUA_CORPUS } from "@/lib/content-loaders";
 
 /**
  * Renders bundled duas BY REFERENCE (NF-3.4, plan §2 rule 1): looks each id up
@@ -13,17 +13,8 @@ import { loadDuaItems } from "@/lib/content-loaders";
  * Nothing is typed here; an unknown id renders nothing.
  */
 export function DuaByRef({ ids }: { ids: readonly string[] }) {
-  const [items, setItems] = useState<DuaItem[] | null>(null);
-  useEffect(() => {
-    let active = true;
-    void loadDuaItems().then((all) => {
-      if (active) setItems(all);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
-  if (!items || ids.length === 0) return null;
+  const { items, ready } = useContentCorpus(DUA_CORPUS);
+  if (!ready || ids.length === 0) return null;
   const duas = ids
     .map((id) => items.find((item) => item.id === id))
     .filter((item): item is DuaItem => item != null);

@@ -10,6 +10,7 @@ import {
   type RawatibReminderInput,
   rawatibNudgeActive,
 } from "@/lib/notifications/rawatib-reminders";
+import { rescheduleReminders } from "@/lib/notifications/reschedule";
 import { preferencesStore } from "@/stores/preferences-store";
 
 /**
@@ -46,13 +47,7 @@ export function requestRawatibNudgeReschedule(): void {
   if (pending) clearTimeout(pending);
   pending = setTimeout(() => {
     pending = undefined;
-    void (async () => {
-      const [{ rescheduleAll }, { locationStore }] = await Promise.all([
-        import("@/notifications/scheduler"),
-        import("@/stores/location-store"),
-      ]);
-      await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
-    })().catch(() => {
+    rescheduleReminders().catch(() => {
       /* best-effort; the next foreground reschedule catches up */
     });
   }, 1500);

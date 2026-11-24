@@ -1,12 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 
-import { ThemedText } from "@/components/themed-text";
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { Chip } from "@/components/ui/chip";
+import { Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
-import { TvLayout } from "@/constants/tv-layout";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 
 export interface DuaOccasionChip {
@@ -32,13 +29,16 @@ export function DuaOccasionChips({ chips, selected, onSelect, totalCount }: DuaO
   const { t } = useTranslation();
   const { width } = useWindowDimensions();
   const wrap = isTV() || width >= 768;
+  // Wrapping layout: the full label fits, so no width cap / ellipsis.
+  const chipStyle = wrap ? styles.chipWrapped : styles.chipStrip;
   const content = (
     <>
       <Chip
         label={t("dua.allOccasions")}
         count={totalCount}
-        active={selected == null}
-        wrapped={wrap}
+        variant="solid"
+        selected={selected == null}
+        style={chipStyle}
         onPress={() => onSelect(null)}
       />
       {chips.map((chip) => (
@@ -46,8 +46,9 @@ export function DuaOccasionChips({ chips, selected, onSelect, totalCount }: DuaO
           key={chip.key}
           label={chip.label}
           count={chip.count}
-          active={selected === chip.key}
-          wrapped={wrap}
+          variant="solid"
+          selected={selected === chip.key}
+          style={chipStyle}
           onPress={() => onSelect(selected === chip.key ? null : chip.key)}
         />
       ))}
@@ -74,67 +75,9 @@ export function DuaOccasionChips({ chips, selected, onSelect, totalCount }: DuaO
   );
 }
 
-function Chip({
-  label,
-  count,
-  active,
-  wrapped,
-  onPress,
-}: {
-  label: string;
-  count: number;
-  active: boolean;
-  /** Wrapping layout: the full label fits, so no width cap / ellipsis. */
-  wrapped: boolean;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-  const fg = active ? colors.accentForeground : colors.foreground;
-  return (
-    <PressableScale
-      haptic="selection"
-      accessibilityRole="button"
-      accessibilityState={{ selected: active }}
-      accessibilityLabel={`${label}, ${count}`}
-      onPress={onPress}
-      style={[
-        styles.chip,
-        wrapped && styles.chipWrapped,
-        tv && styles.chipTv,
-        active
-          ? { backgroundColor: colors.accent, borderColor: colors.accent }
-          : { backgroundColor: colors.muted, borderColor: tokens.hairline },
-      ]}
-    >
-      <ThemedText type="caption" numberOfLines={1} style={[styles.label, { color: fg }]}>
-        {label}
-      </ThemedText>
-      <ThemedText
-        type="caption"
-        style={[styles.count, { color: active ? fg : colors.mutedForeground }]}
-      >
-        {count}
-      </ThemedText>
-    </PressableScale>
-  );
-}
-
 const styles = StyleSheet.create({
   row: { flexDirection: "row", gap: Spacing.two, paddingVertical: 2 },
   wrap: { flexWrap: "wrap" },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    minHeight: tvDp(36),
-    maxWidth: tvDp(260),
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.pill,
-    borderWidth: 1,
-  },
+  chipStrip: { maxWidth: tvDp(260) },
   chipWrapped: { maxWidth: "100%" },
-  chipTv: { minHeight: TvLayout.minFocusTarget, paddingHorizontal: Spacing.four },
-  label: { flexShrink: 1, fontWeight: "600" },
-  count: { fontVariant: ["tabular-nums"] },
 });

@@ -52,8 +52,9 @@ const DIRECT_WRITES: readonly RegExp[] = [
  * (or location data captured as part of a flow) rather than a user option.
  */
 const ALLOWLIST: Readonly<Record<string, string>> = {
-  "app/(tabs)/tracker.tsx": "`activeExcusedReason` (excused period) — user data, not a setting.",
   "app/profile/index.tsx": "Account identity (`displayName`, `avatarUri`) edited in Account.",
+  "components/tracker/use-salah-tracking-session.ts":
+    "`salahTrackingSession` (the running Salah tracking session) — runtime state, not a setting.",
   "components/locale-path-bootstrap.tsx":
     "Web `/<locale>/…` URL bootstrap adopts the path's locale before first paint.",
   "components/settings/editors/location-picker.tsx":

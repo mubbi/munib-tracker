@@ -13,8 +13,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { dhulHijjahDate } from "@/lib/dhul-hijjah";
-import { locationCalcExtras } from "@/lib/location";
-import { computePrayerTimes } from "@/lib/prayer-times";
+import { computeLocationPrayerTimes } from "@/lib/location";
 import { formatDisplayHhMm, getZonedParts } from "@/lib/time";
 import { isPilgrimForHijriYear } from "@/lib/voluntary-fasting";
 import { useLocation } from "@/stores/location-store";
@@ -49,12 +48,9 @@ export function ArafahSection({ year, isToday }: { year: number; isToday: boolea
 
   const date = dhulHijjahDate(year, 9);
   const [y, m, d] = date.split("-").map(Number);
-  const times = computePrayerTimes(
-    { latitude: location.latitude, longitude: location.longitude },
+  const times = computeLocationPrayerTimes(
+    location,
     new Date(y as number, (m as number) - 1, d as number, 12),
-    location.method,
-    location.madhab,
-    locationCalcExtras(location),
   );
   const fmt = (at: Date) => {
     const parts = getZonedParts(at, location.timeZone);

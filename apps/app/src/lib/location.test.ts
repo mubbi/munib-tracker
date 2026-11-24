@@ -201,6 +201,30 @@ describe("resolvePlaceFromCoordinates", () => {
   });
 });
 
+describe("reverse geocode timeout", () => {
+  afterEach(() => {
+    jest.useRealTimers();
+    jest.mocked(globalThis.fetch).mockRestore?.();
+  });
+
+  it("gives up on an unanswered geocoder request and falls back to coordinates", async () => {
+    jest.useFakeTimers();
+    const fetchMock = jest.fn(
+      (_url: string, init?: RequestInit) =>
+        new Promise<Response>((_resolve, reject) => {
+          init?.signal?.addEventListener("abort", () => reject(new Error("aborted")));
+        }),
+    );
+    jest.spyOn(globalThis, "fetch").mockImplementation(fetchMock as unknown as typeof fetch);
+
+    const pending = resolvePlaceFromCoordinates(-33.91, 18.42);
+    await jest.advanceTimersByTimeAsync(8_000);
+
+    await expect(pending).resolves.toMatchObject({ label: "-33.91, 18.42" });
+    expect(fetchMock.mock.calls[0]?.[1]?.signal).toBeDefined();
+  });
+});
+
 describe("searchLocations", () => {
   it("skips the network for queries shorter than two characters", async () => {
     const fetchMock = mockFetch(fakeResponse({ results: [] }));

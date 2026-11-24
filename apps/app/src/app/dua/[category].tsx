@@ -1,6 +1,6 @@
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type ListRenderItem, StyleSheet, View } from "react-native";
 import { DuaListRow } from "@/components/dua/dua-list-row";
@@ -16,8 +16,9 @@ import { SearchField } from "@/components/ui/search-field";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
 import { Radius, Spacing } from "@/constants/theme";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { loadDuaItems } from "@/lib/content-loaders";
+import { DUA_CORPUS } from "@/lib/content-loaders";
 import {
   DUA_CATEGORY_IDS,
   type DuaSection,
@@ -73,19 +74,7 @@ export default function DuaCategoryScreen() {
   const topicParam = paramValue(params.topic);
   const topic = isDuaTopicId(topicParam) ? topicParam : null;
   const hue = useCategoryHue(duaCategoryGroup(categoryId).hue);
-  const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    let active = true;
-    void loadDuaItems().then((items) => {
-      if (!active) return;
-      setDuaItems(items);
-      setCorpusReady(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  const { items: duaItems, ready: corpusReady } = useContentCorpus(DUA_CORPUS);
   const items = useMemo(
     () =>
       topic

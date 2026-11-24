@@ -9,6 +9,7 @@ import {
 import { isTV } from "@/lib/platform/is-tv";
 import {
   type CalculationMethodKey,
+  computePrayerTimes,
   DEFAULT_CALCULATION_METHOD,
   DEFAULT_MADHAB,
   type HighLatitudeRuleKey,
@@ -90,6 +91,24 @@ export function locationCalcExtras(location: StoredLocation): PrayerCalcExtras {
   };
 }
 
+/**
+ * The `adhan` prayer times for a stored location on `day` (a prayer-day anchor),
+ * with its method, Asr madhab, high-latitude rule and per-prayer offsets — the
+ * one way reminders, the tracker and the guides compute a location's times.
+ */
+export function computeLocationPrayerTimes(
+  location: StoredLocation,
+  day: Date,
+): ReturnType<typeof computePrayerTimes> {
+  return computePrayerTimes(
+    { latitude: location.latitude, longitude: location.longitude },
+    day,
+    location.method,
+    location.madhab,
+    locationCalcExtras(location),
+  );
+}
+
 interface Place {
   city?: string;
   country?: string;
@@ -133,6 +152,9 @@ export function clearReverseGeocodeMemoryCache(): void {
   reverseGeocodeInflight.clear();
 }
 
+/** Upper bound for the network reverse-geocode request. */
+const REVERSE_GEOCODE_TIMEOUT_MS = 8_000;
+
 async function fetchReverseGeocodeFromNetwork(
   latitude: number,
   longitude: number,
@@ -154,9 +176,14 @@ async function fetchReverseGeocodeFromNetwork(
   }
 
   // BigDataCloud client endpoint — free, no API key, CORS-enabled, open data.
+  // Bounded: an unanswered request must not keep "Use my location" spinning
+  // after the fix itself arrived (the label falls back to coordinates).
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), REVERSE_GEOCODE_TIMEOUT_MS);
   try {
     const res = await fetch(
       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`,
+      { signal: controller.signal },
     );
     if (res.ok) {
       const data = (await res.json()) as {
@@ -173,6 +200,8 @@ async function fetchReverseGeocodeFromNetwork(
     }
   } catch {
     // Ignore — caller falls back to a coordinate label.
+  } finally {
+    clearTimeout(timer);
   }
   return {};
 }

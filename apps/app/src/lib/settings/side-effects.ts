@@ -1,13 +1,8 @@
-import { rescheduleAll } from "@/notifications/scheduler";
-import { locationStore } from "@/stores/location-store";
-import { preferencesStore } from "@/stores/preferences-store";
+import { rescheduleReminders } from "@/lib/notifications/reschedule";
 
 import type { SettingSideEffect } from "./types";
 
-/** Rebuild scheduled reminders from the current prefs + location. */
-export function rescheduleReminders(): Promise<void> {
-  return rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
-}
+export { rescheduleReminders };
 
 /**
  * Run a setting's declared side effects once after its write. Prayer times are

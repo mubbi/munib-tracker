@@ -9,7 +9,7 @@ import {
   withHijriOffset,
   withoutHijriMonthStarts,
 } from "@/lib/hijri-adjustment";
-import { rescheduleAll } from "@/notifications/scheduler";
+import { rescheduleReminders } from "@/lib/notifications/reschedule";
 import { locationStore } from "@/stores/location-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -55,7 +55,7 @@ export async function saveHijriAdjustment(next: HijriAdjustment | undefined): Pr
   const value: HijriAdjustment = next ?? { offsetDays: 0, updatedAt: new Date().toISOString() };
   await preferencesStore.getState().update({ hijriAdjustment: value });
   try {
-    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+    await rescheduleReminders();
   } catch {
     // Reminders resync on next foreground; the date change itself is saved.
   }

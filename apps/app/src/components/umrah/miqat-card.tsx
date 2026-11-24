@@ -4,7 +4,7 @@ import {
   minutesUntilFlightMiqat,
   nextLocalTime,
 } from "@munib-tracker/shared/utils";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AccessibilityInfo, Platform, StyleSheet, TextInput, View } from "react-native";
 
@@ -20,6 +20,8 @@ import { checkMiqatProximity } from "@/lib/umrah/miqat";
 
 /** Silent re-check cadence while the miqat step is open (foreground only). */
 const RECHECK_MS = 2 * 60_000;
+/** Flight countdown refresh (it shows whole minutes). */
+const FLIGHT_TICK_MS = 30_000;
 const LOCATION_ICON = { ios: "location.fill", android: "my_location", web: "my_location" } as const;
 const TIMER_ICON = { ios: "timer", android: "timer", web: "timer" } as const;
 
@@ -145,11 +147,11 @@ function FlightTimer({
   const [input, setInput] = useState("");
   const [invalid, setInvalid] = useState(false);
   const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    if (!flightMiqatAt) return;
-    const id = setInterval(() => setNow(new Date()), 30_000);
-    return () => clearInterval(id);
-  }, [flightMiqatAt]);
+  // Countdown refresh: foreground only, and straight away on return to the app.
+  useForegroundInterval(() => setNow(new Date()), FLIGHT_TICK_MS, {
+    enabled: !!flightMiqatAt,
+    immediate: false,
+  });
 
   const minutes = minutesUntilFlightMiqat(flightMiqatAt, now);
   const save = () => {

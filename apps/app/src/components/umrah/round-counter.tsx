@@ -1,6 +1,6 @@
 import type { UmrahRoundKind } from "@munib-tracker/shared/types";
 import { saiDirection, UMRAH_ROUNDS } from "@munib-tracker/shared/utils";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type AccessibilityActionEvent, AccessibilityInfo, StyleSheet, View } from "react-native";
 
@@ -8,6 +8,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { useForegroundInterval } from "@/hooks/use-foreground-interval";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { triggerHaptic } from "@/lib/haptics";
@@ -107,15 +108,6 @@ export function RoundCounter({
     return true;
   }, !readOnly && !done);
 
-  // Live timer for the round in progress (ticks once a second while visible).
-  const [now, setNow] = useState(() => Date.now());
-  useEffect(() => {
-    if (!showTimer || done || !currentStartedAt) return;
-    const id = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(id);
-  }, [showTimer, done, currentStartedAt]);
-  const currentMs = currentStartedAt ? now - Date.parse(currentStartedAt) : 0;
-
   const direction = kind === "sai" ? saiDirection(laps) : null;
   const handleA11yAction = (event: AccessibilityActionEvent) => {
     if (event.nativeEvent.actionName === "increment" || event.nativeEvent.actionName === "activate")
@@ -206,9 +198,7 @@ export function RoundCounter({
                 </ThemedText>
               ) : null}
               {showTimer && isNext && !readOnly && currentStartedAt ? (
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {formatLapDuration(currentMs)}
-                </ThemedText>
+                <LiveLapTimer startedAt={currentStartedAt} />
               ) : null}
             </PressableScale>
           );
@@ -236,6 +226,20 @@ export function RoundCounter({
         </View>
       )}
     </View>
+  );
+}
+
+/**
+ * The round in progress, ticking once a second. Only this caption re-renders
+ * (not the seven tiles), and the tick stops while the app is in the background.
+ */
+function LiveLapTimer({ startedAt }: { startedAt: string }) {
+  const [now, setNow] = useState(() => Date.now());
+  useForegroundInterval(() => setNow(Date.now()), 1000);
+  return (
+    <ThemedText type="caption" themeColor="mutedForeground">
+      {formatLapDuration(now - Date.parse(startedAt))}
+    </ThemedText>
   );
 }
 

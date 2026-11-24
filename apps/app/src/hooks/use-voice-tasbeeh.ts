@@ -1,6 +1,6 @@
-import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
 import { useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { AppState, Platform } from "react-native";
+import { AppState } from "react-native";
+import { setTaggedKeepAwake } from "@/lib/audio-keep-awake";
 import { isTV } from "@/lib/platform/is-tv";
 import { useRecitationCapture } from "@/lib/quran-companion/audio/capture";
 import type { MicPermission } from "@/lib/quran-companion/audio/types";
@@ -278,13 +278,7 @@ export function useVoiceTasbeeh({
     pipelineRef.current = null;
     setLevel(0);
     setSpeaking(false);
-    if (Platform.OS !== "web") {
-      try {
-        await deactivateKeepAwake(KEEP_AWAKE_TAG);
-      } catch {
-        // not active
-      }
-    }
+    await setTaggedKeepAwake(KEEP_AWAKE_TAG, false);
     await pipeline?.stop();
     await stopTeachPipeline();
   }, [stopTeachPipeline]);
@@ -351,7 +345,7 @@ export function useVoiceTasbeeh({
       send({ type: "prepare", at: Date.now() });
       // Recitation through the speaker would be counted: pause the app's player.
       if (audio?.isPlaying) audio.toggle();
-      if (Platform.OS !== "web") void activateKeepAwakeAsync(KEEP_AWAKE_TAG).catch(() => {});
+      void setTaggedKeepAwake(KEEP_AWAKE_TAG, true);
       try {
         // Loaded on first use: the pipeline and its DSP / ORT loaders stay out of
         // the counter screens' startup graph.

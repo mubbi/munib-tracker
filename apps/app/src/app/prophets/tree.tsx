@@ -18,6 +18,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { Chip } from "@/components/ui/chip";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
@@ -238,36 +239,22 @@ export default function ProphetsTreeScreen() {
           </View>
 
           <HorizontalChipRow accessibilityLabel={t("prophets.tree.allBranches")}>
-            <PressableScale
+            <Chip
+              label={t("prophets.tree.allBranches")}
+              selected={activeBranch === null}
               onPress={() => setActiveBranch(null)}
-              accessibilityRole="button"
-              accessibilityState={{ selected: activeBranch === null }}
-              style={[styles.branchChip, tv && styles.chipTv]}
-            >
-              <Pill
-                compact
-                label={t("prophets.tree.allBranches")}
-                color={activeBranch === null ? colors.accent : colors.mutedForeground}
-                background={activeBranch === null ? tokens.accentSoft : colors.card}
-              />
-            </PressableScale>
+              style={styles.branchChip}
+            />
             {branchOrder.map((branch) => {
               const selectedBranch = activeBranch === branch;
               return (
-                <PressableScale
+                <Chip
                   key={branch}
+                  label={t(`prophets.tree.branch.${branch}`)}
+                  selected={selectedBranch}
                   onPress={() => setActiveBranch(selectedBranch ? null : branch)}
-                  accessibilityRole="button"
-                  accessibilityState={{ selected: selectedBranch }}
-                  style={[styles.branchChip, tv && styles.chipTv]}
-                >
-                  <Pill
-                    compact
-                    label={t(`prophets.tree.branch.${branch}`)}
-                    color={selectedBranch ? colors.accent : colors.mutedForeground}
-                    background={selectedBranch ? tokens.accentSoft : colors.card}
-                  />
-                </PressableScale>
+                  style={styles.branchChip}
+                />
               );
             })}
           </HorizontalChipRow>

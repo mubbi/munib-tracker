@@ -17,6 +17,7 @@ import {
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
+import { ControlLabel, PrefToggle } from "@/components/content/pref-toggle";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { HadithIsnadChain } from "@/components/hadith/hadith-isnad-chain";
 import { HadithSharhBlock } from "@/components/hadith/hadith-sharh-block";
@@ -34,11 +35,10 @@ import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { HadithRepository } from "@/db";
@@ -1190,102 +1190,6 @@ const CONTROL_ICONS = {
   textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
 } as const satisfies Record<string, SymbolViewProps["name"]>;
 
-function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
-  const { colors } = useThemeTokens();
-  const tv = isTV();
-  return (
-    <View style={styles.controlLabel}>
-      <SymbolView name={icon} size={tv ? 22 : 18} tintColor={colors.mutedForeground} />
-      <ThemedText type="smallBold" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
-        {label}
-      </ThemedText>
-    </View>
-  );
-}
-
-function PrefToggle({
-  icon,
-  label,
-  enabled,
-  onToggle,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  enabled: boolean;
-  onToggle: () => void;
-}) {
-  const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-
-  // TV remotes struggle with native Switch thumbs — whole-row pressables with a
-  // clear on/off chrome are easier to focus and activate with Select.
-  if (tv) {
-    return (
-      <PressableScale
-        haptic="selection"
-        accessibilityRole="switch"
-        accessibilityLabel={label}
-        accessibilityState={{ checked: enabled }}
-        onPress={onToggle}
-        scaleTo={0.98}
-        style={[
-          styles.prefToggleTv,
-          {
-            backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-            borderColor: enabled ? colors.accent : tokens.hairline,
-          },
-        ]}
-      >
-        <SymbolView
-          name={icon}
-          size={22}
-          tintColor={enabled ? colors.accent : colors.mutedForeground}
-        />
-        <ThemedText
-          type="smallBold"
-          numberOfLines={2}
-          style={{
-            flex: 1,
-            minWidth: 0,
-            fontSize: TvLayout.bodyFontSize,
-            color: enabled ? colors.accentText : colors.foreground,
-          }}
-        >
-          {label}
-        </ThemedText>
-        <View
-          style={[
-            styles.prefToggleStateTv,
-            {
-              backgroundColor: enabled ? colors.accent : withAlpha(colors.mutedForeground, 0.2),
-            },
-          ]}
-        >
-          <ThemedText
-            type="caption"
-            style={{
-              color: enabled ? colors.accentForeground : colors.mutedForeground,
-              fontWeight: "700",
-            }}
-          >
-            {enabled ? t("common.on") : t("common.off")}
-          </ThemedText>
-        </View>
-      </PressableScale>
-    );
-  }
-
-  return (
-    <View style={[styles.controlRow, styles.toggleRow]}>
-      <ControlLabel icon={icon} label={label} />
-      <View style={styles.controlValue}>
-        <ThemedSwitch value={enabled} onValueChange={onToggle} accessibilityLabel={label} />
-      </View>
-    </View>
-  );
-}
-
 /** Comfortable line length for long-form hadith reading on wide screens. */
 const HadithReadingMaxWidth = 720;
 
@@ -1413,41 +1317,12 @@ const styles = StyleSheet.create({
   translationRow: {
     alignItems: "center",
   },
-  toggleRow: {
-    paddingVertical: Spacing.half,
-  },
-  controlLabel: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    flexShrink: 1,
-    minWidth: 0,
-  },
   controlValue: {
     flexShrink: 0,
   },
   controlValueTv: {
     width: "100%",
     flexShrink: 1,
-  },
-  prefToggleTv: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    minHeight: TvLayout.minFocusTarget,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-  },
-  prefToggleStateTv: {
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.one,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    minWidth: 44,
-    alignItems: "center",
   },
   cardHeader: {
     flexDirection: "row",

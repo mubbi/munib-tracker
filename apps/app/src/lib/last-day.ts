@@ -7,6 +7,7 @@ import * as lastDayVerses from "@munib-tracker/shared/content/last-day-verses";
 import type { LastDaySection, LastDayTopic } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
+import { groupBySection, moveAfter } from "@/lib/sectioned-guide";
 
 /**
  * English corpus is statically imported with the `/last-day` route chunk.
@@ -38,27 +39,9 @@ export function getLastDayTopic(id: string | undefined): LastDayTopic | undefine
 }
 
 export function getLastDayTopicsBySection(): Record<LastDaySection, LastDayTopic[]> {
-  const grouped = Object.fromEntries(
-    corpus.LAST_DAY_SECTION_ORDER.map((section) => [section, [] as LastDayTopic[]]),
-  ) as Record<LastDaySection, LastDayTopic[]>;
-
-  for (const topic of getLastDayTopics()) {
-    const bucket = grouped[topic.section];
-    if (bucket) bucket.push(topic);
-  }
-
+  const grouped = groupBySection(getLastDayTopics(), corpus.LAST_DAY_SECTION_ORDER);
   // Keep the Scale catalog immediately after the Mizan theology lesson.
-  const events = grouped.events;
-  if (events?.length) {
-    const heavyIdx = events.findIndex((t) => t.id === "heavy-on-the-scale");
-    const scaleIdx = events.findIndex((t) => t.id === "scale");
-    if (heavyIdx >= 0 && scaleIdx >= 0 && heavyIdx !== scaleIdx + 1) {
-      const [heavy] = events.splice(heavyIdx, 1);
-      const insertAt = events.findIndex((t) => t.id === "scale") + 1;
-      events.splice(insertAt, 0, heavy);
-    }
-  }
-
+  moveAfter(grouped.events, "heavy-on-the-scale", "scale");
   return grouped;
 }
 

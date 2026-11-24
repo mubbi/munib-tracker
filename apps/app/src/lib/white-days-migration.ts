@@ -16,7 +16,8 @@ import { isWhiteDayHijri } from "@/lib/white-days";
  *
  * - **One-shot per row.** A row is migrated exactly once: afterwards it carries
  *   `migratedDate` (the date it was folded into), written back to the legacy key
- *   (which still syncs, so other devices skip it too). A later run never
+ *   (device-local: the `white_days_checklist` sync entity is retired, so each
+ *   device folds its own rows; the fasts sync as `voluntary_fasting`). A later run never
  *   re-derives a date for a consumed row, so changing the Hijri adjustment, a
  *   month correction or the sighting observer can't mint phantom fasts.
  * - A row's stored Gregorian `date` (if any) wins over the Hijri → date mapping.
@@ -24,12 +25,12 @@ import { isWhiteDayHijri } from "@/lib/white-days";
  *   sits within ±5 days stamped with the row's own `completedAt` is treated as
  *   already migrated (only the migration writes that exact stamp).
  * - A date that already has a voluntary entry (live or tombstone) is never
- *   touched, so old rows arriving later by sync never override a newer choice.
+ *   touched, so a newer choice (or a fast synced from another device) is never overridden.
  * - `updatedAt` is the original tick time, so two devices migrating the same row
  *   write identical entries (per-date LWW stays stable).
  * - Ticks on a day no voluntary fast can be logged (13 Dhul-Hijjah, Ramadan) are
  *   skipped.
- * - The old key is left in place (still synced, readable) for one release.
+ * - The old key is left in place (local only, readable).
  */
 
 export interface LegacyWhiteDayFast {

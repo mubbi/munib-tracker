@@ -81,3 +81,23 @@ export function getZikrByIdFrom(items: ZikrItem[], id: string): ZikrItem | undef
 export function getDuroodByIdFrom(items: DurudItem[], id: string): DurudItem | undefined {
   return items.find((item) => item.id === id);
 }
+
+/**
+ * A lazily loaded corpus: `load()` resolves (and caches) it, `peek()` returns it
+ * synchronously once warm. Screens read these through `useContentCorpus` so a
+ * revisit paints the full list on the first frame instead of an empty one.
+ */
+export type ContentCorpus<T> = {
+  load: () => Promise<T[]>;
+  peek: () => T[] | undefined;
+};
+
+export const DUA_CORPUS: ContentCorpus<DuaItem> = { load: loadDuaItems, peek: () => duaCache };
+export const DUROOD_CORPUS: ContentCorpus<DurudItem> = {
+  load: loadDuroodItems,
+  peek: () => duroodCache,
+};
+export const NAMES_CORPUS: ContentCorpus<NameOfAllah> = {
+  load: loadNamesOfAllah,
+  peek: () => namesCache,
+};

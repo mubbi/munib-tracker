@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -8,11 +7,12 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FavoritesOrderRow } from "@/components/ui/favorites-order-row";
 import { Spacing } from "@/constants/theme";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
+import { getZikrById, ZIKR_CORPUS } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
@@ -24,10 +24,7 @@ export default function ZikrFavoritesScreen() {
   const order = useFavoriteZikrIds();
   const { setFavoriteOrder, toggleFavorite } = usePreferencesActions();
   const zikrCounts = useZikrCounts();
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    void ensureZikrCorpus().then(() => setCorpusReady(true));
-  }, []);
+  const { ready: corpusReady } = useContentCorpus(ZIKR_CORPUS);
 
   const items = order.map((id) => getZikrById(id)).filter((item) => item != null);
 

@@ -1,7 +1,6 @@
-import type { DuaItem } from "@munib-tracker/shared/types";
-import { useEffect, useState } from "react";
 import { ReadingCard } from "@/components/content/reading-card";
-import { getDuaByIdFrom, loadDuaItems } from "@/lib/content-loaders";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
+import { DUA_CORPUS, getDuaByIdFrom } from "@/lib/content-loaders";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
@@ -13,17 +12,8 @@ import {
  * ReadingCard (Arabic, transliteration, translation, audio, favorites).
  */
 export function LinkedDuaCard({ duaId, sourceHref }: { duaId: string; sourceHref?: string }) {
-  const [dua, setDua] = useState<DuaItem | undefined>();
-  useEffect(() => {
-    let cancelled = false;
-    void loadDuaItems().then((items) => {
-      if (cancelled) return;
-      setDua(getDuaByIdFrom(items, duaId));
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [duaId]);
+  const { items } = useContentCorpus(DUA_CORPUS);
+  const dua = getDuaByIdFrom(items, duaId);
 
   useEnsureDuaFavoritesLoaded();
   const isFavorite = useIsFavoriteDua(duaId);

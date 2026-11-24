@@ -1,7 +1,7 @@
 import type { NameOfAllah } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type FlatList,
@@ -32,13 +32,14 @@ import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
-import { loadNamesOfAllah } from "@/lib/content-loaders";
+import { NAMES_CORPUS } from "@/lib/content-loaders";
 import { buildNamesActivity } from "@/lib/continue-activity";
 import { cueStartSec, isNamesCompleteTrack } from "@/lib/names-complete-cues";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -105,10 +106,7 @@ export default function NamesOfAllahScreen() {
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
   const [query, setQuery] = useState("");
-  const [allNames, setAllNames] = useState<Name[]>([]);
-  useEffect(() => {
-    void loadNamesOfAllah().then(setAllNames);
-  }, []);
+  const { items: allNames } = useContentCorpus(NAMES_CORPUS);
   const index = useMemo(() => createNameSearch(allNames), [allNames]);
   const names = query.trim() ? index.search(query) : allNames;
   const numberById = useMemo(

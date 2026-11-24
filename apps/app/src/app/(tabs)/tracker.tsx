@@ -25,6 +25,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { ThemedText } from "@/components/themed-text";
+import { useSalahTrackingSession } from "@/components/tracker/use-salah-tracking-session";
 import { TrackerDayChecklist } from "@/components/tracker-day-checklist";
 import {
   type TrackerProgressRingItem,
@@ -61,39 +62,22 @@ import {
   isZikrItemDone,
   totalAfterSalahProgress,
 } from "@/lib/after-salah-adhkar-progress";
-import { buildWidgetSnapshot } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
 import { FRIDAY_CHECKLIST_FOCUS } from "@/lib/friday";
 import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
 import { buildAchievementInAppNotification } from "@/lib/in-app-notifications/content";
 import { khatmTodayProgress } from "@/lib/khatm";
-import { toAppLocale } from "@/lib/locale-bcp47";
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
-import {
-  getExpoPushToken,
-  registerWebPushSubscriptionWithApi,
-} from "@/lib/notifications/register-push-token";
 import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
-import { createSalahTrackingSession, endSalahTrackingSession } from "@/lib/salah-phase";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import {
-  endSurfacePushRegistration,
-  registerSurfacePushSchedule,
-} from "@/lib/surface-push/register";
 import { WHITE_DAYS_CHECKLIST_FOCUS } from "@/lib/white-days";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
-import { useAuth } from "@/providers/auth-provider";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
-import { useTheme } from "@/providers/theme-provider";
 import { useToast } from "@/providers/toast-provider";
 import { useEnsureKhatmLoaded, useKhatm } from "@/stores/khatm-store";
-import { useLocation, useLocationStatus } from "@/stores/location-store";
-import {
-  preferencesStore,
-  usePreferences,
-  usePreferencesActions,
-} from "@/stores/preferences-store";
+import { useLocationStatus } from "@/stores/location-store";
+import { preferencesStore, usePreferences } from "@/stores/preferences-store";
 import {
   type SetPrayerStatusOptions,
   useAchievementStats,
@@ -116,8 +100,6 @@ function encouragementKey(progress: number): string {
   return "tracker.almostThere";
 }
 
-const CONFETTI_COLORS = ["#D4AF37", "#4CAF7D", "#5AA9E6", "#F2C94C"];
-
 const SALAH_ADHKAR_CATEGORY_IDS = ["after_azan", "before_prayer", "after_prayer"] as const;
 
 function buildSalahAdhkar() {
@@ -127,13 +109,11 @@ function buildSalahAdhkar() {
   );
 }
 
-function buildSalahAdhkarItems() {
-  return buildSalahAdhkar().flatMap((category) => zikrByCategory(category.id));
-}
-
-/** A zikr counts as done today once its daily target is met (or it was recited when it has no target). */
-function isZikrDone(count: number, targetCount?: number): boolean {
-  return isZikrItemDone(count, targetCount);
+/** Before-Salah / after-adhan adhkar counted by the glance ring (after-Salah has its own totals). */
+function buildGlanceAdhkarItems() {
+  return buildSalahAdhkar()
+    .flatMap((category) => zikrByCategory(category.id))
+    .filter((item) => item.categoryId !== "after_prayer");
 }
 
 /** Window width at/above which the tracker uses a dashboard (main + aside) layout. */
@@ -143,11 +123,8 @@ export default function TrackerScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { scheme, colorMode } = useTheme();
-  const location = useLocation();
   const locationStatus = useLocationStatus();
-  const { salahTrackingSession, timeFormat, defaultCalendar, translationLocale } = usePreferences();
-  const { update: updatePrefs } = usePreferencesActions();
+  const { salahTrackingSession } = usePreferences();
   const summary = useDailySummary();
   const streak = useStreak();
   const devotion = useDevotionProgress();
@@ -220,8 +197,11 @@ export default function TrackerScreen() {
     [remindAfterSalahAdhkar, setPrayerStatus, status],
   );
 
-  const trackingActive =
-    salahTrackingSession?.status === "active" && !salahTrackingSession.dismissed;
+  const {
+    active: trackingActive,
+    start: startTrackingSalah,
+    stop: stopTrackingSalah,
+  } = useSalahTrackingSession();
 
   const progress = summary.salahTotal ? summary.salahCompleted / summary.salahTotal : 0;
   const isComplete = progress >= 1;
@@ -236,6 +216,10 @@ export default function TrackerScreen() {
   const formatCount = (value: number) => value.toLocaleString(locale);
   const devotionLevelProgress = devotion.noor - devotion.noorForCurrentLevel;
   const devotionLevelSpan = devotion.noorForNextLevel - devotion.noorForCurrentLevel;
+
+  // The adhkar catalog is static once loaded — build the ring's item list once,
+  // not on every Salah mark.
+  const otherAdhkarItems = useMemo(() => (zikrReady ? buildGlanceAdhkarItems() : []), [zikrReady]);
 
   // At-a-glance completion rings for every other daily group tracked on this
   // screen, so the top of the tracker summarizes the whole day at once.
@@ -269,11 +253,8 @@ export default function TrackerScreen() {
     const witrDone = (status[WITR_PRAYER] ?? "pending") === "completed" ? 1 : 0;
     const afterSalahTotals = totalAfterSalahProgress(zikrCounts);
     const witrAfterSalah = afterSalahProgressForPrayer(WITR_PRAYER, zikrCounts);
-    const otherAdhkarItems = (zikrReady ? buildSalahAdhkarItems() : []).filter(
-      (item) => item.categoryId !== "after_prayer",
-    );
     const otherAdhkarCompleted = otherAdhkarItems.filter((item) =>
-      isZikrDone(zikrCounts[item.id] ?? 0, item.targetCount),
+      isZikrItemDone(zikrCounts[item.id] ?? 0, item.targetCount),
     ).length;
     const adhkarCompleted =
       afterSalahTotals.completed + witrAfterSalah.completed + otherAdhkarCompleted;
@@ -318,124 +299,6 @@ export default function TrackerScreen() {
   const [celebrationKey, setCelebrationKey] = useState(0);
   const toast = useToast();
   const { deliver } = useInAppNotifications();
-  const { session } = useAuth();
-
-  const buildTrackingSnapshot = useCallback(() => {
-    const locationDenied = locationStatus === "denied";
-    const locale = toAppLocale(i18n.language ?? "en");
-    return buildWidgetSnapshot({
-      location: locationDenied ? null : location,
-      locationDenied,
-      locale,
-      translationLocale: toAppLocale(translationLocale ?? locale),
-      calendar: defaultCalendar,
-      timeFormat,
-      theme: {
-        isDark: scheme === "dark",
-        primaryColor: colors.accent,
-        followsSystem: colorMode === "system",
-      },
-      salahCompleted: summary.salahCompleted,
-      salahTotal: summary.salahTotal,
-      prayerStatus: status,
-      streakDays: summary.streakDays,
-      qazaRemaining: summary.qazaRemaining,
-      qazaCompletedToday: summary.qazaCompletedToday,
-      qazaTargetToday: summary.qazaTargetToday,
-      khatmPlan,
-      khatmAyahsRead: khatmRead,
-      tasbeehToday: null,
-      fridayChecklistDone: {},
-      t,
-    });
-  }, [
-    colorMode,
-    colors.accent,
-    defaultCalendar,
-    i18n.language,
-    khatmPlan,
-    khatmRead,
-    location,
-    locationStatus,
-    scheme,
-    status,
-    summary.qazaCompletedToday,
-    summary.qazaRemaining,
-    summary.qazaTargetToday,
-    summary.salahCompleted,
-    summary.salahTotal,
-    summary.streakDays,
-    t,
-    timeFormat,
-    translationLocale,
-  ]);
-
-  const startTrackingSalah = useCallback(() => {
-    if (isTV()) return;
-    const snapshot = buildTrackingSnapshot();
-    if (snapshot.locationDenied) {
-      toast.error(t("notif.defaultLocationTitle"), t("notif.defaultLocationMessage"));
-      return;
-    }
-    const sessionState = createSalahTrackingSession(snapshot);
-    updatePrefs({ salahTrackingSession: sessionState });
-    triggerHaptic("success");
-
-    const accessToken = session?.accessToken;
-    if (!accessToken) return;
-    void (async () => {
-      try {
-        if (Platform.OS === "web") {
-          const subscription = await registerWebPushSubscriptionWithApi(accessToken);
-          if (!subscription?.endpoint || !subscription.keys?.p256dh || !subscription.keys?.auth) {
-            return;
-          }
-          await registerSurfacePushSchedule({
-            accessToken,
-            channel: "web_push",
-            target: JSON.stringify({
-              endpoint: subscription.endpoint,
-              expirationTime: subscription.expirationTime ?? null,
-              keys: { p256dh: subscription.keys.p256dh, auth: subscription.keys.auth },
-            }),
-            session: sessionState,
-            snapshot,
-            stopLabel: t("notif.trackSalah.stop"),
-          });
-        } else if (Platform.OS === "android") {
-          try {
-            const token = await getExpoPushToken();
-            if (token) {
-              await registerSurfacePushSchedule({
-                accessToken,
-                channel: "expo",
-                target: token,
-                session: sessionState,
-                snapshot,
-                stopLabel: t("notif.trackSalah.stop"),
-              });
-            }
-          } catch {
-            /* Expo Push is best-effort; local alarms remain authoritative. */
-          }
-        }
-      } catch {
-        /* remote schedule is best-effort; local alarms still run */
-      }
-    })();
-  }, [buildTrackingSnapshot, session?.accessToken, t, toast, updatePrefs]);
-
-  const stopTrackingSalah = useCallback(() => {
-    if (!salahTrackingSession) return;
-    updatePrefs({
-      salahTrackingSession: endSalahTrackingSession(salahTrackingSession, "ended"),
-    });
-    triggerHaptic("light");
-    const accessToken = session?.accessToken;
-    if (accessToken) {
-      void endSurfacePushRegistration(accessToken, undefined, "ended");
-    }
-  }, [salahTrackingSession, session?.accessToken, updatePrefs]);
 
   // Guards so we only fire on the pending -> complete *edge*, not every render.
   const prevCompleteRef = useRef<boolean | null>(null);
@@ -595,7 +458,7 @@ export default function TrackerScreen() {
       </Card>
 
       {/* Confetti overlays the summary card on a completion / unlock edge. */}
-      <PartyPopper burstKey={celebrationKey} colors={CONFETTI_COLORS} />
+      <PartyPopper burstKey={celebrationKey} colors={tokens.celebration} />
     </View>
   );
 

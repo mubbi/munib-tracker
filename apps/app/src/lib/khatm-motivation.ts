@@ -1,7 +1,7 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 
 import { ensureHadithItem } from "@/lib/prayer-info";
-import { getBundledEdition, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
+import { getSurahByNumber } from "@/lib/quran-meta";
 
 /** Curated entries resolved from bundled Qur'an + hadith (never hand-written religious text). */
 export type KhatmMotivationEntry =
@@ -56,11 +56,17 @@ export function dayMotivationSeed(date: string = getLocalDateString()): number {
   return hash;
 }
 
-function resolveQuran(surah: number, ayah: number): ResolvedKhatmMotivation | null {
+/**
+ * `@/lib/quran` (bundled ayah JSON, several MB) is imported on demand so it
+ * stays out of the khatm screen's chunk (docs/PROFILING.md).
+ */
+async function resolveQuran(surah: number, ayah: number): Promise<ResolvedKhatmMotivation | null> {
   const meta = getSurahByNumber(surah);
+  if (!meta) return null;
+  const { getBundledEdition, getSurahAyahs } = await import("@/lib/quran");
   const ayahs = getSurahAyahs(surah);
   const item = ayahs[ayah - 1];
-  if (!meta || !item) return null;
+  if (!item) return null;
 
   const translation =
     getBundledEdition("en-pickthall", surah)[String(ayah)] ??

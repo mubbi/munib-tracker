@@ -1,6 +1,5 @@
 import { gregorianToHijri, type HijriDate, hijriMonthLength } from "./hijri";
-import { locationCalcExtras, type StoredLocation } from "./location";
-import { computePrayerTimes } from "./prayer-times";
+import { computeLocationPrayerTimes, type StoredLocation } from "./location";
 import { prayerDayAnchor } from "./time";
 
 /** Ramadan is the 9th month of the Hijri calendar. */
@@ -42,13 +41,7 @@ export function getRamadanInfo(location: StoredLocation, now: Date = new Date())
   const hijri = gregorianToHijri(now, location.timeZone);
   const isRamadan = hijri.month === RAMADAN_MONTH;
   const anchor = prayerDayAnchor(now, location.timeZone);
-  const times = computePrayerTimes(
-    { latitude: location.latitude, longitude: location.longitude },
-    anchor,
-    location.method,
-    location.madhab,
-    locationCalcExtras(location),
-  );
+  const times = computeLocationPrayerTimes(location, anchor);
 
   const fastingLogHijriYear = getFastingLogHijriYear(hijri);
 

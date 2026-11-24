@@ -8,13 +8,14 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { ControlLabel, PrefToggle } from "@/components/content/pref-toggle";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { ToggleChip } from "@/components/ui/chip";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
@@ -347,149 +348,6 @@ export function ScriptureReaderChrome({
   );
 }
 
-function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
-  const { colors } = useThemeTokens();
-  const tv = isTV();
-  return (
-    <View style={styles.controlLabel}>
-      <SymbolView name={icon} size={tv ? 22 : 18} tintColor={colors.mutedForeground} />
-      <ThemedText type="smallBold" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
-        {label}
-      </ThemedText>
-    </View>
-  );
-}
-
-function PrefToggle({
-  icon,
-  label,
-  enabled,
-  onToggle,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  enabled: boolean;
-  onToggle: () => void;
-}) {
-  const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-
-  // TV remotes struggle with native Switch thumbs — whole-row pressables with a
-  // clear on/off chrome are easier to focus and activate with Select.
-  if (tv) {
-    return (
-      <PressableScale
-        haptic="selection"
-        accessibilityRole="switch"
-        accessibilityLabel={label}
-        accessibilityState={{ checked: enabled }}
-        onPress={onToggle}
-        scaleTo={0.98}
-        style={[
-          styles.prefToggleTv,
-          {
-            // On = soft fill + muted hairline; the solid accent ring is D-pad focus.
-            backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-            borderColor: enabled ? withAlpha(colors.accent, 0.35) : tokens.hairline,
-          },
-        ]}
-      >
-        <SymbolView
-          name={icon}
-          size={22}
-          tintColor={enabled ? colors.accent : colors.mutedForeground}
-        />
-        <ThemedText
-          type="smallBold"
-          numberOfLines={2}
-          style={{
-            flex: 1,
-            minWidth: 0,
-            fontSize: TvLayout.bodyFontSize,
-            color: enabled ? colors.accentText : colors.foreground,
-          }}
-        >
-          {label}
-        </ThemedText>
-        <View
-          style={[
-            styles.prefToggleStateTv,
-            { backgroundColor: enabled ? colors.accent : colors.card },
-          ]}
-        >
-          <ThemedText
-            type="caption"
-            style={{
-              color: enabled ? colors.accentForeground : colors.mutedForeground,
-              fontWeight: "700",
-            }}
-          >
-            {enabled ? t("common.on") : t("common.off")}
-          </ThemedText>
-        </View>
-      </PressableScale>
-    );
-  }
-
-  return (
-    <View style={[styles.controlRow, styles.toggleRow]}>
-      <ControlLabel icon={icon} label={label} />
-      <View style={styles.controlValue}>
-        <ThemedSwitch value={enabled} onValueChange={onToggle} accessibilityLabel={label} />
-      </View>
-    </View>
-  );
-}
-
-function ToggleChip({
-  icon,
-  label,
-  enabled,
-  accessibilityLabel,
-  onPress,
-}: {
-  icon: SymbolViewProps["name"];
-  label: string;
-  enabled: boolean;
-  accessibilityLabel: string;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-  const tint = enabled ? colors.accent : colors.mutedForeground;
-  return (
-    <PressableScale
-      haptic="selection"
-      accessibilityRole="switch"
-      accessibilityLabel={accessibilityLabel}
-      accessibilityState={{ checked: enabled }}
-      onPress={onPress}
-      style={[
-        styles.chip,
-        tv && styles.chipTv,
-        {
-          backgroundColor: enabled ? tokens.accentSoft : colors.muted,
-          borderColor: enabled
-            ? tv
-              ? withAlpha(colors.accent, 0.35)
-              : colors.accent
-            : "transparent",
-        },
-      ]}
-    >
-      <SymbolView name={icon} size={tv ? 20 : 16} tintColor={tint} />
-      <ThemedText
-        type="smallBold"
-        numberOfLines={1}
-        style={{ color: tint, fontSize: tv ? TvLayout.bodyFontSize : undefined }}
-      >
-        {label}
-      </ThemedText>
-    </PressableScale>
-  );
-}
-
 const styles = StyleSheet.create({
   filtersCard: { gap: Spacing.two },
   filtersCardTv: { gap: Spacing.three },
@@ -511,40 +369,12 @@ const styles = StyleSheet.create({
   translationRow: {
     alignItems: "center",
   },
-  toggleRow: {
-    paddingVertical: Spacing.half,
-  },
-  controlLabel: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    flexShrink: 1,
-  },
   controlValue: {
     flexShrink: 0,
   },
   controlValueTv: {
     width: "100%",
     flexShrink: 1,
-  },
-  prefToggleTv: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    minHeight: TvLayout.minFocusTarget,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-  },
-  prefToggleStateTv: {
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.one,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    minWidth: 44,
-    alignItems: "center",
   },
   bar: {
     overflow: "hidden",
@@ -579,24 +409,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.two,
   },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one + 2,
-    maxWidth: 200,
-    paddingVertical: Spacing.two - 1,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: 1,
-    borderColor: "transparent",
-  },
-  chipTv: {
-    maxWidth: 280,
-    minHeight: TvLayout.chipMinHeight,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.four,
-  },
+
   fontChip: {
     flexDirection: "row",
     alignItems: "center",

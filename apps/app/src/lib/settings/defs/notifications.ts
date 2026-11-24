@@ -7,6 +7,7 @@ import {
 } from "@munib-tracker/shared/constants";
 import { rulesFor } from "@munib-tracker/shared/fiqh/core";
 import type { PrayerId } from "@munib-tracker/shared/types";
+import type { TFunction } from "i18next";
 
 import { DEFAULT_ADHAN_STYLE } from "@/lib/adhan-audio";
 import { requestExactAlarmPermission } from "@/lib/notifications/exact-alarm";
@@ -62,6 +63,14 @@ function prayerAlert(
   };
 }
 
+/** "At the time" / "10 min before" / "5 min after" — row value and stepper label. */
+function formatReminderOffset(minutes: number, t: TFunction): string {
+  if (minutes === 0) return t("reminderOffsets.atTime");
+  return minutes < 0
+    ? t("reminderOffsets.before", { count: Math.abs(minutes) })
+    : t("reminderOffsets.after", { count: minutes });
+}
+
 function reminderOffset(prayerId: PrayerId): SettingDef<number> {
   return {
     id: `notifications.salah.offset.${prayerId}`,
@@ -75,12 +84,7 @@ function reminderOffset(prayerId: PrayerId): SettingDef<number> {
       min: PRAYER_REMINDER_OFFSET_MIN,
       max: PRAYER_REMINDER_OFFSET_MAX,
       step: 5,
-      format: (v, t) =>
-        v === 0
-          ? t("reminderOffsets.atTime")
-          : v < 0
-            ? t("reminderOffsets.before", { count: Math.abs(v) })
-            : t("reminderOffsets.after", { count: v }),
+      format: formatReminderOffset,
     },
     read: (s) => s.prefs.prayerReminderOffsets?.[prayerId] ?? 0,
     write: async (v) => {
@@ -92,12 +96,7 @@ function reminderOffset(prayerId: PrayerId): SettingDef<number> {
     },
     defaultValue: 0,
     enabledWhen: obligatoryOn,
-    summary: (v, t) =>
-      v === 0
-        ? t("reminderOffsets.atTime")
-        : v < 0
-          ? t("reminderOffsets.before", { count: Math.abs(v) })
-          : t("reminderOffsets.after", { count: v }),
+    summary: formatReminderOffset,
     sideEffects: ["reschedule-reminders"],
     shortcuts: [],
     fields: ["prefs.prayerReminderOffsets"],

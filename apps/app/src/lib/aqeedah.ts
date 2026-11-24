@@ -7,6 +7,7 @@ import type {
 } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
+import { groupBySection } from "@/lib/sectioned-guide";
 
 /**
  * English corpus is statically imported with the `/aqeedah` route chunk.
@@ -32,15 +33,7 @@ export function getAqeedahTopic(id: string | undefined): AqeedahTopic | undefine
 }
 
 export function getAqeedahTopicsBySection(): Record<AqeedahSection, AqeedahTopic[]> {
-  const grouped = Object.fromEntries(
-    corpus.AQEDAH_SECTION_ORDER.map((section) => [section, [] as AqeedahTopic[]]),
-  ) as Record<AqeedahSection, AqeedahTopic[]>;
-
-  for (const topic of getAqeedahTopics()) {
-    const bucket = grouped[topic.section];
-    if (bucket) bucket.push(topic);
-  }
-  return grouped;
+  return groupBySection(getAqeedahTopics(), corpus.AQEDAH_SECTION_ORDER);
 }
 
 export function getAqeedahGlossary(): AqeedahGlossaryTerm[] {

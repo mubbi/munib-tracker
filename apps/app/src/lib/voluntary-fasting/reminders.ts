@@ -12,11 +12,11 @@ import {
 } from "@munib-tracker/shared/utils";
 
 import i18n from "@/i18n";
-import { locationCalcExtras, type StoredLocation } from "@/lib/location";
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import type { BuiltReminder } from "@/lib/notifications/build-reminders";
 import { priorityForKind } from "@/lib/notifications/reminder-budget";
-import { computePrayerTimes } from "@/lib/prayer-times";
-import { parseHhMm, prayerDayAnchor, shiftPrayerDay, wallClockInTimeZoneToDate } from "@/lib/time";
+import { addMinutes, isPastFireTime, wallClockOnDay } from "@/lib/notifications/reminder-clock";
+import { prayerDayAnchor, shiftPrayerDay } from "@/lib/time";
 
 import { buildFastingContext } from "./context";
 import { headlineKind } from "./kinds";
@@ -52,36 +52,14 @@ export interface VoluntaryFastingReminderInput {
   voluntaryFastingEntries?: VoluntaryFastingMap;
 }
 
-function fireAtClock(day: Date, hhmm: string, timeZone: string | undefined): Date {
-  const { hour, minute } = parseHhMm(hhmm);
-  return wallClockInTimeZoneToDate(
-    day.getFullYear(),
-    day.getMonth() + 1,
-    day.getDate(),
-    hour,
-    minute,
-    timeZone,
-  );
-}
-
-function timesFor(location: StoredLocation, day: Date) {
-  return computePrayerTimes(
-    { latitude: location.latitude, longitude: location.longitude },
-    day,
-    location.method,
-    location.madhab,
-    locationCalcExtras(location),
-  );
-}
-
 /** Evening fire time on `day` for the intent reminder (`HH:mm` or Isha + N min). */
 function intentFireAt(prefsTime: string, day: Date, location: StoredLocation): Date {
   const parsed = parseIntentTime(prefsTime);
-  if (parsed.kind === "clock") return fireAtClock(day, parsed.hhmm, location.timeZone);
+  if (parsed.kind === "clock") return wallClockOnDay(day, parsed.hhmm, location.timeZone);
   if (location.source === "default") {
-    return fireAtClock(day, DEFAULT_INTENT_FALLBACK, location.timeZone);
+    return wallClockOnDay(day, DEFAULT_INTENT_FALLBACK, location.timeZone);
   }
-  return new Date(timesFor(location, day).isha.getTime() + parsed.minutes * 60_000);
+  return addMinutes(computeLocationPrayerTimes(location, day).isha, parsed.minutes);
 }
 
 export function pushVoluntaryFastingReminders(
@@ -100,7 +78,6 @@ export function pushVoluntaryFastingReminders(
   const fastingPrefs = ctx.prefs;
   if (!fastingPrefs) return;
   const anchor = prayerDayAnchor(now, location.timeZone);
-  const cutoff = now.getTime() - 60_000;
 
   const hasEntry = (date: string) => isLiveFastEntry(entries[date]);
 
@@ -123,7 +100,7 @@ export function pushVoluntaryFastingReminders(
         followed.includes("white_day");
       const allowed = weeklyOnly ? toggles.weekly : toggles.seasonal && !coveredByWhiteDays;
       const fireAt = intentFireAt(fastingPrefs.intentReminderTime, evening, location);
-      if (allowed && fireAt.getTime() > cutoff) {
+      if (allowed && !isPastFireTime(fireAt, now)) {
         const kind = headlineKind(followed) ?? "other";
         reminders.push({
           id: `fastIntent:${target}`,
@@ -148,7 +125,7 @@ export function pushVoluntaryFastingReminders(
     );
     if (seasonalKind && toggles.seasonal && !aheadDay.blocking && !hasEntry(ahead)) {
       const fireAt = intentFireAt(fastingPrefs.intentReminderTime, evening, location);
-      if (fireAt.getTime() > cutoff) {
+      if (!isPastFireTime(fireAt, now)) {
         reminders.push({
           id: `fastSeasonal:${ahead}`,
           fireAt,
@@ -170,10 +147,11 @@ export function pushVoluntaryFastingReminders(
     const key = getLocalDateString(day);
     const entry = entries[key];
     if (!isLiveFastEntry(entry) || entry.status !== "intended") continue;
-    const fireAt = new Date(
-      timesFor(location, day).fajr.getTime() - SUHOOR_MINUTES_BEFORE_FAJR * 60_000,
+    const fireAt = addMinutes(
+      computeLocationPrayerTimes(location, day).fajr,
+      -SUHOOR_MINUTES_BEFORE_FAJR,
     );
-    if (fireAt.getTime() <= cutoff) continue;
+    if (isPastFireTime(fireAt, now)) continue;
     reminders.push({
       id: `suhoor:${key}`,
       fireAt,

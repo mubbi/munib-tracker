@@ -1,18 +1,9 @@
-import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { useTranslation } from "react-i18next";
-import { JannahDisclaimer } from "@/components/jannah/primitives";
-import { LearnContentLoading } from "@/components/learn-content-loading";
-import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { useLocalSearchParams } from "expo-router";
+import { LearnTopicArticle } from "@/components/learn-guide/learn-topic-article";
 import { ProphetsTopicAside } from "@/components/prophets/prophets-aside";
 import { ProphetsTopicContent } from "@/components/prophets/topic-content";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { EmptyState } from "@/components/ui/empty-state";
-import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { goBackOrReplace } from "@/lib/navigation";
 import {
   ensureProphetsContent,
   getProphetsTopic,
@@ -20,7 +11,6 @@ import {
   isProphetsContentReady,
 } from "@/lib/prophets";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureProphetsProgressLoaded } from "@/stores/prophets-progress-store";
 
 export function generateStaticParams(): Array<{ topic: string }> {
@@ -28,72 +18,24 @@ export function generateStaticParams(): Array<{ topic: string }> {
 }
 
 export default function ProphetsTopicScreen() {
-  const router = useRouter();
-  const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureProphetsContent, isProphetsContentReady);
+  const { ready } = useEnsureContent(ensureProphetsContent, isProphetsContentReady);
   const topic = getProphetsTopic(topicId);
   const reportRef = useGuideContentReportRef("prophets", topic, "/prophets");
   useEnsureProphetsProgressLoaded();
-  const { maxContentWidth } = useLearnWideLayout();
-
-  const detailPath = topic ? `/prophets/${topic.id}` : "/prophets";
-  const crumbs = topic
-    ? [
-        { name: t("tabs.home"), path: "/" },
-        { name: t("prophets.title"), path: "/prophets" },
-        { name: topic.title, path: detailPath },
-      ]
-    : undefined;
 
   return (
-    <ScreenLayout
-      eyebrow={t("prophets.eyebrow")}
-      title={topic?.title ?? t("prophets.title")}
-      subtitle={topic?.summary ?? ""}
-      onBack={() => goBackOrReplace(router, "/prophets" as Href)}
-      maxContentWidth={maxContentWidth}
+    <LearnTopicArticle
+      ns="prophets"
+      basePath="/prophets"
+      topic={topic}
+      ready={ready}
+      surface="prophets"
+      contentRef={reportRef}
+      aside={(current) => <ProphetsTopicAside currentId={current.id} />}
     >
-      <Seo
-        path={detailPath}
-        title={topic?.title}
-        description={topic?.summary}
-        type={topic ? "article" : undefined}
-        index={!!topic}
-        breadcrumbs={crumbs}
-        jsonLd={
-          topic
-            ? [
-                articleSchema({
-                  path: detailPath,
-                  headline: topic.title,
-                  description: topic.summary ?? "",
-                  breadcrumbs: crumbs,
-                }),
-              ]
-            : undefined
-        }
-      />
-      {!contentReady ? (
-        <LearnContentLoading />
-      ) : !topic ? (
-        <EmptyState
-          icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
-          title={t("prophets.notFound")}
-          actionLabel={t("prophets.title")}
-          onAction={() => router.replace("/prophets" as Href)}
-        />
-      ) : (
-        <LearnSplitLayout aside={<ProphetsTopicAside currentId={topic.id} />}>
-          <Stagger>
-            <LearnReadingChrome surface="prophets">
-              <ProphetsTopicContent topic={topic} />
-            </LearnReadingChrome>
-            <JannahDisclaimer textKey="prophets.disclaimer" contentRef={reportRef} />
-          </Stagger>
-        </LearnSplitLayout>
-      )}
-    </ScreenLayout>
+      {(current) => <ProphetsTopicContent topic={current} />}
+    </LearnTopicArticle>
   );
 }
 

@@ -14,8 +14,7 @@ import {
 } from "@munib-tracker/shared/utils";
 import type { Href } from "expo-router";
 
-import { locationCalcExtras, type StoredLocation } from "@/lib/location";
-import { computePrayerTimes } from "@/lib/prayer-times";
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import { prayerDayAnchor, shiftPrayerDay } from "@/lib/timezone-anchor";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -73,17 +72,9 @@ export const RAWATIB_EXTRA_EVIDENCE: Readonly<Record<RawatibExtraPrayer, string>
  */
 export function rawatibDayTimes(location: StoredLocation, now: Date): RawatibDayTimes | null {
   if (location.source === "default") return null;
-  const coords = { latitude: location.latitude, longitude: location.longitude };
-  const extras = locationCalcExtras(location);
   const anchor = prayerDayAnchor(now, location.timeZone);
-  const today = computePrayerTimes(coords, anchor, location.method, location.madhab, extras);
-  const tomorrow = computePrayerTimes(
-    coords,
-    shiftPrayerDay(anchor, 1),
-    location.method,
-    location.madhab,
-    extras,
-  );
+  const today = computeLocationPrayerTimes(location, anchor);
+  const tomorrow = computeLocationPrayerTimes(location, shiftPrayerDay(anchor, 1));
   return {
     fajr: today.fajr,
     sunrise: today.sunrise,

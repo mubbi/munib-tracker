@@ -6,9 +6,9 @@ import { ThemedText } from "@/components/themed-text";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
+import { TvSwitchTrack } from "@/components/ui/switch-row";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
@@ -166,7 +166,7 @@ export const ToggleRow = memo(
     /** Small trailing-title adornment (e.g. the "This device" badge). */
     accessory?: ReactNode;
   }) {
-    const { colors, tokens } = useThemeTokens();
+    const { colors } = useThemeTokens();
     const tv = isTV();
     const fill = useContext(FillCellContext);
 
@@ -201,17 +201,7 @@ export const ToggleRow = memo(
               </ThemedText>
             ) : null}
           </View>
-          <View
-            style={[
-              styles.tvTrack,
-              {
-                backgroundColor: value ? colors.accent : tokens.track,
-                alignItems: value ? "flex-end" : "flex-start",
-              },
-            ]}
-          >
-            <View style={[styles.tvKnob, { backgroundColor: colors.card }]} />
-          </View>
+          <TvSwitchTrack value={value} />
         </PressableScale>
       );
     }
@@ -296,20 +286,5 @@ const styles = StyleSheet.create({
   },
   valueTv: {
     maxWidth: "40%",
-  },
-  /** TV toggle visual (non-focusable; the row carries focus). Logical start/end. */
-  tvTrack: {
-    width: tvDp(56),
-    height: tvDp(32),
-    borderRadius: tvDp(16),
-    padding: tvDp(3),
-    // flex-start/flex-end follow layout direction, so "on" sits at the trailing
-    // edge in both LTR and RTL.
-    justifyContent: "center",
-  },
-  tvKnob: {
-    width: tvDp(26),
-    height: tvDp(26),
-    borderRadius: tvDp(13),
   },
 });

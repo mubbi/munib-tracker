@@ -16,9 +16,8 @@ import {
   isAcceptanceHourWindow,
 } from "@/lib/acceptance-hour";
 import { isFriday } from "@/lib/friday";
-import { locationCalcExtras } from "@/lib/location";
+import { computeLocationPrayerTimes } from "@/lib/location";
 import { isTV } from "@/lib/platform/is-tv";
-import { computePrayerTimes } from "@/lib/prayer-times";
 import { useArrowForward } from "@/lib/rtl";
 import { prayerDayAnchor } from "@/lib/time";
 import { useLocation } from "@/stores/location-store";
@@ -33,15 +32,7 @@ export function useAcceptanceHourActive(): boolean {
     if (location.source === "default") {
       return isAcceptanceHourFallbackWindow(now);
     }
-    const extras = locationCalcExtras(location);
-    const day = prayerDayAnchor(now, location.timeZone);
-    const times = computePrayerTimes(
-      { latitude: location.latitude, longitude: location.longitude },
-      day,
-      location.method,
-      location.madhab,
-      extras,
-    );
+    const times = computeLocationPrayerTimes(location, prayerDayAnchor(now, location.timeZone));
     return isAcceptanceHourWindow(now, times.asr, times.maghrib);
   }, [location, now]);
 }

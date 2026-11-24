@@ -109,6 +109,14 @@ export const StatusPalette = {
 export type StatusKey = keyof typeof StatusPalette;
 
 /**
+ * Festive confetti hues for completion bursts (`PartyPopper`) — gold, green,
+ * sky and sun. Deliberately CONSTANT across accents and schemes (they are
+ * small, short-lived particles on top of any surface). Consumed via
+ * `useThemeTokens().celebration`.
+ */
+export const CelebrationPalette = ["#D4AF37", "#4CAF7D", "#5AA9E6", "#F2C94C"] as const;
+
+/**
  * Calm browse-section hues (dua groups, …) that sit beside the brand green and
  * mushaf gold. Fills, icon wells and icons only — run text through
  * `accentOnSurface` first. The fourth group hue is the user's accent.

@@ -1,6 +1,5 @@
 import type { DuaItem, JahannamDuaEntry } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -20,9 +19,10 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { loadDuaItems } from "@/lib/content-loaders";
+import { DUA_CORPUS } from "@/lib/content-loaders";
 import {
   ensureJahannamContent,
   getJahannamDuas,
@@ -95,18 +95,8 @@ export default function JahannamDuasScreen() {
   const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const entries = getJahannamDuas();
   const refugeDua = getJahannamRefugeDua();
-  const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
-  const [duasCatalogReady, setDuasCatalogReady] = useState(false);
-  useEffect(() => {
-    // Do not cancel — first visit must still mark the catalog settled so rows
-    // are not left blank after a Strict Mode remount.
-    void loadDuaItems()
-      .then(setDuaItems)
-      .catch(() => {
-        // Settle anyway; missing catalog entries skip individual rows below.
-      })
-      .then(() => setDuasCatalogReady(true));
-  }, []);
+  // Settles even if the catalog fails (missing entries skip their rows below).
+  const { items: duaItems, ready: duasCatalogReady } = useContentCorpus(DUA_CORPUS);
   const byId = new Map(duaItems.map((item) => [item.id, item]));
   useEnsureDuaFavoritesLoaded();
   const ready = contentReady && duasCatalogReady;

@@ -241,12 +241,26 @@ export function Sheet({
     contentStyle,
   ];
 
+  // The grabber used to announce "adjustable" with no actions, so VoiceOver /
+  // TalkBack users heard a control that did nothing. Swipe-down (decrement) or
+  // double-tap now closes the sheet, mirroring the drag gesture. Web has no
+  // slider semantics to offer (and Escape / the scrim already close), so it is
+  // hidden from assistive tech there.
+  const dragHandleA11y =
+    Platform.OS === "web"
+      ? { accessibilityElementsHidden: true, importantForAccessibility: "no" as const }
+      : {
+          accessibilityRole: "adjustable" as const,
+          accessibilityLabel: t("common.dragToClose"),
+          accessibilityActions: [{ name: "decrement" as const }, { name: "activate" as const }],
+          onAccessibilityAction: () => onCloseRef.current(),
+        };
+
   const dragHandle = (
     <View
       style={styles.handleZone}
       {...(isBottom ? panResponder.panHandlers : undefined)}
-      accessibilityRole="adjustable"
-      accessibilityLabel={t("common.dragToClose")}
+      {...dragHandleA11y}
     >
       <View style={[styles.handle, { backgroundColor: tokens.track }]} />
     </View>
@@ -261,6 +275,8 @@ export function Sheet({
   const bottomCard = (
     <Animated.View
       accessibilityViewIsModal
+      // iOS VoiceOver "escape" (two-finger Z) dismisses, like any modal view.
+      onAccessibilityEscape={onClose}
       collapsable={false}
       style={[
         bottomCardStyle,
@@ -295,6 +311,7 @@ export function Sheet({
   const centerCard = (
     <View
       accessibilityViewIsModal
+      onAccessibilityEscape={onClose}
       // collapsable={false}: keeps a real host view on Android so the card (and
       // its buttons) stay hittable when overlapping the scrim.
       collapsable={false}

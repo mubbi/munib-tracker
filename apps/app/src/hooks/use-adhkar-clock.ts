@@ -3,13 +3,8 @@ import { useMemo } from "react";
 
 import { useNow } from "@/hooks/use-now";
 import { adhkarDayFor, afterSalahPrayerForSlot, type PrayerInstants } from "@/lib/adhkar-session";
-import { locationCalcExtras } from "@/lib/location";
-import {
-  computePrayerTimes,
-  currentPrayer,
-  hasValidPrayerTimes,
-  type PrayerSlotId,
-} from "@/lib/prayer-times";
+import { computeLocationPrayerTimes, locationCalcExtras } from "@/lib/location";
+import { currentPrayer, hasValidPrayerTimes, type PrayerSlotId } from "@/lib/prayer-times";
 import { prayerDayAnchor } from "@/lib/timezone-anchor";
 import { useLocation } from "@/stores/location-store";
 
@@ -52,20 +47,14 @@ export function useAdhkarClock() {
     const extras = locationCalcExtras(location);
     try {
       const anchor = prayerDayAnchor(now, location.timeZone);
-      const todays = computePrayerTimes(coords, anchor, location.method, location.madhab, extras);
+      const todays = computeLocationPrayerTimes(location, anchor);
       if (!hasValidPrayerTimes(todays)) return fallback;
       const date = adhkarDayFor(now, todays.fajr, today);
       let times = instants(todays);
       if (date !== today) {
         const previous = new Date(anchor);
         previous.setDate(previous.getDate() - 1);
-        const yesterdays = computePrayerTimes(
-          coords,
-          previous,
-          location.method,
-          location.madhab,
-          extras,
-        );
+        const yesterdays = computeLocationPrayerTimes(location, previous);
         if (hasValidPrayerTimes(yesterdays)) times = instants(yesterdays);
       }
       const slot = currentPrayer(

@@ -12,7 +12,7 @@ import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { relativesOf, relativesVault } from "@/lib/family-ties/family-ties-store";
 import { buildDueList } from "@/lib/family-ties/model";
-import { locationCalcExtras, type StoredLocation } from "@/lib/location";
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import {
   MUHASABAH_EVENING_FALLBACK_HOUR,
   type MuhasabahCardState,
@@ -21,7 +21,6 @@ import {
 import { muhasabahDayKey } from "@/lib/muhasabah/model";
 import { entriesOf, muhasabahActions, muhasabahVault } from "@/lib/muhasabah/muhasabah-store";
 import { isTV } from "@/lib/platform/is-tv";
-import { computePrayerTimes } from "@/lib/prayer-times";
 import { useChevronForward } from "@/lib/rtl";
 import { useVaultLockJournals } from "@/lib/vault";
 import { useLocation } from "@/stores/location-store";
@@ -41,14 +40,7 @@ export const FAMILY_TIES_HOME_MODULE = "family-ties-due";
 export function isMuhasabahTime(now: Date, location: StoredLocation): boolean {
   if (now.getHours() < 4) return true;
   if (location.source === "default") return now.getHours() >= MUHASABAH_EVENING_FALLBACK_HOUR;
-  const times = computePrayerTimes(
-    { latitude: location.latitude, longitude: location.longitude },
-    now,
-    location.method,
-    location.madhab,
-    locationCalcExtras(location),
-  );
-  return now.getTime() >= times.isha.getTime();
+  return now.getTime() >= computeLocationPrayerTimes(location, now).isha.getTime();
 }
 
 /** The muhasabah Today card state (null = hide). Runs retention once per launch. */
@@ -65,7 +57,8 @@ export function useMuhasabahHomeCard(enabled: boolean): MuhasabahCardState {
   useEffect(() => {
     if (active && status === "ready" && !retentionRan.current) {
       retentionRan.current = true;
-      void muhasabahActions.runRetention();
+      // Best-effort housekeeping: a failed purge retries next launch, never breaks Home.
+      muhasabahActions.runRetention().catch(() => {});
     }
   }, [active, status]);
 

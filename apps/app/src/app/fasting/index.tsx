@@ -56,8 +56,8 @@ import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { goBackOrReplace } from "@/lib/navigation";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { isTV } from "@/lib/platform/is-tv";
-import { requestReminderReschedule } from "@/lib/quran-companion/reschedule";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useSetting } from "@/lib/settings/use-setting";
 import {

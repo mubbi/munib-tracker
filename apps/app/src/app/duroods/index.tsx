@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type FlatList,
@@ -32,9 +32,10 @@ import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { loadDuroodItems } from "@/lib/content-loaders";
+import { DUROOD_CORPUS, type loadDuroodItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -66,19 +67,11 @@ export default function DuroodsScreen() {
   const visibility = useReadingDisplay();
 
   const [query, setQuery] = useState("");
-  const [duroodItems, setDuroodItems] = useState<DuroodItem[]>([]);
-  const [corpusReady, setCorpusReady] = useState(false);
+  const { items: duroodItems, ready: corpusReady } = useContentCorpus(DUROOD_CORPUS);
   const listRef = useRef<FlatList<DuroodItem>>(null);
   const [toolbarVisible, setToolbarVisible] = useState(false);
   const headerCardHeightRef = useRef(0);
   const readingProgress = useSharedValue(0);
-
-  useEffect(() => {
-    void loadDuroodItems().then((items) => {
-      setDuroodItems(items);
-      setCorpusReady(true);
-    });
-  }, []);
 
   const index = useMemo(() => createDuroodSearch(duroodItems), [duroodItems]);
   const searching = query.trim().length > 0;

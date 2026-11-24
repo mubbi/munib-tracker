@@ -57,7 +57,7 @@ describe("HadithReadingToolbar", () => {
   ] as const)("toggles %s", async (label, handler, checked) => {
     const props = await renderToolbar();
     const chip = screen.getByLabelText(label);
-    expect(chip.props.accessibilityState).toEqual({ checked });
+    expect(chip.props.accessibilityState).toMatchObject({ checked });
     await fireEvent.press(chip);
     expect(props[handler]).toHaveBeenCalled();
   });

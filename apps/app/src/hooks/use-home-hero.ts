@@ -8,11 +8,10 @@ import { useMadhhab } from "@/hooks/use-madhhab";
 import { useNow } from "@/hooks/use-now";
 import { type DualCalendarDates, formatDualCalendarDate } from "@/lib/calendar-format";
 import { toAppLocale } from "@/lib/locale-bcp47";
-import { locationCalcExtras } from "@/lib/location";
+import { computeLocationPrayerTimes, locationCalcExtras } from "@/lib/location";
 import { moonPhase } from "@/lib/moon";
 import {
   buildDailySchedule,
-  computePrayerTimes,
   duhaWindow,
   formatDuration,
   formatPrayerTime,
@@ -152,23 +151,10 @@ export function useHomeHero(): HomeHeroData {
   // biome-ignore lint/correctness/useExhaustiveDependencies: dayKey is the calendar-day proxy for `now`; recompute only when the day (or location) changes, not every tick.
   const day = useMemo(() => {
     const coords = { latitude: location.latitude, longitude: location.longitude };
-    const extras = locationCalcExtras(location);
     const anchor = prayerDayAnchor(now, location.timeZone);
-    const today = computePrayerTimes(coords, anchor, location.method, location.madhab, extras);
-    const tomorrowTimes = computePrayerTimes(
-      coords,
-      shiftPrayerDay(anchor, 1),
-      location.method,
-      location.madhab,
-      extras,
-    );
-    const yesterdayTimes = computePrayerTimes(
-      coords,
-      shiftPrayerDay(anchor, -1),
-      location.method,
-      location.madhab,
-      extras,
-    );
+    const today = computeLocationPrayerTimes(location, anchor);
+    const tomorrowTimes = computeLocationPrayerTimes(location, shiftPrayerDay(anchor, 1));
+    const yesterdayTimes = computeLocationPrayerTimes(location, shiftPrayerDay(anchor, -1));
     const slots = prayerSlots(today);
     const boundaries = scheduleBoundaries(today, tomorrowTimes, yesterdayTimes, now);
     // Sky-phase markers are day-stable; build them once so the per-tick palette
