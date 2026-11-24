@@ -25,37 +25,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Mümin iki hakikati bir arada tutmalıdır. Birincisi: Cennet gerçektir, yakındır ve her türlü çabaya değer; Kur'an bize ona doğru 'yarışmamızı' emreder (Kur'an 3:133). İkincisi: Hiç kimse cenneti yalnızca amelleriyle kazanamaz; oraya giriş nihayetinde Allah'ın rahmetiyledir; samimi iman ve salih amel ise O'nun kabul etmek için seçtiği vesilelerdir. Bu denge, kibre yol açmadan ümidi canlı tutar: Elimizden gelenin en iyisini yapar, sonra kendimizi O'nun rahmetine bırakırız.",
       "Pratikte, cennetin gerçekliğinin günlük tercihlerinizi şekillendirmesine izin verin. İbadet ağır geldiğinde ya da bir günah arzusu güçlü bastırdığında, sizi neyin beklediğini ve neyin tehlikede olduğunu hatırlayın. Allah'tan sık sık cenneti isteyin, küçük ama sürdürülebilir adımlarla onun için istikrarla çalışın ve ona duyduğunuz özlemin bu fâni hayatta kalbinizi yumuşatmasına izin verin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbinizden bir bağışlanmaya ve genişliği göklerle yer kadar olan, takva sahipleri için hazırlanmış bir cennete doğru yarışın.",
-      },
-      {
-        excerpt:
-          "Allah mümin erkeklere ve mümin kadınlara, içinde ebedî kalacakları, altlarından ırmaklar akan cennetler ve Adn cennetlerinde güzel meskenler vaat etmiştir; Allah'ın rızası ise daha büyüktür.",
-      },
-      {
-        excerpt:
-          "Yapmakta olduklarına karşılık mükâfat olarak onlar için gizlenmiş göz aydınlığını hiçbir kimse bilemez.",
-      },
-      {
-        excerpt: "Orada onlar için diledikleri her şey vardır; katımızda daha fazlası da vardır.",
-      },
-      {
-        excerpt:
-          "İman edip salih amel işleyenler var ya, işte onlar için konak olarak Firdevs cennetleri vardır.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah buyurdu: Salih kullarım için hiçbir gözün görmediği, hiçbir kulağın işitmediği ve hiçbir kalbin tasavvur etmediği şeyler hazırladım.",
-      },
-      {
-        excerpt:
-          "Yüce Allah buyurdu: Salih kullarım için hiçbir gözün görmediği, hiçbir kulağın işitmediği ve hiçbir insanın kalbinden asla geçmemiş şeyler hazırladım.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Cennetteki dereceler",
@@ -67,29 +38,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Bunda güzel bir hikmet vardır. Kesin yerimizi bilseydik, bazılarımız rehavete kapılır, bazılarımız da ümitsizliğe düşerdi. Bunun yerine bize gözümüzü Allah'a dikmemiz, gayret etmeye ve ümit etmeye devam etmemiz öğretilir. Mümin hayırda yarışır — 'Yarışanlar işte bunun için yarışsın' — son değerlendirmeyi ise adaletin mutlak sahibine bırakır.",
       "O hâlde numaralı bir dereceyi hedeflemek yerine en yükseğini hedefleyin ve Allah'ın sizi dilediği yere yerleştirmesine razı olun. Peygamber ﷺ ashabına mütevazı bir istekle yetinmemeyi, özellikle cennetin en yüksek zirvesi olan Firdevs'i istemeyi öğretmiştir.",
     ],
-    quran: [
-      {
-        excerpt: "Herkesin yaptıklarına göre dereceleri vardır.",
-      },
-      {
-        excerpt:
-          "Bak, onların bir kısmını diğerlerine nasıl üstün kıldık. Ahiret ise derece bakımından daha büyük, üstünlük bakımından da daha büyüktür.",
-      },
-      {
-        excerpt:
-          "Kim Allah'a ve Peygamber'e itaat ederse, işte onlar Allah'ın kendilerine nimet verdiği peygamberler, sıddıklar, şehidler ve salihlerle beraberdir. Onlar ne güzel arkadaştır!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Cennette Allah'ın, kendi yolunda savaşanlar için hazırladığı yüz derece vardır. Her iki derece arasındaki mesafe gökle yer arası kadardır. Allah'tan istediğinizde Firdevs'i isteyin; çünkü o, cennetin en hayırlı ve en yüksek yeridir.",
-      },
-      {
-        excerpt:
-          "Allah'tan istediğinizde Firdevs'i isteyin; çünkü o, cennetin en yüksek ve en orta yeridir; cennetin ırmakları oradan akar, onun üstünde de Rahmân'ın Arşı vardır.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [
       {
         label: "Firdevs'i isteyin",
@@ -106,16 +56,7 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Ne var ki son ve belirleyici ihsan her zaman Allah'ın rahmetidir. En yükseği hedeflediğimiz anda, Peygamber'in ﷺ şu sözünü de hatırlarız: Hiç kimse cennete yalnızca ameliyle girmez — Peygamber ﷺ bile — ancak Allah onu rahmetiyle kuşatırsa müstesna. Müminin tutturduğu kusursuz denge budur: bir yanda yüksek ümit ve himmet, öbür yanda samimi bir tevazu.",
       "O hâlde Firdevs'i dualarınızın düzenli bir parçası yapın — secdede, gecenin son üçte birinde ve uyumadan önce — her gün sessizce elinizden gelenin en iyisini yaparken, gerisi için tamamen Rabbinizin rahmetine dayanın.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah'tan istediğinizde Firdevs'i isteyin; çünkü o, cennetin en yüksek ve en orta yeridir; cennetin ırmakları oradan akar, onun üstünde de Rahmân'ın Arşı vardır.",
-      },
-      {
-        excerpt:
-          "Sizden hiçbiriniz cennete yalnızca ameliyle girmeyecektir. 'Sen de mi, ey Allah'ın Resûlü?' dediler. 'Ben de; ancak Allah beni katından bir rahmetle örterse müstesna' buyurdu.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Dualarınızda, özellikle secdede ve uyumadan önce, Allah'tan Firdevs'i isteyin.",
       "Üzerinize farz olanı en güzel şekilde yerine getirin, sonra nafile ibadeti artırın.",
@@ -140,21 +81,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "'Küçük' denilen günahlar da önemlidir ve asla hafife alınmamalıdır. Gıybet, yalan, kibir, akrabalık bağlarını koparmak ve gaflet kalbi ve ahlakı yavaş yavaş aşındırır. Peygamber ﷺ, küçük çubuklar bir araya toplanınca koca bir yemeği pişirebildiği gibi, biriken küçük günahların da insanı helak edebileceği konusunda uyarmıştır. Her biri ayrıca Allah'a dönmeyi gerektirir.",
       "Çıkarılacak ders, eyleme dönüşen ümittir: Bir günahın büyüklüğünün sizi tövbenin anlamsız olduğuna inandırmasına asla izin vermeyin. Ayağınız kaydığı anda Allah'a dönün, kötü bir ameli silmesi için ardından iyi bir amel yapın ve istiğfar kapısını her gün açık tutun. O'nun rahmeti her zaman hatanızdan daha büyüktür.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Şüphesiz Allah kendisine ortak koşulmasını bağışlamaz; bundan başkasını ise dilediği kimse için bağışlar.",
-      },
-      {
-        excerpt:
-          "De ki: Ey kendi nefisleri aleyhine haddi aşan kullarım! Allah'ın rahmetinden ümit kesmeyin. Şüphesiz Allah bütün günahları bağışlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Bizimle onlar arasındaki ahid namazdır; kim onu terk ederse küfre girmiş olur.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       {
         label: "Namaz takibi",
@@ -175,15 +103,7 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Adı geçen kişilerin ötesinde nasslar, müjdelenen grupları da tarif eder: sadıklar ve sabredenler, İslam hukukuna göre Allah yolunda hakiki şehid olarak ölenler ve bu hayattaki son sözü kelime-i tevhid, lâ ilâhe illallah olanlar. Her nitelik içsel bir gerçekliğe — ihlasa, fedakârlığa ya da son nefeste Allah'a bağlı bir kalbe — işaret eder; yalnızca dışa dönük bir etikete değil.",
       "Bizim için ders, bu bağlantıya güvenerek kendimizi emniyette hissetmek ya da bu dereceleri kendimiz için iddia etmek değil, ilham almaktır. Onların örneği bizi yukarı çeksin: Onların sevdiğini sevin, onların gayret ettiği gibi gayret edin ve bu hayranlığı duaya ve amele dönüştürün; her şeyden önce Allah'tan hüsn-i hâtime — güzel bir son — isteyin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ebû Bekir cennettedir, Ömer cennettedir, Osman cennettedir, Ali cennettedir, Talha cennettedir, Zübeyr cennettedir, Abdurrahman b. Avf cennettedir, Sa'd cennettedir, Saîd b. Zeyd cennettedir ve Ebû Ubeyde b. Cerrâh cennettedir.",
-      },
-      {
-        excerpt: "Son sözü 'Allah'tan başka ilah yoktur' olan kimse cennete girer.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Hadislerdeki müjdeler, adı geçenlere ya da tarif edilen gruplara yöneliktir. Kişinin kendi imanına, ameline ve güzel bir sona olan ihtiyacının yerini tutmaz. En doğrusunu Allah bilir.",
   },
@@ -197,20 +117,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Tevhidi temel kılmanın hikmeti, kalbi özgürleştirmesidir. Yalnızca Allah'a ibadet eden kişi, mahlukat korkusundan, herkesin onayının peşinde koşmaktan ve birçok efendiye hizmet etmenin yorgunluğundan kurtulur. Hayatı tek ve net bir yön kazanır: kendisini yaratanı razı etmek.",
       "Pratikte, doğru inancı güvenilir âlimlerden öğrenin, ibadetinizi şirkten ve nifaktan arındırın ve harekete geçmeden önce niyetinizi kontrol edin. Bu ilk adım isteğe bağlı ya da ileri seviye bir konu değildir — cennete giden her yol buradan başlar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sana ve senden öncekilere şöyle vahyedildi: Eğer Allah'a ortak koşarsan, amellerin mutlaka boşa gider ve mutlaka hüsrana uğrayanlardan olursun.",
-      },
-      {
-        excerpt: "Onlara ancak dini yalnızca O'na has kılarak Allah'a ibadet etmeleri emredildi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Ameller ancak niyetlere göredir; herkese ancak niyet ettiği şey vardır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Tevhidin temellerini güvenilir âlimlerden öğrenin.",
       "İbadetlerden önce niyetinizi yenileyin.",
@@ -227,24 +135,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Namazın daha derin hikmeti dönüşümdür. Gereği gibi kılınan namaz insanı hayâsızlıktan ve kötülükten alıkoyar; yoğun bir gün boyunca kalbi tekrar tekrar Allah'a çeken bir yenilenmedir. Bu nedenle namazları geçerli bir mazeret olmadan kaçırmak, samimi tövbeyi ve kazalarını kılmayı gerektiren ağır bir meseledir. Nafile ve revâtib namazlar — farzlardan önce ve sonra kılınan düzenli sünnetler — ilave nur katar ve dereceyi yükseltir.",
       "Pratikte: Beş vakit namazı vakitlerinde korumayı mutlak önceliğiniz yapın, kaçırdıklarınızı kaza edin ve sürdürebileceğiniz sünnet namazları ekleyin. Namazınız iyileştikçe ibadetinizin geri kalanı da genellikle onunla birlikte iyileşir.",
     ],
-    quran: [
-      {
-        excerpt: "Müminler gerçekten kurtuluşa ermiştir; onlar ki namazlarında huşû içindedirler.",
-      },
-      {
-        excerpt: "Ancak namaz kılanlar müstesna; onlar ki namazlarında devamlıdırlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kıyamet günü kulun ilk hesaba çekileceği şey namazıdır. Namazı düzgün olursa kurtuluşa erer; bozuk olursa hüsrana uğrar ve kaybeder.",
-      },
-      {
-        excerpt:
-          "Birinizin kapısının önünde bir nehir olsa ve o, günde beş kez orada yıkansa, üzerinde hiç kir kalır mı? 'Hayır' dediler. Buyurdu ki: İşte beş vakit namazın misali budur; Allah onlarla günahları siler.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Beş vakit namazı vakitlerinde koruyun.",
       "Kaçırılan namazları samimiyetle kaza edin.",
@@ -275,22 +167,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Hikmeti derindir: Günah, bir insanın hikâyesinin sonu olmak zorunda değildir. 'Allah onların kötülüklerini iyiliklere çevirir' (Kur'an 25:70) — samimi tövbe, başarısızlıklarla dolu bir sicili başarıya dönüştürebilir ve bir düşüşü, kişiyi Allah'a öncekinden daha yakın kılan yeni bir başlangıca çevirebilir. Günahtan sonraki ümitsizlik bizzat şeytanın bir tuzağıdır; Allah'ın rahmetine ümit ise müminin cevabıdır.",
       "Pratikte: Tövbeyi bir gün bile ertelemeyin — ayağınız kaydığı anda dönün. Her kötü amelin ardından onu silmesi için iyi bir amel yapın ve Peygamber'in ﷺ bağışlanmış olduğu hâlde günde defalarca istiğfar ettiği gibi, gün boyunca dilinizden istiğfarı eksik etmeyin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman edenler! Allah'a samimi bir tövbe ile tövbe edin; umulur ki Rabbiniz kötülüklerinizi örter ve sizi altlarından ırmaklar akan cennetlere koyar.",
-      },
-      {
-        excerpt:
-          "Ancak tövbe eden, iman eden ve salih amel işleyenler müstesna; Allah onların kötülüklerini iyiliklere çevirir. Allah bağışlayandır, merhamet edendir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah, kulunun tövbesine, sizden birinin çorak bir yerde devesini kaybedip sonra onu birden yeniden bulmasından daha çok sevinir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Günah işlediğinizde hemen tövbe edin — ertelemeyin.",
       "Günahın ardından onu silecek iyi bir amel yapın.",
@@ -315,21 +193,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Ancak daha derin amaç, okumanın kendisi değil dönüşümdür. Allah bize 'Kur'an'ı tertil ile oku' (Kur'an 73:4) diye emreder; ta ki anlamlar içimize işlesin ve düşünme, hissetme ve davranma biçimimizi yeniden şekillendirsin. Kur'an yalnızca okunmak için değil, yaşanmak için indirildi; sahabe on ayet öğrenir, onları anlayıp onlarla amel etmeden ötesine geçmezdi.",
       "Pratikte: Her gün bir bölüm okuyun, birkaç ayet bile olsa, ama tefekkürle okuyun. Yeni sureler ezberleyin ya da bildiklerinizi koruyun ve — en önemlisi — daha fazlasını öğrenmeye koşmadan önce öğrendiğinizle amel edin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allah'ın Kitabını okuyanlar, namazı ikame edenler ve kendilerine verdiğimiz rızıktan infak edenler, asla zarar etmeyecek bir ticaret umarlar; ta ki Allah onlara mükâfatlarını tam olarak versin ve lütfundan onlara fazlasını da versin.",
-      },
-      {
-        excerpt: "Ve Kur'an'ı tertil ile oku.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kur'an ehline şöyle denilir: Oku ve yüksel; dünyada nasıl okuyor idiysen öyle oku; çünkü senin derecen okuduğun son ayetin yanındadır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Her gün okuyun — tefekkürle birkaç ayet bile olsa.",
       "Yeni sureler ezberleyin ya da bildiklerinizi koruyun.",
@@ -357,21 +222,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Zikrin hikmeti, belirli vakitlerdeki ibadetlerin arasında Allah ile ilişkiyi canlı tutmasıdır. Zikirle ıslanmış bir dil ve — daha önemlisi — günlük tercihlerinde Allah'ı hatırlayan; öfkelenmeden önce, bir şey satın almadan önce, bir karar vermeden önce duraksayan bir kalp asıl hedeftir. Zikir dudaklarda kalmak için değil, hayatı yönlendirmek içindir.",
       "Pratikte: Sabah ve akşam zikirlerini günlük bir alışkanlık hâline getirin, boş anlarda basit bir miktar tesbih, istiğfar veya salavatı dilinizden eksik etmeyin ve özellikle uyumadan önce ve uyandığınızda Allah'ı anın. Az da olsa devamlı olan, ara sıra yapılan çok amelden daha hayırlıdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Onlar iman edenler ve kalpleri Allah'ı anmakla huzur bulanlardır. Bilesiniz ki kalpler ancak Allah'ı anmakla huzur bulur.",
-      },
-      {
-        excerpt: "Ey iman edenler! Allah'ı çokça zikredin ve O'nu sabah akşam tesbih edin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İki kelime vardır ki dile hafif, mîzanda ağır ve Rahmân'a sevimlidir: Sübhânallâhi ve bihamdihî, Sübhânallâhi'l-azîm.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Sabah ve akşam zikirlerini her gün tamamlayın.",
       "İstiğfar veya salavat için tesbih sayacını kullanın.",
@@ -396,22 +248,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Sadakanın hikmeti, alan kadar veren üzerinde de etki göstermesidir. Hırsın kalpteki pençesini gevşetir, merhameti geliştirir, toplumun bağlarını güçlendirir ve zenginlere gerçek sahip değil emanetçi olduklarını hatırlatır. İslam sadakanın tanımını hiç kimse dışarıda kalmayacak şekilde genişletir: Peygamber ﷺ, kardeşine gülümsemenin, faydalı bir sözün ve hatta yoldan zararlı bir şeyi kaldırmanın bile sadaka olduğunu öğretmiştir.",
       "Pratikte: Zekât yükümlüsüyseniz onu doğru şekilde hesaplayıp ödeyin; vermek bir olay değil alışkanlık hâline gelsin diye, ne kadar küçük olursa olsun düzenli sadaka verin; ve siz bu dünyadan ayrıldıktan çok sonra da size sevap kazandırmaya devam edecek kalıcı bir sadaka-i câriye arayın — bir öğrenciye burs vermek, bir kuyu açtırmak ya da bir mescidi desteklemek gibi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mallarını Allah yolunda harcayanların durumu, yedi başak bitiren ve her başakta yüz tane bulunan bir tohumun durumu gibidir. Allah dilediğine kat kat verir.",
-      },
-      {
-        excerpt:
-          "Herhangi birinize ölüm gelip de 'Rabbim! Beni kısa bir süre daha erteleseydin de sadaka verseydim ve salihlerden olsaydım' demesinden önce, size verdiğimiz rızıktan infak edin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İnsan ölünce ameli üç şey dışında kesilir: sadaka-i câriye, faydalanılan ilim veya kendisine dua eden salih evlat.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Yükümlüyseniz zekâtı hesaplayıp ödeyin.",
       "Az da olsa düzenli sadaka verin.",
@@ -436,79 +274,53 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       {
         title: "Doğruluk",
         summary: "Doğrularla beraber olun — dürüstlük güvenin temelidir.",
-        quran: {
-          excerpt: "Ey iman edenler! Allah'tan korkun ve doğrularla beraber olun.",
-        },
+        quran: {},
       },
       {
         title: "Sabır",
         summary: "Sabır ve namazla yardım dileyin.",
-        quran: {
-          excerpt: "Ey iman edenler! Sabır ve namazla yardım dileyin.",
-        },
+        quran: {},
       },
       {
         title: "Öfkeyi yenmek",
         summary: "Öfkelerini yenen ve insanları affedenler — Allah iyilik yapanları sever.",
-        quran: {
-          excerpt:
-            "Onlar bollukta da darlıkta da infak eden, öfkelerini yenen ve insanları affedenlerdir. Allah iyilik yapanları sever.",
-        },
+        quran: {},
       },
       {
         title: "Başkalarını affetmek",
         summary: "Affetsinler, hoş görsünler — Allah'ın sizi bağışlamasını istemez misiniz?",
-        quran: {
-          excerpt:
-            "Affetsinler, hoş görsünler. Allah'ın sizi bağışlamasını istemez misiniz? Allah bağışlayandır, merhamet edendir.",
-        },
+        quran: {},
       },
       {
         title: "Tevazu",
         summary: "Rahmân'ın kulları yeryüzünde alçak gönüllü olarak yürürler.",
-        quran: {
-          excerpt:
-            "Rahmân'ın kulları, yeryüzünde alçak gönüllü olarak yürüyen ve cahiller kendilerine [kabaca] laf attığında [selâmet sözü] söyleyen kimselerdir.",
-        },
+        quran: {},
       },
       {
         title: "Emanete riayet",
         summary: "Allah size emanetleri ehline vermenizi emreder.",
-        quran: {
-          excerpt:
-            "Şüphesiz Allah size emanetleri ehline vermenizi ve insanlar arasında hükmettiğiniz zaman adaletle hükmetmenizi emreder.",
-        },
+        quran: {},
       },
       {
         title: "Anne-babaya iyilik",
         summary:
           "Allah'a ibadet edin ve anne-babaya iyilik edin — onların hakkı O'nun hakkından sonra gelir.",
-        quran: {
-          excerpt:
-            "Rabbin, kendisinden başkasına ibadet etmemenizi ve anne-babaya iyilik etmenizi kesin olarak emretti.",
-        },
+        quran: {},
       },
       {
         title: "Ya hayır söyle ya sus",
         summary: "Allah'a ve ahiret gününe iman eden ya hayır söylesin ya da sussun.",
-        hadith: {
-          excerpt: "Allah'a ve ahiret gününe iman eden ya hayır söylesin ya da sussun.",
-        },
+        hadith: {},
       },
       {
         title: "Samimi bir tebessüm",
         summary: "Kardeşinin yüzüne gülümsemen sadakadır.",
-        hadith: {
-          excerpt: "Kardeşinin yüzüne gülümsemen sadakadır.",
-        },
+        hadith: {},
       },
       {
         title: "Adalet",
         summary: "Adaletli olun — bu takvaya daha yakındır.",
-        quran: {
-          excerpt:
-            "Ey iman edenler! Allah için hakkı ayakta tutan, adaletle şahitlik eden kimseler olun.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -537,34 +349,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
         title: "Haksız sertlik",
       },
     ],
-    quran: [
-      {
-        excerpt: "Ve sen elbette yüce ve şerefli bir ahlak üzeresin.",
-      },
-      {
-        excerpt:
-          "Onlar bollukta da darlıkta da infak eden, öfkelerini yenen ve insanları affedenlerdir. Allah iyilik yapanları sever.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kıyamet günü müminin mîzanında güzel ahlaktan daha ağır bir şey yoktur.",
-      },
-      {
-        excerpt: "İyilik güzel ahlaktır; günah ise göğsünde tereddüt uyandıran şeydir.",
-      },
-      {
-        excerpt:
-          "Sizden bana en sevimli olanınız ve Kıyamet günü bana en yakın olanınız, ahlakı en güzel olanınızdır.",
-      },
-      {
-        excerpt:
-          "İman bakımından müminlerin en kâmili ahlakı en güzel olanlarıdır; sizin en hayırlınız da hanımlarına karşı en hayırlı olanlarınızdır.",
-      },
-      {
-        excerpt: "Kalbinde zerre miktarı kibir bulunan kimse cennete girmez.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}, {}, {}],
     actions: [
       "Kışkırtıldığınızda sabretmeyi alışkanlık edinin.",
       "Başkalarını affedin ve kopmuş ilişkileri onarın.",
@@ -596,24 +382,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Hikmeti şudur: İlimsiz amel kör, amelsiz ilim ise meyvesizdir. Doğru ilim kişiyi bidatten ve sapkınlıktan korur, ihlası derinleştirir ve ona yalnızca kendisine değil başkalarına da fayda sağlama imkânı verir. İslam âlimleri her zaman iki tehlikeye karşı uyarmıştır: cehaletle amel etmek ve bilip de amel etmemek.",
       "Pratikte: Düzenli olarak faydalı bir şey öğrenmeyi kendinize görev edinin — bir ayet, bir hadis, günlük ibadetiniz için ihtiyaç duyduğunuz bir hüküm. İnancın, namazın, taharetin ve büyük yasakların temelleriyle başlayın, sonra yavaş yavaş derinleşin. Öğrendiklerinizi tevazu ile paylaşın ve her zaman önce kendinize uygulayın.",
     ],
-    quran: [
-      {
-        excerpt: "De ki: Hiç bilenlerle bilmeyenler bir olur mu? Ancak akıl sahipleri öğüt alır.",
-      },
-      {
-        excerpt: "Ve de ki: Rabbim, ilmimi artır.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim ilim aramak için bir yola girerse, Allah ona cennete giden bir yolu kolaylaştırır.",
-      },
-      {
-        excerpt:
-          "İnsan ölünce ameli üç şey dışında kesilir: sadaka-i câriye, faydalanılan ilim veya kendisine dua eden salih evlat.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Her hafta faydalı bir şey öğrenin.",
       "İlmi kibirlenmeden paylaşın.",
@@ -641,18 +411,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Hikmeti, nafilenin imanı canlı tutup büyütmesidir. Farzlar temel seviyeyi korur; nafileler ise kalbin genişlediği, kimsenin görmediği gizli ibadetin ihlası inşa ettiği ve kişinin kendini hayatın daha zor imtihanlarına hazırladığı alandır. Bu amellerin isteğe bağlı olması da bir rahmettir — Allah birçok kapı açar ki herkes kendisine uygun olanlardan geçebilsin.",
       "Pratikte anahtar, yoğunluk değil sürekliliktir. Peygamber ﷺ, Allah'a en sevimli amellerin az da olsa devamlı olanlar olduğunu öğretmiştir. Birkaç gün içinde tükenen iddialı bir hamle yerine, gerçekten sürdürebileceğiniz birkaç nafile seçin — iki rekât teheccüd, haftada bir oruç, belirli bir miktar Kur'an.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Korkarak ve umarak Rablerine dua etmek için yanları yataklarından uzaklaşır ve kendilerine verdiğimiz rızıktan infak ederler. Yapmakta olduklarına karşılık mükâfat olarak onlar için gizlenmiş göz aydınlığını hiçbir kimse bilemez.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kulum bana, kendisine farz kıldığım şeylerden daha sevimli bir şeyle yaklaşamaz. Kulum nafile amellerle bana yaklaşmaya devam eder, nihayet ben onu severim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Sadece iki rekât da olsa teheccüd kılın.",
       "Gücünüz yettiğinde nafile oruç tutun.",
@@ -680,22 +440,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Buradaki hikmet, acıya bakışı tamamen değiştirir. İmtihanlar kendiliğinden ceza değildir; güzel karşılık veren bir mümin için günahları silen bir arınma ve dereceyi yükselten bir yücelme olabilir. Peygamber ﷺ, bir Müslümanın başına gelen hiçbir yorgunluğun, hastalığın, kaygının, hatta batan bir dikenin bile, Allah onunla bazı günahlarını silmeden geçmediğini öğretmiştir. Bu, hayatın en zor anlarını salt bir kayıp olmaktan çıkarıp fırsata dönüştürür.",
       "Pratikte: Bir musibet geldiğinde Allah'ın öğrettiği sözlerle karşılık verin — 'İnnâ lillâhi ve innâ ileyhi râciûn' (Biz Allah'a aidiz ve şüphesiz O'na döneceğiz) — ve dilinizi O'nun kaderine itiraz eden şikâyetten tutun. İyi zamanlarda nimetlerinizi sesli olarak sayın ve her gün en azından birkaçı için Allah'a şükredin; onları tek tek anmak kalbi yumuşak ve şükreden tutar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sabredenleri müjdele; onlar ki başlarına bir musibet geldiğinde: Biz Allah'a aidiz ve şüphesiz O'na döneceğiz, derler. İşte Rablerinden bağışlamalar ve rahmet onlaradır; doğru yolu bulanlar da onlardır.",
-      },
-      {
-        excerpt:
-          "Eğer şükrederseniz, elbette size (nimetimi) artırırım; eğer nankörlük ederseniz, şüphesiz azabım çok şiddetlidir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Müminin durumu ne hoştur! Onun her işi hayırdır. Kendisine bir genişlik gelirse şükreder; bu onun için hayır olur. Bir darlık gelirse sabreder; bu da onun için hayır olur. Bu, müminden başka kimseye nasip olmaz.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "İmtihan edildiğinizde 'innâ lillâhi ve innâ ileyhi râciûn' deyin.",
       "Her gün üç nimet için Allah'a sesli olarak şükredin.",
@@ -712,21 +458,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Böylesine büyük bir sevabı başkalarını hidayete yöneltmeye bağlamanın hikmeti, her mümini sürekli bir hayır kaynağı hâline getirmesidir. Bu aynı zamanda davetçinin kendi imanını da korur: Başkalarını namaza, dürüstlüğe ve ibadete davet etmek, insana bunlara kendisinin de sımsıkı sarılmasını hatırlatır. Ve toplumu karşılıklı ihmal yerine karşılıklı ilgiyle birbirine bağlar.",
       "Pratikte, işe yakınınızdan başlayın. Kendi ailenizi — eşinizi, çocuğunuzu, kardeşinizi — iyileştirin ve onlara öğretin; çünkü onlar ilk ve en kalıcı sorumluluğunuzdur. Faydalı bilgiyi nezaketle paylaşın, birinin namaz kılmayı veya Kur'an okumayı öğrenmesine yardım edin ve unutmayın ki güzel ahlak ve istikrarlı ibadetle geçen bir hayat, çoğu zaman en ikna edici davettir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbinin yoluna hikmetle ve güzel öğütle davet et ve onlarla en güzel şekilde mücadele et.",
-      },
-      {
-        excerpt:
-          "Allah'a davet eden, salih amel işleyen ve 'Şüphesiz ben Müslümanlardanım' diyenden daha güzel sözlü kim vardır?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kim birini bir hayra yöneltirse, onu yapanın sevabı kadar sevap alır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Faydalı bilgiyi nezaketle paylaşın.",
       "Birinin namaz kılmayı veya Kur'an okumayı öğrenmesine yardım edin.",
@@ -743,26 +476,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Bu amellerin hikmeti, kişinin hesabını ömrünün ötesine taşımasıdır. Müminin aktif yılları kısadır; ancak açtırdığı bir kuyu ya da güzel yetiştirdiği bir evlat, ona yüzyıllarca sevap kazandırmaya devam edebilir. İslam böylece uzun vadeli bir bakışı teşvik eder: Yalnızca bugünkü namazı değil, siz gittikten sonra sizden hâlâ akmaya devam edecek hayrı da düşünmeyi.",
       "Pratikte: Gücünüz yetiyorsa, hac veya umreyi sürekli ertelemek yerine ciddi şekilde planlayın. Ailenizin imanına ve ahlakına gerçek bir emek verin; çünkü onlar en kalıcı mirasınızdır. Ve iyi amelleriniz ölümden sonra da devam etsin diye destekleyeceğiniz en az bir kalıcı hayır projesi belirleyin — ilim, su, barınak ya da bir yetim.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yoluna gücü yeten insanların Beyt'i haccetmesi, Allah'ın onlar üzerindeki bir hakkıdır.",
-      },
-      {
-        excerpt:
-          "İnsanlar arasında haccı ilan et; sana yaya olarak ve her uzak yoldan gelen zayıf develer üzerinde gelsinler; ta ki kendilerine ait birtakım faydalara şahit olsunlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Allah rızası için hac eder de hayâsızlık ve günah işlemezse, annesinden doğduğu gün gibi günahsız olarak döner.",
-      },
-      {
-        excerpt:
-          "İnsan ölünce ameli üç şey dışında kesilir: sadaka-i câriye, faydalanılan ilim veya kendisine dua eden salih evlat.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Gücünüz yetiyorsa hac veya umreyi planlayın.",
       "Ailenizin imanına ve ahlakına yatırım yapın.",
@@ -787,26 +502,8 @@ export const JANNAH_TOPICS_TR: DeepPartial<JannahTopic>[] = [
       "Dengeli mümin bu yüzden, iki kanatla uçan bir kuş gibi korku ile ümit arasında yaşar. Allah'ın adaletinden, asla rehavete kapılmayacak ya da günah konusunda pervasızlaşmayacak kadar korkar; Allah'ın rahmetinden de, ne kadar uzaklaşmış olursa olsun asla ümitsizliğe düşmeyecek kadar ümit eder. Tamamen korkuya meyletmek ümitsizlik doğurur; tamamen ümide meyletmek kibir doğurur. Allah'ın isimleri — er-Rahmân (çok merhametli), er-Rahîm (çok esirgeyen), el-Gafûr (çok bağışlayan) — ümit kanadını sağlamlaştırır.",
       "O hâlde her günü şu ruhla kapatın: Allah'tan Firdevs'i isteyin, dürüstçe elinizden gelenin en iyisini yapın, eksikleriniz için tövbe edin ve sonra nihai derecenizi mutlak adalet ve rahmet sahibi Allah'a bırakın — o Gün için rahmetin doksan dokuz parçasını saklayan Zât'ın, kendisine gayret ederek ve ümit ederek gelen bir kulu geri çevirmeyeceğine güvenerek.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rahmetim her şeyi kuşatmıştır. Onu takva sahiplerine, zekâtı verenlere ve ayetlerimize iman edenlere yazacağım.",
-      },
-      {
-        excerpt:
-          "De ki: Ey kendi nefisleri aleyhine haddi aşan kullarım! Allah'ın rahmetinden ümit kesmeyin. Şüphesiz Allah bütün günahları bağışlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sizden hiçbiriniz cennete yalnızca ameliyle girmeyecektir. 'Sen de mi, ey Allah'ın Resûlü?' dediler. 'Ben de; ancak Allah beni rahmetiyle kuşatırsa müstesna' buyurdu.",
-      },
-      {
-        excerpt:
-          "Allah'ın yüz rahmeti vardır. Bunlardan birini cinler, insanlar, hayvanlar ve böcekler arasına indirmiştir; onunla birbirlerine şefkat gösterirler. Doksan dokuzunu ise kendi katında tutmuştur; Kıyamet günü kullarına onlarla merhamet edecektir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Allah korkusunu O'nun rahmetine duyulan ümitle dengeleyin.",
       "Günahtan sonra asla ümitsizliğe düşmeyin — tövbe edin ve gayrete devam edin.",
@@ -827,104 +524,48 @@ export const JANNAH_GATES_TR: DeepPartial<JannahGate>[] = [
   {
     name: "Namaz Kapısı",
     deedSummary: "Beş vakit namazı koruyan ve ikame edenler için.",
-    hadith: [
-      {
-        excerpt:
-          "Kim Allah yolunda bir şeyden bir çift infak ederse, cennetin kapılarından çağrılır. Namaz ehlinden olan Namaz Kapısı'ndan çağrılır.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Sadaka Kapısı",
     deedSummary: "Allah rızası için samimiyetle sadaka verenler için.",
-    hadith: [
-      {
-        excerpt: "Sadaka ehlinden olan Sadaka Kapısı'ndan çağrılır.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Reyyân Kapısı",
     deedSummary: "Oruç tutanlara ayrılmıştır — yalnızca onların girdiği bir kapı.",
-    hadith: [
-      {
-        excerpt:
-          "Cennette Reyyân denilen bir kapı vardır; Kıyamet günü oradan yalnızca oruç tutanlar girer. Onların sonuncusu da girince kapı kapatılır.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Cihad Kapısı",
     deedSummary: "Allah yolunda ihlasla mücadele edenler için.",
-    hadith: [
-      {
-        excerpt: "Cihad ehlinden olan Cihad Kapısı'ndan çağrılır.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Haccın mükâfatı",
     deedSummary: "Haccı halis niyetle yapıp günahsız dönenler için.",
-    hadith: [
-      {
-        excerpt:
-          "Kim Allah rızası için hac eder de hayâsızlık ve günah işlemezse, annesinden doğduğu gün gibi günahsız olarak döner.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Bütün kapılardan çağrılanlar",
     deedSummary: "Ebû Bekir gibi bazıları bütün kapılardan girmeye çağrılacaktır.",
-    hadith: [
-      {
-        excerpt:
-          "Ebû Bekir sordu: Bu kapıların hepsinden çağrılacak biri olacak mı? Buyurdu ki: Evet, senin de onlardan biri olmanı umarım.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_TR: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Rabbinizden bir bağışlanmaya ve genişliği göklerle yer kadar olan, takva sahipleri için hazırlanmış bir cennete doğru yarışın.",
-  },
-  {
-    excerpt:
-      "Altlarından ırmaklar akan cennetler ve Adn cennetlerinde güzel meskenler — Allah'ın rızası ise daha büyüktür.",
-  },
-  {
-    excerpt: "İman edip salih amel işleyenlere konak olarak Firdevs cennetleri.",
-  },
-  {
-    excerpt:
-      "Yapmakta olduklarına karşılık mükâfat olarak onlar için gizlenmiş göz aydınlığını hiçbir kimse bilemez.",
-  },
-  {
-    excerpt: "Orada onlar için diledikleri her şey vardır; katımızda daha fazlası da vardır.",
-  },
-  {
-    excerpt: "Herkesin yaptıklarına göre dereceleri vardır.",
-  },
-  {
-    excerpt: "Onlar Allah katında derece derecedir; Allah yaptıklarını hakkıyla görendir.",
-  },
-  {
-    excerpt:
-      "Rabbimiz! Bize dünyada da iyilik ver, ahirette de iyilik ver ve bizi ateş azabından koru.",
-  },
-  {
-    excerpt: "Allah'ın rahmetinden ümit kesmeyin — şüphesiz Allah bütün günahları bağışlar.",
-  },
-  {
-    excerpt: "Ey kullarım! Bugün size korku yoktur; siz üzülmeyeceksiniz de.",
-  },
-  {
-    excerpt: "Öne geçenler ise öne geçenlerdir — işte onlar Allah'a yaklaştırılanlardır.",
-  },
-  {
-    excerpt: "Allah da onları o günün kötülüğünden korur ve onlara aydınlık ve sevinç verir.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_TR: DeepPartial<JannahDuaEntry>[] = [
@@ -977,6 +618,5 @@ export const JANNAH_FIRDAWS_DUA_TR: DeepPartial<{
   translation: string;
   reference: string;
 }> = {
-  translation: "Allah'ım, senden Firdevs'i — cennetin en yüksek yerini — istiyorum.",
   reference: "Sahîh-i Buhârî 7423'e dayanır — özellikle Firdevs'i isteyin.",
 };

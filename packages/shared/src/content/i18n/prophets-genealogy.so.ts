@@ -10,19 +10,19 @@ export const PROPHETS_GENEALOGY_NODES_SO: DeepPartial<ProphetsGenealogyNode>[] =
       "Eebe ku abuuray Aadam gacantiisa oo baray magacyada. Isagu waa aabbaha aadanaha - ma jiro waalid bini'aadam ah.",
   },
   {
-    name: "Nux",
+    name: "Nuux",
     relationNote:
-      "Quraanku wuxuu Nabi Nuux ka dhigay Rasuul ka dib markii faracii Aadam ay ku faafeen dhulka, laakiin ma sheegin magacyada dhex dhexaadinta Aabayaasha u dhexeeya Aadam iyo Nuux. Waxa uu ka soo muuqday Aadan agtiisa laantan isaga oo ah dhaxal-sugaha awoowaha ee taariikhda nebiyada - ma aha sida ina Aadan.",
+      "Qur'aanku wuxuu caddeeyay in Nuux uu ahaa rasuul la soo diray kadib markii faracii Aadam ku faafeen dhulka, laakiin ma magacaabin aabayaasha u dhexeeya Aadam iyo Nuux. Warbixin laga weriyay Ibn Cabbaas ayaa sheegaysa in Aadam iyo Nuux ay u dhexeeyeen qiyaastii toban jiil. Laantan wuxuu ku muuqdaa isagoo ah awoowe ka dambeeyay — ee ma aha wiil toos ah oo Aadam ama Shiith dhaleen.",
   },
   {
     name: "Ibraahim",
     relationNote:
-      "Ibraahiim wuxuu ka mid yahay farcankii Nuux ee taariikhda nabiga Qur'aanka. Qur'aanku kuma tixin jiil kasta oo u dhexeeya; Wuxuu madax ka yahay laantiisa gurigiisa halkii uu u muuqan lahaa inuu yahay wiilka dhow ee Nuux.",
+      "Ibraahiim wuxuu ka mid yahay farcankii Nuux ee taariikhda nabiyada ee Qur'aanka. Qur'aanku ma tixin jiil kasta oo u dhexeeya; liiska magacyada Aadam→Ibraahiim ee Wikipedia inta badan waa Israa'iiliyaat, halkanna looma sawirin xiriirro go'an. Ibraahiim wuxuu madax u yahay laanta reerkiisa.",
   },
   {
     name: "Ismaaciil",
     relationNote:
-      "Ismaaciil waa ina Ibraahim. Waxa ay si wada jir ah kor ugu qaadeen aas aaska Kacbada. Qur’aanku waxa uu ka warramay bishaarayntii Ibraahim ee wiil dulqaad badan iyo qiso naf hurid ah.",
+      "Ismaaciil waa ina Ibraahiim. Waxay wada dhiseen saldhigyada Kacbada. Qur'aanku wuxuu ka warramay bishaaradii Ibraahiim ee wiil dulqaad badan iyo qisadii qurbaanka. Abtirsiinta Carabta ee dhaqanka ahi waxay laanta Cadnaaniyiinta (sidaas darteedna Muxammad ﷺ) u raacisaa Ismaaciil — iyadoo jiilal badan oo Cadnaan ka horreeyay ay lumeen.",
   },
   {
     name: "Isxaaq",
@@ -47,10 +47,10 @@ export const PROPHETS_GENEALOGY_NODES_SO: DeepPartial<ProphetsGenealogyNode>[] =
   {
     name: "Muuse",
     relationNote:
-      "Muuse wuxuu ahaa Banii Israa'iil. Qur'aanku wuxuu magacaabay walaalkiis Haaruun iyo hooyadiis, laakiin uma baahna in nabi-waalid geedkan lagu taxo. Waxa uu u taagan yahay madaxa laanta Muuse-Harun.",
+      "Muuse wuxuu ka mid ahaa Banii Israa'iil. Qur'aanku wuxuu magacaabay walaalkiis Haaruun iyo hooyadiis, laakiin uma baahna in geedkan lagu tixo waalid nabi ah. Wuxuu madax u yahay laanta Muuse–Haaruun. (Silsiladaha Cimraam ee Kitaabka Qudduuska ah looma sawirin — waxay ka baxsan yihiin xiriirrada waalid ee Qur'aanka ee go'an.)",
   },
   {
-    name: "Haarun",
+    name: "Haaruun",
     relationNote:
       "Haaruun waa Muuse walaalkii. Muuse wuxuu Alle ka baryay inuu Haaruun uga dhigo gargaar qoyskiisa. Waxay wadaagaan laan walaalo ahaan - ma aha sida aabbe iyo wiil.",
   },
@@ -84,42 +84,42 @@ export const PROPHETS_GENEALOGY_NODES_SO: DeepPartial<ProphetsGenealogyNode>[] =
   {
     name: "Muxammad ﷺ",
     relationNote:
-      "Nebi Muxamed ﷺ wuxuu ka soo jeedaa farcii Ismaaciil ibnu Ibraahiim. Jiilal magac leh oo u dhexeeya Ismaaciil iyo Quraysh waxa lagu xafiday sirah qadiimiga ah; Qur'aanku wuxuu xaqiijinayaa dhaxalka Ibraahiim isagoon awoowe kasta soo qorin. Ma jiro aabbe-wiil u dhow oo halkan lagu sawiray - kaliya nebinnimada shaabadaysan iyo faraca Ismaaciil.",
+      "Nabi Muxammad ﷺ waa wiilkii Cabdullaahi ibn Cabdulmuddalib oo ka mid ahaa Banii Haashim. Siirada qadiimiga ahi waxay diiwaangelisay abtirsiinta aabbe ee Haashim illaa Cadnaan; Cadnaan wixii ka dambeeya ee xagga Ismaaciil, jiilalka magacaaban way lumeen ama waa lagu muransan yahay. Wuxuu ka mid yahay farcankii Ismaaciil ina Ibraahiim (xadiiska saxiixa ah ee Waathila).",
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "Shiith (Seth)",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "Dhaqanka Islaamka ee qadiimiga ah (iyo soo koobidda caamka ah ee abtirsiinyada dhowr nabi) wuxuu Shiith ku magacaabaa wiil uu Aadam dhalay iyo isku-xidhka jiilalkii hore. Magacyada u dhexeeya Shiith iyo Nuux inta badan waa Israa'iiliyaat, looma sawirin xiriirro go'an.",
   },
   {
-    name: "Idris",
+    name: "Idriis",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "Qur'aanku wuxuu Idriis ku magacaabay nabi runlow ah oo loo sare qaaday meel sare. Liisaska qadiimiga ahi inta badan waxay dhigaan inta u dhexeysa Aadam iyo Nuux (mararka qaarkood waxaa lagu aqoonsadaa Enoch), laakiin Qur'aanku ma magacaabin aabihiis — xiriir waalid looma sawirin.",
   },
   {
-    name: "Imran",
+    name: "Cimraan",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "Alle wuxuu reer Cimraan ka doortay caalamka. Maryam waa gabadhii Cimraan. (Cimraankan waa aabaha Maryam — halkan looma isticmaalin xiriir aabbenimo oo Muuse/Haaruun ah.)",
   },
   {
-    name: "Adnan",
+    name: "Cadnaan",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "Dhaqanka Islaamku wuxuu qabaa in Muxammad ﷺ uu ka soo farcamay Cadnaan, Cadnaanna uu ka soo farcamay Ismaaciil — laakiin dhaqanka abtirsiinyada Carabtu wuxuu isku raacsan yahay in abtirsiinta magacaaban ee Cadnaan illaa Ismaaciil ay lumtay. Cadnaan waa madaxa qadiimiga ah ee la isku raacsan yahay ee Carabta Cadnaaniyiinta; xiriir waalid oo Ismaaciil ah looma sawirin.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Haashim ibn Cabdi Manaaf",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "Haashim waa kan Banii Haashim lagu magacaabay iyo awoowe qadiimi ah oo Nabiga ﷺ. Liiska buuxa ee madaxda Cadnaan→Haashim (Fihr, Mudar, …) waxaa lagu diiwaangeliyay siirada, laakiin halkan waa laga booday maadaama ay yihiin jiilal qabiil oo dhexe — ee aan nabiyo ahayn. Haashim ayaa madax u ah laf-dhabarta Haashimiga ee dhow ee khariidaddan.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Cabdulmuddalib",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "Cabdulmuddalib (Shayba) waa awoowihii aabbe ee Nabiga ﷺ iyo wiilkii Haashim, sida ku xusan siirada qadiimiga ah.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Cabdullaahi ibn Cabdulmuddalib",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "Cabdullaahi waa aabbihii Nabi Muxammad ﷺ iyo wiilkii Cabdulmuddalib, sida ku xusan siirada qadiimiga ah.",
   },
 ];

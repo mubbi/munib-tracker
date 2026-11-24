@@ -15,21 +15,8 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Aqeedah nije apstraktna tema seminara; to je korijen iz kojeg rastu svo obožavanje i karakter. Čovjekova vjerovanja o tome ko je Allah, zašto su stvoreni i kuda idu tiho regulišu način na koji se moli, kako se ponaša prema drugima i kako se suočava sa teškoćama i smrću.",
       "Ispravno vjerovanje održava srce u ravnoteži između velikih ibadeta - ljubavi i strahopoštovanja, nade i straha, oslanjanja i truda, zahvalnosti i pokajanja - tako da vjernik niti očajava u Allahovoj milosti niti se osjeća sigurnim od Njegove odgovornosti.",
     ],
-    quran: [
-      {
-        excerpt: "Ispravnost je da se vjeruje u Allaha, Sudnji dan, meleke, Knjigu i poslanike...",
-      },
-      {
-        excerpt:
-          "O vjernici, vjerujte u Allaha, Njegovog Poslanika, Knjigu koju je poslao svome Poslaniku i Pismo koje je prije poslao.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Iman je vjerovati u Allaha, Njegove meleke, Njegove knjige, Njegove poslanike, Posljednji dan, i vjerovati u božansku odredbu, njenu dobro i gorku. (Džibrilov hadis, prenosi Omer)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -41,11 +28,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Unutar ehli-sunneta postoje priznate teološke škole – pre svega Athari, Ash'ari i Maturidi pristupi – koje se u potpunosti slažu oko osnova vjere, dok se razlikuju u nekim tehničkim metodama izražavanja određenih stvari, posebno božanskih atributa. Njihov zajednički temelj je jedan i čvrst: Allahova apsolutna jednost, istinitost Njegove objave i stvarna odgovornost na Ahiretu.",
       "Dakle, akidu je najbolje naučiti kao živo vjerovanje: svaka tačka vjerovanja povezuje se s načinom obožavanja, načinom ponašanja i izvorom utjehe.",
     ],
-    quran: [
-      {
-        excerpt: "A oni čvrsti u znanju kažu: 'Vjerujemo u to. Sve je od našeg Gospodara.'",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Naučite akidu od pouzdanih učenjaka i primarnih tekstova, a ne iz debata na društvenim medijima.",
       "Za svako vjerovanje koje proučavate, pitajte: kako to mijenja način na koji obožavam i živim?",
@@ -59,17 +42,8 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Ispravna vjera je također ono što vjernika vodi kroz cijeli životni raspon: uči strpljivom povjerenju u Allahovu odredbu tokom teškoća, poniznoj zahvalnosti u blagoslovu i smirenoj sigurnosti u suočavanju s neizvjesnošću i smrću. Osoba koja istinski vjeruje u kadr i ahiret se ne sruši kada se testira.",
       "Konačno, zdrava akaida uči adabu — dobrom ponašanju — u neslaganju: čvrsto se držati jasnih osnova uz iskazivanje poštovanja i suzdržanosti u sporednim stvarima u kojima se iskreni učenjaci dugo razlikuju. Poznavanje vjerovanja treba povećati poniznost i milosrđe, a nikada aroganciju.",
     ],
-    quran: [
-      {
-        excerpt: "Allah čvrstom riječju drži one koji vjeruju u dunjaluku i na ahiretu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Budite željni onoga što vam koristi, tražite pomoć od Allaha i ne budite bespomoćni... (Ebu Hurejre)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Šest članova imana",
@@ -79,12 +53,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Šest su: vjerovanje u Allaha; u Njegovim anđelima; u Njegovim objavljenim knjigama; u Njegovim glasnicima; u posljednji dan; a u božanskoj odredbi (qadr) je dobro i gorko. Odbaciti bilo koji od njih znači ispasti izvan pravog imana, jer su jedno tkivo.",
       "Oni su takođe duboko međusobno povezani. Vjerovanje u knjige i poslanike vodi do znanja o posljednjem danu i obračunu; vjerovanje u posljednji dan daje težinu svakom djelu; a vjerovanje u kadr uči pouzdanju u Allaha i poniznosti pred Njegovom mudrošću. Njihovo učenje po redu gradi jasan i uravnotežen pogled na svijet.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Da vjerujete u Allaha, Njegove meleke, Njegove knjige, Njegove poslanike, Posljednji dan, i da vjerujete u odredbu, njenu dobro i gorku. (Džibrilov hadis)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -97,15 +66,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Ehli-Sunnet potvrđuje lijepa imena i uzvišena svojstva koja je Allah potvrdio za Sebe, i koje je Njegov Poslanik, sallallahu alejhi ve sellem, potvrdio za Njega, na način koji dolikuje Njegovom veličanstvu - bez upoređivanja sa Njegovim stvorenjem (tamthil) i bez poricanja ili ispraznjenja Njegovih atributa značenja (ta'til). Ajet vodilja glasi: 'Nema ničega sličnog Njemu, i On je Svečujući i Svevideći' (42:11) — koji istovremeno poriče sličnost i potvrđuje Njegovo slušanje i gledanje.",
       "Poznavanje Allaha po Njegovim imenima - Milostivi, Sveznajući, Uvijek Živi, Kralj, Koji prašta - hrana je srca: što Ga više poznajete, više volite, bojite se i obraćate mu se.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Reci: On je Allah, Jedini… On ne rađa, niti se rađa, i niko se ne može porediti s Njim.",
-      },
-      {
-        excerpt: "A Allahu pripadaju najljepša imena, pa Ga zovite njima.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -116,16 +77,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Vjerovati u njih znači vjerovati da je nevidljivi svijet stvaran i aktivan oko nas. Meleki donose otkrovenje, čuvaju ljudska bića, bilježe svaku riječ i djelo, uzimaju duše na smrti i upravljaju poslovima na zemlji i nebesima uz Allahovu dozvolu – tako da vjernik nikada nije istinski sam ili nezapažen.",
       "Nekoliko ih je u tekstovima imenovano sa specifičnim ulogama: Džibril, anđeo otkrivenja; Mika'il, povjerena kiša i opskrba; Israfil, koji će duvati u trubu; Malak al-Mawt, anđeo smrti; i plemeniti pisari (Kiraman Katibin) koji bilježe djela svake osobe. Munkar i Nakir ispituju pokojnika u grobu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Nad njim su meleki, oštri i strogi, koji se ne pokoravaju Allahu u onome što On naredi i čine ono što im je naređeno.",
-      },
-      {
-        excerpt:
-          "Reci: ko je neprijatelj Džibrilu, on ga je spustio na vaše srce, uz Allahovu dozvolu.",
-      },
-    ],
+    quran: [{}, {}],
     actions: ["Živite sa sviješću da anđeli koji snimaju nikada ne propuštaju ni riječ ni djelo."],
   },
   {
@@ -136,15 +88,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Kur'an ima jedinstveni rang. To je konačno otkrivenje, poslano 'potvrđujući ono što je bilo prije njega i kao kriterij nad njim' (5:48) - što znači da sudi i ispravlja, budući da raniji spisi nisu ostali u svom izvornom stanju, već su izmijenjeni (tahrif) i izgubljeni tokom generacija.",
       "Jedinstveno među svim svetim spisima, Kur'an je božanski zaštićen od kvarenja: 'Zaista, Mi smo opomenu spustili, i zaista, Mi smo njen Čuvar' (15:9). Vjerovati u knjige stoga znači poštovati objavu, učiti Kur'an s razmišljanjem i podrediti se njegovoj uputi u životu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "I Mi smo vam objavili Knjigu u istini, potvrđujući ono što joj je prethodilo od Pisma i kao kriterij nad njom.",
-      },
-      {
-        excerpt: "Zaista, Mi smo ti koji smo spustili Opomenu, i zaista, Mi ćemo biti njen čuvar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -155,15 +99,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Poslanici su najbolji od stvorenja u istinitosti i pouzdanosti, zaštićeni od Allaha od laži o poruci i od velikog grijeha - ipak oni ostaju ljudska bića, a ne božanska, i nikada ih se ne treba obožavati. Petorica su izdvojeni kao 'odlučni' glasnici (ulu al-'azm): Nuh, Ibrahim, Musa, 'Isa i Muhammed, sallallahu alejhi ve sellem.",
       "Muhammed, sallallahu alejhi ve sellem, je Pečat poslanika (khatam an-nabiyyin): nijedan poslanik ne dolazi nakon njega, a njegova poruka je univerzalna – poslana cijelom čovječanstvu do Sudnjeg dana. Vjerovati u njega uključuje ljubav prema njemu, pokoravanje njegovim naredbama, vjerovanje njegovim izvještajima i obožavanje samo na način na koji je učio.",
     ],
-    quran: [
-      {
-        excerpt: "…Mi ne pravimo razliku između bilo kojeg od Njegovih poslanika…",
-      },
-      {
-        excerpt:
-          "Muhamed nije otac nijednog od vaših ljudi, već Allahov Poslanik i pečat poslanika.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -174,12 +110,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Ovo vjerovanje daje moralnu težinu svakom trenutku. Budući da Allah vidi skriveno i bilježi najsitnije djelo, ništa dobro se nikada ne troši i ništa zlo se nikada ne previđa: 'Ko čini težinu atoma dobra vidjet će to, a onaj ko čini težinu atoma zla će to vidjeti.'",
       "Ehli-sunnet sa sigurnošću potvrđuje sve ove stvarnosti, vjerujući u njih upravo onakve kakve su objavljene, dok priznaju da se učenjaci razlikuju u tumačenju nekih finijih detalja konkretnih događaja i znakova. Poenta vjerovanja nije spekulacija već priprema.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…Dakle, ko god radi atomsku težinu dobra, vidjet će to, a ko god čini težinu atoma zla, vidjet će to.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -191,21 +122,8 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Ehli-sunnet se usmjerava između dvije greške: poricanja odredbe (kao da događaji izmiču Allahovom znanju i volji) i fatalizma (koristeći dekret za poništavanje ljudske odgovornosti i opravdanje grijeha). Vjernik izvrsno uzima sredstva, a onda ishod povjerava Allahu.",
       "Praktično, kadr je veliki izvor mira: nakon što obavite svoj dio, počivate u znanju da ono što stigne do vas nikada vas nije moglo promašiti, a ono što ste propustili nikada vas nije moglo stići.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Ako te nešto zadesi, nemoj reći 'da sam bar tako učinio', već reci 'Allah je odredio i učinio je ono što je htio' — jer 'da samo' otvara vrata šejtanu. (Ebu Hurejre)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Zaista, Mi smo sve stvorili po mjeri (kadar).",
-      },
-      {
-        excerpt:
-          "Zaista, Allah ne mijenja stanje ljudi sve dok oni ne promijene ono što je u sebi.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     misconceptions: [
       "Zabluda: Ako je sve određeno, trud je besmislen. Ispravka: Islam nalaže trud, planiranje, molitvu i pokajanje - uzimanje sredstava je samo po sebi dio uredbe.",
       "Zabluda: Kadr znači da je Allah kriv za moj grijeh. Ispravka: Sluga bira i odgovara; dekret nikada nije izgovor za neposlušnost.",
@@ -226,14 +144,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Ovaj trodijelni okvir je nastavno sredstvo, a ne izvor podjela; njegova svrha je da pomogne vjerniku da čuva iskrenost i prepozna gdje jedinstvo može biti ugroženo. Sve to je zarobljeno u početnoj dovi svakog muslimanskog namaza: 'Tebe jedinog klanjamo, i samo Tebe tražimo za pomoć.'",
       "Ključni uvid: priznanje da je Allah Stvoritelj (rububiyyah) nije dovoljno samo po sebi. Mnogi koji su poricali poslanike i dalje su priznavali da je Allah stvorio nebesa i Zemlju - ono što su odbijali je da se samo Njemu klanjaju (uluhiyyah). Pravi tevhid se dokazuje u ibadetu, a ne samo u vjerovanju o porijeklu.",
     ],
-    quran: [
-      {
-        excerpt: "Samo Tebe obožavamo, i samo Tebe tražimo za pomoć.",
-      },
-      {
-        excerpt: "Allah — nema božanstva osim Njega. Njemu pripadaju najljepša imena.",
-      },
-    ],
+    quran: [{}, {}],
     misconceptions: [
       "Zabluda: Tawheed izgovara samo jednu rečenicu. Ispravka: To je vjerovanje srca, izjava jezika i stvarnost koja se živi u obožavanju.",
       "Zabluda: Vjerovanje da je Allah Stvoritelj je cijeli tevhid. Ispravka: Čak su i mnogi nevjernici potvrdili da - test je obožavanje samo Allaha.",
@@ -250,22 +161,8 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Manji širk (al-shirk al-asghar) ne izbacuje iz islama, ali je ozbiljno opasan i može poništiti nagradu za djela. Njegov najjasniji oblik je rija – obavljanje ibadeta da bi ga ljudi vidjeli i hvalili – kojeg je Poslanik, sallallahu alejhi ve sellem, nazvao stvarima koje se najviše bojao za svoju zajednicu. Zakleti se drugim osim Allahom na način koji to uzdiže pada i ovdje.",
       "Ehli-sunneti su oprezni s jezikom i rasuđivanjem: upozorenje na širk općenito je bitno i jasno, ali proglašenje određene osobe mušrikom ili nevjernikom (tekfir) je teška stvar koja zahtijeva znanje, valjane dokaze i uklanjanje izgovora - to pripada kvalifikovanim učenjacima, a ne običnim ljudima ili argumentima na internetu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zaista, Allah ne oprašta druženje s Njim, ali oprašta ono što je manje od onoga kome hoće.",
-      },
-      {
-        excerpt:
-          "O sine moj, ne pridružuje Allahu drugove. Zaista, udruživanje je velika nepravda (zulm).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ono čega se najviše plašim za tebe je manji širk. Upitan šta je to, on je rekao: hvalisanje (rija). (Mahmud ibn Labid)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Zabluda: Svaki lapsus je veliki širk. Ispravka: Naučnici razlikuju veće od manjeg i pažljivo prosuđuju svaki slučaj sa dokazima.",
       "Zabluda: Upozorenje na širk zahtijeva grubost prema ljudima. Ispravka: Proročki način spaja jasnoću istine s milosrđem i strpljivim učenjem.",
@@ -279,17 +176,8 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Budući da nagrada ovisi o namjeri, malo, tiho djelo učinjeno iskreno za Allaha može nadjačati veliko, javno djelo učinjeno radi ugleda. Isti vanjski čin - davanje milostinje, molitva, učenje - može biti obožavanje ili praznina ovisno o srcu iza toga.",
       "Iskrenost se ne postiže jednom, već se neprestano obnavlja, jer je sopstvo sklono traženju pažnje. Vjernici stoga stalno čiste svoju namjeru i traže od Allaha da ih zaštiti od skrivenog širka rija i od samoobmane.",
     ],
-    quran: [
-      {
-        excerpt: "I nije im bilo naređeno osim da obožavaju Allaha, iskreno prema Njemu u vjeri.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Radnje su samo namjere, i svako će imati samo ono što je namjeravao. ('Omar ibn al-Hattab)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -300,15 +188,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Ehli-sunnet uči da oni moraju ostati u ravnoteži, poput ptice koja leti sa dva krila i glavom. Ljubav i nada bez straha mogu utonuti u nemar i uzimanje Allahove milosti zdravo za gotovo; strah bez nade može pasti u očaj. Kur'an im se pridružuje: 'Prizovite Ga u strahu i nadi.'",
       "Ova ravnoteža nije samo osjećaj; pojavljuje se na djelu - u čuvanju molitve, žurbi da se pokaje, služenju drugima, obuzdavanju ljutnje i strpljenju u teškoćama iz ljubavi prema Onome koji je to odredio.",
     ],
-    quran: [
-      {
-        excerpt: "…Ali oni koji vjeruju su jači u ljubavi prema Allahu.",
-      },
-      {
-        excerpt:
-          "…I prizovite Ga u strahu i nadi. Zaista, Allahova milost je blizu onih koji čine dobro.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -319,21 +199,8 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Allahov poziv je nevjerovatno velikodušan: 'Reci: O robovi moji koji ste sami sebe prestupili, ne očajavajte u Allahovoj milosti! Allah, zaista, oprašta sve grijehe.' Vrata pokajanja (tevba) ostaju otvorena sve dok sunce ne izađe sa zapada ili dok se ne približi smrt pojedinca.",
       "Iskreno pokajanje ima jasne uslove: odmah napustiti grijeh, osjećati iskreno žaljenje zbog njega i čvrsto odlučiti da se više nikada ne vrati – i, kada je grijeh uključivao prava druge osobe, vraćanje tih prava ili traženje njihovog oproštenja. Kada se oni susreću, Allahov odgovor nije samo prihvatanje, već radost: On je 'više oduševljen pokajanjem Njegovog roba' nego čovjek koji povrati izgubljeno brdo i namirnice u neplodnoj pustinji.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Reci: O robovi moji koji ste sami sebe prestupili, ne očajavajte u Allahovoj milosti. Zaista, Allah oprašta sve grijehe.",
-      },
-      {
-        excerpt: "O vjernici, obratite se Allahu u iskrenom pokajanju.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah je više oduševljen pokajanjem Svoga roba nego čovjek koji izgubi svog konja, noseći svoju hranu i piće, u neplodnoj zemlji - pa ga ponovo nađe. (Ibn Mas'ud)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -344,18 +211,8 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Ulazak u Džennet je na kraju Allahovom milošću – ničija djela sama ne mogu zaraditi vječno blaženstvo – ali iskrena vjera i ispravan postupak su sredstva koja je Allah odredio i prihvata. Njih dvoje nisu u sukobu: milosrđe je uzrok, a vjera i djela su put koji mu je On otvorio.",
       "Vjerovanje u raj preoblikuje način na koji čovjek sada živi: potiče strpljenje kroz teškoće, velikodušnost prema bogatstvu i istrajnost u ibadetu, jer vjernik mijenja prolazni svijet za vječni dom. Kur'an nas poziva da se 'trčimo' prema tome.",
     ],
-    quran: [
-      {
-        excerpt:
-          "I požuri sa oprostom od Gospodara svoga i džennetom širokom kao nebesa i zemlja, pripremljenom za pravednike.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah je rekao: Pripremio sam Svojim pravednim robovima ono što nijedno oko nije vidjelo, uho nije čulo, i nijedno ljudsko srce nije začelo. (Ebu Hurejre; također Sahih Musliman 2824)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -367,15 +224,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Upozorenja služe milostivoj svrsi: ona postoje da zaštite ljude od samog ishoda koji opisuju - da spriječe aroganciju, ugnjetavanje i uporno, svesno odbacivanje istine, i da potaknu nepažljive da se pokaju dok su vrata otvorena.",
       "Ehli-sunnet drži upozorenja i milost zajedno. Prijetnje su ozbiljne i stvarne, ali Allahova milost ostaje ogromna za onoga ko se Njemu okrene — a među ljudima tevhida, grešnici koji uđu u Vatru neće ostati tamo zauvijek, već će na kraju biti izvučeni Allahovom milošću i posredovanjem koje On dopusti.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O vjernici, zaštitite sebe i svoje porodice od Vatre čije su gorivo ljudi i kamenje.",
-      },
-      {
-        excerpt: "…Ne očajavajte u Allahovoj milosti. Zaista, Allah oprašta sve grijehe.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -386,15 +235,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Između smrti i uskrsnuća nalazi se barzak - srednji život groba, sa njegovim ispitivanjem i njegovom lakoćom ili teškoćom. Zatim se puhne u trubu i sva stvorenja se podižu i okupljaju pred Allahom radi polaganja računa.",
       "Ovo vjerovanje je ono što ljudskom životu daje moralnu ozbiljnost: bez uskrsnuća, tlačitelj koji umire udobno i potlačeni koji umiru nepravedno doživjeli bi isti kraj. Njime se odgovara na svaku nepravdu i svako dobro se nagrađuje, dajući smisao strpljenju i pravdi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "On kaže: 'Ko će oživjeti kosti dok se raspadaju?' Reci: 'On će im dati život ko ih je proizveo prvi put...'",
-      },
-      {
-        excerpt: "I zaista, čas dolazi - nema sumnje - i Allah će oživjeti one u grobovima.",
-      },
-    ],
+    quran: [{}, {}],
   },
   {
     title: "Sudnji dan",
@@ -404,12 +245,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Tog Dana nikome neće koristiti nikakva loza, bogatstvo, klasa, nacionalnost ili svjetski položaj; samo iskrena vjera i pravedni postupci, koje je Allah prihvatio, će biti od koristi. Dijele se zapisi, vagaju djela, pa čak i nepravde učinjene među ljudima se namiruju prenošenjem dobrih i loših djela.",
       "Ova sigurnost sada ima za cilj da preobrazi karakter: poziva vjernika na poštenje, pouzdanost, čuvanje prava drugih, popravljanje nepravdi i vraćanje dugovanog prije Dana kada se dugovi plaćaju djelima, a ne novcem.",
     ],
-    quran: [
-      {
-        excerpt:
-          "I Mi postavljamo vagu pravde za Sudnji dan, tako da se ni jedna duša neće nepravedno ponašati.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -420,16 +256,7 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Sirat je most koji se proteže preko pakla koji svi moraju proći. Kur'an kaže: 'Nema nikog od vas koji će ga preći', a zatim: 'Mi ćemo spasiti one koji su mislili na Allaha.' Ljudi prelaze u skladu sa svojim djelima - neki su brzi poput svjetlosti ili vjetra, drugi se bore, a neki klizaju - Allahovom milošću i pravdom.",
       "Ovim stvarnostima nije rečeno da se dokono plaše, već da neguju ozbiljnost: o težini malih djela, o iskrenosti ibadeta i o poštovanju prava drugih, jer će sve to biti izvagano.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Tada će onaj čija je vaga teška biti u ugodnom životu; ali što se tiče onoga čija je vaga lagana, njegovo utočište će biti ponor.",
-      },
-      {
-        excerpt:
-          "I nema nikog od vas osim što će on preći preko njega... Onda ćemo Mi spasiti one koji su se Allaha bojali.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -441,21 +268,8 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Ali niko se ne zalaže na sopstveni autoritet. Svako valjano posredovanje se dešava samo 'nakon Njegovog dopuštenja' i samo za one sa kojima je Allah zadovoljan: 'Ko je taj koji se može zauzimati kod Njega osim po Njegovoj dozvoli?' Ovo čuva Allahov apsolutni suverenitet nad ishodom.",
       "Učenjaci opisuju nekoliko afirmiranih vrsta posredovanja - da se započne obračun, da ljudi uđu u Džennet, da grešni vjernici budu oprošteni ili uklonjeni iz Vatre - dok se slažu da konačna presuda uvijek ostaje samo Allahova.",
     ],
-    quran: [
-      {
-        excerpt: "Ko je to što se može zalagati kod Njega osim uz Njegovu dozvolu?",
-      },
-      {
-        excerpt:
-          "Tog Dana, posredništvo neće koristiti osim onome kome je Milostivi dao dozvolu i čiju riječ odobrava.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ljudi će mi doći, a ja ću klanjati pred svojim Gospodarom; tada će se reći: Podigni glavu, traži i biće ti dato, zauzmi se i tvoje zalaganje će biti prihvaćeno. (Ebu Sa'id — veliko posredovanje)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Zabluda: posredovanje uklanja potrebu za pokajanjem. Ispravka: To se dešava samo uz Allahovu dozvolu i nikada nije dozvola da se ustraje u grijehu.",
       "Zabluda: Neko može sada pozvati proroke ili pravednike da se zauzmu. Ispravka: Ibadet i dova su samo za Allaha; posredovanje na ahiretu je Njegovom odredbom, traženo kroz udovoljavanje Njemu.",
@@ -471,20 +285,8 @@ export const AQEDAH_TOPICS_BS: DeepPartial<AqeedahTopic>[] = [
       "Deset glavnih znakova su zajedno imenovani u hadisu Poslanika, sallallahu alejhi ve sellem: među njima pojava Dedžala, silazak Isaa (sin Merjemine), izlazak Ya'juja i Ma'juja, tri velika klizišta, dim, izlazak sunca sa zapada i vatra koja tjera ljude na njihov put.",
       "Učenjaci se ponekad razlikuju oko tačnog slijeda nekih znakova, ali se slažu oko dvije stvari: dolazak Časa je siguran, a njegovo tačno vrijeme ne zna niko osim Allaha — čak ni Poslanik, sallallahu alejhi ve sellem, kada ga je Džibril pitao. Proročki odgovor na znakove je stoga praktičan, a ne spekulativan: povećajte vjeru, pokajanje, pravdu i korisna djela, a ne beskrajno predviđanje.",
     ],
-    quran: [
-      {
-        excerpt: "Pitaju vas za Sat: kada dolazi? Reci: njegovo znanje je samo kod mog Gospodara.",
-      },
-      {
-        excerpt: "Da li čekaju osim da ih čas dođe iznenada? Njegovi znaci su već došli.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sat neće doći dok ne vidite deset znakova: dim, Dedžala, Zvijer, sunce koje izlazi sa zapada, silazak Isa, Ya'juja i Madžudža i tri klizišta... (Huzejfe ibn Usajd)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Zabluda: Svaki veliki svjetski događaj je definitivno konačni znak. Ispravka: Takve tvrdnje zahtijevaju autentične dokaze i naučni oprez, a ne senzacionalizam.",
       "Zabluda: Poznavanje znakova nam omogućava da datiramo sat. Ispravka: Tačno vrijeme je poznato samo Allahu; znakovi nas pozivaju da se pripremimo, a ne da predviđamo.",

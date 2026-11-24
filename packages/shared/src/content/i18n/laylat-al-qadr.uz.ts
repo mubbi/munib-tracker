@@ -2,137 +2,111 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // uz overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "Laylatul Qadr nima?",
+    summary: "Qadr kechasi — ming oydan yaxshiroq kecha.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "Laylatul Qadr — Qadr kechasi (yoki Qudrat kechasi) — Qurʼon Paygʻambar ﷺga nozil boʻla boshlagan kechadir. Alloh unga butun bir surani bagʻishlagan va u quyidagi oyat bilan boshlanadi: «Albatta Biz u (Qurʼon)ni Qadr kechasida nozil qildik» (Qurʼon 97:1). Uning qadri bir necha oyatdan soʻng eng ochiq soʻzlar bilan bayon qilinadi: «Qadr kechasi ming oydan yaxshiroqdir» (Qurʼon 97:3) — shu birgina kechadagi ibodat sakson uch yildan ortiq vaqt davomida qilingan ibodatdan ustun turadi.",
+      "Sura bu kechani yana tasvirlaydi: unda farishtalar va Ruh (Jabroil) Parvardigorlarining izni bilan har bir ish uchun tushadilar va u «…to tong otgunicha tinchlik-omonlikdir» (Qurʼon 97:4–5). Bu ulkan rahmat, osoyishtalik va ilohiy taqdir kechasidir — Paygʻambar ﷺ sahobalarini uni bilmay oʻtkazib yubormasdan, faol izlashga undaganlar.",
+      "Shuning uchun Ramazonning oxirgi oʻn kechasi shunchalik katta maʼnaviy ahamiyatga ega: ularning orasida inson hayotidagi boshqa har qanday kechadan qimmatliroq bir kecha bor. Uni ochiq bildirmaslikdagi hikmat shuki, moʻminlar bittasidan boshqa hammasida boʻshashib qolmay, oxirgi oʻn kechaning har birida gʻayrat qiladilar.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "Namozda qoim turishning savobi",
+    summary: "Bu kechadagi samimiy ibodat oʻtgan gunohlarni yuvib ketadi.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "Paygʻambar ﷺ bu kechaga favqulodda vaʼdani bogʻladilar: «Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven» (inglizcha maʼnosi) (Buxoriy 1901). Bunga ikki shart qoʻyilgan — iymon (bu ibodat Alloh sevadigan va shariatga kiritgan narsa ekaniga chin ishonch) va ihtisob (koʻz-koʻz qilish yoki maqtov uchun emas, faqat Allohning savobini umid qilish).",
+      "Bu magʻfirat shunchaki hozir boʻlgan har kimga avtomatik berilmaydi; u samimiy, umidvor qalb bilan ibodat qilgan kishi uchundir. Shuning uchun oxirgi oʻn kecha odatda qoʻshimcha tungi namoz (qiyom), Qurʼon va zikr bilan toʻldiriladi — savob savdo-sotiq boʻlgani uchun emas, balki samimiy va davomli harakatning oʻzi hadisda iymon va ihtisob deb taʼriflangan narsa boʻlgani uchun.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "Har bir ibodat kechasidan oldin niyatingizni yangilang — Alloh uchun, Uning savobini umid qilib.",
+      "Oxirgi oʻn kechada, hatto bir necha rakat boʻlsa ham, qiyomul-layl namozini oʻqing.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "Uni qachon izlash kerak",
+    summary: "Ramazonning oxirgi oʻn kunidagi toq kechalar — bitta qatʼiy sana emas.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "Paygʻambar ﷺ shunday buyurganlar: «Search for the Night of Qadr in the odd nights of the last ten days of Ramadan» (inglizcha maʼnosi) (Buxoriy 2017), Oyishadan rivoyat qilingan. Odatdagi 30 kunlik Ramazonda toq kechalar odatda 21, 23, 25, 27 va 29-kechalar deb hisoblanadi. Boshqa sahih rivoyatlar buni oxirgi oʻn kechaning barchasiga kengaytiradi, Paygʻambar ﷺning oʻzlari esa bu kechaning aniq sanasi u zotga koʻrsatilib, soʻng unuttirilganini aytganlar — toki ummat bitta kechada emas, barcha shu kechalarda gʻayrat qilsin.",
+      "Koʻplab olimlar va jamoalar 27-kechani eng ehtimolli deb hisoblaydilar (alomatlarni va sahobalar xabarlarining koʻpligini tortib koʻrgan boshqa rivoyatlarga asoslanib), ammo bu matnlarda qatʼiyat bilan aytilgan alohida belgilangan sana emas, balki hadisdan chiqarilgan ilmiy xulosadir. U turli yillarda va turli hududlarda boshqa kechaga toʻgʻri kelishi mumkin, chunki Ramazonning boshlanish sanasining oʻzi oy koʻrinishiga qarab farq qiladi.",
+      "Baʼzilar har yili bitta bosma sanani goʻyo u qatʼiy aniqlangandek eʼlon qiladi, internetda esa «alomatlar»ning xalq roʻyxatlari (gʻayrioddiy sokin kecha, tushlar, alohida nur) keng tarqalgan. Ularning hech birining kuchli hadis asosi yoʻq, shuning uchun bu qoʻllanma ularni takrorlamaydi. Ishonchli, matnga asoslangan yoʻl oddiy: barcha toq kechalarda — va iloji boʻlsa, butun oxirgi oʻn kechada — ibodatni koʻpaytiring, shunda u qaysi kecha boʻlmasin, siz unda ibodat bilan band boʻlasiz.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "Bu qoʻllanma kechani aniqlash uchun bitta qatʼiy taqvim sanasini ham, xalq orasidagi biror «alomat»ni ham maʼqullamaydi — faqat hadislarda aytilganini: uni Ramazonning oxirgi oʻn kechasidagi toq kechalarda izlang.",
   },
   {
-    title: "Ustiga tushsangiz nima aytish kerak",
-    summary: "Oyisha Payg'ambar ﷺdan aynan nima aytish kerakligini so'radi.",
+    title: "Uni topsangiz nima deysiz",
+    summary: "Oyisha Paygʻambar ﷺdan aynan nima deyish kerakligini soʻragan.",
     body: [
-      "Oyisha (Alloh uning ruhiyati bilan rozilik qilsin) Payg'ambar ﷺdan so'radi: 'Ey Allohning Rasuli, agar Qadr kechasi qaysi kecha ekanini bilib qolsam, unda nima aytishim kerak?' U ﷺ unga quyida ko'rsatilgan qisqa kechirim duosini o'rgatdi (Tirmidhi 3513, at-Tirmidiy tomonidan hasan sahih darajasida).",
-      "Bu duo qisqa, yodlash oson va ataylab dunyoviy so'rovlar o'rniga kechirim haqida — bu kechadan eng katta foyda Allohning mag'firati ekanini eslatadi. Oxirgi o'n kechada, namozda, sajda vaqtida va ularning orasida tez-tez takrorlang; bitta taxmin qilingan kechaga saqlab qo'yish o'rniga.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Men aytdim: Ey Allohning Rasuli, agar Qadr kechasi qaysi kecha ekanini bilib qolsam, unda nima aytishim kerak? U ﷺ aytdi: Ayt — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Ey Alloh, Sen kechiruvchisan va kechirishni sevasan, meni kechir).",
-      },
+      "Oyisha (Alloh undan rozi boʻlsin) Paygʻambar ﷺdan soʻradi: «O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?» (inglizcha maʼnosi). U zot unga quyida koʻrsatilgan qisqa magʻfirat duosini oʻrgatdilar (Termiziy 3513, Termiziy uni hasan sahih deb baholagan).",
+      "Bu duo qisqa, yodlash oson va ataylab dunyoviy soʻrovlar haqida emas, balki magʻfirat haqida — bu kechadan eng katta yutuq Allohning afvi ekanini eslatadi. Uni bitta taxmin qilingan kechaga saqlab qoʻymay, oxirgi oʻn kecha davomida namozda, sajdada va ularning orasida tez-tez takrorlang.",
     ],
     actions: [
-      "Yuqorida ko'rsatilgan kechirim duosini yodlang.",
-      "Oxirgi o'n kechada, ayniqsa toq kechalarda, tez-tez takrorlang.",
+      "Yuqorida koʻrsatilgan magʻfirat duosini yodlang.",
+      "Uni oxirgi oʻn kechada, ayniqsa toq kechalarda, tez-tez takrorlang.",
+    ],
+    appLinks: [{ label: "Bu duoni ochish" }],
+  },
+  {
+    title: "Kechani qanday oʻtkazish kerak",
+    summary: "Tungi namoz, Qurʼon, zikr va duo hamda sadaqa.",
+    body: [
+      "Laylatul Qadr uchun samimiy ibodatdan tashqari bitta majburiy «marosim» yoʻq, shuning uchun Sunnat allaqachon shariatga kiritilgan amallarni kuchaytiradi, xolos: nafl tungi namozda qoim turish (qiyomul-layl / taroveh), Qurʼonni tilovat qilish va uning maʼnosi ustida tafakkur qilish, zikr va istigʻforni takrorlash hamda duo qilish — ayniqsa Paygʻambar ﷺ Oyishaga oʻrgatgan duoni. Koʻplab sahobalar va keyingi olimlar ham bu kechalarda sadaqani koʻpaytirganlar — Paygʻambar ﷺning saxiyligi Ramazonda eng yuqori choʻqqiga chiqqaniga muvofiq ravishda.",
+      "Agar oz narsa qila olsangiz, hech narsa qilmagandan koʻra ozini muntazam qiling: hatto qisqa qiyom, Qurʼondan bir necha sahifa va samimiy takrorlangan magʻfirat duosi hadisda taʼriflangan «iymon va ihtisob»ni ado etadi. Ishdan taʼtil olishi yoki yolgʻizlikni koʻpaytirishi mumkin boʻlganlar Paygʻambar ﷺning oʻz amallariga ergashib, oxirgi oʻn kechada eʼtikof (masjidda xilvatga chekinish) ham qilishlari mumkin.",
+    ],
+    actions: [
+      "Oxirgi oʻn kechada qoʻshimcha tungi namoz (qiyom/taroveh) oʻqing.",
+      "Har kecha Qurʼondan bir qismini tilovat qiling va uning ustida tafakkur qiling.",
+      "Istigʻfor, zikr va magʻfirat duosini koʻpaytiring.",
+      "Bu kechalarda oz boʻlsa ham sadaqa bering.",
+    ],
+    appLinks: [
+      { label: "Qurʼon oʻqish" },
+      { label: "Ertalabki va kechki zikrlar" },
+      { label: "Namoz kuzatuvchisi" },
+      { label: "Zakot va sadaqa" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "Oxirgi oʻn kechada eʼtikof",
+    summary: "Masjidda xilvatga chekinish — Paygʻambar ﷺning Ramazon oxiridagi amallari.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "Eʼtikof — maʼlum muddat davomida odatiy dunyoviy chalgʻituvchi narsalardan uzilib, ibodat uchun masjidda qolishdir. Paygʻambar ﷺ Ramazonning oxirgi oʻn kechasida muntazam eʼtikof qilardilar va oddiy yumushlar uchun masjiddan chiqmay, jamlangan ibodat bilan Laylatul Qadrni izlardilar (Sahihi Buxoriy 2026).",
+      "Klassik taʼlimotda, imkoni boʻlgan kishi uchun oxirgi oʻn kechadagi toʻliq eʼtikof sunnati muakkada hisoblanadi. Uni nima buzishi, ayollar uni masjidning ajratilgan joyida ado eta olishi va ish yoki oilaviy majburiyatlar u bilan qanday uygʻunlashishi kabi tafsilotlar mazhabga qarab farq qiladi — bu qoʻllanma faqat amalning oʻzini va uning maqsadini belgilaydi: Laylatul Qadrni oʻz ichiga olishi eng ehtimolli boʻlgan kechalarda davomli Qurʼon, namoz va duo.",
+      "Agar masjidda toʻliq xilvatga chekinish imkoni boʻlmasa, oradagi farqni qisqartiring: tarovehdan keyin uzoqroq qoling, uyda kechaning sokinroq qismlarini qiyom va Qurʼon uchun ajrating va bu soatlarni keraksiz chalgʻishlardan himoya qiling. Savob faqat «eʼtikof» degan rasmiy nomga emas, samimiy ibodatga bogʻliq.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "Agar masjidingizda eʼtikof tashkil etilsa, roʻyxatdan oʻtish va ular amal qiladigan qoidalar haqida oldindan soʻrang.",
+      "Agar tunab qola olmasangiz ham, oxirgi oʻn kechada Qurʼon va qiyom uchun masjidda boʻlish vaqtingizni uzaytiring.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "Eʼtikofning batafsil fiqhiy shartlari bor (niyat, masjiddan chiqish, er-xotin yaqinligi, ayollar uchun tartib). Kirishishdan oldin malakali mahalliy olim yoki masjidingiz bilan aniqlashtirib oling.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "Oxirgi oʻn kechada oila bilan ibodat",
+    summary: "Qatʼiy sana ortidan quvmasdan, bolalar va oila aʼzolarini ham jalb qiling.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "Oxirgi oʻn kecha yolgʻiz bedor oʻtira oladiganlar uchungina emas, balki butun xonadon uchun imkoniyatdir. Bolalarga Laylatul Qadrning maʼnosini oddiy soʻzlar bilan oʻrgating — Alloh bir kechani ming oydan yaxshiroq qilgan — va ularni qisqa, bajarsa boʻladigan amallarga taklif qiling: Qurʼondan bir necha sahifa, kuchlari yetgancha tarovehga qoʻshilish, magʻfirat duosini takrorlash va ozgina sadaqa berish.",
+      "Ohangni muloyim tuting. Maqsad — toq kechalar davomida samimiy harakat, bitta taxmin qilingan taqvim sanasi uchun hammani holdan toydirish emas. Qisqa oilaviy zikrga kim boshchilik qilishini navbat bilan almashtiring, shom namozidan oldin umumiy niyat qiling va ibodat bir kechalik shiddatdan keyin holsizlanish emas, davomli boʻlib qolishi uchun uyquni yetarlicha saqlang.",
+      "Gʻamxoʻrlik yoki ish bilan cheklangan kishilar ham saharlik tayyorlash, boshqalarni masjiddagi namoz uchun boʻshatish yoki boshqalar qiyomda turganda duo qilish orqali bu kechadan ulush oladilar — har bir samimiy hissa kechani birgalikda izlashga qoʻshiladi.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "Qaysi toq kechalarda qoʻshimcha Qurʼon va namozga ustuvorlik berishingizni oila boʻlib kelishib oling.",
+      "Magʻfirat duosini birga yodlang va uni shom namozidan keyin va uxlashdan oldin takrorlang.",
+      "Bolalarga oxirgi oʻn kechada ozgina sadaqa berishga imkon bering.",
     ],
+    appLinks: [{ label: "Hisnul Muslim duolari" }, { label: "Qurʼon oʻqish" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "Oddiy va samimiy boʻling",
+    summary:
+      "Qatʼiy sanalar va xalq alomatlarini qoʻying; kechalar davomida ibodatga eʼtibor qarating.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "Ikki keng tarqalgan amaldan saqlangan maʼqul, chunki ular matnlar belgilagan doiradan chiqadi. Birinchisi — bitta bosma sanani shubhasiz Qadr kechasi deb hisoblash: hadislar uni ataylab bitta taqvim kuni emas, bir necha toq kecha orasida qoldirgan va bu oy koʻrinishi va hududga qarab farq qiladi. Ikkinchisi — xalq orasidagi «alomatlar» (muayyan tush, gʻayrioddiy sokin kecha, hayvonlarning gʻalati xatti-harakati) ortidan kecha kelganining isboti sifatida quvish — ular kuchli hadislar bilan tasdiqlanmagan va kecha talab qiladigan haqiqiy ibodatdan chalgʻitishi mumkin.",
+      "Amaliy xulosa oddiy: oxirgi oʻn kecha davomida ibodatingizni barqaror koʻpaytiring, magʻfirat duosini tez-tez ayting va diqqat markazida taxmin qilingan sana emas, Allohning rahmati boʻlsin. Agar kechani bilib turib topa olmasangiz ham, kechalar davomidagi samimiy harakatning oʻzi moʻl savob bilan mukofotlanadi.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "Bu Qurʼon va sahih hadislarga asoslangan asosiy sunniy taʼlimotni umumlashtiruvchi umumiy maʼrifiy material. Bu fatvo emas. Eʼtikof, qazo namozlar yoki shaxsiy holatingizga oid hukmlar uchun malakali mahalliy olimga murojaat qiling.",
   },
 ];

@@ -19,26 +19,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Kipekee miongoni mwa nguzo, Swalah haikuteremshwa kupitia Malaika kushuka ardhini bali ilifaradhishwa moja kwa moja kwa Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) alipoinuliwa mbinguni katika Safari ya Usiku (al-Isra' wa al-Mi'raj). Swala hamsini ziliwekwa mara ya kwanza, kisha - kwa Mtume (Swalla Allaahu ´alayhi wa sallam) kurudi mara kwa mara kutafuta urahisi kwa Ummah wake - kupunguzwa hadi tano kutekelezwa kwa vitendo huku akihifadhi malipo ya hamsini.",
       "Ndiyo maana Swalah inakaa katikati kabisa ya maisha ya Kiislamu: inarudiwa mara tano kila siku, inakatisha kazi, mapumziko, na starehe ili kuutia moyo tena Mwenyezi Mungu, na ni kitendo cha kwanza ambacho mja atahesabiwa Siku ya Kiyama. Ikipatikana sauti, rekodi iliyobaki inaelekea kufuata.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ambao wanayaamini ya ghaibu, na wanasimamisha Sala, na wanatoa katika yale tuliyo waruzuku.",
-      },
-      {
-        excerpt:
-          "Soma uliyo teremshiwa katika Kitabu na ushike Sala. Hakika Sala hujiepusha na uchafu na maovu, na kumdhukuru Mwenyezi Mungu ni kukubwa zaidi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Katika Safari ya Usiku Mwenyezi Mungu alifaradhisha Sala hamsini; Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) akawa anarudi kuomba msaada mpaka wakawa na watano - 'Hawa ni watano na hawa hamsini, kwani neno lililo pamoja nami halibadiliki.' (pia Sahih Muislamu 162)",
-      },
-      {
-        excerpt:
-          "Jambo la kwanza ambalo mja atahesabiwa Siku ya Qiyaamah ni maombi yake; ikiwa ni sawa matendo yake mengine yote ni sawa. (pia Abu Dawud 864, an-Nasa'i 3991)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -50,28 +32,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Matunda yake ya pili ni amani ya ndani. Qur'ani inaahidi kwamba nyoyo hutulia kwa kumkumbuka Mwenyezi Mungu, na Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) katika nyakati za wasiwasi husema, 'Tupe faraja kwa hayo, Ewe Bilal,' akiomba dua. Alielezea furaha ya macho yake kuwa imewekwa kwenye swalah.",
       "Matunda yake ya kijamii na ya milele yanakamilisha picha: viwango vya sala za jamaa tajiri na masikini katika safu moja na hujenga udugu, na kulinda Swala ni miongoni mwa njia za uhakika za msamaha wa Mwenyezi Mungu na Pepo. Mtume (Swalla Allaahu ´alayhi wa sallam) aliahidi Pepo kwa yeyote anayehifadhi Sala mbili za Alfajiri na Alasiri.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika mimi ndiye Mwenyezi Mungu. Hapana mungu ila Mimi, basi niabuduni na ushike Sala kwa kunikumbuka.",
-      },
-      {
-        excerpt: "Hakika wamefaulu Waumini ambao ni wanyenyekevu katika Sala zao.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "'Kama kungekuwa na mto mlangoni mwa mmoja wenu anaoga mara tano kwa siku, je, uchafu wowote ungebaki juu yake? Wakasema, Hapana. Akasema: Huo ni mfano wa Sala tano - Mwenyezi Mungu anafuta dhambi nazo. (pia Sahih Muislamu 667)",
-      },
-      {
-        excerpt: "Mwenye kuswali Swalah mbili za baridi - Fajr na Alasiri - ataingia Peponi.",
-      },
-      {
-        excerpt:
-          "Nimependelewa kwangu kutokana na dunia yako wanawake na manukato, na ubaridi wa macho yangu uliwekwa kwenye maombi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Omba sala moja tu kwa wakati unaofaa leo - uthabiti, sio ukamilifu, ndio lengo la kwanza.",
       "Soma maana ya Al-Fatihah mara moja kabla ya Swala yako inayofuata ili uhisi kuwa unajibiwa.",
@@ -88,29 +50,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Juu ya hukumu ya mwenye kuacha Swalah, kuna tofauti inayojulikana na yenye heshima miongoni mwa wanachuoni wa Kisunni. Wengine wanashikilia kwamba kuiacha kwa makusudi kabisa - huku wakithibitisha kuwa ni wajibu - ni sawa na ukafiri mkubwa unaomtoa mtu katika Uislamu; walio wengi (Hanafi, Maliki, Shafi'i) wanashikilia kwamba mtu kama huyo anabakia kuwa Mwislamu mwenye dhambi na mwenye hatia ya moja ya madhambi makubwa zaidi, mradi tu hakatai faradhi yake. Wote wanakubali kwamba kuacha Swalah ni janga na kwamba yeyote anayekanusha wajibu wake ametoka katika Uislamu kwa makubaliano.",
       "Somo la kivitendo ni lile lile kwa kila mtazamo: kuchunga sala tano za kila siku si jambo la hiari au la kujadiliwa kwa muumini. Swalah za hiari (sunnah na nafl) kisha hufanya kama wavu wa usalama, na kufanya upungufu katika sala za faradhi Siku ya Qiyaamah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Simamisheni Sala na Sala ya kati, na simameni mbele ya Mwenyezi Mungu na mt'iifu.",
-      },
-      {
-        excerpt:
-          "Lakini wakaja baada yao makhalifa waliopuuza Sala na wakafuata matamanio; kwa hiyo wanaenda kukutana na uovu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Uislamu umejengwa juu ya matano: kushuhudia kwamba hapana mungu ila Mwenyezi Mungu na kwamba Muhammad ni Mtume wake, na kusimamisha swala, kutoa zaka, kuhiji, na kufunga Ramadhani. (pia Swahiyh al-Bukhari 8)",
-      },
-      {
-        excerpt:
-          "Agano baina yetu na wao ni Sala; mwenye kuiacha amekufuru. (Buraydah; pia an-Nasa'iy, Ibn Majah 1079)",
-      },
-      {
-        excerpt: "Baina ya mtu na ukafiri na kuabudu masanamu kunasimama kuacha sala. (Jabir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Wanachuoni wametofautiana juu ya hukumu kamili kwa mwenye kuacha swala kwa uvivu (dhambi kubwa kwa walio wengi; ukafiri kwa wengine) dhidi ya anayekanusha faradhi yake (kufuru kwa makubaliano). Programu hii haitoi uamuzi kwa mtu yeyote - wasiliana na mwanachuoni aliyehitimu kwa kesi za kibinafsi.",
   },
@@ -124,17 +65,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Wanawake walio katika hedhi (hayd) au kutokwa na damu baada ya kuzaa (nifas) hawaswali wakati huo; Swala za faradhi zilizokoswa hazitungwi baadae - ni rehema na hukumu iliyokubaliwa na wanachuoni. (Saumu zilizokoswa, tofauti na swala, zinatengenezwa.) Mwanamke anarejesha swala mara tu damu inapoisha na ametoharisha kwa ghusl.",
       "Kutokuwa na uwezo wa kweli huleta kibali, kamwe kughairi: ugonjwa mkali, kukosa fahamu, na woga mwingi unaweza kumpa mtu udhuru kwa muda, na wagonjwa wanaomba kulingana na uwezo wao - kukaa, kusema uwongo, au hata kwa ishara. Kusafiri hakuondoi swala bali hurahisisha kwa kufupisha (qasr) na kuchanganya (jam'), iliyoainishwa kwenye Mwongozo wa Kusafiri.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Waamrishe watoto wako kuswali wakiwa na umri wa miaka saba, na waadhibu kwa hiyo saa kumi, na watenge sehemu zao za kulala. (Amr bin Shuayb kutoka kwa baba yake kutoka kwa babu yake)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Na waamrishe ahli zako Sala, na usimame humo.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -195,16 +127,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Kando na hali hizi za ibada, uchafu unaoonekana (najasah) - kama vile mkojo, kinyesi, damu inayotiririka, na mengineyo - lazima iondolewe mwilini, nguo, na mahali unaposali. Inawezekana kuwa na wudhu halali lakini bado unahitaji kusafisha doa kwenye nguo zako kabla ya kuswali.",
       "Maji ndio kisafishaji kikuu. Wakati maji kwa kweli hayapatikani, au yangekudhuru kwa sababu ya ugonjwa au baridi kali, Uislamu unaruhusu tayammam - utakaso mkavu kwa kutumia udongo safi - kama mbadala kamili. Utakaso kamwe haukusudiwi kuwa ugumu; ni njia ya kusogea karibu.",
     ],
-    hadith: [
-      {
-        excerpt: "Utakaso ni nusu ya imani… (Abu Malik al-Ash’ariy)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Hakika Mwenyezi Mungu huwapenda wanao tubu na huwapenda wanao jitakasa.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Jifunze wudhu hatua kwa hatua kabla ya sala yako inayofuata ili kila kiungo kioshwe kwa usahihi.",
       "Weka vazi safi lililotengwa kwa ajili ya maombi ikiwa unafanya kazi katika mazingira machafu.",
@@ -260,18 +184,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
         body: "Kamilisha kwa du'a: 'Ashhadu an la ilaha illallah…' - milango minane ya Peponi inafunguliwa kwa yeyote atakayeisema baada ya wudhu.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mja anapoosha uso wake kwa wudhu, kila dhambi anayoitazama kwa macho yake huondoka na maji… mpaka atokee ametakasika na dhambi.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Enyi mlio amini mnaposimama kuswali osheni nyuso zenu na mikono yenu mpaka kwenye viwiko, mpake vichwa vyenu na osheni miguu yenu mpaka vifundoni.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Toa wudhu polepole mara moja huku ukisoma kila hatua kwa sauti, ukiangalia viwiko na visigino.",
       "Kariri du'a fupi baada ya wudhu - tazama Maneno ya Swalah.",
@@ -310,18 +224,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
         body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
       },
     ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
       "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
@@ -338,11 +242,7 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Kwa wanawake, mwili wote ni awrah katika swala isipokuwa uso na mikono, kwa mujibu wa wanachuoni wengi; mwanamke hufunika nywele, shingo, na miguu yake, kwa kawaida kwa vazi lililolegea na hijabu. Wanachuoni wanatofautiana juu ya miguu, wengine wakizingatia kuwa ni pamoja na katika kile kinachoweza kuonyeshwa - kusali nayo kufunikwa ni mazoezi salama na ya wengi.",
       "Hukumu mbili za mavazi zinatumika pia nje ya swala: hariri na dhahabu ni haramu kwa wanaume kuvaa (imeruhusiwa kwa wanawake), na nguo zisiwe za kubana sana, tupu, au za kutafuta mazingatio hivi kwamba zinashinda maombi ya staha. Kama kanuni, sali ukiwa na mavazi ambayo ungevaa ili kukutana na mtu unayemheshimu - si nguo za usiku au za ufukweni.",
     ],
-    quran: [
-      {
-        excerpt: "Enyi wana wa Adam, chukueni mapambo yenu katika kila sehemu ya kuswalia.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Tenga vazi moja safi, la kiasi au vazi maalum la maombi ili uwe tayari kila wakati.",
       "Wakati huna uhakika kama kitu kinafunika vya kutosha, funika zaidi badala ya kidogo.",
@@ -381,21 +281,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
         body: "Tangu kufifia kwa machweo hadi alfajiri; bora kabla ya saa sita usiku. Ikifuatiwa na Witr.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kuna nyakati tatu ambazo Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) alitukataza kuswali: linapochomoza jua mpaka linapochomoza, linaposimama adhuhuri, na linapozama mpaka kuzama. (Uqbah bin ́Amir)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Hakika Sala imeandikiwa juu ya Waumini ni sharti la nyakati maalumu.",
-      },
-      {
-        excerpt:
-          "Na shikeni Sala katika ncha mbili za mchana na inapokaribia usiku. Hakika matendo mema huondoa maovu.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     appLinks: [{}, {}],
     disclaimer:
       "Mwanzo wa Asr una maoni mawili yaliyoripotiwa (kivuli sawa na, au mara mbili, urefu wa kitu). Zote mbili ni halali; fuata hesabu ya eneo lako na jumuiya.",
@@ -408,18 +295,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Unatakiwa kukabiliana na kibla kwa usahihi uwezavyo kubainisha - kwa dira, mihrab ya msikiti, programu inayotegemewa, au jua na nyota unaposafiri. Mkengeuko mdogo, usioepukika husamehewa; cha muhimu ni juhudi za dhati kuelekea mwelekeo sahihi.",
       "Ikiwa kwa kweli huwezi kuamua mwelekeo - uliopotea baharini, kwenye mawingu, katika ardhi usiyoijua usiku - jitahidi kuisuluhisha na kisha uombe kuelekea hukumu yako bora; sala ni halali hata kama itathibitika baadae kidogo. Juu ya gari linalosonga au ndege ambapo kuelekea kibla kwa ajili ya sala ya faradhi haiwezekani, unakabiliana na chochote unachoweza, kwa kuwa Mwenyezi Mungu hailemei nafsi zaidi ya uwezo wake.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Basi elekeza uso wako upande wa Masjid al-Haram. Na popote mlipo zielekezeni nyuso zenu humo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Unapoinuka kuswali, toa wudhu vizuri, kisha elekea kibla na sema takbira. (kutoka katika Hadiyth ya mtu aliyeswali vibaya)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -460,12 +337,7 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
         body: "Hapana mungu ila Mwenyezi Mungu - mwito hufunga kwa neno lile lile lililofunguliwa kuelekea.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Yeyote atakayesema baada ya kusikia wito, 'Ewe Mwenyezi Mungu, Mola wa wito huu mkamilifu na sala iliyothibiti, mpe Muhammad wasila na wema…' — uombezi wangu utakuwa wake Siku ya Kiyama. (Jabir)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -488,26 +360,19 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "2. Kufungua takbir (Takbirat al-Ihram)",
         body: "Inua mikono yako kwenye mabega au ncha za sikio na useme takbir, kisha weka mkono wa kulia juu ya kushoto kwenye kifua. Kwa hili sala huanza, na mazungumzo ya kawaida na harakati sasa ni haramu mpaka salam.",
-        translation: "Mwenyezi Mungu ndiye Mkubwa.",
         tip: "Kunyanyua mikono (raf' al-yadayn) kwa takbir ni sunna iliyothibitishwa, sio nguzo.",
       },
       {
         title: "3. Dua ya kufungulia (Du ́a al-Istiftah)",
         body: "Soma kwa utulivu dua fupi ya kufungua ili kutuliza moyo mbele ya maneno ya Mwenyezi Mungu. Maneno kadhaa ya kweli yanaripotiwa; hii ni moja ya kawaida.",
-        translation:
-          "Utukufu ni Wako, Ewe Mwenyezi Mungu, na sifa njema. Jina lako limebarikiwa na utukufu wako umetukuka. Hapana mungu ila Wewe.",
       },
       {
         title: "4. Ta'awwudh & Basmalah",
         body: "Jikinge kwa Mwenyezi Mungu na Shetani, kisha anza na Basmalah kabla ya Al-Fatihah. Yote mawili yanasemwa kwa utulivu, hata katika maombi ya sauti.",
-        translation:
-          "Najikinga kwa Mwenyezi Mungu na Shetani, mlaaniwa. Kwa jina la Mwenyezi Mungu, Mwingi wa Rehema, Mwenye kurehemu.",
       },
       {
         title: "5. Soma Al-Fatihah",
         body: "Soma Ufunguzi wa Kitabu katika kila rakaa - 'Hapana Swalah kwa asiyesoma Ufunguzi wa Kitabu.' Imamu na mwabudu peke yao huisoma kwa sauti katika sala za sauti; vinginevyo inasomwa kwa utulivu.",
-        translation:
-          "Kwa jina la Mwenyezi Mungu, Mwingi wa Rehema, Mwenye kurehemu. Sifa njema zote anastahiki Mwenyezi Mungu, Mola Mlezi wa walimwengu wote, Mwingi wa Rehema, Mwenye kurehemu na Mwenye kurehemu, Mfalme wa Siku ya Malipo. Wewe tunakuabudu na Wewe tunakuomba msaada. Tuongoze kwenye njia iliyonyooka, njia ya wale ulioneemesha, si ya walioghadhibikiwa au waliopotea.",
         tip: "Sema 'Ameen' baada yake (kwa sauti katika sala za sauti). Darasa la Hanafi wakisoma baadhi ya Qur'ani kama nguzo na Al-Fatihah hasa kama wajib; walio wengi wanashikilia Al-Fatihah yenyewe ni nguzo katika kila rakaa.",
       },
       {
@@ -518,32 +383,26 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "7. Kuinama (ruku)",
         body: "Sema ‘Allahu Akbar’ na inama kwa mgongo ulio sawa, mikono ikishika magoti, na umtukuze Mola wako Mlezi mara tatu au zaidi bila ya haraka.",
-        translation: "Utukufu ni wa Mola wangu Mlezi, Mtukufu.",
         tip: "Upinde wenyewe, unaoshikiliwa kwa utulivu, ndio nguzo; tasbihi inayosomwa ndani yake ni sunna (wajib katika baadhi ya shule).",
       },
       {
         title: "8. Kupanda kutoka rukuu (i'tidal)",
         body: "Inuka wima kabisa - imamu na mwabudu peke yake akisema tasmi', na kila mtu anayesema tahmid - na simama tuli kabisa kabla ya kushuka.",
-        translation:
-          "Mwenyezi Mungu humsikia anayemhimidi. Mola wetu Mlezi, sifa njema zote ni Zako.",
         tip: "Kusimama sawa na kwa urahisi ni nguzo - usizame kwenye sujud hadi utulie hapa.",
       },
       {
         title: "9. Kusujudu (sujud)",
         body: "Sema 'Allahu Akbar' na usujudu juu ya mifupa saba - paji la uso pamoja na pua na viganja vyote viwili, magoti yote na vidole vya miguu yote miwili - ukimtukuza Aliye juu mara tatu au zaidi. Huu ndio mkao ulio karibu zaidi na Mwenyezi Mungu, basi mimina dua baada ya tasbihi.",
-        translation: "Utukufu ni wa Mola wangu Mlezi aliye juu.",
         tip: "Weka mikono ya mikono iliyoinuliwa kutoka chini na mbali na pande, na tumbo mbali na mapaja.",
       },
       {
         title: "10. Kuketi baina ya sijda mbili (jalsah)",
         body: "Simama kutoka kwenye sujud ya kwanza kusema 'Allahu Akbar', kaa kwa utulivu na wima, na umuombe msamaha Mola wako Mlezi kabla ya kusujudu tena.",
-        translation: "Mola wangu Mlezi, nisamehe.",
         tip: "Keti hadi upate raha - kikao hiki kifupi, kwa utulivu, ni nguzo yenyewe.",
       },
       {
         title: "11. Sijda ya pili",
         body: "Sema 'Allahu Akbar' na sujudu mara ya pili sawa na ile ya kwanza, kwa tasbihi ile ile na utulivu uleule. Hii inakamilisha rakaa moja kamili.",
-        translation: "Utukufu ni wa Mola wangu Mlezi aliye juu.",
       },
       {
         title: "12. Simama kwa rakaa inayofuata",
@@ -553,8 +412,6 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "13. Tashahhud ya kwanza (katika sala ya rakaa 3 na 4)",
         body: "Baada ya rakaa ya pili ya Maghrib, Dhuhr, Asr, au Isha, keti na usome At-Tahiyyat, kisha simama kwa rakaa iliyobaki. Swala ya rakaa mbili haina tashahhud ya kwanza.",
-        translation:
-          "Salamu zote, sala na maneno safi ni ya Mwenyezi Mungu. Amani iwe juu yako, ewe Mtume, na rehema ya Mwenyezi Mungu na baraka zake. Amani iwe juu yetu na juu ya waja wema wa Mwenyezi Mungu. Nashuhudia ya kwamba hapana mungu ila Mwenyezi Mungu, na nashuhudia kwamba Muhammad ni mja na Mtume wake.",
         tip: "Inua kidole cha shahada cha kulia kwenye kikao. Ikiwa umesahau tashahhud ya kwanza na ukaanza kusimama, endelea na ufanye sujud as-sahw kabla ya salam - usikae chini.",
       },
       {
@@ -564,36 +421,19 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "15. Mswalie Mtume (Swalla Allaahu ´alayhi wa sallam)",
         body: "Baada ya At-Tahiyyat ya mwisho, mswalie Mtume ﷺ kwa maneno ambayo yeye mwenyewe aliwafundisha Maswahaba zake.",
-        translation:
-          "Ewe Mwenyezi Mungu mrehemu Muhammad na Aali Muhammad kama ulivyombariki Ibrahim na ukoo wa Ibrahim. Hakika Wewe ni Msifiwa, Mtukufu. Ewe Mwenyezi Mungu mrehemu Muhammad na Aali Muhammad kama ulivyo mneemesha Ibrahim na ukoo wa Ibrahim. Hakika Wewe ni Msifiwa, Mtukufu.",
         tip: "Shule za Shafi'i na Hanbali zinazingatia swalawat katika kikao cha mwisho kuwa ni wajibu.",
       },
       {
         title: "16. Dua kabla ya salamu",
         body: "Kabla ya kumalizika, jikinge kwa Mwenyezi Mungu kutokana na mitihani minne - kisha omba dua yoyote unayoitaka katika maisha ya dunia na yajayo kwa Kiarabu au kwa lugha yako.",
-        translation:
-          "Ewe Mwenyezi Mungu, najikinga Kwako na adhabu ya kaburi, na adhabu ya Jahannam, na mtihani wa maisha na mauti, na shari ya mtihani wa Masihi wa Uongo (Dajjal).",
       },
       {
         title: "17. Kufunga salamu (Taslim)",
         body: "Malizia Swalah kwa kugeuza uso kuliani, kisha kushoto, kutoa salamu za amani kila mara. Kwa salam sala imekamilika.",
-        translation: "Amani na rehema za Mwenyezi Mungu ziwe juu yenu.",
         tip: "Taslim ya kwanza (kulia) ni nguzo; ya pili (kushoto) ni sunna katika baadhi ya shule.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "Omba kama ulivyoniona nikiomba. (Malik bin al-Huwayrith)",
-      },
-      {
-        excerpt:
-          "“Rudini na mswali, kwani hamjaswali” — akarudia mara tatu — kisha akafundisha: Semeni takbira, soma muwezavyo katika Qur’ani, kisha rukuuni mpaka mpate kutulia, inuka mpaka usimame sawa, sujudu mpaka upate raha…",
-      },
-      {
-        excerpt:
-          "Hapana sala kwa asiyesoma Ufunguzi wa Kitabu. (Ubada ibn as-Samit; pia Sahih Muislamu 394)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}, {}, {}, {}, { label: "Usomaji wa sauti na wa kimya" }],
   },
   {
@@ -650,26 +490,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
         body: "Hakuna tofauti katika unachosoma — tofauti ni kuinua sauti tu. Kila rakaa: Al-Fatihah. Rakaa mbili za kwanza: ongeza sura. Rakaa ya mwisho au za mwisho: Al-Fatihah pekee. Katika Fajr, Maghrib na Isha ni Sunnah kusoma kwa sauti; Dhuhr na Asr husomwa kimya.",
       },
     ],
-    quran: [
-      { excerpt: "Hakika mnayo kielelezo chema kwa Mtume wa Mwenyezi Mungu." },
-      {
-        excerpt: "Qur'an inaposomwa, isikilizeni kwa makini na nyamazeni ili mrehemewe.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mtume ﷺ alikuwa akisoma Al-Fatihah na sura nyingine katika rakaa mbili za kwanza za Dhuhr na Asr, na katika mbili za mwisho Al-Fatihah pekee. (Abu Qatadah; also Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Hakuna sala kwa yule asiyesoma Ufunguzi wa Kitabu. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "Katika rakaa mbili za kwanza za Dhuhr na Asr alikuwa akisoma kiasi cha kukufanya udhani anasoma sura ndefu, na katika mbili za mwisho kiasi cha kukufanya udhani anasoma fupi zaidi. (Abu Qatadah)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Katika sala yako ijayo ya jamaa, tambua ni rakaa zipi imamu anasoma kwa sauti.",
       "Muulize mwalimu wa madhehebu yako kama unasoma Al-Fatihah nyuma ya imamu katika sala za sauti.",
@@ -720,12 +542,7 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
         body: "Geuza uso kikamilifu upande wa kulia, kisha upande wa kushoto, kwa maneno ya amani - kumalizia sala huku ukisalimiana na malaika kwenye kila bega.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mja anayekaribia sana kwa Mola wake Mlezi ni pale anaposujudu, basi omba dua nyingi. (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Tofauti ndogo katika uwekaji wa mikono, namna ya kukaa, na kuinua mikono yote yanatokana na ripoti za kweli; kila shule inafuata simulizi halali. Hakuna anayebatilisha maombi ya mwingine.",
   },
@@ -788,20 +605,7 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Ingieni msikitini kwa mguu wa kulia na ondokeni na kushoto kila mmoja na du'a yake.",
       "Soma adhkar imara baada ya kila sala - tazama Baada ya Swalah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lau si ningeuelemea ummah wangu, ningewaamrisha kutumia siwak kabla ya kila swala. (Abu Hurayrah; pia Sahih Muislamu 252)",
-      },
-      {
-        excerpt:
-          "Mtume ﷺ hakuwahi kuacha rakaa mbili kabla ya Fajr. (Aishah; pia Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Mwenye kudumu kuswali rakaa kumi na mbili usiku na mchana, Mwenyezi Mungu atamjengea nyumba Peponi — mbili kabla ya Fajr, nne kabla ya Dhuhr, mbili baada ya Dhuhr, mbili baada ya Maghrib, na mbili baada ya Isha. (Umm Habibah)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       { label: "Aina za swala — mwongozo wa rawatib" },
       { label: "Sunnah na adhkar baada ya swala" },
@@ -817,20 +621,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Khushu imejengwa, haitakiwi. Jifunze maana ya kile unachokariri ili maneno yakuguse. Ondoa visumbufu kabla ya takbir. Punguza polepole na upe kila mkao utulivu wake. Tafakari juu ya ukuu wa Yule unayezungumza naye na ukweli kwamba sala hii inaweza kuwa ya mwisho kwako. Sali kila Swalah kama Swalah ya kuaga, kama Mtume ﷺ alivyousia.",
       "Usikatishwe tamaa na mawazo ya kutangatanga - hata Maswahabah walipigana nayo. Mapambano ya kurudisha umakini wako, tena na tena, yenyewe ni sehemu ya ibada. Khushu hukua katika maisha yote; uthabiti ndio unaoikuza.",
     ],
-    quran: [
-      {
-        excerpt: "Hakika wamefaulu Waumini ambao ni wanyenyekevu katika Sala zao.",
-      },
-      {
-        excerpt: "Basi ole wao wanaoswali - wale wanaoghafilika na maombi yao.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ihsan ni kumwabudu Mwenyezi Mungu kana kwamba unamuona, kwani ijapokuwa humuoni, hakika Yeye anakuona. (Hadithi ya Jibril, Umar)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Soma maana ya kifungu kimoja kutoka kwa Maneno ya Sala kabla ya kila sala wiki hii.",
       "Sitisha kwa sekunde tatu bila haraka katika kila mkao kabla ya kusonga mbele.",
@@ -877,16 +669,7 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Unapokuwa na shaka ya kweli, kanuni inayoongoza ni: ondoeni shaka, jengani juu ya yale mnayo yakini nayo (idadi ndogo), timizeni Sala, kisha sijida mbili. Hii inageuza mkanganyiko kuwa sala iliyotulia, halali badala ya nadhani ya wasiwasi.",
       "Kiutendaji: fanya sijda mbili sawa na sujud yako ya kawaida, kwa takbira kabla na baada, kisha salam. Wanachuoni wanakhitalifiana kuhusu kuja kabla au baada ya salamu kutegemeana na aina ya upotovu - zote mbili zimepokelewa kwa usahihi, kwa hivyo ama inakubalika na wala haibatilishi swala.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ikiwa mmoja wenu hana yakini katika swala yake na hajui ni ngapi aliswali - tatu au nne - basi aondoe shaka, na ajenge juu ya yale aliyo yakini nayo, kisha asujudu mara mbili kabla ya salamu. (Abu Said al-Khudri)",
-      },
-      {
-        excerpt:
-          "Anapotia shaka mmoja wenu katika swala yake, na atafute yaliyo sawa na akamilishe juu yake, kisha atoe salamu na asujudu mara mbili. (Ibn Mas’ud; pia Sahih Muislamu 572)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Kariri sheria kwa shaka: jenga juu ya nambari ndogo, maliza, kisha sujudu mara mbili.",
       "Ikiwa unatambua katikati ya sala uliacha tashahhud ya kwanza, endelea na ufanye sujud al-sahw mwishoni.",
@@ -982,42 +765,7 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
         ruling: "fard",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mtume ﷺ hakuwahi kuacha rakaa mbili kabla ya Fajr. (Aishah; pia Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Mwenye kudumu kuswali rakaa kumi na mbili usiku na mchana, Mwenyezi Mungu atamjengea nyumba Peponi — mbili kabla ya Fajr, nne kabla ya Dhuhr, mbili baada ya Dhuhr, mbili baada ya Maghrib, na mbili baada ya Isha. (Umm Habibah)",
-      },
-      {
-        excerpt:
-          "Mwenye kuswali rakaa nne kabla ya Dhuhr na nne baada yake, Mwenyezi Mungu atamharamishia Moto. (Umm Habibah; imehakikishwa na wanazuoni wengi)",
-      },
-      {
-        excerpt: "Mwenyezi Mungu amrehemu mtu anayeswali rakaa nne kabla ya Asr.",
-      },
-      {
-        excerpt:
-          "Swalini kabla ya Maghrib, swalini kabla ya Maghrib — kisha akasema: kwa anayetaka. (Ibn 'Umar)",
-      },
-      {
-        excerpt:
-          "Kati ya kila miito miwili (adhan na iqamah) kuna swala. (Anas ibn Malik; pia Sahih Muslim 838)",
-      },
-      {
-        excerpt:
-          "Witr ni haki; anayetaka aswali tano, anayetaka tatu, na anayetaka moja. (Ibn 'Umar)",
-      },
-      {
-        excerpt: "Swala bora baada ya swala za faradhi ni swala ya usiku. (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "Mja wangu huendelea kunikaribia kwa matendo ya hiari mpaka nimpende. (Hadith Qudsi)",
-      },
-    ],
+    hadith: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     actions: [
       "Anza na rawatib kumi na mbili — jenga mazoea hayo kabla ya kuongeza nafl za hiari.",
       "Tumia jedwali la rakaa katika ukurasa huu kufuatilia Sunnah zilizosisitizwa karibu na kila faradhi.",
@@ -1040,25 +788,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Kupuuzwa kwake ni hatari kubwa: Mtume ﷺ alionya kwamba yeyote anayeacha Jumaa tatu kwa kughafilika, Mwenyezi Mungu hupiga muhuri moyo wake. Lakini thawabu zake ni kubwa vile vile - Ijumaa ni siku bora zaidi ya kuchomoza jua, na inashikilia saa ambayo du'a inajibiwa.",
       "Jitayarishe kwa ajili yake kama alivyofanya Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam): fanya ghusl, vaa nguo zako safi zilizo bora kabisa, toa manukato, nenda mapema, na usikilize khutbah kwa usikivu kwa ukimya (mazungumzo ya bure wakati wa hayo yanapoteza thawabu). Kusoma Surah al-Kahf siku ya Ijumaa huleta mwanga kati ya Ijumaa mbili.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Enyi mlio amini, inapoitishwa sala siku ya Ijumaa, nendeni upesi kwenye dhikri ya Mwenyezi Mungu na acheni biashara. Hayo ni bora kwenu ikiwa mnajua.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Swala ya Ijumaa katika jamaa ni wajibu kwa kila Muislamu, isipokuwa wanne: mtumwa, mwanamke, mtoto au mgonjwa. (Tariq bin Shihab)",
-      },
-      {
-        excerpt:
-          "Mwenye kuacha Swalah tatu za Ijumaa kwa kughafilika, Mwenyezi Mungu atapiga muhuri juu ya moyo wake. (Abu al-Jaad; pia Abu Daawuud 1052, at-Tirmidhiy 500)",
-      },
-      {
-        excerpt: "Ghusl siku ya Ijumaa ni wajibu kwa kila aliyebaleghe. (Abu Said al-Khudri)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}],
     actions: [
       "Tengeneza ghusl, vaa nguo safi na manukato, na uwasili mapema - wahudhuriaji wa mapema zaidi hupata thawabu kubwa zaidi.",
       "Soma Surah al-Kahf wakati fulani siku ya Ijumaa kwa mwanga kati ya Ijumaa mbili.",
@@ -1077,17 +808,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Ukifika baada ya imamu kuanza (mchelewaji anaitwa masbuq), jiunge mara moja katika mkao wowote utakaomkuta - sehemu hiyo bado inahesabika kuwa ni kuswali naye. Anapotoa salamu ya mwisho, simama na ukamilishe rakaa ulizozikosa peke yako, kisha umalize.",
       "Jamaa sio tu msikitini: watu wawili wanaoswali pamoja wanaunda Jama'ah, kwa hivyo baba na mtoto wake, au marafiki wawili wanaosafiri, wanaweza kupata malipo yake. Wanawake wanaweza kuswali kwa jamaa na kuhudhuria msikiti ambako kuna vifaa vinavyofaa, ingawa sala zao za nyumbani pia hutuzwa sana.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Swalah ya jamaa ni daraja ishirini na saba yenye kustahiki zaidi kuliko sala inayoswaliwa peke yake. (Ibn Umar; pia Sahih Muislamu 650)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Na simamisheni Sala na toeni zaka na rukuu pamoja na wanao rukuu.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Sali angalau sala moja msikitini leo, au kusanya kaya yako kwa safu nyumbani.",
       "Jifunze cha kufanya kama mchelewaji: jiunge mara moja, kisha kamilisha rakaa zako ulizokosa baada ya salamu ya imamu.",
@@ -1101,12 +823,7 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Swala ya kujitengenezea inaswaliwa kwa namna ile ile ya asili: Dhuhr iliyokosa rakaa nne inaswaliwa rakaa nne hata kama utaimaliza usiku au ukiwa safarini. Mwenye kukosa swala kwa udhuru wa kweli (kama usingizi mzito) hana dhambi kwa kuchelewa; aliyeziacha kwa makusudi lazima azifanye pamoja na toba ya kweli na ya haraka.",
       "Wanachuoni wanahimiza kufanya maombi yaliyokosa mara moja na kwa utaratibu inapowezekana, bila ya kuwaruhusu kurundikana - kwa sababu mzigo unakua mzito kwa wakati na kuchelewa. Ikiwa idadi kubwa ilikosa kwa miaka mingi, ifikie kwa mpango halisi wa kila siku badala ya kukata tamaa; Mlango wa kurudi kwa Mwenyezi Mungu uko wazi daima.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kusahau Swalah au akalala kwayo, kafara yake ni kuswali anapoikumbuka. (Anas; pia Sahih Muislamu 684)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Kadiria kwa uaminifu ni sala ngapi unadaiwa na uweke shabaha ya uhalisia ya kila siku.",
       "Ioanishe kila swala ya faradhi na swala moja ya kujitengenezea mpaka mlundikano uondoke.",
@@ -1122,16 +839,7 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       "Utaratibu uliowekwa wa baada ya swala ni rahisi na mzito: sema 'Astaghfirullah' mara tatu; kisha maneno ya tawhid na sifa; kisha 'SubhanAllah', 'Alhamdulillah', na 'Allahu Akbar' mara thelathini na tatu kila moja, wakipiga muhuri wa mia kwa 'La ilaha illallah…' - atakayefanya hivyo amesamehewa madhambi yake ingawa ni kama povu la bahari.",
       "Kusoma Ayat al-Kursi baada ya kila Swalah ya faradhi huondoa kifo tu baina ya mtu na Pepo kama alivyoahidi Mtume ﷺ. Ifuate kwa Quls tatu (Al-Ikhlas, Al-Falaq, An-Nas), na uongeze adhkar ya asubuhi baada ya Alfajiri na adhkar ya jioni baada ya Asr au Magharibi ambapo zinatumika.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kumtakasa, kumhimidi, na kumtakasa Mwenyezi Mungu mara thelathini na tatu kila baada ya kila swala… na akakamilisha mia kwa maneno ya tawhid, dhambi zake husamehewa ingawa ni kama povu la bahari. (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "Mwenye kusoma Ayat al-Kursi baada ya kila swalah, hakuna kinachosimama baina yake na kuingia Peponi isipokuwa kifo. (Abu Umamah; Sahih iliyowekwa daraja na al-Albani)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Kariri tasbih ya baada ya swala (33 / 33 / 33 + tahlil) wiki hii.",
       "Soma Ayat al-Kursi na Quls tatu kabla ya kusimama.",
@@ -1145,90 +853,72 @@ export const SALAH_GUIDE_PHRASES_SW: DeepPartial<SalahGuidePhrase>[] = [
   {
     title: "Baada ya kumaliza wudhu",
     when: "Mara tu baada ya kumaliza kutawadha, kabla ya swalah.",
-    translation:
-      "Nashuhudia ya kwamba hapana mungu ila Mwenyezi Mungu peke yake, hana mshirika, na nashuhudia kwamba Muhammad ni mja na Mtume wake.",
     meaning:
       "Kufanya upya ushuhuda wa imani huku mwili wako ukiwa umetakaswa upya. Mtume (Swalla Allaahu ´alayhi wa sallam) aliahidi kwamba yeyote atakayesema hivyo baada ya udhu, hufunguliwa milango minane ya Pepo ili aingie kwa apendavyo.",
   },
   {
     title: "Takbirat al-Ihram",
     when: "Mwanzoni mwa sala, na wakati wa kusonga kati ya nafasi.",
-    translation: "Mwenyezi Mungu ndiye Mkubwa.",
     meaning:
       "Swala inaanzia hapa - 'al-ihram' maana yake inaharamisha juu yako mambo ya dunia (kuzungumza, kula, kukengeuka). Mnamtangaza Mwenyezi Mungu kuwa ni mkubwa kuliko chochote kinachoweza kukushughulishani, na mnaingia kwa ukamilifu mbele yake. Kila takbir inayofuata husasisha kujisalimisha.",
   },
   {
     title: "Du'a al-Istiftah (dua ya kufungua)",
     when: "Kimya kimya baada ya takbir ya ufunguzi, kabla ya Al-Fatihah.",
-    translation:
-      "Utukufu ni Wako, Ewe Mwenyezi Mungu, na sifa njema. Jina lako limebarikiwa na utukufu wako umetukuka. Hapana mungu ila Wewe.",
     meaning:
       "Unafungua mazungumzo kwa kumtakasa na kumhimidi Mwenyezi Mungu na kuthibitisha upweke Wake, ukitulia moyoni kabla ya kusoma maneno Yake. Dua nyingi za ufunguaji mlango zipo - hii ni mojawapo ya maombi yanayotumika sana.",
   },
   {
     title: "Surah Al-Fatihah",
     when: "Kusimama katika kila rakaa - nguzo ambayo bila hiyo rakaa ni batili.",
-    translation:
-      "Kwa jina la Mwenyezi Mungu, Mwingi wa Rehema, Mwenye kurehemu. Sifa njema zote anastahiki Mwenyezi Mungu, Mola Mlezi wa walimwengu wote, Mwingi wa Rehema, Mwenye kurehemu na Mwenye kurehemu, Mfalme wa Siku ya Malipo. Wewe tunakuabudu na Wewe tunakuomba msaada. Tuongoze kwenye njia iliyonyooka, njia ya wale ulioneemesha, si ya walioghadhibikiwa au waliopotea.",
     meaning:
       "Mama wa Kitabu: nusu ya sifa za Mwenyezi Mungu, na nusu ya kusihi kwa uongofu, na ni bawaba baina ya wewe tunakuabudu. Mwenyezi Mungu amesema ameigawa sura hii baina yake na mja wake - unaposoma kila mstari, Yeye anajibu. Mtume ﷺ amesema hakuna swala kwa asiyeisoma.",
   },
   {
     title: "Dhikr katika rukuu",
     when: "Wakati akiinama, na gorofa, makazi nyuma.",
-    translation: "Utukufu ni wa Mola wangu Mlezi, Mtukufu.",
     meaning:
       "Kurukuu ni mkao wa uchaji Mungu, basi unatukuza utukufu wa Mwenyezi Mungu - alisema mara tatu au zaidi bila haraka. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) amefundisha kwamba katika rukuu tunamtukuza Mola, basi tumainia kujibiwa dua yako.",
   },
   {
     title: "Kupanda kutoka ruku",
     when: "Kusimama wima kabisa baada ya kuinama.",
-    translation: "Mwenyezi Mungu humsikia anayemhimidi. Mola wetu Mlezi, sifa njema zote ni Zako.",
     meaning:
       "Mnathibitisha kwamba hakika Mwenyezi Mungu humsikia anayemhimidi, kisha mrudishe sifa njema. Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) amesema kwamba Imamu anaposema hivi na watu wakajibu, basi yeyote ambaye maneno yake yanalingana na ya Malaika husamehewa madhambi yao yaliyopita.",
   },
   {
     title: "Dhikr katika sujud",
     when: "Katika kusujudu - nafasi iliyo karibu zaidi na Mwenyezi Mungu.",
-    translation: "Utukufu ni wa Mola wangu Mlezi aliye juu.",
     meaning:
       "Katika hatua ya chini kabisa ya kimwili unamtukuza Aliye Juu Zaidi - kitendawili katika moyo wa ibada. Mtume (Swalla Allaahu ´alayhi wa sallam) amesema mja yuko karibu zaidi na Mola wake wakati anasujudu, basi mimina dua hapa baada ya dhikri.",
   },
   {
     title: "Baina ya sijda mbili",
     when: "Kukaa kwa utulivu baina ya sujud ya kwanza na ya pili ya kila rakaa.",
-    translation: "Mola wangu Mlezi, nisamehe. Mola wangu Mlezi, nisamehe.",
     meaning:
       "Ombi fupi lakini la moja kwa moja la msamaha katika kila rakaa - ukumbusho kwamba hata katikati ya sala tunahitaji msamaha wa Mwenyezi Mungu. Keti mpaka utulie kabla ya sijda ya pili.",
   },
   {
     title: "At-Tahiyyat (Tashahhud)",
     when: "Katika kikao cha kati na kikao cha mwisho cha swalah.",
-    translation:
-      "Salamu zote, sala na maneno safi ni ya Mwenyezi Mungu. Amani iwe juu yako, ewe Mtume, na rehema ya Mwenyezi Mungu na baraka zake. Amani iwe juu yetu na juu ya waja wema wa Mwenyezi Mungu. Nashuhudia ya kwamba hapana mungu ila Mwenyezi Mungu, na nashuhudia kwamba Muhammad ni mja na Mtume wake.",
     meaning:
       "Moyo uliokaa wa Swalah: nyinyi mnamuabudu Mwenyezi Mungu peke yake kila aina ya ibada, mswalieni Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) na watu wema, na mrudishe ushahidi mbili. Ibn Mas'ud alijifunza kutoka kwa Mtume ﷺ neno kwa neno, kama mtu anajifunza surah.",
   },
   {
     title: "Salawat Ibrahimiyyah",
     when: "Katika tashahhud ya mwisho, baada ya At-Tahiyyat.",
-    translation:
-      "Ewe Mwenyezi Mungu mrehemu Muhammad na Aali Muhammad kama ulivyombariki Ibrahim na ukoo wa Ibrahim. Hakika Wewe ni Msifiwa, Mtukufu. Ewe Mwenyezi Mungu mrehemu Muhammad na Aali Muhammad kama ulivyo mneemesha Ibrahim na ukoo wa Ibrahim. Hakika Wewe ni Msifiwa, Mtukufu.",
     meaning:
       "Maswahaba walipouliza jinsi ya kutuma baraka juu yake, Mtume ﷺ aliwafundisha maneno haya hasa - salawat zilizothibitishwa zaidi katika Sunnah. Unamheshimu Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) kama alivyokuamrisha Mwenyezi Mungu, ukimaliza Sala yako kwa mapenzi kwa yule aliyekufundisha kuswali.",
   },
   {
     title: "Kutafuta hifadhi kabla ya salamu",
     when: "Baada ya tashahhud ya mwisho na salawat, kabla tu ya kumaliza sala.",
-    translation:
-      "Ewe Mwenyezi Mungu, najikinga Kwako na adhabu ya kaburi, na adhabu ya Jahannam, na mtihani wa maisha na mauti, na shari ya mtihani wa Masihi wa Uongo (Dajjal).",
     meaning:
       "Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) aliagiza kwamba baada ya tashahhud ya mwisho mtu ajikinge na hatari hizi nne kabla ya kutoa salam - dua ya mwisho ya swala inafunika maisha haya, kaburi, Moto na mtihani mkubwa zaidi ujao.",
   },
   {
     title: "Taslim (salaam ya mwisho)",
     when: "Kumaliza Swala - kugeuza uso kulia, kisha kushoto.",
-    translation: "Amani na rehema za Mwenyezi Mungu ziwe juu yenu.",
     meaning:
       "Unaiacha Sala kama unavyowaacha watu wa hishimiwa - kwa maamkio ya amani kwa Malaika wakiandika katika kila bega na kwa wanaoswali karibu nawe. Salamu ni nguzo; kwayo sala imekamilika.",
   },

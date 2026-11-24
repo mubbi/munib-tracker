@@ -22,16 +22,7 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Burada hər şeyi iki prinsip idarə edir. Birincisi, bu hadisələrin gerçəkliyi qətidir və əqidə (əqidə) məsələsidir; dirilməyi və ya hesab verməyi inkar etmək dinin özünü inkar etməkdir. İkincisi, Qiyamətin dəqiq vaxtı yalnız Allaha məlumdur - heç bir alim, təqvim və ya hesablama bunu proqnozlaşdıra bilməz və tarixlə bağlı hər bir iddia batildir. Peyğəmbər (sallallahu aleyhi və səlləm) heç vaxt səhabələrinə geri sayım verməzdi; onlara yaşamaq üçün bir yol verdi. Beləliklə, axır gününü öyrənməkdə məqsəd proqnoz deyil, hazırlıqdır: ürəyi yumşaltmaq, prioritetləri düzəltmək və təyin olunmuş an gəlməmişdən əvvəl yaxşılığa doğru yarışmaqdır.",
       "Mənbələrə dair qeyd: məşhur “axırzamanın əlamətləri” söhbətləri zəif və hətta uydurma rəvayətlərlə doludur. Bu modul yalnız həqiqi olanı əhatə edir və səmimi sünni alimlərinin həqiqətən fərqləndiyi yerlərdə - məsələn, bəzi əsas əlamətlərin sırasına görə - bu fərq hamarlanmır və ya şişirdilmir, fərq kimi təqdim olunur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yer son zəlzələ ilə silkələndiyi, yükünü atdığı və insan: “Bunun nə işi var? - O gün Rəbbinin ona vəhy etdiyinə görə öz xəbərini verəcəkdir. O gün insanlar əməllərini göstərmək üçün dəstə-dəstə ayrılacaqlar. Kim zərrə qədər yaxşılıq etsə, onu görəcək, kim zərrə qədər yaxşılıq etsə, onu görəcəkdir.",
-      },
-      {
-        excerpt:
-          "O, Öz əmrini vəhyini bəndələrindən istədiyi kəsi qiyamət günü ilə – onların zühur edəcəyi günlə qorxutmaq üçün vəhy edər. Bu gün hökmranlıq kimə məxsusdur? Tək olan, Qalib olan Allaha məxsusdur.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -43,22 +34,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Bu inanc həm də ürəyin iki mühərrikini – qorxu və ümidi nizama salır və onları tarazlıqda saxlayır. Xəbərdarlıqlar həqiqətdir, ona görə də mömin təkəbbür və qəflət etməz; lakin Allahın rəhməti genişdir və tövbə qapısı ölənə qədər açıqdır, buna görə də mömin heç vaxt ümidini kəsməz. Qorxu və ümid arasında yaşayan ürək, qırılmadan səy göstərən ürəkdir.",
       "Faktiki olaraq Qiyamət günü acizlərə ləyaqət, güclülərə isə təmkin verir. Zalımlara Allah tərəfindən heç bir zərərin unudulmamasından xəbər verilir, güclülərə isə haqq-hesab zamanı heç bir sərvət, məqam və təsirin onları qoruya bilməyəcəyini bildirir. Ona görə də ona inanmaq şəxsi rahatlıq deyil, bu dünyada ədalət, səbir və düzgünlük mənbəyidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yaxşılıq üzünüzü məşriqə və ya qərbə çevirməyiniz deyil, saleh o kəsdir ki, Allaha, axirət gününə, mələklərə, kitaba və peyğəmbərlərə iman gətirib, onu sevməsinə baxmayaraq malını qohum-əqrəbasına, yetimlərə, yoxsullara, müsafirə və istəyənlərə verir.",
-      },
-      {
-        excerpt:
-          "Heç vaxt Allahın zalımların etdiklərindən xəbərsiz olduğunu sanma. O, onları ancaq gözlərin qorxu ilə baxacağı günə qədər gecikdirir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İman odur ki, Allaha, mələklərinə, kitablarına, elçilərinə, axirət gününə iman gətirəsən, ilahi hökmə, onun xeyir və zərərinə iman gətirəsən. — Cəbrail hədisdən, o, dini öyrətməyə gəldiyi zaman.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Niyyətinizi hər gün yeniləyin: Mənim əməllərim Allah üçün və Ona qovuşacağım gün üçündür.",
       "Haqsızlıq sizi ağrıtdıqda və heç bir yer məhkəməsi cavab vermədikdə, onu Qiyamət Məhkəməsinə həvalə edin.",
@@ -75,25 +52,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       'Peyğəmbər (s) ölümü tez-tez yada salmağı öyrədirdi - "Ləzzətləri məhv edəni çox xatırla", yəni ölümü (Cami ət-Tirmizi 2307, həsən) - bizi xəstələndirmək üçün deyil, oyaq qalmamaq üçün. Ölümü xatırlamaq bu dünyanın təsirini azaldır, kinləri yox edir və əslində vacib olanı yenidən sıralayır. Yalnız zəif hesabatlarda görünən ruhun gedişinin təfərrüatlarını bir kənara qoymaq daha yaxşıdır; orijinal material qorxu və hazırlığı aşılamaq üçün kifayətdir.',
       "Ölüm həm də əməllər dəftərini bağlayır - üç istisna olmaqla. Peyğəmbər (sallallahu aleyhi və səlləm) buyurdu ki, insan öldükdə üç əməldən başqa əməli kəsilir: daimi sədəqə (sədəqə cəriyə), faydası davam edən elm və onun üçün dua edən saleh övlad (Səhih Müslim 1631). Bu, çox praktikdir: bu o deməkdir ki, sağ ikən qurduğunuz, öyrətdiyiniz və böyütdüyünüz şeylər siz getdikdən sonra uzun müddət sizin üçün qazanmağa davam edə bilər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hər bir nəfs ölümü dadacaqdır və Qiyamət günü sizə ancaq əvəziniz tam olaraq veriləcəkdir. Beləliklə, kim Cəhənnəmdən uzaqlaşdırılıb Cənnətə daxil edilərsə, nicat tapmışdır. Dünya həyatı isə ancaq aldanmaqdan ibarətdir.",
-      },
-      {
-        excerpt:
-          "De: “Sənə əmanət edilmiş ölüm mələyi səni götürəcək. sonra Rəbbinizin hüzuruna qaytarılacaqsınız.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İnsan vəfat etdikdə onun üç əməli istisna olmaqla, əməli sona çatar: daimi sədəqə, fayda əldə edilən elm və ya onun üçün dua edən saleh övlad.",
-      },
-      {
-        excerpt: "Zövqləri məhv edəni tez-tez xatırlayın - ölüm deməkdir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "İstiğfarı artırın və namazı vaxtında qılın - xüsusən də sağlam və məşğul olduğunuz zaman, təkcə xəstələnəndə deyil.",
       "Bu gün gecikdirdiyiniz hər şey üçün tövbə edin; sabah qumar oynamayın.",
@@ -110,26 +70,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Daha sonra səadət və ya əzab qəbirdə gəlir və səhih mətnlərdə təsdiqlənir: “Qəbir ya Cənnət bağlarından bir bağdır, ya da Cəhənnəm çuxurlarından bir çuxurdur” (Cami ət-Tirmizi 2460, həsən səhih). Quranda Firon qövmünün qiyamət qopmadan “səhər-axşam” Cəhənnəmə düçar edilməsi əzabından bəhs edilir (Qur'an 40:46). Əhli-sünnə qeybə aid olduğu və dirilər tərəfindən dərk oluna bilmədiyi üçün onun dəqiq mahiyyətini Allaha buraxaraq, böyük mükafat və əzabın gerçəkliyini təsdiq edir.",
       "Qəbir sorğu-sualının və qəbir səadətinin və ya əzabının həqiqi olması haqqında ittifaq vardır; alimlər daha incə məqamları müzakirə edirlər - məsələn, bədənə, ruha və ya hər ikisinə toxunub-toxunmaması və adi məzarı olmayanlara necə çatması kimi - bu sualların diqqətini yayındırmağa imkan vermədən. Bərzəx böyük həvəsləndiricidir: qəbri yerin çuxurundan öz əməllərinin güzgüsünə çevirir və açıq-aydın göstərir ki, qabağa göndərdiyiniz şey sizi orada qarşılayacaq.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Nəhayət, onlardan birinə ölüm gəldiyi zaman: “Ey Rəbbim, məni geri qaytar ki, qoyub getdiklərimdə yaxşılıq edim!” – deyər. Xeyr! Onun dediyi yalnız bir sözdür; Onların arxasında isə diriləcəkləri günə qədər bir maneə vardır.",
-      },
-      {
-        excerpt:
-          "Cəhənnəm – onlar səhər-axşam onun qarşısındadırlar. Qiyamət qopduğu gün: “Firon əhlini ən şiddətli əzaba düçar edin!” – deyiləcək.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qəbir ya cənnət bağlarından bir bağdır, ya da cəhənnəm çuxurlarından bir çuxurdur.",
-      },
-      {
-        excerpt:
-          "Mərhum dəfn edildikdə, iki mələk onun yanına gəlib soruşur: Rəbbin kimdir? Sizin dininiz nədir? sənin peyğəmbərin kimdir? Mömin yəqinliklə cavab verir və qəbri onun üçün genişlənir və işıqlandırılır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Yanlış fikir: Ağır cəza heç bir əsası olmayan xalq inancıdır. İslah: Sorğu-sualın, qəbir səadətinin və ya əzabın həqiqəti səhih hədislərdə təsbit edilmiş və Quranda işarə edilmişdir; sünni əqidəsinin oturuşmuş nöqtəsidir.",
       "Yanlış fikir: Mələklərin dəqiq görünüşü və adları üzərində mübahisə etməliyik. Düzəltmə: Münkər və Nəkirin adları həsən rəvayətdə gəlir; əsas inanc sualın özüdür. Ona doğru cavab verməyə hazırlaşmaq onun təfərrüatlarını müzakirə etməkdən daha vacibdir.",
@@ -149,22 +91,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Əsas dəlillərin əsas mətni Huzeyfə ibn Üseydin hədisidir ki, Peyğəmbər on hədisi sadalamışdır: tüstü (Duxan), Dəccal, yerin heyvanı (Dəbbətül-ərd), günəşin batdığı yerdən (qərbdən çıxması), Məryəm ibn Useydin (Məryəm ibn Üseydin) enməsi, Məcun və Məcun (ə) Məcuc) və üç böyük sürüşmə - biri şərqdə, biri qərbdə və biri də Ərəbistan yarımadasında - insanları toplaşdıqları yerə aparan yanğınla möhürlənmişdir (Səhih Müslim 2901). Mehdi və Dəccal başqa səhih rəvayətlərdə gəlir və İsanın enişindən əvvəl qoyulur.",
       "Dürüst elmi mövqe ondan ibarətdir ki, hər bir əlamət təsdiq edilsə də, onların dəqiq sırası mətnlər tərəfindən tam şəkildə müəyyən edilməmişdir və mötəbər sünni alimləri dəqiq ardıcıllıqla ixtilaf edirlər. Bu fərq ənənənin normal bir hissəsidir və mübahisəyə səbəb yoxdur. Bütün bunlara peyğəmbərin cavabı qorxu və ya cari hadisələr haqqında sonsuz fərziyyə deyil, imanın, tövbənin və faydalı əməllərin artmasıdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Səndən o Saat haqqında soruşurlar ki, o nə vaxt qopacaq? De: “Onun elmi ancaq Rəbbimin yanındadır. Onun vaxtını Ondan başqa heç kəs aşkar edə bilməz. O, göylərdə və yerdə ağırdır. O, ancaq gözlənilmədən başınıza gəlməyəcək.",
-      },
-      {
-        excerpt:
-          "Məgər onlar o Saatın qəflətən başlarına gəlməsinimi gözləyirlər? Onun bəzi əlamətləri artıq gəlib. Bəs onlara (qiyamət günü) gəldikdə, necə xatırlanacaqlar?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siz ondan əvvəl on əlamət görməyincə qiyamət qopmaz: tüstü, Dəccal, heyvan, günəşin qərbdən çıxması, Məryəm oğlu İsanın enməsi, Yəcuc və Məcuc, biri şərqdə, biri qərbdə, biri də Ərəbistan yarımadasında üç sürüşmə və sonuncusu da insanları atəşə qovuşdurur.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -176,20 +104,7 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       'Digərlərinə zamanın hiss olunmasında ümumi sürətlənmə, zəlzələlərin və ölümlərin artması və biliyin yox olması daxildir. Elmlə bağlı Peyğəmbər (s) mexanizm haqqında dəqiq buyurmuşdur: “Elm götürülmədikcə, zəlzələlər çoxalmadıqca, vaxt tez keçmədikcə, fitnələr görünmədikcə və qətllər çoxalmayınca, qiyamət qopmaz” (Səhih əl-Buxari 1036). Və elmin necə getdiyini belə izah etdi: “Allah elmi insanlardan qoparmaqla deyil, alimləri əlindən almaqla, heç biri qalmayana qədər və insanlar cahilləri rəhbər tutaraq soruşulanları rəhbər tuturlar və elmsiz hökm verirlər, beləliklə də azarlar və başqalarını da azdırarlar” (Səhih əl-Buxari 100). Beləliklə, "bilik itkisi" məlumat çatışmazlığı deyil - bir yaş məlumatlarda boğula bilər - sağlam alimlərin və yaşanmış təcrübənin itirilməsidir.',
       "Burada mühüm bir nizam-intizam: müəyyən bir müasir hadisənin müəyyən bir hədisin yerinə yetirildiyini bəyan etmək qəti deyil, təfsirdir. Göydələn yarışları və ya artan cinayətlər Peyğəmbərin sözləri ilə səsləşə bilər, lakin başlıqlara inamla vəhy təyin etmək diqqətli alimlərin yolu deyil. Hər kiçik əlamətə düzgün cavab batinidir: onu Allaha qayıtmağa, dini öyrənmək və ona əməl etməyə çağırış kimi oxuyun, təşviş və tamaşa üçün deyil, əmanət və doğruluqdan möhkəm yapışın.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Etibar itirildikdə, Saatı gözləyin. Soruşdular: Necə itəcək, ya Rəsulallah? Buyurdu: “Hakimiyyət ona layiq olmayanlara verildikdə, o saatı gözləyin.",
-      },
-      {
-        excerpt:
-          "Qiyamətin əlamətlərindən: kəniz öz məşuqəsini dünyaya gətirəcək və hündür binaların tikintisində ayaqyalın, çılpaq, kimsəsiz çobanların yarışdığını görəcəksən. - Cəbrail hədisindən.",
-      },
-      {
-        excerpt:
-          "Allah biliyi əlindən almaqla aradan qaldırmaz, ancaq alimləri götürməklə aradan götürər, nə qədər ki, heç biri qalmasın və insanlar nadanları nadanları rəhbər tutsunlar, beləliklə də onlar azdırıb başqalarını da azdırsınlar.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Müəyyən cari hadisələrə xüsusi kiçik işarələrin tətbiqi təfsirlidir, müəyyən deyil. Bu modul hansı müasir hadisələrin onları qəti şəkildə yerinə yetirdiyini iddia etmədən səhih hədisləri təqdim edir.",
     actions: [
@@ -208,20 +123,7 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "İsa ibn Məryəm (əleyhissalam) daha sonra sünni əqidəsinin möhkəm nöqtəsi olan nazil olacaq. Peyğəmbər (salləllahu aleyhi və səlləm) buyurdu: “Nəfsim əlində olana and olsun ki, Məryəm oğlu tezliklə aranıza ədalətli bir hökmdar olaraq nazil olacaqdır. xaçı sındıracaq, donuzları öldürəcək, cizyəni ləğv edəcək və heç kim onu ​​qəbul etməyənə qədər sərvət aşıb-daşacaq” (Səhih əl-Buxari 3448). O, Muhəmmədin (s) ardıcılı olaraq nazil olur, ümmətin imamının arxasında namaz qılır (Səhih əl-Buxari 3439), Dəccalı öldürür və Məhəmmədin (s) şəriəti ilə hökm edir. Sonra Yəcuc və Məcuc azad edilir və qalan əlamətlər insanları bir yerə toplayan atəşə qədər açılır.",
       "Dürüstlüyün iki nöqtəsi. Birincisi, alimlər on nişanəlik hədisdəki hər işarənin həqiqəti ilə bağlı həmfikirdirlər, lakin onların dəqiq sırası ilə bağlı ixtilaf edirlər və bu fərq qanuni və köhnədir. İkincisi, Duxan və Heyvan bu səhih hədisin bir hissəsidir; onları ayrı-ayrılıqda təfərrüatlandıran bəzi digər rəvayətlər güc baxımından dəyişir, ona görə də bu modul zəif əlavələrə deyil, güclü on işarəli hesabata inanır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "On əlamət görməyincə Qiyamət qopmayacaq: tüstü, Dəccal, vəhşi heyvan, günəşin qərbdən çıxması, Məryəm oğlu İsanın enməsi, Yəcuc və Məcuc, biri şərqdə, biri qərbdə, biri də Ərəbistan yarımadasında üç sürüşmə, axırıncısı isə camaatı özlərinə doğru aparan oddur.",
-      },
-      {
-        excerpt:
-          "Canım əlində olana and olsun ki, Məryəm oğlu tezliklə aranıza ədalətli bir hökmdar olaraq nazil olacaqdır. O, xaçı sındıracaq, donuzları öldürəcək, cizyəni ləğv edəcək və var-dövlət o qədər çoxalacaq ki, heç kim onu ​​qəbul etməyəcək.",
-      },
-      {
-        excerpt:
-          "Əgər dünyadan bircə gün qalsaydı, Allah o günü uzadardı, ta ki, mənim ailəmdən (Mehdi) yer üzünü haqsızlıq və zülmlə dolduğu kimi ədalətlə dolduracaq bir kişi çıxartdı.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Əsas əlamətlərin reallığı təsdiq edilmişdir, lakin onların dəqiq ardıcıllığı və vaxtı alimlər tərəfindən tam razılaşdırılmamışdır. Tarix təyin etməkdən çəkinin və indiki şəxsiyyətlərin Mehdi, Dəccal və ya İsa olduğunu iddia etməkdən çəkinin.",
     appLinks: [{}],
@@ -234,21 +136,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "İki partlayış var və Qur'an onları fərqləndirir. Birincisi, “Sur üfürüləcək, Allahın istədiyindən başqa, göylərdə və yerdə olanlar ölüb yıxılacaqlar” (Qur'an 39:68) – yaradılmış nizamı sona çatdıran qorxu və ölüm səsi. Sonra ikincisi gəlir: “Sonra yenidən üfürüləcək və dərhal durub baxacaqlar” (eyni ayə davam edir) – bütün məxluqatın ölülərdən dirildiyi dirilmə partlayışı.",
       "Bir çox alimlər, eyni ayədən və əlavə xəbərlərdən, bir istisnadan - \"Allahın istədiyi kimsələrdən\" vurulmayanlardan - və iki partlayış arasındakı fasilədən bəhs edir, baxmayaraq ki, onun uzunluğu və təfərrüatları müxtəlif güclü xəbərlərə əsaslanır və Allaha buraxılır. Əminlik cüt partlayışdır: sonluq, sonra yüksəliş. Bu, 'Xəbərdarlıq Günü' (Qur'an 50:20) adlanır, çünki bu, hazırlaşmaq üçün vaxt olmadıqda səslənən son çağırışdır - məhz buna görə də çağırışa indi cavab vermək lazımdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sur üfürüləcək, Allahın istədiyi kimsələrdən başqa, göylərdə və yerdə olanlar ölüb yıxılacaqlar. Sonra yenidən üfürüləcək və dərhal dayanıb baxacaqlar.",
-      },
-      {
-        excerpt: "Sur üfürüləcəkdir. O, xəbərdarlıq günüdür.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mən necə rahat ola bilərəm ki, zurnalı onu ağzına qoyub, alnını əyib üfürmək əmrini gözləyir? Səhabələr sıxıldılar və onlara dedi: “Allah bizə kifayətdir və O, ən yaxşı vəkildir”.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Dirilmə",
@@ -258,26 +147,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Dirilmə ümumbəşəridir - birincidən sonuncuya qədər hər bir insan, hər bir millət dirildi. Peyğəmbər (salləllahu aleyhi və səlləm) insanların ayağa qalxdığı vəziyyəti belə təsvir etmişdir: “İnsanlar ayaqyalın, çılpaq və sünnətsiz toplanacaqlar”. Aişə qorxu içində kişi və qadınların bir-birinə baxıb-gözləməyəcəyini soruşduqda o, o günün məsələsinin heç kimi narahat etməyəcək qədər ağır olacağını söylədi (Səhih əl-Buxari 6527). Həmçinin dedi: “Siz ayaqyalın, çılpaq və sünnətsiz olaraq toplanacaqsınız və Qiyamət günü ilk geyinən İbrahim olacaq” (Səhih əl-Buxari 3349).",
       "Doktrinanın məqsədi tamaşa deyil, onun tətbiq etdiyi məsuliyyətdir. Çünki Allaha qayıdış mütləqdir, heç bir əməl həqiqətən məxfi deyil və heç bir ölüm xilas yolu deyil. “Qiyamət qopacaq – ona heç bir şəkk-şübhə yoxdur – və Allah qəbirlərdə olanları dirildəcəkdir” (Qur'an, 22:7). Bədənin dirilməsinə inam bu həyatın əxlaqi ağırlığını müvəqqəti deyil, gerçək edən şeydir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O, Bizə bir misal gətirir və öz yaradılışını unudaraq deyir: “Çürümüş sümükləri kim dirildər? De: “Onları ilk dəfə yaradan Allah onları dirildəcək. O, hər şeyi biləndir.",
-      },
-      {
-        excerpt:
-          "Qiyamətin gələcəyinə – buna heç bir şəkk-şübhə yoxdur – və Allah qəbirlərdə olanları dirildəcəkdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ayaqyalın, çılpaq və sünnətsiz toplanacaqsınız. Sonra oxudu: İlk yaradılışa başladığımız kimi, onu da təkrar edəcəyik. Qiyamət günü ilk geyinən də İbrahimdir.",
-      },
-      {
-        excerpt:
-          "İnsanlar ayaqyalın, çılpaq və sünnətsiz toplanacaq. Aişə dedi: Kişilər və qadınlar bir-birinə baxacaqlarmı? O dedi: İş bunun üçün çox ağır olacaq.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Toplantı (Məhşər)",
@@ -287,22 +158,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "O dayanmağın şərtləri ağırdır. Peyğəmbər (salləllahu aleyhi və səlləm) demişdir: “Qiyamət günü günəş insanlara o qədər yaxınlaşacaq ki, bir mil məsafədə olacaq və onlar əməllərinə görə tər içində batarlar – bəziləri topuqlarına, bəziləri dizlərinə, bəziləri bellərinə, bəziləri isə tər cilovlayar” (Səhih Müslim 2864). Halbuki eyni rəvayətlərdə mərhəmət əməllərlə bölüşdürülür: Peyğəmbərin (sallallahu aleyhi və səlləm) adını çəkdiyi bir kateqoriya Allahın Ərşinin kölgəsində Onun kölgəsindən başqa heç bir kölgə olmadığı bir gündə Allahın Ərşinin kölgəsində kölgələnəcəkdir - onların arasında ədalətli rəhbər, ibadətlə böyüdülmüş gənclər və gizli sədəqə verənin sol əli sağ əlinin nə xərclədiyini bilmirdi.",
       "İntizar uzundur – Qur'an “ölçüsü əlli min il olan bir gündən” bəhs edir (Qur'an 70:4), lakin onun uzunluğu hamı üçün eyni deyil. Səhih xəbərlərdə deyilir ki, bu, mömin üçün iki namaz arasındakı vaxt qədər qısa, digərləri üçün isə yüngülləşəcək. Beləliklə, Mahşar həyatın şəxsi dəftərinin ictimai reallığa çevrildiyi yerdir: eyni günəş, eyni düzənlik və tamamilə fərqli təcrübələr, tamamilə hər bir insanın irəliyə göndərdiklərindən alınır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O gün yer və göylər başqa yerlə əvəzlənəcək və onlar tək olan Allahın hüzuruna çıxacaqlar.",
-      },
-      {
-        excerpt:
-          "Mələklər və Ruh (Cəbrail) Onun hüzuruna ölçüsü əlli min il olan bir gündə yüksələr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qiyamət günü günəş insanlara bir mil qədər yaxınlaşana qədər yaxınlaşdırılacaq və onlar əməllərinə görə tərə qərq olacaqlar - bəziləri topuqlarına, bəziləri dizlərinə, bəziləri bellərinə, bəziləri isə tər cilovlanacaq.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Şəfaət (Şəfa)",
@@ -313,25 +170,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Digər möminlərin hesabsız olaraq Cənnətə daxil olmalarına şəfaət; dərəcələri yüksəldən şəfaət; və hər şeydən əvvəl möminlər arasında olan böyük günahkarlara şəfaətdir ki, insanlar Peyğəmbərin , digər peyğəmbərlər, mələklər, möminlərin şəfaəti və nəhayət, rəhm edənlərin ən rəhmlisi olan Allahın rəhməti ilə Cəhənnəm odundan çıxarılsınlar. Peyğəmbərlər, şəhidlər, salehlər və hətta kiçik yaşda vəfat etmiş uşaqlar, fərdi xəbərlərin gücü fərqli olsa da, icazə ilə şəfaət edə bilərlər.",
       "Vacib xəbərdarlıq: axirətdə şəfaət heç vaxt ölü və ya qeybi indi köməyə çağırmağa icazə vermir. Qəbirdə peyğəmbərə və ya övliyaya dua etmək, sıxıntını aradan qaldırmaq və ya ehtiyacını ödəmək istəmək Allahdan qeyrisinə ibadətə yönəltməkdir, yəni şirkdir və burada təsvir edilən şəfaətin əksinədir ki, bu da Allahın o gündə istədiyinə bəxş etdiyi bir nemətdir. Həm də bu həyatda iman və tövbə ehtiyacını əvəz etmir; tövhidlə yaşayıb ölənlərə Allahın mərhəmətidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Onun izni olmadan Onun yanında kim şəfaət edə bilər? O, onların önündə olanı da, sonrakıları da bilir.",
-      },
-      {
-        excerpt: "İzn verdiyi kimsə istisna olmaqla, şəfaət Onun yanında fayda verməz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Camaat yanıma gələcək, mən də Allaha səcdəyə qapanacağam və deyiləcək: Ey Məhəmməd, başını qaldır! istəsən, sənə veriləcək, şəfaət et və şəfaətin qəbul olunacaq.",
-      },
-      {
-        excerpt:
-          "İnsanlar Adəmə, sonra İbrahimə, sonra Musaya, sonra İsaya (ə) gedəcək və hər biri Muhəmmədin (sallallahu aleyhi və səlləm) hüzuruna gələnə qədər üzr istəyəcək və ona ən böyük şəfaət veriləcəkdir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Yanlış fikir: Şəfaət istəmək Peyğəmbərə (s) və ya salehlərə ibadət etmək deməkdir. Düzəliş: İbadət yalnız Allaha məxsusdur; Qiyamət günü şəfaət Allahın izni ilə bəxş etdiyi bir rəhmətdir və bu dünyada ölüləri çağırmağa haqq qazandırmaz.",
     ],
@@ -344,22 +184,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Bu qeydlərdən heç bir şey buraxılmır - ən kiçik bir hərəkət, əmələ çevrilən keçici düşüncə deyil. Zalımlar onun tamlığından məəttəl qalacaqlar: “Onlar deyəcəklər: “Vay halımıza! Bu kitab nədir ki, onu qeyd etməsindən başqa kiçik və ya böyük heç nə qoymur? Onlar özlərinin qarşısında etdiklərini görəcəklər və sənin Rəbbin heç kəsə zülm etməz” (Qur'an, 18:49). Allahın rəhməti ilə yaxşı niyyətlər və tərk edilmiş günahlar da möminin lehinə yazılır.",
       "Çünki vərəqləri dolduran dil və əzalardır, onları qorumaq dəftəri qorumaqdır. Həzrət Peyğəmbər (s) dili qurtuluşun mərkəzinə qoymuşdur: “Kim mənə çənəsi arasında və ayaqlarının arasında olana zəmanət verərsə, mən də ona Cənnəti zəmanət verərəm” (Səhih əl-Buxari 6474) – yəni hər kəs öz sözünü və iffətini qoruyar. Gündəlik özünü vicdanla nəzərdən keçirmək vərdişi - bu gün kitaba nə əlavə olunduğunu soruşmaq - möminin saxlaya biləcəyi ən ayıq və faydalı təcrübələrdən biridir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Və dəftər qoyulacaq və günahkarların içindəkilərdən qorxaraq: “Vay halımıza! Bu kitab nədir ki, onu qeyd etməsindən başqa kiçik və ya böyük heç nə qoymur? Və onlar etdikləri hər şeyi üzə çıxaracaqlar və sənin Rəbbin heç kəsə zülm etməz.",
-      },
-      {
-        excerpt:
-          "Kimin dəftəri sağ əlinə verilsə, o deyəcək: Budur, mənim dəftərimi oxu! Hesabımla görüşəcəyimə əmin idim. Beləliklə, o, xoş bir həyatda olacaq. Amma dəftəri sol əlinə verilən şəxs deyəcək: “Kaş ki, dəftərim mənə verilməsəydi”.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim mənə çənəsi və ayaqları arasında zəmanət verərsə, mən də ona Cənnəti, yəni dilini və iffətini təmin edirəm.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Dili demək olar ki, hər şeydən üstün tutun - yaxşı və ya pis rekordu dolduran şeylərin çoxu ondan keçir.",
       "Yatmazdan əvvəl gününüzü nəzərdən keçirin: kitabınızda yazılanları görmək üçün nə istədiyinizi və nədən qorxduğunuzu soruşun.",
@@ -374,26 +200,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Tərəzinin ağırlığını çəkən şey, işin çoxluğu deyil, Allah yanında ağırlığıdır və çəkisi ixlasdandır. Həzrət Peyğəmbər (salləllahu aleyhi və səlləm) zəhmətsiz, lakin böyük olan əməllərə işarə etmişdir: “Dildə yüngül, tərəzidə ağır, Rəhmana sevimli olan iki kəlmə: SübhanAllahi və bihəmdih, SübhanAllahil-Əzim” (Səhih əl-Buxari 6406). Həmçinin buyurmuşdur: “Qiyamət günü möminin tərəzisində gözəl əxlaqdan daha ağır bir şey yoxdur” (Cami ət-Tirmizi 2002, səhih). Beləliklə, səmimi bir şəkildə təkrarlanan sadə bir xatırlama və ya səbirli yaxşı davranış, möhtəşəm fəaliyyətin dağlarını üstələyə bilər.",
       "Bunun əksi boş işlərin təhlükəsidir. İnsanlara görünmək üçün edilən (riya) və ya riya ilə pozulan hərəkətlər tərəziyə çəkisiz – zahirən böyük, daxilən boş gələ bilər. Buna görə də ixlas çoxlu fəzilətlərdən biri deyil, hər bir əmələ öz çəkisini verən şeydir. Dərs günü kiçik, səmimi, ardıcıl əməllər ətrafında qurmaq və görünənlərin arxasındakı niyyəti təmizləməkdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Biz qiyamət günü üçün ədalət tərəzisini qoyuruq ki, heç kəsə haqsızlıq edilməsin. Əgər bir xardal dənəsi ağırlığında olsa, onu çıxardarıq və Biz mühasib olaraq kifayət edirik.",
-      },
-      {
-        excerpt:
-          "Kimin tərəzisi ağır olarsa, o, xoş həyatda olar. Kimin tərəzisi yüngül olarsa, onun sığınacağı yer uçurum olar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dildə yüngül, tərəzidə ağır, Rəhmana sevimli olan iki kəlmə: SübhanAllahi və bihəmdih, SübhanAllahil-Əzim.",
-      },
-      {
-        excerpt:
-          "Qiyamət günü möminin tərəzisində gözəl əxlaqdan daha ağır bir şey yoxdur. Həqiqətən, gözəl əxlaqlı şəxs bununla oruc tutan və namaz qılan məqamına çatar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -405,22 +213,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Elə bir borc kateqoriyası var ki, onu hətta Allahın bağışlaması belə sadəcə silmir: başqa insanların haqqı (hüquq əl-ibad). Peyğəmbər (salləllahu aleyhi və səlləm) soruşdu: “Sən kimin müflis olduğunu bilirsənmi?” Dedilər: Pulu olmayan biri. Buyurdu: “Ümmətimin müflisi o kəsdir ki, Qiyamət günü namaz, oruc və sədəqə ilə gəlsə, amma onu təhqir edib, ona böhtan atıb, başqasının malını alıb, başqasının qanını töküb yaxşı əməlləri onların əlinə keçər, yaxşılıqları bitdikdə isə günahları ona yüklənər və cəhənnəm oduna yüklənər”. 2581). İbadət haqsızlığı aradan qaldırmaz; yalnız ədalətsizliyi həll edir.",
       "Praktiki nəticə təcili və konkretdir: ödənilməmiş borclar, oğurlanmış sərvətlər, böhtanlar və sındırılmış əmanətlər bu həyatda - Allaha tövbə etmək, əvəzini ödəmək və insanlardan üzr istəmək yolu ilə düzəldilməlidir, çünki indi pul və təvazökarlıq valyutası ilə hesablaşmaq o vaxtkı yaxşı əməllərin valyutası ilə müqayisədə daha ucuzdur. Və bütün bunlarla Allahın ədaləti mükəmməldir və Onun rəhməti ixlasla cihad edən və tövbə edən hər kəsi əhatə edir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kimin dəftəri sağ əlinə verilsə, o, asan hesabla mühakimə olunacaq və qövmünün yanına xoşbəxtliklə qayıdacaq. Kimə dəftəri arxadan verilmişdirsə, o, məhv olmaq üçün fəryad edib Cəhənnəmə girəcəkdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim hesaba çəkilsə, məhv olar. Aişə dedi: “Məgər Allah, asan hesabla mühakimə olunacağını demirmi? O dedi: “Bu, ancaq əməllərin təqdimatıdır. lakin kim onun hesabına sorğu-sual edilərsə, məhv olar.",
-      },
-      {
-        excerpt:
-          "Kimin müflis olduğunu bilirsinizmi? O kəsdir ki, Qiyamət günü namaz, oruc və zəkatla gələr, lakin başqalarını təhqir etmiş, böhtan atmış və haqsızlıq etmişsə, ona görə də yaxşı əməlləri onlara verilmiş, günahları bitdikdə isə onun üzərinə qoyulmuş və Cəhənnəmə atılmışdır.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Borcları həll edin və haqsız olaraq alınan hər şeyi, kiçik də olsa, təyin olunmuş gün gəlməmişdən əvvəl qaytarın.",
       "Sözdə, sərvətdə və ya ləyaqətdə haqsızlıq etdiyiniz hər kəsi axtarın və üzr istəyin - indi bərpa o vaxtkı bərpadan qat-qat ucuzdur.",
@@ -436,16 +230,7 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Peyğəmbər (Ona Allahın salavatı və salamı olsun) özü tərəfdarlarını orada qəbul edəcək: “Mən sizdən əvvəl Havda çatacağam və sizdən yanıma gələnləri gözətləyəcəm” (Səhih Müslim 2292). Dəstəmaz izlərindən ümmətini üzlərindəki nurdan, əl və ayaqlarından tanıyır. Ona çatmaq əbədi sönməkdir; Allahın Öz Peyğəmbərinə səllallahu aleyhi və səlləm cənnətdə bəxş etdiyi Kövsər çayı ilə sağlam anlayışla qidalanır.",
       "Lakin bəziləri Havddan qovulacaqlar. Həzrət Peyğəmbər (s) bəzi insanlara belə deyilməsini təsvir etmişdir: “Onlar sizdən deyillər. onlar səndən sonra dini dəyişdilər və ya ondan sonra geri döndülər. Alimlər buna diqqət yetirirlər: hədisdəki müəyyən kateqoriyalara - məsələn, azğınlıq və qəbir, aydın hidayətdən sonra dində qəsdən yenilik kimi - aiddir və adi müsəlmanların bir-birini ittiham etməsi qəti şəkildə icazə verilmir. Havda aparan təhlükəsiz yol sünnəyə bağlı qalmaq, dəstəmaz və namazı qorumaq, möminlərin birliyini qorumaqdır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mənim Hawd bir aylıq yoldur. Onun suyu süddən ağ, ətri müşkdən şirin, stəkanları isə göy ulduzları qədərdir. Kim ondan içsə, bir daha susuz qalmaz.",
-      },
-      {
-        excerpt:
-          "Mən sizdən əvvəl Havda çatacağam və sizdən mənə gələnləri gözətləyəcəm. Bəzi insanlar məndən uzaqlaşdırılacaq və mən deyəcəyəm: “Ey Rəbbim, mənim yoldaşlarım! Deyəcəklər: “Sən bilmirsən ki, onlar səndən sonra nə bidət qoydular.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Həvddən üz döndərənlər haqqındakı xəbərlər hədisdə adı çəkilən xüsusi kateqoriyalara, əsasən də azğınlığa və dindəki böyük bidətə aiddir. Müsəlmanların bir-birlərini azğınlıq etmələri üçün onlar bir icazə deyil.",
   },
@@ -458,18 +243,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Sirat üzərində işıq və sürət bu həyatda qazanılır. Vaxtında qılınan namaz, mütəmadi olaraq verilən sədəqə, rəftarda dürüstlük və gözəl əxlaq, əslində, insanın keçdiyi dayaq və nura çevrilir. Peyğəmbər orada möminlər üçün şəfaət edər və Allahın rəhməti ilə hər kəs o tərəfə çatar.",
       "Digər görünməmiş stansiyalarda olduğu kimi, müdrik kurs körpünün fiziki ölçüləri - nə qədər nazik, nə qədər iti, nə qədər uzun olması barədə fərziyyələr söyləmək deyil, tamamilə keçidi işıqlandıran əməllərə diqqət yetirməkdir. Təsvir edə bilməyəcəyiniz şeyə hələ də hazırlaşa bilərsiniz.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sizlərdən heç kəs yoxdur ki, ona yetişsin. Bu, sənin Rəbbinə vacib hökmdür. Sonra Allahdan qorxanlara nicat verəcəyik, zalımları isə orada diz çökmüş halda qoyacağıq.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Körpü cəhənnəmin üzərində qurulacaq və birinci mən keçəcəyəm. İnsanlar öz əməllərinə görə onun üstündən keçəcəklər - şimşək kimi, külək kimi, quşlar kimi, qaçan adam kimi - Mən deyirəm: Ya Rəbb, onları qoru, onları qoru. Bəziləri xilas olur, bəziləri cızılıb sərbəst buraxılır, bəziləri isə Cəhənnəmə düşür.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Beş vaxt namazı vaxtında qılın - namaz körpünün üstündən keçən nurdur.",
       "Kiçik miqdarda da olsa, müntəzəm olaraq sədəqə verin.",
@@ -484,21 +259,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Onun mükafatlarının ən böyüyü heç bir bağ və ya çay deyil, Allahın rizası və Üzünün görünməsidir. “O gün üzlər nurlu olacaq, Rəbbinə baxacaqdır” (Qur'an 75:22-23) – Əhli-sünnə möminlərin axirətdə Allaha, Onun əzəmətinə yaraşan şəkildə və yaradılışa bənzərsiz olaraq bəxş edilmiş Cənnət səadətinə baxmaq kimi başa düşülür. Allah vəd edir: “Yaxşılıq edənlər üçün ən gözəl mükafat və daha çox mükafat vardır” (Qur'an, 10:26) – və “daha ​​çox” isə səhih hədislərdə Onun uca sifətinin bu baxışı kimi izah edilir.",
       "Cənnətə daxil olmaq Allahın mərhəməti ilə, iman və saleh əməllə qəbul edilir - ikisi heç vaxt bir-birinə zidd olmaz: rəhmət səbəb, əməl əlamət və Allahın ona bağladığı vasitədir. Cənnət əhli üçün qiyamət heç vaxt sönməyən və bitməyən bir səadətlə başa çatır. Bu modul məqsədyönlü olaraq Cənnətə münasibətini qısaca saxlayır; Tam Cənnətə Səyahət bələdçisi onun qapılarını, dərəcələrini, ona aparan əməlləri və onun üçün edilən duaları dərindən əhatə edir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rəbbiniz tərəfindən bağışlanmağa və genişliyi göylərlə yer qədər olan, müttəqilər üçün hazırlanmış Cənnətə tələsin.",
-      },
-      {
-        excerpt: "O gün üzlər nurlu olacaq və Rəbbinə baxacaqdır.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah buyurur: Mən saleh bəndələrim üçün heç bir gözün görmədiyini, heç bir qulağın eşitmədiyini və heç bir insan qəlbinin təsəvvür etmədiyini hazırlamışam.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -509,15 +271,7 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Bu xəbərdarlıqların məqsədi maskalanmış mərhəmətdir. Onlar təkəbbürü qırmaq, həqiqəti inadla rədd etməyi dayandırmaq və çox gec olmadan insanı geri qaytarmaq üçün mövcuddurlar. Məhz buna görə də Qurandakı xəbərdarlıqlar, demək olar ki, həmişə açıq tövbə qapısı ilə birləşdirilir - Od haqqında təsvir edilmənin məqsədi məhz buna görədir ki, insanlar hələ də bacardıqları halda ondan qaçsınlar. Onun əzabı ədalətlidir. Heç kəs ora öz ixtiyarından başqa, açıq-aydın hidayət yolu ilə daxil ola bilməz və Allah heç kəsə zülm etməz.",
       "Günah daşıyan möminlər üçün sağlam sünni inancı qorxu və ümid arasında bir tarazlıqdır: günahkar Allahın iradəsi altındadır - O, bağışlayar və ya Cəhənnəmdə pak olar, sonra isə yuxarıda təsvir edilən şəfaət və mərhəmətlə zərrə qədər imanı olan hər kəsi oradan çıxarar. Bu modul Cəhənnəmə qəsdən qısa və ölçülmüş müalicə verir. Onun xəbərdarlıqlarının, böyük günahların, tövbə və mərhəmətin geniş qapılarının daha dolğun tədqiqi Cəhənnəmi Anlamaq modulunda və əlaqəli əqidə mövzularında tapılır - həmişə ümidlə, heç vaxt ümidsizliyə qapılmamaqla yanaşır.",
     ],
-    quran: [
-      {
-        excerpt: "Rəbbini inkar edənləri isə cəhənnəm əzabı və necə də pis aqibət gözləyir.",
-      },
-      {
-        excerpt:
-          "De: “Ey Mənim özlərinə zülm edən qullarım, Allahın rəhmətindən ümidinizi kəsməyin. Həqiqətən, Allah bütün günahları bağışlayar. Həqiqətən, O, Bağışlayandır, Rəhmlidir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -529,12 +283,7 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Alimlər rəqəmin özünü müzakirə edirlər: bəziləri yetmiş minin hərfi olduğunu, bəziləri bunun əlavə hesabatlarla çox artırıldığını, digərləri isə sabit sayından çox Allahın lütfünün ölçülməz bolluğundan xəbər verir. Onların razılaşdıqları əsas həqiqətdir - Allahın rəhməti insan mühasibatlığının gözlədiyindən qat-qat artıqdır və son qurtuluş da bu mərhəmətdir.",
       "Bu, tənbəllik üçün boşluq deyil, ümid stansiyasıdır. Mömini ibadətdə səy göstərərkən, həqiqi təvəkkülə və xurafatdan uzaq olmağa təlqin edir. Heç kim onu ​​əməllərə etinasızlıq etməklə qazanmaz; İnsanı ona cazibə və qorxudan daha çox səmimiyyət, təvəkkül və Allaha bağlı bir ürək çəkir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ümmətimdən yetmiş min nəfər Cənnətə haqq-hesabsız daxil olacaqlar: onlar başqalarından ruqyə istəməyənlər, bədxahlara inanmayanlar, qızartmayanlar və Rəbbinə təvəkkül edənlərdir.",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Alimlər “hesabsız”ın sabit yetmiş min, yoxsa daha çox, ölçülə bilməyən bir rəqəm olması barədə ixtilaf edirlər. Hamı yekdildir ki, son qurtuluş Allahın rəhməti ilədir və bu, əməllərə etinasızlıq üçün deyil, ümid üçün səbəbdir.",
   },
@@ -547,25 +296,8 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       "Peyğəmbərin birbaşa Cənnətə bağladığı iki şeyi - dil və iffəti (Səhih əl-Buxari 6474) qoruyun, çünki bunlar dramatik günahlardan daha çox, bir qeydi sakitcə dolduran və ya iflas edən şeylərdir. İnsanların haqqını hələ də bacardığınız halda həll edin: borcunuzu ödəyin, alınanı qaytarın, zərərə görə üzr istəyin və hər işdə ədalətli olun ki, zülm etdiyi kəslərin iddiaları ilə duaları yeyilən “iflas” kimi heç vaxt yetişməyəsiniz.",
       "“Səhih əl-Buxarinin” birinci hədisində hər şey bir niyyətə əsaslanır: “Əməllər ancaq niyyətlərə görədir”. Münibin izləyicilərindən yarışmaq üçün deyil, bu vərdişlər üçün - namaz, Qur'an, zikr, sədəqə, tövbə - hər biri sakitcə gününüzü Allahla görüşə yönəltmək üçün yumşaq bir dəstək kimi istifadə edin. Bütün məqsəd budur: indi həqiqətən Onun qarşısında dayanmağı gözləyən biri kimi yaşamaq.",
     ],
-    quran: [
-      {
-        excerpt: "Mən cinləri və insanları ancaq Mənə ibadət etmək üçün yaratdım.",
-      },
-      {
-        excerpt:
-          "Ey iman gətirənlər, Allaha səmimi qəlbdən tövbə edin. Ola bilsin ki, Rəbbiniz günahlarınızı sizdən sovuşdursun və sizi (ağacları) altından çaylar axan Cənnət bağlarına daxil etsin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Əməllər ancaq niyyətlərə görədir və hər bir insan ancaq niyyət etdiyinə sahib olar.",
-      },
-      {
-        excerpt:
-          "Kim mənə çənəsi və ayaqlarının arasına zəmanət verərsə, dilinə və iffətinə zəmanət verərsə, ona Cənnəti zəmanət verirəm.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Beş vaxt namazı vaxtında qılın.",
       "Hər gün Qur'anı oxuyun və ya dinləyin - hətta bir neçə ayə.",
@@ -590,75 +322,41 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
       {
         title: "Gözəl əxlaq",
         summary: "Möminin tərəzisində gözəl əxlaqdan ağır heç nə yoxdur.",
-        hadith: {
-          excerpt: "Qiyamət günü möminin tərəzisində gözəl əxlaqdan ağır heç nə yoxdur.",
-        },
+        hadith: {},
       },
       {
         title: "İki yüngül kəlmə",
         summary: "Dildə yüngül, tərəzidə ağır və Rəhmana sevimlidir.",
-        hadith: {
-          excerpt: "Sübhanəllahi və bihəmdihi, Sübhanəllahil-azim.",
-        },
+        hadith: {},
       },
       {
         title: "Əlhəmdülillah tərəzini doldurur",
         summary: "Həmd Allaha məxsusdur və tərəzini doldurur.",
-        hadith: {
-          excerpt: "Əlhəmdülillah tərəzini doldurur.",
-        },
+        hadith: {},
       },
       {
         title: "Şəhadət kartı",
         summary: "Səmimi tövhid günah dəftərlərindən ağır gəlir.",
-        hadith: {
-          excerpt: "Şəhadət kartı tərəzidə günah dəftərlərindən ağır gəldi.",
-        },
+        hadith: {},
       },
       {
         title: "Ən yaxşı zikr",
         summary: "Ən üstün zikr: Lə iləhə illəllah.",
-        hadith: {
-          excerpt: "Ən yaxşı zikr Lə iləhə illəllahdır.",
-        },
+        hadith: {},
       },
       {
         title: "Ən sevimli dörd kəlmə",
         summary: "Allaha ən sevimli sözlər dörd zikrdir.",
-        hadith: {
-          excerpt: "Sübhanallah, Əlhəmdülillah, Lə iləhə illəllah, Allahu əkbər.",
-        },
+        hadith: {},
       },
       {
         title: "Sübhanəllahi və bihəmdihi ×100",
         summary: "Gündə yüz dəfə deyənə günahlarının bağışlanması vəd edilmişdir.",
-        hadith: {
-          excerpt: "Kim bunu gündə yüz dəfə desə, günahları bağışlanar.",
-        },
+        hadith: {},
       },
     ],
-    quran: [
-      {
-        excerpt: "Tərəziyə ağır gələn səmimi əməl.",
-      },
-      {
-        excerpt: "Gözəl əxlaq möminin tərəzisində çox ağırdır.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Qiyamət günü möminin tərəzisində gözəl əxlaqdan ağır heç nə yoxdur.",
-      },
-      {
-        excerpt: "Sübhanəllahi və bihəmdihi, Sübhanəllahil-azim.",
-      },
-      {
-        excerpt: "Əlhəmdülillah tərəzini doldurur.",
-      },
-      {
-        excerpt: "Şəhadət kartı tərəzidə günah dəftərlərindən ağır gəldi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}, {}],
     misconceptions: [
       "Qur'an və Sünnə bütün əməllər üçün rəqəmli siyahı vermir; mətnin öz sözlərinə bağlı qalırıq.",
       "Tərəzidə ağırlığın əsası ixlasdır; kiçik, səmimi əməl böyük görünən riyakarlıqdan ağır ola bilər.",
@@ -691,248 +389,167 @@ export const LAST_DAY_TOPICS_AZ: DeepPartial<LastDayTopic>[] = [
 
 export const LAST_DAY_HADITH_AZ: DeepPartial<LastDayHadithEntry>[] = [
   {
-    hadith: {
-      excerpt: "Zövqləri məhv edəni tez-tez xatırlayın - ölüm deməkdir.",
-    },
+    hadith: {},
     context:
       "Ölümü mütəmadi olaraq xatırlamaq ürəyi yumşaldır, kinləri yox edir və ümidsizlik yaratmadan prioritetləri düzəldir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Sizlərdən heç biriniz Allaha yaxşılıq etmək və Rəbbinin mərhəmətini gözəl düşünməkdən başqa ölməsin.",
-    },
+    hadith: {},
     context:
       "Səmimi iman, tövbə və Allahdan yaxşı gözləmə ilə yaxşı sonluq (hüsnül-xatimə) ümid edilir.",
   },
   {
-    hadith: {
-      excerpt: "Qəbir ya cənnət bağlarından bir bağdır, ya da cəhənnəm çuxurlarından bir çuxurdur.",
-    },
+    hadith: {},
     context:
       "Bərzəx, Allahın hikməti ilə qəbirdə mükafat və ya cəzanı ehtiva edir - qəbir insanın öz əməllərini əks etdirir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mərhum dəfn edildikdə, iki mələk gəlib ondan Rəbbi, dini və peyğəmbəri haqqında soruşur.",
-    },
+    hadith: {},
     context:
       "Qəbirdə sorğu-sual edilməsi səhih xəbərlərdə təsdiq edilmişdir; bu rəvayətdə iki mələyin adı Münkər və Nəkirdir.",
   },
   {
-    hadith: {
-      excerpt:
-        "İnsan vəfat etdikdə onun üç əməli istisna olmaqla, əməli sona çatar: daimi sədəqə, fayda əldə edilən elm və ya onun üçün dua edən saleh övlad.",
-    },
+    hadith: {},
     context: "Ölüyə fayda verməyə davam edən şey - səhih hədisdə sabitdir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Siz ayaqyalın, çılpaq və sünnətsiz olaraq toplanacaqsınız və Qiyamət günü ilk geyindirilən İbrahim olacaq.",
-    },
+    hadith: {},
     context: "Qiyamət günü təvazökarlıq; Allah istədiyini istədiyi kimi ehtiram edər.",
   },
   {
-    hadith: {
-      excerpt:
-        "Günəş Qiyamət günü insanlara təxminən bir mil uzaqlaşana qədər yaxınlaşdırılacaq və onlar öz əməllərinə görə tərlərinə qərq olacaqlar.",
-    },
+    hadith: {},
     context: "Məhşərin şərtləri — səhih rəvayətlərdə əmələ görə şiddət dəyişir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Camaat yanıma gələcək, mən də Allaha səcdəyə qapanacaq və deyiləcək: “Başını qaldır! istəsən, sənə veriləcək, şəfaət et və şəfaətin qəbul olunacaq.",
-    },
+    hadith: {},
     context: "Ən böyük şəfaət Peyğəmbərə (sallallahu aleyhi və səlləm) xas olan Şəfa əl-Üzmədir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Kim hesaba çəkilsə, məhv olar. Aişə soruşdu: Məgər Allah, asan hesabla mühakimə olunacağını demirmi? O dedi: “Bu, ancaq əməllərin təqdimatıdır. lakin kim onun hesabına sorğu-sual edilərsə, məhv olar.",
-    },
+    hadith: {},
     context:
       "'Asan hesab' bir mərhəmətdir - insanın öz əməllərinin göstərilməsi və bağışlanması, maddə-maddə çarpaz yoxlanılması deyil.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mənim ümmətimin müflisi o kəsdir ki, namaz, oruc və sədəqə ilə gəlir, lakin başqalarını təhqir etmiş, böhtan atmış və haqsızlıq etmiş, ona görə də yaxşı əməlləri onlara verilir və günahları onun üzərinə yüklənir.",
-    },
+    hadith: {},
     context:
       "İnsanların haqqı (hüquq əl-ibad) sadəcə olaraq ibadətlə ləğv olunmur; günündə ödənilməli və ya ödənilməlidir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mənim ümmətimdən yetmiş min nəfər hesabsız cənnətə daxil olacaqlar: o kəslər ki, başqalarından ruqyə istəməzlər, bədxahlara inanmazlar, qəzəblənməzlər və Rəbbinə təvəkkül edərlər.",
-    },
+    hadith: {},
     context:
       "Alimlər bu rəqəmin hərfi olması və ya Allahın rəhmətinin daha böyük, saysız-hesabsız bolluğunu ifadə etməsi mövzusunda ixtilaf edirlər.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mənim Hawd bir aylıq yoldur. Onun suyu süddən ağ, ətri müşkdən şirin, stəkanları isə göy ulduzları qədərdir. Kim ondan içsə, bir daha susuz qalmaz.",
-    },
+    hadith: {},
     context: "Hovuz - susuzluq günü Muhəmmədin (s) ümməti üçün bir rəhmətdir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Körpü Cəhənnəm üzərində qurulub. İnsanlar onu əməllərinə görə keçir - şimşək kimi, külək kimi, quşlar kimi, qaçan adam kimi - bəziləri cızılıb xilas olur, bəziləri isə yıxılır.",
-    },
+    hadith: {},
     context: "Keçid sürəti iman və əməlləri əks etdirir; Allahın rəhməti genişdir.",
   },
   {
-    hadith: {
-      excerpt:
-        "On əlamət görməyincə qiyamət qopmayacaq: tüstü, Dəccal, heyvan, günəşin qərbdən çıxması, Məryəm oğlu İsanın, Yəcuc və Məcucun yerə enməsi, üç sürüşmə və insanları öz məclislərinə aparan od.",
-    },
+    hadith: {},
     context:
       "On böyük əlamət, Huzeyfə ibn Üseyddən. Alimlər hər bir işarəni təsdiq edirlər, lakin dəqiq ardıcıllıqla fərqlənirlər.",
   },
   {
-    hadith: {
-      excerpt:
-        "Canım əlində olana and olsun ki, Məryəm oğlu tezliklə aranıza ədalətli bir hökmdar olaraq nazil olacaqdır. xaçı sındıracaq, donuzları öldürəcək, cizyəni ləğv edəcək və heç kim onu ​​qəbul etməyənə qədər sərvət daşacaq.",
-    },
+    hadith: {},
     context: "İsanın enməsi sünni əqidəsinin möhkəm nöqtəsidir; Məhəmmədin şəriəti ilə hökm edir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Etibar itirildikdə, Saatı gözləyin. Soruşdular: Necə itəcək? Buyurdu: Hakimiyyət layiq olmayanlara verildikdə.",
-    },
+    hadith: {},
     context:
       "Tanınmış kiçik bir əlamət - etibarlılığın itirilməsi. Panikaya deyil, hazırlığa diqqət yetirin.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah biliyi əlindən almaqla yox, alimləri götürməklə aradan qaldırır ki, heç kim qalmasın və insanlar nadanları rəhbər tutsunlar ki, onlar nadan olub, başqalarını da azdırsınlar.",
-    },
+    hadith: {},
     context:
       "“Bilik itkisi” sağlam alimlərin və yaşamış təcrübənin itirilməsi deməkdir – məlumat çatışmazlığı deyil.",
   },
   {
-    hadith: {
-      excerpt: "Tərəziyə ağır gələn səmimi əməl.",
-    },
+    hadith: {},
     context: "Ağır tərəziyə hazırlıq",
   },
   {
-    hadith: {
-      excerpt: "Gözəl əxlaq möminin tərəzisində çox ağırdır.",
-    },
+    hadith: {},
     context: "Tərəzidə ağır olanlar",
   },
   {
-    hadith: {
-      excerpt: "Zikr dildə yüngül, tərəzidə ağırdır.",
-    },
+    hadith: {},
     context: "Tərəzidə ağır olanlar",
   },
 ];
 
 export const LAST_DAY_VERSES_AZ: DeepPartial<LastDayVerseEntry>[] = [
   {
-    excerpt:
-      "Hər bir nəfs ölümü dadacaqdır və Qiyamət günü sizə ancaq əvəziniz tam olaraq veriləcəkdir. Beləliklə, kim Cəhənnəmdən uzaqlaşdırılıb Cənnətə daxil edilərsə, nicat tapmışdır.",
     context:
       "Ölüm universaldır və bu həyat müvəqqətidir; həqiqi və son hesablaşma yalnız Qiyamət günü olur.",
     tafsirSummary:
       "Ayə müvəffəqiyyəti yenidən təyin edir: burada var-dövlət və məqam yox, cəhənnəm odundan xilas olub orada Cənnətə daxil olmaq.",
   },
   {
-    excerpt:
-      "O gün insanlar öz əməllərini göstərmək üçün ayrı-ayrı dəstələr şəklində yola düşəcəklər. Kim zərrə qədər yaxşılıq etsə, onu görəcək, kim zərrə qədər pislik etsə, onu görəcək.",
     context:
       "Mükəmməl və tam ədalət - yaxşı və ya pis ən xırda əməl qeydə alınır və onu edənə qaytarılır.",
     tafsirSummary:
       "Heç bir şey saymaq üçün çox kiçik deyil. Bu ayə “kiçik” günahları rədd etməkdən ömürlük xəbərdarlıq və “kiçik” yaxşı işlərə ömürlük təşviqdir.",
   },
   {
-    excerpt:
-      "Biz qiyamət günü üçün ədalət tərəzisini qoyuruq ki, heç kəsə haqsızlıq edilməsin. Bir xardal dənəsi ağırlığında olsa belə, Biz onu çıxardacağıq.",
     context: "Mizan (Tərəzi) həqiqi və ədaləti mütləqdir.",
     tafsirSummary:
       "O gün heç kəs bir xardal dənəsi ağırlığında belə dəyişməz. Allahın hesabı qüsursuzdur.",
   },
   {
-    excerpt:
-      "Kimin tərəzisi ağır olarsa, o, xoş həyatda olar. Kimin tərəzisi yüngül olarsa, onun sığınacağı yer uçurum olar.",
     context: "Son nəticə, tərəzidə insanın saleh əməllərinin ağırlığına çevrilir.",
     tafsirSummary:
       "Çəki səmimilikdən irəli gəlir, böyük həcmdən deyil - sadə bir zikrin deyildiyi kimi, sırf şöhrətli fəaliyyətin dağlarını üstələyə bilər.",
   },
   {
-    excerpt:
-      "Rəbbiniz tərəfindən bağışlanmağa və genişliyi göylərlə yer qədər olan, müttəqilər üçün hazırlanmış Cənnətə tələsin.",
     context: "Allahla görüşməzdən əvvəl yaxşılığa və bağışlanmağa doğru yarışmağın birbaşa əmri.",
     tafsirSummary:
       "Cənnət təsəvvür edilə bilməyəcək qədər genişdir və ona gedən yol tələsməkdən keçir – tövbə və yaxşı əməlləri təxirə salmamaqdır.",
   },
   {
-    excerpt: "O gün üzlər nurlu olacaq və Rəbbinə baxacaqdır.",
     context: "Cənnətin ən böyük mükafatı heç bir bağ və ya çay deyil, Allahın Üzünü görməkdir.",
     tafsirSummary:
       "Əhli-sünnə təsdiq edir ki, möminlər axirətdə öz Rəbbini Onun əzəmətinə yaraşan bir şəkildə və yaradılışa bənzərsiz şəkildə – bütün nemətlərin tacı olaraq görəcəklər.",
   },
   {
-    excerpt: "Rəbbini inkar edənləri isə cəhənnəm əzabı və necə də pis aqibət gözləyir.",
     context: "Cəhənnəm həqiqi və ədalətli nəticədir - simvol deyil, həqiqi yaşayış yeridir.",
     tafsirSummary:
       "Xəbərdarlıq insanı hələ vaxt varken geri çevirmək üçün nəzərdə tutulmuş mərhəmətdir; Quranda həmişə açıq tövbə qapısı ilə qoşalaşmışdır.",
   },
   {
-    excerpt:
-      "De: “Ey Mənim özlərinə zülm edən qullarım, Allahın rəhmətindən ümidinizi kəsməyin. Həqiqətən, Allah bütün günahları bağışlayar. Həqiqətən, O, Bağışlayandır, Rəhmlidir.",
     context: "Günah nə qədər böyük olsa da, səmimi tövbə qapısı ölənə qədər açıq qalır.",
     tafsirSummary:
       "Allahın rəhmətindən ümidini kəsmək şeytandandır. mömin cəhənnəm qorxusu ilə Allahın bağışlanmasına ümid bəsləyir.",
   },
   {
-    excerpt:
-      "Qiyamətin gələcəyinə – buna heç bir şəkk-şübhə yoxdur – və Allah qəbirlərdə olanları dirildəcəkdir.",
     context: "Qiyamətin vaxtı gizli olsa da, mütləqdir.",
     tafsirSummary:
       "Qiyamətə dair əminlik və onun vaxtı ilə bağlı qeyri-müəyyənlik indiki zamanda mənəvi məsuliyyəti daşıyan şeydir.",
   },
   {
-    excerpt:
-      "Onun izni olmadan Onun yanında kim şəfaət edə bilər? O, onların önündə olanı da, sonrakıları da bilir.",
     context: "Şəfaət (şəfaət) həqiqidir, lakin heç vaxt Allahın icazəsindən asılı deyildir.",
     tafsirSummary:
       "Bu yeganə şərt – “Onun izni olmadan” – həqiqi şəfaəti onun hər bir fəsadından ayıran və dünya həyatında ölüləri çağırmağı qadağan edən şeydir.",
   },
   {
-    excerpt:
-      "Heç vaxt Allahın zalımların etdiklərindən xəbərsiz olduğunu düşünmə. O, onları ancaq gözlərin qorxu ilə baxacağı günə qədər gecikdirir.",
     context: "Məzlumun rahatlığı - ədalətin görünən gecikməsi onun yoxluğu deyil.",
     tafsirSummary:
       "Allah heç bir zülmü unuda bilməz. Zalıma ancaq heç bir şeyin gözdən düşməyəcəyi bir günə qədər möhlət verilir.",
   },
   {
-    excerpt:
-      "Sizlərdən heç kəs yoxdur ki, ona yetişsin. Bu, sənin Rəbbinə vacib hökmdür. Sonra Allahdan qorxanlara nicat verəcəyik, zalımları isə orada diz çökmüş halda qoyacağıq.",
     context:
       "Sirat üzərindən keçmək universaldır; salamat gəlişi Allahın rəhməti və təqvası ilə bəxş edilir.",
     tafsirSummary:
       "Hamı keçidə gəlir; fərq kimin xilas olub, kimin yıxılacağıdır - iman və qabaqcadan göndərilən əməllərlə qərar verilir.",
   },
   {
-    excerpt:
-      "Səndən o Saat haqqında soruşurlar ki, o nə vaxt qopacaq? De: “Onun elmi ancaq Rəbbimin yanındadır. Onun vaxtını Ondan başqa heç kəs aşkar edə bilməz. O, ancaq gözlənilmədən başınıza gəlməyəcək.",
     context: "Dəqiq vaxt yalnız Allaha məlumdur - hazırlıq işidir, proqnoz vermək əbəsdir.",
     tafsirSummary:
       "Hətta Peyğəmbərə xurma verilməmişdir; hər insanın bir il və ya geri sayım iddiası bu ayə ilə ziddiyyət təşkil edir.",
   },
   {
-    excerpt:
-      "Kimin dəftəri sağ əlinə verilsə, o deyəcək: Budur, mənim dəftərimi oxu! Hesabımla görüşəcəyimə əmin idim. Beləliklə, o, xoş bir həyatda olacaq.",
     context: "Kitabı alma tərzi - sağ və ya sol - özü birinci hökmdür.",
     tafsirSummary:
       "Müvəffəqiyyətlilərin sevinci mükafatlandırılan əminlik sevincidir: onlar hesabı gözləyərək yaşadılar və bu, şok deyil, rahatlıq kimi gəlir.",

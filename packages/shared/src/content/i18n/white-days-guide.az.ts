@@ -11,12 +11,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Hər ay üç gün oruc tutmaq Peyğəmbərin ﷺ təkid olunmuş sünnəsidir və Ağ günlər tövsiyə edilən həmin üç gündür. Cərir ibn Abdullah rəvayət etmişdir ki, Peyğəmbər ﷺ buyurdu: «Hər ay üç gün oruc tutmaq ömür boyu oruc tutmaq kimidir və Ağ günlər (Əyyamül-Bid) on üçüncü, on dördüncü və on beşinci günlərdir» (Sünən ən-Nəsai 2422).",
       "Hicri ay ayın hərəkətinə əsaslandığı üçün bu üç gün hər ay miladi təqvimdə yerini dəyişir və bölgənizdə yeni ayın nə vaxt görüldüyünə görə bir gün tez və ya gec başlaya bilər. Bu tətbiq onları öz hicri təqvimindən hesablayır ki, onların hansı tarixlərə düşdüyünü həmişə biləsiniz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hər ay üç gün oruc tutmaq ömür boyu oruc tutmaq kimidir və Ağ günlər (Əyyamül-Bid) on üçüncü, on dördüncü və on beşinci günlərdir.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Bu ayın Ağ günlərinin nə vaxta düşdüyünü görmək üçün ay fazaları görünüşünü açın.",
       "Sübh yeməyini və iftarı planlaşdırmaq üçün bu üç tarixi qeyd edin.",
@@ -32,19 +27,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Abdullah ibn Amr rəvayət etmişdir ki, Peyğəmbər ﷺ ona buyurdu: «Sənə ayda üç gün oruc tutmaq kifayətdir. Çünki yaxşı əməlin savabı on qat artırılır; bu, bütün il boyu oruc tutmaq kimi olar» (Səhih əl-Buxari 1975). Başqa bir rəvayətdə: «Ayda üç gün oruc tutmaq bütün il oruc tutmağa bərabərdir» (Səhih əl-Buxari 1979).",
       "Buna görə davamlı tutulan bu üç sadə gün çox sevimlidir: bədən üçün yüngüldür, lakin Allahın səxavəti ilə ömürlük oruc kimi dəyərləndirilir. Ağ günlər sadəcə sünnənin seçdiyi üç gündür.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kim yaxşı bir işlə gələrsə, ona bunun on qatı verilər. Kim pis bir işlə gələrsə, yalnız onun misli ilə cəzalandırılar və onlara haqsızlıq edilməz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sənə ayda üç gün oruc tutmaq kifayətdir. Çünki yaxşı əməlin savabı on qat artırılır; bu, bütün il boyu oruc tutmaq kimi olar.",
-      },
-      { excerpt: "Ayda üç gün oruc tutmaq bütün il oruc tutmağa bərabərdir." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Əvvəlki gecə niyyətinizi yeniləyin — Allah rizası və Onun savabını umaraq.",
       "Davamlılığa can atın: hər ay üç sadə gün, davam etdirə bilməyəcəyiniz qısa həvəsdən daha yaxşıdır.",
@@ -58,22 +42,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Allahın Elçisi ﷺ bu günlərdə oruc tutmağı adlarını çəkərək əmr edərdi. İbn Milhan əl-Qeysi atasından rəvayət etmişdir: «Allahın Elçisi ﷺ bizə Ağ günlərdə — ayın on üçüncü, on dördüncü və on beşinci günlərində — oruc tutmağı əmr edərdi» və buyurardı: «Bu, daimi oruc tutmaq kimidir» (Sünən Əbu Davud 2449). Əbu Zərr rəvayət etmişdir ki, Peyğəmbər ﷺ ona dedi: «Ayda üç gün oruc tutmaq istədikdə on üçüncü, on dördüncü və on beşinci günlərdə oruc tut» (Cami ət-Tirmizi 761).",
       "Hər üç günü tuta bilmirsinizsə — səfər, xəstəlik və ya oruc tutmaq niyyəti etmədən başladığınız gün səbəbilə — bacardığınız qədərini tutun; hətta bir və ya iki gün də artırılmış savab qazandırır. Nafilə oruca səhər niyyət etmək olar, yetər ki, heç nə yeməmiş olasınız. Qadın heyz zamanı oruc tutmur; bacardığı aylarda bu sünnəni davam etdirir və bu səbəbdən buraxdığı nafilə orucları qəza etməsi tələb olunmur.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allahın Elçisi ﷺ bizə Ağ günlərdə — ayın on üçüncü, on dördüncü və on beşinci günlərində — oruc tutmağı əmr edərdi. O buyurdu: Bu, daimi oruc tutmaq kimidir.",
-      },
-      {
-        excerpt:
-          "Ayda üç gün oruc tutmaq istədikdə on üçüncü, on dördüncü və on beşinci günlərdə oruc tut.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman gətirənlər! Sizdən əvvəlkilərə vacib edildiyi kimi, sizə də oruc tutmaq vacib edildi ki, bəlkə təqvalı olasınız.",
-      },
-    ],
+    hadith: [{}, {}],
+    quran: [{}],
     actions: [
       "Allahın savabını umaraq, Ağ günlərdə Allah üçün oruc tutmağa niyyət edin.",
       "Bacardığınız qədər oruc tutun — üç gün mümkün olmadıqda bir və ya iki gün də onqat savab gətirir.",
@@ -90,12 +60,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Bəzi insanlar aylıq üç günlərini 13–15-ci günlər əvəzinə bazar ertəsi və cümə axşamı tutmağa üstünlük verirlər; bu da ayda üç gün sünnəsini yerinə yetirir. Başqaları bacardıqları zaman hər ikisini birləşdirirlər. Məqsəd sərt bir düstur deyil, sabit və ixlaslı nafilə oruc vərdişidir.",
       "Davam etdirə biləcəyiniz qaydanı seçin. Ağ günlər ayınıza uyğundursa, onları burada izləyin; bazar ertəsi və cümə axşamı daha asandırsa, həmin günləri tutun. Allahın ən çox sevdiyi əməl, az olsa da, davamlı edilən əməldir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allahın Elçisi ﷺ bazar ertəsi orucu barədə soruşuldu. O buyurdu: Mən o gün doğulmuşam və o gün mənə vəhy nazil olmuşdur.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Davamlı bir qayda seçin: Ağ günlər, ya bazar ertəsi və cümə axşamı, yaxud hər ikisi.",
       "Davamlı olun — müntəzəm edilən kiçik əməl Allahın sevdiyi əməldir.",

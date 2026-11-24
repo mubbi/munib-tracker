@@ -7,493 +7,371 @@ import type { DeepPartial } from "./localize";
 
 export const HAJJ_GUIDE_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Mukofata hajek qebûl kirî",
-    summary: "Haj mabrur gunehan jê dike, mukofata wî Cennet e.",
+    title: "پاداشتی حەجێکی قبووڵکراو",
+    summary: "حەجی مەبروور گوناهەکان دەسڕێتەوە و پاداشتەکەی بەهەشتە.",
     body: [
-      "Ebu Hurayre got ku Peygamberê Xwedê ﷺ got: «Her kes ji bo Xwedê haj bike û ne têkiliya cinsî ne guneh bike, wek roja ku dayika wî jê re dijî vegerîne» (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
-      "Her wiha got: «Hajek qebûl kirî (haj mabrur) mukofata wî ji Cennetê bêhtir tiştek nîne» (Sahih al-Bukhari 1773; Sahih Muslim 1349). Qebûlbûn bi dilsozî û parastina hajê ji nebaşî û gunehan ve girêdayî ye — ne tenê bi temamkirina gavên derve.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Her kes ji bo Xwedê haj bike û ne têkiliya cinsî ne guneh bike, wek roja ku dayika wî jê re dijî vegerîne.",
-      },
-      {
-        excerpt:
-          "Her kes ji bo Xwedê haj bike û ne têkiliya cinsî ne guneh bike, wek roja ku dayika wî jê re dijî vegerîne.",
-      },
-      { excerpt: "Hajek qebûl kirî mukofata wî ji Cennetê bêhtir tiştek nîne." },
-      { excerpt: "Hajek qebûl kirî mukofata wî ji Cennetê bêhtir tiştek nîne." },
+      "ئەبو هورەیرە دەگێڕێتەوە کە پێغەمبەری خوا ﷺ فەرمووی: «Whoever performs Hajj for Allah's sake and does not have sexual relations or commit sin, returns as he was on the day his mother bore him» (واتای ئینگلیزی) (سەحیحی بوخاری 1521؛ سەحیحی موسلیم 1350).",
+      "هەروەها فەرمووی: «An accepted Hajj (Hajj mabrur) has no reward except Paradise» (واتای ئینگلیزی) (سەحیحی بوخاری 1773؛ سەحیحی موسلیم 1349). قبووڵبوون بە دڵسۆزی و پاراستنی حەجەکە لە قسەی ناشیرین و خراپەکارییەوە بەستراوە — نەک تەنها بە تەواوکردنی هەنگاوە ڕووکەشییەکان.",
     ],
     actions: [
-      "Hajê tenê ji bo Xwedê niyet bike — di hemû rêwîtiyê de ziman û xulqê xwe biparêze.",
-      "Lîsteya hajê ya appê tenê wek bîraneke bikar bîne; dil li ser qebûlbûnê bigire.",
+      "نیەتی حەج تەنها بۆ خوا بهێنە — لە سەرتاسەری گەشتەکەدا زمان و ڕەوشتت بپارێزە.",
+      "لیستی پشکنینی حەج لە ئەپەکەدا تەنها وەک یارمەتیدەری بیرهێنانەوە بەکاربهێنە؛ دڵت لەسەر قبووڵبوون چڕ بکەرەوە.",
     ],
-    appLinks: [{ label: "Lîsteya meremiyên hajê" }],
+    appLinks: [{ label: "لیستی پشکنینی ڕێوڕەسمەکانی حەج" }],
   },
   {
-    title: "Fazîleta Umrah",
-    summary: "Umrah heta Umrah gunehên di navbera de jê dike.",
+    title: "فەزڵی عومرە",
+    summary: "عومرە بۆ عومرە گوناهەکانی نێوانیان دەسڕێتەوە.",
     body: [
-      "Ebu Hurayre got ku Peygamber ﷺ got: «Umrah kirin keffaret e ji bo gunehên di navbera wê û ya berê, hajek qebûl kirî jî mukofata wî ji Cennetê bêhtir tiştek nîne» (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
-      "Umrah dikare her demê salê were kirin. Ji hajê kurtir e, lê hîn jî ibadetek mezin e: ihram, tawaf, sa'i, û birîn an jî tîrjkirin.",
+      "ئەبو هورەیرە دەگێڕێتەوە کە پێغەمبەر ﷺ فەرمووی: «The performance of Umrah is an expiation for the sins committed between it and the previous one, and an accepted Hajj has no reward except Paradise» (واتای ئینگلیزی) (سەحیحی بوخاری 1773؛ سەحیحی موسلیم 1349).",
+      "عومرە لە هەر کاتێکی ساڵدا دەکرێت. لە حەج کورترە، بەڵام هەر پەرستشێکی گەورەیە: ئیحرام، تەواف، سەعی، و کورتکردنەوە یان تاشینی قژ.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Umrah kirin keffaret e ji bo gunehên di navbera wê û ya berê, hajek qebûl kirî jî mukofata wî ji Cennetê bêhtir tiştek nîne.",
-      },
-      {
-        excerpt:
-          "Umrah kirin keffaret e ji bo gunehên di navbera wê û ya berê, hajek qebûl kirî jî mukofata wî ji Cennetê bêhtir tiştek nîne.",
-      },
-    ],
-    actions: ["Lîsteya Umrah veke dema ku tu amade yî meremiyan bi rêz bişopînî."],
-    appLinks: [{ label: "Lîsteya meremiyên Umrah" }],
+    actions: ["کاتێک ئامادە بوویت ڕێوڕەسمەکان بە ڕیز ئەنجام بدەیت، لیستی پشکنینی عومرە بکەرەوە."],
+    appLinks: [{ label: "لیستی پشکنینی ڕێوڕەسمەکانی عومرە" }],
   },
   {
-    title: "Roja Arafah",
-    summary: "Li Arafah man standina hajê ye — û rojek mezin a dua.",
+    title: "ڕۆژی عەرەفە",
+    summary: "وەستان لە عەرەفە دڵی حەجە — و ڕۆژێکی گەورەی دوعایە.",
     body: [
-      "Abd ar-Rahman ibn Ya'mar got ku Peygamber ﷺ got: «Haj Arafah e» (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Her kes ku li sînorên Arafah di dema xwe de standin winda bike, hajê wê salê winda kiriye.",
-      "Ji bo kesên ne li ser hajê, rojî li roja Arafah pîroz e: Ebu Qatada got ku rojîya Arafah sala borî û ya tê keffaret dike (Sahih Muslim 1162). Hacî rojî nakin da ku rojê ji bo dua veqetînin.",
-    ],
-    hadith: [
-      { excerpt: "Haj Arafah e." },
-      { excerpt: "Haj Arafah e." },
-      {
-        excerpt: "Rojî li roja Arafah — ji Xwedê hêvî dikim ku sala berê û ya paşî keffaret bike.",
-      },
+      "عەبدولڕەحمانی کوڕی یەعمەر دەگێڕێتەوە کە پێغەمبەر ﷺ فەرمووی: «Hajj is Arafah» (واتای ئینگلیزی) (سونەنی ئەبو داود 1949؛ جامیعی تیرمیزی 889). هەر کەسێک وەستان لە سنووری عەرەفەدا لە کاتی خۆیدا لەدەست بدات، حەجی ئەو ساڵەی لەدەست داوە.",
+      "بۆ ئەوانەی لە حەجدا نین، ڕۆژووگرتنی ڕۆژی عەرەفە کارێکی زۆر پەسەندە: ئەبو قەتادە دەگێڕێتەوە کە ڕۆژووی عەرەفە گوناهی ساڵی ڕابردوو و ساڵی داهاتوو دەسڕێتەوە (سەحیحی موسلیم 1162). حاجییان خۆیان بە ڕۆژوو نابن تا ڕۆژەکە بۆ دوعا تەرخان بکەن.",
     ],
   },
   {
-    title: "Haj — rukna pêncem",
-    summary: "Di jiyanê de carekî li ser her muslimek qadir farz e.",
+    title: "حەج — پایەی پێنجەم",
+    summary: "لە تەمەندا یەک جار لەسەر هەموو موسڵمانێکی توانادار فەرزە.",
     body: [
-      "Xwedê dibêje: «Li ser mirovan haj a Xwedê ye ji bo malê — ji bo her kes ku rê bibîne. Her kes ku kufr bike — Xwedê ji cîhanan bê pêwîst e» (Qur'an 3:97).",
-      "Bang ji bo hemû mirovan hate kirin: «Li mirovan haj bang bike; bi lingan û bi her gemarê têr dê werin; ji her derî dûr dê werin» (Qur'an 22:27).",
-      "Ibn Umar got ku Peygamber ﷺ got Îslam li ser pênc tiştan ava ye: şehadet, namaz, zekat, rojîya Remezanê, û haj a malê ji bo kesê qadir (Sahih al-Bukhari 8; Sahih Muslim 16). Alim hevber dibêjin ku carekî di jiyanê de farz e dema şert pêk werin; dubarekirin fazîletek dilxwaz e.",
-    ],
-    quran: [
-      { excerpt: "Li ser mirovan haj a malê ji bo her kes ku rê bibîne..." },
-      { excerpt: "Li mirovan haj bang bike; bi lingan û bi her gemarê têr dê werin..." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Îslam li ser pênc tiştan ava ye: şehadet ku ne xwedanê dinê Xwedê ye û Muhammed Peygamberê Xwedê ye, avakirina namazê, dayîna zekatê, rojîya Remezanê, û haj a malê ji bo kesê rê bibîne.",
-      },
-      { excerpt: "Îslam li ser pênc tiştan ava ye... û haj a malê ji bo kesê rê bibîne." },
+      "خوای گەورە دەفەرموێت: «…خوای گه‌وره‌ش بڕیاریداوه له‌سه‌ر خه‌ڵکی حه‌ج و سه‌ردانی (بیت الحرام) بکه‌ن به ته‌نها ئه‌وانه‌ی که توانای (دارایی و ته‌ندروستیان) هه‌یه‌، جا ئه‌وه‌ی که باوه‌ڕی نه‌هێناوه‌، ئه‌وه با بزانێت به‌ڕاستی خوا بێ نیازه له هه‌موو خه‌ڵکان…» (قورئان 3:97).",
+      "بانگەوازەکە بۆ هەموو خەڵک ڕاگەیەنرا: «جا بانگی خه‌ڵکی بکه و جاڕ بده له ناویاندا با بێن بۆ حه‌ج، ئه‌وانیش به‌پیاده دێن به‌ده‌م بانگه‌وازه‌که‌ته‌وه‌، یان به‌سواری (ئه‌و وشترانه‌ی که دووری ماوه‌که‌) لاوازی کردوون و له هه‌موو ڕێگه‌یه‌کی دووره‌وه هه‌ر دێن» (قورئان 22:27).",
+      "ئیبن عومەر دەگێڕێتەوە کە پێغەمبەر ﷺ فەرمووی ئیسلام لەسەر پێنج بنیات نراوە: شایەتمان، نوێژ، زەکات، ڕۆژووی ڕەمەزان، و حەجی ماڵی خوا بۆ ئەوەی توانای هەبێت (سەحیحی بوخاری 8؛ سەحیحی موسلیم 16). زانایان کۆکن کە کاتێک مەرجەکان هاتنە دی، لە تەمەندا یەک جار فەرزە؛ دووبارەکردنەوەی فەزڵێکی ئارەزوومەندانەیە.",
     ],
   },
   {
-    title: "Qadirî (istita'ah)",
-    summary: "Tenduristî, dewlemendiya helal, û rêya ewle — bê van haj hîn farz nîne.",
+    title: "توانا (ئیستیطاعە)",
+    summary: "تەندروستی، سامانی حەڵاڵ و ڕێگای ئارام — بەبێ ئەمانە حەج هێشتا فەرز نییە.",
     body: [
-      "Şerta Qur'an 3:97 qadirî ye (istita'ah). Alimên kevn li ser vê dipeyivin: tenduristiya laş ji bo rêwîtiyê, dewlemendiya helal a bes ji bo rêwîtiyê û ji bo hewcedariyên kesên ku tu berpirsiyarî wan di dema nebûna te de, û rêyek ewle û vekirî.",
-      "Her kes ku van salê vê salê tune be, guneh nake ku paşve bixe heta qadir bibe. Qadirî li gorî her rewşê tê nirxandin — nexweşî, deyn ku divê were dayîn, an rêwîtiya neewle dikare farza niha rake. Dema rewşa te ne zelal be, ji alimek qebil bipirse.",
-    ],
-    quran: [{ excerpt: "...ji bo her kes ku rê bibîne." }],
-    actions: [
-      "Deynên farz berî rezervasyonê bidin û ji bo kesên ku tu berpirsiyarî wan re xercan rêk bixin.",
-      "Pakêtan tenê bi kanalên fermî piştrast bike (mijarên amadekariyê binêre).",
-    ],
-  },
-  {
-    title: "Rêwîtiya jina ji bo hajê",
-    summary: "Piranî mahram dixwazin; hin ramanên paşîn destûr didin koma ewle û pêbawer.",
-    body: [
-      "Ibn Abbas got ku Peygamber ﷺ got jinek bê mahram ne rêkeve, mêr jî nekeve ser wê heta mahram li cem wê be (Sahih al-Bukhari 1862; Sahih Muslim 1341). Gelek alim vê li ser rêwîtiya haj û Umrah datînin.",
-      "Hin alimên paşîn — bi hesabkirina ewlehiyê, hewcedariyê, û rêwîtiya nûjen — destûr didin jinek ji bo haj a farz di komek pêbawer de rêkeve dema mahram tune be. Ev hîn pirs fiqh e.",
-    ],
-    hadith: [
-      { excerpt: "Jinek bê mahram ne rêkeve, mêr jî nekeve ser wê heta mahram li cem wê be." },
-      {
-        excerpt:
-          "Ne helal e ji bo jinek ku bi Xwedê û Roja Dawî bawer dike rojek û şevek bê mahram rêkeve.",
-      },
-    ],
-    madhhabNote:
-      "Piranî dibêjin jinek ji bo rêwîtiya hajê mahram hewce dike. Hin alimên paşîn ji bo haj a farz rêwîtiya di koma jinan a ewle de destûr didin. Alimek ku tu bawerî pê dixî û rêgezên rêveberiya hajê bişopîne.",
-  },
-  {
-    title: "Sê cureyên hajê",
-    summary: "Ifrad, Qiran, û Tamattu' — berî ihram cureyê xwe hilbijêre.",
-    body: [
-      "Ifrad: tenê ji bo hajê ihram bike, bê Umrah a cuda di wî ihram de, û ji ber yekkirinê qurbanî ne hewce ye.",
-      "Qiran: Umrah û haj di yek ihram de yek bike, heta haj temam bibe di ihram de bimîne. Qurbanî (hady) hewce ye.",
-      "Tamattu': Umrah a tevahî di mehên hajê de bike, ji ihram derkeve, paşê li 8 Zul-Hijjah ji bo hajê dîsa ihram bike. Ev tiştê piraniya haciyan îro dikin e; ev jî hady hewce dike.",
-      "Xwedê li ser yekkirina meremiyan dibêje: «...Her kes ji Umrah bo hajê sûde werbigire, tiştê qurbanî yê bi asanî hestiyê...» kesên ku nikarin sê roj rojî di hajê de û heft roj piştî vegerê (Qur'an 2:196).",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Haj û Umrah ji bo Xwedê temam bike... Her kes ji Umrah bo hajê sûde werbigire, tiştê qurbanî yê bi asanî hestiyê. Kesê ku nikare — sê roj rojî di hajê de û heft roj piştî vegerê...",
-      },
+      "مەرجی قورئان 3:97 توانایە (ئیستیطاعە). زانایانی پێشین بەم شێوەیە کورتی دەکەنەوە: تەندروستیی جەستەیی بۆ گەشتەکە، سامانی حەڵاڵی بەس بۆ خەرجی گەشتەکە و پێداویستییەکانی ئەو کەسانەی بەخێوی دەکەیت لە ماوەی نەبوونتدا، و ڕێگایەکی ئارام و کراوە.",
+      "ئەوەی ئەمساڵ ئەم توانایانەی نییە، گوناهبار نییە ئەگەر دوای بخات تا توانای دەبێت. توانا بە پێی دۆخی هەر کەسێک هەڵدەسەنگێنرێت — نەخۆشی، قەرزێک کە دەبێت بدرێتەوە، یان گەشتی نائارام دەتوانن فەرزبوونی ئێستا لابەرن. ئەگەر دۆخەکەت ڕوون نییە، پرسیار لە زانایەکی شارەزا بکە.",
     ],
     actions: [
-      "Cureya xwe bi rêberê komê berî miqat diyar bike.",
-      "Heke Tamattu' dikî, Umrah bi tevahî temam bike berî ku ji bo hajê dîsa ihram bikî.",
-    ],
-    appLinks: [{ label: "Lîsteya Umrah" }, { label: "Lîsteya hajê" }],
-  },
-  {
-    title: "Pênc miqat",
-    summary: "Miqat li ser rêya Makkah bê ihram ji bo haj an Umrah derbas nebe.",
-    body: [
-      "Ibn Abbas got ku Peygamber ﷺ miqat ji bo mirovan diyar kir: Zul-Hulayfa ji bo Medîneyê, Al-Juhfah ji bo Şamê, Qarn al-Manazil ji bo Nejdê, Yalamlam ji bo Yemenê; û ji bo Iraqê Zat 'Irq. Got ev ji bo wan in û ji bo her kes ku bi niyeta haj an Umrah derbas dibin; kesên di nav van sînoran de ji cihê ku dest pê dikin ihram dikin, tewra gelê Makkah ji Makkah (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
-      "Firokgeh û benderên nûjen xalên ihram an prosedurên ragihandî hene — rêbernameya hilgirê û Wezareta Haj û Umrah bişopîne da ku sînor bê ihram derbas nebî.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Peygamberê Xwedê ﷺ Zul-Hulayfa ji bo gelê Medîneyê, Al-Juhfah ji bo gelê Şamê, Qarn al-Manazil ji bo gelê Nejdê, Yalamlam ji bo gelê Yemenê diyar kir... Ev miqat ji bo wan in û ji bo her kes ku bi niyeta haj an Umrah derbas dibin...",
-      },
-      {
-        excerpt:
-          "Peygamberê Xwedê ﷺ miqat diyar kir... Kesên di nav van sînoran de ji cihê ku dest pê dikin ihram dikin...",
-      },
+      "پێش حجزکردن قەرزە پێویستەکان بدەرەوە و خەرجیی ئەوانەی بەخێویان دەکەیت ڕێک بخە.",
+      "پاکێجەکان تەنها لە ڕێگەی کەناڵە فەرمییەکانەوە پشتڕاست بکەرەوە (بابەتەکانی ئامادەکاری ببینە).",
     ],
   },
   {
-    title: "Têketina ihram",
-    summary: "Ghusl, cil, niyet, û telbiye rewşa pîroz dest pê dikin.",
-    body: [
-      "Ihram rewşa pîroz e ku bi niyeta haj an Umrah tê ketin. Peygamber ﷺ ghusl berî ihram pêşniyar kir. Mêr du cilên spî yên ne dirêj li xwe dikin; jin cilên normal ên edebdar digire bê ku rû veşêre an destan bi destglov wek cilê ihram bike (hûragahiyên niqab û destglov fiqh e).",
-      "Mêr dikare berî ihram li laş xûyî bikar bîne, ne li cilên ihram piştî ketina rewşê (Sahih al-Bukhari 1539). Paşê niyet bike û telbiye dest pê bike.",
-      "Telbiyeya ku Peygamber ﷺ fêr kir: «Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak» — heta destpêka tawaf ji bo Umrah, an heta avêtina Jamrat al-Aqaba ji bo haj li gorî pratîka nas (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
-    ],
-    hadith: [
-      { excerpt: "Aisha got: Ez ji bo ihrama Peygamberê Xwedê ﷺ berî ku ihram bike xûyî dikir..." },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      { excerpt: "Peygamber ﷺ bi deng bilind telbiye got: Labbayk Allahumma labbayk..." },
-    ],
-    actions: [
-      "Ji bo mêran kêm kêm du set ihram bîne; tiştên bê xûyî amade bike.",
-      "Berî rêwîtiyê telbiye pratîk bike da ku li rêyê bi rehet were gotin.",
-    ],
-  },
-  {
-    title: "Qedexeyên ihram",
-    summary: "Tiştên ku muhrim divê heta rizgarkirinê ji wan dûr bimîne.",
-    body: [
-      "Di ihram de dûr bibe: mêr — cilên dirêj an guncav û serê niximandin; xûyî; birîn an tîrnok qut kirin; şikara erdê; zewac an pêkanîna wî; têkiliya cinsî. Jin ji xûyî û qedexeyên din ên hevbeş dûr dikeve digel cilên edebdar.",
-      "Shikandina qedexeyê dikare keffaret (fidyah) hewce bike — bi gelemperî rojî, xwarina feqîran, an qurbanî — li gorî tiştê hat kirin. Mezheb hûragahiyan cuda dikin. Bi baldarî qedexeyan biparêze; heke tiştek nehêvî bibe, ji rêberek qebil bipirse.",
-    ],
-    actions: ["Di ihram de xûyî, qutkerê tîrnokê, û qeyçî ji destê dûr bihêle."],
-    madhhabNote:
-      "Lîsteyên binpêkirin û keffaret li gorî mezheban cuda ne. Vê wek lîsteya hişyariyê bîne, paşê hûragahiyan bi mezheb an rêberê hajê xwe piştrast bike.",
-  },
-  {
-    title: "Umrah — ihram û telbiye",
-    summary: "Li miqat an berî wê bikeve rewşa pîroz, paşê bersiva bangê Xwedê bide.",
-    body: [
-      "Li miqat an berî wê, heke bikarî ghusl bike, cilên ihram li xwe bike, niyeta Umrah bike, û telbiye dest pê bike. Rewşa pîroz bi vê niyetê dest pê dike.",
-      "Telbiye gelek caran dubare bike dema ku ber bi Makkah diçî heta destpêka tawaf. Ev eşkere dike ku tu tenê bersiva bangê Xwedê didî.",
-    ],
-    actions: ["Lîsteya Umrah bikar bîne da ku her meremî piştî temamkirinê nîşan bikî."],
-    appLinks: [{ label: "Lîsteya Umrah" }],
-  },
-  {
-    title: "Tawaf a Ka'bah",
-    summary: "Heft dor li dij saetê, destpêk li kevirê Reş.",
-    body: [
-      "Ka'bah heft caran li dij saetê dor bike, destpêk û dawî li keviya kevirê Reş. Heke gelek kes bin, bus, dest lê bike, an bi takbir nîşan bide — li gorî pratîka Peygamber ﷺ bê ziyan li kesên din.",
-      "Mêr di sê dorên yekem de raml (gavên bilez) û di vî tawaf a hatina Umrah de idtiba' (milê rast vekirî) dikin, li gorî Sunneta nas.",
-      "Di navbera keviya Yemenî û kevirê Reş de tê pêşniyar kirin gotin: «Rabbena, ji me re di vê dinyayê de başî û di ahiretê de başî bide, û me ji cehnema parastin» (Qur'an 2:201).",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Rabbena, ji me re di vê dinyayê de başî û di ahiretê de başî bide, û me ji cehnema parastin.",
-      },
-    ],
-  },
-  {
-    title: "Du rekat û Zamzam",
-    summary: "Heke gengaz be li pişt Maqam Ibrahim namaz bike, paşê Zamzam vexwe.",
-    body: [
-      "Piştî tawaf, heke cih hebe du rekat li pişt Maqam Ibrahim bike, an li cih din li mescidê heke gelek kes bin — li gorî gotina Xwedê: «...Ey baweran, ji cihê ku Îbrahîm li wir bû cihê namazê bigirin...» (Qur'an 2:125).",
-      "Paşê ava Zamzam vexwe. Di vebêrîna Jabir a haj a Peygamber ﷺ de vexwarina Zamzam piştî tawaf heye; Peygamber ﷺ got Zamzam ji bo tiştê ku ji bo wê tê vexwarin e (raporên rast ku alimên paşîn kom kirine; niyet û dua tê pêşniyar kirin).",
-    ],
-    quran: [{ excerpt: "...Ey baweran, ji cihê ku Îbrahîm li wir bû cihê namazê bigirin..." }],
-  },
-  {
-    title: "Sa'i di navbera Safa û Marwah",
-    summary: "Heft dor bi bîra lêgerîna avê ya Hajar.",
-    body: [
-      "Xwedê dibêje: «Bi rastî, Safa û Marwah ji nişaneyên Xwedê ne. Her kes ku haj a malê an Umrah bike — guneh nîne ku di navbera wan de biçe...» (Qur'an 2:158).",
-      "Heft caran di navbera Safa û Marwah de biçe, ji Safa dest pê bike. Li Safa ber bi Ka'bah ve bibîne, destan ji bo takbir û dua bilind bike wek Peygamber ﷺ kir. Mêr di navbera nîşanên kesk de diherikin.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Bi rastî, Safa û Marwah ji nişaneyên Xwedê ne. Her kes ku haj a malê an Umrah bike — guneh nîne ku di navbera wan de biçe...",
-      },
-    ],
-  },
-  {
-    title: "Halq an taqsir — temamkirina Umrah",
+    title: "گەشتی ئافرەت بۆ حەج و عومرە",
     summary:
-      "Mêr ser tije dikin an jî kurt dikin; jin bi qasî tipê tîrjkirin — paşê ihram rizgar dibe.",
+      "زۆرینە مەحرەم بە مەرج دەزانن؛ هەندێک بۆچوونی دواتر ڕێگە بە گروپێکی ئارام و جێی متمانە دەدەن.",
     body: [
-      "Mêr ser tije dike (halq) — Peygamber ﷺ sê caran ji bo tije kirin dua kir — an bi yekhev kurt dike (taqsir). Jin tîrên xwe kom dike û bi qasî tipê tîrjkirin dike. Bi vê Umrah temam dibe û qedexeyên ihram dikevin.",
-      "Abdullah ibn Umar got ku Peygamberê Xwedê ﷺ got: «Xwedêyo, ji bo yên ser tije dikin rehm bike». Gotin: «Û yên kurt dikin, ey Peygamberê Xwedê?» Di cara sêyemîn de got: «Û yên kurt dikin» (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Xwedêyo, ji bo yên ser tije dikin rehm bike... di cara sêyemîn de: û yên kurt dikin.",
-      },
-      {
-        excerpt:
-          "Xwedêyo, yên ser tije dikin bibore... di cara sêyemîn de got: û yên tîr kurt dikin.",
-      },
-    ],
-  },
-  {
-    title: "8 Zul-Hijjah — Roja Tarwiyah",
-    summary: "Ji bo hajê ihram bike û rojê li Mina derbas bike.",
-    body: [
-      "Ji bo haciyên Tamattu': niyeta hajê bike û ji cihê xwe li Makkah dîsa ihram bike, telbiye nû bike. Ifrad û Qiran berê di ihram de ne.",
-      "Biçe Mina û Zuhur, Asr, Maghrib, Isha, û Fajr a paşîn bi rêz bike, her yek li dema xwe kurt bike du rekat, li gorî pratîka Peygamber ﷺ di haj a Vedanê de wek Jabir got (Sahih Muslim 1218). Roj û şevê di ibadetê de derbas bike, li benda Arafah be.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Rivayeta dirêj a Jabir a haj a Vedanê ya Peygamber ﷺ — li Mina man û rêza meremiyan.",
-      },
-    ],
-    actions: ["Li sibehê roja 8'an lîsteya hajê veke."],
-    appLinks: [{ label: "Lîsteya hajê" }],
-  },
-  {
-    title: "9 Zul-Hijjah — Roja Arafah",
-    summary: "Di nav Arafah de bimîne heta rojava; paşê biçe Muzdalifah.",
-    body: [
-      "Di sînorên Arafah de ji piştî nîvro heta rojava di dua, zikr, û tewbeyê de bimîne. Peygamber ﷺ got «Haj Arafah e» (Sunan Abi Dawud 1949). Ber bi qibla ve bibîne, destan bilind bike, û ji Xwedê daxwaz bike — ji demên mezin ên dua.",
-      "Zuhur û Asr bi hev re li dema Zuhur kurt bike (jam' taqdim), paşê beşê mayî ya rojê ji bo dua veqetîne ne ji bo namaza neferz — li gorî pratîka Peygamber ﷺ (Sahih Muslim 1218).",
-      "Piştî rojava bi aramî biçe Muzdalifah. Maghrib û Isha yek bike (Isha kurt), şevê bistîne, û keviran ji bo avêtinê berhev bike. Kesên lawaz û jin dikarin piştî nîvê şevê biçin Mina li gorî destûrên nas a Sunnah.",
-    ],
-    hadith: [
-      { excerpt: "Haj Arafah e." },
-      {
-        excerpt:
-          "Peygamber ﷺ li Arafah Zuhur û Asr yek kir, paşê piştî rojava ber bi Muzdalifah ve çû...",
-      },
-    ],
-  },
-  {
-    title: "10 Zul-Hijjah — Roja Nahr",
-    summary: "Avêtin, qurbanî, tîr, û Tawaf al-Ifadah.",
-    body: [
-      "Vegere Mina û heft kevir li Jamrat al-Aqaba (stûna mezin) bavêje, bi her avêtinê Allahu akbar — yekem meremî rojê di rêza haj a Vedanê de.",
-      "Qurbanî ya hewce ji bo Tamattu' û Qiran pêşkêş bike (Qur'an 2:196), an bi rêya ajansek pêbawer rêk bixe. Goşt tê xwarin û ji feqîran re tê dayîn.",
-      "Tije bike (halq) an kurt bike (taqsir); jin bi qasî tipê tîrjkirin dike. Piştî avêtin û tije/kurtkirin, tahallul awwal tê — piraniya qedexeyên ihram dikevin, ji têkiliya cinsî bilî.",
-      "Biçe Makkah ji bo Tawaf al-Ifadah — rukna hajê — û sa'i ji bo haciyên Tamattu' (Ifrad/Qiran ku berê sa'i bi tawaf a hatina xwe kirine li gorî mezheba xwe). Ev rizgarkirina tevahî ya ihram temam dike.",
-    ],
-    quran: [
-      {
-        excerpt: "...Her kes ji Umrah bo hajê sûde werbigire, tiştê qurbanî yê bi asanî hestiyê...",
-      },
+      "ئیبن عەبباس دەگێڕێتەوە کە پێغەمبەر ﷺ فەرمووی ئافرەت تەنها لەگەڵ مەحرەم گەشت بکات، و پیاو نەچێتە لای ئافرەت مەگەر مەحرەمێکی لەگەڵ بێت (سەحیحی بوخاری 1862؛ سەحیحی موسلیم 1341). زۆرێک لە زانایان ئەمە بەسەر گەشتی حەج و عومرەشدا دەچەسپێنن.",
+      "هەندێک لە زانایانی دواتر — بە لەبەرچاوگرتنی ئاسایش، پێویستی و شێوەی گەشتی ئەمڕۆ — ڕێگە دەدەن ئافرەت بۆ حەجی فەرز لەگەڵ گروپێکی جێی متمانە گەشت بکات کاتێک مەحرەمی نییە. ئەمە هێشتا پرسێکی فیقهیی جێی ڕاجیاییە.",
     ],
     madhhabNote:
-      "Rêza meremiyên roja Nahr di Sunnah de flexîbîlîte heye; mezheb li ser rêza tam û dema sa'i ji bo her cure hajê cuda ne. Rêberê komê xwe bişopîne.",
+      "زۆرینە پێیان وایە ئافرەت بۆ گەشتی حەج و عومرە پێویستی بە مەحرەمە. هەندێک لە زانایانی دواتر ڕێگە بە گەشت لەگەڵ گروپێکی ئارامی ئافرەتان دەدەن بۆ حەجی فەرز. شوێن زانایەک بکەوە کە متمانەت پێیەتی و ڕێسای دەسەڵاتی حەجی وڵاتەکەت.",
+    disclaimer: "ئەمە پوختەیەکی گشتییە، نەک فەتوایەکی تایبەت بە دۆخی تۆ.",
   },
   {
-    title: "11–13 Zul-Hijjah — Rojên Tashriq",
-    summary: "Şevên li Mina, rojane avêtina sê Jamarat, paşê tawaf a vedanê.",
+    title: "سێ جۆرەکەی حەج",
+    summary: "ئیفراد، قیران و تەمەتتوع — پێش چوونە ناو ئیحرام یەکێکیان هەڵبژێرە.",
     body: [
-      "Şevên 11, 12 (û 13 heke zû neçî) li Mina derbas bike. Ev rojên xwarin, vexwarin, û bîra Xwedê ne.",
-      "Her roj piştî Zuhur heft kevir li her sê stûnan bi rêz bavêje — biçûk, navîn, mezin — bi takbir li her avêtinê. Kesê zû diçe dikare piştî avêtina roja 12 biçe (Qur'an 2:203).",
-      "Berî ku Makkah terk bikî Tawaf al-Wada bike da ku dawî bi malê re vedana be. Ibn Abbas got mirov hatin emr kirin ku meremiya wan a dawîn li malê be, ji jina di heyza de re hêsan kirin (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
+      "ئیفراد: تەنها بۆ حەج ئیحرام دەبەستیت، بەبێ عومرەیەکی جیا لەو ئیحرامەدا، و بەهۆی کۆکردنەوەی ڕێوڕەسمەکانەوە قوربانی پێویست نییە.",
+      "قیران: عومرە و حەج لە یەک ئیحرامدا کۆ دەکەیتەوە و تا حەج تەواو دەبێت لە ئیحرامدا دەمێنیتەوە. قوربانی (هەدی) پێویستە.",
+      "تەمەتتوع: لە مانگەکانی حەجدا عومرەیەکی تەواو دەکەیت، لە ئیحرام دەردەچیت، پاشان لە 8ی زولحیججەدا دیسان بۆ حەج ئیحرام دەبەستیتەوە. زۆربەی حاجییانی ئەمڕۆ ئەمە دەکەن؛ ئەمیش هەدی پێویستە.",
+      "خوای گەورە دەربارەی ئەوانەی ڕێوڕەسمەکان کۆ دەکەنەوە دەفەرموێت: «…ئه‌وه‌ی كه ده‌یه‌وێت نێوان حه‌ج و عه‌مره (ئیحرام بشكێنێت و پۆشاكی ئاسایی له‌به‌ر بكات) ده‌بێت به گوێره‌ی توانای خۆی قوربانییه‌ك بكات…» و ئەوەی توانای نییە، سێ ڕۆژ لە کاتی حەجدا و حەوت ڕۆژیش کاتێک گەڕایەوە بە ڕۆژوو دەبێت (قورئان 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Xwedê bi rojên hejmarî bîra bînin. Her kes di du rojan de zû biçe — guneh nîne; her kes paşve bixe — guneh nîne — ji bo kesê ku ji Xwedê ditirse...",
-      },
+    actions: [
+      "پێش گەیشتن بە میقات، لەگەڵ سەرپەرشتیاری گروپەکەت جۆری حەجەکەت دیاری بکە.",
+      "ئەگەر تەمەتتوع دەکەیت، پێش ئەوەی دیسان بۆ حەج ئیحرام ببەستیتەوە عومرەکە بە تەواوی تەواو بکە.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mirov hatin emr kirin ku tawaf a vedana Ka'bah meremiya wan a dawîn be, ji jina di heyza de re efû kirin.",
-      },
-      {
-        excerpt:
-          "Mirov hatin emr kirin ku meremiya wan a dawîn li malê be, lê ji jina di heyza de re hêsan kirin.",
-      },
+    appLinks: [{ label: "لیستی پشکنینی عومرە" }, { label: "لیستی پشکنینی حەج" }],
+  },
+  {
+    title: "پێنج میقاتەکە",
+    summary: "بەبێ ئیحرامی حەج یان عومرە، بە میقاتدا بەرەو مەککە تێمەپەڕە.",
+    body: [
+      "ئیبن عەبباس دەگێڕێتەوە کە پێغەمبەر ﷺ میقاتەکانی بۆ خەڵک دیاری کرد: زولحولەیفە بۆ خەڵکی مەدینە، جوحفە بۆ خەڵکی شام، قەرنولمەنازیل بۆ خەڵکی نەجد، و یەلەملەم بۆ خەڵکی یەمەن؛ و بۆ خەڵکی عێراقیش زاتو عیرق. فەرمووی ئەمانە بۆ خەڵکی ئەو شوێنانەن و بۆ هەر کەسێکیش کە بە نیەتی حەج یان عومرە پێیاندا تێدەپەڕێت؛ و ئەوەی لە ناوەوەی ئەم سنوورانەدا دەژی، لەو شوێنەوە ئیحرام دەبەستێت کە لێیەوە دەکەوێتە ڕێ، تەنانەت خەڵکی مەککە لە مەککەوە (سەحیحی بوخاری 1524؛ سەحیحی موسلیم 1181).",
+      "فڕۆکەخانە و بەندەرە نوێیەکان خاڵی ئیحرامی هاوتا یان ڕێکاری ڕاگەیەنراویان هەیە — شوێن ڕێنمایی کۆمپانیای گواستنەوەکەت و وەزارەتی حەج و عومرە بکەوە تا بەبێ ئیحرام لە سنوورەکە تێنەپەڕیت.",
     ],
   },
   {
-    title: "Rukn û wajib",
-    summary: "Tiştên ku hajê derxînin heke winda bibin, û tiştên bi qurbanî têne keffaret kirin.",
+    title: "چوونە ناو ئیحرام",
+    summary: "غوسڵ، جلی ئیحرام، نیەت و تەلبیە دۆخە پیرۆزەکە دەست پێ دەکەن.",
     body: [
-      "Rukn (arkan) bingehê hajê ne. Heke rukn winda bibe, haj derbas nabe û tenê qurbanî nakeve cih — divê were temam kirin. Piranî bi gelemperî dinivîsin: ihram (niyet), li Arafah man, Tawaf al-Ifadah, û sa'i.",
-      "Wajib (wajibat) di nav de: ihram ji miqat, li Muzdalifah man, avêtina Jamarat, şevên Tashriq li Mina, û Tawaf a Vedanê. Windakirina wajib hajê derxîne lê bi dam (qurbanî) tê keffaret kirin li gorî mezheban.",
+      "ئیحرام ئەو دۆخە پیرۆزەیە کە بە نیەتی حەج یان عومرە دەچیتە ناوی. پێغەمبەر ﷺ هانی غوسڵکردنی دا پێش ئیحرام. پیاوان دوو پارچە قوماشی سپیی نەدروراو لەبەر دەکەن؛ ئافرەتان جلی ئاسایی و داپۆشراوی خۆیان لەبەر دەکەن، بەبێ داپۆشینی ڕوو یان دەستەکان بە دەستکێش وەک جلی ئیحرام (وردەکاریی ڕووبەند و دەستکێش لە فیقهدا باس کراوە).",
+      "پیاوان دەتوانن پێش ئیحرام بۆن لە جەستەیان بدەن، نەک لە جلی ئیحرام دوای چوونە ناو دۆخەکە (سەحیحی بوخاری 1539). پاشان نیەت بهێنە و دەست بە تەلبیە بکە.",
+      "ئەو تەلبیەیەی پێغەمبەر ﷺ فێری کردووە ئەمەیە: «لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْكَ، لَا شَرِيكَ لَكَ» — بەردەوام دەبێت تا دەستپێکردنی تەواف لە عومرەدا، یان تا ڕەجمکردنی جەمرەی عەقەبە لە حەجدا بە پێی کرداری ناسراو (سەحیحی بوخاری 1549؛ سەحیحی موسلیم 1184).",
+    ],
+    actions: [
+      "بۆ پیاوان لانیکەم دوو دەست جلی ئیحرام هەڵبگرە؛ کەلوپەلی خۆشوشتنی بێبۆن ئامادە بکە.",
+      "پێش گەشت تەلبیە ڕاهێنان بکە تا لە ڕێگادا بە ئاسانی بیڵێیت.",
+    ],
+  },
+  {
+    title: "قەدەغەکراوەکانی ئیحرام",
+    summary: "ئەو شتانەی کەسی ئیحرامبەستوو دەبێت خۆی لێ بپارێزێت تا لە دۆخە پیرۆزەکە دەردەچێت.",
+    body: [
+      "لە کاتی ئیحرامدا خۆت لەمانە بپارێزە: بۆ پیاوان — جلی دروراو یان لەبەرگیراو و داپۆشینی سەر؛ بۆن؛ بڕینی قژ یان نینۆک؛ ڕاوکردنی گیانلەبەری وشکانی؛ گرێدانی مارەبڕین یان ئەنجامدانی؛ و جووتبوون. ئافرەتان خۆیان لە بۆن و قەدەغەکراوە هاوبەشەکانی تر دەپارێزن و جلی داپۆشراوی خۆیان دەهێڵنەوە.",
+      "شکاندنی قەدەغەیەک لەوانەیە کەفارەت (فیدیە) پێویست بکات — زۆرجار ڕۆژووگرتن، خواردن دان بە هەژاران، یان قوربانی — بە پێی ئەو کارەی کراوە. مەزهەبەکان وردەکارییەکان بە شێوەی جیاواز پۆلێن دەکەن. بە وریاییەوە قەدەغەکراوەکان بپارێزە و ئەگەر شتێکی چاوەڕواننەکراو ڕوویدا، پرسیار لە ڕێبەرێکی شارەزا بکە.",
     ],
     madhhabNote:
-      "Lîsteyên rast a arkan û wajibat di nav çar mezheban de cuda ne. Bi rêberek qebil ji bo mezheba xwe piştrast bike — bi taybetî heke tiştek winda bibe di bin zexta gel de.",
+      "لیستی پێشێلکارییەکان و کەفارەتەکانیان بە پێی مەزهەب جیاوازە. ئەمە وەک لیستێکی ئاگادارکردنەوەی کرداری وەربگرە، پاشان وردەکارییەکان لەگەڵ مەزهەبەکەت یان ڕێبەری حەجەکەت پشتڕاست بکەرەوە.",
+    disclaimer: "ئەم پوختەیە جێگرەوەی حوکمی شوێنی ڕووداو نییە کاتێک پێشێلکارییەک ڕوو دەدات.",
+    actions: ["لە کاتی ئیحرامدا بۆن، نینۆکبڕ و مقەست لە دەستڕەس دوور بخەرەوە."],
   },
   {
-    title: "Edeb û dilsozî",
-    summary: "Ziman û endam biparêze — qebûlbûn bi xulqê ve girêdayî ye.",
+    title: "عومرە — ئیحرام و تەلبیە",
+    summary: "لە میقات یان پێش ئەو بچۆ ناو دۆخە پیرۆزەکە، پاشان وەڵامی بانگی خوا بدەرەوە.",
     body: [
-      "Hadîsa vegera bê guneh (Bukhari 1521; Muslim 1350) diyar dike ku haj bi nebaşî (rafath), guneh (fusuq), û nakokî tê xirab kirin. Sebir, nermî, û alîkariya haciyên din parçeyek ibadetê ne.",
-      "Telefon û axaftina vala li Arafah û mescidê serdest nebin. Li tawaf rê bide; ne bi zor ber bi kevirê Reş ve biçe. Hajek qebûl kirî hevparê Cennetê ye — di hemû rêwîtiyê de xulqê baş hewl bide.",
+      "لە میقاتەکەت یان پێش ئەو، ئەگەر توانیت غوسڵ بکە، جلی ئیحرام لەبەر بکە، نیەتی عومرە بهێنە و دەست بە تەلبیە بکە. دۆخە پیرۆزەکە بەو نیەتە دەست پێ دەکات.",
+      "لە کاتی ڕۆیشتن بەرەو مەککە زۆر تەلبیە دووبارە بکەرەوە تا دەست بە تەواف دەکەیت. ئەمە ڕاگەیاندنێکە کە تۆ تەنها وەڵامی بانگی خوا دەدەیتەوە.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Her kes ji bo Xwedê haj bike û ne têkiliya cinsî ne guneh bike, wek roja ku dayika wî jê re dijî vegerîne.",
-      },
-    ],
-    actions: ["Niyetek rojane saz bike: yek kiryarê dilovanî û yek dua dilsoz li ser gel."],
+    actions: ["لیستی پشکنینی عومرە بەکاربهێنە بۆ نیشانکردنی هەر ڕێوڕەسمێک کاتێک تەواوت کرد."],
+    appLinks: [{ label: "لیستی پشکنینی عومرە" }],
   },
   {
-    title: "Vîza û qeydkirin",
-    summary: "Kanalên fermî bikar bîne — Nusuk û rêveberiya haj a neteweyî.",
+    title: "تەوافی کەعبە",
+    summary: "حەوت سووڕ بە پێچەوانەی میلی کاتژمێر، لە حەجەرولئەسوەدەوە دەست پێ دەکات.",
     body: [
-      "Nusuk (nusuk.sa) platforma fermî ya Erebistana Siûdî ji bo haj û Umrah e — vîza, cih, veguhastin, û pakêtên qeydkirî. Naverokên nefermî çavkaniya xapandinê ya berbelav in.",
-      "Her welat kotayek salane ya hajê distîne; piraniya haciyan bi rêya rêveberiya haj a neteweyî an ajansek lîsansdar daxwaz dikin. Umrah kotayê nîne û di piraniya salê de bi kanalên pejirandî tê rêk xistin.",
+      "حەوت جار بە پێچەوانەی میلی کاتژمێر بە دەوری کەعبەدا بسووڕێ، دەستپێک و کۆتایی لە گۆشەی حەجەرولئەسوەدەوەیە. ماچی بکە، دەستی لێ بدە، یان ئەگەر قەرەباڵغ بوو بە تەکبیرەوە ئاماژەی بۆ بکە — شوێنکەوتنی کرداری پێغەمبەر ﷺ بەبێ ئازاردانی خەڵکی تر.",
+      "پیاوان لە سێ سووڕی یەکەمدا ڕەمەل (ڕۆیشتنی خێرا) دەکەن و لەم تەوافی گەیشتنەی عومرەدا ئیزتیباع (ڕووتکردنەوەی شانی ڕاست) دەکەن، بە پێی سوننەتی ناسراو.",
+      "لە نێوان ڕوکنی یەمانی و حەجەرولئەسوەددا پەسەندە بوترێت: «په‌روه‌ردگارا له دنیادا خێرو چاکه‌و نازو نیعمه‌تمان پێ ببه‌خشه‌و، له قیامه‌تیشدا له نازو نیعمه‌ته‌کانی به‌هه‌شت به‌هره‌مه‌ندمان بکه‌و، له سزای ئاگری دۆزه‌خ بمانپارێزه» (قورئان 2:201).",
+    ],
+  },
+  {
+    title: "دوو ڕکات و زەمزەم",
+    summary: "ئەگەر توانرا لە پشت مەقامی ئیبراهیمەوە نوێژ بکە، پاشان زەمزەم بخۆرەوە.",
+    body: [
+      "دوای تەواف، ئەگەر شوێن هەبوو دوو ڕکات لە پشت مەقامی ئیبراهیمەوە نوێژ بکە، یان ئەگەر قەرەباڵغ بوو لە شوێنێکی تری مزگەوتەکە — پەیوەست بە فەرمایشتی خوا: «…مه‌قامی ئیبراهیم كه شوێنی تایبه‌تی خواپه‌رستی ئه‌و بوو، بیكه‌نه جێگای خواپه‌رستی و نوێژ…» (قورئان 2:125).",
+      "پاشان ئاوی زەمزەم بخۆرەوە. وەسفەکەی جابیر بۆ حەجی پێغەمبەر ﷺ خواردنەوەی زەمزەم دوای تەواف لەخۆ دەگرێت؛ پێغەمبەر ﷺ فەرمووی زەمزەم بۆ هەر مەبەستێکە کە بۆی دەخورێتەوە (گێڕانەوەی سەحیح کە زانایانی دواتر کۆیان کردوونەتەوە؛ نیەت و دوعا بە پەسەند دابنێ).",
+    ],
+  },
+  {
+    title: "سەعی لە نێوان سەفا و مەروەدا",
+    summary: "حەوت سووڕ بە یادی گەڕانی هاجەر بەدوای ئاودا.",
+    body: [
+      "خوای گەورە دەفەرموێت: «به‌ڕاستی سه‌فا و مه‌روه (كه دوو جێگه‌ن له پاڵ كه‌عبه‌دا) له دروشمه‌كانی خوای په‌روه‌ردگارن، جا ئه‌وه‌ی حه‌جی ماڵی خوا ده‌كات، یاخود عه‌مره ئه‌نجام ده‌دات (كه له هه‌موو كاتێكی ساڵدا ده‌كرێت) ئه‌وه هیچ گوناهێكی له‌سه‌ر نییه ئه‌گه‌ر هاتوچۆو بكات له نێوانیاندا…» (قورئان 2:158).",
+      "حەوت جار لە نێوان سەفا و مەروەدا بڕۆ، لە سەفاوە دەست پێ بکە. لەسەر سەفا ڕوو لە کەعبە بکە و دەستەکانت بۆ تەکبیر و دوعا بەرز بکەرەوە وەک پێغەمبەر ﷺ کردی. پیاوان لە نێوان نیشانە سەوزەکاندا بە خێرایی دەڕۆن.",
+    ],
+  },
+  {
+    title: "حەلق یان تەقسیر — تەواوکردنی عومرە",
+    summary:
+      "پیاوان سەر دەتاشن یان قژ کورت دەکەنەوە؛ ئافرەتان بە ئەندازەی سەرە پەنجەیەک کورتی دەکەنەوە — پاشان ئیحرام لادەچێت.",
+    body: [
+      "پیاوان سەریان دەتاشن (حەلق) — کە پێغەمبەر ﷺ سێ جار دوعای بۆ کرد — یان بە یەکسانی کورتی دەکەنەوە (تەقسیر). ئافرەتان قژیان کۆ دەکەنەوە و نزیکەی بە ئەندازەی سەرە پەنجەیەک کورتی دەکەنەوە. بەمە عومرە تەواو دەبێت و سنووردارییەکانی ئیحرام لادەچن.",
+      "عەبدوڵڵای کوڕی عومەر دەگێڕێتەوە کە پێغەمبەری خوا ﷺ فەرمووی: «O Allah, be merciful to those who have their heads shaved» (واتای ئینگلیزی). گوتیان: «And those who shorten, O Messenger of Allah?» (واتای ئینگلیزی). فەرمووی: «O Allah, be merciful to those who have their heads shaved» (واتای ئینگلیزی). گوتیان: «And those who shorten, O Messenger of Allah?» (واتای ئینگلیزی). جاری سێیەم فەرمووی: «And those who shorten» (واتای ئینگلیزی) (سەحیحی بوخاری 1727؛ سەحیحی موسلیم 1301).",
+    ],
+  },
+  {
+    title: "8ی زولحیججە — ڕۆژی تەرویە",
+    summary: "بۆ حەج ئیحرام ببەستە و ڕۆژەکە لە مینا بەسەر ببە.",
+    body: [
+      "بۆ حاجییانی تەمەتتوع: نیەتی حەج بهێنە و لە شوێنی نیشتەجێبوونت لە مەککە دیسان ئیحرام ببەستەوە و تەلبیە نوێ بکەرەوە. حاجییانی ئیفراد و قیران پێشتر لە ئیحرامدان.",
+      "بڕۆ بۆ مینا و نوێژەکانی زوهر، عەسر، مەغریب، عیشا و فەجری بەیانی دواتر بکە، هەریەکەیان لە کاتی خۆیدا و ئەوانەی چوار ڕکاتین بە دوو ڕکات کورت کراوە، بە پێی کرداری پێغەمبەر ﷺ لە حەجی ماڵئاواییدا وەک جابیر گێڕاویەتیەوە (سەحیحی موسلیم 1218). ڕۆژ و شەوەکە بە پەرستن بەسەر ببە و چاوەڕێی عەرەفە بە.",
+    ],
+    actions: ["بەیانیی ڕۆژی هەشتەم لیستی پشکنینی حەج بکەرەوە."],
+    appLinks: [{ label: "لیستی پشکنینی حەج" }],
+  },
+  {
+    title: "9ی زولحیججە — ڕۆژی عەرەفە",
+    summary: "تا خۆرئاوابوون لە ناو عەرەفەدا بوەستە؛ پاشان بڕۆ بۆ موزدەلیفە.",
+    body: [
+      "لە دوای نیوەڕۆوە تا خۆرئاوابوون لە ناو سنووری عەرەفەدا بمێنەوە و سەرقاڵی دوعا، زیکر و تەوبە بە. پێغەمبەر ﷺ فەرمووی: «Hajj is Arafah» (واتای ئینگلیزی) (سونەنی ئەبو داود 1949). ڕوو لە قیبلە بکە، دەستەکانت بەرز بکەرەوە و لە خوا بپاڕێوە — ئەمە یەکێکە لە گەورەترین کاتەکانی دوعا.",
+      "زوهر و عەسر پێکەوە و بە کورتکراوەیی لە کاتی زوهردا بکە (جەمعی تەقدیم)، پاشان لە جیاتی نوێژی سوننەت، باقیی ڕۆژەکە بۆ دوعا تەرخان بکە — بە پێی کرداری پێغەمبەر ﷺ (سەحیحی موسلیم 1218).",
+      "دوای خۆرئاوابوون بە ئارامی بڕۆ بۆ موزدەلیفە. مەغریب و عیشا کۆ بکەرەوە (عیشا کورت کراوە)، شەو پشوو بدە و چەوەکان بۆ ڕەجمکردن کۆ بکەرەوە. لاوازان و ئافرەتان دەتوانن دوای نیوەشەو بەرەو مینا بڕۆن، بە پێی ئەو مۆڵەتانەی لە سوننەتدا ناسراون.",
+    ],
+  },
+  {
+    title: "10ی زولحیججە — ڕۆژی نەحر",
+    summary: "ڕەجمکردن، قوربانی، قژ و تەوافی ئیفازە.",
+    body: [
+      "بگەڕێرەوە بەرەو مینا و حەوت چەو بهاوێ بۆ جەمرەی عەقەبە (ستوونە گەورەکە)، لەگەڵ هەر هاوێشتنێک «اللهُ أَكْبَرُ» بڵێ — یەکەم ڕێوڕەسمی ئەو ڕۆژە لە ڕیزبەندیی حەجی ماڵئاواییدا.",
+      "ئەو قوربانییەی بۆ تەمەتتوع و قیران پێویستە پێشکەش بکە (قورئان 2:196)، یان لە ڕێگەی دەزگایەکی جێی متمانەوە ڕێکی بخە. گۆشتەکەی دەخورێت و بە هەژارانیش دەدرێت.",
+      "سەر بتاشە (حەلق) یان قژ کورت بکەرەوە (تەقسیر)؛ ئافرەتان بە ئەندازەی سەرە پەنجەیەک کورتی دەکەنەوە. دوای ڕەجمکردن و تاشین/کورتکردنەوە، یەکەم دەرچوون لە ئیحرام (تەحەللولی یەکەم) دێتە دی — زۆربەی سنووردارییەکانی ئیحرام لادەچن جگە لە جووتبوون.",
+      "بڕۆ بۆ مەککە بۆ تەوافی ئیفازە — کە ڕوکنێکی حەجە — و سەعی بۆ حاجییانی تەمەتتوع (ئیفراد و قیران کە پێشتر لەگەڵ تەوافی گەیشتندا سەعییان کردووە، شوێن حوکمی مەزهەبەکەیان دەکەون). بەمە دەرچوونی تەواو لە ئیحرام تەواو دەبێت.",
+    ],
+    madhhabNote:
+      "ڕیزبەندیی ڕێوڕەسمەکانی ڕۆژی نەحر لە سوننەتدا نەرمیی تێدایە؛ مەزهەبەکان لەسەر ڕیزبەندیی ورد و کاتی پێویستبوونی سەعی بۆ هەر جۆرێکی حەج جیاوازن. شوێن ڕێبەری گروپەکەت بکەوە.",
+  },
+  {
+    title: "11–13ی زولحیججە — ڕۆژانی تەشریق",
+    summary: "شەوان لە مینا، ڕەجمکردنی ڕۆژانەی سێ جەمرەکە، پاشان تەوافی ماڵئاوایی.",
+    body: [
+      "شەوانی 11 و 12 (و 13 ئەگەر زوو نەڕۆیشتیت) لە مینا بەسەر ببە. ئەمانە ڕۆژانی خواردن، خواردنەوە و یادی خوان.",
+      "هەموو ڕۆژێک دوای زوهر، حەوت چەو بهاوێ بۆ هەر یەک لە سێ ستوونەکە بە ڕیز — بچووکەکە، پاشان ناوەڕاستەکە، پاشان گەورەکە — لەگەڵ هەر هاوێشتنێک تەکبیر بکە. ئەوەی پەلە دەکات دەتوانێت دوای ڕەجمکردنی ڕۆژی 12 بڕوات (قورئان 2:203).",
+      "پێش جێهێشتنی مەککە تەوافی ماڵئاوایی (وەداع) بکە تا دوایین کارت لەگەڵ ماڵی خوا ماڵئاوایی بێت. ئیبن عەبباس دەگێڕێتەوە کە فەرمان بە خەڵک کرا دوایین ڕێوڕەسمیان لای ماڵی خوا بێت، تەنها بۆ ئافرەتی لە حەیزدا ئاسان کرا (سەحیحی بوخاری 1755؛ سەحیحی موسلیم 1328).",
+    ],
+  },
+  {
+    title: "ڕوکن و واجیبەکان",
+    summary: "ئەوەی ئەگەر لەدەست بچێت حەج بەتاڵ دەکاتەوە، و ئەوەی بە قوربانی قەرەبوو دەکرێتەوە.",
+    body: [
+      "ڕوکنەکان (ئەرکان) کڕۆکی حەجن. ئەگەر ڕوکنێک لەدەست بچێت، حەجەکە دروست نییە و تەنها بە قوربانی چاک نابێتەوە — دەبێت ئەنجام بدرێتەوە. زۆرینە بە گشتی ئەمانە دەژمێرن: ئیحرام (نیەت)، وەستان لە عەرەفە، تەوافی ئیفازە و سەعی.",
+      "واجیبەکان (واجیبات) بریتین لە: ئیحرامبەستن لە میقاتەوە، مانەوە لە موزدەلیفە، ڕەجمکردنی جەمەرات، بەسەربردنی شەوانی تەشریق لە مینا، و تەوافی ماڵئاوایی. وازهێنان لە واجیبێک حەج بەتاڵ ناکاتەوە، بەڵام بە پێی مەزهەبەکان بە دەم (قوربانی) قەرەبوو دەکرێتەوە.",
+    ],
+    madhhabNote:
+      "لیستی وردی ئەرکان و واجیبات لە نێوان چوار مەزهەبەکەدا جیاوازە. لەگەڵ ڕێبەرێکی شارەزا بۆ مەزهەبەکەت پشتڕاستی بکەرەوە — بەتایبەتی ئەگەر لەژێر فشاری قەرەباڵغیدا شتێکت لەدەست چوو.",
+    disclaimer: "ئەمە پوختەیەکی کردارییە، نەک فەتوا بۆ ڕێوڕەسمە لەدەستچووەکان.",
+  },
+  {
+    title: "ئاداب و دڵسۆزی",
+    summary: "زمان و ئەندامەکانت بپارێزە — قبووڵبوون بە ڕەوشتەوە بەستراوە.",
+    body: [
+      "فەرموودەی گەڕانەوەی بێگوناه (بوخاری 1521؛ موسلیم 1350) ڕوونی دەکاتەوە کە حەج بە قسەی ناشیرین (ڕەفەس)، گوناه (فوسوق) و دەمەقاڵێ تێک دەچێت. ئارامگرتن، نەرمی و یارمەتیدانی حاجییانی تر بەشێکن لە پەرستن.",
+      "مەهێڵە مۆبایل و قسەی بێهودە زاڵ بن بەسەر عەرەفە و مزگەوتدا. لە تەوافدا ڕێگە بدە؛ پاڵ مەنێ بۆ گەیشتن بە حەجەرولئەسوەد. حەجی قبووڵکراو هاوڕێی بەهەشتە — لە سەرتاسەری گەشتەکەدا هەوڵی باشترین ڕەوشت بدە.",
+    ],
+    actions: ["نیەتێکی ڕۆژانە دابنێ: کارێکی میهرەبانی و دوعایەکی دڵسۆزانە لە ناو قەرەباڵغیدا."],
+  },
+  {
+    title: "ڤیزا و تۆمارکردن",
+    summary: "کەناڵە فەرمییەکان بەکاربهێنە — نوسک و دەسەڵاتی نیشتمانیی حەج.",
+    body: [
+      "نوسک (nusuk.sa) پلاتفۆرمی فەرمیی سعودیەیە بۆ حەج و عومرە — ڤیزا، شوێنی مانەوە، گواستنەوە و پاکێجە تۆمارکراوەکان. دەڵاڵە نافەرمییەکان سەرچاوەیەکی باوی فێڵ و ساختەکارین.",
+      "هەر وڵاتێک ساڵانە بەشێکی دیاریکراوی (کۆتا) حەج وەردەگرێت؛ زۆربەی حاجییان لە ڕێگەی دەسەڵاتی نیشتمانیی حەج یان بریکارێکی مۆڵەتدارەوە داواکاری پێشکەش دەکەن. عومرە کۆتای نییە و لە زۆربەی ساڵدا لە ڕێگەی کەناڵە پەسەندکراوەکانەوە ڕێک دەخرێت.",
     ],
     actions: [
-      "Zû daxwaz bike dema ku demsal vedibe.",
-      "Tenê bi ajansên li Nusuk an rêveberiya neteweyî rezerv bike.",
-      "Kanalên dravdan berî veguhastina dravê piştrast bike.",
+      "کاتێک وەرزەکە دەکرێتەوە زوو داواکاری پێشکەش بکە.",
+      "تەنها لە ڕێگەی ئەو دەزگایانەی لە نوسکدا تۆمارکراون یان دەسەڵاتی نیشتمانییەکەتەوە حجز بکە.",
+      "پێش ناردنی پارە، کەناڵەکانی پارەدان پشتڕاست بکەرەوە.",
     ],
+    disclaimer:
+      "ڕێساکانی چوونەژوورەوە و پلاتفۆرمەکان دەگۆڕێن — هەمیشە لە ماڵپەڕە فەرمییەکاندا پشتڕاستی بکەرەوە.",
   },
   {
-    title: "Tiştên ku divê werin",
-    summary: "Ihram, tiştên bê xûyî, belge, û rehetiya gerê.",
+    title: "چی لەگەڵ خۆت ببەیت",
+    summary: "ئیحرام، کەلوپەلی خۆشوشتنی بێبۆن، بەڵگەنامەکان و ئاسوودەیی لە ڕۆیشتندا.",
     body: [
-      "Mêr: kêm kêm du set ihram ne dirêj û kemer ji bo belgeyan. Jin: cilên fireh ên edebdar. Sandaletên vekirî yên hêsan; çanteyek piçûk û tûlek avê.",
-      "Sabûn û krema rojê bê xûyî bîne — xûyî di ihram de qedexe ye. Pasaport, çap a vîzayê, tomarên aşî, û têkilîyên acil li qutiyek tenik de bihêle. Power bank û SIM an eSIM a herêmî di gel de alîkar in.",
+      "پیاوان: لانیکەم دوو دەست جلی ئیحرامی نەدروراو و پشتێنێک بۆ بەڵگەنامەکان. ئافرەتان: جلی فراوان و داپۆشراو. پێڵاوی کراوەی سووک کە بە ئاسانی لەپێ دەکرێت؛ جانتایەکی پشتی بچووک و بوتڵێکی ئاو.",
+      "سابوون و کرێمی دژە خۆری بێبۆن لەگەڵ خۆت ببە — بۆن لە ئیحرامدا قەدەغەیە. پاسپۆرت، چاپکراوی ڤیزا، تۆماری کوتان و ژمارەی پەیوەندیی فریاکەوتن لە کیسەیەکی باریکدا هەڵبگرە. پاوەر بانک و سیمکارتی ناوخۆیی یان ئی‌سیم لە قەرەباڵغیدا یارمەتیدەرن.",
     ],
     actions: [
-      "Lîste: ihram ×2, sandalet, tiştên bê xûyî, qutiya belgeyan, derman, power bank.",
-      "Plasterên piyê bîne — hacî gelek diçin.",
+      "لیستی پشکنین: ئیحرام ×2، پێڵاو، کەلوپەلی خۆشوشتنی بێبۆن، کیسەی بەڵگەنامەکان، دەرمان، پاوەر بانک.",
+      "پلاستەری بڵۆقی پێ لەگەڵ خۆت ببە — حاجییان ڕێگای دوور دەبڕن.",
     ],
   },
   {
-    title: "Cihên pîroz bi kurt",
-    summary: "Makkah, Medîne, Mina, Arafah, û Muzdalifah — notên pratîk.",
+    title: "شوێنە پیرۆزەکان بە کورتی",
+    summary: "مەککە، مەدینە، مینا، عەرەفە و موزدەلیفە — تێبینیی کرداری.",
     body: [
-      "Masjid al-Haram Ka'bah di nav xwe de digire — cihê tawaf û sa'i; gelek gel bihêle. Masjid an-Nabawi li Medîneyê parçeyek hajê nîne lê piraniya haciyan serdan dikin; têketina Rawdah bi appên fermî dem tê diyar kirin.",
-      "Mina bajarê konan e ji bo şevên 8 û 11–13 Zul-Hijjah. Arafah deşt vekirî ye — av û sîyar li roja 9'an girîng in. Muzdalifah cih e ku hacî li bin ezmanê vekirî dinêrîn û kevir berhev dikin — tesis bi qasd sînordar in.",
+      "مزگەوتی حەرام کەعبەی لە ناوەڕاستدایە — شوێنی تەواف و سەعی؛ چاوەڕێی قەرەباڵغیی زۆر بە. مزگەوتی پێغەمبەر ﷺ لە مەدینە بەشێک نییە لە حەج خۆی، بەڵام زۆربەی حاجییان سەردانی دەکەن؛ چوونە ناو ڕەوزە لە ڕێگەی ئەپە فەرمییەکانەوە کاتی بۆ دیاری دەکرێت.",
+      "مینا شاری چادرەکانە بۆ شەوی 8 و شەوانی 11–13ی زولحیججە. عەرەفە دەشتێکی کراوەیە — ئاو خواردنەوە و سێبەر لە ڕۆژی نۆیەمدا گرنگن. موزدەلیفە ئەو شوێنەیە کە حاجییان لەژێر ئاسمانی کراوەدا پشوو دەدەن و چەو کۆ دەکەنەوە — خزمەتگوزارییەکان بە مەبەست کەمن.",
     ],
-    actions: ["Berî rêwîtiyê nexşeyek hêsan a Mina–Arafah–Muzdalifah fêr bibe."],
+    actions: ["پێش گەشت نەخشەیەکی سادەی مینا–عەرەفە–موزدەلیفە بخوێنەوە."],
   },
   {
-    title: "Çavkaniyên fermî",
-    summary: "Nusuk, rêveberiya neteweyî, û Visit Saudi.",
+    title: "سەرچاوە فەرمییەکان",
+    summary: "نوسک، دەسەڵاتی نیشتمانییەکەت و Visit Saudi.",
     body: [
-      "Bi Nusuk dest pê bike ji bo vîza, pakêt, destûrên Rawdah, û rêbernameya gel. Ji wezareta haj a welatê xwe ji bo kotayê û qaîdeyên tenduristiyê bikar bîne. Visit Saudi şîretên giştî yên têketin û rêwîtiyê weşîne.",
-      "Heke peyman bi awayek neasayî erzan xuya bibe an broker ji derve kanalên fermî drav bixwaze, berî dravdanê rasterast bi portalê wezaretê piştrast bike.",
+      "بە نوسک دەست پێ بکە بۆ ڤیزا، پاکێج، مۆڵەتی ڕەوزە و ڕێنماییەکانی قەرەباڵغی. وەزارەتی حەجی وڵاتەکەت بۆ کۆتا و ڕێسا تەندروستییەکان بەکاربهێنە. Visit Saudi ئامۆژگاریی گشتیی چوونەژوورەوە و گەشت بڵاو دەکاتەوە.",
+      "ئەگەر مامەڵەیەک بە شێوەیەکی نائاسایی هەرزان دەرکەوت یان دەڵاڵێک داوای پارەدانی لە دەرەوەی کەناڵە فەرمییەکان کرد، پێش پارەدان ڕاستەوخۆ لە ماڵپەڕی وەزارەتەوە پشتڕاستی بکەرەوە.",
     ],
     actions: [
-      "nusuk.sa û malpera rêveberiya haj a neteweyî bookmark bike.",
-      "Têkilîyên acil ji rêberê komê xwe tomar bike.",
+      "nusuk.sa و ماڵپەڕی دەسەڵاتی نیشتمانیی حەج لە نیشانەکراوەکاندا پاشەکەوت بکە.",
+      "ژمارەی پەیوەندیی فریاکەوتن لە سەرپەرشتیاری گروپەکەتەوە پاشەکەوت بکە.",
     ],
+    disclaimer: "ڕێبەرێکی کردارییە، نەک جێگرەوەی دابینکەری فەرمیی حەج/عومرەکەت.",
   },
 ];
 
 export const HAJJ_CHECKLIST_KU: DeepPartial<PilgrimageChecklistItem>[] = [
   {
-    title: "Ji bo hajê ihram",
-    hint: "Niyeta hajê bike û ihram bike (ji Makkah ji bo tamattu'); telbiye nû bike.",
-    day: "8 Zul-Hijjah",
+    title: "بۆ حەج ئیحرام ببەستە",
+    hint: "نیەتی حەج بهێنە و ئیحرام ببەستە (بۆ تەمەتتوع لە مەککەوە)؛ تەلبیە نوێ بکەرەوە.",
+    day: "8ی زولحیججە",
   },
   {
-    title: "Biçe Mina",
-    hint: "Li Mina ji Zuhur heta Fajr bi rêz bike, her yek li dema xwe kurt.",
-    location: "Mina",
-    day: "8 Zul-Hijjah",
+    title: "بڕۆ بۆ مینا",
+    hint: "لە زوهرەوە تا فەجر لە مینا نوێژ بکە، هەریەکەیان لە کاتی خۆیدا و کورتکراوە.",
+    location: "مینا",
+    day: "8ی زولحیججە",
   },
   {
-    title: "Li Arafah bimîne",
-    hint: "Di nav Arafah de ji piştî nîvro heta rojava di dua û zikr de bimîne.",
-    location: "Arafah",
-    day: "9 Zul-Hijjah",
+    title: "لە عەرەفە بوەستە",
+    hint: "لە دوای نیوەڕۆوە تا خۆرئاوابوون لە ناو عەرەفەدا بە دوعا و زیکرەوە بمێنەوە.",
+    location: "عەرەفە",
+    day: "9ی زولحیججە",
   },
   {
-    title: "Zuhur û Asr yek bike",
-    hint: "Zuhur û Asr bi hev re li dema Zuhur kurt bike, paşê ji bo dua veqetîne.",
-    location: "Arafah",
-    day: "9 Zul-Hijjah",
+    title: "زوهر و عەسر کۆ بکەرەوە",
+    hint: "زوهر و عەسر پێکەوە و کورتکراوە لە کاتی زوهردا بکە، پاشان خۆت بۆ دوعا تەرخان بکە.",
+    location: "عەرەفە",
+    day: "9ی زولحیججە",
   },
   {
-    title: "Biçe Muzdalifah",
-    hint: "Piştî rojava Maghrib û Isha yek bike, bistîne, û kevir berhev bike.",
-    location: "Muzdalifah",
-    day: "9 Zul-Hijjah",
+    title: "بڕۆ بۆ موزدەلیفە",
+    hint: "دوای خۆرئاوابوون مەغریب و عیشا کۆ بکەرەوە، پشوو بدە و چەو کۆ بکەرەوە.",
+    location: "موزدەلیفە",
+    day: "9ی زولحیججە",
   },
   {
-    title: "Jamrat al-Aqaba bavêje",
-    hint: "Heft kevir li stûna mezin bavêje, bi takbir li her avêtinê.",
-    location: "Mina",
-    day: "10 Zul-Hijjah",
+    title: "ڕەجمکردنی جەمرەی عەقەبە",
+    hint: "حەوت چەو بهاوێ بۆ ستوونە گەورەکە، لەگەڵ هەر هاوێشتنێک تەکبیر بکە.",
+    location: "مینا",
+    day: "10ی زولحیججە",
   },
   {
-    title: "Qurbanî pêşkêş bike",
-    hint: "Ji bo tamattu' û qiran hewce — xwe an bi ajansek pêbawer.",
-    day: "10 Zul-Hijjah",
+    title: "قوربانی پێشکەش بکە",
+    hint: "بۆ تەمەتتوع و قیران پێویستە — خۆت سەری ببڕە یان لە ڕێگەی دەزگایەکی جێی متمانەوە ڕێکی بخە.",
+    day: "10ی زولحیججە",
   },
   {
-    title: "Halq an taqsir",
-    hint: "Mêr tije an kurt; jin bi qasî tipê (tahallul yekem).",
-    day: "10 Zul-Hijjah",
+    title: "حەلق یان تەقسیر",
+    hint: "پیاوان سەر دەتاشن یان کورتی دەکەنەوە؛ ئافرەتان بە ئەندازەی سەرە پەنجەیەک (یەکەم دەرچوون).",
+    day: "10ی زولحیججە",
   },
   {
-    title: "Tawaf al-Ifadah",
-    hint: "Tawaf al-Ifadah û sa'i ji bo tamattu' — rukna hajê.",
-    location: "Masjid al-Haram",
-    day: "10 Zul-Hijjah",
+    title: "تەوافی ئیفازە",
+    hint: "تەوافی ئیفازە و سەعی بۆ تەمەتتوع ئەنجام بدە — ڕوکنێکی حەجە.",
+    location: "مزگەوتی حەرام",
+    day: "10ی زولحیججە",
   },
   {
-    title: "Şev li Mina",
-    hint: "Şevên 11, 12 (û 13 heke zû neçî) li Mina derbas bike.",
-    location: "Mina",
-    day: "11–13 Zul-Hijjah",
+    title: "شەو لە مینا بمێنەوە",
+    hint: "شەوانی 11 و 12 (و 13 ئەگەر زوو نەڕۆیشتیت) لە مینا بەسەر ببە.",
+    location: "مینا",
+    day: "11–13ی زولحیججە",
   },
   {
-    title: "Sê Jamarat bavêje",
-    hint: "Her roj piştî Zuhur biçûk, navîn, paşê mezin — heft her yek.",
-    location: "Mina",
-    day: "11–13 Zul-Hijjah",
+    title: "ڕەجمکردنی سێ جەمرەکە",
+    hint: "هەموو ڕۆژێک دوای زوهر، بچووک، ناوەڕاست، پاشان گەورە ڕەجم بکە — هەریەکە حەوت چەو.",
+    location: "مینا",
+    day: "11–13ی زولحیججە",
   },
   {
-    title: "Tawaf a vedanê",
-    hint: "Berî ku Makkah terk bikî Tawaf al-Wada (jina di heyza de efû ye).",
-    location: "Masjid al-Haram",
-    day: "Derketin",
+    title: "تەوافی ماڵئاوایی",
+    hint: "پێش جێهێشتنی مەککە تەوافی وەداع بکە (ئافرەتی لە حەیزدا لێی بەخشراوە).",
+    location: "مزگەوتی حەرام",
+    day: "ڕۆیشتن",
   },
 ];
 
 export const UMRAH_CHECKLIST_KU: DeepPartial<PilgrimageChecklistItem>[] = [
   {
-    title: "Têkeve ihram",
-    hint: "Li miqat an berî wê: ghusl, cilên ihram, niyeta Umrah, telbiye.",
-    location: "Miqat",
-  },
-  { title: "Telbiye bixwîne", hint: "Labbayk… gelek caran dubare bike heta destpêka tawaf." },
-  {
-    title: "Tawaf a Ka'bah",
-    hint: "Heft dor li dij saetê ji kevirê Reş; mêr: raml û idtiba'.",
-    location: "Masjid al-Haram",
+    title: "بچۆ ناو ئیحرام",
+    hint: "لە میقات یان پێش ئەو: غوسڵ، جلی ئیحرام، نیەتی عومرە، تەلبیە.",
+    location: "میقات",
   },
   {
-    title: "Du rekat bike",
-    hint: "Li pişt Maqam Ibrahim heke gengaz be, paşê Zamzam vexwe.",
-    location: "Masjid al-Haram",
+    title: "تەلبیە بڵێ",
+    hint: "«لَبَّيْكَ…» زۆر دووبارە بکەرەوە تا دەست بە تەواف دەکەیت.",
   },
   {
-    title: "Sa'i Safa û Marwah",
-    hint: "Heft dor ji Safa dest pê bike; mêr di navbera nîşanên kesk de diherikin.",
-    location: "Masjid al-Haram",
+    title: "تەوافی کەعبە",
+    hint: "حەوت سووڕ بە پێچەوانەی میلی کاتژمێر لە حەجەرولئەسوەدەوە؛ پیاوان: ڕەمەل و ئیزتیباع.",
+    location: "مزگەوتی حەرام",
   },
-  { title: "Halq an taqsir", hint: "Mêr tije an kurt; jin bi qasî tipê — Umrah temam e." },
+  {
+    title: "دوو ڕکات نوێژ بکە",
+    hint: "ئەگەر توانرا لە پشت مەقامی ئیبراهیمەوە، پاشان زەمزەم بخۆرەوە.",
+    location: "مزگەوتی حەرام",
+  },
+  {
+    title: "سەعی لە نێوان سەفا و مەروەدا",
+    hint: "حەوت سووڕ لە سەفاوە دەست پێ دەکات؛ پیاوان لە نێوان نیشانە سەوزەکاندا بە خێرایی دەڕۆن.",
+    location: "مزگەوتی حەرام",
+  },
+  {
+    title: "حەلق یان تەقسیر",
+    hint: "پیاوان سەر دەتاشن یان کورتی دەکەنەوە؛ ئافرەتان بە ئەندازەی سەرە پەنجەیەک — عومرە تەواو بوو.",
+  },
 ];

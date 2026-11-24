@@ -22,36 +22,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Mo'min ikki haqiqatni birlashtirib turishi kerak. Birinchidan, jannat haqiqiy, yaqin va har qanday sa'y-harakatlarga arziydi - Qur'on bizga unga \"poyga\" borishimizni aytadi (Qur'on 3:133). Ikkinchidan, hech kim jannatga faqat amali bilan erishmaydi; Oxir oqibat, kirish Allohning rahmati bilan bo'lib, ixlos iymon va yaxshi amallar U tanlagan vositadir. Bu muvozanat umidni mag'rurlikka olib kelmasdan saqlab qoladi: biz bor kuchimizni ishga solamiz, so'ngra o'zimizni Uning rahm-shafqatiga bag'ishlaymiz.",
       "Amalda, kundalik tanlovlaringizni Jannat haqiqati shakllantirsin. Agar ibodat og'ir bo'lsa yoki vasvasa kuchli bo'lsa, nima kutayotganini va nima xavf ostida ekanligini eslang. Allohdan tez-tez jannatni so'rang, u uchun kichik barqaror yo'llar bilan doimiy ravishda harakat qiling va bu o'tkinchi hayotda unga intilish qalbingizni yumshatsin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Parvardigoringiz tomonidan mag'firat va kengligi osmonlaru yerdek bo'lgan, taqvodorlar uchun tayyorlangan jannatga yuguring.",
-      },
-      {
-        excerpt:
-          "Alloh mo'min va mo'mina ayollarga ostidan anhorlar oqib turadigan, ular abadiy qoladigan jannatlarni va abadiy jannatlardan go'zal maskanlarni va'da qildi. Lekin Allohning rizosi kattaroqdir.",
-      },
-      {
-        excerpt:
-          "Ularga qilgan amallarining mukofoti sifatida nima yashiringanini hech bir jon bilmas.",
-      },
-      {
-        excerpt: "Ularga u yerda xohlagan narsalari bordir. Bizning huzurimizda ko'proq narsa bor.",
-      },
-      {
-        excerpt: "Iymon keltirgan va solih amallar qilgan zotlar uchun panoh jannatlari bordir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alloh taolo aytdi: «Men solih bandalarim uchun hech bir ko‘z ko‘rmagan, quloq eshitmagan va qalb o‘ylab ko‘rmagan narsalarni tayyorlab qo‘ydim.",
-      },
-      {
-        excerpt:
-          "Alloh taolo aytadi: “Men solih bandalarim uchun hech bir ko‘z ko‘rmagan, hech bir quloq eshitmagan va hech bir inson qalbi sezmagan narsalarni hozirlab qo‘ydim.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Jannatdagi darajalar",
@@ -63,29 +35,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Bunda hikmat go'zal. Agar biz o'z joyimizni aniq bilsak, ba'zilar o'z-o'zidan mamnun bo'lardi, boshqalari esa umidsizlikka tushishadi. Buning o'rniga ko'zimizni Allohga qaratish, harakat qilish va umid qilishni davom ettirish o'rgatilgan. Mo'min yaxshilik bilan raqobatlashadi - \"buning uchun raqobatchilar raqobatlashsin\" - yakuniy bahoni eng adolatliga qoldiradi.",
       "Demak, sanoqli darajani maqsad qilgandan ko'ra, eng yuqori darajani maqsad qilib qo'ying va Alloh sizni xohlagan joyiga qo'ysin. Rasululloh sollallohu alayhi vasallam sahobalarga oddiy so'rov bilan kifoyalanmaslikni, balki jannatning eng cho'qqisi bo'lgan Firdavsni maxsus so'rashni o'rgatganlar.",
     ],
-    quran: [
-      {
-        excerpt: "Hammaga qilgan amallariga yarasha darajalar bordir.",
-      },
-      {
-        excerpt:
-          "Qarangki, Biz ulardan ba'zilarini ba'zilaridan qanday ustun qo'yganimizni, oxirat esa darajalari kattaroq va farqi ulug'roqdir.",
-      },
-      {
-        excerpt:
-          "Kim Allohga va Payg'ambarga itoat qilsa, bas, ular Alloh ne'mat ato etgan zotlar: payg'ambarlar, rostgo'ylar, shahidlar va solihlar bilan birga bo'lurlar. Ular qanday ajoyib hamrohlar!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jannatda Alloh O'z yo'lida jang qiluvchilar uchun tayyorlab qo'ygan yuzta daraja bor. Har ikki daraja orasidagi masofa osmon bilan yer orasidagi masofaga tengdir. Bas, Allohdan so'rasangiz, Firdavsni so'rang, chunki u jannatning eng yaxshi va eng oliy joyidir.",
-      },
-      {
-        excerpt:
-          "Allohdan so'rasangiz, Firdavsni so'rang, chunki u jannatning eng baland joyi va jannatning o'rtasidir va undan jannat daryolari oqib chiqadi va uning tepasida Rahmonning Arshi bor.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -98,16 +49,7 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Ammo oxirgi va hal qiluvchi sovg'a hamisha Allohning rahmatidir. Xuddi shu nafasda biz yuksaklikka intilamiz, Payg'ambarimiz sollallohu alayhi vasallamning o'z so'zlarini eslaymiz: hech kim jannatga faqat o'z amali bilan kirmaydi, hatto Payg'ambar sollallohu alayhi vasallam ham, faqat Alloh uni O'z rahmatiga o'rab oladi. Bu mo'minning mukammal muvozanatidir: bir tomonda ko'tarilgan umid va shuhratparastlik, boshqa tomondan samimiy kamtarlik.",
       "Bas, Firdavsni sajdada, kechaning oxirgi uchdan birida va uyqudan oldin duolaringizning bir qismiga aylantiring, holbuki, har kuni qo'lingizdan kelganicha jimgina ish tutib, qolganlarida esa Parvardigoringizning rahmatiga suyaning.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allohdan so'rasangiz, Firdavsni so'rang, chunki u jannatning eng baland joyi va jannatning o'rtasidir va undan jannat daryolari oqib chiqadi va uning tepasida Rahmonning Arshi bor.",
-      },
-      {
-        excerpt:
-          "Sizlardan hech biringiz o'z amali bilan jannatga kirmaydi. Ular: «Siz ham emasmisiz, ey Allohning Rasuli?» dedilar. U: «Magar Alloh meni O'zining rahmati bilan qamrab olmasa, men ham emasman», dedi.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Duoda, ayniqsa sajdada va uxlashdan oldin Allohdan Firdavsni so'rang.",
       "O'zingga farz bo'lgan narsalarni mukammal qil, so'ngra nafl ibodatni ko'paytir.",
@@ -126,21 +68,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       '"Kichikroq" deb ataladigan gunohlar ham muhim va ularni hech qachon engillashtirmaslik kerak. G‘iybat, yolg‘on, takabburlik, oila rishtalarini buzish, g‘aflat sekin-asta qalb va xulq-atvorni buzadi. Rasululloh sollallohu alayhi vasallam yig‘ilgan mayda tayoqlar butun bir taom tayyorlaganidek, yig‘ilgan mayda gunohlar ham odamni halok qilishi haqida ogohlantirganlar. Ularning har biri Allohga qaytishga muhtojdir.',
       "Olib tashlash - bu harakatdagi umid: hech qachon gunohning kattaligi sizni tavba qilishning ma'nosizligiga ishontirmasin. Tushungan lahzada Allohga qayting, yomon ishni o'chirish uchun yaxshilik bilan ergashing va har kuni istig'for eshigini ochiq tuting. Uning rahmati har doim sizning xatolaringizdan kattaroqdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Albatta, Alloh O'ziga shirk qo'shishni kechirmas, balki undan ozroq narsani O'zi xohlagan kishi uchun kechirur.",
-      },
-      {
-        excerpt:
-          "Ayting: Ey o'zlariga zulm qilgan bandalarim, Allohning rahmatidan noumid bo'lmanglar. Albatta, Alloh barcha gunohlarni kechiradi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Biz bilan ular orasidagi ahd namozdir. Kim uni tark etsa, kufrga kirdi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
     disclaimer:
       "Fiqhdagi katta gunohlar ro'yxati olimga qarab farqlanadi va shaxslarga oid hukmlar malakali kishilarga tegishlidir. Bu tavba qilish uchun umumiy eslatmadir - shaxsiy hukm emas. Vaziyatingiz uchun ishonchli olim bilan maslahatlashing.",
@@ -155,15 +84,7 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Matnlarda nomlari zikr etilgan shaxslardan tashqari, xushxabar berilgan toifalar ham tasvirlangan: rostgo‘ylar va sabrlilar, Islom shariatiga ko‘ra Alloh yo‘lida haqiqiy shahid bo‘lib vafot etganlar va bu hayotdagi so‘nggi so‘zlari iymon guvohligi bo‘lganlar, la ilaha illalloh. Har bir ta'rif nafaqat zohiriy belgi emas, balki ichki haqiqatga - samimiyatga, qurbonlikka yoki oxirgi nafasda Allohga bog'langan qalbga ishora qiladi.",
       "Biz uchun saboq, birlashish orqali o'zini xavfsiz his qilish yoki o'zimiz uchun bu darajalarga da'vo qilish emas, balki ilhom olishdir. Ularning o'rnaklari bizni yuqoriga tortsin: ular sevgan narsasini seving, ular harakat qilganda intiling va bu hayratni duo va amalga aylantiring, eng avvalo Allohdan husn-ul-hatima so'rang - yaxshi yakun.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakr jannatda, Umar jannatda, Usmon jannatda, Ali jannatda, Talha jannatda, Zubayr jannatda, Abdurrahmon ibn Avf jannatda, Sa'd jannatda, Said ibn Zayd jannatda va Abu al-Ubayda jannatdadir.",
-      },
-      {
-        excerpt: "Kimning oxirgi so'zi \"La iloh yo'q Alloh\" bo'lsa, jannatga kiradi.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Hadislardagi xushxabar, zikr qilinganlar yoki tavsiflangan toifalarga tegishlidir. Ular insonning o'z e'tiqodi, amali va yaxshi oxiriga bo'lgan ehtiyojni almashtirmaydi. Alloh bilguvchidir.",
   },
@@ -177,21 +98,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Tavhidni asos qilishning hikmati shundaki, u qalbni ozod qiladi. Yolg'iz Allohgagina ibodat qilgan kishi maxluq qo'rquvidan, hammaning roziligini ta'qib qilishdan, ko'p ustozlarga xizmat qilishdan charchashdan xalos bo'ladi. Uning hayoti yagona, aniq yo'nalishga ega bo'ladi: uni yaratganni rozi qilish.",
       "Ishonchli ulamolardan amalda toʻgʻri eʼtiqodni oʻrganing, ibodatingizni shirk va munofiqlikdan tozalang va amal qilishdan avval niyatingizni tekshiring. Bu birinchi qadam ixtiyoriy yoki ilg'or emas - bu erda jannatga boradigan barcha yo'llar boshlanadi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Senga va sendan oldingilarga vahiy qilindiki: “Agar Allohga shirk keltirsang, amallaring barbod bo'lur va albatta ziyon ko'ruvchilardan bo'lursan.",
-      },
-      {
-        excerpt: "Ular faqat Allohga dinda xolis bo'lib ibodat qilishga buyurilgan edilar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Amallar faqat niyatga bog'liq va har bir kishi faqat niyat qilgan narsaga ega bo'ladi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Tavhid asoslarini ishonchli ulamolardan o'rganing.",
       "Ibodatlardan oldin niyatingizni yangilang.",
@@ -208,24 +116,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Namozning chuqur hikmati o'zgarishdir. To'g'ri o'qilgan namoz insonni fahsh va yomon ishlardan saqlaydi; Bu band kun davomida qalbni Allohga qaytaradigan takroriy qayta tiklashdir. Shuning uchun uzrsiz o'qishni o'tkazib yuborish sidqidildan tavba qilishni va qazo qilishni talab qiladigan jiddiy masaladir. Nafl va ravotib - farzlardan oldin va keyin o'qiladigan muntazam sunnat namozlari - nur qo'shib, martabani ko'taradi.",
       "Amaliy: besh vaqt namozni o'z vaqtida o'qishni mutlaq ustuvorligingiz sifatida saqlang, o'tkazib yuborganlaringizning qazosini o'qing va davom etishingiz mumkin bo'lgan sunnat namozlarini qo'shing. Agar namozingiz yaxshilansa, ibodatingizdagi hamma narsa u bilan yaxshilanishga intiladi.",
     ],
-    quran: [
-      {
-        excerpt: "Albatta, mo'minlar, ya'ni namozlarida xokisor bo'lganlar najot topdilar.",
-      },
-      {
-        excerpt: "Namoz o'qiydiganlar bundan mustasno.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qiyomatda bandaning birinchi hisob-kitobi uning namozidir. Agar u sog'lom bo'lsa, u muvaffaqiyatga erishdi; agar u nuqsonli bo'lsa, u muvaffaqiyatsizlikka uchradi va yo'qotdi.",
-      },
-      {
-        excerpt:
-          "Agar sizlardan biringizning eshigi oldida kuniga besh marta cho'miladigan daryo bo'lsa, uning ustida kir qolarmidi? Ular: «Yo'q», dedilar. U: «Bu besh vaqt namozning misolidir. Alloh ular bilan gunohlarni o'chiradi», dedilar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Besh vaqt namozni o'z vaqtida o'qing.",
       "Qazolarni ixlos bilan o'qing.",
@@ -243,22 +135,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Hikmat juda chuqur: gunoh insonning hikoyasining oxiri bo'lishi shart emas. «Alloh ularning yomonliklarini yaxshilik bilan almashtiradi» (Qur'on 25:70) — chin dildan tavba qilish muvaffaqiyatsizlik rekordini muvaffaqiyatga aylantiradi va qulash insonni Allohga avvalgidan ham yaqinroq qiladigan yangi boshlanishga aylantirishi mumkin. Gunohdan keyin umidsizlikning o'zi shaytonning tuzog'idir. Allohning rahmatiga umid qilish mo'minning javobidir.",
       "Amalda: tavbani bir kunga ham qoldirmang - sirg'alib ketgan vaqtingizni qaytaring. Har bir yomonlikni o'chirish uchun bir yaxshilik bilan ergashing va Payg'ambarimiz sollallohu alayhi vasallam mag'firat qilinganiga qaramay, har kuni istig'forni ko'p marta so'raganlaridek, kun davomida tilingizga istig'for ayting.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iymon keltirganlar, Allohga sidqidildan tavba qilinglar, shoyadki Robbingiz sizlardan gunohlaringizni ketkazsa va ostidan anhorlar oqib turgan jannatlarga kiritsa.",
-      },
-      {
-        excerpt:
-          "Magar tavba qilgan, iymon keltirgan va solih amallarni qilgan zotlargina, Alloh ularning yomonliklarini yaxshilik bilan almashtirib qo'yadi va Alloh mag'firatli va rahmlidir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alloh taolo bandasining tavbasidan sizlardan biringiz tuyasini taqir yerda yo‘qotib qo‘yib, uni to‘satdan topib olgandan ko‘ra ko‘proq rozi bo‘ladi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Gunoh qilganingizda darhol tavba qiling - kechiktirmang.",
       "Gunohni o'chirish uchun yaxshilik bilan ergashing.",
@@ -276,21 +154,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Ammo chuqurroq maqsad o'z-o'zidan tilovat qilish emas, balki o'zgartirishdir. Alloh taolo bizga \"Qur'onni o'lchov bilan o'qishni\" (Qur'on 73:4) buyuradi, shuning uchun ma'nolar bizning fikrlash, his qilish va xatti-harakatlarimizni o'z ichiga oladi va o'zgartiradi. Qur'on faqat tilovat qilish uchun emas, balki yashash uchun yuborilgan; sahobalar o'n oyatni o'rganib, ularni tushunib, amal qilmagunlaricha harakat qilmas edilar.",
       "Amalda: har kuni bir qismini, hatto bir nechta oyatlarni o'qing, lekin ularni mulohaza bilan o'qing. Yangi suralarni yodlang yoki bilganingizni saqlang va eng muhimi ko'proq o'rganishga shoshilmasdan oldin o'rgangan narsangizga amal qiling.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allohning Kitobini tilovat qilganlar, namozni to'kis ado etadigan va Biz rizq qilib bergan narsalarimizdan infoq-ehson qilganlar, albatta, ajrlarini to'liq berishini va O'z fazlidan ziyoda qilishini hech qachon bitmaydigan savdoni umid qiladilar.",
-      },
-      {
-        excerpt: "Va Qur'onni o'lchov bilan tilovat qiling.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qur'on sahobasiga aytiladi: O'qing va ko'tarilingiz va dunyoda o'qiganingizdek o'qing, chunki sizning darajangiz oxirgi o'qigan oyatda bo'ladi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Har kuni o'qing - hatto bir nechta oyatlarni o'ylab ko'ring.",
       "Yangi suralarni yodlang yoki bilganlaringizni saqlang.",
@@ -308,22 +173,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Zikrning hikmati shundaki, u rasmiy ibodatlar orasida Alloh bilan aloqani saqlab qoladi. Zikr bilan namlangan til va eng muhimi, kundalik tanlovlarida Allohni zikr qiladigan qalb – g‘azabdan oldin, xarid qilishdan oldin, qaror qabul qilishdan oldin to‘xtab turish – asl maqsaddir. Zikr labda qolish uchun emas; bu hayotni boshqarish uchun mo'ljallangan.",
       "Amaliy: ertalab va kechqurun zikr qilishni kundalik odatga aylantiring, bo'sh vaqtlarda tasbeh, istig'for yoki salovotning oddiy qismini oqib turmang, ayniqsa, uxlashdan oldin va uyg'onganingizda Allohni zikr qiling. Ko'p yorilishdan ko'ra, bir oz barqarorlik yaxshiroqdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Iymon keltirgan va qalblari Allohning zikri bilan orom topgan zotlar, albatta, qalblar Allohning zikri bilan orom topur.",
-      },
-      {
-        excerpt:
-          "Ey iymon keltirganlar, Allohni ko'p zikr qilingiz va ertalab va kechqurun Unga tasbih ayting.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ikkita kalima tilga yengil, taroziga ogir va Rahmonga mahbubdir: SubhanAllohi va bihamdihi, SubhanAllohil-Azim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Har kuni ertalab va kechqurun adhkarni to'liq bajaring.",
       "Istig'for yoki salovot uchun tasbeh hisoblagichidan foydalaning.",
@@ -341,22 +192,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Sadaqaning hikmati shundaki, u beruvchiga ham, oluvchiga ham ishlaydi. Bu qalbdagi ochko‘zlik changalini bo‘shatadi, mehr-oqibat uyg‘otadi, jamiyat rishtalarini mustahkamlaydi, badavlat kishilarga haqiqiy mulkdor emas, ishonchli shaxs ekanligini eslatadi. Islomda esa sadaqa ta'rifini kengaytirib, hech kim chetda qoldirmaydi: Rasululloh sollallohu alayhi vasallam birodaringizga tabassum qilish, foydali so'z aytish, hatto yo'ldan zararli narsalarni olib tashlash ham sadaqadir, deb o'rgatganlar.",
       "Amaliy: zakot uchun javobgar bo'lsangiz, uni to'g'ri hisoblab chiqing va to'lang; oz bo'lsada muntazam sadaqa bering, toki berish hodisa emas, balki odat bo'lib qoladi; Talabaga homiylik qilish, quduqni moliyalashtirish yoki masjidni qo'llab-quvvatlash - siz ketganingizdan keyin ham sizga mukofot beradigan doimiy sadaqa jariyasini qidiring.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mollarini Alloh yo'lida sarflaydiganlarning misoli, har bir boshoqda yuz donadan yetti boshoq o'sadigan donga o'xshaydi. Alloh kimga xohlasa, ko'paytirur.",
-      },
-      {
-        excerpt:
-          "Sizlardan biringizga o'lim kelsa, u: «Ey Robbim, agar meni bir oz muddatga kechiktirsangiz, sadaqa berib, solihlardan bo'lsam», deyishidan oldin, Biz sizga rizq qilib bergan narsalardan infoq qiling.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Biror kishi vafot etsa, uning amallari tugaydi, faqat uchtasi: doimiy sadaqa, foydali ilm yoki unga duo qiluvchi solih farzand.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Agar javobgar bo'lsangiz, zakotni hisoblang va bering.",
       "Kichik bo'lsa ham muntazam sadaqa qiling.",
@@ -374,25 +211,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Hikmat shundan iboratki, Islom faqat inson va Alloh o'rtasidagi shaxsiy munosabatlar emas; bu odamning atrofidagi barchaga qanday munosabatda bo'lishini to'ldirish uchun mo'ljallangan. Duosi ishi yumshatmaydigan namozxon fikrni o'tkazib yuborgan bo'lsa, go'zal xulqning o'zi da'vat bo'lib, jonli ibrat bilan odamlarni iymonga tortadi. Shuning uchun ham matnlar Allohga ibodatni Uning yaratilishidagi ustunlik bilan qayta-qayta birlashtiradi.",
       "Amalda: bir vaqtning o'zida bitta xususiyat ustida ishlang - g'azablansa, tilingizni tuting, sizni xafa qilganlarni kechiring, buzilgan munosabatlarni o'zgartiring va va'dalar sizga qimmatga tushganda ham bajaring. O'sha kuni odamlarga qanday munosabatda bo'lganingiz haqida namozdan keyin har kuni qisqacha fikr yuritish - barqaror o'sishning oddiy usuli.",
     ],
-    quran: [
-      {
-        excerpt: "Darhaqiqat, siz buyuk va olijanob xulq egasisiz.",
-      },
-      {
-        excerpt:
-          "Osonlik va qiyinchilikda infoq-ehson qiluvchilar, g'azablarini bosuvchi va odamlarni mag'firat qilguvchilardir va Alloh yaxshilik qiluvchilarni sevadi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qiyomat kuni mo'minning tarozida go'zal xulqdan og'irroq narsa yo'qdir. Albatta, Alloh fahsh va qo'pol odamni yomon ko'radi.",
-      },
-      {
-        excerpt:
-          "Mo'minlarning iymoni eng mukammali yaxshi xulqlilaridir va sizlarning eng yaxshilaringiz xotinlariga yaxshi munosabatda bo'lganlaringizdir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "G'azablansa, sabr qiling.",
       "Boshqalarni kechiring va buzilgan munosabatlarni tuzating.",
@@ -408,72 +228,52 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       {
         title: "Rostgo'ylik",
         summary: "So'z va amalda rost bo'lish.",
-        quran: {
-          excerpt: "Allohdan qo'rqinglar va rostgo'ylar bilan bo'linglar.",
-        },
+        quran: {},
       },
       {
         title: "Sabr",
         summary: "Sinovda bardoshli bo'lish.",
-        quran: {
-          excerpt: "Albatta, Alloh sabr qiluvchilar bilan.",
-        },
+        quran: {},
       },
       {
         title: "G'azabni boshqarish",
         summary: "G'azabda o'zini tiyish.",
-        hadith: {
-          excerpt: "Kuchli kishi g'azabda o'zini tuta olgan kishidir.",
-        },
+        hadith: {},
       },
       {
         title: "Kechirim",
         summary: "Odamlarning xatosini kechirish.",
-        quran: {
-          excerpt: "Kechirsinlar va o'tib ketsinlar.",
-        },
+        quran: {},
       },
       {
         title: "Kamtarlik",
         summary: "O'zini ulug' ko'rmaslik.",
-        hadith: {
-          excerpt: "Kim Alloh uchun kamtar bo'lsa, Alloh uni yuksaltiradi.",
-        },
+        hadith: {},
       },
       {
         title: "Omonatdorlik",
         summary: "Ishonib topshirilgan narsani asrash.",
-        quran: {
-          excerpt: "Ular omonat va ahdlariga rioya qiladilar.",
-        },
+        quran: {},
       },
       {
         title: "Ota-onaga yaxshilik",
         summary: "Hurmat va g'amxo'rlik.",
-        quran: {
-          excerpt: "Ularga «uf» ham demang.",
-        },
+        quran: {},
       },
       {
         title: "Yaxshi so'z",
         summary: "Yaxshilikni aytish yoki jim turish.",
-        hadith: {
-          excerpt: "Yaxshi so'z aytsin yoki jim tursin.",
-        },
+        hadith: {},
       },
       {
         title: "Tabassum",
         summary: "Birodarga ochiq chehra ko'rsatish.",
-        hadith: {
-          excerpt: "Birodaringizga tabassum qilish sadaqadir.",
-        },
+        hadith: {},
       },
       {
         title: "Adolat",
         summary: "Hamma bilan adolatli bo'lish.",
-        quran: {
-          excerpt: "Adolat qilinglar, bu taqvoga yaqinroqdir.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -513,24 +313,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Hikmat shundan iboratki, ilmsiz ish ko'r, amalsiz bilim samarasizdir. To‘g‘ri bilim insonni bid’at va zalolatdan saqlaydi, ixlosni chuqurlashtiradi, o‘ziga foyda keltirmay, boshqalarga ham foyda keltirish qobiliyatini beradi. Islom ulamolari har doim ikki xavfdan ogohlantirganlar: johillik bilan amal qilish va amal qilmasdan bilish.",
       "Amalda: foydali narsalarni muntazam ravishda o'rganishga ahd qiling - oyat, hadis, kundalik ibodatingiz uchun zarur bo'lgan hukm. E'tiqod, namoz, poklanish va asosiy taqiqlardan boshlang, keyin asta-sekin chuqurlashtiring. O'rganganlaringizni kamtarlik bilan baham ko'ring va har doim birinchi navbatda o'zingizga amal qiling.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ayting: «Biladiganlar bilan bilmaydiganlar barobarmi? Faqat aql egalarigina ibrat oladilar.",
-      },
-      {
-        excerpt: "Va ayt: Robbim, ilmimni ziyoda qil.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kim ilm izlab yo'lga tushsa, Alloh unga jannat yo'lini oson qilib qo'yadi.",
-      },
-      {
-        excerpt:
-          "Biror kishi vafot etsa, uning amallari tugaydi, faqat uchtasi: doimiy sadaqa, foydali ilm yoki unga duo qiluvchi solih farzand.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Har hafta foydali narsalarni o'rganing.",
       "Takabburliksiz bilimlarni baham ko'ring.",
@@ -548,18 +332,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Hikmat shundaki, nafl iymonni yashab, o'stirib boradi. Majburiyatlar asosni saqlaydi, ammo ixtiyoriy harakatlar yurakning cho'zilgan joyidir, hech kim ko'rmaydigan shaxsiy ibodat samimiyatni mustahkamlaydi va inson o'zini hayotning qiyin sinovlariga tayyorlaydi. Bu ishlarning ixtiyoriyligi ham rahmatdir - Alloh har bir inson o'ziga mos keladiganidan o'tishi uchun ko'p eshiklarni ochadi.",
       "Amalda, asosiysi intensivlik emas, balki barqarorlikdir. Rasululloh sollallohu alayhi vasallam Ollohga eng sevimli amallar kichik bo'lsa ham, eng izchili ekanligini ta'kidlaganlar. Bir necha kun ichida yonib ketadigan shijoatli portlashdan ko'ra, chin dildan bajarishingiz mumkin bo'lgan bir nechta ixtiyoriy amallarni tanlang - ikki rakat tahajjud, haftada bir ro'za, Qur'onning belgilangan qismi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Parvardigorlariga qo'rquv va umid bilan duo qilganlarida yon tomonlari to'shaklarini tashlab qo'yadi va Biz ularga rizq qilib bergan narsalardan infoq qilurlar. Qilgan amallarining mukofoti sifatida ular uchun qanday tasalli yashiringanini hech bir jon bilmas.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mening bandam Menga farz qilganimdan ham sevimliroq narsa bilan Menga yaqinlashmaydi. Mening bandam esa uni yaxshi ko‘rmagunimcha, ixtiyoriy amallar bilan Menga yaqinlashishda davom etadi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Ikki rakat bo'lsa ham tahajjud namozini o'qing.",
       "Mumkin bo'lganda tez ixtiyoriy kunlar.",
@@ -577,22 +351,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Bu erdagi donolik azob-uqubatlarni butunlay qayta aks ettiradi. Sinovlar avtomatik ravishda jazo emas; yaxshi javob bergan mo'min uchun ular gunohlarni o'chiruvchi poklanish va martabani ko'taruvchi yuksalish bo'lishi mumkin. Rasululloh sollallohu alayhi vasallam musulmonning boshiga hech qanday charchoq, kasallik, tashvish va hatto tikan sanchishi ham yetmaydi, Alloh taolo u orqali uning ba'zi gunohlarini o'chirmasin, deb o'rgatganlar. Bu hayotning eng og'ir daqiqalarini sof yo'qotishdan ko'ra imkoniyatlarga aylantiradi.",
       "Amalda: musibat yetsa, Alloh o‘rgatgan “Inna lillahi va inna ilayhi rojiun” (Albatta, biz Allohnikimiz va Unga qaytuvchimiz) so‘zlari bilan javob bering va Uning amrini rad etuvchi shikoyatdan tilingizni tiying. Yaxshi kunlarda ne'matlaringizni ovoz chiqarib sanang va har kuni ulardan bir nechtasi uchun Allohga shukr qiling; ularni nomlash qalbni yumshoq va minnatdorchilik bilan saqlaydi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sabr qilguvchilarga xushxabar berki, ular falokat yetganda: «Albatta, biz Allohnikimiz va albatta, biz Unga qaytguvchimiz», derlar. Ularga Robbilaridan salovot va rahmat bor. Ana o'shalar hidoyat topguvchilardir.",
-      },
-      {
-        excerpt:
-          "Agar shukr qilsangiz, albatta sizni ziyoda qilurman. Agar yolg'onchi qilsangiz, albatta, Mening azobim qattiqdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mo'minning ishi ajoyibdir, chunki uning barcha ishlari yaxshidir. Agar osonlik kelsa, shukr qiladi va bu uning uchun yaxshidir. Agar qiyinchilik kelsa, sabr qiladi va bu uning uchun yaxshidir. Bu mo'minlardan boshqa hech kim uchun emas.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Sinov paytida “inna lillahi va inna ilayhi rojiun” deng.",
       "Har kuni uchta ne'mat uchun Allohga baland ovoz bilan shukr qiling.",
@@ -609,21 +369,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Bunday ulkan savobni boshqalarga yo'l ko'rsatishga bog'lashning hikmati shundaki, u har bir mo'minni doimiy yaxshilik manbai qiladi. Shuningdek, u da'vat qiluvchining o'z e'tiqodini himoya qiladi: boshqalarni namozga, halollikka va ibodatga chorlash o'zini ularni mahkam ushlab turishni eslatishdir. Va u jamiyatni o'zaro e'tiborsizlikdan ko'ra o'zaro g'amxo'rlikda birlashtiradi.",
       "Amalda, uydan boshlang. O'z oilangizni yaxshilang va o'rgating - turmush o'rtog'ingiz, farzandingiz, aka-ukangiz, chunki ular sizning birinchi va eng doimiy mas'uliyatingizdir. Foydali bilimlarni mehribonlik bilan baham ko'ring, kimgadir namoz o'qish yoki Qur'on o'qishni o'rganishga yordam bering va yaxshi xulqli hayot va sobit ibodat ko'pincha eng ishonarli da'vat ekanligini unutmang.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Robbingning yo'liga hikmat va go'zal pand-nasihat bilan da'vat et va ular bilan eng go'zal tarzda bahslash.",
-      },
-      {
-        excerpt:
-          "Allohga da'vat qiluvchi, solih amallarni qilgan va: «Albatta, men musulmonlardanman», degan kimsadan ham go'zal so'zli kim bor?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kim birovni yaxshilikka hidoyat qilsa, unga amal qilgandek ajr beriladi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Foydali bilimlarni mehr bilan baham ko'ring.",
       "Kimgadir ibodat qilishni yoki Qur'on o'qishni o'rganishga yordam bering.",
@@ -640,26 +387,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Bu amallarning hikmati shundaki, ular insonning hisobini umridan ortiqroqqa cho‘zadi. Mo'minning faol yillari qisqa, lekin qazigan qudug'i yoki yaxshi tarbiyalagan farzandi unga asrlar davomida savob berib turishi mumkin. Shunday qilib, Islom uzoqni ko'rishga undaydi: nafaqat bugungi ibodat haqida, balki siz ketganingizdan keyin ham sizdan qanday yaxshiliklar oqishi haqida o'ylang.",
       "Amalda: agar imkoningiz bo'lsa, Haj yoki Umra ziyoratini cheksiz qoldirmasdan, jiddiy reja tuzing. Oilangizning e'tiqodi va fe'l-atvoriga haqiqiy kuch sarflang, chunki ular sizning eng abadiy merosingizdir. Va sizning xayrli ishlaringiz o'limdan keyin davom etishi uchun kamida bitta doimiy xayriya loyihasini - bilim, suv, boshpana yoki etimni qo'llab-quvvatlang.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Baytullohni haj qilish esa unga yo'l topa oladigan kishilarning Alloh taoloning farzidir.",
-      },
-      {
-        excerpt:
-          "Va odamlarga hajni e'lon qiling. Ular o'zlari uchun manfaatga guvoh bo'lishlari uchun har bir uzoq dovondan piyoda va har bir ozg'in tuyada kelishadi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Alloh uchun haj qilsa, fahsh va fahsh qilmasa, xuddi onasi dunyoga keltirgan kun kabi gunohsiz qaytadi.",
-      },
-      {
-        excerpt:
-          "Biror kishi vafot etsa, uning amallari tugaydi, faqat uchtasi: doimiy sadaqa, foydali ilm yoki unga duo qiluvchi solih farzand.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Imkoniyatingiz bo'lsa, haj yoki umrani rejalashtiring.",
       "Oilangizning e'tiqodi va xarakteriga sarmoya kiriting.",
@@ -677,26 +406,8 @@ export const JANNAH_TOPICS_UZ: DeepPartial<JannahTopic>[] = [
       "Shuning uchun ham muvozanatli mo‘min ikki qanotli qushdek, umid va qo‘rquv orasida yashaydi. U Allohning adolatidan qo'rqadi va gunohga qo'l urmaydi va gunohga qo'l urmaydi va qanchalik adashgan bo'lsa ham Allohning rahmatidan umidini uzmaydi. To'liq qo'rquvga moyillik umidsizlikni keltirib chiqaradi; butunlay umidga moyillik takabburlikni keltirib chiqaradi. Allohning ismlari - Ar-Rahmon (Rahmon), Ar-Rohim (Rahmli), Al-G'afur (G'afur) - umid qanotini mustahkamlaydi.",
       "Shunday qilib, har kuni yopadigan ruhingiz shunday bo'lsin: Allohdan Firdavsni so'rang, qo'lingizdan kelganini qiling, kamchiliklaringiz uchun tavba qiling, so'ngra oxirgi martabangizni Odil va Rahmonga topshiring - o'sha kun uchun to'qson to'qqiz qism rahmatni saqlagan zot O'ziga intilib, umid qilib kelgan bandasini qaytarmasligiga ishoning.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mening rahmatim hamma narsani qamrab olgan. Bas, uni taqvodorlar, zakot beruvchilar va oyatlarimizga iymon keltirganlar uchun belgilayman.",
-      },
-      {
-        excerpt:
-          "Ayting: Ey o'zlariga zulm qilgan bandalarim, Allohning rahmatidan noumid bo'lmanglar. Albatta, Alloh barcha gunohlarni kechiradi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sizlardan hech biringiz o'z amali bilan jannatga kirmaydi. Ular: «Siz ham emasmisiz, ey Allohning Rasuli?» dedilar. U zot: «Men ham, Alloh taolo meni o'z rahmatiga o'rab olmasa», dedi.",
-      },
-      {
-        excerpt:
-          "Allohning rahmati yuz qismdir. U jinlar, odamlar, hayvonlar va hasharotlar orasida bir-birlariga rahm-shafqatli bo'lgan bir qismini tushirdi. va to'qson to'qqiz qismni O'zi huzurida saqladi, qiyomatda bandalariga rahm qiladi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Allohdan qo'rqish bilan Uning rahmatidan umidvor bo'ling.",
       "Gunohdan keyin hech qachon umidsizlikka tushmang - tavba qiling va harakatda davom eting.",
@@ -710,107 +421,48 @@ export const JANNAH_GATES_UZ: DeepPartial<JannahGate>[] = [
   {
     name: "Ibodat darvozasi",
     deedSummary: "Besh vaqt namozni qo'riqlab o'qiganlar uchun.",
-    hadith: [
-      {
-        excerpt:
-          "Kim Alloh yo'lida bir juft nafaqa qilsa, jannat eshiklaridan chaqiriladi. Kim namoz ahlidan bo'lsa, namoz eshigidan chaqiriladi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Xayriya darvozasi",
     deedSummary: "Alloh uchun ixlos bilan sadaqa qilganlar uchun.",
-    hadith: [
-      {
-        excerpt: "Kim sadaqa ahlidan bo'lsa, sadaqa eshigidan chaqiriladi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Ar-Rayyon darvozasi",
     deedSummary: "Ro'za tutganlar uchun ajratilgan - faqat ular kiradigan darvoza.",
-    hadith: [
-      {
-        excerpt:
-          "Jannatda “Ar-Rayyon” degan eshik borki, qiyomat kuni undan faqat ro‘zadorlar kiradi. Ularning oxirgisi kirganida, u yopiladi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Jihod darvozasi",
     deedSummary: "Alloh yo'lida ixlos bilan jihod qilganlar uchun.",
-    hadith: [
-      {
-        excerpt: "Kim jihod ahlidan bo'lsa, jihod eshigidan chaqiriladi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Hajning mukofoti",
     deedSummary: "Sof haj qilganlar, gunohsiz qaytganlar uchun.",
-    hadith: [
-      {
-        excerpt:
-          "Kim Alloh uchun haj qilsa, fahsh va fahsh qilmasa, xuddi onasi dunyoga keltirgan kun kabi gunohsiz qaytadi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Har bir darvozadan chaqiriladi",
     deedSummary: "Abu Bakr kabi ba'zilar barcha eshiklardan kirishga chaqiriladi.",
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakr: “Bu eshiklardan birov chaqiriladimi?” deb so‘radi. U zot: «Ha, sen ham ulardan bo'lasan», dedilar.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_UZ: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Robbingiz tomonidan mag'firat va kengligi osmonlaru yerdek bo'lgan taqvodorlar uchun tayyorlangan jannatga yuguring.",
-  },
-  {
-    excerpt:
-      "Ostidan anhorlar oqib turuvchi jannatlar va abadiy jannatlarda go'zal maskanlardir. Lekin Allohning rizosi kattaroqdir.",
-  },
-  {
-    excerpt: "Iymon keltirgan va yaxshi amallar qilgan zotlar uchun panoh jannatlaridir.",
-  },
-  {
-    excerpt:
-      "Qilgan amallarining mukofoti sifatida ular uchun qanday tasalli yashiringanini hech bir jon bilmas.",
-  },
-  {
-    excerpt: "Ularga u yerda xohlagan narsalari bordir. Bizning huzurimizda ko'proq narsa bor.",
-  },
-  {
-    excerpt: "Hammaga qilgan amallariga yarasha darajalar bordir.",
-  },
-  {
-    excerpt:
-      "Ular Alloh huzurida darajalardir. Alloh ularning qilayotgan amallarini ko'rib turuvchidir.",
-  },
-  {
-    excerpt:
-      "Ey Robbimiz, bizga bu dunyoda ham, oxiratda ham yaxshilik ato et va bizni do'zax azobidan saqla.",
-  },
-  {
-    excerpt:
-      "Allohning rahmatidan noumid bo'lmang, albatta, Alloh barcha gunohlarni mag'firat qiladi.",
-  },
-  {
-    excerpt: "Ey bandalarim, bugun sizlarga qo'rquv yo'q va sizlar xafa bo'lmaysizlar.",
-  },
-  {
-    excerpt: "Va oldingilar, oldingilar - ana o'shalar yaqin qilinganlardir.",
-  },
-  {
-    excerpt:
-      "Bas, Alloh ularni o‘sha kunning yomonligidan saqlaydi va ularga nur va baxt-saodat beradi.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_UZ: DeepPartial<JannahDuaEntry>[] = [

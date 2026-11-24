@@ -2,149 +2,97 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ku overlay for ruqyah. Index-aligned with RUQYAH_TOPICS in ../ruqyah.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const RUQYAH_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is ruqyah?",
-    summary: "Reciting Qur'an, Allah's Names, or prophetic du'a for healing.",
+    title: "ڕوقیە چییە؟",
+    summary: "خوێندنی قورئان، ناوەکانی خوا، یان دوعاکانی پێغەمبەر ﷺ بۆ چارەسەر.",
     body: [
-      "Ruqyah is the practice of reciting Qur'an, the Names and Attributes of Allah, or authentic prophetic supplications over oneself or another person — often with a light blow of breath — seeking healing or protection from Allah alone. It predates Islam as a general Arab custom of incantation, and the Prophet ﷺ was asked directly whether it was permissible.",
-      "'Awf ibn Malik reported that the companions said: 'We used to practise ruqyah in the pre-Islamic days; what is your view on it?' The Prophet ﷺ replied: 'Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk' (Sahih Muslim 2200). This single hadith is the foundation for everything else in this guide: ruqyah itself is permissible; what matters is its content.",
+      "ڕوقیە بریتییە لە خوێندنی قورئان، ناو و سیفەتەکانی خوا، یان دوعا دروستەکانی پێغەمبەر ﷺ بەسەر خۆتدا یان بەسەر کەسێکی تردا — زۆرجار لەگەڵ فووکردنێکی سووک — بە داواکردنی چارەسەر یان پاراستن تەنها لە خوا. پێش ئیسلامیش وەک نەریتێکی گشتی عەرەبی بۆ خوێندنی نوشتە هەبووە، و ڕاستەوخۆ لە پێغەمبەر ﷺ پرسیار کرا کە ئایا ڕێگەپێدراوە.",
+      "عەوفی کوڕی مالیک گێڕاویەتەوە کە هاوەڵان گوتیان: «We used to practise ruqyah in the pre-Islamic days; what is your view on it?» (واتای ئینگلیزی). پێغەمبەر ﷺ وەڵامی دایەوە: «Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk» (واتای ئینگلیزی) (صەحیحی موسلیم 2200). ئەم یەک فەرموودەیە بناغەی هەموو ئەوانی ترە لەم ڕێبەرەدا: خودی ڕوقیە ڕێگەپێدراوە؛ ئەوەی گرنگە ناوەڕۆکەکەیەتی.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "We used to practise ruqyah in the pre-Islamic days, and we said: O Messenger of Allah, what is your view on that? He said: Show me your ruqyah — there is no harm in ruqyah so long as it does not contain shirk.",
-      },
-    ],
+    hadith: [{}],
   },
   {
-    title: "Halal vs. haram ruqyah",
-    summary: "Qur'an, Allah's Names, and clear du'a — never shirk or the unseen.",
+    title: "ڕوقیەی حەڵاڵ و حەرام",
+    summary: "قورئان، ناوەکانی خوا و دوعای ڕوون — هەرگیز شیرک یان غەیب.",
     body: [
-      "Lawful ruqyah rests on the conditions scholars have drawn from the hadith: it uses the Qur'an, Allah's Names and Attributes, or an authentic prophetic supplication; it is in a language whose meaning is understood (not unknown syllables or symbols); and the person reciting and the person being treated both believe the ruqyah itself has no power — healing is from Allah alone, and the words are only a means He has permitted.",
-      "The Prophet ﷺ modelled this personally: Aisha reported that whenever he fell ill, he would recite the Mu'awwidhat (the last two surahs) over himself and blow his breath, and when his final illness worsened, she would do the same for him, wiping his body with his own hand hoping for its blessing (Bukhari 5016). This is ruqyah in its clearest, most authentic form.",
-      "Ruqyah becomes unlawful when it crosses into shirk: calling on anyone besides Allah, seeking help from jinn, using unknown words or symbols whose meaning is unclear, hanging amulets or charms, or claiming the ruqyah practitioner has knowledge of the unseen or a guaranteed cure. It is also never a substitute for the five daily prayers or for seeking appropriate medical treatment — it complements both rather than replacing either.",
+      "ڕوقیەی ڕەوا لەسەر ئەو مەرجانە وەستاوە کە زانایان لە فەرموودەکانەوە دەریانهێناوە: قورئان، ناو و سیفەتەکانی خوا، یان دوعایەکی دروستی پێغەمبەر ﷺ بەکاردەهێنێت؛ بە زمانێکە کە واتاکەی تێدەگەیشترێت (نەک بڕگە یان هێمای نەناسراو)؛ و هەم ئەو کەسەی دەیخوێنێت و هەم ئەو کەسەی چارەسەر دەکرێت باوەڕیان وایە کە خودی ڕوقیە هیچ هێزێکی نییە — چارەسەر تەنها لە خواوەیە، و وشەکان تەنها هۆکارێکن کە ئەو ڕێگەی پێداون.",
+      "پێغەمبەر ﷺ بە خۆی نموونەی ئەمەی پیشان دا: عائیشە گێڕاویەتەوە کە هەر کاتێک نەخۆش دەکەوت، موعەووەزاتی (دوو سوورەتی کۆتایی) بەسەر خۆیدا دەخوێند و فووی دەکرد، و کاتێک نەخۆشیی کۆتایی ژیانی توند بوو، ئەو هەمان کاری بۆ دەکرد و بە دەستی خودی پێغەمبەر ﷺ جەستەی دەسڕی بە هیوای بەرەکەتەکەی (بوخاری 5016). ئەمە ڕوقیەیە بە ڕوونترین و دروستترین شێوەی.",
+      "ڕوقیە کاتێک ناڕەوا دەبێت کە دەچێتە ناو شیرکەوە: پاڕانەوە لە هەر کەسێک جگە لە خوا، داوای یارمەتی لە جنۆکە، بەکارهێنانی وشە یان هێمای نەناسراو کە واتایان ڕوون نییە، هەڵواسینی نوشتە و تەڵەسم، یان بانگەشەی ئەوەی ڕوقیەکار زانیاری غەیبی هەیە یان چارەسەرێکی گەرەنتیکراوی لایە. هەروەها هەرگیز جێگرەوەی پێنج نوێژە ڕۆژانەکە یان وەرگرتنی چارەسەری پزیشکی گونجاو نییە — تەواوکەری هەردووکیانە نەک جێگرەوەیان.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Whenever Allah's Messenger ﷺ became sick, he would recite the Mu'awwidhat and then blow his breath over his body. When he became seriously ill, I used to recite them and wipe his body with his hand, hoping for its blessing.",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
-      "Ruqyah is a spiritual practice, not a medical treatment. It does not replace seeing a qualified doctor for physical or mental illness, nor does it replace the five daily prayers.",
+      "ڕوقیە کردەوەیەکی ڕۆحییە، نەک چارەسەرێکی پزیشکی. جێگەی سەردانی پزیشکێکی شارەزا بۆ نەخۆشی جەستەیی یان دەروونی ناگرێتەوە، و جێگەی پێنج نوێژە ڕۆژانەکەش ناگرێتەوە.",
   },
   {
-    title: "Surat al-Fatiha as ruqyah",
-    summary: "The opening surah — explicitly confirmed as valid ruqyah.",
+    title: "سوورەتی فاتیحە وەک ڕوقیە",
+    summary: "سوورەتی دەستپێک — بە ڕاشکاوی وەک ڕوقیەیەکی دروست پشتڕاست کراوەتەوە.",
     body: [
-      "Abu Sa'id al-Khudri narrated that when a tribal chief was bitten by a snake, one of the Prophet's ﷺ companions recited Surat al-Fatiha over him and he was cured. When the companions later asked the Prophet ﷺ whether this was permissible, he smiled and said: 'How do you know it is a ruqyah?' — confirming that al-Fatiha, recited with sincere belief and understanding, is itself valid ruqyah (Bukhari 5736).",
-      "This app's Qur'an reader carries the full text and translation of al-Fatiha; this guide only points to it as a source of ruqyah rather than reproducing it here.",
+      "ئەبو سەعیدی خودری گێڕاویەتەوە کە کاتێک مار گەورەی هۆزێکی گەزی، یەکێک لە هاوەڵانی پێغەمبەر ﷺ سوورەتی فاتیحەی بەسەردا خوێند و چاک بووەوە. کاتێک هاوەڵان دواتر لە پێغەمبەریان ﷺ پرسی ئایا ئەمە ڕێگەپێدراوە، زەردەخەنەی کرد و فەرمووی: «How do you know it is a ruqyah?» (واتای ئینگلیزی) — کە ئەمە پشتڕاستی دەکاتەوە فاتیحە، کاتێک بە باوەڕی دڵسۆزانە و تێگەیشتنەوە بخوێنرێت، خۆی ڕوقیەیەکی دروستە (بوخاری 5736).",
+      "خوێنەری قورئانی ئەم ئەپە دەقی تەواو و وەرگێڕانی فاتیحەی تێدایە؛ ئەم ڕێبەرە تەنها وەک سەرچاوەیەکی ڕوقیە ئاماژەی پێدەکات نەک لێرەدا دووبارەی بکاتەوە.",
     ],
-    quran: [
-      {
-        excerpt: "In the name of Allah, the Most Gracious, the Most Merciful...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "One of them started reciting Surat al-Fatiha... the patient was cured. When they asked the Prophet ﷺ, he smiled and said: How do you know that al-Fatiha is a ruqyah?",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
+    appLinks: [{ label: "خوێندنەوەی فاتیحە" }],
   },
   {
-    title: "Ayat al-Kursi (2:255)",
-    summary: "The Throne Verse — recited at night for Allah's protection.",
+    title: "ئایەتولکورسی (2:255)",
+    summary: "ئایەتی کورسی — شەوان بۆ پاراستنی خوا دەخوێنرێت.",
     body: [
-      "Ayat al-Kursi (Qur'an 2:255) describes Allah's absolute sovereignty and is widely recited for protection, especially before sleep. Abu Huraira narrated that a nightly visitor stealing from the Zakat he was guarding told him: 'Whenever you go to bed, recite Ayat al-Kursi — a guardian from Allah will stay with you, and no shaytan will approach you until morning.' When the Prophet ﷺ heard this, he confirmed: 'He told you the truth, though he is a liar — that was a shaytan' (Bukhari 5010).",
-      "As with other verses in this guide, only a short excerpt is given here; read the full verse and its translation in the app's Qur'an reader.",
+      "ئایەتولکورسی (قورئان 2:255) دەسەڵاتی ڕەهای خوا وەسف دەکات و بە فراوانی بۆ پاراستن دەخوێنرێت، بەتایبەتی پێش خەوتن. ئەبو هورەیرە گێڕاویەتەوە کە سەردانکەرێکی شەوانە کە لەو زەکاتەی ئەو پاسەوانی دەکرد دزی دەکرد، پێی گوت: «Whenever you go to bed, recite Ayat al-Kursi — a guardian from Allah will stay with you, and no shaytan will approach you until morning» (واتای ئینگلیزی). کاتێک پێغەمبەر ﷺ ئەمەی بیست، پشتڕاستی کردەوە: «He told you the truth, though he is a liar — that was a shaytan» (واتای ئینگلیزی) (بوخاری 5010).",
+      "وەک ئایەتەکانی تری ئەم ڕێبەرە، تەنها کورتەیەک لێرەدا دراوە؛ ئایەتە تەواوەکە و وەرگێڕانەکەی لە خوێنەری قورئانی ئەپەکەدا بخوێنەرەوە.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allah — there is no deity except Him, the Ever-Living, the Sustainer of existence.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whenever you go to your bed, recite Ayat al-Kursi — a guard from Allah will protect you all night, and no shaytan will come near you until morning.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
+    appLinks: [{ label: "خوێندنەوەی ئایەتولکورسی" }],
   },
   {
-    title: "Al-Ikhlas, Al-Falaq & An-Nas (112–114)",
-    summary: "The three closing surahs — the Prophet's ﷺ nightly ruqyah.",
+    title: "ئیخلاس، فەلەق و ناس (112–114)",
+    summary: "سێ سوورەتە کۆتاییەکە — ڕوقیەی شەوانەی پێغەمبەر ﷺ.",
     body: [
-      "Aisha described the Prophet's ﷺ nightly routine: every night before sleeping he would cup his hands together, recite Surat al-Ikhlas, Surat al-Falaq, and Surat an-Nas, blow into his hands, and wipe them over his body — starting with his head and face — repeating this three times (Bukhari 5017). These same three surahs (Al-Ikhlas affirming Allah's oneness, and the two Mu'awwidhat seeking refuge from evil) are also what he recited over himself during illness (Bukhari 5016).",
-      "Together they form one of the simplest and most authentic daily ruqyah routines available — short enough to memorise, and directly attested in the Sunnah.",
+      "عائیشە ڕووتینی شەوانەی پێغەمبەری ﷺ وەسف کرد: هەموو شەوێک پێش خەوتن لەپی دەستەکانی پێکەوە دەنا، سوورەتی ئیخلاس، سوورەتی فەلەق و سوورەتی ناسی دەخوێند، فووی دەکردە ناو دەستەکانی، و بەسەر جەستەیدا دەیهێنان — لە سەر و دەموچاوییەوە دەستی پێدەکرد — و سێ جار ئەمەی دووبارە دەکردەوە (بوخاری 5017). هەمان ئەم سێ سوورەتە (ئیخلاس کە یەکتاپەرستی خوا دەسەلمێنێت، و دوو موعەووەزەکە کە پەنا دەگرن لە خراپە) ئەوانەشن کە لە کاتی نەخۆشیدا بەسەر خۆیدا دەیخوێندن (بوخاری 5016).",
+      "پێکەوە یەکێک لە سادەترین و دروستترین ڕووتینە ڕۆژانەکانی ڕوقیە پێکدەهێنن — ئەوەندە کورتن کە لەبەر بکرێن، و ڕاستەوخۆ لە سوننەتدا سەلمێنراون.",
     ],
-    quran: [
-      {
-        excerpt: "Say: He is Allah, [who is] One.",
-      },
-      {
-        excerpt: "Say: I seek refuge in the Lord of daybreak.",
-      },
-      {
-        excerpt: "Say: I seek refuge in the Lord of mankind.",
-      },
+    quran: [{}, {}, {}],
+    hadith: [{}],
+    actions: [
+      "ئیخلاس، فەلەق و ناس لەبەر بکە.",
+      "هەموو شەوێک پێش خەوتن بیانخوێنە، وەک پێغەمبەر ﷺ دەیکرد.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Whenever the Prophet ﷺ went to bed, he used to cup his hands together and blow over them after reciting Surat al-Ikhlas, al-Falaq and an-Nas, then rub his hands over whatever parts of his body he could, starting with his head and face. He used to do that three times.",
-      },
+    appLinks: [{ label: "خوێندنەوەی سێ سوورەتەکە" }],
+  },
+  {
+    title: "پاراستنی ڕۆژانە: زیکرەکانی بەیانیان و ئێواران",
+    summary: "شێوەی بەردەوام و ڕۆژانەی ڕوقیە بۆ پاراستن.",
+    body: [
+      "جگە لە ڕوقیە بۆ نەخۆشییەکی دیاریکراو، پێغەمبەر ﷺ کۆمەڵێک زیکری بەیانیان و ئێوارانی (ئەزکار) فێر کرد کە وەک پاراستنی ڕۆحی بەردەوام کار دەکەن — زۆربەیان هەمان ئەو ئایەتانەن کە لەم ڕێبەرەدا باس کران (ئایەتولکورسی، سێ سوورەتە کۆتاییەکە) لەگەڵ دوعای دروستی تر. خوێندنیان بە بەردەوامی، نەک تەنها پەنابردن بۆ ڕوقیە کاتێک هەست دەکەیت شتێک هەڵەیە، ڕێگای سوننەتە بۆ داوای پاراستنی خوا لە هەموو ڕۆژێکدا.",
+      "کتێبخانەی زیکرەکانی ئەم ئەپە کۆکراوەی تەواو و سەرچاوەداری زیکرەکانی بەیانیان و ئێواران لە یەک شوێندا لەخۆ دەگرێت، ئامادە بۆ خوێندن یان شوێنپێهەڵگرتنی ڕۆژانە.",
     ],
     actions: [
-      "Memorise Al-Ikhlas, Al-Falaq, and An-Nas.",
-      "Recite them each night before sleeping, as the Prophet ﷺ did.",
+      "زیکرەکانی بەیانیان دوای نوێژی بەیانی (فەجر) بخوێنە.",
+      "زیکرەکانی ئێواران پێش مەغریب / خۆرئاوابوون بخوێنە.",
     ],
+    appLinks: [{ label: "زیکرەکانی بەیانیان و ئێواران" }],
   },
   {
-    title: "Daily protection: morning & evening adhkar",
-    summary: "The sustained, everyday form of ruqyah for protection.",
+    title: "دووربە لە فاڵگرەوە و کاهینان",
+    summary: "داوای زانینی غەیب لە هەر کەسێک جگە لە خوا هۆشدارییەکی جددی لەسەرە.",
     body: [
-      "Beyond ruqyah for a specific ailment, the Prophet ﷺ taught a set of morning and evening remembrances (adhkar) that function as ongoing spiritual protection — many of them the very same verses covered in this guide (Ayat al-Kursi, the three closing surahs) alongside other authentic du'a. Reciting them consistently, rather than only reaching for ruqyah when something feels wrong, is the Sunnah way to seek Allah's protection every single day.",
-      "This app's adhkar library carries the full, sourced collection of morning and evening remembrances in one place, ready to read or track daily.",
+      "ئیسلام هێڵێکی توند دەکێشێت لە نێوان ڕوقیەی دروست و ڕاوێژکردن بە فاڵگرەوە، کاهین، ئەستێرەناس، یان هەر کەسێک بانگەشەی زانینی غەیب (نادیار) بکات یان بانگەشەی لابردنی تووشبوونێکی ڕۆحی بکات بە ڕێگای نائیسلامی. پێغەمبەر ﷺ هۆشداری دا: «Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights» (واتای ئینگلیزی) (صەحیحی موسلیم 2230) — هۆشدارییەکی توند تەنانەت دژی تاقیکردنەوەی ئەو جۆرە بانگەشانە لە کونجکۆڵییەوە.",
+      "ئەگەر کەسێک باوەڕیش بە بانگەشەکانی فاڵگرەوە بکات دەربارەی غەیب، زانایان ئەمە وەک بابەتێکی کوفر سەیر دەکەن، چونکە تەنها خوا زانیاری غەیبی هەیە (قورئان 27:65). هەر سەختییەک کە کەسێک هان بدات بیر لە چوون بۆ لای کەسێکی وا بکاتەوە، وەڵامی دروست بەپێی فێرکاری ئەم ڕێبەرە هەمیشە ئەوەیە پەنا ببرێتە بەر ڕوقیەی دروست، دوعا، و یارمەتی پزیشکی یان زانستی متمانەپێکراو — هەرگیز بۆ لای ئەوانەی بانگەشەی زانیاری شاراوە دەکەن.",
     ],
-    actions: [
-      "Recite the morning adhkar after Fajr.",
-      "Recite the evening adhkar before Maghrib/sunset.",
-    ],
+    hadith: [{}],
+    actions: ["هەرگیز ڕاوێژ بە فاڵگرەوە، ئەستێرەناس، یان ئەوانەی بانگەشەی زانینی غەیب دەکەن مەکە."],
   },
   {
-    title: "Avoid fortune-tellers and soothsayers",
-    summary: "Seeking the unseen from anyone but Allah is a serious warning.",
+    title: "تەوەکول — پشتبەستن تەنها بە خوا",
+    summary: "ڕوقیە هۆکارێکە؛ چارەسەر و ئەنجام هی خوان.",
     body: [
-      "Islam draws a hard line between authentic ruqyah and consulting fortune-tellers, soothsayers, astrologers, or anyone claiming to know the unseen (ghayb) or to lift a spiritual affliction through non-Islamic means. The Prophet ﷺ warned: 'Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights' (Sahih Muslim 2230) — a severe warning against even testing such claims out of curiosity.",
-      "If a person also believes the fortune-teller's claims about the unseen, scholars treat this as a matter of disbelief, since only Allah has knowledge of the unseen (Qur'an 27:65). Whatever difficulty prompts someone to consider such a person, the correct response in this guide's teaching is always to turn to authentic ruqyah, du'a, and trusted medical or scholarly help — never to those who claim hidden knowledge.",
+      "دوایین و گرنگترین بیرخستنەوە لەم ڕێبەرەدا تەوەکولە: پشتبەستنی دڵسۆزانە بە خوا لە کاتی بەکارهێنانی ئەو هۆکارە ڕێگەپێدراوانەی کە پێی داوین. خوێندنی ڕوقیە، وەرگرتنی چارەسەری پزیشکی، و داواکردن لە کەسانی تر کە دوعات بۆ بکەن هەموویان هۆکاری ڕەوان — بەڵام متمانەی دڵ دەبێت تەنها لەسەر خوا بێت، نەک لەسەر وشە خوێندراوەکان یان ئەو کەسەی دەیانخوێنێت. ئەمە ڕێک هاوشێوەی ئەو مەرجەیە کە لە یەکەم فەرموودەی ئەم ڕێبەرەدا هاتووە: «There is no harm in ruqyah so long as it does not contain shirk» (واتای ئینگلیزی) (صەحیحی موسلیم 2200).",
+      "ئەم ڕێبەرە بە ئەنقەست ئەو «پرۆتۆکۆڵ»ە میللییانە و لیستی نیشانەکانی لابردووە کە بە فراوانی لە ئینتەرنێتدا بڵاو دەبنەوە — هیچ کامیان بناغەیەکی بەهێزیان لە قورئان یان سوننەتی دروستدا نییە، و پشتبەستن پێیان دەکرێت بە بێدەنگی متمانەی مرۆڤ لە خواوە بگوازێتەوە بۆ ڕێوڕەسمێک یان لیستێک لە گریمانە. پابەندی ئەوە بە کە بەڵگەی دەقی هەیە، و ئەوانی تر بسپێرە بە قەدەری خوا.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever visits a fortune-teller (arraf) and asks him about anything, his prayer will not be accepted for forty nights.",
-      },
-    ],
-    actions: [
-      "Never consult fortune-tellers, astrologers, or those who claim knowledge of the unseen.",
-    ],
-  },
-  {
-    title: "Tawakkul — reliance on Allah alone",
-    summary: "Ruqyah is a means; the cure and the outcome belong to Allah.",
-    body: [
-      "The final and most important reminder in this guide is tawakkul: sincere reliance on Allah while using the permitted means He has given. Reciting ruqyah, seeking medical care, and asking others to pray for you are all legitimate means — but the heart's trust must rest in Allah alone, not in the words recited or the person reciting them. This mirrors exactly the condition in the very first hadith of this guide: 'There is no harm in ruqyah so long as it does not contain shirk' (Sahih Muslim 2200).",
-      "This guide has deliberately left out the folk 'protocols' and symptom checklists that circulate widely online — none of these have a strong basis in the Qur'an or authentic Sunnah, and relying on them can quietly shift a person's trust away from Allah and toward a ritual or a list of guesses. Keep to what is textually grounded, and leave the rest to Allah's decree.",
-    ],
-    hadith: [
-      {
-        excerpt: "There is no harm in ruqyah so long as it does not contain shirk.",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa, and it is not a medical or psychological treatment. For serious or persistent affliction, consult both a qualified local scholar and an appropriate medical professional.",
+      "ئەمە ناوەڕۆکێکی فێرکاری گشتییە کە فێرکاری سوننی سەرەکی لە قورئان و فەرموودە دروستەکانەوە کورت دەکاتەوە. فەتوا نییە، و چارەسەرێکی پزیشکی یان دەروونیش نییە. بۆ تووشبوونی جددی یان بەردەوام، ڕاوێژ بە هەم زانایەکی شارەزای ناوچەکە و هەم پزیشکێکی گونجاو بکە.",
   },
 ];

@@ -22,26 +22,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Uniknya di antara rukun-rukun tersebut, salat tidak diturunkan melalui malaikat yang turun ke bumi melainkan diperintahkan langsung kepada Nabi ﷺ ketika beliau diangkat melintasi langit dalam Perjalanan Malam (al-Isra' wa al-Mi'raj). Lima puluh salat ditetapkan terlebih dahulu, kemudian — melalui permohonan Nabi ﷺ yang berulang kali untuk meminta keringanan bagi umatnya — dikurangi menjadi lima dalam pelaksanaan sambil tetap mempertahankan pahala lima puluh.",
       "Inilah sebabnya mengapa salat menjadi pusat kehidupan Islam: diulangi lima kali sehari, salat mengganggu pekerjaan, istirahat, dan waktu senggang untuk kembali memusatkan hati kepada Allah, dan merupakan amalan pertama yang dimintai pertanggungjawaban seorang hamba di Hari Kebangkitan. Jika salatnya baik, amal-amal lainnya pun cenderung baik.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Orang-orang yang beriman kepada hal-hal ghaib, mendirikan shalat, dan menafkahkan sebagian rezeki yang Kami berikan kepada mereka.",
-      },
-      {
-        excerpt:
-          "Bacalah apa yang diturunkan kepadamu dari Kitab dan dirikanlah shalat. Sesungguhnya shalat menjauhkan diri dari maksiat dan zalim, dan mengingat Allah lebih utama.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pada Perjalanan Malam Allah memerintahkan lima puluh shalat; Nabi ﷺ terus kembali untuk meminta keringanan sampai tinggal lima — 'Ini lima dan ini lima puluh, karena perkataan di sisi-Ku tidak berubah.' (juga Shahih Muslim 162)",
-      },
-      {
-        excerpt:
-          "Hal pertama yang harus dipertanggungjawabkan seorang hamba pada hari kiamat adalah shalatnya; jika sehat, maka amal-amalnya yang lain pun baik. (juga Abu Dawud 864, an-Nasa'i 3991)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [
       {
         label: "Perjalanan ke Jannah",
@@ -60,30 +42,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Buah kedua adalah kedamaian batin. Al-Qur'an berjanji bahwa hati akan mendapat ketenangan dengan mengingat Allah, dan Nabi ﷺ, di saat-saat khawatir, akan berkata, 'Beri kami kenyamanan dengan itu, wahai Bilal,' menyerukan doa. Dia menggambarkan kenikmatan matanya seperti ditempatkan dalam shalat.",
       "Buah sosial dan kekalnya melengkapi gambarannya: shalat berjamaah tingkatkan kaya dan miskin menjadi satu baris dan menjalin persaudaraan, sedangkan menjaga shalat termasuk jalan yang paling pasti menuju ampunan Allah dan menuju surga. Nabi ﷺ menjanjikan surga bagi siapa pun yang memelihara dua shalat 'dingin' yaitu Fajar dan Ashar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Akulah Allah. Tidak ada Tuhan selain Aku, maka sembahlah Aku dan dirikanlah shalat untuk mengingat-Ku.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya orang-orang yang beriman adalah orang-orang yang khusyuk, yaitu orang-orang yang khusyuk dalam shalatnya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "“Seandainya di depan pintu salah satu kalian ada sungai yang dimandikannya lima kali sehari, apakah masih ada kotoran yang menempel padanya?” Mereka berkata, 'Tidak ada.' Beliau ﷺ berkata, 'Itulah ibarat shalat lima waktu - Allah menghapus dosa dengannya.' (juga Shahih Muslim 667)",
-      },
-      {
-        excerpt:
-          "Barangsiapa yang melaksanakan dua shalat yang sejuk – Subuh dan Ashar – maka ia akan masuk surga.",
-      },
-      {
-        excerpt:
-          "Yang kucintai dari duniamu adalah wanita-wanita dan wewangian, dan kesejukan mataku ditempatkan pada doaku.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Berdoalah hanya satu doa penuh tepat waktu hari ini — konsistensi, bukan kesempurnaan, adalah tujuan pertama.",
       "Bacalah makna Al-Fatihah satu kali sebelum salat berikutnya agar Anda merasa terjawab.",
@@ -107,30 +67,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Mengenai hukum meninggalkan salat, terdapat perbedaan pendapat yang umum dan terhormat di kalangan ulama Sunni. Beberapa orang berpendapat bahwa dengan sengaja meninggalkannya – meskipun menegaskan bahwa hal itu wajib – merupakan kekafiran besar yang mengeluarkan seseorang dari Islam; mayoritas (Hanafi, Maliki, Syafi'i) berpendapat bahwa orang tersebut tetaplah seorang Muslim yang berdosa dan melakukan salah satu dosa besar yang paling berat, asalkan dia tidak mengingkari kewajibannya. Semua sepakat bahwa meninggalkan shalat adalah malapetaka dan siapa pun yang mengingkari kewajibannya, berarti meninggalkan Islam berdasarkan konsensus.",
       "Hikmah praktisnya sama dalam setiap pandangan: menjalankan salat lima waktu bukanlah suatu pilihan atau hal yang dapat dinegosiasikan bagi seorang mukmin. Sholat sunah (sunnah dan nafl) kemudian menjadi jaring pengaman, menutupi kekurangan sholat wajib di hari kiamat.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Peliharalah dengan tekun salat dan salat tengah, serta berdirilah di hadapan Allah dengan penuh ketaatan.",
-      },
-      {
-        excerpt:
-          "Namun setelah mereka muncul penerus-penerus yang mengabaikan shalat dan mengejar hawa nafsu; jadi mereka akan bertemu kejahatan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam dibangun atas lima hal: bersaksi bahwa tidak ada Tuhan selain Allah dan bahwa Muhammad adalah Rasul-Nya, mendirikan shalat, menunaikan zakat, haji, dan puasa Ramadhan. (juga Sahih al-Bukhari 8)",
-      },
-      {
-        excerpt:
-          "Perjanjian antara kita dan mereka adalah doa; barangsiapa meninggalkannya, ia telah kafir. (Buraydah; juga an-Nasa'i, Ibnu Majah 1079)",
-      },
-      {
-        excerpt:
-          "Antara manusia dengan kekafiran dan penyembahan berhala adalah ditinggalkannya shalat. (Jabir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Para ulama berbeda pendapat mengenai hukum orang yang meninggalkan shalat karena kemalasan (dosa besar bagi mayoritas; kekafiran bagi orang lain) dengan orang yang mengingkari kewajibannya (kafir berdasarkan konsensus). Aplikasi ini tidak mengeluarkan putusan terhadap individu mana pun — konsultasikan dengan pakar yang berkualifikasi untuk kasus pribadi.",
   },
@@ -143,17 +81,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Wanita yang sedang haid (hayd) atau nifas (nifas) tidak shalat pada waktu tersebut; salat fardhu yang ditinggalkan tidak diganti sesudahnya, itu rahmat dan hukum yang disepakati para ulama. (Puasa yang ditinggalkan, tidak seperti salat, adalah qadha.) Seorang wanita melanjutkan salat setelah pendarahannya selesai dan dia telah bersuci dengan mandi.",
       "Ketidakmampuan sejati mendatangkan kelonggaran, tidak pernah pembatalan: penyakit yang parah, ketidaksadaran, dan rasa takut yang luar biasa dapat membuat seseorang memaafkan untuk sementara waktu, dan orang yang sakit berdoa sesuai dengan kemampuannya - duduk, berbaring, atau bahkan dengan isyarat. Perjalanan tidak menghilangkan shalat, melainkan memudahkannya melalui pemendekan (qasr) dan penggabungan (jam'), yang tercakup dalam Panduan Perjalanan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Perintahkanlah anak-anakmu untuk shalat pada usia tujuh tahun, dan disiplinkanlah mereka pada waktu sepuluh tahun, dan pisahkan tempat tidurnya. ('Amr ibn Shu'ayb dari bapaknya dari kakeknya)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Dan ajaklah salat atas keluargamu, dan bersabarlah didalamnya.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     appLinks: [
       {
         label: "Panduan haid",
@@ -234,17 +163,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Selain keadaan ritual ini, kotoran yang nyata (najasah) – seperti air seni, kotoran, darah yang mengalir, dan sejenisnya – harus dihilangkan secara fisik dari tubuh, pakaian, dan tempat Anda berdoa. Boleh saja berwudhu sah namun tetap perlu membersihkan noda pada pakaian sebelum shalat.",
       "Air adalah pembersih utama. Ketika air benar-benar tidak tersedia, atau akan membahayakan Anda karena sakit atau pilek yang parah, Islam mengizinkan tayamum – penyucian kering dengan menggunakan tanah bersih – sebagai penggantinya. Pemurnian tidak pernah dimaksudkan sebagai suatu kesulitan; itu adalah sarana untuk mendekat.",
     ],
-    hadith: [
-      {
-        excerpt: "Bersuci adalah separuh dari iman… (Abu Malik al-Ash'ari)",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah menyukai orang-orang yang bertaubat dan menyukai orang-orang yang bersuci.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Pelajari wudhu selangkah demi selangkah sebelum shalat berikutnya agar setiap anggota tubuh terbasuh dengan benar.",
       "Simpanlah pakaian bersih yang dikhususkan untuk sembahyang jika Anda bekerja di lingkungan yang kotor.",
@@ -307,18 +227,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
         body: "Lengkap dengan doa: 'Asyhadu an la ilaha illallah…' — delapan pintu surga terbuka bagi siapa pun yang mengucapkannya setelah wudhu.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ketika seorang hamba membasuh mukanya saat berwudhu, segala dosa yang dilihatnya dengan matanya akan hilang bersama air… hingga ia bersih dari dosa.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, ketika bangun salat, basuhlah mukamu dan lenganmu sampai siku, usap kepalamu, dan basuhlah kakimu sampai mata kaki.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Lakukan wudhu secara perlahan sebanyak satu kali sambil membaca setiap langkah dengan suara keras, memeriksa siku dan tumit.",
       "Hafalkan doa singkat setelah wudhu — lihat Kata-kata Shalat.",
@@ -364,18 +274,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
         body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
       },
     ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
       "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
@@ -392,11 +292,7 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Bagi wanita, seluruh tubuh adalah aurat dalam shalat kecuali wajah dan tangan, menurut mayoritas ulama; seorang wanita menutupi rambut, leher, dan kakinya, biasanya dengan pakaian longgar dan jilbab. Para ulama berbeda pendapat mengenai kaki, beberapa menganggap kaki termasuk dalam apa yang diperlihatkan — shalat dengan kaki tertutup adalah amalan yang paling aman dan mayoritas.",
       "Dua aturan berpakaian juga berlaku di luar salat: sutra dan emas dilarang dipakai oleh laki-laki (dibolehkan bagi wanita), dan pakaian tidak boleh terlalu ketat, tipis, atau menarik perhatian sehingga mengalahkan kesopanan dalam salat. Sebagai aturan praktisnya, berdoalah dengan mengenakan apa yang akan Anda kenakan untuk bertemu seseorang yang Anda hormati – bukan pakaian tidur atau pakaian pantai.",
     ],
-    quran: [
-      {
-        excerpt: "Wahai anak Adam, bawalah perhiasanmu di setiap tempat shalat.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Sisihkan satu pakaian yang bersih dan sederhana atau pakaian salat khusus agar Anda selalu siap.",
       "Jika tidak yakin apakah sesuatu cukup menutupi, tutupi lebih banyak, bukan lebih sedikit.",
@@ -435,22 +331,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
         body: "Dari memudarnya senja hingga fajar; sebaiknya sebelum tengah malam. Dilanjutkan oleh Witr.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ada tiga waktu yang Nabi ﷺ larang kita salat: ketika matahari terbit hingga terbit, ketika matahari berdiri di tengah hari, dan ketika matahari terbenam hingga terbenam. (Uqbah bin 'Amir)",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya shalat telah diwajibkan atas orang-orang mukmin dengan ketetapan waktu-waktu tertentu.",
-      },
-      {
-        excerpt:
-          "Dan dirikanlah shalat pada kedua ujung siang dan menjelang malam. Sesungguhnya amal shaleh akan mengusir perbuatan keburukan.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     disclaimer:
       "Awal Asar ada dua pendapat yang dilaporkan (bayangan sama dengan, atau dua kali, panjang suatu benda). Keduanya sah; ikuti perhitungan lokal dan komunitas Anda.",
     appLinks: [
@@ -470,18 +352,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Anda diharuskan menghadap kiblat seakurat mungkin — dengan kompas, mihrab masjid, aplikasi yang dapat diandalkan, atau matahari dan bintang saat bepergian. Penyimpangan kecil yang tidak dapat dihindari dimaafkan; yang penting adalah upaya tulus menuju arah yang benar.",
       "Jika Anda benar-benar tidak dapat menentukan arah — tersesat di laut, di awan, di daratan asing pada malam hari — Anda berusaha untuk menentukan arah dan kemudian berdoa untuk mendapatkan penilaian terbaik Anda; shalatnya sah meskipun kemudian terbukti sedikit melenceng. Dalam kendaraan atau pesawat terbang yang tidak memungkinkan menghadap kiblat untuk salat fardhu, maka hadapilah semampumu, karena Allah tidak akan membebani jiwa melebihi kesanggupannya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Jadi arahkan wajahmu ke arah Masjidil Haram. Dan dimanapun kamu berada, arahkanlah wajahmu ke arahnya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ketika bangun salat, berwudhu dengan baik, lalu menghadap kiblat dan mengucapkan takbir. (dari hadits orang yang shalatnya jelek)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [
       {
         label: "Kompas kiblat",
@@ -526,12 +398,7 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
         body: "Tidak ada Tuhan selain Allah – seruan itu ditutup dengan kata yang sama yang ditujunya.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa yang mendengar seruan, 'Ya Allah, Tuhan atas seruan yang sempurna dan shalat yang rukun, berilah Muhammad wasilah dan keutamaan...', maka syafaatku akan menjadi miliknya pada Hari Kebangkitan. (Jabir)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [
       {
         label: "Dengarkan adzan",
@@ -562,29 +429,22 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "2. Pembukaan takbir (Takbirat al-Ihram)",
         body: "Angkat tangan hingga ke bahu atau daun telinga dan ucapkan takbir, lalu letakkan tangan kanan di atas tangan kiri di dada. Dengan ini shalat dimulai, dan ucapan serta gerakan biasa sekarang dilarang sampai salam.",
-        translation: "Allah Maha Besar.",
         ruling: "fard",
         tip: "Mengangkat tangan (raf’ al-yadayn) dengan takbir adalah sunnah yang sah, bukan rukun.",
       },
       {
         title: "3. Doa pembuka (Doa al-Istiftah)",
         body: "Ucapkan dengan tenang doa pembuka singkat untuk menenangkan hati sebelum firman Allah. Beberapa kata-kata otentik dilaporkan; ini adalah salah satu yang paling umum.",
-        translation:
-          "Maha Suci Engkau ya Allah dan puji syukur. Terberkatilah nama-Mu dan maha agung Yang Mulia. Tidak ada Tuhan selain Engkau.",
         ruling: "sunnah",
       },
       {
         title: "4. Ta'awwudh & Basmalah",
         body: "Berlindung kepada Allah dari setan, kemudian diawali dengan Basmalah, sebelum Al-Fatihah. Keduanya diucapkan dengan pelan, bahkan dalam doa yang bersuara.",
-        translation:
-          "Aku berlindung kepada Allah dari setan yang terkutuk. Dengan menyebut nama Allah Yang Maha Penyayang lagi Maha Penyayang.",
         ruling: "sunnah",
       },
       {
         title: "5. Membaca Al-Fatihah",
         body: "Bacalah Pembukaan Kitab di setiap rakaat — 'Tidak ada doa bagi orang yang tidak membaca Pembukaan Kitab.' Imam dan jamaah yang sendirian melafalkannya dengan lantang dalam doa yang nyaring; jika tidak, itu dibacakan dengan tenang.",
-        translation:
-          "Dengan menyebut nama Allah Yang Maha Penyayang lagi Maha Penyayang. Segala puji bagi Allah, Tuhan semesta alam, Yang Maha Penyayang, Yang Maha Penyayang, Yang Berdaulat pada Hari Pembalasan. Engkaulah yang kami sembah dan Engkaulah yang kami mohon pertolongan. Bimbinglah kami ke jalan yang lurus, yaitu jalan orang-orang yang Engkau beri nikmat, bukan jalan orang-orang yang mudah marah atau orang-orang yang sesat.",
         ruling: "fard",
         tip: "Ucapkan 'Ameen' setelahnya (dengan lantang dalam doa yang bersuara). Golongan Hanafi membacakan sebagian Al-Qur'an sebagai rukun dan Al-Fatihah khusus sebagai wajib; mayoritas berpendapat Al-Fatihah sendiri merupakan rukun dalam setiap rakaat.",
       },
@@ -597,36 +457,30 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "7. Membungkuk (ruku)",
         body: "Ucapkan 'Allahu Akbar' dan rukuk dengan punggung rata, tangan mencengkeram lutut, dan mengagungkan Tuhanmu tiga kali atau lebih, tanpa tergesa-gesa.",
-        translation: "Maha Suci Tuhanku Yang Maha Agung.",
         ruling: "fard",
         tip: "Busur itu sendiri, yang dipegang dengan tenang, adalah pilarnya; tasbih yang dibacakan di dalamnya adalah sunnah (wajib di beberapa sekolah).",
       },
       {
         title: "8. Bangkit dari ruku (i'tidal)",
         body: "Bangkitlah dengan tegak – imam dan jamaah yang sendirian mengucapkan tasmi', dan semua orang mengucapkan tahmid – dan berdiri diam sebelum turun.",
-        translation:
-          "Allah mendengar siapa pun yang memuji-Nya. Ya Tuhan kami, hanya milikMu segala puji.",
         ruling: "fard",
         tip: "Berdiri kembali tegak dan tenang adalah sebuah pilar – jangan tenggelam dalam sujud sampai Anda menetap di sini.",
       },
       {
         title: "9. Sujud (sujud)",
         body: "Ucapkan 'Allahu Akbar' dan sujud dengan tujuh tulang - dahi dan hidung, kedua telapak tangan, kedua lutut, dan kedua jari kaki - mengagungkan Yang Maha Tinggi sebanyak tiga kali atau lebih. Ini adalah sikap yang paling dekat dengan Allah, maka panjatkanlah doa setelah tasbih.",
-        translation: "Maha Suci Tuhanku Yang Maha Tinggi.",
         ruling: "fard",
         tip: "Jaga agar lengan bawah terangkat dari lantai dan menjauhi samping, dan perut dari paha.",
       },
       {
         title: "10. Duduk di antara dua sujud (jalsah)",
         body: "Bangkitlah dari sujud pertama sambil mengucapkan 'Allahu Akbar', duduklah dengan tenang dan tegak, dan mohon ampun kepada Tuhanmu sebelum sujud kembali.",
-        translation: "Tuhanku, maafkan aku.",
         ruling: "fard",
         tip: "Duduklah sampai Anda merasa nyaman - duduk singkat ini, dengan keheningan, merupakan pilar tersendiri.",
       },
       {
         title: "11. Sujud kedua",
         body: "Ucapkan 'Allahu Akbar' dan sujud untuk kedua kalinya persis seperti yang pertama, dengan tasbih yang sama dan keheningan yang sama. Ini menyelesaikan satu rakaat penuh.",
-        translation: "Maha Suci Tuhanku Yang Maha Tinggi.",
         ruling: "fard",
       },
       {
@@ -638,8 +492,6 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "13. Tashahhud pertama (dalam shalat 3 dan 4 rakaat)",
         body: "Setelah rakaat kedua Maghrib, Dhuhur, Ashar, atau Isya, duduk dan membaca At-Tahiyyat, lalu berdiri untuk rakaat yang tersisa. Sholat dua rakaat tidak ada tashahhud pertamanya.",
-        translation:
-          "Segala salam, doa, dan kata-kata yang murni hanya untuk Allah. Salam sejahtera bagimu wahai Nabi, dan rahmat Allah dan berkah-Nya. Salam sejahtera bagi kami dan hamba-hamba Allah yang shaleh. Aku bersaksi bahwa tidak ada Tuhan selain Allah, dan aku bersaksi bahwa Muhammad adalah hamba dan utusan-Nya.",
         ruling: "wajib",
         tip: "Angkat jari telunjuk kanan sambil duduk. Jika Anda lupa tashahhud pertama dan sudah mulai berdiri, lanjutkan dan lakukan sujud as-sahw sebelum salam — jangan duduk kembali.",
       },
@@ -651,39 +503,22 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "15. Sampaikan shalawat kepada Nabi ﷺ (Salawat)",
         body: "Setelah At-Tahiyyat terakhir, kirimkan shalawat kepada Nabi ﷺ dengan kata-kata yang dia sendiri ajarkan kepada para Sahabatnya.",
-        translation:
-          "Ya Allah, kirimkan shalawat kepada Muhammad dan keluarga Muhammad, sebagaimana Engkau memberkati Ibrahim dan keluarga Ibrahim; sesungguhnya Engkau Maha Terpuji lagi Maha Mulia. Ya Allah, limpahkan nikmat kepada Muhammad dan keluarga Muhammad, sebagaimana Engkau menyayangi Ibrahim dan keluarga Ibrahim; sesungguhnya Engkau Maha Terpuji lagi Maha Mulia.",
         ruling: "sunnah",
         tip: "Mazhab Syafi'i dan Hanbali menganggap shalawat pada duduk terakhir itu wajib.",
       },
       {
         title: "16. Berdoa sebelum salam",
         body: "Sebelum mengakhiri, mohon perlindungan kepada Allah dari empat cobaan — lalu doakan apa pun yang Anda inginkan, untuk kehidupan ini dan akhirat, dalam bahasa Arab atau bahasa Anda sendiri.",
-        translation:
-          "Ya Allah, aku berlindung kepada-Mu dari siksa kubur, dari siksa Neraka, dari cobaan hidup dan mati, dan dari keburukan cobaan al-Masih Palsu (Dajjal).",
         ruling: "sunnah",
       },
       {
         title: "17. Salam Penutup (Taslim)",
         body: "Akhiri shalat dengan menghadapkan wajah ke kanan, lalu ke kiri, sambil mengucap salam damai. Dengan salam maka selesailah shalat.",
-        translation: "Damai dan rahmat Allah besertamu.",
         ruling: "fard",
         tip: "Taslim pertama (di sebelah kanan) adalah tiang; yang kedua (ke kiri) adalah sunnah di beberapa sekolah.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "Berdoalah sebagaimana Anda melihat saya berdoa. (Malik bin al-Huwayrits)",
-      },
-      {
-        excerpt:
-          "'Kembalilah dan salatlah, karena kamu belum salat'—diulang tiga kali—lalu beliau ﷺ mengajarkan: ucapkan takbir, bacalah Al-Qur'an semampumu, kemudian ruku’ hingga engkau merasa tenteram, bangkit hingga engkau berdiri tegak, sujud hingga engkau merasa tenteram… ​​(orang yang shalatnya buruk; juga Sahih Muslim 397)",
-      },
-      {
-        excerpt:
-          "Tidak ada doa bagi orang yang tidak membaca Pembukaan Kitab. (Ubadah bin as-Samit; juga Sahih Muslim 394)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       {
         label: "Kata & makna",
@@ -766,28 +601,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
         ruling: "fard",
       },
     ],
-    quran: [
-      {
-        excerpt: "Sungguh, pada Rasulullah ada teladan yang baik bagimu.",
-      },
-      {
-        excerpt: "Apabila Al-Qur'an dibacakan, dengarkanlah dan diamlah agar kamu dirahmati.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ biasanya membaca Al-Fatihah dan surah lain pada dua rakaat pertama Dhuhur dan Ashar, dan pada dua terakhir hanya Al-Fatihah. (Abu Qatadah; juga Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Tidak ada salat bagi orang yang tidak membaca Pembukaan Kitab. (Ubadah bin as-Samit; juga Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "Beliau membaca pada dua rakaat pertama Dhuhur dan Ashar sehingga Anda mengira beliau membaca surah-surah panjang, dan pada dua terakhir sehingga Anda mengira beliau membaca yang pendek. (Abu Qatadah)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Pada salat berjamaah berikutnya, perhatikan rakaat mana imam membaca dengan keras.",
       "Tanyakan kepada guru dari mazhab Anda apakah Anda membaca Al-Fatihah di belakang imam pada salat keras.",
@@ -844,12 +659,7 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
         body: "Putar wajah sepenuhnya ke kanan, lalu ke kiri, dengan kata-kata damai — akhiri doa sambil menyapa malaikat di setiap bahu.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Yang paling dekat seorang hamba datang kepada Tuhannya adalah ketika ia sedang sujud, maka perbanyaklah berdoa. (Abu Hurairah)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Perbedaan kecil dalam penempatan tangan, cara duduk, dan mengangkat tangan semuanya berakar pada laporan otentik; masing-masing sekolah mengikuti narasi yang valid. Tidak ada yang membatalkan shalat orang lain.",
   },
@@ -916,20 +726,7 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Masuk masjid dengan kaki kanan dan keluar dengan kaki kiri, masing-masing dengan doanya.",
       "Ucapkan adhkar yang telah ditetapkan setelah setiap shalat — lihat Setelah Sholat.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Seandainya aku tidak memberatkan umatku, niscaya aku perintahkan mereka menggunakan siwak sebelum shalat. (Abu Hurairah; juga Sahih Muslim 252)",
-      },
-      {
-        excerpt:
-          "Nabi ﷺ tidak pernah meninggalkan dua rakaat sebelum Subuh. (Aisyah; juga Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Barang siapa yang rutin shalat dua belas rakaat pada siang dan malam, Allah akan membangunkan baginya sebuah rumah di Surga — dua sebelum Subuh, empat sebelum Zuhur, dua setelah Zuhur, dua setelah Maghrib, dan dua setelah Isya. (Umm Habibah)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       {
         label: "Jenis-jenis Salah — panduan rawatib",
@@ -951,22 +748,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Khushu dibangun, bukan diharapkan. Pelajari arti dari apa yang Anda ucapkan sehingga kata-katanya menggerakkan Anda. Hilangkan gangguan sebelum takbir. Perlambat dan berikan ketenangan pada setiap postur. Renungkan keagungan Dia yang Anda tujukan dan kenyataan bahwa doa ini bisa menjadi doa terakhir Anda. Sholatlah setiap salat sebagai salat perpisahan, sebagaimana anjuran Nabi ﷺ.",
       "Jangan berkecil hati dengan pikiran yang mengembara – bahkan para Sahabat pun bergumul dengannya. Perjuangan untuk mengembalikan fokus, lagi dan lagi, itu sendiri adalah bagian dari ibadah. Khushu tumbuh sepanjang hidup; konsistensilah yang memupuknya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya orang-orang yang beriman adalah orang-orang yang khusyuk, yaitu orang-orang yang khusyuk dalam shalatnya.",
-      },
-      {
-        excerpt:
-          "Maka celakalah orang-orang yang salat, yaitu orang-orang yang lalai dari salatnya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ihsan adalah beribadah kepada Allah seolah-olah kamu melihat-Nya, meskipun kamu tidak melihat-Nya, Dia pasti melihatmu. (Hadits Jibril, 'Umar)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Bacalah arti satu kalimat dari Kata Kata Sholat sebelum setiap sholat minggu ini.",
       "Berhentilah selama tiga detik santai di setiap postur sebelum melanjutkan.",
@@ -1024,16 +807,7 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Ketika Anda benar-benar ragu, prinsip panduannya adalah: buang keraguan itu, kembangkan apa yang Anda yakini (jumlah yang lebih kecil), selesaikan shalat, dan kemudian lakukan dua sujud. Hal ini mengubah kebingungan menjadi doa yang mantap dan sahih, bukan sekadar dugaan yang cemas.",
       "Praktisnya: lakukan dua sujud persis seperti sujud biasa, dengan takbir sebelum dan sesudahnya, lalu salam. Para ulama berbeda pendapat mengenai apakah mereka datang sebelum atau sesudah salam, tergantung pada jenis kesalahannya. Kedua-duanya dilaporkan secara shahih, sehingga keduanya diterima dan tidak ada yang membatalkan shalat.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jika salah seorang di antara kalian ragu-ragu dalam shalatnya dan tidak mengetahui berapa kali ia shalat, tiga atau empat kali, hendaklah ia membuang keraguannya, bertumbuhlah pada apa yang ia yakini, lalu sujud dua kali sebelum salam. (Abu Sa'id al-Khudri)",
-      },
-      {
-        excerpt:
-          "Apabila salah seorang di antara kalian ragu-ragu dalam shalatnya, hendaklah ia mencari yang benar dan sempurna, lalu mengucapkan salam dan sujud sebanyak dua kali. (Ibnu Mas'ud; juga Sahih Muslim 572)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Hafalkan aturan keraguan: bangunlah angka yang lebih kecil, selesaikan, lalu sujud dua kali.",
       "Jika ditengah shalat Anda menyadari Anda meninggalkan tashahhud pertama, lanjutkan dan sujud al-sahw di akhir.",
@@ -1118,42 +892,7 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
         body: "Sholat jenazah merupakan kewajiban berjamaah (fardhu kifayah) yang dilakukan sambil berdiri, tanpa ruku atau sujud.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ tidak pernah meninggalkan dua rakaat sebelum Subuh. (Aisyah; juga Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Barang siapa yang rutin shalat dua belas rakaat pada siang dan malam, Allah akan membangunkan baginya sebuah rumah di Surga — dua sebelum Subuh, empat sebelum Zuhur, dua setelah Zuhur, dua setelah Maghrib, dan dua setelah Isya. (Umm Habibah)",
-      },
-      {
-        excerpt:
-          "Barang siapa shalat empat rakaat sebelum Zuhur dan empat setelahnya, Allah mengharamkannya dari Neraka. (Umm Habibah; dinilai sahih oleh banyak ulama)",
-      },
-      {
-        excerpt: "Semoga Allah merahmati orang yang shalat empat rakaat sebelum Asar.",
-      },
-      {
-        excerpt:
-          "Shalatlah sebelum Maghrib, shalatlah sebelum Maghrib — kemudian beliau bersabda: bagi yang menghendaki. (Ibnu 'Umar)",
-      },
-      {
-        excerpt:
-          "Di antara setiap dua panggilan (adzan dan iqamah) terdapat shalat. (Anas bin Malik; juga Sahih Muslim 838)",
-      },
-      {
-        excerpt:
-          "Witir adalah hak, maka siapa yang mau hendaklah shalat lima, siapa yang mau tiga, dan siapa yang mau satu. (Ibnu 'Umar)",
-      },
-      {
-        excerpt: "Shalat terbaik setelah shalat wajib adalah shalat malam. (Abu Hurairah)",
-      },
-      {
-        excerpt:
-          "Hamba-Ku terus mendekat kepada-Ku dengan amalan-amalan nafl hingga Aku mencintainya. (Hadits Qudsi)",
-      },
-    ],
+    hadith: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     actions: [
       "Mulailah dengan dua belas rawatib — bangun kebiasaannya sebelum menambah nafl pilihan.",
       "Gunakan tabel rakaat pada halaman ini untuk melacak sunnah yang ditekankan di sekitar setiap fardhu.",
@@ -1183,26 +922,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Kelalaiannya adalah bahaya besar: Nabi ﷺ memperingatkan bahwa siapa pun yang meninggalkan tiga Jum'at karena lalai, maka Allah akan menutup hatinya. Namun pahalanya juga sama besarnya – Jumat adalah hari terbaik saat matahari terbit, dan merupakan waktu di mana doa terkabul.",
       "Persiapkanlah seperti yang dilakukan Nabi ﷺ: mandi, kenakan pakaian bersih terbaik, gunakan wewangian, berangkat pagi, dan dengarkan khutbah dengan penuh perhatian dalam diam (berbicara sia-sia akan menyia-nyiakan pahala). Membaca Surat Al-Kahfi pada hari Jumat membawa cahaya di antara dua hari Jumat.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hai orang-orang yang beriman, jika ada adzan pada hari Jumat, segeralah mengingat Allah dan tinggalkan perdagangan. Itu lebih baik bagimu, jika kamu mengetahui.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sholat Jumat berjamaah merupakan kewajiban wajib bagi setiap muslim, kecuali empat orang, yaitu: seorang budak, seorang wanita, seorang anak kecil, atau seorang yang sedang sakit. (Tariq bin Shihab)",
-      },
-      {
-        excerpt:
-          "Barangsiapa meninggalkan shalat Jum'at tiga kali karena lalai, maka Allah akan menutup hatinya. (Abu al-Ja'd; juga Abu Dawud 1052, at-Tirmidzi 500)",
-      },
-      {
-        excerpt:
-          "Mandi pada hari Jum'at wajib hukumnya bagi setiap orang yang telah baligh. (Abu Sa'id al-Khudri)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}],
     actions: [
       "Mandi, memakai pakaian bersih dan wangi, dan datang lebih awal – orang yang datang paling awal akan mendapat pahala terbesar.",
       "Bacalah Surat Al-Kahfi pada suatu waktu di hari Jum'at untuk mendapatkan pencerahan di antara dua hari Jum'at.",
@@ -1225,18 +946,8 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Jika Anda datang setelah imam mulai (orang yang terlambat disebut masbuq), segeralah bergabung dalam posisi apa pun yang Anda temukan – porsi itu tetap dihitung sebagai shalat bersamanya. Saat dia memberikan salam terakhir, berdirilah dan selesaikan rakaat yang Anda lewatkan sendiri, lalu selesaikan.",
       "Jamaahnya tidak hanya di masjid saja, dua orang yang shalat berjamaah membentuk satu jama'ah, sehingga seorang ayah yang membawa anaknya, atau dua orang temannya yang sedang bepergian, dapat memperoleh pahalanya. Perempuan boleh salat berjamaah dan beribadah di masjid jika tersedia fasilitas yang memadai, namun salat di rumah juga mendapat pahala yang besar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Sholat berjamaah dua puluh tujuh derajat lebih mulia dari pada sholat sendirian. (Ibnu 'Umar; juga Sahih Muslim 650)",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan dirikanlah shalat, keluarkan zakat, dan ruku’ bersama orang-orang yang ruku’.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Berdoalah setidaknya satu kali di masjid hari ini, atau kumpulkan anggota rumah tangga Anda dalam satu barisan di rumah.",
       "Pelajari apa yang harus dilakukan sebagai orang yang terlambat: segera bergabung, lalu selesaikan rakaat yang terlewat setelah salam imam.",
@@ -1250,12 +961,7 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Sholat qadha yang dilakukan sama dengan shalatnya yang asli, yakni empat rakaat Dhuhur yang terlewat, maka shalatnya sama dengan empat rakaat, meskipun ia mengqadha pada malam hari atau saat bepergian. Barangsiapa yang meninggalkan salat karena alasan yang sah (seperti tidur nyenyak) tidak berdosa jika menunda salat; orang yang meninggalkannya dengan sengaja harus menebusnya dengan pertobatan yang tulus dan mendesak.",
       "Para ulama menganjurkan untuk segera mengqadha salat yang terlewat dan sedapat mungkin dilakukan secara berurutan, tanpa membiarkannya menumpuk karena bebannya akan bertambah berat seiring berjalannya waktu dan penundaan. Jika banyak hal yang terlewat selama bertahun-tahun, lakukan pendekatan dengan rencana harian yang realistis daripada putus asa; Pintu kembali Allah selalu terbuka.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa yang lupa salat atau tertidur, maka kafirnya adalah dengan salat ketika ia mengingatnya. (Anas; juga Sahih Muslim 684)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Perkirakan dengan jujur ​​berapa banyak doa yang harus Anda panjatkan dan tetapkan target riasan harian yang realistis.",
       "Gabungkan setiap salat wajib dengan satu salat qadha hingga terhapuskan simpanannya.",
@@ -1278,16 +984,7 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Rutinitas pasca salat yang ditetapkan sederhana dan berbobot: ucapkan 'Astaghfirullah' tiga kali; lalu kata-kata tauhid dan pujian; kemudian 'SubhanAllah', 'Alhamdulillah', dan 'Allahu Akbar' masing-masing tiga puluh tiga kali, dan menutup seperseratusnya dengan 'La ilaha illallah…' - siapa pun yang melakukannya akan diampuni dosanya meskipun seperti buih di lautan.",
       "Membaca Ayat al-Kursi setelah setiap shalat wajib hanya menghilangkan kematian antara seseorang dan surga, seperti yang dijanjikan Nabi ﷺ. Dilanjutkan dengan tiga Quls (Al-Ikhlas, Al-Falaq, An-Nas), dan ditambah dengan adzkar pagi setelah Subuh dan adzkar sore setelah Ashar atau Maghrib dimana mereka berlaku.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Barangsiapa mengagungkan, memuji dan mengagungkan Allah sebanyak tiga puluh tiga kali setiap selesai shalat… dan menyempurnakan seratus kali dengan kalimat tauhid, maka dosanya diampuni meskipun seperti buih di lautan. (Abu Hurairah)",
-      },
-      {
-        excerpt:
-          "Barangsiapa membaca Ayat al-Kursi setelah setiap shalat yang diwajibkan, tidak ada yang menghalangi dia untuk masuk surga kecuali kematian. (Abu Umamah; dinilai sahih oleh al-Albani)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Hafalkanlah pasca-shalat tasbih (33/33/33+tahlil) minggu ini.",
       "Bacalah Ayat al-Kursi dan tiga Qul sebelum Anda berdiri.",
@@ -1308,91 +1005,72 @@ export const SALAH_GUIDE_PHRASES_ID: DeepPartial<SalahGuidePhrase>[] = [
   {
     title: "Setelah selesai wudhu",
     when: "Segera setelah selesai wudhu, sebelum shalat.",
-    translation:
-      "Aku bersaksi bahwa tidak ada Tuhan selain Allah saja, tanpa sekutu, dan aku bersaksi bahwa Muhammad adalah hamba dan utusan-Nya.",
     meaning:
       "Memperbarui kesaksian iman sementara tubuh Anda baru disucikan. Nabi ﷺ berjanji bahwa siapa pun yang mengucapkan hal ini setelah wudhu, maka delapan pintu surga akan dibukakan baginya untuk dimasuki oleh siapa saja yang ia kehendaki.",
   },
   {
     title: "Takbirat al-Ihram",
     when: "Di awal salat, dan saat berpindah antar posisi.",
-    translation: "Allah Maha Besar.",
     meaning:
       "Doa dimulai di sini — 'al-ihram' berarti melarangmu melakukan hal-hal duniawi (berbicara, makan, berpaling). Anda menyatakan Allah lebih besar dari apa pun yang dapat mengalihkan perhatian Anda, dan melangkahlah sepenuhnya ke hadirat-Nya. Setiap takbir berikutnya memperbaharui penyerahan diri itu.",
   },
   {
     title: "Doa al-Istiftah (doa pembuka)",
     when: "Diam-diam setelah takbir pembukaan, sebelum Al-Fatihah.",
-    translation:
-      "Maha Suci Engkau ya Allah dan puji syukur. Terberkatilah nama-Mu dan maha agung Yang Mulia. Tidak ada Tuhan selain Engkau.",
     meaning:
       "Anda membuka percakapan dengan mengagungkan dan memuji Allah serta meneguhkan keesaan-Nya, menenangkan hati sebelum Anda mengucapkan firman-Nya. Ada beberapa doa pembuka yang otentik — ini adalah salah satu yang paling banyak digunakan.",
   },
   {
     title: "Surat Al-Fatihah",
     when: "Berdiri di setiap rakaat — tiang yang tanpanya rakaatnya tidak sah.",
-    translation:
-      "Dengan menyebut nama Allah Yang Maha Penyayang lagi Maha Penyayang. Segala puji bagi Allah, Tuhan semesta alam, Yang Maha Penyayang, Yang Maha Penyayang, Yang Berdaulat pada Hari Pembalasan. Engkaulah yang kami sembah dan Engkaulah yang kami mohon pertolongan. Bimbinglah kami ke jalan yang lurus, yaitu jalan orang-orang yang Engkau beri nikmat, bukan jalan orang-orang yang mudah marah atau orang-orang yang sesat.",
     meaning:
       "'Bunda Kitab': separuh puji bagi Allah dan separuh permohonan petunjuk, dengan 'Engkaulah kami sembah' sebagai penghubung di antara keduanya. Allah berkata bahwa Dia membagi surah ini antara diri-Nya dan hamba-Nya — saat Anda membaca setiap barisnya, Dia merespons. Nabi ﷺ bersabda, tidak ada doa bagi orang yang tidak membacanya.",
   },
   {
     title: "Dzikir dalam ruku",
     when: "Sambil rukuk, dengan posisi datar, duduk kembali.",
-    translation: "Maha Suci Tuhanku Yang Maha Agung.",
     meaning:
       "Membungkuk adalah sikap hormat, sehingga mengagungkan keagungan Allah - diucapkan tiga kali atau lebih, tanpa tergesa-gesa. Nabi ﷺ mengajarkan bahwa dalam ruku kita mengagungkan Tuhan, maka semoga doaku terkabul.",
   },
   {
     title: "Bangkit dari ruku",
     when: "Berdiri tegak sepenuhnya setelah rukuk.",
-    translation:
-      "Allah mendengar siapa pun yang memuji-Nya. Ya Tuhan kami, hanya milikMu segala puji.",
     meaning:
       "Anda menegaskan bahwa Allah benar-benar mendengar orang yang memuji-Nya, lalu mengembalikan segala pujian kepada-Nya. Nabi ﷺ bersabda, ketika imam mengatakan hal ini dan orang-orang menjawab, siapa pun yang perkataannya bertepatan dengan perkataan para malaikat, maka dosa masa lalunya akan diampuni.",
   },
   {
     title: "Dzikir dalam sujud",
     when: "Dalam sujud — posisi yang paling dekat dengan Allah.",
-    translation: "Maha Suci Tuhanku Yang Maha Tinggi.",
     meaning:
       "Pada titik terendah secara fisik, Anda memuliakan Yang Maha Tinggi - sebuah paradoks yang menjadi inti ibadah. Nabi ﷺ bersabda seorang hamba paling dekat dengan Tuhannya ketika sujud, maka curahkan doa di sini setelah dzikir.",
   },
   {
     title: "Di antara dua sujud",
     when: "Duduk dengan tenang di antara sujud pertama dan kedua setiap rakaat.",
-    translation: "Tuhanku, maafkan aku. Tuhanku, maafkan aku.",
     meaning:
       "Permohonan ampun yang singkat namun langsung di setiap rakaat — sebuah pengingat bahwa bahkan di tengah shalat kita masih membutuhkan ampunan Allah. Duduklah sampai Anda merasa nyaman sebelum sujud kedua.",
   },
   {
     title: "At-Tahiyyat (Tashahhud)",
     when: "Di tengah duduk dan duduk terakhir shalat.",
-    translation:
-      "Segala salam, doa, dan kata-kata yang murni hanya untuk Allah. Salam sejahtera bagimu wahai Nabi, dan rahmat Allah dan berkah-Nya. Salam sejahtera bagi kami dan hamba-hamba Allah yang shaleh. Aku bersaksi bahwa tidak ada Tuhan selain Allah, dan aku bersaksi bahwa Muhammad adalah hamba dan utusan-Nya.",
     meaning:
       "Intisari salat: kamu mempersembahkan segala ibadah hanya kepada Allah, shalawat kepada Nabi ﷺ dan orang-orang shaleh, dan ucapkan kembali kedua kesaksian tersebut. Ibnu Mas'ud mempelajarinya dari Nabi ﷺ kata demi kata, seperti seseorang mempelajari sebuah surah.",
   },
   {
     title: "Shalawat Ibrahimiyyah",
     when: "Pada tashahhud terakhir, setelah At-Tahiyyat.",
-    translation:
-      "Ya Allah, kirimkan shalawat kepada Muhammad dan keluarga Muhammad, sebagaimana Engkau memberkati Ibrahim dan keluarga Ibrahim; sesungguhnya Engkau Maha Terpuji lagi Maha Mulia. Ya Allah, limpahkan nikmat kepada Muhammad dan keluarga Muhammad, sebagaimana Engkau menyayangi Ibrahim dan keluarga Ibrahim; sesungguhnya Engkau Maha Terpuji lagi Maha Mulia.",
     meaning:
       "Ketika para Sahabat bertanya bagaimana cara mengirimkan shalawat kepadanya, Nabi ﷺ mengajari mereka kata-kata yang tepat ini — salawat yang paling shahih dalam Sunnah. Hormatilah Rasulullah ﷺ sebagaimana diperintahkan Allah, lengkapi shalatmu dengan rasa cinta kepada yang mengajarimu shalat.",
   },
   {
     title: "Mencari perlindungan sebelum salam",
     when: "Setelah tashahhud dan salawat terakhir, sesaat sebelum mengakhiri shalat.",
-    translation:
-      "Ya Allah, aku berlindung kepada-Mu dari siksa kubur, dari siksa Neraka, dari cobaan hidup dan mati, dan dari keburukan cobaan al-Masih Palsu (Dajjal).",
     meaning:
       "Nabi ﷺ menginstruksikan bahwa setelah tashahhud terakhir seseorang berlindung dari empat bahaya ini sebelum memberikan salam — permohonan doa terakhir mencakup kehidupan ini, kuburan, api, dan cobaan terbesar yang akan datang.",
   },
   {
     title: "Taslim (salam penutup)",
     when: "Mengakhiri shalat — memutar wajah ke kanan, lalu ke kiri.",
-    translation: "Damai dan rahmat Allah besertamu.",
     meaning:
       "Anda meninggalkan shalat sebagaimana Anda meninggalkan rombongan orang yang dihormati - dengan salam damai kepada para malaikat yang tercatat di setiap bahu dan kepada mereka yang berdoa di samping Anda. Salam adalah sebuah pilar; dengan itu doanya selesai.",
   },

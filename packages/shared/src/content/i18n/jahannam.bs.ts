@@ -26,20 +26,7 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Točka utjehe koja je centralna za sunitsko vjerovanje prolazi kroz cijeli ovaj modul: oni koji umru vjerujući samo u Allaha, čak i ako su opterećeni grijehom, neće zauvijek ostati u Vatri. Allahovom milošću i posredovanjem koje On dozvoljava, grešni vjernici su na kraju izbačeni; ostaju samo oni koji umiru odbacujući vjeru. Dakle, proučavanje Džehannama je, za vjernika, na kraju učenje o tome kako doći do milosti.",
       "Ovaj modul predstavlja ono što tekstovi jasno navode, iskreno bilježi gdje su se učenjaci razlikovali, citira samo autentične dokaze i dosljedno vas usmjerava ka tevbi, dobrim djelima i povjerenju u Allaha.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bojte se Vatre pripremljene za nevjernike - i pokoravajte se Allahu i Poslaniku da biste bili milosrdni.",
-      },
-      {
-        excerpt:
-          "Reci: O robovi moji koji ste sami sebe prestupili, ne očajavajte u Allahovoj milosti. Zaista, Allah oprašta sve grijehe.",
-      },
-      {
-        excerpt:
-          "O vjernici, pokajte se Allahu iskrenim pokajanjem – možda će vaš Gospodar otkloniti od vas vaša nedjela i uvesti vas u bašče.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -47,29 +34,13 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
     summary: "Božanska pravda, odgovornost i posledice slobodnog izbora.",
     body: [
       "Džehannam postoji kao manifestacija Allahove savršene pravde ('adl). Univerzum u kojem su tlačitelji i potlačeni, iskreni i podmukli, svi sreli isti kraj, ne bi bio pravedan. Budući da je Allah savršeno Pravedan, mora postojati konačni obračun gdje se odgovara na svaku nepravdu i poštuje svako dobro.",
-      "Centralno za ovo je da Allah nikome ne čini nepravdu. Svaka duša koja uđe u Vatru ulazi u nju svojim vlastitim utvrđenim, nepokajanim izborima - nikada proizvoljnom odlukom. Kur'an je izričit: 'Allah uopće ne čini nepravdu ljudima, nego ljudi sami sebi nepravdu' (4:40). Niko nije kažnjen za ono što nije uradio, niti preko zasluženog.",
+      "Centralno za ovo je da Allah nikome ne čini nepravdu. Svaka duša koja uđe u Vatru ulazi u nju svojim vlastitim utvrđenim, nepokajanim izborima - nikada proizvoljnom odlukom. Kur'an je izričit: 'Allah uopće ne čini nepravdu ljudima, nego ljudi sami sebi nepravdu' (10:44). Niko nije kažnjen za ono što nije uradio, niti preko zasluženog.",
       "Ljudska bića nisu ostavljena u mraku. Allah im je dao razum, poslao glasnike i objavio jasnu uputu, a zatim ih počastio pravom slobodom da je prihvate ili odbace: 'Ko hoće – neka vjeruje; a ko hoće - neka ne vjeruje' (18:29). Ustrajanje u odbacivanju istine, u ugnjetavanju ili u velikom grijehu bez pokajanja nosi posljedice na ahiretu upravo zato što je izbor zaista bio vaš.",
       "Pa ipak, čak i ovdje milost uokviruje pravdu. Allah upozorava prije nego što sudi, odgađa obračun da bi se dao prostor za povratak, spremno oprašta kada se od njega zatraži, i nagrađuje jedno dobro djelo više puta dok bilježi jedan grijeh kao jedan. Njegova pravda nikada nije odvojena od Njegove milosti.",
       "Razmišljanje o tome zašto Jahannam postoji trebalo bi stoga povećati taqwa (svijest o Bogu) i produbiti zahvalnost za svaki dan života koji je još uvijek prilika za pokajanje. Namijenjen je da srce odjednom učini ozbiljnim i punim nade - da ga nikada ne parališe očajem.",
     ],
-    quran: [
-      {
-        excerpt: "Zaista, Allah uopće ne čini nepravdu ljudima, već ljudi sami sebi nepravdu.",
-      },
-      {
-        excerpt: "On nije upitan o tome šta On radi, ali oni će biti ispitani.",
-      },
-      {
-        excerpt:
-          "Ko hoće - neka vjeruje; a ko hoće - neka ne vjeruje. Za prestupnike smo pripremili Vatru.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Niko od vas neće ući u Džennet samo svojim djelima. Rekli su: "Čak ni ti, o Allahov Poslaniče?" Rekao je: Čak ni ja, osim ako me Allah ne pokrije svojom milošću.',
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -81,16 +52,7 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Videti ceo put takođe preoblikuje Vatru. To je jedna moguća destinacija na kraju putovanja kojim svaka duša već putuje — što znači da današnji izbori nisu apstraktni. Oni su stepenice na tom putu, a još uvijek su naši da ih usmjeravamo.",
       "Poznavanje ovog slijeda pomaže vjerniku da se pripremi, a ne da se boji: da živi sa zdravim sjećanjem na smrt (zhikr al-mawt), da popravi nepravde prije nego što se prenesu na Skup, i da popuni izvještaj o dobrim djelima dok su vrata djelovanja još uvijek otvorena. Smrt zatvara ta vrata; posle toga se ništa ne može dodati.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Onda zaista, nakon toga treba da umrete. Tada ćete zaista biti uskrsnuti na Sudnjem danu.",
-      },
-      {
-        excerpt:
-          "Što se tiče onoga čija je vaga teška - on će biti u ugodnom životu. Što se tiče onoga čija je vaga lagana - njegovo utočište će biti ponor.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Proučite svaku fazu u Learn Aqeedah i povežite vjerovanje sa svakodnevnim izborima.",
       "Povećajte sjećanje na smrt (dhikr al-mawt) ne zanemarujući nadu u milost.",
@@ -108,14 +70,7 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Ovdje je vrijedna riječi opreza. Neki kasniji pisci predstavljaju svako ime kao poseban, rangirani 'nivo' pakla, ponekad sa detaljnim dijagramima. To je naučno tumačenje, a ne eksplicitna kontrolna lista navedena u Kur'anu ili u dogovorenom hadisu. Uravnotežen pristup je da se nauči značenja koja tekstovi zapravo daju i da se izbjegne predstavljanje spekulativnih mapa kao izvjesnosti.",
       "Svrha učenja imena nije zadovoljiti radoznalost, već omekšati srce i pokrenuti ga prema milosrđu na koju ovaj modul stalno ukazuje. Pregledajte kompletnu kolekciju imena za svako kur'ansko pojavljivanje, kontekst i sažetak tafsira.",
     ],
-    quran: [
-      {
-        excerpt: "Dosta je pakao kao počivalište — Jahannam.",
-      },
-      {
-        excerpt: "On će biti bačen u al-Hutamu - užasnu vatru.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -129,21 +84,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Dvije su stvari, međutim, sigurne. Prvo, ugnjetavanje (dhulm), širk i uporni veliki grijeh bez pokajanja nose ozbiljno upozorenje. Drugo — i to nikada ne treba zaboraviti — da Allahova milost i oprost ostaju otvoreni do trenutka smrti za svakoga ko mu se iskreno vrati. Smisao učenja o stepenima je odabrati lakši put dok izbor ostaje.",
       "Praktično, to znači tretirati detaljne liste 'sedam nivoa' ili slične sheme kao mišljenje naučnika, a ne ustaljenu doktrinu, i držanje pažnje na onome što zapravo štiti: vjera, pokajanje i pravedna djela.",
     ],
-    quran: [
-      {
-        excerpt: "Za sve će postojati stepeni prema onome što su radili.",
-      },
-      {
-        excerpt:
-          "Zaista, licemjeri će biti u najnižim dubinama Vatre, i nikada im nećete naći pomoćnika.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Najmanje kažnjen od ljudi Vatre će biti čovjek pod čijim nogama se stavljaju dvije žeravice od kojih mu ključa mozak.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Dijagrami nivoa pakla koji se nalaze u nekim knjigama odražavaju naučnu interpretaciju, a ne jednoglasnu saglasnost.",
   },
@@ -156,12 +98,7 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Važno je napomenuti gdje prestaje sigurnost. Neki kasniji radovi pripisuju svaku specifičnu kapiju određenom grijehu ili grupi. Ovi posebni zadaci nisu jednoobrazno utvrđeni u najranijim izvorima, pa ih je najbolje prikazati kao gledišta pojedinačnih učenjaka, a ne kao proročke specifikacije.",
       "Kao i kod nivoa, pouka kapija nije arhitektonska već moralna: mnoga su vrata koja vode prema Vatri, a način da budete sigurni od svih njih je isti - iskrena vjera, izbjegavanje velikog grijeha i brzo pokajanje kada se oklizne.",
     ],
-    quran: [
-      {
-        excerpt:
-          "I zaista, pakao je obećano mjesto za sve njih. Ima sedam kapija; za svaku kapiju je dodijeljen dio.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -175,25 +112,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Postoji bonton (adab) za čitanje takvih odlomaka. Njima se pristupa sa poniznošću, strahopoštovanjem prema Allahu i trenutnim porivom da se pokaju i traže utočište - ne sa morbidnom fascinacijom, i nikada s očajem, jer je cijela svrha upozorenja da još uvijek imamo vremena da ga izbjegnemo.",
       "Možda je najteža tema u ovim opisima žaljenje. 'Da sam bar imao...' reći će se kada se vrijeme za akciju već završi. Milosrđe što sada čujemo o tom žaljenju je da danas možemo djelovati po 'ako bi', dok to još uvijek može promijeniti naš kraj.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Pred njim je pakao i daće mu se za piće prljava voda. Progutaće ga, ali jedva proguta.",
-      },
-      {
-        excerpt: "Odjeća od ognja će im biti izrezana, a vrela voda će im se politi po glavama.",
-      },
-      {
-        excerpt:
-          "Pakao će se toga Dana izroditi - tog dana će se čovjek sjetiti, ali šta će mu biti od toga sjećanje?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Vaša vatra je jedan dio od sedamdeset dijelova vatre pakla. Rečeno je: O Allahov Poslaniče, ova vatra bi bila dovoljna. Rekao je: Njemu je data snaga za šezdeset i devet delova više od njega, a svaki deo je kao njegova toplota.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -205,18 +125,7 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Iz tog razloga, Islam nam ne dozvoljava da proglasimo konačnu sudbinu bilo koje određene osobe - da kažemo 'ova osoba je u vatri' - osim u rijetkim slučajevima kada su Allah ili Njegov Poslanik, sallallahu alejhi ve sellem, to eksplicitno naveli u autentičnoj objavi. Suditi srcima i svršecima pripada samo Allahu; naš zadatak je naše vlastito računanje.",
       "Dakle, pravi način da pročitate svako upozorenje je da ga okrenete prema unutra: a ne 'koga ovo opisuje?' ali 'da li me išta od ovoga opisuje i šta ću danas promijeniti?' Ko god da ste, poziv da se vratite Allahu je otvoren upravo sada - a sutra nikome nije obećano.",
     ],
-    quran: [
-      {
-        excerpt: "Licemjeri će biti u najnižoj dubini Vatre.",
-      },
-      {
-        excerpt: "Ko zaradi grijeh i bude obuzet njime - to su drugovi Vatre, koji vječno ostaju.",
-      },
-      {
-        excerpt:
-          "Nemojte misliti da Allah nije svjestan onoga što zulumćari rade. On ih odlaže samo za jedan Dan kada će oči buljiti.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -229,26 +138,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "I evo horizonta nad svim tim: sa izuzetkom umiranja nakon širka, svaki grijeh – veći ili manji – potpada pod Allahov oprost ako On hoće. 'Zaista, Allah ne oprašta druženje s Njim, ali oprašta ono što je manje od onoga kome hoće' (4:48). Nijedan vjernik nikada ne bi trebao zaključiti da ga njihovi glavni grijesi stavljaju van milosti.",
       "Svaka glavna tema o grijehu u ovom modulu daje svoju definiciju, svoje dokaze, zašto je ozbiljna i konkretan put pokajanja i izbjegavanja – koji se uvijek završava na istim otvorenim vratima.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ako izbjegavate velike grijehe koji su vam zabranjeni, Mi ćemo od vas ukloniti vaše manje grijehe i primiti vas na plemeniti ulaz.",
-      },
-      {
-        excerpt:
-          "Zaista, Allah ne oprašta druženje s Njim, ali oprašta ono što je manje od onoga kome hoće.",
-      },
-      {
-        excerpt:
-          "Oni koji izbjegavaju velike grijehe i nemorale, samo lake - zaista, vaš Gospodar je ogroman u oprostu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Najveći od najvećih grijeha su: pridruženje Allahu, ubijanje duše, neposlušnost roditeljima i lažno svjedočenje.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -260,20 +151,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Ono što ove grijehe čini tako opasnim je upravo to koliko su laki i uobičajeni. Ljudi se u njih uvlače u običnom razgovoru bez razmišljanja, zbog čega je Poslanik, sallallahu alejhi ve sellem, vezao vjeru za čuvarski govor: 'Ko vjeruje u Allaha i Sudnji dan, neka govori dobro ili neka šuti.' Jednostavna pauza prije govora je pravi čin obožavanja.",
       "Pokajanje od greha jezika prati uobičajene uslove - zaustavi se, požali, odluči da se ne vratiš - sa dodatnom dimenzijom kada je u pitanju pravo druge osobe. Tamo gdje se brisanje njihovog imena ili traženje pomilovanja mogu učiniti bez nanošenja veće štete, to je dio pokajanja; gdje bi njihovo obavještavanje samo produbilo povredu, naučnici umjesto toga savjetuju da se o njima govori lijepo, brani ih u njihovom odsustvu i moli se za njihov oprost.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ne zamjerite jedni drugima. Da li bi neko od vas želeo da jede meso svog mrtvog brata?",
-      },
-      {
-        excerpt: "Teško svakom podrugljivcu i rugaču.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Ko vjeruje u Allaha i u Sudnji dan neka govori dobro ili neka šuti.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Prije nego što progovorite, pitajte: Da li je to istina? Da li je potrebno? Da li je ljubazno?",
       "Ako nekoga zamjerite, učinite mu dovu i tražite oprost gdje je to moguće.",
@@ -289,21 +168,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Ovo uči ključnu lekciju o pokajanju: okretanje Allahu je neophodno, ali kada je ljudsko pravo povrijeđeno, to samo po sebi nije dovoljno. Potraživanje oštećenog ostaje sve dok se ne podmiri ili oprosti. Dakle, pokajanje ovdje ima četvrti uslov osim zaustavljanja, žaljenja i rješavanja - vraćanje onoga što duguje.",
       "U praksi to znači vratiti ono što je oduzeto ili njegovu vrijednost, otplaćivati ​​dugove čak i postupno, vraćati narušenu reputaciju i posegnuti za pomirenjem sa odsječenom rodbinom. I u tome ima milosti: svaki korak nadoknade je sam po sebi dobro djelo, a Allah olakšava iskreno srce koje krene da popravi ono što je slomilo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ako ne odustanete od riba, onda obratite pažnju na rat od Allaha i Njegovog Poslanika.",
-      },
-      {
-        excerpt: "Pridružili su se oni koji prekrše Allahov savez i prekinu ono što je naredio.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Znate li ko je bankrot? Onaj koji dolazi sa molitvom, postom i dobročinstvom, ali je vrijeđao, klevetao, nezakonito trošio imetak i prolio krv – pa se njegova dobra djela daju drugima.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Navedite nekoga kome ste možda učinili nepravdu i učinite korak ka popravci ove sedmice.",
       "Plaćajte nepodmirene dugove čak i u malim ratama ako je to sve što možete riješiti.",
@@ -319,21 +185,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Ova razlika je veoma važna za način na koji koristimo temu. Znakovi ponašanja daju se kao ogledalo za sebe, a ne kao etiketa koju treba prikačiti drugima. Poslanik, sallallahu alejhi ve sellem, i njegovi ashabi su se bojali licemjerja u sebi upravo zato što je srce skriveno i može se promijeniti.",
       "Dakle, zdrav odgovor je iznutra: provjeriti vlastito poštenje, vjernost obećanjima i pouzdanost i tražiti od Allaha iskrenost (ikhlas). Samo Allah zna šta se nalazi u čovjeku, a optuživanje određenih pojedinaca za licemjerje je samo po sebi teški prijestup protiv njih.",
     ],
-    quran: [
-      {
-        excerpt: "Licemjeri će biti u najnižoj dubini Vatre.",
-      },
-      {
-        excerpt:
-          "Kada vam licemjeri dođu, govore: “Svjedočimo da ste vi Allahov Poslanik, a Allah zna da su oni lažovi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tri su znaka licemjera: kada govori laže, kada obećava to krši, a kada mu je povjereno, izdaje.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Ne optužujte pojedince za nifaq. Tekstovi upozoravaju zajednicu; pročišćavanje počinje sa samim sobom.",
   },
@@ -346,16 +199,7 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Bitno je kako se vjernik bavi svim tim. Cilj je nikada ne zadržavati se na grafičkim detaljima ili pustiti da srce potonu; to je primiti upozorenje, pokajati se za sve što se odnosi, a zatim usmjeriti energiju ka djelima koja zapravo štite. Zato ovaj modul namjerno daje više prostora zaštiti, pokajanju i milosrđu nego kazni.",
       "Ukratko, pravi zaključak iz bilo koje spomenute kazne je pitanje, a ne strah: 'Radim li ovo — i ako da, kako da zaustavim i ispravim?' Iskreno odgovoreno danas, upozorenje je već obavilo svoje milosrdno djelo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Oni koji optužuju čedne žene i ne dovedu četiri svjedoka - bičujte ih sa osamdeset pruga.",
-      },
-      {
-        excerpt:
-          "Oni koji gomilaju zlato i srebro i ne troše ih na Allahovom putu - javi im bolnu kaznu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -368,22 +212,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Obratite pažnju na ravnotežu koju Šerijat postiže. Sredstva zaštite su brojnija, naglašenija i dostižnija od uzroka propasti — a to je samo znak Allahove milosti. Mnogo je lakše spasiti se nego izgubiti.",
       "Ovaj odjeljak je namjerno najveći u modulu, jer tako Islam sam vaga stvar: upozorenje uvijek upareno s nadom, i nikada odvojeno od konkretne akcije, osoba može započeti danas.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Oni koji govore: "Gospodaru naš, mi smo vjerovali, pa oprosti nam grijehe naše i zaštiti nas od kazne u ognju."',
-      },
-      {
-        excerpt:
-          "Gospodaru naš, daj nam dobro na ovom svijetu i dobro na onom svijetu i zaštiti nas od kazne vatre.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ko tri puta zamoli Allaha za Džennet, Džennet kaže: O Allahu, uvedi ga u Džennet! Ko se tri puta skloni od Vatre, Vatra kaže: O Allahu, zaštiti ga od Vatre!",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Zapamtite dovu koja traži utočište od Džehannama prije selama u namazu.",
       "Molite pet dnevnih namaza na vrijeme - među najjačim štitovima.",
@@ -401,26 +231,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Ovo važi čak i za onoga ko je pao i pokajao se mnogo puta. Sve dok je povratak iskren svaki put, Allah prihvata; očaj je od šejtana, a ne od religije. Jedina stvar koja se mora riješiti prije smrti je širk, jer osoba koja umre nakon nje umire bez vjere koju zahtijeva pokajanje - upravo je to razlog zašto je potpuno okretanje jedinom Allahu najhitniji povratak od svih.",
       "Praktični zaključak je jednostavan: pokajte se sada, pokajte se često i nikada ne dozvolite da veličina grijeha ili broj prošlih padne ne odugovlače da se vratite. Poziv je uvijek otvoren.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ne očajavajte u Allahovoj milosti. Zaista, Allah oprašta sve grijehe. On je Onaj koji prašta, Milostivi je.",
-      },
-      {
-        excerpt:
-          "Osim onih koji se pokaju, vjeruju i čine dobra djela - Allah će njihova zla djela zamijeniti dobrim.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah je više zadovoljan pokajanjem Svoga roba nego onaj od vas koji nađe svoju izgubljenu goru u neplodnoj zemlji.",
-      },
-      {
-        excerpt:
-          "Allah pruža Svoju ruku noću da prihvati pokajanje grešnika tog dana, i pruža Svoju ruku danju da prihvati pokajanje noćnog grešnika, sve dok sunce ne izađe sa zapada.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Izgovarajte Astaghfirullah tokom cijelog dana – težite postojanju, ne samo nakon većih grešaka.",
       "Naučite Sayyid al-Istighfar i recitujte ga ujutro i navečer.",
@@ -437,27 +249,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "U međuvremenu, milost se ugrađuje u svakodnevni život: dobra djela brišu ona loša (11:114), a mali, dosljedni ibadeti – jedan namaz klanjan na vrijeme, jedan tihi čin dobročinstva, jedan trenutak strpljenja za Allaha radi – stalno privlači osobu bliže Njemu i dalje od zla. Dosljednost je važnija od intenziteta.",
       "Dakle, neka ovo bude zaključak vaše studije: shvatite upozorenje ozbiljno, ali neka nada bude glasnija od straha. Spoznaj opasnost, izaberi put milosti i idi njime - korak po korak - svaki dan dok ne sretneš Allaha.",
     ],
-    quran: [
-      {
-        excerpt: "Moja milost obuhvata sve stvari.",
-      },
-      {
-        excerpt:
-          "Reci: O robovi moji koji ste sami sebe prestupili, ne očajavajte u Allahovoj milosti. Zaista, Allah oprašta sve grijehe.",
-      },
-      {
-        excerpt: "Zaista, dobra djela otklanjaju zla djela. To je podsjetnik za one koji pamte.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah će reći: Meleki su se zauzimali, poslanici su se zauzimali, i vjernici su se zauzimali, i niko ne ostaje osim Najmilostiviji od milostivih. On će uzeti šaku iz Vatre i izvući ljude koji nikada nisu učinili ništa dobro.",
-      },
-      {
-        excerpt: "Ko ima u srcu vjeru težinu zrna gorušice biće izvađena iz Vatre.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     actions: [
       "Završite svaki dan istigfarom i zahvalnošću za svaki blagoslov.",
       "Uparite ovaj modul sa Journey to Jannah — upozorenje i nada zajedno.",
@@ -508,34 +301,8 @@ export const JAHANNAM_CORE_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
         summary: "Onaj čija se dobra djela uzimaju radi prava drugih.",
       },
     ],
-    quran: [
-      {
-        excerpt: "Ne očajavajte u Allahovu milost; vrata tevbe otvorena su do smrti.",
-      },
-      {
-        excerpt: "Osim smrti u širku bez tevbe, Allah oprašta kome hoće.",
-      },
-      {
-        excerpt: "Poslanik ﷺ naredio je da se klonimo sedam uništavajućih grijeha.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Poslanik ﷺ naredio je da se klonimo sedam uništavajućih grijeha.",
-      },
-      {
-        excerpt: "Ko povrijedi prava ljudi može svoje hasenate dati oštećenima.",
-      },
-      {
-        excerpt: "Širk",
-      },
-      {
-        excerpt: "Ubistvo bez prava",
-      },
-      {
-        excerpt: "Onaj čija se dobra djela uzimaju radi prava drugih.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}, {}, {}, {}],
     actions: [
       "Poslanik ﷺ naredio je da se klonimo sedam uništavajućih grijeha.",
       "Ko povrijedi prava ljudi može svoje hasenate dati oštećenima.",
@@ -568,21 +335,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Njegovi oblici: učenjaci razlikuju glavne širke — obožavanje idola, mrtvih, svetaca ili stvorenih stvari; pozivanje drugog osim Allaha za ono što samo On može dati; i usmjeravanje žrtve ili zavjeta nekom drugom osim Njemu — što osobu vodi izvan islama ako se ne pokaje. Postoji i manji i skriveni širk, kao što je razmetanje u ibadetu (rija'), zaklinjanje drugim Allahom, ili oslanjanje na predznake i čari, što je ozbiljan grijeh, ali samo po sebi ne izbacuje iz vjere.",
       "Put od njega: čuvajte i jačajte tevhid učenjem, obožavanjem jedinog Allaha i namjerom čišćenja kako bi djela bila za Njega, a ne za oči ljudi. Onaj ko je pao u širk pokaje se tako što se iskreno odriče toga i vraća se obožavanju samo Allaha - i ta vrata povratka ostaju otvorena sve dok je živ.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zaista, Allah ne oprašta druženje s Njim, ali oprašta ono što je manje od onoga kome hoće.",
-      },
-      {
-        excerpt: "O sine moj, ne pridružujte ništa Allahu. Zaista, udruživanje je velika greška.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Najveći od najvećih grijeha su: pridruženje Allahu, ubijanje duše, neposlušnost roditeljima i lažno svjedočenje.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Naučite tevhid kroz Naučite Akidu i 99 Allahovih imena.",
       "Očistite namjere u ibadetu - svakodnevno tražite od Allaha iskrenost.",
@@ -598,22 +352,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Dvostruka nepravda: ubistvo je istovremeno grijeh protiv Allaha, čije je pravo na svetost života pogaženo, i grijeh prema ljudima - žrtvi i onima koje ostavljaju za sobom. Zbog toga je njegovo pokajanje teže od većine: obraćanje Allahu je neophodno, ali prava povrijeđenih također postoje, a tamo gdje zakon zemlje ili islamski zakon propisuje krvavi novac (diyah) ili druge posljedice, one se moraju ispuniti putem odgovarajućih kanala i kvalifikovanih učenjaka.",
       "Put od toga: držite svaki život svetim, smirite ljutnju i neprijateljstvo prije nego što otvrdnu, i rješavajte sporove strpljenjem i pravdom, a ne nasiljem. Čak ni ovaj najveći zločin protiv ljudi nije izvan Allahove milosti za onoga ko se iskreno pokaje, poštuje svoja prava koliko je to moguće, i nikada se ne vrati na takav put.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ko ubije dušu osim za dušu ili za pokvarenost u zemlji – to je kao da je ubio čitavo čovečanstvo.",
-      },
-      {
-        excerpt:
-          "Ko namjerno ubije vjernika - njegova naknada je pakao, u kojem će vječno boraviti.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Najveći od najvećih grijeha su: pridruženje Allahu, ubijanje duše, neposlušnost roditeljima i lažno svjedočenje.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Cijenite svaki život; rješavajte sporove strpljivo i pravedno."],
     appLinks: [{}],
   },
@@ -626,16 +366,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Mudrost u barijerama: umjesto da ostavlja ljude da se bore protiv žudnje na njenom vrhuncu, Islam ih okružuje ranijim zaštitama - spuštanjem pogleda, skromnošću u odijevanju i ponašanju, izbjegavanjem izolacije sa suprotnim polom i ohrabrivanjem braka kao zakonitog, počašćenog kanala za ove potrebe. Izgraditi ove granice unaprijed je mnogo lakše nego oduprijeti se na rubu.",
       "Put nazad: za svakoga ko je pao, izlaz je iskrena tevba - potpuno napuštanje grijeha, žaljenje zbog njega, odlučivanje da se više nikada ne vrati, i prikrivanje, a ne objavljivanje svoje prošlosti. Zina je veliki grijeh, ali je naglašeno među onima koje Allah oprašta onome ko Mu se obrati; očaju nema mjesta, a novi početak je uvijek dostupan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ne pristupajte nezakonitom seksualnom odnosu. Zaista, to je nemoralan i zao način.",
-      },
-      {
-        excerpt:
-          "A oni koji ne čine nedozvoljene seksualne odnose... osim onih koji se pokaju, vjeruju i rade pravedno - za njih će Allah njihova zla djela zamijeniti dobrim.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Čuvajte oči i potrošnju društvenih mreža.",
       "Učinite dovu za pravednog supružnika ako nije oženjen.",
@@ -651,15 +382,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Mudrost i milosrđe: zabrana usmjerava ljude ka stvarnoj trgovini, zajedničkom riziku i dobročinstvu, a štiti ugrožene od slomljenog duga. Čak i ovdje je prisutna Allahova milost: kada je stigla naredba, On nije zahtijevao da se već preuzete kamate iz prošlosti vrate, već je rekao vjernicima da jednostavno napuste ono što je preostalo - 'imat ćete svoju glavnicu' (2:279) - što je olakšanje za one koji se od nje okrenu.",
       "Put od toga: revidirajte svoje finansije za proizvode zasnovane na kamatama, tražite halal alternative i konsultujte kvalifikovane naučnike za zaista teške slučajeve kao što su hipoteke u nemuslimanskim zemljama. Napuštanje riba može značiti teške finansijske izbore, ali sigurnost duše nadmašuje svaki privremeni dobitak - a Allah obećava da će obezbijediti za onoga ko Ga se boji odakle ne očekuje.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O vjernici, bojte se Allaha i ostavite što je ostalo od riba, ako ste vjernici. Ako to ne učinite, budite obaviješteni o ratu od Allaha i Njegovog Poslanika. Ali ako se pokajete, možda ćete imati svog glavnog – ne činite ništa loše, niti vam je učinjena nepravda.",
-      },
-      {
-        excerpt: "Allah uništava kamate i daje uvećanje za dobrotvorne svrhe.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Revizija finansija za proizvode zasnovane na kamatama.",
       "Konsultujte se sa kvalifikovanim naučnikom za hipoteke i dugove.",
@@ -675,21 +398,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Njegova veza s jezikom: lažno svjedočanstvo je najoštrija oštrica širih grijeha govora. Budući da su riječi jeftine za izgovoriti, opasno je lako upasti u ovaj grijeh – potpis, preuveličavanje, zgodna šutnja – a ipak je njegova težina na Sudnjem danu ogromna, kada će sami udovi i jezici ljudi istinito svjedočiti protiv njih.",
       "Put od toga: držite se istine čak i kada je to skupo ili protiv vlastitog interesa, odbijte da pozajmite svoju riječ bilo kakvoj laži i govorite pravednim svjedočenjem kada je to potrebno. Onaj ko je lažno svjedočio pokaje se povlačeći laž gdje god je to moguće, nastojeći da poništi štetu i povrati prava svakome kome je nanesena nepravda, i obraćajući se Allahu sa iskrenim žaljenjem.",
     ],
-    quran: [
-      {
-        excerpt:
-          "A oni koji ne svjedoče neistinu, i kada prođu blizu lošeg govora, prolaze dostojanstveno.",
-      },
-      {
-        excerpt: "Zato izbjegavajte nečistoću idola i izbjegavajte lažne izjave.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Da vas ne obavijestim o najvećem od velikih grijeha? Druženje partnera sa Allahom, neposlušnost roditeljima — i lažno svjedočenje i lažno svjedočenje.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -701,18 +411,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Povezane prakse: isto upozorenje se odnosi na proricanje sudbine, na tretiranje astrologije kao izvjesnog znanja o nevidljivom, te na amajlije i amajlije koje nose širk. Traženje znanja o skrivenoj budućnosti pripada samo Allahu, a okretanje onima koji tvrde da to potkopava tevhid u njegovom korijenu.",
       "Put od toga: za one koji su upleteni u ove prakse, pokajanje znači potpuno ih napustiti, uništiti sve zabranjene stvari, prekinuti veze sa onima koji se njima bave, i obnoviti iskreni tevhid i oslanjanje samo na Allaha. Zaštita se nalazi u vjeri, u svakodnevnom adhkaru i u traženju utočišta kod Allaha - a Njegov oprost je otvoren svakome ko se zaista vrati.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Pratili su ono što su đavoli recitirali za vrijeme Solomonove vladavine... i saznali su šta im šteti, a ne koristi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ko god dođe gatari i vjeruje u ono što on kaže, nije vjerovao u ono što je objavljeno Muhammedu.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -724,15 +424,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Šta uključuje: ne samo direktnu krađu, već i suptilnije forme — miješanje imovine siročadi s vlastitim kako bi se zamaglila granica, odgađanje njenog povratka kada siroče postane punoljetno, ili ulaganje ili trošenje bez prava. Allah naređuje suprotno: 'Dajte siročadima njihovu imovinu, a ne zamjenjujte loše za dobro' (4:2).",
       "Put od toga: pažljivo čuvajte bogatstvo siročadi, čuvajte ga odvojeno i vodite računa o njemu, predajte ga u potpunosti kada sazriju, i — za onoga koji nije uspio — pokajte se vraćajući ono što se duguje sa svim dužnim povećanjem i tražeći pomilovanje onih kojima je učinjena nepravda. Na Dan kada nikakvo bogatstvo ili loza neće pomoći osim zdravog srca, vraćanje takvog povjerenja je samo po sebi dragocjeno djelo.",
     ],
-    quran: [
-      {
-        excerpt: "Oni koji nepravedno troše bogatstvo siročadi - troše samo vatru u stomak.",
-      },
-      {
-        excerpt:
-          "Dajte siročadima njihovu imovinu i ne mijenjajte loše za dobro, i ne trošite njihovo bogatstvo sa svojim bogatstvom.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -744,21 +436,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Važna ravnoteža: poslušnost ne znači pokoravanje roditeljima u neposlušnosti Allahu – nijedno stvorenje nije poslušano u grijehu protiv Stvoritelja. Ali čak i tamo gdje se mora odbiti, to se radi s blagošću, poštovanjem i kontinuiranom ljubaznošću. Kur'an zabranjuje čak i najmanju riječ ljutnje: 'ne govori im uff' (17:23).",
       "Put povratka: milost je u tome što su roditelji obično i dalje na dohvat ruke. Za onoga ko je pao, pokajanje je uglavnom praktično – nastavite sa dobrotom, tražite od njih pomilovanje, služite im i činite dovu za njih, posebno dok su živi. A ako je roditelj preminuo, poslušnost se nastavlja kroz molitvu za njih, davanje milostinje u njihovo ime i poštovanje njihovih veza i prijatelja.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Vaš Gospodar je odredio da ne obožavate nikoga osim Njega, a roditeljima dobar tretman. Nemojte im govoriti 'uff' niti ih odbijati, nego im recite plemenitu riječ.",
-      },
-      {
-        excerpt: "Obožavajte Allaha i ništa Mu ne pridružujte, a roditeljima dobro činite.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Da vas ne obavijestim o najvećem od velikih grijeha? Pridruživanje partnera Allahu i neposlušnost roditeljima.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Pozovite ili posjetite roditelje ove sedmice sa lijepom riječju."],
     appLinks: [{}],
   },
@@ -771,12 +450,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Njegova moderna lica: krađa nije ograničena na provalu u kuću. To uključuje oduzimanje od poslodavca, varanje u poslovanju, uskraćivanje plata radnicima, digitalnu pirateriju, plagijat i iskorištavanje onoga što po zakonu nije vlastito. Ono što je skriveno od drugih ljudi nikada nije skriveno od Allaha, koji vidi svako privatno oduzimanje.",
       "Put povratka: budući da se radi o ljudskom pravu, pokajanje zahtijeva više od kajanja pred Allahom. Mora se vratiti sam ukradeni predmet, odnosno njegova vrijednost, njegovom zakonitom vlasniku i tražiti njihov pomilovanje gdje je to moguće; ako se vlasnik ne može pronaći, naučnici savjetuju da iznos daju u dobrotvorne svrhe u njihovo ime. Otpuštena na ovaj način, čak i krađu u potpunosti oprašta Onaj koji voli slugu koji se vratio.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Što se tiče lopova, muško i žensko, odsjekli su svoje ruke u nadoknadu za ono što su zaradili - što je odvraćanje od Allaha.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Vratiti ukradene predmete ili njihovu vrijednost; tražite oprost od onih kojima je učinjena nepravda.",
     ],
@@ -791,17 +465,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_BS: DeepPartial<JahannamTopic>[] = [
       "Mudrost o tome kako je zabranjeno: Allah nije zabranio khamr u jednom naglom potezu, već ga je zabranio u fazama, nježno odvikujući ranu zajednicu od duboko ukorijenjene navike. Ta postupnost je sama po sebi lekcija o milosrđu - i model nade za svakoga ko se danas bori da je napusti.",
       "Put povratka, sa saosjećanjem: one koji su uhvaćeni u ovisnosti ne treba prezirati već ih podržavati. Pokajanje znači odlučiti napustiti supstancu, ukloniti je i njene okidače iz svog života, tražiti pomoć i liječenje bez stida, i ispuniti prazninu dobrim društvom, zikrom i obožavanjem. Allahova vrata su širom otvorena, i svaki iskreni korak od opojnih droga je korak koji On pozdravlja.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O vi koji vjerujete, zaista su vino, kocka, idoli i gatačke strijele nečistoća od djela šejtana - izbjegavajte ih.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Svako opojno sredstvo je khamr, a svaki khamr je zabranjen.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: ["Potražite pomoć ako je potrebno; zamijenite naviku zikrom i dobrim društvom."],
     appLinks: [{}],
   },
@@ -811,9 +476,7 @@ export const JAHANNAM_NAMES_BS: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Pakao",
     meaning: "Vatra — najčešće kur'ansko ime za pakao.",
-    quran: {
-      excerpt: "Bojte se Vatre čije su gorivo ljudi i kamenje, pripremljeno za nevjernike.",
-    },
+    quran: {},
     context:
       "Koristi se u cijelom Kur'anu kao mjesto za kaznu za one koji odbacuju vjeru i ustraju u nedjelima.",
     tafsirNote:
@@ -824,18 +487,14 @@ export const JAHANNAM_NAMES_BS: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jaheem",
     meaning: "Blazing Fire — intenzivna, žestoka vrućina.",
-    quran: {
-      excerpt: "Vi i ono čemu se klanjate mimo Allaha ste gorivo za Džehennem - ući ćete u njega.",
-    },
+    quran: {},
     context: "Opisuje jačinu Vatre koja čeka one koji su vodili suparnike sa Allahom.",
     tafsirNote: "Al-Tabari povezuje jaheem sa plamtećom, zapaljenom vatrom koja ne štedi ništa.",
   },
   {
     name: "Saqar",
     meaning: "Ono što prži ili ne ostavlja ništa - jaka vrućina.",
-    quran: {
-      excerpt: "Ja ću ga odvesti u Saqar. A šta vas može natjerati da znate šta je Saqar?",
-    },
+    quran: {},
     context: "Spominje se u suri al-Muddaththir u vezi sa onim ko se okrenuo od objave.",
     tafsirNote:
       "Klasični tefsir opisuje Saqar kao nivo pakla koji intenzivno gori; detalji se razlikuju među naučnicima.",
@@ -845,27 +504,21 @@ export const JAHANNAM_NAMES_BS: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Sa'ir",
     meaning: "Plamteći — zapaljena vatra.",
-    quran: {
-      excerpt: "Oni će biti u Sa'iru - plamenoj vatri.",
-    },
+    quran: {},
     context: "Upozorenje onima koji nepravedno troše bogatstvo siročad.",
     tafsirNote: "Korijen prenosi gori i paljenje - naglašavajući aktivnu, proždiruću vatru.",
   },
   {
     name: "Hutamah",
     meaning: "Crusher — ono što lomi i drobi.",
-    quran: {
-      excerpt: "Bit će bačen u al-Hutamu. A šta vas može natjerati da znate šta je al-Hutamah?",
-    },
+    quran: {},
     context: "Kazna za onog ko zagriza i gomila bogatstvo, misleći da će ga to učiniti besmrtnim.",
     tafsirNote: "Ibn Kathir objašnjava da Hutama gnječi i proždire - vatru koju je zapalio Allah.",
   },
   {
     name: "Hawiyah",
     meaning: "Ponor ili jama - dubok pad.",
-    quran: {
-      excerpt: "Što se tiče onoga čija je vaga lagana - njegovo utočište će biti Havija.",
-    },
+    quran: {},
     context: "Odredište onih čija su dobra djela previše lagana na Sudnjem danu.",
     tafsirNote:
       "Opisan kao duboka jama u Vatri; al-Tabari bilježi stavove o njegovoj dubini i ozbiljnosti.",
@@ -875,9 +528,7 @@ export const JAHANNAM_NAMES_BS: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Lazaa",
     meaning: "Plamen — plamena vatra.",
-    quran: {
-      excerpt: "Nikako! To je Allahov plamen, zapaljen.",
-    },
+    quran: {},
     context: "Sura al-Ma'aridž - upozoravajući one koji poriču Čas.",
     tafsirNote: "Povezan sa plamenom koji se skida i sagoreva — Lazaa naglašava aktivno plamtenje.",
   },
@@ -919,114 +570,79 @@ export const JAHANNAM_GATES_BS: DeepPartial<JahannamGateEntry>[] = [
 
 export const JAHANNAM_VERSES_BS: DeepPartial<JahannamVerseEntry>[] = [
   {
-    excerpt: "Bojte se Vatre pripremljene za nevjernike.",
     context: "Upućeno vjernicima — strah kao motivacija za poslušnost.",
     tafsirSummary: "Ibn Kathir: poziv na taqwa uparen s pokornošću Poslaniku.",
   },
   {
-    excerpt: "Ne očajavajte u Allahovoj milosti. Zaista, Allah oprašta sve grijehe.",
     context: "Otkriveno da utješi one koji su se bojali da su njihovi grijesi preveliki.",
     tafsirSummary: "Stih temeljac nade - milosrđe je ogromno za one koji se vraćaju.",
   },
   {
-    excerpt:
-      "Pokajte se Allahu iskrenim pokajanjem - možda će vaš Gospodar otkloniti vaša nedjela.",
     context: "Zapovijed vjernicima nakon uputstva o porodici i ponašanju.",
     tafsirSummary: "Nasuh tawbah — iskreno pokajanje bez povratka na grijeh.",
   },
   {
-    excerpt: "Za sve će postojati stepeni prema onome što su radili.",
     context: "Božanska pravda - nagrada i kazna srazmerno delima.",
     tafsirSummary: "Stepeni se odnose i na raj i na pakao.",
   },
   {
-    excerpt: "Allah uopće ne čini nepravdu ljudima, već ljudi nepravdu sami sebi.",
     context: "Uvjeravanje da je božanska presuda savršeno pravedna.",
   },
   {
-    excerpt: "Gospodaru naš, daj nam dobro na oba svijeta i zaštiti nas od vatrene kazne.",
     context: "Dova onih koji spajaju ovosvjetsko i onostrano dobro.",
     tafsirSummary: "Poslanička dova koja se uči u Kur'anu - ravnoteža dunja i akhire.",
   },
   {
-    excerpt: "Pakao ima sedam kapija; za svaku kapiju je dodijeljen dio.",
-    context: "Obrađeno u kontekstu Ibrahimove rasprave sa svojim narodom.",
+    context: "Dolazi nakon odlomka u kojem se Iblis zaklinje da će zavoditi ljude.",
     tafsirSummary: "Eksplicitno spominjanje sedam kapija — detalji zadatka su božanska mudrost.",
   },
   {
-    excerpt: "Osim onih koji se kaju, vjeruju i čine dobra djela - Allah će zamijeniti zlo dobrim.",
     context: "Izuzetak nakon navođenja teških grijeha.",
     tafsirSummary: "Nada za pokajnika - djela se mogu preobraziti milošću.",
   },
   {
-    excerpt: "Za one koji nisu vjerovali u svog Gospodara kazna je Džehennema - zla destinacija.",
     context: "Sura al-Mulk — podsjetnik na nevidljivo.",
   },
   {
-    excerpt: "Zaista, dobra djela otklanjaju zla djela.",
     context: "Zapovijed za uspostavljanje molitve na oba kraja dana.",
     tafsirSummary: "Ohrabrenje da dosledno obožavanje briše prošle greške.",
   },
   {
-    excerpt: "Gospodaru naš, oprosti nam naše grijehe i zaštiti nas od kazne vatre.",
     context: "Opis muttaqina (svjestan Boga).",
   },
   {
-    excerpt: "Što se tiče onoga čija je vaga lagana - njegovo utočište će biti Havija.",
     context: "Sura al-Qari'ah — vaganje djela.",
   },
 ];
 
 export const JAHANNAM_HADITH_BS: DeepPartial<JahannamHadithEntry>[] = [
   {
-    hadith: {
-      excerpt:
-        "Ko tri puta zamoli Allaha za Džennet, Džennet kaže: O Allahu, uvedi ga u Džennet! Ko se tri puta skloni od Vatre, Vatra kaže: O Allahu, zaštiti ga od Vatre!",
-    },
+    hadith: {},
     context: "Ohrabrenje da se redovno čini dova za Džennet i utočište od Džehannama.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah je više zadovoljan pokajanjem Svoga roba nego onaj od vas koji nađe svoju izgubljenu goru u neplodnoj zemlji.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Niko od vas neće ući u Džennet samo svojim djelima - čak ni ja, osim ako me Allah ne pokrije svojom milošću.",
-    },
+    hadith: {},
     context: "Ravnoteža: trudite se u djelima, ali se oslonite na milost.",
   },
   {
-    hadith: {
-      excerpt:
-        "Vaša vatra je jedan dio od sedamdeset dijelova vatre pakla, svaki dio je poput svoje topline.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Savez između nas i njih je molitva; ko ga napusti počinio je nevjerovanje.",
-    },
+    hadith: {},
     context: "Ozbiljnost zanemarivanja namaza - među najtežim upozorenjima.",
   },
   {
-    hadith: {
-      excerpt:
-        "Onaj bankrot dolazi sa molitvom, postom i dobročinstvom - ali je vređao, klevetao, nezakonito trošio bogatstvo i prolivao krv.",
-    },
+    hadith: {},
     context: "Prava ljudi mogu se riješiti prije djela na Sudnji dan.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah pruža svoju ruku noću da prihvati pokajanje grešnika tog dana, a pruža ruku danju da prihvati pokajanje noćnog grešnika.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Ko vjeruje u Allaha i u Sudnji dan neka govori dobro ili neka šuti.",
-    },
+    hadith: {},
     context: "Čuvanje jezika — svakodnevna odgovornost.",
   },
 ];
@@ -1090,7 +706,4 @@ export const JAHANNAM_DUAS_BS: DeepPartial<JahannamDuaEntry>[] = [
   },
 ];
 
-export const JAHANNAM_REFUGE_DUA_BS: { translation: string } = {
-  translation:
-    "O Allahu, utječem Ti se od džehennemske kazne, kaburske kazne, životnih i smrtnih iskušenja i zla iskušenja Lažnog Mesije.",
-};
+export const JAHANNAM_REFUGE_DUA_BS: { translation?: string } = {};

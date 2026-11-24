@@ -2,249 +2,216 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ru overlay for new-muslim. Index-aligned with NEW_MUSLIM_TOPICS in ../new-muslim.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const NEW_MUSLIM_TOPICS_RU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Welcome to Islam",
-    summary: "A short, practical map for the first days and weeks of your journey.",
+    title: "Добро пожаловать в ислам",
+    summary: "Краткая практическая карта для первых дней и недель вашего пути.",
     body: [
-      "Congratulations — and welcome. Becoming Muslim is not a finish line but the start of a lifelong relationship with Allah, one that grows gradually through knowledge, worship, and community, not all at once. Nobody expects you to know everything on day one; every Muslim, including the Prophet's ﷺ own companions, learned their religion step by step.",
-      "One of the most comforting teachings for someone new to Islam is that your past is genuinely behind you: 'Do you not know that Islam demolishes what preceded it?' the Prophet ﷺ told a companion who worried about his past sins. You are starting with a clean record before Allah.",
-      "This guide covers the essentials — what the shahada means, the five pillars, the basics of faith, and a first look at prayer — then points you to the full Salah, Aqeedah, Learn Dua, and Qur'an guides in this app for real depth. Take it one section at a time.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do you not know that Islam demolishes what preceded it, that the Hijra demolishes what preceded it, and the Pilgrimage demolishes what preceded it? (to 'Amr ibn al-'As)",
-      },
+      "Поздравляем — и добро пожаловать. Принятие ислама — это не финишная черта, а начало отношений с Аллахом длиною в жизнь, которые растут постепенно — через знание, поклонение и общину, а не все сразу. Никто не ждёт, что вы будете знать всё в первый же день: каждый мусульманин, включая сподвижников самого Пророка ﷺ, изучал свою религию шаг за шагом.",
+      "Одно из самых утешительных учений для того, кто недавно пришёл в ислам, — ваше прошлое действительно осталось позади: «Разве тебе не известно, что ислам уничтожает всё, что было прежде…» — сказал Пророк ﷺ сподвижнику, который переживал из-за своих прошлых грехов. Вы начинаете с чистого листа перед Аллахом.",
+      "Это руководство охватывает самое главное — смысл шахады, пять столпов, основы веры и первое знакомство с намазом, — а затем направляет вас к полным руководствам по намазу, акыде, дуа и Корану в этом приложении для настоящего углубления. Изучайте его по одному разделу за раз.",
     ],
     actions: [
-      "Go at your own pace — read one section of this guide per sitting rather than all at once.",
-      "Write down the questions that come up as you read; bring them to a teacher or knowledgeable friend later.",
+      "Двигайтесь в своём темпе — читайте один раздел этого руководства за раз, а не всё сразу.",
+      "Записывайте вопросы, возникающие при чтении, и позже задайте их учителю или знающему другу.",
     ],
   },
   {
-    title: "What the Shahada Means",
-    summary: "Two short sentences that carry the entire meaning of Islam.",
+    title: "Что означает шахада",
+    summary: "Два коротких предложения, которые несут в себе весь смысл ислама.",
     body: [
-      "The shahada — the testimony of faith — is: 'Ash-hadu an la ilaha illallah, wa ash-hadu anna Muhammadan rasulullah' ('I bear witness that there is no god but Allah, and I bear witness that Muhammad is the Messenger of Allah'). It has two parts, and both matter.",
-      "The first part, la ilaha illallah, means no one and nothing else — not money, status, ancestors, idols, or any created being — deserves worship, obedience as an act of devotion, or ultimate reliance except Allah alone. It is a statement about who has the right to be worshipped, not merely who exists.",
-      "The second part affirms that Muhammad ﷺ is Allah's final messenger, sent with guidance for all people. Affirming this means trusting what he ﷺ taught about Allah, worship, and how to live — which is exactly why the Qur'an and his authentic teachings (the Sunnah) are the two sources this whole guide draws from.",
-      "This testimony is not a magic formula but a description of a settled conviction of the heart. Saying it sincerely, understanding what it means, is what makes a person Muslim — 'one who submits.'",
+      "Шахада — свидетельство веры — звучит так: «Ашхаду ан ля иляха илляЛлах, ва ашхаду анна Мухаммадан расулюЛлах» («Свидетельствую, что нет божества, кроме Аллаха, и свидетельствую, что Мухаммад — Посланник Аллаха»). Она состоит из двух частей, и обе важны.",
+      "Первая часть, «ля иляха илляЛлах», означает, что никто и ничто иное — ни деньги, ни положение, ни предки, ни идолы, ни какое-либо творение — не заслуживает поклонения, повиновения как акта благоговения или полного упования, кроме одного лишь Аллаха. Это утверждение о том, кто имеет право на поклонение, а не просто о том, кто существует.",
+      "Вторая часть подтверждает, что Мухаммад ﷺ — последний посланник Аллаха, посланный с руководством для всех людей. Подтверждать это — значит доверять тому, чему он ﷺ учил об Аллахе, поклонении и о том, как жить. Именно поэтому Коран и его достоверное учение (Сунна) — два источника, на которые опирается всё это руководство.",
+      "Это свидетельство — не магическая формула, а выражение твёрдого убеждения сердца. Искренне произнести его, понимая его смысл, — вот что делает человека мусульманином, то есть «покорившимся».",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allah witnesses that there is no deity except Him, and [so do] the angels and those of knowledge... There is no deity except Him, the Exalted in Might, the Wise.",
-      },
-    ],
+    appLinks: [{ label: "Изучить акыду — вера в Аллаха" }],
   },
   {
-    title: "Becoming Muslim",
-    summary: "Sincerely saying the shahada — with understanding and intention — is what counts.",
+    title: "Как стать мусульманином",
+    summary: "Важно искренне произнести шахаду — с пониманием и намерением.",
     body: [
-      "There is no priest, ceremony, fee, or paperwork required to become Muslim. What is required is sincerity: understanding the shahada's meaning and saying it with the intention of embracing it as your belief, between you and Allah.",
-      "Many people choose to say it in front of others — a local imam, a mosque community, or friends — because it gives witnesses to the moment and connects you to a support network from day one; this is a widely recommended practice rather than a strict requirement for the testimony itself.",
-      "Some new Muslims also perform ghusl (a full ritual wash) around this time as a symbolic and practical fresh start before learning to pray; practices and views on exactly when and how vary between communities, so ask a local teacher what is customary near you rather than guessing.",
-      "If you are still exploring rather than certain, that is a normal and respected stage — read, ask questions, and take your time. The testimony is meant to be said with conviction, not under pressure.",
+      "Чтобы стать мусульманином, не нужны ни священник, ни церемония, ни плата, ни документы. Нужна искренность: понимание смысла шахады и её произнесение с намерением принять её как свою веру — между вами и Аллахом.",
+      "Многие предпочитают произнести её при других — перед местным имамом, общиной мечети или друзьями, — потому что так у этого момента появляются свидетели, а у вас с первого дня появляется круг поддержки. Это широко рекомендуемая практика, а не строгое условие самого свидетельства.",
+      "Некоторые новые мусульмане в это время также совершают гусль (полное ритуальное омовение) как символическое и практическое новое начало, прежде чем учиться намазу. Обычаи и мнения о том, когда и как именно это делать, различаются в разных общинах, поэтому лучше спросить местного учителя, как принято у вас, а не гадать.",
+      "Если вы ещё изучаете ислам и не уверены, это нормальный и уважаемый этап — читайте, задавайте вопросы и не торопитесь. Свидетельство должно произноситься с убеждённостью, а не под давлением.",
     ],
     actions: [
-      "If you are ready, consider saying the shahada in the presence of a local imam, mosque community, or trusted Muslim friends.",
-      "Ask a local mosque or teacher about any customary next steps (such as ghusl) in your community.",
+      "Если вы готовы, подумайте о том, чтобы произнести шахаду в присутствии местного имама, общины мечети или мусульман, которым вы доверяете.",
+      "Спросите в местной мечети или у учителя о принятых в вашей общине следующих шагах (например, о гусле).",
     ],
   },
   {
-    title: "The Five Pillars of Islam",
-    summary: "Islam rests on five foundational acts of worship, named together by the Prophet ﷺ.",
-    body: [
-      "The Prophet ﷺ summarised the structure of Islamic practice in one hadith: Islam is built on five pillars — testifying that there is no god but Allah and that Muhammad is His Messenger (shahada); establishing the five daily prayers (salah); giving the obligatory annual charity (zakah); fasting the month of Ramadan; and performing the pilgrimage to Makkah (Hajj) at least once, for those who are able.",
-      "Think of them as a house: the shahada is the foundation everything rests on, and the other four are the pillars that hold the structure up — regular worship (salah), regular giving (zakah), an annual month of self-discipline (fasting), and a once-in-a-lifetime pilgrimage (Hajj) for those with the health and means to travel.",
-      "You do not need to master all five immediately. The shahada you have already learned about; salah is covered next in this guide; zakah and fasting are learned gradually as they come around each year; Hajj is planned for later in life when circumstances allow.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam is built upon five: testifying that there is no god but Allah and that Muhammad is His Messenger, establishing prayer, giving zakah, Hajj, and fasting Ramadan. (Ibn 'Umar; also Sahih Muslim 16)",
-      },
-    ],
-  },
-  {
-    title: "Zakah, Fasting, and Hajj at a Glance",
-    summary: "Three pillars that come with time — you don't need to act on them today.",
-    body: [
-      "Zakah is a yearly obligatory charge — a small, fixed percentage — on savings and qualifying wealth above a minimum threshold (nisab), given to specific categories of people in need. It usually becomes relevant once you have held savings for about a year, so there is no rush; the app's Zakat guide covers the full detail whenever you need it.",
-      "Fasting Ramadan means abstaining from food, drink, and marital relations from before dawn until sunset for one lunar month each year, alongside extra prayer and Qur'an reading. It is a demanding but deeply rewarding pillar that most new Muslims ease into with guidance from their community rather than alone.",
-      "Hajj is the pilgrimage to Makkah, obligatory once in a lifetime only for those who are physically and financially able to make the journey. If it is not within your means right now, there is no burden on you — Allah only asks what a person is able to give.",
-    ],
-  },
-  {
-    title: "How the Pillars Shape Daily Life",
+    title: "Пять столпов ислама",
     summary:
-      "The five pillars turn belief into a rhythm you actually live, day by day and year by year.",
+      "Ислам стоит на пяти основополагающих видах поклонения, которые Пророк ﷺ назвал вместе.",
     body: [
-      "One of the things new Muslims often find most beautiful is how the pillars build a rhythm into ordinary life: five short pauses for prayer every day, a yearly season of fasting and reflection, an annual act of giving, and — eventually — a once-in-a-lifetime pilgrimage. None of it is abstract theology; all of it is lived.",
-      "This rhythm is meant to be sustainable, not overwhelming. The Prophet ﷺ taught that the deeds most loved by Allah are the ones kept up consistently, even if small — not sudden bursts of intensity that burn out. Build small, steady habits first; depth will come with time.",
+      "Пророк ﷺ обобщил устройство исламской практики в одном хадисе: ислам построен на пяти столпах — свидетельстве, что нет божества, кроме Аллаха, и что Мухаммад — Его Посланник (шахада); совершении пяти ежедневных намазов; выплате обязательной ежегодной милостыни (закята); посте в месяц Рамадан; и паломничестве в Мекку (хадже) хотя бы раз в жизни для тех, кто в состоянии его совершить.",
+      "Представьте их как дом: шахада — фундамент, на котором держится всё, а остальные четыре — колонны, поддерживающие строение: регулярное поклонение (намаз), регулярное пожертвование (закят), ежегодный месяц самодисциплины (пост) и паломничество раз в жизни (хадж) для тех, у кого есть здоровье и средства на поездку.",
+      "Не нужно сразу осваивать все пять. О шахаде вы уже узнали; намаз разбирается в этом руководстве далее; закят и пост изучаются постепенно, по мере того как они наступают каждый год; хадж планируется на более позднее время, когда позволят обстоятельства.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Do good deeds properly, sincerely, and moderately... the most beloved deed to Allah is the most regular and constant, even if it were little. (also Sahih Muslim 783)",
-      },
+  },
+  {
+    title: "Закят, пост и хадж вкратце",
+    summary: "Три столпа, которые приходят со временем — действовать по ним сегодня не нужно.",
+    body: [
+      "Закят — ежегодный обязательный сбор, небольшой фиксированный процент со сбережений и облагаемого имущества сверх минимального порога (нисаба), который отдаётся определённым категориям нуждающихся. Обычно он становится актуальным, когда сбережения пролежали у вас около года, так что спешить некуда: руководство по закяту в приложении подробно объяснит всё, когда понадобится.",
+      "Пост в Рамадан — это воздержание от еды, питья и супружеской близости от рассвета до заката в течение одного лунного месяца каждый год, вместе с дополнительными намазами и чтением Корана. Это требовательный, но очень вознаграждаемый столп, к которому большинство новых мусульман привыкают постепенно, с поддержкой своей общины, а не в одиночку.",
+      "Хадж — паломничество в Мекку, обязательное раз в жизни только для тех, кто физически и материально способен совершить путешествие. Если сейчас это вам не по силам, на вас нет никакого бремени — Аллах требует от человека лишь того, что ему по силам.",
+    ],
+    appLinks: [{ label: "Руководство по закяту" }],
+  },
+  {
+    title: "Как столпы формируют повседневную жизнь",
+    summary: "Пять столпов превращают веру в ритм, которым вы живёте день за днём и год за годом.",
+    body: [
+      "Одно из того, что новые мусульмане часто находят самым прекрасным, — как столпы встраивают ритм в обычную жизнь: пять коротких пауз для намаза каждый день, ежегодный сезон поста и размышлений, ежегодное пожертвование и — со временем — паломничество раз в жизни. Ничто из этого не является отвлечённым богословием: всё это проживается.",
+      "Этот ритм должен быть посильным, а не изнуряющим. Пророк ﷺ учил, что самые любимые Аллахом дела — те, что совершаются постоянно, пусть даже их немного, а не внезапные всплески усердия, которые быстро выгорают. Сначала выстройте небольшие устойчивые привычки — глубина придёт со временем.",
     ],
     actions: [
-      "Pick one small, sustainable habit to start with this week rather than trying to do everything at once.",
+      "Выберите одну небольшую посильную привычку, с которой начнёте на этой неделе, вместо того чтобы пытаться сделать всё сразу.",
     ],
   },
   {
-    title: "The Six Articles of Faith",
-    summary: "What a Muslim believes, in six points taught directly by the Prophet ﷺ.",
+    title: "Шесть столпов веры",
+    summary: "Во что верит мусульманин — шесть положений, которым непосредственно учил Пророк ﷺ.",
     body: [
-      "Where the five pillars are what a Muslim does, the six articles of iman (faith) are what a Muslim believes. They come from the Hadith of Jibril, where the angel Jibril, in the form of a man, asked the Prophet ﷺ to explain iman before the assembled companions.",
-      "The Prophet ﷺ answered: belief in Allah; in His angels; in His revealed books; in His messengers; in the Last Day; and in the divine decree (qadr) — its good and its bitter. These six form one connected picture of reality: who created you, who guides the unseen world, how guidance reached humanity, who delivered it, where life is heading, and how to hold both ease and hardship with trust in Allah.",
-      "You don't need to master the philosophy behind each article today — the Aqeedah guide in this app walks through all six in depth, with the evidence behind each one, whenever you're ready to go deeper.",
+      "Если пять столпов — это то, что мусульманин делает, то шесть столпов имана (веры) — это то, во что мусульманин верит. Они взяты из хадиса Джибриля, в котором ангел Джибриль в облике человека попросил Пророка ﷺ разъяснить иман перед собравшимися сподвижниками.",
+      "Пророк ﷺ ответил: вера в Аллаха; в Его ангелов; в Его ниспосланные Писания; в Его посланников; в Последний день; и в божественное предопределение (кадар) — его доброе и горькое. Эти шесть положений складываются в единую картину мира: кто создал вас, кто управляет сокровенным миром, как руководство дошло до человечества, кто его передал, куда движется жизнь и как с упованием на Аллаха принимать и лёгкость, и трудности.",
+      "Сегодня не нужно постигать всю философию каждого из этих положений — руководство по акыде в этом приложении подробно разбирает все шесть вместе с доводами, когда вы будете готовы углубиться.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Iman is to believe in Allah, His angels, His books, His messengers, the Last Day, and to believe in the divine decree, its good and its bitter. (Hadith of Jibril, narrated by 'Umar)",
-      },
-    ],
+    appLinks: [{ label: "Изучить акыду — шесть столпов веры" }],
   },
   {
-    title: "Who Is Allah?",
-    summary: "One God, without partner, equal, or need — described by His own beautiful names.",
-    body: [
-      "Allah is the proper name of God in Islam — not a different god, but the same one true Creator that earlier scriptures pointed to, now known by His own chosen name and described through His revealed attributes rather than human speculation.",
-      "The clearest short description in the Qur'an is Surah al-Ikhlas: He is One; He has no partner and no equal; He neither begets nor is begotten. Allah has no body you can picture and no image should ever be made to represent Him — knowing Him comes through His names (such as the Most Merciful, the All-Knowing, the All-Hearing) and His actions in creation, not through pictures or physical comparisons.",
-      "Getting to know Allah through His names is often the most emotionally grounding part of early faith: the more you learn what He is like, the more prayer and daily reliance on Him start to feel personal rather than mechanical.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Say: He is Allah, the One... He neither begets nor is born, and there is none comparable to Him.",
-      },
-    ],
-  },
-  {
-    title: "The Qur'an and the Final Message",
-    summary: "The Qur'an is Allah's own words, preserved unchanged since it was revealed.",
-    body: [
-      "Muslims believe the Qur'an is the literal speech of Allah, revealed to the Prophet Muhammad ﷺ over about 23 years, and preserved word-for-word since then — memorised by generations of Muslims and never altered.",
-      "It is not a biography of the Prophet ﷺ or a history book, though it contains both guidance and stories of earlier prophets; it is primarily a book of guidance meant to be read, recited, reflected on, and lived, a little at a time.",
-      "You do not need to read Arabic to begin. Start with a translation in a language you understand, in any order that interests you, and let familiarity with the Arabic recitation grow gradually alongside your prayer.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
-      },
-    ],
-  },
-  {
-    title: "How to Pray — the Big Picture",
-    summary: "Five short prayers a day, each a set sequence of standing, bowing, and prostrating.",
-    body: [
-      "Salah is prayed five times a day at set windows — Fajr (dawn), Dhuhr (midday), Asr (afternoon), Maghrib (sunset), and Isha (night) — and takes only a few minutes each time once you know the pattern. This app's prayer times and tracker will show you exactly when each window opens where you are.",
-      "Each prayer is made of units called rak'ahs (Fajr has two, Dhuhr/Asr/Isha have four, Maghrib has three), and every rak'ah follows the same basic shape: standing while reciting, bowing (ruku'), and two prostrations (sujud), with fixed words of praise and Qur'an said at each position.",
-      "Before praying, you perform wudu — a short ritual washing of the hands, mouth, face, arms, head, and feet — and you pray facing the direction of the Kaaba in Makkah (the qibla), which this app can also point you toward.",
-      "This overview is intentionally high level. The exact wording said at each position, step-by-step video-style instructions, and a full beginner course all live in the dedicated Salah guide — start there next, and use the phrases guide alongside it to learn the words with transliteration and translation.",
-    ],
-  },
-  {
-    title: "Wudu: Getting Ready to Pray",
-    summary: "A short ritual washing that prepares body and heart for standing before Allah.",
-    body: [
-      "Wudu is required before every prayer (unless you are still in a valid wudu from before) and follows a fixed order: washing the hands, rinsing the mouth and nose, washing the face, the arms to the elbows, wiping the head and ears, and washing the feet to the ankles.",
-      "It doesn't take long once learned — most people manage it in under two minutes — and it carries a spiritual meaning too: each limb washed is paired, in the hadith literature, with the idea of minor faults being washed away along with it.",
-      "The full Purification (Taharah) guide in this app walks through wudu step by step, along with what to do if you're unsure whether your wudu is still valid.",
-    ],
-  },
-  {
-    title: "Learning the Words of Prayer",
+    title: "Кто такой Аллах?",
     summary:
-      "Start with transliteration and meaning; Arabic fluency comes with repetition over time.",
+      "Единый Бог, у Которого нет ни сотоварища, ни равного, ни нужды, — описанный Его собственными прекрасными именами.",
     body: [
-      "Salah is prayed in Arabic, which can feel like the hardest part at first — but you are not expected to be fluent to begin. Most new Muslims start by learning a handful of short, essential phrases (the opening takbir, a short surah, the words said while bowing and prostrating, and the closing salam) with a transliteration and translation alongside the Arabic.",
-      "Memorise these in small chunks rather than all at once, and repeat them daily — memory for prayer phrases builds quickly through the repetition of praying itself, even before you consciously try to memorise anything.",
-      "The dedicated phrases guide in this app gives you every essential phrase with Arabic, transliteration, and translation together, organised by where each one is said in the prayer — use it as your daily practice tool.",
+      "Аллах — собственное имя Бога в исламе. Это не какой-то другой бог, а тот же единственный истинный Творец, на Которого указывали прежние Писания, — теперь известный по имени, которое Он Сам избрал, и описанный через ниспосланные Им атрибуты, а не через человеческие домыслы.",
+      "Самое ясное краткое описание в Коране — сура «аль-Ихлас»: Он Един; у Него нет ни сотоварища, ни равного; Он не родил и не был рождён. У Аллаха нет тела, которое можно себе представить, и никогда не следует создавать изображения, призванные Его представлять, — познание Его приходит через Его имена (такие как Милостивейший, Всеведущий, Всеслышащий) и Его деяния в творении, а не через изображения или физические сравнения.",
+      "Познание Аллаха через Его имена часто становится самой укрепляющей частью ранней веры: чем больше вы узнаёте о Нём, тем больше намаз и ежедневное упование на Него становятся личными, а не механическими.",
+    ],
+    appLinks: [{ label: "Имена Аллаха" }],
+  },
+  {
+    title: "Коран и последнее Послание",
+    summary: "Коран — это слова Самого Аллаха, сохранённые неизменными с момента ниспослания.",
+    body: [
+      "Мусульмане верят, что Коран — это буквальная речь Аллаха, ниспосланная Пророку Мухаммаду ﷺ примерно за 23 года и сохранённая слово в слово с тех пор — заученная наизусть поколениями мусульман и никогда не изменявшаяся.",
+      "Это не жизнеописание Пророка ﷺ и не исторический труд, хотя в нём есть и наставления, и истории прежних пророков; прежде всего это книга руководства, которую следует читать, декламировать, осмысливать и воплощать в жизни понемногу.",
+      "Чтобы начать, не нужно знать арабский. Начните с перевода на понятном вам языке, в любом порядке, который вам интересен, и пусть знакомство с арабской декламацией постепенно растёт вместе с вашим намазом.",
+    ],
+    appLinks: [{ label: "Читать Коран" }],
+  },
+  {
+    title: "Как совершать намаз — общая картина",
+    summary:
+      "Пять коротких намазов в день, каждый — установленная последовательность стояния, поясного поклона и земных поклонов.",
+    body: [
+      "Намаз совершается пять раз в день в установленные промежутки времени — Фаджр (рассвет), Зухр (полдень), Аср (после полудня), Магриб (закат) и Иша (ночь) — и, когда вы знаете порядок, занимает каждый раз лишь несколько минут. Время намазов и трекер в этом приложении точно покажут, когда открывается каждый промежуток в вашем месте.",
+      "Каждый намаз состоит из единиц, называемых ракаатами (в Фаджре их два, в Зухре, Асре и Иша — по четыре, в Магрибе — три), и каждый ракаат имеет одну и ту же основную форму: стояние с чтением, поясной поклон (руку) и два земных поклона (суджуд), с установленными словами восхваления и чтением Корана в каждом положении.",
+      "Перед намазом совершают омовение (вуду) — короткое ритуальное омовение рук, рта, лица, рук до локтей, головы и ног — и молятся, обратившись в сторону Каабы в Мекке (киблы), направление на которую тоже может показать это приложение.",
+      "Этот обзор намеренно общий. Точные слова в каждом положении, пошаговые наглядные инструкции и полный курс для начинающих находятся в отдельном руководстве по намазу — переходите к нему дальше и пользуйтесь вместе с ним руководством по фразам, чтобы выучить слова с транслитерацией и переводом.",
+    ],
+    appLinks: [
+      { label: "Изучить намаз — полное руководство" },
+      { label: "Фразы намаза (с транслитерацией)" },
     ],
   },
   {
-    title: "Your First Steps Checklist",
-    summary: "A simple, realistic order to learn things in over your first weeks.",
+    title: "Омовение: подготовка к намазу",
+    summary: "Короткое ритуальное омовение, которое готовит тело и сердце к стоянию перед Аллахом.",
     body: [
-      "There is no single required order for learning after the shahada, but new Muslims often find a rough sequence helpful so that nothing feels overwhelming all at once. Use this as a loose guide, not a race.",
+      "Омовение (вуду) обязательно перед каждым намазом (если только у вас не сохранилось действительное омовение с прошлого раза) и совершается в установленном порядке: мытьё кистей рук, полоскание рта и носа, мытьё лица, рук до локтей, протирание головы и ушей и мытьё ног до щиколоток.",
+      "Когда вы его выучите, оно занимает немного времени — у большинства меньше двух минут, — и у него есть и духовный смысл: в хадисах омовение каждой части тела связано с мыслью о том, что вместе с водой смываются и малые проступки.",
+      "Полное руководство по очищению (тахарат) в этом приложении шаг за шагом разбирает омовение, а также объясняет, что делать, если вы не уверены, сохранилось ли ваше омовение.",
+    ],
+    appLinks: [{ label: "Руководство по очищению (тахарат)" }],
+  },
+  {
+    title: "Изучение слов намаза",
+    summary:
+      "Начните с транслитерации и смысла — свободное владение арабским придёт с повторением.",
+    body: [
+      "Намаз совершается на арабском языке, и поначалу это может казаться самым трудным, — но для начала от вас не ждут свободного владения. Большинство новых мусульман начинают с нескольких коротких обязательных фраз (начальный такбир, короткая сура, слова в поясном и земном поклонах и завершающий салям), выучивая их с транслитерацией и переводом рядом с арабским текстом.",
+      "Заучивайте их небольшими частями, а не все сразу, и повторяйте ежедневно — память на фразы намаза быстро укрепляется благодаря самому повторению намаза, ещё до того, как вы сознательно попытаетесь что-либо выучить.",
+      "Отдельное руководство по фразам в этом приложении даёт каждую обязательную фразу на арабском, в транслитерации и в переводе, упорядоченную по месту в намазе, где она произносится, — используйте его как инструмент ежедневной практики.",
+    ],
+    appLinks: [{ label: "Руководство по фразам намаза" }],
+  },
+  {
+    title: "Список ваших первых шагов",
+    summary: "Простой и реалистичный порядок изучения на первые недели.",
+    body: [
+      "Нет единого обязательного порядка обучения после шахады, но новым мусульманам часто помогает примерная последовательность, чтобы ничего не казалось непосильным сразу. Используйте её как ориентир, а не как гонку.",
     ],
     actions: [
-      "Learn wudu (ritual washing) and practise it until it feels natural.",
-      "Learn the essential words of one full prayer using the phrases guide.",
-      "Start praying the five daily prayers, even imperfectly at first — consistency matters more than perfection early on.",
-      "Learn a few short daily duas (supplications) for waking, eating, and leaving the house.",
-      "Find a local mosque or online community for support and questions.",
-      "Begin reading the Qur'an in translation, a little each day.",
-      "Tell someone you trust — family or a close friend — when you feel ready, at your own pace.",
+      "Выучите омовение (вуду) и практикуйте его, пока оно не станет привычным.",
+      "Выучите обязательные слова одного полного намаза с помощью руководства по фразам.",
+      "Начните совершать пять ежедневных намазов, пусть поначалу и несовершенно, — на раннем этапе постоянство важнее совершенства.",
+      "Выучите несколько коротких ежедневных дуа (мольб) — при пробуждении, во время еды и при выходе из дома.",
+      "Найдите местную мечеть или онлайн-общину для поддержки и вопросов.",
+      "Начните читать Коран в переводе — понемногу каждый день.",
+      "Расскажите тому, кому доверяете, — родным или близкому другу, — когда почувствуете готовность, в своём темпе.",
     ],
   },
   {
-    title: "Finding Community",
-    summary: "Learning alongside other Muslims makes the journey easier and more joyful.",
+    title: "Поиск общины",
+    summary: "Обучение рядом с другими мусульманами делает путь легче и радостнее.",
     body: [
-      "Islam is meant to be lived in community, not only in private. Congregational prayer, a local mosque, and Muslim friends can answer everyday questions ('how do I say this in prayer if I forget?'), offer encouragement, and simply make you feel less alone in a new experience.",
-      "If you're not sure where to start, most mosques welcome new Muslims warmly and often have someone specifically happy to help newcomers with the basics — asking is normal and expected, not awkward.",
-      "If an in-person mosque isn't accessible right now, online communities and this app's own guides can bridge the gap until you find one, or permanently if that's your situation — either way, you are still fully part of the wider Muslim community (the ummah).",
+      "Ислам предназначен для жизни в общине, а не только наедине с собой. Коллективный намаз, местная мечеть и друзья-мусульмане могут ответить на повседневные вопросы («как это сказать в намазе, если я забыл?»), подбодрить и просто помочь вам не чувствовать себя одиноким в новом опыте.",
+      "Если вы не знаете, с чего начать, — большинство мечетей тепло встречают новых мусульман, и там часто есть человек, который с радостью поможет новичкам с основами. Спрашивать — нормально и ожидаемо, а не неловко.",
+      "Если мечеть сейчас недоступна, онлайн-общины и руководства этого приложения могут восполнить пробел, пока вы её не найдёте, — или постоянно, если таковы ваши обстоятельства. В любом случае вы остаётесь полноценной частью всей мусульманской общины (уммы).",
     ],
     actions: [
-      "Look up mosques or Islamic centres near you and consider visiting for a prayer time or an event.",
-      "If in-person community isn't accessible yet, seek out a moderated online Muslim community for support.",
+      "Найдите мечети или исламские центры рядом с вами и подумайте о том, чтобы прийти на намаз или мероприятие.",
+      "Если живая община пока недоступна, найдите модерируемое онлайн-сообщество мусульман для поддержки.",
     ],
   },
   {
-    title: "Continuing to Learn",
-    summary: "This guide is a starting point — three deeper guides are ready when you are.",
+    title: "Продолжение обучения",
+    summary:
+      "Это руководство — отправная точка; три более глубоких руководства ждут, когда вы будете готовы.",
     body: [
-      "Once the essentials in this guide feel comfortable, three companion guides in this app are built to take you deeper: Aqeedah for the full detail behind each article of faith, Learn Dua for supplications for everyday moments, and the Qur'an reader for daily recitation and reflection.",
-      "You don't have to finish any of them quickly. Islam is learned over a lifetime, and returning to the same topic months or years later, with more experience, is completely normal — even expected.",
+      "Когда основы из этого руководства станут привычными, три сопутствующих руководства в этом приложении помогут углубиться: акыда — для подробного разбора каждого столпа веры, «Изучить дуа» — для мольб на каждый день, и чтение Корана — для ежедневной декламации и размышлений.",
+      "Ни одно из них не нужно проходить быстро. Ислам изучается всю жизнь, и возвращаться к той же теме месяцы или годы спустя, с бо́льшим опытом, совершенно нормально — и даже ожидаемо.",
     ],
+    appLinks: [{ label: "Изучить акыду" }, { label: "Изучить дуа" }, { label: "Читать Коран" }],
   },
   {
-    title: "FAQ: Common Early Mistakes",
-    summary: "Everyone starts imperfectly — here's how to think about early stumbles.",
+    title: "Вопросы и ответы: частые ошибки на первых порах",
+    summary: "Все начинают несовершенно — вот как относиться к первым промахам.",
     body: [
-      "Q: I keep messing up parts of the prayer or forgetting the words — is that a problem? A: No. Everyone forgets words and mixes up steps while learning; keep practising with the phrases guide and it becomes natural within weeks. Sincerity while learning matters far more than early perfection.",
-      "Q: I feel guilty that I'm not doing everything (fasting, extra prayers, memorising Qur'an) right away. A: Trying to do everything at once is a common new-Muslim mistake that often leads to burnout. Build the five daily prayers as your first steady habit, then add gradually — Allah does not burden anyone beyond their ability.",
-      "Q: What if I miss a prayer or make a mistake in one? A: Missing a prayer occasionally while you're learning the routine, or making a small mistake in it, is not the end of the world — make it up when you remember, keep going, and don't let a setback stop you from praying the next one.",
+      "В: Я постоянно ошибаюсь в частях намаза или забываю слова — это проблема? О: Нет. Все забывают слова и путают шаги, пока учатся; продолжайте практиковаться с руководством по фразам, и за несколько недель это станет естественным. Искренность в процессе обучения гораздо важнее раннего совершенства.",
+      "В: Я чувствую вину, что не делаю всего сразу (пост, дополнительные намазы, заучивание Корана). О: Попытка сделать всё сразу — частая ошибка новых мусульман, которая нередко ведёт к выгоранию. Сначала сделайте пять ежедневных намазов своей первой устойчивой привычкой, а затем добавляйте постепенно — Аллах не возлагает ни на кого больше, чем тот способен вынести.",
+      "В: Что, если я пропущу намаз или ошибусь в нём? О: Если вы иногда пропускаете намаз, пока осваиваете распорядок, или допускаете в нём небольшую ошибку, — это не конец света. Восполните его, когда вспомните, продолжайте и не позволяйте неудаче помешать вам совершить следующий намаз.",
     ],
     actions: [
-      "When you make a mistake, treat it as a normal part of learning, not a reason to give up.",
+      "Когда ошибаетесь, относитесь к этому как к обычной части обучения, а не как к поводу сдаться.",
     ],
   },
   {
-    title: "FAQ: Do I Need to Learn Arabic?",
-    summary: "Arabic grows with you over years — it isn't a prerequisite to start practising.",
+    title: "Вопросы и ответы: нужно ли учить арабский?",
+    summary:
+      "Арабский язык растёт вместе с вами годами — это не обязательное условие, чтобы начать практиковать.",
     body: [
-      "Q: Do I need to speak Arabic before I can pray or read the Qur'an? A: No. You can begin praying with a handful of short, transliterated phrases today, and read the Qur'an in your own language while your Arabic recitation grows over time through repetition.",
-      "Q: Is it disrespectful to mispronounce the Arabic while learning? A: No — every reciter, in every generation, started as a beginner. Effort while learning is valued; perfection is a long-term goal, not a starting requirement.",
-      "Q: Should I take a class to learn Arabic reading (for prayer, not necessarily conversation)? A: Many new Muslims find a short Qur'an-reading (tajweed basics) class very worthwhile once the essentials of prayer feel comfortable — it's a good next step, not a first one.",
+      "В: Нужно ли мне говорить по-арабски, прежде чем я смогу совершать намаз или читать Коран? О: Нет. Вы можете начать совершать намаз уже сегодня с несколькими короткими фразами в транслитерации и читать Коран на своём языке, пока ваша арабская декламация со временем растёт благодаря повторению.",
+      "В: Неуважительно ли неправильно произносить арабские слова во время обучения? О: Нет — каждый чтец в каждом поколении начинал как новичок. Старание в учёбе ценится; совершенство — долгосрочная цель, а не начальное требование.",
+      "В: Стоит ли пойти на курс, чтобы научиться читать по-арабски (для намаза, не обязательно для разговора)? О: Многие новые мусульмане считают очень полезным короткий курс чтения Корана (основы таджвида), когда основы намаза станут привычными, — это хороший следующий шаг, но не первый.",
     ],
     actions: [
-      "Keep using transliteration and translation alongside Arabic until recitation feels natural — there's no deadline.",
+      "Продолжайте пользоваться транслитерацией и переводом рядом с арабским текстом, пока чтение не станет естественным, — сроков нет.",
     ],
   },
   {
-    title: "FAQ: Family and Relationships",
-    summary: "Kindness to family remains a duty, even where beliefs now differ.",
+    title: "Вопросы и ответы: семья и отношения",
+    summary: "Доброта к семье остаётся обязанностью, даже если теперь ваши убеждения различаются.",
     body: [
-      "Q: My family isn't Muslim and I'm worried about how they'll react — what does Islam ask of me here? A: Kindness to parents and family is commanded in the Qur'an even where belief differs: 'do not obey them [in matters that would compromise your faith], but accompany them in this world with kindness.' Your new faith should visibly make you gentler and more dutiful toward family, not less.",
-      "Q: How do I tell my family, or handle disagreement, without it becoming a crisis? A: There's no single right way — pace, timing, and how much to share depend on your specific family and safety. This is a genuinely personal decision; talking it through with a trusted local imam, counsellor, or experienced convert-support group before difficult conversations is wiser than navigating it entirely alone.",
-      "Q: Am I obligated to cut ties with non-Muslim family or friends? A: No — maintaining good relationships and honouring family ties remains a duty in Islam. Boundaries around specific practices (for example, certain celebrations or activities) are a separate, personal matter best discussed with a knowledgeable local teacher who knows your situation.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "But if they endeavour to make you associate with Me that of which you have no knowledge, do not obey them, but accompany them in this world with kindness...",
-      },
+      "В: Моя семья не мусульмане, и я беспокоюсь, как они отреагируют, — чего ислам требует от меня здесь? О: Доброта к родителям и семье предписана в Коране, даже когда вера различается: «…не повинуйся им [в том, что подорвало бы твою веру], но сопровождай их в этом мире по-доброму». Ваша новая вера должна заметно делать вас мягче и заботливее по отношению к семье, а не наоборот.",
+      "В: Как рассказать семье или справиться с разногласиями, чтобы это не превратилось в кризис? О: Единственно правильного способа нет — темп, время и то, сколько рассказывать, зависят от вашей конкретной семьи и вашей безопасности. Это поистине личное решение; разумнее обсудить его с местным имамом, которому вы доверяете, консультантом или опытной группой поддержки новообращённых перед трудными разговорами, чем справляться с этим полностью в одиночку.",
+      "В: Обязан ли я разорвать связи с родными или друзьями-немусульманами? О: Нет — поддержание хороших отношений и почитание родственных связей остаются в исламе обязанностью. Границы в отношении отдельных практик (например, некоторых праздников или занятий) — отдельный личный вопрос, который лучше обсудить со знающим местным учителем, понимающим вашу ситуацию.",
     ],
     disclaimer:
-      "This FAQ offers general, non-fatwa guidance for common early questions. For your specific family, safety, or personal circumstances, please speak with a local imam, qualified counsellor, or trusted community elder.",
+      "Эти вопросы и ответы дают общие рекомендации по частым вопросам на первых порах и не являются фетвой. По вопросам, касающимся вашей конкретной семьи, безопасности или личных обстоятельств, обратитесь к местному имаму, квалифицированному консультанту или уважаемому старейшине общины.",
   },
 ];

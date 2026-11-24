@@ -15,22 +15,8 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Akideja nuk është një temë abstrakte e seminarit; është rrënja nga e cila rritet i gjithë adhurimi dhe karakteri. Besimet e një personi rreth asaj se kush është Allahu, pse u krijuan dhe ku po shkojnë, rregullojnë në heshtje mënyrën se si luten, si trajtojnë të tjerët dhe si përballen me vështirësitë dhe vdekjen.",
       "Besimi i drejtë e mban zemrën të ekuilibruar ndërmjet gjendjeve të mëdha të adhurimit - dashurisë dhe frikës, shpresës dhe frikës, mbështetjes dhe përpjekjes, mirënjohjes dhe pendimit - në mënyrë që një besimtar të mos dëshpërohet nga mëshira e Allahut dhe të mos ndihet i sigurt nga përgjegjësia e Tij.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Drejtësia është që njeriu të besojë Allahun, Ditën e Fundit, engjëjt, Librin dhe profetët…",
-      },
-      {
-        excerpt:
-          "O ju që besuat, besoni Allahun, të Dërguarin e Tij, Librin që ia zbriti të Dërguarit të Tij dhe Librin që ia zbriti më parë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imani është të besosh Allahun, engjëjt e Tij, librat e Tij, të dërguarit e Tij, Ditën e Fundit dhe të besosh në caktimin hyjnor, të mirën dhe të hidhurin e tij. (Hadithi i Xhibrilit, i transmetuar nga Omeri)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -42,12 +28,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Brenda Ehl al-Sunnetit ekzistojnë shkolla të njohura të teologjisë - më së shumti qasjet Ethari, Esh'ari dhe Maturidiu - të cilat pajtohen plotësisht mbi bazat e besimit, ndërsa ndryshojnë në disa metoda teknike të shprehjes së çështjeve të caktuara, veçanërisht atributeve hyjnore. Themeli i tyre i përbashkët është një dhe i fortë: Njëshmëria absolute e Allahut, vërtetësia e shpalljes së Tij dhe llogaridhënia e vërtetë në botën tjetër.",
       "Pra, akideja mësohet më së miri si besim i gjallë: çdo pikë e besimit lidhet me një mënyrë adhurimi, një mënyrë sjelljeje dhe një burim ngushëllimi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe ata që janë të vendosur në dituri thonë: “Ne besojmë në të. E gjithë kjo është nga Zoti ynë.'",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Mësoni akiden nga dijetarët e besueshëm dhe tekstet kryesore, jo nga debatet në mediat sociale.",
       "Për çdo besim që studioni, pyesni: si ndryshon kjo mënyrën se si adhuroj dhe jetoj?",
@@ -61,18 +42,8 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Besimi i saktë është gjithashtu ajo që e çon një besimtar në të gjithë gamën e jetës: ajo i mëson durimtarëve besimin në caktimin e Allahut gjatë vështirësive, mirënjohjen e përulur në bekim dhe sigurinë e qetë përballë pasigurisë dhe vdekjes. Një person që beson me të vërtetë në kadr dhe në botën tjetër nuk shembet kur sprovohet.",
       "Së fundi, akideja e shëndoshë mëson adabin - sjelljen e mirë - në mosmarrëveshje: mbajtjen e vendosur pas bazave të qarta duke treguar respekt dhe përmbajtje në çështjet dytësore ku dijetarët e sinqertë kanë qenë prej kohësh të ndryshëm. Njohja e besimit duhet të rrisë përulësinë dhe mëshirën, kurrë arrogancën.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allahu i forcon ata që besuan me fjalë të qëndrueshme në këtë botë dhe në botën tjetër.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jini të etur për atë që ju sjell dobi, kërkoni ndihmë nga Allahu dhe mos jini të pafuqishëm… (Ebu Hurejre)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Gjashtë nenet e imanit",
@@ -82,12 +53,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Të gjashtë janë: besimi në Allahun; në engjëjt e Tij; në librat e Tij të shpallur; në të dërguarit e Tij; në Ditën e Fundit; dhe në caktimin hyjnor (kadr), të mirat dhe të hidhurat e tij. Të refuzosh ndonjërin prej tyre do të thotë të biesh jashtë imanit të vërtetë, sepse ato janë një pëlhurë e vetme.",
       "Ato janë gjithashtu thellësisht të ndërlidhura. Besimi në librat dhe të dërguarit shpie në njohjen e Ditës së Fundit dhe llogarisë; besimi në Ditën e Fundit i jep peshë çdo vepre; dhe besimi në kadrin mëson besimin në Allahun dhe përuljen para urtësisë së Tij. Mësimi i tyre në mënyrë të rregullt ndërton një botëkuptim të qartë dhe të ekuilibruar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Të besoni Allahun, engjëjt e Tij, librat e Tij, të dërguarit e Tij, Ditën e Fundit dhe të besoni vendimin, të mirat dhe të hidhurat e tij. (Hadithi i Xhibrilit)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -100,15 +66,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       'Ehli Suneti pohojnë emrat e bukur dhe cilësitë e larta që Allahu i pohoi për Veten e Tij dhe që i Dërguari i Tij ﷺ i pohoi për Të, në një mënyrë që i përshtatet madhështisë së Tij - pa e krahasuar Atë me krijimin e Tij (tamthil) dhe pa mohuar apo zbrazur cilësitë e Tij kuptimore (ta\'til). Ajeti udhëzues është: "Asgjë nuk i ngjan Atij, dhe Ai është Gjithëdëgjuesi, Gjithëshikuesi" (42:11) - që edhe mohon ngjashmërinë dhe pohon dëgjimin dhe shikimin e Tij.',
       "Njohja e Allahut me emrat e Tij - Mëshiruesi, i Gjithëdijshmi, i Gjallit, Mbretit, Falës - është ushqimi i zemrës: sa më shumë ta njihni Atë, aq më shumë e doni, frikësoheni dhe drejtoheni tek Ai.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Thuaj: Ai është Allahu, Një... Ai as nuk lind, as nuk lind dhe nuk ka asnjë të krahasueshëm me Të.",
-      },
-      {
-        excerpt: "E Allahut i përkasin emrat më të bukur, andaj thirreni Atë me ta.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -120,16 +78,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Të besosh në to do të thotë të besosh se bota e padukshme është reale dhe aktive rreth nesh. Engjëjt sjellin shpallje, ruajnë qeniet njerëzore, regjistrojnë çdo fjalë dhe vepër, marrin shpirtrat pas vdekjes dhe menaxhojnë punët e tokës dhe të qiejve me lejen e Allahut - kështu që një besimtar nuk është kurrë i vetëm apo i pavëzhguar.",
       "Në tekste përmenden disa me role specifike: Xhibrili, engjëlli i shpalljes; Mika'il, të cilit i është besuar shiu dhe furnizimi; Israfili, i cili do t'i fryjë Surit; Malak al-Mawt, engjëlli i vdekjes; dhe skribët fisnikë (Kiraman Katibin) të cilët regjistrojnë veprat e secilit person. Munkar dhe Nakir e pyesin të ndjerin në varr.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mbi të janë engjëj, të ashpër dhe të ashpër, të cilët nuk e kundërshtojnë Allahun në atë që Ai urdhëron dhe bëjnë atë që urdhërohen.",
-      },
-      {
-        excerpt:
-          "Thuaj: Kushdo që është armik i Xhibrilit, ai me lejen e Allahut e ka zbritur atë në zemrën tuaj.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Jetoni me vetëdijen se engjëjve të regjistrimit nuk u mungon kurrë asnjë fjalë apo vepër.",
     ],
@@ -143,15 +92,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Kurani mban një gradë unike. Është shpallja përfundimtare, e dërguar 'duke vërtetuar atë që i ka ardhur dhe si kriter mbi të' (5:48) - që do të thotë se gjykon dhe korrigjon, pasi shkrimet e mëparshme nuk mbetën në gjendjen e tyre origjinale, por u ndryshuan (tahrif) dhe humbën brez pas brezi.",
       "Në mënyrë unike në mesin e të gjitha shkrimeve, Kur'ani është i mbrojtur në mënyrë hyjnore nga prishja: \"Në të vërtetë, Ne e zbritëm Përkujtimin dhe me të vërtetë, Ne jemi Ruajtësit e tij\" (15:9). Prandaj, të besosh në libra do të thotë të nderosh shpalljen, të lexosh Kur'anin me reflektim dhe t'i nënshtrohesh udhëzimit të tij në jetë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe Ne të shpallëm ty Librin me të vërtetën, që vërteton atë që ishte para tij nga Libri dhe si kriter mbi të.",
-      },
-      {
-        excerpt: "Vërtet, Ne e kemi zbritur Përkujtimin dhe Ne do të jemi mbrojtës i saj.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -163,15 +104,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Profetët janë krijesat më të mira në vërtetësi dhe besueshmëri, të mbrojtur nga Allahu nga gënjeshtra për mesazhin dhe nga mëkati i madh – megjithatë ata mbeten qenie njerëzore, jo hyjnore dhe nuk duhet të adhurohen kurrë. Pesë janë veçuar si të dërguarit 'të vendosur' (ulu al-'azm): Nuh, Ibrahim, Musa, 'Isa dhe Muhamed ﷺ.",
       "Muhamedi ﷺ është vula e profetëve (khatam en-nebiyyin): asnjë profet nuk vjen pas tij dhe mesazhi i tij është universal - dërguar mbarë njerëzimit deri në Ditën e Gjykimit. Të besosh në të përfshin ta duash atë, t'i bindesh urdhrave të tij, t'i besosh raportet e tij dhe të adhurosh vetëm në mënyrën se si ai mësoi.",
     ],
-    quran: [
-      {
-        excerpt: "…Ne nuk bëjmë dallim ndërmjet asnjë prej të dërguarve të Tij…",
-      },
-      {
-        excerpt:
-          "Muhamedi nuk është babai i asnjërit prej burrave tuaj, por i Dërguari i Allahut dhe vula e profetëve.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -183,12 +116,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       'Ky besim i jep peshë morale çdo momenti. Për shkak se Allahu sheh të fshehtën dhe shënon veprën më të vogël, asgjë e mirë nuk humbet kurrë dhe asgjë e keqe nuk anashkalohet: "Kushdo që bën të mirën sa një grimcë do ta shohë atë, dhe kushdo që bën të keqen sa një grimcë do ta shohë atë."',
       "Ehli Suneti i pohon të gjitha këto realitete me siguri, duke i besuar saktësisht ashtu siç janë raportuar, ndërkohë që pranojnë se dijetarët ndryshojnë në interpretimin e disa detajeve më të imta të ngjarjeve dhe shenjave specifike. Qëllimi i besimit nuk është spekulimi, por përgatitja.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…Pra, kushdo që bën të mirën sa një atom do ta shohë atë, dhe kushdo që bën të keqen sa një atom do ta shohë atë.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -201,21 +129,8 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Ehli Suneti udhëhiqet ndërmjet dy gabimeve: mohimit të vendimit (sikur ngjarjet i shmangen diturisë dhe vullnetit të Allahut) dhe fatalizmit (përdorimi i dekretit për të hequr përgjegjësinë njerëzore dhe për të shfajësuar mëkatin). Besimtari i merr mjetet me përsosmëri, pastaj ia beson përfundimin Allahut.",
       "Praktikisht, kadri është burimi i madh i paqes: pasi të bësh pjesën tënde, ti pushon në dijeninë se çfarëdo që të arrin nuk mund të të mungonte kurrë dhe çfarëdo që të mungonte kurrë nuk mund të kishe arritur.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Nëse të godet diçka, mos thuaj 'sikur ta kisha bërë këtë', por thuaj 'Allahu e ka caktuar dhe e ka bërë atë që ka dashur', sepse 'sikur vetëm' ia hap derën shejtanit. (Ebu Hurejre)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Vërtet, Ne krijuam çdo gjë sipas një mase (kader).",
-      },
-      {
-        excerpt:
-          "Vërtet, Allahu nuk e ndryshon gjendjen e një populli derisa ata të ndryshojnë atë që kanë në vetvete.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     misconceptions: [
       "Keqkuptim: Nëse gjithçka dekretohet, përpjekja është e kotë. Korrigjimi: Islami urdhëron përpjekje, planifikim, lutje dhe pendim – marrja e mjeteve është në vetvete pjesë e dekretit.",
       "Keqkuptim: Kadr do të thotë se Allahu është fajtor për mëkatin tim. Korrigjimi: Shërbëtori zgjedh dhe është përgjegjës; dekreti nuk është kurrë një justifikim për mosbindje.",
@@ -236,14 +151,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       'Kjo kornizë me tre pjesë është një mjet mësimor, jo një burim ndarjeje; qëllimi i tij është të ndihmojë një besimtar të ruajë sinqeritetin dhe të kuptojë se ku mund të cenohet njëshmëria. E gjithë kjo është fiksuar në lutjen hyrëse të çdo muslimani: "Vetëm Ty të adhurojmë dhe vetëm Ty të kërkojmë ndihmë".',
       "Një pasqyrë thelbësore: të pranosh se Allahu është Krijuesi (rububijah) nuk mjafton më vete. Shumë nga ata që i mohuan profetët pranuan se Allahu krijoi qiejt dhe tokën – ajo që ata refuzuan ishte të adhuronin vetëm Atë (uluhije). Teuhidi i vërtetë vërtetohet në adhurim, jo ​​vetëm në besimin për origjinën.",
     ],
-    quran: [
-      {
-        excerpt: "Vetëm Ty të adhurojmë dhe vetëm Ty ndihmë kërkojmë.",
-      },
-      {
-        excerpt: "Allahu - nuk ka zot tjetër përveç Tij. Atij i përkasin emrat më të bukur.",
-      },
-    ],
+    quran: [{}, {}],
     misconceptions: [
       "Keqkuptim: Teuhidi është vetëm të thuash një fjali. Korrigjimi: Është një besim i zemrës, një deklaratë e gjuhës dhe një realitet i jetuar në adhurim.",
       "Keqkuptim: Të besosh se Allahu është Krijuesi është i tërë teuhidi. Korrigjim: Madje edhe shumë jobesimtarë pohuan se - sprova është adhurimi i vetëm Allahut.",
@@ -260,21 +168,8 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Shirku i vogël (el-shirk al-asghar) nuk përjashton nga Islami, por është shumë i rrezikshëm dhe mund të anulojë shpërblimin e veprave. Forma e tij më e qartë është rija – kryerja e adhurimit për t’u parë dhe për t’u lavdëruar nga njerëzit – të cilën Profeti ﷺ e quajti gjëja që i frikësohej më shumë për komunitetin e tij. Betimi në dikë tjetër përveç Allahut në një mënyrë që e lartëson bie edhe këtu.",
       "Ehli Suneti janë të kujdesshëm me gjuhën dhe gjykimin: paralajmërimi ndaj shirkut në përgjithësi është thelbësor dhe i qartë, por shpallja e një individi të caktuar si mushrik ose mosbesimtar (tekfir) është një çështje me peshë që kërkon njohuri, dëshmi të vlefshme dhe heqje të arsyetimeve - i përket dijetarëve të kualifikuar, jo njerëzve të zakonshëm apo argumenteve në internet.",
     ],
-    quran: [
-      {
-        excerpt: "Vërtet, Allahu nuk ia fal shoqërinë Atij, por më pak se kaq ia fal kujt të dojë.",
-      },
-      {
-        excerpt:
-          "O biri im, mos i bëj shok Allahut. Vërtet shoqërimi është një padrejtësi e madhe (zulm).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Gjëja që kam më shumë frikë për ju është shirku i vogël. I pyetur se çfarë ishte, ai (ﷺ) tha: duke u dukur (riya). (Mahmud ibn Labid)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Keqkuptim: Çdo rrëshqitje e gjuhës është shirk i madh. Korrigjimi: Dijetarët dallojnë madhoren nga e vogla dhe gjykojnë çdo rast me kujdes me prova.",
       "Keqkuptim: Paralajmërimi ndaj shirkut kërkon ashpërsi ndaj njerëzve. Korrigjimi: Mënyra profetike bashkon qartësinë e së vërtetës me mëshirën dhe mësimin e durueshëm.",
@@ -288,18 +183,8 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Për shkak se shpërblimi varet nga qëllimi, një vepër e vogël dhe e qetë e bërë me sinqeritet për Allahun mund të jetë më e madhe se një vepër e madhe publike e kryer për reputacion. I njëjti veprim i jashtëm - dhënia e lëmoshës, lutja, mësimi - mund të jetë adhurim ose zbrazëti në varësi të zemrës që qëndron pas tij.",
       "Sinqeriteti nuk arrihet një herë, por rinovohet vazhdimisht, sepse vetvetja është e prirur për të kërkuar vëmendje. Prandaj, besimtarët vazhdimisht e pastrojnë qëllimin e tyre dhe i lusin Allahut që t'i mbrojë ata nga shirku i fshehtë i rijasë dhe nga vetëmashtrimi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe ata nuk u urdhëruan vetëm që të adhurojnë Allahun, të sinqertë ndaj Tij në fe.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Veprimet janë vetëm nga qëllimet, dhe çdo njeri do të ketë vetëm atë që ka menduar. (Omer ibn el-Hattab)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -311,15 +196,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       'Ehli Suneti mëson se këta duhet të qëndrojnë në ekuilibër, si një zog që fluturon me dy krahë dhe një kokë. Dashuria dhe shpresa pa frikë mund të shkojnë drejt pakujdesisë dhe marrjes së mëshirës së Allahut si të mirëqenë; frika pa shpresë mund të shembet në dëshpërim. Kur\'ani u bashkon atyre: "Luteni Atë me frikë dhe shpresë".',
       "Ky ekuilibër nuk është thjesht një ndjenjë; shfaqet në veprim - në ruajtjen e namazit, nxitimin për t'u penduar, për t'u shërbyer të tjerëve, për të frenuar zemërimin dhe për të qëndruar i durueshëm në vështirësi nga dashuria për Atë që e ka caktuar atë.",
     ],
-    quran: [
-      {
-        excerpt: "…Por ata që besojnë janë më të fortë në dashurinë për Allahun.",
-      },
-      {
-        excerpt:
-          "…Dhe thirreni Atë me frikë dhe shpresë. Vërtet, mëshira e Allahut është afër mirëbërësve.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -331,21 +208,8 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Ftesa e Allahut është bujare që të lë pa frymë: “Thuaj: O robërit e Mi që e keni ngarkuar me shumë gabime veten tuaj, mos e humbni shpresën ndaj mëshirës së Allahut. Vërtet, Allahu i fal të gjitha mëkatet.' Dera e pendimit (teube) qëndron e hapur derisa të lind dielli nga perëndimi ose të afrohet vdekja e vetë individit.",
       "Pendimi i sinqertë ka kushte të qarta: lënien e mëkatit menjëherë, ndjejnë keqardhje të sinqertë për të dhe vendosmëri për të mos u kthyer më - dhe, kur mëkati përfshin të drejtat e një personi tjetër, rivendosjen e atyre të drejtave ose kërkimin e faljes. Kur këto plotësohen, përgjigja e Allahut nuk është thjesht pranim, por gëzim: Ai është 'më i kënaqur me pendimin e robit të Tij' se sa një njeri që rimerr malin e humbur dhe furnizimet në një shkretëtirë djerrë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Thuaj: O robërit e Mi që e keni ngarkuar me shumë gabime veten tuaj, mos e humbni shpresën ndaj mëshirës së Allahut. Vërtet, Allahu i fal të gjitha mëkatet.",
-      },
-      {
-        excerpt: "O ju që besuat, kthehuni tek Allahu me një pendim të sinqertë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allahu është më i kënaqur me pendimin e robit të Tij se sa një njeri që humbet malin e tij, duke mbajtur ushqimin dhe pijen e tij, në një tokë djerrë - pastaj e gjen përsëri. (Ibn Mesudi)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -357,18 +221,8 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Hyrja në Xhenet është në fund të fundit me mëshirën e Allahut – vetëm veprat e askujt nuk mund të fitojnë lumturinë e përjetshme – megjithatë besimi i sinqertë dhe veprat e drejta janë mjetet që Allahu ka caktuar dhe pranuar. Të dyja nuk janë në konflikt: mëshira është shkaku, dhe besimi dhe veprat janë rruga që Ai i hapi asaj.",
       "Besimi në Parajsë riformëson mënyrën se si një person jeton tani: ai ushqen durimin përmes vështirësive, bujarinë me pasuri dhe këmbënguljen në adhurim, sepse besimtari po e shkëmben një botë kalimtare për një shtëpi të përjetshme. Kur'ani na thërret të 'garojmë' drejt tij.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe nxitoni në faljen e Zotit tuaj dhe një Xhenet të gjerë sa qiejt dhe toka, i përgatitur për të devotshmit.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Allahu tha: "Unë kam përgatitur për robërit e Mi të mirë atë që nuk e ka parë syri, nuk e ka dëgjuar veshi dhe nuk e ka ngjizur zemra e njeriut". (Ebu Hurejre; gjithashtu Sahih Mysliman 2824)',
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -380,16 +234,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Paralajmërimet i shërbejnë një qëllimi të mëshirshëm: ato ekzistojnë për të mbrojtur njerëzit nga vetë rezultati që përshkruajnë - për të kontrolluar arrogancën, shtypjen dhe këmbënguljen, duke ditur refuzimin e së vërtetës, dhe për të nxitur të shkujdesurit të pendohen ndërsa dera është e hapur.",
       "Ehli Suneti i mbajë së bashku paralajmërimet dhe mëshirën. Kërcënimet janë të rënda dhe reale, megjithatë mëshira e Allahut mbetet e madhe për këdo që kthehet tek Ai - dhe në mesin e njerëzve të teuhidit, mëkatarët që hyjnë në zjarr nuk do të qëndrojnë përgjithmonë atje, por përfundimisht do të nxirren jashtë me mëshirën e Allahut dhe ndërmjetësimin që Ai lejon.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O ju që besuat, ruani veten dhe familjen tuaj nga zjarri, lënda djegëse e të cilit janë njerëzit dhe gurët.",
-      },
-      {
-        excerpt:
-          "…Mos e humbni shpresën nga mëshira e Allahut. Vërtet, Allahu i fal të gjitha mëkatet.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -401,16 +246,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Midis vdekjes dhe ringjalljes qëndron berzahu - jeta e ndërmjetme e varrit, me pyetjen dhe lehtësinë ose vështirësinë e tij. Pastaj i fryhet Surit dhe i gjithë krijimi ngrihet dhe mblidhet para Allahut për llogari.",
       "Ky besim është ajo që i jep jetës njerëzore seriozitetin e saj moral: pa ringjallje, shtypësi që vdes rehat dhe i shtypuri që vdes i padrejtë do të kishin të njëjtin fund. Me të, çdo gabim përgjigjet dhe çdo e mirë shpërblehet, duke i dhënë kuptim durimit dhe drejtësisë.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Ai thotë: "Kush do t\'i japë jetë kockave derisa ato janë të kalbura?" Thuaj: "Do t\'u japë jetë Ai që i krijoi herën e parë..."',
-      },
-      {
-        excerpt:
-          "Dhe me të vërtetë, kijameti po vjen - pa dyshim në të - dhe Allahu do t'i ringjallë ata që janë në varre.",
-      },
-    ],
+    quran: [{}, {}],
   },
   {
     title: "Dita e Gjykimit",
@@ -420,12 +256,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Atë Ditë, asnjë prejardhje, pasuri, klasë, kombësi apo gradë botërore nuk do t'i bëjë dobi askujt; do të bëjë dobi vetëm besimi i sinqertë dhe vepra e drejtë, e pranuar nga Allahu. Shpërndahen të dhënat, peshohen veprat, madje edhe gabimet e bëra ndërmjet njerëzve zgjidhen duke transferuar vepra të mira dhe të këqija.",
       "Kjo siguri ka për qëllim të transformojë karakterin tani: ajo e thërret besimtarin në ndershmëri, besueshmëri, ruajtjen e të drejtave të të tjerëve dhe riparimin e gabimeve dhe kthimin e asaj që i detyrohet para Ditës kur borxhet paguhen me vepra dhe jo me para.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe Ne e vendosim peshoren e drejtësisë për Ditën e Kijametit, kështu që askush nuk do të trajtohet fare i padrejtë.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -436,16 +267,7 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       'Sirat është një urë e shtrirë mbi Ferr që të gjithë duhet të kalojnë. Kur\'ani thotë: "Nuk ka asnjë prej jush që të mos kalojë mbi të", pastaj "Ne do t\'i shpëtojmë ata që e përkujtuan Allahun". Njerëzit kalojnë sipas veprave të tyre - disa të shpejtë si drita apo era, të tjerët duke luftuar dhe disa duke rrëshqitur - me mëshirën dhe drejtësinë e Allahut.',
       "Këto realitete nuk u thuhet për të frikësuar kot, por për të kultivuar seriozitetin: për peshën e veprave të vogla, për sinqeritetin e adhurimit dhe për nderimin e të drejtave të të tjerëve, pasi e gjithë kjo do të peshohet.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Pastaj, sa i përket atij që peshon i rëndë, ai do të jetë në një jetë të këndshme; por ai që ka peshoret e lehta, streha e tij do të jetë një humnerë.",
-      },
-      {
-        excerpt:
-          "Dhe nuk ka asnjë prej jush, përveç se ai do ta kalojë atë… Pastaj Ne do t'i shpëtojmë ata që i frikësoheshin Allahut.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -457,21 +279,8 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       'Por askush nuk ndërmjetëson me autoritetin e vet. Çdo ndërmjetësim i vlefshëm ndodh vetëm "pas lejes së Tij" dhe vetëm për ata me të cilët Allahu është i kënaqur: "Kush është ai që mund të ndërmjetësojë tek Ai përveç me lejen e Tij?" Kjo ruan sovranitetin absolut të Allahut mbi rezultatin.',
       "Dijetarët përshkruajnë disa lloje të afirmuara ndërmjetësimi – që të fillojë llogaritja, që njerëzit të hyjnë në Xhenet, që besimtarët mëkatarë të falen ose të largohen nga Zjarri – ndërkohë që bien dakord se gjykimi përfundimtar mbetet gjithmonë vetëm i Allahut.",
     ],
-    quran: [
-      {
-        excerpt: "Kush është ai që mund të ndërmjetësojë tek Ai përveçse me lejen e Tij?",
-      },
-      {
-        excerpt:
-          "Atë ditë, ndërmjetësimi nuk i bën dobi përveç atij, të cilit i Gjithëmëshirshmi ia ka lejuar dhe fjalën e të cilit e miraton.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Njerëzit do të vijnë tek unë dhe unë do t'i bëj sexhde Zotit tim; atëherë do të thuhet: Ngri kokën, kërko dhe do të të jepet, ndërmjetëso dhe ndërmjetësimi yt do të pranohet. (Ebu Said - ndërmjetësimi i madh)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Mendimi i gabuar: Ndërmjetësimi largon nevojën për pendim. Korrigjim: Ndodh vetëm me lejen e Allahut dhe nuk është kurrë leje për të vazhduar në mëkat.",
       "Keqkuptim: Dikush mund t'u bëjë thirrje profetëve ose të drejtëve tani që të ndërmjetësojnë. Korrigjim: Adhurimi dhe lutja janë vetëm për Allahun; ndërmjetësimi në botën tjetër bëhet me caktimin e Tij, i kërkuar përmes kënaqësisë së Tij.",
@@ -488,21 +297,8 @@ export const AQEDAH_TOPICS_SQ: DeepPartial<AqeedahTopic>[] = [
       "Dhjetë shenjat kryesore janë emërtuar së bashku në një Hadith të Profetit sal-lAllahu alejhi ue sel-lem: në mesin e tyre paraqitja e Dexhallit, zbritja e Isait (djali i Merjemes), shfaqja e Ja'juxh-it dhe Me'juxh-it, tre rrëshqitje të mëdha dheu, një tym, lindja e diellit nga perëndimi dhe një zjarr që i shtyn njerëzit në tubimin e tyre përfundimtar.",
       "Dijetarët ndonjëherë ndryshojnë në sekuencën e saktë të disa shenjave, por ata pajtohen në dy gjëra: ardhja e Kiametit është e sigurt dhe koha e saktë e saj nuk e di askush përveç Allahut - madje as Profeti (a.s) kur e pyeti Xhibrili. Prandaj, përgjigja profetike ndaj shenjave është praktike, jo spekulative: rrit besimin, pendimin, drejtësinë dhe veprat e dobishme në vend të parashikimit të pafund.",
     ],
-    quran: [
-      {
-        excerpt: "Të pyesin për kijametin: kur vjen ai? Thuaj: Dija e saj është vetëm te Zoti im.",
-      },
-      {
-        excerpt:
-          "A presin ata përveç që t'u vijë Kijameti papritmas? Shenjat e saj tashmë kanë ardhur.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kiameti nuk do të vijë derisa të shihni dhjetë shenja: tymin, Dexhallin, Bishën, diellin që lind nga perëndimi, zbritja e Isait, Jajujit dhe Mexhuxhit dhe tre rrëshqitje dheu… (Hudhejfe ibn Usejd)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Keqkuptim: Çdo ngjarje e madhe botërore është padyshim një shenjë përfundimtare. Korrigjim: Pretendime të tilla kërkojnë prova autentike dhe kujdes shkencor, jo sensacionalizëm.",
       "Keqkuptim: Njohja e shenjave na lejon të datojmë Orën. Korrigjimi: Koha e saktë e di vetëm Allahun; Shenjat na thërrasin të përgatitemi, jo të parashikojmë.",

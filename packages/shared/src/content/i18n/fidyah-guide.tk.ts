@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Oraza hemişelik mümkin däl bolsa, her bir sypdyrylan gün üçin alymdan fidýa hakda soraň.",
       "Bilgeşleýin agyz beklän bolsaňyz, programma bahasyna bil baglamaň - haýsy kararyň ulanylýandygyny alymdan soraň.",
     ],
-    quran: [
-      {
-        excerpt:
-          "... [agyz beklemäge ukyply, ýöne kynçylyk bilen] - garyp adamy iýmitlendirmegiň tölegi ... Kim syrkawlasa ýa-da syýahatda bolsa, başga günleriň deň mukdary.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Geçirilen agyz beklemek üçin fidýa näme?",
@@ -37,12 +32,7 @@ export const FIDYAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Elýeterli bolsa, her gün ýerli metjidiňizi ýa-da geňeşiň fidýa derejesini ulanyň.",
       "Meýilnamalaşdyrmak üçin günleri köpeltmek × bir nahar (ýa-da çap edilen fidya bölümi).",
     ],
-    quran: [
-      {
-        excerpt:
-          "... [agyz beklemäge, ýöne kynçylyk bilen] ukyplylara - garyp adamy iýmitlendirmegiň tölegi. Kim meýletin bolsa, bu onuň üçin has gowudyr. Diňe bilýän bolsaňyz, agyz beklemek siziň üçin has gowudyr.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Adatça kim fidýa töleýär?",
@@ -54,18 +44,8 @@ export const FIDYAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Göwrelilik, ene süýdi bilen iýmitlendirmek we dowamly keseliň klassifikasiýasy alymlaryň pikiridir. Bu mowzuk diňe bilimlidir.",
-    quran: [
-      {
-        excerpt:
-          "... Şonuň üçin kim aýyň täze aýyny görse, oraza tutsun; kim syrkawlasa ýa-da syýahatda bolsa, başga günleriň deň mukdary. Allah size ýeňillik etmek isleýär we size kynçylyk niýetini etmeýär ...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bir adam: Ejem agyz beklemek sebäpli öldi. Men onuň adyndan agyz beklemelimi? Pygamber alaýhyssalam aýtdy: Hawa - Allanyň bergisiniň has köp tölenmäge hukugy bar.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Orazany bilkastlaýyn bozandygy üçin Kaffara",
@@ -80,16 +60,7 @@ export const FIDYAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Hünärli alymdan soraň, haýsy töleg - bar bolsa - bergiňiz bar.",
       "Eger altmyş garyplary iýmitlendirmek mümkin bolsa, ýerli nahar bahasyny 60 funt sterling hökmünde ulanyň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir adam aýtdy: Eý, Allahyň Resuly - Remezanda aýalym bilen jyns gatnaşykda boldum. Ondan gul azat etmek, yzly-yzyna iki aý agyz beklemek we altmyş garyp adamy iýmitlendirmek barada soraldy ...",
-      },
-      {
-        excerpt:
-          "Pygamberimiz bilen otyrkam bir adam gelip: «Men weýran boldum ... Oraza tutýarka aýaly bilen jyns gatnaşykda boldy ...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Bu kömekçini nädip ulanmaly",

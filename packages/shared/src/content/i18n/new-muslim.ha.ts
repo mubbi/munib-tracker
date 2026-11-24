@@ -2,249 +2,207 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ha overlay for new-muslim. Index-aligned with NEW_MUSLIM_TOPICS in ../new-muslim.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const NEW_MUSLIM_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Welcome to Islam",
-    summary: "A short, practical map for the first days and weeks of your journey.",
+    title: "Barka da zuwa Musulunci",
+    summary: "Taƙaitaccen taswira mai amfani don kwanaki da makonnin farko na tafiyarka.",
     body: [
-      "Congratulations — and welcome. Becoming Muslim is not a finish line but the start of a lifelong relationship with Allah, one that grows gradually through knowledge, worship, and community, not all at once. Nobody expects you to know everything on day one; every Muslim, including the Prophet's ﷺ own companions, learned their religion step by step.",
-      "One of the most comforting teachings for someone new to Islam is that your past is genuinely behind you: 'Do you not know that Islam demolishes what preceded it?' the Prophet ﷺ told a companion who worried about his past sins. You are starting with a clean record before Allah.",
-      "This guide covers the essentials — what the shahada means, the five pillars, the basics of faith, and a first look at prayer — then points you to the full Salah, Aqeedah, Learn Dua, and Qur'an guides in this app for real depth. Take it one section at a time.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do you not know that Islam demolishes what preceded it, that the Hijra demolishes what preceded it, and the Pilgrimage demolishes what preceded it? (to 'Amr ibn al-'As)",
-      },
+      "Barka da warhaka — kuma maraba. Zama Musulmi ba ƙarshen tafiya ba ne, farkon dangantaka ce ta rayuwa gaba ɗaya da Allah, wadda take girma sannu a hankali ta hanyar ilimi, ibada da al'umma, ba a lokaci guda ba. Babu wanda yake tsammanin ka san komai a rana ta farko; kowane Musulmi, har da Sahabban Annabi ﷺ kansu, ya koyi addininsa mataki-mataki.",
+      "Ɗaya daga cikin koyarwar da ta fi kwantar da hankalin sabon Musulmi ita ce, abin da ya gabata a rayuwarka ya wuce da gaske: 'Do you not know that Islam demolishes what preceded it?' (ma'anar Turanci) — haka Annabi ﷺ ya faɗa wa wani sahabi da yake damuwa game da zunubansa na baya. Kana farawa da tsaftataccen kundi a gaban Allah.",
+      "Wannan jagorar ta ƙunshi muhimman abubuwa — ma'anar kalmar shahada, rukunai biyar, tushen imani, da farkon kallo ga sallah — sannan ta nuna maka cikakkun jagororin Sallah, Akida, Koyon Addu'a da Alƙur'ani a cikin wannan manhaja don zurfafa ilimi. Ka bi ta sashe-sashe.",
     ],
     actions: [
-      "Go at your own pace — read one section of this guide per sitting rather than all at once.",
-      "Write down the questions that come up as you read; bring them to a teacher or knowledgeable friend later.",
+      "Ka tafi daidai gwargwadon ikonka — ka karanta sashe ɗaya na wannan jagora a kowane zama, maimakon duka a lokaci guda.",
+      "Ka rubuta tambayoyin da suka taso yayin karatu; daga baya ka kai su ga malami ko aboki mai ilimi.",
     ],
   },
   {
-    title: "What the Shahada Means",
-    summary: "Two short sentences that carry the entire meaning of Islam.",
+    title: "Ma'anar Kalmar Shahada",
+    summary: "Gajerun jumloli biyu da suka ɗauki dukkan ma'anar Musulunci.",
     body: [
-      "The shahada — the testimony of faith — is: 'Ash-hadu an la ilaha illallah, wa ash-hadu anna Muhammadan rasulullah' ('I bear witness that there is no god but Allah, and I bear witness that Muhammad is the Messenger of Allah'). It has two parts, and both matter.",
-      "The first part, la ilaha illallah, means no one and nothing else — not money, status, ancestors, idols, or any created being — deserves worship, obedience as an act of devotion, or ultimate reliance except Allah alone. It is a statement about who has the right to be worshipped, not merely who exists.",
-      "The second part affirms that Muhammad ﷺ is Allah's final messenger, sent with guidance for all people. Affirming this means trusting what he ﷺ taught about Allah, worship, and how to live — which is exactly why the Qur'an and his authentic teachings (the Sunnah) are the two sources this whole guide draws from.",
-      "This testimony is not a magic formula but a description of a settled conviction of the heart. Saying it sincerely, understanding what it means, is what makes a person Muslim — 'one who submits.'",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Allah witnesses that there is no deity except Him, and [so do] the angels and those of knowledge... There is no deity except Him, the Exalted in Might, the Wise.",
-      },
+      "Kalmar shahada — shaidar imani — ita ce: 'Ash-hadu an la ilaha illallah, wa ash-hadu anna Muhammadan rasulullah' ('Na shaida babu abin bautawa da gaskiya sai Allah, kuma na shaida cewa Muhammadu Manzon Allah ne'). Tana da sassa biyu, kuma duka biyun suna da muhimmanci.",
+      "Sashe na farko, la ilaha illallah, yana nufin babu wani mutum ko wani abu — ba kuɗi ba, ba matsayi ba, ba kakanni ba, ba gumaka ba, ko wata halitta — da ya cancanci bauta, biyayya a matsayin ibada, ko dogaro na ƙarshe sai Allah Shi kaɗai. Bayani ne a kan wanda yake da haƙƙin a bauta masa, ba kawai wanda yake wanzuwa ba.",
+      "Sashe na biyu yana tabbatar da cewa Muhammadu ﷺ shi ne Manzon Allah na ƙarshe, wanda aka aiko da shiriya ga dukkan mutane. Tabbatar da haka yana nufin amincewa da abin da ya ﷺ koyar game da Allah, ibada, da yadda ake rayuwa — kuma shi ya sa Alƙur'ani da ingantattun koyarwarsa (Sunna) su ne tushe biyu da wannan jagora gaba ɗaya ta ginu a kai.",
+      "Wannan shaida ba wani sihiri ba ne, bayani ne na tabbataccen yaƙini a cikin zuciya. Faɗar ta da gaskiya, tare da fahimtar ma'anarta, shi ne yake mai da mutum Musulmi — 'wanda ya miƙa wuya.'",
     ],
   },
   {
-    title: "Becoming Muslim",
-    summary: "Sincerely saying the shahada — with understanding and intention — is what counts.",
-    body: [
-      "There is no priest, ceremony, fee, or paperwork required to become Muslim. What is required is sincerity: understanding the shahada's meaning and saying it with the intention of embracing it as your belief, between you and Allah.",
-      "Many people choose to say it in front of others — a local imam, a mosque community, or friends — because it gives witnesses to the moment and connects you to a support network from day one; this is a widely recommended practice rather than a strict requirement for the testimony itself.",
-      "Some new Muslims also perform ghusl (a full ritual wash) around this time as a symbolic and practical fresh start before learning to pray; practices and views on exactly when and how vary between communities, so ask a local teacher what is customary near you rather than guessing.",
-      "If you are still exploring rather than certain, that is a normal and respected stage — read, ask questions, and take your time. The testimony is meant to be said with conviction, not under pressure.",
-    ],
-    actions: [
-      "If you are ready, consider saying the shahada in the presence of a local imam, mosque community, or trusted Muslim friends.",
-      "Ask a local mosque or teacher about any customary next steps (such as ghusl) in your community.",
-    ],
-  },
-  {
-    title: "The Five Pillars of Islam",
-    summary: "Islam rests on five foundational acts of worship, named together by the Prophet ﷺ.",
-    body: [
-      "The Prophet ﷺ summarised the structure of Islamic practice in one hadith: Islam is built on five pillars — testifying that there is no god but Allah and that Muhammad is His Messenger (shahada); establishing the five daily prayers (salah); giving the obligatory annual charity (zakah); fasting the month of Ramadan; and performing the pilgrimage to Makkah (Hajj) at least once, for those who are able.",
-      "Think of them as a house: the shahada is the foundation everything rests on, and the other four are the pillars that hold the structure up — regular worship (salah), regular giving (zakah), an annual month of self-discipline (fasting), and a once-in-a-lifetime pilgrimage (Hajj) for those with the health and means to travel.",
-      "You do not need to master all five immediately. The shahada you have already learned about; salah is covered next in this guide; zakah and fasting are learned gradually as they come around each year; Hajj is planned for later in life when circumstances allow.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam is built upon five: testifying that there is no god but Allah and that Muhammad is His Messenger, establishing prayer, giving zakah, Hajj, and fasting Ramadan. (Ibn 'Umar; also Sahih Muslim 16)",
-      },
-    ],
-  },
-  {
-    title: "Zakah, Fasting, and Hajj at a Glance",
-    summary: "Three pillars that come with time — you don't need to act on them today.",
-    body: [
-      "Zakah is a yearly obligatory charge — a small, fixed percentage — on savings and qualifying wealth above a minimum threshold (nisab), given to specific categories of people in need. It usually becomes relevant once you have held savings for about a year, so there is no rush; the app's Zakat guide covers the full detail whenever you need it.",
-      "Fasting Ramadan means abstaining from food, drink, and marital relations from before dawn until sunset for one lunar month each year, alongside extra prayer and Qur'an reading. It is a demanding but deeply rewarding pillar that most new Muslims ease into with guidance from their community rather than alone.",
-      "Hajj is the pilgrimage to Makkah, obligatory once in a lifetime only for those who are physically and financially able to make the journey. If it is not within your means right now, there is no burden on you — Allah only asks what a person is able to give.",
-    ],
-  },
-  {
-    title: "How the Pillars Shape Daily Life",
+    title: "Zama Musulmi",
     summary:
-      "The five pillars turn belief into a rhythm you actually live, day by day and year by year.",
+      "Faɗar kalmar shahada da gaskiya — tare da fahimta da niyya — shi ne abin da ake bukata.",
     body: [
-      "One of the things new Muslims often find most beautiful is how the pillars build a rhythm into ordinary life: five short pauses for prayer every day, a yearly season of fasting and reflection, an annual act of giving, and — eventually — a once-in-a-lifetime pilgrimage. None of it is abstract theology; all of it is lived.",
-      "This rhythm is meant to be sustainable, not overwhelming. The Prophet ﷺ taught that the deeds most loved by Allah are the ones kept up consistently, even if small — not sudden bursts of intensity that burn out. Build small, steady habits first; depth will come with time.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do good deeds properly, sincerely, and moderately... the most beloved deed to Allah is the most regular and constant, even if it were little. (also Sahih Muslim 783)",
-      },
+      "Ba a bukatar wani firist, biki, kuɗi ko takardu don zama Musulmi. Abin da ake bukata shi ne gaskiya: fahimtar ma'anar kalmar shahada da faɗar ta da niyyar karɓar ta a matsayin akidarka, tsakaninka da Allah.",
+      "Mutane da yawa sukan zaɓi faɗar ta a gaban wasu — liman na unguwa, jama'ar masallaci, ko abokai — saboda tana ba da shaidu ga wannan lokaci kuma tana haɗa ka da masu taimako tun daga rana ta farko; wannan al'ada ce da ake ƙarfafawa sosai, ba sharaɗi na tilas ga ita kanta shaidar ba.",
+      "Wasu sababbin Musulmi kuma sukan yi wanka (cikakken wankan ibada) a wannan lokaci a matsayin sabon farawa na alama da na aiki kafin su koyi sallah; ayyuka da ra'ayoyi kan daidai lokacin da yadda ake yi sun bambanta tsakanin al'ummomi, don haka ka tambayi malami na yankinku abin da aka saba a wurinku maimakon yin hasashe.",
+      "Idan har yanzu kana bincike ne ba ka tabbata ba, wannan mataki ne na al'ada kuma abin girmamawa — ka karanta, ka yi tambayoyi, kuma ka ɗauki lokacinka. Ana faɗar shaidar ne da yaƙini, ba cikin matsi ba.",
     ],
     actions: [
-      "Pick one small, sustainable habit to start with this week rather than trying to do everything at once.",
+      "Idan ka shirya, ka yi tunanin faɗar kalmar shahada a gaban liman na unguwa, jama'ar masallaci, ko amintattun abokai Musulmi.",
+      "Ka tambayi masallaci ko malami na yankinku game da matakai na gaba da aka saba yi (kamar wanka) a cikin al'ummarku.",
     ],
   },
   {
-    title: "The Six Articles of Faith",
-    summary: "What a Muslim believes, in six points taught directly by the Prophet ﷺ.",
-    body: [
-      "Where the five pillars are what a Muslim does, the six articles of iman (faith) are what a Muslim believes. They come from the Hadith of Jibril, where the angel Jibril, in the form of a man, asked the Prophet ﷺ to explain iman before the assembled companions.",
-      "The Prophet ﷺ answered: belief in Allah; in His angels; in His revealed books; in His messengers; in the Last Day; and in the divine decree (qadr) — its good and its bitter. These six form one connected picture of reality: who created you, who guides the unseen world, how guidance reached humanity, who delivered it, where life is heading, and how to hold both ease and hardship with trust in Allah.",
-      "You don't need to master the philosophy behind each article today — the Aqeedah guide in this app walks through all six in depth, with the evidence behind each one, whenever you're ready to go deeper.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Iman is to believe in Allah, His angels, His books, His messengers, the Last Day, and to believe in the divine decree, its good and its bitter. (Hadith of Jibril, narrated by 'Umar)",
-      },
-    ],
-  },
-  {
-    title: "Who Is Allah?",
-    summary: "One God, without partner, equal, or need — described by His own beautiful names.",
-    body: [
-      "Allah is the proper name of God in Islam — not a different god, but the same one true Creator that earlier scriptures pointed to, now known by His own chosen name and described through His revealed attributes rather than human speculation.",
-      "The clearest short description in the Qur'an is Surah al-Ikhlas: He is One; He has no partner and no equal; He neither begets nor is begotten. Allah has no body you can picture and no image should ever be made to represent Him — knowing Him comes through His names (such as the Most Merciful, the All-Knowing, the All-Hearing) and His actions in creation, not through pictures or physical comparisons.",
-      "Getting to know Allah through His names is often the most emotionally grounding part of early faith: the more you learn what He is like, the more prayer and daily reliance on Him start to feel personal rather than mechanical.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Say: He is Allah, the One... He neither begets nor is born, and there is none comparable to Him.",
-      },
-    ],
-  },
-  {
-    title: "The Qur'an and the Final Message",
-    summary: "The Qur'an is Allah's own words, preserved unchanged since it was revealed.",
-    body: [
-      "Muslims believe the Qur'an is the literal speech of Allah, revealed to the Prophet Muhammad ﷺ over about 23 years, and preserved word-for-word since then — memorised by generations of Muslims and never altered.",
-      "It is not a biography of the Prophet ﷺ or a history book, though it contains both guidance and stories of earlier prophets; it is primarily a book of guidance meant to be read, recited, reflected on, and lived, a little at a time.",
-      "You do not need to read Arabic to begin. Start with a translation in a language you understand, in any order that interests you, and let familiarity with the Arabic recitation grow gradually alongside your prayer.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
-      },
-    ],
-  },
-  {
-    title: "How to Pray — the Big Picture",
-    summary: "Five short prayers a day, each a set sequence of standing, bowing, and prostrating.",
-    body: [
-      "Salah is prayed five times a day at set windows — Fajr (dawn), Dhuhr (midday), Asr (afternoon), Maghrib (sunset), and Isha (night) — and takes only a few minutes each time once you know the pattern. This app's prayer times and tracker will show you exactly when each window opens where you are.",
-      "Each prayer is made of units called rak'ahs (Fajr has two, Dhuhr/Asr/Isha have four, Maghrib has three), and every rak'ah follows the same basic shape: standing while reciting, bowing (ruku'), and two prostrations (sujud), with fixed words of praise and Qur'an said at each position.",
-      "Before praying, you perform wudu — a short ritual washing of the hands, mouth, face, arms, head, and feet — and you pray facing the direction of the Kaaba in Makkah (the qibla), which this app can also point you toward.",
-      "This overview is intentionally high level. The exact wording said at each position, step-by-step video-style instructions, and a full beginner course all live in the dedicated Salah guide — start there next, and use the phrases guide alongside it to learn the words with transliteration and translation.",
-    ],
-  },
-  {
-    title: "Wudu: Getting Ready to Pray",
-    summary: "A short ritual washing that prepares body and heart for standing before Allah.",
-    body: [
-      "Wudu is required before every prayer (unless you are still in a valid wudu from before) and follows a fixed order: washing the hands, rinsing the mouth and nose, washing the face, the arms to the elbows, wiping the head and ears, and washing the feet to the ankles.",
-      "It doesn't take long once learned — most people manage it in under two minutes — and it carries a spiritual meaning too: each limb washed is paired, in the hadith literature, with the idea of minor faults being washed away along with it.",
-      "The full Purification (Taharah) guide in this app walks through wudu step by step, along with what to do if you're unsure whether your wudu is still valid.",
-    ],
-  },
-  {
-    title: "Learning the Words of Prayer",
+    title: "Rukunan Musulunci Guda Biyar",
     summary:
-      "Start with transliteration and meaning; Arabic fluency comes with repetition over time.",
+      "Musulunci ya tsaya a kan ayyukan ibada biyar na tushe, waɗanda Annabi ﷺ ya ambace su tare.",
     body: [
-      "Salah is prayed in Arabic, which can feel like the hardest part at first — but you are not expected to be fluent to begin. Most new Muslims start by learning a handful of short, essential phrases (the opening takbir, a short surah, the words said while bowing and prostrating, and the closing salam) with a transliteration and translation alongside the Arabic.",
-      "Memorise these in small chunks rather than all at once, and repeat them daily — memory for prayer phrases builds quickly through the repetition of praying itself, even before you consciously try to memorise anything.",
-      "The dedicated phrases guide in this app gives you every essential phrase with Arabic, transliteration, and translation together, organised by where each one is said in the prayer — use it as your daily practice tool.",
+      "Annabi ﷺ ya taƙaita tsarin ayyukan Musulunci a cikin hadisi ɗaya: an gina Musulunci a kan rukunai biyar — shaidawa babu abin bautawa da gaskiya sai Allah kuma Muhammadu Manzonsa ne (shahada); tsayar da salloli biyar na yini (sallah); bayar da sadaka ta wajibi ta shekara (zakka); azumin watan Ramadan; da yin aikin hajji zuwa Makka (Hajji) aƙalla sau ɗaya, ga wanda ya sami iko.",
+      "Ka ɗauke su kamar gida: kalmar shahada ita ce harsashin da komai ya tsaya a kai, sauran huɗun kuma su ne ginshiƙan da suke riƙe ginin — ibada ta yau da kullum (sallah), bayarwa ta yau da kullum (zakka), wata guda na horon kai a kowace shekara (azumi), da aikin hajji sau ɗaya a rayuwa (Hajji) ga wanda yake da lafiya da hali na tafiya.",
+      "Ba sai ka ƙware a dukkan biyar ɗin nan take ba. Kalmar shahada ka riga ka koya game da ita; sallah ita ce za a yi bayani a kai na gaba a wannan jagora; zakka da azumi ana koyon su sannu a hankali yayin da lokacinsu ke zagayowa kowace shekara; Hajji kuma ana shirya shi daga baya a rayuwa idan yanayi ya ba da dama.",
     ],
   },
   {
-    title: "Your First Steps Checklist",
-    summary: "A simple, realistic order to learn things in over your first weeks.",
+    title: "Zakka, Azumi da Hajji a Taƙaice",
+    summary: "Rukunai uku da suke zuwa da lokaci — ba sai ka aiwatar da su a yau ba.",
     body: [
-      "There is no single required order for learning after the shahada, but new Muslims often find a rough sequence helpful so that nothing feels overwhelming all at once. Use this as a loose guide, not a race.",
+      "Zakka wajibi ce ta shekara — ƙaramin kaso ƙayyadadde — a kan ajiya da dukiyar da ta cancanta wadda ta haura mafi ƙarancin iyaka (nisabi), ana ba da ita ga wasu rukunan mabuƙata ƙayyadaddu. Yawanci tana zama abin la'akari ne bayan ajiyarka ta kai kimanin shekara guda a hannunka, don haka babu gaggawa; jagorar Zakka ta wannan manhaja tana ɗauke da cikakken bayani a duk lokacin da kake bukata.",
+      "Azumin Ramadan yana nufin kamewa daga ci, sha da saduwar aure tun kafin alfijir har zuwa faɗuwar rana na wata ɗaya na kalandar wata kowace shekara, tare da ƙarin sallah da karatun Alƙur'ani. Rukuni ne mai wahala amma mai lada mai yawa, wanda yawancin sababbin Musulmi suke shiga cikinsa sannu a hankali da jagorancin al'ummarsu, ba su kaɗai ba.",
+      "Hajji shi ne aikin hajji zuwa Makka, wajibi sau ɗaya a rayuwa ga waɗanda kawai suke da ikon jiki da na kuɗi na yin tafiyar. Idan ba ka da hali a yanzu, babu nauyi a kanka — Allah ba Ya ɗora wa rai sai abin da take iyawa.",
+    ],
+  },
+  {
+    title: "Yadda Rukunan Ke Tsara Rayuwar Yau da Kullum",
+    summary:
+      "Rukunai biyar suna mai da imani zuwa tsarin rayuwa da kake rayuwa da shi a zahiri, kowace rana da kowace shekara.",
+    body: [
+      "Ɗaya daga cikin abubuwan da sababbin Musulmi sukan ga sun fi kyau shi ne yadda rukunan ke gina tsari a cikin rayuwar yau da kullum: ɗan hutu gajere biyar na sallah kowace rana, lokacin azumi da tunani na shekara, aikin bayarwa na shekara, da — a ƙarshe — aikin hajji sau ɗaya a rayuwa. Babu ɗaya daga cikin waɗannan da yake ka'idar addini kawai a takarda; duk ana rayuwa da su.",
+      "An yi wannan tsari ne don ya ɗore, ba don ya yi nauyi ba. Annabi ﷺ ya koyar da cewa ayyukan da Allah Ya fi so su ne waɗanda ake dawwama a kansu, ko da kaɗan ne — ba ƙoƙari mai tsanani na ɗan lokaci da yake ƙarewa da gajiya ba. Ka fara gina ƙananan ɗabi'u masu ɗorewa; zurfi zai zo da lokaci.",
     ],
     actions: [
-      "Learn wudu (ritual washing) and practise it until it feels natural.",
-      "Learn the essential words of one full prayer using the phrases guide.",
-      "Start praying the five daily prayers, even imperfectly at first — consistency matters more than perfection early on.",
-      "Learn a few short daily duas (supplications) for waking, eating, and leaving the house.",
-      "Find a local mosque or online community for support and questions.",
-      "Begin reading the Qur'an in translation, a little each day.",
-      "Tell someone you trust — family or a close friend — when you feel ready, at your own pace.",
+      "Ka zaɓi ƙaramar ɗabi'a ɗaya mai ɗorewa da za ka fara da ita a wannan mako, maimakon ƙoƙarin yin komai a lokaci guda.",
     ],
   },
   {
-    title: "Finding Community",
-    summary: "Learning alongside other Muslims makes the journey easier and more joyful.",
+    title: "Rukunan Imani Guda Shida",
+    summary:
+      "Abin da Musulmi ya yi imani da shi, a cikin maki shida da Annabi ﷺ ya koyar kai tsaye.",
     body: [
-      "Islam is meant to be lived in community, not only in private. Congregational prayer, a local mosque, and Muslim friends can answer everyday questions ('how do I say this in prayer if I forget?'), offer encouragement, and simply make you feel less alone in a new experience.",
-      "If you're not sure where to start, most mosques welcome new Muslims warmly and often have someone specifically happy to help newcomers with the basics — asking is normal and expected, not awkward.",
-      "If an in-person mosque isn't accessible right now, online communities and this app's own guides can bridge the gap until you find one, or permanently if that's your situation — either way, you are still fully part of the wider Muslim community (the ummah).",
+      "Idan rukunai biyar su ne abin da Musulmi yake aikatawa, to rukunan imani shida su ne abin da Musulmi ya yi imani da shi. Sun zo ne daga Hadisin Jibrilu, inda mala'ika Jibrilu, a siffar mutum, ya tambayi Annabi ﷺ ya bayyana imani a gaban Sahabbai da suka taru.",
+      "Annabi ﷺ ya amsa: imani da Allah; da mala'ikunSa; da littattafanSa da Ya saukar; da manzanninSa; da Ranar Lahira; da ƙaddara (qadar) — alherinta da sharrinta. Waɗannan shida suna samar da hoto guda ɗaya mai haɗe na gaskiyar rayuwa: wane ne ya halicce ka, wane ne yake tafiyar da duniyar gaibi, yadda shiriya ta isa ga ɗan Adam, wane ne ya isar da ita, ina rayuwa ta nufa, da yadda ake karɓar sauƙi da wahala tare da dogaro ga Allah.",
+      "Ba sai ka ƙware a zurfin falsafar kowane rukuni a yau ba — jagorar Akida a wannan manhaja tana bin dukkan shida ɗin dalla-dalla, tare da hujjojin kowanne, a duk lokacin da ka shirya zurfafawa.",
+    ],
+  },
+  {
+    title: "Wane Ne Allah?",
+    summary:
+      "Ubangiji Ɗaya, ba Shi da abokin tarayya, ko kishiya, ko bukata — wanda Ya siffanta kansa da kyawawan sunayenSa.",
+    body: [
+      "Allah shi ne sunan Ubangiji na asali a Musulunci — ba wani ubangiji daban ba ne, Shi ne dai Mahalicci Ɗaya na gaskiya da littattafan da suka gabata suka yi nuni zuwa gare Shi, wanda yanzu ake saninSa da sunanSa da Ya zaɓa kuma ake siffanta Shi da siffofinSa da Ya saukar, ba da hasashen ɗan Adam ba.",
+      "Bayani mafi bayyana a taƙaice a cikin Alƙur'ani shi ne Suratul Ikhlas: Shi Ɗaya ne; ba Shi da abokin tarayya ko kishiya; bai haifa ba, ba a haife Shi ba. Allah ba Shi da jikin da za ka iya zana a zuciyarka, kuma bai kamata a taɓa yin wani hoto don wakiltar Shi ba — saninSa yana zuwa ne ta hanyar sunayenSa (kamar Mai Rahama, Masani, Mai Ji) da ayyukanSa a cikin halitta, ba ta hanyar hotuna ko kamanceceniya ta zahiri ba.",
+      "Sanin Allah ta hanyar sunayenSa sau da yawa shi ne ɓangaren da ya fi kwantar da zuciya a farkon imani: yayin da kake ƙara sanin yadda Yake, sallah da dogaro gare Shi kowace rana suna fara zama abu na kanka, ba na al'ada kawai ba.",
+    ],
+  },
+  {
+    title: "Alƙur'ani da Saƙo na Ƙarshe",
+    summary:
+      "Alƙur'ani maganar Allah ce kanta, an kiyaye shi ba tare da canji ba tun lokacin da aka saukar da shi.",
+    body: [
+      "Musulmi sun yi imani cewa Alƙur'ani maganar Allah ce ta zahiri, wadda aka saukar wa Annabi Muhammadu ﷺ a tsawon kimanin shekaru 23, kuma an kiyaye ta kalma da kalma tun daga lokacin — tsararraki na Musulmi sun haddace ta kuma ba a taɓa canza ta ba.",
+      "Ba tarihin rayuwar Annabi ﷺ ba ne ko littafin tarihi, ko da yake yana ƙunshe da shiriya da labaran annabawan da suka gabata; da farko littafin shiriya ne da aka yi don a karanta, a yi tilawa, a yi tunani a kai, kuma a yi rayuwa da shi, kaɗan-kaɗan.",
+      "Ba sai ka iya karanta Larabci kafin ka fara ba. Ka fara da fassara a harshen da ka fahimta, a kowane tsari da ya burge ka, kuma ka bar sanin karatun Larabci ya girma sannu a hankali tare da sallarka.",
+    ],
+  },
+  {
+    title: "Yadda Ake Sallah — Babban Hoto",
+    summary: "Gajerun salloli biyar a rana, kowacce jerin tsayuwa, ruku'u da sujada ne ƙayyadadde.",
+    body: [
+      "Ana yin sallah sau biyar a rana a lokuta ƙayyadaddu — Asuba (alfijir), Azahar (tsakar rana), La'asar (yamma), Magariba (faɗuwar rana), da Isha (dare) — kuma kowacce tana ɗaukar 'yan mintuna kaɗan da zarar ka san tsarin. Lokutan sallah da mai bibiya na wannan manhaja za su nuna maka daidai lokacin da kowane lokaci yake buɗewa a inda kake.",
+      "Kowace sallah ta ƙunshi raka'o'i (Asuba raka'a biyu ce, Azahar/La'asar/Isha huɗu-huɗu ne, Magariba kuma uku ce), kuma kowace raka'a tana bin tsari guda na asali: tsayuwa tare da karatu, ruku'u, da sujada biyu, tare da ƙayyadaddun kalmomin yabo da Alƙur'ani da ake faɗa a kowane matsayi.",
+      "Kafin sallah, kana yin alwala — gajeren wankan ibada na hannaye, baki, fuska, hannaye zuwa gwiwar hannu, kai, da ƙafafu — kuma kana sallah kana fuskantar alƙiblar Ka'aba a Makka, wadda wannan manhaja ma za ta iya nuna maka ita.",
+      "Wannan bayani an yi shi a taƙaice da gangan. Ainihin kalmomin da ake faɗa a kowane matsayi, umarni mataki-mataki, da cikakken darasi na masu farawa duk suna cikin jagorar Sallah ta musamman — ka fara da ita a gaba, kuma ka yi amfani da jagorar kalmomin sallah tare da ita don koyon kalmomin da rubutun sauti da fassara.",
+    ],
+  },
+  {
+    title: "Alwala: Shirin Sallah",
+    summary: "Gajeren wankan ibada da yake shirya jiki da zuciya don tsayuwa a gaban Allah.",
+    body: [
+      "Alwala wajibi ce kafin kowace sallah (sai dai idan alwalarka ta baya tana nan ba ta karye ba) kuma tana bin tsari ƙayyadadde: wanke hannaye, kurkure baki da shaƙa ruwa a hanci, wanke fuska, hannaye zuwa gwiwar hannu, shafar kai da kunnuwa, da wanke ƙafafu zuwa idon sawu.",
+      "Ba ta ɗaukar lokaci mai tsawo da zarar an koya — yawancin mutane suna kammala ta cikin ƙasa da mintuna biyu — kuma tana da ma'ana ta ruhi ma: kowace gaɓa da aka wanke, a cikin littattafan hadisi, ana danganta ta da ma'anar ƙananan kurakurai suna tafiya tare da ruwan.",
+      "Cikakkiyar jagorar Tsarki (Ɗahara) a wannan manhaja tana bin alwala mataki-mataki, tare da abin da za ka yi idan ba ka da tabbas ko alwalarka tana nan.",
+    ],
+  },
+  {
+    title: "Koyon Kalmomin Sallah",
+    summary:
+      "Ka fara da rubutun sauti da ma'ana; ƙwarewa a Larabci tana zuwa da maimaitawa a tsawon lokaci.",
+    body: [
+      "Ana yin sallah da Larabci, wanda zai iya zama kamar ɓangaren da ya fi wahala a farko — amma ba a tsammanin ka ƙware kafin ka fara. Yawancin sababbin Musulmi suna farawa da koyon 'yan gajerun kalmomi masu muhimmanci (kabbarar buɗe sallah, wata gajeriyar sura, kalmomin da ake faɗa a ruku'u da sujada, da sallamar ƙarshe) tare da rubutun sauti da fassara kusa da Larabcin.",
+      "Ka haddace su kaɗan-kaɗan maimakon duka a lokaci guda, kuma ka maimaita su kowace rana — haddar kalmomin sallah tana ginuwa da sauri ta hanyar maimaita sallar kanta, tun kafin ka yi niyyar haddace wani abu.",
+      "Jagorar kalmomin sallah ta musamman a wannan manhaja tana ba ka kowace muhimmiyar kalma da Larabci, rubutun sauti da fassara tare, an tsara su bisa inda ake faɗar kowacce a cikin sallah — ka yi amfani da ita a matsayin kayan atisayenka na yau da kullum.",
+    ],
+  },
+  {
+    title: "Jerin Matakanka na Farko",
+    summary: "Tsari mai sauƙi kuma mai yiwuwa na koyon abubuwa a makonninka na farko.",
+    body: [
+      "Babu tsari guda ɗaya na tilas na koyo bayan kalmar shahada, amma sababbin Musulmi sukan ga jerin matakai na kusan-kusa yana taimakawa don kada komai ya yi musu nauyi a lokaci guda. Ka yi amfani da wannan a matsayin jagora mai sassauci, ba gasa ba.",
     ],
     actions: [
-      "Look up mosques or Islamic centres near you and consider visiting for a prayer time or an event.",
-      "If in-person community isn't accessible yet, seek out a moderated online Muslim community for support.",
+      "Ka koyi alwala (wankan ibada) ka yi atisaye har ta zama maka abu na al'ada.",
+      "Ka koyi muhimman kalmomin cikakkiyar sallah ɗaya ta amfani da jagorar kalmomin sallah.",
+      "Ka fara yin salloli biyar na yini, ko da ba daidai ba ne a farko — dawwama ya fi kamala muhimmanci a farkon lokaci.",
+      "Ka koyi 'yan gajerun addu'o'i na yau da kullum na tashi daga barci, cin abinci, da fita daga gida.",
+      "Ka nemi masallaci na unguwa ko al'umma ta intanet don taimako da tambayoyi.",
+      "Ka fara karanta Alƙur'ani da fassara, kaɗan a kowace rana.",
+      "Ka gaya wa wani da ka amince da shi — dangi ko aboki na kusa — idan ka ji ka shirya, gwargwadon saurinka.",
     ],
   },
   {
-    title: "Continuing to Learn",
-    summary: "This guide is a starting point — three deeper guides are ready when you are.",
+    title: "Samun Al'umma",
+    summary: "Koyo tare da sauran Musulmi yana sa tafiyar ta fi sauƙi kuma ta fi farin ciki.",
     body: [
-      "Once the essentials in this guide feel comfortable, three companion guides in this app are built to take you deeper: Aqeedah for the full detail behind each article of faith, Learn Dua for supplications for everyday moments, and the Qur'an reader for daily recitation and reflection.",
-      "You don't have to finish any of them quickly. Islam is learned over a lifetime, and returning to the same topic months or years later, with more experience, is completely normal — even expected.",
-    ],
-  },
-  {
-    title: "FAQ: Common Early Mistakes",
-    summary: "Everyone starts imperfectly — here's how to think about early stumbles.",
-    body: [
-      "Q: I keep messing up parts of the prayer or forgetting the words — is that a problem? A: No. Everyone forgets words and mixes up steps while learning; keep practising with the phrases guide and it becomes natural within weeks. Sincerity while learning matters far more than early perfection.",
-      "Q: I feel guilty that I'm not doing everything (fasting, extra prayers, memorising Qur'an) right away. A: Trying to do everything at once is a common new-Muslim mistake that often leads to burnout. Build the five daily prayers as your first steady habit, then add gradually — Allah does not burden anyone beyond their ability.",
-      "Q: What if I miss a prayer or make a mistake in one? A: Missing a prayer occasionally while you're learning the routine, or making a small mistake in it, is not the end of the world — make it up when you remember, keep going, and don't let a setback stop you from praying the next one.",
+      "An yi Musulunci ne don a yi rayuwa da shi cikin al'umma, ba a ɓoye kawai ba. Sallar jam'i, masallaci na unguwa, da abokai Musulmi za su iya amsa tambayoyin yau da kullum ('yaya zan faɗi wannan a sallah idan na manta?'), su ba da ƙarfafa, kuma kawai su sa ka ji ba kai kaɗai ba ne a cikin sabon abu.",
+      "Idan ba ka da tabbas ta inda za ka fara, yawancin masallatai suna karɓar sababbin Musulmi da farin ciki kuma sau da yawa suna da wani da yake farin cikin taimaka wa sababbi da abubuwan farko — yin tambaya abu ne na al'ada kuma ana tsammaninsa, ba abin kunya ba ne.",
+      "Idan ba za ka iya zuwa masallaci a zahiri a yanzu ba, al'ummomin intanet da jagororin wannan manhaja za su iya cike giɓin har sai ka sami ɗaya, ko na dindindin idan haka yanayinka yake — ko ta yaya, kai cikakken ɗan babbar al'ummar Musulmi ne (al'umma).",
     ],
     actions: [
-      "When you make a mistake, treat it as a normal part of learning, not a reason to give up.",
+      "Ka nemi masallatai ko cibiyoyin Musulunci kusa da kai kuma ka yi tunanin ziyartar su a lokacin sallah ko wani taro.",
+      "Idan har yanzu ba ka iya samun al'umma a zahiri ba, ka nemi al'ummar Musulmi ta intanet mai kulawa don taimako.",
     ],
   },
   {
-    title: "FAQ: Do I Need to Learn Arabic?",
-    summary: "Arabic grows with you over years — it isn't a prerequisite to start practising.",
+    title: "Ci gaba da Koyo",
+    summary:
+      "Wannan jagora mafari ne — jagorori uku masu zurfi suna jiranka a duk lokacin da ka shirya.",
     body: [
-      "Q: Do I need to speak Arabic before I can pray or read the Qur'an? A: No. You can begin praying with a handful of short, transliterated phrases today, and read the Qur'an in your own language while your Arabic recitation grows over time through repetition.",
-      "Q: Is it disrespectful to mispronounce the Arabic while learning? A: No — every reciter, in every generation, started as a beginner. Effort while learning is valued; perfection is a long-term goal, not a starting requirement.",
-      "Q: Should I take a class to learn Arabic reading (for prayer, not necessarily conversation)? A: Many new Muslims find a short Qur'an-reading (tajweed basics) class very worthwhile once the essentials of prayer feel comfortable — it's a good next step, not a first one.",
+      "Da zarar muhimman abubuwan wannan jagora suka zama maka masu sauƙi, akwai jagorori uku masu rakiya a wannan manhaja da aka gina don zurfafa ka: Akida don cikakken bayani a bayan kowane rukunin imani, Koyon Addu'a don addu'o'in lokutan yau da kullum, da mai karanta Alƙur'ani don tilawa da tunani na kowace rana.",
+      "Ba sai ka gama ko ɗaya daga cikinsu da sauri ba. Ana koyon Musulunci a tsawon rayuwa, kuma komawa ga batu ɗaya bayan watanni ko shekaru, da ƙarin gogewa, abu ne na al'ada kwata-kwata — har ma ana tsammaninsa.",
+    ],
+  },
+  {
+    title: "Tambayoyi: Kurakuran Farko da Aka Saba",
+    summary: "Kowa yana farawa ba tare da kamala ba — ga yadda za ka kalli tuntuɓen farko.",
+    body: [
+      "T: Ina ta yin kuskure a wasu sassan sallah ko mantawa da kalmomin — shin matsala ce? A: A'a. Kowa yana mantawa da kalmomi kuma yana rikita matakai yayin koyo; ka ci gaba da atisaye da jagorar kalmomin sallah kuma zai zama maka abu na al'ada cikin makonni. Gaskiya yayin koyo ta fi kamala a farko muhimmanci nesa ba kusa ba.",
+      "T: Ina jin laifi cewa ba na yin komai (azumi, ƙarin salloli, haddar Alƙur'ani) nan take. A: Ƙoƙarin yin komai a lokaci guda kuskure ne da sababbin Musulmi suka saba yi wanda sau da yawa yake kaiwa ga gajiya. Ka gina salloli biyar na yini a matsayin ɗabi'arka ta farko mai ɗorewa, sannan ka ƙara sannu a hankali — Allah ba Ya ɗora wa kowa abin da ya fi ƙarfinsa.",
+      "T: Idan na rasa wata sallah ko na yi kuskure a cikinta fa? A: Rasa sallah lokaci-lokaci yayin da kake koyon tsarin, ko yin ƙaramin kuskure a cikinta, ba ƙarshen duniya ba ne — ka rama ta lokacin da ka tuna, ka ci gaba, kuma kada ka bari koma baya ya hana ka yin sallah ta gaba.",
     ],
     actions: [
-      "Keep using transliteration and translation alongside Arabic until recitation feels natural — there's no deadline.",
+      "Idan ka yi kuskure, ka ɗauke shi a matsayin wani ɓangare na koyo na al'ada, ba dalilin dainawa ba.",
     ],
   },
   {
-    title: "FAQ: Family and Relationships",
-    summary: "Kindness to family remains a duty, even where beliefs now differ.",
+    title: "Tambayoyi: Shin Sai Na Koyi Larabci?",
+    summary:
+      "Larabci yana girma tare da kai a tsawon shekaru — ba sharaɗi ba ne kafin ka fara aiki.",
     body: [
-      "Q: My family isn't Muslim and I'm worried about how they'll react — what does Islam ask of me here? A: Kindness to parents and family is commanded in the Qur'an even where belief differs: 'do not obey them [in matters that would compromise your faith], but accompany them in this world with kindness.' Your new faith should visibly make you gentler and more dutiful toward family, not less.",
-      "Q: How do I tell my family, or handle disagreement, without it becoming a crisis? A: There's no single right way — pace, timing, and how much to share depend on your specific family and safety. This is a genuinely personal decision; talking it through with a trusted local imam, counsellor, or experienced convert-support group before difficult conversations is wiser than navigating it entirely alone.",
-      "Q: Am I obligated to cut ties with non-Muslim family or friends? A: No — maintaining good relationships and honouring family ties remains a duty in Islam. Boundaries around specific practices (for example, certain celebrations or activities) are a separate, personal matter best discussed with a knowledgeable local teacher who knows your situation.",
+      "T: Shin sai na iya magana da Larabci kafin in yi sallah ko in karanta Alƙur'ani? A: A'a. Za ka iya fara sallah da 'yan gajerun kalmomi da aka rubuta da sautinsu a yau, kuma ka karanta Alƙur'ani da harshenka yayin da karatunka na Larabci yake girma a tsawon lokaci ta hanyar maimaitawa.",
+      "T: Shin rashin girmamawa ne idan na yi kuskure wajen furta Larabci yayin koyo? A: A'a — kowane makaranci, a kowane zamani, ya fara ne a matsayin mai farawa. Ana daraja ƙoƙari yayin koyo; kamala buri ne na dogon lokaci, ba sharaɗin farawa ba.",
+      "T: Shin in shiga aji don koyon karatun Larabci (don sallah, ba lallai don magana ba)? A: Sababbin Musulmi da yawa suna ganin ɗan gajeren aji na karatun Alƙur'ani (tushen tajwidi) yana da amfani sosai da zarar muhimman abubuwan sallah sun zama musu masu sauƙi — mataki ne mai kyau na gaba, ba na farko ba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "But if they endeavour to make you associate with Me that of which you have no knowledge, do not obey them, but accompany them in this world with kindness...",
-      },
+    actions: [
+      "Ka ci gaba da amfani da rubutun sauti da fassara tare da Larabci har sai karatu ya zama maka na al'ada — babu wa'adi.",
+    ],
+  },
+  {
+    title: "Tambayoyi: Iyali da Dangantaka",
+    summary: "Kyautata wa iyali wajibi ne har yanzu, ko da imani ya bambanta yanzu.",
+    body: [
+      "T: Iyalina ba Musulmi ba ne kuma ina damuwa game da yadda za su ɗauki lamarin — me Musulunci yake bukata daga gare ni a nan? A: An yi umarni da kyautata wa iyaye da iyali a cikin Alƙur'ani ko da imani ya bambanta: '…kada ka yi musu ɗã'a. Kuma ka abũce su a cikin dũniya gwargwadon sharĩ'a…' (wato kada ka bi su a abin da zai ɓata imaninka). Ya kamata sabon imaninka ya sa ka fi tausayi da sauke haƙƙin iyali a fili, ba akasin haka ba.",
+      "T: Yaya zan gaya wa iyalina, ko in tafiyar da saɓani, ba tare da ya zama rikici ba? A: Babu hanya guda ɗaya daidai — sauri, lokaci, da yawan abin da za ka bayyana sun dogara da iyalinka musamman da kuma tsaronka. Wannan shawara ce ta kai da gaske; tattauna ta da amintaccen liman na unguwa, mai ba da shawara, ko ƙungiyar taimakon sababbin Musulmi masu gogewa kafin tattaunawa masu wahala ya fi hikima a kan ka tafiyar da ita kai kaɗai.",
+      "T: Shin wajibi ne in yanke dangantaka da iyali ko abokai waɗanda ba Musulmi ba? A: A'a — kiyaye kyakkyawar dangantaka da girmama zumunci wajibi ne a Musulunci har yanzu. Iyakoki game da wasu ayyuka (misali, wasu bukukuwa ko ayyuka) lamari ne daban na kai, wanda ya fi kyau a tattauna shi da malami mai ilimi na yankinku wanda ya san yanayinka.",
     ],
     disclaimer:
-      "This FAQ offers general, non-fatwa guidance for common early questions. For your specific family, safety, or personal circumstances, please speak with a local imam, qualified counsellor, or trusted community elder.",
+      "Waɗannan tambayoyi suna ba da jagora ta gaba ɗaya, ba fatawa ba, ga tambayoyin farko da aka saba yi. Game da iyalinka musamman, tsaronka, ko yanayinka na kai, don Allah ka yi magana da liman na unguwa, ƙwararren mai ba da shawara, ko amintaccen dattijo na al'umma.",
   },
 ];

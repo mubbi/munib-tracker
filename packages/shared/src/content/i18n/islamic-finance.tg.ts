@@ -2,198 +2,159 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // tg overlay for islamic-finance. Index-aligned with ISLAMIC_FINANCE_TOPICS in ../islamic-finance.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const ISLAMIC_FINANCE_TOPICS_TG: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What Is Islamic Finance?",
-    summary:
-      "An ethical lens on money, not a separate product category — this guide is education only.",
+    title: "Молияи исломӣ чист?",
+    summary: "Нигоҳи ахлоқӣ ба пул, на навъи алоҳидаи маҳсулот — ин дастур танҳо барои омӯзиш аст.",
     body: [
-      "Islamic finance is not a brand of investment product; it is the application of Islamic ethics to how money is earned, lent, spent, and given away. At its core are a handful of principles: wealth is a trust from Allah rather than an end in itself, transactions must be free of exploitation and excessive uncertainty, and profit should be tied to real economic activity and shared risk rather than a guaranteed charge on a loan.",
-      "This guide introduces those principles at a general, educational level: the prohibition of riba (interest/usury), fair dealing in trade, the obligations of zakah and voluntary sadaqah, and the basic concept of takaful (cooperative insurance). It intentionally does not screen funds, list stocks or ETFs, or recommend any specific product or provider.",
-      "Modern financial products (mortgages, credit cards, insurance policies, retirement accounts, and more) are structured in many different ways, and rulings on them can depend on the exact contract terms and your jurisdiction. This guide gives you the underlying principles; for a ruling on your specific situation, speak with a qualified, certified Islamic finance scholar or institution.",
+      "Молияи исломӣ тамғаи ягон маҳсулоти сармоягузорӣ нест; он татбиқи ахлоқи исломӣ ба он аст, ки пул чӣ гуна ба даст оварда, қарз дода, харҷ ва бахшида мешавад. Дар асоси он чанд принсип қарор дорад: сарват амонате аз ҷониби Аллоҳ аст, на ҳадафи худ ба худ; муомилот бояд аз истисмор ва номуайянии аз ҳад зиёд холӣ бошад; ва фоида бояд ба фаъолияти воқеии иқтисодӣ ва хатари муштарак вобаста бошад, на ба пардохти кафолатноки қарз.",
+      "Ин дастур ин принсипҳоро дар сатҳи умумӣ ва таълимӣ муаррифӣ мекунад: манъи рибо (фоиз/судхӯрӣ), муомилаи одилона дар тиҷорат, вазифаҳои закот ва садақаи ихтиёрӣ ва мафҳуми асосии такофул (суғуртаи кооперативӣ). Он дидаю дониста фондҳоро тафтиш намекунад, саҳмияҳо ё фондҳои биржавиро номбар намекунад ва ягон маҳсулот ё ширкати мушаххасро тавсия намедиҳад.",
+      "Маҳсулоти молиявии муосир (ипотека, кортҳои кредитӣ, полисҳои суғурта, ҳисобҳои нафақа ва ғайра) ба тарзҳои гуногун сохта мешаванд ва ҳукм дар бораи онҳо метавонад аз шартҳои дақиқи шартнома ва қонунгузории кишвари шумо вобаста бошад. Ин дастур ба шумо принсипҳои асосиро медиҳад; барои ҳукм дар бораи вазъи мушаххаси худ бо олим ё муассисаи соҳибихтисос ва тасдиқшудаи молияи исломӣ машварат кунед.",
     ],
     disclaimer:
-      "Educational content only — not financial advice and not a fatwa. It does not recommend, screen, or rate any specific fund, stock, provider, or financial product.",
+      "Танҳо мӯҳтавои таълимӣ — на маслиҳати молиявӣ ва на фатво. Он ягон фонд, саҳмия, ширкат ё маҳсулоти молиявии мушаххасро тавсия, тафтиш ё арзёбӣ намекунад.",
   },
   {
-    title: "Wealth as a Trust (Amanah)",
-    summary: "Everything you own is ultimately Allah's — you are its steward, not its final owner.",
-    body: [
-      "A recurring Qur'anic theme is that wealth belongs to Allah first; a person is only its trustee (amanah) for a time, accountable for how it was earned and how it is used. This reframes money from a purely personal possession into something you will be asked about — where it came from and where it went.",
-      "Two commands anchor how that trust plays out in dealings with other people: fulfilling contracts and agreements in full, and never taking someone else's wealth through injustice, deception, or exploitation, only through fair trade by mutual consent.",
-      "Held together, these principles are why Islamic financial ethics keep returning to the same few questions: was this profit earned through real effort, risk, and value creation? Was the other party treated with full honesty? And is any obligation I've made being honoured?",
-    ],
-    quran: [
-      {
-        excerpt: "O you who have believed, fulfil [all] contracts...",
-      },
-      {
-        excerpt:
-          "Do not consume one another's wealth unjustly but only [in lawful] business by mutual consent.",
-      },
-    ],
-  },
-  {
-    title: "The Prohibition of Riba",
+    title: "Сарват ҳамчун амонат",
     summary:
-      "Riba (interest/usury) is one of the most strongly condemned transactions in the Qur'an.",
+      "Ҳар чизе, ки доред, дар ниҳоят аз они Аллоҳ аст — шумо идоракунандаи он ҳастед, на соҳиби ниҳоӣ.",
     body: [
-      "Riba — commonly translated as interest or usury, broadly any predetermined, guaranteed increase charged on a loan — is prohibited in unusually strong language across five consecutive verses of Surah al-Baqarah (2:275–279), among the most severe warnings on any single topic in the Qur'an.",
-      "The passage draws a deliberate contrast: 'Allah has permitted trade and forbidden riba' (2:275). Trade — buying, selling, and investing where both parties share genuine risk and effort — is praised; riba, a fixed charge owed regardless of outcome, is condemned. The chapter goes on to command believers to give up any outstanding riba entirely, warning of serious consequences for those who persist, while promising that whoever repents may keep only their original principal — no more, no less.",
-      "This is a foundational teaching to be aware of, not a checklist for auditing every modern financial product yourself. Working out whether a specific contract (a mortgage, a loan, a savings account) involves riba in practice requires reviewing its actual terms with someone qualified in Islamic finance.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Those who consume interest cannot stand [on the Day of Resurrection]... But Allah has permitted trade and has forbidden interest... O you who have believed, fear Allah and give up what remains [due to you] of interest... But if you repent, you may have your principal — you do no wrong, nor are you wronged.",
-      },
+      "Мавзӯи такроршавандаи Қуръон ин аст, ки сарват пеш аз ҳама аз они Аллоҳ аст; инсон танҳо барои муддате амонатдори он аст ва барои он ки онро чӣ гуна ба даст овардааст ва чӣ гуна истифода мебарад, ҷавобгар мебошад. Ин пулро аз моликияти сирф шахсӣ ба чизе табдил медиҳад, ки дар бораи он аз шумо пурсида мешавад — аз куҷо омад ва ба куҷо рафт.",
+      "Ду амр асоси он аст, ки ин амонат дар муомила бо дигарон чӣ гуна зоҳир мешавад: пурра иҷро кардани шартномаҳо ва созишномаҳо ва ҳеҷ гоҳ нагирифтани моли дигарон бо роҳи зулм, фиреб ё истисмор, балки танҳо тавассути тиҷорати одилона бо ризоияти тарафайн.",
+      "Ҳамин принсипҳо якҷоя сабаби он аст, ки ахлоқи молиявии исломӣ ҳамеша ба ҳамон чанд савол бармегардад: оё ин фоида бо заҳмати воқеӣ, хатар ва эҷоди арзиш ба даст омадааст? Оё бо тарафи дигар комилан ростқавлона рафтор шудааст? Ва оё ӯҳдадорие, ки ман гирифтаам, иҷро мешавад?",
     ],
   },
   {
-    title: "Why Trade Differs from Interest",
+    title: "Манъи рибо",
     summary:
-      "Legitimate profit is tied to risk and effort; riba is a guaranteed charge regardless of outcome.",
+      "Рибо (фоиз/судхӯрӣ) яке аз муомилотест, ки дар Қуръон бо шиддати бештар маҳкум шудааст.",
     body: [
-      "A simple way to hold the distinction in mind: in a trade or genuine investment, the person providing capital or goods shares in the outcome — they may profit, but they can also lose, because they are exposed to the real performance of a venture. In a riba-based loan, the lender is guaranteed a fixed return regardless of whether the borrower's venture succeeds, struggles, or fails.",
-      "Classical scholarship frames this as a matter of justice: a person in urgent need who borrows money can be trapped into paying back far more than they borrowed, with the risk placed entirely on them and none on the lender — precisely the imbalance the Qur'an condemns in the phrase 'Allah destroys interest and gives increase for charities' (2:276), a direct contrast between wealth built through exploitation and wealth grown through generosity.",
-      "This is a general educational contrast, not a ruling on any specific instrument (some modern structures blur trade and lending in complex ways). Where a specific product sits on this spectrum is exactly the kind of question to bring to a qualified Islamic finance scholar or certified advisor rather than deciding from general principles alone.",
-    ],
-    quran: [
-      {
-        excerpt: "Allah destroys interest and gives increase for charities.",
-      },
+      "Рибо — ки одатан ҳамчун фоиз ё судхӯрӣ тарҷума мешавад ва ба маънои васеъ ҳар гуна афзоиши пешакӣ муайяну кафолатнок дар қарз аст — дар панҷ ояти пай дар пайи сураи Бақара (2:275–279) бо забони ғайриодӣ сахт манъ шудааст, ки аз ҷумлаи шадидтарин огоҳиҳо дар бораи ягон мавзӯъ дар Қуръон мебошад.",
+      "Ин порча муқоисаи огоҳонаро пеш меорад: «Худо хариду фурӯшро ҳалол ва риборо ҳаром кардааст» (2:275). Тиҷорат — харидан, фурӯхтан ва сармоягузорӣ, ки дар он ҳар ду тараф хатар ва заҳмати воқеиро тақсим мекунанд — ситоиш шудааст; рибо, пардохти собите, ки новобаста ба натиҷа қарздор мешавад, маҳкум гардидааст. Сура сипас ба мӯъминон амр мекунад, ки аз ҳар риботи боқимонда пурра даст кашанд, касонеро, ки исрор меварзанд, аз оқибатҳои ҷиддӣ огоҳ месозад ва ваъда медиҳад, ки ҳар кӣ тавба кунад, танҳо сармояи аслии худро нигоҳ дошта метавонад — на бештар ва на камтар.",
+      "Ин таълимоти бунёдиест, ки бояд аз он огоҳ бошед, на рӯйхате барои он ки ҳар маҳсулоти молиявии муосирро худатон тафтиш кунед. Муайян кардани он ки оё шартномаи мушаххас (ипотека, қарз, ҳисоби пасандоз) дар амал рибо дорад ё не, баррасии шартҳои воқеии онро бо мутахассиси молияи исломӣ талаб мекунад.",
     ],
   },
   {
-    title: "How Seriously the Sunnah Treats Riba",
-    summary: "The Prophet ﷺ warned that everyone involved in a riba transaction shares in its sin.",
-    body: [
-      "Beyond the Qur'an's own warnings, the Prophet ﷺ made clear that responsibility for riba is not limited to whoever directly charges it. In an authentic hadith, he ﷺ is reported to have cursed the one who consumes riba, the one who pays it, the one who writes the contract, and the two witnesses to it — saying they are all equal in this.",
-      "The lesson generally drawn from this is one of collective avoidance rather than individual blame alone: riba is treated as something a whole transaction, and everyone knowingly party to it, should stay away from — not merely a private matter between a lender and a borrower.",
-      "As with the Qur'anic verses, this hadith establishes the seriousness of the principle; it does not itself tell you how to classify a specific modern financial product. That judgment call belongs with qualified scholars reviewing the actual contract.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah's Messenger ﷺ cursed the one who consumes riba, its payer, the one who records it, and the two witnesses to it, and said: they are all equal [in this]. (Jabir)",
-      },
-    ],
-  },
-  {
-    title: "Honesty in Trade",
-    summary: "The honest, trustworthy merchant is given one of the highest ranks in the Hereafter.",
-    body: [
-      "In sharp contrast to riba's warnings, honest trade is repeatedly praised. The Prophet Muhammad ﷺ himself worked as a trader before his prophethood and was known in Makkah by the title al-Amin — 'the Trustworthy' — for his integrity in business dealings, long before he was known as a prophet.",
-      "He ﷺ later taught that 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' on the Day of Judgment — an extraordinarily high status attached to something as ordinary as fair dealing in a market.",
-      "Practically, fair trade means: describing goods and services accurately, disclosing known defects rather than hiding them, honouring agreed prices and terms, and avoiding deception, false advertising, or exploiting a buyer's or seller's lack of knowledge. These are the same instincts that make for good, sustainable business in any tradition — Islam simply ties them to eternal reward as well.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The truthful, trustworthy merchant is with the prophets, the truthful, and the martyrs. (Abu Sa'id al-Khudri)",
-      },
-    ],
-  },
-  {
-    title: "Navigating Modern Financial Products",
+    title: "Чаро тиҷорат аз фоиз фарқ мекунад",
     summary:
-      "Mortgages, cards, and insurance are genuinely complex — this guide stops at principles.",
+      "Фоидаи қонунӣ ба хатар ва заҳмат вобаста аст; рибо пардохти кафолатнок новобаста ба натиҷа аст.",
     body: [
-      "Modern financial life involves products the earliest generations of Muslims never encountered in their current form: mortgages, credit cards, retirement accounts, insurance, and investment funds structured in many different ways. Applying centuries-old principles to these products is real, careful scholarly work — not something to reason out alone from a few general verses.",
-      "Because of this, contemporary Islamic finance institutions and certified scholars specialise specifically in reviewing modern contracts for compliance with these principles, often producing detailed rulings on particular products or structures. That specialised review is outside the scope of this app.",
-      "If you're weighing a real financial decision — a home purchase, a loan, an investment, an insurance policy — the responsible next step is to consult a qualified, certified Islamic finance advisor or scholar who can look at the actual contract terms, not to rely on general educational content like this guide.",
+      "Роҳи соддаи дар хотир нигоҳ доштани фарқ: дар тиҷорат ё сармоягузории ҳақиқӣ шахсе, ки сармоя ё мол медиҳад, дар натиҷа шарик аст — ӯ метавонад фоида гирад, вале зарар ҳам дида метавонад, зеро ба натиҷаи воқеии кор вобаста аст. Дар қарзи рибавӣ ба қарздиҳанда даромади собит кафолат дода мешавад, новобаста ба он ки кори қарзгиранда муваффақ мешавад, душворӣ мекашад ё барбод меравад.",
+      "Илми классикӣ инро масъалаи адолат медонад: шахси ниёзманде, ки пул қарз мегирад, метавонад дар доме афтад, ки назар ба қарзаш хеле бештар баргардонад, дар ҳоле ки тамоми хатар бар дӯши ӯ ва ҳеҷ хатар бар дӯши қарздиҳанда нест — маҳз ҳамон номутаносибие, ки Қуръон бо ибораи «Худованд риборо ночиз мегардонад ва садақотро афзунӣ медиҳад» (2:276) маҳкум мекунад; ин муқоисаи мустақими сарвати бо истисмор сохташуда ва сарвати бо саховат афзудашуда аст.",
+      "Ин муқоисаи умумии таълимист, на ҳукм дар бораи ягон воситаи мушаххас (баъзе сохторҳои муосир тиҷорат ва қарздиҳиро ба тарзи мураккаб омехта мекунанд). Ҷойгоҳи маҳсулоти мушаххас дар ин миён маҳз ҳамон саволест, ки бояд ба олими соҳибихтисоси молияи исломӣ ё мушовири тасдиқшуда пешниҳод шавад, на ин ки танҳо аз рӯи принсипҳои умумӣ қарор қабул карда шавад.",
+    ],
+  },
+  {
+    title: "Суннат риборо то чӣ андоза ҷиддӣ мешуморад",
+    summary:
+      "Паёмбар ﷺ огоҳ кардааст, ки ҳар кӣ дар муомилаи рибавӣ даст дорад, дар гуноҳи он шарик аст.",
+    body: [
+      "Ғайр аз огоҳиҳои худи Қуръон, Паёмбар ﷺ равшан кардааст, ки масъулияти рибо танҳо ба он касе, ки бевосита онро мегирад, маҳдуд намешавад. Дар ҳадиси саҳеҳ ривоят шудааст, ки ӯ ﷺ рибохӯр, рибодиҳанда, нависандаи шартнома ва ду шоҳиди онро лаънат кардааст ва гуфтааст, ки ҳамаашон дар ин баробаранд.",
+      "Дарсе, ки одатан аз ин гирифта мешавад, на танҳо маломати фардӣ, балки дурӣ ҷустани дастаҷамъӣ аст: рибо ҳамчун чизе ҳисобида мешавад, ки тамоми муомила ва ҳар касе, ки огоҳона дар он ширкат дорад, бояд аз он дур бошад — на танҳо масъалаи хусусӣ байни қарздиҳанда ва қарзгиранда.",
+      "Мисли оятҳои Қуръон, ин ҳадис ҷиддияти принсипро муқаррар мекунад; худ ба худ намегӯяд, ки маҳсулоти мушаххаси молиявии муосирро чӣ гуна тасниф кунед. Ин қарор ба уҳдаи олимони соҳибихтисосест, ки шартномаи воқеиро баррасӣ мекунанд.",
+    ],
+  },
+  {
+    title: "Ростқавлӣ дар тиҷорат",
+    summary:
+      "Ба тоҷири ростқавл ва боэътимод яке аз баландтарин мартабаҳо дар охират дода мешавад.",
+    body: [
+      "Баръакси огоҳиҳо дар бораи рибо, тиҷорати ростқавлона борҳо ситоиш шудааст. Худи Паёмбар Муҳаммад ﷺ пеш аз паёмбариаш ба тиҷорат машғул буд ва дар Макка бо лақаби Амин — «Боэътимод» — барои покдоманиаш дар муомилоти тиҷоратӣ шинохта мешуд, хеле пеш аз он ки ҳамчун паёмбар шинохта шавад.",
+      "Ӯ ﷺ баъдтар таълим дод, ки «the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs» (маънои англисӣ) дар Рӯзи қиёмат — мақоми фавқулодда баланде, ки ба чизи оддие чун муомилаи одилона дар бозор вобаста шудааст.",
+      "Дар амал, тиҷорати одилона чунин маъно дорад: дуруст тавсиф кардани мол ва хидматҳо, ошкор кардани камбудиҳои маълум ба ҷои пинҳон кардани онҳо, риояи нархҳо ва шартҳои мувофиқашуда ва дурӣ ҷустан аз фиреб, рекламаи дурӯғ ё истифода аз бехабарии харидор ё фурӯшанда. Инҳо ҳамон хислатҳоянд, ки дар ҳар анъана тиҷорати хуб ва пойдорро месозанд — Ислом онҳоро ба подоши абадӣ низ мепайвандад.",
+    ],
+  },
+  {
+    title: "Роҳёбӣ дар маҳсулоти молиявии муосир",
+    summary:
+      "Ипотека, кортҳо ва суғурта воқеан мураккабанд — ин дастур дар сатҳи принсипҳо боқӣ мемонад.",
+    body: [
+      "Зиндагии молиявии муосир маҳсулотеро дар бар мегирад, ки наслҳои аввали мусалмонон дар шакли кунуниашон ҳеҷ гоҳ надида буданд: ипотека, кортҳои кредитӣ, ҳисобҳои нафақа, суғурта ва фондҳои сармоягузорӣ, ки ба тарзҳои гуногун сохта шудаанд. Татбиқи принсипҳои асрҳо пешин ба ин маҳсулот кори воқеӣ ва бодиққати илмист — на чизе, ки бо такя ба чанд ояти умумӣ танҳо ҳал кардан мумкин бошад.",
+      "Аз ин рӯ, муассисаҳои муосири молияи исломӣ ва олимони тасдиқшуда махсусан ба баррасии шартномаҳои муосир аз рӯи мутобиқат ба ин принсипҳо машғуланд ва аксар вақт дар бораи маҳсулот ё сохторҳои мушаххас ҳукмҳои муфассал медиҳанд. Чунин баррасии махсус берун аз доираи ин барнома аст.",
+      "Агар шумо дар бораи қарори воқеии молиявӣ — хариди хона, қарз, сармоягузорӣ, полиси суғурта — фикр мекунед, қадами масъулонаи навбатӣ машварат бо мушовир ё олими соҳибихтисос ва тасдиқшудаи молияи исломист, ки шартҳои воқеии шартномаро дида метавонад, на такя ба мӯҳтавои умумии таълимӣ мисли ин дастур.",
     ],
     disclaimer:
-      "This app does not evaluate, screen, or recommend any specific financial product, fund, or provider, and this guide is not a substitute for qualified professional or scholarly advice on your actual finances.",
+      "Ин барнома ягон маҳсулот, фонд ё ширкати мушаххаси молиявиро арзёбӣ, тафтиш ё тавсия намекунад ва ин дастур ҷойгузини маслиҳати касбӣ ё илмии соҳибихтисос дар бораи молияи воқеии шумо нест.",
   },
   {
-    title: "Zakah: Worship Through Wealth",
-    summary:
-      "Zakah is an obligatory act of worship carried out with money rather than words or motion.",
+    title: "Закот: ибодат тавассути сарват",
+    summary: "Закот ибодати ҳатмист, ки на бо сухан ё ҳаракат, балки бо мол адо карда мешавад.",
     body: [
-      "Zakah — a fixed, obligatory annual charge on qualifying wealth above a minimum threshold (nisab) — is one of the five pillars of Islam, placing giving on the same footing as prayer and fasting rather than treating it as optional generosity.",
-      "The Qur'an consistently pairs zakah with prayer as a marker of genuine faith, and promises that those who establish both prayer and zakah 'will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.' Financially, it functions as a wealth-purification mechanism — redistributing a small, regular share of accumulated wealth to those in need rather than letting it sit idle indefinitely in a few hands.",
-      "Because the calculation depends on your specific savings, assets, and local nisab values, this app has a dedicated Zakat guide and calculator — use it directly rather than estimating from general principles here.",
+      "Закот — пардохти муайян ва ҳатмии солона аз сарвати мувофиқ, ки аз ҳадди ақал (нисоб) зиёд бошад — яке аз панҷ рукни Ислом аст ва бахшишро бо намоз ва рӯза дар як қатор мегузорад, на ин ки онро саховати ихтиёрӣ ҳисобад.",
+      "Қуръон пайваста закотро ҳамроҳ бо намоз ҳамчун нишони имони ҳақиқӣ зикр мекунад ва ба онҳое, ки ҳам намоз ва ҳам закотро барпо медоранд, ваъда медиҳад: «муздашон бо Парвардигорашон аст. На бимнок мешаванд ва на ғамгин». Аз ҷиҳати молиявӣ, он ҳамчун механизми поксозии сарват амал мекунад — ҳиссаи хурд ва мунтазами сарвати ҷамъшударо ба ниёзмандон тақсим мекунад, ба ҷои он ки бигзорад он беохир дар дасти чанд кас бекор хобад.",
+      "Азбаски ҳисоб ба пасандоз, дороиҳо ва арзишҳои маҳаллии нисоби шумо вобаста аст, ин барнома дастур ва ҳисобкунаки махсуси закот дорад — онро бевосита истифода баред, на ин ки аз рӯи принсипҳои умумии ин ҷо тахмин кунед.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, those who believe and do righteous deeds and establish prayer and give zakah will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.",
-      },
-    ],
+    appLinks: [{ label: "Дастур ва ҳисобкунаки закот" }],
   },
   {
-    title: "Sadaqah: Voluntary Giving",
+    title: "Садақа: бахшиши ихтиёрӣ",
     summary:
-      "Beyond the obligatory zakah, any voluntary giving is called sadaqah — and it never truly costs you.",
+      "Ғайр аз закоти ҳатмӣ, ҳар бахшиши ихтиёрӣ садақа ном дорад — ва он дар асл ҳеҷ гоҳ аз шумо намекоҳад.",
     body: [
-      "Sadaqah is voluntary charity, given in any amount, at any time, for the sake of Allah — beyond the fixed obligation of zakah. It ranges from significant financial gifts to something as small as a kind word or removing a source of harm from someone's path, all counted as forms of charity in the hadith literature.",
-      "One of the most reassuring teachings for anyone hesitant to give is the Prophet's ﷺ statement that charity does not decrease wealth — a point the Qur'an supports elsewhere by describing spending in Allah's cause as something Allah replaces and rewards, not merely something that runs out.",
-      "Practically, this reframes generosity: giving is not competing against your financial security but is presented as protecting and growing it, in ways not always visible on a balance sheet.",
+      "Садақа хайрияи ихтиёрист, ки ба ҳар андоза, дар ҳар вақт, барои ризои Аллоҳ — ғайр аз вазифаи муайяни закот — дода мешавад. Он аз туҳфаҳои калони молӣ то чизи хурде мисли сухани нек ё дур кардани чизи зараровар аз роҳи касе фаро мегирад, ки ҳамаи инҳо дар ривоятҳои ҳадис ҳамчун навъҳои садақа ҳисоб шудаанд.",
+      "Яке аз таълимоти аз ҳама оромбахш барои касе, ки дар бахшиш дудила аст, гуфтаи Паёмбар ﷺ аст, ки садақа молро кам намекунад — нуктае, ки Қуръон дар ҷойҳои дигар онро тасдиқ мекунад ва харҷ дар роҳи Аллоҳро чизе тасвир мекунад, ки Аллоҳ ивазашро медиҳад ва подош медиҳад, на чизе, ки танҳо тамом мешавад.",
+      "Дар амал, ин нигоҳ ба саховатро тағйир медиҳад: бахшиш бо амнияти молиявии шумо рақобат намекунад, балки ҳамчун ҳифз ва афзоиши он муаррифӣ мешавад — бо роҳҳое, ки на ҳамеша дар тавозуни ҳисобҳо намоёнанд.",
     ],
-    hadith: [
-      {
-        excerpt: "Charity does not decrease wealth... (Abu Hurayrah)",
-      },
-    ],
+    appLinks: [{ label: "Дастури закот ва садақа" }, { label: "Ҳадафҳои садақа" }],
   },
   {
-    title: "Takaful: Cooperative Risk-Sharing",
+    title: "Такофул: тақсими кооперативии хатар",
     summary:
-      "A high-level look at the concept behind Islamic alternatives to conventional insurance.",
+      "Нигоҳи умумӣ ба мафҳуме, ки дар асоси алтернативаҳои исломӣ ба суғуртаи анъанавӣ қарор дорад.",
     body: [
-      "Takaful (from an Arabic root meaning mutual guarantee) is the general concept behind Islamic approaches to insurance-like protection: a group of participants contribute to a shared fund, and that fund is used to help members who experience a covered loss, with any surplus typically shared among participants or carried forward rather than kept as a separate insurer's guaranteed profit.",
-      "The underlying idea is cooperative risk-sharing rather than risk-transfer for a guaranteed premium: participants are seen as mutually helping one another, with the fund's operator typically acting as a manager or agent for a fee rather than the risk-bearing party itself.",
-      "This is only a general, conceptual description. Actual takaful products vary widely in structure between providers and countries, and evaluating whether a specific plan is genuinely structured this way requires reviewing its actual terms with a qualified Islamic finance scholar or institution — this app does not recommend or evaluate any specific takaful (or insurance) provider or plan.",
+      "Такофул (аз решаи арабӣ ба маънои кафолати тарафайн) мафҳуми умумии равишҳои исломӣ ба ҳифзи монанди суғурта аст: гурӯҳи иштирокчиён ба фонди муштарак саҳм мегузоранд ва ин фонд барои кумак ба аъзое истифода мешавад, ки зарари фарогирифташуда мебинанд; ҳар гуна барзиёдӣ одатан байни иштирокчиён тақсим ё ба соли оянда гузаронида мешавад, на ин ки ҳамчун фоидаи кафолатноки суғуртакунандаи алоҳида нигоҳ дошта шавад.",
+      "Ғояи асосӣ тақсими кооперативии хатар аст, на интиқоли хатар дар ивази мукофоти кафолатнок: иштирокчиён ҳамчун ёрирасонони якдигар ҳисобида мешаванд ва идоракунандаи фонд одатан ба сифати мудир ё вакил дар ивази ҳаққи хизмат амал мекунад, на худ ҳамчун тарафи бардорандаи хатар.",
+      "Ин танҳо тавсифи умумӣ ва мафҳумист. Маҳсулоти воқеии такофул дар сохтор байни ширкатҳо ва кишварҳо хеле фарқ мекунанд ва арзёбии он ки оё нақшаи мушаххас воқеан ҳамин тавр сохта шудааст, баррасии шартҳои воқеии онро бо олим ё муассисаи соҳибихтисоси молияи исломӣ талаб мекунад — ин барнома ягон ширкат ё нақшаи мушаххаси такофул (ё суғурта)-ро тавсия ё арзёбӣ намекунад.",
     ],
     disclaimer:
-      "General education only. This is not a recommendation of takaful over conventional insurance, or of any specific provider or plan — consult a qualified advisor for your circumstances.",
+      "Танҳо маълумоти умумии таълимӣ. Ин тавсияи такофул бар суғуртаи анъанавӣ ё ягон ширкат ё нақшаи мушаххас нест — барои вазъи худ бо мушовири соҳибихтисос машварат кунед.",
   },
   {
-    title: "Takaful and Conventional Insurance, Compared at a High Level",
-    summary: "The two share a purpose — managing risk — but differ in how that risk is structured.",
+    title: "Такофул ва суғуртаи анъанавӣ: муқоисаи умумӣ",
+    summary: "Ҳар ду як ҳадаф доранд — идораи хатар — вале дар сохтори он хатар фарқ мекунанд.",
     body: [
-      "Conventional insurance is typically structured as a contract where a policyholder pays a premium and the insurer, as a separate commercial party, bears the risk in exchange for that fee, often investing the premium pool in ways that may include interest-bearing instruments. Some classical scholars raised concerns about this structure touching on riba, gharar (excessive uncertainty about the payout), and the transfer of risk for a fixed fee rather than shared risk.",
-      "Takaful was developed, broadly speaking, as an attempt to address those specific concerns through a mutual, cooperative structure instead — though scholars and institutions differ on exactly which structures fully achieve that goal, and takaful providers themselves vary considerably in design.",
-      "Because both the concerns and the alternative structures involve real technical detail (and because personal circumstances such as location, coverage needs, and available providers vary enormously), this comparison is offered only as general background — not as a ruling on any specific policy you may be considering.",
+      "Суғуртаи анъанавӣ одатан ҳамчун шартнома сохта мешавад, ки дар он суғурташаванда мукофот мепардозад ва суғуртакунанда ҳамчун тарафи алоҳидаи тиҷоратӣ дар ивази ин пардохт хатарро ба дӯш мегирад ва аксар вақт маблағи мукофотҳоро ба тарзҳое сармоягузорӣ мекунад, ки метавонанд воситаҳои фоизнокро дар бар гиранд. Баъзе олимони классикӣ нигаронӣ баён кардаанд, ки ин сохтор ба рибо, ғарар (номуайянии аз ҳад зиёд дар бораи пардохт) ва интиқоли хатар дар ивази ҳаққи собит, на хатари муштарак, марбут аст.",
+      "Такофул, ба таври умумӣ, ҳамчун кӯшиши ҳалли ҳамин нигарониҳои мушаххас тавассути сохтори тарафайн ва кооперативӣ таҳия шудааст — ҳарчанд олимон ва муассисаҳо дар бораи он ки маҳз кадом сохторҳо ба ин ҳадаф пурра мерасанд, ихтилоф доранд ва худи ширкатҳои такофул дар тарҳрезӣ хеле гуногунанд.",
+      "Азбаски ҳам нигарониҳо ва ҳам сохторҳои алтернативӣ ҷузъиёти воқеии техникӣ доранд (ва азбаски ҳолатҳои шахсӣ, аз қабили маҳал, ниёзҳои фарогирӣ ва ширкатҳои дастрас, бениҳоят гуногунанд), ин муқоиса танҳо ҳамчун маълумоти умумӣ пешкаш мешавад — на ҳамчун ҳукм дар бораи ягон полиси мушаххасе, ки шумо баррасӣ мекунед.",
     ],
     disclaimer:
-      "Educational comparison only, not a fatwa on insurance or takaful in general or on any specific product. Scholars hold a range of views on modern insurance structures; consult a qualified advisor for your situation.",
+      "Танҳо муқоисаи таълимӣ, на фатво дар бораи суғурта ё такофул дар маҷмӯъ ё дар бораи ягон маҳсулоти мушаххас. Олимон дар бораи сохторҳои муосири суғурта назарҳои гуногун доранд; барои вазъи худ бо мушовири соҳибихтисос машварат кунед.",
   },
   {
-    title: "FAQ: Is This Financial Advice?",
-    summary: "No — this guide teaches principles only, and cannot replace qualified advice.",
-    body: [
-      "Q: Can I use this guide to decide whether a specific loan, investment, or insurance product is permissible for me? A: No. This guide explains general Islamic principles about money — it does not review contracts, recommend products, or issue rulings. Specific financial decisions should be made with a qualified financial professional and, for questions of permissibility, a qualified Islamic finance scholar.",
-      "Q: Does this app rate or list halal stocks, funds, or ETFs? A: No, and it never will as part of this guide — fund screening and investment recommendations are outside its scope and require licensed financial expertise this content does not provide.",
-      "Q: Is this guide a fatwa? A: No. A fatwa is a specific religious ruling issued by a qualified scholar in response to a specific question and context. This guide teaches general principles only; for an actual ruling on your situation, seek out a qualified, trusted scholar directly.",
-    ],
-    disclaimer:
-      "This entire guide is educational content, not financial advice and not a fatwa. Always consult qualified financial and religious professionals for decisions about your own money.",
-  },
-  {
-    title: "FAQ: How Do I Find Shariah-Compliant Options?",
+    title: "Саволу ҷавоб: Оё ин маслиҳати молиявист?",
     summary:
-      "Look for certified expertise, not a list — this app intentionally doesn't provide one.",
+      "Не — ин дастур танҳо принсипҳоро таълим медиҳад ва ҷойгузини маслиҳати соҳибихтисос шуда наметавонад.",
     body: [
-      "Q: Where can I find a list of halal banks, funds, or investment platforms? A: Not in this app, by design — product lists change constantly, vary drastically by country, and require ongoing compliance monitoring that only specialised institutions can properly maintain. Look instead for institutions with a genuine, named Shariah supervisory board and published compliance methodology.",
-      "Q: How do I know if a scholar or certification is legitimate? A: Look for scholars or boards recognised by established Islamic finance standard-setting bodies in your region or internationally, rather than informal online claims. A reputable institution will be transparent about who reviews its products and how.",
-      "Q: What should I do if I can't find any Islamic finance options where I live? A: This is a real and common situation. Discuss it with a knowledgeable local imam or scholar — they can help you weigh the available options for your specific circumstances, since guidance here can depend heavily on what alternatives genuinely exist for you.",
+      "С: Оё ман метавонам аз ин дастур истифода барам, то муайян кунам, ки оё қарз, сармоягузорӣ ё маҳсулоти суғуртаи мушаххас барои ман ҷоиз аст? Ҷ: Не. Ин дастур принсипҳои умумии исломиро дар бораи пул шарҳ медиҳад — он шартномаҳоро баррасӣ намекунад, маҳсулот тавсия намедиҳад ва ҳукм содир намекунад. Қарорҳои мушаххаси молиявӣ бояд бо мутахассиси соҳибихтисоси молиявӣ ва, дар масъалаҳои ҷоиз будан, бо олими соҳибихтисоси молияи исломӣ қабул карда шаванд.",
+      "С: Оё ин барнома саҳмияҳо, фондҳои сармоягузорӣ ё фондҳои биржавии ҳалолро арзёбӣ ё номбар мекунад? Ҷ: Не, ва ҳамчун қисми ин дастур ҳеҷ гоҳ нахоҳад кард — тафтиши фондҳо ва тавсияҳои сармоягузорӣ берун аз доираи он мебошанд ва таҷрибаи молиявии иҷозатномадорро талаб мекунанд, ки ин мӯҳтаво намедиҳад.",
+      "С: Оё ин дастур фатво аст? Ҷ: Не. Фатво ҳукми мушаххаси шаръист, ки олими соҳибихтисос дар ҷавоб ба саволи мушаххас ва вазъияти мушаххас медиҳад. Ин дастур танҳо принсипҳои умумиро таълим медиҳад; барои ҳукми воқеӣ дар бораи вазъи худ бевосита ба олими соҳибихтисос ва боэътимод муроҷиат кунед.",
+    ],
+    disclaimer:
+      "Тамоми ин дастур мӯҳтавои таълимист, на маслиҳати молиявӣ ва на фатво. Барои қарорҳо дар бораи пули худ ҳамеша бо мутахассисони соҳибихтисоси молиявӣ ва динӣ машварат кунед.",
+  },
+  {
+    title: "Саволу ҷавоб: Чӣ тавр имконоти мувофиқ ба шариатро пайдо кунам?",
+    summary:
+      "Таҷрибаи тасдиқшударо ҷустуҷӯ кунед, на рӯйхатро — ин барнома дидаю дониста рӯйхат пешниҳод намекунад.",
+    body: [
+      "С: Рӯйхати бонкҳо, фондҳо ё платформаҳои сармоягузории ҳалолро аз куҷо ёбам? Ҷ: Дар ин барнома не, ва ин қасдан аст — рӯйхатҳои маҳсулот доимо тағйир меёбанд, аз кишвар ба кишвар хеле фарқ мекунанд ва назорати доимии мутобиқатро талаб мекунанд, ки онро танҳо муассисаҳои махсус дуруст анҷом дода метавонанд. Ба ҷои ин муассисаҳоеро ҷустуҷӯ кунед, ки шӯрои воқеии назорати шаръии номбаршуда ва методологияи нашршудаи мутобиқат доранд.",
+      "С: Чӣ тавр бидонам, ки олим ё сертификат қонунист? Ҷ: Олимон ё шӯроҳоеро ҷустуҷӯ кунед, ки аз ҷониби мақомоти маъруфи стандартгузори молияи исломӣ дар минтақаи шумо ё дар сатҳи байналмилалӣ эътироф шудаанд, на иддаоҳои ғайрирасмии интернетӣ. Муассисаи боэътибор ошкоро мегӯяд, ки маҳсулоташро кӣ ва чӣ гуна баррасӣ мекунад.",
+      "С: Агар дар ҷои зисти ман ягон имконоти молияи исломӣ набошад, чӣ кунам? Ҷ: Ин вазъияти воқеӣ ва маъмул аст. Онро бо имом ё олими донишманди маҳаллӣ муҳокима кунед — онҳо метавонанд ба шумо дар баркашидани имконоти мавҷуда барои вазъи мушаххасатон кумак кунанд, зеро роҳнамоӣ дар ин ҷо метавонад сахт аз он вобаста бошад, ки барои шумо воқеан кадом алтернативаҳо вуҷуд доранд.",
     ],
     actions: [
-      "Look for institutions with a named, transparent Shariah supervisory board rather than relying on marketing claims.",
+      "Ба ҷои такя ба иддаоҳои рекламавӣ, муассисаҳоеро ҷустуҷӯ кунед, ки шӯрои назорати шаръии номбаршуда ва шаффоф доранд.",
     ],
   },
   {
-    title: "FAQ: Mortgages, Cards, and Loans",
-    summary: "These are exactly the questions that need a qualified scholar, not a general guide.",
+    title: "Саволу ҷавоб: Ипотека, кортҳо ва қарзҳо",
+    summary:
+      "Инҳо маҳз ҳамон саволҳоянд, ки олими соҳибихтисосро талаб мекунанд, на дастури умумиро.",
     body: [
-      "Q: Is a mortgage always riba? A: Structures vary — some conventional mortgages are interest-based loans, while some providers offer alternative structures (such as diminishing partnership or lease-to-own models) intended to avoid interest. Whether a specific product achieves that in practice is a scholarly question about its actual contract, not something to assume either way.",
-      "Q: Can I use a credit card if I always pay the full balance and never incur interest? A: Scholars hold different views on this, partly because the underlying agreement may still technically involve an interest clause even if you never trigger it in practice. This is a genuine area of differing qualified opinion — ask a scholar you trust rather than assuming a single universal answer.",
-      "Q: What about student loans or other loans that may be unavoidable in some circumstances? A: Necessity and hardship are real considerations scholars weigh carefully, and views differ by circumstance and jurisdiction. If you're facing this decision, bring your specific situation to a qualified scholar rather than trying to resolve it from general reading alone.",
+      "С: Оё ипотека ҳамеша рибост? Ҷ: Сохторҳо гуногунанд — баъзе ипотекаҳои анъанавӣ қарзҳои фоизноканд, дар ҳоле ки баъзе ширкатҳо сохторҳои алтернативӣ (масалан, шарикии камшаванда ё моделҳои иҷора бо хариди минбаъда) пешниҳод мекунанд, ки барои пешгирӣ аз фоиз пешбинӣ шудаанд. Оё маҳсулоти мушаххас дар амал ба ин мерасад, саволи илмист дар бораи шартномаи воқеии он, на чизе, ки ба ин ё он тараф пешфарз кардан мумкин бошад.",
+      "С: Оё ман метавонам корти кредитиро истифода барам, агар ҳамеша тамоми қарзро пурра пардозам ва ҳеҷ гоҳ фоиз насупорам? Ҷ: Олимон дар ин бора назарҳои гуногун доранд, қисман аз он сабаб, ки созишномаи асосӣ метавонад аз ҷиҳати техникӣ банди фоизро дар бар гирад, ҳатто агар шумо ҳеҷ гоҳ онро дар амал ба кор наандозед. Ин соҳаи воқеии ихтилофи назари соҳибихтисосон аст — ба ҷои пешфарз кардани ҷавоби ягонаи умумӣ, аз олиме, ки ба ӯ эътимод доред, пурсед.",
+      "С: Дар бораи қарзҳои таҳсилӣ ё дигар қарзҳое, ки дар баъзе ҳолатҳо ногузир буда метавонанд, чӣ? Ҷ: Зарурат ва душворӣ омилҳои воқеие мебошанд, ки олимон бодиққат баркашида мебинанд ва назарҳо вобаста ба вазъият ва қонунгузорӣ фарқ мекунанд. Агар шумо бо чунин қарор рӯ ба рӯ бошед, ба ҷои кӯшиши ҳал кардани он танҳо аз рӯи мутолиаи умумӣ, вазъи мушаххаси худро ба олими соҳибихтисос пешниҳод кунед.",
     ],
     disclaimer:
-      "These are genuinely differed-upon, contract-specific questions. This FAQ only shows you what kind of question each one is — it does not answer any of them for your situation.",
+      "Инҳо саволҳои воқеан ихтилофӣ ва вобаста ба шартномаи мушаххас мебошанд. Ин саволу ҷавоб танҳо нишон медиҳад, ки ҳар кадоме чӣ гуна савол аст — ба ягонтои онҳо барои вазъи шумо ҷавоб намедиҳад.",
   },
 ];

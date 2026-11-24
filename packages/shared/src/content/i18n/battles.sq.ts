@@ -23,16 +23,7 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       "Kur'ani caktoi një kufi të përhershëm rreth kësaj leje: \"Luftoni në rrugën e Allahut ata që ju luftojnë, por mos e teproni\" (Kur'an 2:190). Lufta ishte e lidhur me agresionin kundër komunitetit dhe nuk duhej të kalonte kurrë kufijtë e drejtësisë.",
       "Këto fushata janë histori: ato ndodhën në një kontekst specifik arab të shekullit të shtatë të luftës fisnore, traktateve të prishura dhe rrethimit. Mësimet e përgjithshme islame mbi paqen, drejtësinë, mëshirën dhe fqinjësinë janë korniza; të dhënat e këtyre betejave duhet të lexohen brenda kësaj kornize, jo të shemben në slogane të shkëputura prej saj.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Leje u jepet atyre që luftuan për shkak se u është bërë e padrejtë - dhe Allahu me të vërtetë ka mundësi t'u japë atyre fitore - atyre që janë dëbuar pa të drejtë nga shtëpitë e tyre, vetëm pse thanë: Zoti ynë është Allahu. Sikur Allahu të mos i kishte zmbrapsur disa njerëz me anë të të tjerëve, manastiret, kishat, sinagogat dhe xhamitë – në të cilat përmendet shumë emri i Allahut – me siguri do të ishin rrënuar.",
-      },
-      {
-        excerpt:
-          "Luftoni në rrugën e Allahut ata që ju luftojnë, por mos e teproni. Vërtet, Allahu nuk i do shkelësit.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -45,17 +36,8 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       "Shkeljet e traktatit mbetën vendimtare deri në fund. Ishin aleatët e Kurejshëve që sulmuan aleatët e muslimanëve, Benu Khuza'ah, ata që anuluan Traktatin e Hudejbijes dhe çuan – në mënyrë të jashtëzakonshme – në hapjen pothuajse pa gjak të Mekës dhe jo në një masakër.",
       "Përgjatë gjithë kësaj, objektivat ishin të qëndrueshme: të mbronin jetën dhe fenë, të mbronin të pambrojturit dhe të vendosnin siguri të mjaftueshme që teuhidi të mund të praktikohej pa persekutim. Qëllimi nuk ishte kurrë zgjerimi i pafund për hir të tij dhe burimet shënojnë se Profeti ﷺ preferonte armëpushim dhe traktat sa herë që armiku anonte drejt paqes.",
     ],
-    hadith: [
-      {
-        excerpt:
-          'Jam urdhëruar të luftoj njerëzit derisa të dëshmojnë se nuk ka zot tjetër përveç Allahut dhe se Muhamedi është i Dërguari i Allahut, ta falin namazin dhe të japin zekatin. Nëse ata veprojnë kështu, jeta dhe pasuria e tyre mbrohen nga unë, përveçse me të drejtën e Islamit, dhe llogaria e tyre është te Allahu. — Studiuesit klasikë e lexojnë "njerëzit" si idhujtarë të veçantë të Arabisë, që më pas bëjnë luftë kundër Islamit pasi u kishte arritur mesazhi; është një deklaratë për ata luftëtarë armiqësor, jo një leje për të sulmuar jomuslimanët paqësorë apo për të detyruar besimin, të cilin Kurani 2:256 e ndalon plotësisht.',
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Nuk ka detyrim në fe. Rruga e duhur është bërë e dallueshme nga gabimi.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Hadithi i mësipërm citohet shpesh i zhveshur nga vendosja e tij. Dijetarët klasikë e vendosën atë brenda armiqësive specifike të kohës së saj dhe krahas ndalimit kuranor të detyrimit në fe (2:256) dhe kufirit që lufta është vetëm kundër atyre që ju luftojnë (2:190).",
     appLinks: [{}],
@@ -72,29 +54,8 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       "Prona dhe vetë toka janë të mbrojtura. Udhëzimet e përgjithshme ndalonin prerjen e pakujdesshme të pemëve frutore, djegien e të mbjellave dhe therjen e bagëtive jashtë nevojës. Të burgosurit duhej të ushqeheshin ashtu siç hanin robëruesit dhe të visheshin siç visheshin; Kurani lavdëron ata që ushqejnë robërit për dashurinë e Allahut (76:8), dhe shumë u liruan me shpërblim, shkëmbim ose mëshirë të thjeshtë - disa në Bedr në këmbim të mësimit të muslimanëve për të lexuar.",
       "Këto janë mësimet normative të fesë. Individët muslimanë përgjatë historisë që i shkelën ata po shkelnin Islamin, nuk e përkufizonin atë – ashtu si shkeljet nga pasuesit e çdo besimi nuk e rishkruajnë atë që urdhëron ai besim.",
     ],
-    quran: [
-      {
-        excerpt: "Luftoni në rrugën e Allahut ata që ju luftojnë, por mos e teproni.",
-      },
-      {
-        excerpt:
-          "E nëse ata anojnë kah paqja, atëherë anoni edhe tek ajo dhe mbështetuni tek Allahu. Vërtet, Ai është që dëgjon dhe di.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Omeri transmeton se një grua u gjet e vrarë në një nga ekspeditat e të Dërguarit të Allahut ﷺ, kështu që ai ndaloi vrasjen e grave dhe fëmijëve.",
-      },
-      {
-        excerpt:
-          "Kur Profeti ﷺ caktoi një komandant të një ushtrie, ai e urdhëroi atë: Luftoni në emër të Allahut… mos përvetësoni plaçkën, mos e thyeni zotimin tuaj, mos gjymtoni dhe mos vrisni një fëmijë. Kur ta takoni armikun, fillimisht ftoni ata në Islami; nëse refuzojnë, ofrojini paqe; vetëm nëse i refuzojnë të dyja, atëherë luftoni.",
-      },
-      {
-        excerpt:
-          "Mos vrisni një plak të dëshpëruar, as një fëmijë të vogël, as një grua. - Disa zinxhirë të këtij formulimi të saktë vlerësohen të dobëta, por vendimi që ai thotë konfirmohet nga transmetimi sahih i mësipërm dhe nga konsensusi i juristëve.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Dalloni qartë midis asaj që urdhëron Islami dhe asaj që ka bërë në të vërtetë çdo ushtri në histori.",
       "Lexoni këtë seksion të etikës përpara çdo narrative beteje – historia pa parimet e saj qeverisëse fton keqkuptime.",
@@ -139,26 +100,8 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
         "Disa robër u liruan në këmbim të mësimit të shkrim-leximit për fëmijët e Medinës.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Kur ju kërkoni ndihmë nga Zoti juaj dhe Ai ju përgjigj: Unë do t'ju përforcoj me një mijë engjëj, të cilët do të pasojnë njëri-tjetrin.",
-      },
-      {
-        excerpt:
-          "Tashmë kishte një shenjë për ju në dy ushtritë që u takuan: njëra që luftonte në rrugën e Allahut dhe tjetra e jobesimtarëve.",
-      },
-      {
-        excerpt:
-          "Ju nuk i vratë ata, por ishte Allahu që i vrau. Dhe ju nuk hodhët kur hodhët, por ishte Allahu që hodhi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Omeri transmeton se në ditën e Bedrit, Profeti sal-lAllahu alejhi ue sel-lem e shikoi armikun e njëmijë, ndërsa shokët e tij ishin pak më shumë se treqind, pastaj u kthye nga kibla, zgjati duart dhe iu lut Zotit të tij: O Allah, plotëso atë që më premtove. O Allah, nëse kjo bandë besimtarësh shkatërrohet, Ti nuk do të adhurohesh në tokë. Ai vazhdoi të lutej derisa i ra rrobja nga supet dhe Ebu Bekri e ndërroi dhe tha: Mjaft, o Pejgamber i Allahut – Allahu do ta përmbushë atë që të premtoi.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -193,22 +136,8 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Sprovat i rafinojnë besimtarët; pengesa e shoqëruar me pendim dhe qëndrueshmëri çon në rritje.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allahu me siguri e kishte përmbushur premtimin e Tij ndaj jush kur po i vrisnit me lejen e Tij - derisa e humbët guximin, u grindët mbi urdhrin dhe nuk iu binde pasi Ai ju tregoi atë që e doni.",
-      },
-      {
-        excerpt:
-          "Pra, mos u dobësoni dhe mos u pikëlloni, sepse do të jeni më të lartë nëse jeni besimtarë të vërtetë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pejgamberi salAllahu alejhi ue selem e caktoi Abdullah ibn Xhubejrin mbi pesëdhjetë harkëtarët në ditën e Uhudit dhe tha: Mbajeni pozicionin tuaj; edhe sikur të shihni se na rrëmbejnë zogjtë, mos e lini derisa t'ju dërgoj - dhe edhe nëse shihni se ne i mposhtim ata, mos u largoni derisa t'ju dërgoj unë. Kur armiku u shpartallua dhe harkëtarët panë plaçkën, thanë: \"Plaçka!\" dhe u larguan nga posti i tyre - kështu që shtatëdhjetë prej nesh u vranë.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -246,22 +175,8 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Qëndroni të patundur nën rrethim dhe ia besoni rezultatin Allahut, i cili mund të kthejë prapa një ushtri me erë.",
     },
-    quran: [
-      {
-        excerpt:
-          "O ju që besuat, kujtoni dhuntinë e Allahut ndaj jush kur ju erdhën ushtri dhe Ne dërguam kundër tyre një erë dhe ushtri që nuk i shihnit… Aty besimtarët u sprovuan dhe u tronditën me një tronditje të fortë.",
-      },
-      {
-        excerpt:
-          "E kur besimtarët i panë konfederatat, thanë: “Kjo është ajo që na premtoi Allahu dhe i Dërguari i Tij – dhe kjo vetëm ua shtoi besimin dhe nënshtrimin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pejgamberi ﷺ u lut kundër konfederatëve në ditën e el-Ahzabit, duke thënë: O Allah, shpallës i librit, i shpejtë në llogari - mposhti konfederatat. O Allah, mundi ata dhe tundi ata.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -294,22 +209,8 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Thyerja e një besëlidhjeje të mbrojtjes së ndërsjellë në një moment rreziku të përbashkët është ndër tradhtitë më të rënda.",
     },
-    quran: [
-      {
-        excerpt:
-          "Dhe Ai i zbriti ata nga ithtarët e librit që i mbështetën nga fortesat e tyre dhe hodhi tmerr në zemrat e tyre - një grup që e vratë dhe një grup që e zuri robër. Dhe Ai ju bëri të trashëgoni tokën dhe shtëpitë e tyre.",
-      },
-      {
-        excerpt:
-          "Allahu nuk ju ndalon nga ata që nuk ju luftojnë për shkak të fesë dhe nuk ju dëbojnë nga shtëpitë tuaja, që të jeni të devotshëm ndaj tyre dhe të silleni me drejtësi ndaj tyre. Vërtet, Allahu i do ata që veprojnë me drejtësi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kur Benu Kurejza ranë dakord të pranojnë gjykimin e Sa'd ibn Muadhit, Pejgamberi ﷺ e dërgoi atë. Ai erdhi dhe Pejgamberi ﷺ tha: Qëndroni për shefin tuaj. Sa'di gjykoi që luftëtarët e tyre të vriteshin dhe gratë dhe fëmijët e tyre të ziheshin robër. Profeti ﷺ tha: Ju keni gjykuar me gjykimin e Allahut - ose ai tha, me gjykimin e mbretit.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Ky ishte ndëshkimi për një akt të veçantë të tradhtisë së luftës nga luftëtarët, gjykuar nga një arbitër që vetë fisi zgjodhi. Ai nuk është një vendim kundër asnjë populli për fenë e tyre dhe nuk është model për marrëdhëniet me çifutët apo ndonjë bashkësi besimi, të cilët Islami urdhëron të trajtohen me drejtësi dhe mirësi (Kur'an 60:8). Disa studiues të mëvonshëm vunë në dyshim detajet e numrave të transmetuar.",
   },
@@ -343,22 +244,8 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Besojuni Allahut dhe të Dërguarit të Tij kur urtësia e një vendimi fshihet - durimi mund të jetë fitorja më e vërtetë.",
     },
-    quran: [
-      {
-        excerpt:
-          "Vërtet, Ne ju dhamë një fitore të dukshme, që Allahu t'ju falë mëkatin tuaj paraprak dhe atë që do të pasojë, të plotësojë dhuntinë e Tij ndaj jush dhe t'ju udhëzojë në rrugën e drejtë.",
-      },
-      {
-        excerpt:
-          "Sigurisht që Allahu ishte i kënaqur me besimtarët kur ata të besuan ty nën pemë, dhe Ai e dinte se çfarë kishin në zemrat e tyre, andaj Ai zbriti mbi ta qetësinë dhe i shpërbleu me një pushtim të afërt.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Xhabir ibn Abdullah ka thënë: Ditën e Hudejbijes ne ishim katërmbëdhjetëqind. Ne i bëmë besnikë Profetit ﷺ nën pemë dhe ai ishte më i miri nga njerëzit.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -392,12 +279,7 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Këmbëngulja në vështirësitë e gjata, e bashkuar me sinqeritetin, sjell ndihmën e Allahut.",
     },
-    hadith: [
-      {
-        excerpt:
-          "Në ditën e Hajberit, Pejgamberi ﷺ tha: Nesër do t'ia jap këtë flamur një njeriu që e do Allahun dhe të Dërguarin e Tij, të cilin Allahu dhe i Dërguari i Tij e duan dhe me duart e të cilit Allahu do t'i japë fitoren. Të nesërmen thirri Aliun, i cili kishte sy të lënduar; ai pështyu në sy dhe u lut për të, dhe Aliu u shërua sikur të mos ishte sëmurë kurrë dhe iu dha flamuri.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -465,16 +347,7 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Qëllimi ishte udhëzimi, jo hakmarrja - fuqia është krijuar për t'i shërbyer mesazhit, jo vetvetes.",
     },
-    quran: [
-      {
-        excerpt:
-          "Kur të ketë ardhur fitorja dhe pushtimi i Allahut dhe t'i shihni njerëzit që hyjnë në fenë e Allahut me shumicë, atëherë lartësoni Zotin tuaj me lavdërim dhe kërkoni falje prej Tij. Vërtet, Ai gjithmonë e pranon pendimin.",
-      },
-      {
-        excerpt:
-          "Ai tha: S'ka faj për ju sot. Allahu ju faltë dhe Ai është më i mëshirshmi i mëshiruesve. - fjalët e profetit Jusuf që Profeti ﷺ u bëri jehonë kurejshëve në ditën e pushtimit.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -507,18 +380,8 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Asnjëherë mos u mbështetni në numra ose sukses të fundit; fitorja dhe qetësia vijnë vetëm nga Allahu.",
     },
-    quran: [
-      {
-        excerpt:
-          "Allahu tashmë ju ka dhënë fitore në shumë rajone - dhe në ditën e Hunejnit, kur numri juaj i madh ju pëlqeu, por nuk ju bëri dobi, dhe toka, me gjithë gjerësinë e saj, u mbyll para jush dhe ju u kthyet duke u tërhequr. Pastaj Allahu zbriti qetësinë e Tij mbi të Dërguarin e Tij dhe mbi besimtarët.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "El-Bara ibn Azib u pyet nëse ata kishin ikur në ditën e Hunejnit. Ai tha: Por i Dërguari i Allahut ﷺ nuk iku. Njerëzit u kthyen mbrapa dhe Pejgamberi ﷺ ishte mbi mushkën e tij të bardhë dhe thoshte: Unë jam Pejgamberi, kjo nuk është gënjeshtër; Unë jam djali i Abdul Mutalibit.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -553,22 +416,8 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Sakrifica pa shpërblim të dukshëm dhe vërtetësia nën sprovë, janë ndër sprovat më të larta të besimit.",
     },
-    quran: [
-      {
-        excerpt:
-          "Ata që mbetën u gëzuan me qëndrimin e tyre pas të Dërguarit të Allahut dhe nuk donin të luftonin me pasurinë dhe jetën e tyre në rrugën e Allahut dhe thanë: Mos dilni në vapë. Thuaj: Zjarri i Xhehenemit është më i fortë në nxehtësi, sikur të kuptonin.",
-      },
-      {
-        excerpt:
-          "Dhe Ai i fali të tre ata që mbetën pas, derisa toka, e gjerë sa ishte, u mbyll mbi ta dhe shpirtrat e tyre u mbyllën mbi ta, dhe ata ishin të bindur se nuk ka strehim nga Allahu veçse tek Ai. Pastaj Ai iu drejtua atyre me mëshirë që të mund të pendoheshin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ka'b ibn Malik tregoi se si ai qëndroi prapa nga Tebuku pa arsye dhe nuk do të gënjejë për këtë; Pejgamberi ﷺ i urdhëroi besimtarët që të mos flisnin me të dhe me dy shokët e tij për pesëdhjetë net, derisa toka t'u ngushtohej atyre - pastaj erdhi shpallja e faljes së tyre dhe ishte ndër ditët më të lumtura të jetës së tij.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -626,20 +475,7 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
       "Hadithi për ekspeditat duhet të kontrollohet për autenticitetin përpara se të mbështetet. Transmetimet e mëposhtme janë nxjerrë nga koleksionet Sahih dhe kanë të bëjnë me sjelljen dhe frymën e këtyre fushatave; secili mbart notën e tij.",
       "Për transmetimet që lidhen me një angazhim specifik, shihni vetë temën e asaj beteje. Përdorni shfletuesin e haditheve të Munibit për të lexuar zinxhirët e plotë dhe vlerësimin në kontekst.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mos dëshironi të takoni armikun dhe kërkoni nga Allahu siguri. Por kur t'i takoni, bëni durim dhe dijeni se Xheneti është nën hijen e shpatave.",
-      },
-      {
-        excerpt:
-          "Profeti ﷺ tha: Lufta është mashtrim. - Studiuesit e shpjegojnë këtë si leje për mashtrim taktik në betejë (mashtrime, befasi, keqdrejtime), asnjëherë si leje për të thyer një traktat ose për të tradhtuar një palë të mbrojtur.",
-      },
-      {
-        excerpt:
-          "Kur caktoi një komandant, Profeti (sal-lAllahu alejhi ue sel-lem) e urdhëroi atë që t'i frikësohej Allahut, të ftonte armikun në Islami para se të luftonte, të mos thyente zotimin, të mos gjymtonte dhe të mos vriste një fëmijë.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -661,70 +497,46 @@ export const BATTLES_TOPICS_SQ: DeepPartial<BattlesTopic>[] = [
 
 export const BATTLES_VERSES_SQ: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "Leja u jepet atyre që luftojnë sepse u është bërë padrejtësi… Sikur Allahu të mos kontrollonte një grup njerëzish me anë të një tjetri, manastiret, kishat, sinagogat dhe xhamitë do të ishin shkatërruar.",
     context:
       "Leja e parë e përgjithshme për të luftuar - pas vitesh persekutimi të paarmatosur në Mekë.",
   },
   {
-    excerpt:
-      "Luftoni në rrugën e Allahut ata që ju luftojnë, por mos e teproni. Vërtet, Allahu nuk i do shkelësit.",
     context: "Kufiri themelor: vetëm mbrojtja, me ndalim të rreptë të tejkalimit të kufijve.",
   },
   {
-    excerpt:
-      "Kur i kërkove ndihmë Zotit tënd, Ai u përgjigj: Unë do t'ju përforcoj me një mijë engjëj, gradë pas gradë.",
     context: "E shpallur në lidhje me Bedrin - ndihmë hyjnore për besimtarët më të shumtë.",
   },
   {
-    excerpt:
-      "Tashmë ka pasur një shenjë për ju në dy ushtritë që u takuan: njëra lufton në rrugën e Allahut dhe tjetra e jobesimtarëve, duke i parë me sy dyfishin e tyre.",
     context:
       "Allahu i bëri muslimanët të duken më të mëdhenj para armikut në Bedr, duke i forcuar zemrat.",
   },
   {
-    excerpt:
-      "Allahu padyshim e kishte përmbushur premtimin e Tij ndaj jush kur po i vrisnit me lejen e Tij, derisa ju humbët guximin dhe ratë në mosmarrëveshje rreth urdhrit dhe nuk iu binde pasi Ai ju tregoi atë që e doni.",
     context: "I drejtohet mosbindjes së harkëtarëve dhe pikës së kthesës në Uhud.",
   },
   {
-    excerpt:
-      "O ju që besuat, kujtoni dhuntinë e Allahut ndaj jush kur ju erdhën ushtri dhe Ne dërguam kundër tyre një erë dhe ushtri që nuk i shihnit.",
     context: "Surja al-Ahzab mbi rrethimin e Konfederatës dhe ndihmën hyjnore.",
   },
   {
-    excerpt:
-      "Dhe Ai i zbriti ata nga ithtarët e librit që i mbështetën nga fortesat e tyre dhe hodhi tmerr në zemrat e tyre - një grup që e vratë dhe një grup që e zuri robër. Dhe Ai ju bëri të trashëgoni tokën dhe shtëpitë e tyre.",
     context:
       "Surja al-Ahzab mbi Benu Kurejza, i cili theu besëlidhjen gjatë rrethimit - një episod i kufizuar i tradhtisë gjatë luftës, jo një vendim kundër një besimi.",
   },
   {
-    excerpt:
-      "Vërtet, Ne ju dhamë një fitore të dukshme, që Allahu t'ju falë mëkatin tuaj paraprak dhe atë që do të pasojë, të plotësojë dhuntinë e Tij ndaj jush dhe t'ju udhëzojë në rrugën e drejtë.",
     context:
       "E shpallur në kthimin nga Hudejbije – duke e emërtuar si fitore të dukshme atë që sahabët e kishin ndjerë fillimisht si një kompromis të hidhur.",
   },
   {
-    excerpt:
-      "Sigurisht që Allahu ishte i kënaqur me besimtarët kur ata të besuan ty nën pemë, dhe Ai e dinte se çfarë kishin në zemrat e tyre, andaj Ai zbriti mbi ta qetësinë dhe i shpërbleu me një pushtim të afërt.",
     context:
       "Betimi i Ridvanit - rreth 1,400 shoqërues u zotuan nën një pemë akacieje që të mos iknin, dhe Allahu deklaroi kënaqësinë e Tij me ta.",
   },
   {
-    excerpt:
-      "Kur të ketë ardhur fitorja dhe pushtimi i Allahut dhe t'i shihni njerëzit që hyjnë në fenë e Allahut me shumicë, atëherë lartësoni Zotin tuaj me lavdërim dhe kërkoni falje prej Tij. Vërtet, Ai gjithmonë e pranon pendimin.",
     context:
       "Surja en-Nasr në hapjen e Mekës - një pushtim i kurorëzuar jo me triumf, por me lavdërim, duke kërkuar falje dhe turma që hyjnë në besim.",
   },
   {
-    excerpt:
-      "Allahu tashmë ju ka dhënë fitore në shumë rajone… Pastaj Allahu zbriti qetësinë e Tij mbi të Dërguarin e Tij dhe mbi besimtarët.",
     context:
       "Allahu u kujton besimtarëve se fitorja është dhuratë e Tij, jo rezultat i mburrjes në numër.",
   },
   {
-    excerpt:
-      "Ata që mbetën prapa u gëzuan me qëndrimin e tyre pas të Dërguarit të Allahut dhe nuk donin të luftonin me pasurinë dhe jetën e tyre në rrugën e Allahut.",
     context:
       "Surja et-Teube u drejtohet atyre që e justifikuan veten nga marshimi i vështirë i Tebukut.",
   },

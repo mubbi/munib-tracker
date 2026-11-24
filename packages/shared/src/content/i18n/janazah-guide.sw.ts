@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Kusudi sala na mahudhurio kwa ajili ya Mwenyezi Mungu, na sio maonyesho ya kijamii.",
       "Msaada kwa mahitaji ya vitendo ya familia wakati unaweza kufanya hivyo kwa heshima.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kuhudhuria mazishi mpaka aswali swalah atapata qirat moja, na atakayehudhuria mpaka kuzikwa atakuwa na qirati mbili - kila mmoja kama mlima mkubwa.",
-      },
-      {
-        excerpt:
-          "Atakayefuata mazishi ya Muislamu kwa imani na kutaka malipo, na akakaa mpaka Swalah ikamalizika, atarudi na qirati mbili...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Kuosha na kufunika",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Weka sanda rahisi na safi - nguo nyeupe ni mfano wa kinabii.",
       "Epuka kupiga picha au kufichua mwili bila hitaji.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwoshe mara tatu, au tano, au zaidi ikiwa unaona kama ni lazima, kwa maji na sidr, na uweke kafuri au kafuri katika kuosha mara ya mwisho.",
-      },
-      {
-        excerpt:
-          "Mtume wa Mwenyezi Mungu ﷺ alikuwa amevikwa nguo tatu nyeupe za pamba za Yemen; hakuna shati wala kilemba miongoni mwao.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Wakati wa kufunga macho ya marehemu",
@@ -60,12 +42,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Ingizo lililounganishwa la Hisnul Muslim hapa chini linahifadhi maneno yanayotumika katika kufunga macho. Semeni kwa upole, jiepusheni na maombolezo aliyoyakataza Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam), na ushikishe ulimi kwa maneno mazuri na kuomba msamaha.",
     ],
     actions: ["Funga macho kwa upole na ufanye dua ya kweli.", "Ikumbushe familia kusema vizuri."],
-    hadith: [
-      {
-        excerpt:
-          "Macho ya Abu Salamah yalipokodoka, Mtume (Swalla Allaahu ´alayhi wa sallam) akayafumba na kusema kwamba inapotwaliwa nafsi macho huifuata, kisha akawafundisha watu wa nyumbani kuzungumza yaliyo mema tu.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Jinsi ya kuomba Janazah",
@@ -80,15 +57,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Sema takbira nne pamoja na imamu.",
       "Toa dua ya dhati kwa marehemu baada ya takbir ifaayo.",
     ],
-    hadith: [
-      {
-        excerpt: "Mtume ﷺ aliswali swala ya maiti ya Negus na akatoa takbira nne.",
-      },
-      {
-        excerpt:
-          "Ibn Abbas aliswali swala ya maiti na akasoma Fatihah akisema ni kutoka kwenye sunna.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Duas katika sala ya mazishi (mtu mzima)",
@@ -151,15 +120,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Wakati wa kumweka marehemu kaburini, dua ya kweli huhifadhiwa katika Hisnul Muslim. Baada ya kuzikwa, Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) alikuwa akisimama kaburini na kusema: ‘Muombeeni msamaha ndugu yenu, na muombeni asimamishwe, kwani hivi sasa anaulizwa’ (Sunan Abi Daawuud 3221 – imetolewa daraja la Sahih na wanachuoni wengi wa baadae akiwemo al-Albani).",
       "Kujenga miundo ya mapambo juu ya makaburi, kuyapaka kwa ajili ya mapambo, au maandishi ambayo yanahimiza kutia chumvi yanaonywa dhidi yake katika ripoti za kweli. Weka alama rahisi ambapo sheria na desturi za eneo huruhusu kitambulisho.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Haraka na mazishi: ikiwa ni haki, mnaiharamishia kheri; ikiwa sivyo, mnaweka ubaya shingoni mwenu.",
-      },
-      {
-        excerpt: "Muombee msamaha ndugu yako na umuombe awe imara, kwani sasa anaulizwa.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Baada ya kumzika marehemu",
@@ -184,12 +145,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Wasalimuni wenyeji wa makaburi kwa maneno ya kweli.",
       "Tafakari juu ya kifo na ufanye upya matendo ya haki.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Amani iwe juu yenu, enyi wakazi wa maskani miongoni mwa Waumini na Waislamu. Mwenyezi Mungu akipenda tutakuunganisha. Tunamuomba Mwenyezi Mungu kheri yetu na nyinyi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Vikumbusho na makosa ya kawaida",
@@ -206,12 +162,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Haraka maziko ya heshima.",
       "Saidia familia kwa chakula na mambo bila kuwalemea kwa ubadhirifu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenyezi Mungu haadhibu kwa chozi la jicho au huzuni ya moyo, lakini Yeye huadhibu au hurehemu kwa hili - na akaashiria kwenye ulimi wake.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -228,11 +179,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Jifunze mpangilio wa takbira nne kabla ya kuhitaji.",
       "Kariri Fatihah, salawat, na angalau dua moja ya mazishi.",
     ],
-    hadith: [
-      {
-        excerpt: "Ibn Abbas aliswali swala ya maiti na akasoma Fatihah akisema ni kutoka sunnah.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Dua kwa wanaume, wanawake, na watoto",
@@ -267,15 +214,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Usimuoshe shahidi wa uwanja wa vita kinyume cha maagizo ya wanazuoni.",
       "Uliza kamati ya mazishi kuhusu kesi za kuharibika kwa mimba au kuzaliwa amekufa.",
     ],
-    hadith: [
-      {
-        excerpt: "Mtume ﷺ aliamuru mashahidi wa Uhud wazikwe pamoja na damu zao, na hawakuoshwa.",
-      },
-      {
-        excerpt:
-          "Swala ya maiti hutolewa juu ya mimba iliyoharibika, na wazazi huombelea msamaha na rehema.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Janazah bila kuwepo kwa mwili",
@@ -291,15 +230,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Sali ndani kila mwili ukiwepo.",
       "Uliza kabla ya kuandaa Janazah bila kuwepo kama tukio la umma.",
     ],
-    hadith: [
-      {
-        excerpt: "Mtume ﷺ aliswali swala ya maiti kwa Negus na akatoa takbira nne.",
-      },
-      {
-        excerpt:
-          "Mtume wa Allah ﷺ aliwaweka Masahaba safu na akamsvalia Negus, akitoa takbira nne.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Kwenye kitanda cha kifo — maneno ya mwisho",
@@ -313,15 +244,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Kwa upole mkumbushe mwenye kufa shahadah.",
       "Weka chumba kimya na kikiwa na hotuba njema.",
     ],
-    hadith: [
-      {
-        excerpt: "Wahimizeni wanaokufa wenu waseme: la ilaha illallah.",
-      },
-      {
-        excerpt:
-          "Yeyote maneno yake ya mwisho yakiwa 'Hakuna anayestahiki kuabudiwa isipokuwa Allah' ataingia Peponi.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Dua za matumaini ya maisha" }, { label: "Kufunga macho" }],
   },
   {
@@ -337,12 +260,7 @@ export const JANAZAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Saidia kwa chakula na shughuli badala ya kutarajia karamu.",
       "Endelea na dua tulivu na sadaqah kwa marehemu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hakuna Mwislamu anayepatwa na msiba akasema maneno yaliyoamrishwa ya kurejea kwa Allah na akaomba badala bora, ila Allah humbadilishia bora.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Malengo ya sadaqah" }],
   },
 ];

@@ -22,37 +22,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Mumini ya riqe gaskiya guda biyu wuri guda. Na farko, Aljanna gaskiya ce, kusa ce, kuma tana da amfani ga kowane ƙoƙari - Kur'ani ya gaya mana mu 'yi tsere' zuwa gare ta (Alkur'ani 3:133). Na biyu, babu mai samun Aljanna ta hanyar aiki kadai; Shigowar qarshe ne da rahamar Allah, tare da ikhlasi na imani da ayyuka na qwarai sune hanyar da ya zava ya karva. Wannan ma'auni yana raya bege ba tare da haifar da girman kai ba: muna yin iyakar ƙoƙarinmu, sannan mu jefa kanmu ga rahamarSa.",
       "A zahiri, bari gaskiyar Jannah ta tsara zaɓin ku na yau da kullun. Lokacin da ibada ta ji nauyi ko kuma jaraba ta ji ƙarfi, ku tuna abin da ake jira da abin da ke kan gungumen azaba. Ka yawaita roqon Allah Aljannah, ka yi mata aiki akai-akai ta qananan hanyoyi masu dorewa, kuma ka bar kwadayin ta tausasa zuciyarka a cikin wannan rayuwa mai gushewa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ku yi tsẽre zuwa ga gãfara daga Ubangijinku da Aljanna wadda faɗinta ya kasance na sammai da ƙasã, an yi tattalinta dõmin mãsu taƙawa.",
-      },
-      {
-        excerpt:
-          "Kuma Allah Yã yi wa´adi ga mũminai maza da mummunai mãtã gidãjen Aljanna, ƙoramu na gudãna daga ƙarƙashinsu, sunã madawwama a cikinsu, da ɗãkirai mãsu dãɗi a cikin gidãjen Aljannar zama. Kuma yardar Allah ne mafi girma.",
-      },
-      {
-        excerpt:
-          "Bãbu wani rai sanin abin da aka bõye musu na dãɗi da sakamakon abin da suka kasance sunã aikatãwa.",
-      },
-      {
-        excerpt: "Suna da abin da suke so a cikinta, kuma a wurinMu akwai ƙari.",
-      },
-      {
-        excerpt:
-          "Lalle ne waɗanda suka yi ĩmãni, kuma suka aikata ayyukan ƙwarai, sunã da gidãjen Aljannar mafaka.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah ya ce: Na tanadar wa bayina salihai abin da ido bai gani ba, kunne bai ji ba, kuma zuciya ba ta yi ciki ba.",
-      },
-      {
-        excerpt:
-          "Allah Maxaukakin Sarki ya ce: “Na tanadar wa bayina salihai abin da ido bai gani ba, kunne bai ji ba, kuma zuciyar mutum ba ta taba gani ba.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Darajoji a Aljanna",
@@ -64,29 +35,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar da ke cikin wannan kyakkyawa ce. Idan mun san ainihin wurin da aka sanya mu, wasu za su yi farin ciki, wasu kuma za su yanke kauna. A maimakon haka, an koyar da mu da mu zuba ido ga Allah, mu ci gaba da yin jihadi, da kuma yin fata. Mumini yana gasa mai kyau - 'don wannan bari masu fafatawa su yi takara' - yayin da suke barin ƙimar ƙarshe zuwa Mafi Adalci.",
       "Don haka maimakon kididdige kididdigar kididdigar, ku yi nufi zuwa ga kololuwa, kuma Allah Ya sanya ku a inda ya so. Manzon Allah Sallallahu Alaihi Wasallama ya koyar da sahabbai cewa kada su yi tawassuli da wata buqata, sai dai su roqo musamman Al-Firdaws, kololuwar Aljanna.",
     ],
-    quran: [
-      {
-        excerpt: "Domin duk za a sami digiri gwargwadon abin da suka yi.",
-      },
-      {
-        excerpt:
-          "Ka dũba yadda Muka fĩfĩta sãshensu a kan sãshe, kuma Lãhira ce mafi girma da darajõji, kuma mafi girma ga rarrabẽwa.",
-      },
-      {
-        excerpt:
-          "Kuma wanda ya yi ɗã'a ga Allah da ManzonSa, to, waɗannan sunã tãre da waɗanda Allah Ya yi ni'ima a kansu: annabawa, da masu gaskiya, da shahidai, da sãlihai. To, madalla da abõkan tãrayya!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Aljanna tana da darajoji dari wanda Allah ya tanadar wa masu yaki a tafarkinsa. Tazarar da ke tsakanin kowane matakan biyu kamar tazarar da ke tsakanin sammai da ƙasa ne. Don haka idan za ku roki Allah, ku roke shi Firdausi, domin ita ce mafifici kuma mafi daukakar Aljanna.",
-      },
-      {
-        excerpt:
-          "Idan za ku roki Allah, ku roke shi Firdausi, domin ita ce mafi kololuwar Aljanna da tsakiyar Aljanna, kuma daga gare ta ne kogunan Aljanna suke gudana, kuma a samansa akwai Al'arshin Mai rahama.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -99,16 +49,7 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Amma duk da haka kyauta ta ƙarshe kuma mai yanke hukunci kullum rahamar Allah ce. Haka nan kuma da muke nufi zuwa ga mafi daukaka, muna tunawa da fadin Manzon Allah SAW cewa: babu mai shiga Aljanna da ayyukansa shi kadai, har ma da Annabi SAW, face Allah ya lullube shi da rahamarSa. Wannan shi ne madaidaicin ma'auni da mumini ya zo da shi: babban bege da buri a gefe guda, tawali'u na gaske a daya bangaren.",
       "Sabõda haka, ka sanya Al-Firdaws ya zama wani ɓangare na addu'arka, a cikin sujada, a cikin ukun ƙarshe na dare, da kuma gabãnin barci, alhãli kuwa kana yin natsuwa a kowace rana, kuma ka dõgara ga rahamar Ubangijinka ga saura.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Idan za ku roki Allah, ku roke shi Firdausi, domin ita ce mafi kololuwar Aljanna da tsakiyar Aljanna, kuma daga gare ta ne kogunan Aljanna suke gudana, kuma a samansa akwai Al'arshin Mai rahama.",
-      },
-      {
-        excerpt:
-          "Babu dayanku da zai shiga Aljanna da aikinsa shi kadai. Sai suka ce: Ba kai ma ya Manzon Allah ba? Ya ce: “Ko da ni, sai Allah Ya lullube ni da wata rahama daga gare Shi.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ku roki Allah a cikin addu'o'in ku musamman sujudi da kafin barci.",
       "Kuma ku cika abin da ya wajaba a kanku, sa'an nan kuma ku ƙãra ibada.",
@@ -126,21 +67,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Abubuwan da ake kira 'ƙananan' zunubai suna da mahimmanci, kuma bai kamata a ɗauke su da wasa ba. Bata, karya, girman kai, yanke zumunta, da rashin gafala a hankali suna zubar da zuciya da hali. Manzon Allah SAW ya yi gargadin cewa kananan zunubai da aka tara suna iya halaka mutum kamar yadda kananan sandunan da aka taru su ke dafa abinci gaba daya. Kowannen su yana bukatar komawar sa zuwa ga Allah.",
       "Abin da za a ɗauka shine bege cikin aiki: kada ka bari girman zunubi ya rinjaye ka cewa tuba ba ta da ma'ana. Ku koma ga Allah idan kun zame, ku bi mummunan aiki da mai kyau don shafe shi, kuma a bude kofar istighfari kowace rana. Rahamarsa kullum tana da girma fiye da kuskurenka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lalle ne, Allah bã Ya gãfarta yin shirka da Shi, kuma amma Yanã gãfarta abin da bai kai haka ba ga wanda Yake so.",
-      },
-      {
-        excerpt:
-          "Ka ce: Ya ku bayiNa wadanda suka yi zalunci a kansu, kada ku yanke tsammani daga rahamar Allah. Lallai Allah yana gafarta zunubai baki daya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Alkawarin dake tsakaninmu da su shine sallah; wanda ya bar ta ya yi kafirci.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
     disclaimer:
       "Jerin manyan zunubai a fiqhu sun bambanta a wurin malamai, kuma hukunce-hukuncen daidaikun mutane na mutanen da suka cancanta ne. Wannan tunatarwa ce ta gaba ɗaya don tuba - ba hukunci na mutum ba. Tuntuɓi wani amintaccen malami don halin ku.",
@@ -154,16 +82,7 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Bayan wasu mutane masu suna, nassosin sun yi bayanin nau'ikan bushara: masu gaskiya da hakuri, wadanda suka mutu a matsayin shahidai na hakika a tafarkin Allah bisa shari'ar Musulunci, da wadanda kalmominsu na karshe a rayuwar duniya su ne shaidar imani, la ilaha illallah. Kowane kwatanci yana nuni zuwa ga zahirin gaskiya - ikhlasi, sadaukarwa, ko zuciya mai ma'ana ga Allah a numfashin ƙarshe - ba wai kawai alama ta zahiri ba.",
       "Darasin a gare mu ba shine mu sami kwanciyar hankali ta hanyar tarayya ba, ko kuma mu ɗauki waɗannan darajoji don kanmu, amma don samun wahayi. Bari misalinsu ya ja mu zuwa sama: mu so abin da suke so, mu yi jihadi yayin da suke kokari, kuma su mayar da wannan sha’awar ta zama addu’a da aiki, tare da rokon Allah a sama da komai na husn al-khatimah – kyakkyawan karshe.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Abubakar yana Aljanna, Umar yana Aljannah, Usman yana Aljanna, Ali yana Aljannah, Talhah yana Aljannah, Zubairu yana Aljannah, Abdurrahman bn Awf yana Aljannah, Sa'ad yana Aljannah, Sa'id bn Zaid yana Aljannah, Abu Ubaydah bn Al-Jarrah yana Aljannah.",
-      },
-      {
-        excerpt:
-          "Duk wanda kalmar karshensa ta kasance 'Babu abin bautawa da gaskiya sai Allah' zai shiga Aljannah.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Bishara a cikin hadisi tana komawa ga wadanda aka ambata ko kuma nau'ikan da aka siffanta su. Ba su maye gurbin buƙatun imani, ayyuka, da kyakkyawan ƙarshe ba. Allah ne mafi sani.",
   },
@@ -177,21 +96,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar sanya tauhidi ya zama ginshikin shi ne yantar da zuciya. Wanda ya bautawa Allah shi kadai, ya kubuta daga tsoron halitta, da neman yardar kowa, da gajiyar hidimar ubangiji da yawa. Rayuwarsa tana samun jagora guda ɗaya, bayyananne: faranta wa wanda ya yi shi.",
       "A zahiri, ka koyi ingantacciyar aqida daga malamai amintattu, ka tsarkake ibadarka da shirka da munafunci, ka duba niyyarka kafin ka aikata. Wannan mataki na farko ba na zaɓi ba ne ko ci gaba - a nan ne kowace hanyar zuwa Aljanna ta fara.",
     ],
-    quran: [
-      {
-        excerpt:
-          'An yi wahayi zuwa gare ku, kuma zuwa ga waɗanda suke a gabãninku: "Lalle ne idan kun yi shirki da Allah, lalle ne ayyukanku sun ɓãci, kuma lalle ne kanã kasancẽwa daga mãsu hasãra."',
-      },
-      {
-        excerpt: "Ba a umarce su ba face su bauta wa Allah, suna masu tsarkake addini gare Shi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ayyuka kawai bisa niyya ne, kuma kowane mutum zai sami abin da ya yi niyya ne kawai.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Koyi tushen tauhidi daga malamai amintattu.",
       "Ka sabunta niyyarka kafin ayyukan ibada.",
@@ -208,25 +114,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Zurfin hikimar Sallah shine canji. Addu’a, idan aka yi ta yadda ya kamata, tana kange mutum daga alfasha da alfasha; sake saiti ne mai maimaitawa wanda ke jan zuciya zuwa ga Allah a cikin yini mai aiki. Don haka bacewar sallah ba tare da uzuri ingantacce ba lamari ne mai girma da ke bukatar tuba ta gaskiya da sanya ta (qada). Nafil da rawatib – sallolin sunna da aka saba yi gabanin farilla da bayan farilla- suna kara haske da daukaka darajar mutum.",
       "A zahiri: Ka kiyaye salloli biyar a lokutansu a matsayin cikakkiyar fifikonka, ka gyara abin da ka rasa, sannan ka kara sallolin sunna da za ka iya rayawa. Idan sallarka ta gyaru, to komai na ibadarka yakan inganta da ita.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lalle ne mũminai, waɗanda suka yi tawali'u a cikin addu'arsu, sun yi babban rabo.",
-      },
-      {
-        excerpt: "Fãce waɗanda suka yi salla, sũ ne mãsu dawwama a cikin sallarsu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Farkon al’amarin da za a fara wa bawa hisabi a ranar qiyama ita ce sallarsa. Idan mai sauti ne, ya yi nasara; idan ta kasance mai lahani, ya gaza kuma ya yi hasara.",
-      },
-      {
-        excerpt:
-          "Idan akwai wani kogi a kofar dayanku wanda yake wanka a cikinsa sau biyar a rana, shin wani datti zai sauka akansa? Suka ce: A'a. Ya ce: Wannan misalin salloli biyar ne, da su ne Allah ke kankare zunubai.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ka kiyaye salloli biyar a lokutansu.",
       "Ka gyara sallolin da aka rasa (qaza) da gaske.",
@@ -244,21 +133,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar tana da zurfi: zunubi bai kamata ya zama ƙarshen labarin mutum ba. ‘Allah zai musanya munanan ayyukansu da alheri’ (Alkur’ani 25:70) — Tuba na gaskiya zai iya canza tarihin gazawa zuwa nasara, kuma yana iya juyar da faduwa zuwa wani sabon farawa da zai kusantar da mutum zuwa ga Allah fiye da da. Bacin rai bayan zunubi shi kansa tarkon shaidan ne; Fatan rahamar Allah shine amsawar mumini.",
       "A zahiri: kar a jinkirta tuba na kwana ɗaya - mayar da lokacin da kuka zame. Ka bi kowane mummunan aiki da kyakykyawan aiki domin shafe shi, kuma ka yawaita yin istighfari a harshenka tsawon yini, kamar yadda Annabi SAW ya yawaita neman gafara a kullum duk da an gafarta masa.",
     ],
-    quran: [
-      {
-        excerpt: "Yã ku waɗanda suka yi ĩmãni!",
-      },
-      {
-        excerpt:
-          "Fãce waɗanda suka tũba, kuma suka yi ĩmãni, kuma suka aikata ayyukan ƙwarai, Allah zai musanya musu mũnanan ayyukansu da alhẽri, kuma Allah Mai gãfara ne, Mai jin ƙai.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah ya fi yarda da tuban bawanSa fiye da dayanku wanda ya rasa rakuminsa a cikin kasa bakarara, kwatsam ya sake same shi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ku tuba nan da nan lokacin da kuka yi zunubi - kada ku jinkirta.",
       "Ku bi zunubi da aiki mai kyau don shafe shi.",
@@ -276,21 +152,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Maƙasudin zurfafa, ko da yake, ba karatun don kansa ba ne amma canji. Allah ya umarce mu da mu ‘karatun Alkur’ani da ma’auni karatun’ (Alkur’ani 73:4) daidai da haka ma’anoni sun nutse kuma su sake fasalin yadda muke tunani, ji, da halayenmu. An aiko da Alkur’ani don a rayu, ba wai kawai a karanta ba; Sahabbai za su koyi ayoyi goma ba su ci gaba ba har sai sun fahimta kuma suka yi aiki da su.",
       "A zahiri: karanta wani yanki kowace rana, har ma da ayoyi kaɗan, amma karanta su da tunani. Ƙirƙirar sababbin surori ko kula da abin da kuka riga kuka sani, kuma - mafi mahimmanci - kuyi aiki akan abin da kuka koya kafin yin gaggawar gaba don ƙarin koyo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waɗanda suke karãtun Littãfin Allah, kuma suka tsayar da salla, kuma suka ciyar daga abin da Muka azurta su, sunã fatan wani fatauci bã ya halaka, kuma dõmin Ya cika musu ijãrarsu, kuma Ya ƙãra musu daga falalarSa.",
-      },
-      {
-        excerpt: "Kuma ku karanta Alqur'ani tare da gwargwado.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sai a ce wa ma'abocin Alkur'ani: Karanta ka hau, ka karanta kamar yadda ka saba karantawa a duniya, domin darajarka ita ce ayar karshe da ka karanta.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Karanta kullun - har ma da ayoyi kaɗan tare da tunani.",
       "Ka haddace sabbin surori ko kiyaye abin da ka sani.",
@@ -308,22 +171,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar zikiri ita ce ta raya alaka da Allah tsakanin ayyukan ibada. Harshen da yake da danshi tare da ambaton kuma, mafi mahimmanci, zuciyar da ke ambaton Allah a cikin zabinta na yau da kullun - tsayawa kafin fushi, kafin siye, kafin yanke hukunci - ita ce manufa ta gaskiya. Ba a nufin yin zikiri a kan lebe; ana nufin tafiyar da rayuwa.",
       "A aikace: Ka sanya ladar safiya da marece ta zama al'ada ta yau da kullun, ka kiyaye tasbihi, ko istighfar, ko salawati mai sauki a lokutan zaman banza, da ambaton Allah musamman kafin barci da tashi. Daidaitawa a cikin ɗan kaɗan ya fi fashe da yawa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lalle ne waɗanda suka yi ĩmãni kuma zukãtansu suka natsu da ambaton Allah, lalle ne zukãtansu na natsuwa da ambaton Allah.",
-      },
-      {
-        excerpt:
-          "Ya ku wadanda suka yi imani ku ambaci Allah ambato mai yawa, kuma ku yi tasbihi a safiya da maraice.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kalmomi guda biyu masu sauki a kan harshe, masu nauyi a kan sikeli, kuma soyuwa ga mai rahama: SubhanAllahi wa bihamdihi, SubhanAllahil-Azeem.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Cikakken adhkar na safe da maraice.",
       "Yi amfani da injin tasbeeh don istighfar ko salawat.",
@@ -341,22 +190,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar sadaka ita ce tana aiki a kan mai bayarwa kamar yadda mai karɓa. Yana sassauta damƙar kwadayi a cikin zuciya, yana ƙarfafa tausayi, yana ƙarfafa zumuncin al'umma, yana tunatar da masu hannu da shuni cewa amintattu ne, ba masu gaskiya ba. Kuma Musulunci ya fadada ma’anar sadaka don haka ba a kebe kowa: Annabi SAW ya koyar da cewa murmushi ga dan’uwanka, kalma mai taimako, har ma da kawar da abu mai cutarwa daga hanya duk nau’in sadaka ne.",
       "A zahiri: idan kuna da alhakin zakka, ku lissafta kuma ku biya daidai; a ba da wata sadaqa ta yau da kullum, komai kankantarta, ta yadda bayarwa ya zama dabi’a a maimakon wani lamari; kuma ku nemi dauwamammiyar sadaqah jariya - daukar nauyin almajiri, ko bayar da tallafin rijiya, ko tallafawa masallaci - wanda ke ci gaba da baku lada bayan baku.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Misãlin waɗanda suke ciyar da dũkiyõyinsu a cikin hanyar Allah, kamar ƙwãya ce wadda ta tsirar da zangarniya bakwai, a cikin kõwace ƙwaya ɗari. Kuma Allah yana riɓanya wanda Yake so.",
-      },
-      {
-        excerpt:
-          "Ku ciyar daga abin da Muka azurta ku a gabanin mutuwa ta zo wa ɗayanku, sai ya ce: “Ya Ubangiji!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Idan mutum ya mutu ayyukansa sun kare sai guda uku: Sadaka mai gudana, ko ilimi mai amfani, ko dan salihai da ya yi masa addu’a.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ku lissafta kuma ku fitar da zakka idan kuna da hakki.",
       "Ba da sadaka akai-akai, koda kuwa karama ne.",
@@ -374,25 +209,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar ita ce, Musulunci ba wai dangantaka ce ta sirri tsakanin mutum da Allah kadai ba; ana so a zube cikin yadda mutum zai yi da duk wanda ke kusa da shi. Mai ibadar da addu’a ba ta sassauta masa ma’amalarsa ya rasa ma’anarsa, alhali kuwa kyawawan halaye ita ce dawah a cikinta, yana jawo mutane zuwa ga imani ta wurin koyi mai rai. Wannan shine dalilin da ya sa nassosin suka haɗa bautar Allah tare da ɗaukaka zuwa ga halittarsa ​​akai-akai.",
       "A zahiri: yi aiki da ɗabi'a guda ɗaya - ka riƙe harshenka lokacin da aka tsokane ka, gafarta wa waɗanda suka zalunce ka, gyara dangantakar da ka bari, kuma ka cika alkawuran da ka yi ko da sun kashe ka. Takaitaccen tunani na yau da kullun bayan sallah akan yadda kuka yiwa mutane a wannan rana hanya ce mai sauƙi don girma a hankali.",
     ],
-    quran: [
-      {
-        excerpt: "Kuma lalle ne kai, haƙlƙa, haƙlƙa, haƙiƙa, haƙiƙa ne, mai girma da daraja.",
-      },
-      {
-        excerpt:
-          "Waɗanda suke ciyarwa a cikin sauƙi da wahala, kuma suke kange fushinsu, kuma suke gãfartawa mutãne, kuma Allah Yanã son mãsu kyautatãwa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Babu wani abu da ya fi nauyi a ma'aunin mumini a ranar kiyama kamar kyawawan halaye. Lalle ne, Allah Yana ƙin batsa, mai ƙasƙanci.",
-      },
-      {
-        excerpt:
-          "Mafi cikar muminai da imani su ne waxanda suka fi xabi’u, kuma mafi alherin ku su ne waxanda suka kyautata wa matansu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Yi haƙuri idan an tsokane shi.",
       "Gafarta wa wasu kuma gyara alaƙar da ta karye.",
@@ -408,72 +226,52 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       {
         title: "Gaskiya",
         summary: "Ku kasance tare da masu gaskiya.",
-        quran: {
-          excerpt: "Ku ji tsoron Allah kuma ku kasance tare da masu gaskiya.",
-        },
+        quran: {},
       },
       {
         title: "Haƙuri",
         summary: "Ku nemi taimako da haƙuri da salla.",
-        quran: {
-          excerpt: "Ku nemi taimako da haƙuri da salla.",
-        },
+        quran: {},
       },
       {
         title: "Kame fushi",
         summary: "Allah yana son masu kame fushi.",
-        quran: {
-          excerpt: "Waɗanda suke kame fushinsu kuma suke yafe wa mutane.",
-        },
+        quran: {},
       },
       {
         title: "Yafiya",
         summary: "Ku yafe kuma ku kau da kai.",
-        quran: {
-          excerpt: "Shin ba ku son Allah Ya gafarta muku?",
-        },
+        quran: {},
       },
       {
         title: "Tawali'u",
         summary: "Bayin Mai rahama suna tafiya da tawali'u.",
-        quran: {
-          excerpt: "Bayin Mai rahama suna tafiya a ƙasa da tawali'u.",
-        },
+        quran: {},
       },
       {
         title: "Amana",
         summary: "Ku mayar da amana ga masu ita.",
-        quran: {
-          excerpt: "Allah Ya umarce ku ku mayar da amana ga masu ita.",
-        },
+        quran: {},
       },
       {
         title: "Kyakkyawan hali ga iyaye",
         summary: "Ku kyautata wa iyaye.",
-        quran: {
-          excerpt: "Ku bauta wa Allah kuma ku kyautata wa iyaye.",
-        },
+        quran: {},
       },
       {
         title: "Magana mai kyau",
         summary: "Ku faɗi alheri ko ku yi shiru.",
-        hadith: {
-          excerpt: "Mai imani da Allah da Ranar Lahira ya faɗi alheri ko ya yi shiru.",
-        },
+        hadith: {},
       },
       {
         title: "Murmushi na gaskiya",
         summary: "Murmushi ga ɗan'uwanka sadaka ne.",
-        hadith: {
-          excerpt: "Murmushinka ga fuskar ɗan'uwanka sadaka ne.",
-        },
+        hadith: {},
       },
       {
         title: "Adalci",
         summary: "Ku yi adalci; shi ya fi kusa da taƙawa.",
-        quran: {
-          excerpt: "Ku yi adalci; shi ya fi kusa da taƙawa.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -513,25 +311,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar ita ce, aiki ba tare da ilimi makaho ba ne, ilimi kuma ba shi da amfani. Ingantacciyar ilimi yana kare mutum daga bidi'a da bata, yana zurfafa ikhlasi, yana ba shi ikon amfanar da wasu maimakon kawai ya amfanar da kansa. Malaman Musulunci a ko da yaushe suna yin gargadi a kan hatsarori guda biyu: aiki da jahilci, da sani ba tare da aiki ba.",
       "A zahiri: ka himmantu wajen koyon wani abu mai fa'ida akai-akai - aya, hadisi, hukunce-hukuncen da kuke buqata don ibadar ku ta yau da kullum. A fara da muhimman abubuwan imani, da addu'a, da tsarkakewa, da manyan hani, sannan a zurfafa a hankali. Raba abin da kuka koya cikin tawali’u, kuma koyaushe fara amfani da shi ga kanku.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ka ce: Shin waɗanda suka sani suna daidaita da waɗanda ba su sani ba? Ma'abuta hankula kawai su yi tunani.",
-      },
-      {
-        excerpt: 'Kuma ka ce: "Ya Ubangijina! Ka ƙãra mini ilmi."',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya dauki hanya domin neman ilimi, Allah zai saukake masa hanyar shiga Aljannah.",
-      },
-      {
-        excerpt:
-          "Idan mutum ya mutu ayyukansa sun kare sai guda uku: Sadaka mai gudana, ko ilimi mai amfani, ko dan salihai da ya yi masa addu’a.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Koyi wani abu mai amfani kowane mako.",
       "Raba ilimi ba tare da girman kai ba.",
@@ -549,18 +330,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar ita ce, nafl yana raya imani da girma. Wajibai suna kiyaye ginshiƙi, amma ayyuka na son rai su ne inda zuciya ta miƙe, inda bauta ta sirri ba wanda ya gani yana gina ikhlasi, kuma inda mutum ya horar da kansa don gwaji mafi tsanani na rayuwa. Kuma rahama ne cewa waɗannan ayyuka na zaɓi ne - Allah yana buɗe kofofin da yawa don kowane mutum ya bi ta waɗanda suka dace da shi.",
       "A zahiri, mabuɗin shine dorewa, ba ƙarfi ba. Manzon Allah Sallallahu Alaihi Wasallama ya koyar da cewa mafi soyuwar ayyuka a wurin Allah su ne mafi daidaito ko da qanana. Zaɓi wasu ayyuka na son rai da gaske waɗanda za ku iya kiyayewa - raka'a biyu na tahajjud, azumi ɗaya a mako, ƙayyadaddun yanki na Kur'ani - maimakon fashewar buri da ke ƙonewa cikin kwanaki.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sana'o'insu suna barin gadajensu, alhali kuwa suna kiran Ubangijinsu, bisa ga tsoro da tsamani, kuma daga abin da Muka azurta su suna ciyarwa. Bãbu wani rai sanin abin da aka ɓõye musu na dãɗi da sakamakon abin da suka kasance sunã aikatãwa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bawana ba ya kusantar Ni da wani abu da ya fi soyuwa gare ni face abin da na wajabta masa. Kuma bawaNa ya ci gaba da kusantar Ni ta hanyar ayyuka na son rai har sai na so shi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Kuyi tahajjud koda raka'a biyu ne.",
       "Azumin kwanaki na son rai idan iya.",
@@ -578,22 +349,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikima a nan tana gyara wahala gaba ɗaya. Gwaji ba hukunci ba ne kai tsaye; ga mumini wanda ya amsa da kyau, za su iya zama tsarkakewa mai kankare zunubai da daukaka mai daukaka daraja. Manzon Allah (SAW) ya koyar da cewa babu gajiya, ko rashin lafiya, ko damuwa, ko ma tsinuwar qaya da za ta samu musulmi ba tare da Allah ya shafe wasu zunubai da ita ba. Wannan yana juya mafi tsananin lokutan rayuwa zuwa dama maimakon asara mai tsafta.",
       "A zahiri: idan musiba ta same ku, ku amsa da kalmomin da Allah ya koyar – ‘Inna lillahi wa inna ilayhi raji’un’ (Lalle mu na Allah ne, kuma gare Shi muke komawa) – kuma ka kame harshenka daga korafe-korafen da ke karyata dokarSa. A cikin lokuta masu kyau, ku kidaya ni'imominku da babbar murya, kuma ku gode wa Allah a kalla kadan daga cikinsu a kowace rana; sanya musu suna yana sanya zuciya taushi da godiya.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Ka yi bushãra ga mãsu haƙuri, waɗanda idan wata masĩfa ta sãme su, sai su ce: "Lalle ne mũ ga Allah muke, kuma zuwa gare Shi mãsu kõmãwa." A kansu akwai albarka daga Ubangijinsu da wata rahama, kuma waɗannan su ne shiryayyu.',
-      },
-      {
-        excerpt:
-          "Idan kun gõde, to, lalle ne zan ƙãra muku; To, idan kun ƙaryata, to, lalle azãbãTa, haƙĩƙa, mai tsanani ce.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Abin al'ajabi ne ga mumini, domin dukkan al'amuransa suna da kyau. Idan sauƙi ya zo, sai ya gode, kuma wannan alhħri ne a gare shi. Kuma idan wahala ta zo sai ya yi hakuri, kuma hakan ne alheri gare shi. Wannan ba na kowa ba ne face mumini.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ka ce inna lillahi wa inna ilayhi raji'un idan an gwada.",
       "Godiya ga Allah da ƙarfi don ni'ima uku kullum.",
@@ -610,21 +367,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar daure irin wannan lada mai yawa ga shiryar da wasu ita ce ta sanya kowane mumini ya zama tushen alheri mai dorewa. Haka nan yana kare imanin mai kiran kansa: kiran mutane zuwa ga addu’a da gaskiya da ibada shi ne tunatar da kan su riko da su. Kuma yana hada al'umma wuri guda a cikin kulawar juna maimakon sakaci da juna.",
       "A zahiri, fara kusa da gida. Inganta kuma ku koyar da danginku - mata, ɗa, ɗan'uwa - tunda su ne alhakinku na farko kuma mafi ɗorewa. Raba ilimi mai fa'ida tare da kyautatawa, a taimaki mutum ya koyi addu'a ko karanta Alkur'ani, kuma a tuna cewa rayuwa ta kyawawan halaye da tsayuwar ibada ita ce da'awah mafi gamsarwa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ka yi kira zuwa ga hanyar Ubangijinka da hikima da wa'azi mai kyau, kuma ka yi jãyayya da su da abin da yake mafi kyau.",
-      },
-      {
-        excerpt:
-          'Kuma wãne ne mafi kyau ga magana daga wanda ya yi kira zuwa ga Allah, kuma ya aikata aiki na ƙwarai, kuma ya ce: "Lalle nĩ inã daga Musulmi."',
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Wanda ya shiryar da wani zuwa ga alheri, yana da lada kamar wanda ya aikata shi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ku raba ilimi mai fa'ida da alheri.",
       "Taimaka wa wani ya koyi addu'a ko karanta Qur'ani.",
@@ -641,26 +385,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Hikimar wadannan ayyuka ita ce, suna fadada lissafin mutum fiye da tsawon rayuwarsa. Shekarun mumini gajeru ne, amma rijiya da ya haƙa ko yaron da ya rene da kyau zai iya ci gaba da samun lada har tsawon ƙarni. Don haka Musulunci ya ƙarfafa hangen nesa na dogon lokaci: don yin tunani ba kawai game da addu'ar yau ba, amma game da irin alherin da zai gudana daga gare ku bayan kun tafi.",
       "A zahiri: idan za ku iya, ku yi shiri sosai don aikin Hajji ko Umrah maimakon jinkirta shi ba tare da ƙarewa ba. Zuba ƙoƙari na gaske a cikin bangaskiya da halayen dangin ku, tunda sune mafi wanzuwar gadonku. Kuma gano aƙalla aikin jinƙai ɗaya mai ɗorewa don tallafawa - ilimi, ruwa, matsuguni, ko maraya - domin ayyukanku na alheri su ci gaba bayan mutuwa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma hajjin Ɗaki wani aiki ne da Allah ya rataya a wuyan waɗanda suka sami hanyar zuwa gare shi.",
-      },
-      {
-        excerpt:
-          "Kuma ka yi bushara ga mutane da Hajji; Zã su zo muku da ƙafãfu da kuma a kan kõwane rãƙumi sãɓã wa jũna daga kõwane mai nĩsa, dõmin su yi shaidar amfãni ga kansu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya yi aikin Hajji don Allah, bai yi alfasha ko fasiqanci ba, ya koma ba laifi, kamar ranar da mahaifiyarsa ta haife shi.",
-      },
-      {
-        excerpt:
-          "Idan mutum ya mutu ayyukansa sun kare sai guda uku: Sadaka mai gudana, ko ilimi mai amfani, ko dan salihai da ya yi masa addu’a.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ka tsara aikin Hajji ko Umra idan za ka iya.",
       "Saka hannun jari a cikin bangaskiya da halayen dangin ku.",
@@ -678,26 +404,8 @@ export const JANNAH_TOPICS_HA: DeepPartial<JannahTopic>[] = [
       "Don haka ne madaidaicin mumini ke rayuwa tsakanin bege da tsoro, kamar tsuntsu mai tashi da fikafikai biyu. Yana jin tsoron adalcin Allah ba ya gajiyawa ko gafala da zunubi, kuma yana fatan rahamar Allah ba zai yanke kauna ba, komai nisansa. karkata gaba ɗaya zuwa ga tsoro yana haifar da rashin bege; karkata gaba ɗaya zuwa ga bege yana haifar da girman kai. Sunayen Allah - Ar-Rahman (Mai jin ƙai), Ar-Raheem (Mai jin ƙai), Al-Ghafoor (Mai gafara) - anga reshen bege.",
       "To, wannan shi ne ruhin da kuke rufewa da shi kowace rana: ku roki Allah Firdausi, ku yi iyakar kokarinku, ku tuba kan kurakuranku, sannan ku mika darajarku ta karshe ga mai adalci da jin kai – kuna da imani cewa wanda ya kiyaye kashi casa’in da tara na rahama a wannan ranar ba zai karkatar da wani bawan da ya je masa yana jihadi da fata ba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma rahamaTa, Mai kẽwayẽwa ce ga dukan kõme. To, zan hukunta shi a kan waɗanda suka yi taƙawa, kuma suke bayar da zakka, da waɗanda suka yi imani da ayoyinMu.",
-      },
-      {
-        excerpt:
-          "Ka ce: Ya ku bayiNa wadanda suka yi zalunci a kansu, kada ku yanke tsammani daga rahamar Allah. Lallai Allah yana gafarta zunubai baki daya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Babu dayanku da zai shiga Aljanna da aikinsa shi kadai. Sai suka ce: Ba kai ma ya Manzon Allah ba? Ya ce: “Ko da ni, sai dai idan Allah Ya lullube ni da rahamarSa.",
-      },
-      {
-        excerpt:
-          "Allah yana da sassa dari na rahama. Ya saukar da wani bangare a cikin aljannu da mutane da dabbobi da kwari, da su suke tausayawa junansu; kuma ya kiyaye kashi casa’in da tara a wurinSa, domin ya yi rahama ga bayinSa a Ranar kiyama.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ka daidaita tsoron Allah da fatan rahamarSa.",
       "Kada ku yanke ƙauna bayan zunubi - tuba kuma ku ci gaba da ƙoƙari.",
@@ -711,107 +419,48 @@ export const JANNAH_GATES_HA: DeepPartial<JannahGate>[] = [
   {
     name: "Kofar Sallah",
     deedSummary: "Ga wadanda suka kiyaye kuma suka tsayar da salloli biyar.",
-    hadith: [
-      {
-        excerpt:
-          "Wanda ya ciyar da wani abu guda biyu a cikin tafarkin Allah, za a kira shi daga kofofin Aljanna. Kuma wanda ya kasance daga ma'abuta salla za a kira shi daga qofar Sallah.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Kofar Sadaka",
     deedSummary: "Ga wadanda suka yi sadaka da gaskiya don Allah.",
-    hadith: [
-      {
-        excerpt: "Wanda ya kasance daga cikin ma'abuta sadaka za a kira shi daga kofar Sadaka.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Gate of Ar-Rayyan",
     deedSummary: "An keɓe wa waɗanda suka yi azumi - kofa kawai suna shiga.",
-    hadith: [
-      {
-        excerpt:
-          "A cikin Aljanna akwai wata kofa mai suna Ar-Rayyan, wacce ta cikinta ne masu azumi za su shiga ranar kiyama. Idan na karshensu ya shiga sai a rufe.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Kofar Jihad",
     deedSummary: "Ga waɗanda suka yi jihadi a cikin hanyar Allah da ikhlasi.",
-    hadith: [
-      {
-        excerpt: "Duk wanda yake cikin mutanen jihadi za a kira shi daga kofar Jihadi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Ladan aikin Hajji",
     deedSummary: "Ga wadanda suka yi aikin Hajji zalla, suna komawa ba tare da zunubi ba.",
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya yi aikin Hajji don Allah, bai yi alfasha ko fasiqanci ba, ya koma ba laifi, kamar ranar da mahaifiyarsa ta haife shi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Ana kiranta daga kowace kofa",
     deedSummary: "Wasu kamar Abubakar, za a kira su su shigo daga dukkan kofofin.",
-    hadith: [
-      {
-        excerpt:
-          "Abubakar ya ce: Shin za a kira wani daga dukkan wadannan kofofin? Ya ce: Eh, kuma ina fatan za ka kasance cikinsu.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_HA: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Ku yi tsẽre zuwa ga gãfara daga Ubangijinku, da Aljanna mai faɗin sammai da ƙasã, an yi tattalinta dõmin mãsu taƙawa.",
-  },
-  {
-    excerpt:
-      "Gidãjen Aljanna, ƙoramu na gudãna daga ƙarƙashinsu, da ɗãkuna mãsu dãɗi a cikin gidãjen Aljannar zama, kuma yardar Allah ne mafi girma.",
-  },
-  {
-    excerpt:
-      "gidãjen Aljannar mafaka, liyafa ga waɗanda suka yi ĩmãni kuma suka aikata ayyukan ƙwarai.",
-  },
-  {
-    excerpt:
-      "Bãbu wani rai sanin abin da aka ɓõye musu na dãɗi, dõmin sakamako ga abin da suka kasance sunã aikatãwa.",
-  },
-  {
-    excerpt: "Suna da abin da suke so a cikinta, kuma a wurinMu akwai ƙari.",
-  },
-  {
-    excerpt: "Domin duk za a sami digiri gwargwadon abin da suka yi.",
-  },
-  {
-    excerpt: "Waɗannan darajõji ne a wurin Allah, kuma Allah Mai gani ne ga abin da suke aikatãwa.",
-  },
-  {
-    excerpt:
-      "Ya Ubangijinmu ka bamu mai kyau a duniya da mai kyau a lahira, kuma ka kare mu daga azabar wuta.",
-  },
-  {
-    excerpt:
-      "Kada ku yanke tsammani daga rahamar Allah. Lalle ne, Allah Yana gafarta zunubai gaba daya.",
-  },
-  {
-    excerpt: "BãyiNa bãbu tsõro a kanku a yau, kuma bã zã ku yi baƙin ciki ba.",
-  },
-  {
-    excerpt: "Kuma magabatan farko, wadanda aka kusantar.",
-  },
-  {
-    excerpt:
-      "Don haka Allah zai kare su daga sharrin wannan ranar, kuma Ya ba su haske da jin dadi.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_HA: DeepPartial<JannahDuaEntry>[] = [

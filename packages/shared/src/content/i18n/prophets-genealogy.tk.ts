@@ -88,38 +88,38 @@ export const PROPHETS_GENEALOGY_NODES_TK: DeepPartial<ProphetsGenealogyNode>[] =
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "Şit (Set)",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "Nusgawy yslam däbi (we birnäçe pygamberiň nesil şejeresiniň umumy beýany) Şiti Adam atanyň ogly we ilkinji nesilleriň bir halkasy hökmünde agzaýar. Şit bilen Nuhuň arasyndaky aralyk atlar esasan Ysraýyliýýatdan alnan bolup, berk baglanyşyk hökmünde çekilmeýär.",
   },
   {
-    name: "Idris",
+    name: "Ydrys",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "Gurhan Ydrysy ýokary derejä göterilen dogruçyl pygamber hökmünde agzaýar. Nusgawy sanawlar ony köplenç Adam bilen Nuhuň arasynda ýerleşdirýär (käte Enoh bilen birmeňzeş hasaplaýar), ýöne Gurhan onuň kakasynyň adyny tutmaýar — ene-ata baglanyşygy çekilmeýär.",
   },
   {
-    name: "Imran",
+    name: "Ymran",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "Allah Ymranyň maşgalasyny älemlerden üstün saýlady. Merýem Ymranyň gyzydyr. (Bu Ymran Merýemiň kakasydyr — bu ýerde Musa/Harun üçin kakalyk baglanyşygy hökmünde ulanylmaýar.)",
   },
   {
     name: "Adnan",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "Yslam däbine görä, Muhammet ﷺ Adnanyň neslinden, Adnan bolsa Ysmaýylyň neslindendir — ýöne arap nesil şejeresi däbi Adnandan Ysmaýyla çenli atlary tutulan şejeräniň ýitendigi barada ylalaşýar. Adnan adnany araplarynyň umumy ykrar edilen nusgawy başlangyjy hökmünde durýar; Ysmaýyla ene-ata baglanyşygy çekilmeýär.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Haşim ibn Abdumenaf",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "Haşim Beni Haşim tiresiniň adyny göterýän ata we Pygamberiň ﷺ nusgawy atalarynyň biridir. Adnandan Haşime çenli serdarlaryň doly sanawy (Fihr, Mudar, …) siýerde ýazylan, ýöne olar pygamber däl-de, aralyk taýpa nesilleri bolany üçin bu ýerde goýberilýär. Haşim bu kartadaky ýakyn Haşimi şahasyny başlaýar.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Abdulmuttalyp",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "Nusgawy siýere görä, Abdulmuttalyp (Şaýba) Pygamberiň ﷺ kakasy tarapyndan atasy we Haşimiň oglydyr.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Abdulla ibn Abdulmuttalyp",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "Nusgawy siýere görä, Abdulla Pygamber Muhammediň ﷺ kakasy we Abdulmuttalybyň oglydyr.",
   },
 ];

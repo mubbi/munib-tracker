@@ -89,38 +89,38 @@ export const PROPHETS_GENEALOGY_NODES_KY: DeepPartial<ProphetsGenealogyNode>[] =
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "Шис (Сет)",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "Классикалык ислам салты (жана бир нече пайгамбардын тегинин кеңири таралган кыскача баяны) Шисти Адамдын уулу жана алгачкы муундардагы бир шакек деп атайт. Шис менен Нухтун ортосундагы аралык ысымдар негизинен исраилияттан алынган, ошондуктан алар бекем байланыш катары тартылбайт.",
   },
   {
-    name: "Idris",
+    name: "Идрис",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "Куран Идристи бийик даражага көтөрүлгөн чынчыл пайгамбар деп атайт. Классикалык тизмелер аны көбүнчө Адам менен Нухтун ортосуна жайгаштырат (кээде Енох менен бир адам деп эсептешет), бирок Куран анын атасынын атын атабайт — ошондуктан ата-тек байланышы тартылбайт.",
   },
   {
-    name: "Imran",
+    name: "Имран",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "Аллах Имрандын үй-бүлөсүн ааламдардан жогору тандаган. Марйам — Имрандын кызы. (Бул Имран — Марйамдын атасы; бул жерде ал Муса менен Харундун атасы катары байланыштырылбайт.)",
   },
   {
-    name: "Adnan",
+    name: "Аднан",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "Ислам салты боюнча Мухаммад ﷺ Аднандын урпагы, ал эми Аднан Исмаилдын урпагы — бирок араб генеалогиялык салты Аднандан Исмаилга чейинки аты аталган тек жоголгон деген пикирде бир. Аднан аднандык арабдардын классикалык жактан бир добуштан таанылган түпкү атасы катары турат; Исмаилга ата-тек байланышы тартылбайт.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Хашим ибн Абд Манаф",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "Хашим — Бану Хашим уруусуна ысымын берген ата жана Пайгамбардын ﷺ классикалык ата-бабаларынын бири. Аднандан Хашимге чейинки башчылардын толук тизмеси (Фихр, Мудар, …) сирада жазылган, бирок бул жерде пайгамбарлар эмес, аралык уруулук муундар катары өткөрүлүп жиберилген. Бул картада Хашим жакынкы Хашимий тармактын башында турат.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Абдулмутталиб",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "Классикалык сира боюнча Абдулмутталиб (Шайба) — Пайгамбардын ﷺ атасынын атасы жана Хашимдин уулу.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Абдуллах ибн Абдулмутталиб",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "Классикалык сира боюнча Абдуллах — Пайгамбар Мухаммаддын ﷺ атасы жана Абдулмутталибдин уулу.",
   },
 ];

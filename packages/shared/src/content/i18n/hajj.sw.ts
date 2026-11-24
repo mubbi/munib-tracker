@@ -13,18 +13,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurayrah amesimulia kuwa Mtume ﷺ alisema: «Yeyote anayefanya Hijja kwa ajili ya Allah, na hakufanya tendo la ndoa au dhambi, anarudi kama alivyokuwa siku aliyozaliwa na mama yake» (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
       "Alisema pia: «Hijja iliyokubaliwa (Hijja mabrur) haina thawabu isipokuwa Pepo» (Sahih al-Bukhari 1773; Sahih Muslim 1349). Kukubaliwa kunahusiana na uwazi wa nia na kuiacha Hijja mbali na uchafu na dhambi — si kukamilisha vitendo vya nje pekee.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Yeyote anayefanya Hijja kwa ajili ya Allah, na hakufanya tendo la ndoa au dhambi, anarudi kama alivyokuwa siku aliyozaliwa na mama yake.",
-      },
-      {
-        excerpt:
-          "Yeyote anayefanya Hijja kwa ajili ya Allah, na hakufanya tendo la ndoa au dhambi, anarudi kama alivyokuwa siku aliyozaliwa na mama yake.",
-      },
-      { excerpt: "Hijja iliyokubaliwa haina thawabu isipokuwa Pepo." },
-      { excerpt: "Hijja iliyokubaliwa haina thawabu isipokuwa Pepo." },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Kusudia Hijja kwa ajili ya Allah tu — linda ulimi wako na tabia yako katika safari yote.",
       "Tumia orodha ya matendo ya Hijja iliyo ndani ya programu kama kikumbusho tu; weka moyo ukiwa umeelekea kukubaliwa.",
@@ -38,16 +27,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurayrah amesimulia kuwa Mtume ﷺ alisema: «Kufanya Umrah ni fidia kwa madhambi yaliyofanyika baina yake na iliyotangulia, na Hijja iliyokubaliwa haina thawabu isipokuwa Pepo» (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
       "Umrah inaweza kufanywa wakati wowote wa mwaka. Ni fupi kuliko Hijja lakini bado ni ibada kubwa: ihram, tawaf, sa'i, na kunyoa au kufupisha nywele.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kufanya Umrah ni fidia kwa madhambi yaliyofanyika baina yake na iliyotangulia, na Hijja iliyokubaliwa haina thawabu isipokuwa Pepo.",
-      },
-      {
-        excerpt:
-          "Kufanya Umrah ni fidia kwa madhambi yaliyofanyika baina yake na iliyotangulia, na Hijja iliyokubaliwa haina thawabu isipokuwa Pepo.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Fungua orodha ya Umrah pale utakapokuwa tayari kupitia ibada kwa mpangilio."],
     appLinks: [{ label: "Orodha ya ibada za Umrah" }],
   },
@@ -58,14 +38,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Abd al-Rahman ibn Ya'mar amesimulia kuwa Mtume ﷺ alisema: «Hijja ni Arafah» (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Yeyote anayekosa kusimama ndani ya mipaka ya Arafah wakati wake, amekosa Hijja ya mwaka huo.",
       "Kwa wale wasiokuwa katika Hijja, kufunga siku ya Arafah ni jambo linalosisitizwa sana: Abu Qatadah amesimulia kuwa kufunga Arafah kunafuta madhambi ya mwaka uliopita na ujao (Sahih Muslim 1162). Mahujaji wenyewe hawafungi ili wajitolee siku hiyo kwa dua.",
     ],
-    hadith: [
-      { excerpt: "Hijja ni Arafah." },
-      { excerpt: "Hijja ni Arafah." },
-      {
-        excerpt:
-          "Kufunga siku ya Arafah, natumaini kutoka kwa Allah, kunafuta madhambi ya mwaka uliopita na ujao.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Hijja — nguzo ya tano",
@@ -75,26 +48,8 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Wito ulitangazwa kwa watu wote: «Na tangaza Hijja kwa watu; watakuja kwako kwa miguu na juu ya kila ngamia dhaifu; watakuja kutoka kila njia ya mbali» (Qur'an 22:27).",
       "Ibn Umar amesimulia kuwa Mtume ﷺ alisema Uislamu umejengwa juu ya mambo matano: shahada, sala, zaka, kufunga Ramadhani, na Hijja Nyumbani kwa yeyote awezaye (Sahih al-Bukhari 8; Sahih Muslim 16). Wanazuoni wanakubaliana kwamba ni wajibu mara moja katika maisha pale masharti yanapotimia; kuirudia ni fadhila ya hiari.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na ni haki ya Allah juu ya watu kufanya Hijja Nyumbani — kwa yeyote awezaye kupata njia ya kufika...",
-      },
-      {
-        excerpt:
-          "Na tangaza Hijja kwa watu; watakuja kwako kwa miguu na juu ya kila ngamia dhaifu...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Uislamu umejengwa juu ya mambo matano: kushuhudia kuwa hakuna mola ila Allah na kwamba Muhammad ni Mtume wa Allah, kusimamisha sala, kutoa zaka, kufunga Ramadhani, na Hijja Nyumbani kwa yeyote awezaye.",
-      },
-      {
-        excerpt:
-          "Uislamu umejengwa juu ya mambo matano... na Hijja Nyumbani kwa yeyote awezaye kupata njia ya kufika.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Uwezo (istita'ah)",
@@ -103,7 +58,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Sharti lililotajwa katika Qur'an 3:97 ni uwezo (istita'ah). Wanazuoni wa zamani wanalifupisha kama: afya ya mwili kwa safari, mali halali ya kutosha kugharamia safari na mahitaji ya wanaomtegemea wakati hayupo, na njia salama iliyo wazi.",
       "Yeyote asiye na njia hizi mwaka huu hana dhambi kwa kuchelewesha hadi awe na uwezo. Uwezo unahukumiwa kwa hali ya mtu mmoja mmoja — ugonjwa, deni linalolazimika kulipwa, au safari isiyo salama vinaweza kuondoa wajibu wa papo hapo. Muulize mwanazuoni mwenye ujuzi ikiwa hali yako haijulikani vizuri.",
     ],
-    quran: [{ excerpt: "...kwa yeyote awezaye kupata njia ya kufika." }],
+    quran: [{}],
     actions: [
       "Lipa madeni ya wajibu na panga matunzo ya wanaokutegemea kabla ya kuweka nafasi.",
       "Hakikisha vifurushi kupitia njia rasmi tu (angalia mada za maandalizi).",
@@ -117,16 +72,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas amesimulia kuwa Mtume ﷺ alisema mwanamke hapaswi kusafiri isipokuwa na mahram, na mwanamume hapaswi kuingia kwake isipokuwa mahram yupo (Sahih al-Bukhari 1862; Sahih Muslim 1341). Wanazuoni wengi wanatumia hii kwa safari ya Hijja na Umrah.",
       "Baadhi ya wanazuoni wa baadaye — kwa kuzingatia usalama, dharura, na hali ya usafiri wa kisasa — wanaruhusu mwanamke kusafiri kwa Hijja ya wajibu ndani ya kikundi cha kuaminika pale hakuna mahram. Hii bado ni suala lenye mgongano katika fiqhi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwanamke hapaswi kusafiri isipokuwa na mahram, na mwanamume hapaswi kuingia kwake isipokuwa mahram yupo naye.",
-      },
-      {
-        excerpt:
-          "Si halali kwa mwanamke anayemuamini Allah na Siku ya Mwisho kusafiri mchana na usiku isipokuwa na mahram.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Wengi wanaona kwamba mwanamke anahitaji mahram kwa safari ya Hijja. Baadhi ya wanazuoni wa baadaye wanaruhusu safari ndani ya kikundi salama cha wanawake kwa Hijja ya wajibu. Mfuate mwanazuoni unayemuamini na kanuni za mamlaka yako ya Hijja.",
     disclaimer: "Huu ni muhtasari wa jumla, si fatwa ya kibinafsi kwa hali yako.",
@@ -140,12 +86,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu': kufanya Umrah kamili katika miezi ya Hijja, kutoka ihram, kisha kuingia tena ihram kwa Hijja tarehe 8 Dhul-Hijjah. Hii ni jinsi wanavyofanya mahujaji wengi leo; pia inatakiwa hady.",
       "Allah anasema kuhusu wale wanaounganisha ibada: «...Yeyote atakayenufaika na Umrah kuifanya Hijja, basi patatolewa kilichowezekana kwa wepesi cha mnyama wa dhabihu...» na wale wasiomudu wanafunga siku tatu wakati wa Hijja na saba watakaporudi (Qur'an 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na timizeni Hijja na Umrah kwa ajili ya Allah... Yeyote atakayenufaika na Umrah kuifanya Hijja, basi patatolewa kilichowezekana kwa wepesi cha mnyama wa dhabihu. Na yeyote asiyepata — basi kufunga siku tatu wakati wa Hijja na saba mtakaporudi...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Amua aina yako pamoja na kiongozi wa kikundi chako kabla ya miqat.",
       "Ikiwa unafanya Tamattu', kamilisha Umrah kikamilifu kabla ya kuingia tena ihram kwa Hijja.",
@@ -159,16 +100,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas amesimulia kuwa Mtume ﷺ aliweka miqat kwa watu: Dhul-Hulayfah kwa Madinah, Al-Juhfah kwa Sham, Qarn al-Manazil kwa Najd, na Yalamlam kwa Yemen; na kwa watu wa Iraq, Dhat 'Irq. Alisema hizi ni kwao na kwa yeyote atakayefika humo akikusudia Hijja au Umrah; na yeyote anayeishi ndani ya sehemu hizo, aingie ihram kutoka mahali anapoanzia, hata watu wa Makkah kutoka Makkah (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
       "Viwanja vya ndege na bandari za kisasa vina vituo vya ihram vinavyolingana au taratibu zilizotangazwa — fuata mwongozo wa msafirishaji wako na Wizara ya Hijja na Umrah ili usipite mpaka bila ihram.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mtume ﷺ aliweka Dhul-Hulayfah kwa watu wa Madinah, Al-Juhfah kwa watu wa Sham, Qarn al-Manazil kwa watu wa Najd, na Yalamlam kwa watu wa Yemen... Miqat hizi ni kwa watu wa sehemu hizo, na kwa wale wanaofika humo wakikusudia Hijja au Umrah...",
-      },
-      {
-        excerpt:
-          "Mtume ﷺ alibainisha miqat... Yeyote anayeishi ndani ya mipaka hii aingie ihram kutoka mahali anapoanzia...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Kuingia ihram",
@@ -178,17 +110,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Wanaume wanaweza kupaka manukato mwilini kabla ya ihram, si kwenye mavazi ya ihram baada ya kuingia hali hiyo (Sahih al-Bukhari 1539). Kisha weka nia na anza talbiya.",
       "Talbiya aliyofundisha Mtume ﷺ ni: «Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak» — inarudiwa hadi kuanza tawaf kwa Umrah, au hadi kupiga mawe Jamrat al-Aqaba kwa Hijja kulingana na desturi maarufu (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aisha alisema: Nilimpakia manukato Mtume wa Allah ﷺ kwa ihram yake kabla ya kuingia ihram...",
-      },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      { excerpt: "Mtume ﷺ alipaza sauti kwa talbiya: Labbayk Allahumma labbayk..." },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Beba angalau seti mbili za ihram kwa wanaume; weka vifaa vya usafi visivyo na harufu tayari.",
       "Fanya mazoezi ya talbiya kabla ya safari ili iwe rahisi njiani.",
@@ -226,12 +148,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Wanaume wanafanya raml (kwenda kwa kasi) katika mizunguko mitatu ya kwanza na idtiba' (kufunua bega la kulia) wakati wa tawaf hii ya kuwasili kwa Umrah, kulingana na Sunna maarufu.",
       "Baina ya Kona ya Yemen na Jiwe Jeusi inashauriwa kusema: «Mola wetu, tupe wema hapa duniani na wema Akhera, na tulinde na adhabu ya Moto» (Qur'an 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mola wetu, tupe hapa duniani lililo jema na Akhera lililo jema, na utulinde na adhabu ya Moto.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Rakaa mbili na Zamzam",
@@ -240,12 +157,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Baada ya tawaf, sali rakaa mbili nyuma ya Maqam Ibrahim ikiwa nafasi inaruhusu, au mahali pengine msikitini ikiwa kuna msongamano — ukirejea maneno ya Allah: «...Na chukueni, [enyi wenye kuamini], mahali pa kusimama Ibrahim kama mahali pa sala...» (Qur'an 2:125).",
       "Kisha unywe maji ya Zamzam. Maelezo ya Jabir kuhusu Hijja ya Mtume ﷺ yanajumuisha kunywa Zamzam baada ya tawaf; Mtume ﷺ alisema Zamzam ni kwa lolote linalokusudiwa unapokunywa (ripoti sahihi zilizokusanywa na wanazuoni wa baadaye; chukua nia na dua kama vitendo vinavyosisitizwa).",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Na chukueni, [enyi wenye kuamini], mahali pa kusimama Ibrahim kama mahali pa sala...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Sa'i baina ya Safa na Marwah",
@@ -254,12 +166,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Allah anasema: «Hakika Safa na Marwah ni miongoni mwa alama za Allah. Basi yeyote anayefanya Hijja Nyumbani au kufanya Umrah — hatalaumiwa kwa kutembea baina yao...» (Qur'an 2:158).",
       "Tembea mara saba baina ya Safa na Marwah, kuanzia Safa. Katika Safa, elekea Al-Ka'bah, nyanyua mikono yako kwa takbira na dua kama alivyofanya Mtume ﷺ. Wanaume wanakimbia kidogo baina ya alama za kijani.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika Safa na Marwah ni miongoni mwa alama za Allah. Basi yeyote anayefanya Hijja Nyumbani au kufanya Umrah — hatalaumiwa kwa kutembea baina yao...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq au taqsir — kukamilisha Umrah",
@@ -269,16 +176,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Wanaume wananyoa kichwa (halq) — ambacho Mtume ﷺ aliomba mara tatu — au kufupisha sawasawa (taqsir). Wanawake wanakusanya nywele zao na kufupisha kiasi cha kidole. Kwa hili, Umrah inakamilika na vizuizi vya ihram vinaisha.",
       "Abdullah ibn Umar amesimulia kuwa Mtume wa Allah ﷺ alisema: «Ee Allah, uwahurumie waliojinyoa vichwa vyao.» Wakasema: «Na wale waliofupisha, ee Mtume wa Allah?» Alisema: «Ee Allah, uwahurumie waliojinyoa vichwa vyao.» Wakasema: «Na wale waliofupisha?» Alisema mara ya tatu: «Na wale waliofupisha» (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ee Allah, uwahurumie waliojinyoa vichwa vyao... Na (mara ya tatu) wale waliofupisha.",
-      },
-      {
-        excerpt:
-          "Ee Allah, uwasamehe waliojinyoa vichwa vyao... kisha alisema mara ya tatu: na wale waliofupisha nywele zao.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 Dhul-Hijjah — Siku ya Tarwiyah",
@@ -287,12 +185,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Kwa mahujaji wa Tamattu': wekeni nia ya Hijja na muingie tena ihram kutoka makazi yenu Makkah, mkirudia talbiya. Mahujaji wa Ifrad na Qiran tayari wamo katika ihram.",
       "Safirini kwenda Mina na msali Adhuhuri, Alasiri, Magharibi, Isha, na Alfajiri inayofuata, kila moja ikipunguzwa hadi rakaa mbili kwa wakati wake, mkifuata desturi ya Mtume ﷺ katika Hijja ya Kuaga kama alivyosimulia Jabir (Sahih Muslim 1218). Tumia siku na usiku katika ibada, mkisubiri Arafah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Simulizi refu la Jabir kuhusu Hijja ya Kuaga ya Mtume ﷺ — ikijumuisha kukaa Mina na mfuatano wa ibada.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Fungua orodha ya Hijja asubuhi ya tarehe 8."],
     appLinks: [{ label: "Orodha ya Hijja" }],
   },
@@ -304,13 +197,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Sali Adhuhuri na Alasiri kwa pamoja na kupunguzwa wakati wa Adhuhuri (jam' taqdim), kisha jitolee muda uliobaki wa siku kwa dua badala ya sala za hiari — ukifuata desturi ya Mtume ﷺ (Sahih Muslim 1218).",
       "Baada ya jua kutua, safiri kwa utulivu kwenda Muzdalifah. Unganisha Magharibi na Isha (Isha ikipunguzwa), pumzika usiku, na kusanya kokoto kwa ajili ya kupiga mawe. Wanyonge na wanawake wanaweza kuondoka kwenda Mina baada ya usiku wa manane kulingana na ruhusa maarufu katika Sunna.",
     ],
-    hadith: [
-      { excerpt: "Hijja ni Arafah." },
-      {
-        excerpt:
-          "Mtume ﷺ aliunganisha Adhuhuri na Alasiri Arafah, kisha akaondoka baada ya jua kutua kwenda Muzdalifah...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 Dhul-Hijjah — Siku ya Nahr",
@@ -321,12 +208,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Nyoa (halq) au fupisha (taqsir); wanawake wafupishe kiasi cha kidole. Baada ya kupiga mawe na kunyoa/kufupisha, uachiliaji wa kwanza (tahallul awwal) unatumika — vizuizi vingi vya ihram vinaisha isipokuwa tendo la ndoa.",
       "Nendeni Makkah kwa Tawaf al-Ifadah — nguzo ya Hijja — na sa'i kwa mahujaji wa Tamattu' (Ifrad/Qiran waliofanya sa'i tayari pamoja na tawaf yao ya kuwasili wafuate hukumu ya madhehebu yao). Hii inakamilisha uachiliaji kamili kutoka ihram.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Yeyote atakayenufaika na Umrah kuifanya Hijja, basi patatolewa kilichowezekana kwa wepesi cha mnyama wa dhabihu...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Mpangilio wa ibada za Siku ya Nahr una uwepesi katika Sunna; madhehebu yanatofautiana kuhusu mfuatano halisi na wakati sa'i inapotakiwa kwa aina kila ya Hijja. Fuateni mwongozo wa kikundi chenu.",
   },
@@ -338,22 +220,8 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Kila mchana baada ya Adhuhuri, rushwa kokoto saba kwenye kila nguzo ya tatu kwa mpangilio — ndogo, kisha ya kati, kisha kubwa — mkisema takbira kwa kila mrusho. Yeyote atakayefanya haraka anaweza kuondoka baada ya kupiga mawe tarehe 12 (Qur'an 2:203).",
       "Kabla ya kuondoka Makkah, fanyeni Tawaf al-Wada' ili kitendo cha mwisho na Nyumba kiwe cha kuaga. Ibn Abbas amesimulia kuwa watu waliamriwa kwamba ibada yao ya mwisho iwe Nyumbani, ila iliruhusiwa kwa mwanamke aliye katika hedhi (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na mkumbukeni Allah katika siku maalum zilizohesabiwa. Basi yeyote atakayefanya haraka [kuondoka] kwa siku mbili — hakuna dhambi juu yake; na yeyote atakayechelewa — hakuna dhambi juu yake — kwa mwenye kumcha Allah...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Watu waliamriwa kufanya tawaf ya kuaga ya Al-Ka'bah kama ibada ya mwisho, ila wanawake wenye hedhi waliosamehewa.",
-      },
-      {
-        excerpt:
-          "Watu waliamriwa kwamba ibada yao ya mwisho iwe Nyumbani, lakini iliruhusiwa kwa mwanamke aliye katika hedhi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Nguzo na wajibu",
@@ -373,12 +241,7 @@ export const HAJJ_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Hadithi ya kurudi bila dhambi (Bukhari 1521; Muslim 1350) inaonyesha wazi kuwa Hijja inaharibiwa na uchafu (rafath), dhambi (fusuq), na mabishano. Uvumilivu, upole, na kuwasaidia mahujaji wenzako ni sehemu ya ibada.",
       "Zuia simu na mazungumzo yasiyo na maana kutawala Arafah na msikiti. Wape wengine nafasi katika tawaf; usisukume kuelekea Jiwe Jeusi. Hijja iliyokubaliwa ni mwenzake wa Pepo — jitahidi kuwa na tabia njema katika safari yote.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Yeyote anayefanya Hijja kwa ajili ya Allah, na hakufanya tendo la ndoa au dhambi, anarudi kama alivyokuwa siku aliyozaliwa na mama yake.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Weka nia ya kila siku: kitendo kimoja cha wema na dua moja ya kweli juu ya msongamano.",
     ],

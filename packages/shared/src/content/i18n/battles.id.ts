@@ -27,16 +27,7 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       "Al-Qur'an menetapkan batas yang tetap di sekitar izin ini: \"Perangilah di jalan Allah orang-orang yang memerangi kamu, tetapi janganlah melampaui batas\" (Qur'an 2:190). Peperangan terikat pada agresi terhadap komunitas, dan tidak boleh melampaui batas-batas keadilan.",
       "Peperangan-peperangan ini adalah sejarah: terjadi dalam konteks Arab abad ketujuh yang spesifik, di mana perang antarsuku, perjanjian yang dilanggar, dan pengepungan adalah hal biasa. Ajaran Islam yang menyeluruh tentang perdamaian, keadilan, kasih sayang, dan hubungan baik dengan tetangga adalah kerangkanya; rincian peperangan ini harus dibaca di dalam kerangka itu, bukan dipotong menjadi slogan-slogan.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Telah diizinkan (berperang) bagi orang-orang yang diperangi, karena sesungguhnya mereka telah dizalimi. Dan sesungguhnya Allah benar-benar Mahakuasa menolong mereka, (yaitu) orang-orang yang telah diusir dari kampung halamannya tanpa alasan yang benar, kecuali karena mereka berkata, "Tuhan kami adalah Allah." Seandainya Allah tidak menolak (keganasan) sebagian manusia dengan sebagian yang lain, tentulah telah dirobohkan biara-biara Nasrani, gereja-gereja, sinagoge-sinagoge orang Yahudi, dan masjid-masjid yang di dalamnya banyak disebut nama Allah.',
-      },
-      {
-        excerpt:
-          "Dan perangilah di jalan Allah orang-orang yang memerangi kamu, tetapi janganlah kamu melampaui batas. Sesungguhnya Allah tidak menyukai orang-orang yang melampaui batas.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Garis Waktu Sirah" }, { label: "Garis Waktu Peperangan" }],
   },
   {
@@ -49,18 +40,8 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       "Pelanggaran perjanjian tetap menentukan hingga akhir. Serangan sekutu Quraisy terhadap sekutu umat Islam, Bani Khuza'ah, itulah yang membatalkan Perjanjian Hudaibiyah — dan, secara mencolok, berujung pada terbukanya Makkah hampir tanpa pertumpahan darah, bukan pembantaian.",
       "Sepanjang semua ini, tujuannya tetap sama: membela jiwa dan agama, melindungi yang lemah, dan menegakkan keamanan yang cukup agar tauhid dapat diamalkan tanpa penindasan. Tujuannya tidak pernah sekadar perluasan tanpa batas, dan riwayat-riwayat mencatat bahwa Nabi ﷺ selalu memilih gencatan senjata dan perjanjian setiap kali musuh condong kepada perdamaian.",
     ],
-    hadith: [
-      {
-        excerpt:
-          'Aku diperintahkan untuk memerangi manusia hingga mereka bersaksi bahwa tidak ada tuhan selain Allah dan Muhammad adalah utusan Allah, mendirikan salat, dan menunaikan zakat. Jika mereka melakukan itu, maka terlindunglah darah dan harta mereka dariku, kecuali dengan hak Islam, dan perhitungan mereka ada pada Allah. — Para ulama klasik memahami "manusia" di sini sebagai kaum musyrik Arab tertentu yang sedang memerangi Islam setelah pesan itu sampai kepada mereka; ini adalah pernyataan tentang musuh-musuh yang memerangi itu, bukan izin untuk menyerang non-Muslim yang damai atau memaksa seseorang beriman, yang secara tegas dilarang oleh Qur\'an 2:256.',
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Tidak ada paksaan dalam (menganut) agama, sesungguhnya telah jelas jalan yang benar daripada jalan yang sesat.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Hadis di atas sering dikutip lepas dari konteksnya. Para ulama klasik menempatkannya dalam situasi peperangan khusus pada masa itu dan memadukannya dengan larangan Al-Qur'an terhadap pemaksaan dalam agama (2:256) serta batasan bahwa peperangan hanya terhadap mereka yang memerangi kamu (2:190).",
     appLinks: [{ label: "Etika Perang" }],
@@ -77,30 +58,8 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       "Harta dan tanah itu sendiri juga dilindungi. Petunjuk umum melarang penebangan pohon buah-buahan tanpa perlu, pembakaran tanaman, dan penyembelihan ternak secara berlebihan. Para tawanan diberi makan dari apa yang dimakan penawan mereka dan dipakaikan dari apa yang mereka kenakan; Al-Qur'an memuji mereka yang memberi makan tawanan karena cinta kepada Allah (76:8), dan banyak yang dibebaskan melalui tebusan, pertukaran, atau semata-mata belas kasih — sebagian di Badar dengan imbalan mengajar anak-anak Muslim membaca dan menulis.",
       "Ini adalah ajaran standar agama ini. Adapun individu Muslim dalam sejarah yang melanggarnya, mereka melanggar Islam, bukan mendefinisikannya — sama seperti pelanggaran para pengikut agama mana pun tidak mengubah apa yang diperintahkan agama tersebut.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Perangilah di jalan Allah orang-orang yang memerangi kamu, tetapi janganlah melampaui batas.",
-      },
-      {
-        excerpt:
-          "Dan jika mereka condong kepada perdamaian, maka condonglah kepadanya dan bertawakallah kepada Allah. Sesungguhnya Dialah Yang Maha Mendengar lagi Maha Mengetahui.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dari Ibnu Umar, bahwa seorang perempuan ditemukan tewas dalam salah satu peperangan Rasulullah ﷺ, maka beliau melarang pembunuhan perempuan dan anak-anak.",
-      },
-      {
-        excerpt:
-          "Ketika Nabi ﷺ mengangkat seorang panglima atas suatu pasukan, beliau memerintahkannya: Berperanglah dengan nama Allah… janganlah kalian mengkhianati harta rampasan perang, janganlah melanggar perjanjian, janganlah memutilasi jenazah, dan janganlah membunuh anak-anak. Apabila kalian bertemu musuh, ajaklah mereka kepada Islam terlebih dahulu; jika mereka menolak, ajaklah mereka kepada perdamaian; dan baru berperanglah jika keduanya ditolak.",
-      },
-      {
-        excerpt:
-          "Janganlah kalian membunuh orang tua yang lemah, anak kecil, maupun perempuan. — Sebagian sanad dengan redaksi khusus ini dinilai lemah oleh sebagian ulama, namun perintah yang dikandungnya dikuatkan oleh hadis sahih di atas dan kesepakatan para fuqaha.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Bedakan dengan jelas antara apa yang diperintahkan Islam dan apa yang benar-benar dilakukan suatu pasukan dalam sejarah.",
       "Bacalah bagian etika ini sebelum kisah peperangan mana pun — sejarah tanpa prinsip-prinsip yang mengaturnya mengundang kesalahpahaman.",
@@ -149,26 +108,8 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
         "Sebagian tawanan dibebaskan dengan imbalan mengajar anak-anak Madinah membaca dan menulis.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "(Ingatlah), ketika kamu memohon pertolongan kepada Tuhanmu, lalu diperkenankan-Nya bagimu: Sesungguhnya Aku akan mendatangkan bala bantuan kepadamu dengan seribu malaikat yang datang berturut-turut.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya telah ada tanda bagi kamu pada dua golongan yang telah bertemu (bertempur). Segolongan berperang di jalan Allah dan (segolongan) yang lain kafir.",
-      },
-      {
-        excerpt:
-          "Maka (yang sebenarnya) bukan kamu yang membunuh mereka, akan tetapi Allah-lah yang membunuh mereka, dan bukan kamu yang melempar ketika kamu melempar, tetapi Allah-lah yang melempar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dari Umar, bahwa pada hari Badar Nabi ﷺ memandang musuh yang berjumlah seribu, sementara para sahabatnya sendiri sedikit lebih dari tiga ratus, kemudian beliau menghadap kiblat, merentangkan kedua tangannya, dan memohon kepada Tuhannya: Ya Allah, penuhilah apa yang telah Engkau janjikan kepadaku. Ya Allah, jika kelompok orang beriman ini binasa, tidak akan ada lagi yang menyembah-Mu di muka bumi. Beliau terus memohon hingga selendangnya terjatuh dari bahunya, maka Abu Bakar mengembalikannya seraya berkata: Wahai Nabi Allah, cukuplah — Allah pasti akan memenuhi apa yang telah Dia janjikan kepadamu.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Ayat-Ayat tentang Badar" }, { label: "Tokoh-Tokoh Penting" }],
   },
   {
@@ -203,22 +144,8 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ujian memurnikan orang-orang beriman; ketergelinciran yang dihadapi dengan tobat dan ketabahan membawa kepada pertumbuhan.",
     },
-    quran: [
-      {
-        excerpt:
-          "Dan sesungguhnya Allah telah memenuhi janji-Nya kepada kamu, ketika kamu membunuh mereka dengan izin-Nya — hingga pada saat kamu lemah dan berselisih dalam urusan itu dan mendurhakai perintah (Rasul) sesudah Allah memperlihatkan kepadamu apa yang kamu sukai.",
-      },
-      {
-        excerpt:
-          "Janganlah kamu bersikap lemah, dan janganlah (pula) kamu bersedih hati, padahal kamulah orang-orang yang paling tinggi (derajatnya), jika kamu orang-orang yang beriman.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ pada hari Uhud menempatkan Abdullah bin Jubair atas lima puluh pemanah dan berkata: Tetaplah di posisi kalian; meskipun kalian melihat burung-burung menyambar kami, janganlah tinggalkan posisi ini sampai aku mengutus seseorang kepada kalian — dan meskipun kalian melihat kami mengalahkan mereka, tetaplah jangan tinggalkan posisi sampai aku mengutus seseorang. Ketika musuh dikalahkan dan para pemanah melihat harta rampasan, mereka berkata, Harta rampasan! dan meninggalkan posisi mereka — maka tujuh puluh dari kami gugur syahid.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Pelajaran Kepemimpinan" }, { label: "Tokoh-Tokoh Penting" }],
   },
   {
@@ -255,22 +182,8 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Tetaplah teguh dalam pengepungan dan serahkan hasilnya kepada Allah, yang dapat membalikkan sebuah pasukan hanya dengan satu badai.",
     },
-    quran: [
-      {
-        excerpt:
-          "Hai orang-orang yang beriman, ingatlah akan nikmat Allah (yang telah dikaruniakan) kepadamu ketika datang kepadamu tentara-tentara, lalu Kami kirimkan kepada mereka angin topan dan tentara yang tidak dapat kamu melihatnya… Di situlah diuji orang-orang mukmin dan digoncangkan (hatinya) dengan goncangan yang sangat.",
-      },
-      {
-        excerpt:
-          "Dan tatkala orang-orang mukmin melihat golongan-golongan yang bersekutu itu, mereka berkata, Inilah yang dijanjikan Allah dan Rasul-Nya kepada kita. Dan benarlah Allah dan Rasul-Nya. Dan yang demikian itu tidaklah menambah kepada mereka kecuali iman dan ketundukan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ pada hari Ahzab berdoa melawan mereka: Ya Allah, Yang menurunkan Kitab, Yang cepat perhitungan-Nya — kalahkanlah golongan-golongan itu. Ya Allah, kalahkanlah mereka dan goncangkanlah mereka.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Salman al-Farisi" }],
   },
   {
@@ -304,22 +217,8 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Mengkhianati janji pertahanan bersama pada saat bahaya bersama termasuk pengkhianatan paling serius.",
     },
-    quran: [
-      {
-        excerpt:
-          "Dan Dia menurunkan orang-orang Ahli Kitab (Bani Quraizhah) yang membantu golongan-golongan yang bersekutu dari benteng-benteng mereka, dan Dia memasukkan rasa takut ke dalam hati mereka. Sebagian mereka kamu bunuh dan sebagian yang lain kamu tawan. Dan Dia mewariskan kepada kamu tanah-tanah, rumah-rumah, dan harta benda mereka.",
-      },
-      {
-        excerpt:
-          "Allah tidak melarang kamu untuk berbuat baik dan berlaku adil terhadap orang-orang yang tiada memerangimu karena agama dan tidak (pula) mengusir kamu dari negerimu. Sesungguhnya Allah menyukai orang-orang yang berlaku adil.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ketika Bani Quraizhah setuju menerima keputusan Sa'd bin Mu'adz, Nabi ﷺ memanggilnya. Ia datang, dan Nabi ﷺ berkata: Berdirilah untuk pemimpin kalian. Sa'd memutuskan agar para pejuang mereka dibunuh dan para perempuan serta anak-anak mereka ditawan. Nabi ﷺ bersabda: Engkau telah memutuskan sesuai dengan keputusan Allah — atau beliau berkata, sesuai dengan keputusan Sang Raja.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Ini adalah hukuman atas tindakan pengkhianatan militer tertentu oleh para pejuang, yang diputuskan oleh hakim yang dipilih sendiri oleh suku itu. Ini bukan hukum terhadap suatu kaum berdasarkan agama mereka dan bukan preseden bagi hubungan dengan orang Yahudi atau kelompok agama mana pun, yang diperintahkan Islam untuk diperlakukan dengan adil dan baik (Qur'an 60:8). Sebagian ulama belakangan mempertanyakan rincian angka yang diriwayatkan.",
   },
@@ -354,22 +253,8 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ketika kebijaksanaan suatu keputusan tersembunyi, percayalah kepada Allah dan Rasul-Nya — kesabaran bisa menjadi kemenangan yang paling sejati.",
     },
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Kami telah memberikan kepadamu kemenangan yang nyata, supaya Allah memberi ampunan kepadamu terhadap dosamu yang telah lalu dan yang akan datang serta menyempurnakan nikmat-Nya atasmu dan memimpin kamu ke jalan yang lurus.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya Allah telah rida terhadap orang-orang mukmin ketika mereka berjanji setia kepadamu di bawah pohon, maka Allah mengetahui apa yang ada dalam hati mereka lalu menurunkan ketenangan atas mereka dan memberi balasan kepada mereka dengan kemenangan yang dekat (waktunya).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jabir bin Abdullah berkata: Pada hari Hudaibiyah kami berjumlah seribu empat ratus. Kami berbaiat kepada Nabi ﷺ di bawah pohon itu, dan beliau adalah sebaik-baik manusia di antara kami.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Pelajaran: Kesabaran Sebelum Kemenangan" },
       { label: "Ayat-Ayat Al-Qur'an" },
@@ -404,12 +289,7 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ketabahan dalam kerja keras yang panjang, dipadukan dengan ketulusan, mendatangkan pertolongan Allah.",
     },
-    hadith: [
-      {
-        excerpt:
-          "Pada hari Khaibar, Nabi ﷺ bersabda: Besok aku akan memberikan panji ini kepada orang yang mencintai Allah dan Rasul-Nya, dan yang dicintai Allah dan Rasul-Nya, dan yang melaluinya Allah akan memberikan kemenangan. Keesokan harinya beliau memanggil Ali, yang matanya sedang sakit; beliau mengoleskan (air liurnya) pada mata Ali dan mendoakannya, maka Ali sembuh seolah-olah tidak pernah sakit, dan panji itu diberikan kepadanya.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Ali bin Abi Thalib" }],
   },
   {
@@ -476,16 +356,7 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Tujuannya adalah petunjuk, bukan balas dendam — kekuasaan digunakan untuk melayani pesan, bukan ego.",
     },
-    quran: [
-      {
-        excerpt:
-          "Apabila telah datang pertolongan Allah dan kemenangan, dan kamu lihat manusia masuk agama Allah dengan berbondong-bondong, maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampun kepada-Nya. Sesungguhnya Dia adalah Maha Penerima tobat.",
-      },
-      {
-        excerpt:
-          "Ia (Yusuf) berkata: Pada hari ini tak ada cercaan terhadap kamu, mudah-mudahan Allah mengampuni (kamu), dan Dia adalah Maha Penyayang di antara para penyayang. — Ini adalah kata-kata Nabi Yusuf yang digemakan oleh Nabi ﷺ kepada kaum Quraisy pada hari penaklukan.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Pelajaran: Rahmat Setelah Kemenangan" }],
   },
   {
@@ -519,18 +390,8 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Jangan pernah bersandar pada jumlah atau keberhasilan baru-baru ini; kemenangan dan ketenangan hanya datang dari Allah.",
     },
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah telah menolong kamu (hai para mukminin) di medan peperangan yang banyak, dan (ingatlah) peperangan Hunain, ketika kamu menjadi congkak karena banyaknya jumlahmu, maka jumlah yang banyak itu tidak memberi manfaat kepadamu sedikit pun, dan bumi yang luas itu telah terasa sempit olehmu, kemudian kamu lari ke belakang dengan bercerai-berai. Kemudian Allah menurunkan ketenangan-Nya kepada Rasul-Nya dan kepada orang-orang yang beriman.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Al-Bara' bin Azib ditanya apakah mereka melarikan diri pada hari Hunain. Ia berkata: Namun Rasulullah ﷺ tidak melarikan diri. Orang-orang berbalik lari, sedangkan Nabi ﷺ berada di atas bagalnya yang putih, sambil bersabda: Aku adalah Nabi, ini bukan dusta; aku putra Abdul Muthalib.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{ label: "Pelajaran: Kerendahan Hati dalam Kekuatan" }],
   },
   {
@@ -564,22 +425,8 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Pengorbanan tanpa imbalan yang terlihat, dan kejujuran dalam ujian, termasuk ujian iman yang terbesar.",
     },
-    quran: [
-      {
-        excerpt:
-          "Orang-orang yang ditinggalkan (tidak ikut perang) itu, merasa gembira dengan tinggalnya mereka di belakang Rasulullah, dan mereka tidak suka berjihad dengan harta dan jiwa mereka pada jalan Allah dan mereka berkata: Janganlah kamu berangkat (pergi berperang) dalam panas terik ini. Katakanlah: Api neraka Jahanam itu lebih sangat panasnya, jikalau mereka mengetahui.",
-      },
-      {
-        excerpt:
-          "Dan terhadap tiga orang yang ditangguhkan (penerimaan tobat) mereka, hingga apabila bumi telah menjadi sempit bagi mereka, padahal bumi itu luas, dan jiwa mereka pun telah sempit (pula terasa) oleh mereka, dan mereka telah mengetahui bahwa tidak ada tempat lari dari (siksa) Allah, melainkan kepada-Nya saja. Kemudian Allah menerima tobat mereka agar mereka tetap dalam tobatnya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ka'b bin Malik menceritakan bagaimana ia tertinggal dari Tabuk tanpa alasan dan menolak berbohong tentang hal itu; Nabi ﷺ memerintahkan orang-orang beriman untuk tidak berbicara dengannya dan kedua sahabatnya selama lima puluh malam, hingga bumi terasa sempit baginya — kemudian wahyu pengampunan turun, dan itu adalah salah satu hari paling membahagiakan dalam hidupnya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Pelajaran: Pengorbanan dan Ketulusan" }],
   },
 
@@ -646,20 +493,7 @@ export const BATTLES_TOPICS_ID: DeepPartial<BattlesTopic>[] = [
       "Hadis tentang ekspedisi harus diperiksa keabsahannya sebelum dipercaya. Riwayat-riwayat di bawah ini diambil dari kumpulan sahih dan berkaitan dengan perilaku dan semangat ekspedisi-ekspedisi ini; masing-masing disertai tingkat keabsahannya.",
       "Untuk riwayat yang terkait dengan pertempuran tertentu, lihat topik pertempuran itu sendiri. Gunakan Penjelajah Hadis Munib untuk membaca sanad lengkap dan tingkat keabsahan dalam konteksnya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Janganlah kalian berharap bertemu musuh, dan mohonlah keselamatan kepada Allah. Namun apabila kalian bertemu mereka, bersabarlah, dan ketahuilah bahwa surga berada di bawah naungan pedang.",
-      },
-      {
-        excerpt:
-          "Nabi ﷺ bersabda: Perang adalah tipu daya. — Para ulama menjelaskan bahwa ini mengizinkan taktik militer dalam pertempuran (pengecohan, serangan mendadak, perubahan arah), bukan izin untuk melanggar perjanjian atau mengkhianati pihak yang dilindungi.",
-      },
-      {
-        excerpt:
-          "Ketika mengangkat seorang panglima, Nabi ﷺ memerintahkannya untuk bertakwa kepada Allah, mengajak musuh kepada Islam sebelum berperang, tidak melanggar perjanjian, tidak memutilasi jenazah, dan tidak membunuh anak-anak.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{ label: "Jelajahi Hadis" }],
   },
   {
@@ -704,71 +538,47 @@ export const BATTLES_AFTER_PROPHET_ID: DeepPartial<{
 
 export const BATTLES_VERSES_ID: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "Telah diizinkan (berperang) bagi orang-orang yang diperangi, karena sesungguhnya mereka telah dizalimi… Seandainya Allah tidak menolak (keganasan) sebagian manusia dengan sebagian yang lain, tentulah telah dirobohkan biara-biara, gereja-gereja, sinagoge-sinagoge, dan masjid-masjid.",
     context:
       "Izin umum pertama untuk berperang — setelah bertahun-tahun penindasan tanpa perlawanan di Makkah.",
   },
   {
-    excerpt:
-      "Dan perangilah di jalan Allah orang-orang yang memerangi kamu, tetapi janganlah melampaui batas. Sesungguhnya Allah tidak menyukai orang-orang yang melampaui batas.",
     context: "Batasan mendasar: hanya membela diri, dan larangan tegas melampaui batas.",
   },
   {
-    excerpt:
-      "Ketika kamu memohon pertolongan kepada Tuhanmu, lalu diperkenankan-Nya bagimu: Aku akan mendatangkan bala bantuan kepadamu dengan seribu malaikat yang datang berturut-turut.",
     context:
       "Diturunkan tentang Badar — pertolongan ilahi bagi orang-orang beriman yang jumlahnya sedikit.",
   },
   {
-    excerpt:
-      "Sesungguhnya telah ada tanda bagi kamu pada dua golongan yang telah bertemu — segolongan berperang di jalan Allah dan (segolongan) yang lain kafir, yang melihat (seakan-akan) orang-orang muslimin dua kali jumlah mereka dengan penglihatan mata.",
     context:
       "Allah membuat umat Islam tampak lebih besar di mata musuh pada Badar dan meneguhkan hati.",
   },
   {
-    excerpt:
-      "Dan sesungguhnya Allah telah memenuhi janji-Nya kepada kamu, ketika kamu membunuh mereka dengan izin-Nya, hingga pada saat kamu lemah dan berselisih dalam urusan itu dan mendurhakai perintah (Rasul) sesudah Allah memperlihatkan kepadamu apa yang kamu sukai.",
     context: "Menceritakan ketidaktaatan para pemanah di Uhud dan titik balik pertempuran itu.",
   },
   {
-    excerpt:
-      "Hai orang-orang yang beriman, ingatlah akan nikmat Allah (yang telah dikaruniakan) kepadamu ketika datang kepadamu tentara-tentara, lalu Kami kirimkan kepada mereka angin topan dan tentara yang tidak dapat kamu melihatnya.",
     context: "Surah Al-Ahzab tentang pengepungan koalisi dan pertolongan ilahi.",
   },
   {
-    excerpt:
-      "Dan Dia menurunkan orang-orang Ahli Kitab yang membantu golongan-golongan yang bersekutu dari benteng-benteng mereka, dan Dia memasukkan rasa takut ke dalam hati mereka. Sebagian mereka kamu bunuh dan sebagian yang lain kamu tawan. Dan Dia mewariskan kepada kamu tanah-tanah, rumah-rumah, dan harta benda mereka.",
     context:
       "Surah Al-Ahzab tentang Bani Quraizhah, yang melanggar perjanjian saat pengepungan — sebuah peristiwa pengkhianatan militer terbatas, bukan hukum terhadap suatu agama.",
   },
   {
-    excerpt:
-      "Sesungguhnya Kami telah memberikan kepadamu kemenangan yang nyata, supaya Allah memberi ampunan kepadamu terhadap dosamu yang telah lalu dan yang akan datang serta menyempurnakan nikmat-Nya atasmu dan memimpin kamu ke jalan yang lurus.",
     context:
       "Diturunkan dalam perjalanan pulang dari Hudaibiyah — menamai apa yang dirasakan para sahabat sebagai perjanjian pahit sebagai kemenangan yang nyata.",
   },
   {
-    excerpt:
-      "Sesungguhnya Allah telah rida terhadap orang-orang mukmin ketika mereka berjanji setia kepadamu di bawah pohon, maka Allah mengetahui apa yang ada dalam hati mereka lalu menurunkan ketenangan atas mereka dan memberi balasan kepada mereka dengan kemenangan yang dekat (waktunya).",
     context:
       "Baiat Ridwan — sekitar 1.400 sahabat berbaiat di bawah sebatang pohon Akasia untuk tidak melarikan diri, dan Allah mengumumkan keridaan-Nya kepada mereka.",
   },
   {
-    excerpt:
-      "Apabila telah datang pertolongan Allah dan kemenangan, dan kamu lihat manusia masuk agama Allah dengan berbondong-bondong, maka bertasbihlah dengan memuji Tuhanmu dan mohonlah ampun kepada-Nya. Sesungguhnya Dia adalah Maha Penerima tobat.",
     context:
       "Surah An-Nasr tentang terbukanya Makkah — kemenangan yang dimahkotai bukan dengan kebanggaan, melainkan dengan pujian, permohonan ampun, dan orang-orang yang berbondong-bondong masuk agama ini.",
   },
   {
-    excerpt:
-      "Sesungguhnya Allah telah menolong kamu di medan peperangan yang banyak… kemudian Allah menurunkan ketenangan-Nya kepada Rasul-Nya dan kepada orang-orang yang beriman.",
     context:
       "Allah mengingatkan orang-orang beriman bahwa kemenangan adalah pemberian-Nya, bukan hasil kebanggaan atas jumlah.",
   },
   {
-    excerpt:
-      "Orang-orang yang ditinggalkan (tidak ikut perang) itu, merasa gembira dengan tinggalnya mereka di belakang Rasulullah, dan mereka tidak suka berjihad dengan harta dan jiwa mereka pada jalan Allah.",
     context:
       "Surah At-Taubah menegur mereka yang mencari alasan untuk menghindari pawai berat Tabuk.",
   },

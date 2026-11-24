@@ -15,21 +15,8 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       "Bir imanly, Allanyň her jaňy eşidýändigini we hiç haçan çyn ýürekden ýüz öwürmejekdigine ynamly we gizlinlikde dua edýär. Ol şeýle bir ýakyn welin, 'Men jaň edeniň jaňyna jogap bererin' diýýär.",
       "Jogap, Pygamberiň öwreden üç görnüşinden birini alýar: Allah soralan zady berýär; ýa-da ony saklaýar we ahyret üçin deň ýa-da uly sylag saklaýar. ýa-da oňa deň zyýany ret edýär. Şonuň üçin hiç bir çyn ýürekden jogapsyz jogap berilmeýär - käwagt iň uly rehim biziň görmeýän jogabymyzda bolýar.",
     ],
-    quran: [
-      {
-        excerpt: 'Perwerdigäriňiz maňa ýüz tutuň diýýär. Men saňa jogap bererin "-diýdi.',
-      },
-      {
-        excerpt:
-          "Hyzmatkärlerim senden Menden sorasa, hakykatdanam ýakyn. Jaň edeniň maňa jaň edenine jogap berýärin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dua ybadatdyr. - Soňra ol okady: 'Rebbiňiz maňa jaň ediň diýýär. Men saňa jogap bererin \"-diýdi. (an-Nu'man ibn Başir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -40,16 +27,7 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       "Üç sany içki häsiýeti bolan Allaha ýüz tutuň: kiçigöwünlilik, jogap berip biljekdigine ynam we Oňa gowy pikir (husn al-zann). Mümkin bolan ýeriňizde kybla ýüz tutuň, elleriňizi galdyryň, mübärek wagtlary saýlaň we bu durmuşyň we ahyretiň meselelerini soraň. Möhüm haýyşlary gaýtalamak we başlanyňyzda - öwgi we salawat bilen gutarmak maslahat berilýär.",
       "Iň esasy zat, howlukmaň. Pygamberimiz, bir adamyň umytsyz bolup, 'jaň etdim, jaň etdim, ýöne jogap bermedim' diýýänçä dua jogap beriljekdigini, soň bolsa terk etjekdigini duýdurdy. Soramakda tutanýerlilik ybadatdyr we Alla gapyny kakmagyny dowam etdirýän hyzmatkäri söýýär.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hyzmatkäriň dua howlukmasa, 'Dua etdim, ýöne jogap berilmedi' diýip jogap bermäge dowam edýär. (Abu Hureýra)",
-      },
-      {
-        excerpt:
-          "Biriňiz doga edeniňizde, Rebbini wasp etmekden we şöhratlandyrmakdan başlasyn, Pygambere salawat ibersin, soň islän zadyny soraň. (Fadalah ibn Ubaýd)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Alhamdulillah we Pygamberimize salawat bilen her duany açyň ﷺ.",
       "Alladan mätäçligiňize laýyk atlar bilen soraň (meselem, Ra Razzaq, bagyşlamak üçin Ga Gafur).",
@@ -65,16 +43,7 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       "Kanuny rysgal güýçli açardyr. Pygamberimiz, ellerini asmana göterip, 'Lorda Reb, ýa Reb,' diýip aglaýan syýahatçyny suratlandyrdy, ýöne 'iýmit haram, içgisi haram, geýimleri haram we bikanunlar tarapyndan iýmitlenýär - oňa nädip jogap berip bolar?' Girdejisini goramak, günäden toba etmek, günäli bir zat soramazlyk ýa-da maşgala gatnaşyklarynyň kesilmegi, dua bilen kabul edilmegiň arasyndaky päsgelçilikleri aýyrýar.",
       "Şeýle-de bolsa, kabul etmek, gözegçilik edýän geleşigimiz däl-de, ahyrsoňy Allanyň rahmetidir. Şonuň üçin imanly iň güýçli güýjüni - yhlas, halal durmuş, toba - pespäl ynam bilen birleşdirýär we jogap gijikdirilse hiç haçan umytdan düşmeýär. Gowşaklyk we geçmişdäki günäler soramagy bes etmäge sebäp däl; iň rehimdarlyga gaýdyp gelmegiň has köp sebäbi bar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "... iýmitleri haram, içgileri haram, eşikleri haram, bikanunlar bilen iýmitlenýär - oňa nädip jogap berip bolar? (Abu Hureýra)",
-      },
-      {
-        excerpt:
-          "Hyzmatkäriň dua günäli bir zat soramasa ýa-da maşgala gatnaşyklarynyň kesilmegi üçin jogap berilýär. (Abu Hureýra)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Girdejiňizi we kanunylyk üçin çykdajylaryňyzy gözden geçiriň - bu duaňyza gönüden-göni täsir edýär.",
       "Istighfar we çyn ýürekden toba etmek bilen uzak dileg ediň.",
@@ -89,16 +58,7 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       "Iň güýçlileriň arasynda: gijäniň soňky üçden bir bölegi, Allatagala (beýikligine laýyk görnüşde) iň pes asmana inip: 'Menden kim soraýar, men oňa bererin?'; Allaha iň ýakyn ýerdäki sejde; adhan bilen ikamanyň arasyndaky pursat; adam agyz bekleýän wagty, esasanam agyz bekleýän wagty; ýagyş wagtynda; we anna gününiň gün ýaşmazyndan öň iň soňky sagady, bu ýerde dua ret edilmeýän bir sagat bar.",
       "Bereketli ýerler we ştatlar Haj wagtynda Arafada durmagy, mukaddes uçastoklaryň içinde bolmagy, syýahatçy, çagasy üçin ene-atasy we birine zulum edenleri öz içine alýar. Bulary yzygiderli dileg etmek üçin berk labyr hökmünde ulanyň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rebbimiz her gije gijäniň soňky üçden birinde iň pes jennete inýär we şeýle diýýär: Oňa jogap bermek üçin kim meni çagyrýar? Kim menden soraýar, men oňa bererin? (Abu Hureýra)",
-      },
-      {
-        excerpt:
-          "Hyzmatkär Rebbe seatedde edeninde iň ýakyn, şonuň üçin köp dileg ediň. (Abu Hureýra)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -112,14 +72,10 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Saýyid al-Istighfar (bagyşlanmagy gözleýän başlyk)",
         when: "Her gün irden we agşam bir gezek",
-        translation:
-          "Eý, Alla, sen meniň Rebbim; senden başga hudaý ýok. Sen meni ýaratdyň, men bolsa seniň guluň, men seniň ähtiňe wepaly bolýaryn. Eden ýamanlygymdan Saňa pena tapýaryn. Seniň maňa beren merhemetiňi kabul edýärin we günälerimi boýun alýaryn, meni bagyşla - çünki günäleri senden başga hiç kim bagyşlamaz.",
       },
       {
         title: "Hasbiyallahu la ilaha illa Huwa",
         when: "Her gün irden we agşam ýedi gezek",
-        translation:
-          "Allah maňa ýeterlikdir; Ondan başga hudaý ýok. Oňa bil baglaýaryn, Ol Gudratly Arşyň Rebbidir.",
       },
     ],
     appLinks: [{}, {}],
@@ -135,18 +91,14 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua oýanmak",
         when: "Derrew oýanandan soň",
-        translation: "Hemme öwgüler, ölmegimizden soň bize ýaşaýyş beren Allaha we direlişdir.",
       },
       {
         title: "Uklamazdan öň Dua",
         when: "Sleepatmak üçin ýatanyňyzda",
-        translation: "Seniň adyň bilen, eý, Alla, men ölýärin we ýaşaýaryn.",
       },
       {
         title: "Aýat al-Kursi uklamazdan ozal",
         when: "Sleepingatmazdan ozal",
-        translation:
-          "Allah - Ondan başga hudaý ýok, hemişe ýaşaýan, hemmeleriň ekleýjisi. Ukusyzlyk ýa-da uky Oňa ýetenok. Gökdäki we ýerdäki zatlar Oňa degişlidir. Onuň rugsady bolmazdan, kim bilen şepagat edip biler? Öňlerinde we arkasynda nämeleriň bardygyny bilýär we bilimlerinden islän zadyny öz içine almaýar. Arşy asmanyň we ýeriň üstünden uzalyp gidýär, gorap saklamak Ony ýadamaýar. Ol Beýik, Beýikdir.",
       },
     ],
     appLinks: [{}, {}],
@@ -162,13 +114,10 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Öýden çykanda Dua",
         when: "Jaýdan çykanda",
-        translation:
-          "Allanyň ady bilen; Men Allaha bil baglaýaryn; Alladan başga güýç we güýç ýok.",
       },
       {
         title: "Dua metjide girýär",
         when: "Girip, sag aýak bilen ädim ätmek",
-        translation: "Eý, Alla, maňa rehimdarlygyň derwezelerini aç.",
       },
     ],
     appLinks: [{}, {}],
@@ -184,13 +133,10 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Nahardan öň",
         when: "Nahar başynda",
-        translation: "Allanyň ady bilen.",
       },
       {
         title: "Nahardan soň",
         when: "Nahar gutarandan soň",
-        translation:
-          "Hemme öwgi, muny maňa iýmitlendiren we maňa güýç-kuwwatsyz beren Allaha şükür.",
       },
     ],
     appLinks: [{}],
@@ -206,14 +152,10 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Taharetden soň",
         when: "Taharet gutarandan soň derrew",
-        translation:
-          "Diňe Alladan başga hudaýyň ýokdugyna, şärigi ýokdygyna şaýatlyk edýärin we Muhammediň guly we Resulydygyna şaýatlyk edýärin.",
       },
       {
         title: "Namazdan öň",
         when: "Namazy gutarmazdan ozal iň soňky daşhudda",
-        translation:
-          "Eý, Allatagala, dowzahyň jezasyndan, gabyr jezasyndan, ýaşaýyş we ölüm synaglaryndan, ýalan Mesihiň (Dajjal) synagyndan erbetlik alýaryn.",
       },
     ],
     appLinks: [{}, {}],
@@ -229,16 +171,9 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Adandan soň dua",
         when: "Adhan gutaranda",
-        translation:
-          "Eý, Allatagala, bu ajaýyp çagyryşyň we namazyň Rebbi, Muhammet al-Wasila we al-Fadilaha ber we ony wada beren waspyňa göter.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Adhan bilen ikamanyň arasynda edilen dua ret edilmeýär. (Anas ibn Mälik; Tirmizi 212-de)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -252,13 +187,10 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Alada we gaýgy üçin dua",
         when: "Gynanç, alada ýa-da gaty gynanç",
-        translation:
-          "Eý, Allatagala, alada we gaýgydan, ukypsyzlykdan we ýaltalykdan, betbagtlykdan we gorkaklykdan, berginiň agyrlygyndan we başgalar tarapyndan güýçlenmekden pena soraýaryn.",
       },
       {
         title: "Allah bize ýeterlikdir",
         when: "Gorkanyňyzda ýa-da ýüregiňiz gysanda",
-        translation: "Allatagala biziň üçin ýeterlikdir we işleriň iň gowusydyr.",
       },
     ],
     appLinks: [{}, {}],
@@ -274,8 +206,6 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sagalmak üçin dua",
         when: "Sickarawsyz ýa-da syrkaw adamyň üstünde doga etmek",
-        translation:
-          "Eý, adamzadyň Rebbi, hasraty aýyr we şypa ber - Sen tebip; bejergiňizden başga bejergi ýok - kesel galdyrmaýan bejergi.",
       },
     ],
     appLinks: [{}, {}],
@@ -291,12 +221,10 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Freygy-ýygydan toba",
         when: "Günüň dowamynda gaýta-gaýta",
-        translation: "Allanyň bagyşlamagyny gözleýärin we toba edip Oňa ýüzlenýärin.",
       },
       {
         title: "Berk ýürek üçin dua",
         when: "Nädogry ýoldan ýa-da sarsmakdan gorkanda",
-        translation: "Eý, ýürekleriň öwrümi, ýüregimi seniň diniňe berkit.",
       },
     ],
     appLinks: [{}, {}],
@@ -312,13 +240,10 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Syýahat etmek üçin ýola çykanyňda",
         when: "Ulagyňyzy gurup, ugranyňyzda",
-        translation:
-          "Muny özümiz edip bilmedik wagtymyz, bize tabyn bolanlara şöhrat bolsun! Hakykatdanam, Rebbimize gaýdyp geleris.",
       },
       {
         title: "Rainagyş ýaganda dua",
         when: "Rainagyşyň başynda",
-        translation: "Allaha Allah, peýdaly ýagyş ýagdyr.",
       },
     ],
     appLinks: [{}, {}],
@@ -330,18 +255,11 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       "Düzgün (rizq) diňe Alladan; imanly adam düýäni baglaýar - işleýär we gazanýar - soň üpjün edijiden kanuny iýmit, gazanýan zadynda barakah, karzdan azatlyk we başgalara mätäçlikden garaşsyzlyk soraýar. Pygamberimiz, muny takyk soraýan owadan dua öwretdi.",
       "Öý üçin, Gurhanyň özi dogruçyllaryň dogasyny öwredýär: ousr-aýallara we çagalara “göz üçin rahatlyk” berilmegi we iman, doga we rehimdarlyk bilen birleşdirilen öý hojalygyny alyp barmak.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rebbimiz, är-aýallarymyzyň we nesillerimiziň arasyndan bize rahatlyk ber we bizi dogruçyllar üçin ýolbaşçy et.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Kanuny üpjün etmek üçin dua",
         when: "Irden, namazdan soň we maddy kynçylykda",
-        translation:
-          "Eý, Allatagala, haram eden zatlaryňa garşy haram eden zatlaryň bilen maňa ýeterlik we bereketiň bilen baýlaşdyr, şonuň üçin senden başga hiç kim gerek däl.",
       },
     ],
     appLinks: [{}],
@@ -357,14 +275,10 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Iki dünýäde-de gowy",
         when: "Umumy, ähli maksatly dua - Pygamberiň iň ýygy-ýygydan",
-        translation:
-          "Rebbimiz, bize bu dünýäde ýagşylyk we ahyretde ýagşylyk ber we bizi ot jezasyndan gora.",
       },
       {
         title: "Imanda berklik",
         when: "Gyşmakdan gorkanda ýa-da ýol görkezilenden soň",
-        translation:
-          "Lorda Reb, bize ýol görkezeniňden soň ýüregimiz sowulmasyn we Özüňden rehim et. Hakykatdanam, sen iň gowusy.",
       },
     ],
     appLinks: [{}, {}],
@@ -380,7 +294,6 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dörtlügiň giňişleýin dua",
         when: "Umumy gündelik dileg",
-        translation: "Eý, Alla, senden ýol görkezmek, takwalyk, päklik we kanagatlylyk soraýaryn.",
       },
     ],
     appLinks: [{}],
@@ -396,12 +309,10 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Söýgüli we günäni öçürýän sözler",
         when: "Günüň dowamynda; 100 gezek günäleri ýok edýär",
-        translation: "Allaha şöhrat bolsun, ähli öwgi Oňa degişlidir.",
       },
       {
         title: "Terezide iki söz agyr",
         when: "Islendik wagt",
-        translation: "Allaha şöhrat bolsun, öwgi Alladyr. Beýik Allatagala şöhrat bolsun!",
       },
     ],
     appLinks: [{}],
@@ -413,18 +324,11 @@ export const LEARN_DUA_TOPICS_TK: DeepPartial<LearnDuaTopic>[] = [
       "Pygambere salawat ibermek Gurhanda Allah tarapyndan emr edilýär - 'Hakykatdanam, Allah we onuň perişdeleri Pygambere salam iberýärler. Eý imanlylar, oňa salam we salam iberiň 'we başga hiç bir dua beýle kepillendirilen gaýdyp gelmeýär: Pygamber alaýhyssalam: «Kim oňa bir nygmat iberse, Allatagala on adama iberýär» diýdi.",
       "Freygy-ýygydan salawat rehimdarlyk getirýär, derejeleri ýokarlandyrýar, günäleri süpürýär we Kyýamat güni Pygambere iň ýakyn adamy özüne çekýär. Aşakdaky Ybraýymyň doly görnüşi - sahabalaryna salam bermegi haýyş edenlerinde öwreden görnüşi - her doganyň daşynda okalýar we günüň dowamynda dilde gürlemek üçin ajaýyp.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakykatdanam, Allatagala we perişdeleri Pygambere salawat iberýärler. Eý iman edenler, oňa salam we parahatçylyk salamlaryny iberiň.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Doly Salawat Ybraýymiýa",
         when: "Doga namazynda we günüň dowamynda",
-        translation:
-          "Eý, Allatagala, Ybraýyma we Ybraýymyň maşgalasyna ak pata berşiň ýaly, Muhammet we Muhammet maşgalasyna alkyş iber! hakykatdanam Sen öwgä mynasyp, şöhratlysyň. Eý, Allatagala, Ybraýymy we Ybraýymyň maşgalasyny söýşüň ýaly, Muhammede we Muhammet maşgalasyna merhemet et! hakykatdanam Sen öwgä mynasyp, şöhratlysyň.",
       },
     ],
     appLinks: [{}],

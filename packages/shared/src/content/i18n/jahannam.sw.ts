@@ -26,20 +26,7 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Jambo kuu la faraja katika imani ya Sunni linapitia katika somo hili zima: wale wanaokufa wakiwa wanamwamini Mwenyezi Mungu pekee, hata kama wamelemewa na dhambi, hawatabaki Motoni milele. Kwa rehema ya Mwenyezi Mungu na uombezi Anaoruhusu, hatimaye Waumini wakosefu wanatolewa; ni wale tu wanaokufa na kukataa imani wanabaki. Kwa hiyo utafiti wa Jahannam, kwa Muumini, hatimaye ni somo la jinsi ya kufikia rehema.",
       "Moduli hii inawasilisha yale ambayo maandiko yanaeleza kwa uwazi, inabainisha kwa uaminifu pale ambapo wanachuoni wametofautiana, inataja ushahidi sahihi tu, na mara kwa mara inakuelekeza kwenye tawbah, matendo mema, na kumtegemea Mwenyezi Mungu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Uogopeni Moto ulioandaliwa kwa ajili ya makafiri, na mtiini Mwenyezi Mungu na Mtume ili mrehemewe.",
-      },
-      {
-        excerpt:
-          "Sema: Enyi waja wangu mliojidhulumu nafsi zao, msikate tamaa na rehema ya Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote.",
-      },
-      {
-        excerpt:
-          "Enyi mlio amini, tubuni kwa Mwenyezi Mungu toba ya kweli, huenda Mola wenu Mlezi akakufutieni maovu yenu na akakuingizeni katika Mabustani.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -47,29 +34,13 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
     summary: "Haki ya Kimungu, uwajibikaji, na matokeo ya uchaguzi huru.",
     body: [
       "Jahannam ipo kama dhihirisho la uadilifu kamili wa Mwenyezi Mungu ('adl). Ulimwengu ambamo dhalimu na mdhulumiwa, wanyofu na wasaliti, wote walikutana na mwisho mmoja haungekuwa wa haki. Kwa sababu Mwenyezi Mungu ni Muadilifu kabisa, lazima kuwe na hesabu ya mwisho ambapo kila ubaya hujibiwa na kila jema huheshimiwa.",
-      "Muhimu katika hili ni kwamba Mwenyezi Mungu hamdhulumu yeyote. Kila nafsi inayoingia Motoni inaingia humo kwa khiari yake iliyo pita bila kutubia. Qur’ani inasisitiza: “Mwenyezi Mungu hawadhulumu watu hata kidogo, bali watu wanajidhulumu nafsi zao.” (4:40). Hakuna anayeadhibiwa kwa yale ambayo hakufanya, wala zaidi ya yale yanayostahiki.",
+      "Muhimu katika hili ni kwamba Mwenyezi Mungu hamdhulumu yeyote. Kila nafsi inayoingia Motoni inaingia humo kwa khiari yake iliyo pita bila kutubia. Qur’ani inasisitiza: “Mwenyezi Mungu hawadhulumu watu hata kidogo, bali watu wanajidhulumu nafsi zao.” (10:44). Hakuna anayeadhibiwa kwa yale ambayo hakufanya, wala zaidi ya yale yanayostahiki.",
       "Wanadamu hawakuachwa gizani. Mwenyezi Mungu aliwapa akili, na akatuma Mitume, na akateremsha uwongofu ulio wazi, kisha akawatukuza kwa uhuru wa kweli wa kuukubali au kuukataa. na anayetaka basi na akufuru” (18:29). Kudumu katika kukataa ukweli, ukandamizaji, au katika dhambi kubwa bila kutubu kunaleta matokeo huko Akhera kwa sababu kwa hakika uchaguzi ulikuwa wa mtu mwenyewe.",
       "Lakini hata hapa rehema hutengeneza haki. Mwenyezi Mungu anaonya kabla ya kuhukumu, anachelewesha hisabu ili kutoa nafasi ya kurudi, anasamehe kwa upesi anapoombwa, na analipa kheri moja mara nyingi huku akiandika dhambi moja kuwa moja. Haki yake kamwe haitenganishwi na rehema zake.",
       "Kutafakari kwa nini Jahannam ipo kunapaswa kuongeza taqwa (kumcha Mungu) na kuongeza shukurani kwa kila siku ya maisha ambayo bado ni nafasi ya kutubu. Inakusudiwa kuufanya moyo kuwa mzito na wenye tumaini mara moja - usiwahi kuupooza kwa kukata tamaa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu hawadhulumu watu hata kidogo, lakini watu wanajidhulumu nafsi zao.",
-      },
-      {
-        excerpt: "Haulizwi kwa anayoyafanya, lakini wao wataulizwa.",
-      },
-      {
-        excerpt: "Anayetaka na aamini; na anayetaka na akufuru. Tumewaandalia madhalimu Moto.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Hataingia Peponi hata mmoja wenu kwa vitendo vyake peke yake. Wakasema: Hata wewe ewe Mtume wa Mwenyezi Mungu? Akasema: Si mimi, isipokuwa Mwenyezi Mungu amenifunika kwa rehema yake.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -81,15 +52,7 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Kuona barabara nzima pia hurekebisha Moto. Ni eneo moja linalowezekana mwishoni mwa safari ambayo kila mtu tayari anasafiri - ambayo inamaanisha kuwa chaguzi za leo sio za kufikirika. Ni hatua kando ya barabara hiyo, na bado ni zetu kuzielekeza.",
       "Kujua mlolongo huu kunamsaidia Muumini kujiandaa badala ya kuogopa: kuishi na kumbukumbu yenye afya ya kifo (dhikr al-mawt), kurekebisha makosa kabla ya kuingizwa kwenye Mkusanyiko, na kujaza hesabu ya matendo mema wakati mlango wa kutenda bado uko wazi. Mauti hufunga mlango huo; hakuna kinachoweza kuongezwa baada yake.",
     ],
-    quran: [
-      {
-        excerpt: "Kisha hakika mtakufa baada ya hayo. Kisha hakika mtafufuliwa Siku ya Kiyama.",
-      },
-      {
-        excerpt:
-          "Ama yule ambaye mizani yake ni nzito, atakuwa katika maisha ya furaha. Ama yule ambaye mizani yake ni nyepesi - kimbilio lake ni shimo.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Jifunze kila hatua katika Jifunze Aqeedah na uunganishe imani na chaguo za kila siku.",
       "Ongeza ukumbusho wa kifo (dhikr al-mawt) bila ya kupuuza matumaini katika rehema.",
@@ -107,14 +70,7 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Ni thamani ya neno la tahadhari hapa. Waandishi wengine wa baadaye huwasilisha kila jina kama 'kiwango' cha kuzimu, wakati mwingine na michoro ya kina. Hiyo ni tafsiri ya kielimu, si orodha ya wazi iliyotajwa ndani ya Qur'ani au katika hadithi zilizokubaliwa. Mbinu iliyosawazishwa ni kujifunza maana ambazo matini hutoa na kuepuka kuwasilisha ramani za kubahatisha kama uhakika.",
       "Madhumuni ya kujifunza majina si kukidhi udadisi bali kulainisha moyo na kuusogeza kwenye rehema ile ile moduli hii inaendelea kuelekeza. Vinjari mkusanyiko kamili wa majina kwa kila jina kutokea kwa Qur'ani, muktadha na muhtasari wa tafsir.",
     ],
-    quran: [
-      {
-        excerpt: "Inatosha Jahannamu kama mahali pa kupumzika - Jahannam.",
-      },
-      {
-        excerpt: "Atatupwa katika Hutamah, Moto unao angamiza.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -127,21 +83,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Mambo mawili, hata hivyo, ni ya uhakika. Kwanza, dhulma hiyo (dhulm), shirki, na madhambi makubwa yanayoendelea bila kutubia yana onyo kali. Pili - na kamwe isisahaulike - kwamba rehema na msamaha wa Mwenyezi Mungu hubaki wazi hadi wakati wa kifo kwa yeyote anayerejea Kwake kwa uaminifu. Jambo la kujifunza kuhusu digrii ni kuchagua njia nyepesi huku chaguo likibaki.",
       "Kivitendo, hii ina maana ya kutilia maanani orodha za kina za 'viwango saba' au mipango inayofanana na hiyo kama maoni ya wasomi badala ya mafundisho yaliyotulia, na kuzingatia kile hasa kinacholinda: imani, toba, na matendo ya haki.",
     ],
-    quran: [
-      {
-        excerpt: "Kwa wote kutakuwa na digrii kulingana na walivyofanya.",
-      },
-      {
-        excerpt:
-          "Hakika wanaafiki watakuwa katika kina cha chini kabisa cha Moto, wala hutapata wa kuwanusuru.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Atakayeadhibiwa mdogo kabisa katika watu wa Motoni ni mtu ambaye chini ya miguu yake pamewekwa makaa mawili, ambayo ubongo wake unachemka.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Michoro ya viwango vya Kuzimu inayopatikana katika baadhi ya vitabu inaonyesha tafsiri ya kitaalamu, si makubaliano ya pamoja.",
   },
@@ -154,12 +97,7 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Ni muhimu kutambua ambapo uhakika unaisha. Kazi zingine za baadaye zinaweka kila lango maalum kwa dhambi au kikundi fulani. Kazi hizi mahususi hazijaanzishwa kwa usawa katika vyanzo vya awali, kwa hivyo zinawasilishwa vyema kama maoni ya wasomi binafsi badala ya maelezo ya kinabii.",
       "Kama ilivyo kwa viwango, somo la milango si la usanifu bali ni la kimaadili: kuna milango mingi inayoongoza kuelekea Motoni, na njia ya kuwa salama kutokana na yote ni sawa - imani ya kweli, kuepuka dhambi kubwa, na toba ya haraka wakati mtu anapoteleza.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na hakika Jahannamu ndio mahala pao pa ahadi kwa wote. Ina milango saba; kwani kila lango lina fungu.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -172,26 +110,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Kuna adabu (adab) ya kusoma vifungu hivyo. Wanafikiwa kwa unyenyekevu, khofu kwa Mwenyezi Mungu, na msukumo wa haraka wa kutubu na kutafuta hifadhi - sio kwa mvuto mbaya, na kamwe kwa kukata tamaa, kwani madhumuni yote ya onyo ni kwamba bado tuna wakati wa kuliepuka.",
       "Labda mada nzito zaidi katika maelezo haya ni majuto. 'Laiti ningekuwa…' itasemwa wakati wa kuchukua hatua tayari umekwisha. Rehema ya kusikia kuhusu majuto hayo sasa ni kwamba tunaweza kutenda kulingana na 'ikiwa tu' leo, ilhali inaweza kubadilisha mwisho wetu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kabla yake ipo Jahannamu, na atanyweshwa maji machafu. Ataimeza lakini hataimeza.",
-      },
-      {
-        excerpt:
-          "Nguo za moto zitakatwa kwa ajili yao, na maji yanayo chemka yatamiminwa juu ya vichwa vyao.",
-      },
-      {
-        excerpt:
-          "Jahannamu siku hiyo italetwa - Siku hiyo mwanadamu atakumbuka, lakini ni kheri gani kwake kukumbuka?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Moto wako ni sehemu moja ya sehemu sabini za moto wa Jahannamu. Ikasemwa: Ewe Mtume wa Mwenyezi Mungu, moto huu ungetosha. Akasema: Imepewa nguvu ya sehemu sitini na tisa zaidi yake, kila sehemu ni kama joto lake.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -203,18 +123,7 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Kwa sababu hii, Uislamu hauturuhusu sisi kutangaza hatima ya mtu yeyote makhsusi - kusema 'mtu huyu yuko Motoni' - isipokuwa katika matukio ya nadra ambapo Mwenyezi Mungu au Mtume Wake (Swalla Allaahu 'alayhi wa aalihi wa sallam) waliieleza kwa uwazi katika wahyi sahihi. Nyoyo zinazo hukumu na mwisho ni wa Mwenyezi Mungu peke yake; kazi yetu ni hesabu yetu wenyewe.",
       "Kwa hivyo njia sahihi ya kusoma kila onyo ni kuligeuza ndani: sio 'hii inaelezea nani?' lakini 'je, lolote kati ya haya linanielezea, na nitabadilisha nini leo?' Yeyote wewe ni nani, mwaliko wa kurejea kwa Mwenyezi Mungu uko wazi sasa hivi - na kesho hakuahidiwa yeyote.",
     ],
-    quran: [
-      {
-        excerpt: "Wanaafiki watakuwa katika kina cha chini kabisa cha Moto.",
-      },
-      {
-        excerpt: "Wanaochuma madhambi na kumezwa nayo, hao ndio watu wa Motoni, wadumuo milele.",
-      },
-      {
-        excerpt:
-          "Usimdhanie Mwenyezi Mungu kughafilika na wanayoyafanya madhalimu. Hakika Yeye anawachelewesha ila Siku ambayo macho yatakodoa.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -227,26 +136,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Na huu ndio upeo wa hayo yote: isipokuwa kufa juu ya shirki, kila dhambi kubwa au ndogo huangukia kwenye msamaha wa Mwenyezi Mungu akipenda. “Hakika Mwenyezi Mungu hasamehi ushirika naye, lakini husamehe yaliyo duni kuliko hayo kwa amtakaye.” (4:48). Hakuna mwamini anayepaswa kuhitimisha kwamba dhambi zao kuu zinawaweka zaidi ya huruma.",
       "Kila mada kuu ya dhambi katika somo hili inatoa ufafanuzi wake, ushahidi wake, kwa nini ni mbaya, na njia madhubuti ya toba na kuepukana - daima ikiishia kwenye mlango ule ule ulio wazi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mkijiepusha na madhambi makubwa mnayokatazwa, tutakuondoleeni madhambi yenu madogo na tutakuingizeni kwenye mlango mzuri.",
-      },
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu hasamehi ushirika naye, lakini husamehe yaliyo duni kuliko hayo kwa amtakaye.",
-      },
-      {
-        excerpt:
-          "Ambao wanajiepusha na madhambi makubwa na uchafu, ila wakifanya madogo, hakika Mola wako Mlezi ni Mkubwa wa kusamehe.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dhambi kubwa miongoni mwa madhambi makubwa ni kumshirikisha Mwenyezi Mungu, kuua nafsi, kuwaasi wazazi na kutoa ushahidi wa uwongo.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -259,20 +150,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Kinachofanya dhambi hizi kuwa hatari ni jinsi zilivyo rahisi na mazoea. Watu huingia ndani yao katika mazungumzo ya kawaida bila ya kufikiria tena, ndiyo maana Mtume (Swalla Allaahu ´alayhi wa sallam) akafungamanisha imani yenyewe na maneno ya kulinda: 'Mwenye kumuamini Mwenyezi Mungu na Siku ya Mwisho, basi na aseme mema au anyamaze.' Kutua kidogo kabla ya kuzungumza ni tendo la kweli la ibada.",
       "Kutubu kutokana na dhambi ya ulimi hufuata masharti ya kawaida - kuacha, kujuta, kuazimia kutorudi - kwa mwelekeo wa ziada wakati haki ya mtu mwingine inahusika. Ambapo kusafisha jina lao au kutafuta msamaha wao kunaweza kufanywa bila kusababisha madhara makubwa zaidi, hiyo ni sehemu ya toba; ambapo kuwafahamisha kungezidisha maudhi, wanachuoni wanashauri badala ya kuwasema vyema, kuwatetea wakiwa hawapo, na kuwaombea msamaha.",
     ],
-    quran: [
-      {
-        excerpt: "Msisemezane. Je! mmoja wenu anapenda kula nyama ya nduguye aliyekufa?",
-      },
-      {
-        excerpt: "Ole wake kila mwenye dharau na mzaha.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kumuamini Mwenyezi Mungu na Siku ya Mwisho, basi na aseme mema au anyamaze.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Kabla ya kuzungumza, uliza: Je! Je, ni lazima? Je, ni fadhili?",
       "Ukimsengenya mtu, mfanyie dua na umuombee msamaha inapowezekana.",
@@ -288,21 +167,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Hii inafundisha somo muhimu kuhusu toba: kurejea kwa Mwenyezi Mungu ni muhimu, lakini wakati haki ya binadamu imekiukwa, yenyewe haitoshi. Dai la mtu aliyedhulumiwa linabakia mpaka litatuliwe au lisamehewe. Kwa hivyo toba hapa ina sharti la nne zaidi ya kuacha, kujuta, na kusuluhisha - kurudisha kile kinachodaiwa.",
       "Kwa mazoezi hilo lamaanisha kurudisha kile kilichochukuliwa au thamani yake, kulipa deni hata hatua kwa hatua, kurejesha sifa ambazo mtu ameharibu, na kufikia kupatana na watu wa ukoo mtu amekata. Na katika hili pia kuna rehema: kila hatua ya urejeshaji yenyewe ni amali njema, na Mwenyezi Mungu huutuliza moyo wa ikhlasi unaojipanga kutengeneza uliyoivunja.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ikiwa nyinyi hamuachi Riba, basi angalieni vita kutoka kwa Mwenyezi Mungu na Mtume wake.",
-      },
-      {
-        excerpt: "Wale wanao vunja ahadi ya Mwenyezi Mungu na kukata Aliyo amrisha wanajiunga.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Je, unamfahamu aliyefilisika ni nani? Yule anayekuja na swala, saumu, na sadaka, lakini alitukana, akakashifu, akala mali kwa haramu, na kumwaga damu - basi amali zake njema hupewa wengine.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Orodhesha mtu yeyote ambaye huenda umemkosea na uchukue hatua ya kurekebisha wiki hii.",
       "Lipa madeni ambayo hujalipa hata kwa awamu ndogo ikiwa ni hivyo tu unaweza kusimamia.",
@@ -318,21 +184,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Tofauti hii ni muhimu sana kwa jinsi tunavyotumia mada. Ishara za tabia hutolewa kama kioo cha mtu mwenyewe, sio kama lebo ya kuwabandika wengine. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) na Maswahaba zake waliogopa unafiki ndani yao kwa hakika kwa sababu moyo umefichika na unaweza kubadilika.",
       "Kwa hiyo jibu lenye afya ni la ndani: kuangalia uaminifu wa mtu mwenyewe, uaminifu kwa ahadi, na uaminifu, na kumwomba Mwenyezi Mungu ikhlasi (ikhlas). Mwenyezi Mungu pekee ndiye anayejua yaliyomo ndani ya mtu, na kuwatuhumu watu makhsusi kwa unafiki yenyewe ni uasi mkubwa dhidi yao.",
     ],
-    quran: [
-      {
-        excerpt: "Wanaafiki watakuwa katika kina cha chini kabisa cha Moto.",
-      },
-      {
-        excerpt:
-          "Wanapokujia wanaafiki husema: Tunashuhudia kwamba wewe ni Mtume wa Mwenyezi Mungu, na Mwenyezi Mungu anajua kuwa ni waongo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alama za mnafiki ni tatu: anaposema husema uwongo, anapoahidi huvunja, na anapokabidhiwa hufanya khiyana.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Usiwatuhumu watu binafsi kwa nifaq. Maandiko hayo yanaonya jamii; utakaso huanza na wewe mwenyewe.",
   },
@@ -345,16 +198,7 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Jinsi muumini anavyojishughulisha na haya yote ndio muhimu. Kusudi sio kamwe kukaa juu ya maelezo ya picha au kuruhusu moyo kuzama; ni kupokea onyo, kutubu kutokana na chochote kinachohusika, na kisha kuelekeza nguvu kwenye matendo ambayo kwa hakika yanalinda. Ndio maana moduli hii kwa makusudi inatoa nafasi zaidi kwa ulinzi, toba, na rehema kuliko adhabu.",
       "Kwa ufupi, uondoaji sahihi wa adhabu yoyote iliyotajwa ni swali, sio woga: 'Je, ninafanya hivi - na kama ni hivyo, nitaachaje na kulisahihisha?' Likijibiwa kwa uaminifu leo, onyo hilo tayari limefanya kazi yake ya rehema.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wale wanaowasingizia wanawake wema na wasilete mashahidi wanne, basi wapigeni bakora themanini.",
-      },
-      {
-        excerpt:
-          "Wale wanao kusanya dhahabu na fedha, wala hawazitumii katika Njia ya Mwenyezi Mungu, wabashirie adhabu iumizayo.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -367,22 +211,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Angalia usawa wa Sharia. Njia za ulinzi ni nyingi zaidi, zimesisitizwa zaidi, na zinapatikana zaidi kuliko sababu za uharibifu - na hii yenyewe ni ishara ya rehema ya Mwenyezi Mungu. Ni rahisi sana kuokolewa kuliko kupotea.",
       "Sehemu hii kwa makusudi ndiyo kubwa zaidi katika moduli, kwa sababu hivyo ndivyo Uislamu wenyewe unavyolipima jambo hilo: onyo daima linaambatana na matumaini, na kamwe halijatenganishwa na hatua madhubuti ambayo mtu anaweza kuanza leo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wale wanao sema: Mola wetu Mlezi, tumeamini, basi tusamehe madhambi yetu na utulinde na adhabu ya Moto.",
-      },
-      {
-        excerpt:
-          "Mola wetu Mlezi, tupe mema duniani na Akhera mema, na utulinde na adhabu ya Moto.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kumuomba Mwenyezi Mungu Pepo mara tatu, basi husema: Ewe Mwenyezi Mungu, muingize Peponi. Mwenye kujikinga na Moto mara tatu, Moto husema: Ewe Mwenyezi Mungu, mkinge na Moto.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Kukariri du'a ya kuomba hifadhi kutoka kwa Jahannam kabla ya salamu katika swala.",
       "Omba sala tano za kila siku kwa wakati - kati ya ngao kali zaidi.",
@@ -400,26 +230,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Hii ni kweli hata kwa yule ambaye ameanguka na kutubu mara nyingi. Maadamu marejeo ni ya kweli kila wakati, Mwenyezi Mungu huendelea kupokea; kukata tamaa kunatokana na Shetani, sio katika dini. Jambo moja linalopaswa kutatuliwa kabla ya kifo ni shirki, kwani mtu anayekufa juu yake hufa bila ya imani inayohitajiwa na toba - ndio maana hasa kurejea kwa Mwenyezi Mungu pekee ndiyo marejeo ya haraka kuliko yote.",
       "Uondoaji wa vitendo ni rahisi: tubu sasa, tubu mara kwa mara, na usiruhusu ukubwa wa dhambi, au idadi ya maporomoko ya zamani, kukupinga ili usirudi tena. Mwaliko uko wazi kila wakati.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Msikate tamaa na rehema za Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote. Yeye ni Mwenye kusamehe, Mwenye kurehemu.",
-      },
-      {
-        excerpt:
-          "Isipokuwa wale walio tubu, na wakaamini, na wakatenda mema, Mwenyezi Mungu atawabadilishia maovu yao mema.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenyezi Mungu ameridhika zaidi na toba ya mja wake kuliko mmoja wenu anayeukuta mlima wake uliopotea katika ardhi kame.",
-      },
-      {
-        excerpt:
-          "Mwenyezi Mungu hunyoosha mkono wake usiku ili kupokea toba ya mtenda dhambi wa mchana, na ananyoosha mkono wake mchana kupokea toba ya mtenda dhambi wa usiku, mpaka jua lichomoze kutoka magharibi yake.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Sema Astaghfirullah siku nzima - lenga uthabiti, sio tu baada ya mteremko mkubwa.",
       "Jifunze Sayyid al-Istighfar na uisome asubuhi na jioni.",
@@ -436,27 +248,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Wakati huo huo, rehema inajengwa katika maisha ya kila siku: matendo mema yanafuta mabaya (11:114), na ibada ndogo, yenye msimamo - sala moja inayoswaliwa kwa wakati, tendo moja la utulivu la sadaka, dakika moja ya subira iliyofanyika kwa ajili ya Mwenyezi Mungu - inamvuta mtu karibu naye na zaidi kutoka kwa madhara. Uthabiti ni muhimu zaidi kuliko nguvu.",
       "Kwa hivyo acha hili liwe hitimisho la somo lako: chukua onyo kwa umakini, lakini acha tumaini liwe kubwa kuliko hofu. Ijueni hatari, chagua njia ya rehema, na itembee - hatua kwa wakati - kila siku mpaka ukutane na Mwenyezi Mungu.",
     ],
-    quran: [
-      {
-        excerpt: "Rehema yangu imekizunguka kila kitu.",
-      },
-      {
-        excerpt:
-          "Sema: Enyi waja wangu mliojidhulumu nafsi zao, msikate tamaa na rehema ya Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote.",
-      },
-      {
-        excerpt: "Hakika mema huondoa maovu. Huo ni ukumbusho kwa wanao kumbuka.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenyezi Mungu atasema: Malaika wameombea, Mitume wameombea, na Waumini wameombea, na hakuna aliyesalia ila Mwingi wa Rehema kuliko wanaorehemu. Atachukua konzi kutoka Motoni na atawatoa watu ambao hawakufanya wema wowote.",
-      },
-      {
-        excerpt: "Mwenye Imani moyoni mwake uzito wa chembe ya haradali atatolewa Motoni.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     actions: [
       "Malizia kila siku kwa istighfar na shukurani kwa kila baraka.",
       "Oanisha sehemu hii na Safari ya kwenda Jannah - onyo na matumaini pamoja.",
@@ -507,34 +300,8 @@ export const JAHANNAM_CORE_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
         summary: "Kupoteza thawabu kwa haki za watu.",
       },
     ],
-    quran: [
-      {
-        excerpt: "Allah hasamehe kushirikishwa.",
-      },
-      {
-        excerpt: "Kumuua mmoja bila haki ni kama kuua watu wote.",
-      },
-      {
-        excerpt: "Walao mali ya yatima kwa dhuluma wanakula moto.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Jiepusheni na madhambi saba yenye kuangamiza.",
-      },
-      {
-        excerpt: "Mufilisi huja na swala lakini amewadhulumu watu.",
-      },
-      {
-        excerpt: "Jilindeni na shirki.",
-      },
-      {
-        excerpt: "Mwenye kutubu ni kama asiye na dhambi.",
-      },
-      {
-        excerpt: "Allah hufurahia toba ya mja Wake.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}, {}, {}, {}],
     actions: ["Tubu kwa kweli.", "Rudisha haki za watu.", "Epuka njia za dhambi."],
     appLinks: [
       {
@@ -563,22 +330,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Aina zake: wanachuoni wanatofautisha shirki kuu - kuabudu masanamu, wafu, watakatifu, au vitu vilivyoumbwa; kumwomba asiye kuwa Mwenyezi Mungu kwa awezaye kutoa; na kuelekeza sadaka au nadhiri kwa asiyekuwa Yeye - jambo ambalo humtoa mtu nje ya Uislamu ikiwa hajatubu. Pia kuna shirki ndogo na iliyofichika, kama vile kujionyesha katika ibada (riya'), kuapa kwa asiyekuwa Mwenyezi Mungu, au kutegemea ishara na hirizi, ambayo ni dhambi kubwa lakini yenyewe haitoi katika dini.",
       "Njia iliyo mbali nayo: ilinde na uimarishe tawhiyd kwa kuisoma, kumuabudu Mwenyezi Mungu peke yake, na kutakasa nia ili matendo yawe kwa ajili Yake na si kwa macho ya watu. Yeyote aliyetumbukia katika shirki anatubia kwa kuikana ikhlasi na kurejea kumwabudu Mwenyezi Mungu peke yake - na mlango huo wa kurudi unabaki wazi muda wote wa kuishi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu hasamehi ushirika naye, lakini husamehe yaliyo duni kuliko hayo kwa amtakaye.",
-      },
-      {
-        excerpt:
-          "Ewe mwanangu, usimshirikishe Mwenyezi Mungu na chochote. Hakika ushirika ni dhambi kubwa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dhambi kubwa miongoni mwa madhambi makubwa ni kumshirikisha Mwenyezi Mungu, kuua nafsi, kuwaasi wazazi na kutoa ushahidi wa uwongo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Jifunze tawhiyd kupitia Jifunze Aqiydah na Majina 99 ya Mwenyezi Mungu.",
       "Safisheni nia katika ibada - muombe Mwenyezi Mungu ikhlasi kila siku.",
@@ -595,22 +348,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Udhalimu maradufu: kuua mara moja ni dhambi kwa Mwenyezi Mungu, ambaye haki yake juu ya utakatifu wake imepondwa, na ni dhambi kwa watu, waliodhulumiwa na wanao waacha nyuma. Ndiyo maana toba yake ni nzito kuliko nyingi: kurejea kwa Mwenyezi Mungu ni jambo la lazima, lakini haki za aliyedhulumiwa pia zinasimama, na pale ambapo sheria ya ardhi au sheria ya Kiislamu inaelekeza pesa za damu (diyah) au matokeo mengine, haya lazima yapatikane kupitia njia sahihi na wanachuoni waliohitimu.",
       "Njia ya kujiepusha nayo: fanyeni kila maisha kuwa matakatifu, punguza hasira na uadui kabla ya kuwa migumu, na suluhisha migogoro kwa subira na uadilifu badala ya vurugu. Na hata uhalifu huu mkubwa zaidi dhidi ya watu hauko nje ya rehema ya Mwenyezi Mungu kwa yule anayetubia kwa ikhlasi, na kutekeleza haki zinazohusika kadiri inavyowezekana, na wala harudi tena kwenye njia hiyo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mwenye kuua nafsi isipokuwa kwa ajili ya nafsi au kwa ufisadi katika ardhi ni kama ameua watu wote.",
-      },
-      {
-        excerpt:
-          "Mwenye kumuuwa Muumini kwa kukusudia, basi malipo yake ni Jahannamu, atakaa humo milele.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dhambi kubwa miongoni mwa madhambi makubwa ni kumshirikisha Mwenyezi Mungu, kuua nafsi, kuwaasi wazazi na kutoa ushahidi wa uwongo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Thamini kila maisha; kutatua migogoro kwa subira na haki."],
     appLinks: [{}],
   },
@@ -623,15 +362,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Hekima katika vizuizi: badala ya kuwaacha watu wapigane na matamanio katika kilele chake, Uislamu unawazunguka kwa ulinzi wa awali - kupunguza macho, kujisitiri katika mavazi na mwenendo, kuepuka kutengwa na jinsia tofauti, na kuhimiza ndoa kama njia halali, yenye heshima kwa mahitaji haya. Kuunda mipaka hii mapema ni rahisi sana kuliko kupinga ukingoni.",
       "Njia ya kurudi: kwa yeyote ambaye ameanguka, njia ya kutokea ni tawbah ya kweli - kuacha dhambi kabisa, kujuta, kuazimia kutorejea tena, na kufunika badala ya kutangaza yaliyopita. Zina ni dhambi kubwa, lakini inasisitizwa sana miongoni mwa wale Mwenyezi Mungu humsamehe mwenye kutubia; kukata tamaa hakuna mahali, na mwanzo mpya unapatikana kila wakati.",
     ],
-    quran: [
-      {
-        excerpt: "Usikaribie kujamiiana haramu. Hakika ni uchafu na njia mbaya.",
-      },
-      {
-        excerpt:
-          "Na wale ambao hawazini haramu... isipokuwa aliyetubia, na akaamini, na akatenda mema, Mwenyezi Mungu atawabadilishia maovu yao kwa wema.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Linda macho na matumizi ya mitandao ya kijamii.",
       "Mfanyie dua mume au mke mwema ikiwa hujaoa.",
@@ -647,15 +378,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Hekima na rehema: katazo huelekeza watu kwenye biashara halisi, hatari ya pamoja, na hisani, na huwalinda walio hatarini dhidi ya kubanwa na deni. Hata hapa, hata hivyo, rehema za Mwenyezi Mungu zipo: ilipokuja amri, hakudai kwamba riba iliyokwisha chukuliwa irudishwe nyuma, bali aliwaambia waumini waache tu yaliyobakia - 'mtapata mkuu wenu' (2:279) - ni wepesi kwa wale wanaojiepusha nayo.",
       "Njia iliyo mbali nayo: kagua fedha zako kwa bidhaa zinazotegemea riba, tafuta njia mbadala za halali, na uwasiliane na wanazuoni waliohitimu kwa kesi ngumu kama vile rehani katika nchi zisizo za Kiislamu. Kuondoka kwa riba kunaweza kumaanisha uchaguzi mgumu wa kifedha, lakini usalama wa nafsi unashinda faida yoyote ya muda - na Mwenyezi Mungu anaahidi kumruzuku yule anayemcha kutoka mahali ambapo hatarajii.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Enyi mlioamini mcheni Mwenyezi Mungu na acheni mabaki ya riba ikiwa nyinyi ni Waumini. Msipofanya hivyo julisheni vita kutoka kwa Mwenyezi Mungu na Mtume wake. Lakini mkitubu, mnaweza kuwa na wakuu wenu - hamtendi, wala hamdhulumiwi.",
-      },
-      {
-        excerpt: "Mwenyezi Mungu huondoa riba na huongeza sadaka.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Kagua fedha za bidhaa zinazotegemea riba.",
       "Wasiliana na msomi aliyehitimu kwa rehani na deni.",
@@ -671,21 +394,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Kiungo chake kwa ulimi: ushuhuda wa uongo ni makali makali ya dhambi pana za usemi. Kwa sababu maneno ni rahisi kutamka, dhambi hii ni rahisi sana kuangukia kwayo - sahihi, kutia chumvi, ukimya unaofaa - na bado uzito wake Siku ya Kiyama ni mkubwa sana, wakati viungo na ndimi za watu zitakaposhuhudia ukweli dhidi yao.",
       "Njia ya mbali nayo: shikamana na ukweli hata kama ni wa gharama au dhidi ya maslahi ya mtu mwenyewe, kataa kutoa neno la mtu kwa uwongo wowote, na sema kwa ushuhuda wa haki inapohitajika. Mwenye kutoa ushahidi wa uwongo hutubia kwa kufuta uwongo pale inapowezekana, na kujitahidi kufuta ubaya na kurejesha haki za yeyote aliyedhulumiwa, na kurejea kwa Mwenyezi Mungu kwa majuto ya kweli.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na wale ambao hawashuhudii uwongo, na wanapopita karibu na maneno machafu, wanapita kwa heshima.",
-      },
-      {
-        excerpt: "Basi jiepusheni na uchafu wa masanamu na jiepusheni na maneno ya uwongo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Je, nisikuambie dhambi kubwa kabisa? Kumshirikisha Mwenyezi Mungu, na kuwaasi wazazi wawili, na kutoa ushahidi wa uwongo, na kutoa ushahidi wa uwongo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -697,18 +407,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Matendo yanayohusiana: onyo hilohilo linahusu kutabiri, kutibu unajimu kama elimu fulani ya ghaibu, na hirizi na hirizi zinazobeba shirki. Kudai ujuzi wa mustakbali uliofichika ni wa Mwenyezi Mungu peke yake, na kuwaelekea wale wanaodai kunadhoofisha tawhiyd katika mizizi yake.",
       "Njia ya kujiepusha nayo: kwa mtu aliyenasa katika matendo haya, toba maana yake ni kuyaacha kabisa, kuharibu vitu vilivyoharamishwa, kukata mafungamano na wale wanaovifanyia kazi, na kufanya upya tawhiid ya kweli na kumtegemea Mwenyezi Mungu pekee. Ulinzi unapatikana katika imani, katika adhkar za kila siku, na katika kutafuta hifadhi kwa Mwenyezi Mungu - na msamaha wake uko wazi kwa anayerejea kikweli.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Walifuata yale waliyosoma mashetani katika enzi ya Sulaiman… na wanajifunza yale yanayowadhuru na hayawanufaishi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Anayemjia mpiga ramli na akaamini anayoyasema, basi amekufuru yaliyoteremshwa kwa Muhammad.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -720,16 +420,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Inachojumuisha: sio tu wizi wa moja kwa moja, lakini njia za hila - kuchanganya mali ya yatima na ya mtu binafsi ili kutia ukungu, kuchelewesha kurudi kwake mara tu yatima anapozeeka, au kuwekeza au kuitumia bila haki. Mwenyezi Mungu anaamrisha kinyume chake: “Wapeni mayatima mali zao, wala msibadilishe uovu kwa wema.” (4:2).",
       "Njia ya kujiepusha nayo: Linda mali ya mayatima kwa uangalifu mkubwa, iweke tofauti na hesabu, toa kwa ukamilifu wakishapevuka, na - kwa yule aliyepungukiwa - tubu kwa kurudisha deni kwa nyongeza yoyote inayostahiki na kuomba msamaha kwa waliodhulumiwa. Siku ambayo haitasaidia mali wala kizazi ila mwenye moyo mwema.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wale wanao kula mali ya mayatima kwa dhulma, basi hao wanakula matumboni mwao moto tu.",
-      },
-      {
-        excerpt:
-          "Wapeni mayatima mali zao, wala msibadilishe baya kwa wema, wala msile mali zao kwa mali zenu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -741,22 +432,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Mizani muhimu: Uchamungu haumaanishi kuwatii wazazi katika kumuasi Mwenyezi Mungu - hakuna kiumbe anayetiiwa katika dhambi dhidi ya Muumba. Lakini hata pale ambapo mtu lazima apunguze, inafanywa kwa upole, heshima, na kuendelea kwa wema. Qur'ani inakataza hata neno dogo la kukasirisha: 'usiwaambie uff' (17:23).",
       "Njia ya kurudi: rehema hapa ni kwamba wazazi kwa kawaida bado wanaweza kufikiwa. Kwa yule ambaye amepungukiwa, toba ni ya kimatendo kwa kiasi kikubwa - rudisha wema, waombe msamaha, watumikie, na waombee du'a, haswa wakiwa hai. Na ikiwa mzazi amepita, basi uchamngu huendelea kwa kuwaombea dua, kutoa sadaka kwa niaba yao, na kuwaheshimu mafungamano na marafiki zao.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mola wako Mlezi ameamrisha kuwa msimuabudu yeyote ila Yeye, na wazazi wawili muwatendee wema. Usiwaambie 'uff' wala kuwafukuza, lakini sema nao neno tukufu.",
-      },
-      {
-        excerpt:
-          "Muabuduni Mwenyezi Mungu wala msimshirikishe na chochote, na wafanyieni wema wazazi wawili.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Je, nisikuambie dhambi kubwa kabisa? Kumshirikisha Mwenyezi Mungu, na kuwaasi wazazi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Piga simu au tembelea wazazi wiki hii kwa neno la fadhili."],
     appLinks: [{}],
   },
@@ -770,12 +447,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Nyuso zake za kisasa: wizi sio mdogo kwa kuvunja nyumba. Inajumuisha kuchukua kutoka kwa mwajiri, kudanganya katika biashara, kuzuia mishahara ya wafanyakazi, uharamia wa kidijitali, wizi, na kufaidika na kile ambacho si mali ya mtu kihalali. Yanayofichika kwa watu wengine kamwe hayafichiki kwa Mwenyezi Mungu, ambaye anaona kila siri.",
       "Njia ya kurudi: kwa sababu haki ya binadamu inahusika, toba inahitaji zaidi ya majuto mbele ya Mwenyezi Mungu. Ni lazima mtu arudishe kitu kilichoibiwa chenyewe, au thamani yake, kwa mmiliki wake halali, na kuomba msamaha inapowezekana; ikiwa mmiliki hawezi kupatikana, wanachuoni wanashauri kutoa kiasi hicho katika sadaka kwa niaba yao. Kuachiliwa kwa njia hii, hata wizi husamehewa kikamilifu na Yule anayempenda mja anayerudi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ama mwizi, mwanamume na mwanamke, wakate mikono yao kwa malipo ya waliyo yachuma, ni kizuizi cha Mwenyezi Mungu.",
-      },
-    ],
+    quran: [{}],
     actions: ["Rudisha vitu vilivyoibiwa au thamani yao; omba msamaha kwa waliodhulumiwa."],
     appLinks: [{}],
   },
@@ -788,17 +460,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SW: DeepPartial<JahannamTopic>[] = [
       "Hekima ya jinsi ilivyokatazwa: Mwenyezi Mungu hakuipiga marufuku khamr kwa mpigo mmoja wa ghafla bali aliiharamisha kwa hatua, na kuiondoa jamii ya mwanzo katika tabia iliyokita mizizi kwa upole. Taratibu hiyo yenyewe ni somo la rehema - na kielelezo cha matumaini kwa mtu yeyote anayejitahidi kuiacha leo.",
       "Njia ya kurudi, kwa huruma: wale walionaswa katika uraibu si wa kudharauliwa bali kuungwa mkono. Kutubia maana yake ni kuazimia kuacha kitu, kukiondoa na vichochezi vyake kutoka kwa maisha ya mtu, kutafuta msaada na matibabu bila haya, na kujaza utupu kwa ushirika mzuri, dhikr na ibada. Mlango wa Mwenyezi Mungu uko wazi, na kila hatua ya ikhlasi kutoka kwenye ulevi ni hatua anayoikaribisha.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Enyi mlio amini! Hakika mvinyo, kamari, na masanamu, na mishale ya kupiga ramli, ni najisi kutokana na kazi ya Shet'ani.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kila kileo ni khamr, na kila khamr ni haramu.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: ["Tafuta msaada ikiwa inahitajika; badala ya tabia na dhikr na kampuni nzuri."],
     appLinks: [{}],
   },
@@ -808,10 +471,7 @@ export const JAHANNAM_NAMES_SW: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jahannam",
     meaning: "Moto - jina la kawaida la Qur'ani la Jahannam.",
-    quran: {
-      excerpt:
-        "Uogopeni Moto ambao kuni zake ni watu na mawe, ulio andaliwa kwa ajili ya makafiri.",
-    },
+    quran: {},
     context:
       "Imetumika katika Qur'ani yote kama makazi ya adhabu kwa wale walioikataa imani na wanaoendelea kufanya makosa.",
     tafsirNote:
@@ -822,10 +482,7 @@ export const JAHANNAM_NAMES_SW: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jaheem",
     meaning: "Moto mkali - mkali, joto kali.",
-    quran: {
-      excerpt:
-        "Nyinyi na hao mnaowaabudu badala ya Mwenyezi Mungu ni kuni za Jahannamu mtaingia humo.",
-    },
+    quran: {},
     context:
       "Inaelezea ukali wa Moto unaowangoja wale waliofanya washirika pamoja na Mwenyezi Mungu.",
     tafsirNote:
@@ -834,9 +491,7 @@ export const JAHANNAM_NAMES_SW: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Saqar",
     meaning: "Kile kisichochoma au kuacha chochote - joto kali.",
-    quran: {
-      excerpt: "Nitampeleka Saqar. Na nini kinaweza kukujulisha Saqar ni nini?",
-    },
+    quran: {},
     context: "Imetajwa katika Surah al-Muddaththir kuhusu yule aliyejiepusha na wahyi.",
     tafsirNote:
       "Tafsir ya kawaida inaelezea Saqar kama kiwango cha Jahannam kinachowaka sana; maelezo hutofautiana kati ya wasomi.",
@@ -846,18 +501,14 @@ export const JAHANNAM_NAMES_SW: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Sa'ir",
     meaning: "Kuwaka - kuwasha moto.",
-    quran: {
-      excerpt: "Watakuwa katika Sa'ir - Moto mkali.",
-    },
+    quran: {},
     context: "Onyo kwa wale wanaokula mali ya mayatima kwa dhulma.",
     tafsirNote: "Mzizi hupeleka kuungua na kuwasha - kusisitiza kazi, moto unaoteketeza.",
   },
   {
     name: "Hutamah",
     meaning: "Crusher - kile kinachovunja na kuponda.",
-    quran: {
-      excerpt: "Atatupwa katika al-Hutamah. Na nini kinaweza kukujulisha al-Hutamah ni nini?",
-    },
+    quran: {},
     context:
       "Adhabu kwa yule anayesengenya na kujilimbikizia mali, akidhani kuwa itamfanya kuwa asiyekufa.",
     tafsirNote:
@@ -866,9 +517,7 @@ export const JAHANNAM_NAMES_SW: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Hawiyah",
     meaning: "Shimo au shimo - kuanguka kwa kina.",
-    quran: {
-      excerpt: "Ama yule ambaye mizani yake ni nyepesi - kimbilio lake ni Hawiyah.",
-    },
+    quran: {},
     context: "Marejeo ya wale ambao matendo yao mema ni mepesi sana Siku ya Kiyama.",
     tafsirNote:
       "Imefafanuliwa kama shimo kubwa katika Moto; al-Tabari inarekodi maoni juu ya kina na ukali wake.",
@@ -878,9 +527,7 @@ export const JAHANNAM_NAMES_SW: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Lazaa",
     meaning: "Moto - moto mkali.",
-    quran: {
-      excerpt: "La hasha! Ni Moto wa Mwenyezi Mungu uliowashwa.",
-    },
+    quran: {},
     context: "Surah al-Ma'arij - inawaonya wanaoikadhibisha Saa.",
     tafsirNote: "Imeunganishwa na mwali unaowaka na kuwaka - Lazaa anasisitiza kuwaka kwa moto.",
   },
@@ -923,117 +570,79 @@ export const JAHANNAM_GATES_SW: DeepPartial<JahannamGateEntry>[] = [
 
 export const JAHANNAM_VERSES_SW: DeepPartial<JahannamVerseEntry>[] = [
   {
-    excerpt: "Uogopeni Moto ulioandaliwa kwa ajili ya makafiri.",
     context: "Inaelekezwa kwa waumini - hofu kama motisha kuelekea utii.",
     tafsirSummary: "Ibn Kathir: mwito wa taqwa ulioambatana na utii kwa Mtume.",
   },
   {
-    excerpt:
-      "Msikate tamaa na rehema za Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote.",
     context: "Iliyofunuliwa ili kuwafariji wale ambao waliogopa dhambi zao walikuwa kubwa sana.",
     tafsirSummary: "Mstari wa msingi wa matumaini - rehema ni kubwa kwa wale wanaorudi nyuma.",
   },
   {
-    excerpt:
-      "Tubuni kwa Mwenyezi Mungu kwa toba ya kweli, huenda Mola wenu Mlezi akakufutieni maovu yenu.",
     context: "Amri kwa waumini baada ya mwongozo juu ya familia na mwenendo.",
     tafsirSummary: "Nasuh tawbah - toba ya kweli bila ya kurudi kwenye dhambi.",
   },
   {
-    excerpt: "Kwa wote kutakuwa na digrii kulingana na walivyofanya.",
     context: "Uadilifu wa Mwenyezi Mungu - malipo na adhabu kulingana na vitendo.",
     tafsirSummary: "Digrii zinatumika kwa Pepo na Kuzimu.",
   },
   {
-    excerpt: "Mwenyezi Mungu hawadhulumu watu hata kidogo, lakini watu wanajidhulumu nafsi zao.",
     context: "Uhakikisho kwamba hukumu ya Mungu ni ya haki kabisa.",
   },
   {
-    excerpt: "Mola wetu Mlezi, tupe mema katika walimwengu wote na utulinde na adhabu ya Moto.",
     context: "Du'a ya wale wanaochanganya wema wa dunia na ulimwengu mwingine.",
     tafsirSummary: "Dua ya kinabii inayofunzwa ndani ya Qur'ani - usawa wa dunya na akhirah.",
   },
   {
-    excerpt: "Kuzimu ina milango saba; kwani kila lango lina fungu.",
-    context: "Imeshughulikiwa katika muktadha wa mjadala wa Ibrahim na watu wake.",
+    context: "Inakuja baada ya kifungu ambacho Iblisi anaapa kuwapoteza wanadamu.",
     tafsirSummary: "Kutajwa kwa wazi kwa milango saba - maelezo ya kazi ni hekima ya kimungu.",
   },
   {
-    excerpt:
-      "Isipo kuwa walio tubu, na wakaamini, na wakatenda mema, basi Mwenyezi Mungu ataubadilisha ubaya kwa wema.",
     context: "Isipokuwa baada ya kuorodhesha dhambi kubwa.",
     tafsirSummary: "Tumaini kwa wanaotubu - matendo yanaweza kubadilishwa kwa rehema.",
   },
   {
-    excerpt:
-      "Kwa walio mkufuru Mola wao Mlezi watapata adhabu ya Jahannamu, ni marejeo mabaya kabisa.",
     context: "Surah al-Mulk - ukumbusho wa ghaibu.",
   },
   {
-    excerpt: "Hakika mema huondoa maovu.",
     context: "Amri ya kusimamisha swala mwisho wa siku.",
     tafsirSummary: "Kutia moyo kwamba ibada thabiti hufuta miteremko ya zamani.",
   },
   {
-    excerpt: "Mola wetu Mlezi, tusamehe dhambi zetu na utulinde na adhabu ya Moto.",
     context: "Maelezo ya muttaqin (mcha Mungu).",
   },
   {
-    excerpt: "Ama yule ambaye mizani yake ni nyepesi - kimbilio lake ni Hawiyah.",
     context: "Surah al-Qari'ah - kipimo cha vitendo.",
   },
 ];
 
 export const JAHANNAM_HADITH_SW: DeepPartial<JahannamHadithEntry>[] = [
   {
-    hadith: {
-      excerpt:
-        "Mwenye kumuomba Mwenyezi Mungu Pepo mara tatu, basi husema: Ewe Mwenyezi Mungu, muingize Peponi. Mwenye kujikinga na Moto mara tatu, Moto husema: Ewe Mwenyezi Mungu, mkinge na Moto.",
-    },
+    hadith: {},
     context: "Kuhimiza kuomba du'a mara kwa mara kwa ajili ya Jannah na kimbilio kutoka Jahannam.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mwenyezi Mungu ameridhika zaidi na toba ya mja wake kuliko mmoja wenu anayeukuta mlima wake uliopotea katika ardhi kame.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Hataingia Peponi hata mmoja wenu kwa vitendo vyake peke yake, hata mimi, isipokuwa Mwenyezi Mungu amenifunika kwa rehema yake.",
-    },
+    hadith: {},
     context: "Mizani: Jihadi katika vitendo lakini tegemea rehema.",
   },
   {
-    hadith: {
-      excerpt:
-        "Moto wako ni sehemu moja ya sehemu sabini za Moto wa Jahannamu, kila sehemu ikiwa kama joto lake.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Agano baina yetu na wao ni maombi; mwenye kuiacha amekufuru.",
-    },
+    hadith: {},
     context: "Ukali wa kupuuza Swalah - miongoni mwa maonyo makubwa.",
   },
   {
-    hadith: {
-      excerpt:
-        "Aliyefilisika anakuja na maombi, saumu, na hisani - lakini alitukana, akakashifu, akala mali isivyo halali, na kumwaga damu.",
-    },
+    hadith: {},
     context: "Haki za watu zinaweza kutatuliwa mbele ya matendo Siku ya Hukumu.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mwenyezi Mungu hunyoosha mkono wake usiku ili kupokea toba ya mtenda dhambi wa mchana, na ananyoosha mkono wake mchana ili kukubali toba ya mtenda dhambi wa usiku.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Mwenye kumuamini Mwenyezi Mungu na Siku ya Mwisho, basi na aseme mema au anyamaze.",
-    },
+    hadith: {},
     context: "Kuchunga ulimi - uwajibikaji wa kila siku.",
   },
 ];
@@ -1097,7 +706,4 @@ export const JAHANNAM_DUAS_SW: DeepPartial<JahannamDuaEntry>[] = [
   },
 ];
 
-export const JAHANNAM_REFUGE_DUA_SW: { translation: string } = {
-  translation:
-    "Ewe Mwenyezi Mungu, najikinga Kwako na adhabu ya Jahannam, na adhabu ya kaburi, na mitihani ya maisha na mauti, na mtihani mbaya wa Masihi wa Uongo.",
-};
+export const JAHANNAM_REFUGE_DUA_SW: { translation?: string } = {};

@@ -87,38 +87,37 @@ export const PROPHETS_GENEALOGY_NODES_PS: DeepPartial<ProphetsGenealogyNode>[] =
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "شیث",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "کلاسیک اسلامي دود (او د څو پیغمبرانو د نسب عام لنډیز) شیث د آدم زوی او د لومړنیو نسلونو یوه کړۍ بولي. د شیث او نوح ترمنځ منځني نومونه زیاتره اسرائیلیات دي او د ټینګو اړیکو په توګه نه دي ښودل شوي.",
   },
   {
-    name: "Idris",
+    name: "ادریس",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "قرآن ادریس یو رښتینی پیغمبر بولي چې لوړ مقام ته پورته کړل شو. کلاسیک لیستونه هغه ډېری وخت د آدم او نوح ترمنځ ځای پر ځای کوي (کله کله له خنوخ سره یو ګڼل کېږي)، خو قرآن د هغه د پلار نوم نه اخلي — له همدې امله د پلار اړیکه نه ده ښودل شوې.",
   },
   {
-    name: "Imran",
+    name: "عمران",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "الله تعالی د عمران کورنۍ پر ټولو عالمونو غوره کړه. مریم د عمران لور ده. (دا عمران د مریم پلار دی — دلته د موسی/هارون لپاره د پلار د اړیکې په توګه نه دی کارول شوی.)",
   },
   {
-    name: "Adnan",
+    name: "عدنان",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "اسلامي دود دا دی چې محمد ﷺ د عدنان له اولادې څخه دی، او عدنان د اسماعیل له اولادې څخه — خو د عربو د نسب پوهنې دود پر دې متفق دی چې له عدنان څخه تر اسماعیل پورې نومول شوی نسب ورک شوی. عدنان د عدناني عربو د منل شوي کلاسیک مشر په توګه ولاړ دی؛ له اسماعیل سره د پلار اړیکه نه ده ښودل شوې.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "هاشم بن عبد مناف",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "هاشم د بنو هاشمو نوم ورکوونکی او د رسول الله ﷺ یو کلاسیک نیکه دی. له عدنان تر هاشم پورې د مشرانو بشپړ لیست (فهر، مضر، …) په سیره کې ثبت دی، خو دلته د منځنیو قبیلوي نسلونو په توګه پرېښودل شوی — هغوی پیغمبران نه وو. په دې نقشه کې هاشم د نږدې هاشمي نسب سر دی.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "عبدالمطلب",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "عبدالمطلب (شیبه) د رسول الله ﷺ د پلار له خوا نیکه او په کلاسیکه سیره کې د هاشم زوی دی.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
-    relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+    name: "عبدالله بن عبدالمطلب",
+    relationNote: "عبدالله د رسول الله محمد ﷺ پلار او په کلاسیکه سیره کې د عبدالمطلب زوی دی.",
   },
 ];

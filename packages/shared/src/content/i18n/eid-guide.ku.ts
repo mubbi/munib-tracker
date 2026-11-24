@@ -1,150 +1,84 @@
 import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
-// Kurdish (Kurmanji) translation overlay for the Learn Eid guide. Mirrors the order
+// Kurdish (Sorani) translation overlay for the Learn Eid guide. Mirrors the order
 // of EID_GUIDE_TOPICS in ../eid-guide.ts (index-aligned); untranslated entries fall
 // back to English. Only human-readable text is translated — ids, routes,
 // surah/ayah numbers, collections, citations and grades stay in the English source.
 export const EID_GUIDE_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Cejna Remezanê — cejna şikandina rojiyê",
-    summary: "Roja yekem a Şewalê, dawiya rojiya Remezanê nîşan dide.",
+    title: "جەژنی ڕەمەزان (جەژنی فیتر) — جەژنی شکاندنی ڕۆژوو",
+    summary: "یەکەم ڕۆژی مانگی شەوال، کە کۆتایی ڕۆژووی ڕەمەزان ڕادەگەیەنێت.",
     body: [
-      "Cejna Remezanê di 1ê Şewalê de, tam piştî Remezanê, tê pîrozkirin û roja şad û spasiyê ye ji bo ku mirov karîbû heyamê hemû mehê rojî bigire û îbadetê bike. Qur'an dawiya rojiyê rasterast bi bîranîn û spasiyê ve girê dide: '...da hûn hejmarê temam bikin û Xwedê mezin bikin li ser rêberiya wî, û da hûn spasdar bibin' (Qur'an 2:185).",
-      "Rojîgirtin di vê rojê de bi awakî eşkere heram e, ne tenê nayê xwestin — Pêxember ﷺ vê rojê, bi Cejna Qurbanê re, wek yek ji du rojên ku Misilmanan ferman lê hatiye kirin ku bixwin û ne rojî bigirin destnîşan kir (Buxarî 1990). Roj bi zekata fitrê û nimêja cejnê dest pê dike û bi serdana malbatê, pîroz kirina hevûdin û şadiya giştî di sînorên şerîetê de didome.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "...da hûn hejmarê temam bikin û Xwedê mezin bikin li ser rêberiya wî, û da hûn spasdar bibin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ev du roj in ku Pêxemberê Xwedê ﷺ rojîgirtin lê qedexe kir: roja hûn rojiya xwe dişikênin (a Remezanê), û roja hûn ji qurbana xwe dixwin.",
-      },
+      "جەژنی ڕەمەزان دەکەوێتە یەکی شەوال، ڕاستەوخۆ دوای ڕەمەزان، و ڕۆژی خۆشی و سوپاسگوزارییە بۆ ئەوەی خوا توانای پێبەخشیوین بە درێژایی مانگەکە ڕۆژوو بگرین و عیبادەت بکەین. قورئان کۆتایی ڕۆژوو ڕاستەوخۆ بە یادی خوا و سوپاسکردنەوە دەبەستێتەوە: «…بۆ ئه‌وه‌ی ئه‌و ماوه دیاریكراوه ته‌واو بكه‌ن و خوا به‌گه‌وره بگرن و سوپاسگوزاریشی بكه‌ن له‌سه‌ر ئه‌وه‌ی كه ڕێنموویی كردوون…» (قورئان 2:185).",
+      "ڕۆژووگرتن لەم ڕۆژەدا بە ئاشکرا حەرامە، نەک تەنها ناپەسەند — پێغەمبەر ﷺ ئەم ڕۆژەی لەگەڵ جەژنی قوربان وەک یەکێک لەو دوو ڕۆژە ناو برد کە موسڵمانان فەرمانیان پێکراوە تیایاندا بخۆن نەک ڕۆژوو بگرن (بوخاری 1990). ڕۆژەکە بە سەرفیترە و نوێژی جەژن دەست پێدەکات، و بە سەردانی خزم و کەسوکار، پیرۆزبایی لە یەکتر کردن و خۆشی گشتی لە سنووری شەرعدا بەردەوام دەبێت.",
     ],
   },
   {
-    title: "Cejna Qurbanê — cejna goriyê",
-    summary: "10ê Zilheccê, bîranîna goriya Îbrahîm.",
+    title: "جەژنی قوربان — جەژنی قوربانیکردن",
+    summary: "دەیەمی زولحیججە، یادکردنەوەی قوربانیی ئیبراهیم.",
     body: [
-      "Cejna Qurbanê di 10ê Zilheccê de, Roja Qurbanê di dema Hecê de, tê pîrozkirin û amadebûna Îbrahîm ji bo goriya kurê xwe di jêrbûna Xwedê de û dilovaniya Xwedê ku ew bi qurbaniyeke mezin xelas kir tîne bîra mirov (Qur'an 37:102–107). Li gorî gelek zanyaran, ev cejna mezintir a du cejnan e û bi qedandina Hecê re li hev tê ji bo hecîyan.",
-      "Wek Cejna Remezanê, rojîgirtin di vê rojê de heram e (Buxarî 1990). Awirdana wê ya sereke ya zêde qurban (udhiyah) e, ku ew kesên ku dikarin li bîra jêrbûna Îbrahîm û wek karekî îbadet û xêrxwaziyê bi hev re pêşkêş dikin.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Çaxê ew (zarok) gihîşt temenê ku bi wî re bimeşiya, [Îbrahîm] got: Kurê min, min di xewnê de dît ku ez te dibirim... Û me ew bi qurbaniyeke mezin xelas kir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ev du roj in ku Pêxemberê Xwedê ﷺ rojîgirtin lê qedexe kir: roja hûn rojiya xwe dişikênin (a Remezanê), û roja hûn ji qurbana xwe dixwin.",
-      },
+      "جەژنی قوربان دەکەوێتە دەیەمی زولحیججە، ڕۆژی نەحر لە حەجدا، و یادی ئامادەیی ئیبراهیم دەکاتەوە بۆ قوربانیکردنی کوڕەکەی لە پێناو گوێڕایەڵیی خوادا، و ڕەحمەتی خوا کە لە جیاتی ئەو ئاژەڵێکی قوربانی کردە فیدیەی (قورئان 37:102–107). بە بۆچوونی زۆرێک لە زانایان ئەمە گەورەترینی هەردوو جەژنەکەیە، و بۆ حاجییان هاوکاتە لەگەڵ لووتکەی حەج.",
+      "وەک جەژنی ڕەمەزان، ڕۆژووگرتن لەم ڕۆژەدا حەرامە (بوخاری 1990). سەرەکیترین درووشمی زیادەی ئەم جەژنە قوربانییە (ئوضحیە)، کە ئەوانەی توانایان هەیە پێشکەشی دەکەن، بۆ یادکردنەوەی ملکەچیی ئیبراهیم و وەک کردەوەیەک کە عیبادەت و خێر پێکەوە کۆدەکاتەوە.",
     ],
   },
   {
-    title: "Nimêja cejnê çawa tê kirin",
-    summary: "Du rikat bi tekbîrên zêde — bêyî ezan û îqamet.",
+    title: "نوێژی جەژن چۆن دەکرێت",
+    summary: "دوو ڕکات بە تەکبیری زیادەوە — بێ بانگ و بێ قامەت.",
     body: [
-      "Nimêja cejnê du rikat e, bi civatê tê kirin bêyî ku berî wê ezan û îqamet were kirin — Cabir ibn Abdullah û Ibn Abbas herdû piştrast kirin ku di dema Pêxember ﷺ de ji bo tu cejnê ban nehatiye kirin (Sahîh Muslîm 886). Piştî nimêjê xutbe tê kirin, berevajî nimêja Înê ku xutbe pêşî tê.",
-      "Berî xwendinê di her rikatê de, li ser tekbîrên asayî ên nimêjê, tekbîrên zêde (gotina 'Allahu Ekber') tê zêdekirin. Aîşe rivayet kir ku Pêxember ﷺ di herdû cejnan de di rikata yekem de heft caran û di ya duyem de pênc caran tekbîr digot (Sunen Ebî Dawûd 1149), hejmarek ku ji Abdullah ibn Amr jî hatiye rivayetkirin (Ebî Dawûd 1151).",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Di roja Cejna Remezanê de dema îmam derket ne ezan hebû, ne jî piştî derketina wî; ne îqamet, ne ban, ne jî tiştekî wisa di wê rojê de hebû.",
-      },
-      {
-        excerpt:
-          "Pêxemberê Xwedê ﷺ di roja şikandina rojiyê û roja qurbanê de di rikata yekem de heft caran û di ya duyem de pênc caran tekbîr digot.",
-      },
+      "نوێژی جەژن دوو ڕکاتە، بە کۆمەڵ دەکرێت بێ ئەوەی پێشتر بانگ یان قامەت بدرێت — جابری کوڕی عەبدوڵڵا و ئیبن عەبباس هەردووکیان دڵنیایان کردەوە کە لە سەردەمی پێغەمبەردا ﷺ بۆ هیچ کام لە جەژنەکان بانگ نەدەدرا (صەحیحی موسلیم 886). دوای نوێژەکە وتار دەخوێندرێتەوە، بە پێچەوانەی نوێژی هەینی کە وتارەکەی پێش نوێژ دێت.",
+      "تەکبیری زیادە (وتنی «اللە أکبر») پێش خوێندنەوەی قورئان لە هەر ڕکاتێکدا زیاد دەکرێت، جگە لە تەکبیرە ئاساییەکانی نوێژ. عائیشە گێڕاویەتییەوە کە پێغەمبەر ﷺ لە هەردوو جەژندا لە ڕکاتی یەکەمدا حەوت جار و لە ڕکاتی دووەمدا پێنج جار تەکبیری دەکرد (سونەنی ئەبو داود 1149)، و ئەم ژمارەیە لە عەبدوڵڵای کوڕی عەمریشەوە گێڕدراوەتەوە (سونەنی ئەبو داود 1151).",
     ],
     madhhabNote:
-      "Mezheb di hejmara rast a tekbîrên zêde de cûda ne. Feqîhên Şafiî, Malikî û Henbelî rivayeta heft-pênc dişopînin (Ebî Dawûd 1149/1151) — Malikî û Henbelî tekbîra vekirinê di heft de dihesibînin, ji ber vê şeş-pênc dibêjin. Mezheba Henefî li şûna wê 3 tekbîrên zêde berî xwendinê di rikata yekem de û 3 berî rukûyê di ya duyem de (6 bi tevahî) digire — nêrîna feqîhên Kûfeyê ye ku hedîsê merfû yê cuda ne piştrastkirî tune ye; hejmara tekbîrên îmamê civata xwe bişopînin.",
+      "مەزهەبەکان لە ژمارەی وردی تەکبیرە زیادەکاندا جیاوازن. زانایانی شافیعی، مالیکی و حەنبەلی پەیڕەوی ڕیوایەتی حەوت و پێنج دەکەن (ئەبو داود 1149/1151) — مالیکی و حەنبەلی تەکبیری دەستپێکردن لەناو حەوتەکەدا دەژمێرن، بۆیە دەڵێن شەش و پێنج. مەزهەبی حەنەفی لە جیاتی ئەوە سێ تەکبیری زیادە پێش خوێندنەوە لە ڕکاتی یەکەمدا و سێ پێش ڕکووع لە ڕکاتی دووەمدا دادەنێت (کۆی گشتی شەش) — بۆچوونی زانایانی کووفەیە و هیچ فەرموودەیەکی مەرفووعی سەلمێنراوی جیاوازی بۆ نییە؛ شوێن ئەو ژمارەیە بکەوە کە پێشنوێژی جەماعەتەکەت پێی دەکات.",
     actions: [
-      "Bi wextê werin — ne ezan ne jî îqamet heye ku dest pêkirinê nîşan bide.",
-      "Hejmara tekbîrên îmamê xwe bişopînin; pratîka her mezhebê rast e.",
-      "Piştî nimêjê ji bo xutbeyê bimînin.",
+      "لە کاتی خۆیدا بگە — هیچ بانگ و قامەتێک نییە کە دەستپێکردن ڕابگەیەنێت.",
+      "شوێن ژمارەی تەکبیرەکانی پێشنوێژەکەت بکەوە؛ کردەوەی هەر مەزهەبێک دروستە.",
+      "دوای نوێژەکە بۆ وتارەکە بمێنەرەوە.",
     ],
   },
   {
-    title: "Sunetên wê rojê",
-    summary: "Xwerûşt, cilên herî baş, xwarin berî/piştî nimêjê, û du rêyên cuda.",
+    title: "کردەوە سوننەتەکانی ئەو ڕۆژە",
+    summary: "غوسڵ، باشترین جل، خواردن پێش/دوای نوێژ، و دوو ڕێگای جیاواز.",
     body: [
-      "Çend sunetên piçûk berî û piştî nimêja cejnê tê pêşniyarkirin. Di Cejna Remezanê de, Pêxember ﷺ berî ku çend xurme, bi hejmara tek, bixwe, ji bo nimêjê derneket (Buxarî 953) — berevajî Cejna Qurbanê, ku lê tê pêşniyarkirin ku meriv li bendê bimîne û piştî vegera nimêjê ji qurbanê bixwe.",
-      "Xwerûştin û li xwe kirina cilên herî baş (paqij, rûmet) ji bo vê dema sunet e, li dû pratîka giştî ya hevalên Pêxember di herdû cejnan de, her çend ev rivayeta taybet ji yên din yên li vir kêmtir bi hêz e û pratîkeke ku bi berfirehî tê şopandin e, ne hedîseke bi tenê ya bi ravekê sahîh.",
-      "Suneteke cuda vegera bi rêyeke ji rêya çûyînê cuda ye. Cabir ibn Abdullah rivayet kir: 'Di roja cejnê de Pêxember ﷺ (piştî kirina nimêja cejnê) bi rêyeke ji rêya çûyîna xwe cuda vedigeriya' (Buxarî 986) — bi gelemperî ev wek zêdekirina cihên ku şahidê îbadeta kesekî ne û nîşandana sembolên Îslamê bi berfirehî tê şirovekirin.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pêxember ﷺ tu carî di roja Cejna Remezanê de (ji bo nimêjê) derneket heta ku çend xurme, bi hejmara tek, nexwar.",
-      },
-      {
-        excerpt:
-          "Di roja cejnê de Pêxember ﷺ (piştî kirina nimêja cejnê) bi rêyeke ji rêya çûyîna xwe cuda vedigeriya.",
-      },
+      "چەند سوننەتێکی بچووک پێش و دوای نوێژی جەژن پەسەندکراون. لە جەژنی ڕەمەزاندا پێغەمبەر ﷺ نەدەچوو بۆ نوێژ تا چەند دەنکە خورمایەکی بە ژمارەی تاک نەخواردایە (بوخاری 953) — بە پێچەوانەی جەژنی قوربان، کە پەسەندە چاوەڕێ بکرێت و دوای گەڕانەوە لە نوێژ لە گۆشتی قوربانییەکە بخورێت.",
+      "سوننەتە غوسڵ بکرێت و باشترین جلی (پاک و ڕێکوپێک) بۆ ئەم بۆنەیە لەبەر بکرێت، بە پەیڕەویکردنی کردەوەی گشتیی هاوەڵان لە هەردوو جەژندا؛ هەرچەندە ئەم ڕیوایەتە تایبەتە لە ڕیوایەتەکانی تری ئێرە لاوازترە، و کردەوەیەکی بەربڵاوی پەیڕەوکراوە نەک یەک فەرموودەی دیاریکراو بە پلەی صەحیح.",
+      "سوننەتێکی تایبەت ئەوەیە کە بە ڕێگایەکی جیاواز لەو ڕێگایەی پێیدا چوویت بۆ نوێژ بگەڕێیتەوە ماڵەوە. جابری کوڕی عەبدوڵڵا گێڕاویەتییەوە: «On the day of Eid the Prophet ﷺ used to return (after offering the Eid prayer) through a way different from that by which he went» (واتای ئینگلیزی) (بوخاری 986) — کە زۆرجار وا ڕوون دەکرێتەوە کە زیادکردنی ئەو شوێنانەیە کە شایەتی بۆ عیبادەتی مرۆڤ دەدەن، و پیشاندانی درووشمەکانی ئیسلامە بە فراوانتر.",
     ],
     actions: [
-      "Xwe bişon û cilên xwe yên herî baş û rûmetdar li xwe bikin.",
-      "Berî nimêja Cejna Remezanê xurmeyên bi hejmara tek bixwin; heta piştî nimêja Cejna Qurbanê li bendê bimînin ji bo xwarinê.",
-      "Bi rêyeke ji rêya ku hûn ber bi nimêjê ve çûn cuda vegerin.",
+      "غوسڵ بکە و باشترین و ڕێکوپێکترین جلت لەبەر بکە.",
+      "پێش نوێژی جەژنی ڕەمەزان ژمارەیەکی تاک خورما بخۆ؛ لە جەژنی قورباندا تا دوای نوێژ چاوەڕێ بکە ئینجا بخۆ.",
+      "بە ڕێگایەکی جیاواز لەو ڕێگایەی بۆ نوێژ پێیدا چوویت بگەڕێوە ماڵەوە.",
     ],
   },
   {
-    title: "Zekata fitrê — bingehên wê",
-    summary: "Xêrxwaziyeke biçûk a ferz, ku berî nimêja Cejna Remezanê divê were dayîn.",
+    title: "سەرفیترە (زەکاتی فیتر) — بنەماکان",
+    summary: "خێرێکی بچووکی فەرزە، دەبێت پێش نوێژی جەژنی ڕەمەزان بدرێت.",
     body: [
-      "Zekata fitrê (sadaqatu'l-fitr) xêrxwaziyeke cuda, ji zekata dewlemendiyê biçûktir, li ser her Misilmanî — biçûk an mezin, mêr an jin, azad an bindest — ferz e û serokê malbatê li şûna wan didaye. Ibn Umar rivayet kir ku Pêxember ﷺ li ser her Misilmanî sa'eke (nêzîkî 2-3 kg) xurme an garis ferz kir, ku berî ku mirov ber bi nimêja cejnê ve here divê were dayîn (Buxarî 1503).",
-      "Armanca wê bi awakî eşkere di sunetê de hatiye gotin: 'paqijkirina rojîgir ji peyvên vala û nerind, û xwarin ji bo hejaran' (Ebî Dawûd 1609). Dayîna wê berî nimêja cejnê wek vê zekata taybet tê hesibandin; dayîna wê piştî nimêjê hîn jî wek xêrxwaziyeke giştî tê hesibandin, lê xelata taybet a bi wextê ve girêdayî ji dest tê dayîn.",
-      "Îro pirraniya civakan li şûna belavkirina rasterast a xurme an garisê, nirxê wê bi pereyê herêmî dihesibînin, li dû rêberiya zanyarên herêmî û dezgehên zekatê li ser nirxên niha yên xwarina bingehîn — ev sererastkirineke pratîk e, ne guhertineke di erka bingehîn de.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pêxemberê Xwedê ﷺ dayîna sa'eke xurme an sa'eke garis wek Zekata fitrê li ser her Misilmanî, kole an azad, mêr an jin, biçûk an mezin, ferz kir û ferman kir ku berî ku mirov ber bi kirina nimêja cejnê ve herin divê were dayîn.",
-      },
-      {
-        excerpt:
-          "Pêxemberê Xwedê ﷺ Zekata fitrê wek paqijkirina rojîgir ji peyvên vala û nerind, û wek xwarin ji bo hejaran destnîşan kir. Kî ku wê berî nimêjê bide, ev zekateke pejirandî ye; kî ku wê piştî nimêjê bide, ev xêrxwaziyeke (asayî) ye.",
-      },
+      "سەرفیترە (صەدەقەی فیتر) خێرێکی جیاواز و بچووکترە لە زەکاتی سامان، و لەسەر هەموو موسڵمانێک فەرزە — بچووک یان گەورە، نێر یان مێ، ئازاد یان سەرپەرشتیکراو — کە سەرپەرشتیاری ماڵەکە لە جیاتی ئەوان دەیدات. ئیبن عومەر گێڕاویەتییەوە کە پێغەمبەر ﷺ یەک صاع (نزیکەی 2–3 کیلۆگرام) خورما یان جۆی لەسەر هەموو موسڵمانێک فەرز کرد، کە دەبێت پێش ئەوەی خەڵک بچنە دەرەوە بۆ نوێژی جەژن بدرێت (بوخاری 1503).",
+      "مەبەستەکەی بە ئاشکرا لە سوننەتدا هاتووە: «purification for the fasting person from idle and obscene talk, and food for the poor» (واتای ئینگلیزی) (سونەنی ئەبو داود 1609). دانی پێش نوێژی جەژن وەک ئەم زەکاتە تایبەتە هەژمار دەکرێت؛ دانی دوای نوێژ هێشتا وەک خێرێکی گشتی هەژمار دەکرێت، بەڵام ئەو پاداشتە تایبەتەی بە کاتەکەیەوە بەستراوە لەدەست دەچێت.",
+      "ئەمڕۆ زۆربەی کۆمەڵگاکان لە جیاتی دابەشکردنی ڕاستەوخۆی خورما یان جۆ، نرخەکەی بە دراوی ناوخۆیی هەژمار دەکەن، بە پەیڕەویکردنی ڕێنمایی زانایانی ناوخۆ و دەزگاکانی زەکات سەبارەت بە نرخی ئێستای خۆراکی سەرەکی — ئەمە ئاسانکارییەکی کردەییە، نەک گۆڕانکاری لە ئەرکە بنەڕەتییەکەدا.",
     ],
     actions: [
-      "Zekata fitrê ji bo xwe û kesên bindestê xwe bihesibînin û ji hev veqetînin.",
-      "Eger gengaz be, berî çûyîna ber bi nimêja Cejna Remezanê ve wê bidin.",
+      "سەرفیترە بۆ خۆت و ئەوانەی بەخێویان دەکەیت هەژمار بکە و جیای بکەرەوە.",
+      "ئەگەر بکرێت، پێش ڕۆیشتن بۆ نوێژی جەژنی ڕەمەزان بیدە.",
     ],
-    appLinks: [{ label: "Hesabkera zekatê" }],
+    appLinks: [{ label: "ژمێرەری زەکات" }],
   },
   {
-    title: "Qurban (udhiyah) — bingehên wê",
-    summary: "Qurbana ajalekî ku di Cejna Qurbanê de tê pêşkêşkirin û bi hejaran tê parvekirin.",
+    title: "قوربانی (ئوضحیە) — بنەماکان",
+    summary: "سەربڕینی ئاژەڵێک لە جەژنی قورباندا، کە لەگەڵ هەژاران بەش دەکرێت.",
     body: [
-      "Qurban serjêkirina ajalekî minasib (mî, bizin, ga an hêştir, ku şertên temen û tenduristiyê pêk tîne) e di Cejna Qurbanê û rojên Teşrîqê yên li pey de, li bîra qurbana Îbrahîm. Enes rivayet kir ku Pêxember ﷺ bi xwe bi destên xwe du berxên spî-reş serjêkirin, li ser wan navê Xwedê anî û tekbîr got (Buxarî 5558) — ev îspat dike ku kirina serjêkirinê bi xwe, gava mumkun be, pratîka çêtir e, her çend spartina kesekî din li şûna xwe jî rast e.",
-      "Qur'an qurbanê rasterast bi parvekirina goştê wê ve girê dide: '...ji wan bixwin û feqîr û pêjnêr têr bikin' (Qur'an 22:36). Goşt bi gelemperî di navbera malbata xwe, xelk û heval, û hejaran de tê parvekirin, da ku ev dem îbadet, dilfirehî û spasiyê bi hev re bike.",
-      "Serjêkirin divê piştî nimêja cejnê be, ne berî wê — hevalekî ku zû serjêkiribû, Pêxember ﷺ jê xwest ku dubare bike, ji ber ku qurbaneke berî nimêjê pêşkêşkirî wek udhiyah nayê hesibandin. Biryar li ser kê bi rastî ferz e û navbera demê ya rast li gorî mezheban cuda ye; ji bo rewşa xwe bi zanyarekî herêmî yê pêbawer şêwir bikin.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "...ji bo we tê de qenciyek heye. Ji ber vê li ser wan navê Xwedê bînin gava ew rêz kirî ne [ji bo serjêkirinê]; û gava ew li kêleka xwe [bêcan] dikevin, ji wan bixwin û feqîr û pêjnêr têr bikin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pêxember ﷺ du berxên spî-reş serjê kir, û min dît ku ling xwe li kêleka wan danî û navê Xwedê anî û tekbîr got. Piştre wî bi destên xwe ew serjê kirin.",
-      },
+      "قوربانی بریتییە لە سەربڕینی ئاژەڵێکی گونجاو (مەڕ، بزن، مانگا یان وشتر، کە مەرجەکانی تەمەن و تەندروستی تێدا بێت) لە جەژنی قوربان و ڕۆژانی تەشریقی دوای ئەو، بۆ یادکردنەوەی قوربانیی ئیبراهیم. ئەنەس گێڕاویەتییەوە کە پێغەمبەر ﷺ خۆی بە دەستی خۆی دوو بەرانی ڕەش و سپیی سەربڕی، و ناوی خوا و تەکبیری لەسەریان هێنا (بوخاری 5558) — ئەمە دەیسەلمێنێت کە سەربڕینی قوربانی بە دەستی خۆت، ئەگەر بتوانیت، کردەوەی باشترە، هەرچەندە سپاردنی بە کەسێکی تر لە جیاتی خۆت دروستە.",
+      "قورئان قوربانی ڕاستەوخۆ بە بەشکردنی گۆشتەکەیەوە دەبەستێتەوە: «…لێیان بخۆن و به‌شی هه‌ژاران و سواڵکه‌رانی لێ بده‌ن…» (قورئان 22:36). گۆشتەکە بە گشتی لە نێوان ماڵ و خێزانی خۆت، خزم و هاوڕێیان، و هەژاراندا دابەش دەکرێت، تا ئەم بۆنەیە عیبادەت و بەخشندەیی و سوپاسگوزاری پێکەوە کۆبکاتەوە.",
+      "سەربڕین دەبێت دوای نوێژی جەژن بێت، نەک پێشی — هاوەڵێک کە زوو سەری بڕیبوو، پێغەمبەر ﷺ پێی فەرموو دووبارەی بکاتەوە، چونکە قوربانییەک کە پێش نوێژ سەرببڕدرێت وەک ئوضحیە هەژمار ناکرێت. حوکمی ئەوەی بە وردی لەسەر کێ فەرزە و ماوە وردەکانی کات بەپێی مەزهەب جیاوازن؛ بۆ دۆخی خۆت پرس بە زانایەکی شارەزای ناوچەکەت بکە.",
     ],
     actions: [
-      "Eger hûn bikaribin û ew li ser we ferz be, qurbana xwe berî Cejna Qurbanê organîze bikin.",
-      "Piştrast bikin ku serjêkirin piştî nimêja cejnê be, ne berî wê.",
-      "Goştê di navbera malbata xwe, xelk/heval, û hejaran de parve bikin.",
+      "ئەگەر توانات هەیە و لەسەرت پێویستە، پێش جەژنی قوربان قوربانییەکەت ڕێکبخە.",
+      "دڵنیابە کە سەربڕین دوای نوێژی جەژن دەبێت، نەک پێشی.",
+      "گۆشتەکە لە نێوان ماڵەکەت، خزم و هاوڕێیان، و هەژاراندا بەش بکە.",
     ],
     disclaimer:
-      "Kê bi rastî qurban li ser ferz e û navbera demê ya rast a bikêrhatî ji bo serjêkirinê, pirsên fiqhî yên hûrgilî ne ku li gorî mezheban cuda ne. Ev naverokeke perwerdehiyê ya giştî ye, ne fetwa — ji bo rewşa xwe bi zanyarekî herêmî yê pêbawer şêwir bikin.",
+      "ئەوەی قوربانی بە وردی لەسەر کێ فەرزە، و ماوەی دروستی وردی سەربڕین، پرسیاری فیقهیی ورد و درێژن کە بەپێی مەزهەب جیاوازن. ئەمە ناوەڕۆکێکی فێرکاری گشتییە، نەک فەتوا — بۆ دۆخی خۆت پرس بە زانایەکی شارەزای ناوچەکەت بکە.",
   },
 ];

@@ -14,21 +14,8 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Tsarkakewa a Musulunci yana da fuska biyu. Na waje shine tsaftar zahiri - wankewa, cire ƙazanta, tsaftacewa. Na ciki shine tawali'u, tunani, da kuma shirye-shiryen zuciya wanda ake nufi da wankewa. Annabi SAW ya hade su biyun a lokacin da ya kira tsarkakewa ‘rabin imani,’ hade tsaftar jiki da tsarkake rai daga zunubi.",
       "Wannan ma’auni yana tafiya ne cikin dukkan abin da ake nufi da shi: ruwan da kuke tsarkakewa da shi, da alwala (kananan alwala), ghusl (cikakkiyar wankan ibada), da tayamum (bushewar tsarki lokacin da ba za a iya amfani da shi ba), najasa (cire kazanta) da na musamman da rangwame. Koyi sau ɗaya kuma addu'a ta zama abin da za ku iya shigar da shi da tabbaci maimakon shakka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ya ku waxanda suka yi imani, idan kun tashi yin sallah, to ku wanke fusknakinku da gabbanku zuwa gwiwar hannu, ku shafe kawunanku, kuma ku wanke qafafunku zuwa idon sawu.",
-      },
-      {
-        excerpt: "Lallai Allah yana son masu tuba kuma yana son masu tsarkakewa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Makullin sallah shine tsarkakewa; farkonta shine takbir kuma karshenta taslim. (Ali; da Jami' at-Tirmizi 3).",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ɗauke tsarkakewa a matsayin shiri don saduwa da Allah, ba aikin gaggawa ba.",
       "Yi nazarin batun taharah guda ɗaya kowace rana har sai duk ruwan ya zama na halitta.",
@@ -43,15 +30,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Annabi ﷺ ya daukaka tsarkakewa zuwa ga siffa ta mumini, yana kiranta da 'rabin imani'. Tsarkakewa akai-akai yana horon mutum, yana kiyaye shi a cikin wani yanayi na shirye-shiryen ibada, kuma - hadisi ya koyar - yana kankare kananan zunubai da ruwa.",
       "Domin tana kiyaye sallah, ita ma taharah tana kiyaye mumini daga zunubin yin sallar ba da gafala ba. Don haka koyon hukunce-hukuncensa da kyau aiki ne na kare daya daga cikin manya-manyan ayyuka a Musulunci.",
     ],
-    hadith: [
-      {
-        excerpt: "Tsarkake rabin imani ne. (Abu Malik al-Ash'ari)",
-      },
-      {
-        excerpt:
-          "Allah ba Ya karbar addu'a sai da tsarki, kuma ba ya karbar sadaka daga abin da aka sace. (Ibn Umar)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Kafin kowace sallah, tabbatar da yanayin tsarkin ku kafin farawa.",
       "Ajiye lissafin tunani mai sauƙi: jiki, tufafi, wuri, da wudu.",
@@ -67,12 +46,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Babban rashin tsarkin al'ada (hadath akbar, wanda kuma ake kira janabah) yana faruwa ne daga kusanci, fitar jima'i, da ƙarewar haila ko zubar jinin haihuwa. An ɗaga shi da ghusl, wanka na al'ada na cikakken jiki - tare da sake maye gurbin lokacin da babu ruwa ko cutarwa.",
       "Najasa (najasa) - kamar fitsari, najasa, ko jini mai gudana - wani abu ne daban: dole ne a cire shi daga jiki, da tufafi, da wurin addu'a ba tare da la'akari da yanayin al'ada ba. Mazhabobin Ahlus-Sunnah guda hudu sun yi ittifaki a kan wadannan rukunai guda uku, sun banbanta ne kawai a cikin wasu bayanai na abin da ke warware tsarki ko kuma abin da aka yi wa uzuri.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuma idan kun kasance a cikin janaba, to ku tsarkake kanku. Amma idan ba ku da lafiya ko a kan tafiya... kuma ba ku sami ruwa ba, to, ku yi taimiyya da ƙasa mai tsafta.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Gano jihar ku da farko (ƙanami, babba, ko ƙazanta), sannan a yi amfani da hanyar da ta dace.",
       "Lokacin da babu tabbas game da cikakkun bayanai, bi ƙwararren malami daga makarantar da aka sani akai-akai.",
@@ -87,17 +61,8 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Malaman fikihu sun karkasa ruwa daki-daki (tsaftace kuma mai tsarkakewa, mai tsafta amma ba mai tsarkakewa ba, da najasa), amma ka’idar aiki ta rayuwar yau da kullum ita ce mai sauki: ruwa ya kasance mai dacewa da alwala da gulma sai dai idan najasa ta canza shi karara. Lokacin da ke cikin shakkar gaske tare da samuwa mai tsabta madadin, yi amfani da madadin.",
       "Musulunci ya koyar da tsafta ba tare da almubazzaranci ba. Annabi SAW ya wanke gaba daya amma ya yi amfani da ruwa kadan kadan - kimanin laka guda (biyu da hannu) don yin alwala da sa' (kimanin hudu) ga cikakkar gulma. Sharar da ruwa ba a hana shi koda ya yi yawa, domin ita kanta tawali’u na daga cikin ladubban ibada.",
     ],
-    quran: [
-      {
-        excerpt: "Kuma Muka saukar da ruwa mai tsarkakẽwa daga sama.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Manzon Allah SAW ya kasance yana yin alwala da laka na ruwa da guzuri da sa'a har guda biyar. (Anas; da kuma Sahih Musulmi 325 - sunnar daidaitawa).",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Yi amfani da isasshen ruwa don wankewa sosai, amma juya famfo ƙasa kuma kauce wa wuce haddi.",
       "Idan tushen ruwa ya yi kama da ƙamshi da ƙazanta ta canza, nemi mafi kusa da tsaftataccen tushe.",
@@ -113,12 +78,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Ana buqatar ta kafin kowace sallah – sai dai idan kun kasance cikin ingantacciya daga sallar da ta gabata – da kuma a cewar mafi rinjayen malamai kafin yin tawafi a dawafin Ka’aba da kuma kafin tava nassi na zahiri (mushaf) na Alqur’ani.",
       "Alwala ibada ce a cikinta, ba kawai ta farko ba. Manzon Allah (SAW) ya yi gargadin cewa “Allah ba ya karbar addu’ar dayanku wanda ya karya alwala har sai ya sake yin alwala” – don haka kiyaye ta shi ne kiyaye sallar da kanta.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah ba ya karbar addu'ar dayanku wanda ya karya alwala har sai ya yi alwala. (Abu Huraira)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -130,12 +90,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Ruwan da ake amfani da shi dole ne ya zama mai tsabta da tsarkakewa. Mahimmanci, dole ne a haƙiƙa ya isa fata - don haka duk wani abu da ke samar da shinge mai hana ruwa a jikin wata gaɓa (fanti mai kauri, goge ƙusa, kakin zuma, manne) dole ne a fara cire shi da farko, ko kuma wanke ƙarƙashinsa bai inganta ba. Datti na yau da kullun ko tabon henna da ba ta toshe ruwa ba matsala.",
       "Mazhabobin Shafi'i da Hanbali sun kuma sharɗanta a yi wanke-wanken bisa jerin da Alƙur'ani ya zo da shi (tartib), kuma mazhabobin Maliki da Hanbali sun sharɗanta a wanke gaɓoɓi ɗaya bayan ɗaya ba tare da dogon tsaiko da zai bar gaɓoɓin da aka wanke su bushe ba (muwalat). Mazhabar Hanafi tana ɗaukar dukansu biyu sunna. Ka bi hanyar mazhaba ɗaya domin daidaito.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ku wanke fuskokinku da hannayenku zuwa gwiwar hannu, ku shafe kawunanku, sannan ku wanke kafafunku har zuwa idon sawu.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Cire gashin farce, zoben da ke tarko ruwa, da duk wani abu da ya rufe fata kafin alwala.",
       "Yi alwala cikin nutsuwa a cikin ruwa guda ɗaya don kada wani gaɓoɓi ya ɓace ko a bar shi ya bushe.",
@@ -149,12 +104,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "A kan waɗannan, mazhabobi suna ƙara wasu wajibai daga Sunnah da ijtihadin malamai. Niyya wajiba ce a yawancin mazhabobi (Hanafiyya suna ɗaukarta sunna mai ƙarfi wajen ɗauke ƙaramin hadasi). Jeri (tartib) wajibi ne a wajen Shafi'iyya da Hanbaliyya, ci gaba ba tare da tsaiko ba (muwalat) kuma a wajen Malikiyya da Hanbaliyya. Malikiyya suna ƙara cuɗa gaɓoɓi (dalk) a matsayin wajibi.",
       "Duk abin da ya wuce wadannan – kurkure baki da hanci, da wanke hannu tukuna, wanke hannu sau uku – mustahabbi ne (sunna) ba wajibi ba. Sanin bambanci yana nufin za ku iya gane lokacin da alwala ta kasance ajizi ne kawai da rashin inganci.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ku wanke fuskokinku da hannayenku zuwa gwiwar hannu, ku shafe kawunanku, sannan ku wanke kafafunku har zuwa idon sawu.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Madaidaicin lissafin faraid (misali ko niyya, tsari, da shafa wajibi ne) ya bambanta a tsakanin mazhabobi hudu. Koyi kuma a yi amfani da ingantaccen makaranta guda ɗaya akai-akai.",
   },
@@ -166,12 +116,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Ayyukan sunna da aka kafa sun haxa da: “Bismillah” a farkonsa; wanke hannu sau uku kafin farawa; kurkure baki (madmadah) da hanci (istinshaq); gudana rigar yatsu ta gemu mai kauri da tsakanin yatsu da yatsu (takhlil); farawa kowane biyu na gabobin da dama; da maimaita kowane wanka har sau uku.",
       "Sunnoni guda biyu sun cancanci a ambaci sunansu na musamman: yin amfani da miswak (siwak) a gabani - wanda Annabi SAW ya kusa wajabta shi - da karanta shaidar imani bayan kammala, wanda ya bude kofofin Aljanna guda takwas ga wanda ya fadi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya kyautata alwala, sannan ya ce: “Na shaida babu abin bautawa da gaskiya sai Allah… kuma Muhammadu bawanSa ne kuma ManzonSa ne.” An bude masa kofofin Aljanna takwas. (Umar ibn al-Khattab)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Ka yi cikakken jerin sunnah har sai ta zama al'adarka.",
       "Karanta shahadar bayan wudu a kowane lokaci.",
@@ -226,12 +171,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
         tip: "Sunnah gajeru amma mai tarin lada.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Usman ya wanke kowace kafa har sau uku kamar yadda ya ga Annabi SAW yana yi, sannan ya ce: “Duk wanda ya yi alwala kamar haka kuma ya sallaci raka’a biyu yana mai da hankali, an gafarta masa abin da ya gabata na zunubansa. (Humran, daga Usman)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -242,12 +182,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Yana da kyau a san cewa cikakken ‘du’a ga kowane gaɓa’ (wata takamaiman addu’a yayin wanke hannu, fuska, hannaye, da sauransu) da ke yawo a wasu littattafai ba ta tabbata da ingancin ingancin Annabi SAW ba. Malamai suna nasiha da kada a jingina masa wadannan a matsayin sunna, alhali babu cutarwa ga ambaton Allah baki daya yayin alwala.",
       "Zuciyar al'amarin ita ce kasantuwar: a wanke tare da sanin cewa zunubin kowane gaɓawa yana gushewa, kuma a ƙare da shahadar da ta sake haɗa aiki da manufarsa - imani da Allah Shi kaɗai.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya yi alwala da kyau sannan ya karanta shaidar imani, an bude masa kofofin Aljannah guda takwas ya shiga da duk wanda ya so. (Umar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Ku haddace bayan wudu shahadah idan baku riga ba.",
       "Ka nisanci karanta ka'idojin da ba a tabbatar da su ba kamar sunnah ce.",
@@ -262,12 +197,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Sauran al’amura kuma ana samun banbancin mutuntawa a tsakanin makarantu: taba al’aura kai tsaye, da fata-da-fata da wanda ba muharramansa ba, suna warwarewa a wasu makarantu amma ba wasu ba, bisa la’akari da karatun nassi iri daya.",
       "Muhimmiyar ƙa'idar mulki tana kiyaye ku daga damuwa ta yau da kullun (waswas): tabbas ba a cire ta da shakka ba. Idan kana da alwala kuma kawai ba ka da tabbacin ko ka fasa, har yanzu ana ganin kana da alwala har sai an tabbatar da cewa akwai mai warwarewa. Annabi SAW ya gaya wa mutumin da ya damu da wannan tunanin kada ya bar sallarsa 'har sai ya ji sauti ko ya sami wari.'",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kada ya fita (sallarsa) har sai ya ji sauti ko ya samu wari. (Abbad ibn Tamim, daga baffansa)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Ko taba ma'aurata ko al'aurar mutum yana karya alwala ya bambanta a cikin makarantu. Bi ƙwararren malami na gida da tsarin makaranta ɗaya.",
   },
@@ -279,12 +209,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Annabi SAW ya tava ganin mutanen da dugadugansu ta bushe kamar yadda ruwan bai kai gare su ba, sai ya yi gargaxi da kakkausar murya cewa, ‘Kaiton dugaduganin wuta! Duga-dugansa, idon sawu, da kusurwoyin fuska sune wuraren da aka fi kulawa da su.",
       "Kuskure sabanin haka shi ne wuce gona da iri: yin wanka da nisa fiye da sau uku, ko amfani da ruwa da almubazzaranci, wanda ya saba wa sunnar daidaitawa. Wasu kuma sukan fada cikin waswas (shakka mai tsauri), suna ta maimaita wudu akai-akai - wannan ma kuskure ne, tunda tabbas ba a soke ta da zato.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bone ya tabbata ga dugadugansa daga wuta! - ya ce a lokacin da ya ga dugadugan sun bushe a cikin wudu. (Abu Huraira)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Sannu a hankali tabbatar da cikakken ɗaukar hoto na kowane gaɓar da aka wanke, musamman ma diddige da gwiwar hannu.",
       "Yi amfani da matsakaicin ruwa; Kada ka bari shakku mai ban sha'awa ya tura ka cikin maimaitawar banza.",
@@ -299,12 +224,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Haka nan abin alfahari ne a rayuwa ta gaba. A ranar kiyama Annabi ﷺ zai gane mabiyansa ta hanyar annuri a fuskokinsu, hannayensu, da kafafunsu daga sawun alwala - wani haske da ya kebanta da wannan al'ummah, wanda ake kira al-ghurr al-muhajjalun.",
       "Saboda wadannan kyawawan dabi'u, zama a cikin alwala dabi'a ce mustahabbai: sabuntata ga kowace sallah, da yin barci a kan alwala, suna daga cikin ayyukan kariya na mumini.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Za'a kirayi al'ummata ranar kiyama da fuskoki da hannaye da qafafu masu haske daga sahun alwala. (Abu Huraira)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Sabunta wudu ga kowace taga sallah inda zaka iya.",
       "Ka sanya yin barci a kan alwala sunna ce ta dare.",
@@ -319,11 +239,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Asalinsa shine cewa ruwa yana kaiwa kowane bangare na jikin waje - babu busasshen tabo da zai iya zama, gami da tushen gashin gashi, nannade fata, bayan kunnuwa, cibiya, da tsakanin yatsun kafa. Kurkure baki da hanci yana cikin gyadar malamai da yawa.",
       "Gus guda daya da aka yi da niyyar daga janabah shima yana gusar da karamar kazanta, don haka wanda ya gama alwala zai iya yin sallah ba tare da alwala daban ba (ko da yake yin alwala a cikin janabah ita ce sunna).",
     ],
-    quran: [
-      {
-        excerpt: "Kuma idan kun kasance a cikin janaba, to ku tsarkake kanku.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -334,16 +250,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "An so sauran gabbansu (mustahabbai) maimakon wajibci: gulmar juma'a gabanin juma'a, wanda aka kwadaitar da shi sosai har Annabi SAW ya kira ta da cewa 'wajibi ne akan duk wanda ya balaga'; gulmar Idi guda biyu; da gulmar ihrami kafin aikin hajji ko umrah.",
       "An umurci sabon musulmi da ya yi zalinci idan ya shiga Musulunci – wasu malamai suka wajabta musu, wasu kuma suka yi nasiha mai karfi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Idan mutum ya zauna tsakanin gabobi hudu na matarsa ​​ya sadu da ita, ghusl ya wajaba. (Abu Huraira, da Sahih Musulmi 348).",
-      },
-      {
-        excerpt:
-          "Gusl ranar Juma'a wajibi ne akan duk wanda ya balaga. (Abu Sa'id al-Khudri; da kuma Sahih Musulmi 846).",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Ko juma'a da masu tuba ghusls na wajaba ne ko nasiha mai karfi ya bambanta ta makaranta da yanayi.",
     appLinks: [{}],
@@ -386,12 +293,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
         tip: "Mata ba sa bukatar warware gashin da aka yi masa lanƙwasa, muddin ruwa ya kai ga gashin kai.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Manzon Allah Sallallahu Alaihi Wasallama ya yi wanka daga janabah, sai ya wanke hannunsa, ya yi alwala don yin sallah, sai ya yi ta yatsa a gashin kansa, sannan ya zuba ruwa a kansa sau uku, da sauran sassan jikinsa. ('A'isha)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Kuskuren Ghusl na kowa",
@@ -401,12 +303,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Kuskuren gama gari na biyu shine barin busassun tabo. Wajibi ne ruwa ya taba jikin gaba daya, don haka rashin kula da saiwar fatar kai, kunnuwa, cibiya, kananun bayansa, ko tsakanin yatsu yana barin hanjin bai cika ba. Shafa ruwan akan waɗannan wuraren don tabbatarwa.",
       "Ga gashi: Ba a buqatar mace mai dunqule gashinta ta warware }awancen, matu}ar ruwa ya kai ga saiwar fatar kai – Manzon Allah Sallallahu Alaihi Wasallama ya gaya wa Ummu Salamah cewa zubar da hannu uku a kai ya wadatar. Gashin mutum, kasancewar yawanci sako-sako ne, yakamata a yi aikin ta yadda ruwa ya kai tushen.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ya ishe ki ki zuba ruwa kinki uku a kan ki, sa'an nan ki zuba ruwa a kan kanki kina tsarki, ba kwa bukatar ku warware gashin kanki. (Ummu Salamah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Fadi niyya kafin zuba na farko, don haka wanke yana ƙidaya a matsayin ƙusa.",
       "Shafa ruwa akan wuraren da aka rasa cikin sauƙi; lokacin da babu tabbas, sake wanke sashe maimakon gamawa cikin shakka.",
@@ -421,18 +318,8 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Tayammu kyauta ce ga wannan al'ummar musamman: Annabi (SAW) ya ce: \"An sanya min kasa ta zama wurin addu'a da tsarkakewa, ya jera ta a cikin alfarma na musamman da aka ba shi ba ga annabawan farko ba. Ya ƙunshi ka'ida ta tsakiya na addini - wajibi ne ya rage, amma an ɗaga wahala.",
       "Ma'auni ne na wucin gadi: da zarar ruwa ya samu kuma mai amfani, tsarkakewa na yau da kullun tare da ruwa ya dawo. Mutum na iya buqatar sabunta taimiyya a kowace sallah kamar yadda wasu makarantu suka ce.",
     ],
-    quran: [
-      {
-        excerpt:
-          "... kuma ba ku sami ruwa ba, sannan ku yi taimiyya da kasa mai tsafta, sannan ku shafe fuskokinku da hannayenku da shi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "An sanya mini ƙasa wurin yin addu'a da abin tsarkakewa. (Jabir - daga cikin abubuwa biyar da aka kebance ga Annabi SAW).",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Lokacin da aka halatta Tayamimu",
@@ -442,12 +329,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Na uku, lokacin da ake buƙatar ɗan ƙaramin ruwan da ake buƙata don ƙarin larura - kamar sha, don adana rai, ko na mutum ko na wani ko na dabba. A kowane hali shari'a tana auna kiyaye rai da lafiya sama da hanyar tsarkakewa da aka fi so.",
       "Malaman fikihu sun bambanta a kan mafi kyawun ƙofa - nisan da mutum ya kamata ya nemi ruwa, nawa tsoron cutarwa ya isa - amma sun yi ijma'i kan rahamar da ke cikin ƙasa: Ba a taɓa barin ibada, sai dai a sauƙaƙe.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "An ruwaito a cikin surori na tayamum: rangwamen tsarkakewa da kasa mai tsafta idan babu ruwa mai amfani.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Nemo ruwa da kyau kafin tafiya zuwa tayammum.",
       "Idan likita ya ba da shawarar kiyaye rauni ko rashin lafiya a bushe, yi aiki da wannan kuma ku yi tayammum.",
@@ -483,12 +365,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
         tip: "Bi hanyar makaranta ɗaya (hannun hannu da na gaba) akai-akai.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Manzon Allah Sallallahu Alaihi Wasallama ya bugi qasa da tafin hannunsa, sannan ya goge fuskarsa da hannayensa – yana koya wa Ammar cewa wannan ya ishe shi. (Amar bin Yasir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Me Ke Karya Tayamum?",
@@ -514,12 +391,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Ana cirewa ta hanyar ruwa inda ƙazanta ke iya gani, ana wankewa har sai abin da ya faru ya ɓace. Har ila yau, Musulunci ya dauki mabubbugar najasa da muhimmanci: Annabi SAW ya yi gargadin cewa yawancin azabar kabari na zuwa ne daga rashin kulawa da fitsari - ana fesa shi da rashin tsaftacewa yadda ya kamata.",
       "Makarantun sun bambanta akan rarraba wasu abubuwa (misali, ko an ba da uzuri kaɗan na wasu ruwaye) da kuma abin da aka yarda da su. Ƙa'idar aiki don rayuwar yau da kullum: tsaftacewa sosai, kuma kada ku yi shakka game da tsabta inda babu alamar ƙazanta.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Annabi SAW ya wuce kaburbura guda biyu ya ce ana azabtar da mutanen da ke cikin su - daya saboda yada kazafi, daya kuma saboda bai kare kansa daga fitsarinsa ba. (Ibn Abbas; da Sahih Musulmi 292).",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Tsaftace Tufafi daga Najasa",
@@ -529,12 +401,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Idan kuma bayan yunƙuri na gaskiya da ƙaƙƙarfan ƙoƙarce-ƙoƙarce, tabon launi ko ƙamshi kaɗan ya rage wanda ba zai fito ba, yawancin malamai suna ba da uzuri ga abin da yake da wuyar cirewa da gaske - wajibi ne a cire abin, ba tabbatar da rini mara tabo ba.",
       "Wasu lokuta suna da nasu sanannun cikakkun bayanai, kamar fitsarin yaro mai shayarwa (wanda aka yayyafawa maimakon a wanke shi gabaɗaya, a cikin rangwamen da aka ruwaito) - don haka koyi hukunce-hukuncen makarantar ku don yanayin da kuke fuskanta.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dangane da jinin haila akan tufa: a goge shi, sannan a shafa shi da ruwa, sannan a wanke, sannan a yi sallah a cikinsa. (Asma bint Abi Bakr)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "A ajiye aƙalla tufa ɗaya mai tsabta wadda aka keɓe don yin addu'a.",
       "Idan ƙazanta ta taɓa tufafinku daga gida, kurkura abin da za ku iya kuma canza idan zai yiwu.",
@@ -548,11 +415,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Bayan gusar da kazanta, Musulunci ya kwadaitar da tushen tsaftar dabi'a (fitrah) da ke sanya jiki tsafta da shirye-shiryen ibada: datse farce, cire gashin hannu da kuma makamantansu, akai-akai.",
       "Wadannan ayyuka ba kyawawan al'adu ba ne kawai - suna daga cikin mutunci da tsafta wanda mumini yake gabatar da kansa a gaban Allah da addu'a.",
     ],
-    hadith: [
-      {
-        excerpt: "Annabi SAW ya kasance yana wanke kansa da ruwa bayan ya huta. (Anas)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Koyaushe cika istinja kafin alwala bayan amfani da bandaki.",
       "Ɗaukar kyallen takarda da, inda za ku iya, hanyar ruwa yayin tafiya.",
@@ -566,12 +429,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Ka'idar mulki ta tabbata. An mayar da ƙasa gabaɗaya wurin addu'a, don haka a ɗauka cewa saman yana da tsabta sai dai idan kuna da ainihin ƙazanta. Idan kun san ƙazanta yana nan, cire shi ko matsa zuwa wuri mai tsabta; idan kawai kuna tunanin zai iya kasancewa a wurin, yi watsi da raɗaɗin kuma ku ci gaba.",
       "Wannan ma'auni yana kiyaye ibada daga bangarori biyu: yin addu'a ba tare da kulawa ba a kan kasa a fili, da gurgunta shi da zato mara tushe game da kowane saman.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "A lokacin da wani Badawiyya yayi fitsari a masallaci, Annabi SAW ya yi umarni da a zuba bokitin ruwa a kai. (Abu Huraira)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Kallan tabarma ka da falon kafin sallah.",
       "Ba tare da ainihin ƙazanta ba, a watsar da ɓarna marar tushe da addu'a.",
@@ -585,12 +443,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Azumi daban-daban: Azumin da aka rasa a watan Ramadan saboda haila ana yin sa ne daga baya, yayin da ake daga sallah. Idan jinin ya kare sai alamar tsarki ta bayyana, sai macen ta yi alwala ta koma sallah da azumi.",
       "Matsakaicin mafi ƙarancin lokacin hayd da nifas, da yadda ake karanta alamomin tsaftar iyaka, batutuwa ne da makarantu suka bambanta dalla-dalla. Mata suna amfana da koyon hukunce-hukunce a aikace na makaranta guda amintacciyar makaranta tare da ƙwararren malami.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Da aka tambaye ta me ya sa mace mai haila ta yi azumi amma ba ta yin sallah, Aisha ta ce: An umarce mu da mu rama azumi, ba a kuma umarce mu da mu rama sallah ba. (Mu'adhah, daga Aishah; da kuma Sahih Musulmi 335).",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -619,15 +472,7 @@ export const TAHARAH_TOPICS_HA: DeepPartial<TaharahTopic>[] = [
       "Dangane da hukunce-hukunce hukunce hukunce hukunce hukunce hukunce-hukuncen fiqhu na mazhabobin Ahlus-Sunnah guda hudu sun ba da cikakken matsayi - kuma bambance-bambancen su wani bangare ne na halal na al'ada, ba aibi ba. Yi amfani da wannan ƙa'idar don ƙayyadaddun tsari, sannan zurfafa nazarin ku tare da ƙwararren malami da matani na farko.",
     ],
     quran: [{}, {}],
-    hadith: [
-      {
-        excerpt: "Cikakken surori akan wudu, ghusl, tayamum, da hayd waɗanda suke buɗe tarin.",
-      },
-      {
-        excerpt:
-          "Littafin tsarkakewa - ingantattun rahotanni akan hukunce-hukuncen taharah, da'a, da ka'idoji.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Bi amintaccen manhaja guda ɗaya don guje wa ruɗani daga tarwatsa hukunce-hukunce.",
       "Sake ziyartan waɗannan batutuwa lokaci-lokaci har sai ingantaccen tabbaci ya tsaya tsayin daka.",

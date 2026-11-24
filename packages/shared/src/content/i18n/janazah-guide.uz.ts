@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Ijtimoiy ko'rinish uchun emas, Alloh rizoligi uchun namoz va tashrifga niyat qiling.",
       "Agar hurmat bilan qila olsangiz, oilaning amaliy ehtiyojlariga yordam bering.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim janoza namozini o‘qigunicha qatnashsa, bir qirot, kimki dafn etgunga qadar qatnashsa, ikki qirot – har biri ulug‘ tog‘dek bo‘ladi.",
-      },
-      {
-        excerpt:
-          "Kim bir musulmonning janozasiga iymon va savob uchun ergashsa va namoz o‘qilib, dafn nihoyasiga yetguncha tursa, ikki qirot bilan qaytadi...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Yuvish va o'rash",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Kafanni oddiy va toza tuting - oq mato bashoratli namunadir.",
       "Zaruratsiz tanani suratga olish yoki fosh qilishdan saqlaning.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Uni uch marta, agar kerak bo'lsa, besh yoki undan ko'p marta suv va sidr bilan yuving va oxirgi yuvishda kofur yoki bir oz kofur qo'ying.",
-      },
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam uchta oq Yaman paxta kiyimida kafanlandilar. ular orasida na ko'ylak, na salla bor edi.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Marhumning ko'zlarini yumganda",
@@ -63,12 +45,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Ko'zlaringizni muloyimlik bilan yoping va haqiqiy duo qiling.",
       "Oilaga yaxshi gapirishni eslatib turing.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Abu Salama roziyallohu anhuning ko'zlari qadalganida, Rasululloh sollallohu alayhi vasallam ularni yopdilar va ruh olinsa, ko'rish unga ergashishini, so'ngra xonadon ahlini faqat yaxshi so'z aytishni o'rgatishlarini aytdilar.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Janoza namozini qanday o'qish kerak",
@@ -83,16 +60,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Imom bilan to‘rtta takbir ayting.",
       "Tegishli takbirdan keyin marhum uchun xolis duo qiling.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh sollallohu alayhi vasallam Najoshiyning janoza namozini o‘qib, to‘rtta takbir aytdilar.",
-      },
-      {
-        excerpt:
-          "Ibn Abbos janoza namozini o‘qib, sunnatdan ekanini aytib, Fotiha surasini o‘qidi.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Janoza namozidagi duolar (kattalar)",
@@ -153,16 +121,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Marhumni qabrga qo'yishda Hisnul Muslimda sahih duo saqlanadi. Rasululloh sollallohu alayhi vasallam dafn etilgandan keyin qabr boshida turib: “Birodaring uchun mag‘firat so‘rang va sobit bo‘lishini so‘rang, chunki u hozir so‘roq qilinmoqda”, der edilar (Sunan Abu Dovud 3221 — keyingi ko‘plab olimlar, jumladan, Alboniy sahih deb baholagan).",
       "Qabrlar ustiga bezakli inshootlar qurish, ularni bezash uchun suvoq qilish yoki mubolag'a qilishga undaydigan yozuvlardan sahih xabarlarda ogohlantiriladi. Qonun va mahalliy urf-odatlar identifikatsiyalashga imkon beradigan joyda belgini oddiy saqlang.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dafn marosimida shoshilinch bo'ling: agar u solih bo'lsa, siz uni yaxshilikka tezlashtirasiz. agar bo'lmasa, bo'yningizdan yomonlikni tushirasiz.",
-      },
-      {
-        excerpt:
-          "Birodaringiz uchun mag'firat so'rang va sabrli bo'lishini so'rang, chunki u hozir so'roq qilinmoqda.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Marhumni dafn qilgandan keyin",
@@ -187,12 +146,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Qabr ahliga sahih so'zlar bilan salom ayting.",
       "O'lim haqida o'ylang va solih ishlarni yangilang.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Assalomu alaykum, ey mo'minlar va musulmonlar o'rtasidagi uy ahli. Alloh xohlasa sizlarga qo'shilamiz. Allohdan o'zimizga ham, sizlarga ham omonlik tilaymiz.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Eslatmalar va keng tarqalgan xatolar",
@@ -209,12 +163,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Hurmatli dafn qilishni tezlashtiring.",
       "Oilani isrofgarchilik bilan yuklamasdan, ularga oziq-ovqat va ishlarda yordam bering.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Alloh taolo ko‘z yoshlari va qalb qayg‘usi uchun jazolamaydi, balki buning uchun jazolaydi yoki rahm qiladi – va tiliga ishora qildi.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -231,12 +180,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "To‘rt takbir ketma-ketligini kerak bo‘lguncha o‘rganing.",
       "Fotihani, salovotni va kamida bitta janoza duosini yodlang.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Abbos janoza namozini o‘qib, «al-Fotiha»ni o‘qidi va uning sunnatdan ekanini aytdi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Erkaklar, ayollar va bolalar uchun duolar",
@@ -271,15 +215,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Olim ko‘rsatmasiga zid ravishda jang maydoni shahidini yuvmang.",
       "Tushik yoki o‘lik tug‘ilish holatlari haqida janoza qo‘mitasidan so‘rang.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasululloh ﷺ Uhud shahidlarini qonlari bilan dafn etishni buyurdilar va ular yuvilmadi.",
-      },
-      {
-        excerpt: "Tushik ustida janoza namozi o‘qiladi va ota-onaga mag‘firat va rahmat tilanadi.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "G‘oyibona janoza",
@@ -295,15 +231,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Jasad bor bo‘lganda har doim mahalliy namoz o‘qing.",
       "G‘oyibona janozani ommaviy tadbir sifatida tashkil etishdan oldin so‘rang.",
     ],
-    hadith: [
-      {
-        excerpt: "Rasululloh ﷺ Najoshiy uchun janoza namozini o‘qib, to‘rt takbir aytdilar.",
-      },
-      {
-        excerpt:
-          "Allohning Elchisi ﷺ sahobalarni safga turdirdilar va Najoshiy uchun to‘rt takbir bilan namoz o‘qidilar.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "O‘lim to‘shagida — so‘nggi so‘zlar",
@@ -317,15 +245,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "O‘limga yaqin kishiga shahodatni muloyim eslatib turing.",
       "Xonani tinch tuting va yaxshi so‘z bilan to‘ldiring.",
     ],
-    hadith: [
-      {
-        excerpt: "O‘limga yaqinlaringizni: la ilaha illalloh demaga undalang.",
-      },
-      {
-        excerpt:
-          "Kimning so‘nggi so‘zlari «Allohdan boshqa ibodatga loyiq hech kim yo‘q» bo‘lsa, u jannatga kiradi.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Hayot umidi duolari" }, { label: "Ko‘zlarni yumish" }],
   },
   {
@@ -341,12 +261,7 @@ export const JANAZAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Ziyofat kutish o‘rniga ovqat va ishlarda yordam bering.",
       "Marhum uchun tinch duo va sadaqani davom ettiring.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hech bir musulmon musibatga duch kelib, Allohga qaytish haqidagi buyurilgan so‘zlarni aytib, yaxshiroq bilan almashtirishni so‘ramasa, Alloh uni yaxshiroq bilan almashtiradi.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Sadaqa maqsadlari" }],
   },
 ];

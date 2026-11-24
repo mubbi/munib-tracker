@@ -2,349 +2,267 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ku overlay for janazah-guide. Index-aligned with JANAZAH_GUIDE_TOPICS in ../janazah-guide.ts.
-// Literary translation pack — untranslated nested fields fall back to English.
 export const JANAZAH_GUIDE_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Mecburek komînal",
-    summary: "Cenazah fard kifaye ye - divê civak wê pêk bîne.",
+    title: "فەرزێکی کۆمەڵایەتی",
+    summary: "جەنازە فەرزی کیفاییە — کۆمەڵگا دەبێت جێبەجێی بکات.",
     body: [
-      "Nimêja cinazê (Selata Cenazeyê) wacibeke komî ye (ferd kifaye): Heke hinek ji civatê wê bikin, wezîfe ji yên mayî tê rakirin; eger yek neke, hemû sûcdar in. Di nimêjê de rawestayî, bê ruku û sucûd tê nimêj kirin - di nav nimêjan de celebek cihêreng e.",
-      'Ebû Hureyre radigihîne ku Resûlê Xuda [dirûd û silavên Xuda lê bin] [dirûd û silavên Xuda lê bin] gotiye: "Kî ku heta nimêjê biçe cenazeyan, wî qirat (xelat) jê re heye û ji kesê ku heta definkirinê beşdar bibe du qirat jê re heye." Ji wî hat pirsîn ku qirat çi ye, wî got: "Wek du çiyayên mezin" (Sahih el-Buxarî 1325; Sahih Muslim 945). ﷺ',
-      "Piştî merasîma cenaze, alîkariya şuştin û definkirinê li gorî îmkana xwe û duakirina miriyan ji mafên misilmanan li ser yekî din e. Bi laş bi rûmet derman bikin û ji zêdeperedanê an kiryarên bê delîl dûr bixin.",
+      "نوێژی جەنازە (صەلاتول جەنازە) فەرزێکی کیفاییە (فەرزی کیفایە): ئەگەر هەندێک لە کۆمەڵگا ئەنجامی بدەن، ئەرکەکە لەسەر ئەوانی تر لادەچێت؛ ئەگەر کەس ئەنجامی نەدات، هەموویان بەشداری گوناهەکەن. بە وەستانەوە دەکرێت، بەبێ ڕکوع و سوجدە — شێوەیەکی تایبەت لە نێوان نوێژەکاندا.",
+      "ئەبو هورەیرە دەگێڕێتەوە کە پێغەمبەری خوا ﷺ فەرمووی: «Whoever attends the funeral until the prayer is offered will have a qirat (of reward), and whoever attends until the burial will have two qirats» (واتای ئینگلیزی). پرسیاریان لێ کرد قیرات چییە، فەرمووی: «Like two great mountains» (واتای ئینگلیزی) (سەحیحی بوخاری 1325؛ سەحیحی موسلیم 945).",
+      "بەدوای جەنازەدا ڕۆیشتن، یارمەتیدان لە شۆردن و ناشتندا بە پێی توانا، و دوعاکردن بۆ مردووەکە لە مافەکانی موسڵمانن بەسەر موسڵمانێکی ترەوە. ڕێز لە تەرمەکە بگرە و خۆت لە زێدەڕۆیی و ئەو کارانەی بەڵگەیان نییە بپارێزە.",
     ],
     actions: [
-      "Gava ku di civata we de cenazeyek hat ragihandin zû bersiv bidin.",
-      "Nimêj û çûna xwe ji bo Xwedê mebest bikin, ne ji bo nîşandana civakî.",
-      "Ji bo hewcedariyên pratîk ên malbatê gava ku hûn dikarin bi rêzdarî bikin, bibin alîkar.",
+      "کاتێک جەنازەیەک لە کۆمەڵگاکەتدا ڕاگەیەنرا، خێرا وەڵام بدەرەوە.",
+      "نیەتی نوێژ و ئامادەبوونەکەت بۆ خوا بێت، نەک بۆ خۆنواندنی کۆمەڵایەتی.",
+      "کاتێک دەتوانیت بە ڕێزەوە ئەنجامی بدەیت، یارمەتی خێزانەکە بدە لە پێداویستییە کردارییەکانیاندا.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Heya ku nimêja cinazê bike, kesê ku heta nimêja cenazê bike, qiratekî wî û yê ku heta definkirinê biçe, du qirat jê re hebe, her yek wek çiyayekî mezin.",
-      },
-      {
-        excerpt:
-          "Kî ji ber îmanê û ji bo îkramê li pey cenazê misilmanekî biçe û heta nimêj bê kirin û definkirin biqede, bi du qiratan vegere...",
-      },
+    appLinks: [{ label: "فێربوونی نوێژ — باسی جەنازە" }],
+  },
+  {
+    title: "شۆردن و کفنکردن",
+    summary: "غوسڵی مردوو و کفنێکی سادە — ڕێزگرتن بەبێ زێدەڕۆیی.",
+    body: [
+      "ئەو موسڵمانانەی دەمرن (جگە لە شەهیدانی مەیدانی جەنگ بە پێی حوکمی کلاسیکی) بە شۆردنێکی پاککەرەوە دەشۆردرێن، پاشان لە قوماشی سپیی پاکدا کفن دەکرێن. ئوم عەتیە دەگێڕێتەوە کە پێغەمبەر ﷺ دەربارەی شۆردنی کچەکەی فەرمووی: «Wash her three or five times, or more if you see fit, with water and sidr, and put camphor — or some camphor — in the last» (واتای ئینگلیزی) (سەحیحی بوخاری 1253). باشترە شۆرەران کەسانی جێی متمانە و هاوڕەگەزی مردووەکە بن ئەگەر توانرا؛ شۆردنی هاوسەر بۆ یەکتر لە زۆرێک لە بۆچوونەکانی زانایاندا ڕێگەپێدراوە — لەگەڵ ڕێبەرێکی ناوخۆیی پشتڕاستی بکەرەوە.",
+      "عائیشە دەگێڕێتەوە کە پێغەمبەری خوا ﷺ لە سێ پارچە قوماشی سپیی لۆکەی یەمەنیدا کفن کرا، کە نە کراس و نە مێزەری تێدا نەبوو (سەحیحی بوخاری 1264؛ سەحیحی موسلیم 941). سادەیی سوننەتە؛ خۆنواندنی گرانبەها پێچەوانەی نموونەی پێغەمبەرە. ژمارەی پارچەکانی کفن بۆ پیاوان و ئافرەتان بە پێی مەزهەب جیاوازە (زۆرجار ژمارەی تاک؛ لە هەندێک مەزهەبدا ئافرەتان پارچەی زیاتریان هەیە).",
+      "کێ کێ دەشوات، شوێنی دانانی بۆن و وردەکارییە پەیوەندیدارەکان جیاوازیی مەزهەبییان تێدایە. خێزانەکان دەبێت شوێن ڕێبەرێکی شارەزای ناوخۆیی یان خزمەتگوزارییەکی جەنازە بکەون کە کرداری مەزهەبەکە دەزانێت — ئەم پوختەیە ڕێنمایی شۆردن نییە.",
+    ],
+    madhhabNote:
+      "مەزهەبەکان جیاوازن لەسەر ژمارەی وردی پارچەکانی کفن، شوێنی دانانی بۆن، شۆردنی هاوسەر، و ئەوەی ئایا هەندێک جۆر (بۆ نموونە قۆناغەکانی لەباربردن) شۆردنی تەواویان بۆ دەکرێت یان نا. بۆ هەنگاوە کردارییەکان شوێن لیژنەی جەنازەی ناوخۆیی یان زانایەک بکەوە.",
+    actions: [
+      "ئەگەر توانرا، کەسانی جێی متمانەی هاوڕەگەزی مردووەکە دیاری بکە.",
+      "کفن سادە و پاک بهێڵەوە — قوماشی سپی نموونەی پێغەمبەرە.",
+      "بەبێ پێویستی وێنەی تەرمەکە مەگرە و دەری مەخە.",
     ],
   },
   {
-    title: "Şuştin û kefenkirin",
-    summary: "Gusla mirî û kafanek sade - rûmeta bê zêdegavî.",
+    title: "کاتی داخستنی چاوی مردوو",
+    summary: "دوعایەکی پێغەمبەر ﷺ لە ساتی مردندا.",
     body: [
-      "Misilmanên ku dimirin (ji bilî şehîdên qada şer di hukmê klasîk de) bi şuştina paqijkirinê têne şuştin, paşê bi qumaşê spî yê paqij têne pêçandin. Umm Atiye radigihîne ku Pêxember (s.a.a) di derbarê şuştina keça xwe de wiha gotiye: “Sê an jî pênc caran, yan jî zêdetir, ger te guncav dît, wê bi av û sidr bişo û di dawîyê de kamfor an jî hinek kefûr bişo.” (Sahih el-Buxarî 1253). ﷺ",
-      "Aîşe radigihîne ku Resûlê Xuda [dirûd û silavên Xuda lê bin] di sê cil û bergên pembû yên spî yên Yemenî de, ku di nav wan de ne kiras û ne jî turban hebû (Sahih el-Buxarî 1264; Sahih Muslim 941). Sadebûn sunnet e; pêşandanên giranbuha mînaka pêxemberî berovajî dikin. ﷺ",
-      "Kî kê dişo, çend cil û bergên jin û mêran, û hûrguliyên girêdayî wan ferqên medhhebî hene. Pêdivî ye ku malbat rêberek herêmî ya zanyar an karûbarê cenazeyê ku bi pratîka dibistanê dizane bişopînin - ev pêşnuma ne pirtûkek şuştinê ye.",
+      "ئوم سەلەمە دەگێڕێتەوە کە پێغەمبەری خوا ﷺ هاتە لای ئەبو سەلەمە کاتێک چاوەکانی ڕەق ببوون. چاوەکانی داخست و فەرمووی: «When the soul is taken, the sight follows it» (واتای ئینگلیزی)، و خەڵکی ماڵەکەی گریان. پاشان فێری کردن تەنها قسەی چاک بکەن، چونکە فریشتەکان ئامین بۆ قسەکانیان دەکەن، و دوعای بۆ ئەبو سەلەمە کرد (سەحیحی موسلیم 920).",
+      "ئەو بابەتەی حیصنول موسلیم کە لە خوارەوەیە، ئەو دەقە دەپارێزێت کە لە کاتی داخستنی چاودا دەوترێت. ناوی نموونەیی بە ناوی مردووەکە بگۆڕە و ئەگەر مردووەکە ئافرەت بوو جێناوەکان بگونجێنە (بابەتی پیاوان، ئافرەتان و منداڵان ببینە). بە نەرمی قسە بکە، خۆت لەو شیوەنە بپارێزە کە پێغەمبەر ﷺ قەدەغەی کردووە، و زمانت بە قسەی چاک و داوای لێخۆشبوون سەرقاڵ بکە.",
     ],
     actions: [
-      "Dema ku gengaz be kesên pêbawer ên ji heman zayendê yên mirî tayîn bikin.",
-      "Kefen sade û paqij bihêlin - qumaşê spî modela pêxemberî ye.",
-      "Ji wênekêşandin an eşkerekirina laş bêyî hewcedariyê dûr bixin.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ger we pêwîst dît, wê sê caran, an pênc, an jî zêdetir bi av û sidrê bişo û di şuştina dawî de bixin kamforê an hindek kamforê.",
-      },
-      {
-        excerpt:
-          "Resûlê Xuda [dirûd û silavên Xuda lê bin] di sê kincên pembû yên spî yên Yemenê de bû; ne kirasek û ne jî turbanek di nav wan de bû. ﷺ",
-      },
+      "بە نەرمی چاوەکان دابخە و دوعا ڕەسەنەکە بکە.",
+      "خێزانەکە بیر بخەرەوە کە قسەی چاک بکەن.",
     ],
   },
   {
-    title: "Dema girtina çavên mirî",
-    summary: "Duayek pêxemberî di dema mirinê de.",
+    title: "چۆن نوێژی جەنازە بکەین",
+    summary: "نوێژێکی بە پێوە بە چوار تەکبیر — بەبێ ڕکوع و سوجدە.",
     body: [
-      'Ummu Seleme radigihîne ku Resûlê Xuda [dirûd û silavên Xuda lê bin] dema ku çavên wî li Ebû Seleme dibûn hat. Wî ew girt û got: "Dema ku can tê girtin, çav li pey wî tê" û mirovên mala wî giriyan. Paşê wî hînî wan kir ku tenê tiştên qenc bibêjin, ji ber ku melaîket ji gotina wan re amîn dibêjin, û wî ji Ebû Seleme re dua kir (Sahih Muslim 920). ﷺ',
-      "Ketina Hisnul Muslim a li jêr hevokê peyva ku di girtina çavan de tê bikar anîn diparêze. Bi nermî biaxive, ji nalîna ku Pêxember ﷺ qedexe kiriye dûr bikevin û bi gotinên xweş û lêborînê bipeyivin.",
+      "نوێژی جەنازە بە وەستانەوە دەکرێت. نە ڕکوع، نە سوجدە، و نە بانگ و قامەتی تێدایە. ئیمام لای سەری مردووی پیاو یان لای ناوەڕاستی مردووی ئافرەت دەوەستێت بە پێی گێڕانەوەکانی ئەنەس و سەمورە (ئەبو داود 3194 و گێڕانەوە پەیوەندیدارەکان)، و جەماعەت لە پشتیەوە ڕیز دەبەستن. ئافرەتان دەتوانن نوێژی جەنازە بکەن؛ عائیشە (خوا لێی ڕازی بێت) و هاوەڵە ئافرەتەکانی تر نوێژی جەنازەیان کردووە — بۆ ڕیزەکان و ئامادەبوون شوێن کرداری ناوخۆیی بکەوە.",
+      "نوێژەکە لە چوار تەکبیر پێک دێت. دوای تەکبیری یەکەم سووڕەتی فاتیحە دەخوێنرێت (بوخاری 1335). دوای تەکبیرەکانی دواتر صەلەوات لەسەر پێغەمبەر ﷺ دەدرێت و دوعا بۆ مردووەکە دەکرێت. نوێژەکە بە سەلامدانەوە کۆتایی دێت. جابیر دەگێڕێتەوە کە پێغەمبەر ﷺ نوێژی جەنازەی بۆ نەجاشی (پاشای حەبەشە) کرد و چوار تەکبیری کرد (سەحیحی بوخاری 1334).",
+      "ئەوانەی درەنگ دەگەن و تەکبیرێکیان لەدەست دەچێت، دەبێت شوێن ئیمام بکەون و ئەوەی لەدەستیان چووە بە پێی ڕێسای مەزهەبەکەیان بۆ قەرەبووکردنەوە تەواو بکەن — ئەگەر دڵنیا نیت، پرسیار لە ئیمام یان مامۆستایەکی ناوخۆیی بکە. لیستی هەنگاو بە هەنگاوی تەکبیرەکان لە دواتری ئەم ڕێبەرەدا ببینە.",
+    ],
+    madhhabNote:
+      "بەرزکردنەوەی دەستەکان لەگەڵ هەر تەکبیرێک، خوێندنی فاتیحە بە نهێنی یان بە ئاشکرا، و شوێنی وردی صەلەوات و دوعا بە پێی مەزهەب کەمێک جیاوازن. شوێن ئەو ئیمامە بکەوە کە پێشنوێژی دەکات.",
+    actions: [
+      "لە ڕیزدا بوەستە؛ ڕکوع و سوجدە مەبە.",
+      "لەگەڵ ئیمام چوار تەکبیر بکە.",
+      "دوای تەکبیری گونجاو دوعایەکی دڵسۆزانە بۆ مردووەکە بکە.",
+    ],
+    appLinks: [{ label: "ناوەندی فێربوونی نوێژ" }],
+  },
+  {
+    title: "دوعاکانی نوێژی جەنازە (گەورەساڵ)",
+    summary: "دەقە ڕەسەنەکانی حیصنول موسلیم بۆ مردوو.",
+    body: [
+      "دوای تەکبیرەکان، دڵی نوێژی جەنازە دوعایە بۆ مردووەکە — داواکردن لە خوا کە لێی خۆش بێت، ڕەحمی پێ بکات و بەهەشتی پێ ببەخشێت. چەند دەقێکی ڕەسەن لە پێغەمبەرەوە ﷺ لە حیصنول موسلیمدا پارێزراون. دەقە هاوپێچەکان جێناوی نێر بەکاردەهێنن وەک شێوەی ستانداردی عەرەبی.",
+      "کاتێک مردووەکە ئافرەت بێت، هەمان دەق بە جێناوی مێ بگونجێنە (بۆ نموونە لَهُ → لَهَا). بابەتی تایبەت بە پیاوان، ئافرەتان و منداڵان ببینە. دوعا بەستراوەکەی خوارەوە بکەرەوە تا بە عەرەبی، خوێندنەوەی لاتینی و واتاکەیەوە بیخوێنیت. دەتوانیت زیاتر لە یەک دەقی ڕەسەن فێر بیت؛ دڵسۆزی لە درێژی گرنگترە.",
     ],
     actions: [
-      "Çavên xwe bi nermî bigrin û duaya rastîn bikin.",
-      "Bînin bîra malbatê ku baş biaxivin.",
+      "لانیکەم یەک دوعای ڕەسەنی جەنازە لەبەر بکە.",
+      "کاتێک نوێژ دەکەیت، جێناوەکان بۆ مردووی ئافرەت بگونجێنە.",
+      "کاتێک ئامادە دەبیت، دوعای گشتی بۆ هەموو مردووە موسڵمانەکان بکە.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dema ku çavên Ebû Seleme li ber çavan bûn, Pêxember (s.a.a) ew girtin û got ku dema ku can tê girtin çav li pey wî tê, paşê hînî malbetê kir ku tenê bi tiştên qenc biaxivin. ﷺ",
-      },
+    appLinks: [{ label: "هەموو دوعاکانی نەخۆشی و جەنازە" }],
+  },
+  {
+    title: "دوعاکانی تری نوێژی جەنازە",
+    summary: "دەقی ڕەسەنی زیاتر لە حیصنول موسلیمەوە.",
+    body: [
+      "حیصنول موسلیم دەقی تری نوێژی جەنازە دەپارێزێت کە لە پێغەمبەرەوە ﷺ فێر کراون. بە نۆرە بەکاریان بهێنە یان ئەوەیان فێر بە کە کۆمەڵگاکەت باشتر دەیناسێت. ئەم دەقە بە ئاشکرا داوای لێخۆشبوون دەکات بۆ «وَذَكَرِنَا، وَأُنْثَانَا» و بۆ بچووک و گەورە — دوعایەکی گشتگیرە کە بۆ هەموو جەنازەیەک دەگونجێت.",
+      "بۆ منداڵی مردوو، دوعای تایبەت هەن کە داوا لە خوا دەکەن منداڵەکە بکاتە پێشەنگ و پاداشتێکی هەڵگیراو بۆ دایک و باوکی — بابەتەکانی منداڵ ببینە. بۆ گۆڕینی جێناو لە دەقە تایبەتەکانی گەورەساڵدا، بابەتی شێوەکانی نێر و مێ ببینە.",
     ],
   },
   {
-    title: "Meriv çawa Janazah dua bike",
-    summary: "Bi çar tekbîran nimêja rawestayî - bê ruku û sucûd.",
+    title: "دوعای نوێژی جەنازە #3",
+    summary: "دەقێکی ڕەسەنی تر بۆ مردووی گەورەساڵ.",
     body: [
-      "Nimêja cinazê li ser piyan tê kirin. Ne ruku, ne sucûd û ne jî ezan û îqamet heye. Li gorî raporên Enes û Semûrah (li Ebû Dawûd 3194 û rîwayetên pê ve binere) îmam li serê mirîyekî nêr an jî li nîvê mirîyekî jin radiweste, û civat li paş rêzan çêdike.",
-      "Nimêj ji çar tekbîran pêk tê. Piştî ya yekem sûreya Fatîhê tê xwendin (Buxarî 1335). Piştî tekbîrên paşî selewat li ser Pêxember (s.a.w) û ji bo miriyan dua tê kirin. Nimêj bi teslimê diqede. Cabir daye zanîn ku Pêxember (s.a.a) nimêja cenazê ya Negus (Padîşahê Eyyûbiyan) kiriye û çar tekbîr gotiye (Sahih el-Buxarî 1334). ﷺ ﷺ",
-      "Kesên ku dereng ji tekbîrê derdixin, divê li pey mela bikevin û tiştên ku ji dest dane li gorî qaîdeya dibistana xwe ji bo girtina deqê temam bikin - ji îmam an mamosteyek herêmî bipirsin ka nebawer in.",
+      "دەقێکی تری حیصنول موسلیم بۆ نوێژی جەنازە. دوای تەکبیری گونجاو، بە پێی کرداری ئیمامەکەت، بیخوێنە. دەقە عەرەبییەکە شێوەی ناوی نێر بەکاردەهێنێت («فُلانَ بْنَ فُلانٍ»)؛ بۆ ئافرەت دەقی هاوتای مێ بۆ ناو و نەسەب بڵێ، و لَهُ / عَنْهُ بگۆڕە بۆ شێوەی مێ.",
+    ],
+  },
+  {
+    title: "دوعای نوێژی جەنازە #4",
+    summary: "دەقێکی ڕەسەنی چوارەم لە سەرچاوەکانی سوننەتەوە.",
+    body: [
+      "حیصنول موسلیم ئەم دوعا زیادەیەی نوێژی جەنازەش لەخۆ دەگرێت. دەستەواژەی «عَبْدُكَ وَابْنُ أَمَتِكَ» بۆ ئافرەت دەبێتە «أَمَتُكَ وَابْنَةُ أَمَتِكَ» لەگەڵ کرداری مێی هاوتا — هەمان واتای پێغەمبەرانە، بە ڕێزمانی گونجێنراو. ڕەسەنایەتی و ئامادەیی دڵ هەڵبژێرە لە جیاتی کۆکردنەوەی هەموو دەقەکان بە یەکجار.",
+    ],
+  },
+  {
+    title: "دوعا بۆ منداڵی مردوو",
+    summary: "دوعای تایبەتی پێغەمبەر ﷺ کاتێک مردووەکە منداڵ بێت.",
+    body: [
+      "کاتێک مردووەکە منداڵ بێت (هێشتا نەگەیشتبێتە تەمەنی لێپرسینەوە)، دوعا ڕەسەنەکان داوا لە خوا دەکەن منداڵەکە بکاتە گەنجینەیەکی هەڵگیراو، پێشەنگێک و شەفاعەتکارێکی وەڵامدراوە بۆ دایک و باوکی — نەک تەنها چڕبوونەوە لەسەر لێخۆشبوونی کردەوەکانی خۆی. بابەتەکانی حیصنول موسلیم ئەو دەقانە دەپارێزن. گێڕانەوەیەکی پەیوەندیدار هان دەدات نوێژ لەسەر منداڵی لەبارچوو بکرێت و داوای ڕەحم و لێخۆشبوون بۆ دایک و باوکی بکرێت (ئەبو داود 3180 — زۆرێک لە زانایانی دواتر بە حەسەنیان داناوە).",
+      "دڵنەوایی خێزانەکە بدەرەوە بە هیوای ڕەحمی خوا و خۆت لە ڕێوڕەسمی داهێنراو بپارێزە. هەمان شێوازی چوار تەکبیرەی نوێژی جەنازە جێبەجێ دەبێت؛ تەنها ناوەڕۆکی دوعاکە دەگۆڕێت. بۆ کچ، جێناوی مێ بەکاربهێنە (اجْعَلْهَا، شَفِيعَةً مُجَابَةً و هتد) — بابەتی شێوەکانی نێر و مێ ببینە.",
     ],
     actions: [
-      "Di rêzan de rawestin; ruk û secdê neke.",
-      "Bi îmam re çar tekbîran bêje.",
-      "Piştî tekbîra minasib ji bo mirî duayên dilpak bikin.",
-    ],
-    hadith: [
-      {
-        excerpt: "Pêxember (s.a.a) nimêja cenazê Negus kir û çar tekbîr got. ﷺ",
-      },
-      {
-        excerpt: "Îbn Ebbas nimêja cinazê kir û Fatîhe xwend û got ji sunnetê ye.",
-      },
+      "لە کاتی گونجاودا دوعا تایبەتەکانی منداڵ بەکاربهێنە.",
+      "جێناوەکان بۆ کچی مردوو بگونجێنە.",
+      "پشتیوانی دایک و باوکی خەمبار بکە بە ئامادەبوون و یارمەتیی حەڵاڵ.",
     ],
   },
   {
-    title: "Duas di nimêja cenaze de (mezin)",
-    summary: "Peyvên rastîn ên Hisnul Muslim ji bo miriyan.",
+    title: "دوعای جەنازەی منداڵ #2",
+    summary: "دەقی دووەمی حیصنول موسلیم بۆ منداڵی مردوو.",
     body: [
-      "Piştî tekbîran, dilê Cenazeyê ji bo miriyan dua ye - ji Xwedê bixwaze ku wan efû bike, rehmê li wan bike û bihiştê bide wan. Di Hisnul Muslim de ji Pêxember (s.a.a) çend peyvên resen hatine parastin. ﷺ",
-      "Duaya girêdayî li jêr vekin da ku bi Erebî, wergêr û wateyê bixwînin. Hûn dikarin ji yek peyvek rastîn hîn bibin; dilpakiyê ji dirêjbûnê zêdetir girîng e.",
+      "دەقێکی ڕەسەنی تر بۆ نوێژی جەنازەی منداڵ کە لە حیصنول موسلیمدا پارێزراوە: داواکردن لە خوا کە منداڵەکە بکاتە پاداشتێکی پێشخراو، پێشەکییەک و پاداشتێک. بۆ کچ، اجْعَلْهُ بگۆڕە بۆ اجْعَلْهَا.",
+    ],
+  },
+  {
+    title: "ناشتن و گۆڕ",
+    summary: "دابەزاندنی تەرمەکە، ڕووکردنە قیبلە و دوعا دوای ناشتن.",
+    body: [
+      "مردوو لە زەویدا ڕوو لە قیبلە دەنێژرێت، بە ڕێزەوە و بەبێ دواخستن زیاتر لەوەی ئامادەکاری پێویستی پێیەتی. پێغەمبەر ﷺ فەرمووی: «Be prompt with the funeral...» (واتای ئینگلیزی) (سەحیحی بوخاری 1315 — پەلەکردن لە جەنازەدا).",
+      "کاتێک مردووەکە لە گۆڕدا دادەنرێت، دوعایەکی ڕەسەن لە حیصنول موسلیمدا پارێزراوە. دوای ناشتن، پێغەمبەر ﷺ لای گۆڕەکە دەوەستا و دەیفەرموو: «Ask forgiveness for your brother, and ask that he be made steadfast, for he is now being questioned» (واتای ئینگلیزی) (سونەنی ئەبو داود 3221 — زۆرێک لە زانایانی دواتر، لەوانە ئەلبانی، بە سەحیحیان داناوە). بۆ خوشکێک، «خوشکەکەتان» و جێناوی مێ بڵێ، بە زمانی خۆت یان بە عەرەبی.",
+      "دروستکردنی بیناسازیی ڕازاوە لەسەر گۆڕەکان، گەچکاریکردنیان بۆ جوانکاری، یان نووسینێک کە هانی زێدەڕۆیی بدات، لە گێڕانەوە ڕەسەنەکاندا ئاگاداری لێ دراوەتەوە. لەو شوێنانەی یاسا و نەریتی ناوخۆیی ڕێگە بە ناسینەوە دەدەن، نیشانەکە سادە بهێڵەوە.",
+    ],
+    madhhabNote:
+      "شێوازی گۆڕی لەحد یان شەق، قووڵی، و ئامادەبوونی ئافرەتان لە ناشتندا بە پێی مەزهەب و کولتوور لە چوارچێوەی شەریعەتدا جیاوازن. شوێن ڕێنمایی زانایانی ناوخۆیی بکەوە.",
+  },
+  {
+    title: "دوای ناشتنی مردوو",
+    summary: "دوعا بۆ دامەزراوی لای گۆڕ.",
+    body: [
+      "وەستانێکی کورت دوای ناشتن بۆ داوای لێخۆشبوون و دامەزراوی بۆ مردووەکە لە پێغەمبەرەوە ﷺ چەسپاوە (ئەبو داود 3221). دەقی حیصنول موسلیمی خوارەوە بۆ دوای ناشتنە؛ جێناوەکان بۆ مردووی ئافرەت بگونجێنە.",
+      "خێری بەردەوام، دوعا، و جێبەجێکردنی وەسیەتە ڕەواکانی مردووەکە بە ئیزنی خوا سوودی پێ دەگەیەنن — بەبێ داهێنانی ڕێوڕەسمی ساڵانە کە بەڵگەیان نییە.",
     ],
     actions: [
-      "Bi kêmanî yek dua Janazah ya rastîn ji bîr bikin.",
-      "Dema ku hûn beşdar bibin ji bo hemî miriyên misilman dua giştî bikin.",
+      "دوای ناشتن لای گۆڕەکە دوعا بکە.",
+      "بە نهێنی بەردەوام بە لە دوعا و سەدەقە بۆ مردووەکە.",
     ],
+    appLinks: [{ label: "ئامانجەکانی سەدەقە" }],
   },
   {
-    title: "Zêdetir duayên nimêja cenaze",
-    summary: "Gotinên din ên rast ji Hisnul Muslim.",
+    title: "سەردانی گۆڕستان",
+    summary: "سڵاوی پێغەمبەر ﷺ لە کاتی سەردانی گۆڕەکاندا.",
     body: [
-      "Hisnul Muslim gotinên din ên cenaz-nimêjê yên ku ji Pêxember ﷺ hatine hînkirin diparêze. Wan di zivirandinê de bikar bînin an yê ku civata we çêtirîn dizane fêr bibin.",
-      "Ji bo zarokek mirî, duayên taybetî ji Xwedê dixwazin ku zarok ji dêûbavan re bibe pêşeng û xelata hilanîn - li mijara din binêre.",
-    ],
-  },
-  {
-    title: "Dua nimêja cenazê #3",
-    summary: "Gotinek din a rastîn ji bo miriyê mezin.",
-    body: [
-      "Ji bo nimêja cenazê gotineke din a Hisnul Muslim. Piştî tekbîra minasib wek ehlaqê melayê we bixwîne.",
-    ],
-  },
-  {
-    title: "Dua nimêja cenazê #4",
-    summary: "Peyveke çaremîn a rast ji qanûnê sunnetê.",
-    body: [
-      "Hisnul Muslim vê duaya cinaz-nimêjê ya din jî vedihewîne. Rastî û hebûna dil li ser berhevkirina her gotinê bi yekcarî hilbijêrin.",
-    ],
-  },
-  {
-    title: "Dua ji bo zarokek mirî",
-    summary: "Duayên pêxemberî yên taybetî dema ku mirî zarokek e.",
-    body: [
-      "Dema ku mirî zarok be, duayên resen ji Xweda dixwazin ku zarok ji dêûbavan re bike xezîneyek embarkirî, pêşeng û şefaetkarê bersivdayînê. Nivîsên Hisnul Muslim li jêr wan gotinan diparêzin.",
-      "Malbatê bi hêviya rehma Xwedê teselî bikin û ji ayînên îcadkirî dûr bikevin. Heman pêkhateya Cenazeyê ya çar-tekbîr derbas dibe; naveroka dua ew e ku diguhere.",
+      "سەردانی گۆڕەکان زیندووان بیری قیامەت دەخاتەوە. بورەیدە دەگێڕێتەوە کە پێغەمبەری خوا ﷺ فێری دەکردن کاتێک دەچوونە گۆڕستان بڵێن: سڵاوی ئاشتی لەسەر دانیشتووانی ئەم شوێنانە لە ئیمانداران و موسڵمانان، دووپاتکردنەوەی ئەوەی کە ئێمەش — ئەگەر خوا بیەوێت — پێیان دەگەین، و داوای سەلامەتی بۆ خۆمان و بۆ ئەوان (سەحیحی موسلیم 975؛ دەقەکە لە ئیبن ماجەشدا هاتووە).",
+      "بابەتەکەی حیصنول موسلیم لە خوارەوە ئەو سڵاوە دەپارێزێت. سەردانەکان لە شیوەن، داوای یارمەتی لە مردووان، یان ڕێوڕەسمی بێبەڵگە پاک بهێڵەوە.",
     ],
     actions: [
-      "Dema ku pêdivî ye duayên taybetî yên zarokan bikar bînin.",
-      "Piştgiriya dêûbavên xemgîn bi hebûn û alîkariya helal bikin.",
+      "بە دەقە ڕەسەنەکە سڵاو لە دانیشتووانی گۆڕەکان بکە.",
+      "بیر لە مردن بکەرەوە و کردەوەی چاک نوێ بکەرەوە.",
     ],
   },
   {
-    title: "Cenazeyê zarok dua #2",
-    summary: "Peyva duyemîn Hisnul Muslim ji bo zarokek mirî.",
+    title: "بیرخستنەوە و هەڵە باوەکان",
+    summary: "خۆت لە شیوەن، دواخستن بۆ خۆنواندن و ڕێوڕەسمی بێبنەما بپارێزە.",
     body: [
-      "Gotineke din a rast ji bo nimêja cenazeyê zarokek, ku di Hisnul Muslim de hatî parastin.",
-    ],
-  },
-  {
-    title: "Gor û gor",
-    summary: "Daxistina laş, ber bi qibleyê ve û piştî definkirinê dua.",
-    body: [
-      "Mirî li erdê ber bi qibleyê ve, bi rûmet û bêyî ku dereng bikeve ji ya ku amadekarî hewce dike, tê veşartin. Pêxemberê Xuda [dirûd û silavên Xuda lê bin] gotiye: «Li ser cenazê bilez be...» (Sahih el-Buxarî 1315 - Lezkirina cenazê). ﷺ",
-      "Dema ku mirî di gorê de tê danîn, di Hisnul Muslim de duayek rastîn tê parastin. Piştî definkirinê, Pêxember (s.a.a.) li ser gorê radiwestiya û digot: 'Ji birayê xwe re efûyê bixwaze û jê bixwaze ku ew sax be, ji ber ku niha jê tê pirsîn. ﷺ",
-      "Çêkirina avahiyên xemilandî yên li ser goran, çîpkirina wan ji bo xemilandinê, an nivîsandina ku mezinbûnê teşwîq dike, di raporên rastîn de hişyarî tê dayîn. Li cihê ku qanûn û adetên herêmî destûr didin nasnameyê, nîşana hêsan bihêlin.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Di merasîma cenaze de bilez be: eger ew rast bû, hûn wê berbi qenciyê bilezînin; eger wekî din, hûn xerabiyê ji stûyê xwe derdixin.",
-      },
-      {
-        excerpt: "Ji bo birayê xwe efûyê bixwaze û sax be, çimkî niha jê tê pirsîn.",
-      },
-    ],
-  },
-  {
-    title: "Piştî definkirina miriyan",
-    summary: "Dua ji bo bîhnfirehiya li ser gorê.",
-    body: [
-      "Piştî definkirinê, ji Pêxember (s.a.a). Gotina Hisnul Muslim li jêr ji bo piştî definkirinê ye. ﷺ",
-      "Sedeqeya domdar, dua, û cîbicîkirina îradeyên rewa yên mirî bi izna Xwedê feydeyê dide wan - bêyî îcadkirina merasîmên salane yên ku delîl tune.",
+      "پێغەمبەر ﷺ شیوەنی بۆ مردوو قەدەغە کرد، بەڵام ڕێگەی بە خەم و گریانی بە فرمێسک دا. عەبدوڵڵای کوڕی عومەر دەگێڕێتەوە کە سەعدی کوڕی عوبادە لە جەنازەیەکدا گریا و پێغەمبەر ﷺ ڕوونی کردەوە کە خوا لەسەر فرمێسکی چاو و خەمی دڵ سزا نادات، بەڵکو لەسەر ئەمە — و ئاماژەی بۆ زمانی کرد (سەحیحی بوخاری 1304).",
+      "ناشتن بۆ کۆبوونەوەی شکۆمەندی دوامەخە، و بە زێدەڕۆیی پارە لەسەر کفن و خوانی خواردن خەرج مەکە لە کاتێکدا هەژاران پشتگوێ دەخرێن. ئەو داهێنراوانەی بە جەنازەوە دەبەسترێن و بنەمای ڕەسەنیان نییە مەیخوێنە و ئەنجامیان مەدە. سەرەخۆشی، دوعای بێدەنگ و یارمەتیی کرداری بۆ خێزانەکە ڕێگای سوننەتن.",
+      "ئامادەبوونی ئافرەتان لە نوێژ و ناشتندا لە نێوان مەزهەب و سەردەمەکاندا بە وردی مامەڵەی لەگەڵ کراوە؛ شوێن ڕێنماییەکی ناوخۆیی جێی متمانە بکەوە کە هەم بەزەیی و هەم سنوورەکانی پێغەمبەر ﷺ ڕەچاو بکات.",
     ],
     actions: [
-      "Piştî definkirinê li ser gorê dua bikin.",
-      "Ji bo miriyan dua û sedeqeya taybet bidomînin.",
-    ],
-  },
-  {
-    title: "Serdana goran",
-    summary: "Di dema serdana goran de silava pêxemberî.",
-    body: [
-      "Ziyareta goran jiyana axretê tîne bîra mirov. Buraideh radigihîne ku Resûlê Xuda [dirûd û silavên Xuda lê bin] wan hîn dikir ku dema derdiketin goristanê digotin: silava silavê li rûniştvanên xaniyan ên di nav bawermend û mislimanan de be, bi îzna Xwedê em ê bi wan re bibin yek û selametiyê ji me û wan re bixwaze (Sahih Muslim; ﷺ",
-      "Ketina Hisnul Muslim li jêr wê silavê diparêze. Serdanê bêyî girî, alîkarî ji miriyan, an rîtuelên bê delîl bihêlin.",
-    ],
-    actions: [
-      "Bi gotina rast silavan li niştecihên goran bikin.",
-      "Li mirinê bifikire û kirinên rast nû bike.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Silav li we be ey ey rûniştevanên xaniyan di nav bawermend û misilmanan de. Em ê - bi îzna Xwedê - bi we re bibin. Em ji Xweda re sebrê ji bo me û we dixwazin.",
-      },
-    ],
-  },
-  {
-    title: "Bîranîn û xeletiyên hevpar",
-    summary: "Ji şînê, ji derengmayîna pêşandanê û rîtuelên bêbingeh dûr bisekinin.",
-    body: [
-      "Pêxemberê Xuda [dirûd û silavên Xuda lê bin] girî li ser miriyan heram kiriye û şînê bi hêsir girtiye. Ebdullah îbn Umer ragihandiye ku Se'd ibn Ubadeh di merasîmekê de giriyaye û Pêxember (s.a.a) gotiye ku Xwedê ne ji ber rondikên çavan û ne jî ji xemgîniya dil ceza dike, lê ji ber vê yekê ew ceza dide zimanê xwe (Sahih el-Buxarî 1304). ﷺ ﷺ",
-      "Ji bo kombûnên bi prestîj definkirinê dereng mekin, li ser kefen û cejnê xerc nekin dema ku xizanan îhmal nekin. Nûjeniyên ku ji cenazeyan re bêyî bingehek rastîn têne veguheztin nexwînin an jî pratîk nekin. Sersaxiyê, duaya bêdeng û alîkariya pratîkî ya ji bo malbatê rêya sunnetê ye.",
-      "Di dibistan û serdeman de tevlêbûna jinan a nimêj û definkirinê bi hûrgulî tê nirxandin; rêberiya herêmî ya pêbawer bişopînin ku hem dilovanî û hem jî sînorên pêxemberî rêz digire.",
+      "بەبێ شیوەن و قسەی قەدەغەکراو خەم بخۆ.",
+      "پەلە بکە لە ناشتنێکی بە ڕێز.",
+      "بە خواردن و کاروبار یارمەتی خێزانەکە بدە بەبێ ئەوەی بە زێدەڕۆیی بارگرانیان بکەیت.",
     ],
     disclaimer:
-      "Pêşniyara perwerdehiyê - ne pirtûkek rêveberê cenaze an fetwa. Divê pratîka dibistana herêmî ya ji bo şuştin, kefen û qaîdeyên goristanê bi kesên jêhatî re bêne pejirandin.",
-    actions: [
-      "Bêyî girî an axaftina qedexe xemgîn bibin.",
-      "Lezgîniya definkirina bi rûmet.",
-      "Bi xwarin û kar û baran re alîkariya malbatê bikin bêyî ku wan bi zêdegaviyê bar bikin.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Xwedê ne ji ber rondikên çavan û ne jî ji xemgîniya dil ceza dike, lê ji ber vê yekê ceza dike an rehmê dike - û bi zimanê xwe îşaret kir.",
-      },
-    ],
+      "پوختەیەکی پەروەردەییە — نە ڕێنمایی بەڕێوەبەری ناشتنە و نە فەتوا. کرداری مەزهەبی ناوخۆیی بۆ شۆردن، کفنکردن و ڕێساکانی گۆڕستان دەبێت لەگەڵ کەسانی شارەزا پشتڕاست بکرێتەوە.",
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
-    title: "Tekbîr bi tekbîr — gavên nimêjê",
-    summary: "Lîsteya pratîk a çar tekbîran û ya di navbera wan de.",
+    title: "تەکبیر بە تەکبیر — هەنگاوەکانی نوێژ",
+    summary: "لیستێکی کرداری بۆ چوار تەکبیرەکە و ئەوەی لە نێوانیاندا دێت.",
     body: [
-      "Tekbîra yekem: destan rake (li gorî dibistana xwe), Allahu Ekber bêje, paşê Sûreya el-Fatîhê bixwîne. Îbn Ebbas di nimêja cenazê de Fatîhe xwend û got ku ew ji sunnetê ye (Sahih el-Buxarî 1335).",
-      "Tekbîra duyem: li ser Pêxember ﷺ selewat bişîne — heman selewata Îbrahîmî ya di teşehhudê de ji bo vê gavê bi berfirehî tê hînkirin. Tekbîra sêyem: ji bo mirî duaya dilpak bike (gotinên Hisnul Muslim di vê rêberê de). Tekbîra çarem: gelek zanyar paşê duayeke kurt a giştî dikin, paşê bi teslimê ber bi rastê (û çepê, li gorî dibistanê) diqedînin.",
-      "Ruku, sucûd an rûniştin nîne. Hemû demê raweste. Heke çend cenaze hebin, di gelek civatan de yek Janazah bi nîyetê ji bo hemûyan tê kirin — li pey îmamê bikeve. Cihê selewat û duayê dikare hinekî bi medhhebê biguhere; çarçoveya çar tekbîran hevpar e.",
+      "تەکبیری یەکەم: دەستەکانت بەرز بکەرەوە (بە پێی مەزهەبەکەت)، «اللهُ أَكْبَرُ» بڵێ، پاشان سووڕەتی فاتیحە بخوێنە. ئیبن عەبباس لە نوێژی جەنازەدا فاتیحەی خوێند و فەرمووی ئەمە لە سوننەتە (سەحیحی بوخاری 1335).",
+      "تەکبیری دووەم: صەلەوات لەسەر پێغەمبەر ﷺ بدە — هەمان صەلەواتی ئیبراهیمی کە لە تەشەهوددا دەخوێنرێت بە شێوەیەکی بەرفراوان بۆ ئەم هەنگاوە فێر دەکرێت. تەکبیری سێیەم: دوعایەکی دڵسۆزانە بۆ مردووەکە بکە (دەقەکانی حیصنول موسلیم لەم ڕێبەرەدا). تەکبیری چوارەم: زۆرێک لە زانایان پاشان دوعایەکی گشتیی کورت دەکەن، پاشان بە سەلامدانەوە بۆ لای ڕاست (و چەپ، بە پێی مەزهەب) کۆتایی پێ دەهێنن.",
+      "ڕکوع، سوجدە یان دانیشتن نییە. لە سەرتاسەریدا بە پێوە بوەستە. ئەگەر چەند جەنازەیەک ئامادە بوون، لە زۆر کۆمەڵگادا یەک نوێژی جەنازە بە نیەتی هەموویان دەکرێت — شوێن ئیمام بکەوە. شوێنی صەلەوات و دوعا دەکرێت بە پێی مەزهەب کەمێک بگۆڕێت؛ چوارچێوەی چوار تەکبیرەکە هاوبەشە.",
+    ],
+    actions: [
+      "پێش ئەوەی پێویستت پێی بێت، ڕیزبەندیی چوار تەکبیرەکە فێر بە.",
+      "فاتیحە، صەلەوات و لانیکەم یەک دوعای جەنازە لەبەر بکە.",
     ],
     madhhabNote:
-      "Pirtûkên Hanefî, Malikî, Şafiî û Hanbelî li ser rakirina destan di her tekbîrê de û dema rastîn a duayê cuda ne. Li pey îmamê li ber xwe bikeve.",
-    actions: [
-      "Rêza çar tekbîran berî ku hewce bike fêr bibe.",
-      "Fatîhe, selewat û herî kêm yek duaya cenazê ji bîr bike.",
-    ],
-    hadith: [
-      {
-        excerpt: "Îbn Ebbas nimêja cenazê kir û Fatîhe xwend û got ku ew ji sunnetê ye.",
-      },
-    ],
+      "کتێبەکانی حەنەفی، مالیکی، شافیعی و حەنبەلی جیاوازن لەسەر ئەوەی ئایا دەستەکان لەگەڵ هەر تەکبیرێک بەرز دەکرێنەوە و دوعا لە چ کاتێکدا دەوترێت. شوێن ئەو ئیمامە بکەوە کە لە پێشتەوەیە.",
   },
   {
-    title: "Duayên ji bo mêr, jin û zarokan",
-    summary: "Heman gotinên pêxemberî — cînavên erebî li mirî biguncîne.",
+    title: "دوعا بۆ پیاوان، ئافرەتان و منداڵان",
+    summary: "هەمان دەقەکانی پێغەمبەر ﷺ — جێناوە عەرەبییەکان بە پێی مردووەکە بگونجێنە.",
     body: [
-      "Hisnul Muslim (û berhevokên klasik ên hedîsê) duayên Janazah bi piranî bi şêweya nêr tomar dikin. Ev ne wateya duayeke veqetandî û 'afirandî' ji bo jinan e. Zanyarên sereke hîn dikin ku tu dikarî gotina nêr bi nîyetê ji bo kesî bihêlî, an — çêtir û bi gelemperî — rêzimanê li mirî biguherînî: لَهُ / هُ / هِ → لَهَا / هَا; عَبْدُكَ → أَمَتُكَ; ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ; û ji bo keçekê اجْعَلْهُ → اجْعَلْهَا, شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
-      "Ji bo jineke mirî, hin zanyar li ser hevoka 'hevalekî ji hevalê wê çêtir' (زَوْجًا خَيْرًا مِنْ زَوْجِهَا) baldarî pêşniyar dikin — dibe ku ew di Bihiştê de bi mêrê xwe ve were yekkirin; tu dikarî wê bendê derxînî an gotineke giştî bihêlî. Ji bo zarokan, têketinên Hisnul ên taybet ên zarokan (hisn-160, hisn-161) bikar bîne, ne tenê nivîsên mezinan ên li ser lêborînê.",
-      "Gotina hevpar 'nêr û jinên me efû bike' (hisn-157) jixwe her du zayendan bê guhertin digire. Em ji guncandina rêzimanî ya nivîsên rastîn zêdetir Erebîya nû nafirînin — duaya mezin a girêdayî wek bingeh veke û nexşeya cînavên jorîn bikar bîne.",
+      "حیصنول موسلیم (و کۆکراوە کلاسیکییەکانی فەرموودە) دوعاکانی جەنازە زۆرتر بە شێوەی نێر تۆمار دەکەن. ئەمە بەو واتایە نییە کە دوعایەکی جیای «داهێنراو» بۆ ئافرەتان هەبێت. زانایانی سەرەکی فێر دەکەن کە دەتوانیت دەقە نێرەکە بە نیەتی ئەو کەسە بهێڵیتەوە، یان — کە باشترە و باویشە — ڕێزمانەکە بە پێی مردووەکە بگۆڕیت: لَهُ / هُ / هِ → لَهَا / هَا؛ عَبْدُكَ → أَمَتُكَ؛ ابْنُ أَمَتِكَ → ابْنَةُ أَمَتِكَ؛ و بۆ کچی منداڵ اجْعَلْهُ → اجْعَلْهَا، شَفِيعًا مُجَابًا → شَفِيعَةً مُجَابَةً.",
+      "بۆ ئافرەتی مردوو، هەندێک لە زانایان ئامۆژگاری وریایی دەکەن لەگەڵ دەستەواژەی زَوْجًا خَيْرًا مِنْ زَوْجِهَا، چونکە لەوانەیە لە بەهەشتدا لەگەڵ مێردەکەی خۆی کۆ بکرێتەوە — دەتوانیت ئەو بڕگەیە لابەریت یان دەقێکی گشتی بهێڵیتەوە. بۆ منداڵان، بابەتە تایبەتەکانی منداڵ لە حیصنول موسلیمدا (hisn-160، hisn-161) بەکاربهێنە، نەک تەنها دەقەکانی گەورەساڵ کە لەسەر لێخۆشبوون چڕ دەبنەوە.",
+      "دەقە گشتگیرەکەی «اللَّهُمَّ اغْفِرْ … وَذَكَرِنَا، وَأُنْثَانَا» (hisn-157) بەبێ گۆڕین هەردوو ڕەگەز دەگرێتەوە. ئێمە هیچ عەرەبییەکی نوێ داناهێنین جگە لە گونجاندنی ڕێزمانیی دەقە ڕەسەنەکان — دوعا بەستراوەکەی گەورەساڵ وەک بنەما بکەرەوە و نەخشەی جێناوەکانی سەرەوە بەکاربهێنە.",
     ],
-    madhhabNote:
-      "Hem hiştina şêweyên nêr bi nîyetê û hem guncandina şêweyên mê di nav zanyarên sereke de qebûl e. Heke nebawer bî, hisn-157 (nêr û jin) bikar bîne an ji îmamê bipirse.",
     actions: [
-      "Ji bo duaya ku tu ji bîr dikî, guhertina cînavên mê pratîk bike.",
-      "Ji bo yên ku negihîştine pêgihîştinê duayên taybet ên zarokan bikar bîne.",
-      "Rastîniyê ji pirtûkên dirêj ên nepejirandî çêtir bibîne.",
+      "گۆڕینی جێناوی مێ بۆ ئەو دوعایەی لەبەری دەکەیت ڕاهێنان بکە.",
+      "بۆ ئەوانەی نەگەیشتوونەتە تەمەنی باڵغبوون، دوعا تایبەتەکانی منداڵ بەکاربهێنە.",
+      "ڕەسەنایەتی لە نامیلکە درێژە نەسەلمێنراوەکان باشتر بزانە.",
     ],
-    appLinks: [{ label: "Duaya cenazê ya mezin #1" }],
+    appLinks: [{ label: "دوعای جەنازەی گەورەساڵ #1" }],
+    madhhabNote:
+      "هەم هێشتنەوەی شێوەی نێر بە نیەتەوە و هەم گونجاندنی شێوەی مێ لای زانایانی سەرەکی پەسەندن. ئەگەر دڵنیا نیت، hisn-157 (پیاوان و ئافرەتان) بەکاربهێنە یان پرسیار لە ئیمام بکە.",
   },
   {
-    title: "Şehîd, windabûna zarokê û rewşên taybet",
-    summary: "Gava hukmên şuştin an Janazah ji rewşa asayî cuda dibin.",
+    title: "شەهیدان، لەبارچوون و دۆخە تایبەتەکان",
+    summary: "کاتێک حوکمی شۆردن یان نوێژی جەنازە جیاوازە لە دۆخی ئاسایی.",
     body: [
-      "Şehîdên qada şer ên ku di şer de dimirin, di hukmê klasîk ê ji Uhudê de, bêyî gusla asayî di kincên xwe de têne definkirin; Pêxember ﷺ ferman da ku şehîdên Uhudê bi xwîna xwe û bêyî şuştinê werin definkirin (Sahih el-Buxarî 1346). Kategoriyên din ên ku di xelatê de 'şehîd' têne gotin (mînak, taûn, xeniqîn) bi asayî şuştin û Janazah digirin — ji bo rewşên sînorî ji zanyarekî bipirse.",
-      "Ji bo windabûna zarokê an zarokê mirîyê zayînê, dibistan li ser dema nimêja cenazê û şuştina tam cuda ne (pir caran girêdayî ye ka şeklekî naskirî an qonaxa pehînkirina ruh hatiye dîtin). Hedîsek teşwîq dike ku li ser windabûnê nimêj were kirin û ji bo dêûbavan lêborîn û rehm were xwestin (Ebû Dawûd 3180). Li şûna texmînê, komîteya cenazê ya medhheba xwe bişopîne.",
-      "Ji bo xizmên ne-misilman nimêja Janazah a misilman nabe; dilovanî, alîkariya definkirinê ya rewa li cihê guncav, û xemgîniya şexsî ji nimêja îbadetê ya bawermendan cuda ne. Her dem rewşên taybet bi rêberiya herêmî ya jêhatî pejirîne.",
+      "شەهیدانی مەیدانی جەنگ کە لە شەڕدا دەمرن، بە پێی حوکمی کلاسیکی کە لە ئوحودەوە وەرگیراوە، بەبێ غوسڵی ئاسایی لە جلەکانی خۆیاندا دەنێژرێن؛ پێغەمبەر ﷺ فەرمانی دا شەهیدانی ئوحود بە خوێنەکەیانەوە و بەبێ شۆردن بنێژرێن (سەحیحی بوخاری 1346). جۆرەکانی تر کە لە ڕووی پاداشتەوە پێیان دەوترێت «شەهید» (بۆ نموونە تاعوون، خنکان) بە ئاسایی دەشۆردرێن و نوێژی جەنازەیان لەسەر دەکرێت — بۆ دۆخە ناڕوونەکان پرسیار لە زانایەک بکە.",
+      "بۆ لەبارچوون یان منداڵی مردوو لەدایکبوو، مەزهەبەکان جیاوازن لەسەر ئەوەی کەی نوێژی جەنازە و شۆردنی تەواو جێبەجێ دەبن (زۆرجار پەیوەستە بەوەی ئایا شێوەیەکی ناسراوە یان قۆناغی فوو کردنی ڕۆح ڕوویداوە یان نا). فەرموودەیەک هان دەدات نوێژ لەسەر منداڵی لەبارچوو بکرێت و داوای لێخۆشبوون و ڕەحم بۆ دایک و باوکی بکرێت (ئەبو داود 3180). لە جیاتی گومانکردن، شوێن لیژنەی جەنازەی مەزهەبەکەت بکەوە.",
+      "خزمە ناموسڵمانەکان نوێژی جەنازەی موسڵمانیان لەسەر ناکرێت؛ میهرەبانی، یارمەتیی ڕەوای ناشتن لە شوێنی خۆیدا، و خەمی کەسی جیان لە نوێژی پەرستشی بۆ ئیمانداران. هەمیشە دۆخە تایبەتەکان لەگەڵ ڕێنمایی ناوخۆیی شارەزا پشتڕاست بکەرەوە.",
+    ],
+    actions: [
+      "شەهیدی مەیدانی جەنگ بە پێچەوانەی ڕێنمایی زانایان مەشۆ.",
+      "دەربارەی دۆخەکانی لەبارچوون یان منداڵی مردوو لەدایکبوو پرسیار لە لیژنەی جەنازە بکە.",
     ],
     madhhabNote:
-      "Pênaseyên şehadeta qada şer, qonaxên windabûnê û nimêj li ser zarokê mirîyê zayînê bi dibistanê diguheherin. Ev mijar pirsgirêkan nîşan dide — fatwa nîne.",
+      "پێناسەی شەهیدی مەیدانی جەنگ، قۆناغەکانی لەبارچوون، و نوێژکردن لەسەر منداڵی مردوو لەدایکبوو بە پێی مەزهەب جیاوازن. ئەم بابەتە پرسەکان دەخاتە ڕوو — فەتوا نییە.",
     disclaimer:
-      "Hukmên taybet hesas in. Berî ku tevgerî, bi zanyarekî jêhatî an xizmeta cenazê ya civata xwe pejirîne.",
-    actions: [
-      "Şehîdekî qada şer li dijî rêbera zanyaran nemeşo.",
-      "Li ser rewşên windabûn an zayîna mirî ji komîteya cenazê bipirse.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pêxember ﷺ ferman da ku şehîdên Uhudê bi xwîna xwe werin definkirin, û ew nehatin şuştin.",
-      },
-      {
-        excerpt:
-          "Nimêja cenazê li ser windabûnê tê kirin, û ji bo dêûbavan lêborîn û rehm tê xwestin.",
-      },
-    ],
+      "حوکمە تایبەتەکان هەستیارن. پێش هەر کارێک لەگەڵ زانایەکی شارەزا یان خزمەتگوزاریی جەنازەی کۆمەڵگاکەت پشتڕاستی بکەرەوە.",
   },
   {
-    title: "Janazah di nebûnê de",
-    summary: "Pêxember ﷺ ji bo Negus nimêj kir dema laş dûr bû.",
+    title: "نوێژی جەنازەی غائیب",
+    summary: "پێغەمبەر ﷺ نوێژی بۆ نەجاشی کرد کاتێک تەرمەکەی دوور بوو.",
     body: [
-      "Cabir radigihîne ku Pêxember ﷺ derket cem Sehabeyên xwe, wan rêz kir, û ji bo Negus (el-Necashî), padîşahê Hebeşê yê ku li derve miriye, çar tekbîr got (Sahih el-Buxarî 1334; Sahih Muslim 952). Ev delîla sereke ye ji bo Selata el-Janazah di nebûnê de (alā al-ghā'ib).",
-      "Dibistan li ser firehiya vê pêşengiyê cuda ne: hin wê bi rewşên wek Negus sînordar dikin (bêyî nimêja misilman a herêmî), yên din gava laş dûr be berfirehtir destûr didin. Gava laş amade ye û civat dikare nimêj bike, Janazaha herêmî derbas neke. Ji zanyarekî herêmî yê pêbawer bipirse ka di dibistana te de nimêja nebûnê kengê guncav e.",
-      "Şêwe heman nimêja çar tekbîran e; nîyet ji bo miriyê nebûyî ye. Heman duayên rastîn bikar bîne, zayendê li gorî hewceyê biguncîne.",
+      "جابیر دەگێڕێتەوە کە پێغەمبەر ﷺ چووە دەرەوە بۆ لای هاوەڵانی، ڕیزی کردن و بە چوار تەکبیر نوێژی بۆ نەجاشی کرد، پاشای حەبەشە کە لە دوورەوە کۆچی دوایی کردبوو (سەحیحی بوخاری 1334؛ سەحیحی موسلیم 952). ئەمە بەڵگەی سەرەکییە بۆ نوێژی جەنازەی غائیب (عَلَى الْغَائِبِ).",
+      "مەزهەبەکان جیاوازن لەسەر ئەوەی ئەو نموونەیە تا چەند بەرفراوان جێبەجێ دەکرێت: هەندێکیان سنوورداری دەکەن بە دۆخی وەک نەجاشی (کە هیچ موسڵمانێک لە شوێنی خۆی نوێژی لەسەر نەکردبوو)، هەندێکی تر کاتێک تەرمەکە دوورە بە شێوەیەکی فراوانتر ڕێگەی پێ دەدەن. کاتێک تەرمەکە ئامادەیە و کۆمەڵگا دەتوانێت نوێژ بکات، نوێژی جەنازەی ناوخۆیی پشتگوێ مەخە. بۆ ئەوەی بزانیت کەی نوێژی غائیب لە مەزهەبەکەتدا گونجاوە، شوێن زانایەکی ناوخۆیی جێی متمانە بکەوە.",
+      "شێوەکەی هەمان نوێژی چوار تەکبیرەیە؛ نیەتەکە بۆ مردووە دوورەکەیە. هەمان دوعا ڕەسەنەکان بەکاربهێنە و ڕەگەز بە پێی پێویست بگونجێنە.",
+    ],
+    actions: [
+      "هەر کاتێک تەرمەکە ئامادە بوو، لە شوێنی خۆت نوێژی لەسەر بکە.",
+      "پێش ڕێکخستنی نوێژی جەنازەی غائیب وەک بۆنەیەکی گشتی، پرسیار بکە.",
     ],
     madhhabNote:
-      "Çarçoveya Janazaha nebûnê xaleke naskirî ya cudahiyê ye. Pratîka îmamên jêhatî yên civata xwe tercih bike.",
-    actions: [
-      "Her dema laş amade be, herêmî nimêj bike.",
-      "Berî ku Janazaha nebûnê wek bûyereke giştî organîze bike, bipirse.",
-    ],
-    hadith: [
-      {
-        excerpt: "Pêxember ﷺ nimêja cenazê ji bo Negus kir û çar tekbîr got.",
-      },
-      {
-        excerpt: "Resûlê Xuda ﷺ Sehabeyan rêz kir û ji bo Negus bi çar tekbîran nimêj kir.",
-      },
-    ],
+      "سنووری نوێژی جەنازەی غائیب خاڵێکی ناسراوی ڕاجیاییە. کرداری ئیمامە شارەزاکانی کۆمەڵگاکەت بە باشتر بزانە.",
   },
   {
-    title: "Li ser nivîna mirinê — gotinên dawî",
-    summary: "Miriyê nêzîk bi nermî bişîne ku la ilaha illallah bêje.",
+    title: "لای سەرەمەرگ — دوایین وشەکان",
+    summary: "بە نەرمی کەسی سەرەمەرگ هان بدە «لَا إلَهَ إلَّا اللهُ» بڵێت.",
     body: [
-      "Pêxember ﷺ got: 'Miriyên xwe bişînin ku la ilaha illallah bêjin' (Sahih Muslim 916; Ebû Dawûd 3117). Hisnul Muslim rêberiyê diparêze ku kî gotinên wî yên dawî 'Tu kesî heqê perestinê tune ji bilî Allah' bin, ew ê bikeve Bihiştê (hisn-153, ji Ebû Dawûd 3116).",
-      "Bi nermî û bêyî hişkî bişîne; zorê nede û nîqaş neke. Yên nêzîkî mirinê jî dikarin bi gotinên hêviyê yên rastîn ên Hisnul Muslim werin rehetkirin (hisn-150–152). Gava ruh tê girtin çavan bigire û duaya girtina çavan bikar bîne (mijara berê).",
-      "Ji nalîna bilind û axaftina ku Allah hêrs dike dûr bikeve. Divê malbat tiştê qenc bêje, ji ber ku melaîket ji gotinên wan re amîn dibêjin (Sahih Muslim 920).",
+      "پێغەمبەر ﷺ فەرمووی: «Prompt your dying ones to say la ilaha illallah» (واتای ئینگلیزی) (سەحیحی موسلیم 916؛ ئەبو داود 3117). حیصنول موسلیم ئەو ڕێنماییە دەپارێزێت کە هەر کەسێک دوایین وشەکانی «لَا إلَهَ إلَّا اللهُ» بێت دەچێتە بەهەشتەوە (hisn-153، لە ئەبو داود 3116ەوە).",
+      "بە نەرمی و بەبێ توندی بیری بخەرەوە؛ زۆری لێ مەکە و دەمەقاڵێی لەگەڵ مەکە. ئەوانەی لە مردن نزیکن دەتوانرێت بە وشە ڕەسەنەکانی هیوا کە لە حیصنول موسلیمدا پارێزراون دڵنەوایی بدرێنەوە (hisn-150–152). کاتێک ڕۆح دەکێشرێت چاوەکان دابخە و دوعای داخستنی چاو بەکاربهێنە (بابەتی پێشوو).",
+      "خۆت لە شیوەنی بەرز و ئەو قسانەی خوا تووڕە دەکەن بپارێزە. خێزانەکە دەبێت قسەی چاک بکەن، چونکە فریشتەکان ئامین بۆ قسەکانیان دەکەن (سەحیحی موسلیم 920).",
     ],
     actions: [
-      "Bi nermî şehadetê bîne bîra miriyê nêzîk.",
-      "Odeyê aram bihêle û bi axaftina qenc dagire.",
+      "بە نەرمی شایەتمان بیری کەسی سەرەمەرگ بخەرەوە.",
+      "ژوورەکە ئارام بهێڵەوە و بە قسەی چاک پڕی بکەرەوە.",
     ],
-    hadith: [
-      {
-        excerpt: "Miriyên xwe bişînin ku bêjin: la ilaha illallah.",
-      },
-      {
-        excerpt:
-          "Kî gotinên wî yên dawî 'Tu kesî heqê perestinê tune ji bilî Allah' bin, ew ê bikeve Bihiştê.",
-      },
-    ],
-    appLinks: [{ label: "Duayên hêviya jiyanê" }, { label: "Girtina çavan" }],
+    appLinks: [{ label: "دوعاکانی هیوا بۆ نەخۆش" }, { label: "داخستنی چاو" }],
   },
   {
-    title: "Teseliye û xemgînan",
-    summary: "Zindiyan bi duaya belaya pêxemberî rehet bike.",
+    title: "سەرەخۆشی و خاوەن مردووان",
+    summary: "دڵنەوایی زیندووان بدەرەوە بە دوعای پێغەمبەر ﷺ بۆ کاتی موسیبەت.",
     body: [
-      "Ummu Seleme radigihîne ku Resûlê Xuda ﷺ gotiye: 'Tu misilman nîne ku belayê bikeve û paşê ya ku Allah ferman kiriye bêje — \"Em ên Allah in û em ê vegerin cem Wî. Ya Allah, di belaya min de min xelat bike û ji min re tiştekî çêtir biguherîne\" — lê Allah ê ji wan re tiştekî çêtir biguherîne' (Sahih Muslim 918). Hisnul Muslim vê gotinê diparêze (hisn-154).",
-      "Bi gotinên kurt û rast teseliye bide; ji bo malbata mirî xwarin amade bike li şûna ku wan bi mêvandariyê bar bike (Ebû Dawûd 3132 — rapor li ser malbata Cefer). Ji merasîmên nûjen ên rojên diyarkirî yên bê delîl dûr bikeve, lê duaya taybet, sedeqe û dilovaniyê berdewam bike.",
-      "Xemgîniya bi hêsir destûr e; nalîn, lêdana eniyan û qetandina kincan qedexe bûn. Piştî definkirinê jinebî, sêwî û yên girêdayî bi alîkariya rewa piştgirî bike.",
+      'ئوم سەلەمە دەگێڕێتەوە کە پێغەمبەری خوا ﷺ فەرمووی: «There is no Muslim who is afflicted with a calamity and then says what Allah has commanded — "To Allah we belong and to Him we return. O Allah, reward me in my calamity and replace it for me with something better" — but Allah will replace it for them with something better» (واتای ئینگلیزی) (سەحیحی موسلیم 918). حیصنول موسلیم ئەم دەقە دەپارێزێت (hisn-154).',
+      "بە وشەی کورت و ڕاست سەرەخۆشی بکە؛ خواردن بۆ خێزانی مردووەکە ئامادە بکە لە جیاتی ئەوەی بە میوانداری بارگرانیان بکەیت (ئەبو داود 3132 — گێڕانەوەکە دەربارەی خێزانی جەعفەر). خۆت لە ڕێوڕەسمی داهێنراوی ڕۆژانی دیاریکراو کە بەڵگەیان نییە بپارێزە، و لە هەمان کاتدا بەردەوام بە لە دوعای نهێنی، سەدەقە و میهرەبانی.",
+      "خەمی بە فرمێسک ڕێگەپێدراوە؛ شیوەن، لە ڕوومەت دان و دڕاندنی جل قەدەغە کران. دوای ناشتن بە یارمەتیی ڕەوا پشتیوانی بێوەژنان، هەتیوان و ئەوانەی بەخێو دەکران بکە.",
     ],
     actions: [
-      "Duaya belayê hînî xemgînan bike.",
-      "Li şûna ku li ziyafetê hêvî bike, bi xwarin û karan alîkar be.",
-      "Duaya aram û sedeqeyê ji bo mirî berdewam bike.",
+      "دوعای کاتی موسیبەت فێری خاوەن مردووان بکە.",
+      "لە جیاتی چاوەڕوانیی خوان، بە خواردن و کاروبار یارمەتییان بدە.",
+      "بە نهێنی بەردەوام بە لە دوعا و سەدەقە بۆ مردووەکە.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Tu misilman nîne ku belayê bikeve û gotinên fermanî yên vegerê cem Allah û guhertina bi çêtirî bêje, lê Allah ê bi tiştekî çêtir biguherîne.",
-      },
-    ],
-    appLinks: [{ label: "Armancên sedeqeyê" }],
+    appLinks: [{ label: "ئامانجەکانی سەدەقە" }],
   },
 ];

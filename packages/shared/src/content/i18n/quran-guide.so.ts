@@ -32,30 +32,8 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "Qur'aanka oo la akhriyaa laftiisa waa cibaado, ee ma aha akhrinta macluumaadka. Rasuulku ﷺ wuxuu baray in xaraf kasta oo la akhriyo uu kasbado camal wanaagsan, camal kasta oo wanaagsanna la labanlaabo ugu yaraan toban laab - sidaas darteed xitaa bilawga hal sadar ku dhawaaqaya waa ajar urursan. Maalinta Qiyaame Qur'aanku wuu iman isagoo shafeeco ah, isagoo u baryaya kuwii nolosha adduunyo la socday. Qofkii si fiican u akhriya waxa uu la socdaa malaa’igtii sharafta lahayd ee culimmada, kii ku turunturoodo oo u halgama wax-barashada, labanlaab abaalgud buu ka helay dadaalka.",
       "Waxay kaa caawinaysaa in la caddeeyo waxa aanu Quraanku ahayn. Qur'aanku waa ereyada afka Carabiga ah ee Eebbe u gaar ah, oo aan isbeddelin tan iyo waxyiga. Xadiithka - hadallada Nabiga ﷺ, ficilladiisa, iyo oggolaanshaha aamusnaanta - waa kala duwan yihiin: waxay sharraxaan oo muujiyaan Qur'aanka laakiin waa weedha Nabiga ﷺ, oo lagu xafiday silsilado weriyeyaal magacyo leh oo ay culimadu ku qiimeeyeen Saxiix (Saxiix ah), Xasan (wanaagsan), ama Daa'if (daciif). Labaduba waa waxyi oo labaduba waa xidhxidhan yihiin, laakiin Qur'aanka oo kaliya ayaa lagu akhriyaa cibaadada salaadda, Qur'aanka oo keliya ayaa ah mucjisada iyo hadalka Eebbe.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bisha Ramadaan ee Qur’aanka kariimka ah la soo dejiyay isagoo hanuun u ah dadka...",
-      },
-      {
-        excerpt:
-          "Waxaad dhahdaa: Hadday u yimaadaan Insi iyo Jinni inay la yimaadaan Quraankan oo kale ma karaan...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qofkii akhriya xaraf kitaabka Alle ah waxa uu helayaa xasanad, xasaanadana waxaa lagu dhuftey toban.",
-      },
-      {
-        excerpt:
-          "Qur'aanka akhri, waayo wuxuu u shafeeco u noqon doonaa asxaabtiisa maalinta qiyaame.",
-      },
-      {
-        excerpt:
-          "Qofka quraanka ku xeel dheer wuxuu la joogaa culimadii sharafta lahayd ee xaqa ahayd, kii akhriya isagoo dhib ku ah, isagoo ku turunturooday, wuxuu leeyahay laba ajar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "U deji waqti go'an oo maalinle ah Qur'aanka - xitaa shan daqiiqo oo diirada la saaray waxay dhistaa barakah iyo joogtayn.",
       "Akhri ugu yaraan hal sadar oo macne leh: akhri Carabiga, kadibna si tartiib ah u akhri tarjumaadda.",
@@ -74,14 +52,7 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "Ilaalinta qoraalka waxa ay bilaabantay Nebiga ﷺ noloshiisa. Saxaabadu waxay xifdiyeen waxyigii siduu ku yimid, culimadu waxay ku qoreen xaashida, timirta, lafta iyo dhagaxa iyadoo Nabiga ﷺ si toos ah ula soconayo. Xifiyiin badan oo ku shahiiday dagaalkii Yamaama ka dib, Abuu Bakar wuxuu amray Zayd bin Thabit inuu Qur’aanka oo qoran ka soo ururiyo hal urur (suhuf). Ka dib, markii ay faaftay boqortooyadii iyo lahjadihii kala duwanaa, Cuthmaan waxa uu haystay nuqullo awood leh oo lagu sameeyay lahjadda Quraysh oo loo diray magaalooyinka waaweyn, isagoo halbeeg u sameeyay hal qoraal oo ummadda oo dhan ah.",
       "Eebbana waa u dammaanad qaaday ilaalinta Qur’aanka:- Annagaa soo dejinay Quraanka, waana ilaalinaynaa. Ballan-qaadkaas waxa lagu fuliyay saddex ilaalin oo is-dhex-gal ah - xifdi badan oo jiil walba ah, gudbin qoraal ah oo taxaddar leh, iyo silsilado akhrin ah oo macallin-ilaa arday (qiraat) oo dib loogu soo celinayo Nabiga ﷺ. Qofka rumaysadka leh tani waxay calaamad fiqi ah u tahay; Taariikhyahanku waa xaqiiq la diiwaan galiyay: Qur'aanka maanta la akhriyay waa isla qoraalkii la soo dejiyay afar iyo toban qarni ka hor.",
     ],
-    quran: [
-      {
-        excerpt: "Anagaa soo dajinay Quraanka waana ilaalinaynaa.",
-      },
-      {
-        excerpt: "ku akhri magaca Eebahaa abuuray...",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -93,11 +64,7 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "Akhriska la maarayn karo, Qur’aanku waxa kale oo loo qaybiyaa 30 qaybood oo isle’eg oo la yidhaa juz (jacza jamac), juz kastana waxa loo qaybiyaa laba qaybood oo loo yaqaan xizb, isaga oo wadar ahaan bixinaya 60 xizbi. Tani waa waxa ka dhigay khaatka Ramadaan - in Qur'aanka oo dhan lagu dhammeeyo bil gudaheed - si dabiici ah: hal juz maalintii waxay ku dhammaysataa kitaabka soddon maalmood, iyo nus-juz laba jeer maalintii ayaa weli ka sii dabacsan. Suurad kasta dhexdeeda Aayadaha (Aayadaha) ayaa lagu tiriyaa si ay tuduc kasta u qeexdo sida suuradda: Ayah; Tirada caadiga ah ee Madiinah waa 6,236 aayadood, oo leh farqi aad u yar oo si fiican loo diiwaan galiyay oo ku saabsan sida dhowr aayado loo tiriyey - qoraalka laftiisa waa isku mid.",
       "Fahamka qaab-dhismeedkan waxa uu ujeeddooyinka aan caddayn u beddelaa qorshe la taaban karo. Waxaad samayn kartaa qayb maalinle ah oo go'an, bartilmaameedka Juz Ammaa (qaybta u dambaysa, qaybta sodonaad, oo ay ka buuxaan suurado gaagaaban) si aad u xifdiso, raac hal mawduuc sida samirka dhawr suuradood, ama aad jadwal u samayso akhrin dhamaystiran bisha Ramadaan. Qaabdhismeedku waa jaan-goynta ka dhigaysa xidhiidhka nolosha oo dhan ee Qur'aanka la gaadho.",
     ],
-    quran: [
-      {
-        excerpt: "... waa Kitaab aayaadkiisa caddayn, waana Quraan Carabi ah ciddii wax garan.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -127,15 +94,7 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "Uma baahnid inaad wax walba hal mar qabsato. Xeerarka xudunta u ah waxaa loo bartaa sida ay u kala horreeyaan: axkaamta sakiinah iyo tanween (izhar, idgham, iqlab, ikhfa), xukummada meem sakinah, noocyada kala duwan ee madd (dheeraynta), qalqalah (iftiinka xarfaha qaarkood), ghunnah (sanka resonance), iyo waqf (meesha iyo sida loo joojiyo). Mid kastaa wuxuu leeyahay qeexitaan cad, tusaaleyaal maalinle ah, iyo wax lagu dhaqmo, xuduntana waxay dhex martaa mid mid.",
       "Xeerka suulka adag: ka baro tajwiidka dhegta macalin u qalma, hana ka baran buugaag ama apps kaligiis. U akhri qof khaladkaaga maqli kara oo saxi kara - sidan ayaa mar walba loo baran jiray tajwiidka, waana dariiqa kaliya ee lagu kalsoonaan karo ee lagu gaari karo saxsanaanta dhabta ah iyo, ugu dambeyntii, ijazah (silsilad la xaqiijiyay oo akhris ah).",
     ],
-    hadith: [
-      {
-        excerpt: "Waxaa idiinku kheyr badan kuwa quraanka barta oo bara.",
-      },
-      {
-        excerpt:
-          "Qofka quraanka ku xeel dheer wuxuu la joogaa culimadii sharafta lahayd ee xaqa ahayd, kii akhriya isagoo dhib ku ah, isagoo ku turunturooday, wuxuu leeyahay laba ajar.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -168,11 +127,7 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "Uma turjumi kartid Qur'aanka eray ahaan sidan - taasi waa shaqada tafsiirka iyo tarjumaadda - laakiin waxaad bilaabaysaa inaad aqoonsato magacyada Eebe, amarrada, ballamaha iyo digniinta si toos ah, xilliga akhrinta. Ku bilow kelmadaha ugu muuqda oo xanbaarsan kuwa ugu miisaanka badan: Allaah, Rabb (Rabbi), raxmah (naxariista), iimaanka, sabir (sabir), taqwa (Adduunyada), iyo aakhiro (Aakhiro). Laga soo bilaabo barroosinkaas, u fidi dibadda marba.",
       "Isticmaal ku celcelin meel bannaan halkii aad ka cuni lahayd. Barashada shan kelmadood oo cusub todobaadkii iyo dib u eegista dhamaantood maalin kasta waxay kaa qaadi doontaa wax aad uga sii fog sanad gudaheed intii aad ku xafidi lahayd kontanka hal fadhi oo aad ilowdo. Eebe wuxuu ballan qaaday in Qur'aanka loo fududeeyay in qalbiga lagu qaato - si joogto ah u wajahdo ereybixintiisa oo aad dareemi doonto si fudud.",
     ],
-    quran: [
-      {
-        excerpt: "(44) Waxaan u fududaynay Quraanka xusuus darteed ee ma jirtaa cid wacdoomi.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -212,11 +167,7 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "U fiirso qaabka iyaga dhex mara. Nebiyadu waxay dadkooda ugu yeedhi jireen cibaadada Alle oo keliya; waa la majaajilooday, laga soo horjeeday, inta badana waa la eryi jiray; waxay u samreen samir iyo talo-saar dhammaystiran oo Eebbe (tawakkul); aakhirkiina ballankii Alle wuu rumoobay. Markaad akhrido dhibkooda, ka hel xoog sida ay uga jawaabeen - adigoon waligaa qiyaasin darajadaada inay la mid tahay kooda. Ujeedadu waa in la dhuuxo adkaysigooda iyo kalsoonidooda, ee maaha in la is barbar dhigo heerka.",
       "Qur’aanka qudhiisu wuxuu soo qaatay hal qiso oo ah suuradda Yuusuf oo Eebbe ugu yeedhay ‘sheekooyinka ugu wanaagsan’. Si aan caadi ahayn waxa looga sheekeeyaa min bilow ilaa dhamaad suurad qura, hadaba hal fadhi ku akhri safar joogto ah – khiyaamo, samir addoonnimo iyo xabsi, ugu dambayntiina cafis iyo isu-keenid – bal eeg sida qorshaha Eebbe u dhacayo sannado badan oo musiibo muuqata ah.",
     ],
-    quran: [
-      {
-        excerpt: "Sheekadoodu runtii waxay cashar u tahay kuwa wax fahma…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -228,11 +179,7 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "Waxaad sidoo kale maqli doontaa wax ku saabsan 'mucjisooyinka sayniska' - aayadaha taabanaya marxaladaha embriyaha, ballaarinta kosmada, iyo wixii la mid ah. Handle these with care. Tafsiirka qadiimiga ah wuxuu inta badan u fahmi jiray aayadahan siyaalo aad uga duwan rali-galiyayaasha casriga ah, ku qasbida Qur'aanka in uu la jaanqaado mala-awaal cilmiyeed kasta oo isbedelaya waxay dib u noqon kartaa marka ay aragtiyadu isbedelaan. Si adag u kala saar tafsiir sugan iyo malo-awaalka casriga ah.",
       "Waxsii sheegyada taariikhiga ah ayaa sidoo kale soo xigtay culimadu - guushii la sii sheegay ee Roomaanka, furitaanka nabada ee Makkah - waxayna mudan yihiin in la barto, laakiin iyada oo loo marayo tafsiirka miyir-qabka ah iyo seerah, ma aha muuqaallo muuqaal ah. Dacwada ugu adag ee Qur’aanku mar walba waa tawxiidkiisa, akhlaaqda dadka oo beddeshay, iyo af iyo ilaalin aan la isku mid ahayn.",
     ],
-    quran: [
-      {
-        excerpt: "Markaas la yimaada suurad la mid ah... haddaad run sheegaysaan.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Ka fogow sheegashada mucjisooyinka cilmiyeed ee la buunbuuniyay ee ka xishooda daawada marka la eego. Ku hoggaami tawxiidka, akhlaaqda, iyo daliilka quraanka ee af iyo taariikheed.",
   },
@@ -246,16 +193,7 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "Habka wax ku oolka ah: isticmaal ku celcelinta kala fog, ku dheji hal akhriye si ay laxanka laftiisa u tilmaanto xusuustaada, ka akhri xusuusta maalin kasta halkii aad akhrin lahayd oo keliya, macalinka ha maqlo oo calaamadee khaladaadkaaga - khaladaadka aadan maqli karin naftaada. Rikoorada hifz ee Munib ayaa hoos u socda ilaa aayadda gaarka ah si aad had iyo jeer u ogaato waxa ku habboon dib u eegista.",
       "Dooro qorshe ku habboon marxaladaada. Bilow: xifdi Juz Camma, qaybta u dambaysa, oo ay ka buuxaan suurado gaagaaban. Dhexdhexaad: ku dar toban suuradood oo had iyo jeer la akhriyo sida al-Mulk, Ya-Sin, iyo al-Kahf. Sareeye: buuxi juz buuxa oo leh dib u eegis xoogan wax kasta oo ka horreeya. Iyo Safarkii Xaafiis: Musxafka oo dhan, oo lagu xafiday macalin aqoon leh iyo, ugu fiican, sanad - silsilad la xaqiijiyay oo dib loogu celinayo Nabiga ﷺ.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Saxaabigii Qur’aanka waxa lagu odhan doonaa: akhri oo kor sidaad wax u akhrin jirtay aduunka, darajadaadu waxay ahaan doontaa aayada ugu dambaysa ee aad akhrido.",
-      },
-      {
-        excerpt:
-          "Saxaabigii qur’aanku masaalku waa kii geel xidhxidhan lahaa: hadduu dhawro wuu dhawraa, hadduu daayona wuu waayi.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -276,15 +214,7 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "Tadabbuur la mid ma aha tafsiirka. Tafsiirku waa sharraxaadda cilmiyeed ee macnaha aayaddu; tadabbur waa jawaabtaada shakhsi ahaaneed, ixtiraam leh macnahaas markaad fahamto. Labaduba way isla shaqeeyaan: marka hore waxaad ka baranaysaa macnaha dhawaaqa tafsiirka, ka dib waxaad la fadhiisataa oo weydii sida uu kula hadlayo. Qaabka waxtarka leh waa saddex su'aalood - Muxuu Alle halkan igu baraya? Sidee tani u beddeshaa waxa aan sameeyo maanta? Waa maxay hal caado oo ay tahay inaan dhiso ama jebiyo?",
       "Hal xuduud adag ayaa ilaalinaysa tadabbur ammaan: ka fiirso waxa aayaddu ku waydiinayso, laakiin weligaa ha u abuurin macne cusub qoraalka laftiisa. Tafsiirka dhabta ahi ha dejiyo xadka tafsiirkiisa, fikirkaaga shakhsi ahaaneedna halkooda ha dhigo - joornaal gaar ah, sida Muniib, ayaa ku habboon in la soo qabto waxa aayad kugu kicisay oo aad dib ugu soo noqon karto.",
     ],
-    quran: [
-      {
-        excerpt: "Miyayna Quraanka u fiirsanayn mise Quluubtooda quful baa ku sugan.",
-      },
-      {
-        excerpt:
-          "Miyayna Quraanka u fiirsanayn. Hadday ka ahaan lahayd mid Eebe ka soo hadhay waxay ka heli lahaayeen khilaaf badan.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -295,12 +225,7 @@ export const QURAN_GUIDE_TOPICS_SO: DeepPartial<QuranGuideTopic>[] = [
       "Taasi waa waxa caqabadahaas loogu talagalay. Mid kastaa waxa uu aayad gaar ah ku xidhayaa hal-abuurnimo, dhaqan la samayn karo maanta oo ah: in aad carrabkaaga ku ilaaliso hadal wanaagsan, bixinayso sadaqo deggan, ka fiirsigaaga waxa xaaraanta ah, iska daaya cuqdada aad qaaday. Hal tuduc, hal fal - yar oo ku filan in la sameeyo, dhab ah oo kugu filan in lagu beddelo.",
       "Calaamadee tartanku inuu dhammaystiran yahay kaliya markaad si dhab ah u samaysay. Ujeeddada raadraaca lama soo bandhigayo - taasi waxay jabinaysaa ujeeddada - laakiin la xisaabtanka daacadda ah ee Eebe, kaas oo arka waxaan dadka kale samayn. Muddo ka dib, aayad aayad, sidan ayaa akhrintu isku beddeshaa dabeecad.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ma waxaad faraysaan xaqa dadka od halmaansantihiin naftiinna idinkoo akhrin Kitaabka.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -438,14 +363,7 @@ export const QURAN_GUIDE_STORIES_SO: DeepPartial<QuranGuideStory>[] = [
       "Habka Shaydaanku waa xaswaas joogto ah, ma aha xoog - garashada soo jeedintiisa waa kala badh ka hortagga iyaga.",
       "Qiimaha bini'aadmigu wuxuu ku xidhan yahay aqoonta iyo u noqoshada Alle, ee maaha inay noqdaan kuwo aan dembi lahayn - waa jawaabta qaladka ayaa ina qeexaysa.",
     ],
-    quran: [
-      {
-        excerpt: "Abuuridda Aadam iyo Malaa'igta Sujuud.",
-      },
-      {
-        excerpt: "Imtixaanka, dhicitaanka, iyo toobad keenka.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Janno, ka dibna dhulka",
   },
   {
@@ -464,14 +382,7 @@ export const QURAN_GUIDE_STORIES_SO: DeepPartial<QuranGuideStory>[] = [
       "Ku adkaysiga in Alle loogu yeedho, xitaa ka-hortagga jees-jeeska, lafteedu waa nooc cibaado ah.",
       "Samatabbixinta Eebe waxay timaaddaa wakhti go'an - rumaystaha wuxuu dhisaa 'doonta' addeecidda daad ka hor, isagoo aaminaya ballanka.",
     ],
-    quran: [
-      {
-        excerpt: "Sheekadii Nuux oo faahfaahsan.",
-      },
-      {
-        excerpt: "Codsigii Nuux dadkiisa.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Mesopotamia qadiimiga ah (qiyaastii cilmiga)",
   },
   {
@@ -489,14 +400,7 @@ export const QURAN_GUIDE_STORIES_SO: DeepPartial<QuranGuideStory>[] = [
       "Talo-saarashada Alle macnaheedu ma aha badheedhnimo: Xajar ayaa orday oo raadisay, Zamzam-na way timi - dadaal iyo tawakkuba way wada shaqeeyaan.",
       "Ficillada daacadda ah ee cibaadada ayaa ka ab ka ab; Cibaadada xajka iyo karaamada Kacbada waxay ka soo jeedaan adeecidii Ibraahiim.",
     ],
-    quran: [
-      {
-        excerpt: "Ibraahim, Ismaaciil, iyo naf-hurid.",
-      },
-      {
-        excerpt: "Axdi iyo dhaxal.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Ciraaq, Levant, Makkah",
   },
   {
@@ -516,11 +420,7 @@ export const QURAN_GUIDE_STORIES_SO: DeepPartial<QuranGuideStory>[] = [
       "Qorshaha Alle wuxuu inta badan ku dhuuntaa sanado badan oo nasiib darro ah - ceelka, addoonsiga, iyo xabsigu waxay ahaayeen dhammaan tillaabooyin loo qaaday sharafta Yuusuf.",
       "Kuwa xoogga badan waxay awoodooda ku muujiyaan cafis: Markii uu xooggiisu sarreeyo, Yuusuf wuxuu cafiyey kuwii isaga dulmiyey.",
     ],
-    quran: [
-      {
-        excerpt: "Sheekooyinka ugu wanaagsan - ayaa lagu sheegay hal suurad.",
-      },
-    ],
+    quran: [{}],
     location: "Kanaan, Masar",
   },
   {
@@ -539,14 +439,7 @@ export const QURAN_GUIDE_STORIES_SO: DeepPartial<QuranGuideStory>[] = [
       "Cajiibka markhaatiga keli ahaantiis ma keeno rumaysad - hanuunku waa hibo Eebbe siiyo kuwa is-hoosaysiiya, ee ma aha kuwa madax adag.",
       "Eebbaa u gargaara kuwa dulman, wuuna xisaabin kuwa is-kibriya si kasta oo ay u kala xoog badan yihiin.",
     ],
-    quran: [
-      {
-        excerpt: "Muuse Tuur iyo Fircoon hortiisa.",
-      },
-      {
-        excerpt: "Dhalashada iyo barbaarinta.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Masar, Siinay",
   },
   {
@@ -565,14 +458,7 @@ export const QURAN_GUIDE_STORIES_SO: DeepPartial<QuranGuideStory>[] = [
       "Nebiyadu waa addoommada Eebbe ee bini'aadamka ah, oo aan weligood la caabudin - Qur'aanku wuxuu ilaalinayaa maqaamkii Ciise ee runta ahaa buunbuunin.",
       "Maryama dhawrsanaanteeda, samirkeeda, iyo aaminaadeeda waxay ka dhigtaa tusaale iimaanka dhammaan mu'miniinta, haween iyo ragba.",
     ],
-    quran: [
-      {
-        excerpt: "Hadalka dhalashada iyo dhalmada.",
-      },
-      {
-        excerpt: "Lama dilin, lamana wadin; kor loo qaaday.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Falastiin",
   },
   {
@@ -590,14 +476,7 @@ export const QURAN_GUIDE_STORIES_SO: DeepPartial<QuranGuideStory>[] = [
       "Uyeedhaye wuxuu gaadhsiiyaa fariinta si daacadnimo iyo samir leh, wuxuuse ka tagayaa cidhibta Eebbe, hanuunkana isagaa iska leh.",
       "Tijaabooyinku waa jidkii nebiyada; U adkaysiga dhibka Alle dartiis, siduu yeelay, waa astaanta iimaanka dhabta ah.",
     ],
-    quran: [
-      {
-        excerpt: "Kuuma aannaan dirin naxariista Caalamka mooyee.",
-      },
-      {
-        excerpt: "43|11|Ee Naxariista dhexdooda ah, gaaladana ku adag.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
 ];
@@ -613,17 +492,8 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Nebigu ﷺ wuxuu baray in iimaanku leeyahay in ka badan toddobaatan laamood, oo ka kooban kuwa ugu waaweyn - marag u ah inaan Ilaah kale jirin oo aan Allaah ahayn - ilaa laga saaro dhibka waddada, isagoo muujinaya in xitaa camalka yar ee wanaagsan ay qayb ka yihiin iimaanka.",
       "Imaanka dhabta ahi waa arrin qalbiga ku jirta carrabka hortiisa: in Eebbe si dhab ah loo ogaado, lagana jeclaado wax kasta, oo laga cabsado cadhadiisa, isagana la talo saaro.",
     ],
-    quran: [
-      {
-        excerpt: "Rasuulkuna wuxuu rumeeyey waxa laga soo dejiyey xagga Eebihiis, mu’miniintana…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Iimaanku wuxuu leeyahay in ka badan toddobaatan laamood; Kan ugu sarreeyana wuxuu yidhi 'Ilaah mooyee Ilaah kale ma jiro', kan ugu hooseeyana wuxuu ka saarayaa wax dhib ah waddada - xishoodkuna waa laan iimaanka.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Dib u cusboonaysii Shahadaada maanta adigoo si buuxda u fiirsanaya waxa ay ka dhigan tahay, ee ha noqonin odhaah joogto ah.",
       "Baro mid ka mid ah magacyada Alle, fahan, oo ku barya ducadaada.",
@@ -639,17 +509,8 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Si ka duwan waajibaadka kale ee dhulka lagu soo dejiyey, salaadda waxa loo qoray ummadda intii lagu guda jiray koritaankii Nebiga (scw) (al-Isra wal-Mi'raj), isaga oo ku tilmaamaya hadiyad gaar ah iyo habka uu mu’minku u fuulo Eebbe.",
       "Sababtoo ah shan jeer ayaa lagu celceliyaa maalin kasta, salaadu waa laxanka joogtada ah ee ilaalinaya iimaanka inta u dhaxaysa hal cibaadada iyo cibaadada xigta.",
     ],
-    quran: [
-      {
-        excerpt: "Illeen salaaddu waxay reebtay xumaanta iyo xumaanta, xuska Eebbe ayaana ka weyn.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Addoon camalkiisa waxaa ugu horraysa oo la kala xukumi maalinta qiyaame salaaddiisa; hadday sanqadho tahay wuu liibaanay, hadduu cilladaysanna wuu fashilmay oo wuu khasaaray.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Tuko hal salaad maanta si tartiib ah, adigoo fahmaya erayada al-Faatixa markaad akhrinayso.",
       "Fur munib's Baro hagaha Saalax si aad u xoojiso qayb ka mid ah salaaddaada.",
@@ -665,12 +526,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Amarku wuxuu gaaraa da'da ugu sarreysa, marka waalidiintu ay ugu baahida badan yihiin dulqaad: u daryeel iyaga sidii ay mar hore kuugu daryeeli jireen, hoosna ugu deji baalka is-hoosaysiinta naxariis dartiis.",
       "Cibaadadu kuma dhammaanayso geerida - sii wadida ducaada waalidiinta, bixinta sadaqo iyaga oo wakiil ka ah, iyo ixtiraamida saaxiibadooda iyo ballamaha waa ficillo daacadnimo joogto ah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eebahaana wuxuu faray inaydaan caabudin isaga mooyee, iyo inaad u naxariisataan waalidka...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Wac ama fariin u dir waalid erayo wanaagsan maanta.",
       "U duca waalidkaa magac ahaan.",
@@ -685,11 +541,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Eebe wuxuu isu sheegaa inuu 'la jiro kuwa samra', wuxuuna u ballan qaaday kuwa bukaanka ah abaal-marintooda xisaab la'aan - sharaf aan ku dhowdahay tayada kale.",
       "Nebiyadu waxay ahaayeen kuwa ugu imtixaan daran dadka, Qur'aankuna wuxuu ku adkaystay - Ayuub buka, Yacquub oo murugaysan, Yuusuf oo khiyaano iyo xabsi ah - oo ah tusaale lagu daydo.",
     ],
-    quran: [
-      {
-        excerpt: "Kuwa xaqa rumeeyow kaalmaysta samir iyo duco. Eebana wuxuu la jiraa kuwa samra.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Marka xanaaqu maanta yimaado, hakad, neefso, oo dheh 'Innaa lillaahi wa innaa ilayhi raajicuun' ka hor inta aadan falcelin.",
       "Hal daqiiqo oo dhib ah usbuucan u beddel laba rakcadood oo salaad ah beddelkii cabasho.",
@@ -704,12 +556,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Sadaqadu lacag kaliya maaha. Rasuulku ﷺ wuxuu baray in xitaa la kulanka walaalkaa oo dhoola cadeynaya ay tahay sadaqo, sidaas darteed ma jiro qof faqri ah oo wax bixin kara.",
       "Bixinta waxay daahirisaa maalka iyo kan wax bixiyaba, waxayna debcisaa xajinta hunguriga, waxayna dhistaa naxariista - waana sababta erayga sakada laftiisa loola jeedo daahirin iyo korriin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa ku wax bixiya Jidka Eebe waxay la midyihiin Hadhuudh ka baxay Todobo Sabuul.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Wax maanta sii - lacag, wakhtigaaga, ama erey naxariis leh - xitaa haddii ay yar tahay oo aan la arki karin.",
       "Dib u eeg waajibaadkaaga zakada ee Munib oo ogow marka la bixinayo soo socda.",
@@ -725,12 +572,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Albaabka naxariistu aad buu u ballaadhan yahay: Eebbe wuxuu u sheegaa xataa kuwa naftooda dulmiyey inaanay quusan, illeen wuxuu u dhaafaa dhammaan dembiyada qofka si dhab ah u toobad keena.",
       "Towbada looma hayo dembiyo waaweyn ama waqtiyo cajiib ah - istighfar (cafis doonka) maalinta oo dhan waxa ay ilaalisaa qalbi jilicsan oo xisaabtuna nadiif tahay.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxaad dhahdaa: Addoomadayda ku xad gudbay Naftooda, ha ka quusanina naxariista Eebe...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Dheh 'Astaghfirullah' 100 jeer maanta, taasoo la macno ah, oo dareemo kor u qaadista miisaanka.",
       "Waxaad sheegtaa hal caado oo aad garanayso in aanu Alle raali ka ahayn oo qaado talaabada ugu horeysa ee la taaban karo si aad uga tagto.",
@@ -746,12 +588,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Qur'aanku waxa uu ku booriyay mu'miniinta inay u tartamaan oo ay u degdegaan dambi-dhaafka iyo Jannada 'ballaaran sida samooyinka iyo dhulka' - waxaa loola jeedaa in si firfircoon loo raadsado, oo aan rajo laga qabin.",
       "Abaalmarinta ugu weyn ee dhammaan ma aha beero ama wabiyaal ee waa in la arko wejiga Eebe - farxadda kama dambaysta ah ee loo yaboohay ehelka Jannada.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Una dagdaysta dambi dhaafka Eebihiin iyo Janno Ballaaran oo la mid ah Samooyinka iyo Dhulka.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -764,11 +601,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Qofkii dembaabaa Qur’aanku wuxuu tilmaamay in aan la cafin karin haddii uu qofku ku dhinto korkiisa waa shirki – la wadaajinta Eebbe; wax ka yar inuu u dambi dhaafo cidduu doono.",
       "Eebe wuxuu u digay inuu dadka u soo celiyo, ee ma aha inuu burburiyo ruuxii toobad keena - Digniin kastaa wuxuu ku lamaanaa Qur'aanka iyo Casuumad furan.",
     ],
-    quran: [
-      {
-        excerpt: "Eebana ma dhaafo la wadaajinta, wuxuuse ka dhaafaa waxa ka yar cidduu doono.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Salaad kasta maanta ka bacdi, si dhab ah Alle uga bari inuu naarta kaa ilaaliyo.",
       "Cusbooneysii tawxiidkaaga: ka fiirso cibaadada Alle kaligiis, ilaalinta ugu sugan Jahannamada.",
@@ -783,12 +616,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Dulmiga (dhulm) aad baa looga digay; Rasuulku ﷺ wuxuu baray in dulmigu u muuqan doono mugdi qofka daalimiinta ah maalinta qiyaame.",
       "Caddaaladdu ma aha oo keliya garsoorayaasha iyo taliyayaasha - waxay ku nooshahay hadal daacad ah, iyo caddaalad, iyo oofinta eraygaaga, iyo in qof kasta la siiyo xaqiisa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Idinku noqda kuwa xaqa dhawra oo Eebbe marag ka ahaada, xataa idinka iyo waalidkiinna iyo qaraabadaada.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Sii qof xuquuqdiisa maanta - mushahar cadaalad ah, jawaab daacad ah, ama deyn aad ku leedahay.",
       "Qabo hal daqiiqo oo eexdu kugu duufsato inaad caddaalad-darro noqoto, oo beddelka dooro caddaalad.",
@@ -803,11 +631,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Aqoonta waxtarka leh waxaa loogu talagalay in lagu dhaqmo oo la gudbiyo; Rasuulku ﷺ wuxuu baray in culimadu yihiin kuwa dhaxli kara nabiyada, iyagoo aan dhaxalsiin xoolo ee ay dhaxlaan cilmi.",
       "Raadinta cilmiga xurmada leh lafteedu waa cibaado, Quraankuna wuxuu si cad u kala saaray kuwa wax yaqaan iyo kuwa aan aqoon - 'ma siman yihiin?'",
     ],
-    quran: [
-      {
-        excerpt: "Waxaad dhahdaa: Eebow ii siyaadi cilmiga.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Qur'aanka ka baro hal shay maanta - aayad, kelmad, ama xukun - oo qof u baro.",
       "Xifdi du'a 'Rabbi zidni ilma' oo ku dheh intaanad baran.",
@@ -823,11 +647,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Muxammad ﷺ waa shaabadda Nabiyada, iyo rasuulkii ugu dambeeyay, Muslimkuna waa inuu rumeeyo nabiyadii isaga ka horreeyay oo dhan - Nuux, Ibraahim, Muuse, Ciise iyo inta kale - oo aan kala soocin dhexdooda.",
       "Nebiyadu waxay ahaayeen bani aadam iyo addoomo Alle, ee ma aha kuwo rabbaani ah; Qur'aanku wuu karaameeyay haddana wuxuu ku adkeeyey dhinaca uunka, oo aan waligood la caabudin Abuuraha.",
     ],
-    quran: [
-      {
-        excerpt: "Sheekadooda waxay cashar ugu tahay kuwa wax fahma...",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -840,12 +660,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Qur'aanku wuxuu kor u qaaday Maryama, hooyadii Ciise, tusaale u ah dhammaan mu'miniinta, wuxuuna u sharfay hooyooyinka si aad u sarreeya taas oo baridda caanka ah ay Jannada ku dhejiso cagahooda.",
       "Labada jinsiba waxay ka soo jeedaan hal asal - 'wuxuu kaa abuuray hal naf' - oo dhidibada u taagay dadnimo iyo sharaf la wadaago oo laga soo bilaabo aayadda ugu horreysa ee suuradda an-Nisa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ka Dhawrsada Eebihiin Eebaha idinka Abuuray Naf qudha kana Abuuray Xaggeeda Haweenkeeda…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Ku sharfo naag noloshaada maanta - hooyo, naag, walaashii, ama gabadh - xaq gaar ah ama naxariis ay ku leedahay.",
     ],
@@ -859,11 +674,7 @@ export const QURAN_GUIDE_THEMES_SO: DeepPartial<QuranGuideTheme>[] = [
       "Xikmado barbaarineed oo si weyn loo soo celceliyay ayaa kula talisa la kulanka carruurta marxaladda ay ku jiraan - la ciyaarista sanadaha hore, ka dibna wax bara oo si tartiib ah u edbiya, ka dibna la saaxiib marka ay koraan.",
       "Ilmo xaq ah oo la koriyo waa maal ka baxsan noloshan: Farcankii xaqa ahaa oo u duceeya waalidkii wuxuu sii wadaa inuu ka faa'iidaysto dhimashada ka dib.",
     ],
-    quran: [
-      {
-        excerpt: "Kuwa (Xaqa) rumeeyow ka dhawrsada Naftiina iyo Ehelkiinna Naarta.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Ilmaha maanta hal aayad gaaban ama hab wanaagsan u bar, samir iyo dhiirigelin.",
       "U duca ubadkiina (ama ubadkiina) magacooda si ay u noqdaan kuwa toosan oo Eebbe jecel yahay.",
@@ -990,17 +801,13 @@ export const QURAN_GUIDE_VOCABULARY_SO: DeepPartial<QuranGuideVocabEntry>[] = [
       "Ilaaha runta ah oo keliya - magaca saxda ah oo ka kooban dhammaan magacyada quruxda badan.",
     frequency: "2,700+ dhacdooyin",
     example: "Bismillah - Magaca Eebe",
-    quranRef: {
-      excerpt: "Magaca Eebe yaan ku billaabaynaa ee Naxariis guud iyo mid gaaraba Naxariista.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Rabbi, Master, Sutainer - kan wax abuura, leh, koriya, oo maamula.",
     frequency: "Aad u badan",
     example: "Rabbana - Rabbigeenna",
-    quranRef: {
-      excerpt: "Mahad dhamaanteed waxay u sugnaatay Allaah, Eebaha Caalamka.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Naxariista, naxariista, naxariista Alle iyo khalqiga dhexdooda.",
@@ -1046,9 +853,7 @@ export const QURAN_GUIDE_VOCABULARY_SO: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Iftiin - hanuuninta, muujinta, iyo iftiinka wadnaha.",
     frequency: "Soo noqnoqda",
     example: "Alle waa nuurka samooyinka iyo dhulka",
-    quranRef: {
-      excerpt: "Allaah waa nuurka samooyinka iyo dhulka...",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1269,7 +1074,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_SO: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_SO: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation: "Kuwa xaqa rumeeyow kaalmaysta samir iyo duco. Eebana wuxuu la jiraa kuwa samra.",
     context:
       "Suuradda al-Baqarah, ee ku soo degtay Madiina. Eebbe wuxuu u lamaaneeyaa laba ilood oo uu mu’minka la kulmo dhibaato – samirka iyo u jeedsashada salaadda – wuxuuna u ballan qaaday wehelkiisa gaarka ah kuwa adkaysta.",
     reflection:
@@ -1278,7 +1082,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SO: DeepPartial<QuranGuideDailyLesson>[] 
       "Ducada hal salaad maanta adigoon degdegin, sujuuddiinnana Allaah uga barya inuu samir ka siiyo imtixaanka gaarka ah ee aad ku jirto.",
   },
   {
-    translation: "Naxariistaydu wax walba way koobtay.",
     context:
       "Laga soo bilaabo suuradda al-Acraaf, oo ay kaga hadashay macnaha Muuse iyo qoomkiisa. Eebe wuxuu naxariistiisa ku tilmaamay inay wax walba koobtay - naxariis aad u wayn ayaa ka horraysa oo ka miisaan wayn ciqaabtiisa, taasoo loo gaar yeelay kuwa ku adkaysta xumaanta.",
     reflection:
@@ -1287,7 +1090,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SO: DeepPartial<QuranGuideDailyLesson>[] 
       "Hal qof oo aad ka cadhooto dooro, maanta qalbigaaga si daacad ah ugu cafi, duco gaabanna Alle uga bari in uu iyagana hanuuniyo oo u dambi dhaaf.",
   },
   {
-    translation: "Haddaad mahadisaan, hubaal waan idiin kordhin doonaa.",
     context:
       "Waxaan ka sugnaaday suuradda Ibraahim, waana qayb ka mid ah xusuustii Muuse ee Banii Israa'iil. Eebe wuxuu kordhitaankiisa si toos ah ugu xidhaa mahadnaq - ku shukrinta nimcada waa shayga keena inay koraan, halka ay mahadin la'aantuna ay soo dhawaynayso khasaaradeeda.",
     reflection:
@@ -1296,7 +1098,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SO: DeepPartial<QuranGuideDailyLesson>[] 
       "Inta aadan seexan caawa, kor u dheh Alxamdulilah saddex barakooyin gaar ah, mid walbana u magacow si ay shukrantu u noqoto mid miyir qabta, ma aha mid toos ah.",
   },
   {
-    translation: "Dadkana kula hadal hadal wanaagsan.",
     context:
       "Suuradda al-Israa. Iyada oo ay jirto hanuun ku saabsan sida ay mu'miniintu isu xambaari lahaayeen, Alle waxa uu ina amray in aan ula hadalno dadka - dhammaan dadka - sida ugu wanaagsan, maadaama erayada qallafsan ay yihiin albaab ka mid ah albaabbada uu Shaydaanku ku beero kala qaybinta.",
     reflection:
@@ -1305,7 +1106,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SO: DeepPartial<QuranGuideDailyLesson>[] 
       "Si kal iyo laab ah u dhiiri geli ama u mahad celi hal qof maanta adigoon dhaleecayn qarsooni jirin, kana celi hal odhaah qallafsan oo aad duufsatay.",
   },
   {
-    translation: "Ruuxii Eebe talo Saaro isagaa ka Filan.",
     context:
       "Laga soo bilaabo suurada at-Talaq, oo ka mid ah xukunnada furriinka iyo bixinta - oo ah halka ay dadku dareemaan walaac dhaqaale. Halkaas ayuu Eebe ugu ballan qaaday in ciddii ka cabsata uu ka arzaaqayo meel aanay filayn, ruuxii isaga tala saartana uu ku filan yahay.",
     reflection:
@@ -1314,7 +1114,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SO: DeepPartial<QuranGuideDailyLesson>[] 
       "Qaado hal go'aan oo ku dhibaya, ku tukado laba rakcadood oo istikhara ah ama ku ducayso duco, ka dibna natiijada Alle ku kalsoonow.",
   },
   {
-    translation: "Eebow ii siyaadi cilmiga.",
     context:
       "Suuradda Ta-Ha. Tani waa waxa kaliya ee Qur'aanka ku jira ee uu Alle ku faray Nabiga ﷺ inuu weydiiyo wax badan - aqoonta - taasoo tusinaysa sida aqoonta faa'iidada badan leh loo qaddariyo iyo in qofna, si kastaba ha ahaatee, uusan weligii dhammayn raadinta.",
     reflection:
@@ -1323,8 +1122,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SO: DeepPartial<QuranGuideDailyLesson>[] 
       "Xafid ducadan gaaban, 'Rabbi zidni ilma', oo caado ka dhig inaad ku dhawaaqdo Fajarka ka dib inta aanad bilaabin maalintaada.",
   },
   {
-    translation:
-      "Kuwa ku bixiya Xoolahooda Jidka Eebe waxay la mid yihiin iniin ka baxday Todobo Sabuul.",
     context:
       "Suuradda al-Baqarah. Eebbe waxa uu sawir cad ka bixinayaa sida ay sadaqadu u baxdo: iniin qudha oo soo baxday toddobo sabuul, mid walbana boqol xabo ah – oo ay soo noqonayso toddoba boqol oo laab ah, haddana u sii tarmayo cidduu doono. Maalka la siiyey aawadiis lama lumin.",
     reflection:

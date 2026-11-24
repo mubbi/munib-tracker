@@ -14,21 +14,8 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Yslamda arassalanmagyň iki ölçegi bar. Daşky görnüşi göze görnüp duran arassalyk - ýuwmak, hapany aýyrmak, arassa saklamak. Içki, ýuwmagyň oýarmak üçin niýetlenen kiçigöwünliligi, oýlanmasy we ýüregiň taýynlygydyr. Pygamberimiz, arassalanmagy iman ýarysy “diýip atlandyranda, fiziki arassalygy ruhuň günäden saplanmagy bilen jübütledi.",
       "Bu modul tutuş mowzuk boýunça geçýär: arassalaýan suwuňyz, taharet (ownuk taharet), ghusl (doly däp-dessur wannasy), taýammum (suw ulanyp bolmaýan wagty gury arassalamak), najasah (fiziki hapalygy aýyrmak) we aýratyn ýagdaýlar we ýeňillikler. Bir gezek öwreniň we doga şübhe däl-de, ynam bilen girip boljak bir zada öwrülýär.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eý iman edenler, namaz okamak üçin turanyňyzda ýüzüňizi we biliňizi tirsegiňize ýuwuň, kelläňizi süpüriň we aýaklaryňyzy topuklara ýuwuň.",
-      },
-      {
-        excerpt: "Hakykatdanam, Allah hemişe toba edýänleri we özüni arassalaýanlary söýýär.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Namazyň açary arassalanmakdyr; başlangyjy takbir, soňy taslimdir. (Ali; Jami 'at-Tirmizi 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Arassalanmagy gyssagly däl-de, Alla bilen duşuşmaga taýýarlyk hökmünde kabul ediň.",
       "Flowhli akym tebigy duýulýança her gün bir tahara mowzugyny öwreniň.",
@@ -43,15 +30,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Pygamberimiz, tämizlenmegi imanlylaryň kesgitleýji häsiýetine çykardy we muny imanyň ýarysy “diýip atlandyrdy. Yzygiderli arassalamak adamy terbiýeleýär, ybadat etmäge hemişe ýakyn ýagdaýda saklaýar we hadys öwredýär - ownuk günäleri suw bilen ýuwýar.",
       "Namazy goraýandygy üçin, tahara, imanly adamy biperwaýlykdan nädogry doga etmek günäsinden goraýar. Şonuň üçin onuň kararlaryny gowy öwrenmek Yslamdaky iň uly amallardan birini goramakdyr.",
     ],
-    hadith: [
-      {
-        excerpt: "Arassalamak imanyň ýarysydyr. (Abu Mälik al-Aşari)",
-      },
-      {
-        excerpt:
-          "Allatagala namazy arassalanmazdan, ogurlanan zatlardan sadaka kabul etmeýär. (Ibni Umar)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Her dogadan öň arassaçylyk ýagdaýyňyzy başlamazdan ozal tassyklaň.",
       "Mindönekeý akyl sanawyny saklaň: beden, geýim, ýer we taharet.",
@@ -66,12 +45,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Esasy däp-dessur haramlygy (hadaba akbar, janabah hem diýilýär) ýakynlygyň, jynsy gatnaşyklaryň, aýbaşydan ýa-da dogrumdan soňky gan akmagyň netijesinde ýüze çykýar. Ghusl, doly beden däp-dessurly hammam bilen göterilýär - suw ýok bolanda ýa-da zyýanly bolanda tayammum çalyşýar.",
       "Fiziki hapalar (najasah) - peşew, zyňyndy ýa-da akýan gan ýaly aýratyn mesele: däp-dessurlaryňyza garamazdan bedeniňizden, eşikleriňizden we namazyňyzdan fiziki taýdan aýrylmaly. Dört sünni mekdebi, bu üç kategoriýa barada ylalaşýarlar, diňe arassalygy ýok edýän ýa-da haýsy mukdarda bahana berilýändigi barada jikme-jiklikler bilen tapawutlanýar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Janabah ýagdaýynda bolsaňyz, özüňizi arassalaň. Youöne syrkaw bolsaňyz ýa-da syýahatda bolsaňyz ... we suw tapmasaňyz, arassa toprak bilen taýamumy ýerine ýetiriň.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Ilki bilen öz ýagdaýyňyzy kesgitläň (kiçi, uly ýa-da hapa), soňra dogry usuly ulanyň.",
       "Jikme-jiklikleri bilmeseňiz, ykrar edilen mekdebiň bir hünärli mugallymy yzygiderli yzarlaň.",
@@ -86,17 +60,8 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Hukukçylar suwy jikme-jik toparlara bölýärler (arassa we arassalaýjy, arassa, ýöne arassalamaýan we haram däl), ýöne gündelik durmuş üçin amaly düzgün ýönekeý: bir najasah ony üýtgetmedik bolsa, suw taharet we ghusl üçin amatly bolup galýar. Elýeterli arassa alternatiwa bilen hakyky şübheleneniňizde, alternatiwany ulanyň.",
       "Yslam isripsizligi öwredýär. Pygamberimiz doly ýuwuldy, ýöne gaty az suw ulandy - taharet üçin palçyk (iki käse ujy) we doly ghusl üçin sa (takmynan dört). Suwy ýitirmek köp bolanda-da ruhdan düşýär, sebäbi aramlygyň özi ybadat etikasynyň bir bölegidir.",
     ],
-    quran: [
-      {
-        excerpt: "Asmandan arassa suw iberýäris.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamber alaýhyssalam, palçyk suw bilen taharet we bäş palçyga çenli taharet berýärdi. (Anas; şeýle hem Sahih Musulman 325 - ortaça sünnet)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Gowy ýuwmak üçin ýeterlik suw ulanyň, ýöne krany aşak öwüriň we artykmaçlykdan gaça duruň.",
       "Suw çeşmesi hapalanan ýaly görünýän ýa-da ys alýan bolsa, iň ýakyn arassa çeşmäni gözläň.",
@@ -112,12 +77,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Her namazdan öň, ozalky dogadan dogry ýagdaýda galmasaňyz we alymlaryň köpüsiniň pikiriçe, Käbäniň töwereginde tawaf etmezden ozal we Gurhanyň fiziki tekstine degmezden ozal talap edilýär.",
       "Taharet diňe deslapky däl-de, özbaşdak ybadatdyr. Pygamber alaýhyssalam: «Allatagala taharetini tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä tä namazyny kabul etmez» diýip duýduryş berdi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allatagala taharet alýança taharyňy bozýan biriňiň dogasyny kabul etmeýär. (Abu Hureýra)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -128,12 +88,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Ulanylan suw arassa we arassalaýjy bolmaly. Iň möhümi, hakykatdanam derä ýetmeli - şonuň üçin bir agzanyň üstünden suw geçirmeýän päsgelçilik döredýän (galyň boýag, dyrnak lak, mum, ýelim) ilki bilen aýrylmaly ýa-da aşagyndaky ýuwulma dogry däl. Suwy bökdemeýän adaty kir ýa-da henna tegmili problema däl.",
       "Şafygy we Hanbaly mezhepleri, şeýle hem agzalaryň Gurhanda agzalan tertipde ýuwulmagyny (tertip), Maliki we Hanbaly mezhepleri bolsa agzalaryň, ýuwlan agzalar gurar ýaly uzak arakesme bermezden, biri-biriniň yzyndan ýuwulmagyny (muwalat) şert edýär. Hanafy mezhebi ikisini hem sünnet hasaplaýar. Yzygiderlilik üçin bir mezhebiň usulyna eýeriň.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Facesüzleriňizi we biliňizi tirseklere ýuwuň, kelläňizi süpüriň we aýaklaryňyzy topuklara ýuwuň.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Dyrnak lakyny, suwy duzakly halkalary we taharetden öň derini möhürleýän zatlary aýyryň.",
       "Tahareti bir akymda arkaýyn ýerine ýetiriň, şonuň üçin hiç bir agza sypdyrmaz ýa-da guratmaz.",
@@ -147,12 +102,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Bulara mezhepler Sünnetden we fykhy pikirlenmeden goşmaça parzlary goşýarlar. Niýet mezhepleriň köpüsinde parzdyr (Hanafylar ony kiçi hadasy aýyrmakda müekked sünnet hasaplaýarlar). Tertip (tartib) Şafygylar we Hanbalylar üçin, üznüksizlik (muwalat) bolsa Malikiler we Hanbalylar üçin parzdyr. Malikiler agzalary owkalamagy (dalk) hem parz hökmünde goşýarlar.",
       "Bularyň daşyndaky hemme zat - agzy we burnuňy ýuwmak, ilki elleri ýuwmak, üç gezek ýuwmak - hökmany däl-de (sünnet) maslahat berilýär. Tapawudyny bilmek, taharetiň haçan hakyky däl bolsa, diňe kämillik däldigini aýdyp bilersiňiz.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Facesüzleriňizi we biliňizi tirseklere ýuwuň, kelläňizi süpüriň we aýaklaryňyzy topuklara ýuwuň.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Faraidiň takyk sanawy (meselem, niýet, sargyt we sürtmek hökmanymy) dört mekdebiň arasynda tapawutlanýar. Bir ygtybarly mekdebi yzygiderli öwreniň we ulanyň.",
   },
@@ -164,12 +114,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Bellenen sünnet amallary şulary öz içine alýar: başynda 'Bismillah' diýmek; başlamazdan öň elleri üç gezek ýuwmak; agzy (madmadah) we burun ýuwmak (istinshaq); galyň sakgaldan we barmaklaryň we aýaklaryň arasynda çygly barmaklary ylgamak (taklil); her jübüti sag bilen başlamak; we her ýuwmagy üç gezek gaýtalamak.",
       "Iki sünnet aýratyn bellemäge mynasypdyr: pygamberiň hökmany diýen ýaly ýerine ýetiren miswak (siwak) -ny ulanmak we aýdan adam üçin Jennetiň sekiz derwezesini açýan imanyň şaýatlygyny okamak.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim tahareti gowy ýerine ýetirse, onda 'Alladan başga hudaýyň ýokdugyna we Muhammetiň guly we pygamberidigine şaýatlyk edýärin' diýýär Jennetiň sekiz derwezesi. (Umar ibn al-Hatab)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Sünnetiň doly yzygiderliligini tebigy düzgüniňize öwrülýänçä ýerine ýetiriň.",
       "Taharetden soňky şahany her gezek okaň.",
@@ -224,12 +169,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
         tip: "Gysga, ýöne agyr sylaglanan sünnet.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Usman Pygamberiň görşi ýaly her aýagyny üç gezek ýuwdy, soň şeýle diýdi: kim şunuň ýaly taharet etse we iki rekagat namaz okasa, öňki günäleri bagyşlanar. (Humran, Usmandan)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -240,12 +180,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Käbir kitapçalarda ýaýradylan jikme-jik 'her agza üçin dua' (elleri, ýüzleri, gollary we ş.m. ýuwulanda belli bir dileg) Pygamberimiziň dogry hakykylygy bilen kesgitlenmändigini bilmek möhümdir. Alymlar taharet wagtynda Allany umumy ýatlamagyň zyýany ýok bolsa-da, bulary sünnet diýip atlandyrmazlygy maslahat berýärler.",
       "Meseläniň ýüregi bar: her bir agzanyň günäsiniň gaçýandygyny bilip ýuwuň we hereketi maksadyna - diňe Allaha iman bilen baglanyşdyrýan şahada bilen tamamlaň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim tahareti gowy ýerine ýetirip, soň imanyň güwäligini okasa, Jennetiň sekiz derwezesi islänine girip biler. (Umar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Taharetden soňky şahadany ýatda saklaň.",
       "Her bir agzanyň tassyklanmadyk formulalaryny sünnet döredilen ýaly okamakdan gaça duruň.",
@@ -260,12 +195,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Beýleki meseleler mekdepleriň arasynda hormat goýulýar: gönüden-göni şahsy böleklere degmek we beýleki jynsdaky mahram däller bilen deri-deri gatnaşyklar, käbir mekdeplerde şol bir tekstiň dürli okalyşyna esaslanyp, beýlekiler däl.",
       "Möhüm dolandyryş ýörelgesi sizi yzygiderli aladalardan goraýar: ynam şübhe bilen aýrylmaýar. Eger taharet eden bolsaňyz we ony döwendigiňize ynamyňyz ýok bolsa, bir tämizleýjiniň ýüze çykýandygyna ynanýançaňyz taharet hasaplanýar. Pygamberimiz, bu duýgydan biynjalyk bolan adama, bir ses eşidýänçä ýa-da ys tapýança, dogasyny terk etmezligi tabşyrdy.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir ses eşidýänçä ýa-da ys tapýança gitmeli däldir. (Abbad ibn Tamim, daýysyndan)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Garşy jynslara ýa-da şahsy böleklere degmek, taharet döwmek mekdepleriň arasynda tapawutlanýar. Tejribeli ýerli mugallym we bir mekdebiň usulyna eýeriň.",
   },
@@ -277,12 +207,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Pygamber alaýhyssalam bir gezek topuklarynyň suwuň ýetip bilmeýändigi sebäpli gury galan adamlary gördi we berk duýduryş berdi: 'Otdan topuklara waý!' Daban, topuk we ýüzüň burçlary iň köp üns berilmeýän tegmillerdir.",
       "Munuň tersine ýalňyşlyk artykmaçdyr: üç gezekden köp ýuwmak ýa-da ortaça sünnetine ters gelýän suwy biderek ulanmak. Beýlekiler bolsa tahaba düşýärler (obsesif şübhe), tahareti gaýtalap gaýtalaýarlar - bu hem ýalňyşlyk, sebäbi şübhe şübhe bilen ýok edilmeýär.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Otdan topuklara waý! - taharetde topuklaryň gury galandygyny görende aýtdy. (Abu Hureýra)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Her ýuwulan agzanyň, esasanam dabany we tirsegini haýallaşdyryň we aňsatlyk bilen tassyklaň.",
       "Orta suw ulanyň; obsesif şübhe sizi gereksiz gaýtalamaga itergi bermäň.",
@@ -297,12 +222,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Şeýle hem indiki durmuşda tapawutly hormatdyr. Kyýamat güni Pygamber his yzarlaýanlaryny ýüzlerinde, ellerinde we aýaklarynda taharet yzlaryndan tanar - al-gurr al-muhajjalun diýilýän bu ymmata mahsus çyra.",
       "Bu häsiýetler sebäpli taharetde bolmak maslahat berilýän endikdir: her doga üçin täzeläp, taharetde uklamak imanlynyň gorag düzgünlerinden biridir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ymmat kyýamat gününde taharet yzlaryndan açyk ýüzleri, elleri we aýaklary bilen çagyrylar. (Abu Hureýra)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Mümkin bolan her namaz penjiresine taharet täzeläň.",
       "Gijeki sünnetde taharetde ýatmak.",
@@ -317,11 +237,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Onuň düýp manysy, suwuň daşky bedeniň her bir ýerine ýetmegidir - saçyň kökleri, deriniň bukulmagy, gulaklaryň, göbekleriň we aýaklaryň arasynda gury ýer galmaz. Agzy we burnuny ýuwmak köp alymlar tarapyndan gazyň içine girýär.",
       "Janabany götermek niýeti bilen ýerine ýetirilen bir taharet, ownuk haramlygy hem aradan aýyrýar, şonuň üçin tahareti tamamlan adam aýratyn taharetsiz namaz okap biler (taharetde taharet okamak sünnetdir).",
     ],
-    quran: [
-      {
-        excerpt: "Janabah ýagdaýynda bolsaňyz, özüňizi arassalaň.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -332,16 +248,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Beýleki gyzalar hökmany däl-de (mustahabb) maslahat berilýär: Juma'dan öň anna güni, pygamberimiz ony 'kämillik ýaşyna ýeten her bir adamyň borjy' diýip atlandyrýan gaty güýçli çagyryş; iki Gurban baýramy; we hajdan ýa-da umradan öň yhram ghusy.",
       "Täze alymlara käbir alymlar tarapyndan hökmany we beýlekiler tarapyndan berk maslahat berilýän yslama gireninden soň taharet bermek tabşyrylýar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Erkek aýalynyň dört aýagynyň arasynda oturyp, onuň bilen jyns gatnaşykda bolanda, gyza farz bolýar. (Abu Hureýra; şeýle hem Sahih Musulman 348)",
-      },
-      {
-        excerpt:
-          "Juma, anna güni ýetginjeklik ýaşyna ýeten her bir adamyň borjydyr. (Abu Said al-Hudri; şeýle hem Sahih Musulman 846)",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Juma we iman getirenler hökmanymy ýa-da berk maslahat berilýärmi mekdep we ýagdaý boýunça tapawutlanýar.",
     appLinks: [{}],
@@ -384,12 +291,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
         tip: "Aýallar saçyň kellesine ýeten halatynda örülen saçlary yzyna gaýtarmaly däldirler.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamberimiz jan janabadan suwa düşüp, ellerini ýuwup, namaz okamak üçin taharet etdi, barmaklaryny saçlaryndan geçirdi, soň kellesine üç gezek we bedeniniň galan bölegine suw guýdy. (Aýşa)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Ghusl ýalňyşlyklary",
@@ -399,12 +301,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Ikinji umumy ýalňyşlyk gury tegmilleri goýmakdyr. Borç, suwuň tutuş daşky bedene degmegidir, şonuň üçin kelläniň köklerine, gulaklaryna, göbeklerine, arka bölegine ýa-da aýaklaryň arasyna üns bermezlik, gazyň doly bolmazlygyny üpjün edýär. Elbetde, suwy bu ýerleriň üstüne sürtüň.",
       "Saç üçin: örülen saçly aýal, kelläniň köklerine suw ýetýänçä, örülen saçlary yzyna gaýtarmak talap edilmeýär - Pygamberimiz Umm Salamah kellä üç el guýmagyň ýeterlikdigini aýtdy. Erkek adamyň saçlary, köplenç ýumşak bolansoň, suw köklere ýetmeli.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kelläňize üç ujy suw guýup, soň özüňize suw guýuň we arassalanarsyňyz - örgünleriňizi yzyna gaýtarmaly dälsiňiz. (Umm Salamah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Birinji guýmazdan ozal niýetiňizi aýdyň, şonuň üçin ýuwmak ghusl hasaplanýar.",
       "Suwy aňsatlyk bilen sypdyrýan ýerlere sürtüň; näbellilik ýüze çykanda, şübhe bilen gutarman, bölümi täzeläň.",
@@ -418,18 +315,8 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Taýammum, ylaýta-da bu ymmatyň sowgady: Pygamber alaýhyssalam: «meer meniň üçin doga mekany we arassalanmak üçin ýaradyldy» -diýip, ozal berlen pygamberlere däl-de, özüne berlen aýratyn artykmaçlyklaryň hataryna goşdy. Diniň esasy ýörelgesini öz içine alýar - borç galýar, ýöne kynçylyk aradan aýrylýar.",
       "Bu wagtlaýyn çäre: suw elýeterli we ulanyp bolansoň, suw bilen adaty arassalanmak dowam edýär. Adam, käbir mekdeplere görä her doga üçin tayammy täzelemeli bolup biler.",
     ],
-    quran: [
-      {
-        excerpt:
-          "... we suw tapmarsyňyz, soňam arassa toprak bilen taýamumy ýerine ýetiriň we ýüzleriňizi we elleriňizi süpüriň.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Meer meniň üçin doga mekany we arassalanmak üçin ýaradyldy. (Jabir - Pygambere üýtgeşik berlen bäş zadyň arasynda ﷺ)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Taýammuma rugsat berlende",
@@ -439,12 +326,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Üçünjiden, bar bolan az suw has möhüm zerurlyk üçin zerur bolanda - içmek ýaly, biriniň ýa-da başga biriniň ýa-da haýwanyň ýaşaýşyny goramak üçin. Iki ýagdaýda-da şerigat ileri tutulýan arassalama usulyndan has ýokary ömri we saglygy gorap saklaýar.",
       "Hukukçylar has inçe çäkler boýunça tapawutlanýarlar - suw gözlemeli, zyýandan gorkmak näçeräk - ýöne esasy rehimdarlykda biragyzdan: ybadat hiç haçan taşlanmaýar, diňe aňsatlaşdyrylýar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Taýammum baplarynda hasabat berilýär: Ulanylýan suw ýok halatynda arassa toprak bilen arassalanmak üçin ýeňillik.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Taýamuma ýüz tutmazdan ozal suw gözläň.",
       "Lukman ýarany ýa-da keseli gury saklamagy maslahat berýän bolsa, şoňa görä hereket ediň we taýammum ediň.",
@@ -480,12 +362,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
         tip: "Bir mekdebiň usulyny (bilek we bilek) yzygiderli ýerine ýetiriň.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamberimiz the eli bilen eli bilen urdy, soň ýüzüni we ellerini süpürdi - Ammara munuň ýeterlikdigini öwretdi. ('Ammar ibn asirasir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Taýammy näme döwýär?",
@@ -510,12 +387,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Aýyrmak, hapa görünýän ýerlerde, madda we yz ýok bolýança ýuwulýar. Yslam najasanyň çeşmelerine-de çynlakaý çemeleşýär: Pygamber alaýhyssalam, gabyr jezasynyň köpüsiniň peşew bilen seresapsyzlykdan gelip çykýandygyny, oňa sepilendigini we talabalaýyk arassalanmandygyny duýdurdy.",
       "Mekdepler käbir maddalary toparlara bölmek (mysal üçin, az mukdarda suwuklygyň bahana ýa-da ýoklugy) we haýsy mukdarda çydamlydygy boýunça tapawutlanýar. Gündelik durmuş üçin ulanylýan ýörelge: düýpli arassalaň we hapalygyň subutnamasy bolmadyk ýerde arassalyga şübhe döretmäň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamber alaýhyssalam iki gabyrdan geçdi we ýaşaýanlaryň jezalandyrylýandygyny aýtdy - biri töhmet ýaýratandygy üçin, beýlekisi peşewinden goranmandygy üçin. (Ibni Abbas; Sahih Musulman 292)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Geýimleri haramlykdan arassalamak",
@@ -525,12 +397,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Çyn ýürekden we düýpli tagallalardan soň, reňkli reňkli tegmiller ýa-da çykmajak birneme ys galsa, alymlaryň köpüsi hakykatdanam aýyrmak kyn bolan zady bahana edýärler - borjy tegmilsiz boýag kepillendirmek däl-de, maddany aýyrmak.",
       "Käbir hadysalaryň özlerine mälim bolan jikme-jiklikleri bar, meselem, ene süýdi bilen emdirilen bäbekiň peşewi (doly ýuwulman, sepilen, habar berilýän ýeňillikde) - şonuň üçin mekdebiňiziň ýüzbe-ýüz bolýan ýagdaýlary üçin amaly kararlaryny öwreniň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Geýimdäki aýbaşy gany barada: ony süpüriň, soňra suw bilen sürtüň, soňra ýuwuň we namaz okaň. (Asma bint Abi Bakr)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Iň azyndan bir arassa eşik namaz üçin goýuň.",
       "Hapa eşikleriňizi öýden uzakda saklasa, edip biljek zatlaryňyzy ýuwuň we mümkin boldugyça üýtgediň.",
@@ -544,11 +411,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Yslam hapalygy ýok etmekden başga-da, bedeni arassa we ybadat etmäge taýyn tebigy arassaçylyk (fitra) esaslaryny höweslendirýär: dyrnaklary kesmek, aşaky we aşaky saçlary aýyrmak we şuňa meňzeşler.",
       "Bu amallar diňe bir medeni aýratynlyklar däl-de, bir imanlynyň Allanyň öňünde doga edip görkezýän mertebesiniň we arassalygynyň bir bölegidir.",
     ],
-    hadith: [
-      {
-        excerpt: "Pygamberimiz reli özüni köşeşdirenden soň suw bilen arassalaýardy. (Anas)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Hajathanany ulananyňyzdan soň elmydama taharetden öň istinja dolduryň.",
       "Syýahat wagtynda dokumalary we mümkin boldugyça suw serişdesini göteriň.",
@@ -562,12 +425,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Dolandyryş düzgüni şübhesiz. Umuman, namaz okalýan ýer edilipdi, şonuň üçin hapanyň hakyky subutnamasy bolmasa, bir ýer arassa hasaplanýar. Haramlygyň bardygyny bilýän bolsaňyz, aýyryň ýa-da arassa ýere geçiň; diňe şol ýerde bolup biljekdigini göz öňüne getirseňiz, pyşyrdy äsgermezlik ediň we dowam ediň.",
       "Bu deňagramlylygy goraýjylar iki tarapdan ybadat edýärler: aç-açan toprakda biperwaý doga etmek we her bir ýere esassyz şübhe sebäpli ysmaz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir beduin metjide peşew edeninde, Pygamber a onuň üstüne bir bedre suw guýmagy buýurdy. (Abu Hureýra)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Namazdan öň düşegiňize we polyňyza göz aýlaň.",
       "Hapalygyň hakyky subutnamasyz, esassyz düşünişmezlikleri taşlaň we doga ediň.",
@@ -582,12 +440,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Oraza başgaçarak: Remezanda aýbaşy sebäpli sypdyrylan orazalar soň namaz okalýar. Gan gutaranda we arassalygyň alamaty peýda bolanda, aýal taharet okaýar we namazyny we agyz beklemegini dowam etdirýär.",
       "Ot we nifleriň iň pes we iň ýokary dowamlylygy, arassalygyň alamatlaryny nädip okamalydygy mekdepleriň jikme-jik tapawutlanýan meseleleri. Aýallar ökde mugallym bilen bir ygtybarly mekdebiň amaly kararlaryny öwrenmekden peýdalanýarlar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aýbaşydan gelýän aýalyň näme üçin agyz bekleýändigini, ýöne namaz okamaýandygyny soranlarynda, Aýşa: oraza tutmagy buýurdyk we namaz okamagy buýurmadyk. (Muadha, Aýşadan; şeýle hem Sahih Musulman 335)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -616,15 +469,7 @@ export const TAHARAH_TOPICS_TK: DeepPartial<TaharahTopic>[] = [
       "Amaly kararlar üçin dört sünni mekdebiniň nusgawy fykh gollanmalarynda jikme-jik pozisiýalar berilýär we olaryň tapawudy kemçilik däl-de, däp-dessuryň kanuny bölegi. Düzülen syn üçin bu moduly ulanyň, soňra ökde mugallym we başlangyç tekstler bilen okuwyňyzy çuňlaşdyryň.",
     ],
     quran: [{}, {}],
-    hadith: [
-      {
-        excerpt: "Kolleksiýany açýan taharet, taharet, taýamm we ot hakda giňişleýin bölümler.",
-      },
-      {
-        excerpt:
-          "Arassalamak kitaby - taharanyň hökümleri, edepleri we ýörelgeleri barada hakyky hasabatlar.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Pytraňňy kararlardan bulaşmazlyk üçin bir ynamdar okuw meýilnamasyna eýeriň.",
       "Amaly ynam durnukly bolýança bu temalary wagtal-wagtal gözden geçiriň.",

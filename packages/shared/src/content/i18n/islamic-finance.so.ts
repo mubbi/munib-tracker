@@ -2,198 +2,159 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // so overlay for islamic-finance. Index-aligned with ISLAMIC_FINANCE_TOPICS in ../islamic-finance.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const ISLAMIC_FINANCE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What Is Islamic Finance?",
+    title: "Waa Maxay Dhaqaalaha Islaamiga ah?",
     summary:
-      "An ethical lens on money, not a separate product category — this guide is education only.",
+      "Aragti akhlaaqeed oo lacagta lagu eego, ee ma aha nooc alaab gaar ah — hagahani waa waxbarasho oo keliya.",
     body: [
-      "Islamic finance is not a brand of investment product; it is the application of Islamic ethics to how money is earned, lent, spent, and given away. At its core are a handful of principles: wealth is a trust from Allah rather than an end in itself, transactions must be free of exploitation and excessive uncertainty, and profit should be tied to real economic activity and shared risk rather than a guaranteed charge on a loan.",
-      "This guide introduces those principles at a general, educational level: the prohibition of riba (interest/usury), fair dealing in trade, the obligations of zakah and voluntary sadaqah, and the basic concept of takaful (cooperative insurance). It intentionally does not screen funds, list stocks or ETFs, or recommend any specific product or provider.",
-      "Modern financial products (mortgages, credit cards, insurance policies, retirement accounts, and more) are structured in many different ways, and rulings on them can depend on the exact contract terms and your jurisdiction. This guide gives you the underlying principles; for a ruling on your specific situation, speak with a qualified, certified Islamic finance scholar or institution.",
+      "Dhaqaalaha Islaamiga ah ma aha summad alaab maalgashi ah; waa ku-dabakhidda akhlaaqda Islaamka sida lacagta loo kasbado, loo amaahiyo, loo kharash gareeyo, loona bixiyo. Udub-dhexaadkiisa waxaa ku jira dhowr mabaadi': hantidu waa amaano Alle ka timid ee ma aha hadaf naftiisa ah, macaamilooyinku waa inay ka maran yihiin dhiig-miirad iyo hubanti la'aan xad-dhaaf ah, faa'iidaduna waa inay ku xirnaataa hawl dhaqaale oo dhab ah iyo khatar la wadaago, ee ma aha lacag dammaanad ah oo amaah lagu dul saaro.",
+      "Hagahani wuxuu mabaadi'daas ku soo bandhigayaa heer guud oo waxbarasho ah: xaaraannimada ribada (dulsaar/ribo), caddaaladda ganacsiga, waajibaadka sakada iyo sadaqada ikhtiyaariga ah, iyo fikradda aasaasiga ah ee takaafulka (caymis iskaashi ah). Si ula kac ah uma baaro sanduuqyada maalgashiga, uma liis gareeyo saamiyada ama ETF-yada, mana ku taliyo alaab ama bixiye gaar ah.",
+      "Alaabta maaliyadeed ee casriga ah (deymaha guriyaha, kaararka deynta, siyaasadaha caymiska, xisaabaadka hawlgabka iyo kuwo kale) siyaabo badan oo kala duwan ayaa loo dhisaa, xukunnadooduna waxay ku xirnaan karaan shuruudaha saxda ah ee heshiiska iyo dalka aad ku nooshahay. Hagahani wuxuu ku siinayaa mabaadi'da aasaasiga ah; xukun ku saabsan xaaladdaada gaarka ah, la hadal caalim ama hay'ad dhaqaale Islaami ah oo u qalma oo shahaado leh.",
     ],
     disclaimer:
-      "Educational content only — not financial advice and not a fatwa. It does not recommend, screen, or rate any specific fund, stock, provider, or financial product.",
+      "Waxbarasho oo keliya — ma aha talo maaliyadeed mana aha fatwo. Kuma taliyo, ma baaro, mana qiimeeyo sanduuq, saami, bixiye ama alaab maaliyadeed oo gaar ah.",
   },
   {
-    title: "Wealth as a Trust (Amanah)",
-    summary: "Everything you own is ultimately Allah's — you are its steward, not its final owner.",
-    body: [
-      "A recurring Qur'anic theme is that wealth belongs to Allah first; a person is only its trustee (amanah) for a time, accountable for how it was earned and how it is used. This reframes money from a purely personal possession into something you will be asked about — where it came from and where it went.",
-      "Two commands anchor how that trust plays out in dealings with other people: fulfilling contracts and agreements in full, and never taking someone else's wealth through injustice, deception, or exploitation, only through fair trade by mutual consent.",
-      "Held together, these principles are why Islamic financial ethics keep returning to the same few questions: was this profit earned through real effort, risk, and value creation? Was the other party treated with full honesty? And is any obligation I've made being honoured?",
-    ],
-    quran: [
-      {
-        excerpt: "O you who have believed, fulfil [all] contracts...",
-      },
-      {
-        excerpt:
-          "Do not consume one another's wealth unjustly but only [in lawful] business by mutual consent.",
-      },
-    ],
-  },
-  {
-    title: "The Prohibition of Riba",
+    title: "Hantida oo Amaano ah (Amaanah)",
     summary:
-      "Riba (interest/usury) is one of the most strongly condemned transactions in the Qur'an.",
+      "Wax kasta oo aad leedahay ugu dambayn waa kuwa Alle — adigu waad ilaalisaa, ma aha milkiilaha kama dambaysta ah.",
     body: [
-      "Riba — commonly translated as interest or usury, broadly any predetermined, guaranteed increase charged on a loan — is prohibited in unusually strong language across five consecutive verses of Surah al-Baqarah (2:275–279), among the most severe warnings on any single topic in the Qur'an.",
-      "The passage draws a deliberate contrast: 'Allah has permitted trade and forbidden riba' (2:275). Trade — buying, selling, and investing where both parties share genuine risk and effort — is praised; riba, a fixed charge owed regardless of outcome, is condemned. The chapter goes on to command believers to give up any outstanding riba entirely, warning of serious consequences for those who persist, while promising that whoever repents may keep only their original principal — no more, no less.",
-      "This is a foundational teaching to be aware of, not a checklist for auditing every modern financial product yourself. Working out whether a specific contract (a mortgage, a loan, a savings account) involves riba in practice requires reviewing its actual terms with someone qualified in Islamic finance.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Those who consume interest cannot stand [on the Day of Resurrection]... But Allah has permitted trade and has forbidden interest... O you who have believed, fear Allah and give up what remains [due to you] of interest... But if you repent, you may have your principal — you do no wrong, nor are you wronged.",
-      },
+      "Mawduuc Qur'aanka ku soo noqnoqda ayaa ah in hantidu marka hore Alle leeyahay; qofku waa uun ilaaliyeheeda (amaanah) muddo, wuxuuna ka xisaabtamayaa sida loo kasbaday iyo sida loo isticmaalay. Tani lacagta waxay ka beddeshaa hanti shakhsi ah oo keliya oo ka dhigtaa wax lagu weydiin doono — meesha ay ka timid iyo meesha ay u dhaqaaqday.",
+      "Laba amar ayaa aasaas u ah sida amaanadaasi uga muuqato macaamilka dadka kale: in heshiisyada iyo ballamaha si buuxda loo oofiyo, iyo in aan weligeed hantida qof kale lagu qaadan dulmi, khiyaano ama dhiig-miirad, balse oo keliya ganacsi caddaalad ah oo is-oggolaansho lagu sameeyay.",
+      "Marka la isu geeyo, mabaadi'dan ayaa sabab u ah in akhlaaqda dhaqaalaha Islaamku ay had iyo jeer ku noqoto dhowr su'aalood oo isku mid ah: faa'iidadan ma waxaa lagu kasbaday dadaal dhab ah, khatar iyo abuurid qiime? Qofka kale si daacadnimo buuxda leh ma loola dhaqmay? Waajib kasta oo aan galay ma la oofinayaa?",
     ],
   },
   {
-    title: "Why Trade Differs from Interest",
+    title: "Xaaraannimada Ribada",
     summary:
-      "Legitimate profit is tied to risk and effort; riba is a guaranteed charge regardless of outcome.",
+      "Ribada (dulsaarka/ribo) waa mid ka mid ah macaamilooyinka sida ugu adag loogu cambaareeyay Qur'aanka.",
     body: [
-      "A simple way to hold the distinction in mind: in a trade or genuine investment, the person providing capital or goods shares in the outcome — they may profit, but they can also lose, because they are exposed to the real performance of a venture. In a riba-based loan, the lender is guaranteed a fixed return regardless of whether the borrower's venture succeeds, struggles, or fails.",
-      "Classical scholarship frames this as a matter of justice: a person in urgent need who borrows money can be trapped into paying back far more than they borrowed, with the risk placed entirely on them and none on the lender — precisely the imbalance the Qur'an condemns in the phrase 'Allah destroys interest and gives increase for charities' (2:276), a direct contrast between wealth built through exploitation and wealth grown through generosity.",
-      "This is a general educational contrast, not a ruling on any specific instrument (some modern structures blur trade and lending in complex ways). Where a specific product sits on this spectrum is exactly the kind of question to bring to a qualified Islamic finance scholar or certified advisor rather than deciding from general principles alone.",
-    ],
-    quran: [
-      {
-        excerpt: "Allah destroys interest and gives increase for charities.",
-      },
+      "Ribada — oo inta badan loo tarjumo dulsaar ama ribo, si guud waa koror kasta oo horay loo go'aamiyay oo dammaanad ah oo amaah lagu dul saaro — waxaa lagu xaaraameeyay erayo aad u adag shan aayadood oo isku xiga oo Suuratul Baqara ah (2:275–279), oo ka mid ah digniinaha ugu daran ee Qur'aanka ku jira mawduuc keliya.",
+      "Qaybtani waxay si ula kac ah u dhigtaa isbarbardhig: 'Allaah wuu xalaaleeyey beecshurada oo xaaraameeyey Ribada' (2:275). Ganacsiga — iibsiga, iibinta iyo maalgashiga ay labada dhinacba wadaagaan khatar iyo dadaal dhab ah — waa la ammaanay; ribada, oo ah lacag go'an oo la bixinayo natiijadu si kastaba ha ahaatee, waa la cambaareeyay. Suuraddu waxay intaas kadib mu'miniinta ku amraysaa inay gebi ahaanba ka tagaan ribo kasta oo weli lagu leeyahay, iyadoo uga digaysa cawaaqib culus kuwa ku adkaysta, isla markaana u ballanqaadaysa in qofkii toobad keenaa uu qaadan karo raasumaalkiisii asalka ahaa oo keliya — wax ka badan iyo wax ka yar midna ma aha.",
+      "Tani waa waxbarid aasaasi ah oo la ogaado, ee ma aha liis aad adigu ku hubiso alaab kasta oo maaliyadeed oo casri ah. Go'aaminta in heshiis gaar ah (deyn guri, amaah, xisaab kayd) uu ribo ku jiro iyo in kale waxay u baahan tahay in shuruudihiisa dhabta ah lala eego qof ku takhasusay dhaqaalaha Islaamiga ah.",
     ],
   },
   {
-    title: "How Seriously the Sunnah Treats Riba",
-    summary: "The Prophet ﷺ warned that everyone involved in a riba transaction shares in its sin.",
-    body: [
-      "Beyond the Qur'an's own warnings, the Prophet ﷺ made clear that responsibility for riba is not limited to whoever directly charges it. In an authentic hadith, he ﷺ is reported to have cursed the one who consumes riba, the one who pays it, the one who writes the contract, and the two witnesses to it — saying they are all equal in this.",
-      "The lesson generally drawn from this is one of collective avoidance rather than individual blame alone: riba is treated as something a whole transaction, and everyone knowingly party to it, should stay away from — not merely a private matter between a lender and a borrower.",
-      "As with the Qur'anic verses, this hadith establishes the seriousness of the principle; it does not itself tell you how to classify a specific modern financial product. That judgment call belongs with qualified scholars reviewing the actual contract.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah's Messenger ﷺ cursed the one who consumes riba, its payer, the one who records it, and the two witnesses to it, and said: they are all equal [in this]. (Jabir)",
-      },
-    ],
-  },
-  {
-    title: "Honesty in Trade",
-    summary: "The honest, trustworthy merchant is given one of the highest ranks in the Hereafter.",
-    body: [
-      "In sharp contrast to riba's warnings, honest trade is repeatedly praised. The Prophet Muhammad ﷺ himself worked as a trader before his prophethood and was known in Makkah by the title al-Amin — 'the Trustworthy' — for his integrity in business dealings, long before he was known as a prophet.",
-      "He ﷺ later taught that 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' on the Day of Judgment — an extraordinarily high status attached to something as ordinary as fair dealing in a market.",
-      "Practically, fair trade means: describing goods and services accurately, disclosing known defects rather than hiding them, honouring agreed prices and terms, and avoiding deception, false advertising, or exploiting a buyer's or seller's lack of knowledge. These are the same instincts that make for good, sustainable business in any tradition — Islam simply ties them to eternal reward as well.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The truthful, trustworthy merchant is with the prophets, the truthful, and the martyrs. (Abu Sa'id al-Khudri)",
-      },
-    ],
-  },
-  {
-    title: "Navigating Modern Financial Products",
+    title: "Sababta Ganacsigu uga Duwan Yahay Dulsaarka",
     summary:
-      "Mortgages, cards, and insurance are genuinely complex — this guide stops at principles.",
+      "Faa'iidada sharciga ah waxay ku xiran tahay khatar iyo dadaal; ribaduna waa lacag dammaanad ah natiijadu si kastaba ha ahaatee.",
     body: [
-      "Modern financial life involves products the earliest generations of Muslims never encountered in their current form: mortgages, credit cards, retirement accounts, insurance, and investment funds structured in many different ways. Applying centuries-old principles to these products is real, careful scholarly work — not something to reason out alone from a few general verses.",
-      "Because of this, contemporary Islamic finance institutions and certified scholars specialise specifically in reviewing modern contracts for compliance with these principles, often producing detailed rulings on particular products or structures. That specialised review is outside the scope of this app.",
-      "If you're weighing a real financial decision — a home purchase, a loan, an investment, an insurance policy — the responsible next step is to consult a qualified, certified Islamic finance advisor or scholar who can look at the actual contract terms, not to rely on general educational content like this guide.",
+      "Hab fudud oo kala duwanaanshaha loo xasuusto: ganacsiga ama maalgashiga dhabta ah, qofka bixiya raasumaalka ama alaabtu wuxuu wadaagaa natiijada — wuu faa'iidi karaa, balse sidoo kale wuu khasaari karaa, maxaa yeelay wuxuu u bandhigan yahay waxqabadka dhabta ah ee mashruuca. Amaahda ribada ku salaysan, amaah-bixiyuhu wuxuu dammaanad ku haystaa soo-celin go'an iyadoon loo eegin in mashruuca amaah-qaataha uu guulaysto, uu dhib la kulmo, ama uu fashilmo.",
+      "Culimadii hore waxay tan u arkeen arrin caddaalad: qof baahi degdeg ah qaba oo lacag amaahda waxaa laga yaabaa in lagu xiro inuu dib u bixiyo wax aad uga badan intii uu amaahday, iyadoo khatarta oo dhan isaga la saaray, amaah-bixiyahana waxba la saarin — taasi waa isku-dheelitir la'aanta Qur'aanku ku cambaareeyay weedhda 'Allaah ma barakeeyo Ribo, oo sababaa Sadaqooyinka inay bataan' (2:276), oo ah isbarbardhig toos ah oo u dhexeeya hanti lagu dhisay dhiig-miirad iyo hanti ku korta deeqsinimo.",
+      "Tani waa isbarbardhig waxbarasho oo guud, ee ma aha xukun ku saabsan qalab gaar ah (qaabab casri ah qaarkood waxay si qalafsan isugu qasaan ganacsi iyo amaah). Halka alaab gaar ahi ka taagan tahay xariijintan waa nooca su'aasha ah ee loo keeno caalim dhaqaalaha Islaamiga ah u qalma ama la-taliye shahaado leh, intii laga go'aamin lahaa mabaadi' guud oo keliya.",
+    ],
+  },
+  {
+    title: "Sida Sunnadu u Adkaysay Arrinta Ribada",
+    summary:
+      "Nabigu ﷺ wuxuu ka digay in qof kasta oo ku lug leh macaamil ribo ah uu wadaago dembigeeda.",
+    body: [
+      "Digniinaha Qur'aanka laftiisa ka sokow, Nabigu ﷺ wuxuu caddeeyay in mas'uuliyadda ribadu aanay ku koobnayn qofka si toos ah u qaada. Xadiis saxiix ah, waxaa laga weriyay inuu ﷺ habaaray qofka cuna ribada, kan bixiya, kan qora heshiiska, iyo labada markhaati ee ku jira — isagoo yiri dhammaantood way isku mid yihiin arrintan.",
+      "Casharka inta badan laga soo qaato waa ka fogaansho wadajir ah, ee ma aha eedaynta qof keliya: ribada waxaa loola dhaqmaa sidii wax ay tahay in macaamilka oo dhan, iyo qof kasta oo ogaal u leh ka qayb galkiisa, uu ka fogaado — ma aha oo keliya arrin gaar ah oo u dhexeysa amaah-bixiyaha iyo amaah-qaataha.",
+      "Sida aayadaha Qur'aanka, xadiiskani wuxuu xaqiijinayaa culayska mabda'a; laftiisu kuuma sheegayo sida loo kala saaro alaab maaliyadeed oo casri ah oo gaar ah. Go'aankaas waxaa iska leh culimo u qalma oo dib u eegaya heshiiska dhabta ah.",
+    ],
+  },
+  {
+    title: "Daacadnimada Ganacsiga",
+    summary:
+      "Ganacsadaha daacadda ah ee aaminka ah waxaa la siiyaa mid ka mid ah darajooyinka ugu sarreeya Aakhiro.",
+    body: [
+      "Si ka duwan digniinaha ribada, ganacsiga daacadda ah si joogto ah ayaa loo ammaanaa. Nabi Muxammad ﷺ laftiisu wuxuu ganacsade ahaa ka hor nabinimadiisa, waxaana Makkah lagu yaqaannay naanaysta al-Amiin — 'Aaminka' — daacadnimadiisa macaamilka ganacsiga awgeed, muddo dheer ka hor intaan loo aqoon nabi ahaan.",
+      "Wuxuu ﷺ markii dambe baray in 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' (macnaha Ingiriisiga) Maalinta Qiyaamaha — darajo aad u sarraysa oo lagu xiray wax caadi ah sida caddaaladda macaamilka suuqa.",
+      "Ficil ahaan, ganacsiga caddaaladda ahi waxa uu ka dhigan yahay: in alaabta iyo adeegyada si sax ah loo sharxo, in ceebaha la yaqaan la sheego intii la qarin lahaa, in qiimayaasha iyo shuruudaha lagu heshiiyay la oofiyo, iyo in laga fogaado khiyaano, xayaysiis been ah, ama ka faa'iidaysiga aqoon la'aanta iibsadaha ama iibiyaha. Kuwani waa isla dareennada ka dhiga ganacsi wanaagsan oo waara dhaqan kasta — Islaamku si fudud ayuu iyaga ugu xiraa ajar weligeed ah.",
+    ],
+  },
+  {
+    title: "Maaraynta Alaabta Maaliyadeed ee Casriga ah",
+    summary:
+      "Deymaha guriyaha, kaararka iyo caymisku runtii waa qalafsan yihiin — hagahani wuxuu ku joogsadaa mabaadi'da.",
+    body: [
+      "Nolosha maaliyadeed ee casriga ahi waxay ka kooban tahay alaab aanay jiilashii ugu horreeyay ee Muslimiintu weligood la kulmin qaabkooda hadda: deymaha guriyaha, kaararka deynta, xisaabaadka hawlgabka, caymiska, iyo sanduuqyada maalgashiga oo siyaabo badan oo kala duwan loo dhisay. Ku-dabakhidda mabaadi' qarniyo jiray alaabtan waa shaqo cilmiyeed oo dhab ah oo taxaddar leh — ma aha wax qofku keligii ka soo saari karo dhowr aayadood oo guud.",
+      "Sababtaas awgeed, hay'adaha dhaqaalaha Islaamiga ah ee casriga ah iyo culimada shahaadada lihi waxay si gaar ah ugu takhasuseen dib-u-eegista heshiisyada casriga ah si loo hubiyo inay mabaadi'dan waafaqsan yihiin, iyagoo inta badan soo saara xukunno faahfaahsan oo ku saabsan alaab ama qaabab gaar ah. Dib-u-eegistaas takhasuska ahi waxay ka baxsan tahay xadka app-kan.",
+      "Haddii aad ka fiirsanayso go'aan maaliyadeed oo dhab ah — iibsashada guri, amaah, maalgashi, siyaasad caymis — tallaabada xigta ee mas'uulka ahi waa inaad la tashato la-taliye ama caalim dhaqaalaha Islaamiga ah oo u qalma oo shahaado leh, kaas oo eegi kara shuruudaha dhabta ah ee heshiiska, ee ma aha inaad ku tiirsanaato waxbarasho guud sida hagahan.",
     ],
     disclaimer:
-      "This app does not evaluate, screen, or recommend any specific financial product, fund, or provider, and this guide is not a substitute for qualified professional or scholarly advice on your actual finances.",
+      "App-kani ma qiimeeyo, ma baaro, kumana taliyo alaab maaliyadeed, sanduuq ama bixiye gaar ah, hagahanna ma aha beddelka talo xirfadeed ama cilmiyeed oo u qalanta oo ku saabsan maaliyaddaada dhabta ah.",
   },
   {
-    title: "Zakah: Worship Through Wealth",
-    summary:
-      "Zakah is an obligatory act of worship carried out with money rather than words or motion.",
+    title: "Sakada: Cibaado Hanti Lagu Fuliyo",
+    summary: "Sakadu waa cibaado waajib ah oo lagu fuliyo lacag, ee ma aha hadal ama dhaqdhaqaaq.",
     body: [
-      "Zakah — a fixed, obligatory annual charge on qualifying wealth above a minimum threshold (nisab) — is one of the five pillars of Islam, placing giving on the same footing as prayer and fasting rather than treating it as optional generosity.",
-      "The Qur'an consistently pairs zakah with prayer as a marker of genuine faith, and promises that those who establish both prayer and zakah 'will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.' Financially, it functions as a wealth-purification mechanism — redistributing a small, regular share of accumulated wealth to those in need rather than letting it sit idle indefinitely in a few hands.",
-      "Because the calculation depends on your specific savings, assets, and local nisab values, this app has a dedicated Zakat guide and calculator — use it directly rather than estimating from general principles here.",
+      "Sakada — oo ah waajib sannadle ah oo go'an oo laga bixiyo hantida u qalanta ee ka badan xadka ugu yar (nisaab) — waa mid ka mid ah shanta tiir ee Islaamka, taas oo bixinta la dhigta heerka salaadda iyo soonka, intii loo arki lahaa deeqsinimo ikhtiyaari ah.",
+      "Qur'aanku si joogto ah ayuu sakada ula lammaaneeyaa salaadda sidii calaamad iimaan dhab ah, wuxuuna u ballanqaadayaa kuwa oogay salaadda iyo sakadaba in 'waxay ka heli doonaan abaalgudkooda Rabbigood agti. Cabsi ma qabi doonaan, mana murugoon doonaan.' Dhaqaale ahaan, waxay u shaqaysaa qalab hantida lagu daahiriyo — iyadoo qayb yar oo joogto ah oo hantida la ururiyay loo qaybiyo dadka baahan, intii ay gacmo yar ku jiri lahayd iyadoo aan la isticmaalin weligeed.",
+      "Maadaama xisaabtu ku xiran tahay kaydkaaga gaarka ah, hantidaada iyo qiimaha nisaabka deegaankaaga, app-kani wuxuu leeyahay hage Sako iyo xisaabiye gaar ah — si toos ah u isticmaal intii aad ka qiyaasi lahayd mabaadi'da guud ee halkan ku jira.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, those who believe and do righteous deeds and establish prayer and give zakah will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.",
-      },
-    ],
+    appLinks: [{ label: "Hagaha iyo xisaabiyaha Sakada" }],
   },
   {
-    title: "Sadaqah: Voluntary Giving",
+    title: "Sadaqada: Bixinta Ikhtiyaariga ah",
     summary:
-      "Beyond the obligatory zakah, any voluntary giving is called sadaqah — and it never truly costs you.",
+      "Sakada waajibka ah ka sokow, bixin kasta oo ikhtiyaari ah waxaa la yiraahdaa sadaqo — runtiina waxba kaama dhimayso.",
     body: [
-      "Sadaqah is voluntary charity, given in any amount, at any time, for the sake of Allah — beyond the fixed obligation of zakah. It ranges from significant financial gifts to something as small as a kind word or removing a source of harm from someone's path, all counted as forms of charity in the hadith literature.",
-      "One of the most reassuring teachings for anyone hesitant to give is the Prophet's ﷺ statement that charity does not decrease wealth — a point the Qur'an supports elsewhere by describing spending in Allah's cause as something Allah replaces and rewards, not merely something that runs out.",
-      "Practically, this reframes generosity: giving is not competing against your financial security but is presented as protecting and growing it, in ways not always visible on a balance sheet.",
+      "Sadaqadu waa deeq ikhtiyaari ah, qaddar kasta iyo waqti kasta, oo Alle dartiis loo bixiyo — oo ka baxsan waajibka go'an ee sakada. Waxay u dhexeysaa hadiyado maaliyadeed oo waaweyn ilaa wax yar sida erey naxariis leh ama in waddada qof laga qaado wax dhibaya, dhammaantoodna suugaanta xadiiska waxaa loogu tiriyaa noocyo sadaqo ah.",
+      "Mid ka mid ah waxbarista ugu qalbi-qaboojinta badan ee qof kasta oo ka labalabeeya bixinta waa hadalka Nabiga ﷺ ee ah in sadaqadu aanay hantida dhimin — qodob uu Qur'aanku meelo kale ku taageero isagoo ku sifeeya kharashka jidka Alle wax Alle beddelo oo abaalmariyo, ee ma aha oo keliya wax dhammaada.",
+      "Ficil ahaan, tani deeqsinimada waxay u beddeshaa: bixintu kama horjeedo amnigaaga maaliyadeed, balse waxaa loo soo bandhigaa inay ilaaliso oo kordhiso, siyaabo aan had iyo jeer ka muuqan xisaabaadka.",
     ],
-    hadith: [
-      {
-        excerpt: "Charity does not decrease wealth... (Abu Hurayrah)",
-      },
-    ],
+    appLinks: [{ label: "Hagaha Sakada & sadaqada" }, { label: "Hadafyada sadaqada" }],
   },
   {
-    title: "Takaful: Cooperative Risk-Sharing",
+    title: "Takaafulka: Wadaagidda Khatarta oo Iskaashi ah",
     summary:
-      "A high-level look at the concept behind Islamic alternatives to conventional insurance.",
+      "Jaleeco heer sare ah oo ku saabsan fikradda ka dambeysa beddelaadda Islaamiga ah ee caymiska caadiga ah.",
     body: [
-      "Takaful (from an Arabic root meaning mutual guarantee) is the general concept behind Islamic approaches to insurance-like protection: a group of participants contribute to a shared fund, and that fund is used to help members who experience a covered loss, with any surplus typically shared among participants or carried forward rather than kept as a separate insurer's guaranteed profit.",
-      "The underlying idea is cooperative risk-sharing rather than risk-transfer for a guaranteed premium: participants are seen as mutually helping one another, with the fund's operator typically acting as a manager or agent for a fee rather than the risk-bearing party itself.",
-      "This is only a general, conceptual description. Actual takaful products vary widely in structure between providers and countries, and evaluating whether a specific plan is genuinely structured this way requires reviewing its actual terms with a qualified Islamic finance scholar or institution — this app does not recommend or evaluate any specific takaful (or insurance) provider or plan.",
+      "Takaafulka (oo ka yimid xidid Carabi ah oo macnihiisu yahay is-dammaanad) waa fikradda guud ee ka dambeysa hababka Islaamiga ah ee ilaalinta u eg caymiska: koox ka qaybgalayaal ah ayaa ku shubta sanduuq la wadaago, sanduuqaasna waxaa loo isticmaalaa in lagu caawiyo xubnaha la kulma khasaare la daboolay, iyadoo wixii ka hara inta badan loo qaybiyo ka qaybgalayaasha ama loo wareejiyo sannadka xiga, intii loo hayn lahaa faa'iido dammaanad ah oo caymis-bixiye gaar ah.",
+      "Fikradda salka u ah waa wadaagidda khatarta oo iskaashi ah, ee ma aha u-wareejinta khatarta lacag dammaanad ah: ka qaybgalayaasha waxaa loo arkaa inay is caawinayaan, iyadoo maamulaha sanduuqu inta badan u shaqeeyo maareeye ama wakiil khidmad qaata, ee ma aha dhinaca khatarta qaada laftiisa.",
+      "Tani waa sharraxaad guud oo fikradeed oo keliya. Alaabta takaafulka ee dhabta ahi aad bay ugu kala duwan yihiin qaab-dhismeed ahaan bixiyeyaasha iyo dalalka dhexdooda, qiimaynta in qorshe gaar ahi runtii sidan loo dhisay waxay u baahan tahay in shuruudihiisa dhabta ah lala eego caalim ama hay'ad dhaqaale Islaami ah oo u qalma — app-kani kuma taliyo, mana qiimeeyo bixiye ama qorshe takaaful (ama caymis) oo gaar ah.",
     ],
     disclaimer:
-      "General education only. This is not a recommendation of takaful over conventional insurance, or of any specific provider or plan — consult a qualified advisor for your circumstances.",
+      "Waxbarasho guud oo keliya. Tani ma aha talo ah in takaafulka laga doorbido caymiska caadiga ah, ama bixiye ama qorshe gaar ah — la tasho la-taliye u qalma oo ku saabsan xaaladahaaga.",
   },
   {
-    title: "Takaful and Conventional Insurance, Compared at a High Level",
-    summary: "The two share a purpose — managing risk — but differ in how that risk is structured.",
-    body: [
-      "Conventional insurance is typically structured as a contract where a policyholder pays a premium and the insurer, as a separate commercial party, bears the risk in exchange for that fee, often investing the premium pool in ways that may include interest-bearing instruments. Some classical scholars raised concerns about this structure touching on riba, gharar (excessive uncertainty about the payout), and the transfer of risk for a fixed fee rather than shared risk.",
-      "Takaful was developed, broadly speaking, as an attempt to address those specific concerns through a mutual, cooperative structure instead — though scholars and institutions differ on exactly which structures fully achieve that goal, and takaful providers themselves vary considerably in design.",
-      "Because both the concerns and the alternative structures involve real technical detail (and because personal circumstances such as location, coverage needs, and available providers vary enormously), this comparison is offered only as general background — not as a ruling on any specific policy you may be considering.",
-    ],
-    disclaimer:
-      "Educational comparison only, not a fatwa on insurance or takaful in general or on any specific product. Scholars hold a range of views on modern insurance structures; consult a qualified advisor for your situation.",
-  },
-  {
-    title: "FAQ: Is This Financial Advice?",
-    summary: "No — this guide teaches principles only, and cannot replace qualified advice.",
-    body: [
-      "Q: Can I use this guide to decide whether a specific loan, investment, or insurance product is permissible for me? A: No. This guide explains general Islamic principles about money — it does not review contracts, recommend products, or issue rulings. Specific financial decisions should be made with a qualified financial professional and, for questions of permissibility, a qualified Islamic finance scholar.",
-      "Q: Does this app rate or list halal stocks, funds, or ETFs? A: No, and it never will as part of this guide — fund screening and investment recommendations are outside its scope and require licensed financial expertise this content does not provide.",
-      "Q: Is this guide a fatwa? A: No. A fatwa is a specific religious ruling issued by a qualified scholar in response to a specific question and context. This guide teaches general principles only; for an actual ruling on your situation, seek out a qualified, trusted scholar directly.",
-    ],
-    disclaimer:
-      "This entire guide is educational content, not financial advice and not a fatwa. Always consult qualified financial and religious professionals for decisions about your own money.",
-  },
-  {
-    title: "FAQ: How Do I Find Shariah-Compliant Options?",
+    title: "Takaafulka iyo Caymiska Caadiga ah, oo Heer Sare lagu Isbarbardhigay",
     summary:
-      "Look for certified expertise, not a list — this app intentionally doesn't provide one.",
+      "Labadoodu waxay wadaagaan ujeedo — maaraynta khatarta — balse way ku kala duwan yihiin sida khatartaas loo qaabeeyo.",
     body: [
-      "Q: Where can I find a list of halal banks, funds, or investment platforms? A: Not in this app, by design — product lists change constantly, vary drastically by country, and require ongoing compliance monitoring that only specialised institutions can properly maintain. Look instead for institutions with a genuine, named Shariah supervisory board and published compliance methodology.",
-      "Q: How do I know if a scholar or certification is legitimate? A: Look for scholars or boards recognised by established Islamic finance standard-setting bodies in your region or internationally, rather than informal online claims. A reputable institution will be transparent about who reviews its products and how.",
-      "Q: What should I do if I can't find any Islamic finance options where I live? A: This is a real and common situation. Discuss it with a knowledgeable local imam or scholar — they can help you weigh the available options for your specific circumstances, since guidance here can depend heavily on what alternatives genuinely exist for you.",
+      "Caymiska caadiga ah inta badan waxaa loo qaabeeyaa heshiis uu haystaha siyaasaddu bixiyo lacag (premium), caymis-bixiyuhuna, isagoo ah dhinac ganacsi oo gooni ah, qaado khatarta beddelka khidmaddaas, isagoo inta badan lacagaha la ururiyay ku maalgeliya siyaabo ay ku jiri karaan qalab dulsaar leh. Culimo qaar oo hore waxay walaac ka muujiyeen in qaab-dhismeedkani taabanayo ribada, gharar (hubanti la'aan xad-dhaaf ah oo ku saabsan lacag-bixinta), iyo u-wareejinta khatarta khidmad go'an, intii khatar la wadaagi lahaa.",
+      "Takaafulka waxaa, si guud, loo sameeyay isku day lagu wajahayo walaacyadaas gaarka ah iyadoo la adeegsanayo qaab-dhismeed is-caawin iyo iskaashi ah — inkastoo culimada iyo hay'aduhu ku kala duwan yihiin qaababka si buuxda hadafkaas u gaara, bixiyeyaasha takaafulka laftoodana aad bay ugu kala duwan yihiin naqshadda.",
+      "Maadaama walaacyada iyo qaab-dhismeedyada beddelka ahiba ay ku jiraan faahfaahin farsamo oo dhab ah (iyo maadaama xaaladaha shakhsiga ah sida goobta, baahiyaha daboolka iyo bixiyeyaasha la heli karo ay aad u kala duwan yihiin), isbarbardhiggan waxaa loo bixiyaa oo keliya asal guud — ma aha xukun ku saabsan siyaasad gaar ah oo aad ka fiirsanayso.",
+    ],
+    disclaimer:
+      "Isbarbardhig waxbarasho oo keliya, ma aha fatwo ku saabsan caymiska ama takaafulka guud ahaan ama alaab gaar ah. Culimadu waxay ka qabaan aragtiyo kala duwan qaab-dhismeedyada caymiska casriga ah; la tasho la-taliye u qalma oo ku saabsan xaaladdaada.",
+  },
+  {
+    title: "Su'aalo iyo Jawaabo: Kani Ma Talo Maaliyadeed Baa?",
+    summary: "Maya — hagahani wuxuu baraa mabaadi' oo keliya, mana beddeli karo talo u qalanta.",
+    body: [
+      "S: Ma u isticmaali karaa hagahan inaan ku go'aamiyo in amaah, maalgashi ama alaab caymis oo gaar ahi ii bannaan tahay? J: Maya. Hagahani wuxuu sharxayaa mabaadi' Islaami ah oo guud oo ku saabsan lacagta — dib uma eego heshiisyada, kuma taliyo alaab, mana soo saaro xukunno. Go'aannada maaliyadeed ee gaarka ah waa in lagu gaaro iyadoo lala tashanayo xirfadle maaliyadeed oo u qalma, su'aalaha bannaanaanshahana, caalim dhaqaalaha Islaamiga ah oo u qalma.",
+      "S: App-kani ma qiimeeyaa ama ma liis gareeyaa saamiyo, sanduuqyo ama ETF-yo xalaal ah? J: Maya, weligiisna sameyn maayo isagoo qayb ka ah hagahan — baaritaanka sanduuqyada iyo talooyinka maalgashigu waxay ka baxsan yihiin xadkiisa, waxayna u baahan yihiin khibrad maaliyadeed oo shati leh oo aan waxbarashadan bixin.",
+      "S: Hagahani ma fatwo baa? J: Maya. Fatwadu waa xukun diimeed oo gaar ah oo caalim u qalma ku bixiyo jawaab su'aal iyo xaalad gaar ah. Hagahani wuxuu baraa mabaadi' guud oo keliya; xukun dhab ah oo ku saabsan xaaladdaada, si toos ah u raadso caalim u qalma oo la isku halleyn karo.",
+    ],
+    disclaimer:
+      "Hagahan oo dhammi waa waxbarasho, ma aha talo maaliyadeed mana aha fatwo. Had iyo jeer la tasho xirfadlayaal maaliyadeed iyo diimeed oo u qalma go'aannada ku saabsan lacagtaada.",
+  },
+  {
+    title: "Su'aalo iyo Jawaabo: Sideen u Helaa Doorashooyin Shareecada Waafaqsan?",
+    summary:
+      "Raadi khibrad shahaado leh, ee ha raadin liis — app-kani si ula kac ah uma bixiyo mid.",
+    body: [
+      "S: Halkee ka heli karaa liiska bangiyada, sanduuqyada ama madalaha maalgashiga ee xalaasha ah? J: App-kan kuma jiro, si ula kac ah — liisaska alaabtu si joogto ah ayay isu beddelaan, aad bay ugu kala duwan yihiin dal ilaa dal, waxayna u baahan yihiin la-socod joogto ah oo waafaqsanaan ah oo ay si sax ah u ilaalin karaan oo keliya hay'ado takhasus leh. Taa beddelkeed, raadi hay'ado leh guddi kormeer Shareeco oo dhab ah oo magacyadoodu caddahay iyo hab-raac waafaqsanaan oo la daabacay.",
+      "S: Sideen ku ogaadaa in caalim ama shahaado sharci tahay? J: Raadi culimo ama guddiyo ay aqoonsan yihiin hay'adaha dejiya heerarka dhaqaalaha Islaamiga ah ee la aasaasay ee gobolkaaga ama caalamka, intii aad ku kalsoonaan lahayd sheegashooyin aan rasmi ahayn oo internetka ku jira. Hay'ad sumcad leh ayaa daah-furnaan ka muujinaysa cidda dib u eegta alaabteeda iyo sida ay u eegto.",
+      "S: Maxaan sameeyaa haddii aanan meesha aan ku noolahay ka helin wax doorasho dhaqaale Islaami ah? J: Tani waa xaalad dhab ah oo caadi ah. Kala hadal imaam ama caalim deegaanka ah oo aqoon leh — wuxuu kaa caawin karaa inaad miisaamato doorashooyinka la heli karo ee xaaladahaaga gaarka ah, maadaama hanuunka halkan uu aad ugu xirnaan karo beddelaadka runtii kuu jira.",
     ],
     actions: [
-      "Look for institutions with a named, transparent Shariah supervisory board rather than relying on marketing claims.",
+      "Raadi hay'ado leh guddi kormeer Shareeco oo magacyadoodu caddahay oo daah-furan, intii aad ku tiirsanaan lahayd sheegashooyinka xayaysiiska.",
     ],
   },
   {
-    title: "FAQ: Mortgages, Cards, and Loans",
-    summary: "These are exactly the questions that need a qualified scholar, not a general guide.",
+    title: "Su'aalo iyo Jawaabo: Deymaha Guriyaha, Kaararka iyo Amaahyada",
+    summary: "Kuwani waa su'aalaha saxda ah ee u baahan caalim u qalma, ee ma aha hage guud.",
     body: [
-      "Q: Is a mortgage always riba? A: Structures vary — some conventional mortgages are interest-based loans, while some providers offer alternative structures (such as diminishing partnership or lease-to-own models) intended to avoid interest. Whether a specific product achieves that in practice is a scholarly question about its actual contract, not something to assume either way.",
-      "Q: Can I use a credit card if I always pay the full balance and never incur interest? A: Scholars hold different views on this, partly because the underlying agreement may still technically involve an interest clause even if you never trigger it in practice. This is a genuine area of differing qualified opinion — ask a scholar you trust rather than assuming a single universal answer.",
-      "Q: What about student loans or other loans that may be unavoidable in some circumstances? A: Necessity and hardship are real considerations scholars weigh carefully, and views differ by circumstance and jurisdiction. If you're facing this decision, bring your specific situation to a qualified scholar rather than trying to resolve it from general reading alone.",
+      "S: Deynta guriyuhu had iyo jeer ma ribo baa? J: Qaab-dhismeedyadu way kala duwan yihiin — deymaha guriyaha caadiga ah qaarkood waa amaah dulsaar ku salaysan, halka bixiyeyaal qaar ay bixiyaan qaab-dhismeedyo beddel ah (sida shuraako yaraanaysa ama kiro-ilaa-lahaansho) oo loogu talagalay in dulsaarka laga fogaado. In alaab gaar ahi ficil ahaan taas gaarto iyo in kale waa su'aal cilmiyeed oo ku saabsan heshiiskeeda dhabta ah, ee ma aha wax si kasta loo qiyaaso.",
+      "S: Ma isticmaali karaa kaarka deynta haddii aan had iyo jeer bixiyo haraaga oo dhan oo aanan weligay dulsaar galin? J: Culimadu aragtiyo kala duwan ayay arrintan ka qabaan, qayb ahaan maxaa yeelay heshiiska salka ah wuxuu weli farsamo ahaan ku jiri karaa qodob dulsaar ah xitaa haddii aadan ficil ahaan weligaa kicin. Tani waa meel dhab ah oo ay ku kala duwan yihiin aragtiyaha culimada u qalma — weydii caalim aad aaminto intii aad u qaadan lahayd hal jawaab oo guud.",
+      "S: Ka warran amaahda waxbarashada ama amaahyo kale oo xaaladaha qaarkood laga maarmi waayo? J: Baahida daruuriga ah iyo dhibaatadu waa tixgelinno dhab ah oo culimadu si taxaddar leh u miisaamaan, aragtiyuhuna way ku kala duwan yihiin xaaladda iyo dalka. Haddii aad go'aankan wajahayso, xaaladdaada gaarka ah u keen caalim u qalma intii aad isku dayi lahayd inaad ku xalliso akhris guud oo keliya.",
     ],
     disclaimer:
-      "These are genuinely differed-upon, contract-specific questions. This FAQ only shows you what kind of question each one is — it does not answer any of them for your situation.",
+      "Kuwani runtii waa su'aalo lagu kala duwan yahay oo ku xiran heshiis gaar ah. Su'aalahan iyo jawaabahan waxay kuu muujinayaan oo keliya nooca su'aal kasta tahay — midkoodna kaagama jawaabayaan xaaladdaada.",
   },
 ];

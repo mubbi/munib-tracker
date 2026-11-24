@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Namazin dhe pjesëmarrjen e synoni për hir të Allahut, jo për shfaqje shoqërore.",
       "Ndihmoni me nevojat praktike të familjes kur mund ta bëni këtë me respekt.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kushdo që merr pjesë në xhenaz derisa të falë namazin e xhenazes, do të ketë një kirat, dhe kushdo që merr pjesë deri në varrim do të ketë dy kirate - secila si një mal i madh.",
-      },
-      {
-        excerpt:
-          "Kushdo që ndjek xhenazin e një muslimani për besim dhe për të kërkuar shpërblim, dhe qëndron derisa të falet namazi dhe të përfundojë varrimi, do të kthehet me dy kirate...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Larje dhe qefin",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Mbajeni qefinin të thjeshtë dhe të pastër - pëlhura e bardhë është modeli profetik.",
       "Shmangni fotografimin ose ekspozimin e trupit pa nevojë.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lajeni atë tre herë, ose pesë, ose më shumë nëse e shihni sipas nevojës, me ujë dhe sidr dhe në larjen e fundit vendosni kamfor ose pak kamfor.",
-      },
-      {
-        excerpt:
-          "I Dërguari i Allahut ﷺ ishte i mbështjellë me tri veshje të bardha pambuku jemenase; mes tyre nuk kishte as këmishë, as çallmë.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Kur mbyllni sytë e të ndjerit",
@@ -63,12 +45,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Mbyllni sytë butësisht dhe bëni duanë autentike.",
       "Kujtojini familjes të flasë mirë.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kur sytë e Ebu Selemes u fiksuan, Profeti ﷺ i mbylli dhe tha se kur të merret shpirti, shikimi e ndjek atë, pastaj i mësoi familjes të flasë vetëm atë që është e mirë.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Si të falet Xhenazah",
@@ -83,15 +60,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Thuaj katër tekbire me imamin.",
       "Bëni dua të sinqertë për të ndjerin pas tekbirit përkatës.",
     ],
-    hadith: [
-      {
-        excerpt: "Profeti ﷺ fali namazin e xhenazes për Negusin dhe tha katër tekbire.",
-      },
-      {
-        excerpt:
-          "Ibn Abbasi fali namazin e xhenazes dhe lexoi Fatihanë, duke thënë se ishte nga suneti.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Duas në namazin e xhenazes (të rritur)",
@@ -154,16 +123,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Gjatë vendosjes së të ndjerit në varr, në Hisnul Muslim ruhet një dua autentike. Pas varrimit, Profeti ﷺ qëndronte te varri dhe thoshte: 'Kërkoni falje për vëllain tuaj dhe kërkoni që ai të qëndrojë i palëkundur, sepse ai tani po merret në pyetje' (Sunen Ebi Davud 3221 - i vlerësuar sahih nga shumë dijetarë të mëvonshëm, përfshirë al-Albani).",
       "Ndërtimi i strukturave të zbukuruara mbi varre, suvatimi i tyre për zbukurim ose shkrimi që inkurajon ekzagjerimin është paralajmëruar në raportet autentike. Mbajeni shenjën të thjeshtë aty ku ligji dhe zakonet lokale lejojnë identifikimin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jini të shpejtë me funeralin: nëse ishte i drejtë, po e nxitoni për të mirë; nëse përndryshe, ju po e hiqni të keqen nga qafa.",
-      },
-      {
-        excerpt:
-          "Kërkoni falje për vëllain tuaj dhe kërkoni që ai të qëndrojë i palëkundur, sepse ai tani po merret në pyetje.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Pas varrosjes së të ndjerit",
@@ -185,12 +145,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Përshëndetni banorët e varreve me formulimin autentik.",
       "Reflektoni për vdekjen dhe përtërini veprat e drejta.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Paqja qoftë mbi ju, o banorë të banesave të besimtarëve dhe muslimanëve. Ne do të bashkohemi - në dashtë Allahu - me ju. Lusim Allahun për ne dhe për ju.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Përkujtues dhe gabime të zakonshme",
@@ -207,12 +162,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Nxitoni një varrim dinjitoz.",
       "Ndihmoni familjen me ushqimin dhe punët pa e ngarkuar me ekstravagancë.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allahu nuk dënon për lotin e syrit apo pikëllimin e zemrës, por Ai dënon ose tregon mëshirë për këtë - dhe tregoi me gisht gjuhën e tij.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -229,12 +179,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Mësoni sekuencën e katër tekbireve para se t’ju duhet.",
       "Memorizoni Fatihanë, salavatin dhe të paktën një dua xhenazeje.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Abbasi fali namazin e xhenazes dhe lexoi Fatihanë, duke thënë se ishte nga suneti.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Dua për burra, gra dhe fëmijë",
@@ -269,15 +214,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Mos e lani një dëshmor të fushës së betejës kundër udhëzimit të dijetarëve.",
       "Pyesni komitetin e xhenazes për rastet e abortit ose lindjes së vdekur.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Profeti ﷺ urdhëroi që dëshmorët e Uhudit të varroseshin me gjakun e tyre dhe nuk u lanë.",
-      },
-      {
-        excerpt: "Namazi i xhenazes falet mbi abortin dhe për prindërit lutet falje e mëshirë.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Xhenazah në mungesë",
@@ -293,15 +230,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Falni lokalisht sa herë që trupi është i pranishëm.",
       "Pyesni para se të organizoni një Xhenazah në mungesë si ngjarje publike.",
     ],
-    hadith: [
-      {
-        excerpt: "Profeti ﷺ fali namazin e xhenazes për Negusin dhe tha katër tekbire.",
-      },
-      {
-        excerpt:
-          "I Dërguari i Allahut ﷺ i radhiti shokët dhe fali për Negusin, duke thënë katër tekbire.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Te shtrati i vdekjes — fjalët e fundit",
@@ -315,15 +244,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Kujtojini me butësi të vdekurit shehadetin.",
       "Mbajeni dhomën të qetë dhe të zënë me fjalë të mira.",
     ],
-    hadith: [
-      {
-        excerpt: "Nxitni të vdekurit tuaj që të thonë: la ilaha illallah.",
-      },
-      {
-        excerpt:
-          "Ai që fjalët e fundit të tij janë 'Askush nuk ka të drejtë të adhurohet përveç Allahut' do të hyjë në Xhenet.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Duat e shpresës së jetës" }, { label: "Mbyllja e syve" }],
   },
   {
@@ -339,12 +260,7 @@ export const JANAZAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Ndihmoni me ushqim dhe punë në vend që të prisni një festë.",
       "Vazhdoni duanë e qetë dhe sadakanë për të ndjerin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Asnjë musliman nuk goditet nga fatkeqësia dhe thotë fjalët e urdhëruara të kthimit te Allahu e kërkon zëvendësim me më të mirë, por Allahu ia zëvendëson me diçka më të mirë.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Qëllimet e sadakasë" }],
   },
 ];

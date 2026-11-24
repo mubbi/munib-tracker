@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Namaza və ibadətə camaat üçün deyil, Allah rizası üçün niyyət edin.",
       "Hörmətlə edə bildiyiniz zaman ailənin praktik ehtiyaclarına kömək edin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hər kim cənazə namazını qılıncaya qədər cənazədə iştirak etsə, bir qirat, dəfnə qədər iştirak edənin hər biri böyük bir dağ kimi iki qirat vardır.",
-      },
-      {
-        excerpt:
-          "Kim imanla və savab umaraq bir müsəlmanın dəfn mərasiminə tabe olsa və namaz qılınıb dəfn bitənə qədər qalarsa, iki qiratla qayıdar...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Yuma və kəfənləmə",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Kəfəni sadə və təmiz saxlayın - ağ parça peyğəmbərlik nümunəsidir.",
       "Ehtiyac olmadan bədəni fotoşəkil çəkməkdən və ya ifşa etməkdən çəkinin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Onu üç dəfə, ya da beş dəfə və ya daha çox görsəniz, su və sidr ilə yuyun və son yumaya kafur və ya bir az kafur qoyun.",
-      },
-      {
-        excerpt:
-          "Rəsulullah (s) üç ağ Yəmən pambıq paltarına bürünmüşdü; onların arasında nə köynək, nə də çalma yox idi.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Mərhumun gözlərini bağlayarkən",
@@ -63,12 +45,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Gözlərinizi yumşaq bir şəkildə bağlayın və həqiqi dua edin.",
       "Ailəyə yaxşı danışmağı xatırlat.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Əbu Sələmənin gözləri zillənəndə Peyğəmbər (s) gözlərini bağladı və dedi ki, nəfs alındığı zaman görüntü onun ardınca gəlir, sonra ev əhlinə ancaq yaxşı söz danışmağı öyrətdi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Cənazə namazı necə qılınır",
@@ -83,14 +60,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "İmamla dörd təkbir deyin.",
       "Müvafiq təkbirdən sonra mərhum üçün səmimi dua edin.",
     ],
-    hadith: [
-      {
-        excerpt: "Peyğəmbər (s) Nəcaşiyə cənazə namazı qıldı və dörd təkbir dedi.",
-      },
-      {
-        excerpt: "İbn Abbas cənazə namazı qıldı və sünnədən olduğunu deyərək Fatihə oxudu.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Cənazə namazında dualar (böyüklər)",
@@ -153,16 +123,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Mərhumu qəbrə qoyarkən Hisnul Müslimdə səhih bir dua qorunur. Dəfn edildikdən sonra Peyğəmbər (s) qəbrin başında durub deyərdi: “Qardaşın üçün bağışlanma dilə və ondan səbr diləyin, çünki o, indi sorğu-sual olunur” (Sünən Əbi Davud 3221 – Əlbani də daxil olmaqla, bir çox sonrakı alimlər səhih qiymətləndirib).",
       "Qəbirlər üzərində bəzəkli tikililər tikmək, onları bəzək üçün suvaqlamaq və ya mübaliğəyə sövq edən yazılar mötəbər hesabatlarda xəbərdarlıq edilir. Qanun və yerli adət-ənənələrin eyniləşdirməyə icazə verdiyi yerdə işarəni sadə saxlayın.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dəfn mərasimində tələsik olun: əgər o, salehdirsə, sən onu yaxşılığa tələsirsən. əks halda boynunuza pislik qoyursunuz.",
-      },
-      {
-        excerpt:
-          "Qardaşın üçün bağışlanma dilə və onun səbirli olmasını dilə, çünki o, indi sorğu-sual olunur.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Mərhumu dəfn etdikdən sonra",
@@ -187,12 +148,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Qəbir əhlini həqiqi sözlə salamlayın.",
       "Ölüm haqqında düşün və saleh əməlləri təzələ.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Salam olsun sizə, ey möminlər və müsəlmanlar arasında olan məskənlərin sakinləri. İnşallah, biz də sizə qoşulacağıq. Allahdan həm bizim, həm də sizin üçün rəhmət diləyirik.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Xatırlatmalar və ümumi səhvlər",
@@ -209,12 +165,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Ləyaqətli dəfni tezləşdirin.",
       "Ailəni israfçılıqla yükləmədən onlara yemək və işlərdə kömək edin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah nə göz yaşına, nə də qəlbin kədərinə görə cəza verməz, lakin bunun üçün cəzalandırar və ya rəhm edər – və dilini göstərdi.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -231,11 +182,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Ehtiyacdan əvvəl dörd təkbir ardıcıllığını öyrənin.",
       "Fatihəni, salavatı və ən azı bir cənazə duasını əzbərləyin.",
     ],
-    hadith: [
-      {
-        excerpt: "İbn Abbas cənazə namazı qıldı və Fatihəni oxuyub bunun sünnədən olduğunu dedi.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Kişilər, qadınlar və uşaqlar üçün dualar",
@@ -270,16 +217,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Alim göstərişinə zidd olaraq döyüş meydanı şəhidini yumayın.",
       "Düşmə və ya ölü doğum halları barədə cənazə komitəsindən soruşun.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Peyğəmbər ﷺ əmr etdi ki, Uhud şəhidləri qanları ilə dəfn olunsun və onlar yuyulmadı.",
-      },
-      {
-        excerpt:
-          "Düşmə üzərində cənazə namazı oxunur və valideynlər üçün bağışlanma və rəhmət duası edilir.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Qayıb cənazə namazı",
@@ -295,14 +233,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Cəsəd hazır olduqca yerli namaz qılın.",
       "İctimai tədbir kimi qayıb Cənazə təşkil etməzdən əvvəl soruşun.",
     ],
-    hadith: [
-      {
-        excerpt: "Peyğəmbər ﷺ Nəcaşi üçün cənazə namazı qıldı və dörd təkbir dedi.",
-      },
-      {
-        excerpt: "Allahın Elçisi ﷺ səhabələri düzdü və Nəcaşi üçün dörd təkbir dedi.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ölüm yatağında — son sözlər",
@@ -313,15 +244,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Uca nalə və Allahı qəzəbləndirən sözlərdən çəkinin. Ev əhli yaxşı söz desin, çünki mələklər onların sözünə amin deyir (Səhih Müslim 920).",
     ],
     actions: ["Ölənə yumşaqca şəhadəti xatırladın.", "Otağı sakit və yaxşı sözlə məşğul saxlayın."],
-    hadith: [
-      {
-        excerpt: "Ölənlərinizə təlqin edin ki, desinlər: la ilahə illallah.",
-      },
-      {
-        excerpt:
-          "Son sözləri «Allahdan başqa ibadətə layiq heç kəs yoxdur» olan kəs Cənnətə daxil olar.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Həyat ümidi duaları" }, { label: "Gözləri bağlamaq" }],
   },
   {
@@ -337,12 +260,7 @@ export const JANAZAH_GUIDE_TOPICS_AZ: DeepPartial<LearnGuideTopic>[] = [
       "Ziyafət gözləmək əvəzinə yemək və işlərdə kömək edin.",
       "Ölənin üçün sakit dua və sədəqəni davam etdirin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Heç bir müsəlmana müsibət toxunub Allaha qayıdışın əmr olunmuş sözlərini demir və daha yaxşı əvəz istəmir ki, Allah onu daha yaxşısı ilə əvəz etməsin.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Sədəqə məqsədləri" }],
   },
 ];

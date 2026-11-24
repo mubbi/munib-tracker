@@ -2,249 +2,219 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // sq overlay for new-muslim. Index-aligned with NEW_MUSLIM_TOPICS in ../new-muslim.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const NEW_MUSLIM_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Welcome to Islam",
-    summary: "A short, practical map for the first days and weeks of your journey.",
+    title: "Mirë se erdhe në Islam",
+    summary: "Një hartë e shkurtër dhe praktike për ditët dhe javët e para të rrugëtimit tënd.",
     body: [
-      "Congratulations — and welcome. Becoming Muslim is not a finish line but the start of a lifelong relationship with Allah, one that grows gradually through knowledge, worship, and community, not all at once. Nobody expects you to know everything on day one; every Muslim, including the Prophet's ﷺ own companions, learned their religion step by step.",
-      "One of the most comforting teachings for someone new to Islam is that your past is genuinely behind you: 'Do you not know that Islam demolishes what preceded it?' the Prophet ﷺ told a companion who worried about his past sins. You are starting with a clean record before Allah.",
-      "This guide covers the essentials — what the shahada means, the five pillars, the basics of faith, and a first look at prayer — then points you to the full Salah, Aqeedah, Learn Dua, and Qur'an guides in this app for real depth. Take it one section at a time.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do you not know that Islam demolishes what preceded it, that the Hijra demolishes what preceded it, and the Pilgrimage demolishes what preceded it? (to 'Amr ibn al-'As)",
-      },
+      "Urime — dhe mirë se erdhe. Të bëhesh musliman nuk është vija e mbërritjes, por fillimi i një lidhjeje të përjetshme me Allahun, e cila rritet gradualisht përmes dijes, adhurimit dhe bashkësisë, jo e gjitha përnjëherë. Askush nuk pret që ti t'i dish të gjitha që në ditën e parë; çdo musliman, përfshirë edhe vetë sahabët e Profetit ﷺ, e mësoi fenë e tij hap pas hapi.",
+      "Një nga mësimet më ngushëlluese për dikë që sapo ka hyrë në Islam është se e kaluara jote me të vërtetë ka mbetur pas: 'Do you not know that Islam demolishes what preceded it?' (kuptimi në anglisht) — i tha Profeti ﷺ një sahabiu që shqetësohej për mëkatet e tij të së kaluarës. Ti po fillon me një regjistër të pastër para Allahut.",
+      "Ky udhëzues përfshin bazat — çfarë do të thotë shehadeti, pesë shtyllat, themelet e besimit dhe një vështrim të parë mbi namazin — pastaj të drejton te udhëzuesit e plotë të Namazit, Akides, Mëso Duanë dhe Kuranit në këtë aplikacion për thellësi të vërtetë. Merre një pjesë në një kohë.",
     ],
     actions: [
-      "Go at your own pace — read one section of this guide per sitting rather than all at once.",
-      "Write down the questions that come up as you read; bring them to a teacher or knowledgeable friend later.",
+      "Ec me ritmin tënd — lexo një pjesë të këtij udhëzuesi në një ulje, jo të gjitha përnjëherë.",
+      "Shkruaji pyetjet që të lindin gjatë leximit; më vonë paraqitja një mësuesi ose një miku me dije.",
     ],
   },
   {
-    title: "What the Shahada Means",
-    summary: "Two short sentences that carry the entire meaning of Islam.",
+    title: "Çfarë do të thotë Shehadeti",
+    summary: "Dy fjali të shkurtra që mbartin gjithë kuptimin e Islamit.",
     body: [
-      "The shahada — the testimony of faith — is: 'Ash-hadu an la ilaha illallah, wa ash-hadu anna Muhammadan rasulullah' ('I bear witness that there is no god but Allah, and I bear witness that Muhammad is the Messenger of Allah'). It has two parts, and both matter.",
-      "The first part, la ilaha illallah, means no one and nothing else — not money, status, ancestors, idols, or any created being — deserves worship, obedience as an act of devotion, or ultimate reliance except Allah alone. It is a statement about who has the right to be worshipped, not merely who exists.",
-      "The second part affirms that Muhammad ﷺ is Allah's final messenger, sent with guidance for all people. Affirming this means trusting what he ﷺ taught about Allah, worship, and how to live — which is exactly why the Qur'an and his authentic teachings (the Sunnah) are the two sources this whole guide draws from.",
-      "This testimony is not a magic formula but a description of a settled conviction of the heart. Saying it sincerely, understanding what it means, is what makes a person Muslim — 'one who submits.'",
+      "Shehadeti — dëshmia e besimit — është: 'Esh-hedu en la ilahe il-lallah, ue esh-hedu enne Muhammeden resulullah' ('Dëshmoj se nuk ka zot tjetër përveç Allahut dhe dëshmoj se Muhammedi është i Dërguari i Allahut'). Ai ka dy pjesë dhe të dyja kanë rëndësi.",
+      "Pjesa e parë, la ilahe il-lallah, do të thotë se askush dhe asgjë tjetër — as paraja, as pozita, as të parët, as idhujt, as ndonjë qenie e krijuar — nuk e meriton adhurimin, bindjen si akt devotshmërie apo mbështetjen përfundimtare, përveç Allahut të Vetëm. Është një deklaratë se kush e ka të drejtën të adhurohet, jo thjesht se kush ekziston.",
+      "Pjesa e dytë pohon se Muhammedi ﷺ është i Dërguari i fundit i Allahut, i dërguar me udhëzim për të gjithë njerëzit. Ta pohosh këtë do të thotë t'i besosh asaj që ai ﷺ mësoi për Allahun, adhurimin dhe mënyrën e jetesës — dhe pikërisht për këtë arsye Kurani dhe mësimet e tij të sakta (Suneti) janë dy burimet nga të cilat merr gjithë ky udhëzues.",
+      "Kjo dëshmi nuk është një formulë magjike, por përshkrim i një bindjeje të qëndrueshme të zemrës. Shqiptimi i saj me sinqeritet, duke e kuptuar kuptimin e saj, është ajo që e bën një njeri musliman — 'ai që i nënshtrohet Allahut'.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allah witnesses that there is no deity except Him, and [so do] the angels and those of knowledge... There is no deity except Him, the Exalted in Might, the Wise.",
-      },
-    ],
+    appLinks: [{ label: "Mëso Akiden — besimi në Allahun" }],
   },
   {
-    title: "Becoming Muslim",
-    summary: "Sincerely saying the shahada — with understanding and intention — is what counts.",
+    title: "Të bëhesh musliman",
+    summary: "Ajo që vlen është shqiptimi i sinqertë i shehadetit — me kuptim dhe me nijet.",
     body: [
-      "There is no priest, ceremony, fee, or paperwork required to become Muslim. What is required is sincerity: understanding the shahada's meaning and saying it with the intention of embracing it as your belief, between you and Allah.",
-      "Many people choose to say it in front of others — a local imam, a mosque community, or friends — because it gives witnesses to the moment and connects you to a support network from day one; this is a widely recommended practice rather than a strict requirement for the testimony itself.",
-      "Some new Muslims also perform ghusl (a full ritual wash) around this time as a symbolic and practical fresh start before learning to pray; practices and views on exactly when and how vary between communities, so ask a local teacher what is customary near you rather than guessing.",
-      "If you are still exploring rather than certain, that is a normal and respected stage — read, ask questions, and take your time. The testimony is meant to be said with conviction, not under pressure.",
+      "Për t'u bërë musliman nuk nevojitet prift, ceremoni, pagesë apo dokumente. Ajo që kërkohet është sinqeriteti: ta kuptosh kuptimin e shehadetit dhe ta shqiptosh me nijetin për ta përqafuar si besimin tënd, mes teje dhe Allahut.",
+      "Shumë njerëz zgjedhin ta shqiptojnë para të tjerëve — para një imami vendor, bashkësisë së xhamisë apo miqve — sepse kështu ky moment ka dëshmitarë dhe të lidh me një rrjet mbështetjeje që në ditën e parë; kjo është një praktikë gjerësisht e rekomanduar, jo një kusht i rreptë për vetë dëshminë.",
+      "Disa muslimanë të rinj marrin edhe gusël (larje e plotë rituale) në këtë kohë si një fillim i ri simbolik dhe praktik para se të mësojnë të falen; praktikat dhe pikëpamjet se kur dhe si saktësisht bëhet ndryshojnë nga një bashkësi në tjetrën, prandaj pyet një mësues vendor se çfarë është zakon pranë teje, në vend që të hamendësosh.",
+      "Nëse ende je duke kërkuar dhe nuk je i sigurt, kjo është një fazë normale dhe e respektuar — lexo, bëj pyetje dhe merre kohën tënde. Dëshmia duhet shqiptuar me bindje, jo nën presion.",
     ],
     actions: [
-      "If you are ready, consider saying the shahada in the presence of a local imam, mosque community, or trusted Muslim friends.",
-      "Ask a local mosque or teacher about any customary next steps (such as ghusl) in your community.",
+      "Nëse je gati, mendo ta shqiptosh shehadetin në praninë e një imami vendor, të bashkësisë së xhamisë ose të miqve muslimanë të besuar.",
+      "Pyet në xhaminë vendore ose një mësues për hapat e zakonshëm që pasojnë (si gusli) në bashkësinë tënde.",
     ],
   },
   {
-    title: "The Five Pillars of Islam",
-    summary: "Islam rests on five foundational acts of worship, named together by the Prophet ﷺ.",
-    body: [
-      "The Prophet ﷺ summarised the structure of Islamic practice in one hadith: Islam is built on five pillars — testifying that there is no god but Allah and that Muhammad is His Messenger (shahada); establishing the five daily prayers (salah); giving the obligatory annual charity (zakah); fasting the month of Ramadan; and performing the pilgrimage to Makkah (Hajj) at least once, for those who are able.",
-      "Think of them as a house: the shahada is the foundation everything rests on, and the other four are the pillars that hold the structure up — regular worship (salah), regular giving (zakah), an annual month of self-discipline (fasting), and a once-in-a-lifetime pilgrimage (Hajj) for those with the health and means to travel.",
-      "You do not need to master all five immediately. The shahada you have already learned about; salah is covered next in this guide; zakah and fasting are learned gradually as they come around each year; Hajj is planned for later in life when circumstances allow.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam is built upon five: testifying that there is no god but Allah and that Muhammad is His Messenger, establishing prayer, giving zakah, Hajj, and fasting Ramadan. (Ibn 'Umar; also Sahih Muslim 16)",
-      },
-    ],
-  },
-  {
-    title: "Zakah, Fasting, and Hajj at a Glance",
-    summary: "Three pillars that come with time — you don't need to act on them today.",
-    body: [
-      "Zakah is a yearly obligatory charge — a small, fixed percentage — on savings and qualifying wealth above a minimum threshold (nisab), given to specific categories of people in need. It usually becomes relevant once you have held savings for about a year, so there is no rush; the app's Zakat guide covers the full detail whenever you need it.",
-      "Fasting Ramadan means abstaining from food, drink, and marital relations from before dawn until sunset for one lunar month each year, alongside extra prayer and Qur'an reading. It is a demanding but deeply rewarding pillar that most new Muslims ease into with guidance from their community rather than alone.",
-      "Hajj is the pilgrimage to Makkah, obligatory once in a lifetime only for those who are physically and financially able to make the journey. If it is not within your means right now, there is no burden on you — Allah only asks what a person is able to give.",
-    ],
-  },
-  {
-    title: "How the Pillars Shape Daily Life",
+    title: "Pesë shtyllat e Islamit",
     summary:
-      "The five pillars turn belief into a rhythm you actually live, day by day and year by year.",
+      "Islami mbështetet mbi pesë akte themelore adhurimi, të përmendura së bashku nga Profeti ﷺ.",
     body: [
-      "One of the things new Muslims often find most beautiful is how the pillars build a rhythm into ordinary life: five short pauses for prayer every day, a yearly season of fasting and reflection, an annual act of giving, and — eventually — a once-in-a-lifetime pilgrimage. None of it is abstract theology; all of it is lived.",
-      "This rhythm is meant to be sustainable, not overwhelming. The Prophet ﷺ taught that the deeds most loved by Allah are the ones kept up consistently, even if small — not sudden bursts of intensity that burn out. Build small, steady habits first; depth will come with time.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do good deeds properly, sincerely, and moderately... the most beloved deed to Allah is the most regular and constant, even if it were little. (also Sahih Muslim 783)",
-      },
-    ],
-    actions: [
-      "Pick one small, sustainable habit to start with this week rather than trying to do everything at once.",
+      "Profeti ﷺ e përmblodhi strukturën e praktikës islame në një hadith: Islami është ndërtuar mbi pesë shtylla — dëshmia se nuk ka zot tjetër përveç Allahut dhe se Muhammedi është i Dërguari i Tij (shehadeti); falja e pesë namazeve të përditshme; dhënia e lëmoshës së detyrueshme vjetore (zekati); agjërimi i muajit të Ramazanit; dhe kryerja e pelegrinazhit në Mekë (Haxhi) të paktën një herë, për ata që kanë mundësi.",
+      "Mendoji si një shtëpi: shehadeti është themeli mbi të cilin mbështetet gjithçka, ndërsa katër të tjerat janë shtyllat që e mbajnë ndërtesën — adhurimi i rregullt (namazi), dhënia e rregullt (zekati), një muaj vjetor vetëdisipline (agjërimi) dhe një pelegrinazh një herë në jetë (Haxhi) për ata që kanë shëndetin dhe mjetet për të udhëtuar.",
+      "Nuk ke nevojë t'i zotërosh të pesta menjëherë. Për shehadetin tashmë ke mësuar; namazi trajtohet në vijim të këtij udhëzuesi; zekati dhe agjërimi mësohen gradualisht, ndërsa vijnë çdo vit; Haxhi planifikohet më vonë në jetë, kur rrethanat ta lejojnë.",
     ],
   },
   {
-    title: "The Six Articles of Faith",
-    summary: "What a Muslim believes, in six points taught directly by the Prophet ﷺ.",
+    title: "Zekati, agjërimi dhe Haxhi me një shikim",
+    summary: "Tri shtylla që vijnë me kohën — nuk ke nevojë t'i zbatosh që sot.",
     body: [
-      "Where the five pillars are what a Muslim does, the six articles of iman (faith) are what a Muslim believes. They come from the Hadith of Jibril, where the angel Jibril, in the form of a man, asked the Prophet ﷺ to explain iman before the assembled companions.",
-      "The Prophet ﷺ answered: belief in Allah; in His angels; in His revealed books; in His messengers; in the Last Day; and in the divine decree (qadr) — its good and its bitter. These six form one connected picture of reality: who created you, who guides the unseen world, how guidance reached humanity, who delivered it, where life is heading, and how to hold both ease and hardship with trust in Allah.",
-      "You don't need to master the philosophy behind each article today — the Aqeedah guide in this app walks through all six in depth, with the evidence behind each one, whenever you're ready to go deeper.",
+      "Zekati është një detyrim vjetor — një përqindje e vogël dhe e caktuar — mbi kursimet dhe pasurinë e kualifikuar që e kalon një kufi minimal (nisabin), që u jepet kategorive të caktuara të njerëzve në nevojë. Zakonisht bëhet i rëndësishëm kur i ke mbajtur kursimet për rreth një vit, prandaj nuk ka nxitim; udhëzuesi i Zekatit në aplikacion i përmban të gjitha hollësitë kur të të duhen.",
+      "Agjërimi i Ramazanit do të thotë të përmbahesh nga ushqimi, pija dhe marrëdhëniet bashkëshortore nga para agimit deri në perëndim të diellit gjatë një muaji hënor çdo vit, krahas namazit shtesë dhe leximit të Kuranit. Është një shtyllë e kërkuar, por thellësisht shpërblyese, me të cilën shumica e muslimanëve të rinj mësohen gradualisht me udhëzimin e bashkësisë së tyre, jo të vetëm.",
+      "Haxhi është pelegrinazhi në Mekë, i detyrueshëm një herë në jetë vetëm për ata që janë fizikisht dhe financiarisht të aftë për ta bërë udhëtimin. Nëse tani për tani nuk e ke mundësinë, nuk ke asnjë barrë — Allahu i kërkon njeriut vetëm atë që ai mund të japë.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Iman is to believe in Allah, His angels, His books, His messengers, the Last Day, and to believe in the divine decree, its good and its bitter. (Hadith of Jibril, narrated by 'Umar)",
-      },
-    ],
+    appLinks: [{ label: "Udhëzuesi i Zekatit" }],
   },
   {
-    title: "Who Is Allah?",
-    summary: "One God, without partner, equal, or need — described by His own beautiful names.",
-    body: [
-      "Allah is the proper name of God in Islam — not a different god, but the same one true Creator that earlier scriptures pointed to, now known by His own chosen name and described through His revealed attributes rather than human speculation.",
-      "The clearest short description in the Qur'an is Surah al-Ikhlas: He is One; He has no partner and no equal; He neither begets nor is begotten. Allah has no body you can picture and no image should ever be made to represent Him — knowing Him comes through His names (such as the Most Merciful, the All-Knowing, the All-Hearing) and His actions in creation, not through pictures or physical comparisons.",
-      "Getting to know Allah through His names is often the most emotionally grounding part of early faith: the more you learn what He is like, the more prayer and daily reliance on Him start to feel personal rather than mechanical.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Say: He is Allah, the One... He neither begets nor is born, and there is none comparable to Him.",
-      },
-    ],
-  },
-  {
-    title: "The Qur'an and the Final Message",
-    summary: "The Qur'an is Allah's own words, preserved unchanged since it was revealed.",
-    body: [
-      "Muslims believe the Qur'an is the literal speech of Allah, revealed to the Prophet Muhammad ﷺ over about 23 years, and preserved word-for-word since then — memorised by generations of Muslims and never altered.",
-      "It is not a biography of the Prophet ﷺ or a history book, though it contains both guidance and stories of earlier prophets; it is primarily a book of guidance meant to be read, recited, reflected on, and lived, a little at a time.",
-      "You do not need to read Arabic to begin. Start with a translation in a language you understand, in any order that interests you, and let familiarity with the Arabic recitation grow gradually alongside your prayer.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
-      },
-    ],
-  },
-  {
-    title: "How to Pray — the Big Picture",
-    summary: "Five short prayers a day, each a set sequence of standing, bowing, and prostrating.",
-    body: [
-      "Salah is prayed five times a day at set windows — Fajr (dawn), Dhuhr (midday), Asr (afternoon), Maghrib (sunset), and Isha (night) — and takes only a few minutes each time once you know the pattern. This app's prayer times and tracker will show you exactly when each window opens where you are.",
-      "Each prayer is made of units called rak'ahs (Fajr has two, Dhuhr/Asr/Isha have four, Maghrib has three), and every rak'ah follows the same basic shape: standing while reciting, bowing (ruku'), and two prostrations (sujud), with fixed words of praise and Qur'an said at each position.",
-      "Before praying, you perform wudu — a short ritual washing of the hands, mouth, face, arms, head, and feet — and you pray facing the direction of the Kaaba in Makkah (the qibla), which this app can also point you toward.",
-      "This overview is intentionally high level. The exact wording said at each position, step-by-step video-style instructions, and a full beginner course all live in the dedicated Salah guide — start there next, and use the phrases guide alongside it to learn the words with transliteration and translation.",
-    ],
-  },
-  {
-    title: "Wudu: Getting Ready to Pray",
-    summary: "A short ritual washing that prepares body and heart for standing before Allah.",
-    body: [
-      "Wudu is required before every prayer (unless you are still in a valid wudu from before) and follows a fixed order: washing the hands, rinsing the mouth and nose, washing the face, the arms to the elbows, wiping the head and ears, and washing the feet to the ankles.",
-      "It doesn't take long once learned — most people manage it in under two minutes — and it carries a spiritual meaning too: each limb washed is paired, in the hadith literature, with the idea of minor faults being washed away along with it.",
-      "The full Purification (Taharah) guide in this app walks through wudu step by step, along with what to do if you're unsure whether your wudu is still valid.",
-    ],
-  },
-  {
-    title: "Learning the Words of Prayer",
+    title: "Si e formësojnë shtyllat jetën e përditshme",
     summary:
-      "Start with transliteration and meaning; Arabic fluency comes with repetition over time.",
+      "Pesë shtyllat e kthejnë besimin në një ritëm që e jeton në të vërtetë, ditë pas dite dhe vit pas viti.",
     body: [
-      "Salah is prayed in Arabic, which can feel like the hardest part at first — but you are not expected to be fluent to begin. Most new Muslims start by learning a handful of short, essential phrases (the opening takbir, a short surah, the words said while bowing and prostrating, and the closing salam) with a transliteration and translation alongside the Arabic.",
-      "Memorise these in small chunks rather than all at once, and repeat them daily — memory for prayer phrases builds quickly through the repetition of praying itself, even before you consciously try to memorise anything.",
-      "The dedicated phrases guide in this app gives you every essential phrase with Arabic, transliteration, and translation together, organised by where each one is said in the prayer — use it as your daily practice tool.",
-    ],
-  },
-  {
-    title: "Your First Steps Checklist",
-    summary: "A simple, realistic order to learn things in over your first weeks.",
-    body: [
-      "There is no single required order for learning after the shahada, but new Muslims often find a rough sequence helpful so that nothing feels overwhelming all at once. Use this as a loose guide, not a race.",
+      "Një nga gjërat që muslimanët e rinj shpesh i gjejnë më të bukura është mënyra se si shtyllat ndërtojnë një ritëm në jetën e zakonshme: pesë ndalesa të shkurtra për namaz çdo ditë, një stinë vjetore agjërimi dhe reflektimi, një akt vjetor dhënieje dhe — me kohë — një pelegrinazh një herë në jetë. Asgjë prej tyre nuk është teologji abstrakte; të gjitha jetohen.",
+      "Ky ritëm është menduar të jetë i qëndrueshëm, jo dërrmues. Profeti ﷺ mësoi se veprat më të dashura për Allahun janë ato që bëhen vazhdimisht, edhe nëse janë të vogla — jo shpërthimet e papritura të zellit që shuhen shpejt. Ndërto së pari zakone të vogla e të qëndrueshme; thellësia do të vijë me kohën.",
     ],
     actions: [
-      "Learn wudu (ritual washing) and practise it until it feels natural.",
-      "Learn the essential words of one full prayer using the phrases guide.",
-      "Start praying the five daily prayers, even imperfectly at first — consistency matters more than perfection early on.",
-      "Learn a few short daily duas (supplications) for waking, eating, and leaving the house.",
-      "Find a local mosque or online community for support and questions.",
-      "Begin reading the Qur'an in translation, a little each day.",
-      "Tell someone you trust — family or a close friend — when you feel ready, at your own pace.",
+      "Zgjidh një zakon të vogël e të qëndrueshëm për të filluar këtë javë, në vend që të përpiqesh t'i bësh të gjitha përnjëherë.",
     ],
   },
   {
-    title: "Finding Community",
-    summary: "Learning alongside other Muslims makes the journey easier and more joyful.",
+    title: "Gjashtë kushtet e imanit",
+    summary: "Çfarë beson një musliman, në gjashtë pika të mësuara drejtpërdrejt nga Profeti ﷺ.",
     body: [
-      "Islam is meant to be lived in community, not only in private. Congregational prayer, a local mosque, and Muslim friends can answer everyday questions ('how do I say this in prayer if I forget?'), offer encouragement, and simply make you feel less alone in a new experience.",
-      "If you're not sure where to start, most mosques welcome new Muslims warmly and often have someone specifically happy to help newcomers with the basics — asking is normal and expected, not awkward.",
-      "If an in-person mosque isn't accessible right now, online communities and this app's own guides can bridge the gap until you find one, or permanently if that's your situation — either way, you are still fully part of the wider Muslim community (the ummah).",
+      "Ndërsa pesë shtyllat janë ajo që një musliman bën, gjashtë kushtet e imanit (besimit) janë ajo që një musliman beson. Ato vijnë nga Hadithi i Xhibrilit, ku meleku Xhibril, në trajtën e një njeriu, i kërkoi Profetit ﷺ ta shpjegonte imanin para sahabëve të mbledhur.",
+      "Profeti ﷺ u përgjigj: besimi në Allahun; në melekët e Tij; në librat e Tij të shpallur; në të dërguarit e Tij; në Ditën e Fundit; dhe në caktimin hyjnor (kaderin) — në të mirën dhe në të hidhurën e tij. Këto gjashtë formojnë një tablo të lidhur të realitetit: kush të krijoi, kush e drejton botën e padukshme, si arriti udhëzimi te njerëzimi, kush e përçoi atë, ku po shkon jeta dhe si t'i përballosh si lehtësinë ashtu edhe vështirësinë me mbështetje te Allahu.",
+      "Nuk ke nevojë ta zotërosh filozofinë pas çdo kushti që sot — udhëzuesi i Akides në këtë aplikacion i shtjellon të gjashtat në thellësi, me argumentet për secilin, kurdo që të jesh gati të thellohesh.",
+    ],
+    appLinks: [{ label: "Mëso Akiden — gjashtë kushtet e imanit" }],
+  },
+  {
+    title: "Kush është Allahu?",
+    summary:
+      "Një Zot i vetëm, pa ortak, pa të barabartë dhe pa nevojë — i përshkruar me emrat e Tij të bukur.",
+    body: [
+      "Allahu është emri i përveçëm i Zotit në Islam — jo një zot tjetër, por i njëjti Krijues i vetëm i vërtetë për të cilin folën shkrimet e mëparshme, tani i njohur me emrin që Ai Vetë e zgjodhi dhe i përshkruar përmes cilësive të Tij të shpallura, jo përmes spekulimeve njerëzore.",
+      "Përshkrimi më i qartë i shkurtër në Kuran është sureja El-Ihlas: Ai është Një; nuk ka ortak dhe as të barabartë; as nuk lind e as nuk është i lindur. Allahu nuk ka trup që mund ta përfytyrosh dhe asnjë figurë nuk duhet bërë kurrë për ta përfaqësuar — njohja e Tij vjen përmes emrave të Tij (si i Gjithëmëshirshmi, i Gjithëdijshmi, Ai që dëgjon gjithçka) dhe veprave të Tij në krijim, jo përmes figurave apo krahasimeve fizike.",
+      "Njohja e Allahut përmes emrave të Tij shpesh është pjesa që të jep më shumë qetësi shpirtërore në fillim të besimit: sa më shumë mëson se si është Ai, aq më shumë namazi dhe mbështetja e përditshme te Ai fillojnë të ndihen personale e jo mekanike.",
+    ],
+    appLinks: [{ label: "Emrat e Allahut" }],
+  },
+  {
+    title: "Kurani dhe Mesazhi i fundit",
+    summary: "Kurani është fjala e Vetë Allahut, e ruajtur e pandryshuar që kur u shpall.",
+    body: [
+      "Muslimanët besojnë se Kurani është fjala e mirëfilltë e Allahut, e shpallur Profetit Muhammed ﷺ gjatë rreth 23 vjetëve dhe e ruajtur fjalë për fjalë që atëherë — e mësuar përmendsh nga breza të tërë muslimanësh dhe kurrë e ndryshuar.",
+      "Ai nuk është një biografi e Profetit ﷺ apo një libër historie, edhe pse përmban si udhëzim ashtu edhe tregime të profetëve të mëparshëm; ai është para së gjithash një libër udhëzimi që duhet lexuar, recituar, menduar mbi të dhe jetuar, pak nga pak.",
+      "Nuk ke nevojë të dish të lexosh arabisht për të filluar. Fillo me një përkthim në një gjuhë që e kupton, në çfarëdo radhe që të intereson, dhe lëre që njohja me recitimin arab të rritet gradualisht krahas namazit tënd.",
+    ],
+    appLinks: [{ label: "Lexo Kuranin" }],
+  },
+  {
+    title: "Si falet namazi — tabloja e përgjithshme",
+    summary:
+      "Pesë namaze të shkurtra në ditë, secili një radhë e caktuar qëndrimi, përkuljeje dhe sexhdeje.",
+    body: [
+      "Namazi falet pesë herë në ditë në intervale të caktuara — sabahu (agimi), dreka (mesdita), ikindia (pasditja), akshami (perëndimi i diellit) dhe jacia (nata) — dhe zgjat vetëm pak minuta çdo herë, sapo ta mësosh radhën. Kohët e namazit dhe gjurmuesi i këtij aplikacioni do të të tregojnë saktësisht kur hapet çdo interval aty ku ndodhesh.",
+      "Çdo namaz përbëhet nga njësi që quhen rekate (sabahu ka dy, dreka/ikindia/jacia kanë katër, akshami ka tre) dhe çdo rekat ndjek të njëjtën formë bazë: qëndrim në këmbë duke recituar, përkulje (rukuja) dhe dy sexhde, me fjalë të caktuara lavdërimi dhe Kuran që thuhen në çdo pozicion.",
+      "Para namazit merr abdes — një larje e shkurtër rituale e duarve, gojës, fytyrës, krahëve, kokës dhe këmbëve — dhe falesh i kthyer nga drejtimi i Qabesë në Mekë (kibla), të cilin ky aplikacion gjithashtu mund ta tregojë.",
+      "Kjo përmbledhje është qëllimisht e përgjithshme. Fjalët e sakta që thuhen në çdo pozicion, udhëzimet hap pas hapi dhe një kurs i plotë për fillestarë gjenden te udhëzuesi i veçantë i Namazit — fillo aty më pas dhe përdor krahas tij udhëzuesin e shprehjeve për të mësuar fjalët me transliterim dhe përkthim.",
+    ],
+    appLinks: [
+      { label: "Mëso Namazin — udhëzuesi i plotë" },
+      { label: "Shprehjet e namazit (me transliterim)" },
+    ],
+  },
+  {
+    title: "Abdesti: përgatitja për namaz",
+    summary:
+      "Një larje e shkurtër rituale që e përgatit trupin dhe zemrën për të qëndruar para Allahut.",
+    body: [
+      "Abdesti kërkohet para çdo namazi (përveç nëse je ende me abdes të vlefshëm nga më parë) dhe ndjek një radhë të caktuar: larja e duarve, shpëlarja e gojës dhe e hundës, larja e fytyrës, e krahëve deri në bërryla, fërkimi (mes'hi) i kokës dhe i veshëve dhe larja e këmbëve deri te nyjet.",
+      "Nuk zgjat shumë sapo ta mësosh — shumica e njerëzve e kryejnë për më pak se dy minuta — dhe ka edhe një kuptim shpirtëror: në literaturën e hadithit, çdo gjymtyrë që lahet lidhet me idenë se gabimet e vogla lahen bashkë me të.",
+      "Udhëzuesi i plotë i Pastërtisë (Taharetit) në këtë aplikacion e shtjellon abdestin hap pas hapi, bashkë me atë që duhet bërë nëse nuk je i sigurt nëse abdesti yt është ende i vlefshëm.",
+    ],
+    appLinks: [{ label: "Udhëzuesi i Pastërtisë (Taharetit)" }],
+  },
+  {
+    title: "Mësimi i fjalëve të namazit",
+    summary:
+      "Fillo me transliterimin dhe kuptimin; rrjedhshmëria në arabisht vjen me përsëritje gjatë kohës.",
+    body: [
+      "Namazi falet në arabisht, gjë që në fillim mund të duket pjesa më e vështirë — por nuk pritet që të jesh i rrjedhshëm për të filluar. Shumica e muslimanëve të rinj fillojnë duke mësuar disa shprehje të shkurtra dhe thelbësore (tekbirin hapës, një sure të shkurtër, fjalët që thuhen në ruku dhe në sexhde dhe selamin përmbyllës) me transliterim dhe përkthim krahas tekstit arab.",
+      "Mësoji përmendsh në copa të vogla, jo të gjitha përnjëherë, dhe përsëriti çdo ditë — kujtesa për shprehjet e namazit ndërtohet shpejt përmes vetë përsëritjes së faljes, madje edhe para se të përpiqesh me vetëdije t'i mësosh përmendsh.",
+      "Udhëzuesi i veçantë i shprehjeve në këtë aplikacion të jep çdo shprehje thelbësore me tekst arab, transliterim dhe përkthim së bashku, të renditura sipas vendit ku thuhet secila në namaz — përdore si mjetin tënd të përditshëm të ushtrimit.",
+    ],
+    appLinks: [{ label: "Udhëzuesi i shprehjeve të namazit" }],
+  },
+  {
+    title: "Lista e hapave të tu të parë",
+    summary: "Një radhë e thjeshtë dhe realiste për t'i mësuar gjërat gjatë javëve të para.",
+    body: [
+      "Nuk ka një radhë të vetme të detyrueshme për të mësuar pas shehadetit, por muslimanët e rinj shpesh e gjejnë të dobishme një vijimësi të përafërt, që asgjë të mos duket dërrmuese përnjëherë. Përdore si një udhëzim të lirshëm, jo si garë.",
     ],
     actions: [
-      "Look up mosques or Islamic centres near you and consider visiting for a prayer time or an event.",
-      "If in-person community isn't accessible yet, seek out a moderated online Muslim community for support.",
+      "Mëso abdestin (larjen rituale) dhe ushtroje derisa të të vijë natyrshëm.",
+      "Mëso fjalët thelbësore të një namazi të plotë me ndihmën e udhëzuesit të shprehjeve.",
+      "Fillo t'i falësh pesë namazet e përditshme, edhe nëse në fillim jo në mënyrë të përsosur — në fillim vazhdimësia ka më shumë rëndësi se përsosmëria.",
+      "Mëso disa dua (lutje) të shkurtra të përditshme për zgjimin, ngrënien dhe daljen nga shtëpia.",
+      "Gjej një xhami vendore ose një bashkësi në internet për mbështetje dhe pyetje.",
+      "Fillo të lexosh Kuranin në përkthim, pak çdo ditë.",
+      "Tregoji dikujt që i beson — familjes apo një miku të ngushtë — kur të ndihesh gati, me ritmin tënd.",
     ],
   },
   {
-    title: "Continuing to Learn",
-    summary: "This guide is a starting point — three deeper guides are ready when you are.",
+    title: "Gjetja e bashkësisë",
+    summary:
+      "Të mësuarit krahas muslimanëve të tjerë e bën rrugëtimin më të lehtë dhe më të gëzueshëm.",
     body: [
-      "Once the essentials in this guide feel comfortable, three companion guides in this app are built to take you deeper: Aqeedah for the full detail behind each article of faith, Learn Dua for supplications for everyday moments, and the Qur'an reader for daily recitation and reflection.",
-      "You don't have to finish any of them quickly. Islam is learned over a lifetime, and returning to the same topic months or years later, with more experience, is completely normal — even expected.",
-    ],
-  },
-  {
-    title: "FAQ: Common Early Mistakes",
-    summary: "Everyone starts imperfectly — here's how to think about early stumbles.",
-    body: [
-      "Q: I keep messing up parts of the prayer or forgetting the words — is that a problem? A: No. Everyone forgets words and mixes up steps while learning; keep practising with the phrases guide and it becomes natural within weeks. Sincerity while learning matters far more than early perfection.",
-      "Q: I feel guilty that I'm not doing everything (fasting, extra prayers, memorising Qur'an) right away. A: Trying to do everything at once is a common new-Muslim mistake that often leads to burnout. Build the five daily prayers as your first steady habit, then add gradually — Allah does not burden anyone beyond their ability.",
-      "Q: What if I miss a prayer or make a mistake in one? A: Missing a prayer occasionally while you're learning the routine, or making a small mistake in it, is not the end of the world — make it up when you remember, keep going, and don't let a setback stop you from praying the next one.",
+      "Islami është menduar të jetohet në bashkësi, jo vetëm në vetmi. Namazi me xhemat, një xhami vendore dhe miqtë muslimanë mund t'u përgjigjen pyetjeve të përditshme ('si ta them këtë në namaz nëse e harroj?'), të japin inkurajim dhe thjesht të bëjnë të ndihesh më pak i vetmuar në një përvojë të re.",
+      "Nëse nuk je i sigurt se ku të fillosh, shumica e xhamive i mirëpresin ngrohtësisht muslimanët e rinj dhe shpesh kanë dikë që me kënaqësi u ndihmon të ardhurve me bazat — të pyesësh është normale dhe e pritshme, jo e sikletshme.",
+      "Nëse tani për tani nuk ke qasje në një xhami, bashkësitë në internet dhe udhëzuesit e vetë këtij aplikacioni mund ta mbushin boshllëkun derisa ta gjesh një, ose përgjithmonë nëse kjo është gjendja jote — sido që të jetë, ti je plotësisht pjesë e bashkësisë së gjerë muslimane (umetit).",
     ],
     actions: [
-      "When you make a mistake, treat it as a normal part of learning, not a reason to give up.",
+      "Kërko xhami ose qendra islame pranë teje dhe mendo t'i vizitosh në kohën e një namazi apo të një aktiviteti.",
+      "Nëse bashkësia në vend ende nuk është e arritshme, kërko një bashkësi muslimane në internet me moderim për mbështetje.",
     ],
   },
   {
-    title: "FAQ: Do I Need to Learn Arabic?",
-    summary: "Arabic grows with you over years — it isn't a prerequisite to start practising.",
+    title: "Vazhdimi i të mësuarit",
+    summary:
+      "Ky udhëzues është një pikënisje — tre udhëzues më të thellë janë gati kur të jesh edhe ti.",
     body: [
-      "Q: Do I need to speak Arabic before I can pray or read the Qur'an? A: No. You can begin praying with a handful of short, transliterated phrases today, and read the Qur'an in your own language while your Arabic recitation grows over time through repetition.",
-      "Q: Is it disrespectful to mispronounce the Arabic while learning? A: No — every reciter, in every generation, started as a beginner. Effort while learning is valued; perfection is a long-term goal, not a starting requirement.",
-      "Q: Should I take a class to learn Arabic reading (for prayer, not necessarily conversation)? A: Many new Muslims find a short Qur'an-reading (tajweed basics) class very worthwhile once the essentials of prayer feel comfortable — it's a good next step, not a first one.",
+      "Sapo bazat e këtij udhëzuesi të të duken të rehatshme, tre udhëzues shoqërues në këtë aplikacion janë ndërtuar për të të çuar më thellë: Akideja për hollësitë e plota pas çdo kushti të besimit, Mëso Duanë për lutjet e momenteve të përditshme dhe lexuesi i Kuranit për recitimin dhe reflektimin e përditshëm.",
+      "Nuk ke pse ta përfundosh asnjërin shpejt. Islami mësohet gjatë gjithë jetës dhe kthimi te e njëjta temë pas muajsh apo vitesh, me më shumë përvojë, është krejtësisht normal — madje edhe i pritshëm.",
+    ],
+    appLinks: [{ label: "Mëso Akiden" }, { label: "Mëso Duanë" }, { label: "Lexo Kuranin" }],
+  },
+  {
+    title: "Pyetje të shpeshta: Gabimet e zakonshme të fillimit",
+    summary: "Të gjithë fillojnë me papërsosmëri — ja si t'i shohësh pengesat e para.",
+    body: [
+      "P: Vazhdimisht gaboj në disa pjesë të namazit ose i harroj fjalët — a është problem kjo? Përgjigje: Jo. Të gjithë i harrojnë fjalët dhe i ngatërrojnë hapat ndërsa mësojnë; vazhdo të ushtrohesh me udhëzuesin e shprehjeve dhe brenda pak javësh do të të vijë natyrshëm. Sinqeriteti gjatë të mësuarit ka shumë më tepër rëndësi se përsosmëria e hershme.",
+      "P: Ndihem fajtor që nuk i bëj të gjitha (agjërimin, namazet shtesë, mësimin përmendsh të Kuranit) menjëherë. Përgjigje: Përpjekja për t'i bërë të gjitha përnjëherë është një gabim i zakonshëm i muslimanëve të rinj, që shpesh çon në rraskapitje. Ndërto pesë namazet e përditshme si zakonin tënd të parë të qëndrueshëm, pastaj shto gradualisht — Allahu nuk e ngarkon askënd përtej mundësive të tij.",
+      "P: Po nëse më kalon një namaz ose bëj një gabim në të? Përgjigje: Të të kalojë herë pas here një namaz ndërsa po e mëson rutinën, apo të bësh një gabim të vogël në të, nuk është fundi i botës — falë kazanë kur të të kujtohet, vazhdo përpara dhe mos lejo që një pengesë të të ndalojë nga falja e namazit të radhës.",
     ],
     actions: [
-      "Keep using transliteration and translation alongside Arabic until recitation feels natural — there's no deadline.",
+      "Kur bën një gabim, trajtoje si pjesë normale të të mësuarit, jo si arsye për t'u dorëzuar.",
     ],
   },
   {
-    title: "FAQ: Family and Relationships",
-    summary: "Kindness to family remains a duty, even where beliefs now differ.",
+    title: "Pyetje të shpeshta: A duhet të mësoj arabisht?",
+    summary:
+      "Arabishtja rritet bashkë me ty gjatë viteve — nuk është parakusht për të filluar praktikën.",
     body: [
-      "Q: My family isn't Muslim and I'm worried about how they'll react — what does Islam ask of me here? A: Kindness to parents and family is commanded in the Qur'an even where belief differs: 'do not obey them [in matters that would compromise your faith], but accompany them in this world with kindness.' Your new faith should visibly make you gentler and more dutiful toward family, not less.",
-      "Q: How do I tell my family, or handle disagreement, without it becoming a crisis? A: There's no single right way — pace, timing, and how much to share depend on your specific family and safety. This is a genuinely personal decision; talking it through with a trusted local imam, counsellor, or experienced convert-support group before difficult conversations is wiser than navigating it entirely alone.",
-      "Q: Am I obligated to cut ties with non-Muslim family or friends? A: No — maintaining good relationships and honouring family ties remains a duty in Islam. Boundaries around specific practices (for example, certain celebrations or activities) are a separate, personal matter best discussed with a knowledgeable local teacher who knows your situation.",
+      "P: A duhet të flas arabisht para se të mund të falem ose të lexoj Kuranin? Përgjigje: Jo. Mund të fillosh të falesh që sot me disa shprehje të shkurtra të transliteruara dhe ta lexosh Kuranin në gjuhën tënde, ndërsa recitimi yt në arabisht rritet me kohën përmes përsëritjes.",
+      "P: A është mosrespekt të shqiptosh gabim arabishten ndërsa mëson? Përgjigje: Jo — çdo lexues i Kuranit, në çdo brez, ka filluar si fillestar. Përpjekja gjatë të mësuarit vlerësohet; përsosmëria është një synim afatgjatë, jo një kusht për të filluar.",
+      "P: A duhet të ndjek një kurs për të mësuar leximin në arabisht (për namaz, jo domosdoshmërisht për bisedë)? Përgjigje: Shumë muslimanë të rinj e gjejnë shumë të vlefshëm një kurs të shkurtër leximi të Kuranit (bazat e texhvidit) pasi bazat e namazit të ndihen të rehatshme — është një hap i mirë i radhës, jo i pari.",
     ],
-    quran: [
-      {
-        excerpt:
-          "But if they endeavour to make you associate with Me that of which you have no knowledge, do not obey them, but accompany them in this world with kindness...",
-      },
+    actions: [
+      "Vazhdo të përdorësh transliterimin dhe përkthimin krahas arabishtes derisa recitimi të të vijë natyrshëm — nuk ka afat.",
+    ],
+  },
+  {
+    title: "Pyetje të shpeshta: Familja dhe marrëdhëniet",
+    summary: "Mirësia ndaj familjes mbetet detyrë, edhe aty ku besimet tani ndryshojnë.",
+    body: [
+      "P: Familja ime nuk është muslimane dhe shqetësohem se si do të reagojnë — çfarë më kërkon Islami këtu? Përgjigje: Mirësia ndaj prindërve dhe familjes urdhërohet në Kuran edhe aty ku besimi ndryshon: 'mos i respekto ata, o në çështjet e jetës së kësaj bote të keshë mirëkuptim ndaj tyre' (Sherif Ahmeti, 31:15) — pra mos iu bind në gjërat që do ta cenonin besimin tënd. Besimi yt i ri duhet të të bëjë dukshëm më të butë dhe më të përkushtuar ndaj familjes, jo më pak.",
+      "P: Si t'ia them familjes, ose si ta përballoj mosmarrëveshjen, pa u kthyer në krizë? Përgjigje: Nuk ka një mënyrë të vetme të drejtë — ritmi, koha dhe sa të ndash varen nga familja jote e veçantë dhe nga siguria jote. Ky është një vendim vërtet personal; ta diskutosh me një imam vendor të besuar, një këshilltar ose një grup mbështetës me përvojë për të konvertuarit para bisedave të vështira është më e mençur sesa ta përballosh krejt i vetëm.",
+      "P: A jam i detyruar t'i ndërpres lidhjet me familjen ose miqtë jomuslimanë? Përgjigje: Jo — ruajtja e marrëdhënieve të mira dhe nderimi i lidhjeve familjare mbeten detyrë në Islam. Kufijtë rreth praktikave të caktuara (për shembull, disa festime apo aktivitete) janë një çështje e veçantë dhe personale, që më mirë diskutohet me një mësues vendor me dije që e njeh gjendjen tënde.",
     ],
     disclaimer:
-      "This FAQ offers general, non-fatwa guidance for common early questions. For your specific family, safety, or personal circumstances, please speak with a local imam, qualified counsellor, or trusted community elder.",
+      "Këto pyetje të shpeshta ofrojnë udhëzim të përgjithshëm, jo fetva, për pyetjet e zakonshme të fillimit. Për familjen, sigurinë apo rrethanat e tua personale, të lutem fol me një imam vendor, një këshilltar të kualifikuar ose një të moshuar të besuar të bashkësisë.",
   },
 ];

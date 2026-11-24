@@ -32,29 +32,8 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Kusoma Qur'ani yenyewe ni ibada, sio kusoma habari tu. Mtume (Swalla Allaahu ´alayhi wa sallam) alifundisha kwamba kila herufi moja inayosomwa inapata jambo jema, na kila jambo jema linazidishwa angalau mara kumi - hivyo hata anayeanza kutoa mstari mmoja tayari anakuwa anajikusanyia malipo. Siku ya Kiyama Qur'ani itakuja kama mwombezi, inawasihi wale walioshikamana nayo katika maisha haya. Mwenye kuisoma kwa ufasaha yumo katika kundi la Malaika watukufu, na mwenye kujikwaa juu yake, akijitahidi kujifunza, anapata malipo maradufu kwa juhudi.",
       "Inasaidia kuwa wazi juu ya kile ambacho Qur'ani sio. Qur'ani ni maneno ya neno la Mwenyezi Mungu mwenyewe kwa Kiarabu, ambayo hayajabadilika tangu kuteremshwa. Hadithi - kauli za Mtume ﷺ, vitendo na vibali vya kimyakimya - vimetofautiana: vinafafanua na kudhihirisha Qur'ani lakini ni usemi wa Mtume ﷺ, uliohifadhiwa kwa minyororo ya wapokezi waliotajwa na kuwekwa daraja na wanachuoni kama sahih (sahihi), hasan (nzuri), au da'if (dhaifu). Zote mbili ni wahyi na zote mbili ni za lazima, lakini ni Qur'ani tu inayosomwa kama ́ibaadah katika sala, na ni Qur'ani tu ndiyo hotuba ya muujiza na isiyo na mfano ya Mwenyezi Mungu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mwezi wa Ramadhani ambao imeteremshwa ndani yake Qur-aan kuwa mwongozo kwa watu...",
-      },
-      {
-        excerpt:
-          "Sema: Lau wangekusanyika watu na majini kuleta mfano wa hii Qur'ani, wasingeweza...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kusoma herufi kutoka katika Kitabu cha Mwenyezi Mungu anapokea hasanah, na hasanah inazidishwa kumi.",
-      },
-      {
-        excerpt: "Soma Qur-aan, kwani itakuja kuwa mwombezi kwa maswahaba zake Siku ya Kiyama.",
-      },
-      {
-        excerpt:
-          "Mwenye ujuzi wa Qur-aan yu pamoja na waandishi watukufu, waadilifu, na mwenye kuisoma kwa shida, akigugumia juu yake, ana ujira maradufu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Weka muda maalum wa kila siku wa Qur'ani - hata dakika tano zinazolenga hujenga baraka na uthabiti.",
       "Soma angalau mstari mmoja wenye maana: soma Kiarabu, kisha usome tafsiri polepole.",
@@ -73,14 +52,7 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Uhifadhi wa maandishi ulianza katika enzi za uhai wa Mtume ﷺ mwenyewe. Maswahaba walihifadhi wahyi ulipokuja, na waandishi wakauandika kwenye ngozi, mabua ya mitende, mifupa na mawe chini ya usimamizi wa moja kwa moja wa Mtume ﷺ. Baada ya wahifadhi wengi kuuawa kishahidi kwenye Vita vya Yamama, Abu Bakr alimuamuru Zayd ibn Thabit kukusanya Qur'ani iliyoandikwa kwenye mkusanyiko mmoja (suhuf). Baadaye, dola ilipoenea na lahaja zikitofautiana, Uthman alikuwa na nakala zenye mamlaka zilizofanywa katika lahaja ya Maquraishi na kupelekwa kwenye miji mikubwa, kusawazisha maandishi moja yaliyoandikwa kwa ajili ya ummah wote.",
       "Mwenyezi Mungu Mwenyewe aliihakikishia hifadhi ya Qur'ani: 'Hakika Sisi tumeteremsha Ukumbusho na hakika Sisi tutauhifadhi.' Ahadi hiyo imetimizwa kwa njia tatu za ulinzi zinazofungamana - kuhifadhi kwa wingi katika kila kizazi, upokezaji makini wa kimaandishi, na minyororo isiyokatika ya kisomo kutoka kwa mwalimu hadi kwa mwanafunzi (qira'at) inayorejea kwa Mtume (ﷺ). Kwa mwamini hii ni ishara ya kitheolojia; kwa mwanahistoria ni ukweli ulioandikwa: Kurani inayosomwa leo ni maandishi yale yale yaliyoteremshwa karne kumi na nne zilizopita.",
     ],
-    quran: [
-      {
-        excerpt: "Hakika Sisi tumeteremsha Ukumbusho na hakika tutauhifadhi.",
-      },
-      {
-        excerpt: "Soma kwa jina la Mola wako aliye umba...",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -92,12 +64,7 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Kwa usomaji unaoweza kudhibitiwa, Qur'ani pia imegawanywa katika sehemu 30 sawa zinazoitwa juz (wingi ajza'), na kila juz katika nusu mbili zinazoitwa hizb, ikitoa hizb 60 kwa jumla. Hili ndilo linaloifanya Khatm ya Ramadhani - kukamilisha Kurani nzima kwa mwezi - kuwa ya asili sana: juz moja kwa siku inamaliza Kitabu katika siku thelathini, na nusu-juz mara mbili kila siku inakuwa laini zaidi. Ndani ya kila sura ayah (aya) zimehesabiwa hivyo kifungu chochote kinaweza kutajwa kama surah:ayah; hesabu ya kawaida ya Madina ni Ayah 6,236, kukiwa na tofauti ndogo tu, zilizothibitishwa vizuri katika jinsi mipaka ya aya chache inavyohesabiwa - maandishi yenyewe yanafanana.",
       "Kuelewa muundo huu hubadilisha nia zisizo wazi kuwa mpango madhubuti. Unaweza kujitolea kwa sehemu maalum ya kila siku, ukilenga Juz Amma (sehemu ya mwisho, ya thelathini, iliyojaa surah fupi) kwa kumbukumbu, kufuata mada moja kama vile subira katika surah kadhaa, au kupanga usomaji kamili karibu na Ramadhani. Muundo ni kiunzi kinachofanya uhusiano wa maisha na Qur'ani kufikiwa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "… Kitabu ambacho Aya zake zimepambanuliwa, ni Qur’ani ya Kiarabu kwa watu wanaojua.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -125,15 +92,7 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Huna haja ya kusimamia kila kitu mara moja. Kanuni za msingi zinafunzwa kwa mpangilio: hukmu za sakinah ya adhuhuri na tanween (izhar, idgham, iqlab, ikhfa), hukumu za meem sakinah, aina tofauti za madd (kurefusha), qalqalah (mdundo wa nuru kwenye herufi fulani), ghunnah (mdondoko wa pua), na waqf (wapi na vipi). Kila moja ina ufafanuzi wazi, mifano ya kila siku, na kitu cha kufanya mazoezi, na kitovu hiki hupitia moja kwa wakati.",
       "Kanuni thabiti: jifunze tajweed kwa sikio kutoka kwa mwalimu aliyehitimu, si kutoka kwa vitabu au programu pekee. Msomee mtu ambaye anaweza kusikia makosa yako na kuyasahihisha - hivi ndivyo tajweed imekuwa ikifundishwa kila wakati, na ndio njia pekee ya kuaminika ya usahihi wa kweli na, hatimaye, ijazah (msururu ulioidhinishwa wa kisomo).",
     ],
-    hadith: [
-      {
-        excerpt: "Wabora wenu ni wale wanaojifunza Qur-aan na kuifundisha.",
-      },
-      {
-        excerpt:
-          "Mwenye ujuzi wa Qur-aan yu pamoja na waandishi watukufu, waadilifu, na mwenye kuisoma kwa shida, akigugumia juu yake, ana ujira maradufu.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -166,12 +125,7 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Huifasiri Qur'ani neno kwa neno namna hii - hiyo ni kazi ya tafsir na tafsiri - lakini unaanza kutambua majina ya Mwenyezi Mungu, maamrisho, ahadi, na maonyo yanaishi, wakati wa kusoma. Anza na maneno yanayoonekana zaidi na yenye uzito zaidi: Allah, Rabb (Mola), rahmah (rehema), iman (imani), sabr (uvumilivu), taqwa (ufahamu wa Mungu), dunya (dunia hii), na akhirah (Akhera). Kutoka kwa seti hiyo ya nanga, panua nje kidogo kwa wakati.",
       "Tumia marudio yaliyopangwa badala ya kubana. Kujifunza maneno matano mapya kwa wiki na kuyapitia yote kila siku kutakupeleka mbali zaidi katika mwaka mmoja kuliko kukariri hamsini kwa kikao kimoja na kuyasahau. Mwenyezi Mungu anaahidi kwamba Qur'ani imefanywa kuwa rahisi kutiliwa moyo - karibia msamiati wake kwa uthabiti na utahisi urahisi huo moja kwa moja.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na bila ya shaka tumeifanya Qur-aan iwe nyepesi kukumbukwa, basi je, yuko anayekumbuka?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -210,11 +164,7 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Angalia muundo unaopitia kwao. Mitume waliwalingania watu wao katika kumwabudu Mwenyezi Mungu peke yake; walidhihakiwa, kupingwa, na mara nyingi kufukuzwa; wakavumilia kwa subira na kumtegemea Mwenyezi Mungu (tawakkul); na mwishowe ahadi ya Mwenyezi Mungu ikawa kweli. Unaposoma matatizo yao, pata nguvu kutokana na jinsi walivyojibu - bila hata kufikiria kuwa cheo chako ni sawa na chao. Jambo ni kunyonya uimara na uaminifu wao, sio kulinganisha hadhi.",
       "Qur'ani yenyewe inataja simulizi moja: Surah Yusuf, ambayo Mwenyezi Mungu anaiita 'hadithi bora zaidi'. Katika hali isiyo ya kawaida, inasimuliwa kutoka mwanzo hadi mwisho katika surah moja, kwa hiyo isome katika kikao kimoja kama safari yenye kuendelea - khiyana, subira kupitia utumwa na jela, na hatimaye msamaha na kuunganishwa tena - na tazama jinsi mpango wa Mwenyezi Mungu unavyojitokeza nyuma ya miaka ya bahati mbaya.",
     ],
-    quran: [
-      {
-        excerpt: "Hakika katika hadithi zao ni mazingatio kwa wenye akili...",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -226,11 +176,7 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Pia utasikia kuhusu 'miujiza ya kisayansi' - aya zinazogusa hatua za kiinitete, upanuzi wa ulimwengu, na kadhalika. Shughulikia hizi kwa uangalifu. Tafsir ya kawaida mara nyingi ilielewa aya kama hizo kwa njia tofauti kabisa na watetezi wa kisasa, na kulazimisha Qur'ani kupatana na kila nadharia inayobadilika ya kisayansi kunaweza kurudisha nyuma nadharia zinapobadilika. Tofautisha kwa uthabiti kati ya tafsiri thabiti na dhana ya kisasa.",
       "Bishara za kihistoria vile vile zimenukuliwa na wanazuoni - ushindi uliotabiriwa wa Warumi, ufunguzi wa amani wa Makka - na zinafaa kuchunguzwa, lakini kwa njia ya tafsir na seerah, sio klipu za video za kusisimua. Kesi yenye nguvu zaidi kwa Qur'ani daima imekuwa ni tawhid yake, mabadiliko yake ya kimaadili ya watu, na lugha yake isiyo na kifani na kuhifadhi.",
     ],
-    quran: [
-      {
-        excerpt: "Basi leteni surah kama hiyo… ikiwa nyinyi ni wakweli.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Epuka madai mengi ya kisayansi ya miujiza ambayo yanaaibisha dawah inapochunguzwa. Ongoza kwa tawhiyd, maadili, na dalili za kilugha na za kihistoria za Qur'ani.",
   },
@@ -243,16 +189,7 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Mbinu ya vitendo: tumia marudio yaliyopangwa kwa nafasi, shikamana na mkariri mmoja ili wimbo wenyewe urejeshe kumbukumbu yako, soma kutoka kwa kumbukumbu kila siku badala ya kusoma tu, na umuombe mwalimu akusikilize na utie alama makosa yako - makosa ambayo huwezi kuyasikia wewe mwenyewe. Kifuatiliaji cha hifz cha Munib hurekodi maendeleo hadi ayah mahususi ili ujue kila wakati kinachopaswa kusahihishwa.",
       "Chagua mpango unaofaa hatua yako. Anayeanza: kukariri Juz Amma, sehemu ya mwisho, iliyojaa surah fupi. Ya kati: ongeza surah kumi zinazokaririwa mara kwa mara kama vile al-Mulk, Ya-Sin, na al-Kahf. Kina: kamilisha juz kamili na usahihishaji thabiti wa kila kitu kabla yake. Na safari ya Hafidh: mus'haf wote, ulikariri na mwalimu aliyehitimu na, kwa hakika, sanad - mlolongo uliothibitishwa wa upokezi wa kurudi kwa Mtume ﷺ.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ataambiwa swahaba wa Qur-aan: Soma na uinuke kama ulivyokuwa ukisoma duniani, kwani cheo chako kitakuwa kwenye Aya ya mwisho utakayoisoma.",
-      },
-      {
-        excerpt:
-          "Mfano wa sahaba wa Qur-aan ni wa mwenye ngamia aliyefungiwa: akiichunga huihifadhi, na akimuachia humpoteza.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -273,15 +210,7 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Tadabbur si sawa na tafsir. Tafsir ni maelezo ya kielimu ya maana ya aya; tadabbur ni jibu lako la kibinafsi, la heshima kwa maana hiyo mara tu unapoielewa. Wawili hao hufanya kazi pamoja: kwanza unajifunza maana ya sauti kutoka kwa tafsir, kisha unakaa nayo na kuuliza inazungumzaje nawe. Muundo wa kusaidia ni maswali matatu - Mwenyezi Mungu ananifundisha nini hapa? Je, hii inabadilishaje ninachofanya leo? Ni tabia gani moja lazima nijenge au niivunje kwa sababu yake?",
       "Mpaka mmoja thabiti huiweka tadabbur salama: tafakari juu ya kile ambacho mstari unauliza kutoka kwako, lakini usizuie maana mpya kwa maandishi yenyewe. Acha tafsir halisi iweke mipaka ya tafsiri, na uweke tafakari zako za kibinafsi mahali pake - jarida la kibinafsi, kama vile la Munib, ni bora kwa kunasa kile ambacho aya ilichochea ndani yako na kurudi kwayo baadaye.",
     ],
-    quran: [
-      {
-        excerpt: "Je! hawaitafakari Qur'ani, au nyoyo zao ziko kufuli?",
-      },
-      {
-        excerpt:
-          "Basi je, hawaitafakari Qur'ani? Na lau kuwa imetoka kwa asiye kuwa Mwenyezi Mungu, wangeli pata khitilafu nyingi ndani yake.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -292,11 +221,7 @@ export const QURAN_GUIDE_TOPICS_SW: DeepPartial<QuranGuideTopic>[] = [
       "Hiyo ndiyo sababu ya changamoto hizi. Kila moja inaunganisha aya mahususi na tabia moja, inayoweza kutekelezeka kwa siku ya leo: kuuchunga ulimi wako kwa mazungumzo mazuri, kutoa sadaka ya utulivu, kupunguza macho yako kutokana na yale yaliyokatazwa, kuacha kinyongo ulichobeba. Mstari mmoja, kitendo kimoja—kidogo vya kutosha kufanya, halisi vya kutosha kukubadilisha.",
       "Tia alama kuwa changamoto imekamilika tu ikiwa umeifanya kikweli. Suala la ufuatiliaji sio onyesho - ambalo lingeshinda lengo - lakini uwajibikaji wa uaminifu kwa Mwenyezi Mungu, ambaye huona kile ambacho wengine hawaoni. Baada ya muda, mstari kwa mstari, hivi ndivyo usomaji unavyogeuka kuwa tabia.",
     ],
-    quran: [
-      {
-        excerpt: "Je! mnawaamrisha wengine na mnajisahau na hali mnasoma Kitabu?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -433,14 +358,7 @@ export const QURAN_GUIDE_STORIES_SW: DeepPartial<QuranGuideStory>[] = [
       "Mbinu ya Shaytan ni kunong'ona kwa kudumu, si kwa nguvu - kutambua mapendekezo yake ni nusu ya kuyapinga.",
       "Thamani ya mwanadamu inafungamana na elimu na kurejea kwa Mwenyezi Mungu, na sio kutokuwa na dhambi - ni jibu la upotofu ndilo linalotufafanua.",
     ],
-    quran: [
-      {
-        excerpt: "Kuumbwa kwa Adam na Malaika kusujudu.",
-      },
-      {
-        excerpt: "Mtihani, anguko, na toba.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Jannah, kisha ardhi",
   },
   {
@@ -459,14 +377,7 @@ export const QURAN_GUIDE_STORIES_SW: DeepPartial<QuranGuideStory>[] = [
       "Kudumu katika kumwomba Mwenyezi Mungu, hata dhidi ya dhihaka za kila mara, yenyewe ni aina ya ibada.",
       "Uokoaji wa Mwenyezi Mungu unakuja kwa wakati uliowekwa - muumini hujenga 'safina' ya utiifu kabla ya gharika, akiiamini ahadi.",
     ],
-    quran: [
-      {
-        excerpt: "Hadithi ya Nuh kwa undani.",
-      },
-      {
-        excerpt: "Ombi la Nuh kwa watu wake.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Mesopotamia ya Kale (makadirio ya wanasayansi)",
   },
   {
@@ -484,14 +395,7 @@ export const QURAN_GUIDE_STORIES_SW: DeepPartial<QuranGuideStory>[] = [
       "Kumtegemea Mwenyezi Mungu hakumaanishi uzembe: Hajar alikimbia na kutafuta, na Zamzam akaja - juhudi na tawakkul kufanya kazi pamoja.",
       "Matendo ya dhati ya ibada yanarudia vizazi; Ibada za Hija na heshima ya Al-Ka'ba zinarejea kwenye utiifu wa Ibrahim.",
     ],
-    quran: [
-      {
-        excerpt: "Ibrahim na Ismail na sadaka.",
-      },
-      {
-        excerpt: "Agano na urithi.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Iraq, Levant, Makka",
   },
   {
@@ -510,11 +414,7 @@ export const QURAN_GUIDE_STORIES_SW: DeepPartial<QuranGuideStory>[] = [
       "Mpango wa Mwenyezi Mungu mara nyingi hujificha nyuma ya miaka ya bahati mbaya - kisima, utumwa, na jela vyote vilikuwa hatua kuelekea kwenye heshima ya Yusuf.",
       "Wenye nguvu wanaonyesha nguvu zao kwa msamaha: katika kilele cha uwezo wake, Yusuf aliwasamehe waliomdhulumu.",
     ],
-    quran: [
-      {
-        excerpt: "Hadithi bora zaidi - zilizosimuliwa katika surah moja.",
-      },
-    ],
+    quran: [{}],
     location: "Kanani, Misri",
   },
   {
@@ -533,14 +433,7 @@ export const QURAN_GUIDE_STORIES_SW: DeepPartial<QuranGuideStory>[] = [
       "Kushuhudia maajabu peke yake hakutoi imani - mwongozo ni zawadi Mwenyezi Mungu anaitoa kwa moyo mnyenyekevu, sio wenye ukaidi.",
       "Mwenyezi Mungu huwaokoa wanaodhulumiwa na huwahesabia wenye kiburi hata wanavyoonekana kuwa na nguvu.",
     ],
-    quran: [
-      {
-        excerpt: "Musa huko Tur na mbele ya Firauni.",
-      },
-      {
-        excerpt: "Kuzaliwa na malezi.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Misri, Sinai",
   },
   {
@@ -559,14 +452,7 @@ export const QURAN_GUIDE_STORIES_SW: DeepPartial<QuranGuideStory>[] = [
       "Mitume ni watumishi wa Mwenyezi Mungu walioheshimika, wasiopaswa kuabudiwa kamwe - Qur'ani inalinda hadhi ya kweli ya Isa dhidi ya kutia chumvi.",
       "Usafi, subira na uaminifu wa Maryam vinamfanya kuwa kielelezo cha imani kwa waumini wote, wanawake na wanaume.",
     ],
-    quran: [
-      {
-        excerpt: "Hotuba ya kuzaliwa na utoto.",
-      },
-      {
-        excerpt: "Si kuuawa wala kusulubiwa; iliyoinuliwa.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Palestina",
   },
   {
@@ -584,14 +470,7 @@ export const QURAN_GUIDE_STORIES_SW: DeepPartial<QuranGuideStory>[] = [
       "Mwitaji kwa Mwenyezi Mungu hufikisha ujumbe kwa ikhlasi na subira, lakini anamwachia Mwenyezi Mungu marejeo - uwongofu ni wake wa kutoa.",
       "Mitihani ni njia ya manabii; kuvumilia shida kwa ajili ya Mwenyezi Mungu, kama alivyofanya, ni alama ya imani ya kweli.",
     ],
-    quran: [
-      {
-        excerpt: "Hatukukutuma ila uwe rehema kwa walimwengu.",
-      },
-      {
-        excerpt: "Wenye kurehemu wao kwa wao, wenye msimamo dhidi ya makafiri.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
 ];
@@ -607,17 +486,8 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) amefundisha kwamba Imani ina matawi zaidi ya sabini, kuanzia lililo kubwa kabisa - ushahidi kwamba hakuna mungu ila Mwenyezi Mungu - hadi kuondosha madhara barabarani, na kuonesha kwamba hata matendo mema madogo ni sehemu ya imani.",
       "Imani ya kweli ni jambo la moyo mbele ya ulimi: kumjua Mwenyezi Mungu, kumpenda kuliko vyote, kuogopa ghadhabu yake, na kumtegemea Yeye kikamilifu.",
     ],
-    quran: [
-      {
-        excerpt: "Mtume ameamini yaliyoteremshwa kwake kutoka kwa Mola wake Mlezi, na Waumini…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imani ina matawi zaidi ya sabini; aliye juu zaidi ni kusema: Hakuna mungu ila Mwenyezi Mungu, na aliye chini kabisa anaondoa kitu chenye madhara katika njia - na unyenyekevu ni tawi la imani.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Sasisha shahada yako leo kwa umakini kamili kwa maana yake, sio kama kifungu cha kawaida cha maneno.",
       "Jifunzeni mojawapo ya majina ya Mwenyezi Mungu, yaeleweni, na muombeni kwayo katika du'a zenu.",
@@ -632,18 +502,8 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Tofauti na faradhi nyinginezo zilizoteremshwa duniani, Swalah ilifaradhishwa kwa Ummah wakati wa kupaa kwa Mtume ﷺ (al-Isra wal-Mi'raj), ikiashiria kuwa ni zawadi maalum na njia ya Muumini mwenyewe ya kupandisha kwa Mwenyezi Mungu.",
       "Kwa sababu inarudiwa mara tano kila siku, swalah ni mdundo thabiti unaoweka imani hai kati ya ibada moja na nyingine.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika Sala inakataza uchafu na maovu, na kumdhukuru Mwenyezi Mungu ni kukubwa zaidi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Amali ya kwanza ya mja itakayohukumiwa Siku ya Qiyaamah ni maombi yake; ikiwa ni sauti amefaulu, na ikiwa ni kasoro ameshindwa na ameshindwa.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Sali sala moja leo polepole, ukielewa maneno ya al-Fatiha unapoyasoma.",
       "Fungua mwongozo wa Jifunze Swala wa Munib ili kuimarisha sehemu moja ya maombi yako.",
@@ -659,12 +519,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Amri hufikia kilele katika uzee, wakati wazazi wanahitaji sana subira: wajalie kama walivyokujali, na uwapunguzie bawa la unyenyekevu kwa huruma.",
       "Ibada haiishii wakati wa kifo - kuendelea kuwaombea wazazi du'a, kutoa sadaka kwa niaba yao, na kuwaheshimu marafiki zao na ahadi ni vitendo vinavyoendelea vya uaminifu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mola wako Mlezi ameamrisha kuwa msimuabudu yeyote ila Yeye tu, na muwafanyie wema wazazi wawili.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Piga simu au utume ujumbe kwa mzazi kwa maneno mazuri leo.",
       "Waombee wazazi wako kwa majina.",
@@ -679,12 +534,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Mwenyezi Mungu anajitambulisha kuwa â€œpamoja na wanaosubiriâ€ na huwaahidi wenye subira malipo yao bila ya kipimo - heshima isiyokuwa na sifa nyingine yoyote.",
       "Mitume walikuwa ndio watu waliojaribiwa vikali zaidi, na Qur'ani inashikilia uthabiti wao - Ayyub katika ugonjwa, Yaqub katika huzuni, Yusuf kwa khiyana na jela - kama kigezo cha kuigwa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Enyi mlioamini tafuteni msaada kwa subira na maombi. Hakika Mwenyezi Mungu yu pamoja na wanaosubiri.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Muwasho unapoongezeka leo, tulia, pumua na useme 'Inna lillahi wa inna ilayhi raji'un' kabla ya kujibu.",
       "Geuza dakika moja ya shida wiki hii kuwa rakaa mbili za sala badala ya malalamiko.",
@@ -699,12 +549,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Msaada sio pesa tu. Mtume (Swalla Allaahu ´alayhi wa sallam) amefundisha kwamba hata kukutana na ndugu yako mwenye uso wa tabasamu ni sadaka, hivyo hakuna aliye masikini wa kutoa.",
       "Kutoa hutakasa mali na mtoaji, kulegeza mshiko wa uchoyo na kujenga huruma - ndio maana neno la zakat lenyewe linamaanisha utakaso na ukuaji.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mfano wa wanao toa katika Njia ya Mwenyezi Mungu ni kama punje inayoota miiba saba...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Toa kitu leo ​​- pesa, wakati wako, au neno la fadhili - hata kama kidogo na lisiloonekana.",
       "Kagua wajibu wako wa zakat huko Munib na utambue wakati malipo yanayofuata yanastahili.",
@@ -719,12 +564,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Mlango wa rehema ni mpana wa kustaajabisha: Mwenyezi Mungu anawaambia hata wale waliojidhulumu nafsi zao sana wasikate tamaa, kwani Yeye husamehe madhambi yote kwa mwenye kutubia kwa ikhlasi.",
       "Toba haiko kwa ajili ya dhambi kubwa au matukio makubwa - istighfar (kutafuta msamaha) siku nzima hufanya moyo kuwa laini na akaunti safi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sema: Enyi waja wangu mliojidhulumu nafsi zao, msikate tamaa na rehema ya Mwenyezi Mungu…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Sema 'Astaghfirullah' mara 100 leo, ukimaanisha hivyo, na uhisi kuinua uzito.",
       "Taja tabia moja unayojua haimpendezi Mwenyezi Mungu na chukua hatua madhubuti ya kwanza kuiacha.",
@@ -740,12 +580,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Qur'ani inawataka waumini kushindana na kuharakisha kuelekea msamaha na Bustani 'iliyo upana wa mbingu na ardhi' - inakusudiwa kufuatiliwa kwa bidii, sio kutegemewa tu.",
       "Malipo makubwa kuliko yote sio mabustani wala mito bali ni kuuona Uso wa Mwenyezi Mungu - furaha kuu ambayo watu wa Peponi wameahidiwa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na kimbilieni maghfira kutoka kwa Mola wenu Mlezi na Pepo yenye upana wa mbingu na ardhi.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -757,12 +592,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Dhambi moja ambayo Qur'ani inaitaja kuwa ni isiyosameheka ikiwa mtu atakufa juu yake ni shirki - kumshirikisha Mwenyezi Mungu. kila kidogo kuliko kumsamehe amtakaye.",
       "Mwenyezi Mungu anaonya ili kuwarudisha watu Kwake, sio kumponda mwenye kutubia - kila onyo limeunganishwa ndani ya Qur'ani kwa mwaliko wa wazi wa kurejea.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu hasamehi ushirika naye, lakini husamehe yaliyo duni kuliko hayo kwa amtakaye.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Baada ya kila swala leo, muombe Mwenyezi Mungu kwa ikhlasi akulinde na Moto.",
       "Rudisha tawhid yako: tafakari juu ya kumwabudu Mwenyezi Mungu peke yake, ulinzi wa uhakika kutoka kwa Jahannam.",
@@ -777,12 +607,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Ukandamizaji (dhulm) unaonywa vikali dhidi yake; Mtume (Swalla Allaahu ´alayhi wa sallam) amefundisha kuwa dhulma itadhihirika kama giza juu ya mwenye kudhulumu Siku ya Kiyama.",
       "Haki sio tu kwa majaji na watawala - inaishi katika usemi wa uaminifu, kushughulika kwa haki, kutii neno lako, na kumpa kila mtu haki yake inayostahili.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuweni wasimamizi wa uadilifu, mashahidi kwa ajili ya Mwenyezi Mungu, ijapokuwa ni juu ya nafsi zenu au wazazi wawili na jamaa.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Mpe mtu haki yake anayostahili leo - mshahara unaostahili, jibu la uaminifu au salio unalodaiwa.",
       "Pata wakati mmoja ambapo upendeleo hukujaribu kutotenda haki, na badala yake uchague haki.",
@@ -797,11 +622,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Ujuzi wa manufaa unakusudiwa kufanyiwa kazi na kupitishwa; Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) amefundisha kwamba wanachuoni ni warithi wa Mitume, hawarithi mali bali elimu.",
       "Kutafuta elimu tukufu ni ibada yenyewe, na Qur'ani inabainisha waziwazi baina ya wanaojua na wasiojua - 'Je, wako sawa?'",
     ],
-    quran: [
-      {
-        excerpt: "Na sema: Mola wangu Mlezi, nizidishie ilimu.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Jifunze jambo moja jipya kutoka kwa Qur'ani leo - aya, neno, au hukumu - na umfundishe mtu.",
       "Ikariri du'a 'Rabbi zidni ilma' na useme kabla ya kusoma.",
@@ -817,11 +638,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Muhammad (Swalla Allaahu ‘alayhi wa aalihi wa sallam) ni Muhuri wa Mitume, Mjumbe wa mwisho, na Mwislamu lazima awaamini Mitume wote waliomtangulia - Nuh, Ibrahim, Musa, Isa na wengineo - bila kutofautisha kati yao.",
       "Mitume walikuwa ni wanadamu na watumishi wa Mwenyezi Mungu, sio waungu; Qur'ani inawaheshimu bado inawaweka imara upande wa viumbe, kamwe hawaabudiwi pamoja na Muumba.",
     ],
-    quran: [
-      {
-        excerpt: "Katika hadithi zao kuna funzo kwa wenye ufahamu...",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -833,12 +650,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Qur'ani inamshikilia Maryam, mama yake Isa, kama kielelezo kwa waumini wote, na inawaheshimu sana akina mama kiasi kwamba mafundisho mashuhuri yanaiweka Pepo miguuni mwao.",
       "Jinsia zote mbili zinarejea kwenye asili moja - 'iliyokuumba kutoka kwa nafsi moja' - ikianzisha ubinadamu na heshima iliyoshirikiwa kutoka kwenye aya ya kwanza kabisa ya Surah an-Nisa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mcheni Mola wenu Mlezi ambaye amekuumbeni kutokana na nafsi moja na akamuumba mshirika wake kutokana nayo.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Heshimu mwanamke katika maisha yako leo - mama, mke, dada, au binti - kwa haki maalum au wema anaodaiwa.",
     ],
@@ -852,11 +664,7 @@ export const QURAN_GUIDE_THEMES_SW: DeepPartial<QuranGuideTheme>[] = [
       "Sehemu ya hekima ya uzazi inayorudiwa mara nyingi hushauri kukutana na watoto katika hatua yao - kucheza nao katika miaka ya mapema, kisha kuwafundisha na kuwaadhibu kwa upole, kisha kuwafanya urafiki wanapokua.",
       "Kulea mtoto mwadilifu ni uwekezaji zaidi ya maisha haya: mzao mwadilifu anayeomba kwa ajili ya mzazi anaendelea kumnufaisha muda mrefu baada ya kifo.",
     ],
-    quran: [
-      {
-        excerpt: "Enyi mlio amini jilindeni nafsi zenu na ahali zenu na Moto...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Mfundishe mtoto mstari mmoja mfupi au namna moja nzuri leo, kwa subira na kutia moyo.",
       "Waombee watoto wako (au watoto unaowalea) kwa majina yao ili wawe wanyoofu na wapendwe kwa Mwenyezi Mungu.",
@@ -982,17 +790,13 @@ export const QURAN_GUIDE_VOCABULARY_SW: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Mungu mmoja wa kweli - jina linalofaa linalojumuisha majina yote mazuri.",
     frequency: "Matukio 2,700+",
     example: "Bismillah - Kwa jina la Mwenyezi Mungu",
-    quranRef: {
-      excerpt: "Kwa jina la Mwenyezi Mungu, Mwingi wa Rehema, Mwenye kurehemu.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Bwana, Mwalimu, Mfadhili - yule anayeumba, anayemiliki, anayelea na kutawala.",
     frequency: "Mara kwa mara sana",
     example: "Rabbana - Mola wetu",
-    quranRef: {
-      excerpt: "Sifa njema zote ni za Mwenyezi Mungu, Mola Mlezi wa walimwengu wote.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Rehema, huruma, huruma kutoka kwa Mwenyezi Mungu na miongoni mwa viumbe.",
@@ -1039,9 +843,7 @@ export const QURAN_GUIDE_VOCABULARY_SW: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Nuru - mwongozo, ufunuo, na mwanga wa moyo.",
     frequency: "Mara kwa mara",
     example: "Mwenyezi Mungu ni Nuru ya mbingu na ardhi",
-    quranRef: {
-      excerpt: "Mwenyezi Mungu ni Nuru ya mbingu na ardhi...",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1262,8 +1064,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_SW: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_SW: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "Enyi mlioamini tafuteni msaada kwa subira na maombi. Hakika Mwenyezi Mungu yu pamoja na wanaosubiri.",
     context:
       "Kutoka kwa Surah al-Baqarah, iliyoteremka Madina. Mwenyezi Mungu anaunganisha vyanzo viwili vya nguvu kwa Muumini anayekabiliwa na dhiki - subira ya subira na kurejea kwenye sala - na anaahidi urafiki Wake maalum kwa wale wanaoshikilia.",
     reflection:
@@ -1272,7 +1072,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SW: DeepPartial<QuranGuideDailyLesson>[] 
       "Sali moja leo bila kuharakisha, na katika sujuud yako muombe Mwenyezi Mungu kwa jina akupe subira katika mtihani maalum unaoupitia.",
   },
   {
-    translation: "Rehema yangu imekizunguka kila kitu.",
     context:
       "Kutoka katika Surah al-A'raf, iliyosemwa katika mazingira ya Musa na watu wake. Mwenyezi Mungu anaielezea rehema yake kuwa ni kukikumbatia kila kitu - ni rehema kubwa mno inayotangulia na ipitayo adhabu yake, ambayo imehifadhiwa kwa wanaoendelea kudhulumu.",
     reflection:
@@ -1281,7 +1080,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SW: DeepPartial<QuranGuideDailyLesson>[] 
       "Chagua mtu mmoja unayemchukia, msamehe kwa ikhlasi katika moyo wako leo, na uombe dua fupi kumuomba Mwenyezi Mungu awaongoze na awasamehe pia.",
   },
   {
-    translation: "Mkishukuru bila shaka nitakuzidishieni.",
     context:
       "Kutoka kwa Surah Ibrahim, sehemu ya ukumbusho wa Musa kwa Bani Isra'il. Mwenyezi Mungu hufungamanisha ongezeko lake moja kwa moja na shukurani - shukurani kwa ajili ya baraka ndicho kitu hasa kinachoikuza, na kutokushukuru kunakaribisha hasara yake.",
     reflection:
@@ -1290,7 +1088,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SW: DeepPartial<QuranGuideDailyLesson>[] 
       "Kabla ya kulala usiku huu, sema 'Alhamdulillah' kwa sauti kwa ajili ya baraka tatu mahususi, ukitaja kila moja ili shukrani iwe na ufahamu, si ya moja kwa moja.",
   },
   {
-    translation: "Na semeni na watu maneno mazuri.",
     context:
       "Kutoka kwa Surah al-Isra. Katika muongozo wa jinsi waumini wanavyopaswa kujibebea, Mwenyezi Mungu anaamuru tuzungumze na watu - watu wote - kwa njia bora, kwani maneno makali ni moja ya milango ambayo Shetani huingiza mgawanyiko.",
     reflection:
@@ -1299,7 +1096,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SW: DeepPartial<QuranGuideDailyLesson>[] 
       "Mhimize au umshukuru kwa dhati mtu mmoja leo bila ukosoaji uliofichika, na uzuie kauli moja kali uliyojaribiwa kutoa.",
   },
   {
-    translation: "Anayemtegemea Mwenyezi Mungu basi Yeye humtosheleza.",
     context:
       "Kutoka kwa Surah at-Talaq, iliyowekwa kati ya hukumu za talaka na utoaji - haswa ambapo watu wanahisi wasiwasi zaidi wa kifedha. Hapo Mwenyezi Mungu anaahidi kwamba anayemcha Yeye atamruzuku mahali ambapo hawakutarajia, na anayemtegemea Yeye atamtosha.",
     reflection:
@@ -1308,7 +1104,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SW: DeepPartial<QuranGuideDailyLesson>[] 
       "Chukua uamuzi mmoja unaokutia wasiwasi, sali rakaa mbili za istikhara au uombe dua ya dhati juu yake, kisha utegemee matokeo kwa Mwenyezi Mungu.",
   },
   {
-    translation: "Mola wangu Mlezi nizidishie ilimu.",
     context:
       "Kutoka kwa Surah Ta-Ha. Hili ndilo jambo pekee ndani ya Qur'ani ambalo Mwenyezi Mungu anamwagiza Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) kuuliza zaidi - elimu - ambayo inaonyesha jinsi elimu yenye manufaa inavyothaminiwa na kwamba hakuna mtu, hata kama amesoma, haishiwi kuitafuta.",
     reflection:
@@ -1317,8 +1112,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_SW: DeepPartial<QuranGuideDailyLesson>[] 
       "Kariri du'a hii fupi, 'Rabbi zidni ilma,' na uwe na mazoea ya kusema baada ya Alfajiri kabla ya kuanza siku yako.",
   },
   {
-    translation:
-      "Mfano wa wanao toa mali zao katika njia ya Mwenyezi Mungu ni kama mbegu iliyoota miiko saba...",
     context:
       "Kutoka kwa Surah al-Baqarah. Mwenyezi Mungu anachora taswira wazi ya jinsi sadaka inavyomea: mbegu moja ikichipua masuke saba, kila moja yakiwa na punje mia moja - marejeo ya mia saba, na humzidishia amtakaye zaidi. Utajiri unaotolewa kwa ajili yake haupotei kamwe.",
     reflection:

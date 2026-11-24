@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Niatkan solat dan hadir kerana Allah, bukan paparan sosial.",
       "Bantu dengan keperluan praktikal keluarga apabila anda boleh melakukannya dengan penuh hormat.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Sesiapa yang menghadiri jenazah sehingga dia menyembahyangkan jenazah akan mendapat satu qirat, dan sesiapa yang menghadiri sehingga pengebumian akan mendapat dua qirats - masing-masing seperti gunung yang besar.",
-      },
-      {
-        excerpt:
-          "Barangsiapa yang mengikuti jenazah seorang muslim karena iman dan mencari pahala, dan berdiam sampai shalat dan selesai jenazahnya, maka ia akan kembali dengan dua qirath...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Mencuci dan mengkafankan",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Pastikan kain kafan itu sederhana dan bersih — kain putih adalah model kenabian.",
       "Elakkan mengambil gambar atau mendedahkan badan tanpa perlu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Basuh dia tiga kali, atau lima, atau lebih jika anda melihatnya sebagai perlu, dengan air dan sidr, dan masukkan kapur barus atau beberapa kapur barus dalam basuhan terakhir.",
-      },
-      {
-        excerpt:
-          "Rasulullah ﷺ diselubungi tiga pakaian kapas Yaman putih; tidak ada baju mahupun serban di antara mereka.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ketika menutup mata si mati",
@@ -63,12 +45,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Pejamkan mata dengan lembut dan ucapkan doa yang sahih.",
       "Ingatkan keluarga untuk bercakap yang baik.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Apabila mata Abu Salamah terpejam, Nabi ﷺ menutupnya dan berkata bahawa apabila ruh telah diambil, penglihatan mengikutinya, kemudian mengajar rumah tangga untuk bercakap hanya yang baik.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Cara solat Janazah",
@@ -83,15 +60,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Bertakbir empat kali bersama imam.",
       "Doa yang ikhlas untuk si mati selepas takbir yang sepatutnya.",
     ],
-    hadith: [
-      {
-        excerpt: "Nabi ﷺ menyembahyangkan jenazah Negus dan mengucapkan empat takbir.",
-      },
-      {
-        excerpt:
-          "Ibn Abbas menyembahyangkan jenazah dan membaca Fatihah, mengatakan ia daripada sunnah.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Doa dalam solat jenazah (dewasa)",
@@ -154,16 +123,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Apabila meletakkan jenazah di dalam kubur, doa yang sahih dipelihara dalam Hisnul Muslim. Selepas pengebumian, Nabi ﷺ akan berdiri di kubur dan berkata: 'Mohonlah ampun untuk saudaramu, dan mintalah agar dia dikuatkan, kerana dia kini sedang ditanya' (Sunan Abi Dawud 3221 - dinilai sahih oleh ramai ulama terkemudian termasuk al-Albani).",
       "Membina struktur berhias di atas kubur, melepanya untuk hiasan, atau tulisan yang menggalakkan keterlaluan diberi amaran dalam laporan yang sahih. Pastikan tanda mudah di mana undang-undang dan adat tempatan membenarkan pengenalan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bersegeralah dengan pengebumian: jika ia adalah soleh, kamu menyegerakannya kepada kebaikan; jika sebaliknya, anda sedang menanggalkan kejahatan dari leher anda.",
-      },
-      {
-        excerpt:
-          "Mohonlah ampunan untuk saudaramu dan mintalah agar dia dikuatkan, kerana dia sekarang sedang ditanya.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Selepas mengebumikan si mati",
@@ -188,12 +148,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Berilah salam kepada penghuni kubur dengan lafaz yang sahih.",
       "Renungkan kematian dan perbaharui amal soleh.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Salam sejahtera ke atas kamu, wahai penghuni kediaman di kalangan orang-orang mukmin dan muslimin. Kami akan - insya Allah - menyertai anda. Kami memohon kepada Allah kesejahteraan untuk kami dan untuk anda.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Peringatan dan kesilapan biasa",
@@ -210,12 +165,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Menyegerakan pengebumian yang mulia.",
       "Bantulah keluarga dengan makanan dan urusan tanpa membebankan mereka dengan berfoya-foya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah tidak menghukum kerana air mata atau kesedihan hati, tetapi Dia menghukum atau menunjukkan belas kasihan kerana ini - dan Dia menunjukkan lidahnya.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -232,12 +182,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Pelajari turutan empat takbir sebelum anda memerlukannya.",
       "Hafalkan Fatihah, selawat, dan sekurang-kurangnya satu doa jenazah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Abbas menyembahyangkan jenazah dan membaca Fatihah, mengatakan ia daripada sunnah.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Doa untuk lelaki, wanita dan kanak-kanak",
@@ -272,16 +217,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Jangan membasuh syahid medan perang bertentangan dengan arahan ulama.",
       "Tanya jawatankuasa jenazah tentang kes keguguran atau lahir mati.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ memerintahkan supaya syuhada Uhud dikebumikan dengan darah mereka, dan mereka tidak dimandikan.",
-      },
-      {
-        excerpt:
-          "Solat jenazah ditunaikan ke atas keguguran, dan ibu bapa didoakan dengan keampunan serta rahmat.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Janazah ghaib",
@@ -297,15 +233,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Solat secara tempatan setiap kali jenazah hadir.",
       "Tanya dahulu sebelum menganjurkan Janazah ghaib sebagai acara awam.",
     ],
-    hadith: [
-      {
-        excerpt: "Nabi ﷺ menyembahyangkan jenazah Negus dan mengucapkan empat takbir.",
-      },
-      {
-        excerpt:
-          "Rasulullah ﷺ menyusun barisan para Sahabat dan menyembahyangkan Negus dengan empat takbir.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Di sisi orang nazak — kata terakhir",
@@ -319,15 +247,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Ingatkan orang nazak tentang syahadah dengan lemah lembut.",
       "Pastikan bilik tenang dan dipenuhi ucapan yang baik.",
     ],
-    hadith: [
-      {
-        excerpt: "Talqinilah orang yang nazak di kalangan kamu: la ilaha illallah.",
-      },
-      {
-        excerpt:
-          "Sesiapa yang kata terakhirnya 'Tiada yang berhak disembah kecuali Allah' akan masuk Syurga.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Doa harapan hidup" }, { label: "Menutup mata" }],
   },
   {
@@ -343,12 +263,7 @@ export const JANAZAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Bantu dengan makanan dan urusan daripada mengharapkan jamuan.",
       "Teruskan doa tenang dan sedekah untuk si mati.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Tidaklah seorang Muslim ditimpa musibah lalu mengucapkan kata-kata yang diperintahkan tentang kembali kepada Allah dan memohon ganti yang lebih baik, melainkan Allah menggantikannya dengan yang lebih baik.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Matlamat sedekah" }],
   },
 ];

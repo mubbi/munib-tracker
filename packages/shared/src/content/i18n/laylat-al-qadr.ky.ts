@@ -2,137 +2,111 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ky overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_KY: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "Кадыр түнү деген эмне?",
+    summary: "Тагдыр түнү — миң айдан жакшы.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "Кадыр түнү — Тагдыр түнү (же Кудурет түнү) — Пайгамбарга ﷺ Куран түшө баштаган түн. Аллах ага толук бир сүрөнү арнаган, ал мындай сөздөр менен башталат: «Чынында, Биз Кураанды Кадыр Түнүндө түшүрдүк» (Куран 97:1). Анын баалуулугу бир нече аяттан кийин эң ачык сөздөр менен айтылат: «Кадыр түнү миң айдан да жакшы» (Куран 97:3) — ушул бир түндөгү ибадат сексен үч жылдан ашык убакытка созулган ибадаттан салмактуу.",
+      "Сүрө бул түндү андан ары сыпаттайт: анда периштелер жана Рух (Жебирейил) Раббисинин уруксаты менен ар бир буйрук менен түшүшөт жана ал «Ал таңга чейин саламаттык(тын түнү)» (Куран 97:4–5). Бул — чексиз ырайымдын, бейпилдиктин жана Илахий тагдырдын түнү; Пайгамбар ﷺ сахабаларын аны байкабай өткөрүп жибербестен, жигердүү издөөгө үндөгөн.",
+      "Ошондуктан Рамазандын акыркы он түнү ушунчалык зор руханий салмакка ээ: алардын бири адамдын өмүрүндөгү башка бардык түндөрдөн баалуураак түн. Аны ачык билдирбөөнүн хикматы — ыймандуулар бир түндөн башкасында эс алып калбастан, акыркы он түндүн ар бирин аракетте өткөрүшү үчүн.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "Намазда түнү туруунун сообу",
+    summary: "Бул түндөгү ыкластуу ибадат мурунку күнөөлөрдү өчүрөт.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "Пайгамбар ﷺ бул түнгө өзгөчө убада байлаган: «Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven» (англисче мааниси) (Бухари 1901). Мунун эки шарты бар — ыйман (бул ибадат Аллах сүйгөн жана Ал шарият кылган нерсе экенине чын жүрөктөн ишенүү) жана ихтисаб (көрсөтүү же мактоо үчүн эмес, жалгыз Аллахтын сообун үмүт кылуу).",
+      "Бул кечирим жөн гана катышып турган ар бир адамга автоматтык түрдө берилбейт; ал ыкластуу, үмүттүү жүрөк менен ибадат кылган адам үчүн. Ошондуктан акыркы он түн адатта кошумча түнкү намаз (кыям), Куран жана зикир менен толот — сооп соодалашуу болгону үчүн эмес, ыкластуу, туруктуу аракеттин өзү хадисте ыйман жана ихтисаб деп сыпатталган нерсе болгону үчүн.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "Ар бир ибадат түнүнүн алдында ниетиңизди жаңылаңыз — Аллах үчүн, Анын сообун үмүт кылып.",
+      "Акыркы он түндө, бир нече ракаат болсо да, кыямул-лайл намазын окуңуз.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "Аны качан издөө керек",
+    summary: "Рамазандын акыркы онундагы так түндөр — бир белгиленген күн эмес.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "Пайгамбар ﷺ мындай деп буюрган: «Search for the Night of Qadr in the odd nights of the last ten days of Ramadan» (англисче мааниси) (Бухари 2017), Аишадан риваят кылынган. Кадимки 30 күндүк Рамазанда так түндөр адатта 21-, 23-, 25-, 27- жана 29-түндөр деп эсептелет. Башка сахих риваяттар муну бүт акыркы он түнгө чейин кеңейтет, ал эми Пайгамбар ﷺ өзү бул түндүн так күнү ага көрсөтүлүп, анан унуттурулганын айткан — үммөт бир түндө эмес, ушул түндөрдүн баарында аракет кылсын деп.",
+      "Көптөгөн аалымдар жана жамааттар эң ыктымал түн катары 27-түндү эсептешет (белгилерди салыштырган жана сахабалардын кабарларынын жыштыгына таянган башка риваяттардын негизинде), бирок бул хадистен чыгарылган аалымдардын тыянагы, тексттерде ишенимдүү түрдө айтылган өзүнчө белгиленген күн эмес. Ал ар кайсы жылдарда жана ар кайсы аймактарда башка түнгө туш келиши мүмкүн, анткени Рамазандын башталышынын өзү айдын көрүнүшүнө жараша өзгөрөт.",
+      "Кээ бирөөлөр жыл сайын аныкталган нерседей бир басылган күндү жарыялашат, ал эми интернетте элдик «белгилердин» тизмелери (өзгөчө тынч түн, түштөр, өзгөчө нур) кеңири тарайт. Алардын бири да бекем хадиске негизделбейт, ошондуктан бул колдонмо аларды кайталабайт. Ишенимдүү, текстке негизделген жол — бардык так түндөрдө, жакшысы бүт акыркы он түндө ибадатты көбөйтүү, ошондо ал кайсы түн болбосун, сиз анда ибадат менен алек болосуз.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "Бул колдонмо түндү аныктоо үчүн бир белгиленген календардык күндү же кандайдыр бир элдик «белгилерди» колдобойт — хадистерде айтылганды гана: аны Рамазандын акыркы он түнүнүн так түндөрүнөн издеңиз.",
   },
   {
-    title: "Тапсаңыз эмне айтуу керек",
-    summary: "Аиша Пайгамбар ﷺдан так эмне айтуу керектигин суроодо.",
+    title: "Ага туш болсоңуз, эмне айтуу керек",
+    summary: "Аиша Пайгамбардан ﷺ эмне айтуу керектигин так сураган.",
     body: [
-      "Аиша (Алла ага риза болсун) Пайгамбар ﷺдан суроодо: «Алланың Расулы, Кадир түнү кайсы түн экенин билсем, анда эмне айтуум керек?» Ал ﷺ ага төмөндө көрсөтүлгөн кыска кечирүү дубасын үйрөттү (Термизи 3513, ат-Термизи аны хасан сахих деп баалаган).",
-      "Бул дуба кыска, жаттоо оңой жана атайлап дүйнөлүк суроолор ордуна кечирүү жөнүндө — бул түнүн эң чоң пайдасы Алланың кечирүүсү экенин эскертет. Акыркы он түн ичинде, намазда, саждада жана алардын ортосунда көп кайталаңыз; бир болжолдонгон түнгө сактоонун ордуна.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Мен айттым: Алланың Расулы, Кадир түнү кайсы түн экенин билсем, анда эмне айтуум керек? Ал ﷺ айтты: Айтыңыз — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (Аллаым, Сен кечиргенсиң жана кечирүүнү сүйөсүң, мени кечир).",
-      },
+      "Аиша (Аллах андан ыраазы болсун) Пайгамбардан ﷺ мындай деп сураган: «O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?» (англисче мааниси). Ал ага төмөндө көрсөтүлгөн кыска кечирим дубасын үйрөткөн (Тирмизи 3513, ат-Тирмизи хасан сахих деп баалаган).",
+      "Бул дуба кыска, жаттоого оңой жана атайылап дүйнөлүк суроолор жөнүндө эмес, кечирим жөнүндө — бул түндүн эң чоң пайдасы Аллахтын кечирими экенин эскертет. Аны бир болжолдонгон түнгө сактап койбостон, акыркы он түн бою намазда, саждада жана алардын аралыгында көп кайталаңыз.",
     ],
     actions: [
-      "Жогоруда көрсөтүлгөн кечирүү дубасын жаттаңыз.",
-      "Аны акыркы он түн ичинде, айрыкча так күнде, көп кайталаңыз.",
+      "Жогоруда көрсөтүлгөн кечирим дубасын жаттап алыңыз.",
+      "Аны акыркы он түн бою, айрыкча так түндөрдө, көп кайталаңыз.",
+    ],
+    appLinks: [{ label: "Бул дубаны ачуу" }],
+  },
+  {
+    title: "Түндү кантип өткөрүү керек",
+    summary: "Түнкү намаз, Куран, зикир жана дуба, ошондой эле садака.",
+    body: [
+      "Кадыр түнү үчүн ыкластуу ибадаттан башка милдеттүү бир «ырым-жырым» жок, ошондуктан Сүннөт мурунтан эле шарият кылынган амалдарды жөн гана күчөтөт: нафил түнкү намазда туруу (кыямул-лайл / таравих), Куранды окуп, ой жүгүртүү, зикир менен истигфарды кайталоо жана дуба кылуу — айрыкча Пайгамбар ﷺ Аишага үйрөткөн дуба. Көптөгөн сахабалар жана кийинки аалымдар да бул түндөрдө садаканы көбөйтүшкөн, бул Пайгамбардын ﷺ берешендиги Рамазанда эң жогорку чегине жеткенине шайкеш.",
+      "Эгер аз гана нерсе кыла алсаңыз, эч нерсе кылбагандан көрө азыраак болсо да туруктуу кылыңыз: кыска кыям, Курандын бир нече бети жана ыклас менен кайталанган кечирим дубасы да хадисте сыпатталган «ыйман жана ихтисабды» аткарат. Жумуштан бошой алган же жалгыздыгын көбөйтө алгандар Пайгамбардын ﷺ өз адатын ээрчип, акыркы он түндө иътикаф (мечитте ибадат үчүн обочолонуу) да кыла алышат.",
+    ],
+    actions: [
+      "Акыркы он түндө кошумча түнкү намаз (кыям/таравих) окуңуз.",
+      "Ар түнү Курандын бир бөлүгүн окуп, ой жүгүртүңүз.",
+      "Истигфарды, зикирди жана кечирим дубасын көбөйтүңүз.",
+      "Ушул түндөрдө аз болсо да садака бериңиз.",
+    ],
+    appLinks: [
+      { label: "Куран окугуч" },
+      { label: "Эртең мененки жана кечки зикирлер" },
+      { label: "Намаз трекери" },
+      { label: "Зекет жана садака" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "Акыркы он түндөгү иътикаф",
+    summary: "Мечитте обочолонуу — Пайгамбардын ﷺ Рамазандын аягындагы адаты.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "Иътикаф — белгилүү бир мөөнөткө кадимки дүйнөлүк алаксытуулардан алыстап, ибадат үчүн мечитте калуу. Пайгамбар ﷺ Рамазандын акыркы он түнүндө үзгүлтүксүз иътикаф кылып, мечиттен кадимки иштер үчүн чыкпастан, Кадыр түнүн топтолгон ибадат менен издечү (Сахих аль-Бухари 2026).",
+      "Классикалык окутууда акыркы он түндүн толук иътикафы мүмкүнчүлүгү бар адам үчүн сүннөтү муаккада катары каралат. Аны эмне бузары, аялдар аны мечиттин атайын бөлүнгөн жеринде кыла алабы жана жумуш же үй-бүлөлүк милдеттер аны менен кантип айкалышары мазхабга жараша айырмаланат — бул колдонмо амалды жана анын максатын гана белгилейт: Кадыр түнүн камтышы эң ыктымал түндөрдө туруктуу Куран, намаз жана дуба.",
+      "Эгер мечитте толук обочолонуу мүмкүн болбосо, ажырымды кыскартыңыз: таравихтен кийин узагыраак калыңыз, үйдө түндүн тынчыраак убактысын кыям менен Куранга арнаңыз жана ошол сааттарды керексиз алаксытуулардан коргоңуз. Сооп иътикафтын расмий аталышына гана эмес, ыкластуу ибадатка байланыштуу.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "Эгер мечитиңизде иътикаф уюштурулса, катталуу жана алар карманган эрежелер тууралуу эртерээк сураңыз.",
+      "Эгер түнөп кала албасаңыз да, акыркы он түндө Куран жана кыям үчүн мечитте болгон убактыңызды узартыңыз.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "Иътикафтын фикхте кеңири шарттары бар (ниет, мечиттен чыгуу, жыныстык жакындык, аялдар үчүн тартип). Киришээрден мурун билимдүү жергиликтүү аалымдан же мечитиңизден тактап алыңыз.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "Акыркы он түндө үй-бүлө менен ибадат",
+    summary: "Белгиленген күндүн артынан түшпөй, балдарды жана үй-бүлө мүчөлөрүн катыштырыңыз.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "Акыркы он түн жалгыз сергек отура алгандар үчүн гана эмес, бүт үй-бүлө үчүн мүмкүнчүлүк. Балдарга Кадыр түнүнүн маанисин жөнөкөй сөздөр менен үйрөтүңүз — Аллах бир түндү миң айдан жакшы кылганын — жана аларды кыска, колунан келе турган амалдарга чакырыңыз: Курандын бир нече бети, мүмкүн болушунча таравихке кошулуу, кечирим дубасын кайталоо жана аз да болсо садака берүү.",
+      "Мамилени жумшак кармаңыз. Максат — так түндөрдө ыкластуу аракет кылуу, бир болжолдонгон календардык күн үчүн баарын чарчатуу эмес. Кыска үй-бүлөлүк зикирди ким жетектешин алмаштырып туруңуз, шамга чейин жалпы ниет кылыңыз жана ибадат бир түндүк дүрт этүүдөн кийинки чарчоо эмес, туруктуу болушу үчүн уйкуну жетиштүү сактаңыз.",
+      "Кам көрүү же жумуш милдеттери чектеген адамдар да сахур даярдап, башкаларды мечиттеги намазга бошотуп же башкалар намазда турганда дуба кылып, бул түндөн үлүш алышат — ар бир ыкластуу салым түндү чогуу издөөгө кошулат.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "Кошумча Куран жана намаз үчүн кайсы так түндөргө артыкчылык берериңизди үй-бүлө менен макулдашыңыз.",
+      "Кечирим дубасын чогуу жаттап, аны шамдан кийин жана уктаар алдында кайталаңыз.",
+      "Акыркы он түндө балдарга аз да болсо садака берүүгө мүмкүнчүлүк бериңиз.",
     ],
+    appLinks: [{ label: "Хиснул Муслим дубалары" }, { label: "Куран окугуч" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "Жөнөкөй жана ыкластуу болуңуз",
+    summary:
+      "Белгиленген күндөрдү жана элдик белгилерди калтырып, түндөр бою ибадатка көңүл буруңуз.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "Эки кеңири тараган адаттан алыс болуу керек, анткени алар тексттерде бекитилгенден ашып кетет. Биринчиси — бир басылган күндү Кадыр түнү деп бекем эсептөө: хадистер аны атайылап бир календардык күнгө эмес, бир нече так түндүн арасына калтырат, ал эми бул айдын көрүнүшүнө жана жерге жараша өзгөрөт. Экинчиси — элдик «белгилерди» (белгилүү бир түш, адаттан тыш тынч түн, жаныбарлардын кызык жүрүм-туруму) түн келгенинин далили катары кууп жүрүү: алар бекем хадис менен колдоого алынбайт жана түн чакырган чыныгы ибадаттан алаксытышы мүмкүн.",
+      "Практикалык жыйынтык жөнөкөй: акыркы он түн бою ибадатыңызды туруктуу көбөйтүңүз, кечирим дубасын көп айтыңыз жана көңүлүңүздүн борборунда болжолдонгон күн эмес, Аллахтын ырайымы болсун. Эгер түнгө билип туруп туш боло албасаңыз да, түндөр бою жасалган ыкластуу аракеттин өзү мол сооптуу.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "Бул Куранга жана сахих хадиске таянган негизги суннилик окутууну жалпылаган жалпы билим берүүчү мазмун. Бул фатва эмес. Иътикаф, каза намаздар же сиздин жеке жагдайыңыз боюнча өкүмдөр үчүн билимдүү жергиликтүү аалымга кайрылыңыз.",
   },
 ];

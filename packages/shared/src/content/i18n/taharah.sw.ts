@@ -14,21 +14,8 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Utakaso katika Uislamu una pande mbili. Nje ni usafi unaoonekana - kuosha, kuondoa uchafu, kuweka safi. Ndani ni unyenyekevu, uangalifu, na utayari wa moyo ambao kuosha kunakusudiwa kuamsha. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) alivifunganisha viwili hivyo pale alipoita utakaso kuwa ni ‘nusu ya imani,’ akiunganisha usafi wa kimwili na utakaso wa roho kutokana na dhambi.",
       "Moduli hii inapitia somo zima kwa mpangilio: maji unayotakasa nayo, wudhu (udhu mdogo), ghusl (uogaji kamili wa kiibada), tayammamu (utakaso mkavu wakati maji hayawezi kutumika), najasah (kuondoa uchafu wa mwili), na kesi maalum na makubaliano. Jifunze mara moja na maombi inakuwa kitu ambacho unaweza kuingia kwa ujasiri badala ya shaka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Enyi mlio amini mnaposimama kuswali osheni nyuso zenu na mikono yenu mpaka kwenye viwiko, mpake vichwa vyenu na osheni miguu yenu mpaka vifundoni.",
-      },
-      {
-        excerpt: "Hakika Mwenyezi Mungu huwapenda wanao tubu na huwapenda wanao jitakasa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ufunguo wa maombi ni utakaso; mwanzo wake ni takbir na mwisho wake ni taslim. (Ali; pia Jami' at-Tirmidhiy 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Chukua utakaso kama matayarisho ya kukutana na Mwenyezi Mungu, na sio mazoea ya kukurupuka.",
       "Jifunze mada moja ya tahara kila siku hadi mtiririko mzima uhisi wa kawaida.",
@@ -43,15 +30,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) aliinua utakaso hadi katika sifa ya wazi ya Muumini, akiiita 'nusu ya imani.' Utakaso wa mara kwa mara humtia mtu adabu, humuweka katika hali ya kukaribia kila mara ya utayarifu wa kuabudu, na - Hadith inafundisha - kwa hakika huosha dhambi ndogo kwa maji.",
       "Kwa sababu inahifadhi swalah, twahara pia inamlinda Muumini na dhambi ya kuswali batili kwa kughafilika. Kujifunza vizuri hukumu zake ni kitendo cha kulinda moja ya matendo makubwa katika Uislamu.",
     ],
-    hadith: [
-      {
-        excerpt: "Utakaso ni nusu ya imani. (Abu Malik al-Ash'ariy)",
-      },
-      {
-        excerpt:
-          "Mwenyezi Mungu haipokei Sala bila ya utakaso, wala sadaka katika kilichoibiwa. (Ibn Umar)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Kabla ya kila sala, thibitisha hali yako ya usafi kabla ya kuanza.",
       "Weka orodha rahisi ya kiakili: mwili, mavazi, mahali na udhu.",
@@ -66,12 +45,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Uchafu mkubwa wa kiibada (hadath akbar, pia huitwa janaba) hutokana na urafiki, kutokwa na uchafu wa ngono, na mwisho wa hedhi au kutokwa na damu baada ya kuzaa. Huinuliwa na ghusl, uogaji wa kiibada wa mwili mzima - na tayammam tena ikibadilishwa wakati maji hayapatikani au yanadhuru.",
       "Uchafu wa kimwili (najasah) - kama vile mkojo, kinyesi, au damu inayotiririka - ni jambo tofauti: lazima liondolewe kimwili kutoka kwa mwili, nguo, na mahali pa maombi bila kujali hali yako ya kiibada. Shule nne za Kisunni zinaafikiana juu ya kategoria hizi tatu, zikitofautiana tu katika baadhi ya maelezo ya kile kinachobatilisha usafi au ni kiasi gani kinasamehewa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na mkiwa katika hali ya janaba, basi jitakaseni. Na mkiwa wagonjwa au mko safarini… na hamkupata maji, basi fanyeni tayammam kwa udongo safi.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Tambua hali yako kwanza (ndogo, kubwa, au uchafu), kisha utumie njia sahihi.",
       "Wakati huna uhakika kuhusu maelezo, fuata mwalimu mmoja aliyehitimu kutoka shule inayotambulika mara kwa mara.",
@@ -85,17 +59,8 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Mafakihi wanayaainisha maji kwa kina (yalio safi na yanayotakasa, yaliyo safi lakini yasiyo tohara, na najisi), lakini kanuni ya kivitendo kwa maisha ya kila siku ni rahisi: maji yanabakia kuwa yanafaa kwa wudhu na ghusl isipokuwa najasah imeyabadilisha kwa uwazi. Ukiwa na shaka ya kweli na mbadala safi inayopatikana, tumia mbadala.",
       "Uislamu unafundisha ukamilifu bila ubadhirifu. Mtume (Swalla Allaahu ´alayhi wa sallam) aliosha kabisa lakini alitumia maji kidogo sana - kiasi cha tope (vikombe viwili vya mikono) kwa wudhu na sa' (takriban vinne) kwa ghusl kamili. Kupoteza maji kunakatishwa tamaa hata yakiwa mengi, kwa sababu kiasi chenyewe ni sehemu ya adabu ya ibada.",
     ],
-    quran: [
-      {
-        excerpt: "Na tumeteremsha kutoka mbinguni maji safi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mtume ﷺ alikuwa akitawadha kwa tope la maji na ghusl kwa sa'a hadi tope tano. (Anas; pia Sahih Muislamu 325 - sunna ya wastani)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Tumia maji ya kutosha kuosha vizuri, lakini punguza bomba chini na uepuke kupita kiasi.",
       "Ikiwa chanzo cha maji kinaonekana au harufu iliyobadilishwa na uchafu, tafuta chanzo safi kilicho karibu nawe.",
@@ -111,12 +76,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Inatakiwa kabla ya kila swala - isipokuwa ubakie katika hali halali kutokana na swala iliyotangulia - na, kwa mujibu wa wanavyuoni wengi, kabla ya kufanya tawaf kuzunguka Ka'bah na kabla ya kugusa maandishi halisi (mushaf) ya Qur'ani.",
       "Wudhu ni ibada kwa haki yake yenyewe, si utangulizi tu. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) ameonya kuwa Mwenyezi Mungu haikubali Swalah ya yeyote miongoni mwenu anayevunja udhu mpaka arudishe udhu, basi kuichunga ni kuichunga Swalah yenyewe.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenyezi Mungu haikubali maombi ya mmoja wenu anayevunja udhu mpaka atoe udhu. (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -127,12 +87,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Maji yanayotumiwa lazima yawe safi na yenye utakaso. Muhimu sana, lazima ifike kwenye ngozi - kwa hivyo kitu chochote kinachotengeneza kizuizi cha kuzuia maji juu ya kiungo (rangi nene, rangi ya kucha, nta, gundi) lazima kiondolewe kwanza, la sivyo kitu kilichooshwa chini yake si halali. Uchafu wa kawaida au stain ya hina ambayo haizuii maji sio tatizo.",
       "Madhehebu ya Shafi'i na Hanbali pia yanashurutisha viungo vioshwe kwa mpangilio uliotajwa katika Qur'ani (tartib), na madhehebu ya Maliki na Hanbali yanashurutisha viungo vioshwe kimoja baada ya kingine bila kusita kwa muda mrefu kunakoacha viungo vilivyooshwa vikauke (muwalat). Madhehebu ya Hanafi yanahesabu yote mawili kuwa sunna. Fuata njia ya madhehebu moja kwa uthabiti.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Osheni nyuso zenu na mikono yenu mpaka kwenye viwiko, mpake vichwa vyenu, na osheni miguu yenu mpaka vifundoni.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Ondoa rangi ya kucha, pete zinazonasa maji, na chochote kinachoziba ngozi kabla ya wudhu.",
       "Toa udhu kwa utulivu katika mtiririko mmoja ili kisipoteze kiungo au kiachwe kikauke.",
@@ -146,12 +101,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Juu ya haya, madhehebu yanaongeza wajibu mwingine kutoka katika Sunnah na hoja za kifiqhi. Nia ni wajibu katika madhehebu mengi (Hanafi wanaihesabu kuwa sunna iliyokokotezwa kwa ajili ya kuondoa hadathi ndogo). Mpangilio (tartib) ni wajibu kwa Shafi'i na Hanbali, na mfululizo (muwalat) kwa Maliki na Hanbali. Maliki wanaongeza kusugua viungo (dalk) kuwa wajibu.",
       "Kila kitu zaidi ya haya - suuza kinywa na pua, kuosha mikono kwanza, kuosha mara tatu - inapendekezwa (sunnah) badala ya wajibu. Kujua tofauti kunamaanisha kuwa unaweza kujua wakati wudhu sio kamili dhidi ya batili.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Osheni nyuso zenu na mikono yenu mpaka kwenye viwiko, mpake vichwa vyenu, na osheni miguu yenu mpaka vifundoni.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Orodha kamili ya faraid (k.m. kama nia, utaratibu, na kusugua ni wajibu) hutofautiana kati ya shule nne. Jifunze na utumie shule moja inayotegemewa mara kwa mara.",
   },
@@ -163,12 +113,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Matendo ya Sunnah yaliyothibitishwa ni pamoja na: kusema 'Bismillah' mwanzoni; kuosha mikono mara tatu kabla ya kuanza; kusuuza kinywa (madmadah) na pua (istinshaq); kukimbia vidole vya mvua kupitia ndevu nene na kati ya vidole na vidole (takhlil); kuanza kila jozi ya viungo na haki; na kurudia kila safisha hadi mara tatu.",
       "Sunnah mbili zinastahiki kutajwa makhsusi: kutumia miswak (siwak) kabla - ambayo Mtume (Swalla Allaahu ´alayhi wa sallam) alikaribia kuwajibisha - na kusoma ushahidi wa imani baada ya kumaliza, ambayo hufungua milango minane ya Pepo kwa mwenye kuisema.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kutawadha vyema, kisha akasema: “Nashuhudia ya kwamba hapana mungu ila Mwenyezi Mungu… na kwamba Muhammad ni mja wake na Mtume Wake,” hufunguliwa milango minane ya Pepo. (Umar bin al-Khattab)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Jizoeze mlolongo kamili wa sunnah hadi iwe utaratibu wako wa kawaida.",
       "Soma shahada ya baada ya wudhu kila wakati.",
@@ -223,12 +168,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
         tip: "Sunnah fupi lakini yenye thawabu nyingi.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "'Uthman aliosha kila kiungo mara tatu kama alivyomuona Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) kisha akasema: Mwenye kutawadha hivi na akaswali rakaa mbili kwa umakini kamili, atasamehewa madhambi yake yaliyopita. (Humran kutoka kwa Uthman)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -239,12 +179,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Ni muhimu kujua kwamba 'dua' ya kina kwa kila kiungo (dua maalum wakati wa kuosha mikono, uso, mikono, na kadhalika) inayozunguka katika baadhi ya vijitabu haijathibitishwa kwa usahihi wa sauti kutoka kwa Mtume ﷺ. Wanavyuoni wanashauri kutozihusisha kwake kuwa ni sunna, na hali hakuna ubaya katika kumdhukuru Mwenyezi Mungu wakati wa wudhu.",
       "Moyo wa jambo ni uwepo: osha kwa ufahamu kwamba dhambi za kila kiungo zinaanguka, na malizia kwa shahada inayounganisha tena kitendo na makusudio yake - imani kwa Mwenyezi Mungu pekee.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kutawadha vyema kisha akasoma ushahidi wa imani, hufunguliwa milango minane ya Pepo ili aingie kwa apendavyo. (Umar)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Kariri shahada ya baada ya wudhu ikiwa bado hujaipata.",
       "Epuka kukariri fomula ambazo hazijathibitishwa kwa kila kiungo kana kwamba ni sunna iliyothibitishwa.",
@@ -259,12 +194,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Masuala mengine yanakabiliwa na tofauti za heshima kati ya shule: kugusa sehemu za siri moja kwa moja, na kugusana ngozi kwa ngozi na mtu asiye Mahram wa jinsia tofauti, ni batili katika baadhi ya shule lakini si nyingine, kwa kuzingatia usomaji tofauti wa maandiko sawa.",
       "Kanuni muhimu ya uongozi inakulinda kutokana na wasiwasi wa mara kwa mara (waswas): uhakika hauondolewi na shaka. Ikiwa ulikuwa na wudhu na huna uhakika kama umeuvunja, bado unachukuliwa kuwa una wudhu mpaka uhakikishe kuwa kibatilishi kimetokea. Mtume (Swalla Allaahu ´alayhi wa sallam) alimwambia mtu aliyekuwa akisumbuliwa na hisia hii kwamba asiiache sala yake mpaka asikie sauti au apate harufu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Asitoke (sala yake) mpaka asikie sauti au apate harufu. (Abbad ibn Tamim, from his uncle)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Ama kugusa jinsia tofauti au sehemu za siri za mtu kukatika udhu kunatofautiana kati ya shule. Fuata mwalimu wa mtaani aliyehitimu na mbinu ya shule moja.",
   },
@@ -276,12 +206,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) siku moja aliwaona watu ambao visigino vyao vimekauka kwa vile maji hayajawafikia, na akaonya kwa ukali: 'Ole wao visigino vya Moto!' Visigino, vifundo vya miguu, na pembe za uso ni matangazo ya kawaida ya kupuuzwa.",
       "Hitilafu iliyo kinyume chake ni kupindukia: kuosha kwa mbali zaidi ya mara tatu, au kutumia maji ovyo, jambo ambalo linapingana na sunna ya kiasi. Wengine wanaangukia kwenye waswas (mashaka ya kupindukia), kurudia wudhu tena na tena - hili nalo ni kosa, kwani hakika haibatiliwi na tuhuma.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ole wao walio visigino na Moto! - alisema alipoona visigino vikiwa vimekauka kwenye wudhu. (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Punguza polepole na uthibitishe kwa uangalifu ufunikaji kamili wa kila kiungo kilichooshwa, haswa visigino na viwiko.",
       "Tumia maji ya wastani; usiruhusu shaka kupita kiasi ikusukume katika kurudia-rudia bila sababu.",
@@ -296,12 +221,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Pia ni heshima ya kutofautisha katika maisha yajayo. Siku ya Qiyaamah Mtume ﷺ atawatambua wafuasi wake kwa mng'aro wa nyuso zao, mikono na miguu kutokana na athari za wudhu - nuru ya kipekee kwa umma huu, uitwao al-ghurr al-muhajjalun.",
       "Kwa sababu ya fadhila hizi, kukaa katika wudhu ni tabia iliyopendekezwa: kuufanya upya kwa kila sala, na kulala juu ya wudhu, ni miongoni mwa taratibu za ulinzi za Muumini.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ummah wangu utaitwa Siku ya Kiyama kwa nyuso, mikono na miguu yenye kung'aa kutokana na athari za wudhu. (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Rudisha wudhu kwa kila dirisha la maombi pale unapoweza.",
       "Fanya kulala juu ya wudhu kuwa ni sunna ya usiku.",
@@ -316,11 +236,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Kiini chake ni kwamba maji hufikia kila sehemu ya mwili wa nje - hakuna doa kavu inaweza kubaki, ikiwa ni pamoja na mizizi ya nywele, ngozi ya ngozi, nyuma ya masikio, kitovu, na kati ya vidole. Kusafisha mdomo na pua kunajumuishwa katika ghusl na wanachuoni wengi.",
       "Ghusli moja inayofanywa kwa nia ya kunyanyua janaba pia huondoa uchafu mdogo, hivyo mtu aliyemaliza ghusl anaweza kuswali bila ya wudhu tofauti (ingawa kutia wudhu ndani ya ghusl ni sunna).",
     ],
-    quran: [
-      {
-        excerpt: "Na mkiwa katika hali ya janaba, basi jitakaseni.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -331,16 +247,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Ghusl zingine zinapendekezwa (mustahabb) badala ya faradhi: ghusl ya Ijumaa kabla ya Jumu'ah, ambayo inasisitizwa sana hadi Mtume ﷺ akaiita 'wajibu kwa kila aliyebaleghe'; ghusl kwa Eid mbili; na ghusl ya ihram kabla ya Hija au Umrah.",
       "Mwislamu mpya anaagizwa kufanya ghusl anapoingia katika Uislamu - iliyolazimishwa na baadhi ya wanachuoni na inapendekezwa kwa nguvu na wengine.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mwanaume anapokaa baina ya viungo vinne vya mke wake na kumuingilia, ghusl inakuwa ni wajibu. (Abu Hurayrah; pia Sahih Muislamu 348)",
-      },
-      {
-        excerpt:
-          "Ghusl siku ya Ijumaa ni wajibu kwa kila aliyefikia umri wa baleghe. (Abu Said al-Khudri; pia Sahih Muislamu 846)",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Iwapo siku ya Ijumaa na ghusli za kubadilisha ni wajibu au zimependekezwa sana inatofautiana kwa shule na mazingira.",
     appLinks: [{}],
@@ -383,12 +290,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
         tip: "Wanawake hawahitaji kutendua nywele zilizosokotwa, mradi maji yafike kichwani.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mtume (Swalla Allaahu ´alayhi wa sallam) alipooga kutoka janaba, akaosha mikono yake, akatawadha, akapitisha vidole vyake kwenye nywele zake, kisha akamimina maji juu ya kichwa chake mara tatu na juu ya mwili wake wote. (Aisha)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Makosa ya Kawaida ya Ghusl",
@@ -398,12 +300,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Hitilafu ya pili ya kawaida ni kuacha matangazo kavu. Wajibu ni maji kugusa mwili wote wa nje, hivyo kupuuza mizizi ya kichwa, masikio, kitovu, udogo wa nyuma, au kati ya vidole huacha ghusl pungufu. Sugua maji juu ya maeneo haya ili kuwa na uhakika.",
       "Kwa nywele: mwanamke mwenye kusuka nywele hatakiwi kung'oa suka, maadamu maji yanafika kwenye mizizi ya ngozi ya kichwa - Mtume ﷺ alimwambia Umm Salamah kwamba inatosha kumwaga konzi tatu juu ya kichwa. Nywele za mwanamume, zikiwa zimelegea, zinapaswa kufanyiwa kazi ili maji yafike kwenye mizizi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Inatosha kumwaga mikono mitatu ya maji juu ya kichwa chako, kisha uimimine maji juu yako na utakaswa - huna haja ya kufuta braids yako. (Umm Salamah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Sema nia kabla ya kumwaga mara ya kwanza, kwa hivyo kuosha kunahesabika kama ghusl.",
       "Mimina maji kwenye sehemu ambazo hazipatikani kwa urahisi; inapokosekana, osha upya sehemu badala ya kumaliza kwa mashaka.",
@@ -417,18 +314,8 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Tayammum ni zawadi kwa Ummah huu hasa: Mtume (Swalla Allaahu ´alayhi wa sallam) amesema, 'Ardhi imefanywa kwa ajili yangu kuwa ni pahala pa kuswalia na njia ya kujitakasa,' akiiorodhesha miongoni mwa upendeleo maalum aliopewa na sio Mitume wa mwanzo. Inajumuisha kanuni kuu ya dini - wajibu unabaki, lakini ugumu unaondolewa.",
       "Ni kipimo cha muda: mara tu maji yanapopatikana na kutumika, utakaso wa kawaida na maji huanza tena. Mtu anaweza kuhitaji kufanya upya tayammamu kwa kila sala kulingana na baadhi ya shule.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na msipate maji, basi fanyeni tayammam kwa udongo safi na mpake nyuso zenu na mikono yenu kwa hayo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ardhi imefanywa kwa ajili yangu kuwa mahali pa sala na njia ya utakaso. (Jabir ni miongoni mwa mambo matano aliyopewa Mtume ﷺ)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Wakati Tayammum Inaruhusiwa",
@@ -439,12 +326,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Tatu, wakati maji kidogo yanayopatikana yanapohitajika kwa hitaji kubwa zaidi - kama vile kunywa, kuhifadhi maisha, iwe ya mtu au ya mtu mwingine au ya mnyama. Katika kila hali shari ́ah inapima kuhifadhi uhai na afya kuliko njia inayopendekezwa ya utakaso.",
       "Mafakihi wanatofautiana juu ya vizingiti bora zaidi - ni umbali gani mtu lazima atafute maji, ni kiasi gani cha hofu ya madhara inatosha - lakini wanakubaliana juu ya rehema ya msingi: ibada haiangushwi, inafanywa rahisi tu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Imepokewa katika sura za tayammam: ruhusa ya kutakasa kwa udongo safi pasipo kuwepo maji yanayoweza kutumika.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Tafuta maji ipasavyo kabla ya kutumia tayammam.",
       "Ikiwa daktari anashauri kuweka jeraha au ugonjwa kavu, fanya hivyo na ufanye tayammam.",
@@ -480,12 +362,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
         tip: "Fuata mbinu ya shule moja (mikono dhidi ya mikono ya mbele) mara kwa mara.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mtume (Swalla Allaahu ´alayhi wa sallam) aliipiga ardhi kwa viganja vyake, kisha akapangusa uso wake na mikono yake - akimfundisha Ammar kwamba hayo yanatosha. (Ammar bin Yasir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Nini Kinachovunja Tayammum?",
@@ -511,12 +388,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Kuondolewa ni kwa maji ambapo uchafu unaonekana, kuosha mpaka dutu na athari yake imekwisha. Uislamu pia unavichukulia kwa uzito vyanzo vya najasah: Mtume ﷺ alionya kwamba nyingi ya adhabu ya kaburi inatokana na uzembe na mkojo - kupaka na kutosafisha ipasavyo.",
       "Shule hutofautiana juu ya kuainisha baadhi ya vitu (kwa mfano, ikiwa kiasi kidogo cha vimiminika fulani hakiruhusiwi) na ni kiasi gani cha athari kinachoruhusiwa. Kanuni inayoweza kutumika kwa maisha ya kila siku: safisha kabisa, na usitengeneze shaka juu ya usafi ambapo hakuna ushahidi wa uchafu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mtume (Swalla Allaahu ´alayhi wa sallam) akapita makaburi mawili na akasema wakaaji wake wanaadhibiwa - moja kwa kueneza kashfa, na jingine kwa sababu hakujikinga na mkojo wake. (Ibn Abbas; pia Sahih Muislamu 292)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Kusafisha Nguo kutoka kwa Uchafu",
@@ -526,12 +398,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Ikiwa, baada ya jitihada za dhati na za kina, doa la rangi iliyofifia au harufu kidogo inabakia ambayo haitatoka, wengi wa wasomi husamehe kile ambacho ni vigumu kweli kuondoa - wajibu ni kuondoa dutu, si kuhakikisha rangi isiyo na doa.",
       "Baadhi ya matukio yana maelezo yao wenyewe yanayojulikana, kama vile mkojo wa mvulana anayenyonyeshwa (kunyunyiziwa badala ya kuosha kabisa, kwa makubaliano yaliyoripotiwa) - kwa hivyo jifunze kanuni za vitendo za shule yako kwa hali ambazo unakabiliana nazo.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kuhusu damu ya hedhi kwenye nguo: ipasue, kisha ipake kwa maji, kisha ioshe, na uswali ndani yake. (Asma binti Abi Bakr)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Weka angalau vazi moja safi kwa ajili ya maombi.",
       "Ikiwa uchafu unagusa nguo zako mbali na nyumbani, suuza unachoweza na ubadilishe inapowezekana.",
@@ -545,11 +412,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Zaidi ya kuondoa uchafu, Uislamu unahimiza msingi wa usafi wa asili (fitrah) ambao huweka mwili safi na tayari kwa ibada: kupunguza kucha, kuondoa kwapa na nywele za pubic, na kadhalika, mara kwa mara.",
       "Vitendo hivi sio tu uzuri wa kitamaduni - ni sehemu ya utu na usafi ambao muumini hujiwasilisha mbele ya Mwenyezi Mungu katika sala.",
     ],
-    hadith: [
-      {
-        excerpt: "Mtume ﷺ alikuwa akijisafisha kwa maji baada ya kujisaidia. (Anas)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Daima kamilisha istinja kabla ya wudhu baada ya kutumia choo.",
       "Kubeba tishu na, ambapo unaweza, njia ya maji wakati wa kusafiri.",
@@ -563,12 +426,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Kanuni inayoongoza ni uhakika. Ardhi ilifanywa kwa ujumla kuwa mahali pa kuswalia, hivyo uso unachukuliwa kuwa safi isipokuwa kama una ushahidi wa kweli wa uchafu. Ikiwa unajua uchafu upo, uondoe au uhamishe mahali safi; ukifikiria tu inaweza kuwa pale, puuza kunong'ona na uendelee.",
       "Mizani hii hulinda ibada kutoka kwa mambo mawili ya kupindukia: kuswali ovyoovyo kwenye ardhi ambayo ni wazi iliyochafuliwa, na kulemazwa na tuhuma zisizo na msingi juu ya kila uso.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bedui mmoja alipokojoa msikitini, Mtume ﷺ aliamrisha ndoo ya maji imwagiwe juu yake. (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Tazama mkeka wako na sakafu kabla ya swalah.",
       "Bila ushahidi wa kweli wa uchafu, ondoa shaka zisizo na msingi na uombe.",
@@ -582,12 +440,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Saumu ni tofauti: Saumu zilizokoswa katika Ramadhani kwa sababu ya hedhi hufanywa baadaye, wakati sala huinuliwa tu. Damu inapoisha na dalili ya utakaso inaonekana, mwanamke hufanya ghusl na kuanza tena sala na saumu.",
       "Muda kamili wa chini na upeo wa hayd na nifas, na jinsi ya kusoma alama za mpaka za usafi, ni mambo ambayo shule hutofautiana kwa undani. Wanawake hunufaika kwa kujifunza kanuni za vitendo za shule moja inayotegemewa yenye mwalimu aliyehitimu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Alipoulizwa kwa nini mwenye hedhi anafunga na sio kuswali, Aishah alisema: Tumeamrishwa kufidia saumu na hatukuamrishwa kusimamisha swala. (Mu'adhah, kutoka kwa 'Aishah; pia Sahih Muislamu 335)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -616,14 +469,7 @@ export const TAHARAH_TOPICS_SW: DeepPartial<TaharahTopic>[] = [
       "Kwa maamuzi yanayotumika, miongozo ya kitamaduni ya fiqh ya shule nne za Sunni inatoa misimamo ya kina - na tofauti zao ni sehemu halali ya mila, sio kasoro. Tumia moduli hii kwa muhtasari uliopangwa, kisha imarisha somo lako na mwalimu aliyehitimu na matini za msingi.",
     ],
     quran: [{}, {}],
-    hadith: [
-      {
-        excerpt: "Sura za kina juu ya wudhu, ghusl, tayammamu, na hayd zinazofungua mkusanyiko.",
-      },
-      {
-        excerpt: "Kitabu cha Utakaso - ripoti sahihi juu ya hukumu, adabu, na kanuni za tahara.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Fuata mtaala mmoja unaoaminika ili kuepuka mkanganyiko kutoka kwa maamuzi yaliyotawanyika.",
       "Rudia mada hizi mara kwa mara hadi imani ya vitendo iwe thabiti.",

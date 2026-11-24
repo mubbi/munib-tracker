@@ -16,21 +16,8 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "İslam'da temizliğin iki boyutu vardır. Dış boyutu somut temizliktir: yıkamak, pisliği gidermek, temiz kalmak. İç boyutu ise yıkanmanın uyandırması gereken tevazu, bilinç ve kalbin hazır oluşudur. Peygamber ﷺ temizliği 'imanın yarısı' olarak nitelendirerek bu ikisini birbirine bağlamış, bedenin temizliğini ruhun günahlardan arınmasıyla bir arada zikretmiştir.",
       "Bu modül konunun tamamını sırasıyla ele alır: temizlenmede kullanılan su, abdest (küçük temizlik), gusül (bütün bedenin yıkandığı boy abdesti), teyemmüm (su kullanılamadığında toprakla temizlenme), necaset (maddî pisliğin giderilmesi) ve özel durumlar ile ruhsatlar. Bunu bir kez iyice öğrendiğinizde namaza şüpheyle değil, gönül rahatlığıyla durabilirsiniz.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman edenler! Namaza kalktığınız zaman yüzlerinizi ve dirseklere kadar kollarınızı yıkayın, başlarınızı meshedin ve topuk kemiklerine kadar ayaklarınızı yıkayın.",
-      },
-      {
-        excerpt: "Şüphesiz Allah, çokça tövbe edenleri sever ve temizlenenleri sever.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Namazın anahtarı temizliktir; başlangıcı tekbir, sonu selamdır. (Hz. Ali; ayrıca Tirmizî 3)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Temizliği aceleyle geçiştirilen bir alışkanlık olarak değil, Allah'ın huzuruna çıkmaya hazırlık olarak görün.",
       "Bütün akış size doğal gelene kadar her gün bir tahâret konusu çalışın.",
@@ -45,15 +32,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Peygamber ﷺ temizliği müminin belirleyici bir vasfı hâline getirmiş ve onu 'imanın yarısı' olarak nitelendirmiştir. Düzenli temizlik insanı disipline eder, onu neredeyse her an ibadete hazır tutar ve — hadisin öğrettiği üzere — küçük günahları suyla birlikte adeta yıkayıp götürür.",
       "Tahâret namazı koruduğu için, mümini de dikkatsizlik yüzünden geçersiz namaz kılma günahından korur. Bu nedenle hükümlerini iyi öğrenmek, İslam'daki en büyük amellerden birini korumak demektir.",
     ],
-    hadith: [
-      {
-        excerpt: "Temizlik imanın yarısıdır. (Ebû Mâlik el-Eş'arî)",
-      },
-      {
-        excerpt:
-          "Allah temizlik olmadan kılınan namazı da, çalıntı maldan verilen sadakayı da kabul etmez. (İbn Ömer)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Her namazdan önce, başlamadan temiz olduğunuzdan emin olun.",
       "Zihninizde basit bir kontrol listesi tutun: beden, elbise, yer ve abdest.",
@@ -68,12 +47,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Büyük hades (hades-i ekber, cünüplük olarak da bilinir); cinsel ilişki, cinsel sıvının gelmesi ve hayız ya da nifas kanının sona ermesiyle meydana gelir. Bütün bedenin yıkandığı gusülle giderilir; su bulunmadığında veya zarar verdiğinde yine teyemmüm onun yerini tutar.",
       "Maddî pislik (necaset) — idrar, dışkı veya akan kan gibi — ayrı bir konudur: Hükmî durumunuz ne olursa olsun bedenden, elbiseden ve namaz kılınan yerden fiilen giderilmesi gerekir. Dört Sünnî mezhep bu üç kategoride ittifak eder; yalnızca temizliği neyin bozduğu veya hangi az miktarların affedildiği gibi bazı ayrıntılarda ayrılır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eğer cünüp iseniz, iyice temizlenin. Şayet hasta veya yolculukta iseniz… ve su bulamamışsanız, temiz bir toprakla teyemmüm edin.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Önce durumunuzu belirleyin (küçük hades, büyük hades veya necaset), sonra doğru yöntemi uygulayın.",
       "Ayrıntılardan emin olamadığınızda, tanınmış bir mezhepten ehil bir hocayı tutarlı biçimde takip edin.",
@@ -89,17 +63,8 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Fakihler suyu ayrıntılı biçimde sınıflandırır (hem temiz hem temizleyici, temiz ama temizleyici olmayan ve necis), ancak günlük hayat için pratik kural basittir: Su, bir necaset onu açıkça değiştirmedikçe abdest ve gusül için elverişli kalır. Gerçek bir şüphe olduğunda ve temiz bir alternatif mevcutsa, o alternatifi kullanın.",
       "İslam israfa kaçmadan eksiksizliği öğretir. Peygamber ﷺ tam olarak yıkanır ama şaşırtıcı derecede az su kullanırdı: abdest için yaklaşık bir müd (iki avuç dolusu), tam bir gusül için de bir sâ' (yaklaşık dört müd). Su bol olsa bile israf hoş görülmez; çünkü ölçülülük de ibadet adabının bir parçasıdır.",
     ],
-    quran: [
-      {
-        excerpt: "Ve gökten tertemiz bir su indirdik.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Peygamber ﷺ bir müd su ile abdest alır, bir sâ' ile beş müd arası su ile gusül ederdi. (Enes; ayrıca Müslim 325 — ölçülülük sünneti)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "İyice yıkanmaya yetecek kadar su kullanın, ama musluğu kısın ve aşırılıktan kaçının.",
       "Bir su kaynağının görünüşü veya kokusu necaset yüzünden değişmiş görünüyorsa, açıkça temiz olan en yakın kaynağı arayın.",
@@ -117,12 +82,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Abdest her namazdan önce gereklidir — önceki namazdan kalan geçerli bir abdestiniz yoksa — ve âlimlerin çoğunluğuna göre Kâbe'yi tavaf etmeden ve Kur'an'ın yazılı nüshasına (mushaf) dokunmadan önce de gereklidir.",
       "Abdest yalnızca bir hazırlık değil, başlı başına bir ibadettir. Peygamber ﷺ, 'Allah, abdesti bozulan birinizin namazını, o kişi yeniden abdest alıncaya kadar kabul etmez' buyurarak uyarmıştır; dolayısıyla abdesti korumak namazın kendisini korumaktır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah, abdesti bozulan birinizin namazını, o kişi abdest alıncaya kadar kabul etmez. (Ebû Hüreyre)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Namaz rehberinde abdest" }],
   },
   {
@@ -134,12 +94,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Kullanılan su hem temiz hem temizleyici olmalıdır. En önemlisi, suyun gerçekten cilde ulaşması gerekir; bu yüzden bir uzvun üzerinde su geçirmez bir tabaka oluşturan her şey (kalın boya, oje, mum, yapıştırıcı) önce giderilmelidir, aksi hâlde altındaki yıkama geçerli olmaz. Suyu engellemeyen sıradan kir veya kına lekesi sorun teşkil etmez.",
       "Şâfiî ve Hanbelî mezhepleri ayrıca yıkamaların Kur'an'daki sıraya göre yapılmasını (tertip), Mâlikî ve Hanbelî mezhepleri ise uzuvların, yıkanan uzuvlar kuruyacak kadar uzun bir ara verilmeden peş peşe yıkanmasını (muvâlât) şart koşar. Hanefî mezhebi ikisini de sünnet sayar. Tutarlılık için tek bir mezhebin yöntemini takip edin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yüzlerinizi ve dirseklere kadar kollarınızı yıkayın, başlarınızı meshedin ve topuk kemiklerine kadar ayaklarınızı yıkayın.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Abdestten önce ojeyi, altında su tutan yüzükleri ve cildi kapatan her şeyi çıkarın.",
       "Abdesti sakin ve kesintisiz bir akışla alın ki hiçbir uzuv atlanmasın ya da kurumaya bırakılmasın.",
@@ -154,12 +109,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Mezhepler bunlara Sünnet'ten ve fıkhî içtihattan başka farzlar da ekler. Niyet çoğu mezhepte farzdır (Hanefîler, küçük hadesi gidermek için niyeti müekked sünnet sayar). Tertip Şâfiîler ve Hanbelîler için, muvâlât ise Mâlikîler ve Hanbelîler için farzdır. Mâlikîler ayrıca uzuvları ovmayı (delk) farz olarak ekler.",
       "Bunların ötesindeki her şey — ağza ve burna su vermek, önce elleri yıkamak, üçer kez yıkamak — farz değil, sünnettir. Bu farkı bilmek, bir abdestin yalnızca eksik mi yoksa gerçekten geçersiz mi olduğunu ayırt edebilmenizi sağlar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yüzlerinizi ve dirseklere kadar kollarınızı yıkayın, başlarınızı meshedin ve topuk kemiklerine kadar ayaklarınızı yıkayın.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Farzların tam listesi (örneğin niyetin, tertibin ve ovmanın farz olup olmadığı) dört mezhep arasında farklılık gösterir. Güvenilir bir mezhebi öğrenip tutarlı biçimde uygulayın.",
   },
@@ -171,12 +121,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Sabit sünnetler şunlardır: başlarken 'Bismillah' demek; başlamadan önce elleri üç kez yıkamak; ağza (mazmaza) ve buruna (istinşak) su vermek; ıslak parmaklarla gür sakalı, el ve ayak parmaklarının aralarını hilallemek (tahlîl); her uzuv çiftinde sağdan başlamak ve her yıkamayı üç kereye kadar tekrarlamak.",
       "İki sünnet özellikle anılmaya değer: Abdestten önce misvak kullanmak — ki Peygamber ﷺ bunu neredeyse farz kılacaktı — ve abdesti bitirdikten sonra kelime-i şehadeti okumak; bunu söyleyen kişiye cennetin sekiz kapısı açılır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim abdestini güzelce alır, sonra 'Allah'tan başka ilah olmadığına… ve Muhammed'in O'nun kulu ve resulü olduğuna şehadet ederim' derse, ona cennetin sekiz kapısı açılır. (Ömer b. Hattâb)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Sünnetlere uygun tam sıralamayı, doğal alışkanlığınız hâline gelene kadar uygulayın.",
       "Abdestten sonraki şehadeti her seferinde okuyun.",
@@ -231,12 +176,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
         tip: "Kısa ama sevabı çok büyük bir sünnet.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Osman, Peygamber'i ﷺ yaparken gördüğü gibi her uzvu üçer kez yıkadı, sonra şöyle dedi: Kim böyle abdest alır ve tam bir huzurla iki rekât namaz kılarsa, geçmiş günahları bağışlanır. (Humrân, Osman'dan)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Namaz rehberinde abdest" }, { label: "Abdest duası" }],
   },
   {
@@ -247,12 +187,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Bazı kitapçıklarda dolaşan ayrıntılı 'her uzuv için dua' (elleri, yüzü, kolları vb. yıkarken okunan özel dualar) Peygamber'den ﷺ sağlam bir sıhhatle sabit değildir; bunu bilmek önemlidir. Âlimler bunların sünnet olarak ona nispet edilmemesini tavsiye eder; bununla birlikte abdest sırasında genel olarak Allah'ı zikretmekte bir sakınca yoktur.",
       "İşin özü huzurdur: Her uzvun günahlarının döküldüğünün bilinciyle yıkanın ve bu ameli asıl amacına — yalnızca Allah'a imana — yeniden bağlayan şehadetle bitirin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim abdestini güzelce alır, sonra kelime-i şehadeti okursa, ona cennetin sekiz kapısı açılır; dilediğinden girer. (Ömer)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Henüz ezberlemediyseniz abdest sonrası şehadeti ezberleyin.",
       "Doğrulanmamış uzuv dualarını sabit bir sünnetmiş gibi okumaktan kaçının.",
@@ -267,12 +202,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Diğer bazı konular mezhepler arasında saygıyla karşılanan bir ihtilaf konusudur: Avret yerine doğrudan dokunmak ve namahrem karşı cinsle tenin tene teması, aynı nasların farklı anlaşılması sebebiyle bazı mezheplerde abdesti bozar, bazılarında bozmaz.",
       "Sizi sürekli kaygıdan (vesvese) koruyan çok önemli bir ilke vardır: Kesinlik şüpheyle ortadan kalkmaz. Abdestiniz varsa ve sadece bozup bozmadığınızdan emin değilseniz, abdesti bozan bir şeyin olduğundan emin olana kadar abdestli sayılırsınız. Peygamber ﷺ bu duyguyla rahatsız olan bir adama, 'bir ses duymadıkça veya bir koku almadıkça' namazını bırakmamasını söylemiştir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir ses duymadıkça veya bir koku almadıkça (namazından) ayrılmasın. (Abbâd b. Temîm, amcasından)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Karşı cinse veya kişinin kendi avret yerine dokunmasının abdesti bozup bozmadığı mezhepler arasında farklıdır. Ehil bir yerel hocayı ve tek bir mezhebin yöntemini takip edin.",
   },
@@ -284,12 +214,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Peygamber ﷺ bir keresinde, su ulaşmadığı için topukları kuru kalmış kimseler görmüş ve sert bir şekilde, 'Vay o topukların ateşten çekeceğine!' diye uyarmıştır. Topuklar, topuk kemikleri ve yüzün kenarları en sık ihmal edilen yerlerdir.",
       "Bunun tersi olan hata ise aşırılıktır: üç defadan çok daha fazla yıkamak ya da suyu israf etmek; bu, ölçülülük sünnetine aykırıdır. Bazıları da vesveseye (takıntılı şüphe) kapılarak abdesti tekrar tekrar alır; bu da bir hatadır, çünkü kesinlik şüpheyle ortadan kalkmaz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Vay o topukların ateşten çekeceğine! — abdestte kuru kalmış topukları görünce söylemiştir. (Ebû Hüreyre)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Yavaşlayın ve özellikle topuklar ile dirsekler olmak üzere yıkanan her uzvun tamamen ıslandığını bilinçli olarak kontrol edin.",
       "Ölçülü su kullanın; takıntılı şüphenin sizi gereksiz tekrara sürüklemesine izin vermeyin.",
@@ -303,12 +228,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Abdest ahirette de ayırt edici bir şereftir. Kıyamet günü Peygamber ﷺ ümmetini, abdest izlerinden dolayı yüzlerinde, ellerinde ve ayaklarında görülen parıltıdan tanıyacaktır; bu, bu ümmete özgü olup 'el-gurru'l-muhaccelûn' diye anılan bir nurdur.",
       "Bu faziletler sebebiyle abdestli bulunmak tavsiye edilen bir alışkanlıktır: Her namaz için abdesti yenilemek ve abdestli uyumak, müminin koruyucu alışkanlıkları arasındadır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ümmetim kıyamet günü abdest izlerinden dolayı yüzleri, elleri ve ayakları parlak olarak çağrılacaktır. (Ebû Hüreyre)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "İmkân buldukça her namaz vakti için abdestinizi yenileyin.",
       "Abdestli uyumayı her gece uyguladığınız bir sünnet hâline getirin.",
@@ -325,11 +245,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Özü, suyun bedenin dış yüzeyinin her yerine ulaşmasıdır; saç dipleri, deri kıvrımları, kulak arkaları, göbek ve ayak parmaklarının araları dahil hiçbir kuru yer kalmamalıdır. Birçok âlime göre ağza ve buruna su vermek de guslün kapsamındadır.",
       "Cünüplüğü gidermek niyetiyle alınan tek bir gusül küçük hadesi de giderir; dolayısıyla guslünü tamamlayan kişi ayrıca abdest almadan namaz kılabilir (bununla birlikte gusül içinde abdest almak sünnettir).",
     ],
-    quran: [
-      {
-        excerpt: "Eğer cünüp iseniz, iyice temizlenin.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{ label: "Namaza hazırlığa genel bakış" }],
   },
   {
@@ -340,16 +256,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Diğer bazı gusüller farz değil, müstehaptır: Cuma namazından önce alınan cuma guslü — Peygamber ﷺ bunu o kadar teşvik etmiştir ki 'ergenlik çağına giren herkese bir vazifedir' buyurmuştur —; iki bayram için alınan gusül ve hac ya da umreden önce ihram için alınan gusül.",
       "İslam'a yeni giren kişiye gusül alması emredilir; bu gusül bazı âlimlere göre farz, bazılarına göre ise kuvvetle tavsiye edilen bir davranıştır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Erkek, eşinin dört uzvu arasına oturup onunla ilişkiye girdiğinde gusül farz olur. (Ebû Hüreyre; ayrıca Müslim 348)",
-      },
-      {
-        excerpt:
-          "Cuma günü gusül, ergenlik çağına giren herkese bir vazifedir. (Ebû Saîd el-Hudrî; ayrıca Müslim 846)",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Cuma guslünün ve Müslüman olan kişinin guslünün farz mı yoksa kuvvetle tavsiye edilen bir gusül mü olduğu mezhebe ve duruma göre farklılık gösterir.",
     appLinks: [{ label: "Hayız rehberi" }],
@@ -392,12 +299,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
         tip: "Kadınların, su saç diplerine ulaştığı sürece örgülü saçlarını çözmeleri gerekmez.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Peygamber ﷺ cünüplükten dolayı yıkandığında ellerini yıkar, namaz için alır gibi abdest alır, parmaklarını saçlarının arasından geçirir, sonra başına üç kez, ardından bedeninin geri kalanına su dökerdi. (Âişe)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Gusülde Sık Yapılan Hatalar",
@@ -407,12 +309,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "İkinci yaygın hata, kuru yer bırakmaktır. Farz olan, suyun bedenin dış yüzeyinin tamamına değmesidir; saç diplerini, kulakları, göbeği, bel çukurunu veya ayak parmaklarının arasını ihmal etmek guslü eksik bırakır. Emin olmak için suyu bu bölgelere sürün.",
       "Saça gelince: Örgülü saçı olan kadının, su saç diplerine ulaştığı sürece örgülerini çözmesi gerekmez — Peygamber ﷺ Ümmü Seleme'ye başa üç avuç su dökmenin yeterli olduğunu söylemiştir. Erkeklerin saçı genellikle açık olduğundan, suyun diplere ulaşması için saçın arası ovalanmalıdır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Başına üç avuç su dökmen, sonra bedenine su dökmen yeterlidir; böylece temizlenmiş olursun — örgülerini çözmen gerekmez. (Ümmü Seleme)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Yıkamanın gusül sayılması için ilk suyu dökmeden önce niyet edin.",
       "Kolayca atlanan bölgelere suyu sürün; emin olamadığınızda şüpheyle bitirmek yerine o bölümü yeniden yıkayın.",
@@ -428,18 +325,8 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Teyemmüm özellikle bu ümmete verilmiş bir lütuftur: Peygamber ﷺ, 'Yeryüzü bana mescit ve temizlik aracı kılındı' buyurmuş ve bunu, önceki peygamberlere değil kendisine verilen özel imtiyazlar arasında saymıştır. Teyemmüm dinin temel bir ilkesini yansıtır: Yükümlülük devam eder, ama zorluk kaldırılır.",
       "Geçici bir tedbirdir: Su bulunup kullanılabilir hâle geldiğinde, su ile olağan temizlenmeye geri dönülür. Bazı mezheplere göre kişinin her namaz için teyemmümü yenilemesi gerekebilir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…ve su bulamazsanız, temiz bir toprakla teyemmüm edin; onunla yüzlerinizi ve ellerinizi meshedin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Yeryüzü bana mescit ve temizlik aracı kılındı. (Câbir — Peygamber'e ﷺ özgü olarak verilen beş şeyden biri)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Teyemmümün Caiz Olduğu Durumlar",
@@ -449,12 +336,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Üçüncüsü, eldeki az suya daha acil bir ihtiyaç için gerek duyulduğunda — örneğin kişinin kendisinin, bir başkasının veya bir hayvanın hayatını korumak için içmek gibi. Her durumda şeriat, hayatın ve sağlığın korunmasını tercih edilen temizlenme yönteminin önünde tutar.",
       "Fakihler daha ince eşikler konusunda — suyun ne kadar uzağa kadar aranması gerektiği, ne derece zarar korkusunun yeterli olduğu gibi — ihtilaf eder; ancak temeldeki rahmette ittifak hâlindedirler: İbadet asla düşmez, sadece kolaylaştırılır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Teyemmüm bölümlerinde rivayet edilmiştir: Kullanılabilir su bulunmadığında temiz toprakla temizlenme ruhsatı.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Teyemmüme başvurmadan önce makul ölçüde su arayın.",
       "Doktor bir yarayı veya hastalıklı bölgeyi kuru tutmanızı tavsiye ederse buna uyun ve teyemmüm edin.",
@@ -484,12 +366,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
         tip: "Bir mezhebin yöntemini (bileklere mi, kollara mı kadar) tutarlı biçimde takip edin.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Peygamber ﷺ avuçlarını yere vurdu, sonra yüzünü ve ellerini meshetti ve Ammâr'a bunun yeterli olduğunu öğretti. (Ammâr b. Yâsir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Teyemmümü Bozan Şeyler",
@@ -516,12 +393,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Pislik somut ise su ile giderilir; madde ve izi kaybolana kadar yıkanır. İslam necasetin kaynaklarını da ciddiye alır: Peygamber ﷺ, kabir azabının büyük kısmının idrar konusundaki dikkatsizlikten — idrarın sıçraması ve düzgün temizlenmemekten — kaynaklandığını haber vermiştir.",
       "Mezhepler bazı maddelerin sınıflandırılmasında (örneğin belirli sıvıların az miktarının affedilip affedilmediği) ve hangi kalıntı miktarlarının hoş görüldüğünde ihtilaf eder. Günlük hayat için uygulanabilir ilke şudur: İyice temizleyin ve pisliğe dair bir delil bulunmayan yerde temizlik konusunda kendinize şüphe üretmeyin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Peygamber ﷺ iki kabrin yanından geçti ve içindekilerin azap gördüğünü söyledi — biri koğuculuk yaptığı için, diğeri ise idrarından sakınmadığı için. (İbn Abbas; ayrıca Müslim 292)",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Elbiseyi Necasetten Temizlemek",
@@ -531,12 +403,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Samimi ve titiz bir çabadan sonra çıkmayan hafif bir renk lekesi veya hafif bir koku kalırsa, âlimlerin çoğunluğu gerçekten giderilmesi zor olanı affedilmiş sayar — yükümlülük, maddeyi gidermektir; lekesiz bir renk garanti etmek değildir.",
       "Bazı durumların kendine özgü, bilinen ayrıntıları vardır; örneğin anne sütüyle beslenen erkek bebeğin idrarı (rivayet edilen bir ruhsata göre tamamen yıkanmak yerine üzerine su serpilir). Bu yüzden gerçekte karşılaştığınız durumlar için mezhebinizin pratik hükümlerini öğrenin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Elbiseye bulaşan hayız kanı hakkında: Onu kazı, sonra su ile ovala, sonra yıka ve onunla namaz kıl. (Esmâ bint Ebû Bekir)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Namaz için en az bir takım temiz elbiseyi ayrı tutun.",
       "Evden uzaktayken elbisenize pislik bulaşırsa, yapabildiğiniz kadarını durulayın ve mümkün olduğunda değiştirin.",
@@ -550,11 +417,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "İslam, pisliği gidermenin ötesinde, bedeni temiz ve ibadete hazır tutan temel bir doğal temizliği (fıtrat) teşvik eder: tırnakları kesmek, koltuk altı ve kasık kıllarını gidermek ve benzerlerini düzenli olarak yapmak.",
       "Bu uygulamalar sadece kültürel incelikler değildir; müminin namazda Allah'ın huzuruna çıkarken taşıdığı vakar ve temizliğin bir parçasıdır.",
     ],
-    hadith: [
-      {
-        excerpt: "Peygamber ﷺ tuvalet ihtiyacını giderdikten sonra su ile temizlenirdi. (Enes)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Tuvaleti kullandıktan sonra abdestten önce istincâyı mutlaka tamamlayın.",
       "Yolculukta peçete ve mümkünse su taşıyabileceğiniz bir şey bulundurun.",
@@ -568,12 +431,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Belirleyici kural kesinliktir. Yeryüzü genel olarak namaz kılınacak yer kılınmıştır; bu yüzden gerçek bir pislik delili olmadıkça bir yüzeyin temiz olduğu kabul edilir. Orada pislik bulunduğunu biliyorsanız onu giderin veya temiz bir yere geçin; sadece orada olabileceğini düşünüyorsanız, bu vesveseye aldırmayın ve devam edin.",
       "Bu denge ibadeti iki aşırılıktan korur: Açıkça kirlenmiş bir zeminde dikkatsizce namaz kılmak ve her yüzey hakkında temelsiz şüphelerle hareketsiz kalmak.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir bedevi mescide bevlettiğinde, Peygamber ﷺ üzerine bir kova su dökülmesini emretti. (Ebû Hüreyre)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Namazdan önce seccadenize ve zemine bir göz atın.",
       "Gerçek bir pislik delili yoksa, temelsiz kuşkuları bir kenara bırakın ve namazınızı kılın.",
@@ -589,12 +447,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Oruç ise farklıdır: Ramazan'da hayız sebebiyle tutulamayan oruçlar sonradan kaza edilir; namazlar ise tamamen düşer. Kan kesilip temizlik alameti görüldüğünde kadın gusleder ve namaza ve oruca yeniden başlar.",
       "Hayız ve nifasın en az ve en çok süreleri ile temizliğin sınırdaki alametlerinin nasıl yorumlanacağı, mezheplerin ayrıntıda ihtilaf ettiği konulardır. Kadınlar, güvenilir bir mezhebin pratik hükümlerini ehil bir hocadan öğrenmekle fayda görür.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hayızlı kadının neden oruçlarını kaza edip namazlarını kaza etmediği sorulunca Âişe şöyle dedi: Oruçları kaza etmekle emrolunurduk, namazları kaza etmekle emrolunmazdık. (Muâze, Âişe'den; ayrıca Müslim 335)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Hayız modülü" }],
   },
   {
@@ -624,16 +477,7 @@ export const TAHARAH_TOPICS_TR: DeepPartial<TaharahTopic>[] = [
       "Sünnet'te temel kaynaklar, Sahîh-i Buhârî ve Sahîh-i Müslim'in başında yer alan Temizlik Kitaplarıdır (Kitâbü't-Tahâre / el-Vudû / el-Gusl / el-Hayz); bunları, daha ince hükümleri sıhhat dereceleriyle birlikte toplayan dört Sünen'deki (Ebû Dâvûd, Tirmizî, Nesâî, İbn Mâce) aynı bölümler izler.",
       "Uygulamaya yönelik hükümler için dört Sünnî mezhebin klasik fıkıh eserleri ayrıntılı görüşleri verir — ve aralarındaki farklılıklar bir kusur değil, geleneğin meşru bir parçasıdır. Bu modülü yapılandırılmış bir genel bakış için kullanın, ardından ehil bir hoca ve temel kaynaklarla çalışmanızı derinleştirin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Eserin başında yer alan; abdest, gusül, teyemmüm ve hayız hakkındaki kapsamlı bölümler.",
-      },
-      {
-        excerpt:
-          "Temizlik Kitabı — tahâret hükümleri, adabı ve ilkeleri hakkında sahih rivayetler.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Dağınık hükümlerin yol açtığı kafa karışıklığından kaçınmak için güvenilir tek bir müfredatı takip edin.",
       "Pratikte kendinizden emin olana kadar bu konuları belli aralıklarla tekrar gözden geçirin.",

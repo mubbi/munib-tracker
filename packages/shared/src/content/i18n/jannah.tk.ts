@@ -22,36 +22,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Mömin iki hakykaty bilelikde saklamalydyr. Birinjiden, Jennet hakyky, ýakyn we ähli tagallalara mynasypdyr - Gurhan bize oňa “ýaryş” diýýär (Gurhan 3: 133). Ikinjiden, hiç kim diňe amallar bilen Jennet gazanyp bilmez; girmek, ahyrsoňy Allanyň rahmeti bilen, çyn ýürekden iman we ýagşy amallar bilen kabul etmek üçin saýlandy. Bu deňagramlylyk, ulumsylygy köpeltmän umydy dowam etdirýär: elimizden gelenini edýäris, soň bolsa Öz rehimine atýarys.",
       "Iş ýüzünde, Jannanyň hakykaty gündelik saýlawlaryňyza täsir etsin. Ybadat agyr duýulsa ýa-da synag güýçli duýulsa, nämä garaşýandygyny we nämäniň howp astyndadygyny ýadyňyza salyň. Alladan Jennetden ýygy-ýygydan soraň, munuň üçin yzygiderli ownuk-uşak ýollar bilen işläň we oňa bolan islegiňiz bu gysga durmuşda ýüregiňizi ýumşadyň.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dogruçyllar üçin taýýarlanan Rebbiňizden we asmanyň we ýeriň giňligi bolan bagyňyzdan bagyşlaň.",
-      },
-      {
-        excerpt:
-          "Allah imanly erkeklere we aýallara derýalaryň akýan, ebedi ýaşaýan baglaryny we ebedi ýaşaýyş baglarynda ýakymly ýaşaýyş jaýlaryny wada berdi, ýöne Allanyň razylygy has uludyr.",
-      },
-      {
-        excerpt: "Öňki edenleri üçin sylag hökmünde rahatlyk üçin gizlenen zady hiç kim bilenok.",
-      },
-      {
-        excerpt: "Olarda islän zatlaryna eýe bolarlar we biziň bilen has köp.",
-      },
-      {
-        excerpt:
-          "Iman edenler we dogry işler edenler - olar üçin myhmansöýerlik hökmünde Bosgun baglarydyr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allatagala aýtdy: Dogruçyl bendelerime hiç bir göz görmedik, gulak eşitmedik we ýürek emele getirmedik zatlary taýýarladym.",
-      },
-      {
-        excerpt:
-          "Beýik Allatagala şeýle diýdi: «Dogry bendelerime hiç bir göz görmedik, gulak eşitmedik we ynsan ýüregi hiç zat duýmadyk zatlary taýýarladym.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Jennetdäki orunlar",
@@ -63,29 +35,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Munuň hikmeti owadan. Takyk ýerleşişimizi bilsedik, käbiri arkaýyn bolup, käbirleri umytsyz bolardy. Munuň ýerine, Allaha gözümizi aýyrmagy, yhlas etmegi we umyt etmegi öwretýäris. Imanly jemleýji bahany “Iň adalatly” goýup, “munuň üçin bäsdeşler bäsleşsin” diýip gowy bäsleşýär.",
       "Şonuň üçin sanly derejä ýetmek däl-de, iň ýokary derejä ýetmek we Alla sizi islän ýerine goýsun. Pygamber alaýhyssalam sahabalaryna sähelçe haýyş bilen däl-de, Jennetiň iň ýokary nokady bolan Al-Firdaws üçin ýörite haýyş etmegi öwretdi.",
     ],
-    quran: [
-      {
-        excerpt: "Hemmeler üçin edenlerine görä derejeler bolar.",
-      },
-      {
-        excerpt:
-          "Olaryň käbiri beýlekilerden has gowy görendigimize göz aýlaň - ahyret derejelerde has tapawutlanýar.",
-      },
-      {
-        excerpt:
-          "Kim Allaha we Resula boýun bolsa - Allanyň beren merhemeti bolanlar: pygamberler, dogruçyllar, şehitler we dogruçyllar bolar. Olar nähili gowy ýoldaşlar!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jennetde Allanyň Öz ugrunda söweşýänler üçin taýýarlan ýüz derejesi bar. Her iki derejäniň arasyndaky aralyk asman bilen ýeriň arasyndaky aralyk ýalydyr. Şonuň üçin Alladan sorasaň, Al-Firdawsdan sora, çünki bu jennetiň iň gowy we beýik ýeridir.",
-      },
-      {
-        excerpt:
-          "Alladan sorasaň, Al-Firdawsdan sora, çünki bu Jennetiň iň beýik bölegi we Jennetiň ortasy, ondan Jennet derýalary akýar, ýokarsynda bolsa Rahymlaryň Arşy.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -98,16 +49,7 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Şeýle-de bolsa, iň soňky we aýgytly sowgat elmydama Allanyň rahmetidir. Iň ýokary derejä ýetmegi maksat edinen şol bir demimizde, Pygamberimiziň öz sözlerini ýada salýarys: amallary bilen jennete hiç kim girmeýär, hatda pygamberiň özi-de, Allatagalanyň rehimdarlygyndan başga. Bu, imanlynyň ajaýyp deňagramlylygy: bir tarapdan umyt we hyjuw, beýleki tarapdan çyn ýürekden kiçigöwünlilik.",
       "Şonuň üçin Al-Firdaws-y dilegleriňiziň yzygiderli bir bölegine öwüriň - sejde ediň, gijäniň soňky üçden birinde we uklamazdan ozal - her gün ýuwaşlyk bilen eliňizden gelenini edip, galanlary üçin bütinleý Rebbiňiziň rehimine bil baglaň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Alladan sorasaň, Al-Firdawsdan sora, çünki bu Jennetiň iň beýik bölegi we Jennetiň ortasy, ondan Jennet derýalary akýar, ýokarsynda bolsa Rahymlaryň Arşy.",
-      },
-      {
-        excerpt:
-          "Siziň hiç biriňiz diňe eden işleri bilen Jennete girip bilmersiňiz. Diýdiler: Eý, Allahyň Resuly! Ol aýtdy: Alla meni Özünden rehim etmese, hatda menem däl.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Al-Firdaws-dan duaňyzda, esasanam sujudda we uklamazdan soraň.",
       "Özüňe farz bolan zady kämilleşdir, soň meýletin ybadaty artdyr.",
@@ -125,21 +67,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "'Kiçijik' diýilýän günäler hem möhümdir we hiç haçan ýönekeý bolmaly däldir. Geplemek, ýalan sözlemek, ulumsylyk, maşgala gatnaşyklaryny bozmak we biperwaýlyk ýuwaş-ýuwaşdan ýüregi we häsiýeti ýitirýär. Pygamberimiz, ýygnanan ownuk taýaklaryň tutuş nahar bişirip bilşi ýaly, toplanan ownuk günäleriň adamy ýok edip biljekdigini duýdurdy. Olaryň hersiniň Allaha ýüzlenmegi zerur.",
       "Aljak hereket umytdyr: günäniň ululygy sizi toba etmegiň manysyzdygyna ynandyrmasyn. Süýnüp giden pursatyňyzda Allaha gaýdyp geliň, süpürmek üçin haýyrly bir amal ediň we istigfaryň gapysyny her gün açyk saklaň. Rehim-şepagaty elmydama ýalňyşyňyzdan uludyr.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakykatdanam, Allah Öz bilen gatnaşygy bagyşlamaz, ýöne isläninden pes zady bagyşlar.",
-      },
-      {
-        excerpt:
-          "Aýt: Eý, gullarym, özlerine garşy hyýanat edenler, Allanyň rahmetinden umytdan düşmäň. Hakykatdanam, Allatagala ähli günäleri bagyşlaýar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Biziň bilen olaryň arasyndaky äht doga; kim muny terk etse, imansyzlyk etdi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
     disclaimer:
       "Fykhdaky uly günäleriň sanawy alymlar tarapyndan üýtgeýär we şahsyýetler baradaky kararlar ökde adamlara degişlidir. Bu, şahsy höküm däl-de, toba etmek üçin umumy ýatlatma. Youragdaýyňyz üçin ygtybarly alym bilen maslahatlaşyň.",
@@ -153,15 +82,7 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Tekstlerde ady tutulan şahsyýetlerden başga-da, hoş habary berlen kategoriýalar beýan edilýär: dogry we sabyrly, Yslam kanunlaryna laýyklykda Allanyň ýolunda hakyky şehit hökmünde ölenler we bu durmuşda soňky sözleri imanyň şaýatlygy bolan la ilaha illallah. Her düşündiriş, diňe bir daşky bellik däl-de, içki hakykaty görkezýär - yhlas, gurban ýa-da iň soňky demde Allaha berlen ýürek.",
       "Biziň üçin sapak, birleşmek arkaly özümizi howpsuz duýmak ýa-da bu derejeleri özümiz üçin talap etmek däl-de, ylham almakdyr. Olaryň göreldesi bizi ýokaryk çykarsyn: söýen zatlaryny söýüň, göreşenlerinde yhlas ediň we bu haýranlygy du'a we herekete öwüriň, hemme zatdan öňürti Alladan husn al-hatima soraň - gowy gutar.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ebu Bekir Jennetde, Umar Jennetde, Usman Jennetde, Ali Jennetde, Talhah Jennetde, Zubaýr Jennetde, Abd al-Rahman ibn Awf Jennetde, Said Jennetde, Said ibn Zaýd Jennetde we Abu Ubaýdahda.",
-      },
-      {
-        excerpt: 'Kimiň soňky sözleri: "Alladan başga hudaý ýok" jennete girer.',
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Hadysdaky şatlykly atlar ýa-da beýan edilen kategoriýalara degişlidir. Olar öz imanynyň, amallarynyň we gowy gutarmagynyň zerurlygyny çalyşmaýarlar. Allah iň gowy zady bilýär.",
   },
@@ -175,20 +96,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Tewhid binýadyny ýasamagyň paýhasy, ýüregi azat edýär. Diňe Allaha ybadat edýän adam ýaradylyş gorkusyndan, her kimiň razylygyny kowmakdan we köp ussalara hyzmat etmekden dynýar. Durmuşy ýeke-täk, aýdyň ugra eýe bolýar: Özüni ýaradan adamy razy etmek.",
       "Iş ýüzünde, ynamdar alymlardan dogry ynamy öwreniň, şirk we ikiýüzlülige ybadatyňyzy arassalaň we hereket etmezden ozal niýetiňizi barlaň. Bu ilkinji ädim islege bagly ýa-da ösen däl - Jennete barýan her bir ýol başlaýar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Saňa we senden öňki adamlara aýan boldy: Başgalary Allah bilen baglanyşdyrsaň, amallaryň hökman puja çykar we hökman ýitirenleriň arasynda bolarsyň.",
-      },
-      {
-        excerpt: "Olara dinde çyn ýürekden ybadat etmekden başga buýruk berilmedi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Hereketler diňe niýet bilen bolýar we her bir adamyň diňe islän zady bolar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Tewhidiň esaslaryny ygtybarly alymlardan öwreniň.",
       "Ybadat amallaryndan öň niýetiňizi täzeläň.",
@@ -205,24 +114,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Namazyň has çuňňur paýhasy özgerişdir. Dogry ýerine ýetirilen doga adamy ahlaksyzlykdan we nädogry hereketlerden saklaýar; işli günüň dowamynda ýüregi Allaha çekýän gaýtalanýan täzeden düzmek. Dogry bahana bolmazdan dilegleri ýitirmek, çyn ýürekden toba etmegi we olary düzmegi talap edýän möhüm mesele. Nafl we rawatib - farzdan öň we soň yzygiderli sünnet namazlary - has köp yşyk goşýar we derejesini ýokarlandyrýar.",
       "Iş ýüzünde: gündelik bäş namazy iň möhüm wezipe hökmünde goraň, ýitiren zatlaryňyzy düzüň we dowam etdirip boljak sünnet namazlaryny goşuň. Doga-dilegiňiz gowulaşsa, ybadatyňyzdaky beýleki zatlar hem gowulaşýar.",
     ],
-    quran: [
-      {
-        excerpt: "Hakykatdanam imanlylar - dogalarynda kiçigöwünliler üstünlik gazanýarlar.",
-      },
-      {
-        excerpt: "Namaz okaýanlardan başga - doga-dileglerinde hemişe bolanlar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Hyzmatkäriň kyýamat güni jogapkärçilige çekiljek ilkinji meselesi, onuň dogasydyr. Eger dogry bolsa, üstünlik gazandy; kemçilikli bolsa, şowsuzlyga uçrady.",
-      },
-      {
-        excerpt:
-          "Biriňiziň gapyňyzda günde bäş gezek suwa düşýän derýa bar bolsa, üstünde hapaçylyk galarmy? Diýdiler: No.ok. Ol aýtdy: Bäş doganyň meňzeşligi - Allatagala olaryň günälerini süpürýär.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Gündelik bäş namazy öz wagtynda saklaň.",
       "Geçirilen dogalary tüýs ýürekden düzüň.",
@@ -240,22 +133,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Paýhas çuňňur: günä adamyň hekaýasynyň soňy bolmaly däldir. 'Allah olaryň ýaman işlerini ýagşylyk bilen çalşar' (Gurhan 25:70) - tüýs ýürekden toba etmek şowsuzlygyň ýazgysyny üstünlige öwrüp biler we adamy Allaha has ýakynlaşdyrýan täze başlangyja öwrüp biler. Günäden soň umytsyzlygyň özi Şeýtanyň duzagydyr; Allanyň rahmetine umyt etmek imanlynyň beren jogabydyr.",
       "Iş ýüzünde: tobaňyzy bir gün yza süýşürmäň - süýşen pursatyňyzy yzyna gaýtaryň. Öçürmek üçin her bir erbet işiňize eýeriň we pygamberiň günäsiniň geçilmegine garamazdan her gün birnäçe gezek bagyşlanmagyny edişi ýaly, günüň dowamynda diliňizde istigfar akymyny dowam etdiriň.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eý iman edenler, çyn ýürekden toba edip Allaha ýüz tutuň - belki, Perwerdigäriňiz eden işleriňizi aýyrar we derýalaryň aşagyndaky baglara kabul eder.",
-      },
-      {
-        excerpt:
-          "Toba eden, iman eden we dogry amallary edenlerden başga - Allatagala olaryň ýaman işlerini ýagşylyk bilen çalşar we Alla bagyşlaýjy we rehimdardyr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allatagala gulynyň toba etmeginden has hoşal, düýpsiz bir ýerde düýäni ýitirip, birden ýene tapdy.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Günä edeniňizde derrew toba ediň - yza süýşürmäň.",
       "Günäni ýok etmek üçin ýagşy amal bilen yzarlaň.",
@@ -273,21 +152,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Çuňňur maksat, diňe özi üçin okamak däl-de, özgerişdir. Allatagala bize 'Gurhany ölçenen rekagat bilen okamagy' buýurýar (Gurhan 73: 4), şonuň üçin manylar çümüp, pikir edişimizi, duýgymyzy we özümizi alyp barşymyzy üýtgeder. Gurhan diňe bir okalman, ýaşamak üçin iberildi; sahabalar on aýaty öwrenerdiler we düşünýänçäler hereket etmezdiler.",
       "Iş ýüzünde: her gün bir bölümi, hatda birnäçe aýaty okaň, ýöne olary oýlanmak bilen okaň. Täze süreleri ýatda saklaň ýa-da öňden bilýänleriňizi saklaň we iň esasysy, has köp zat öwrenmek üçin howlukmazdan ozal öwrenen zatlaryňyzy ýerine ýetiriň.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allanyň kitabyny okaýanlar, namaz okaýanlar we üpjün eden zatlarymyzdan harçlaýanlar - sylaglaryny doly berip, bereketinden artdyrmagy üçin hiç wagt ýitip gitmejek söwda umyt edýärler.",
-      },
-      {
-        excerpt: "Gurhany ölçegli okaň.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Gurhanyň ýoldaşyna şeýle diýiler: Dünýäde okaýşyňyz ýaly okaň we ýokary çykyň we okaň, sebäbi derejäňiz iň soňky okan aýatyňyzda bolar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Her gün okaň - hatda pikirlenmek bilen birnäçe aýat.",
       "Täze süreleri ýatda saklaň ýa-da bilýänleriňizi saklaň.",
@@ -305,21 +171,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Zikriň hikmeti, resmi ybadat amallarynyň arasynda Allah bilen gatnaşygy dowam etdirýär. Mematlamak bilen çygly we has möhümi, Allany gündelik saýlamalarynda ýatlaýan ýürek - gahardan, satyn almazdan ozal, karar bermezden dynmak - hakyky maksat. Dikr dodaklarda galmak üçin däl; durmuşy dolandyrmak üçin niýetlenendir.",
       "Iş ýüzünde: ertir we agşam adhkaryny gündelik endige öwüriň, tasbeeh, istighfar ýa-da salawatyň ýönekeý bir bölegini boş pursatlarda akdyryň we esasanam ukudan we oýanmazdan ozal Allany ýatlaň. Az salymlykdaky yzygiderlilik köp zadyň ýarylmagyndan gowudyr.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Iman edenler we ýürekleri Allany ýatlamakda rahatlyk tapýanlar, elbetde, Allany ýatlamakda ýürekler rahatlyk tapýarlar.",
-      },
-      {
-        excerpt: "Eý iman edenler, Allany köp ýatlaň we ertir we agşam Ony şöhratlandyryň.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Iki söz dilde ýeňil, Terezide agyr we iň rehimdarlara söýgüli: SubhanAllahi wa bihamdihi, SubhanAllahil-Azeem.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Her gün irden we agşam doly adhkar.",
       "Istighfar ýa-da salawat üçin tasbeeh hasaplaýjyny ulanyň.",
@@ -337,22 +190,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Haýyr-sahawatyň pähim-paýhasy, berijiniň kabul edijisi ýaly işlemegidir. Heartürekdäki açgözlügi gowşadýar, rehimdarlygy döredýär, jemgyýetiň gatnaşyklaryny güýçlendirýär we baýlara hakyky eýeler däl-de, ynamdar adamlardygyny ýatladýar. Yslam haýyr-sahawat kesgitlemesini giňeldýär, şonuň üçin hiç kim aýrylmaýar: Pygamber alaýhyssalam, doganyňyza ýylgyrmagyň, peýdaly sözüň we hatda zyýanly zady ýoldan çykarmagyň hem sadakanyň bir görnüşidigini öwretdi.",
       "Iş ýüzünde: zekat üçin jogapkär bolsaňyz, hasaplaň we takyk töläň; kiçijik bolsa-da, yzygiderli sadaka beriň, bermek hadysa däl-de, endige öwrüler; we dowamly sadaka jariýasyny gözläň - bir okuwça hemaýat bermek, guýyny maliýeleşdirmek ýa-da metjidi goldamak - gideniňizden soň size baýrak berer.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Baýlygyny Allanyň ýoluna sarp edenleriň mysaly, ýedi gulak, her gulagynda ýüz däne ösýän däne ýalydyr. Allatagala islänine köpelder.",
-      },
-      {
-        excerpt:
-          "Ölüm siziň biriňiziň ýanyna gelmezden ozal beren zatlarymyzdan harçlaň we ol şeýle diýýär: “Lorda Reb, eger sen meni biraz gijä goýsaň, haýyr-sahawat edip, dogruçyllaryň arasynda bolaryn.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Adam ölende, amallary üçden başga gutarýar: dowam edýän haýyr-sahawat, peýdaly bilim ýa-da onuň üçin doga edýän dogruçyl çaga.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Jogapkärçiligiňiz bolsa zekaty hasaplaň we töläň.",
       "Kiçijik bolsa-da yzygiderli haýyr-sahawat beriň.",
@@ -370,25 +209,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Paýhas, Yslam diňe bir adam bilen Allanyň arasyndaky şahsy gatnaşyk däl; biriniň töweregindäkilere nähili garaýandygyna göz ýetirmek üçin niýetlenendir. Doga-dilegi amallaryny ýumşatmaýan ybadatçy, gowy häsiýetiň özi dawah bolup, adamlary janly görelde arkaly imana tarap çekýän nokady ýitirdi. Şonuň üçin tekstlerde Allaha ybadat etmek, ýaradylyşyna ajaýyplyk bilen gaýtalanýar.",
       "Iş ýüzünde: bir gezekde bir häsiýetiň üstünde işläň - gaharlananyňyzda diliňizi saklaň, size zulum edenleri bagyşlaň, bozulan gatnaşyklaryňyzy düzediň we wadalaryňyzy gymmatlasa-da ýerine ýetiriň. Namazdan soň şol gün adamlara nähili garanyňyz barada gysgaça pikirlenmek, durnukly ösmegiň ýönekeý usulydyr.",
     ],
-    quran: [
-      {
-        excerpt: "Hakykatdanam, siz beýik we asylly häsiýetli.",
-      },
-      {
-        excerpt:
-          "Easyeňillik we kynçylyk bilen geçirýänler, gahar-gazabyny saklaýan we adamlary bagyşlaýanlar we Allatagala ýagşylyk edýänleri söýýär.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kyýamat güni imanlylaryň terezisinde gowy häsiýetden has agyr zat ýok. Hakykatdanam, Allah ahlaksyz we gödek adamy halamaýar.",
-      },
-      {
-        excerpt:
-          "Imanly imanlylaryň arasynda iň oňat häsiýetli adamlar, iň gowusy bolsa aýallaryna iň gowusydyr.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Gahary gelende sabyr ediň.",
       "Başgalary bagyşlaň we bozulan gatnaşyklary düzediň.",
@@ -404,72 +226,52 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       {
         title: "Dogruçyllyk",
         summary: "Sözde we işde dogry bolmak.",
-        quran: {
-          excerpt: "Dogruçylaryň ýanynda boluň.",
-        },
+        quran: {},
       },
       {
         title: "Sabyr",
         summary: "Synagda çydamly bolmak.",
-        quran: {
-          excerpt: "Alla sabyr edýänler bilendir.",
-        },
+        quran: {},
       },
       {
         title: "Gahary dolandyrmak",
         summary: "Gaharda özüňi saklamak.",
-        hadith: {
-          excerpt: "Güýçli kişi gaharda özüni saklaýandyr.",
-        },
+        hadith: {},
       },
       {
         title: "Bagyşlamak",
         summary: "Adamlaryň hatasyny bagyşlamak.",
-        quran: {
-          excerpt: "Bagyşlasynlar we geçsinler.",
-        },
+        quran: {},
       },
       {
         title: "Pespällik",
         summary: "Özüni beýlekilerden ýokary görmezlik.",
-        hadith: {
-          excerpt: "Kim Alla üçin pespäl bolsa, Alla ony beýgelder.",
-        },
+        hadith: {},
       },
       {
         title: "Amanatdarlyk",
         summary: "Ynananyp berleni goramak.",
-        quran: {
-          excerpt: "Olar amanatlaryna we wadalaryna wepaly bolýarlar.",
-        },
+        quran: {},
       },
       {
         title: "Ene-ata",
         summary: "Hormaty we aladany berjaý etmek.",
-        quran: {
-          excerpt: "Olara «uf» hem diýmäň.",
-        },
+        quran: {},
       },
       {
         title: "Gowy söz",
         summary: "Gowy zat aýtmak ýa-da dymmak.",
-        hadith: {
-          excerpt: "Gowy söz aýtsyn ýa-da dymsyn.",
-        },
+        hadith: {},
       },
       {
         title: "Ýylgyrmak",
         summary: "Dogana açyk ýüz görkezmek.",
-        hadith: {
-          excerpt: "Doganyňa ýylgyrmak sadakadyr.",
-        },
+        hadith: {},
       },
       {
         title: "Adalat",
         summary: "Hemmeler bilen adalatly bolmak.",
-        quran: {
-          excerpt: "Adalatly boluň, ol takwaçylyga has ýakyndyr.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -509,24 +311,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Akyldar, bilimsiz hereket kör we hereketsiz bilim netijesizdir. Dogry bilim adamy täzelikden we ýalňyşlykdan goraýar, yhlasy çuňlaşdyrýar we oňa diňe özüne peýdasy degmän, başgalara peýdaly bolmak ukybyny berýär. Yslam alymlary iki howpdan elmydama duýduryş berdiler: nadan hereket etmek we hereket etmezden bilmek.",
       "Iş ýüzünde: peýdaly bir zady yzygiderli öwrenmegi ýüregiňize düwüň - gündelik ybadatyňyz üçin zerur bir aýat, hadys, höküm. Ynam, doga, arassalanmak we esasy gadagançylyklardan başlaň, soňra ýuwaş-ýuwaşdan çuňlaşyň. Öwrenen zatlaryňyzy kiçigöwünlilik bilen paýlaşyň we elmydama ilki özüňize ulanyň.",
     ],
-    quran: [
-      {
-        excerpt: "Aýt: Bilýänler bilmeýänlere deňmi? Diňe düşünýänler üns berýärler.",
-      },
-      {
-        excerpt: "We aýdyň: Lorda Reb, meni bilimde artdyr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim bilim gözlemek üçin ýol alsa, Allatagala oňa Jennete barýan ýoly aňsatlaşdyrar.",
-      },
-      {
-        excerpt:
-          "Adam ölende, amallary üçden başga gutarýar: dowam edýän haýyr-sahawat, peýdaly bilim ýa-da onuň üçin doga edýän dogruçyl çaga.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Her hepde peýdaly bir zady öwreniň.",
       "Ulumsylyksyz bilim paýlaşyň.",
@@ -544,18 +330,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Paýhas, nafl imany ýaşadýar we ösýär. Borçlar esasy binýady saklaýar, ýöne meýletin hereketler ýüregiň uzalyp gidýän ýerinde, şahsy ybadat hiç kimiň görmeýän ýerinde we durmuşyň has kyn synaglary üçin özüni türgenleşdirýän ýerinde. Şeýle hem bu amallaryň islege bagly däldigi - Allatagala her bir adamyň özüne laýyk gelýänlerden geçip bilmegi üçin köp gapylary açýar.",
       "Iş ýüzünde esasy zat intensiwlik däl-de, dowamlylykdyr. Pygamber alaýhyssalam, Allaha iň söýgüli amallaryň kiçi bolsa-da iň yzygiderli bolandygyny öwretdi. Çyn ýürekden saklap boljak birnäçe meýletin amallary saýlaň - iki rekagat tahajjud, hepdede biri agyz beklemek, Gurhanyň belli bir bölegi - birnäçe günüň içinde ýanýan ägirt uly partlama däl-de.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Taraplary gorky we umyt bilen Rebbine ýüz tutup, düşeklerini taşlaýarlar we bize beren zatlarymyzdan harçlaýarlar. Öňki edenleri üçin sylag hökmünde haýsy rahatlygyň gizlenýändigini hiç kim bilmeýär.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Hyzmatkärim maňa borçly edenimden has söýgüli zat bilen Maňa ýakynlaşmaýar. Hyzmatkärim, ony söýýänçäm, meýletin işler bilen Maňa ýakynlaşmagyny dowam etdirýär.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Diňe iki rekagat bolsa-da tahajjud dileg ediň.",
       "Mümkin boldugyça çalt meýletin günler.",
@@ -573,22 +349,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Bu ýerdäki paýhas, görgüleri düýbünden täzeleýär. Synaglar awtomatiki jeza däl; Gowy jogap beren imanlylar üçin günäleri we derejäni ýokarlandyrýan tämizlik bolup biler. Pygamber alaýhyssalam, Alladan käbir günälerini ýok etmezden, bir ýadawlygyň, keseliň, aladanyň ýa-da tikeniň taýagynyň başyna düşmejekdigini öwretdi. Bu, durmuşyň iň kyn pursatlaryny arassa ýitgä däl-de, mümkinçiliklere öwürýär.",
       "Iş ýüzünde: betbagtçylyk ýüze çykanda, Allanyň öwreden sözleri bilen jogap beriň - 'Inna lillahi wa inna ilayhi raji'un' (Hakykatdanam biz Allaha degişlidiris we Oňa gaýdyp gelýäris) we diliňizi Onuň kararyny ret edýän şikaýatlardan saklaň. Gowy wagtlarda, nygmatlaryňyzy ses bilen hasaplaň we her gün iň bolmanda az sanlysy üçin Allaha şükür ediň; at dakmak ýüregi ýumşak we minnetdar saklaýar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Betbagtçylyk ýüze çykanda hassana hoş habar beriň: Hakykatdanam biz Allaha degişlidiris we hakykatdanam Oňa dolanarys. Olara Rebbiniň nygmatlary we rehimleri bar, dogry ýola düşenlerdir.",
-      },
-      {
-        excerpt:
-          "Şükür edýän bolsaňyz, hökman sizi artdyraryn; inkär etseň, hakykatdanam meniň jezam agyr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ajaýyp, imanly adamyň işidir, sebäbi ähli işleri gowy. Aseeňillik gelse minnetdar, bu onuň üçin peýdalydyr; kynçylyk gelse sabyr edýär we bu onuň üçin peýdaly. Bu imanlydan başga hiç kim üçin däldir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Synag geçirilende 'inna lillahi wa inna ilayhi raji'un' diýiň.",
       "Her gün üç nygmat üçin Allaha şükür.",
@@ -605,21 +367,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Beýle uly sylagy başgalara ýol görkezmek üçin paýhas, her bir imanlyny dowam etdirýän ýagşylygyň çeşmesine öwürýär. Şeýle hem, jaň edeniň öz imanyny goraýar: başgalary doga, dogruçyllyk we ybadat üçin çagyrmak, özüne berk ýapyşmagy ýatlatmakdyr. Jemgyýeti birek-birege äsgermezlik däl-de, birek-birege ideg etmekde baglanyşdyrýar.",
       "Iş ýüzünde, öýe ýakyn başlaň. Maşgalaňyzy gowulaşdyryň we öwrediň - ýanýoldaşyňyz, çagaňyz, doganyňyz - sebäbi bu siziň ilkinji we dowamly jogapkärçiligiňizdir. Peýdaly bilimleri hoşniýetlilik bilen paýlaşyň, birine Gurhany okamagy ýa-da okamagy öwrenmäge kömek ediň we gowy häsiýetli we yzygiderli ybadat durmuşynyň köplenç iň ynandyryjy dawadygyny ýadyňyzdan çykarmaň.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Paýhas we gowy görkezme bilen Rebbiň ýoluna çagyryň we iň oňat görnüşde olar bilen jedel ediň.",
-      },
-      {
-        excerpt:
-          "Sözleýişde Allaha çagyrýan, dogruçyllyk edýän we: “Hakykatdanam, men musulmanlardan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kim kimdir birini ýagşylyga ugrukdyrsa, ony eden ýaly sylag bolar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Peýdaly bilimleri hoşniýetlilik bilen paýlaşyň.",
       "Birine Gurhan okamagy ýa-da okamagy öwrenmäge kömek ediň.",
@@ -636,25 +385,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Bu amallaryň pähim-paýhasy, adamyň hasabyny ömrüniň çäginden has uzaltmakdyr. Bir imanly adamyň işjeň ýyllary gysga, ýöne gazylan guýy ýa-da gowy terbiýelenen çaga asyrlar boýy sylag gazanyp biler. Yslam şeýlelik bilen uzak möhletli görüşi höweslendirýär: diňe şu günki doga hakda däl-de, gideniňizden soň size haýsy ýagşylygyň akjakdygy hakda pikirlenmek.",
       "Iş ýüzünde: başarsaňyz, Haj ýa-da Umra üçin tükeniksiz yza süýşürmegiň ýerine çynlakaý meýilleşdiriň. Maşgalaňyzyň imanyna we häsiýetine hakyky güýç goşuň, sebäbi olar siziň iň dowamly mirasyňyzdyr. Iň oňat işleriňiz ölümden soň dowam etdirilmegi üçin iň bolmanda bir dowamly haýyr-sahawat taslamasyny - bilim, suw, başpena ýa-da ýetim kesgitläň.",
     ],
-    quran: [
-      {
-        excerpt: "Öýe haj etmek, oňa ýol tapyp bilýän adamlar tarapyndan Allaha bergidir.",
-      },
-      {
-        excerpt:
-          "Adamlara hajy wagyz ediň; özleri üçin peýdalara şaýat bolar ýaly, uzak aralykdan pyýada we her düýe üstünde size gelerler.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Allanyň razylygy üçin haj etse, biabraýlyk we hyýanat etmese, ejesiniň dünýä inen güni ýaly günäden azat bolar.",
-      },
-      {
-        excerpt:
-          "Adam ölende, amallary üçden başga gutarýar: dowam edýän haýyr-sahawat, peýdaly bilim ýa-da onuň üçin doga edýän dogruçyl çaga.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Başarsaňyz, Hajy ýa-da Umrany meýilleşdiriň.",
       "Maşgalaňyzyň imanyna we häsiýetine maýa goýuň.",
@@ -672,26 +404,8 @@ export const JANNAH_TOPICS_TK: DeepPartial<JannahTopic>[] = [
       "Şonuň üçin deňagramly imanly, iki ganaty bilen uçýan guş ýaly umyt bilen gorkynyň arasynda ýaşaýar. Allanyň adalatyndan hiç wagt günäkärlik bilen arkaýyn ýa-da biperwaý ösmezliginden gorkýar we näçe ýoldan azaşandygyna garamazdan Allanyň rahmetine umyt baglamaz diýip umyt edýär. Gorkudan doly egilmek umytsyzlygy döredýär; Umytdan doly eglenmek ulumsylygy döredýär. Allanyň atlary - Ar-Rahman (Iň rehimdar), Ar-Rahim (Iň rehimdar), Al-Gafor (Iň bagyşlaýjy) - umyt ganatyny dakýar.",
       "Şeýlelik bilen, bu her gün ýapylýan ruhuňyz bolsun: Al-Firdawsdan Alladan soraň, dogruçyl işleriňizi ediň, kemçilikleriňize toba ediň we iň soňky derejäňizi iň adalatly we iň rehimdarlara tabşyryň - şol gün üçin togsan dokuz bölegini rehimdarlyk edeniň, özüne gelen we umyt eden hyzmatkäri yzyna öwürmejekdigine ynanmak.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rehimdarlygym hemme zady öz içine alýar. Şonuň üçin dogruçyllar we zekat berýänler we aýatlarymyza iman edenler üçin buýruk bererin.",
-      },
-      {
-        excerpt:
-          "Aýt: Eý, gullarym, özlerine garşy hyýanat edenler, Allanyň rahmetinden umytdan düşmäň. Hakykatdanam, Allatagala ähli günäleri bagyşlaýar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siziň hiç biriňiz diňe eden işleri bilen Jennete girip bilmersiňiz. Diýdiler: Eý, Allahyň Resuly! Ol aýtdy: Allatagala meni rehim etmese, hatda menem däl.",
-      },
-      {
-        excerpt:
-          "Allanyň rehimdarlygynyň ýüz bölegi bar. Jynlaryň, adamzadyň, haýwanlaryň we mör-möjekleriň arasynda birek-birege rehimdarlyk edýän bir bölegini iberdi; kyýamat güni bendelerine rehim eder ýaly, togsan dokuz bölegini Özi bilen saklady.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Alladan gorkusyny merhemetine umyt bilen deňleşdiriň.",
       "Günäden soň hiç haçan umytdan düşmäň - toba ediň we yhlas ediň.",
@@ -705,104 +419,48 @@ export const JANNAH_GATES_TK: DeepPartial<JannahGate>[] = [
   {
     name: "Namazyň derwezesi",
     deedSummary: "Gündelik bäş namazy goraýan we esaslandyranlar üçin.",
-    hadith: [
-      {
-        excerpt:
-          "Kim Allanyň ýoluna bir jübüt sarp etse, Jennetiň derwezesinden çagyrylar. Namaz okaýanlaryň arasynda kim namaz derwezesinden çagyrylar.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Haýyr-sahawat derwezesi",
     deedSummary: "Allanyň razylygy üçin çyn ýürekden sadaka berenler üçin.",
-    hadith: [
-      {
-        excerpt: "Kim haýyr-sahawatçylaryň arasynda bolsa, haýyr-sahawat derwezesinden çagyrylar.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Ar-Raýan derwezesi",
     deedSummary: "Oraza tutanlar üçin niýetlenendir - diňe girýän derwezesi.",
-    hadith: [
-      {
-        excerpt:
-          "Jennetde Ar-Raýan diýilýän bir derweze bar, onuň üsti bilen kyýamat gününe diňe agyz bekleýänler girer. Iň soňkusy girensoň ýapylar.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Jihadyň derwezesi",
     deedSummary: "Allanyň ýolunda yhlas bilen göreşenler üçin.",
-    hadith: [
-      {
-        excerpt: "Jihad halkynyň arasynda kim Jihad derwezesinden çagyrylar.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Hajyň sylagy",
     deedSummary: "Haj edenleri üçin, günäden azat gaýdyp gelenler üçin.",
-    hadith: [
-      {
-        excerpt:
-          "Kim Allanyň razylygy üçin haj etse, biabraýlyk we hyýanat etmese, ejesiniň dünýä inen güni ýaly günäden azat bolar.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Her derwezeden jaň edilýär",
     deedSummary: "Käbirleri, Ebu Bekir ýaly, ähli derwezeden girmäge çagyrylar.",
-    hadith: [
-      {
-        excerpt:
-          "Ebu Bekir sorady: Bu derwezelerden kimdir biri çagyrylarmy? Ol: Hawa, senem şolardan bolarsyň diýip umyt edýärin.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_TK: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Dogruçyllar üçin taýýarlanan asman we ýer ýaly giň bir Perwerdigäriňizden bagyşlanmaga ylgaň.",
-  },
-  {
-    excerpt:
-      "Derýalaryň akýan baglary we ebedi ýaşaýyş baglarynda ýakymly ýaşaýyş jaýlary - ýöne Allanyň razylygy has uludyr.",
-  },
-  {
-    excerpt: "Dogruçyl amallara ynanýanlar üçin myhmansöýerlik hökmünde Bosgun baglary.",
-  },
-  {
-    excerpt:
-      "Öňki edenleri üçin sylag hökmünde özlerine haýsy rahatlygyň gizlenendigini hiç kim bilenok.",
-  },
-  {
-    excerpt: "Olarda islän zatlaryna eýe bolarlar we biziň bilen has köp.",
-  },
-  {
-    excerpt: "Hemmeler üçin edenlerine görä derejeler bolar.",
-  },
-  {
-    excerpt: "Olar Alla bilen derejelerdir we Alla olaryň edýänlerini görýär.",
-  },
-  {
-    excerpt:
-      "Rebbimiz, bize bu dünýäde ýagşylyk we ahyretde ýagşylyk ber we bizi ot jezasyndan gora.",
-  },
-  {
-    excerpt: "Allanyň rehiminden umytdan düşmäň - hakykatdanam, Allah ähli günäleri bagyşlaýar.",
-  },
-  {
-    excerpt: "Hyzmatkärlerim - bu gün sen hakda gorky bolmaz, gynanmarsyň.",
-  },
-  {
-    excerpt: "Öňünden gelenler, öňdebaryjylar - ýakynlar.",
-  },
-  {
-    excerpt: "Şonuň üçin Allah olary şol günüň erbetliginden gorar we ýagtylyk we bagt berer.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_TK: DeepPartial<JannahDuaEntry>[] = [

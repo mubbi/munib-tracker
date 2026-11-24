@@ -26,20 +26,7 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Një pikë ngushëllimi në qendër të besimit sunit përshkon gjithë këtë modul: ata që vdesin duke besuar vetëm në Allahun, edhe nëse janë të rënduar nga mëkati, nuk do të mbeten përgjithmonë në zjarr. Me mëshirën e Allahut dhe ndërmjetësimin që Ai lejon, përfundimisht nxirren jashtë besimtarët mëkatarë; mbeten vetëm ata që vdesin duke refuzuar besimin. Pra, studimi i Xhehenemit është, për besimtarin, në fund të fundit një studim se si të arrihet mëshira.",
       "Ky modul paraqet atë që tekstet shprehin qartë, shënon sinqerisht se ku kanë kundërshtuar dijetarët, citon vetëm dëshmi autentike dhe vazhdimisht ju drejton drejt teubes, veprave të mira dhe besimit në Allahun.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kini frikë zjarrin e përgatitur për jobesimtarët - dhe bindjuni Allahut dhe të Dërguarit që të mëshiroheni.",
-      },
-      {
-        excerpt:
-          "Thuaj: O robërit e Mi që e keni ngarkuar me shumë gabime veten tuaj, mos e humbni shpresën ndaj mëshirës së Allahut. Vërtet, Allahu i fal të gjitha mëkatet.",
-      },
-      {
-        excerpt:
-          "O ju që besuat, pendohuni te Allahu me një pendim të sinqertë, se ndoshta Zoti juaj do t'jua largojë të këqijat dhe do t'ju futë në Xhennete.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -47,30 +34,13 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
     summary: "Drejtësia hyjnore, llogaridhënia dhe pasojat e zgjedhjes së lirë.",
     body: [
       "Xhehenemi ekziston si një manifestim i drejtësisë së përsosur të Allahut ('adl). Një univers në të cilin shtypësi dhe i shtypuri, i sinqerti dhe tradhtari, të gjithë kishin të njëjtin fund, nuk do të ishte i drejtë. Për shkak se Allahu është krejtësisht i Drejti, duhet të ketë një llogari përfundimtare ku çdo gabim të përgjigjet dhe çdo e mirë të nderohet.",
-      'Në qendër të kësaj është se Allahu nuk i bën padrejtësi askujt. Çdo shpirt që hyn në zjarr hyn në të me zgjedhjet e veta të vendosura dhe të papenduara – asnjëherë me një dekret arbitrar. Kur\'ani është i theksuar: "Allahu nuk u bën aspak padrejtësi njerëzve, por njerëzit i bëjnë keq vetvetes" (4:40). Askush nuk dënohet për atë që nuk ka bërë, as përtej asaj që meriton.',
+      'Në qendër të kësaj është se Allahu nuk i bën padrejtësi askujt. Çdo shpirt që hyn në zjarr hyn në të me zgjedhjet e veta të vendosura dhe të papenduara – asnjëherë me një dekret arbitrar. Kur\'ani është i theksuar: "Allahu nuk u bën aspak padrejtësi njerëzve, por njerëzit i bëjnë keq vetvetes" (10:44). Askush nuk dënohet për atë që nuk ka bërë, as përtej asaj që meriton.',
       "Qeniet njerëzore nuk u lanë në errësirë. Allahu u dha atyre intelekt, dërgoi pejgamberë dhe shpalli udhëzim të qartë, pastaj i nderoi me liri të vërtetë për ta pranuar ose refuzuar atë: “Kush të dojë, le të besojë; e kush të dojë le të mos besojë” (18:29). Këmbëngulja në refuzimin e së vërtetës, në shtypjen ose në mëkatin e madh pa pendim sjell pasoja në Ahiret, pikërisht sepse zgjedhja ishte me të vërtetë e jotja.",
       "Megjithatë edhe këtu mëshira kornizon drejtësinë. Allahu paralajmëron para se të gjykojë, e vonon llogarinë për t'i dhënë vend kthimit, fal lehtësisht kur të kërkohet dhe e shpërblen një vepër të mirë shumëfish, ndërsa një mëkat të vetëm e shënon si një. Drejtësia e tij nuk është kurrë e ndarë nga mëshira e Tij.",
       "Prandaj, reflektimi mbi arsyen pse ekziston Xhehenemi duhet të rrisë taqwa-në (vetëdijen për Zotin) dhe të thellojë mirënjohjen për çdo ditë të jetës që është ende një shans për t'u penduar. Ajo ka për qëllim ta bëjë zemrën serioze dhe shpresëdhënëse menjëherë - kurrë të mos e paralizojë atë me dëshpërim.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Vërtet, Allahu nuk u bën aspak padrejtësi njerëzve, por njerëzit i bëjnë keq vetvetes.",
-      },
-      {
-        excerpt: "Ai nuk pyetet për atë që bën, por ata do të pyeten.",
-      },
-      {
-        excerpt:
-          "Kush të dojë le të besojë; e kush të dojë le të mos besojë. Ne kemi përgatitur zjarr për zullumqarët.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Askush prej jush nuk do të hyjë në Xhenet vetëm me veprat e tij. Ata thanë: As ti o i Dërguar i Allahut? Ai tha: As unë, përveç nëse Allahu më mbulon me mëshirën e Tij.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -82,16 +52,7 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Duke parë të gjithë rrugën gjithashtu riformulon Zjarrin. Është një destinacion i mundshëm në fund të një udhëtimi që çdo shpirt po udhëton tashmë – që do të thotë se zgjedhjet e sotme nuk janë abstrakte. Ata janë hapa përgjatë asaj rruge dhe janë ende tonat për t'i drejtuar.",
       "Njohja e kësaj sekuence e ndihmon besimtarin të përgatitet më tepër se sa të frikësohet: të jetojë me një përkujtim të shëndetshëm të vdekjes (dhikr al-mewt), të riparojë gabimet para se të barten në tubim dhe të mbushë llogarinë e veprave të mira derisa dera e veprimit është ende e hapur. Vdekja e mbyll atë derë; asgjë nuk mund të shtohet pas saj.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Pastaj me të vërtetë, pas kësaj ju do të vdisni. Atëherë me të vërtetë do të ringjalleni në Ditën e Kijametit.",
-      },
-      {
-        excerpt:
-          "Sa i përket atij që peshon i rëndë - ai do të jetë në një jetë të këndshme. Për sa i përket atij, peshoret e të cilit janë të lehta - streha e tij do të jetë një humnerë.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Studioni çdo fazë në Mësoni Akide dhe lidhni besimin me zgjedhjet e përditshme.",
       "Shtoje përkujtimin e vdekjes (dhikr al-mewt) pa e lënë pas dore shpresën në mëshirë.",
@@ -109,14 +70,7 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Këtu ia vlen një fjalë kujdes. Disa shkrimtarë të mëvonshëm e paraqesin çdo emër si një 'nivel' të veçantë, të renditur të Ferrit, ndonjëherë me diagrame të detajuara. Ky është një interpretim dijetar, jo një listë kontrolli e qartë e deklaruar në Kuran ose në hadithin e rënë dakord. Qasja e ekuilibruar është të mësosh kuptimet që tekstet në të vërtetë japin dhe të shmangësh paraqitjen e hartave spekulative si siguri.",
       "Qëllimi i të mësuarit të emrave nuk është të kënaqë kureshtjen, por të zbutë zemrën dhe ta çojë atë drejt mëshirës që vazhdon të tregojë ky modul. Shfletoni koleksionin e plotë të emrave për ndodhinë Kur'anore, kontekstin dhe përmbledhjen e tefsirit të secilit emër.",
     ],
-    quran: [
-      {
-        excerpt: "Mjaft është Ferri si një vend pushimi - Xhehenem.",
-      },
-      {
-        excerpt: "Ai do të hidhet në el-Hutamah - Zjarri dërrmues.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -130,21 +84,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Dy gjëra, megjithatë, janë të sigurta. Së pari, shtypja (dhulm), shirku dhe mëkati i madh i vazhdueshëm pa pendim mbartin një paralajmërim të ashpër. Së dyti – dhe nuk duhet harruar kurrë – që mëshira dhe falja e Allahut mbeten të hapura deri në momentin e vdekjes për këdo që kthehet tek Ai sinqerisht. Qëllimi i të mësuarit për gradë është të zgjedhësh rrugën më të lehtë ndërsa zgjedhja mbetet.",
       "Praktikisht, kjo do të thotë t'i trajtosh listat e hollësishme të 'shtatë niveleve' ose skemave të ngjashme si opinione dijetare dhe jo si doktrinë të vendosur, dhe të mbash vëmendjen mbi atë që mbron në të vërtetë: besimin, pendimin dhe veprat e drejta.",
     ],
-    quran: [
-      {
-        excerpt: "Për të gjithë do të ketë gradë sipas asaj që ata bënë.",
-      },
-      {
-        excerpt:
-          "Vërtet, hipokritët do të jenë në thellësinë më të ulët të zjarrit dhe nuk do t'u gjesh kurrë ndihmës.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Më pak i dënuari prej banorëve të zjarrit do të jetë njeriu nën këmbët e të cilit janë vendosur dy prush, prej të cilave i zien truri.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Diagramet e niveleve të Ferrit të gjetura në disa libra pasqyrojnë interpretimin e studiuesve, jo marrëveshje unanime.",
   },
@@ -157,12 +98,7 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Është e rëndësishme të theksohet se ku përfundon siguria. Disa vepra të mëvonshme caktojnë çdo portë specifike për një mëkat ose grup të veçantë. Këto detyra të veçanta nuk janë përcaktuar në mënyrë uniforme në burimet më të hershme, kështu që ato paraqiten më mirë si pikëpamje të studiuesve individualë dhe jo si specifikime profetike.",
       "Ashtu si me nivelet, mësimi i portave nuk është arkitektonik, por moral: ka shumë dyer që të çojnë drejt zjarrit dhe mënyra për të qenë të sigurt nga të gjitha ato është e njëjta - besimi i sinqertë, shmangia e mëkatit të madh dhe pendimi i shpejtë kur dikush rrëshqet.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe me të vërtetë, Xhehenemi është vendi i premtuar për të gjithë ata. Ka shtatë porta; për çdo portë është caktuar një pjesë.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -176,26 +112,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Ka një etiketë (adab) për të lexuar pasazhe të tilla. Atyre u afrohet me përulësi, frikë ndaj Allahut dhe me një shtysë të menjëhershme për t'u penduar dhe për të kërkuar strehim - jo me magjepsje morbide dhe kurrë me dëshpërim, pasi i gjithë qëllimi i paralajmërimit është se ne kemi ende kohë për ta shmangur atë.",
       "Ndoshta tema më e rëndë në këto përshkrime është keqardhja. \"Sikur të kisha...\" do të thuhet kur koha për veprim është mbyllur tashmë. Mëshira për të dëgjuar për atë keqardhje tani është se ne mund të veprojmë sipas 'nëse vetëm' sot, ndërkohë që ajo ende mund të ndryshojë fundin tonë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Para tij është Xhehennemi dhe do t'i jepet për të pirë ujë të ndyrë. Ai do ta gëlltisë, por mezi do ta gëlltisë.",
-      },
-      {
-        excerpt:
-          "Atyre do t'u priten rrobat e zjarrit dhe mbi kokat e tyre do të derdhet ujë i valë.",
-      },
-      {
-        excerpt:
-          "Atë ditë do të lindë Xhehennemi, atë ditë njeriu do të kujtojë, por çfarë dobie ka ai përkujtimi?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Zjarri juaj është një pjesë e shtatëdhjetë pjesëve të zjarrit të Xhehenemit. U tha: O i Dërguari i Allahut, do të mjaftonte ky zjarr. Ai tha: I është dhënë fuqia prej gjashtëdhjetë e nëntë pjesësh më shumë se ajo, secila pjesë është si nxehtësia e saj.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -207,19 +125,7 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Për këtë arsye, Islami nuk na lejon të deklarojmë fatin përfundimtar të ndonjë individi të caktuar - të themi 'ky person është në Zjarr' - përveç në rastet e rralla kur Allahu ose i Dërguari i Tij ﷺ e kanë thënë shprehimisht në shpallje autentike. Gjykimi i zemrave dhe i përfundimeve i takon vetëm Allahut; detyra jonë është llogaria jonë.",
       "Pra, mënyra e duhur për të lexuar çdo paralajmërim është ta ktheni atë nga brenda: jo 'kë e përshkruan kjo?' por 'a më përshkruan ndonjë nga këto dhe çfarë do të ndryshoj sot?' Kushdo që të jeni, ftesa për t'u kthyer tek Allahu është e hapur tani – dhe e nesërmja nuk i është premtuar askujt.",
     ],
-    quran: [
-      {
-        excerpt: "Munafikët do të jenë në thellësinë më të ulët të zjarrit.",
-      },
-      {
-        excerpt:
-          "Kush bën mëkat dhe përfshihet prej tij, ata janë banues të zjarrit, të cilët do të jenë përgjithmonë.",
-      },
-      {
-        excerpt:
-          "Mos mendo se Allahu është i pavetëdijshëm për atë që bëjnë zullumqarët. Ai i vonon ato vetëm për një ditë kur sytë do të shikojnë.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -232,25 +138,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Dhe këtu është horizonti mbi të gjitha: me përjashtim të vetëm të vdekjes në shirk, çdo mëkat - i madh apo i vogël - bie nën faljen e Allahut nëse Ai dëshiron. “Vërtet, Allahu nuk ia fal shoqërinë Atij, por më pak se kaq ia fal kujt të dojë” (4:48). Asnjë besimtar nuk duhet të arrijë kurrë në përfundimin se mëkatet e tyre të mëdha i vendosin ata përtej mëshirës.",
       "Çdo temë e mëkatit madhor në këtë modul jep përkufizimin e saj, dëshminë e saj, pse është e rëndë dhe rrugën konkrete të pendimit dhe shmangies – duke përfunduar gjithmonë në të njëjtën derë të hapur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Nëse u shmangeni mëkateve të mëdha që ju janë të ndaluara, Ne do t'ju heqim mëkatet tuaja më të vogla dhe do t'ju fusim në një hyrje fisnike.",
-      },
-      {
-        excerpt: "Vërtet, Allahu nuk ia fal shoqërinë Atij, por më pak se kaq ia fal kujt të dojë.",
-      },
-      {
-        excerpt:
-          "Ata që u shmangen gjynaheve të mëdha dhe imoraliteteve, vetëm se ato të lehtat, me të vërtetë, Zoti yt është fals i madh.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mëkatet më të mëdha janë: bërja shok Allahut, vrasja e shpirtit, mosbindja ndaj prindërve dhe dhënia e dëshmisë së rreme.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -263,20 +152,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       'Ajo që i bën këto mëkate kaq të rrezikshme është pikërisht sa të lehta dhe të zakonshme janë ato. Njerëzit rrëshqasin në to në biseda të zakonshme pa u menduar dy herë, prandaj Profeti ﷺ e lidhi besimin me fjalën ruajtëse: "Kushdo që beson në Allahun dhe në Ditën e Fundit, le të flasë mirë ose le të heshtë." Një pauzë e thjeshtë përpara se të flasësh është një akt adhurimi i vërtetë.',
       "Pendimi nga një mëkat i gjuhës ndjek kushtet e zakonshme - ndalim, keqardhje, vendosmëri për të mos u kthyer - me një dimension të shtuar kur përfshihet e drejta e një personi tjetër. Aty ku pastrimi i emrit të tyre ose kërkimi i faljes mund të bëhet pa shkaktuar dëm më të madh, kjo është pjesë e pendimit; ku informimi i tyre vetëm sa do ta thellonte lëndimin, dijetarët këshillojnë në vend të kësaj që të flasin mirë për ta, t'i mbrojnë në mungesë dhe të luten për faljen e tyre.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mos përgojoni njëri-tjetrin. A dëshiron njëri prej jush të hajë mishin e vëllait të tij të vdekur?",
-      },
-      {
-        excerpt: "Mjerë çdo tallës dhe tallës.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kush beson Allahun dhe Ditën e Fundit, le të flasë mirë ose le të heshtë.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Para se të flisni, pyesni: A është e vërtetë? A është e nevojshme? A është i sjellshëm?",
       "Nëse përgojoni dikë, bëni dua për të dhe kërkoni faljen e tij aty ku është e mundur.",
@@ -292,21 +169,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Kjo jep një mësim vendimtar për pendimin: kthimi te Allahu është i nevojshëm, por kur shkelet një e drejtë e njeriut, kjo nuk mjafton në vetvete. Kërkesa e personit të padrejtë mbetet derisa të zgjidhet ose të falet. Pra, pendimi këtu ka një kusht të katërt përtej ndalimit, keqardhjes dhe zgjidhjes - kthimin e borxhit.",
       "Në praktikë kjo do të thotë të kthesh atë që është marrë ose vlerën e saj, të shlyesh borxhet qoftë edhe gradualisht, të rikthejë reputacionin që ka dëmtuar dhe të përpiqet të pajtohet me të afërmit që i ka prerë. Dhe ka mëshirë edhe në këtë: çdo hap i kthimit është në vetvete një vepër e mirë dhe Allahu e lehtëson zemrën e sinqertë që niset të riparojë atë që ka thyer.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Nëse nuk hiqni dorë nga riba, atëherë vini re luftën nga Allahu dhe i Dërguari i Tij.",
-      },
-      {
-        excerpt: "Ata që thyejnë besëlidhjen e Allahut dhe prishin atë që Ai urdhëroi, u bashkuan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "E dini kush është i falimentuari? Ai që vjen me namaz, agjërim dhe sadaka, por ai ka fyer, shpifur, ka konsumuar pasurinë në mënyrë të paligjshme dhe ka derdhur gjak, kështu që veprat e tij të mira u jepen të tjerëve.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Listoni këdo që mund t'i keni bërë keq dhe bëni një hap drejt riparimit këtë javë.",
       "Paguani borxhet e papaguara edhe me këste të vogla nëse kjo është gjithçka që mund të menaxhoni.",
@@ -322,21 +186,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Ky dallim ka shumë rëndësi për mënyrën se si ne e përdorim temën. Shenjat e sjelljes jepen si një pasqyrë për veten, jo si një etiketë për t'u ngjitur të tjerëve. Profeti ﷺ dhe shokët e tij i frikësoheshin hipokrizisë në vetvete pikërisht sepse zemra është e fshehur dhe mund të ndryshojë.",
       "Pra, përgjigja e shëndetshme është e brendshme: të kontrollosh ndershmërinë, besnikërinë ndaj premtimeve dhe besueshmërinë e dikujt, dhe t'i kërkosh Allahut sinqeritetin (ikhlas). Vetëm Allahu e di se çfarë fshihet brenda një personi dhe akuzimi i individëve të caktuar për hipokrizi është në vetvete një shkelje e rëndë ndaj tyre.",
     ],
-    quran: [
-      {
-        excerpt: "Munafikët do të jenë në thellësinë më të ulët të zjarrit.",
-      },
-      {
-        excerpt:
-          "Kur të vijnë hipokritët, thonë: “Dëshmojmë se ti je i Dërguari i Allahut, e Allahu e di se ata janë gënjeshtarë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Shenjat e hipokritit janë tre: kur flet gënjen, kur premton e thyen dhe kur i besohet tradhton.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Mos i akuzoni individët për nifak. Tekstet paralajmërojnë komunitetin; pastrimi fillon nga vetja.",
   },
@@ -350,16 +201,7 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Mënyra se si një besimtar angazhohet me gjithë këtë është ajo që ka rëndësi. Synimi nuk është të ndalemi kurrë në detajet grafike ose të lëmë zemrën të fundoset; është të marrësh paralajmërimin, të pendohesh nga çdo gjë që vlen dhe më pas të kthesh energjinë drejt veprave që mbrojnë në të vërtetë. Kjo është arsyeja pse ky modul i jep qëllimisht më shumë hapësirë ​​mbrojtjes, pendimit dhe mëshirës sesa ndëshkimit.",
       "Shkurtimisht, heqja e duhur nga çdo dënim i përmendur është një pyetje, jo një frikë: 'A po e bëj këtë - dhe nëse po, si të ndalem dhe ta rregulloj atë?' I përgjigjur sinqerisht sot, paralajmërimi tashmë ka bërë punën e tij të mëshirshme.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ata që i akuzojnë gratë e dëlira dhe nuk sjellin katër dëshmitarë, i fshikulloni me tetëdhjetë rripa.",
-      },
-      {
-        excerpt:
-          "Ata që grumbullojnë arin dhe argjendin dhe nuk e shpenzojnë për rrugën e Allahut, përgëzoji me një dënim të dhembshëm.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -372,22 +214,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Vini re ekuilibrin që arrin Sheriati. Mjetet e mbrojtjes janë më të shumta, më të theksuara dhe më të arritshme se shkaqet e shkatërrimit - dhe kjo në vetvete është një shenjë e mëshirës së Allahut. Është shumë më e lehtë të shpëtohesh sesa të humbasësh.",
       "Ky seksion është qëllimisht më i madhi në modul, sepse kështu e peshon çështjen vetë Islami: paralajmërimi i shoqëruar gjithmonë me shpresën dhe asnjëherë i ndarë nga veprimi konkret, një person mund të fillojë sot.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ata që thonë: “O Zoti ynë, ne kemi besuar, na i fal mëkatet tona dhe na ruaj prej dënimit të zjarrit.",
-      },
-      {
-        excerpt:
-          "Zoti ynë, na jep të mira në këtë botë dhe të mira në botën tjetër dhe na ruaj nga dënimi i zjarrit.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kush i kërkon Allahut Xhenetin tri herë, Xheneti i thotë: O Allah, fute atë në Xhenet. Kush kërkon strehim nga zjarri tri herë, zjarri thotë: O Allah, ruaje atë nga zjarri.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Mësoni përmendësh duatë që kërkojnë strehim nga Xhehenemi para selamit në namaz.",
       "Falni pesë namazet ditore në kohë - ndër mburojat më të forta.",
@@ -406,26 +234,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Kjo është e vërtetë edhe për atë që ka rënë dhe është penduar shumë herë. Përderisa kthimi është i sinqertë çdo herë, Allahu vazhdon të pranojë; dëshpërimi është nga shejtani, jo nga feja. E vetmja gjë që duhet të zgjidhet para vdekjes është shirku, pasi një person që vdes mbi të vdes pa besimin që kërkon pendimi - pikërisht për këtë arsye kthimi i plotë vetëm tek Allahu është kthimi më urgjent nga të gjitha.",
       "Marrja praktike është e thjeshtë: pendohuni tani, pendohuni shpesh dhe mos lejoni kurrë që madhësia e një mëkati, apo numri i rënieve të së shkuarës, t'ju argumentojë që të mos ktheheni. Ftesa është gjithmonë e hapur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mos e humbni shpresën nga mëshira e Allahut. Vërtet, Allahu i fal të gjitha mëkatet. Ai është Falës, Mëshirues.",
-      },
-      {
-        excerpt:
-          "Përveç atyre që pendohen, besojnë dhe bëjnë vepra të mira, Allahu ua zëvendëson veprat e këqija me të mira.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allahu është më i kënaqur me pendimin e robit të Tij se ai prej jush që e gjen malin e humbur në një tokë djerrë.",
-      },
-      {
-        excerpt:
-          "Allahu e zgjat dorën e Tij natën për të pranuar pendimin e mëkatarit të ditës dhe zgjat dorën e Tij gjatë ditës për të pranuar pendimin e mëkatarit të natës, derisa të lind dielli nga perëndimi i tij.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Thuaj Astaghfirullah gjatë gjithë ditës – synoni për qëndrueshmëri, jo vetëm pas rrëshqitjeve të mëdha.",
       "Mësoni Sejid el-Istighfarin dhe recitoni atë në mëngjes dhe në mbrëmje.",
@@ -442,28 +252,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Ndërkohë, mëshira ndërtohet në jetën e përditshme: veprat e mira i fshijnë të këqijat (11:114) dhe adhurimi i vogël dhe i qëndrueshëm – një lutje e falur në kohë, një akt i qetë bamirësie, një moment durimi i mbajtur për hir të Allahut – e afron vazhdimisht një person më pranë Tij dhe më larg nga dëmtimi. Konsistenca ka më shumë rëndësi se intensiteti.",
       "Pra, le të jetë ky përfundimi i studimit tuaj: merre seriozisht paralajmërimin, por le të jetë shpresa më e fortë se frika. Dije rrezikun, zgjidh rrugën e mëshirës dhe ec atë – hap pas hapi – çdo ditë derisa të takosh Allahun.",
     ],
-    quran: [
-      {
-        excerpt: "Mëshira ime përfshin të gjitha gjërat.",
-      },
-      {
-        excerpt:
-          "Thuaj: O robërit e Mi që e keni ngarkuar me shumë gabime veten tuaj, mos e humbni shpresën ndaj mëshirës së Allahut. Vërtet, Allahu i fal të gjitha mëkatet.",
-      },
-      {
-        excerpt:
-          "Vërtet, veprat e mira i largojnë të këqijat. Ky është përkujtues për ata që kujtojnë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allahu do të thotë: Melaiket kanë ndërmjetësuar, profetët kanë ndërmjetësuar dhe besimtarët kanë ndërmjetësuar dhe nuk mbetet tjetër përveç Mëshiruesit të mëshiruesve. Ai do të marrë një grusht nga zjarri dhe do të nxjerrë njerëz që nuk kanë bërë kurrë ndonjë të mirë.",
-      },
-      {
-        excerpt: "Kush ka besim në zemrën e tij sa një kokërr sinapi, do të nxirret nga zjarri.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     actions: [
       "Përfundoni çdo ditë me istigfar dhe mirënjohje për çdo bekim.",
       "Bashkoje këtë modul me Udhëtimin në Xhenet - paralajmërim dhe shpresë së bashku.",
@@ -514,34 +304,8 @@ export const JAHANNAM_CORE_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
         summary: "Humbja e veprave për shkak të të drejtave të njerëzve.",
       },
     ],
-    quran: [
-      {
-        excerpt: "Allahu nuk e fal t'i bëhet ortak Atij.",
-      },
-      {
-        excerpt: "Kush vret një shpirt pa të drejtë, sikur ka vrarë gjithë njerëzit.",
-      },
-      {
-        excerpt: "Ata që hanë pasurinë e jetimëve me padrejtësi hanë zjarr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Ruhuni nga shtatë mëkatet shkatërruese.",
-      },
-      {
-        excerpt: "I falimentuari vjen me namaz, por ka cenuar njerëzit.",
-      },
-      {
-        excerpt: "Ruhuni nga shirku.",
-      },
-      {
-        excerpt: "I penduari nga mëkati është si ai pa mëkat.",
-      },
-      {
-        excerpt: "Allahu gëzohet për pendimin e robit të Tij.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}, {}, {}, {}],
     actions: [
       "Pendohuni sinqerisht.",
       "Ktheni të drejtat e njerëzve.",
@@ -574,21 +338,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Format e tij: studiuesit dallojnë shirkun kryesor - adhurimin e idhujve, të vdekurve, shenjtorëve ose gjërave të krijuara; duke thirrur dikë tjetër përveç Allahut për atë që vetëm Ai mund të japë; dhe drejtimin e sakrificës apo zotimeve për dikë tjetër përveç Tij – gjë që e nxjerr një person jashtë Islamit nëse nuk pendohet. Ekziston edhe shirk më i vogël dhe i fshehtë, si për shembull, shfaqja në adhurim (rija), betimi në dikë tjetër përveç Allahut, ose mbështetja në shenjat dhe hijeshitë, që është një mëkat i rëndë, por që në vetvete nuk përjashton nga feja.",
       "Rruga larg saj: ruaje dhe forco teuhidin duke e mësuar atë, duke adhuruar vetëm Allahun dhe duke pastruar nijetin në mënyrë që veprat të jenë për Të e jo për sytë e njerëzve. Kushdo që ka rënë në shirk pendohet duke hequr dorë sinqerisht prej tij dhe duke u rikthyer në adhurimin vetëm ndaj Allahut - dhe ajo derë e kthimit qëndron e hapur për aq kohë sa njeriu jeton.",
     ],
-    quran: [
-      {
-        excerpt: "Vërtet, Allahu nuk ia fal shoqërinë Atij, por më pak se kaq ia fal kujt të dojë.",
-      },
-      {
-        excerpt:
-          "O biri im, mos i bëj shok Allahut. Në të vërtetë, shoqërimi është keqbërje e madhe.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mëkatet më të mëdha janë: bërja shok Allahut, vrasja e shpirtit, mosbindja ndaj prindërve dhe dhënia e dëshmisë së rreme.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Mësoni teuhidin përmes Mësoni Akide dhe 99 Emrat e Allahut.",
       "Pastroni qëllimet në adhurim - kërkoni nga Allahu sinqeritet çdo ditë.",
@@ -604,22 +355,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Një gabim i dyfishtë: vrasja është njëherësh mëkat ndaj Allahut, të cilit i shkelet e drejta mbi shenjtërinë e jetës, dhe mëkat ndaj njerëzve – viktimës dhe atyre që ata lënë pas. Kjo është arsyeja pse pendimi i tij është më i rëndë se shumica: kthimi te Allahu është i nevojshëm, por të drejtat e të padrejtëve gjithashtu qëndrojnë, dhe aty ku ligji i vendit ose ligji Islami parashikon paranë e gjakut (dijah) ose pasoja të tjera, këto duhet të përmbushen përmes kanaleve të duhura dhe dijetarëve të kualifikuar.",
       "Rruga larg saj: mbajeni çdo jetë të shenjtë, zbutni zemërimin dhe armiqësinë përpara se ato të ngurtësohen dhe zgjidhini mosmarrëveshjet me durim dhe drejtësi në vend të dhunës. Dhe edhe ky krim më i madh kundër njerëzve nuk është përtej mëshirës së Allahut për atë që pendohet sinqerisht, i përmbush të drejtat e përfshira aq sa është e mundur dhe nuk kthehet kurrë në një rrugë të tillë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kushdo që vret një shpirt, përveç nëse për një shpirt ose për prishje në tokë, është sikur të ketë vrarë gjithë njerëzimin.",
-      },
-      {
-        excerpt:
-          "Kush e vret një besimtar me qëllim, shpërblimi i tij është Xhehennemi, ku do të jetë përgjithmonë.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mëkatet më të mëdha janë: bërja shok Allahut, vrasja e shpirtit, mosbindja ndaj prindërve dhe dhënia e dëshmisë së rreme.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Vlerësoni çdo jetë; zgjidh mosmarrëveshjet me durim dhe drejtësi."],
     appLinks: [{}],
   },
@@ -633,16 +370,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Mençuria në pengesa: në vend që t'i lërë njerëzit të luftojnë dëshirën në kulmin e saj, Islami i rrethon ata me mbrojtje të mëparshme - ulje të shikimit, modesti në veshje dhe sjellje, shmangie e veçimit me seksin e kundërt dhe inkurajimi i martesës si kanali i ligjshëm dhe i nderuar për këto nevoja. Ndërtimi i këtyre kufijve paraprakisht është shumë më i lehtë sesa të rezistosh në skaj.",
       "Rruga e kthimit: për këdo që ka rënë, rruga për të dalë është teubeja e sinqertë - lënia e mëkatit plotësisht, pendimi për të, vendosja për të mos u kthyer më dhe mbulimi në vend që të publikohet e kaluara. Zina është një mëkat i madh, por është në mesin e atyre që Allahu e fal atë që i drejtohet Atij; dëshpërimi nuk ka vend dhe një fillim i ri është gjithmonë i disponueshëm.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mos iu afroni marrëdhënieve seksuale të paligjshme. Vërtet, ajo është e pamoralshme dhe një mënyrë e keqe.",
-      },
-      {
-        excerpt:
-          "Dhe ata që nuk kryejnë marrëdhënie seksuale të palejuara... përveç atij që pendohet, beson dhe bën vepra të mira, atyre Allahu ua zëvendëson veprat e këqija me të mira.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Ruani sytë dhe konsumin e mediave sociale.",
       "Bëni dua për një bashkëshort të drejtë nëse është i pamartuar.",
@@ -658,15 +386,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Mençuria dhe mëshira: ndalimi i ridrejton njerëzit drejt tregtisë reale, rrezikut të përbashkët dhe bamirësisë, dhe mbron të pambrojturit nga dërrmimi nga borxhi. Edhe këtu, megjithatë, mëshira e Allahut është e pranishme: kur erdhi urdhri, Ai nuk kërkoi që të kthehej interesi i kaluar tashmë i marrë, por u tha besimtarëve thjesht të braktisnin atë që kishte mbetur - 'ju do të keni principalin tuaj' (2:279) - një lehtësi për ata që largohen prej tij.",
       "Rruga larg saj: auditoni financat tuaja për produkte të bazuara në interes, kërkoni alternativa hallall dhe konsultohuni me studiues të kualifikuar për raste vërtet të vështira, siç janë hipotekat në tokat jomuslimane. Largimi nga Riba mund të nënkuptojë zgjedhje të vështira financiare, por siguria e shpirtit tejkalon çdo përfitim të përkohshëm - dhe Allahu premton të sigurojë për atë që i frikësohet Atij nga ku ai nuk e pret.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O ju që besuat, kini frikë Allahun dhe hiqni dorë nga ajo që ka mbetur nga riba, nëse jeni besimtarë. Nëse nuk e bëni këtë, atëherë informohuni për një luftë nga Allahu dhe i Dërguari i Tij. Por nëse pendoheni, mund të keni drejtorin tuaj - nuk bëni asnjë të keqe, as nuk ju bëhet padrejtësi.",
-      },
-      {
-        excerpt: "Allahu e shkatërron interesin dhe i shton bamirësitë.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Auditimi i financave për produktet e bazuara në interes.",
       "Konsultohuni me një studiues të kualifikuar për hipotekat dhe borxhet.",
@@ -682,21 +402,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Lidhja e saj me gjuhën: dëshmia e rreme është skaji më i mprehtë i mëkateve më të gjera të të folurit. Për shkak se fjalët janë të lira për t'u shqiptuar, ky mëkat është rrezikshmërisht i lehtë për t'u rënë - një nënshkrim, një ekzagjerim, një heshtje e përshtatshme - dhe megjithatë pesha e tij në Ditën e Gjykimit është e pamasë, kur gjymtyrët dhe gjuhët e njerëzve do të dëshmojnë me të vërtetë kundër tyre.",
       "Rruga larg saj: mbajeni të vërtetën edhe kur është e kushtueshme ose kundër interesit të dikujt, refuzoni t'i jepni fjalën tuaj ndonjë gënjeshtrës dhe flisni me dëshmi të drejtë kur është e nevojshme. Ai që ka dhënë dëshmi të rreme pendohet duke e tërhequr gënjeshtrën aty ku është e mundur, duke u përpjekur për të zhbërë dëmin dhe për të rivendosur të drejtat e kujtdo të padrejtë dhe duke iu kthyer Allahut me keqardhje të sinqertë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe ata që nuk dëshmojnë për të pavërtetën, dhe kur u afrohen fjalë të këqija, kalojnë me dinjitet.",
-      },
-      {
-        excerpt: "Pra, shmangni papastërtinë e idhujve dhe shmangni deklaratat e rreme.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "A nuk ju njoftoj për mëkatet më të mëdha? Dhënia e shok Allahut, mosbindja ndaj prindërve - dhe dhënia e dëshmisë së rreme dhe dhënia e dëshmisë së rreme.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -708,18 +415,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Praktika të ngjashme: i njëjti paralajmërim shtrihet në tregimin e fatit, në trajtimin e astrologjisë si njohuri të sigurta të së padukshmes dhe në hajmalitë dhe hijeshitë që bartin shirk. Pretendimi i diturisë së së ardhmes së fshehtë i takon vetëm Allahut, dhe kthimi tek ata që e pretendojnë atë e minon teuhidin në rrënjë.",
       "Rruga larg saj: për atë që është ngatërruar në këto praktika, pendim do të thotë t'i braktisësh ato tërësisht, të shkatërrosh çdo send të ndaluar, të ndërpresësh lidhjet me ata që merren me to dhe të ripërtërish teuhidin e sinqertë dhe mbështetjen vetëm tek Allahu. Mbrojtja gjendet në besim, në adkarin e përditshëm dhe në kërkimin e strehimit tek Allahu - dhe falja e Tij është e hapur për këdo që kthehet me të vërtetë.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ata ndoqën atë që djajtë recituan gjatë sundimit të Solomonit… dhe mësojnë se çfarë u bën dëm e nuk u sjell dobi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kushdo që vjen te një fallxhore dhe i beson asaj që thotë ai, ka mohuar atë që i është shpallur Muhamedit.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -731,16 +428,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       'Çfarë përfshin: jo vetëm vjedhjet e drejtpërdrejta, por edhe forma më delikate - përzierja e pronës së një jetimi me pronën e dikujt për të mjegulluar kufirin, vonimi i kthimit të saj pasi jetimi të arrijë moshën, ose investimi ose shpenzimi i saj pa të drejtë. Allahu urdhëron të kundërtën: "Jepuni jetimëve pasurinë e tyre dhe mos e ndërroni të keqen me të mirën" (4:2).',
       "Rruga larg saj: ruaje pasurinë e jetimëve me përpikëri, mbaje të ndarë dhe llogaritur, dorëzoje plotësisht kur të piqen dhe - për atë që ka dështuar - pendohu duke ua kthyer borxhin me çdo shtim të duhur dhe duke kërkuar faljen e të padrejtëve. Në Ditën kur asnjë pasuri apo prejardhja nuk do të ndihmojë përveç një zemre të shëndoshë, rivendosja e një amaneti të tillë është në vetvete një vepër e çmuar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ata që hanë pasurinë e jetimëve pa të drejtë, ata hanë vetëm zjarr në barkun e tyre.",
-      },
-      {
-        excerpt:
-          "Jepini jetimëve pasurinë e tyre dhe mos e ndërroni të keqen me të mirë dhe mos e konsumoni pasurinë e tyre me pasurinë tuaj.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -752,21 +440,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Një ekuilibër i rëndësishëm: përkushtimi nuk do të thotë t'u bindesh prindërve në mosbindje ndaj Allahut - asnjë krijesë nuk i bindet në mëkat ndaj Krijuesit. Por edhe aty ku duhet refuzuar, kjo bëhet me butësi, respekt dhe dashamirësi të vazhdueshme. Kur'ani ndalon edhe fjalën më të vogël të zemërimit: 'mos u thuaj atyre uff' (17:23).",
       "Rruga e kthimit: mëshira këtu është se prindërit zakonisht janë ende të arritshëm. Për atë që ka dështuar, pendimi është kryesisht praktik - rifilloni mirësinë, kërkoni faljen e tyre, shërbejini dhe bëni dua për ta, veçanërisht kur janë gjallë. Dhe nëse një prind ka vdekur, kujdesi vazhdon duke u lutur për ta, duke dhënë lëmoshë në emër të tyre dhe duke nderuar lidhjet dhe miqtë e tyre.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zoti yt ka vendosur që të mos adhuroni tjetër pos Tij dhe të silleni mirë ndaj prindërve. Mos u thuaj “uff” dhe as mos i refuzo, por thuaju atyre një fjalë fisnike.",
-      },
-      {
-        excerpt: "Adhuroni Allahun dhe mos i shoqëroni Atij asgjë dhe bëni mirë prindërve.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "A nuk ju njoftoj për mëkatet më të mëdha? Shoqërimi i Allahut dhe mosbindja ndaj prindërve.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Telefononi ose vizitoni prindërit këtë javë me një fjalë të mirë."],
     appLinks: [{}],
   },
@@ -780,12 +455,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Fytyrat e saj moderne: vjedhja nuk kufizohet vetëm me thyerjen e një shtëpie. Ai përfshin marrjen nga një punëdhënës, mashtrimin në biznes, mbajtjen e pagave të punëtorëve, piraterinë dixhitale, plagjiaturën dhe përfitimin nga ajo që nuk është e ligjshme e dikujt. Ajo që fshihet nga njerëzit e tjerë nuk i fshihet kurrë Allahut, i cili sheh çdo marrje private.",
       "Rruga e kthimit: për shkak se është e përfshirë një e drejtë njerëzore, pendimi kërkon më shumë se pendim para Allahut. Njeriu duhet t'ia kthejë vetë sendin e vjedhur, ose vlerën e tij, pronarit të tij të ligjshëm dhe të kërkojë falje aty ku është e mundur; nëse pronari nuk mund të gjendet, studiuesit këshillojnë dhënien e shumës në bamirësi në emër të tyre. I shkarkuar në këtë mënyrë, edhe vjedhja falet plotësisht nga Ai që e do shërbëtorin që kthehet.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sa i përket hajdutit, mashkullit dhe femrës, ua prenë duart si shpërblim për atë që kanë fituar, si pengesë nga Allahu.",
-      },
-    ],
+    quran: [{}],
     actions: ["Të kthejë sendet e vjedhura ose vlerën e tyre; kërkoni falje nga të padrejtët."],
     appLinks: [{}],
   },
@@ -798,17 +468,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_SQ: DeepPartial<JahannamTopic>[] = [
       "Urtësia se si ishte e ndaluar: Allahu nuk e ndaloi khamrin në një goditje të vetme të papritur, por e ndaloi atë në faza, duke e larguar me butësi komunitetin e hershëm nga një zakon i rrënjosur thellë. Ky gradualitet është në vetvete një mësim për mëshirë - dhe një model shprese për këdo që lufton ta lërë atë sot.",
       "Rruga e kthimit, me dhembshuri: ata që janë kapur në varësi nuk duhet të përçmohen, por të mbështeten. Pendimi do të thotë vendosja për të lënë substancën, largimi i saj dhe shkasave të saj nga jeta, kërkimi i ndihmës dhe trajtimit pa turp dhe mbushja e zbrazëtirës me shoqëri të mirë, dhikër dhe adhurim. Dera e Allahut është e hapur, dhe çdo hap i sinqertë larg dehjes është një hap që Ai e mirëpret.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O ju që besuat, me të vërtetë vera, bixhozi, idhujt dhe shigjetat e shortarit janë ndotje nga vepra e shejtanit, largohuni prej tyre.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Çdo pije dehëse është khamr dhe çdo khamr është i ndaluar.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Kërkoni ndihmë nëse është e nevojshme; zëvendësojeni zakonin me dhikër dhe shoqëri të mirë.",
     ],
@@ -820,10 +481,7 @@ export const JAHANNAM_NAMES_SQ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Xhahannam",
     meaning: "Zjarri - emri më i shpeshtë kuranor i Ferrit.",
-    quran: {
-      excerpt:
-        "Kini frikë zjarrin, lëndë djegëse e të cilit janë njerëzit dhe gurët, i përgatitur për jobesimtarët.",
-    },
+    quran: {},
     context:
       "Përdoret në të gjithë Kuranin si vendbanimi i ndëshkimit për ata që refuzojnë besimin dhe këmbëngulin në keqbërje.",
     tafsirNote:
@@ -834,19 +492,14 @@ export const JAHANNAM_NAMES_SQ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Xhehemi",
     meaning: "Zjarri flakërues - nxehtësi e fortë dhe e fortë.",
-    quran: {
-      excerpt:
-        "Ju dhe ajo që adhuroni pos Allahut jeni lëndë djegëse për Xhehenemin – do të hyni në të.",
-    },
+    quran: {},
     context: "Përshkruan intensitetin e zjarrit që i pret ata që morën rivalë me Allahun.",
     tafsirNote: "El-Tabari e lidh xhahimin me zjarrin flakërues e të ndezur që nuk kursen asgjë.",
   },
   {
     name: "Saqar",
     meaning: "Ajo që përvëlon ose nuk lë asgjë - vapë e fortë.",
-    quran: {
-      excerpt: "Unë do ta përzë në Saqar. Dhe çfarë mund t'ju bëjë të dini se çfarë është Saqar?",
-    },
+    quran: {},
     context: "Përmendet në suren el-Muddeththir në lidhje me atë që u largua nga shpallja.",
     tafsirNote:
       "Tefsiri klasik e përshkruan Sakarin si një nivel të Ferrit që digjet fort; detajet ndryshojnë mes studiuesve.",
@@ -856,19 +509,14 @@ export const JAHANNAM_NAMES_SQ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Sa'ir",
     meaning: "Flakërues - zjarr i ndezur.",
-    quran: {
-      excerpt: "Ata do të jenë në Sa'ir - Zjarri flakërues.",
-    },
+    quran: {},
     context: "Paralajmërim për ata që e konsumojnë pasurinë jetimë padrejtësisht.",
     tafsirNote: "Rrënja përcjell djegie dhe ndezje - duke theksuar zjarrin aktiv, konsumues.",
   },
   {
     name: "Hutamah",
     meaning: "Thërrmuesi - ajo që thyhet dhe dërrmohet.",
-    quran: {
-      excerpt:
-        "Ai do të hidhet në el-Hutamah. Dhe çfarë mund t'ju bëjë të dini se çfarë është el-Hutamah?",
-    },
+    quran: {},
     context:
       "Dënim për atë që përgojon dhe grumbullon pasuri, duke menduar se do ta bëjë të pavdekshëm.",
     tafsirNote:
@@ -877,9 +525,7 @@ export const JAHANNAM_NAMES_SQ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Hawiyah",
     meaning: "Humnera ose gropa - një rënie e thellë.",
-    quran: {
-      excerpt: "Sa i përket atij që ka peshoret e lehta - strehimi i tij do të jetë Havija.",
-    },
+    quran: {},
     context:
       "Vendmbërritja e atyre të cilëve veprat e mira janë shumë të lehta në Ditën e Gjykimit.",
     tafsirNote:
@@ -890,9 +536,7 @@ export const JAHANNAM_NAMES_SQ: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Lazaa",
     meaning: "Flaka - zjarr flakërues.",
-    quran: {
-      excerpt: "Në asnjë mënyrë! Është flaka e Allahut, e ndezur.",
-    },
+    quran: {},
     context: "Surja el-Ma'arij - paralajmërim i atyre që e mohojnë Kiametin.",
     tafsirNote: "Lidhur me flakën që hiqet dhe digjet - Lazaa thekson ndezjen aktive.",
   },
@@ -935,116 +579,80 @@ export const JAHANNAM_GATES_SQ: DeepPartial<JahannamGateEntry>[] = [
 
 export const JAHANNAM_VERSES_SQ: DeepPartial<JahannamVerseEntry>[] = [
   {
-    excerpt: "Kini frikë zjarrin e përgatitur për jobesimtarët.",
     context: "Drejtuar besimtarëve - frika si motivim drejt bindjes.",
     tafsirSummary: "Ibn Kethiri: një thirrje për takua e shoqëruar me bindje ndaj të Dërguarit.",
   },
   {
-    excerpt: "Mos e humbni shpresën nga mëshira e Allahut. Vërtet, Allahu i fal të gjitha mëkatet.",
     context:
       "Zbuluar për të ngushëlluar ata që kishin frikë se mëkatet e tyre ishin shumë të mëdha.",
     tafsirSummary: "Një varg themeli i shpresës - mëshira është e madhe për ata që kthehen prapa.",
   },
   {
-    excerpt:
-      "Pendohuni te Allahu me një pendim të sinqertë – ndoshta Zoti juaj do t'jua largojë veprat e këqija.",
     context: "Urdhëroni besimtarët pas udhëzimit për familjen dhe sjelljen.",
     tafsirSummary: "Nasuh teube - pendim i sinqertë pa kthim në mëkat.",
   },
   {
-    excerpt: "Për të gjithë do të ketë gradë sipas asaj që ata bënë.",
     context: "Drejtësia hyjnore - shpërblimi dhe ndëshkimi në raport me veprat.",
     tafsirSummary: "Diplomat vlejnë edhe për Xhenetin edhe për Ferrin.",
   },
   {
-    excerpt: "Allahu nuk u bën aspak padrejtësi njerëzve, por njerëzit i bëjnë keq vetvetes.",
     context: "Sigurimi se gjykimi hyjnor është krejtësisht i drejtë.",
   },
   {
-    excerpt: "Zoti ynë, na jep të mira në të dyja botët dhe na ruaj nga dënimi i zjarrit.",
     context: "Duaja e atyre që kombinojnë të mirat e kësaj bote dhe të kësaj bote.",
     tafsirSummary: "Një lutje profetike e mësuar në Kur'an - ekuilibri i dunjasë dhe akhirahut.",
   },
   {
-    excerpt: "Ferri ka shtatë porta; për çdo portë është caktuar një pjesë.",
-    context: "Drejtuar në kontekstin e debatit të Ibrahimit me popullin e tij.",
+    context: "Vjen pas pjesës ku Iblisi betohet se do t'i devijojë njerëzit.",
     tafsirSummary: "Përmendja e qartë e shtatë portave - detajet e caktimit janë urtësi hyjnore.",
   },
   {
-    excerpt:
-      "Përveç atyre që pendohen, besojnë dhe bëjnë vepra të mira, Allahu e zëvendëson të keqen me të mirë.",
     context: "Përjashtim pas renditjes së mëkateve të rënda.",
     tafsirSummary: "Shpresë për të penduarit - veprat mund të shndërrohen me mëshirë.",
   },
   {
-    excerpt: "Për ata që nuk besuan në Zotin e tyre është dënimi i Xhehenemit, një vend i keq.",
     context: "Surja el-Mulk - përkujtues i së padukshmes.",
   },
   {
-    excerpt: "Vërtet, veprat e mira i largojnë të këqijat.",
     context: "Urdhëroni për faljen e namazit në të dy skajet e ditës.",
     tafsirSummary: "Inkurajimi që adhurimi i vazhdueshëm fshin gabimet e së shkuarës.",
   },
   {
-    excerpt: "Zoti ynë, na i fal mëkatet tona dhe na ruaj nga dënimi i zjarrit.",
     context: "Përshkrimi i muttakinit (të vetëdijshëm për Zotin).",
   },
   {
-    excerpt: "Sa i përket atij që ka peshoret e lehta - strehimi i tij do të jetë Havija.",
     context: "Surja el-Kari'ah - peshimi i veprave.",
   },
 ];
 
 export const JAHANNAM_HADITH_SQ: DeepPartial<JahannamHadithEntry>[] = [
   {
-    hadith: {
-      excerpt:
-        "Kush i kërkon Allahut Xhenetin tri herë, Xheneti i thotë: O Allah, fute atë në Xhenet. Kush kërkon strehim nga zjarri tri herë, zjarri thotë: O Allah, ruaje atë nga zjarri.",
-    },
+    hadith: {},
     context: "Nxitje për të bërë dua të rregullta për Xhenetin dhe strehim nga Xhehenemi.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allahu është më i kënaqur me pendimin e robit të Tij se ai prej jush që e gjen malin e humbur në një tokë djerrë.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Askush prej jush nuk do të hyjë në Xhenet vetëm me veprat e tij, madje as unë, përveç nëse Allahu më mbulon me mëshirën e Tij.",
-    },
+    hadith: {},
     context: "Bilanci: përpiquni në vepra por mbështetuni në mëshirë.",
   },
   {
-    hadith: {
-      excerpt:
-        "Zjarri juaj është një pjesë e shtatëdhjetë pjesëve të zjarrit të Xhehenemit, secila pjesë është si nxehtësia e tij.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Besëlidhja mes nesh dhe atyre është namazi; kush e braktis atë ka bërë kufër.",
-    },
+    hadith: {},
     context: "Ashpërsia e neglizhencës së namazit - ndër paralajmërimet më të rënda.",
   },
   {
-    hadith: {
-      excerpt:
-        "I falimentuari vjen me namaz, agjërim dhe sadaka - por ai fyen, shpif, konsumoi pasuri në mënyrë të paligjshme dhe derdhi gjak.",
-    },
+    hadith: {},
     context: "Të drejtat e njerëzve mund të zgjidhen para veprave në Ditën e Gjykimit.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allahu e shtrin dorën e Tij natën për të pranuar pendimin e mëkatarit të ditës dhe zgjat dorën e Tij gjatë ditës për të pranuar pendimin e mëkatarit të natës.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt: "Kush beson Allahun dhe Ditën e Fundit, le të flasë mirë ose le të heshtë.",
-    },
+    hadith: {},
     context: "Ruajtja e gjuhës - përgjegjësi e përditshme.",
   },
 ];
@@ -1108,7 +716,4 @@ export const JAHANNAM_DUAS_SQ: DeepPartial<JahannamDuaEntry>[] = [
   },
 ];
 
-export const JAHANNAM_REFUGE_DUA_SQ: { translation: string } = {
-  translation:
-    "O Allah, kërkoj mbrojtje te Ti nga dënimi i Xhehenemit, nga dënimi i varrit, nga sprovat e jetës dhe të vdekjes dhe nga sprova e keqe e Mesihut të rremë.",
-};
+export const JAHANNAM_REFUGE_DUA_SQ: { translation?: string } = {};

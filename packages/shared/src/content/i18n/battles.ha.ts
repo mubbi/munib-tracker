@@ -23,16 +23,7 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       "Kur’ani ya sanya iyaka ta dindindin a kan wannan izinin: “Ku yãƙi waɗanda suke yaƙe ku a cikin hanyar Allah, amma kada ku ƙetare iyaka” (k:2:190). Yaki yana da nasaba da cin zarafi ga al'umma, kuma ba za a taba wuce iyakokin adalci ba.",
       "Waɗannan yaƙin neman zaɓe tarihi ne: sun faru ne a cikin ƙayyadaddun yanayin Larabawa na ƙarni na bakwai na yaƙin kabilanci, karya yarjejeniyoyin, da kewaye. Gabaɗayan koyarwar Musulunci game da zaman lafiya, da adalci, da rahama, da maƙwabta su ne ginshiƙi; Dole ne a karanta bayanan waɗannan yaƙe-yaƙe a cikin wannan firam ɗin, ba a ruguje su cikin taken da aka yage daga ciki ba.",
     ],
-    quran: [
-      {
-        excerpt:
-          "An yi izni ga waɗanda suka yi yãƙi sabõda zãlunci a kansu, kuma lalle ne Allah, haƙĩƙa, Mai ĩkon yi ne a kan taimakon waɗanda aka fitar daga gidãjensu, bã da wani hakki ba, fãce dõmin sun ce: \"Ubangijinmu ne Allah.\" Kuma dã Allah bai tunkuɗe wasu mutãne da sãshe ba, lalle ne, dã an rurrushe dakunan karatu da Majami'u da majami'u da masallatai waɗanda aka ambaci sũnan Allah da yawa a cikinsu.",
-      },
-      {
-        excerpt:
-          "Ku yãƙi waɗanda suke yãƙe ku a cikin hanyar Allah, kuma kada ku ƙetare haddi. Lalle ne, Allah bã Ya son azzalumai.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -45,17 +36,8 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       "Rashin keta yarjejeniyar ya kasance mai yanke hukunci har zuwa ƙarshe. Kawayen Kuraishawa ne suka kai hari kan kawayen musulmi, wato Banu Khuza'ah, suka warware yarjejeniyar Hudaibiyya, suka kuma jagoranci - abin mamaki - zuwa kusan budewar Makka ba tare da yin kisa ba.",
       "A cikin wannan duka, manufofin sun kasance masu daidaituwa: kare rayuwa da addini, kare masu rauni, da kuma samar da isasshen tsaro wanda za a iya yin tauhidi ba tare da tsanantawa ba. Manufar ita ce ba ta da iyaka don faɗaɗa kanta, kuma majiyoyi sun rubuta cewa Annabi SAW yana son yin sulhu da yarjejeniya a duk lokacin da makiya suka karkata zuwa ga zaman lafiya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "An umurce ni da in yaqi mutane har sai sun shaida cewa, babu abin bautawa da gaskiya sai Allah, kuma Muhammadu Manzon Allah ne, da tsayar da salla, da bayar da zakka. Idan kuma suka yi haka, an kare ni daga gare ni, rayukansu da dukiyoyinsu, sai da hakkin Musulunci, kuma hisabinsu yana wurin Allah. — Malaman gargajiya sun karanta “mutane” a matsayin takamaiman mushrikai na Larabawa sannan suka yi yaƙi da Musulunci bayan saƙon ya iso gare su; magana ce game da wadancan mayaka, ba lasisin kai hari ga wadanda ba musulmi ba masu zaman lafiya ko tilasta imani, wanda Kur'ani 2:256 ya hana kai tsaye.",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Babu tilas a addini. Hanya madaidaiciya ta bambanta da bata.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Ana yawan ambato hadisin da ke sama a cire masa saitinsa. Malaman gargajiya sun sanya shi a cikin keɓantattun hukunce-hukuncen lokacinsa da kuma hani da Kur'ani na tilastawa addini (2:256) kuma iyaka cewa yaƙin yana kan waɗanda suke yaƙe ku ne kawai (2:190).",
     appLinks: [{}],
@@ -72,29 +54,8 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       "Dukiya da ita kanta ƙasa ana kiyaye su. Jagoranci gabaɗaya ya haramta sare bishiyar 'ya'yan itace, kona amfanin gona, da yankan dabbobi fiye da bukata. Za a ciyar da fursunoni kamar yadda masu garkuwar ke ci da tufafi kamar yadda suka tufatar da kansu; Kur'ani ya yaba wa waɗanda suke ciyar da fursuna saboda ƙaunar Allah (76:8), kuma da yawa an 'yanta su ta hanyar fansa, musanyawa, ko jinƙai mai sauƙi - wasu a Badar don musanya koyawa musulmai karatu.",
       "Waɗannan su ne koyarwar al'ada na addini. Musulmai daya-daya a cikin tarihi wadanda suka keta su suna keta Musulunci, ba wai suna bayyana shi ba - kamar yadda keta hakkin mabiyan kowane addini ba sa sake rubuta abin da wannan imani ya umarta.",
     ],
-    quran: [
-      {
-        excerpt: "Ku yãƙi waɗanda suke yãƙe ku a cikin hanyar Allah, kuma kada ku ƙetare haddi.",
-      },
-      {
-        excerpt:
-          "Kuma idan sun karkata zuwa ga aminci, to, ka karkata zuwa gare ta, kuma ka dõgara ga Allah. Lalle Shĩ, Shĩ ne Mai ji, Masani.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Umar ya ruwaito cewa an samu wata mata da aka kashe a daya daga cikin balaguron da Manzon Allah Sallallahu Alaihi Wasallama ya yi, don haka ya hana kashe mata da yara.",
-      },
-      {
-        excerpt:
-          "A lokacin da Annabi SAW ya nada wani kwamanda akan runduna sai ya umurce shi da cewa: “Ya yi yaki da sunan Allah... kada ku yi almubazzaranci da ganima, kada ku warware alkawari, kada ku yanke jiki, kuma kada ku kashe yaro. Idan kuka hadu da abokan gaba, ku fara kiransu zuwa ga Musulunci; Idan sun ƙi, ka ba su salama. To, idan sun ƙi su biyun, sai ku yãƙi.",
-      },
-      {
-        excerpt:
-          "Kada ku kashe tsoho, ko ƙaramin yaro, ko mace. - Wasu sassan wannan lafazin daidai gwargwado suna da rauni, amma hukunce-hukuncen da ya zo ya tabbata a hadisin sahihin da ke sama da kuma ijma'in malaman fikihu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "A rarrabe a fili tsakanin abin da Musulunci ya yi umarni da abin da kowace runduna a tarihi ta yi.",
       "Karanta wannan sashe na ɗabi'a kafin kowane labari na yaƙi - tarihi ba tare da ka'idodin mulkin sa yana gayyatar rashin fahimta ba.",
@@ -140,26 +101,8 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
         "An 'yantar da wasu da aka kama domin koyar da 'ya'yan Madina ilmin karatu.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          'A lõkacin da kuke nẽman taimako daga Ubangijinku, sai Ya karɓa muku: "Lalle ne zan ƙarfafa ku da malã\'iku dubu, sunã bin jũna."',
-      },
-      {
-        excerpt:
-          "Lalle ne, haƙĩƙa, ãyã ta kasance a gare ku a cikin jama'a biyu waɗanda suka haɗu, ɗayan yana yãƙi a cikin hanyar Allah, kuma ɗayan kãfirai.",
-      },
-      {
-        excerpt:
-          "Ba ku kashe su ba, amma Allah ne ya kashe su. Kuma ba ku yi jĩfa ba a lõkacin da kuka yi jĩfa, kuma amma Allah ne Ya yi jĩfa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Umar ya ruwaito cewa, a ranar Badar Annabi s.a.w ya kalli makiyin mutum dubu alhalin sahabbansa sun kai sama da dari uku kadan, sannan ya juya zuwa ga alkibla, ya mika hannayensa, ya roki Ubangijinsa: “Ya Allah ka cika min alkawarin da ka yi mini. Ya Allah idan aka ruguza wannan kungiyar ta muminai, ba za a bauta maka ba a bayan kasa. Ya yi ta roko har alkyabbarsa ta fado daga kafadarsa, sai Abubakar ya musanya shi ya ce: Ya isa ya Manzon Allah – Allah zai cika abin da ya alkawarta maka.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -195,22 +138,8 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Jarabawa suna tsarkake muminai; koma baya gamuwa da tuba kuma tsayin daka yana kaiwa ga girma.",
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma lalle ne, haƙĩƙa, Allah Yã sãka muku wa'adinSa a lõkacin da kuke kashe su da izninSa, har sai kun yi ƙarfin hali, kuma kuka yi jãyayya a cikin al'amarin, kuma kuka sãɓã a bãyan Ya nũna muku abin da kuke so.",
-      },
-      {
-        excerpt:
-          "Sabõda haka kada ku yi rauni kuma kada ku yi baƙin ciki, kuma lalle ne ku, haƙĩƙa, zã ku kasance mafi girma idan kun kasance muminai.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Annabi SAW ya nada Abdullahi bn Jubayr a kan maharba hamsin a ranar Uhudu ya ce: Ku rike matsayinku; Ko da kun ga tsuntsaye suna ƙwace mu, kada ku bar shi sai na aika a kirawo ku, kuma ko kun ga mun ci su, kada ku tafi sai na aika a kirawo ku. Da aka fatattaki makiya, maharba suka ga ganima, suka ce, ganima! kuma suka bar mukaminsu - don haka aka kashe mu saba'in.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -248,22 +177,8 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ka yi tsayin daka a cikin kewaye, kuma ka dogara ga Allah, wanda zai iya komar da runduna da iska.",
     },
-    quran: [
-      {
-        excerpt:
-          "Ya ku waxanda suka yi imani, ku tuna ni’imar Allah a kanku a lokacin da runduna ta zo muku, kuma Muka aika wata iska da rundunonin da ba ku gani ba, a kansu.",
-      },
-      {
-        excerpt:
-          "Kuma a lõkacin da mũminai suka ga ƙungiyõyin, suka ce: \"Wannan shĩ ne abin da Allah da ManzonSa Ya yi mana wa'adi, kuma bai ƙãra musu kõme ba fãce ĩmãni da tawali'u.\"",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Manzon Allah Sallallahu Alaihi Wasallama ya yi addu’a ga ‘yan qungiya a ranar al-Ahzab, yana cewa: “Ya Allah maxaukakin littafi, mai gaggawar hisabi, ka karya qungiyoyin }ungiyoyin. Ya Allah ka karya su ka girgiza su.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -296,22 +211,8 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Saba alkawarin kare juna a daidai lokacin da ake haduwa da juna yana daga cikin manyan cin amana.",
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma Ya saukar da waɗanda suka taimake su daga Mutãnen Littãfi daga birãnensu, kuma Ya jẽfa tsõro a cikin zukãtansu, wata ƙungiya kuka kashe, da wata ƙungiya da kuka kãma. Kuma Ya gãdar da ku ƙasarsu da gidãjensu.",
-      },
-      {
-        excerpt:
-          "Kuma Allah bã Ya hana ku daga waɗanda ba su yãƙe ku ba sabõda addini, kuma ba su fitar da ku daga gidãjenku ba, ku yi musu taƙawa, kuma ku yi musu ãdalci. Lalle ne, Allah Yana son masu adalci.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Lokacin da Banu Quraizah ya yarda ya yarda da hukuncin Sa'ad bn Mu'adh, sai Annabi SAW ya aika aka kira shi. Ya zo, sai Annabi SAW ya ce: Ku tsaya ga shugabanku. Sa’ad ya yi hukunci a kashe mayaƙansu, a kuma kwashe mata da ‘ya’yansu zuwa bauta. Annabi SAW ya ce: Kun yi hukunci da hukuncin Allah - ko ya ce, da hukuncin Sarki.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Wannan hukunci ne na wani takamaiman aiki na cin amanar lokacin yaƙi da maharan suka yi, wanda wani mai sasantawa da ƙabilar da kanta ta zaɓa ya yi hukunci. Ba hukunci ba ne a kan wasu mutane don addininsu kuma ba abin koyi ba ne ga dangantaka da Yahudawa ko wata al'umma ta imani, waɗanda Musulunci ya yi umarni da a yi musu adalci da kyautatawa (Qur'ani 60:8). Wasu malaman daga baya sun yi tambaya game da cikakkun bayanai game da lambobin da aka watsa.",
   },
@@ -345,22 +246,8 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ku dogara ga Allah da ManzonSa lokacin da hikimar yanke shawara ta ɓoye-haƙuri na iya zama nasara mafi gaskiya.",
     },
-    quran: [
-      {
-        excerpt:
-          "Lalle ne Mu, Mun ba ku babban rabo bayyananne, domin Allah Ya gafarta muku abin da ya gabace na zunubinku da abin da zai biyo baya, kuma Ya cika ni'imarSa a kanku, kuma Ya shiryar da ku zuwa ga hanya madaidaiciya.",
-      },
-      {
-        excerpt:
-          "Lalle ne, Allah Yã yarda da mũminai a lõkacin da suka yi maka mubaya'a a ƙarƙashin itãciya, kuma Ya san abin da ke cikin zukãtansu, sabõda haka Ya saukar da natsuwa a kansu, kuma Ya saka musu da wani yãƙi kusa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jabir bn Abdullah ya ce: “A ranar Hudaibiyya mun kasance dari goma sha hudu. Mun yi mubaya'a ga Annabi SAW a karkashin bishiya, kuma shi ne mafificin mutane.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -393,12 +280,7 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Dagewa ta hanyar tsawaita wahala, hade da ikhlasi, yana kawo taimakon Allah.",
     },
-    hadith: [
-      {
-        excerpt:
-          "A ranar Khaibar Manzon Allah (SAW) ya ce: “Gobe zan ba da wannan tuta ga wani mutum mai son Allah da ManzonSa, kuma Allah da ManzonSa suke so, kuma ta hannunsa ne Allah Ya ba da nasara. Washegari ya kira Ali, wanda idonsa ya yi zafi; sai ya tofa albarkacin bakinsa a idonsa yana yi masa addu’a, Ali ya warke kamar bai taba jinya ba, aka ba shi tuta.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -463,16 +345,7 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Manufar ita ce jagora, ba fansa ba - an yi iko don hidimar saƙo, ba na kai ba.",
     },
-    quran: [
-      {
-        excerpt:
-          "Idan nasarar Allah ta zo, kuma da buwaya ta zo, kuma ka ga mutane suna shiga addinin Allah da yawa, sai ka yi tasbihi da godiya ga Ubangijinka, kuma ka nemi gafararSa. Lalle Shĩ, Ya kasance Mai karɓar tũba ne.",
-      },
-      {
-        excerpt:
-          'Ya ce: "Babu laifi a kanku a yau. Allah ya gafarta maka, kuma shi ne mafi rahamar masu rahama. - Fadin Annabi Yusuf da Annabi ﷺ ya yi wa Kuraishawa a ranar yaki.',
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -506,18 +379,8 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Kar a taɓa dogara ga lambobi ko nasarar kwanan nan; nasara da natsuwa daga Allah kadai suke.",
     },
-    quran: [
-      {
-        excerpt:
-          "Kuma lalle ne, haƙĩƙa, Allah Yã taimake ku a cikin yankuna da yawa, kuma a Rãnar Hunaini, a lõkacin da yawanku ya bã ku sha'awa, kuma bã ya wadãtar muku da kõme, kuma ƙasa ta rufe muku dukan faɗuwarta, kuma kuka jũya bãya. Sai Allah Ya saukar da natsuwarSa ga ManzonSa da kuma a kan Muminai.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "An tambayi Al Bara bn Azib ko sun gudu ne a ranar Hunaini? Sai ya ce: Amma Manzon Allah SAW bai gudu ba. Sai mutane suka juya baya, Annabi ﷺ yana kan farin alfadarinsa, yana cewa: Ni ne Annabi, wannan ba qarya ba ne; Ni dan Abd al-Muddalib ne.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -551,22 +414,8 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Hadaya ba tare da lada na bayyane ba, da gaskiya a ƙarƙashin gwaji, suna cikin mafi girman gwajin bangaskiya.",
     },
-    quran: [
-      {
-        excerpt:
-          'Wadanda suka saura sun yi murna da zamansu a bayan Manzon Allah, kuma ba su son yin jihadi da dukiyoyinsu da rayukansu a tafarkin Allah, kuma suka ce: “Kada ku fita a cikin zafin rana. Ka ce: "Wutar Jahannama ce mafi tsananin zafi, dã sun kasance suna hankalta."',
-      },
-      {
-        excerpt:
-          "Kuma Ya gãfarta wa ukun nan waɗanda aka bari, har ƙasã mai girmanta, Ya rufe a kansu, kuma rãyukansu suka rufe a kansu, kuma suka tabbata bãbu wani tsari daga Allah fãce a gare Shi. Sa'an nan kuma Ya karɓi tũba a kansu, tsammãninsu, zã su tuba.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ka'ab bn Malik ya ruwaito yadda ya tsaya daga Tabuka ba tare da uzuri ba, kuma ba zai yi karya ba; Annabi SAW ya umurci muminai da kada su yi magana da shi da sahabbansa guda biyu har tsawon darare hamsin, har sai kasa ta zama ƙunci a gare su - sai aka saukar da gafarar su, kuma yana cikin mafi farin ciki a cikin kwanakin rayuwarsa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -625,20 +474,7 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
       "Dole ne a duba ingantaccen hadisin balaguro kafin a dogara da shi. An ciro ruwayoyin da ke kasa ne daga tarin Sahih kuma sun shafi halaye da ruhin wadannan yakin; kowanne yana dauke da darajarsa.",
       "Don ruwayoyin da ke da alaƙa da ƙayyadaddun alkawari, duba batun yaƙin. Yi amfani da burauzar hadisi na Munib don karanta cikakken sarƙoƙi da grading a mahallin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kada ku yi nufin haduwa da abokan gaba, kuma ku roki Allah lafiya. To, idan kun haɗu da su, ku yi haƙuri, kuma ku sani Aljanna tana ƙarƙashin inuwar takubba.",
-      },
-      {
-        excerpt:
-          "Annabi SAW yace: Yaki yaudara ne. - Malamai sun bayyana wannan a matsayin izini don dabarar dabara a cikin yaƙi (feints, mamaki, karkatacciyar hanya), ba kamar lasisin karya yarjejeniya ko cin amanar wata ƙungiya mai kariya ba.",
-      },
-      {
-        excerpt:
-          "Lokacin nada kwamanda Annabi ﷺ ya umarce shi da ya ji tsoron Allah, da kiran makiya zuwa ga Musulunci kafin yaqi, kada ya warware alkawari, kada ya yanke jiki, kuma kada ya kashe yaro.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -660,69 +496,45 @@ export const BATTLES_TOPICS_HA: DeepPartial<BattlesTopic>[] = [
 
 export const BATTLES_VERSES_HA: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "An yi izni ga waɗanda suka yi yãƙi, sabõda zãlunci a kansu… Kuma dã Allah bai duba wata jama'a da wata ƙungiya ba, dã an rurrushe gidãje, majami'u, majami'u, da masallatai.",
     context:
       "Izinin gama gari na farko na yaƙi - bayan shekaru na zalunci ba tare da makami ba a Makka.",
   },
   {
-    excerpt:
-      "Ku yãƙi waɗanda suke yãƙe ku a cikin hanyar Allah, kuma kada ku ƙetare haddi. Lalle ne, Allah bã Ya son azzalumai.",
     context: "Iyakar tushe: tsaro kawai, tare da tsauraran haramcin wuce gona da iri.",
   },
   {
-    excerpt:
-      "A lokacin da ka nemi taimako daga Ubangijinka, sai Ya ce: “Zan karfafa ka da mala’iku dubu, darajoji.",
     context: "Ya bayyana game da Badar - taimakon Allah ga waɗanda suka fi yawa.",
   },
   {
-    excerpt:
-      "Lalle ne, haƙĩƙa, ãyã tã kasance a gare ku a cikin jama'a biyu waɗanda suka haɗu, ɗayan yana yãƙi a cikin hanyar Allah, kuma ɗayan kãfirai, sunã ganinsu ninki biyu, da idãnunsu.",
     context: "Allah ya sa musulmi sun fi girma ga abokan gaba a Badar, yana karfafa zukata.",
   },
   {
-    excerpt:
-      "Kuma lalle ne, haƙĩƙa, Allah Yã yi muku gaskiya a lõkacin da kuke kashe su da izninSa, har sai kun yi ƙarfin hali, kuma kuka yi jãyayya a cikin al'amarin, kuma kuka sãɓã a bãyan Ya nũna muku abin da kuke so.",
     context: "Yana magance rashin biyayyar maharba da jujjuyawar Uhudu.",
   },
   {
-    excerpt:
-      "Ya ku wadanda suka yi imani ku tuna ni'imar Allah a kanku a lokacin da runduna ta zo muku, kuma Muka aika wata iska da rundunonin da ba ku gani ba a kansu.",
     context: "Suratul Ahzab akan kawayen hadin gwiwa da taimakon Ubangiji.",
   },
   {
-    excerpt:
-      "Kuma Ya saukar da waɗanda suka taimake su daga Mutãnen Littãfi daga birãnensu, kuma Ya jẽfa tsõro a cikin zukãtansu, wata ƙungiya kuka kashe, da wata ƙungiya da kuka kãma. Kuma Ya gãdar da ku ƙasarsu da gidãjensu.",
     context:
       "Suratul Ahzab a kan Banu Qurayzah, wanda ya warware alkawari a lokacin da aka yi wa kawanya - wani yanki mai iyaka na ha'inci na lokacin yaki, ba hukunci a kan imani ba.",
   },
   {
-    excerpt:
-      "Lalle ne Mu, Mun ba ku babban rabo bayyananne, domin Allah Ya gafarta muku abin da ya gabace na zunubinku da abin da zai biyo baya, kuma Ya cika ni'imarSa a kanku, kuma Ya shiryar da ku zuwa ga hanya madaidaiciya.",
     context:
       "Ya bayyana a dawo daga Hudaibiyyah - suna a matsayin nasara bayyananne abin da sahabbai suka fara ji a matsayin sulhu mai zafi.",
   },
   {
-    excerpt:
-      "Lalle ne, Allah Yã yarda da mũminai a lõkacin da suka yi maka mubaya'a a ƙarƙashin itãciya, kuma Ya san abin da ke cikin zukãtansu, sabõda haka Ya saukar da natsuwa a kansu, kuma Ya saka musu da wani yãƙi kusa.",
     context:
       "Alkawarin Ridwan - Sahabbai kusan 1,400 ne suka yi alkawari a karkashin itacen karamar hukuma ba za su gudu ba, kuma Allah Ya yarda da su.",
   },
   {
-    excerpt:
-      "Idan nasarar Allah ta zo, kuma da buwaya ta zo, kuma ka ga mutane suna shiga addinin Allah da yawa, sai ka yi tasbihi da godiya ga Ubangijinka, kuma ka nemi gafararSa. Lalle Shĩ, Ya kasance Mai karɓar tũba ne.",
     context:
       "Suratul Nasr a kan buda Makkah - bugu ba tare da cin nasara ba face da godiya, da neman gafara, da dimbin jama'a masu shiga imani.",
   },
   {
-    excerpt:
-      "Allah ya riga ya ba ku nasara a yankuna da dama... Sai Allah Ya saukar da natsuwarSa ga ManzonSa da kuma a kan muminai.",
     context:
       "Allah yana tunatar da muminai cewa nasara ita ce baiwarSa, ba sakamakon alfahari da adadi ba.",
   },
   {
-    excerpt:
-      "Wadanda suka saura sun yi murna da zamansu a bayan Manzon Allah, kuma ba su son yin jihadi da dukiyoyinsu da rayukansu a tafarkin Allah.",
     context: "Suratul Tawbah tana magana ne ga waɗanda suka ba da uzurin tafiya Tabuka mai wahala.",
   },
 ];

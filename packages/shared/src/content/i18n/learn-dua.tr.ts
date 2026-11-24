@@ -17,19 +17,8 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       "Mümin, rahatlıkta da zorlukta da, açıktan da gizlice de dua eder; Allah'ın her çağrıyı işittiğine ve samimi bir kulu asla eli boş çevirmediğine emin olarak. O, o kadar yakındır ki şöyle buyurur: 'Bana dua edince, dua edenin duasına icabet ederim.'",
       "İcabet, Peygamber'in ﷺ öğrettiği üç şekilden birinde gerçekleşir: ya Allah istenen şeyi verir; ya da onu geri tutup ahirette eşiti veya daha fazlasını mükâfat olarak biriktirir; ya da eşiti kadar bir zararı ondan uzaklaştırır. Böylece samimi hiçbir dua gerçekte cevapsız kalmaz — bazen en büyük rahmet, göremediğimiz bir cevabın içindedir.",
     ],
-    quran: [
-      { excerpt: "And your Lord says, 'Call upon Me; I will respond to you.'" },
-      {
-        excerpt:
-          "And when My servants ask you concerning Me — indeed I am near. I respond to the call of the caller when he calls upon Me.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dua is worship. — then he ﷺ recited, 'And your Lord says, Call upon Me; I will respond to you.' (an-Nu'man ibn Bashir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Duaları keşfet" }],
   },
   {
@@ -40,16 +29,7 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       "Allah'a üç iç haliyle dua et: tevazu, O'nun icabet edebileceğine ve edeceğine dair kesin bir yakîn, ve O'na karşı güzel bir zan (husnü'z-zan). Mümkünse kıbleye yönel, ellerini kaldır, mübarek vakitleri seç, ve hem bu dünyanın hem de ahiretin işlerini dile. Önemli dilekleri tekrar etmek müstehaptır; başladığın gibi bitir — hamd ve salavat ile.",
       "Her şeyden önce acele etme. Peygamber ﷺ, kişi ümitsizliğe kapılıp 'Durmadan dua ettim ama icabet olunmadı' diyerek duayı bırakmadıkça, duasının kabul olunmaya devam ettiğini haber vermiştir. Dilemekte ısrar etmek, başlı başına bir ibadettir; ve Allah, kapısını çalmaya devam eden kulunu sever.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "The servant's dua continues to be answered so long as he is not hasty — saying, 'I made dua but was not answered.' (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "When one of you prays, let him begin by praising and glorifying his Lord, then send blessings upon the Prophet ﷺ, then ask for what he wishes. (Fadalah ibn 'Ubayd)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Her duaya Elhamdülillah ve Peygamber'e ﷺ salavat ile başla.",
       "Allah'a ihtiyacına en uygun isimleriyle dile (rızık için Ya Rezzak, mağfiret için Ya Gafur gibi).",
@@ -65,16 +45,7 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       "Helal rızık, güçlü bir anahtardır. Peygamber ﷺ, ellerini gökyüzüne kaldırıp 'Ya Rab, ya Rab' diye seslenen bir yolcuyu tasvir etmiştir; ama 'yediği haram, içtiği haram, giydiği haram, haramla beslenmiş — böyle biri nasıl icabet görsün?' Kişinin kazancını korunması, günahtan tövbe etmesi, ve günah işlemeyi veya akrabalık bağlarını koparmayı dilememesi, dua ile onun kabulü arasındaki engelleri kaldırır.",
       "Yine de icabet, nihayetinde Allah'ın rahmetidir; bizim kontrol edebileceğimiz bir alışveriş değildir. Bu yüzden mümin, en iyi çabasını — ihlas, helal bir yaşam, tövbe — mütevazı bir tevekkülle birleştirir ve cevap gecikse dahi asla ümitsizliğe kapılmaz. Zayıflık ve geçmiş günahlar dilemeyi bırakmak için bir sebep değildir; aksine, en Merhametli olana dönmek için daha da fazla sebeptir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…his food is unlawful, his drink unlawful, his clothing unlawful, nourished by the unlawful — so how can he be answered? (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "The servant's dua is answered so long as he does not ask for something sinful or for the severing of family ties. (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Gelirini ve harcamalarını helal olup olmadığı açısından gözden geçir — bu, duanı doğrudan etkiler.",
       "Uzun dualardan önce istiğfar ve samimi bir tövbe ile başla.",
@@ -89,16 +60,7 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       "En güçlü vakitler arasında şunlar sayılır: gecenin son üçte biri, Allah'ın (kendi azametine yaraşır biçimde) dünya semasına inip 'Benden isteyen yok mu, ona vereyim?' diye seslendiği an; namazdaki secde, Allah'a en yakın olunan hâl; ezan ile kamet arasındaki an; oruçlunun hâli, özellikle iftar vakti; yağmur yağarken; ve cuma gününün gün batımından önceki son saati, ki içinde hiçbir duanın reddolunmadığı bir an vardır.",
       "Mübarek yerler ve haller arasında Hac sırasında Arafat'ta durmak, Harem sınırları içinde bulunmak, ve yolcunun duası, ebeveynin çocuğu için duası, ve zulme uğrayanın duası bulunur. Bunları istikrarlı bir dua hayatı için sabit çıpalar olarak kullan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Our Lord descends each night to the lowest heaven in the last third of the night and says: Who is calling upon Me, that I may answer him? Who is asking of Me, that I may give him? (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "The closest a servant is to his Lord is while he is prostrating, so make much supplication therein. (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Salah hatırlatıcıları" }, { label: "Günlük zikirler" }],
   },
 
@@ -114,18 +76,13 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Seyyidü'l-İstiğfar (istiğfarın efendisi)",
         when: "Her sabah ve akşam bir kez",
-        translation:
-          "Allah'ım! Sen benim Rabbimsin, Senden başka ilah yoktur. Beni Sen yarattın ve ben Senin kulunum; gücüm yettiğince Sana verdiğim söz ve ahdimdeyim. Yaptığım şeylerin şerrinden Sana sığınırım. Bana olan nimetini itiraf ederim ve günahımı da itiraf ederim; öyleyse beni bağışla — çünkü günahları Senden başka kimse bağışlamaz.",
         reference:
           "Sahih al-Bukhari 6306 — kim bunu gündüz vakti buna yürekten inanarak söyler ve o gün ölürse cennet ehlindendir",
       },
       {
         title: "Hasbiyallahu la ilahe illa Hu",
         when: "Her sabah ve akşam yedi kez",
-        translation:
-          "Allah bana yeter, O'ndan başka ilah yoktur. O'na tevekkül ettim, ve O büyük Arş'ın Rabbidir.",
-        reference:
-          "Qur'an 9:129 (the words); Sunan Abi Dawud 5081 for the morning/evening practice",
+        reference: "Qur'an 9:129 (sözler); sabah/akşam uygulaması için Sunan Abi Dawud 5081",
       },
     ],
     appLinks: [{ label: "Sabah ve akşam zikirleri" }, { label: "Tüm dualar" }],
@@ -141,22 +98,18 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Uyanma duası",
         when: "Uyanır uyanmaz hemen",
-        translation: "Bizi öldürdükten sonra dirilten Allah'a hamdolsun; dönüş de O'nadır.",
         reference: "Sahih al-Bukhari 6312",
       },
       {
         title: "Uyumadan önceki dua",
         when: "Uyumak için yatarken",
-        translation: "Allah'ım! Senin adınla ölür ve yaşarım.",
         reference: "Sahih al-Bukhari 6324",
       },
       {
         title: "Uyumadan önce Ayete'l-Kürsî",
         when: "Uyumadan önce",
-        translation:
-          "Allah — O'ndan başka ilah yoktur, diri, her şeyi ayakta tutandır. O'nu ne bir uyuklama ne de bir uyku tutar. Göklerde ve yerde ne varsa hepsi O'nundur. O'nun izni olmadan katında kim şefaat edebilir? Onların önlerindekini ve arkalarındakini bilir; O'nun dilediği kadarından başka, O'nun ilminden hiçbir şeyi kavrayamazlar. Kürsüsü gökleri ve yeri kaplamıştır; onları koruyup gözetmek O'na ağır gelmez. O, çok yücedir, çok büyüktür.",
         reference:
-          "Qur'an 2:255; Sahih al-Bukhari 2311 — a guardian remains with the reciter until morning",
+          "Qur'an 2:255; Sahih al-Bukhari 2311 — okuyanın yanında sabaha kadar bir koruyucu kalır",
       },
     ],
     appLinks: [{ label: "Uyku duaları" }, { label: "Gece zikirleri" }],
@@ -172,13 +125,11 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Evden çıkış duası",
         when: "Evden çıkarken",
-        translation: "Allah'ın adıyla; Allah'a tevekkül ettim; güç ve kuvvet ancak Allah iledir.",
-        reference: "Sunan Abi Dawud 5095; Jami' at-Tirmidhi 3426 (hasan sahih)",
+        reference: "Sunan Abi Dawud 5095; Jami' at-Tirmidhi 3426 (hasen sahih)",
       },
       {
         title: "Mescide giriş duası",
         when: "Girerken, sağ ayakla adım atarak",
-        translation: "Allah'ım! Bana rahmetinin kapılarını aç.",
         reference: "Sahih Muslim 713",
       },
     ],
@@ -195,16 +146,13 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Yemekten önce",
         when: "Yemeğin başında",
-        translation: "Allah'ın adıyla.",
         reference:
-          "Sahih al-Bukhari 5376; Jami' at-Tirmidhi 1858 (with the correction if forgotten)",
+          "Sahih al-Bukhari 5376; Jami' at-Tirmidhi 1858 (unutulursa yapılacak telafiyle birlikte)",
       },
       {
         title: "Yemekten sonra",
         when: "Yemeği bitirirken",
-        translation:
-          "Bana bunu yediren ve hiçbir güç ve kuvvetim olmaksızın bunu bana rızık kılan Allah'a hamdolsun.",
-        reference: "Jami' at-Tirmidhi 3458 (hasan) — his past sins are forgiven",
+        reference: "Jami' at-Tirmidhi 3458 (hasen) — geçmiş günahları bağışlanır",
       },
     ],
     appLinks: [{ label: "Yemek duaları" }],
@@ -220,15 +168,11 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Abdestten sonra",
         when: "Abdesti tamamladıktan hemen sonra",
-        translation:
-          "Şehadet ederim ki Allah'tan başka ilah yoktur, O tektir, ortağı yoktur; ve şehadet ederim ki Muhammed O'nun kulu ve elçisidir.",
         reference: "Sahih Muslim 234",
       },
       {
         title: "Namazda selamdan önce",
         when: "Son teşehhütte, namazı bitirmeden önce",
-        translation:
-          "Allah'ım! Cehennem azabından, kabir azabından, hayat ve ölüm fitnesinden, ve Mesih Deccal'in fitnesinin şerrinden Sana sığınırım.",
         reference: "Sahih al-Bukhari 1377; Sahih Muslim 588",
       },
     ],
@@ -245,17 +189,10 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Ezandan sonraki dua",
         when: "Ezan bittiğinde",
-        translation:
-          "Allah'ım! Bu eksiksiz çağrının ve kılınacak namazın Rabbi! Muhammed'e el-Vesile'yi ve el-Fazile'yi ver, ve O'nu vaat ettiğin övülmüş makama ulaştır.",
         reference: "Sahih al-Bukhari 614",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "The dua made between the adhan and the iqamah is not rejected. (Anas ibn Malik; also at-Tirmidhi 212)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Ezan ve namaz duaları" }, { label: "Zikir kütüphanesi" }],
   },
 
@@ -271,15 +208,12 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Endişe ve keder duası",
         when: "Sıkıntı, kaygı veya bunaltıcı üzüntü anında",
-        translation:
-          "Allah'ım! Endişe ve üzüntüden, âcizlik ve tembellikten, cimrilik ve korkaklıktan, borcun ağırlığından, ve insanların baskısından Sana sığınırım.",
-        reference: "Sahih al-Bukhari 6369 (Anas ibn Malik)",
+        reference: "Sahih al-Bukhari 6369 (Enes b. Mâlik)",
       },
       {
         title: "Allah bize yeter",
         when: "Korku veya bunalma anında",
-        translation: "Allah bize yeter, O ne güzel vekildir.",
-        reference: "Qur'an 3:173 — the words of the believers when threatened",
+        reference: "Qur'an 3:173 — tehdit edildiklerinde müminlerin söylediği sözler",
       },
     ],
     appLinks: [{ label: "Huzur zikirleri" }, { label: "Genel dualar" }],
@@ -295,9 +229,7 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Şifa duası",
         when: "Hasta olunduğunda, ya da hasta biri için dua edilirken",
-        translation:
-          "Allah'ım! İnsanların Rabbi, sıkıntıyı gider ve şifa ver — Sen Şâfî'sin; Senin şifandan başka şifa yoktur — hiçbir hastalık bırakmayan bir şifa ver.",
-        reference: "Sahih al-Bukhari 5743; Sahih Muslim 2191 ('Aishah)",
+        reference: "Sahih al-Bukhari 5743; Sahih Muslim 2191 (Âişe)",
       },
     ],
     appLinks: [{ label: "Şifa duaları" }, { label: "Koruma zikirleri" }],
@@ -313,15 +245,12 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sık sık tövbe",
         when: "Gün boyunca, tekrar tekrar",
-        translation: "Allah'tan mağfiret diler ve O'na tövbe ederim.",
-        reference:
-          "Sahih al-Bukhari 6307 — the Prophet ﷺ sought forgiveness more than 70 times a day",
+        reference: "Sahih al-Bukhari 6307 — Peygamber ﷺ günde yetmiş defadan fazla istiğfar ederdi",
       },
       {
         title: "Sebatlı bir kalp için dua",
         when: "Sapma veya kararsızlık korkusunda",
-        translation: "Ey kalpleri çeviren! Kalbimi dinin üzere sabit kıl.",
-        reference: "Jami' at-Tirmidhi 2140 (hasan) — his most frequent oath and dua",
+        reference: "Jami' at-Tirmidhi 2140 (hasen) — en sık ettiği yemin ve dua",
       },
     ],
     appLinks: [{ label: "Tövbe duaları" }, { label: "Günlük istiğfar" }],
@@ -337,16 +266,13 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Yolculuğa çıkarken duası",
         when: "Taşıta binip yola çıkarken",
-        translation:
-          "Bunu bize boyun eğdiren zât noksan sıfatlardan münezzehtir; biz buna güç yetiremezdik. Ve şüphesiz biz Rabbimize dönenleriz.",
         reference:
-          "Qur'an 43:13–14 (the words); Sahih Muslim 1342 (the Prophet's ﷺ travel practice)",
+          "Qur'an 43:13–14 (sözler); Sahih Muslim 1342 (Peygamber ﷺ'in yolculuk uygulaması)",
       },
       {
         title: "Yağmur yağarken duası",
         when: "Yağmurun başlangıcında",
-        translation: "Allah'ım! Bunu faydalı bir yağmur eyle.",
-        reference: "Sahih al-Bukhari 1032 ('Aishah)",
+        reference: "Sahih al-Bukhari 1032 (Âişe)",
       },
     ],
     appLinks: [{ label: "Yolculuk duaları" }, { label: "Yolculuk rehberi" }],
@@ -358,19 +284,12 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       "Rızık yalnızca Allah'tandır; mümin devesini bağlar — yani çalışır ve kazanır — sonra Rezzak olandan helal rızık, kazancında bereket, borçtan kurtuluş, ve başkalarına muhtaç olmama diler. Peygamber ﷺ, tam olarak bunu dileyen güzel bir dua öğretmiştir.",
       "Ev için ise, Kur'an'ın kendisi salih kimselerin duasını öğretir: 'göz aydınlığı' olacak eş ve çocuklarla rızıklandırılmayı, ve iman, namaz ve rahmetle birbirine bağlı bir hane yürütmeyi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Our Lord, grant us from among our spouses and offspring comfort to our eyes, and make us leaders for the righteous.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Helal rızık duası",
         when: "Sabahları, namazdan sonra, ve maddi sıkıntıda",
-        translation:
-          "Allah'ım! Beni helalinle haramından koru, ve lütfunla Senden başkasına muhtaç olmaktan bana yeterli kıl.",
-        reference: "Jami' at-Tirmidhi 3563 (hasan) ('Ali ibn Abi Talib)",
+        reference: "Jami' at-Tirmidhi 3563 (hasen) (Ali b. Ebû Tâlib)",
       },
     ],
     appLinks: [{ label: "Aile ve hayat duaları" }],
@@ -388,15 +307,11 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Her iki dünyada da hayır",
         when: "Genel amaçlı bir dua — Peygamber'in ﷺ en sık yaptığı",
-        translation:
-          "Rabbimiz! Bize dünyada iyilik ver, ahirette de iyilik ver, ve bizi ateşin azabından koru.",
-        reference: "Qur'an 2:201 (the most frequent dua of the Prophet ﷺ — Sahih al-Bukhari 6389)",
+        reference: "Qur'an 2:201 (Peygamber ﷺ'in en sık yaptığı dua — Sahih al-Bukhari 6389)",
       },
       {
         title: "İmanda sebat",
         when: "Sapma korkusunda veya hidayet bulduktan sonra",
-        translation:
-          "Rabbimiz! Bizi hidayete erdirdikten sonra kalplerimizi eğriltme, ve katından bize bir rahmet bahşet. Şüphesiz Sen, çok bahşedensin.",
         reference: "Qur'an 3:8",
       },
     ],
@@ -413,8 +328,7 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dördü kapsayan dua",
         when: "Genel bir günlük dua",
-        translation: "Allah'ım! Senden hidayet, takva, iffet ve gönül tokluğu dilerim.",
-        reference: "Sahih Muslim 2721 (Ibn Mas'ud)",
+        reference: "Sahih Muslim 2721 (İbn Mes'ûd)",
       },
     ],
     appLinks: [{ label: "Nebevi dualar" }],
@@ -430,16 +344,12 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sevgili ve günah silen sözler",
         when: "Gün boyunca; 100 kez günahları siler",
-        translation: "Allah noksan sıfatlardan münezzehtir ve tüm hamd O'nadır.",
         reference: "Sahih al-Bukhari 6405; Sahih Muslim 2691",
       },
       {
         title: "Mizanda ağır iki kelime",
         when: "Herhangi bir zamanda",
-        translation:
-          "Allah noksan sıfatlardan münezzehtir ve hamd O'nundur; Allah, azametli olan, münezzehtir.",
-        reference:
-          "Sahih al-Bukhari 6406; Sahih Muslim 2694 — light on the tongue, heavy on the Scale",
+        reference: "Sahih al-Bukhari 6406; Sahih Muslim 2694 — dilde hafif, mizanda ağır",
       },
     ],
     appLinks: [{ label: "Zikir koleksiyonu" }],
@@ -451,19 +361,12 @@ export const LEARN_DUA_TOPICS_TR: DeepPartial<LearnDuaTopic>[] = [
       "Peygamber'e ﷺ salavat getirmek Allah'ın Kur'an'daki emridir — 'Şüphesiz Allah ve melekleri Peygamber'e salât ederler; ey iman edenler! Siz de O'na salât edin ve tam bir teslimiyetle selam verin' — ve başka hiçbir duanın böylesine garantili bir karşılığı yoktur: Peygamber ﷺ, kim ona bir kez salavat getirirse Allah'ın ona on kez salât edeceğini buyurmuştur.",
       "Sık salavat getirmek rahmet getirir, dereceleri yükseltir, günahları siler, ve kişiyi Kıyamet Günü Peygamber'e ﷺ en yakın kılar. Aşağıdaki tam İbrahimi form — Sahabe'ye kendisine nasıl salavat getireceklerini sorduklarında öğrettiği form — her namazın teşehhüdünde okunur ve gün boyunca dilde tutulması çok güzeldir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, Allah and His angels send blessings upon the Prophet. O you who believe, send blessings upon him and greetings of peace.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Tam Salavat-ı İbrahimiyye",
         when: "Namazın teşehhüdünde ve gün boyunca",
-        translation:
-          "Allah'ım! İbrahim'e ve İbrahim ailesine salât ettiğin gibi Muhammed'e ve Muhammed ailesine de salât et; şüphesiz Sen övgüye layıksın, şanı yücesin. Allah'ım! İbrahim'e ve İbrahim ailesine bereket verdiğin gibi Muhammed'e ve Muhammed ailesine de bereket ver; şüphesiz Sen övgüye layıksın, şanı yücesin.",
-        reference: "Sahih al-Bukhari 3370; Sahih Muslim 406 (Ka'b ibn 'Ujrah)",
+        reference: "Sahih al-Bukhari 3370; Sahih Muslim 406 (Ka'b b. Ucre)",
       },
     ],
     appLinks: [{ label: "Salavat koleksiyonu" }],

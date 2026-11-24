@@ -32,30 +32,8 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       "Membaca Al-Qur'an itu sendiri adalah ibadah, bukan sekadar membaca informasi. Nabi ﷺ mengajarkan bahwa setiap huruf yang dibaca mendatangkan satu kebaikan, dan setiap kebaikan dilipatgandakan minimal sepuluh kali — jadi bahkan seorang pemula yang mengeja satu baris pun sudah mengumpulkan pahala. Pada Hari Kebangkitan, Al-Qur'an akan datang sebagai pemberi syafaat, membela mereka yang menjaganya selama hidup di dunia. Orang yang membacanya dengan lancar bersama para malaikat penulis yang mulia, dan orang yang tersendat-sendat membacanya, dengan susah payah belajar, mendapat pahala berlipat ganda atas usahanya.",
       "Penting untuk memahami apa yang bukan Al-Qur'an. Al-Qur'an adalah kalam Allah sendiri secara harfiah dalam bahasa Arab, tidak berubah sejak diturunkan. Hadis — ucapan, perbuatan, dan persetujuan diam Nabi ﷺ — berbeda: hadis menjelaskan dan mencontohkan Al-Qur'an tetapi merupakan ungkapan Nabi ﷺ sendiri, dijaga melalui rantai perawi yang disebutkan namanya dan dinilai oleh para ulama sebagai sahih, hasan, atau da'if (lemah). Keduanya adalah wahyu dan keduanya wajib diikuti, tetapi hanya Al-Qur'an yang dibaca sebagai ibadah dalam shalat, dan hanya Al-Qur'an yang merupakan kalam Allah yang mukjizat dan tak tertandingi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bulan Ramadhan adalah bulan yang di dalamnya diturunkan Al-Qur'an sebagai petunjuk bagi manusia…",
-      },
-      {
-        excerpt:
-          "Katakanlah: Sekiranya manusia dan jin berkumpul untuk membuat yang serupa Al-Qur'an ini, mereka tidak akan dapat membuat yang serupa dengannya…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa membaca satu huruf dari Kitab Allah, ia mendapat satu kebaikan, dan kebaikan itu dilipatgandakan sepuluh kali.",
-      },
-      {
-        excerpt:
-          "Bacalah Al-Qur'an, karena ia akan datang pada Hari Kebangkitan sebagai pemberi syafaat bagi para pembacanya.",
-      },
-      {
-        excerpt:
-          "Orang yang mahir membaca Al-Qur'an bersama para malaikat penulis yang mulia lagi berbakti, dan orang yang membacanya dengan tersendat-sendat serta merasa berat, baginya pahala berlipat ganda.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Tetapkan waktu tetap setiap hari untuk Al-Qur'an — bahkan lima menit yang fokus membangun keberkahan dan konsistensi.",
       "Baca minimal satu baris beserta maknanya: baca ayat Arabnya, lalu baca terjemahannya perlahan.",
@@ -74,15 +52,7 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       "Penjagaan teks dimulai sejak masa hidup Nabi ﷺ sendiri. Para sahabat menghafal wahyu begitu ia turun, dan para penulis mencatatnya di atas kulit, pelepah kurma, tulang, dan batu di bawah pengawasan langsung Nabi ﷺ. Setelah banyak penghafal gugur syahid dalam Perang Yamamah, Abu Bakar memerintahkan Zaid bin Tsabit untuk mengumpulkan Al-Qur'an yang tertulis menjadi satu kumpulan (suhuf). Kemudian, seiring meluasnya kekuasaan Islam dan beragamnya dialek, Utsman memerintahkan pembuatan salinan resmi dalam dialek Quraisy dan mengirimkannya ke kota-kota besar, menyatukan satu teks tertulis bagi seluruh umat.",
       "Allah sendiri menjamin penjagaan Al-Qur'an: \"Sesungguhnya Kamilah yang menurunkan Adz-Dzikr (Al-Qur'an), dan sesungguhnya Kami benar-benar memeliharanya.\" Janji itu terpenuhi melalui tiga jaminan yang saling terkait — hafalan massal di setiap generasi, transmisi tertulis yang cermat, dan rantai bacaan (qira'at) guru-ke-murid yang tak terputus hingga kembali ke Nabi ﷺ. Bagi orang beriman ini adalah tanda keagamaan; bagi sejarawan ini adalah fakta yang terdokumentasi: Al-Qur'an yang dibaca hari ini adalah teks yang sama yang diturunkan empat belas abad lalu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Kamilah yang menurunkan Adz-Dzikr (Al-Qur'an), dan sesungguhnya Kami benar-benar memeliharanya.",
-      },
-      {
-        excerpt: "Bacalah dengan (menyebut) nama Tuhanmu yang menciptakan…",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Garis waktu wahyu" }, { label: "Sirah" }],
   },
   {
@@ -94,12 +64,7 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       "Untuk memudahkan bacaan, Al-Qur'an juga dibagi menjadi 30 bagian sama besar yang disebut juz, dan setiap juz dibagi lagi menjadi dua bagian yang disebut hizb, sehingga totalnya 60 hizb. Inilah yang membuat khatam Ramadhan — menyelesaikan seluruh Al-Qur'an dalam sebulan — terasa begitu alami: satu juz sehari menyelesaikan Kitab dalam tiga puluh hari, dan setengah juz dua kali sehari lebih ringan lagi. Di dalam setiap surah, ayat-ayat diberi nomor sehingga bagian mana pun bisa dirujuk secara tepat sebagai surah:ayat; hitungan standar Madinah adalah 6.236 ayat, dengan hanya sedikit perbedaan yang terdokumentasi dengan baik dalam cara beberapa batas ayat dihitung — teksnya sendiri identik.",
       "Memahami struktur ini mengubah niat yang samar menjadi rencana yang konkret. Kamu bisa berkomitmen pada porsi harian yang tetap, menargetkan Juz Amma (juz terakhir, ketiga puluh, penuh surah pendek) untuk dihafal, mengikuti satu tema seperti kesabaran di beberapa surah, atau menjadwalkan khatam lengkap seputar Ramadhan. Struktur adalah kerangka yang membuat hubungan seumur hidup dengan Al-Qur'an bisa dicapai.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…sebuah Kitab yang ayat-ayatnya dijelaskan secara terperinci, Al-Qur'an dalam bahasa Arab untuk kaum yang mengetahui.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{ label: "Visual struktur" }, { label: "Jelajahi surah" }],
   },
   {
@@ -127,15 +92,7 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       "Kamu tidak perlu menguasai semuanya sekaligus. Kaidah-kaidah inti dipelajari secara berurutan: hukum nun sukun dan tanwin (izhar, idgham, iqlab, ikhfa), hukum mim sukun, berbagai jenis mad (pemanjangan), qalqalah (pantulan ringan pada huruf tertentu), ghunnah (dengung hidung), dan waqaf (di mana dan bagaimana berhenti). Masing-masing punya definisi yang jelas, contoh sehari-hari, dan latihan, dan hub ini membahasnya satu per satu.",
       "Satu patokan yang tegas: pelajari tajwid dengan mendengar langsung dari guru yang mumpuni, bukan hanya dari buku atau aplikasi. Bacalah di hadapan seseorang yang bisa mendengar kesalahanmu dan membetulkannya — begitulah tajwid selalu diajarkan, dan itulah satu-satunya jalan yang bisa diandalkan menuju ketepatan yang sesungguhnya dan, pada akhirnya, ijazah (rantai bacaan yang bersanad).",
     ],
-    hadith: [
-      {
-        excerpt: "Sebaik-baik kalian adalah yang belajar Al-Qur'an dan mengajarkannya.",
-      },
-      {
-        excerpt:
-          "Orang yang mahir membaca Al-Qur'an bersama para malaikat penulis yang mulia lagi berbakti, dan orang yang membacanya dengan tersendat-sendat serta merasa berat, baginya pahala berlipat ganda.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Pelajaran tajwid" }],
   },
   {
@@ -168,12 +125,7 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       "Kamu tidak menerjemahkan Al-Qur'an kata demi kata dengan cara ini — itu adalah pekerjaan tafsir dan terjemahan — tetapi kamu mulai mengenali nama-nama Allah, perintah, janji, dan peringatan secara langsung, pada saat membaca. Mulailah dengan kata-kata yang paling sering muncul dan paling berbobot: Allah, Rabb (Tuhan), rahmah (kasih sayang), iman (keyakinan), sabr (kesabaran), taqwa (kesadaran akan Allah), dunya (dunia ini), dan akhirah (kehidupan akhirat). Dari kumpulan inti itu, perluas sedikit demi sedikit.",
       "Gunakan pengulangan berjarak (spaced repetition), bukan sistem kebut semalam. Mempelajari lima kata baru seminggu dan mengulang semuanya setiap hari akan membawamu jauh lebih maju dalam setahun dibanding menghafal lima puluh kata dalam satu kali duduk lalu melupakannya. Allah berjanji bahwa Al-Qur'an telah dimudahkan untuk diambil pelajaran — dekati kosakatanya secara konsisten dan kamu akan merasakan kemudahan itu sendiri.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan sesungguhnya telah Kami mudahkan Al-Qur'an untuk pelajaran, maka adakah orang yang mau mengambil pelajaran?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{ label: "Daftar kosakata" }],
   },
   {
@@ -213,12 +165,7 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       "Perhatikan pola yang berjalan di dalamnya. Para nabi menyeru kaumnya kepada penyembahan Allah semata; mereka diejek, ditentang, dan sering diusir; mereka bertahan dengan kesabaran dan tawakal penuh kepada Allah; dan pada akhirnya janji Allah terbukti benar. Ketika kamu membaca kesulitan mereka, ambillah kekuatan dari cara mereka menyikapinya — tanpa pernah membayangkan derajatmu setara dengan mereka. Intinya adalah menyerap keteguhan dan tawakal mereka, bukan membandingkan kedudukan.",
       'Al-Qur\\\'an sendiri menonjolkan satu kisah: Surah Yusuf, yang Allah sebut sebagai "kisah yang terbaik". Secara tidak biasa, kisah ini dituturkan dari awal hingga akhir dalam satu surah, jadi bacalah dalam satu kali duduk sebagai perjalanan yang berkesinambungan — pengkhianatan, kesabaran dalam perbudakan dan penjara, dan akhirnya pengampunan serta pertemuan kembali — dan saksikan bagaimana rencana Allah terungkap di balik bertahun-tahun kemalangan yang tampak.',
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya pada kisah-kisah mereka itu terdapat pengajaran bagi orang-orang yang mempunyai akal…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{ label: "Kisah para nabi" }],
   },
   {
@@ -230,11 +177,7 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       'Kamu juga akan mendengar tentang "mukjizat ilmiah" — ayat-ayat yang menyentuh tahapan embrio, perluasan alam semesta, dan sejenisnya. Sikapi ini dengan hati-hati. Tafsir klasik seringkali memahami ayat-ayat semacam itu dengan cara yang cukup berbeda dari para pembela modern, dan memaksa Al-Qur\'an untuk cocok dengan setiap hipotesis ilmiah yang berubah-ubah bisa menjadi bumerang ketika teori-teori itu berganti. Bedakan dengan tegas antara penafsiran yang mapan dan dugaan kontemporer.',
       "Ramalan-ramalan sejarah juga dikutip oleh para ulama — kemenangan bangsa Romawi yang diramalkan, pembukaan Makkah secara damai — dan itu layak dikaji, tetapi melalui tafsir dan sirah yang cermat, bukan klip video yang sensasional. Argumen terkuat bagi Al-Qur'an selalu adalah tauhidnya, transformasi moral suatu kaum, serta bahasa dan penjagaannya yang tak tertandingi.",
     ],
-    quran: [
-      {
-        excerpt: "Maka buatlah satu surah semisalnya… jika kamu orang-orang yang benar.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Hindari klaim mukjizat ilmiah yang berlebihan yang bisa mempermalukan dakwah ketika diteliti secara cermat. Utamakan tauhid, moralitas, dan bukti-bukti bahasa serta sejarah Al-Qur'an.",
   },
@@ -247,16 +190,7 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       "Metode praktis: gunakan pengulangan berjarak, tetaplah pada satu qari agar melodinya sendiri memicu ingatanmu, baca dari hafalan setiap hari, bukan hanya membaca teks, dan mintalah guru mendengarkan serta menandai kesalahanmu — kesalahan yang tidak bisa kamu dengar sendiri. Pelacak hifz Munib mencatat kemajuan hingga ke ayat perorangan sehingga kamu selalu tahu apa yang perlu diulang.",
       "Pilih rencana yang sesuai dengan tahapmu. Pemula: hafalkan Juz Amma, bagian terakhir, penuh dengan surah pendek. Menengah: tambahkan sepuluh surah yang sering dibaca seperti Al-Mulk, Ya-Sin, dan Al-Kahfi. Lanjut: selesaikan satu juz penuh dengan pengulangan yang kuat atas semua yang sebelumnya. Dan perjalanan Hafiz: seluruh mushaf, dihafal bersama guru yang mumpuni dan, idealnya, sanad — rantai transmisi bersertifikat kembali ke Nabi ﷺ.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Akan dikatakan kepada sahabat Al-Qur'an: Bacalah dan naiklah sebagaimana engkau dahulu membaca di dunia, karena derajatmu berada pada ayat terakhir yang engkau baca.",
-      },
-      {
-        excerpt:
-          "Perumpamaan sahabat Al-Qur'an adalah seperti pemilik unta yang terikat: jika ia menjaganya, ia akan tetap memilikinya, dan jika ia melepaskannya, ia akan kehilangannya.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Rencana hafalan" }, { label: "Pelacak hifz" }],
   },
   {
@@ -277,15 +211,7 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       "Tadabbur tidak sama dengan tafsir. Tafsir adalah penjelasan ilmiah tentang makna sebuah ayat; tadabbur adalah respons pribadimu yang penuh penghormatan terhadap makna itu setelah kamu memahaminya. Keduanya bekerja bersama: kamu terlebih dahulu mempelajari makna yang sahih dari tafsir, lalu kamu merenunginya dan bertanya bagaimana ia berbicara kepadamu. Kerangka yang membantu adalah tiga pertanyaan — Apa yang Allah ajarkan kepadaku di sini? Bagaimana ini mengubah apa yang kulakukan hari ini? Kebiasaan apa yang harus kubangun atau kutinggalkan karena ayat ini?",
       "Satu batasan tegas menjaga tadabbur tetap aman: renungkan apa yang diminta sebuah ayat darimu, tetapi jangan pernah mengarang makna baru untuk teks itu sendiri. Biarkan tafsir yang sahih menetapkan batas-batas penafsiran, dan simpan renunganmu sendiri di tempatnya — jurnal pribadi, seperti milik Munib, sangat ideal untuk menangkap apa yang digerakkan sebuah ayat dalam dirimu dan untuk kembali kepadanya nanti.",
     ],
-    quran: [
-      {
-        excerpt: "Maka tidakkah mereka menghayati Al-Qur'an, ataukah hati mereka terkunci?",
-      },
-      {
-        excerpt:
-          "Maka tidakkah mereka menghayati Al-Qur'an? Sekiranya (Al-Qur'an) itu bukan dari sisi Allah, tentulah mereka mendapat banyak pertentangan di dalamnya.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Pertanyaan tadabbur" }, { label: "Jurnal" }],
   },
   {
@@ -296,12 +222,7 @@ export const QURAN_GUIDE_TOPICS_ID: DeepPartial<QuranGuideTopic>[] = [
       "Itulah tujuan tantangan-tantangan ini. Setiap tantangan menghubungkan satu ayat tertentu dengan satu perilaku yang bisa dilakukan hari ini: menjaga lisan dengan perkataan yang baik, memberi sedekah secara diam-diam, menundukkan pandangan dari yang diharamkan, melepaskan dendam yang selama ini kamu pendam. Satu ayat, satu tindakan — cukup kecil untuk benar-benar bisa dilakukan, cukup nyata untuk mengubahmu.",
       "Tandai sebuah tantangan selesai hanya ketika kamu benar-benar telah melakukannya. Tujuan pencatatan bukan pamer — itu justru akan mengalahkan maksudnya — melainkan pertanggungjawaban yang jujur kepada Allah, yang melihat apa yang tidak dilihat orang lain. Seiring waktu, ayat demi ayat, begitulah cara bacaan berubah menjadi karakter.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mengapa kamu suruh orang lain (mengerjakan) kebaikan, sedangkan kamu melupakan diri (kewajiban)mu sendiri, padahal kamu membaca Al-Kitab?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{ label: "Tantangan hari ini" }],
   },
   {
@@ -445,14 +366,7 @@ export const QURAN_GUIDE_STORIES_ID: DeepPartial<QuranGuideStory>[] = [
       "Cara setan adalah bisikan yang terus-menerus, bukan paksaan — mengenali bisikannya adalah separuh jalan untuk menghindarinya.",
       "Nilai kemanusiaan terikat pada ilmu dan kembali kepada Allah, bukan pada tidak pernah berbuat salah — responsmu terhadap kesalahanlah yang mendefinisikan siapa dirimu.",
     ],
-    quran: [
-      {
-        excerpt: "Penciptaan Adam dan sujud para malaikat.",
-      },
-      {
-        excerpt: "Ujian, kekhilafan, dan taubat.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Surga, lalu bumi",
   },
   {
@@ -471,12 +385,7 @@ export const QURAN_GUIDE_STORIES_ID: DeepPartial<QuranGuideStory>[] = [
       "Keteguhan dalam menyeru kepada Allah bahkan menghadapi ejekan terus-menerus adalah ibadah tersendiri.",
       "Pertolongan Allah datang pada waktu yang telah ditetapkan — orang beriman membangun 'bahtera' ketaatan sebelum badai datang, percaya pada janji itu.",
     ],
-    quran: [
-      {
-        excerpt: "Kisah Nuh AS secara rinci.",
-      },
-      { excerpt: "Permohonan Nuh AS kepada kaumnya." },
-    ],
+    quran: [{}, {}],
     location: "Mesopotamia kuno (perkiraan ilmiah)",
   },
   {
@@ -495,14 +404,7 @@ export const QURAN_GUIDE_STORIES_ID: DeepPartial<QuranGuideStory>[] = [
       "Tawakal kepada Allah bukan berarti pasif: Hajar berlari dan berusaha mencari, dan Zamzam pun datang — usaha dan tawakal bekerja bersama.",
       "Amal ibadah yang ikhlas bergema melintasi generasi; ritual haji dan keutamaan Ka'bah kembali kepada ketaatan Ibrahim AS.",
     ],
-    quran: [
-      {
-        excerpt: "Ibrahim, Ismail, dan pengorbanan.",
-      },
-      {
-        excerpt: "Perjanjian dan warisan.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Irak, Syam, Makkah",
   },
   {
@@ -521,11 +423,7 @@ export const QURAN_GUIDE_STORIES_ID: DeepPartial<QuranGuideStory>[] = [
       "Rencana Allah seringkali tersembunyi di balik bertahun-tahun kemalangan yang tampak — sumur, perbudakan, dan penjara semuanya adalah langkah menuju kemuliaan Yusuf AS.",
       "Orang yang berkuasa menunjukkan kekuatannya melalui pengampunan: pada puncak kekuasaannya, Yusuf AS mengampuni mereka yang telah menzaliminya.",
     ],
-    quran: [
-      {
-        excerpt: "Kisah yang terbaik — dituturkan dalam satu surah.",
-      },
-    ],
+    quran: [{}],
     location: "Kanaan, Mesir",
   },
   {
@@ -544,12 +442,7 @@ export const QURAN_GUIDE_STORIES_ID: DeepPartial<QuranGuideStory>[] = [
       "Melihat mukjizat itu sendiri tidak menciptakan iman — petunjuk adalah anugerah Allah yang datang kepada hati yang rendah hati, bukan yang durhaka.",
       "Allah menyelamatkan yang tertindas dan menjatuhkan hukuman pada yang sombong, sekuat apa pun mereka.",
     ],
-    quran: [
-      {
-        excerpt: "Musa AS di Gunung Sinai dan di hadapan Fir'aun.",
-      },
-      { excerpt: "Kelahiran dan pengasuhan." },
-    ],
+    quran: [{}, {}],
     location: "Mesir, Sinai",
   },
   {
@@ -568,14 +461,7 @@ export const QURAN_GUIDE_STORIES_ID: DeepPartial<QuranGuideStory>[] = [
       "Para nabi adalah hamba Allah yang mulia, tidak pernah layak disembah — Al-Qur'an melindungi kedudukan sejati Isa dari pengagungan yang berlebihan.",
       "Kesucian, kesabaran, dan tawakal Maryam AS menjadikannya teladan iman bagi semua orang beriman, baik perempuan maupun laki-laki.",
     ],
-    quran: [
-      {
-        excerpt: "Kelahiran dan perkataan dari buaian.",
-      },
-      {
-        excerpt: "Tidak dibunuh dan tidak disalib; melainkan diangkat.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Palestina",
   },
   {
@@ -593,15 +479,7 @@ export const QURAN_GUIDE_STORIES_ID: DeepPartial<QuranGuideStory>[] = [
       "Pesan dakwah kepada Allah disampaikan dengan keikhlasan dan kesabaran tetapi hasilnya diserahkan kepada Allah — memberi petunjuk adalah urusan-Nya semata.",
       "Ujian adalah jalan para nabi; menanggung kesulitan demi Allah, sebagaimana yang ia lakukan, adalah tanda keimanan yang sejati.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan tiadalah Kami mengutus kamu, melainkan untuk (menjadi) rahmat bagi semesta alam.",
-      },
-      {
-        excerpt: "Berkasih sayang sesama mereka, keras terhadap orang-orang kafir.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Garis waktu sirah" }],
   },
 ];
@@ -617,18 +495,8 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Nabi ﷺ mengajarkan bahwa iman memiliki lebih dari tujuh puluh cabang, dari yang tertinggi — kesaksian bahwa tiada tuhan selain Allah — hingga menyingkirkan sesuatu yang mengganggu dari jalan, menunjukkan bahwa kebaikan kecil pun bagian dari iman.",
       "Iman yang sejati adalah urusan hati sebelum lisan: benar-benar mengenal Allah, mencintai-Nya melebihi segalanya, takut akan murka-Nya, dan bertawakal sepenuhnya kepada-Nya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rasul telah beriman kepada apa yang diturunkan kepadanya dari Tuhannya, demikian pula orang-orang yang beriman…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Iman itu memiliki lebih dari tujuh puluh cabang; yang tertinggi adalah ucapan "laa ilaaha illallah", dan yang terendah adalah menyingkirkan gangguan dari jalan — dan rasa malu adalah salah satu cabang iman.',
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Ucapkan kembali syahadatmu hari ini dengan perhatian penuh pada maknanya, bukan sekadar kalimat rutin.",
       "Pelajari salah satu nama Allah, pahami maknanya, dan panggillah Allah dengannya dalam doamu.",
@@ -644,18 +512,8 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Berbeda dari kewajiban lain yang diturunkan di bumi, shalat diwajibkan bagi umat ini selama perjalanan malam dan mikraj Nabi ﷺ (Al-Isra wal Mi'raj), menjadikannya anugerah khusus dan sarana kenaikan hamba menuju Allah.",
       "Karena diulang lima kali sehari, shalat adalah irama yang mantap yang menjaga iman tetap hidup di antara satu ibadah dengan ibadah lainnya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya shalat itu mencegah dari (perbuatan-perbuatan) keji dan mungkar, dan dzikir kepada Allah lebih besar (keutamaannya).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Amalan pertama yang akan dihisab dari seorang hamba pada Hari Kiamat adalah shalatnya; jika baik, ia beruntung dan sukses, dan jika rusak, ia gagal dan merugi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Kerjakan satu shalat hari ini dengan perlahan, memahami kata-kata Al-Fatihah saat kamu membacanya.",
       "Buka panduan Belajar Shalat Munib untuk memperkuat satu bagian dari shalatmu.",
@@ -671,12 +529,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Perintah ini memuncak di masa tua, ketika orang tua paling membutuhkan kesabaran: rawatlah mereka sebagaimana mereka dahulu merawatmu, dan rendahkanlah dirimu di hadapan mereka dengan penuh kasih sayang.",
       "Ibadah tidak berakhir dengan kematian — terus mendoakan orang tua, bersedekah atas nama mereka, dan menghormati sahabat serta janji mereka adalah bentuk kesetiaan yang berkelanjutan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan Tuhanmu telah memerintahkan supaya kamu jangan menyembah selain Dia dan hendaklah kamu berbuat baik pada ibu bapakmu…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Hari ini, teleponlah atau kirim pesan kepada ayah atau ibumu dengan kata-kata yang lembut.",
       "Doakan kedua orang tuamu dengan menyebut nama mereka.",
@@ -692,12 +545,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       'Allah menyebut diri-Nya "bersama orang-orang yang sabar," dan menjanjikan pahala tanpa batas bagi mereka yang sabar — sebuah kemuliaan yang hampir tidak dikaitkan dengan sifat lain mana pun.',
       "Para nabi diuji paling berat, dan Al-Qur'an menyajikan keteguhan mereka — Ayyub AS dalam sakitnya, Ya'qub AS dalam kesedihannya, Yusuf AS dalam pengkhianatan dan penjaranya — sebagai teladan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hai orang-orang yang beriman, jadikanlah sabar dan shalat sebagai penolongmu, sesungguhnya Allah beserta orang-orang yang sabar.",
-      },
-    ],
+    quran: [{}],
     actions: [
       'Hari ini, ketika rasa kesal muncul, berhentilah, tarik napas, dan ucapkan "innaa lillaahi wa innaa ilaihi raaji\'uun" sebelum bereaksi.',
       "Minggu ini, ubahlah satu momen kesulitan menjadi dua rakaat shalat, bukan keluhan.",
@@ -713,12 +561,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Sedekah bukan hanya harta. Nabi ﷺ mengajarkan bahwa senyum kepada saudaramu pun adalah sedekah, jadi tak ada seorang pun yang terlalu miskin untuk memberi.",
       'Memberi menyucikan baik harta maupun pemberinya, melonggarkan cengkeraman ketamakan dan menumbuhkan kepedulian — itulah sebabnya kata "zakat" sendiri bermakna penyucian dan pertumbuhan.',
     ],
-    quran: [
-      {
-        excerpt:
-          "Perumpamaan (nafkah yang dikeluarkan oleh) orang-orang yang menafkahkan hartanya di jalan Allah adalah serupa dengan sebutir benih yang menumbuhkan tujuh bulir…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Hari ini, berilah sesuatu — harta, waktumu, atau sepatah kata yang tulus dan baik — sekalipun kecil dan tak terlihat.",
       "Tinjau kewajiban zakatmu di Munib dan catat kapan pembayaran berikutnya jatuh tempo.",
@@ -734,12 +577,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Pintu rahmat terbuka sangat luas: Allah bahkan kepada mereka yang telah menzalimi diri mereka sendiri secara berlebihan, berfirman agar tidak putus asa, karena Dia mengampuni semua dosa bagi yang bertaubat dengan sungguh-sungguh.",
       "Taubat tidak hanya untuk dosa besar atau momen dramatis — istighfar sepanjang hari menjaga hati tetap lembut dan catatan amal tetap bersih.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Katakanlah: Hai hamba-hamba-Ku yang melampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah…",
-      },
-    ],
+    quran: [{}],
     actions: [
       'Hari ini, ucapkan "astaghfirullah" 100 kali, dengan sepenuh hati, dan rasakan beban itu meringan.',
       "Sebutkan satu kebiasaan yang kamu tahu tidak disukai Allah dan ambillah langkah nyata pertama untuk meninggalkannya.",
@@ -755,12 +593,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       'Al-Qur\\\'an mengajak orang-orang beriman untuk bersegera dan berlomba menuju ampunan dan surga yang "seluas langit dan bumi" — meraihnya secara aktif, bukan sekadar duduk berharap.',
       "Balasan terbesar bukanlah taman atau sungai, melainkan memandang wajah Allah — kebahagiaan tertinggi yang dijanjikan bagi penghuni surga.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan bersegeralah kamu kepada ampunan dari Tuhanmu dan kepada surga yang luasnya seluas langit dan bumi…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{ label: "Perjalanan menuju surga" }],
   },
   {
@@ -773,12 +606,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Satu-satunya dosa yang Al-Qur'an nyatakan tidak terampuni jika seseorang mati dalam keadaan itu adalah syirik — menyekutukan Allah; selain itu Dia mengampuni siapa yang Dia kehendaki.",
       "Allah memperingatkan untuk membawa manusia kembali kepada-Nya, bukan untuk menghancurkan orang yang bertaubat — setiap peringatan dalam Al-Qur'an dipasangkan dengan ajakan terbuka untuk kembali.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak akan mengampuni dosa syirik, dan Dia mengampuni segala dosa yang selain dari (syirik) itu, bagi siapa yang dikehendaki-Nya.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Hari ini, setelah setiap shalat, mohonlah perlindungan dari api dengan sepenuh hati kepada Allah.",
       "Perbarui tauhidmu: renungkan hanya beribadah kepada Allah, perlindungan paling pasti dari neraka.",
@@ -793,12 +621,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Kezaliman diperingatkan dengan tegas; Nabi ﷺ mengajarkan bahwa kezaliman akan muncul sebagai kegelapan berlapis-lapis bagi pelakunya pada Hari Kiamat.",
       "Keadilan bukan hanya urusan hakim dan penguasa — ia hidup dalam ucapan yang jujur, transaksi yang jujur, menepati janji, dan memberikan hak setiap orang.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Jadilah kamu orang yang benar-benar penegak keadilan, menjadi saksi karena Allah, biarpun terhadap dirimu sendiri atau ibu bapak dan kaum kerabatmu.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Hari ini, berikan hak seseorang — upah yang adil, jawaban yang jujur, atau pengakuan yang menjadi haknya.",
       "Tangkap satu momen ketika bias mendorongmu berbuat tidak adil, dan pilihlah keadilan sebagai gantinya.",
@@ -813,11 +636,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Ilmu yang bermanfaat dimaksudkan untuk diamalkan dan diteruskan; Nabi ﷺ mengajarkan bahwa para ulama adalah pewaris para nabi, yang mewarisi bukan harta melainkan ilmu.",
       'Menuntut ilmu agama itu sendiri adalah ibadah, dan Al-Qur\\\'an dengan jelas membedakan antara yang berilmu dan yang tidak — "apakah sama?"',
     ],
-    quran: [
-      {
-        excerpt: "Dan katakanlah: Ya Tuhanku, tambahkanlah ilmu kepadaku.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Hari ini, pelajari satu hal baru dari Al-Qur'an — satu ayat, satu kata, atau satu hukum — dan ajarkan kepada seseorang.",
       'Hafalkan doa "Rabbi zidnii \'ilman" dan ucapkan sebelum belajar.',
@@ -832,12 +651,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Muhammad ﷺ adalah Khataman Nabiyyin, penutup para rasul, dan seorang muslim wajib beriman kepada semua nabi sebelumnya — Nuh, Ibrahim, Musa, Isa, dan yang lainnya — tanpa membeda-bedakan mereka.",
       "Para nabi adalah manusia dan hamba Allah, bukan tuhan; Al-Qur'an memuliakan mereka namun menempatkan mereka dengan tegas sebagai makhluk, tidak pernah disembah bersama Sang Pencipta.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya pada kisah-kisah mereka itu terdapat pelajaran bagi orang-orang yang mempunyai akal…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{ label: "Kisah para nabi" }],
   },
   {
@@ -849,12 +663,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Al-Qur'an menghadirkan Maryam, ibu Isa AS, sebagai teladan bagi semua orang beriman, dan memuliakan para ibu hingga sebuah ajaran terkenal menempatkan surga di bawah telapak kaki mereka.",
       'Kedua jenis kelamin berasal dari satu asal yang sama — "menciptakan kamu dari diri yang satu" — menetapkan kemanusiaan dan martabat yang sama sejak ayat pertama Surah An-Nisa.',
     ],
-    quran: [
-      {
-        excerpt:
-          "Bertakwalah kepada Tuhanmu yang telah menciptakan kamu dari diri yang satu, dan daripadanya Allah menciptakan pasangannya…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Hari ini, berikan kepada seorang perempuan dalam hidupmu — ibu, istri, saudari, atau putri — suatu hak atau kebaikan tertentu yang menjadi haknya.",
     ],
@@ -868,11 +677,7 @@ export const QURAN_GUIDE_THEMES_ID: DeepPartial<QuranGuideTheme>[] = [
       "Kebijaksanaan pengasuhan yang banyak diriwayatkan menganjurkan untuk memperlakukan anak sesuai tahapannya — bermain bersama mereka di tahun-tahun awal, lalu mengajari dan mendidik mereka dengan lembut, kemudian menjadi sahabat mereka setelah baligh.",
       "Membesarkan anak yang saleh adalah investasi yang melampaui kehidupan ini: keturunan yang saleh yang mendoakan orang tuanya terus memberi manfaat bahkan lama setelah kematian.",
     ],
-    quran: [
-      {
-        excerpt: "Hai orang-orang yang beriman, peliharalah dirimu dan keluargamu dari api neraka…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Hari ini, ajarkan seorang anak satu ayat pendek atau satu akhlak baik dengan penuh kesabaran dan dorongan.",
       "Doakan anak-anakmu (atau anak-anak dalam asuhanmu) dengan menyebut namanya agar menjadi lurus dan dicintai Allah.",
@@ -999,18 +804,14 @@ export const QURAN_GUIDE_VOCABULARY_ID: DeepPartial<QuranGuideVocabEntry>[] = [
       "Satu-satunya sesembahan yang benar — nama pribadi yang mencakup semua nama-nama-Nya yang indah.",
     frequency: "2.700+ kali",
     example: "Bismillah — dengan nama Allah",
-    quranRef: {
-      excerpt: "Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.",
-    },
+    quranRef: {},
   },
   {
     meaning:
       "Tuhan, pemilik, pemelihara — Dia yang menciptakan, memiliki, memelihara, dan mengatur.",
     frequency: "sangat sering",
     example: "Rabbana — Tuhan kami",
-    quranRef: {
-      excerpt: "Segala puji bagi Allah, Tuhan semesta alam.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Rahmat, kasih sayang, kelembutan — dari Allah dan di antara sesama makhluk.",
@@ -1057,9 +858,7 @@ export const QURAN_GUIDE_VOCABULARY_ID: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Cahaya — petunjuk, wahyu, dan penerangan hati.",
     frequency: "sering",
     example: "Allah (Pemberi) cahaya (kepada) langit dan bumi",
-    quranRef: {
-      excerpt: "Allah (Pemberi) cahaya (kepada) langit dan bumi…",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1280,8 +1079,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_ID: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_ID: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "Hai orang-orang yang beriman, jadikanlah sabar dan shalat sebagai penolongmu, sesungguhnya Allah beserta orang-orang yang sabar.",
     context:
       "Dari Surah Al-Baqarah, yang diturunkan di Madinah. Allah menggabungkan dua sumber kekuatan bagi orang beriman yang menghadapi kesulitan — ketabahan melalui kesabaran dan berpaling kepada shalat — dan menjanjikan kebersamaan khusus-Nya bagi mereka yang teguh.",
     reflection:
@@ -1290,7 +1087,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_ID: DeepPartial<QuranGuideDailyLesson>[] 
       "Hari ini, kerjakan satu shalat tanpa tergesa-gesa, dan dalam sujudmu, mohonlah kesabaran kepada Allah dalam ujian tertentu yang sedang kamu lalui.",
   },
   {
-    translation: "Rahmat-Ku meliputi segala sesuatu.",
     context:
       "Dari Surah Al-A'raf, diucapkan dalam konteks Musa AS dan kaumnya. Allah menggambarkan rahmat-Nya meliputi segala sesuatu — rahmat yang begitu luas hingga mendahului dan melampaui azab-Nya, yang khusus bagi mereka yang tetap teguh dalam kezaliman.",
     reflection:
@@ -1299,7 +1095,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_ID: DeepPartial<QuranGuideDailyLesson>[] 
       "Pilihlah satu orang yang membuatmu kesal, maafkanlah ia hari ini dengan tulus, dan panjatkan doa singkat agar Allah juga memberinya petunjuk dan ampunan.",
   },
   {
-    translation: "Jika kamu bersyukur, pasti akan Kutambah (nikmat) kepadamu.",
     context:
       "Dari Surah Ibrahim, bagian dari nasihat Musa AS kepada Bani Israil. Allah menghubungkan pertambahan nikmat-Nya langsung dengan rasa syukur — bersyukur atas suatu nikmat itulah yang membuatnya bertambah, sementara kufur nikmat mengundang berkurangnya.",
     reflection:
@@ -1308,7 +1103,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_ID: DeepPartial<QuranGuideDailyLesson>[] 
       'Malam ini sebelum tidur, ucapkan "Alhamdulillah" dengan suara keras atas tiga nikmat tertentu, sebutkan masing-masing agar syukurmu disadari, bukan otomatis.',
   },
   {
-    translation: "Dan ucapkanlah kepada manusia perkataan yang baik.",
     context:
       "Dari Surah Al-Isra. Di tengah bimbingan tentang bagaimana orang beriman seharusnya bersikap, Allah memerintahkan agar kita berbicara kepada manusia — semua manusia — dengan cara yang terbaik, karena kata-kata kasar adalah salah satu pintu yang dimasuki setan untuk memecah belah.",
     reflection:
@@ -1317,8 +1111,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_ID: DeepPartial<QuranGuideDailyLesson>[] 
       "Hari ini, berikan pujian atau ucapan terima kasih yang tulus kepada satu orang tanpa kritik yang tersembunyi, dan tahanlah satu kata kasar yang hampir kamu ucapkan.",
   },
   {
-    translation:
-      "Dan barangsiapa yang bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.",
     context:
       "Dari Surah Ath-Thalaq, di tengah hukum tentang perceraian dan rezeki — tepat di mana orang paling cemas secara finansial. Di sana Allah berjanji akan memberi rezeki kepada siapa yang bertakwa dari arah yang tidak disangka-sangka, dan siapa yang bertawakal kepada-Nya akan mendapati-Nya mencukupi.",
     reflection:
@@ -1327,7 +1119,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_ID: DeepPartial<QuranGuideDailyLesson>[] 
       "Ambil satu keputusan yang sedang mengganggumu, kerjakan dua rakaat shalat istikharah atau berdoalah dengan tulus, lalu serahkan hasilnya kepada Allah.",
   },
   {
-    translation: "Ya Tuhanku, tambahkanlah ilmu kepadaku.",
     context:
       "Dari Surah Thaha. Di seluruh Al-Qur'an, ini adalah satu-satunya hal yang Allah perintahkan kepada Nabi ﷺ untuk memintanya ditambahkan — ilmu — menunjukkan betapa berharganya ilmu yang bermanfaat dan bahwa siapa pun, seberapa pun luas ilmunya, tidak pernah selesai menuntutnya.",
     reflection:
@@ -1336,8 +1127,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_ID: DeepPartial<QuranGuideDailyLesson>[] 
       'Hafalkan doa singkat "Rabbi zidnii \'ilman" ini, dan jadikan kebiasaan mengucapkannya setelah Subuh sebelum memulai harimu.',
   },
   {
-    translation:
-      "Perumpamaan orang yang membelanjakan hartanya di jalan Allah adalah seperti sebutir benih yang menumbuhkan tujuh bulir…",
     context:
       "Dari Surah Al-Baqarah. Allah melukiskan gambaran hidup tentang bagaimana sedekah bertumbuh: satu benih menghasilkan tujuh bulir, setiap bulir berisi seratus biji — balasan tujuh ratus kali lipat, dan Allah melipatgandakan lagi bagi siapa yang Dia kehendaki. Harta yang diberikan karena-Nya tidak pernah benar-benar hilang.",
     reflection:

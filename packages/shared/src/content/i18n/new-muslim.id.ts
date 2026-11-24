@@ -2,249 +2,221 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // id overlay for new-muslim. Index-aligned with NEW_MUSLIM_TOPICS in ../new-muslim.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const NEW_MUSLIM_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Welcome to Islam",
-    summary: "A short, practical map for the first days and weeks of your journey.",
+    title: "Selamat Datang dalam Islam",
+    summary: "Peta singkat dan praktis untuk hari-hari dan minggu-minggu pertama perjalanan Anda.",
     body: [
-      "Congratulations — and welcome. Becoming Muslim is not a finish line but the start of a lifelong relationship with Allah, one that grows gradually through knowledge, worship, and community, not all at once. Nobody expects you to know everything on day one; every Muslim, including the Prophet's ﷺ own companions, learned their religion step by step.",
-      "One of the most comforting teachings for someone new to Islam is that your past is genuinely behind you: 'Do you not know that Islam demolishes what preceded it?' the Prophet ﷺ told a companion who worried about his past sins. You are starting with a clean record before Allah.",
-      "This guide covers the essentials — what the shahada means, the five pillars, the basics of faith, and a first look at prayer — then points you to the full Salah, Aqeedah, Learn Dua, and Qur'an guides in this app for real depth. Take it one section at a time.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do you not know that Islam demolishes what preceded it, that the Hijra demolishes what preceded it, and the Pilgrimage demolishes what preceded it? (to 'Amr ibn al-'As)",
-      },
+      "Selamat — dan selamat datang. Menjadi Muslim bukanlah garis akhir, melainkan awal hubungan seumur hidup dengan Allah, yang tumbuh perlahan melalui ilmu, ibadah, dan kebersamaan, bukan sekaligus. Tidak ada yang mengharapkan Anda mengetahui segalanya di hari pertama; setiap Muslim, termasuk para sahabat Nabi ﷺ sendiri, mempelajari agamanya langkah demi langkah.",
+      'Salah satu ajaran yang paling menenangkan bagi orang yang baru memeluk Islam adalah bahwa masa lalu Anda benar-benar telah berlalu: "Apakah kamu tidak tahu bahwa Islam telah menghapuskan dosa yang telah terdahulu…" sabda Nabi ﷺ kepada seorang sahabat yang mengkhawatirkan dosa-dosanya di masa lalu. Anda memulai dengan catatan yang bersih di hadapan Allah.',
+      "Panduan ini membahas hal-hal pokok — makna syahadat, rukun Islam yang lima, dasar-dasar iman, dan pengenalan pertama tentang shalat — lalu mengarahkan Anda ke panduan lengkap Shalat, Aqidah, Belajar Doa, dan Al-Qur'an di aplikasi ini untuk pendalaman yang sesungguhnya. Pelajarilah satu bagian demi satu bagian.",
     ],
     actions: [
-      "Go at your own pace — read one section of this guide per sitting rather than all at once.",
-      "Write down the questions that come up as you read; bring them to a teacher or knowledgeable friend later.",
+      "Belajarlah sesuai kecepatan Anda sendiri — bacalah satu bagian panduan ini dalam sekali duduk, bukan semuanya sekaligus.",
+      "Catat pertanyaan yang muncul selama membaca; tanyakan kemudian kepada seorang guru atau teman yang berilmu.",
     ],
   },
   {
-    title: "What the Shahada Means",
-    summary: "Two short sentences that carry the entire meaning of Islam.",
+    title: "Makna Syahadat",
+    summary: "Dua kalimat pendek yang memuat seluruh makna Islam.",
     body: [
-      "The shahada — the testimony of faith — is: 'Ash-hadu an la ilaha illallah, wa ash-hadu anna Muhammadan rasulullah' ('I bear witness that there is no god but Allah, and I bear witness that Muhammad is the Messenger of Allah'). It has two parts, and both matter.",
-      "The first part, la ilaha illallah, means no one and nothing else — not money, status, ancestors, idols, or any created being — deserves worship, obedience as an act of devotion, or ultimate reliance except Allah alone. It is a statement about who has the right to be worshipped, not merely who exists.",
-      "The second part affirms that Muhammad ﷺ is Allah's final messenger, sent with guidance for all people. Affirming this means trusting what he ﷺ taught about Allah, worship, and how to live — which is exactly why the Qur'an and his authentic teachings (the Sunnah) are the two sources this whole guide draws from.",
-      "This testimony is not a magic formula but a description of a settled conviction of the heart. Saying it sincerely, understanding what it means, is what makes a person Muslim — 'one who submits.'",
+      "Syahadat — persaksian iman — adalah: 'Asyhadu an la ilaha illallah, wa asyhadu anna Muhammadan rasulullah' ('Aku bersaksi bahwa tidak ada tuhan selain Allah, dan aku bersaksi bahwa Muhammad adalah utusan Allah'). Syahadat terdiri dari dua bagian, dan keduanya sama penting.",
+      "Bagian pertama, la ilaha illallah, berarti tidak ada seorang pun dan tidak ada sesuatu pun — bukan harta, kedudukan, leluhur, berhala, atau makhluk apa pun — yang berhak disembah, ditaati sebagai bentuk pengabdian, atau dijadikan sandaran tertinggi selain Allah semata. Ini adalah pernyataan tentang siapa yang berhak disembah, bukan sekadar tentang siapa yang ada.",
+      "Bagian kedua menegaskan bahwa Muhammad ﷺ adalah utusan terakhir Allah, yang diutus dengan petunjuk bagi seluruh manusia. Menegaskan hal ini berarti memercayai apa yang beliau ﷺ ajarkan tentang Allah, ibadah, dan cara menjalani hidup — itulah sebabnya Al-Qur'an dan ajaran beliau yang sahih (Sunnah) menjadi dua sumber yang menjadi rujukan seluruh panduan ini.",
+      "Persaksian ini bukanlah rumus ajaib, melainkan gambaran keyakinan hati yang telah mantap. Mengucapkannya dengan tulus, sambil memahami maknanya, itulah yang menjadikan seseorang Muslim — 'orang yang berserah diri.'",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allah witnesses that there is no deity except Him, and [so do] the angels and those of knowledge... There is no deity except Him, the Exalted in Might, the Wise.",
-      },
-    ],
+    appLinks: [{ label: "Belajar Aqidah — iman kepada Allah" }],
   },
   {
-    title: "Becoming Muslim",
-    summary: "Sincerely saying the shahada — with understanding and intention — is what counts.",
-    body: [
-      "There is no priest, ceremony, fee, or paperwork required to become Muslim. What is required is sincerity: understanding the shahada's meaning and saying it with the intention of embracing it as your belief, between you and Allah.",
-      "Many people choose to say it in front of others — a local imam, a mosque community, or friends — because it gives witnesses to the moment and connects you to a support network from day one; this is a widely recommended practice rather than a strict requirement for the testimony itself.",
-      "Some new Muslims also perform ghusl (a full ritual wash) around this time as a symbolic and practical fresh start before learning to pray; practices and views on exactly when and how vary between communities, so ask a local teacher what is customary near you rather than guessing.",
-      "If you are still exploring rather than certain, that is a normal and respected stage — read, ask questions, and take your time. The testimony is meant to be said with conviction, not under pressure.",
-    ],
-    actions: [
-      "If you are ready, consider saying the shahada in the presence of a local imam, mosque community, or trusted Muslim friends.",
-      "Ask a local mosque or teacher about any customary next steps (such as ghusl) in your community.",
-    ],
-  },
-  {
-    title: "The Five Pillars of Islam",
-    summary: "Islam rests on five foundational acts of worship, named together by the Prophet ﷺ.",
-    body: [
-      "The Prophet ﷺ summarised the structure of Islamic practice in one hadith: Islam is built on five pillars — testifying that there is no god but Allah and that Muhammad is His Messenger (shahada); establishing the five daily prayers (salah); giving the obligatory annual charity (zakah); fasting the month of Ramadan; and performing the pilgrimage to Makkah (Hajj) at least once, for those who are able.",
-      "Think of them as a house: the shahada is the foundation everything rests on, and the other four are the pillars that hold the structure up — regular worship (salah), regular giving (zakah), an annual month of self-discipline (fasting), and a once-in-a-lifetime pilgrimage (Hajj) for those with the health and means to travel.",
-      "You do not need to master all five immediately. The shahada you have already learned about; salah is covered next in this guide; zakah and fasting are learned gradually as they come around each year; Hajj is planned for later in life when circumstances allow.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam is built upon five: testifying that there is no god but Allah and that Muhammad is His Messenger, establishing prayer, giving zakah, Hajj, and fasting Ramadan. (Ibn 'Umar; also Sahih Muslim 16)",
-      },
-    ],
-  },
-  {
-    title: "Zakah, Fasting, and Hajj at a Glance",
-    summary: "Three pillars that come with time — you don't need to act on them today.",
-    body: [
-      "Zakah is a yearly obligatory charge — a small, fixed percentage — on savings and qualifying wealth above a minimum threshold (nisab), given to specific categories of people in need. It usually becomes relevant once you have held savings for about a year, so there is no rush; the app's Zakat guide covers the full detail whenever you need it.",
-      "Fasting Ramadan means abstaining from food, drink, and marital relations from before dawn until sunset for one lunar month each year, alongside extra prayer and Qur'an reading. It is a demanding but deeply rewarding pillar that most new Muslims ease into with guidance from their community rather than alone.",
-      "Hajj is the pilgrimage to Makkah, obligatory once in a lifetime only for those who are physically and financially able to make the journey. If it is not within your means right now, there is no burden on you — Allah only asks what a person is able to give.",
-    ],
-  },
-  {
-    title: "How the Pillars Shape Daily Life",
+    title: "Menjadi Muslim",
     summary:
-      "The five pillars turn belief into a rhythm you actually live, day by day and year by year.",
+      "Mengucapkan syahadat dengan tulus — disertai pemahaman dan niat — itulah yang menentukan.",
     body: [
-      "One of the things new Muslims often find most beautiful is how the pillars build a rhythm into ordinary life: five short pauses for prayer every day, a yearly season of fasting and reflection, an annual act of giving, and — eventually — a once-in-a-lifetime pilgrimage. None of it is abstract theology; all of it is lived.",
-      "This rhythm is meant to be sustainable, not overwhelming. The Prophet ﷺ taught that the deeds most loved by Allah are the ones kept up consistently, even if small — not sudden bursts of intensity that burn out. Build small, steady habits first; depth will come with time.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Do good deeds properly, sincerely, and moderately... the most beloved deed to Allah is the most regular and constant, even if it were little. (also Sahih Muslim 783)",
-      },
+      "Tidak diperlukan pendeta, upacara, biaya, atau dokumen untuk menjadi Muslim. Yang diperlukan adalah ketulusan: memahami makna syahadat dan mengucapkannya dengan niat menjadikannya keyakinan Anda, antara Anda dan Allah.",
+      "Banyak orang memilih mengucapkannya di hadapan orang lain — imam setempat, jamaah masjid, atau teman-teman — karena hal itu menghadirkan saksi atas momen tersebut dan menghubungkan Anda dengan jaringan pendukung sejak hari pertama; ini adalah praktik yang sangat dianjurkan, bukan syarat mutlak bagi sahnya persaksian itu sendiri.",
+      "Sebagian mualaf juga melakukan mandi besar (ghusl) sekitar waktu ini sebagai awal baru yang bersifat simbolis sekaligus praktis sebelum belajar shalat; praktik dan pendapat tentang kapan dan bagaimana tepatnya berbeda-beda antar komunitas, jadi tanyakan kepada guru setempat apa yang lazim di tempat Anda daripada menebak-nebak.",
+      "Jika Anda masih dalam tahap mencari dan belum yakin, itu adalah tahap yang wajar dan dihormati — bacalah, bertanyalah, dan luangkan waktu Anda. Persaksian ini dimaksudkan untuk diucapkan dengan keyakinan, bukan di bawah tekanan.",
     ],
     actions: [
-      "Pick one small, sustainable habit to start with this week rather than trying to do everything at once.",
+      "Jika Anda sudah siap, pertimbangkan untuk mengucapkan syahadat di hadapan imam setempat, jamaah masjid, atau teman-teman Muslim yang Anda percayai.",
+      "Tanyakan kepada masjid atau guru setempat tentang langkah lanjutan yang lazim (seperti mandi besar) di komunitas Anda.",
     ],
   },
   {
-    title: "The Six Articles of Faith",
-    summary: "What a Muslim believes, in six points taught directly by the Prophet ﷺ.",
+    title: "Lima Rukun Islam",
+    summary: "Islam berdiri di atas lima ibadah pokok, yang disebutkan bersama oleh Nabi ﷺ.",
     body: [
-      "Where the five pillars are what a Muslim does, the six articles of iman (faith) are what a Muslim believes. They come from the Hadith of Jibril, where the angel Jibril, in the form of a man, asked the Prophet ﷺ to explain iman before the assembled companions.",
-      "The Prophet ﷺ answered: belief in Allah; in His angels; in His revealed books; in His messengers; in the Last Day; and in the divine decree (qadr) — its good and its bitter. These six form one connected picture of reality: who created you, who guides the unseen world, how guidance reached humanity, who delivered it, where life is heading, and how to hold both ease and hardship with trust in Allah.",
-      "You don't need to master the philosophy behind each article today — the Aqeedah guide in this app walks through all six in depth, with the evidence behind each one, whenever you're ready to go deeper.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Iman is to believe in Allah, His angels, His books, His messengers, the Last Day, and to believe in the divine decree, its good and its bitter. (Hadith of Jibril, narrated by 'Umar)",
-      },
+      "Nabi ﷺ merangkum bangunan amalan Islam dalam satu hadits: Islam dibangun di atas lima rukun — bersaksi bahwa tidak ada tuhan selain Allah dan bahwa Muhammad adalah utusan-Nya (syahadat); mendirikan shalat lima waktu; menunaikan sedekah tahunan yang wajib (zakat); berpuasa di bulan Ramadan; dan menunaikan ibadah haji ke Makkah setidaknya sekali, bagi yang mampu.",
+      "Bayangkan seperti sebuah rumah: syahadat adalah fondasi tempat segalanya bertumpu, dan empat lainnya adalah tiang-tiang yang menopang bangunan — ibadah yang rutin (shalat), memberi secara rutin (zakat), sebulan latihan pengendalian diri setiap tahun (puasa), dan ziarah sekali seumur hidup (haji) bagi yang memiliki kesehatan dan kemampuan untuk bepergian.",
+      "Anda tidak perlu menguasai kelimanya sekaligus. Tentang syahadat Anda sudah belajar; shalat dibahas berikutnya dalam panduan ini; zakat dan puasa dipelajari bertahap seiring datangnya setiap tahun; haji direncanakan di kemudian hari ketika keadaan memungkinkan.",
     ],
   },
   {
-    title: "Who Is Allah?",
-    summary: "One God, without partner, equal, or need — described by His own beautiful names.",
+    title: "Sekilas tentang Zakat, Puasa, dan Haji",
+    summary: "Tiga rukun yang datang seiring waktu — Anda tidak perlu melaksanakannya hari ini.",
     body: [
-      "Allah is the proper name of God in Islam — not a different god, but the same one true Creator that earlier scriptures pointed to, now known by His own chosen name and described through His revealed attributes rather than human speculation.",
-      "The clearest short description in the Qur'an is Surah al-Ikhlas: He is One; He has no partner and no equal; He neither begets nor is begotten. Allah has no body you can picture and no image should ever be made to represent Him — knowing Him comes through His names (such as the Most Merciful, the All-Knowing, the All-Hearing) and His actions in creation, not through pictures or physical comparisons.",
-      "Getting to know Allah through His names is often the most emotionally grounding part of early faith: the more you learn what He is like, the more prayer and daily reliance on Him start to feel personal rather than mechanical.",
+      "Zakat adalah kewajiban tahunan — persentase kecil yang tetap — atas tabungan dan harta tertentu yang melebihi batas minimum (nisab), yang diberikan kepada golongan-golongan tertentu yang membutuhkan. Biasanya zakat baru relevan setelah Anda memiliki tabungan selama sekitar satu tahun, jadi tidak perlu terburu-buru; panduan Zakat di aplikasi ini membahas rinciannya kapan pun Anda membutuhkannya.",
+      "Puasa Ramadan berarti menahan diri dari makan, minum, dan hubungan suami istri sejak sebelum fajar hingga terbenam matahari selama satu bulan kamariah setiap tahun, disertai shalat tambahan dan membaca Al-Qur'an. Ini adalah rukun yang menuntut, namun sangat berpahala, yang biasanya dijalani mualaf secara bertahap dengan bimbingan komunitasnya, bukan sendirian.",
+      "Haji adalah ziarah ke Makkah, yang wajib sekali seumur hidup hanya bagi mereka yang mampu secara fisik dan finansial untuk melakukan perjalanan. Jika saat ini Anda belum mampu, tidak ada beban atas Anda — Allah hanya meminta apa yang sanggup diberikan seseorang.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Say: He is Allah, the One... He neither begets nor is born, and there is none comparable to Him.",
-      },
-    ],
+    appLinks: [{ label: "Panduan zakat" }],
   },
   {
-    title: "The Qur'an and the Final Message",
-    summary: "The Qur'an is Allah's own words, preserved unchanged since it was revealed.",
-    body: [
-      "Muslims believe the Qur'an is the literal speech of Allah, revealed to the Prophet Muhammad ﷺ over about 23 years, and preserved word-for-word since then — memorised by generations of Muslims and never altered.",
-      "It is not a biography of the Prophet ﷺ or a history book, though it contains both guidance and stories of earlier prophets; it is primarily a book of guidance meant to be read, recited, reflected on, and lived, a little at a time.",
-      "You do not need to read Arabic to begin. Start with a translation in a language you understand, in any order that interests you, and let familiarity with the Arabic recitation grow gradually alongside your prayer.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
-      },
-    ],
-  },
-  {
-    title: "How to Pray — the Big Picture",
-    summary: "Five short prayers a day, each a set sequence of standing, bowing, and prostrating.",
-    body: [
-      "Salah is prayed five times a day at set windows — Fajr (dawn), Dhuhr (midday), Asr (afternoon), Maghrib (sunset), and Isha (night) — and takes only a few minutes each time once you know the pattern. This app's prayer times and tracker will show you exactly when each window opens where you are.",
-      "Each prayer is made of units called rak'ahs (Fajr has two, Dhuhr/Asr/Isha have four, Maghrib has three), and every rak'ah follows the same basic shape: standing while reciting, bowing (ruku'), and two prostrations (sujud), with fixed words of praise and Qur'an said at each position.",
-      "Before praying, you perform wudu — a short ritual washing of the hands, mouth, face, arms, head, and feet — and you pray facing the direction of the Kaaba in Makkah (the qibla), which this app can also point you toward.",
-      "This overview is intentionally high level. The exact wording said at each position, step-by-step video-style instructions, and a full beginner course all live in the dedicated Salah guide — start there next, and use the phrases guide alongside it to learn the words with transliteration and translation.",
-    ],
-  },
-  {
-    title: "Wudu: Getting Ready to Pray",
-    summary: "A short ritual washing that prepares body and heart for standing before Allah.",
-    body: [
-      "Wudu is required before every prayer (unless you are still in a valid wudu from before) and follows a fixed order: washing the hands, rinsing the mouth and nose, washing the face, the arms to the elbows, wiping the head and ears, and washing the feet to the ankles.",
-      "It doesn't take long once learned — most people manage it in under two minutes — and it carries a spiritual meaning too: each limb washed is paired, in the hadith literature, with the idea of minor faults being washed away along with it.",
-      "The full Purification (Taharah) guide in this app walks through wudu step by step, along with what to do if you're unsure whether your wudu is still valid.",
-    ],
-  },
-  {
-    title: "Learning the Words of Prayer",
+    title: "Bagaimana Rukun Islam Membentuk Kehidupan Sehari-hari",
     summary:
-      "Start with transliteration and meaning; Arabic fluency comes with repetition over time.",
+      "Lima rukun Islam mengubah keyakinan menjadi irama yang benar-benar Anda jalani, hari demi hari dan tahun demi tahun.",
     body: [
-      "Salah is prayed in Arabic, which can feel like the hardest part at first — but you are not expected to be fluent to begin. Most new Muslims start by learning a handful of short, essential phrases (the opening takbir, a short surah, the words said while bowing and prostrating, and the closing salam) with a transliteration and translation alongside the Arabic.",
-      "Memorise these in small chunks rather than all at once, and repeat them daily — memory for prayer phrases builds quickly through the repetition of praying itself, even before you consciously try to memorise anything.",
-      "The dedicated phrases guide in this app gives you every essential phrase with Arabic, transliteration, and translation together, organised by where each one is said in the prayer — use it as your daily practice tool.",
-    ],
-  },
-  {
-    title: "Your First Steps Checklist",
-    summary: "A simple, realistic order to learn things in over your first weeks.",
-    body: [
-      "There is no single required order for learning after the shahada, but new Muslims often find a rough sequence helpful so that nothing feels overwhelming all at once. Use this as a loose guide, not a race.",
+      "Salah satu hal yang sering dirasakan paling indah oleh para mualaf adalah bagaimana rukun-rukun ini membangun irama dalam kehidupan biasa: lima jeda singkat untuk shalat setiap hari, satu musim puasa dan perenungan setiap tahun, satu amalan memberi setiap tahun, dan — pada waktunya — ziarah sekali seumur hidup. Tidak ada yang berupa teologi abstrak; semuanya dijalani.",
+      "Irama ini dimaksudkan agar bisa dijalani terus-menerus, bukan membebani. Nabi ﷺ mengajarkan bahwa amalan yang paling dicintai Allah adalah yang dikerjakan secara rutin, meskipun sedikit — bukan semangat mendadak yang kemudian padam. Bangunlah kebiasaan kecil yang konsisten terlebih dahulu; kedalaman akan datang seiring waktu.",
     ],
     actions: [
-      "Learn wudu (ritual washing) and practise it until it feels natural.",
-      "Learn the essential words of one full prayer using the phrases guide.",
-      "Start praying the five daily prayers, even imperfectly at first — consistency matters more than perfection early on.",
-      "Learn a few short daily duas (supplications) for waking, eating, and leaving the house.",
-      "Find a local mosque or online community for support and questions.",
-      "Begin reading the Qur'an in translation, a little each day.",
-      "Tell someone you trust — family or a close friend — when you feel ready, at your own pace.",
+      "Pilih satu kebiasaan kecil yang bisa dijalani terus untuk dimulai minggu ini, daripada mencoba melakukan semuanya sekaligus.",
     ],
   },
   {
-    title: "Finding Community",
-    summary: "Learning alongside other Muslims makes the journey easier and more joyful.",
+    title: "Enam Rukun Iman",
+    summary:
+      "Apa yang diyakini seorang Muslim, dalam enam pokok yang diajarkan langsung oleh Nabi ﷺ.",
     body: [
-      "Islam is meant to be lived in community, not only in private. Congregational prayer, a local mosque, and Muslim friends can answer everyday questions ('how do I say this in prayer if I forget?'), offer encouragement, and simply make you feel less alone in a new experience.",
-      "If you're not sure where to start, most mosques welcome new Muslims warmly and often have someone specifically happy to help newcomers with the basics — asking is normal and expected, not awkward.",
-      "If an in-person mosque isn't accessible right now, online communities and this app's own guides can bridge the gap until you find one, or permanently if that's your situation — either way, you are still fully part of the wider Muslim community (the ummah).",
+      "Jika lima rukun Islam adalah apa yang dikerjakan seorang Muslim, maka enam rukun iman adalah apa yang diyakini seorang Muslim. Keenamnya berasal dari Hadits Jibril, ketika malaikat Jibril, dalam rupa seorang laki-laki, meminta Nabi ﷺ menjelaskan iman di hadapan para sahabat yang berkumpul.",
+      "Nabi ﷺ menjawab: beriman kepada Allah; kepada para malaikat-Nya; kepada kitab-kitab yang diturunkan-Nya; kepada para rasul-Nya; kepada Hari Akhir; dan kepada takdir (qadar) — yang baik maupun yang pahit. Keenamnya membentuk satu gambaran utuh tentang hakikat: siapa yang menciptakan Anda, siapa yang mengatur alam gaib, bagaimana petunjuk sampai kepada manusia, siapa yang menyampaikannya, ke mana kehidupan menuju, dan bagaimana menyikapi kemudahan maupun kesulitan dengan bertawakal kepada Allah.",
+      "Anda tidak perlu menguasai filosofi di balik setiap rukun hari ini — panduan Aqidah di aplikasi ini membahas keenamnya secara mendalam, beserta dalil masing-masing, kapan pun Anda siap untuk mendalaminya.",
+    ],
+    appLinks: [{ label: "Belajar Aqidah — enam rukun iman" }],
+  },
+  {
+    title: "Siapakah Allah?",
+    summary:
+      "Tuhan Yang Esa, tanpa sekutu, tanpa tandingan, dan tanpa kebutuhan — dikenal melalui nama-nama-Nya yang indah.",
+    body: [
+      "Allah adalah nama diri Tuhan dalam Islam — bukan tuhan yang lain, melainkan Sang Pencipta Yang Maha Esa yang juga ditunjuk oleh kitab-kitab suci terdahulu, kini dikenal dengan nama yang Dia pilih sendiri dan digambarkan melalui sifat-sifat yang Dia wahyukan, bukan melalui dugaan manusia.",
+      "Gambaran singkat yang paling jelas dalam Al-Qur'an adalah Surah al-Ikhlas: Dia Maha Esa; Dia tidak memiliki sekutu maupun tandingan; Dia tidak beranak dan tidak diperanakkan. Allah tidak memiliki wujud yang dapat Anda bayangkan, dan tidak boleh ada gambar apa pun yang dibuat untuk mewakili-Nya — mengenal-Nya dilakukan melalui nama-nama-Nya (seperti Yang Maha Pengasih, Yang Maha Mengetahui, Yang Maha Mendengar) dan perbuatan-Nya dalam ciptaan, bukan melalui gambar atau perbandingan fisik.",
+      "Mengenal Allah melalui nama-nama-Nya sering kali menjadi bagian yang paling menenteramkan jiwa di awal keimanan: semakin Anda mengenal-Nya, semakin shalat dan ketergantungan sehari-hari kepada-Nya terasa pribadi, bukan sekadar rutinitas.",
+    ],
+    appLinks: [{ label: "Nama-nama Allah" }],
+  },
+  {
+    title: "Al-Qur'an dan Risalah Terakhir",
+    summary: "Al-Qur'an adalah firman Allah sendiri, terjaga tanpa perubahan sejak diturunkan.",
+    body: [
+      "Umat Islam meyakini bahwa Al-Qur'an adalah kalam Allah secara harfiah, yang diwahyukan kepada Nabi Muhammad ﷺ selama sekitar 23 tahun, dan terjaga kata demi kata sejak saat itu — dihafal oleh generasi demi generasi umat Islam dan tidak pernah diubah.",
+      "Al-Qur'an bukanlah biografi Nabi ﷺ atau buku sejarah, meskipun di dalamnya terdapat petunjuk dan kisah para nabi terdahulu; ia terutama adalah kitab petunjuk yang dimaksudkan untuk dibaca, dilantunkan, direnungkan, dan diamalkan, sedikit demi sedikit.",
+      "Anda tidak perlu bisa membaca bahasa Arab untuk memulai. Mulailah dengan terjemahan dalam bahasa yang Anda pahami, dengan urutan mana pun yang menarik bagi Anda, dan biarkan keakraban dengan bacaan Arabnya tumbuh perlahan seiring shalat Anda.",
+    ],
+    appLinks: [{ label: "Baca Al-Qur'an" }],
+  },
+  {
+    title: "Cara Shalat — Gambaran Umum",
+    summary:
+      "Lima shalat singkat setiap hari, masing-masing berupa urutan tetap berdiri, rukuk, dan sujud.",
+    body: [
+      "Shalat dikerjakan lima kali sehari pada rentang waktu tertentu — Subuh (fajar), Zuhur (tengah hari), Asar (sore), Magrib (terbenam matahari), dan Isya (malam) — dan hanya memakan beberapa menit setiap kali setelah Anda mengenal polanya. Jadwal shalat dan pelacak di aplikasi ini akan menunjukkan dengan tepat kapan setiap waktu shalat dimulai di tempat Anda.",
+      "Setiap shalat terdiri dari satuan yang disebut rakaat (Subuh dua, Zuhur/Asar/Isya empat, Magrib tiga), dan setiap rakaat mengikuti bentuk dasar yang sama: berdiri sambil membaca, rukuk, dan dua kali sujud, dengan bacaan pujian dan Al-Qur'an yang tetap pada setiap posisi.",
+      "Sebelum shalat, Anda berwudhu — basuhan ritual singkat pada tangan, mulut, wajah, lengan, kepala, dan kaki — dan Anda shalat menghadap ke arah Ka'bah di Makkah (kiblat), yang juga dapat ditunjukkan oleh aplikasi ini.",
+      "Gambaran ini sengaja dibuat garis besar. Bacaan yang tepat di setiap posisi, petunjuk langkah demi langkah, dan kursus lengkap untuk pemula semuanya ada di panduan Shalat khusus — mulailah dari sana, dan gunakan panduan bacaan di sampingnya untuk mempelajari lafaznya beserta transliterasi dan terjemahannya.",
+    ],
+    appLinks: [
+      { label: "Belajar Shalat — panduan lengkap" },
+      { label: "Bacaan shalat (dengan transliterasi)" },
+    ],
+  },
+  {
+    title: "Wudhu: Bersiap untuk Shalat",
+    summary:
+      "Basuhan ritual singkat yang menyiapkan tubuh dan hati untuk berdiri di hadapan Allah.",
+    body: [
+      "Wudhu wajib dilakukan sebelum setiap shalat (kecuali Anda masih dalam keadaan berwudhu yang sah dari sebelumnya) dan mengikuti urutan tetap: membasuh kedua tangan, berkumur dan membersihkan hidung, membasuh wajah, membasuh lengan hingga siku, mengusap kepala dan telinga, serta membasuh kaki hingga mata kaki.",
+      "Wudhu tidak memakan waktu lama setelah dipelajari — kebanyakan orang menyelesaikannya dalam waktu kurang dari dua menit — dan ia juga memiliki makna spiritual: dalam literatur hadits, setiap anggota tubuh yang dibasuh dikaitkan dengan gugurnya dosa-dosa kecil bersama air basuhan itu.",
+      "Panduan Bersuci (Thaharah) lengkap di aplikasi ini membahas wudhu langkah demi langkah, beserta apa yang harus dilakukan jika Anda ragu apakah wudhu Anda masih sah.",
+    ],
+    appLinks: [{ label: "Panduan Bersuci (Thaharah)" }],
+  },
+  {
+    title: "Mempelajari Bacaan Shalat",
+    summary:
+      "Mulailah dengan transliterasi dan makna; kefasihan bahasa Arab datang melalui pengulangan seiring waktu.",
+    body: [
+      "Shalat dikerjakan dalam bahasa Arab, yang mungkin terasa sebagai bagian tersulit pada awalnya — tetapi Anda tidak dituntut fasih untuk memulai. Kebanyakan mualaf memulai dengan mempelajari beberapa bacaan pendek yang pokok (takbir pembuka, sebuah surah pendek, bacaan ketika rukuk dan sujud, serta salam penutup) dengan transliterasi dan terjemahan di samping teks Arabnya.",
+      "Hafalkan sedikit demi sedikit, bukan sekaligus, dan ulangi setiap hari — hafalan bacaan shalat terbentuk dengan cepat melalui pengulangan shalat itu sendiri, bahkan sebelum Anda sengaja berusaha menghafal apa pun.",
+      "Panduan bacaan khusus di aplikasi ini menyajikan setiap bacaan pokok lengkap dengan teks Arab, transliterasi, dan terjemahannya, disusun menurut tempat setiap bacaan diucapkan dalam shalat — gunakanlah sebagai sarana latihan harian Anda.",
+    ],
+    appLinks: [{ label: "Panduan bacaan shalat" }],
+  },
+  {
+    title: "Daftar Langkah Pertama Anda",
+    summary: "Urutan belajar yang sederhana dan realistis untuk minggu-minggu pertama Anda.",
+    body: [
+      "Tidak ada satu urutan wajib untuk belajar setelah syahadat, tetapi para mualaf sering merasa terbantu dengan urutan kasar agar tidak ada yang terasa membebani sekaligus. Gunakan ini sebagai panduan longgar, bukan perlombaan.",
     ],
     actions: [
-      "Look up mosques or Islamic centres near you and consider visiting for a prayer time or an event.",
-      "If in-person community isn't accessible yet, seek out a moderated online Muslim community for support.",
+      "Pelajari wudhu (basuhan ritual) dan latihlah hingga terasa alami.",
+      "Pelajari bacaan pokok untuk satu shalat lengkap dengan bantuan panduan bacaan.",
+      "Mulailah mengerjakan shalat lima waktu, meskipun belum sempurna pada awalnya — di masa awal, konsistensi lebih penting daripada kesempurnaan.",
+      "Pelajari beberapa doa harian pendek untuk bangun tidur, makan, dan keluar rumah.",
+      "Temukan masjid setempat atau komunitas daring untuk dukungan dan bertanya.",
+      "Mulailah membaca terjemahan Al-Qur'an, sedikit setiap hari.",
+      "Ceritakan kepada orang yang Anda percayai — keluarga atau sahabat dekat — ketika Anda merasa siap, sesuai kecepatan Anda sendiri.",
     ],
   },
   {
-    title: "Continuing to Learn",
-    summary: "This guide is a starting point — three deeper guides are ready when you are.",
+    title: "Menemukan Komunitas",
+    summary: "Belajar bersama Muslim lain membuat perjalanan lebih mudah dan lebih menggembirakan.",
     body: [
-      "Once the essentials in this guide feel comfortable, three companion guides in this app are built to take you deeper: Aqeedah for the full detail behind each article of faith, Learn Dua for supplications for everyday moments, and the Qur'an reader for daily recitation and reflection.",
-      "You don't have to finish any of them quickly. Islam is learned over a lifetime, and returning to the same topic months or years later, with more experience, is completely normal — even expected.",
-    ],
-  },
-  {
-    title: "FAQ: Common Early Mistakes",
-    summary: "Everyone starts imperfectly — here's how to think about early stumbles.",
-    body: [
-      "Q: I keep messing up parts of the prayer or forgetting the words — is that a problem? A: No. Everyone forgets words and mixes up steps while learning; keep practising with the phrases guide and it becomes natural within weeks. Sincerity while learning matters far more than early perfection.",
-      "Q: I feel guilty that I'm not doing everything (fasting, extra prayers, memorising Qur'an) right away. A: Trying to do everything at once is a common new-Muslim mistake that often leads to burnout. Build the five daily prayers as your first steady habit, then add gradually — Allah does not burden anyone beyond their ability.",
-      "Q: What if I miss a prayer or make a mistake in one? A: Missing a prayer occasionally while you're learning the routine, or making a small mistake in it, is not the end of the world — make it up when you remember, keep going, and don't let a setback stop you from praying the next one.",
+      "Islam dimaksudkan untuk dijalani bersama, bukan hanya secara pribadi. Shalat berjamaah, masjid setempat, dan teman-teman Muslim dapat menjawab pertanyaan sehari-hari ('bagaimana mengucapkan ini dalam shalat jika saya lupa?'), memberikan semangat, dan membuat Anda tidak merasa sendirian dalam pengalaman yang baru.",
+      "Jika Anda tidak tahu harus mulai dari mana, kebanyakan masjid menyambut mualaf dengan hangat dan sering kali ada seseorang yang dengan senang hati membantu pendatang baru mempelajari dasar-dasarnya — bertanya itu wajar dan diharapkan, bukan hal yang canggung.",
+      "Jika saat ini Anda belum bisa datang langsung ke masjid, komunitas daring dan panduan di aplikasi ini dapat menjembatani hingga Anda menemukannya, atau seterusnya jika memang itulah keadaan Anda — bagaimanapun, Anda tetap sepenuhnya bagian dari komunitas Muslim yang lebih luas (umat).",
     ],
     actions: [
-      "When you make a mistake, treat it as a normal part of learning, not a reason to give up.",
+      "Cari masjid atau pusat Islam di dekat Anda dan pertimbangkan untuk berkunjung pada waktu shalat atau saat ada acara.",
+      "Jika komunitas tatap muka belum terjangkau, carilah komunitas Muslim daring yang dimoderasi dengan baik untuk mendapatkan dukungan.",
     ],
   },
   {
-    title: "FAQ: Do I Need to Learn Arabic?",
-    summary: "Arabic grows with you over years — it isn't a prerequisite to start practising.",
+    title: "Terus Belajar",
+    summary:
+      "Panduan ini adalah titik awal — tiga panduan yang lebih mendalam siap kapan pun Anda siap.",
     body: [
-      "Q: Do I need to speak Arabic before I can pray or read the Qur'an? A: No. You can begin praying with a handful of short, transliterated phrases today, and read the Qur'an in your own language while your Arabic recitation grows over time through repetition.",
-      "Q: Is it disrespectful to mispronounce the Arabic while learning? A: No — every reciter, in every generation, started as a beginner. Effort while learning is valued; perfection is a long-term goal, not a starting requirement.",
-      "Q: Should I take a class to learn Arabic reading (for prayer, not necessarily conversation)? A: Many new Muslims find a short Qur'an-reading (tajweed basics) class very worthwhile once the essentials of prayer feel comfortable — it's a good next step, not a first one.",
+      "Setelah hal-hal pokok dalam panduan ini terasa nyaman, tiga panduan pendamping di aplikasi ini dirancang untuk membawa Anda lebih dalam: Aqidah untuk rincian lengkap setiap rukun iman, Belajar Doa untuk doa-doa pada momen sehari-hari, dan pembaca Al-Qur'an untuk tilawah serta perenungan harian.",
+      "Anda tidak harus menyelesaikan salah satunya dengan cepat. Islam dipelajari sepanjang hayat, dan kembali ke topik yang sama berbulan-bulan atau bertahun-tahun kemudian, dengan pengalaman yang lebih banyak, adalah hal yang sangat wajar — bahkan memang diharapkan.",
+    ],
+    appLinks: [{ label: "Belajar Aqidah" }, { label: "Belajar Doa" }, { label: "Baca Al-Qur'an" }],
+  },
+  {
+    title: "Tanya Jawab: Kesalahan Umum di Awal",
+    summary:
+      "Semua orang memulai dengan tidak sempurna — begini cara menyikapi tergelincir di masa awal.",
+    body: [
+      "T: Saya terus salah dalam beberapa bagian shalat atau lupa bacaannya — apakah itu masalah? J: Tidak. Semua orang lupa bacaan dan keliru urutan ketika sedang belajar; teruslah berlatih dengan panduan bacaan, dan dalam beberapa minggu semuanya akan terasa alami. Ketulusan saat belajar jauh lebih penting daripada kesempurnaan di masa awal.",
+      "T: Saya merasa bersalah karena belum melakukan semuanya (puasa, shalat tambahan, menghafal Al-Qur'an) sekaligus. J: Mencoba melakukan semuanya sekaligus adalah kesalahan umum mualaf yang sering berujung pada kelelahan. Jadikan shalat lima waktu sebagai kebiasaan tetap Anda yang pertama, lalu tambahkan secara bertahap — Allah tidak membebani seseorang melainkan sesuai kesanggupannya.",
+      "T: Bagaimana jika saya terlewat satu shalat atau melakukan kesalahan di dalamnya? J: Sesekali terlewat shalat ketika Anda masih mempelajari rutinitasnya, atau melakukan kesalahan kecil di dalamnya, bukanlah akhir segalanya — gantilah (qadha) ketika Anda ingat, teruslah melangkah, dan jangan biarkan satu kemunduran menghentikan Anda dari mengerjakan shalat berikutnya.",
     ],
     actions: [
-      "Keep using transliteration and translation alongside Arabic until recitation feels natural — there's no deadline.",
+      "Ketika Anda melakukan kesalahan, anggaplah itu bagian wajar dari proses belajar, bukan alasan untuk menyerah.",
     ],
   },
   {
-    title: "FAQ: Family and Relationships",
-    summary: "Kindness to family remains a duty, even where beliefs now differ.",
+    title: "Tanya Jawab: Apakah Saya Perlu Belajar Bahasa Arab?",
+    summary:
+      "Bahasa Arab tumbuh bersama Anda selama bertahun-tahun — bukan syarat untuk mulai beribadah.",
     body: [
-      "Q: My family isn't Muslim and I'm worried about how they'll react — what does Islam ask of me here? A: Kindness to parents and family is commanded in the Qur'an even where belief differs: 'do not obey them [in matters that would compromise your faith], but accompany them in this world with kindness.' Your new faith should visibly make you gentler and more dutiful toward family, not less.",
-      "Q: How do I tell my family, or handle disagreement, without it becoming a crisis? A: There's no single right way — pace, timing, and how much to share depend on your specific family and safety. This is a genuinely personal decision; talking it through with a trusted local imam, counsellor, or experienced convert-support group before difficult conversations is wiser than navigating it entirely alone.",
-      "Q: Am I obligated to cut ties with non-Muslim family or friends? A: No — maintaining good relationships and honouring family ties remains a duty in Islam. Boundaries around specific practices (for example, certain celebrations or activities) are a separate, personal matter best discussed with a knowledgeable local teacher who knows your situation.",
+      "T: Apakah saya harus bisa berbahasa Arab sebelum dapat shalat atau membaca Al-Qur'an? J: Tidak. Anda dapat mulai shalat hari ini dengan beberapa bacaan pendek yang ditransliterasikan, dan membaca Al-Qur'an dalam bahasa Anda sendiri sementara bacaan Arab Anda berkembang seiring waktu melalui pengulangan.",
+      "T: Apakah salah mengucapkan lafaz Arab saat belajar dianggap tidak sopan? J: Tidak — setiap qari, di setiap generasi, memulai sebagai pemula. Usaha saat belajar itu dihargai; kesempurnaan adalah tujuan jangka panjang, bukan syarat untuk memulai.",
+      "T: Haruskah saya mengikuti kelas membaca tulisan Arab (untuk shalat, tidak harus untuk percakapan)? J: Banyak mualaf merasa kelas singkat membaca Al-Qur'an (dasar-dasar tajwid) sangat bermanfaat setelah hal-hal pokok shalat terasa nyaman — itu langkah berikutnya yang baik, bukan langkah pertama.",
     ],
-    quran: [
-      {
-        excerpt:
-          "But if they endeavour to make you associate with Me that of which you have no knowledge, do not obey them, but accompany them in this world with kindness...",
-      },
+    actions: [
+      "Tetap gunakan transliterasi dan terjemahan di samping teks Arab hingga bacaan terasa alami — tidak ada tenggat waktu.",
+    ],
+  },
+  {
+    title: "Tanya Jawab: Keluarga dan Hubungan",
+    summary:
+      "Berbuat baik kepada keluarga tetap menjadi kewajiban, meskipun kini keyakinan berbeda.",
+    body: [
+      "T: Keluarga saya bukan Muslim dan saya khawatir bagaimana reaksi mereka — apa yang Islam minta dari saya dalam hal ini? J: Berbuat baik kepada orang tua dan keluarga diperintahkan dalam Al-Qur'an meskipun keyakinan berbeda: 'janganlah engkau menaati keduanya [dalam hal yang merusak imanmu], dan pergaulilah keduanya di dunia dengan baik.' Iman Anda yang baru semestinya tampak membuat Anda lebih lembut dan lebih berbakti kepada keluarga, bukan sebaliknya.",
+      "T: Bagaimana cara memberi tahu keluarga, atau menghadapi perbedaan pendapat, tanpa menjadi krisis? J: Tidak ada satu cara yang paling benar — kecepatan, waktu, dan seberapa banyak yang diceritakan bergantung pada keluarga dan keselamatan Anda masing-masing. Ini benar-benar keputusan pribadi; membicarakannya dengan imam setempat yang tepercaya, konselor, atau kelompok pendamping mualaf yang berpengalaman sebelum percakapan yang sulit lebih bijak daripada menghadapinya sepenuhnya sendirian.",
+      "T: Apakah saya wajib memutuskan hubungan dengan keluarga atau teman yang bukan Muslim? J: Tidak — menjaga hubungan baik dan memuliakan ikatan keluarga tetap menjadi kewajiban dalam Islam. Batasan terkait praktik tertentu (misalnya perayaan atau kegiatan tertentu) adalah persoalan tersendiri yang bersifat pribadi, sebaiknya dibicarakan dengan guru setempat yang berilmu dan memahami keadaan Anda.",
     ],
     disclaimer:
-      "This FAQ offers general, non-fatwa guidance for common early questions. For your specific family, safety, or personal circumstances, please speak with a local imam, qualified counsellor, or trusted community elder.",
+      "Tanya jawab ini memberikan bimbingan umum, bukan fatwa, untuk pertanyaan yang lazim muncul di masa awal. Untuk keadaan keluarga, keselamatan, atau situasi pribadi Anda secara khusus, silakan berbicara dengan imam setempat, konselor yang berkompeten, atau tokoh masyarakat yang tepercaya.",
   },
 ];

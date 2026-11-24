@@ -23,16 +23,7 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       "Qur’aanku waxa uu oggolaaday xad joogto ah u dhigay: “La dagaallama Jidka Eebbe kuwa idinla dagaallama, laakiin ha xad-gudbina” (Qur’an 2:190). Dagaalku waxa uu ku xidhnaa gardaro iyo gardaro ka dhan ah beesha, mana ahayn in aan marnaba laga dhaafin xadka cadaaladda.",
       "Ololayaashani waa taariikh: waxay ka dhaceen xaalad gaar ah oo Carabeed qarnigii toddobaad ee dagaalka qabiilka, heshiisyada jabay, iyo go'doominta. Diinta islaamka guud ahaan nabada, cadaalada, naxariista iyo derisnimada ayaa ah qaab-dhismeedka; Faahfaahinta dagaalladan waa in lagu akhriyaa gudaha gudaha, oo aan lagu dumin hal-ku-dhegyo ka soo baxay.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxaa loo idmay kuwii dagaallamay in la dulmiyey Darteed, Eebana waa karaa inuu liibaaniyo kuwa laga fogeeyey guryahoodii xaqdarro, waxaan ahaynna waxaan ahayn Eebahanno waa Eebahan. Hadduusan Eebe ku celin dadka qaarka kale, waxaa la dumin lahaa macbudyo, Kaniisado, mac-hadyo iyo masaajido magaca Eebe lagu xusay.",
-      },
-      {
-        excerpt:
-          "Ku dagaallama Jidka Eebe kuwa idinla dagaallama, hana xad-gudbina. Eebana ma jecla kuwa xadgudba.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -45,17 +36,8 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       "Xadgudubyada heshiisku waxay ahaayeen kuwo go'aan qaadasho leh ilaa dhammaadka. Waxay ahayd xulafadii Quraysh oo weerartay xulafadii Muslimiinta, Banu Khuzaac, kuwaas oo buriyay heshiiskii Xudeybiyah oo u horseeday - si cajiib ah - oo ku dhawaad ​​dhiig la'aan ku furay Makka halkii ay ka ahaan lahaayeen xasuuq.",
       "Waxaas oo dhan, ujeeddooyinku waxay ahaayeen kuwo joogto ah: in la difaaco nolosha iyo diinta, in la ilaaliyo dadka jilicsan, iyo in la helo ammaan ku filan oo tawxiidka lagu dhaqmi karo iyada oo aan la dhibaatayn. Ujeedadu weligood ma ahayn balaadhin aan dhammaad lahayn oo nafteeda ah, ilo-wareedyaduna waxay diiwaan geliyeen Nabiga ﷺ inuu jecel yahay heshiis iyo heshiis mar kasta oo cadowgu u janjeero xagga nabadda.",
     ],
-    hadith: [
-      {
-        excerpt:
-          'Waxaa la i faray inaan la dagaallamo dadka ilaa ay ka marag kacaan inaan Eebe mooyee ilaah kale jirin, Muxammadna uu yahay Rasuulkii Alle, oo ooga salaadda, zakadana bixinaya. Hadday sidaas yeelaan naf iyo maalba waa la iga dhawrsadaa xaqa Islaamka mooyaane, xisaabtooduna Eebbe agtiisay taal. - Culimadii qadiimiga ahayd waxay akhriyeen "dadku" inay yihiin mushrikiinta gaarka ah ee Carabta oo markaas dagaal ku qaaday Islaamka ka dib markay farriintu soo gaadhay; waa hadal ku saabsan dagaalyahannadaas cadawga ah, ma aha shatiga lagu weerarayo dadka nabadda ah ee aan muslimka ahayn ama lagu qasbo caqiidada, taasoo Qur\'aanka 2:256 uu si cad u diidayo.',
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Diinta qasab kuma jirto. Habka saxda ah ayaa ka duwanaaday qaladka.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Xadiiska sare ayaa inta badan laga soo xigtay iyadoo laga xayuubinayo. Culimadii qadiimiga ahayd waxay u dhigeen colaadaha gaarka ah ee waqtigeeda iyo inay garab istaagaan Quraanka kariimka ah ee diinta khasabka ah (2:256) iyo xadka in la dagaallamo oo keliya kuwa idinla dagaallama (2:190).",
     appLinks: [{}],
@@ -72,29 +54,8 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       "Hantida iyo dhulka laftiisa ayaa la ilaaliyaa. Tilmaanta guud waxa ay mamnuucday in si badheedh ah loo jaro geedaha midhaha ah, la gubo dalagyada, iyo laynta xoolaha oo aan loo baahnayn. Maxaabiista waxa loo quudin jiray sida ay maxaabiistu wax u cunaan oo ay u xidhaan marka ay xidhan yihiin; Qur'aanku wuxuu ammaanay kuwa maxaabiista u quudiya jacaylka Eebbe (76:8), qaar badanna waxaa lagu sii daayay madax furasho, beddelasho, ama naxariis fudud - qaarkood Badar waxay ku beddeleen inay Muslimiinta baraan inay wax akhriyaan.",
       "Kuwani waa manhajyada caadiga ah ee diinta. Shakhsiyaadka Muslimka ah ee taariikhda ku xad-gudbay iyaga waxay ku xad-gudbeen Islaamka, ma aysan qeexin - sida xadgudubyada kuwa raacsan caqiidada kasta aysan dib u qorin waxa caqiidadaas amrayo.",
     ],
-    quran: [
-      {
-        excerpt: "Ku dagaallama Jidka Eebe kuwa idinla dagaallama, hana xad-gudbina.",
-      },
-      {
-        excerpt:
-          "Hadday u janjeeraan nabaddana u dhaadhac, Allaahna talo Saaro. Eebana waa maqle oge ah.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ibnu Cumar waxa laga wariyey in haweenay la gowracay mid ka mid ah socdaaladii Rasuulka s.c.w, markaasuu diiday in dumarka iyo carruurta la laayo.",
-      },
-      {
-        excerpt:
-          "Nabigu (scw) markuu u magacaabay amiir ciidan ayuu ku amray: ku dagaalama magaca Alle... ha lunsan hantidaada, ballankaaga ha jabin, ha googooyn, ilmona ha dilin. Markaad cadowga la kulanto, marka hore ku casuun Islaamka; Hadday diidaanna nabad sii; Hadday labaduba diidaan, ka dibna dagaalama.",
-      },
-      {
-        excerpt:
-          "Ha dilin oday ceeb ah, ama ilmo yar, ama naag. - Silsilada erayadan saxda ah qaarkood ayaa lagu darajo daciif ah, laakiin xukunka ay sheeganayso waxaa xaqiijinaya qisadda Saxiixa ah ee kor ku xusan iyo isku raacidda fuqaha.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Si cad u kala saar waxa Islaamku amray iyo waxa ciidan kasta oo taariikhda soo maray uu dhab ahaantii sameeyay.",
       "Akhri qaybtan anshaxa ka hor sheeko dagaal kasta - taariikhda iyada oo aan lahayn mabaadi'deeda xukunka waxay martiqaadaysaa isfaham la'aan.",
@@ -141,26 +102,8 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
         "Maxaabiistii qaarkood ayaa la sii daayay si ay u barayaan farbarashada iyo farbarashada carruurta reer Madiina.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Markaad u Gargaar waydiisanayseen Eebihiin oo uu idinku Ajiibay waxaan idinku Xoojin Kun Malaa'ig ah oo is daba Jooga.",
-      },
-      {
-        excerpt:
-          "Waxaa idiinku sugnaaday calaamo labadii kooxood ee kulmay, mid ku dagaalamaya Jidka Eebe iyo mid Gaalo ah.",
-      },
-      {
-        excerpt:
-          "Idinku maydaan dilin, laakiin Alle ayaa dilay. Mana aadan tuurin markaad tuurtay, Eebana waa kan tuuray.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Cumar waxa laga wariyey in maalintii Badar uu Nabigu Scw eegay cadawgii kun iyadoo asxaabtiisu ay wax yar ka badanayeen saddex boqol, dabadeedna uu qiblada u jeestay oo uu gacmihiisii ​​fidiyay oo uu baryay Eebihiis: Alloow oofi wixii aad ii ballan qaaday. Alloow haddii kooxdan mu’miniinta ah la baabi’iyo dhulka laguguma caabudayo. Wuu baryey ilaa uu go’iisii ​​garbaha ka soo dhacay, markaasaa Abuu Bakar beddelay oo ku yidhi: waa ku filan tahay, Nebi Alloow – Eebbe wuu oofin wuxuu kuu ballan qaaday.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -197,22 +140,8 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Tijaabooyinku waxay nadiifiyaan rumaystayaasha; dib u dhac lala kulmo towbad keen iyo adkaysigu waxay horseedaa korriin.",
     },
-    quran: [
-      {
-        excerpt:
-          "Dhab ahaan buu Eebe u oofiyey yaboohiisa markaad dilaysaan idankiisa, intaad ka adkaataan ood ku khilaaftaan amarka ood caasidaan ka dib markuu idin tuso waxaad jeceshihiin.",
-      },
-      {
-        excerpt:
-          "Ee ha tabaryarina hana murugoonina, idinkaa sareeye haddaad tihiin kuwa xaqa rumeeyey.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Rasuulku (scw) kontonkii qaansole ee maalinta Uxud ayuu u magacaabay Cabdullaahi bin Jubayr, wuxuuna ku yiri: mawqifkiinna qabta; xataa haddaad aragtaan inagoo shimbiro naga dafayna, ha ka tagin ilaa aan kuu soo cid diro, oo xataa haddaad aragtaan inaannu ka adkaanno, ha ka tegin ilaa aan idiin soo cid diro. Markii cadawgii la jebiyey oo qaansoleydii ay boolidii arkeen ayay yiraahdeen, boolidii! oo ay ka tageen jagadoodii - sidaas darteed waxaa nala dilay toddobaatan qof.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -252,22 +181,8 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Go'doominta ku adkayso, natiijadana u wakiilo Alle, kaas oo soo celin kara ciidan dabayl wata.",
     },
-    quran: [
-      {
-        excerpt:
-          "Kuwa (Xaqa) rumeeyow xusa Nicmada Eebe korkiinna markay Junuudi idiin timid, markaasaan ku dirray Dabayl iyo col aydaan arkayn, waxaana lagu imtixaanay Mu'miniinta waxaana lagu gilgilay Gariir daran.",
-      },
-      {
-        excerpt:
-          "Markay Mu'miniintu arkeen Xisbiyadii waxay dheheen kani waa wixii Eebe iyo Rasuulkiisu noo yaboohay, mana u siyaadinin waxaan rumayn iyo is-hoosaysiin ahayn.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Rasuulku (scw) wuxuu ka baryay jameecadii maalintii al-Axzaab, isagoo leh: Alloow kitaabka soo dajiyay, xisaabi degdege- jaba jameecadii. Allahayow jabi oo rux.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -300,22 +215,8 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Jebinta axdiga ilaalinta wadajirka ah daqiiqad khatar ah oo la wadaago ayaa ka mid ah khiyaanada ugu daran.",
     },
-    quran: [
-      {
-        excerpt:
-          "Wuxuuna ka soo dajiyay kuwii u kaalmeeyey ee ehlu-Kitaabka ahaa Dhufaysyadoodii, quluubtoodana ku tuuray argagax, koox aad dileen iyo koox aad qafaasheen. Wuxuuna idin dhaxalsiiyay dhulkoodii iyo guryahoodii.",
-      },
-      {
-        excerpt:
-          "Eebana idinkama Reebo kuwaan Diinta idinkula Dagaalamin oon Guryihiinna idinka Bixin inaad ka Wanaagtaan Xaggooda iyo Caddaalad. Eebana wuxuu jecelyahay kuwa cadaalad fala.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Markii uu Banu Qurayzah oggolaaday inuu aqbalo xukunkii Sacad ibnu Mucaad, ayuu nabigu ﷺ u soo cid diray. Wuu yimid, nabigu ﷺ wuxuu yidhi: u istaag madaxiina. Sacad wuxuu xukumay in raggoodii dagaallamay la laayo, dumarkoodii iyo carruurtoodiina maxaabiis ahaan loo kaxaystay. Nabigu ﷺ wuxuu yidhi: waxaad ku xukumaysay xukunkii Alle - ama wuxuu yidhi, xukunkii boqorka.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Tani waxay ciqaab u ahayd fal gaar ah oo ah khiyaano dagaal oo ay galeen dagaalyahannada, oo uu xukumay garqaade qabiilka laftiisa ayaa doortay. Ma aha xukun ka dhan ah dadka diintooda, mana aha tusaale u ah xidhiidhka Yuhuuda ama caqiido kasta, kuwaas oo Islaamku amray in loola dhaqmo caddaalad iyo naxariis (Qur'aanka 60: 8). Qaar ka mid ah culimada dambe ayaa su'aal ka keenay faahfaahinta tirooyinka la gudbiyay.",
   },
@@ -349,22 +250,8 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Allah iyo Rasuulkiisa ku kalsoonow marka ay go'aanku xikmaddiisu qarsoon tahay - samirku waa guusha ugu runta ah.",
     },
-    quran: [
-      {
-        excerpt:
-          "Annagaa idin siinnay liibaanta cad, si Eebe idiin dhaafo wixii dambigiinna ka horreeyay iyo waxa ka dambeeyaba, idiinna dhammaystiro nicmadiisa, idinkuna hanuuniyo jidka toosan.",
-      },
-      {
-        excerpt:
-          "Dhab ahaan Eebe wuu ka raalli noqday Mu'miniinta markay idinku ballameen geedka hoostiis, wuxuuna ogaa waxa quluubtooda ku sugan, markaasuu ku soo dejiyey xasillooni, wuxuuna ku abaal-mariyey fidmo dhaw.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jaabir bin Cabdullaahi wuxuu yiri: Maalintii Xudeybiyah waxaan ahayn afar iyo toban boqol. Waxaan u ballan qaadnay nabiga ﷺ geedka hoostiisa, wuxuuna ahaa dadka ugu kheyr badan.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -397,12 +284,7 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ku adkeysiga dhibaatada daba dheeraatay, ku biirista daacadnimada, waxay keentaa gargaarka Eebe.",
     },
-    hadith: [
-      {
-        excerpt:
-          "Maalinta Khaybar Rasuulku (scw) wuxuu yidhi: “Brito waxaan calankan siinayaa nin Alle iyo Rasuulkiisa jecel, Eebbe iyo Rasuulkiisuna jecel yihiin, gacantiisana Eebbe ku guuleeyo. Maalintii dambe ayuu u yeedhay Cali oo indhihiisu ka xanuunsadeen; Intuu indhihiisa ka tufay oo u duceeyey, Calina wuu bogsaday sidii isagoon weligii bukoon, oo calankii baa loo dhiibay.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -469,16 +351,7 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Ujeedadu waxay ahayd hanuun, ma ahayn aargoosi - awood ayaa loo sameeyay si loogu adeego fariinta, ma aha nafta.",
     },
-    quran: [
-      {
-        excerpt:
-          "Markay Liibaanta Eebe timi iyo Fatuuq, ood Aragto Dadka oo Diinta Eebe u soo galaya Kooxo badan, markaas ku Tasbiixso Mahadda Eebahaa, Dambi Dhaafna waydiiso. Eebana waa aqbal toobada.",
-      },
-      {
-        excerpt:
-          "Wuxuu yiri:- maanta danbi ma laha. Alle ha ku danbi dhaafo, isagaana naxariis badan. - Hadalkii Nebi Yuusuf ee uu Nabigu ﷺ kula hadlay Qureysh maalintii la qabsaday.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -512,18 +385,8 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Weligaa ha isku hallayn tirooyinka ama guusha dhow; guul iyo xasillooni waxay ka timaadaa Allaah uun.",
     },
-    quran: [
-      {
-        excerpt:
-          "Eebbana waa idiin rumeeyey gobollo badan iyo maalintii Xunayn markay idinka raalli noqdeen badnaantiinnii oon waxba idiin tari jirin, dhulkiina ballaadhkiisuna idiin xidhmay, markaasaad jeedsateen idinkoo carari. Markaasuu Eebe ku soo dejiyey xasiloonidiisa Rasuulkiisa iyo Mu'miniinta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Al-Bara bin Caziib ayaa la weydiiyey inay carareen maalintii Xunayn iyo in kale. Wuxuu yiri: Laakin Rasuulku ﷺ ma cararin. Dadkii dib bay u noqdeen, Nabiguna ﷺ wuxuu saarnaa baqalkiisii ​​caddaa, wuxuuna yidhi: anigu waxaan ahay nebi, kani been ma aha; Waxaan ahay ina Cabdil-Mudalib.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -559,22 +422,8 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "allabaryo aan lahayn abaalgud muuqda, iyo run sheegid marka la tijaabiyo, ayaa ka mid ah imtixaannada ugu sarreeya ee iimaanka.",
     },
-    quran: [
-      {
-        excerpt:
-          "Kuwii hadhayna way ku farxeen inay Rasuulka (scw) gadaashaan oo naceen inay ku jahaadaan xoolahooda iyo naftooda Jidka Eebbe, waxayna dheheen: ha u bixin kulaylka. Waxaad dhahdaa Naarta Jahannamo yaa ka daran kulayl hadday wax kasayn.",
-      },
-      {
-        excerpt:
-          "Wuuna u dambidhaafay saddexdii hadhay ilaa dhulku waasac yahay, kuna xidh-xidhay naftoodu, waxayna yaqiinsadeen inaan Eebe agtiisa ahayn oo laga magan galo. Markaasaa Eebe u naxariistay inay u toobad keenaan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kacab bin Maalik wuxuu uga warramay sidii uu uga hadhay Tabuuk cudur daar la'aan oo aanu been ka sheegin; Nebigu (scw) wuxuu mu’miniinta faray inaysan la hadlin isaga iyo labadiisa saaxiib konton habeen, ilaa uu dhulku cidhiidhi ku ahaado – markaasay u timid waxyigii dambi-dhaafkooda, waxayna ka mid ahayd maalmihii ugu farxadda badnaa noloshiisa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -634,20 +483,7 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
       "Xadiiska ku saabsan socdaalada waa in la hubiyaa inuu sax yahay ka hor inta aan la isku hallayn. Sheekooyinka hoose waxa laga soo minguuriyay ururinta Saxiixa waxayna khusaysaa hab-dhaqanka iyo niyad-jabka ololahan; mid walba darajadiisa ayuu sitaa.",
       "Sheekooyinka ku xidhan hawl-gal gaar ah, eeg mawduuca dagaalkaas. Isticmaal browserka xadiiska Munib si aad u akhrido silsilado buuxa iyo shahaado bixinta macnaha guud.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ha rabin inaad la kulanto cadowga, oo Alle weydiiso badbaado. Laakiin markaad la kulanto u samir, ogaadana in Jannadu ay hoos jiifto seeftu.",
-      },
-      {
-        excerpt:
-          "Nabigu ﷺ wuxuu yidhi: Dagaalku waa khiyaano. - Culimadu waxay tani ku macneeyeen ogolaanshaha xeeladaha xeeladaha dagaalka (feints, la yaab, jahawareerin), weligoodba sida shatiga jabinta axdiga ama khiyaameeya dhinac la ilaaliyo.",
-      },
-      {
-        excerpt:
-          "Markii uu magacaabay taliyaha nabigu ﷺ wuxuu faray inuu Alle ka cabsado, oo uu cadowga ugu yeedho Islaamka ka hor dagaalka, in aanu ballanta ka bixin, in aanu googo’in, ilmo yarna aanu dilin.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -669,70 +505,46 @@ export const BATTLES_TOPICS_SO: DeepPartial<BattlesTopic>[] = [
 
 export const BATTLES_VERSES_SO: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "Waxaa loo fasaxay kuwii dagaalamay maxaa yeelay waa la dulmiyey… Hadduusan Eebe ku hubin qolo qolo kale waxaa la dumin lahaa machadyo, Kaniisado, machadyo iyo masaajidyo.",
     context:
       "Ogolaanshaha guud ee ugu horreeya ee lagu dagaallamo - ka dib sannado badan oo cadaadis aan hubaysnayn oo Makkah ah.",
   },
   {
-    excerpt:
-      "Ku dagaallama Jidka Eebe kuwa idinla dagaallama, hana xad-gudbina. Eebana ma jecla kuwa xadgudba.",
     context: "Xadka aasaasiga ah: Difaaca kaliya, oo leh mamnuucid xad dhaaf ah.",
   },
   {
-    excerpt:
-      "Markaad weydiisato Eebahaa gargaar, wuxuu ku jawaabay: waxaan kugu xoojinayaa kun Malaa'ig ah oo darajo ah.",
     context:
       "Waxyaalaha ku saabsan Badar oo la soo dejiyay - gargaarka rabbaani ah ee mu'miniinta ah ee laga tirada badan yahay.",
   },
   {
-    excerpt:
-      "Waxaa idiinku Sugnaaday Aayad Labadii Kooxood ee Kulmay, Mid ku Dagaallami Jidka Eebe, Midna Gaalo ah, Iyagoo ku Arkaya Laba Jibaar iyagoo Indhahooda Jooga.",
     context: "Eebe wuxuu ka dhigay Muslimiintii cadawga Badar ka weyn, isagoo quluubta xoojiya.",
   },
   {
-    excerpt:
-      "Eebana wuxuu idiin oofiyey ballankiina markaad dilaysaan idankiisa, intay idinka adkaadaan ood ka dooddaan amarka ood caasidaan ka dib markuu idin tuso waxaad jeceshihiin.",
     context: "Waxa uu ka hadlayaa caasinimada qaansoleyda iyo meertada Uxud.",
   },
   {
-    excerpt:
-      "Kuwa xaqa rumeeyow xusa Nicmada Eebe korkiinna markay Junuudu idiin timid oon ku dirray Dabayl iyo col aydaan arkayn.",
     context: "Suuratu al-Axzaab oo ku saabsan go'doominta Confederater iyo gargaarka rabaaniga ah.",
   },
   {
-    excerpt:
-      "Wuxuuna ka soo dajiyay kuwii u kaalmeeyey ee ehlu-Kitaabka ahaa Dhufaysyadoodii, quluubtoodana ku tuuray argagax, koox aad dileen iyo koox aad qafaasheen. Wuxuuna idin dhaxalsiiyay dhulkoodii iyo guryahoodii.",
     context:
       "Suuradda al-Axzaab ee ku taal Banu Qurayzah, oo jebiyey axdigii intii lagu jiray go'doominta - dhacdo xaddidan oo ah khiyaano dagaal, ee ma aha xukun iimaan ka dhan ah.",
   },
   {
-    excerpt:
-      "Annagaa idin siinnay liibaanta cad, si Eebe idiin dhaafo wixii dambigiinna ka horreeyay iyo waxa ka dambeeyaba, idiinna dhammaystiro nicmadiisa, idinkuna hanuuniyo jidka toosan.",
     context:
       "Waxaa la soo dejiyay markii Xudeybiyah ka soo laabatay - magacaabista sida guul muuqata waxay saxaabadu markii hore dareemeen tanaasul qadhaadh.",
   },
   {
-    excerpt:
-      "Dhab ahaan Eebe wuu ka raalli noqday Mu'miniinta markay idinku ballameen geedka hoostiis, wuxuuna ogaa waxa quluubtooda ku sugan, markaasuu ku soo dejiyey xasillooni, wuxuuna ku abaal-mariyey fidmo dhaw.",
     context:
       "Ballanqaadkii Ridwaan - ilaa 1,400 oo saxaabi ayaa geed qudhac hoostii ku ballan qaaday in aanay cararin, Allena wuu ka raalli noqday iyaga.",
   },
   {
-    excerpt:
-      "Markay Liibaanta Eebe timi iyo Fatuuq, ood Aragto Dadka oo Diinta Eebe u soo galaya Kooxo badan, markaas ku Tasbiixso Mahadda Eebahaa, Dambi Dhaafna waydiiso. Eebana waa aqbal toobada.",
     context:
       "Suuradda An-Nasr ee ku saabsan furitaanka Makkah - waa guul aan loo tajabin liibaan ee la mahadiyo, dambi dhaafna la waydiisto, iyo dad badan oo iimaanka galaya.",
   },
   {
-    excerpt:
-      "Gobolo badan ayuu Alle idinku mannaystay...Markaasuu Eebe ku soo dejiyay xasiloonidiisa Rasuulkiisa iyo Mu’miniinta korkiisa.",
     context:
       "Eebbe waxa uu xasuusiyaa mu’miniinta in guushu ay tahay deeqdiisa, ee aanay ahayn mid ku timid faan tiro.",
   },
   {
-    excerpt:
-      "Kuwii haray waxay ku farxeen in ay Rasuulka (scw) ka dambeeyaan oo ay naceen in ay ku dadaalaan maalkooda iyo naftooda jidka Alle.",
     context:
       "Suurada At-Tawbah waxay ka hadlaysaa dadkii ka cudur daartay socodkii Tabuuk ee adkaa.",
   },

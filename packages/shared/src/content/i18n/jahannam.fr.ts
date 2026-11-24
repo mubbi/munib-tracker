@@ -26,20 +26,7 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Un point de réconfort au cœur de la croyance sunnite traverse tout ce module : ceux qui meurent en croyant en Allah seul, même s'ils sont accablés par le péché, ne resteront pas dans le Feu pour toujours. Par la miséricorde d'Allah et l'intercession qu'Il permet, les croyants pécheurs sont finalement libérés ; il ne reste que ceux qui meurent en rejetant la foi. Ainsi, l’étude de Jahannam est, pour le croyant, en fin de compte, une étude sur la manière d’atteindre la miséricorde.",
       "Ce module présente ce que les textes disent clairement, note honnêtement les points de divergence des érudits, ne cite que des preuves authentiques et vous oriente systématiquement vers la tawbah, les bonnes actions et la confiance en Allah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Craignez le Feu préparé pour les mécréants et obéissez à Allah et au Messager afin que vous receviez miséricorde.",
-      },
-      {
-        excerpt:
-          "Dis : Ô mes serviteurs qui avez transgressé contre vous-mêmes, ne désespérez pas de la miséricorde d'Allah. En effet, Allah pardonne tous les péchés.",
-      },
-      {
-        excerpt:
-          "Ô vous qui croyez, repentez-vous sincèrement à Allah. Peut-être que votre Seigneur éloignera de vous vos méfaits et vous fera entrer dans les Jardins.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -52,25 +39,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Pourtant, même ici, la miséricorde encadre la justice. Allah avertit avant de juger, retarde le jugement pour laisser place au retour, pardonne facilement lorsqu'on le lui demande et récompense plusieurs fois une seule bonne action tout en enregistrant un seul péché comme un seul. Sa justice n'est jamais séparée de sa miséricorde.",
       "Réfléchir à la raison pour laquelle Jahannam existe devrait donc augmenter la taqwa (conscience de Dieu) et approfondir la gratitude pour chaque jour de la vie qui est encore une chance de se repentir. Son objectif est de rendre le cœur sérieux et plein d’espoir à la fois – sans jamais le paralyser par le désespoir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "En effet, Allah ne fait aucun tort aux gens, mais ce sont les gens qui se font du tort à eux-mêmes.",
-      },
-      {
-        excerpt: "Il n’est pas interrogé sur ce qu’Il ​​fait, mais eux seront interrogés.",
-      },
-      {
-        excerpt:
-          "Celui qui veut, qu’il croie ; et quiconque veut, qu'il ne croie pas. Nous avons préparé un feu pour les injustes.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Aucun d’entre vous n’entrera au Paradis par ses seuls actes. Ils dirent : Pas même toi, ô Messager d'Allah ? Il dit : Pas même moi, à moins qu'Allah ne me couvre de Sa miséricorde.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -82,16 +52,7 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Voir toute la route recadre également le Feu. C’est une destination possible à la fin d’un voyage que chaque âme voyage déjà – ce qui signifie que les choix d’aujourd’hui ne sont pas abstraits. Ce sont des étapes sur cette route, et c’est toujours à nous de les diriger.",
       "Connaître cette séquence aide le croyant à se préparer plutôt qu'à avoir peur : vivre avec un souvenir sain de la mort (dhikr al-mawt), réparer les torts avant qu'ils ne soient transportés dans le rassemblement et remplir le récit des bonnes actions pendant que la porte de l'action est encore ouverte. La mort ferme cette porte ; rien ne peut être ajouté après.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Alors en effet, après cela, vous mourrez. Alors effectivement vous ressusciterez le Jour de la Résurrection.",
-      },
-      {
-        excerpt:
-          "Quant à celui dont la balance est lourde, il vivra une vie agréable. Quant à celui dont les écailles sont légères, son refuge sera un abîme.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Étudiez chaque étape de Learn Aqeedah et reliez vos croyances aux choix quotidiens.",
       "Augmentez le souvenir de la mort (dhikr al-mawt) sans négliger l’espoir en la miséricorde.",
@@ -109,14 +70,7 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Cela mérite ici une mise en garde. Certains auteurs ultérieurs présentent chaque nom comme un « niveau » distinct et classé de l'Enfer, parfois avec des diagrammes détaillés. Il s'agit d'une interprétation scientifique, et non d'une liste de contrôle explicite indiquée dans le Qur'an ou dans un hadith convenu. L’approche équilibrée consiste à apprendre les significations réelles que donnent les textes et à éviter de présenter des cartes spéculatives comme des certitudes.",
       "Le but de l’apprentissage des noms n’est pas de satisfaire la curiosité mais d’adoucir le cœur et de l’orienter vers la miséricorde même que ce module ne cesse de souligner. Parcourez la collection de noms complets pour l'occurrence coranique, le contexte et le résumé du tafsir de chaque nom.",
     ],
-    quran: [
-      {
-        excerpt: "L’Enfer est suffisant comme lieu de repos – Jahannam.",
-      },
-      {
-        excerpt: "Il sera jeté dans al-Hutamah – le Feu écrasant.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -130,21 +84,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Deux choses sont cependant sûres. Premièrement, l’oppression (dhulm), le shirk et les péchés majeurs persistants sans repentance méritent un avertissement sévère. Deuxièmement – ​​et il ne faut jamais l'oublier – que la miséricorde et le pardon d'Allah restent ouverts jusqu'au moment de la mort pour quiconque revient sincèrement à Lui. Le but de l’apprentissage des diplômes est de choisir la voie la plus légère tant que le choix demeure.",
       "En pratique, cela signifie traiter les listes détaillées des « sept niveaux » ou des schémas similaires comme une opinion scientifique plutôt que comme une doctrine établie, et garder l'attention sur ce qui protège réellement : la foi, le repentir et les actions justes.",
     ],
-    quran: [
-      {
-        excerpt: "Pour tous, il y aura des degrés selon ce qu'ils ont fait.",
-      },
-      {
-        excerpt:
-          "En effet, les hypocrites seront dans les profondeurs les plus profondes du Feu, et jamais vous ne leur trouverez de secoureur.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Le moins puni des gens du Feu sera un homme sous les pieds duquel sont placées deux braises d'où bout son cerveau.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Les diagrammes des niveaux de l’Enfer trouvés dans certains livres reflètent une interprétation scientifique et non un accord unanime.",
   },
@@ -157,12 +98,7 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Il est important de noter où s’arrête la certitude. Certains travaux ultérieurs attribuent chaque porte spécifique à un péché ou à un groupe spécifique. Ces attributions particulières ne sont pas uniformément établies dans les sources les plus anciennes, c'est pourquoi il est préférable de les présenter comme les points de vue d'érudits individuels plutôt que comme une spécification prophétique.",
       "Comme pour les niveaux, la leçon des portes n'est pas architecturale mais morale : il y a de nombreuses portes qui mènent vers le Feu, et la manière d'être à l'abri de chacune d'elles est la même : une foi sincère, l'évitement des péchés majeurs et un repentir rapide en cas de glissade.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Et en effet, l’Enfer est le lieu promis pour tous. Il a sept portes ; à chaque porte correspond une portion assignée.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -175,26 +111,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Il existe une étiquette (adab) pour lire de tels passages. Ils sont abordés avec humilité, crainte d’Allah et impulsion immédiate à se repentir et à chercher refuge – non pas avec une fascination morbide, ni jamais avec désespoir, puisque le seul but de l’avertissement est que nous avons encore le temps de l’éviter.",
       "Le thème le plus lourd de ces descriptions est peut-être le regret. « Si seulement j'avais… » dira-t-on alors que le temps de l'action est déjà écoulé. La grâce d'entendre parler de ce regret maintenant est que nous pouvons agir aujourd'hui selon le « si seulement », alors que cela peut encore changer notre fin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Devant lui se trouve l’Enfer, et il aura à boire de l’eau impure. Il l'avalera mais l'avalera à peine.",
-      },
-      {
-        excerpt:
-          "Des vêtements de feu seront coupés pour eux, et de l'eau bouillante sera versée sur leurs têtes.",
-      },
-      {
-        excerpt:
-          "L'enfer, ce jour-là, sera produit — ce jour-là, l'homme se souviendra, mais à quoi lui servira le souvenir ?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Votre feu est une partie des soixante-dix parties du feu de l'Enfer. Il a été dit : Ô Messager d'Allah, ce feu aurait suffi. Il dit : On lui a donné la force de soixante-neuf parties de plus que lui, chaque partie étant comme sa chaleur.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -206,19 +124,7 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Pour cette raison, l'Islam ne nous permet pas de déclarer le sort final d'un individu spécifique – de dire « cette personne est dans le Feu » – sauf dans les rares cas où Allah ou Son Messager ﷺ l'a explicitement déclaré dans une révélation authentique. Juger les cœurs et les fins appartient à Allah seul ; notre tâche est notre propre jugement.",
       "Ainsi, la bonne façon de lire chaque avertissement est de le tourner vers l’intérieur : et non « qui est-ce que cela décrit ? » mais « est-ce que tout cela me décrit et que vais-je changer aujourd'hui ? Qui que vous soyez, l’invitation à revenir à Allah est ouverte dès maintenant – et demain n’est promis à personne.",
     ],
-    quran: [
-      {
-        excerpt: "Les hypocrites seront au plus profond du Feu.",
-      },
-      {
-        excerpt:
-          "Celui qui gagne le péché et s’y laisse engloutir, ceux-là sont les compagnons du Feu, qui demeurent éternellement.",
-      },
-      {
-        excerpt:
-          "Ne pensez pas qu'Allah ignore ce que font les injustes. Il ne les retarde que pour un jour où les yeux se fixeront.",
-      },
-    ],
+    quran: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -231,26 +137,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Et voici l'horizon de tout cela : à la seule exception de la mort par chirk, tout péché – majeur ou mineur – tombe sous le coup du pardon d'Allah s'Il le veut. « En effet, Allah ne pardonne pas la fréquentation de Lui, mais Il pardonne ce qui est moindre que ce pour qui Il veut » (4 : 48). Aucun croyant ne devrait jamais conclure que ses péchés majeurs le placent au-delà de la miséricorde.",
       "Chaque thème du péché majeur dans ce module donne sa définition, ses preuves, pourquoi il est grave et le chemin concret du repentir et de l'évitement – ​​se terminant toujours par cette même porte ouverte.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Si vous évitez les péchés majeurs qui vous sont interdits, Nous vous ôterons vos péchés mineurs et vous ferons entrer dans une entrée noble.",
-      },
-      {
-        excerpt:
-          "En effet, Allah ne pardonne pas la fréquentation de Lui, mais Il pardonne ce qui est inférieur à ce pour qui Il veut.",
-      },
-      {
-        excerpt:
-          "Ceux qui évitent les péchés majeurs et les immoralités, et ne commettent que les légers, en effet, votre Seigneur est vaste en pardon.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Les plus grands péchés majeurs sont : associer des partenaires à Allah, tuer une âme, désobéir aux parents et donner un faux témoignage.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -263,21 +151,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Ce qui rend ces péchés si dangereux, c’est précisément leur facilité et leur habitude. Les gens s'y glissent sans arrière-pensée dans une conversation ordinaire, c'est pourquoi le Prophète ﷺ a lié la foi elle-même à la garde de la parole : « Celui qui croit en Allah et au Jour dernier, qu'il parle en bien ou qu'il se taise. » Une simple pause avant de parler est un véritable acte d’adoration.",
       "La repentance d'un péché de la langue suit les conditions habituelles – arrêter, regretter, décider de ne pas revenir – avec une dimension supplémentaire lorsque le droit d'autrui est en jeu. Là où il est possible de laver leur nom ou de demander leur pardon sans causer de plus grand préjudice, cela fait partie du repentir ; Alors que les informer ne ferait qu’aggraver la blessure, les érudits conseillent plutôt de bien parler d’eux, de les défendre en leur absence et de prier pour leur pardon.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ne vous médisez pas les uns les autres. L'un de vous aimerait-il manger la chair de son frère décédé ?",
-      },
-      {
-        excerpt: "Malheur à tout moqueur et moqueur.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui croit en Allah et au Jour dernier, qu'il parle en bien ou qu'il se taise.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Avant de parler, demandez : est-ce vrai ? Est-ce nécessaire ? Est-ce gentil ?",
       "Si vous médisez sur quelqu'un, faites dua pour lui et demandez son pardon lorsque cela est possible.",
@@ -294,22 +169,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Cela enseigne une leçon cruciale sur la repentance : se tourner vers Allah est nécessaire, mais lorsqu’un droit de l’homme a été violé, cela n’est pas suffisant en soi. La réclamation de la personne lésée demeure jusqu'à ce qu'elle soit réglée ou pardonnée. Ainsi, le repentir a ici une quatrième condition au-delà de l’arrêt, du regret et de la résolution : rendre ce qui est dû.",
       "En pratique, cela signifie restituer ce qui a été pris ou sa valeur, rembourser les dettes même progressivement, restaurer les réputations que l'on a endommagées et tendre la main pour se réconcilier avec les proches que l'on a coupés. Et il y a aussi de la miséricorde là-dedans : chaque étape de réparation est en soi une bonne action, et Allah apaise le cœur sincère qui entreprend de réparer ce qu'il a brisé.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Si vous ne renoncez pas au riba, alors prêtez attention à la guerre de la part d'Allah et de Son Messager.",
-      },
-      {
-        excerpt:
-          "Ceux qui rompent l'alliance d'Allah et rompent ce qu'Il a ordonné se sont joints.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Savez-vous qui est le failli ? Celui qui vient avec la prière, le jeûne et la charité, mais qui a insulté, calomnié, consommé illégalement des richesses et versé du sang – ainsi ses bonnes actions sont données aux autres.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Énumérez toute personne à qui vous avez peut-être fait du tort et faites un pas vers la réparation cette semaine.",
       "Payez les dettes impayées, même en petits versements, si c’est tout ce que vous pouvez gérer.",
@@ -325,21 +186,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Cette distinction est très importante dans la manière dont nous utilisons le sujet. Les signes comportementaux sont donnés comme un miroir de soi-même et non comme une étiquette à épingler sur les autres. Le Prophète ﷺ et ses compagnons craignaient l'hypocrisie en eux-mêmes précisément parce que le cœur est caché et peut changer.",
       "La réponse saine est donc intérieure : vérifier sa propre honnêteté, sa fidélité aux promesses et sa fiabilité, et demander à Allah sa sincérité (ikhlas). Seul Allah sait ce qui réside en une personne, et accuser des individus spécifiques d’hypocrisie est en soi une grave transgression à leur encontre.",
     ],
-    quran: [
-      {
-        excerpt: "Les hypocrites seront au plus profond du Feu.",
-      },
-      {
-        excerpt:
-          "Quand les hypocrites viennent vers vous, ils disent : Nous attestons que tu es le Messager d'Allah. Et Allah sait qu'ils sont des menteurs.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Les signes d'un hypocrite sont au nombre de trois : lorsqu'il parle, il ment, lorsqu'il promet, il ne le tient pas, et lorsqu'on lui confie, il trahit.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "N'accusez pas les individus de nifaq. Les textes avertissent la communauté ; la purification commence par soi-même.",
   },
@@ -353,16 +201,7 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Ce qui compte, c’est la façon dont un croyant s’engage dans tout cela. Le but n’est jamais de s’attarder sur les détails graphiques ou de laisser le cœur sombrer ; il s’agit de recevoir l’avertissement, de se repentir de tout ce qui s’applique, puis de consacrer son énergie aux actes qui protègent réellement. C’est pourquoi ce module donne délibérément plus de place à la protection, au repentir et à la miséricorde qu’à la punition.",
       "En bref, ce qu'il faut retenir de toute punition mentionnée est une question, pas une peur : « Est-ce que je fais cela – et si oui, comment puis-je m'arrêter et y remédier ? Répondu honnêtement aujourd’hui, l’avertissement a déjà fait son œuvre miséricordieuse.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ceux qui accusent les femmes chastes et ne produisent pas quatre témoins, fouettez-les de quatre-vingts coups.",
-      },
-      {
-        excerpt:
-          "Ceux qui accumulent de l'or et de l'argent et ne les dépensent pas dans le sentier d'Allah, annoncent-leur un châtiment douloureux.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -375,22 +214,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Remarquez l’équilibre atteint par la charia. Les moyens de protection sont plus nombreux, plus importants et plus accessibles que les causes de ruine – et cela est en soi un signe de la miséricorde d'Allah. Il est bien plus facile d’être sauvé que de se perdre.",
       "Cette section est intentionnellement la plus grande du module, car c'est ainsi que l'Islam lui-même envisage la question : un avertissement toujours associé à l'espoir, et jamais séparé de l'action concrète qu'une personne peut entreprendre aujourd'hui.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ceux qui disent : Notre Seigneur, nous avons cru, alors pardonne-nous nos péchés et protège-nous du châtiment du Feu.",
-      },
-      {
-        excerpt:
-          "Notre Seigneur, donne-nous le bien dans ce monde et le bien dans l'au-delà, et protège-nous du châtiment du Feu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui demande trois fois le Paradis à Allah, le Paradis dit : Ô Allah, fais-le entrer au Paradis. Celui qui cherche trois fois refuge contre le Feu, le Feu dit : Ô Allah, protège-le du Feu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Mémorisez le du'a cherchant refuge contre Jahannam avant le salam dans la prière.",
       "Faites les cinq prières quotidiennes à l'heure - parmi les boucliers les plus puissants.",
@@ -408,26 +233,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Cela est vrai même pour celui qui est tombé et s’est repenti à plusieurs reprises. Tant que le retour est sincère à chaque fois, Allah continue d'accepter ; le désespoir vient de Shaytan, pas de la religion. La seule chose qui doit être réglée avant la mort est le shirk, car une personne qui y meurt meurt sans la foi qu’exige la repentance – c’est exactement pourquoi se tourner pleinement vers Allah seul est le retour le plus urgent de tous.",
       "La conclusion pratique est simple : repentez-vous maintenant, repentez-vous souvent, et ne laissez jamais l’ampleur d’un péché ou le nombre de vos péchés diminuer vous empêcher de revenir. L'invitation est toujours ouverte.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ne désespérez pas de la miséricorde d'Allah. En effet, Allah pardonne tous les péchés. Il est le Pardonneur, le Miséricordieux.",
-      },
-      {
-        excerpt:
-          "Sauf pour ceux qui se repentent, croient et accomplissent de bonnes actions, Allah remplacera leurs mauvaises actions par de bonnes.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah est plus satisfait du repentir de Son serviteur que de celui d'entre vous qui retrouve sa monture perdue dans une terre aride.",
-      },
-      {
-        excerpt:
-          "Allah étend Sa main la nuit pour accepter le repentir du pécheur du jour, et étend Sa main le jour pour accepter le repentir du pécheur de la nuit, jusqu'à ce que le soleil se lève de son ouest.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Dites Astaghfirullah tout au long de la journée – visez la cohérence, pas seulement après des dérapages majeurs.",
       "Apprenez Sayyid al-Istighfar et récitez-le matin et soir.",
@@ -444,29 +251,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Entre-temps, la miséricorde est intégrée dans la vie quotidienne : les bonnes actions effacent les mauvaises (11 : 114), et une petite adoration cohérente – une prière priée à temps, un acte de charité tranquille, un moment de patience gardé pour l'amour d'Allah – rapproche progressivement une personne de Lui et l'éloigne du mal. La cohérence compte plus que l’intensité.",
       "Alors, que ceci soit la conclusion de votre étude : prenez l’avertissement au sérieux, mais laissez l’espoir être plus fort que la peur. Connaissez le danger, choisissez le chemin de la miséricorde et parcourez-le – étape par étape – chaque jour jusqu'à ce que vous rencontriez Allah.",
     ],
-    quran: [
-      {
-        excerpt: "Ma miséricorde englobe toutes choses.",
-      },
-      {
-        excerpt:
-          "Dis : Ô mes serviteurs qui avez transgressé contre vous-mêmes, ne désespérez pas de la miséricorde d'Allah. En effet, Allah pardonne tous les péchés.",
-      },
-      {
-        excerpt:
-          "En effet, les bonnes actions suppriment les mauvaises actions. C'est un rappel pour ceux qui s'en souviennent.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah dira : Les anges ont intercédé, les prophètes ont intercédé et les croyants ont intercédé, et il ne reste que le Très Miséricordieux des miséricordieux. Il en retirera une poignée du Feu et en fera sortir des gens qui n'ont jamais fait de bien.",
-      },
-      {
-        excerpt:
-          "Celui qui a dans son cœur la foi le poids d’un grain de moutarde sera retiré du Feu.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     actions: [
       "Terminez chaque journée avec istighfar et gratitude pour chaque bénédiction.",
       "Associez ce module à Journey to Jannah – avertissement et espoir ensemble.",
@@ -526,34 +312,8 @@ export const JAHANNAM_CORE_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
           "Ne désespérez pas de la miséricorde d’Allah : la porte du repentir reste ouverte jusqu’à la mort.",
       },
     ],
-    quran: [
-      {
-        excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-      },
-      {
-        excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-      },
-      {
-        excerpt: "Allah établira les balances de justice au Jour de la Résurrection.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
-      },
-      {
-        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
-      },
-      {
-        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
-      },
-      {
-        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
-      },
-      {
-        excerpt: "Deux paroles légères sur la langue, lourdes dans la Balance.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}, {}, {}, {}],
     actions: [
       "Accomplissez les œuvres avec une intention sincère pour Allah.",
       "Appuyez-vous sur le Coran et la Sunna, puis repentez-vous dès aujourd’hui.",
@@ -587,21 +347,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Ses formes : les érudits distinguent le shirk majeur : adorer des idoles, des morts, des saints ou des choses créées ; invoquer un autre qu'Allah pour ce que Lui seul peut donner ; et diriger le sacrifice ou les vœux vers un autre que Lui – ce qui fait sortir une personne de l’Islam si elle ne s’est pas repentie. Il existe également un shirk moindre et caché, comme se montrer dans l'adoration (riya'), jurer par un autre qu'Allah, ou s'appuyer sur des présages et des charmes, ce qui est un péché grave mais n'expulse pas en soi de la religion.",
       "Le chemin pour s'en éloigner : garder et renforcer le tawheed en l'apprenant, en adorant Allah seul et en purifiant l'intention afin que les actes soient pour Lui et non pour les yeux des gens. Celui qui est tombé dans le shirk se repent en y renonçant sincèrement et en retournant au culte d’Allah Seul – et cette porte du retour reste ouverte aussi longtemps qu’il vit.",
     ],
-    quran: [
-      {
-        excerpt:
-          "En effet, Allah ne pardonne pas la fréquentation de Lui, mais Il pardonne ce qui est inférieur à ce pour qui Il veut.",
-      },
-      {
-        excerpt: "Ô mon fils, n'associe rien à Allah. En effet, l’association est un grand méfait.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Les plus grands péchés majeurs sont : associer des partenaires à Allah, tuer une âme, désobéir aux parents et donner un faux témoignage.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Apprenez le tawheed grâce à Learn Aqida et les 99 noms d'Allah.",
       "Purifiez les intentions d’adoration – demandez quotidiennement à Allah la sincérité.",
@@ -617,22 +364,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Un double tort : le meurtre est à la fois un péché contre Allah, dont le droit sur le caractère sacré de la vie est bafoué, et un péché contre les gens – la victime et ceux qu’ils laissent derrière eux. C'est pourquoi son repentir est plus lourd que la plupart des autres : se tourner vers Allah est nécessaire, mais les droits des lésés sont également valables, et lorsque la loi du pays ou la loi islamique prescrit le prix du sang (diyah) ou d'autres conséquences, celles-ci doivent être satisfaites par les voies appropriées et par des érudits qualifiés.",
       "Le chemin pour s’en éloigner : considérer chaque vie comme sacrée, désamorcer la colère et l’inimitié avant qu’elles ne se durcissent, et régler les différends par la patience et la justice plutôt que par la violence. Et même ce plus grand des crimes contre les gens n'échappe pas à la miséricorde d'Allah pour celui qui se repent sincèrement, s'acquitte autant que possible de ses droits et ne revient jamais sur une telle voie.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Celui qui tue une âme, sauf pour une âme ou pour la corruption du pays, c'est comme s'il avait tué toute l'humanité.",
-      },
-      {
-        excerpt:
-          "Quiconque tue intentionnellement un croyant aura pour récompense l’Enfer, où il demeurera éternellement.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Les plus grands péchés majeurs sont : associer des partenaires à Allah, tuer une âme, désobéir aux parents et donner un faux témoignage.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Valorisez chaque vie ; résoudre les différends avec patience et justice."],
     appLinks: [{}],
   },
@@ -646,16 +379,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "La sagesse dans les barrières : plutôt que de laisser les gens lutter contre le désir à son apogée, l’Islam les entoure de protections antérieures – baisser le regard, modestie dans l’habillement et le comportement, éviter l’isolement avec le sexe opposé et encourager le mariage comme canal légal et honoré pour ces besoins. Construire ces limites à l’avance est bien plus facile que de résister à la limite.",
       "Le chemin du retour : pour quiconque est tombé, la sortie est un tawbah sincère – abandonner complètement le péché, le regretter, prendre la résolution de ne jamais revenir et couvrir plutôt que de rendre public son passé. La Zina est un péché majeur, mais elle fait catégoriquement partie de ceux qu'Allah pardonne à celui qui se tourne vers Lui ; le désespoir n’a pas sa place et un nouveau départ est toujours disponible.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ne vous approchez pas d’un rapport sexuel illégal. En effet, c’est immoral et une mauvaise voie.",
-      },
-      {
-        excerpt:
-          "Et ceux qui ne commettent pas de relations sexuelles illégales... sauf celui qui se repent, croit et accomplit une bonne œuvre – pour eux, Allah remplacera leurs mauvaises actions par de bonnes.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Protégez les yeux et la consommation des médias sociaux.",
       "Faites dua pour un conjoint vertueux s'il n'est pas marié.",
@@ -671,15 +395,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "La sagesse et la miséricorde : l’interdiction redirige les gens vers le commerce réel, le partage des risques et la charité, et elle protège les personnes vulnérables de l’écrasement par les dettes. Même ici, cependant, la miséricorde d'Allah est présente : lorsque l'ordre est venu, Il n'a pas exigé que les intérêts passés déjà prélevés soient récupérés, mais a dit aux croyants simplement d'abandonner ce qui restait - « vous aurez votre principal » (2 :279) - une facilité pour ceux qui s'en détournent.",
       "Pour s’en sortir : vérifiez vos finances à la recherche de produits basés sur des intérêts, recherchez des alternatives halal et consultez des universitaires qualifiés pour des cas véritablement difficiles tels que les hypothèques dans des pays non musulmans. Quitter le riba peut impliquer des choix financiers difficiles, mais la sécurité de l’âme l’emporte sur tout gain temporaire – et Allah promet de subvenir aux besoins de celui qui le craint là où il ne l’attend pas.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ô vous qui croyez, craignez Allah et abandonnez ce qui reste du riba, si vous êtes croyants. Si vous ne le faites pas, alors soyez informé d'une guerre par Allah et Son Messager. Mais si vous vous repentez, vous pouvez avoir votre principal : vous ne faites pas de mal et vous n’êtes pas lésé.",
-      },
-      {
-        excerpt: "Allah détruit les intérêts et donne une augmentation aux œuvres caritatives.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Auditer les finances des produits basés sur les intérêts.",
       "Consultez un spécialiste qualifié pour les hypothèques et les dettes.",
@@ -695,21 +411,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Son lien avec la langue : le faux témoignage est l’aspect le plus aigu des péchés plus larges de la parole. Parce que les mots sont peu coûteux à prononcer, ce péché est dangereusement facile à commettre – une signature, une exagération, un silence commode – et pourtant son poids au Jour du Jugement est immense, lorsque les membres et les langues mêmes des gens témoigneront sincèrement contre eux.",
       "Le chemin pour s'en éloigner : s'en tenir à la vérité même si cela coûte cher ou contre son propre intérêt, refuser de prêter sa parole à un mensonge et s'exprimer avec un témoignage juste lorsque cela est nécessaire. Celui qui a porté un faux témoignage se repent en rétractant le mensonge lorsque cela est possible, en s'efforçant de réparer le mal et de rétablir les droits de toute personne lésée, et en se tournant vers Allah avec un sincère regret.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Et ceux qui ne témoignent pas de mensonges, et lorsqu'ils passent près de propos injurieux, passent avec dignité.",
-      },
-      {
-        excerpt: "Évitez donc la impureté des idoles et évitez les fausses déclarations.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ne dois-je pas vous informer du plus grand des péchés majeurs ? Associer des associés à Allah, désobéir aux parents, donner un faux témoignage et donner un faux témoignage.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -722,18 +425,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Pratiques connexes : le même avertissement s'étend à la divination, au traitement de l'astrologie comme une certaine connaissance de l'invisible, ainsi qu'aux amulettes et aux charmes porteurs du shirk. Prétendre que la connaissance de l’avenir caché appartient à Allah seul, et se tourner vers ceux qui la prétendent sape le tawheed à sa racine.",
       "Le chemin pour s'en éloigner : pour celui qui est empêtré dans ces pratiques, la repentance signifie les abandonner entièrement, détruire tous les objets interdits, couper les liens avec ceux qui les pratiquent, et renouveler le tawhid sincère et la confiance en Allah seul. La protection se trouve dans la foi, dans l’adhkar quotidien et dans la recherche de refuge auprès d’Allah – et Son pardon est ouvert à quiconque revient réellement.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ils ont suivi ce que récitaient les diables sous le règne de Salomon… et ils ont appris ce qui leur fait du mal et ce qui ne leur profite pas.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui s'adresse à un voyant et croit à ce qu'il dit n'a pas cru à ce qui a été révélé à Mahomet.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -745,16 +438,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Ce que cela inclut : non seulement le vol pur et simple, mais aussi des formes plus subtiles – mélanger les biens d'un orphelin avec les siens pour brouiller les limites, retarder leur restitution une fois que l'orphelin atteint la majorité, ou les investir ou les dépenser sans en avoir le droit. Allah ordonne le contraire : « Donnez aux orphelins leurs biens et n'échangez pas le mal contre le bien » (4 : 2).",
       "Le chemin pour s'en éloigner : garder scrupuleusement les biens des orphelins, les garder séparés et comptabilisés, les restituer intégralement lorsqu'ils arrivent à maturité et, pour celui qui n'a pas réussi, se repentir en restituant ce qui est dû avec toute augmentation due et en demandant le pardon de ceux qui ont été lésés. Le jour où aucune richesse ou lignage ne sera utile, sauf un cœur sain, restaurer une telle confiance est en soi un acte précieux.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ceux qui consomment injustement les richesses des orphelins ne consomment que du feu dans leur ventre.",
-      },
-      {
-        excerpt:
-          "Donnez leurs biens aux orphelins, n'échangez pas le mal contre le bien, et ne consommez pas leurs richesses avec les vôtres.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -766,21 +450,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Un équilibre important : le devoir ne signifie pas obéir à ses parents en désobéissant à Allah — aucune créature n'est obéie en péchant contre le Créateur. Mais même lorsqu’il faut refuser, cela se fait avec douceur, respect et gentillesse continue. Le Qur'an interdit même le moindre mot d'exaspération : « ne leur dites pas ouf » (17 : 23).",
       "Le chemin du retour : la miséricorde ici est que les parents sont généralement encore à portée de main. Pour celui qui a échoué, le repentir est largement pratique : reprendre la bonté, demander son pardon, le servir et faire des du'a pour lui, surtout de son vivant. Et si un parent est décédé, le devoir continue en priant pour lui, en faisant la charité en son nom et en honorant ses liens et ses amis.",
     ],
-    quran: [
-      {
-        excerpt:
-          'Votre Seigneur a décrété que vous n\'adoriez que Lui et que vous traitiez bien vos parents. Ne leur dites pas "uff" et ne les repoussez pas, mais dites-leur une parole noble.',
-      },
-      {
-        excerpt: "Adorez Allah et ne Lui associez rien, et faites du bien aux parents.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ne dois-je pas vous informer du plus grand des péchés majeurs ? Associer des partenaires à Allah et désobéir aux parents.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: ["Appelez ou rendez visite aux parents cette semaine avec un mot gentil."],
     appLinks: [{}],
   },
@@ -794,12 +465,7 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "Ses visages modernes : le vol ne se limite pas à l’effraction dans une maison. Cela inclut le fait de voler un employeur, de tricher dans les affaires, de retenir les salaires des travailleurs, de pirater numériquement, de plagiat et de tirer profit de ce qui ne lui appartient pas légalement. Ce qui est caché aux autres ne l’est jamais à Allah, qui voit toute appropriation privée.",
       "Le chemin du retour : parce qu’il s’agit d’un droit humain, le repentir exige plus que du remords devant Allah. Il faut restituer l'objet volé lui-même, ou sa valeur, à son propriétaire légitime et demander pardon si possible ; si le propriétaire est introuvable, les érudits conseillent de donner le montant en charité en son nom. Ainsi libéré, même le vol est entièrement pardonné par Celui qui aime le serviteur qui revient.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Quant au voleur, l'homme et la femme, coupez-leur les mains en récompense de ce qu'ils ont gagné, pour dissuader Allah.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Restituer les objets volés ou leur valeur ; demandez pardon à ceux qui ont été lésés.",
     ],
@@ -815,17 +481,8 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_FR: DeepPartial<JahannamTopic>[] = [
       "La sagesse de la façon dont cela a été interdit : Allah n’a pas interdit le khamr d’un seul coup mais l’a interdit par étapes, sevrant en douceur la première communauté d’une habitude profondément enracinée. Cette progressivité est en soi une leçon de miséricorde – et un modèle d’espoir pour tous ceux qui luttent aujourd’hui pour en sortir.",
       "Le chemin du retour, avec compassion : ceux qui sont pris dans la dépendance ne doivent pas être méprisés mais soutenus. La repentance signifie se résoudre à quitter la substance, la supprimer ainsi que ses déclencheurs de sa vie, rechercher de l'aide et un traitement sans honte et combler le vide avec de la bonne compagnie, du dhikr et de l'adoration. La porte d'Allah est grande ouverte, et chaque pas sincère qui s'éloigne des boissons alcoolisées est un pas qu'Il accueille favorablement.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ô vous qui croyez, en effet le vin, le jeu, les idoles et les flèches divinatoires sont des souillures dues à l'œuvre de Satan – évitez-les.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Toute boisson intoxicante est un khamr, et tout khamr est interdit.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Demandez de l'aide si nécessaire ; remplacez cette habitude par le dhikr et la bonne compagnie.",
     ],
@@ -837,10 +494,7 @@ export const JAHANNAM_NAMES_FR: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jahannam",
     meaning: "Le Feu — le nom coranique le plus fréquent pour l'Enfer.",
-    quran: {
-      excerpt:
-        "Craignez le Feu dont le combustible est constitué de personnes et de pierres, préparé pour les mécréants.",
-    },
+    quran: {},
     context:
       "Utilisé tout au long du Qur'an comme lieu de punition pour ceux qui rejettent la foi et persistent dans le mal.",
     tafsirNote:
@@ -851,20 +505,14 @@ export const JAHANNAM_NAMES_FR: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jaheem",
     meaning: "Feu flamboyant – chaleur intense et féroce.",
-    quran: {
-      excerpt:
-        "Vous et ce que vous adorez en dehors d’Allah êtes du carburant pour l’Enfer – vous y entrerez.",
-    },
+    quran: {},
     context: "Décrit l'intensité du Feu qui attend ceux qui ont pris des rivaux avec Allah.",
     tafsirNote: "Al-Tabari relie Jaheem à un feu ardent et allumé qui n'épargne rien.",
   },
   {
     name: "Saqar",
     meaning: "Ce qui brûle ou ne laisse rien – une chaleur intense.",
-    quran: {
-      excerpt:
-        "Je vais le conduire à Saqar. Et qu’est-ce qui peut vous faire savoir ce qu’est Saqar ?",
-    },
+    quran: {},
     context:
       "Mentionné dans la sourate al-Muddaththir concernant celui qui s'est détourné de la révélation.",
     tafsirNote:
@@ -875,9 +523,7 @@ export const JAHANNAM_NAMES_FR: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Sa'ir",
     meaning: "Flamboyant – un feu allumé.",
-    quran: {
-      excerpt: "Ils seront à Sa'ir – le Feu ardent.",
-    },
+    quran: {},
     context: "Avertissement à ceux qui consomment injustement les richesses orphelines.",
     tafsirNote:
       "La racine transmet la brûlure et l’allumage – mettant l’accent sur le feu actif et dévorant.",
@@ -885,10 +531,7 @@ export const JAHANNAM_NAMES_FR: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Hutamah",
     meaning: "Le Crusher – ce qui brise et écrase.",
-    quran: {
-      excerpt:
-        "Il sera jeté à al-Hutama. Et qu’est-ce qui peut vous faire savoir ce qu’est al-Hutama ?",
-    },
+    quran: {},
     context:
       "Punition pour celui qui médis et accumule les richesses, pensant que cela le rendra immortel.",
     tafsirNote: "Ibn Kathir explique que Hutamah écrase et consume – un feu allumé par Allah.",
@@ -896,9 +539,7 @@ export const JAHANNAM_NAMES_FR: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Hawiyah",
     meaning: "L'abîme ou la fosse - une chute profonde.",
-    quran: {
-      excerpt: "Quant à celui dont les écailles sont légères, son refuge sera Hawiyah.",
-    },
+    quran: {},
     context:
       "La destination de ceux dont les bonnes actions sont trop légères le Jour du Jugement.",
     tafsirNote:
@@ -909,9 +550,7 @@ export const JAHANNAM_NAMES_FR: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Lazaa",
     meaning: "Flamme – feu ardent.",
-    quran: {
-      excerpt: "En aucun cas ! C'est la Flamme d'Allah, allumée.",
-    },
+    quran: {},
     context: "Sourate al-Ma'arij — avertissant ceux qui nient l'Heure.",
     tafsirNote:
       "Connectée à la flamme qui s'enlève et brûle, Lazaa met l'accent sur le flamboiement actif.",
@@ -957,126 +596,85 @@ export const JAHANNAM_GATES_FR: DeepPartial<JahannamGateEntry>[] = [
 
 export const JAHANNAM_VERSES_FR: DeepPartial<JahannamVerseEntry>[] = [
   {
-    excerpt: "Craignez le Feu préparé pour les mécréants.",
     context: "Adressé aux croyants – la peur comme motivation à l’obéissance.",
     tafsirSummary: "Ibn Kathir : un appel à la taqwa associé à l'obéissance au Messager.",
   },
   {
-    excerpt:
-      "Ne désespérez pas de la miséricorde d'Allah. En effet, Allah pardonne tous les péchés.",
     context: "Révélé pour réconforter ceux qui craignaient que leurs péchés soient trop graves.",
     tafsirSummary:
       "Un verset fondamental de l’espoir : la miséricorde est vaste pour ceux qui reviennent.",
   },
   {
-    excerpt:
-      "Repentez-vous auprès d'Allah avec un repentir sincère. Peut-être que votre Seigneur effacera vos méfaits.",
     context: "Commandement aux croyants après conseils sur la famille et la conduite.",
     tafsirSummary: "Nasuh tawbah : repentance sincère sans retour au péché.",
   },
   {
-    excerpt: "Pour tous, il y aura des degrés selon ce qu'ils ont fait.",
     context: "Justice divine : récompense et châtiment proportionnés aux actes.",
     tafsirSummary: "Les diplômes s'appliquent à la fois au Paradis et à l'Enfer.",
   },
   {
-    excerpt: "Allah ne fait pas de tort aux gens, mais les gens se font du tort à eux-mêmes.",
     context: "L'assurance que le jugement divin est parfaitement juste.",
   },
   {
-    excerpt:
-      "Notre Seigneur, donne-nous du bien dans les deux mondes et protège-nous du châtiment du Feu.",
     context: "Le du'a de ceux qui combinent le bien du monde et celui d'un autre monde.",
     tafsirSummary:
       "Une supplication prophétique enseignée dans le Qur'an — équilibre entre dunya et akhirah.",
   },
   {
-    excerpt: "L'enfer a sept portes ; à chaque porte correspond une portion assignée.",
-    context: "Abordé dans le contexte du débat d'Ibrahim avec son peuple.",
+    context: "Vient après le passage où Iblis jure d'égarer les humains.",
     tafsirSummary:
       "Mention explicite de sept portes – les détails de la mission relèvent de la sagesse divine.",
   },
   {
-    excerpt:
-      "Sauf ceux qui se repentent, croient et accomplissent de bonnes actions, Allah remplacera le mal par le bien.",
     context: "Exception après avoir énuméré les péchés graves.",
     tafsirSummary:
       "Espoir pour les repentants : les actes peuvent être transformés par la miséricorde.",
   },
   {
-    excerpt:
-      "Pour ceux qui ont mécru en leur Seigneur, le châtiment de l’Enfer est une mauvaise destination.",
     context: "Sourate al-Mulk – rappel de l'invisible.",
   },
   {
-    excerpt: "En effet, les bonnes actions suppriment les mauvaises actions.",
     context: "Commandement d'établir la prière aux deux extrémités de la journée.",
     tafsirSummary: "Encouragement à ce qu’une adoration cohérente efface les erreurs du passé.",
   },
   {
-    excerpt: "Notre Seigneur, pardonne-nous nos péchés et protège-nous du châtiment du Feu.",
     context: "Description du muttaqin (conscient de Dieu).",
   },
   {
-    excerpt: "Quant à celui dont les écailles sont légères, son refuge sera Hawiyah.",
     context: "Sourate al-Qari'ah — la pesée des actes.",
   },
 ];
 
 export const JAHANNAM_HADITH_FR: DeepPartial<JahannamHadithEntry>[] = [
   {
-    hadith: {
-      excerpt:
-        "Celui qui demande trois fois le Paradis à Allah, le Paradis dit : Ô Allah, fais-le entrer au Paradis. Celui qui cherche trois fois refuge contre le Feu, le Feu dit : Ô Allah, protège-le du Feu.",
-    },
+    hadith: {},
     context:
       "Encouragement à faire des du'a régulières pour Jannah et à se réfugier contre Jahannam.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah est plus satisfait du repentir de Son serviteur que de celui d'entre vous qui retrouve sa monture perdue dans une terre aride.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Aucun d'entre vous n'entrera au Paradis par ses seuls actes, pas même moi, à moins qu'Allah ne me couvre de Sa miséricorde.",
-    },
+    hadith: {},
     context: "Équilibre : efforcez-vous d'agir mais comptez sur la miséricorde.",
   },
   {
-    hadith: {
-      excerpt:
-        "Votre feu est une partie des soixante-dix parties du feu de l'Enfer, chaque partie étant comme sa chaleur.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "L'alliance entre nous et eux est la prière ; celui qui l'abandonne a commis l'incrédulité.",
-    },
+    hadith: {},
     context: "La gravité du fait de négliger Salah – l’un des avertissements les plus graves.",
   },
   {
-    hadith: {
-      excerpt:
-        "Le failli vient avec la prière, le jeûne et la charité – mais il a insulté, calomnié, consommé illégalement des richesses et versé du sang.",
-    },
+    hadith: {},
     context:
       "Les droits des personnes peuvent être réglés avant les actes le jour du jugement dernier.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah étend Sa main la nuit pour accepter le repentir du pécheur du jour, et étend Sa main le jour pour accepter le repentir du pécheur de la nuit.",
-    },
+    hadith: {},
   },
   {
-    hadith: {
-      excerpt:
-        "Celui qui croit en Allah et au Jour dernier, qu'il parle en bien ou qu'il se taise.",
-    },
+    hadith: {},
     context: "Garder la langue – responsabilité quotidienne.",
   },
 ];
@@ -1143,7 +741,4 @@ export const JAHANNAM_DUAS_FR: DeepPartial<JahannamDuaEntry>[] = [
   },
 ];
 
-export const JAHANNAM_REFUGE_DUA_FR: { translation: string } = {
-  translation:
-    "Ô Allah, je cherche refuge auprès de Toi contre le châtiment de l'Enfer, contre le châtiment de la tombe, contre les épreuves de la vie et de la mort, et contre la mauvaise épreuve du Faux Messie.",
-};
+export const JAHANNAM_REFUGE_DUA_FR: { translation?: string } = {};

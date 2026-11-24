@@ -22,16 +22,7 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Kanuni mbili zinatawala kila kitu hapa. Kwanza, ukweli wa matukio haya ni hakika na ni suala la itikadi (aqiydah); kukataa ufufuo au kuwajibika ni kukana dini yenyewe. Pili, muda halisi wa Saa anajulikana kwa Mwenyezi Mungu peke yake - hakuna mwanachuoni, kalenda au hesabu inayoweza kuitabiri, na kila madai ya tarehe ni ya uwongo. Mtume ﷺ hakuwahi kuwapa masahaba wake kuhesabu; aliwapa njia ya kuishi. Kwa hivyo lengo la kusoma Siku ya Mwisho ni maandalizi, sio kutabiri: kulainisha moyo, kusahihisha vipaumbele, na kukimbia kuelekea mema kabla ya wakati uliowekwa kufika.",
       "Ujumbe juu ya vyanzo: mazungumzo maarufu ya 'ishara za nyakati za mwisho' yamejaa masimulizi dhaifu na hata ya kubuni. Moduli hii inajumuisha yale tu ambayo ni sahihi, na pale ambapo wanazuoni waaminifu wa Kisunni wanatofautiana kikweli - kwa mfano kwa mpangilio wa baadhi ya ishara kuu - tofauti hiyo inawasilishwa kama tofauti, isiyolainishwa au kutiwa chumvi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Itakapotikisika ardhi kwa mtetemeko wake wa mwisho, na ikatoa mizigo yake, na mwanaadamu atasema: Kuna nini? Siku hiyo itatangaza khabari zake kwa sababu Mola wako Mlezi ameifunulia. Siku hiyo watu wataondoka makundi makundi ili waonyeshwe vitendo vyao. basi anayefanya chembe ya wema atauona, na anayefanya chembe ya ubaya atauona.",
-      },
-      {
-        excerpt:
-          "Anaweka wahyi wa amri yake juu ya amtakaye katika waja wake kuonya Siku ya Mkutano - Siku watakayotoka, hakuna chochote katika wao kinachofichika kwa Mwenyezi Mungu. Ufalme ni wa nani siku hii? Kwa Mwenyezi Mungu Mmoja, Mwenye kushinda.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -43,22 +34,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Imani hii pia inaadhibu injini mbili za moyo - hofu na matumaini - na kuziweka katika usawa. Maonyo ni ya kweli, kwa hiyo Muumini hafanyi kiburi au kughafilika; lakini rehema ya Mwenyezi Mungu ni kubwa na mlango wa toba uko wazi mpaka kufa, basi Muumini hakati tamaa kamwe. Moyo unaoishi kati ya hofu na matumaini ni moyo unaoendelea kujitahidi bila kuvunja.",
       "Kiuhalisia, Siku ya Mwisho inawapa hadhi wasio na uwezo na kuwazuia wenye nguvu. Inawaambia waliodhulumiwa kwamba hakuna ubaya wowote unaosahauliwa na Mwenyezi Mungu, na inawaambia wenye nguvu kwamba hakuna mali, hadhi au athari itakayowakinga kwenye hisabu. Kwa hiyo imani ndani yake si faraja binafsi bali ni chanzo cha haki, subira na uadilifu katika ulimwengu huu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Uadilifu sio kwamba muelekeze nyuso zenu upande wa mashariki au magharibi, bali wema ni yule anayemuamini Mwenyezi Mungu, Siku ya Mwisho, Malaika, Kitabu na Manabii, na akawapa mali bila ya kuvipenda, jamaa, mayatima, masikini, msafiri na wanaoswali.",
-      },
-      {
-        excerpt:
-          "Wala usidhani Mwenyezi Mungu hana khabari na wanayoyafanya madhalimu. Hakika Yeye anawachelewesha ila Siku ambayo macho yatakodoka kwa khofu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imani ni kuwa muamini Mwenyezi Mungu, na Malaika wake, na Vitabu vyake, na Mitume wake, na Siku ya Mwisho, na kuamini hukumu ya Mwenyezi Mungu, na kheri yake na madhara yake. - kutoka katika Hadithi ya Jibril, alipokuja kufundisha dini.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Fanya upya nia yako kila siku: vitendo vyangu ni vya Mwenyezi Mungu, na Siku nitakayokutana Naye.",
       "Wakati dhuluma inakuumiza na hakuna mahakama ya kidunia inayojibu, ikabidhi kwa Mahakama ya Siku ya Mwisho.",
@@ -75,25 +52,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Mtume (Swalla Allaahu ´alayhi wa sallam) alifundisha kukumbuka mara kwa mara kifo - 'Mkumbuke mara kwa mara mwenye kuharibu starehe,' maana yake ni kifo (Jami' at-Tirmidhi 2307, hasan) - sio kutufanya tuwe na huzuni bali kutuweka macho. Kukumbuka kifo kunapunguza mshiko wa ulimwengu huu, huondoa kinyongo, na kupanga upya mambo ambayo hasa ni muhimu. Maelezo ya kuondoka kwa roho ambayo yanaonekana tu katika ripoti dhaifu ni bora kuachwa; nyenzo halisi inatosha kutia hofu na utayari.",
       "Kifo pia hufunga daftari la matendo - isipokuwa tatu. Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) amesema kuwa anapokufa mtu hukatwa matendo yake isipokuwa matatu: Sadaka inayoendelea (sadaqah jariyah), elimu inayoendelea kunufaika, na mtoto mwema anayemuombea dua (Sahih Muislamu 1631). Hii ni ya vitendo sana: inamaanisha kwamba kile unachojenga, kufundisha, na kukuza ukiwa hai kinaweza kuendelea kukuletea mapato muda mrefu baada ya wewe kuondoka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kila nafsi itaonja mauti, na mtapewa ila Siku ya Kiyama ujira wenu kamili. Basi anaye tolewa na Moto na akaingizwa Peponi amefaulu. Na maisha ya dunia ni starehe ya udanganyifu.",
-      },
-      {
-        excerpt:
-          "Sema: Atakushikeni Malaika wa Mauti aliye kabidhiwa kwenu. kisha mtarejeshwa kwa Mola wenu Mlezi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Anapokufa mtu hukatika amali zake isipokuwa tatu: Sadaka inayoendelea, elimu ambayo kwayo hupatikana manufaa, au mtoto mwema anayemuombea dua.",
-      },
-      {
-        excerpt: "Kumbuka mara nyingi mharibifu wa anasa - maana yake kifo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ongeza istighfar na omba kwa wakati - haswa ukiwa na afya na shughuli nyingi, sio tu wakati mgonjwa.",
       "Tubu leo ​​kwa jambo lolote maalum unalochelewesha; usicheze kamari kesho.",
@@ -110,26 +70,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Furaha au adhabu hufuata kaburini, iliyothibitishwa katika maandiko sahihi: 'Kaburi ima ni bustani kutoka kwenye bustani za Peponi au shimo kutoka kwenye mashimo ya Moto' (Jami' at-Tirmidhi 2460, hasan sahih). Qur'ani inaashiria adhabu ya watu wa Firauni kuingizwa Motoni 'asubuhi na jioni' kabla hata Saa haijafika (Qur'ani 40:46). Ahlul-Sunnah wanathibitisha ukweli wa malipo na adhabu kubwa huku wakimuachia Mwenyezi Mungu asili yake, kwani ni ya ghaibu na haiwezi kutambuliwa na walio hai.",
       "Kuna makubaliano kwamba kuuliza kaburi na raha au mateso ya kaburi ni kweli; wasomi hujadili mambo bora zaidi - kama vile ikiwa inagusa mwili, roho, au zote mbili, na jinsi inavyowafikia wale wasio na kaburi la kawaida - bila kuruhusu maswali hayo kuvuruga kutoka kwa jambo hilo. Barzakh ndiye mchochezi mkuu: huligeuza kaburi kutoka kwenye shimo la ardhi kuwa kioo cha matendo ya mtu mwenyewe, na inabainisha wazi kwamba kile unachokitangulia ndicho kitakachokusalimu hapo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mpaka yanapomfikia mmoja wao mauti husema: Mola wangu Mlezi nirudishe ili nifanye wema katika yale niliyoyaacha. Hapana! Ni neno tu analosema; na nyuma yao kipo kizuizi mpaka Siku watakayo fufuliwa.",
-      },
-      {
-        excerpt:
-          "Motoni wanadhihirika humo asubuhi na jioni. Na Siku itapo simama Saa itasemwa: Waingizeni watu wa Firauni kwenye adhabu kali kabisa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kaburi ima ni Bustani itokayo katika Pepo au shimo kutoka kwenye mashimo ya Moto.",
-      },
-      {
-        excerpt:
-          "Marehemu anapozikwa, humjia Malaika wawili na kumuuliza: Ni nani Mola wako Mlezi? Dini yako ni ipi? Nabii wako ni nani? Muumini hujibu kwa yakini na kaburi lake hupanuliwa na kuwashwa kwa ajili yake.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Dhana potofu: Adhabu kali ni imani ya watu isiyo na msingi. Usahihishaji: Uhakika wa kuuliza na wa neema au adhabu umethibitika katika Hadith sahihi na kudokezwa ndani ya Qur'ani; ni hatua iliyotulia ya itikadi ya Sunni.",
       "Maoni yasiyo sahihi: Tunapaswa kubishana kuhusu sura na majina ya malaika. Masahihisho: Kutajwa kwa Munkar na Nakir kunakuja katika ripoti ya hasan; imani ya msingi ni kuhoji yenyewe. Kujitayarisha kujibu kwa ukweli ni muhimu zaidi kuliko kujadili maelezo yake.",
@@ -149,22 +91,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Nakala ya nanga ya alama kuu ni Hadiyth ya Hudhayfah ibn Usayd, ambamo Mtume ﷺ ameorodhesha kumi: Moshi (Dukhan), Dajjal, Mnyama wa ardhi (Dabbat al-Ard), kuchomoza kwa jua kutoka sehemu yake ya machweo (magharibi), kushuka kwa Isa bin Maryam, Majugdis tatu na Majugdi (Majugdi) na Majugdi tatu. upande wa mashariki, mmoja magharibi, na mwingine katika Bara Arabu - uliotiwa muhuri na moto unaowapeleka watu mahali pao pa kukutanikia (Sahih Muislamu 2901). Al-Mahdi na Dajjal wamekuja katika riwaya zingine zilizo sahihi na zimewekwa kabla ya kushuka kwa ́Iysaa.",
       "Msimamo wa kielimu waaminifu ni kwamba wakati kila ishara inathibitishwa, mpangilio wao kamili haujawekwa kikamilifu na maandiko, na wanachuoni wanaoheshimika wa Sunni wanatofautiana juu ya mlolongo sahihi. Tofauti hiyo ni sehemu ya kawaida ya mila na hakuna sababu ya mabishano. Mwitikio wa kinabii kwa hayo yote si uzushi wa kutisha au ubashiri usio na mwisho juu ya matukio ya sasa, bali iman iliyoongezeka, toba, na hatua ya manufaa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wanakuuliza kuhusu Saa (ya Kiyama): lini kufika kwake? Sema: Ilimu yake iko kwa Mola wangu Mlezi. Hakuna atakaye dhihirisha wakati wake ila Yeye. Ni zito katika mbingu na ardhi. Hayatakujieni ila kwa ghafla.",
-      },
-      {
-        excerpt:
-          "Je! wanangoja isipokuwa iwafikie Saa kwa ghafla? Baadhi ya ishara zake tayari zimekuja. Lakini vipi, itakapowafikia, watakumbushwa?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Haitakuja Saa mpaka muone dalili kumi kabla yake: Moshi, Dajjal, Mnyama, kuchomoza jua kutoka magharibi, kushuka kwa Isa bin Maryam, Yaajuj na Majuj, maporomoko matatu ya ardhi, moja mashariki, moja magharibi na moja katika Bara Arabu - na mwisho wao ni moto wao unaowakusanya watu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -176,20 +104,7 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Nyingine ni pamoja na kuongeza kasi ya jumla katika hisia ya wakati, ongezeko la matetemeko ya ardhi na mauaji, na kutoweka kwa ujuzi. Juu ya elimu, Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) alikuwa sahihi kuhusu utaratibu: “Kiyama hakitasimama mpaka elimu iondolewe, matetemeko ya ardhi yaongezeke, muda unapita haraka, dhiki kutokea, na mauaji yanaongezeka” (Sahih al-Bukhari 1036). Na akaeleza jinsi elimu inavyoondoka: ‘Mwenyezi Mungu haiondoi elimu kwa kuinyakua kutoka kwa watu, bali kwa kuwatoa wanachuoni, mpaka pasiwepo hata mmoja, na watu wanawafanya wajinga kuwa ni viongozi wanaoulizwa na kutoa hukumu bila ya kujua, basi wanapotea na kuwapoteza wengine’ (Swahiyh al-Bukhari 100). Kwa hivyo 'kupoteza maarifa' sio uhaba wa habari - umri unaweza kuzama katika data - lakini upotezaji wa wasomi wa sauti na mazoezi ya kuishi.",
       "Nidhamu muhimu hapa: inafasiri, si hakika, kutangaza kwamba tukio mahususi la kisasa 'ni' Hadith fulani iliyotimizwa. Mashindano ya angani au uhalifu unaoongezeka unaweza kurudia maneno ya Mtume, lakini kuweka ufunuo kwenye vichwa vya habari kwa kujiamini sio njia ya wanazuoni makini. Jibu sahihi kwa kila dalili ndogo ni ya ndani: isome kama wito wa kurejea kwa Mwenyezi Mungu, kujifunza na kuifanyia kazi dini, na kushikamana na uaminifu na ukweli - sio kama nyenzo ya wasiwasi au tamasha.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Wakati uaminifu umepotea, subiri Saa. Ikaulizwa: Vipi itapotea ewe Mtume wa Mwenyezi Mungu? Akasema: Wakipewa mamlaka wale wasiostahiki, basi ingojeeni Saa.",
-      },
-      {
-        excerpt:
-          "Miongoni mwa alama za Saa ya Kiyama: kwamba kijakazi atamzaa bibi yake, na kwamba utawaona wachungaji wasio na viatu, uchi, fukara wakishindana katika ujenzi wa majengo marefu. - kutoka kwa Hadiyth ya Jibril.",
-      },
-      {
-        excerpt:
-          "Mwenyezi Mungu haiondoi elimu kwa kuinyakua, bali huiondoa kwa kuwachukua wanachuoni, mpaka isibaki hata mmoja na watu wakawafanya wajinga kuwa ni viongozi wanaotoa hukumu bila ya kujua, basi wanapotea na kuwapoteza wengine.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Kutumia ishara maalum ndogo kwa matukio fulani ya sasa ni tafsiri, sio hakika. Moduli hii inawasilisha hadith sahihi bila kudai ni matukio yapi ya kisasa ambayo hakika yanayatimiza.",
     actions: [
@@ -208,20 +123,7 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Kisha Isa ibn Maryam (amani iwe juu yake) atateremka - uhakika madhubuti wa itikadi ya Sunni. Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) amesema: “Naapa kwa Yule ambaye nafsi yangu imo Mikononi mwake, basi hivi karibuni atashuka bin Maryam akiwa ni mtawala muadilifu. atauvunja msalaba, ataua nguruwe, na atakomesha jizyah, na mali itafurika mpaka hakuna atakayeikubali” (Sahih al-Bukhari 3448). Anashuka kama mfuasi wa Muhammad ﷺ, anaswali nyuma ya imamu wa umma (Sahih al-Bukhari 3439), anamuua Dajjal, na anatawala kwa Sharia ya Muhammad ﷺ. Kisha Ya'juj na Ma'juj huachiliwa, na ishara zilizobakia hufunguka mpaka moto unaowakusanya watu.",
       "Pointi mbili za uaminifu. Kwanza, wanavyuoni wanakubaliana juu ya uhalisia wa kila dalili katika Hadith yenye dalili kumi lakini wanatofautiana katika mpangilio wao sahihi, na tofauti hiyo ni halali na ya zamani. Pili, Dukhan na Mnyama ni sehemu ya Hadith hii Sahih yenyewe; baadhi ya masimulizi mengine yanayoelezea kila mmoja wao hutofautiana katika nguvu, kwa hivyo moduli hii inaweka imani kwenye ripoti kali ya ishara kumi badala ya nyongeza dhaifu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Haitakuja Saa mpaka muone dalili kumi: Moshi, Dajjal, Mnyama, kuchomoza jua kutoka magharibi, kushuka kwa Isa bin Maryam, Yaajuj na Majuj, na maporomoko matatu ya ardhi - moja mashariki, moja magharibi na moja katika Bara Arabu - mwisho wao ni moto unaowakusanya watu.",
-      },
-      {
-        excerpt:
-          "Naapa kwa Ambaye nafsi yangu imo Mikononi mwake, basi hivi karibuni atashuka mwana wa Maryam akiwa mtawala muadilifu. Atauvunja msalaba, kuua nguruwe, na kukomesha jizyah, na mali itakuwa nyingi sana kwamba hakuna mtu atakayeikubali.",
-      },
-      {
-        excerpt:
-          "Lau ingebakia siku moja tu ya dunia hii, Mwenyezi Mungu angeirefusha siku hiyo mpaka atakapomletea mtu katika familia yangu (Mahdi) ambaye ataijaza ardhi kwa uadilifu kwa vile ilivyokuwa imejaa dhulma na dhulma.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Ukweli wa dalili kuu unathibitishwa, lakini mlolongo wao kamili na wakati wake haukubaliwa kikamilifu na wanachuoni. Epuka kupanga tarehe na epuka kudai mtu yeyote wa siku hizi ni Mahdi, Dajjal, au Isa.",
     appLinks: [{}],
@@ -234,21 +136,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Kuna milipuko miwili, na Qur'ani inaipambanua. Mara ya kwanza, 'Tarumbeta itapulizwa, na watakufa waliomo mbinguni na ardhini, isipokuwa amtakaye Mwenyezi Mungu' (Qur'ani 39:68) - mlio wa vitisho na mauti unaomaliza utaratibu ulioumbwa. Kisha inakuja ya pili: 'kisha itapulizwa tena, na mara watakuwa wamesimama wakitazama' (aya hiyo hiyo inaendelea) - mlipuko wa ufufuo, ambapo viumbe vyote vinafufuka kutoka kwa wafu.",
       "Wanachuoni wengi, kutoka katika aya hiyo hiyo na riwaya zinazounga mkono, wanazungumzia jambo la kipekee - wale 'Awapendao Mwenyezi Mungu' wasiopigwa - na juu ya muda kati ya milipuko miwili, ingawa urefu na maelezo yake yanatokana na riwaya zenye nguvu tofauti na zimeachwa kwa Mwenyezi Mungu. Hakika ni jozi ya milipuko: mwisho, kisha kuinua. Hii inaitwa 'Siku ya Onyo' (Qur'ani 50:20) kwa sababu ni wito wa mwisho, unaotolewa wakati hakuna tena wakati wa kujiandaa - ndiyo maana hasa wito huo lazima ujibiwe sasa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na litapulizwa barugumu, na watakufa waliomo mbinguni na waliomo ardhini isipokuwa amtakaye Mwenyezi Mungu. Kisha itapigwa tena, na mara moja watakuwa wamesimama, wakitazama.",
-      },
-      {
-        excerpt: "Na Baragumu itapulizwa. Hiyo ndiyo Siku ya Maonyo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nitastarehe vipi na hali mbeba Baragumu ameliweka mdomoni mwake na akainamisha paji la uso wake, akingoja amri ipigwe? Maswahaba wakahuzunika, akawaambia waseme: Mwenyezi Mungu anatutosha, na Yeye ndiye Mbora wa mambo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Ufufuo",
@@ -258,26 +147,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Ufufuo ni wa ulimwengu wote - kila mwanadamu kutoka wa kwanza hadi wa mwisho, wa kila taifa, anainuliwa. Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) alielezea hali ya watu kuinuka: 'Watu watakusanywa peku, uchi na wasiotahiriwa.' Aisha alipouliza kwa mshangao kama wanaume na wanawake watatazamana, alisema jambo la Siku hiyo litakuwa zito sana kwa hilo kumhusu mtu yeyote (Swahiyh al-Bukhari 6527). Pia alisema, 'Mtakusanywa bila viatu, uchi na hamjatahiriwa - na wa kwanza kuvikwa Siku ya Kiyama atakuwa Ibrahim' (Sahih al-Bukhari 3349).",
       "Jambo la fundisho sio tamasha bali ni jukumu linalotekeleza. Kwa sababu marejeo ya Mwenyezi Mungu ni ya hakika, hakuna amali iliyo siri na hakuna kifo ni njia ya kuepusha. “Saa inakuja, hapana shaka nayo, na Mwenyezi Mungu atawafufua walio makaburini” (Qur’ani 22:7). Imani katika ufufuo wa mwili ndiyo inayofanya uzito wa kimaadili wa maisha haya kuwa halisi badala ya kuwa wa muda.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na anatupigia mfano, na akasahau kuumbwa kwake, na kusema: Ni nani atakayeihuisha mifupa na hali imeharibika? Sema: Atawahuisha aliye waumba mara ya kwanza, na Yeye ni Mjuzi wa viumbe vyote.",
-      },
-      {
-        excerpt:
-          "Na kwamba Saa itakuja, hapana shaka juu yake, na kwamba Mwenyezi Mungu atawafufua walio makaburini.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Utakusanywa bila viatu, uchi na hujatahiriwa. Kisha akasoma: Kama tulivyouanza uumbaji wa kwanza, tutaurudia. Na wa kwanza kuvikwa nguo Siku ya Kiyama ni Ibrahim.",
-      },
-      {
-        excerpt:
-          "Watu watakusanywa bila viatu, uchi na wasiotahiriwa. Aisha akasema: Je, wanaume na wanawake watatazamana? Akasema: Jambo hilo litakuwa kubwa mno.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Mkusanyiko (Mahshar)",
@@ -287,22 +158,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Masharti ya kusimama huko ni kali. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) amesema: “Siku ya Qiyaamah jua litaletwa karibu na watu kiasi kwamba litakuwa umbali wa maili moja, na watatokwa na jasho lao kwa mujibu wa matendo yao – wengine kwenye vifundo vyao vya miguu, wengine magotini, wengine viunoni, na wengine jasho litakuwa lijamu” (Sahih Muislamu 2864). Lakini riwaya hizo hizo zinaelezea rehema iliyogawanywa kwa vitendo: kundi la Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) litatiwa kivuli kwenye kivuli cha Arshi ya Mwenyezi Mungu siku ambayo hakuna kivuli isipokuwa Chake - miongoni mwao ni kiongozi muadilifu, na kijana aliyeinuliwa katika ibada, na aliyetoa sadaka kwa siri mkono wake wa kushoto hajui unatoa nini mkono wake wa kulia.",
       "Kusubiri ni muda mrefu - Qur'ani inazungumzia 'Siku ambayo kipimo chake ni miaka hamsini elfu' (Qur'ani 70:4) - lakini urefu wake si sawa kwa wote. Ripoti za kweli zinasema itafanywa kuwa nyepesi kwa muumini, kwa ufupi kama muda kati ya sala mbili, wakati inasisitiza sana kwa wengine. Kwa hiyo Mahshar ni pale ambapo daftari la kibinafsi la maisha linakuwa ukweli wa umma: jua lile lile, uwanda uleule, na uzoefu tofauti kabisa, unaotokana kabisa na yale ambayo kila mtu aliyatanguliza.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Siku itapobadilishwa ardhi na ardhi nyingine, na mbingu pia, na watatoka mbele ya Mwenyezi Mungu, Mmoja, Mwenye kushinda.",
-      },
-      {
-        excerpt:
-          "Malaika na Roho hupanda Kwake katika Siku ambayo kipimo chake ni miaka khamsini elfu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jua litaletwa kwa watu Siku ya Kiyama mpaka lifike umbali wa maili moja, na watatokwa na jasho kwa mujibu wa vitendo vyao - wengine miguuni mwao, wengine magotini, wengine viunoni, na wengine jasho litawashika hatamu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
   },
   {
     title: "Uombezi (Shafaa ́ah)",
@@ -313,25 +170,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Namna nyingine zilizo sahihi zinafuata: uombezi kwamba baadhi ya waumini waingie Peponi bila ya hesabu; maombezi yanayoinua daraja; na juu ya yote uombezi wa wakosefu wakubwa miongoni mwa Waumini, ili watu watolewe Motoni kwa uombezi wa Mtume ﷺ, Mitume wengine, Malaika, Waumini, na hatimaye rehema ya Mwenyezi Mungu, ambaye ni Mwingi wa Rehema kuliko wanaorehemu. Manabii, mashahidi, watu wema, na hata watoto waliokufa wakiwa wachanga wanaweza kuombea kwa ruhusa, ingawa nguvu ya ripoti za mtu binafsi inatofautiana.",
       "Tahadhari muhimu: uombezi katika Akhera kamwe hautoi leseni ya kuwaita wafu au wasiokuwepo kwa ajili ya usaidizi sasa. Kumuomba Nabii au walii kaburini, kuwaomba awaondolee dhiki au watoe haja, ni kuelekeza ibada kwa asiyekuwa Mwenyezi Mungu - hiyo ni shirki, na ni kinyume cha shafaa iliyoelezwa hapa, ambayo ni neema ambayo Mwenyezi Mungu humpa siku hiyo amtakaye. Wala haibadilishi hitaji la imani na toba katika maisha haya; ni rehema ya Mwenyezi Mungu kwa walio hai na wakafa juu ya tawhiyd.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ni nani awezaye kumuombea isipokuwa kwa idhini yake? Anayajua yaliyo mbele yao na yatakayokuwa baada yao, na wao hawajumui chochote katika ilimu yake ila apendavyo.",
-      },
-      {
-        excerpt: "Na uombezi haumnufaishi Yeye ila kwa yule Aliyemruhusu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Watu watanijia na nitaanguka kwa kusujudu mbele ya Mwenyezi Mungu, na itasemwa: Ewe Muhammad, inua kichwa chako; ombeni nanyi mtapewa, ombeni na maombezi yenu yatakubaliwa.",
-      },
-      {
-        excerpt:
-          "Wanaadamu watakwenda kwa Adam, kisha kwa Ibrahim, kisha kwa Musa, kisha kwa Isa, na kila mmoja atajitolea nafsi yake, mpaka wafike kwa Muhammad (Swalla Allaahu 'alayhi wa aalihi wa sallam), na kwake yeye ndiye anayepewa uombezi mkubwa zaidi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     misconceptions: [
       "Dhana potofu: Kuomba uombezi maana yake ni Mtume ﷺ au watu wema wanaabudiwa. Masahihisho: Ibada ni ya Mwenyezi Mungu peke yake; Shafaa ya Siku ya Mwisho ni rehema Mwenyezi Mungu anaitoa kwa idhini yake, na haihalalishi kuwaita wafu katika maisha haya.",
     ],
@@ -344,22 +184,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Hakuna kitu kinachoachwa kutoka kwa rekodi hizi - sio kitendo kidogo zaidi, sio mawazo ya muda mfupi ambayo yalifanyika tendo. Watastaajabishwa na madhalimu kwa ukamilifu wake. Watasema: Ole wetu! Ni kitabu gani hiki ambacho hakiachi chochote kidogo au kikubwa isipokuwa kwamba kimekiandika? Na watayakuta waliyo kuwa wakiyatenda yakiwa mbele yao, na Mola wako Mlezi hamdhulumu yeyote.” (Qur’ani 18:49). Kwa rehema ya Mwenyezi Mungu, nia njema na madhambi yaliyoachwa pia yameandikwa kwa neema ya Muumini.",
       "Kwa sababu ulimi na viungo ndivyo vinavyojaza kurasa, kuvilinda ni kulinda kumbukumbu. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) aliufanya ulimi kuwa msingi wa wokovu: “Yeyote anayenidhaminia yaliyo baina ya taya zake na yaliyo baina ya miguu yake, basi mimi namdhaminia Pepo” (Swahiyh al-Bukhari 6474) – yaani, yeyote anayelinda maneno yake na usafi wake. Tabia ya kila siku ya kujikagua kwa uaminifu - kuuliza kile kilichoongezwa kwenye kitabu leo ​​- ni moja wapo ya mazoea muhimu na muhimu ambayo mwamini anaweza kushika.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na itawekwa kumbukumbu, na utawaona wakosefu wanaogopa yaliyomo ndani yake, wakisema: Ole wetu! Ni kitabu gani hiki ambacho hakiachi chochote kidogo au kikubwa isipokuwa kwamba kimekiandika? Na watayakuta waliyo kuwa wakiyatenda yakihudhuriwa, na Mola wako Mlezi hamdhulumu yeyote.",
-      },
-      {
-        excerpt:
-          "Ama atakaye pewa daftari lake kwa mkono wake wa kulia, atasema: Haya! Nilikuwa na hakika ningekutana na akaunti yangu. Kwa hivyo atakuwa katika maisha ya kupendeza. Lakini atakaye pewa kitabu chake kwa mkono wake wa kushoto atasema: Laiti nisingalipewa daftari langu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kunidhaminia yaliyo baina ya taya zake na yaliyo baina ya miguu yake, basi mimi namdhaminia Pepo - maana ya ulimi wake na utupu wake.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Linda ulimi kuliko kitu kingine chochote - mengi ya yale yanayojaza rekodi kwa mema au mabaya hupita juu yake.",
       "Kagua siku yako kabla ya kulala: uliza nini ungependa, na nini ungeogopa, kuona kimeandikwa katika kitabu chako.",
@@ -374,26 +200,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Kinachofanya mizani kuwa nzito si ujazo wa shughuli bali uzito wake mbele ya Mwenyezi Mungu, na uzito unatokana na ikhlasi. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) aliashiria vitendo ambavyo havina juhudi lakini ni vikubwa sana: ‘Maneno mawili mepesi kwenye ulimi, mazito kwenye Mizani, kipenzi cha Mwingi wa Rehema: SubhanAllahi wa bihamdih, SubhanAllahil-‘Azim’ (Sahih al-Bukhari 6406). Pia alisema, 'Hakuna kitu kizito zaidi kwenye Mizani ya Muumini Siku ya Kiyama kuliko tabia njema' (Jami' at-Tirmidhi 2002, Sahih). Kwa hiyo ukumbusho rahisi unaorudiwa kwa unyoofu, au tabia njema yenye subira, unaweza kupita milima ya utendaji wa kujionyesha.",
       "Kinyume chake ni hatari ya matendo matupu. Vitendo vinavyofanywa ili kuonekana na watu (riya') au kupotoshwa na unafiki vinaweza kufika kwenye Mizani isiyo na uzito - kubwa ya nje, tupu ndani. Ndiyo maana uaminifu (ikhlas) si fadhila moja miongoni mwa nyingi bali ni jambo lenyewe linaloipa kila amali nyingine uzito wake. Funzo ni kuijenga siku kwa vitendo vidogo, vya ikhlasi, vilivyo thabiti, na kutakasa nia nyuma ya yale yanayoonekana.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na tunaweka mizani ya uadilifu kwa Siku ya Kiyama, basi hakuna nafsi itakayodhulumiwa chochote. Na ikiwa ni uzito wa chembe ya haradali tutaileta, na tunatosha kuwa wahisani.",
-      },
-      {
-        excerpt:
-          "Ama yule ambaye mizani yake ni nzito, atakuwa katika maisha ya raha. Lakini mtu ambaye mizani yake ni nyepesi, kimbilio lake litakuwa shimo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maneno mawili mepesi kwenye ulimi, mazito kwenye Mizani, kipenzi cha Mwingi wa Rehema: SubhanAllahi wa bihamdih, SubhanAllahil-'Azim.",
-      },
-      {
-        excerpt:
-          "Hakuna kizito katika Mizani ya Muumini Siku ya Kiyama kuliko tabia njema. Hakika mwenye tabia njema hufikia daraja ya mwenye kufunga na kuswali.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -405,22 +213,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Kuna kundi la deni ambalo hata msamaha wa Mwenyezi Mungu haufuti tu: haki za watu wengine (huquq al-'ibad). Mtume ﷺ akauliza: Je, unamjua aliyefilisika? Wakasema: Mtu asiye na pesa. Akasema: Mufilisi wa Ummah wangu ni yule anayekuja Siku ya Qiyaamah kwa Swalah, Saumu na Sadaka, lakini ambaye alimtukana huyu, akamsingizia kwamba, akachukua mali ya mwingine, na kumwaga damu ya mwengine - basi wema wake hukabidhiwa kwao, na pindi wema wake unapokwisha hubebeshwa juu yake dhambi zao, na anatupwa Motoni 1 Muislamu. Ibada haibatilishi dhuluma; kutatua dhuluma tu.",
       "Hitimisho la kivitendo ni la dharura na mahususi: madeni ambayo hayajalipwa, mali iliyoibiwa, kashfa, na amana zilizovunjika lazima zirekebishwe katika maisha haya - kwa njia ya toba kwa Mwenyezi Mungu na urejeshaji na kuomba msamaha kwa watu - kwa sababu ni nafuu zaidi kukaa katika sarafu ya fedha na unyenyekevu sasa kuliko katika sarafu ya wema wakati huo. Na katika hayo yote uadilifu wa Mwenyezi Mungu ni kamilifu na rehema yake inamzunguka kila aliyepigania kwa ikhlasi na akatubia.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ama atakaye pewa daftari lake kwa mkono wake wa kulia, atahukumiwa kwa hisabu nyepesi na atarejea kwa watu wake kwa furaha. Lakini atakaye pewa daftari lake nyuma ya mgongo wake atalia maangamizo na ataingia Motoni.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Yeyote anayeitwa kuwajibika ataangamizwa. Aisha akasema: Je! Mwenyezi Mungu hasemi kuwa atahukumiwa kwa hisabu nyepesi? Akasema: Huko ni kudhihirisha vitendo tu. lakini atakaye ulizwa juu ya hesabu yake ataangamizwa.",
-      },
-      {
-        excerpt:
-          "Je! unajua ni nani aliyefilisika? Yeye ndiye atakayekuja Siku ya Kiyama kwa Swalah, Saumu na Sadaka, lakini alikuwa akiwatukana, akawatukana na kuwadhulumu wengine, basi wanapewa mema yake, na yanapokwisha huwekwa juu yake na anatupwa Motoni.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Lipa deni na urudishe chochote kilichochukuliwa bila haki, hata kiwe kidogo, kabla ya siku iliyopangwa kufika.",
       "Tafuta na uombe msamaha kwa mtu yeyote uliyemkosea kwa neno, mali au heshima - kurejesha sasa ni nafuu zaidi kuliko kurejesha wakati huo.",
@@ -436,16 +230,7 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) mwenyewe atawapokea wafuasi wake huko: ‘Nitafikia Hawd kabla yenu, na nitawaangalia wale wanaonijia miongoni mwenu’ (Swahiyh Muislamu 2292). Anautambua ummah wake kwa nuru ya nyuso zao, mikono na miguu yao kutokana na athari za wudhu. Kuifikia ni kuzimwa milele; unalishwa, kwa ufahamu mzuri, na al-Kawthar, mto Mwenyezi Mungu aliompa Mtume wake (Swalla Allaahu 'alayhi wa aalihi wa sallam) peponi.",
       "Lakini wengine watafukuzwa kutoka kwa Hawd. Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) alieleza kuambiwa watu fulani, 'Hao si katika nyinyi; wakabadili dini baada yenu, au wakarudi nyuma kwa visigino vyao. Wanachuoni wako makini na hili: inahusu makundi maalum katika Hadith - kama vile uasi na kaburi, uzushi wa kimakusudi katika dini baada ya mwongozo ulio wazi - na kwa msisitizo sio leseni kwa Waislamu wa kawaida kutupiana lawama. Njia iliyo salama ya Hawd ni kushika Sunnah, kuchunga wudhu na kuswali, na kuweka umoja wa waumini.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hawd yangu ni safari ya mwezi mzima. Maji yake ni meupe kuliko maziwa, na harufu yake ni tamu kuliko miski, na vikombe vyake ni vingi kama nyota za angani. Yeyote atakayekunywa humo hataona kiu tena.",
-      },
-      {
-        excerpt:
-          "Nitaifikia Hawd iliyo kabla yenu, na nitawatazama wale wanaonijia miongoni mwenu. Wataondolewa watu kutoka kwangu, nami nitasema: Mola wangu Mlezi, masahaba wangu! Itasemwa: Wewe hujui waliyozua baada yako.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Ripoti kuhusu wale waliojitenga na Hawd zinarejelea makundi maalum yaliyotajwa katika Hadith, hasa uasi na uzushi mkubwa katika dini. Wao si leseni kwa Waislamu kutangaza upotevu wao kwa wao.",
   },
@@ -458,18 +243,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Nuru na kasi kwenye Sirat hupatikana katika maisha haya. Sala inayofanywa kwa wakati, hisani inayotolewa mara kwa mara, uaminifu katika shughuli, na tabia njema huwa, kwa hakika, msingi na nuru ambayo mtu huvuka kwayo. Mtume (Swalla Allaahu ´alayhi wa sallam) atawaombea Waumini huko, na ni kwa rehema za Mwenyezi Mungu kwamba mtu yeyote atafika upande wa pili.",
       "Kama ilivyo kwa vituo vingine visivyoonekana, njia ya busara si kukisia juu ya vipimo vya kimwili vya daraja - jinsi nyembamba, jinsi kali, kwa muda gani - zaidi ya kile ambacho ufunuo unasema, lakini kuzingatia kabisa matendo ambayo hufanya mwanga wa kuvuka. Kile ambacho huwezi kupiga picha, bado unaweza kujiandaa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na hapana yeyote katika nyinyi ila ataifikia. Hayo ni juu ya Mola wako Mlezi yaliyo faradhishiwa. Kisha tutawaokoa walio mcha Mwenyezi Mungu, na tutawaacha madhalimu humo wamepiga magoti.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Daraja litawekwa juu ya Kuzimu, na nitakuwa wa kwanza kuvuka. Watu watapita juu yake kwa kadiri ya matendo yao - kama umeme, kama upepo, kama ndege, kama mtu anayekimbia, nikisema: Ee Bwana, uwalinde, uwalinde. Wengine wameokolewa, wengine wanakwaruzwa na kutolewa, na wengine wanaanguka Motoni.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Omba sala tano kwa wakati - sala ni nuru inayoongoza kuvuka daraja.",
       "Toa hisani mara kwa mara, hata kwa kiasi kidogo.",
@@ -484,21 +259,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Malipo makubwa kuliko yote si bustani wala mto ila radhi ya Mwenyezi Mungu na uoni wa uso wake. “Siku hiyo nyuso zitang’aa, zikimtazama Mola wao Mlezi” (Qur’ani 75:22–23) — inayoeleweka na Ahlul-Sunnah kuwa ni Waumini wanaomtazama Mwenyezi Mungu huko Akhera, neema ya Peponi, iliyotolewa kwa namna inayolingana na utukufu Wake na isiyo na mfano wa viumbe. Mwenyezi Mungu anaahidi: 'Kwa wale waliofanya wema watapata malipo bora na zaidi' (Qur'ani 10:26) - na 'zaidi' inaelezwa katika hadithi sahihi kama uoni huu wa Uso Wake mtukufu.",
       "Kuingia Peponi ni kwa rehema ya Mwenyezi Mungu, iliyo fumbatwa kwa imani na vitendo vyema - viwili hivyo havipingiwi: Rehema ndio sababu, na amali ni Ishara na njia ambayo Mwenyezi Mungu amefungamana nayo. Siku ya Mwisho inaisha, kwa watu wa Peponi, katika neema isiyofifia na isiyoisha. Moduli hii inaweka matibabu yake ya Paradiso kwa ufupi kwa makusudi; mwongozo kamili wa Safari ya kwenda Jannah unafunika milango yake, madaraja yake, amali zinazoiongoza, na dua zake kwa kina.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na kimbilieni maghfira kutoka kwa Mola wenu Mlezi na Pepo iliyo upana wa mbingu na ardhi, iliyo andaliwa kwa ajili ya wachamngu.",
-      },
-      {
-        excerpt: "Siku hiyo nyuso zitang'aa zikimtazama Mola wao Mlezi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenyezi Mungu anasema: Nimewaandalia waja Wangu wema ambayo jicho halijapata kuona, sikio halijasikia, na ambayo moyo wa mwanadamu haujapata kuwaza.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -509,16 +271,7 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Makusudio ya maonyo haya ni rehema kwa kujificha. Zipo ili kuvunja kiburi, kukomesha kukataa kweli kwa kuendelea, na kumrudisha mtu nyuma kabla haijachelewa. Ndio maana maonyo katika Qur'ani karibu kila mara yanaambatanishwa na mlango ulio wazi wa toba - maana ya kuuelezea Moto ni kwa usahihi ili watu wauepuke wakati bado wanaweza. Adhabu yake ni ya uadilifu. Haingii humo ila kwa hiari yao wenyewe dhidi ya uwongofu ulio wazi, na Mwenyezi Mungu hamdhulumu yeyote.",
       "Kwa waumini wanaobeba madhambi, imani thabiti ya Sunni ni mizani baina ya khofu na matumaini: mtenda dhambi yuko chini ya matakwa ya Mwenyezi Mungu - Anaweza kusamehe, au kutakasa katika Moto na kisha, kwa uombezi na rehema iliyoelezwa hapo awali, amtoe humo kila aliyekuwa na chembe hata ya imani. Moduli hii inatoa Jahannamu matibabu mafupi na kipimo kwa makusudi. Utafiti kamili wa maonyo yake, madhambi makubwa, na milango mikubwa ya toba na rehema unapatikana katika moduli ya Uelewa wa Jahannam na mada zinazohusiana na aqeedah - zinazoshughulikiwa kila mara kwa matumaini, kamwe hazikati tamaa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na walio mkufuru Mola wao Mlezi watapata adhabu ya Jahannamu, na ni maangamivu marejeo.",
-      },
-      {
-        excerpt:
-          "Sema: Enyi waja wangu mliojidhulumu nafsi zao, msikate tamaa na rehema ya Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote. Hakika Yeye ni Mwenye kusamehe, Mwenye kurehemu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -530,12 +283,7 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Wanachuoni wanaijadili idadi yenyewe: wengine wanashikilia kwamba elfu sabini ni halisi, wengine kwamba inazidishwa sana na riwaya za ziada, na wengine bado kwamba inaashiria wingi usio na shaka wa neema za Mwenyezi Mungu badala ya hesabu iliyowekwa. Wanachokubaliana juu yake ni ukweli wa msingi - kwamba rehema ya Mwenyezi Mungu inazidi sana kile ambacho utunzaji wa hesabu wa mwanadamu ungetarajia, na kwamba wokovu wa mwisho ni kwa rehema hiyo.",
       "Hiki ni kituo cha matumaini, si mwanya wa uvivu. Humtia msukumo muumini kuelekea kwenye kumtegemea Mwenyezi Mungu kikweli na kujiepusha na ushirikina, huku akiendelea kujitahidi katika ibada. Hakuna anayeichuma kwa kupuuza matendo; mtu huvutwa kuelekea humo kwa ikhlasi, uaminifu, na moyo ulioshikamana na Mwenyezi Mungu badala ya hirizi na khofu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Elfu sabini katika Ummah wangu wataingia Peponi bila hesabu, ni wale ambao hawatafuti ruqyah kutoka kwa wengine, hawaamini ishara mbaya, hawahatarishi, na wanamtegemea Mola wao Mlezi.",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Wanachuoni wanatofautiana iwapo 'bila hesabu' maana yake ni elfu sabini maalum au idadi kubwa zaidi isiyoweza kubainika. Wote wanakubali kwamba wokovu wa mwisho ni kwa rehema ya Mwenyezi Mungu, na kwamba hii ni sababu ya matumaini, sio ya kupuuza matendo.",
   },
@@ -548,24 +296,8 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       "Linda mambo mawili ambayo Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) aliyofungamanishwa moja kwa moja na Pepo - ulimi na usafi (Sahih al-Bukhari 6474) - kwa sababu haya, zaidi ya madhambi makubwa, ndiyo yanajaza au kufilisi kumbukumbu. Na suluhisheni haki za watu mkiwa bado mnaweza: lipa deni, lirudisheni lililochukuliwa, ombeni msamaha kwa madhara, na fanyeni uadilifu katika kila jambo, ili msije mkafika kuwa 'mufilisi' ambaye maombi yake huliwa na madai ya wale aliowadhulumu.",
       "Kila kitu kinategemea nia moja, iliyoelezwa katika hadithi ya kwanza ya Sahih al-Bukhari: 'Matendo hayawi ila kwa makusudio.' Tumia vifuatiliaji vya Munib kama alama ya kushindana bali kama kiunzi laini cha tabia hizi - sala, Qur'ani, dhikr, sadaka, toba - kila moja ikielekeza siku yako kwa utulivu kuelekea mkutano na Mwenyezi Mungu. Hilo ndilo lengo zima: kuishi sasa kama mtu ambaye kweli anatarajia kusimama mbele zake.",
     ],
-    quran: [
-      {
-        excerpt: "Nami sikuwaumba majini na watu ila waniabudu Mimi.",
-      },
-      {
-        excerpt:
-          "Enyi mlioamini tubuni kwa Mwenyezi Mungu toba ya kweli. Huenda Mola wenu Mlezi akakufutieni maovu yenu, na akakuingizeni katika Mabustani yapitayo mito kati yake.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Vitendo ni kwa nia, na kila mtu atakuwa na kile alichokusudia.",
-      },
-      {
-        excerpt:
-          "Mwenye kunidhaminia yaliyo baina ya taya zake na yaliyo baina ya miguu yake - ulimi wake na utupu wake - mimi namdhaminia Pepo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Omba sala tano za kila siku kwa wakati.",
       "Soma au sikiliza Qur'ani kila siku - hata aya chache.",
@@ -590,75 +322,41 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
       {
         title: "Tabia njema",
         summary: "Upole na muamala mwema.",
-        hadith: {
-          excerpt: "Hakuna kizito zaidi katika mizani kuliko tabia njema.",
-        },
+        hadith: {},
       },
       {
         title: "Maneno mawili",
         summary: "Mepesi ulimini, mazito mizani.",
-        hadith: {
-          excerpt: "Subhanallahi wa bihamdihi, Subhanallahil-azim.",
-        },
+        hadith: {},
       },
       {
         title: "Alhamdulillah",
         summary: "Hujaza mizani.",
-        hadith: {
-          excerpt: "Alhamdulillah hujaza mizani.",
-        },
+        hadith: {},
       },
       {
         title: "Kadi",
         summary: "Tawhidi hushinda madhambi.",
-        hadith: {
-          excerpt: "Kadi ya La ilaha illallah hufanya mizani nzito.",
-        },
+        hadith: {},
       },
       {
         title: "Dhikri bora",
         summary: "Tamka tawhidi.",
-        hadith: {
-          excerpt: "Dhikri bora ni La ilaha illallah.",
-        },
+        hadith: {},
       },
       {
         title: "Maneno manne",
         summary: "Yanayopendwa na Allah.",
-        hadith: {
-          excerpt: "Subhanallah, Alhamdulillah, La ilaha illallah, Allahu akbar.",
-        },
+        hadith: {},
       },
       {
         title: "Tasbihi mia",
         summary: "Sababu ya msamaha.",
-        hadith: {
-          excerpt: "Mwenye kusema Subhanallah mara mia husamehewa.",
-        },
+        hadith: {},
       },
     ],
-    quran: [
-      {
-        excerpt: "Mizani itawekwa kwa uadilifu.",
-      },
-      {
-        excerpt: "Mwenye mizani nzito atakuwa katika maisha ya kuridhisha.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Amali ipendwayo ni yenye kudumu hata ikiwa ndogo.",
-      },
-      {
-        excerpt: "Usidharau wema wowote.",
-      },
-      {
-        excerpt: "Tabasamu lako ni sadaka.",
-      },
-      {
-        excerpt: "Muislamu ni yule watu wako salama na ulimi na mkono wake.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}, {}],
     misconceptions: ["Wingi bila ikhlasi hautoshi.", "Amali za moyo zina umuhimu."],
     actions: [
       "Fanya dhikri kila siku.",
@@ -688,253 +386,171 @@ export const LAST_DAY_TOPICS_SW: DeepPartial<LastDayTopic>[] = [
 
 export const LAST_DAY_HADITH_SW: DeepPartial<LastDayHadithEntry>[] = [
   {
-    hadith: {
-      excerpt: "Kumbuka mara nyingi mharibifu wa anasa - maana yake kifo.",
-    },
+    hadith: {},
     context:
       "Kukumbuka kifo kwa ukawaida hulainisha moyo, huondoa kinyongo, na kusahihisha mambo ya kutanguliza bila kukata tamaa.",
   },
   {
-    hadith: {
-      excerpt:
-        "Asife yeyote katika nyinyi ila hali ya kuwa anamtukuza Mwenyezi Mungu, na akiifikiri rehema ya Mola wake Mlezi.",
-    },
+    hadith: {},
     context:
       "Mwisho mwema (husn al-khatimah) unatarajiwa kwa imani ya kweli, toba, na matarajio mema ya Mwenyezi Mungu.",
   },
   {
-    hadith: {
-      excerpt: "Kaburi ima ni Bustani itokayo katika Pepo au shimo kutoka kwenye mashimo ya Moto.",
-    },
+    hadith: {},
     context:
       "Barzakh inajumuisha malipo au adhabu kaburini, kwa hekima ya Mwenyezi Mungu - kaburi huakisi matendo ya mtu mwenyewe.",
   },
   {
-    hadith: {
-      excerpt:
-        "Marehemu anapozikwa, wanakuja Malaika wawili na kumuuliza juu ya Mola wake, Dini yake, na Nabii wake.",
-    },
+    hadith: {},
     context:
       "Kuswali kaburini kunathibitishwa katika ripoti sahihi; katika riwaya hii Malaika wawili wanaitwa Munkar na Nakir.",
   },
   {
-    hadith: {
-      excerpt:
-        "Anapokufa mtu hukatika amali zake isipokuwa tatu: Sadaka inayoendelea, elimu ambayo kwayo hupatikana manufaa, au mtoto mwema anayemuombea dua.",
-    },
+    hadith: {},
     context:
       "Ni nini kinachoendelea kumnufaisha marehemu - kilichothibitishwa katika Hadith Sahih.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mtakusanywa bila viatu, uchi na hamjatahiriwa - na wa kwanza kuvikwa nguo Siku ya Kiyama ni Ibrahim.",
-    },
+    hadith: {},
     context: "Unyenyekevu Siku ya Mkusanyiko; Mwenyezi Mungu humtukuza amtakaye apendavyo.",
   },
   {
-    hadith: {
-      excerpt:
-        "Litasogezwa jua kwa watu Siku ya Kiyama mpaka likawa umbali wa maili moja, na watazama kwa jasho lao kwa mujibu wa vitendo vyao.",
-    },
+    hadith: {},
     context: "Masharti juu ya Mahshar - ukali hutofautiana kwa vitendo katika riwaya sahihi.",
   },
   {
-    hadith: {
-      excerpt:
-        "Watu watanijia na nitaanguka kwa kusujudu mbele ya Mwenyezi Mungu, na itasemwa: Inua kichwa chako; ombeni nanyi mtapewa, ombeni na maombezi yenu yatakubaliwa.",
-    },
+    hadith: {},
     context: "Uombezi mkubwa kabisa - al-Shafa'ah al-'Udhma, pekee kwa Mtume ﷺ.",
   },
   {
-    hadith: {
-      excerpt:
-        "Yeyote anayeitwa kuwajibika ataangamizwa. Aisha akauliza: Je, Mwenyezi Mungu hasemi kuwa atahukumiwa kwa hisabu nyepesi? Akasema: Huko ni kudhihirisha vitendo tu. lakini atakaye ulizwa juu ya hesabu yake ataangamizwa.",
-    },
+    hadith: {},
     context:
       "'Akaunti rahisi' ni rehema - kuonyeshwa matendo ya mtu na kusamehewa, si jambo linalochunguzwa kwa kipengele.",
   },
   {
-    hadith: {
-      excerpt:
-        "Muflisi wa Ummah wangu ni yule anayekuja na Swalah, Saumu na Sadaka, lakini alikuwa akiwatukana, akawatukana na kuwadhulumu wengine - basi wanapewa mema yake, na dhambi zao zinabebeshwa juu yake.",
-    },
+    hadith: {},
     context:
       "Haki za watu (huquq al-'ibad) hazifutwi tu kwa ibada; lazima walipwe au walipwe kwa Siku hiyo.",
   },
   {
-    hadith: {
-      excerpt:
-        "Elfu sabini katika Ummah wangu wataingia Peponi bila hesabu: wale ambao hawatafuti ruqyah kutoka kwa wengine, hawaamini ishara mbaya, hawaongoi, na wanaomtegemea Mola wao Mlezi.",
-    },
+    hadith: {},
     context:
       "Wanachuoni wanatofautiana juu ya kama idadi hiyo ni halisi au inaashiria wingi mkubwa zaidi wa rehema za Mwenyezi Mungu.",
   },
   {
-    hadith: {
-      excerpt:
-        "Hawd yangu ni safari ya mwezi mzima. Maji yake ni meupe kuliko maziwa, na harufu yake ni tamu kuliko miski, na vikombe vyake ni vingi kama nyota za angani. Yeyote atakayekunywa humo hataona kiu tena.",
-    },
+    hadith: {},
     context: "Bwawa ni rehema kwa umma wa Muhammad ﷺ siku ya kiu.",
   },
   {
-    hadith: {
-      excerpt:
-        "Daraja limewekwa juu ya Kuzimu. Watu huvuka kwa mujibu wa matendo yao - kama umeme, kama upepo, kama ndege, kama mtu anayekimbia - na wengine hupigwa na kuokolewa, wakati wengine huanguka.",
-    },
+    hadith: {},
     context: "Kasi ya kuvuka huonyesha imani na matendo; Rehema ya Mwenyezi Mungu ni kubwa.",
   },
   {
-    hadith: {
-      excerpt:
-        "Haitakuja Saa mpaka muone dalili kumi: Moshi, Dajjal, Mnyama, kuchomoza jua kutoka magharibi, kushuka kwa Isa bin Maryam, Yaajuj na Majuj, maporomoko matatu ya ardhi, na moto unaowapeleka watu kwenye mkusanyiko wao.",
-    },
+    hadith: {},
     context:
       "Ishara kumi kuu, kutoka kwa Hudhayfah ibn Usayd. Wanachuoni wanathibitisha kila ishara lakini wanatofautiana katika mfuatano halisi.",
   },
   {
-    hadith: {
-      excerpt:
-        "Naapa kwa Ambaye nafsi yangu imo Mikononi Mwake, basi hivi karibuni atashuka mwana wa Maryam akiwa mtawala muadilifu. atauvunja msalaba, ataua nguruwe, na atakomesha jizyah, na mali itafurika mpaka hakuna atakayeikubali.",
-    },
+    hadith: {},
     context:
       "Kushuka kwa Isa ni nukta madhubuti ya itikadi ya Sunni; anatawala kwa Sharia ya Muhammad ﷺ.",
   },
   {
-    hadith: {
-      excerpt:
-        "Wakati uaminifu umepotea, subiri Saa. Iliulizwa: Itapoteaje? Akasema: Wakati mamlaka yanapotolewa kwa wale wasiostahiki.",
-    },
+    hadith: {},
     context: "Ishara ndogo inayojulikana - kupoteza uaminifu. Kuzingatia maandalizi, si hofu.",
   },
   {
-    hadith: {
-      excerpt:
-        "Mwenyezi Mungu haiondoi elimu kwa kuipokonya, bali kwa kuwachukua wanavyuoni, mpaka isibaki hata mmoja na watu wakawachukua wajinga kuwa ni viongozi wanaotoa hukumu bila ya kujua, basi wanapotea na kuwapoteza wengine.",
-    },
+    hadith: {},
     context:
       "'Kupoteza maarifa' kunamaanisha kupotea kwa wasomi wazuri na mazoezi ya kuishi - sio uhaba wa habari.",
   },
   {
-    hadith: {
-      excerpt: "Usafi ni nusu ya imani.",
-    },
+    hadith: {},
     context: "Imani huipa mizani uzito.",
   },
   {
-    hadith: {
-      excerpt: "Neno jema ni sadaka.",
-    },
+    hadith: {},
     context: "Ulimi mwema una thawabu.",
   },
   {
-    hadith: {
-      excerpt: "Allah hupenda upole.",
-    },
+    hadith: {},
     context: "Tenda kwa upole kila siku.",
   },
 ];
 
 export const LAST_DAY_VERSES_SW: DeepPartial<LastDayVerseEntry>[] = [
   {
-    excerpt:
-      "Kila nafsi itaonja mauti, na mtapewa ila Siku ya Kiyama ujira wenu kamili. Basi anaye tolewa na Moto na akaingizwa Peponi amefaulu, na maisha ya dunia ni starehe ya udanganyifu.",
     context:
       "Kifo ni cha ulimwengu wote na maisha haya ni ya muda; usuluhisho wa kweli na wa mwisho wa hesabu unakuja tu Siku ya Mwisho.",
     tafsirSummary:
       "Aya inafafanua tena mafanikio: sio mali au hadhi hapa, lakini kuokolewa na Moto na kuingizwa Peponi hapo.",
   },
   {
-    excerpt:
-      "Siku hiyo watu watatoka kwa makundi makundi tofauti ili waonyeshwe vitendo vyao. Basi anayefanya chembe ya wema atauona, na anayefanya chembe ya ubaya atauona.",
     context:
       "Haki kamilifu na kamili - tendo dogo kabisa, jema au baya, hurekodiwa na kurudishwa kwa mtendaji wake.",
     tafsirSummary:
       "Hakuna kitu kidogo sana kuhesabu. Aya hii ni tahadhari ya maisha yote dhidi ya kutupilia mbali dhambi 'ndogo' na kutia moyo kwa maisha 'madogo' mema.",
   },
   {
-    excerpt:
-      "Na tunaweka mizani ya uadilifu kwa Siku ya Kiyama, basi hakuna nafsi itakayodhulumiwa chochote. Hata ikiwa ni uzito wa chembe ya haradali tutaitoa, na Sisi tunatosha kuwa wahisani.",
     context: "Mizan (Mizani) ni halisi na haki yake ni kamili.",
     tafsirSummary:
       "Hakuna mtu siku hiyo atakayepunguzwa uzito wa chembe ya haradali; Hesabu ya Mwenyezi Mungu haina dosari.",
   },
   {
-    excerpt:
-      "Ama yule ambaye mizani yake ni nzito, atakuwa katika maisha mazuri. Lakini mtu ambaye mizani yake ni nyepesi, kimbilio lake litakuwa shimo.",
     context: "Matokeo ya mwisho yanageuza uzito wa matendo ya haki ya mtu kwenye Mizani.",
     tafsirSummary:
       "Uzito unatokana na unyoofu, si ujazo tu - dhikr rahisi alisema inaweza kupita milima ya shughuli za kujionyesha.",
   },
   {
-    excerpt:
-      "Na kimbilieni maghfira kutoka kwa Mola wenu Mlezi na Pepo iliyo upana wa mbingu na ardhi, iliyo andaliwa kwa ajili ya wachamngu.",
     context:
       "Amri ya moja kwa moja ya kukimbilia wema na msamaha kabla ya kukutana na Mwenyezi Mungu.",
     tafsirSummary:
       "Pepo ni kubwa zaidi ya kufikiria, na njia ya kuiendea ni haraka - sio kuahirisha toba na amali njema.",
   },
   {
-    excerpt: "Siku hiyo nyuso zitang'aa zikimtazama Mola wao Mlezi.",
     context:
       "Malipo makubwa zaidi ya Pepo si bustani wala mto ila kuutazama Uso wa Mwenyezi Mungu.",
     tafsirSummary:
       "Ahlul-Sunnah wanathibitisha kwamba Waumini watamuona Mola wao Akhera, kwa namna inayolingana na utukufu wake na bila mfano wa viumbe - taji ya neema zote.",
   },
   {
-    excerpt:
-      "Na walio mkufuru Mola wao Mlezi watapata adhabu ya Jahannamu, na ni maangamivu marejeo.",
     context: "Kuzimu ni matokeo ya kweli na ya haki - makao halisi, sio ishara.",
     tafsirSummary:
       "Onyo hilo ni rehema inayokusudiwa kumrudisha mtu nyuma wakati ungalipo; daima imeunganishwa katika Qur'ani na mlango ulio wazi wa toba.",
   },
   {
-    excerpt:
-      "Sema: Enyi waja wangu mliojidhulumu nafsi zao, msikate tamaa na rehema ya Mwenyezi Mungu. Hakika Mwenyezi Mungu husamehe dhambi zote. Hakika Yeye ni Mwenye kusamehe, Mwenye kurehemu.",
     context: "Ingawa dhambi ni kubwa kiasi gani, mlango wa toba ya kweli hubaki wazi hadi kifo.",
     tafsirSummary:
       "Kukata tamaa kwa rehema ya Mwenyezi Mungu ni kutoka kwa Shetani; Muumini husawazisha khofu ya Moto na matumaini yasiyokatika katika msamaha wa Mwenyezi Mungu.",
   },
   {
-    excerpt:
-      "Na kwamba Saa itakuja, hapana shaka juu yake, na kwamba Mwenyezi Mungu atawafufua walio makaburini.",
     context: "Ufufuo ni hakika, ingawa wakati wake umefichwa.",
     tafsirSummary:
       "Uhakika kuhusu Saa, ukiambatanishwa na kutokuwa na uhakika kuhusu wakati wake, ndiyo hasa inayoimarisha uwajibikaji wa kimaadili kwa sasa.",
   },
   {
-    excerpt:
-      "Ni nani awezaye kumuombea isipokuwa kwa idhini yake? Anayajua yaliyo mbele yao na yatakayokuwa baada yao, na wao hawajumui chochote katika ilimu yake ila apendavyo.",
     context: "Uombezi (shafaa) ni wa kweli lakini kamwe hautegemei idhini ya Mwenyezi Mungu.",
     tafsirSummary:
       "Sharti hili pekee - 'isipokuwa kwa idhini Yake' - ndilo linalotenganisha uombezi wa kweli na kila uharibifu wake, na linakataza kuwaita wafu katika maisha haya.",
   },
   {
-    excerpt:
-      "Wala usidhani Mwenyezi Mungu hana khabari na wanayoyafanya madhalimu. Hakika Yeye anawachelewesha ila Siku ambayo macho yatakodoka kwa khofu.",
     context: "Faraja kwa waliodhulumiwa - ucheleweshaji dhahiri wa haki sio kutokuwepo kwake.",
     tafsirSummary:
       "Hakuna dhulma inayosahauliwa na Mwenyezi Mungu; mwenye kudhulumu anapewa muhula mpaka Siku ambayo hakuna kitu kitapuuzwa.",
   },
   {
-    excerpt:
-      "Na hapana yeyote katika nyinyi ila ataifikia. Hayo ni juu ya Mola wako Mlezi yaliyo faradhishiwa. Kisha tutawaokoa walio mcha Mwenyezi Mungu, na tutawaacha madhalimu humo wamepiga magoti.",
     context:
       "Kupita juu ya Sirat ni kwa wote; kufika salama kunatolewa kwa rehema na taqwa ya Mwenyezi Mungu.",
     tafsirSummary:
       "Kila mtu anakuja kuvuka; tofauti ni nani anaokolewa na nani anaanguka - kuamuliwa kwa imani na matendo yaliyotangulia.",
   },
   {
-    excerpt:
-      "Wanakuuliza kuhusu Saa (ya Kiyama): lini kufika kwake? Sema: Ilimu yake iko kwa Mola wangu Mlezi. Hakuna atakaye dhihirisha wakati wake ila Yeye. Hayatakujieni ila kwa ghafla.",
     context:
       "Muda halisi anajulikana kwa Mwenyezi Mungu pekee - mambo ya maandalizi, utabiri ni bure.",
     tafsirSummary:
       "Hata Mtume ﷺ hakupewa tarehe; kila madai ya mwanadamu kwa mwaka mmoja au kuhesabu kurudi nyuma yanapingana na aya hii.",
   },
   {
-    excerpt:
-      "Ama atakaye pewa daftari lake kwa mkono wake wa kulia, atasema: Haya! Nilikuwa na hakika kwamba ningekutana na akaunti yangu. Kwa hivyo atakuwa katika maisha ya kupendeza.",
     context:
       "Namna ya kupokea kitabu cha mtu - mkono wa kulia au wa kushoto - yenyewe ndiyo hukumu ya kwanza.",
     tafsirSummary:

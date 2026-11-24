@@ -2,136 +2,111 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ku overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "شەوی قەدر چییە؟",
+    summary: "شەوی قەدر — لە هەزار مانگ چاکترە.",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "شەوی قەدر (لەیلەتولقەدر)، شەوی بڕیار (یان شەوی پایەبەرزی)، ئەو شەوەیە کە دابەزینی قورئان بۆ سەر پێغەمبەر ﷺ تێیدا دەستی پێکرد. خوا سووڕەتێکی تەواوی بۆ تەرخان کردووە، کە بەمە دەست پێدەکات: «ئێمه به‌ڕاستی قورئانمان دابه‌زاندۆته خواره‌وه له شه‌وێکی به‌فه‌ڕو ڕێزداردا» (قورئان 97:1). بەهاکەی چەند ئایەتێک دواتر بە ڕوونترین شێوە ڕاگەیەنراوە: «شه‌وی قه‌دری به‌ڕێز له هه‌زار مانگ ڕێزدارو خێردارتره» (قورئان 97:3) — پەرستن لەم یەک شەوەدا لە پەرستنێک قورسترە کە بەسەر زیاتر لە هەشتا و سێ ساڵدا دابەش بووبێت.",
+      "سووڕەتەکە زیاتر وەسفی ئەو شەوە دەکات: فریشتەکان و ڕۆح (جوبرەئیل) بە مۆڵەتی پەروەردگاریان بە هەموو فەرمانێکەوە تێیدا دادەبەزن، و «ئه‌و شه‌وه ئاسووده‌یی و ئاشتی و هێمنی و ڕه‌حمه‌ت و میهره‌بانیه‌، هه‌تا کاتی به‌ره‌به‌یان» (قورئان 97:4–5). شەوێکە پڕ لە ڕەحمەتی بێ سنوور، ئارامی و بڕیاری خوایی — شەوێک کە پێغەمبەر ﷺ هاوەڵانی هان دەدا بە چالاکی بەدوایدا بگەڕێن، نەک بهێڵن بە بێئاگایی تێپەڕێت.",
+      "هەر بۆیە دە شەوی کۆتایی ڕەمەزان ئەم هەموو قورسایییە ڕۆحییەیان هەیە: لە شوێنێکی نێوانیاندا شەوێک هەیە کە لە هەر شەوێکی تری ژیانی مرۆڤ بەنرخترە. حیکمەتی ئاشکرا نەکردنی ئەوەیە کە باوەڕداران لە هەر یەکێک لە دە شەوی کۆتاییدا هەوڵ بدەن، نەک لە هەموویاندا جگە لە یەک شەو پشوو بدەن.",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "پاداشتی هەستان بە نوێژ",
+    summary: "پەرستنی دڵسۆزانە لەم شەوەدا گوناهانی ڕابردوو دەسڕێتەوە.",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "پێغەمبەر ﷺ بەڵێنێکی نائاسایی بەم شەوەوە بەست: «Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven» (واتای ئینگلیزی) (بوخاری 1901). دوو مەرجی پێوە بەستراوە — ئیمان (باوەڕی ڕاستەقینە بەوەی ئەم پەرستنە ئەوەیە کە خوا خۆشی دەوێت و شەرعی کردووە) و ئیحتیساب (تەنها بەدواداچوونی پاداشتی خوا، نەک بۆ ئەوەی ببینرێیت یان ستایش بکرێیت).",
+      "ئەم لێخۆشبوونە بۆ هەر کەسێک کە تەنها ئامادە بێت خۆکار نییە؛ بۆ ئەو کەسەیە کە بە دڵێکی دڵسۆز و بەهیواوە پەرستن دەکات. هەر بۆیە دە شەوی کۆتایی بە شێوەیەکی ئاسایی پڕ دەکرێن لە شەونوێژی زیادە (قیام)، قورئان و زیکر — نەک لەبەر ئەوەی پاداشتەکە مامەڵەیە، بەڵکو لەبەر ئەوەی هەوڵی دڵسۆزانە و بەردەوام خۆی ئەوەیە کە فەرموودەکە بە ئیمان و ئیحتیساب وەسفی دەکات.",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "پێش هەر شەوێکی پەرستن نیەتەکەت نوێ بکەرەوە — لە پێناوی خوادا و بە هیوای پاداشتی ئەو.",
+      "لە دە شەوی کۆتاییدا قیامولەیل بکە، تەنانەت ئەگەر تەنها چەند ڕکاتێکیش بێت.",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "کەی بەدوایدا بگەڕێین",
+    summary: "شەوە تاکەکانی دە شەوی کۆتایی ڕەمەزان — نەک یەک ڕێکەوتی جێگیر.",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "پێغەمبەر ﷺ فەرمانی دا: «Search for the Night of Qadr in the odd nights of the last ten days of Ramadan» (واتای ئینگلیزی) (بوخاری 2017)، کە عائیشە ڕیوایەتی کردووە. لە ڕەمەزانێکی ئاسایی سی ڕۆژیدا، شەوە تاکەکان بە شێوەیەکی گشتی بە شەوی بیست و یەک، بیست و سێ، بیست و پێنج، بیست و حەوت و بیست و نۆ دەژمێردرێن. ڕیوایەتە سەحیحەکانی تر ئەمە فراوانتر دەکەن بۆ هەموو دە شەوی کۆتایی، و خودی پێغەمبەر ﷺ فەرمووی کە ڕێکەوتی وردی ئەو شەوە پیشانی درا و پاشان لەبیری برایەوە — بۆ ئەوەی ئوممەت لە هەموو ئەم شەوانەدا هەوڵ بدات، نەک تەنها لە یەکێکیاندا.",
+      "شەوی بیست و حەوت ئەو شەوەیە کە زۆرێک لە زانایان و کۆمەڵگەکان بەلای ئەوەدا دەچن کە ئەگەری زیاترە (لەسەر بنەمای ڕیوایەتی تر کە نیشانەکان و دووبارەبوونەوەی گێڕانەوەی هاوەڵان هەڵدەسەنگێنن)، بەڵام ئەمە دەرهێنانێکی زانستییە لە فەرموودەکان، نەک ڕێکەوتێکی جیاوازی جێگیر کە بە دڵنیایی لە دەقەکاندا هاتبێت. دەکرێت لە ساڵ و ناوچە جیاوازەکاندا بکەوێتە سەر شەوێکی جیاواز، چونکە خودی ڕێکەوتی دەستپێکی ڕەمەزان بەپێی بینینی مانگ جیاوازە.",
+      "هەندێک کەس هەموو ساڵێک یەک ڕێکەوتی چاپکراو بڵاو دەکەنەوە وەک ئەوەی بە دڵنیایی یەکلا کرابێتەوە، و لیستی میللیی «نیشانەکان» (شەوێکی بە شێوەیەکی بێوێنە ئارام، خەون، ڕووناکییەکی تایبەت) بە بەرفراوانی لە ئینتەرنێتدا بڵاو دەبنەوە. هیچ یەکێک لەمانە بنەمایەکی بەهێزی فەرموودەیان نییە، بۆیە ئەم ڕێبەرە دووبارەیان ناکاتەوە. ڕێگای متمانەپێکراو و پشتبەستوو بە دەق بە سادەیی ئەوەیە کە پەرستن لە هەموو شەوە تاکەکاندا زیاد بکەیت — و باشتر وایە لە هەموو دە شەوی کۆتاییدا — بۆ ئەوەی هەر شەوێک بێت، تۆ تێیدا سەرقاڵی پەرستن بیت.",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "ئەم ڕێبەرە هیچ ڕێکەوتێکی جێگیری ساڵنامە یان هیچ «نیشانە»یەکی میللی بۆ ناسینەوەی ئەو شەوە پەسەند ناکات — تەنها ئەوەی فەرموودەکان دەیڵێن: لە شەوە تاکەکانی دە شەوی کۆتایی ڕەمەزاندا بەدوایدا بگەڕێ.",
   },
   {
-    title: "ئەگەر ئەو شەوە بگریت چی بڵێیت",
-    summary: "عائیشەؓ لە پێغەمبەر ﷺ پرسی وردی چی بڵێت.",
+    title: "ئەگەر پێی گەیشتیت چی بڵێیت",
+    summary: "عائیشە لە پێغەمبەری ﷺ پرسی ڕێک چی بڵێت.",
     body: [
-      "عائیشە (رضا الله عنها) لە پێغەمبەر ﷺ پرسی: «ئەی پەیامبەری خودا، ئەگەر بزانم کام شەو شەوی قەدرە، لەو شەوە چی بڵێم؟» ئەو ﷺ دعای کورت و لێبوردنی خوارەوە نیشاندا (تورموذی ۳۵۱۳، کە تورموذی بە حسن صحیح هەڵسەنگاندووە).",
-      "ئەم دعایە کورتە، ئاسانە لەبیر بکرێت، و بە ئەنقەست دەربارەی لێبوردنە نەک داواکارییە دنیاییەکان — بیرخستنەوە کە گەورەترین بەدەستەوەی ئەم شەوە لێبوردنی خودایە. زۆر دووبارەی بکەرەوە لە دە شەوی کۆتایی، لە نوێژدا، لە سوجوددا، و لە نێوانیاندا، لەجیاتی ئەوەی بۆ شەوێکی خەملاندن پاشەکەوت بکرێت.",
-    ],
-    hadith: [
-      {
-        excerpt: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي.",
-      },
+      "عائیشە (خوا لێی ڕازی بێت) لە پێغەمبەری ﷺ پرسی: «O Messenger of Allah, if I know which night is the Night of Qadr, what should I say in it?» (واتای ئینگلیزی). ئەویش ئەو دوعا کورتەی لێخۆشبوونی فێر کرد کە لە خوارەوە پیشان دراوە (تیرمیزی 3513، کە تیرمیزی بە حەسەن سەحیح پلەبەندی کردووە).",
+      "ئەم دوعایە کورتە، لەبەرکردنی ئاسانە، و بە ئەنقەست دەربارەی لێخۆشبوونە نەک داواکاریی دنیایی — بیرخستنەوەیەک کە گەورەترین دەستکەوتی ئەم شەوە لێبووردنی خوایە. لە درێژایی دە شەوی کۆتاییدا زۆر دووبارەی بکەرەوە، لە نوێژدا، لە سوجدەدا و لە نێوانیاندا، نەک بیهێڵیتەوە بۆ یەک شەوی مەزەندەکراو.",
     ],
     actions: [
-      "دعای لێبوردنی سەرەوە لەبیر بگرە.",
-      "زۆر دووبارەی بکەرەوە لە دە شەوی کۆتایی، بەتایبەتی لە شەوانە تاکەکان.",
+      "دوعای لێخۆشبوونەکەی سەرەوە لەبەر بکە.",
+      "لە دە شەوی کۆتاییدا زۆر دووبارەی بکەرەوە، بەتایبەتی لە شەوە تاکەکاندا.",
+    ],
+    appLinks: [{ label: "ئەم دوعایە بکەرەوە" }],
+  },
+  {
+    title: "چۆن شەوەکە بەسەر ببەین",
+    summary: "شەونوێژ، قورئان، زیکر و دوعا، و خێر.",
+    body: [
+      "جگە لە پەرستنی دڵسۆزانە هیچ «ڕێوڕەسم»ێکی تاکی پێویست بۆ شەوی قەدر نییە، بۆیە سوننەت بە سادەیی ئەو پەرستنانە چڕتر دەکاتەوە کە پێشتر شەرعی کراون: هەستان بە شەونوێژی سوننەت (قیامولەیل / تەراویح)، خوێندنەوە و تێڕامان لە قورئان، دووبارەکردنەوەی زیکر و ئیستیغفار، و دوعاکردن — بەتایبەتی ئەو دوعایەی پێغەمبەر ﷺ فێری عائیشەی کرد. زۆرێک لە هاوەڵان و زانایانی دواتریش لەم شەوانەدا خێریان زیاد دەکرد، بە گوێرەی ئەوەی کە دەستبڵاویی خودی پێغەمبەر ﷺ لە ڕەمەزاندا دەگەیشتە لووتکە.",
+      "ئەگەر تەنها توانای کەمێکت هەیە، ئەو کەمە بە بەردەوامی بکە نەک هیچ نەکەیت: تەنانەت قیامێکی کورت، چەند لاپەڕەیەک قورئان، و دوعای لێخۆشبوون کە بە دڵسۆزی دووبارە بکرێتەوە، ئەو «ئیمان و ئیحتیساب»ـە جێبەجێ دەکەن کە فەرموودەکە باسی دەکات. ئەوانەی دەتوانن مۆڵەت لە کار وەربگرن یان گۆشەگیرییان زیاد بکەن، دەتوانن لە دە شەوی کۆتاییدا ئیعتیکاف (گۆشەگیری لە مزگەوتدا) بکەن، بە شوێنکەوتنی کرداری خودی پێغەمبەر ﷺ.",
+    ],
+    actions: [
+      "لە دە شەوی کۆتاییدا شەونوێژی زیادە (قیام/تەراویح) بکە.",
+      "هەموو شەوێک بەشێک لە قورئان بخوێنەوە و تێی ڕابمێنە.",
+      "ئیستیغفار، زیکر و دوعای لێخۆشبوون زیاد بکە.",
+      "لەم شەوانەدا هەندێک خێر بکە، تەنانەت ئەگەر کەمیش بێت.",
+    ],
+    appLinks: [
+      { label: "خوێنەری قورئان" },
+      { label: "ئەزکاری بەیانی و ئێوارە" },
+      { label: "شوێنپێهەڵگری نوێژ" },
+      { label: "زەکات و خێر" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "ئیعتیکاف لە دە شەوی کۆتاییدا",
+    summary: "گۆشەگیری لە مزگەوتدا — کرداری پێغەمبەر ﷺ لە کۆتایی ڕەمەزاندا.",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "ئیعتیکاف مانەوەیە لە مزگەوتدا بۆ پەرستن، و بڕینی سەرقاڵییە دنیاییە ئاساییەکانە بۆ ماوەیەکی دیاریکراو. پێغەمبەر ﷺ بە بەردەوامی لە دە شەوی کۆتایی ڕەمەزاندا ئیعتیکافی دەکرد، و بە پەرستنی چڕکراوە بەدوای شەوی قەدردا دەگەڕا، نەک مزگەوت بۆ کاروباری ئاسایی بەجێبهێڵێت (سەحیحی بوخاری 2026).",
+      "فێرکاریی کلاسیکی ئیعتیکافی تەواوی دە شەوی کۆتایی بە سوننەتێکی موئەککەد دادەنێت کاتێک مرۆڤ توانای هەبێت. وردەکارییەکانی ئەوەی چی دەیشکێنێت، ئایا ژنان دەتوانن لە شوێنێکی دیاریکراوی مزگەوتدا ئەنجامی بدەن، و ئەرکەکانی کار یان خێزان چۆن کاری تێدەکەن، بەپێی مەزهەب جیاوازن — ئەم ڕێبەرە تەنها کردارەکە و مەبەستەکەی دەچەسپێنێت: قورئان، نوێژ و دوعای بەردەوام لەو شەوانەدا کە ئەگەری زیاترە شەوی قەدریان تێدا بێت.",
+      "ئەگەر گۆشەگیریی تەواو لە مزگەوتدا نەکرێت، بۆشاییەکە کەم بکەرەوە: دوای تەراویح زیاتر بمێنەرەوە، بەشە ئارامترەکانی شەو لە ماڵەوە بۆ قیام و قورئان تەرخان بکە، و ئەو کاتژمێرانە لە سەرقاڵیی ناپێویست بپارێزە. پاداشتەکە بە پەرستنی دڵسۆزانەوە بەستراوە، نەک تەنها بە ناوێکی فەرمیی ئیعتیکاف.",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "ئەگەر مزگەوتەکەت ئیعتیکاف ڕێک دەخات، زوو پرسیار لە ناونووسین و ئەو ڕێسایانە بکە کە پەیڕەویان دەکەن.",
+      "ئەگەر ناتوانیت شەو بمێنیتەوە، هەر ئامادەبوونت بۆ قورئان و قیام لە دە شەوی کۆتاییدا درێژتر بکەرەوە.",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "ئیعتیکاف مەرجی وردی فیقهیی هەیە (نیەت، دەرچوون لە مزگەوت، نزیکایەتیی هاوسەری، ڕێکخستنی ژنان). پێش پابەندبوون، لەگەڵ زانایەکی شارەزای ناوچەکەت یان مزگەوتەکەت دڵنیا ببەرەوە.",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "پەرستن لەگەڵ خێزان لە دە شەوی کۆتاییدا",
+    summary: "منداڵان و ئەندامانی ماڵ بەشدار بکە بەبێ ڕاوەدوونانی ڕێکەوتێکی جێگیر.",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "دە شەوی کۆتایی دەرفەتێکن بۆ هەموو ماڵەکە، نەک تەنها بۆ ئەوانەی دەتوانن بە تەنها بێدار بمێننەوە. بە وشەی سادە واتای شەوی قەدر فێری منداڵان بکە — کە خوا یەک شەوی لە هەزار مانگ چاکتر کردووە — و بانگیان بکە بۆ کرداری کورت و ئاسان: چەند لاپەڕەیەک قورئان، بەشداریکردن لە تەراویح بە ئەندازەی توانایان، دووبارەکردنەوەی دوعای لێخۆشبوون، و بەخشینی بڕێکی کەم وەک خێر.",
+      "ئاوازەکە نەرم ڕابگرە. ئامانج هەوڵی دڵسۆزانەیە لە هەموو شەوە تاکەکاندا، نەک ماندووکردنی هەمووان بۆ یەک ڕێکەوتی مەزەندەکراوی ساڵنامە. بە نۆرە کەسێک سەرپەرشتیی زیکرێکی کورتی خێزانی بکات، پێش مەغریب نیەتێکی هاوبەش دابنێن، و ئەوەندە خەو بپارێزن کە پەرستن بەردەوام بمێنێت، نەک تەقینەوەیەکی یەک شەوە بێت و دوای ئەوە شەکەتی.",
+      "ئەوانەی سنووری چاودێری یان کاریان هەیە هێشتا بەشداری شەوەکە دەکەن بە ئامادەکردنی پارشێو، ئازادکردنی کەسانی تر بۆ نوێژی مزگەوت، یان دوعاکردن لە کاتێکدا ئەوانی تر بە نوێژەوە ڕاوەستاون — هەر بەشدارییەکی دڵسۆزانە لە گەڕانی پێکەوەیی بەدوای ئەو شەوەدا هەژمار دەکرێت.",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "وەک خێزان ڕێک بکەون کە کام شەوە تاکانە دەکەنە پێشینە بۆ قورئان و نوێژی زیادە.",
+      "پێکەوە دوعای لێخۆشبوون لەبەر بکەن و دوای مەغریب و پێش خەوتن دووبارەی بکەنەوە.",
+      "بهێڵە منداڵان لە دە شەوی کۆتاییدا سەدەقەیەکی کەم ببەخشن.",
     ],
+    appLinks: [{ label: "دوعاکانی حیسنولموسلیم" }, { label: "خوێنەری قورئان" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "سادە و دڵسۆزانە ڕایبگرە",
+    summary:
+      "ڕێکەوتە جێگیرەکان و نیشانە میللییەکان وەلا بنێ؛ سەرنج بخەرە سەر پەرستن لە هەموو شەوەکاندا.",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "دوو کرداری باو هەن کە باشترە خۆتیان لێ بپارێزیت چونکە لەوە تێدەپەڕن کە دەقەکان چەسپاندوویانە. یەکەم، دانانی یەک ڕێکەوتی چاپکراو وەک شەوی قەدر بە دڵنیایی — فەرموودەکان بە ئەنقەست لە نێوان چەند شەوێکی تاکدا جێیان هێشتووە، نەک یەک ڕۆژی ساڵنامە، و ئەمە بەپێی بینینی مانگ و شوێن جیاوازە. دووەم، ڕاوەدوونانی «نیشانە» میللییەکان (خەونێکی دیاریکراو، شەوێکی بە شێوەیەکی نائاسایی بێدەنگ، ئاژەڵان کە ڕەفتاری سەیر دەکەن) وەک بەڵگە بۆ هاتنی ئەو شەوە — ئەمانە بە فەرموودەی بەهێز پشتگیری ناکرێن و دەتوانن سەرنج لەو پەرستنە ڕاستەقینەیە لابدەن کە شەوەکە داوای دەکات.",
+      "پوختەی کردەیی سادەیە: پەرستنەکەت بە بەردەوامی لە هەموو دە شەوی کۆتاییدا زیاد بکە، دوعای لێخۆشبوون زۆر بڵێ، و بهێڵە ڕەحمەتی خوا — نەک ڕێکەوتێکی مەزەندەکراو — جەختی سەرەکی بێت. ئەگەر بە ئاگاییەوە نەگەیشتیتە ئەو شەوە، هەوڵی دڵسۆزانە لە درێژایی شەوەکاندا خۆی پاداشتێکی زۆری هەیە.",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "ئەمە ناوەڕۆکێکی فێرکاریی گشتییە کە فێرکاریی سوننەی سەرەکی لە قورئان و فەرموودە سەحیحەکانەوە پوخت دەکاتەوە. فەتوا نییە. بۆ حوکمەکانی ئیعتیکاف، نوێژە قەزاکان، یان بارودۆخی تایبەتی خۆت، پرس بە زانایەکی شارەزای ناوچەکەت بکە.",
   },
 ];

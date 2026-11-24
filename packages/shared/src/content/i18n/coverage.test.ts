@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { SCRIPTURE_MEANING_CONTENT_KEYS } from "../../i18n/scripture-meaning";
 import * as content from "../index";
 import * as overlays from "./all-overlays";
 import { PROTECTED_CONTENT_KEYS } from "./localize";
@@ -6,6 +7,8 @@ import { parseOverlayExportName } from "./overlay-locale";
 
 const OMITTED_KEYS = new Set([
   ...PROTECTED_CONTENT_KEYS,
+  /** D45: scripture meaning text is never translated in overlays (dataset or labelled English). */
+  ...SCRIPTURE_MEANING_CONTENT_KEYS,
   "label",
   "transliteration",
   "arabic",
@@ -92,7 +95,31 @@ function countTranslatedStrings(base: unknown, overlay: unknown): { total: numbe
   return { total, done };
 }
 
+/** Every object key path inside an overlay value (for the D45 guard). */
+function findScriptureKeys(value: unknown, path: string, out: string[]): string[] {
+  if (Array.isArray(value)) {
+    value.forEach((item, i) => {
+      findScriptureKeys(item, `${path}[${i}]`, out);
+    });
+  } else if (value && typeof value === "object") {
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      if (SCRIPTURE_MEANING_CONTENT_KEYS.has(k)) out.push(`${path}.${k}`);
+      findScriptureKeys(v, `${path}.${k}`, out);
+    }
+  }
+  return out;
+}
+
 describe("Learn content translation overlays", () => {
+  it("carry no scripture meaning text (D45 — dataset translation or labelled English only)", () => {
+    const offenders: string[] = [];
+    for (const [exportName, value] of Object.entries(overlayBag)) {
+      if (!parseOverlayExportName(exportName)) continue;
+      findScriptureKeys(value, exportName, offenders);
+    }
+    expect(offenders.slice(0, 20)).toEqual([]);
+  });
+
   it("covers every area that has an overlay stub", () => {
     expect(pairs.length).toBeGreaterThan(10);
   });

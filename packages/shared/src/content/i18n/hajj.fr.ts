@@ -13,18 +13,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurayrah a rapporté que le Messager d'Allah ﷺ a dit : « Celui qui accomplit le Hajj pour Allah, sans rapports sexuels ni péché, revient comme le jour où sa mère l'a mis au monde » (Sahih al-Bukhari 1521 ; Sahih Muslim 1350).",
       "Il a aussi dit : « Un Hajj accepté (Hajj mabrur) n'a d'autre récompense que le Paradis » (Sahih al-Bukhari 1773 ; Sahih Muslim 1349). L'acceptation dépend de la sincérité et du fait de garder le pèlerinage exempt de turpitude et de désobéissance — pas seulement d'accomplir les actes extérieurs.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui accomplit le Hajj pour Allah, sans rapports sexuels ni péché, revient comme le jour où sa mère l'a mis au monde.",
-      },
-      {
-        excerpt:
-          "Celui qui accomplit le Hajj pour Allah, sans rapports sexuels ni péché, revient comme le jour où sa mère l'a mis au monde.",
-      },
-      { excerpt: "Un Hajj accepté n'a d'autre récompense que le Paradis." },
-      { excerpt: "Un Hajj accepté n'a d'autre récompense que le Paradis." },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Formez l'intention du Hajj uniquement pour Allah — gardez votre langue et votre caractère tout au long du voyage.",
       "Utilisez la checklist Hajj de l'application seulement comme aide-mémoire ; gardez le cœur tourné vers l'acceptation.",
@@ -38,16 +27,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurayrah a rapporté que le Prophète ﷺ a dit : « L'accomplissement d'une Umrah expie les péchés commis entre elle et la précédente, et un Hajj accepté n'a d'autre récompense que le Paradis » (Sahih al-Bukhari 1773 ; Sahih Muslim 1349).",
       "L'Umrah peut être accomplie à tout moment de l'année. Elle est plus courte que le Hajj, mais reste un grand acte d'adoration : ihram, tawaf, sa'i, puis rasage ou coupe des cheveux.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "L'accomplissement d'une Umrah expie les péchés commis entre elle et la précédente, et un Hajj accepté n'a d'autre récompense que le Paradis.",
-      },
-      {
-        excerpt:
-          "L'accomplissement d'une Umrah expie les péchés commis entre elle et la précédente, et un Hajj accepté n'a d'autre récompense que le Paradis.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ouvrez la checklist Umrah lorsque vous êtes prêt à parcourir les rites dans l'ordre.",
     ],
@@ -60,14 +40,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Abd al-Rahman ibn Ya'mar a rapporté que le Prophète ﷺ a dit : « Le Hajj, c'est Arafah » (Sunan Abi Dawud 1949 ; Jami' at-Tirmidhi 889). Quiconque manque le stationnement dans les limites d'Arafah en son temps a manqué le Hajj de cette année.",
       "Pour ceux qui ne sont pas en pèlerinage, jeûner le jour d'Arafah est fortement recommandé : Abu Qatadah a rapporté que ce jeûne expie les péchés de l'année passée et de l'année à venir (Sahih Muslim 1162). Les pèlerins eux-mêmes ne jeûnent pas afin de consacrer la journée à la dua.",
     ],
-    hadith: [
-      { excerpt: "Le Hajj, c'est Arafah." },
-      { excerpt: "Le Hajj, c'est Arafah." },
-      {
-        excerpt:
-          "Jeûner le jour d'Arafah, j'espère d'Allah, expie les péchés de l'année qui le précède et de celle qui le suit.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Le Hajj — le cinquième pilier",
@@ -77,25 +50,8 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "L'appel fut lancé à tous : « Et proclame aux gens le Hajj ; ils viendront à toi à pied et sur toute monture maigre ; ils viendront de tout chemin lointain » (Coran 22:27).",
       "Ibn Umar a rapporté que le Prophète ﷺ a dit que l'Islam repose sur cinq piliers : la shahada, la salah, la zakat, le jeûne de Ramadan et le Hajj à la Maison pour quiconque en a les moyens (Sahih al-Bukhari 8 ; Sahih Muslim 16). Les savants s'accordent à le rendre obligatoire une fois dans la vie lorsque les conditions sont réunies ; le répéter est une vertu surérogatoire.",
     ],
-    quran: [
-      {
-        excerpt: "Et aux gens incombe un pèlerinage à la Maison, pour quiconque en a les moyens…",
-      },
-      {
-        excerpt:
-          "Et proclame aux gens le Hajj ; ils viendront à toi à pied et sur toute monture maigre…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "L'Islam repose sur cinq piliers : témoigner qu'il n'y a de divinité qu'Allah et que Muhammad est le Messager d'Allah, accomplir la salah, donner la zakat, jeûner Ramadan et accomplir le Hajj à la Maison pour quiconque en a les moyens.",
-      },
-      {
-        excerpt:
-          "L'Islam repose sur cinq piliers… et le Hajj à la Maison pour quiconque en a les moyens.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "L'aptitude (istita'ah)",
@@ -104,7 +60,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "La condition du Coran 3:97 est l'aptitude (istita'ah). Les savants classiques la résument ainsi : santé physique pour le voyage, richesse licite suffisante pour le trajet et les besoins des personnes à charge pendant l'absence, et route sûre et ouverte.",
       "Quiconque manque de ces moyens cette année n'est pas pécheur s'il retarde jusqu'à être apte. L'aptitude se juge au cas par cas — maladie, dette à rembourser ou voyage dangereux peuvent lever l'obligation immédiate. Consultez un savant qualifié si votre situation n'est pas claire.",
     ],
-    quran: [{ excerpt: "…pour quiconque en a les moyens." }],
+    quran: [{}],
     actions: [
       "Réglez les dettes obligatoires et organisez l'entretien de vos personnes à charge avant de réserver.",
       "Vérifiez les forfaits uniquement par les canaux officiels (voir les sujets de préparation).",
@@ -118,16 +74,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas a rapporté que le Prophète ﷺ a dit qu'une femme ne doit voyager qu'avec un mahram, et qu'un homme ne doit entrer chez elle sans la présence d'un mahram (Sahih al-Bukhari 1862 ; Sahih Muslim 1341). De nombreux savants appliquent cela au voyage pour le Hajj et l'Umrah.",
       "Certains savants tardifs — en pesant la sécurité, la nécessité et les moyens de transport contemporains — autorisent une femme à voyager pour le Hajj obligatoire au sein d'un groupe digne de confiance lorsqu'aucun mahram n'est disponible. Cela reste une question de fiqh contestée.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Une femme ne doit voyager qu'avec un mahram, et un homme ne doit entrer chez elle sans qu'un mahram soit avec elle.",
-      },
-      {
-        excerpt:
-          "Il n'est pas licite pour une femme qui croit en Allah et au Jour Dernier de voyager une journée et une nuit sans mahram.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "La majorité considère qu'une femme a besoin d'un mahram pour voyager en pèlerinage. Certains savants tardifs autorisent le voyage dans un groupe sûr de femmes pour le Hajj obligatoire. Suivez un savant en qui vous avez confiance et les règlements de votre autorité du Hajj.",
     disclaimer: "Ceci est un aperçu général, pas une fatwa personnelle pour votre situation.",
@@ -141,12 +88,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu' : accomplir une Umrah complète pendant les mois du Hajj, sortir de l'ihram, puis entrer à nouveau en ihram pour le Hajj le 8 Dhul-Hijjah. C'est ce que font la plupart des pèlerins aujourd'hui ; cela exige aussi un hady.",
       "Allah dit à propos de ceux qui combinent les rites : « …Quiconque profite de l'Umrah pour [accomplir] le Hajj, ce qui peut être obtenu facilement en animaux sacrificiels… » et ceux qui ne peuvent pas se le permettre jeûnent trois jours pendant le Hajj et sept au retour (Coran 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Et accomplissez le Hajj et l'Umrah pour Allah… Quiconque profite de l'Umrah pour [accomplir] le Hajj, ce qui peut être obtenu facilement en animaux sacrificiels. Et quiconque n'en trouve pas — alors un jeûne de trois jours pendant le Hajj et de sept au retour…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Décidez de votre type avec le responsable de votre groupe avant le miqat.",
       "Si vous faites le Tamattu', accomplissez l'Umrah entièrement avant de rentrer en ihram pour le Hajj.",
@@ -161,16 +103,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas a rapporté que le Prophète ﷺ a fixé les miqats pour les gens : Dhul-Hulayfah pour Madinah, Al-Juhfah pour la Syrie, Qarn al-Manazil pour Najd, Yalamlam pour le Yémen ; et pour ceux d'Irak, Dhat 'Irq. Il a dit que ceux-ci sont pour eux et pour quiconque les atteint en voulant le Hajj ou l'Umrah ; et quiconque habite à l'intérieur entre en ihram d'où il part, y compris les habitants de Makkah depuis Makkah (Sahih al-Bukhari 1524 ; Sahih Muslim 1181).",
       "Les aéroports et ports modernes ont des points d'ihram correspondants ou des procédures annoncées — suivez les consignes de votre transporteur et du ministère du Hajj et de l'Umrah afin de ne pas dépasser la limite sans ihram.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le Messager d'Allah ﷺ a fixé Dhul-Hulayfah pour les habitants de Madinah, Al-Juhfah pour ceux de Syrie, Qarn al-Manazil pour ceux de Najd et Yalamlam pour ceux du Yémen… Ces miqats sont pour les habitants de ces lieux et pour ceux qui les atteignent en voulant le Hajj ou l'Umrah…",
-      },
-      {
-        excerpt:
-          "Le Messager d'Allah ﷺ a désigné les miqats… Quiconque habite à l'intérieur de ces limites entre en ihram d'où il part…",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Entrer en ihram",
@@ -180,17 +113,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Les hommes peuvent appliquer du parfum sur le corps avant l'ihram, pas sur les vêtements d'ihram après être entrés dans l'état (Sahih al-Bukhari 1539). Puis formez l'intention et commencez la talbiyah.",
       "La talbiyah enseignée par le Prophète ﷺ est : « Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak » — à répéter jusqu'au début du tawaf pour l'Umrah, ou jusqu'à la lapidation de Jamrat al-Aqaba pour le Hajj selon la pratique bien connue (Sahih al-Bukhari 1549 ; Sahih Muslim 1184).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aishah a dit : Je parfumais le Messager d'Allah ﷺ pour son ihram avant qu'il n'entre en ihram…",
-      },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      { excerpt: "Le Prophète ﷺ élevait la voix avec la talbiyah : Labbayk Allahumma labbayk…" },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Emportez au moins deux ensembles d'ihram pour les hommes ; gardez des produits sans parfum à portée de main.",
       "Entraînez-vous à la talbiyah avant le voyage pour qu'elle coule naturellement sur la route.",
@@ -228,12 +151,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Les hommes font le raml (allure rapide) pendant les trois premiers tours et l'idtiba' (épaule droite découverte) lors de ce tawaf d'arrivée pour l'Umrah, selon la Sunnah bien connue.",
       "Entre le coin yéménite et la Pierre Noire, il est recommandé de dire : « Notre Seigneur, accorde-nous le bien ici-bas et le bien dans l'au-delà, et préserve-nous du châtiment du Feu » (Coran 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Notre Seigneur, accorde-nous le bien ici-bas et le bien dans l'au-delà, et préserve-nous du châtiment du Feu.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Deux rakahs et Zamzam",
@@ -242,7 +160,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Après le tawaf, priez deux rakahs derrière Maqam Ibrahim si l'espace le permet, ou ailleurs dans la mosquée si la foule est dense — conformément aux paroles d'Allah : « …Et prenez, [ô croyants], du lieu debout d'Ibrahim un lieu de prière… » (Coran 2:125).",
       "Puis buvez de l'eau de Zamzam. La description du Hajj du Prophète ﷺ par Jabir inclut la consommation de Zamzam après le tawaf ; le Prophète ﷺ a dit que Zamzam sert à ce pour quoi on le boit (rapports authentiques compilés par des savants tardifs ; considérez l'intention et la dua comme recommandées).",
     ],
-    quran: [{ excerpt: "…Et prenez, [ô croyants], du lieu debout d'Ibrahim un lieu de prière…" }],
+    quran: [{}],
   },
   {
     title: "Sa'i entre Safa et Marwah",
@@ -251,12 +169,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Allah dit : « As-Safa et al-Marwah font certes partie des symboles d'Allah. Quiconque accomplit le Hajj à la Maison ou l'Umrah n'encourt aucun reproche à les parcourir… » (Coran 2:158).",
       "Marchez sept fois entre Safa et Marwah en commençant à Safa. À Safa, face à la Ka'bah, levez les mains en takbir et dua comme l'a fait le Prophète ﷺ. Les hommes trottent entre les marqueurs verts.",
     ],
-    quran: [
-      {
-        excerpt:
-          "As-Safa et al-Marwah font certes partie des symboles d'Allah. Quiconque accomplit le Hajj à la Maison ou l'Umrah n'encourt aucun reproche à les parcourir…",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq ou taqsir — achever l'Umrah",
@@ -266,16 +179,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Les hommes rasent la tête (halq) — pour quoi le Prophète ﷺ a prié trois fois — ou coupent uniformément (taqsir). Les femmes rassemblent leurs cheveux et coupent environ la longueur d'un bout de doigt. Avec cela, l'Umrah est achevée et les restrictions de l'ihram sont levées.",
       "Abdullah ibn Umar a rapporté que le Messager d'Allah ﷺ a dit : « Ô Allah, fais miséricorde à ceux qui se rasent la tête. » Ils dirent : « Et ceux qui coupent, ô Messager d'Allah ? » Il dit : « Ô Allah, fais miséricorde à ceux qui se rasent la tête. » Ils dirent : « Et ceux qui coupent, ô Messager d'Allah ? » Il dit une troisième fois : « Et ceux qui coupent » (Sahih al-Bukhari 1727 ; Sahih Muslim 1301).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ô Allah, fais miséricorde à ceux qui se rasent la tête… Et (la troisième fois) ceux qui coupent.",
-      },
-      {
-        excerpt:
-          "Ô Allah, pardonne à ceux qui se rasent la tête… puis il dit la troisième fois : et ceux qui coupent leurs cheveux.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 Dhul-Hijjah — jour de Tarwiyah",
@@ -284,12 +188,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Pour les pèlerins en Tamattu' : formez l'intention pour le Hajj et entrez à nouveau en ihram depuis votre résidence à Makkah, en renouvelant la talbiyah. Les pèlerins en Ifrad et Qiran sont déjà en ihram.",
       "Allez à Mina et priez Dhuhr, Asr, Maghrib, Isha et le Fajr suivant, chacune raccourcie à deux rakahs à son heure, suivant la pratique du Prophète ﷺ lors du Hajj d'adieu rapportée par Jabir (Sahih Muslim 1218). Passez la journée et la nuit dans l'adoration en attendant Arafah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Long récit de Jabir sur le Hajj d'adieu du Prophète ﷺ — incluant le séjour à Mina et la séquence des rites.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Ouvrez la checklist Hajj le matin du 8."],
     appLinks: [{ label: "Checklist Hajj" }],
   },
@@ -301,13 +200,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Priez Dhuhr et Asr ensemble et raccourcies à l'heure de Dhuhr (jam' taqdim), puis consacrez le reste de la journée à la dua plutôt qu'à la prière surérogatoire — suivant la pratique du Prophète ﷺ (Sahih Muslim 1218).",
       "Après le coucher du soleil, partez calmement pour Muzdalifah. Combinez Maghrib et Isha (Isha raccourcie), reposez-vous la nuit et ramassez des cailloux pour la lapidation. Les faibles et les femmes peuvent quitter pour Mina après minuit selon des permissions bien connues dans la Sunnah.",
     ],
-    hadith: [
-      { excerpt: "Le Hajj, c'est Arafah." },
-      {
-        excerpt:
-          "Le Prophète ﷺ a combiné Dhuhr et Asr à Arafah, puis est parti après le coucher du soleil vers Muzdalifah…",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 Dhul-Hijjah — jour de Nahr",
@@ -318,12 +211,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Rasez (halq) ou coupez (taqsir) ; les femmes coupent l'équivalent d'un bout de doigt. Après la lapidation et le rasage/coupe, la première libération (tahallul awwal) s'applique — la plupart des interdictions de l'ihram sont levées sauf l'intimité.",
       "Allez à Makkah pour le Tawaf al-Ifadah — pilier du Hajj — et le sa'i pour les pèlerins en Tamattu' (Ifrad/Qiran qui ont déjà fait le sa'i avec leur tawaf d'arrivée suivent la règle de leur école). Cela achève la libération complète de l'ihram.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…Quiconque profite de l'Umrah pour [accomplir] le Hajj, ce qui peut être obtenu facilement en animaux sacrificiels…",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "L'ordre des rites du jour de Nahr a de la souplesse dans la Sunnah ; les écoles diffèrent sur la séquence exacte et sur quand le sa'i est requis pour chaque type de Hajj. Suivez le guide de votre groupe.",
   },
@@ -335,22 +223,8 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Chaque après-midi après Dhuhr, lancez sept cailloux à chacun des trois piliers dans l'ordre — le petit, puis le moyen, puis le grand — en disant takbir à chaque lancer. Quiconque se hâte peut partir après la lapidation du 12 (Coran 2:203).",
       "Avant de quitter Makkah, accomplissez le Tawaf al-Wada' afin que le dernier acte avec la Maison soit l'adieu. Ibn Abbas a rapporté que les gens furent commandés que leur dernier rite soit à la Maison, sauf qu'il fut allégé pour la femme menstruée (Sahih al-Bukhari 1755 ; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Et invoquez Allah durant des jours dénombrés. Puis quiconque se hâte en deux jours — il n'y a pas de péché pour lui ; et quiconque retarde — il n'y a pas de péché pour lui — pour celui qui craint Allah…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Les gens furent ordonnés d'accomplir le tawaf d'adieu de la Ka'bah comme dernier rite, sauf les femmes menstruées qui furent dispensées.",
-      },
-      {
-        excerpt:
-          "Les gens furent commandés que leur dernier rite soit à la Maison, mais cela fut allégé pour la femme en menstrues.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Piliers et obligations",
@@ -370,12 +244,7 @@ export const HAJJ_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Le hadith du retour sans péché (Bukhari 1521 ; Muslim 1350) montre clairement que le Hajj est gâté par la turpitude (rafath), le péché (fusuq) et la dispute. Patience, douceur et aide aux autres pèlerins font partie de l'adoration.",
       "Ne laissez pas téléphones et bavardages inutiles dominer Arafah et la mosquée. Cédez le passage au tawaf ; ne poussez pas vers la Pierre Noire. Un Hajj accepté est le compagnon du Paradis — efforcez-vous d'excellent caractère tout au long du voyage.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui accomplit le Hajj pour Allah, sans rapports sexuels ni péché, revient comme le jour où sa mère l'a mis au monde.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Fixez une intention quotidienne : un acte de bonté et une dua sincère au-dessus de la foule.",
     ],

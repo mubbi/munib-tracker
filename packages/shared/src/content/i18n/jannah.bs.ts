@@ -22,37 +22,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Vjernik treba držati dvije istine zajedno. Prvo, Džennet je stvaran, blizu i vrijedan svakog truda - Kur'an nam govori da se 'trčimo' prema njemu (Kur'an 3:133). Drugo, niko ne zarađuje Džennet samo djelima; ulazak je na kraju Allahovom milošću, a iskrena vjera i dobra djela su sredstva koja je On odabrao prihvatiti. Ova ravnoteža održava nadu živom bez rađanja arogancije: trudimo se maksimalno, a zatim se prepuštamo Njegovoj milosti.",
       "Praktično, dopustite da stvarnost Dženeta oblikuje vaše dnevne izbore. Kada se ibadet učini teškim ili iskušenje postane jako, sjetite se šta vas čeka i šta je u pitanju. Često tražite od Allaha Džennet, dosljedno radite za njega na male održive načine i dopustite da čežnja za njim omekša vaše srce u ovom prolaznom životu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Trči se ka oprostu od Gospodara svoga i vrtu čija je širina nebesa i Zemlje, pripremljenom za pravednike.",
-      },
-      {
-        excerpt:
-          "Allah je vjernicima i vjernicima obećao bašče ispod kojih rijeke teku, u kojima oni vječno borave, i ugodne nastambe u baštama vječnog boravka - ali je Allahovo zadovoljstvo veće.",
-      },
-      {
-        excerpt:
-          "Nijedna duša ne zna šta je za njih skriveno utjehe kao nagrada za ono što su radili.",
-      },
-      {
-        excerpt: "Oni će u njemu imati šta god požele, a sa Nama je više.",
-      },
-      {
-        excerpt:
-          "Oni koji vjeruju i čine dobra djela - za njih su bašte utočišta kao gostoprimstvo.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah je rekao: Pripremio sam Svojim pravednim robovima ono što nijedno oko nije vidjelo, uho nije čulo i nijedno srce nije začelo.",
-      },
-      {
-        excerpt:
-          "Uzvišeni Allah je rekao: Pripremio sam Svojim pravednim robovima ono što nijedno oko nije vidjelo, uho nije čulo i nijedno ljudsko srce nikada nije opazilo.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Redovi u raju",
@@ -64,29 +35,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost u tome je predivna. Kada bismo znali svoj tačan položaj, neki bi postali samozadovoljni, a drugi bi očajali. Umjesto toga, naučeni smo da zadržimo oči na Allahu, da nastavimo da se trudimo i da se nadamo. Vjernik se takmiči u dobru — 'za ovo neka se takmiče takmičari' — a konačnu ocjenu prepušta Najpravednijem.",
       "Dakle, umjesto da ciljate na brojčani nivo, ciljajte na najviši i neka vas Allah postavi gdje hoće. Poslanik, sallallahu alejhi ve sellem, je podučio ashabe da se ne zadovoljavaju skromnim zahtjevom, već da traže posebno El-Firdavs, sam vrh Dženneta.",
     ],
-    quran: [
-      {
-        excerpt: "Za sve će postojati stepeni prema onome što su radili.",
-      },
-      {
-        excerpt:
-          "Vidite kako smo mi dali prednost nekima od njih u odnosu na druge - a Ahiret je veći po stepenu i veći po razlikama.",
-      },
-      {
-        excerpt:
-          "Ko se bude pokoravao Allahu i Poslaniku - oni će biti sa onima kojima je Allah dao naklonost: poslanicima, istinoljubima, šehidima i pravednicima. Kakvi su oni odlični saputnici!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Džennet ima stotinu nivoa koje je Allah pripremio za one koji se bore na Njegovom putu. Udaljenost između svaka dva nivoa je kao udaljenost između neba i zemlje. Dakle, kada tražite od Allaha, tražite od njega El-Firdavs, jer je to najbolji i najviši dio Dženneta.",
-      },
-      {
-        excerpt:
-          "Kada tražite od Allaha, tražite od Njega El-Firdevs, jer je to najviši dio Dženneta i sredina Dženneta, a iz njega teku džennetske rijeke, a iznad njega je Arš Najmilostiviji.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -99,16 +49,7 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Ipak, konačni i odlučujući dar je uvijek Allahova milost. U istom dahu u kojem težimo najvišem, sjećamo se Poslanikovih, sallallahu alejhi ve sellem, vlastitih riječi: niko ne ulazi u Džennet samo svojim djelima — čak ni sam Poslanik, sallallahu alejhi ve sellem — osim što ga Allah obavija svojom milošću. Ovo je savršena ravnoteža koju vjernik postiže: velika nada i ambicija s jedne strane, iskrena poniznost s druge.",
       "Zato neka El-Firdav bude redovni dio svoje dove - na sedždi, u posljednjoj trećini noći i prije spavanja - dok tiho svaki dan dajete sve od sebe i u potpunosti se oslanjate na milost svog Gospodara za ostatak.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kada tražite od Allaha, tražite od Njega El-Firdevs, jer je to najviši dio Dženneta i sredina Dženneta, a iz njega teku džennetske rijeke, a iznad njega je Arš Najmilostiviji.",
-      },
-      {
-        excerpt:
-          'Niko od vas neće ući u Džennet samo svojim djelima. Rekli su: "Čak ni ti, o Allahov Poslaniče?" Rekao je: Čak ni ja, osim ako me Allah ne pokrije svojom milošću.',
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Zamoli Allaha za El-Firdave u svojoj dovi, posebno u sudžudu i prije spavanja.",
       "Usavršite ono što vam je obavezno, a zatim povećajte dobrovoljno obožavanje.",
@@ -126,21 +67,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Takozvani 'manji' grijesi su takođe važni i nikada ih ne treba shvatati olako. Ogovaranje, laganje, arogancija, kidanje porodičnih veza i nemarnost polako nagrizaju srce i karakter. Poslanik, sallallahu alejhi ve sellem, je upozorio da mali grijesi nagomilani mogu uništiti osobu kao što mali štapići skupljeni mogu skuhati cijeli obrok. Svakom od njih je potrebno vlastito okretanje Allahu.",
       "Zaključak je nada na djelu: nikada ne dozvolite da vas veličina grijeha uvjeri da je pokajanje besmisleno. Vratite se Allahu čim se okliznete, slijedite loše djelo sa dobrim da ga izbrišete, i držite vrata istigfara otvorena svaki dan. Njegova milost je uvijek veća od vaše greške.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zaista, Allah ne oprašta druženje s Njim, ali oprašta ono što je manje od onoga kome hoće.",
-      },
-      {
-        excerpt:
-          "Reci: O robovi moji koji ste sami sebe prestupili, ne očajavajte u Allahovoj milosti. Zaista, Allah oprašta sve grijehe.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Savez između nas i njih je molitva; ko ga napusti počinio je nevjerovanje.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
     disclaimer:
       "Liste velikih grijeha u fikhu razlikuju se od učenjaka, a odluke o pojedincima pripadaju kvalifikovanim ljudima. Ovo je opći podsjetnik na pokajanje - ne lična presuda. Posavjetujte se s pouzdanim učenjakom za vašu situaciju.",
@@ -155,15 +83,7 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Osim navedenih pojedinaca, tekstovi opisuju kategorije kojima su date radosne vijesti: istinoljubivi i strpljivi, oni koji umiru kao pravi šehidi na Allahovom putu prema islamskom zakonu, i oni čije su posljednje riječi u ovom životu svjedočanstvo vjere, la ilahe illallah. Svaki opis ukazuje na unutrašnju stvarnost – iskrenost, žrtvu ili srce vezano za Allaha u posljednjem dahu – a ne samo na vanjsku etiketu.",
       "Pouka za nas nije da se osjećamo sigurno u društvu, niti da sebi prisvojimo ove činove, već da budemo inspirirani. Neka nas njihov primjer povuče gore: volite ono što su voljeli, trudite se kao što su se trudili i pretvorite to divljenje u dovu i djelovanje, tražeći od Allaha prije svega husn al-khatimah — dobar završetak.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ebu Bekr je u raju, Omer je u raju, Osman je u raju, Ali je u raju, Talha je u raju, Zubejr je u raju, Abd al-Rahman ibn Avf je u raju, Sad je u raju, Se'id ibn Zeyd je u raju, a Abd al-Rahman ibn Avf je u raju, a Abd al-Rahman ibn Awf je u raju, Se'id ibn Zejd je u raju, a Abd al-Rahman ibn Awf je u raju Raj.",
-      },
-      {
-        excerpt: "Ko god posljednja riječ bude 'Nema boga osim Allaha' ući će u Džennet.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Radosne vijesti u hadisu odnose se na one imenovane ili na opisane kategorije. Oni ne zamjenjuju potrebu za vlastitom vjerom, djelima i dobrim krajem. Allah najbolje zna.",
   },
@@ -177,21 +97,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost da tevhid postane temelj je u tome što oslobađa srce. Osoba koja obožava samo Allaha je oslobođena straha od stvaranja, jurnjave za svačijim odobravanjem i iscrpljenosti služenja mnogim gospodarima. Njegov život dobija jedan, jasan pravac: ugoditi Onome koji ga je stvorio.",
       "Praktično, naučite ispravno vjerovanje od pouzdanih učenjaka, očistite svoje obožavanje od širka i licemjerja i provjerite svoju namjeru prije nego što počnete. Ovaj prvi korak nije neobavezan niti napredan – tu počinje svaki put u raj.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Tebi i onima prije tebe je objavljeno: Ako Allahu pridružujete druge, vaša djela će sigurno propasti, i sigurno ćete biti među gubitnicima.",
-      },
-      {
-        excerpt:
-          "Nije im bilo naređeno osim da obožavaju Allaha, da budu iskreni prema Njemu u vjeri.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Radnje su samo namjere, i svaka osoba će imati samo ono što je namjeravala.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Naučite osnove tevhida od pouzdanih učenjaka.",
       "Obnovite svoju namjeru prije ibadeta.",
@@ -208,24 +115,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Dublja mudrost namaza je transformacija. Molitva, obavljena ispravno, sputava osobu od nepristojnosti i nepravde; to je opetovano resetovanje koje vuče srce natrag Allahu tokom napornog dana. Izostanak namaza bez valjanog opravdanja je stoga teška stvar koja zahtijeva iskreno pokajanje i nadoknađivanje (qada). Nafl i ravatib - redovni sunnet-namaz prije i poslije obaveznih - dodaju dodatno svjetlo i podižu nečiji rang.",
       "Praktično: zaštitite pet dnevnih namaza u njihovo vrijeme kao svoj apsolutni prioritet, nadoknadite sve što ste propustili i dodajte sunnet namaze koje možete održati. Ako se vaš namaz poboljša, sve ostalo u vašem ibadetu će se poboljšati s njim.",
     ],
-    quran: [
-      {
-        excerpt: "Zaista su uspješni vjernici - oni koji su ponizni u svojoj molitvi.",
-      },
-      {
-        excerpt: "Osim onih koji se mole — onih koji su postojani u svojoj molitvi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Prva stvar za koju će sluga biti priveden na odgovornost na Kijametskom danu je njegova molitva. Ako je dobro, on je uspio; ako je neispravan, on je propao i izgubio.",
-      },
-      {
-        excerpt:
-          "Da je na vratima jednog od vas bila rijeka u kojoj se kupao pet puta dnevno, da li bi na njemu ostala prljavština? Oni su rekli: Ne. On je rekao: To je sličnost sa pet namaza - njima Allah briše grijehe.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Čuvajte pet dnevnih namaza u njihovo vrijeme.",
       "Iskreno nadoknadite propuštene namaze (qaza).",
@@ -243,22 +134,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost je duboka: grijeh ne mora biti kraj nečije priče. 'Allah će njihova zla djela zamijeniti dobrim' (Kur'an 25:70) — iskreno pokajanje može pretvoriti zapis o neuspjehu u uspjeh, i može pretvoriti pad u novi početak koji osobu približava Allahu više nego prije. Očaj nakon grijeha je sam po sebi šejtanova zamka; nada u Allahovu milost je odgovor vjernika.",
       "Praktično: ne odgađajte pokajanje ni za jedan dan – vratite se u trenutku kada ste okliznuli. Prati svako loše djelo dobrim djelom da ga izbrišeš, i nastavi da ti istigfar teče na jeziku tokom cijelog dana, baš kao što je Poslanik, sallallahu alejhi ve sellem, tražio oprost mnogo puta dnevno uprkos tome što mu je oprošteno.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O vjernici, obratite se Allahu iskrenim pokajanjem - možda će vaš Gospodar od vas ukloniti vaša nedjela i uvesti vas u bašče ispod kojih rijeke teku.",
-      },
-      {
-        excerpt:
-          "Osim onih koji se kaju, vjeruju i čine dobra djela - za njih će Allah njihova zla djela zamijeniti dobrim, a Allah prašta i samilostan je.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah je više zadovoljan pokajanjem Svoga roba nego onaj od vas koji, izgubivši svoju kamilu u neplodnoj zemlji, iznenada je ponovo nađe.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Pokajte se odmah kada sagriješite – nemojte odlagati.",
       "Slijedite grijeh dobrim djelom da ga izbrišete.",
@@ -276,21 +153,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Dublja svrha, međutim, nije recitacija radi nje same, već transformacija. Allah nam naređuje da 'učimo Kur'an sa odmjerenim učenjem' (Kur'an 73:4) upravo tako da značenja potonu i preoblikuju način na koji mislimo, osjećamo se i ponašamo. Kur'an je poslan da se živi, ​​a ne samo da se uči; ashabi bi naučili deset stihova i ne bi krenuli dalje dok ih ne razumiju i postupe po njima.",
       "Praktično: pročitajte dio svakog dana, čak i samo nekoliko stihova, ali ih čitajte s razmišljanjem. Naučite napamet nove sure ili održavajte ono što već znate, i — što je najvažnije — postupajte prema onome što naučite prije nego što požurite naprijed da naučite više.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Oni koji čitaju Allahovu Knjigu, obavljaju namaz i troše od onoga što Mi dajemo - oni se nadaju zanatu koji nikada neće propasti, da bi im On dao njihovu nagradu u potpunosti i uvećao ih iz Svoje blagodati.",
-      },
-      {
-        excerpt: "I učite Kur'an odmjerenim učenjem.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reći će se ashabu Kur'ana: Uči i uzdiži se, i uči kao što si učio na svijetu, jer će tvoj rang biti na posljednjem ajetu koji učiš.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Čitajte svakodnevno — čak i nekoliko stihova sa razmišljanjem.",
       "Naučite napamet nove sure ili održavajte ono što znate.",
@@ -308,22 +172,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost zikra je da održava odnos sa Allahom živim između formalnih ibadeta. Jezik koji je vlažan od sjećanja i, što je još važnije, srce koje se prisjeća Allaha u svojim svakodnevnim izborima - zastajkivanje prije ljutnje, prije kupovine, prije odluke - pravi je cilj. Dhikr nije namijenjen da ostane na usnama; ima za cilj da upravlja životom.",
       "Praktično: učinite jutarnji i večernji adhkar svakodnevnu naviku, održavajte jednostavnu porciju tesbiha, istigfara ili salavata da teče tokom praznih trenutaka i sjetite se Allaha posebno prije spavanja i nakon buđenja. Konzistentnost u malom je bolja od naleta punog.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Oni koji vjeruju i čija se srca smiruju u spominjanju Allaha - zaista, u spominjanju Allaha srca nalaze mir.",
-      },
-      {
-        excerpt:
-          "O vjernici, spominjajte se Allaha s velikim sjećanjem i slavite Ga ujutro i navečer.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dvije riječi su lake na jeziku, teške na Vagi i voljene Najmilosrdnijem: SubhanAllahi wa bihamdihi, SubhanAllahil-Azeem.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Završite jutarnji i večernji adhkar dnevno.",
       "Koristite tesbeeh brojač za istigfar ili salavat.",
@@ -341,22 +191,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost dobročinstva je da ono djeluje na davaoca koliko i na primaoca. To oslobađa stisak pohlepe u srcu, gradi saosećanje, jača veze zajednice i podseća bogate da su oni poverenici, a ne pravi vlasnici. A Islam proširuje definiciju dobročinstva tako da niko nije isključen: Poslanik, sallallahu alejhi ve sellem, je učio da su osmijeh tvom bratu, korisna riječ, pa čak i uklanjanje štetnog predmeta sa puta, svi oblici sadake.",
       "Praktično: ako ste odgovorni za zekat, tačno ga izračunajte i platite; dajte neke redovne sadake, koliko god male, tako da davanje postane navika, a ne događaj; i tražite trajnu sadaku jariju – sponzorisanje učenika, finansiranje bunara ili podršku mesdžidu – koji će vas nagrađivati ​​dugo nakon što odete.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Primjer onih koji svoj imetak troše na Allahovom putu je kao zrno koje ima sedam klasova, u svakom klasju sto zrna. A Allah množi kome hoće.",
-      },
-      {
-        excerpt:
-          'Potrošite od onoga što smo vam dali prije nego što smrt dođe jednom od vas, a on kaže: "Gospodaru moj, kad bi me barem malo odgodio da bih mogao davati milostinju i biti među pravednicima."',
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kada osoba umre, njena djela se završavaju osim za tri: stalna dobročinstva, blagotvorno znanje ili pravedno dijete koje se moli za njega.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Izračunajte i platite zekat ako ste odgovorni.",
       "Dajte redovne milostinje, čak i male.",
@@ -374,25 +210,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost je da Islam nije samo privatni odnos između osobe i Allaha; ima za cilj da se pretoči u to kako se neko ophodi prema svima oko sebe. Obožavalac čija molitva ne omekšava njegovo ophođenje je promašio poentu, dok je dobar karakter sam po sebi dawah, privlačeći ljude ka vjeri kroz živi primjer. To je razlog zašto tekstovi uvijek iznova spajaju obožavanje Allaha s izvrsnošću prema Njegovom stvorenju.",
       "Praktično: radite na jednoj po jednoj osobini – ne slušajte jezik kada ste isprovocirani, oprostite onima koji su vam pogriješili, popravite vezu koju ste dopustili da se prekine i držite svoja obećanja čak i kada vas koštaju. Kratko dnevno razmišljanje nakon namaza o tome kako ste se tog dana odnosili prema ljudima je jednostavan način za stabilan rast.",
     ],
-    quran: [
-      {
-        excerpt: "I zaista, vi ste velikog i plemenitog karaktera.",
-      },
-      {
-        excerpt:
-          "Oni koji troše u lakoći i nevolji, koji obuzdavaju svoj gnjev i opraštaju ljude - a Allah voli one koji čine dobro.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ništa nije teže na vagi vjernika na Sudnjem danu od dobrog karaktera. Zaista, Allah ne voli nepristojne i grube osobe.",
-      },
-      {
-        excerpt:
-          "Najpotpuniji vjernici u vjeri su oni sa najboljim karakterom, a najbolji od vas su oni koji su najbolji prema svojim ženama.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Vježbajte strpljenje kada ste isprovocirani.",
       "Oprostite drugima i popravite narušene veze.",
@@ -408,72 +227,52 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       {
         title: "Istinoljubivost",
         summary: "Budite s istinoljubivima.",
-        quran: {
-          excerpt: "Bojte se Allaha i budite s istinoljubivima.",
-        },
+        quran: {},
       },
       {
         title: "Strpljenje",
         summary: "Tražite pomoć strpljenjem i namazom.",
-        quran: {
-          excerpt: "Tražite pomoć strpljenjem i namazom.",
-        },
+        quran: {},
       },
       {
         title: "Savladavanje srdžbe",
         summary: "Allah voli one koji savladavaju srdžbu.",
-        quran: {
-          excerpt: "One koji savladavaju srdžbu i praštaju ljudima.",
-        },
+        quran: {},
       },
       {
         title: "Praštanje",
         summary: "Oprostite i pređite preko toga.",
-        quran: {
-          excerpt: "Zar ne volite da Allah vama oprosti?",
-        },
+        quran: {},
       },
       {
         title: "Poniznost",
         summary: "Robovi Milostivog hodaju skromno.",
-        quran: {
-          excerpt: "Robovi Milostivog po zemlji hodaju skromno.",
-        },
+        quran: {},
       },
       {
         title: "Povjerljivost",
         summary: "Vratite emanete njihovim vlasnicima.",
-        quran: {
-          excerpt: "Allah vam naređuje da emanete vratite njihovim vlasnicima.",
-        },
+        quran: {},
       },
       {
         title: "Dobrota prema roditeljima",
         summary: "Lijepo postupajte prema roditeljima.",
-        quran: {
-          excerpt: "Allahu robujte i roditeljima dobro činite.",
-        },
+        quran: {},
       },
       {
         title: "Lijep govor",
         summary: "Govorite dobro ili šutite.",
-        hadith: {
-          excerpt: "Ko vjeruje u Allaha i Sudnji dan, neka govori dobro ili šuti.",
-        },
+        hadith: {},
       },
       {
         title: "Iskren osmijeh",
         summary: "Osmijeh bratu je sadaka.",
-        hadith: {
-          excerpt: "Tvoj osmijeh u lice brata jeste sadaka.",
-        },
+        hadith: {},
       },
       {
         title: "Pravednost",
         summary: "Budite pravedni; to je bliže bogobojaznosti.",
-        quran: {
-          excerpt: "Budite pravedni; to je bliže bogobojaznosti.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -513,24 +312,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost je da je djelovanje bez znanja slijepo, a znanje bez djelovanja besplodno. Ispravno znanje štiti osobu od inovacija i zabluda, produbljuje iskrenost i daje joj sposobnost da koristi drugima, a ne samo sebi. Islamski učenjaci su uvijek upozoravali na dvije opasnosti: djelovanje u neznanju i znanje bez djelovanja.",
       "Praktično: posvetite se redovnom učenju nečeg korisnog - ajet, hadis, odredba koja vam je potrebna za vaš svakodnevni ibadet. Počnite s osnovnim elementima vjerovanja, molitve, pročišćenja i glavnih zabrana, a zatim se postepeno produbljujte. Ponizno podijelite ono što naučite i uvijek to prvo primijenite na sebe.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Reci: Jesu li oni koji znaju jednaki onima koji ne znaju? Samo oni sa razumevanjem obraćaju pažnju.",
-      },
-      {
-        excerpt: "I reci: Gospodaru moj, povećaj me znanjem.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Ko krene putem u potrazi za znanjem, Allah će mu olakšati put u Džennet.",
-      },
-      {
-        excerpt:
-          "Kada osoba umre, njena djela se završavaju osim za tri: stalna dobročinstva, blagotvorno znanje ili pravedno dijete koje se moli za njega.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Svake sedmice naučite nešto korisno.",
       "Dijelite znanje bez arogancije.",
@@ -548,18 +331,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost je da nafl održava vjeru živom i da raste. Obaveze održavaju osnovnu liniju, ali dobrovoljna djela su tamo gdje se srce rasteže, gdje privatno obožavanje koje niko ne vidi gradi iskrenost i gdje se osoba obučava za teže životne testove. Također je milost što su ovi postupci fakultativni – Allah otvara mnoga vrata kako bi svako mogao proći kroz ona koja mu odgovaraju.",
       "Praktično, ključ je održivost, a ne intenzitet. Poslanik, sallallahu alejhi ve sellem, je učio da su najdraža djela Allahu najdosljednija, čak i mala. Odaberite nekoliko dobrovoljnih radnji koje možete zaista održati - dva rekata tahadžuda, jedan post sedmično, fiksni dio Kur'ana - umjesto ambicioznog rafala koji izgara za nekoliko dana.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Strane njihove napuštaju svoje postelje dok zazivaju Gospodara svoga u strahu i nadi, i troše od onoga što smo im dali. Nijedna duša ne zna koja je utjeha za njih skrivena kao nagrada za ono što su radili.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Moj sluga mi se ne približava ni sa čim što mi je draže od onoga što sam ga obavezao. I Moj sluga nastavlja da mi se približava kroz dobrovoljna djela sve dok ga ne zavolim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Klanjajte tehadžud čak i ako samo dva rekata.",
       "Brze dobrovoljne dane kada je u mogućnosti.",
@@ -577,22 +350,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Ova mudrost u potpunosti preoblikuje patnju. Suđenja nisu automatski kazne; za vjernika koji dobro reaguje, oni mogu biti pročišćenje koje briše grijehe i uzdizanje koje podiže rang. Poslanik, sallallahu alejhi ve sellem, je učio da muslimana ne zadesi umor, bolest, briga, pa čak ni ubod trna, a da Allah time ne izbriše neke od njegovih grijeha. Ovo pretvara najteže trenutke života u prilike, a ne u čisti gubitak.",
       "Praktično: kada nesreća zadesi, odgovorite riječima koje je Allah učio - 'Inna lillahi wa inna ilayhi raji'un' (Zaista mi pripadamo Allahu, i Njemu se vraćamo) - i držite jezik za zubima od prigovora koji odbacuje Njegovu odredbu. U dobrim vremenima, brojite svoje blagodati naglas i zahvaljujte Allahu na barem nekoliko njih svaki dan; davanje imena održava srce mekim i zahvalnim.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Objavite radosne vijesti bolesnicima - onima koji, kada se dogodi nesreća, kažu: Mi smo zaista Allahovi, i zaista ćemo se Njemu vratiti. Na njima su blagoslovi od njihovog Gospodara i milost, i oni su ti koji su na pravi put.",
-      },
-      {
-        excerpt:
-          "Ako ste zahvalni, sigurno ću vas povećati; ali ako poričete, zaista je Moja kazna teška.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Čudesna je stvar vjernika, jer su svi njegovi poslovi dobri. Ako dođe olakšanje, on je zahvalan, i to je dobro za njega; a ako dođe do teškoća, on je strpljiv, i to je dobro za njega. Ovo nije ni za koga osim za vjernika.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Recite 'inna lillahi wa inna ilayhi raji'un' kada se testirate.",
       "Zahvalite Allahu naglas za tri blagoslova dnevno.",
@@ -609,21 +368,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost povezivanja tako ogromne nagrade za vođenje drugih je u tome što svakog vjernika čini izvorom stalnog dobra. Također štiti vlastitu vjeru pozivaoca: pozivati ​​druge na molitvu, poštenje i obožavanje znači biti podsjećen da se i sam čvrsto držiš njih. I povezuje zajednicu u međusobnoj brizi, a ne u međusobnom zanemarivanju.",
       "Praktično, počnite blizu kuće. Poboljšajte i poučite svoju porodicu – supružnika, dijete, brata ili sestru – jer su oni vaša prva i najtrajnija odgovornost. Podijelite korisno znanje s ljubaznošću, pomozite nekome da nauči klanjati ili čitati Kur'an i zapamtite da je život dobrog karaktera i postojanog ibadeta često najuvjerljivija da'va od svih.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Pozovi na put Gospodara svoga mudro i dobrom poukom, i raspravljaj se s njima na najbolji način.",
-      },
-      {
-        excerpt:
-          "A ko je bolji u govoru od onoga koji poziva Allahu, čini dobro i govori: Ja sam, zaista, od muslimana.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Ko nekoga uputi na dobrotu, imaće nagradu kao i onaj ko to čini.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Podijelite korisno znanje sa ljubaznošću.",
       "Pomozite nekome da nauči moliti ili čitati Kur'an.",
@@ -640,26 +386,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Mudrost ovih djela je u tome što ona proširuju nečiji račun izvan njegovog životnog vijeka. Aktivne godine vjernika su kratke, ali bunar koji je iskopao ili dijete koje je dobro odgojio mogu mu vekovima zarađivati ​​nagradu. Islam na taj način potiče dugoročnu viziju: da razmišljate ne samo o današnjoj molitvi, već i o tome šta će dobro tekti od vas nakon što odete.",
       "Praktično: ako ste u mogućnosti, ozbiljno planirajte hadž ili umru umjesto da ih beskonačno odgađate. Uložite pravi trud u vjeru i karakter vaše porodice, jer su oni vaše najtrajnije naslijeđe. I identificirajte barem jedan trajni dobrotvorni projekat za podršku — znanje, vodu, sklonište ili siroče — tako da se vaša dobra djela nastave i nakon smrti.",
     ],
-    quran: [
-      {
-        excerpt:
-          "A hadž do kuće je obaveza koju Allahu duguju oni ljudi koji su u stanju da nađu put do toga.",
-      },
-      {
-        excerpt:
-          "I objavite ljudima hadž; oni će doći k vama pješice i na svakoj mršavoj devi sa svakog udaljenog prolaza, da mogu sami svjedočiti koristi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ko obavi hadž radi Allaha i ne počini nepristojnost ili prijestup, vraća se bez grijeha, kao dan kada ga je majka rodila.",
-      },
-      {
-        excerpt:
-          "Kada osoba umre, njena djela se završavaju osim za tri: stalna dobročinstva, blagotvorno znanje ili pravedno dijete koje se moli za njega.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Planirajte hadž ili umru ako ste u mogućnosti.",
       "Investirajte u vjeru i karakter vaše porodice.",
@@ -677,26 +405,8 @@ export const JANNAH_TOPICS_BS: DeepPartial<JannahTopic>[] = [
       "Zato uravnoteženi vjernik živi između nade i straha, kao ptica koja leti sa dva krila. Plaši se Allahove pravde dovoljno da nikada ne postane samozadovoljan ili bezobziran prema grijehu, i dovoljno se nada Allahovoj milosti da nikada ne očajava, bez obzira koliko daleko je zalutao. Potpuno naginjanje prema strahu rađa beznađe; potpuno naginjanje ka nadi rađa aroganciju. Allahova imena - Ar-Rahman (Najmilosrdniji), Ar-Raheem (Najmilosrdniji), Al-Ghafor (Najviše prašta) - učvršćuju krilo nade.",
       "Zato neka ovo bude duh u kojem zatvarate svaki dan: zamolite Allaha za El-Firdavsa, dajte sve od sebe, pokajte se za svoje nedostatke, a zatim svoj posljednji čin prepustite Najpravednijem i Najmilosrdnijem – vjerujući da Onaj koji je zadržao devedeset i devet dijelova milosti za taj Dan neće odbiti slugu koji Mu je došao u nastojanju i nadi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "I moja milost obuhvata sve stvari. Pa ću to odrediti onima koji su pravedni i daju zekat, i onima koji vjeruju u ajete Naše.",
-      },
-      {
-        excerpt:
-          "Reci: O robovi moji koji ste sami sebe prestupili, ne očajavajte u Allahovoj milosti. Zaista, Allah oprašta sve grijehe.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Niko od vas neće ući u Džennet samo svojim djelima. Rekli su: "Čak ni ti, o Allahov Poslaniče?" Rekao je: „Čak ni mene, osim ako me Allah ne obgrli svojom milošću.',
-      },
-      {
-        excerpt:
-          "Allah ima sto dijelova milosti. On je poslao jedan dio među džine, čovječanstvo, životinje i insekte, po čemu su samilosni jedni prema drugima; i zadržao je kod Sebe devedeset devet dijelova, kojima će na Sudnjem danu pokazati milost robovima Svojim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Uravnotežite strah od Allaha sa nadom u Njegovu milost.",
       "Nikada ne očajavajte nakon grijeha – pokajte se i nastavite s nastojanjem.",
@@ -710,104 +420,48 @@ export const JANNAH_GATES_BS: DeepPartial<JannahGate>[] = [
   {
     name: "Kapija molitve",
     deedSummary: "Za one koji su čuvali i uspostavili pet dnevnih namaza.",
-    hadith: [
-      {
-        excerpt:
-          "Ko potroši par stvari na Allahovom putu, biće pozvan sa vrata Dženneta. Ko god je bio među moliteljima, biće pozvan sa Kapije molitve.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Gate of Charity",
     deedSummary: "Za one koji su milostinju davali iskreno za Allaha radi.",
-    hadith: [
-      {
-        excerpt: "Ko god je bio među ljudima milosrđa, biće pozvan sa Vrata milosrđa.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Kapija Ar-Rayyana",
     deedSummary: "Rezervisano za one koji poste - kapiju samo oni ulaze.",
-    hadith: [
-      {
-        excerpt:
-          "U Džennetu postoji kapija koja se zove Ar-Rayyan, kroz koju će na Kijametskom danu ući samo oni koji su postili. Kada zadnji od njih uđe, biće zatvoren.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Kapija džihada",
     deedSummary: "Za one koji su se iskreno borili na Allahovom putu.",
-    hadith: [
-      {
-        excerpt: "Ko god je bio među ljudima džihada biće pozvan sa Vrata džihada.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Nagrada za hadž",
     deedSummary: "Za one koji su hadž obavili čisto, vraćajući se bez grijeha.",
-    hadith: [
-      {
-        excerpt:
-          "Ko obavi hadž radi Allaha i ne počini nepristojnost ili prijestup, vraća se bez grijeha, kao dan kada ga je majka rodila.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Zvao se sa svake kapije",
     deedSummary: "Neki će, poput Ebu Bekra, biti pozvani da uđu sa svih vrata.",
-    hadith: [
-      {
-        excerpt:
-          "Ebu Bekr je upitao: Hoće li neko biti pozvan sa svih ovih kapija? Rekao je: Da, i nadam se da ćeš biti jedan od njih.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_BS: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Trči se ka oprostu od Gospodara svoga i vrtu širokom kao nebesa i zemlja, pripremljenom za pravednike.",
-  },
-  {
-    excerpt:
-      "Bašte ispod kojih teku rijeke i ugodne nastambe u baštama vječnog boravka - ali je Allahovo zadovoljstvo veće.",
-  },
-  {
-    excerpt: "Vrtovi utočišta kao gostoprimstvo za one koji vjeruju i čine dobra djela.",
-  },
-  {
-    excerpt:
-      "Nijedna duša ne zna koja je utjeha za njih skrivena kao nagrada za ono što su radili.",
-  },
-  {
-    excerpt: "Oni će u njemu imati šta god požele, a sa Nama je više.",
-  },
-  {
-    excerpt: "Za sve će postojati stepeni prema onome što su radili.",
-  },
-  {
-    excerpt: "Oni su stepeni kod Allaha, a Allah vidi šta rade.",
-  },
-  {
-    excerpt:
-      "Gospodaru naš, daj nam dobro na ovom svijetu i dobro na onom svijetu i zaštiti nas od kazne vatre.",
-  },
-  {
-    excerpt: "Ne očajavajte u Allahovoj milosti – Allah, zaista, oprašta sve grijehe.",
-  },
-  {
-    excerpt: "Moje sluge - ovog Dana neće biti straha za vas, niti ćete tugovati.",
-  },
-  {
-    excerpt: "A preteče, preteče - to su oni koji su privedeni.",
-  },
-  {
-    excerpt: "Tako će ih Allah zaštititi od zla toga Dana i dati im sjaj i sreću.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_BS: DeepPartial<JannahDuaEntry>[] = [

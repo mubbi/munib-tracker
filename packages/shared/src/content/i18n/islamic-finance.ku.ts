@@ -2,198 +2,161 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ku overlay for islamic-finance. Index-aligned with ISLAMIC_FINANCE_TOPICS in ../islamic-finance.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const ISLAMIC_FINANCE_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What Is Islamic Finance?",
+    title: "دارایی ئیسلامی چییە؟",
     summary:
-      "An ethical lens on money, not a separate product category — this guide is education only.",
+      "ڕوانگەیەکی ئەخلاقییە بۆ پارە، نەک پۆلێکی جیاوازی بەرهەم — ئەم ڕێبەرە تەنها بۆ فێرکردنە.",
     body: [
-      "Islamic finance is not a brand of investment product; it is the application of Islamic ethics to how money is earned, lent, spent, and given away. At its core are a handful of principles: wealth is a trust from Allah rather than an end in itself, transactions must be free of exploitation and excessive uncertainty, and profit should be tied to real economic activity and shared risk rather than a guaranteed charge on a loan.",
-      "This guide introduces those principles at a general, educational level: the prohibition of riba (interest/usury), fair dealing in trade, the obligations of zakah and voluntary sadaqah, and the basic concept of takaful (cooperative insurance). It intentionally does not screen funds, list stocks or ETFs, or recommend any specific product or provider.",
-      "Modern financial products (mortgages, credit cards, insurance policies, retirement accounts, and more) are structured in many different ways, and rulings on them can depend on the exact contract terms and your jurisdiction. This guide gives you the underlying principles; for a ruling on your specific situation, speak with a qualified, certified Islamic finance scholar or institution.",
+      "دارایی ئیسلامی جۆرێک لە بەرهەمی وەبەرهێنان نییە؛ بەڵکو جێبەجێکردنی ئەخلاقی ئیسلامییە لەسەر ئەوەی پارە چۆن بەدەست دەهێنرێت، بە قەرز دەدرێت، خەرج دەکرێت و دەبەخشرێت. لە ناوەڕۆکیدا چەند بنەمایەک هەن: سامان ئەمانەتێکە لەلایەن خواوە نەک ئامانجێک بە خۆی، مامەڵەکان دەبێت دوور بن لە چەوساندنەوە و نادڵنیایی زۆر، و قازانج دەبێت بەستراو بێت بە چالاکی ئابووری ڕاستەقینە و بەشداریکردن لە مەترسیدا، نەک بڕێکی گەرەنتیکراو لەسەر قەرز.",
+      "ئەم ڕێبەرە ئەو بنەمایانە لە ئاستێکی گشتی و فێرکاریدا دەناسێنێت: قەدەغەکردنی ڕیبا (سوو)، دادپەروەری لە بازرگانیدا، ئەرکی زەکات و سەدەقەی خۆبەخشانە، و چەمکی بنەڕەتی تەکافول (بیمەی هاوکاری). بە ئەنقەست سندوقەکان ناپشکنێت، پشک یان سندوقە ئاڵوگۆڕکراوەکانی بۆرسە لیست ناکات، و هیچ بەرهەم یان دابینکەرێکی دیاریکراو پێشنیار ناکات.",
+      "بەرهەمە داراییە نوێیەکان (قەرزی خانوو، کارتی قەرز، بیمەنامە، هەژماری خانەنشینی و زیاتر) بە شێوازی زۆر جیاواز ڕێکخراون، و حوکمیان دەکرێت پەیوەست بێت بە مەرجە وردەکانی گرێبەستەکە و یاساکانی وڵاتەکەت. ئەم ڕێبەرە بنەما بنەڕەتییەکانت پێدەدات؛ بۆ حوکمێک لەسەر بارودۆخی تایبەتی خۆت، لەگەڵ زانایەکی شارەزا و بڕوانامەداری دارایی ئیسلامی یان دامەزراوەیەکی لەو جۆرە قسە بکە.",
     ],
     disclaimer:
-      "Educational content only — not financial advice and not a fatwa. It does not recommend, screen, or rate any specific fund, stock, provider, or financial product.",
+      "تەنها ناوەڕۆکی فێرکارییە — نە ئامۆژگاری داراییە و نە فەتوا. هیچ سندوق، پشک، دابینکەر یان بەرهەمێکی دارایی دیاریکراو پێشنیار ناکات، ناپشکنێت و هەڵی ناسەنگێنێت.",
   },
   {
-    title: "Wealth as a Trust (Amanah)",
-    summary: "Everything you own is ultimately Allah's — you are its steward, not its final owner.",
+    title: "سامان وەک ئەمانەت",
+    summary: "هەموو ئەوەی هەتە لە کۆتاییدا هی خوایە — تۆ چاودێرەکەیتی، نەک خاوەنی کۆتایی.",
     body: [
-      "A recurring Qur'anic theme is that wealth belongs to Allah first; a person is only its trustee (amanah) for a time, accountable for how it was earned and how it is used. This reframes money from a purely personal possession into something you will be asked about — where it came from and where it went.",
-      "Two commands anchor how that trust plays out in dealings with other people: fulfilling contracts and agreements in full, and never taking someone else's wealth through injustice, deception, or exploitation, only through fair trade by mutual consent.",
-      "Held together, these principles are why Islamic financial ethics keep returning to the same few questions: was this profit earned through real effort, risk, and value creation? Was the other party treated with full honesty? And is any obligation I've made being honoured?",
+      "بابەتێکی دووبارەبووەوەی قورئانی ئەوەیە کە سامان پێش هەموو شتێک هی خوایە؛ مرۆڤ تەنها بۆ ماوەیەک ئەمانەتداریەتی (ئەمانەت)، و بەرپرسیارە لەوەی چۆن بەدەستی هێناوە و چۆن بەکاری دەهێنێت. ئەمە پارە لە موڵکێکی تەواو کەسییەوە دەگۆڕێت بۆ شتێک کە لێت دەپرسرێتەوە — لە کوێوە هات و بۆ کوێ چوو.",
+      "دوو فەرمان بنەمای ئەوەن کە ئەو ئەمانەتە چۆن لە مامەڵە لەگەڵ خەڵکی تردا دەردەکەوێت: بەجێهێنانی تەواوی گرێبەست و ڕێککەوتنەکان، و هەرگیز نەبردنی سامانی کەسێکی تر بە ستەم، فێڵ یان چەوساندنەوە، بەڵکو تەنها لە ڕێگەی بازرگانی دادپەروەرانە بە ڕەزامەندی هەردوولا.",
+      "کاتێک پێکەوە سەیر دەکرێن، ئەم بنەمایانە هۆکاری ئەوەن کە ئەخلاقی دارایی ئیسلامی هەمیشە دەگەڕێتەوە بۆ هەمان چەند پرسیار: ئایا ئەم قازانجە بە هەوڵ، مەترسی و دروستکردنی بەهای ڕاستەقینە بەدەست هاتووە؟ ئایا لەگەڵ لایەنەکەی تر بە تەواوی ڕاستگۆیی مامەڵە کراوە؟ و ئایا هەر پابەندییەک کە داومە، بەجێ دەگەیەنرێت؟",
     ],
-    quran: [
-      {
-        excerpt: "O you who have believed, fulfil [all] contracts...",
-      },
-      {
-        excerpt:
-          "Do not consume one another's wealth unjustly but only [in lawful] business by mutual consent.",
-      },
-    ],
+    quran: [{}, {}],
   },
   {
-    title: "The Prohibition of Riba",
+    title: "قەدەغەکردنی ڕیبا",
+    summary: "ڕیبا (سوو) یەکێکە لەو مامەڵانەی کە قورئان بە توندترین شێوە ڕیسوای کردوون.",
+    body: [
+      "ڕیبا — کە بە زۆری بە سوو یان سوودی قەرز وەردەگێڕدرێت، و بە گشتی هەر زیادەیەکی پێشوەختە دیاریکراو و گەرەنتیکراوە کە لەسەر قەرز داوا دەکرێت — بە زمانێکی نائاسایی توند لە پێنج ئایەتی یەک لە دوای یەکی سوورەتی بەقەرەدا (2:275–279) قەدەغە کراوە، کە لە توندترین هۆشدارییەکانی قورئانە دەربارەی هەر بابەتێکی تاک.",
+      "ئەو بڕگەیە بە ئەنقەست بەراوردێک دەکات: «…خوا کڕین و فرۆشتنی حه‌ڵال کردوه‌و سووی حه‌رام کردووه‌…» (2:275). بازرگانی — کڕین، فرۆشتن و وەبەرهێنان کە تێیدا هەردوو لا بەشداری مەترسی و هەوڵی ڕاستەقینە دەکەن — ستایش کراوە؛ ڕیبا، بڕێکی جێگیر کە بێ گوێدانە ئەنجام قەرزدار دەبێت، ڕیسوا کراوە. سوورەتەکە پاشان فەرمان بە باوەڕداران دەکات کە بە تەواوی واز لە هەموو ڕیبایەکی ماوە بهێنن، هۆشداری لە دەرەنجامی گەورە دەدات بۆ ئەوانەی بەردەوام دەبن، و بەڵێن دەدات هەر کەسێک تەوبە بکات تەنها سەرمایە ڕەسەنەکەی خۆی بۆ دەمێنێتەوە — نە زیاتر و نە کەمتر.",
+      "ئەمە فێرکارییەکی بنەڕەتییە کە دەبێت ئاگاداری بیت، نەک لیستێک بۆ ئەوەی خۆت هەموو بەرهەمێکی دارایی نوێ پێی بپشکنیت. زانینی ئەوەی ئایا گرێبەستێکی دیاریکراو (قەرزی خانوو، قەرز، هەژماری پاشەکەوت) لە کرداردا ڕیبای تێدایە، پێویستی بە پێداچوونەوەی مەرجە ڕاستەقینەکانیەتی لەگەڵ کەسێکی شارەزا لە دارایی ئیسلامیدا.",
+    ],
+    quran: [{}],
+  },
+  {
+    title: "بۆچی بازرگانی لە سوو جیاوازە",
     summary:
-      "Riba (interest/usury) is one of the most strongly condemned transactions in the Qur'an.",
+      "قازانجی ڕەوا بەستراوە بە مەترسی و هەوڵەوە؛ ڕیبا بڕێکی گەرەنتیکراوە بێ گوێدانە ئەنجام.",
     body: [
-      "Riba — commonly translated as interest or usury, broadly any predetermined, guaranteed increase charged on a loan — is prohibited in unusually strong language across five consecutive verses of Surah al-Baqarah (2:275–279), among the most severe warnings on any single topic in the Qur'an.",
-      "The passage draws a deliberate contrast: 'Allah has permitted trade and forbidden riba' (2:275). Trade — buying, selling, and investing where both parties share genuine risk and effort — is praised; riba, a fixed charge owed regardless of outcome, is condemned. The chapter goes on to command believers to give up any outstanding riba entirely, warning of serious consequences for those who persist, while promising that whoever repents may keep only their original principal — no more, no less.",
-      "This is a foundational teaching to be aware of, not a checklist for auditing every modern financial product yourself. Working out whether a specific contract (a mortgage, a loan, a savings account) involves riba in practice requires reviewing its actual terms with someone qualified in Islamic finance.",
+      "ڕێگایەکی سادە بۆ لەبیرکردنی ئەم جیاوازییە: لە بازرگانی یان وەبەرهێنانی ڕاستەقینەدا، ئەو کەسەی سەرمایە یان کاڵا دابین دەکات بەشداری ئەنجامەکە دەکات — لەوانەیە قازانج بکات، بەڵام دەشتوانێت زیان بکات، چونکە ڕووبەڕووی ئەدای ڕاستەقینەی پرۆژەکە دەبێتەوە. لە قەرزێکی سەر بە ڕیبادا، قەرزدەر گەڕانەوەیەکی جێگیری بۆ گەرەنتی کراوە بێ گوێدانە ئەوەی پرۆژەی قەرزوەرگر سەرکەوتوو دەبێت، تووشی گرفت دەبێت یان شکست دەهێنێت.",
+      "زانستی کلاسیکی ئەمە وەک پرسی دادپەروەری دەبینێت: کەسێک کە پێویستییەکی بەپەلەی هەیە و پارە قەرز دەکات دەکرێت لە داوێکدا بمێنێتەوە کە زۆر زیاتر لەوەی قەرزی کردووە بیداتەوە، لە کاتێکدا هەموو مەترسییەکە لەسەر ئەوە و هیچی لەسەر قەرزدەر نییە — ڕێک ئەو نایەکسانییەی کە قورئان لەم دەستەواژەیەدا ڕیسوای دەکات: «خوا، سوو، ته‌فروتونا ده‌کات و به‌ره‌که‌تی لێ هه‌ڵده‌گرێت، به‌ڵام پاداشتی خێر و سامان به‌خشین بره‌و پێ ده‌دات» (2:276)، بەراوردێکی ڕاستەوخۆ لە نێوان سامانێک کە بە چەوساندنەوە دروست دەبێت و سامانێک کە بە بەخشندەیی گەشە دەکات.",
+      "ئەمە بەراوردێکی فێرکاری گشتییە، نەک حوکمێک لەسەر هیچ ئامرازێکی دیاریکراو (هەندێک پێکهاتەی نوێ بازرگانی و قەرزدان بە شێوازی ئاڵۆز تێکەڵ دەکەن). ئەوەی بەرهەمێکی دیاریکراو لە کوێی ئەم هێڵەدا دەوەستێت ڕێک ئەو جۆرە پرسیارەیە کە دەبێت بیبەیت بۆ زانایەکی شارەزای دارایی ئیسلامی یان ڕاوێژکارێکی بڕوانامەدار، نەک تەنها لە بنەما گشتییەکانەوە بڕیاری لەسەر بدەیت.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Those who consume interest cannot stand [on the Day of Resurrection]... But Allah has permitted trade and has forbidden interest... O you who have believed, fear Allah and give up what remains [due to you] of interest... But if you repent, you may have your principal — you do no wrong, nor are you wronged.",
-      },
-    ],
+    quran: [{}],
   },
   {
-    title: "Why Trade Differs from Interest",
-    summary:
-      "Legitimate profit is tied to risk and effort; riba is a guaranteed charge regardless of outcome.",
+    title: "سوننەت چەندە بە جددی سەیری ڕیبا دەکات",
+    summary: "پێغەمبەر ﷺ هۆشداری دا کە هەموو بەشداربووانی مامەڵەیەکی ڕیبا لە گوناهەکەیدا بەشدارن.",
     body: [
-      "A simple way to hold the distinction in mind: in a trade or genuine investment, the person providing capital or goods shares in the outcome — they may profit, but they can also lose, because they are exposed to the real performance of a venture. In a riba-based loan, the lender is guaranteed a fixed return regardless of whether the borrower's venture succeeds, struggles, or fails.",
-      "Classical scholarship frames this as a matter of justice: a person in urgent need who borrows money can be trapped into paying back far more than they borrowed, with the risk placed entirely on them and none on the lender — precisely the imbalance the Qur'an condemns in the phrase 'Allah destroys interest and gives increase for charities' (2:276), a direct contrast between wealth built through exploitation and wealth grown through generosity.",
-      "This is a general educational contrast, not a ruling on any specific instrument (some modern structures blur trade and lending in complex ways). Where a specific product sits on this spectrum is exactly the kind of question to bring to a qualified Islamic finance scholar or certified advisor rather than deciding from general principles alone.",
+      "جگە لە هۆشدارییەکانی خودی قورئان، پێغەمبەر ﷺ ڕوونی کردەوە کە بەرپرسیاریەتی ڕیبا تەنها لەسەر ئەو کەسە نییە کە ڕاستەوخۆ وەری دەگرێت. لە فەرموودەیەکی سەحیحدا گێڕدراوەتەوە کە ئەو ﷺ نەفرەتی کردووە لە خۆری ڕیبا، دەرەکەی، نووسەری گرێبەستەکەی، و دوو شایەتەکەی — و فەرموویەتی هەموویان لەمەدا یەکسانن.",
+      "ئەو وانەیەی بە گشتی لێی وەردەگیرێت دوورکەوتنەوەی بە کۆمەڵە، نەک تەنها لۆمەی تاکەکەسی: ڕیبا وەک شتێک سەیر دەکرێت کە هەموو مامەڵەکە، و هەموو ئەوانەی بە ئاگاییەوە تێیدا بەشدارن، دەبێت لێی دوور بکەونەوە — نەک تەنها بابەتێکی تایبەت لە نێوان قەرزدەر و قەرزوەرگردا.",
+      "وەک ئایەتە قورئانییەکان، ئەم فەرموودەیە جددیبوونی بنەماکە دەسەلمێنێت؛ بە خۆی پێت ناڵێت چۆن بەرهەمێکی دارایی نوێی دیاریکراو پۆلێن بکەیت. ئەو بڕیاردانە هی زانا شارەزاکانە کە پێداچوونەوە بە گرێبەستە ڕاستەقینەکەدا دەکەن.",
     ],
-    quran: [
-      {
-        excerpt: "Allah destroys interest and gives increase for charities.",
-      },
-    ],
+    hadith: [{}],
   },
   {
-    title: "How Seriously the Sunnah Treats Riba",
-    summary: "The Prophet ﷺ warned that everyone involved in a riba transaction shares in its sin.",
+    title: "ڕاستگۆیی لە بازرگانیدا",
+    summary: "بازرگانی ڕاستگۆ و ئەمانەتدار یەکێک لە بەرزترین پلەکانی لە ئاخیرەتدا پێدەدرێت.",
     body: [
-      "Beyond the Qur'an's own warnings, the Prophet ﷺ made clear that responsibility for riba is not limited to whoever directly charges it. In an authentic hadith, he ﷺ is reported to have cursed the one who consumes riba, the one who pays it, the one who writes the contract, and the two witnesses to it — saying they are all equal in this.",
-      "The lesson generally drawn from this is one of collective avoidance rather than individual blame alone: riba is treated as something a whole transaction, and everyone knowingly party to it, should stay away from — not merely a private matter between a lender and a borrower.",
-      "As with the Qur'anic verses, this hadith establishes the seriousness of the principle; it does not itself tell you how to classify a specific modern financial product. That judgment call belongs with qualified scholars reviewing the actual contract.",
+      "بە پێچەوانەی هۆشدارییەکانی ڕیباوە، بازرگانی ڕاستگۆیانە چەندین جار ستایش کراوە. خودی پێغەمبەر محەممەد ﷺ پێش پێغەمبەرایەتی وەک بازرگان کاری کردووە و لە مەککەدا بە نازناوی «ئەمین» — واتە «ئەمانەتدار» — ناسرابوو بەهۆی دەستپاکی لە مامەڵە بازرگانییەکاندا، زۆر پێش ئەوەی وەک پێغەمبەر بناسرێت.",
+      "ئەو ﷺ دواتر فێری کرد کە «the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs» (واتای ئینگلیزی) لە ڕۆژی دواییدا — پلەیەکی نائاسایی بەرز کە بەستراوەتەوە بە شتێکی ئاسایی وەک مامەڵەی دادپەروەرانە لە بازاڕدا.",
+      "لە کرداردا، بازرگانی دادپەروەرانە واتە: وەسفکردنی کاڵا و خزمەتگوزارییەکان بە وردی، ئاشکراکردنی کەموکوڕییە زانراوەکان نەک شاردنەوەیان، پابەندبوون بە نرخ و مەرجە ڕێککەوتووەکان، و دوورکەوتنەوە لە فێڵ، ڕیکلامی درۆ، یان قۆستنەوەی نەزانینی کڕیار یان فرۆشیار. ئەمانە هەمان ئەو هەستانەن کە لە هەر نەریتێکدا بازرگانییەکی باش و بەردەوام دروست دەکەن — ئیسلام تەنها پاداشتی هەمیشەییشیان پێوە دەبەستێت.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah's Messenger ﷺ cursed the one who consumes riba, its payer, the one who records it, and the two witnesses to it, and said: they are all equal [in this]. (Jabir)",
-      },
-    ],
+    hadith: [{}],
   },
   {
-    title: "Honesty in Trade",
-    summary: "The honest, trustworthy merchant is given one of the highest ranks in the Hereafter.",
+    title: "مامەڵەکردن لەگەڵ بەرهەمە داراییە نوێیەکان",
+    summary: "قەرزی خانوو، کارت و بیمە بە ڕاستی ئاڵۆزن — ئەم ڕێبەرە لە ئاستی بنەماکاندا دەوەستێت.",
     body: [
-      "In sharp contrast to riba's warnings, honest trade is repeatedly praised. The Prophet Muhammad ﷺ himself worked as a trader before his prophethood and was known in Makkah by the title al-Amin — 'the Trustworthy' — for his integrity in business dealings, long before he was known as a prophet.",
-      "He ﷺ later taught that 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' on the Day of Judgment — an extraordinarily high status attached to something as ordinary as fair dealing in a market.",
-      "Practically, fair trade means: describing goods and services accurately, disclosing known defects rather than hiding them, honouring agreed prices and terms, and avoiding deception, false advertising, or exploiting a buyer's or seller's lack of knowledge. These are the same instincts that make for good, sustainable business in any tradition — Islam simply ties them to eternal reward as well.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The truthful, trustworthy merchant is with the prophets, the truthful, and the martyrs. (Abu Sa'id al-Khudri)",
-      },
-    ],
-  },
-  {
-    title: "Navigating Modern Financial Products",
-    summary:
-      "Mortgages, cards, and insurance are genuinely complex — this guide stops at principles.",
-    body: [
-      "Modern financial life involves products the earliest generations of Muslims never encountered in their current form: mortgages, credit cards, retirement accounts, insurance, and investment funds structured in many different ways. Applying centuries-old principles to these products is real, careful scholarly work — not something to reason out alone from a few general verses.",
-      "Because of this, contemporary Islamic finance institutions and certified scholars specialise specifically in reviewing modern contracts for compliance with these principles, often producing detailed rulings on particular products or structures. That specialised review is outside the scope of this app.",
-      "If you're weighing a real financial decision — a home purchase, a loan, an investment, an insurance policy — the responsible next step is to consult a qualified, certified Islamic finance advisor or scholar who can look at the actual contract terms, not to rely on general educational content like this guide.",
+      "ژیانی دارایی نوێ بەرهەمگەلێکی تێدایە کە یەکەم نەوەکانی موسڵمانان هەرگیز بە شێوە ئێستاییەکەیان ڕووبەڕوویان نەبوونەتەوە: قەرزی خانوو، کارتی قەرز، هەژماری خانەنشینی، بیمە، و سندوقی وەبەرهێنان کە بە شێوازی زۆر جیاواز ڕێکخراون. جێبەجێکردنی بنەماکانی چەندین سەدە لەمەوبەر لەسەر ئەم بەرهەمانە کارێکی زانستی ڕاستەقینە و وردە — نەک شتێک کە بە تەنها لە چەند ئایەتێکی گشتییەوە دەرئەنجامی لێ وەربگریت.",
+      "لەبەر ئەمە، دامەزراوە هاوچەرخەکانی دارایی ئیسلامی و زانا بڕوانامەدارەکان بە تایبەتی پسپۆڕن لە پێداچوونەوەی گرێبەستە نوێیەکان بۆ گونجاندنیان لەگەڵ ئەم بنەمایانەدا، و زۆرجار حوکمی ورد لەسەر بەرهەم یان پێکهاتەی دیاریکراو دەردەکەن. ئەو پێداچوونەوە پسپۆڕییە لە دەرەوەی چوارچێوەی ئەم ئەپەیە.",
+      "ئەگەر بڕیارێکی دارایی ڕاستەقینە لەبەردەمتدایە — کڕینی خانوو، قەرز، وەبەرهێنان، بیمەنامە — هەنگاوی بەرپرسیارانەی داهاتوو ئەوەیە ڕاوێژ بە ڕاوێژکار یان زانایەکی شارەزا و بڕوانامەداری دارایی ئیسلامی بکەیت کە بتوانێت سەیری مەرجە ڕاستەقینەکانی گرێبەستەکە بکات، نەک پشت بە ناوەڕۆکی فێرکاری گشتی وەک ئەم ڕێبەرە ببەستیت.",
     ],
     disclaimer:
-      "This app does not evaluate, screen, or recommend any specific financial product, fund, or provider, and this guide is not a substitute for qualified professional or scholarly advice on your actual finances.",
+      "ئەم ئەپە هیچ بەرهەم، سندوق یان دابینکەرێکی دارایی دیاریکراو هەڵناسەنگێنێت، ناپشکنێت و پێشنیار ناکات، و ئەم ڕێبەرە جێگرەوەی ئامۆژگاری پسپۆڕی یان زانستی شارەزا نییە لەسەر داراییە ڕاستەقینەکانت.",
   },
   {
-    title: "Zakah: Worship Through Wealth",
-    summary:
-      "Zakah is an obligatory act of worship carried out with money rather than words or motion.",
+    title: "زەکات: پەرستش لە ڕێگەی سامانەوە",
+    summary: "زەکات پەرستشێکی فەرزە کە بە پارە ئەنجام دەدرێت نەک بە وشە یان جووڵە.",
     body: [
-      "Zakah — a fixed, obligatory annual charge on qualifying wealth above a minimum threshold (nisab) — is one of the five pillars of Islam, placing giving on the same footing as prayer and fasting rather than treating it as optional generosity.",
-      "The Qur'an consistently pairs zakah with prayer as a marker of genuine faith, and promises that those who establish both prayer and zakah 'will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.' Financially, it functions as a wealth-purification mechanism — redistributing a small, regular share of accumulated wealth to those in need rather than letting it sit idle indefinitely in a few hands.",
-      "Because the calculation depends on your specific savings, assets, and local nisab values, this app has a dedicated Zakat guide and calculator — use it directly rather than estimating from general principles here.",
+      "زەکات — بڕێکی جێگیر و فەرزی ساڵانە لەسەر ئەو سامانەی مەرجەکانی تێدایە و لە کەمترین سنوور (نیساب) زیاترە — یەکێکە لە پێنج پایەکەی ئیسلام، و بەخشین دەخاتە هەمان ئاستی نوێژ و ڕۆژووەوە، نەک وەک بەخشندەیییەکی ئارەزوومەندانە سەیری بکات.",
+      "قورئان بەردەوام زەکات لەگەڵ نوێژدا دەهێنێت وەک نیشانەی باوەڕی ڕاستەقینە، و بەڵێن دەدات بەوانەی هەم نوێژ و هەم زەکات بەجێ دەهێنن: «…ته‌نها پاداشتیان لای په‌روه‌ردگاریانه‌، ئه‌وسا نه ترس و بیمیان له‌سه‌ره‌، نه‌غه‌م و په‌ژاره ده‌یان گرێته‌وه‌» (2:277). لە ڕووی داراییەوە، وەک میکانیزمێکی پاککردنەوەی سامان کار دەکات — بەشێکی بچووک و بەردەوام لە سامانی کۆکراوە دابەش دەکاتەوە بۆ پێویستیداران، نەک بهێڵێت بێ سوود بۆ هەمیشە لە دەستی چەند کەسێکدا بمێنێتەوە.",
+      "چونکە ژماردنەکە پەیوەستە بە پاشەکەوت، سامان و بەهای نیسابی ناوچەکەتەوە، ئەم ئەپە ڕێبەر و ژمێرەرێکی تایبەتی زەکاتی هەیە — ڕاستەوخۆ ئەوە بەکاربهێنە نەک لێرەدا لە بنەما گشتییەکانەوە خەمڵاندن بکەیت.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, those who believe and do righteous deeds and establish prayer and give zakah will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.",
-      },
-    ],
+    quran: [{}],
+    appLinks: [{ label: "ڕێبەر و ژمێرەری زەکات" }],
   },
   {
-    title: "Sadaqah: Voluntary Giving",
+    title: "سەدەقە: بەخشینی خۆبەخشانە",
     summary:
-      "Beyond the obligatory zakah, any voluntary giving is called sadaqah — and it never truly costs you.",
+      "جگە لە زەکاتی فەرز، هەر بەخشینێکی خۆبەخشانە پێی دەوترێت سەدەقە — و هەرگیز بە ڕاستی هیچت لێ کەم ناکاتەوە.",
     body: [
-      "Sadaqah is voluntary charity, given in any amount, at any time, for the sake of Allah — beyond the fixed obligation of zakah. It ranges from significant financial gifts to something as small as a kind word or removing a source of harm from someone's path, all counted as forms of charity in the hadith literature.",
-      "One of the most reassuring teachings for anyone hesitant to give is the Prophet's ﷺ statement that charity does not decrease wealth — a point the Qur'an supports elsewhere by describing spending in Allah's cause as something Allah replaces and rewards, not merely something that runs out.",
-      "Practically, this reframes generosity: giving is not competing against your financial security but is presented as protecting and growing it, in ways not always visible on a balance sheet.",
+      "سەدەقە خێری خۆبەخشانەیە، بە هەر بڕێک و لە هەر کاتێکدا، لە پێناوی خوادا دەدرێت — جگە لە ئەرکی جێگیری زەکات. لە دیاری دارایی گەورەوە تا شتێکی بچووکی وەک وشەیەکی جوان یان لابردنی شتێکی زیانبەخش لە ڕێگای کەسێک دەگرێتەوە، کە هەموویان لە فەرموودەکاندا وەک جۆرەکانی خێر ژمێردراون.",
+      "یەکێک لە دڵنیاکەرەوەترین فێرکارییەکان بۆ هەر کەسێک کە دوودڵە لە بەخشین، فەرمایشتی پێغەمبەرە ﷺ کە خێر سامان کەم ناکاتەوە — خاڵێک کە قورئان لە شوێنی تردا پشتگیری دەکات بە وەسفکردنی خەرجکردن لە پێناوی خوادا وەک شتێک کە خوا قەرەبووی دەکاتەوە و پاداشتی دەداتەوە، نەک تەنها شتێک کە تەواو دەبێت.",
+      "لە کرداردا، ئەمە ڕوانینی بەخشندەیی دەگۆڕێت: بەخشین ڕکابەری ئاسایشی داراییت ناکات، بەڵکو وەک پاراستن و گەشەپێدانی پیشان دەدرێت، بە ڕێگاگەلێک کە هەمیشە لە هەژماری داراییدا دیار نین.",
     ],
-    hadith: [
-      {
-        excerpt: "Charity does not decrease wealth... (Abu Hurayrah)",
-      },
-    ],
+    hadith: [{}],
+    appLinks: [{ label: "ڕێبەری زەکات و خێر" }, { label: "ئامانجەکانی سەدەقە" }],
   },
   {
-    title: "Takaful: Cooperative Risk-Sharing",
-    summary:
-      "A high-level look at the concept behind Islamic alternatives to conventional insurance.",
+    title: "تەکافول: بەشداریکردنی هاوکارانە لە مەترسیدا",
+    summary: "سەیرکردنێکی گشتی بۆ ئەو چەمکەی لە پشت جێگرەوە ئیسلامییەکانی بیمەی ئاسایییەوەیە.",
     body: [
-      "Takaful (from an Arabic root meaning mutual guarantee) is the general concept behind Islamic approaches to insurance-like protection: a group of participants contribute to a shared fund, and that fund is used to help members who experience a covered loss, with any surplus typically shared among participants or carried forward rather than kept as a separate insurer's guaranteed profit.",
-      "The underlying idea is cooperative risk-sharing rather than risk-transfer for a guaranteed premium: participants are seen as mutually helping one another, with the fund's operator typically acting as a manager or agent for a fee rather than the risk-bearing party itself.",
-      "This is only a general, conceptual description. Actual takaful products vary widely in structure between providers and countries, and evaluating whether a specific plan is genuinely structured this way requires reviewing its actual terms with a qualified Islamic finance scholar or institution — this app does not recommend or evaluate any specific takaful (or insurance) provider or plan.",
+      "تەکافول (لە ڕەگێکی عەرەبییەوە بە واتای گەرەنتی دوولایەنە) چەمکی گشتی پشت ڕێگا ئیسلامییەکانی پاراستنی هاوشێوەی بیمەیە: کۆمەڵێک بەشداربوو بەشداری لە سندوقێکی هاوبەشدا دەکەن، و ئەو سندوقە بەکاردێت بۆ یارمەتیدانی ئەو ئەندامانەی تووشی زیانێک دەبن کە لەژێر پاراستندایە، و هەر زیادەیەک بە زۆری لە نێوان بەشداربوواندا دابەش دەکرێت یان بۆ داهاتوو دەگوازرێتەوە، نەک وەک قازانجی گەرەنتیکراوی کۆمپانیایەکی بیمەی جیاواز بمێنێتەوە.",
+      "بیرۆکە بنەڕەتییەکە بەشداریکردنی هاوکارانەیە لە مەترسیدا نەک گواستنەوەی مەترسی بەرامبەر بڕێکی گەرەنتیکراو: بەشداربووان وەک یارمەتیدەری یەکتر سەیر دەکرێن، و بەڕێوەبەری سندوقەکە بە زۆری وەک بەڕێوەبەر یان بریکار بەرامبەر کرێیەک کار دەکات، نەک خۆی ئەو لایەنە بێت کە مەترسییەکە هەڵدەگرێت.",
+      "ئەمە تەنها وەسفێکی گشتی و چەمکییە. بەرهەمە ڕاستەقینەکانی تەکافول لە پێکهاتەدا لە نێوان دابینکەران و وڵاتاندا زۆر جیاوازن، و هەڵسەنگاندنی ئەوەی ئایا پلانێکی دیاریکراو بە ڕاستی بەم شێوەیە ڕێکخراوە پێویستی بە پێداچوونەوەی مەرجە ڕاستەقینەکانی هەیە لەگەڵ زانا یان دامەزراوەیەکی شارەزای دارایی ئیسلامی — ئەم ئەپە هیچ دابینکەر یان پلانێکی دیاریکراوی تەکافول (یان بیمە) پێشنیار ناکات و هەڵی ناسەنگێنێت.",
     ],
     disclaimer:
-      "General education only. This is not a recommendation of takaful over conventional insurance, or of any specific provider or plan — consult a qualified advisor for your circumstances.",
+      "تەنها فێرکاری گشتییە. ئەمە پێشنیارکردنی تەکافول نییە لە جیاتی بیمەی ئاسایی، یان هیچ دابینکەر یان پلانێکی دیاریکراو — بۆ بارودۆخی خۆت ڕاوێژ بە ڕاوێژکارێکی شارەزا بکە.",
   },
   {
-    title: "Takaful and Conventional Insurance, Compared at a High Level",
-    summary: "The two share a purpose — managing risk — but differ in how that risk is structured.",
-    body: [
-      "Conventional insurance is typically structured as a contract where a policyholder pays a premium and the insurer, as a separate commercial party, bears the risk in exchange for that fee, often investing the premium pool in ways that may include interest-bearing instruments. Some classical scholars raised concerns about this structure touching on riba, gharar (excessive uncertainty about the payout), and the transfer of risk for a fixed fee rather than shared risk.",
-      "Takaful was developed, broadly speaking, as an attempt to address those specific concerns through a mutual, cooperative structure instead — though scholars and institutions differ on exactly which structures fully achieve that goal, and takaful providers themselves vary considerably in design.",
-      "Because both the concerns and the alternative structures involve real technical detail (and because personal circumstances such as location, coverage needs, and available providers vary enormously), this comparison is offered only as general background — not as a ruling on any specific policy you may be considering.",
-    ],
-    disclaimer:
-      "Educational comparison only, not a fatwa on insurance or takaful in general or on any specific product. Scholars hold a range of views on modern insurance structures; consult a qualified advisor for your situation.",
-  },
-  {
-    title: "FAQ: Is This Financial Advice?",
-    summary: "No — this guide teaches principles only, and cannot replace qualified advice.",
-    body: [
-      "Q: Can I use this guide to decide whether a specific loan, investment, or insurance product is permissible for me? A: No. This guide explains general Islamic principles about money — it does not review contracts, recommend products, or issue rulings. Specific financial decisions should be made with a qualified financial professional and, for questions of permissibility, a qualified Islamic finance scholar.",
-      "Q: Does this app rate or list halal stocks, funds, or ETFs? A: No, and it never will as part of this guide — fund screening and investment recommendations are outside its scope and require licensed financial expertise this content does not provide.",
-      "Q: Is this guide a fatwa? A: No. A fatwa is a specific religious ruling issued by a qualified scholar in response to a specific question and context. This guide teaches general principles only; for an actual ruling on your situation, seek out a qualified, trusted scholar directly.",
-    ],
-    disclaimer:
-      "This entire guide is educational content, not financial advice and not a fatwa. Always consult qualified financial and religious professionals for decisions about your own money.",
-  },
-  {
-    title: "FAQ: How Do I Find Shariah-Compliant Options?",
+    title: "تەکافول و بیمەی ئاسایی، بەراوردێکی گشتی",
     summary:
-      "Look for certified expertise, not a list — this app intentionally doesn't provide one.",
+      "هەردووکیان یەک مەبەستیان هەیە — بەڕێوەبردنی مەترسی — بەڵام لە چۆنیەتی ڕێکخستنی ئەو مەترسییەدا جیاوازن.",
     body: [
-      "Q: Where can I find a list of halal banks, funds, or investment platforms? A: Not in this app, by design — product lists change constantly, vary drastically by country, and require ongoing compliance monitoring that only specialised institutions can properly maintain. Look instead for institutions with a genuine, named Shariah supervisory board and published compliance methodology.",
-      "Q: How do I know if a scholar or certification is legitimate? A: Look for scholars or boards recognised by established Islamic finance standard-setting bodies in your region or internationally, rather than informal online claims. A reputable institution will be transparent about who reviews its products and how.",
-      "Q: What should I do if I can't find any Islamic finance options where I live? A: This is a real and common situation. Discuss it with a knowledgeable local imam or scholar — they can help you weigh the available options for your specific circumstances, since guidance here can depend heavily on what alternatives genuinely exist for you.",
+      "بیمەی ئاسایی بە زۆری وەک گرێبەستێک ڕێکخراوە کە تێیدا خاوەن بیمەنامە بڕێک (پرێمیۆم) دەدات و کۆمپانیای بیمە، وەک لایەنێکی بازرگانی جیاواز، مەترسییەکە هەڵدەگرێت بەرامبەر ئەو کرێیە، و زۆرجار پارە کۆکراوەکە بە شێوازگەلێک وەبەرهێنان دەکات کە لەوانەیە ئامرازی سوودداریشی تێدابێت. هەندێک لە زانایانی کلاسیکی نیگەرانییان دەربڕیوە کە ئەم پێکهاتەیە پەیوەندی بە ڕیبا، غەرەر (نادڵنیایی زۆر دەربارەی پارەی قەرەبوو)، و گواستنەوەی مەترسی بەرامبەر کرێیەکی جێگیر لە جیاتی مەترسی هاوبەشەوە هەیە.",
+      "تەکافول، بە گشتی، وەک هەوڵێک پەرەی پێدرا بۆ چارەسەرکردنی ئەو نیگەرانییە دیاریکراوانە لە ڕێگەی پێکهاتەیەکی دوولایەنە و هاوکارانەوە — هەرچەندە زانایان و دامەزراوەکان جیاوازن لەسەر ئەوەی کام پێکهاتە بە تەواوی ئەو ئامانجە دەپێکێت، و خودی دابینکەرانی تەکافولیش لە دیزایندا زۆر جیاوازن.",
+      "چونکە هەم نیگەرانییەکان و هەم پێکهاتە جێگرەوەکان وردەکاری تەکنیکی ڕاستەقینەیان تێدایە (و چونکە بارودۆخی کەسی وەک شوێن، پێداویستی پاراستن و دابینکەرانی بەردەست زۆر جیاوازن)، ئەم بەراوردە تەنها وەک زانیاری گشتی پێشکەش دەکرێت — نەک وەک حوکمێک لەسەر هیچ بیمەنامەیەکی دیاریکراو کە لەوانەیە بیری لێ بکەیتەوە.",
+    ],
+    disclaimer:
+      "تەنها بەراوردێکی فێرکارییە، نەک فەتوا لەسەر بیمە یان تەکافول بە گشتی یان لەسەر هیچ بەرهەمێکی دیاریکراو. زانایان بۆچوونی جۆراوجۆریان هەیە دەربارەی پێکهاتەکانی بیمەی نوێ؛ بۆ بارودۆخی خۆت ڕاوێژ بە ڕاوێژکارێکی شارەزا بکە.",
+  },
+  {
+    title: "پرسیار و وەڵام: ئایا ئەمە ئامۆژگاری داراییە؟",
+    summary:
+      "نەخێر — ئەم ڕێبەرە تەنها بنەماکان فێر دەکات، و ناتوانێت جێگەی ئامۆژگاری شارەزا بگرێتەوە.",
+    body: [
+      "پرسیار: دەتوانم ئەم ڕێبەرە بەکاربهێنم بۆ بڕیاردان لەسەر ئەوەی ئایا قەرز، وەبەرهێنان یان بەرهەمێکی بیمەی دیاریکراو بۆ من دروستە؟ وەڵام: نەخێر. ئەم ڕێبەرە بنەما گشتییە ئیسلامییەکان دەربارەی پارە ڕوون دەکاتەوە — پێداچوونەوە بە گرێبەستەکاندا ناکات، بەرهەم پێشنیار ناکات، و حوکم دەرناکات. بڕیارە داراییە دیاریکراوەکان دەبێت لەگەڵ پسپۆڕێکی دارایی شارەزا بدرێن، و بۆ پرسیارەکانی حەڵاڵ و حەرام، لەگەڵ زانایەکی شارەزای دارایی ئیسلامی.",
+      "پرسیار: ئایا ئەم ئەپە پشک، سندوق یان سندوقە ئاڵوگۆڕکراوە حەڵاڵەکانی بۆرسە هەڵدەسەنگێنێت یان لیست دەکات؟ وەڵام: نەخێر، و وەک بەشێک لەم ڕێبەرە هەرگیز ناشیکات — پشکنینی سندوقەکان و پێشنیاری وەبەرهێنان لە دەرەوەی چوارچێوەکەیەتی و پێویستی بە شارەزایی دارایی مۆڵەتدار هەیە کە ئەم ناوەڕۆکە دابینی ناکات.",
+      "پرسیار: ئایا ئەم ڕێبەرە فەتوایە؟ وەڵام: نەخێر. فەتوا حوکمێکی ئایینی دیاریکراوە کە زانایەکی شارەزا لە وەڵامی پرسیار و بارودۆخێکی دیاریکراودا دەری دەکات. ئەم ڕێبەرە تەنها بنەما گشتییەکان فێر دەکات؛ بۆ حوکمێکی ڕاستەقینە لەسەر بارودۆخی خۆت، ڕاستەوخۆ بەدوای زانایەکی شارەزا و متمانەپێکراودا بگەڕێ.",
+    ],
+    disclaimer:
+      "هەموو ئەم ڕێبەرە ناوەڕۆکی فێرکارییە، نە ئامۆژگاری داراییە و نە فەتوا. هەمیشە ڕاوێژ بە پسپۆڕانی شارەزای دارایی و ئایینی بکە بۆ بڕیارەکان دەربارەی پارەی خۆت.",
+  },
+  {
+    title: "پرسیار و وەڵام: چۆن بژاردەی گونجاو لەگەڵ شەریعەت بدۆزمەوە؟",
+    summary:
+      "بەدوای شارەزایی بڕوانامەداردا بگەڕێ، نەک لیستێک — ئەم ئەپە بە ئەنقەست لیست دابین ناکات.",
+    body: [
+      "پرسیار: لە کوێ دەتوانم لیستێکی بانک، سندوق یان پلاتفۆرمی وەبەرهێنانی حەڵاڵ بدۆزمەوە؟ وەڵام: لەم ئەپەدا نا، ئەمەش بە ئەنقەستە — لیستی بەرهەمەکان بەردەوام دەگۆڕێن، لە وڵاتێکەوە بۆ وڵاتێکی تر زۆر جیاوازن، و پێویستیان بە چاودێری بەردەوامی گونجاندن هەیە کە تەنها دامەزراوە پسپۆڕەکان دەتوانن بە دروستی بیکەن. لە جیاتی ئەوە بەدوای ئەو دامەزراوانەدا بگەڕێ کە دەستەیەکی چاودێری شەرعی ڕاستەقینە و ناوبراویان هەیە و ڕێبازی گونجاندنیان بڵاو کردووەتەوە.",
+      "پرسیار: چۆن بزانم زانایەک یان بڕوانامەیەک ڕەوایە؟ وەڵام: بەدوای ئەو زانا یان دەستانەدا بگەڕێ کە لەلایەن دەزگا ناسراوەکانی دانانی ستانداردی دارایی ئیسلامی لە ناوچەکەت یان لە ئاستی نێودەوڵەتیدا دانیان پێدانراوە، نەک بانگەشە نافەرمییەکانی ئینتەرنێت. دامەزراوەیەکی بەناوبانگ ڕوون دەبێت لەسەر ئەوەی کێ پێداچوونەوە بە بەرهەمەکانیدا دەکات و چۆن.",
+      "پرسیار: چی بکەم ئەگەر لە شوێنی ژیانمدا هیچ بژاردەیەکی دارایی ئیسلامی نەدۆزیمەوە؟ وەڵام: ئەمە بارودۆخێکی ڕاستەقینە و باوە. لەگەڵ ئیمام یان زانایەکی شارەزای ناوچەکەت باسی بکە — دەتوانن یارمەتیت بدەن بژاردە بەردەستەکان بۆ بارودۆخی تایبەتی خۆت هەڵبسەنگێنیت، چونکە ڕێنمایی لێرەدا دەکرێت زۆر پەیوەست بێت بەو جێگرەوانەی کە بە ڕاستی بۆت بەردەستن.",
     ],
     actions: [
-      "Look for institutions with a named, transparent Shariah supervisory board rather than relying on marketing claims.",
+      "بەدوای ئەو دامەزراوانەدا بگەڕێ کە دەستەیەکی چاودێری شەرعی ناوبراو و ڕوونیان هەیە، نەک پشت بە بانگەشەی ڕیکلامی ببەستیت.",
     ],
   },
   {
-    title: "FAQ: Mortgages, Cards, and Loans",
-    summary: "These are exactly the questions that need a qualified scholar, not a general guide.",
+    title: "پرسیار و وەڵام: قەرزی خانوو، کارت و قەرزەکان",
+    summary: "ئەمانە ڕێک ئەو پرسیارانەن کە پێویستیان بە زانایەکی شارەزایە، نەک ڕێبەرێکی گشتی.",
     body: [
-      "Q: Is a mortgage always riba? A: Structures vary — some conventional mortgages are interest-based loans, while some providers offer alternative structures (such as diminishing partnership or lease-to-own models) intended to avoid interest. Whether a specific product achieves that in practice is a scholarly question about its actual contract, not something to assume either way.",
-      "Q: Can I use a credit card if I always pay the full balance and never incur interest? A: Scholars hold different views on this, partly because the underlying agreement may still technically involve an interest clause even if you never trigger it in practice. This is a genuine area of differing qualified opinion — ask a scholar you trust rather than assuming a single universal answer.",
-      "Q: What about student loans or other loans that may be unavoidable in some circumstances? A: Necessity and hardship are real considerations scholars weigh carefully, and views differ by circumstance and jurisdiction. If you're facing this decision, bring your specific situation to a qualified scholar rather than trying to resolve it from general reading alone.",
+      "پرسیار: ئایا قەرزی خانوو هەمیشە ڕیبایە؟ وەڵام: پێکهاتەکان جیاوازن — هەندێک قەرزی خانووی ئاسایی قەرزی سەر بە سوون، لە کاتێکدا هەندێک دابینکەر پێکهاتەی جێگرەوە پێشکەش دەکەن (وەک هاوبەشیی کەمبووەوە یان مۆدێلی بەکرێدان تا خاوەندارێتی) کە مەبەستیان دوورکەوتنەوەیە لە سوو. ئەوەی ئایا بەرهەمێکی دیاریکراو لە کرداردا ئەمە بەدی دێنێت پرسیارێکی زانستییە دەربارەی گرێبەستە ڕاستەقینەکەی، نەک شتێک کە بە هیچ لایەکدا گریمانەی بکەیت.",
+      "پرسیار: دەتوانم کارتی قەرز بەکاربهێنم ئەگەر هەمیشە تەواوی بڕەکە بدەمەوە و هەرگیز سوو نەدەم؟ وەڵام: زانایان بۆچوونی جیاوازیان لەسەر ئەمە هەیە، بەشێکی لەبەر ئەوەی ڕێککەوتنە بنەڕەتییەکە لەوانەیە هێشتا لە ڕووی تەکنیکییەوە مەرجێکی سوودی تێدابێت تەنانەت ئەگەر لە کرداردا هەرگیز نەیچالاک بکەیت. ئەمە بوارێکی ڕاستەقینەی جیاوازی بۆچوونی شارەزایانە — لە زانایەک بپرسە کە متمانەت پێیەتی، نەک گریمانەی یەک وەڵامی گشتگیر بکەیت.",
+      "پرسیار: ئەی قەرزی خوێندن یان قەرزەکانی تر کە لەوانەیە لە هەندێک بارودۆخدا ناچاری بن؟ وەڵام: ناچاری و سەختی ڕەچاوکردنی ڕاستەقینەن کە زانایان بە وردی هەڵیاندەسەنگێنن، و بۆچوونەکان بەپێی بارودۆخ و وڵات جیاوازن. ئەگەر ڕووبەڕووی ئەم بڕیارە بوویتەوە، بارودۆخی تایبەتی خۆت ببە بۆ زانایەکی شارەزا، نەک هەوڵ بدەیت تەنها لە خوێندنەوەی گشتییەوە چارەسەری بکەیت.",
     ],
     disclaimer:
-      "These are genuinely differed-upon, contract-specific questions. This FAQ only shows you what kind of question each one is — it does not answer any of them for your situation.",
+      "ئەمانە پرسیاری ڕاستەقینەی جیاوازی بۆچوونن و پەیوەستن بە گرێبەستەکەوە. ئەم پرسیار و وەڵامانە تەنها پیشانت دەدەن هەر یەکێکیان چ جۆرە پرسیارێکە — وەڵامی هیچ کامیان بۆ بارودۆخی تۆ نادەنەوە.",
   },
 ];

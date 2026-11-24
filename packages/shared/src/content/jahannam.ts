@@ -74,16 +74,16 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     importance: "foundational",
     body: [
       "Jahannam exists as a manifestation of Allah's perfect justice ('adl). A universe in which the oppressor and the oppressed, the sincere and the treacherous, all met the same end would not be just. Because Allah is the perfectly Just, there must be a final reckoning where every wrong is answered and every good is honoured.",
-      "Central to this is that Allah wrongs no one. Every soul that enters the Fire enters it by its own settled, unrepented choices — never by an arbitrary decree. The Qur'an is emphatic: 'Allah does not wrong the people at all, but the people wrong themselves' (4:40). No one is punished for what they did not do, nor beyond what is deserved.",
+      "Central to this is that Allah wrongs no one. Every soul that enters the Fire enters it by its own settled, unrepented choices — never by an arbitrary decree. The Qur'an is emphatic: 'Allah does not wrong the people at all, but the people wrong themselves' (10:44). No one is punished for what they did not do, nor beyond what is deserved.",
       "Human beings were not left in the dark. Allah gave them intellect, sent messengers, and revealed clear guidance, then honoured them with real freedom to accept or reject it: 'Whoever wills — let him believe; and whoever wills — let him disbelieve' (18:29). Persisting in the rejection of truth, in oppression, or in major sin without repentance carries consequences in the Hereafter precisely because the choice was genuinely one's own.",
       "Yet even here mercy frames justice. Allah warns before He judges, delays the reckoning to give room for return, forgives readily when asked, and rewards a single good deed many times over while recording a single sin as one. His justice is never separate from His mercy.",
       "Reflecting on why Jahannam exists should therefore increase taqwa (God-consciousness) and deepen gratitude for every day of life that is still a chance to repent. It is meant to make the heart serious and hopeful at once — never to paralyse it with despair.",
     ],
     quran: [
       {
-        surah: 4,
-        ayahFrom: 40,
-        label: "Qur'an 4:40",
+        surah: 10,
+        ayahFrom: 44,
+        label: "Qur'an 10:44",
         excerpt: "Indeed, Allah does not wrong the people at all, but the people wrong themselves.",
       },
       {

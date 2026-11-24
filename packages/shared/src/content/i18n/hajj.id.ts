@@ -14,22 +14,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurairah meriwayatkan bahwa Rasulullah ﷺ bersabda: 'Barangsiapa menunaikan haji karena Allah dan tidak bercampur dengan isteri serta tidak berbuat dosa, maka ia kembali seperti pada hari ibunya melahirkannya' (Shahih al-Bukhari 1521; Shahih Muslim 1350).",
       "Beliau juga bersabda: 'Haji mabrur tidak ada balasannya kecuali Surga' (Shahih al-Bukhari 1773; Shahih Muslim 1349). Penerimaan haji terkait dengan keikhlasan dan menjaga ibadah haji dari kekejian dan perbuatan dosa — bukan sekadar menyelesaikan langkah lahiriah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Barangsiapa menunaikan haji karena Allah dan tidak bercampur dengan isteri serta tidak berbuat dosa, maka ia kembali seperti pada hari ibunya melahirkannya.",
-      },
-      {
-        excerpt:
-          "Barangsiapa menunaikan haji karena Allah dan tidak bercampur dengan isteri serta tidak berbuat dosa, maka ia kembali seperti pada hari ibunya melahirkannya.",
-      },
-      {
-        excerpt: "Haji mabrur tidak ada balasannya kecuali Surga.",
-      },
-      {
-        excerpt: "Haji mabrur tidak ada balasannya kecuali Surga.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Niatkan haji semata-mata karena Allah — jagalah lidah dan akhlak sepanjang perjalanan.",
       "Gunakan daftar periksa Haji dalam aplikasi hanya sebagai pengingat; jaga hati tetap fokus pada penerimaan.",
@@ -47,16 +32,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Abu Hurairah meriwayatkan bahwa Nabi ﷺ bersabda: 'Umrah ke Umrah menjadi penghapus dosa di antara keduanya, dan haji mabrur tidak ada balasannya kecuali Surga' (Shahih al-Bukhari 1773; Shahih Muslim 1349).",
       "Umrah dapat dilaksanakan kapan saja sepanjang tahun. Lebih singkat daripada Haji namun tetap ibadah besar: ihram, tawaf, sa'i, dan mencukur atau memotong rambut.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Umrah ke Umrah menjadi penghapus dosa di antara keduanya, dan haji mabrur tidak ada balasannya kecuali Surga.",
-      },
-      {
-        excerpt:
-          "Umrah ke Umrah menjadi penghapus dosa di antara keduanya, dan haji mabrur tidak ada balasannya kecuali Surga.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Buka daftar periksa Umrah saat Anda siap menjalani manasik secara berurutan."],
     appLinks: [
       {
@@ -71,18 +47,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Abd ar-Rahman ibn Ya'mar meriwayatkan bahwa Nabi ﷺ bersabda: 'Haji adalah Arafah' (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Barangsiapa melewatkan wukuf dalam batas Arafah pada waktunya, telah melewatkan haji tahun itu.",
       "Bagi yang tidak sedang berhaji, puasa pada Hari Arafah adalah amalan yang sangat dianjurkan: Abu Qatadah meriwayatkan bahwa puasa Arafah menghapus dosa setahun yang lalu dan setahun yang akan datang (Shahih Muslim 1162). Jemaah haji sendiri tidak berpuasa agar dapat mengisi hari itu dengan doa.",
     ],
-    hadith: [
-      {
-        excerpt: "Haji adalah Arafah.",
-      },
-      {
-        excerpt: "Haji adalah Arafah.",
-      },
-      {
-        excerpt:
-          "Puasa pada Hari Arafah, aku berharap dari Allah, menghapus dosa setahun sebelumnya dan setahun sesudahnya.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Haji — rukun kelima",
@@ -92,26 +57,8 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       'Seruan itu disampaikan kepada seluruh manusia: "Dan serulah manusia untuk mengerjakan haji, niscaya mereka akan datang kepadamu dengan berjalan kaki dan mengendarai unta yang kurus; mereka datang dari segenap penjuru yang jauh" (Al-Qur\'an 22:27).',
       "Ibn Umar meriwayatkan bahwa Nabi ﷺ bersabda Islam dibangun atas lima hal: syahadat, salat, zakat, puasa Ramadan, dan haji ke Baitullah bagi yang mampu (Shahih al-Bukhari 8; Shahih Muslim 16). Ulama sepakat haji wajib sekali seumur hidup apabila syarat terpenuhi; mengulanginya adalah keutamaan sunnah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan (kewajiban) manusia terhadap Allah adalah mengerjakan haji ke Baitullah — bagi orang yang mampu mengadakan perjalanan ke sana...",
-      },
-      {
-        excerpt:
-          "Dan serulah manusia untuk mengerjakan haji, niscaya mereka akan datang kepadamu dengan berjalan kaki dan mengendarai unta yang kurus...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam dibangun atas lima: syahadat bahwa tidak ada ilah selain Allah dan Muhammad adalah utusan Allah, mendirikan salat, menunaikan zakat, puasa Ramadan, dan haji ke Baitullah bagi yang mampu.",
-      },
-      {
-        excerpt:
-          "Islam dibangun atas lima... dan haji ke Baitullah bagi yang mampu mengadakan perjalanan ke sana.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Kemampuan (istita'ah)",
@@ -120,11 +67,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Syarat dalam Al-Qur'an 3:97 adalah kemampuan (istita'ah). Ulama klasik merangkumnya sebagai: kesehatan jasmani untuk perjalanan, harta halal yang cukup menutup perjalanan dan kebutuhan tanggungan selama pergi, serta jalur yang aman dan terbuka.",
       "Barangsiapa tidak memiliki sarana ini tahun ini tidak berdosa menunda hingga mampu. Kemampuan dinilai case by case — sakit, utang wajib dibayar, atau perjalanan tidak aman dapat mengangkat kewajiban langsung. Tanyakan ulama yang berkompeten jika situasi Anda tidak jelas.",
     ],
-    quran: [
-      {
-        excerpt: "...bagi orang yang mampu mengadakan perjalanan ke sana.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Lunasi utang wajib dan atur nafkah tanggungan sebelum memesan.",
       "Verifikasi paket hanya melalui saluran resmi (lihat topik Persiapan).",
@@ -138,16 +81,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas meriwayatkan bahwa Nabi ﷺ bersabda wanita tidak boleh bepergian kecuali bersama mahram, dan laki-laki tidak boleh masuk menemuinya kecuali ada mahram (Shahih al-Bukhari 1862; Shahih Muslim 1341). Banyak ulama menerapkannya pada perjalanan Haji dan Umrah.",
       "Sebagian ulama mutakhir — mempertimbangkan keamanan, kebutuhan, dan perjalanan kontemporer — mengizinkan wanita bepergian untuk haji wajib dalam rombongan terpercaya apabila tidak ada mahram. Ini tetap persoalan fiqh yang diperdebatkan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Wanita tidak boleh bepergian kecuali bersama mahram, dan laki-laki tidak boleh masuk menemuinya kecuali ada mahram bersamanya.",
-      },
-      {
-        excerpt:
-          "Tidak halal bagi wanita yang beriman kepada Allah dan hari Akhir bepergian sehari semalam kecuali bersama mahram.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Mayoritas berpendapat wanita memerlukan mahram untuk perjalanan ibadah haji. Sebagian ulama mutakhir mengizinkan perjalanan dalam rombongan wanita yang aman untuk haji wajib. Ikuti ulama yang Anda percaya dan peraturan otoritas Haji Anda.",
   },
@@ -160,12 +94,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu': menunaikan Umrah penuh dalam bulan-bulan haji, keluar ihram, lalu masuk ihram lagi untuk Haji pada 8 Dzulhijjah. Inilah yang dilakukan kebanyakan jemaah hari ini; juga wajib hady.",
       'Allah berfirman tentang yang menggabungkan manasik: "...Barangsiapa ingin mengerjakan umrah sebelum haji, (hewan kurban) yang mudah didapat..." dan yang tidak mampu berpuasa tiga hari dalam haji dan tujuh setelah pulang (Al-Qur\'an 2:196).',
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan sempurnakanlah haji dan umrah karena Allah... Barangsiapa ingin mengerjakan umrah sebelum haji, (hewan kurban) yang mudah didapat. Barangsiapa tidak menemukan (hewan kurban) — maka puasa tiga hari dalam haji dan tujuh setelah pulang...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Tentukan jenis haji Anda dengan pemimpin rombongan sebelum miqat.",
       "Jika Tamattu', selesaikan Umrah penuh sebelum masuk ihram lagi untuk Haji.",
@@ -186,16 +115,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas meriwayatkan bahwa Nabi ﷺ menetapkan miqat bagi umat: Dzulhulaifah untuk Madinah, Al-Juhfah untuk Syam, Qarn al-Manazil untuk Najd, dan Yalamlam untuk Yaman; serta Dhat 'Irq bagi yang dari Irak. Beliau bersabda ini untuk mereka dan siapa saja yang melewatinya berniat Haji atau Umrah; dan siapa tinggal di dalamnya masuk ihram dari tempat berangkat, termasuk penduduk Makkah dari Makkah (Shahih al-Bukhari 1524; Shahih Muslim 1181).",
       "Bandara dan pelabuhan modern memiliki titik ihram yang sesuai atau prosedur yang diumumkan — ikuti panduan maskapai dan Kementerian Haji dan Umrah agar tidak melewati batas tanpa ihram.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasulullah ﷺ menetapkan Dzulhulaifah bagi penduduk Madinah, Al-Juhfah bagi penduduk Syam, Qarn al-Manazil bagi penduduk Najd, dan Yalamlam bagi penduduk Yaman... Miqat-miqat ini untuk penduduk tempat-tempat itu, dan bagi yang melewatinya berniat Haji atau Umrah...",
-      },
-      {
-        excerpt:
-          "Rasulullah ﷺ menetapkan miqat-miqat... Siapa tinggal di dalam batas ini hendaknya masuk ihram dari tempat berangkat...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Masuk ihram",
@@ -205,19 +125,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Laki-laki boleh memakai wewangian pada tubuh sebelum ihram, bukan pada pakaian ihram setelah masuk keadaan suci (Shahih al-Bukhari 1539). Lalu bentuk niat dan mulailah talbiyah.",
       'Talbiyah yang diajarkan Nabi ﷺ: "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni\'mata laka wal-mulk, la sharika lak" — diucapkan hingga tawaf dimulai untuk Umrah, atau hingga melempar Jamrat al-Aqaba untuk Haji menurut amalan yang masyhur (Shahih al-Bukhari 1549; Shahih Muslim 1184).',
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aisyah berkata: Aku biasa memakaikan wewangian pada Rasulullah ﷺ untuk ihramnya sebelum beliau masuk ihram...",
-      },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      {
-        excerpt: "Nabi ﷺ meninggikan suara dengan talbiyah: Labbayk Allahumma labbayk...",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Bawa minimal dua set ihram untuk laki-laki; siapkan perlengkapan mandi tanpa wangi.",
       "Latih talbiyah sebelum berangkat agar lancar di perjalanan.",
@@ -256,12 +164,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Laki-laki melakukan raml (langkah cepat) pada tiga putaran pertama dan idtiba' (membuka bahu kanan) dalam tawaf kedatangan Umrah ini, menurut sunnah yang masyhur.",
       "Antara Rukun Yamani dan Hajar Aswad dianjurkan membaca: \"Rabbana atina fid-dunya hasanah wa fil-akhirati hasanah wa qina 'adzaban-nar\" (Al-Qur'an 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Dua rakaat dan Zamzam",
@@ -270,11 +173,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       'Setelah tawaf, salat dua rakaat di belakang Maqam Ibrahim jika ada ruang, atau di tempat lain dalam masjid jika padat — sesuai firman Allah: "...Dan jadikanlah sebagian tempat berdiri Ibrahim sebagai tempat salat..." (Al-Qur\'an 2:125).',
       "Lalu minum air Zamzam. Riwayat Jabir tentang haji Nabi ﷺ mencakup minum Zamzam setelah tawaf; Nabi ﷺ bersabda Zamzam untuk apa pun niat minumnya (riwayat otentik dikumpulkan ulama mutakhir; anjurkan niat dan doa).",
     ],
-    quran: [
-      {
-        excerpt: "...Dan jadikanlah sebagian tempat berdiri Ibrahim sebagai tempat salat...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Sa'i antara Safa dan Marwah",
@@ -283,12 +182,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Allah berfirman: \"Sesungguhnya Safa dan Marwah termasuk syi'ar-syi'ar Allah. Barangsiapa mengerjakan haji ke Baitullah atau umrah, maka tidak ada dosa baginya berjalan antara keduanya...\" (Al-Qur'an 2:158).",
       "Jalan tujuh kali antara Safa dan Marwah, mulai dari Safa. Di Safa, hadap Ka'bah, angkat tangan bertakbir dan berdoa seperti Nabi ﷺ. Laki-laki berlari kecil antara penanda hijau.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Safa dan Marwah termasuk syi'ar-syi'ar Allah. Barangsiapa mengerjakan haji ke Baitullah atau umrah, maka tidak ada dosa baginya berjalan antara keduanya...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq atau taqsir — menyelesaikan Umrah",
@@ -298,15 +192,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Laki-laki mencukur kepala (halq) — yang Nabi ﷺ doakan tiga kali — atau memotong rata (taqsir). Perempuan mengumpulkan rambut dan memotong kira-kira sepanjang ujung jari. Dengan ini, Umrah selesai dan larangan ihram terangkat.",
       "Abdullah ibn Umar meriwayatkan bahwa Rasulullah ﷺ bersabda: 'Ya Allah, rahmatilah yang mencukur kepalanya.' Mereka berkata: 'Dan yang memotong, ya Rasulullah?' Beliau bersabda: 'Ya Allah, rahmatilah yang mencukur kepalanya.' Mereka berkata: 'Dan yang memotong, ya Rasulullah?' Beliau bersabda ketiga kali: 'Dan yang memotong' (Shahih al-Bukhari 1727; Shahih Muslim 1301).",
     ],
-    hadith: [
-      {
-        excerpt: "Ya Allah, rahmatilah yang mencukur kepalanya... Dan (ketiga kali) yang memotong.",
-      },
-      {
-        excerpt:
-          "Ya Allah, ampunilah yang mencukur kepalanya... lalu beliau bersabda ketiga kali: dan yang memotong rambut pendek.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 Dzulhijjah — Hari Tarwiyah",
@@ -315,12 +201,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Bagi jemaah Tamattu': bentuk niat Haji dan masuk ihram lagi dari tempat tinggal di Makkah, perbarui talbiyah. Jemaah Ifrad dan Qiran sudah dalam ihram.",
       "Berangkat ke Mina dan salat Dhuhr, Asr, Maghrib, Isya, dan Fajr berikutnya, masing-masing dipendekkan dua rakaat pada waktunya, mengikuti amalan Nabi ﷺ dalam Haji Wada' sebagaimana diriwayatkan Jabir (Shahih Muslim 1218). Habiskan hari dan malam dalam ibadah, menanti Arafah.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Riwayat panjang Jabir tentang Haji Wada' Nabi ﷺ — termasuk tinggal di Mina dan urutan manasik.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Buka daftar periksa Haji pada pagi tanggal 8."],
     appLinks: [
       {
@@ -336,15 +217,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Salat Dhuhr dan Asr jamak dan qashar pada waktu Dhuhr (jam' taqdim), lalu isi sisa hari dengan doa bukan salat sunnah — mengikuti amalan Nabi ﷺ (Shahih Muslim 1218).",
       "Setelah matahari terbenam, berangkat tenang ke Muzdalifah. Jamak Maghrib dan Isya (Isya qashar), istirahat malam, dan kumpulkan kerikil untuk melempar. Orang lemah dan wanita boleh berangkat ke Mina setelah tengah malam menurut keringanan masyhur dalam sunnah.",
     ],
-    hadith: [
-      {
-        excerpt: "Haji adalah Arafah.",
-      },
-      {
-        excerpt:
-          "Nabi ﷺ jamak Dhuhr dan Asr di Arafah, lalu berangkat setelah matahari terbenam ke Muzdalifah...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 Dzulhijjah — Hari Nahr",
@@ -355,12 +228,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Cukur (halq) atau potong (taqsir); perempuan potong sepanjang ujung jari. Setelah melempar dan cukur/potong, tahallul awwal berlaku — kebanyakan larangan ihram terangkat kecuali hubungan suami-isteri.",
       "Pergi ke Makkah untuk Tawaf Ifadhah — rukun Haji — dan sa'i bagi jemaah Tamattu' (Ifrad/Qiran yang sudah sa'i dengan tawaf kedatangan ikuti fatwa mazhabnya). Ini menyelesaikan pelepasan penuh dari ihram.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Barangsiapa ingin mengerjakan umrah sebelum haji, (hewan kurban) yang mudah didapat...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Urutan manasik Hari Nahr memiliki fleksibilitas dalam sunnah; mazhab berbeda tentang urutan tepat dan kapan sa'i wajib untuk setiap jenis Haji. Ikuti pemandu rombongan Anda.",
   },
@@ -372,22 +240,8 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Setiap sore setelah Dhuhr, lempar tujuh kerikil ke masing-masing tiga tiang secara berurutan — kecil, tengah, lalu besar — dengan takbir setiap lemparan. Siapa mempercepat boleh pulang setelah melempar tanggal 12 (Al-Qur'an 2:203).",
       "Sebelum meninggalkan Makkah, lakukan Tawaf Wada' agar amal terakhir dengan Baitullah adalah perpisahan. Ibn Abbas meriwayatkan umat diperintahkan agar manasik terakhir di Baitullah, kecuali dilonggarkan bagi wanita haid (Shahih al-Bukhari 1755; Shahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan berdzikirlah kepada Allah pada hari-hari yang tertentu. Barangsiapa mempercepat (kepulangan) dalam dua hari, maka tidak ada dosa baginya; dan barangsiapa menunda, maka tidak ada dosa baginya — bagi yang bertakwa...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Umat diperintahkan menunaikan tawaf wada' Ka'bah sebagai manasik terakhir, kecuali wanita haid yang dibebaskan.",
-      },
-      {
-        excerpt:
-          "Umat diperintahkan agar manasik terakhir di Baitullah, namun dilonggarkan bagi wanita yang sedang haid.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Rukun dan kewajiban",
@@ -406,12 +260,7 @@ export const HAJJ_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Hadits tentang kembali tanpa dosa (Bukhari 1521; Muslim 1350) menjelaskan haji rusak oleh kekejian (rafath), dosa (fusuq), dan pertengkaran. Sabar, lemah lembut, dan menolong sesama jemaah bagian dari ibadah.",
       "Jangan biarkan ponsel dan obrolan kosong mendominasi Arafah dan masjid. Beri jalan dalam tawaf; jangan mendorong ke Hajar Aswad. Haji mabrur teman Surga — usahakan akhlak mulia sepanjang perjalanan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Barangsiapa menunaikan haji karena Allah dan tidak bercampur dengan isteri serta tidak berbuat dosa, maka ia kembali seperti pada hari ibunya melahirkannya.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Tetapkan niat harian: satu amal kebaikan dan satu doa ikhlas di atas keramaian."],
   },
   {

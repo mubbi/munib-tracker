@@ -5,1375 +5,1013 @@ import type { DeepPartial } from "./localize";
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
 //
-// PROPHETS_TOPICS_ID covers the non-biography topics in the SAME composed order
+// PROPHETS_TOPICS_MS covers the non-biography topics in the SAME composed order
 // used by the accessor: context topics (3), then theme topics (2), then evidence
-// topics (2) = 7 items. The 25 biography topics live in PROPHETS_BIO_TOPICS_ID.
+// topics (2) = 7 items. The 25 biography topics live in PROPHETS_BIO_TOPICS_MS.
 
 export const PROPHETS_TOPICS_MS: DeepPartial<ProphetsTopic>[] = [
   {
-    title: "Pengantar tentang Para Nabi",
-    summary: "Mengapa Allah mengutus para nabi, dan mengapa kisah mereka penting hingga hari ini.",
+    title: "Pengenalan kepada Para Nabi",
+    summary: "Mengapa Allah mengutus para nabi dan mengapa kisah mereka penting pada hari ini.",
     body: [
-      "Allah mengutus para nabi sebagai rahmat, petunjuk, dan hujjah agar manusia mengenal-Nya, beribadah kepada-Nya dengan benar, dan menjalani hidup dengan keadilan dan tujuan.",
-      "Kisah mereka dalam Al-Qur'an bukan sekadar sejarah masa lalu; kisah-kisah itu adalah pelajaran praktis tentang keimanan, kesabaran, kehidupan keluarga, kepemimpinan, dan tobat.",
-      "Beriman kepada seluruh nabi adalah bagian dari iman. Umat Islam memuliakan mereka semua, menjauhi sikap berlebihan, dan mengikuti risalah terakhir yang dibawa oleh Muhammad ﷺ.",
+      "Allah mengutus para nabi sebagai rahmat, petunjuk dan hujah supaya manusia dapat mengenali-Nya, menyembah-Nya dengan betul, serta menjalani kehidupan dengan adil dan bertujuan.",
+      "Kisah mereka di dalam al-Quran bukan sekadar sejarah yang jauh; ia ialah pengajaran praktikal tentang akidah, kesabaran, kehidupan berkeluarga, kepimpinan dan taubat.",
+      "Beriman kepada semua nabi ialah sebahagian daripada rukun iman. Umat Islam memuliakan mereka semua, menjauhi sikap melampau, dan mengikuti risalah terakhir yang dibawa oleh Nabi Muhammad ﷺ.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Para rasul sebagai pembawa kabar gembira dan pemberi peringatan, agar tidak ada alasan bagi manusia untuk membantah Allah setelah diutusnya para rasul itu.",
-      },
-      {
-        excerpt:
-          "Dan sungguh, Kami telah mengutus seorang rasul pada setiap umat: Sembahlah Allah dan jauhilah tagut.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Terokai garis masa para nabi" }, { label: "Baca Sirah Nabi Muhammad ﷺ" }],
   },
   {
-    title: "Apa itu nabi dalam Islam?",
-    summary: "Manusia pilihan yang menerima wahyu dan mengajak manusia kepada Allah.",
+    title: "Apakah nabi dalam Islam?",
+    summary: "Manusia pilihan yang menerima wahyu dan menyeru manusia kepada Allah.",
     body: [
-      "Nabi adalah manusia yang dipilih Allah untuk menerima wahyu dan membimbing manusia kepada tauhid, ibadah, dan akhlak yang mulia.",
-      "Para nabi bukanlah tuhan dan tidak pernah disembah. Mereka adalah sebaik-baik makhluk dalam ketaatan, akhlak, dan amanah, namun tetap merupakan hamba Allah.",
-      "Misi mereka satu pada dasarnya: menyembah Allah semata. Rincian syariat tertentu bisa berbeda antarumat sesuai hikmah Allah.",
+      "Nabi ialah seorang manusia yang dipilih oleh Allah untuk menerima wahyu dan membimbing manusia kepada tauhid, ibadah dan akhlak yang soleh.",
+      "Para nabi bukan tuhan dan tidak sekali-kali disembah. Mereka ialah sebaik-baik makhluk dari segi ketaatan, akhlak dan amanah, namun tetap hamba Allah.",
+      "Misi mereka satu pada asasnya: menyembah Allah semata-mata. Perincian syariat tertentu boleh berbeza antara umat dengan hikmah Allah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rasul-rasul mereka berkata kepada mereka: Kami hanyalah manusia seperti kamu, tetapi Allah melimpahkan karunia-Nya kepada siapa yang Dia kehendaki di antara hamba-hamba-Nya.",
-      },
-      {
-        excerpt:
-          "Dan Kami tidak mengutus seorang rasul pun sebelum engkau, melainkan Kami wahyukan kepadanya bahwa tidak ada tuhan selain Aku, maka sembahlah Aku.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Al-Anbiya" }, { label: "Terokai garis masa para nabi" }],
   },
   {
     title: "Nabi dan Rasul",
-    summary: "Pembedaan yang berguna dalam ilmu agama, sementara keduanya adalah nabi yang mulia.",
-    body: [
-      "Dalam ilmu keislaman, pembedaan yang umum adalah bahwa setiap rasul adalah nabi, tetapi tidak setiap nabi adalah rasul. Rasul sering digambarkan sebagai orang yang diutus dengan tugas khusus kepada suatu kaum, sedangkan nabi meneruskan bimbingan melalui wahyu.",
-      "Al-Qur'an menggunakan kedua istilah itu dengan penuh penghormatan, dan umat Islam beriman kepada seluruh nabi dan rasul tanpa mengingkari satu pun.",
-      "Definisi teknis yang tepat bisa berbeda menurut ungkapan para ulama, tetapi pelajaran praktisnya konsisten: terimalah wahyu dengan rendah hati dan ikutilah petunjuk Allah.",
-    ],
-    quran: [
-      {
-        excerpt: "Dia adalah orang pilihan, dan dia adalah seorang rasul dan nabi.",
-      },
-      {
-        excerpt: "Kami tidak membeda-bedakan seorang pun di antara rasul-rasul-Nya.",
-      },
-    ],
-    disclaimer:
-      "Rincian istilah disajikan secara umum dan netral; rujuklah kepada para ulama untuk penggolongan akidah yang lebih mendalam.",
-    appLinks: [{}],
-  },
-  {
-    title: "Pelajaran Bersama dari Para Nabi",
-    summary: "Tema yang berulang: tauhid, kesabaran, tobat, dan keberanian moral.",
-    body: [
-      "Dari generasi ke generasi, semua nabi mengajak kepada satu asas yang sama: menyembah Allah semata dan menjauhi segala bentuk syirik. Inilah inti wahyu yang tidak pernah berubah.",
-      "Kehidupan mereka juga menunjukkan kesabaran saat didustakan, tawakal kepada Allah dalam ketidakpastian, dan kesediaan memperbaiki masyarakat dengan hikmah dan keberanian.",
-      "Mempelajari mereka menumbuhkan keteguhan: seorang mukmin belajar untuk cepat bertobat, memimpin dengan akhlak, dan berpegang pada prinsip meski kebenaran tidak disukai.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sungguh, pada kisah-kisah mereka terdapat pelajaran bagi orang-orang yang berakal.",
-      },
-      {
-        excerpt:
-          "Mereka itulah orang-orang yang telah diberi petunjuk oleh Allah, maka ikutilah petunjuk mereka.",
-      },
-    ],
-    actions: [
-      "Pilih satu pelajaran kenabian setiap minggu dan amalkan dengan sengaja.",
-      "Renungkan setelah salat, di bagian mana engkau perlu lebih banyak kesabaran atau tobat.",
-      "Ceritakan satu kisah nabi yang sahih secara rutin kepada keluarga atau teman.",
-    ],
-    appLinks: [{}, {}],
-  },
-  {
-    title: "Mukjizat dan Tanda-Tanda Kenabian",
-    summary: "Mukjizat menegaskan kebenaran atas izin Allah, tetapi tidak memaksa keimanan.",
-    body: [
-      "Allah memberi para nabi tanda-tanda nyata yang sesuai dengan kaum mereka: bahtera Nuh, tanda-tanda Musa di hadapan Firaun, mukjizat Isa dengan izin Allah, dan Al-Qur'an untuk Muhammad ﷺ.",
-      "Mukjizat bukanlah kekuatan mandiri milik para nabi; mukjizat terjadi atas kehendak Allah untuk mendukung wahyu dan menegakkan hujjah.",
-      "Al-Qur'an menunjukkan bahwa sebagian orang tetap mendustakan meski telah melihat tanda-tanda, yang membuktikan bahwa hidayah bergantung pada keikhlasan dan ketundukan, bukan sekadar tontonan.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sungguh, Kami telah mengutus rasul-rasul Kami dengan bukti-bukti yang nyata, dan Kami turunkan bersama mereka Kitab dan neraca (keadilan).",
-      },
-      {
-        excerpt:
-          "Katakanlah: Tanda-tanda itu hanya ada di sisi Allah… Apakah tidak cukup bagi mereka bahwa Kami telah menurunkan kepadamu Kitab yang dibacakan kepada mereka?",
-      },
-    ],
-    appLinks: [{}, {}],
-  },
-  {
-    title: "Gambaran Al-Qur'an tentang Para Nabi",
     summary:
-      "Al-Qur'an menyebut nama dua puluh lima nabi dan menyampaikan satu pesan yang konsisten.",
+      "Satu perbezaan yang berguna dalam ilmu agama, sedangkan kedua-duanya nabi yang dimuliakan.",
     body: [
-      "Al-Qur'an secara langsung menyebut nama dua puluh lima nabi, dan menyinggung banyak rasul lain. Kisah-kisah mereka tersebar di berbagai surah untuk direnungkan dan dijadikan petunjuk.",
-      "Meski keadaannya berbeda-beda, seruan mereka satu: tauhid, kebaikan, pertanggungjawaban, dan rahmat melalui tobat.",
-      "Bab ini tetap berpegang pada Al-Qur'an dan menjaga rincian sejarah sekunder tetap ringkas, kecuali yang didukung oleh dalil yang sahih.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan sungguh, Kami telah mengutus rasul-rasul sebelum engkau; sebagian di antara mereka ada yang Kami kisahkan kepadamu, dan sebagian lagi tidak Kami kisahkan.",
-      },
-      {
-        excerpt:
-          "Kami beriman kepada Allah dan apa yang diturunkan kepada kami… serta apa yang diberikan kepada Musa, Isa, dan para nabi lainnya dari Tuhan mereka.",
-      },
-    ],
-    appLinks: [{}, {}],
-  },
-  {
-    title: "Rujukan dan Cara Mempelajarinya",
-    summary: "Cara mempelajari para nabi dengan keaslian, keseimbangan, dan manfaat.",
-    body: [
-      "Mulailah dari ayat-ayat Al-Qur'an, lalu bacalah hadis yang sahih, kemudian rujuklah tafsir yang tepercaya untuk memahami konteksnya. Urutan ini menjaga pembelajaran tetap berakar pada wahyu.",
-      "Hindari kisah-kisah sensasional atau riwayat lemah yang bertentangan dengan prinsip Al-Qur'an atau kedudukan mulia para nabi. Tidak semua kisah populer memiliki sanad yang sahih.",
-      "Gunakan kisah hidup para nabi untuk memperbaiki ibadah dan akhlakmu sendiri, bukan sekadar mengumpulkan informasi sejarah.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Orang-orang yang mendengarkan perkataan lalu mengikuti yang terbaik darinya — merekalah orang-orang yang telah diberi petunjuk oleh Allah.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa menempuh suatu jalan untuk mencari ilmu, Allah akan memudahkan baginya jalan menuju surga.",
-      },
-    ],
-    actions: [
-      "Setiap minggu, bacalah kisah satu nabi langsung dari Al-Qur'an.",
-      "Catatlah bukan hanya fakta sejarah, tetapi juga pelajaran praktisnya.",
-      "Periksa kebenaran riwayat sekunder kepada ulama yang tepercaya.",
+      "Dalam keilmuan Islam, perbezaan yang lazim ialah setiap rasul itu nabi, tetapi bukan setiap nabi itu rasul. Rasul sering digambarkan sebagai utusan yang membawa amanah tersendiri kepada sesuatu kaum, manakala nabi meneruskan bimbingan melalui wahyu.",
+      "Al-Quran menggunakan kedua-dua istilah itu dengan penuh penghormatan, dan umat Islam beriman kepada semua nabi dan rasul tanpa menolak seorang pun daripada mereka.",
+      "Takrif teknikal yang tepat mungkin berbeza mengikut ungkapan para ulama, tetapi pengajaran praktikalnya tetap sama: terimalah wahyu dengan rendah diri dan ikutilah petunjuk Allah.",
     ],
     disclaimer:
-      "Rincian tanggal dan lokasi sejarah dapat berbeda antarsumber; bab ini mengutamakan bimbingan berbasis teks yang disepakati.",
-    appLinks: [{}, {}],
+      "Perincian istilah dibentangkan secara umum dan berkecuali; rujuklah guru yang berkelayakan untuk klasifikasi akidah yang lebih mendalam.",
+    appLinks: [{ label: "Baca Surah Maryam" }],
+  },
+  {
+    title: "Pengajaran bersama daripada para nabi",
+    summary: "Tema yang berulang: tauhid, kesabaran, taubat dan keberanian moral.",
+    body: [
+      "Merentasi generasi, para nabi menyeru kepada satu asas: menyembah Allah semata-mata dan menjauhi segala bentuk syirik. Inilah teras wahyu yang tidak pernah berubah.",
+      "Kehidupan mereka juga menunjukkan kesabaran ketika ditolak, tawakal kepada Allah ketika keadaan tidak menentu, dan kesediaan untuk memperbaiki masyarakat dengan hikmah dan keberanian.",
+      "Mempelajari kisah mereka membina ketahanan diri: orang beriman belajar untuk segera bertaubat, memimpin dengan beretika, dan tetap berpegang pada prinsip walaupun kebenaran tidak disukai ramai.",
+    ],
+    actions: [
+      "Pilih satu pengajaran daripada para nabi setiap minggu dan amalkannya dengan sengaja.",
+      "Muhasabah diri selepas solat: di manakah anda memerlukan lebih kesabaran atau taubat?",
+      "Ajarkan satu kisah nabi yang sahih kepada keluarga atau rakan secara berkala.",
+    ],
+    appLinks: [
+      { label: "Terokai garis masa para nabi" },
+      { label: "Baca Sirah untuk contoh kehidupan sebenar" },
+    ],
+  },
+  {
+    title: "Mukjizat dan tanda kenabian",
+    summary: "Mukjizat membuktikan kebenaran dengan izin Allah, tetapi tidak memaksa keimanan.",
+    body: [
+      "Allah mengurniakan para nabi tanda-tanda yang nyata dan sesuai dengan kaum mereka: bahtera Nabi Nuh, tanda-tanda Nabi Musa di hadapan Firaun, mukjizat Nabi Isa dengan izin Allah, dan al-Quran bagi Nabi Muhammad ﷺ.",
+      "Mukjizat bukan kuasa tersendiri milik para nabi; ia berlaku dengan kehendak Allah untuk menyokong wahyu dan menegakkan hujah.",
+      "Al-Quran menunjukkan bahawa sesetengah orang tetap menolak walaupun telah melihat tanda-tanda, membuktikan bahawa hidayah bergantung pada keikhlasan dan ketundukan, bukan semata-mata pada perkara yang menakjubkan.",
+    ],
+    appLinks: [
+      { label: "Baca Surah Al-Qasas (mukjizat Nabi Musa)" },
+      { label: "Baca Surah Maryam (mukjizat Nabi Isa)" },
+    ],
+  },
+  {
+    title: "Gambaran al-Quran tentang para nabi",
+    summary: "Al-Quran menyebut nama dua puluh lima orang nabi dan membawa satu mesej yang sama.",
+    body: [
+      "Al-Quran menyebut secara langsung nama dua puluh lima orang nabi dan merujuk kepada ramai lagi rasul. Kisah-kisah mereka tersebar di pelbagai surah untuk direnungi dan dijadikan petunjuk.",
+      "Walaupun latar mereka berbeza, seruan mereka tetap satu: tauhid, kebajikan, pertanggungjawaban, dan rahmat melalui taubat.",
+      "Modul ini berpaksikan al-Quran dan memastikan perincian sejarah sampingan ringkas, melainkan yang disokong oleh dalil yang boleh dipercayai.",
+    ],
+    appLinks: [{ label: "Terokai garis masa para nabi" }, { label: "Layari pembaca al-Quran" }],
+  },
+  {
+    title: "Rujukan dan kaedah pembacaan",
+    summary: "Cara mempelajari kisah para nabi dengan sahih, seimbang dan bermanfaat.",
+    body: [
+      "Mulakan dengan ayat-ayat al-Quran, kemudian baca hadis yang sahih, kemudian rujuk tafsir yang muktabar untuk memahami konteks. Susunan ini memastikan pembelajaran berakar pada wahyu.",
+      "Jauhi kisah sensasi atau riwayat lemah yang bercanggah dengan prinsip al-Quran atau kemuliaan para nabi. Bukan setiap kisah yang popular mempunyai dalil yang kukuh.",
+      "Gunakan biografi para nabi untuk memperbaiki ibadah dan akhlak diri sendiri, bukan sekadar mengumpul fakta sejarah.",
+    ],
+    actions: [
+      "Baca satu kisah nabi setiap minggu terus daripada al-Quran.",
+      "Catat pengajaran praktikal, bukan hanya fakta garis masa.",
+      "Sahkan riwayat sampingan dengan ulama yang boleh dipercayai.",
+    ],
+    disclaimer:
+      "Tarikh sejarah dan lokasi yang tepat mungkin berbeza antara sumber; hab ini mengutamakan bimbingan berasaskan nas yang disepakati.",
+    appLinks: [{ label: "Buka garis masa para nabi" }, { label: "Teruskan pengajian Sirah" }],
   },
 ];
 
 export const PROPHETS_BIO_TOPICS_MS: DeepPartial<ProphetsTopic>[] = [
   {
-    title: "Adam alaihissalam",
+    title: "Nabi Adam a.s.",
     summary: "Manusia pertama dan nabi pertama, dimuliakan dengan ilmu dan diuji dengan ketaatan.",
     body: [
-      "Adam alaihissalam adalah titik awal sejarah manusia dan kenabian. Allah menciptakannya dengan tangan-Nya sendiri dari tanah liat, meniupkan ruh-Nya kepadanya, dan mengajarinya nama-nama segala sesuatu. Ketika para malaikat diperintahkan bersujud kepada Adam sebagai penghormatan, mereka taat — tetapi Iblis menolak karena kesombongan, dan sejak saat itu permusuhannya terhadap Adam dan keturunannya dinyatakan. Peristiwa pembuka ini menetapkan inti dari setiap kehidupan manusia: pilihan antara ketaatan yang rendah hati dan pemberontakan yang sombong (Al-Qur'an 2:30–39).",
-      "Allah menempatkan Adam dan istrinya Hawa di dalam surga dan mengizinkan mereka segala sesuatu kecuali satu pohon. Dibisiki oleh setan, mereka memakan buah dari pohon itu. Namun perhatikan perbedaan antara mereka dan Iblis: Iblis membenarkan dosanya, sedangkan Adam dan Hawa segera merasa menyesal dan kembali kepada Allah dengan kata-kata yang Dia ajarkan kepada mereka — 'Ya Tuhan kami, kami telah menzalimi diri kami sendiri, dan jika Engkau tidak mengampuni kami serta merahmati kami, niscaya kami termasuk orang-orang yang rugi' (Al-Qur'an 7:23). Allah menerima tobat mereka dan mengutus mereka ke bumi dengan janji petunjuk bagi siapa saja yang mengikutinya.",
-      "Pelajaran dari Adam adalah pelajaran tentang harapan: manusia dimuliakan dan diberi martabat, namun tetap diuji dan akan tergelincir. Yang menentukan seorang mukmin bukanlah kesucian dari dosa — hanya Allah yang sempurna — melainkan kembali dengan cepat dan tulus dalam tobat. Kisah Adam juga mengajarkan bahwa setan adalah musuh yang nyata dan terang-terangan, yang satu-satunya senjatanya adalah bisikan; jawabannya adalah mengingat Allah dan memohon ampunan-Nya. Sejak Adam, turun ke bumi bukanlah hukuman melainkan panggung bagi ujian sesungguhnya bagi umat manusia.",
+      "Nabi Adam a.s. ialah titik permulaan sejarah manusia dan kenabian. Allah menciptakan baginda dengan tangan-Nya sendiri daripada tanah liat, meniupkan ke dalamnya roh ciptaan-Nya, dan mengajarkan baginda nama-nama segala sesuatu. Apabila para malaikat diperintahkan sujud kepada Adam sebagai penghormatan, mereka taat — tetapi Iblis enggan kerana sombong, dan sejak detik itu permusuhannya terhadap Adam dan zuriatnya diisytiharkan. Babak pembukaan ini menetapkan drama utama setiap kehidupan manusia: pilihan antara ketaatan yang rendah diri dan penderhakaan yang angkuh (al-Quran 2:30–39).",
+      "Allah menempatkan Adam dan isterinya Hawa di dalam syurga dan membenarkan mereka segala-galanya kecuali sebatang pokok. Selepas dibisikkan oleh syaitan, mereka memakan buah pokok itu. Namun perhatikan perbezaan antara mereka dengan Iblis: Iblis membenarkan dosanya, manakala Adam dan Hawa serta-merta menyesal lalu kembali kepada Allah dengan kalimah yang diajarkan-Nya kepada mereka — 'Wahai Tuhan kami, kami telah menganiaya diri kami sendiri, dan kalau Engkau tidak mengampunkan kami dan memberi rahmat kepada kami, nescaya menjadilah kami dari orang-orang yang rugi' (al-Quran 7:23). Allah menerima taubat mereka dan menurunkan mereka ke bumi dengan janji petunjuk bagi sesiapa yang mengikutinya.",
+      "Pengajaran daripada Nabi Adam ialah pengajaran tentang harapan: manusia itu dimuliakan dan bermaruah, namun tetap diuji dan pasti tergelincir. Yang menentukan seorang mukmin bukanlah bebas daripada dosa — hanya Allah yang sempurna — tetapi kembali dengan segera dan ikhlas melalui taubat. Kisah Nabi Adam juga mengajar bahawa syaitan ialah musuh yang nyata dan terang-terangan, yang satu-satunya senjatanya ialah bisikan; penawarnya ialah mengingati Allah dan memohon keampunan-Nya. Sejak Nabi Adam, turun ke bumi bukanlah satu hukuman, tetapi pentas bagi ujian sebenar umat manusia.",
     ],
     profile: {
-      nation: "Umat manusia awal",
-      location: "Surga lalu bumi",
-      era: "Awal sejarah manusia",
+      nation: "Manusia terawal",
+      location: "Syurga, kemudian bumi",
       mission: "Mengajarkan tauhid dan ketaatan kepada Allah kepada manusia pertama.",
       challenges: [
         "Permusuhan Iblis",
-        "Kehidupan setelah turun ke bumi",
-        "Membimbing keluarga manusia pertama",
+        "Kehidupan selepas turun ke bumi",
+        "Membimbing keluarga manusia yang pertama",
       ],
       miracles: [
-        "Diciptakan atas perintah Allah tanpa orang tua",
-        "Diajari nama-nama segala sesuatu",
+        "Diciptakan dengan perintah Allah tanpa ibu bapa",
+        "Diajarkan nama-nama segala sesuatu",
       ],
       majorEvents: [
-        "Penciptaan Adam dan pengajaran nama-nama",
-        "Sujudnya para malaikat dan penolakan Iblis",
-        "Tergelincir di surga, tobat yang tulus, dan turun ke bumi",
+        "Penciptaan Nabi Adam dan pengajaran nama-nama",
+        "Sujud para malaikat dan keengganan Iblis",
+        "Tergelincir di syurga, taubat yang ikhlas, dan turun ke bumi",
       ],
       lessons: [
-        "Kemuliaan manusia terikat dengan tanggung jawab",
-        "Tobat yang tulus membuka kembali pintu setelah setiap kesalahan",
-        "Setan adalah musuh yang nyata dan abadi",
+        "Kemuliaan manusia datang bersama tanggungjawab",
+        "Taubat yang ikhlas membuka semula pintu selepas apa jua kesilapan",
+        "Syaitan ialah musuh yang nyata dan kekal",
       ],
       facts: [
-        "Adam adalah manusia pertama dan nabi pertama",
-        "Tobatnya adalah contoh pertama tobat dalam Al-Qur'an",
+        "Nabi Adam ialah manusia pertama dan nabi pertama",
+        "Taubat baginda ialah contoh taubat pertama di dalam al-Quran",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah) ketika Tuhanmu berfirman kepada para malaikat: Aku hendak menjadikan khalifah di bumi… Kemudian Adam menerima beberapa kalimat dari Tuhannya, maka Allah menerima tobatnya.",
-      },
-      {
-        excerpt:
-          "Mereka berkata: Ya Tuhan kami, kami telah menzalimi diri kami sendiri, dan jika Engkau tidak mengampuni kami serta merahmati kami, niscaya kami termasuk orang-orang yang rugi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pada hari kiamat, manusia akan datang kepada Adam dan berkata: Engkau adalah bapak umat manusia; mohonkanlah syafaat untuk kami kepada Tuhanmu.",
-      },
-      {
-        excerpt:
-          "Adam dan Musa berdebat. Musa berkata: Engkaulah yang diciptakan Allah dengan tangan-Nya sendiri. Adam menjawab: Apakah engkau mencelaku atas sesuatu yang telah ditakdirkan Allah bagiku sebelum aku diciptakan? Maka Adam pun mengalahkan Musa dalam perdebatan itu.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca petikan Surah Al-Baqarah" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Idris alaihissalam",
+    title: "Nabi Idris a.s.",
     summary:
-      "Seorang nabi yang jujur, dipuji karena kesabarannya, dan diangkat Allah ke kedudukan yang tinggi.",
+      "Nabi yang sangat benar, dipuji kerana kesabarannya dan diangkat oleh Allah ke kedudukan yang tinggi.",
     body: [
-      "Idris alaihissalam disebut secara singkat dalam Al-Qur'an, namun setiap kata tentangnya adalah pujian. Allah menyebutnya 'orang yang sangat jujur, seorang nabi' (Al-Qur'an 19:56) dan memasukkannya bersama Ismail dan Zulkifli dalam golongan orang-orang yang sabar dan saleh (Al-Qur'an 21:85–86). Kisahnya menunjukkan bahwa akhlak seseorang di sisi Allah — kejujuran, kesabaran, ibadah yang konsisten — lebih penting daripada panjangnya riwayat hidupnya.",
-      "Allah berfirman tentangnya: 'Dan Kami telah mengangkatnya ke kedudukan yang tinggi' (Al-Qur'an 19:57). Para ulama memahami ini sebagai isyarat akan tingginya derajatnya di sisi Allah. Kisah-kisah populer yang dinisbatkan kepada Idris (seperti menjadi orang pertama yang menulis dengan pena, atau profesi duniawi tertentu) di luar apa yang ditegaskan oleh Al-Qur'an dan riwayat yang sahih tidak dapat dibuktikan dengan dalil yang kuat, sehingga seorang mukmin yang berhati-hati berpegang pada apa yang dibenarkan oleh wahyu, bukan melebih-lebihkan.",
-      "Pelajaran dari Idris adalah bahwa kedekatan dengan Allah tidak diukur dari ketenaran atau panjangnya kisah, melainkan dari keikhlasan dan keteguhan. Seorang hamba yang diam, jujur, dan teguh dapat meraih kedudukan di sisi Allah yang lebih tinggi daripada banyak nama yang diingat dengan gegap gempita oleh sejarah.",
+      "Nabi Idris a.s. hanya disebut secara ringkas di dalam al-Quran, tetapi setiap kalimah tentang baginda ialah pujian. Allah menyifatkan baginda 'amat benar (tutur katanya dan imannya), serta ia seorang Nabi' (al-Quran 19:56) dan menyenaraikan baginda dalam golongan orang yang sabar dan soleh bersama Nabi Ismail dan Nabi Zulkifli (al-Quran 21:85–86). Kisah baginda menunjukkan bahawa di sisi Allah, akhlak seseorang — kebenaran, kesabaran, ibadah yang istiqamah — lebih penting daripada panjangnya riwayat hidupnya.",
+      "Allah berfirman tentang baginda: 'Dan Kami telah mengangkatnya ke tempat yang tinggi darjatnya' (al-Quran 19:57). Para ulama memahami ayat ini sebagai merujuk kepada kedudukan baginda yang tinggi di sisi Allah. Selain apa yang ditetapkan oleh al-Quran dan riwayat yang sahih, kisah-kisah popular yang dikaitkan dengan Nabi Idris (seperti menjadi orang pertama yang menulis dengan pena atau pekerjaan duniawi tertentu) tidak sabit dengan dalil yang kukuh. Oleh itu, seorang mukmin yang berhati-hati berpegang pada apa yang disahkan oleh wahyu dan tidak menambah-nambah.",
+      "Pengajaran daripada Nabi Idris ialah kedekatan dengan Allah tidak diukur dengan kemasyhuran atau kisah yang panjang, tetapi dengan keikhlasan dan keistiqamahan. Seorang hamba yang tenang, benar dan teguh boleh memiliki kedudukan di sisi Allah yang lebih tinggi daripada ramai orang yang namanya dikenang dengan gah oleh sejarah.",
     ],
     profile: {
-      era: "Generasi awal setelah Adam",
-      mission: "Mengajak manusia menyembah Allah dengan kejujuran dan kebaikan.",
+      mission: "Menyeru manusia menyembah Allah dengan kebenaran dan kesolehan.",
       lessons: [
-        "Kejujuran mengangkat kedudukan seorang hamba",
-        "Tidak setiap kisah nabi diceritakan secara rinci — dan itu bertujuan",
-        "Keteguhan yang setia dan diam dicintai Allah",
+        "Kebenaran mengangkat darjat seorang hamba",
+        "Tidak semua kisah nabi diperincikan — dan itu dengan hikmah Allah",
+        "Amalan yang tetap dan setia dicintai oleh Allah",
       ],
       facts: [
-        "Disebut dalam Al-Qur'an sebagai orang yang jujur dan seorang nabi",
-        "Digambarkan diangkat Allah ke kedudukan yang tinggi",
+        "Disebut di dalam al-Quran sebagai seorang yang amat benar dan seorang nabi",
+        "Digambarkan sebagai diangkat oleh Allah ke kedudukan yang tinggi",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan ceritakanlah (kisah) Idris di dalam Kitab (Al-Qur'an). Sungguh, dia adalah orang yang sangat jujur, seorang nabi. Dan Kami telah mengangkatnya ke kedudukan yang tinggi.",
-      },
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Ismail, Idris, dan Zulkifli. Semuanya termasuk orang-orang yang sabar. Dan Kami masukkan mereka ke dalam rahmat Kami; sungguh, mereka termasuk orang-orang yang saleh.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Maryam" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Nuh alaihissalam",
+    title: "Nabi Nuh a.s.",
     summary:
-      "Seorang rasul dengan kesabaran luar biasa yang mengajak kaumnya selama berabad-abad sebelum banjir besar.",
+      "Rasul yang luar biasa kesabarannya, menyeru kaumnya selama berabad-abad sebelum banjir besar.",
     body: [
-      "Nuh alaihissalam diutus kepada kaum yang telah meninggalkan tauhid dan tenggelam dalam penyembahan berhala. Pesannya yang satu dan tak tergoyahkan adalah: 'Wahai kaumku, sembahlah Allah, tidak ada tuhan bagimu selain Dia' (Al-Qur'an 7:59). Al-Qur'an mengabadikan seruannya sendiri dalam Surah Nuh: dia menyeru mereka siang dan malam, secara terang-terangan maupun sembunyi-sembunyi, dengan dorongan sekaligus peringatan — mengingatkan bahwa kembali kepada Allah akan mendatangkan hujan, harta, keturunan, dan kebun. Namun dari generasi ke generasi, sebagian besar berpaling, menyumbat telinga mereka, dan semakin menyombongkan diri (Al-Qur'an 71:1–28).",
-      "Al-Qur'an menegaskan panjangnya kesabarannya: dia tinggal di antara mereka selama 'seribu tahun kurang lima puluh tahun' (Al-Qur'an 29:14), namun hanya sedikit yang beriman. Ketika jelas tidak ada lagi yang akan beriman, Allah memerintahkannya membuat bahtera di bawah bimbingan ilahi, sementara orang-orang yang mendustakan terus mengejeknya. Lalu air bah datang sebagai azab. Putra Nuh sendiri menolak untuk naik ke bahtera, lebih memilih berlindung ke sebuah gunung daripada mengikuti peringatan ayahnya, dan termasuk di antara mereka yang tenggelam — sebuah pengingat yang menyayat hati bahwa hubungan darah tidak dapat menggantikan keimanan (Al-Qur'an 11:42–46).",
-      "Kisah Nuh dalam Al-Qur'an adalah pelajaran utama tentang dakwah: kewajiban seorang dai adalah menyampaikan dengan tulus, sabar, dan jelas — hasilnya sepenuhnya berada di tangan Allah. Kisah ini juga mengajarkan bahwa hidayah adalah urusan hati, bukan nasab: putra seorang nabi bisa binasa sementara orang asing bisa diselamatkan. Orang-orang beriman yang naik ke bahtera menjadi benih bagi umat manusia yang baru, dan Nuh dihitung sebagai salah satu dari lima rasul ulul azmi yang agung.",
+      "Nabi Nuh a.s. diutus kepada kaum yang telah meninggalkan tauhid dan beralih menyembah berhala. Mesej baginda yang satu dan tidak berganjak ialah: 'Wahai kaumku! Sembahlah kamu akan Allah, (sebenarnya) tidak ada Tuhan bagi kamu selain daripadaNya' (al-Quran 7:59). Al-Quran memelihara kisah dakwah baginda sendiri di dalam Surah Nuh: baginda menyeru mereka siang dan malam, secara terang-terangan dan secara rahsia, memberi galakan dan juga amaran — mengingatkan bahawa kembali kepada Allah mendatangkan hujan, harta, anak-anak dan kebun-kebun. Namun generasi demi generasi, kebanyakan mereka berpaling, menyumbat jari ke dalam telinga, dan menjadi semakin angkuh (al-Quran 71:1–28).",
+      "Al-Quran menekankan betapa panjangnya kesabaran baginda: baginda tinggal dalam kalangan mereka 'selama sembilan ratus lima puluh tahun' (al-Quran 29:14), namun hanya sedikit yang beriman. Apabila jelas tiada lagi yang akan beriman, Allah memerintahkan baginda membina bahtera di bawah bimbingan wahyu sementara orang kafir mengejeknya. Kemudian air bah datang sebagai hukuman. Anak Nabi Nuh sendiri enggan menaiki bahtera, lebih mempercayai sebuah gunung daripada amaran ayahnya, lalu termasuk dalam golongan yang lemas — peringatan yang menusuk bahawa pertalian darah tidak boleh menggantikan iman (al-Quran 11:42–46).",
+      "Kisah Nabi Nuh ialah pelajaran agung al-Quran tentang dakwah: tugas pendakwah ialah menyampaikan dengan ikhlas, sabar dan jelas — hasilnya milik Allah semata-mata. Ia juga mengajar bahawa hidayah ialah urusan hati, bukan keturunan: anak seorang nabi boleh tersesat, manakala orang asing boleh diselamatkan. Orang beriman yang menaiki bahtera menjadi benih bagi umat manusia yang baharu, dan Nabi Nuh dimuliakan sebagai salah seorang daripada lima rasul teragung yang memiliki keazaman yang kuat (ulul azmi).",
     ],
     profile: {
       nation: "Kaumnya sebelum banjir besar",
-      location: "Wilayah Mesopotamia kuno (umumnya disebutkan)",
-      era: "Masa yang sangat awal",
-      mission: "Mengajak kaumnya kepada tauhid dan tobat.",
+      location: "Wilayah Mesopotamia purba (menurut pendapat yang masyhur)",
+      mission: "Menyeru kaumnya kepada tauhid dan taubat.",
       challenges: [
-        "Ejekan dari para pembesar dan kaum elite",
-        "Penolakan selama berabad-abad dan sangat sedikit yang beriman",
-        "Kekafiran dan tenggelamnya putranya sendiri",
+        "Ejekan daripada para pemimpin dan golongan elit",
+        "Penolakan selama berabad-abad dengan sedikit pengikut",
+        "Kekufuran dan kematian anaknya sendiri yang lemas",
       ],
       miracles: [
-        "Bahtera yang dibangun dengan bimbingan ilahi",
-        "Keselamatan orang-orang beriman melalui banjir besar",
+        "Bahtera yang dibina dengan bimbingan wahyu",
+        "Penyelamatan orang beriman melalui banjir besar",
       ],
       majorEvents: [
-        "Dakwah tauhid selama hampir seribu tahun",
-        "Pembangunan bahtera atas perintah Allah",
-        "Banjir besar dan awal baru bagi orang-orang beriman",
+        "Seruan kepada tauhid selama hampir seribu tahun",
+        "Pembinaan bahtera dengan perintah Allah",
+        "Banjir besar dan permulaan baharu bagi orang beriman",
       ],
       lessons: [
-        "Teguh dalam berdakwah, serahkan hasilnya kepada Allah",
-        "Hubungan darah tidak dapat menggantikan keimanan",
-        "Allah senantiasa menyelamatkan orang-orang yang ikhlas",
+        "Tekun berdakwah dan menyerahkan hasilnya kepada Allah",
+        "Pertalian keluarga tidak boleh menggantikan iman",
+        "Allah sentiasa menyelamatkan orang yang ikhlas",
       ],
       facts: [
-        "Salah satu dari lima rasul ulul azmi",
-        "Kisahnya muncul di beberapa surah, salah satunya diberi nama sesuai namanya",
+        "Salah seorang daripada lima rasul ulul azmi",
+        "Kisahnya terdapat di banyak surah, termasuk satu surah yang dinamakan sempena namanya",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan diwahyukan kepada Nuh bahwa tidak akan beriman di antara kaummu kecuali orang yang telah beriman sebelumnya, maka janganlah engkau bersedih atas apa yang mereka perbuat.",
-      },
-      {
-        excerpt:
-          "Dia berkata: Ya Tuhanku, sungguh aku telah menyeru kaumku siang dan malam, tetapi seruanku hanya menambah mereka lari (dari kebenaran).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Manusia akan datang kepada Nuh dan berkata: Wahai Nuh, engkau adalah rasul pertama bagi penduduk bumi, dan Allah menyebutmu sebagai hamba yang banyak bersyukur; mohonkanlah syafaat untuk kami.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Nuh" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Hud alaihissalam",
+    title: "Nabi Hud a.s.",
     summary:
-      "Diutus kepada kaum 'Ad, kaum yang kuat dan bertubuh tinggi yang menjadikan kekuatan mereka sebagai kesombongan.",
+      "Diutus kepada kaum 'Ad, kaum yang perkasa dan tinggi binaannya, yang membiarkan kekuatan mereka bertukar menjadi keangkuhan.",
     body: [
-      "Hud alaihissalam diutus kepada kaum 'Ad, yang digambarkan Al-Qur'an sebagai kaum yang kuat secara fisik dan terkenal membangun bangunan megah 'yang belum pernah diciptakan (yang seperti itu) di negeri manapun' (Al-Qur'an 89:6–8). Kepada kaum yang sombong ini, Hud membawa pesan yang sama seperti yang dibawa setiap nabi: 'Wahai kaumku, sembahlah Allah, tidak ada tuhan bagimu selain Dia. Tidakkah kamu bertakwa?' (Al-Qur'an 7:65). Dia adalah salah satu dari mereka, tidak meminta imbalan, hanya mengajak mereka bersyukur dan menjauhi kezaliman.",
-      "Para pembesar mereka menjawab dengan ejekan, menuduhnya bodoh dan berdusta, dan tetap berpegang teguh pada berhala-berhala nenek moyang mereka. Mereka menantang Hud untuk mendatangkan azab yang diperingatkannya, dengan keyakinan bahwa tidak ada kekuatan yang dapat menandingi kekuatan mereka (Al-Qur'an 46:21–25). Hud memperingatkan dengan jelas bahwa kekuatan duniawi dan peradaban yang agung tidak dapat menyelamatkan siapa pun yang mengingkari tanda-tanda Allah dan bersikap sombong di muka bumi.",
-      "Azab itu datang berupa angin yang menderu dahsyat yang Allah 'timpakan kepada mereka selama tujuh malam dan delapan hari berturut-turut' (Al-Qur'an 69:6–7), yang merobohkan kaum yang dahulu perkasa itu seperti batang pohon kurma yang lapuk — sementara Hud dan orang-orang beriman diselamatkan dengan rahmat Allah. Kisah 'Ad terus diulang di seluruh Al-Qur'an sebagai peringatan yang tetap: kekuatan, kekayaan, dan kesuksesan adalah karunia yang harus disambut dengan kerendahan hati dan syukur, bukan kesombongan. Setiap kaum bertanggung jawab di hadapan Allah, betapapun majunya mereka.",
+      "Nabi Hud a.s. diutus kepada kaum 'Ad, satu tamadun yang digambarkan oleh al-Quran sebagai kuat fizikalnya dan terkenal kerana membina bangunan yang tinggi dan rumit 'yang belum pernah diciptakan sepertinya (tentang besar dan kukuhnya) di segala negeri' (al-Quran 89:6–8). Kepada kaum yang angkuh ini, Nabi Hud membawa mesej yang sama seperti setiap nabi: 'Wahai kaumku! Sembahlah kamu akan Allah, (sebenarnya) tidak ada Tuhan bagi kamu selain daripadaNya. Oleh itu, tidakkah kamu mahu bertaqwa kepadaNya' (al-Quran 7:65). Baginda berasal daripada kalangan mereka sendiri, tidak meminta sebarang upah, hanya menyeru mereka supaya bersyukur dan meninggalkan kezaliman.",
+      "Para pemimpin mereka menjawab dengan ejekan, menuduh baginda bodoh dan berdusta, sambil berpegang teguh pada berhala nenek moyang mereka. Mereka mencabar baginda untuk mendatangkan azab yang diperingatkannya, yakin bahawa tiada kuasa yang dapat menandingi kekuatan mereka (al-Quran 46:21–25). Nabi Hud memberi amaran dengan jelas bahawa kuasa duniawi dan tamadun yang hebat tidak melindungi sesiapa yang mendustakan ayat-ayat Allah dan bersikap angkuh di muka bumi.",
+      "Hukuman datang dalam bentuk angin yang sangat kencang dan menderu, 'yang diarahkannya menyerang mereka tujuh malam lapan hari terus-menerus' (al-Quran 69:6–7), meninggalkan kaum yang dahulunya perkasa itu bergelimpangan seperti batang-batang pohon yang lompang — manakala Nabi Hud dan orang beriman diselamatkan dengan rahmat Allah. Kisah kaum 'Ad diulang-ulang di dalam al-Quran sebagai amaran yang berkekalan: kekuatan, kekayaan dan pencapaian ialah nikmat yang mesti disambut dengan rendah diri dan syukur, bukan kesombongan. Sesebuah bangsa tetap bertanggungjawab kepada Allah walau semaju mana pun ia.",
     ],
     profile: {
       nation: "Kaum 'Ad",
-      location: "Wilayah Al-Ahqaf (Arab bagian selatan menurut tafsir klasik)",
-      era: "Setelah Nuh",
-      mission: "Mengembalikan tauhid, syukur, dan keadilan di antara kaum 'Ad.",
+      location: "Wilayah Al-Ahqaf (kawasan selatan Semenanjung Arab menurut tafsir klasik)",
+      mission: "Mengembalikan tauhid, kesyukuran dan keadilan dalam kalangan kaum 'Ad.",
       challenges: [
-        "Kesombongan kolektif yang dibangun di atas kekuatan dan kekayaan",
-        "Ejekan terhadap wahyu dan sang nabi",
-        "Tuntutan yang menantang agar azab segera didatangkan",
+        "Keangkuhan bersama yang dibina atas kekuatan dan kekayaan",
+        "Ejekan terhadap wahyu dan nabi",
+        "Tuntutan yang biadab agar azab didatangkan dengan segera",
       ],
-      miracles: ["Perlindungan bagi orang-orang beriman selama azab berlangsung"],
+      miracles: ["Perlindungan bagi orang beriman semasa azab menimpa"],
       majorEvents: [
-        "Seruan untuk bertobat dan bersyukur",
-        "Peringatan berupa angin yang dahsyat",
-        "Kehancuran kaum 'Ad dalam tujuh malam dan delapan hari",
+        "Seruan kepada taubat dan kesyukuran",
+        "Amaran tentang angin yang dahsyat",
+        "Kebinasaan kaum 'Ad selama tujuh malam lapan hari",
       ],
       lessons: [
-        "Kekuatan tanpa kerendahan hati membawa kehancuran",
-        "Kaum dan peradaban bertanggung jawab di hadapan Allah",
-        "Peringatan kenabian adalah rahmat sebelum azab",
+        "Kekuatan tanpa rendah diri membawa kepada kehancuran",
+        "Bangsa dan tamadun bertanggungjawab kepada Allah",
+        "Amaran para nabi ialah rahmat yang diutus sebelum hukuman",
       ],
-      facts: [
-        "Kisah kaum 'Ad berulang kali disebut dalam Al-Qur'an sebagai peringatan bagi kaum-kaum berikutnya",
-      ],
+      facts: ["Kisah kaum 'Ad berulang di dalam al-Quran sebagai amaran kepada umat terkemudian"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan kepada kaum 'Ad (Kami utus) saudara mereka, Hud. Dia berkata: Wahai kaumku, sembahlah Allah, tidak ada tuhan bagimu selain Dia. Tidakkah kamu bertakwa?",
-      },
-      {
-        excerpt:
-          "Maka ketika mereka melihat azab itu berupa awan yang menuju ke lembah-lembah mereka, mereka berkata: Ini adalah awan yang akan menurunkan hujan kepada kami! Bahkan itulah azab yang kamu minta agar disegerakan: angin yang membawa azab yang pedih.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Al-Ahqaf" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Saleh alaihissalam",
+    title: "Nabi Saleh a.s.",
     summary:
-      "Diutus kepada kaum Samud, diberi mukjizat seekor unta betina, dan mereka membunuh tanda yang justru mereka minta sendiri.",
+      "Diutus kepada kaum Thamud, yang diberi mukjizat unta betina lalu membinasakan tanda yang mereka sendiri minta.",
     body: [
-      "Saleh alaihissalam diutus kepada kaum Samud, kaum yang datang setelah 'Ad dan terkenal memahat rumah-rumah megah di pegunungan serta hidup dalam kemakmuran (Al-Qur'an 7:74). Sebagai saudara mereka sendiri, dia mengajak mereka hanya menyembah Allah dan meninggalkan kerusakan yang dilakukan para pembesar mereka. Ketika mereka meminta sebuah tanda sebagai bukti kebenarannya, Allah memberikan tanda yang jelas dan nyata: seekor unta betina, dengan ketentuan bahwa pada satu hari unta itu minum dan pada hari berikutnya giliran mereka (Al-Qur'an 26:155–156).",
-      "Saleh memberi mereka peringatan yang tegas: 'Janganlah kamu mengganggunya, nanti kamu akan ditimpa azab yang dekat' (Al-Qur'an 26:156). Tanda ini merupakan ujian pengendalian diri — sanggupkah mereka menghormati batas yang ditetapkan Allah? Namun orang yang paling celaka di antara mereka justru membunuh unta itu dengan memotong kakinya dalam sebuah pemberontakan terang-terangan, lalu menantang Saleh untuk mendatangkan azab yang dijanjikan (Al-Qur'an 7:77). Pembunuhan unta itu dilakukan oleh segelintir orang celaka, namun seluruh kaum meridainya dan turut bertanggung jawab atas dosa tersebut.",
-      "Azab itu datang dalam tiga hari: suara keras yang menggelegar dan gempa bumi menimpa mereka di rumah-rumah mereka, dan Samud pun tergeletak tak bernyawa — sementara Allah menyelamatkan Saleh dan orang-orang yang beriman (Al-Qur'an 7:78–79; 91:14). Pelajarannya tegas: mukjizat tidak melunakkan hati yang keras kepala; mukjizat hanya menambah beban pertanggungjawaban. Sebuah tanda yang diminta lalu diingkari justru menjadi bukti yang memberatkan orang-orang yang memintanya. Dan berdiam diri di hadapan kejahatan bukanlah sikap netral — seluruh kaum dipertanggungjawabkan atas perbuatan segelintir orang.",
+      "Nabi Saleh a.s. diutus kepada kaum Thamud, kaum yang datang selepas kaum 'Ad dan terkenal kerana memahat rumah-rumah yang megah di gunung-ganang serta hidup dalam kesenangan (al-Quran 7:74). Sebagai saudara mereka sendiri, baginda menyeru mereka menyembah Allah semata-mata dan meninggalkan kerosakan yang dilakukan oleh para pemimpin mereka. Apabila mereka menuntut satu tanda untuk membuktikan kebenaran baginda, Allah mengurniakan tanda yang jelas dan disaksikan umum: seekor unta betina, dengan ketetapan bahawa unta itu minum pada satu hari yang ditentukan dan mereka pada hari yang lain (al-Quran 26:155–156).",
+      "Nabi Saleh memberi amaran dengan jelas: 'Dan janganlah kamu menyentuhnya dengan sesuatu yang menyakitinya; (jika kamu menyakitinya) maka akibatnya kamu akan dibinasakan oleh azab' (al-Quran 26:156). Tanda itu ialah ujian menahan diri — mampukah mereka menghormati batas yang ditetapkan oleh Allah? Namun orang yang paling derhaka dalam kalangan mereka menyembelih dan membunuh unta betina itu sebagai penderhakaan terbuka, lalu mencabar Nabi Saleh untuk mendatangkan azab yang dijanjikan (al-Quran 7:77). Pembunuhan unta itu disebut sebagai perbuatan segelintir orang yang celaka, namun seluruh kaum turut bersekongkol dalam jenayah itu kerana merestuinya.",
+      "Azab menimpa dalam tempoh tiga hari: satu pekikan yang dahsyat dan gempa bumi melanda mereka di rumah-rumah mereka, lalu kaum Thamud bergelimpangan tidak bernyawa — manakala Allah menyelamatkan Nabi Saleh dan orang yang beriman (al-Quran 7:78–79; 91:14). Pengajarannya tajam: mukjizat tidak melembutkan hati yang degil; ia hanya meninggikan taruhan pertanggungjawaban. Tanda yang diminta lalu diingkari menjadi hujah terhadap mereka yang memintanya. Dan berdiam diri terhadap kejahatan bukanlah sikap berkecuali — seluruh bangsa dipertanggungjawabkan atas perbuatan segelintir orang.",
     ],
     profile: {
-      nation: "Kaum Samud",
-      location: "Al-Hijr / Arab bagian barat laut",
-      era: "Setelah 'Ad",
-      mission: "Mengajak kaum Samud dari penyembahan berhala dan kerusakan menuju tauhid.",
+      nation: "Kaum Thamud",
+      location: "Al-Hijr / barat laut Semenanjung Arab",
+      mission: "Menyeru kaum Thamud daripada penyembahan berhala dan kerosakan kepada tauhid.",
       challenges: [
-        "Permintaan mukjizat, lalu pengingkarannya",
-        "Pemberontakan terang-terangan setelah tanda yang jelas diberikan",
-        "Ancaman terhadap Saleh dan orang-orang beriman",
+        "Menuntut mukjizat, kemudian menolaknya",
+        "Penderhakaan terbuka selepas tanda yang jelas diberikan",
+        "Ugutan terhadap Nabi Saleh dan orang beriman",
       ],
-      miracles: ["Unta betina yang dikirim Allah sebagai tanda yang menonjol"],
+      miracles: ["Unta betina yang diutus sebagai tanda yang nyata daripada Allah"],
       majorEvents: [
-        "Munculnya unta betina dan giliran minum",
-        "Pemotongan kaki unta dan pembunuhannya",
-        "Suara keras yang membinasakan orang-orang yang ingkar",
+        "Kemunculan unta betina dan giliran air minuman",
+        "Penyembelihan dan pembunuhan unta betina",
+        "Pekikan dahsyat yang membinasakan golongan yang menolak",
       ],
       lessons: [
-        "Mukjizat tidak berguna bagi hati yang keras kepala",
-        "Melanggar batas yang ditetapkan Allah memiliki akibat nyata",
-        "Meridai kejahatan turut menanggung dosanya",
+        "Mukjizat tidak memberi manfaat kepada hati yang degil",
+        "Melanggar batas yang ditetapkan Allah membawa akibat yang nyata",
+        "Merestui kejahatan bererti turut menanggung dosanya",
       ],
-      facts: ["Kaum Samud terkenal memahat rumah-rumah megah di pegunungan"],
+      facts: ["Kaum Thamud terkenal kerana memahat rumah-rumah yang rumit di gunung-ganang"],
     },
-    quran: [
-      {
-        excerpt:
-          "Inilah unta betina Allah sebagai tanda bagimu, maka biarkanlah dia makan di bumi Allah, dan janganlah kamu mengganggunya, nanti kamu akan ditimpa azab yang pedih.",
-      },
-      {
-        excerpt:
-          "Kaum Samud telah mendustakan (rasul mereka) karena kesombongan mereka, ketika bangkit orang yang paling celaka di antara mereka… Maka Tuhan mereka membinasakan mereka karena dosa mereka dan meratakan mereka (dengan tanah).",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Asy-Syams" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Ibrahim alaihissalam",
+    title: "Nabi Ibrahim a.s.",
     summary:
-      "Khalilullah, kekasih Allah dan teladan tauhid murni, diuji dalam setiap cobaan dan berhasil melewatinya.",
+      "Khalilullah, kekasih Allah dan teladan tauhid yang murni, diuji dan berjaya dalam setiap ujian.",
     body: [
-      "Ibrahim alaihissalam adalah teladan tertinggi dalam Al-Qur'an tentang tauhid murni yang diraih melalui perenungan dan keberanian. Sebagai seorang pemuda di tengah masyarakat yang tenggelam dalam penyembahan berhala, dia secara terbuka berargumen dengan kaumnya, ayahnya, bahkan sang raja: matahari, bulan, dan bintang semuanya terbenam dan lenyap, lalu bagaimana mungkin itu semua menjadi tuhan? (Al-Qur'an 6:75–79). Untuk menunjukkan ketidakberdayaan berhala-berhala itu, dia menghancurkan semuanya kecuali yang terbesar dan menyuruh kaumnya bertanya sendiri kepada berhala-berhala itu apa yang terjadi — memaksa mereka mengakui bahwa tuhan-tuhan mereka tidak dapat berbicara maupun membela diri (Al-Qur'an 21:57–67).",
-      "Karena sikapnya itu, dia dilemparkan ke dalam api yang menyala-nyala, tetapi Allah memerintahkan: 'Wahai api! Jadilah dingin dan keselamatan bagi Ibrahim' (Al-Qur'an 21:69), dan dia keluar dengan selamat. Kehidupannya menjadi rangkaian ujian yang dihadapi dengan penyerahan diri total: dia meninggalkan tanah kelahirannya demi Allah, berdoa memohon keturunan yang saleh di usia tua dan dikaruniai Ismail serta Ishak, diuji dengan perintah menyembelih putra tercintanya — yang diterima oleh ayah dan anak dengan penuh penyerahan diri sebelum Allah menebus anak itu — dan bersama Ismail meletakkan pondasi Ka'bah di Makkah, berdoa agar lahir umat yang beriman dan seorang rasul diutus di antara mereka (Al-Qur'an 2:124–129; 37:100–107).",
-      "Karena kecintaan yang tiada tara ini, Allah menjadikan Ibrahim sebagai khalil — sahabat karib-Nya (Al-Qur'an 4:125) — dan menjadikannya imam, pemimpin bagi seluruh umat manusia (Al-Qur'an 2:124). Warisannya berlanjut melalui para nabi keturunannya, melalui manasik haji, dan melalui identitas seorang muslim sendiri, yang diperintahkan untuk 'mengikuti agama Ibrahim yang lurus' (Al-Qur'an 3:95). Kisahnya mengajarkan tawakal dalam ujian yang paling berat, bahwa kepemimpinan sejati dibangun di atas pengorbanan, dan bahwa keimanan yang tulus dapat mengubah generasi demi generasi.",
+      "Nabi Ibrahim a.s. ialah contoh teragung di dalam al-Quran tentang tauhid yang murni yang dicapai melalui renungan dan keberanian. Ketika masih muda, dalam masyarakat yang tenggelam dalam penyembahan berhala, baginda berhujah secara terbuka dengan kaumnya, bapanya, malah dengan raja: matahari, bulan dan bintang semuanya terbenam dan hilang, maka bagaimanakah ia boleh menjadi tuhan? (al-Quran 6:75–79). Untuk mendedahkan kelemahan berhala-berhala itu, baginda menghancurkan semuanya kecuali yang paling besar, lalu menyuruh kaumnya bertanya sendiri kepada berhala-berhala itu tentang apa yang berlaku — memaksa mereka mengakui bahawa tuhan-tuhan mereka tidak dapat bercakap mahupun mempertahankan diri (al-Quran 21:57–67).",
+      "Kerana pendirian ini, baginda dicampakkan ke dalam api yang marak menyala, tetapi Allah berfirman: 'Hai api, jadilah engkau sejuk serta selamat sejahtera kepada Ibrahim' (al-Quran 21:69), lalu baginda keluar tanpa sebarang kecederaan. Hidup baginda menjadi rangkaian ujian yang dihadapi dengan penyerahan diri sepenuhnya: baginda meninggalkan tanah airnya kerana Allah, berdoa memohon zuriat yang soleh pada usia tua lalu dikurniakan Ismail dan Ishak, diuji dengan perintah menyembelih anak kesayangannya — yang diterima oleh bapa dan anak dengan penuh ketundukan sebelum Allah menebus anak itu — dan meninggikan asas Kaabah di Makkah bersama Ismail, sambil berdoa agar lahir satu umat yang beriman dan agar seorang rasul diutus dalam kalangan mereka (al-Quran 2:124–129; 37:100–107).",
+      "Kerana pengabdian yang tiada tandingannya ini, Allah menjadikan Nabi Ibrahim sebagai khalil — kekasih yang akrab (al-Quran 4:125) — dan menjadikan baginda imam, pemimpin bagi seluruh umat manusia (al-Quran 2:124). Warisan baginda mengalir melalui para nabi daripada keturunannya, melalui ibadah haji, dan melalui identiti seorang Muslim itu sendiri, yang diperintahkan mengikuti 'ugama Nabi Ibrahim yang ikhlas (berdasarkan Tauhid)' (al-Quran 3:95). Kisah baginda mengajar tawakal dalam ujian yang paling berat, bahawa kepimpinan sejati dibina atas pengorbanan, dan bahawa iman yang ikhlas mampu mengubah generasi demi generasi.",
     ],
     profile: {
       nation: "Masyarakat Mesopotamia dan Syam",
-      location: "Irak, Syam, dan Makkah",
-      era: "Zaman kuno pertengahan",
-      mission:
-        "Menghidupkan kembali tauhid murni dan membangun warisan penyerahan diri yang abadi.",
+      location: "Iraq, Syam dan Makkah",
+      mission: "Menghidupkan semula tauhid yang murni dan membina warisan ketundukan yang kekal.",
       challenges: [
-        "Menghadapi para penyembah berhala, ayahnya sendiri, dan raja yang zalim",
-        "Berhijrah dari tanah kelahirannya demi Allah",
-        "Ujian menyembelih putra tercintanya",
+        "Berdepan dengan penyembah berhala, bapanya sendiri dan raja yang zalim",
+        "Berhijrah meninggalkan tanah air kerana Allah",
+        "Ujian menyembelih anak kesayangannya",
       ],
       miracles: [
-        "Api yang menjadi dingin dan aman atas perintah Allah",
-        "Karunia keturunan yang saleh di usia tua",
+        "Api menjadi sejuk dan selamat dengan perintah Allah",
+        "Dikurniakan zuriat yang soleh pada usia tua",
       ],
       majorEvents: [
-        "Berdebat dengan penyembah berhala dan menghancurkan berhala-berhala",
-        "Dilemparkan ke dalam api dan diselamatkan",
-        "Membangun Ka'bah bersama Ismail dan ujian penyembelihan yang agung",
+        "Berhujah dan menghancurkan berhala",
+        "Dicampakkan ke dalam api dan diselamatkan",
+        "Membina Kaabah bersama Ismail dan ujian besar penyembelihan",
       ],
       lessons: [
-        "Tawakal kepada Allah dalam ujian yang paling berat",
-        "Kepemimpinan sejati menuntut pengorbanan",
-        "Keimanan yang tulus dapat mengubah generasi",
+        "Tawakal (berserah kepada Allah) dalam ujian yang paling berat",
+        "Kepimpinan sejati menuntut pengorbanan",
+        "Iman yang ikhlas mampu mengubah generasi",
       ],
       facts: [
-        "Dikenal sebagai Khalilullah, sahabat karib Allah",
-        "Bapak para nabi melalui Ismail dan Ishak",
+        "Dikenali sebagai Khalilullah, kekasih Allah yang akrab",
+        "Moyang para nabi melalui Ismail dan Ishak",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah) ketika Ibrahim diuji Tuhannya dengan beberapa kalimat (perintah dan larangan), lalu dia melaksanakannya. Allah berfirman: Sungguh Aku akan menjadikanmu imam bagi seluruh manusia.",
-      },
-      {
-        excerpt:
-          "Kami berfirman: Wahai api! Jadilah dingin dan keselamatan bagi Ibrahim. Dan mereka hendak berbuat jahat kepadanya, tetapi Kami jadikan mereka orang-orang yang paling merugi.",
-      },
+    appLinks: [
+      { label: "Baca Surah Al-Baqarah" },
+      { label: "Belajar daripada Sirah" },
+      { label: "Lihat garis masa para nabi" },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kamu semua akan dibangkitkan dalam keadaan tanpa alas kaki, telanjang, dan tidak dikhitan. Orang pertama yang akan diberi pakaian pada hari kiamat adalah Ibrahim.",
-      },
-    ],
-    appLinks: [{}, {}, {}],
   },
   {
-    title: "Lut alaihissalam",
+    title: "Nabi Lut a.s.",
     summary:
-      "Seorang nabi yang memperingatkan kaumnya akan sebuah kekejian besar yang belum pernah dilakukan oleh kaum sebelumnya.",
+      "Nabi yang memberi amaran kepada kaumnya tentang perbuatan keji yang belum pernah dilakukan oleh mana-mana bangsa sebelum mereka.",
     body: [
-      "Lut alaihissalam adalah sezaman dan kerabat Ibrahim yang berhijrah bersamanya, lalu diutus kepada kaum di Sodom dan negeri-negeri sekitarnya. Selain mengajak menyembah Allah semata, kaumnya melakukan kekejian yang, menurut Al-Qur'an, 'belum pernah dilakukan oleh seorang pun dari seluruh alam semesta sebelum mereka' — mendatangi laki-laki alih-alih perempuan, dan melakukan kekejian secara terang-terangan dalam pertemuan mereka (Al-Qur'an 7:80–81; 29:28–29). Lut mengajak mereka dengan tulus kepada kesucian dan batas-batas alami yang ditetapkan Allah.",
-      "Mereka membalas ajakan perbaikannya bukan dengan argumen, melainkan dengan permusuhan, mengancam akan mengusirnya dan mengejek ajakannya kepada kesucian: 'Usirlah mereka dari negerimu; sesungguhnya mereka adalah orang-orang yang berlagak suci!' (Al-Qur'an 7:82). Ujian di dalam rumahnya sendiri juga berat — istrinya berpihak kepada kaum yang rusak dan tidak beriman, yang kembali membuktikan bahwa hidayah adalah karunia dari Allah, bukan warisan dari pernikahan atau nasab (Al-Qur'an 66:10).",
-      "Ketika keputusan telah tiba, Allah mengirim para malaikat dalam wujud tamu. Kaumnya bergegas hendak berbuat jahat kepada mereka juga, dan Lut merasa tak berdaya hingga para malaikat mengungkapkan jati diri mereka dan menyuruhnya pergi bersama orang-orang beriman pada malam hari. Pada pagi harinya, negeri-negeri itu dibalikkan dan dihujani batu (Al-Qur'an 11:77–83). Kisah Lut adalah peringatan yang jelas bahwa kebenaran moral tidak berubah hanya karena suatu masyarakat menormalisasi dan meridai dosa secara terbuka — dan bahwa Allah senantiasa menyelamatkan orang-orang yang ikhlas, betapapun sedikit jumlah mereka.",
+      "Nabi Lut a.s. hidup sezaman dan mempunyai pertalian kerabat dengan Nabi Ibrahim; baginda berhijrah bersama Nabi Ibrahim, kemudian diutus kepada penduduk Sodom dan bandar-bandar di sekitarnya. Selain seruan menyembah Allah semata-mata, kaumnya bersalah melakukan perbuatan keji tanpa rasa malu yang menurut al-Quran 'tidak pernah dilakukan oleh seorang pun dari penduduk alam ini sebelum kamu' — mendatangi lelaki dan bukan wanita, serta melakukan perbuatan mungkar secara terbuka di majlis-majlis mereka (al-Quran 7:80–81; 29:28–29). Dengan ikhlas, Nabi Lut menyeru mereka kepada kesucian dan kepada batas fitrah yang ditetapkan oleh Allah.",
+      "Mereka menyambut usaha islah baginda bukan dengan hujah tetapi dengan permusuhan, mengugut untuk mengusir baginda dan mengejek seruannya kepada kesopanan: 'Usirlah mereka dari bandar kamu ini, sesungguhnya mereka adalah orang-orang yang (mendakwa) mensucikan diri' (al-Quran 7:82). Malah dalam rumah tangga baginda sendiri ujiannya berat — isteri baginda memihak kepada golongan yang rosak dan tidak beriman, sekali lagi membuktikan bahawa hidayah dikurniakan oleh Allah dan tidak diwarisi melalui perkahwinan atau pertalian darah (al-Quran 66:10).",
+      "Apabila ketetapan Allah tiba, Allah mengutus para malaikat dalam rupa tetamu. Kaum itu bergegas hendak mencederakan mereka juga, dan Nabi Lut berasa tidak berdaya sehinggalah para malaikat mendedahkan siapa diri mereka dan menyuruh baginda keluar bersama orang beriman pada waktu malam. Menjelang subuh, bandar-bandar itu diterbalikkan dan dihujani dengan batu (al-Quran 11:77–83). Kisah Nabi Lut ialah amaran yang jelas bahawa kebenaran moral tidak berubah hanya kerana sesebuah masyarakat merestui dosa dan menormalkannya secara terbuka — dan bahawa Allah sentiasa menyelamatkan orang yang ikhlas, walau sedikit mana pun bilangan mereka.",
     ],
     profile: {
-      nation: "Kaum Sodom dan negeri-negeri tetangganya",
-      location: "Wilayah Laut Mati (umumnya disebutkan)",
-      era: "Masa Ibrahim",
-      mission: "Mengajak kaumnya dari kekejian terbuka dan kekafiran menuju tauhid dan kesucian.",
+      nation: "Penduduk Sodom dan bandar-bandar di sekitarnya",
+      location: "Wilayah Laut Mati (menurut pendapat yang masyhur)",
+      mission:
+        "Menyeru kaumnya daripada perbuatan keji yang terang-terangan dan kekufuran kepada tauhid dan kesucian.",
       challenges: [
-        "Kekejian publik yang telah mengakar",
-        "Ejekan dan ancaman pengusiran",
-        "Kekafiran istrinya sendiri",
+        "Kemungkaran terbuka yang telah berakar umbi",
+        "Ejekan dan ugutan untuk diusir",
+        "Kekufuran isterinya sendiri",
       ],
       majorEvents: [
-        "Peringatan berulang terhadap kekejian",
-        "Kedatangan para malaikat dalam wujud tamu",
-        "Terbaliknya negeri-negeri itu",
+        "Amaran berterusan terhadap perbuatan keji",
+        "Kedatangan para malaikat yang menyamar sebagai tetamu",
+        "Bandar-bandar itu diterbalikkan",
       ],
       lessons: [
-        "Kebenaran moral tidak berubah karena persetujuan sosial",
-        "Orang-orang beriman bisa saja sangat sedikit",
-        "Allah menyelamatkan orang-orang ikhlas dari kehancuran massal",
+        "Kebenaran moral tidak berubah dengan restu masyarakat",
+        "Orang beriman mungkin sangat sedikit bilangannya",
+        "Allah menyelamatkan orang yang ikhlas daripada kebinasaan bersama",
       ],
-      facts: ["Kerabat Ibrahim yang berhijrah bersamanya dan diutus ke Sodom"],
+      facts: ["Kerabat Nabi Ibrahim yang berhijrah bersamanya dan diutus ke Sodom"],
     },
-    quran: [
-      {
-        excerpt:
-          "Mengapa kamu mendatangi laki-laki di antara manusia (untuk memenuhi nafsu syahwatmu) dan kamu tinggalkan istri-istri yang dijadikan Tuhanmu untukmu? Bahkan kamu adalah kaum yang melampaui batas.",
-      },
-      {
-        excerpt:
-          "Maka ketika keputusan Kami datang, Kami balikkan bagian atas negeri itu ke bawah dan Kami hujani mereka dengan batu dari tanah yang terbakar bertubi-tubi.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Asy-Syu'ara" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Ismail alaihissalam",
+    title: "Nabi Ismail a.s.",
     summary:
-      "Setia pada janjinya, sabar dalam ujian, dan bersama ayahnya Ibrahim membangun Ka'bah.",
+      "Nabi yang menepati janji, sabar dalam ujian, dan membina Kaabah bersama bapanya, Nabi Ibrahim.",
     body: [
-      "Ismail alaihissalam adalah putra sulung Ibrahim, yang dikaruniakan di usia tua. Hidupnya dimulai dengan ujian tawakal yang luar biasa: atas perintah Allah, Ibrahim meninggalkan bayi Ismail dan ibunya, Hajar, di lembah Makkah yang tandus, tempat tidak ada tanaman tumbuh maupun air mengalir. Di sanalah, ketika Hajar berlari-lari mencari air antara Bukit Safa dan Marwah, Allah memancarkan mata air Zamzam — karunia rezeki yang diulang kembali oleh keturunan Hajar dan setiap jamaah haji dalam sa'i haji dan umrah hingga hari ini.",
-      "Di masa mudanya, Ismail menghadapi ujian terbesar bersama ayahnya: ketika Ibrahim menceritakan mimpinya untuk menyembelihnya, Ismail menjawab dengan penyerahan diri yang luar biasa, 'Wahai ayahku, lakukanlah apa yang diperintahkan kepadamu; insyaallah engkau akan mendapatiku termasuk orang-orang yang sabar' (Al-Qur'an 37:102). Keduanya berserah diri sepenuhnya, dan Allah menyelamatkan Ismail dengan tebusan yang agung, mengabadikan ketaatannya selamanya. Kemudian ayah dan anak itu bersama-sama meninggikan pondasi Ka'bah, berdoa: 'Ya Tuhan kami, terimalah (amal) dari kami; sesungguhnya Engkaulah Yang Maha Mendengar, Maha Mengetahui' (Al-Qur'an 2:127).",
-      "Al-Qur'an merangkum akhlaknya dalam satu ayat yang layak dikenang: 'Sesungguhnya dia adalah orang yang benar janjinya, dan dia adalah seorang rasul dan nabi. Dan dia menyuruh keluarganya untuk salat dan menunaikan zakat, dan dia adalah seorang yang diridai di sisi Tuhannya' (Al-Qur'an 19:54–55). Kehidupan Ismail mengajarkan keindahan menepati janji, ibadah yang teguh, dan kerja sama sebuah keluarga dalam ketaatan kepada Allah. Melalui dialah silsilah kenabian Arab akhirnya sampai kepada nabi terakhir, Muhammad ﷺ.",
+      "Nabi Ismail a.s. ialah anak sulung Nabi Ibrahim yang dikurniakan pada usia tua. Hidup baginda bermula dengan ujian tawakal yang menggetarkan: dengan perintah Allah, Nabi Ibrahim meninggalkan Ismail yang masih bayi bersama ibunya, Hajar, di lembah Makkah yang tandus, tempat tiada tanaman tumbuh dan tiada air mengalir. Di situlah, ketika Hajar berlari mencari air antara bukit Safa dan Marwah, Allah memancarkan mata air Zamzam — satu rezeki yang dihidupkan semula oleh keturunan Hajar dan setiap jemaah dalam ibadah saie haji dan umrah hingga ke hari ini.",
+      "Ketika remaja, Nabi Ismail menghadapi ujian terbesar bersama bapanya: apabila Nabi Ibrahim memberitahunya tentang mimpi untuk menyembelihnya, Ismail menjawab dengan ketundukan yang menakjubkan: 'Wahai ayah, jalankanlah apa yang diperintahkan kepadamu; Insya Allah, ayah akan mendapati daku dari orang-orang yang sabar' (al-Quran 37:102). Kedua-duanya berserah sepenuhnya, lalu Allah menebus Ismail dengan sembelihan yang besar, memuliakan ketaatan mereka untuk selama-lamanya. Bapa dan anak itu kemudian meninggikan asas Kaabah bersama-sama sambil berdoa: 'Wahai Tuhan kami! Terimalah daripada kami (amal kami); sesungguhnya Engkaulah yang Maha Mendengar, lagi Maha mengetahui' (al-Quran 2:127).",
+      "Al-Quran merumuskan akhlak baginda dalam ayat yang wajar dihafal: 'Sesungguhnya ia adalah benar menepati janji dan adalah ia seorang Rasul, lagi berpangkat Nabi. Dan adalah ia menyuruh keluarganya mengerjakan sembahyang dan memberi zakat, dan ia pula adalah seorang yang diredhai di sisi Tuhannya' (al-Quran 19:54–55). Kehidupan Nabi Ismail mengajar keindahan menepati janji, ibadah yang istiqamah, dan keluarga yang saling membantu dalam ketaatan kepada Allah. Melalui baginda, rantaian kenabian di tanah Arab akhirnya sampai kepada Nabi terakhir, Nabi Muhammad ﷺ.",
     ],
     profile: {
       nation: "Penduduk awal wilayah Makkah",
       location: "Makkah",
-      era: "Setelah hijrahnya Ibrahim",
-      mission: "Menegakkan tauhid dan ibadah serta menyuruh keluarganya salat dan zakat.",
+      mission:
+        "Menegakkan tauhid dan ibadah, serta menyuruh keluarganya mendirikan solat dan menunaikan zakat.",
       challenges: [
-        "Awal kehidupan yang keras di lembah yang tandus",
+        "Permulaan hidup yang sukar di lembah yang tandus",
         "Ujian penyembelihan",
-        "Menjaga kehidupan yang berpusat pada ibadah dan amanah yang suci",
+        "Memelihara kehidupan yang berpaksikan ibadah dan amanah yang suci",
       ],
       miracles: [
-        "Munculnya mata air Zamzam di padang pasir",
-        "Diselamatkan Allah dengan tebusan dari penyembelihan",
+        "Mata air Zamzam yang dikurniakan di padang pasir",
+        "Ditebus oleh Allah daripada penyembelihan",
       ],
       majorEvents: [
-        "Ditinggalkan bersama ibunya Hajar di lembah Makkah",
-        "Ujian penyembelihan, dengan penyerahan diri yang total",
-        "Membangun Ka'bah bersama Ibrahim",
+        "Ditinggalkan bersama ibunya, Hajar, di lembah Makkah",
+        "Ujian penyembelihan yang dihadapi dengan penuh ketundukan",
+        "Membina Kaabah bersama Nabi Ibrahim",
       ],
       lessons: [
-        "Tepatilah janjimu dengan setia",
-        "Sebuah keluarga dapat bekerja sama dalam ibadah dan ketaatan",
-        "Warisan yang suci menuntut akhlak yang kuat",
+        "Tepatilah janji dengan setia",
+        "Sebuah keluarga boleh bekerjasama dalam ibadah dan ketaatan",
+        "Warisan yang suci menuntut akhlak yang teguh",
       ],
       facts: [
-        "Digambarkan dalam Al-Qur'an sebagai orang yang benar janjinya",
-        "Bapak suku-suku Arab dan silsilah kenabian terakhir",
+        "Digambarkan di dalam al-Quran sebagai benar menepati janji",
+        "Moyang kabilah-kabilah Arab dan rantaian kenabian yang terakhir",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan ceritakanlah (kisah) Ismail di dalam Kitab (Al-Qur'an). Sesungguhnya dia adalah orang yang benar janjinya, dan dia adalah seorang rasul dan nabi. Dan dia menyuruh keluarganya untuk salat dan menunaikan zakat, dan dia adalah seorang yang diridai di sisi Tuhannya.",
-      },
-      {
-        excerpt:
-          "Dan (ingatlah) ketika Ibrahim meninggikan pondasi Baitullah bersama Ismail, (seraya berdoa): Ya Tuhan kami, terimalah (amal) dari kami. Sesungguhnya Engkaulah Yang Maha Mendengar, Maha Mengetahui.",
-      },
+    appLinks: [
+      { label: "Baca Surah Maryam" },
+      { label: "Belajar daripada Sirah" },
+      { label: "Lihat garis masa para nabi" },
     ],
-    appLinks: [{}, {}, {}],
   },
   {
-    title: "Ishak alaihissalam",
+    title: "Nabi Ishak a.s.",
     summary:
-      "Nabi yang diberkahi, dikaruniakan kepada Ibrahim sebagai kabar gembira, dan ayah dari Yakub.",
+      "Nabi yang diberkati, dikurniakan sebagai berita gembira kepada Nabi Ibrahim, dan bapa kepada Nabi Yaakub.",
     body: [
-      "Ishak alaihissalam dikaruniakan kepada Ibrahim dan istrinya, Sarah, di usia tua mereka — sebuah kelahiran yang dikabarkan gembira oleh para malaikat ketika Sarah, yang telah melewati usia untuk memiliki anak, tertawa keheranan. Al-Qur'an mengabadikan momen ini: 'Maka Kami sampaikan kepadanya kabar gembira tentang (kelahiran) Ishak, dan setelah Ishak (akan lahir) Yakub' (Al-Qur'an 11:71). Kelahirannya sendiri adalah tanda bahwa kekuasaan dan rahmat Allah tidak terikat oleh batas-batas manusia biasa, dan menjadi penghibur bagi setiap mukmin yang menunggu sebuah harapan yang sulit.",
-      "Al-Qur'an terus-menerus menghitung Ishak di antara orang-orang saleh, orang-orang pilihan, dan nabi-nabi yang mulia, serta menggambarkan dirinya dan Yakub sebagai memiliki 'kekuatan dalam beribadah dan wawasan yang tajam' (Al-Qur'an 38:45–47). Melalui Ishak, lahirlah Yakub (Israel), dan dari Yakub muncul rangkaian panjang para nabi yang diutus kepada Bani Israil — sehingga Ishak menempati posisi sebagai bapak kenabian, sebuah mata rantai dalam kesinambungan hidayah antargenerasi.",
-      "Kisahnya, meski singkat, menyimpan dua pelajaran yang abadi: rasa syukur atas karunia Allah yang melampaui perkiraan kita, dan kesadaran bahwa keturunan yang saleh adalah sebuah amanah — keimanan harus diteruskan, bukan sekadar diwarisi. Keberkahan yang ditempatkan pada keluarga Ibrahim terjaga justru karena dipegang teguh oleh hamba-hamba yang berdedikasi kepada Allah.",
+      "Nabi Ishak a.s. dilahirkan kepada Nabi Ibrahim dan isterinya, Sarah, pada usia tua mereka — kelahiran yang diumumkan oleh para malaikat sebagai berita gembira ketika Sarah, yang telah melepasi usia untuk melahirkan anak, ketawa kehairanan. Al-Quran merakamkan detik itu: 'Maka Kami pun memberikan berita yang mengembirakan kepadanya … bahawa ia akan mendapat seorang anak: Ishak, dan sesudah Ishak … Yaakub' (al-Quran 11:71). Kelahiran baginda sendiri ialah tanda bahawa kekuasaan dan rahmat Allah tidak terikat dengan batasan biasa manusia, dan menjadi penghibur bagi setiap mukmin yang menanti harapan yang sukar.",
+      "Al-Quran secara konsisten menyebut Nabi Ishak dalam kalangan nabi yang soleh, terpilih dan mulia, dengan menggambarkan baginda dan Nabi Yaakub sebagai 'yang mempunyai kekuatan (melaksanakan taat setianya) dan pandangan yang mendalam' (al-Quran 38:45–47). Melalui Nabi Ishak lahirlah Nabi Yaakub (Israel), dan daripada Nabi Yaakub turun rantaian panjang para nabi yang diutus kepada Bani Israel — maka Nabi Ishak berdiri sebagai bapa kenabian, satu mata rantai dalam kesinambungan petunjuk merentasi generasi.",
+      "Kisah baginda, walaupun diceritakan secara ringkas, membawa dua pengajaran yang kekal: bersyukur atas nikmat yang Allah kurniakan melebihi jangkaan kita, dan menyedari bahawa keturunan yang soleh ialah amanah — iman mesti diwariskan dengan usaha, bukan sekadar diwarisi. Keberkatan yang diletakkan pada keluarga Nabi Ibrahim terpelihara kerana ia dipikul oleh hamba-hamba yang mengabdikan diri kepada Allah.",
     ],
     profile: {
       nation: "Masyarakat Syam",
       location: "Syam",
-      era: "Setelah Ibrahim",
-      mission: "Melanjutkan bimbingan kenabian dalam garis keturunan Ibrahim yang diberkahi.",
-      miracles: ["Kelahiran yang dikabarkan gembira kepada orang tua yang sudah lanjut usia"],
+      mission: "Meneruskan petunjuk kenabian dalam keturunan Nabi Ibrahim yang diberkati.",
+      miracles: ["Kelahiran yang diumumkan sebagai berita gembira kepada ibu bapa yang telah tua"],
       majorEvents: [
-        "Kabar gembira yang disampaikan kepada Ibrahim dan Sarah",
-        "Kelanjutan silsilah kenabian melalui Yakub",
+        "Berita gembira yang disampaikan kepada Nabi Ibrahim dan Sarah",
+        "Kesinambungan keturunan kenabian melalui Nabi Yaakub",
       ],
       lessons: [
-        "Allah memberi jauh melampaui perkiraan manusia",
-        "Keturunan yang saleh adalah amanah yang harus dijaga",
-        "Kesinambungan yang setia menjaga hidayah tetap hidup",
+        "Allah mengurniakan jauh melebihi jangkaan manusia",
+        "Keturunan yang soleh ialah amanah yang mesti dipelihara",
+        "Penerus yang setia memastikan petunjuk terus hidup",
       ],
       facts: [
-        "Ayah dari Yakub",
-        "Disebutkan bersama Ibrahim dan Yakub sebagai keluarga yang terpilih",
+        "Bapa kepada Nabi Yaakub",
+        "Disebut bersama Nabi Ibrahim dan Nabi Yaakub sebagai keluarga yang terpilih",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan istrinya berdiri (di balik tirai) lalu dia tertawa. Maka Kami sampaikan kepadanya kabar gembira tentang (kelahiran) Ishak, dan setelah Ishak (akan lahir) Yakub.",
-      },
-      {
-        excerpt:
-          "Dan ingatlah hamba-hamba Kami: Ibrahim, Ishak, dan Yakub, yang memiliki kekuatan (dalam beribadah) dan wawasan yang tajam. Sesungguhnya Kami telah menyucikan mereka dengan (menganugerahkan) akhlak yang tinggi, yaitu selalu mengingat (negeri) akhirat.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Hud" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Yakub alaihissalam",
+    title: "Nabi Yaakub a.s.",
     summary:
-      "Juga disebut Israel, seorang nabi yang kesabarannya yang indah dalam duka menjadi teladan tawakal yang tak tergoyahkan kepada Allah.",
+      "Juga digelar Israel, nabi yang kesabarannya yang indah ketika berduka menjadi teladan tawakal yang tidak goyah kepada Allah.",
     body: [
-      "Yakub alaihissalam, yang juga disebut Israel, adalah putra Ishak dan ayah dari dua belas anak yang menjadi suku-suku Bani Israil — termasuk Yusuf. Dia membesarkan anak-anaknya di atas tauhid, dan Al-Qur'an mengabadikan janji yang diambilnya saat menjelang wafat: 'Apa yang akan kamu sembah sepeninggalku?' Mereka menjawab: 'Kami akan menyembah Tuhanmu dan Tuhan nenek moyangmu… Tuhan Yang Maha Esa, dan kami berserah diri kepada-Nya' (Al-Qur'an 2:132–133). Kekhawatiran terdalamnya, hingga akhir hayatnya, adalah keimanan generasi berikutnya.",
-      "Ujian terbesarnya terungkap dalam kisah Yusuf. Ketika putra-putranya kembali membawa baju Yusuf dan klaim dusta bahwa dia telah dimakan serigala, Yakub merasakan kebohongan itu dan menjawab bukan dengan kemarahan melainkan dengan pengendalian diri: 'Maka kesabaran yang baik itulah (yang harus aku lakukan). Dan hanya kepada Allah aku memohon pertolongan terhadap apa yang kamu ceritakan' (Al-Qur'an 12:18). Selama bertahun-tahun perpisahan yang panjang, dia begitu berduka hingga, seperti yang digambarkan Al-Qur'an dengan mengharukan, matanya memutih karena kesedihan — namun dia tetap memendam kesedihannya dan tidak pernah putus asa (Al-Qur'an 12:84).",
-      "Inti dari teladan Yakub adalah satu kalimat: 'Janganlah kamu berputus asa dari rahmat Allah; sesungguhnya tidak ada yang berputus asa dari rahmat Allah kecuali kaum yang kafir' (Al-Qur'an 12:87). Ini adalah teladan sabrun jamil — kesabaran yang indah — yang bukan penyerahan pasif melainkan tawakal yang aktif dan penuh harap bahwa hikmah Allah akan terungkap pada waktunya. Ketika Yusuf akhirnya dikembalikan kepadanya dan penglihatannya pulih, kesabaran itu membuahkan hasil. Yakub mengajarkan setiap mukmin yang berduka untuk memegang erat kesedihan dan keyakinan dalam satu hati yang sama.",
+      "Nabi Yaakub a.s., juga digelar Israel, ialah anak Nabi Ishak dan bapa kepada dua belas orang anak yang menjadi suku-suku Bani Israel — termasuk Nabi Yusuf. Baginda mendidik anak-anaknya di atas tauhid, dan al-Quran memelihara wasiat yang baginda ambil daripada mereka ketika hampir wafat: 'Apakah yang kamu akan sembah sesudah aku mati?' Mereka menjawab: 'Kami menyembah Tuhanmu dan Tuhan datuk nenekmu … iaitu Tuhan yang Maha Esa, dan kepadaNyalah sahaja kami berserah diri' (al-Quran 2:132–133). Kebimbangan baginda yang paling dalam, hingga ke akhir hayat, ialah iman generasi seterusnya.",
+      "Ujian besar baginda terungkap dalam kisah Nabi Yusuf. Apabila anak-anaknya pulang membawa baju Yusuf dengan dakwaan palsu bahawa serigala telah memakannya, Nabi Yaakub dapat melihat tipu daya itu dan membalas bukan dengan kemarahan tetapi dengan menahan diri: 'Kalau demikian, bersabarlah aku dengan sebaik-baiknya, dan Allah jualah yang dipohonkan pertolonganNya, mengenai apa yang kamu katakan itu' (al-Quran 12:18). Bertahun-tahun lamanya berpisah, baginda berduka sehingga, seperti yang diungkapkan al-Quran dengan penuh sayu, matanya menjadi putih kerana kesedihan — namun baginda menahan dukanya dan tidak pernah berputus asa (al-Quran 12:84).",
+      "Inti teladan Nabi Yaakub terangkum dalam satu ayat: 'Janganlah kamu berputus asa dari rahmat serta pertolongan Allah. Sesungguhnya tidak berputus asa dari rahmat dan pertolongan Allah itu melainkan kaum yang kafir' (al-Quran 12:87). Baginda ialah teladan sabrun jamil — kesabaran yang indah — yang bukan pasrah secara pasif, tetapi tawakal yang aktif dan penuh harapan bahawa hikmah Allah akan terzahir pada waktunya. Apabila Yusuf akhirnya dikembalikan kepadanya dan penglihatannya pulih, kesabaran itu terbukti benar. Nabi Yaakub mengajar setiap mukmin yang berduka untuk memegang kesedihan dan keyakinan dalam hati yang sama.",
     ],
     profile: {
-      nation: "Awal mula Bani Israil",
-      location: "Syam, dengan hijrah ke Mesir",
-      era: "Generasi Yusuf",
+      nation: "Asal-usul Bani Israel",
+      location: "Syam, kemudian berhijrah ke Mesir",
       mission: "Membimbing keluarga dan keturunannya di atas tauhid.",
       challenges: [
-        "Ketegangan dan kecemburuan di antara putra-putranya",
+        "Ketegangan dan hasad dengki dalam kalangan anak-anaknya",
         "Perpisahan yang panjang dengan Yusuf",
-        "Menanggung duka yang mendalam tanpa kehilangan harapan",
+        "Menanggung duka yang mendalam tanpa hilang harapan",
       ],
       majorEvents: [
-        "Nasihat tauhid dan janji kepada putra-putranya",
-        "Bertahun-tahun kesabaran yang penuh duka atas Yusuf",
-        "Pertemuan bahagia dengan Yusuf di Mesir",
+        "Nasihat dan wasiat tauhid baginda kepada anak-anaknya",
+        "Bertahun-tahun berduka dengan sabar kerana Yusuf",
+        "Pertemuan semula yang menggembirakan dengan Yusuf di Mesir",
       ],
       lessons: [
-        "Kesabaran yang indah (sabrun jamil) adalah keimanan yang aktif dan penuh harap",
-        "Orang tua membentuk warisan keimanan anak-anak mereka",
-        "Jangan pernah berputus asa dari rahmat Allah",
+        "Kesabaran yang indah (sabrun jamil) ialah iman yang aktif dan penuh harapan",
+        "Ibu bapa membentuk warisan iman anak-anak mereka",
+        "Jangan sekali-kali berputus asa daripada rahmat Allah",
       ],
-      facts: ["Juga disebut Israel", "Ayah dari Yusuf dan suku-suku Bani Israil"],
+      facts: ["Juga digelar Israel", "Bapa kepada Nabi Yusuf dan suku-suku Bani Israel"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dia (Yakub) berkata: Sebenarnya hawa nafsu kamulah yang menjadikan (kamu) memandang baik perbuatan (yang buruk) itu. Maka kesabaran yang baik itulah (yang harus aku lakukan). Mudah-mudahan Allah mendatangkan mereka semuanya kepadaku.",
-      },
-      {
-        excerpt:
-          "Mereka menjawab: Kami akan menyembah Tuhanmu dan Tuhan nenek moyangmu, yaitu Ibrahim, Ismail, dan Ishak, Tuhan Yang Maha Esa, dan kami berserah diri kepada-Nya.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Yusuf" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Yusuf alaihissalam",
+    title: "Nabi Yusuf a.s.",
     summary:
-      "Seorang nabi yang perjalanannya dari sumur menuju takhta Mesir mengajarkan kesucian, kesabaran, dan pemaafan.",
+      "Nabi yang perjalanannya dari dasar perigi ke takhta Mesir mengajar kesucian, kesabaran dan kemaafan.",
     body: [
-      "Yusuf alaihissalam adalah subjek dari kisah tunggal Al-Qur'an yang paling lengkap — Surah Yusuf — yang disebut Allah sebagai 'kisah yang paling baik' (Al-Qur'an 12:3). Sebagai seorang anak, dia bermimpi yang benar melihat sebelas bintang, matahari, dan bulan sujud kepadanya. Saudara-saudaranya yang iri melemparkannya ke dalam sumur dan menjualnya sebagai budak di Mesir, tempat dia dibeli oleh seorang pejabat yang berpengaruh. Dalam setiap kesulitan, Yusuf menjaga keimanan dan integritasnya.",
-      "Kesuciannya diuji ketika istri majikannya berusaha menggodanya. Dia menolak, seraya berkata, 'Aku berlindung kepada Allah,' dan lebih memilih dipenjara daripada berbuat dosa: 'Penjara lebih aku sukai daripada memenuhi ajakan mereka kepadaku' (Al-Qur'an 12:33). Meski tidak bersalah, dia dipenjara selama bertahun-tahun — dan di sana pun dia mengajak sesama tahanannya kepada tauhid dan menafsirkan mimpi mereka. Ketika mimpi sang raja sendiri, tentang tujuh tahun paceklik, membingungkan istananya, kemampuan Yusuf menafsirkan mimpi yang merupakan anugerah dari Allah membawanya dihadapkan kepada raja, yang kemudian mengangkatnya sebagai penjaga perbendaharaan Mesir. Dia mengurus negeri itu dengan hikmah dan keadilan selama masa paceklik.",
-      "Puncak kisah ini bukanlah kekuasaan, melainkan pemaafan. Ketika saudara-saudaranya, yang kelaparan, berdiri di hadapannya tanpa mengenalinya, Yusuf mengungkapkan jati dirinya dan berkata, 'Tidak ada cercaan atas kamu pada hari ini. Semoga Allah mengampuni kamu, dan Dia adalah Yang Maha Penyayang di antara para penyayang' (Al-Qur'an 12:92). Dia mengembalikan segala kebaikan kepada Allah, seraya berkata bahwa Tuhannya telah berbuat baik kepadanya saat mengeluarkannya dari penjara dan mempertemukan kembali keluarganya. Yusuf mengajarkan bahwa kesucian dan takwa melindungi seorang mukmin, bahwa perencanaan Allah diam-diam mengungguli setiap tipu daya manusia, dan bahwa pemaafan — bukan balas dendam — adalah tanda kemuliaan.",
+      "Nabi Yusuf a.s. ialah tokoh bagi kisah tunggal yang paling lengkap di dalam al-Quran — Surah Yusuf, yang disebut oleh Allah sebagai 'seindah-indah kisah' (al-Quran 12:3). Ketika kecil, baginda bermimpi benar melihat sebelas bintang, matahari dan bulan sujud kepadanya. Saudara-saudaranya yang dengki mencampakkan baginda ke dalam perigi lalu baginda dijual sebagai hamba di Mesir, dan dibeli ke dalam rumah seorang pembesar yang berkuasa. Dalam setiap perubahan nasib, Nabi Yusuf memelihara iman dan maruahnya.",
+      "Kesucian baginda diuji apabila isteri tuannya cuba menggodanya. Baginda menolak sambil berkata, 'Aku berlindung kepada Allah', dan lebih rela dipenjara daripada berbuat dosa: 'Aku lebih suka kepada penjara dari apa yang perempuan-perempuan itu ajak aku kepadanya' (al-Quran 12:33). Walaupun tidak bersalah, baginda dipenjarakan bertahun-tahun — dan di sana pun baginda menyeru rakan-rakan sepenjara kepada tauhid serta mentakbirkan mimpi mereka. Apabila mimpi raja sendiri tentang tujuh tahun kemarau membingungkan istana, kurniaan Allah kepada baginda dalam mentakbir mimpi membawa baginda menghadap raja, yang kemudian melantiknya menjaga perbendaharaan Mesir. Baginda mentadbir negeri itu melalui zaman kebuluran dengan hikmah dan keadilan.",
+      "Kemuncak kisah ini bukanlah kuasa, tetapi kemaafan. Apabila saudara-saudaranya, yang didesak oleh kelaparan, berdiri di hadapannya tanpa mengenalinya, Nabi Yusuf memperkenalkan dirinya lalu berkata: 'Kamu pada hari ini tidak akan ditempelak atau disalahkan … semoga Allah mengampunkan dosa kamu, dan Dia lah jua Yang Maha Mengasihani daripada segala yang lain yang mengasihani' (al-Quran 12:92). Baginda menisbahkan segala kebaikan kepada Allah, dengan berkata bahawa Tuhannya telah berbuat baik kepadanya apabila mengeluarkannya dari penjara dan menyatukan semula keluarganya. Nabi Yusuf mengajar bahawa menjaga kehormatan diri dan takwa melindungi orang beriman, bahawa rancangan Allah secara senyap mengatasi setiap tipu daya manusia, dan bahawa kemaafan — bukan dendam — ialah tanda orang yang mulia.",
     ],
     profile: {
-      nation: "Silsilah keluarga Bani Israil di Mesir",
-      location: "Kanaan dan Mesir",
-      era: "Sebelum Musa",
-      mission: "Menegakkan tauhid, kesucian, dan keadilan sambil melayani masyarakat.",
+      nation: "Keturunan Bani Israel di Mesir",
+      location: "Kan'an dan Mesir",
+      mission: "Menegakkan tauhid, kesucian dan keadilan sambil berkhidmat kepada masyarakat.",
       challenges: [
-        "Pengkhianatan saudara-saudaranya",
-        "Godaan dan fitnah dusta",
-        "Penjara yang panjang meski tak bersalah",
+        "Dikhianati oleh saudara-saudaranya",
+        "Godaan dan fitnah palsu",
+        "Dipenjarakan lama walaupun tidak bersalah",
       ],
-      miracles: ["Kemampuan anugerah untuk menafsirkan mimpi yang benar"],
+      miracles: ["Kurniaan Allah untuk mentakbirkan mimpi dengan benar"],
       majorEvents: [
-        "Sumur dan perpisahan dengan ayahnya",
-        "Bertahun-tahun di penjara",
-        "Meraih kekuasaan di Mesir dan bertemu kembali dengan keluarganya",
+        "Dicampakkan ke dalam perigi dan berpisah dengan bapanya",
+        "Tahun-tahun dalam penjara",
+        "Mendapat kedudukan di Mesir dan bertemu semula dengan keluarganya",
       ],
       lessons: [
-        "Kesucian dan integritas melindungi keimanan",
-        "Pemaafan menyatukan kembali keluarga",
-        "Perencanaan Allah melampaui setiap tipu daya manusia",
+        "Menjaga kehormatan diri dan integriti melindungi iman",
+        "Kemaafan memulihkan keluarga",
+        "Rancangan Allah mengatasi setiap tipu daya manusia",
       ],
-      facts: ["Seluruh Surah Yusuf, yang disebut kisah paling baik, berpusat pada kehidupannya"],
+      facts: [
+        "Seluruh Surah Yusuf, yang disebut seindah-indah kisah, berkisar tentang hidup baginda",
+      ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dia berkata: Tidak ada cercaan atas kamu pada hari ini. Semoga Allah mengampuni kamu, dan Dia adalah Yang Maha Penyayang di antara para penyayang.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Orang yang mulia, putra orang mulia, putra orang mulia, putra orang mulia: Yusuf putra Yakub, putra Ishak, putra Ibrahim.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Yusuf" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Syuaib alaihissalam",
+    title: "Nabi Syuaib a.s.",
     summary:
-      "Seorang nabi yang menghubungkan keimanan dengan kejujuran dalam berdagang, dan memperingatkan kaum Madyan akan penipuan dan ketidakadilan.",
+      "Nabi yang mengaitkan iman dengan kejujuran dalam perniagaan dan memberi amaran kepada penduduk Madyan tentang penipuan dan kezaliman.",
     body: [
-      "Syuaib alaihissalam diutus kepada kaum Madyan, sebuah komunitas dagang yang telah merusak perekonomiannya dengan kecurangan: mengurangi takaran dan timbangan, mencurangi harta orang lain, dan menyebarkan kerusakan di muka bumi. Pesannya menyatukan dua sisi keimanan yang sering coba dipisahkan orang — ibadah dan akhlak: 'Wahai kaumku, sembahlah Allah, tidak ada tuhan bagimu selain Dia. Dan sempurnakanlah takaran dan timbangan dengan adil, janganlah kamu merugikan manusia dengan mengurangi hak-hak mereka' (Al-Qur'an 11:84–85).",
-      "Kaumnya menentang, mengejek dengan bertanya apakah salatnya menuntut mereka meninggalkan kebiasaan penipuan nenek moyang mereka dan berbuat semaunya dengan harta mereka (Al-Qur'an 11:87). Mereka mengejeknya, mengancam akan mengusirnya beserta orang-orang beriman, bahkan menghalangi jalan-jalan. Syuaib tetap teguh dengan kelembutan dan peringatan yang jelas, menegaskan bahwa dia hanya bermaksud memperbaiki semampu dia, dan bahwa taufiknya hanya dari Allah: 'Dan tidak ada taufik bagiku melainkan dengan (pertolongan) Allah. Hanya kepada-Nya aku bertawakal dan hanya kepada-Nya aku kembali' (Al-Qur'an 11:88). Dia dikenang karena kefasihannya dalam mengajak kaumnya.",
-      "Ketika mereka tetap bersikeras mengingkarinya, azab pun menimpa orang-orang zalim itu, sementara Allah menyelamatkan Syuaib dan orang-orang beriman (Al-Qur'an 7:91–93). Kehidupannya memberikan pelajaran yang sering diabaikan: kejujuran ekonomi bukanlah hal terpisah dari agama — itu adalah bagiannya. Kecurangan di pasar, eksploitasi kaum lemah, dan manipulasi takaran adalah masalah keimanan, dan masyarakat yang melegalkan ketidakadilan mengundang keputusan Allah.",
+      "Nabi Syuaib a.s. diutus kepada penduduk Madyan, sebuah masyarakat pedagang yang telah merosakkan ekonominya dengan penipuan: mengurangkan sukatan dan timbangan, menipu orang ramai dalam urusan barangan mereka, dan menyebarkan kezaliman di muka bumi. Mesej baginda menyatukan dua bahagian iman yang sering cuba dipisahkan oleh manusia — ibadah dan akhlak: 'Wahai kaumku! Sembahlah kamu akan Allah! (Sebenarnya) tiada Tuhan bagi kamu selain daripadaNya … Sempurnakanlah sukatan dan timbangan dengan adil dan janganlah kamu kurangkan manusia akan benda-benda yang menjadi haknya' (al-Quran 11:84–85).",
+      "Kaumnya menentang, sambil bertanya secara sinis sama ada solat baginda menyuruh mereka meninggalkan adat menipu nenek moyang mereka dan tidak lagi bebas berbuat sesuka hati dengan harta mereka sendiri (al-Quran 11:87). Mereka mengejek baginda, mengugut baginda dan orang beriman dengan pengusiran, malah menghalang jalan-jalan. Nabi Syuaib terus berusaha dengan belas kasihan dan peringatan yang jelas, menegaskan bahawa baginda hanya mahu melakukan islah sedaya upayanya, dan kejayaannya datang daripada Allah semata-mata: 'Dan tiadalah aku akan beroleh taufik untuk menjayakannya melainkan dengan pertolongan Allah. Kepada Allah jualah aku berserah diri dan kepadaNyalah aku kembali' (al-Quran 11:88). Baginda dikenang kerana kefasihannya dalam menyeru kaumnya.",
+      "Apabila mereka berterusan menolak, azab pun datang menimpa orang-orang yang zalim, manakala Allah menyelamatkan Nabi Syuaib dan orang beriman (al-Quran 7:91–93). Biografi baginda menyampaikan satu pengajaran yang sering terlepas pandang: kejujuran ekonomi tidak terpisah daripada agama — ia sebahagian daripadanya. Menipu di pasar, mengeksploitasi golongan yang lemah, dan memanipulasi sukatan ialah perkara iman, dan masyarakat yang menghalalkan kezaliman mengundang hukuman Allah.",
     ],
     profile: {
       nation: "Penduduk Madyan",
-      location: "Wilayah perdagangan Arab bagian barat laut / Syam",
-      era: "Setelah generasi-generasi Ibrahim",
-      mission: "Mengajak kepada tauhid serta kejujuran dan keadilan dalam berdagang.",
+      location: "Wilayah perdagangan barat laut Semenanjung Arab / Syam",
+      mission: "Menyeru kepada tauhid serta kejujuran dan keadilan dalam perniagaan.",
       challenges: [
-        "Kecurangan pasar yang telah mengakar",
-        "Ejekan dari kaum elite",
-        "Ancaman pengusiran",
+        "Penyelewengan pasaran yang telah berakar umbi",
+        "Ejekan daripada golongan elit",
+        "Ugutan untuk diusir",
       ],
       majorEvents: [
-        "Seruan untuk menyempurnakan takaran dan bertransaksi secara adil",
-        "Penolakan publik dan ancaman",
-        "Azab bagi mereka yang tetap ingkar",
+        "Seruan menyempurnakan sukatan dan berurus niaga dengan adil",
+        "Penentangan dan ugutan secara terbuka",
+        "Azab ke atas golongan yang berterusan menolak",
       ],
       lessons: [
-        "Keimanan menuntut kejujuran dalam berdagang",
-        "Ketidakadilan yang terang-terangan mengundang keputusan ilahi",
-        "Para nabi berbicara bukan hanya tentang ibadah, tetapi juga akhlak sosial dan ekonomi",
+        "Iman menuntut kejujuran dalam perniagaan",
+        "Kezaliman yang terang-terangan mengundang hukuman Ilahi",
+        "Para nabi membicarakan akhlak sosial dan ekonomi, bukan ibadah ritual semata-mata",
       ],
-      facts: ["Dikenal karena penekanannya pada takaran yang adil"],
+      facts: ["Dikenali kerana menekankan timbangan dan sukatan yang adil"],
     },
-    quran: [
-      {
-        excerpt:
-          "Wahai kaumku, sembahlah Allah, tidak ada tuhan bagimu selain Dia. Sempurnakanlah takaran dan janganlah kamu merugikan manusia dengan mengurangi hak-hak mereka, dan janganlah kamu berbuat kerusakan di muka bumi.",
-      },
-      {
-        excerpt:
-          "Dan tidak ada taufik bagiku melainkan dengan (pertolongan) Allah. Hanya kepada-Nya aku bertawakal dan hanya kepada-Nya aku kembali.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Hud" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Ayyub alaihissalam",
+    title: "Nabi Ayub a.s.",
     summary:
-      "Teladan kesabaran dalam Al-Qur'an: teguh dalam ibadah sepanjang penyakit dan kehilangan yang panjang.",
+      "Teladan kesabaran di dalam al-Quran: tidak goyah dalam pengabdian walaupun diuji dengan penyakit yang lama dan kehilangan.",
     body: [
-      "Ayyub alaihissalam adalah lambang kesabaran yang abadi dalam Al-Qur'an. Dia seorang nabi yang dikaruniai kesehatan, harta, dan keturunan, kemudian diuji dengan kehilangan semua itu, dan dengan penyakit yang panjang dan menyakitkan. Sepanjang semua itu, dia tidak pernah bersikap pahit atau menuduh Tuhannya berbuat tidak adil; dia tetap teguh dalam syukur dan zikir. Al-Qur'an memujinya dengan kata-kata yang merangkum seluruh kisahnya: 'Sesungguhnya Kami dapati dia (Ayyub) seorang yang sabar. Sungguh dia adalah sebaik-baik hamba. Sesungguhnya dia selalu kembali (kepada Allah)' (Al-Qur'an 38:44).",
-      "Ketika akhirnya kesulitan itu tak tertahankan lagi, perhatikan kesempurnaan adab doanya. Dia tidak menuntut atau mengeluh terhadap keputusan Allah; dia hanya menyampaikan keadaannya kepada Tuhannya dengan sederhana dan rendah hati: 'Sesungguhnya aku telah ditimpa penyakit, dan Engkau adalah Yang Maha Penyayang di antara para penyayang' (Al-Qur'an 21:83). Dia mengakui rahmat Allah tepat pada saat dia memohon. Allah mengabulkan doanya, berfirman: 'Hentakkanlah kakimu; inilah air yang sejuk untuk mandi dan minum,' lalu menghilangkan penderitaannya dan mengembalikan keluarganya beserta yang serupa dengannya, sebagai rahmat dari-Nya dan peringatan bagi orang-orang yang beribadah (Al-Qur'an 21:84; 38:41–43).",
-      "Ayyub mengajarkan bahwa kesabaran bukanlah kepasrahan yang pasif, melainkan bentuk ibadah yang aktif — terus-menerus kembali kepada Allah di tengah ujian. Teladannya juga membentuk doa kita: dengan rendah hati, tanpa keluhan terhadap keputusan-Nya, dan dengan keyakinan pada rahmat Allah. Dan akhir kisahnya menghibur setiap mukmin yang diuji bahwa cobaan yang dihadapi dengan keimanan dapat mengangkat derajat seorang hamba, dan kelegaan selalu datang pada waktu yang ditentukan Allah.",
+      "Nabi Ayub a.s. ialah lambang sabar yang kekal di dalam al-Quran. Baginda seorang nabi yang dikurniakan kesihatan, harta dan keluarga, kemudian diuji dengan kehilangan semuanya serta penyakit yang lama dan menyakitkan. Sepanjang ujian itu, baginda tidak pernah menjadi pahit hati atau menuduh Tuhannya tidak adil; baginda terus berpegang pada syukur dan zikir. Al-Quran memuji baginda dengan kata-kata yang merangkum seluruh kisahnya: 'Sesungguhnya Kami mendapati Nabi Ayub itu seorang yang sabar; ia adalah sebaik-baik hamba; sesungguhnya ia sentiasa rujuk kembali (kepada Kami dengan ibadatnya)' (al-Quran 38:44).",
+      "Apabila kesusahan akhirnya menjadi terlalu berat, perhatikan adab yang sempurna dalam doa baginda. Baginda tidak menuntut atau mengeluh terhadap ketentuan Allah; baginda hanya membentangkan keadaannya di hadapan Tuhannya dengan rendah diri: 'Sesungguhnya aku ditimpa penyakit, sedang Engkaulah sahaja yang lebih mengasihani daripada segala (yang lain) yang mengasihani' (al-Quran 21:83). Baginda menegaskan rahmat Allah ketika baginda sedang memohon. Allah memperkenankan doanya dengan berfirman: 'Hentakkanlah (bumi) dengan kakimu … Ini ialah air sejuk untuk mandi dan untuk minum', lalu Allah mengangkat penderitaannya dan mengembalikan keluarganya serta lebih lagi, sebagai rahmat daripada-Nya dan peringatan bagi orang-orang yang beribadah (al-Quran 21:84; 38:41–43).",
+      "Nabi Ayub mengajar bahawa sabar bukan sekadar menanggung secara pasif, tetapi satu bentuk ibadah yang aktif — sentiasa kembali kepada Allah ketika diuji. Teladan baginda juga memperhalus cara kita berdoa: dengan rendah diri, tanpa mengeluh terhadap ketentuan, dan dengan keyakinan terhadap rahmat Allah. Pengakhiran kisah baginda pula menenangkan setiap mukmin yang diuji bahawa ujian yang ditanggung dengan iman dapat mengangkat darjat seorang hamba dan sentiasa diikuti dengan kelapangan pada waktu yang ditetapkan oleh Allah.",
     ],
     profile: {
-      era: "Masa kenabian setelah Ibrahim (konteks umum)",
-      mission:
-        "Membimbing kaumnya dengan menjadi teladan kesabaran dan ibadah di tengah kesulitan.",
+      mission: "Membimbing kaumnya sambil menzahirkan kesabaran dan ibadah dalam kesusahan.",
       challenges: [
-        "Penyakit yang panjang dan menyakitkan",
+        "Penyakit yang lama dan menyakitkan",
         "Kehilangan harta dan keluarga",
-        "Keteguhan dalam ujian yang panjang",
+        "Ketabahan menghadapi ujian yang berpanjangan",
       ],
       miracles: [
-        "Kesembuhan dan kelegaan atas perintah Allah",
-        "Pemulihan keluarga dan berkah setelah ujian",
+        "Penyembuhan dan kelapangan dengan perintah Allah",
+        "Keluarga dan keberkatan dikembalikan selepas ujian",
       ],
       majorEvents: [
-        "Doanya yang rendah hati di tengah kesulitan",
-        "Kelegaan, kesembuhan, dan pemulihan dari Allah",
+        "Doa baginda yang penuh rendah diri ketika kesusahan",
+        "Kelapangan, penyembuhan dan pemulihan daripada Allah",
       ],
       lessons: [
-        "Kesabaran adalah bentuk ibadah yang aktif",
-        "Doa paling indah ketika disampaikan dengan rendah hati dan tanpa keluhan",
-        "Cobaan yang dihadapi dengan keimanan dapat mengangkat derajat",
+        "Sabar ialah satu bentuk ibadah yang aktif",
+        "Doa paling indah apabila dipanjatkan dengan rendah diri dan tanpa keluhan",
+        "Ujian yang ditanggung dengan iman boleh mengangkat darjat seseorang",
       ],
-      facts: ["Disebut sebagai teladan kesabaran di seluruh tradisi Islam"],
+      facts: ["Disebut di sepanjang tradisi Islam sebagai teladan kesabaran"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Ayyub, ketika dia berdoa kepada Tuhannya: Sesungguhnya aku telah ditimpa penyakit, dan Engkau adalah Yang Maha Penyayang di antara para penyayang.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya Kami dapati dia seorang yang sabar. Sungguh dia adalah sebaik-baik hamba. Sesungguhnya dia selalu kembali (kepada Allah).",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Al-Anbiya" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Zulkifli alaihissalam",
-    summary: "Seorang nabi yang saleh dan termasuk golongan yang sabar, meski kisahnya singkat.",
-    body: [
-      "Zulkifli alaihissalam disebut namanya dua kali dalam Al-Qur'an, keduanya dalam kebersamaan dengan para nabi yang mulia. Allah menyebutnya bersama Ismail dan Idris — 'semuanya termasuk orang-orang yang sabar. Dan Kami masukkan mereka ke dalam rahmat Kami; sungguh, mereka termasuk orang-orang yang saleh' (Al-Qur'an 21:85–86) — dan sekali lagi menyebutnya bersama Ismail dan Ilyasa dalam golongan orang-orang pilihan (Al-Qur'an 38:48). Setiap penyebutan adalah pujian, meski tidak ada penjelasan rinci yang diberikan.",
-      "Karena Al-Qur'an dan sunnah yang sahih tidak merinci kehidupannya, para ulama klasik berbeda pendapat bahkan dalam rincian dasarnya — sebagian bahkan mempertimbangkan apakah dia seorang nabi atau seorang saleh, meskipun daftar-daftar arus utama umat Islam memasukkannya di antara para nabi. Seorang mukmin yang berhati-hati menghindari mengisi kesenyapan ini dengan kisah-kisah yang tidak berdasar dan berpegang pada apa yang ditegaskan Allah: dia adalah orang yang sabar dan saleh, dan kemuliaan itu sudah cukup.",
-      "Penyebutannya menyimpan pelajaran yang diam: tidak setiap hamba yang dicintai Allah meninggalkan kisah yang terkenal. Pengabdian yang konsisten dan setia — yang tidak pernah dicatat sejarah namun sepenuhnya diketahui Allah — itulah yang meraih rahmat-Nya. Keteguhan yang tersembunyi bukanlah hal yang lebih rendah; itu adalah inti dari kehidupan yang saleh.",
-    ],
-    profile: {
-      era: "Masa kenabian setelah dan sekitar sebelum Isa (secara umum ditentukan)",
-      mission: "Mengajak kaumnya kepada ketaatan dan kebaikan.",
-      lessons: [
-        "Kesabaran adalah inti dari akhlak kenabian",
-        "Rincian yang terbatas tetap menyimpan bimbingan yang kuat",
-        "Pengabdian yang setia dan tersembunyi dicintai Allah",
-      ],
-      facts: [
-        "Disebut di antara orang-orang yang sabar bersama Ismail dan Idris",
-        "Termasuk di antara para nabi dalam daftar arus utama umat Islam",
-      ],
-    },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Ismail, Idris, dan Zulkifli. Semuanya termasuk orang-orang yang sabar. Dan Kami masukkan mereka ke dalam rahmat Kami; sungguh, mereka termasuk orang-orang yang saleh.",
-      },
-      {
-        excerpt:
-          "Dan ingatlah Ismail, Ilyasa, dan Zulkifli. Semuanya termasuk orang-orang pilihan.",
-      },
-    ],
-    appLinks: [{}, {}],
-  },
-  {
-    title: "Musa alaihissalam",
-    summary: "Rasul agung bagi Bani Israil yang menghadapi kezaliman Firaun dan menerima Taurat.",
-    body: [
-      "Musa alaihissalam adalah nabi yang paling banyak disebut dalam Al-Qur'an, dan kisahnya diceritakan dengan sangat rinci. Lahir saat Firaun memerintahkan pembunuhan bayi laki-laki Bani Israil, ibunya, atas ilham Allah, menghanyutkannya dalam sebuah keranjang di Sungai Nil, dan melalui perencanaan Allah, dia justru dibesarkan di istana Firaun sendiri (Al-Qur'an 28:7–13). Bertahun-tahun kemudian, setelah meninggalkan Mesir dan menikah di Madyan, Allah memanggilnya di lembah suci Thuwa, tempat Allah berbicara langsung kepadanya, menunjukkan kepadanya tanda tongkat dan tangannya, dan mengutusnya bersama saudaranya Harun kepada Firaun yang zalim (Al-Qur'an 20:9–36).",
-      "Misinya adalah menyampaikan dua hal: ajakan menyembah Allah semata, dan tuntutan agar Bani Israil yang tertindas dibebaskan. Firaun, yang mengklaim dirinya tuhan, menantangnya dengan sombong, dan meskipun berbagai tanda yang nyata telah ditunjukkan — tongkat yang berubah menjadi ular yang menelan tipu daya para penyihir, dan berbagai bencana — dia tetap menolak untuk tunduk. Ketika Musa membawa Bani Israil keluar, Firaun mengejar mereka hingga ke laut. Di sana Allah memerintahkan: 'Pukullah laut itu dengan tongkatmu,' dan laut pun terbelah, orang-orang beriman melintas di tanah yang kering sementara Firaun beserta pasukannya tenggelam (Al-Qur'an 26:63–66).",
-      "Namun pembebasan hanyalah permulaan. Musa kemudian menghadapi ujian yang lebih berat dan lebih panjang: memimpin kaum yang sulit dan sering tidak tahu berterima kasih. Dia menerima Taurat di Gunung Sinai, hanya untuk mendapati sekembalinya mereka telah menyembah anak sapi; dia menghadapi keluhan, tuntutan, dan pembangkangan mereka dengan kesabaran dan kepemimpinan yang tegas. Kehidupan Musa menyatukan dua tema besar — keberanian untuk menentang ketidakadilan dan kezaliman, serta ketahanan yang diperlukan untuk membimbing manusia kepada ketaatan setelah kebebasan diraih. Sebagai salah satu rasul ulul azmi, dia adalah teladan bagi seorang pembaru sekaligus penggembala umat.",
-    ],
-    profile: {
-      nation: "Bani Israil (dakwah kepada kaum Firaun)",
-      location: "Mesir dan Sinai",
-      era: "Sebelum Dawud dan Sulaiman",
-      mission: "Mengajak kepada tauhid, menghadapi kezaliman Firaun, dan menyampaikan Taurat.",
-      challenges: [
-        "Menghadapi Firaun yang mengklaim dirinya tuhan",
-        "Memimpin kaum yang membangkang dan tidak tahu berterima kasih",
-        "Kepemimpinan yang bertahan di bawah tekanan terus-menerus",
-      ],
-      miracles: [
-        "Tongkat yang berubah menjadi ular",
-        "Terbelahnya laut atas perintah Allah",
-        "Berbagai tanda yang ditunjukkan di hadapan Firaun",
-      ],
-      majorEvents: [
-        "Allah berbicara langsung kepadanya di lembah suci",
-        "Konfrontasi dengan Firaun dan para penyihir",
-        "Keluarnya Bani Israil dari Mesir dan turunnya Taurat",
-      ],
-      lessons: [
-        "Berdirilah dengan berani melawan kezaliman",
-        "Memimpin manusia membutuhkan kesabaran yang besar",
-        "Kebebasan harus disandingkan dengan ketaatan kepada Allah",
-      ],
-      facts: [
-        "Salah satu dari lima rasul ulul azmi",
-        "Dijuluki Kalimullah — orang yang diajak bicara langsung oleh Allah",
-      ],
-    },
-    quran: [
-      {
-        excerpt:
-          "Dan Aku telah memilihmu, maka dengarkanlah apa yang akan diwahyukan (kepadamu). Sesungguhnya Akulah Allah, tidak ada tuhan selain Aku, maka sembahlah Aku dan dirikanlah salat untuk mengingat-Ku.",
-      },
-      {
-        excerpt:
-          "Dan Kami ilhamkan kepada ibu Musa: Susuilah dia, dan apabila engkau khawatir terhadapnya, hanyutkanlah dia di sungai, dan janganlah engkau takut dan janganlah pula bersedih hati, sesungguhnya Kami akan mengembalikannya kepadamu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Malaikat maut diutus kepada Musa. Ketika mendatanginya, Musa menamparnya, maka Allah mengembalikan matanya, dan memberinya pilihan mengenai waktu kematiannya.",
-      },
-    ],
-    appLinks: [{}, {}, {}],
-  },
-  {
-    title: "Harun alaihissalam",
+    title: "Nabi Zulkifli a.s.",
     summary:
-      "Saudara Musa yang fasih berbicara, yang diangkat sebagai nabi pendamping di hadapan Firaun.",
+      "Nabi yang soleh, tergolong dalam kalangan orang yang sabar, dan dimuliakan walaupun kisahnya ringkas.",
     body: [
-      "Harun alaihissalam adalah kakak Musa dan seorang nabi tersendiri. Ketika Allah mengutus Musa kepada Firaun, Musa memohon bantuan: 'Dan jadikanlah untukku seorang pembantu dari keluargaku, (yaitu) Harun, saudaraku. Teguhkanlah kekuatanku dengannya, dan jadikanlah dia sekutu dalam urusanku' (Al-Qur'an 20:29–32). Allah mengabulkan permohonan itu, dan Al-Qur'an mencatat jawaban-Nya: 'Kami akan menguatkan lenganmu dengan saudaramu' (Al-Qur'an 28:35). Harun, yang digambarkan lebih fasih berbicara, berdiri di sisi Musa ketika mereka menyampaikan pesan Allah kepada sang penguasa zalim.",
-      "Saat paling berat yang dihadapinya datang ketika Musa sedang tidak ada. Ketika Musa pergi ke Gunung Sinai untuk menerima Taurat, Bani Israil jatuh ke dalam penyembahan anak sapi. Harun berusaha mencegah mereka, memperingatkan: 'Wahai kaumku, sesungguhnya kamu hanya diuji dengan (anak sapi) itu, dan sesungguhnya Tuhanmu adalah (Tuhan) Yang Maha Pengasih, maka ikutilah aku dan taatilah perintahku' — tetapi mereka mengabaikan otoritasnya dan hampir mencelakainya (Al-Qur'an 20:90–94). Ketika Musa kembali dengan marah, Harun menjelaskan bahwa dia khawatir bila bersikap terlalu keras, kaum itu akan terpecah menjadi kelompok-kelompok yang saling bertikai sebelum Musa kembali (Al-Qur'an 7:150).",
-      "Kehidupan Harun menyoroti nilai kerja sama dalam pengabdian kepada Allah — sebuah misi yang dipikul berdua lebih kuat daripada dipikul sendirian — dan kebijaksanaan yang halus dalam menjaga persatuan tanpa pernah berkompromi dengan kebenaran. Terkadang kepemimpinan yang setia berarti menjaga umat yang mulai terpecah tetap bersatu dan mencegah kerusakan lebih lanjut hingga keadaan dapat diperbaiki. Harun dimuliakan dalam Al-Qur'an di antara orang-orang yang mendapat petunjuk, dan Allah meninggalkan pujian yang abadi baginya dan Musa bagi generasi-generasi berikutnya (Al-Qur'an 37:119–122).",
+      "Nabi Zulkifli a.s. disebut dua kali di dalam al-Quran, kedua-duanya bersama para nabi yang dimuliakan. Allah menyenaraikan baginda bersama Nabi Ismail dan Nabi Idris — 'semuanya adalah dari orang-orang yang sabar. Dan Kami masukkan mereka dalam (kumpulan yang dilimpahi) rahmat Kami: sesungguhnya mereka adalah dari orang-orang yang soleh' (al-Quran 21:85–86) — dan sekali lagi menyebut baginda dalam kalangan orang-orang pilihan bersama Nabi Ismail dan Nabi Ilyasa' (al-Quran 38:48). Setiap sebutan ialah pujian, walaupun tiada kisah terperinci diberikan.",
+      "Oleh sebab al-Quran dan Sunnah yang sahih tidak memperincikan kehidupan baginda, ulama klasik berbeza pendapat walaupun tentang perkara asas — sebahagian membincangkan sama ada baginda seorang nabi atau seorang lelaki soleh, walaupun baginda dikira dalam kalangan para nabi dalam senarai arus perdana umat Islam. Seorang mukmin yang berhati-hati tidak mengisi kekosongan itu dengan kisah-kisah yang tidak disahkan, sebaliknya berpegang pada apa yang Allah tetapkan: baginda seorang yang sabar dan soleh, dan itu sudah cukup sebagai kemuliaan.",
+      "Kehadiran baginda dalam senarai itu membawa pengajaran yang halus: tidak setiap hamba yang dicintai Allah meninggalkan kisah yang masyhur. Khidmat yang tetap dan setia — jenis yang tidak pernah dicatat oleh sejarah tetapi diketahui sepenuhnya oleh Allah — itulah yang meraih rahmat-Nya. Keteguhan yang tersembunyi tidak kurang nilainya; ia ialah inti kehidupan yang soleh.",
     ],
     profile: {
-      nation: "Bani Israil",
+      mission: "Menyeru kaumnya kepada ketaatan dan kesolehan.",
+      lessons: [
+        "Kesabaran ialah teras akhlak kenabian",
+        "Perincian yang terhad tetap membawa petunjuk yang kuat",
+        "Khidmat yang setia dan tidak dilihat orang dicintai oleh Allah",
+      ],
+      facts: [
+        "Disebut bersama Nabi Ismail dan Nabi Idris dalam kalangan orang yang sabar",
+        "Dikira dalam kalangan para nabi dalam senarai arus perdana umat Islam",
+      ],
+    },
+    appLinks: [{ label: "Baca Surah Al-Anbiya" }, { label: "Lihat garis masa para nabi" }],
+  },
+  {
+    title: "Nabi Musa a.s.",
+    summary: "Rasul agung kepada Bani Israel yang menentang kezaliman Firaun dan menerima Taurat.",
+    body: [
+      "Nabi Musa a.s. ialah nabi yang paling kerap disebut di dalam al-Quran, dan kisahnya diceritakan dengan sangat terperinci. Baginda dilahirkan ketika Firaun memerintahkan pembunuhan anak-anak lelaki Bani Israel, lalu diletakkan oleh ibunya ketika masih bayi di dalam sebuah peti di Sungai Nil — dengan ilham daripada Allah — dan dengan rancangan Allah, dibesarkan di istana Firaun sendiri (al-Quran 28:7–13). Bertahun-tahun kemudian, selepas meninggalkan Mesir dan berkahwin di Madyan, baginda diseru oleh Allah di lembah suci Tuwa, tempat Allah berfirman kepadanya secara langsung, menunjukkan kepadanya mukjizat tongkat dan tangan, lalu mengutusnya bersama saudaranya Harun kepada Firaun yang zalim (al-Quran 20:9–36).",
+      "Misi baginda adalah untuk menyampaikan dua perkara: seruan menyembah Allah semata-mata, dan tuntutan untuk membebaskan Bani Israel yang ditindas. Firaun, yang mengaku dirinya tuhan, menentang baginda, dan walaupun selepas beberapa tanda yang nyata — tongkat yang menjadi ular dan menelan sihir ahli-ahli sihir, serta bala-bala yang menimpa — dia tetap enggan tunduk. Apabila Nabi Musa memimpin Bani Israel keluar, Firaun mengejar mereka hingga ke laut. Di situ Allah berfirman: 'Pukulah laut itu dengan tongkatmu', lalu laut terbelah sehingga orang beriman menyeberang di atas tanah yang kering, manakala Firaun dan tenteranya ditenggelamkan (al-Quran 26:63–66).",
+      "Namun pembebasan itu hanyalah permulaan. Nabi Musa kemudian memikul ujian yang lebih sukar dan lebih panjang, iaitu memimpin kaum yang degil dan sering tidak bersyukur: baginda menerima Taurat di gunung, lalu kembali dan mendapati mereka menyembah anak lembu emas; baginda menghadapi rungutan, tuntutan dan keingkaran mereka dengan kepimpinan yang sabar dan tegas. Kehidupan Nabi Musa menghimpunkan dua tema besar — keberanian menentang ketidakadilan dan kezaliman, serta ketabahan yang diperlukan untuk membimbing manusia kepada ketaatan selepas mereka bebas. Sebagai salah seorang rasul ulul azmi, baginda ialah teladan bagi seorang pembaharu dan juga gembala sesebuah umat.",
+    ],
+    profile: {
+      nation: "Bani Israel (dengan seruan turut ditujukan kepada kaum Firaun)",
       location: "Mesir dan Sinai",
-      era: "Masa Musa",
-      mission: "Mengajak kepada tauhid dan membantu Musa membimbing Bani Israil.",
+      mission: "Menyeru kepada tauhid, menentang penindasan Firaun, dan menyampaikan Taurat.",
       challenges: [
-        "Menghadapi kekuasaan Firaun",
-        "Mengendalikan kaum saat Musa tidak ada",
-        "Mencegah perpecahan besar di antara umat",
+        "Berdepan dengan Firaun yang mengaku dirinya tuhan",
+        "Memimpin kaum yang degil dan tidak bersyukur",
+        "Kepimpinan yang berterusan di bawah tekanan yang tidak putus-putus",
+      ],
+      miracles: [
+        "Tongkat yang bertukar menjadi ular",
+        "Laut terbelah dengan perintah Allah",
+        "Pelbagai tanda yang ditunjukkan di hadapan Firaun",
       ],
       majorEvents: [
-        "Diangkat sebagai pembantu dan sekutu Musa",
+        "Allah berfirman kepadanya di lembah yang suci",
+        "Berdepan dengan Firaun dan ahli-ahli sihir",
+        "Keluarnya Bani Israel dari Mesir dan turunnya Taurat",
+      ],
+      lessons: [
+        "Berdirilah dengan berani menentang kezaliman",
+        "Memimpin manusia menuntut kesabaran yang besar",
+        "Kebebasan mesti disertai dengan ketaatan kepada Allah",
+      ],
+      facts: [
+        "Salah seorang daripada lima rasul ulul azmi",
+        "Digelar Kalimullah — yang diajak berbicara secara langsung oleh Allah",
+      ],
+    },
+    appLinks: [
+      { label: "Baca Surah Taha" },
+      { label: "Baca Surah Al-Qasas" },
+      { label: "Lihat garis masa para nabi" },
+    ],
+  },
+  {
+    title: "Nabi Harun a.s.",
+    summary:
+      "Saudara Nabi Musa yang fasih berbicara, dilantik sebagai nabi pembantunya di hadapan Firaun.",
+    body: [
+      "Nabi Harun a.s. ialah abang kepada Nabi Musa dan seorang nabi dengan kedudukannya sendiri. Apabila Allah mengutus Nabi Musa kepada Firaun, Nabi Musa memohon sokongan: 'Dan jadikanlah bagiku, seorang penyokong dari keluargaku, iaitu Harun saudaraku. Kuatkanlah dengan sokongannya, pendirianku, dan jadikanlah dia turut campur bertanggungjawab dalam urusanku' (al-Quran 20:29–32). Allah memperkenankan permohonan itu, dan al-Quran merakamkan jawapan-Nya: 'Kami akan menguatkan tenaga dan daya-usahamu dengan saudaramu (Harun)' (al-Quran 28:35). Nabi Harun, yang digambarkan lebih fasih berbicara, berdiri di sisi Nabi Musa ketika mereka menyampaikan risalah Allah kepada Firaun yang zalim.",
+      "Detik paling getir bagi baginda berlaku ketika Nabi Musa tiada. Apabila Nabi Musa pergi menerima Taurat di gunung, Bani Israel terjerumus menyembah anak lembu emas. Nabi Harun cuba menghalang mereka dengan amaran: 'Wahai kaumku, sesungguhnya kamu hanya diperdayakan dengan patung itu, dan sesungguhnya Tuhan kamu ialah Allah yang melimpah-limpah rahmatNya; oleh itu, ikutlah daku dan taatlah akan perintahku' — tetapi mereka mengatasi kewibawaannya dan hampir mencederakannya (al-Quran 20:90–94). Apabila Nabi Musa kembali dalam keadaan marah, Nabi Harun menjelaskan bahawa baginda bimbang tindakan yang lebih keras akan memecahbelahkan umat kepada puak-puak yang bermusuhan sebelum Nabi Musa sempat kembali (al-Quran 7:150).",
+      "Biografi Nabi Harun menonjolkan nilai kerjasama dalam berkhidmat kepada Allah — misi yang dipikul berdua lebih kuat daripada seorang — serta hikmah yang halus dalam memelihara perpaduan tanpa sekali-kali berkompromi dengan kebenaran. Kadangkala kepimpinan yang setia bermaksud menyatukan masyarakat yang hampir berpecah dan membendung kemudaratan sehingga keadaan dapat dipulihkan. Nabi Harun dimuliakan di dalam al-Quran dalam kalangan orang yang mendapat petunjuk, dan Allah mengekalkan pujian bagi baginda dan Nabi Musa dalam kalangan generasi kemudian (al-Quran 37:119–122).",
+    ],
+    profile: {
+      nation: "Bani Israel",
+      location: "Mesir dan Sinai",
+      mission: "Membantu Nabi Musa menyeru kepada tauhid dan membimbing Bani Israel.",
+      challenges: [
+        "Berdepan dengan rejim Firaun",
+        "Mengurus umat ketika Nabi Musa tiada",
+        "Mencegah perpecahan yang lebih besar dalam kalangan kaum",
+      ],
+      majorEvents: [
+        "Dilantik sebagai penyokong dan pembantu Nabi Musa",
         "Misi di hadapan Firaun",
-        "Ujian penyembahan anak sapi",
+        "Ujian anak lembu emas",
       ],
       lessons: [
-        "Kerja sama memperkuat dakwah kepada Allah",
-        "Kepemimpinan terkadang berarti menjaga umat tetap bersatu di tengah krisis",
-        "Jagalah persatuan tanpa pernah berkompromi dengan kebenaran",
+        "Kerjasama menguatkan dakwah kepada Allah",
+        "Kepimpinan kadangkala bermaksud menyatukan manusia ketika krisis",
+        "Peliharalah perpaduan tanpa sekali-kali berkompromi dengan kebenaran",
       ],
-      facts: ["Kakak Musa", "Dipuji dalam Al-Qur'an atas kefasihan bicaranya"],
+      facts: ["Abang kepada Nabi Musa", "Dipuji di dalam al-Quran kerana kefasihannya"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan jadikanlah untukku seorang pembantu dari keluargaku, (yaitu) Harun, saudaraku. Teguhkanlah kekuatanku dengannya, dan jadikanlah dia sekutu dalam urusanku.",
-      },
-      {
-        excerpt:
-          "Dia (Harun) berkata: Wahai putra ibuku, sesungguhnya kaum ini telah menganggapku lemah dan hampir saja mereka membunuhku, maka janganlah engkau jadikan musuh-musuh gembira karenaku.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Taha" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Dawud alaihissalam",
+    title: "Nabi Daud a.s.",
     summary:
-      "Nabi sekaligus raja yang dikaruniai hikmah, keadilan, dan Zabur, teladan kepemimpinan yang berlandaskan ibadah.",
+      "Nabi dan raja yang dikurniakan hikmah, keadilan dan kitab Zabur, serta teladan kepimpinan yang berpaksikan ibadah.",
     body: [
-      "Dawud alaihissalam memulai sebagai seorang pemuda dalam pasukan Talut (Saul) melawan Jalut (Goliath) yang zalim. Dawud-lah yang menumbangkan Jalut, dan 'Allah memberinya kerajaan dan hikmah, serta mengajarkan kepadanya apa yang Dia kehendaki' (Al-Qur'an 2:251). Kemudian Allah mengaruniainya kerajaan, kenabian, dan sebuah kitab yang diturunkan, yaitu Zabur, menjadikannya contoh langka seorang penguasa yang sekaligus seorang ahli ibadah.",
-      "Allah mengaruniainya keistimewaan yang luar biasa: gunung-gunung dan burung-burung ikut bertasbih bersamanya kepada Allah, dan besi dilunakkan di tangannya sehingga dia dapat membuat baju besi (Al-Qur'an 21:79; 34:10–11). Namun dengan segala kekuatan itu, Dawud tetap sangat rendah hati dan tekun beribadah. Ibadahnya begitu intens sehingga Nabi ﷺ menyebut puasa Dawud — puasa sehari, buka sehari — sebagai puasa yang paling dicintai Allah, dan salat malamnya sebagai salat yang paling dicintai. Al-Qur'an juga menceritakan sebuah peristiwa pengadilan di mana Dawud, setelah ditegur dengan lembut, segera bersujud memohon ampunan dan kembali kepada Tuhannya (Al-Qur'an 38:24) — kekuasaannya tidak pernah membuatnya merasa di atas pertanggungjawaban.",
-      "Kehidupan Dawud mengajarkan bahwa kekuasaan adalah sebuah amanah, bukan keistimewaan. Allah menyapanya secara langsung: 'Wahai Dawud, sesungguhnya Kami menjadikanmu khalifah (penguasa) di bumi, maka berilah keputusan (perkara) di antara manusia dengan adil dan janganlah engkau mengikuti hawa nafsu' (Al-Qur'an 38:26). Keadilan, senantiasa mengingat Allah, cepat bertobat, dan kehidupan ibadah yang disiplin adalah hal-hal yang menjaga kepemimpinan yang saleh. Kekuasaan paling aman berada di tangan mereka yang paling banyak merendahkan diri.",
+      "Nabi Daud a.s. bermula sebagai seorang pemuda dalam tentera Talut menentang Jalut yang zalim. Nabi Daudlah yang membunuh Jalut, dan 'Allah memberikan kepadanya (Nabi Daud) kuasa pemerintahan, dan hikmat (pangkat kenabian) serta diajarkannya apa yang dikehendakiNya' (al-Quran 2:251). Allah kemudian mengurniakan baginda kerajaan, kenabian dan sebuah kitab wahyu, iaitu Zabur, menjadikan baginda contoh yang jarang ditemui: seorang pemerintah yang juga ahli ibadah yang tekun.",
+      "Allah mengurniakan baginda anugerah yang menakjubkan: gunung-ganang dan burung-burung turut bertasbih bersamanya, dan besi dilembutkan di tangannya supaya baginda dapat membuat baju besi (al-Quran 21:79; 34:10–11). Namun dengan segala kuasa ini, Nabi Daud tetap sangat rendah diri dan tekun beribadah. Ibadahnya begitu bersungguh-sungguh sehingga Nabi ﷺ menyifatkan puasa Nabi Daud — berpuasa selang sehari — sebagai puasa yang paling dicintai Allah, dan solat malamnya sebagai solat yang paling dicintai. Al-Quran juga mengisahkan satu peristiwa penghakiman ketika Nabi Daud, selepas ditegur dengan lembut, serta-merta sujud, memohon ampun dan kembali kepada Tuhannya (al-Quran 38:24) — kekuatannya tidak pernah meletakkannya di atas pertanggungjawaban.",
+      "Kehidupan Nabi Daud mengajar bahawa kuasa ialah amanah, bukan keistimewaan. Allah berfirman kepadanya secara langsung: 'Wahai Daud, sesungguhnya Kami telah menjadikanmu khalifah di bumi, maka jalankanlah hukum di antara manusia dengan (hukum syariat) yang benar … dan janganlah engkau menurut hawa nafsu' (al-Quran 38:26). Keadilan, zikir yang berterusan, taubat yang segera, dan kehidupan ibadah yang berdisiplin — itulah yang menopang kepimpinan yang soleh. Kuasa paling selamat di tangan orang yang paling banyak sujud.",
     ],
     profile: {
-      nation: "Bani Israil",
-      location: "Wilayah Yerusalem",
-      era: "Sebelum pemerintahan Sulaiman",
-      mission:
-        "Memimpin dengan keadilan, memutuskan perkara dengan benar, dan mengajak kaumnya kepada Allah.",
+      nation: "Bani Israel",
+      location: "Wilayah Baitulmaqdis",
+      mission: "Memimpin dengan adil, menghukum dengan benar, dan menyeru kaumnya kepada Allah.",
       challenges: [
-        "Beban tanggung jawab peradilan",
-        "Menyeimbangkan kekuasaan dengan kerendahan hati",
-        "Pertanggungjawaban publik dalam kepemimpinan",
+        "Beratnya tanggungjawab kehakiman",
+        "Mengimbangi kuasa dengan rendah diri",
+        "Pertanggungjawaban awam dalam kepimpinan",
       ],
       miracles: [
-        "Gunung-gunung dan burung-burung bertasbih bersamanya kepada Allah",
-        "Besi yang dilunakkan di tangannya atas izin Allah",
+        "Gunung-ganang dan burung-burung bertasbih kepada Allah bersamanya",
+        "Besi dilembutkan di tangannya dengan izin Allah",
       ],
       majorEvents: [
-        "Kekalahan Jalut di masa mudanya",
-        "Kerajaan, kenabian, dan turunnya Zabur",
-        "Warisan yang diteruskan kepada putranya, Sulaiman",
+        "Mengalahkan Jalut ketika muda",
+        "Kerajaan, kenabian dan turunnya kitab Zabur",
+        "Warisan yang diturunkan kepada anaknya, Sulaiman",
       ],
       lessons: [
-        "Keadilan adalah inti dari pemerintahan yang saleh",
-        "Segeralah bertobat setelah kesalahan apa pun",
-        "Kehidupan ibadah yang disiplin memperkuat kepemimpinan",
+        "Keadilan ialah teras pemerintahan yang soleh",
+        "Segeralah bertaubat selepas apa jua kesilapan",
+        "Kehidupan ibadah yang berdisiplin menguatkan kepimpinan",
       ],
-      facts: ["Penerima Zabur", "Mengalahkan Jalut (Goliath) di masa mudanya"],
+      facts: ["Penerima kitab Zabur", "Mengalahkan Jalut ketika masih muda"],
     },
-    quran: [
-      {
-        excerpt:
-          "Wahai Dawud, sesungguhnya Kami menjadikanmu khalifah (penguasa) di bumi, maka berilah keputusan (perkara) di antara manusia dengan adil dan janganlah engkau mengikuti hawa nafsu, karena ia akan menyesatkanmu dari jalan Allah.",
-      },
-      {
-        excerpt:
-          "Dan Kami tundukkan gunung-gunung untuk bertasbih bersama Dawud, dan juga burung-burung… dan Kami ajarkan kepadanya cara membuat baju besi untukmu, guna melindungimu dari kejahatan musuhmu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Salat yang paling dicintai Allah adalah salat Dawud, dan puasa yang paling dicintai Allah adalah puasa Dawud: dia berpuasa sehari dan berbuka sehari berikutnya.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Sad" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Sulaiman alaihissalam",
+    title: "Nabi Sulaiman a.s.",
     summary:
-      "Nabi sekaligus raja yang dikaruniai kekuasaan yang tak tertandingi namun tetap teguh dalam syukur dan hikmah.",
+      "Nabi dan raja yang dikurniakan kuasa tanpa tandingan, namun tetap berpijak pada syukur dan hikmah.",
     body: [
-      "Sulaiman alaihissalam mewarisi baik kerajaan maupun kenabian dari ayahnya, Dawud, dan Al-Qur'an memujinya: 'Sebaik-baik hamba, sesungguhnya dia selalu kembali (kepada Allah)' (Al-Qur'an 38:30). Dia berdoa memohon kerajaan yang tidak akan dimiliki siapa pun setelahnya, dan Allah mengaruniainya sumber daya yang luar biasa: kendali atas angin, yang bertiup sesuai perintahnya; pengabdian jin, yang atas izin Allah membangun untuknya dan menyelam; serta pemahaman akan bahasa burung dan makhluk lainnya (Al-Qur'an 21:81–82; 34:12–13; 27:16).",
-      "Dua peristiwa menggambarkan akhlaknya. Ketika seekor semut memperingatkan kelompoknya untuk bersembunyi agar tidak terinjak tanpa sadar oleh pasukan Sulaiman, dia tersenyum dan bersyukur kepada Allah atas karunia pemahaman itu, berdoa agar dijadikan orang yang bersyukur dan saleh (Al-Qur'an 27:18–19) — kekuasaan membuatnya semakin rendah hati, bukan semakin sombong. Dan ketika dia mendengar tentang Ratu Saba dan kaumnya yang menyembah matahari, dia tidak menaklukkan mereka dengan kekuatan, melainkan mengajak mereka untuk berserah diri kepada Allah, akhirnya membawa mereka kepada keimanan melalui hikmah dan teladan yang dia berikan (Al-Qur'an 27:22–44). Bahkan karunianya yang luas pun dia sebut sebagai ujian: 'Ini adalah karunia dari Tuhanku untuk mengujiku apakah aku bersyukur atau kufur' (Al-Qur'an 27:40).",
-      "Sulaiman mengajarkan bahwa kekuasaan adalah salah satu ujian yang paling berat, dan bahwa syukur adalah penawarnya. Seorang mukmin yang dikaruniai harta, kemampuan, atau kekuasaan harus menggunakannya untuk keadilan dan untuk mengajak orang lain kepada Allah, tidak pernah untuk kesombongan. Seluruh kerajaannya, dengan segala keajaibannya, menunjuk kepada Dia yang menganugerahkannya — dan itulah perbedaan antara karunia yang mengangkat dan yang justru merusak.",
+      "Nabi Sulaiman a.s. mewarisi kerajaan dan kenabian daripada bapanya, Nabi Daud, dan al-Quran memuji baginda sebagai 'sebaik-baik hamba (yang kuat beribadat), lagi sentiasa rujuk kembali (bertaubat)' (al-Quran 38:30). Baginda berdoa memohon kerajaan yang tidak akan dimiliki oleh sesiapa selepasnya, lalu Allah mengurniakan kepadanya keupayaan yang luar biasa: kuasa ke atas angin yang bertiup mengikut perintahnya; khidmat jin yang membina dan menyelam untuknya dengan izin Allah; dan kefahaman tentang bahasa burung serta makhluk lain (al-Quran 21:81–82; 34:12–13; 27:16).",
+      "Dua peristiwa menggambarkan akhlak baginda. Apabila seekor semut memberi amaran kepada kawanannya supaya berlindung agar tidak dipijak oleh tentera Sulaiman tanpa disedari, Nabi Sulaiman tersenyum dan bersyukur kepada Allah atas nikmat kefahaman itu, sambil berdoa agar dijadikan hamba yang bersyukur dan soleh (al-Quran 27:18–19) — kuasa menjadikan baginda lebih rendah diri, bukan sebaliknya. Dan apabila baginda mendengar tentang Ratu Saba' dan kaumnya yang menyembah matahari, baginda tidak menakluki mereka dengan kekerasan, tetapi mengajak mereka tunduk kepada Allah, dan akhirnya ratu itu beriman melalui hikmah dan pameran nikmat yang Allah kurniakan kepada baginda (al-Quran 27:22–44). Malah segala nikmatnya yang melimpah itu baginda anggap sebagai ujian: 'Ini ialah dari limpah kurnia Tuhanku, untuk mengujiku adakah aku bersyukur atau aku tidak mengenangkan nikmat pemberianNya' (al-Quran 27:40).",
+      "Nabi Sulaiman mengajar bahawa kuasa ialah antara ujian yang paling berat, dan syukur ialah penawarnya. Seorang mukmin yang dikurniakan harta, kebolehan atau kuasa sepatutnya menggunakannya untuk keadilan dan untuk menyeru orang lain kepada Allah, bukan untuk berbangga. Seluruh kerajaannya, dengan segala keajaibannya, menunjuk kembali kepada Yang Maha Mengurniakannya — dan itulah perbezaan antara nikmat yang mengangkat darjat dengan nikmat yang merosakkan.",
     ],
     profile: {
-      nation: "Bani Israil dan kerajaan-kerajaan sekitarnya",
-      location: "Yerusalem dan wilayah yang lebih luas",
-      era: "Setelah Dawud",
-      mission: "Memerintah dengan adil dan mengajak berbagai bangsa untuk menyembah Allah.",
+      nation: "Bani Israel dan kerajaan-kerajaan di sekitarnya",
+      location: "Baitulmaqdis dan wilayah sekitarnya",
+      mission: "Memerintah dengan adil dan menyeru bangsa-bangsa menyembah Allah.",
       challenges: [
-        "Mengelola kerajaan yang luas",
-        "Menjaga syukur di tengah kekuasaan yang luar biasa besar",
-        "Mengarahkan kekuatan yang beragam dengan tanggung jawab",
+        "Mentadbir kerajaan yang sangat luas",
+        "Mengekalkan rasa syukur di tengah-tengah kuasa yang besar",
+        "Mengendalikan pelbagai kekuatan dengan bertanggungjawab",
       ],
       miracles: [
-        "Kendali atas angin atas izin Allah",
-        "Pengabdian jin dalam pembangunan dan penyelaman",
+        "Kuasa ke atas angin dengan izin Allah",
+        "Khidmat jin dalam membina dan menyelam",
         "Memahami bahasa burung dan semut",
       ],
       majorEvents: [
-        "Mewarisi kerajaan dan kenabian dari Dawud",
-        "Peristiwa semut dan rasa syukurnya",
-        "Surat-menyurat dengan Ratu Saba dan keimanannya",
+        "Mewarisi kerajaan dan kenabian Nabi Daud",
+        "Peristiwa semut dan kesyukuran baginda",
+        "Utusan surat kepada Ratu Saba' dan keimanannya",
       ],
       lessons: [
-        "Kekuasaan adalah ujian yang mendalam",
-        "Syukur melindungi dari kesombongan",
-        "Hikmah dan dakwah dapat mengubah hati lebih baik daripada kekuatan",
+        "Kuasa ialah ujian yang besar",
+        "Syukur melindungi daripada keangkuhan",
+        "Hikmah dan ajakan lebih mampu melembutkan hati berbanding kekerasan",
       ],
-      facts: ["Salah satu nabi-raja yang paling rinci diceritakan dalam Al-Qur'an"],
+      facts: ["Antara nabi dan raja yang paling lengkap digambarkan di dalam al-Quran"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dia (Sulaiman) tersenyum dan tertawa karena (mendengar) perkataan semut itu, dan berkata: Ya Tuhanku, berilah aku ilham untuk tetap mensyukuri nikmat-Mu yang telah Engkau anugerahkan kepadaku dan kepada kedua orang tuaku, dan agar aku dapat berbuat amal saleh yang Engkau ridai.",
-      },
-      {
-        excerpt:
-          "Dan untuk Sulaiman (Kami tundukkan) angin — perjalanan (angin itu) pada pagi hari sama dengan sebulan perjalanan dan perjalanannya pada sore hari sama dengan sebulan perjalanan (pula).",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah An-Naml" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Ilyas alaihissalam",
+    title: "Nabi Ilyas a.s.",
     summary:
-      "Seorang nabi yang menghadapi penyembahan berhala Ba'al dan mengajak kaumnya kembali kepada Allah.",
+      "Nabi yang menentang penyembahan berhala Ba'la dan menyeru kaumnya kembali kepada Allah.",
     body: [
-      "Ilyas alaihissalam diutus kepada sebuah komunitas Bani Israil yang telah tenggelam dalam penyembahan berhala, dengan berhala utama mereka bernama Ba'al. Al-Qur'an mencatat tantangannya secara langsung: 'Mengapa kamu tidak bertakwa? Patutkah kamu menyembah Ba'al dan meninggalkan sebaik-baik pencipta — yaitu Allah, Tuhanmu dan Tuhan nenek moyangmu yang terdahulu?' (Al-Qur'an 37:124–126). Ajakannya adalah seruan kenabian yang abadi: singkirkan tuhan-tuhan palsu dan kembalikan ibadah hanya kepada Sang Pencipta.",
-      "Al-Qur'an merangkum misinya dengan pola kenabian yang telah dikenal — seruan yang jelas, penolakan oleh mayoritas, dan kemuliaan yang dijaga bagi orang-orang yang ikhlas. 'Mereka mendustakannya, maka mereka pasti akan diseret (ke azab), kecuali hamba-hamba Allah yang ikhlas' (Al-Qur'an 37:127–128). Allah memasukkannya di antara orang-orang saleh dan meninggalkan salam serta pujian yang abadi baginya: 'Salam sejahtera bagi Ilyas' (Al-Qur'an 37:129–130), serta menghitungnya bersama Zakaria, Yahya, dan Isa di antara orang-orang yang mendapat petunjuk (Al-Qur'an 6:85).",
-      "Pelajaran dari Ilyas adalah bahwa perbaikan sejati dimulai dengan meluruskan ibadah. Suatu masyarakat tidak dapat diperbaiki selama mereka terus mengarahkan pengabdian mereka kepada tujuan-tujuan yang salah — baik berupa berhala yang nyata maupun berhala modern berupa hawa nafsu, kekayaan, dan status. Tauhid adalah fondasi tempat seluruh pembaruan moral yang abadi dibangun, dan ketika sekelompok orang yang ikhlas tetap kecil dan sedikit jumlahnya, Allah tetap memuliakan mereka yang teguh pada kebenaran.",
+      "Nabi Ilyas a.s. diutus kepada satu masyarakat Bani Israel yang telah terjerumus ke dalam penyembahan berhala, dan berhala utama mereka ialah Ba'la. Al-Quran merakamkan cabaran langsung baginda: 'Hendaklah kamu mematuhi suruhan Allah dan menjauhi laranganNya. Patutkah kamu menyembah berhala Ba'la, dan kamu meninggalkan (ibadat kepada) sebijak-bijak pencipta, iaitu Allah Tuhan kamu, dan Tuhan datuk nenek kamu yang telah lalu' (al-Quran 37:124–126). Seruan baginda ialah seruan kenabian yang abadi: tanggalkan tuhan-tuhan palsu dan kembalikan ibadah kepada Pencipta semata-mata.",
+      "Al-Quran merumuskan misi baginda mengikut corak kenabian yang biasa — ajakan yang jelas, penolakan oleh majoriti, dan kemuliaan yang terpelihara bagi orang yang ikhlas. 'Maka mereka mendustakannya; akibatnya mereka tetap akan dibawa hadir (untuk diseksa), kecuali hamba-hamba Allah yang dibersihkan dari sebarang syirik' (al-Quran 37:127–128). Allah menyebut baginda dalam kalangan orang yang soleh dan mengekalkan salam serta pujian ke atasnya: 'Salam sejahtera kepada Nabi Ilyas' (al-Quran 37:129–130), dan menyenaraikan baginda bersama Nabi Zakaria, Nabi Yahya dan Nabi Isa dalam kalangan orang yang mendapat petunjuk (al-Quran 6:85).",
+      "Pengajaran daripada Nabi Ilyas ialah islah yang sebenar bermula dengan membetulkan ibadah. Sesebuah masyarakat tidak dapat diperbaiki selagi pengabdiannya ditujukan kepada objek yang palsu — sama ada berhala secara harfiah atau berhala moden berupa hawa nafsu, harta dan pangkat. Tauhid ialah asas bagi setiap pembaharuan moral yang berkekalan, dan walaupun golongan yang setia itu kecil dan kalah bilangan, Allah memuliakan mereka yang berpegang pada kebenaran.",
     ],
     profile: {
-      nation: "Sebuah komunitas Bani Israil",
+      nation: "Satu masyarakat dalam kalangan Bani Israel",
       location: "Wilayah Syam",
-      era: "Masa kenabian Israil yang kemudian",
-      mission: "Mengajak kaumnya dari penyembahan Ba'al menuju tauhid.",
+      mission: "Menyeru kaumnya daripada penyembahan Ba'la kepada tauhid.",
       challenges: [
-        "Penyembahan berhala yang telah mengakar dalam",
-        "Perlawanan dari para pemimpin",
+        "Penyembahan berhala yang telah berakar umbi",
+        "Penentangan daripada golongan pemimpin",
       ],
       majorEvents: [
-        "Seruan publik menentang penyembahan Ba'al",
-        "Penolakan mayoritas dan perlindungan bagi orang-orang beriman",
+        "Seruan terbuka menentang penyembahan Ba'la",
+        "Penolakan oleh majoriti dan terpeliharanya orang beriman",
       ],
       lessons: [
-        "Tauhid adalah fondasi setiap perbaikan",
-        "Sekelompok kecil orang yang ikhlas tetap berharga di sisi Allah",
-        "Para nabi berbicara menentang kesalahan yang populer, bukan mengikutinya",
+        "Tauhid ialah asas segala islah",
+        "Golongan kecil yang setia tetap bernilai di sisi Allah",
+        "Para nabi menentang kesilapan yang popular, bukan mengikutinya",
       ],
-      facts: ["Disebut di antara orang-orang saleh", "Menghadapi penyembahan berhala Ba'al"],
+      facts: ["Disebut dalam kalangan orang yang soleh", "Menentang penyembahan berhala Ba'la"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ketika dia berkata kepada kaumnya: Mengapa kamu tidak bertakwa? Patutkah kamu menyembah Ba'al dan meninggalkan sebaik-baik pencipta?",
-      },
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Zakaria, Yahya, Isa, dan Ilyas. Semuanya termasuk orang-orang saleh.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah As-Saffat" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Ilyasa alaihissalam",
+    title: "Nabi Ilyasa' a.s.",
     summary:
-      "Seorang nabi saleh dari silsilah Bani Israil, disebut dalam Al-Qur'an di antara orang-orang pilihan.",
+      "Nabi yang soleh daripada keturunan Bani Israel, disebut di dalam al-Quran dalam kalangan orang-orang pilihan.",
     body: [
-      "Ilyasa alaihissalam disebut namanya di dua tempat dalam Al-Qur'an di antara para nabi, dan keduanya penuh pujian. Dia disebutkan bersama Ismail, Yunus, dan Lut di antara orang-orang yang mendapat petunjuk, yang Allah 'lebihkan derajatnya di atas seluruh alam' (Al-Qur'an 6:86–87), dan sekali lagi bersama Ismail dan Zulkifli di antara orang-orang pilihan (Al-Qur'an 38:48). Teks itu meninggikan kedudukannya, bukan memberikan penjelasan yang rinci.",
-      "Karena wahyu tentangnya sengaja disingkat, umat Islam menerima persis apa yang pasti — bahwa dia adalah nabi yang benar yang menjaga seruan tauhid di antara kaumnya — dan menghindari menisbatkan kepadanya kisah-kisah yang tidak memiliki sanad yang sahih. Kehati-hatian ini merupakan bagian dari akidah yang benar itu sendiri: kita memuliakan seorang nabi dengan berpegang teguh pada kebenaran tentangnya, bukan dengan mengarang kisah di sekelilingnya.",
-      "Penyebutannya adalah pengingat bahwa Allah mengutus banyak rasul, dan bahwa nilai seorang nabi tidak diukur dari seberapa banyak kisahnya diabadikan, melainkan dari kesetiaannya pada misinya. Seperti yang dikatakan Al-Qur'an di tempat lain, ada rasul-rasul 'yang Kami kisahkan kepadamu dan ada yang tidak Kami kisahkan kepadamu' (Al-Qur'an 40:78) — dan beriman kepada mereka semua, yang dikenal maupun tidak, adalah bagian dari keimanan seorang muslim.",
+      "Nabi Ilyasa' a.s. disebut dalam kalangan para nabi di dua tempat di dalam al-Quran, dan di kedua-dua tempat itu baginda dipuji. Baginda disebut dalam kalangan orang yang mendapat petunjuk bersama Nabi Ismail, Nabi Yunus dan Nabi Lut, yang Allah 'lebihkan darjat mereka atas umat-umat (yang ada pada zamannya)' (al-Quran 6:86–87), dan sekali lagi dalam kalangan orang-orang pilihan bersama Nabi Ismail dan Nabi Zulkifli (al-Quran 38:48). Nas al-Quran mengangkat kedudukan baginda dan bukan menceritakan kisah yang terperinci.",
+      "Oleh sebab wahyu sengaja ringkas tentang baginda, umat Islam mengimani apa yang pasti sahaja — bahawa baginda ialah nabi yang benar yang menegakkan seruan menyembah Allah semata-mata dalam kalangan kaumnya — dan menjauhi pengaitan kisah-kisah yang tiada sandaran yang kukuh kepadanya. Sikap menahan diri ini sendiri ialah sebahagian daripada akidah yang sahih: kita memuliakan seorang nabi dengan berpegang pada kebenaran tentangnya, bukan dengan mereka-reka cerita di sekelilingnya.",
+      "Sebutan tentang baginda mengingatkan bahawa Allah telah mengutus ramai rasul, dan nilai seorang nabi tidak diukur dengan panjangnya kisah yang terpelihara, tetapi dengan kesetiaannya kepada misi. Seperti firman Allah di tempat lain, ada rasul yang 'Kami ceritakan perihalnya kepadamu, dan ada pula di antaranya yang tidak Kami ceritakan kepada kamu' (al-Quran 40:78) — dan beriman kepada mereka semua, yang diketahui dan yang tidak diketahui, ialah sebahagian daripada iman seorang Muslim.",
     ],
     profile: {
-      nation: "Bani Israil",
+      nation: "Bani Israel",
       location: "Wilayah Syam",
-      era: "Masa kenabian Israil yang kemudian",
-      mission: "Melanjutkan seruan tauhid di antara kaumnya.",
+      mission: "Meneruskan seruan kepada tauhid dalam kalangan kaumnya.",
       lessons: [
-        "Hormatilah semua nabi secara setara dalam akidah",
-        "Bahkan satu penyebutan singkat dalam Al-Qur'an membawa bimbingan yang nyata",
-        "Kesinambungan yang saleh menjaga komunitas keimanan tetap terjaga",
+        "Muliakan semua nabi secara sama rata dalam akidah",
+        "Sebutan ringkas di dalam al-Quran tetap membawa petunjuk yang sebenar",
+        "Kesinambungan yang soleh memelihara masyarakat beriman",
       ],
-      facts: ["Disebut langsung dalam Al-Qur'an di antara orang-orang pilihan"],
+      facts: [
+        "Disebut secara langsung di dalam al-Quran dalam kalangan orang-orang pilihan yang terpilih",
+      ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Ismail, Ilyasa, Yunus, dan Lut. Masing-masing (mereka) Kami lebihkan derajatnya di atas seluruh alam.",
-      },
-      {
-        excerpt:
-          "Dan ingatlah Ismail, Ilyasa, dan Zulkifli. Semuanya termasuk orang-orang pilihan.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Surah Al-An'am" }, { label: "Lihat garis masa para nabi" }],
   },
   {
-    title: "Yunus alaihissalam",
+    title: "Nabi Yunus a.s.",
     summary:
-      "Nabi yang ditelan ikan, yang tobatnya dalam kegelapan menjadi pelajaran harapan yang abadi.",
+      "Nabi yang ditelan ikan besar, yang taubatnya dalam kegelapan menjadi pengajaran abadi tentang harapan.",
     body: [
-      "Yunus alaihissalam diutus kepada kaum Ninawa, tetapi ketika mereka terus-menerus mengingkari ajakannya, dia pergi meninggalkan mereka dalam kemarahan sebelum Allah mengizinkannya pergi. Al-Qur'an menggambarkan apa yang terjadi setelahnya: '(Ingatlah kisah) Zunnun (Yunus), ketika dia pergi dalam keadaan marah dan mengira bahwa Kami tidak akan mempersempitnya (menghukumnya)' (Al-Qur'an 21:87). Naik sebuah kapal, dia dilemparkan ke laut dan ditelan oleh ikan besar, terdorong ke lapisan-lapisan kegelapan — gelapnya malam, gelapnya laut, dan gelapnya perut ikan.",
-      "Dalam kegelapan yang mencekam itu, Yunus memanggil dengan kata-kata yang menjadi salah satu doa yang paling dicintai dalam Islam: 'Tidak ada tuhan selain Engkau; Mahasuci Engkau. Sesungguhnya aku termasuk orang-orang yang zalim' (Al-Qur'an 21:87). Dia tidak berputus asa; dia mengakui kesucian Allah dan mengakui kesalahannya. Allah menjawab: 'Maka Kami kabulkan (doa)nya dan Kami selamatkan dia dari kesedihan. Dan demikianlah Kami menyelamatkan orang-orang yang beriman' (Al-Qur'an 21:88). Ikan itu mendamparkannya ke pantai, dan Allah menumbuhkan sebatang pohon labu untuk menaunginya di tubuhnya yang lemah.",
-      "Kemudian datanglah akhir yang luar biasa: Yunus kembali kepada kaumnya, dan berbeda dari hampir setiap kaum lain dalam Al-Qur'an, mereka beriman dan diselamatkan — 'Maka Kami beri mereka kesenangan hidup sampai waktu tertentu' (Al-Qur'an 37:147–148; 10:98). Kisahnya merangkai dua pelajaran sekaligus: jangan pernah berputus asa dari rahmat Allah, betapapun dalamnya kegelapan, karena tobat yang tulus mengembalikan apa yang hilang; dan doa Yunus adalah sandaran bagi setiap mukmin yang tertimpa musibah. Nabi ﷺ mengajarkan bahwa tidak ada muslim yang berdoa dengannya untuk sesuatu apa pun kecuali Allah pasti mengabulkan doanya.",
+      "Nabi Yunus a.s. diutus kepada penduduk Ninawa, tetapi apabila mereka terus-menerus menolak seruannya, baginda meninggalkan mereka dalam keadaan marah sebelum Allah mengizinkannya pergi. Al-Quran menggambarkan apa yang berlaku seterusnya: 'Dan (sebutkanlah peristiwa) Zun-Nun, ketika ia pergi (meninggalkan kaumnya) dalam keadaan marah, yang menyebabkan ia menyangka bahawa Kami tidak akan mengenakannya kesusahan atau cubaan' (al-Quran 21:87). Selepas menaiki sebuah kapal, baginda dicampakkan ke laut dan ditelan oleh seekor ikan besar, terjerumus ke dalam lapisan-lapisan kegelapan — kegelapan malam, kegelapan laut, dan kegelapan perut ikan.",
+      "Dalam kegelapan yang menyelubungi itu, Nabi Yunus menyeru dengan kalimah yang menjadi antara doa yang paling dicintai dalam Islam: 'Sesungguhnya tiada Tuhan (yang dapat menolong) melainkan Engkau (ya Allah)! Maha Suci Engkau … Sesungguhnya aku adalah dari orang-orang yang menganiaya diri sendiri' (al-Quran 21:87). Baginda tidak berputus asa; baginda mengakui kesempurnaan Allah dan mengaku kesilapannya sendiri. Allah memperkenankan: 'Maka Kami kabulkan permohonan doanya, dan Kami selamatkan dia dari kesusahan yang menyelubunginya; dan sebagaimana Kami menyelamatkannya Kami akan selamatkan orang-orang yang beriman' (al-Quran 21:88). Ikan itu memuntahkan baginda ke pantai, dan Allah menumbuhkan sepohon tumbuhan untuk menaungi tubuhnya yang lemah.",
+      "Kemudian datanglah pengakhiran yang menakjubkan: Nabi Yunus kembali kepada kaumnya, dan tidak seperti hampir setiap bangsa lain di dalam al-Quran, mereka beriman lalu terselamat — 'lalu Kami biarkan mereka menikmati kesenangan hidup hingga ke suatu masa' (al-Quran 37:147–148; 10:98). Kisah baginda menyampaikan dua pengajaran yang terjalin: jangan sekali-kali berputus asa daripada rahmat Allah, walau segelap mana pun keadaan, kerana taubat yang ikhlas memulihkan apa yang hilang; dan doa Nabi Yunus ialah tali penyelamat bagi setiap mukmin yang ditimpa kesusahan. Nabi ﷺ mengajar bahawa tiada seorang Muslim pun berdoa dengannya melainkan Allah memperkenankannya.",
     ],
     profile: {
       nation: "Penduduk Ninawa",
       location: "Wilayah Mesopotamia",
-      era: "Masa kenabian sebelum Isa",
-      mission: "Mengajak kaumnya kepada tauhid dan tobat.",
+      mission: "Menyeru kaumnya kepada tauhid dan taubat.",
       challenges: [
-        "Tekanan penolakan yang terus-menerus dalam berdakwah",
-        "Ujian pribadi dalam kegelapan laut",
-        "Kembali kepada misi setelah teguran",
+        "Tekanan penolakan berterusan dalam dakwah",
+        "Ujian peribadi dalam kegelapan laut",
+        "Kembali kepada misi selepas ditegur",
       ],
       miracles: [
-        "Diselamatkan dari dalam ikan",
-        "Tumbuhnya sebatang pohon untuk menaunginya",
-        "Beriman seluruh kaumnya",
+        "Diselamatkan dari dalam perut ikan",
+        "Sepohon tumbuhan ditumbuhkan untuk menaunginya",
+        "Keimanan seluruh kaumnya",
       ],
       majorEvents: [
         "Meninggalkan kaumnya dan ujian di laut",
-        "Doa dalam kegelapan yang berlapis-lapis",
-        "Kembali dan beriman kaum Ninawa",
+        "Doa dalam tiga lapis kegelapan",
+        "Kepulangan baginda dan keimanan penduduk Ninawa",
       ],
       lessons: [
-        "Jangan pernah berputus asa dari rahmat Allah",
-        "Tobat yang tulus memulihkan sebuah misi",
-        "Doa dalam kesulitan dapat mengubah kehidupan",
+        "Jangan sekali-kali berputus asa daripada rahmat Allah",
+        "Taubat yang ikhlas memulihkan misi",
+        "Doa ketika susah membawa perubahan",
       ],
-      facts: ["Juga disebut Zunnun (yang ditelan ikan) dalam Al-Qur'an"],
+      facts: ["Juga digelar Zun-Nun (pemilik ikan) di dalam al-Quran"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah kisah Zunnun/Yunus), ketika dia berdoa dalam keadaan gelap gulita: Tidak ada tuhan selain Engkau; Mahasuci Engkau. Sesungguhnya aku termasuk orang-orang yang zalim.",
-      },
-      {
-        excerpt:
-          "Maka mengapa tidak ada (penduduk) suatu negeri yang beriman, lalu imannya itu bermanfaat kepadanya, selain kaum Yunus? Ketika mereka beriman, Kami hilangkan dari mereka azab yang menghinakan.",
-      },
+    appLinks: [
+      { label: "Baca Surah Al-Anbiya" },
+      { label: "Baca Surah Yunus" },
+      { label: "Lihat garis masa para nabi" },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Doa Zunnun ketika dia memanggil Allah dari dalam perut ikan adalah: La ilaha illa anta subhanaka inni kuntu minaz-zalimin. Tidak ada seorang muslim pun yang berdoa dengannya untuk sesuatu apa pun kecuali Allah mengabulkan doanya.",
-      },
-    ],
-    appLinks: [{}, {}, {}],
   },
   {
-    title: "Zakaria alaihissalam",
+    title: "Nabi Zakaria a.s.",
     summary:
-      "Nabi yang tekun beribadah, yang di usia tua berdoa memohon keturunan yang saleh dan dikaruniai Yahya.",
+      "Nabi yang tekun beribadah, berdoa memohon pewaris yang soleh pada usia tua dan dikurniakan Yahya.",
     body: [
-      "Zakaria alaihissalam adalah seorang nabi Bani Israil yang tekun beribadah dan wali dari Maryam. Setiap kali dia memasuki mihrabnya dan mendapati rezeki di sisinya, dia bertanya dari mana rezeki itu datang, dan Maryam menjawab: 'Itu dari sisi Allah. Sesungguhnya Allah memberi rezeki kepada siapa yang Dia kehendaki tanpa perhitungan' (Al-Qur'an 3:37). Menyaksikan rezeki Allah kepada Maryam membangkitkan kembali harapan dalam diri Zakaria bahwa Allah dapat memberikan apa yang secara lahiriah mustahil bagi manusia.",
-      "Meski dia telah lanjut usia dan istrinya mandul, Zakaria kembali kepada Allah dalam sebuah doa yang tenang dan tulus: 'Ya Tuhanku, sesungguhnya tulangku telah lemah dan kepalaku telah dipenuhi uban karena usia, dan aku belum pernah kecewa dalam berdoa kepada-Mu, ya Tuhanku' (Al-Qur'an 19:4). Dia tidak meminta harta atau keuntungan duniawi, melainkan seorang pewaris yang saleh yang akan melanjutkan misi kenabian dan menjaga ibadah kepada Allah. Allah menjawab dengan kabar gembira seorang putra, Yahya — sebuah nama, firman Allah, yang belum pernah diberikan kepada siapa pun sebelumnya (Al-Qur'an 19:7). Sebagai sebuah tanda, Zakaria diperintahkan untuk tidak berbicara kepada manusia selama tiga hari kecuali dengan isyarat, mencurahkan lisannya untuk mengingat Allah (Al-Qur'an 19:10–11).",
-      "Kehidupan Zakaria mengajarkan seorang mukmin untuk tidak pernah berhenti berdoa, betapapun jauhnya jawaban itu tampak, dan untuk memohon kepada Allah secara khusus karunia keluarga yang saleh dan kesinambungan keimanan. Kekhawatiran terbesarnya bukanlah dirinya sendiri, melainkan siapa yang akan memegang kebenaran setelahnya. Kisahnya juga memuliakan pengabdian yang diam-diam di tempat-tempat ibadah sebagai amalan yang terhormat dan dicintai.",
+      "Nabi Zakaria a.s. ialah nabi Bani Israel yang kuat beribadah dan penjaga Maryam. Setiap kali baginda masuk menemui Maryam di mihrabnya, baginda mendapati rezeki di sisinya lalu bertanya dari mana datangnya, dan Maryam menjawab: 'Ialah dari Allah, sesungguhnya Allah memberikan rezeki kepada sesiapa yang dikehendakiNya dengan tidak dikira' (al-Quran 3:37). Menyaksikan rezeki Allah kepada Maryam menyemarakkan semula harapan baginda bahawa Allah mampu mengurniakan apa yang kelihatan mustahil pada pandangan manusia.",
+      "Walaupun baginda telah tua dan isterinya mandul, Nabi Zakaria berpaling kepada Allah dengan doa yang perlahan dan penuh kemesraan: 'Wahai Tuhanku! Sesungguhnya telah lemahlah tulang-tulangku, dan telah putih melepaklah uban kepalaku; dan aku - wahai Tuhanku - tidak pernah merasa hampa dengan doa permohonanku kepadaMu' (al-Quran 19:4). Baginda tidak meminta harta atau keuntungan dunia, tetapi seorang pewaris yang soleh yang akan meneruskan misi kenabian dan memelihara ibadah kepada Allah. Allah memperkenankan dengan berita gembira tentang seorang anak lelaki, Yahya — nama yang, firman Allah, belum pernah diberikan kepada sesiapa sebelumnya (al-Quran 19:7). Sebagai tanda, Nabi Zakaria tidak dapat bercakap dengan manusia selama tiga hari kecuali dengan isyarat, sambil menumpukan lidahnya untuk berzikir kepada Allah (al-Quran 19:10–11).",
+      "Kehidupan Nabi Zakaria mengajar orang beriman agar tidak berhenti berdoa, walau setipis mana pun harapan untuk dimakbulkan, dan agar memohon kepada Allah khususnya kurniaan keluarga yang soleh dan kesinambungan iman. Kebimbangan terbesar baginda bukanlah dirinya sendiri, tetapi siapa yang akan memikul kebenaran selepasnya. Kisah baginda juga memuliakan khidmat yang senyap di tempat-tempat ibadah sebagai amalan yang mulia dan dicintai.",
     ],
     profile: {
-      nation: "Bani Israil",
-      location: "Wilayah Yerusalem",
-      era: "Sebelum Isa",
-      mission: "Membimbing kaumnya dan menjaga ibadah kenabian.",
+      nation: "Bani Israel",
+      location: "Wilayah Baitulmaqdis",
+      mission: "Membimbing kaumnya dan memelihara ibadah kenabian.",
       challenges: [
-        "Mencapai usia tua tanpa keturunan",
-        "Kekhawatiran akan kesinambungan keimanan",
-        "Menjaga ibadah di tengah masyarakat yang penuh ketegangan",
+        "Mencapai usia tua tanpa zuriat",
+        "Bimbang tentang kesinambungan iman",
+        "Memelihara ibadah dalam masyarakat yang tertekan",
       ],
-      miracles: ["Kabar gembira Yahya di usia tua", "Tanda tidak dapat berbicara selama tiga hari"],
-      majorEvents: [
-        "Perwalian Maryam dan menyaksikan rezekinya",
-        "Doa yang tulus memohon seorang pewaris",
-        "Doa yang dikabulkan dan kelahiran Yahya",
-      ],
-      lessons: [
-        "Jangan pernah kehilangan harapan dalam berdoa",
-        "Mintalah kepada Allah keluarga dan keturunan yang saleh",
-        "Pengabdian yang tulus dalam ibadah adalah kemuliaan",
-      ],
-      facts: ["Wali Maryam", "Ayah Yahya, yang kelahirannya menjawab doanya"],
-    },
-    quran: [
-      {
-        excerpt:
-          "Di sanalah Zakaria berdoa kepada Tuhannya seraya berkata: Ya Tuhanku, anugerahkanlah kepadaku dari sisi-Mu keturunan yang baik. Sesungguhnya Engkau Maha Mendengar doa.",
-      },
-      {
-        excerpt:
-          "Dia berkata: Ya Tuhanku, sesungguhnya tulangku telah lemah dan kepalaku telah dipenuhi uban karena usia, dan aku belum pernah kecewa dalam berdoa kepada-Mu, ya Tuhanku.",
-      },
-    ],
-    appLinks: [{}, {}, {}],
-  },
-  {
-    title: "Yahya alaihissalam",
-    summary:
-      "Nabi yang suci dan bijaksana, dikaruniai kebaikan sejak muda dan dimuliakan Allah dengan kesejahteraan.",
-    body: [
-      "Yahya alaihissalam adalah jawaban dari doa ayahnya, Zakaria, yang namanya ditetapkan Allah sebelum kelahirannya. Allah menyapanya secara langsung: 'Wahai Yahya, ambillah (pelajari) Kitab (Taurat) itu dengan sungguh-sungguh.' Dan Dia 'menganugerahkan hikmah kepadanya sejak kecil' (Al-Qur'an 19:12) — sebuah pernyataan langka yang menegaskan kematangan rohaninya sejak dini. Sejak muda, dia mengabdikan diri kepada Allah dengan kesungguhan yang melampaui usianya.",
-      "Al-Qur'an memuji akhlaknya dalam rangkaian kata yang indah: Allah menganugerahkan kepadanya 'rasa kasih sayang dari sisi Kami, dan kesucian, dan dia adalah seorang yang bertakwa, serta berbakti kepada kedua orang tuanya, dan dia bukanlah orang yang sombong lagi durhaka' (Al-Qur'an 19:13–14). Dia suci dan tekun beribadah, dikenang di antara orang-orang saleh. Dia mengajak kaumnya kepada ketaatan dan kebenaran, dan datang sebelum Isa, membenarkan sebuah kalimat dari Allah serta menyiapkan hati untuk hidayah (Al-Qur'an 3:39).",
-      "Allah memuliakan Yahya dengan kesejahteraan pada tiga momen paling kritis dalam hidupnya: 'Kesejahteraan atasnya pada hari dia dilahirkan, pada hari dia meninggal, dan pada hari dia dibangkitkan hidup kembali' (Al-Qur'an 19:15). Kehidupannya menyampaikan pesan bagi muda maupun tua: kedekatan dengan Allah tidak perlu ditunda hingga tahun-tahun berikutnya. Kesucian hati, kesungguhan dalam ibadah, dan berbakti kepada orang tua dapat mekar dalam diri seseorang sejak usia muda — dan kehidupan seperti itu dicintai Allah.",
-    ],
-    profile: {
-      nation: "Bani Israil",
-      location: "Wilayah Syam",
-      era: "Sezaman dengan Zakaria dan mendekati masa Isa",
-      mission: "Mengajak kepada kebaikan dan menyiapkan hati untuk hidayah.",
-      challenges: [
-        "Perbaikan publik di tengah lingkungan yang penuh ketegangan moral",
-        "Menjaga kesucian dan prinsip",
+      miracles: [
+        "Berita gembira tentang Yahya pada usia tua",
+        "Tanda tidak dapat bercakap selama tiga hari",
       ],
       majorEvents: [
-        "Kelahirannya sebagai jawaban doa yang dikabulkan",
-        "Dikaruniai hikmah sejak muda",
-        "Dikenal karena kesucian dan ibadahnya",
+        "Menjaga Maryam dan menyaksikan rezekinya",
+        "Doa yang tulus memohon pewaris",
+        "Doa yang dimakbulkan dan kelahiran Yahya",
       ],
       lessons: [
-        "Anak muda dapat memimpin dalam kebaikan",
-        "Kesucian hati adalah kekuatan sejati",
-        "Berbakti kepada orang tua adalah bagian dari takwa",
+        "Jangan sekali-kali hilang harapan dalam berdoa",
+        "Mohonlah kepada Allah keluarga dan zuriat yang soleh",
+        "Khidmat yang tekun dalam ibadah ialah perbuatan yang mulia",
       ],
       facts: [
-        "Namanya ditetapkan Allah sebelum kelahirannya",
-        "Dimuliakan dengan kesejahteraan pada kelahiran, kematian, dan kebangkitan",
+        "Penjaga Maryam",
+        "Bapa kepada Yahya, yang kelahirannya menjadi jawapan kepada doanya",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Wahai Yahya, ambillah (pelajari) Kitab (Taurat) itu dengan sungguh-sungguh. Dan Kami anugerahkan kepadanya hikmah selagi dia masih kecil, dan rasa kasih sayang dari sisi Kami, dan kesucian, dan dia adalah seorang yang bertakwa.",
-      },
-      {
-        excerpt:
-          "Allah menyampaikan kabar gembira kepadamu tentang (kelahiran) Yahya, yang membenarkan suatu kalimat dari Allah — seorang pemimpin, seorang yang menahan diri (dari hawa nafsu), dan seorang nabi termasuk keturunan orang-orang saleh.",
-      },
+    appLinks: [
+      { label: "Baca Surah Ali 'Imran" },
+      { label: "Baca Surah Maryam" },
+      { label: "Lihat garis masa para nabi" },
     ],
-    appLinks: [{}, {}],
   },
   {
-    title: "Isa putra Maryam alaihissalam",
+    title: "Nabi Yahya a.s.",
     summary:
-      "Rasul agung yang lahir secara mukjizat dari Maryam, mengajak kepada Allah dengan tanda-tanda yang nyata — seorang hamba, bukan tuhan.",
+      "Nabi yang suci dan bijaksana, dikurniakan kesolehan sejak muda dan dimuliakan oleh Allah dengan kesejahteraan.",
     body: [
-      "Isa alaihissalam lahir dari Maryam tanpa ayah, atas perintah Allah, sebagai sebuah tanda kekuasaan-Nya yang mutlak: 'Sesungguhnya perumpamaan (penciptaan) Isa di sisi Allah adalah seperti (penciptaan) Adam. Dia menciptakannya dari tanah, kemudian Dia berfirman kepadanya: Jadilah, maka jadilah dia' (Al-Qur'an 3:59). Ketika Maryam membawa bayi itu kepada kaumnya, yang menuduhnya, bayi Isa berbicara dari buaian untuk membelanya: 'Sesungguhnya aku adalah hamba Allah. Dia memberiku Kitab dan menjadikanku seorang nabi' (Al-Qur'an 19:30). Pernyataan pertama ini menetapkan nada bagi seluruh misinya — bahwa dia adalah hamba Allah.",
-      "Isa diutus kepada Bani Israil untuk membenarkan Taurat sebelumnya dan membawa Injil. Allah mendukungnya dengan mukjizat yang nyata atas izin-Nya: dia menyembuhkan orang buta dan penderita kusta, menghidupkan orang mati, dan membentuk seekor burung dari tanah liat yang kemudian terbang atas izin Allah (Al-Qur'an 3:49). Pesannya mengajak manusia menyembah 'Allah, Tuhanku dan Tuhanmu' (Al-Qur'an 3:51), serta mengajak kepada keikhlasan dan kebaikan. Para pengikut setianya beriman dan mendukungnya.",
-      "Al-Qur'an meluruskan dua sikap ekstrem tentang Isa. Terhadap mereka yang mendustakannya dan berencana membunuhnya, Al-Qur'an menegaskan bahwa dia tidak dibunuh maupun disalib; melainkan, hal itu hanya disamarkan bagi mereka, dan Allah mengangkatnya kepada-Nya (Al-Qur'an 4:157–158). Terhadap mereka yang berlebihan dalam memuliakannya, Al-Qur'an menegaskan bahwa dia adalah seorang nabi dan rasul yang mulia, bukan tuhan atau anak tuhan — 'Al-Masih, putra Maryam, hanyalah seorang rasul' (Al-Qur'an 5:75). Dalam akidah Ahlus Sunnah, dia akan kembali sebelum hari kiamat. Kisahnya mengajarkan bahwa kekuasaan Allah melampaui segala sebab alami, bahwa para nabi adalah hamba yang mulia dan bukan tuhan, dan bahwa kebenaran harus dijaga dari pengingkaran maupun dari sikap berlebihan.",
+      "Nabi Yahya a.s. ialah jawapan kepada doa bapanya, Nabi Zakaria, dan dinamakan oleh Allah sebelum kelahirannya. Allah berfirman kepadanya secara langsung: 'Wahai Yahya, terimalah Kitab itu (serta amalkanlah) dengan bersungguh-sungguh!' Dan Allah memberikan kepadanya 'Hikmat kebijaksanaan semasa ia masih kanak-kanak' (al-Quran 19:12) — sifat yang jarang disebut, menandakan kematangan rohaninya sejak awal. Sejak muda lagi, baginda mengabdikan diri kepada Allah dengan kesungguhan yang melebihi usianya.",
+      "Al-Quran memuji akhlak baginda dalam rangkaian yang indah: Allah mengurniakan kepadanya 'rahmat dari sisi Kami, serta kelebihan yang kembang manfaatnya; dan ia seorang yang bertaqwa. Dan ia taat serta berbuat baik kepada ibu bapanya, dan ia pula tidak sombong angkuh atau derhaka' (al-Quran 19:13–14). Baginda seorang yang menjaga kehormatan diri dan kuat beribadah, dikenang dalam kalangan orang yang soleh. Baginda menyeru kaumnya kepada ketaatan dan kebenaran, dan mendahului Nabi Isa, membenarkan kalimah daripada Allah dan menyediakan hati manusia untuk menerima petunjuk (al-Quran 3:39).",
+      "Allah memuliakan Nabi Yahya dengan kesejahteraan pada tiga detik yang paling rapuh dalam setiap kehidupan: 'Dan (Kami limpahkan) kepadanya selamat sejahtera pada hari ia diperanakkan, dan pada hari ia mati, serta pada hari ia dibangkitkan hidup semula' (al-Quran 19:15). Biografi baginda ialah mesej kepada yang muda dan yang tua: kedekatan dengan Allah tidak ditangguhkan hingga ke usia lanjut. Kesucian hati, kesungguhan dalam ibadah dan kebaikan kepada ibu bapa boleh berkembang dalam diri seseorang ketika masih muda — dan kehidupan sedemikian dicintai oleh Allah.",
     ],
     profile: {
-      nation: "Bani Israil",
-      location: "Syam",
-      era: "Abad pertama Masehi",
-      mission: "Memperbarui tauhid, membenarkan Taurat, dan mengajak kepada kebaikan.",
+      nation: "Bani Israel",
+      location: "Wilayah Syam",
+      mission: "Menyeru kepada kesolehan dan menyediakan hati manusia untuk menerima petunjuk.",
       challenges: [
-        "Perlawanan dan konspirasi dari mereka yang mendustakannya",
-        "Sikap berlebihan terhadap kedudukannya di kemudian hari",
+        "Melakukan islah secara terbuka dalam persekitaran yang rosak akhlaknya",
+        "Mempertahankan kesucian dan prinsip",
+      ],
+      majorEvents: [
+        "Kelahirannya sebagai doa yang dimakbulkan",
+        "Dikurniakan hikmah ketika masih muda",
+        "Diiktiraf kerana kesucian dan pengabdiannya",
+      ],
+      lessons: [
+        "Orang muda boleh memimpin dalam kesolehan",
+        "Kesucian hati ialah kekuatan yang sebenar",
+        "Berbuat baik kepada ibu bapa ialah sebahagian daripada takwa",
+      ],
+      facts: [
+        "Dinamakan oleh Allah sebelum kelahirannya",
+        "Dimuliakan dengan kesejahteraan ketika lahir, wafat dan dibangkitkan",
+      ],
+    },
+    appLinks: [{ label: "Baca Surah Maryam" }, { label: "Lihat garis masa para nabi" }],
+  },
+  {
+    title: "Nabi Isa ibni Maryam a.s.",
+    summary:
+      "Rasul agung yang dilahirkan secara mukjizat oleh Maryam, menyeru kepada Allah dengan tanda-tanda yang nyata — seorang hamba, bukan tuhan.",
+    body: [
+      "Nabi Isa a.s. dilahirkan oleh Maryam tanpa bapa, dengan perintah Allah, sebagai tanda kekuasaan-Nya yang mutlak: 'Sesungguhnya perbandingan (kejadian) Nabi Isa di sisi Allah adalah sama seperti (kejadian) Nabi Adam. Allah telah menciptakan Adam dari tanah lalu berfirman kepadanya: \"Jadilah engkau!\" maka menjadilah ia' (al-Quran 3:59). Apabila Maryam membawa bayi itu kepada kaumnya yang menuduhnya, bayi Isa berkata-kata dari dalam buaian untuk membela ibunya: 'Sesungguhnya aku ini hamba Allah; Ia telah memberikan kepadaku Kitab (Injil), dan Ia telah menjadikan daku seorang Nabi' (al-Quran 19:30). Pengisytiharan pertama ini menetapkan nada seluruh misi baginda — bahawa baginda ialah hamba Allah.",
+      "Nabi Isa diutus kepada Bani Israel untuk membenarkan Taurat yang datang sebelumnya dan membawa Injil. Allah menyokong baginda dengan mukjizat yang nyata dengan izin-Nya: baginda menyembuhkan orang buta dan penghidap penyakit kusta, menghidupkan orang mati, dan membentuk burung daripada tanah liat yang kemudian terbang dengan izin Allah (al-Quran 3:49). Mesej baginda menyeru manusia menyembah Allah — 'Sesungguhnya Allah ialah Tuhanku dan Tuhan kamu' (al-Quran 3:51) — serta kepada keikhlasan dan kesolehan. Para pengikut setianya, kaum Hawariyyun, beriman dan menyokong baginda.",
+      "Al-Quran membetulkan dua sikap melampau tentang Nabi Isa. Terhadap mereka yang menolak dan berkomplot untuk membunuhnya, al-Quran menegaskan bahawa baginda tidak dibunuh dan tidak disalib; sebaliknya hanya dijadikan seolah-olah begitu, dan Allah mengangkat baginda kepada-Nya (al-Quran 4:157–158). Terhadap mereka yang melampau dalam memujanya, al-Quran menegaskan bahawa baginda ialah nabi dan rasul yang mulia, bukan Tuhan atau anak Tuhan — 'Tiadalah Al-Masih Ibni Maryam itu melainkan seorang Rasul' (al-Quran 5:75). Menurut akidah Ahli Sunnah, baginda akan kembali sebelum hari kiamat. Kisah baginda mengajar bahawa kekuasaan Allah mengatasi segala sebab alamiah, bahawa para nabi ialah hamba yang dimuliakan dan bukan tuhan, dan bahawa kebenaran mesti dipelihara daripada penafian dan juga sikap melampau.",
+    ],
+    profile: {
+      nation: "Bani Israel",
+      location: "Syam",
+      mission: "Memperbaharui tauhid, membenarkan Taurat, dan menyeru kepada kesolehan.",
+      challenges: [
+        "Penentangan dan komplot oleh mereka yang menolaknya",
+        "Sikap melampau terhadap kedudukannya pada zaman kemudian",
         "Mempertahankan tauhid yang murni",
       ],
       miracles: [
-        "Lahir tanpa ayah",
-        "Berbicara dari buaian",
-        "Menyembuhkan dan menghidupkan atas izin Allah",
+        "Dilahirkan tanpa bapa",
+        "Berkata-kata dari dalam buaian",
+        "Menyembuhkan dan menghidupkan dengan izin Allah",
       ],
       majorEvents: [
-        "Kelahirannya yang mukjizat dan pembelaan terhadap ibunya",
-        "Dakwah publik dengan tanda-tanda yang nyata",
-        "Diangkat kepada Allah, tidak dibunuh",
+        "Kelahirannya yang ajaib dan pembelaannya terhadap ibunya",
+        "Seruan terbuka dengan tanda-tanda yang nyata",
+        "Diangkat kepada Allah, bukan dibunuh",
       ],
       lessons: [
-        "Kekuasaan Allah melampaui sebab-sebab yang biasa",
-        "Para nabi adalah hamba Allah yang mulia, bukan tuhan",
-        "Kebenaran harus dijaga dari pengingkaran maupun sikap berlebihan",
+        "Kekuasaan Allah mengatasi sebab-sebab biasa",
+        "Para nabi ialah hamba Allah yang dimuliakan, bukan tuhan",
+        "Kebenaran mesti dipelihara daripada penafian dan sikap melampau",
       ],
-      facts: ["Diberikan Injil", "Akan kembali sebelum hari kiamat dalam akidah Ahlus Sunnah"],
+      facts: [
+        "Dikurniakan kitab Injil",
+        "Akan kembali sebelum hari kiamat menurut akidah Ahli Sunnah",
+      ],
     },
-    quran: [
-      {
-        excerpt:
-          "(Isa berkata): Sesungguhnya Allah adalah Tuhanku dan Tuhanmu, maka sembahlah Dia. Inilah jalan yang lurus.",
-      },
-      {
-        excerpt:
-          "Dan mereka tidak membunuhnya dan tidak (pula) menyalibnya, tetapi (yang mereka bunuh ialah) orang yang diserupakan dengan Isa bagi mereka… tetapi Allah telah mengangkatnya kepada-Nya.",
-      },
+    appLinks: [
+      { label: "Baca Surah Ali 'Imran" },
+      { label: "Baca Surah An-Nisa'" },
+      { label: "Lihat garis masa para nabi" },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aku adalah manusia yang paling dekat dengan Isa putra Maryam. Para nabi adalah saudara seayah (dari ayah yang sama, ibu yang berbeda), agama mereka satu, dan tidak ada nabi di antara kami (aku dan Isa).",
-      },
-    ],
-    appLinks: [{}, {}, {}],
   },
   {
-    title: "Muhammad ﷺ",
-    summary: "Rasul terakhir, diutus sebagai rahmat bagi seluruh alam dan penutup para nabi.",
+    title: "Nabi Muhammad ﷺ",
+    summary: "Rasul terakhir, diutus sebagai rahmat bagi sekalian alam dan penutup kenabian.",
     body: [
-      "Muhammad ﷺ adalah nabi terakhir dari seluruh nabi, diutus bukan kepada satu kaum tertentu melainkan kepada seluruh umat manusia, dan Al-Qur'an menyertainya sebagai wahyu terakhir yang terjaga. Allah menggambarkan misinya dalam satu ayat: 'Dan tidaklah Kami mengutusmu, melainkan untuk (menjadi) rahmat bagi seluruh alam' (Al-Qur'an 21:107). Lahir di Makkah, dia menerima wahyu pertamanya di Gua Hira pada usia empat puluh tahun, dan selama dua puluh tiga tahun berikutnya mengajak manusia untuk menyembah Allah semata, menyucikan hati, dan menjalani kehidupan dengan keadilan dan kasih sayang — menyempurnakan dan membenarkan pesan setiap nabi sebelumnya.",
-      "Jalannya adalah jalan pengorbanan yang terus-menerus. Di Makkah, dia dan para mukmin awal menanggung ejekan, penyiksaan, dan pemboikotan selama bertahun-tahun. Kemudian datanglah hijrah ke Madinah, tempat dia mendirikan komunitas muslim pertama — salat, persaudaraan antara Muhajirin dan Ansar, perjanjian-perjanjian, dan masyarakat yang berlandaskan tauhid. Sepanjang bertahun-tahun kesulitan dan akhirnya kesuksesan, akhlaknya tidak pernah goyah; Al-Qur'an bersaksi, 'Dan sesungguhnya engkau (Muhammad) benar-benar berbudi pekerti yang agung' (Al-Qur'an 68:4), dan dia sendiri bersabda bahwa dia diutus untuk menyempurnakan akhlak yang mulia.",
-      "Allah menyebutnya 'Rasulullah dan penutup para nabi' (Al-Qur'an 33:40) — tidak ada nabi setelahnya. Mukjizat terbesarnya adalah Al-Qur'an itu sendiri, sebuah tanda yang abadi yang masih membimbing miliaran orang hingga hari ini, dan dia dimuliakan dengan Isra dan Mikraj, perjalanan malam dan kenaikan ke langit. Bagi seorang mukmin, dia adalah uswah hasanah — teladan yang indah (Al-Qur'an 33:21) — yang sunahnya adalah jalan praktis keimanan. Mencintainya, mengikuti bimbingannya, dan bersalawat kepadanya adalah inti dari kehidupan seorang muslim.",
+      "Nabi Muhammad ﷺ ialah nabi yang terakhir, diutus bukan kepada satu kaum sahaja tetapi kepada seluruh umat manusia, dengan al-Quran sebagai wahyu terakhir yang terpelihara. Allah menggambarkan misi baginda dalam satu ayat: 'Dan tiadalah Kami mengutuskan engkau (wahai Muhammad), melainkan untuk menjadi rahmat bagi sekalian alam' (al-Quran 21:107). Baginda dilahirkan di Makkah dan menerima wahyu pertama pada usia empat puluh tahun di Gua Hira'. Selama dua puluh tiga tahun berikutnya, baginda menyeru manusia menyembah Allah semata-mata, menyucikan hati, dan hidup dengan adil dan penuh belas kasihan — menyempurnakan dan membenarkan risalah setiap nabi sebelumnya.",
+      "Perjalanan baginda penuh dengan pengorbanan yang berterusan. Di Makkah, baginda dan orang-orang beriman terawal menanggung ejekan, penyeksaan dan pemulauan yang berlarutan bertahun-tahun. Kemudian berlakulah Hijrah ke Madinah, tempat baginda membina masyarakat Islam yang pertama — mendirikan solat, mempersaudarakan golongan Muhajirin dan Ansar, memeterai perjanjian, dan membina masyarakat yang berakar pada tauhid. Melalui tahun-tahun kesusahan hingga akhirnya mencapai kemenangan, akhlak baginda tidak pernah goyah; al-Quran menjadi saksi: 'Dan bahawa sesungguhnya engkau mempunyai akhlak yang amat mulia' (al-Quran 68:4), dan baginda sendiri bersabda bahawa baginda diutus untuk menyempurnakan akhlak yang mulia.",
+      "Allah mengisytiharkan baginda sebagai 'Rasul Allah dan kesudahan segala Nabi-nabi' (al-Quran 33:40) — selepas baginda tiada lagi nabi. Mukjizat terbesar baginda ialah al-Quran itu sendiri, tanda yang kekal yang masih membimbing berbilion manusia, dan baginda dimuliakan dengan peristiwa Israk dan Mikraj, perjalanan malam dan kenaikan ke langit. Bagi orang beriman, baginda ialah uswah hasanah — contoh teladan yang terbaik (al-Quran 33:21) — yang Sunnahnya ialah jalan iman yang praktikal. Mencintai baginda, mengikuti petunjuknya dan berselawat ke atasnya terletak di teras kehidupan seorang Muslim.",
     ],
     profile: {
       nation: "Seluruh umat manusia",
       location: "Makkah dan Madinah",
-      era: "Abad ketujuh Masehi",
-      mission: "Menyampaikan wahyu terakhir dan menyempurnakan pesan kenabian bagi seluruh bangsa.",
+      mission: "Menyampaikan wahyu terakhir dan menyempurnakan risalah kenabian bagi semua bangsa.",
       challenges: [
-        "Penyiksaan dan pemboikotan di Makkah",
-        "Konflik dan pembangunan masyarakat yang adil",
-        "Menyampaikan pesan universal ke berbagai suku dan bangsa",
+        "Penindasan dan pemulauan di Makkah",
+        "Peperangan dan pembinaan masyarakat yang adil",
+        "Menyampaikan risalah sejagat merentasi kabilah dan bangsa",
       ],
       miracles: [
-        "Al-Qur'an sebagai mukjizat yang abadi",
-        "Isra dan Mikraj (perjalanan malam dan kenaikan)",
-        "Berbagai tanda yang dikaruniakan atas izin Allah",
+        "Al-Quran sebagai mukjizat yang kekal",
+        "Israk dan Mikraj (perjalanan malam dan kenaikan ke langit)",
+        "Pelbagai tanda yang dikurniakan dengan izin Allah",
       ],
       majorEvents: [
-        "Dimulainya wahyu di Makkah",
+        "Permulaan wahyu di Makkah",
         "Hijrah ke Madinah",
-        "Sempurnanya pesan dan Khutbah Haji Wada'",
+        "Kesempurnaan risalah dan Khutbah Haji Wada'",
       ],
       lessons: [
-        "Kasih sayang dan akhlak mulia dalam kepemimpinan",
+        "Belas kasihan dan akhlak mulia dalam kepimpinan",
         "Keteguhan di bawah tekanan",
-        "Ikutilah baik wahyu maupun sunah",
+        "Ikutilah wahyu dan Sunnah bersama-sama",
       ],
-      facts: ["Penutup para nabi", "Teladan terbaik bagi orang-orang beriman (uswah hasanah)"],
+      facts: ["Penutup sekalian nabi", "Contoh teladan terbaik (uswah hasanah) bagi orang beriman"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammad itu bukanlah bapak dari salah seorang laki-laki di antara kamu, tetapi dia adalah Rasulullah dan penutup para nabi.",
-      },
-      {
-        excerpt:
-          "Dan tidaklah Kami mengutusmu, melainkan untuk (menjadi) rahmat bagi seluruh alam.",
-      },
+    appLinks: [
+      { label: "Belajar daripada Sirah" },
+      { label: "Baca Surah Al-Ahzab" },
+      { label: "Lihat garis masa para nabi" },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Perumpamaanku dan para nabi sebelumku adalah seperti seseorang yang membangun sebuah rumah dengan indah dan sempurna, kecuali tempat satu bata. Akulah bata itu, dan akulah penutup para nabi.",
-      },
-    ],
-    appLinks: [{}, {}, {}],
   },
 ];
 
 export const PROPHETS_TIMELINE_MS: DeepPartial<ProphetsTimelineEvent>[] = [
   {
-    era: "Permulaan",
-    title: "Adam — Nabi Pertama",
-    body: "Allah menciptakan Adam, mengajarinya nama-nama, dan menjadikannya khalifah-Nya di bumi.",
+    title: "Nabi Adam — nabi pertama",
+    body: "Allah menciptakan Adam, mengajarkannya nama-nama, dan menjadikannya khalifah-Nya di bumi.",
   },
   {
-    era: "Zaman Kuno",
-    title: "Idris, Nuh, dan Kaum-Kaum Awal",
-    body: "Para nabi awal mengajak kaum mereka kembali kepada tauhid. Nuh berdakwah selama berabad-abad; ketika penolakan terus berlanjut, banjir besar datang dan bahtera menyelamatkan orang-orang beriman sebagai sebuah tanda.",
+    title: "Nabi Idris, Nabi Nuh dan kaum-kaum terawal",
+    body: "Para nabi terawal menyeru kaum mereka kembali kepada tauhid. Nabi Nuh berdakwah selama berabad-abad; apabila penolakan berterusan, banjir besar pun datang dan bahtera menyelamatkan orang beriman sebagai satu tanda.",
   },
   {
-    era: "Mesopotamia / Syam",
-    title: "Ibrahim dan Keluarganya",
-    body: "Khalilullah, kekasih Allah: dia menghancurkan berhala, diselamatkan dari api, membangun Ka'bah bersama Ismail, dan menjadi bapak dari rangkaian nabi melalui Ismail serta Ishak.",
+    title: "Nabi Ibrahim dan keluarganya",
+    body: "Khalilullah, kekasih Allah: baginda menghancurkan berhala, diselamatkan daripada api, membina Kaabah bersama Ismail, dan menjadi bapa kepada rantaian para nabi melalui Ismail dan Ishak.",
   },
   {
-    era: "Mesir dan Sinai",
-    title: "Musa dan Bani Israil",
-    body: "Pembebasan dari Firaun, turunnya Taurat, rangkaian panjang nabi bagi Bani Israil.",
+    title: "Nabi Musa dan Bani Israel",
+    body: "Pembebasan daripada Firaun, turunnya Taurat, dan rantaian panjang para nabi kepada Bani Israel.",
   },
   {
-    era: "Mesir",
-    title: "Yusuf di Mesir",
-    body: "Kesabaran melalui pengkhianatan, penjara, dan meraih kekuasaan — teladan tawakal.",
+    title: "Nabi Yusuf di Mesir",
+    body: "Kesabaran menghadapi pengkhianatan dan penjara hingga meraih kedudukan — teladan tawakal.",
   },
   {
-    era: "Yerusalem",
-    title: "Dawud dan Sulaiman",
-    body: "Kerajaan, hikmah, Zabur, dan kerajaan yang dipuji dalam Al-Qur'an.",
+    title: "Nabi Daud dan Nabi Sulaiman",
+    body: "Kerajaan, hikmah, kitab Zabur, dan kerajaan yang dipuji di dalam al-Quran.",
   },
   {
-    era: "Abad Pertama Masehi",
-    title: "Isa Putra Maryam",
-    body: "Lahir secara mukjizat, berbicara dari buaian, diangkat kepada Allah — tidak dibunuh di kayu salib menurut Al-Qur'an.",
+    title: "Nabi Isa ibni Maryam",
+    body: "Dilahirkan secara mukjizat, berkata-kata dari dalam buaian, diangkat kepada Allah — tidak dibunuh di kayu salib menurut al-Quran.",
   },
   {
-    era: "Abad Ketujuh Masehi",
-    title: "Muhammad ﷺ — Penutup Para Nabi",
-    body: "Rasul terakhir bagi seluruh umat manusia; Al-Qur'an terjaga hingga hari kiamat.",
+    title: "Nabi Muhammad ﷺ — penutup sekalian nabi",
+    body: "Rasul terakhir bagi seluruh umat manusia; al-Quran terpelihara hingga hari kiamat.",
   },
 ];

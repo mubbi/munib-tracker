@@ -15,21 +15,8 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       "Mu'minku wuxuu ku duceeyaa dhib iyo qaylo, qaylo iyo sirba, isagoo hubaal ah in Eebbe maqlo dhawaaq kasta, oo uusan ka leexin mid daacad ah isagoo fara madhan. Aad buu u dhow yahay oo wuxuu leeyahay, Waxaan ajiibaa dhawaaqa u yeedhaya markuu i baryo.",
       "Jawaabtu waxay qaadanaysaa saddex nooc midkood, oo Nebigu ﷺ baray: Alle ayaa bixiya waxa la waydiiyo; ama uu ceshado oo kaydiyo ajri siman ama ka weyn aakhiro; ama uu ka jeediyo dhib la mid ah. Markaa ma jiro duco daacad ah oo weligeed aan si dhab ah looga jawaabin - mararka qaarkood naxariista ugu weyn waxay ku jirtaa jawaabta aynaan arag.",
     ],
-    quran: [
-      {
-        excerpt: "Eebihiinna wuxuu yidhi i barya. waan kuu jawaabi doonaa.",
-      },
-      {
-        excerpt:
-          "Markay ku warsadaan addoomadayda anigu waan dhawahay. Waxa aan ka jawaabaa waciyaha marka uu ii yeedho.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ducadu waa cibaado. - ka dibna wuxuu akhriyey, 'Markaasuu yidhi Eebihiin, i barya; waan kuu jawaabi doonaa. (An-Nucmaan bin Bashiir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -40,16 +27,7 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       "Alle ugu barya saddex sifo oo gudeed ah: Khushuuc, yaqiinsan inuu ka jawaabi karo, iyo ra'yi wanaagsan oo isaga ah (husn al-zann). Qiblada u wajaho meeshaad awoodo, gacmaha kor u taag, dooro waqtiyada barakeysan, waydiina arrimaha if iyo aakhiro labadaba. Waxaa lagugula talinayaa inaad ku celiso codsiyada muhiimka ah, oo aad dhammayso sidaad u bilawday - ammaan iyo salawat.",
       "Waxaas oo dhan, ha degdegin. Nabigu (scw) waxa uu ka digay in ducada la ajiibo ilaa aanu qofku quusan oo aanu odhan waan wacay oo waan wacay laakiin la igama jawaabin,kadibna iska dhaafo. Ku adkaysiga wax-wayddiinta lafteedu waa cibaado, Eebbena wuxuu jecel yahay addoonka albaabkiisa garaacaya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ducada addoonku waxay sii socotaa in loo jawaabo ilaa aanu ku degdegin - isagoo leh, 'Waan ducaystay, laakiin la iima jawaabin.' (Abuu Hureyrah)",
-      },
-      {
-        excerpt:
-          "Marka midkiin tukado, ha ku bilaabo ammaanta iyo tasbiixda Eebihiis, dabadeed nabiga (scw) ku salliyo, ka dibna ha weydiisto wuxuu doono. (Fadalah ibnu Cubayd)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ku fur duco kasta Alxamdulilaah iyo salawaat nabiga s.c.w.",
       "Allaah ku weydii magacyada ugu habboon baahidaada (tusaale Ya Razzaq arsaaqda, Ya Ghafuur dambi dhaaf).",
@@ -66,16 +44,7 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       'Risqi xalaal ah waa fure awood leh. Nebigu (scw) wuxuu ku tilmaamay nin musaafir ah oo gacmaha kor u taagaya samada isagoo ku qaylinaya "Rabbiyow, Rabbiyow," haddana "cuntadiisu waa xaaraan, cabbitaankiisuna waa xaaraan, dharkiisuna waa xaaraan, oo xaaraan lagu quudiyo - ee sidee loogu jawaabi karaa?" Ilaalinta dakhliga, ka toobadkeenida dembiga, oo aan la waydiisan wax dembi ah ama goynta xidhiidhka qoyska, waxay dhammaan meesha ka saaraysaa caqabadaha u dhexeeya ducada iyo aqbaliddeeda.',
       "Sidaas oo ay tahay, aqbalidduna waa naxariista Alle, ee maaha wax kala iibsi oo aynu gacanta ku hayno. Haddaba mu’minku waxa uu isku darsadaa dadaalkiisa ugu wanaagsan – daacadnimo, nolol xalaal ah, towbad keen – iyo kalsooni hoose, oo marna ma quusto haddii jawaabtu dib u dhacdo. Daciifnimada iyo dembiyadii hore ma aha sabab loo joojiyo weydiinta; Dhammaantood waa sabab loogu noqdo Eebaha Raxmaana.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "... cuntadiisu waa xaaraan, cabbitaankiisuna waa xaaraan, dharkiisuna waa xaaraan, oo uu sharcilaawayaal quudanayo, haddaba sidee baa loogu jawaabi karaa? (Abuu Hureyrah)",
-      },
-      {
-        excerpt:
-          "Ducada addoonka waa laga jawaabaa ilaa uusan weydiisan wax dembi ah ama goynta xiriirka qoyska. (Abuu Hureyrah)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Dib u eeg dakhligaaga iyo kharashka ku baxa si sharci ah - waxay si toos ah u saamaynaysaa ducadaada.",
       "ka hor mar ducada dheer adoo istaahila iyo toobad dhab ah.",
@@ -90,16 +59,7 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       "Kuwa ugu xoogga badan waxaa ka mid ah: Sadexda habeen ee u dambeeya, markuu Eebbe ku soo dago (sidaas darteed) jannada ugu hoosaysa, kuna dhawaaqo, 'Yaa i waydiisanaya inaan siiyo'; sujuudka salaadda, mawqifka Alle ugu dhow; daqiiqada u dhaxaysa adhan iyo ciqaamada; inta uu qofku sooman yahay, gaar ahaan marka la afurayo; xilliga roobka; iyo saacada ugu danbeysa ee jimcaha ka hor qorrax dhaca, taaso ay jirto saacad aan duco la diidin.",
       "Meelaha barakeysan iyo gobolada waxaa ka mid ah istaagida Carrafo xilliga xajka, in lagu dhex jiro xaramka, iyo ducada musaafurka, waalidka ubadkiisa iyo mid la dulmiyay. U isticmaal kuwan sidii barroosinno go'an si aad nolol baryootan joogto ah u hesho.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rabbigeenna wuxuu habeen kasta ku soo degaa samada ugu hoosaysa saddexda habeen ee u dambeeya, wuxuuna dhahaa: yaa ii baryaya inaan u jawaabo? Bal yaa i weyddiinaya aan isaga siiyo? (Abuu Hureyrah)",
-      },
-      {
-        excerpt:
-          "Addoon waxaa ugu Dhaw Eebihiis isagoo Sujuudsan ee ku Barya Dhexdeeda. (Abuu Hureyrah)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -113,14 +73,10 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sayid al-Istigfaar (madaxa cafiska)",
         when: "Subax iyo galab kasta hal mar",
-        translation:
-          "Alloow adigaa Rabbigey ah; Adiga mooyee ilaah kale ma jiro. Adigaa i abuuray, aniguna waxaan ahay addoonkaaga, waxaanan xajiya axdigaaga, waanan ballan qaaday intii karaankayga ah. Waxaan kaa magan galay xumaantii aan sameeyay. Waxaan qirayaa Nicmadaada korkayga, waana qirayaa Dambigayga, ee ii dambi dhaaf adiga mooyee, mid dambi dhaafa ma jiro.",
       },
       {
         title: "Xasbiyallahu laa ilaaha illa huwa",
         when: "Toddoba jeer subax kasta iyo galab kasta",
-        translation:
-          "Alle ayaa igu filan; Ilaah kale ma jiro isaga mooyee. Xaggiisaan talo Saaray, Isagaana Carshiga wayn Eebaha iska leh.",
       },
     ],
     appLinks: [{}, {}],
@@ -136,19 +92,14 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Duca ku soo toosay",
         when: "Isla markiiba kacday",
-        translation:
-          "Mahad dhamaanteed waxay u sugnaatay Eebaha na nooleeyay markuu na dilay ka dib, isagaana u sugnaaday soo bixin.",
       },
       {
         title: "Ducada hurdada ka hor",
         when: "Markaad seexanayso",
-        translation: "Magacaaga, Allow waan ku dhimanayaa, waanan noolahay.",
       },
       {
         title: "Aayat al-Kursi hurdada ka hor",
         when: "Hurdada ka hor",
-        translation:
-          "Eebbana Ilaah kale ma jiro isaga mooyee, waana Eebaha Nool, Eebbahana ah. Hurdo iyo hurdo midna isagay qaban. Eebaa iska leh waxa samooyinka iyo dhulka ku sugan. yaa u shafeeco la jira idankiisa mooyee. Wuxuuna ogyahay waxa hortooda ah iyo waxa gadaashooda ah, kuma koobayaan cilmigiisa waxaan wuxuu doono ahayn. Carshigiisuna wuxuu ku fiday samooyinka iyo dhulka, mana daalin xagiisa. Eebe waa Sarreeye Wayna.",
       },
     ],
     appLinks: [{}, {}],
@@ -164,13 +115,10 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Ducada markaad guriga ka baxayso",
         when: "Markaad guriga ka baxayso",
-        translation:
-          "Magaca Alle; Allaah ayaan tala saarta; Awood iyo xoogna ma jiro Allaah mooyee.",
       },
       {
         title: "Ducadii masaajidka soo gashay",
         when: "Markaad soo gasho, la soo gal cagta midig",
-        translation: "Allahayow ii fur albaabada naxariistaada.",
       },
     ],
     appLinks: [{}, {}],
@@ -186,13 +134,10 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Ka hor inta aanad cunin",
         when: "Bilowga cuntada",
-        translation: "Magaca Alle.",
       },
       {
         title: "Cunista ka dib",
         when: "Markaad dhammayso cuntada",
-        translation:
-          "Mahad dhamaanteed waxay u sugnaatay Allahii i quudiyay oo igu arzuqeeyay anoon quwad iyo tabar toona lahayn",
       },
     ],
     appLinks: [{}],
@@ -208,14 +153,10 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Wudu ka dib",
         when: "Isla markiiba ka dib marka la dhammeeyo suufka",
-        translation:
-          "Waxaan ka marag kacayaa inuusan jirin ilaah kale oo aan Allaah ahayn oo aan la wadaagin, waxaana ka marag kacayaa in Muxammad yahay addoonkiisii ​​iyo rasuulkiisii.",
       },
       {
         title: "Ka hor inta aan la salaamin",
         when: "Tashahuudka u dambeeya, ka hor intaadan dhammaan salaadda",
-        translation:
-          "Alloow waxaan kaa magan galay cadaabka naarta, cadaabka qabriga, imtixaamaadka nolosha iyo dhimashada, iyo sharka fitnada Masiixa beenta ah (Dajjal).",
       },
     ],
     appLinks: [{}, {}],
@@ -231,16 +172,9 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Ducada ka dib adhan",
         when: "Markay adhan dhamaato",
-        translation:
-          "Allahayow baaqaas qumman iyo ducada sugan, sii Muxammad al-Wasilah iyo al-Faadilah, oo kor u qaad maqaamkii aad u ballan qaaday ee la mahadiyay.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ducada lagu sameeyo aadanka iyo ictiqaadka lama diido. (Anas bin Maalik; sidoo kale at-Tirmidhi 212).",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -254,13 +188,10 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Duca welwelka iyo murugada",
         when: "Cidhiidhi, walaac, ama murugo xad dhaaf ah",
-        translation:
-          "Alloow waxaan kaa magan galay welwel iyo murugo, karti darro iyo caajisnimo, darxumo iyo fulaynimo, culayska deynta iyo in aan cid kale ka adkaado.",
       },
       {
         title: "Allaah ayaa nagu filan",
         when: "Markaad baqdo ama aad ka adkaato",
-        translation: "Alle waa nagu filan yahay, isaga ayaana u kheyr badan.",
       },
     ],
     appLinks: [{}, {}],
@@ -276,8 +207,6 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Ducada bogsashada",
         when: "Markaad jirran tahay, ama ku tukanayso qof buka",
-        translation:
-          "Eebbow, Rabbiyow dadka, dhibka ka saar oo bogsii - adigaa daaweeya; Daawayntaada mooyaane dawo ma jirto, waana daawo aan cudur ka tagin.",
       },
     ],
     appLinks: [{}, {}],
@@ -293,12 +222,10 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Toobad joogta ah",
         when: "Si isdaba joog ah, maalinta oo dhan",
-        translation: "Waxaan danbi dhaaf waydiisanayaa Alle, isagana waan u toobad keenayaa.",
       },
       {
         title: "Duco qalbi saafi ah",
         when: "Marka laga baqayo marin habaabinta ama liidashada",
-        translation: "Quluubta rogrog, qalbigayga ku adkee diintaada.",
       },
     ],
     appLinks: [{}, {}],
@@ -314,13 +241,10 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Duca marka aad safar u baxayso",
         when: "Markaad fuulayso gaadiidkaaga oo aad baxayso",
-        translation:
-          "Subxaana watacaalaa kan inagu sakhiray, markii aynaan annagu sidaas yeeli karin; Eebahanno xaggiisaan u noqonaynaaye.",
       },
       {
         title: "Ducadu marka roobku da'o",
         when: "Bilowga roobka",
-        translation: "Allahayow roob khayr qaba ka dhig.",
       },
     ],
     appLinks: [{}, {}],
@@ -332,18 +256,11 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       "Rizqigu (rizq) wuxuu ka ahaaday Eebbe oo keliya; Mu’minku waxa uu xidhaa awrkiisa – shaqaysta iyo kasbashada – ka bacdina waxa uu waydiistaa arsaaqda xalaal ah, barakah waxa uu kasbado, xornimada deynta, iyo ka madax banaanida baahida dadka kale. Nabigu ﷺ wuxuu baray duco aad u qurux badan oo si dhab ah u waydiisa tan.",
       "Guriga, Qur'aanku laftiisu waxa uu barayaa ducada kuwa xaqa ah: in la siiyo xaas iyo carruur ah 'indhaha raaxaynta' iyo in la hoggaamiyo qoys ku xidhan iimaan, duco iyo naxariis.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eebow naga yeel xaasaskeenna iyo faracyadanada indho-sarcaad, naga yeel kuwa toosan madaxdooda.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Ducada risiq xalaal ah",
         when: "Subaxdii, salaadda ka dib, iyo culays dhaqaale",
-        translation:
-          "Illahow iiga filna waxaad xalaalaysay waxaad xaaraantinimaysay, fadligaadana igu hodmiye cid aan adiga ahayn uma baahni.",
       },
     ],
     appLinks: [{}],
@@ -359,13 +276,10 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Ku fiican labada adduun",
         when: "Duco guud, oo ujeedo kasta leh - Nabiga ﷺ ugu badnaan",
-        translation: "Eebow na sii adduunyo wanaag, aakhirona wanaag, naga ilaali cadaabka naarta.",
       },
       {
         title: "Ku adkaysiga iimaanka",
         when: "Marka laga baqayo leexashada ama ka dib marka la hago",
-        translation:
-          "Eebow yeyna quluubtayadu lumin intaad hanuunisay ka dib, nagana sii naxariistaada. illeen adaa wax siin.",
       },
     ],
     appLinks: [{}, {}],
@@ -381,7 +295,6 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Ducada afarta ah oo dhamaystiran",
         when: "Duco guud oo maalinle ah",
-        translation: "Allahayow waxaan ku waydiisanayaa hanuun, cibaado, dhawrsanaan iyo waafiya",
       },
     ],
     appLinks: [{}],
@@ -397,12 +310,10 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Erayada la jecel yahay iyo kuwa dembiyada tirtira",
         when: "Maalintii oo dhan; 100 jeer waxay tirtirtaa dembiyada",
-        translation: "Subxaanallah, mahad oo dhan isagaa iska leh.",
       },
       {
         title: "Laba eray oo Miisaanka ku culus",
         when: "Waqti kasta",
-        translation: "Mahad Eebaa iska leh; Subxaanallah.",
       },
     ],
     appLinks: [{}],
@@ -414,18 +325,11 @@ export const LEARN_DUA_TOPICS_SO: DeepPartial<LearnDuaTopic>[] = [
       "In Nabiga (scw) loo soo diro salaadda waxa Eebbe ku amray Qur’aanka kariimka ah – ‘Runtii, Eebbe iyo malaa’igtiisu waxay ku Salliyaan Nabiga; Mu'miniinta, nabadgalyo korkiisa ha ahaato iyo salaan nabadgalyo korkiisa ha ahaato' - mana jirto duco kale oo sidaan oo kale loo dammaanad qaaday: Nebigu (scw) wuxuu yiri ruuxii ku sallida hal nacjis, Allaah wuxuu ku soo dejiyey toban qof.",
       "Salawaatka soo noqnoqda waxay keentaa raxmad, darajooyin kor u qaada, waxay tirtirtaa dunuubta, waxayna qofka u soo jiidataa nabiga ﷺ maalinta qiyaame. Qaabka Ibraahim oo dhammaystiran ee hoos ku xusan - kii uu baray asxaabtiisa markii ay weydiiyeen sida loogu duceeyo - waxa lagu akhriyaa tashahud salaad kasta oo aad u fiican in carrabka lagu hayo maalinta oo dhan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Illeen Allaah iyo Malaa'igtiisu waxay ku Salliyaan Nabiga. Kuwa (Xaqa) rumeeyow ku Salliya Nabadgalyo iyo salaam.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Salawaat Ibrahimiyyah oo dhamaystiran",
         when: "Tashahhudka salaada iyo maalinta oo dhan",
-        translation:
-          "Allahayow naxariiso korkiisa ha ahaato Muxammad iyo ehelka Muxamed, sidaad ugu barakaysay Ibraahim iyo ehelkii Ibraahim; Adigu waxaad tahay Mahadnaq badane. Allow u naxariiso Muxammad iyo Ehelkii Muxamed, sidaad ugu fadliday Ibraahim iyo Ehelkii Ibraahim; Adigu waxaad tahay Mahadnaq badane.",
       },
     ],
     appLinks: [{}],

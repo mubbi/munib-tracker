@@ -22,36 +22,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Qofka mu’minka ahi waa inuu laba runood isku hayaa. Marka hore, Jannadu waa dhab, waa u dhowdahay, waana u qalantaa dadaal kasta - Qur'aanku wuxuu noo sheegay inaan 'u baratanno' xaggeeda (Qur'aanka 3:133). Midda labaad, qofna Jannada kuma helo camal keliya; Gelida ugu danbeysa waa naxariista Eebe, iyadoo iimaan dhab ah iyo camal suuban yihiin macnihii uu doortay inuu aqbalo. Miisaankani wuxuu ilaaliyaa rajada isagoon kicin isla weyni: waxaan ku dadaalnaa inta ugu badan, ka dibna nafteena ku tuurno naxariistiisa.",
       "Dhab ahaantii, xaqiiqada Jannadu ha qaabayso doorashadaada maalinlaha ah. Marka cibaadadu dareemto culus ama jirrabaadu dareemeyso xoog, xasuuso waxa sugaya iyo waxa la isku hayo. Marar badan Allaah weydiiso Jannada, si joogto ah ugu shaqee siyaalo yar yar oo waara, oo u hilowgaaga ha ku jilciyo qalbigaaga noloshan gaaban.",
     ],
-    quran: [
-      {
-        excerpt:
-          "U orda Dambi dhaafka Eebihiin iyo Janno Balladhkeedu yahay Samooyinka iyo Dhulka oo loo darbay kuwa dhawrsada.",
-      },
-      {
-        excerpt:
-          "Eebe wuxuu u yaboohay Mu'miniinta Rag iyo Haweenba Jannooyin ay dureeri dhexdeeda Wabiyaal oyna ku waari dhexdeeda, iyo Guryo wanaagsan oo Jannooyin ku waari dhexdeeda, raalli ahaanshiyaha Eebe ayaana ka wayn.",
-      },
-      {
-        excerpt: "Nafna ma oga waxa loo qariyey oo nasteexa ah oo ka abaal-marin waxay falayeen.",
-      },
-      {
-        excerpt: "Waxayna mudan waxay doonaan dhexdeeda, agtannadana waxaa ah siyaado.",
-      },
-      {
-        excerpt:
-          "Kuwa rumeeyey xaqa oo camal fiican falay waxay mudan Jannatul firdowso oo marti ah.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Eebbe wuxuu yidhi: waxaan u darbay addoommadayda suubban, wax aanay ishu arag, dhegtuna aanay maqlin, qalbiguna aanu uuraysan.",
-      },
-      {
-        excerpt:
-          "Eebbe kor ahaaye wuxuu yidhi:- Waxaan u darbay addoommadayda suubban, wax aanay ishu arag, dhegtuna ayan maqlin, qalbi bani-aadmina aanu dareemin.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Darajooyinka Jannada",
@@ -63,29 +35,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmadda ku jirta tan ayaa qurux badan. Haddii aan ogaano meelayntayada saxda ah, qaar ayaa ku qanacsanaan lahaa kuwa kalena way quusan lahaayeen. Taas beddelkeeda, waxa nala baray inaynu indhahayaga ku hayno Allaah, dedaalno, oo aynu rajayno. Mu'minku waxa uu ku tartamayaa wanaag - 'tani ha ku tartamaan tartame' - halka uu uga tagayo darajada u dambaysa kan ugu cadaaladda badan.",
       "Markaa intaad higsan lahaydeen heer la tiriyey, hiigso meesha ugu sarraysa ee Alle ha ku dhigo meesha uu doono. Rasuulku ﷺ wuxuu baray saxaabada in aysan ku degin codsi suubban balse ay si gaar ah u warsadaan Al-Firdaws oo ah jannada ugu sarreysa.",
     ],
-    quran: [
-      {
-        excerpt: "Dhammaan waxaa jiri doona shahaadooyin sida ay sameeyeen.",
-      },
-      {
-        excerpt:
-          "day sidaan uga fadilnay qaarkood qaarkakale, aakhiraana wayn Darajooyin iyo Faasiq wayn.",
-      },
-      {
-        excerpt:
-          "Ruuxii adeeca Eebe iyo Rasuulka waxay la jiri kuwa Eebe u Nicmeeyey oo ah Nabiyada, run-sheegga, Shuhadada iyo kuwa suuban. Alla maxay saaxiibo fiican yihiin!",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jannadu waxay leedahay boqol darajo oo Eebbe u darbay ciddii u dagaalanta jidkiisa. Masaafada u dhaxaysa laba heer kasta waxay la mid tahay masaafada u dhaxaysa samada iyo dhulka. Haddaba markaad Alle weydiiso, weydiiso Al-Firdows, illeen waa Jannada qaybteeda ugu khayrka badan uguna sarreeya.",
-      },
-      {
-        excerpt:
-          "Marka aad Allaah weydiiso, waydiiso Al-Firdows, illeen waa Jannada qaybteeda ugu sarreysa iyo Jannada dhexdeeda, waxaana ka soo qulqula Wabiyada Jannada, korkeedana waxaa ah Carshiga Eebaha Raxmaanka ah.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -98,16 +49,7 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Haddana hadiyadda ugu dambeysa oo go'aaminaysa had iyo jeer waa naxariista Alle. Isla neefta aan hiigsaneyno xagga sare, waxaynu ku xasuusanaynaa hadalkii Nabiga ﷺ isaga u gaar ahaa ee ahaa: Qofna Jannada kuma galo camalkiisa oo keliya - xitaa nabiga ﷺ laftiisa - in Eebbe ku daboolo naxariistiisa mooyee. Tani waa dheelitirka saxda ah ee rumaystahu ku dhufto: rajo koraysa iyo hamiga dhinac, khushuuc daacad ah dhinaca kale.",
       "Ee ka yeel Al-Firdaws baryadaada mid joogta ah - Sujuud, Saddexda Dambe ee Habeenka iyo Hurdada ka hor, Adigoo Aamusanna maalin kasta oo aad ku Tiirsato naxariista Eebahaa inta kale.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Marka aad Allaah weydiiso, waydiiso Al-Firdows, illeen waa Jannada qaybteeda ugu sarreysa iyo Jannada dhexdeeda, waxaana ka soo qulqula Wabiyada Jannada, korkeedana waxaa ah Carshiga Eebaha Raxmaanka ah.",
-      },
-      {
-        excerpt:
-          "Midkiin Jannada kuma galo camalkiisa oo keliya. Waxay yiraahdeen: Xataa adiga ma aha, Rasuulkii Alloow? Wuxuu yidhi: Xataa aniga ma aha, hadduusan Eebbe iga qarin naxariis xaggiisa ah.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ducadaada Allaah ka baryo Al-Firdows, gaar ahaan sujuuda iyo hurdada ka hor.",
       "Dhammaysta waxa korkiina ah, badiya cibaadada naftada ah.",
@@ -126,21 +68,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Waxa loogu yeero dembiyada 'ka yar' sidoo kale waa muhiim, mana aha in aan waligood la fududaysan. Afxumada, beenta, isla waynida, jebinta xidhiidhka qoyska iyo ilbaxnimada ayaa si aayar ah u baabi'isa qalbiga iyo dabeecadda. Rasuulku ﷺ wuxuu ka digay in dembiyada yaryar ee is-dul-saaran ay qofka baabi'in karaan si la mid ah ulaha yar yar ee la ururiyo ay u karin karaan cunto dhan. Mid kasta oo iyaga ka mid ah wuxuu u baahan yahay u noqoshadiisa Alle.",
       "Qaadashadu waa rajada ficilka: marnaba ha u oggolaan in baaxadda dembigu kugu qanciyo in toobaddu aanay macno lahayn. U soo noqo Alle markii aad simbiriirixato, ku raac camal xun mid wanaagsan si aad u tirtirto, maalin kastana fur albaabka Istigfaarta. Mar walba naxariistiisa ayaa ka weyn qaladkaaga.",
     ],
-    quran: [
-      {
-        excerpt: "Eebana ma dhaafo la wadaajinta, wuxuuse ka dhaafaa waxa ka yar cidduu doono.",
-      },
-      {
-        excerpt:
-          "Waxaad dhahdaa: Addoomadayda ku xad gudbay Naftooda, ha ka quusanina naxariista Eebe. Illeen Eebbe wuu dhaafaa dambiyada oo dhan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Axdiga naga dhexeeya annaga iyo iyaga waa salaadda; Qofkii ka tagana wuu gaaloobay.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
     disclaimer:
       "Liisaska dembiyada waaweyn ee fiqhigu waa ay kala duwan yihiin sida uu culimadu u kala duwan yihiin, waxaana axkaamta shakhsiyaadka leh dadka aqoonta u leh. Tani waa xasuusin guud oo ah in la toobad keeno - ma aha xukun shakhsi ah. La tasho aqoonyahan lagu kalsoon yahay xaaladdaada.",
@@ -154,15 +83,7 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Marka laga soo tago shaqsiyaadka la magacaabay, qoraalladu waxay qeexayaan qaybaha loogu bishaareeyey: kuwa run-sheega iyo kuwa samra, kuwa u dhinta shahiido dhab ah oo Alle dartiis u ah sharciga Islaamka, iyo kuwa erayadooda ugu dambeeya ee noloshan ay yihiin markhaatiga iimaanka, la ilaha illallah. Sharaxaad kastaa waxay tilmaamaysaa xaqiiqo gudaha ah - daacadnimo, allabaryo, ama qalbi ku dheggan Eebbe neefta ugu dambaysa - ma aha oo keliya calaamad dibadda ah.",
       "Casharka inoogu socdaa waa in aynaan ammaan ku dareemin urur ahaan, ama aynaan darajooyinkan nafteenna u sheegan, balse waa in aynu dhiirigelinno. Tusaalahoodu kor ha nooga soo jiido: jeclow waxay jecel yihiin, ku dadaalaan siday u dadaalayeen, oo ha u beddeleen cajaa'ibkaas duco iyo ficil, iyagoo Alle ka baryay wax walba husn al-Khatimah ---dhammaan wanaagsan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Abuu Bakar Jannada ayuu joogaa, Cumarna Jannada ayuu joogaa, Cuthmaanna Jannada ayuu joogaa, Cali Jannada ayuu joogaa, Talxahna Jannada ayuu jooga, Zubayrna Jannada ayuu jooga, Cabdiraxmaan ibnu Cowfna Jannada ayuu jooga, Sacadna Jannada ayuu joogaa, Siciid ibnu Zaydna Jannada ayuu jooga, Abuu Cubeyda ibnu Al-Jaarraxna Jannada ayuu joogaa.",
-      },
-      {
-        excerpt: "Ruuxii erayadiisii ​​u dambeeyay ahaa 'Ilaah kale ma jiro'' Jannada ayuu gelayaa.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Bishaaro ku jirta xadiithka waxaa loola jeedaa kuwa la magacaabay ama qaybaha lagu tilmaamay. Ma beddelaan baahida qofku u qabo iimaankiisa, camalkiisa, iyo dhammaadka wanaagsan. Alle ayaa og.",
   },
@@ -176,20 +97,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmadda ku dhisan tawxiidka aasaaskeeda waa in qalbiga ay xorayso. Qofka Alle keligii caabuda waxaa ka xoroobay cabsida abuurka, iyo inuu cid walba raalli ka ahaado, lagana daaliyo u adeegidda sayidyo badan. Noloshiisu waxay helaysaa jihada keliya, oo cad: raalligelinta kii isaga abuuray.",
       "Dhab ahaantii, ka baro caqiidada saxda ah culumada lagu kalsoon yahay, ka nadiifi cibaadadaada shirkiga iyo munaafaqnimada, iska hubi niyadaada ka hor inta aadan ku dhaqaaqin. Tallaabadan ugu horreysa maaha mid ikhtiyaari ah ama horumarsan - waa meesha ay ka bilaabato waddo kasta oo Jannada loo maro.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxaa lagu waxyooday adiga iyo kuwii kaa horreeyeyba, haddaad la wadaajisaan Eebe waxaa buray camalkiinnu, waxaadna noqonaysaan kuwa khasaaray.",
-      },
-      {
-        excerpt: "Lamana amrin inay Eebbe caabudaan mooyee, iyagoo u daacad ah.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Ficilku waa niyo, qof kastana wuxuu heli doonaa oo keliya wuxuu damacsanaa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Wax ka baro aasaaska tawxiidka culumada lagu kalsoon yahay.",
       "Cusbooneysii niyadaada ka hor cibaadada.",
@@ -206,24 +115,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmada qoto dheer ee Salaadda waa isbedel. Salaadda oo si habboon loo sameeyo, waxay qofka ka celisaa xumaanta iyo xumaanta; waa dib-u-dejin soo noqnoqda oo qalbiga u soo celisa xagga Eebbe oo dhan maalin mashquul ah. Salaadda oo la waayo cudur daar la’aan waa arrin aad u daran oo u baahan towbadkeen dhab ah iyo ka dhigistooda (qada). Naaf iyo rawatib - salaadaha sunnada ah ee caadiga ah ka hor iyo ka dib - waxay kordhiyaan iftiin dheeraad ah oo kor u qaadaya darajada.",
       "Dhaqan ahaan: ilaalso shanta salaadood waqtigooda oo ah mudnaantaada buuxda, samee wax kasta oo aad ku dhaaftay, ku darso salaadaha sunnada ah ee aad kari karto. Haddii salaaddaadu hagaagto, wax kasta oo kale oo cibaadadaada ah waxay u janjeeraan inay ku wanaajiyaan iyada.",
     ],
-    quran: [
-      {
-        excerpt: "Waxaa liibaanay kuwa rumeeyey (xaqa) ee salaadda ku khushuucay.",
-      },
-      {
-        excerpt: "Marka laga reebo kuwa tukada - kuwa salaadda ku adkaysta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Arrinka ugu horreeya ee addoonka lagula xisaabtami doono maalinta qiyaame waa baryadiisa. Hadday sanqadho tahay, wuu liibaanay; hadday cilladaysan tahayna wuu fashilmay oo wuu khasaaray.",
-      },
-      {
-        excerpt:
-          "Haddii midkiin albaabkiisa joogo webi uu ku maydho shan jeer maalintii, wax wasakh ah miyuu ku hadhayaa? Waxay dhaheen: maya, wuxuu yidhi: Taasi waa masaska shanta salaadood, Eebe wuxuu ku tirtiraa dambiyada.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Ilaali shanta salaadood wakhtigooda.",
       "U samee salaadaha la seegay si daacad ah.",
@@ -241,22 +134,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmaddu waa qoto dheer tahay: dembigu uma baahna inuu dhammaado sheekada qofka. 'Ilaah wuxuu xumaantooda ugu badali doonaa wanaag' (Qur'aanka 25:70) — toobadkeenida daacadda ah waxay u bedeli kartaa diiwaanka guuldarada mid guul ah, waxayna u rogi kartaa dhicitaan bilow cusub oo qofka u soo jiidata Eebbe si ka duwan sidii hore. Dembi ka quusashada lafteedu waa dabin Shaydaanka; Naxariista Eebe ka rajeeyo waa jawaabta mu'miniinta.",
       "Dhab ahaantii: dib ha u dhigin towbada hal maalin - soo celi wakhtiga aad simbiriirixday. Camal kasta oo xun ku raac camal wanaagsan si aad u tirtirto, oo ku hadho carrabkaaga maalinta oo dhan, sida uu Nebigu ﷺ u dambi dhaaf u doonay marar badan maalin kasta in kasta oo la cafiyay.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa (xaqa) rumeeyow u noqda Eebe toobad keen, wuxuu u dhawyahay inuu Eebihiin idinka tago xumaantiina oo uu idin geliyo Jannooyin ay dureeri dhexdeeda Wabiyaal.",
-      },
-      {
-        excerpt:
-          "Kuwa Toobadkeena ee Rumeeya oo Camal Fiican fala Mooyee Eebe wuxuu ku badali Xumaantooda Wanaag, Eebana waa Dambi Dhaafe Naxariista.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Alle towbada adoonkiisa aad ugu farxay mid idinka mid ah oo geeliisii ​​ku waayey dhul abaar ah, haddana si lama filaan ah u helay.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Isla markiiba u toobad keena markaad dembaabato - dib ha u dhigin.",
       "Dambiga ku raac camal wanaagsan si aad u tirtirto.",
@@ -274,21 +153,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Ujeedada qoto dheer, si kastaba ha ahaatee, maaha wax akhrinta aawadood ee waa isbeddel. Eebe wuxuu ina farayaa inaan 'Qur'aanka ku akhrino akhrin cabbiran' (Qur'aanka 73:4) si sax ah macnaha macnuhu waa u daadanayaan oo u qaabeeyaan sida aynu u fikirno, dareemno, iyo u dhaqano. Qur'aanka waxa loo soo diray in la noolaado, ee looma soo dirin in la akhriyo; saxaabadu waxay baran jireen toban aayadood kamana dhaqaaqi jirin ilaa ay fahmaan oo ay ku dhaqmaan.",
       "Dhab ahaantii: maalin kasta qayb akhri, xataa dhawr aayadood, laakiin si milicsan u akhri. Xifdi suuradaha cusub ama ilaali waxaad hore u taqaanay, iyo -ta ugu muhiimsan - ku dhaqan waxaad barato ka hor intaadan u degdegin inaad wax badan barato.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa akhriya kitaabka Eebe oo oogaya salaadda oo wax ka bixiya waxaan ku arzuqnay waxay rajayn ganacsi aan halaagsanayn si uu u dhammeeyo ajirkooda ugana kordhiyo fadligiisa.",
-      },
-      {
-        excerpt: "Qur'aankana ku akhri akhrin cabbiran.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Saxaabigii Qur’aanka waxa lagu odhan doonaa: Akhri oo kor, una akhri sidii aad aduunka wax ugu akhrin jirtay, waayo darajadaadu waxa ay ahaan doontaa aayada ugu dambaysa ee aad akhrido.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Akhri maalin kasta - xitaa dhowr aayadood oo milicsi leh.",
       "Xafid suurado cusub ama ilaali waxaad taqaan.",
@@ -306,22 +172,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmada zikrigu waa in ay ilaaliso xiriirka Alle ee u dhexeeya cibaadada rasmiga ah. Carrabka qoyan ee xuska leh iyo, ka sii muhimsan, qalbiga Alle ku soo celiya dookhiisa maalinlaha ah - hakadka ka hor xanaaqa, ka hor iibsashada, go'aanka ka hor - waa yoolka dhabta ah. Dikriga looguma talo gelin inuu ku sii jiro bushimaha; waxaa loola jeedaa in lagu hago nolosha.",
       "Dhab ahaan: ka dhig axaadka subaxda iyo maqribka caado maalinle ah, ka dhig qayb fudud oo tasbiix ah, istighfar, ama salawaat ah oo qulqulaya xilliyada aan shaqayn, Allena si gaar ah u xus hurdada ka hor iyo markaad soo jeeddo. In yar in la joogteeyo ayaa ka roon qarax badan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa xaqa rumeeyey (xaqa) oo quluubtoodu ay ku xasishay xuska Eebe, xuska Eebena quluubtoodu waxay ku xasishaan xuska Eebe.",
-      },
-      {
-        excerpt:
-          "Kuwa (Xaqa) rumeeyow xusa Eebe wax badan oo xusa, una tasbiixsada aroor iyo galabba.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Laba kelmadood ayaa carrabka ku fudud, Miisaankana ku culus, waana la jecel yahay Eebaha Raxmaanka ah: SubxaanAllahi wa bixamdiihi, SubxaanAllahil-Azeem.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Dhammaystir axadar subax iyo fiidkii maalin kasta.",
       "Isticmaal miiska tasbeexda istighfar ama salawat.",
@@ -339,22 +191,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmada Sadaqadu waa in ay ku shaqeyso bixiyaha sida ugu badan ee qaataha. Waxay dabcisaa xajinta hunguriga qalbiga, waxay dhistaa naxariis, waxay xoojisaa isku xidhka bulshada, waxayna xasuusinaysaa maalqabeenada inay yihiin ammaano ee aanay ahayn hantiilayaal dhab ah. Islaamkuna waa uu balaadhiyaa qeexida sadaqada si aan cidna looga reebin: Nebigu ﷺ wuxuu baray in u dhoola cadeynta walaalkaa, kalmad wax tar leh, iyo xitaa ka saarista shay dhib ah oo wadada ka mid ah waa dhammaan noocyada sadaqada.",
       "Dhab ahaantii: haddii aad mas'uul ka tahay zakada, xisaabi oo bixi si sax ah; sii qaar ka mid ah sadaqo joogta ah, haba yaraatee, si ay wax bixintu u noqoto caado halkii ay ka ahaan lahayd dhacdo; oo raadi sadaqah jaariyaal ah oo waara - kafaala qaadida arday, maalgelinta ceelka, ama taageerida masjid - taaso kugu abaal marinaysa waqti dheer ka dib markaad maqan tahay.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa ku bixiya Xoolahooda Jidka Eebe waxay la mid yihiin Hadhuudh ka baxay Todobo Sabuul oo Sabuul kastaa ku sugan tahay Boqol Xabbo. Eebbana wuu u badiyaa cidduu doono.",
-      },
-      {
-        excerpt:
-          "Wax ka bixiya waxaan idinku arzuqnay intay u imaan geeridu midkiin, wuxuuna ku dhahay: Eebow haddaad i dib dhigi wax yar oon sadaqo oo aan ka mid noqdo kuwa suubban.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qofku markuu dhinto camalkiisu wuu dhammaanayaa saddex mooyee: Sadaqo socota, cilmi faa'iido leh, ama ubad toosan oo u duceeya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Xisaabi oo bixi sakada haddii ay waajib kugu tahay.",
       "Sii sadaqo joogto ah, xitaa haddii ay yar tahay.",
@@ -372,25 +210,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmadduna waxay tahay in Islaamku aanu ahayn xidhiidh gaar ah oo u dhexeeya qofka iyo Allaah oo keliya; waxaa loola jeedaa in lagu soo qulqulo sida uu ula dhaqmo qof kasta oo ku xeeran. Qofka cibaadaysanaya ee aan ducadiisu u jilcin la macaamilkiisa ayaa seegay nuxurka, halka dabeecadda wanaagsan lafteedu ay tahay daawah, oo dadka u soo jiida iimaanka iyada oo loo marayo tusaale nool. Tani waa sababta qoraalladu ay u lammaaneeyaan cibaadada Eebbe oo ay ugu wanagsan tahay abuurkiisa marar badan iyo mar kale.",
       "Dhab ahaantii: hal mar ku shaqee sifada - carrabkaaga qabo markaad xanaaqdo, cafi kuwa ku qaldama, hagaaji xiriirka aad ka tagtay, oo ilaali balamahaaga xitaa marka ay kugu kacayaan. Milicsi gaaban oo maalinle ah ka dib Salaadda ka dib sidaad ula dhaqantay dadka maalintaas waa hab fudud oo aad si joogto ah u korto.",
     ],
-    quran: [
-      {
-        excerpt: "Oo runtii, waxaad tahay qof weyn oo sharaf leh.",
-      },
-      {
-        excerpt:
-          "ee ah kuwa wax ku bixiya fudfud iyo dhib, oo cadhadooda ka celi, dadkana cafiya, Eebbana waa jecelyahay samafalayaasha.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ma jiro wax ka culus miisaanka qofka mu’minka ah maalinta qiyaame oo aan ahayn dabeecadda wanaagsan. Illeen Alle wuu neceb yahay qofka fisqiga ah oo aan dhab ahayn.",
-      },
-      {
-        excerpt:
-          "Mu'miniinta waxaa ugu dhameystiran iimaanka kuwa ugu akhlaaqda wanaagsan, idinkana waxaa u kheyr badan kuwa u wanaagsan haweenkooda.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Samir ku celceli marka aad xanaaqdo.",
       "Cafi kuwa kale oo hagaaji cilaaqaadka jabay.",
@@ -406,72 +227,52 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       {
         title: "Run sheegid",
         summary: "La jira kuwa runta ah.",
-        quran: {
-          excerpt: "Alle ka cabsada, lana jira kuwa runta ah.",
-        },
+        quran: {},
       },
       {
         title: "Samir",
         summary: "Gargaar ku doonta samirka iyo salaadda.",
-        quran: {
-          excerpt: "Gargaar ku doonta samirka iyo salaadda.",
-        },
+        quran: {},
       },
       {
         title: "Xanaaq celin",
         summary: "Alle wuxuu jecel yahay kuwa xanaaqa celiya.",
-        quran: {
-          excerpt: "Kuwa xanaaqooda celiya oo dadka cafiya.",
-        },
+        quran: {},
       },
       {
         title: "Cafis",
         summary: "Cafiya oo iska dhaafa.",
-        quran: {
-          excerpt: "Miyaadan jeclayn in Alle idin cafiyo?",
-        },
+        quran: {},
       },
       {
         title: "Is-hoosaysiin",
         summary: "Addoomada Raxmaanku waxay ku socdaan is-hoosaysiin.",
-        quran: {
-          excerpt: "Addoomada Raxmaanku dhulka waxay ku socdaan is-hoosaysiin.",
-        },
+        quran: {},
       },
       {
         title: "Aaminaad",
         summary: "Amaanada u celiya dadkeeda.",
-        quran: {
-          excerpt: "Alle wuxuu idin farayaa inaad amaanada u celisaan dadkeeda.",
-        },
+        quran: {},
       },
       {
         title: "Wanaagga waalidka",
         summary: "Waalidka si wanaagsan ula dhaqma.",
-        quran: {
-          excerpt: "Alle caabuda, waalidkana wanaag u sameeya.",
-        },
+        quran: {},
       },
       {
         title: "Hadal wanaagsan",
         summary: "Wanaag ku hadla ama aamusa.",
-        hadith: {
-          excerpt: "Qofkii Alle iyo Maalinta Dambe rumaysan ha ku hadlo wanaag ama ha aamuso.",
-        },
+        hadith: {},
       },
       {
         title: "Dhoolla-caddayn daacad ah",
         summary: "Dhoolla-caddaynta walaalkaa waa sadaqo.",
-        hadith: {
-          excerpt: "Dhoolla-caddaynta wejiga walaalkaa waa sadaqo.",
-        },
+        hadith: {},
       },
       {
         title: "Caddaalad",
         summary: "Caddaalad sameeya; waxay u dhowdahay taqwo.",
-        quran: {
-          excerpt: "Caddaalad sameeya; waxay u dhowdahay taqwo.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -511,25 +312,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmadduna waa in camalka aan cilmi lahayni uu indho la'aan yahay, aqoonta aan camal la'aantuna ay tahay mid aan midho dhal ahayn. Aqoonta saxda ah waxay qofka ka ilaalisaa hal-abuurnimo iyo marin-habaabinta, waxay sii qoto dheeraysaa daacadnimada, waxayna siinaysaa awood uu dadka kale uga faa’iidaysto halkii uu naftiisa uun ka faa’iidaysan lahaa. Culimada Islaamku waxay had iyo jeer ka digayaan labada khatarood: Jaahilnimada oo lagu dhaqmo, iyo aqoon la'aan.",
       "Dhab ahaantii: go'aanso inaad si joogto ah u barato wax faa'iido leh - aayad, xadiis, xukun aad uga baahan tahay cibaadadaada maalinlaha ah. Ka bilow waxyaabaha daruuriga ah ee caqiidada, ducada, daahirinta, iyo mamnuucida waaweyn, ka dibna si tartiib tartiib ah u qoto dheeree. La wadaag waxa aad barato si is-hoosaysiin ah, oo had iyo jeer ku dabaq naftaada marka hore.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Waxaad dhahdaa: Kuwa wax yaqaan ma la siman yihiin kuwaan wax ogayn? Kuwa wax garanaya uun ha fiirsadaan.",
-      },
-      {
-        excerpt: "Waxaad dhahdaa: Eebow ii siyaadi cilmiga.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qofkii dariiq cilmi raadis ah mara, Alle wuxuu u fududeynayaa waddo uu ku galo Jannada.",
-      },
-      {
-        excerpt:
-          "Qofku markuu dhinto camalkiisu wuu dhammaanayaa saddex mooyee: Sadaqo socota, cilmi faa'iido leh, ama ubad toosan oo u duceeya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Baro wax faa'iido leh usbuuc kasta.",
       "La wadaag aqoonta aan isla weynayn.",
@@ -547,18 +331,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmadduna waa in naftu iimaanka sii noolaato oo ay korto. Waajibku waxay ilaaliyaan gundhigga, laakiin ficillada iskaa-wax-u-qabso waa halka uu wadnuhu ku fido, halka cibaadada gaarka ah ee aan cidina arag waxay dhistaa daacadnimo, iyo meesha uu qofku naftiisa ku tababaro imtixaannada adag ee nolosha. Waxa kale oo naxariis ah in falalkani yihiin kuwo ikhtiyaari ah - Alle wuxuu furay albaabo badan si uu qof kastaa uga gudbo kuwa isaga ku habboon.",
       "Dhab ahaantii, furuhu waa sii jiritaan, ma aha xoojinta. Rasuulku ﷺ wuxuu baray in camalka Eebbe loogu jecel yahay ay yihiin kuwa ugu joogtada badan, xitaa haddii ay yar yihiin. Dooro dhawr fal oo iskaa wax u qabso ah oo aad si dhab ah u xajisan karto - laba rakcadood oo tahajjud ah, hal sooman wiiggii, qayb go'an oo Qur'aan ah - halkii aad ka heli lahayd qarax hammi oo gubanaya maalmo gudahood.",
     ],
-    quran: [
-      {
-        excerpt:
-          "021-047 (Nabigu) waxay ka tageen Sariirtooda markay baryeen Eebahood cabsi iyo rajayn, waxaan ku arzuqnayna wax ka bixiya. Nafna ma oga waxa loogu qariyey nasteexa oo ka abaal-marin waxay falayeen.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Addoonkayga iguma soo dhawaado wax iga jecel oo aan ahayn waxa aan ku waajibiyay. Addoonkaygana wuxuu iigu soo dhowaadaa camal mutadawacnimo ilaa aan ka jeclaado isaga.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Tukado tahajud xataa hadday laba rakcadood yihiin.",
       "Maalmo ikhtiyaari ah oo degdeg ah marka la awoodo.",
@@ -576,22 +350,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmada halkan waxay dib u habaynaysaa dhibaatada gebi ahaanba. Tijaabooyinku si toos ah uma aha ciqaab; Qofka mu'minka ah ee si fiican uga jawaaba, waxay u noqon karaan daahirin tirtiraya dembiyada iyo kor u qaadista darajada. Rasuulku ﷺ wuxuu baray in daal, jirro, werwer, ama xittaa muddada qodaxdu aanay ku dhicin qofka muslimka ah isagoon Eebbe ku tirtirin dembigiisa qaar ka mid ah. Tani waxay u beddeshaa waqtiyada ugu adag nolosha fursado halkii ay ka ahaan lahayd khasaare saafi ah.",
       "Dhab ahaan: marka ay masiibo dhacdo, ku jawaab erayada Alle baray — ‘Innaa Lillaahi Wa innaa Ilayhi Raajicuun’ (Innagaa leh Allaah, xaggiisana waan u laabanaynaa) — oo ka qabooji calaacalka diidmada amarkiisa. Wakhtiga wanaagsan nicmooyinkaaga kor ugu tiriya oo Alle ugu mahad naq ugu yaraan dhawr ka mid ah maalin kasta; Magacaabiddooda waxay ka dhigtaa qalbi jilicsan oo mahad leh.",
     ],
-    quran: [
-      {
-        excerpt:
-          "U bishaaree kuwa samra, markay musiibo ku dhacdo yidhaahda annagu waxaan leenahay Eebe xaggiisaana u noqonaynaa. Korkooda waxaa ah barako Eebehood iyo naxariista korkoodana waa kuwa hanuunsan.",
-      },
-      {
-        excerpt:
-          "Haddaad mahadisaan, hubaal waan idiin kordhin doonaa; Haddaad beenisaan cadaabkaygu waa daranyahay.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qofka mu'minka ah arrinkiisu waa la yaab, waayo, dhammaan arrimihiisa waa wanaagsan yihiin. Hadduu fudayd yimaado wuu mahad naqayaa, taasina waa u khayr; hadduu dhib yimaado waa uu sabraa, taasina waa u kheyr. Taasna cidna uma aha Mu'miniinta mooyee.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Innaa lillaahi wa innaa ilayhi raajicuun marka la tijaabiyo dheh.",
       "Kor buu Alle ugu mahad naqayaa saddex nicmood maalin kasta.",
@@ -608,20 +368,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmada ku jirta in abaalgudka intaa le'eg lagu xidho hanuuninta dadka kale waa in ay ka dhigto rumayste kasta isha wanaag socda. Waxa kale oo ay ilaalisaa qofka soo wacaya caqiidadiisa: in dadka kale loogu yeedho ducada, daacadnimada, iyo cibaadada waa in la xasuusiyo in la isku dhego. Waxayna isku xidhaa bulshada is-xakamaynta halkii ay ka ahaan lahayd dayaca labada dhinac.",
       "Dhab ahaantii, ka bilow meel u dhow guriga. Horumari oo baro qoyskaaga - xaaskaaga, cunuggaaga, walaalka - maadaama ay yihiin mas'uuliyaddaada ugu horreysa uguna waarta. La wadaag aqoonta faa'iidada leh si naxariis leh, ku caawi qof inuu barto salaadda ama akhrinta Qur'aanka, xusuusnow in nolosha akhlaaqda wanaagsan iyo cibaadada joogtada ahi ay inta badan tahay dacwooyinka ugu qancinta badan.",
     ],
-    quran: [
-      {
-        excerpt: "ugu yeedh Jidka Eebahaa si xigmad iyo waano wanaagsan, kulana dood si wanaagsan.",
-      },
-      {
-        excerpt:
-          "yaa ka khayr badan hadal ruux u yeedha Eebe oo falay wanaag oo yidhi anigu waxaan ka mid ahay Muslimiinta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Qofkii ku hanuuniya wanaaga wuxuu mudan abaalgud la mid ah kii sameeya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "La wadaag aqoonta waxtarka leh si naxariis leh.",
       "Caawi qof inuu barto salaadda ama akhrinta Qur'aanka.",
@@ -638,26 +386,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Xikmada ku jirta falalkaas ayaa ah inay qofka xisaabtiisa ka dheereeyaan cimrigiisa. Mu'minka cimrigiisu waa gaaban yahay, laakiin ceelkii uu qoday ama ubad uu si fiican u koray waxay sii wadi karaan abaal-marin qarniyo ah. Islaamku wuxuu sidaas darteed dhiirigeliyay aragtida fog: inaadan ka fikirin oo keliya salaadda maanta, laakiin ka fikir waxa wanaagsan ee weli kaa soo qulqulaya ka dib markaad maqan tahay.",
       "Dhab ahaantii: haddii aad awooddo, si dhab ah u qorshey Xajka ama Cumrada intii aad dib u dhigi lahayd dhammaadka lahayn. Ku shub dadaalka dhabta ah ee qoyskaaga iimaankooda iyo dabeecadooda, maadaama ay yihiin dhaxalkaaga ugu waara. Iyo in la ogaado ugu yaraan hal mashruuc samafal oo waara oo lagu taageerayo - aqoonta, biyaha, hoyga, ama agoonta - si camalkaaga wanaagsan u sii socdo dhimashada ka dib.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Xajka Baydkana waa waajib Alle ku leeyahay dadka awood u leh inay helaan jid ay ku maraan.",
-      },
-      {
-        excerpt:
-          "Dadkana ugu bishaaree xajka; way idiin iman iyagoo lugaynaya iyo awr kasta oo caato ah oo marag kaste ah, si ay ugu marag kacaan nacfiga naftooda.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qofkii xajka Alle dartiis u soo xajiya oo aan faasiq iyo xad-gudub toona samayn wuxuu soo noqdaa isagoo dembi la', sidii maalintii hooyadii dhashay.",
-      },
-      {
-        excerpt:
-          "Qofku markuu dhinto camalkiisu wuu dhammaanayaa saddex mooyee: Sadaqo socota, cilmi faa'iido leh, ama ubad toosan oo u duceeya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Qorshee Xajka ama Cumrada haddii aad awooddo.",
       "Maalgeli iimaanka iyo dabeecadda qoyskaaga.",
@@ -675,26 +405,8 @@ export const JANNAH_TOPICS_SO: DeepPartial<JannahTopic>[] = [
       "Taasi waa sababta rumaystaha dheellitiran uu u dhexeeyo rajo iyo cabsi, sida shimbir ku duulaysa laba baal. Waxa uu ka cabsadaa cadaalada Alle in ku filan in aanu marna ka caajisin ama ka tagin danbiga,waxana uu rajaynaya naxariista Eebe in ku filan oo aanu waligii quusan, si kasta oo uu u fogaaday. Gebi ahaanba u janjeerta dhanka cabsida waxay dhalisaa rajo la'aan; Gebi ahaanba u janjeerta xagga rajada waxay keentaa kibir. Magacyada Eebe - Ar-Raxmaan (Raxmaan), Ar-Raxiim (Raxiim), Al-Ghafoor (Eebbe Dambi Dhaafe) - ku dheji garabka rajada.",
       "Ee sidaas ha ahaato ruuxda aad maalin walba xidhato: Alle weydiiso Al-Firdows, ku dadaal, una toobad keen gefkaaga, dabadeed u dhiiba darajadaada u dambaysa Eebaha caaddil iyo naxariista leh, adigoo ku kalsoon in ruuxii dhawray sagaal iyo sagaashan naxariis maalintaas aanu ka celin addoon u yimi isagoo dadaal iyo rajayn.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Naxariistayduna wax walba way koobtay. Ee waxaan u xukumi kuwa dhawrsada oo zakada bixiya iyo kuwa rumeeyey aayaadkanaga.",
-      },
-      {
-        excerpt:
-          "Waxaad dhahdaa: Addoomadayda ku xad gudbay Naftooda, ha ka quusanina naxariista Eebe. Illeen Eebbe wuu dhaafaa dambiyada oo dhan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Midkiin Jannada kuma galo camalkiisa oo keliya. Waxay yiraahdeen: Xataa adiga ma aha, Rasuulkii Alloow? Wuxuu yidhi: Xataa aniga ma aha, hadduusan Eebbe igu daboolin naxariistiisa.",
-      },
-      {
-        excerpt:
-          "Eebe wuxuu leeyahay boqol qaybood oo naxariis ah. Wuxuu soo dajiyay qayb ka mid ah Jinni, Insi, Xayawaan iyo Xashaar, oy isku naxariistaan. wuxuuna dhawray sagaal iyo sagaashan, si uu ugu naxariisto addoomadiisa maalinta qiyaame.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Isku dheelli tirka Alle ka cabsi iyo rajada naxariistiisa.",
       "Weligaa ha niyad jabin dembiga ka dib - toobad keen oo sii wad dadaalka.",
@@ -708,103 +420,49 @@ export const JANNAH_GATES_SO: DeepPartial<JannahGate>[] = [
   {
     name: "Albaabka Salaadda",
     deedSummary: "Kuwii dhawray oo sugay shanta salaadood.",
-    hadith: [
-      {
-        excerpt:
-          "Ruuxii ku bixiya labo-labo oo wax ah Jidka Eebbe waxaa looga yeeri doonaa albaabada Jannada. Ruuxii ka mid ahaa Ehelu Salaadda waxaa looga yeedhi doonaa Albaabka Salaadda.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Albaabka samafalka",
     deedSummary: "Kuwii sadaqada si daacad ah u bixiyay Allaah dartiis.",
-    hadith: [
-      {
-        excerpt: "Qofkii ka mid ahaa dadka samafalka waxaa looga yeeri doonaa Iridda Sadaqada.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Albaabka Ar-Rayaan",
     deedSummary: "Waxaa loo hayaa kuwa sooman - irid keliya ayaa ka soo gala.",
-    hadith: [
-      {
-        excerpt:
-          "Jannada dhexdeeda waxaa ku yaal albaab la yiraahdo Ar-Rayaan, oo maalinta qiyaame ay ka gelayaan kuwa sooman. Marka ugu dambeeya galaan, waa la xidhi doonaa.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Albaabka Jihaadka",
     deedSummary: "Kuwa ku Jahaaday Jidka Eebe si daacad ah.",
-    hadith: [
-      {
-        excerpt: "Qofkii ka mid ahaa dadka jihaadka waxaa looga yeeri doonaa Iridda Jihaadka.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Abaalmarinta Xajka",
     deedSummary: "Ee ah kuwa xajka ku kalifay iyagoon dambi lahayn.",
-    hadith: [
-      {
-        excerpt:
-          "Qofkii xajka Alle dartiis u soo xajiya oo aan faasiq iyo xad-gudub toona samayn wuxuu soo noqdaa isagoo dembi la', sidii maalintii hooyadii dhashay.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Irid walba looga yeedhay",
     deedSummary:
       "Qaar, sida Abuu Bakar, ayaa looga yeeri doonaa inay ka soo galaan dhammaan irdaha.",
-    hadith: [
-      {
-        excerpt:
-          "Abuu Bakar wuxuu weydiiyey: Ma cid looga yeeri doonaa albaabadaas oo dhan? Wuxuu yiri: Haa, waxaana rajeynayaa inaad ka mid noqon doonto.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_SO: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "U orda Dambi dhaafka Eebihiin iyo Janno Ballaadhkeedu yahay sida Samooyinka iyo Dhulka oo loo darbay kuwa dhawrsada.",
-  },
-  {
-    excerpt:
-      "Jannooyin ay dureeri dhexdeeda Wabiyaal iyo Guryo wanaagsan oo Jannooyin ku waari dhexdeeda, raalli ahaanshiyaha Eebe yaa wayn.",
-  },
-  {
-    excerpt: "Jannooyinka magangalya yeyna ku martigelin kuwa rumeeyey xaqa oo camal fiican falay.",
-  },
-  {
-    excerpt: "Nafna ma oga waxa u qarsoomay nasteexo oo ka abaal-marin waxay falayeen.",
-  },
-  {
-    excerpt: "Waxayna mudan waxay doonaan dhexdeeda, agtannadana waxaa ah siyaado.",
-  },
-  {
-    excerpt: "Dhammaan waxaa jiri doona shahaadooyin sida ay sameeyeen.",
-  },
-  {
-    excerpt: "Waa darajo Eebe agtiisa, Eebbana waa arkaa waxay fali.",
-  },
-  {
-    excerpt: "Eebow na sii adduunyo wanaag, aakhirona wanaag, naga ilaali cadaabka naarta.",
-  },
-  {
-    excerpt: "Naxariista Eebe ha ka quusanina, Eebana wuu dhaafaa dambiyada oo dhan.",
-  },
-  {
-    excerpt: "Addoomadayda (Qiyaamada) wax cabsi ah idinkuma aha Maanta, mana murugoonaysaan.",
-  },
-  {
-    excerpt: "Hor-u-yaalkii, hor-u-maray- waa kuwa la soo dhoweeyey.",
-  },
-  {
-    excerpt: "Eebbana wuu ka ilaalinayaa xumaanta maalintaas, wuxuuna siin doonaa nuur iyo farxad.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_SO: DeepPartial<JannahDuaEntry>[] = [

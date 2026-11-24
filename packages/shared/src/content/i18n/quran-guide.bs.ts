@@ -32,27 +32,8 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Učenje Kur'ana je samo po sebi ibadet, a ne samo čitanje informacija. Poslanik, sallallahu alejhi ve sellem, je učio da svako pojedinačno izgovoreno slovo zarađuje dobro djelo, a svako dobro djelo se umnožava barem desetostruko – tako da čak i početnik koji izgovori jedan red već akumulira nagradu. Na Kijametskom danu Kur'an će doći kao zagovornik, moleći se u ime onih koji su mu pravili društvo u ovom životu. Onaj ko ga tečno izgovara nalazi se u društvu plemenitih anđela-književnika, a onaj ko se spotakne o nju, boreći se da nauči, zarađuje dvostruku nagradu za trud.",
       "Pomaže da bude jasno šta Kur'an nije. Kur'an je Allahove vlastite doslovne riječi na arapskom jeziku, nepromijenjene od objave. Hadis – Poslanikove ﷺ izreke, postupci i tiha odobravanja – su odvojeni: oni objašnjavaju i demonstriraju Kur'an, ali su Poslanikov izraz, sačuvan kroz imenovane lance prenosilaca i ocjenjen od strane učenjaka kao sahih (vjerodostojan), hasan (dobar) ili da'if (weak). I jedno i drugo je objava i oba su obavezujuća, ali samo Kur'an se uči kao ibadet u namazu, a samo Kur'an je čudesni, neponovljivi Allahov govor.",
     ],
-    quran: [
-      {
-        excerpt: "Mjesec ramazana u kojem je objavljen Kur'an kao uputa za čovječanstvo...",
-      },
-      {
-        excerpt:
-          "Reci: Kad bi se ljudi i džini okupili da proizvedu slično ovome Kur'anu, ne bi mogli...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Ko prouči slovo iz Allahove Knjige dobija hasanu, a hasana se množi sa deset.",
-      },
-      {
-        excerpt: "Čitajte Kur'an, jer će doći kao zagovornik za svoje drugove na Kijametskom danu.",
-      },
-      {
-        excerpt:
-          "Onaj ko je vješti u Kur'anu je sa plemenitim, ispravnim pisarima, a onaj ko ga uči s mukom, mucajući nad njim, ima dvostruku nagradu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Odredite fiksno dnevno vrijeme za Kur'an — čak i pet fokusiranih minuta gradi baraku i dosljednost.",
       "Pročitajte barem jedan red sa značenjem: recitujte arapski, a zatim polako čitajte prijevod.",
@@ -71,14 +52,7 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Očuvanje teksta počelo je još za Poslanikovog, sallallahu alejhi ve sellem, života. Ashabi su zapamtili objavu onako kako je došla, a pisari su je zapisivali na pergamentu, palminim stabljikama, kostima i kamenu pod neposrednim Poslanikovim, sallallahu alejhi ve sellem, nadzorom. Nakon što su mnogi ljudi koji sjećaju stradali u bici kod Yamame, Abu Bekr je naredio Zaydu ibn Thabitu da sakupi pisani Kur'an u jednu zbirku (suhuf). Kasnije, kako se carstvo širilo i dijalekti su varirali, Osman je dao izraditi mjerodavne kopije na dijalektu Kurejšija i poslati ih u glavne gradove, standardizirajući jedan pisani tekst za cijeli ummet.",
       "Sam Allah je garantovao zaštitu Kur'ana: 'Zaista, Mi smo podsjetnik spustili i zaista ćemo ga sačuvati.' To obećanje je ispunjeno kroz tri međusobno povezane mjere zaštite — masovno pamćenje u svakoj generaciji, pažljivo pisano prenošenje i neprekinuti lanci recitacije od učitelja do učenika (kiraat) koji sežu do Poslanika, sallallahu alejhi ve sellem. Za vjernika je ovo teološki znak; za historičara je to dokumentirana činjenica: Kur'an koji se danas uči je isti tekst otkriven prije četrnaest stoljeća.",
     ],
-    quran: [
-      {
-        excerpt: "Zaista, Mi smo podsjetnik spustili i zaista, Mi ćemo ga sačuvati.",
-      },
-      {
-        excerpt: "Čitaj u ime Gospodara svoga koji je stvorio…",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -90,11 +64,7 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Za lakše čitanje, Kur'an je također podijeljen na 30 jednakih dijelova koji se zovu džuz (množina ajza), a svaki džuz na dvije polovine koje se zovu hizb, dajući ukupno 60 hizb. To je ono što čini ramazanski hatm - kompletiranje cijelog Kur'ana za mjesec dana - tako prirodnim: jedan džuz dnevno završava Knjigu za trideset dana, a pola džuza dva puta dnevno je još nježniji. Unutar svake sure ajeti (stihovi) su numerirani tako da se svaki odlomak može navesti precizno kao sura: ayah; standardni broj Medine je 6.236 ajeta, sa samo sitnim, dobro dokumentovanim razlikama u tome kako je nekoliko granica ajeta numerisano - sam tekst je identičan.",
       "Razumijevanje ove strukture pretvara nejasne namjere u konkretan plan. Možete se posvetiti fiksnom dnevnom dijelu, ciljati Juz Amma (posljednji, trideseti dio, pun kratkih sura) za pamćenje, pratiti jednu temu kao što je strpljenje u nekoliko sura ili zakazati kompletno čitanje oko Ramazana. Struktura je skela koja čini doživotnu vezu s Kur'anom ostvarivom.",
     ],
-    quran: [
-      {
-        excerpt: "…Knjiga čiji su ajeti detaljno, arapski Kur'an za ljude koji znaju.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -122,15 +92,7 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Ne morate savladati sve odjednom. Osnovna pravila se uče redom: pravila podne sakine i tanween (izhar, idgham, iqlab, ikhfa), pravila meem sakinah, različite vrste madd (izduženje), qalqalah (svjetlo se odbija od određenih slova), ghunnah (nazalna rezonanca) i gdje se zaustavlja (kako se zaustavlja). Svaki od njih ima jasnu definiciju, svakodnevne primjere i nešto za vježbanje, a ovo središte prolazi kroz njih jedan po jedan.",
       "Čvrsto pravilo: učite tajvid na uho od kvalifikovanog učitelja, a ne samo iz knjiga ili aplikacija. Recituj nekome ko može čuti tvoje greške i ispraviti ih — tako se oduvijek učio tedžvid, i to je jedini pouzdan put do prave tačnosti i, na kraju, idžaze (ovjerenog lanca recitacije).",
     ],
-    hadith: [
-      {
-        excerpt: "Najbolji od vas su oni koji uče Kur'an i podučavaju ga.",
-      },
-      {
-        excerpt:
-          "Onaj ko je vješti u Kur'anu je sa plemenitim, ispravnim pisarima, a onaj ko ga uči s mukom, mucajući nad njim, ima dvostruku nagradu.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -163,11 +125,7 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Vi ne prevodite Kur'an riječ po riječ na ovaj način – to je djelo tefsira i prijevoda – ali počinjete prepoznavati Allahova imena, naredbe, obećanja i upozorenja uživo, u trenutku recitiranja. Počnite s riječima koje se najčešće pojavljuju i imaju najveću težinu: Allah, Rabb (Gospodin), rahmah (milost), iman (vjera), sabr (strpljenje), taqwa (svijest o Bogu), dunya (ovaj svijet) i akhirah (Ahiret). Iz tog seta sidra, širite se prema van malo po jedan.",
       "Koristite razmaknuto ponavljanje umjesto nabijanja. Učenje pet novih riječi sedmično i svakodnevno pregledavanje svih njih odvešće vas daleko dalje za godinu dana nego da ih naučite napamet u jednom dahu i zaboravite ih. Allah obećava da je Kur'an lako uzet k srcu - postepeno pristupajte njegovom rječniku i osjetit ćete tu lakoću iz prve ruke.",
     ],
-    quran: [
-      {
-        excerpt: "A Mi smo svakako učinili Kur'an lakim za pamćenje, pa ima li ko da se sjeća?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -207,11 +165,7 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Obratite pažnju na obrazac koji se provlači kroz njih. Poslanici su pozivali svoj narod na obožavanje samo Allaha; izrugivali su im se, suprotstavljali im se i često su ih isterivali; izdržali su sa strpljenjem i potpunim oslanjanjem na Allaha (tawakkul); i na kraju se Allahovo obećanje ispunilo. Kada čitate o njihovim teškoćama, crpite snagu iz toga kako su reagovali - a da niste ni zamislili da je vaš rang jednak njihovom. Poenta je apsorbirati njihovu postojanost i povjerenje, a ne uspoređivati ​​status.",
       "Sam Kur'an izdvaja jednu pripovijest: suru Jusuf, koju Allah naziva 'najboljom pričom'. Neobično, ispričana je od početka do kraja u jednoj suri, pa je čitajte u jednom dahu kao neprekidno putovanje – izdaju, strpljenje kroz ropstvo i zatvor, i na kraju oprost i ponovno okupljanje – i gledajte kako se Allahov plan odvija iza godina prividne nesreće.",
     ],
-    quran: [
-      {
-        excerpt: "U njihovim pričama je svakako lekcija za one koji razumiju…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -223,11 +177,7 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Čućete i o 'naučnim čudima' — stihovima koji se dotiču faza embriona, širenja kosmosa i slično. Pažljivo postupajte s njima. Klasični tefsir često je shvaćao takve stihove na način koji je sasvim drugačiji od modernih apologeta, a prisiljavanje Kur'ana da odgovara svakoj promjenjivoj naučnoj hipotezi može se izjaloviti kada se teorije promijene. Čvrsto razlikovati ustaljeno tumačenje i savremena pretpostavka.",
       "Učenjaci također navode historijska proročanstva - prorečena pobjeda Rimljana, mirno otvaranje Mekke - i ona su vrijedna proučavanja, ali kroz trezvene tefsir i serah, a ne senzacionalne video klipove. Najjači argument za Kur'an je uvijek bio njegov tevhid, njegova moralna transformacija naroda i njegov jezik i očuvanje bez premca.",
     ],
-    quran: [
-      {
-        excerpt: "Onda proizvedi suru poput ove... ako si iskren.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Izbjegavajte prenaglašene naučne čudesne tvrdnje koje dovode u neugodnost dawah kada se pažljivo ispitaju. Vodite tevhidom, moralom i lingvističkim i historijskim dokazima Kur'ana.",
   },
@@ -240,16 +190,7 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Praktična metoda: koristite razmaknuto ponavljanje, držite se jednog recitatora tako da vam sama melodija bilježi pamćenje, recitirajte iz pamćenja svakodnevno, a ne samo čitajući, i neka nastavnik sluša i označava vaše greške - greške koje sami ne možete čuti. Munibov hifz tracker bilježi napredak sve do pojedinačnog ayata tako da uvijek znate šta je potrebno za reviziju.",
       "Odaberite plan koji odgovara vašoj fazi. Početni: naučite napamet Juz Amma, posljednji dio, pun kratkih sura. Srednji: dodajte deset često recitiranih sura kao što su al-Mulk, Ya-Sin i al-Kahf. Napredno: dovršite potpuni džuz sa jakom revizijom svega prije. I putovanje hafiza: cijeli mus'haf, naučen napamet sa kvalifikovanim učiteljem i, u idealnom slučaju, sanedom — certificirani lanac prijenosa natrag do Poslanika, sallallahu alejhi ve sellem.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Reći će se ashabu Kur'ana: Uči i uzdiži se kao što si učio na svijetu, jer će tvoj rang biti na posljednjem ajetu koji učiš.",
-      },
-      {
-        excerpt:
-          "Parabola o ashabi u Kur'anu je ona o vlasniku privezane deve: ako je čuva, on je zadržava, a ako je pusti gubi je.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -270,15 +211,7 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Tadabbur nije isto što i tefsir. Tefsir je naučno objašnjenje šta ajet znači; tadabbur je vaš lični, pobožan odgovor na to značenje kada ga jednom shvatite. To dvoje rade zajedno: prvo naučite značenje zvuka od tefsira, a zatim sjedite s njim i pitate kako vam govori. Koristan okvir su tri pitanja — Čemu me Allah ovdje uči? Kako ovo mijenja ono što danas radim? Koju naviku moram izgraditi ili prekinuti zbog toga?",
       "Jedna čvrsta granica čuva tadabbur: razmislite o tome šta stih traži od vas, ali nikada ne izmišljajte nova značenja za sam tekst. Neka autentični tefsir postavi granice tumačenja i neka vaša lična razmišljanja budu na njihovom mjestu - privatni dnevnik, poput Munibovog, idealan je za bilježenje onoga što je neki ajet pokrenuo u vama i kasnije mu se vratite.",
     ],
-    quran: [
-      {
-        excerpt: "Zar ne razmišljaju o Kur'anu, ili su im srca zaključana?",
-      },
-      {
-        excerpt:
-          "Pa zar onda ne razmišljaju o Kur'anu? Da je bilo od drugog mimo Allaha, oni bi u tome našli mnogo kontradiktornosti.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -289,11 +222,7 @@ export const QURAN_GUIDE_TOPICS_BS: DeepPartial<QuranGuideTopic>[] = [
       "Tome služe ovi izazovi. Svaki od njih povezuje određeni stih sa jednim, izvodljivim ponašanjem za danas: čuvati svoj jezik ljubaznim govorom, davati tihu milostinju, spuštati pogled sa onoga što je zabranjeno, otpuštati ljutnju koju nosiš. Jedan stih, jedna radnja — dovoljno mala da se zaista uradi, dovoljno stvarna da vas promeni.",
       "Označite izazov završenim samo kada ste ga zaista uradili. Smisao praćenja nije prikazivanje – to bi poništilo svrhu – već poštena odgovornost pred Allahom, koji vidi ono što drugi ne vide. Vremenom, stih po stih, tako se recitacija pretvara u karakter.",
     ],
-    quran: [
-      {
-        excerpt: "Da li naređujete pravednost drugima, a zaboravljate sebe dok čitate Sveto pismo?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -430,14 +359,7 @@ export const QURAN_GUIDE_STORIES_BS: DeepPartial<QuranGuideStory>[] = [
       "Šejtanov metod je uporno šaputanje, a ne sila - prepoznavanje njegovih prijedloga je pola otpora.",
       "Ljudska vrijednost je vezana za znanje i okretanje Allahu, a ne za bezgrešnost – to je odgovor na grešku koja nas definira.",
     ],
-    quran: [
-      {
-        excerpt: "Stvaranje Adama i sedždu anđela.",
-      },
-      {
-        excerpt: "Test, pad i pokajanje.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Džennet, pa zemlja",
   },
   {
@@ -456,14 +378,7 @@ export const QURAN_GUIDE_STORIES_BS: DeepPartial<QuranGuideStory>[] = [
       "Upornost u pozivanju Allahu, čak i protiv stalnog izrugivanja, sama je po sebi oblik ibadeta.",
       "Allahovo spasenje dolazi u određeno vrijeme - vjernik gradi 'kovčeg' poslušnosti prije potopa, vjerujući obećanju.",
     ],
-    quran: [
-      {
-        excerpt: "Nuhova priča do detalja.",
-      },
-      {
-        excerpt: "Nuhova molba svom narodu.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Drevna Mesopotamija (naučne procjene)",
   },
   {
@@ -481,14 +396,7 @@ export const QURAN_GUIDE_STORIES_BS: DeepPartial<QuranGuideStory>[] = [
       "Oslanjanje na Allaha ne znači pasivnost: Hadžer je trčao i tražio, a Zemzam je došao - trud i tavakuli rade zajedno.",
       "Iskrena djela odanosti odjekuju kroz generacije; obredi hadža i čast Ka'be sežu do Ibrahimove poslušnosti.",
     ],
-    quran: [
-      {
-        excerpt: "Ibrahim, Ismail i kurban.",
-      },
-      {
-        excerpt: "Zavet i nasleđe.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Irak, Levant, Meka",
   },
   {
@@ -507,11 +415,7 @@ export const QURAN_GUIDE_STORIES_BS: DeepPartial<QuranGuideStory>[] = [
       "Allahov plan se često krije iza godina očigledne nesreće - bunar, ropstvo i zatvor bili su koraci ka Jusufovoj časti.",
       "Jaki pokazuju svoju snagu kroz oprost: na vrhuncu svoje moći, Jusuf je pomilovao one koji su mu nanijeli nepravdu.",
     ],
-    quran: [
-      {
-        excerpt: "Najbolje priče — ispričane u jednoj suri.",
-      },
-    ],
+    quran: [{}],
     location: "Kanaan, Egipat",
   },
   {
@@ -529,14 +433,7 @@ export const QURAN_GUIDE_STORIES_BS: DeepPartial<QuranGuideStory>[] = [
       "Svjedočenje čudima samo po sebi ne proizvodi vjeru – uputa je dar koji Allah daje poniznom srcu, a ne tvrdoglavom.",
       "Allah spašava potlačene, a ohole smatra odgovornima, ma kako moćni izgledali.",
     ],
-    quran: [
-      {
-        excerpt: "Musa u Turu i pred faraonom.",
-      },
-      {
-        excerpt: "Rođenje i odrastanje.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Egipat, Sinaj",
   },
   {
@@ -554,14 +451,7 @@ export const QURAN_GUIDE_STORIES_BS: DeepPartial<QuranGuideStory>[] = [
       "Poslanici su poštovani Allahovi robovi, koji se nikada ne obožavaju - Kur'an štiti Isaov pravi status od pretjerivanja.",
       "Marjamina čednost, strpljenje i povjerenje čine je uzorom vjere za sve vjernike, i žene i muškarce.",
     ],
-    quran: [
-      {
-        excerpt: "Govor rođenja i kolevke.",
-      },
-      {
-        excerpt: "Nije ubijen niti razapet; podignuta.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Palestina",
   },
   {
@@ -579,14 +469,7 @@ export const QURAN_GUIDE_STORIES_BS: DeepPartial<QuranGuideStory>[] = [
       "Pozivalac Allaha prenosi poruku iskreno i strpljivo, ali ishod prepušta Allahu - On treba dati uputu.",
       "Kušnje su put proroka; Podnošenje teškoća radi Allaha, kao što je on to činio, znak je prave vjere.",
     ],
-    quran: [
-      {
-        excerpt: "Nismo te poslali osim kao milost svjetovima.",
-      },
-      {
-        excerpt: "Milostivi među sobom, čvrsti protiv nevjernika.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
 ];
@@ -602,18 +485,8 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Poslanik, sallallahu alejhi ve sellem, uči da vjera ima preko sedamdeset grana, u rasponu od najvećeg – svjedočanstva da nema boga osim Allaha – do uklanjanja štete s puta, pokazujući da su i mala dobra djela dio vjere.",
       "Pravi iman je stvar srca prije jezika: istinski upoznati Allaha, voljeti Ga iznad svega, bojati se Njegovog nezadovoljstva i u potpunosti se osloniti na Njega.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Poslanik vjeruje u ono što mu je objavljeno od njegovog Gospodara, kao i vjernici...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Vjera ima preko sedamdeset grana; najviši je reći 'Nema drugog boga osim Allaha', a najniži je uklanjanje nečega štetnog sa puta - a skromnost je grana vjere.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Obnovite svoj shahada danas s punom pažnjom na ono što znači, a ne kao rutinsku frazu.",
       "Naučite jedno od Allahovih imena, razumite ga i zazovite Ga njime u svojoj dovi.",
@@ -628,17 +501,8 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Za razliku od drugih obaveza objavljenih na Zemlji, namaz je propisan ummetu tokom Poslanikovog, sallallahu alejhi ve sellem, uzašašća (al-Isra wal-Mi'radž), označavajući ga kao poseban dar i vjernikov vlastiti način uspona ka Allahu.",
       "Budući da se ponavlja pet puta dnevno, namaz je stabilan ritam koji održava vjeru živom između jednog ibadeta i sljedećeg.",
     ],
-    quran: [
-      {
-        excerpt: "Zaista, namaz zabranjuje nemoral i nedjela, a spominjanje Allaha je veće.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Prvo od djela sluge koje će biti suđeno na Sudnjem danu biće njegova molitva; ako je zdrav, uspio je, a ako je neispravan nije uspio i izgubio.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Danas klanjajte jedan namaz polako, razumijevajući riječi El-Fatihe dok ih učite.",
       "Otvorite Munibov vodič Learn Namaz da ojačate jedan dio svoje molitve.",
@@ -654,12 +518,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Zapovijed dostiže vrhunac u starosti, kada je roditeljima najpotrebnije strpljenje: brini za njih kao što su se nekada brinuli za tebe, i spusti im krilo poniznosti iz milosrđa.",
       "Odanost se ne završava smrću – nastavak davanja dove za roditelje, davanje milostinje u njihovo ime i poštovanje njihovih prijatelja i obećanja su stalna djela lojalnosti.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Vaš Gospodar je odredio da ne obožavate nikoga osim Njega i da budete ljubazni prema roditeljima...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Nazovite ili pošaljite poruku roditelju lijepim riječima danas.",
       "Učinite dovu za svoje roditelje po imenu.",
@@ -674,12 +533,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Allah se izjavljuje da je 'sa strpljivim' i obećava pacijentu njihovu nagradu bez mjere - čast koja se ne pridaje gotovo ni jednoj drugoj osobini.",
       "Poslanici su bili najteže iskušeni među ljudima, a Kur'an drži njihovu postojanost - Ajuba u bolesti, Jakuba u tuzi, Jusufa kroz izdaju i zatvor - kao uzor za oponašanje.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O vjernici, tražite pomoć kroz strpljenje i molitvu. Zaista, Allah je sa strpljivim.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Kada iritacija poraste danas, zastanite, udahnite i recite 'Inna lillahi wa inna ilayhi raji'un' prije nego što reagujete.",
       "Pretvorite jedan trenutak nevolje ove sedmice u dva rekata namaza umjesto prigovora.",
@@ -694,12 +548,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Dobrotvornost nije samo novac. Poslanik, sallallahu alejhi ve sellem, je učio da je čak i susret sa svojim bratom sa nasmijanim licem dobročinstvo, tako da niko nije previše siromašan da bi ga dao.",
       "Davanje pročišćava i bogatstvo i davaoca, popuštajući stisak pohlepe i izgrađujući suosjećanje — zbog čega sama riječ zekat znači pročišćavanje i rast.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Primjer onih koji troše na Allahovom putu je kao zrno koje raste sedam klasova...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Dajte nešto danas - novac, svoje vrijeme ili iskreno ljubaznu riječ - čak i ako je malo i nevidljivo.",
       "Pregledajte svoje obaveze zekata u Munibu i zabilježite kada dospijeva sljedeća isplata.",
@@ -714,12 +563,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Vrata milosti su zadivljujuće široka: Allah čak i onima koji su sebi nanijeli veliku nepravdu govori da ne očajavaju, jer On oprašta sve grijehe onome ko se iskreno pokaje.",
       "Pokajanje nije rezervisano za velike grijehe ili dramatične trenutke - istighfar (traženje oprosta) tokom cijelog dana održava srce mekim i račun čistim.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Reci: O robovi moji koji ste sami sebe prestupili, ne očajavajte u Allahovoj milosti...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Recite 'Astaghfirullah' 100 puta danas, to znači i osjetite dizanje utega.",
       "Navedite jednu naviku za koju znate da ne voli Allaha i učinite prvi konkretan korak da je napustite.",
@@ -735,11 +579,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Kur'an podstiče vjernike da se takmiče i požure ka oprostu i vrtu 'širokom kao nebesa i zemlja' — za njim se treba aktivno težiti, a ne pasivno nadati.",
       "Najveća nagrada od svega nisu bašče ili rijeke, već viđenje Allahovog Lica – najveća radost koja je ljudima u Džennetu obećana.",
     ],
-    quran: [
-      {
-        excerpt: "I požuri sa oprostom od Gospodara svoga i džennetom širokom kao nebesa i zemlja…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -751,12 +591,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Jedini grijeh koji Kur'an izdvaja kao neoprostiv ako osoba umre zbog njega je širk – pridruženje partnera Allahu; sve manje od toga da On može oprostiti kome hoće.",
       "Allah upozorava kako bi ljude vratio k sebi, a ne da bi zdrobio onoga koji se kaje — svako upozorenje je u Kur'anu upareno sa otvorenim pozivom na povratak.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zaista, Allah ne oprašta druženje s Njim, ali oprašta ono što je manje od onoga kome hoće.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Poslije svakog današnjeg namaza, zamolite Allaha iskreno da vas zaštiti od Vatre.",
       "Obnovite svoj tevhid: razmislite o obožavanju samo Allaha, najsigurnije zaštite od Džehannama.",
@@ -771,12 +606,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Ugnjetavanje (dhulm) je ozbiljno upozoreno na; Poslanik, sallallahu alejhi ve sellem, je učio da će se nepravde pojaviti kao tama nad počiniocima na Kijametskom danu.",
       "Pravda nije samo za sudije i vladare – ona živi u poštenom govoru, poštenom postupanju, držanju svoje riječi i davanju svakoj osobi koja joj pripada.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Budite čuvari pravde, svjedoci Allaha, čak i protiv sebe ili roditelja i rodbine.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Dajte nekome pravo koje mu pripada danas - poštenu platu, iskren odgovor ili kredit koji mu dugujete.",
       "Uhvatite trenutak u kojem vas pristrasnost dovodi u iskušenje da budete nepravedni i umjesto toga odaberite pravdu.",
@@ -791,11 +621,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Korisno znanje je namijenjeno da se na njega djeluje i prenosi; Poslanik, sallallahu alejhi ve sellem, je učio da su učenjaci nasljednici poslanika, koji ne nasljeđuju bogatstvo nego znanje.",
       "Traženje svetog znanja je samo po sebi ibadet, a Kur'an jasno pravi razliku između onih koji znaju i onih koji ne znaju - 'jesu li jednaki?'",
     ],
-    quran: [
-      {
-        excerpt: "I reci: Gospodaru moj, povećaj me znanjem.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Naučite jednu novu stvar iz Kur'ana danas - ajet, riječ ili odredbu - i podučite je nekome.",
       "Naučite napamet dovu 'Rabbi zidni ilma' i izgovorite je prije učenja.",
@@ -810,11 +636,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Muhammed, sallallahu alejhi ve sellem, je pečat poslanika, posljednji poslanik, i musliman mora vjerovati u sve poslanike prije njega - Nuha, Ibrahima, Musaa, Isaa i ostale - ne praveći nikakvu razliku među njima.",
       "Poslanici su bili ljudska bića i Allahovi robovi, a ne božanski; Kur'an ih odaje počast, ali ih čvrsto drži na strani stvorenja, nikada ih se ne obožava zajedno sa Stvoriteljem.",
     ],
-    quran: [
-      {
-        excerpt: "U njihovim pričama je lekcija za one koji razumiju...",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -826,12 +648,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Kur'an drži Merjem, Isaovu majku, kao uzor za sve vjernike, i poštuje majke tako visoko da dobro poznato učenje stavlja Džennet pred njihova stopala.",
       "Oba pola vuku unazad do jednog porijekla – 'stvorili su vas od jedne duše' – uspostavljajući zajedničku ljudskost i dostojanstvo od samog prvog ajeta sure an-Nisa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bojte se svog Gospodara, koji vas je stvorio od jedne duše i stvorio od nje njenu drugu...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Poštujte ženu u svom životu danas - majku, ženu, sestru ili ćerku - sa određenim pravom ili ljubaznošću koja joj duguje.",
     ],
@@ -845,11 +662,7 @@ export const QURAN_GUIDE_THEMES_BS: DeepPartial<QuranGuideTheme>[] = [
       "Često ponavljana roditeljska mudrost savjetuje da se djeca upoznaju u njihovom stadiju – da se igrate s njima u ranim godinama, zatim ih podučavate i nježno disciplinujete, a zatim se sprijateljite s njima dok sazrijevaju.",
       "Odgajanje pravednog djeteta je investicija izvan ovog života: pravedni potomak koji se moli za roditelja nastavlja da im koristi dugo nakon smrti.",
     ],
-    quran: [
-      {
-        excerpt: "O vjernici, zaštitite sebe i svoje porodice od Vatre...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Naučite dijete jednom kratkom stihu ili jednom lijepom ponašanju danas, strpljivo i s ohrabrenjem.",
       "Učinite dovu za svoju djecu (ili djecu o kojoj brinete) po imenu da budu ispravni i voljeni Allahu.",
@@ -975,17 +788,13 @@ export const QURAN_GUIDE_VOCABULARY_BS: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Jedini pravi Bog — pravo ime koje obuhvata sva lijepa imena.",
     frequency: "2.700+ pojavljivanja",
     example: "Bismillah — U ime Allaha",
-    quranRef: {
-      excerpt: "U ime Allaha, Potpuno Milostivog, Posebno Milostivog.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Gospodar, Gospodar, Održavatelj — onaj koji stvara, posjeduje, njeguje i upravlja.",
     frequency: "Vrlo često",
     example: "Rabbana—Naš Gospodin",
-    quranRef: {
-      excerpt: "Sva hvala pripada Allahu, Gospodaru svjetova.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Milost, samilost, nježnost od Allaha i među stvorenjima.",
@@ -1031,9 +840,7 @@ export const QURAN_GUIDE_VOCABULARY_BS: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Svetlost — vođstvo, otkrovenje i prosvetljenje srca.",
     frequency: "Često",
     example: "Allah je svjetlost nebesa i Zemlje",
-    quranRef: {
-      excerpt: "Allah je svjetlost nebesa i Zemlje...",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1254,8 +1061,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_BS: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_BS: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "O vjernici, tražite pomoć kroz strpljenje i molitvu. Zaista, Allah je sa strpljivim.",
     context:
       "Iz sure El-Bekare, objavljene u Medini. Allah spaja dva izvora snage za vjernika koji se suočava s teškoćama – strpljivost i okretanje molitvi – i obećava Svoje posebno društvo onima koji se čvrsto drže.",
     reflection:
@@ -1264,7 +1069,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_BS: DeepPartial<QuranGuideDailyLesson>[] 
       "Izmolite danas jedan namaz bez žurbe, i u svom sudžudu zamolite Allaha poimence za strpljenje u specifičnom testu koji prolazite.",
   },
   {
-    translation: "Moja milost obuhvata sve stvari.",
     context:
       "Iz sure al-A'raf, izgovorene u kontekstu Musaa i njegovog naroda. Allah opisuje Svoju milost kao što obuhvata sve – milost toliko ogromna da prethodi i nadmašuje Njegovu kaznu, koja je rezervirana za one koji ustraju u nepravdi.",
     reflection:
@@ -1273,7 +1077,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_BS: DeepPartial<QuranGuideDailyLesson>[] 
       "Odaberite jednu osobu kojoj zamjerate, oprostite joj iskreno u svom srcu danas i napravite kratku dovu tražeći od Allaha da uputi i oprosti i njima.",
   },
   {
-    translation: "Ako ste zahvalni, sigurno ću vas povećati.",
     context:
       "Od sure Ibrahim, dijela Musaovog podsjetnika do Bani Isra'ila. Allah svoj porast direktno povezuje sa zahvalnošću - zahvalnost za blagoslov je upravo ono što uzrokuje da raste, dok nezahvalnost poziva na njegov gubitak.",
     reflection:
@@ -1282,7 +1085,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_BS: DeepPartial<QuranGuideDailyLesson>[] 
       "Prije nego odspavate večeras, izgovorite 'Alhamdulillah' naglas za tri određena blagoslova, imenujući svaki tako da zahvalnost postane svjesna, a ne automatska.",
   },
   {
-    translation: "I govori ljudima dobre riječi.",
     context:
       "Iz sure al-Isra. Usred smjernica o tome kako vjernici treba da se nose, Allah naređuje da ljudima - svim ljudima - razgovaramo na najbolji način, jer su teške riječi jedna od vrata kroz koja šejtan sije podjele.",
     reflection:
@@ -1291,7 +1093,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_BS: DeepPartial<QuranGuideDailyLesson>[] 
       "Iskreno ohrabrite ili zahvalite jednoj osobi danas bez skrivene kritike i suzdržite jednu oštru primjedbu koju ste bili u iskušenju.",
   },
   {
-    translation: "Ko se oslanja na Allaha - onda mu je On dovoljan.",
     context:
       "Iz sure at-Talaq, koja se nalazi među presudama o razvodu i obezbjeđenju – upravo tamo gdje se ljudi osjećaju financijski najviše zabrinuti. Tamo Allah obećava da će ko se Njega bojati obezbijediti odakle nikada nisu očekivali, a ko se na Njega osloni, naći će Ga dovoljno.",
     reflection:
@@ -1300,7 +1101,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_BS: DeepPartial<QuranGuideDailyLesson>[] 
       "Donesite jednu odluku koja vas brine, klanjajte dva rekata istihare ili uputite iskrenu dovu nad njom, a zatim povjerite rezultat Allahu.",
   },
   {
-    translation: "Gospodaru moj, povećaj me u znanju.",
     context:
       "Iz sure Ta-Ha. Ovo je jedina stvar u Kur'anu koju Allah nalaže Poslaniku, sallallahu alejhi ve sellem, da traži više od — znanja — što pokazuje koliko je visoko korisno znanje cijenjeno i da niko, ma koliko učen, nikada nije završio tražeći ga.",
     reflection:
@@ -1309,8 +1109,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_BS: DeepPartial<QuranGuideDailyLesson>[] 
       "Naučite napamet ovu kratku dovu, 'Rabbi zidni ilma', i stvorite naviku da je izgovorite nakon sabaja prije nego što započnete svoj dan.",
   },
   {
-    translation:
-      "Primjer onih koji svoj imetak troše na Allahovom putu je kao sjeme koje iznikne sedam klasova...",
     context:
       "Iz sure al-Baqarah. Allah crta živopisnu sliku o tome kako dobročinstvo raste: jedno sjeme nikne sedam klasova, od kojih svako nosi stotinu zrna - sedamstostruki povrat, a On još više umnožava kome hoće. Bogatstvo dato radi Njega nikada nije zaista izgubljeno.",
     reflection:

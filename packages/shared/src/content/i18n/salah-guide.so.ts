@@ -19,26 +19,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Tiirarka si gaar ah uga mid ah, salaadda laguma soo dajin malaa'ig dhulka ku soo degtay, laakiin waxa si toos ah loogu soo dejiyey Nebiga (scw) markii la soo sara kiciyey samooyinka dhexdiis ee Safarka Habeenka (al-Israa' wa al-Mi'raj). Konton salaadood ayaa markii hore la tukaday, ka dibna - iyada oo loo marayo Nebiga ﷺ soo noqnoqda isagoo u fududaynaya umaddiisa - laga dhigay shan camal iyadoo la ilaalinayo ajirka kontonka.",
       "Waana sababta uu salaadku u fadhiyo udub dhexaadka nolosha Islaamka: maalin kasta oo lagu celceliyo shan jeer, waxa uu kala gooyaa shaqada, nasashada, iyo wakhtiga firaaqada si uu qalbiga Alle ugu soo celiyo, waana camalka ugu horreeya ee addoon lagula xisaabtami doono maalinta qiyaame. Haddii cod la helo, diiwaanka intiisa kale waa la raacayaa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ee ah kuwa rumeeya waxa maqan, oogayna salaadda, waxaan ku arzuqnayna wax ka bixiya.",
-      },
-      {
-        excerpt:
-          "Akhri waxa lagugu soo Dejiyey oo Kitaabka ah, Oogna Salaadda. Illeen salaaddu waxay ka reebtaa xumaanta iyo xumaanta, xuska Eebbena waa ka weyn yahay.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Safarka Habeenka Eebbana wuxuu faray Konton salaadood; Rasuulku ﷺ wuu soo laabanayay si uu gargaar u warsado ilaa ay shan ka gaareen - 'Kuwanu waa shan, kuwanuna waa konton, waayo hadalkayga waxba kama beddelo.' (Sidoo kale Saxiix Muslim 162)",
-      },
-      {
-        excerpt:
-          "Waxa ugu horreeya ee addoonka lagula xisaabtami doono maalinta qiyaame waa baryadiisa; hadday dhaanto inta kale camalkiisu waa fayow. (Sidoo kale Abuu Daawuud 864, an-Nasaa'i 3991)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -50,29 +32,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Midhihii labaad waa nabadda gudaha. Qur’aanku waxa uu ballan qaaday in quluubtu ay ku nastaan ​​xuska Eebbe, Nebiguna ﷺ, markuu werwerka jiro, wuxuu odhan jiray, ‘Bilaalow, nagu raaxayso,’ isagoo u yeedhaya salaadda. Farxad indhihiisa ayuu ku tilmaamay in salaad la geliyay.",
       "Midhaheeda bulsheed iyo kuwa daa'imka ah ayaa dhameeya sawirka: heerarka salaadda ee qani iyo faqiirba hal saf ah waxayna dhistaa walaaltinimo, iyadoo ilaalinta salaadduna ay ka mid tahay waddooyinka ugu sugan dambi-dhaafka Alle iyo Jannada. Rasuulku ﷺ wuxuu u ballan qaaday Jannada ruuxii ilaaliya labada salaadood ee qabow ee Fajar iyo Casar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Runtii, anigu waxaan ahay Allaah. Aniga mooyee ilaah kale ma jiro ee i caabud oo ooga salaadda xuskayga.",
-      },
-      {
-        excerpt: "Waxaa liibaanay kuwa rumeeyey (xaqa) ee salaadda ku khushuucay.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Midkiin albaabkiisa hadduu ku jiri lahaa webi uu ku maydho shan jeer maalintii, wax wasakh ah miyuu ku hadhayaa? Waxay yidhaahdeen, Maya. Wuxuu yidhi ﷺ, 'Taasi waa u ekaanta shanta salaadood - Eebbe wuxuu ku tirtiraa dambiyada. (Sidoo kale Saxiix Muslim 667)",
-      },
-      {
-        excerpt:
-          "Qofkii tukada labada salaadood ee qaboobaha – Fajar iyo Casar – wuxuu gelayaa Jannada.",
-      },
-      {
-        excerpt:
-          "Adduunyadiina waa layga jeclaaday dumar iyo cadar, oo qabowga indhahayga ayaa la dhigay baryo.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Duco kaliya hal duco si buuxda wakhtiga loogu talagalay maanta - joogtaynta, ma aha kaamilnimo, waa yoolka koowaad.",
       "Akhri macnaha Al-Faatixa hal mar ka hor salaadaada xigta si aad u dareento in lagugu jawaabay.",
@@ -89,29 +50,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Xukunka qofka salaadda ka taga, waxaa jira farqi caan ah oo ixtiraam leh oo culimada sunniga ah. Qaar baa qaba in si badheedh ah looga tago gebi ahaanba -iyagoo caddeeyey inay waajib tahay - waxay la mid tahay gaalnimo weyn oo qofka ka saaraysa Islaamka; Inta badan (Xanafi, Maaliki, Shaafici) waxay qabaan in qofkaas uu ahaanayo qof Muslim ah oo dembi leh oo galay mid ka mid ah dembiyada waaweyn ee waaweyn, waase haddii uusan diidin waajibka saaran. Dhammaan waxay isku raacsan yihiin in salaadda oo laga tago ay musiibo tahay, qofkii diida waajibkeedana uu Islaamka uga baxay is-afgarad.",
       "Casharka wax ku oolka ah waa isku mid aragti kasta: ilaalinta shanta salaadood maaha mid ikhtiyaari ah ama gorgortan ku ah qofka mu'minka ah. Salaadaha iskaa wax u qabso ah (Sunnaha iyo nafta) ka dib waxay u dhaqmaan sidii shabagga badbaadada, iyagoo ka dhigaya wax ka dhiman salaadaha waajibka ah maalinta qiyaame.",
     ],
-    quran: [
-      {
-        excerpt: "Ooga salaadda iyo salaadda dhexe, una istaaga Eebbe hortiisa idinkoo adeeci.",
-      },
-      {
-        excerpt:
-          "Waxaase ka daba yimid kuwo ka dambeeya oo salaadda dayacay oo raaca; si ay xumaan ula kulmaan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islaamku wuxuu ku dhisan yahay shan: inay ka marag furto inaan Alle mooyee ilaah kale jirin, Muxammadna yahay Rasuulkiisii, oogidda salaadda, bixinta sakada, xajka, soonka Ramadaanka. (sidoo kale Saxiix al-Bukhaari 8)",
-      },
-      {
-        excerpt:
-          "Axdiga naga dhexeeya annaga iyo iyaga waa salaadda; Qofkii ka tagana wuu gaaloobay. (Buraydah; sidoo kale an-Nasaaci, Ibnu Maajah 1079).",
-      },
-      {
-        excerpt:
-          "Nin iyo gaalnimo iyo sanam caabudid waxa u dhexeeya salaadda oo laga tago. (Jaabir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     disclaimer:
       "Culimadu waxay ku kala aragti duwan yihiin xukunka saxda ah ee lagu xukumayo qofka ka taga salaadda caajisnimo ( dambiga weyn ee aqlabiyadda, gaalnimada dadka kale) iyo kii beeniya waajibkeeda (gaalnimo la isku raacsan yahay). Abkan ma soo saaro xukun shaqsi ah - la tasho aqoonyahan u qalma kiisaska gaarka ah.",
   },
@@ -125,17 +65,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Haweenka ku jira caadada (hayd) ama dhiig baxa dhalmada ka dib (nifas) ma tukadaan muddadaas; salaadaha waajibka ah ee la seegayna lama soo koobi karo – waa naxariis iyo xukun ay culimadu isku raaceen. (Soonka la seegay, si ka duwan salaadda, ayaa loo sameeyaa.) Haweeney ayaa dib u soo ceshatay salaadda mar haddii uu dhiiggu ka dhammaado oo ay ku nadiifiso miyir-beel.",
       "Karti la'aanta dhabta ah waxay keentaa tanaasul, waligiis baajin: jirro daran, miyir la'aan, iyo cabsi xad dhaaf ah ayaa laga yaabaa inay qofka cudur daar u noqoto in muddo ah, iyo kuwa buka waxay ku tukadaan hadba sida ay awoodaan - fadhiga, beenta, ama xitaa dhaqdhaqaaqyada. Socdaalku salaadda kama saaro ee wuxuu ku fududeeyaa gaabin (qasriga) iyo isku-darka (jamka), oo ku xusan hagaha safarka.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Far carruurtaada inay ku tukadaan markay todoba jirsadaan, kuna edbi tobanka, una kala saara meelaha ay seexanayaan. ( Camr bin Shucayb oo ka yimid aabihiis oo ka yimid awoowgiis)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Ehelkaagana fari salaadda kuna samir dhexdeeda.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -196,17 +127,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Si ka duwan kuwan caadooyinka ah, wasakhda la taaban karo (najasah) - sida kaadida, dhibcaha, dhiigga qulqulaya, iyo wixii la mid ah - waa in jir ahaan laga saaraa jidhka, dharka, iyo goobta aad ku tukanayso. Waa suurtagal in aad leedahay suuf sax ah haddana weli waxaad u baahan tahay inaad nadiifiso wasakhda dharkaaga ka hor intaadan tukan.",
       "Biyuhu waa nadiifiyaha aasaasiga ah. Marka biyaha aan si dhab ah loo heli karin, ama ay ku waxyeeloobeen jirro ama qabow daran awgeed, Islaamku wuxuu ogol yahay tayammum - nadiifinta qalalan iyadoo la isticmaalayo dhul nadiif ah - beddel buuxa. Nadiifinta weligeed loolama jeedo inay dhib noqoto; waa hab loo soo dhawaado.",
     ],
-    hadith: [
-      {
-        excerpt: "Daahirintu waa iimaanka badhkii... (Abuu Maalik Al-ashcari)",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Eebbana wuxuu jecel yahay kuwa toobad keena, wuxuuna jecel yahay kuwa is daahiriya.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Baro wudu tallaabo tallaabo ka hor salaaddaada xigta si xubin kasta loo dhaqo si sax ah.",
       "Maro nadiif ah gooni u dhig si aad u tukato haddii aad ka shaqeyso deegaan wasakhaysan.",
@@ -262,18 +184,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
         body: "Ducada ku dhameey: Ashhadu an laa ilaha illallah... — waxaa laga furay sideeda albaab ee jannada ruuxii dhaho sacbada kadib.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Marka uu addoonku wejigiisa ku maydho wuduu, dembi kasta oo uu indhihiisa ku eego wuxuu ka baxaa biyaha… ilaa uu ka soo baxo isagoo dembi ka daahirsan.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa (xaqa) rumeeyow markaad u kacdaan salaadda ka maydha wajiyadiinna iyo gacmihiinna xagga suxullada, masaxa madaxiinna, cagahana ka maydha ilaa anqawyada.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Si tartiib ah u samee wudu hal mar markaad tilaabo kasta kor u akhrinayso, adigoo hubinaya suxullada iyo cidhibta.",
       "Xafid ducada gaaban kadib wudu - eeg Erayada Saalax.",
@@ -312,18 +224,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
         body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
       },
     ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
       "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
@@ -340,11 +242,7 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Dumarka, jirka oo dhan waa cawradu marka laga reebo wejiga iyo gacmaha, sida ay culimadu qabaan; naagtu waxay dabooshaa timaheeda, luqunta, iyo cagaha, sida caadiga ah maro dabacsan iyo xijaab. Culimadu waxay ku kala duwan yihiin cagaha, qaarkood waxay tixgeliyaan inay ku jiraan waxa la muujin karo - in lagu tukado iyaga oo daboolan waa habka badbaadada iyo badiba.",
       "Laba xukun oo lebbis ayaa sidoo kale lagu dabaqayaa salaadda ka baxsan: xariirta iyo dahabka waa ka mamnuuc ragga inay xidhaan (waa la oggol yahay dumarka), iyo dharku waa inuusan noqon mid adag, jilicsan, ama feejignaan si uu u jabiyo salaadda xishoodka ah ee loo baahan yahay. Sida qaanuunka suulka ah, ku tukado waxa aad xidhan lahayd si aad ula kulanto qof aad ixtiraamto -ha ahayn dharka habeenkii ama dharka xeebta.",
     ],
-    quran: [
-      {
-        excerpt: "Banii aadamoow ka qaata Quruxdiinna meel kasta oo lagu tukado.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Meel iska dhig mid nadiif ah, dhar suubban ama maro duco go'an si aad mar walba diyaar ugu noqoto.",
       "Marka aanad hubin in shay dabooli karo ku filan, dabool in ka badan intii aad ka yarayn lahayd.",
@@ -384,21 +282,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
         body: "Tan iyo makhribka ilaa waaberiga; ugu fiican ka hor saqda dhexe. Waxaa ku xiga Witr.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Waxaa jira saddex jeer oo uu nebigu NNKH innaga reebay inaan tukanno: waa marka qorraxdu soo baxdo ilaa ay ka soo baxdo, markay taagan tahay duhurkii, iyo markay dhacayso ilaa ay ka dhacayso. (Cuqbah bin Caamir)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Salaaddana waxaa lagu xukumay Mu'miniinta korkooda muddo cayiman.",
-      },
-      {
-        excerpt:
-          "Ooga salaadda labada daraf ee maalinta iyo habeenka agtiisa. Illeen camalka wanaagsani wuxuu fogeeyaa xumaanta.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     appLinks: [{}, {}],
     disclaimer:
       "Bilawga Casar waxa uu leeyahay laba fikradood oo la soo sheegay (hadhka la mid ah, ama laba jeer, dhererka shay). Labaduba waa sax; raac xisaabinta deegaankaaga iyo bulshadaada.",
@@ -411,18 +296,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Waxaa lagaa rabaa inaad u wajahdo qiblada sida saxda ah ee aad si macquul ah u go'aamin karto - adigoo isticmaalaya kombas, mihraab masaajid, app la isku halayn karo, ama qorraxda iyo xiddigaha markaad safraysid. Weecan yar oo aan laga fursan karin waa la cafiyay; Waxa muhiimka ah waa dadaalka daacadda ah ee jihada saxda ah.",
       "Haddii aadan si dhab ah u go'aamin karin jihada - ku luntay badda, daruuraha, dhul aadan aqoon habeenkii - waxaad ku dadaalaysaa inaad ka shaqeyso oo aad u tukato xagga xukunkaaga ugu fiican; salaaddu way ansaxaysaa xataa hadday hadhow waxyar ka go'do. Baabuur ama diyaarad soconaysa oo u jeedda qiblada salaadda waajibka ah aanay suurtogal ahayn, waxaad la kulmaysaa wax kasta oo aad awooddo, mar haddii Alle aanu naf ku culaysin wax awoodeeda ah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ee u jeedi wejigaaga xagga al-Masjid al-Xaram. Meel kastoo aad joogtaan u jeedi wejigiinna.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Markaad u kacdo inaad tukato, si fiican u wanaaji, kadibna u waji qiblada oo takbiir ku dheh. (waxaa ku sugnaaday xadiiskii ninkii salaada xumaaday)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -463,12 +338,7 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
         body: "Eebe mooyee ilaah kale ma jiro - baaqu wuxuu ku xidhan yahay isla eraygii uu ku furay.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Qofkii yidhaahda markuu maqlo dhawaaqa, 'Ilaahow, Eebaha wacdigan qumman iyo salaadda toosan, sii Muxammad Wasilaah iyo wanaagga...' - shafeecadaydu isagay yeelanaysaa maalinta qiyaame. (Jaabir)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -491,26 +361,19 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "2. Takbiirta oo la furo (Takbirat al-Ihram)",
         body: "Gacmaha u taag garbaha ama dhegaha oo ku dheh takbiirta, ka dib gacanta midig ee bidixda saar laabta. Sidaas ayay salaaddu ku bilaabantay, hadalka iyo dhaqdhaqaaqa caadiga ahina hadda waa mamnuuc ilaa salaadda la gaadho.",
-        translation: "Allaah ayaa u weyn.",
         tip: "Takbiirta oo gacmaha kor loo qaado (raf'al-yadayn) waa sunne la xaqiijiyay ee ma aha tiir.",
       },
       {
         title: "3. Ducada furitaanka (Duca al-Istiftah)",
         body: "Si deggan u akhri duco gaaban oo furitaan ah si aad qalbiga u dejiso ereyada Alle hortiisa. Dhowr eray oo dhab ah ayaa la soo sheegay; tani waa mid ka mid ah kuwa ugu badan.",
-        translation:
-          "Subxaanallaah Allow Adiga ayaa Mahad leh. Magacaagu waa barakaysan yahay, oo haybaduhuna waa la sarreeyaa. Ilaah aan adiga ahayn ma jiro.",
       },
       {
         title: "4. Ta'awwudh & Basmalah",
         body: "Allaah ka magan gal Shaydaanka, ka bacdi Basmalah ka hor, Al-Faatixa ka hor. Labadaba si aamusan ayaa loo dhahaa, xitaa salaadaha qeylada leh.",
-        translation:
-          "Illahay baan ka magan galay shaydaanka la nacladay. Magaca Eebe yaan ku billaabaynaa ee Naxariis guud iyo mid gaaraba Naxariista.",
       },
       {
         title: "5. akhri Al-Faatixa",
         body: "Akhri Furitaanka Kitaabka rakco kasta - 'Ma jiro salaad loogu talagalay qofka aan akhrin Furitaanka Kitaabka.' Imaamka iyo cibaadada keligiis ayaa kor u akhriya salaadaha qeylada ah; haddii kale si hoose ayaa loo akhriyaa.",
-        translation:
-          "Magaca Eebe yaan ku billaabaynaa ee Naxariis guud iyo mid gaaraba Naxariista. Mahad dhammaanteed waxay u sugnaatay Eebaha Caalamka – Eebaha Naxariista Guud iyo Naxariista Gaarka ah leh, ee Xukunka Maalinta Abaalmarinta. adiga unbaan ku caabudaynaa, adigaana gargaar waydiisanaynaa. Noo hanuuni jidka toosan - Jidka kuwaad u Nimcday, ee ha noqonina kuwa cadhooday iyo kuwa dhunsan.",
         tip: "Waxaad dhahdaa 'Aamiin' ka bacdi Fasalka Xanafiyada oo akhrinaya qaar ka mid ah Qur'aanka oo tiir u ah iyo Al-Faatixa si gaar ah waajib ahaan; inta badan waxay haystaan ​​Al-Faatixa lafteedu waa tiirka rakcad kasta.",
       },
       {
@@ -521,31 +384,26 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "7. Rukuuc (ruku)",
         body: "'Allaahu Akbar' dheh, oo u sujuud adigoo fidsan, oo dib u siman, gacmahana jilbaha qabanaya, oo u tasbiixso Rabbigaa saddex jeer ama ka badan, adigoon degdegin.",
-        translation: "Nasahan Eebahaybaa wayn.",
         tip: "Qaansada qudheeda, oo aamusnaanta lagu hayo, waa tiirka; tasbiixda lagu akhriyaa waa sunne (wajib dugsiyada qaarkood).",
       },
       {
         title: "8. Ka soo kaca rukuuca (i'tidal)",
         body: "Si toos ah u kaca - imaamka iyo cibaadada keligiis ah oo leh tasmi', iyo qof kasta oo dhahaya tahmid - oo si buuxda u istaag intaadan soo degin.",
-        translation: "Eebbana waa maqlaa ciddii ammaanta. Eebbow adigaa mahad oo dhan iska leh.",
         tip: "Inaad si toos ah u istaagto oo aad u fududaato waa tiir - ha ku quusin sujuud ilaa aad ka degto halkan.",
       },
       {
         title: "9. Sujuudda (sujuud)",
         body: "Waxaad dhahdaa 'Allaahu Akbar' oo ku sujuud toddoba lafood - wejiga oo ay weheliyaan sanka, labada calaacasha, labada jilba, iyo suulasha labada cagood - adoo ammaanaya Eebaha Sare saddex jeer ama ka badan. Tani waa mawqifka Alle ugu dhaw ee ku shub ducada tasbiix ka dib.",
-        translation: "Nasahana Eebbahaybaa iska leh.",
         tip: "Gacmaha hore ee dhulka ka fogee dhinacyada, calooshana bowdada ka ilaali.",
       },
       {
         title: "10. Fadhiga labada sujuud dhexdooda (jalsa)",
         body: "Ka kac sujuudkii ugu horeeyay ee leh 'Allaahu Akbar', fadhiiso si deggan oo toosan, oo dambi dhaaf weydiiso Eebahaa inta aadan sujuud kale u sujuudin.",
-        translation: "Eebbow i cafi.",
         tip: "Fadhiiso ilaa aad ka raaxaysato - fadhigan kooban, ee aamusnaanta leh, waa tiir iskeed u taagan.",
       },
       {
         title: "11. Sujuuda labaad",
         body: "Waxaad dhahdaa 'Allaahu Akbar' oo mar labaad u sujuud sidii markii hore oo kale, adigoo isla tasbiix ah iyo isla aamusnaan leh. Tani waxay dhamaystiraysaa hal rakco oo buuxa.",
-        translation: "Nasahana Eebbahaybaa iska leh.",
       },
       {
         title: "12. U istaag rakcada xigta",
@@ -555,8 +413,6 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "13. Tashaxudka ugu horaysa (Salaadaha 3-iyo 4-rakcadood)",
         body: "Rakcada labaad ee Maghrib, Dhuxur, Casar ama Isha kadib fadhiiso oo akhri At-Taxiyada, kadibna u istaag rakcada soo hadhay. Salaad laba rakcadood ah ma laha tashahud marka hore.",
-        translation:
-          "Dhammaan salaan, duco, iyo kalimad saafi ah Allaah ayay u sugnaatay. Asalaamu calaykum, Nabiyow, naxariista Eebe iyo naxariistiisa. Asalaamu Calaykum Waraxmatulaahi Wabarakaatuh. Waxaan ka marag kacayaa inuusan jirin ilaah kale oo aan Allaah ahayn, waxaana ka marag kacayaa in Muxammad yahay addoonkiisii ​​iyo rasuulkiisii.",
         tip: "Kor u qaad farta murdisa midig ee fadhiga. Haddi aad ilowdo tashxudkii hore oo aad bilowday inaad istaagto, sii wad oo sujuud as-sahw salaada ka hor—ha fadhiisanina.",
       },
       {
@@ -566,36 +422,19 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       {
         title: "15. Ku Salliya Nabiga (s.c.w.)",
         body: "At-Taxiyada u dambeeya ka dib, ku soo dir nabiga s.c.w. kalimadii uu isagu baray asxaabtiisa.",
-        translation:
-          "Allahayow naxariiso korkiisa ha ahaato Muxammad iyo ehelka Muxamed, sidaad ugu barakaysay Ibraahim iyo ehelkii Ibraahim; Adigu waxaad tahay Mahadnaq badane. Allow u naxariiso Muxammad iyo Ehelkii Muxamed, sidaad ugu fadliday Ibraahim iyo Ehelkii Ibraahim; Adigu waxaad tahay Mahadnaq badane.",
         tip: "Dugsiyada Shaafici iyo Xanbali waxay u arkaan salawaat fadhiga u dambeeya inay waajib tahay.",
       },
       {
         title: "16. ku tuko salaada ka hor",
         body: "Kahor intaadan dhammaan, ka magan gal Eebe afar imtixaan - ka dib duco aad rabto adduun iyo aakhiro, Carabi ama luqaddaada.",
-        translation:
-          "Allahayow waxaan kaa magan galay cadaabka qabriga, cadaabka naarta, imtixaamaadka nolosha iyo dhimashada, iyo sharka fitnada Masiixa beenta ah (Dajjal).",
       },
       {
         title: "17. Xiritaanka salaam (Taslim)",
         body: "Ku dhammee salaadda adigoo wejiga u leexiya midig, ka dibna bidix u rog, adoo salaan nabad ah mar kasta siiya. Salaamu calaykum salaadu way dhammaatay.",
-        translation: "Asalaamu calaykum waraxmatulaahi wabarakaatuh.",
         tip: "Taslimka ugu horreeya (midig) waa tiirka; ta labaad (bidix) waa sunne dugsiyada qaar ka mid ah.",
       },
     ],
-    hadith: [
-      {
-        excerpt: "U soo ducee sidaad aragteen anigoo tukanaya. (Maalik ibnu Xuweyrith)",
-      },
-      {
-        excerpt:
-          '"ka noqo oo tukada, illeen ma tukan" - saddex jeer ayuu ku celceliyay - markaas ayuu baray: takbiir ku akhri, qur\'aanka ku akhri wixii aad kari karto, ka dibna rukuuc ilaa aad ka raaxaysato, kac ilaa aad istaagto, sujuudna ilaa aad ka raaxaysato..',
-      },
-      {
-        excerpt:
-          "Duco ma leh qofka aan akhriyin Furitaanka kitaabka. (Ubadah bin as-Samit; sidoo kale Saxiix Muslim 394)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}, {}, {}, {}, { label: "Akhriska codka dheer iyo kan hoose" }],
   },
   {
@@ -652,27 +491,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
         body: "Waxa aad akhrinayso waxba iskama beddelaan — farqigu waa kor u qaadidda codka oo keliya. Rakcad kasta: Al-Faatixa. Labada hore: ku dar suurad. Rakcadda ama rakcadaha dambe: Al-Faatixa oo keliya. Fajr, Maghrib iyo Cishaha cod dheer akhrisku waa Sunnah; Duhur iyo Casar cod hoose ayaa loo akhriyaa.",
       },
     ],
-    quran: [
-      { excerpt: "Rasuulka Alle waxaad ku leedihiin ku dayasho wanaagsan." },
-      {
-        excerpt:
-          "Marka Qur'aanka la akhriyo, si feejigan u dhegaysta oo aamusnaada si laydiinku naxariisto.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nebigu ﷺ Al-Faatixa iyo suurad kale ayuu ku akhrin jiray labada rakcadood ee hore ee Duhur iyo Casar, labada dambena Al-Faatixa oo keliya. (Abu Qatadah; also Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Salaad uma sugna qofka aan akhriyin Furitaanka Kitaabka. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "Labada rakcadood ee hore ee Duhur iyo Casar wuxuu akhriyi jiray wax ku moodsiinaya inuu akhrinayo suuradaha dhaadheer, labada dambena wax ku moodsiinaya inuu akhrinayo kuwa gaagaaban. (Abu Qatadah)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Salaaddaada jamaacada ee soo socota, u fiirso rakcadaha uu imaamku cod dheer ku akhriyo.",
       "Weydii macallin madhhabkaaga ah inaad Al-Faatixa gadaasha imaamka ku akhrido salaadaha codka dheer iyo in kale.",
@@ -723,12 +543,7 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
         body: "Wejiga si buuxda ugu leexi dhanka midig, ka dibna bidix, adoo wata ereyada nabadda - ku dhammeeya salaadda markaad malaa'igta ku salaamo garab kasta.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Addoon u yimaadda Eebihiis waxaa ugu dhaw markuu sujuudsanyahay ee barya. (Abuu Hureyrah)",
-      },
-    ],
+    hadith: [{}],
     disclaimer:
       "Kala duwanaanshiyaha yar yar ee meelaynta gacanta, qaabka loo fadhiisto, iyo kor u qaadida gacmaha ayaa dhamaantood ku qotoma warbixino dhab ah; dugsiyadu mid waliba wuxuu raacayaa sheeko sax ah. Midna ma burinayo salaadda qof kale.",
   },
@@ -791,20 +606,7 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Masaajidka ku gala lugta midig oo bidixda kaga bax mid walbana ducadiisa.",
       "Salaad kasta ka dib akhri adhkar la aasaasay - fiiri Salaadda ka dib.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Haddaanan umaddayda culaysin, waxaan amri lahaa inay isticmaalaan siwaak salaad kasta ka hor. (Abuu Hureyrah; sidoo kale Saxiix Muslim 252).",
-      },
-      {
-        excerpt:
-          "Nebigu ﷺ waligiis kama tegin labada rakcadood ee Fajr ka hor. (Caa'ishah; sidoo kale Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Qofkii joogteeya laba iyo toban rakcadood habeen iyo maalin, Alle wuxuu uga dhisaa guri Jannada: laba Fajr ka hor, afar Dhuhr ka hor, laba Dhuhr ka dib, laba Maghrib ka dib, iyo laba Isha ka dib. (Ummu Xabiibah)",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [
       { label: "Noocyada Salaadda — hagaha rawatib" },
       { label: "Sunnada iyo adhkaarta salaadda ka dib" },
@@ -820,20 +622,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Khushu waa la dhisay, lama rabo. Baro macnaha waxa aad akhrinayso si ereyadu kuugu dhaqaajiyaan. Ka saar waxyaalaha mashquuliya ka hor takbiirta. Hoos u dhig oo bixi meel kasta xasilloonideeda. Ka fiirso weynaanta uu leeyahay midka aad la hadlayso iyo xaqiiqda ah in ducadani ay noqon karto mid kuugu dambaysa. Tuko salaad kasta salaad sagootin ah, siduu nabigu NNKH ku waaniyay.",
       "Ha ku niyad jabin fikradaha warwareega - xitaa asxaabta ayaa la halgamay iyaga. Halganka lagu soo celinayo diiraddaada, mar kale iyo mar kale, lafteeda waa qayb ka mid ah cibaadada. Khushu waxay koraan inta nool oo dhan; joogtayntu waa waxa kobciya.",
     ],
-    quran: [
-      {
-        excerpt: "Waxaa liibaanay kuwa rumeeyey (xaqa) ee salaadda ku khushuucay.",
-      },
-      {
-        excerpt: "Ee halaag wuxuu u sugnaaday kuwa tukada oo salaadda halmaansan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ixsaanku waa inaad Eebbe u caabuddo sidii adigoo arkaya oo kale, illeen haddaadan arkayn haddana wuu ku arkayaa. (Xadiis Jibriil, Cumar)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Akhri hal odhaah macnaheeda oo ka mid ah Erayada Saalax ka hor salaad kasta usbuucan.",
       "Haki saddex ilbiriqsi oo aan degdegayn meel kasta ka hor intaadan dhaqaaqin.",
@@ -880,16 +670,7 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Markaad shaki dhab ah gasho, mabda'a hanuunku waa: iska tuur shakiga, ku dhis waxa aad yaqiinsan tahay (tirada yar), salaadda oo dhammi, ka dibna labada sujuudood. Tani waxay jahawareer u beddeshaa duco deggen oo ansax ah halkii ay ka ahaan lahayd male walaac leh.",
       "Dhab ahaan: u samee laba sujuudood oo u dhig sida sujuudaada caadiga ah, adigoo takbiir ah ka hor iyo ka dib, ka dibna salaam. Culimadu waxay ku kala duwan yihiin inay yimaadaan salaadda ka hor ama ka dib iyadoo ku xidhan nooca baadi-ka-labadaba si dhab ah ayaa loo wariyey, markaa midkoodna waa la aqbalayaa mana burinayo salaadda.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Haddii midkiin shaki ku jiro salaaddiisa oo uusan garanayn inta uu tukaday - saddex ama afar - ha iska tuuro shakiga, ha dhiso waxa uu hubo, ka dibna laba jeer u sujuuday salaadda. (Abuu Saciid Al-Khudri)",
-      },
-      {
-        excerpt:
-          "Midkiin markuu ka shakiyo salaaddiisa ha raadiyo xaqa hana u dhammaystiro korkeeda, ka dibna u salaamo oo sujuudo laba jeer. (Ibnu Mascuud; sidoo kale Saxiix Muslim 572).",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "U xifdi qaanuunka shakiga: ku dhis tirada yar, dhamee, ka dibna laba jeer sujuud.",
       "Haddaad garato salaadda badhtanka inaad ka tagtay tashxudkii ugu horreeyay, sii wad oo sujuud al-sahw dhammaadka.",
@@ -985,40 +766,7 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
         ruling: "fard",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Nebigu ﷺ waligiis kama tegin labada rakcadood ee Fajr ka hor. (Caa'ishah; sidoo kale Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Qofkii joogteeya laba iyo toban rakcadood habeen iyo maalin, Alle wuxuu uga dhisaa guri Jannada: laba Fajr ka hor, afar Dhuhr ka hor, laba Dhuhr ka dib, laba Maghrib ka dib, iyo laba Isha ka dib. (Ummu Xabiibah)",
-      },
-      {
-        excerpt:
-          "Qofkii afar rakcadood Dhuhr ka hor iyo afar ka dib tukada, Alle wuxuu Naarta ka xarrimayaa. (Ummu Xabiibah; culimo badan baa sax ka dhigay)",
-      },
-      { excerpt: "Alle ha u naxariisto qofka afar rakcadood Casr ka hor tukada." },
-      {
-        excerpt:
-          "Tukada Maghrib ka hor, tukada Maghrib ka hor — dabadeed wuxuu yiri: qofkii doona. (Ibn Cumar)",
-      },
-      {
-        excerpt:
-          "Labada yeedhid (adhaan iyo iqaamo) dhexdooda salaad baa jirta. (Anas ibn Maalik; sidoo kale Sahih Muslim 838)",
-      },
-      {
-        excerpt:
-          "Witr waa xaq; qofkii doona shan ha tukado, kii doona saddex, kii doonana hal. (Ibn Cumar)",
-      },
-      {
-        excerpt:
-          "Salaadda ugu wanaagsan salaadaha faralka ah ka dib waa salaadda habeenka. (Abuu Hureyrah)",
-      },
-      {
-        excerpt: "Addoonkaygu nafl ayuu iigu soo dhowaadaa ilaa aan jeclaado. (Hadith Qudsi)",
-      },
-    ],
+    hadith: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
     actions: [
       "Ka bilow laba iyo tobanka rawatib; caadadaas dhis ka hor intaadan nafl ikhtiyaari ah ku darin.",
       "Adeegso jadwalka rakcadaha ee boggan si aad ula socoto sunnada la adkeeyey ee ku xeeran fard kasta.",
@@ -1042,26 +790,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Dayacadeedu waa khatar aad u daran: Nabigu ﷺ wuxuu uga digay ruuxii ka taga saddex jumco halmaan la'aan, in Eebe daboolo qalbigiisa. Haddana ajarkeeda si la mid ah ayaa u weyn - maalinta Jimcaha waa maalinta ugu wanaagsan ee qorraxdu soo baxdo, waxayna haysataa saacad ducada la ajiibo.",
       "U diyaari sidii uu Nabigu ﷺ yeelay oo kale: xidho dharkaaga nadiifka ah, udgoonka mari, wakhti hore u bax, oo si taxadar leh u dhagayso khutbah adigoo aamusan (hadalka bilaa camalka ah inta lagu jiro waxay lumisaa ajarka). In la akhriyo suuradda al-Kahf maalinta jimcaha waxay keenaysaa iftiin u dhexeeya labada jimcaha.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kuwa (Xaqa) rumeeyow, marka la Dhawaaqo Salaadda Jimcaha, u Deg dega Xuska Eebe, Ganacsigana ka taga. saasaa idiin khayr roon haddaad tihiin kuwo wax og.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Salaadda Jimcaha ee Jameecada waa waajib saaran qof kasta oo Muslim ah, marka laga reebo afar: addoon, naag, ilmo iyo qof xanuunsan. (Taariq ibn Shihab)",
-      },
-      {
-        excerpt:
-          "Qofkii ka taga saddex salaadood oo jimce ah isagoo halmaansan, Eebbe wuxuu daboolayaa qalbigiisa korkiisa. (Abuu al-Jacd; sidoo kale Abuu Daawuud 1052, at-Tirmidhi 500)",
-      },
-      {
-        excerpt:
-          "Gusl maalinta jimcaha waxay ku waajibtay qof kasta oo qaan gaadhay. (Abuu Saciid Al-Khudri)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}],
     actions: [
       "Samee ghusl, xidho dhar nadiif ah iyo udgoon, oo goor hore u imow - ka qaybgalayaasha ugu horreeya waxay helayaan abaalmarinta ugu weyn.",
       "Akhri suuradda al-Kahf wakhti maalinta jimcaha si aad nuur u hesho inta u dhaxaysa labada jimce.",
@@ -1081,17 +811,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Haddi aad timaaddo markuu imaamku bilaabay kadib (qofka dambe waxaa loo yaqaan masbuq), isla markiiba ku biir meel kasta oo aad ku aragto - qaybtaas wali waxay ku xidhan tahay inaad la tukato. Marka uu salaadda kama dambaysta ah bixiyo, istaag oo dhammayso rakcooyinkii aad seegtay kaligaa, kadibna dhammayso.",
       "Jameecadu kuma jirto masaajidka oo kaliya: laba qof oo wada tukanaya ayaa jamaaco ah, markaas aabaha iyo ilmahiisa, ama laba saaxiibo ah oo safraya, waxay ku heli karaan ajarkeeda. Dumarku waxa ay ku tukan karaan jamaaco oo ay tagaan masaajidka ay ku yaalaan tas-hiilaadka ku haboon,inkasta oo salaada ay ku tukadaan guriga ay sidoo kale si wayn u ajarayaan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Salaadda jameecada todoba iyo labaatan darajo ayaa ka fadli badan salaada kaligeed la tukado. (Ibnu Cumar; sidoo kale Saxiix Muslim 650)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Ooga Salaadda, Sakadana bixiya una Rukuuc kuwa Rukuucsan.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     actions: [
       "Ugu yaraan hal salaad ku tukado masjidka maanta, ama reerkaaga isugu keen saf guriga.",
       "Baro waxa la sameeyo ka soo daahay: hal mar ku biir, dabadeed dhame rakcadaha kaa seegay salaamaha imaamka ka dib.",
@@ -1105,12 +826,7 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Salaad la qurxiyey ayaa loo oogaa qaabkii asalka ahaa: Afarta rakcadood ee Dhuxul ka maqan waxaa lagu tukanayaa afar rakcadood xitaa haddii aad habeen iyo safar ku soo kacdo. Ruuxii ku seegay salaadda cudurdaar dhab ah (sida hurdo dheer) ma qaado dembi dib udhigis. Midkii iyaga uga tagay si ula kac ah waa inuu ka dhigaa iyaga oo garab socda toobad dhab ah oo degdeg ah.",
       "Culimadu waxay ku dhiirri-galiyaan in si degdeg ah iyo si habboon loo sameeyo salaadda la seego, iyada oo aan loo oggolaan inay is-dul-saaraan-maxaa yeelay culaysku wuu ka sii cuslaa wakhtiga iyo dib u dhaca. Haddii tiro badan ay seegtay sannado badan, ula xiriir qorshe maalinle oo macquul ah halkii aad ka quusan lahayd; Albaabkii soo noqoshadu mar walba waa furan yahay.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Qofkii halmaamaa salaad ama ku seexday, kafaaragoodu waa inuu tukado markuu xasuusto. (Anas; sidoo kale Saxiix Muslim 684)",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Si daacad ah u qiyaas inta salaadood ee lagugu leeyahay oo samee bartilmaameed maalinle ah oo la isku qurxiyo.",
       "Ku lammaan salaad kasta oo waajib ah iyo hal salaad oo isqurxin ah ilaa ay ka soo baxayso.",
@@ -1126,16 +842,7 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       "Nidaamka salaadda ka dib ee la aasaasay waa mid fudud oo miisaan leh: waxaad tidhaahdaa 'Astaghfirullah' saddex jeer; markaas hadalka tawxiidka iyo ammaanta; ka dibna 'SubhanAllaah', 'Alxamdulilah', iyo 'Allaahu Akbar' midkiiba saddex iyo soddon jeer, iyagoo boqolka ku shaabadeynaya 'La ilaha illallah...'",
       "Aayad al-kursi oo la akhriyo salaad kasta oo waajib ah ka dib waxay ka saaraysaa geerida qofka iyo Jannada dhexdooda, siduu Nebigu NNKH u ballan qaaday. Raac saddexda Qul ee (Al-ikhlaas, Al-Falaq, An-Nas), kuna dar aroorta fajar ka dib iyo maqribka casar ama Maghrib ka dib oo ay dalbadaan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Qofkii tasbiixsada, ammaana, weyneeyana saddex iyo soddon jeer salaad kasta ka dib… oo dhammeeya boqolka tawxiidka, dembigiisa waa loo dhaafaa in kastoo ay la mid yihiin xumbo badda. (Abuu Hureyrah)",
-      },
-      {
-        excerpt:
-          "Qofkii akhriya aayatul-kursi salaad kasta ka dib, wax u dhexeeya isaga iyo jannada laguma galo geeri mooyee. (Abuu Umamah; al-Albaani oo darajada saxiix ah soo saaray)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Xafid salallah tasbih (33/33/33 + tahliil) usbuucan.",
       "Akhri Aayat al-Kursi iyo Saddexda Qul intaadan istaagin.",
@@ -1149,90 +856,72 @@ export const SALAH_GUIDE_PHRASES_SO: DeepPartial<SalahGuidePhrase>[] = [
   {
     title: "Ka dib markii ay dhammeeyeen wudu",
     when: "Isla markiiba ka dib marka la dhammeeyo qumbaha, ka hor salaadda.",
-    translation:
-      "Waxaan ka marag kacayaa inuusan jirin ilaah kale oo aan Allaah ahayn oo aan la wadaagin, waxaana marag ka ah Muxammad inuu yahay addoonkiisii ​​iyo Rasuulkiisii.",
     meaning:
       "Dib u cusboonaysiinta maragga iimaanka iyadoo jidhkaagu nadiif yahay. Nebigu (scw) wuxuu u ballan qaaday in ruuxii sidaas dhaha sacbada kadib, waxaa laga furay sideeda albaab ee jannada inuu ka galo ciduu doono.",
   },
   {
     title: "Takbiirta al-Ihraam",
     when: "Bilawga salaada, iyo marka loo kala guurayo boosaska.",
-    translation: "Allaah ayaa u weyn.",
     meaning:
       "Salaaddu waxay ka bilaabataa halkan - 'al-ixram' macnaheedu waa inay kaa mamnuucday waxyaalaha adduunka (hadalka, cunista, ka jeedsashada). Waxaad sheegtaa in Alle ka weyn yahay wax kasta oo ku mashquulin kara, oo aad si buuxda ugu tallaabsanayso hortiisa. Takbiir kasta oo soo raaca ayaa soo cusboonaysiiya is-dhiibidda.",
   },
   {
     title: "Du'a al-Istiftah (ducada furitaanka)",
     when: "Aamusnaanta ka dib takbiirta furitaanka, ka hor Al-Faatixa.",
-    translation:
-      "Subxaanallaah Allow Adiga ayaa Mahad leh. Magacaagu waa barakaysan yahay, oo haybaduhuna waa la sarreeyaa. Ilaah aan adiga ahayn ma jiro.",
     meaning:
       "Waxa aad ku furaysaa hadalka adiga oo Alle ku tasbiixsanaya oo u mahad-celinaya, isla markaana caddaynaysa kalinimadiisa, qalbigana dejinaysa ka hor inta aanad akhriyin hadalkiisa. Dhawr ducooyin furitaanka oo dhab ah ayaa jira - tani waa mid ka mid ah kuwa ugu isticmaalka badan.",
   },
   {
     title: "Suuradda Al-Faatixa",
     when: "Ku istaaga rakco kasta - tiir aan la'aanteed rakcadu buray.",
-    translation:
-      "Magaca Eebe yaan ku billaabaynaa ee Naxariis guud iyo mid gaaraba Naxariista. Mahad dhammaanteed waxay u sugnaatay Eebaha Caalamka – Eebaha Naxariista Guud iyo Naxariista Gaarka ah leh, ee Xukunka Maalinta Abaalmarinta. adiga unbaan ku caabudaynaa, adigaana gargaar waydiisanaynaa. Noo hanuuni jidka toosan - Jidka kuwaad u Nimcday, ee ha noqonina kuwa cadhooday iyo kuwa dhunsan.",
     meaning:
       "Hooyada kitaabka: mahad Alle badhkiis iyo baryo hanuun, iyadoo leh 'Adiga ayaanu caabudaynaa' sida daabka dhexdooda. Eebbe wuxuu yidhi wuxuu u qaybiyey suuraddan isaga iyo addoonkiisa dhexdooda - markaad akhrinayso sadar kasta, wuxuu ku jawaabayaa. Nabigu ﷺ wuxuu yidhi ma jirto duco qof aan akhriyin.",
   },
   {
     title: "Dhikr in ruku",
     when: "Inta rukuucsan, oo guri leh, dib u degtay.",
-    translation: "Nasahan Eebahaybaa wayn.",
     meaning:
       "Rukuucdu waa mawqifka xushmada, sidaas darteed waxaad u weynaysaa weynaanta Eebe - saddex jeer ama ka badan, oo aan degdegin. Rasuulku ﷺ wuxuu baray in rukuucda aynu ku sarrayno Rabbi, ee rajee in ducadaada laga jawaabo.",
   },
   {
     title: "Ka kaca rukuucda",
     when: "Isagoo si buuxda u taagan sujuud ka dib.",
-    translation: "Eebbana waa maqlaa ciddii ammaanta. Eebbow adigaa mahad oo dhan iska leh.",
     meaning:
       "Waxaad cadaynaysaa in Eebe si dhab ah maqlayo kan ku mahadiya, kadibna isaga u soo celi mahad oo dhan. Rasuulku ﷺ wuxuu yiri markuu imaamku sidaas dhaho dadkiina ay jawaabaan, qofkii hadalkiisa ku beegma malaa'igta waxaa loo dhaafaa dambigiisii ​​hore.",
   },
   {
     title: "Dhikr in sujuud",
     when: "Sujuuda - booska ugu dhow Eebe.",
-    translation: "Nasahana Eebbahaybaa iska leh.",
     meaning:
       "Meesha ugu hoosaysa ee jidheed waxaad ku ammaanaysaa Kan ugu sarreeya - is-barbar yaaca qalbiga cibaadada. Nabigu ﷺ wuxuu yidhi addoonku wuxuu u dhaw yahay Rabbigiis isagoo sujuudsan, ee ku shub ducada halkan ka dib markaad tukato.",
   },
   {
     title: "Labada sujuud dhexdooda",
     when: "Si deggan u fadhiiso inta u dhaxaysa sujuudka koowaad iyo labaad ee rakco kasta.",
-    translation: "Eebbow i cafi. Eebbow i cafi.",
     meaning:
       "Dambi dhaaf gaaban oo toos ah rakcad kasta - waa xusuusin in xitaa salaadda badhtanka aan u baahanahay cafis Eebbe. Fadhiiso ilaa aad ka raaxaysato ka hor sujuudda labaad.",
   },
   {
     title: "At-Tahiyyat (Tashahhud)",
     when: "Fadhi dhexe iyo fadhigii ugu dambeeyay ee Salaadda.",
-    translation:
-      "Dhammaan salaan, duco, iyo kalimad saafi ah Allaah ayay u sugnaatay. Asalaamu calaykum, Nabiyow, naxariista Eebe iyo naxariistiisa. Asalaamu Calaykum Waraxmatulaahi Wabarakaatuh. Waxaan ka marag kacayaa inuusan jirin ilaah kale oo aan Allaah ahayn, waxaana ka marag kacayaa in Muxammad yahay addoonkiisii ​​iyo rasuulkiisii.",
     meaning:
       "Qalbiga fadhiya ee salaadda: waxaad u cibaadaysanaysaa dhammaan cibaadada Eebbe oo keliya, nabadgeli nabiga ﷺ iyo kuwa dhawrsada korkiisa, oo ku celceli labada markhaati. Ibnu Mascuud waxa uu ka bartay Nabiga ﷺ kalmad kalmad, sida qofku u barto suurad.",
   },
   {
     title: "Salawaat Ibrahimiyyah",
     when: "Tashahhud kama dambeys ah, At-Tahiyyat ka dib.",
-    translation:
-      "Allahayow naxariiso korkiisa ha ahaato Muxammad iyo ehelka Muxamed, sidaad ugu barakaysay Ibraahim iyo ehelkii Ibraahim; Adigu waxaad tahay Mahadnaq badane. Allow u naxariiso Muxammad iyo Ehelkii Muxamed, sidaad ugu fadliday Ibraahim iyo Ehelkii Ibraahim; Adigu waxaad tahay Mahadnaq badane.",
     meaning:
       "Markii ay asxaabtu waydiiyeen sida loogu duceeyo, Nabigu ﷺ wuxuu baray kelmadahan saxda ah - salawaatka ugu sugan Sunnada. Waxaad u xurmaysaa Rasuulka ﷺ sidii Alle ku faray, adigoo ku dhammaynaysa jacaylkaaga ruuxii ku baray inaad tukato.",
   },
   {
     title: "In la magan galo salaam ka hor",
     when: "Tashahhudka iyo salawaatka u dambeeya ka dib, wax yar ka hor intaadan dhamayn salaadda.",
-    translation:
-      "Allahayow waxaan kaa magan galay cadaabka qabriga, cadaabka naarta, imtixaamaadka nolosha iyo dhimashada, iyo sharka fitnada Masiixa beenta ah (Dajjal).",
     meaning:
       "Rasuulku ﷺ waxa uu faray in tashahudka u dambeeya ka dib uu qofku ka magan galo afartan khatar ka hor inta aanu salaamin – baryada u dambaysa ee salaaddu waxa ay dabooshaa nolosha adduun, qabriga, naarta, iyo fitnada ugu wayn ee iman doonta.",
   },
   {
     title: "Taslim (salaanta xidhitaanka)",
     when: "Dhammaadka Salaadda - u leexinta wejiga midig, ka dibna bidix.",
-    translation: "Asalaamu calaykum waraxmatulaahi wabarakaatuh.",
     meaning:
       "Waxaad uga tagtaa salaadda sidii aad uga bixi lahayd asxaabta sharafta leh - salaan nabadeed oo ku socota malaa'igta garabka kasta ku duuban iyo kuwa ku ag tukanaya. Salaantu waa tiir; iyada oo ay salaaddu ku dhammaatay.",
   },

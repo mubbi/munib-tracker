@@ -15,22 +15,8 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Akide kuru bir akademik konu değildir; tüm ibadet ve ahlakın filizlendiği köktür. İnsanın Allah'ın kim olduğuna, kendisinin neden yaratıldığına ve nereye gittiğine dair inançları, namazını nasıl kıldığını, başkalarına nasıl davrandığını ve sıkıntı ile ölümle nasıl yüzleştiğini sessizce yönlendirir.",
       "Doğru akide, kalbi ibadetin büyük hâlleri arasında dengede tutar — sevgi ve saygı, ümit ve korku, tevekkül ve çaba, şükür ve tövbe — böylece mümin ne Allah'ın rahmetinden ümidini keser ne de O'nun cezasından emin olur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "İyilik, Allah'a, ahiret gününe, meleklere, kitaba ve peygamberlere iman etmektir…",
-      },
-      {
-        excerpt:
-          "Ey iman edenler! Allah'a, Resulüne, Resulüne indirdiği kitaba ve daha önce indirdiği kitaba iman edin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İman, Allah'a, meleklerine, kitaplarına, peygamberlerine ve ahiret gününe iman etmen, kadere -hayrına ve şerrine- iman etmendir. (Cibril hadisi, Ömer r.a.'dan rivayet)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -42,11 +28,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Ehl-i Sünnet içinde kelam ilminde bilinen birkaç ekol vardır — özellikle Eserî, Eş'arî ve Mâturîdî yöntemler — bunlar imanın temel esaslarında tam mutabakat içindedirler, ancak özellikle ilahi sıfatlar konusunda bazı meseleleri ifade etmenin birkaç teknik yolunda ayrılırlar. Ortak temelleri tek ve sağlamdır: Allah'ın mutlak birliği, vahyinin doğruluğu ve ahirette gerçek hesap verme.",
       "Öyleyse akide en iyi şekilde yaşayan bir iman olarak öğrenilir: her akide meselesi bir ibadet biçimine, bir davranış tarzına ve bir huzur kaynağına bağlıdır.",
     ],
-    quran: [
-      {
-        excerpt: "İlimde derinleşmiş olanlar derler ki: 'Buna inandık, hepsi Rabbimizdendir.'",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Akideyi güvenilir âlimlerden ve temel metinlerden öğren, sosyal medya tartışmalarından değil.",
       "Her akide konusunu incelerken sor: Bu, ibadetimi ve hayatımı nasıl değiştirir?",
@@ -60,17 +42,8 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Doğru akide, mümini hayatın her hâlinde taşıyan şeydir: sıkıntıda Allah'ın kaderine sabır ve tevekkül, nimette alçakgönüllü şükür, belirsizlik ve ölüm karşısında huzurlu bir kesinlik öğretir. Kadere ve ahirete gerçekten inanan kişi, imtihan karşısında yıkılmaz.",
       "Son olarak, doğru akide anlaşmazlıkta edep öğretir: açık esasları sıkıca tutmak ve samimi âlimlerin her zaman ayrıldığı ikincil meselelerde saygı ve hoşgörü göstermek. Akide bilgisi tevazuyu ve merhameti artırmalı, kibri asla değil.",
     ],
-    quran: [
-      {
-        excerpt: "Allah, iman edenleri dünya hayatında da ahirette de sağlam sözle sabit kılar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sana fayda verecek şeye düşkün ol, Allah'tan yardım dile ve âciz kalma… (Ebu Hureyre r.a.)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "İmanın Altı Şartı",
@@ -80,12 +53,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Bu altısı şunlardır: Allah'a iman; meleklerine iman; indirdiği kitaplara iman; peygamberlerine iman; ahiret gününe iman; ve kaderin hayrına ve şerrine iman. Bunlardan herhangi birinin inkârı gerçek imandan çıkarır, çünkü hepsi tek bir dokudur.",
       "Bunlar aynı zamanda birbirine derinden bağlıdır. Kitaplara ve peygamberlere iman, ahiret günü ve hesap bilgisine götürür; ahiret gününe iman her ameli tartar; kadere iman ise Allah'a tevekkül ve O'nun hikmeti karşısında tevazu öğretir. Bunları sırayla öğrenmek, açık ve dengeli bir hayat görüşü inşa eder.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Allah'a, meleklerine, kitaplarına, peygamberlerine ve ahiret gününe iman etmen, kadere -hayrına ve şerrine- iman etmendir. (Cibril hadisi)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -98,15 +66,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Ehl-i Sünnet, Allah'ın kendisi için sabit kıldığı ve Resulü ﷺ'in O'nun için sabit kıldığı güzel isimleri ve yüce sıfatları, O'nun şanına yakışır bir şekilde ispat eder — ne O'nu mahlûkatına benzeterek (temsil), ne de sıfatlarını inkâr edip anlamsızlaştırarak (ta'til). Yol gösterici ayet şudur: 'O'nun benzeri hiçbir şey yoktur; O, hakkıyla işitendir, hakkıyla görendir' (42:11) — bu ayet hem benzetmeyi reddeder hem de O'nun işitme ve görmesini ispat eder.",
       "Allah'ı isimleriyle tanımak — En Merhametli, Her Şeyi Bilen, Ebedî Diri, Hükümdar, Bağışlayan — kalbin gıdasıdır: O'nu ne kadar tanırsan, O'nu o kadar sever, O'ndan o kadar korkar ve O'na o kadar yönelirsin.",
     ],
-    quran: [
-      {
-        excerpt:
-          "De ki: O, Allah'tır, bir tektir… O doğurmamış ve doğurulmamıştır; hiçbir şey O'na denk değildir.",
-      },
-      {
-        excerpt: "En güzel isimler Allah'ındır; öyleyse O'na o isimlerle dua edin.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -117,16 +77,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Onlara iman etmek, görünmeyen âlemin gerçek olduğuna ve çevremizde etkin olduğuna inanmaktır. Melekler vahiy getirir, insanları korur, her söz ve ameli yazar, ölüm anında ruhları alır ve Allah'ın izniyle yer ile göklerin işlerini yürütür — bu yüzden mümin gerçekte asla yalnız veya gözetimsiz değildir.",
       "Birçoğunun ismi, nasslarda belirli görevlerle birlikte geçer: vahiy meleği Cibril; yağmur ve rızıktan sorumlu Mikâil; sûru üfleyecek olan İsrafil; ölüm meleği Azrail; ve her insanın amellerini yazan şerefli kâtipler (kirâmen kâtibîn). Münker ve Nekir kabirde ölüye soru sorar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Onun üzerinde, Allah'ın kendilerine emrettiği hususta O'na isyan etmeyen ve emredildiklerini yapan sert ve güçlü melekler vardır.",
-      },
-      {
-        excerpt:
-          "De ki: Cibril'e kim düşman olursa (bilsin ki) onu Allah'ın izniyle senin kalbine o indirmiştir.",
-      },
-    ],
+    quran: [{}, {}],
     actions: ["Yazıcı meleklerin hiçbir söz veya ameli asla kaçırmadığı bilinciyle yaşa."],
   },
   {
@@ -138,15 +89,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Kur'an eşsiz bir konuma sahiptir. Bu, 'kendinden önceki kitapları doğrulayıcı ve onlara şahit olarak' (5:48) indirilen son vahiydir — yani hükmeder ve düzeltir, çünkü önceki kitaplar asıl hâllerinde kalmamış, nesiller boyunca tahrif edilmiş ve kaybolmuştur.",
       "Tüm kitaplar arasında yalnız Kur'an, ilahi olarak tahriften korunmuştur: 'Şüphesiz zikri (Kur'an'ı) biz indirdik ve onu koruyacak olan da elbette biziz' (15:9). Öyleyse kitaplara iman, vahye saygı, Kur'an'ı düşünerek okumak ve hayatta onun hidayetine teslim olmak demektir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ve sana, kendinden önceki kitabı doğrulayıcı ve ona şahit olarak hakla kitabı indirdik.",
-      },
-      {
-        excerpt: "Şüphesiz zikri biz indirdik ve onu koruyacak olan da elbette biziz.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -157,15 +100,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Peygamberler, doğruluk ve emanette yaratılmışların en üstünüdür; Allah onları mesajla ilgili yalandan ve büyük günahtan korumuştur — yine de onlar insandır, ilahi değildir ve asla ibadet edilmeye layık değildirler. Beşi 'Ülü'l-Azm' (azim sahibi) peygamberler olarak öne çıkar: Nuh, İbrahim, Musa, İsa ve Muhammed ﷺ.",
       "Muhammed ﷺ, peygamberlerin sonuncusudur (Hatemü'n-Nebiyyîn): ondan sonra peygamber gelmez ve mesajı evrenseldir — kıyamete kadar tüm insanlığa gönderilmiştir. Ona iman, onu sevmeyi, emirlerine itaat etmeyi, haberlerini doğrulamayı ve yalnızca öğrettiği şekilde ibadet etmeyi içerir.",
     ],
-    quran: [
-      {
-        excerpt: "…O'nun peygamberlerinden hiçbirini diğerinden ayırt etmeyiz…",
-      },
-      {
-        excerpt:
-          "Muhammed, sizin erkeklerinizden hiçbirinin babası değildir; fakat o, Allah'ın Resulü ve peygamberlerin sonuncusudur.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -176,12 +111,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Bu iman, her anı ahlaki bir ağırlıkla yükler. Allah gizliyi görür ve en küçük ameli bile yazdığı için, hiçbir iyilik boşa gitmez ve hiçbir kötülük gözden kaçmaz: 'Kim zerre miktarı hayır işlerse onu görür, kim de zerre miktarı şer işlerse onu görür.'",
       "Ehl-i Sünnet, bu gerçeklerin hepsini kesinlikle ispat eder, nakledildikleri gibi iman eder; âlimlerin bazı belirli olayların ve alametlerin ince ayrıntılarını yorumlamada farklılaştığını kabul ederler. Bu imanın amacı spekülasyon değil hazırlıktır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…Kim zerre miktarı hayır işlerse onu görür, kim de zerre miktarı şer işlerse onu görür.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -194,21 +124,8 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Ehl-i Sünnet iki hata arasında denge kurar: kaderi inkâr (sanki olaylar Allah'ın ilim ve iradesinin dışına çıkabiliyormuş gibi) ve cebriyecilik (kaderi insan sorumluluğunu ortadan kaldırmak ve günah için bahane olarak kullanmak). Mümin en iyi şekilde sebeplere sarılır, sonra sonucu Allah'a bırakır.",
       "Pratikte kader, büyük bir huzur kaynağıdır: üzerine düşeni yaptıktan sonra, sana ulaşan hiçbir şeyin senden kaçamayacağını, senden kaçan hiçbir şeyin de sana ulaşamayacağını bilerek rahat edersin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Sana bir musibet isabet ederse 'keşke şöyle yapsaydım' deme, bunun yerine 'Allah takdir etti, dilediğini yaptı' de — çünkü 'keşke' şeytana kapı açar. (Ebu Hureyre r.a.)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Şüphesiz biz her şeyi bir kader ile yarattık.",
-      },
-      {
-        excerpt:
-          "Şüphesiz Allah, bir toplum kendi durumlarını değiştirmedikçe onların durumunu değiştirmez.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     misconceptions: [
       "Yanlış anlama: Her şey takdir edilmişse çaba göstermek anlamsızdır. Düzeltme: İslam çabayı, planlamayı, duayı ve tövbeyi emreder — sebeplere sarılmak kaderin bizzat bir parçasıdır.",
       "Yanlış anlama: Kader, günahımdan Allah'ın sorumlu olduğu anlamına gelir. Düzeltme: Kul seçim yapar ve sorumludur; kader asla itaatsizlik için bir bahane değildir.",
@@ -229,14 +146,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Bu üçlü yapı, ayrılık için değil, öğretim aracı olarak kullanılır; amacı mümine ihlasını korumasında ve tevhidin nerede zedelenebileceğini fark etmesinde yardımcı olmaktır. Bunların hepsi, her Müslümanın namazının açılış duasında özetlenir: 'Yalnız sana ibadet eder, yalnız senden yardım dileriz.'",
       "Önemli bir kavrayış: Allah'ın Yaratıcı olduğuna inanmak (rububiyet) tek başına yeterli değildir. Peygamberleri inkâr eden birçok kişi, yine de Allah'ın gökleri ve yeri yarattığına inanıyordu — inkâr ettikleri yalnızca O'na has ibadetti (ulûhiyet). Gerçek tevhid ibadette ispatlanır, sadece yaratılış hakkındaki bir inançta değil.",
     ],
-    quran: [
-      {
-        excerpt: "Yalnız sana ibadet eder ve yalnız senden yardım dileriz.",
-      },
-      {
-        excerpt: "Allah — O'ndan başka ilah yoktur. En güzel isimler O'nundur.",
-      },
-    ],
+    quran: [{}, {}],
     misconceptions: [
       "Yanlış anlama: Tevhid sadece bir cümleyi söylemektir. Düzeltme: Bu, kalbin inancı, dilin ikrarı ve ibadette yaşanan bir gerçekliktir.",
       "Yanlış anlama: Allah'ın Yaratıcı olduğuna inanmak tevhidin tamamıdır. Düzeltme: Birçok inkârcı da buna inanıyordu — gerçek imtihan yalnızca Allah'a ibadettir.",
@@ -252,21 +162,8 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Küçük şirk (şirk-i asğar) kişiyi İslam'dan çıkarmaz ama ciddi derecede tehlikelidir ve amellerin sevabını geçersiz kılabilir. En belirgin biçimi riyadır — insanların görüp övmesi için ibadet etmek — Peygamber ﷺ'in ümmeti için en çok korktuğu şey olarak nitelendirdiği şeydir. Allah'tan başkası adına, O'nu yücelten bir şekilde yemin etmek de buraya girer.",
       "Ehl-i Sünnet dil ve hükümde dikkatlidir: genel olarak şirkten sakındırmak gerekli ve açıktır, ama belirli bir kişiyi müşrik veya kâfir ilan etmek (tekfir), ilim, sağlam delil ve engellerin kaldırılmasını gerektiren ağır bir meseledir — bu, sıradan insanların veya çevrimiçi tartışmaların değil, ilim ehlinin işidir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Şüphesiz Allah, kendisine ortak koşulmasını bağışlamaz; bunun dışında dilediğini bağışlar.",
-      },
-      {
-        excerpt: "Ey oğulcuğum! Allah'a ortak koşma. Şüphesiz şirk, büyük bir zulümdür.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sizin hakkınızda en çok korktuğum şey küçük şirktir. Ne olduğu soruldu, o da: Riya (gösteriş), buyurdu. (Mahmud ibn Lebid)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Yanlış anlama: Dildeki her sürçme büyük şirktir. Düzeltme: Âlimler büyüğü küçükten ayırır ve her durumu delille dikkatlice değerlendirir.",
       "Yanlış anlama: Şirkten sakındırmak için insanlara sert davranmak gerekir. Düzeltme: Nebevi yöntem, hakkı netleştirmeyi merhamet ve sabırla öğretmekle birleştirir.",
@@ -280,18 +177,8 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Sevap niyete bağlı olduğu için, yalnız Allah için yapılan küçük, sessiz bir amel, şöhret için yapılan büyük, alenî bir amelden daha ağır basabilir. Aynı görünen amel — sadaka vermek, namaz kılmak, öğretmek — kalbin niyetine göre hem bir ibadet hem de içi boş bir gösteri olabilir.",
       "İhlas bir kere kazanılıp bir daha geri dönülmeyen bir şey değildir; sürekli yenilenir, çünkü nefis dikkat çekmeye meyillidir. Bu yüzden müminler niyetlerini defalarca arındırır ve Allah'a, kendilerini riyanın gizli şirkinden ve kendini kandırmaktan koruması için dua ederler.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hâlbuki onlara, dini yalnız Allah'a has kılarak O'na ibadet etmeleri emredilmişti.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ameller niyetlere göredir ve herkese niyet ettiği şey vardır. (Ömer bin Hattab r.a.)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -302,15 +189,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Ehl-i Sünnet, bunların bir kuşun iki kanat ve bir başla uçması gibi dengede kalması gerektiğini öğretir. Korkusuz sevgi ve ümit, kayıtsızlığa ve Allah'ın rahmetini hafife almaya sürükleyebilir; ümitsiz korku ise çaresizliğe yol açabilir. Kur'an bunları birleştirir: 'O'na korku ve ümitle dua edin.'",
       "Bu denge yalnızca bir duygu değildir; eylemde ortaya çıkar — namazı korumada, tövbeye koşmada, başkalarına hizmette, öfkeyi dizginlemede ve kaderini takdir edene olan sevgiyle sıkıntıya sabretmede.",
     ],
-    quran: [
-      {
-        excerpt: "…iman edenler ise Allah'ı sevmede en güçlü olanlardır.",
-      },
-      {
-        excerpt:
-          "…ve O'na korku ve ümitle dua edin. Şüphesiz Allah'ın rahmeti iyilik yapanlara yakındır.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -322,21 +201,8 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Allah'ın çağrısı şaşırtıcı derecede cömerttir: 'De ki: Ey kendi aleyhlerine aşırı giden kullarım! Allah'ın rahmetinden ümidinizi kesmeyin. Şüphesiz Allah bütün günahları bağışlar.' Tövbe kapısı, güneş batıdan doğana veya kişinin kendi ölümü yaklaşana kadar açık kalır.",
       "Samimi tövbenin açık şartları vardır: günahı hemen terk etmek, ona gerçekten pişman olmak ve bir daha dönmemeye kesin karar vermek — günah başka birinin hakkıyla ilgiliyse, o hakkı geri vermek veya ondan özür dilemek. Bu şartlar yerine geldiğinde Allah'ın tepkisi yalnızca kabul değil, sevinçtir: O, 'kulunun tövbesinden', ıssız bir çölde kaybolan bineğini ve azığını yeniden bulan kişiden daha çok 'sevinir.'",
     ],
-    quran: [
-      {
-        excerpt:
-          "De ki: Ey kendi aleyhlerine aşırı giden kullarım! Allah'ın rahmetinden ümidinizi kesmeyin. Şüphesiz Allah bütün günahları bağışlar.",
-      },
-      {
-        excerpt: "Ey iman edenler! Allah'a içtenlikle tövbe edin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah, kulunun tövbesinden, çölde üzerinde yiyeceği ve içeceği bulunan bineğini kaybedip sonra onu yeniden bulan kişiden daha çok sevinir. (İbn Mesud r.a.)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -347,18 +213,8 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Cennete girmek nihayetinde Allah'ın rahmetiyledir — kimsenin amelleri tek başına ebedî nimeti hak edemez — yine de gerçek iman ve salih amel, Allah'ın belirlediği ve kabul ettiği vesilelerdir. İkisi arasında çelişki yoktur: rahmet sebeptir, iman ve ameller ise O'nun açtığı yoldur.",
       "Cennete iman, insanın artık nasıl yaşadığını yeniden şekillendirir: sıkıntıda sabrı, malda cömertliği ve ibadette istikrarı besler, çünkü mümin geçici bir dünyayı ebedî bir yurt karşılığında vermektedir. Kur'an bizi ona doğru 'koşmaya' çağırır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbinizin bağışlamasına ve genişliği göklerle yer kadar olan, takva sahipleri için hazırlanmış cennete koşun.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah buyurdu: Salih kullarım için hiçbir gözün görmediği, hiçbir kulağın işitmediği ve hiçbir insan kalbinin hayal edemediği şeyler hazırladım. (Ebu Hureyre; ayrıca Sahih Müslim 2824)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -369,16 +225,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Bu uyarıların merhametli bir amacı vardır: insanları anlattıkları sona düşmekten korumak — kibri, zulmü ve hakkı bile bile ısrarla inkâr etmeyi engellemek ve gafil olanları kapı açıkken tövbeye yöneltmek içindir.",
       "Ehl-i Sünnet, uyarıları ve rahmeti bir arada tutar. Tehditler ciddi ve gerçektir, yine de Allah'ın rahmeti O'na dönen herkes için geniştir — tevhid ehlinden, ateşe girecek olan günahkârlar dahi orada ebedî kalmayacak, sonunda Allah'ın rahmeti ve izin verdiği şefaatle çıkarılacaklardır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman edenler! Kendinizi ve ailenizi, yakıtı insanlar ve taşlar olan bir ateşten koruyun.",
-      },
-      {
-        excerpt:
-          "…Allah'ın rahmetinden ümidinizi kesmeyin. Şüphesiz Allah bütün günahları bağışlar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -389,16 +236,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Ölüm ile yeniden diriliş arasında berzah vardır — kabirdeki ara hayat, kendi sorgusu ve kendi kolaylığı veya zorluğuyla. Sonra sûra üfürülür ve tüm yaratılmışlar hesap için Allah'ın huzurunda diriltilip toplanır.",
       "İşte bu iman, insan hayatına ahlaki ciddiyetini kazandırır: yeniden diriliş olmasaydı, rahatça ölen zalim ile mazlumiyet içinde ölen mazlum aynı sona ulaşırdı. Bununla birlikte, her haksızlığın hesabı sorulur ve her iyiliğin karşılığı verilir, bu da sabrı ve adaleti anlamlı kılar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Der ki: 'Kemikleri, onlar çürümüşken kim diriltecek?' De ki: 'Onları ilk defa yaratan diriltecek…'",
-      },
-      {
-        excerpt:
-          "Ve şüphesiz kıyamet günü gelecektir — bunda hiç şüphe yoktur — ve Allah, kabirlerde olanları diriltecektir.",
-      },
-    ],
+    quran: [{}, {}],
   },
   {
     title: "Kıyamet Günü",
@@ -408,12 +246,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "O gün, hiçbir soy, mal, statü, milliyet veya dünyevi mevki kimseye fayda vermez; yalnızca Allah katında kabul edilen gerçek iman ve salih amel işe yarar. Amel defterleri dağıtılır, ameller tartılır ve insanlar arasındaki haksızlıklar, iyilik ve kötülüklerin aktarılmasıyla dahi telafi edilir.",
       "Bu kesinlik, şimdiden karakteri değiştirmek içindir: mümini doğruluğa, güvenilirliğe, başkalarının haklarını korumaya ve borçların paradan ziyade amellerle ödeneceği o günden önce haksızlıkları düzeltmeye ve hakları geri vermeye çağırır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kıyamet günü için adalet terazilerini kurarız, hiçbir cana zerre kadar zulmedilmez.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -424,16 +257,7 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Sırat, cehennemin üzerine gerilmiş bir köprüdür, herkesin üzerinden geçmesi gerekir. Kur'an şöyle buyurur: 'İçinizden hiçbiri yoktur ki ona uğramasın,' sonra, 'sonra biz, Allah'a karşı gelmekten sakınanları kurtarırız.' İnsanlar amellerine göre geçer — kimileri ışık veya rüzgâr gibi hızlı, kimileri zorlukla, kimileri de sürçerek — Allah'ın rahmeti ve adaletiyle.",
       "Bu gerçekler, boşuna korkutmak için değil, ciddiyet uyandırmak için bildirilmiştir: küçük amellerin ağırlığı, ibadetteki ihlas ve başkalarının haklarına saygı hakkında, çünkü bunların hepsi tartılacaktır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kimin tartıları ağır gelirse, o hoşnut bir hayat içindedir; kimin tartıları hafif gelirse, onun anası (varacağı yer) haviyedir.",
-      },
-      {
-        excerpt:
-          "İçinizden hiçbiri yoktur ki ona uğramasın… sonra biz, Allah'a karşı gelmekten sakınanları kurtarırız.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -444,21 +268,8 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "Ama hiç kimse kendi yetkisiyle şefaat etmez. Her meşru şefaat yalnızca 'O'nun izninden sonra' ve yalnızca Allah'ın razı olduğu kimseler içindir: 'O'nun izni olmadan katında kim şefaat edebilir?' Bu, sonuç üzerindeki mutlak Allah hâkimiyetini korur.",
       "Âlimler, birkaç sabit şefaat türünü sayar — hesabın başlaması için, insanların cennete girmesi için, günahkâr müminlerin bağışlanması veya ateşten çıkarılması için — ve nihai kararın her zaman yalnızca Allah'a ait olduğu konusunda hemfikirdirler.",
     ],
-    quran: [
-      {
-        excerpt: "O'nun izni olmadan katında kim şefaat edebilir?",
-      },
-      {
-        excerpt:
-          "O gün, Rahman'ın izin verdiği ve sözünden razı olduğu kimseden başkasının şefaati fayda vermez.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İnsanlar bana gelecek ve ben Rabbimin huzurunda secdeye kapanacağım; sonra denilecek: Başını kaldır, iste sana verilecek, şefaat et şefaatin kabul edilecek. (Ebu Said — büyük şefaat)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Yanlış anlama: Şefaat, tövbe ihtiyacını ortadan kaldırır. Düzeltme: Bu yalnızca Allah'ın izniyle olur ve asla günahta ısrar etmek için bir izin belgesi değildir.",
       "Yanlış anlama: Artık şefaat için peygamberlere veya salih kişilere dua edilebilir. Düzeltme: İbadet ve dua yalnızca Allah'adır; ahiretteki şefaat O'nun emriyledir, O'nun rızası aracılığıyla talep edilir.",
@@ -475,22 +286,8 @@ export const AQEDAH_TOPICS_BN: DeepPartial<AqeedahTopic>[] = [
       "On büyük alamet, Peygamber ﷺ'in bir hadisinde topluca sayılmıştır: Deccal'in ortaya çıkışı, Meryem oğlu İsa'nın inişi, Ye'cüc ve Me'cüc'ün çıkışı, üç büyük yere batış, bir duman, güneşin battığı yerden doğması ve insanları son toplanma yerlerine sürecek bir ateş.",
       "Âlimler bazı alametlerin tam sırası konusunda zaman zaman ayrılırlar, ama iki noktada hemfikirdirler: kıyametin geleceği kesindir ve tam vaktini Allah'tan başka kimse bilmez — Cibril kendisine sorduğunda Peygamber ﷺ bile bilmiyordu. Bu yüzden alametlere nebevi tepki spekülatif değil pratiktir: tahmin yerine iman, tövbe, adalet ve faydalı amelleri artırmaktır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sana kıyametin ne zaman kopacağını soruyorlar. De ki: Onun bilgisi ancak Rabbimin katındadır.",
-      },
-      {
-        excerpt:
-          "Onlar sadece kıyametin ansızın kendilerine gelmesini mi bekliyorlar? Onun alametleri şüphesiz gelmiştir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "On alameti görmedikçe kıyamet kopmayacaktır: duman, Deccal, dabbe (hayvan), güneşin battığı yerden doğması, İsa'nın inişi, Ye'cüc ve Me'cüc ve üç yere batış… (Huzeyfe bin Esid r.a.)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Yanlış anlama: Her büyük dünya olayı kesinlikle belirleyici bir alamettir. Düzeltme: Bu tür iddialar, heyecan verici anlatılar yerine sağlam delil ve ilmî tedbir gerektirir.",
       "Yanlış anlama: Alamet bilgisi bize kıyametin tarihini belirleme imkânı verir. Düzeltme: Kesin vakti yalnızca Allah bilir; alametler bizi tahmine değil hazırlığa çağırır.",

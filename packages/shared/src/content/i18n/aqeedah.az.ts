@@ -15,22 +15,8 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Əqidə mücərrəd seminar mövzusu deyil; bütün ibadətlərin və xarakterlərin yetişdiyi kökdür. İnsanın Allahın kim olduğu, nə üçün yaradıldığı və hara getdiyi ilə bağlı inancları onun necə dua edəcəyini, başqaları ilə necə rəftar edəcəyini, çətinlik və ölümlə necə qarşılaşacağını müəyyən edir.",
       "Düzgün iman qəlbi böyük ibadət halları - sevgi və qorxu, ümid və qorxu, təvəkkül və səy, şükür və tövbə arasında tarazlıqda saxlayır ki, mömin nə Allahın rəhmətindən ümidini kəsməsin, nə də Onun hesabından arxayın olmasın.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Yaxşılıq odur ki, Allaha, axirət gününə, mələklərə, kitaba və peyğəmbərlərə iman gətirsin...",
-      },
-      {
-        excerpt:
-          "Ey iman gətirənlər, Allaha, Onun Elçisinə, Onun Elçisinə nazil etdiyi Kitaba və daha əvvəl nazil etdiyi kitaba iman gətirin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İman Allaha, mələklərinə, kitablarına, elçilərinə, axirət gününə inanmaq, ilahi hökmə, onun xeyirinə və acısına inanmaqdır. (Cəbrail hədisi, Ömər rəvayət etmişdir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -42,11 +28,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Əhli-sünnə daxilində tanınmış kəlam məktəbləri - xüsusilə Əthari, Əşəri və Maturidi yanaşmaları mövcuddur ki, onlar imanın əsasları üzərində tamamilə həmfikirdirlər, eyni zamanda bəzi məsələlərin, xüsusən də ilahi sifətlərin ifadəsinin bəzi texniki üsullarında fərqlidirlər. Onların ortaq təməli bir və möhkəmdir: Allahın mütləq birliyi, vəhyinin doğruluğu və axirətdə haqq hesabı.",
       "Beləliklə, əqidə canlı inanc kimi ən yaxşı şəkildə öyrənilir: hər bir etiqad nöqtəsi bir ibadət tərzinə, bir davranış tərzinə və rahatlıq mənbəyinə bağlıdır.",
     ],
-    quran: [
-      {
-        excerpt: "Elmdə möhkəm olanlar: “Biz ona iman gətirdik. Bunların hamısı Rəbbimizdəndir”.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Əqidəni sosial media müzakirələrindən deyil, etibarlı alimlərdən və ilkin mətnlərdən öyrənin.",
       "Öyrəndiyiniz hər bir inanc üçün soruşun: bu, mənim ibadət və yaşayış tərzimi necə dəyişir?",
@@ -60,17 +42,8 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Düzgün əqidə də mömini bütün həyat boyu aparan şeydir: çətin anlarda Allahın hökmünə səbirli olmağı, nemətlərə təvazökar şükür etməyi, qeyri-müəyyənlik və ölüm qarşısında sakit əmin olmağı öyrədir. Qədr və axirətə həqiqi inanan insan imtahan olunduğu zaman yıxılmaz.",
       "Nəhayət, sağlam əqidə ixtilafda ədəb - yaxşı davranış - öyrədir: səmimi alimlərin uzun müddətdir ixtilaf etdikləri ikinci dərəcəli məsələlərdə hörmət və təmkin nümayiş etdirərkən aydın əsaslara möhkəm riayət etmək. Etiqad bilgisi təvazökarlığı və mərhəməti artırmalıdır, heç vaxt təkəbbür olmamalıdır.",
     ],
-    quran: [
-      {
-        excerpt: "Allah iman gətirənləri dünya həyatında da, axirətdə də möhkəm sözlə sabit tutar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sənə fayda verən şeylərə can at, Allahdan kömək dilə və aciz qalma... (Əbu Hureyrə)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "İmanın altı maddəsi",
@@ -80,12 +53,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Bu altısı bunlardır: Allaha iman; Onun mələklərində; nazil etdiyi kitablarda; Onun elçilərində; qiyamət günündə; İlahi hökmdə (qədrdə) onun xeyiri və acısı. Onlardan hər hansı birini rədd etmək həqiqi imandan kənara çıxmaq deməkdir, çünki onlar tək bir parçadır.",
       "Onlar həm də bir-biri ilə sıx bağlıdır. Kitablara və elçilərə iman, qiyamət və haqq-hesab haqqında biliklərə səbəb olur; qiyamət gününə iman hər bir əmələ qiymət verir; Qədr inancı isə Allaha təvəkkül və Onun hikməti qarşısında təvazökar olmağı öyrədir. Onları ardıcıllıqla öyrənmək aydın və balanslı dünyagörüşünü formalaşdırır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "...Allaha, mələklərinə, kitablarına, elçilərinə, axirət gününə iman gətirməyinizə, hökmə, onun xeyirinə və acısına inanmağınız. (Cəbrail hədisi)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -97,14 +65,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Əhli-sünnə, Allahın Özü üçün təsdiq etdiyi gözəl adları və uca sifətləri, Rəsulunun (sallallahu aleyhi və səlləm) Onun üçün təsdiq etdiyi əzəmətinə yaraşan bir tərzdə - Onu məxluqatına bənzətmədən və məna sifətlərini (ta'til) inkar etmədən və boşaltmadan təsdiq edir. Rəhbər ayə belədir: “Onun bənzəri yoxdur, O, Eşidəndir, Görəndir” (42:11) – bu həm bənzərliyi inkar edir, həm də Onun eşitdiyini və görməsini təsdiq edir.",
       "Allahı Onun adları ilə tanımaq – Mərhəmətli, Biləndir, Əbədi Yaşayan, Hökmdar, Bağışlayan – qəlbin qidasıdır: Onu nə qədər çox tanısan, bir o qədər çox sevərsən, qorxur və Ona yönəlirsən.",
     ],
-    quran: [
-      {
-        excerpt: "De: “O, Tək olan Allahdır... O, doğulmur, doğulmur və Onun bənzəri yoxdur.",
-      },
-      {
-        excerpt: "Ən gözəl adlar da Allaha məxsusdur. Ona bu adlarla dua edin.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -115,16 +76,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Onlara inanmaq, qeyb aləminin ətrafımızda real və aktiv olduğuna inanmaq deməkdir. Mələklər vəhy gətirir, insanları qoruyur, hər sözü və əməli qeyd edir, ölüm anında canları alır, yerin və göyün işini Allahın izni ilə idarə edir.",
       "Mətnlərdə bir neçəsinin adı xüsusi rollarla çəkilir: Cəbrail vəhy mələyi; Yağış və ruzi həvalə edilmiş Mikayıl; Sur çalacaq İsrafil; Mələk əl-Mövt, ölüm mələyi; və hər kəsin əməllərini yazan alicənab katiblər (Kiraman Katibin). Münkər və Nəkir mərhumu qəbirdə sorğu-sual edirlər.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Onun üstündə sərt və şiddətli mələklər vardır ki, onlar Allahın buyurduqlarına asi olmayan və özlərinə əmr olunanı yerinə yetirirlər.",
-      },
-      {
-        excerpt:
-          "De: “Kim Cəbrailə düşməndirsə, Allahın izni ilə onu sənin qəlbinə nazil edən də odur.",
-      },
-    ],
+    quran: [{}, {}],
     actions: ["Şüurla yaşayın ki, qeyd edən mələklər heç bir söz və ya əməli əldən verməzlər."],
   },
   {
@@ -136,15 +88,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Qur'an unikal bir rütbəyə malikdir. Bu, “özündən əvvəl gələnləri təsdiq edən və onun üzərində bir hökm olaraq” göndərilmiş son vəhydir (5:48), yəni o, hökm edir və islah edir, çünki əvvəlki kitablar öz orijinal vəziyyətində qalmamış, dəyişdirilmiş (təhrif) edilmiş və nəsillər boyu itmişdir.",
       "Qurani-Kərim bütün müqəddəs kitablar arasında bənzərsiz olaraq Allah tərəfindən fəsaddan qorunur: “Həqiqətən, Zikri Biz nazil etdik və həqiqətən də, Biz onu qoruyanıq” (15:9). Buna görə də kitablara iman gətirmək vəhyə hörmət etmək, Qur'anı düşünərək oxumaq və həyatda onun hidayətinə təslim olmaq deməkdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Biz sənə Kitabı haqq olaraq, özündən əvvəlkiləri təsdiq edən və onu ayırd edən bir məqam olaraq nazil etdik.",
-      },
-      {
-        excerpt: "Həqiqətən, Zikri Biz nazil etdik və şübhəsiz ki, Biz onu qoruyacağıq.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -155,15 +99,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Peyğəmbərlər doğruluq və etibarlılıq baxımından yaradılışın ən yaxşısıdır, Allah tərəfindən risalət haqqında yalan danışmaqdan və böyük günahlardan qorunur, lakin onlar ilahi deyil, insan olaraq qalırlar və onlara heç vaxt ibadət olunmaz. “Qətiyyətli” elçilər (ulu əl-əzm) olaraq beş nəfər seçilir: Nuh, İbrahim, Musa, İsa və Muhəmməd.",
       "Muhəmməd Peyğəmbərlərin möhürüdür (xatəm ən-nəbiyyin): Ondan sonra heç bir peyğəmbər gəlməz və onun risaləti universaldır - Qiyamət gününə qədər bütün bəşəriyyətə göndərilir. Ona iman gətirmək, onu sevmək, əmrlərinə tabe olmaq, xəbərlərinə inanmaq və yalnız onun öyrətdiyi şəkildə ibadət etməkdir.",
     ],
-    quran: [
-      {
-        excerpt: "…Biz Onun elçiləri arasında heç bir fərq qoymuruq…",
-      },
-      {
-        excerpt:
-          "Məhəmməd sənin kişilərindən heç birinin atası deyil, Allahın Rəsulu və peyğəmbərlərin möhürüdür.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -174,12 +110,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Bu inanc hər anına mənəvi yük verir. Allah qeybi görən və ən kiçik əməli qeyd etdiyi üçün heç bir yaxşılıq boşa getməz və heç bir pislik gözdən qaçmaz: “Kim zərrə qədər yaxşılıq etsə, onu görəcək, kim zərrə qədər pislik etsə, onu görəcəkdir”.",
       "Əhli-sünnə bütün bu həqiqətləri qətiliklə təsdiq edir, onlara tam olaraq xəbər verildiyi kimi inanır, eyni zamanda alimlərin konkret hadisələrin və əlamətlərin bəzi incə detallarının təfsirində ixtilaf olduğunu etiraf edir. İnancın məqsədi fərziyyə deyil, hazırlıqdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Beləliklə, kim zərrə qədər yaxşılıq etsə, onu görəcək, kim zərrə qədər pislik etsə, onu görəcəkdir.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -191,20 +122,8 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Əhli-sünnə iki xəta arasında gedir: hökmü inkar etmək (sanki hadisələr Allahın elmindən və iradəsindən qaçır) və fatalizm (insan məsuliyyətini aradan qaldırmaq və günahı bağışlamaq üçün hökmdən istifadə etmək). Mömin vəsiləni mükəmməl götürər, sonra nəticəsini Allaha tapşırar.",
       "Praktiki olaraq, Qədr sülhün böyük mənbəyidir: üzərinizə düşəni etdikdən sonra şüurunuzda dincəlirsiniz ki, sizə çatan hər şey sizi heç vaxt əldən verə bilməz və əldən verdiyiniz hər şey sizə çata bilməz.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…Əgər sənə bir iş gəlsə, “kaş mən belə etsəydim” demə, “Allah yazdı, istədiyini etdi” de. (Əbu Hureyrə)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Həqiqətən, Biz hər şeyi bir ölçü ilə yaratdıq.",
-      },
-      {
-        excerpt: "Həqiqətən, bir qövm öz nəfsini dəyişməyincə, Allah onların vəziyyətini dəyişməz.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}, {}],
     misconceptions: [
       "Yanlış fikir: Hər şey hökmlüdürsə, səy mənasızdır. İslah: İslam səy, plan, dua və tövbə etməyi əmr edir - vasitələrdən istifadə etmək fərmanın bir hissəsidir.",
       "Yanlış fikir: Qədr o deməkdir ki, mənim günahımda Allah günahkardır. İslah: Bəndə seçir və hesab verir; fərman heç vaxt itaətsizlik üçün bəhanə deyil.",
@@ -225,14 +144,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Bu üç hissədən ibarət çərçivə bölgü mənbəyi deyil, tədris vasitəsidir; məqsədi möminə ixlasın qorunmasına və birliyin harada poza biləcəyini anlamasına kömək etməkdir. Bütün bunlar hər bir müsəlmanın duasının açılış duasında qeyd olunur: “Biz yalnız Sənə ibadət edirik və yalnız Səndən kömək diləyirik”.",
       "Əhəmiyyətli bir fikir: Allahın Yaradan olduğunu etiraf etmək (rububiyyə) tək başına kifayət deyil. Peyğəmbərləri inkar edənlərin bir çoxu hələ də Allahın göyləri və yeri yaratdığını etiraf edirdilər - onlar tək Ona ibadət etməkdən imtina etdilər (uluhiya). Həqiqi tövhid ibadətlə sübuta yetirilir, təkcə mənşəyinə inanmaqla deyil.",
     ],
-    quran: [
-      {
-        excerpt: "Yalnız Sənə ibadət edir və yalnız Səndən kömək diləyirik.",
-      },
-      {
-        excerpt: "Allah - Ondan başqa heç bir tanrı yoxdur. Ən gözəl adlar Ona məxsusdur.",
-      },
-    ],
+    quran: [{}, {}],
     misconceptions: [
       "Yanlış fikir: Tövhid sadəcə bir cümlə deməkdən ibarətdir. İslah: Qəlbin əqidəsi, dilin bəyanı və ibadətdə yaşanmış bir həqiqətdir.",
       "Yanlış təsəvvür: Allahın Yaradan olduğuna inanmaq bütün tövhiddir. Düzəltmə: Hətta bir çox kafirlər belə təsdiq etdilər ki, imtahan yalnız Allaha ibadət etməkdir.",
@@ -248,21 +160,8 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Kiçik şirk (əl-şirk əl-əsğər) İslamdan xaric etmir, lakin çox təhlükəlidir və əməllərin savabını puç edə bilər. Onun ən aydın forması riyadır - insanlar tərəfindən görülmək və təriflənmək üçün ibadət etməkdir - Peyğəmbər (s) ümməti üçün ən çox qorxduğu şey adlandırmışdır. Allahdan qeyrisinə ucaldacaq şəkildə and içmək burada da düşür.",
       "Əhli-sünnə dil və mühakimə ilə diqqətlidir: ümumiyyətlə şirklə bağlı xəbərdarlıq vacib və aydındır, lakin konkret bir şəxsi müşrik və ya kafir elan etmək (təkfir) elm, etibarlı dəlil və üzrlərin aradan qaldırılması tələb edən ağır bir məsələdir - bu, adi insanlara və ya internetə deyil, ixtisaslı alimlərə aiddir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Həqiqətən, Allah Özünə şərik qoşmağı bağışlamaz, lakin ondan daha az günahı istədiyi kimsə üçün bağışlayar.",
-      },
-      {
-        excerpt: "Ey oğlum, Allaha şərik qoşma. Həqiqətən, birləşmək böyük bir zülmdür (zülm).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sizin üçün ən çox qorxduğum şey kiçik şirkdir. Bunun nə olduğunu soruşduqda, o, buyurdu: Özünü göstərmək (riya). (Mahmud ibn Ləbid)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Yanlış fikir: Hər dil sürüşməsi böyük şirkdir. Düzəliş: Alimlər böyükdən kiçikdən fərqləndirirlər və hər bir işi dəlillərlə diqqətlə mühakimə edirlər.",
       "Yanlış fikir: Şirkdən xəbərdar olmaq insanlara qarşı sərt davranmağı tələb edir. Düzəltmə: Peyğəmbərlik yolu həqiqətin aydınlığını mərhəmət və səbirli təlimlə birləşdirir.",
@@ -276,17 +175,8 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Mükafat niyyətdən asılı olduğundan, Allah üçün səmimi olaraq edilən kiçik, sakit bir əməl, şöhrət üçün edilən böyük, açıq bir əməldən üstün ola bilər. Eyni zahiri əməl – sədəqə vermək, dua etmək, öyrətmək – arxasındakı qəlbdən asılı olaraq ibadət və ya boşluq ola bilər.",
       "Səmimiyyət bir dəfə deyil, davamlı olaraq yenilənir, çünki mənlik diqqət axtarmağa meyllidir. Buna görə də möminlər dəfələrlə niyyətlərini təmizləyir və Allahdan onları riya şirkindən və özünü aldatmaqdan qorumasını diləyirlər.",
     ],
-    quran: [
-      {
-        excerpt: "Onlara ancaq dini Ona məxsus olan Allaha ibadət etmək əmr olundu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Əməllər ancaq niyyətlərə görədir və hər bir insan ancaq niyyət etdiyinə sahib olar. (Ömər ibn əl-Xəttab)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -297,15 +187,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Əhli-sünnə öyrədir ki, bunlar iki qanadlı və başlı uçan quş kimi tarazlıqda olmalıdır. Qorxusuz sevgi və ümid, qəflət və Allahın rəhmətini adi bir hal kimi qəbul edə bilər; Ümidsiz qorxu ümidsizliyə çevrilə bilər. Qur'an da onlara qoşulur: “Ona qorxu və ümidlə dua edin”.",
       "Bu tarazlıq sadəcə bir hiss deyil; əməldə - namazı qorumaqda, tövbə etməyə tələsməkdə, başqalarına xidmət etməkdə, qəzəbini saxlamaqda və onu hökm edənə məhəbbətdən əziyyətə səbir etməkdə görünür.",
     ],
-    quran: [
-      {
-        excerpt: "...İman gətirənlərin isə Allah sevgisi daha güclüdür.",
-      },
-      {
-        excerpt:
-          "...Və qorxu və ümidlə Ona dua edin. Həqiqətən, Allahın mərhəməti yaxşı əməl sahiblərinə yaxındır.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -317,21 +199,8 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Allahın dəvəti heyrətamiz dərəcədə səxavətlidir: “De: “Ey Mənim özlərinə zülm edən bəndələrim, Allahın rəhmətindən ümidinizi kəsməyin. Həqiqətən, Allah bütün günahları bağışlayar”. Günəş qərbdən çıxana və ya insanın öz ölümü yaxınlaşana qədər tövbə qapısı açıq qalır.",
       "Səmimi tövbənin aydın şərtləri var: günahı dərhal tərk etmək, ona görə səmimi peşman olmaq və bir daha geri qayıtmayacağına qəti qərar vermək - və əgər günah başqa bir insanın hüquqlarını əhatə edirsə, bu hüquqları bərpa etmək və ya ondan bağışlanmaq istəmək. Bunlar yerinə yetirildikdə, Allahın cavabı sadəcə qəbul deyil, sevincdir: O, “qulunun tövbəsindən daha çox sevinər”, nəinki itmiş dağını və azuqəsini boş səhrada geri qaytaran adamdan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "De: “Ey Mənim özlərinə zülm edən qullarım, Allahın rəhmətindən ümidinizi kəsməyin. Həqiqətən, Allah bütün günahları bağışlayar.",
-      },
-      {
-        excerpt: "Ey iman gətirənlər, Allaha səmimi qəlbdən tövbə edin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah öz bəndəsinin tövbəsinə minəsini yeyib-içdiyi halda bərbad yerdə itirib onu yenidən tapan adamdan daha çox sevinər. (İbn Məsud)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -342,18 +211,8 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Cənnətə daxil olmaq, nəhayət, Allahın rəhməti ilə - heç kəsin yalnız əməli sonsuz səadətə səbəb ola bilməz - ancaq səmimi iman və saleh əməl Allahın təyin etdiyi və qəbul etdiyi vəsilədir. İkisi bir-birinə zidd deyil: mərhəmət səbəb, iman və əməl isə Onun açdığı yoldur.",
       "Cənnətə iman insanın indi necə yaşadığını yenidən formalaşdırır: səbri çətinliklərlə, səxavətlə zənginliklə, ibadətdə əzmkarlıqla alovlandırır, çünki mömin keçib gedən dünyanı əbədi evə dəyişir. Qur'an bizi ona doğru “yarışmağa” çağırır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rəbbiniz tərəfindən bağışlanmağa və genişliyi göylərlə yer qədər olan, müttəqilər üçün hazırlanmış Cənnətə tələsin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah buyurdu: “Mən saleh bəndələrim üçün heç bir gözün görmədiyini, heç bir qulağın eşitmədiyini və heç bir insan qəlbinin düşünmədiyini hazırlamışam. (Əbu Hureyrə; həmçinin Səhih Müslim 2824)",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -364,16 +223,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Xəbərdarlıqlar mərhəmətli bir məqsədə xidmət edir: onlar insanları təsvir etdikləri nəticələrdən qorumaq üçün mövcuddur - təkəbbür, zülm və israrlı, həqiqəti inkar edənləri yoxlamaq və qafilləri qapı açıq ikən tövbə etməyə təşviq etmək.",
       "Əhli-sünnə xəbərdarlıq və rəhməti bir yerdə saxlayır. Təhdidlər ciddi və realdır, lakin Ona tərəf dönənlər üçün Allahın rəhməti genişdir - və tövhid əhli arasında Cəhənnəmə daxil olan günahkarlar orada əbədi qalmayacaqlar, lakin nəticədə Allahın rəhməti və icazə verdiyi şəfaətlə oradan çıxarılacaqlar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman gətirənlər, özünüzü və ailənizi yanacağı insanlar və daşlar olan oddan qoruyun.",
-      },
-      {
-        excerpt:
-          "…Allahın rəhmətindən ümidinizi kəsməyin. Həqiqətən, Allah bütün günahları bağışlayar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -384,15 +234,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Ölümlə dirilmə arasında bərzəx - sorğu-suala, asanlığı və ya çətinliyi ilə qəbrin aralıq həyatı var. Sonra sur üfürülür və bütün məxluqat dirildilib Allahın hüzurunda haqq-hesab üçün toplanar.",
       "İnsan həyatına mənəvi ciddilik verən də bu inancdır: dirilmədən rahat ölən zalımla haqsızlıqla ölən məzlum eyni aqibətlə qarşılaşacaq. Bununla hər bir pisliyə cavab verilir və hər yaxşılıq mükafatlandırılır, səbir və ədalətə məna verir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Deyir ki, sümüklər çürümüş halda onları kim dirildər? De: “Onları ilk dəfə dirildən dirildəcək...”",
-      },
-      {
-        excerpt: "Şübhəsiz ki, o Saat gələcəkdir və Allah qəbirlərdə olanları dirildəcəkdir.",
-      },
-    ],
+    quran: [{}, {}],
   },
   {
     title: "Qiyamət günü",
@@ -402,11 +244,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "O gün nə nəsil, nə var-dövlət, nə təbəqə, nə millət, nə dünyəvi dərəcə heç kimə fayda verməz; ancaq Allahın qəbul etdiyi səmimi iman və saleh əməl fayda verər. Dəftərlər paylanır, əməllər ölçülür, hətta insanlar arasında edilən pisliklər də yaxşı və pis əməllərin ötürülməsi ilə aradan qaldırılır.",
       "Bu əminlik indi xasiyyəti dəyişdirmək üçün nəzərdə tutulmuşdur: mömini düzlüyə, etibarlılığa, başqalarının haqqını qorumağa, səhvləri düzəltməyə və borcun pulla deyil, əməllə ödənildiyi gündən əvvəl borcunu qaytarmağa çağırır.",
     ],
-    quran: [
-      {
-        excerpt: "Biz ədalət tərəzisini Qiyamət günü üçün qoyuruq ki, heç bir kəsə zülm olunmaz.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -417,15 +255,7 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Sirat Cəhənnəm üzərində uzanan bir körpüdür ki, hamı keçməlidir. Qurani-Kərim buyurur: “Sizdən elə bir kəs yoxdur ki, onun üstündən keçməsin”, sonra “Allahdan qorxanları xilas edəcəyik”. İnsanlar əməllərinə görə - bəziləri işıq və ya külək kimi sürətlə, digərləri mübarizə apararaq, bəziləri isə sürüşərək - Allahın rəhməti və ədaləti ilə keçirlər.",
       "Bu həqiqətlər boş yerə qorxutmaq üçün deyil, ciddilik yetişdirmək üçün deyilmişdir: kiçik işlərin ağırlığı haqqında, ibadətlərin ixlası və başqalarının haqqına hörmətlə yanaşmaq, çünki bunların hamısı ölçüləcəkdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kimin tərəzisi ağır olarsa, o, xoş həyatda olar. Kimin tərəzisi yüngül olarsa, onun sığınacağı yer uçurum olar.",
-      },
-      {
-        excerpt: "Sizdən heç kəs onu keçib getməsin... Sonra Allahdan qorxanları xilas edəcəyik.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -436,21 +266,8 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Amma heç kim öz səlahiyyəti ilə vasitəçilik etmir. Hər bir səhih şəfaət ancaq “Onun izni ilə” və ancaq Allahın razı olduğu kəslər üçün olar: “Onun izni olmadan Onun yanında kim şəfaət edə bilər?” Bu, Allahın nəticə üzərində mütləq hökmranlığını qoruyur.",
       "Alimlər bir neçə təsdiqlənmiş şəfaət növlərini təsvir edirlər - hesabın başlaması, insanların Cənnətə daxil olması, günahkar möminlərin bağışlanması və ya cəhənnəmdən uzaqlaşdırılması - eyni zamanda son hökmün həmişə yalnız Allaha aid olduğu qənaətindədirlər.",
     ],
-    quran: [
-      {
-        excerpt: "Onun izni olmadan Onun yanında kim şəfaət edə bilər?",
-      },
-      {
-        excerpt:
-          "O gün Rəhmanın izn verdiyi və sözünü bəyəndiyi kimsədən başqa şəfaət fayda verməz.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İnsanlar mənim yanıma gələcək və mən də Rəbbimə səcdə edəcəyəm. sonra deyiləcək: Başını qaldır, istə və sənə veriləcək, şəfaət et və sənin şəfaətin qəbul olunacaq. (Əbu Səid - böyük şəfaət)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Yanlış fikir: Şəfaət tövbə ehtiyacını aradan qaldırar. İslah: Yalnız Allahın izni ilə baş verir və heç vaxt günahda israr etməyə icazə vermir.",
       "Yanlış fikir: İnsan indi peyğəmbərləri və ya salehləri şəfaət etməyə çağıra bilər. İslah: İbadət və dua yalnız Allaha məxsusdur; axirətdə şəfaət Onun təqdiri ilədir, Onun razılığı ilə istənilir.",
@@ -467,22 +284,8 @@ export const AQEDAH_TOPICS_AZ: DeepPartial<AqeedahTopic>[] = [
       "Peyğəmbərin (s) bir hədisində on əsas əlamət birlikdə adlandırılmışdır: Dəccalın zühuru, İsanın (Məryəm oğlu) enməsi, Yəcuc və Məcucun zühuru, üç böyük sürüşmə, tüstü, günəşin qərbdən çıxması və insanları son toplanışa aparan od.",
       "Alimlər bəzən bəzi əlamətlərin dəqiq ardıcıllığı ilə bağlı ixtilaf edirlər, lakin onlar iki şeydə həmfikirdirlər: Qiyamətin qopması mütləqdir və onun dəqiq vaxtı Allahdan başqa heç kəsə məlum deyil, hətta Cəbrail ondan soruşanda Peyğəmbərə (s) məlumdur. Buna görə də əlamətlərə peyğəmbərlik cavabı praktiki xarakter daşıyır, spekulyativ deyil: sonsuz proqnozdan daha çox iman, tövbə, ədalət və faydalı əməlləri artırın.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Səndən o Saat haqqında soruşurlar ki, o nə vaxt qopacaq? De: “Onun elmi ancaq Rəbbimin yanındadır.",
-      },
-      {
-        excerpt:
-          "Məgər onlar o Saatın qəflətən başlarına gəlməsinimi gözləyirlər? Onun əlamətləri artıq gəlib.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siz on əlamət görməyincə Qiyamət qopmayacaq: tüstü, Dəccal, Heyvan, qərbdən çıxan günəş, İsa, Yəcuc və Məcuc enməsi və üç sürüşmə... (Hüzeyfə ibn Useyd)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     misconceptions: [
       "Yanlış fikir: Hər bir böyük dünya hadisəsi mütləq son əlamətdir. Düzəliş: Bu cür iddialar sensasiya deyil, həqiqi sübut və elmi ehtiyat tələb edir.",
       "Yanlış fikir: İşarələri bilmək bizə Qiyamətin tarixini təyin etməyə imkan verir. Düzəliş: Dəqiq vaxt yalnız Allaha məlumdur; əlamətlər bizi proqnozlaşdırmağa deyil, hazırlamağa çağırır.",

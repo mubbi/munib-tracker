@@ -90,38 +90,38 @@ export const PROPHETS_GENEALOGY_NODES_UZ: DeepPartial<ProphetsGenealogyNode>[] =
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "Shis (Set)",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "Klassik islomiy anʼana (va bir qancha paygʻambarlar nasabining keng tarqalgan qisqacha bayoni) Shisni Odamning oʻgʻli va ilk avlodlar zanjirining bir halqasi deb ataydi. Shis va Nuh oʻrtasidagi oraliq ismlar asosan isroiliyotdan olingan boʻlib, mustahkam bogʻlanish sifatida chizilmagan.",
   },
   {
     name: "Idris",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "Qurʼon Idrisni yuksak martabaga koʻtarilgan siddiq paygʻambar deb ataydi. Klassik roʻyxatlar koʻpincha uni Odam va Nuh oʻrtasiga joylashtiradi (baʼzan uni Axnux bilan bir shaxs deb hisoblaydi), ammo Qurʼon uning otasini nomlamaydi — ota-ona bogʻlanishi chizilmagan.",
   },
   {
-    name: "Imran",
+    name: "Imron",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "Alloh Imron oilasini olamlar uzra tanladi. Maryam — Imronning qizi. (Bu Imron Maryamning otasi boʻlib, bu yerda Muso va Horun uchun ota bogʻlanishi sifatida ishlatilmagan.)",
   },
   {
-    name: "Adnan",
+    name: "Adnon",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "Islomiy anʼanaga koʻra, Muhammad ﷺ Adnon avlodidan, Adnon esa Ismoil avlodidandir — biroq arab nasabshunoslik anʼanasi Adnondan Ismoilgacha boʻlgan nomma-nom nasl yoʻqolgani haqida yakdil. Adnon adnoniy arablarning klassik manbalarda kelishilgan boshligʻi sifatida turadi; Ismoilga ota-ona bogʻlanishi chizilmagan.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Hoshim ibn Abdumanof",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "Hoshim — Bani Hoshim urugʻiga nom bergan zot va Paygʻambar ﷺning klassik manbalardagi ajdodi. Adnondan Hoshimgacha boʻlgan boshliqlarning toʻliq roʻyxati (Fihr, Muzar, …) siyratda qayd etilgan, ammo bu yerda paygʻambar boʻlmagan oraliq qabila avlodlari sifatida tushirib qoldirilgan. Bu xaritada Hoshim yaqin hoshimiylar shajarasining boshida turadi.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Abdulmuttalib",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "Abdulmuttalib (Shayba) — klassik siyratga koʻra, Paygʻambar ﷺning ota tomondan bobosi va Hoshimning oʻgʻli.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Abdulloh ibn Abdulmuttalib",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "Abdulloh — klassik siyratga koʻra, Paygʻambar Muhammad ﷺning otasi va Abdulmuttalibning oʻgʻli.",
   },
 ];

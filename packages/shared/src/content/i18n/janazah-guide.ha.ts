@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Ku Nufin Sallah da Halarta Don Allah, Ba Wajen Jama'a ba.",
       "Taimako tare da ayyuka masu amfani na iyali lokacin da za ku iya yin hakan cikin girmamawa.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Duk wanda ya halarci jana'izar har ya yi sallar gawa, yana da qirat xaya, kuma wanda ya halarci jana'izar, yana da qira'i biyu, kowanne kamar dutse mai girma.",
-      },
-      {
-        excerpt:
-          "Duk wanda ya bi jana'izar musulmi yana mai imani da neman lada, kuma ya tsaya har aka idar da sallah aka gama kabbara, zai dawo da qira'a biyu...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Wankewa da rufewa",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Tsaftace labulen mai sauƙi da tsabta - farar zane shine samfurin annabci.",
       "Guji yin hoto ko fallasa jiki ba tare da buƙata ba.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ka wanke ta sau uku, ko biyar, ko sama da haka, idan ka ga ya dace, da ruwa da sidr, a sa kafur ko kafur a wanken karshe.",
-      },
-      {
-        excerpt:
-          "An lullube Manzon Allah s.a.w da fararen tufafin audugar Yaman guda uku; Babu wata riga ko rawani a cikinsu.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Lokacin rufe idon mamaci",
@@ -63,12 +45,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Rufe idanu a hankali da yin dua na kwarai.",
       "Tunatar da iyali su yi magana mai kyau.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lokacin da idanun Abu Salamah suka lumshe, sai Manzon Allah SAW ya rufe su ya ce idan an dauki rai sai gani ya bi shi, sannan ya koya wa ’yan gida magana da alheri kawai.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Yadda ake sallar Janazah",
@@ -83,14 +60,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Kace takbirai hudu tare da liman.",
       "Yi addu'a ta gaskiya ga mamaci bayan takbir da ta dace.",
     ],
-    hadith: [
-      {
-        excerpt: "Annabi SAW yayi Sallar Jana'izar Negus ya yi takbirai hudu.",
-      },
-      {
-        excerpt: "Ibn Abbas yayi sallar jana'iza ya karanta fatiha yace daga sunnah ce.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Addu'o'i a Sallar jana'iza (babba)",
@@ -153,16 +123,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Lokacin sanya mamaci a cikin kabari, ana kiyaye addu'a ta qwarai a cikin Hisnul Muslim. Bayan an binne shi, Manzon Allah ﷺ yakan tsaya a bakin kabari yana cewa: ‘Ku nemi gafara ga dan’uwanku, kuma ku nemi a tabbatar masa da shi, domin yanzu ana tambayarsa’ (Sunan Abi Dawud 3221 — maluma da yawa daga baya suka inganta shi har da Albani).",
       "Gina ƙawancen gine-gine a kan kaburbura, yi musu ado don ado, ko rubuce-rubucen da ke ƙarfafa wuce gona da iri an gargaɗe su a cikin ingantattun rahotanni. Ci gaba da alamar sauƙaƙa inda doka da al'adar gida suka ba da izinin ganewa.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ku gaggauta zuwa ga jana'izar. In kuwa ba haka ba, kuna kwance wuyoyinku da mugunta.",
-      },
-      {
-        excerpt:
-          "Ka nemi gafarar dan uwanka kuma ka nemi a tabbatar masa da haquri, domin yanzu ana tambayarsa.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Bayan binne mamacin",
@@ -184,12 +145,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Ku gai da mazaunan kaburbura da ingantacciyar magana.",
       "Tunani akan mutuwa da sabunta ayyuka na qwarai.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Assalamu Alaikum Ya Ma'abuta Gidajen Muminai Da Musulmai. Za mu - in Allah Ya yarda - tare da ku. Muna rokon Allah ya jikan mu da ku.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Tunatarwa da kurakurai na gama gari",
@@ -206,12 +162,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Gaggauta jana'iza mai daraja.",
       "Taimakawa iyali da abinci da al'amura ba tare da sanya musu almubazzaranci ba.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah ba ya azabtar da ganin yagewar ido ko baqin cikin zuciya, sai dai yana azabtarwa ko ya nuna jinqai akan haka - sai ya nuna harshensa.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -228,11 +179,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Koyi jerin takbirai hudu kafin ka buƙace shi.",
       "Haddace Fatihah, salawat, da aƙalla addu'ar jana'iza ɗaya.",
     ],
-    hadith: [
-      {
-        excerpt: "Ibn Abbas ya yi sallar jana'iza ya karanta Fatihah, yana cewa daga sunnah ce.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Addu'o'i ga maza, mata, da yara",
@@ -267,15 +214,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Kada ka wanke shahidan fagen fama sabanin umarnin malami.",
       "Tambayi kwamitin jana'iza game da yanayin zubar da ciki ko haihuwar gawa.",
     ],
-    hadith: [
-      {
-        excerpt: "Annabi ﷺ ya umarci a binne shahidan Uhud da jininsu, kuma ba a wanke su ba.",
-      },
-      {
-        excerpt:
-          "Ana yin sallar jana'iza a kan zubar da ciki, kuma ana yin addu'a ga iyaye da gafara da rahama.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Janazah a rashin gawa",
@@ -291,14 +230,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Yi sallah a gida duk lokacin da gawa take nan.",
       "Tambaya kafin ka shirya Janazah a rashin gawa a matsayin taron jama'a.",
     ],
-    hadith: [
-      {
-        excerpt: "Annabi ﷺ ya yi sallar jana'iza ga Negus ya ce takbirai hudu.",
-      },
-      {
-        excerpt: "Manzon Allah ﷺ ya jera Sahabbai ya yi sallah ga Negus, yana cewa takbirai hudu.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "A gefen mutuwa — kalmomin ƙarshe",
@@ -312,15 +244,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "A hankali ka tunatar da mai mutuwa da shahadah.",
       "Ka sa ɗakin ya yi natsuwa kuma ya shagala da magana mai kyau.",
     ],
-    hadith: [
-      {
-        excerpt: "Ku tunatar da matattunku su ce: la ilaha illallah.",
-      },
-      {
-        excerpt:
-          "Wanda kalmominsa na ƙarshe suka zama 'Babu wanda ya cancanta a bauta masa sai Allah' zai shiga Aljannah.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Addu'o'in bege na rai" }, { label: "Rufe idanu" }],
   },
   {
@@ -336,12 +260,7 @@ export const JANAZAH_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
       "Taimaka da abinci da ayyuka maimakon jiran liyafa.",
       "Ci gaba da addu'a mai natsuwa da sadaqah ga mamaci.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Babu Musulmi da aka sami bala'i ya ce kalmomin komawa ga Allah da aka umarta ya nemi maye da mafi kyau, sai Allah ya maye masa da mafi kyau.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Manufofin sadaqah" }],
   },
 ];

@@ -11,12 +11,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Agjërimi i tri ditëve të çdo muaji është sunet i theksuar i Profetit ﷺ, ndërsa Ditët e Bardha janë tri ditët e rekomanduara. Xherir ibn Abdullah transmeton se Profeti ﷺ ka thënë: “Agjërimi i tri ditëve të çdo muaji është si agjërimi gjatë gjithë jetës, dhe Ditët e Bardha janë e trembëdhjeta, e katërmbëdhjeta dhe e pesëmbëdhjeta” (Sunen en-Nesai 2422).",
       "Meqë muaji hixhri ndjek hënën, këto tri ditë lëvizin çdo muaj në kalendarin gregorian dhe mund të nisin një ditë më herët ose më vonë, sipas shikimit të hënës së re në rajonin tuaj. Aplikacioni i llogarit sipas kalendarit të vet hixhri.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Agjërimi i tri ditëve të çdo muaji është si agjërimi gjatë gjithë jetës, dhe Ditët e Bardha janë e trembëdhjeta, e katërmbëdhjeta dhe e pesëmbëdhjeta.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Hapni pamjen e fazës së hënës për të parë kur bien Ditët e Bardha të këtij muaji.",
       "Shënoni tri datat që të planifikoni syfyrin dhe iftarin.",
@@ -32,19 +27,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Abdullah ibn Amri transmeton se Profeti ﷺ i tha: “Mjafton të agjërosh tri ditë në muaj, sepse shpërblimi i veprës së mirë shumëfishohet dhjetë herë; kështu është si agjërimi i tërë vitit” (Sahih el-Buhari 1975). Në një transmetim tjetër: “Agjërimi i tri ditëve në muaj është i barabartë me agjërimin e tërë vitit” (Sahih el-Buhari 1979).",
       "Për këtë arsye tri ditë të thjeshta, të mbajtura me vazhdimësi, janë aq të dashura: janë të lehta për trupin, por me bujarinë e Allahut peshojnë si agjërimi i një jete. Ditët e Bardha janë thjesht tri ditët e zgjedhura nga suneti.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kush vjen me një vepër të mirë, do të ketë dhjetëfishin e saj; kurse kush vjen me një vepër të keqe, nuk do të shpërblehet veçse me të ngjashmen e saj dhe nuk do t’u bëhet padrejtësi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mjafton të agjërosh tri ditë në muaj, sepse shpërblimi i veprës së mirë shumëfishohet dhjetë herë; kështu është si agjërimi i tërë vitit.",
-      },
-      { excerpt: "Agjërimi i tri ditëve në muaj është i barabartë me agjërimin e tërë vitit." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Rinovoni nijetin një natë më parë, për hir të Allahut dhe duke kërkuar shpërblimin e Tij.",
       "Synoni vazhdimësinë: tri ditë të thjeshta çdo muaj, jo përpjekje që nuk mund t’i mbani.",
@@ -58,22 +42,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "I Dërguari i Allahut ﷺ urdhëronte shprehimisht agjërimin e tyre. Ibn Milhan el-Kajsi transmeton nga babai i tij: “I Dërguari i Allahut ﷺ na urdhëronte të agjëronim Ditët e Bardha: të trembëdhjetën, të katërmbëdhjetën dhe të pesëmbëdhjetën”, dhe tha: “Kjo është si agjërimi i përhershëm” (Sunen Ebu Davud 2449). Ebu Dherri transmeton: “Kur të dëshirosh të agjërosh tri ditë në muaj, agjëro të trembëdhjetën, të katërmbëdhjetën dhe të pesëmbëdhjetën” (Xhami et-Tirmidhi 761).",
       "Nëse nuk mund t’i agjëroni të tria për shkak të udhëtimit, sëmundjes ose sepse dita ka nisur pa nijet, agjëroni sa të mundeni; edhe një ose dy ditë kanë shpërblim të shumëfishuar. Agjërimi vullnetar mund të niset me nijet në mëngjes nëse nuk keni ngrënë. Gruaja nuk agjëron gjatë menstruacioneve dhe e vazhdon sunetin në muajt kur mundet; për këto agjërime vullnetare nuk kërkohet kompensim.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "I Dërguari i Allahut ﷺ na urdhëronte të agjëronim Ditët e Bardha: të trembëdhjetën, të katërmbëdhjetën dhe të pesëmbëdhjetën e muajit. Tha: Kjo është si agjërimi i përhershëm.",
-      },
-      {
-        excerpt:
-          "Kur të dëshirosh të agjërosh tri ditë në muaj, agjëro të trembëdhjetën, të katërmbëdhjetën dhe të pesëmbëdhjetën.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "O besimtarë, ju është bërë detyrë agjërimi, ashtu siç u ishte bërë detyrë atyre para jush, që të bëheni të devotshëm.",
-      },
-    ],
+    hadith: [{}, {}],
+    quran: [{}],
     actions: [
       "Bëni nijet të agjëroni Ditët e Bardha për Allahun.",
       "Agjëroni sa mundeni; edhe një ose dy ditë vlejnë kur të tria nuk janë të mundshme.",
@@ -90,12 +60,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Disa njerëz zgjedhin t’i mbajnë tri ditët mujore të hënave dhe të enjteve në vend të datave 13–15, dhe edhe kjo e përmbush sunetin e tri ditëve në muaj. Të tjerë i bashkojnë të dyja kur munden. Qëllimi është një zakon i qëndrueshëm dhe i sinqertë, jo një formulë e ngurtë.",
       "Zgjidhni ritmin që mund ta ruani. Nëse Ditët e Bardha ju përshtaten, ndiqini këtu; nëse e hëna dhe e enjtja janë më të lehta, mbajini ato. Allahu e do më shumë veprën e vazhdueshme, edhe kur është e vogël.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "I Dërguari i Allahut ﷺ u pyet për agjërimin e së hënës. Tha: Atë ditë kam lindur dhe atë ditë më është zbritur shpallja.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Zgjidhni një ritëm të qëndrueshëm: Ditët e Bardha, të hënën dhe të enjten, ose të dyja.",
       "Qëndroni të rregullt; një vepër e vogël e bërë vazhdimisht është e dashur për Allahun.",

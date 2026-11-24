@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Ikiwa funga haiwezekani kabisa, muulize mwanachuoni kuhusu fidyah kwa kila siku uliyokosa.",
       "Ikiwa ulifungua kwa makusudi, usitegemee makadirio ya programu - muulize mwanachuoni ni uamuzi gani unatumika.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Na juu ya wale wanaoweza [kufunga, lakini kwa shida] - fidia ya kumlisha masikini... Na aliye mgonjwa au yuko safarini basi iwe sawa katika masiku mengine.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Fidyah ni nini kwa funga ulizokosa?",
@@ -37,12 +32,7 @@ export const FIDYAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Tumia msikiti wa eneo lako au kiwango cha fidya cha baraza kwa siku kinapopatikana.",
       "Zidisha siku × mlo mmoja (au kitengo cha fidya kilichochapishwa) kwa makadirio ya kupanga.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Na juu ya wale wanaoweza [kufunga, lakini kwa shida] - fidia ya kumlisha masikini. Na anaye jitolea kwa wema basi ni bora kwake. Na kufunga ni bora kwenu ikiwa mnajua.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Nani kwa kawaida hulipa fidyah?",
@@ -54,18 +44,8 @@ export const FIDYAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Uainishaji wa ujauzito, kunyonyesha, na ugonjwa sugu ni uamuzi wa kitaalamu. Mada hii ni ya kielimu tu.",
-    quran: [
-      {
-        excerpt:
-          "...Basi mwenye kuutazama mwezi mwandamo na aufunge; Na mwenye kuwa mgonjwa au yuko safarini basi iwe sawa katika siku nyingine. Mwenyezi Mungu anakutakieni yaliyo mepesi wala hakutakieni yaliyo mazito...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mtu mmoja alisema: Mama yangu alikufa kwa sababu ya kufunga. Je, nifunge kwa niaba yake? Mtume (Swalla Allaahu ´alayhi wa sallam) akasema: Ndio - deni la Mwenyezi Mungu lina haki zaidi ya kulipwa.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kaffarah kwa kuvunja mfungo kimakusudi",
@@ -80,16 +60,7 @@ export const FIDYAH_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
       "Muulize mwanachuoni aliyehitimu ni malipo gani - ikiwa yapo - unayodaiwa.",
       "Ikiwa kulisha maskini sitini ndilo chaguo unaweza kutimiza, tumia gharama ya chakula cha ndani × 60 kama takwimu ya kupanga.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Mtu mmoja akasema: Nimeharibika, ewe Mtume wa Mwenyezi Mungu, nilimuingilia mke wangu katika Ramadhani. Aliulizwa juu ya kumwacha huru mtumwa, kufunga miezi miwili mfululizo, na kulisha masikini sitini.",
-      },
-      {
-        excerpt:
-          "Tulipokuwa tumekaa na Mtume ﷺ akaja mtu akasema: Mimi nimeharibikiwa... Alimuingilia mke wake akiwa amefunga...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Jinsi ya kutumia msaidizi huyu",

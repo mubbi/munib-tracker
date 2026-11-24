@@ -2,249 +2,223 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // ku overlay for new-muslim. Index-aligned with NEW_MUSLIM_TOPICS in ../new-muslim.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const NEW_MUSLIM_TOPICS_KU: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "Welcome to Islam",
-    summary: "A short, practical map for the first days and weeks of your journey.",
+    title: "بەخێربێیت بۆ ئیسلام",
+    summary: "نەخشەیەکی کورت و کرداری بۆ یەکەم ڕۆژ و هەفتەکانی گەشتەکەت.",
     body: [
-      "Congratulations — and welcome. Becoming Muslim is not a finish line but the start of a lifelong relationship with Allah, one that grows gradually through knowledge, worship, and community, not all at once. Nobody expects you to know everything on day one; every Muslim, including the Prophet's ﷺ own companions, learned their religion step by step.",
-      "One of the most comforting teachings for someone new to Islam is that your past is genuinely behind you: 'Do you not know that Islam demolishes what preceded it?' the Prophet ﷺ told a companion who worried about his past sins. You are starting with a clean record before Allah.",
-      "This guide covers the essentials — what the shahada means, the five pillars, the basics of faith, and a first look at prayer — then points you to the full Salah, Aqeedah, Learn Dua, and Qur'an guides in this app for real depth. Take it one section at a time.",
+      "پیرۆزە — و بەخێربێیت. موسڵمانبوون هێڵی کۆتایی نییە، بەڵکو سەرەتای پەیوەندییەکی هەمیشەییە لەگەڵ خوادا، کە بە هێواشی و لە ڕێگەی زانست و پەرستش و کۆمەڵگەوە گەشە دەکات، نەک بە یەکجار. کەس چاوەڕێ ناکات لە یەکەم ڕۆژدا هەموو شتێک بزانیت؛ هەموو موسڵمانێک، تەنانەت هاوەڵانی خودی پێغەمبەریش ﷺ، ئایینەکەیان هەنگاو بە هەنگاو فێر بوون.",
+      "یەکێک لە دڵنەواییبەخشترین فێرکارییەکان بۆ کەسێک کە تازە هاتووەتە ناو ئیسلامەوە ئەوەیە کە ڕابردووت بە ڕاستی لە پشتتەوە ماوە: پێغەمبەر ﷺ بە هاوەڵێک کە نیگەرانی گوناهە ڕابردووەکانی بوو فەرمووی: «Do you not know that Islam demolishes what preceded it?» (واتای ئینگلیزی). تۆ بە پەڕاوێکی پاکەوە لەبەردەم خوادا دەست پێدەکەیت.",
+      "ئەم ڕێبەرە بنەڕەتییەکان دەگرێتەوە — واتای شایەتمان، پێنج پایەکەی ئیسلام، بنەماکانی باوەڕ، و یەکەم سەیرکردنێک بۆ نوێژ — پاشان ئاراستەت دەکات بۆ ڕێبەرە تەواوەکانی نوێژ، عەقیدە، فێربوونی دوعا و قورئان لەم ئەپەدا بۆ قووڵبوونەوەی ڕاستەقینە. بەشێک لە دوای بەشێک بیخوێنەرەوە.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Do you not know that Islam demolishes what preceded it, that the Hijra demolishes what preceded it, and the Pilgrimage demolishes what preceded it? (to 'Amr ibn al-'As)",
-      },
+    hadith: [{}],
+    actions: [
+      "بە هەنگاوی خۆت بڕۆ — لە هەر دانیشتنێکدا یەک بەش لەم ڕێبەرە بخوێنەرەوە، نەک هەمووی بە یەکجار.",
+      "ئەو پرسیارانەی لە کاتی خوێندنەوەدا دێنە مێشکت بنووسە؛ دواتر بیانبە بۆ مامۆستایەک یان هاوڕێیەکی شارەزا.",
+    ],
+  },
+  {
+    title: "واتای شایەتمان",
+    summary: "دوو ڕستەی کورت کە هەموو واتای ئیسلام لەخۆ دەگرن.",
+    body: [
+      "شایەتمان — شایەتیدانی باوەڕ — ئەمەیە: «أشهد أن لا إله إلا الله، وأشهد أن محمدًا رسول الله» («شایەتی دەدەم کە هیچ پەرستراوێک نییە جگە لە خوا، و شایەتی دەدەم کە محەممەد نێردراوی خوایە»). دوو بەشی هەیە و هەردووکیان گرنگن.",
+      "بەشی یەکەم، «لا إله إلا الله»، واتە هیچ کەس و هیچ شتێکی تر — نە پارە، نە پلە و پایە، نە باوباپیران، نە بت، نە هیچ دروستکراوێک — شایستەی پەرستن، گوێڕایەڵی وەک کرداری پەرستن، یان پشتبەستنی کۆتایی نییە جگە لە خوای تاک و تەنها. ئەمە دەربڕینێکە دەربارەی ئەوەی کێ مافی پەرستنی هەیە، نەک تەنها ئەوەی کێ بوونی هەیە.",
+      "بەشی دووەم دووپاتی دەکاتەوە کە محەممەد ﷺ دوایین نێردراوی خوایە، کە بە ڕێنمایییەوە بۆ هەموو مرۆڤایەتی نێردراوە. دانپێدانان بەمەدا واتە متمانەکردن بەوەی ئەو ﷺ دەربارەی خوا، پەرستن و چۆنیەتی ژیان فێری کردووە — هەر بۆیەشە قورئان و فێرکارییە دروستەکانی ئەو (سوننەت) ئەو دوو سەرچاوەیەن کە هەموو ئەم ڕێبەرە لێیانەوە وەرگیراوە.",
+      "ئەم شایەتیدانە فۆرمولێکی جادوویی نییە، بەڵکو وەسفی بڕوایەکی جێگیری دڵە. گوتنی بە دڵسۆزی، لەگەڵ تێگەیشتن لە واتاکەی، ئەوەیە کە مرۆڤ دەکاتە موسڵمان — واتە «ئەو کەسەی خۆی بە دەستی خوا دەسپێرێت».",
+    ],
+    quran: [{}],
+    appLinks: [{ label: "فێربوونی عەقیدە — باوەڕ بە خوا" }],
+  },
+  {
+    title: "موسڵمانبوون",
+    summary: "گوتنی شایەتمان بە دڵسۆزی — لەگەڵ تێگەیشتن و نیەت — ئەوەیە کە گرنگە.",
+    body: [
+      "بۆ موسڵمانبوون پێویستت بە قەشە، ڕێوڕەسم، پارەدان یان بەڵگەنامە نییە. ئەوەی پێویستە دڵسۆزییە: تێگەیشتن لە واتای شایەتمان و گوتنی بە نیەتی وەرگرتنی وەک باوەڕی خۆت، لە نێوان خۆت و خوادا.",
+      "زۆر کەس هەڵدەبژێرن لەبەردەم کەسانی تردا بیڵێن — ئیمامێکی ناوچەکە، کۆمەڵگەی مزگەوتێک، یان هاوڕێیان — چونکە شایەت بۆ ئەو ساتە دابین دەکات و هەر لە یەکەم ڕۆژەوە بە تۆڕێکی پشتگیرییەوە دەتبەستێتەوە؛ ئەمە کارێکی بە فراوانی پێشنیارکراوە، نەک مەرجێکی توند بۆ خودی شایەتیدانەکە.",
+      "هەندێک لە موسڵمانە نوێیەکان لەو کاتەدا غوسڵیش دەکەن (شۆردنی تەواوی جەستە بە شێوەی شەرعی) وەک دەستپێکێکی نوێی هێمادار و کرداری پێش فێربوونی نوێژ؛ ڕەفتار و بۆچوونەکان دەربارەی کات و چۆنیەتی وردی جیاوازن لە نێوان کۆمەڵگەکاندا، بۆیە لە مامۆستایەکی ناوچەکەت بپرسە چی لای ئێوە باوە، لەجیاتی ئەوەی بە خەمڵاندن کار بکەیت.",
+      "ئەگەر هێشتا لە قۆناغی گەڕان و لێکۆڵینەوەدایت و دڵنیا نیت، ئەوە قۆناغێکی ئاسایی و ڕێزلێگیراوە — بخوێنەرەوە، پرسیار بکە و کاتی خۆت بدە. شایەتمان بۆ ئەوەیە بە بڕواوە بگوترێت، نەک لەژێر فشاردا.",
     ],
     actions: [
-      "Go at your own pace — read one section of this guide per sitting rather than all at once.",
-      "Write down the questions that come up as you read; bring them to a teacher or knowledgeable friend later.",
+      "ئەگەر ئامادەیت، بیر لەوە بکەرەوە شایەتمان لە ئامادەبوونی ئیمامێکی ناوچەکە، کۆمەڵگەی مزگەوتێک، یان هاوڕێ موسڵمانە متمانەپێکراوەکانتدا بڵێیت.",
+      "لە مزگەوتێک یان مامۆستایەکی ناوچەکەت بپرسە دەربارەی هەر هەنگاوێکی دواتری باو (وەک غوسڵ) لە کۆمەڵگەکەتدا.",
     ],
   },
   {
-    title: "What the Shahada Means",
-    summary: "Two short sentences that carry the entire meaning of Islam.",
+    title: "پێنج پایەکەی ئیسلام",
+    summary: "ئیسلام لەسەر پێنج پەرستشی بنەڕەتی وەستاوە، کە پێغەمبەر ﷺ پێکەوە ناوی هێناون.",
     body: [
-      "The shahada — the testimony of faith — is: 'Ash-hadu an la ilaha illallah, wa ash-hadu anna Muhammadan rasulullah' ('I bear witness that there is no god but Allah, and I bear witness that Muhammad is the Messenger of Allah'). It has two parts, and both matter.",
-      "The first part, la ilaha illallah, means no one and nothing else — not money, status, ancestors, idols, or any created being — deserves worship, obedience as an act of devotion, or ultimate reliance except Allah alone. It is a statement about who has the right to be worshipped, not merely who exists.",
-      "The second part affirms that Muhammad ﷺ is Allah's final messenger, sent with guidance for all people. Affirming this means trusting what he ﷺ taught about Allah, worship, and how to live — which is exactly why the Qur'an and his authentic teachings (the Sunnah) are the two sources this whole guide draws from.",
-      "This testimony is not a magic formula but a description of a settled conviction of the heart. Saying it sincerely, understanding what it means, is what makes a person Muslim — 'one who submits.'",
+      "پێغەمبەر ﷺ پێکهاتەی کردەوەی ئیسلامی لە یەک فەرموودەدا کورت کردەوە: ئیسلام لەسەر پێنج پایە بنیات نراوە — شایەتیدان کە هیچ پەرستراوێک نییە جگە لە خوا و محەممەد نێردراوی ئەوە (شایەتمان)؛ ئەنجامدانی پێنج نوێژە ڕۆژانەکە (نوێژ)؛ دانی خێری فەرزی ساڵانە (زەکات)؛ ڕۆژووگرتنی مانگی ڕەمەزان؛ و ئەنجامدانی حەج بۆ مەککە بەلایەنی کەمەوە یەک جار، بۆ ئەوانەی توانایان هەیە.",
+      "وەک خانوویەک بیریان لێ بکەرەوە: شایەتمان بناغەیە کە هەموو شتێک لەسەری وەستاوە، و چوارەکەی تر ئەو کۆڵەکانەن کە بیناکە ڕادەگرن — پەرستشی بەردەوام (نوێژ)، بەخشینی بەردەوام (زەکات)، مانگێکی ساڵانەی خۆڕاگرتن (ڕۆژوو)، و گەشتێکی پەرستشی یەک جار لە ژیاندا (حەج) بۆ ئەوانەی تەندروستی و توانای دارایی گەشتکردنیان هەیە.",
+      "پێویست ناکات دەستبەجێ هەر پێنجیان بە تەواوی فێر بیت. شایەتمانت پێشتر ناسیوە؛ نوێژ لە بەشی داهاتووی ئەم ڕێبەرەدا باس دەکرێت؛ زەکات و ڕۆژوو بە هێواشی فێر دەبیت هەر کاتێک لە ساڵدا کاتیان هات؛ حەجیش بۆ دواتر لە ژیاندا پلانی بۆ دادەنرێت کاتێک بارودۆخ ڕێگە دەدات.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allah witnesses that there is no deity except Him, and [so do] the angels and those of knowledge... There is no deity except Him, the Exalted in Might, the Wise.",
-      },
-    ],
+    hadith: [{}],
   },
   {
-    title: "Becoming Muslim",
-    summary: "Sincerely saying the shahada — with understanding and intention — is what counts.",
+    title: "زەکات، ڕۆژوو و حەج بە کورتی",
+    summary: "سێ پایە کە لەگەڵ کاتدا دێن — پێویست ناکات ئەمڕۆ کاریان پێ بکەیت.",
     body: [
-      "There is no priest, ceremony, fee, or paperwork required to become Muslim. What is required is sincerity: understanding the shahada's meaning and saying it with the intention of embracing it as your belief, between you and Allah.",
-      "Many people choose to say it in front of others — a local imam, a mosque community, or friends — because it gives witnesses to the moment and connects you to a support network from day one; this is a widely recommended practice rather than a strict requirement for the testimony itself.",
-      "Some new Muslims also perform ghusl (a full ritual wash) around this time as a symbolic and practical fresh start before learning to pray; practices and views on exactly when and how vary between communities, so ask a local teacher what is customary near you rather than guessing.",
-      "If you are still exploring rather than certain, that is a normal and respected stage — read, ask questions, and take your time. The testimony is meant to be said with conviction, not under pressure.",
+      "زەکات بڕێکی فەرزی ساڵانەیە — ڕێژەیەکی سەدیی بچووک و جێگیر — لەسەر پاشەکەوت و ئەو سامانەی کە مەرجەکانی تێدایە و لە کەمترین سنوور (نیساب) زیاترە، و دەدرێت بە چەند پۆلێکی دیاریکراوی پێویستیداران. بە زۆری کاتێک پەیوەندیدار دەبێت کە نزیکەی ساڵێک پاشەکەوتت لەلا بووبێت، بۆیە پەلە نییە؛ ڕێبەری زەکاتی ئەپەکە هەموو وردەکارییەکان ڕوون دەکاتەوە هەر کاتێک پێویستت پێی بوو.",
+      "ڕۆژووی ڕەمەزان واتە خۆگرتنەوە لە خواردن، خواردنەوە و پەیوەندی هاوسەری لە پێش بەرەبەیانەوە تا خۆرئاوابوون بۆ ماوەی مانگێکی قەمەری لە هەر ساڵێکدا، لەگەڵ نوێژ و خوێندنەوەی قورئانی زیاتر. پایەیەکی ماندووکەرە بەڵام پاداشتێکی زۆری هەیە، و زۆربەی موسڵمانە نوێیەکان بە ڕێنمایی کۆمەڵگەکەیان، نەک بە تەنها، بە هێواشی ڕاهاتنی لەسەر دەکەن.",
+      "حەج گەشتی پەرستشە بۆ مەککە، کە تەنها یەک جار لە ژیاندا فەرزە، ئەویش تەنها بۆ ئەوانەی لە ڕووی جەستەیی و داراییەوە توانای ئەو گەشتەیان هەیە. ئەگەر ئێستا لە توانای تۆدا نییە، هیچ بارێک لەسەر شانت نییە — خوا تەنها ئەوەندە داوا دەکات کە مرۆڤ توانای هەیە.",
     ],
+    appLinks: [{ label: "ڕێبەری زەکات" }],
+  },
+  {
+    title: "پایەکان چۆن ژیانی ڕۆژانە دادەڕێژن",
+    summary: "پێنج پایەکە باوەڕ دەکەنە ڕیتمێک کە بە ڕاستی دەیژیت، ڕۆژ بە ڕۆژ و ساڵ بە ساڵ.",
+    body: [
+      "یەکێک لەو شتانەی کە موسڵمانە نوێیەکان زۆرجار بە جوانترینی دەزانن ئەوەیە کە پایەکان چۆن ڕیتمێک دەخەنە ناو ژیانی ئاسایییەوە: پێنج وەستانی کورت بۆ نوێژ لە هەموو ڕۆژێکدا، وەرزێکی ساڵانەی ڕۆژوو و تێڕامان، کارێکی ساڵانەی بەخشین، و — لە کۆتاییدا — حەجێکی یەک جار لە ژیاندا. هیچ کامیان بیردۆزی ئایینیی ڕووت نییە؛ هەموویان لە ژیاندا پیادە دەکرێن.",
+      "ئەم ڕیتمە بۆ ئەوەیە بەردەوام بێت، نەک قورس و بێتاقەتکەر. پێغەمبەر ﷺ فێری کردین کە خۆشەویستترین کردەوەکان لای خوا ئەوانەن کە بە بەردەوامی ئەنجام دەدرێن، با کەمیش بن — نەک گوڕوتینێکی کتوپڕ کە زوو دەکوژێتەوە. سەرەتا خووی بچووک و جێگیر دروست بکە؛ قووڵی لەگەڵ کاتدا دێت.",
+    ],
+    hadith: [{}],
     actions: [
-      "If you are ready, consider saying the shahada in the presence of a local imam, mosque community, or trusted Muslim friends.",
-      "Ask a local mosque or teacher about any customary next steps (such as ghusl) in your community.",
+      "لەم هەفتەیەدا یەک خووی بچووک و بەردەوام هەڵبژێرە بۆ دەستپێکردن، لەجیاتی ئەوەی هەوڵ بدەیت هەموو شتێک بە یەکجار بکەیت.",
     ],
   },
   {
-    title: "The Five Pillars of Islam",
-    summary: "Islam rests on five foundational acts of worship, named together by the Prophet ﷺ.",
+    title: "شەش ڕوکنەکەی ئیمان",
+    summary: "ئەوەی موسڵمان باوەڕی پێیەتی، لە شەش خاڵدا کە ڕاستەوخۆ پێغەمبەر ﷺ فێری کردووە.",
     body: [
-      "The Prophet ﷺ summarised the structure of Islamic practice in one hadith: Islam is built on five pillars — testifying that there is no god but Allah and that Muhammad is His Messenger (shahada); establishing the five daily prayers (salah); giving the obligatory annual charity (zakah); fasting the month of Ramadan; and performing the pilgrimage to Makkah (Hajj) at least once, for those who are able.",
-      "Think of them as a house: the shahada is the foundation everything rests on, and the other four are the pillars that hold the structure up — regular worship (salah), regular giving (zakah), an annual month of self-discipline (fasting), and a once-in-a-lifetime pilgrimage (Hajj) for those with the health and means to travel.",
-      "You do not need to master all five immediately. The shahada you have already learned about; salah is covered next in this guide; zakah and fasting are learned gradually as they come around each year; Hajj is planned for later in life when circumstances allow.",
+      "ئەگەر پێنج پایەکە ئەوە بن کە موسڵمان دەیکات، ئەوا شەش ڕوکنەکەی ئیمان (باوەڕ) ئەوەن کە موسڵمان باوەڕی پێیەتی. سەرچاوەیان فەرموودەی جوبرەئیلە، کە تێیدا فریشتە جوبرەئیل بە شێوەی پیاوێک لەبەردەم هاوەڵانی کۆبووەوەدا داوای لە پێغەمبەر ﷺ کرد ئیمان ڕوون بکاتەوە.",
+      "پێغەمبەر ﷺ وەڵامی دایەوە: باوەڕبوون بە خوا؛ بە فریشتەکانی؛ بە کتێبە دابەزێنراوەکانی؛ بە پێغەمبەرەکانی؛ بە ڕۆژی دوایی؛ و بە قەدەر — خێر و تاڵییەکەی. ئەم شەشە یەک وێنەی بەیەکەوە بەستراوی ڕاستی پێکدەهێنن: کێ تۆی دروست کردووە، کێ جیهانی نادیار بەڕێوە دەبات، ڕێنمایی چۆن گەیشتە مرۆڤایەتی، کێ گەیاندی، ژیان بەرەو کوێ دەچێت، و چۆن هەم ئاسانی و هەم سەختی بە متمانە بە خوا هەڵبگریت.",
+      "پێویست ناکات ئەمڕۆ فەلسەفەی پشت هەر ڕوکنێک بە تەواوی فێر بیت — ڕێبەری عەقیدە لەم ئەپەدا هەر شەشیان بە قووڵی ڕوون دەکاتەوە، لەگەڵ بەڵگەکانی پشت هەر یەکێکیان، هەر کاتێک ئامادە بوویت بۆ قووڵبوونەوە.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Islam is built upon five: testifying that there is no god but Allah and that Muhammad is His Messenger, establishing prayer, giving zakah, Hajj, and fasting Ramadan. (Ibn 'Umar; also Sahih Muslim 16)",
-      },
-    ],
+    hadith: [{}],
+    appLinks: [{ label: "فێربوونی عەقیدە — شەش ڕوکنەکە" }],
   },
   {
-    title: "Zakah, Fasting, and Hajj at a Glance",
-    summary: "Three pillars that come with time — you don't need to act on them today.",
+    title: "خوا کێیە؟",
+    summary: "یەک خوا، بێ هاوبەش، بێ هاوتا و بێ پێویستی — کە بە ناوە جوانەکانی خۆی وەسف کراوە.",
     body: [
-      "Zakah is a yearly obligatory charge — a small, fixed percentage — on savings and qualifying wealth above a minimum threshold (nisab), given to specific categories of people in need. It usually becomes relevant once you have held savings for about a year, so there is no rush; the app's Zakat guide covers the full detail whenever you need it.",
-      "Fasting Ramadan means abstaining from food, drink, and marital relations from before dawn until sunset for one lunar month each year, alongside extra prayer and Qur'an reading. It is a demanding but deeply rewarding pillar that most new Muslims ease into with guidance from their community rather than alone.",
-      "Hajj is the pilgrimage to Makkah, obligatory once in a lifetime only for those who are physically and financially able to make the journey. If it is not within your means right now, there is no burden on you — Allah only asks what a person is able to give.",
+      "«اللە» ناوی تایبەتی خوایە لە ئیسلامدا — خوایەکی جیاواز نییە، بەڵکو هەمان یەک دروستکاری ڕاستەقینەیە کە کتێبە ئاسمانییەکانی پێشوو ئاماژەیان پێدابوو، و ئێستا بە ناوێک کە خۆی هەڵیبژاردووە دەناسرێت و بە سیفەتە وەحیکراوەکانی وەسف دەکرێت، نەک بە گومان و خەیاڵی مرۆڤ.",
+      "ڕوونترین وەسفی کورت لە قورئاندا سوورەتی ئیخلاسە: ئەو تاک و تەنهایە؛ هیچ هاوبەش و هاوتایەکی نییە؛ نە منداڵی بووە و نە لە کەس بووە. خوا جەستەیەکی نییە کە بتوانیت وێنای بکەیت و هەرگیز نابێت هیچ وێنەیەک بۆ نیشاندانی دروست بکرێت — ناسینی ئەو لە ڕێگەی ناوەکانییەوە دێت (وەک زۆر میهرەبان، زانای هەموو شت، بیسەری هەموو شت) و کارەکانی لە دروستکراوەکاندا، نەک لە ڕێگەی وێنە یان بەراوردی جەستەیی.",
+      "ناسینی خوا لە ڕێگەی ناوەکانییەوە زۆرجار ئارامبەخشترین بەشی باوەڕی سەرەتاییە بۆ دڵ: هەتا زیاتر بزانیت ئەو چۆنە، نوێژ و پشتبەستنی ڕۆژانە پێی زیاتر کەسی و زیندوو دەبن، نەک میکانیکی.",
     ],
+    quran: [{}],
+    appLinks: [{ label: "ناوەکانی خوا" }],
   },
   {
-    title: "How the Pillars Shape Daily Life",
+    title: "قورئان و دوایین پەیام",
+    summary: "قورئان فەرمایشتی خودی خوایە، کە لەوەتەی دابەزیوە بێ گۆڕان پارێزراوە.",
+    body: [
+      "موسڵمانان باوەڕیان وایە کە قورئان فەرمایشتی ڕاستەقینەی خوایە، کە ماوەی نزیکەی 23 ساڵ بۆ پێغەمبەر محەممەد ﷺ دابەزیوە، و لەو کاتەوە وشە بە وشە پارێزراوە — نەوە دوای نەوەی موسڵمانان لەبەریان کردووە و هەرگیز نەگۆڕدراوە.",
+      "ژیاننامەی پێغەمبەر ﷺ یان کتێبی مێژوو نییە، هەرچەندە هەم ڕێنمایی و هەم چیرۆکی پێغەمبەرانی پێشووی تێدایە؛ پێش هەموو شتێک کتێبی ڕێنماییە بۆ ئەوەی بخوێنرێتەوە، تیلاوەت بکرێت، تێی ڕابمێنرێت و پیادە بکرێت، کەم کەم.",
+      "بۆ دەستپێکردن پێویست ناکات عەرەبی بخوێنیتەوە. بە وەرگێڕانێک بە زمانێک کە لێی تێدەگەیت دەست پێ بکە، بە هەر ڕیزبەندییەک کە سەرنجت ڕادەکێشێت، و با ئاشنابوونت بە تیلاوەتی عەرەبی بە هێواشی لەگەڵ نوێژەکەتدا گەشە بکات.",
+    ],
+    quran: [{}],
+    appLinks: [{ label: "خوێندنەوەی قورئان" }],
+  },
+  {
+    title: "چۆن نوێژ بکەیت — وێنە گشتییەکە",
     summary:
-      "The five pillars turn belief into a rhythm you actually live, day by day and year by year.",
+      "پێنج نوێژی کورت لە ڕۆژێکدا، هەریەکەیان زنجیرەیەکی دیاریکراوی وەستان، ڕکووع و سوجدەبردنە.",
     body: [
-      "One of the things new Muslims often find most beautiful is how the pillars build a rhythm into ordinary life: five short pauses for prayer every day, a yearly season of fasting and reflection, an annual act of giving, and — eventually — a once-in-a-lifetime pilgrimage. None of it is abstract theology; all of it is lived.",
-      "This rhythm is meant to be sustainable, not overwhelming. The Prophet ﷺ taught that the deeds most loved by Allah are the ones kept up consistently, even if small — not sudden bursts of intensity that burn out. Build small, steady habits first; depth will come with time.",
+      "نوێژ ڕۆژانە پێنج جار لە کاتە دیاریکراوەکاندا دەکرێت — بەیانی (فەجر)، نیوەڕۆ (زوهر)، عەسر، ئێوارە (مەغریب) و خەوتنان (عیشا) — و کاتێک شێوازەکەی فێر بوویت هەر جارەی تەنها چەند خولەکێک دەخایەنێت. کاتەکانی نوێژ و شوێنپێهەڵگرەکەی ئەم ئەپە بە وردی پیشانت دەدەن کە هەر کاتێک لە شوێنی تۆدا کەی دەست پێدەکات.",
+      "هەر نوێژێک لە چەند یەکەیەک پێکدێت کە پێیان دەوترێت ڕکات (فەجر دوو ڕکاتە، زوهر و عەسر و عیشا چوار ڕکاتن، مەغریب سێ ڕکاتە)، و هەموو ڕکاتێک هەمان شێوەی بنەڕەتی هەیە: وەستان لە کاتی خوێندندا، چەمانەوە (ڕکووع)، و دوو سوجدە، لەگەڵ وشە جێگیرەکانی ستایش و قورئان کە لە هەر جووڵەیەکدا دەگوترێن.",
+      "پێش نوێژکردن دەستنوێژ دەگریت — شۆردنێکی کورتی شەرعی بۆ دەستەکان، دەم، دەموچاو، باسکەکان، سەر و پێیەکان — و ڕووەو کەعبە لە مەککە (قیبلە) نوێژ دەکەیت، کە ئەم ئەپە دەتوانێت ئەو ئاراستەیەشت پیشان بدات.",
+      "ئەم پێداچوونەوەیە بە ئەنقەست لە ئاستێکی گشتیدایە. دەقی ئەو وشانەی لە هەر جووڵەیەکدا دەگوترێن، ڕێنمایی هەنگاو بە هەنگاو بە شێوەی ڤیدیۆیی، و خولێکی تەواو بۆ دەستپێکەران هەموویان لە ڕێبەری تایبەتی نوێژدان — دواتر لەوێوە دەست پێ بکە، و ڕێبەری دەستەواژەکانیش لەگەڵیدا بەکاربهێنە بۆ فێربوونی وشەکان لەگەڵ گۆکردن و وەرگێڕان.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Do good deeds properly, sincerely, and moderately... the most beloved deed to Allah is the most regular and constant, even if it were little. (also Sahih Muslim 783)",
-      },
+    appLinks: [
+      { label: "فێربوونی نوێژ — ڕێبەری تەواو" },
+      { label: "دەستەواژەکانی نوێژ (لەگەڵ گۆکردن)" },
+    ],
+  },
+  {
+    title: "دەستنوێژ: خۆئامادەکردن بۆ نوێژ",
+    summary: "شۆردنێکی کورتی شەرعی کە جەستە و دڵ ئامادە دەکات بۆ وەستان لەبەردەم خوادا.",
+    body: [
+      "دەستنوێژ پێش هەموو نوێژێک پێویستە (مەگەر هێشتا دەستنوێژی دروستی پێشووت مابێت) و ڕیزبەندییەکی جێگیری هەیە: شۆردنی دەستەکان، ئاوگێڕان لە دەم و لووت، شۆردنی دەموچاو، شۆردنی باسکەکان تا ئانیشک، مەسحکردنی سەر و گوێیەکان، و شۆردنی پێیەکان تا گوێزینگ.",
+      "دوای فێربوون زۆری ناخایەنێت — زۆربەی خەڵک لە کەمتر لە دوو خولەکدا تەواوی دەکەن — و واتایەکی ڕۆحیشی هەیە: لە فەرموودەکاندا شۆردنی هەر ئەندامێک بەستراوەتەوە بە بیرۆکەی ئەوەی هەڵە بچووکەکان لەگەڵیدا دەشۆردرێنەوە.",
+      "ڕێبەری تەواوی پاکوخاوێنی (تەهارەت) لەم ئەپەدا دەستنوێژ هەنگاو بە هەنگاو ڕوون دەکاتەوە، لەگەڵ ئەوەی چی بکەیت ئەگەر دڵنیا نەبوویت دەستنوێژەکەت هێشتا ماوە یان نا.",
+    ],
+    appLinks: [{ label: "ڕێبەری پاکوخاوێنی (تەهارەت)" }],
+  },
+  {
+    title: "فێربوونی وشەکانی نوێژ",
+    summary: "بە گۆکردن و واتاوە دەست پێ بکە؛ ڕەوانی لە عەرەبیدا لەگەڵ دووبارەکردنەوە دێت.",
+    body: [
+      "نوێژ بە عەرەبی دەکرێت، کە لە سەرەتادا لەوانەیە قورسترین بەش بێت — بەڵام چاوەڕێ ناکرێت بۆ دەستپێکردن ڕەوان بیت. زۆربەی موسڵمانە نوێیەکان بە فێربوونی چەند دەستەواژەیەکی کورت و بنەڕەتی دەست پێدەکەن (تەکبیری دەستپێک، سوورەتێکی کورت، ئەو وشانەی لە ڕکووع و سوجدەدا دەگوترێن، و سەلامی کۆتایی) لەگەڵ گۆکردن و وەرگێڕان لە تەنیشت دەقە عەرەبییەکەوە.",
+      "ئەمانە پارچە پارچە لەبەر بکە نەک هەموو بە یەکجار، و ڕۆژانە دووبارەیان بکەرەوە — لەبەرکردنی دەستەواژەکانی نوێژ بە خێرایی لە ڕێگەی دووبارەبوونەوەی خودی نوێژکردنەوە دروست دەبێت، تەنانەت پێش ئەوەی بە ئاگاییەوە هەوڵی لەبەرکردنی هیچ شتێک بدەیت.",
+      "ڕێبەری تایبەتی دەستەواژەکان لەم ئەپەدا هەموو دەستەواژەیەکی بنەڕەتی بە عەرەبی، گۆکردن و وەرگێڕانەوە پێکەوە پێت دەدات، ڕێکخراو بەپێی ئەو شوێنەی لە نوێژدا دەگوترێت — وەک ئامرازی ڕاهێنانی ڕۆژانەت بەکاری بهێنە.",
+    ],
+    appLinks: [{ label: "ڕێبەری دەستەواژەکانی نوێژ" }],
+  },
+  {
+    title: "لیستی یەکەم هەنگاوەکانت",
+    summary: "ڕیزبەندییەکی سادە و واقیعی بۆ فێربوونی شتەکان لە یەکەم هەفتەکانتدا.",
+    body: [
+      "دوای شایەتمان هیچ ڕیزبەندییەکی تاکی پێویست بۆ فێربوون نییە، بەڵام موسڵمانە نوێیەکان زۆرجار زنجیرەیەکی نزیکەیی بە سوودمەند دەزانن بۆ ئەوەی هیچ شتێک بە یەکجار قورس نەبێت. وەک ڕێبەرێکی نەرم بەکاری بهێنە، نەک پێشبڕکێ.",
     ],
     actions: [
-      "Pick one small, sustainable habit to start with this week rather than trying to do everything at once.",
+      "دەستنوێژ (شۆردنی شەرعی) فێر بە و ڕاهێنانی لەسەر بکە تا بۆت سروشتی دەبێت.",
+      "وشە بنەڕەتییەکانی نوێژێکی تەواو بە بەکارهێنانی ڕێبەری دەستەواژەکان فێر بە.",
+      "دەست بکە بە کردنی پێنج نوێژە ڕۆژانەکە، با لە سەرەتادا ناتەواویش بن — لە سەرەتادا بەردەوامی لە تەواوی گرنگترە.",
+      "چەند دوعایەکی کورتی ڕۆژانە فێر بە بۆ لەخەوهەستان، نانخواردن و چوونە دەرەوە لە ماڵ.",
+      "مزگەوتێکی ناوچەکەت یان کۆمەڵگەیەکی ئۆنلاین بدۆزەرەوە بۆ پشتگیری و پرسیار.",
+      "دەست بکە بە خوێندنەوەی وەرگێڕانی قورئان، هەموو ڕۆژێک کەمێک.",
+      "کاتێک هەستت کرد ئامادەیت، بە هەنگاوی خۆت، بە کەسێکی متمانەپێکراو بڵێ — خێزان یان هاوڕێیەکی نزیک.",
     ],
   },
   {
-    title: "The Six Articles of Faith",
-    summary: "What a Muslim believes, in six points taught directly by the Prophet ﷺ.",
+    title: "دۆزینەوەی کۆمەڵگە",
+    summary: "فێربوون لەگەڵ موسڵمانانی تردا گەشتەکە ئاسانتر و خۆشتر دەکات.",
     body: [
-      "Where the five pillars are what a Muslim does, the six articles of iman (faith) are what a Muslim believes. They come from the Hadith of Jibril, where the angel Jibril, in the form of a man, asked the Prophet ﷺ to explain iman before the assembled companions.",
-      "The Prophet ﷺ answered: belief in Allah; in His angels; in His revealed books; in His messengers; in the Last Day; and in the divine decree (qadr) — its good and its bitter. These six form one connected picture of reality: who created you, who guides the unseen world, how guidance reached humanity, who delivered it, where life is heading, and how to hold both ease and hardship with trust in Allah.",
-      "You don't need to master the philosophy behind each article today — the Aqeedah guide in this app walks through all six in depth, with the evidence behind each one, whenever you're ready to go deeper.",
+      "ئیسلام بۆ ئەوەیە لە ناو کۆمەڵگەدا بژیەنرێت، نەک تەنها بە تەنیایی. نوێژی بە کۆمەڵ، مزگەوتی ناوچەکە، و هاوڕێ موسڵمانەکان دەتوانن وەڵامی پرسیارە ڕۆژانەکان بدەنەوە («ئەگەر لە نوێژدا ئەمەم بیر چوو چی بڵێم؟»)، هانت بدەن، و بە سادەیی وات لێ بکەن لە ئەزموونێکی نوێدا کەمتر هەست بە تەنیایی بکەیت.",
+      "ئەگەر نازانیت لە کوێوە دەست پێ بکەیت، زۆربەی مزگەوتەکان بە گەرمی پێشوازی لە موسڵمانە نوێیەکان دەکەن و زۆرجار کەسێکیان هەیە کە بە تایبەتی دڵخۆشە بە یارمەتیدانی تازەهاتووان لە بنەماکاندا — پرسیارکردن ئاسایی و چاوەڕوانکراوە، نەک شەرم.",
+      "ئەگەر ئێستا مزگەوتێک بە ڕووبەڕوو بەردەست نییە، کۆمەڵگە ئۆنلاینەکان و ڕێبەرەکانی خودی ئەم ئەپە دەتوانن ئەو بۆشاییە پڕ بکەنەوە تا یەکێک دەدۆزیتەوە، یان بە هەمیشەیی ئەگەر بارودۆخت وابێت — بە هەر حاڵ، تۆ هێشتا بە تەواوی بەشێکی کۆمەڵگە فراوانەکەی موسڵمانانیت (ئوممەت).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Iman is to believe in Allah, His angels, His books, His messengers, the Last Day, and to believe in the divine decree, its good and its bitter. (Hadith of Jibril, narrated by 'Umar)",
-      },
+    actions: [
+      "مزگەوت یان ناوەندە ئیسلامییەکانی نزیک خۆت بدۆزەرەوە و بیر لە سەردانیکردنیان بکەرەوە بۆ کاتی نوێژێک یان بۆنەیەک.",
+      "ئەگەر هێشتا کۆمەڵگەی ڕووبەڕوو بەردەست نییە، بەدوای کۆمەڵگەیەکی ئۆنلاینی موسڵمانی چاودێریکراودا بگەڕێ بۆ پشتگیری.",
     ],
   },
   {
-    title: "Who Is Allah?",
-    summary: "One God, without partner, equal, or need — described by His own beautiful names.",
+    title: "بەردەوامبوون لە فێربوون",
+    summary: "ئەم ڕێبەرە خاڵی دەستپێکە — سێ ڕێبەری قووڵتر ئامادەن هەر کاتێک تۆ ئامادە بیت.",
     body: [
-      "Allah is the proper name of God in Islam — not a different god, but the same one true Creator that earlier scriptures pointed to, now known by His own chosen name and described through His revealed attributes rather than human speculation.",
-      "The clearest short description in the Qur'an is Surah al-Ikhlas: He is One; He has no partner and no equal; He neither begets nor is begotten. Allah has no body you can picture and no image should ever be made to represent Him — knowing Him comes through His names (such as the Most Merciful, the All-Knowing, the All-Hearing) and His actions in creation, not through pictures or physical comparisons.",
-      "Getting to know Allah through His names is often the most emotionally grounding part of early faith: the more you learn what He is like, the more prayer and daily reliance on Him start to feel personal rather than mechanical.",
+      "کاتێک بنەڕەتییەکانی ئەم ڕێبەرە بۆت ئاسان بوون، سێ ڕێبەری هاوڕێ لەم ئەپەدا دروستکراون بۆ ئەوەی قووڵترت بەرن: عەقیدە بۆ وردەکاری تەواوی پشت هەر ڕوکنێکی ئیمان، فێربوونی دوعا بۆ پاڕانەوەکانی ساتە ڕۆژانەکان، و خوێنەری قورئان بۆ تیلاوەت و تێڕامانی ڕۆژانە.",
+      "پێویست ناکات هیچ کامیان بە خێرایی تەواو بکەیت. فێربوونی ئیسلام کاری هەموو تەمەنە، و گەڕانەوە بۆ هەمان بابەت مانگەها یان ساڵانێک دواتر، بە ئەزموونی زیاترەوە، تەواو ئاساییە — تەنانەت چاوەڕوانکراویشە.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Say: He is Allah, the One... He neither begets nor is born, and there is none comparable to Him.",
-      },
+    appLinks: [
+      { label: "فێربوونی عەقیدە" },
+      { label: "فێربوونی دوعا" },
+      { label: "خوێندنەوەی قورئان" },
     ],
   },
   {
-    title: "The Qur'an and the Final Message",
-    summary: "The Qur'an is Allah's own words, preserved unchanged since it was revealed.",
-    body: [
-      "Muslims believe the Qur'an is the literal speech of Allah, revealed to the Prophet Muhammad ﷺ over about 23 years, and preserved word-for-word since then — memorised by generations of Muslims and never altered.",
-      "It is not a biography of the Prophet ﷺ or a history book, though it contains both guidance and stories of earlier prophets; it is primarily a book of guidance meant to be read, recited, reflected on, and lived, a little at a time.",
-      "You do not need to read Arabic to begin. Start with a translation in a language you understand, in any order that interests you, and let familiarity with the Arabic recitation grow gradually alongside your prayer.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, it is We who sent down the Reminder, and indeed, We will be its guardian.",
-      },
-    ],
-  },
-  {
-    title: "How to Pray — the Big Picture",
-    summary: "Five short prayers a day, each a set sequence of standing, bowing, and prostrating.",
-    body: [
-      "Salah is prayed five times a day at set windows — Fajr (dawn), Dhuhr (midday), Asr (afternoon), Maghrib (sunset), and Isha (night) — and takes only a few minutes each time once you know the pattern. This app's prayer times and tracker will show you exactly when each window opens where you are.",
-      "Each prayer is made of units called rak'ahs (Fajr has two, Dhuhr/Asr/Isha have four, Maghrib has three), and every rak'ah follows the same basic shape: standing while reciting, bowing (ruku'), and two prostrations (sujud), with fixed words of praise and Qur'an said at each position.",
-      "Before praying, you perform wudu — a short ritual washing of the hands, mouth, face, arms, head, and feet — and you pray facing the direction of the Kaaba in Makkah (the qibla), which this app can also point you toward.",
-      "This overview is intentionally high level. The exact wording said at each position, step-by-step video-style instructions, and a full beginner course all live in the dedicated Salah guide — start there next, and use the phrases guide alongside it to learn the words with transliteration and translation.",
-    ],
-  },
-  {
-    title: "Wudu: Getting Ready to Pray",
-    summary: "A short ritual washing that prepares body and heart for standing before Allah.",
-    body: [
-      "Wudu is required before every prayer (unless you are still in a valid wudu from before) and follows a fixed order: washing the hands, rinsing the mouth and nose, washing the face, the arms to the elbows, wiping the head and ears, and washing the feet to the ankles.",
-      "It doesn't take long once learned — most people manage it in under two minutes — and it carries a spiritual meaning too: each limb washed is paired, in the hadith literature, with the idea of minor faults being washed away along with it.",
-      "The full Purification (Taharah) guide in this app walks through wudu step by step, along with what to do if you're unsure whether your wudu is still valid.",
-    ],
-  },
-  {
-    title: "Learning the Words of Prayer",
+    title: "پرسیار و وەڵام: هەڵە باوەکانی سەرەتا",
     summary:
-      "Start with transliteration and meaning; Arabic fluency comes with repetition over time.",
+      "هەموو کەسێک بە ناتەواوی دەست پێدەکات — ئەمە چۆنیەتی بیرکردنەوەیە لە هەڵە سەرەتاییەکان.",
     body: [
-      "Salah is prayed in Arabic, which can feel like the hardest part at first — but you are not expected to be fluent to begin. Most new Muslims start by learning a handful of short, essential phrases (the opening takbir, a short surah, the words said while bowing and prostrating, and the closing salam) with a transliteration and translation alongside the Arabic.",
-      "Memorise these in small chunks rather than all at once, and repeat them daily — memory for prayer phrases builds quickly through the repetition of praying itself, even before you consciously try to memorise anything.",
-      "The dedicated phrases guide in this app gives you every essential phrase with Arabic, transliteration, and translation together, organised by where each one is said in the prayer — use it as your daily practice tool.",
+      "پرسیار: بەردەوام بەشەکانی نوێژ تێکدەدەم یان وشەکانم بیر دەچێت — ئایا ئەمە کێشەیە؟ وەڵام: نەخێر. هەموو کەسێک لە کاتی فێربووندا وشەکانی بیر دەچێت و هەنگاوەکان تێکەڵ دەکات؛ بەردەوام بە لە ڕاهێنان بە ڕێبەری دەستەواژەکان و لە ماوەی چەند هەفتەیەکدا سروشتی دەبێت. دڵسۆزی لە کاتی فێربووندا زۆر گرنگترە لە تەواوی لە سەرەتادا.",
+      "پرسیار: هەست بە گوناه دەکەم کە دەستبەجێ هەموو شتێک ناکەم (ڕۆژوو، نوێژی زیادە، لەبەرکردنی قورئان). وەڵام: هەوڵدان بۆ کردنی هەموو شتێک بە یەکجار هەڵەیەکی باوی موسڵمانە نوێیەکانە کە زۆرجار دەبێتە هۆی ماندووبوون و وازهێنان. پێنج نوێژە ڕۆژانەکە بکە یەکەم خووی جێگیرت، پاشان کەم کەم زیادی بکە — خوا هیچ کەسێک لە توانای خۆی زیاتر بار ناکات.",
+      "پرسیار: ئەگەر نوێژێکم لە دەست چوو یان هەڵەیەکم تێدا کرد چی؟ وەڵام: لە دەستچوونی نوێژێک جار جار لە کاتێکدا ڕووتینەکە فێر دەبیت، یان هەڵەیەکی بچووک تێیدا، کۆتایی دونیا نییە — کاتێک بیرت کەوتەوە قەزای بکەرەوە، بەردەوام بە، و مەهێڵە کەوتنێک ڕێگرت بێت لە کردنی نوێژی داهاتوو.",
     ],
+    actions: ["کاتێک هەڵەیەک دەکەیت، وەک بەشێکی ئاسایی فێربوون سەیری بکە، نەک هۆیەک بۆ وازهێنان."],
   },
   {
-    title: "Your First Steps Checklist",
-    summary: "A simple, realistic order to learn things in over your first weeks.",
+    title: "پرسیار و وەڵام: پێویستە عەرەبی فێر بم؟",
+    summary:
+      "عەرەبی بە درێژایی ساڵان لەگەڵتدا گەشە دەکات — مەرجی پێشوەختە نییە بۆ دەستپێکردنی پیادەکردن.",
     body: [
-      "There is no single required order for learning after the shahada, but new Muslims often find a rough sequence helpful so that nothing feels overwhelming all at once. Use this as a loose guide, not a race.",
+      "پرسیار: پێویستە پێش ئەوەی بتوانم نوێژ بکەم یان قورئان بخوێنمەوە بە عەرەبی قسە بکەم؟ وەڵام: نەخێر. دەتوانیت هەر ئەمڕۆ بە چەند دەستەواژەیەکی کورت کە گۆکردنەکەیان نووسراوەتەوە دەست بە نوێژ بکەیت، و قورئان بە زمانی خۆت بخوێنیتەوە لە کاتێکدا تیلاوەتی عەرەبییەکەت لەگەڵ کاتدا بە دووبارەکردنەوە گەشە دەکات.",
+      "پرسیار: ئایا بێڕێزییە ئەگەر لە کاتی فێربووندا عەرەبییەکە بە هەڵە گۆ بکەم؟ وەڵام: نەخێر — هەموو قورئانخوێنێک، لە هەموو نەوەیەکدا، وەک دەستپێکەرێک دەستی پێکردووە. هەوڵدان لە کاتی فێربووندا بەنرخە؛ تەواوی ئامانجێکی درێژخایەنە، نەک مەرجێکی دەستپێکردن.",
+      "پرسیار: باشە خولێک بخوێنم بۆ فێربوونی خوێندنەوەی عەرەبی (بۆ نوێژ، نەک بە پێویستی بۆ قسەکردن)؟ وەڵام: زۆر لە موسڵمانە نوێیەکان خولێکی کورتی خوێندنەوەی قورئان (بنەماکانی تەجوید) زۆر بە سوود دەزانن کاتێک بنەڕەتییەکانی نوێژ بۆیان ئاسان بوون — هەنگاوێکی باشی دواترە، نەک یەکەم هەنگاو.",
     ],
     actions: [
-      "Learn wudu (ritual washing) and practise it until it feels natural.",
-      "Learn the essential words of one full prayer using the phrases guide.",
-      "Start praying the five daily prayers, even imperfectly at first — consistency matters more than perfection early on.",
-      "Learn a few short daily duas (supplications) for waking, eating, and leaving the house.",
-      "Find a local mosque or online community for support and questions.",
-      "Begin reading the Qur'an in translation, a little each day.",
-      "Tell someone you trust — family or a close friend — when you feel ready, at your own pace.",
+      "بەردەوام بە لە بەکارهێنانی گۆکردن و وەرگێڕان لە تەنیشت عەرەبییەکەوە تا تیلاوەت بۆت سروشتی دەبێت — هیچ وادەیەکی کۆتایی نییە.",
     ],
   },
   {
-    title: "Finding Community",
-    summary: "Learning alongside other Muslims makes the journey easier and more joyful.",
+    title: "پرسیار و وەڵام: خێزان و پەیوەندییەکان",
+    summary: "چاکەکردن لەگەڵ خێزان هەر ئەرکە، تەنانەت ئەگەر ئێستا باوەڕەکانتان جیاواز بن.",
     body: [
-      "Islam is meant to be lived in community, not only in private. Congregational prayer, a local mosque, and Muslim friends can answer everyday questions ('how do I say this in prayer if I forget?'), offer encouragement, and simply make you feel less alone in a new experience.",
-      "If you're not sure where to start, most mosques welcome new Muslims warmly and often have someone specifically happy to help newcomers with the basics — asking is normal and expected, not awkward.",
-      "If an in-person mosque isn't accessible right now, online communities and this app's own guides can bridge the gap until you find one, or permanently if that's your situation — either way, you are still fully part of the wider Muslim community (the ummah).",
+      "پرسیار: خێزانەکەم موسڵمان نین و نیگەرانم چۆن کاردانەوەیان دەبێت — ئیسلام لێرەدا چیم لێ داوا دەکات؟ وەڵام: چاکەکردن لەگەڵ دایک و باوک و خێزان لە قورئاندا فەرمانی پێکراوە تەنانەت ئەگەر باوەڕیش جیاواز بێت: «…قسه‌یان مه‌که‌، له دنیاشدا هاوڕێ و هاوه‌ڵ و خزمه‌تگوزارێکی چاک به بۆیان…» (قورئان 31:15) — واتە لەو شتانەدا کە باوەڕت دەخەنە مەترسییەوە گوێڕایەڵیان مەبە، بەڵام بە چاکی لەگەڵیان بژی. باوەڕە نوێیەکەت دەبێت بە ئاشکرا نەرمتر و بە ئەرکناسترت بکات بەرامبەر خێزان، نەک بە پێچەوانەوە.",
+      "پرسیار: چۆن بە خێزانەکەم بڵێم، یان چۆن مامەڵە لەگەڵ ناکۆکی بکەم بێ ئەوەی ببێتە قەیران؟ وەڵام: یەک ڕێگای ڕاست نییە — خێرایی، کات و ئەوەی چەندە باس بکەیت پەیوەستە بە خێزانە تایبەتەکەت و سەلامەتییەکەت. ئەمە بە ڕاستی بڕیارێکی کەسییە؛ گفتوگۆکردن لەگەڵ ئیمامێکی متمانەپێکراوی ناوچەکە، ڕاوێژکارێک، یان گرووپێکی پشتگیری بە ئەزموونی موسڵمانە نوێیەکان پێش گفتوگۆ سەختەکان، ژیرانەترە لەوەی بە تەنها مامەڵەی لەگەڵ بکەیت.",
+      "پرسیار: ئایا ناچارم پەیوەندی لەگەڵ خێزان یان هاوڕێ ناموسڵمانەکانم بپچڕێنم؟ وەڵام: نەخێر — پاراستنی پەیوەندی باش و ڕێزگرتن لە پەیوەندی خزمایەتی هێشتا ئەرکێکە لە ئیسلامدا. سنوورەکان دەربارەی کردەوەی دیاریکراو (بۆ نموونە، هەندێک ئاهەنگ یان چالاکی) بابەتێکی جیاواز و کەسییە، باشترە لەگەڵ مامۆستایەکی شارەزای ناوچەکەت کە بارودۆخت دەزانێت باسی بکەیت.",
     ],
-    actions: [
-      "Look up mosques or Islamic centres near you and consider visiting for a prayer time or an event.",
-      "If in-person community isn't accessible yet, seek out a moderated online Muslim community for support.",
-    ],
-  },
-  {
-    title: "Continuing to Learn",
-    summary: "This guide is a starting point — three deeper guides are ready when you are.",
-    body: [
-      "Once the essentials in this guide feel comfortable, three companion guides in this app are built to take you deeper: Aqeedah for the full detail behind each article of faith, Learn Dua for supplications for everyday moments, and the Qur'an reader for daily recitation and reflection.",
-      "You don't have to finish any of them quickly. Islam is learned over a lifetime, and returning to the same topic months or years later, with more experience, is completely normal — even expected.",
-    ],
-  },
-  {
-    title: "FAQ: Common Early Mistakes",
-    summary: "Everyone starts imperfectly — here's how to think about early stumbles.",
-    body: [
-      "Q: I keep messing up parts of the prayer or forgetting the words — is that a problem? A: No. Everyone forgets words and mixes up steps while learning; keep practising with the phrases guide and it becomes natural within weeks. Sincerity while learning matters far more than early perfection.",
-      "Q: I feel guilty that I'm not doing everything (fasting, extra prayers, memorising Qur'an) right away. A: Trying to do everything at once is a common new-Muslim mistake that often leads to burnout. Build the five daily prayers as your first steady habit, then add gradually — Allah does not burden anyone beyond their ability.",
-      "Q: What if I miss a prayer or make a mistake in one? A: Missing a prayer occasionally while you're learning the routine, or making a small mistake in it, is not the end of the world — make it up when you remember, keep going, and don't let a setback stop you from praying the next one.",
-    ],
-    actions: [
-      "When you make a mistake, treat it as a normal part of learning, not a reason to give up.",
-    ],
-  },
-  {
-    title: "FAQ: Do I Need to Learn Arabic?",
-    summary: "Arabic grows with you over years — it isn't a prerequisite to start practising.",
-    body: [
-      "Q: Do I need to speak Arabic before I can pray or read the Qur'an? A: No. You can begin praying with a handful of short, transliterated phrases today, and read the Qur'an in your own language while your Arabic recitation grows over time through repetition.",
-      "Q: Is it disrespectful to mispronounce the Arabic while learning? A: No — every reciter, in every generation, started as a beginner. Effort while learning is valued; perfection is a long-term goal, not a starting requirement.",
-      "Q: Should I take a class to learn Arabic reading (for prayer, not necessarily conversation)? A: Many new Muslims find a short Qur'an-reading (tajweed basics) class very worthwhile once the essentials of prayer feel comfortable — it's a good next step, not a first one.",
-    ],
-    actions: [
-      "Keep using transliteration and translation alongside Arabic until recitation feels natural — there's no deadline.",
-    ],
-  },
-  {
-    title: "FAQ: Family and Relationships",
-    summary: "Kindness to family remains a duty, even where beliefs now differ.",
-    body: [
-      "Q: My family isn't Muslim and I'm worried about how they'll react — what does Islam ask of me here? A: Kindness to parents and family is commanded in the Qur'an even where belief differs: 'do not obey them [in matters that would compromise your faith], but accompany them in this world with kindness.' Your new faith should visibly make you gentler and more dutiful toward family, not less.",
-      "Q: How do I tell my family, or handle disagreement, without it becoming a crisis? A: There's no single right way — pace, timing, and how much to share depend on your specific family and safety. This is a genuinely personal decision; talking it through with a trusted local imam, counsellor, or experienced convert-support group before difficult conversations is wiser than navigating it entirely alone.",
-      "Q: Am I obligated to cut ties with non-Muslim family or friends? A: No — maintaining good relationships and honouring family ties remains a duty in Islam. Boundaries around specific practices (for example, certain celebrations or activities) are a separate, personal matter best discussed with a knowledgeable local teacher who knows your situation.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "But if they endeavour to make you associate with Me that of which you have no knowledge, do not obey them, but accompany them in this world with kindness...",
-      },
-    ],
+    quran: [{}],
     disclaimer:
-      "This FAQ offers general, non-fatwa guidance for common early questions. For your specific family, safety, or personal circumstances, please speak with a local imam, qualified counsellor, or trusted community elder.",
+      "ئەم پرسیار و وەڵامانە ڕێنمایی گشتی پێشکەش دەکەن بۆ پرسیارە باوەکانی سەرەتا، نەک فەتوا. بۆ بارودۆخی تایبەتی خێزان، سەلامەتی یان کەسیی خۆت، تکایە لەگەڵ ئیمامێکی ناوچەکە، ڕاوێژکارێکی شارەزا، یان پیرێکی متمانەپێکراوی کۆمەڵگە قسە بکە.",
   },
 ];

@@ -19,16 +19,7 @@ export const PROPHETS_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       "Leurs histoires dans le Qur'an ne sont pas seulement une histoire lointaine ; ce sont des leçons pratiques sur la croyance, la patience, la vie de famille, le leadership et le repentir.",
       "La croyance en tous les prophètes fait partie de l'iman. Les musulmans les honorent tous, évitent les exagérations et suivent le message final apporté par Mahomet ﷺ.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Des messagers comme porteurs de bonnes nouvelles et avertisseurs afin que les gens n'aient aucun argument contre Allah après les messagers.",
-      },
-      {
-        excerpt:
-          "Nous avons certainement envoyé dans chaque nation un messager : Adorez Allah et évitez les faux dieux.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -39,16 +30,7 @@ export const PROPHETS_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       "Les prophètes ne sont pas divins et ne sont jamais vénérés. Ils sont les meilleurs de la création en termes d'obéissance, de caractère et de fiabilité, tout en restant serviteurs d'Allah.",
       "Leur mission est une dans son fondement : adorer Allah seul. Des détails juridiques spécifiques pourraient différer selon les communautés selon la sagesse d'Allah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Leurs messagers leur dirent : Nous ne sommes que des hommes comme vous, mais Allah favorise qui Il veut parmi Ses serviteurs.",
-      },
-      {
-        excerpt:
-          "Nous n'avons envoyé avant toi aucun messager sans que Nous lui ayons révélé : Il n'y a de divinité que Moi, alors adore-Moi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -60,14 +42,7 @@ export const PROPHETS_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       "Le Qur'an utilise les deux termes avec honneur, et les musulmans croient en tous les prophètes et messagers sans en rejeter aucun.",
       "Les définitions techniques exactes peuvent varier selon la formulation savante, mais la leçon pratique est cohérente : recevez la révélation avec humilité et suivez les conseils d'Allah.",
     ],
-    quran: [
-      {
-        excerpt: "Il a été choisi et il était un messager et un prophète.",
-      },
-      {
-        excerpt: "Nous ne faisons aucune distinction entre aucun de Ses messagers.",
-      },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Les détails terminologiques sont présentés de manière large et neutre pour les chercheurs ; consulter des enseignants qualifiés pour les classifications théologiques avancées.",
     appLinks: [{}],
@@ -80,14 +55,7 @@ export const PROPHETS_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       "Leur vie démontre également le sabr en cas de rejet, la confiance en Allah dans l'incertitude et la volonté de réformer la société avec sagesse et courage.",
       "Les étudier renforce la résilience : les croyants apprennent à se repentir rapidement, à diriger de manière éthique et à rester fidèles à leurs principes même lorsque la vérité est impopulaire.",
     ],
-    quran: [
-      {
-        excerpt: "Dans leurs histoires se trouve une leçon pour les gens compréhensifs.",
-      },
-      {
-        excerpt: "Ce sont eux qu’Allah a guidés, alors suivez leurs conseils.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Choisissez une leçon prophétique chaque semaine et appliquez-la intentionnellement.",
       "Réfléchissez après le salah aux domaines dans lesquels vous avez besoin de plus de patience ou de repentir.",
@@ -104,16 +72,7 @@ export const PROPHETS_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       "Les miracles ne sont pas des pouvoirs indépendants des prophètes ; ils surviennent par la volonté d'Allah pour soutenir la révélation et établir la preuve.",
       "Le Qur'an montre que certains ont encore rejeté malgré les signes, prouvant que la guidance dépend de la sincérité et de la soumission, et non du seul spectacle.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Nous avons envoyé Nos messagers avec des preuves claires et avons fait descendre avec eux le Livre et la Balance.",
-      },
-      {
-        excerpt:
-          "Dis : \" Les miracles n'appartiennent qu'à Allah. Ne leur suffit-il pas que Nous vous ayons révélé le Livre qui leur a été récité ?",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -124,16 +83,7 @@ export const PROPHETS_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       "Bien que les contextes diffèrent, leur appel est le même : le tawhid, la justice, la responsabilité et la miséricorde par le repentir.",
       "Ce module reste fondé sur le Qur'an et garde les détails historiques secondaires brefs à moins qu'ils ne soient étayés par des preuves fiables.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Nous avons déjà envoyé des messagers avant toi ; parmi eux se trouvent ceux que Nous vous avons liés et parmi eux se trouvent ceux que Nous ne vous avons pas liés.",
-      },
-      {
-        excerpt:
-          "Nous croyons en Allah et en ce qui a été révélé... et en ce qui a été donné à Musa, Isa et aux prophètes de la part de leur Seigneur.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -144,18 +94,8 @@ export const PROPHETS_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       "Évitez les rapports sensationnels ou faibles qui entrent en conflit avec les principes coraniques ou la dignité prophétique. Toutes les histoires populaires ne disposent pas de preuves solides.",
       "Utilisez des biographies prophétiques pour réformer votre propre culte et votre caractère, et pas seulement pour recueillir des faits historiques.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ceux qui écoutent la parole et en suivent le meilleur, ceux-là sont ceux qu'Allah a guidés.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui parcourt un chemin en quête de connaissance, Allah lui facilite le chemin vers le Paradis.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Lisez chaque semaine une histoire de prophète directement tirée du Qur'an.",
       "Gardez des notes sur les leçons pratiques, et pas seulement sur les faits chronologiques.",
@@ -206,26 +146,8 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Son repentir est le premier modèle de tawbah du Qur'an",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Et [mentionnez] quand votre Seigneur dit aux anges : J'établirai sur la terre une autorité successive... Alors Adam reçut des paroles de son Seigneur, et Il accepta son repentir.",
-      },
-      {
-        excerpt:
-          "Ils dirent : Notre Seigneur, nous nous sommes fait du tort, et si Tu ne nous pardonne pas et n'as pas pitié de nous, nous serons sûrement parmi les perdants.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Le Jour de la Résurrection, le peuple viendra vers Adam et lui dira : Tu es le père de l'humanité ; intercède pour nous auprès de ton Seigneur.",
-      },
-      {
-        excerpt:
-          "Adam et Musa se disputèrent. Moïse dit : Tu es celui qu'Allah a créé de Sa main. Adam dit : Me blâmez-vous pour une chose qu'Allah a décrété pour moi avant de me créer ? Ainsi Adam l’emporta sur Musa dans la dispute.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -249,16 +171,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Décrit comme ayant été élevé à un rang élevé par Allah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Et mentionnez dans le Livre Idris. En effet, c’était un homme de vérité et un prophète. Et Nous l'avons élevé à un rang élevé.",
-      },
-      {
-        excerpt:
-          "Et Ismail, Idris et Dhul-Kifl — tous étaient du patient. Et Nous les avons admis dans Notre Miséricorde ; en effet, ils étaient du nombre des justes.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -299,22 +212,8 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Son histoire apparaît dans de nombreuses sourates, dont une qui porte son nom.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Et il fut révélé à Nuh qu'aucun de ton peuple ne croira, sauf ceux qui ont déjà cru, alors ne sois pas affligé par ce qu'ils ont fait.",
-      },
-      {
-        excerpt:
-          "Il dit : Mon Seigneur, en effet, j'ai invité mon peuple nuit et jour, mais mon invitation ne l'a fait qu'augmenter sa fuite.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Les gens viendront à Nuh et diront : Ô Nuh, tu es le premier des messagers des peuples de la terre, et Allah t'a nommé serviteur reconnaissant ; intercède pour nous.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -351,16 +250,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "L'histoire de 'Ad revient dans le Qur'an comme un avertissement aux communautés ultérieures.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Et à 'Ad [Nous envoyâmes] leur frère Hud. Il dit : Ô mon peuple, adorez Allah ; vous n'avez pas d'autre divinité que Lui. Ne le craindras-tu pas ?",
-      },
-      {
-        excerpt:
-          "Alors, quand ils virent un nuage s'approcher de leurs vallées, ils dirent : C'est un nuage qui nous apporte de la pluie ! C'est plutôt ce pour quoi vous étiez impatient : un vent en vous, un châtiment douloureux.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -397,16 +287,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Les Thamud étaient connus pour avoir sculpté des maisons élaborées dans les montagnes.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ceci est la chamelle d'Allah comme un signe pour vous. Laissez-la donc manger dans le pays d'Allah et ne lui faites pas de mal, de peur qu'un châtiment douloureux ne vous saisisse.",
-      },
-      {
-        excerpt:
-          "Les Thamud ont nié en raison de leur transgression, lorsque le plus misérable d'entre eux a été envoyé... Alors leur Seigneur a fait tomber sur eux la destruction pour leur péché et les a nivelés.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -447,22 +328,8 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Ancêtre des prophètes à travers Ismail et Ishaq",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Et [mentionnez] quand Ibrahim a été jugé par son Seigneur avec des commandements et il les a exécutés. Il dit : En effet, je ferai de toi un leader pour le peuple.",
-      },
-      {
-        excerpt:
-          "Nous avons dit : Ô feu, sois fraîcheur et sécurité sur Ibrahim. Et ils lui voulaient du mal, mais Nous avons fait d'eux les plus grands perdants.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Vous serez rassemblés pieds nus, nus et incirconcis. Le premier à être habillé le Jour de la Résurrection sera Ibrahim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -497,16 +364,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Un parent d'Ibrahim qui a émigré avec lui et a été envoyé à Sodome"],
     },
-    quran: [
-      {
-        excerpt:
-          "Allez-vous approcher les mâles parmi les mondes et laisser ce que votre Seigneur a créé pour vous comme partenaires ? Au contraire, vous êtes un peuple transgresseur.",
-      },
-      {
-        excerpt:
-          "Ainsi, lorsque Notre ordre fut venu, Nous avons fait des parties les plus hautes des villes leurs plus basses et Nous avons fait pleuvoir sur elles des pierres d'argile dure en couches.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -544,16 +402,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Ancêtre des tribus arabes et dernière ligne prophétique",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Et mentionnez dans le livre Ismail. En effet, il était fidèle à sa promesse et il était un messager et un prophète. Il ordonnait à sa famille de prier et de zakat, et il plaisait à son Seigneur.",
-      },
-      {
-        excerpt:
-          "Et quand Ibrahim élevait les fondations de la Maison et Ismail, [ils prièrent] : Notre Seigneur, accepte cela de notre part. En effet, Vous êtes l’Audient, le Connaissant.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -581,16 +430,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Père de Ya'qub", "Nommé aux côtés d'Ibrahim et Ya'qub comme famille choisie"],
     },
-    quran: [
-      {
-        excerpt:
-          "Et sa femme était debout et elle riait. Puis Nous lui avons annoncé la bonne nouvelle d'Ishaq et, après Ishaq, de Ya'qub.",
-      },
-      {
-        excerpt:
-          "Et souvenez-vous de nos serviteurs Ibrahim, Ishaq et Ya'qub, ceux qui ont la force et la vision. En effet, Nous les avons choisis pour une qualité exclusive : la mémoire de la Maison.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -624,16 +464,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Aussi appelé Israël", "Père de Yusuf et des tribus de Bani Israel"],
     },
-    quran: [
-      {
-        excerpt:
-          "Il dit : Au contraire, vos âmes vous ont attiré vers quelque chose. La patience est donc la meilleure solution. Peut-être qu'Allah me les amènera tous ensemble.",
-      },
-      {
-        excerpt:
-          "Ils dirent : Nous adorerons votre Dieu et le Dieu de vos pères, Ibrahim, Ismail et Ishaq – un seul Dieu, et à Lui nous nous soumettons.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -670,18 +501,8 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Toute la sourate Yusuf, appelée la meilleure des histoires, est centrée sur sa vie.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Il dit : Aucun blâme ne vous sera imputé aujourd'hui. Qu'Allah vous pardonne ; et Il est le plus miséricordieux des miséricordieux.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Le noble, fils de noble, fils de noble, fils de noble : Yusuf, fils de Ya'qub, fils d'Ishaq, fils d'Ibrahim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -715,16 +536,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Connu pour mettre l'accent uniquement sur les poids et mesures"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ô mon peuple, adorez Allah ; vous n'avez pas d'autre divinité que Lui. Donnez toute la mesure et tout le poids, ne privez pas les hommes de ce qui leur est dû et ne provoquez pas la corruption sur la terre.",
-      },
-      {
-        excerpt:
-          "Et mon succès ne vient que de Allah. C'est sur lui que je me suis appuyé et c'est vers lui que je reviens.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -760,16 +572,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Cité dans toute la tradition islamique comme modèle du sabr"],
     },
-    quran: [
-      {
-        excerpt:
-          "Et Ayyub, lorsqu'il appela son Seigneur : En effet, l'adversité m'a touché, et Tu es le plus miséricordieux des miséricordieux.",
-      },
-      {
-        excerpt:
-          "En effet, Nous l'avons trouvé patient, excellent serviteur. En effet, il était celui qui se retournait à plusieurs reprises vers Allah.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -794,16 +597,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Compté parmi les prophètes dans les listes musulmanes traditionnelles",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Et Ismail, Idris et Dhul-Kifl — tous étaient du patient. Et Nous les avons admis dans Notre Miséricorde ; en effet, ils étaient du nombre des justes.",
-      },
-      {
-        excerpt:
-          "Et rappelez-vous Ismail, Al-Yasa' et Dhul-Kifl, et tous sont parmi les remarquables.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -845,22 +639,8 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Appelé Kalimullah – celui à qui Allah a parlé directement",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Et je t'ai choisi, alors écoute ce qui est révélé. En effet, je suis Allah. Il n’y a de divinité que Moi, alors adorez-Moi et établissez une prière pour Mon souvenir.",
-      },
-      {
-        excerpt:
-          "Et Nous avons inspiré à la mère de Moïse : Allaitez-le, mais si vous craignez pour lui, jetez-le dans la rivière et ne craignez ni ne vous attristez. En effet, Nous vous le rendrons.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "L'ange de la mort fut envoyé à Moïse. Lorsqu'il s'approcha de lui, Moïse le frappa, et Allah lui rendit l'œil et lui donna le choix du moment de sa mort.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -893,16 +673,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Le frère aîné de Musa", "Loué dans le Qur'an pour son éloquence"],
     },
-    quran: [
-      {
-        excerpt:
-          "Et nomme pour moi un ministre de ma famille : Harun, mon frère. Augmente par lui mes forces et laisse-le partager ma tâche.",
-      },
-      {
-        excerpt:
-          "Il dit : Fils de ma mère, en effet, le peuple m'a vaincu et était sur le point de me tuer, alors que les ennemis ne se réjouissent pas à mon sujet.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -943,22 +714,8 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Vous avez vaincu Jalut (Goliath) en tant que jeune homme.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ô Daoud, Nous t'avons effectivement établi successeur sur la terre. Alors juge entre les gens avec vérité et ne suis pas les désirs, car ils t'égareraient du chemin d'Allah.",
-      },
-      {
-        excerpt:
-          "Et Nous avons soumis les montagnes à glorifier avec Dawud, ainsi que les oiseaux. Et Nous lui avons enseigné la confection d'armures pour vous protéger de votre ennemi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "La prière la plus aimée d'Allah est la prière de Dawud, et le jeûne le plus aimé d'Allah est le jeûne de Dawud : il jeûnerait un jour et romprait son jeûne le lendemain.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -997,16 +754,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Parmi les rois-prophètes les plus décrits dans le Qur'an"],
     },
-    quran: [
-      {
-        excerpt:
-          "Il sourit, amusé par son discours, et dit : Mon Seigneur, permets-moi d'être reconnaissant pour ta faveur que tu m'as accordée ainsi qu'à mes parents, et de faire la justice que tu approuves.",
-      },
-      {
-        excerpt:
-          "Et à Sulayman [Nous avons soumis] le vent — sa course du matin pendant un mois de voyage et sa course de l'après-midi pendant un mois de voyage.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1035,15 +783,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Nommé parmi les justes", "Confronté au culte de l'idole Ba'l"],
     },
-    quran: [
-      {
-        excerpt:
-          "Quand il dit à son peuple : Ne craindrez-vous pas Allah ? Faites-vous appel à Ba'l et quittez-vous le meilleur des créateurs ?",
-      },
-      {
-        excerpt: "Et Zakariyya et Yahya et Isa et Ilyas – et tous étaient du nombre des justes.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1067,16 +807,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Nommé directement dans le Qur'an parmi les remarquables et élus"],
     },
-    quran: [
-      {
-        excerpt:
-          "Et Ismail et Al-Yasa' et Yunus et Lut - et tout ce que Nous avons préféré aux mondes.",
-      },
-      {
-        excerpt:
-          "Et rappelez-vous Ismail, Al-Yasa' et Dhul-Kifl, et tous sont parmi les remarquables.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1115,22 +846,8 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Aussi appelé Dhun-Nun (l'homme au poisson) dans le Qur'an"],
     },
-    quran: [
-      {
-        excerpt:
-          "Et il cria dans les ténèbres : Il n’y a de divinité que Toi ; gloire à Toi. En effet, j'ai été du nombre des injustes.",
-      },
-      {
-        excerpt:
-          "Alors, n’y a-t-il pas eu une ville qui croyait que sa foi lui profitait, à l’exception des habitants de Yunus ? Quand ils crurent, Nous leur ôtâmes le châtiment de la honte.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "La supplication de Dhun-Nun lorsqu'il invoquait Allah depuis le ventre du poisson était : La ilaha illa Anta, subhanaka, inni kuntu minaz-zalimin. Aucun musulman ne l'invoque jamais sans qu'Allah lui réponde.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1168,16 +885,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Gardien de Maryam", "Père de Yahya, dont la naissance a répondu à sa prière"],
     },
-    quran: [
-      {
-        excerpt:
-          "Là, Zakariyya invoqua son Seigneur en disant : Mon Seigneur, accorde-moi de Toi une bonne progéniture. En effet, Tu es Celui qui entend la supplication.",
-      },
-      {
-        excerpt:
-          "Il dit : Mon Seigneur, en effet mes os se sont affaiblis et ma tête est devenue blanche, et je n'ai jamais été malheureux dans ma supplication envers Toi, mon Seigneur.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1212,16 +920,7 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Honoré de paix à la naissance, à la mort et à la résurrection",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ô Yahya, prends les Écritures avec détermination. Et Nous lui avons donné la sagesse alors qu'il était encore enfant, et la tendresse et la pureté de Notre part, et il était conscient d'Allah.",
-      },
-      {
-        excerpt:
-          "Allah vous annonce la bonne nouvelle de Yahya, confirmant une parole d'Allah : honorable, abstinent et prophète parmi les justes.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1263,22 +962,8 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
         "Reviendra avant le dernier jour dans la croyance sunnite",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "[Isa dit] : En effet, Allah est mon Seigneur et votre Seigneur, alors adorez-Le. C'est un chemin droit.",
-      },
-      {
-        excerpt:
-          "Et ils ne l’ont pas tué, ni crucifié ; mais cela leur a été fait paraître ainsi... Au contraire, Allah l'a élevé à Lui.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Je suis le plus proche de tous les hommes d'Isa, fils de Maryam. Les prophètes sont frères de mères différentes, mais leur religion est une, et il n'y avait pas de prophète entre nous.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1318,21 +1003,8 @@ export const PROPHETS_BIO_TOPICS_FR: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Le sceau des prophètes", "Le meilleur exemple (uswah hasanah) pour les croyants"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammad n'est le père d'aucun de vos hommes, mais il est le Messager d'Allah et le sceau des prophètes.",
-      },
-      {
-        excerpt: "Et Nous ne vous avons envoyé que comme miséricorde envers les mondes.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mon exemple et celui des prophètes avant moi est celui d'un homme qui a construit une maison magnifiquement et complètement, à l'exception d'une seule brique. Je suis cette brique et je suis le sceau des prophètes.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
 ];

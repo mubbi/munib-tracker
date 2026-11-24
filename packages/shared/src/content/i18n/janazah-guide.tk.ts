@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Jemgyýetçilik görkezişi däl-de, Allanyň razylygy üçin doga we okamagy maksat ediniň.",
       "Hormat bilen edip bilseňiz, maşgalanyň amaly zerurlyklaryna kömek ediň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jynaza namazyny okaýança kimiň jynaza namazyny okaýan bolsa, bir kyrat bolar, jaýlanmaga gatnaşan kişi iki kirata eýe bolar - hersi beýik dag ýaly.",
-      },
-      {
-        excerpt:
-          "Kim musulmanyň jynazasyny imandan alyp, sylag gözläp, namaz okalýança we jaýlanyş gutarýança galsa, iki kirat bilen gaýdyp geler ...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Inguwmak we örtmek",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Kepegi ýönekeý we arassa saklaň - ak mata pygamberlik nusgasydyr.",
       "Bedeniňizi zerurlyksyz surata düşürmekden ýa-da paş etmekden gaça duruň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Zerur bolanda suw we sidr bilen üç gezek, ýa-da bäş ýa-da ondanam köp ýuwuň we iň soňky ýuwulanda kamfora ýa-da kamfor goýuň.",
-      },
-      {
-        excerpt:
-          "Allahyň Resuly three üç sany Yemenemenli pagta eşigi bilen örtüldi; olaryň arasynda ne köýnek, ne-de selle bardy.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Merhumyň gözüni ýumanda",
@@ -63,12 +45,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Gözleri ýuwaşlyk bilen ýumuň we hakyky dua ediň.",
       "Maşgalanyň gowy gürlemegini ýada salyň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ebu Salamanyň gözleri dikeldilende, Pygamber alaýhyssalam olary ýapdy we ruh görlende onuň yzyndan ýetendigini, soň bolsa öý hojalygyna diňe gowy zatlary gürlemegi öwredendigini aýtdy.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Janaza nädip doga etmeli",
@@ -83,14 +60,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Ymam bilen dört takbir diýiň.",
       "Degişli takbirden soň merhum üçin çyn ýürekden dua ediň.",
     ],
-    hadith: [
-      {
-        excerpt: "Pygamber alaýhyssalam Negus üçin jynaza namazyny okady we dört takbir aýtdy.",
-      },
-      {
-        excerpt: "Ibn Abbas jynaza namazyny okady we sünnetdigini aýdyp, Fatihany okady.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Jynaza namazynda duas (ulular)",
@@ -151,16 +121,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Merhumyň guburyna ýerleşdirilende, Hisnul Musulmanda hakyky dua saklanýar. Jynazadan soň Pygamberimiz gabyrda durup: 'Doganyňyzdan ötünç soraň we berk bolmagyny soraň, sebäbi indi sorag edilýär' (Sunan Abi Dawud 3221 - al-Albani ýaly köp alymlar tarapyndan bahalandyrylan sahih).",
       "Mazarlaryň üstünde bezeg desgalaryny gurmak, bezemek üçin gipslemek ýa-da ulaltmagy höweslendirýän ýazgy, hakyky habarlarda duýduryş berilýär. Kanun we ýerli adat kesgitlemäge mümkinçilik berýän belligi ýönekeý saklaň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jynaza bilen gyssagly boluň: dogry bolsa, ony gowulaşdyrmaga howlukýarsyňyz; bolmasa, boýnuňdan erbetlik goýýarsyň.",
-      },
-      {
-        excerpt:
-          "Doganyňyzdan ötünç soraň we tutanýerli bolmagyny soraň, sebäbi indi sorag edilýär.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Merhum jaýlanandan soň",
@@ -185,12 +146,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Mazarlaryň ýaşaýjylaryna hakyky sözler bilen salam beriň.",
       "Ölüm hakda pikirleniň we dogry amallary täzeläň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Salam, imanlylar we musulmanlaryň arasynda ýaşaýanlar! Alla islese, size goşularys. Alladan biziň we siziň üçin abadançylyk soraýarys.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Inderatlatmalar we umumy ýalňyşlyklar",
@@ -207,12 +163,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Mertebeli jaýlanmagy howlukmaň.",
       "Maşgalaňyzy isripsizlik etmezden iýmit we işler bilen kömek ediň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah gözüň ýyrtylmagy ýa-da ýüregiň hasraty üçin jeza bermeýär, ýöne muňa jeza berýär ýa-da rehim edýär - we dilini görkezdi.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -229,12 +180,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Dört takbir yzygiderliligini gerek bolmazdan öň öwreniň.",
       "Fatihany, salawaty we azyndan bir jynaza duasyny ýatlaň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Abbas jynaza namazyny okady we «el-Fatiha»ny okady hem onuň sünnetdigini aýtdy.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Erkekler, aýallar we çagalar üçin dualar",
@@ -269,15 +215,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Alymyň görkezmesine garşy söweş meýdany şehidini ýuwmaň.",
       "Düşük ýa-da öli dogluş ýagdaýlary barada jynaza komitetinden soraň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Pygamber ﷺ Uhud şehitleriniň ganlary bilen jaýlanmagyny buýurdy we olar ýuwulmady.",
-      },
-      {
-        excerpt: "Düşügiň üstünde jynaza namazy okalýar we ene-ata bagyşlamak we rehim dilenýär.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Gäýybana jynaza",
@@ -293,15 +231,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Jeset bar bolanda hemişe ýerli namaz okaň.",
       "Gäýybana jynazany köpçülik çäresi hökmünde guramazdan öň soraň.",
     ],
-    hadith: [
-      {
-        excerpt: "Pygamber ﷺ Negus üçin jynaza namazyny okady we dört takbir aýtdy.",
-      },
-      {
-        excerpt:
-          "Allahyň Resuly ﷺ Sahabalary hatara düzdi we Negus üçin dört takbir bilen namaz okady.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ölüm ýatagyna — soňky sözler",
@@ -315,15 +245,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Ölüme ýakyn adama şehadeti ýuwaşlyk bilen ýatlatyň.",
       "Otagy arkaýyn saklaň we gowy söz bilen dolduryň.",
     ],
-    hadith: [
-      {
-        excerpt: "Ölüme ýakynlaryňyzy: la ilaha illallah diýmäge höweslendiriň.",
-      },
-      {
-        excerpt:
-          "Kimin soňky sözleri «Allahdan başga ybadat edilmäge mynasyp hiç kim ýok» bolsa, ol Jennete girer.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Ömrüň umyt dualary" }, { label: "Gözleri ýummak" }],
   },
   {
@@ -339,12 +261,7 @@ export const JANAZAH_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
       "Zýýapat garaşmak ýerine nahar we işlerde kömek ediň.",
       "Merhum üçin arkaýyn dua we sadakany dowam ediň.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Hiç bir musulman musibete uçrap, Allaha gaýdyş baradaky buýrulan sözleri aýdyp, has gowy zat bilen çalyşmagy dilese, Allah ony has gowy zat bilen çalyşar.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Sadaka maksatlary" }],
   },
 ];

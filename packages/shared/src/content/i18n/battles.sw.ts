@@ -23,16 +23,7 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       "Qur’ani imeweka mpaka wa kudumu kuzunguka ruhusa hii: “Piganeni katika njia ya Mwenyezi Mungu wale wanaokupigeni, lakini msiruke mipaka” (Qur’ani 2:190). Mapigano yalifungamana na uchokozi dhidi ya jamii, na kamwe hayakuwa ya kuvuka mipaka ya uadilifu.",
       "Kampeni hizi ni historia: zilitokea katika muktadha maalum wa Uarabuni wa karne ya saba wa vita vya kikabila, mikataba iliyovunjwa, na kuzingirwa. Mafundisho ya jumla ya Kiislamu juu ya amani, uadilifu, rehema, na ujirani ndiyo sura; maelezo ya vita hivi lazima yasomwe ndani ya fremu hiyo, sio kuporomoka kuwa kauli mbiu zilizochanwa kutoka humo.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Imeruhusiwa wale wanaopigana kwa sababu ya kudhulumiwa - na Mwenyezi Mungu ni Muweza wa kuwanusuru - wale waliotolewa majumbani mwao bila ya haki, ila kwa sababu ya kusema: Mola wetu Mlezi ni Mwenyezi Mungu. Na lau kuwa Mwenyezi Mungu asingewazuilia baadhi ya watu kwa watu, nyumba za watawa, na makanisa, na masinagogi, na misikiti, ambamo ndani yake jina la Mwenyezi Mungu linatajwa sana, bila ya shaka zingeli vunjwa.",
-      },
-      {
-        excerpt:
-          "Piganeni katika Njia ya Mwenyezi Mungu wale wanaokupigeni, lakini msiruke mipaka. Hakika Mwenyezi Mungu hawapendi wapotovu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -45,17 +36,8 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       "Ukiukaji wa Mkataba ulibakia kuwa madhubuti hadi mwisho. Ilikuwa ni washirika wa Maquraishi wakiwashambulia washirika wa Waislamu, Banu Khuza'ah, ambao walibatilisha Mkataba wa Hudaybiyyah na kupelekea - kwa kushangaza - kwenye ufunguzi wa karibu usio na damu wa Makka badala ya mauaji.",
       "Katika yote haya, malengo yalikuwa thabiti: kutetea maisha na dini, kuwalinda watu walio hatarini, na kuweka usalama wa kutosha ambao tawhid inaweza kutekelezwa bila mateso. Lengo halikuwa kamwe upanuzi usio na kikomo kwa ajili yake, na vyanzo vinaandika Mtume (Swalla Allaahu ´alayhi wa sallam) akipendelea suluhu na mapatano wakati wowote adui alipoelekea kwenye amani.",
     ],
-    hadith: [
-      {
-        excerpt:
-          'Nimeamrishwa nipigane na watu mpaka washuhudie kwamba hapana mungu ila Mwenyezi Mungu, na kwamba Muhammad ni Mtume wa Mwenyezi Mungu, na simamisheni Sala, na toeni zaka. Wakifanya hivyo basi nafsi zao na mali zao zitalindwa kutoka kwangu isipokuwa kwa haki ya Uislamu, na hisabu yao iko kwa Mwenyezi Mungu. - Wanachuoni wa kale walisoma "watu" kama waabudu masanamu mahsusi wa Arabia kisha kuupiga vita Uislamu baada ya ujumbe kuwafikia; ni kauli kuhusu wapiganaji hao wenye uadui, si leseni ya kuwashambulia wasio Waislamu wenye amani au kulazimisha imani, ambayo Qur\'ani 2:256 inakataza moja kwa moja.',
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Hakuna kulazimishana katika dini. Njia sahihi imekuwa tofauti na makosa.",
-      },
-    ],
+    hadith: [{}],
+    quran: [{}],
     disclaimer:
       "Hadith hiyo hapo juu mara nyingi imenukuliwa ikiwa imevuliwa mpangilio wake. Wanachuoni wa kitambo waliiweka ndani ya uadui makhsusi wa zama zake na pamoja na marufuku ya Qur'ani ya kulazimishana katika dini (2:256) na kikomo cha kupigana ni dhidi ya wale wanaopigana nanyi (2:190).",
     appLinks: [{}],
@@ -72,30 +54,8 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       "Mali na ardhi yenyewe inalindwa. Mwongozo wa jumla ulikataza ukataji ovyo wa miti ya matunda, uchomaji moto wa mazao, na uchinjaji wa mifugo kupita kiasi. Wafungwa walipaswa kulishwa kama watekaji walivyokula na kuvaa walipokuwa wamejivika; Qur'ani inawasifu wale wanaowalisha mateka kwa ajili ya mapenzi ya Mwenyezi Mungu (76:8), na wengi waliachiliwa kwa fidia, kubadilishana, au rehema rahisi - wengine huko Badr kwa kubadilishana na kuwafundisha Waislamu kusoma.",
       "Haya ni mafundisho ya kanuni za dini. Waislamu mmoja mmoja katika historia ambao walikiuka walikuwa wanakiuka Uislamu, bila kuufafanua - kama vile ukiukwaji wa wafuasi wa imani yoyote hauandiki tena kile ambacho imani hiyo inaamuru.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Piganeni katika Njia ya Mwenyezi Mungu wale wanaokupigeni, lakini msiruke mipaka.",
-      },
-      {
-        excerpt:
-          "Na wakielekea kwenye amani basi nayo elekea nayo, na mtegemee Mwenyezi Mungu. Hakika Yeye ndiye Mwenye kusikia, Mwenye kujua.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imepokewa kutoka kwa Ibn Umar kwamba mwanamke mmoja alikutwa ameuawa katika moja ya misafara ya Mtume wa Mwenyezi Mungu (Swalla Allaahu 'alayhi wa aalihi wa sallam), hivyo akakataza kuua wanawake na watoto.",
-      },
-      {
-        excerpt:
-          "Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) alipomteua kamanda wa jeshi alimuamuru: Pigana kwa jina la Mwenyezi Mungu… usinyang’anye ngawira, usivunje dhamana yako, usimkate viungo, na usiue mtoto. Unapokutana na adui, waite kwanza kwenye Uislamu; wakikataa, uwape amani; ila wakikataa wote wawili, basi piganeni.",
-      },
-      {
-        excerpt:
-          "Usiue mzee aliyedhoofika, wala mtoto mdogo, wala mwanamke. - Baadhi ya minyororo ya maneno haya haswa ni dhaifu, lakini hukumu inayotajwa inathibitishwa na riwaya Sahih hapo juu na kwa makubaliano ya mafaqihi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Tofautisha kwa uwazi kati ya yale ambayo Uislamu unaamuru na yale ambayo jeshi lolote katika historia lilifanya.",
       "Soma sehemu hii ya maadili kabla ya simulizi lolote la vita - historia bila kanuni zake tawala hukaribisha kutoelewana.",
@@ -142,26 +102,8 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
         "Baadhi ya mateka waliachiliwa kwa kubadilishana na kuwafundisha kusoma na kuandika watoto wa Madina.",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Mlipo kuwa mukimuomba msaada Mola wenu Mlezi, naye akakujibuni: Mimi nitakutieni nguvu kwa Malaika elfu wakifuatana wao kwa wao.",
-      },
-      {
-        excerpt:
-          "Tayari ilikuwapo Ishara kwenu katika majeshi mawili yaliyo kutana, moja linapigana katika Njia ya Mwenyezi Mungu na jingine la makafiri.",
-      },
-      {
-        excerpt:
-          "Nyinyi hamkuwaua, bali Mwenyezi Mungu ndiye aliyewauwa. Na hukutupa unapotupa, bali Mwenyezi Mungu ndiye aliye tupa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imepokewa kutoka kwa Umar kwamba siku ya Badr Mtume (Swalla Allaahu ´alayhi wa sallam) aliwatazama maadui elfu moja na masahaba zake walikuwa zaidi ya mia tatu, kisha akaelekea Kibla, akanyoosha mikono yake, na akamuomba Mola wake Mlezi: Ewe Mwenyezi Mungu nitimizie uliyoniahidi. Ewe Mwenyezi Mungu, ikiwa kundi hili la Waumini litaangamizwa, Hutaabudiwa katika ardhi. Aliendelea kuomba mpaka nguo yake ikaanguka kutoka kwenye mabega yake, na Abu Bakr akaibadilisha na akasema: Inatosha, ewe Mtume wa Mwenyezi Mungu - Mwenyezi Mungu atatimiza Aliyokuahidi.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -197,22 +139,8 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Majaribu huwasafisha waaminio; kurudi nyuma kunakokutana na toba na uthabiti husababisha ukuaji.",
     },
-    quran: [
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu alikutimizieni ahadi yake mlipo kuwa mnawauwa kwa idhini yake, mpaka mkakata tamaa, mkabishana juu ya amri, na mkaasi baada ya Yeye kukuonyesheni mnayo yapenda.",
-      },
-      {
-        excerpt:
-          "Basi msilegee wala msihuzunike, kwani nyinyi mtakuwa bora ikiwa nyinyi ni Waumini wa kweli.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mtume ﷺ alimteua Abdullah ibn Jubayr juu ya wapiga mishale hamsini siku ya Uhud na akasema: Shikeni nafasi zenu; hata ukituona tunanyakuliwa na ndege, usiiache mpaka nikuletee - na hata ukiona tumewashinda, usiondoke mpaka nikuletee. Adui waliposhindwa na wapiga mishale wakaona nyara, walisema, Ngawira! na wakaacha wadhifa wao - hivyo sabini wetu tukauawa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -250,22 +178,8 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Shikamaneni na mzingiro na mkabidhi Mwenyezi Mungu matokeo, ambaye aweza kurudisha nyuma jeshi kwa upepo.",
     },
-    quran: [
-      {
-        excerpt:
-          "Enyi mlio amini, kumbukeni neema ya Mwenyezi Mungu iliyo juu yenu yalipokujieni majeshi na tukayapelekea upepo na majeshi msiyo yaona… Hapo Waumini walijaribiwa na kutikiswa kwa mtikiso mkali.",
-      },
-      {
-        excerpt:
-          "Na Waumini walipoyaona makundi walisema: Haya ndiyo aliyotuahidi Mwenyezi Mungu na Mtume wake, na hayakuwazidishia Imani na utii.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) aliwasihi Washirikina siku ya Al-Ahzab, akisema: Ewe Mwenyezi Mungu, Mteremshi wa Kitabu, Mwepesi wa kuhisabu, washinde Makundi. Ewe Mwenyezi Mungu washinde na watikise.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -297,22 +211,8 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Kuvunja agano la kulindana katika wakati wa hatari ya pamoja ni miongoni mwa usaliti mkubwa zaidi.",
     },
-    quran: [
-      {
-        excerpt:
-          "Na akawateremsha wale walio waunga mkono katika Watu wa Kitabu kutoka katika ngome zao, na akatia khofu katika nyoyo zao, kundi mliloliua, na kundi mliloliteka. Na akakurithishani ardhi yao na nyumba zao.",
-      },
-      {
-        excerpt:
-          "Mwenyezi Mungu hakukatazini na wale ambao hawakupigeni vita kwa ajili ya Dini, wala hawakutoeni majumbani mwenu, kuwafanyia wema na kuwafanyia uadilifu. Hakika Mwenyezi Mungu anawapenda wafanyao uadilifu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Banu Quraydha walipokubali kuikubali hukumu ya Sa'd ibn Mu'adh, Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam). Alikuja, na Mtume ﷺ akasema: Simama kwa mkuu wako. Sa'd alihukumu kwamba wanaume wao wapiganaji wauawe na wanawake wao na watoto wao wachukuliwe mateka. Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) amesema: Mmehukumu kwa hukumu ya Mwenyezi Mungu - au alisema, kwa hukumu ya Mfalme.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     disclaimer:
       "Hii ilikuwa adhabu kwa kitendo maalum cha uhaini wa wakati wa vita na wapiganaji, kuhukumiwa na msuluhishi kabila lenyewe lilimchagua. Si hukumu dhidi ya watu wowote kwa ajili ya dini yao na si kigezo cha mahusiano na Mayahudi au jumuiya yoyote ya imani, ambayo Uislamu unaamuru kutendewa kwa uadilifu na wema (Qur'ani 60:8). Wasomi wengine wa baadaye walitilia shaka maelezo ya nambari zilizopitishwa.",
   },
@@ -346,22 +246,8 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Mwamini Mwenyezi Mungu na Mtume wake inapofichika hekima ya uamuzi - subira ndio ushindi wa kweli.",
     },
-    quran: [
-      {
-        excerpt:
-          "Hakika Sisi tumekupeni ushindi ulio dhaahiri, ili Mwenyezi Mungu Akughufirie yaliyo kuwa kabla ya dhambi zenu na yatakayofuata, na atimize neema zake juu yenu, na akuongozeni kwenye Njia Iliyo Nyooka.",
-      },
-      {
-        excerpt:
-          "Hakika Mwenyezi Mungu amewaridhia Waumini walipo fungamana nawe chini ya mti, na alijua yaliyomo nyoyoni mwao, basi akateremsha utulivu juu yao na akawalipa ushindi wa karibu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jabir ibn Abdullah amesema: Siku ya al-Hudaybiyyah tulikuwa mia kumi na nne. Tuliweka kiapo cha utii kwa Mtume ﷺ chini ya mti, na alikuwa mbora wa watu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -393,12 +279,7 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Uvumilivu kupitia ugumu wa muda mrefu, uliounganishwa na unyoofu, huleta msaada wa Mwenyezi Mungu.",
     },
-    hadith: [
-      {
-        excerpt:
-          "Siku ya Khaybar Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) alisema: Kesho nitampa bendera hii mtu ambaye anampenda Mwenyezi Mungu na Mtume wake, na ambaye Mwenyezi Mungu na Mtume wake wanampenda, na ambaye kupitia mikono yake Mwenyezi Mungu atampa ushindi. Siku iliyofuata alimwita Ali, ambaye alikuwa na macho yanayouma; alitemea mate machoni pake na akamswalia, na Ali akaponywa kana kwamba hakuwahi kuugua, na akapewa bendera.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -465,16 +346,7 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Lengo lilikuwa mwongozo, sio kulipiza kisasi - nguvu hufanywa ili kutumikia ujumbe, sio ubinafsi.",
     },
-    quran: [
-      {
-        excerpt:
-          "Itakapofika nusura ya Mwenyezi Mungu na ushindi, na ukawaona watu wanaingia katika Dini ya Mwenyezi Mungu kwa wingi, basi mtakase kwa kumsifu Mola wako Mlezi na muombe msamaha. Hakika Yeye ni Mwenye kupokea toba.",
-      },
-      {
-        excerpt:
-          "Akasema: Hapana lawama kwenu leo. Mwenyezi Mungu akusameheni, na Yeye ndiye mwingi wa kurehemu kuliko wanaorehemu. - Maneno ya Nabii Yusuf ambayo Mtume ﷺ aliyarudia kwa Maquraishi siku ya ushindi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -507,18 +379,8 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Kamwe usitegemee nambari au mafanikio ya hivi karibuni; Ushindi na utulivu hutoka kwa Mwenyezi Mungu tu.",
     },
-    quran: [
-      {
-        excerpt:
-          "Mwenyezi Mungu amekwisha kupeni ushindi katika maeneo mengi, na siku ya Hunayn ilipo kupendezeni wingi wenu, lakini haikukufaeni kitu, na ardhi ilikufungamanisheni kwa ukubwa wake wote, na mkarudi nyuma kwa kurudi nyuma. Kisha Mwenyezi Mungu akateremsha utulivu wake juu ya Mtume wake na juu ya Waumini.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Al-Bara ibn Azib aliulizwa iwapo walikuwa wamekimbia siku ya Hunayn. Akasema: Lakini Mtume wa Mwenyezi Mungu (ﷺ) hakukimbia. Watu wakarudi nyuma, na Mtume (Swalla Allaahu ´alayhi wa sallam) alikuwa juu ya nyumbu wake mweupe, na alikuwa akisema: Mimi ni Mtume, huu si uwongo; Mimi ni mtoto wa Abd al-Muttalib.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -553,22 +415,8 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       spiritualLesson:
         "Dhabihu bila thawabu inayoonekana, na ukweli chini ya majaribu, ni kati ya mitihani ya juu zaidi ya imani.",
     },
-    quran: [
-      {
-        excerpt:
-          "Walifurahi waliobaki nyuma kwa kubakia kwao nyuma ya Mtume wa Mwenyezi Mungu, na wakachukia kupigana Jihadi kwa mali zao na nafsi zao katika Njia ya Mwenyezi Mungu, na wakasema: Msitoke kwenye joto. Sema: Moto wa Jahannamu ni mkali zaidi laiti wangeli fahamu.",
-      },
-      {
-        excerpt:
-          "Na akawasamehe wale watatu walio baki nyuma, mpaka ardhi iliyokuwa na upana wake ikatanda juu yao, na nafsi zao zikaingia juu yao, na wakawa na yakini kuwa hapana pa kukimbilia kwa Mwenyezi Mungu ila kwake Yeye. Kisha akawaelekea kwa rehema ili watubu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ka'b ibn Malik alisimulia jinsi alivyokaa nyuma kutoka Tabuk bila udhuru na hakusema uwongo juu yake; Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) akawaamrisha Waumini wasimsemeshe yeye na maswahaba zake kwa muda wa usiku khamsini, mpaka ardhi ikawa finyu kwao, ndipo ukaja wahyi wa msamaha wao, na ikawa ni miongoni mwa siku za furaha katika maisha yake.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -627,20 +475,7 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
       "Hadith kuhusu misafara lazima ichunguzwe kwa usahihi kabla ya kutegemewa. Riwaya zilizo hapa chini zimetolewa kutoka katika makusanyo ya Sahih na zinahusu mwenendo na ari ya kampeni hizi; kila moja inabeba daraja lake.",
       "Kwa masimulizi yanayohusiana na uchumba mahususi, angalia mada ya pambano hilo. Tumia kivinjari cha hadith cha Munib kusoma misururu kamili na kuweka alama katika muktadha.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Msitamani kukutana na adui, na muombeni Mwenyezi Mungu salama. Lakini mkikutana nao, subirini, na jueni kwamba Pepo iko chini ya kivuli cha panga.",
-      },
-      {
-        excerpt:
-          "Mtume ﷺ amesema: Vita ni hadaa. - Wanazuoni wanaeleza hili kama ruhusa ya mbinu za kivita katika vita (fikra, mshangao, upotofu), kamwe kama leseni ya kuvunja mkataba au kusaliti upande unaolindwa.",
-      },
-      {
-        excerpt:
-          "Alipomteua kamanda Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) alimuusia kumcha Mwenyezi Mungu, kuwalingania maadui kwenye Uislamu kabla ya kupigana, asivunje kiapo, kutokeketa, na kutoua mtoto.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     appLinks: [{}],
   },
   {
@@ -662,70 +497,46 @@ export const BATTLES_TOPICS_SW: DeepPartial<BattlesTopic>[] = [
 
 export const BATTLES_VERSES_SW: DeepPartial<BattlesVerse>[] = [
   {
-    excerpt:
-      "Ruhusa imetolewa kwa wale wanaopigana kwa sababu wamedhulumiwa… Lau Mwenyezi Mungu asingeikagua kundi moja la watu kwa njia ya kundi jingine, nyumba za watawa, makanisa, masinagogi na misikiti ingeharibiwa.",
     context:
       "Ruhusa ya kwanza ya jumla ya kupigana - baada ya miaka ya mateso yasiyo na silaha huko Makka.",
   },
   {
-    excerpt:
-      "Piganeni katika Njia ya Mwenyezi Mungu wale wanaokupigeni, lakini msiruke mipaka. Hakika Mwenyezi Mungu hawapendi wapotovu.",
     context: "Kikomo cha msingi: ulinzi pekee, na marufuku kali ya kuvuka mipaka.",
   },
   {
-    excerpt:
-      "Mlipomwomba msaada Mola wenu Mlezi, akajibu: Nitakusaidieni kwa Malaika elfu safu safu.",
     context: "Imefichuliwa kuhusu Badr - msaada wa Mwenyezi Mungu kwa waumini waliozidi idadi.",
   },
   {
-    excerpt:
-      "Imekwisha kuwako Ishara katika majeshi mawili yaliyo kutana, moja likipigana katika Njia ya Mwenyezi Mungu, na jengine katika makafiri, linawaona mara mbili ya idadi yao kwa macho yao.",
     context:
       "Mwenyezi Mungu aliwafanya Waislamu waonekane wakubwa zaidi kwa adui pale Badr, akiimarisha nyoyo.",
   },
   {
-    excerpt:
-      "Hakika Mwenyezi Mungu alikutimizieni ahadi yake mlipo kuwa mnawauwa kwa idhini yake, mpaka mkakata tamaa na mkabishana juu ya utaratibu na mkaasi baada ya Yeye kukuonyesheni mnayo yapenda.",
     context: "Inashughulikia uasi wa wapiga mishale na sehemu ya kugeuza Uhud.",
   },
   {
-    excerpt:
-      "Enyi mlio amini, kumbukeni neema ya Mwenyezi Mungu iliyo juu yenu yalipo kufikieni majeshi na tukayapelekea upepo na majeshi msiyo yaona.",
     context: "Surah al-Ahzab juu ya kuzingirwa kwa Muungano na usaidizi wa kiungu.",
   },
   {
-    excerpt:
-      "Na akawateremsha wale walio waunga mkono katika Watu wa Kitabu kutoka katika ngome zao, na akatia khofu katika nyoyo zao, kundi mliloliua, na kundi mliloliteka. Na akakurithishani ardhi yao na nyumba zao.",
     context:
       "Surah al-Ahzab juu ya Banu Qurayzah, ambao walivunja agano wakati wa kuzingirwa - kipindi kilichowekwa cha uhaini wa wakati wa vita, sio hukumu dhidi ya imani.",
   },
   {
-    excerpt:
-      "Hakika Sisi tumekupeni ushindi ulio dhaahiri, ili Mwenyezi Mungu Akughufirie yaliyo kuwa kabla ya dhambi zenu na yatakayofuata, na atimize neema zake juu yenu, na akuongozeni kwenye Njia Iliyo Nyooka.",
     context:
       "Ilifunuliwa wakati wa kurudi kutoka kwa Hudaybiyyah - kutaja kama ushindi wa wazi ambao maswahaba walihisi kwanza kama maelewano machungu.",
   },
   {
-    excerpt:
-      "Hakika Mwenyezi Mungu amewaridhia Waumini walipo fungamana nawe chini ya mti, na alijua yaliyomo nyoyoni mwao, basi akateremsha utulivu juu yao na akawalipa ushindi wa karibu.",
     context:
       "Ahadi ya Ridwan - masahaba wapatao 1,400 waliahidi chini ya mti wa mshita wasitoroke, na Mwenyezi Mungu akatangaza radhi zake kwao.",
   },
   {
-    excerpt:
-      "Itakapofika nusura ya Mwenyezi Mungu na ushindi, na ukawaona watu wanaingia katika Dini ya Mwenyezi Mungu kwa wingi, basi mtakase kwa kumsifu Mola wako Mlezi na muombe msamaha. Hakika Yeye ni Mwenye kupokea toba.",
     context:
       "Surah an-Nasr juu ya ufunguzi wa Makka - ushindi uliovikwa taji si la ushindi bali kwa sifa, na kuomba msamaha, na makundi mengi yanayoingia kwenye imani.",
   },
   {
-    excerpt:
-      "Mwenyezi Mungu amekwisha kupeni ushindi katika maeneo mengi… Kisha Mwenyezi Mungu akateremsha utulivu wake juu ya Mtume wake na juu ya Waumini.",
     context:
       "Mwenyezi Mungu anawakumbusha waumini kwamba ushindi ni zawadi yake, sio matokeo ya kujisifu kwa idadi.",
   },
   {
-    excerpt:
-      "Walifurahi waliobaki nyuma kwa kubaki kwao nyuma ya Mtume wa Mwenyezi Mungu na hawakupenda kupigana Jihadi kwa mali zao na maisha yao katika Njia ya Mwenyezi Mungu.",
     context:
       "Surah at-Tawbah inawahutubia wale waliojitoa kutoka kwenye maandamano magumu ya Tabuk.",
   },

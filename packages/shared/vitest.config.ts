@@ -1,4 +1,4 @@
-import { ciReporting } from "@munib-tracker/vitest-config/ci";
+import { ciReporting, NO_NETWORK_SETUP } from "@munib-tracker/vitest-config/ci";
 import { defineConfig } from "vitest/config";
 
 /** Windows `fs.rename` cannot replace an existing Vite SSR cache file (EPERM). */
@@ -7,6 +7,7 @@ const serializeOnWindows = process.platform === "win32";
 export default defineConfig({
   test: {
     ...ciReporting,
+    setupFiles: [NO_NETWORK_SETUP],
     globals: true,
     environment: "node",
     include: ["src/**/*.{test,spec}.{ts,tsx}"],

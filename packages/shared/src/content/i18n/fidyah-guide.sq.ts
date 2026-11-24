@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Nëse agjërimi është përgjithmonë i pamundur, pyet një dijetar për fidjen për çdo ditë të humbur.",
       "Nëse e keni ndërprerë agjërimin qëllimisht, mos u mbështetni në një vlerësim të aplikacionit - pyesni një studiues se cili vendim zbatohet.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Dhe për ata që munden [të agjërojnë, por me vështirësi] - një shpërblim për të ushqyer një të varfër... Dhe kush është i sëmurë ose në udhëtim - atëherë një numër i barabartë ditësh të tjera.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Çfarë është fidjah për agjërimet e humbura?",
@@ -37,12 +32,7 @@ export const FIDYAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Përdorni tarifën fidya të xhamisë tuaj lokale ose komunës në ditë kur është e mundur.",
       "Shumëzoni ditët × një vakt (ose njësi fidya të publikuar) për një vlerësim planifikimi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Dhe për ata që munden [të agjërojnë, por me vështirësi] - një shpërblim për të ushqyer një të varfër. Dhe kushdo që del vullnetar mirë, është më mirë për të. Dhe agjërimi është më i mirë për ju, sikur ta dini.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Kush paguan zakonisht fidjah?",
@@ -54,18 +44,8 @@ export const FIDYAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Klasifikimi i shtatzënisë, ushqyerjes me gji dhe sëmundjeve kronike është një gjykim i studiuesve. Kjo temë është vetëm edukative.",
-    quran: [
-      {
-        excerpt:
-          "...Pra, kushdo që sheh [hënën e re të] muajit, le ta agjërojë; dhe kushdo që është i sëmurë ose në udhëtim - atëherë një numër i barabartë i ditëve të tjera. Allahu ka për qëllim për ju lehtësimin dhe nuk ka për qëllim për ju vështirësinë...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Një burrë tha: Nëna ime vdiq për shkak të agjërimit. A duhet të agjëroj në emër të saj? Profeti ﷺ tha: Po, borxhi i Allahut ka më shumë të drejtë për t'u paguar.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kaffarah për prishjen e agjërimit me dashje",
@@ -81,16 +61,7 @@ export const FIDYAH_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Pyetni një studiues të kualifikuar se cilin shlyerje - nëse ka - i detyroheni.",
       "Nëse të ushqyerit e gjashtëdhjetë të varfërve është opsioni që mund të përmbushni, përdorni një kosto ushqimi lokal × 60 si një shifër planifikimi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Një burrë tha: Jam i rrënuar, o i Dërguar i Allahut - kam pasur marrëdhënie me gruan time në Ramazan. Ai u pyet për lirimin e një robi, agjërimin e dy muajve radhazi dhe ushqimin e gjashtëdhjetë të varfërve...",
-      },
-      {
-        excerpt:
-          "Ndërsa ishim ulur me Pejgamberin a.s. erdhi një burrë dhe tha: Jam i rrënuar... Ai ka kryer marrëdhënie me gruan e tij ndërsa ishte duke agjëruar...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Si ta përdorni këtë ndihmës",

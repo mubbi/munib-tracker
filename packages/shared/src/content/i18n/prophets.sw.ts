@@ -14,16 +14,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       "Hadithi zao ndani ya Qur'ani si historia ya mbali tu; ni masomo ya vitendo kwa imani, subira, maisha ya familia, uongozi, na toba.",
       "Kuamini manabii wote ni sehemu ya iman. Waislamu wanawaheshimu wote, epuka kutia chumvi, na fuata ujumbe wa mwisho ulioletwa na Muhammad ﷺ.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mitume ni waletao bishara na waonyaji ili watu wasiwe na hoja juu ya Mwenyezi Mungu baada ya Mitume.",
-      },
-      {
-        excerpt:
-          "Hakika tulituma katika kila umma Mtume: Muabuduni Mwenyezi Mungu na muepuke miungu ya uwongo.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -34,16 +25,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       "Manabii sio wa Mungu na hawaabudiwi kamwe. Hao ndio viumbe bora katika utiifu, tabia, na uaminifu, huku wakibaki kuwa waja wa Mwenyezi Mungu.",
       "Dhamira yao ni moja katika msingi: Muabuduni Mwenyezi Mungu peke yake. Maelezo mahususi ya kisheria yanaweza kutofautiana katika jamii kwa hekima ya Mwenyezi Mungu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mitume wao wakawaambia: Sisi si watu kama nyinyi, lakini Mwenyezi Mungu humfadhilisha amtakaye katika waja wake.",
-      },
-      {
-        excerpt:
-          "Hatukumtuma Mtume kabla yako ila tulimfunulia ya kwamba: Hapana mungu ila Mimi, basi niabuduni.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -54,14 +36,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       "Kurani hutumia maneno yote mawili kwa heshima, na Waislamu wanaamini katika mitume na mitume wote bila kukataliwa na yeyote.",
       "Ufafanuzi kamili wa kiufundi unaweza kutofautiana kwa maneno ya kielimu, lakini somo la kivitendo ni thabiti: pokea wahyi kwa unyenyekevu na ufuate mwongozo wa Mwenyezi Mungu.",
     ],
-    quran: [
-      {
-        excerpt: "Alichaguliwa, na alikuwa mjumbe na nabii.",
-      },
-      {
-        excerpt: "Hatutafautishi baina ya yeyote katika Mitume wake.",
-      },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Maelezo ya istilahi yanawasilishwa kwa njia pana, isiyoegemea upande wowote; wasiliana na walimu waliohitimu kwa uainishaji wa hali ya juu wa kitheolojia.",
     appLinks: [{}],
@@ -104,26 +79,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Toba yake ni kielelezo cha kwanza cha Qur'ani Tukufu cha tawbah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na (mtaje) Mola wako Mlezi alipo waambia Malaika: Nitaweka katika ardhi mamlaka yenye kufuatana... Kisha Adam akapokea maneno kutoka kwa Mola wake Mlezi, na akakubali toba yake.",
-      },
-      {
-        excerpt:
-          "Wakasema: Mola wetu Mlezi tumejidhulumu nafsi zetu, na usipotusamehe na ukaturehemu, bila shaka tutakuwa miongoni mwa walio khasiri.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siku ya Kiyama watu watamjia Adam na kusema: Wewe ni baba wa watu; tuombee kwa Mola wako Mlezi.",
-      },
-      {
-        excerpt:
-          "Adam na Musa walibishana. Musa akasema: Wewe ndiye ambaye Mwenyezi Mungu amekuumba kwa mkono wake. Adam akasema: Je, unanilaumu kwa jambo ambalo Mwenyezi Mungu aliniandikia kabla ya kuniumba? Basi Adam akamshinda Musa katika hoja.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -148,16 +105,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Imefafanuliwa kama kuinuliwa kwenye daraja la juu na Mwenyezi Mungu",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na mtaje katika Kitabu Idris. Hakika yeye alikuwa mtu wa kweli na Nabii. Na tukampandisha daraja.",
-      },
-      {
-        excerpt:
-          "Na Ismail na Idris na Dhul-Kifl - wote walikuwa miongoni mwa wenye subira. Na tukawaingiza katika rehema yetu; Hakika hao walikuwa miongoni mwa watu wema.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -195,21 +143,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Hadithi yake inaonekana katika surah nyingi, ikiwa ni pamoja na moja iliyopewa jina lake",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na akateremshiwa Nuh kuwa hataamini katika watu wako ila wale waliokwisha amini, basi usihuzunike kwa yale waliyokuwa wakiyafanya.",
-      },
-      {
-        excerpt:
-          "Akasema: Mola wangu Mlezi, hakika mimi niliwaita watu wangu usiku na mchana, lakini mwito wangu haukuwazidishia kukimbia.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Watu watamjia Nuh na kusema: Ewe Nuhu! utuombee.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -243,16 +178,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Hadithi ya Ad inajirudia katika Qur'ani yote kama onyo kwa jumuiya za baadae"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na kwa kina A'di tulimtuma ndugu yao Hud. Akasema: Enyi watu wangu! huna mungu ila Yeye. Je, hamtamwogopa?",
-      },
-      {
-        excerpt:
-          "Basi walipo liona wingu linakaribia mabonde yao, walisema: Hili ni wingu linalotuletea mvua! Bali ni yale mliyo kuwa mkiyavumilia, na upepo ndani yake ni adhabu chungu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -287,16 +213,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Thamud walijulikana kwa kuchonga nyumba za kifahari kwenye milima"],
     },
-    quran: [
-      {
-        excerpt:
-          "Huyu ni ngamia wa Mwenyezi Mungu kuwa ni Ishara kwenu, basi mwacheni ale katika ardhi ya Mwenyezi Mungu, wala msimguse kwa madhara, isije ikakushikeni adhabu chungu.",
-      },
-      {
-        excerpt:
-          "Thamud walikanusha kwa sababu ya uasi wao, alipo tumwa mnyonge zaidi wao... Basi Mola wao Mlezi akawateremshia maangamizi kwa dhambi zao na akawasawazisha.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -337,22 +254,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Babu wa Mitume kupitia Ismail na Ishaq",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na pale Ibrahim alipo jaribiwa na Mola wake Mlezi kwa maamrisho na akazitekeleza. Akasema: Hakika mimi nitakufanya kiongozi kwa watu.",
-      },
-      {
-        excerpt:
-          "Tukasema: Ewe moto, kuwa baridi na salama juu ya Ibrahim. Na walimtakia mabaya, lakini tukawafanya wao ndio wenye hasara kubwa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Utakusanywa bila viatu, uchi, na bila kutahiriwa. Wa kwanza kuvikwa nguo Siku ya Kiyama atakuwa Ibrahim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -386,16 +289,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Jamaa wa Ibrahim ambaye alihama pamoja naye na kupelekwa Sodoma"],
     },
-    quran: [
-      {
-        excerpt:
-          "Je, mnawaendea wanaume katika walimwengu na mnaacha alivyo kuumbieni Mola wenu Mlezi? Bali nyinyi ni watu wapotovu.",
-      },
-      {
-        excerpt:
-          "Basi ilipo fika amri yetu tuliifanya sehemu ya juu ya miji kuwa chini kabisa, na tukawanyeshea mvua ya mawe ya udongo mgumu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -436,16 +330,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Babu wa makabila ya Waarabu na mstari wa mwisho wa kinabii",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na mtaje katika Kitabu Ismail. Hakika yeye alikuwa mkweli katika ahadi yake, na alikuwa ni Mtume na Nabii. Alikuwa akiwaamrisha jamaa zake kuswali na zaka, na alikuwa akimridhia Mola wake Mlezi.",
-      },
-      {
-        excerpt:
-          "Na Ibrahim alipo simamisha misingi ya Nyumba na Ismail, wakaomba: Mola wetu Mlezi, tukubalie haya. Hakika Wewe ni Mwenye kusikia, Mjuzi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -473,16 +358,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Baba wa Ya'qub", "Imetajwa pamoja na Ibrahim na Ya'qub kama familia iliyochaguliwa"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na mkewe alikuwa amesimama, naye akacheka. Kisha tukampa bishara ya Is-haq, na baada ya Is-haq, Yaaqub.",
-      },
-      {
-        excerpt:
-          "Na wakumbuke waja wetu Ibrahim na Is-haq na Yaaqub, wenye nguvu na wenye kuona. Hakika Sisi tuliwateua kwa ubora wa kipekee: ukumbusho wa Nyumba.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -516,16 +392,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Pia inaitwa Israeli", "Baba wa Yusuf na makabila ya Bani Israil"],
     },
-    quran: [
-      {
-        excerpt:
-          "Akasema: Bali nafsi zenu zimekuteseni kwenye kitu. Kwa hiyo subira inafaa zaidi. Huenda Mwenyezi Mungu akawaleta kwangu wote pamoja.",
-      },
-      {
-        excerpt:
-          "Wakasema: Tutamuabudu Mungu wako na Mungu wa baba zako, Ibrahim na Ismail na Is-haq, Mungu mmoja, na sisi tunasilimu kwake.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -560,18 +427,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sura yote ya Yusuf, inayoitwa hadithi bora zaidi, inahusu maisha yake"],
     },
-    quran: [
-      {
-        excerpt:
-          "Akasema: Hapana lawama juu yenu leo. Mwenyezi Mungu akusamehe; Naye ni Mwingi wa kurehemu kuliko wanaorehemu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mtukufu, mwana wa mtukufu, mwana wa mtukufu, mwana wa mtukufu: Yusuf, mwana wa Ya'qub, mwana wa Ishaq, mwana wa Ibrahim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -605,16 +462,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Inajulikana kwa kusisitiza uzito na vipimo tu"],
     },
-    quran: [
-      {
-        excerpt:
-          "Enyi watu wangu, muabuduni Mwenyezi Mungu; huna mungu ila Yeye. Timizeni kipimo na mizani, wala msiwanyime watu haki yao, wala msifanye uharibifu katika ardhi.",
-      },
-      {
-        excerpt:
-          "Na kufaulu kwangu sio ila kwa Mwenyezi Mungu. Kwake Yeye nimetegemea, na Kwake nitarejea.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -649,16 +497,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Imetajwa katika mapokeo yote ya Kiislamu kama kielelezo cha sabr"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na Ayyubu alipo mwita Mola wake Mlezi: Hakika yamenigusa dhiki, na Wewe ni mwingi wa kurehemu kuliko wanaorehemu.",
-      },
-      {
-        excerpt:
-          "Hakika tulimkuta mvumilivu, mja mwema. Hakika yeye alikuwa ni mwenye kurejea kwa Mwenyezi Mungu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -683,15 +522,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Imehesabiwa miongoni mwa manabii katika orodha kuu za Waislamu",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na Ismail na Idris na Dhul-Kifl - wote walikuwa miongoni mwa wenye subira. Na tukawaingiza katika rehema yetu; Hakika hao walikuwa miongoni mwa watu wema.",
-      },
-      {
-        excerpt: "Na mkumbuke Ismail, Al-Yasaa, na Dhul-Kifli, na wote ni katika walio bora.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -733,22 +564,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Anaitwa Kalimullah - yule ambaye Mwenyezi Mungu alizungumza naye moja kwa moja",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na nimekuteuwa wewe, basi sikilizeni yanayoteremshwa. Hakika mimi ndiye Mwenyezi Mungu. Hapana mungu ila Mimi, basi niabuduni na ushike Sala kwa kunikumbuka.",
-      },
-      {
-        excerpt:
-          "Na tukampa wahyi mama yake Musa: Mnyonyeshe, na unapomkhofu basi mtupeni mtoni, wala msiogope wala msihuzunike. Hakika Sisi tutamrudisha kwenu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Malaika wa mauti alitumwa kwa Musa. Alipomjia Musa akampiga, na Mwenyezi Mungu akamrudishia jicho lake na akampa chaguo kuhusu wakati wa kufa kwake.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -781,16 +598,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kaka mkubwa wa Musa", "Amesifiwa katika Qur-aan kwa ufasaha wake"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na unijaalie waziri katika familia yangu - Harun, ndugu yangu. Niongezee nguvu kupitia yeye na umruhusu ashiriki kazi yangu.",
-      },
-      {
-        excerpt:
-          "Akasema: Mwana wa mama yangu, hakika watu walinizidi nguvu na wakataka kuniua, basi wasifurahie maadui juu yangu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -829,22 +637,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Mpokeaji wa Zabur (Zaburi)", "Alimshinda Jalut (Goliathi) akiwa kijana"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ewe Dawud hakika tumekufanya wewe kuwa mrithi katika ardhi, basi hukumu baina ya watu kwa haki wala usifuate matamanio kwani yatakupoteza na njia ya Mwenyezi Mungu.",
-      },
-      {
-        excerpt:
-          "Na tuliifanya milima imtakase pamoja na Dawud, na ndege pia... Na tukamfundisha kutengeneza nguo za kivita ili kukukingeni na adui yenu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sala inayopendwa sana na Mwenyezi Mungu ni swala ya Dawud, na funga inayopendwa zaidi na Mwenyezi Mungu ni saumu ya Dawud: angefunga siku moja na inayofuata.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -883,16 +677,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Miongoni mwa manabii-wafalme walioelezewa kikamilifu katika Qur'ani"],
     },
-    quran: [
-      {
-        excerpt:
-          "Akatabasamu, akafurahishwa na maneno yake, na akasema: Mola wangu Mlezi, niwezeshe nishukuru neema Yako uliyonineemesha mimi na wazazi wangu wawili, na nifanye wema unayoiridhia.",
-      },
-      {
-        excerpt:
-          "Na kwa Suleiman tukautiisha upepo, mwendo wake wa asubuhi ni mwendo wa mwezi mmoja, na mwendo wake wa alasiri ni mwendo wa mwezi mmoja.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -921,15 +706,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ametajwa miongoni mwa watu wema", "Alikabiliana na ibada ya sanamu Ba'l"],
     },
-    quran: [
-      {
-        excerpt:
-          "Alipo waambia watu wake: Je! Je, mnamuomba Baali na kuwaacha walio bora zaidi wa waumbaji?",
-      },
-      {
-        excerpt: "Na Zakaria na Yahya na Isa na Ilyas - na wote walikuwa katika watu wema.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -953,15 +730,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Imetajwa moja kwa moja katika Qur'ani miongoni mwa walio bora na waliochaguliwa"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na Ismail na Al-Yasaa na Yunus na Lut'i na wote tuliwafadhilisha kuliko walimwengu wote.",
-      },
-      {
-        excerpt: "Na mkumbuke Ismail, Al-Yasaa, na Dhul-Kifli, na wote ni katika walio bora.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1000,22 +769,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Pia anaitwa Dhun-Nun (mtu wa samaki) katika Qur'ani"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na aliita katika giza: Hapana mungu ila Wewe; utukufu ni Kwako. Hakika mimi nimekuwa miongoni mwa madhalimu.",
-      },
-      {
-        excerpt:
-          "Basi je, haukuwa na mji ulioamini hivyo ikanufaisha imani yake isipokuwa watu wa Yunus? Walipo amini tuliwaondolea adhabu ya hizaya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dua ya Dhun-Nun alipomwomba Mwenyezi Mungu kutoka ndani ya tumbo la samaki ilikuwa: La ilaha illa Anta, subhanaka, inni kuntu minaz-zalimin. Hakuna Mwislamu anayeomba kwa chochote isipokuwa Mwenyezi Mungu anamjibu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1050,16 +805,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Mlezi wa Maryam", "Baba wa Yahya, ambaye kuzaliwa kwake kulijibu maombi yake"],
     },
-    quran: [
-      {
-        excerpt:
-          "Hapo Zakariya akamwomba Mola wake Mlezi, akisema: Mola wangu Mlezi, nijaalie kutoka kwako kizazi chema. Hakika Wewe ni Mwenye kusikia maombi.",
-      },
-      {
-        excerpt:
-          "Akasema: Mola wangu Mlezi, hakika mifupa yangu imedhoofika, na kichwa changu kimejaa weupe, wala sijapata huzuni katika maombi yangu Kwako, Mola wangu Mlezi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1095,16 +841,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Kuheshimiwa kwa amani wakati wa kuzaliwa, kifo, na ufufuo",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ewe Yahya, shika Kitabu kwa bidii. Na tukampa hikima angali mtoto, na upole kutoka kwetu na usafi, naye alikuwa akimcha Mwenyezi Mungu.",
-      },
-      {
-        excerpt:
-          "Mwenyezi Mungu anakubashirieni Yahya, anayesadikisha neno litokalo kwa Mwenyezi Mungu, mtukufu, mzui, na Nabii miongoni mwa watu wema.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1143,22 +880,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Imepewa Injili (Injil)", "Watarejea kabla ya Siku ya Mwisho katika imani ya Sunni"],
     },
-    quran: [
-      {
-        excerpt:
-          "[Isa akasema]: Hakika Mwenyezi Mungu ni Mola wangu Mlezi na Mola wenu, basi muabuduni Yeye. Hiyo ni njia iliyonyooka.",
-      },
-      {
-        excerpt:
-          "Nao hawakumwua, wala hawakumsulubisha; lakini ikadhihirika kwao... Bali Mwenyezi Mungu alimnyanyua kwake.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mimi ndiye mkaribu zaidi wa watu wote kwa Isa bin Maryam. Mitume ni ndugu wa mama tofauti, lakini dini yao ni moja, na hapakuwa na nabii baina yetu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1196,21 +919,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Muhuri wa manabii", "Mfano bora (uswah hasanah) kwa waumini"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammad si baba wa yeyote katika wanaume wenu, bali ni Mtume wa Mwenyezi Mungu na muhuri wa Manabii.",
-      },
-      {
-        excerpt: "Na hatukukutuma ila uwe rehema kwa walimwengu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mfano wangu na mfano wa manabii walionitangulia ni ule wa mtu aliyejenga nyumba kwa uzuri na ukamilifu, isipokuwa mahali pa tofali moja. Mimi ndimi yule tofali, na mimi ndiye muhuri wa manabii.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1221,14 +931,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       "Maisha yao pia yanaonyesha unyenyekevu chini ya kukataliwa, kumwamini Mwenyezi Mungu wakati wa kutokuwa na uhakika, na utayari wa kurekebisha jamii kwa hekima na ujasiri.",
       "Kuzisoma hujenga uthabiti: waamini hujifunza kutubu haraka, kuongoza kimaadili, na kubaki kuwa na kanuni hata wakati ukweli haupendwi.",
     ],
-    quran: [
-      {
-        excerpt: "Katika hadithi zao kuna funzo kwa wenye akili.",
-      },
-      {
-        excerpt: "Hao ndio aliowaongoza Mwenyezi Mungu, basi fuateni uwongofu wao.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Chagua somo moja la kinabii kila juma na ulitumie kimakusudi.",
       "Tafakari baada ya swala pale unapohitaji subira au toba zaidi.",
@@ -1245,15 +948,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       "Miujiza si nguvu zinazojitegemea za manabii; yanatokea kwa kutaka kwa Mwenyezi Mungu kuunga mkono wahyi na kuthibiti dalili.",
       "Qur'ani inaonyesha kwamba baadhi bado walikataa licha ya dalili, kuthibitisha uwongofu kunategemea ikhlasi na utii, na sio tamasha pekee.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Na tuliwatuma Mitume wetu kwa hoja zilizo wazi na tukateremsha pamoja nao Kitabu na Mizani.",
-      },
-      {
-        excerpt: "Sema: Ishara ziko kwa Mwenyezi Mungu tu!",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1264,16 +959,7 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       "Ingawa mazingira yanatofautiana, wito wao ni mmoja: Tawhiyd, haki, uwajibikaji, na rehema kwa njia ya toba.",
       "Moduli hii inakaa katika misingi ya Qur'ani na inaweka maelezo ya pili ya kihistoria kwa ufupi isipokuwa kama yakiungwa mkono na ushahidi wa kuaminika.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sisi tumeshatuma Mitume kabla yako; miongoni mwao wapo tulio kuhadithia na miongoni mwao wapo ambao hatukukusimulia.",
-      },
-      {
-        excerpt:
-          "Tumemuamini Mwenyezi Mungu na yaliyoteremshwa... na aliyopewa Musa na Isa na Manabii kutoka kwa Mola wao Mlezi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1284,18 +970,8 @@ export const PROPHETS_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       "Epuka ripoti za kusisimua au dhaifu zinazokinzana na kanuni za Qur'ani au adhama ya kinabii. Sio kila hadithi maarufu ina uthibitisho mzuri.",
       "Tumia wasifu wa kinabii kurekebisha ibada yako mwenyewe na tabia, sio tu kukusanya ukweli wa kihistoria.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wale wanao sikiliza maneno na wakafuata yaliyo bora kabisa, hao ndio Mwenyezi Mungu amewaongoa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mwenye kushika njia kutafuta elimu, Mwenyezi Mungu humsahilishia njia ya kwenda Peponi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Soma hadithi moja ya nabii kila wiki moja kwa moja kutoka kwenye Kurani.",
       "Weka kumbukumbu juu ya masomo ya vitendo, sio ukweli wa ratiba tu.",
@@ -1346,26 +1022,8 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Toba yake ni kielelezo cha kwanza cha Qur'ani Tukufu cha tawbah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na (mtaje) Mola wako Mlezi alipo waambia Malaika: Nitaweka katika ardhi mamlaka yenye kufuatana... Kisha Adam akapokea maneno kutoka kwa Mola wake Mlezi, na akakubali toba yake.",
-      },
-      {
-        excerpt:
-          "Wakasema: Mola wetu Mlezi tumejidhulumu nafsi zetu, na usipotusamehe na ukaturehemu, bila shaka tutakuwa miongoni mwa walio khasiri.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siku ya Kiyama watu watamjia Adam na kusema: Wewe ni baba wa watu; tuombee kwa Mola wako Mlezi.",
-      },
-      {
-        excerpt:
-          "Adam na Musa walibishana. Musa akasema: Wewe ndiye ambaye Mwenyezi Mungu amekuumba kwa mkono wake. Adam akasema: Je, unanilaumu kwa jambo ambalo Mwenyezi Mungu aliniandikia kabla ya kuniumba? Basi Adam akamshinda Musa katika hoja.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1390,16 +1048,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Imefafanuliwa kama kuinuliwa kwenye daraja la juu na Mwenyezi Mungu",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na mtaje katika Kitabu Idris. Hakika yeye alikuwa mtu wa kweli na Nabii. Na tukampandisha daraja.",
-      },
-      {
-        excerpt:
-          "Na Ismail na Idris na Dhul-Kifl - wote walikuwa miongoni mwa wenye subira. Na tukawaingiza katika rehema yetu; Hakika hao walikuwa miongoni mwa watu wema.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1437,21 +1086,8 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Hadithi yake inaonekana katika surah nyingi, ikiwa ni pamoja na moja iliyopewa jina lake",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na akateremshiwa Nuh kuwa hataamini katika watu wako ila wale waliokwisha amini, basi usihuzunike kwa yale waliyokuwa wakiyafanya.",
-      },
-      {
-        excerpt:
-          "Akasema: Mola wangu Mlezi, hakika mimi niliwaita watu wangu usiku na mchana, lakini mwito wangu haukuwazidishia kukimbia.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Watu watamjia Nuh na kusema: Ewe Nuhu! utuombee.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -1485,16 +1121,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Hadithi ya Ad inajirudia katika Qur'ani yote kama onyo kwa jumuiya za baadae"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na kwa kina A'di tulimtuma ndugu yao Hud. Akasema: Enyi watu wangu! huna mungu ila Yeye. Je, hamtamwogopa?",
-      },
-      {
-        excerpt:
-          "Basi walipo liona wingu linakaribia mabonde yao, walisema: Hili ni wingu linalotuletea mvua! Bali ni yale mliyo kuwa mkiyavumilia, na upepo ndani yake ni adhabu chungu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1529,16 +1156,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Thamud walijulikana kwa kuchonga nyumba za kifahari kwenye milima"],
     },
-    quran: [
-      {
-        excerpt:
-          "Huyu ni ngamia wa Mwenyezi Mungu kuwa ni Ishara kwenu, basi mwacheni ale katika ardhi ya Mwenyezi Mungu, wala msimguse kwa madhara, isije ikakushikeni adhabu chungu.",
-      },
-      {
-        excerpt:
-          "Thamud walikanusha kwa sababu ya uasi wao, alipo tumwa mnyonge zaidi wao... Basi Mola wao Mlezi akawateremshia maangamizi kwa dhambi zao na akawasawazisha.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1579,22 +1197,8 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Babu wa Mitume kupitia Ismail na Ishaq",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na pale Ibrahim alipo jaribiwa na Mola wake Mlezi kwa maamrisho na akazitekeleza. Akasema: Hakika mimi nitakufanya kiongozi kwa watu.",
-      },
-      {
-        excerpt:
-          "Tukasema: Ewe moto, kuwa baridi na salama juu ya Ibrahim. Na walimtakia mabaya, lakini tukawafanya wao ndio wenye hasara kubwa.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Utakusanywa bila viatu, uchi, na bila kutahiriwa. Wa kwanza kuvikwa nguo Siku ya Kiyama atakuwa Ibrahim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1628,16 +1232,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Jamaa wa Ibrahim ambaye alihama pamoja naye na kupelekwa Sodoma"],
     },
-    quran: [
-      {
-        excerpt:
-          "Je, mnawaendea wanaume katika walimwengu na mnaacha alivyo kuumbieni Mola wenu Mlezi? Bali nyinyi ni watu wapotovu.",
-      },
-      {
-        excerpt:
-          "Basi ilipo fika amri yetu tuliifanya sehemu ya juu ya miji kuwa chini kabisa, na tukawanyeshea mvua ya mawe ya udongo mgumu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1678,16 +1273,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Babu wa makabila ya Waarabu na mstari wa mwisho wa kinabii",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na mtaje katika Kitabu Ismail. Hakika yeye alikuwa mkweli katika ahadi yake, na alikuwa ni Mtume na Nabii. Alikuwa akiwaamrisha jamaa zake kuswali na zaka, na alikuwa akimridhia Mola wake Mlezi.",
-      },
-      {
-        excerpt:
-          "Na Ibrahim alipo simamisha misingi ya Nyumba na Ismail, wakaomba: Mola wetu Mlezi, tukubalie haya. Hakika Wewe ni Mwenye kusikia, Mjuzi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -1715,16 +1301,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Baba wa Ya'qub", "Imetajwa pamoja na Ibrahim na Ya'qub kama familia iliyochaguliwa"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na mkewe alikuwa amesimama, naye akacheka. Kisha tukampa bishara ya Is-haq, na baada ya Is-haq, Yaaqub.",
-      },
-      {
-        excerpt:
-          "Na wakumbuke waja wetu Ibrahim na Is-haq na Yaaqub, wenye nguvu na wenye kuona. Hakika Sisi tuliwateua kwa ubora wa kipekee: ukumbusho wa Nyumba.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1758,16 +1335,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Pia inaitwa Israeli", "Baba wa Yusuf na makabila ya Bani Israil"],
     },
-    quran: [
-      {
-        excerpt:
-          "Akasema: Bali nafsi zenu zimekuteseni kwenye kitu. Kwa hiyo subira inafaa zaidi. Huenda Mwenyezi Mungu akawaleta kwangu wote pamoja.",
-      },
-      {
-        excerpt:
-          "Wakasema: Tutamuabudu Mungu wako na Mungu wa baba zako, Ibrahim na Ismail na Is-haq, Mungu mmoja, na sisi tunasilimu kwake.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1802,18 +1370,8 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Sura yote ya Yusuf, inayoitwa hadithi bora zaidi, inahusu maisha yake"],
     },
-    quran: [
-      {
-        excerpt:
-          "Akasema: Hapana lawama juu yenu leo. Mwenyezi Mungu akusamehe; Naye ni Mwingi wa kurehemu kuliko wanaorehemu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mtukufu, mwana wa mtukufu, mwana wa mtukufu, mwana wa mtukufu: Yusuf, mwana wa Ya'qub, mwana wa Ishaq, mwana wa Ibrahim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -1847,16 +1405,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Inajulikana kwa kusisitiza uzito na vipimo tu"],
     },
-    quran: [
-      {
-        excerpt:
-          "Enyi watu wangu, muabuduni Mwenyezi Mungu; huna mungu ila Yeye. Timizeni kipimo na mizani, wala msiwanyime watu haki yao, wala msifanye uharibifu katika ardhi.",
-      },
-      {
-        excerpt:
-          "Na kufaulu kwangu sio ila kwa Mwenyezi Mungu. Kwake Yeye nimetegemea, na Kwake nitarejea.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1891,16 +1440,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Imetajwa katika mapokeo yote ya Kiislamu kama kielelezo cha sabr"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na Ayyubu alipo mwita Mola wake Mlezi: Hakika yamenigusa dhiki, na Wewe ni mwingi wa kurehemu kuliko wanaorehemu.",
-      },
-      {
-        excerpt:
-          "Hakika tulimkuta mvumilivu, mja mwema. Hakika yeye alikuwa ni mwenye kurejea kwa Mwenyezi Mungu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1925,15 +1465,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Imehesabiwa miongoni mwa manabii katika orodha kuu za Waislamu",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na Ismail na Idris na Dhul-Kifl - wote walikuwa miongoni mwa wenye subira. Na tukawaingiza katika rehema yetu; Hakika hao walikuwa miongoni mwa watu wema.",
-      },
-      {
-        excerpt: "Na mkumbuke Ismail, Al-Yasaa, na Dhul-Kifli, na wote ni katika walio bora.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -1975,22 +1507,8 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Anaitwa Kalimullah - yule ambaye Mwenyezi Mungu alizungumza naye moja kwa moja",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Na nimekuteuwa wewe, basi sikilizeni yanayoteremshwa. Hakika mimi ndiye Mwenyezi Mungu. Hapana mungu ila Mimi, basi niabuduni na ushike Sala kwa kunikumbuka.",
-      },
-      {
-        excerpt:
-          "Na tukampa wahyi mama yake Musa: Mnyonyeshe, na unapomkhofu basi mtupeni mtoni, wala msiogope wala msihuzunike. Hakika Sisi tutamrudisha kwenu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Malaika wa mauti alitumwa kwa Musa. Alipomjia Musa akampiga, na Mwenyezi Mungu akamrudishia jicho lake na akampa chaguo kuhusu wakati wa kufa kwake.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2023,16 +1541,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kaka mkubwa wa Musa", "Amesifiwa katika Qur-aan kwa ufasaha wake"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na unijaalie waziri katika familia yangu - Harun, ndugu yangu. Niongezee nguvu kupitia yeye na umruhusu ashiriki kazi yangu.",
-      },
-      {
-        excerpt:
-          "Akasema: Mwana wa mama yangu, hakika watu walinizidi nguvu na wakataka kuniua, basi wasifurahie maadui juu yangu.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2071,22 +1580,8 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Mpokeaji wa Zabur (Zaburi)", "Alimshinda Jalut (Goliathi) akiwa kijana"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ewe Dawud hakika tumekufanya wewe kuwa mrithi katika ardhi, basi hukumu baina ya watu kwa haki wala usifuate matamanio kwani yatakupoteza na njia ya Mwenyezi Mungu.",
-      },
-      {
-        excerpt:
-          "Na tuliifanya milima imtakase pamoja na Dawud, na ndege pia... Na tukamfundisha kutengeneza nguo za kivita ili kukukingeni na adui yenu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sala inayopendwa sana na Mwenyezi Mungu ni swala ya Dawud, na funga inayopendwa zaidi na Mwenyezi Mungu ni saumu ya Dawud: angefunga siku moja na inayofuata.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -2125,16 +1620,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Miongoni mwa manabii-wafalme walioelezewa kikamilifu katika Qur'ani"],
     },
-    quran: [
-      {
-        excerpt:
-          "Akatabasamu, akafurahishwa na maneno yake, na akasema: Mola wangu Mlezi, niwezeshe nishukuru neema Yako uliyonineemesha mimi na wazazi wangu wawili, na nifanye wema unayoiridhia.",
-      },
-      {
-        excerpt:
-          "Na kwa Suleiman tukautiisha upepo, mwendo wake wa asubuhi ni mwendo wa mwezi mmoja, na mwendo wake wa alasiri ni mwendo wa mwezi mmoja.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2163,15 +1649,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Ametajwa miongoni mwa watu wema", "Alikabiliana na ibada ya sanamu Ba'l"],
     },
-    quran: [
-      {
-        excerpt:
-          "Alipo waambia watu wake: Je! Je, mnamuomba Baali na kuwaacha walio bora zaidi wa waumbaji?",
-      },
-      {
-        excerpt: "Na Zakaria na Yahya na Isa na Ilyas - na wote walikuwa katika watu wema.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2195,15 +1673,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Imetajwa moja kwa moja katika Qur'ani miongoni mwa walio bora na waliochaguliwa"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na Ismail na Al-Yasaa na Yunus na Lut'i na wote tuliwafadhilisha kuliko walimwengu wote.",
-      },
-      {
-        excerpt: "Na mkumbuke Ismail, Al-Yasaa, na Dhul-Kifli, na wote ni katika walio bora.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2242,22 +1712,8 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Pia anaitwa Dhun-Nun (mtu wa samaki) katika Qur'ani"],
     },
-    quran: [
-      {
-        excerpt:
-          "Na aliita katika giza: Hapana mungu ila Wewe; utukufu ni Kwako. Hakika mimi nimekuwa miongoni mwa madhalimu.",
-      },
-      {
-        excerpt:
-          "Basi je, haukuwa na mji ulioamini hivyo ikanufaisha imani yake isipokuwa watu wa Yunus? Walipo amini tuliwaondolea adhabu ya hizaya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dua ya Dhun-Nun alipomwomba Mwenyezi Mungu kutoka ndani ya tumbo la samaki ilikuwa: La ilaha illa Anta, subhanaka, inni kuntu minaz-zalimin. Hakuna Mwislamu anayeomba kwa chochote isipokuwa Mwenyezi Mungu anamjibu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2292,16 +1748,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Mlezi wa Maryam", "Baba wa Yahya, ambaye kuzaliwa kwake kulijibu maombi yake"],
     },
-    quran: [
-      {
-        excerpt:
-          "Hapo Zakariya akamwomba Mola wake Mlezi, akisema: Mola wangu Mlezi, nijaalie kutoka kwako kizazi chema. Hakika Wewe ni Mwenye kusikia maombi.",
-      },
-      {
-        excerpt:
-          "Akasema: Mola wangu Mlezi, hakika mifupa yangu imedhoofika, na kichwa changu kimejaa weupe, wala sijapata huzuni katika maombi yangu Kwako, Mola wangu Mlezi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2337,16 +1784,7 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
         "Kuheshimiwa kwa amani wakati wa kuzaliwa, kifo, na ufufuo",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Ewe Yahya, shika Kitabu kwa bidii. Na tukampa hikima angali mtoto, na upole kutoka kwetu na usafi, naye alikuwa akimcha Mwenyezi Mungu.",
-      },
-      {
-        excerpt:
-          "Mwenyezi Mungu anakubashirieni Yahya, anayesadikisha neno litokalo kwa Mwenyezi Mungu, mtukufu, mzui, na Nabii miongoni mwa watu wema.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -2385,22 +1823,8 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Imepewa Injili (Injil)", "Watarejea kabla ya Siku ya Mwisho katika imani ya Sunni"],
     },
-    quran: [
-      {
-        excerpt:
-          "[Isa akasema]: Hakika Mwenyezi Mungu ni Mola wangu Mlezi na Mola wenu, basi muabuduni Yeye. Hiyo ni njia iliyonyooka.",
-      },
-      {
-        excerpt:
-          "Nao hawakumwua, wala hawakumsulubisha; lakini ikadhihirika kwao... Bali Mwenyezi Mungu alimnyanyua kwake.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mimi ndiye mkaribu zaidi wa watu wote kwa Isa bin Maryam. Mitume ni ndugu wa mama tofauti, lakini dini yao ni moja, na hapakuwa na nabii baina yetu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
   {
@@ -2438,21 +1862,8 @@ export const PROPHETS_BIO_TOPICS_SW: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Muhuri wa manabii", "Mfano bora (uswah hasanah) kwa waumini"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammad si baba wa yeyote katika wanaume wenu, bali ni Mtume wa Mwenyezi Mungu na muhuri wa Manabii.",
-      },
-      {
-        excerpt: "Na hatukukutuma ila uwe rehema kwa walimwengu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Mfano wangu na mfano wa manabii walionitangulia ni ule wa mtu aliyejenga nyumba kwa uzuri na ukamilifu, isipokuwa mahali pa tofali moja. Mimi ndimi yule tofali, na mimi ndiye muhuri wa manabii.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}, {}, {}],
   },
 ];

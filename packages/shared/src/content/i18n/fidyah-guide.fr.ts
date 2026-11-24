@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Si le jeûne est définitivement impossible, demandez à un érudit quelle est la fidyah pour chaque jour manqué.",
       "Si vous avez délibérément rompu le jeûne, ne vous fiez pas à une estimation d’application – demandez à un érudit quelle décision s’applique.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Et sur ceux qui sont capables [de jeûner, mais avec difficulté] — une rançon pour nourrir un pauvre... Et quiconque est malade ou en voyage — alors un nombre égal d'autres jours.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Qu'est-ce que la fidyah pour les jeûnes manqués ?",
@@ -37,12 +32,7 @@ export const FIDYAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Utilisez le tarif fidya de votre mosquée locale ou de votre conseil par jour lorsqu'il est disponible.",
       "Multipliez les jours × un repas (ou une unité fidya publiée) pour une estimation de planification.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Et sur ceux qui sont capables [de jeûner, mais avec difficulté] — une rançon pour nourrir un pauvre. Et celui qui fait du bon bénévolat, c'est mieux pour lui. Et jeûner serait mieux pour vous, si seulement vous saviez.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Qui paie généralement la fidyah ?",
@@ -54,18 +44,8 @@ export const FIDYAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "La classification de la grossesse, de l'allaitement et des maladies chroniques est un jugement scientifique. Ce sujet est uniquement éducatif.",
-    quran: [
-      {
-        excerpt:
-          "... Ainsi, quiconque aperçoit [la nouvelle lune du] mois, qu'il jeûne ; et celui qui est malade ou en voyage, un nombre égal d'autres jours. Allah veut pour vous du confort et ne veut pas pour vous des difficultés...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Un homme a dit : Ma mère est morte à cause du jeûne. Dois-je jeûner en sa faveur ? Le Prophète ﷺ a dit : Oui, la dette d'Allah a davantage de droits à être payée.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kaffarah pour avoir délibérément rompu le jeûne",
@@ -80,16 +60,7 @@ export const FIDYAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Demandez à un érudit qualifié quelle expiation, le cas échéant, vous devez.",
       "Si nourrir soixante pauvres est l'option que vous pouvez réaliser, utilisez un coût de repas local × 60 comme chiffre de planification.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Un homme dit : Je suis ruiné, ô Messager d'Allah. J'ai eu des relations sexuelles avec ma femme pendant le Ramadan. On lui a demandé s'il avait libéré un esclave, s'il avait jeûné deux mois de suite et s'il avait nourri soixante pauvres...",
-      },
-      {
-        excerpt:
-          "Alors que nous étions assis avec le Prophète ﷺ, un homme est venu et a dit : Je suis ruiné... Il a eu des relations sexuelles avec sa femme alors qu'il jeûnait...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Comment utiliser cette aide",

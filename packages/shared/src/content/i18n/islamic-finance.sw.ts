@@ -2,198 +2,159 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // sw overlay for islamic-finance. Index-aligned with ISLAMIC_FINANCE_TOPICS in ../islamic-finance.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const ISLAMIC_FINANCE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What Is Islamic Finance?",
+    title: "Fedha za Kiislamu ni Nini?",
     summary:
-      "An ethical lens on money, not a separate product category — this guide is education only.",
+      "Mtazamo wa kimaadili kuhusu pesa, si aina tofauti ya bidhaa — mwongozo huu ni wa kielimu tu.",
     body: [
-      "Islamic finance is not a brand of investment product; it is the application of Islamic ethics to how money is earned, lent, spent, and given away. At its core are a handful of principles: wealth is a trust from Allah rather than an end in itself, transactions must be free of exploitation and excessive uncertainty, and profit should be tied to real economic activity and shared risk rather than a guaranteed charge on a loan.",
-      "This guide introduces those principles at a general, educational level: the prohibition of riba (interest/usury), fair dealing in trade, the obligations of zakah and voluntary sadaqah, and the basic concept of takaful (cooperative insurance). It intentionally does not screen funds, list stocks or ETFs, or recommend any specific product or provider.",
-      "Modern financial products (mortgages, credit cards, insurance policies, retirement accounts, and more) are structured in many different ways, and rulings on them can depend on the exact contract terms and your jurisdiction. This guide gives you the underlying principles; for a ruling on your specific situation, speak with a qualified, certified Islamic finance scholar or institution.",
+      "Fedha za Kiislamu si chapa ya bidhaa za uwekezaji; ni matumizi ya maadili ya Kiislamu katika jinsi pesa inavyochumwa, kukopeshwa, kutumiwa na kutolewa. Kiini chake ni kanuni chache: mali ni amana kutoka kwa Allah badala ya kuwa lengo lenyewe, miamala lazima iwe huru dhidi ya unyonyaji na kutokuwa na uhakika kupita kiasi, na faida inapaswa kufungamana na shughuli halisi za kiuchumi na kugawana hatari badala ya malipo yaliyohakikishwa juu ya mkopo.",
+      "Mwongozo huu unatambulisha kanuni hizo katika ngazi ya jumla na ya kielimu: uharamu wa riba (riba/faida ya mkopo), uadilifu katika biashara, wajibu wa Zaka na sadaka ya hiari, na dhana ya msingi ya takaful (bima ya ushirikiano). Kwa makusudi haichuji mifuko ya uwekezaji, haiorodheshi hisa wala ETF, wala haipendekezi bidhaa au mtoa huduma yeyote mahususi.",
+      "Bidhaa za kisasa za kifedha (mikopo ya nyumba, kadi za mkopo, sera za bima, akaunti za kustaafu, na zaidi) zimeundwa kwa njia nyingi tofauti, na hukumu juu yake zinaweza kutegemea masharti halisi ya mkataba na nchi unayoishi. Mwongozo huu unakupa kanuni za msingi; kwa hukumu kuhusu hali yako mahususi, zungumza na mwanachuoni au taasisi ya fedha za Kiislamu iliyohitimu na kuthibitishwa.",
     ],
     disclaimer:
-      "Educational content only — not financial advice and not a fatwa. It does not recommend, screen, or rate any specific fund, stock, provider, or financial product.",
+      "Maudhui ya kielimu tu — si ushauri wa kifedha wala fatwa. Hayapendekezi, kuchuja wala kutathmini mfuko, hisa, mtoa huduma au bidhaa yoyote mahususi ya kifedha.",
   },
   {
-    title: "Wealth as a Trust (Amanah)",
-    summary: "Everything you own is ultimately Allah's — you are its steward, not its final owner.",
-    body: [
-      "A recurring Qur'anic theme is that wealth belongs to Allah first; a person is only its trustee (amanah) for a time, accountable for how it was earned and how it is used. This reframes money from a purely personal possession into something you will be asked about — where it came from and where it went.",
-      "Two commands anchor how that trust plays out in dealings with other people: fulfilling contracts and agreements in full, and never taking someone else's wealth through injustice, deception, or exploitation, only through fair trade by mutual consent.",
-      "Held together, these principles are why Islamic financial ethics keep returning to the same few questions: was this profit earned through real effort, risk, and value creation? Was the other party treated with full honesty? And is any obligation I've made being honoured?",
-    ],
-    quran: [
-      {
-        excerpt: "O you who have believed, fulfil [all] contracts...",
-      },
-      {
-        excerpt:
-          "Do not consume one another's wealth unjustly but only [in lawful] business by mutual consent.",
-      },
-    ],
-  },
-  {
-    title: "The Prohibition of Riba",
+    title: "Mali kama Amana",
     summary:
-      "Riba (interest/usury) is one of the most strongly condemned transactions in the Qur'an.",
+      "Kila unachomiliki hatimaye ni cha Allah — wewe ni msimamizi wake, si mmiliki wake wa mwisho.",
     body: [
-      "Riba — commonly translated as interest or usury, broadly any predetermined, guaranteed increase charged on a loan — is prohibited in unusually strong language across five consecutive verses of Surah al-Baqarah (2:275–279), among the most severe warnings on any single topic in the Qur'an.",
-      "The passage draws a deliberate contrast: 'Allah has permitted trade and forbidden riba' (2:275). Trade — buying, selling, and investing where both parties share genuine risk and effort — is praised; riba, a fixed charge owed regardless of outcome, is condemned. The chapter goes on to command believers to give up any outstanding riba entirely, warning of serious consequences for those who persist, while promising that whoever repents may keep only their original principal — no more, no less.",
-      "This is a foundational teaching to be aware of, not a checklist for auditing every modern financial product yourself. Working out whether a specific contract (a mortgage, a loan, a savings account) involves riba in practice requires reviewing its actual terms with someone qualified in Islamic finance.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Those who consume interest cannot stand [on the Day of Resurrection]... But Allah has permitted trade and has forbidden interest... O you who have believed, fear Allah and give up what remains [due to you] of interest... But if you repent, you may have your principal — you do no wrong, nor are you wronged.",
-      },
+      "Mada inayojirudia katika Qur'ani ni kwamba mali ni ya Allah kwanza; mtu ni mdhamini wake tu (amana) kwa muda, atakayeulizwa jinsi alivyoichuma na jinsi alivyoitumia. Hili linabadilisha mtazamo wa pesa kutoka kuwa milki ya kibinafsi tu hadi kuwa kitu utakachoulizwa kuhusu — ilitoka wapi na ilikwenda wapi.",
+      "Amri mbili ndizo msingi wa jinsi amana hiyo inavyotekelezwa katika kuamiliana na watu wengine: kutimiza mikataba na makubaliano kikamilifu, na kutochukua kamwe mali ya mtu mwingine kwa dhuluma, udanganyifu au unyonyaji, bali kwa biashara ya haki kwa kuridhiana tu.",
+      "Zikishikiliwa pamoja, kanuni hizi ndizo sababu maadili ya kifedha ya Kiislamu yanarudi kwenye maswali yale yale machache: je, faida hii ilichumwa kupitia juhudi halisi, hatari na kuongeza thamani? Je, upande mwingine ulitendewa kwa uaminifu kamili? Na je, wajibu wowote niliojifunga nao unatimizwa?",
     ],
   },
   {
-    title: "Why Trade Differs from Interest",
+    title: "Uharamu wa Riba",
     summary:
-      "Legitimate profit is tied to risk and effort; riba is a guaranteed charge regardless of outcome.",
+      "Riba (faida ya mkopo/riba ya dhuluma) ni mojawapo ya miamala inayolaaniwa vikali zaidi katika Qur'ani.",
     body: [
-      "A simple way to hold the distinction in mind: in a trade or genuine investment, the person providing capital or goods shares in the outcome — they may profit, but they can also lose, because they are exposed to the real performance of a venture. In a riba-based loan, the lender is guaranteed a fixed return regardless of whether the borrower's venture succeeds, struggles, or fails.",
-      "Classical scholarship frames this as a matter of justice: a person in urgent need who borrows money can be trapped into paying back far more than they borrowed, with the risk placed entirely on them and none on the lender — precisely the imbalance the Qur'an condemns in the phrase 'Allah destroys interest and gives increase for charities' (2:276), a direct contrast between wealth built through exploitation and wealth grown through generosity.",
-      "This is a general educational contrast, not a ruling on any specific instrument (some modern structures blur trade and lending in complex ways). Where a specific product sits on this spectrum is exactly the kind of question to bring to a qualified Islamic finance scholar or certified advisor rather than deciding from general principles alone.",
-    ],
-    quran: [
-      {
-        excerpt: "Allah destroys interest and gives increase for charities.",
-      },
+      "Riba — mara nyingi hutafsiriwa kama faida ya mkopo au riba ya dhuluma, kwa upana ni ongezeko lolote lililopangwa awali na kuhakikishwa linalotozwa juu ya mkopo — imeharamishwa kwa lugha kali isiyo ya kawaida katika aya tano zinazofuatana za Surat al-Baqara (2:275–279), miongoni mwa maonyo makali zaidi juu ya mada yoyote moja katika Qur'ani.",
+      "Kifungu hicho kinaweka tofauti ya makusudi: 'Mwenyezi Mungu … Amehalalisha biashara na Ameharamisha riba' (2:275). Biashara — kununua, kuuza na kuwekeza ambapo pande zote mbili zinagawana hatari na juhudi halisi — inasifiwa; riba, malipo yaliyowekwa yanayodaiwa bila kujali matokeo, inalaaniwa. Sura inaendelea kuwaamuru waumini kuacha kabisa riba yoyote iliyobaki, ikionya juu ya matokeo mazito kwa wanaoendelea nayo, huku ikiahidi kwamba anayetubu anaweza kubaki na rasilimali yake ya asili tu — si zaidi, si pungufu.",
+      "Hili ni fundisho la msingi la kulifahamu, si orodha ya kukagua kila bidhaa ya kisasa ya kifedha mwenyewe. Kubaini kama mkataba mahususi (mkopo wa nyumba, mkopo, akaunti ya akiba) unahusisha riba kivitendo kunahitaji kupitia masharti yake halisi pamoja na mtu aliyehitimu katika fedha za Kiislamu.",
     ],
   },
   {
-    title: "How Seriously the Sunnah Treats Riba",
-    summary: "The Prophet ﷺ warned that everyone involved in a riba transaction shares in its sin.",
-    body: [
-      "Beyond the Qur'an's own warnings, the Prophet ﷺ made clear that responsibility for riba is not limited to whoever directly charges it. In an authentic hadith, he ﷺ is reported to have cursed the one who consumes riba, the one who pays it, the one who writes the contract, and the two witnesses to it — saying they are all equal in this.",
-      "The lesson generally drawn from this is one of collective avoidance rather than individual blame alone: riba is treated as something a whole transaction, and everyone knowingly party to it, should stay away from — not merely a private matter between a lender and a borrower.",
-      "As with the Qur'anic verses, this hadith establishes the seriousness of the principle; it does not itself tell you how to classify a specific modern financial product. That judgment call belongs with qualified scholars reviewing the actual contract.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah's Messenger ﷺ cursed the one who consumes riba, its payer, the one who records it, and the two witnesses to it, and said: they are all equal [in this]. (Jabir)",
-      },
-    ],
-  },
-  {
-    title: "Honesty in Trade",
-    summary: "The honest, trustworthy merchant is given one of the highest ranks in the Hereafter.",
-    body: [
-      "In sharp contrast to riba's warnings, honest trade is repeatedly praised. The Prophet Muhammad ﷺ himself worked as a trader before his prophethood and was known in Makkah by the title al-Amin — 'the Trustworthy' — for his integrity in business dealings, long before he was known as a prophet.",
-      "He ﷺ later taught that 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' on the Day of Judgment — an extraordinarily high status attached to something as ordinary as fair dealing in a market.",
-      "Practically, fair trade means: describing goods and services accurately, disclosing known defects rather than hiding them, honouring agreed prices and terms, and avoiding deception, false advertising, or exploiting a buyer's or seller's lack of knowledge. These are the same instincts that make for good, sustainable business in any tradition — Islam simply ties them to eternal reward as well.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The truthful, trustworthy merchant is with the prophets, the truthful, and the martyrs. (Abu Sa'id al-Khudri)",
-      },
-    ],
-  },
-  {
-    title: "Navigating Modern Financial Products",
+    title: "Kwa Nini Biashara Inatofautiana na Riba",
     summary:
-      "Mortgages, cards, and insurance are genuinely complex — this guide stops at principles.",
+      "Faida halali inafungamana na hatari na juhudi; riba ni malipo yaliyohakikishwa bila kujali matokeo.",
     body: [
-      "Modern financial life involves products the earliest generations of Muslims never encountered in their current form: mortgages, credit cards, retirement accounts, insurance, and investment funds structured in many different ways. Applying centuries-old principles to these products is real, careful scholarly work — not something to reason out alone from a few general verses.",
-      "Because of this, contemporary Islamic finance institutions and certified scholars specialise specifically in reviewing modern contracts for compliance with these principles, often producing detailed rulings on particular products or structures. That specialised review is outside the scope of this app.",
-      "If you're weighing a real financial decision — a home purchase, a loan, an investment, an insurance policy — the responsible next step is to consult a qualified, certified Islamic finance advisor or scholar who can look at the actual contract terms, not to rely on general educational content like this guide.",
+      "Njia rahisi ya kuikumbuka tofauti hii: katika biashara au uwekezaji halisi, mtu anayetoa mtaji au bidhaa hushiriki katika matokeo — anaweza kupata faida, lakini pia anaweza kupata hasara, kwa sababu yuko wazi kwa utendaji halisi wa mradi. Katika mkopo wenye riba, mkopeshaji anahakikishiwa marejesho yaliyowekwa bila kujali kama mradi wa mkopaji unafanikiwa, unatatizika au unashindwa.",
+      "Elimu ya kitamaduni inaliona hili kama suala la haki: mtu mwenye shida ya dharura anayekopa pesa anaweza kunaswa akalipa zaidi sana ya alichokopa, hatari yote ikiwa juu yake na hakuna juu ya mkopeshaji — hasa ule ukosefu wa uwiano unaolaaniwa na Qur'ani katika maneno 'Mwenyezi Mungu Anaiyondoa riba … Na Anazikuza sadaka' (2:276), tofauti ya moja kwa moja kati ya mali iliyojengwa kwa unyonyaji na mali inayokua kwa ukarimu.",
+      "Huu ni ulinganisho wa jumla wa kielimu, si hukumu juu ya chombo chochote mahususi (baadhi ya miundo ya kisasa huchanganya biashara na ukopeshaji kwa njia tata). Mahali ambapo bidhaa mahususi iko katika wigo huu ndilo hasa aina ya swali la kupeleka kwa mwanachuoni wa fedha za Kiislamu aliyehitimu au mshauri aliyethibitishwa badala ya kuamua kwa kanuni za jumla peke yake.",
+    ],
+  },
+  {
+    title: "Jinsi Sunna Inavyoichukulia Riba kwa Uzito",
+    summary:
+      "Mtume ﷺ alionya kwamba kila anayehusika katika muamala wa riba anashiriki katika dhambi yake.",
+    body: [
+      "Zaidi ya maonyo ya Qur'ani yenyewe, Mtume ﷺ aliweka wazi kwamba jukumu la riba halimhusu tu yule anayeitoza moja kwa moja. Katika hadithi sahihi, imepokewa kwamba ﷺ alimlaani anayekula riba, anayeilipa, anayeandika mkataba wake, na mashahidi wake wawili — akisema wote ni sawa katika hilo.",
+      "Somo linalotolewa kwa kawaida kutokana na hili ni la kujiepusha kwa pamoja badala ya kulaumu mtu mmoja tu: riba inachukuliwa kama kitu ambacho muamala mzima, na kila anayeshiriki ndani yake kwa kujua, anapaswa kukaa mbali nacho — si jambo la faragha tu kati ya mkopeshaji na mkopaji.",
+      "Kama ilivyo kwa aya za Qur'ani, hadithi hii inathibitisha uzito wa kanuni hii; yenyewe haikuambii jinsi ya kuainisha bidhaa mahususi ya kisasa ya kifedha. Uamuzi huo ni wa wanachuoni waliohitimu wanaopitia mkataba halisi.",
+    ],
+  },
+  {
+    title: "Uaminifu katika Biashara",
+    summary: "Mfanyabiashara mkweli na mwaminifu anapewa mojawapo ya daraja za juu kabisa Akhera.",
+    body: [
+      "Kinyume kabisa na maonyo ya riba, biashara ya uaminifu inasifiwa mara kwa mara. Mtume Muhammad ﷺ mwenyewe alifanya kazi ya biashara kabla ya utume wake na alijulikana Makka kwa lakabu al-Amin — 'Mwaminifu' — kwa uadilifu wake katika shughuli za biashara, muda mrefu kabla hajajulikana kama Mtume.",
+      "Baadaye ﷺ alifundisha kwamba 'the truthful, trustworthy merchant will be with the prophets, the truthful, and the martyrs' (maana kwa Kiingereza) Siku ya Kiyama — daraja la juu isivyo kawaida lililofungamanishwa na jambo la kawaida kama kuamiliana kwa haki sokoni.",
+      "Kivitendo, biashara ya haki inamaanisha: kueleza bidhaa na huduma kwa usahihi, kuweka wazi kasoro zinazojulikana badala ya kuzificha, kuheshimu bei na masharti yaliyokubaliwa, na kuepuka udanganyifu, matangazo ya uongo, au kutumia vibaya ukosefu wa ujuzi wa mnunuzi au muuzaji. Hizi ndizo silika zile zile zinazojenga biashara nzuri na endelevu katika mapokeo yoyote — Uislamu unazifungamanisha pia na malipo ya milele.",
+    ],
+  },
+  {
+    title: "Kupitia Bidhaa za Kisasa za Kifedha",
+    summary:
+      "Mikopo ya nyumba, kadi na bima ni mambo tata kweli — mwongozo huu unaishia kwenye kanuni.",
+    body: [
+      "Maisha ya kisasa ya kifedha yanahusisha bidhaa ambazo vizazi vya mwanzo vya Waislamu havikuwahi kukutana nazo katika umbo lao la sasa: mikopo ya nyumba, kadi za mkopo, akaunti za kustaafu, bima, na mifuko ya uwekezaji iliyoundwa kwa njia nyingi tofauti. Kutumia kanuni za karne nyingi kwa bidhaa hizi ni kazi halisi na ya uangalifu ya kitaaluma — si kitu cha kufikia hitimisho peke yako kutoka aya chache za jumla.",
+      "Kwa sababu hii, taasisi za kisasa za fedha za Kiislamu na wanachuoni waliothibitishwa hubobea hasa katika kupitia mikataba ya kisasa ili kuona kama inaendana na kanuni hizi, mara nyingi wakitoa hukumu za kina juu ya bidhaa au miundo fulani. Upitiaji huo maalumu uko nje ya wigo wa programu hii.",
+      "Ikiwa unapima uamuzi halisi wa kifedha — kununua nyumba, mkopo, uwekezaji, sera ya bima — hatua ya kuwajibika inayofuata ni kushauriana na mshauri au mwanachuoni wa fedha za Kiislamu aliyehitimu na kuthibitishwa anayeweza kuangalia masharti halisi ya mkataba, si kutegemea maudhui ya jumla ya kielimu kama mwongozo huu.",
     ],
     disclaimer:
-      "This app does not evaluate, screen, or recommend any specific financial product, fund, or provider, and this guide is not a substitute for qualified professional or scholarly advice on your actual finances.",
+      "Programu hii haitathmini, haichuji wala haipendekezi bidhaa, mfuko au mtoa huduma yeyote mahususi wa kifedha, na mwongozo huu si mbadala wa ushauri wa kitaaluma au wa kielimu wa kidini uliohitimu kuhusu fedha zako halisi.",
   },
   {
-    title: "Zakah: Worship Through Wealth",
+    title: "Zaka: Ibada Kupitia Mali",
     summary:
-      "Zakah is an obligatory act of worship carried out with money rather than words or motion.",
+      "Zaka ni tendo la lazima la ibada linalotekelezwa kwa pesa badala ya maneno au harakati.",
     body: [
-      "Zakah — a fixed, obligatory annual charge on qualifying wealth above a minimum threshold (nisab) — is one of the five pillars of Islam, placing giving on the same footing as prayer and fasting rather than treating it as optional generosity.",
-      "The Qur'an consistently pairs zakah with prayer as a marker of genuine faith, and promises that those who establish both prayer and zakah 'will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.' Financially, it functions as a wealth-purification mechanism — redistributing a small, regular share of accumulated wealth to those in need rather than letting it sit idle indefinitely in a few hands.",
-      "Because the calculation depends on your specific savings, assets, and local nisab values, this app has a dedicated Zakat guide and calculator — use it directly rather than estimating from general principles here.",
+      "Zaka — wajibu maalumu wa kila mwaka juu ya mali inayostahiki iliyozidi kiwango cha chini (nisab) — ni mojawapo ya nguzo tano za Uislamu, ikiweka utoaji katika daraja sawa na swala na saumu badala ya kuuchukulia kama ukarimu wa hiari.",
+      "Qur'ani mara kwa mara huiunganisha Zaka na swala kama alama ya imani ya kweli, na inaahidi kwamba wale wanaosimamisha swala na kutoa Zaka 'wana thawabu kubwa zinazowahusu wao mbele ya Mola wao … Na hawatapatwa na woga katika Akhera yao, wala masikitiko.' Kifedha, inafanya kazi kama utaratibu wa kutakasa mali — kugawa upya sehemu ndogo na ya mara kwa mara ya mali iliyolimbikizwa kwa wenye mahitaji badala ya kuiacha ikae bila kazi milele mikononi mwa watu wachache.",
+      "Kwa kuwa hesabu inategemea akiba yako mahususi, mali zako na viwango vya nisab vya eneo lako, programu hii ina mwongozo maalumu wa Zaka na kikokotoo — vitumie moja kwa moja badala ya kukadiria kutokana na kanuni za jumla hapa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, those who believe and do righteous deeds and establish prayer and give zakah will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve.",
-      },
-    ],
+    appLinks: [{ label: "Mwongozo wa Zaka na kikokotoo" }],
   },
   {
-    title: "Sadaqah: Voluntary Giving",
+    title: "Sadaka: Utoaji wa Hiari",
     summary:
-      "Beyond the obligatory zakah, any voluntary giving is called sadaqah — and it never truly costs you.",
+      "Zaidi ya Zaka ya lazima, utoaji wowote wa hiari huitwa sadaka — na kwa kweli haukugharimu kamwe.",
     body: [
-      "Sadaqah is voluntary charity, given in any amount, at any time, for the sake of Allah — beyond the fixed obligation of zakah. It ranges from significant financial gifts to something as small as a kind word or removing a source of harm from someone's path, all counted as forms of charity in the hadith literature.",
-      "One of the most reassuring teachings for anyone hesitant to give is the Prophet's ﷺ statement that charity does not decrease wealth — a point the Qur'an supports elsewhere by describing spending in Allah's cause as something Allah replaces and rewards, not merely something that runs out.",
-      "Practically, this reframes generosity: giving is not competing against your financial security but is presented as protecting and growing it, in ways not always visible on a balance sheet.",
+      "Sadaka ni utoaji wa hiari, unaotolewa kwa kiasi chochote, wakati wowote, kwa ajili ya Allah — zaidi ya wajibu maalumu wa Zaka. Inaanzia zawadi kubwa za kifedha hadi kitu kidogo kama neno jema au kuondoa kitu cha kudhuru njiani mwa mtu, vyote vikihesabiwa kama aina za sadaka katika maandiko ya hadithi.",
+      "Mojawapo ya mafundisho yenye kutia moyo zaidi kwa yeyote anayesita kutoa ni kauli ya Mtume ﷺ kwamba sadaka haipunguzi mali — jambo ambalo Qur'ani inaliunga mkono mahali pengine kwa kueleza kutoa katika njia ya Allah kama kitu ambacho Allah hukirudisha na kukilipa, si tu kitu kinachokwisha.",
+      "Kivitendo, hili linabadilisha mtazamo wa ukarimu: kutoa hakushindani na usalama wako wa kifedha bali kunaelezwa kama kunaulinda na kuukuza, kwa njia ambazo hazionekani kila mara katika mizania ya hesabu.",
     ],
-    hadith: [
-      {
-        excerpt: "Charity does not decrease wealth... (Abu Hurayrah)",
-      },
-    ],
+    appLinks: [{ label: "Mwongozo wa Zaka na sadaka" }, { label: "Malengo ya sadaka" }],
   },
   {
-    title: "Takaful: Cooperative Risk-Sharing",
-    summary:
-      "A high-level look at the concept behind Islamic alternatives to conventional insurance.",
+    title: "Takaful: Kugawana Hatari kwa Ushirikiano",
+    summary: "Mtazamo wa jumla wa dhana iliyo nyuma ya mbadala wa Kiislamu wa bima ya kawaida.",
     body: [
-      "Takaful (from an Arabic root meaning mutual guarantee) is the general concept behind Islamic approaches to insurance-like protection: a group of participants contribute to a shared fund, and that fund is used to help members who experience a covered loss, with any surplus typically shared among participants or carried forward rather than kept as a separate insurer's guaranteed profit.",
-      "The underlying idea is cooperative risk-sharing rather than risk-transfer for a guaranteed premium: participants are seen as mutually helping one another, with the fund's operator typically acting as a manager or agent for a fee rather than the risk-bearing party itself.",
-      "This is only a general, conceptual description. Actual takaful products vary widely in structure between providers and countries, and evaluating whether a specific plan is genuinely structured this way requires reviewing its actual terms with a qualified Islamic finance scholar or institution — this app does not recommend or evaluate any specific takaful (or insurance) provider or plan.",
+      "Takaful (kutoka mzizi wa Kiarabu wenye maana ya kudhaminiana) ni dhana ya jumla iliyo nyuma ya mbinu za Kiislamu za ulinzi unaofanana na bima: kundi la washiriki huchangia mfuko wa pamoja, na mfuko huo hutumiwa kuwasaidia wanachama wanaopata hasara iliyolindwa, huku ziada yoyote kwa kawaida ikigawanywa kati ya washiriki au kuhamishiwa mbele badala ya kuwekwa kama faida iliyohakikishwa ya kampuni ya bima iliyo tofauti.",
+      "Wazo la msingi ni kugawana hatari kwa ushirikiano badala ya kuhamisha hatari kwa malipo yaliyohakikishwa: washiriki wanaonekana kama wanasaidiana wao kwa wao, huku mwendeshaji wa mfuko kwa kawaida akifanya kazi kama meneja au wakala kwa ada badala ya kuwa yeye ndiye mbebaji wa hatari.",
+      "Haya ni maelezo ya jumla ya kidhana tu. Bidhaa halisi za takaful hutofautiana sana katika muundo kati ya watoa huduma na nchi, na kutathmini kama mpango mahususi kweli umeundwa hivi kunahitaji kupitia masharti yake halisi pamoja na mwanachuoni au taasisi ya fedha za Kiislamu iliyohitimu — programu hii haipendekezi wala haitathmini mtoa huduma au mpango wowote mahususi wa takaful (au bima).",
     ],
     disclaimer:
-      "General education only. This is not a recommendation of takaful over conventional insurance, or of any specific provider or plan — consult a qualified advisor for your circumstances.",
+      "Elimu ya jumla tu. Hii si pendekezo la takaful badala ya bima ya kawaida, wala la mtoa huduma au mpango wowote mahususi — shauriana na mshauri aliyehitimu kwa hali yako.",
   },
   {
-    title: "Takaful and Conventional Insurance, Compared at a High Level",
-    summary: "The two share a purpose — managing risk — but differ in how that risk is structured.",
-    body: [
-      "Conventional insurance is typically structured as a contract where a policyholder pays a premium and the insurer, as a separate commercial party, bears the risk in exchange for that fee, often investing the premium pool in ways that may include interest-bearing instruments. Some classical scholars raised concerns about this structure touching on riba, gharar (excessive uncertainty about the payout), and the transfer of risk for a fixed fee rather than shared risk.",
-      "Takaful was developed, broadly speaking, as an attempt to address those specific concerns through a mutual, cooperative structure instead — though scholars and institutions differ on exactly which structures fully achieve that goal, and takaful providers themselves vary considerably in design.",
-      "Because both the concerns and the alternative structures involve real technical detail (and because personal circumstances such as location, coverage needs, and available providers vary enormously), this comparison is offered only as general background — not as a ruling on any specific policy you may be considering.",
-    ],
-    disclaimer:
-      "Educational comparison only, not a fatwa on insurance or takaful in general or on any specific product. Scholars hold a range of views on modern insurance structures; consult a qualified advisor for your situation.",
-  },
-  {
-    title: "FAQ: Is This Financial Advice?",
-    summary: "No — this guide teaches principles only, and cannot replace qualified advice.",
-    body: [
-      "Q: Can I use this guide to decide whether a specific loan, investment, or insurance product is permissible for me? A: No. This guide explains general Islamic principles about money — it does not review contracts, recommend products, or issue rulings. Specific financial decisions should be made with a qualified financial professional and, for questions of permissibility, a qualified Islamic finance scholar.",
-      "Q: Does this app rate or list halal stocks, funds, or ETFs? A: No, and it never will as part of this guide — fund screening and investment recommendations are outside its scope and require licensed financial expertise this content does not provide.",
-      "Q: Is this guide a fatwa? A: No. A fatwa is a specific religious ruling issued by a qualified scholar in response to a specific question and context. This guide teaches general principles only; for an actual ruling on your situation, seek out a qualified, trusted scholar directly.",
-    ],
-    disclaimer:
-      "This entire guide is educational content, not financial advice and not a fatwa. Always consult qualified financial and religious professionals for decisions about your own money.",
-  },
-  {
-    title: "FAQ: How Do I Find Shariah-Compliant Options?",
+    title: "Takaful na Bima ya Kawaida, Ulinganisho wa Jumla",
     summary:
-      "Look for certified expertise, not a list — this app intentionally doesn't provide one.",
+      "Zote mbili zina lengo moja — kusimamia hatari — lakini zinatofautiana katika jinsi hatari hiyo inavyopangwa.",
     body: [
-      "Q: Where can I find a list of halal banks, funds, or investment platforms? A: Not in this app, by design — product lists change constantly, vary drastically by country, and require ongoing compliance monitoring that only specialised institutions can properly maintain. Look instead for institutions with a genuine, named Shariah supervisory board and published compliance methodology.",
-      "Q: How do I know if a scholar or certification is legitimate? A: Look for scholars or boards recognised by established Islamic finance standard-setting bodies in your region or internationally, rather than informal online claims. A reputable institution will be transparent about who reviews its products and how.",
-      "Q: What should I do if I can't find any Islamic finance options where I live? A: This is a real and common situation. Discuss it with a knowledgeable local imam or scholar — they can help you weigh the available options for your specific circumstances, since guidance here can depend heavily on what alternatives genuinely exist for you.",
+      "Bima ya kawaida kwa kawaida hupangwa kama mkataba ambapo mwenye sera hulipa ada (premium) na kampuni ya bima, kama upande tofauti wa kibiashara, hubeba hatari kwa malipo ya ada hiyo, mara nyingi ikiwekeza fedha za ada kwa njia zinazoweza kujumuisha vyombo vyenye riba. Baadhi ya wanachuoni wa kitamaduni walieleza wasiwasi kwamba muundo huu unagusa riba, gharar (kutokuwa na uhakika kupita kiasi kuhusu malipo), na kuhamisha hatari kwa ada maalumu badala ya kugawana hatari.",
+      "Takaful ilianzishwa, kwa ujumla, kama jaribio la kushughulikia wasiwasi huo mahususi kupitia muundo wa kusaidiana na kushirikiana badala yake — ingawa wanachuoni na taasisi hutofautiana kuhusu miundo ipi hasa inafikia lengo hilo kikamilifu, na watoa huduma wa takaful wenyewe hutofautiana sana katika muundo.",
+      "Kwa kuwa wasiwasi huo na miundo mbadala vinahusisha undani halisi wa kiufundi (na kwa kuwa hali za kibinafsi kama mahali, mahitaji ya kinga, na watoa huduma waliopo hutofautiana sana), ulinganisho huu unatolewa kama historia ya jumla tu — si kama hukumu juu ya sera yoyote mahususi unayoifikiria.",
+    ],
+    disclaimer:
+      "Ulinganisho wa kielimu tu, si fatwa juu ya bima au takaful kwa ujumla wala juu ya bidhaa yoyote mahususi. Wanachuoni wana mitazamo mbalimbali kuhusu miundo ya kisasa ya bima; shauriana na mshauri aliyehitimu kwa hali yako.",
+  },
+  {
+    title: "Maswali: Je, Huu ni Ushauri wa Kifedha?",
+    summary:
+      "Hapana — mwongozo huu unafundisha kanuni tu, na hauwezi kuchukua nafasi ya ushauri uliohitimu.",
+    body: [
+      "S: Je, naweza kutumia mwongozo huu kuamua kama mkopo, uwekezaji au bidhaa ya bima mahususi inaruhusiwa kwangu? J: Hapana. Mwongozo huu unaeleza kanuni za jumla za Kiislamu kuhusu pesa — haupitii mikataba, haupendekezi bidhaa, wala hautoi hukumu. Maamuzi mahususi ya kifedha yanapaswa kufanywa pamoja na mtaalamu wa fedha aliyehitimu na, kwa maswali ya uhalali, mwanachuoni wa fedha za Kiislamu aliyehitimu.",
+      "S: Je, programu hii inatathmini au kuorodhesha hisa, mifuko au ETF halali? J: Hapana, na haitafanya hivyo kamwe kama sehemu ya mwongozo huu — kuchuja mifuko na mapendekezo ya uwekezaji viko nje ya wigo wake na vinahitaji utaalamu wa kifedha wenye leseni ambao maudhui haya hayatoi.",
+      "S: Je, mwongozo huu ni fatwa? J: Hapana. Fatwa ni hukumu mahususi ya kidini inayotolewa na mwanachuoni aliyehitimu kujibu swali na muktadha mahususi. Mwongozo huu unafundisha kanuni za jumla tu; kwa hukumu halisi kuhusu hali yako, mtafute moja kwa moja mwanachuoni aliyehitimu unayemwamini.",
+    ],
+    disclaimer:
+      "Mwongozo huu wote ni maudhui ya kielimu, si ushauri wa kifedha wala fatwa. Daima shauriana na wataalamu wa fedha na wa dini waliohitimu kwa maamuzi kuhusu pesa zako mwenyewe.",
+  },
+  {
+    title: "Maswali: Ninapataje Chaguo Zinazoendana na Sharia?",
+    summary:
+      "Tafuta utaalamu uliothibitishwa, si orodha — programu hii kwa makusudi haitoi orodha.",
+    body: [
+      "S: Naweza kupata wapi orodha ya benki, mifuko au majukwaa ya uwekezaji halali? J: Si katika programu hii, kwa makusudi — orodha za bidhaa hubadilika kila mara, hutofautiana sana kati ya nchi, na zinahitaji ufuatiliaji endelevu wa uzingatiaji ambao taasisi maalumu tu ndizo zinaweza kuudumisha ipasavyo. Badala yake, tafuta taasisi zenye bodi halisi ya usimamizi wa Sharia yenye majina yanayojulikana na mbinu ya uzingatiaji iliyochapishwa.",
+      "S: Ninajuaje kama mwanachuoni au uthibitisho ni halali? J: Tafuta wanachuoni au bodi zinazotambuliwa na vyombo vilivyoimarika vya kuweka viwango vya fedha za Kiislamu katika eneo lako au kimataifa, badala ya madai yasiyo rasmi mtandaoni. Taasisi yenye sifa njema itakuwa wazi kuhusu nani anapitia bidhaa zake na kwa namna gani.",
+      "S: Nifanye nini ikiwa siwezi kupata chaguo zozote za fedha za Kiislamu ninapoishi? J: Hii ni hali halisi na ya kawaida. Ijadili na imamu au mwanachuoni wa eneo lako mwenye elimu — anaweza kukusaidia kupima chaguo zilizopo kwa hali yako mahususi, kwa kuwa mwongozo hapa unaweza kutegemea sana mbadala gani kweli upo kwako.",
     ],
     actions: [
-      "Look for institutions with a named, transparent Shariah supervisory board rather than relying on marketing claims.",
+      "Tafuta taasisi zenye bodi ya usimamizi wa Sharia iliyo wazi na yenye majina yanayojulikana badala ya kutegemea madai ya matangazo.",
     ],
   },
   {
-    title: "FAQ: Mortgages, Cards, and Loans",
-    summary: "These are exactly the questions that need a qualified scholar, not a general guide.",
+    title: "Maswali: Mikopo ya Nyumba, Kadi na Mikopo",
+    summary: "Haya ndiyo hasa maswali yanayohitaji mwanachuoni aliyehitimu, si mwongozo wa jumla.",
     body: [
-      "Q: Is a mortgage always riba? A: Structures vary — some conventional mortgages are interest-based loans, while some providers offer alternative structures (such as diminishing partnership or lease-to-own models) intended to avoid interest. Whether a specific product achieves that in practice is a scholarly question about its actual contract, not something to assume either way.",
-      "Q: Can I use a credit card if I always pay the full balance and never incur interest? A: Scholars hold different views on this, partly because the underlying agreement may still technically involve an interest clause even if you never trigger it in practice. This is a genuine area of differing qualified opinion — ask a scholar you trust rather than assuming a single universal answer.",
-      "Q: What about student loans or other loans that may be unavoidable in some circumstances? A: Necessity and hardship are real considerations scholars weigh carefully, and views differ by circumstance and jurisdiction. If you're facing this decision, bring your specific situation to a qualified scholar rather than trying to resolve it from general reading alone.",
+      "S: Je, mkopo wa nyumba daima ni riba? J: Miundo hutofautiana — baadhi ya mikopo ya kawaida ya nyumba ni mikopo yenye riba, huku baadhi ya watoa huduma wakitoa miundo mbadala (kama ubia unaopungua au mifumo ya kukodisha hadi kumiliki) inayokusudiwa kuepuka riba. Kama bidhaa mahususi inafikia hilo kivitendo ni swali la kitaalamu kuhusu mkataba wake halisi, si jambo la kudhani upande wowote.",
+      "S: Je, naweza kutumia kadi ya mkopo ikiwa daima nalipa salio lote na sijawahi kutozwa riba? J: Wanachuoni wana mitazamo tofauti kuhusu hili, kwa sehemu kwa sababu makubaliano ya msingi bado yanaweza kitaalamu kujumuisha kifungu cha riba hata kama hukiamshi kamwe kivitendo. Hili ni eneo halisi la tofauti za maoni ya wataalamu — muulize mwanachuoni unayemwamini badala ya kudhani kuna jibu moja kwa wote.",
+      "S: Na vipi kuhusu mikopo ya wanafunzi au mikopo mingine ambayo huenda isiepukike katika hali fulani? J: Dharura na ugumu ni mambo halisi ambayo wanachuoni huyapima kwa uangalifu, na mitazamo hutofautiana kulingana na hali na nchi. Ikiwa unakabiliwa na uamuzi huu, peleka hali yako mahususi kwa mwanachuoni aliyehitimu badala ya kujaribu kuitatua kwa kusoma kwa jumla peke yake.",
     ],
     disclaimer:
-      "These are genuinely differed-upon, contract-specific questions. This FAQ only shows you what kind of question each one is — it does not answer any of them for your situation.",
+      "Haya ni maswali yenye tofauti halisi za maoni na yanayotegemea mkataba husika. Maswali haya yanakuonyesha tu kila moja ni aina gani ya swali — hayajibu lolote kati yake kwa hali yako.",
   },
 ];

@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Agar ro'za tutishning iloji bo'lmasa, har bir o'tkazib yuborilgan kun uchun fidya haqida olimdan so'rang.",
       "Agar siz ataylab ro'za tutgan bo'lsangiz, ilova bahosiga tayanmang - qaysi hukm amal qilishini olimdan so'rang.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Kimki (ro‘za tutishga qodir bo‘lsa, lekin mashaqqat bilan) bir kambag‘alni to‘ydirish fidyasi... Va kim kasal yoki safarda bo‘lsa, boshqa kunlar soniga teng.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "O'tkazib yuborilgan ro'za uchun fidya nima?",
@@ -38,12 +33,7 @@ export const FIDYAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Mavjud bo'lganda, mahalliy masjidingiz yoki kengashning kunlik fidya tarifidan foydalaning.",
       "Rejalashtirish hisobi uchun kunlar × bir taom (yoki nashr etilgan fidya birligi) ko'paytiriladi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Va [ro‘za tutishga qodir bo‘lganlarga, lekin mashaqqat bilan] bir kambag‘alni ovqatlantirish uchun fidya. Kim ixtiyoriy yaxshilik qilsa, o'zi uchun yaxshidir. Agar bilsangiz, ro‘za tutish sizlar uchun yaxshiroqdir.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Odatda fidyani kim to'laydi?",
@@ -55,18 +45,8 @@ export const FIDYAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Homiladorlik, emizish va surunkali kasalliklarning tasnifi ilmiy hukmdir. Bu mavzu faqat tarbiyaviy ahamiyatga ega.",
-    quran: [
-      {
-        excerpt:
-          "...Bas, kim oyni [yangi oyni] ko'rsa, ro'za tutsin. Kim kasal bo'lsa yoki safarda bo'lsa, boshqa kunlardan bir xil miqdorda. Alloh sizlarga osonlikni xohlaydi, qiyinchilikni xohlamaydi...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Bir kishi: Onam ro'za tufayli vafot etdi. Uning nomidan ro'za tutsam bo'ladimi? Rasululloh sollallohu alayhi vasallam: «Ha, Allohning qarzi to'lashga haqliroqdir», dedilar.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Ro'zani ataylab buzganlik uchun kafforat",
@@ -81,16 +61,7 @@ export const FIDYAH_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
       "Malakali olimdan qaysi kafforat qarzingiz borligini so'rang.",
       "Agar oltmishta kambag'alni oziqlantirish siz bajarishingiz mumkin bo'lgan variant bo'lsa, rejalashtirish ko'rsatkichi sifatida mahalliy ovqatlanish narxi × 60 dan foydalaning.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir kishi: Men halok bo'ldim, ey Allohning Rasuli, Ramazon oyida xotinim bilan yaqinlik qildim. Undan bir qul ozod qilish, ikki oy ketma-ket ro‘za tutish va oltmishta miskinni to‘ydirish haqida so‘rashdi...",
-      },
-      {
-        excerpt:
-          "Biz Rasululloh sollallohu alayhi vasallam huzurlarida o‘tirganimizda bir kishi kelib: “Men halok bo‘ldim... U zot ro‘za tutganlarida xotini bilan yaqinlik qildilar...” dedi.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Ushbu yordamchidan qanday foydalanish kerak",

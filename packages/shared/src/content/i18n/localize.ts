@@ -12,6 +12,9 @@
  * - objects   → merged key-by-key (only keys present in the overlay are touched).
  * - numbers / booleans → always kept from English.
  *
+ * Scripture meaning fields (`SCRIPTURE_MEANING_CONTENT_KEYS`, decision D45) are likewise
+ * never taken from an overlay.
+ *
  * Structural identifier keys (see {@link PROTECTED_CONTENT_KEYS}) are NEVER taken
  * from the overlay, so a translation can never silently corrupt an id, a route or
  * a citation even if one is mistakenly included.
@@ -22,6 +25,7 @@
  */
 
 import type { AppLocale } from "../../i18n/app-locale";
+import { SCRIPTURE_MEANING_CONTENT_KEYS } from "../../i18n/scripture-meaning";
 
 /** Recursive partial — the shape an overlay is authored against. */
 export type DeepPartial<T> = T extends readonly (infer U)[]
@@ -103,6 +107,9 @@ export function localizeContent<T>(base: T, overlay: unknown): T {
     const merged: Record<string, unknown> = { ...(base as Record<string, unknown>) };
     for (const key of Object.keys(base as Record<string, unknown>)) {
       if (PROTECTED_CONTENT_KEYS.has(key)) continue;
+      // D45: scripture meaning text never comes from an overlay — English source wins and the
+      // app resolves a dataset translation (or labels the English) at render time.
+      if (SCRIPTURE_MEANING_CONTENT_KEYS.has(key)) continue;
       if (Object.hasOwn(overlayRecord, key)) {
         merged[key] = localizeContent((base as Record<string, unknown>)[key], overlayRecord[key]);
       }

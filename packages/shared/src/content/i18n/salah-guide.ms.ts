@@ -12,1433 +12,1171 @@ import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_MS: DeepPartial<SalahGuideTopic>[] = [
   {
-    title: "What is Salah?",
-    summary: "The second pillar of Islam — your appointed daily meeting with Allah.",
+    title: "Apakah itu solat?",
+    summary: "Rukun Islam yang kedua — pertemuan harian anda yang telah ditetapkan dengan Allah.",
     body: [
-      "Salah is the formal worship Allah prescribed for every believer: an ordered sequence of standing (qiyam), bowing (ruku), and prostrating (sujud), joined to fixed words of praise, Qur'an, and supplication, performed at five appointed times each day. The word salah comes from an Arabic root meaning connection and supplication — it is the believer's direct, unmediated line to the Creator, needing no priest and no intercessor.",
-      "A single complete unit of prayer — one standing through to the second prostration — is called a rak'ah. Prayers are counted in rak'ahs: Fajr is two, Maghrib three, and Dhuhr, Asr, and Isha four. The obligatory prayers are called fard; the Prophet's ﷺ regularly-prayed extras are sunnah, and freely-offered optional prayers are nafl.",
-      "Uniquely among the pillars, salah was not revealed through an angel descending to earth but was enjoined directly upon the Prophet ﷺ when he was raised through the heavens on the Night Journey (al-Isra' wa al-Mi'raj). Fifty prayers were first ordained, then — through the Prophet's ﷺ repeated returns seeking ease for his ummah — reduced to five performed in deed while keeping the reward of fifty.",
-      "This is why salah sits at the very centre of Islamic life: repeated five times daily, it interrupts work, rest, and leisure to re-anchor the heart on Allah, and it is the first deed a servant will be called to account for on the Day of Resurrection. If it is found sound, the rest of the record tends to follow.",
+      "Solat ialah ibadah khusus yang Allah fardukan ke atas setiap orang beriman: susunan perbuatan berdiri (qiyam), rukuk dan sujud yang tertib, digabungkan dengan lafaz pujian, bacaan Al-Quran dan doa yang tetap, ditunaikan pada lima waktu yang ditentukan setiap hari. Perkataan solat berasal daripada akar kata Arab yang bermaksud hubungan dan doa — ia talian langsung orang beriman kepada Penciptanya tanpa perantara, tanpa memerlukan paderi atau pengantara.",
+      "Satu unit solat yang lengkap — dari berdiri hingga sujud kedua — dinamakan satu rakaat. Solat dikira mengikut rakaat: Subuh dua, Maghrib tiga, manakala Zohor, Asar dan Isyak empat. Solat yang wajib dinamakan fardu; solat tambahan yang sentiasa dikerjakan oleh Nabi ﷺ ialah sunat, dan solat pilihan yang dikerjakan secara sukarela ialah nafil.",
+      "Berbeza daripada rukun-rukun yang lain, solat tidak diwahyukan melalui malaikat yang turun ke bumi, tetapi difardukan secara langsung kepada Nabi ﷺ ketika baginda diangkat menembusi langit dalam peristiwa Israk dan Mikraj. Pada mulanya lima puluh waktu solat difardukan, kemudian — melalui permohonan Nabi ﷺ berulang kali agar diringankan untuk umatnya — dikurangkan kepada lima waktu yang dikerjakan, namun pahalanya kekal seperti lima puluh.",
+      "Inilah sebabnya solat berada di tengah-tengah kehidupan Islam: diulang lima kali sehari, ia menyelangi kerja, rehat dan masa lapang untuk menambat semula hati kepada Allah, dan ia amalan pertama yang akan dihisab daripada seorang hamba pada Hari Kiamat. Jika solatnya didapati baik, amalan-amalan lain biasanya turut baik.",
     ],
-    quran: [
+    appLinks: [
       {
-        excerpt:
-          "Who believe in the unseen, establish prayer, and spend out of what We have provided for them.",
+        label: "Perjalanan ke Syurga",
       },
       {
-        excerpt:
-          "Recite what has been revealed to you of the Book and establish prayer. Indeed, prayer restrains from immorality and wrongdoing, and the remembrance of Allah is greater.",
+        label: "Penjejak solat",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "On the Night Journey Allah enjoined fifty prayers; the Prophet ﷺ kept returning to ask for relief until they were five — 'These are five and these are fifty, for the word with Me does not change.' (also Sahih Muslim 162)",
-      },
-      {
-        excerpt:
-          "The first thing for which a servant will be brought to account on the Day of Resurrection is his prayer; if it is sound the rest of his deeds are sound. (also Abu Dawud 864, an-Nasa'i 3991)",
-      },
-    ],
-    appLinks: [{}, {}],
   },
   {
-    title: "Why Salah?",
-    summary: "The spiritual, moral, psychological, and eternal fruits of the five daily prayers.",
+    title: "Mengapa solat?",
+    summary: "Buah rohani, akhlak, jiwa dan kekal abadi daripada solat lima waktu.",
     body: [
-      "Salah is a direct conversation with Allah. In its standing you address Him through His own revealed words; in prostration — the posture of utmost humility — you are nearest to Him and most likely to be answered. No other act of worship is repeated so often or so intimately.",
-      "Its first fruit is a restrained, disciplined soul. Allah Himself states that prayer, when established properly, 'restrains from immorality and wrongdoing' (29:45): the person who truly stands before Allah five times a day finds sin harder to approach. It is also a repeated purification — the Prophet ﷺ compared the five prayers to a flowing river in which one bathes five times daily, leaving no dirt behind.",
-      "Its second fruit is inner peace. The Qur'an promises that hearts find rest in the remembrance of Allah, and the Prophet ﷺ, in moments of worry, would say, 'Give us comfort by it, O Bilal,' calling for the prayer. He described the delight of his eyes as having been placed in salah.",
-      "Its social and eternal fruits complete the picture: congregational prayer levels rich and poor into a single row and builds brotherhood, while guarding the prayer is among the surest paths to Allah's forgiveness and to Paradise. The Prophet ﷺ promised Paradise to whoever preserves the two 'cool' prayers of Fajr and Asr.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, I am Allah. There is no deity except Me, so worship Me and establish prayer for My remembrance.",
-      },
-      {
-        excerpt: "Successful indeed are the believers — those who are humble in their prayer.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "'If there were a river at the door of one of you in which he bathed five times a day, would any dirt remain on him?' They said, 'None.' He ﷺ said, 'That is the likeness of the five prayers — Allah wipes away sins with them.' (also Sahih Muslim 667)",
-      },
-      {
-        excerpt: "Whoever prays the two cool prayers — Fajr and Asr — will enter Paradise.",
-      },
-      {
-        excerpt:
-          "Made beloved to me from your world are women and perfume, and the coolness of my eyes was placed in prayer.",
-      },
+      "Solat ialah perbualan langsung dengan Allah. Ketika berdiri, anda berbicara kepada-Nya dengan kalam-Nya sendiri yang diwahyukan; ketika sujud — kedudukan paling merendah diri — anda paling hampir kepada-Nya dan paling berkemungkinan dimakbulkan. Tiada ibadah lain yang diulang sekerap dan semesra itu.",
+      "Buah pertamanya ialah jiwa yang terkawal dan berdisiplin. Allah sendiri menyatakan tentang solat yang didirikan dengan sempurna: 'sesungguhnya sembahyang itu mencegah dari perbuatan yang keji dan mungkar' (29:45) — orang yang benar-benar berdiri di hadapan Allah lima kali sehari mendapati dosa lebih sukar didekati. Ia juga penyucian yang berulang — Nabi ﷺ mengumpamakan solat lima waktu seperti sungai yang mengalir, tempat seseorang mandi lima kali sehari sehingga tiada kotoran yang tertinggal.",
+      "Buah keduanya ialah ketenangan jiwa. Al-Quran menjanjikan bahawa hati menjadi tenteram dengan mengingati Allah, dan Nabi ﷺ, ketika dilanda kerisauan, akan bersabda, 'Give us comfort by it, O Bilal' (makna dalam bahasa Inggeris), sambil menyeru agar solat didirikan. Baginda menyifatkan penyejuk mata baginda dijadikan di dalam solat.",
+      "Buah sosial dan kekalnya melengkapkan gambaran ini: solat berjemaah menyamaratakan yang kaya dan yang miskin dalam satu saf serta membina persaudaraan, manakala menjaga solat termasuk jalan paling pasti menuju keampunan Allah dan Syurga. Nabi ﷺ menjanjikan Syurga kepada sesiapa yang memelihara dua solat waktu 'sejuk' (al-bardain), iaitu Subuh dan Asar.",
     ],
     actions: [
-      "Pray just one prayer fully on time today — consistency, not perfection, is the first goal.",
-      "Read the meaning of Al-Fatihah once before your next salah to feel you are being answered.",
-      "Turn on adhan reminders so no prayer window slips past unnoticed.",
+      "Tunaikan sekurang-kurangnya satu solat tepat pada waktunya hari ini — istiqamah, bukan kesempurnaan, ialah matlamat pertama.",
+      "Baca makna Al-Fatihah sekali sebelum solat anda yang berikutnya supaya anda merasai bahawa doa anda sedang dijawab.",
+      "Hidupkan peringatan azan supaya tiada waktu solat yang terlepas tanpa disedari.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      {
+        label: "Peringatan solat",
+      },
+      {
+        label: "Jurnal khusyuk",
+      },
+    ],
   },
   {
-    title: "Its rank in Islam",
-    summary: "A pillar of the religion — and the gravest deed to neglect.",
+    title: "Kedudukannya dalam Islam",
+    summary: "Tiang agama — dan amalan paling berat untuk diabaikan.",
     body: [
-      "The Prophet ﷺ taught that Islam is built upon five pillars, and salah is the second, immediately after the two testimonies of faith. The testimony admits you into Islam; the prayer is the standing proof that the testimony lives in your heart. This is why the scholars call salah 'the pillar of the religion' — a house without its central pillar collapses.",
-      "Its weight is seen in how the texts speak of neglecting it. The Qur'an warns of a generation who 'neglected prayer and pursued desires' and foretells their ruin, and the Prophet ﷺ described the prayer as the very covenant that distinguishes belief from disbelief.",
-      "On the ruling for one who abandons salah, there is a well-known and respectful difference among the Sunni scholars. Some hold that deliberately abandoning it altogether — while affirming it is obligatory — amounts to major disbelief that expels a person from Islam; the majority (Hanafi, Maliki, Shafi'i) hold that such a person remains a sinful Muslim guilty of one of the gravest of major sins, provided he does not deny its obligation. All agree that abandoning prayer is a catastrophe and that whoever denies its obligation has left Islam by consensus.",
-      "The practical lesson is the same on every view: guarding the five daily prayers is not optional or negotiable for a believer. Voluntary prayers (sunnah and nafl) then act as a safety net, making up shortfalls in the obligatory prayers on the Day of Judgment.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Maintain with care the prayers and the middle prayer, and stand before Allah, devoutly obedient.",
-      },
-      {
-        excerpt:
-          "But there came after them successors who neglected prayer and pursued desires; so they are going to meet evil.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islam is built upon five: testifying that there is no god but Allah and that Muhammad is His Messenger, establishing the prayer, giving zakat, Hajj, and fasting Ramadan. (also Sahih al-Bukhari 8)",
-      },
-      {
-        excerpt:
-          "The covenant between us and them is the prayer; whoever abandons it has committed disbelief. (Buraydah; also an-Nasa'i, Ibn Majah 1079)",
-      },
-      {
-        excerpt:
-          "Between a man and disbelief and idolatry stands the abandonment of prayer. (Jabir)",
-      },
+      "Nabi ﷺ mengajarkan bahawa Islam dibina di atas lima rukun, dan solat ialah yang kedua, sejurus selepas dua kalimah syahadah. Syahadah memasukkan anda ke dalam Islam; solat pula bukti berterusan bahawa syahadah itu hidup di dalam hati anda. Inilah sebabnya para ulama menamakan solat 'tiang agama' — rumah tanpa tiang serinya akan runtuh.",
+      "Beratnya kelihatan pada cara nas-nas menyebut tentang mengabaikannya. Al-Quran memberi amaran tentang satu generasi yang 'mencuaikan sembahyang serta menurut hawa nafsu' (19:59) dan mengkhabarkan kebinasaan mereka, manakala Nabi ﷺ menyifatkan solat sebagai perjanjian yang membezakan antara iman dan kufur.",
+      "Tentang hukum orang yang meninggalkan solat, terdapat perbezaan pendapat yang masyhur dan saling menghormati dalam kalangan ulama Ahli Sunnah. Sebahagian berpendapat bahawa meninggalkannya sama sekali dengan sengaja — walaupun masih mengakui kewajipannya — adalah kufur besar yang mengeluarkan seseorang daripada Islam; majoriti (Hanafi, Maliki, Syafie) berpendapat orang itu kekal sebagai Muslim yang berdosa dan melakukan salah satu dosa besar yang paling berat, selagi dia tidak mengingkari kewajipannya. Semua bersepakat bahawa meninggalkan solat adalah malapetaka, dan sesiapa yang mengingkari kewajipannya telah keluar daripada Islam secara ijmak.",
+      "Pengajaran praktikalnya sama menurut setiap pandangan: menjaga solat lima waktu bukan pilihan dan tidak boleh ditawar-tawar bagi orang beriman. Solat sukarela (sunat dan nafil) pula berperanan sebagai jaring keselamatan, menampung kekurangan dalam solat fardu pada Hari Pembalasan.",
     ],
     disclaimer:
-      "Scholars differ on the exact ruling for one who abandons prayer out of laziness (major sin for the majority; disbelief for others) versus one who denies its obligation (disbelief by consensus). This app does not issue a verdict on any individual — consult a qualified scholar for personal cases.",
+      "Ulama berbeza pendapat tentang hukum sebenar bagi orang yang meninggalkan solat kerana malas (dosa besar menurut majoriti; kufur menurut sebahagian yang lain) berbanding orang yang mengingkari kewajipannya (kufur secara ijmak). Aplikasi ini tidak menjatuhkan hukum ke atas mana-mana individu — rujuklah ulama yang berkelayakan untuk kes peribadi.",
   },
   {
-    title: "Who must pray?",
-    summary: "Every sane, adult Muslim — with clearly defined exemptions and concessions.",
+    title: "Siapakah yang wajib solat?",
+    summary:
+      "Setiap Muslim yang berakal dan baligh — dengan pengecualian dan kelonggaran yang jelas.",
     body: [
-      "Salah becomes obligatory on every Muslim who is sane and has reached puberty (bulugh). Three groups are lifted from accountability entirely by an authentic principle: the sleeper until he wakes, the child until he matures, and the mentally incapacitated until sound reason returns.",
-      "Children are not yet obligated, but they are trained gradually. The Prophet ﷺ instructed that children be commanded to pray from the age of seven and disciplined gently for neglecting it at ten — so that by puberty prayer is already a settled habit, not a sudden burden.",
-      "Women in menstruation (hayd) or postnatal bleeding (nifas) do not pray during that time; the missed obligatory prayers are not made up afterwards — a mercy and a ruling agreed upon by the scholars. (Missed fasts, unlike prayers, are made up.) A woman resumes prayer once bleeding ends and she has purified with ghusl.",
-      "Genuine inability brings concession, never cancellation: severe illness, unconsciousness, and overwhelming fear may excuse a person for a time, and the sick pray according to their ability — sitting, lying, or even by gestures. Travel does not remove prayer but eases it through shortening (qasr) and combining (jam'), covered in the Travel guide.",
+      "Solat menjadi wajib ke atas setiap Muslim yang berakal dan telah baligh. Tiga golongan diangkat sepenuhnya daripada tanggungjawab berdasarkan satu prinsip yang sahih: orang yang tidur sehingga dia bangun, kanak-kanak sehingga dia baligh, dan orang yang hilang akal sehingga akalnya pulih.",
+      "Kanak-kanak belum diwajibkan, tetapi mereka dilatih secara beransur-ansur. Nabi ﷺ memerintahkan agar kanak-kanak disuruh solat sejak berumur tujuh tahun dan dididik dengan lembut jika mengabaikannya pada umur sepuluh tahun — supaya apabila baligh, solat sudah menjadi kebiasaan yang mantap, bukan beban yang tiba-tiba.",
+      "Wanita yang sedang haid atau nifas tidak solat dalam tempoh itu; solat fardu yang tertinggal tidak perlu diqada selepasnya — satu rahmat dan hukum yang disepakati para ulama. (Puasa yang tertinggal pula, berbeza dengan solat, perlu diqada.) Seorang wanita kembali solat sebaik sahaja darahnya berhenti dan dia telah bersuci dengan mandi wajib.",
+      "Ketidakmampuan yang sebenar membawa kelonggaran, bukan pembatalan: sakit yang teruk, tidak sedarkan diri dan ketakutan yang amat sangat boleh menjadi uzur bagi seseorang untuk satu tempoh, dan orang sakit solat mengikut kemampuannya — duduk, berbaring, atau dengan isyarat sekalipun. Musafir tidak menggugurkan solat tetapi meringankannya melalui qasar dan jamak, yang dihuraikan dalam panduan Solat Musafir.",
     ],
-    hadith: [
+    appLinks: [
       {
-        excerpt:
-          "Command your children to pray when they are seven, and discipline them for it at ten, and separate their sleeping places. ('Amr ibn Shu'ayb from his father from his grandfather)",
+        label: "Panduan haid",
+      },
+      {
+        label: "Solat ketika sakit",
+      },
+      {
+        label: "Solat musafir",
       },
     ],
-    quran: [
-      {
-        excerpt: "And enjoin prayer upon your family, and be steadfast therein.",
-      },
-    ],
-    appLinks: [{}, {}, {}],
   },
   {
-    title: "Conditions before salah",
-    summary: "The nine prerequisites (shurut) that must be in place for prayer to be valid.",
+    title: "Syarat sebelum solat",
+    summary: "Sembilan syarat (syurut) yang mesti dipenuhi agar solat sah.",
     body: [
-      "Before a prayer is even valid, certain conditions (shurut al-salah) must be met. A condition differs from a pillar: conditions are prerequisites that come before you begin and continue throughout, whereas pillars (arkan) are parts of the prayer itself. If a required condition is missing, the prayer is not accepted no matter how well it is performed.",
-      "Think of these nine as a pre-flight checklist. Most connect to a fuller lesson elsewhere in this guide — tap through to learn each in depth. Two of them (facing the qiblah and correct time) can be excused in genuine inability; the rest are firmly required whenever one is able.",
+      "Sebelum solat boleh sah, beberapa syarat (syurut solat) mesti dipenuhi. Syarat berbeza daripada rukun: syarat ialah perkara yang mesti ada sebelum anda memulakan solat dan berterusan sepanjangnya, manakala rukun (arkan) ialah bahagian daripada solat itu sendiri. Jika syarat yang diwajibkan tidak dipenuhi, solat tidak diterima walau sebaik mana pun ia dikerjakan.",
+      "Anggaplah sembilan perkara ini sebagai senarai semak sebelum berlepas. Kebanyakannya berkait dengan pelajaran yang lebih lengkap di bahagian lain panduan ini — ketik untuk mempelajari setiap satu dengan mendalam. Dua daripadanya (menghadap kiblat dan masuk waktu) boleh dimaafkan apabila benar-benar tidak mampu; selebihnya wajib dipenuhi selagi seseorang mampu.",
     ],
     steps: [
       {
         title: "Islam",
-        body: "Prayer is an act of a Muslim; it is not valid from — nor obligatory upon — a non-Muslim until they enter Islam.",
+        body: "Solat ialah amalan seorang Muslim; ia tidak sah daripada — dan tidak diwajibkan ke atas — orang bukan Islam sehingga dia memeluk Islam.",
       },
       {
-        title: "Sound mind ('aql)",
-        body: "The person must be of sound reason. One who has lost their sanity is not held accountable while in that state.",
+        title: "Berakal ('aql)",
+        body: "Seseorang mesti waras akalnya. Orang yang hilang akal tidak dipertanggungjawabkan selama dia berada dalam keadaan itu.",
       },
       {
-        title: "Discernment (tamyiz)",
-        body: "The capacity to distinguish, reached around age seven — the age from which children are told to pray.",
+        title: "Mumaiyiz (tamyiz)",
+        body: "Keupayaan untuk membezakan, yang dicapai sekitar umur tujuh tahun — umur kanak-kanak mula disuruh solat.",
       },
       {
-        title: "Removing minor & major impurity (taharah from hadath)",
-        body: "A valid state of wudu, or ghusl after major impurity, or tayammum when water cannot be used.",
+        title: "Suci daripada hadas kecil & besar",
+        body: "Berada dalam keadaan berwuduk, atau telah mandi wajib selepas hadas besar, atau bertayamum apabila air tidak dapat digunakan.",
       },
       {
-        title: "Removing filth (najasah)",
-        body: "The body, clothing, and place of prayer must be free of ritual filth such as urine, blood in quantity, and other listed substances.",
+        title: "Suci daripada najis",
+        body: "Badan, pakaian dan tempat solat mesti bebas daripada najis seperti air kencing, darah dalam kuantiti yang banyak, dan bahan-bahan lain yang disenaraikan.",
       },
       {
-        title: "Covering the awrah",
-        body: "The parts that must be covered are covered with clean, opaque clothing — see the Clothing & awrah lesson.",
+        title: "Menutup aurat",
+        body: "Bahagian yang wajib ditutup hendaklah ditutup dengan pakaian yang bersih dan tidak jarang — lihat pelajaran Pakaian & aurat.",
       },
       {
-        title: "The prayer time has entered",
-        body: "Each salah has a defined window; praying before its time begins is invalid. Use your schedule and reminders.",
+        title: "Telah masuk waktu solat",
+        body: "Setiap solat mempunyai tempoh waktu yang ditetapkan; solat sebelum masuk waktunya tidak sah. Gunakan jadual dan peringatan anda.",
       },
       {
-        title: "Facing the qiblah",
-        body: "Turning toward the Ka'bah as closely as you can determine — excused only in genuine inability.",
+        title: "Menghadap kiblat",
+        body: "Menghadap ke arah Kaabah setepat yang anda mampu tentukan — hanya dimaafkan apabila benar-benar tidak mampu.",
       },
       {
-        title: "Intention (niyyah)",
-        body: "Resolving in the heart which prayer you are about to perform. It is an inner act and is not spoken aloud.",
+        title: "Niat",
+        body: "Menetapkan di dalam hati solat mana yang hendak anda kerjakan. Ia amalan hati dan tidak dilafazkan dengan kuat.",
       },
     ],
-    appLinks: [{}, {}, {}],
+    appLinks: [
+      {
+        label: "Bersuci (Taharah)",
+      },
+      {
+        label: "Kompas kiblat",
+      },
+      {
+        label: "Jadual solat",
+      },
+    ],
     disclaimer:
-      "The schools word and count the conditions slightly differently (some list niyyah among the pillars rather than the conditions). The substance is agreed upon.",
+      "Mazhab-mazhab sedikit berbeza dalam menyebut dan mengira syarat-syarat ini (sebahagiannya memasukkan niat dalam rukun, bukan syarat). Intipatinya disepakati.",
   },
   {
-    title: "Purification (Taharah)",
-    summary: "Purity of self, clothing, and place — the doorway to every prayer.",
+    title: "Bersuci (Taharah)",
+    summary: "Kesucian diri, pakaian dan tempat — pintu masuk bagi setiap solat.",
     body: [
-      "Taharah means lifting ritual impurity so you may stand before Allah in a state of cleanliness. Allah loves those who purify themselves, and the Prophet ﷺ taught that 'purification is half of faith.' No prayer is accepted without it.",
-      "Impurity is of two kinds. Minor impurity (hadath asghar) — caused by things like using the toilet or passing wind — is lifted by wudu. Major impurity (hadath akbar or janabah) — following intimacy, ejaculation, or the end of menstruation and postnatal bleeding — is lifted by a full ritual bath (ghusl).",
-      "Separately from these ritual states, tangible filth (najasah) — such as urine, droppings, flowing blood, and the like — must be physically removed from the body, garments, and the spot where you pray. It is possible to have valid wudu yet still need to clean a stain from your clothes before praying.",
-      "Water is the primary purifier. When water is genuinely unavailable, or would harm you because of illness or severe cold, Islam permits tayammum — a dry purification using clean earth — as a complete substitute. Purification is never meant to be a hardship; it is a means of drawing near.",
-    ],
-    hadith: [
-      {
-        excerpt: "Purification is half of faith… (Abu Malik al-Ash'ari)",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, Allah loves those who are constantly repentant and loves those who purify themselves.",
-      },
+      "Taharah bermaksud mengangkat hadas supaya anda dapat berdiri di hadapan Allah dalam keadaan suci. Allah mengasihi orang-orang yang menyucikan diri, dan Nabi ﷺ mengajarkan bahawa 'purification is half of faith' (makna dalam bahasa Inggeris). Tiada solat yang diterima tanpanya.",
+      "Hadas terbahagi kepada dua. Hadas kecil — disebabkan perkara seperti membuang air atau terkentut — diangkat dengan wuduk. Hadas besar (janabah) — selepas bersetubuh, keluar mani, atau berakhirnya haid dan nifas — diangkat dengan mandi wajib.",
+      "Selain keadaan hadas ini, najis yang nyata — seperti air kencing, tahi, darah yang mengalir dan seumpamanya — mesti dibersihkan secara fizikal daripada badan, pakaian dan tempat anda solat. Seseorang boleh sahaja mempunyai wuduk yang sah tetapi masih perlu membersihkan kesan najis pada pakaiannya sebelum solat.",
+      "Air ialah alat bersuci yang utama. Apabila air benar-benar tiada, atau penggunaannya akan memudaratkan anda kerana sakit atau sejuk yang melampau, Islam membenarkan tayamum — bersuci tanpa air menggunakan tanah yang bersih — sebagai pengganti yang sempurna. Bersuci tidak sekali-kali bertujuan menyusahkan; ia jalan untuk mendekatkan diri.",
     ],
     actions: [
-      "Learn wudu step by step before your next prayer so each limb is washed correctly.",
-      "Keep a clean garment set aside for prayer if you work in a soiled environment.",
-      "Glance over your prayer spot for visible filth before laying the mat.",
+      "Pelajari wuduk langkah demi langkah sebelum solat anda yang berikutnya supaya setiap anggota dibasuh dengan betul.",
+      "Sediakan sepasang pakaian bersih khas untuk solat jika anda bekerja di persekitaran yang kotor.",
+      "Perhatikan tempat solat anda daripada najis yang kelihatan sebelum membentangkan sejadah.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      {
+        label: "Panduan bersuci lengkap",
+      },
+      {
+        label: "Pelajaran wuduk",
+      },
+    ],
   },
   {
-    title: "Wudu — ablution",
-    summary: "The ordered washing that lifts minor impurity and readies you for prayer.",
+    title: "Wuduk",
+    summary: "Basuhan tertib yang mengangkat hadas kecil dan menyediakan anda untuk solat.",
     body: [
-      "Wudu is the ritual washing that lifts minor impurity. It is required before every salah unless you are still in a valid state from a previous one, and — according to the majority of scholars — before touching the physical text of the Qur'an. Its four obligatory washes are named directly in the Qur'an (5:6): the face, the arms to the elbows, wiping the head, and the feet to the ankles.",
-      "The Prophet ﷺ performed wudu in a settled order, three times for the washed limbs, thoroughly but without wasting water — he warned against extravagance even at a flowing river. Beyond the four obligatory acts, the rinsing of the mouth and nose, washing the hands first, and using the miswak are established sunnahs that complete and beautify the wudu.",
-      "Its reward is immense: the Prophet ﷺ taught that as a believer washes each limb, the sins committed by that limb fall away with the water — even from beneath the nails — so that he emerges cleansed. Wudu is therefore not merely a formality but a small act of forgiveness before every prayer.",
-      "Wudu is broken by anything exiting the private passages (urine, stool, wind), by deep sleep that removes awareness, and by loss of consciousness. If it breaks during salah you must stop, renew wudu, and begin the prayer again.",
+      "Wuduk ialah basuhan ibadah yang mengangkat hadas kecil. Ia wajib sebelum setiap solat kecuali anda masih berwuduk daripada solat sebelumnya, dan — menurut majoriti ulama — sebelum menyentuh mushaf Al-Quran. Empat basuhan wajibnya disebut secara langsung dalam Al-Quran (5:6): muka, tangan hingga ke siku, menyapu kepala, dan kaki hingga ke buku lali.",
+      "Nabi ﷺ berwuduk dengan tertib yang tetap, membasuh anggota tiga kali, dengan sempurna tetapi tanpa membazir air — baginda melarang pembaziran walaupun di sungai yang mengalir. Selain empat perbuatan wajib itu, berkumur, memasukkan air ke hidung, membasuh tangan terlebih dahulu dan bersugi ialah sunat-sunat yang sabit yang menyempurnakan dan mencantikkan wuduk.",
+      "Ganjarannya amat besar: Nabi ﷺ mengajarkan bahawa apabila seorang mukmin membasuh setiap anggota, dosa yang dilakukan oleh anggota itu gugur bersama air — hingga dari bawah kuku — sehingga dia keluar dalam keadaan bersih. Maka wuduk bukan sekadar formaliti, tetapi satu bentuk keampunan kecil sebelum setiap solat.",
+      "Wuduk batal dengan apa sahaja yang keluar dari qubul atau dubur (air kencing, najis, angin), tidur nyenyak yang menghilangkan kesedaran, dan hilang akal. Jika wuduk batal ketika solat, anda mesti berhenti, mengambil wuduk semula, dan memulakan solat dari awal.",
     ],
     steps: [
       {
-        title: "Intention & Bismillah",
-        body: "Intend wudu in your heart and begin with 'Bismillah'. The intention is inward and need not be voiced.",
-        tip: "Use the miswak (siwak) beforehand when you can — a sunnah the Prophet ﷺ loved and nearly made obligatory.",
+        title: "Niat & Bismillah",
+        body: "Niatkan wuduk di dalam hati dan mulakan dengan 'Bismillah'. Niat ialah perbuatan hati dan tidak perlu dilafazkan.",
+        tip: "Bersugilah dengan miswak (siwak) terlebih dahulu jika boleh — sunnah yang dikasihi Nabi ﷺ dan hampir baginda wajibkan.",
       },
       {
-        title: "Wash the hands",
-        body: "Wash both hands to the wrists three times, working water between the fingers.",
+        title: "Membasuh tangan",
+        body: "Basuh kedua-dua tangan hingga ke pergelangan sebanyak tiga kali, sambil menyelati celah-celah jari dengan air.",
       },
       {
-        title: "Rinse the mouth",
-        body: "Take water into the mouth, swirl it, and expel it — three times.",
+        title: "Berkumur",
+        body: "Masukkan air ke dalam mulut, kumur-kumurkan, lalu buang — sebanyak tiga kali.",
       },
       {
-        title: "Rinse the nose",
-        body: "Draw water into the nostrils with the right hand and expel it with the left — three times.",
+        title: "Memasukkan air ke hidung",
+        body: "Sedut air ke dalam lubang hidung dengan tangan kanan dan hembuskannya keluar dengan tangan kiri — sebanyak tiga kali.",
       },
       {
-        title: "Wash the face (fard)",
-        body: "Wash the whole face once to three times, from hairline to chin and from ear to ear; a man runs wet fingers through a thick beard.",
+        title: "Membasuh muka (fardu)",
+        body: "Basuh seluruh muka sekali hingga tiga kali, dari tempat tumbuh rambut hingga ke dagu dan dari telinga ke telinga; lelaki menyelati janggut yang tebal dengan jari yang basah.",
       },
       {
-        title: "Wash the arms (fard)",
-        body: "Wash the right arm, then the left, from the fingertips up to and including the elbows — three times each.",
+        title: "Membasuh tangan hingga siku (fardu)",
+        body: "Basuh tangan kanan, kemudian tangan kiri, dari hujung jari hingga ke siku termasuk siku — tiga kali setiap satu.",
       },
       {
-        title: "Wipe the head (fard)",
-        body: "With wet hands, wipe the head once from front to back and back again, then wipe the inside and back of the ears with the same wetness.",
+        title: "Menyapu kepala (fardu)",
+        body: "Dengan tangan yang basah, sapu kepala sekali dari depan ke belakang dan kembali semula, kemudian sapu bahagian dalam dan belakang telinga dengan basahan yang sama.",
       },
       {
-        title: "Wash the feet (fard)",
-        body: "Wash the right foot, then the left, to and including the ankles — three times each, passing fingers between the toes.",
+        title: "Membasuh kaki (fardu)",
+        body: "Basuh kaki kanan, kemudian kaki kiri, hingga ke buku lali termasuk buku lali — tiga kali setiap satu, sambil menyelati celah-celah jari kaki.",
       },
       {
-        title: "Testimony of faith",
-        body: "Complete with the du'a: 'Ashhadu an la ilaha illallah…' — the eight gates of Paradise are opened for whoever says it after wudu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "When a servant washes his face in wudu, every sin he looked at with his eyes leaves with the water… until he emerges cleansed of sin.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "O you who believe, when you rise to pray, wash your faces and your forearms to the elbows, wipe your heads, and wash your feet to the ankles.",
+        title: "Syahadah",
+        body: "Sempurnakan dengan doa: 'Ashhadu an la ilaha illallah…' — lapan pintu Syurga dibukakan bagi sesiapa yang membacanya selepas berwuduk.",
       },
     ],
     actions: [
-      "Perform wudu slowly once while reading each step aloud, checking the elbows and heels.",
-      "Memorise the short du'a after wudu — see Words of Salah.",
+      "Ambil wuduk perlahan-lahan sekali sambil membaca setiap langkah dengan kuat, dan pastikan siku dan tumit dibasuh.",
+      "Hafal doa ringkas selepas wuduk — lihat Bacaan Solat.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      {
+        label: "Wuduk & doa berkaitan",
+      },
+      {
+        label: "Bacaan solat",
+      },
+    ],
   },
   {
-    title: "Tayammum — dry purification",
-    summary: "When water cannot be used, clean earth lifts impurity so prayer is not delayed.",
+    title: "Tayamum — bersuci tanpa air",
+    summary:
+      "Apabila air tidak dapat digunakan, tanah yang bersih mengangkat hadas supaya solat tidak tertangguh.",
     body: [
-      "Tayammum is the dry purification Allah legislated when water is genuinely unavailable, or when using it would cause harm because of illness or severe cold. It is not a lesser workaround for convenience — it is a complete substitute that lifts minor or major impurity for prayer until water can be used again.",
-      "The Qur'an names it in the same verse as wudu and ghusl (5:6): wipe the face and hands with clean earth after striking it. The Prophet ﷺ taught the companions this concession as mercy, not as a loophole to skip searching for water when it is reasonably available.",
-      "Practically: intend tayammum, say Bismillah, strike clean earth once (or twice according to some schools), wipe the face, then wipe the hands to the wrists (many scholars include up to the elbows in continuity with wudu). What breaks wudu or ghusl also ends the corresponding tayammum; finding usable water ends the concession and you return to ordinary purification.",
-      "If you prayed validly with tayammum and only found water afterward, the majority hold that the completed prayer need not be repeated. If water appears before you pray, you must use it. For casts, wounds, and illness, combine wiping over dressings with tayammum as your school and doctor advise — see the full Taharah guide for detail.",
+      "Tayamum ialah cara bersuci tanpa air yang Allah syariatkan apabila air benar-benar tiada, atau apabila penggunaannya akan memudaratkan kerana sakit atau sejuk yang melampau. Ia bukan jalan pintas yang lebih rendah demi kemudahan — ia pengganti yang sempurna yang mengangkat hadas kecil atau besar untuk solat sehingga air dapat digunakan semula.",
+      "Al-Quran menyebutnya dalam ayat yang sama dengan wuduk dan mandi wajib (5:6): sapulah muka dan tangan dengan tanah yang bersih selepas menepuknya. Nabi ﷺ mengajarkan kelonggaran ini kepada para sahabat sebagai rahmat, bukan sebagai helah untuk tidak mencari air apabila air boleh didapati dengan munasabah.",
+      "Secara praktikal: niatkan tayamum, bacalah Bismillah, tepuk tanah yang bersih sekali (atau dua kali menurut sebahagian mazhab), sapu muka, kemudian sapu tangan hingga ke pergelangan (ramai ulama memasukkan hingga ke siku selaras dengan wuduk). Apa yang membatalkan wuduk atau mandi wajib turut membatalkan tayamum yang berkenaan; apabila air yang boleh digunakan ditemui, kelonggaran itu tamat dan anda kembali kepada cara bersuci yang biasa.",
+      "Jika anda telah solat dengan sah menggunakan tayamum dan hanya menemui air selepas itu, majoriti ulama berpendapat solat yang telah selesai tidak perlu diulang. Jika air ditemui sebelum anda solat, anda wajib menggunakannya. Bagi simen tulang (plaster), luka dan penyakit, gabungkan sapuan di atas balutan dengan tayamum sebagaimana yang dinasihatkan oleh mazhab dan doktor anda — lihat panduan Taharah lengkap untuk perincian.",
     ],
     steps: [
       {
-        title: "Confirm the need",
-        body: "Search reasonably for usable water, or confirm that using water would harm you (illness, severe cold, medical advice).",
+        title: "Pastikan keperluannya",
+        body: "Carilah air yang boleh digunakan dengan munasabah, atau pastikan bahawa penggunaan air akan memudaratkan anda (sakit, sejuk yang melampau, nasihat perubatan).",
       },
       {
-        title: "Intention & Bismillah",
-        body: "Intend tayammum in place of wudu or ghusl, and begin with Bismillah.",
-        transliteration: "Bismillah",
+        title: "Niat & Bismillah",
+        body: "Niatkan tayamum sebagai ganti wuduk atau mandi wajib, dan mulakan dengan Bismillah.",
       },
       {
-        title: "Strike clean earth",
-        body: "Strike clean earth (or a clean dusty surface) with both hands once — some schools strike twice.",
+        title: "Tepuk tanah yang bersih",
+        body: "Tepuk tanah yang bersih (atau permukaan berdebu yang bersih) dengan kedua-dua tangan sekali — sebahagian mazhab menepuk dua kali.",
       },
       {
-        title: "Wipe the face",
-        body: "Wipe the entire face with the dust remaining on the hands.",
+        title: "Sapu muka",
+        body: "Sapu seluruh muka dengan debu yang tinggal pada tangan.",
       },
       {
-        title: "Wipe the hands",
-        body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
+        title: "Sapu tangan",
+        body: "Sapu kedua-dua tangan — sekurang-kurangnya hingga ke pergelangan; ramai ulama menyapu hingga ke siku.",
       },
     ],
     actions: [
-      "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
-      "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
+      "Ketahui bila tayamum dibenarkan sebelum bermusafir atau jatuh sakit supaya solat tidak pernah ditinggalkan kerana ketiadaan air.",
+      "Buka pelajaran tayamum dalam panduan Taharah lengkap untuk perbezaan mazhab tentang cara menepuk dan menyapu.",
     ],
-    disclaimer:
-      "Schools differ on details (one strike vs two, wrists vs elbows, renewing per prayer). This is a mainstream educational summary — follow reliable local scholarship for your practice.",
-  },
-  {
-    title: "Clothing & awrah",
-    summary: "Cover what must be covered — cleanly, modestly, and respectfully.",
-    body: [
-      "Covering the awrah — the parts of the body that must be concealed — is a condition of valid prayer, drawn from Allah's command to 'take your adornment at every place of prayer' (7:31). The clothing must be clean of najasah and opaque enough that skin colour does not show through.",
-      "For men, the awrah in prayer is, at minimum, from the navel to the knee. However, praying bare-chested when clothing is available is disliked; the Prophet ﷺ instructed that a man should not pray in a single garment without part of it over his shoulders.",
-      "For women, the whole body is awrah in prayer except the face and the hands, according to the majority of scholars; a woman covers her hair, neck, and feet, typically with a loose garment and headscarf. Scholars differ over the feet, some considering them included in what may be shown — praying with them covered is the safer and majority practice.",
-      "Two dress rulings apply outside prayer too: silk and gold are forbidden for men to wear (permitted for women), and clothing should not be so tight, sheer, or attention-seeking that it defeats the modesty prayer calls for. As a rule of thumb, pray in what you would wear to meet someone you respect — not nightwear or beachwear.",
-    ],
-    quran: [
+    appLinks: [
       {
-        excerpt: "O children of Adam, take your adornment at every place of prayer.",
+        label: "Taharah lengkap — tayamum",
+      },
+      {
+        label: "Gambaran keseluruhan bersuci",
       },
     ],
-    actions: [
-      "Set aside one clean, modest outfit or a dedicated prayer garment so you are always ready.",
-      "When unsure whether something covers enough, cover more rather than less.",
-    ],
     disclaimer:
-      "Details of the awrah (especially a woman's feet) are a point of respectful scholarly difference. Follow reliable local scholarship where you differ.",
+      "Mazhab-mazhab berbeza dalam perincian (sekali atau dua kali tepukan, hingga pergelangan atau siku, memperbaharui tayamum bagi setiap solat). Ini ringkasan pendidikan arus perdana — ikutilah ilmu ulama tempatan yang dipercayai dalam amalan anda.",
   },
   {
-    title: "Prayer times",
-    summary: "Five daily windows — each salah has a beginning, an end, and a preferred moment.",
+    title: "Pakaian & aurat",
+    summary: "Tutuplah apa yang wajib ditutup — dengan bersih, sopan dan penuh hormat.",
     body: [
-      "Allah appointed the prayers 'at fixed times' (4:103), dividing the day and night into five windows tied to the movement of the sun. Praying before a window opens is invalid; delaying a prayer past its window without excuse is a serious sin. Whenever possible, pray early in the window — the Prophet ﷺ named prayer at its first time among the most beloved deeds to Allah.",
-      "The five windows are: Fajr, from true dawn until sunrise; Dhuhr, from the sun passing its zenith until an object's shadow equals its own length; Asr, from the end of Dhuhr until sunset (best prayed before the sun yellows); Maghrib, from sunset until the red twilight fades; and Isha, from the fading of twilight until true dawn (best prayed before midnight).",
-      "There are three brief periods in which voluntary prayer is forbidden, so that worship is never confused with sun-worship: as the sun is rising until it has fully risen, when it stands exactly at its zenith at midday, and as it is setting until it has fully set. Making up a missed obligatory prayer is excepted from this prohibition.",
-      "The exact clock times shift daily with your latitude and season, which is why the Prophet ﷺ tied them to natural signs rather than a fixed hour. The app computes them for your location — but knowing the underlying signs keeps you grounded when technology is unavailable.",
+      "Menutup aurat — bahagian tubuh yang wajib ditutup — ialah syarat sah solat, diambil daripada perintah Allah: 'Pakailah pakaian kamu yang indah berhias pada tiap-tiap kali kamu ke tempat ibadat' (7:31). Pakaian mesti bersih daripada najis dan cukup tebal sehingga warna kulit tidak kelihatan.",
+      "Bagi lelaki, aurat dalam solat sekurang-kurangnya ialah antara pusat dan lutut. Namun, solat tanpa baju sedangkan pakaian ada adalah makruh; Nabi ﷺ memerintahkan agar lelaki tidak solat dengan sehelai kain tanpa sebahagiannya menutupi bahu.",
+      "Bagi wanita, seluruh tubuh ialah aurat dalam solat kecuali muka dan tapak tangan, menurut majoriti ulama; wanita menutup rambut, leher dan kaki, biasanya dengan pakaian longgar dan tudung (atau telekung). Ulama berbeza pendapat tentang kaki, sebahagian menganggapnya termasuk bahagian yang boleh didedahkan — solat dengan kaki bertutup lebih selamat dan merupakan amalan majoriti.",
+      "Dua hukum pakaian turut terpakai di luar solat: sutera dan emas haram dipakai oleh lelaki (dibenarkan bagi wanita), dan pakaian tidak sepatutnya terlalu ketat, jarang atau menarik perhatian sehingga menghilangkan kesopanan yang dituntut oleh solat. Sebagai panduan mudah, solatlah dengan pakaian yang akan anda pakai untuk bertemu orang yang anda hormati — bukan pakaian tidur atau pakaian pantai.",
+    ],
+    actions: [
+      "Sediakan sepasang pakaian yang bersih dan sopan atau pakaian khas untuk solat supaya anda sentiasa bersedia.",
+      "Apabila tidak pasti sama ada sesuatu cukup menutup, tutuplah lebih banyak, bukan kurang.",
+    ],
+    disclaimer:
+      "Perincian aurat (terutamanya kaki wanita) ialah perkara khilaf ulama yang saling menghormati. Ikutilah ilmu ulama tempatan yang dipercayai apabila terdapat perbezaan.",
+  },
+  {
+    title: "Waktu solat",
+    summary:
+      "Lima tempoh waktu harian — setiap solat mempunyai awal, akhir dan saat yang paling afdal.",
+    body: [
+      "Allah menetapkan solat sebagai 'satu ketetapan yang diwajibkan atas orang-orang yang beriman, yang tertentu waktunya' (4:103), membahagikan siang dan malam kepada lima tempoh waktu yang berkait dengan pergerakan matahari. Solat sebelum masuk waktunya tidak sah; melewatkan solat melepasi waktunya tanpa uzur adalah dosa yang berat. Seboleh-bolehnya, solatlah di awal waktu — Nabi ﷺ menyebut solat pada awal waktunya antara amalan yang paling dicintai Allah.",
+      "Lima tempoh waktu itu ialah: Subuh, dari terbit fajar sadiq hingga terbit matahari; Zohor, dari tergelincir matahari hingga bayang-bayang sesuatu objek sama panjang dengan objek itu; Asar, dari tamat waktu Zohor hingga terbenam matahari (paling baik dikerjakan sebelum matahari menguning); Maghrib, dari terbenam matahari hingga hilang syafak merah; dan Isyak, dari hilang syafak hingga terbit fajar sadiq (paling baik dikerjakan sebelum tengah malam).",
+      "Terdapat tiga tempoh singkat yang dilarang mengerjakan solat sunat, supaya ibadah tidak sekali-kali menyerupai penyembahan matahari: ketika matahari sedang terbit hingga ia naik sepenuhnya, ketika ia tegak tepat di atas kepala pada tengah hari, dan ketika ia sedang terbenam hingga terbenam sepenuhnya. Mengqada solat fardu yang tertinggal dikecualikan daripada larangan ini.",
+      "Waktu jam yang tepat berubah setiap hari mengikut latitud dan musim anda, sebab itulah Nabi ﷺ mengaitkannya dengan tanda-tanda alam, bukan jam yang tetap. Aplikasi ini mengira waktu-waktu itu untuk lokasi anda — tetapi mengetahui tanda-tanda asasnya membuatkan anda tetap berpijak apabila teknologi tiada.",
     ],
     steps: [
       {
-        title: "Fajr — 2 rak'ah fard",
-        body: "True dawn until sunrise. Preceded by a strongly emphasised 2-rak'ah sunnah.",
+        title: "Subuh — 2 rakaat fardu",
+        body: "Dari fajar sadiq hingga terbit matahari. Didahului oleh solat sunat 2 rakaat yang sangat dituntut.",
       },
       {
-        title: "Dhuhr — 4 rak'ah fard",
-        body: "After the sun passes its zenith until the Asr shadow. Sunnah of 4 before and 2 after.",
+        title: "Zohor — 4 rakaat fardu",
+        body: "Selepas matahari tergelincir hingga masuk waktu Asar. Sunat 4 rakaat sebelum dan 2 rakaat selepas.",
       },
       {
-        title: "Asr — 4 rak'ah fard",
-        body: "From the end of Dhuhr until sunset; pray it before the sun yellows. Often identified with the 'middle prayer' of 2:238.",
+        title: "Asar — 4 rakaat fardu",
+        body: "Dari tamat waktu Zohor hingga terbenam matahari; kerjakanlah sebelum matahari menguning. Sering dikenal pasti sebagai 'sembahyang Wusta' dalam ayat 2:238.",
       },
       {
-        title: "Maghrib — 3 rak'ah fard",
-        body: "From sunset until twilight fades; pray promptly. Sunnah of 2 after.",
+        title: "Maghrib — 3 rakaat fardu",
+        body: "Dari terbenam matahari hingga hilang syafak; segerakanlah. Sunat 2 rakaat selepas.",
       },
       {
-        title: "Isha — 4 rak'ah fard",
-        body: "From the fading of twilight until dawn; best before midnight. Followed by Witr.",
+        title: "Isyak — 4 rakaat fardu",
+        body: "Dari hilang syafak hingga terbit fajar; paling baik sebelum tengah malam. Diikuti oleh solat Witir.",
       },
     ],
-    hadith: [
+    appLinks: [
       {
-        excerpt:
-          "There are three times at which the Prophet ﷺ forbade us to pray: when the sun is rising until it is up, when it stands at midday, and when it is setting until it has set. (Uqbah ibn 'Amir)",
+        label: "Jadual solat",
+      },
+      {
+        label: "Tetapan peringatan",
       },
     ],
-    quran: [
-      {
-        excerpt: "Indeed, prayer has been decreed upon the believers a decree of specified times.",
-      },
-      {
-        excerpt:
-          "And establish prayer at the two ends of the day and at the approach of the night. Indeed, good deeds drive away evil deeds.",
-      },
-    ],
-    appLinks: [{}, {}],
     disclaimer:
-      "The start of Asr has two reported opinions (shadow equal to, or twice, an object's length). Both are valid; follow your local calculation and community.",
+      "Awal waktu Asar mempunyai dua pendapat yang diriwayatkan (bayang-bayang sama panjang, atau dua kali panjang objek). Kedua-duanya sah; ikutilah kiraan dan amalan masyarakat tempatan anda.",
   },
   {
-    title: "Facing the qiblah",
-    summary: "Turn toward the Sacred House in Makkah — the direction that unites the ummah.",
+    title: "Menghadap kiblat",
+    summary: "Menghadap ke arah Baitullah di Makkah — arah yang menyatukan umat.",
     body: [
-      "The qiblah is the direction of the Ka'bah within Masjid al-Haram in Makkah. Facing it is a condition of valid prayer. Early in Islam the Muslims prayed toward Jerusalem; then Allah revealed the command to turn toward the Sacred Mosque, and a single direction has united the worshippers of the world ever since — a daily, physical expression of one community facing one Lord.",
-      "You are required to face the qiblah as accurately as you can reasonably determine — with a compass, a mosque's mihrab, a reliable app, or the sun and stars when travelling. A small, unavoidable deviation is forgiven; what matters is sincere effort toward the correct direction.",
-      "If you genuinely cannot determine the direction — lost at sea, in cloud, in an unfamiliar land at night — you strive to work it out and then pray toward your best judgement; the prayer is valid even if it later proves slightly off. On a moving vehicle or aircraft where facing the qiblah for an obligatory prayer is impossible, you face whatever you can, since Allah does not burden a soul beyond its capacity.",
+      "Kiblat ialah arah Kaabah di dalam Masjidil Haram di Makkah. Menghadapnya ialah syarat sah solat. Pada awal Islam, umat Islam solat menghadap Baitulmaqdis; kemudian Allah menurunkan perintah supaya berpaling ke arah Masjidil Haram, dan sejak itu satu arah telah menyatukan umat yang beribadah di seluruh dunia — gambaran fizikal setiap hari tentang satu umat yang menghadap satu Tuhan.",
+      "Anda wajib menghadap kiblat setepat yang dapat anda tentukan dengan munasabah — menggunakan kompas, mihrab masjid, aplikasi yang dipercayai, atau matahari dan bintang ketika bermusafir. Penyimpangan kecil yang tidak dapat dielakkan dimaafkan; yang penting ialah usaha bersungguh-sungguh ke arah yang betul.",
+      "Jika anda benar-benar tidak dapat menentukan arah — sesat di laut, dalam cuaca berawan, di tempat asing pada waktu malam — anda berusaha (berijtihad) untuk menentukannya, kemudian solat ke arah yang paling kuat pada sangkaan anda; solat itu sah walaupun kemudian didapati sedikit tersasar. Dalam kenderaan atau pesawat yang sedang bergerak di mana menghadap kiblat untuk solat fardu tidak mungkin dilakukan, anda menghadap mana-mana arah yang mampu, kerana Allah tidak membebani seseorang melainkan sesuai dengan kemampuannya.",
     ],
-    quran: [
+    appLinks: [
       {
-        excerpt:
-          "So turn your face toward al-Masjid al-Haram. And wherever you are, turn your faces toward it.",
+        label: "Kompas kiblat",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "When you rise to pray, perform wudu well, then face the qiblah and say the takbir. (from the hadith of the man who prayed badly)",
-      },
-    ],
-    appLinks: [{}],
   },
   {
-    title: "Adhan — the call to prayer",
-    summary: "The words that summon the ummah, their meaning, and how to answer them.",
+    title: "Azan — seruan solat",
+    summary: "Lafaz-lafaz yang menyeru umat, maknanya, dan cara menjawabnya.",
     body: [
-      "The adhan is the call announcing that a prayer's time has entered. It is a communal sunnah for the five daily prayers (not for Eid or the funeral prayer), given from a raised place so the community is gathered to worship. It is followed, just before the prayer begins, by a second, shorter call — the iqamah.",
-      "When you hear the adhan, the sunnah is to repeat each phrase after the mu'adhdhin — except at 'Hayya 'ala as-salah' and 'Hayya 'ala al-falah', where you instead say 'La hawla wa la quwwata illa billah' (there is no power nor strength except with Allah). In the Fajr adhan the caller adds 'As-salatu khayrun min an-nawm' (prayer is better than sleep).",
-      "After the adhan finishes, send blessings (salawat) upon the Prophet ﷺ, then recite the established du'a asking Allah to grant him the praised station (al-wasilah) — the Prophet ﷺ promised his intercession to whoever says it. The moment between the adhan and iqamah is a time when supplication is not turned away, so make du'a freely.",
+      "Azan ialah seruan yang memaklumkan bahawa waktu solat telah masuk. Ia sunat kifayah bagi solat lima waktu (bukan bagi solat Hari Raya atau solat jenazah), dilaungkan dari tempat yang tinggi supaya masyarakat berkumpul untuk beribadah. Sejurus sebelum solat bermula, ia diikuti oleh seruan kedua yang lebih ringkas — iqamah.",
+      "Apabila anda mendengar azan, sunnahnya ialah mengulangi setiap lafaz selepas muazin — kecuali pada 'Hayya 'ala as-salah' dan 'Hayya 'ala al-falah', yang mana anda sebaliknya menyebut 'La hawla wa la quwwata illa billah' (tiada daya dan tiada kekuatan melainkan dengan Allah). Dalam azan Subuh, muazin menambah 'As-salatu khayrun min an-nawm' (solat itu lebih baik daripada tidur).",
+      "Selepas azan selesai, berselawatlah ke atas Nabi ﷺ, kemudian bacalah doa yang sabit memohon Allah mengurniakan baginda kedudukan yang terpuji (al-wasilah) — Nabi ﷺ menjanjikan syafaatnya kepada sesiapa yang membacanya. Saat antara azan dan iqamah ialah waktu doa tidak ditolak, maka berdoalah sebanyak-banyaknya.",
     ],
     steps: [
       {
         title: "Allahu Akbar (×4)",
-        body: "Allah is the Greatest — greater than anything that might have distracted you.",
+        body: "Allah Maha Besar — lebih besar daripada apa sahaja yang mungkin melalaikan anda.",
       },
       {
         title: "Ashhadu an la ilaha illallah (×2)",
-        body: "I bear witness that there is no god except Allah.",
+        body: "Aku bersaksi bahawa tiada tuhan melainkan Allah.",
       },
       {
         title: "Ashhadu anna Muhammadan rasulullah (×2)",
-        body: "I bear witness that Muhammad is the Messenger of Allah.",
+        body: "Aku bersaksi bahawa Muhammad ialah Pesuruh Allah.",
       },
       {
         title: "Hayya 'ala as-salah (×2)",
-        body: "Come to prayer. Answer with: La hawla wa la quwwata illa billah.",
+        body: "Marilah menunaikan solat. Jawablah dengan: La hawla wa la quwwata illa billah.",
       },
       {
         title: "Hayya 'ala al-falah (×2)",
-        body: "Come to success. Answer with: La hawla wa la quwwata illa billah.",
+        body: "Marilah menuju kejayaan. Jawablah dengan: La hawla wa la quwwata illa billah.",
       },
       {
         title: "Allahu Akbar (×2)",
-        body: "Allah is the Greatest.",
+        body: "Allah Maha Besar.",
       },
       {
         title: "La ilaha illallah",
-        body: "There is no god except Allah — the call closes on the same word it opened toward.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever says upon hearing the call, 'O Allah, Lord of this perfect call and established prayer, grant Muhammad the wasilah and the virtue…' — my intercession will be his on the Day of Resurrection. (Jabir)",
-      },
-    ],
-    appLinks: [{}, {}],
-  },
-  {
-    title: "Step-by-step salah",
-    summary: "The full sequence of a rak'ah — every recited phrase, with its ruling.",
-    body: [
-      "Every prayer is built from one repeating unit — the rak'ah: you stand and recite, bow, rise, prostrate twice, and (at the end of the prayer) sit for the tashahhud and give the salam. Learn one rak'ah well and you can pray any prayer, because the longer prayers simply repeat this unit. The steps below give each action in order, the exact words to say in Arabic with their meaning, and a small tag showing whether the action is a pillar, a required act, or a recommended one.",
-      "Scholars sort the actions of salah into three levels. A fard (pillar / rukn) is essential: leave it out — even by mistake — and the prayer, or that rak'ah, is invalid until it is performed. A wajib (required act) is obligatory, but if you forget one you mend the prayer with the prostration of forgetfulness (sujud as-sahw) rather than repeating it. A sunnah is recommended and rewarded, and the prayer is complete and valid without it. Where the schools of fiqh place an action in a different category, the tips note it — this three-fold boundary is itself one of the classic areas of scholarly difference.",
-      "Throughout, the one quality that must never be lost is tuma'ninah — stillness: settling fully into each posture, with the limbs at rest, before moving on. The Prophet ﷺ sent a man who had prayed hastily back to pray again three times, saying, 'Go back and pray, for you have not prayed,' then taught him to be calm in each position. Move between the postures with the takbir 'Allahu Akbar', and keep your gaze on the place of prostration.",
-      "How many rak'ahs, and where you sit: a two-rak'ah prayer (Fajr, and Jumu'ah) has a single sitting — the final tashahhud after the second rak'ah — then the salam. A three-rak'ah prayer (Maghrib) and a four-rak'ah prayer (Dhuhr, Asr, Isha) sit for a first, shorter tashahhud after the second rak'ah, then stand for the remaining rak'ah(s) — reciting only Al-Fatihah in them, with no added surah — and sit again for the final tashahhud and salam.",
-      "Aloud or silent: Al-Fatihah and the surah are recited aloud (jahri) in Fajr, Jumu'ah, and the first two rak'ahs of Maghrib and Isha; they are recited silently (sirri) in Dhuhr and Asr, in the third rak'ah of Maghrib, and in the third and fourth rak'ahs of Isha. Every other phrase of the prayer — the tasbih of ruku and sujud, the tashahhud, and so on — is said quietly. Someone praying alone may recite aloud in the aloud prayers or keep it low; a follower behind the imam simply listens while the imam recites aloud.",
-      "Some additions belong to particular prayers or moments. In the Witr prayer many recite the Qunut in the last rak'ah — raising the hands to supplicate for guidance and protection (a well-known wording begins 'Allahumma-hdini fiman hadayt…'). In times of hardship the Qunut an-Nazilah may be added to the obligatory prayers, and the schools differ over a standing Qunut in Fajr. If you join the congregation late (masbuq), whatever you catch with the imam counts, and you make up the rak'ahs you missed after his salam. And if you add or drop something by mistake, see the guide to sujud as-sahw.",
-    ],
-    steps: [
-      {
-        title: "1. Intention & standing (niyyah & qiyam)",
-        body: "Face the qiblah and stand upright — standing is a pillar of every obligatory prayer for whoever is able. Settle in the heart which specific prayer you are about to pray; the intention is an inward resolve, not a sentence spoken aloud.",
-        ruling: "fard",
-        tip: "Fix your eyes on the place of sujud and keep them there. Anyone who genuinely cannot stand prays sitting, then lying — the prayer itself is never dropped.",
-      },
-      {
-        title: "2. Opening takbir (Takbirat al-Ihram)",
-        body: "Raise your hands to the shoulders or earlobes and say the takbir, then place the right hand over the left on the chest. With this the prayer begins, and ordinary speech and movement are now forbidden until the salam.",
-        translation: "Allah is the Greatest.",
-        ruling: "fard",
-        tip: "Raising the hands (raf' al-yadayn) with the takbir is a confirmed sunnah, not a pillar.",
-      },
-      {
-        title: "3. Opening supplication (Du'a al-Istiftah)",
-        body: "Recite quietly a short opening supplication to settle the heart before Allah's words. Several authentic wordings are reported; this is one of the most common.",
-        translation:
-          "Glory is to You, O Allah, and praise. Blessed is Your name and exalted is Your majesty. There is no god other than You.",
-        ruling: "sunnah",
-      },
-      {
-        title: "4. Ta'awwudh & Basmalah",
-        body: "Seek refuge in Allah from Satan, then begin with the Basmalah, before Al-Fatihah. Both are said quietly, even in the aloud prayers.",
-        translation:
-          "I seek refuge in Allah from Satan, the accursed. In the name of Allah, the Entirely Merciful, the Especially Merciful.",
-        ruling: "sunnah",
-      },
-      {
-        title: "5. Recite Al-Fatihah",
-        body: "Recite the Opening of the Book in every rak'ah — 'There is no prayer for the one who does not recite the Opening of the Book.' The imam and the lone worshipper recite it aloud in the aloud prayers; otherwise it is recited quietly.",
-        translation:
-          "In the name of Allah, the Entirely Merciful, the Especially Merciful. All praise is due to Allah, Lord of the worlds — the Entirely Merciful, the Especially Merciful, Sovereign of the Day of Recompense. It is You we worship and You we ask for help. Guide us to the straight path — the path of those upon whom You have bestowed favour, not of those who have earned anger or of those who are astray.",
-        ruling: "fard",
-        tip: "Say 'Ameen' after it (aloud in the aloud prayers). Hanafis class reciting some Qur'an as the pillar and Al-Fatihah specifically as wajib; the majority hold Al-Fatihah itself is the pillar in every rak'ah.",
-      },
-      {
-        title: "6. Recite a surah or some verses",
-        body: "In the first two rak'ahs only, follow Al-Fatihah with a short surah or a few verses — for example Surah Al-Ikhlas ('Qul huwa Allahu ahad…'). In the third and fourth rak'ahs recite Al-Fatihah alone.",
-        ruling: "sunnah",
-        tip: "Recommended for the lone worshipper and the imam; a follower listens. Hanafis hold that adding a surah in the first two rak'ahs is wajib.",
-      },
-      {
-        title: "7. Bowing (ruku)",
-        body: "Say 'Allahu Akbar' and bow with a flat, level back, hands gripping the knees, and glorify your Lord three times or more, without haste.",
-        translation: "Glory is to my Lord, the Magnificent.",
-        ruling: "fard",
-        tip: "The bow itself, held with stillness, is the pillar; the tasbih recited in it is a sunnah (wajib in some schools).",
-      },
-      {
-        title: "8. Rising from ruku (i'tidal)",
-        body: "Rise fully upright — the imam and lone worshipper saying the tasmi', and everyone saying the tahmid — and stand completely still before descending.",
-        translation: "Allah hears whoever praises Him. Our Lord, to You belongs all praise.",
-        ruling: "fard",
-        tip: "Standing back up straight and at ease is a pillar — do not sink into sujud until you have settled here.",
-      },
-      {
-        title: "9. Prostration (sujud)",
-        body: "Say 'Allahu Akbar' and prostrate on seven bones — the forehead together with the nose, both palms, both knees, and the toes of both feet — glorifying the Most High three times or more. This is the posture nearest to Allah, so pour out supplication after the tasbih.",
-        translation: "Glory is to my Lord, the Most High.",
-        ruling: "fard",
-        tip: "Keep the forearms raised off the ground and away from the sides, and the belly off the thighs.",
-      },
-      {
-        title: "10. Sitting between the two prostrations (jalsah)",
-        body: "Rise from the first sujud saying 'Allahu Akbar', sit calmly and upright, and ask your Lord for forgiveness before prostrating again.",
-        translation: "My Lord, forgive me.",
-        ruling: "fard",
-        tip: "Sit until you are at ease — this brief sitting, with stillness, is a pillar in its own right.",
-      },
-      {
-        title: "11. Second prostration",
-        body: "Say 'Allahu Akbar' and prostrate a second time exactly as the first, with the same tasbih and the same stillness. This completes one full rak'ah.",
-        translation: "Glory is to my Lord, the Most High.",
-        ruling: "fard",
-      },
-      {
-        title: "12. Stand for the next rak'ah",
-        body: "Say 'Allahu Akbar' and rise to stand, then repeat from Al-Fatihah. In the third and fourth rak'ahs recite Al-Fatihah only, without an added surah.",
-        ruling: "fard",
-        tip: "In a two-rak'ah prayer you do not stand again after the second rak'ah — you stay seated for the final tashahhud.",
-      },
-      {
-        title: "13. First tashahhud (in 3- and 4-rak'ah prayers)",
-        body: "After the second rak'ah of Maghrib, Dhuhr, Asr, or Isha, sit and recite At-Tahiyyat, then stand for the remaining rak'ah(s). A two-rak'ah prayer has no first tashahhud.",
-        translation:
-          "All greetings, prayers, and pure words are for Allah. Peace be upon you, O Prophet, and the mercy of Allah and His blessings. Peace be upon us and upon the righteous servants of Allah. I bear witness that there is no god except Allah, and I bear witness that Muhammad is His slave and Messenger.",
-        ruling: "wajib",
-        tip: "Raise the right index finger in the sitting. If you forget the first tashahhud and have started to stand, continue and perform sujud as-sahw before the salam — do not sit back down.",
-      },
-      {
-        title: "14. Final tashahhud",
-        body: "In the last sitting of every prayer, recite the same At-Tahiyyat shown above. Sitting for the final tashahhud, and reciting it, is a pillar of the prayer.",
-        ruling: "fard",
-      },
-      {
-        title: "15. Send blessings on the Prophet ﷺ (Salawat)",
-        body: "After the final At-Tahiyyat, send salawat upon the Prophet ﷺ with the words he himself taught his Companions.",
-        translation:
-          "O Allah, send blessings upon Muhammad and the family of Muhammad, as You blessed Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious. O Allah, bestow favour upon Muhammad and the family of Muhammad, as You favoured Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious.",
-        ruling: "sunnah",
-        tip: "The Shafi'i and Hanbali schools consider the salawat in the final sitting obligatory.",
-      },
-      {
-        title: "16. Supplicate before the salam",
-        body: "Before ending, seek refuge in Allah from four trials — then make any du'a you wish, for this life and the next, in Arabic or your own language.",
-        translation:
-          "O Allah, I seek refuge in You from the punishment of the grave, from the punishment of Hell, from the trial of life and death, and from the evil of the trial of the False Messiah (the Dajjal).",
-        ruling: "sunnah",
-      },
-      {
-        title: "17. Closing salam (Taslim)",
-        body: "End the prayer by turning the face to the right, then to the left, giving the greeting of peace each time. With the salam the prayer is complete.",
-        translation: "Peace and the mercy of Allah be upon you.",
-        ruling: "fard",
-        tip: "The first taslim (to the right) is the pillar; the second (to the left) is a sunnah in some schools.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Pray as you have seen me praying. (Malik ibn al-Huwayrith)",
-      },
-      {
-        excerpt:
-          "'Go back and pray, for you have not prayed' — repeated three times — then he ﷺ taught: say the takbir, recite what you can of the Qur'an, then bow until you are at ease, rise until you stand straight, prostrate until you are at ease… (the man who prayed badly; also Sahih Muslim 397)",
-      },
-      {
-        excerpt:
-          "There is no prayer for the one who does not recite the Opening of the Book. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
+        body: "Tiada tuhan melainkan Allah — seruan ini ditutup dengan kalimah yang sama yang menjadi tujuannya sejak awal.",
       },
     ],
     appLinks: [
-      { label: "Perkataan & makna" },
-      { label: "Bacaan kuat & senyap" },
-      { label: "Setiap posisi" },
-      { label: "Jika anda silap (sujud sahw)" },
-      { label: "Penjejak latihan" },
+      {
+        label: "Dengar azan",
+      },
+      {
+        label: "Azan & doa solat",
+      },
     ],
   },
   {
-    title: "Bacaan kuat & senyap",
-    summary:
-      "Rakaat mana imam membaca dengan suara kuat, mana yang senyap, dan apa yang anda lakukan di belakangnya atau semasa solat sendirian.",
+    title: "Solat langkah demi langkah",
+    summary: "Turutan lengkap satu rakaat — setiap bacaan, berserta hukumnya.",
     body: [
-      "Salah satu soalan paling biasa — bagi Muslim baharu dan yang sudah lama solat — menjadi mudah setelah anda faham dua prinsip: sebahagian solat dibaca kuat (jahri) dan sebahagian senyap (sirri). Nabi ﷺ solat dengan kedua-dua cara; para Sahabat menyampaikan coraknya, dan ia direkodkan dalam koleksi hadis utama.",
-      "Dalam setiap solat, dua rakaat pertama ialah rakaat 'panjang': Al-Fatihah ditambah surah lain (atau beberapa ayat). Pada baki rakaat solat tiga atau empat rakaat, Nabi ﷺ biasanya hanya membaca Al-Fatihah. Itulah sebabnya bacaan kuat berhenti selepas rakaat kedua pada Maghrib dan Isyak, manakala Zohor dan Asar kekal senyap sepanjang solat.",
-      "Allah tidak menyatakan sebab jelas mengapa sebahagian solat kuat dan sebahagian senyap. Para ulama menyebut hikmah — solat malam sesuai dengan bacaan kuat; solat siang berlaku di tengah kesibukan; coraknya membezakan solat — tetapi Muslim mengikutinya terutamanya kerana ia Sunnah. Allah berfirman: 'Sesungguhnya pada Rasulullah ada teladan yang baik bagimu' (33:21).",
-      "Di belakang imam, peraturan yang dipersetujui pada solat kuat ialah mendengar dengan penuh perhatian dan tidak membaca surah lain dengan kuat. Sama ada anda juga membaca Al-Fatihah senyap semasa imam membaca ialah salah satu perbezaan paling dikenali antara empat mazhab Sunni — semuanya kedudukan sah yang dipegang ulama serius. Pada solat senyap imam membaca senyap, jadi setiap jemaah membaca untuk diri sendiri mengikut ajaran mazhabnya.",
-      "Solat sendirian: baca Al-Fatihah pada setiap rakaat; tambah surah pada dua rakaat pertama setiap solat; pada rakaat terakhir hanya Al-Fatihah. Pada solat kuat, sunnah membaca dengan suara kuat semasa sendirian, walaupun membaca senyap tetap sah.",
+      "Setiap solat dibina daripada satu unit yang berulang — rakaat: anda berdiri dan membaca, rukuk, bangkit, sujud dua kali, dan (pada akhir solat) duduk untuk tasyahud lalu memberi salam. Kuasai satu rakaat dengan baik dan anda boleh menunaikan apa sahaja solat, kerana solat yang lebih panjang hanya mengulangi unit ini. Langkah-langkah di bawah memberikan setiap perbuatan mengikut tertib, lafaz Arab yang tepat untuk dibaca berserta maknanya, dan tanda kecil yang menunjukkan sama ada perbuatan itu rukun, perbuatan wajib, atau perbuatan sunat.",
+      "Ulama membahagikan perbuatan solat kepada tiga peringkat. Fardu (rukun) ialah perkara asas: jika ditinggalkan — walaupun tersilap — solat itu, atau rakaat itu, tidak sah sehingga ia dilaksanakan. Wajib (perbuatan yang dituntut) adalah wajib, tetapi jika anda terlupa salah satunya, anda memperbaiki solat dengan sujud sahwi tanpa perlu mengulanginya. Sunat pula dianjurkan dan diberi pahala, dan solat tetap sempurna dan sah tanpanya. Apabila mazhab-mazhab fiqh meletakkan sesuatu perbuatan dalam kategori yang berbeza, tip-tip akan menyatakannya — sempadan tiga peringkat ini sendiri merupakan salah satu bidang klasik perbezaan pendapat ulama.",
+      "Sepanjang solat, satu sifat yang tidak boleh hilang sama sekali ialah tamakninah — ketenangan: menetap sepenuhnya dalam setiap kedudukan, dengan anggota dalam keadaan diam, sebelum berpindah. Nabi ﷺ menyuruh seorang lelaki yang solat dengan tergesa-gesa mengulangi solatnya sebanyak tiga kali sambil bersabda, 'Go back and pray, for you have not prayed' (makna dalam bahasa Inggeris), kemudian mengajarnya agar tenang dalam setiap kedudukan. Berpindahlah antara kedudukan dengan takbir 'Allahu Akbar', dan pandanglah ke tempat sujud.",
+      "Bilangan rakaat dan tempat duduk: solat dua rakaat (Subuh dan Jumaat) mempunyai satu duduk sahaja — tasyahud akhir selepas rakaat kedua — kemudian salam. Solat tiga rakaat (Maghrib) dan solat empat rakaat (Zohor, Asar, Isyak) duduk untuk tasyahud awal yang lebih pendek selepas rakaat kedua, kemudian bangun untuk baki rakaat — dengan membaca Al-Fatihah sahaja tanpa surah tambahan — dan duduk semula untuk tasyahud akhir dan salam.",
+      "Kuat atau perlahan: Al-Fatihah dan surah dibaca dengan kuat (jahar) dalam solat Subuh, Jumaat, dan dua rakaat pertama Maghrib dan Isyak; ia dibaca dengan perlahan (sir) dalam Zohor dan Asar, rakaat ketiga Maghrib, dan rakaat ketiga dan keempat Isyak. Setiap bacaan lain dalam solat — tasbih rukuk dan sujud, tasyahud dan sebagainya — dibaca dengan perlahan. Orang yang solat bersendirian boleh membaca dengan kuat dalam solat jahar atau merendahkan suara; makmum di belakang imam hanya mendengar ketika imam membaca dengan kuat.",
+      "Sebahagian tambahan khusus bagi solat atau waktu tertentu. Dalam solat Witir, ramai yang membaca Qunut pada rakaat terakhir — mengangkat tangan berdoa memohon petunjuk dan perlindungan (lafaz yang masyhur bermula dengan 'Allahumma-hdini fiman hadayt…'). Pada masa kesusahan, Qunut Nazilah boleh ditambah dalam solat fardu, dan mazhab-mazhab berbeza pendapat tentang Qunut yang tetap dalam solat Subuh. Jika anda menyertai jemaah lewat (masbuq), apa sahaja yang anda sempat bersama imam dikira, dan anda menyempurnakan rakaat yang tertinggal selepas imam memberi salam. Dan jika anda tertambah atau tertinggal sesuatu kerana terlupa, lihat panduan sujud sahwi.",
     ],
     steps: [
       {
-        title: "Subuh — kuat pada kedua-dua rakaat",
-        body: "Imam membaca kuat pada kedua-dua rakaat. Di belakangnya: dengar dengan penuh perhatian; jangan baca surah lain dengan kuat. Al-Fatihah — lihat langkah mazhab di bawah.",
-        ruling: "fard",
+        title: "1. Niat & berdiri (qiyam)",
+        body: "Menghadap kiblat dan berdiri tegak — berdiri ialah rukun setiap solat fardu bagi sesiapa yang mampu. Tetapkan di dalam hati solat khusus yang hendak anda kerjakan; niat ialah azam di dalam hati, bukan ayat yang dilafazkan dengan kuat.",
+        tip: "Tumpukan pandangan ke tempat sujud dan kekalkan di situ. Sesiapa yang benar-benar tidak mampu berdiri, solatlah sambil duduk, kemudian berbaring — solat itu sendiri tidak sekali-kali gugur.",
       },
       {
-        title: "Zohor — senyap pada keempat-empat rakaat",
-        body: "Imam membaca senyap pada setiap rakaat. Di belakangnya: baca Al-Fatihah dan surah senyap untuk diri sendiri mengikut mazhab anda.",
-        ruling: "fard",
+        title: "2. Takbiratul ihram",
+        body: "Angkat kedua-dua tangan hingga paras bahu atau cuping telinga dan ucapkan takbir, kemudian letakkan tangan kanan di atas tangan kiri di dada. Dengan ini solat bermula, dan percakapan serta pergerakan biasa kini dilarang sehingga salam.",
+        tip: "Mengangkat tangan (raf' al-yadayn) ketika takbir ialah sunat yang sabit, bukan rukun.",
       },
       {
-        title: "Asar — senyap pada keempat-empat rakaat",
-        body: "Sama seperti Zohor — bacaan imam sepenuhnya senyap; setiap jemaah membaca senyap di belakangnya.",
-        ruling: "fard",
+        title: "3. Doa iftitah (doa pembukaan)",
+        body: "Bacalah dengan perlahan doa pembukaan yang ringkas untuk menenangkan hati sebelum membaca kalam Allah. Beberapa lafaz yang sahih telah diriwayatkan; inilah salah satu yang paling lazim.",
       },
       {
-        title: "Maghrib — kuat kemudian senyap",
-        body: "Kuat pada rakaat ke-1 dan ke-2; senyap pada ke-3. Di belakangnya: dengar pada dua pertama; pada rakaat ketiga baca untuk diri sendiri mengikut mazhab anda.",
-        ruling: "fard",
+        title: "4. Taawuz & basmalah",
+        body: "Mohon perlindungan kepada Allah daripada syaitan, kemudian mulakan dengan basmalah, sebelum Al-Fatihah. Kedua-duanya dibaca dengan perlahan, walaupun dalam solat jahar.",
       },
       {
-        title: "Isyak — kuat kemudian senyap",
-        body: "Kuat pada rakaat ke-1 dan ke-2; senyap pada ke-3 dan ke-4. Di belakangnya: dengar pada dua pertama; pada dua terakhir baca untuk diri sendiri mengikut mazhab anda.",
-        ruling: "fard",
+        title: "5. Membaca Al-Fatihah",
+        body: "Bacalah Fatihatul Kitab dalam setiap rakaat — 'There is no prayer for the one who does not recite the Opening of the Book.' (makna dalam bahasa Inggeris). Imam dan orang yang solat bersendirian membacanya dengan kuat dalam solat jahar; selain itu ia dibaca dengan perlahan.",
+        tip: "Ucapkan 'Amin' selepasnya (dengan kuat dalam solat jahar). Mazhab Hanafi menganggap membaca sebahagian Al-Quran sebagai rukun dan Al-Fatihah secara khusus sebagai wajib; majoriti berpendapat Al-Fatihah itu sendiri ialah rukun dalam setiap rakaat.",
+      },
+      {
+        title: "6. Membaca surah atau beberapa ayat",
+        body: "Dalam dua rakaat pertama sahaja, ikuti Al-Fatihah dengan surah pendek atau beberapa ayat — contohnya Surah Al-Ikhlas ('Qul huwa Allahu ahad…'). Dalam rakaat ketiga dan keempat, bacalah Al-Fatihah sahaja.",
+        tip: "Dianjurkan bagi orang yang solat bersendirian dan imam; makmum mendengar. Mazhab Hanafi berpendapat menambah surah dalam dua rakaat pertama adalah wajib.",
+      },
+      {
+        title: "7. Rukuk",
+        body: "Ucapkan 'Allahu Akbar' dan rukuk dengan belakang yang rata dan lurus, tangan menggenggam lutut, dan bertasbihlah memuji Tuhanmu tiga kali atau lebih, tanpa tergesa-gesa.",
+        tip: "Rukuk itu sendiri, dengan tamakninah, ialah rukun; tasbih yang dibaca di dalamnya ialah sunat (wajib menurut sebahagian mazhab).",
+      },
+      {
+        title: "8. Bangkit dari rukuk (iktidal)",
+        body: "Bangkitlah hingga berdiri tegak sepenuhnya — imam dan orang yang solat bersendirian membaca tasmi', dan semua membaca tahmid — dan berdirilah dengan tenang sepenuhnya sebelum turun.",
+        tip: "Berdiri semula dengan lurus dan tenang ialah rukun — jangan terus turun sujud sehingga anda benar-benar menetap di sini.",
+      },
+      {
+        title: "9. Sujud",
+        body: "Ucapkan 'Allahu Akbar' dan sujudlah di atas tujuh anggota — dahi bersama hidung, kedua-dua tapak tangan, kedua-dua lutut, dan hujung jari kedua-dua kaki — sambil bertasbih memuji Yang Maha Tinggi tiga kali atau lebih. Inilah kedudukan yang paling hampir kepada Allah, maka curahkanlah doa selepas tasbih.",
+        tip: "Angkat lengan dari lantai dan jauhkan dari sisi badan, serta jarakkan perut dari peha.",
+      },
+      {
+        title: "10. Duduk antara dua sujud",
+        body: "Bangkit dari sujud pertama sambil mengucapkan 'Allahu Akbar', duduk dengan tenang dan tegak, dan mohonlah keampunan Tuhanmu sebelum sujud semula.",
+        tip: "Duduklah sehingga anda tenang — duduk yang singkat ini, dengan tamakninah, ialah rukun tersendiri.",
+      },
+      {
+        title: "11. Sujud kedua",
+        body: "Ucapkan 'Allahu Akbar' dan sujud kali kedua sama seperti yang pertama, dengan tasbih yang sama dan tamakninah yang sama. Ini melengkapkan satu rakaat penuh.",
+      },
+      {
+        title: "12. Bangun untuk rakaat seterusnya",
+        body: "Ucapkan 'Allahu Akbar' dan bangun berdiri, kemudian ulangi dari Al-Fatihah. Dalam rakaat ketiga dan keempat, bacalah Al-Fatihah sahaja tanpa surah tambahan.",
+        tip: "Dalam solat dua rakaat, anda tidak bangun lagi selepas rakaat kedua — anda kekal duduk untuk tasyahud akhir.",
+      },
+      {
+        title: "13. Tasyahud awal (dalam solat 3 dan 4 rakaat)",
+        body: "Selepas rakaat kedua Maghrib, Zohor, Asar atau Isyak, duduklah dan bacalah At-Tahiyyat, kemudian bangun untuk baki rakaat. Solat dua rakaat tidak mempunyai tasyahud awal.",
+        tip: "Angkat jari telunjuk kanan ketika duduk. Jika anda terlupa tasyahud awal dan telah mula berdiri, teruskan dan lakukan sujud sahwi sebelum salam — jangan duduk semula.",
+      },
+      {
+        title: "14. Tasyahud akhir",
+        body: "Pada duduk terakhir setiap solat, bacalah At-Tahiyyat yang sama seperti di atas. Duduk untuk tasyahud akhir, dan membacanya, ialah rukun solat.",
+      },
+      {
+        title: "15. Berselawat ke atas Nabi ﷺ",
+        body: "Selepas At-Tahiyyat terakhir, berselawatlah ke atas Nabi ﷺ dengan lafaz yang baginda sendiri ajarkan kepada para sahabat.",
+        tip: "Mazhab Syafie dan Hanbali menganggap selawat pada duduk terakhir sebagai wajib.",
+      },
+      {
+        title: "16. Berdoa sebelum salam",
+        body: "Sebelum mengakhiri solat, mohonlah perlindungan kepada Allah daripada empat fitnah — kemudian berdoalah apa sahaja yang anda kehendaki, untuk dunia dan akhirat, dalam bahasa Arab atau bahasa anda sendiri.",
+      },
+      {
+        title: "17. Salam penutup",
+        body: "Akhiri solat dengan berpaling muka ke kanan, kemudian ke kiri, sambil memberi salam setiap kali. Dengan salam, solat selesai.",
+        tip: "Salam pertama (ke kanan) ialah rukun; salam kedua (ke kiri) ialah sunat menurut sebahagian mazhab.",
+      },
+    ],
+    appLinks: [
+      {
+        label: "Bacaan & makna",
+      },
+      {
+        label: "Bacaan kuat & perlahan",
+      },
+      {
+        label: "Setiap kedudukan",
+      },
+      {
+        label: "Jika anda tersilap (sujud sahwi)",
+      },
+      {
+        label: "Penjejak latihan",
+      },
+    ],
+  },
+  {
+    title: "Bacaan kuat & perlahan",
+    summary:
+      "Rakaat mana yang imam baca dengan kuat, mana yang perlahan, dan apa yang patut anda lakukan di belakangnya atau ketika solat bersendirian.",
+    body: [
+      "Salah satu soalan yang paling lazim — bagi saudara baru dan juga mereka yang telah lama beriman — menjadi mudah sebaik sahaja anda memahami dua prinsip: sebahagian solat dibaca dengan kuat (jahar) dan sebahagian lagi dengan perlahan (sir). Nabi ﷺ solat dengan kedua-dua cara; para sahabat meriwayatkan coraknya, dan ia direkodkan dalam kitab-kitab hadis utama.",
+      "Dalam setiap solat, dua rakaat pertama ialah rakaat 'panjang': Al-Fatihah ditambah surah lain (atau beberapa ayat). Dalam baki rakaat solat tiga atau empat rakaat, Nabi ﷺ lazimnya hanya membaca Al-Fatihah. Itulah sebabnya bacaan kuat berhenti selepas rakaat kedua dalam Maghrib dan Isyak, manakala Zohor dan Asar kekal perlahan sepanjang solat.",
+      "Allah tidak menyatakan sebab yang jelas mengapa sesuatu solat dibaca kuat atau perlahan. Ulama menyebut beberapa hikmah — solat malam sesuai dengan bacaan yang didengari; solat siang berlaku di tengah-tengah kesibukan kerja dan kehidupan awam; corak itu membezakan antara solat-solat — tetapi umat Islam mengikutinya terutamanya kerana ia Sunnah. Allah berfirman: 'adalah bagi kamu pada diri Rasulullah itu contoh ikutan yang baik' (33:21).",
+      "Di belakang imam, peraturan yang disepakati dalam solat jahar ialah mendengar dengan teliti dan tidak membaca surah lain dengan kuat. Sama ada anda turut membaca Al-Fatihah secara perlahan ketika imam membaca ialah salah satu perbezaan yang paling terkenal antara empat mazhab Ahli Sunnah — semuanya pendapat yang sah yang dipegang oleh ulama yang muktabar. Dalam solat sir, imam membaca secara perlahan, maka setiap makmum membaca untuk dirinya sendiri mengikut ajaran mazhabnya.",
+      "Solat bersendirian: bacalah Al-Fatihah dalam setiap rakaat; tambahlah surah dalam dua rakaat pertama setiap solat; dalam rakaat terakhir bacalah Al-Fatihah sahaja. Dalam solat jahar, sunat membaca dengan suara yang didengari ketika bersendirian, walaupun membaca perlahan tetap sah.",
+    ],
+    steps: [
+      {
+        title: "Subuh — kuat dalam kedua-dua rakaat",
+        body: "Imam membaca dengan kuat dalam kedua-dua rakaat. Di belakangnya: dengar dengan teliti; jangan membaca surah lain dengan kuat. Al-Fatihah — lihat langkah mazhab di bawah.",
+      },
+      {
+        title: "Zohor — perlahan dalam keempat-empat rakaat",
+        body: "Imam membaca dengan perlahan dalam setiap rakaat. Di belakangnya: bacalah Al-Fatihah dan surah secara perlahan untuk diri sendiri mengikut mazhab anda.",
+      },
+      {
+        title: "Asar — perlahan dalam keempat-empat rakaat",
+        body: "Sama seperti Zohor — bacaan imam sepenuhnya perlahan; setiap makmum membaca dengan perlahan di belakangnya.",
+      },
+      {
+        title: "Maghrib — kuat kemudian perlahan",
+        body: "Kuat dalam rakaat pertama dan kedua; perlahan dalam rakaat ketiga. Di belakangnya: dengar dalam dua rakaat pertama; dalam rakaat ketiga bacalah untuk diri sendiri mengikut mazhab anda.",
+      },
+      {
+        title: "Isyak — kuat kemudian perlahan",
+        body: "Kuat dalam rakaat pertama dan kedua; perlahan dalam rakaat ketiga dan keempat. Di belakangnya: dengar dalam dua rakaat pertama; dalam dua rakaat terakhir bacalah untuk diri sendiri mengikut mazhab anda.",
       },
       {
         title: "Mengapa hanya dua rakaat pertama?",
-        body: "Abu Qatadah (RA) melaporkan Nabi ﷺ membaca Al-Fatihah dan surah lain pada dua rakaat pertama Zohor dan Asar, dan pada dua terakhir hanya Al-Fatihah. Corak ini menerangkan struktur rakaat panjang/pendek pada setiap solat berbilang rakaat.",
-        ruling: "sunnah",
+        body: "Abu Qatadah r.a. meriwayatkan bahawa Nabi ﷺ membaca Al-Fatihah dan surah lain dalam dua rakaat pertama Zohor dan Asar, dan dalam dua rakaat terakhir hanya membaca Al-Fatihah. Corak ini menjelaskan struktur rakaat panjang/pendek dalam setiap solat yang lebih daripada dua rakaat.",
       },
       {
-        title: "Di belakang imam pada solat kuat — semua bersetuju",
-        body: "Dengar dengan teliti apabila Al-Quran dibaca kuat. Jangan bersaing dengan imam atau baca surah lain dengan kuat. Allah berfirman: 'Apabila Al-Quran dibacakan, dengarlah dan diamlah agar kamu dirahmati' (7:204).",
-        ruling: "fard",
+        title: "Di belakang imam dalam solat jahar — semua bersepakat",
+        body: "Dengarlah dengan teliti apabila Al-Quran dibaca dengan kuat. Jangan bersaing dengan imam atau membaca surah lain dengan kuat. Allah berfirman: 'apabila Al-Quran itu dibacakan, maka dengarlah akan dia serta diamlah … supaya kamu beroleh rahmat' (7:204).",
       },
       {
         title: "Al-Fatihah di belakang imam — empat mazhab",
-        body: "Hanafi: jangan baca Al-Fatihah pada solat kuat; dengar. Maliki: umumnya mendengar semasa bacaan kuat. Syafi'i: baca Al-Fatihah pada setiap rakaat, walaupun di belakang imam. Hanbali: dua pendapat; ramai ulama Hanbali menyarankan membaca Al-Fatihah pada jeda atau apabila boleh. Keempat-empatnya kedudukan Sunni yang diiktiraf.",
-        ruling: "wajib",
-        tip: "Ikuti ajaran mazhab yang anda pelajari daripada guru dipercayai. Tiada mazhab membenarkan membaca surah lain dengan kuat melebihi imam.",
+        body: "Hanafi: jangan membaca Al-Fatihah dalam solat jahar; dengarlah. Maliki: umumnya mendengar ketika bacaan kuat. Syafie: bacalah Al-Fatihah dalam setiap rakaat, walaupun di belakang imam. Hanbali: dua pendapat; ramai ulama Hanbali menganjurkan membaca Al-Fatihah ketika imam berhenti seketika atau apabila berpeluang. Keempat-empatnya pendapat Ahli Sunnah yang diiktiraf.",
+        tip: "Ikutilah ajaran mazhab yang anda pelajari daripada guru yang dipercayai. Tiada mazhab yang membenarkan membaca surah lain dengan kuat mengatasi suara imam.",
       },
       {
-        title: "Di belakang imam pada solat senyap",
-        body: "Hanafi (yang diandalkan): baca thana dan zikir senyap tetapi bukan Al-Fatihah — bacaan imam sudah cukup. Maliki: zikir senyap; amalan berbeza. Syafi'i & Hanbali: baca Al-Fatihah senyap sendiri pada setiap rakaat.",
-        ruling: "fard",
+        title: "Di belakang imam dalam solat sir",
+        body: "Hanafi (pendapat muktamad): bacalah doa iftitah (thana) dan zikir secara perlahan tetapi bukan Al-Fatihah — bacaan imam sudah memadai. Maliki: berzikir secara perlahan; amalan berbeza-beza. Syafie & Hanbali: bacalah sendiri Al-Fatihah secara perlahan dalam setiap rakaat.",
       },
       {
-        title: "Solat sendirian",
-        body: "Tiada perbezaan pada apa yang anda baca — hanya sama ada anda mengangkat suara. Setiap rakaat: Al-Fatihah. Dua pertama: tambah surah. Rakaat terakhir: hanya Al-Fatihah. Pada Subuh, Maghrib, dan Isyak sunnah membaca kuat; Zohor dan Asar dibaca senyap.",
-        ruling: "fard",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Sesungguhnya pada Rasulullah ada teladan yang baik bagimu.",
-      },
-      {
-        excerpt: "Apabila Al-Quran dibacakan, dengarlah dan diamlah agar kamu dirahmati.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ biasanya membaca Al-Fatihah dan surah lain pada dua rakaat pertama Zohor dan Asar, dan pada dua terakhir hanya Al-Fatihah. (Abu Qatadah; juga Sahih Muslim 451)",
-      },
-      {
-        excerpt:
-          "Tiada solat bagi orang yang tidak membaca Pembukaan Kitab. (Ubadah bin as-Samit; juga Sahih Muslim 394)",
-      },
-      {
-        excerpt:
-          "Beliau membaca pada dua rakaat pertama Zohor dan Asar sehingga anda menyangka beliau membaca surah-surah panjang, dan pada dua terakhir sehingga anda menyangka beliau membaca yang pendek. (Abu Qatadah)",
+        title: "Solat bersendirian",
+        body: "Tiada perbezaan pada apa yang anda baca — hanya sama ada anda menguatkan suara. Setiap rakaat: Al-Fatihah. Dua rakaat pertama: tambah surah. Rakaat terakhir: Al-Fatihah sahaja. Dalam Subuh, Maghrib dan Isyak sunat membaca dengan kuat; Zohor dan Asar dibaca dengan perlahan.",
       },
     ],
     actions: [
-      "Pada solat berjemaah seterusnya, perhatikan rakaat mana imam membaca dengan kuat.",
-      "Tanya guru dari mazhab anda sama ada anda membaca Al-Fatihah di belakang imam pada solat kuat.",
-      "Semasa solat sendirian, cuba baca kuat pada Subuh untuk merasai sunnah bacaan jahri.",
+      "Dalam solat berjemaah anda yang berikutnya, perhatikan rakaat mana yang imam baca dengan kuat.",
+      "Tanyalah guru daripada mazhab anda sama ada anda membaca Al-Fatihah di belakang imam dalam solat jahar.",
+      "Ketika solat bersendirian, cubalah membaca dengan kuat dalam solat Subuh untuk merasai sunnah bacaan jahar.",
     ],
     appLinks: [
-      { label: "Solat langkah demi langkah" },
-      { label: "Solat berjemaah" },
-      { label: "Perkataan & makna" },
-    ],
-    disclaimer:
-      "Empat mazhab Sunni berbeza pendapat tentang membaca Al-Fatihah di belakang imam pada solat kuat dan senyap. Pelajaran ini menyajikan kedudukan mantap setiap mazhab tanpa mengisytiharkan salah satunya sebagai satu-satunya pandangan benar. Pelajari perincian mazhab anda daripada guru yang berkelayakan.",
-  },
-  {
-    title: "Every position",
-    summary: "How to hold your body correctly in each posture of the prayer.",
-    body: [
-      "Each posture in salah has a bodily form the Prophet ﷺ demonstrated and his Companions preserved. Learning the correct form protects your prayer from common physical errors and helps the body support the heart's humility rather than distract from it.",
-      "The nearness of prostration deserves special care: the Prophet ﷺ said, 'The nearest a servant comes to his Lord is when he is prostrating, so make much supplication then.' A prostration held with stillness and sincerity is among the most powerful moments in a believer's day.",
-    ],
-    steps: [
       {
-        title: "Standing (qiyam)",
-        body: "Upright, feet roughly shoulder-width apart, weight balanced, gaze on the place of sujud, right hand over the left on the chest.",
+        label: "Solat langkah demi langkah",
       },
       {
-        title: "Raising the hands (raf' al-yadayn)",
-        body: "Palms facing the qiblah, level with the shoulders or earlobes — at the opening takbir, and (by the majority) also going into and rising from ruku.",
+        label: "Solat berjemaah",
       },
       {
-        title: "Bowing (ruku)",
-        body: "Back flat and level, head neither raised nor drooping, fingers spread gripping the knees, arms held away from the sides.",
-      },
-      {
-        title: "Prostration (sujud)",
-        body: "Forehead and nose on the ground, palms flat near the shoulders or ears, elbows raised and off the floor, knees down, toes flexed toward the qiblah.",
-      },
-      {
-        title: "Sitting (iftirash)",
-        body: "Between the two prostrations and in the first tashahhud: sit on the left foot laid flat with the right foot upright, hands resting on the thighs.",
-      },
-      {
-        title: "Final sitting (tawarruk)",
-        body: "In the last tashahhud of a 3- or 4-rak'ah prayer (a sunnah of the Shafi'i and Hanbali schools): pass the left foot under the right leg and sit on the ground.",
-      },
-      {
-        title: "Turning the head for salam (taslim)",
-        body: "Turn the face fully to the right, then to the left, with the words of peace — ending the prayer as you greet the angels on each shoulder.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The nearest a servant comes to his Lord is when he is prostrating, so make much supplication. (Abu Hurayrah)",
+        label: "Bacaan & makna",
       },
     ],
     disclaimer:
-      "Minor differences in hand placement, the manner of sitting, and raising the hands are all rooted in authentic reports; the schools each follow a valid narration. None invalidates another's prayer.",
+      "Empat mazhab Ahli Sunnah berbeza pendapat tentang membaca Al-Fatihah di belakang imam dalam solat jahar dan sir. Pelajaran ini membentangkan pendapat muktamad setiap mazhab tanpa mengisytiharkan salah satunya sebagai satu-satunya pandangan yang betul. Pelajarilah perincian mazhab anda daripada guru yang bertauliah.",
   },
   {
-    title: "Common mistakes",
-    summary: "The errors that quietly weaken a prayer — and how to correct each one.",
+    title: "Setiap kedudukan",
+    summary: "Cara meletakkan tubuh dengan betul dalam setiap kedudukan solat.",
     body: [
-      "Most faults in prayer are not sins of the heart but habits of haste and inattention. Naming them is the first step to fixing them; the Prophet ﷺ himself corrected a Companion's prayer patiently and directly, which teaches us that these errors are common and fixable.",
-      "The gravest is rushing — pecking through ruku and sujud without stillness. Tuma'ninah (settled stillness) is a pillar of the prayer for the majority of scholars, so a hurried prayer is not merely imperfect but can be invalid. Work through the list below one habit at a time.",
+      "Setiap kedudukan dalam solat mempunyai bentuk tubuh yang ditunjukkan oleh Nabi ﷺ dan dipelihara oleh para sahabat baginda. Mempelajari bentuk yang betul melindungi solat anda daripada kesilapan fizikal yang lazim dan membantu tubuh menyokong kerendahan hati, bukan mengganggunya.",
+      "Kedekatan ketika sujud wajar diberi perhatian khusus: Nabi ﷺ bersabda, 'The nearest a servant comes to his Lord is when he is prostrating, so make much supplication then.' (makna dalam bahasa Inggeris). Sujud yang dilakukan dengan tenang dan ikhlas ialah antara saat paling berkuasa dalam hari seorang mukmin.",
     ],
     steps: [
       {
-        title: "Praying too fast",
-        body: "Barely pausing in ruku or sujud. Remain until your body settles and you can say the dhikr at least three times without hurry.",
+        title: "Berdiri (qiyam)",
+        body: "Tegak, kaki direnggangkan kira-kira selebar bahu, berat badan seimbang, pandangan ke tempat sujud, tangan kanan di atas tangan kiri di dada.",
       },
       {
-        title: "Incomplete wudu",
-        body: "Dry patches on the heels, ankles, elbows, or between the fingers. The Prophet ﷺ warned, 'Woe to the heels from the Fire.' Wash slowly and thoroughly.",
+        title: "Mengangkat tangan (raf' al-yadayn)",
+        body: "Tapak tangan menghadap kiblat, separas bahu atau cuping telinga — ketika takbiratul ihram, dan (menurut majoriti) juga ketika hendak rukuk dan bangkit daripadanya.",
       },
       {
-        title: "Curved back in ruku, sinking in sujud",
-        body: "Bowing with a rounded back, or resting the forehead without the nose, or letting the forearms lie flat on the floor. Keep the back level and the elbows raised.",
+        title: "Rukuk",
+        body: "Belakang rata dan lurus, kepala tidak didongakkan dan tidak ditundukkan, jari-jari direnggangkan menggenggam lutut, lengan dijauhkan dari sisi badan.",
       },
       {
-        title: "Wandering eyes and heart",
-        body: "Looking around, or checking a phone. Keep the gaze on the place of sujud and silence or remove your phone before the takbir.",
+        title: "Sujud",
+        body: "Dahi dan hidung di atas lantai, tapak tangan rata berhampiran bahu atau telinga, siku diangkat dari lantai, lutut di lantai, jari-jari kaki ditekuk menghadap kiblat.",
       },
       {
-        title: "Racing ahead of the imam",
-        body: "In congregation, moving into ruku or sujud before the imam. Follow him — never precede him — moving only after he does.",
+        title: "Duduk iftirasy",
+        body: "Antara dua sujud dan dalam tasyahud awal: duduk di atas kaki kiri yang dihamparkan dengan kaki kanan ditegakkan, tangan diletakkan di atas peha.",
       },
       {
-        title: "Speaking, eating, or laughing",
-        body: "Any intentional speech, eating, drinking, or audible laughter breaks the prayer. Salah is a conversation with Allah alone.",
+        title: "Duduk akhir (tawarruk)",
+        body: "Dalam tasyahud akhir solat 3 atau 4 rakaat (sunat menurut mazhab Syafie dan Hanbali): keluarkan kaki kiri ke bawah kaki kanan dan duduk di atas lantai.",
       },
       {
-        title: "Reciting Al-Fatihah incorrectly",
-        body: "Skipping words, or making errors that change the meaning. Learn it letter-perfect — the whole prayer depends on it.",
+        title: "Berpaling untuk salam",
+        body: "Palingkan muka sepenuhnya ke kanan, kemudian ke kiri, dengan ucapan salam — mengakhiri solat sambil memberi salam kepada malaikat di setiap bahu.",
       },
     ],
-    actions: [
-      "Pray one salah today at half your usual speed and notice how different it feels.",
-      "Silence your phone or leave it in another room before you say the opening takbir.",
-      "Ask someone knowledgeable to watch one of your prayers and correct your postures.",
-    ],
-    appLinks: [{}],
+    disclaimer:
+      "Perbezaan kecil dalam kedudukan tangan, cara duduk dan mengangkat tangan semuanya berasaskan riwayat yang sahih; setiap mazhab mengikut riwayat yang sah. Tiada satu pun yang membatalkan solat orang lain.",
   },
   {
-    title: "Amalan sunnah",
-    summary: "Amalan anjuran Nabi ﷺ yang mencantikkan dan menggandakan pahala solat.",
+    title: "Kesilapan lazim",
+    summary: "Kesilapan yang diam-diam melemahkan solat — dan cara membetulkan setiap satunya.",
     body: [
-      "Selain amalan wajib, Nabi ﷺ mencontohkan banyak sunnah di sekitar solat. Meninggalkannya tidak membatalkan solat, namun setiap satunya mendekatkan diri kepada Allah, menambah pahala dan menampung kekurangan solat fardu.",
-      "Solat sukarela berbeza darjat: sunnah mu'akkadah sangat ditekankan, sunnah ghayr mu'akkadah dianjurkan dengan penekanan yang lebih ringan, manakala nafl umum tidak mempunyai bilangan tetap.",
-      "Dua belas rawatib ialah dua sebelum Subuh, empat sebelum Zohor, dua selepas Zohor, dua selepas Maghrib dan dua selepas Isyak. Ganjarannya sebuah rumah di Syurga. Lihat pelajaran Jenis-jenis solat untuk perincian dan dalil.",
+      "Kebanyakan kesilapan dalam solat bukan dosa hati tetapi tabiat tergesa-gesa dan lalai. Mengenal pasti kesilapan ialah langkah pertama untuk membetulkannya; Nabi ﷺ sendiri membetulkan solat seorang sahabat dengan sabar dan secara langsung, yang mengajar kita bahawa kesilapan ini lazim dan boleh diperbaiki.",
+      "Yang paling berat ialah tergesa-gesa — mematuk ketika rukuk dan sujud tanpa tamakninah. Tamakninah (ketenangan yang menetap) ialah rukun solat menurut majoriti ulama, maka solat yang tergesa-gesa bukan sekadar tidak sempurna malah boleh menjadi tidak sah. Perbaikilah senarai di bawah satu tabiat pada satu masa.",
+    ],
+    steps: [
+      {
+        title: "Solat terlalu laju",
+        body: "Hampir tidak berhenti ketika rukuk atau sujud. Kekallah sehingga tubuh anda tenang dan anda dapat membaca zikir sekurang-kurangnya tiga kali tanpa tergesa-gesa.",
+      },
+      {
+        title: "Wuduk tidak sempurna",
+        body: "Bahagian yang kering pada tumit, buku lali, siku, atau celah-celah jari. Nabi ﷺ memberi amaran, 'Woe to the heels from the Fire.' (makna dalam bahasa Inggeris). Basuhlah perlahan-lahan dan dengan sempurna.",
+      },
+      {
+        title: "Belakang bengkok ketika rukuk, terhenyak ketika sujud",
+        body: "Rukuk dengan belakang yang membongkok, atau meletakkan dahi tanpa hidung, atau membiarkan lengan terhampar rata di lantai. Pastikan belakang lurus dan siku diangkat.",
+      },
+      {
+        title: "Mata dan hati yang melayang",
+        body: "Menoleh ke sana sini, atau memeriksa telefon. Pandanglah ke tempat sujud dan senyapkan atau jauhkan telefon anda sebelum takbir.",
+      },
+      {
+        title: "Mendahului imam",
+        body: "Dalam solat berjemaah, bergerak ke rukuk atau sujud sebelum imam. Ikutilah imam — jangan sekali-kali mendahuluinya — dan bergeraklah hanya selepas dia bergerak.",
+      },
+      {
+        title: "Bercakap, makan atau ketawa",
+        body: "Sebarang percakapan, makan, minum atau ketawa berbunyi yang disengajakan membatalkan solat. Solat ialah perbualan dengan Allah semata-mata.",
+      },
+      {
+        title: "Membaca Al-Fatihah dengan salah",
+        body: "Tertinggal perkataan, atau melakukan kesalahan yang mengubah makna. Pelajarilah dengan sempurna setiap hurufnya — seluruh solat bergantung padanya.",
+      },
     ],
     actions: [
-      "Gunakan miswak sebelum wuduk dan solat — Nabi ﷺ hampir mewajibkannya.",
-      "Berjalan ke masjid dengan tenang dan awal — setiap langkah meninggikan darjat dan menghapus dosa.",
-      "Pelihara dua belas rakaat sunnah rawatib untuk rumah yang dijanjikan di Syurga.",
-      "Masuk masjid dengan kaki kanan dan keluar dengan kaki kiri, masing-masing dengan doanya.",
-      "Baca zikir yang sabit selepas setiap solat — lihat Selepas Solat.",
+      "Tunaikan satu solat hari ini pada separuh kelajuan biasa anda dan perhatikan betapa berbezanya rasanya.",
+      "Senyapkan telefon anda atau tinggalkannya di bilik lain sebelum anda mengucapkan takbiratul ihram.",
+      "Mintalah seseorang yang berilmu memerhatikan salah satu solat anda dan membetulkan kedudukan anda.",
     ],
-    hadith: [
+    appLinks: [
       {
-        excerpt:
-          "Kalaulah tidak memberatkan umatku, nescaya aku perintahkan mereka bersiwak sebelum setiap solat. (Abu Hurayrah; also Sahih Muslim 252)",
+        label: "Belajar membaca Al-Fatihah",
+      },
+    ],
+  },
+  {
+    title: "Amalan sunat",
+    summary:
+      "Amalan yang dianjurkan oleh Nabi ﷺ yang mencantikkan solat dan menggandakan pahalanya.",
+    body: [
+      "Selain perbuatan yang wajib, Nabi ﷺ menunjukkan contoh banyak amalan sunat (sunan) di sekitar solat. Ia tidak diwajibkan, maka meninggalkan salah satunya tidak membatalkan solat — tetapi setiap satunya mendekatkan anda kepada Allah, menambah pahala, dan menampung kekurangan dalam solat fardu.",
+      "Yang paling utama ialah solat sunat rawatib yang dikerjakan sebelum dan selepas solat fardu. Tidak semua solat sunat mempunyai kedudukan yang sama: ulama membezakan antara sunat muakkad (yang ditekankan, sentiasa dikerjakan oleh Nabi ﷺ), sunat ghairu muakkad (dianjurkan tetapi kurang ditekankan), dan nafil umum (pilihan, tanpa bilangan yang tetap). Mengetahui perbezaannya membantu anda mengutamakan apa yang perlu dijaga setiap hari.",
+      "Jadual harian yang paling jelas dengan dalil yang paling kuat ialah dua belas rawatib: dua sebelum Subuh, empat sebelum Zohor, dua selepas Zohor, dua selepas Maghrib, dan dua selepas Isyak — dua belas rakaat yang ganjarannya sebuah rumah yang dibina di Syurga. Lihat pelajaran Jenis-jenis solat untuk pecahan lengkap bagi setiap solat berserta dalilnya.",
+    ],
+    actions: [
+      "Bersugilah dengan miswak (siwak) sebelum wuduk dan solat — Nabi ﷺ hampir mewajibkannya.",
+      "Berjalanlah ke masjid dengan tenang dan awal — setiap langkah mengangkat satu darjat dan menghapuskan satu dosa.",
+      "Jagalah dua belas rakaat sunat rawatib untuk rumah yang dijanjikan di Syurga.",
+      "Masuklah ke masjid dengan kaki kanan dan keluar dengan kaki kiri, masing-masing dengan doanya.",
+      "Bacalah zikir yang sabit selepas setiap solat — lihat Selepas Solat.",
+    ],
+    appLinks: [
+      {
+        label: "Jenis-jenis solat — panduan rawatib",
       },
       {
-        excerpt:
-          "Nabi ﷺ tidak pernah meninggalkan dua rakaat sebelum Subuh. ('Aishah; also Sahih Muslim 724)",
+        label: "Zikir sunat & selepas solat",
       },
       {
-        excerpt:
-          "Sesiapa yang menjaga dua belas rakaat sehari semalam, Allah membina baginya sebuah rumah di Syurga. (Umm Habibah)",
+        label: "Doa masjid",
+      },
+    ],
+  },
+  {
+    title: "Khusyuk — kehadiran hati",
+    summary: "Matlamat seluruh perjalanan ini: solat seolah-olah anda melihat Allah.",
+    body: [
+      "Khusyuk ialah kerendahan hati, tumpuan dan kesedaran bahawa anda benar-benar sedang berdiri di hadapan Allah. Ia yang mengubah pergerakan fizikal solat menjadi ibadah yang sebenar. Nabi ﷺ mentakrifkan ihsan sebagai 'to worship Allah as though you see Him, for though you do not see Him, He surely sees you' (makna dalam bahasa Inggeris) — dan tiada tempat yang lebih langsung untuk mengamalkannya selain di dalam solat.",
+      "Allah memulakan sifat orang-orang beriman yang berjaya dengannya: 'mereka yang khusyuk dalam sembahyangnya' (23:1–2). Dan Dia memberi amaran keras terhadap lawannya — 'kecelakaan besar bagi orang-orang Ahli Sembahyang … mereka yang berkeadaan lalai daripada menyempurnakan sembahyangnya' (107:4–5) — teguran yang ditujukan kepada mereka yang tubuhnya bergerak sedangkan hatinya tidak hadir.",
+      "Khusyuk dibina, bukan sekadar diangan-angankan. Pelajarilah makna apa yang anda baca supaya kata-kata itu menyentuh hati anda. Singkirkan gangguan sebelum takbir. Perlahankan solat dan berikan setiap kedudukan tamakninahnya. Renungkan kebesaran Zat yang anda sedang berbicara dengan-Nya dan hakikat bahawa solat ini mungkin solat terakhir anda. Solatlah setiap solat seperti solat perpisahan, sebagaimana yang dinasihatkan oleh Nabi ﷺ.",
+      "Janganlah berputus asa kerana fikiran yang melayang — para sahabat juga bergelut dengannya. Usaha untuk mengembalikan tumpuan anda, berulang kali, itu sendiri sebahagian daripada ibadah. Khusyuk tumbuh sepanjang hayat; istiqamah yang menyuburkannya.",
+    ],
+    actions: [
+      "Bacalah makna satu bacaan daripada Bacaan Solat sebelum setiap solat minggu ini.",
+      "Berhentilah selama tiga saat dengan tenang dalam setiap kedudukan sebelum berpindah.",
+      "Catatkan tahap tumpuan anda dalam jurnal selepas solat dan perhatikan coraknya berubah.",
+    ],
+    appLinks: [
+      {
+        label: "Jurnal khusyuk",
+      },
+      {
+        label: "Bacaan & makna",
+      },
+    ],
+  },
+  {
+    title: "Rukun & perkara yang membatalkan",
+    summary: "Apa yang tanpanya solat tidak wujud — dan apa yang membatalkannya.",
+    body: [
+      "Perbuatan solat terbahagi kepada tiga peringkat. Rukun (arkan) ialah bahagian asas: meninggalkan salah satunya dengan sengaja membatalkan solat, dan meninggalkannya kerana terlupa mesti diperbetulkan dengan kembali melakukannya. Perbuatan wajib (wajibat) dituntut, tetapi jika terlupa, ia diperbaiki dengan sujud sahwi. Perbuatan sunat menyempurnakan dan mencantikkan solat, dan meninggalkannya tidak membawa sebarang hukuman.",
+      "Mengetahui susunan ini melindungi anda daripada dua keterlaluan: menganggap kekurangan kecil sebagai membinasakan, atau menganggap rukun yang sebenar sebagai pilihan. Apabila ragu-ragu tentang sesuatu rukun, solat tidak sempurna sehingga rukun itu dipenuhi.",
+      "Secara berasingan, perkara-perkara tertentu membatalkan solat serta-merta sebaik sahaja ia berlaku — kerana ia bercanggah dengan keadaan solat itu sendiri. Yang lain membatalkan wuduk, yang seterusnya menamatkan solat. Berjaga-jagalah terhadap kedua-duanya supaya anda tidak sekali-kali solat dalam keadaan tidak sah tanpa menyedarinya.",
+    ],
+    steps: [
+      {
+        title: "Rukun (arkan)",
+        body: "Berdiri bagi yang mampu, takbiratul ihram, membaca Al-Fatihah, rukuk, bangkit daripadanya, dua sujud, duduk antara keduanya, duduk akhir, tasyahud, salam, tamakninah dalam setiap satunya, dan menjaga tertib yang betul.",
+      },
+      {
+        title: "Perbuatan wajib (wajibat)",
+        body: "Seperti takbir-takbir yang lain, lafaz zikir dalam rukuk dan sujud, dan tasyahud awal — diperbaiki dengan sujud sahwi jika terlupa (menurut perincian mazhab Hanbali; mazhab-mazhab berbeza).",
+      },
+      {
+        title: "Perkara yang membatalkan wuduk",
+        body: "Apa sahaja yang keluar dari qubul atau dubur, tidur nyenyak, hilang akal — dan, menurut sebahagian ulama, menyentuh kemaluan secara langsung. Mana-mana daripadanya menamatkan solat.",
+      },
+      {
+        title: "Perkara yang membatalkan solat itu sendiri",
+        body: "Bercakap dengan sengaja, makan atau minum dengan sengaja, banyak pergerakan berturut-turut yang tidak perlu, ketawa berbunyi, sengaja memalingkan dada dari kiblat, dan terdedah aurat.",
       },
     ],
     appLinks: [
-      { label: "Jenis solat — panduan rawatib" },
-      { label: "Sunnah dan zikir selepas solat" },
-      { label: "Doa masjid" },
+      {
+        label: "Sujud sahwi",
+      },
     ],
+    disclaimer:
+      "Empat mazhab mengklasifikasikan sebahagian perbuatan secara berbeza — contohnya sama ada tasyahud awal itu wajib atau sunat, atau senarai tepat perkara yang menuntut sujud sahwi. Pelajarilah perincian mazhab anda daripada guru yang bertauliah.",
   },
   {
-    title: "Khushu — presence of heart",
-    summary: "The goal of the whole journey: to pray as though you see Allah.",
+    title: "Sujud sahwi — memperbaiki kesilapan",
+    summary: "Sujud kerana lupa yang menampal kesilapan kecil dalam solat.",
     body: [
-      "Khushu is the humility, focus, and awareness that you are truly standing before Allah. It is what turns the physical movements of prayer into real worship. The Prophet ﷺ defined excellence (ihsan) as 'to worship Allah as though you see Him, for though you do not see Him, He surely sees you' — and nowhere is that more directly practised than in salah.",
-      "Allah opened the description of the successful believers with it: 'those who are humble in their prayer' (23:1–2). And He warned sharply against its opposite — 'woe to those who pray, but are heedless of their prayer' — a rebuke aimed at those whose bodies move while their hearts are absent.",
-      "Khushu is built, not wished for. Learn the meanings of what you recite so the words move you. Remove distractions before the takbir. Slow down and give each posture its stillness. Reflect on the greatness of the One you address and the reality that this prayer could be your last. Pray each prayer as a farewell prayer, as the Prophet ﷺ advised.",
-      "Do not be discouraged by wandering thoughts — even the Companions struggled with them. The struggle to return your focus, again and again, is itself part of the worship. Khushu grows across a lifetime; consistency is what nurtures it.",
-    ],
-    quran: [
-      {
-        excerpt: "Successful indeed are the believers — those who are humble in their prayer.",
-      },
-      {
-        excerpt: "So woe to those who pray — those who are heedless of their prayer.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ihsan is to worship Allah as though you see Him, for though you do not see Him, He surely sees you. (Hadith of Jibril, 'Umar)",
-      },
+      "Tiada sesiapa yang terlepas daripada lupa dalam solat — Nabi ﷺ sendiri pernah terlupa, lalu bersabda, 'I am only a human being like you; I forget as you forget, so when I forget, remind me.' (makna dalam bahasa Inggeris). Daripada contoh baginda sendiri datang satu penawar yang sedia ada: dua sujud tambahan, dinamakan sujud sahwi (sujud kerana lupa), yang menampal kesilapan kecil supaya solat tidak perlu diulang.",
+      "Ia dituntut dalam tiga keadaan umum: penambahan (tertambah satu rakaat atau satu kedudukan kerana tersilap), pengurangan (tertinggal perkara wajib seperti tasyahud awal), atau keraguan (tidak pasti berapa rakaat yang telah dikerjakan). Ia tidak diperlukan kerana meninggalkan perkara sunat, dan tidak juga bagi kesilapan yang disengajakan — kedua-duanya mempunyai hukum tersendiri.",
+      "Apabila anda benar-benar ragu, prinsip panduannya ialah: buang keraguan itu, binalah atas apa yang anda yakini (bilangan yang lebih sedikit), sempurnakan solat, kemudian lakukan dua sujud. Ini mengubah kekeliruan menjadi solat yang tenang dan sah, bukan tekaan yang penuh kebimbangan.",
+      "Secara praktikal: lakukan dua sujud sama seperti sujud biasa anda, dengan takbir sebelum dan selepasnya, kemudian salam. Ulama berbeza pendapat sama ada ia dilakukan sebelum atau selepas salam bergantung pada jenis kesilapan — kedua-duanya diriwayatkan secara sahih, maka mana-mana satu boleh diterima dan tiada yang membatalkan solat.",
     ],
     actions: [
-      "Read one phrase's meaning from Words of Salah before each prayer this week.",
-      "Pause for three unhurried seconds in each posture before moving on.",
-      "Note your level of focus in the journal after salah and watch the pattern change.",
+      "Hafalkan kaedah ketika ragu: binalah atas bilangan yang lebih sedikit, sempurnakan, kemudian sujud dua kali.",
+      "Jika anda sedar di tengah solat bahawa anda tertinggal tasyahud awal, teruskan dan lakukan sujud sahwi di akhir solat.",
     ],
-    appLinks: [{}, {}],
-  },
-  {
-    title: "Pillars & nullifiers",
-    summary: "What the prayer cannot exist without — and what cancels it.",
-    body: [
-      "The acts of salah fall into three ranks. Pillars (arkan) are essential parts: omitting one deliberately invalidates the prayer, and omitting one by forgetfulness must be corrected by returning to it. Obligatory acts (wajibat) are required, but if forgotten they are repaired by the prostration of forgetfulness (sujud al-sahw). Sunnah acts complete and beautify the prayer, and leaving them carries no penalty.",
-      "Knowing this hierarchy protects you from two extremes: treating a minor omission as ruinous, or treating a genuine pillar as optional. When in doubt about a pillar, the prayer is not sound until it is fulfilled.",
-      "Separately, certain things nullify the prayer outright the moment they occur — because they contradict the state of prayer itself. Others nullify the wudu, which in turn ends the prayer. Guard against both so you are never praying in an invalid state without realising it.",
-    ],
-    steps: [
+    appLinks: [
       {
-        title: "Pillars (arkan)",
-        body: "Standing when able, the opening takbir, reciting Al-Fatihah, ruku, rising from it, the two prostrations, sitting between them, the final sitting, the tashahhud, the salam, tuma'ninah in each, and keeping the correct order.",
-      },
-      {
-        title: "Obligatory acts (wajibat)",
-        body: "Such as the other takbirs, the words of dhikr in ruku and sujud, and the first tashahhud — repaired by sujud al-sahw if forgotten (per the Hanbali detailing; schools differ).",
-      },
-      {
-        title: "Nullifiers of wudu",
-        body: "Anything exiting the front or back passages, deep sleep, loss of consciousness — and, by some scholars, directly touching the private parts. Any of these ends the prayer.",
-      },
-      {
-        title: "Nullifiers of the prayer itself",
-        body: "Intentional speech, intentional eating or drinking, much continuous unnecessary movement, laughing aloud, deliberately turning the chest from the qiblah, and uncovering the awrah.",
+        label: "Rukun & perkara yang membatalkan",
       },
     ],
-    appLinks: [{}],
     disclaimer:
-      "The four schools classify some acts differently — for example whether the first tashahhud is a wajib or a sunnah, or the exact list of what requires sujud al-sahw. Learn your school's detailing from a qualified teacher.",
-  },
-  {
-    title: "Sujud al-Sahw — correcting mistakes",
-    summary: "The prostration of forgetfulness that mends slips in the prayer.",
-    body: [
-      "No one is immune to forgetting in prayer — even the Prophet ﷺ forgot, and then taught, 'I am only a human being like you; I forget as you forget, so when I forget, remind me.' From his own example comes a built-in remedy: two extra prostrations, called sujud al-sahw (the prostration of forgetfulness), that patch small errors so the prayer need not be repeated.",
-      "It is called for in three broad situations: an addition (praying an extra rak'ah or posture by mistake), an omission (leaving a wajib such as the first tashahhud), or doubt (being unsure how many rak'ahs you have prayed). It is not needed for leaving a sunnah, nor for deliberate mistakes — those have their own rulings.",
-      "When you have genuine doubt, the guiding principle is: discard the doubt, build on what you are certain of (the smaller number), complete the prayer, and then make the two prostrations. This turns confusion into a settled, valid prayer rather than an anxious guess.",
-      "Practically: make two prostrations exactly like your normal sujud, with the takbir before and after, then the salam. The scholars differ over whether they come before or after the salam depending on the type of error — both are authentically reported, so either is acceptable and neither invalidates the prayer.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "If one of you is unsure in his prayer and does not know how many he prayed — three or four — let him cast off doubt, build on what he is certain of, then prostrate twice before the salam. (Abu Sa'id al-Khudri)",
-      },
-      {
-        excerpt:
-          "When one of you doubts in his prayer, let him seek what is correct and complete upon it, then give the salam and prostrate twice. (Ibn Mas'ud; also Sahih Muslim 572)",
-      },
-    ],
-    actions: [
-      "Memorise the rule for doubt: build on the lesser number, finish, then prostrate twice.",
-      "If you realise mid-prayer you left the first tashahhud, continue and make sujud al-sahw at the end.",
-    ],
-    appLinks: [{}],
-    disclaimer:
-      "Whether the two prostrations fall before or after the salam depends on the error, and the schools differ. Both are from the sunnah; do not let uncertainty here stop you from praying.",
+      "Sama ada dua sujud itu dilakukan sebelum atau selepas salam bergantung pada jenis kesilapan, dan mazhab-mazhab berbeza pendapat. Kedua-duanya daripada Sunnah; jangan biarkan ketidakpastian ini menghalang anda daripada solat.",
   },
   {
     title: "Jenis-jenis solat",
     summary:
-      "Fardu, sunnah mu'akkadah, sunnah ghayr mu'akkadah, witir dan nafl umum — berserta dalil sahih.",
+      "Fardu, sunat muakkad, sunat ghairu muakkad, Witir, dan nafil umum — berserta dalil sahih bagi setiap satu.",
     body: [
-      "Solat dibahagikan menurut kewajipan. Lima solat harian ialah fardu bagi setiap Muslim mukalaf; di sekelilingnya terdapat solat sukarela yang mendekatkan diri kepada Allah.",
-      "Bezakan sunnah mu'akkadah, sunnah ghayr mu'akkadah, witir — wajib menurut Hanafi dan sunnah mu'akkadah menurut majoriti — serta nafl umum. Bilangan yang diperselisihkan tidak ditetapkan sebagai sunnah khusus.",
-      "Solat sukarela meninggikan darjat dan menampung kekurangan solat fardu pada Hari Kiamat.",
-      "Dua belas rawatib ialah jadual harian yang paling kukuh. Nafl lain tetap dianjurkan berdasarkan dalil tetapi tidak termasuk dalam jumlah tetap ini.",
+      "Solat diperingkatkan mengikut tahap kewajipannya. Solat lima waktu ialah fardu — kewajipan yang tegas ke atas setiap Muslim yang mukalaf. Di sekelilingnya terdapat dunia solat sunat yang kaya, yang melaluinya Nabi ﷺ semakin mendekatkan diri kepada Allah, dan kita juga boleh berbuat demikian.",
+      "Untuk pembelajaran yang tepat, bezakan empat kategori solat sunat yang berasaskan nas-nas yang sahih: sunat muakkad (rawatib yang ditekankan dan jarang ditinggalkan oleh Nabi ﷺ), sunat ghairu muakkad (dianjurkan tetapi kurang ditekankan), Witir (diletakkan dalam kategori tersendiri kerana mazhab Hanafi menganggapnya wajib manakala majoriti menganggapnya sunat muakkad), dan nafil umum (solat pilihan tanpa bilangan yang tetap dan disepakati). Apabila ulama berbeza pendapat tentang sesuatu bilangan yang tetap — seperti enam rakaat selepas Maghrib sebagai solat Awwabin — kami membentangkan galakan umumnya tanpa menganggap bilangan yang dipertikaikan itu sebagai sunnah yang sabit.",
+      "Solat sunat penting kerana dua sebab: ia amalan yang dicintai yang mengangkat darjat seorang mukmin, dan ia menampung solat fardu, kerana sebarang kekurangan dalam solat fardu akan disempurnakan daripada solat sunat seseorang pada Hari Pembalasan.",
+      "Dua belas rawatib di bawah ialah jadual sunat harian yang paling jelas dengan kesepakatan yang paling kukuh. Jadual rakaat di hab Belajar Solat menjejak dua belas rakaat yang ditekankan ini; nafil pilihan sebelum Asar, sebelum Maghrib, atau selepas Isyak digalakkan apabila ada dalilnya tetapi tidak dimasukkan ke dalam bilangan tetap itu.",
     ],
     steps: [
       {
-        title: "Lima fardu harian",
-        body: "Subuh, Zohor, Asar, Maghrib dan Isyak — asas wajib yang tidak boleh ditinggalkan.",
+        title: "Lima solat fardu harian",
+        body: "Subuh, Zohor, Asar, Maghrib, Isyak — asas yang wajib, tidak boleh ditinggalkan sama sekali.",
       },
       {
-        title: "Subuh — 2 sebelum",
-        body: "Sunnah mu'akkadah yang tidak pernah ditinggalkan Nabi ﷺ; tiada sunnah rutin selepas Subuh.",
+        title: "Subuh — 2 sebelum (sunat muakkad)",
+        body: "Dua rakaat sebelum solat fardu Subuh ialah sunat muakkad — Nabi ﷺ tidak pernah meninggalkannya. Tiada sunat rawatib yang sahih selepas Subuh; solat sunat secara umumnya dilarang selepas Subuh hingga terbit matahari.",
       },
       {
-        title: "Zohor — 4 sebelum dan 2 selepas",
-        body: "Enam rakaat ini termasuk dua belas rawatib; dua lagi selepasnya juga dianjurkan.",
+        title: "Zohor — 4 sebelum & 2 selepas (sunat muakkad)",
+        body: "Empat rakaat sebelum Zohor dan dua selepasnya termasuk dalam dua belas rawatib (sunat muakkad). Secara berasingan, Ummu Habibah meriwayatkan bahawa sesiapa yang solat empat rakaat sebelum Zohor dan empat selepasnya, Allah mengharamkannya daripada Neraka — maka dua rakaat tambahan selepas dua rawatib yang biasa ialah nafil yang dianjurkan, dan sebahagian ulama juga menganjurkan dua rakaat tambahan sebelumnya sehingga berjumlah enam.",
       },
       {
-        title: "Asar — 4 sebelum",
-        body: "Sunnah ghayr mu'akkadah; tiada sunnah rutin selepas Asar.",
+        title: "Asar — 4 sebelum (sunat ghairu muakkad)",
+        body: "Empat rakaat sebelum Asar dianjurkan secara meluas (sunat ghairu muakkad). Tiada sunat rawatib yang sahih selepas Asar; solat sunat secara umumnya dilarang selepas Asar hingga terbenam matahari.",
       },
       {
-        title: "Maghrib — 2 sebelum dan 2 selepas",
-        body: "Dua selepas ialah rawatib; dua sebelumnya nafl pilihan. Bilangan tetap al-Awwabin diperselisihkan.",
+        title: "Maghrib — 2 sebelum & 2 selepas",
+        body: "Dua rakaat selepas Maghrib ialah sunat muakkad (termasuk dalam dua belas rawatib). Sebelum Maghrib, Nabi ﷺ bersabda 'Pray before Maghrib' (makna dalam bahasa Inggeris) dua kali, kemudian menambah 'for whoever wishes' (makna dalam bahasa Inggeris) — maka dua rakaat sebelumnya ialah nafil pilihan, bukan rawatib yang tetap. Solat sunat umum selepas Maghrib digalakkan, tetapi penetapan masyhur enam rakaat sebagai solat Awwabin dipertikaikan kesahihannya; jangan bentangkan enam rakaat yang tetap sebagai sunnah yang sabit.",
       },
       {
-        title: "Isyak — 2 selepas dan nafl sebelum",
-        body: "Dua selepas ialah rawatib; sebelum Isyak boleh dua atau empat antara azan dan iqamah.",
+        title: "Isyak — 2 selepas & pilihan sebelum",
+        body: "Dua rakaat selepas Isyak ialah sunat muakkad (termasuk dalam dua belas rawatib). Sebelum Isyak, hadis 'Between every two calls there is a prayer' (makna dalam bahasa Inggeris) membenarkan dua atau empat rakaat antara azan dan iqamah — nafil umum, bukan sunat rawatib. Solat sunat tambahan selepas Isyak adalah harus, tetapi tiada sunnah tetap yang sahih yang menentukan dua rakaat tambahan selain rawatib yang biasa.",
       },
       {
-        title: "Witir",
-        body: "Solat ganjil selepas Isyak — wajib menurut Hanafi dan sunnah mu'akkadah menurut majoriti.",
+        title: "Witir — kategori tersendiri",
+        body: "Witir dikerjakan selepas Isyak dengan bilangan ganjil (1, 3, 5, 7, 9, 11…). Banyak hadis sahih memerintahkan dan menggalakkannya. Mazhab Hanafi menganggapnya wajib; majoriti menganggapnya sunat muakkad. Ia diasingkan daripada dua belas rawatib kerana perbezaan pendapat tentang hukumnya ini.",
       },
       {
-        title: "Dua belas rawatib",
-        body: "2 sebelum Subuh, 4 sebelum Zohor, 2 selepas Zohor, 2 selepas Maghrib dan 2 selepas Isyak.",
+        title: "Dua belas rawatib — jadual yang disepakati",
+        body: "Sebelum Subuh: 2. Sebelum Zohor: 4. Selepas Zohor: 2. Selepas Maghrib: 2. Selepas Isyak: 2. Jumlah: 12 rakaat. Sesiapa yang tetap mengerjakannya, Allah membina untuknya sebuah rumah di Syurga.",
       },
       {
-        title: "Nafl tambahan",
-        body: "4 sebelum Asar, 2 sebelum Maghrib, 2 atau 4 sebelum Isyak dan tambahan di sekitar Zohor.",
+        title: "Nafil yang dianjurkan — bukan rawatib tetap",
+        body: "Sebelum Asar: 4 (hasan). Sebelum Maghrib: 2 pilihan (sahih). Sebelum Isyak: 2 atau 4 antara azan dan iqamah (sahih). Tambahan sebelum Zohor: 2 dianjurkan. Tambahan selepas Zohor: 2 (hasan/sahih). Selepas Maghrib & Isyak: nafil umum digalakkan — tanpa bilangan tetap yang dipertikaikan.",
       },
       {
-        title: "Tahajjud (qiyam al-layl)",
-        body: "Night prayer in the last third of the night — the most virtuous voluntary prayer, and the habit of the righteous.",
+        title: "Tahajud (qiyamullail)",
+        body: "Solat malam pada sepertiga malam yang terakhir — solat sunat yang paling utama, dan amalan orang-orang soleh.",
       },
       {
-        title: "Duha",
-        body: "The mid-morning prayer (2–8 rak'ahs) — a charity due for each of the body's joints each day.",
+        title: "Dhuha",
+        body: "Solat waktu pagi (2–8 rakaat) — sedekah yang ditanggung bagi setiap sendi tubuh pada setiap hari.",
       },
       {
         title: "Tarawih",
-        body: "The congregational night prayer of Ramadan — reviving the nights of the blessed month.",
+        body: "Solat malam berjemaah pada bulan Ramadan — menghidupkan malam-malam bulan yang penuh berkat.",
       },
       {
-        title: "The two Eids",
-        body: "Two rak'ahs of Eid al-Fitr and Eid al-Adha, followed by the sermon.",
+        title: "Dua Hari Raya",
+        body: "Dua rakaat solat Aidilfitri dan Aidiladha, diikuti oleh khutbah.",
       },
       {
         title: "Istikharah",
-        body: "A two-rak'ah prayer seeking Allah's guidance before making a decision.",
+        body: "Solat dua rakaat untuk memohon petunjuk Allah sebelum membuat keputusan.",
       },
       {
-        title: "Janazah",
-        body: "The funeral prayer — a communal obligation (fard kifayah) offered standing, without ruku or sujud.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Nabi ﷺ tidak pernah meninggalkan dua rakaat sebelum Subuh. ('Aishah; also Sahih Muslim 724)",
-      },
-      {
-        excerpt:
-          "Sesiapa menjaga dua belas rakaat, Allah membina baginya rumah di Syurga. (Umm Habibah)",
-      },
-      {
-        excerpt:
-          "Sesiapa solat empat sebelum Zohor dan empat selepasnya, Allah mengharamkannya daripada Neraka. (Umm Habibah; graded authentic by many scholars)",
-      },
-      { excerpt: "Semoga Allah merahmati orang yang solat empat rakaat sebelum Asar." },
-      {
-        excerpt:
-          "Solatlah sebelum Maghrib — kemudian baginda bersabda: bagi sesiapa yang mahu. (Ibn 'Umar)",
-      },
-      {
-        excerpt: "Antara setiap dua seruan terdapat solat. (Anas ibn Malik; also Sahih Muslim 838)",
-      },
-      { excerpt: "Witir itu hak; sesiapa mahu hendaklah solat lima, tiga atau satu. (Ibn 'Umar)" },
-      { excerpt: "Solat terbaik selepas solat fardu ialah solat malam. (Abu Hurayrah)" },
-      {
-        excerpt:
-          "Hamba-Ku terus mendekati-Ku dengan amalan nafl sehingga Aku mencintainya. (Hadith Qudsi)",
+        title: "Jenazah",
+        body: "Solat jenazah — fardu kifayah yang dikerjakan sambil berdiri, tanpa rukuk dan sujud.",
       },
     ],
     actions: [
-      "Mulakan dengan dua belas rawatib sebelum menambah nafl pilihan.",
-      "Gunakan jadual rakaat untuk menjejak sunnah yang ditekankan.",
-      "Baca dalil dan simpan hadis yang mahu dikaji semula.",
+      "Mulakan dengan dua belas rawatib — bina tabiatnya sebelum menambah nafil pilihan.",
+      "Gunakan jadual rakaat di hab ini untuk menjejak sunat yang ditekankan di sekitar setiap solat fardu.",
+      "Bacalah kad dalil di bawah dan tandakan hadis yang ingin anda baca semula.",
     ],
     appLinks: [
-      { label: "Amalan sunnah" },
-      { label: "Panduan tahajud" },
-      { label: "Jadual rakaat" },
+      {
+        label: "Amalan sunat",
+      },
+      {
+        label: "Panduan Tahajud",
+      },
+      {
+        label: "Jadual rakaat",
+      },
     ],
     disclaimer:
-      "Hukum witir, bilangan sebelum Isyak dan Solat al-Awwabin selepas Maghrib diperselisihkan. Pelajaran ini menyampaikan dalil sahih dan mencatat khilaf.",
+      "Hukum Witir (wajib atau sunat muakkad), bilangan tepat rakaat pilihan sebelum Isyak, dan solat Awwabin selepas Maghrib ialah perkara khilaf ulama. Pelajaran ini hanya membentangkan apa yang mempunyai asas nas yang sahih dan menyatakan perbezaan pendapat apabila ada.",
   },
   {
-    title: "Jumu'ah — the Friday prayer",
-    summary: "The weekly obligation that gathers the community and replaces Dhuhr on Friday.",
+    title: "Jumaat — solat hari Jumaat",
+    summary:
+      "Kewajipan mingguan yang menghimpunkan masyarakat dan menggantikan Zohor pada hari Jumaat.",
     body: [
-      "Jumu'ah is the congregational prayer held after midday each Friday, and it is a distinct obligation, commanded by name in the Qur'an: 'When the call is made for prayer on Friday, hasten to the remembrance of Allah and leave off trade.' It consists of a sermon (khutbah) in two parts followed by two rak'ahs prayed aloud behind the imam, and it takes the place of Dhuhr for those who attend.",
-      "It is a personal obligation (fard 'ayn) upon every free, adult, resident, able Muslim man. The Prophet ﷺ specified that it is 'a duty upon every Muslim in congregation, except four: a slave, a woman, a child, or one who is ill.' Women, travellers, and the sick are excused and pray Dhuhr instead, though they may attend if they wish.",
-      "Its neglect is a grave danger: the Prophet ﷺ warned that whoever abandons three Jumu'ahs out of heedlessness, Allah seals his heart. Yet its rewards are equally great — Friday is the best day on which the sun rises, and it holds an hour in which du'a is answered.",
-      "Prepare for it as the Prophet ﷺ did: perform ghusl, wear your best clean clothes, apply fragrance, go early, and listen attentively to the khutbah in silence (idle talk during it wastes the reward). Reciting Surah al-Kahf on Friday brings a light between the two Fridays.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "O you who believe, when the call is made for prayer on Friday, hasten to the remembrance of Allah and leave off trade. That is better for you, if you only knew.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Friday prayer in congregation is a binding duty upon every Muslim, except four: a slave, a woman, a child, or one who is ill. (Tariq ibn Shihab)",
-      },
-      {
-        excerpt:
-          "Whoever abandons three Friday prayers out of heedlessness, Allah will place a seal over his heart. (Abu al-Ja'd; also Abu Dawud 1052, at-Tirmidhi 500)",
-      },
-      {
-        excerpt:
-          "Ghusl on Friday is obligatory upon every one who has reached puberty. (Abu Sa'id al-Khudri)",
-      },
+      "Solat Jumaat ialah solat berjemaah yang diadakan selepas tengah hari setiap Jumaat, dan ia kewajipan tersendiri yang diperintahkan dengan namanya dalam Al-Quran: 'Apabila diserukan azan (bang) untuk mengerjakan sembahyang pada hari Jumaat, maka segeralah kamu pergi (ke masjid) untuk mengingati Allah … dan tinggalkanlah berjual-beli' (62:9). Ia terdiri daripada khutbah dua bahagian diikuti dua rakaat yang dibaca dengan kuat di belakang imam, dan ia menggantikan Zohor bagi mereka yang menghadirinya.",
+      "Ia fardu ain ke atas setiap lelaki Muslim yang merdeka, baligh, bermastautin dan berkemampuan. Nabi ﷺ menjelaskan bahawa ia 'a duty upon every Muslim in congregation, except four: a slave, a woman, a child, or one who is ill.' (makna dalam bahasa Inggeris). Wanita, musafir dan orang sakit dikecualikan dan menunaikan Zohor sebagai gantinya, walaupun mereka boleh menghadirinya jika mahu.",
+      "Mengabaikannya adalah bahaya yang besar: Nabi ﷺ memberi amaran bahawa sesiapa yang meninggalkan tiga kali solat Jumaat kerana lalai, Allah akan mengunci mati hatinya. Namun ganjarannya juga sama besar — Jumaat ialah hari terbaik yang padanya matahari terbit, dan padanya terdapat satu saat yang doa dimakbulkan.",
+      "Bersiaplah untuknya sebagaimana Nabi ﷺ bersiap: mandi sunat Jumaat, memakai pakaian terbaik yang bersih, memakai wangian, pergi awal, dan mendengar khutbah dengan senyap dan penuh perhatian (bercakap kosong ketika khutbah menghilangkan pahala). Membaca Surah al-Kahfi pada hari Jumaat mendatangkan cahaya antara dua Jumaat.",
     ],
     actions: [
-      "Make ghusl, wear clean clothes and fragrance, and arrive early — the earliest attendees earn the greatest reward.",
-      "Read Surah al-Kahf sometime on Friday for a light between the two Fridays.",
-      "Stay fully silent and attentive during the khutbah; keep the phone away.",
+      "Mandilah, pakailah pakaian yang bersih dan wangian, dan datanglah awal — mereka yang paling awal hadir memperoleh ganjaran yang paling besar.",
+      "Bacalah Surah al-Kahfi pada bila-bila masa pada hari Jumaat untuk mendapat cahaya antara dua Jumaat.",
+      "Diamlah sepenuhnya dan berilah perhatian ketika khutbah; jauhkan telefon.",
     ],
-    appLinks: [{}],
+    appLinks: [
+      {
+        label: "Baca Surah al-Kahfi",
+      },
+    ],
     disclaimer:
-      "The minimum number of attendees, and whether ghusl is obligatory or a strong sunnah, are points of scholarly difference. Follow your local community's reliable practice.",
+      "Bilangan minimum jemaah yang hadir, dan sama ada mandi Jumaat itu wajib atau sunat yang sangat dituntut, ialah perkara khilaf ulama. Ikutilah amalan masyarakat tempatan anda yang dipercayai.",
   },
   {
-    title: "Congregational prayer",
-    summary: "Praying behind an imam — reward multiplied twenty-seven times.",
+    title: "Solat berjemaah",
+    summary: "Solat di belakang imam — pahala digandakan dua puluh tujuh kali.",
     body: [
-      "Praying the five daily prayers in congregation (jama'ah) is strongly emphasised, especially for men, and is a hallmark of a living Muslim community. The Prophet ﷺ taught that the prayer in congregation is twenty-seven times greater in reward than the prayer prayed alone — a multiplier no individual effort can match.",
-      "The congregation stands in straight, gap-free rows, shoulder to shoulder, following the imam precisely: you begin each movement only after he does, never before him, and never at the exact same instant. Straightening the rows is itself part of completing the prayer.",
-      "If you arrive after the imam has begun (a latecomer is called masbuq), join immediately in whatever posture you find him — that portion still counts as praying with him. When he gives the final salam, stand and complete the rak'ahs you missed on your own, then finish.",
-      "The congregation is not only in the mosque: two people praying together form a jama'ah, so a father with his child, or two friends travelling, can attain its reward. Women may pray in congregation and attend the mosque where suitable facilities exist, though their prayer at home is also richly rewarded.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The prayer in congregation is twenty-seven degrees more meritorious than the prayer offered alone. (Ibn 'Umar; also Sahih Muslim 650)",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "And establish prayer and give zakat and bow with those who bow.",
-      },
+      "Menunaikan solat lima waktu secara berjemaah sangat dituntut, terutamanya bagi lelaki, dan ia ciri masyarakat Islam yang hidup. Nabi ﷺ mengajarkan bahawa solat berjemaah dua puluh tujuh kali ganda lebih besar pahalanya berbanding solat bersendirian — gandaan yang tidak dapat ditandingi oleh usaha individu.",
+      "Jemaah berdiri dalam saf yang lurus dan rapat tanpa celah, bahu ke bahu, mengikut imam dengan tepat: anda memulakan setiap pergerakan hanya selepas imam, tidak sekali-kali sebelumnya, dan tidak pada saat yang sama. Meluruskan saf itu sendiri sebahagian daripada kesempurnaan solat.",
+      "Jika anda tiba selepas imam memulakan solat (orang yang lewat dinamakan masbuq), sertailah segera dalam apa jua kedudukan anda dapati imam — bahagian itu tetap dikira sebagai solat bersamanya. Apabila imam memberi salam akhir, bangunlah dan sempurnakan rakaat yang tertinggal secara sendirian, kemudian selesaikan solat.",
+      "Jemaah bukan hanya di masjid: dua orang yang solat bersama sudah membentuk jemaah, maka seorang bapa bersama anaknya, atau dua sahabat yang bermusafir, boleh memperoleh pahalanya. Wanita boleh solat berjemaah dan menghadiri masjid apabila terdapat kemudahan yang sesuai, walaupun solat mereka di rumah juga diberi ganjaran yang besar.",
     ],
     actions: [
-      "Pray at least one prayer in the mosque today, or gather your household into a row at home.",
-      "Learn what to do as a latecomer: join at once, then complete your missed rak'ahs after the imam's salam.",
+      "Tunaikan sekurang-kurangnya satu solat di masjid hari ini, atau himpunkan ahli keluarga anda dalam satu saf di rumah.",
+      "Pelajari apa yang perlu dilakukan sebagai masbuq: sertai segera, kemudian sempurnakan rakaat yang tertinggal selepas imam memberi salam.",
+    ],
+    appLinks: [
+      {
+        label: "Bacaan kuat & perlahan",
+      },
+      {
+        label: "Solat langkah demi langkah",
+      },
     ],
   },
   {
-    title: "Missed (qada) prayers",
-    summary: "Making up what was missed — the door of Allah's mercy stays open.",
+    title: "Solat qada (yang tertinggal)",
+    summary: "Menggantikan apa yang tertinggal — pintu rahmat Allah sentiasa terbuka.",
     body: [
-      "If a fard prayer is missed — through oversleeping, forgetfulness, or (may Allah protect us) negligence — the obligation does not simply vanish. It must be made up (qada), and the Prophet ﷺ made the ruling clear: 'Whoever forgets a prayer or sleeps through it, its expiation is to pray it when he remembers.' There is no other ransom for it but to pray it.",
-      "A made-up prayer is offered in the same form as the original: a missed four-rak'ah Dhuhr is prayed as four rak'ahs even if you make it up at night or while travelling. One who missed prayers due to a genuine excuse (like deep sleep) bears no sin for the delay; one who abandoned them deliberately must make them up alongside sincere, urgent repentance.",
-      "The scholars encourage making up missed prayers immediately and in order where possible, without letting them pile up — because the burden grows heavier with time and delay. If a large number were missed over years, approach it with a realistic daily plan rather than despair; Allah's door of return is always open.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever forgets a prayer or sleeps through it, its expiation is to pray it when he remembers it. (Anas; also Sahih Muslim 684)",
-      },
+      "Jika solat fardu tertinggal — kerana tertidur, terlupa, atau (semoga Allah melindungi kita) cuai — kewajipannya tidak hilang begitu sahaja. Ia mesti diqada, dan Nabi ﷺ menjelaskan hukumnya: 'Whoever forgets a prayer or sleeps through it, its expiation is to pray it when he remembers.' (makna dalam bahasa Inggeris). Tiada tebusan lain baginya selain mengerjakannya.",
+      "Solat qada dikerjakan dalam bentuk yang sama seperti solat asal: Zohor empat rakaat yang tertinggal dikerjakan empat rakaat walaupun anda mengqadanya pada waktu malam atau ketika bermusafir. Orang yang tertinggal solat kerana uzur yang sebenar (seperti tidur nyenyak) tidak berdosa atas kelewatan itu; orang yang meninggalkannya dengan sengaja mesti mengqadanya bersama taubat yang ikhlas dan segera.",
+      "Ulama menggalakkan agar solat yang tertinggal diqada dengan segera dan mengikut tertib apabila boleh, tanpa membiarkannya bertimbun — kerana bebannya menjadi semakin berat dengan masa dan penangguhan. Jika banyak solat tertinggal selama bertahun-tahun, hadapilah dengan rancangan harian yang realistik dan bukan dengan berputus asa; pintu taubat Allah sentiasa terbuka.",
     ],
     actions: [
-      "Estimate honestly how many prayers you owe and set a realistic daily make-up target.",
-      "Pair each obligatory prayer with one make-up prayer until the backlog clears.",
-      "Never delay a currently-due prayer to make up an old one — keep today's prayers on time.",
+      "Anggarkan dengan jujur berapa banyak solat yang perlu anda qada dan tetapkan sasaran qada harian yang realistik.",
+      "Iringi setiap solat fardu dengan satu solat qada sehingga semua tunggakan selesai.",
+      "Jangan sekali-kali melewatkan solat yang sedang tiba waktunya untuk mengqada solat lama — kekalkan solat hari ini tepat pada waktunya.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      {
+        label: "Penjejak qada",
+      },
+      {
+        label: "Sejarah qada",
+      },
+    ],
   },
   {
-    title: "After salah",
-    summary: "The adhkar and supplications that seal the reward of every prayer.",
+    title: "Selepas solat",
+    summary: "Zikir dan doa yang memeterai pahala setiap solat.",
     body: [
-      "The Prophet ﷺ never rose abruptly from prayer. He would remain seated, seeking Allah's forgiveness and engaging in remembrance — and he taught that the moment right after an obligatory prayer is among the times when du'a is most readily answered. Leaving immediately forfeits some of the prayer's greatest fruit.",
-      "The established post-prayer routine is simple and weighty: say 'Astaghfirullah' three times; then the words of tawhid and praise; then 'SubhanAllah', 'Alhamdulillah', and 'Allahu Akbar' thirty-three times each, sealing the hundredth with 'La ilaha illallah…' — whoever does so has their sins forgiven though they be like the foam of the sea.",
-      "Reciting Ayat al-Kursi after each obligatory prayer removes only death from between a person and Paradise, as the Prophet ﷺ promised. Follow it with the three Quls (Al-Ikhlas, Al-Falaq, An-Nas), and add the morning adhkar after Fajr and the evening adhkar after Asr or Maghrib where they apply.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever glorifies, praises, and magnifies Allah thirty-three times each after every prayer… and completes the hundred with the words of tawhid, his sins are forgiven though they be like the foam of the sea. (Abu Hurayrah)",
-      },
-      {
-        excerpt:
-          "Whoever recites Ayat al-Kursi after every prescribed prayer, nothing stands between him and entering Paradise except death. (Abu Umamah; graded sahih by al-Albani)",
-      },
+      "Nabi ﷺ tidak pernah bangun dengan tergesa-gesa selepas solat. Baginda akan kekal duduk, memohon keampunan Allah dan berzikir — dan baginda mengajarkan bahawa saat sejurus selepas solat fardu ialah antara waktu doa paling mudah dimakbulkan. Beredar serta-merta bermakna kehilangan sebahagian daripada buah solat yang paling besar.",
+      "Amalan selepas solat yang sabit adalah mudah tetapi besar nilainya: ucapkan 'Astaghfirullah' tiga kali; kemudian kalimah tauhid dan pujian; kemudian 'SubhanAllah', 'Alhamdulillah' dan 'Allahu Akbar' tiga puluh tiga kali setiap satu, dan menyempurnakan yang keseratus dengan 'La ilaha illallah…' — sesiapa yang melakukannya, dosa-dosanya diampunkan walaupun sebanyak buih di lautan.",
+      "Membaca Ayat Kursi selepas setiap solat fardu menjadikan tiada lagi penghalang antara seseorang dan Syurga melainkan kematian, sebagaimana yang dijanjikan oleh Nabi ﷺ. Ikutinya dengan tiga Qul (Al-Ikhlas, Al-Falaq, An-Nas), dan tambahkan zikir pagi selepas Subuh dan zikir petang selepas Asar atau Maghrib apabila berkenaan.",
     ],
     actions: [
-      "Memorise the post-salah tasbih (33 / 33 / 33 + tahlil) this week.",
-      "Recite Ayat al-Kursi and the three Quls before you stand up.",
-      "Stay seated for one minute of personal du'a after each fard prayer.",
+      "Hafalkan tasbih selepas solat (33 / 33 / 33 + tahlil) minggu ini.",
+      "Bacalah Ayat Kursi dan tiga Qul sebelum anda bangun.",
+      "Kekal duduk selama seminit untuk berdoa sendiri selepas setiap solat fardu.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      {
+        label: "Zikir selepas solat",
+      },
+      {
+        label: "Pembilang tasbih",
+      },
+    ],
   },
 ];
 
 export const SALAH_GUIDE_PHRASES_MS: DeepPartial<SalahGuidePhrase>[] = [
   {
-    title: "After completing wudu",
-    when: "Immediately after finishing ablution, before salah.",
-    translation:
-      "I bear witness that there is no god except Allah alone, with no partner, and I bear witness that Muhammad is His slave and Messenger.",
+    title: "Selepas selesai berwuduk",
+    when: "Sejurus selepas selesai berwuduk, sebelum solat.",
     meaning:
-      "Renewing the testimony of faith while your body is freshly purified. The Prophet ﷺ promised that whoever says this after wudu, the eight gates of Paradise are opened for him to enter by whichever he wishes.",
+      "Memperbaharui syahadah ketika tubuh anda baru sahaja disucikan. Nabi ﷺ menjanjikan bahawa sesiapa yang membacanya selepas berwuduk, lapan pintu Syurga dibukakan untuknya dan dia boleh masuk melalui mana-mana pintu yang dikehendakinya.",
   },
   {
-    title: "Takbirat al-Ihram",
-    when: "At the very start of salah, and when moving between positions.",
-    translation: "Allah is the Greatest.",
+    title: "Takbiratul ihram",
+    when: "Pada permulaan solat, dan ketika berpindah antara kedudukan.",
     meaning:
-      "The prayer begins here — 'al-ihram' means it makes forbidden upon you the things of the world (speech, eating, turning away). You declare Allah greater than anything that could distract you, and step fully into His presence. Every takbir that follows renews that surrender.",
+      "Solat bermula di sini — 'al-ihram' bermaksud ia mengharamkan ke atas anda perkara-perkara dunia (bercakap, makan, berpaling). Anda mengisytiharkan bahawa Allah lebih besar daripada apa sahaja yang boleh melalaikan anda, lalu melangkah sepenuhnya ke hadrat-Nya. Setiap takbir selepasnya memperbaharui penyerahan diri itu.",
   },
   {
-    title: "Du'a al-Istiftah (opening supplication)",
-    when: "Silently after the opening takbir, before Al-Fatihah.",
-    translation:
-      "Glory is to You, O Allah, and praise. Blessed is Your name and exalted is Your majesty. There is no god other than You.",
+    title: "Doa iftitah (doa pembukaan)",
+    when: "Secara perlahan selepas takbiratul ihram, sebelum Al-Fatihah.",
     meaning:
-      "You open the conversation by glorifying and praising Allah and affirming His oneness, settling the heart before you recite His words. Several authentic opening supplications exist — this is one of the most widely used.",
+      "Anda membuka perbualan dengan bertasbih dan memuji Allah serta mengakui keesaan-Nya, menenangkan hati sebelum membaca kalam-Nya. Terdapat beberapa doa iftitah yang sahih — inilah salah satu yang paling banyak diamalkan.",
   },
   {
     title: "Surah Al-Fatihah",
-    when: "Standing in every rak'ah — a pillar without which the rak'ah is invalid.",
-    translation:
-      "In the name of Allah, the Entirely Merciful, the Especially Merciful. All praise is due to Allah, Lord of the worlds — the Entirely Merciful, the Especially Merciful, Sovereign of the Day of Recompense. It is You we worship and You we ask for help. Guide us to the straight path — the path of those upon whom You have bestowed favour, not of those who have earned anger or of those who are astray.",
+    when: "Ketika berdiri dalam setiap rakaat — rukun yang tanpanya rakaat itu tidak sah.",
     meaning:
-      "The 'Mother of the Book': half praise of Allah and half a plea for guidance, with 'It is You we worship' as the hinge between them. Allah said He divided this surah between Himself and His servant — as you recite each line, He responds. The Prophet ﷺ said there is no prayer for one who does not recite it.",
+      "'Ummul Kitab' (Ibu Kitab): separuh pujian kepada Allah dan separuh permohonan petunjuk, dengan 'Engkaulah sahaja (Ya Allah) Yang Kami sembah' (1:5) sebagai engsel antara keduanya. Allah berfirman bahawa Dia membahagikan surah ini antara Diri-Nya dan hamba-Nya — setiap kali anda membaca satu ayat, Dia menjawab. Nabi ﷺ bersabda bahawa tiada solat bagi orang yang tidak membacanya.",
   },
   {
-    title: "Dhikr in ruku",
-    when: "While bowing, with a flat, settled back.",
-    translation: "Glory is to my Lord, the Magnificent.",
+    title: "Zikir ketika rukuk",
+    when: "Ketika rukuk, dengan belakang yang rata dan tenang.",
     meaning:
-      "Bowing is the posture of reverence, so you glorify Allah's magnificence — said three or more times, without haste. The Prophet ﷺ taught that in ruku we exalt the Lord, so hope for your supplication to be answered.",
+      "Rukuk ialah kedudukan penghormatan, maka anda memuji keagungan Allah — dibaca tiga kali atau lebih, tanpa tergesa-gesa. Nabi ﷺ mengajarkan bahawa dalam rukuk kita mengagungkan Tuhan, maka berharaplah agar doa anda dimakbulkan.",
   },
   {
-    title: "Rising from ruku",
-    when: "Standing fully upright after bowing.",
-    translation: "Allah hears whoever praises Him. Our Lord, to You belongs all praise.",
+    title: "Bangkit dari rukuk",
+    when: "Berdiri tegak sepenuhnya selepas rukuk.",
     meaning:
-      "You affirm that Allah truly hears the one who praises Him, then return all praise to Him. The Prophet ﷺ said that when the imam says this and the people answer, whoever's words coincide with the angels' has their past sins forgiven.",
+      "Anda mengakui bahawa Allah benar-benar mendengar orang yang memuji-Nya, kemudian mengembalikan segala pujian kepada-Nya. Nabi ﷺ bersabda bahawa apabila imam mengucapkannya dan jemaah menjawab, sesiapa yang ucapannya bertepatan dengan ucapan para malaikat, diampunkan dosa-dosanya yang lalu.",
   },
   {
-    title: "Dhikr in sujud",
-    when: "In prostration — the position nearest to Allah.",
-    translation: "Glory is to my Lord, the Most High.",
+    title: "Zikir ketika sujud",
+    when: "Ketika sujud — kedudukan yang paling hampir kepada Allah.",
     meaning:
-      "At the lowest physical point you glorify the Most High — the paradox at the heart of worship. The Prophet ﷺ said a servant is nearest to his Lord while prostrating, so pour out supplication here after the dhikr.",
+      "Pada titik fizikal yang paling rendah, anda memuji Yang Maha Tinggi — paradoks di jantung ibadah. Nabi ﷺ bersabda bahawa seorang hamba paling hampir kepada Tuhannya ketika sujud, maka curahkanlah doa di sini selepas zikir.",
   },
   {
-    title: "Between the two prostrations",
-    when: "Sitting calmly between the first and second sujud of each rak'ah.",
-    translation: "My Lord, forgive me. My Lord, forgive me.",
+    title: "Antara dua sujud",
+    when: "Duduk dengan tenang antara sujud pertama dan kedua dalam setiap rakaat.",
     meaning:
-      "A brief but direct plea for forgiveness in every rak'ah — a reminder that even mid-prayer we stand in need of Allah's pardon. Sit until you are at ease before the second prostration.",
+      "Permohonan ampun yang ringkas tetapi langsung dalam setiap rakaat — peringatan bahawa walaupun di tengah solat, kita sentiasa memerlukan keampunan Allah. Duduklah sehingga anda tenang sebelum sujud kedua.",
   },
   {
-    title: "At-Tahiyyat (Tashahhud)",
-    when: "In the middle sitting and the final sitting of salah.",
-    translation:
-      "All greetings, prayers, and pure words are for Allah. Peace be upon you, O Prophet, and the mercy of Allah and His blessings. Peace be upon us and upon the righteous servants of Allah. I bear witness that there is no god except Allah, and I bear witness that Muhammad is His slave and Messenger.",
+    title: "At-Tahiyyat (Tasyahud)",
+    when: "Pada duduk pertengahan dan duduk akhir solat.",
     meaning:
-      "The sitting heart of salah: you offer every kind of worship to Allah alone, send peace upon the Prophet ﷺ and the righteous, and re-declare the two testimonies. Ibn Mas'ud learned it from the Prophet ﷺ word for word, as one learns a surah.",
+      "Jantung solat dalam keadaan duduk: anda mempersembahkan segala bentuk ibadah kepada Allah semata-mata, mengucapkan salam ke atas Nabi ﷺ dan orang-orang soleh, dan mengisytiharkan semula dua kalimah syahadah. Ibnu Mas'ud mempelajarinya daripada Nabi ﷺ kalimah demi kalimah, sebagaimana seseorang mempelajari sebuah surah.",
   },
   {
-    title: "Salawat Ibrahimiyyah",
-    when: "In the final tashahhud, after At-Tahiyyat.",
-    translation:
-      "O Allah, send blessings upon Muhammad and the family of Muhammad, as You blessed Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious. O Allah, bestow favour upon Muhammad and the family of Muhammad, as You favoured Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious.",
+    title: "Selawat Ibrahimiyyah",
+    when: "Dalam tasyahud akhir, selepas At-Tahiyyat.",
     meaning:
-      "When the Companions asked how to send blessings upon him, the Prophet ﷺ taught them these exact words — the most authenticated salawat in the Sunnah. You honour the Messenger ﷺ as Allah commanded, completing your prayer with love for the one who taught you to pray.",
+      "Apabila para sahabat bertanya bagaimana untuk berselawat ke atas baginda, Nabi ﷺ mengajarkan kepada mereka lafaz yang tepat ini — selawat yang paling sahih dalam Sunnah. Anda memuliakan Rasulullah ﷺ sebagaimana yang Allah perintahkan, menyempurnakan solat anda dengan rasa cinta kepada baginda yang mengajar anda solat.",
   },
   {
-    title: "Seeking refuge before the salam",
-    when: "After the final tashahhud and salawat, just before ending the prayer.",
-    translation:
-      "O Allah, I seek refuge in You from the punishment of the grave, from the punishment of Hell, from the trial of life and death, and from the evil of the trial of the False Messiah (the Dajjal).",
+    title: "Memohon perlindungan sebelum salam",
+    when: "Selepas tasyahud akhir dan selawat, sejurus sebelum mengakhiri solat.",
     meaning:
-      "The Prophet ﷺ instructed that after the final tashahhud a person seek refuge from these four dangers before giving salam — the last plea of the prayer covers this life, the grave, the Fire, and the greatest trial to come.",
+      "Nabi ﷺ memerintahkan agar selepas tasyahud akhir seseorang memohon perlindungan daripada empat bahaya ini sebelum memberi salam — permohonan terakhir dalam solat ini merangkumi kehidupan dunia, kubur, Neraka, dan fitnah paling besar yang akan datang.",
   },
   {
-    title: "Taslim (the closing salam)",
-    when: "Ending salah — turning the face to the right, then to the left.",
-    translation: "Peace and the mercy of Allah be upon you.",
+    title: "Salam (penutup solat)",
+    when: "Mengakhiri solat — berpaling muka ke kanan, kemudian ke kiri.",
     meaning:
-      "You leave the prayer as you would leave the company of the honoured — with a greeting of peace to the angels recording on each shoulder and to those praying beside you. The salam is a pillar; with it the prayer is complete.",
+      "Anda meninggalkan solat sebagaimana anda meninggalkan majlis orang yang dimuliakan — dengan ucapan salam kepada malaikat pencatat di setiap bahu dan kepada mereka yang solat di sebelah anda. Salam ialah rukun; dengannya solat menjadi sempurna.",
   },
 ];
 
 export const SALAH_GUIDE_QUIZ_MS: DeepPartial<SalahGuideQuizQuestion>[] = [
   {
-    id: "rawatib-total",
-    type: "multiple-choice",
-    prompt: "Berapa rakaat sunat rawatib harian yang disebut dalam hadis Ummu Habibah?",
+    prompt: "Berapakah rakaat sunat rawatib harian yang disebut dalam hadis Ummu Habibah?",
     options: ["8", "10", "12", "14"],
-    correctIndex: 2,
     explanation:
-      "Hadis Ummu Habibah menjanjikan rumah di syurga bagi yang solat dua belas rakaat sunat sehari semalam (Sahih Muslim 728); Jami' at-Tirmizi 415 memperincikannya: 2 sebelum Subuh, 4 sebelum Zohor, 2 selepas Zohor, 2 selepas Maghrib, dan 2 selepas Isyak.",
+      "Hadis Ummu Habibah menjanjikan sebuah rumah di Syurga bagi dua belas rakaat sunat sehari semalam (Sahih Muslim 728); Jami' at-Tirmizi 415 memperincikannya: 2 sebelum Subuh, 4 sebelum Zohor, 2 selepas Zohor, 2 selepas Maghrib dan 2 selepas Isyak.",
   },
   {
-    id: "rawatib-fajr",
-    type: "multiple-choice",
-    prompt: "Sebelum Subuh, sunnah yang ditekankan (mu'akkadah) ialah:",
+    prompt: "Sebelum Subuh, sunat yang ditekankan (muakkad) ialah:",
     options: ["Tiada", "2 rakaat", "4 rakaat", "Hanya 2 rakaat selepasnya"],
-    correctIndex: 1,
     explanation:
-      "Dua rakaat sebelum Subuh adalah sunnah mu'akkadah — Nabi ﷺ tidak pernah meninggalkannya (Sahih al-Bukhari 1169; Sahih Muslim 724).",
+      "Dua rakaat sebelum Subuh ialah sunat muakkad — Nabi ﷺ tidak pernah meninggalkannya (Sahih al-Bukhari 1169; Sahih Muslim 724).",
   },
   {
-    id: "rawatib-dhuhr",
-    type: "multiple-choice",
-    prompt: "Dalam hadis Ummu Habibah (Jami' at-Tirmizi 415), rawatib sekitar Zohor ialah:",
+    prompt: "Dalam hadis Ummu Habibah (Jami' at-Tirmizi 415), rawatib di sekitar Zohor ialah:",
     options: [
       "2 sebelum, 2 selepas",
       "4 sebelum, 2 selepas",
       "4 sebelum, 4 selepas",
       "Hanya 2 sebelum",
     ],
-    correctIndex: 1,
     explanation:
-      "Hadis Ummu Habibah menyebut empat sebelum Zohor dan dua selepasnya. Riwayat Ibnu Umar (Sahih al-Bukhari 1180) menyebut dua sebelumnya, maka mazhab berbeza tentang bilangan mana yang dikira sebagai rawatib muakkad; rakaat selebihnya ialah nafl.",
+      "Hadis Ummu Habibah menyebut empat sebelum Zohor dan dua selepasnya. Riwayat Ibnu Umar (Sahih al-Bukhari 1180) menyebut dua sebelumnya, maka mazhab-mazhab berbeza tentang set mana yang dikira sebagai rawatib yang ditekankan; rakaat selebihnya ialah nafil.",
   },
   {
-    id: "asr-ghayr-muakkadah",
-    type: "true-false",
     prompt:
-      "Benar atau salah: Empat rakaat sebelum Asar termasuk dalam dua belas rawatib harian yang tetap.",
-    options: ["Benar", "Salah"],
-    correctIndex: 1,
+      "Betul atau salah: Empat rakaat sebelum Asar termasuk dalam dua belas rawatib harian yang tetap.",
+    options: ["Betul", "Salah"],
     explanation:
-      "Empat sebelum Asar adalah sunnah ghayr mu'akkadah (sangat digalakkan) tetapi tidak termasuk dalam dua belas rawatib (Jami' at-Tirmidhi 430).",
+      "Empat rakaat sebelum Asar ialah sunat ghairu muakkad (dianjurkan secara meluas) tetapi tidak dikira dalam dua belas rawatib (Jami' at-Tirmizi 430).",
   },
   {
-    id: "witr-separate",
-    type: "multiple-choice",
-    prompt: "Mengapa Witir diasingkan dalam kategori tersendiri dalam penjejak solat?",
+    prompt: "Mengapakah Witir diletakkan dalam kategori tersendiri dalam penjejak solat?",
     options: [
-      "Tidak disebut dalam hadis",
-      "Hanafi menganggapnya wajib manakala jumhur menganggapnya sunnah mu'akkadah",
-      "Sentiasa dilaksanakan sebelum Isyak",
-      "Tiada bilangan rakaat yang tetap",
+      "Ia tidak disebut dalam hadis",
+      "Mazhab Hanafi menganggapnya wajib manakala majoriti menganggapnya sunat muakkad",
+      "Ia sentiasa dikerjakan sebelum Isyak",
+      "Ia tiada bilangan rakaat yang ditetapkan",
     ],
-    correctIndex: 1,
     explanation:
-      "Witir sangat kukuh dalilnya, tetapi ulama berbeza pendapat sama ada ia wajib atau sunnah mu'akkadah — jadi ia dijejak berasingan daripada dua belas rawatib.",
+      "Witir sangat kukuh pensyariatannya, tetapi ulama berbeza pendapat sama ada ia wajib atau sunat muakkad — maka ia dijejak berasingan daripada dua belas rawatib.",
   },
   {
-    id: "jahri-fajr",
-    type: "multiple-choice",
     prompt: "Dalam solat Subuh berjemaah, imam membaca:",
     options: [
-      "Senyap dalam kedua-dua rakaat",
-      "Kuat dalam kedua-dua rakaat",
-      "Kuat hanya dalam rakaat pertama",
-      "Senyap dalam pertama, kuat dalam kedua",
+      "Secara perlahan dalam kedua-dua rakaat",
+      "Dengan kuat dalam kedua-dua rakaat",
+      "Dengan kuat dalam rakaat pertama sahaja",
+      "Perlahan dalam rakaat pertama, kuat dalam rakaat kedua",
     ],
-    correctIndex: 1,
     explanation:
-      "Subuh dibaca kuat (jahri) dalam kedua-dua rakaat. Di belakang imam anda mendengar dengan penuh perhatian.",
+      "Subuh dibaca dengan kuat (jahar) dalam kedua-dua rakaat. Di belakang imam, anda mendengar dengan teliti.",
   },
   {
-    id: "jahri-dhuhr-asr",
-    type: "multiple-choice",
-    prompt: "Zohor dan Asar dalam jemaah dibaca:",
+    prompt: "Zohor dan Asar secara berjemaah dibaca:",
     options: [
-      "Kuat dalam semua rakaat",
-      "Senyap dalam semua rakaat",
-      "Kuat dalam dua pertama, senyap selepasnya",
-      "Senyap dalam dua pertama, kuat selepasnya",
+      "Dengan kuat dalam semua rakaat",
+      "Secara perlahan dalam semua rakaat",
+      "Kuat dalam dua rakaat pertama, perlahan selepasnya",
+      "Perlahan dalam dua rakaat pertama, kuat selepasnya",
     ],
-    correctIndex: 1,
     explanation:
-      "Zohor dan Asar kedua-duanya sirri (senyap) — imam membaca perlahan dan setiap jemaah membaca untuk dirinya sendiri.",
+      "Zohor dan Asar dibaca secara sir (perlahan) sepanjang solat — imam membaca secara perlahan dan setiap makmum membaca untuk dirinya sendiri.",
   },
   {
-    id: "jahri-maghrib",
-    type: "multiple-choice",
-    prompt: "Dalam Maghrib, imam membaca kuat pada:",
+    prompt: "Dalam solat Maghrib, imam membaca dengan kuat dalam:",
     options: [
       "Ketiga-tiga rakaat",
-      "Hanya dua rakaat pertama",
-      "Hanya rakaat ketiga",
-      "Tiada — Maghrib sepenuhnya senyap",
+      "Dua rakaat pertama sahaja",
+      "Rakaat ketiga sahaja",
+      "Tiada — Maghrib sepenuhnya perlahan",
     ],
-    correctIndex: 1,
     explanation:
-      "Maghrib jahri dalam rakaat pertama dan kedua serta sirri dalam rakaat ketiga — corak panjang/pendek seperti solat lain.",
+      "Maghrib dibaca secara jahar dalam rakaat pertama dan kedua serta secara sir dalam rakaat ketiga — corak panjang/pendek yang sama seperti solat-solat lain.",
   },
   {
-    id: "jahri-isha",
-    type: "multiple-choice",
-    prompt: "Dalam Isyak, bila bacaan kuat berhenti?",
+    prompt: "Dalam solat Isyak, bilakah bacaan kuat berhenti?",
     options: [
       "Selepas rakaat pertama",
       "Selepas rakaat kedua",
       "Selepas rakaat ketiga",
-      "Tidak pernah — keempatnya kuat",
+      "Tidak pernah — keempat-empat rakaat dibaca kuat",
     ],
-    correctIndex: 1,
     explanation:
-      "Isyak dibaca kuat dalam dua rakaat pertama dan senyap dalam rakaat ketiga dan keempat.",
+      "Isyak dibaca dengan kuat dalam dua rakaat pertama dan secara perlahan dalam rakaat ketiga dan keempat.",
   },
   {
-    id: "behind-imam-loud",
-    type: "multiple-choice",
-    prompt: "Dalam solat kuat di belakang imam, semua bersetuju bahawa anda harus:",
+    prompt: "Dalam solat jahar di belakang imam, semua ulama bersepakat bahawa anda patut:",
     options: [
-      "Membaca surah lain kuat bersama imam",
-      "Mendengar dengan penuh perhatian dan tidak membaca surah lain kuat",
+      "Membaca surah lain dengan kuat bersama imam",
+      "Mendengar dengan teliti dan tidak membaca surah lain dengan kuat",
       "Meninggalkan solat selepas Al-Fatihah",
-      "Hanya membaca dalam rakaat terakhir",
+      "Membaca hanya dalam rakaat terakhir",
     ],
-    correctIndex: 1,
     explanation:
-      "Allah berfirman: 'Apabila Al-Qur'an dibacakan, maka dengarkanlah dengan seksama dan diamlah' (QS 7:204).",
+      "Allah berfirman: 'apabila Al-Quran itu dibacakan, maka dengarlah akan dia serta diamlah' (Al-Quran 7:204).",
   },
   {
-    id: "fatihah-shafii",
-    type: "multiple-choice",
-    prompt: "Menurut mazhab Syafi'i, di belakang imam dalam solat kuat anda:",
+    prompt: "Menurut mazhab Syafie, di belakang imam dalam solat jahar, anda:",
     options: [
       "Tidak membaca Al-Fatihah langsung",
       "Membaca Al-Fatihah dalam setiap rakaat",
-      "Hanya membaca dalam rakaat yang senyap",
-      "Membaca kuat bersama imam",
+      "Membaca hanya dalam rakaat yang perlahan",
+      "Membaca dengan kuat bersama imam",
     ],
-    correctIndex: 1,
     explanation:
-      "Mazhab Syafi'i berpendapat bahawa membaca Al-Fatihah wajib bagi setiap jemaah dalam setiap rakaat, merujuk 'Tidak sah solat bagi orang yang tidak membaca Pembukaan Kitab' (Sahih al-Bukhari 756).",
+      "Mazhab Syafie berpendapat bahawa membaca Al-Fatihah wajib bagi setiap orang yang solat dalam setiap rakaat, berdalilkan 'There is no prayer for the one who does not recite the Opening of the Book' (makna dalam bahasa Inggeris) (Sahih al-Bukhari 756).",
   },
   {
-    id: "fatihah-hanafi-loud",
-    type: "multiple-choice",
-    prompt: "Menurut mazhab Hanafi, dalam solat kuat di belakang imam anda:",
+    prompt: "Menurut mazhab Hanafi, dalam solat jahar di belakang imam, anda:",
     options: [
-      "Membaca Al-Fatihah perlahan dalam setiap rakaat",
-      "Mendengar dengan penuh perhatian dan tidak membaca Al-Fatihah",
-      "Hanya membaca surah selepas Al-Fatihah",
-      "Mesti membaca Al-Fatihah kuat",
+      "Membaca Al-Fatihah secara perlahan dalam setiap rakaat",
+      "Mendengar dengan teliti dan tidak membaca Al-Fatihah",
+      "Membaca hanya surah selepas Al-Fatihah",
+      "Mesti membaca Al-Fatihah dengan kuat",
     ],
-    correctIndex: 1,
     explanation:
-      "Pandangan Hanafi yang diandalkan ialah mendengar dalam solat jahri; bacaan imam sudah mencukupi. Keempat-empat mazhab Sunni adalah kedudukan yang sah.",
+      "Pendapat muktamad mazhab Hanafi ialah mendengar dalam solat jahar; bacaan imam sudah memadai. Keempat-empat mazhab Ahli Sunnah ialah pendapat yang sah.",
   },
   {
-    id: "first-two-surah",
-    type: "multiple-choice",
-    prompt: "Dalam dua rakaat pertama Zohor, Nabi ﷺ biasanya membaca:",
+    prompt: "Dalam dua rakaat pertama Zohor, Nabi ﷺ lazimnya membaca:",
     options: [
-      "Hanya Al-Fatihah",
+      "Al-Fatihah sahaja",
       "Al-Fatihah dan surah lain",
-      "Tiada — sepenuhnya senyap",
-      "Hanya tasbih",
+      "Tiada — ia sepenuhnya senyap",
+      "Tasbih sahaja",
     ],
-    correctIndex: 1,
     explanation:
-      "Abu Qatadah melaporkan bahawa Nabi ﷺ membaca Al-Fatihah dan surah lain dalam dua rakaat pertama Zohor dan Asar, dan hanya Al-Fatihah dalam dua rakaat terakhir (Sahih al-Bukhari 776; Sahih Muslim 451).",
+      "Abu Qatadah meriwayatkan bahawa Nabi ﷺ membaca Al-Fatihah dan surah lain dalam dua rakaat pertama Zohor dan Asar, dan hanya Al-Fatihah dalam dua rakaat terakhir (Sahih al-Bukhari 776; Sahih Muslim 451).",
   },
   {
-    id: "alone-fajr",
-    type: "multiple-choice",
-    prompt: "Apabila solat Subuh sendirian, sunnahnya:",
+    prompt: "Ketika solat Subuh bersendirian, sunatnya ialah:",
     options: [
-      "Hanya membaca senyap",
-      "Membaca kuat (walaupun senyap tetap sah)",
-      "Melepaskan surah selepas Al-Fatihah",
-      "Hanya solat satu rakaat",
+      "Membaca secara perlahan sahaja",
+      "Membaca dengan kuat (walaupun perlahan tetap sah)",
+      "Meninggalkan surah selepas Al-Fatihah",
+      "Solat satu rakaat sahaja",
     ],
-    correctIndex: 1,
     explanation:
-      "Sendirian anda membaca kandungan yang sama seperti dalam jemaah; dalam Subuh, Maghrib, dan Isyak sunnah membaca kuat.",
+      "Ketika bersendirian, anda membaca kandungan yang sama seperti dalam solat berjemaah; dalam Subuh, Maghrib dan Isyak sunat membaca dengan kuat.",
   },
   {
-    id: "awwabin-disputed",
-    type: "true-false",
     prompt:
-      "Benar atau salah: Enam rakaat tetap selepas Maghrib sebagai Solat al-Awwabin adalah sunnah yang mantap dengan persetujuan ulama.",
-    options: ["Benar", "Salah"],
-    correctIndex: 1,
+      "Betul atau salah: Enam rakaat tetap selepas Maghrib sebagai solat Awwabin ialah sunnah yang sabit dengan kesepakatan sebulat suara.",
+    options: ["Betul", "Salah"],
     explanation:
-      "Nafl umum selepas Maghrib digalakkan, tetapi penetapan tepat enam rakaat sebagai Awwabin dipertikaikan keasliannya — jangan disajikan sebagai sunnah tetap yang mantap.",
+      "Nafil umum selepas Maghrib digalakkan, tetapi penetapan masyhur tepat enam rakaat sebagai Awwabin dipertikaikan kesahihannya — ia tidak sepatutnya dibentangkan sebagai sunnah tetap yang sabit.",
   },
 ];

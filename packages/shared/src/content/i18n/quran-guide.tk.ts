@@ -32,27 +32,8 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Gurhany okamagyň özi diňe bir maglumat okamak däl-de, ybadatdyr. Pygamber alaýhyssalam okalýan her bir harpyň gowy iş gazanýandygyny we her bir ýagşy işiň azyndan on esse köpeljekdigini öwretdi, şonuň üçin hatda bir setiri ýaňadan başlan adam hem baýrak ýygnaýar. Kyýamat güni Gurhan bu durmuşynda kompaniýasyny saklaýanlaryň adyndan ýalbaryp, şepagatçy hökmünde geler. Ony arkaýyn okaýan asylly perişde ýazyjylarynyň ýanyndadyr we üstünde büdrän, öwrenmek üçin göreşýän adam bu tagallasy üçin iki esse baýrak alýar.",
       "Gurhanyň nämedigini aýdyňlaşdyrmaga kömek edýär. Gurhan, Allanyň arap dilinde aýdan sözleri, wahýdan bäri üýtgemez. Hadys - Pygamberiň aýdanlary, hereketleri we sessiz tassyklamalary aýrydyr: Gurhany düşündirýär we görkezýär, ýöne pygamberiň aýdan sözleriniň zynjyrlary arkaly saklanýar we alymlar tarapyndan sahih (hakyky), hasan (gowy) ýa-da daif (ejiz) diýip baha berilýär. Bularyň ikisi hem wahýdyr we ikisi hem hökmanydyr, ýöne diňe Gurhan namazda ybadat hökmünde okalýar we Allanyň gudratly, bahasyna ýetip bolmajak sözi diňe Gurhan.",
     ],
-    quran: [
-      {
-        excerpt: "Gurhan adamzat üçin ýol görkeziji hökmünde inen Remezan aýy…",
-      },
-      {
-        excerpt:
-          "Aýt: Adamzat we jynlar bu Gurhanyň meňzeşlerini öndürmek üçin ýygnanan bolsalar, başarmazdylar ...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Kim Allatagalanyň kitabyndan hat okasa, hasana alar we hasana on köpeldiler.",
-      },
-      {
-        excerpt: "Gurhany okaň, çünki kyýamat güni sahabalary üçin şepagatçy bolar.",
-      },
-      {
-        excerpt:
-          "Gurhany ökde adam asylly, dogruçyl kanunçylar bilen bile, ony kynçylyk bilen okaýan, üstünde durup, iki esse sogap gazanar.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Gurhan üçin her gün belli bir wagt belläň - hatda bäş minutlyk minut hem baraka we yzygiderlilik döredýär.",
       "Iň bolmanda manyly bir setiri okaň: arap dilini okaň, soňra terjimesini haýal okaň.",
@@ -71,14 +52,7 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Teksti gorap saklamak Pygamberiň ömründe başlandy. Sahabalar, wahýyň gelşi ýaly ýat tutýardylar we kanunçylar pygamberiň göni gözegçiligi astynda pergamentlere, palma sapaklaryna, süňklere we daşlara ýazypdyrlar. Yamama söweşinde köp ýat tutanlar şehit bolansoň, Abu Bakr Zaýd ibn Tabite ýazylan Gurhany ýekeje ýygyndyda (suhuf) ýygnamagy buýurdy. Soňra imperiýanyň ýaýramagy we şiweleriň üýtgemegi bilen Usman Kuraýş şiwesinde döredilen abraýly nusgalary alyp, tutuş ymmat üçin bir ýazylan teksti standartlaşdyryp, uly şäherlere iberilipdir.",
       "Allanyň Özi Gurhanyň goralmagyny kepillendirdi: 'Hakykatdanam, ýatlatmany iberdik, hakykatdanam gorarys'. Bu wada üç biri-birine bagly üç kepillik - her nesilde köpçülikleýin ýat tutmak, seresaply ýazuw we pygamberiň ýanyna gaýdyp gelýän mugallym-okuwçy zynjyrlary (kyrat) arkaly ýerine ýetirildi. Mömin üçin bu ylahy alamatdyr; taryhçy üçin bu resminamalaşdyrylan hakykat: şu gün okalýan Gurhan on dört asyr mundan ozal aýan edilen tekstdir.",
     ],
-    quran: [
-      {
-        excerpt: "Hakykatdanam, ýatlatmany iberdik we hakykatdanam gorarys.",
-      },
-      {
-        excerpt: "Createdaradan Rebbiňiziň adyndan okaň ...",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -90,11 +64,7 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Dolandyryş üçin okamak üçin Gurhan juz (köplük ajza ') diýlip atlandyrylýan 30 deň bölege we her juz hizb diýlip atlandyrylýan iki bölege bölünýär we jemi 60 hizb berýär. Remezan hatyny - Gurhany bir aýyň içinde tamamlamak şeýle bir tebigy zat: günde bir juz kitaby otuz günde tamamlaýar, günde iki gezek ýarym juz henizem ýumşak. Her süräniň içinde aýatlar (aýatlar) sanlanýar, şonuň üçin islendik parçany takyk süre hökmünde getirip bolar: aýat; adaty Medinäniň sanlary 6,236 aýat bolup, birnäçe aýat araçäkleriniň sanalmagynda diňe kiçijik, gowy resminamalaşdyrylan tapawutlar bar - tekstiň özi birmeňzeş.",
       "Bu gurluşa düşünmek düşnüksiz niýetleri anyk meýilnama öwürýär. Gündelik belli bir bölüme ygrarly bolup bilersiňiz, Juz Amany (iň soňky, otuzynjy bölüm, gysga sürelerden doly) nyşana alyp bilersiňiz, birnäçe sürede sabyr ýaly bir mowzuga eýerip bilersiňiz ýa-da Remezan aýynda doly okamagy meýilleşdirip bilersiňiz. Gurluşy, Gurhan bilen ömürboýy gatnaşyga ýetip bilýän gabykdyr.",
     ],
-    quran: [
-      {
-        excerpt: "... aýatlary jikme-jik bir kitap, bilýänler üçin arapça Gurhan.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -122,15 +92,7 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Hemme zady birbada özleşdirmek hökman däl. Esasy düzgünler tertipde öwrenilýär: günortan sakinanyň we tanwanyň (izhar, idgham, iqlab, ikhfa), meem sakinanyň kararlary, dürli görnüşli madd (uzalma), qalkala (belli harplara ýagtylyk), ghunna (burun rezonansy) we waqf (nirede we nädip durmaly). Olaryň hersinde anyk kesgitleme, gündelik mysallar we amaly bir zat bar we bu merkez bir gezekde gezýär.",
       "Gaty berk düzgün: Diňe kitaplardan ýa-da programmalardan däl-de, ökde mugallymdan gulak bilen öwreniň. Mistakesalňyşlyklaryňyzy eşidip, olary düzedip bilýän adama okaň - tajweed hemişe şeýle öwredilipdir we hakyky takyklyga we iň soňunda ijaza (tassyklanan okalýan zynjyr) üçin ýeke-täk ygtybarly ýoldyr.",
     ],
-    hadith: [
-      {
-        excerpt: "Sizden iň gowusy, Gurhany öwrenýän we öwredýänlerdir.",
-      },
-      {
-        excerpt:
-          "Gurhany ökde adam asylly, dogruçyl kanunçylar bilen bile, ony kynçylyk bilen okaýan, üstünde durup, iki esse sogap gazanar.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -163,11 +125,7 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Gurhan sözüni sözme-söz terjime etmeýärsiňiz - bu tafsiriň we terjimesiniň eseri - ýöne Allanyň atlaryny, buýruklaryny, wadalaryny we duýduryşlaryny okaýan pursatyňyzda tanap başlaýarsyňyz. Iň köp görünýän we iň agramly sözlerden başlaň: Allah, Rabb (Reb), rahma (rehim), iman (iman), sabr (sabyr), takwa (Taňry aňy), dünýä (bu dünýä) we akira (ahyret). Şol labyr toplumyndan bir gezek daşardan giňeliň.",
       "Dykylman, aralyk gaýtalanmagy ulanyň. Hepdede bäş sany täze söz öwrenmek we olaryň hemmesini her gün gözden geçirmek, bir oturylyşykda elli zady ýatda saklamak we ýatdan çykarmakdan has köp ýyl alar. Allah Gurhanyň ýüregine düşmegi aňsatlaşdyrandygyny - söz düzümine yzygiderli çemeleşjekdigini we bu ýeňillik bilen özüňizi duýjakdygyňyzy wada berýär.",
     ],
-    quran: [
-      {
-        excerpt: "Elbetde, Gurhany ýatlamak aňsatlaşdyrdyk, ýadyna düşjek barmy?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -206,11 +164,7 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Olaryň üstünden geçýän nagşa üns beriň. Pygamberler öz halkyny diňe Allaha ybadat etmäge çagyrdylar; masgaraladylar, garşy çykdylar we köplenç kowuldy; sabyr bilen Allaha doly bil bagladylar (tawakkul); ahyrynda Allanyň beren wadasy hasyl boldy. Olaryň kynçylyklaryny okanyňyzda, olaryň nähili jogap berendiklerinden güýç alyň - derejäňiziňki bilen deňdigini hiç wagt göz öňüne getirmän. Esasy zat, ýagdaýy deňeşdirmek däl-de, olaryň tutanýerliligini we ynamyny siňdirmek.",
       "Gurhanyň özi bir kyssa aýdýar: Allahusuf süresi, Allatagalanyň “hekaýalaryň iň gowusy” diýip atlandyrmagy. Adaty bir zat, başyndan ahyryna çenli bir sürede aýdylýar, şonuň üçin ony dowamly syýahat hökmünde bir oturylyşykda okaň - dönüklik, gulçulyk we türmede sabyr etmek, ahyrsoňy bagyşlamak we birleşmek - we Allahyň meýilnamasynyň ençeme ýyllap dowam eden betbagtlygyň üstünde nähili bolýandygyny synlaň.",
     ],
-    quran: [
-      {
-        excerpt: "Olaryň hekaýalarynda elbetde düşünýänler üçin sapak…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -222,11 +176,7 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Şeýle hem, “ylmy gudratlar” - düwünçejigiň basgançaklaryna, kosmosyň giňelmegine we şuňa meňzeş aýatlar hakda eşidersiňiz. Bulary seresaplylyk bilen dolandyryň. Nusgawy tafsir köplenç bu aýatlary häzirki ötünç soraýanlardan düýpgöter tapawutly düşünýärdi we Gurhany her üýtgeýän ylmy çaklamalara laýyk getirmäge mejbur etmek teoriýalar üýtgän mahaly yza gaýdyp biler. Bellenen düşündiriş bilen häzirki zaman çaklamasyny berk tapawutlandyryň.",
       "Taryhy welilikler hem alymlar tarapyndan getirilýär - rimlileriň öňünden aýdylýan ýeňşi, Mekgäniň parahatçylykly açylmagy - we öwrenmäge mynasypdyr, ýöne sensasion wideoýazgylar däl-de, seresaply tafsir we seera arkaly. Gurhan üçin iň güýçli waka hemişe tawid, halkyň ahlak taýdan üýtgemegi we deňi-taýy bolmadyk dil we goralyp saklanmagydyr.",
     ],
-    quran: [
-      {
-        excerpt: "Onda şuňa meňzeş süre çykar ... eger hakykatçy bolsaň.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Gözden geçirilende dawany utandyrýan artykmaç ylmy gudratlardan gaça duruň. Tewhid, ahlak we Gurhanyň dil we taryhy subutnamalary bilen gurşun.",
   },
@@ -239,16 +189,7 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Amaly usul: aralyk gaýtalanyşy ulanyň, ýekeje okaýja ýapyşyň, şonuň üçin sazyň özi ýadyňyza degýär, diňe okamak däl-de, her gün ýatda okaýar we mugallymyň ýalňyşlyklaryňyzy diňlemegi we bellemegi - özüňiz eşidip bilmeýän ýalňyşlyklar. Munibiň hifz yzarlaýjy ýazgylary, aýry-aýry aýatlara çenli dowam edýär, şonuň üçin hemişe täzeden seredilmelidigini bilýärsiňiz.",
       "Tapgyryňyza laýyk meýilnama saýlaň. Başlangyç: gysga sürelerden doly Juz Amany ýatda saklaň. Aralyk: al-Mulk, Ya-Sin we al-Kahf ýaly ýygy-ýygydan okalýan on süre goşuň. Ösen: ozalky hemme zady güýçli täzeden gözden geçirmek bilen doly juzy tamamlaň. Hafiz syýahaty: ökde mugallym bilen ýatda saklanýan we iň gowusy, sanad - Pygambere gaýdyp berlen sertifikat zynjyry.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Gurhanyň ýoldaşyna şeýle diýiler: Dünýäde okaýşyňyz ýaly okaň we ýokary çykyň, sebäbi derejäňiz iň soňky okaýan aýatda bolar.",
-      },
-      {
-        excerpt:
-          "Gurhanyň ýoldaşy baradaky tymsal, düýäniň eýesiniň tymsalydyr: eger oňa ýykgyn etse, ony saklaýar we goýberse ýitirýär.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -269,15 +210,7 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Tadabbur tafsir bilen birmeňzeş däl. Tafsir, aýatyň manysynyň ylmy düşündirişidir; tadabbur, bu manysyna düşüneniňizden soň şahsy, hormat bilen jogap bermekdir. Ikisi bilelikde işleýär: ilki bilen ses manysyny tafsirden öwrenýärsiňiz, soň bolsa onuň bilen oturyp, size nähili gürleşýändigini soraýarsyňyz. Peýdaly çarçuwa üç sorag - Allah maňa bu ýerde näme öwredýär? Bu gün meniň edýän işlerimi nädip üýtgedýär? Şol sebäpli haýsy endigi gurmaly ýa-da bozmaly?",
       "Bir berk araçäk tadabbur howpsuzlygyny saklaýar: bir aýatyň senden soraýan zady hakda pikirlen, ýöne tekstiň özi üçin hiç wagt täze many oýlap tapma. Hakyky tafsir düşündirişiň çägini goýsun we şahsy pikirleriňizi öz ýerinde saklasyn - Munib ýaly hususy journalurnal, bir aýatyň size täsir edenini soňrak yzyna gaýdyp almak üçin amatlydyr.",
     ],
-    quran: [
-      {
-        excerpt: "Gurhan hakda pikir etmeýärlermi ýa-da ýüreklerinde gulplar barmy?",
-      },
-      {
-        excerpt:
-          "Onda olar Gurhan hakda pikir etmeýärlermi? Eger Alladan başga bolan bolsa, onda köp gapma-garşylyk tapardylar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -288,12 +221,7 @@ export const QURAN_GUIDE_TOPICS_TK: DeepPartial<QuranGuideTopic>[] = [
       "Bu kynçylyklar şu. Olaryň hersi belli bir aýaty şu günki güne çenli ýerine ýetirip boljak hereket bilen baglanyşdyrýar: diliňizi mähirli gürlemek, asuda haýyr-sahawat bermek, gadagan edilen zatlardan gözüňizi peseltmek, alyp barýan gahar-gazabyňyzy goýbermek. Bir aýat, bir hereket - hakykatdanam ýerine ýetirmek üçin kiçijik, sizi üýtgetmek üçin hakyky.",
       "Bir kynçylygy diňe hakykatdanam ýerine ýetireniňizde belläň. Gözegçilik nokady görkezilmeýär - bu maksady puja çykarar - başgalaryň görmeýän zadyny görýän Allaha dogruçyl jogapkärçilik. Wagtyň geçmegi bilen, aýat-aýat, okaýyş häsiýetine öwrülýär.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Başgalaryň dogrulygyny buýurýarsyňyzmy we Mukaddes? Azgyny okaýarkaňyz özüňizi ýatdan çykarýarsyňyzmy?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -431,14 +359,7 @@ export const QURAN_GUIDE_STORIES_TK: DeepPartial<QuranGuideStory>[] = [
       "Şeýtanyň usuly güýç däl-de, yzygiderli pyşyrdaýar - tekliplerini tanamak olara garşy durmagyň ýarysydyr.",
       "Ynsan gymmaty bilim bilen baglanyşdyrylýar we günäsiz däl-de, Allaha ýüzlenýär - bu bizi kesgitleýän ýalňyşlyga jogap.",
     ],
-    quran: [
-      {
-        excerpt: "Adam atanyň ýaradylyşy we perişdeleriň setrde etmegi.",
-      },
-      {
-        excerpt: "Synag, ýykylmak we toba.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Jannah, soň ýer",
   },
   {
@@ -457,14 +378,7 @@ export const QURAN_GUIDE_STORIES_TK: DeepPartial<QuranGuideStory>[] = [
       "Allaha çagyryşda tutanýerlilik, hatda hemişe masgaralasa-da, ybadat görnüşidir.",
       "Allanyň halas etmegi bellenilen wagtda gelýär - imanly, wada ynanyp, suw joşmazyndan ozal tabynlyk gämisini gurýar.",
     ],
-    quran: [
-      {
-        excerpt: "Nuh hakda hekaýa.",
-      },
-      {
-        excerpt: "Nuhuň halkyna eden haýyşy.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Gadymy Mesopotamiýa (alymlaryň çaklamalary)",
   },
   {
@@ -482,14 +396,7 @@ export const QURAN_GUIDE_STORIES_TK: DeepPartial<QuranGuideStory>[] = [
       "Allaha bil baglamak passiwligi aňlatmaýar: Hajar ylgady we gözledi, Zamzam geldi - tagalla we tawakkul bilelikde işleýär.",
       "Yhlasly amallar nesilleriň arasynda ýaňlanýar; Haj dessurlary we Käbäniň abraýy Ybraýymyň tabynlygyndan gözbaş alýar.",
     ],
-    quran: [
-      {
-        excerpt: "Ybraýym, Ysmaýyl we gurban.",
-      },
-      {
-        excerpt: "Bileleşik we miras.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Yrak, Lewant, Mekge",
   },
   {
@@ -508,11 +415,7 @@ export const QURAN_GUIDE_STORIES_TK: DeepPartial<QuranGuideStory>[] = [
       "Allanyň meýilnamasy köplenç görnüp duran betbagtlygyň aňyrsynda gizlenýär - guýy, gulçulyk we türme Yusufusubyň hormatyna tarap ädimdi.",
       "Güýçliler öz güýçlerini bagyşlamak arkaly görkezýärler: güýçli bolanda Yusufusuf özüne zulum edenleri bagyşlady.",
     ],
-    quran: [
-      {
-        excerpt: "Iň gowy hekaýalar - bir sürede aýdylýar.",
-      },
-    ],
+    quran: [{}],
     location: "Kengan, Müsür",
   },
   {
@@ -530,14 +433,7 @@ export const QURAN_GUIDE_STORIES_TK: DeepPartial<QuranGuideStory>[] = [
       "Ajaýyplyklara şaýat bolmak öz-özünden iman getirmeýär - ýol görkezmek, Allanyň gödek däl-de, kiçigöwünlilere berýän sowgadydyr.",
       "Allah ezilenleri halas edýär we ulumsylary nähili güýçli bolsa-da hasaplaýar.",
     ],
-    quran: [
-      {
-        excerpt: "Musa Turda we fyrownyň öňünde.",
-      },
-      {
-        excerpt: "Dogulmak we terbiýe.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Müsür, Sinaý",
   },
   {
@@ -556,14 +452,7 @@ export const QURAN_GUIDE_STORIES_TK: DeepPartial<QuranGuideStory>[] = [
       "Pygamberler Allanyň hormatlanýan bendeleri, hiç haçan ybadat edilmeli däldirler - Gurhan Isanyň hakyky ýagdaýyny çişirmekden goraýar.",
       "Merýemiň päkligi, sabyrlylygy we ynamy ony ähli imanlylar, aýallar we erkekler üçin iman nusgasyna öwürýär.",
     ],
-    quran: [
-      {
-        excerpt: "Dogulmak we bäşlik.",
-      },
-      {
-        excerpt: "Öldürilmedi we haça çüýlenmedi; ulaldy.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Palestina",
   },
   {
@@ -581,14 +470,7 @@ export const QURAN_GUIDE_STORIES_TK: DeepPartial<QuranGuideStory>[] = [
       "Allaha jaň eden adam habary çyn ýürekden we sabyr bilen ýetirýär, ýöne netijesini Allaha galdyrýar - ýol görkezmekdir.",
       "Synaglar pygamberleriň ýoludyr; Allanyň razylygy üçin kynçylyklara çydamak, edil imanyň nyşanydyr.",
     ],
-    quran: [
-      {
-        excerpt: "Seni dünýälere rehim etmekden başga ibermedik.",
-      },
-      {
-        excerpt: "Aralarynda rehimdar, kapyrlara garşy berk.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
 ];
@@ -604,17 +486,8 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Pygamberimiz, imanyň ýetmişden gowrak şahasynyň bardygyny, iň ulusyndan başlap, Alladan başga hudaýyň ýokdugyna şaýatlyk edip, ýoldan zyýany aýyrýança, hatda ownuk ýagşy amallaryňam imanyň bir bölegidigini öwretdi.",
       "Hakyky iman diliň öňünde ýüregiň meselesidir: Allany hakykatdanam tanamak, Ony hemme zatdan ýokary söýmek, Onuň göwnünden turmazlyk we bütinleý Oňa bil baglamak.",
     ],
-    quran: [
-      {
-        excerpt: "Resul, Rebbinden özüne aýan edilenlere, iman edenlere-de ynanýar ...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Imanyň ýetmişden gowrak şahasy bar; iň beýikleri: "Alladan başga hudaý ýok" diýmek, iň pes zat ýoldan zyýanly bir zady aýyrmak - sadalyk imanyň şahasydyr.',
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Şahadaňyzy adaty söz düzümi hökmünde däl-de, manysyna doly üns beriň.",
       "Allanyň atlaryndan birini öwreniň, düşüniň we duaňyzda Oňa çagyryň.",
@@ -629,18 +502,8 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Earther ýüzünde aýan edilen beýleki borçlardan tapawutlylykda, salat pygamberiň asmana göterilen döwründe (al-Isra wal-Miýraj) ymmat üçin bellendi, bu aýratyn sowgat we imanly adamyň Allaha çykmak üçin serişdesi hökmünde bellendi.",
       "Günde bäş gezek gaýtalanýandygy sebäpli, namaz bir amal bilen beýlekisiniň arasynda imany dowam etdirýän yzygiderli ritmdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakykatdanam, doga ahlaksyzlygy we ýalňyşlygy gadagan edýär we Allany ýatlamak has uludyr.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Hyzmatkäriň kyýamat güni höküm ediljek ilkinji işi, onuň dogasy bolar; dogry bolsa, üstünlik gazandy, kemçilikli bolsa şowsuzlyga uçrady.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Al-Fatihanyň sözlerini okaýarka düşünip, şu gün bir namaz okaň.",
       "Namazyňyzyň bir bölegini güýçlendirmek üçin Munibiň “Namaz” gollanmasyny açyň.",
@@ -656,12 +519,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Buýruk garrylyk döwründe iň ýokary derejä ýetýär, haçan-da ene-atalar sabyrlylyga mätäç: bir wagtlar size ideg edişleri ýaly olara ideg ediň we rehimdarlyk sebäpli kiçigöwünlilik ganatyny aşak salyň.",
       "Yhlas ölüm bilen gutarmaýar - ene-atalar üçin dua etmegi dowam etdirmek, olaryň adyndan haýyr-sahawat bermek, dostlaryna we wadalaryna hormat goýmak dowam edýän wepalylykdyr.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Perwerdigäriňiz Ondan başga hiç kime ybadat etmezligiňizi we ene-atalara mähirli bolmagyňyzy buýurdy ...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Şu gün hoşniýetli sözler bilen ene-atany çagyryň ýa-da habar iberiň.",
       "Ene-ataňyza dua ediň.",
@@ -676,12 +534,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Allatagala özüni 'hassanyň ýanyndadygyny' yglan edýär we näsaga sylagyny çäksiz wada berýär - bu başga bir hil diýen ýaly hormat däl.",
       "Pygamberler adamlarda iň synagdan geçirildi we Gurhan görelde hökmünde görelde alýar - keselinde Aýýub, hasratda ubakup, dönüklik we türmede Yusufusuf.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Eý iman edenler, sabyr we doga bilen kömek soraň. Hakykatdanam, Allah sabyrlydyr.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bu gün gaharlanma ýüze çykanda, duruň, dem alyň we reaksiýa bildirmezden ozal 'Inna lillahi wa inna ilayhi raji'un' diýiň.",
       "Bu hepde bir kyn pursaty arz-şikaýatyň ýerine iki rekagat namaza öwüriň.",
@@ -696,12 +549,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Haýyr-sahawat diňe pul däl. Pygamberimiz brother ýylgyrýan ýüzüňiz bilen doganyňyza duşmagyň hem haýyr-sahawatdygyny, şonuň üçin hiç kimiň bermäge garyp däldigini öwretdi.",
       "Bermek baýlygy-da, berijini-de arassalaýar, açgözlügi gowşadýar we rehimdarlygy döredýär - şonuň üçin zekat sözüniň özi arassalanmagy we ösmegi aňladýar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allanyň ýolunda sarp edenleriň mysaly, ýedi tüýdük ösdürip ýetişdirýän däne ýalydyr ...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bu gün bir zat beriň - pul, wagtyňyz ýa-da hakyky mähirli söz - kiçi we görünmeýän hem bolsa.",
       "Munibdäki zekat borçlaryňyzy gözden geçiriň we indiki tölegiň haçan bolmalydygyny belläň.",
@@ -716,12 +564,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Merhemetiň gapysy haýran galdyryjy giňdir: Allatagala hatda özüne zulum edenlere-de umytdan düşmezligi tabşyrýar, çünki çyn ýürekden toba eden adam üçin ähli günäleri bagyşlaýar.",
       "Toba uly günäler ýa-da ajaýyp pursatlar üçin saklanmaýar - günüň dowamynda istighfar (bagyşlamak isleýär) ýüregi ýumşak we hasaby arassa saklaýar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Aýt: Eý, gullarym, özlerine garşy hyýanat edenler, Allanyň rahmetinden umytdan düşmäň ...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "“Astaghirullah” diýiň, şu gün 100 gezek aýdyň, agramyny göteriň.",
       "Allanyň göwnüne degmeýän bir endigiň adyny aýdyň we ony terk etmek üçin ilkinji anyk ädim ätiň.",
@@ -737,11 +580,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Gurhan imanlylary bäsleşmäge we bagyşlanmaga we “asman we ýer ýaly giň” bagy çagyrmaga çagyrýar - bu passiw umyt edilmän, işjeň yzarlanmalydyr.",
       "Hemmeleriň iň uly sylagy baglar ýa-da derýalar däl-de, eýsem Allanyň ýüzüni görmekdir - Jennet halkyna iň uly şatlyk wada berilýär.",
     ],
-    quran: [
-      {
-        excerpt: "Perwerdigäriňden we asman we ýer ýaly giň bagdan howlukma ...",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -753,12 +592,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Gurhanyň bir günäsi bagyşlanýar, eger bir adam ölse, şirkdir - Allaha şärikdir; islän zadyny bagyşlap bilýäninden az zat.",
       "Allatagala adamlary Özüne gaýdyp getirmek, toba edenleri ezmezlik üçin duýduryş berýär - her duýduryş Gurhanda gaýdyp gelmek üçin açyk çakylyk bilen jübütlenýär.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hakykatdanam, Allah Öz bilen gatnaşygy bagyşlamaz, ýöne isläninden pes zady bagyşlar.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Şu gün her namazdan soň Alladan sizi otdan goramagyny tüýs ýürekden soraň.",
       "Töwhidiňizi täzeläň: Jahannamdan iň ygtybarly gorag diňe Allaha ybadat ediň.",
@@ -773,12 +607,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Zulum (zulm) garşy berk duýduryş berilýär; Pygamberimiz, nädogry adamyň kyýamat güni garaňkylyk ýaly görünjekdigini öwretdi.",
       "Adalat diňe kazylar we hökümdarlar üçin däl, dogruçyl gürlemekde, adalatly işlemekde, sözüňizi saklamakda we her bir adama öz hukugyny bermekde ýaşaýar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Adalaty goraýjylar, özüňize ýa-da ene-atalaryňyza we garyndaşlaryňyza garşy bolsaňyzam, Allaha şaýat boluň.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bu gün birine öz hukugyny beriň - adalatly aýlyk, dogruçyl jogap ýa-da bergiňiz.",
       "Ikitaraplaýynlygyň sizi adalatsyzlyga sezewar edýän pursatyny alyň we ýerine adalat saýlaň.",
@@ -793,11 +622,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Peýdaly bilimler herekete geçmeli we berilmeli; Pygamberimiz alymlaryň baýlygy däl-de, bilimi miras alýan pygamberleriň mirasdüşeridigini öwretdi.",
       "Mukaddes bilim gözlemegiň özi ybadatdyr we Gurhan bilýänler bilen bilmeýänleriň arasynda aç-açan tapawutlandyrýar - 'deňmi?'",
     ],
-    quran: [
-      {
-        excerpt: "We aýdyň: Lorda Reb, meni bilimde artdyr.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Şu gün Gurhandan täze bir zady öwreniň - aýat, söz ýa-da höküm - we birine öwrediň.",
       "'Rabbi zidni ilma' duasyny ýatda saklaň we okamazdan ozal aýdyň.",
@@ -812,11 +637,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Muhammet the pygamberleriň möhüridir, iň soňky habarçydyr we bir musulman özünden öňki pygamberlere - Nuh, Ybraýym, Musa, Isa we beýlekilerine ynanmalydyr - olaryň arasynda hiç hili tapawut goýmaz.",
       "Pygamberler ylahy däl-de, Allanyň adamlary we gullarydy; Gurhan olara hormat goýýar, ýöne olary ýaradylyş tarapynda saklaýar, thearadanyň ýanynda hiç wagt ybadat etmeýär.",
     ],
-    quran: [
-      {
-        excerpt: "Olaryň hekaýalarynda düşünýänler üçin sapak…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -828,11 +649,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Gurhan Isanyň ejesi Merýemi ähli imanlylar üçin görelde hökmünde saklaýar we enelere şeýle hormat goýýar welin, meşhur öwrediş jenneti olaryň aýaklarynda goýýar.",
       "Iki jyns hem bir gelip çykyşyndan gözbaş alýar - Nisa süresiniň ilkinji aýatyndan umumy adamzat we mertebe döredýär.",
     ],
-    quran: [
-      {
-        excerpt: "Seni bir ruhdan ýaradan we ondan ýoldaş eden Rebbiňden gork ...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Häzirki wagtda durmuşyňyzda bir zenany - enäni, aýaly, uýany ýa-da gyzy - belli bir hukugy ýa-da hoşniýetliligi bilen hormatlaň.",
     ],
@@ -846,11 +663,7 @@ export const QURAN_GUIDE_THEMES_TK: DeepPartial<QuranGuideTheme>[] = [
       "Ene-atanyň paýhasynyň giňden ýaýran bölegi çagalara öz döwründe duşuşmagy - ilkinji ýyllarda olar bilen oýnamagy, soň bolsa öwretmegi we ýuwaşlyk bilen terbiýelemegi, soň ulalansoň dostlaşmagy maslahat berýär.",
       "Dogruçyl çagany terbiýelemek bu durmuşyň daşyndaky maýa goýumdyr: ene-atasy üçin doga edýän dogruçyl nesil ölümden soň uzak wagtlap peýdasyny dowam etdirýär.",
     ],
-    quran: [
-      {
-        excerpt: "Eý iman edenler, özüňizi we maşgalalaryňyzy otdan goraň ...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Çaga sabyrlylyk we höwes bilen şu gün bir gysga aýat ýa-da ýekeje gowy usul öwrediň.",
       "Çagalaryňyza (ýa-da hossarlyk edýän çagalaryňyza) adalatly we Allaha söýgüli bolmagy üçin dua ediň.",
@@ -976,17 +789,13 @@ export const QURAN_GUIDE_VOCABULARY_TK: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Trueeke-täk hakyky Hudaý - ähli owadan atlary öz içine alýan dogry at.",
     frequency: "2700+ hadysa",
     example: "Bismillah - Allanyň ady bilen",
-    quranRef: {
-      excerpt: "Rehimdar, esasanam rehimdar Allanyň ady bilen.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Lord, Ussat, Sustainer - döredýän, eýeçilik edýän, terbiýeleýän we dolandyrýan adam.",
     frequency: "Veryygy-ýygydan",
     example: "Rabbana - Rebbimiz",
-    quranRef: {
-      excerpt: "Hemme öwgi älemleriň Rebbi Allaha şükürdir.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Alladan we ýaradylyşdan rehimdarlyk, rehimdarlyk, mähir.",
@@ -1032,9 +841,7 @@ export const QURAN_GUIDE_VOCABULARY_TK: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Lightagtylyk - ýol görkezmek, ylham bermek we ýüregiň yşyklandyrylmagy.",
     frequency: "Quygy-ýygydan",
     example: "Allah asmanlaryň we ýeriň nurydyr",
-    quranRef: {
-      excerpt: "Allah asmanlaryň we ýeriň nurydyr…",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1255,8 +1062,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_TK: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_TK: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "Eý iman edenler, sabyr we doga bilen kömek soraň. Hakykatdanam, Allah sabyrlydyr.",
     context:
       "Madinada inen Bakara süresinden. Allah kynçylyklara duçar bolan imanly üçin iki güýç çeşmesini jübütleýär - sabyrly çydamlylyk we doga-dileg etmek - berk tutýanlara aýratyn ýoldaşlyk wada berýär.",
     reflection:
@@ -1265,7 +1070,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TK: DeepPartial<QuranGuideDailyLesson>[] 
       "Şu gün gyssagly bir namaz okaň we sujudyňyzda başdan geçirýän synagyňyzda Alladan sabyr soraň.",
   },
   {
-    translation: "Rehimim hemme zady öz içine alýar.",
     context:
       "Musanyň we onuň halkynyň kontekstinde aýdylýan Araf süresinden. Allatagala öz rehim-şepagatyny hemme zady öz içine alýar diýip häsiýetlendirýär - rehimdarlyk, ýalňyşlyklaryny dowam etdirýänler üçin berlen jezadan öň we ondan ýokarydyr.",
     reflection: "Özümiňem Allanyň çäksiz rehimine bagly bolsamam, kimiň ýalňyşyny bagyşlaýaryn?",
@@ -1273,7 +1077,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TK: DeepPartial<QuranGuideDailyLesson>[] 
       "Göwnüňize degýän bir adamy saýlaň, şu gün ýüregiňizde tüýs ýürekden bagyşlaň we Alladan hem ýol görkezmegini we bagyşlamagyny haýyş edip gysga dua ediň.",
   },
   {
-    translation: "Şükür edýän bolsaňyz, hökman köpelderin.",
     context:
       "Ybraýym süresinden, Musanyň ýatlamasynyň bir bölegi Bani Ysraýyla. Allatagala artmagyny gönüden-göni minnetdarlyk bilen baglanyşdyrýar - bereket üçin şükür, ösmegine sebäp bolýan zat, minnetdarlyk bolsa ýitgini çagyrýar.",
     reflection:
@@ -1282,7 +1085,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TK: DeepPartial<QuranGuideDailyLesson>[] 
       "Şu gije ýatmazdan ozal üç sany bereket üçin sesli 'Alhamdulillah' diýiň, hersine at dakyň, şonuň üçin minnetdarlyk awtomatiki däl-de, aňly bolýar.",
   },
   {
-    translation: "Adamlara gowy sözler aýdyň.",
     context:
       "Ysraýyl süresinden Imanlylaryň özlerini nähili alyp barmalydygy barada görkezmeleriň arasynda Allatagala adamlara - ähli adamlar bilen iň oňat gürleşmegimizi buýurýar, sebäbi gödek sözler Şeýtanyň bölünişik açýan gapylaryndan biridir.",
     reflection:
@@ -1291,7 +1093,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TK: DeepPartial<QuranGuideDailyLesson>[] 
       "Gizlin tankytlar bilen şu gün bir adama tüýs ýürekden höweslendiriň ýa-da minnetdarlyk bildiriň we aýtjak bolýan bir gödek sözüňizi saklaň.",
   },
   {
-    translation: "Kim Allaha bil baglasa, Oňa ýeterlikdir.",
     context:
       "Talak süresinden, aýrylyşmak we üpjün etmek baradaky kararlaryň arasynda - adamlaryň maddy taýdan has aladalanýan ýeri. Şol ýerde Allatagala kimden gorksa, garaşylmadyk ýerinden üpjün etjekdigini we Oňa bil baglaýan adamyň ýeterlik tapjakdygyny wada berýär.",
     reflection:
@@ -1300,7 +1101,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TK: DeepPartial<QuranGuideDailyLesson>[] 
       "Sizi biynjalyk edýän bir karara geliň, iki rekagat namaz okaň ýa-da tüýs ýürekden doga ediň, soň bolsa Allaha ynanyň.",
   },
   {
-    translation: "Lorda Reb, meni bilimde artdyr.",
     context:
       "Ta-Ha süresinden. Bu, Gurhanda Allahyň Pygambere more has köp bilim soramagyny tabşyrýan ýeke-täk zat, bu bilimiň näderejede peýdalydygyny we hiç kimiň öwrenip gutarandygyny görkezýär.",
     reflection:
@@ -1309,8 +1109,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TK: DeepPartial<QuranGuideDailyLesson>[] 
       "'Mugallym zidni ilma' atly bu gysga duany ýatda saklaň we günüňizi başlamazdan öň Fajrdan soň aýtmagy endik ediniň.",
   },
   {
-    translation:
-      "Baýlygyny Allanyň ýoluna sarp edenleriň mysaly, ýedi tüýdük ösdürip ýetişdirýän tohum ýalydyr…",
     context:
       "Bakara süresinden. Allatagala haýyr-sahawatyň nähili ösýändigini aç-açan suratlandyrýar: ýedi gulakdan çykýan bir tohum, hersi ýüz däne göterýär - ýedi ýüz esse gaýdyp gelýär we islänine has köp köpelýär. Onuň hatyrasyna berlen baýlyk asla ýitmez.",
     reflection:

@@ -22,16 +22,7 @@ export const PROPHETS_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       "Kisah mereka dalam Al-Qur'an bukan sekadar sejarah masa lalu; kisah-kisah itu adalah pelajaran praktis tentang keimanan, kesabaran, kehidupan keluarga, kepemimpinan, dan tobat.",
       "Beriman kepada seluruh nabi adalah bagian dari iman. Umat Islam memuliakan mereka semua, menjauhi sikap berlebihan, dan mengikuti risalah terakhir yang dibawa oleh Muhammad ﷺ.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Para rasul sebagai pembawa kabar gembira dan pemberi peringatan, agar tidak ada alasan bagi manusia untuk membantah Allah setelah diutusnya para rasul itu.",
-      },
-      {
-        excerpt:
-          "Dan sungguh, Kami telah mengutus seorang rasul pada setiap umat: Sembahlah Allah dan jauhilah tagut.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Jelajahi garis waktu para nabi" },
       { label: "Baca Sirah Nabi Muhammad ﷺ" },
@@ -45,16 +36,7 @@ export const PROPHETS_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       "Para nabi bukanlah tuhan dan tidak pernah disembah. Mereka adalah sebaik-baik makhluk dalam ketaatan, akhlak, dan amanah, namun tetap merupakan hamba Allah.",
       "Misi mereka satu pada dasarnya: menyembah Allah semata. Rincian syariat tertentu bisa berbeda antarumat sesuai hikmah Allah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rasul-rasul mereka berkata kepada mereka: Kami hanyalah manusia seperti kamu, tetapi Allah melimpahkan karunia-Nya kepada siapa yang Dia kehendaki di antara hamba-hamba-Nya.",
-      },
-      {
-        excerpt:
-          "Dan Kami tidak mengutus seorang rasul pun sebelum engkau, melainkan Kami wahyukan kepadanya bahwa tidak ada tuhan selain Aku, maka sembahlah Aku.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Al-Anbiya" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   {
@@ -65,10 +47,7 @@ export const PROPHETS_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       "Al-Qur'an menggunakan kedua istilah itu dengan penuh penghormatan, dan umat Islam beriman kepada seluruh nabi dan rasul tanpa mengingkari satu pun.",
       "Definisi teknis yang tepat bisa berbeda menurut ungkapan para ulama, tetapi pelajaran praktisnya konsisten: terimalah wahyu dengan rendah hati dan ikutilah petunjuk Allah.",
     ],
-    quran: [
-      { excerpt: "Dia adalah orang pilihan, dan dia adalah seorang rasul dan nabi." },
-      { excerpt: "Kami tidak membeda-bedakan seorang pun di antara rasul-rasul-Nya." },
-    ],
+    quran: [{}, {}],
     disclaimer:
       "Rincian istilah disajikan secara umum dan netral; rujuklah kepada para ulama untuk penggolongan akidah yang lebih mendalam.",
     appLinks: [{ label: "Baca Surah Maryam" }],
@@ -82,16 +61,7 @@ export const PROPHETS_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       "Kehidupan mereka juga menunjukkan kesabaran saat didustakan, tawakal kepada Allah dalam ketidakpastian, dan kesediaan memperbaiki masyarakat dengan hikmah dan keberanian.",
       "Mempelajari mereka menumbuhkan keteguhan: seorang mukmin belajar untuk cepat bertobat, memimpin dengan akhlak, dan berpegang pada prinsip meski kebenaran tidak disukai.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sungguh, pada kisah-kisah mereka terdapat pelajaran bagi orang-orang yang berakal.",
-      },
-      {
-        excerpt:
-          "Mereka itulah orang-orang yang telah diberi petunjuk oleh Allah, maka ikutilah petunjuk mereka.",
-      },
-    ],
+    quran: [{}, {}],
     actions: [
       "Pilih satu pelajaran kenabian setiap minggu dan amalkan dengan sengaja.",
       "Renungkan setelah salat, di bagian mana engkau perlu lebih banyak kesabaran atau tobat.",
@@ -110,16 +80,7 @@ export const PROPHETS_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       "Mukjizat bukanlah kekuatan mandiri milik para nabi; mukjizat terjadi atas kehendak Allah untuk mendukung wahyu dan menegakkan hujjah.",
       "Al-Qur'an menunjukkan bahwa sebagian orang tetap mendustakan meski telah melihat tanda-tanda, yang membuktikan bahwa hidayah bergantung pada keikhlasan dan ketundukan, bukan sekadar tontonan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sungguh, Kami telah mengutus rasul-rasul Kami dengan bukti-bukti yang nyata, dan Kami turunkan bersama mereka Kitab dan neraca (keadilan).",
-      },
-      {
-        excerpt:
-          "Katakanlah: Tanda-tanda itu hanya ada di sisi Allah… Apakah tidak cukup bagi mereka bahwa Kami telah menurunkan kepadamu Kitab yang dibacakan kepada mereka?",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Baca Surah Al-Qasas (tanda-tanda Musa)" },
       { label: "Baca Surah Maryam (tanda-tanda Isa)" },
@@ -135,16 +96,7 @@ export const PROPHETS_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       "Meski keadaannya berbeda-beda, seruan mereka satu: tauhid, kebaikan, pertanggungjawaban, dan rahmat melalui tobat.",
       "Bab ini tetap berpegang pada Al-Qur'an dan menjaga rincian sejarah sekunder tetap ringkas, kecuali yang didukung oleh dalil yang sahih.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan sungguh, Kami telah mengutus rasul-rasul sebelum engkau; sebagian di antara mereka ada yang Kami kisahkan kepadamu, dan sebagian lagi tidak Kami kisahkan.",
-      },
-      {
-        excerpt:
-          "Kami beriman kepada Allah dan apa yang diturunkan kepada kami… serta apa yang diberikan kepada Musa, Isa, dan para nabi lainnya dari Tuhan mereka.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Jelajahi garis waktu para nabi" }, { label: "Buka pembaca Al-Qur'an" }],
   },
   {
@@ -155,18 +107,8 @@ export const PROPHETS_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       "Hindari kisah-kisah sensasional atau riwayat lemah yang bertentangan dengan prinsip Al-Qur'an atau kedudukan mulia para nabi. Tidak semua kisah populer memiliki sanad yang sahih.",
       "Gunakan kisah hidup para nabi untuk memperbaiki ibadah dan akhlakmu sendiri, bukan sekadar mengumpulkan informasi sejarah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Orang-orang yang mendengarkan perkataan lalu mengikuti yang terbaik darinya — merekalah orang-orang yang telah diberi petunjuk oleh Allah.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa menempuh suatu jalan untuk mencari ilmu, Allah akan memudahkan baginya jalan menuju surga.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Setiap minggu, bacalah kisah satu nabi langsung dari Al-Qur'an.",
       "Catatlah bukan hanya fakta sejarah, tetapi juga pelajaran praktisnya.",
@@ -217,26 +159,8 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Tobatnya adalah contoh pertama tobat dalam Al-Qur'an",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah) ketika Tuhanmu berfirman kepada para malaikat: Aku hendak menjadikan khalifah di bumi… Kemudian Adam menerima beberapa kalimat dari Tuhannya, maka Allah menerima tobatnya.",
-      },
-      {
-        excerpt:
-          "Mereka berkata: Ya Tuhan kami, kami telah menzalimi diri kami sendiri, dan jika Engkau tidak mengampuni kami serta merahmati kami, niscaya kami termasuk orang-orang yang rugi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Pada hari kiamat, manusia akan datang kepada Adam dan berkata: Engkau adalah bapak umat manusia; mohonkanlah syafaat untuk kami kepada Tuhanmu.",
-      },
-      {
-        excerpt:
-          "Adam dan Musa berdebat. Musa berkata: Engkaulah yang diciptakan Allah dengan tangan-Nya sendiri. Adam menjawab: Apakah engkau mencelaku atas sesuatu yang telah ditakdirkan Allah bagiku sebelum aku diciptakan? Maka Adam pun mengalahkan Musa dalam perdebatan itu.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     appLinks: [
       { label: "Baca bagian-bagian Surah Al-Baqarah" },
       { label: "Jelajahi garis waktu para nabi" },
@@ -265,16 +189,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Digambarkan diangkat Allah ke kedudukan yang tinggi",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan ceritakanlah (kisah) Idris di dalam Kitab (Al-Qur'an). Sungguh, dia adalah orang yang sangat jujur, seorang nabi. Dan Kami telah mengangkatnya ke kedudukan yang tinggi.",
-      },
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Ismail, Idris, dan Zulkifli. Semuanya termasuk orang-orang yang sabar. Dan Kami masukkan mereka ke dalam rahmat Kami; sungguh, mereka termasuk orang-orang yang saleh.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Maryam" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // nuh
@@ -316,22 +231,8 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Kisahnya muncul di beberapa surah, salah satunya diberi nama sesuai namanya",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan diwahyukan kepada Nuh bahwa tidak akan beriman di antara kaummu kecuali orang yang telah beriman sebelumnya, maka janganlah engkau bersedih atas apa yang mereka perbuat.",
-      },
-      {
-        excerpt:
-          "Dia berkata: Ya Tuhanku, sungguh aku telah menyeru kaumku siang dan malam, tetapi seruanku hanya menambah mereka lari (dari kebenaran).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Manusia akan datang kepada Nuh dan berkata: Wahai Nuh, engkau adalah rasul pertama bagi penduduk bumi, dan Allah menyebutmu sebagai hamba yang banyak bersyukur; mohonkanlah syafaat untuk kami.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Baca Surah Nuh" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // hud
@@ -369,16 +270,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Kisah kaum 'Ad berulang kali disebut dalam Al-Qur'an sebagai peringatan bagi kaum-kaum berikutnya",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan kepada kaum 'Ad (Kami utus) saudara mereka, Hud. Dia berkata: Wahai kaumku, sembahlah Allah, tidak ada tuhan bagimu selain Dia. Tidakkah kamu bertakwa?",
-      },
-      {
-        excerpt:
-          "Maka ketika mereka melihat azab itu berupa awan yang menuju ke lembah-lembah mereka, mereka berkata: Ini adalah awan yang akan menurunkan hujan kepada kami! Bahkan itulah azab yang kamu minta agar disegerakan: angin yang membawa azab yang pedih.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Al-Ahqaf" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // salih
@@ -414,16 +306,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kaum Samud terkenal memahat rumah-rumah megah di pegunungan"],
     },
-    quran: [
-      {
-        excerpt:
-          "Inilah unta betina Allah sebagai tanda bagimu, maka biarkanlah dia makan di bumi Allah, dan janganlah kamu mengganggunya, nanti kamu akan ditimpa azab yang pedih.",
-      },
-      {
-        excerpt:
-          "Kaum Samud telah mendustakan (rasul mereka) karena kesombongan mereka, ketika bangkit orang yang paling celaka di antara mereka… Maka Tuhan mereka membinasakan mereka karena dosa mereka dan meratakan mereka (dengan tanah).",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Asy-Syams" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // ibrahim
@@ -466,22 +349,8 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Bapak para nabi melalui Ismail dan Ishak",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah) ketika Ibrahim diuji Tuhannya dengan beberapa kalimat (perintah dan larangan), lalu dia melaksanakannya. Allah berfirman: Sungguh Aku akan menjadikanmu imam bagi seluruh manusia.",
-      },
-      {
-        excerpt:
-          "Kami berfirman: Wahai api! Jadilah dingin dan keselamatan bagi Ibrahim. Dan mereka hendak berbuat jahat kepadanya, tetapi Kami jadikan mereka orang-orang yang paling merugi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kamu semua akan dibangkitkan dalam keadaan tanpa alas kaki, telanjang, dan tidak dikhitan. Orang pertama yang akan diberi pakaian pada hari kiamat adalah Ibrahim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Baca Surah Al-Baqarah" },
       { label: "Belajar dari sirah" },
@@ -520,16 +389,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kerabat Ibrahim yang berhijrah bersamanya dan diutus ke Sodom"],
     },
-    quran: [
-      {
-        excerpt:
-          "Mengapa kamu mendatangi laki-laki di antara manusia (untuk memenuhi nafsu syahwatmu) dan kamu tinggalkan istri-istri yang dijadikan Tuhanmu untukmu? Bahkan kamu adalah kaum yang melampaui batas.",
-      },
-      {
-        excerpt:
-          "Maka ketika keputusan Kami datang, Kami balikkan bagian atas negeri itu ke bawah dan Kami hujani mereka dengan batu dari tanah yang terbakar bertubi-tubi.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Asy-Syu'ara" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // ismail
@@ -571,16 +431,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Bapak suku-suku Arab dan silsilah kenabian terakhir",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan ceritakanlah (kisah) Ismail di dalam Kitab (Al-Qur'an). Sesungguhnya dia adalah orang yang benar janjinya, dan dia adalah seorang rasul dan nabi. Dan dia menyuruh keluarganya untuk salat dan menunaikan zakat, dan dia adalah seorang yang diridai di sisi Tuhannya.",
-      },
-      {
-        excerpt:
-          "Dan (ingatlah) ketika Ibrahim meninggikan pondasi Baitullah bersama Ismail, (seraya berdoa): Ya Tuhan kami, terimalah (amal) dari kami. Sesungguhnya Engkaulah Yang Maha Mendengar, Maha Mengetahui.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Baca Surah Maryam" },
       { label: "Belajar dari sirah" },
@@ -617,16 +468,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Disebutkan bersama Ibrahim dan Yakub sebagai keluarga yang terpilih",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan istrinya berdiri (di balik tirai) lalu dia tertawa. Maka Kami sampaikan kepadanya kabar gembira tentang (kelahiran) Ishak, dan setelah Ishak (akan lahir) Yakub.",
-      },
-      {
-        excerpt:
-          "Dan ingatlah hamba-hamba Kami: Ibrahim, Ishak, dan Yakub, yang memiliki kekuatan (dalam beribadah) dan wawasan yang tajam. Sesungguhnya Kami telah menyucikan mereka dengan (menganugerahkan) akhlak yang tinggi, yaitu selalu mengingat (negeri) akhirat.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Hud" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // yaqub
@@ -661,16 +503,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Juga disebut Israel", "Ayah dari Yusuf dan suku-suku Bani Israil"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dia (Yakub) berkata: Sebenarnya hawa nafsu kamulah yang menjadikan (kamu) memandang baik perbuatan (yang buruk) itu. Maka kesabaran yang baik itulah (yang harus aku lakukan). Mudah-mudahan Allah mendatangkan mereka semuanya kepadaku.",
-      },
-      {
-        excerpt:
-          "Mereka menjawab: Kami akan menyembah Tuhanmu dan Tuhan nenek moyangmu, yaitu Ibrahim, Ismail, dan Ishak, Tuhan Yang Maha Esa, dan kami berserah diri kepada-Nya.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Yusuf" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // yusuf
@@ -706,18 +539,8 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Seluruh Surah Yusuf, yang disebut kisah paling baik, berpusat pada kehidupannya"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dia berkata: Tidak ada cercaan atas kamu pada hari ini. Semoga Allah mengampuni kamu, dan Dia adalah Yang Maha Penyayang di antara para penyayang.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Orang yang mulia, putra orang mulia, putra orang mulia, putra orang mulia: Yusuf putra Yakub, putra Ishak, putra Ibrahim.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     appLinks: [{ label: "Baca Surah Yusuf" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // shuayb
@@ -752,16 +575,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Dikenal karena penekanannya pada takaran yang adil"],
     },
-    quran: [
-      {
-        excerpt:
-          "Wahai kaumku, sembahlah Allah, tidak ada tuhan bagimu selain Dia. Sempurnakanlah takaran dan janganlah kamu merugikan manusia dengan mengurangi hak-hak mereka, dan janganlah kamu berbuat kerusakan di muka bumi.",
-      },
-      {
-        excerpt:
-          "Dan tidak ada taufik bagiku melainkan dengan (pertolongan) Allah. Hanya kepada-Nya aku bertawakal dan hanya kepada-Nya aku kembali.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Hud" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // ayyub
@@ -798,16 +612,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Disebut sebagai teladan kesabaran di seluruh tradisi Islam"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Ayyub, ketika dia berdoa kepada Tuhannya: Sesungguhnya aku telah ditimpa penyakit, dan Engkau adalah Yang Maha Penyayang di antara para penyayang.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya Kami dapati dia seorang yang sabar. Sungguh dia adalah sebaik-baik hamba. Sesungguhnya dia selalu kembali (kepada Allah).",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Al-Anbiya" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // dhul-kifl
@@ -832,16 +637,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Termasuk di antara para nabi dalam daftar arus utama umat Islam",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Ismail, Idris, dan Zulkifli. Semuanya termasuk orang-orang yang sabar. Dan Kami masukkan mereka ke dalam rahmat Kami; sungguh, mereka termasuk orang-orang yang saleh.",
-      },
-      {
-        excerpt:
-          "Dan ingatlah Ismail, Ilyasa, dan Zulkifli. Semuanya termasuk orang-orang pilihan.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Al-Anbiya" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // musa
@@ -883,22 +679,8 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Dijuluki Kalimullah — orang yang diajak bicara langsung oleh Allah",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan Aku telah memilihmu, maka dengarkanlah apa yang akan diwahyukan (kepadamu). Sesungguhnya Akulah Allah, tidak ada tuhan selain Aku, maka sembahlah Aku dan dirikanlah salat untuk mengingat-Ku.",
-      },
-      {
-        excerpt:
-          "Dan Kami ilhamkan kepada ibu Musa: Susuilah dia, dan apabila engkau khawatir terhadapnya, hanyutkanlah dia di sungai, dan janganlah engkau takut dan janganlah pula bersedih hati, sesungguhnya Kami akan mengembalikannya kepadamu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Malaikat maut diutus kepada Musa. Ketika mendatanginya, Musa menamparnya, maka Allah mengembalikan matanya, dan memberinya pilihan mengenai waktu kematiannya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Baca Surah Taha" },
       { label: "Baca Surah Al-Qasas" },
@@ -937,16 +719,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Kakak Musa", "Dipuji dalam Al-Qur'an atas kefasihan bicaranya"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan jadikanlah untukku seorang pembantu dari keluargaku, (yaitu) Harun, saudaraku. Teguhkanlah kekuatanku dengannya, dan jadikanlah dia sekutu dalam urusanku.",
-      },
-      {
-        excerpt:
-          "Dia (Harun) berkata: Wahai putra ibuku, sesungguhnya kaum ini telah menganggapku lemah dan hampir saja mereka membunuhku, maka janganlah engkau jadikan musuh-musuh gembira karenaku.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Taha" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // dawud
@@ -986,22 +759,8 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Penerima Zabur", "Mengalahkan Jalut (Goliath) di masa mudanya"],
     },
-    quran: [
-      {
-        excerpt:
-          "Wahai Dawud, sesungguhnya Kami menjadikanmu khalifah (penguasa) di bumi, maka berilah keputusan (perkara) di antara manusia dengan adil dan janganlah engkau mengikuti hawa nafsu, karena ia akan menyesatkanmu dari jalan Allah.",
-      },
-      {
-        excerpt:
-          "Dan Kami tundukkan gunung-gunung untuk bertasbih bersama Dawud, dan juga burung-burung… dan Kami ajarkan kepadanya cara membuat baju besi untukmu, guna melindungimu dari kejahatan musuhmu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Salat yang paling dicintai Allah adalah salat Dawud, dan puasa yang paling dicintai Allah adalah puasa Dawud: dia berpuasa sehari dan berbuka sehari berikutnya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Baca Surah Sad" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // sulayman
@@ -1041,16 +800,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Salah satu nabi-raja yang paling rinci diceritakan dalam Al-Qur'an"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dia (Sulaiman) tersenyum dan tertawa karena (mendengar) perkataan semut itu, dan berkata: Ya Tuhanku, berilah aku ilham untuk tetap mensyukuri nikmat-Mu yang telah Engkau anugerahkan kepadaku dan kepada kedua orang tuaku, dan agar aku dapat berbuat amal saleh yang Engkau ridai.",
-      },
-      {
-        excerpt:
-          "Dan untuk Sulaiman (Kami tundukkan) angin — perjalanan (angin itu) pada pagi hari sama dengan sebulan perjalanan dan perjalanannya pada sore hari sama dengan sebulan perjalanan (pula).",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah An-Naml" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // ilyas
@@ -1083,16 +833,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Disebut di antara orang-orang saleh", "Menghadapi penyembahan berhala Ba'al"],
     },
-    quran: [
-      {
-        excerpt:
-          "Ketika dia berkata kepada kaumnya: Mengapa kamu tidak bertakwa? Patutkah kamu menyembah Ba'al dan meninggalkan sebaik-baik pencipta?",
-      },
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Zakaria, Yahya, Isa, dan Ilyas. Semuanya termasuk orang-orang saleh.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah As-Saffat" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // al-yasa
@@ -1117,16 +858,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Disebut langsung dalam Al-Qur'an di antara orang-orang pilihan"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah kisah) Ismail, Ilyasa, Yunus, dan Lut. Masing-masing (mereka) Kami lebihkan derajatnya di atas seluruh alam.",
-      },
-      {
-        excerpt:
-          "Dan ingatlah Ismail, Ilyasa, dan Zulkifli. Semuanya termasuk orang-orang pilihan.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Al-An'am" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // yunus
@@ -1166,22 +898,8 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Juga disebut Zunnun (yang ditelan ikan) dalam Al-Qur'an"],
     },
-    quran: [
-      {
-        excerpt:
-          "Dan (ingatlah kisah Zunnun/Yunus), ketika dia berdoa dalam keadaan gelap gulita: Tidak ada tuhan selain Engkau; Mahasuci Engkau. Sesungguhnya aku termasuk orang-orang yang zalim.",
-      },
-      {
-        excerpt:
-          "Maka mengapa tidak ada (penduduk) suatu negeri yang beriman, lalu imannya itu bermanfaat kepadanya, selain kaum Yunus? Ketika mereka beriman, Kami hilangkan dari mereka azab yang menghinakan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Doa Zunnun ketika dia memanggil Allah dari dalam perut ikan adalah: La ilaha illa anta subhanaka inni kuntu minaz-zalimin. Tidak ada seorang muslim pun yang berdoa dengannya untuk sesuatu apa pun kecuali Allah mengabulkan doanya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Baca Surah Al-Anbiya" },
       { label: "Baca Surah Yunus" },
@@ -1221,16 +939,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Wali Maryam", "Ayah Yahya, yang kelahirannya menjawab doanya"],
     },
-    quran: [
-      {
-        excerpt:
-          "Di sanalah Zakaria berdoa kepada Tuhannya seraya berkata: Ya Tuhanku, anugerahkanlah kepadaku dari sisi-Mu keturunan yang baik. Sesungguhnya Engkau Maha Mendengar doa.",
-      },
-      {
-        excerpt:
-          "Dia berkata: Ya Tuhanku, sesungguhnya tulangku telah lemah dan kepalaku telah dipenuhi uban karena usia, dan aku belum pernah kecewa dalam berdoa kepada-Mu, ya Tuhanku.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       { label: "Baca Surah Ali 'Imran" },
       { label: "Baca Surah Maryam" },
@@ -1271,16 +980,7 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
         "Dimuliakan dengan kesejahteraan pada kelahiran, kematian, dan kebangkitan",
       ],
     },
-    quran: [
-      {
-        excerpt:
-          "Wahai Yahya, ambillah (pelajari) Kitab (Taurat) itu dengan sungguh-sungguh. Dan Kami anugerahkan kepadanya hikmah selagi dia masih kecil, dan rasa kasih sayang dari sisi Kami, dan kesucian, dan dia adalah seorang yang bertakwa.",
-      },
-      {
-        excerpt:
-          "Allah menyampaikan kabar gembira kepadamu tentang (kelahiran) Yahya, yang membenarkan suatu kalimat dari Allah — seorang pemimpin, seorang yang menahan diri (dari hawa nafsu), dan seorang nabi termasuk keturunan orang-orang saleh.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{ label: "Baca Surah Maryam" }, { label: "Jelajahi garis waktu para nabi" }],
   },
   // isa
@@ -1320,22 +1020,8 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Diberikan Injil", "Akan kembali sebelum hari kiamat dalam akidah Ahlus Sunnah"],
     },
-    quran: [
-      {
-        excerpt:
-          "(Isa berkata): Sesungguhnya Allah adalah Tuhanku dan Tuhanmu, maka sembahlah Dia. Inilah jalan yang lurus.",
-      },
-      {
-        excerpt:
-          "Dan mereka tidak membunuhnya dan tidak (pula) menyalibnya, tetapi (yang mereka bunuh ialah) orang yang diserupakan dengan Isa bagi mereka… tetapi Allah telah mengangkatnya kepada-Nya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Aku adalah manusia yang paling dekat dengan Isa putra Maryam. Para nabi adalah saudara seayah (dari ayah yang sama, ibu yang berbeda), agama mereka satu, dan tidak ada nabi di antara kami (aku dan Isa).",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Baca Surah Ali 'Imran" },
       { label: "Baca Surah An-Nisa" },
@@ -1378,22 +1064,8 @@ export const PROPHETS_BIO_TOPICS_ID: DeepPartial<ProphetsTopic>[] = [
       ],
       facts: ["Penutup para nabi", "Teladan terbaik bagi orang-orang beriman (uswah hasanah)"],
     },
-    quran: [
-      {
-        excerpt:
-          "Muhammad itu bukanlah bapak dari salah seorang laki-laki di antara kamu, tetapi dia adalah Rasulullah dan penutup para nabi.",
-      },
-      {
-        excerpt:
-          "Dan tidaklah Kami mengutusmu, melainkan untuk (menjadi) rahmat bagi seluruh alam.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Perumpamaanku dan para nabi sebelumku adalah seperti seseorang yang membangun sebuah rumah dengan indah dan sempurna, kecuali tempat satu bata. Akulah bata itu, dan akulah penutup para nabi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [
       { label: "Belajar dari sirah" },
       { label: "Baca Surah Al-Ahzab" },

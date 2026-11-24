@@ -17,16 +17,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Ayez l'intention de prier et d'assister à la prière pour l'amour d'Allah, et non pour l'affichage social.",
       "Aidez à répondre aux besoins pratiques de la famille lorsque vous pouvez le faire avec respect.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui assistera aux funérailles jusqu'à ce qu'il fasse la prière funéraire aura un qirat, et celui qui assistera jusqu'à l'enterrement aura deux qirats - chacun comme une grande montagne.",
-      },
-      {
-        excerpt:
-          "Quiconque suit les funérailles d'un musulman par foi et en quête de récompense, et reste jusqu'à ce que la prière soit offerte et que l'enterrement soit terminé, reviendra avec deux qirats...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Lavage et protection",
@@ -41,16 +32,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Gardez le linceul simple et propre – le tissu blanc est le modèle prophétique.",
       "Évitez de photographier ou d'exposer le corps inutilement.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lavez-la trois fois, ou cinq, ou plus si vous le voyez comme nécessaire, avec de l'eau et du sidr, et mettez du camphre ou du camphre dans le dernier lavage.",
-      },
-      {
-        excerpt:
-          "Le Messager d'Allah ﷺ était enveloppé de trois vêtements blancs en coton yéménite ; il n'y avait ni chemise ni turban parmi eux.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "En fermant les yeux du défunt",
@@ -63,12 +45,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Fermez doucement les yeux et faites l'authentique dua.",
       "Rappelez à la famille de bien parler.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lorsque les yeux d'Abou Salamah se fixèrent, le Prophète ﷺ les ferma et dit que lorsque l'âme est prise, la vue la suit, puis il enseigna à la maisonnée de ne dire que ce qui est bon.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Comment prier Janazah",
@@ -83,15 +60,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Dites quatre takbirs avec l'imam.",
       "Faites dua sincère pour le défunt après le takbir approprié.",
     ],
-    hadith: [
-      {
-        excerpt: "Le Prophète ﷺ a offert la prière funéraire pour Negus et a dit quatre takbirs.",
-      },
-      {
-        excerpt:
-          "Ibn Abbas a offert une prière funéraire et a récité la Fatihah, disant qu'elle provenait de la sunnah.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Duas dans la prière funéraire (adulte)",
@@ -154,16 +123,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Lors du placement du défunt dans la tombe, un dua authentique est conservé dans Hisnul Muslim. Après l'enterrement, le Prophète ﷺ se tenait près de la tombe et disait : « Demandez pardon pour votre frère et demandez qu'il soit ferme, car il est maintenant interrogé » (Sunan Abi Dawud 3221 — noté sahih par de nombreux savants ultérieurs, dont al-Albani).",
       "Construire des structures ornées sur les tombes, les plâtrer pour la décoration ou écrire qui encourage l'exagération est déconseillé dans les rapports authentiques. Gardez la marque simple là où la loi et la coutume locale permettent l'identification.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Soyez prompt aux funérailles : si elles ont été justes, vous les hâtez vers le bien ; sinon, vous ôtez le mal de votre cou.",
-      },
-      {
-        excerpt:
-          "Demande pardon pour ton frère et demande qu'il soit ferme, car il est maintenant interrogé.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Après l'enterrement du défunt",
@@ -188,12 +148,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Saluez les habitants des tombes avec la formulation authentique.",
       "Réfléchissez à la mort et renouvelez les actions justes.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "La paix soit sur vous, ô habitants des demeures parmi les croyants et les musulmans. Nous vous rejoindrons – si Allah le veut. Nous demandons à Allah le bien-être pour nous et pour vous.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Rappels et erreurs courantes",
@@ -211,12 +166,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Hâtez un enterrement digne.",
       "Aidez la famille avec la nourriture et les affaires sans les surcharger d'extravagance.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah ne punit pas pour la larme de l'oeil ou le chagrin du cœur, mais Il punit ou fait miséricorde pour cela - et il a montré sa langue.",
-      },
-    ],
+    hadith: [{}],
   },
   // --- v2 appended topics (keep index-aligned with English) ---
   {
@@ -233,12 +183,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Apprenez la séquence des quatre takbirs avant d'en avoir besoin.",
       "Mémorisez la Fatihah, les salawat et au moins une dua funéraire.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ibn Abbas a offert une prière funéraire et a récité la Fatihah, disant qu'elle provenait de la sunnah.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     title: "Duas pour les hommes, les femmes et les enfants",
@@ -273,16 +218,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Ne lavez pas un martyr du champ de bataille contrairement à l'instruction savante.",
       "Demandez au comité funéraire pour les cas de fausse couche ou de mortinaissance.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le Prophète ﷺ a ordonné que les martyrs d'Uhud soient enterrés avec leur sang, et ils n'ont pas été lavés.",
-      },
-      {
-        excerpt:
-          "La prière funéraire est offerte sur la fausse couche, et l'on prie pour les parents avec pardon et miséricorde.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Janazah en absence",
@@ -298,15 +234,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Priez localement chaque fois que le corps est présent.",
       "Demandez avant d'organiser une Janazah en absence comme événement public.",
     ],
-    hadith: [
-      {
-        excerpt: "Le Prophète ﷺ a offert la prière funéraire pour Negus et a dit quatre takbirs.",
-      },
-      {
-        excerpt:
-          "Le Messager d'Allah ﷺ a aligné les Compagnons et a prié pour Negus, en disant quatre takbirs.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Au chevet du mourant — dernières paroles",
@@ -320,15 +248,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Rappelez doucement au mourant la shahadah.",
       "Gardez la pièce calme et occupée de bonnes paroles.",
     ],
-    hadith: [
-      {
-        excerpt: "Incitez vos mourants à dire : la ilaha illallah.",
-      },
-      {
-        excerpt:
-          "Celui dont les dernières paroles sont « Nul n'a le droit d'être adoré sauf Allah » entrera au Paradis.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{ label: "Duas d'espoir de vie" }, { label: "En fermant les yeux" }],
   },
   {
@@ -344,12 +264,7 @@ export const JANAZAH_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Aidez avec la nourriture et les courses au lieu d'attendre un festin.",
       "Continuez la dua tranquille et la sadaqah pour le défunt.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aucun musulman n'est frappé d'une calamité et ne dit les paroles ordonnées du retour à Allah en demandant un remplacement meilleur, sans qu'Allah ne le remplace par quelque chose de meilleur.",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{ label: "Objectifs de sadaqah" }],
   },
 ];

@@ -15,21 +15,8 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       "Un croyant fait des invocations dans l'aisance et dans les difficultés, à voix haute et en secret, certain qu'Allah entend chaque appel et ne rejette jamais celui qui est sincère les mains vides. Il est si proche qu'il dit : « Je réponds à l'appel de celui qui m'appelle lorsqu'il m'invoque ».",
       "La réponse prend l'une des trois formes enseignées par le Prophète ﷺ : Allah donne ce qui a été demandé ; ou Il la retient et réserve une récompense égale ou supérieure pour l'au-delà ; ou Il détourne un mal égal à celui-ci. Ainsi, aucun dua sincère n’est jamais véritablement sans réponse – parfois la plus grande miséricorde réside dans la réponse que nous ne voyons pas.",
     ],
-    quran: [
-      {
-        excerpt: "Et ton Seigneur dit : « Invoque-Moi ; Je vous répondrai.",
-      },
-      {
-        excerpt:
-          "Et quand Mes serviteurs vous interrogent à mon sujet, en effet, Je suis proche. Je réponds à l'appel de celui qui appelle lorsqu'il M'invoque.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dua est un culte. — puis il récita : « Et ton Seigneur dit : Invoque-moi ! Je vous répondrai. (an-Nu'man ibn Bashir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -41,16 +28,7 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       "Invoquez Allah avec trois qualités intérieures : l'humilité, la certitude qu'Il peut et va répondre, et une bonne opinion de Lui (husn al-zann). Faites face à la Qiblah là où vous le pouvez, levez la main, choisissez les moments bénis et demandez les affaires de cette vie et de l'au-delà. Il est recommandé de répéter les demandes importantes et de terminer comme vous avez commencé – par des louanges et des salawat.",
       "Surtout, ne vous précipitez pas. Le Prophète ﷺ a averti qu'une dua reçoit une réponse tant qu'une personne ne désespère pas et ne dit pas : « J'ai appelé et appelé mais on n'a pas répondu », puis l'abandonne. La persévérance dans la demande est en soi une adoration, et Allah aime le serviteur qui continue de frapper à Sa porte.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le dua du serviteur continue de recevoir une réponse tant qu'il n'est pas pressé – en disant : « J'ai fait dua mais on n'a pas répondu. » (Abou Hourayra)",
-      },
-      {
-        excerpt:
-          "Lorsque l'un de vous prie, qu'il commence par louer et glorifier son Seigneur, puis bénir le Prophète ﷺ, puis demander ce qu'il souhaite. (Fadalah ibn 'Ubayd)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Ouvrez chaque dua avec Alhamdulillah et salawat sur le Prophète ﷺ.",
       "Demandez à Allah les noms qui correspondent le mieux à vos besoins (par exemple Ya Razzaq pour la provision, Ya Ghafur pour le pardon).",
@@ -67,16 +45,7 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       "La subsistance légale est une clé puissante. Le Prophète ﷺ a décrit un voyageur qui lève les mains vers le ciel en criant « Ô Seigneur, ô Seigneur », mais « sa nourriture est illégale, sa boisson est illégale, ses vêtements sont illégaux et il se nourrit de ce qui est illégal – alors comment peut-on lui répondre ? Garder ses revenus, se repentir de ses péchés et ne rien demander de coupable ni la rupture des liens familiaux éliminent les barrières entre un dua et son acceptation.",
       "Même ainsi, l'acceptation est en fin de compte la miséricorde d'Allah, et non une transaction que nous contrôlons. Le croyant combine donc tous ses efforts – sincérité, vie halal, repentir – avec une humble confiance et ne désespère jamais si la réponse tarde. La faiblesse et les péchés passés ne sont pas une raison pour arrêter de demander ; ils sont une raison de plus pour se tourner vers le Très Miséricordieux.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "…sa nourriture est illégale, sa boisson illégale, ses vêtements illégaux, il se nourrit de ce qui est illégal – alors comment peut-on lui répondre ? (Abou Hourayra)",
-      },
-      {
-        excerpt:
-          "Le dua du serviteur reçoit une réponse tant qu'il ne demande pas quelque chose de pécheur ou la rupture des liens familiaux. (Abou Hourayra)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Vérifiez la légalité de vos revenus et de vos dépenses – cela affecte directement votre dua.",
       "Faites précéder les longues supplications d’istighfar et d’un repentir sincère.",
@@ -91,16 +60,7 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       "Parmi les plus forts figurent : le dernier tiers de la nuit, quand Allah descend (d'une manière qui convient à Sa majesté) au ciel le plus bas et appelle : « Qui Me demandera que je lui donne ? » ; la prosternation dans la prière, la position la plus proche d'Allah ; le moment entre l'adhan et l'iqamah ; pendant qu'une personne jeûne, surtout au moment de la rupture du jeûne ; pendant la pluie ; et la dernière heure du vendredi avant le coucher du soleil, pendant laquelle il y a une heure où aucun dua n'est refusé.",
       "Les lieux et états bénis incluent le fait de se tenir à 'Arafah pendant le Hajj, d'être à l'intérieur de l'enceinte sacrée et de faire le dua d'un voyageur, d'un parent pour son enfant et d'un lésé. Utilisez-les comme ancres fixes pour une vie de supplication cohérente.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Notre Seigneur descend chaque nuit au ciel le plus bas dans le dernier tiers de la nuit et dit : Qui m'invoque pour que je lui réponde ? Qui me demande pour que je lui donne ? (Abou Hourayra)",
-      },
-      {
-        excerpt:
-          "Le serviteur est le plus proche de son Seigneur lorsqu'il se prosterne, alors faites-y beaucoup de supplications. (Abou Hourayra)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -115,14 +75,10 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sayyid al-Istighfar (le chef de la recherche du pardon)",
         when: "Une fois chaque matin et soir",
-        translation:
-          "Ô Allah, Tu es mon Seigneur ; il n'y a pas d'autre dieu que Toi. Tu m'as créé et je suis ton serviteur, et je tiens à ton alliance et à ta promesse autant que je peux. Je cherche refuge auprès de Toi contre le mal que j'ai fait. Je reconnais ta faveur envers moi et je confesse mon péché, alors pardonne-moi, car personne d'autre que toi ne pardonne les péchés.",
       },
       {
         title: "Hasbiyallahu la ilaha illa Huwa",
         when: "Sept fois chaque matin et soir",
-        translation:
-          "Allah me suffit ; il n'y a pas d'autre Dieu que Lui. C'est sur Lui que je m'appuie, et Il est le Seigneur du Trône Puissant.",
       },
     ],
     appLinks: [{}, {}],
@@ -138,19 +94,14 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua au réveil",
         when: "Dès le réveil",
-        translation:
-          "Toute louange est à Allah qui nous a donné la vie après nous avoir fait mourir, et à Lui est la résurrection.",
       },
       {
         title: "Dua avant de dormir",
         when: "Quand je m'allonge pour dormir",
-        translation: "En ton nom, ô Allah, je meurs et je vis.",
       },
       {
         title: "Ayat al-Kursi avant de dormir",
         when: "Avant de dormir",
-        translation:
-          "Allah – il n’y a de dieu que Lui, le Vivant, le Soutien de tous. Ni la somnolence ni le sommeil ne le rattrapent. A Lui appartient tout ce qui est dans les cieux et sur la terre. Qui peut intercéder auprès de Lui sans sa permission ? Il sait ce qui se trouve devant eux et derrière eux, et ils n'englobent rien de sa connaissance sauf ce qu'il veut. Son trône s'étend sur les cieux et la terre, et leur préservation ne le fatigue pas. Il est le Très-Haut, le Magnifique.",
       },
     ],
     appLinks: [{}, {}],
@@ -166,13 +117,10 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua en quittant la maison",
         when: "En sortant de la maison",
-        translation:
-          "Au nom d'Allah; Je place ma confiance en Allah ; il n'y a de force ni de pouvoir qu'en Allah.",
       },
       {
         title: "Dua entrant dans la mosquée",
         when: "En entrant, entrer du pied droit",
-        translation: "Ô Allah, ouvre-moi les portes de Ta miséricorde.",
       },
     ],
     appLinks: [{}, {}],
@@ -188,13 +136,10 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Avant de manger",
         when: "Au début d'un repas",
-        translation: "Au nom d'Allah.",
       },
       {
         title: "Après avoir mangé",
         when: "En finissant un repas",
-        translation:
-          "Toute louange revient à Allah qui m'a nourri de cela et me l'a fourni sans aucune puissance ni puissance de ma part.",
       },
     ],
     appLinks: [{}],
@@ -210,14 +155,10 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Après le wudu",
         when: "Immédiatement après avoir terminé les ablutions",
-        translation:
-          "J'atteste qu'il n'y a de divinité qu'Allah seul, sans associé, et j'atteste que Mahomet est Son serviteur et Messager.",
       },
       {
         title: "Avant le salam à salah",
         when: "Dans le tashahhud final, avant de terminer la prière",
-        translation:
-          "Ô Allah, je cherche refuge auprès de Toi contre le châtiment de l'Enfer, contre le châtiment de la tombe, contre l'épreuve de la vie et de la mort et contre le mal du procès du Faux Messie (le Dajjal).",
       },
     ],
     appLinks: [{}, {}],
@@ -233,16 +174,9 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua après l'adhan",
         when: "Quand l'adhan se termine",
-        translation:
-          "Ô Allah, Seigneur de cet appel parfait et de cette prière établie, accorde à Muhammad al-Wasilah et al-Fadilah, et élève-le au rang loué que Tu lui as promis.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le dua fait entre l'adhan et l'iqamah n'est pas rejeté. (Anas ibn Malik ; également at-Tirmidhi 212)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -256,13 +190,10 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua pour l'anxiété et le chagrin",
         when: "En détresse, inquiétude ou chagrin accablant",
-        translation:
-          "Ô Allah, je cherche refuge auprès de Toi contre l'anxiété et le chagrin, contre l'incapacité et la paresse, contre l'avarice et la lâcheté, contre le fardeau des dettes et contre la domination des autres.",
       },
       {
         title: "Allah nous suffit",
         when: "Quand j’ai peur ou que je suis dépassé",
-        translation: "Allah nous suffit et Il est le meilleur pour gérer les affaires.",
       },
     ],
     appLinks: [{}, {}],
@@ -278,8 +209,6 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua pour la guérison",
         when: "Lorsque vous êtes malade ou que vous priez pour quelqu'un qui est malade",
-        translation:
-          "Ô Allah, Seigneur de l'humanité, enlève l'affliction et accorde la guérison. Tu es le Guérisseur ; il n’y a pas d’autre remède que Votre remède – un remède qui ne laisse aucune maladie derrière lui.",
       },
     ],
     appLinks: [{}, {}],
@@ -295,12 +224,10 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Des repentirs fréquents",
         when: "À plusieurs reprises, tout au long de la journée",
-        translation: "Je demande le pardon d'Allah et je me tourne vers Lui avec repentance.",
       },
       {
         title: "Dua pour un cœur ferme",
         when: "Lorsque vous craignez un égarement ou une hésitation",
-        translation: "Ô Tourneur de cœurs, affermis mon cœur sur Ta religion.",
       },
     ],
     appLinks: [{}, {}],
@@ -316,13 +243,10 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua en partant en voyage",
         when: "Lors de la montée de votre transport et du départ",
-        translation:
-          "Gloire à Celui qui nous a soumis cela, alors que nous n'aurions pas pu le faire nous-mêmes ; et en effet, c'est vers notre Seigneur que nous retournerons sûrement.",
       },
       {
         title: "Dua quand la pluie tombe",
         when: "Au début des pluies",
-        translation: "Ô Allah, fais-en une averse bénéfique.",
       },
     ],
     appLinks: [{}, {}],
@@ -334,18 +258,11 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       "La provision (rizq) vient d'Allah seul ; le croyant attache son chameau - travaillant et gagnant - puis demande au Pourvoyeur une subsistance légale, la barakah dans ce qu'il gagne, l'absence de dettes et l'indépendance du besoin des autres. Le Prophète ﷺ a enseigné une belle dua qui demande exactement cela.",
       "Pour le foyer, le Qur'an lui-même enseigne la prière des justes : obtenir des conjoints et des enfants qui sont « un réconfort pour les yeux » et diriger une maison unie par la foi, la prière et la miséricorde.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Notre Seigneur, accorde-nous, parmi nos conjoints et nos descendants, le réconfort à nos yeux, et fais de nous des leaders pour les justes.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Dua pour une disposition légale",
         when: "Le matin, après la prière et en difficulté financière",
-        translation:
-          "Ô Allah, suffis-moi de ce que Tu as rendu licite contre ce que Tu as rendu illicite, et enrichis-moi par Ta générosité afin que je n'aie besoin de personne en dehors de Toi.",
       },
     ],
     appLinks: [{}],
@@ -361,14 +278,10 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Bon dans les deux mondes",
         when: "Un dua général et polyvalent - le ﷺ le plus fréquent du Prophète",
-        translation:
-          "Notre Seigneur, accorde-nous le bien dans ce monde et le bien dans l'au-delà, et protège-nous du châtiment du Feu.",
       },
       {
         title: "La fermeté dans la foi",
         when: "Lorsque vous craignez une déviation ou après avoir été guidé",
-        translation:
-          "Notre Seigneur, ne laisse pas nos cœurs dévier après que Tu nous as guidés, et accorde-nous ta miséricorde. En effet, Tu es le Donateur.",
       },
     ],
     appLinks: [{}, {}],
@@ -384,8 +297,6 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Dua complète des quatre",
         when: "Une supplication générale quotidienne",
-        translation:
-          "Ô Allah, je Te demande la guidance, la piété, la chasteté et la suffisance satisfaite.",
       },
     ],
     appLinks: [{}],
@@ -401,13 +312,10 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Des paroles bien-aimées qui effacent le péché",
         when: "Tout au long de la journée ; 100 fois efface les péchés",
-        translation: "Gloire à Allah et toute louange lui appartient.",
       },
       {
         title: "Deux mots lourds sur la balance",
         when: "À tout moment",
-        translation:
-          "Gloire à Allah et à Lui appartient la louange ; gloire à Allah le Magnifique.",
       },
     ],
     appLinks: [{}],
@@ -419,18 +327,11 @@ export const LEARN_DUA_TOPICS_FR: DeepPartial<LearnDuaTopic>[] = [
       "L'envoi de salawat au Prophète ﷺ est ordonné par Allah dans le Qur'an : « En effet, Allah et Ses anges envoient des bénédictions sur le Prophète ; Ô croyants, envoyez-lui des bénédictions et des salutations de paix' - et aucune autre dua n'apporte un retour aussi garanti : le Prophète ﷺ a dit que quiconque envoie une bénédiction sur lui, Allah en envoie dix sur cette personne.",
       "Des salawat fréquents apportent la miséricorde, élèvent les rangs, effacent les péchés et rapprochent la personne la plus proche du Prophète ﷺ le Jour du Jugement. La forme Ibrahimique complète ci-dessous – celle qu'il a enseignée à ses compagnons lorsqu'ils lui ont demandé comment lui envoyer des bénédictions – est récitée dans le tashahhud de chaque prière et est excellente à garder sur la langue tout au long de la journée.",
     ],
-    quran: [
-      {
-        excerpt:
-          "En effet, Allah et Ses anges bénissent le Prophète. Ô vous qui croyez, envoyez sur lui des bénédictions et des salutations de paix.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Le Salawat Ibrahimiyyah complet",
         when: "Dans le tashahhud de la prière et tout au long de la journée",
-        translation:
-          "Ô Allah, envoie des bénédictions sur Muhammad et sur la famille de Muhammad, comme Tu as béni Ibrahim et la famille d'Ibrahim ; en effet, tu es digne de louange et glorieux. Ô Allah, accorde faveur à Muhammad et à la famille de Muhammad, comme Tu as favorisé Ibrahim et la famille d'Ibrahim ; en effet, tu es digne de louange et glorieux.",
       },
     ],
     appLinks: [{}],

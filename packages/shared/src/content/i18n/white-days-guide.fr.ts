@@ -12,12 +12,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Jeûner trois jours par mois est une sunna fortement recommandée du Prophète ﷺ, et les Jours blancs sont les trois jours conseillés. Jarir ibn Abdullah a rapporté que le Prophète ﷺ a dit : « Jeûner trois jours de chaque mois équivaut à jeûner toute une vie, et les Jours blancs (Ayyām al-Bīḍ) sont le treizième, le quatorzième et le quinzième » (Sunan an-Nasa'i 2422).",
       "Puisque le mois hégirien suit la lune, ces trois jours se déplacent dans le calendrier grégorien chaque mois et peuvent commencer un jour plus tôt ou plus tard selon l'observation de la nouvelle lune dans votre région. Cette application les calcule à partir de son propre calendrier hégirien, afin que vous sachiez toujours à quelles dates ils tombent.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jeûner trois jours de chaque mois équivaut à jeûner toute une vie, et les Jours blancs (Ayyām al-Bīḍ) sont le treizième, le quatorzième et le quinzième.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Ouvrez la vue des phases de la lune pour voir quand tombent les Jours blancs de ce mois.",
       "Notez ces trois dates afin de prévoir le suhoor et l'iftar.",
@@ -33,19 +28,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Abdullah ibn 'Amr a rapporté que le Prophète ﷺ lui a dit : « Il te suffit de jeûner trois jours par mois, car la récompense d'une bonne action est multipliée par dix ; ce sera donc comme jeûner toute l'année » (Sahih al-Bukhari 1975). Dans une autre formulation : « Jeûner trois jours par mois équivaut à jeûner toute l'année » (Sahih al-Bukhari 1979).",
       "C'est pourquoi trois jours modestes, observés avec constance, sont si précieux : ils demandent peu au corps mais, par la générosité d'Allah, pèsent comme le jeûne d'une vie. Les Jours blancs sont simplement les trois jours choisis par la sunna.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Quiconque viendra avec une bonne action en aura dix fois autant ; et quiconque viendra avec une mauvaise action ne sera rétribué que par son équivalent, et ils ne subiront aucune injustice.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Il te suffit de jeûner trois jours par mois, car la récompense d'une bonne action est multipliée par dix ; ce sera donc comme jeûner toute l'année.",
-      },
-      { excerpt: "Jeûner trois jours par mois équivaut à jeûner toute l'année." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Renouvelez votre intention la veille au soir — pour Allah et dans l'espoir de Sa récompense.",
       "Visez la régularité : trois jours modestes chaque mois plutôt que des efforts intenses impossibles à maintenir.",
@@ -59,22 +43,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Le Messager d'Allah ﷺ ordonnait de les jeûner en les nommant. Ibn Milhan al-Qaysi a rapporté de son père : « Le Messager d'Allah ﷺ nous ordonnait de jeûner les Jours blancs : le treizième, le quatorzième et le quinzième du mois », et il disait : « Cela est comme jeûner continuellement » (Sunan Abi Dawud 2449). Abu Dharr a rapporté que le Prophète ﷺ lui a dit : « Lorsque tu veux jeûner trois jours dans le mois, jeûne alors le treizième, le quatorzième et le quinzième » (Jami' at-Tirmidhi 761).",
       "Si vous ne pouvez pas jeûner les trois — à cause d'un voyage, d'une maladie ou d'une journée commencée sans intention de jeûner — jeûnez ce que vous pouvez ; même un ou deux jours obtiennent encore la récompense multipliée. Un jeûne surérogatoire peut être commencé avec une intention formulée dans la matinée, tant que vous n'avez rien mangé. Une femme ne jeûne pas durant ses menstrues ; elle reprend simplement cette sunna les mois où elle le peut, sans rattrapage requis pour les jeûnes surérogatoires manqués pour cette raison.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le Messager d'Allah ﷺ nous ordonnait de jeûner les Jours blancs : le treizième, le quatorzième et le quinzième du mois. Il disait : Cela est comme jeûner continuellement.",
-      },
-      {
-        excerpt:
-          "Lorsque tu veux jeûner trois jours dans le mois, jeûne alors le treizième, le quatorzième et le quinzième.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Ô vous qui avez cru ! Le jeûne vous a été prescrit comme il a été prescrit à ceux qui vous ont précédés, afin que vous atteigniez la piété.",
-      },
-    ],
+    hadith: [{}, {}],
+    quran: [{}],
     actions: [
       "Formulez l'intention de jeûner les Jours blancs pour Allah, en espérant Sa récompense.",
       "Jeûnez ce que vous pouvez : un ou deux jours bénéficient aussi de la récompense décuplée si les trois ne sont pas possibles.",
@@ -91,12 +61,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
       "Certaines personnes préfèrent accomplir leurs trois jours mensuels les lundis et jeudis plutôt que du 13e au 15e jour, et cela réalise également la sunna des trois jours par mois. D'autres associent les deux lorsqu'elles le peuvent. L'objectif est une habitude de jeûne surérogatoire stable et sincère, plutôt qu'une formule rigide.",
       "Choisissez le rythme que vous pouvez maintenir. Si les Jours blancs conviennent à votre mois, suivez-les ici ; si les lundis et jeudis sont plus faciles, observez-les. Ce qu'Allah aime le plus est l'œuvre accomplie régulièrement, même si elle est petite.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Le Messager d'Allah ﷺ fut interrogé sur le jeûne du lundi. Il dit : C'est le jour où je suis né et où la révélation m'a été descendue.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Choisissez un rythme durable : les Jours blancs, ou les lundis et jeudis, ou les deux.",
       "Restez constant : une petite œuvre accomplie régulièrement est aimée d'Allah.",

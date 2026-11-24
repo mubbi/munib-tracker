@@ -14,22 +14,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Ebu Hureyre, Resûlullah ﷺ'in şöyle dediğini rivayet etmiştir: 'Kim Allah rızası için Hac yapar, cinsel ilişkide bulunmaz ve günah işlemezse, annesinin onu doğurduğu günkü hâliyle döner' (Sahih al-Bukhari 1521; Sahih Muslim 1350).",
       "Ayrıca şöyle buyurmuştur: 'Kabul edilmiş bir Hac'ın (Hac-ı mebrur) sevabı Cennet'ten başka bir şey değildir' (Sahih al-Bukhari 1773; Sahih Muslim 1349). Kabul, ihlas ve hac yolculuğunu fuhuş ve kötülükten uzak tutmaya bağlıdır — yalnızca dış görünüşteki adımları tamamlamak yeterli değildir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Allah rızası için Hac yapar, cinsel ilişkide bulunmaz ve günah işlemezse, annesinin onu doğurduğu günkü hâliyle döner.",
-      },
-      {
-        excerpt:
-          "Kim Allah rızası için Hac yapar, cinsel ilişkide bulunmaz ve günah işlemezse, annesinin onu doğurduğu günkü hâliyle döner.",
-      },
-      {
-        excerpt: "Kabul edilmiş bir Hac'ın sevabı Cennet'ten başka bir şey değildir.",
-      },
-      {
-        excerpt: "Kabul edilmiş bir Hac'ın sevabı Cennet'ten başka bir şey değildir.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Hac'ı yalnızca Allah için niyet edin — yolculuk boyunca dilinizi ve ahlakınızı koruyun.",
       "Uygulamadaki Hac kontrol listesini yalnızca bir hatırlatıcı olarak kullanın; kalbi kabul üzerinde tutun.",
@@ -47,16 +32,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Ebu Hureyre, Peygamber ﷺ'in şöyle dediğini rivayet etmiştir: 'Umre yapmak, bir önceki Umre ile bu Umre arasında işlenen günahlara kefarettir; kabul edilmiş bir Hac'ın sevabı ise Cennet'ten başka bir şey değildir' (Sahih al-Bukhari 1773; Sahih Muslim 1349).",
       "Umre yılın herhangi bir zamanında yapılabilir. Hac'tan kısadır ancak yine de büyük bir ibadettir: ihram, tawaf, sa'i ve saçın kesilmesi veya tıraş edilmesi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Umre yapmak, bir önceki Umre ile bu Umre arasında işlenen günahlara kefarettir; kabul edilmiş bir Hac'ın sevabı ise Cennet'ten başka bir şey değildir.",
-      },
-      {
-        excerpt:
-          "Umre yapmak, bir önceki Umre ile bu Umre arasında işlenen günahlara kefarettir; kabul edilmiş bir Hac'ın sevabı ise Cennet'ten başka bir şey değildir.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["İbadetleri sırayla takip etmeye hazır olduğunuzda Umre kontrol listesini açın."],
     appLinks: [
       {
@@ -71,18 +47,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Abdurrahman ibn Ya'mar, Peygamber ﷺ'in şöyle dediğini rivayet etmiştir: 'Hac, Arafat'tır' (Sunan Abi Dawud 1949; Jami' at-Tirmidhi 889). Arafat sınırları içinde vaktinde vakfe yapmayan, o yılın Hac'ını kaçırmış olur.",
       "Hacda olmayanlar için Arafat Günü'nde oruç tutmak kuvvetle tavsiye edilen bir ameldir: Ebu Katade, Arafat'ta oruç tutmanın geçen yılın ve gelecek yılın günahlarına kefaret olduğunu rivayet etmiştir (Sahih Muslim 1162). Hacılar ise günü duaya ayırmak için oruç tutmaz.",
     ],
-    hadith: [
-      {
-        excerpt: "Hac, Arafat'tır.",
-      },
-      {
-        excerpt: "Hac, Arafat'tır.",
-      },
-      {
-        excerpt:
-          "Arafat Günü'nde oruç tutmak, Allah'tan ümit ederim ki, önceki yılın ve sonraki yılın günahlarına kefarettir.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Hac — beşinci rükün",
@@ -92,25 +57,8 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       'Çağrı bütün insanlara ilan edildi: "İnsanlara haccı ilan et; yaya ve her yorgun devenin üzerinde sana gelsinler; uzak yollardan gelsinler" (Qur\'an 22:27).',
       "İbn Ömer, Peygamber ﷺ'in İslam'ın beş esası üzerine kurulduğunu söylediğini rivayet etmiştir: şehadet, salah, zakat, Ramazan orucu ve gücü yetenler için Beyt'e Hac (Sahih al-Bukhari 8; Sahih Muslim 16). Alimler, şartlar sağlandığında hayatında bir kez farz olduğunda ittifak etmişlerdir; tekrarlamak ise nafile bir fazilettir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "İnsanlardan gücü yetenlerin Beyt'e hac etmesi Allah'a karşı bir haktır — oraya gidecek bir yol bulabilenler için...",
-      },
-      {
-        excerpt: "İnsanlara haccı ilan et; yaya ve her yorgun devenin üzerinde sana gelsinler...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İslam beş esas üzerine kurulmuştur: Allah'tan başka ilah olmadığına ve Muhammed'in Allah'ın Resûlü olduğuna şehadet etmek, salah'ı ikame etmek, zakat vermek, Ramazan'ı oruçla geçirmek ve gücü yetenler için Beyt'e Hac.",
-      },
-      {
-        excerpt:
-          "İslam beş esas üzerine kurulmuştur... ve oraya gidecek bir yol bulabilenler için Beyt'e Hac.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Güç yetme (istita'ah)",
@@ -119,11 +67,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Qur'an 3:97'deki şart güç yetmedir (istita'ah). Klasik alimler bunu şöyle özetler: yolculuk için fiziksel sağlık, yolculuğu ve yokken bakmakla yükümlü olduklarının ihtiyaçlarını karşılayacak yeterli helal mal, ve güvenli, açık bir yol.",
       "Bu imkânlardan yoksun olan bu yıl günahkâr sayılmaz; gücü yetene kadar ertelemesi caizdir. Güç yetme duruma göre değerlendirilir — hastalık, ödenmesi gereken borç veya güvensiz yolculuk acil farziyeti kaldırabilir. Durumunuz belirsizse ehil bir alime danışın.",
     ],
-    quran: [
-      {
-        excerpt: "...oraya gidecek bir yol bulabilenler için.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Rezervasyon yapmadan önce farz borçları ödeyin ve bakmakla yükümlü olduklarınızın geçimini ayarlayın.",
       "Paketleri yalnızca resmi kanallar üzerinden doğrulayın (Hazırlık konularına bakın).",
@@ -137,16 +81,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "İbn Abbas, Peygamber ﷺ'in bir kadının mahrem olmadan yolculuk etmemesi gerektiğini, bir erkeğin de mahrem bulunmadıkça kadının yanına girmemesi gerektiğini söylediğini rivayet etmiştir (Sahih al-Bukhari 1862; Sahih Muslim 1341). Birçok alim bunu Hac ve Umre yolculuğuna uygular.",
       "Bazı sonraki alimler — güvenlik, zaruret ve çağdaş yolculuğu göz önünde bulundurarak — mahrem bulunmadığında kadının farz Hac için güvenilir bir grupla yolculuk etmesine izin verir. Bu, tartışmalı bir fıkıh meselesi olmaya devam etmektedir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Bir kadın mahrem olmadan yolculuk etmemelidir; bir erkek de mahrem yanında değilken kadının yanına girmemelidir.",
-      },
-      {
-        excerpt:
-          "Allah'a ve ahiret gününe iman eden bir kadının mahrem olmadan bir gece gündüz yolculuk etmesi caiz değildir.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Ekseriyet, kadının hac yolculuğu için mahreme ihtiyaç duyduğunu savunur. Bazı sonraki alimler farz Hac için kadınların güvenli bir grupla yolculuk etmesine izin verir. Güvendiğiniz bir alime ve Hac otoritenizin düzenlemelerine uyun.",
   },
@@ -159,12 +94,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Temettu': Hac aylarında tam bir Umre yapılır, ihramdan çıkılır, ardından 8 Zilhicce'de Hac için yeniden ihrama girilir. Bugün çoğu hacı bunu yapar; bu da hady gerektirir.",
       "Allah, ibadetleri birleştirenler hakkında buyurur: \"...Kim Umre'den Hac'a geçerse, kolaylıkla bulunabilecek kurban hayvanı...\" ve bunu karşılayamayanlar Hac sırasında üç gün, döndüklerinde yedi gün oruç tutar (Qur'an 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hac ve Umre'yi Allah için tamamlayın... Kim Umre'den Hac'a geçerse, kolaylıkla bulunabilecek kurban hayvanı. Kim bulamazsa — Hac sırasında üç gün, döndükten sonra yedi gün oruç...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Mikat'a gelmeden önce grup liderinizle türünüze karar verin.",
       "Temettu' yapıyorsanız, Hac için yeniden ihrama girmeden önce Umre'yi tamamen tamamlayın.",
@@ -185,16 +115,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "İbn Abbas, Peygamber ﷺ'in insanlar için mikatları belirlediğini rivayet etmiştir: Medine için Zülhuleyfe, Suriye için El-Cuhfe, Necid için Karnü'l-Menazil, Yemen için Yelamlam; Iraklılar için Dhat Irk. Bunların kendileri ve Hac veya Umre niyetiyle bunlara gelenler için geçerli olduğunu; bu yerlerin içinde oturanların ise Mekke halkının Mekke'den olduğu gibi yola çıktıkları yerden ihrama girmeleri gerektiğini söylemiştir (Sahih al-Bukhari 1524; Sahih Muslim 1181).",
       "Modern hava limanları ve deniz limanlarının karşılık gelen ihram noktaları veya ilan edilen prosedürleri vardır — sınırı ihramsız geçmemek için taşıyıcınızın ve Hac ve Umre Bakanlığı'nın rehberliğine uyun.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Resûlullah ﷺ Medine halkı için Zülhuleyfe'yi, Suriye halkı için El-Cuhfe'yi, Necid halkı için Karnü'l-Menazil'i, Yemen halkı için Yelamlam'ı belirledi... Bu mikatlar o yerlerdeki insanlar ve Hac veya Umre niyetiyle bunlara gelenler içindir...",
-      },
-      {
-        excerpt:
-          "Resûlullah ﷺ mikatları belirledi... Bu sınırların içinde oturan kimse yola çıktığı yerden ihrama girmelidir...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "İhrama girme",
@@ -204,18 +125,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Erkekler ihramdan önce vücuda koku sürebilir, ihrama girdikten sonra ihram elbiselerine değil (Sahih al-Bukhari 1539). Ardından niyet edilir ve telbiye başlatılır.",
       "Peygamber ﷺ'in öğrettiği telbiye şudur: \"Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak\" — Umre için tawaf başlayana kadar, Hac'ta ise bilinen uygulamaya göre Cemre-i Aqaba'ya taş atılana kadar devam edilir (Sahih al-Bukhari 1549; Sahih Muslim 1184).",
     ],
-    hadith: [
-      {
-        excerpt: "Aişe dedi ki: Resûlullah ﷺ ihrama girmeden önce ihramı için koku sürerdim...",
-      },
-      {
-        excerpt:
-          "Labbayk Allahumma labbayk, labbayka la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak.",
-      },
-      {
-        excerpt: "Peygamber ﷺ telbiye ile sesini yükseltti: Labbayk Allahumma labbayk...",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Erkekler için en az iki takım ihram hazırlayın; kokusuz temizlik malzemelerini hazır bulundurun.",
       "Yolculuk öncesi telbiyeyi pratik edin ki yolda akıcı olsun.",
@@ -254,12 +164,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Erkekler ilk üç turda raml (hızlı adım) ve bu varış Umre tawaf'ında idtiba' (sağ omzu açık bırakma) yapar, bilinen Sünnet'e göre.",
       "Yemen Köşesi ile Hacerü'l-Esved arasında şunu söylemek tavsiye edilir: \"Rabbimiz, bize dünyada da iyilik ver, ahirette de iyilik ver ve bizi ateş azabından koru\" (Qur'an 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbimiz, bize dünyada iyilik ver, ahirette de iyilik ver ve bizi ateş azabından koru.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "İki rekat ve Zemzem",
@@ -268,11 +173,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Tawaf'tan sonra, yer varsa Makam-ı İbrahim'in arkasında iki rekat namaz kılın, kalabalıksa mescidin başka bir yerinde — Allah'ın sözüne bağlanarak: \"...Ey iman edenler, Makam-ı İbrahim'den bir namaz yeri edinin...\" (Qur'an 2:125).",
       "Ardından Zemzem suyu için. Câbir'in Peygamber'in ﷺ Hac'ını anlattığı rivayet tawaf'tan sonra Zemzem içmeyi içerir; Peygamber ﷺ Zemzem'in ne için içilirse onun için olduğunu söylemiştir (sonraki alimlerin derlediği sahih rivayetler; niyet ve duayı tavsiye edilen olarak değerlendirin).",
     ],
-    quran: [
-      {
-        excerpt: "...Ey iman edenler, Makam-ı İbrahim'den bir namaz yeri edinin...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Safa ile Merve arasında sa'i",
@@ -281,12 +182,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Allah buyurur: \"Şüphesiz Safa ile Merve Allah'ın nişanelerindendir. Kim Beyt'e hac veya umre yaparsa, aralarında yürümesinde bir günah yoktur...\" (Qur'an 2:158).",
       "Safa'dan başlayarak Safa ile Merve arasında yedi kez yürüyün. Safa'da Kabe'ye yönelin, Peygamber ﷺ'in yaptığı gibi ellerinizi takbir ve dua için kaldırın. Erkekler yeşil işaretler arasında koşar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Şüphesiz Safa ile Merve Allah'ın nişanelerindendir. Kim Beyt'e hac veya umre yaparsa, aralarında yürümesinde bir günah yoktur...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq veya taqsir — Umre'yi tamamlama",
@@ -296,16 +192,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Erkekler başı tıraş eder (halq) — Peygamber ﷺ üç kez dua etmiştir — veya eşit şekilde kısaltır (taqsir). Kadınlar saçlarını toplar ve yaklaşık bir parmak ucu kadar keser. Bununla Umre tamamlanır ve ihram yasakları kalkar.",
       "Abdullah ibn Ömer, Resûlullah ﷺ'in şöyle dediğini rivayet etmiştir: 'Allah'ım, başlarını tıraş edenlere merhamet et.' Dediler ki: 'Kısaltanlara da, ey Allah'ın Resûlü?' Dedi: 'Allah'ım, başlarını tıraş edenlere merhamet et.' Dediler ki: 'Kısaltanlara da, ey Allah'ın Resûlü?' Üçüncü kez dedi: 'Ve kısaltanlara da' (Sahih al-Bukhari 1727; Sahih Muslim 1301).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah'ım, başlarını tıraş edenlere merhamet et... Ve (üçüncü kez) kısaltanlara da.",
-      },
-      {
-        excerpt:
-          "Allah'ım, başlarını tıraş edenleri bağışla... sonra üçüncü kez dedi: ve saçlarını kısaltanları da.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 Zilhicce — Terivye Günü",
@@ -314,12 +201,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Temettu' hacıları için: Hac niyetini edin ve Mekke'deki konutunuzdan yeniden ihrama girin, telbiyeyi yenileyin. İfrad ve Kıran hacıları zaten ihramdadır.",
       "Mina'ya gidin ve Öğle, İkindi, Akşam, Yatsı ve ertesi Sabah namazlarını, Câbir'in rivayet ettiği Veda Hacı'ndaki Peygamber'in ﷺ uygulamasına göre her biri kendi vaktinde iki rekata kısaltarak kılın (Sahih Muslim 1218). Günü ve geceyi ibadetle geçirin, Arafat'ı bekleyin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Câbir'in Peygamber'in ﷺ Veda Hacı'nın uzun rivayeti — Mina'da kalış ve ibadetlerin sırası dahil.",
-      },
-    ],
+    hadith: [{}],
     actions: ["8'inin sabahında Hac kontrol listesini açın."],
     appLinks: [
       {
@@ -335,15 +217,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Öğle ve İkindi'yi birleştirip Öğle vaktinde kısaltarak kılın (cem' takdim), ardından günün geri kalanını nafile namaz yerine duaya ayırın — Peygamber'in ﷺ uygulamasına göre (Sahih Muslim 1218).",
       "Güneş battıktan sonra sakin bir şekilde Müzdelife'ye gidin. Akşam ve Yatsı'yı birleştirin (Yatsı kısaltılmış), geceyi dinlenin ve taş atma için çakıl taşları toplayın. Sünnet'teki bilinen izinlere göre zayıflar ve kadınlar gece yarısından sonra Mina'ya gidebilir.",
     ],
-    hadith: [
-      {
-        excerpt: "Hac, Arafat'tır.",
-      },
-      {
-        excerpt:
-          "Peygamber ﷺ Arafat'ta Öğle ve İkindi'yi birleştirdi, ardından güneş battıktan sonra Müzdelife'ye gitti...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 Zilhicce — Nahr Günü",
@@ -354,11 +228,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Tıraş edin (halq) veya kısaltın (taqsir); kadınlar bir parmak ucu kadar keser. Taş atma ve tıraş/kısaltmadan sonra birinci tahallül (tahallul awwal) uygulanır — çoğu ihram yasağı kalkar, yakınlık hariç.",
       "Hac'ın rüknü olan Tawaf al-Ifadah için Mekke'ye gidin — ve Temettu' hacıları için sa'i (varış tawaf'ıyla sa'i yapan İfrad/Kıran hacıları mezheplerinin hükmüne uyar). Bu, ihramdan tam çıkışı tamamlar.",
     ],
-    quran: [
-      {
-        excerpt: "...Kim Umre'den Hac'a geçerse, kolaylıkla bulunabilecek kurban hayvanı...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Nahr Günü ibadetlerinin sırası Sünnet'te esneklik vardır; mezhepler tam sırayı ve her Hac türü için sa'i ne zaman gerekli olduğunu farklı değerlendirir. Grup rehberinize uyun.",
   },
@@ -370,22 +240,8 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Her öğleden sonra Öğle'den sonra sırayla üç direğe yedişer çakıl taşı atın — küçük, orta, büyük — her atışta takbir. Acele eden 12'de taş attıktan sonra ayrılabilir (Qur'an 2:203).",
       "Mekke'den ayrılmadan önce Tawaf al-Wada yapın ki Beyt ile son amel veda olsun. İbn Abbas, insanlara son ibadetlerinin Beyt'te olması emredildiğini, bunun adet gören kadın için hafifletildiğini rivayet etmiştir (Sahih al-Bukhari 1755; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Allah'ı sayılı günlerde anın. Sonra kim iki günde acele ederse — günah yoktur; kim geciktirirse — günah yoktur — Allah'tan korkan için...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İnsanlara son ibadetlerinin Kabe'nin veda tawaf'ı olması emredildi, adet gören kadınlar hariç.",
-      },
-      {
-        excerpt:
-          "İnsanlara son ibadetlerinin Beyt'te olması emredildi, ancak adet gören kadın için hafifletildi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Rükünler ve vacipler",
@@ -404,12 +260,7 @@ export const HAJJ_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Günahsız dönüş hadisi (Bukhari 1521; Muslim 1350), Hac'ın fuhuş (rafath), günah (fusuq) ve tartışmayla bozulduğunu açıkça gösterir. Sabır, yumuşaklık ve hacı kardeşlere yardım ibadetin parçasıdır.",
       "Telefonların ve boş sohbetin Arafat ve mescidi domine etmesine izin vermeyin. Tawaf'ta yol verin; Hacerü'l-Esved'e itmeyin. Kabul edilmiş Hac Cennet'in yoldaşıdır — boyunca mükemmel ahlak için çaba gösterin.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Allah rızası için Hac yapar, cinsel ilişkide bulunmaz ve günah işlemezse, annesinin onu doğurduğu günkü hâliyle döner.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Günlük bir niyet belirleyin: kalabalığın üstünde bir iyilik ve bir samimi dua."],
   },
   {

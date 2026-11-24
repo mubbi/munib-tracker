@@ -27,7 +27,7 @@ export const PROPHETS_GENEALOGY_NODES_HA: DeepPartial<ProphetsGenealogyNode>[] =
   {
     name: "Ishaq",
     relationNote:
-      "Ishaq ]an Ibrahim ne, wanda aka yi wa bayan Isma'il, kuma ya yi albarka tare da mahaifinsa.",
+      "Ishaq ɗan Ibrahim ne, wanda aka yi wa bayan Isma'il, kuma ya yi albarka tare da mahaifinsa.",
   },
   {
     name: "Lutu",
@@ -42,7 +42,7 @@ export const PROPHETS_GENEALOGY_NODES_HA: DeepPartial<ProphetsGenealogyNode>[] =
   {
     name: "Yusuf",
     relationNote:
-      "Yusuf ]an Yaqub ne. Suratul Yusuf ya ba da labarinsa da mahaifinsa da ’yan’uwansa mai tsawo.",
+      "Yusuf ɗan Yaqub ne. Suratul Yusuf ya ba da labarinsa da mahaifinsa da ’yan’uwansa mai tsawo.",
   },
   {
     name: "Musa",
@@ -61,7 +61,7 @@ export const PROPHETS_GENEALOGY_NODES_HA: DeepPartial<ProphetsGenealogyNode>[] =
   },
   {
     name: "Sulaiman",
-    relationNote: "Sulaiman xan Dawud ne kuma ya gaji mulkinsa da Annabcinsa.",
+    relationNote: "Sulaiman ɗan Dawud ne kuma ya gaji mulkinsa da Annabcinsa.",
   },
   {
     name: "Zakariyya",
@@ -88,38 +88,38 @@ export const PROPHETS_GENEALOGY_NODES_HA: DeepPartial<ProphetsGenealogyNode>[] =
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "Shitu (Sheeth)",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "Al'adar Musulunci ta gargajiya (da taƙaitaccen nasabar annabawa da dama da aka saba da shi) ta ambaci Shitu a matsayin ɗan Adamu kuma mahaɗi a cikin tsararrakin farko. Sunayen tsakanin Shitu da Nuhu galibi Isra'iliyyat ne kuma ba a zana su a matsayin tabbatattun alaƙa ba.",
   },
   {
     name: "Idris",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "Alkur'ani ya ambaci Idris a matsayin annabi mai gaskiya da aka ɗaukaka zuwa matsayi maɗaukaki. Jerin sunaye na gargajiya galibi suna sanya shi tsakanin Adamu da Nuhu (wani lokaci ana danganta shi da Enoch), amma Alkur'ani bai ambaci sunan mahaifinsa ba — ba a zana alaƙar mahaifi ba.",
   },
   {
-    name: "Imran",
+    name: "Imrana",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "Allah Ya zaɓi iyalan Imrana a kan talikai. Maryam 'yar Imrana ce. (Wannan Imrana shi ne mahaifin Maryam — ba a yi amfani da shi a nan a matsayin alaƙar uba ga Musa/Haruna ba.)",
   },
   {
     name: "Adnan",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "Al'adar Musulunci tana riƙe da cewa Muhammadu ﷺ ya fito daga zuriyar Adnan, kuma Adnan ya fito daga zuriyar Isma'il — amma al'adar nasabar Larabawa ta yarda cewa an rasa sunayen jerin nasaba daga Adnan zuwa Isma'il. Adnan shi ne shugaban Larabawan Adnaniyya da aka yarda da shi a al'adar gargajiya; ba a zana alaƙar mahaifi zuwa Isma'il ba.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Hashim ɗan Abdu Manaf",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "Hashim shi ne wanda aka sanya wa Banu Hashim sunansa kuma kakan Annabi ﷺ a al'adar gargajiya. Cikakken jerin shugabanni daga Adnan zuwa Hashim (Fihr, Mudar, …) an rubuta shi a cikin sira amma an tsallake shi a nan a matsayin tsararrakin ƙabila na tsakiya — ba annabawa ba. Hashim ne a kan gaba a layin Hashimawa na kusa a wannan taswira.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Abdulmuɗɗalib",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "Abdulmuɗɗalib (Shaiba) shi ne kakan Annabi ﷺ na wajen uba kuma ɗan Hashim a cikin sira ta gargajiya.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Abdullahi ɗan Abdulmuɗɗalib",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "Abdullahi shi ne mahaifin Annabi Muhammadu ﷺ kuma ɗan Abdulmuɗɗalib a cikin sira ta gargajiya.",
   },
 ];

@@ -2,137 +2,110 @@ import type { LearnGuideTopic } from "../../types/learn-guide";
 import type { DeepPartial } from "./localize";
 
 // bn overlay for laylat-al-qadr. Index-aligned with LAYLAT_AL_QADR_TOPICS in ../laylat-al-qadr.ts.
-// Scaffolded from English — refine literary quality in follow-up i18n polish.
 export const LAYLAT_AL_QADR_TOPICS_BN: DeepPartial<LearnGuideTopic>[] = [
   {
-    title: "What is Laylat al-Qadr?",
-    summary: "The Night of Decree — better than a thousand months.",
+    title: "লাইলাতুল কদর কী?",
+    summary: "কদরের রাত — হাজার মাসের চেয়ে উত্তম।",
     body: [
-      "Laylat al-Qadr, the Night of Decree (or Night of Power), is the night on which the Qur'an began to be revealed to the Prophet ﷺ. Allah devotes an entire surah to it, opening with: 'Indeed, We sent the Qur'an down during the Night of Decree' (Qur'an 97:1). Its value is stated in the plainest terms a few verses later: 'The Night of Decree is better than a thousand months' (Qur'an 97:3) — worship on this single night outweighs worship spread across more than eighty-three years.",
-      "The surah describes the night further: angels and the Spirit (Jibril) descend during it by their Lord's permission with every decree, and it is 'peace until the emergence of dawn' (Qur'an 97:4–5). It is a night of immense mercy, tranquillity, and divine decree — one the Prophet ﷺ urged his companions to actively seek out rather than let pass unnoticed.",
-      "This is why the last ten nights of Ramadan carry such spiritual weight: somewhere among them is a night more valuable than any other night in a person's life. The wisdom in not disclosing it plainly is that believers strive across every one of the last ten nights rather than relaxing on all but one.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Indeed, We sent the Qur'an down during the Night of Decree. And what can make you know what is the Night of Decree? The Night of Decree is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is until the emergence of dawn.",
-      },
+      "লাইলাতুল কদর — কদরের রাত (বা মহিমান্বিত রাত) — সেই রাত, যে রাতে নবী ﷺ-এর ওপর কুরআন নাজিল হওয়া শুরু হয়। আল্লাহ এ রাতের জন্য একটি পূর্ণ সূরা নির্ধারণ করেছেন, যার শুরু: 'আমি একে নাযিল করেছি শবে-কদরে' (কুরআন ৯৭:১)। কয়েক আয়াত পরেই এর মর্যাদা সবচেয়ে স্পষ্ট ভাষায় বলা হয়েছে: 'শবে-কদর হল এক হাজার মাস অপেক্ষা শ্রেষ্ঠ' (কুরআন ৯৭:৩) — এই একটি রাতের ইবাদত তিরাশি বছরেরও বেশি সময়জুড়ে করা ইবাদতকে ছাড়িয়ে যায়।",
+      "সূরাটি রাতটির আরও বর্ণনা দেয়: এ রাতে ফেরেশতারা ও রূহ (জিবরাঈল) তাঁদের রবের অনুমতিক্রমে প্রত্যেক বিষয়ের ফয়সালা নিয়ে অবতরণ করেন, এবং এটি 'নিরাপত্তা, যা ফজরের উদয় পর্যন্ত অব্যাহত থাকে' (কুরআন ৯৭:৪–৫)। এটি অপরিসীম রহমত, প্রশান্তি ও ঐশী ফয়সালার রাত — নবী ﷺ সাহাবিদের উৎসাহিত করেছেন, তাঁরা যেন রাতটিকে অলক্ষ্যে চলে যেতে না দিয়ে সক্রিয়ভাবে খুঁজে নেন।",
+      "এ কারণেই রমজানের শেষ দশ রাতের আধ্যাত্মিক গুরুত্ব এত বেশি: এগুলোর মধ্যেই কোথাও রয়েছে এমন একটি রাত, যা একজন মানুষের জীবনের অন্য যেকোনো রাতের চেয়ে মূল্যবান। রাতটি স্পষ্টভাবে প্রকাশ না করার হিকমত হলো, মুমিনরা যেন একটি ছাড়া বাকি সব রাতে শিথিল না হয়ে শেষ দশের প্রতিটি রাতেই চেষ্টা করে।",
     ],
   },
   {
-    title: "The reward of standing in prayer",
-    summary: "Sincere worship on this night wipes away past sins.",
+    title: "রাতে নামাজে দাঁড়ানোর প্রতিদান",
+    summary: "এ রাতের আন্তরিক ইবাদত অতীতের গুনাহ মুছে দেয়।",
     body: [
-      "The Prophet ﷺ tied an extraordinary promise to this night: 'Whoever stands (in prayer) on the night of Qadr out of sincere faith and hoping for reward, his previous sins will be forgiven' (Bukhari 1901). Two conditions are attached — iman (genuine belief that this worship is what Allah loves and has legislated) and ihtisab (seeking Allah's reward alone, not to be seen or praised).",
-      "This forgiveness is not automatic for anyone merely present; it is for the one who worships with a sincere, hopeful heart. That is why the last ten nights are typically filled with extra night prayer (qiyam), Qur'an, and dhikr — not because the reward is transactional, but because sincere, sustained effort is itself what the hadith describes as iman and ihtisab.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Whoever established prayers on the night of Qadr out of sincere faith and hoping for a reward from Allah, then all his previous sins will be forgiven.",
-      },
+      "নবী ﷺ এ রাতের সাথে এক অসাধারণ প্রতিশ্রুতি যুক্ত করেছেন: 'যে ব্যক্তি লাইলাতুল ক্বদ্রে ঈমানের সাথে সাওয়াবের আশায় রাত জেগে ‘ইবাদত করে, তার পিছনের সমস্ত গোনাহ ক্ষমা করা হবে' (বুখারী ১৯০১)। এর সাথে দুটি শর্ত যুক্ত — ঈমান (এই প্রকৃত বিশ্বাস যে, এই ইবাদত আল্লাহ ভালোবাসেন ও বিধিবদ্ধ করেছেন) এবং ইহতিসাব (কেবল আল্লাহর প্রতিদান চাওয়া, লোক দেখানো বা প্রশংসার জন্য নয়)।",
+      "এই ক্ষমা কেবল উপস্থিত থাকলেই যে কেউ স্বয়ংক্রিয়ভাবে পায় না; এটি তার জন্য, যে আন্তরিক ও আশাভরা হৃদয়ে ইবাদত করে। এ কারণেই শেষ দশ রাত সাধারণত অতিরিক্ত রাতের নামাজ (কিয়াম), কুরআন ও যিকিরে পরিপূর্ণ থাকে — প্রতিদান লেনদেনের বিষয় বলে নয়, বরং আন্তরিক ও ধারাবাহিক চেষ্টাই সেই জিনিস, যাকে হাদিসে ঈমান ও ইহতিসাব বলা হয়েছে।",
     ],
     actions: [
-      "Renew your intention before each night of worship — for Allah's sake, hoping for His reward.",
-      "Pray qiyam al-layl in the last ten nights, even if only a few rak'ahs.",
+      "প্রতিটি রাতের ইবাদতের আগে নিয়ত নবায়ন করুন — আল্লাহর সন্তুষ্টির জন্য, তাঁর প্রতিদানের আশায়।",
+      "শেষ দশ রাতে কিয়ামুল লাইল আদায় করুন, যদিও তা মাত্র কয়েক রাকাত হয়।",
     ],
   },
   {
-    title: "When to seek it",
-    summary: "The odd nights of the last ten of Ramadan — not one fixed date.",
+    title: "কখন খুঁজবেন",
+    summary: "রমজানের শেষ দশকের বেজোড় রাতগুলো — কোনো একটি নির্দিষ্ট তারিখ নয়।",
     body: [
-      "The Prophet ﷺ instructed: 'Search for the Night of Qadr in the odd nights of the last ten days of Ramadan' (Bukhari 2017), narrated from Aisha. In a standard 30-day Ramadan the odd nights are usually counted as the 21st, 23rd, 25th, 27th, and 29th. Other authentic narrations widen this to the entire last ten nights, and the Prophet ﷺ himself said the night's exact date had been shown to him and then made him forget it — so that the ummah would strive across all these nights rather than one.",
-      "The 27th night is the night many scholars and communities lean toward as most likely (based on other narrations weighing the signs and the frequency of companion reports), but this is a scholarly inference from the hadith, not a separately fixed date stated with certainty in the texts. It can fall on a different night in different years and in different regions, since Ramadan's start date itself varies by moon sighting.",
-      "Some publish a single printed date each year as if it were settled with certainty, and folk lists of 'signs' (a uniquely calm night, dreams, particular light) circulate widely online. None of these have a strong hadith basis, so this guide does not repeat them. The reliable, textually grounded approach is simply to increase worship across all the odd nights — and ideally the whole of the last ten — so that whichever night it is, you are engaged in worship on it.",
-    ],
-    quran: [
-      {
-        excerpt: "The Night of Decree is better than a thousand months.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Search for the Night of Qadr in the odd nights of the last ten days of Ramadan.",
-      },
+      "আয়েশা (রা.) থেকে বর্ণিত, নবী ﷺ নির্দেশ দিয়েছেন: 'তোমরা রমাযানের শেষ দশকের বেজোড় রাতে লাইলাতুল কদরের অনুসন্ধান কর' (বুখারী ২০১৭)। সাধারণ ৩০ দিনের রমজানে বেজোড় রাতগুলো সাধারণত ২১, ২৩, ২৫, ২৭ ও ২৯তম রাত হিসেবে গণনা করা হয়। অন্যান্য সহীহ বর্ণনায় এটিকে পুরো শেষ দশ রাত পর্যন্ত বিস্তৃত করা হয়েছে, এবং নবী ﷺ নিজেই বলেছেন যে রাতটির সঠিক তারিখ তাঁকে দেখানো হয়েছিল, তারপর তাঁকে তা ভুলিয়ে দেওয়া হয় — যাতে উম্মাহ কোনো একটি রাত নয়, বরং এই সব রাতেই চেষ্টা করে।",
+      "অনেক আলেম ও সম্প্রদায় ২৭তম রাতকে সবচেয়ে সম্ভাব্য বলে মনে করেন (নিদর্শন ও সাহাবিদের বর্ণনার পুনরাবৃত্তি বিবেচনাকারী অন্যান্য বর্ণনার ভিত্তিতে), তবে এটি হাদিস থেকে আলেমদের একটি অনুমান — দলিলে নিশ্চিতভাবে বর্ণিত আলাদা কোনো নির্দিষ্ট তারিখ নয়। বিভিন্ন বছরে ও বিভিন্ন অঞ্চলে এটি ভিন্ন রাতে হতে পারে, কারণ চাঁদ দেখার ভিত্তিতে রমজানের শুরুর তারিখই ভিন্ন হয়।",
+      "কেউ কেউ প্রতি বছর একটি মুদ্রিত তারিখ এমনভাবে প্রকাশ করেন যেন তা নিশ্চিতভাবে নির্ধারিত, এবং অনলাইনে 'নিদর্শনের' লোকজ তালিকা (অসাধারণ শান্ত রাত, স্বপ্ন, বিশেষ আলো) ব্যাপকভাবে ছড়িয়ে পড়ে। এগুলোর কোনোটিরই শক্ত হাদিসভিত্তি নেই, তাই এই গাইড সেগুলোর পুনরাবৃত্তি করে না। নির্ভরযোগ্য, দলিলভিত্তিক পন্থা হলো সব বেজোড় রাতে — এবং সম্ভব হলে পুরো শেষ দশ রাতে — ইবাদত বাড়ানো, যাতে রাতটি যেটাই হোক, আপনি সে রাতে ইবাদতে মশগুল থাকেন।",
     ],
     disclaimer:
-      "This guide does not endorse a single fixed calendar date or any folk 'signs' for identifying the night — only what the hadith state: seek it across the odd nights of the last ten nights of Ramadan.",
+      "এই গাইড কোনো একটি নির্দিষ্ট ক্যালেন্ডার তারিখ বা রাতটি চেনার কোনো লোকজ 'নিদর্শন' সমর্থন করে না — কেবল হাদিসে যা বলা হয়েছে: রমজানের শেষ দশ রাতের বেজোড় রাতগুলোতে এটি খুঁজুন।",
   },
   {
     title: "রাতটি পেলে কী বলবেন",
     summary: "আয়েশা (রা.) নবী ﷺ-কে ঠিক কী বলতে হবে জিজ্ঞেস করেছিলেন।",
     body: [
-      "আয়েশা (রা.) নবী ﷺ-কে জিজ্ঞেস করেছিলেন: 'হে আল্লাহর রাসূল, যদি আমি জানি কোন রাত লাইলাতুল কদর, তাহলে সেই রাতে আমি কী বলব?' তিনি ﷺ তাকে নীচে দেখানো সংক্ষিপ্ত ক্ষমার দোয়া শেখিয়েছিলেন (তিরমিযি ৩৫১৩, যা তিরমিযি কর্তৃক হাসান সহীহভাবে গ্রেডযুক্ত)।",
-      "এই দোয়াটি সংক্ষিপ্ত, মুখস্থ করা সহজ, এবং ইচ্ছাকৃতভাবে পার্থিব চাওয়ার পরিবর্তে ক্ষমার জন্য — এই রাতের সবচেয়ে বড় লাভ আল্লাহর ক্ষমা, তা মনে করিয়ে দেয়। শেষ দশ রাতে, নামাজে, সিজদায় এবং তাদের মাঝে প্রায়ই পুনরাবৃত্তি করুন, একটি অনুমানকৃত রাতের জন্য সংরক্ষণ করার পরিবর্তে।",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "আমি বললাম: হে আল্লাহর রাসূল, যদি আমি জানি কোন রাত লাইলাতুল কদর, তাহলে সেই রাতে আমি কী বলব? তিনি ﷺ বললেন: বলুন — اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي (হে আল্লাহ, আপনি ক্ষমাশীল এবং ক্ষমা পছন্দ করেন, তাই আমাকে ক্ষমা করুন)।",
-      },
+      "আয়েশা (রাদিয়াল্লাহু আনহা) নবী ﷺ-কে জিজ্ঞেস করেছিলেন: 'হে আল্লাহর রাসূল! যদি আমি “লাইলাতুল কদর\" জানতে পারি তাহলে সে রাতে কি বলব?' তিনি তাঁকে নিচে দেখানো সংক্ষিপ্ত ক্ষমার দোয়াটি শিখিয়ে দেন (তিরমিযি ৩৫১৩, ইমাম তিরমিযি একে হাসান সহীহ বলেছেন)।",
+      "এই দোয়াটি সংক্ষিপ্ত, মুখস্থ করা সহজ, এবং ইচ্ছাকৃতভাবেই দুনিয়াবি চাওয়ার পরিবর্তে ক্ষমা নিয়ে — যা মনে করিয়ে দেয় যে, এই রাতের সবচেয়ে বড় প্রাপ্তি আল্লাহর ক্ষমা। একটি অনুমিত রাতের জন্য তুলে না রেখে শেষ দশ রাতজুড়ে — নামাজে, সিজদায় এবং নামাজের ফাঁকে ফাঁকে — বারবার পড়ুন।",
     ],
     actions: [
-      "উপরে দেখানো ক্ষমার দোয়া মুখস্থ করুন।",
-      "শেষ দশ রাতে, বিশেষ করে বিজোড় রাতে, প্রায়ই পুনরাবৃত্তি করুন।",
+      "উপরে দেখানো ক্ষমার দোয়াটি মুখস্থ করুন।",
+      "শেষ দশ রাতে, বিশেষ করে বেজোড় রাতগুলোতে, এটি বারবার পড়ুন।",
+    ],
+    appLinks: [{ label: "এই দোয়াটি খুলুন" }],
+  },
+  {
+    title: "রাতটি কীভাবে কাটাবেন",
+    summary: "রাতের নামাজ, কুরআন, যিকির ও দোয়া, এবং দান-সদকা।",
+    body: [
+      "আন্তরিক ইবাদতের বাইরে লাইলাতুল কদরের জন্য কোনো একক বাধ্যতামূলক 'আনুষ্ঠানিকতা' নেই, তাই সুন্নাহ কেবল ইতিমধ্যে বিধিবদ্ধ আমলগুলোকেই বাড়িয়ে দেয়: নফল রাতের নামাজে দাঁড়ানো (কিয়ামুল লাইল / তারাবিহ), কুরআন তিলাওয়াত ও এর অর্থ নিয়ে চিন্তা, যিকির ও ইস্তিগফার, এবং দোয়া — বিশেষ করে সেই দোয়া, যা নবী ﷺ আয়েশাকে শিখিয়েছিলেন। অনেক সাহাবি ও পরবর্তী আলেম এই রাতগুলোতে দান-সদকাও বাড়িয়ে দিতেন — যেমন রমজানে নবী ﷺ-এর নিজের দানশীলতা সর্বোচ্চ পর্যায়ে পৌঁছাত।",
+      "যদি সামান্যই করতে পারেন, তবে কিছু না করার চেয়ে নিয়মিত সামান্য করুন: সংক্ষিপ্ত কিয়াম, কুরআনের কয়েক পৃষ্ঠা এবং আন্তরিকভাবে বারবার পড়া ক্ষমার দোয়াও হাদিসে বর্ণিত 'ঈমান ও ইহতিসাব' পূরণ করে। যাঁরা কাজ থেকে ছুটি নিতে বা নির্জনতা বাড়াতে পারেন, তাঁরা নবী ﷺ-এর নিজের আমল অনুসরণ করে শেষ দশ রাতে ইতিকাফও (মসজিদে নির্জনবাস) করতে পারেন।",
+    ],
+    actions: [
+      "শেষ দশ রাতে অতিরিক্ত রাতের নামাজ (কিয়াম/তারাবিহ) আদায় করুন।",
+      "প্রতি রাতে কুরআনের কিছু অংশ তিলাওয়াত করুন ও এর অর্থ নিয়ে ভাবুন।",
+      "ইস্তিগফার, যিকির ও ক্ষমার দোয়া বাড়িয়ে দিন।",
+      "এই রাতগুলোতে সামান্য হলেও কিছু দান-সদকা করুন।",
+    ],
+    appLinks: [
+      { label: "কুরআন পড়ুন" },
+      { label: "সকাল ও সন্ধ্যার আযকার" },
+      { label: "নামাজ ট্র্যাকার" },
+      { label: "যাকাত ও দান-সদকা" },
     ],
   },
   {
-    title: "How to spend the night",
-    summary: "Night prayer, Qur'an, dhikr and du'a, and charity.",
+    title: "শেষ দশ রাতে ইতিকাফ",
+    summary: "মসজিদে নির্জনবাস — রমজানের শেষভাগে নবী ﷺ-এর আমল।",
     body: [
-      "There is no single required 'ritual' for Laylat al-Qadr beyond sincere worship, so the Sunnah simply intensifies the acts already legislated: standing in voluntary night prayer (qiyam al-layl / tarawih), reciting and reflecting on the Qur'an, repeating dhikr and istighfar, and making du'a — especially the du'a the Prophet ﷺ taught Aisha. Many companions and later scholars also increased charity in these nights, in keeping with the Prophet's ﷺ own generosity being at its peak in Ramadan.",
-      "If you are only able to do a little, do a little consistently rather than nothing at all: even a short qiyam, a few pages of Qur'an, and the forgiveness du'a repeated sincerely fulfil the 'iman and ihtisab' the hadith describes. Those able to take time off work or increase their solitude may also perform i'tikaf (seclusion in the mosque) in the last ten nights, following the Prophet's ﷺ own practice.",
+      "ইতিকাফ হলো নির্দিষ্ট সময়ের জন্য সাধারণ দুনিয়াবি ব্যস্ততা ছেড়ে ইবাদতের উদ্দেশ্যে মসজিদে অবস্থান করা। নবী ﷺ নিয়মিত রমজানের শেষ দশ রাতে ইতিকাফ করতেন — সাধারণ কাজকর্মে মসজিদ ছেড়ে না গিয়ে একাগ্র ইবাদতের মাধ্যমে লাইলাতুল কদর খুঁজতেন (সহীহ বুখারী ২০২৬)।",
+      "ধ্রুপদী শিক্ষায় সামর্থ্য থাকলে শেষ দশ রাতের পূর্ণ ইতিকাফকে সুন্নাতে মুআক্কাদা গণ্য করা হয়। কী কারণে ইতিকাফ ভঙ্গ হয়, নারীরা মসজিদের নির্ধারিত স্থানে তা পালন করতে পারেন কি না, এবং কাজ বা পারিবারিক দায়িত্বের সাথে এর সমন্বয় কীভাবে হবে — এসবের বিস্তারিত মাযহাবভেদে ভিন্ন; এই গাইড কেবল আমলটি ও এর উদ্দেশ্য তুলে ধরে: যে রাতগুলোতে লাইলাতুল কদর থাকার সম্ভাবনা সবচেয়ে বেশি, সেগুলোতে নিরবচ্ছিন্ন কুরআন, নামাজ ও দোয়া।",
+      "মসজিদে পূর্ণ নির্জনবাস সম্ভব না হলে ব্যবধান কমিয়ে আনুন: তারাবিহর পর আরও কিছুক্ষণ থাকুন, ঘরে রাতের কিছু শান্ত সময় কিয়াম ও কুরআনের জন্য রেখে দিন, এবং সেই সময়গুলোকে অপ্রয়োজনীয় ব্যস্ততা থেকে রক্ষা করুন। প্রতিদান আন্তরিক ইবাদতের সাথে যুক্ত, কেবল ইতিকাফের আনুষ্ঠানিক নামের সাথে নয়।",
     ],
     actions: [
-      "Pray extra night prayer (qiyam/tarawih) in the last ten nights.",
-      "Recite and reflect on a portion of the Qur'an each night.",
-      "Increase istighfar, dhikr, and the forgiveness du'a.",
-      "Give some charity, even if small, during these nights.",
-    ],
-  },
-  {
-    title: "I'tikaf in the last ten nights",
-    summary: "Seclusion in the mosque — the Prophet's ﷺ practice in Ramadan's close.",
-    body: [
-      "I'tikaf is remaining in a mosque for worship, cutting ordinary worldly distractions for a set period. The Prophet ﷺ regularly performed i'tikaf in the last ten nights of Ramadan, seeking Laylat al-Qadr with focused worship rather than leaving the mosque for ordinary errands (Sahih al-Bukhari 2026).",
-      "Classical teaching treats a complete i'tikaf of the last ten nights as a confirmed sunnah when a person is able. Details of what breaks it, whether women may observe it in a designated mosque space, and how work or family duties interact with it vary by school — this guide only establishes the practice and its purpose: sustained Qur'an, prayer, and du'a in the nights most likely to include Laylat al-Qadr.",
-      "If full mosque seclusion is not possible, shorten the gap: stay longer after tarawih, reserve quieter corners of the night at home for qiyam and Qur'an, and protect those hours from unnecessary distraction. The reward is tied to sincere worship, not only to a formal label of i'tikaf.",
-    ],
-    hadith: [
-      {
-        excerpt:
-          "The Prophet ﷺ used to practice I'tikaf in the last ten nights of Ramadan till he died, and then his wives used to practice I'tikaf after him.",
-      },
-    ],
-    actions: [
-      "If your mosque offers i'tikaf, ask early about registration and the rules they follow.",
-      "If you cannot stay overnight, still lengthen your presence for Qur'an and qiyam in the last ten nights.",
+      "আপনার মসজিদে ইতিকাফের ব্যবস্থা থাকলে আগেভাগেই নিবন্ধন ও তাদের অনুসৃত নিয়মকানুন সম্পর্কে জেনে নিন।",
+      "রাতে থাকতে না পারলেও শেষ দশ রাতে কুরআন ও কিয়ামের জন্য মসজিদে আপনার অবস্থানের সময় বাড়ান।",
     ],
     disclaimer:
-      "I'tikaf has detailed fiqh conditions (intention, leaving the mosque, intimacy, women's arrangements). Confirm with a qualified local scholar or your mosque before committing.",
+      "ইতিকাফের বিস্তারিত ফিকহি শর্ত রয়েছে (নিয়ত, মসজিদ থেকে বের হওয়া, দাম্পত্য ঘনিষ্ঠতা, নারীদের ব্যবস্থা)। শুরু করার আগে একজন যোগ্য স্থানীয় আলেম বা আপনার মসজিদের সাথে নিশ্চিত হয়ে নিন।",
   },
   {
-    title: "Worship with family on the last ten nights",
-    summary: "Include children and household members without chasing a fixed date.",
+    title: "শেষ দশ রাতে পরিবারের সাথে ইবাদত",
+    summary: "কোনো নির্দিষ্ট তারিখের পেছনে না ছুটে শিশু ও পরিবারের সদস্যদের শামিল করুন।",
     body: [
-      "The last ten nights are an opportunity for the whole household, not only for those who can stay up alone. Teach children the meaning of Laylat al-Qadr in simple words — that Allah made one night better than a thousand months — and invite them into short, doable acts: a few pages of Qur'an, joining tarawih for as long as they can, repeating the forgiveness du'a, and giving a small amount in charity.",
-      "Keep the tone gentle. The goal is sincere effort across the odd nights, not exhausting everyone for a single guessed calendar date. Rotate who leads a short family dhikr, set a shared intention before Maghrib, and protect sleep enough that worship remains sustainable rather than a one-night burst followed by collapse.",
-      "Those with caregiving or work limits still share in the night by preparing suhoor, freeing others for mosque prayer, or making du'a while others stand — every sincere contribution counts toward seeking the night together.",
+      "শেষ দশ রাত পুরো পরিবারের জন্য একটি সুযোগ, কেবল যাঁরা একা জেগে থাকতে পারেন তাঁদের জন্য নয়। শিশুদের সহজ ভাষায় লাইলাতুল কদরের অর্থ শেখান — আল্লাহ একটি রাতকে হাজার মাসের চেয়ে উত্তম করেছেন — এবং তাদের ছোট, সহজে করা যায় এমন আমলে শামিল করুন: কুরআনের কয়েক পৃষ্ঠা, যতক্ষণ পারে তারাবিহতে যোগ দেওয়া, ক্ষমার দোয়া বারবার পড়া, এবং সামান্য কিছু দান করা।",
+      "পরিবেশ কোমল রাখুন। লক্ষ্য হলো বেজোড় রাতগুলোজুড়ে আন্তরিক চেষ্টা, একটি অনুমিত ক্যালেন্ডার তারিখের জন্য সবাইকে ক্লান্ত করে ফেলা নয়। পালাক্রমে একেকজন পরিবারের ছোট যিকিরের নেতৃত্ব দিন, মাগরিবের আগে সবাই মিলে নিয়ত করুন, এবং ঘুমের প্রতি যথেষ্ট খেয়াল রাখুন, যাতে ইবাদত টেকসই থাকে — এক রাতের উচ্ছ্বাসের পর ভেঙে পড়া নয়।",
+      "যাঁদের সেবাযত্ন বা কাজের সীমাবদ্ধতা আছে, তাঁরাও সাহরি প্রস্তুত করে, অন্যদের মসজিদে নামাজের সুযোগ করে দিয়ে, কিংবা অন্যরা নামাজে দাঁড়ালে দোয়া করে রাতটির অংশীদার হন — প্রতিটি আন্তরিক অবদানই একসাথে রাতটি খোঁজার অংশ হিসেবে গণ্য।",
     ],
     actions: [
-      "Agree as a family which odd nights you will prioritise for extra Qur'an and prayer.",
-      "Memorise the forgiveness du'a together and repeat it after Maghrib and before sleep.",
-      "Let children give a small sadaqah during the last ten nights.",
+      "পরিবার মিলে ঠিক করুন, কোন বেজোড় রাতগুলোতে অতিরিক্ত কুরআন ও নামাজকে অগ্রাধিকার দেবেন।",
+      "সবাই মিলে ক্ষমার দোয়াটি মুখস্থ করুন এবং মাগরিবের পর ও ঘুমের আগে তা পড়ুন।",
+      "শেষ দশ রাতে শিশুদের দিয়ে সামান্য সদকা করান।",
     ],
+    appLinks: [{ label: "হিসনুল মুসলিমের দোয়া" }, { label: "কুরআন পড়ুন" }],
   },
   {
-    title: "Keep it simple and sincere",
-    summary: "Skip fixed dates and folk signs; focus on worship across the nights.",
+    title: "সহজ ও আন্তরিক রাখুন",
+    summary: "নির্দিষ্ট তারিখ ও লোকজ নিদর্শন বাদ দিন; রাতগুলোজুড়ে ইবাদতে মনোযোগ দিন।",
     body: [
-      "Two common practices are worth avoiding because they go beyond what the texts establish. First, treating a single printed date as certainly the Night of Qadr — the hadith deliberately leave it among several odd nights, not one calendar day, and this varies with moon sighting and locality. Second, chasing folk 'signs' (a specific dream, an unusually still night, animals behaving oddly) as proof the night has arrived — these are not supported by strong hadith and can distract from the actual worship the night calls for.",
-      "The practical takeaway is simple: increase your worship steadily across the last ten nights, say the forgiveness du'a often, and let Allah's mercy — not a guessed date — be the focus. If you fall short of catching the night knowingly, sincere effort across the nights is itself richly rewarded.",
+      "দুটি প্রচলিত চর্চা এড়িয়ে চলা উচিত, কারণ এগুলো দলিলে প্রতিষ্ঠিত বিষয়ের সীমা ছাড়িয়ে যায়। প্রথমত, একটি মুদ্রিত তারিখকে নিশ্চিতভাবে লাইলাতুল কদর মনে করা — হাদিস ইচ্ছাকৃতভাবেই একে কয়েকটি বেজোড় রাতের মধ্যে রেখেছে, কোনো একটি ক্যালেন্ডার দিনে নয়, এবং এটি চাঁদ দেখা ও অঞ্চলভেদে ভিন্ন হয়। দ্বিতীয়ত, রাতটি এসেছে তার প্রমাণ হিসেবে লোকজ 'নিদর্শনের' পেছনে ছোটা (নির্দিষ্ট কোনো স্বপ্ন, অস্বাভাবিক নিস্তব্ধ রাত, পশুপাখির অদ্ভুত আচরণ) — এগুলো শক্ত হাদিস দ্বারা সমর্থিত নয় এবং রাতটি যে প্রকৃত ইবাদত দাবি করে, তা থেকে মনোযোগ সরিয়ে দিতে পারে।",
+      "বাস্তব শিক্ষাটি সহজ: শেষ দশ রাতজুড়ে ধীরে ধীরে ইবাদত বাড়ান, ক্ষমার দোয়াটি বারবার পড়ুন, এবং কোনো অনুমিত তারিখ নয় — আল্লাহর রহমতকেই মনোযোগের কেন্দ্রে রাখুন। জেনে-বুঝে রাতটি ধরতে না পারলেও, রাতগুলোজুড়ে আন্তরিক চেষ্টা নিজেই প্রচুর প্রতিদানের যোগ্য।",
     ],
     disclaimer:
-      "This is general educational content summarising mainstream Sunni teaching from the Qur'an and authentic hadith. It is not a fatwa. For rulings on i'tikaf, missed prayers, or your specific circumstances, consult a qualified local scholar.",
+      "এটি কুরআন ও সহীহ হাদিস থেকে মূলধারার সুন্নি শিক্ষার সারসংক্ষেপ সংবলিত সাধারণ শিক্ষামূলক বিষয়বস্তু। এটি কোনো ফতোয়া নয়। ইতিকাফ, কাজা নামাজ বা আপনার নির্দিষ্ট পরিস্থিতি সম্পর্কিত বিধানের জন্য একজন যোগ্য স্থানীয় আলেমের পরামর্শ নিন।",
   },
 ];

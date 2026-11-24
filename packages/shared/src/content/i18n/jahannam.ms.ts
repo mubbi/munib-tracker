@@ -16,554 +16,315 @@ import type { DeepPartial } from "./localize";
 
 export const JAHANNAM_CORE_TOPICS_MS: DeepPartial<JahannamTopic>[] = [
   {
-    title: "Penduluan",
-    summary:
-      "Allah memberitahu kita tentang Jahannam sebagai petunjuk — bukan untuk membuat putus asa.",
+    title: "Pengenalan",
+    summary: "Allah memberitahu kita tentang Jahannam sebagai petunjuk — bukan untuk berputus asa.",
     body: [
-      "Jahannam — sering diterjemahkan sebagai neraka atau Api — adalah tempat siksaan di akhirat yang Allah gambarkan dalam Al-Quran dan melalui Rasul-Nya ﷺ. Dia mengabarkannya bukan untuk menghancurkan hati dengan ketakutan, melainkan supaya hati tersadar, kembali, dan memilih jalan rahmat selama pintunya masih terbuka.",
-      "Ada baiknya kita memahami mengapa Rabb Yang Maha Penyayang sampai berbicara tentang Api. Sebuah peringatan itu sendiri adalah rahmat: seseorang yang diberitahu ada jurang di depan dalam gelap telah diberi hadiah, bukan ancaman. Setiap ayat tentang Jahannam adalah Allah, dengan kasih sayang-Nya, memanggil hamba-hamba-Nya untuk kembali sebelum waktu untuk itu berlalu.",
-      "Inilah sebabnya peringatan-peringatan itu selalu diiringi seruan untuk bertobat, memohon ampunan, dan berharap pada rahmat Allah yang luas. Al-Quran jarang menyebut Api tanpa, di dekatnya, menyebut Syurga, pintu tobat yang terbuka, dan kecintaan Allah kepada mereka yang kembali. Tujuannya adalah pertanggungjawaban yang membawa pada kebaikan — bukan keputusasaan.",
-      "Beriman kepada Jahannam adalah bahagian dari beriman kepada yang gaib (al-ghayb), kepada keadilan ilahi, dan kepada kenyataan Hari Akhir. Ini memberi bobot pada pilihan-pilihan kita dan menyeimbangkan harapan akan Syurga dengan kesungguhan terhadap dosa, sehingga seorang mukmin berjalan di antara harap dan takut — berharap pada rahmat Allah, sekaligus waspada terhadap kekurangan dirinya sendiri.",
-      "Satu titik penenang yang menjadi inti akidah Ahlus Sunnah mengalir di seluruh modul ini: mereka yang meninggal dunia dunia dalam keadaan beriman hanya kepada Allah, walaupun terbebani dosa, tidak akan kekal selamanya di dalam Api. Dengan rahmat Allah dan syafaat yang Dia izinkan, orang-orang mukmin yang berdosa pada akhirnya akan dikeluarkan; hanya mereka yang meninggal dunia dunia menolak keimanan yang tetap tinggal. Maka mempelajari Jahannam, bagi seorang mukmin, pada akhirnya adalah mempelajari bagaimana mencapai rahmat.",
-      "Modul ini menyajikan apa yang dinyatakan secara jelas oleh nas, mencatat secara jujur di mana para ulama berbeda pendapat, hanya mengutip dalil yang sahih, dan senantiasa mengarahkanmu pada tobat, amal saleh, dan tawakal kepada Allah.",
+      "Jahannam — yang sering diterjemahkan sebagai neraka atau Api — ialah tempat azab di akhirat yang Allah gambarkan dalam al-Quran dan melalui Rasul-Nya ﷺ. Dia mengkhabarkannya bukan untuk menghancurkan hati dengan ketakutan, tetapi supaya hati tersedar, kembali, dan memilih jalan rahmat selagi pintunya masih terbuka.",
+      "Ada baiknya kita memahami mengapa Tuhan Yang Maha Penyayang berbicara tentang Neraka. Amaran itu sendiri ialah rahmat: seseorang yang diberitahu bahawa ada gaung di hadapannya dalam kegelapan sebenarnya telah diberi hadiah, bukan ugutan. Setiap ayat tentang Jahannam ialah seruan Allah, dengan kasih sayang-Nya, memanggil hamba-hamba-Nya kembali sebelum berlalu masa untuk kembali.",
+      "Oleh sebab itu, amaran-amaran tersebut sentiasa digandingkan dalam wahyu dengan seruan kepada taubat, keampunan, dan harapan kepada rahmat Allah yang luas. Al-Quran jarang menyebut Neraka tanpa menyebut, di dekatnya, Syurga, pintu taubat yang terbuka, dan kasih Allah kepada mereka yang kembali. Tujuannya ialah rasa bertanggungjawab yang membawa kepada kebaikan — bukan sekali-kali putus asa.",
+      "Beriman kepada Jahannam ialah sebahagian daripada beriman kepada perkara ghaib (al-ghayb), kepada keadilan Ilahi, dan kepada hakikat Hari Akhirat. Iman ini memberi nilai kepada pilihan-pilihan kita dan mengimbangi harapan kepada Syurga dengan kesungguhan terhadap dosa, supaya seorang mukmin berjalan di antara harap dan takut — berharap kepada rahmat Allah, berwaspada terhadap kekurangan dirinya sendiri.",
+      "Satu perkara yang menenangkan, yang menjadi teras akidah Ahli Sunnah, terdapat di sepanjang modul ini: mereka yang mati dalam keadaan beriman kepada Allah Yang Esa, walaupun dibebani dosa, tidak akan kekal selama-lamanya di dalam Neraka. Dengan rahmat Allah dan syafaat yang diizinkan-Nya, orang mukmin yang berdosa akhirnya akan dikeluarkan; hanya mereka yang mati dalam keadaan menolak iman akan kekal. Maka bagi seorang mukmin, mempelajari Jahannam pada hakikatnya ialah mempelajari cara untuk mencapai rahmat.",
+      "Modul ini membentangkan apa yang dinyatakan dengan jelas oleh nas, mencatat dengan jujur perkara yang diperselisihkan oleh ulama, hanya memetik dalil yang sahih, dan sentiasa mengarahkan anda kepada taubat, amal soleh, dan tawakal kepada Allah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Takutlah kepada Api yang disediakan bagi orang-orang kafir — dan taatlah kepada Allah dan Rasul-Nya supaya kamu diberi rahmat.",
-      },
-      {
-        excerpt:
-          "Katakanlah: Wahai hamba-hamba-Ku yang telah melampaui batas terhadap diri mereka sendiri, janganlah berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni semua dosa.",
-      },
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, bertobatlah kepada Allah dengan tobat yang tulus — semoga Rabb kamu menghapus keburukan-keburukan kamu dan memasukkan kamu ke dalam taman-taman syurga.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Harapan kepada rahmat Allah" }, { label: "Perjalanan ke Jannah" }],
   },
   {
-    title: "Mengapa Allah Menciptakan Jahannam",
-    summary: "Keadilan ilahi, pertanggungjawaban, dan konsekuensi dari kebebasan memilih.",
+    title: "Mengapa Allah Mencipta Jahannam",
+    summary: "Keadilan Ilahi, pertanggungjawaban, dan akibat daripada kebebasan memilih.",
     body: [
-      "Jahannam ada sebagai perwujudan keadilan Allah yang sempurna ('adl). Sebuah alam semesta di mana orang zalim dan yang dizalimi, yang ikhlas dan yang berkhianat, semuanya berakhir sama, tidaklah adil. Kerana Allah Maha Adil secara sempurna, maka mesti ada perhitungan akhir di mana setiap keburukan dijawab dan setiap kebaikan dihargai.",
-      "Inti dari semua ini adalah bahawa Allah tidak menzalimi siapa pun. Setiap jiwa yang masuk ke dalam Api masuk kerana pilihan-pilihannya sendiri yang sudah mantap dan tidak ditobati — bukan kerana keputusan sewenang-wenang. Al-Quran sangat tegas: 'Allah sama sekali tidak menzalimi manusia, tetapi manusialah yang menzalimi diri mereka sendiri' (4:40). Tidak ada yang dihukum atas apa yang tidak dilakukannya, atau melebihi apa yang pantas.",
-      "Manusia tidak dibiarkan dalam kegelapan. Allah memberi mereka akal, mengutus para rasul, dan menurunkan petunjuk yang jelas, lalu memuliakan mereka dengan kebebasan sejati untuk menerima atau menolaknya: 'Siapa yang ingin, berimanlah; dan siapa yang ingin, ingkarlah' (18:29). Bersikeras dalam menolak kebenaran, dalam kezaliman, atau dalam dosa besar tanpa tobat membawa konsekuensi di akhirat, justru kerana pilihan itu benar-benar milik diri sendiri.",
-      "Namun bahkan di sini rahmat mengelilingi keadilan. Allah memperingatkan sebelum menghukum, menunda perhitungan untuk memberi ruang kembali, mengampuni dengan cepat ketika dimohon, dan membalas satu kebaikan berkali-kali lipat sementara mencatat satu keburukan hanya sebagai satu. Keadilan-Nya tidak pernah terpisah dari rahmat-Nya.",
-      "Oleh sebab itu, merenungkan mengapa Jahannam ada seharusnya meningkatkan takwa (kesadaran akan Allah) dan memperdalam rasa syukur atas setiap hari kehidupan yang masih menjadi kesempatan untuk bertobat. Tujuannya adalah membuat hati serius sekaligus penuh harap — bukan melumpuhkannya dengan keputusasaan.",
+      "Jahannam wujud sebagai manifestasi keadilan Allah yang sempurna ('adl). Alam yang padanya orang zalim dan orang yang dizalimi, orang yang ikhlas dan orang yang khianat, semuanya menemui pengakhiran yang sama bukanlah alam yang adil. Oleh kerana Allah Maha Adil dengan sempurna, mesti ada perhitungan terakhir yang padanya setiap kesalahan dibalas dan setiap kebaikan dihargai.",
+      "Teras kepada semua ini ialah Allah tidak menzalimi sesiapa pun. Setiap jiwa yang memasuki Neraka memasukinya kerana pilihan-pilihannya sendiri yang telah tetap dan tidak ditaubati — bukan sekali-kali kerana ketetapan yang sewenang-wenang. Al-Quran menegaskan: 'Sesungguhnya Allah tidak menganiaya manusia sedikitpun, akan tetapi manusia jualah yang menganiaya diri mereka sendiri' (10:44). Tiada sesiapa dihukum atas perkara yang tidak dilakukannya, dan tidak juga melebihi apa yang sepatutnya.",
+      "Manusia tidak dibiarkan dalam kegelapan. Allah mengurniakan mereka akal, mengutus para rasul, dan menurunkan petunjuk yang jelas, kemudian memuliakan mereka dengan kebebasan sebenar untuk menerima atau menolaknya: 'sesiapa yang mahu beriman, hendaklah ia beriman; dan sesiapa yang mahu kufur ingkar, biarlah dia mengingkarinya' (18:29). Berterusan menolak kebenaran, melakukan kezaliman, atau melakukan dosa besar tanpa taubat membawa akibat di akhirat, justeru kerana pilihan itu benar-benar pilihan diri sendiri.",
+      "Namun, di sini pun rahmat menaungi keadilan. Allah memberi amaran sebelum Dia menghakimi, menangguhkan perhitungan untuk memberi ruang bagi kembali, mengampunkan dengan segera apabila dipohon, dan membalas satu kebaikan dengan berlipat kali ganda sedangkan satu kejahatan dicatat sebagai satu sahaja. Keadilan-Nya tidak pernah terpisah daripada rahmat-Nya.",
+      "Oleh itu, merenungkan mengapa Jahannam wujud sepatutnya menambahkan takwa (kesedaran tentang Allah) dan memperdalam rasa syukur atas setiap hari kehidupan yang masih menjadi peluang untuk bertaubat. Ia bertujuan menjadikan hati bersungguh-sungguh dan penuh harapan pada masa yang sama — bukan sekali-kali melumpuhkannya dengan rasa putus asa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah sama sekali tidak menzalimi manusia, tetapi manusialah yang menzalimi diri mereka sendiri.",
-      },
-      {
-        excerpt:
-          "Dia tidak ditanya tentang apa yang Dia lakukan, tetapi merekalah yang akan ditanya.",
-      },
-      {
-        excerpt:
-          "Siapa yang ingin, berimanlah; dan siapa yang ingin, ingkarlah. Sesungguhnya Kami telah menyediakan Api bagi orang-orang zalim.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tidak seorang pun di antara kamu yang masuk syurga semata-mata kerana amalnya. Para sahabat bertanya: Tidak juga engkau, wahai Rasulullah? Baginda bersabda: Tidak juga aku, kecuali jika Allah menyelimutiku dengan rahmat-Nya.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Belajar Akidah — keadilan Ilahi" }],
   },
   {
-    title: "Kenyataan Akhirat",
+    title: "Hakikat Akhirat",
     summary:
-      "Dari kematian hingga penghakiman — setiap tahap adalah nyata dan terkait dengan akidah.",
+      "Dari kematian hingga penghakiman — setiap peringkat adalah benar dan berkait dengan akidah.",
     body: [
-      "Bagi memahami Jahannam dengan benar, ada baiknya melihat di mana letaknya dalam perjalanan yang lebih besar ini. Islam mengajarkan urutan yang jelas selepas kematian: ruh meninggal duniakan jasad, kemudian barzakh (kehidupan sela di alam kubur) dimulai, lalu Kebangkitan ketika jasad dibangkitkan, Pengumpulan seluruh makhluk, Pengadilan di mana amal diperiksa, penimbangan amal di Mizan, penyeberangan Sirat, dan akhirnya penempatan setiap jiwa di Syurga atau Api — semuanya atas ketetapan, keadilan, dan rahmat Allah.",
-      "Setiap tahap ini ditetapkan dalam akidah Ahlus Sunnah arus utama berdasarkan Al-Quran dan Sunnah yang sahih. Urutan ini bukanlah simbol atau cerita; ini adalah kenyataan yang harus diyakini sebagai bahagian dari beriman kepada Hari Akhir, dan mengingkarinya dengan sengaja adalah persoalan akidah, bukan sekadar amal.",
-      "Melihat seluruh jalan ini juga membingkai ulang pemahaman kita tentang Api. Ia adalah salah satu tujuan yang mungkin di akhir perjalanan yang sedang ditempuh setiap jiwa — yang berarti pilihan-pilihan hari ini bukanlah sesuatu yang abstrak. Semuanya adalah langkah-langkah di jalan itu, dan masih menjadi milik kita untuk diarahkan.",
-      "Mengetahui urutan ini membantu seorang mukmin bersiap, bukan sekadar takut: hidup dengan mengingat kematian (dzikrul maut) secara sehat, memperbaiki kesalahan sebelum dibawa ke Pengumpulan, dan mengisi catatan amal saleh selagi pintu untuk beramal masih terbuka. Kematian menutup pintu itu; tidak ada lagi yang boleh ditambahkan selepasnya.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Kemudian sesungguhnya kamu pasti mati selepas itu. Kemudian sesungguhnya kamu akan dibangkitkan pada Hari Kiamat.",
-      },
-      {
-        excerpt:
-          "Adapun orang yang berat timbangannya, dia akan berada dalam kehidupan yang menyenangkan. Adapun orang yang ringan timbangannya, tempat kembalinya adalah jurang yang dalam.",
-      },
+      "Untuk memahami Jahannam dengan betul, ada baiknya kita melihat kedudukannya dalam perjalanan yang lebih besar. Islam mengajarkan urutan yang jelas selepas kematian: roh meninggalkan jasad, kemudian bermulanya alam barzakh (kehidupan pertengahan di alam kubur), kemudian Kebangkitan apabila jasad dibangkitkan, Perhimpunan seluruh makhluk, Penghakiman yang padanya amalan diperiksa, penimbangan amalan di atas Neraca (al-Mizan), penyeberangan Titian (as-Sirat), dan akhirnya penempatan setiap jiwa di Syurga atau Neraka — semuanya dengan ketetapan, keadilan, dan rahmat Allah.",
+      "Setiap peringkat ini ditetapkan dalam akidah arus perdana Ahli Sunnah berdasarkan al-Quran dan Sunnah yang sahih. Urutan ini bukan simbol atau cerita; ia ialah hakikat yang wajib diimani sebagai sebahagian daripada beriman kepada Hari Akhirat, dan mengingkarinya dengan sedar ialah persoalan akidah, bukan sekadar persoalan amalan.",
+      "Melihat keseluruhan jalan ini juga memberi kefahaman baharu tentang Neraka. Ia ialah salah satu destinasi yang mungkin di penghujung perjalanan yang sedang ditempuh oleh setiap jiwa — ini bermakna pilihan-pilihan hari ini bukanlah perkara abstrak. Semuanya ialah langkah di sepanjang jalan itu, dan kita masih berpeluang menentukan arahnya.",
+      "Mengetahui urutan ini membantu seorang mukmin bersiap sedia, bukan sekadar takut: hidup dengan mengingati mati (zikr al-mawt) secara sihat, membetulkan kesalahan sebelum ia dibawa ke Perhimpunan, dan memenuhkan catatan amal soleh selagi pintu untuk beramal masih terbuka. Kematian menutup pintu itu; tiada apa yang boleh ditambah selepasnya.",
     ],
     actions: [
-      "Pelajari setiap tahap di Pelajari Akidah dan hubungkan keimanan dengan pilihan sehari-hari.",
-      "Perbanyak mengingat kematian (dzikrul maut) tanpa mengabaikan harapan pada rahmat.",
+      "Pelajari setiap peringkat dalam Belajar Akidah dan kaitkan keimanan dengan pilihan harian.",
+      "Perbanyakkan mengingati mati (zikr al-mawt) tanpa mengabaikan harapan kepada rahmat.",
     ],
-    appLinks: [{}, {}, {}, {}, {}, {}],
+    appLinks: [
+      { label: "Akidah — Hari Akhirat" },
+      { label: "Kebangkitan" },
+      { label: "Hari Penghakiman" },
+      { label: "Neraca & Titian Sirat" },
+      { label: "Neraka dalam Akidah" },
+      { label: "Syurga dalam Akidah" },
+    ],
   },
   {
-    title: "Nama-Nama Jahannam",
+    title: "Nama-Nama Neraka",
     summary:
-      "Nama-nama dalam Al-Quran beserta maknanya — ulama berbeda penboleh apakah setiap nama adalah tingkatan tersendiri.",
+      "Nama-nama dalam al-Quran beserta maknanya — ulama berbeza pendapat sama ada setiap nama ialah tingkatan yang tersendiri.",
     body: [
-      "Al-Quran menyebut neraka dengan beberapa nama, dan ini bukan sekadar pengulangan. Dalam bahasa Arab, sebuah nama sering membawa gambaran hidup di dalamnya, sehingga setiap nama mengajarkan sesuatu tentang kenyataan yang ditunjuknya. Di antaranya adalah Jahannam, Jahim, Saqar, Sa'ir, al-Hutamah, al-Hawiyah, dan Laza.",
-      "Setiap nama membuka jendela pada aspek keparahan yang berbeda. Jahim dan Sa'ir menggambarkan api yang berkobar dan menyala hebat; Saqar, yang menghanguskan dan tidak menyisakan apa pun; al-Hutamah, yang meremukkan segala yang dilemparkan ke dalamnya; al-Hawiyah, jurang dalam tempat seseorang terjatuh; dan Laza, nyala api murni yang mengelupas. Membaca nama-nama ini bersama-sama membangun gambaran serius yang tidak mudah diabaikan hati.",
-      "Ulama tafsir klasik — seperti Ibnu Katsir dan al-Thabari — menjelaskan nama-nama ini dari akar katanya dalam bahasa Arab dan membahas masing-masing dalam konteks ayat tempatnya muncul, bukan memperlakukannya sebagai daftar teknis yang baku.",
-      "Perlu ada catatan kehati-hatian di sini. Sebahagian penulis belakangan menyajikan setiap nama sebagai 'tingkatan' neraka yang terpisah dan berjenjang, kadang dengan diagram rinci. Itu adalah tafsiran keilmuan, bukan daftar eksplisit yang dinyatakan dalam Al-Quran atau hadis yang disepakati. Sikap yang seimbang adalah mempelajari makna yang benar-benar diberikan oleh nas, dan menghindari menyajikan peta spekulatif sebagai kepastian.",
-      "Tujuan mempelajari nama-nama ini bukan untuk memuaskan rasa penasaran, melainkan untuk melembutkan hati dan menggerakkannya menuju rahmat yang terus-menerus ditunjukkan oleh modul ini. Jelajahi kumpulan lengkap nama-nama untuk kemunculan dalam Al-Quran, konteks, dan ringkasan tafsir setiap nama.",
+      "Al-Quran menyebut neraka dengan beberapa nama, dan ini bukan sekadar pengulangan. Dalam bahasa Arab, sesuatu nama sering membawa gambaran yang jelas di dalamnya, maka setiap nama mengajarkan sesuatu tentang hakikat yang ditunjukkannya. Antaranya ialah Jahannam, Jahim, Saqar, Sa'ir, al-Hutamah, al-Hawiyah, dan Laza.",
+      "Setiap nama membuka jendela kepada aspek kedahsyatan yang berbeza. Jahim dan Sa'ir menggambarkan api yang marak menyala dan dinyalakan; Saqar, api yang membakar hangus dan tidak meninggalkan apa-apa; al-Hutamah, penghancur yang meremukkan apa sahaja yang dicampakkan ke dalamnya; al-Hawiyah, jurang dalam yang ke dalamnya seseorang terjatuh; dan Laza, nyalaan api yang menyiat. Membaca nama-nama ini bersama-sama membina gambaran yang menginsafkan yang tidak mudah diabaikan oleh hati.",
+      "Ulama tafsir klasik — seperti Ibnu Kathir dan al-Tabari — menjelaskan nama-nama ini berdasarkan akar katanya dalam bahasa Arab dan membincangkan setiap satu dalam konteks ayat tempat ia disebut, bukannya menganggapnya sebagai senarai teknikal yang tetap.",
+      "Perlu ada sedikit peringatan di sini. Sebahagian penulis terkemudian membentangkan setiap nama sebagai 'tingkatan' neraka yang tersendiri dan bertingkat-tingkat, kadangkala dengan rajah yang terperinci. Itu ialah tafsiran ulama, bukan senarai jelas yang dinyatakan dalam al-Quran atau dalam hadis yang disepakati. Pendekatan yang seimbang ialah mempelajari makna yang benar-benar diberikan oleh nas dan mengelak daripada membentangkan peta spekulatif sebagai satu kepastian.",
+      "Tujuan mempelajari nama-nama ini bukan untuk memuaskan rasa ingin tahu, tetapi untuk melembutkan hati dan menggerakkannya ke arah rahmat yang sentiasa ditunjukkan oleh modul ini. Lihat koleksi penuh nama-nama untuk mengetahui tempat setiap nama disebut dalam al-Quran, konteksnya, dan ringkasan tafsirnya.",
     ],
-    quran: [
-      {
-        excerpt: "Cukuplah Jahannam sebagai tempat kembali.",
-      },
-      {
-        excerpt: "Dia pasti akan dilemparkan ke dalam al-Hutamah — Api yang meremukkan.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Lihat semua nama" }],
   },
   {
-    title: "Tingkatan Jahannam",
+    title: "Tingkatan Neraka",
     summary:
-      "Berbagai derajat siksaan — struktur pastinya tidak dijelaskan secara lengkap dalam nas.",
+      "Darjat azab yang berbeza-beza — struktur tepatnya tidak diperincikan sepenuhnya dalam nas.",
     body: [
-      "Prinsip yang dinyatakan secara jelas oleh Al-Quran adalah bahawa siksaan itu sepadan: tidak semua orang di dalam Api mengalaminya dengan takaran yang sama. 'Bagi semuanya ada derajat sesuai dengan apa yang mereka kerjakan' (6:132). Ini sendiri adalah ungkapan keadilan — orang yang berbuat zalim sedikit tidak diperlakukan sama seperti yang berbuat zalim banyak.",
-      "Sunnah yang sahih menggambarkan prinsip yang sama. Nabi ﷺ menggambarkan orang dengan siksaan paling ringan di dalam Api sebagai seseorang yang di bawah kedua telapak kakinya diletakkan dua bara api yang membuat otaknya mendidih — namun dialah yang paling ringan siksaannya di antara seluruh penghuni Api (Sahih al-Bukhari 6562). Jika inilah yang paling ringan, akal boleh memahami betapa beratnya tingkatan yang lebih tinggi, dan betapa banyak alasan untuk kembali hari ini.",
-      "Pada saat yang sama, wahyu tidak memberikan kepada orang-orang mukmin sebuah peta lengkap dan bernomor tentang struktur neraka yang wajib dihafalkan. Para ulama telah membahas tingkatan, kedalaman, dan kategori yang diambil dari berbagai ayat dan riwayat, tetapi sebahagian besar dari ini tetap merupakan tafsiran, bukan nas yang disepakati dan eksplisit.",
-      "Namun, ada dua hal yang pasti. Pertama, bahawa kezaliman (dzulm), syirik, dan dosa besar yang terus-menerus tanpa tobat membawa peringatan yang berat. Kedua — dan ini tidak boleh pernah dilupakan — bahawa rahmat dan ampunan Allah tetap terbuka hingga saat kematian bagi siapa pun yang kembali kepada-Nya dengan tulus. Inti mempelajari tingkatan-tingkatan ini adalah untuk memilih jalan yang lebih ringan selagi pilihan itu masih ada.",
-      "Secara praktis, ini berarti memperlakukan daftar rinci 'tujuh tingkatan' atau skema serupa sebagai penboleh keilmuan, bukan ajaran yang mutlak, dan tetap memusatkan perhatian pada apa yang benar-benar melindungi: keimanan, tobat, dan amal saleh.",
-    ],
-    quran: [
-      {
-        excerpt: "Bagi semuanya ada derajat sesuai dengan apa yang mereka kerjakan.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya orang-orang munafik berada di dasar Api yang paling bawah, dan kamu tidak akan mendapati penolong bagi mereka.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Orang yang paling ringan siksaannya di antara penghuni Api adalah seseorang yang di bawah kedua telapak kakinya diletakkan dua bara api yang membuat otaknya mendidih.",
-      },
+      "Satu prinsip yang dinyatakan dengan jelas oleh al-Quran ialah azab itu setimpal: tidak semua penghuni Neraka merasainya dengan kadar yang sama. 'Dan bagi tiap-tiap seorang (dari manusia atau jin), beberapa darjat (tingkatan balasan) disebabkan (amal baik atau jahat) yang mereka telah kerjakan' (6:132). Ini sendiri ialah gambaran keadilan — orang yang sedikit kezalimannya tidak dilayan sama seperti orang yang banyak kezalimannya.",
+      "Sunnah yang sahih menggambarkan prinsip yang sama. Nabi ﷺ menggambarkan penghuni Neraka yang paling ringan azabnya sebagai seseorang yang diletakkan dua bara api di bawah kedua-dua tapak kakinya sehingga otaknya mendidih kerananya — namun dialah yang paling ringan azabnya antara seluruh penghuninya (Sahih al-Bukhari 6562). Jika itu yang paling ringan, akal dapat memahami betapa beratnya darjat-darjat yang lebih tinggi, dan betapa banyak sebab untuk kembali hari ini.",
+      "Pada masa yang sama, wahyu tidak memberikan kepada orang mukmin peta struktur neraka yang lengkap dan bernombor yang wajib dihafal. Ulama telah membincangkan tingkatan, kedalaman, dan kategori yang diambil daripada pelbagai ayat dan riwayat, tetapi kebanyakannya kekal sebagai tafsiran, bukan nas yang jelas dan disepakati.",
+      "Namun, dua perkara adalah pasti. Pertama, kezaliman (zulm), syirik, dan dosa besar yang berterusan tanpa taubat membawa amaran yang berat. Kedua — dan ini tidak boleh dilupakan — rahmat dan keampunan Allah tetap terbuka sehingga saat kematian bagi sesiapa yang kembali kepada-Nya dengan ikhlas. Tujuan mempelajari darjat-darjat ini ialah untuk memilih jalan yang lebih ringan selagi pilihan masih ada.",
+      "Secara praktikal, ini bermakna menganggap senarai terperinci 'tujuh tingkatan' atau skema yang seumpamanya sebagai pendapat ulama, bukan doktrin yang muktamad, dan terus memberi tumpuan kepada perkara yang benar-benar melindungi: iman, taubat, dan amal soleh.",
     ],
     disclaimer:
-      "Diagram tingkatan neraka yang ditemukan di sebahagian buku mencerminkan tafsiran keilmuan, bukan kesepakatan bulat.",
+      "Rajah tingkatan neraka yang terdapat dalam sesetengah buku mencerminkan tafsiran ulama, bukan kesepakatan sebulat suara.",
   },
   {
-    title: "Pintu-Pintu Jahannam",
-    summary: "Tujuh pintu — apa yang dinyatakan Al-Quran dan di mana tafsiran berbeda.",
+    title: "Pintu-Pintu Neraka",
+    summary: "Tujuh pintu — apa yang dinyatakan oleh al-Quran dan di mana tafsiran berbeza.",
     body: [
-      "Satu perincian tentang Jahannam dinyatakan secara jelas dan tegas dalam Al-Quran: 'Sesungguhnya Jahannam memiliki tujuh pintu; setiap pintu mempunyai bahagian tertentu dari mereka' (15:44). Keyakinan akan tujuh pintu kerananya berlandaskan wahyu yang jelas, bukan spekulasi.",
-      "Ayat ini menegaskan dua hal: bahawa ada tujuh pintu, dan bahawa mereka yang masuk akan dibagi ke dalamnya. Ulama tafsir klasik membahas apa yang ditunjukkan oleh pembahagian ini — apakah menunjuk pada kategori manusia, pada derajat siksaan yang sesuai amal, atau pada keduanya. Hikmah di balik pembahagian ini milik Allah, yang keadilan-Nya menempatkan setiap jiwa persis di tempat yang seseolah-olah.",
-      "Penting untuk mencatat di mana kepastian berakhir. Sebahagian karya belakangan mengaitkan setiap pintu tertentu dengan dosa atau kelompok tertentu. Kaitan-kaitan khusus ini tidak ditetapkan secara seragam dalam sumber-sumber paling awal, sehingga lebih baik disajikan sebagai pandangan ulama perorangan, bukan sebagai penjelasan kenabian.",
-      "Sama seperti tingkatan, pengajaran dari pintu-pintu ini bukanlah soal arsitektur melainkan moral: ada banyak pintu yang menuju ke Api, dan jalan untuk selamat dari semuanya sama — keimanan yang tulus, menjauhi dosa besar, dan segera bertobat ketika tergelincir.",
+      "Satu perincian tentang Jahannam dinyatakan dengan jelas dan tegas dalam al-Quran: 'Ia mempunyai tujuh pintu; bagi tiap-tiap sebuah pintu ada bahagian yang tertentu dari mereka' (15:44). Oleh itu, kepercayaan kepada tujuh pintu bersandarkan wahyu yang jelas, bukan spekulasi.",
+      "Ayat ini menegaskan dua perkara: bahawa ada tujuh pintu, dan bahawa mereka yang memasukinya dibahagikan kepada pintu-pintu itu. Ulama tafsir klasik membincangkan maksud pembahagian ini — sama ada ia merujuk kepada golongan manusia, kepada darjat azab yang setimpal dengan amalan, atau kedua-duanya. Hikmah di sebalik pembahagian ini milik Allah, yang dengan keadilan-Nya menempatkan setiap jiwa tepat di tempat yang sepatutnya.",
+      "Penting untuk menyedari di mana kepastian berakhir. Sesetengah karya terkemudian mengaitkan setiap pintu tertentu dengan dosa atau golongan tertentu. Kaitan-kaitan khusus ini tidak ditetapkan secara seragam dalam sumber-sumber terawal, maka sebaiknya ia dibentangkan sebagai pandangan ulama secara individu, bukan sebagai penjelasan daripada Nabi ﷺ.",
+      "Seperti tingkatan, pengajaran tentang pintu-pintu ini bukan soal seni bina tetapi soal akhlak: ada banyak pintu yang membawa ke arah Neraka, dan cara untuk selamat daripada semuanya adalah sama — iman yang ikhlas, menjauhi dosa besar, dan segera bertaubat apabila tergelincir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan sesungguhnya Jahannam adalah tempat yang dijanjikan bagi mereka semua. Ia memiliki tujuh pintu; setiap pintu mempunyai bahagian yang ditentukan.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Perincian pintu-pintu" }],
   },
   {
-    title: "Sifat-Sifat Jahannam",
-    summary: "Api, panas, rantai, penyesalan — disajikan dengan penghormatan, bukan sensasi.",
+    title: "Gambaran Jahannam",
+    summary:
+      "Api, kepanasan, rantai, penyesalan — dibentangkan dengan penuh hormat, bukan sensasi.",
     body: [
-      "Al-Quran dan Sunnah yang sahih menggambarkan Jahannam dengan bahasa yang hidup dan konkret, dan ini bukan tanpa alasan: hati manusia lebih tergerak oleh gambaran yang boleh dibayangkan daripada oleh gagasan abstrak. Gambaran-gambaran ini — api yang membakar hebat, panas yang tak tertahankan, makanan dan minuman yang terbatas, rantai, kegelapan, dan penyesalan yang mendalam — dimaksudkan supaya bahaya itu terasa cukup nyata untuk mengarahkan kita menjauhinya.",
-      "Di antara gambaran itu adalah air mendidih untuk diminum, pohon zaqqum yang pahit sebagai makanan, pakaian yang dipotong dari api, dan terputusnya dari setiap kenyamanan yang pernah diandalkan seseorang. Nabi ﷺ menyampaikan sejauh mana panas ini melampaui segala yang kita kenal, bersabda bahawa api yang kita nyalakan di dunia ini hanyalah satu dari tujuh puluh bahagian Api akhirat (Sahih al-Bukhari 3265).",
-      "Gambaran-gambaran ini adalah peringatan yang nyata, bukan sekadar kiasan yang mengosongkan akhirat dari konsekuensi. Ulama Ahlus Sunnah menetapkan kenyataannya sambil menyerahkan cara pasti dari perkara gaib ini kepada ilmu Allah; tugas seorang mukmin adalah meresapi peringatannya, bukan membedahnya.",
-      "Ada adab dalam membaca bahagian-bahagian seperti ini. Ia didekati dengan kerendahan hati, rasa takut kepada Allah, dan dorongan segera untuk bertobat serta memohon perlindungan — bukan dengan ketertarikan yang tidak sehat, dan tidak pernah dengan keputusasaan, kerana seluruh tujuan peringatan ini adalah bahawa kita masih memiliki waktu untuk menghindarinya.",
-      "Mungkin tema paling berat dalam gambaran-gambaran ini adalah penyesalan. 'Seandainya dulu aku…' akan diucapkan ketika waktu untuk beramal telah berlalu. Rahmat dari mendengar tentang penyesalan itu kini adalah bahawa kita boleh bertindak atas 'seandainya' itu hari ini, selagi masih boleh mengubah akhir kita.",
+      "Al-Quran dan Sunnah yang sahih menggambarkan Jahannam dengan bahasa yang jelas dan nyata, dan ada sebabnya: hati manusia lebih tersentuh oleh gambaran yang dapat dibayangkan berbanding idea yang abstrak. Gambaran-gambaran ini — api yang dahsyat, kepanasan yang tidak tertanggung, makanan dan minuman yang terhad, rantai, kegelapan, dan penyesalan yang mendalam — bertujuan menjadikan bahaya itu cukup nyata untuk memalingkan kita daripadanya.",
+      "Antara gambaran tersebut ialah air mendidih yang diberi minum, pokok zaqqum yang pahit sebagai makanan, pakaian yang dipotong daripada api, dan terpisah daripada setiap keselesaan yang pernah diharapkan oleh seseorang. Nabi ﷺ menyampaikan betapa jauhnya kepanasan ini melebihi apa sahaja yang kita ketahui; baginda bersabda bahawa api yang kita nyalakan di dunia ini hanyalah satu bahagian daripada tujuh puluh bahagian api akhirat (Sahih al-Bukhari 3265).",
+      "Gambaran-gambaran ini ialah amaran yang benar, bukan sekadar kiasan yang mengosongkan akhirat daripada akibat. Ulama Ahli Sunnah menetapkan hakikatnya sambil menyerahkan bentuk sebenar perkara ghaib ini kepada ilmu Allah; tugas seorang mukmin ialah menghayati amaran itu, bukan membedahnya.",
+      "Ada adab dalam membaca petikan seperti ini. Ia didekati dengan rendah diri, rasa gerun kepada Allah, dan dorongan segera untuk bertaubat dan memohon perlindungan — bukan dengan minat yang tidak sihat, dan bukan sekali-kali dengan rasa putus asa, kerana seluruh tujuan amaran itu ialah kita masih mempunyai masa untuk mengelakkannya.",
+      "Barangkali tema yang paling berat dalam gambaran-gambaran ini ialah penyesalan. 'Alangkah baiknya jika dahulu aku…' akan diucapkan apabila masa untuk beramal telah pun tertutup. Rahmat dalam mendengar tentang penyesalan itu sekarang ialah kita boleh bertindak atas 'alangkah baiknya' itu hari ini, selagi ia masih boleh mengubah pengakhiran kita.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Di hadapannya ada Jahannam, dan dia akan diberi minum air yang kotor. Dia akan menenggaknya namun hampir tidak boleh menelannya.",
-      },
-      {
-        excerpt:
-          "Pakaian dari api akan dipotongkan untuk mereka, dan air mendidih akan disiramkan ke atas kepala mereka.",
-      },
-      {
-        excerpt:
-          "Pada hari itu Jahannam akan didatangkan — pada hari itu manusia akan ingat, namun apa gunanya ingatan itu baginya?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Apimu ini adalah satu dari tujuh puluh bahagian Api Jahannam. Dikatakan: Wahai Rasulullah, api ini sahaja sudah cukup. Baginda bersabda: Ia dilebihkan enam puluh sembilan bahagian di atasnya, setiap bahagian sepanas apimu ini.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Perlindungan daripada Neraka" }],
   },
   {
-    title: "Siapa yang Diperingatkan?",
-    summary: "Kategori dalam Al-Quran dan Sunnah — bukan penghakiman terhadap individu tertentu.",
+    title: "Siapakah yang Diberi Amaran?",
+    summary: "Golongan dalam al-Quran dan Sunnah — bukan penghakiman terhadap individu.",
     body: [
-      "Pembaca Al-Quran yang cermat akan menyadari bahawa peringatan-peringatannya ditujukan pada perilaku dan sikap, bukan pada individu yang disebut namanya. Ia memperingatkan mereka yang terus mengingkari kebenaran selepas jelas bagi mereka, orang-orang munafik yang secara lahir mengaku beriman sementara batinnya mengingkarinya, para penindas yang menginjak-injak hak orang lain, orang-orang sombong yang terlalu angkuh untuk tunduk, dan mereka yang meninggal dunia dunia dalam dosa besar tanpa pernah bertobat.",
-      "Fokus pada kategori, bukan pada perorangan, ini disengaja dan penuh rahmat. Pintu untuk kembali tetap terbuka bagi setiap orang yang masih hidup, apa pun masa lalunya, kerana berkas seseorang tidak ditutup hingga kematian. Peringatan ini menggambarkan jalannya, supaya siapa pun yang masih menempuhnya boleh melangkah turun.",
-      "Oleh sebab itu, Islam tidak mengizinkan kita menyatakan nasib akhir seseorang tertentu — mengatakan 'orang ini di dalam Api' — kecuali dalam kasus-kasus langka di mana Allah atau Rasul-Nya ﷺ secara eksplisit menyatakannya dalam wahyu yang sahih. Menghakimi hati dan akhir seseorang hanyalah milik Allah semata; tugas kita adalah perhitungan diri kita sendiri.",
-      "Maka cara yang benar membaca setiap peringatan adalah mengarahkannya ke dalam diri: bukan 'siapa yang digambarkan ini?' melainkan 'apakah ada dari ini yang menggambarkan diriku, dan apa yang akan kuubah hari ini?' Siapa pun dirimu, undangan untuk kembali kepada Allah terbuka kini juga — dan besok tidak dijanjikan bagi siapa pun.",
+      "Pembaca al-Quran yang teliti akan menyedari bahawa amarannya ditujukan kepada perbuatan dan sikap, bukan kepada individu yang disebut namanya. Ia memberi amaran kepada mereka yang berterusan dalam kekufuran selepas kebenaran jelas kepada mereka, orang munafik yang mengaku beriman secara zahir sedangkan menolaknya dalam batin, orang zalim yang mencabuli hak orang lain, orang sombong yang terlalu angkuh untuk tunduk, dan mereka yang mati dalam dosa besar tanpa pernah bertaubat.",
+      "Tumpuan kepada golongan dan bukan kepada individu ini disengajakan dan penuh rahmat. Pintu untuk kembali sentiasa terbuka bagi setiap orang yang masih hidup, walau apa pun masa lalunya, kerana catatan amalan seseorang tidak ditutup sehingga dia mati. Amaran itu menggambarkan jalannya, supaya sesiapa yang masih menempuhnya boleh keluar daripadanya.",
+      "Oleh sebab itu, Islam tidak membenarkan kita mengisytiharkan nasib akhir mana-mana individu tertentu — mengatakan 'orang ini di dalam Neraka' — kecuali dalam kes-kes yang jarang berlaku apabila Allah atau Rasul-Nya ﷺ menyatakannya dengan jelas dalam wahyu yang sahih. Menghakimi hati dan pengakhiran seseorang hanyalah hak Allah semata-mata; tugas kita ialah menghisab diri sendiri.",
+      "Maka cara yang betul membaca setiap amaran ialah menghalakannya ke dalam diri: bukan 'siapakah yang digambarkan ini?' tetapi 'adakah mana-mana bahagian ini menggambarkan diriku, dan apakah yang akan aku ubah hari ini?' Siapa pun anda, jemputan untuk kembali kepada Allah terbuka sekarang juga — dan hari esok tidak dijanjikan kepada sesiapa pun.",
     ],
-    quran: [
-      {
-        excerpt: "Orang-orang munafik akan berada di dasar Api yang paling bawah.",
-      },
-      {
-        excerpt:
-          "Siapa yang berbuat dosa lalu dosanya melingkupinya — mereka itulah penghuni Api, kekal di dalamnya.",
-      },
-      {
-        excerpt:
-          "Janganlah kamu mengira Allah lengah dari apa yang diperbuat orang-orang zalim. Dia hanya menunda mereka hingga suatu hari ketika mata terbelalak.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Dosa-dosa besar" }],
   },
   {
     title: "Dosa-Dosa Besar",
-    summary: "Kaba'ir — dosa berat yang menuntut tobat yang tulus.",
+    summary: "Kaba'ir — dosa-dosa berat yang menuntut taubat yang ikhlas.",
     body: [
-      "Para ulama membagi dosa ke dalam dua kategori, dan memahami perbedaannya membawa kesungguhan sekaligus kelegaan. Dosa besar (al-kaba'ir) adalah dosa yang Allah atau Rasul-Nya ﷺ kaitkan dengan konsekuensi berat tertentu — ancaman Api, laknat, kemurkaan Allah, atau hukuman yang ditetapkan — seperti syirik, pembunuhan, dan memakan riba. Dosa kecil (al-sagha'ir) adalah kesalahan-kesalahan ringan yang berada di bawah ambang itu.",
-      "Kelegaannya terletak pada bagaimana keduanya saling berkaitan. Allah berjanji bahawa jika seorang mukmin menjauhi dosa-dosa besar, dosa-dosa kecil akan dihapuskan oleh amal ibadat biasa: 'Jika kamu menjauhi dosa-dosa besar yang dilarang bagimu, Kami akan menghapus dosa-dosa kecilmu' (4:31). Solat ke solat, Jumat ke Jumat, dan Ramadan ke Ramadan menjadi penebus apa yang ada di antaranya, selama dosa-dosa besar dijauhi.",
-      "Inilah sebabnya dosa-dosa besar layak menboleh perhatian khusus: dosa-dosa ini tidak begitu sahaja terhapus dalam aliran ibadat sehari-hari, melainkan menuntut tobat yang disengaja dan tulus. Jika terus dilakukan tanpa berbalik, dosa-dosa ini membahayakan jiwa; jika ditinggalkan dan ditobati, dosa-dosa ini diampuni.",
-      "Dan inilah cakrawala yang menaungi semuanya: dengan satu-satunya pengecualian meninggal dunia dunia dalam keadaan syirik, setiap dosa — besar maupun kecil — berada di bawah ampunan Allah jika Dia berkehendak. 'Sesungguhnya Allah tidak mengampuni dosa mempersekutukan-Nya, tetapi Dia mengampuni apa yang di bawah itu bagi siapa yang Dia kehendaki' (4:48). Tidak seorang mukmin pun boleh menyimpulkan bahawa dosa-dosa besarnya menempatkannya di luar jangkauan rahmat.",
-      "Setiap topik dosa besar dalam modul ini memberikan definisinya, dalilnya, mengapa itu berat, dan jalan konkret untuk tobat serta menjauhinya — selalu berakhir pada pintu terbuka yang sama.",
+      "Ulama membahagikan dosa kepada dua kategori, dan memahami perbezaannya membawa kesungguhan dan juga kelegaan. Dosa besar (al-kaba'ir) ialah dosa yang Allah atau Rasul-Nya ﷺ kaitkan dengan akibat berat yang khusus — ancaman Neraka, laknat, kemurkaan Allah, atau hukuman yang ditetapkan — seperti syirik, membunuh, dan memakan riba. Dosa kecil (al-sagha'ir) ialah kesilapan-kesilapan kecil yang tidak sampai ke tahap itu.",
+      "Kelegaannya terletak pada kaitan antara kedua-duanya. Allah berjanji bahawa jika seorang mukmin menjauhi dosa-dosa besar, dosa-dosa kecil akan dihapuskan oleh ibadat-ibadat biasa: 'Jika kamu menjauhkan dosa-dosa besar yang dilarang kamu melakukannya, Kami akan ampunkan kesalahan-kesalahan (dosa kecil) kamu' (4:31). Solat ke solat, Jumaat ke Jumaat, dan Ramadan ke Ramadan menghapuskan dosa-dosa di antaranya, selagi dosa-dosa besar dijauhi.",
+      "Inilah sebabnya dosa-dosa besar wajar diberi perhatian khusus: dosa-dosa inilah yang tidak terhapus begitu sahaja dalam aliran ibadat harian, tetapi menuntut taubat yang disengajakan dan ikhlas. Jika diteruskan tanpa berpaling daripadanya, ia membahayakan jiwa; jika ditinggalkan dan ditaubati, ia diampunkan.",
+      "Dan inilah ufuk yang menaungi semuanya: kecuali mati dalam keadaan syirik, setiap dosa — besar atau kecil — berada di bawah keampunan Allah jika Dia menghendaki. 'Sesungguhnya Allah tidak akan mengampunkan dosa syirik mempersekutukanNya (dengan sesuatu apajua), dan akan mengampunkan dosa yang lain dari itu bagi sesiapa yang dikehendakiNya' (4:48). Tiada seorang mukmin pun patut menyimpulkan bahawa dosa-dosa besarnya meletakkannya di luar jangkauan rahmat.",
+      "Setiap topik dosa besar dalam modul ini memberikan takrifnya, dalilnya, sebab ia berat, dan jalan konkrit untuk bertaubat dan menjauhinya — sentiasa berakhir di pintu terbuka yang sama. Untuk senarai tujuh dosa yang membinasakan (al-mūbiqāt) daripada Nabi ﷺ dan jawapan baginda tentang 'dosa yang paling besar' mengikut urutan, lihat Dosa-Dosa yang Membinasakan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Jika kamu menjauhi dosa-dosa besar yang dilarang bagimu, Kami akan menghapus dosa-dosa kecilmu dan memasukkanmu ke tempat yang mulia.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak mengampuni dosa mempersekutukan-Nya, tetapi Dia mengampuni apa yang di bawah itu bagi siapa yang Dia kehendaki.",
-      },
-      {
-        excerpt:
-          "Mereka yang menjauhi dosa-dosa besar dan perbuatan keji, kecuali kesalahan-kesalahan kecil — sesungguhnya Rabbmu Maha Luas ampunan-Nya.",
-      },
+    appLinks: [
+      { label: "Senarai dosa-dosa besar" },
+      { label: "Dosa-dosa yang membinasakan" },
+      { label: "Taubat" },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Dosa-dosa besar yang paling besar adalah: mempersekutukan Allah, membunuh jiwa, durhaka kepada orang tua, dan memberikan kesaksian palsu.",
-      },
-    ],
-    appLinks: [{}, {}],
   },
   {
-    title: "Dosa-Dosa Lisan",
-    summary: "Ghibah, dusta, ejekan — dosa yang mudah dilakukan dan sulit diperbaiki.",
+    title: "Dosa-Dosa Lidah",
+    summary: "Mengumpat, berdusta, mengejek — dosa yang mudah dilakukan tetapi sukar diperbaiki.",
     body: [
-      "Lisan itu kecil, namun akibatnya sangat luas; dengan beberapa kata sahaja seseorang boleh membangun kepercayaan atau menghancurkan reputasi, menenangkan hati atau melukainya dalam-dalam. Inilah sebabnya Al-Quran dan Sunnah begitu sering kembali membahas dosa-dosa lisan: ghibah, fitnah (buhtan), adu domba (namimah), dusta, ejekan, dan sumpah palsu.",
-      "Ghibah berarti menyebut tentang saudara atau saudarimu sesuatu yang tidak disukainya, walaupun itu benar — sebab jika itu salah, itu menjadi dosa fitnah yang lebih berat. Al-Quran memberikan salah satu gambaran paling mengena: ia mengibaratkannya seperti memakan daging saudaranya yang telah mati (49:12). Dengan cara pandang ini, dosa tersebut kehilangan kesan remehnya.",
-      "Yang membuat dosa-dosa ini begitu berbahaya justru kerana betapa mudah dan menjadi kebiasaannya. Orang-orang tergelincir ke dalamnya dalam percakapan sehari-hari tanpa berpikir dua kali, itulah sebabnya Nabi ﷺ mengaitkan keimanan itu sendiri dengan menjaga lisan: 'Siapa yang beriman kepada Allah dan Hari Akhir, hendaklah dia berkata baik atau diam.' Jeda sederhana sebelum berbicara adalah ibadat yang sesungguhnya.",
-      "Tobat dari dosa lisan mengikuti syarat-syarat umum — berhenti, menyesal, bertekad tidak mengulangi — dengan tambahan dimensi ketika hak orang lain terlibat. Ketika membersihkan nama baik mereka atau memohon maaf kepada mereka boleh dilakukan tanpa menimbulkan kerugian yang lebih besar, itu bahagian dari tobat; ketika memberitahu mereka justru memperdalam luka, para ulama menyarankan untuk sebaliknya berbicara baik tentang mereka, membela mereka saat tidak hadir, dan mendoakan ampunan bagi mereka.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Janganlah kamu saling menggunjing satu sama lain. Adakah salah seorang di antara kamu yang suka memakan daging saudaranya yang telah mati?",
-      },
-      {
-        excerpt: "Celakalah bagi setiap pengumpat lagi pencela.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang beriman kepada Allah dan Hari Akhir, hendaklah dia berkata baik atau diam.",
-      },
+      "Lidah itu kecil tetapi akibatnya amat besar; dengan beberapa patah kata seseorang boleh membina kepercayaan atau memusnahkan maruah, menenangkan hati atau melukainya dengan dalam. Inilah sebabnya al-Quran dan Sunnah sering kembali menyebut dosa-dosa percakapan: mengumpat (ghibah), memfitnah (buhtan), mengadu domba (namimah), berdusta, mengejek, dan sumpah palsu.",
+      "Mengumpat bermaksud menyebut tentang saudara atau saudari anda sesuatu yang tidak disukainya, walaupun perkara itu benar — kerana jika ia tidak benar, ia menjadi dosa fitnah yang lebih berat. Al-Quran memberikan salah satu perumpamaannya yang paling menyentuh: ia menyamakannya dengan memakan daging saudara sendiri yang telah mati (49:12). Apabila dilihat begitu, dosa itu tidak lagi kelihatan remeh.",
+      "Apa yang menjadikan dosa-dosa ini begitu berbahaya ialah betapa mudah dan biasanya ia dilakukan. Orang terjerumus ke dalamnya dalam perbualan harian tanpa berfikir panjang; sebab itulah Nabi ﷺ mengaitkan iman itu sendiri dengan menjaga percakapan: 'Whoever believes in Allah and the Last Day, let him speak good or remain silent' (maksud dalam bahasa Inggeris). Berhenti sejenak sebelum bercakap ialah satu ibadat yang sebenar.",
+      "Taubat daripada dosa lidah mengikut syarat-syarat biasa — berhenti, menyesal, berazam untuk tidak mengulanginya — dengan dimensi tambahan apabila melibatkan hak orang lain. Jika membersihkan nama baiknya atau memohon kemaafannya boleh dilakukan tanpa menimbulkan kemudaratan yang lebih besar, itu sebahagian daripada taubat; jika memberitahunya hanya akan memperdalam luka, ulama menasihatkan supaya sebaliknya bercakap baik tentangnya, membelanya ketika dia tiada, dan mendoakan keampunan baginya.",
     ],
     actions: [
-      "Sebelum berbicara, tanyakan: apakah ini benar? apakah ini perlu? apakah ini baik?",
-      "Jika kamu pernah menggunjing seseorang, doakan dia dan mintalah maaf bila memungkinkan.",
+      "Sebelum bercakap, tanya diri: Adakah ia benar? Adakah ia perlu? Adakah ia baik?",
+      "Jika anda pernah mengumpat seseorang, doakanlah dia dan mohonlah kemaafannya jika boleh.",
     ],
-    appLinks: [{}, {}, {}],
+    appLinks: [
+      { label: "Renungan harian" },
+      { label: "Jannah — akhlak mulia" },
+      { label: "Dosa-dosa yang membinasakan" },
+      { label: "Taubat" },
+    ],
   },
   {
-    title: "Mengabaikan Hak Orang Lain",
-    summary: "Hak-hak sesama manusia menuntut penggantian — tobat kepada Allah sahaja tidak cukup.",
+    title: "Dosa terhadap Orang Lain",
+    summary: "Hak sesama manusia menuntut pemulangan hak — bukan hanya taubat kepada Allah.",
     body: [
-      "Islam membagi kewajiban kita ke dalam dua kategori: hak-hak Allah (huquq Allah) dan hak-hak sesama manusia (huquq al-'ibad). Kezaliman (dzulm), ketidakadilan, pengkhianatan amanah, kecurangan dalam perdagangan, menahan upah pekerja, tidak melunasi utang, dan memutus tali silaturahmi — semua ini termasuk hak-hak sesama manusia — dan ini memiliki keseriusan khusus di akhirat.",
-      "Alasannya digambarkan dalam sebuah hadis yang mengguncangkan. Nabi ﷺ menggambarkan orang yang benar-benar bangkrut sebagai seseorang yang datang pada Hari Kiamat dengan solat, puasa, dan sedekah — namun dia telah mencaci seseorang, memfitnah seseorang, memakan harta seseorang secara batil, dan menumpahkan darah. Orang-orang yang dizaliminya akan diberi bahagian dari kebaikannya hingga habis, kemudian dosa-dosa mereka dibebankan kepadanya dan dia dilemparkan ke dalam Api (Sahih Muslim 2581). Seseorang boleh kaya dalam ibadat namun tetap binasa kerana perilakunya.",
-      "Ini mengajarkan pengajaran penting tentang tobat: kembali kepada Allah adalah wajib, tetapi ketika hak seseorang telah dilanggar, itu sahaja tidak cukup. Tuntutan orang yang dizalimi tetap ada sampai dilunasi atau dimaafkan. Maka di sini tobat memiliki syarat keempat selain berhenti, menyesal, dan bertekad — iaitu mengembalikan apa yang wajib dikembalikan.",
-      "Secara praktis ini berarti mengembalikan apa yang diambil atau nilainya, melunasi utang bahkan dengan cicilan kecil walaupun, memulihkan nama baik yang telah dirusak, dan melangkah menuju perdamaian dengan kerabat yang hubungannya telah diputus. Ada rahmat dalam hal ini juga: setiap langkah penggantian adalah kebaikan tersendiri, dan Allah memberi kemudahan bagi hati yang tulus yang berusaha memperbaiki apa yang telah dirusaknya.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Jika kamu tidak berhenti dari riba, maka ketahuilah adanya perang dari Allah dan Rasul-Nya.",
-      },
-      {
-        excerpt:
-          "Mereka yang mengingkari perjanjian Allah dan memutuskan apa yang diperintahkan untuk disambung.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tahukah kamu siapa orang yang bangkrut? Dia yang datang dengan solat, puasa, dan sedekah, namun telah mencaci, memfitnah, memakan harta secara batil, dan menumpahkan darah — maka kebaikannya diberikan kepada orang lain.",
-      },
+      "Islam membahagikan hak yang wajib kita tunaikan kepada dua jenis: hak Allah (huquq Allah) dan hak sesama manusia (huquq al-'ibad). Kezaliman (zulm), ketidakadilan, mengkhianati amanah, menipu dalam perniagaan, menahan upah pekerja, hutang yang tidak dibayar, dan memutuskan silaturahim semuanya termasuk dalam hak sesama manusia — dan semua ini membawa kesan yang sangat serius di akhirat.",
+      "Sebabnya ditunjukkan dalam sebuah hadis yang menginsafkan. Nabi ﷺ menggambarkan orang yang benar-benar muflis sebagai seseorang yang datang pada Hari Kiamat dengan solat, puasa, dan sedekah — tetapi dia pernah mencaci, memfitnah, mengambil harta secara zalim, dan menumpahkan darah. Mangsa-mangsanya dibayar daripada amal kebaikannya sehingga habis, kemudian dosa-dosa mereka dipikulkan ke atasnya lalu dia dicampakkan ke dalam Neraka (Sahih Muslim 2581). Seseorang boleh kaya dengan ibadat tetapi tetap binasa kerana cara dia melayan orang lain.",
+      "Ini mengajarkan satu pengajaran penting tentang taubat: kembali kepada Allah adalah wajib, tetapi apabila hak manusia telah dicabuli, itu sahaja tidak mencukupi. Tuntutan orang yang dizalimi kekal sehingga ia diselesaikan atau dimaafkan. Maka taubat di sini mempunyai syarat keempat selain berhenti, menyesal, dan berazam — iaitu memulangkan apa yang terhutang.",
+      "Secara praktikal, ini bermakna memulangkan apa yang telah diambil atau nilainya, membayar hutang walaupun secara beransur-ansur, memulihkan maruah orang yang telah dirosakkan, dan menghulurkan tangan untuk berdamai dengan kaum kerabat yang telah diputuskan hubungannya. Dan ada rahmat dalam hal ini juga: setiap langkah memulangkan hak itu sendiri ialah satu kebaikan, dan Allah memudahkan hati yang ikhlas yang berusaha membaiki apa yang telah dirosakkannya.",
     ],
     actions: [
-      "Buat daftar orang-orang yang pernah kamu zalimi dan ambil satu langkah perbaikan minggu ini.",
-      "Lunasi utang yang tertunda sedikit demi sedikit jika itu yang boleh kamu lakukan.",
+      "Senaraikan sesiapa yang mungkin pernah anda zalimi dan ambil satu langkah untuk membaikinya minggu ini.",
+      "Bayarlah hutang yang tertunggak walaupun secara ansuran kecil jika itu sahaja yang anda mampu.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      { label: "Perjalanan Saya" },
+      { label: "Taubat" },
+      { label: "Dosa-dosa yang membinasakan" },
+      { label: "Hisab (Hari Akhirat)" },
+    ],
   },
   {
     title: "Nifak",
-    summary: "Kemunafikan besar dalam akidah — dan tanda-tanda kemunafikan dalam perilaku.",
+    summary: "Nifak besar dalam akidah — dan sifat-sifat nifak dalam perbuatan.",
     body: [
-      "Para ulama menjelaskan dua jenis nifak, dan memisahkan keduanya melindungi dari rasa aman yang palsu maupun kepanikan yang tidak beralasan. Yang pertama adalah nifak besar dalam akidah (nifaq i'tiqadi): menampakkan Islam secara lahir sementara mengingkari keimanan secara batin. Inilah nifak yang menboleh peringatan paling keras dari Al-Quran, menempatkan orang-orang seperti itu 'di dasar Api yang paling bawah' (4:145), kerana sesungguhnya mereka meninggal dunia dunia sebagai orang kafir di balik topeng.",
-      "Yang kedua lebih ringan, iaitu nifak dalam amal (nifaq 'amali): sifat-sifat yang menyerupai perilaku orang munafik, bahkan pada orang yang keimanannya sungguh nyata. Nabi ﷺ menyebutkan tanda-tanda yang terkenal — 'apabila berbicara dia berdusta, apabila berjanji dia mengingkari, dan apabila diberi amanah dia berkhianat' — dan dalam satu riwayat menambahkan berkata kasar saat bertengkar. Seorang mukmin boleh terjerumus ke dalamnya dan tetap menjadi mukmin, tetapi ini adalah peringatan serius yang harus dihindari.",
-      "Perbedaan ini sangat penting untuk cara kita memperlakukan topik ini. Tanda-tanda amal diberikan sebagai cermin untuk diri sendiri, bukan sebagai label untuk ditempelkan pada orang lain. Nabi ﷺ dan para sahabatnya sendiri takut akan nifak dalam diri mereka sendiri, justru kerana hati itu tersembunyi dan boleh berubah.",
-      "Maka respons yang sehat adalah bersifat introspektif: memeriksa kejujuran, penepatan janji, dan amanah diri sendiri, serta memohon keikhlasan (ikhlas) kepada Allah. Apa yang ada di dalam diri seseorang hanya Allah yang mengetahui, dan menuduh individu tertentu bermunafik adalah kezaliman berat tersendiri terhadap mereka.",
-    ],
-    quran: [
-      {
-        excerpt: "Orang-orang munafik akan berada di dasar Api yang paling bawah.",
-      },
-      {
-        excerpt:
-          "Apabila orang-orang munafik datang kepadamu, mereka berkata: Kami bersaksi bahawa engkau benar-benar Rasul Allah — dan Allah mengetahui bahawa mereka itu sungguh pendusta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tanda orang munafik ada tiga: apabila berbicara dia berdusta, apabila berjanji dia mengingkari, dan apabila diberi amanah dia berkhianat.",
-      },
+      "Ulama membezakan dua jenis nifak, dan memisahkan kedua-duanya mengelakkan rasa selamat yang palsu dan juga rasa panik yang tidak berasas. Yang pertama ialah nifak besar dalam akidah (nifaq i'tiqadi): menzahirkan Islam secara luaran sedangkan menolak iman di dalam batin. Inilah nifak yang paling keras diberi amaran oleh al-Quran, yang meletakkan golongan ini 'pada tingkatan yang terkebawah sekali dari (lapisan-lapisan dalam) neraka' (4:145), kerana pada hakikatnya mereka mati sebagai orang kafir di sebalik topeng.",
+      "Yang kedua ialah nifak kecil dalam perbuatan (nifaq 'amali): sifat-sifat yang menyerupai kelakuan orang munafik walaupun pada diri seseorang yang imannya benar. Nabi ﷺ menyebut tanda-tandanya yang terkenal — 'when he speaks he lies, when he promises he breaks it, and when he is entrusted he betrays' (maksud dalam bahasa Inggeris) — dan dalam riwayat lain menambah berkata kesat ketika bertengkar. Seorang mukmin boleh terjerumus ke dalamnya dan masih kekal sebagai mukmin, tetapi ia ialah amaran serius yang mesti dijaga.",
+      "Perbezaan ini sangat penting dalam cara kita menggunakan topik ini. Tanda-tanda dalam perbuatan diberikan sebagai cermin untuk diri sendiri, bukan sebagai label untuk dilekatkan pada orang lain. Nabi ﷺ dan para sahabat baginda sendiri takut akan nifak dalam diri mereka, justeru kerana hati itu tersembunyi dan boleh berubah.",
+      "Maka tindak balas yang sihat ialah melihat ke dalam diri: memeriksa kejujuran diri sendiri, kesetiaan menunaikan janji, dan sifat amanah, serta memohon keikhlasan (ikhlas) kepada Allah. Hanya Allah yang mengetahui apa yang ada di dalam diri seseorang, dan menuduh individu tertentu sebagai munafik itu sendiri ialah satu kesalahan yang berat terhadap mereka.",
     ],
     disclaimer:
-      "Jangan menuduh individu tertentu bermunafik. Nas-nas ini memperingatkan seluruh umat; penyucian diri dimulai dari diri sendiri.",
+      "Jangan menuduh individu tertentu dengan nifak. Nas-nas ini memberi amaran kepada umat; penyucian bermula dengan diri sendiri.",
   },
   {
-    title: "Hukuman yang Disebutkan",
+    title: "Azab yang Disebut",
     summary:
-      "Nas-nas yang menjelaskan — bacalah dengan rasa takut kepada Allah dan harapan pada rahmat-Nya.",
+      "Apa yang digambarkan oleh nas — bacalah dengan rasa takut kepada Allah dan harapan kepada rahmat-Nya.",
     body: [
-      "Al-Quran dan Sunnah memang menyebutkan konsekuensi tertentu untuk dosa-dosa tertentu — bagi mereka yang memakan riba, memfitnah wanita-wanita yang suci, menimbun harta dan menahan haknya, menyia-nyiakan solat, dan bersikeras dalam dosa besar. Kekhususan ini adalah bentuk kejelasan: ini tidak menyisakan ruang bagi siapa pun untuk mengatakan bahawa dia tidak diperingatkan tentang apa yang tengah dilakukannya.",
-      "Sebahagian konsekuensi ini disebutkan terjadi di alam kubur (azab kubur) dan sebahagian di dalam Jahannam itu sendiri. Akidah Ahlus Sunnah menetapkan kenyataan keduanya, sambil menyerahkan 'bagaimana' pastinya dari perkara-perkara gaib ini kepada ilmu Allah, bukan pada imajinasi manusia.",
-      "Bagaimana seorang mukmin menyikapi semua ini adalah hal yang sebenarnya penting. Tujuannya sama sekali bukan untuk terpaku pada gambaran rinci atau menenggelamkan hati; melainkan untuk menerima peringatan itu, bertobat dari apa yang berlaku, lalu mengalihkan tenaga pada amal-amal yang benar-benar melindungi. Inilah sebabnya modul ini memberi lebih banyak ruang pada perlindungan, tobat, dan rahmat daripada pada hukuman itu sendiri.",
-      "Singkatnya, pengajaran yang benar dari setiap hukuman yang disebutkan adalah sebuah pertanyaan, bukan ketakutan: 'Apakah aku sedang melakukan ini — dan jika ya, bagaimana aku berhenti dan memperbaikinya?' Jika dijawab dengan jujur hari ini, peringatan itu sudah menunaikan tugas rahmatnya.",
+      "Al-Quran dan Sunnah memang menyebut akibat khusus bagi kesalahan-kesalahan tertentu — bagi mereka yang memakan riba, yang memfitnah wanita-wanita yang menjaga kehormatan, yang menimbun harta dan menahan haknya, yang mengabaikan solat, dan yang berterusan dalam dosa besar. Perincian ini ialah satu bentuk kejelasan: ia tidak meninggalkan ruang bagi sesiapa untuk berkata bahawa dia tidak diberi amaran tentang perkara yang sedang dilakukannya.",
+      "Sebahagian akibat ini digambarkan berlaku di alam kubur (azab kubur) dan sebahagian lagi di dalam Jahannam itu sendiri. Akidah arus perdana Ahli Sunnah menetapkan hakikat kedua-duanya, sambil menyerahkan 'bagaimana' sebenar perkara-perkara ghaib ini kepada ilmu Allah, bukan kepada khayalan manusia.",
+      "Cara seorang mukmin berinteraksi dengan semua ini ialah perkara yang penting. Tujuannya bukan sekali-kali untuk berlarutan memikirkan perincian yang mengerikan atau membiarkan hati tenggelam; tetapi untuk menerima amaran itu, bertaubat daripada apa sahaja yang berkaitan, kemudian menyalurkan tenaga kepada amalan yang benar-benar melindungi. Sebab itulah modul ini sengaja memberikan lebih banyak ruang kepada perlindungan, taubat, dan rahmat berbanding azab.",
+      "Ringkasnya, pengajaran yang betul daripada mana-mana azab yang disebut ialah satu soalan, bukan ketakutan: 'Adakah aku melakukan perkara ini — dan jika ya, bagaimanakah aku berhenti dan memperbetulkannya?' Jika dijawab dengan jujur hari ini, amaran itu telah pun menunaikan tugasnya yang penuh rahmat.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mereka yang menuduh wanita-wanita yang suci berzina dan tidak mendatangkan empat saksi — cambuklah mereka delapan puluh kali.",
-      },
-      {
-        excerpt:
-          "Mereka yang menimbun emas dan perak dan tidak menginfakkannya di jalan Allah — kabarkanlah kepada mereka siksaan yang pedih.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Perlindungan daripada Neraka" }, { label: "Harapan kepada rahmat" }],
   },
   {
-    title: "Perlindungan dari Jahannam",
-    summary: "Tauhid, solat, tobat, sedekah, Al-Quran, dan doa — inti dari modul ini.",
+    title: "Perlindungan daripada Neraka",
+    summary: "Tauhid, solat, taubat, sedekah, al-Quran, dan doa — teras modul ini.",
     body: [
-      "Selepas semua peringatan, inilah intinya: Jahannam adalah sesuatu yang harus dilindungi diri seseorang darinya, dan Islam penuh dengan sarana perlindungan itu. Yang terbesar di antaranya adalah tauhid yang benar — hanya menyembah Allah, tidak menyekutukan-Nya dengan siapa pun. Setiap amal lainnya diterima dan ditimbang berdasarkan fondasi ini, itulah sebabnya menjaga akidah harus didulukan dari segala sesuatu.",
-      "Di atas fondasi ini, perisai-perisai praktis begitu banyak dan terjangkau: menegakkan lima solat wajib, tobat yang tulus, bersedekah — yang menurut sabda Nabi ﷺ memadamkan dosa seperti air memadamkan api — puasa, membaca dan mengamalkan Al-Quran, akhlak yang baik, kasih sayang kepada sesama, zikir yang terus-menerus, dan istighfar yang berkelanjutan. Tidak satu pun dari ini membutuhkan kekayaan besar atau ilmu tinggi; semuanya terbuka bagi siapa sahaja.",
-      "Nabi ﷺ juga mengajarkan doa-doa langsung untuk berlindung dari Api, dan menganjurkan supaya sering dipanjatkan. Baginda bersabda bahawa siapa yang memohon syurga kepada Allah tiga kali, syurga sendiri akan berdoa supaya dia dimasukkan ke dalamnya, dan siapa yang memohon perlindungan dari Api tiga kali, Api sendiri akan berdoa supaya dia diselamatkan darinya (Jami' at-Tirmidzi 2572). Doa-doa ini memiliki tempat khusus sebelum salam dalam solat dan dalam zikir pagi serta petang.",
-      "Perhatikan keseimbangan yang dibangun oleh syariat. Sarana-sarana perlindungan jauh lebih banyak, lebih ditekankan, dan lebih mudah diraih daripada sebab-sebab kebinasaan — dan ini sendiri adalah tanda rahmat Allah. Selamat jauh lebih mudah daripada binasa.",
-      "Bahagian ini sengaja dibuat paling besar dalam modul ini, kerana Islam sendiri menimbang perkara ini demikian: peringatan selalu diiringi harapan, dan tidak pernah terlepas dari amal nyata yang boleh dimulai seseorang hari ini juga.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Mereka yang berkata: Wahai Rabb kami, sesungguhnya kami telah beriman, maka ampunilah dosa-dosa kami dan lindungilah kami dari azab Api.",
-      },
-      {
-        excerpt:
-          "Wahai Rabb kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab Api.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang memohon syurga kepada Allah tiga kali, syurga berkata: Ya Allah, masukkanlah dia ke dalam syurga. Dan siapa yang memohon perlindungan dari Api tiga kali, Api berkata: Ya Allah, lindungilah dia dari Api.",
-      },
+      "Selepas semua amaran, inilah inti persoalannya: Jahannam ialah sesuatu yang seseorang patut dilindungi daripadanya, dan Islam penuh dengan cara-cara perlindungan itu. Yang paling utama ialah tauhid yang sahih — menyembah Allah semata-mata, tanpa sesuatu pun di samping-Nya. Setiap amalan lain hanya diterima dan ditimbang di atas asas ini, sebab itulah menjaga akidah didahulukan daripada segala-galanya.",
+      "Di atas asas itu, perisai-perisai praktikal amat banyak dan mudah dicapai: mendirikan solat lima waktu, taubat yang ikhlas, bersedekah — yang menurut sabda Nabi ﷺ memadamkan dosa sebagaimana air memadamkan api — berpuasa, membaca al-Quran dan mengamalkannya, akhlak yang baik, berbelas kasihan kepada orang lain, zikir yang berterusan, dan sentiasa memohon keampunan. Tiada satu pun daripadanya memerlukan kekayaan atau ilmu yang banyak; semuanya terbuka kepada semua orang.",
+      "Nabi ﷺ juga mengajarkan doa-doa khusus untuk memohon perlindungan daripada Neraka, dan menggalakkan kita supaya kerap memohonnya. Baginda bersabda bahawa sesiapa yang memohon Syurga kepada Allah sebanyak tiga kali, Syurga sendiri berdoa supaya dia dimasukkan ke dalamnya, dan sesiapa yang memohon perlindungan daripada Neraka sebanyak tiga kali, Neraka sendiri berdoa supaya dia diselamatkan daripadanya (Jami' at-Tirmidhi 2572). Doa-doa ini mempunyai tempat yang istimewa sebelum salam dalam solat dan dalam zikir pagi dan petang.",
+      "Perhatikan keseimbangan yang ditetapkan oleh syariat. Cara-cara perlindungan lebih banyak, lebih ditekankan, dan lebih mudah dicapai berbanding sebab-sebab kebinasaan — dan ini sendiri ialah tanda rahmat Allah. Untuk selamat jauh lebih mudah daripada untuk binasa.",
+      "Bahagian ini sengaja dijadikan bahagian terbesar dalam modul ini, kerana begitulah Islam sendiri menimbang perkara ini: amaran sentiasa digandingkan dengan harapan, dan tidak pernah dipisahkan daripada amalan nyata yang boleh dimulakan seseorang hari ini.",
     ],
     actions: [
-      "Hafalkan doa perlindungan dari Jahannam sebelum salam dalam solat.",
-      "Dirikan lima solat wajib tepat waktu — salah satu perisai yang paling kuat.",
-      "Bersedekahlah secara rutin, walaupun dalam jumlah kecil.",
+      "Hafalkan doa memohon perlindungan daripada Jahannam sebelum salam dalam solat.",
+      "Dirikan solat lima waktu pada waktunya — antara perisai yang paling kuat.",
+      "Bersedekahlah secara berterusan, walaupun sedikit.",
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [
+      { label: "Doa-doa perlindungan" },
+      { label: "Perjalanan ke Jannah" },
+      { label: "Zikir pagi & petang" },
+      { label: "Belajar Doa" },
+    ],
   },
   {
-    title: "Tobat",
-    summary:
-      "Allah menerima tobat yang tulus — tidak ada dosa yang terlalu besar sebelum kematian.",
+    title: "Taubat",
+    summary: "Allah menerima taubat yang ikhlas — tiada dosa yang terlalu besar sebelum kematian.",
     body: [
-      "Tobat — kembali (taubah) — adalah sistem yang Allah tetapkan dalam agama supaya tidak ada dosa yang perlu bertahan selamanya. Pada intinya, ini adalah kembalinya hati kepada Allah, dan para ulama menyimpulkan syarat-syaratnya dari Al-Quran dan Sunnah: meninggal duniakan dosa dengan tulus, merasa penyesalan yang sungguh-sungguh atasnya, dan bertekad kuat untuk tidak mengulanginya. Ketika dosa itu berkaitan dengan hak orang lain, ada syarat keempat yang ditambahkan — mengembalikan hak itu atau memohon maaf atasnya.",
-      "Yang membuat tobat begitu penuh harapan adalah bagaimana Allah menerimanya. Dia tidak sekadar menoleransi hamba yang kembali; Dia bergembira. Nabi ﷺ bersabda bahawa Allah lebih bergembira dengan tobat hamba-Nya daripada seseorang yang kehilangan tunggangan dan seluruh bekalnya di padang pasir yang sunyi, telah putus asa, lalu tiba-tiba mendapatinya berdiri di hadapannya (Sahih al-Bukhari 6309). Sambutan yang sama menanti siapa pun yang kembali.",
-      "Lebih dari itu, pintunya tidak pernah tertutup sepanjang hidup. Nabi ﷺ bersabda bahawa Allah membentangkan tangan-Nya di malam hari untuk menerima tobat pelaku dosa di siang hari, dan membentangkan tangan-Nya di siang hari untuk menerima tobat pelaku dosa di malam hari (Sahih Muslim 2759). Tobat diterima bagi seseorang hingga ruh mencapai kerongkongannya saat kematian, dan bagi umat manusia hingga matahari terbit dari barat — maka tidak pernah ada alasan untuk menundanya.",
-      "Ini juga berlaku bagi mereka yang telah berulang kali jatuh dan berulang kali bertobat. Selama setiap kali kembali itu tulus, Allah terus menerima; keputusasaan berasal dari setan, bukan dari agama. Satu-satunya hal yang harus dipastikan sebelum kematian adalah syirik, kerana seseorang yang meninggal dunia dunia dalam keadaan itu meninggal dunia dunia tanpa keimanan yang diperlukan untuk tobat — justru oleh itulah sebabnya kembali sepenuhnya hanya kepada Allah adalah tobat yang paling mendesak.",
-      "Pengajaran praktisnya sederhana: bertobatlah kini, bertobatlah berulang kali, dan jangan pernah biarkan besarnya suatu dosa, atau banyaknya keterpurukan di masa lalu, menjadi alasan untuk tidak kembali. Undangan itu selalu terbuka.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Janganlah berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni semua dosa. Dialah Yang Maha Pengampun, Maha Penyayang.",
-      },
-      {
-        excerpt:
-          "Kecuali mereka yang bertobat, beriman, dan beramal saleh — Allah akan mengganti keburukan-keburukan mereka dengan kebaikan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah lebih bergembira dengan tobat hamba-Nya daripada seseorang yang menemukan kembali tunggangannya yang hilang di tanah yang tandus.",
-      },
-      {
-        excerpt:
-          "Allah membentangkan tangan-Nya di malam hari untuk menerima tobat pelaku dosa di siang hari, dan membentangkan tangan-Nya di siang hari untuk menerima tobat pelaku dosa di malam hari, hingga matahari terbit dari barat.",
-      },
+      "Taubat ialah jalan yang Allah binakan dalam agama ini supaya tiada dosa yang semestinya kekal. Pada terasnya, ia ialah kembalinya hati kepada Allah, dan ulama mengambil syarat-syaratnya daripada al-Quran dan Sunnah: berhenti daripada dosa itu dengan ikhlas, benar-benar menyesalinya, dan berazam dengan teguh untuk tidak kembali kepadanya. Apabila dosa itu melibatkan hak orang lain, syarat keempat ditambah — memulangkan hak itu atau memohon kemaafannya.",
+      "Apa yang menjadikan taubat begitu penuh harapan ialah cara Allah menerimanya. Dia bukan sekadar membiarkan hamba yang kembali; Dia bergembira. Nabi ﷺ bersabda bahawa Allah lebih gembira dengan taubat hamba-Nya berbanding seorang lelaki yang kehilangan tunggangannya bersama seluruh bekalannya di padang pasir yang tandus, lalu berputus asa, kemudian tiba-tiba mendapati tunggangan itu berdiri di hadapannya (Sahih al-Bukhari 6309). Itulah sambutan yang menanti sesiapa sahaja yang kembali.",
+      "Tambahan pula, pintu-Nya tidak pernah tertutup sepanjang hayat. Nabi ﷺ bersabda bahawa Allah menghulurkan tangan-Nya pada waktu malam untuk menerima taubat orang yang berdosa pada waktu siang, dan menghulurkan tangan-Nya pada waktu siang untuk menerima taubat orang yang berdosa pada waktu malam (Sahih Muslim 2759). Taubat diterima bagi seseorang sehingga nyawa sampai ke kerongkong ketika mati, dan bagi umat manusia sehingga matahari terbit dari barat — maka tiada sebab untuk menangguhkannya.",
+      "Ini benar walaupun bagi orang yang telah jatuh dan bertaubat berkali-kali. Selagi setiap kali kembali itu ikhlas, Allah terus menerimanya; putus asa datang daripada syaitan, bukan daripada agama. Satu perkara yang mesti diselesaikan sebelum mati ialah syirik, kerana orang yang mati dalam keadaan syirik mati tanpa iman yang menjadi syarat taubat — sebab itulah kembali sepenuhnya kepada Allah Yang Esa ialah taubat yang paling mendesak.",
+      "Pengajaran praktikalnya mudah: bertaubatlah sekarang, bertaubatlah selalu, dan jangan sekali-kali biarkan besarnya sesuatu dosa, atau banyaknya kejatuhan yang lalu, menghalang anda daripada kembali. Jemputan itu sentiasa terbuka.",
     ],
     actions: [
-      "Ucapkan 'Astaghfirullah' sepanjang hari — bukan hanya selepas kesalahan besar, jadikan itu kebiasaan tetap.",
-      "Pelajari Sayyidul Istighfar dan bacalah pagi serta petang.",
+      "Ucapkan Astaghfirullah sepanjang hari — utamakan istiqamah, bukan hanya selepas kesilapan besar.",
+      "Pelajari Sayyidul Istighfar dan bacalah pada waktu pagi dan petang.",
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [
+      { label: "Zikir harian & istighfar" },
+      { label: "Belajar Doa — keampunan" },
+      { label: "Harapan kepada rahmat Allah" },
+      { label: "Perjalanan Saya" },
+    ],
   },
   {
-    title: "Harapan pada Rahmat Allah",
-    summary: "Jangan pernah putus asa — kebaikan menghapus keburukan; konsistensi adalah kuncinya.",
+    title: "Harapan kepada Rahmat Allah",
+    summary: "Jangan sekali-kali berputus asa — kebaikan menghapuskan dosa; istiqamah itu penting.",
     body: [
-      "Segala sesuatu dalam modul ini mengarah ke sini. Allah adalah Ar-Rahman Ar-Rahim — Yang Maha Pengasih lagi Maha Penyayang — dan Dia telah memberitahu kita bahawa rahmat-Nya mengalahkan murka-Nya dan 'meliputi segala sesuatu' (7:156). Seorang mukmin harus hidup di antara harap dan takut, seperti dua sayap seekor burung: cukup takut akan dosa untuk tetap waspada, cukup berharap pada ampunan untuk tidak pernah berputus asa.",
-      "Inilah sebabnya keputusasaan itu sendiri tidak pada tempatnya. Betapapun tersesatnya seseorang merasa, pintu untuk kembali tetap terbuka, dan setanlah — bukan Allah — yang membisikkan bahawa sudah terlambat. Berputus asa dari rahmat adalah meremehkan Yang Maha Pengasih; tugas hati yang tulus hanyalah kembali.",
-      "Di sinilah letak penghiburan besar dalam akidah Ahlus Sunnah tentang Api. Bagi mereka yang meninggal dunia dunia dalam kekafiran, Jahannam adalah tempat kekal. Namun mukmin yang meninggal dunia dunia hanya bersaksi kepada Allah, walaupun terbebani dosa-dosa besar, tidak akan kekal di dalamnya. Nabi ﷺ mengajarkan bahawa orang-orang akan dikeluarkan dari Api melalui syafaat dan kemudian melalui rahmat Allah sendiri — dilemparkan ke dalam sungai kehidupan di tepi syurga tempat mereka pulih lalu memasukinya (Sahih al-Bukhari 7439). Baginda bersabda bahawa tidak akan tetap tinggal di Api siapa pun yang di hatinya terboleh iman seberat biji sawi (Sahih Muslim 183). Maka bagi seorang yang bertauhid, Api — walaupun dimasuki — tidak pernah menjadi akhir cerita.",
-      "Sementara itu, rahmat tertanam dalam kehidupan sehari-hari: kebaikan-kebaikan menghapus keburukan-keburukan (11:114), dan ibadat kecil yang konsisten — satu solat yang ditegakkan tepat waktu, satu sedekah yang diam-diam, satu saat kesabaran yang ditahan kerana Allah — terus-menerus menarik seseorang lebih dekat kepada-Nya dan menjauh dari kerugian. Konsistensi lebih penting daripada intensitas.",
-      "Maka biarlah ini menjadi rangkuman studimu: ambillah peringatan dengan serius, tetapi biarkan harapan tetap lebih tinggi daripada rasa takut. Kenalilah bahayanya, pilihlah jalan rahmat, dan tempuhlah — selangkah demi selangkah — setiap hari hingga kamu berjumpa dengan Allah.",
-    ],
-    quran: [
-      {
-        excerpt: "Rahmat-Ku meliputi segala sesuatu.",
-      },
-      {
-        excerpt:
-          "Katakanlah: Wahai hamba-hamba-Ku yang telah melampaui batas terhadap diri mereka sendiri, janganlah berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni semua dosa.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya kebaikan-kebaikan menghapus keburukan-keburukan. Itu adalah peringatan bagi orang-orang yang mengingat.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah akan berfirman: Para malaikat telah memberi syafaat, para nabi telah memberi syafaat, dan orang-orang beriman telah memberi syafaat, dan kini tidak ada yang tersisa selain Yang Maha Penyayang di antara para penyayang. Lalu Dia akan mengambil segenggam dari Api dan mengeluarkan orang-orang yang belum pernah berbuat kebaikan sama sekali.",
-      },
-      {
-        excerpt: "Siapa yang di hatinya terboleh iman seberat biji sawi akan dikeluarkan dari Api.",
-      },
+      "Segala-galanya dalam modul ini menuju ke sini. Allah ialah ar-Rahman ar-Rahim — Yang Maha Pemurah lagi Maha Mengasihani — dan Dia telah memberitahu kita bahawa rahmat-Nya mengatasi kemurkaan-Nya dan 'meliputi tiap-tiap sesuatu' (7:156). Seorang mukmin sepatutnya hidup di antara harap dan takut, seperti dua sayap seekor burung: cukup takut akan dosa untuk terus berwaspada, cukup berharap kepada keampunan untuk tidak pernah berputus asa.",
+      "Oleh sebab itu, putus asa itu sendiri tidak kena pada tempatnya. Sejauh mana pun seseorang merasakan dirinya telah tersasar, pintu untuk kembali tetap terbuka, dan syaitanlah — bukan Allah — yang membisikkan bahawa sudah terlambat. Berputus asa daripada rahmat bermakna memandang rendah Tuhan Yang Maha Mengasihani; tugas hati yang ikhlas hanyalah kembali.",
+      "Di sinilah terletak ketenangan besar dalam akidah Ahli Sunnah tentang Neraka. Bagi mereka yang mati dalam kekufuran, Jahannam ialah tempat tinggal yang kekal. Tetapi seorang mukmin yang mati dalam keadaan mengesakan Allah, walaupun dibebani dosa-dosa besar, tidak akan kekal di dalamnya selama-lamanya. Nabi ﷺ mengajarkan bahawa manusia akan dikeluarkan daripada Neraka melalui syafaat dan kemudian melalui rahmat Allah sendiri — dicampakkan ke dalam Sungai Kehidupan di pinggir Syurga, lalu mereka dipulihkan dan memasukinya (Sahih al-Bukhari 7439). Baginda bersabda bahawa tidak akan kekal di dalam Neraka sesiapa yang di dalam hatinya ada iman walau seberat biji sawi (Sahih Muslim 183). Oleh itu, bagi orang yang bertauhid, Neraka — jika dimasuki sekalipun — tidak pernah menjadi pengakhiran ceritanya.",
+      "Sementara itu, rahmat tersemai dalam kehidupan seharian: amal kebaikan menghapuskan kejahatan (11:114), dan ibadat yang kecil tetapi berterusan — satu solat yang ditunaikan pada waktunya, satu sedekah yang diberi secara senyap, satu saat kesabaran kerana Allah — sedikit demi sedikit mendekatkan seseorang kepada-Nya dan menjauhkannya daripada bahaya. Istiqamah lebih penting daripada kehebatan.",
+      "Maka jadikanlah ini kesimpulan pembelajaran anda: ambil amaran itu dengan serius, tetapi biarlah harapan lebih kuat daripada ketakutan. Kenali bahayanya, pilih jalan rahmat, dan tempuhilah — selangkah demi selangkah — setiap hari sehingga anda bertemu Allah.",
     ],
     actions: [
       "Akhiri setiap hari dengan istighfar dan rasa syukur atas setiap nikmat.",
-      "Hubungkan modul ini dengan Perjalanan Menuju Jannah — peringatan dan harapan berjalan beriringan.",
+      "Gandingkan modul ini dengan Perjalanan ke Jannah — amaran dan harapan seiring.",
     ],
-    appLinks: [{}, {}, {}],
+    appLinks: [
+      { label: "Perjalanan ke Jannah" },
+      { label: "Akidah — harapan & taubat" },
+      { label: "Perjalanan Saya" },
+    ],
   },
   {
-    title: "Dosa-dosa yang membinasakan",
-    summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+    title: "Dosa-Dosa yang Membinasakan",
+    summary:
+      "Tujuh mūbiqāt, rangkaian 'dosa paling besar', dan dosa-dosa yang menghabiskan amal kebaikan.",
     body: [
-      "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
-      "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-      "Lakukan amalan dengan ikhlas kerana Allah.",
-      "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-      "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      "Al-Quran dan Sunnah jarang menyatakan 'dosa ini paling berat di atas Neraca.' Kedua-duanya memberi amaran dengan bahasa lain: dosa besar yang paling berat, dosa-dosa yang membinasakan (al-mūbiqāt), 'dosa manakah yang paling besar?', laknat, dan ancaman yang keras. Itu ialah hierarki amaran — bukan carta kedudukan di atas Mizan. Memahaminya membantu anda menyusun keutamaan taubat tanpa berputus asa.",
+      "Nabi ﷺ bersabda, 'Avoid the seven destructive sins' (maksud dalam bahasa Inggeris). Apabila ditanya apakah dosa-dosa itu, baginda menyenaraikan: mempersekutukan Allah, sihir, membunuh jiwa yang diharamkan oleh Allah kecuali dengan hak, memakan riba, memakan harta anak yatim, lari dari medan perang, dan menuduh wanita-wanita mukminah yang menjaga kehormatan berzina (Sahih al-Bukhari 2766; Sahih Muslim 89). Dosa besar tidak terhad kepada tujuh ini; tujuh ini disebut secara khusus kerana kebinasaannya yang amat dahsyat.",
+      "Apabila seorang lelaki bertanya dosa manakah yang paling besar, Nabi ﷺ menjawab mengikut urutan: menjadikan sekutu bagi Allah sedangkan Dia yang menciptakan kamu; membunuh anak kamu kerana takut dia akan makan bersama kamu; kemudian berzina dengan isteri jiran kamu (Sahih Muslim 86; Sahih al-Bukhari 4761). Urutan ini mengajarkan tahap keberatannya — ia tidak bermakna kabā'ir yang lain itu ringan.",
+      "Sesetengah dosa bukan sahaja menambah beban terhadap anda — ia memindahkan amal kebaikan anda kepada orang yang anda zalimi. Orang muflis dalam kalangan umat ini datang dengan solat, puasa, dan sedekah, tetapi dia pernah mencaci, memfitnah, mengambil harta, dan menumpahkan darah — maka amal kebaikannya diberikan kepada orang lain, dan apabila ia habis, dosa-dosa orang lain dipikulkan ke atasnya (Sahih Muslim 2581). Ibadat tidak membatalkan kezaliman; yang membatalkannya ialah menyelesaikan hak-hak.",
+      "Di samping setiap amaran ada harapan. Allah berfirman: 'Wahai hamba-hambaKu yang telah melampaui batas terhadap diri mereka sendiri (dengan perbuatan-perbuatan maksiat), janganlah kamu berputus asa dari rahmat Allah, kerana sesungguhnya Allah mengampunkan segala dosa' (Qur'an 39:53). Mati dalam keadaan syirik tanpa bertaubat ialah pengecualian yang dijelaskan oleh nas (Qur'an 4:48); setiap pintu taubat yang lain tetap terbuka sehingga mati.",
     ],
     destructiveItems: [
       {
-        title: "Syirik",
-        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+        title: "Syirik — mempersekutukan Allah",
+        summary: "Yang pertama daripada tujuh dosa yang membinasakan dan dosa yang paling berat.",
       },
       {
         title: "Sihir",
-        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+        summary: "Mengamalkan sihir — termasuk dalam tujuh mūbiqāt.",
       },
       {
-        title: "Membunuh",
-        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+        title: "Membunuh jiwa tanpa hak",
+        summary: "Meragut nyawa yang diharamkan oleh Allah kecuali dengan sebab yang adil.",
       },
       {
-        title: "Riba",
-        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+        title: "Memakan riba",
+        summary: "Riba dan faedah — diisytiharkan sebagai dosa yang membinasakan.",
       },
       {
-        title: "Harta anak yatim",
-        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+        title: "Memakan harta anak yatim",
+        summary: "Membolot harta anak yatim secara zalim.",
       },
       {
-        title: "Lari dari pertempuran",
-        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+        title: "Lari dari medan perang",
+        summary: "Berpaling lari ketika tentera mara — salah satu daripada tujuh.",
       },
       {
-        title: "Menuduh wanita suci",
-        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+        title: "Menuduh wanita mukminah yang menjaga kehormatan",
+        summary:
+          "Menuduh wanita-wanita mukminah yang menjaga kehormatan dan tidak tahu-menahu berzina.",
       },
       {
-        title: "Orang muflis",
-        summary: "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
-      },
-    ],
-    quran: [
-      {
-        excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-      },
-      {
-        excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-      },
-      {
-        excerpt: "Allah akan menegakkan neraca keadilan pada Hari Kiamat.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
-      },
-      {
-        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
-      },
-      {
-        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
-      },
-      {
-        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
-      },
-      {
-        excerpt: "Dua kalimah ringan pada lidah, berat pada neraca.",
+        title: "Orang yang muflis",
+        summary:
+          "Solat, puasa, dan sedekah boleh diambil untuk menyelesaikan hak orang yang anda zalimi.",
       },
     ],
     actions: [
-      "Lakukan amalan dengan ikhlas kerana Allah.",
-      "Berpegang pada al-Quran dan Sunnah, lalu bertaubatlah hari ini.",
-      "Jangan berputus asa daripada rahmat Allah; pintu taubat terbuka hingga kematian.",
+      "Teliti tujuh dosa yang membinasakan dan bertaubatlah daripada mana-mana yang pernah anda hampiri.",
+      "Selesaikan hak-hak manusia — hutang, harta, dan maruah — sebelum Hari Perhitungan.",
+      "Gandingkan amaran dengan harapan: bacalah Qur'an 39:53 dan perbaharui taubat setiap hari.",
     ],
     appLinks: [
-      {
-        label: "Dosa-dosa yang membinasakan",
-      },
-      {
-        label: "Berat pada neraca",
-      },
-      {
-        label: "Akhlak mulia",
-      },
-      {
-        label: "Repentance",
-      },
+      { label: "Gambaran keseluruhan dosa-dosa besar" },
+      { label: "Dosa terhadap orang lain" },
+      { label: "Hisab (Hari Akhirat)" },
+      { label: "Taubat" },
     ],
   },
 ];
@@ -572,573 +333,381 @@ export const JAHANNAM_MAJOR_SIN_TOPICS_MS: DeepPartial<JahannamTopic>[] = [
   {
     title: "Syirik",
     summary:
-      "Menyekutukan Allah — satu-satunya dosa yang tidak diampuni jika seseorang meninggal dunia dunia kerananya.",
+      "Mempersekutukan Allah — satu-satunya dosa yang tidak diampunkan jika seseorang mati dalam keadaan itu.",
     body: [
-      "Definisi: Syirik adalah menyekutukan Allah dengan sesuatu yang lain — mengalihkan sebuah tindakan yang hanya menjadi hak-Nya semata (ibadat, kecintaan tertinggi, rasa takut, harapan, tawakal, atau hak menetapkan hukum) kepada selain diri-Nya. Ini adalah kebalikan mutlak dari tauhid, dan menyerang tujuan sejati keberadaan makhluk: hanya menyembah Allah.",
-      "Mengapa ini dosa paling berat: Setiap dosa lain adalah pelanggaran yang dilakukan sambil tetap mengakui Rabb yang sejati, tetapi syirik adalah pelanggaran langsung terhadap-Nya sendiri — menganggap makhluk sebagai Sang Pencipta. Inilah sebabnya Al-Quran menyebutnya 'kezaliman yang besar' (31:13). Ini adalah satu-satunya dosa yang, jika seseorang meninggal dunia dunia kerananya tanpa bertobat, tidak diampuni: 'Sesungguhnya Allah tidak mengampuni dosa mempersekutukan-Nya, tetapi Dia mengampuni apa yang di bawah itu bagi siapa yang Dia kehendaki' (4:48). Rahmat yang tersembunyi dalam ketegasan ini adalah bahawa segala sesuatu selain syirik tetap berada dalam jangkauan ampunan Allah.",
-      "Bentuk-bentuknya: Para ulama membedakan syirik besar — menyembah berhala, orang mati, orang saleh, atau makhluk; memohon kepada selain Allah atas sesuatu yang hanya Dia yang boleh memberikannya; dan menujukan kurban atau nazar kepada selain-Nya — yang mengeluarkan seseorang dari Islam tanpa tobat. Selain itu ada syirik kecil dan tersembunyi, seperti riya dalam ibadat, bersumpah dengan selain Allah, atau bergantung pada ramalan dan jimat, yang merupakan dosa berat namun tidak dengan sendirinya mengeluarkan seseorang dari agama.",
-      "Jalan untuk menjauhinya: Pelajarilah tauhid, sembahlah hanya Allah, dan jagalah serta perkuat keikhlasan niat supaya amal ditujukan hanya untuk-Nya, bukan untuk dilihat orang. Siapa yang telah terjerumus dalam syirik bertobat dengan meninggal duniakannya secara tulus dan kembali hanya menyembah Allah — dan pintu kembali itu tetap terbuka sepanjang hidupnya.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak mengampuni dosa mempersekutukan-Nya, tetapi Dia mengampuni apa yang di bawah itu bagi siapa yang Dia kehendaki.",
-      },
-      {
-        excerpt:
-          "Wahai anakku, janganlah kamu mempersekutukan Allah. Sesungguhnya syirik adalah kezaliman yang besar.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dosa-dosa besar yang paling besar adalah: mempersekutukan Allah, membunuh jiwa, durhaka kepada orang tua, dan memberikan kesaksian palsu.",
-      },
+      "Takrif: Syirik ialah menjadikan sekutu bagi Allah — mengarahkan apa-apa perbuatan yang hanya layak bagi-Nya (ibadat, cinta yang tertinggi, takut, harap, tawakal, atau hak menetapkan hukum) kepada sesuatu atau seseorang selain-Nya. Ia ialah lawan yang tepat bagi tauhid, dan ia menyerang tujuan asal penciptaan makhluk: menyembah Allah semata-mata.",
+      "Mengapa ia dosa yang paling berat: setiap dosa lain ialah kesalahan yang dilakukan sambil mengakui Tuhan yang sebenar, tetapi syirik ialah kesalahan yang dilakukan secara langsung terhadap-Nya — menyangka makhluk sebagai Pencipta. Inilah sebabnya al-Quran menyebutnya 'satu kezaliman yang besar' (31:13). Ia satu-satunya dosa yang, jika seseorang mati dalam keadaan itu tanpa bertaubat, tidak diampunkan: 'Sesungguhnya Allah tidak akan mengampunkan dosa syirik mempersekutukanNya (dengan sesuatu apajua), dan akan mengampunkan dosa yang lain dari itu bagi sesiapa yang dikehendakiNya' (4:48). Rahmat yang tersembunyi walaupun dalam ketegasan ini ialah segala dosa selain syirik tetap berada di bawah keampunan Allah.",
+      "Bentuk-bentuknya: ulama membezakan syirik besar — menyembah berhala, orang mati, wali, atau makhluk; menyeru selain Allah untuk perkara yang hanya Dia mampu berikan; dan mengarahkan korban atau nazar kepada selain-Nya — yang mengeluarkan seseorang daripada Islam jika tidak ditaubati. Ada juga syirik kecil dan syirik tersembunyi, seperti menunjuk-nunjuk dalam ibadat (riya'), bersumpah dengan selain Allah, atau bergantung kepada petanda dan tangkal, yang merupakan dosa yang serius tetapi tidak dengan sendirinya mengeluarkan seseorang daripada agama.",
+      "Jalan untuk menjauhinya: jaga dan kukuhkan tauhid dengan mempelajarinya, menyembah Allah semata-mata, dan menyucikan niat supaya amalan dilakukan kerana-Nya dan bukan untuk dilihat manusia. Sesiapa yang telah terjerumus ke dalam syirik bertaubat dengan meninggalkannya secara ikhlas dan kembali menyembah Allah semata-mata — dan pintu untuk kembali itu tetap terbuka selagi seseorang masih hidup.",
     ],
     actions: [
-      "Pelajari Akidah dan tauhid melalui 99 Nama Allah.",
-      "Murnikan niat dalam ibadat — mohonlah keikhlasan kepada Allah setiap hari.",
+      "Pelajari tauhid melalui Belajar Akidah dan 99 Nama Allah.",
+      "Ikhlaskan niat dalam ibadat — mohonlah keikhlasan kepada Allah setiap hari.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Akidah — penjelasan syirik" }, { label: "Taubat" }],
   },
   {
-    title: "Pembunuhan",
-    summary: "Mengambil nyawa yang tidak bersalah tanpa hak — salah satu pelanggaran paling berat.",
+    title: "Membunuh",
+    summary:
+      "Meragut nyawa yang tidak bersalah secara haram — antara pencabulan yang paling berat.",
     body: [
-      "Definisi: Pembunuhan di sini merujuk pada pengambilan nyawa secara tidak sah dan disengaja terhadap jiwa yang telah Allah muliakan kehormatannya. Islam mengakui bentuk-bentuk yang sah — seperti qisas yang ditegakkan melalui otoritas yang tepat — tetapi membunuh jiwa yang tidak bersalah tanpa alasan yang sah adalah salah satu kejahatan paling berat.",
-      "Mengapa ini begitu berat: Al-Quran menimbang satu pembunuhan tanpa hak setara dengan seluruh umat manusia: 'Siapa yang membunuh satu jiwa… seolah-olah dia telah membunuh seluruh manusia' (5:32), kerana menghancurkan satu jiwa adalah melanggar kehormatan yang melindungi setiap jiwa. Pembunuhan adalah dosa pertama di antara keturunan Adam, dan wahyu berulang kali kembali membahasnya sebagai penghancur akhirat.",
-      "Pelanggaran ganda: Pembunuhan sekaligus merupakan dosa terhadap Allah, yang haknya atas kehormatan jiwa telah dilanggar, dan dosa terhadap sesama manusia — korban dan keluarga yang ditinggalkannya. Inilah sebabnya tobatnya sering kali lebih berat daripada kebanyakan dosa lain: kembali kepada Allah adalah wajib, tetapi hak-hak orang yang dizalimi juga tetap ada, dan di mana hukum negara atau hukum Islam menetapkan diyat atau konsekuensi lain, itu harus dipenuhi melalui cara yang sesuai dan ulama yang berwenang.",
-      "Jalan untuk menjauhinya: Anggaplah setiap jiwa mulia, redakan kemarahan dan permusuhan sebelum memuncak, dan selesaikan perselisihan dengan kesabaran dan keadilan, bukan dengan kekerasan. Bahkan kejahatan terbesar terhadap sesama manusia ini pun tidak berada di luar jangkauan rahmat Allah bagi siapa yang bertobat dengan tulus, memenuhi hak-hak terkait semampu mungkin, dan tidak pernah kembali ke jalan itu.",
+      "Takrif: Membunuh di sini bermaksud meragut dengan sengaja dan secara haram nyawa yang telah Allah jadikan suci. Islam memang mengiktiraf keadaan yang dibenarkan — seperti qisas (pembalasan setimpal mengikut undang-undang) yang dilaksanakan oleh pihak berkuasa yang sah — tetapi membunuh jiwa yang tidak bersalah tanpa sebab yang adil ialah antara jenayah yang paling berat.",
+      "Mengapa ia begitu berat: al-Quran menimbang satu pembunuhan yang zalim dengan neraca seluruh manusia: 'sesiapa yang membunuh seorang manusia … maka seolah-olah dia telah membunuh manusia semuanya' (5:32), kerana memusnahkan satu nyawa bermakna mencabuli kesucian yang melindungi setiap nyawa. Pembunuhan ialah dosa pertama yang dilakukan dalam kalangan anak-anak Adam, dan wahyu berulang kali kembali menyebutnya sebagai pemusnah akhirat seseorang.",
+      "Kesalahan berganda: membunuh ialah dosa terhadap Allah, yang hak-Nya atas kesucian nyawa telah dicabuli, dan pada masa yang sama dosa terhadap manusia — mangsa dan mereka yang ditinggalkannya. Inilah sebabnya taubatnya lebih berat daripada kebanyakan dosa: kembali kepada Allah adalah wajib, tetapi hak orang yang dizalimi juga tetap ada, dan apabila undang-undang negara atau syariat Islam menetapkan diat (pampasan darah) atau akibat lain, semua itu mesti ditunaikan melalui saluran yang betul dan ulama yang berkelayakan.",
+      "Jalan untuk menjauhinya: anggaplah setiap nyawa suci, redakan kemarahan dan permusuhan sebelum ia menjadi keras, dan selesaikan pertikaian dengan kesabaran dan keadilan, bukan dengan kekerasan. Malah jenayah terbesar terhadap manusia ini pun tidak terkeluar daripada rahmat Allah bagi orang yang bertaubat dengan ikhlas, menunaikan hak-hak yang berkaitan sedaya mungkin, dan tidak lagi kembali ke jalan itu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Siapa yang membunuh satu jiwa bukan kerana orang itu membunuh jiwa lain atau berbuat kerusakan di bumi — seolah-olah dia telah membunuh seluruh manusia.",
-      },
-      {
-        excerpt:
-          "Siapa yang membunuh seorang mukmin dengan sengaja — balasannya adalah Jahannam, kekal di dalamnya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Dosa-dosa besar yang paling besar adalah: mempersekutukan Allah, membunuh jiwa, durhaka kepada orang tua, dan memberikan kesaksian palsu.",
-      },
-    ],
-    actions: ["Hargailah setiap jiwa; selesaikan perselisihan dengan kesabaran dan keadilan."],
-    appLinks: [{}],
+    actions: ["Hargai setiap nyawa; selesaikan pertikaian dengan kesabaran dan keadilan."],
+    appLinks: [{ label: "Dosa terhadap orang lain" }],
   },
   {
     title: "Zina",
-    summary: "Hubungan seksual yang tidak sah — dosa yang merusak jiwa dan masyarakat.",
+    summary: "Hubungan seksual yang haram — dosa yang membinasakan jiwa dan masyarakat.",
     body: [
-      "Definisi: Zina adalah setiap hubungan seksual tidak sah yang terjadi di luar pernikahan yang sah, mencakup baik yang dilakukan orang yang belum menikah maupun yang melibatkan orang yang sudah menikah. Islam tidak memandangnya sebagai urusan pribadi, melainkan pelanggaran dengan dampak yang luas.",
-      "Mengapa ini berat: Zina meluluhlantakkan fondasi yang menopang masyarakat yang sehat — garis keturunan, kepercayaan antara suami istri, perlindungan anak-anak, dan kesucian diri yang memuliakan manusia. Kata-kata Al-Quran sendiri sarat pengajaran: ia tidak sekadar mengharamkan perbuatan itu tetapi berkata 'janganlah kamu mendekatinya' (17:32), memperingatkan pandangan, kesendirian, dan langkah-langkah yang menuju ke arah itu. Larangan mendekat ini adalah rahmat, kerana melindungi seseorang sebelum hasrat lepas kendali.",
-      "Hikmah di balik pembatasan: Alih-alih membiarkan orang bergulat dengan hasrat pada puncaknya, Islam mengelilingi mereka dengan perlindungan lebih awal — menundukkan pandangan, menjaga rasa malu dalam berpakaian dan berperilaku, menghindari berdua-duaan dengan yang bukan mahram, dan mendorong pernikahan sebagai jalan yang sah dan terhormat untuk memenuhi kebutuhan ini. Membangun batasan-batasan ini lebih dini jauh lebih mudah daripada berjuang di tepi jurang.",
-      "Jalan kembali: Bagi siapa pun yang telah jatuh, jalannya adalah tobat yang tulus — meninggal duniakan dosa sepenuhnya, menyesalinya, bertekad tidak mengulanginya, dan menutupi masa lalu, bukan menyebarluaskannya. Zina adalah dosa besar, tetapi ia termasuk dosa-dosa yang Allah ampuni bagi siapa yang kembali kepada-Nya; tidak ada tempat untuk berputus asa, dan awal yang baru selalu tersedia.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Janganlah kamu mendekati zina. Sesungguhnya ia adalah perbuatan keji dan jalan yang sangat buruk.",
-      },
-      {
-        excerpt:
-          "Dan mereka yang tidak berzina… kecuali mereka yang bertobat, beriman, dan beramal saleh — Allah akan mengganti keburukan-keburukan mereka dengan kebaikan.",
-      },
+      "Takrif: Zina ialah apa-apa hubungan seksual yang haram di luar perkahwinan yang sah, merangkumi hubungan antara orang yang belum berkahwin dan juga yang melibatkan orang yang telah berkahwin. Islam tidak menganggapnya sebagai urusan peribadi semata-mata, tetapi sebagai pencabulan yang membawa kemudaratan yang luas.",
+      "Mengapa ia berat: zina menghakis asas-asas yang menjadi binaan masyarakat yang sihat — nasab keturunan, kepercayaan antara suami isteri, keselamatan anak-anak, dan kesucian diri yang memuliakan seseorang. Lafaz al-Quran sendiri memberi pengajaran: ia bukan sekadar melarang perbuatan itu tetapi berfirman 'janganlah kamu menghampiri zina' (17:32), memberi amaran terhadap pandangan, pertemuan berdua-duaan, dan langkah-langkah yang membawa kepadanya. Larangan menghampiri itu ialah satu rahmat, kerana ia melindungi seseorang sebelum godaan menjadi terlalu kuat.",
+      "Hikmah di sebalik batas-batas: daripada membiarkan manusia melawan nafsu ketika ia di puncaknya, Islam mengelilingi mereka dengan perlindungan yang lebih awal — menundukkan pandangan, sopan dalam berpakaian dan berkelakuan, mengelakkan berdua-duaan dengan bukan mahram, dan menggalakkan perkahwinan sebagai saluran yang halal dan mulia bagi keperluan ini. Membina batas-batas ini lebih awal jauh lebih mudah daripada melawan ketika sudah di tepi jurang.",
+      "Jalan untuk kembali: bagi sesiapa yang telah terjatuh, jalan keluarnya ialah taubat yang ikhlas — meninggalkan dosa itu sepenuhnya, menyesalinya, berazam untuk tidak kembali, dan menutup aib masa lalu diri sendiri, bukan menghebahkannya. Zina ialah dosa besar, tetapi ia jelas termasuk dalam dosa-dosa yang Allah ampunkan bagi orang yang kembali kepada-Nya; putus asa tiada tempatnya, dan permulaan baharu sentiasa terbuka.",
     ],
     actions: [
-      "Jagalah pandangan mata dan penggunaan media sosial.",
-      "Jika belum menikah, berdoalah untuk mendapatkan pasangan yang saleh atau salehah.",
+      "Jaga pandangan mata dan penggunaan media sosial.",
+      "Berdoalah untuk mendapat pasangan yang soleh jika belum berkahwin.",
     ],
-    appLinks: [{}],
+    appLinks: [{ label: "Taubat" }],
   },
   {
     title: "Riba",
-    summary: "Bunga dan riba — Al-Quran menyatakan perang terhadap para pelakunya.",
+    summary: "Faedah dan riba — al-Quran mengisytiharkan perang terhadap pengamalnya.",
     body: [
-      "Definisi: Riba adalah tambahan yang tidak sah dalam transaksi keuangan tertentu — bentuk yang paling dikenal adalah bunga yang diambil atau diberikan atas pinjaman, tetapi juga mencakup pertukaran barang sejenis tertentu yang tidak setara atau ditangguhkan. Intinya adalah memperoleh keuntungan dari beban orang lain tanpa nilai atau risiko yang nyata.",
-      "Mengapa ini sangat berat: Bahasa yang digunakan Al-Quran untuk melawan riba unik di antara dosa-dosa finansial. Allah menyatakan perang, atas nama diri-Nya dan Rasul-Nya ﷺ, terhadap mereka yang bersikeras melakukannya (2:279) — sebuah ungkapan yang tidak digunakan untuk dosa lain mana pun — kerana riba mengeksploitasi kebutuhan, mengumpulkan kekayaan di tangan segelintir orang, dan mengikis kasih sayang yang seharusnya menopang sebuah perekonomian. Nabi ﷺ memperingatkan keras terhadap transaksi semacam ini dalam kapasitas apa pun.",
-      "Hikmah dan rahmat: Larangan ini mengarahkan orang pada perdagangan yang nyata, risiko bersama, dan sedekah, serta melindungi yang lemah dari terlilit beban utang. Rahmat Allah hadir di sini juga: ketika perintah ini turun, Dia tidak menuntut supaya riba yang telah diambil sebelumnya dikembalikan, melainkan hanya meminta orang-orang beriman meninggal duniakan sisanya — 'bagimu adalah pokok hartamu' (2:279) — kemudahan bagi mereka yang berbalik darinya.",
-      "Jalan untuk menjauhinya: Tinjau kembali produk-produk berbasis riba dalam keuanganmu, carilah alternatif yang halal, dan konsultasikan dengan ulama yang kompeten untuk kasus-kasus sulit yang nyata seperti KPR di negara non-Muslim. Meninggal duniakan riba mungkin menuntut keputusan finansial yang sulit, tetapi keselamatan jiwa lebih besar daripada keuntungan sesaat mana pun — dan Allah menjanjikan rezeki dari arah yang tidak disangka-sangka bagi siapa yang bertakwa kepada-Nya.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, bertakwalah kepada Allah dan tinggalkan sisa riba jika kamu benar-benar beriman. Jika kamu tidak melakukannya, maka ketahuilah adanya perang dari Allah dan Rasul-Nya. Dan jika kamu bertobat, maka bagimu adalah pokok hartamu — kamu tidak menzalimi dan tidak pula dizalimi.",
-      },
-      {
-        excerpt: "Allah memusnahkan riba dan menyuburkan sedekah.",
-      },
+      "Takrif: Riba ialah tambahan yang haram dalam urusan kewangan tertentu — yang paling biasa ialah faedah yang dikenakan atau dibayar atas pinjaman, tetapi ia juga merangkumi pertukaran tertentu yang tidak sama nilai atau bertangguh bagi barangan yang sejenis. Hakikatnya ialah memperoleh kekayaan tanpa nilai atau risiko yang sebenar, dengan menanggungkan kerugian kepada orang lain.",
+      "Mengapa ia sangat berat: riba unik antara dosa-dosa kewangan kerana bahasa yang digunakan oleh al-Quran terhadapnya. Allah mengisytiharkan perang daripada-Nya dan Rasul-Nya ﷺ ke atas mereka yang terus mengamalkannya (2:279) — ungkapan yang tidak digunakan bagi dosa lain — kerana riba mengeksploitasi keperluan orang, menumpukan kekayaan di tangan segelintir orang, dan mengikis belas kasihan yang sepatutnya ada dalam sesebuah ekonomi. Nabi ﷺ memberi amaran keras terhadap terlibat dengannya dalam apa jua peranan.",
+      "Hikmah dan rahmatnya: larangan ini mengalihkan manusia kepada perdagangan yang sebenar, perkongsian risiko, dan sedekah, serta melindungi golongan yang lemah daripada dihimpit hutang. Namun, di sini pun rahmat Allah tetap ada: apabila perintah itu turun, Dia tidak menuntut supaya faedah yang telah diambil dahulu dirampas kembali, tetapi hanya menyuruh orang beriman meninggalkan baki riba — 'hak kamu (yang sebenarnya) ialah pokok asal harta kamu' (2:279) — satu kemudahan bagi mereka yang berpaling daripadanya.",
+      "Jalan untuk menjauhinya: semak kewangan anda untuk mengenal pasti produk berasaskan faedah, cari alternatif yang halal, dan rujuk ulama yang berkelayakan untuk kes-kes yang benar-benar sukar seperti pinjaman perumahan di negara bukan Islam. Meninggalkan riba mungkin memerlukan keputusan kewangan yang sukar, tetapi keselamatan jiwa lebih berat daripada apa-apa keuntungan sementara — dan Allah berjanji memberi rezeki kepada orang yang bertakwa kepada-Nya dari arah yang tidak disangka-sangka.",
     ],
     actions: [
-      "Tinjau kembali produk-produk berbasis riba dalam keuanganmu.",
-      "Konsultasikan KPR dan pinjaman dengan ulama yang kompeten.",
+      "Semak kewangan anda untuk mengenal pasti produk berasaskan faedah.",
+      "Rujuk ulama yang berkelayakan tentang pinjaman perumahan dan hutang.",
     ],
-    appLinks: [{}],
+    appLinks: [{ label: "Panduan zakat" }],
   },
   {
     title: "Kesaksian Palsu",
-    summary: "Berdusta di bawah sumpah atau memberi kesaksian palsu — menghancurkan keadilan.",
+    summary: "Berdusta ketika bersumpah atau memberi kesaksian palsu — memusnahkan keadilan.",
     body: [
-      "Definisi: Kesaksian palsu (shahadat az-zur) adalah bersaksi atas sesuatu yang tidak benar — dan dalam pengertian yang lebih luas, berdusta di bawah sumpah, membuat tuduhan yang direkayasa, atau menahan kesaksian yang benar ketika keadilan bergantung padanya.",
-      "Mengapa ini berat: Ini merusak alat itu sendiri yang menjadi sandaran keadilan. Seorang saksi palsu boleh menjerumuskan orang yang tidak bersalah ke dalam kehancuran, merampas hak seseorang dari miliknya, atau membebaskan orang yang zalim — maka dusta tidak pernah hanya terbatas pada si pendusta; ia melukai orang-orang yang nyata dan seluruh sistem keadilan. Nabi ﷺ menghitungnya di antara dosa-dosa besar yang paling besar, dan dalam satu riwayat mengulangi peringatan terhadapnya begitu sering hingga para sahabat berharap baginda berhenti demi kebaikan baginda sendiri.",
-      "Kaitannya dengan lisan: Kesaksian palsu adalah mata pisau paling tajam dari dosa-dosa lisan yang lebih luas. Kerana mengucapkan kata-kata itu murah, dosa ini boleh dilakukan dengan sangat mudah dan berbahaya — sebuah tanda tangan, sebuah pembesar-besaran, sebuah diamnya yang mudah — namun bobotnya sangat berat pada Hari Kiamat, ketika anggota tubuh dan lisan manusia sendiri akan bersaksi atas kebenaran melawan mereka.",
-      "Jalan untuk menjauhinya: Berpegang teguhlah pada kebenaran walaupun mahal harganya atau bertentangan dengan kepentinganmu sendiri, jangan pernah memberikan kesaksianmu untuk sebuah dusta, dan bersuaralah dengan kesaksian yang adil ketika dibutuhkan. Siapa yang telah memberikan kesaksian palsu bertobat dengan menarik kembali dusta itu bila memungkinkan, berusaha memperbaiki kerugian dan memulihkan hak orang yang dizalimi, dan kembali kepada Allah dengan penyesalan yang tulus.",
+      "Takrif: Kesaksian palsu (syahadat al-zur) ialah memberi kesaksian atas sesuatu yang tidak benar — dan secara lebih luas, berdusta ketika bersumpah, mereka-reka tuduhan, atau menyembunyikan kesaksian yang benar apabila keadilan bergantung kepadanya.",
+      "Mengapa ia berat: ia merosakkan alat yang digunakan untuk menegakkan keadilan. Seorang saksi palsu boleh menghancurkan orang yang tidak bersalah, merampas harta daripada pemiliknya yang sah, atau membebaskan orang yang zalim — maka dusta itu tidak pernah terhad kepada si pendusta; ia melukai manusia sebenar dan seluruh sistem keadilan. Nabi ﷺ menggolongkannya antara dosa besar yang paling besar, dan dalam satu riwayat baginda begitu bersungguh-sungguh mengulang amaran terhadapnya sehingga para sahabat berharap baginda berhenti, kerana bimbang akan keadaan baginda.",
+      "Kaitannya dengan lidah: kesaksian palsu ialah hujung paling tajam bagi dosa-dosa percakapan yang lebih luas. Oleh kerana kata-kata mudah diucapkan, dosa ini amat mudah dilakukan — satu tandatangan, satu keterlaluan, satu diam yang memudahkan — namun bebannya amat besar pada Hari Kiamat, ketika anggota dan lidah manusia sendiri akan memberi kesaksian yang benar terhadap mereka.",
+      "Jalan untuk menjauhinya: berpegang teguh pada kebenaran walaupun ia mahal harganya atau bertentangan dengan kepentingan diri sendiri, enggan meminjamkan kata-kata kepada apa-apa kebatilan, dan tampil memberi kesaksian yang adil apabila diperlukan. Sesiapa yang pernah memberi kesaksian palsu bertaubat dengan menarik balik dustanya jika boleh, berusaha menghapuskan kemudaratan dan memulihkan hak orang yang dizalimi, serta kembali kepada Allah dengan penyesalan yang ikhlas.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan mereka yang tidak memberikan kesaksian palsu, dan apabila melewati perbuatan sia-sia, mereka berlalu dengan penuh kehormatan.",
-      },
-      {
-        excerpt: "Maka jauhilah kotoran berhala-berhala dan jauhilah perkataan dusta.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maukah kuberitahu kamu dosa-dosa besar yang paling besar? Mempersekutukan Allah, durhaka kepada orang tua — dan memberikan kesaksian palsu, dan memberikan kesaksian palsu.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Dosa-dosa lidah" }],
   },
   {
     title: "Sihir",
     summary:
-      "Sihir, mendatangi tukang sihir, dan ritual gaib — kekafiran dalam bentuk-bentuk besarnya.",
+      "Sihir, mendapatkan ahli sihir, dan amalan ilmu ghaib — kufur dalam bentuknya yang besar.",
     body: [
-      "Definisi: Sihr (sihir) adalah penggunaan sarana yang dilarang — sering kali bergantung pada setan atau klaim menguasai hal gaib — untuk mempengaruhi orang atau peristiwa. Melakukannya, mempelajarinya, meminta orang lain melakukannya, dan membenarkan orang yang mengklaimnya, semuanya termasuk dalam dosa ini.",
-      "Mengapa ini begitu berat: Sebahagian besar sihir tidak terlaksana tanpa perbuatan kekafiran, seperti mendekatkan diri kepada setan atau menghina Al-Quran, itulah sebabnya Al-Quran mengaitkan ilmu ini dengan kekafiran. Menyebutkan sihir yang dipelajari pada masa Nabi Sulaiman 'alaihis salam, Allah berfirman bahawa para setan dan dua malaikat itu hanya mengajarkannya sebagai ujian, memperingatkan 'janganlah kamu kafir' (2:102). Selain bahaya bagi akidah, sihir merugikan orang-orang secara nyata — memisahkan suami istri, menyebarkan ketakutan, dan mengeksploitasi mereka yang tidak berdaya.",
-      "Ritual-ritual terkait: Peringatan yang sama meluas hingga perdukunan (kahanah), menganggap astrologi sebagai pengetahuan pasti tentang yang gaib, serta jimat dan mantra yang mengandung syirik. Pengetahuan tentang masa depan yang tersembunyi hanya milik Allah, dan bersandar kepada mereka yang mengklaimnya melemahkan tauhid dari akarnya.",
-      "Jalan untuk menjauhinya: Bagi siapa yang terjerumus dalam ritual-ritual ini, tobat berarti meninggal duniakannya sepenuhnya, memusnahkan benda-benda terlarang apa pun, memutus hubungan dengan mereka yang mempraktikkannya, dan memperbarui tauhid serta tawakal yang murni hanya kepada Allah. Perlindungan ada dalam keimanan, zikir harian, dan memohon perlindungan kepada Allah — dan ampunan-Nya terbuka bagi siapa pun yang benar-benar kembali.",
+      "Takrif: Sihir ialah penggunaan cara-cara yang diharamkan — sering melibatkan pergantungan kepada syaitan atau dakwaan mempunyai kuasa atas perkara ghaib — untuk mempengaruhi manusia atau peristiwa. Mengamalkannya, mempelajarinya, mendapatkannya daripada orang lain, dan mempercayai mereka yang mendakwanya semuanya termasuk dalam dosa ini.",
+      "Mengapa ia begitu berat: kebanyakan sihir tidak dapat dilakukan tanpa perbuatan kufur, seperti mendekatkan diri kepada syaitan atau menghina al-Quran, sebab itulah al-Quran mengaitkan ilmunya dengan kekufuran. Ketika menyebut tentang sihir yang dipelajari pada zaman Nabi Sulaiman, Allah berfirman bahawa syaitan-syaitan dan dua malaikat itu mengajarkannya hanya sebagai ujian, sambil memberi amaran 'janganlah engkau menjadi kafir' (2:102). Selain bahaya terhadap akidah, sihir memudaratkan manusia sebenar — menimbulkan perpecahan antara suami isteri, menyebarkan ketakutan, dan mengeksploitasi orang yang terdesak.",
+      "Amalan yang berkaitan: amaran yang sama meliputi tilikan nasib, menganggap astrologi sebagai ilmu yang pasti tentang perkara ghaib, dan azimat serta tangkal yang mengandungi syirik. Mendakwa mengetahui masa depan yang ghaib hanyalah milik Allah semata-mata, dan pergi kepada orang yang mendakwanya meruntuhkan tauhid dari akarnya.",
+      "Jalan untuk menjauhinya: bagi orang yang terlibat dalam amalan-amalan ini, taubat bermakna meninggalkannya sepenuhnya, memusnahkan apa-apa barang yang haram, memutuskan hubungan dengan mereka yang terlibat dengannya, dan memperbaharui tauhid yang ikhlas serta bertawakal kepada Allah semata-mata. Perlindungan terdapat dalam iman, dalam zikir harian, dan dalam memohon perlindungan kepada Allah — dan keampunan-Nya terbuka bagi sesiapa yang benar-benar kembali.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan mereka mengikuti apa yang dibacakan setan-setan pada masa kerajaan Sulaiman… dan mereka mempelajari apa yang membahayakan mereka dan tidak memberi manfaat.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang mendatangi seorang dukun dan membenarkan perkataannya, maka dia telah mengingkari apa yang diturunkan kepada Muhammad ﷺ.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Akidah — tauhid" }],
   },
   {
     title: "Memakan Harta Anak Yatim",
-    summary: "Mengambil atau menyia-nyiakan harta anak yatim secara tidak sah.",
+    summary: "Mengambil atau mensia-siakan harta anak yatim secara zalim.",
     body: [
-      "Definisi: Dosa ini adalah mengambil, menyia-nyiakan, atau menyalahgunakan harta anak-anak yatim — anak-anak yang ayahnya telah meninggal dunia dan yang tidak boleh melindungi kepentingan mereka sendiri. Wali menyimpan harta mereka sebagai amanah, bukan sebagai pemilik.",
-      "Mengapa ini berat: Ini menggabungkan dua pelanggaran — pengkhianatan amanah yang suci dan kezaliman terhadap yang paling tidak berdaya. Gambaran Al-Quran sangat tegas: mereka yang memakan harta anak yatim secara tidak sah 'sesungguhnya hanya memenuhi perut mereka dengan api' (4:10), mengubah satu momen ketamakan menjadi hukuman yang mereka tanggung sendiri. Mengeksploitasi mereka yang tidak memiliki suara adalah salah satu bentuk ketidakadilan yang terburuk, itulah sebabnya peringatannya begitu tajam — dan kerana tajamnya itu, penuh rahmat dalam mengalihkan para wali darinya.",
-      "Apa yang termasuk di dalamnya: Bukan hanya pencurian terang-terangan, tetapi juga bentuk-bentuk yang lebih halus — mencampur harta anak yatim dengan harta sendiri hingga batasnya kabur, menunda pengembalian hartanya ketika dia telah dewasa, atau menginvestasikan atau membelanjakannya tanpa hak. Allah memerintahkan sebaliknya: 'Berikanlah kepada anak-anak yatim harta mereka, dan janganlah kamu menukar yang buruk dengan yang baik' (4:2).",
-      "Jalan untuk menjauhinya: Jagalah harta anak yatim dengan cermat, pisahkan dan catat dengan teliti, serahkan sepenuhnya begitu mereka dewasa, dan — bagi yang pernah lalai — bertobatlah dengan mengembalikan apa yang wajib dikembalikan berikut tambahan yang sah, serta memohon maaf kepada mereka yang dizalimi. Pada hari ketika harta atau garis keturunan tidak berguna kecuali hati yang bersih, mengembalikan amanah semacam itu adalah kebaikan yang sangat berharga.",
+      "Takrif: Dosa ini ialah mengambil, mensia-siakan, atau menyalahgunakan harta anak yatim — kanak-kanak yang telah kehilangan bapa dan tidak mampu menjaga kepentingan mereka sendiri. Seorang penjaga memegang harta mereka sebagai amanah, bukan sekali-kali sebagai pemilik.",
+      "Mengapa ia berat: ia menghimpunkan dua kesalahan — mengkhianati amanah yang suci dan menzalimi golongan yang paling tidak berdaya. Gambaran al-Quran amat keras: mereka yang memakan harta anak yatim secara zalim 'hanyalah menelan api ke dalam perut mereka' (4:10), menjadikan detik ketamakan sebagai azab yang ditimpakan ke atas diri sendiri. Mengeksploitasi orang yang tiada pembela ialah antara bentuk kezaliman yang paling buruk, sebab itulah amarannya begitu tajam — dan kerana tajamnya, ia begitu penuh rahmat dalam memalingkan para penjaga daripadanya.",
+      "Apa yang termasuk di dalamnya: bukan sahaja kecurian secara terang-terangan, tetapi juga bentuk-bentuk yang lebih halus — mencampurkan harta anak yatim dengan harta sendiri sehingga sempadannya kabur, melewatkan pemulangannya apabila anak yatim itu telah dewasa, atau melaburkan atau membelanjakannya tanpa hak. Allah memerintahkan sebaliknya: 'berikanlah kepada anak-anak yatim (yang telah baligh) itu harta mereka, dan janganlah kamu tukar-gantikan yang baik dengan yang buruk' (4:2).",
+      "Jalan untuk menjauhinya: jagalah harta anak yatim dengan teliti, asingkan dan catat perakaunannya, serahkan sepenuhnya apabila mereka dewasa, dan — bagi orang yang telah cuai — bertaubatlah dengan memulangkan apa yang terhutang berserta apa-apa pertambahan yang sepatutnya dan memohon kemaafan mereka yang dizalimi. Pada Hari yang tiada harta atau keturunan dapat membantu kecuali hati yang sejahtera, memulihkan amanah seperti ini sendiri ialah amalan yang sangat berharga.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mereka yang memakan harta anak yatim secara tidak sah — sesungguhnya hanya memenuhi perut mereka dengan api.",
-      },
-      {
-        excerpt:
-          "Berikanlah kepada anak-anak yatim harta mereka, dan janganlah kamu menukar yang buruk dengan yang baik, dan janganlah kamu memakan harta mereka bersama harta kamu.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Dosa terhadap orang lain" }],
   },
   {
-    title: "Durhaka kepada Orang Tua",
-    summary: "Uquq — salah satu dosa besar selepas syirik.",
+    title: "Derhaka kepada Ibu Bapa",
+    summary: "'Uquq — antara dosa besar selepas syirik.",
     body: [
-      "Definisi: 'Uquq al-Walidayn adalah durhaka dan berlaku buruk secara serius kepada orang tua — menyakiti mereka, memperlakukan mereka dengan hina, mengabaikan mereka ketika membutuhkan, atau melukai mereka dengan perkataan maupun perbuatan. Ini adalah kebalikan dari birrul walidain, kebaikan penuh ketaatan yang diperintahkan Islam.",
-      "Mengapa ini begitu berat: Ayat demi ayat, Allah mengaitkan perintah untuk menyembah-Nya dengan perintah untuk berbuat baik kepada orang tua, seperti 'sembahlah Allah… dan berbuat baiklah kepada kedua orang tua' (4:36) — menempatkan hak mereka segera selepas hak-Nya sendiri. Orang tua, selepas Allah, adalah sumber terdekat keberadaan dan pengasuhan seseorang, sehingga ketidaktahuberterimakasihan terhadap mereka adalah ketidaktahuberterimakasihan yang menusuk dalam. Nabi ﷺ menghitung perlakuan buruk terhadap mereka di antara dosa-dosa besar yang paling besar, segera selepas syirik.",
-      "Satu keseimbangan penting: Ketaatan tidak berarti menaati orang tua dalam kemaksiatan kepada Allah — tidak ada ketaatan kepada makhluk dalam kemaksiatan kepada Sang Pencipta. Namun ketika penolakan diperlukan, itu dilakukan dengan lemah lembut, hormat, dan tetap berbuat baik secara berkelanjutan. Al-Quran bahkan melarang kata sekecil 'ah' walaupun kerana kesal: 'janganlah kamu mengatakan kepada keduanya perkataan ah' (17:23).",
-      "Jalan kembali: Rahmatnya di sini adalah bahawa orang tua sering kali masih boleh dijangkau. Bagi yang telah lalai, tobatnya sebahagian besar bersifat praktis — mulai kembali berbuat baik, memohon maaf kepada mereka, melayani mereka, dan mendoakan mereka, terutamanya selagi mereka masih hidup. Dan jika ayah atau ibu telah meninggal dunia dunia, ketaatan tetap berlanjut melalui doa untuk mereka, sedekah atas nama mereka, dan menghormati kerabat serta sahabat mereka.",
+      "Takrif: 'Uquq al-walidain ialah derhaka dan menganiaya ibu bapa secara berat — menyakiti mereka, memandang hina kepada mereka, mengabaikan mereka ketika memerlukan, atau melukai mereka dengan kata-kata atau perbuatan. Ia ialah lawan bagi birr al-walidain, iaitu berbakti dan berbuat baik yang diperintahkan oleh Islam.",
+      "Mengapa ia begitu berat: dalam ayat demi ayat, Allah menggandingkan perintah menyembah-Nya dengan perintah berbuat baik kepada ibu bapa, seperti dalam 'hendaklah kamu beribadat kepada Allah … dan hendaklah kamu berbuat baik kepada kedua ibu bapa' (4:36) — meletakkan hak mereka sejurus selepas hak-Nya sendiri. Ibu bapa, selepas Allah, ialah punca terdekat bagi kewujudan dan didikan seseorang, maka tidak bersyukur kepada mereka ialah satu bentuk tidak bersyukur yang amat mendalam. Nabi ﷺ menyenaraikan perbuatan menganiaya mereka antara dosa besar yang paling besar, kedua selepas syirik.",
+      "Satu keseimbangan yang penting: berbakti tidak bermakna mentaati ibu bapa dalam perkara maksiat kepada Allah — tiada makhluk yang ditaati dalam maksiat kepada Pencipta. Namun, walaupun seseorang terpaksa menolak, ia dilakukan dengan lemah lembut, hormat, dan terus berbuat baik. Al-Quran melarang walaupun perkataan rungutan yang paling kecil: 'janganlah engkau berkata kepada mereka (sebarang perkataan kasar) sekalipun perkataan \"Ha\"' (17:23).",
+      "Jalan untuk kembali: rahmatnya di sini ialah ibu bapa biasanya masih dapat didekati. Bagi orang yang telah cuai, taubatnya sebahagian besarnya bersifat praktikal — kembali berbuat baik, memohon kemaafan mereka, berkhidmat kepada mereka, dan mendoakan mereka, terutamanya selagi mereka masih hidup. Dan jika ibu atau bapa telah meninggal dunia, bakti diteruskan dengan mendoakan mereka, bersedekah bagi pihak mereka, dan memuliakan kaum kerabat serta sahabat-sahabat mereka.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbmu telah menetapkan supaya kamu tidak menyembah selain Dia, dan berbuat baiklah kepada kedua orang tua. Janganlah kamu mengatakan kepada keduanya perkataan 'ah' dan janganlah kamu membentak mereka, tetapi ucapkanlah kepada mereka perkataan yang mulia.",
-      },
-      {
-        excerpt:
-          "Sembahlah Allah dan janganlah kamu mempersekutukan-Nya dengan sesuatu apa pun, dan berbuat baiklah kepada kedua orang tua.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Maukah kuberitahu kamu dosa-dosa besar yang paling besar? Mempersekutukan Allah, dan durhaka kepada orang tua.",
-      },
-    ],
-    actions: ["Hubungi atau kunjungi orang tuamu minggu ini dengan perkataan yang penuh kebaikan."],
-    appLinks: [{}],
+    actions: ["Hubungi atau ziarahi ibu bapa minggu ini dengan kata-kata yang baik."],
+    appLinks: [{ label: "Dosa terhadap orang lain" }],
   },
   {
     title: "Mencuri",
-    summary:
-      "Mengambil harta orang lain secara tidak sah — melanggar kepercayaan dan mengundang hukuman.",
+    summary: "Mengambil harta orang lain secara haram — mencabuli amanah dan mengundang hukuman.",
     body: [
-      "Definisi: Mencuri (sariqah) adalah mengambil harta atau milik orang lain tanpa hak — baik secara diam-diam, dengan pengkhianatan, dengan penipuan, atau dengan cara tersembunyi apa pun untuk menguasai sesuatu yang bukan haknya.",
-      "Mengapa ini berat: Ini melanggar baik hak sesama manusia maupun kepercayaan yang menjadi sandaran kehidupan bersama. Keseriusannya ditandai oleh hukuman tertentu yang disebutkan Al-Quran untuk kasus-kasus yang memenuhi syarat (5:38) — sebuah hukuman yang dibatasi oleh syarat-syarat ketat dan standar pembuktian yang tinggi, sehingga ketegasannya terutamanya berfungsi sebagai peringatan yang kuat yang menjaga harta orang-orang tetap aman. Tujuan Islam adalah masyarakat di mana orang merasa aman dengan barang-barang mereka.",
-      "Bentuk-bentuk modernnya: Mencuri tidak terbatas pada membobol sebuah rumah. Ini mencakup mengambil dari majikan, kecurangan dalam bisnis, menahan upah pekerja, pembajakan digital, plagiarisme, dan memanfaatkan sesuatu yang bukan haknya secara sah. Apa yang tersembunyi dari manusia tidak pernah tersembunyi dari Allah, yang melihat setiap pengambilan yang tersembunyi.",
-      "Jalan kembali: Kerana ini melibatkan hak seseorang, tobat menuntut lebih dari sekadar penyesalan di hadapan Allah. Barang yang dicuri itu sendiri, atau nilainya, harus dikembalikan kepada pemiliknya yang berhak, dan maaf harus dimohon bila memungkinkan; jika pemiliknya tidak ditemukan, para ulama menyarankan supaya jumlah itu disedekahkan atas namanya. Dengan cara ini terpenuhi, pencurian pun sepenuhnya diampuni oleh Dzat yang mencintai hamba yang kembali.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Adapun pencuri laki-laki dan perempuan, potonglah tangan keduanya sebagai balasan atas apa yang telah mereka perbuat — sebuah hukuman dari Allah.",
-      },
-    ],
-    actions: ["Kembalikan barang curian atau nilainya; mohonlah maaf kepada orang yang dizalimi."],
-    appLinks: [{}],
-  },
-  {
-    title: "Minuman Keras dan Zat yang Memabukkan",
-    summary: "Khamr dan zat memabukkan — diharamkan secara bertahap namun mutlak dalam Al-Quran.",
-    body: [
-      "Definisi: Khamr adalah segala sesuatu yang memabukkan dan menutupi akal — minuman keras dan semua jenis anggur, dan menurut prinsip Nabi ﷺ sendiri, setiap zat yang memabukkan apa pun bentuk atau namanya. 'Setiap yang memabukkan adalah khamr, dan setiap khamr adalah haram.'",
-      "Mengapa ini berat: Akal adalah kekuatan yang dengannya manusia mengenal Allah, membedakan benar dan salah, dan menjaga setiap tanggung jawab lainnya. Zat-zat yang memabukkan justru meruntuhkan hal ini, itulah sebabnya Al-Quran menyebutnya, bersama berhala dan judi, sebagai 'kekejian dari perbuatan setan' dan memerintahkan, 'jauhilah itu' (5:90). Melampaui individu, zat-zat ini menghancurkan kesehatan, keluarga, dan keselamatan, serta membuka pintu bagi dosa-dosa yang seharusnya tidak pernah didekati orang yang berakal sehat.",
-      "Hikmah di balik pengharamannya: Allah tidak mengharamkan khamr dalam satu pukulan mendadak, melainkan mengharamkannya secara bertahap, dengan lembut membebaskan masyarakat awal dari kebiasaan yang sudah mengakar dalam. Sifat bertahap ini sendiri adalah pengajaran rahmat — dan teladan harapan bagi siapa pun yang berjuang meninggal duniakannya hari ini.",
-      "Jalan kembali, dengan penuh kasih sayang: Mereka yang kecanduan tidak boleh dihina, melainkan harus dibantu. Tobat berarti bertekad meninggal duniakan zat itu, menyingkirkannya beserta pemicu-pemicunya dari kehidupan, mencari bantuan dan pengobatan tanpa rasa malu, dan mengisi kekosongan itu dengan pergaulan yang baik, zikir, dan ibadat. Pintu Allah terbuka, dan setiap langkah tulus menjauh dari kecanduan adalah langkah yang Dia sambut.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, sesungguhnya khamr, judi, berhala, dan anak panah undian adalah kekejian dari perbuatan setan — maka jauhilah itu.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt: "Setiap yang memabukkan adalah khamr, dan setiap khamr adalah haram.",
-      },
+      "Takrif: Mencuri (sariqah) ialah mengambil harta atau milik orang lain tanpa hak — sama ada secara senyap, pecah amanah, penipuan, atau apa-apa cara merampas secara tersembunyi sesuatu yang bukan haknya.",
+      "Mengapa ia berat: ia mencabuli hak manusia dan juga kepercayaan yang menjadi asas kehidupan bermasyarakat. Keseriusannya ditegaskan oleh hukuman yang ditetapkan yang disebut oleh al-Quran bagi kes-kes yang memenuhi syarat (5:38) — hukuman yang dikawal oleh syarat-syarat yang ketat dan piawaian pembuktian yang tinggi, sehingga ketegasannya itu sendiri terutamanya berfungsi sebagai pencegah yang kuat yang memastikan harta manusia terpelihara. Matlamat Islam ialah masyarakat yang padanya manusia berasa selamat dengan harta milik mereka.",
+      "Wajahnya pada zaman moden: mencuri tidak terhad kepada memecah masuk rumah. Ia termasuk mengambil daripada majikan, menipu dalam perniagaan, menahan upah pekerja, cetak rompak digital, plagiat, dan mengambil manfaat daripada sesuatu yang bukan milik sendiri secara halal. Apa yang tersembunyi daripada manusia tidak pernah tersembunyi daripada Allah, yang melihat setiap pengambilan secara diam-diam.",
+      "Jalan untuk kembali: oleh kerana ia melibatkan hak manusia, taubat memerlukan lebih daripada penyesalan di hadapan Allah. Seseorang mesti memulangkan barang yang dicuri itu sendiri, atau nilainya, kepada pemiliknya yang sah, dan memohon kemaafannya jika boleh; jika pemiliknya tidak dapat ditemui, ulama menasihatkan supaya jumlah itu disedekahkan bagi pihaknya. Apabila diselesaikan dengan cara ini, dosa mencuri pun diampunkan sepenuhnya oleh Tuhan yang mengasihi hamba yang kembali kepada-Nya.",
     ],
     actions: [
-      "Carilah bantuan bila diperlukan; gantikan kebiasaan itu dengan zikir dan pergaulan yang baik.",
+      "Pulangkan barang yang dicuri atau nilainya; mohonlah kemaafan daripada mereka yang dizalimi.",
     ],
-    appLinks: [{}],
+    appLinks: [{ label: "Taubat" }],
+  },
+  {
+    title: "Arak dan Bahan yang Memabukkan",
+    summary:
+      "Arak dan bahan yang memabukkan — diharamkan secara beransur-ansur dan muktamad dalam al-Quran.",
+    body: [
+      "Takrif: Khamar ialah apa sahaja yang memabukkan dan mengaburkan akal — arak dan semua jenis alkohol, dan berdasarkan prinsip yang ditetapkan sendiri oleh Nabi ﷺ, setiap bahan yang memabukkan walau apa pun bentuk atau namanya. 'Every intoxicant is khamr, and every khamr is forbidden' (maksud dalam bahasa Inggeris).",
+      "Mengapa ia berat: akal ialah kemampuan yang dengannya seseorang mengenal Allah, membezakan yang benar daripada yang salah, dan menjaga setiap tanggungjawab yang lain. Bahan yang memabukkan meruntuhkan perkara itulah, sebab itulah al-Quran menggandingkannya dengan berhala dan judi sebagai 'kotor (keji) dari perbuatan Syaitan' dan memerintahkan, 'hendaklah kamu menjauhinya' (5:90). Di luar diri individu, ia merosakkan kesihatan, keluarga, dan keselamatan, serta membuka pintu kepada dosa-dosa yang tidak akan dihampiri oleh orang yang waras.",
+      "Hikmah cara ia diharamkan: Allah tidak mengharamkan khamar dengan sekali gus secara mendadak, tetapi mengharamkannya secara berperingkat, menjauhkan masyarakat Islam yang awal daripada tabiat yang telah berakar umbi dengan lembut. Pendekatan beransur-ansur itu sendiri ialah pengajaran tentang rahmat — dan contoh harapan bagi sesiapa yang sedang bergelut untuk meninggalkannya hari ini.",
+      "Jalan untuk kembali, dengan belas kasihan: mereka yang terperangkap dalam ketagihan tidak patut dihina tetapi dibantu. Taubat bermakna berazam meninggalkan bahan itu, menyingkirkannya dan apa-apa yang mencetuskannya daripada kehidupan, mendapatkan bantuan dan rawatan tanpa rasa malu, dan mengisi kekosongan dengan teman yang baik, zikir, dan ibadat. Pintu Allah terbuka luas, dan setiap langkah ikhlas menjauhi bahan yang memabukkan ialah langkah yang Dia sambut.",
+    ],
+    actions: ["Dapatkan bantuan jika perlu; gantikan tabiat itu dengan zikir dan teman yang baik."],
+    appLinks: [{ label: "Zikir harian" }],
   },
 ];
 
 export const JAHANNAM_NAMES_MS: DeepPartial<JahannamNameEntry>[] = [
   {
     name: "Jahannam",
-    meaning: "Api — nama yang paling sering disebut Al-Quran untuk neraka.",
-    quran: {
-      excerpt:
-        "Takutlah kepada Api yang bahan bakarnya adalah manusia dan batu, yang disediakan bagi orang-orang kafir.",
-    },
+    meaning: "Api Neraka — nama neraka yang paling kerap disebut dalam al-Quran.",
     context:
-      "Muncul di seluruh Al-Quran sebagai tempat siksaan bagi mereka yang mengingkari keimanan dan bersikeras dalam keburukan.",
+      "Digunakan di seluruh al-Quran sebagai tempat azab bagi mereka yang menolak iman dan berterusan melakukan kezaliman.",
     tafsirNote:
-      "Ibnu Katsir menjelaskan bahawa Jahannam adalah nama menyeluruh untuk Api yang disediakan sebagai peringatan dan tempat kembali.",
+      "Ibnu Kathir menyatakan bahawa Jahannam ialah nama yang menyeluruh bagi Api Neraka yang disediakan sebagai amaran dan balasan.",
     scholarlyNote:
-      "Sebahagian ulama membahas apakah Jahannam adalah seluruh neraka atau satu tingkatan tertentu — penboleh berbeda-beda.",
+      "Sesetengah ulama membincangkan sama ada Jahannam ialah keseluruhan neraka atau satu tingkatan tertentu — pandangan mereka berbeza.",
   },
   {
     name: "Jahim",
-    meaning: "Api yang berkobar — panas yang hebat dan menyala.",
-    quran: {
-      excerpt:
-        "Kamu dan apa yang kamu sembah selain Allah adalah bahan bakar Jahannam — kamu akan memasukinya.",
-    },
-    context: "Menggambarkan hebatnya api yang disediakan bagi mereka yang menyekutukan Allah.",
+    meaning: "Api yang marak menyala — kepanasan yang dahsyat dan hebat.",
+    context:
+      "Menggambarkan kedahsyatan api yang menanti mereka yang mengambil sekutu-sekutu selain Allah.",
     tafsirNote:
-      "Al-Thabari mengaitkan Jahim dengan api yang berkobar dan menyala yang tidak menyisakan apa pun.",
+      "Al-Tabari mengaitkan jahim dengan api yang marak dan dinyalakan yang tidak membiarkan apa-apa.",
   },
   {
     name: "Saqar",
-    meaning: "Yang menghanguskan atau tidak menyisakan apa pun — panas yang hebat.",
-    quran: {
-      excerpt: "Aku akan memasukkannya ke dalam Saqar. Dan tahukah kamu apa itu Saqar?",
-    },
-    context: "Disebutkan dalam Surah Al-Muddatstsir tentang seseorang yang berpaling dari wahyu.",
+    meaning: "Yang membakar hangus atau tidak meninggalkan apa-apa — kepanasan yang amat sangat.",
+    context: "Disebut dalam Surah al-Muddaththir tentang orang yang berpaling daripada wahyu.",
     tafsirNote:
-      "Tafsir klasik menggambarkan Saqar sebagai satu tingkatan neraka yang membakar dengan hebat; perinciannya berbeda-beda di antara ulama.",
+      "Tafsir klasik menggambarkan Saqar sebagai satu tingkatan neraka yang membakar dengan dahsyat; perinciannya berbeza antara ulama.",
     scholarlyNote:
-      "Apakah Saqar adalah tingkatan tersendiri atau nama untuk seluruh neraka masih diperdebatkan dalam tafsir — tidak eksplisit dalam satu nas yang disepakati.",
+      "Sama ada Saqar ialah tingkatan yang tersendiri atau nama bagi neraka secara keseluruhan dibincangkan dalam tafsir — tidak jelas dalam satu nas yang disepakati.",
   },
   {
     name: "Sa'ir",
-    meaning: "Yang berkobar — api yang menyala.",
-    quran: {
-      excerpt: "Mereka akan berada di dalam Sa'ir — api yang berkobar.",
-    },
-    context: "Peringatan bagi mereka yang memakan harta anak yatim secara tidak sah.",
+    meaning: "Yang menyala — api yang dinyalakan.",
+    context: "Amaran kepada mereka yang memakan harta anak yatim secara zalim.",
     tafsirNote:
-      "Akar katanya membawa makna menyalakan dan membakar — menekankan api yang aktif dan menghanguskan.",
+      "Akar katanya membawa makna membakar dan menyalakan — menekankan api yang aktif dan membakar habis.",
   },
   {
-    name: "Al-Hutamah",
-    meaning: "Yang meremukkan — yang menghancurkan dan meremukkan menjadi berkeping-keping.",
-    quran: {
-      excerpt:
-        "Dia pasti akan dilemparkan ke dalam al-Hutamah. Dan tahukah kamu apa itu al-Hutamah?",
-    },
+    name: "Hutamah",
+    meaning: "Penghancur — yang mematahkan dan meremukkan.",
     context:
-      "Hukuman bagi orang yang menggunjing dan mengumpulkan harta, mengira itu akan membuatnya hidup kekal.",
+      "Azab bagi orang yang suka mengumpat dan menimbun harta, menyangka hartanya akan mengekalkannya.",
     tafsirNote:
-      "Ibnu Katsir menjelaskan bahawa al-Hutamah meremukkan dan menghanguskan — sebuah api yang dinyalakan Allah.",
+      "Ibnu Kathir menjelaskan bahawa Hutamah meremukkan dan membakar habis — api yang dinyalakan oleh Allah.",
   },
   {
-    name: "Al-Hawiyah",
-    meaning: "Jurang atau lubang — jatuh yang dalam.",
-    quran: {
-      excerpt: "Dan adapun orang yang ringan timbangannya — tempat kembalinya adalah al-Hawiyah.",
-    },
-    context: "Tujuan bagi mereka yang kebaikannya sangat ringan pada Hari Kiamat.",
+    name: "Hawiyah",
+    meaning: "Jurang atau lubang — tempat jatuh yang dalam.",
+    context: "Tempat kembali mereka yang amal kebaikannya terlalu ringan pada Hari Kiamat.",
     tafsirNote:
-      "Digambarkan sebagai jurang yang dalam di dalam Api; al-Thabari mengutip penboleh tentang kedalaman dan keparahannya.",
+      "Digambarkan sebagai lubang yang dalam di dalam Neraka; al-Tabari merekodkan pandangan-pandangan tentang kedalaman dan kedahsyatannya.",
     scholarlyNote:
-      "Sebahagian tafsir menghitung al-Hawiyah sebagai tingkatan tertentu — kutiplah ini sebagai tafsiran keilmuan.",
+      "Sesetengah karya tafsir menyenaraikan Hawiyah sebagai satu tingkatan tertentu — petik sebagai tafsiran ulama.",
   },
   {
     name: "Laza",
-    meaning: "Nyala api — api yang berkobar.",
-    quran: {
-      excerpt: "Sekali-kali tidak! Sesungguhnya itu adalah nyala api Allah yang bergejolak.",
-    },
-    context: "Surah Al-Ma'arij — peringatan bagi mereka yang mengingkari Hari Kiamat.",
+    meaning: "Nyalaan — api yang marak.",
+    context: "Surah al-Ma'arij — amaran kepada mereka yang mendustakan Hari Kiamat.",
     tafsirNote:
-      "Terkait dengan nyala yang mengelupas dan membakar — Laza menekankan kobaran yang aktif.",
+      "Dikaitkan dengan nyalaan yang menyiat dan membakar — Laza menekankan api yang sedang marak.",
   },
 ];
 
 export const JAHANNAM_GATES_MS: DeepPartial<JahannamGateEntry>[] = [
   {
+    label: "Pintu 1",
     quranNote:
-      "Allah menyatakan bahawa Jahannam memiliki tujuh pintu; setiap pintu memiliki bahagian tertentu dari mereka yang masuk (15:44).",
+      "Allah menyatakan bahawa neraka mempunyai tujuh pintu; setiap pintu mempunyai bahagian tertentu daripada mereka yang memasukinya (15:44).",
     scholarlyNote:
-      "Sebahagian tafsir belakangan mengaitkan pintu-pintu dengan kategori pendosa. Kaitan-kaitan ini tidak seragam dalam sumber-sumber paling awal — sajikan sebagai tafsiran.",
+      "Sesetengah karya tafsir terkemudian mengaitkan pintu-pintu itu dengan golongan pendosa tertentu. Kaitan ini tidak seragam dalam sumber-sumber awal — bentangkan sebagai tafsiran.",
   },
   {
+    label: "Pintu 2",
     quranNote:
-      "Al-Quran secara umum menegaskan tujuh pintu; ia tidak menamai setiap pintu secara eksplisit dalam wahyu.",
+      "Al-Quran menegaskan tujuh pintu secara keseluruhan; ia tidak menamakan setiap pintu dalam wahyu yang jelas.",
     scholarlyNote:
-      "Ibnu Katsir menjelaskan bahawa pembahagian ini berasal dari hikmah dan keadilan Allah.",
+      "Ibnu Kathir membincangkan bahawa pembahagian itu berdasarkan hikmah dan keadilan Allah.",
   },
   {
+    label: "Pintu 3",
     quranNote:
-      "Tujuh pintu — sebuah kenyataan nas yang jelas. Perincian penghuni setiap pintu sebahagian besar merupakan pembahasan keilmuan.",
+      "Tujuh pintu — fakta yang jelas daripada nas. Perincian tentang penghuni setiap pintu kebanyakannya ialah perbincangan ulama.",
   },
   {
+    label: "Pintu 4",
     quranNote:
-      "Ayat ini menekankan pembahagian yang sepadan — setiap pintu memiliki bahagiannya sendiri yang telah ditentukan.",
+      "Ayat itu menekankan pembahagian yang setimpal — setiap pintu mempunyai bahagiannya yang ditetapkan.",
   },
   {
+    label: "Pintu 5",
     quranNote:
-      "Orang-orang beriman diperingatkan supaya melalui tobat menjauhi jalan-jalan yang menuju pintu-pintu ini.",
+      "Orang beriman diberi amaran supaya mereka dapat menjauhi apa yang membawa kepada pintu-pintu ini melalui taubat.",
   },
   {
+    label: "Pintu 6",
     quranNote:
-      "Jahannam telah disiapkan — peringatannya nyata. Perlindungan ada pada keimanan dan amal saleh.",
+      "Neraka telah disediakan — amaran itu benar. Perlindungan adalah melalui iman dan amal soleh.",
   },
   {
+    label: "Pintu 7",
     quranNote:
-      "Tujuh pintu, satu api — kesatuan peringatan dalam keragaman ini tentang bagaimana para pendosa dikelompokkan oleh hikmah ilahi.",
+      "Tujuh pintu, satu Neraka — amaran yang satu, dengan kepelbagaian dalam cara para pendosa dikelompokkan menurut hikmah Ilahi.",
     scholarlyNote:
-      "Jangan mengajarkan kaitan pintu tertentu dengan dosa tertentu sebagai kenyataan kenabian tanpa merujuk pada karya keilmuan yang disebutkan namanya.",
+      "Elakkan mengajarkan kaitan dosa tertentu dengan pintu tertentu sebagai fakta daripada Nabi ﷺ melainkan dengan memetik karya ulama yang dinamakan.",
   },
 ];
 
 export const JAHANNAM_VERSES_MS: DeepPartial<JahannamVerseEntry>[] = [
   {
-    excerpt: "Takutlah kepada Api yang disediakan bagi orang-orang kafir.",
-    context: "Ditujukan kepada orang-orang beriman — rasa takut sebagai pendorong ketaatan.",
+    context: "Ditujukan kepada orang beriman — rasa takut sebagai pendorong kepada ketaatan.",
     tafsirSummary:
-      "Ibnu Katsir: seruan kepada takwa yang dipasangkan dengan ketaatan kepada Rasul.",
+      "Ibnu Kathir: seruan kepada takwa yang digandingkan dengan ketaatan kepada Rasul.",
   },
   {
-    excerpt: "Janganlah berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni semua dosa.",
-    context: "Diturunkan untuk menenangkan mereka yang khawatir dosa mereka terlalu besar.",
-    tafsirSummary: "Ayat harapan yang mendasar — rahmat begitu luas bagi mereka yang kembali.",
+    context: "Diturunkan untuk menenangkan mereka yang bimbang dosa-dosa mereka terlalu besar.",
+    tafsirSummary: "Ayat asas tentang harapan — rahmat amat luas bagi mereka yang kembali.",
   },
   {
-    excerpt:
-      "Bertobatlah kepada Allah dengan tobat yang tulus — semoga Rabbmu menghapus keburukan-keburukanmu.",
-    context: "Perintah kepada orang-orang beriman selepas panduan tentang keluarga dan akhlak.",
+    context: "Perintah kepada orang beriman selepas panduan tentang keluarga dan akhlak.",
+    tafsirSummary: "Taubat nasuha — taubat yang ikhlas tanpa kembali kepada dosa itu.",
+  },
+  {
+    context: "Keadilan Ilahi — ganjaran dan azab setimpal dengan amalan.",
+    tafsirSummary: "Darjat-darjat ini berlaku di Syurga dan juga di Neraka.",
+  },
+  {
+    context: "Jaminan bahawa penghakiman Ilahi adalah adil dengan sempurna.",
+  },
+  {
+    context: "Doa mereka yang menghimpunkan kebaikan dunia dan akhirat.",
     tafsirSummary:
-      "Taubatan nasuha — tobat murni yang tidak diikuti kembalinya seseorang kepada dosa.",
+      "Doa para nabi yang diajarkan dalam al-Quran — keseimbangan antara dunia dan akhirat.",
   },
   {
-    excerpt: "Bagi semuanya ada derajat sesuai dengan apa yang mereka kerjakan.",
-    context: "Keadilan ilahi — pahala dan siksaan sepadan dengan amal.",
-    tafsirSummary: "Derajat ini berlaku baik untuk syurga maupun neraka.",
-  },
-  {
-    excerpt:
-      "Allah sama sekali tidak menzalimi manusia, tetapi manusialah yang menzalimi diri mereka sendiri.",
-    context: "Penegasan bahawa keputusan ilahi sepenuhnya adil.",
-  },
-  {
-    excerpt:
-      "Wahai Rabb kami, berilah kami kebaikan di kedua alam dan lindungilah kami dari azab Api.",
-    context: "Doa mereka yang menggabungkan kebaikan dunia dan akhirat.",
-    tafsirSummary: "Doa kenabian yang diajarkan dalam Al-Quran — keseimbangan dunia dan akhirat.",
-  },
-  {
-    excerpt: "Jahannam memiliki tujuh pintu; setiap pintu mempunyai bahagian yang ditentukan.",
-    context: "Disebutkan dalam konteks perdebatan Nabi Ibrahim 'alaihis salam dengan kaumnya.",
+    context: "Disebut selepas bahagian ketika Iblis bersumpah untuk menyesatkan manusia.",
     tafsirSummary:
-      "Penyebutan eksplisit tujuh pintu — perincian pembahagiannya adalah hikmah ilahi.",
+      "Sebutan yang jelas tentang tujuh pintu — perincian pembahagiannya ialah hikmah Ilahi.",
   },
   {
-    excerpt:
-      "Kecuali mereka yang bertobat, beriman, dan beramal saleh — Allah akan mengganti keburukan dengan kebaikan.",
-    context: "Pengecualian selepas daftar dosa-dosa berat.",
-    tafsirSummary: "Harapan bagi mereka yang bertobat — amal boleh diganti dengan rahmat.",
+    context: "Pengecualian selepas menyenaraikan dosa-dosa yang berat.",
+    tafsirSummary: "Harapan bagi orang yang bertaubat — amalan boleh diubah oleh rahmat.",
   },
   {
-    excerpt:
-      "Bagi mereka yang mengingkari Rabb mereka adalah azab Jahannam — seburuk-buruk tempat kembali.",
-    context: "Surah Al-Mulk — pengingat akan yang gaib.",
+    context: "Surah al-Mulk — peringatan tentang perkara ghaib.",
   },
   {
-    excerpt: "Sesungguhnya kebaikan-kebaikan menghapus keburukan-keburukan.",
-    context: "Perintah menegakkan solat di kedua ujung hari.",
-    tafsirSummary: "Dorongan bahawa ibadat yang konsisten menghapus kesalahan masa lalu.",
+    context: "Perintah mendirikan solat pada kedua-dua hujung siang.",
+    tafsirSummary: "Galakan bahawa ibadat yang berterusan menghapuskan kesilapan yang lalu.",
   },
   {
-    excerpt: "Wahai Rabb kami, ampunilah dosa-dosa kami dan lindungilah kami dari azab Api.",
-    context: "Gambaran tentang orang-orang yang bertakwa (muttaqin).",
+    context: "Gambaran tentang golongan muttaqin (orang yang bertakwa).",
   },
   {
-    excerpt: "Dan adapun orang yang ringan timbangannya — tempat kembalinya adalah al-Hawiyah.",
-    context: "Surah Al-Qari'ah — penimbangan amal.",
+    context: "Surah al-Qari'ah — penimbangan amalan.",
   },
 ];
 
 export const JAHANNAM_HADITH_MS: DeepPartial<JahannamHadithEntry>[] = [
   {
-    hadith: {
-      excerpt:
-        "Siapa yang memohon syurga kepada Allah tiga kali, syurga berkata: Ya Allah, masukkanlah dia ke dalam syurga. Dan siapa yang memohon perlindungan dari Api tiga kali, Api berkata: Ya Allah, lindungilah dia dari Api.",
-    },
-    context:
-      "Dorongan untuk secara rutin berdoa memohon perlindungan dari Jahannam dan memohon Jannah.",
+    context: "Galakan supaya sentiasa berdoa memohon Jannah dan perlindungan daripada Jahannam.",
+  },
+  {},
+  {
+    context: "Keseimbangan: bersungguh-sungguh dalam beramal tetapi bergantung kepada rahmat.",
+  },
+  {},
+  {
+    context: "Beratnya mengabaikan solat — antara amaran yang paling keras.",
   },
   {
-    hadith: {
-      excerpt:
-        "Allah lebih bergembira dengan tobat hamba-Nya daripada seseorang yang menemukan kembali tunggangannya yang hilang di tanah yang tandus.",
-    },
+    context: "Hak-hak manusia mungkin diselesaikan sebelum amalan dihitung pada Hari Kiamat.",
   },
+  {},
   {
-    hadith: {
-      excerpt:
-        "Tidak seorang pun di antara kamu masuk syurga semata-mata kerana amalnya — aku pun tidak, kecuali jika Allah menyelimutiku dengan rahmat-Nya.",
-    },
-    context: "Keseimbangan: berusahalah dalam amal namun bertawakallah pada rahmat.",
-  },
-  {
-    hadith: {
-      excerpt:
-        "Apimu ini adalah satu dari tujuh puluh bahagian Api Jahannam, setiap bahagian sepanas apimu ini.",
-    },
-  },
-  {
-    hadith: {
-      excerpt:
-        "Perjanjian antara kami dan mereka adalah solat; siapa yang meninggal duniakannya, dia telah kafir.",
-    },
-    context: "Keseriusan mengabaikan solat — salah satu peringatan terberat.",
-  },
-  {
-    hadith: {
-      excerpt:
-        "Orang yang bangkrut adalah dia yang datang dengan solat, puasa, dan sedekah — namun dia telah mencaci, memfitnah, memakan harta secara batil, dan menumpahkan darah.",
-    },
-    context:
-      "Hak-hak sesama manusia boleh dilunasi pada Hari Kiamat sebelum amal-amal lain diperhitungkan.",
-  },
-  {
-    hadith: {
-      excerpt:
-        "Allah membentangkan tangan-Nya di malam hari untuk menerima tobat pelaku dosa di siang hari, dan membentangkan tangan-Nya di siang hari untuk menerima tobat pelaku dosa di malam hari.",
-    },
-  },
-  {
-    hadith: {
-      excerpt:
-        "Siapa yang beriman kepada Allah dan Hari Akhir, hendaklah dia berkata baik atau diam.",
-    },
-    context: "Menjaga lisan — muhasabah harian.",
+    context: "Menjaga lidah — muhasabah harian.",
   },
 ];
 
 export const JAHANNAM_REFLECTIONS_MS: DeepPartial<JahannamReflectionEntry>[] = [
   {
     question:
-      "Apakah hari ini aku telah menzalimi seseorang — lewat perkataan, tindakan, atau kelalaian?",
-    appLink: {},
+      "Adakah aku telah menzalimi sesiapa hari ini — dengan kata-kata, perbuatan, atau kelalaian?",
+    appLink: { label: "Jurnal" },
   },
   {
     question:
-      "Apakah hari ini aku telah memohon ampunan kepada Allah — dengan tulus dan berulang kali?",
-    appLink: {},
+      "Adakah aku telah memohon keampunan Allah hari ini — dengan ikhlas dan berulang kali?",
+    appLink: { label: "Zikir & istighfar" },
   },
   {
-    question: "Apakah aku menjaga lisanku dari ghibah, dusta, dan ejekan?",
-    appLink: {},
+    question: "Adakah aku menjaga lidahku daripada mengumpat, berdusta, dan mengejek?",
+    appLink: { label: "Dosa-dosa lidah" },
   },
   {
-    question: "Apakah aku solat tepat waktu dan dengan kekhusyukan?",
-    appLink: {},
+    question: "Adakah aku solat pada waktunya dan dengan hati yang hadir?",
+    appLink: { label: "Penjejak solat" },
   },
   {
     question:
-      "Apakah aku melangkah menuju perdamaian dengan seseorang yang hubungannya telah menjauh dariku?",
-    appLink: {},
+      "Adakah aku telah mengambil langkah untuk berdamai dengan seseorang yang telah renggang denganku?",
+    appLink: { label: "Dosa terhadap orang lain" },
   },
   {
-    question: "Apakah hari ini aku bersedekah atau berbuat baik — sekecil apa pun itu?",
-    appLink: {},
+    question: "Adakah aku bersedekah atau berbuat baik hari ini — walaupun sedikit?",
+    appLink: { label: "Perjalanan ke Jannah" },
   },
   {
-    question: "Apakah hari ini aku membaca atau mendengarkan Al-Quran?",
-    appLink: {},
+    question: "Adakah aku membaca atau mendengar al-Quran hari ini?",
+    appLink: { label: "Al-Quran" },
   },
 ];
 
 export const JAHANNAM_REFERENCES_MS: DeepPartial<JahannamReferenceEntry>[] = [
   {
     title: "Al-Quran",
-    note: "Sumber utama nama-nama, peringatan, rahmat, dan tobat. Terjemahan boleh bervariasi; rujuklah bahasa Arab untuk ketepatan.",
+    note: "Sumber utama bagi nama-nama, amaran, rahmat, dan taubat. Terjemahan berbeza-beza; rujuk bahasa Arab untuk ketepatan.",
   },
   {
-    title: "Sahih al-Bukhari dan Sahih Muslim",
-    note: "Kumpulan hadis standar; dikutip dalam modul ini di mana derajat sahih telah ditetapkan.",
+    title: "Sahih al-Bukhari & Sahih Muslim",
+    note: "Kitab-kitab hadis muktabar yang dipetik di sepanjang modul ini apabila bertaraf sahih.",
   },
   {
-    title: "Tafsir Ibnu Katsir",
-    note: "Dirujuk untuk konteks nama-nama Jahannam dan ayat-ayat peringatan yang besar — tafsiran keilmuan.",
+    title: "Tafsir Ibnu Kathir",
+    note: "Dirujuk untuk konteks nama-nama neraka dan ayat-ayat amaran yang utama — tafsiran ulama.",
   },
   {
-    title: "Tafsir al-Thabari",
-    note: "Tafsir komprehensif paling awal — berguna bagi memahami pandangan klasik tentang Jahannam.",
+    title: "Tafsir al-Tabari",
+    note: "Tafsir awal yang menyeluruh — berguna untuk memahami pandangan klasik tentang Jahannam.",
   },
   {
-    title: "Di Mana Ulama Berbeda Pendapat",
-    note: "Perincian tingkatan Jahannam, kaitan pintu-pintu, dan makna sebahagian nama masih dibahas di kalangan ulama — tidak selalu eksplisit dalam wahyu.",
+    title: "Perkara yang diperselisihkan oleh ulama",
+    note: "Tingkatan neraka yang tepat, kaitan pintu-pintunya, dan sesetengah makna nama dibincangkan dalam kalangan ulama — tidak semestinya jelas dalam wahyu.",
   },
 ];
 
 export const JAHANNAM_DUAS_MS: DeepPartial<JahannamDuaEntry>[] = [
   {
-    context: "Memohon kebaikan di kedua alam dan perlindungan dari Api — doa dari Al-Quran.",
+    context:
+      "Memohon kebaikan di dunia dan akhirat serta perlindungan daripada Neraka — doa daripada al-Quran.",
   },
   {
-    context: "Selepas tasyahud: memohon perlindungan dari Jannah dan Api.",
+    context: "Selepas tasyahud: memohon Syurga dan perlindungan daripada Neraka.",
   },
   {
-    context: "Zikir pagi: perlindungan dari azab kubur dan azab Api.",
+    context: "Zikir pagi: memohon perlindungan daripada azab kubur dan Neraka.",
   },
 ];
 
-export const JAHANNAM_REFUGE_DUA_MS: { translation: string } = {
-  translation:
-    "Ya Allah, aku berlindung kepada-Mu dari azab Jahannam, dari azab kubur, dari fitnah kehidupan dan kematian, serta dari keburukan fitnah Al-Masih Ad-Dajjal.",
-};
+export const JAHANNAM_REFUGE_DUA_MS: { translation?: string } = {};

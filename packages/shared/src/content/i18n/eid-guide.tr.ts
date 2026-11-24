@@ -13,18 +13,8 @@ export const EID_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Ramazan Bayramı, Ramazan'ın hemen ardından Şevval'in 1. günü kutlanır ve bir ay boyunca oruç tutup ibadet etmeye muvaffak kılınmanın sevinç ve şükür günüdür. Kur'an, orucun bitişini doğrudan zikir ve şükürle bağlar: '...sayıyı tamamlamanız ve size doğru yolu göstermesine karşılık Allah'ı tekbir etmeniz ve şükretmeniz içindir' (Bakara 2:185).",
       "Bu günde oruç tutmak sadece hoş karşılanmayan bir şey değil, açıkça yasaktır — Peygamber ﷺ, Kurban Bayramı ile birlikte bu günü, Müslümanların oruç değil yemek yemekle emrolunduğu iki gün olarak belirtmiştir (Buhari 1990). Gün, Fıtır Zekâtı ve Bayram namazıyla başlar; akraba ziyaretleri, iyi dilek alışverişi ve İslami sınırlar içinde genel bir şenlikle sürer.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...sayıyı tamamlamanız ve size doğru yolu göstermesine karşılık Allah'ı tekbir etmeniz ve şükretmeniz içindir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah Resûlü ﷺ'in oruç tutmayı yasakladığı iki gün vardır: Ramazan orucunuzu açtığınız gün ve kurbanınızdan yediğiniz gün.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kurban Bayramı — fedakârlık bayramı",
@@ -33,18 +23,8 @@ export const EID_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Kurban Bayramı, Hac esnasında Nahr Günü olan Zilhicce'nin 10. gününde kutlanır ve İbrahim'in Allah'a itaat ederek oğlunu kurban etmeye razı olmasını, Allah'ın da onu büyük bir kurbanla fidye ederek bağışlamasını hatırlatır (Kur'an 37:102–107). Birçok âlimin görüşüne göre iki bayramın en büyüğüdür ve haccın tamamlanmasıyla çakışır.",
       "Ramazan Bayramı gibi, bu günde oruç tutmak da yasaktır (Buhari 1990). Ana ek ibadeti, İbrahim'in teslimiyetinin hatırasına, gücü yetenlerin sunduğu kurbandır (udhiyah); bu ibadet ve sadakayı birleştiren bir eylemdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Çocuk kendisiyle birlikte yürüyüp koşacak yaşa gelince İbrahim ona: Yavrucuğum, dedi, ben rüyada seni boğazladığımı gördüm... Ve biz onu büyük bir kurbanlıkla fidalandırdık.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah Resûlü ﷺ'in oruç tutmayı yasakladığı iki gün vardır: Ramazan orucunuzu açtığınız gün ve kurbanınızdan yediğiniz gün.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Bayram namazı nasıl kılınır",
@@ -53,16 +33,7 @@ export const EID_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Bayram namazı, öncesinde ezan ve kamet olmaksızın cemaatle kılınan iki rekâttır — Câbir bin Abdullah ve İbn Abbas, Peygamber ﷺ zamanında her iki bayram için de ezan okunmadığını doğrulamıştır (Sahih Müslim 886). Namazın ardından hutbe okunur; bu, hutbenin önce geldiği Cuma namazından farklıdır.",
       "Her rekâtta kıraatten önce, namazın normal tekbirlerine ilaveten ek tekbirler ('Allahu Ekber' demek) eklenir. Âişe, Peygamber ﷺ'in her iki bayramda birinci rekâtta yedi, ikinci rekâtta beş kez tekbir getirdiğini rivayet etmiştir (Sünen-i Ebû Dâvûd 1149); bu sayı Abdullah bin Amr'dan da rivayet edilmiştir (Ebû Dâvûd 1151).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Ramazan Bayramı'nda imam çıktığında da, çıktıktan sonra da ezan yoktu; o gün kamet, çağrı ya da buna benzer bir şey de yoktu.",
-      },
-      {
-        excerpt:
-          "Allah Resûlü ﷺ Ramazan ve Kurban Bayramlarında, birinci rekâtta yedi, ikinci rekâtta beş kez tekbir getirirdi.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Mezhepler ek tekbirlerin tam sayısı konusunda ayrılır. Şâfiî, Mâlikî ve Hanbelî fakihler yedi-beş rivayetini (Ebû Dâvûd 1149/1151) esas alır — Mâlikî ve Hanbelîler açılış tekbirini yediye dâhil ettiğinden altı-beş der. Hanefî mezhebi ise birinci rekâtta kıraatten önce 3, ikinci rekâtta rükûdan önce 3 ek tekbir (toplam 6) görüşündedir — bu, ayrı bir merfu hadisle sabit olmayan Kûfe fakihlerinin bir görüşüdür; cemaatinizin imamının tekbir sayısına uyun.",
     actions: [
@@ -79,16 +50,7 @@ export const EID_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Bu vesileyle gusül almak ve en güzel (temiz, sade) kıyafeti giymek sünnettir; bu, sahâbenin her iki bayramdaki genel uygulamasını takip eder, gerçi bu özel rivayet buradaki diğerlerine göre daha az sağlam olup, tek bir sahih dereceli hadisten çok yaygın olarak uygulanan bir gelenektir.",
       "Ayırt edici bir sünnet, eve gidilen yoldan farklı bir yoldan dönmektir. Câbir bin Abdullah şöyle rivayet etmiştir: 'Peygamber ﷺ bayram günü (namazı kıldırdıktan sonra) gittiği yoldan farklı bir yoldan dönerdi' (Buhari 986) — bu genellikle kişinin ibadetine şahitlik eden yerleri çoğaltmak ve İslam'ın şiarlarını daha geniş çapta göstermek olarak açıklanır.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Peygamber ﷺ Ramazan Bayramı gününde tek sayıda birkaç hurma yemeden asla (namaza) gitmezdi.",
-      },
-      {
-        excerpt:
-          "Peygamber ﷺ bayram günü (Bayram namazını kıldırdıktan sonra) gittiği yoldan farklı bir yoldan dönerdi.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Gusül alın ve en güzel, sade kıyafetinizi giyin.",
       "Ramazan Bayramı namazından önce tek sayıda hurma yiyin; Kurban Bayramı namazından sonrasına kadar yemeyi bekleyin.",
@@ -103,16 +65,7 @@ export const EID_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Amacı sünnette açıkça belirtilmiştir: 'oruç tutan kişiyi boş ve çirkin sözlerden temizlemek ve fakirlere yiyecek sağlamak' (Sünen-i Ebû Dâvûd 1609). Bunu Bayram namazından önce ödemek bu özel zekâtı yerine getirmiş olur; namazdan sonra ödemek genel bir sadaka olarak sayılır ancak zamana bağlı özel sevabı kaçırır.",
       "Günümüzde çoğu toplum, doğrudan hurma veya arpa dağıtmak yerine, mahalli âlimlerin ve zekât kurumlarının mevcut temel gıda değerleri konusundaki rehberliğini takip ederek yerel para birimiyle değer hesaplar — bu pratik bir kolaylıktır, temel yükümlülükte bir değişiklik değildir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Allah Resûlü ﷺ, köle veya hür, erkek veya kadın, küçük veya büyük her Müslüman üzerine bir sâ' hurma veya bir sâ' arpa olarak Fıtır Zekâtı'nı farz kıldı ve bunun insanlar Bayram namazına çıkmadan önce ödenmesini emretti.",
-      },
-      {
-        excerpt:
-          "Allah Resûlü ﷺ, Fıtır Zekâtı'nı oruç tutan kişiyi boş ve çirkin sözlerden temizlemek, fakirlere de yiyecek sağlamak olarak farz kıldı. Kim onu namazdan önce öderse, bu kabul edilmiş bir zekâttır; kim namazdan sonra öderse, bu (olağan) bir sadakadır.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Kendiniz ve bakmakla yükümlü olduklarınız için Fıtır Zekâtı'nı hesaplayıp ayırın.",
       "Mümkünse Ramazan Bayramı namazına gitmeden önce ödeyin.",
@@ -127,18 +80,8 @@ export const EID_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Kur'an kurbanı doğrudan etinin paylaşılmasına bağlar: '...onlardan yiyin ve ihtiyaç sahibine, yoksula yedirin' (Kur'an 22:36). Et genellikle kişinin kendi hane halkı, aile ve arkadaşları ile fakirler arasında paylaşılır, böylece bu vesile ibadet, cömertlik ve şükrü birleştirir.",
       "Kurban, namazdan önce değil, Bayram namazından sonra kesilmelidir — erkenden kesmiş olan bir sahabîye Peygamber ﷺ bunu tekrar etmesini söylemiştir, çünkü namazdan önce sunulan bir kurban udhiyah olarak sayılmaz. Tam olarak kimin yükümlü olduğu ve kesin zaman aralıkları mezhebe göre değişir; durumunuz için yetkin bir mahalli âlime danışın.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...sizin için onlarda hayır vardır. Onları (kesim için) sıraya dizildiklerinde üzerlerine Allah'ın adını anın; yanları üzerine yere düştüklerinde onlardan yiyin, ihtiyacını gizleyene de açıkça isteyene de yedirin.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Peygamber ﷺ siyah-beyaz iki koç kesti; onları kendi elleriyle keserken, ayağını yanlarına koyup Allah'ın adını andığını ve tekbir getirdiğini gördüm.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Gücünüz varsa ve size farz ise kurbanınızı Kurban Bayramı'ndan önce düzenleyin.",
       "Kurbanın namazdan önce değil, sonra kesildiğinden emin olun.",

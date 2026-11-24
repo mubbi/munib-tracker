@@ -32,30 +32,8 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "La récitation du Qur'an est en soi un acte d'adoration, et pas seulement la lecture d'informations. Le Prophète ﷺ a enseigné que chaque lettre récitée rapporte une bonne action, et que chaque bonne action est multipliée au moins par dix – de sorte que même un débutant qui prononce une seule ligne accumule déjà une récompense. Le Jour de la Résurrection, le Qur'an viendra comme intercesseur, plaidant en faveur de ceux qui lui ont tenu compagnie dans cette vie. Celui qui le récite couramment est en compagnie des nobles anges-scribes, et celui qui trébuche dessus, luttant pour apprendre, gagne une double récompense pour son effort.",
       "Il est utile d'être clair sur ce que le Qur'an n'est pas. Le Qur'an est constitué des paroles textuelles d'Allah en arabe, inchangées depuis la révélation. Les hadiths — les paroles, les actions et les approbations silencieuses du Prophète ﷺ — sont distincts : ils expliquent et démontrent le Qur'an mais sont l'expression ﷺ du Prophète, préservée à travers des chaînes nommées de narrateurs et classées par les érudits comme sahih (authentique), hasan (bon) ou da'if (faible). Les deux sont une révélation et les deux sont contraignants, mais seul le Qur'an est récité comme culte dans la prière, et seul le Qur'an est le discours miraculeux et inimitable d'Allah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Le mois du Ramadan au cours duquel le Qur'an a été révélé comme guide pour l'humanité…",
-      },
-      {
-        excerpt:
-          "Dis : Si les humains et les djinns se rassemblaient pour produire un Qur'an semblable à celui-ci, ils ne pourraient pas…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Celui qui récite une lettre du Livre d'Allah reçoit une hasanah, et la hasanah est multipliée par dix.",
-      },
-      {
-        excerpt:
-          "Lisez le Qur'an, car il viendra comme intercesseur pour ses compagnons le Jour de la Résurrection.",
-      },
-      {
-        excerpt:
-          "Celui qui maîtrise le Qur'an est avec les scribes nobles et pieux, et celui qui le récite avec difficulté, en balbutiant, a une double récompense.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Fixez une heure quotidienne fixe pour le Qur'an – même cinq minutes ciblées renforcent la barakah et la cohérence.",
       "Lisez au moins une ligne significative : récitez l’arabe, puis lisez lentement la traduction.",
@@ -74,14 +52,7 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "La préservation du texte a commencé du vivant du Prophète ﷺ. Les compagnons mémorisèrent la révélation au fur et à mesure qu'elle arrivait, et les scribes l'écrivirent sur du parchemin, des tiges de palmier, des os et des pierres sous la supervision directe du Prophète ﷺ. Après que de nombreux mémorisateurs aient été martyrisés lors de la bataille de Yamama, Abu Bakr a ordonné à Zayd ibn Thabit de rassembler le Qur'an écrit en un seul recueil (le suhuf). Plus tard, à mesure que l'empire s'étendait et que les dialectes variaient, Uthman fit réaliser des copies faisant autorité dans le dialecte des Quraysh et les envoyer aux grandes villes, standardisant un texte écrit pour toute la Oumma.",
       "Allah Lui-même a garanti la protection du Qur'an : « En effet, Nous avons fait descendre le Rappel, et en effet Nous le préserverons. » Cette promesse a été tenue grâce à trois garanties imbriquées : la mémorisation massive à chaque génération, la transmission écrite minutieuse et les chaînes ininterrompues de récitation (qira'at) de l'enseignant à l'élève remontant au Prophète ﷺ. Pour le croyant, c'est un signe théologique ; pour l'historien, c'est un fait documenté : le Qur'an récité aujourd'hui est le même texte révélé il y a quatorze siècles.",
     ],
-    quran: [
-      {
-        excerpt: "En effet, Nous avons fait descendre le Rappel et en effet, Nous le préserverons.",
-      },
-      {
-        excerpt: "Lis au nom de ton Seigneur qui a créé…",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -93,12 +64,7 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "Pour une lecture facile, le Qur'an est également divisé en 30 parties égales appelées juz (pluriel ajza'), et chaque juz en deux moitiés appelées hizb, ce qui donne 60 hizb au total. C'est ce qui rend le khatm du Ramadan – terminer tout le Qur'an en un mois – si naturel : un juz par jour termine le Livre en trente jours, et un demi-juz deux fois par jour est encore plus doux. Dans chaque sourate, les ayahs (versets) sont numérotés afin que tout passage puisse être cité précisément comme sourate : ayah ; le décompte standard de Madinah est de 6 236 versets, avec seulement de minuscules différences bien documentées dans la façon dont quelques limites de versets sont numérotées – le texte lui-même est identique.",
       "Comprendre cette structure transforme de vagues intentions en un plan concret. Vous pouvez vous engager sur une portion quotidienne fixe, cibler Juz Amma (la dernière, trentième partie, pleine de courtes sourates) pour la mémorisation, suivre un seul thème comme la patience sur plusieurs sourates, ou programmer une lecture complète autour du Ramadan. La structure est l’échafaudage qui rend possible une relation permanente avec le Qur'an.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…un Livre dont les versets sont détaillés, un Qur'an arabe pour un peuple qui sait.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -126,15 +92,7 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "Vous n’avez pas besoin de tout maîtriser en même temps. Les règles de base sont apprises dans l'ordre : les règles de midi sakinah et tanween (izhar, idgham, iqlab, ikhfa), les règles de meem sakinah, les différents types de madd (allongement), qalqalah (le rebond de la lumière sur certaines lettres), ghunnah (résonance nasale) et waqf (où et comment s'arrêter). Chacun a une définition claire, des exemples quotidiens et quelque chose à mettre en pratique, et ce hub les présente un par un.",
       "Une règle de base : apprenez le tajweed à l’oreille auprès d’un enseignant qualifié, et non uniquement à partir de livres ou d’applications. Récitez à quelqu'un qui peut entendre vos erreurs et les corriger - c'est ainsi que le tajweed a toujours été enseigné, et c'est le seul chemin fiable vers une réelle exactitude et, finalement, une ijazah (une chaîne de récitation certifiée).",
     ],
-    hadith: [
-      {
-        excerpt: "Les meilleurs d'entre vous sont ceux qui apprennent le Qur'an et l'enseignent.",
-      },
-      {
-        excerpt:
-          "Celui qui maîtrise le Qur'an est avec les scribes nobles et pieux, et celui qui le récite avec difficulté, en balbutiant, a une double récompense.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -167,12 +125,7 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "Vous ne traduisez pas le Qur'an mot à mot de cette façon – c'est le travail du tafsir et de la traduction – mais vous commencez à reconnaître les noms d'Allah, les commandements, les promesses et les avertissements en direct, au moment de la récitation. Commencez par les mots qui apparaissent le plus et qui ont le plus de poids : Allah, Rabb (Seigneur), rahmah (miséricorde), iman (foi), sabr (patience), taqwa (conscience de Dieu), dunya (ce monde) et akhirah (l'au-delà). À partir de cet ensemble d’ancrages, développez-vous petit à petit vers l’extérieur.",
       "Utilisez la répétition espacée plutôt que le bachotage. Apprendre cinq nouveaux mots par semaine et les réviser quotidiennement vous mènera bien plus loin en un an que d'en mémoriser cinquante en une seule séance et de les oublier. Allah promet que le Qur'an a été rendu facile à prendre à cœur – approchez-vous régulièrement de son vocabulaire et vous ressentirez cette facilité de première main.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Et Nous avons certainement rendu le Qur'an facile à mémoriser. Y a-t-il donc quelqu'un qui s'en souviendra ?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -211,11 +164,7 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "Remarquez le motif qui les traverse. Les prophètes appelaient leur peuple à l’adoration d’Allah seul ; ils étaient moqués, opposés et souvent chassés ; ils ont enduré avec patience et confiance totale en Allah (tawakkul) ; et à la fin, la promesse d'Allah s'est réalisée. Lorsque vous lisez leurs difficultés, tirez votre force de la façon dont ils ont réagi – sans jamais imaginer que votre rang est égal au leur. Le but est d’absorber leur fermeté et leur confiance, et non de comparer les statuts.",
       "Le Qur'an lui-même cite un récit : la sourate Yusuf, qu'Allah appelle « la meilleure des histoires ». Fait inhabituel, il est raconté du début à la fin dans une seule sourate, alors lisez-le d'une seule traite comme un voyage continu – la trahison, la patience à travers l'esclavage et la prison, et enfin le pardon et les retrouvailles – et observez comment le plan d'Allah se déroule derrière des années de malheur apparent.",
     ],
-    quran: [
-      {
-        excerpt: "Dans leurs histoires, il y a certainement une leçon pour ceux qui comprennent…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -227,11 +176,7 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "Vous entendrez également parler de « miracles scientifiques » – des versets traitant des étapes de l'embryon, de l'expansion du cosmos, etc. Manipulez-les avec précaution. Le tafsir classique comprenait souvent ces versets d'une manière très différente de celle des apologistes modernes, et forcer le Qur'an à correspondre à chaque hypothèse scientifique changeante peut se retourner contre lui lorsque les théories changent. Distinguer fermement entre l’interprétation établie et la conjecture contemporaine.",
       "Les prophéties historiques sont également citées par les érudits – la victoire annoncée des Romains, l’ouverture pacifique de Makkah – et elles méritent d’être étudiées, mais à travers un tafsir et une seerah sobres, et non des clips vidéo sensationnels. L'argument le plus solide en faveur du Qur'an a toujours été son tawhid, sa transformation morale d'un peuple, ainsi que son langage et sa préservation inégalés.",
     ],
-    quran: [
-      {
-        excerpt: "Alors produisez une sourate comme celle-ci… si vous êtes véridique.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Évitez les affirmations exagérées sur les miracles scientifiques qui embarrassent la dawah lorsqu'elles sont examinées à la loupe. Menez avec le tawheed, la moralité et les preuves linguistiques et historiques du Qur'an.",
   },
@@ -244,16 +189,7 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "Méthode pratique : utilisez la répétition espacée, tenez-vous-en à un seul récitant pour que la mélodie elle-même indique votre mémoire, récitez quotidiennement de mémoire plutôt que de simplement lire, et demandez à un enseignant d'écouter et de marquer vos erreurs - des erreurs que vous ne pouvez pas entendre vous-même. Le tracker hifz de Munib enregistre la progression jusqu'à chaque ayah individuel afin que vous sachiez toujours ce qui doit être révisé.",
       "Choisissez un plan adapté à votre étape. Débutant : mémorisez Juz Amma, la dernière partie, pleine de courtes sourates. Intermédiaire : ajoutez dix sourates fréquemment récitées telles que al-Mulk, Ya-Sin et al-Kahf. Avancé : complétez un juz complet avec une révision approfondie de tout ce qui le précède. Et le voyage Hafiz : l'intégralité du mus'haf, mémorisé avec un professeur qualifié et, idéalement, un sanad — une chaîne de transmission certifiée jusqu'au Prophète ﷺ.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Il sera dit au compagnon du Qur'an : Récitez et montez comme vous aviez l'habitude de réciter dans le monde, car votre rang sera au dernier verset que vous réciterez.",
-      },
-      {
-        excerpt:
-          "La parabole du compagnon du Qur'an est celle du propriétaire d'un chameau attaché : s'il en prend soin, il le garde, et s'il le lâche, il le perd.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -274,15 +210,7 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "Tadabbur n'est pas la même chose que tafsir. Tafsir est l'explication savante de ce que signifie un verset ; tadabbur est votre réponse personnelle et respectueuse à ce sens une fois que vous l'avez compris. Les deux travaillent ensemble : vous apprenez d’abord la signification du son du tafsir, puis vous vous asseyez avec lui et demandez comment il vous parle. Un cadre utile est constitué de trois questions : Qu’est-ce qu’Allah m’enseigne ici ? En quoi cela change-t-il ce que je fais aujourd’hui ? Quelle habitude dois-je prendre ou rompre à cause de cela ?",
       "Une limite ferme assure la sécurité du tadabbur : réfléchissez à ce qu’un verset vous demande, mais n’inventez jamais de nouvelles significations pour le texte lui-même. Laissez le tafsir authentique fixer les limites de l'interprétation et gardez vos réflexions personnelles à leur place - un journal privé, comme celui de Munib, est idéal pour capturer ce qu'un verset a suscité en vous et y revenir plus tard.",
     ],
-    quran: [
-      {
-        excerpt: "Ne réfléchissent-ils pas au Qur'an, ou y a-t-il des verrous sur leur cœur ?",
-      },
-      {
-        excerpt:
-          "Alors ne réfléchissent-ils pas sur le Qur'an ? Si cela venait d'un autre qu'Allah, ils y auraient trouvé beaucoup de contradictions.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -293,12 +221,7 @@ export const QURAN_GUIDE_TOPICS_FR: DeepPartial<QuranGuideTopic>[] = [
       "C’est à cela que servent ces défis. Chacun relie un verset spécifique à un comportement unique et réalisable pour aujourd’hui : garder sa langue avec un discours bienveillant, faire une aumône discrète, baisser son regard de ce qui est interdit, abandonner une rancune que l’on a entretenue. Un verset, une action – suffisamment petite pour être réellement réalisée, suffisamment réelle pour vous changer.",
       "Marquez un défi comme terminé uniquement lorsque vous l'avez vraiment fait. Le but du suivi n’est pas l’affichage – cela irait à l’encontre du but – mais une responsabilité honnête envers Allah, qui voit ce que les autres ne voient pas. Au fil du temps, verset par verset, c’est ainsi que la récitation se transforme en personnage.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ordonnez-vous la justice des autres et oubliez-vous vous-mêmes pendant que vous récitez l’Écriture ?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -437,14 +360,7 @@ export const QURAN_GUIDE_STORIES_FR: DeepPartial<QuranGuideStory>[] = [
       "La méthode de Shaytan est le murmure persistant, pas la force – reconnaître ses suggestions équivaut à moitié à y résister.",
       "La valeur humaine est liée à la connaissance et au retour à Allah, et non au fait d’être sans péché – c’est la réponse à l’erreur qui nous définit.",
     ],
-    quran: [
-      {
-        excerpt: "Création d'Adam et prosternation des anges.",
-      },
-      {
-        excerpt: "L'épreuve, la chute et le repentir.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Jannah, puis la terre",
   },
   {
@@ -463,14 +379,7 @@ export const QURAN_GUIDE_STORIES_FR: DeepPartial<QuranGuideStory>[] = [
       "La persévérance dans l’appel à Allah, même contre les moqueries constantes, est en soi une forme d’adoration.",
       "Le secours d'Allah arrive au moment fixé : le croyant construit « l'arche » de l'obéissance avant le déluge, en faisant confiance à la promesse.",
     ],
-    quran: [
-      {
-        excerpt: "L'histoire de Nuh en détail.",
-      },
-      {
-        excerpt: "Le plaidoyer de Nuh envers son peuple.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Mésopotamie antique (estimations scientifiques)",
   },
   {
@@ -488,14 +397,7 @@ export const QURAN_GUIDE_STORIES_FR: DeepPartial<QuranGuideStory>[] = [
       "La confiance en Allah ne signifie pas la passivité : Hajar a couru et cherché, et Zamzam est venu – l'effort et le tawakkul travaillent ensemble.",
       "Des actes sincères de dévotion résonnent à travers les générations ; les rites du Hajj et l'honneur de la Ka'bah remontent à l'obéissance d'Ibrahim.",
     ],
-    quran: [
-      {
-        excerpt: "Ibrahim, Ismail et le sacrifice.",
-      },
-      {
-        excerpt: "Alliance et héritage.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Irak, Levant, Makkah",
   },
   {
@@ -515,11 +417,7 @@ export const QURAN_GUIDE_STORIES_FR: DeepPartial<QuranGuideStory>[] = [
       "Le plan d'Allah se cache souvent derrière des années de malheur apparent : le puits, l'esclavage et la prison étaient autant d'étapes vers l'honneur de Yusuf.",
       "Les forts montrent leur force par le pardon : au sommet de sa puissance, Yusuf a pardonné à ceux qui lui ont fait du tort.",
     ],
-    quran: [
-      {
-        excerpt: "La meilleure des histoires – racontée dans une seule sourate.",
-      },
-    ],
+    quran: [{}],
     location: "Canaan, Égypte",
   },
   {
@@ -537,14 +435,7 @@ export const QURAN_GUIDE_STORIES_FR: DeepPartial<QuranGuideStory>[] = [
       "Être témoin de prodiges ne produit pas en soi la foi : la guidance est un don qu’Allah accorde au cœur humble, pas à celui qui est têtu.",
       "Allah sauve les opprimés et demande des comptes aux arrogants, aussi puissants soient-ils.",
     ],
-    quran: [
-      {
-        excerpt: "Musa à Tur et devant Pharaon.",
-      },
-      {
-        excerpt: "Naissance et éducation.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Egypte, Sinaï",
   },
   {
@@ -563,14 +454,7 @@ export const QURAN_GUIDE_STORIES_FR: DeepPartial<QuranGuideStory>[] = [
       "Les prophètes sont des serviteurs humains honorés d'Allah, qui ne doivent jamais être adorés – le Qur'an protège le véritable statut d'Isa contre toute exagération.",
       "La chasteté, la patience et la confiance de Maryam font d'elle un modèle de foi pour tous les croyants, femmes et hommes.",
     ],
-    quran: [
-      {
-        excerpt: "Discours de naissance et de berceau.",
-      },
-      {
-        excerpt: "Ni tué ni crucifié ; soulevé.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Palestine",
   },
   {
@@ -588,14 +472,7 @@ export const QURAN_GUIDE_STORIES_FR: DeepPartial<QuranGuideStory>[] = [
       "Celui qui invoque Allah transmet le message avec sincérité et patience mais laisse le résultat à Allah – la direction lui appartient.",
       "Les épreuves sont le chemin des prophètes ; endurer les épreuves pour l'amour d'Allah, comme il l'a fait, est la marque de la vraie foi.",
     ],
-    quran: [
-      {
-        excerpt: "Nous ne vous avons envoyé que comme miséricorde envers les mondes.",
-      },
-      {
-        excerpt: "Miséricordieux entre eux, fermes envers les mécréants.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
 ];
@@ -611,18 +488,8 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Le Prophète ﷺ a enseigné que la foi comporte plus de soixante-dix branches, allant de la plus grande – le témoignage qu'il n'y a de dieu qu'Allah – jusqu'à l'élimination du mal de la route, montrant que même les petites bonnes actions font partie de la foi.",
       "La véritable iman est une question de cœur avant de parler : connaître vraiment Allah, l'aimer par-dessus tout, craindre son mécontentement et s'appuyer entièrement sur Lui.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Le Messager croit en ce qui lui a été révélé par son Seigneur, tout comme les croyants…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "La foi a plus de soixante-dix branches ; le plus élevé consiste à dire : « Il n'y a de dieu qu'Allah », et le plus inférieur consiste à retirer quelque chose de nuisible de la route – et la modestie est une branche de la foi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Renouvelez votre shahada aujourd’hui en accordant toute votre attention à ce qu’elle signifie, et non comme une phrase routinière.",
       "Apprenez l'un des noms d'Allah, comprenez-le et invoquez-le par lui dans votre du'a.",
@@ -638,18 +505,8 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Contrairement à d'autres obligations révélées sur terre, la salah a été prescrite à la Oumma lors de l'ascension du Prophète ﷺ (al-Isra wal-Mi'raj), la désignant comme un don spécial et le propre moyen du croyant d'ascensionner vers Allah.",
       "Parce qu'elle est répétée cinq fois par jour, la salah est le rythme régulier qui maintient la foi vivante entre un acte d'adoration et le suivant.",
     ],
-    quran: [
-      {
-        excerpt:
-          "En effet, la prière interdit l'immoralité et le mal, et le rappel d'Allah est plus grand.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "La première des actions d'un serviteur qui sera jugée le Jour de la Résurrection sera sa prière ; si elle est bonne, il a réussi, et si elle est défectueuse, il a échoué et perdu.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Priez lentement une salah aujourd'hui, en comprenant les paroles d'al-Fatiha pendant que vous les récitez.",
       "Ouvrez le guide Learn Salah de Munib pour renforcer une partie de votre prière.",
@@ -665,12 +522,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Le commandement culmine dans la vieillesse, lorsque les parents ont le plus besoin de patience : prenez soin d’eux comme ils prenaient autrefois soin de vous, et abaissez-leur l’aile de l’humilité par miséricorde.",
       "La dévotion ne s'arrête pas à la mort : continuer à faire des du'a pour les parents, faire de la charité en leur nom et honorer leurs amis et leurs promesses sont des actes de loyauté continus.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Votre Seigneur a décrété que vous n'adoriez que Lui et que vous soyez bons envers vos parents…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Appelez ou envoyez un message à un parent avec des mots gentils aujourd'hui.",
       "Faites du'a pour vos parents par leur nom.",
@@ -685,12 +537,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Allah se déclare « avec le patient » et promet au patient sa récompense sans mesure – un honneur attaché à presque aucune autre qualité.",
       "Les prophètes ont été les hommes les plus durement éprouvés, et le Qur'an cite leur fermeté – Ayyub dans la maladie, Yaqub dans le chagrin, Yusuf dans la trahison et la prison – comme modèle à imiter.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ô vous qui croyez, cherchez de l'aide par la patience et la prière. En effet, Allah est avec les patients.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Lorsque l'irritation augmente aujourd'hui, faites une pause, respirez et dites « Inna lillahi wa inna ilayhi raji'un » avant de réagir.",
       "Transformez un moment difficile cette semaine en deux rak'ah de prière au lieu d'une plainte.",
@@ -705,12 +552,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "La charité n'est pas seulement de l'argent. Le Prophète ﷺ a enseigné que même rencontrer son frère avec un visage souriant est une aumône, donc personne n'est trop pauvre pour donner.",
       "Donner purifie à la fois la richesse et celui qui donne, en relâchant l’emprise de l’avidité et en développant la compassion – c’est pourquoi le mot zakat lui-même signifie purification et croissance.",
     ],
-    quran: [
-      {
-        excerpt:
-          "L’exemple de ceux qui dépensent dans le sentier d’Allah est comme un grain qui pousse à sept épis…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Donnez quelque chose aujourd'hui – de l'argent, de votre temps ou un mot vraiment gentil – même s'il est petit et invisible.",
       "Passez en revue vos obligations en matière de zakat à Munib et notez la date d’échéance du prochain paiement.",
@@ -726,12 +568,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "La porte de la miséricorde est étonnamment large : Allah dit même à ceux qui se sont fait beaucoup de tort de ne pas désespérer, car Il pardonne tous les péchés à celui qui se repent sincèrement.",
       "La repentance n'est pas réservée aux péchés majeurs ou aux moments dramatiques : l'istighfar (recherche du pardon) tout au long de la journée garde le cœur doux et le récit propre.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dis : Ô mes serviteurs qui avez transgressé contre vous-mêmes, ne désespérez pas de la miséricorde d'Allah…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Dites « Astaghfirullah » 100 fois aujourd’hui, en le pensant, et sentez le poids s’élever.",
       "Nommez une habitude qui, selon vous, déplaît à Allah et faites le premier pas concret pour l’abandonner.",
@@ -747,12 +584,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Le Qur'an exhorte les croyants à rivaliser et à se hâter vers le pardon et un jardin « aussi vaste que les cieux et la terre » – il s'agit d'un objectif qu'il faut rechercher activement et non pas espérer passivement.",
       "La plus grande récompense de toutes n’est pas les jardins ou les rivières, mais la vue de la Face d’Allah – la joie ultime promise aux habitants du Paradis.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Et hâte-toi d'obtenir le pardon de ton Seigneur et un Jardin aussi vaste que les cieux et la terre…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -765,12 +597,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Le seul péché que le Qur'an considère comme impardonnable si une personne en meurt est le shirk – associer des partenaires à Allah ; tout sauf pour qu'Il puisse pardonner à qui Il veut.",
       "Allah met en garde afin de ramener les gens à Lui, et non d'écraser celui qui se repent – ​​chaque avertissement est associé dans le Qur'an à une invitation ouverte au retour.",
     ],
-    quran: [
-      {
-        excerpt:
-          "En effet, Allah ne pardonne pas la fréquentation de Lui, mais Il pardonne ce qui est inférieur à ce pour qui Il veut.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Aujourd'hui, après chaque salah, demandez sincèrement à Allah de vous protéger du Feu.",
       "Renouvelez votre tawhid : réfléchissez à adorer Allah seul, la protection la plus sûre contre Jahannam.",
@@ -785,12 +612,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "L'oppression (dhulm) est gravement mise en garde ; le Prophète ﷺ a enseigné que les actes répréhensibles apparaîtront comme des ténèbres sur le malfaiteur le Jour de la Résurrection.",
       "La justice n’est pas seulement l’affaire des juges et des dirigeants : elle se vit dans un discours honnête, une utilisation équitable, le respect de sa parole et le fait de donner à chacun le droit qui lui revient.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Soyez des défenseurs de la justice, des témoins pour Allah, même contre vous-mêmes ou contre vos parents et proches.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Donnez à quelqu'un ce qui lui est dû aujourd'hui : un salaire équitable, une réponse honnête ou le crédit que vous lui devez.",
       "Saisissez un moment où les préjugés vous tentent d’être injuste et choisissez plutôt la justice.",
@@ -805,11 +627,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Les connaissances bénéfiques sont censées être exploitées et transmises ; le Prophète ﷺ a enseigné que les savants sont les héritiers des prophètes, héritant non pas de la richesse mais du savoir.",
       "La recherche de la connaissance sacrée est en soi un culte, et le Qur'an fait clairement la distinction entre ceux qui savent et ceux qui ne le savent pas : « sont-ils égaux ?",
     ],
-    quran: [
-      {
-        excerpt: "Et dis : Mon Seigneur, augmente-moi en connaissance.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Apprenez une nouvelle chose du Qur'an aujourd'hui – un verset, un mot ou une règle – et enseignez-la à quelqu'un.",
       "Mémorisez la du'a « Rabbi zidni ilma » et dites-la avant d'étudier.",
@@ -825,11 +643,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Muhammad ﷺ est le Sceau des Prophètes, le dernier messager, et un musulman doit croire en tous les prophètes avant lui – Nuh, Ibrahim, Musa, Isa et les autres – sans faire de distinction entre eux.",
       "Les prophètes étaient des êtres humains et des serviteurs d’Allah, et non des divinités ; le Qur'an les honore tout en les gardant fermement du côté de la création, jamais adorés aux côtés du Créateur.",
     ],
-    quran: [
-      {
-        excerpt: "Dans leurs histoires se trouve une leçon pour ceux qui comprennent…",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -841,12 +655,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Le Qur'an présente Maryam, la mère d'Isa, comme modèle pour tous les croyants, et honore si hautement les mères que l'enseignement bien connu place le Paradis à leurs pieds.",
       "Les deux sexes remontent à une origine unique – « vous a créé à partir d’une seule âme » – établissant une humanité et une dignité partagées dès le tout premier verset de la sourate an-Nisa.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Craignez votre Seigneur, qui vous a créé à partir d'une seule âme et à partir d'elle a créé sa compagne…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Honorez une femme dans votre vie aujourd’hui – une mère, une épouse, une sœur ou une fille – avec un droit ou une gentillesse spécifique qui lui est due.",
     ],
@@ -860,11 +669,7 @@ export const QURAN_GUIDE_THEMES_FR: DeepPartial<QuranGuideTheme>[] = [
       "Une sagesse parentale largement répétée conseille de rencontrer les enfants à leur stade – de jouer avec eux dans les premières années, puis de les enseigner et de les discipliner doucement, puis de se lier d'amitié avec eux à mesure qu'ils grandissent.",
       "Élever un enfant juste est un investissement au-delà de cette vie : un descendant juste qui prie pour un parent continue de lui bénéficier longtemps après sa mort.",
     ],
-    quran: [
-      {
-        excerpt: "Ô vous qui croyez, protégez-vous ainsi que vos familles d'un Feu…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Enseignez à un enfant un court verset ou une seule bonne manière aujourd’hui, patiemment et avec encouragement.",
       "Faites des invocations pour vos enfants (ou les enfants dont vous avez la garde) par leur nom pour qu'ils soient droits et bien-aimés d'Allah.",
@@ -990,17 +795,13 @@ export const QURAN_GUIDE_VOCABULARY_FR: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Le seul vrai Dieu – le nom propre englobant tous les beaux noms.",
     frequency: "Plus de 2 700 occurrences",
     example: "Bismillah - Au nom d'Allah",
-    quranRef: {
-      excerpt: "Au nom d'Allah, le Tout Miséricordieux, le Particulièrement Miséricordieux.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Seigneur, Maître, Souteneur – celui qui crée, possède, nourrit et gouverne.",
     frequency: "Très fréquent",
     example: "Rabbana – Notre Seigneur",
-    quranRef: {
-      excerpt: "Toute louange est due à Allah, Seigneur des mondes.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Miséricorde, compassion, tendresse de la part d'Allah et parmi la création.",
@@ -1046,9 +847,7 @@ export const QURAN_GUIDE_VOCABULARY_FR: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Lumière – guidance, révélation et illumination du cœur.",
     frequency: "Fréquent",
     example: "Allah est la Lumière des cieux et de la terre",
-    quranRef: {
-      excerpt: "Allah est la Lumière des cieux et de la terre…",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1269,8 +1068,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_FR: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_FR: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "Ô vous qui croyez, cherchez de l'aide par la patience et la prière. En effet, Allah est avec les patients.",
     context:
       "Extrait de la sourate al-Baqarah, révélée à Madinah. Allah associe deux sources de force au croyant confronté aux difficultés – l’endurance patiente et le recours à la prière – et promet sa compagnie particulière à ceux qui tiennent bon.",
     reflection:
@@ -1279,7 +1076,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_FR: DeepPartial<QuranGuideDailyLesson>[] 
       "Priez une salah aujourd'hui sans vous presser et, dans votre soujud, demandez nommément à Allah de la patience dans l'épreuve spécifique que vous vivez.",
   },
   {
-    translation: "Ma miséricorde englobe toutes choses.",
     context:
       "Extrait de la sourate al-A'raf, parlée dans le contexte de Musa et de son peuple. Allah décrit Sa miséricorde comme embrassant toutes choses – une miséricorde si vaste qu’elle précède et dépasse Son châtiment, qui est réservé à ceux qui persistent dans le mal.",
     reflection:
@@ -1288,7 +1084,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_FR: DeepPartial<QuranGuideDailyLesson>[] 
       "Choisissez une personne qui vous dérange, pardonnez-lui sincèrement dans votre cœur aujourd'hui et faites une courte du'a demandant à Allah de la guider et de lui pardonner également.",
   },
   {
-    translation: "Si vous êtes reconnaissant, je vous augmenterai sûrement.",
     context:
       "Extrait de la sourate Ibrahim, partie du rappel de Musa à Bani Israel. Allah lie directement Son augmentation à la gratitude : la gratitude pour une bénédiction est la chose même qui la fait croître, tandis que l'ingratitude invite à sa perte.",
     reflection:
@@ -1297,7 +1092,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_FR: DeepPartial<QuranGuideDailyLesson>[] 
       "Avant de dormir ce soir, dites « Alhamdulillah » à haute voix pour trois bénédictions spécifiques, en nommant chacune afin que la gratitude devienne consciente et non automatique.",
   },
   {
-    translation: "Et dites aux gens de bonnes paroles.",
     context:
       "Extrait de la sourate al-Isra. Au milieu des conseils sur la façon dont les croyants doivent se comporter, Allah nous ordonne de parler aux gens – à tous les gens – de la meilleure façon, car les paroles dures sont l’une des portes par lesquelles Shaytan sème la division.",
     reflection:
@@ -1306,7 +1100,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_FR: DeepPartial<QuranGuideDailyLesson>[] 
       "Aujourd’hui, encouragez ou remerciez sincèrement une personne, sans critique cachée, et retenez une remarque dure que vous étiez tenté de faire.",
   },
   {
-    translation: "Celui qui s'en remet à Allah, alors Il lui suffit.",
     context:
       "Extrait de la sourate at-Talaq, située parmi les décisions sur le divorce et la pension alimentaire – précisément là où les gens se sentent le plus anxieux financièrement. Là, Allah promet que quiconque Le craint, Il pourvoira là où il ne s'y attendait pas, et que quiconque compte sur Lui le trouvera suffisamment.",
     reflection:
@@ -1315,7 +1108,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_FR: DeepPartial<QuranGuideDailyLesson>[] 
       "Prenez une décision qui vous inquiète, priez deux rak'ah d'istikhara ou faites une du'a sincère à ce sujet, puis confiez le résultat à Allah.",
   },
   {
-    translation: "Mon Seigneur, augmente-moi en connaissance.",
     context:
       "Extrait de la sourate Ta-Ha. C'est la seule chose dans le Qur'an qu'Allah demande au Prophète ﷺ de demander davantage de connaissances, ce qui montre à quel point la connaissance est hautement bénéfique et que personne, aussi instruit soit-il, n'a jamais fini de la rechercher.",
     reflection:
@@ -1324,8 +1116,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_FR: DeepPartial<QuranGuideDailyLesson>[] 
       "Mémorisez ce court du'a, « Rabbi zidni ilma », et prenez l'habitude de le dire après le Fajr avant de commencer votre journée.",
   },
   {
-    translation:
-      "L’exemple de ceux qui dépensent leurs richesses dans le sentier d’Allah est comme une graine qui produit sept épis…",
     context:
       "Extrait de la sourate al-Baqarah. Allah dresse un tableau frappant de la façon dont se développe la charité : une seule graine donne sept épis, chacun portant cent grains – un rendement sept cents fois plus élevé, et Il multiplie encore davantage pour qui Il veut. La richesse donnée pour Lui n’est jamais vraiment perdue.",
     reflection:

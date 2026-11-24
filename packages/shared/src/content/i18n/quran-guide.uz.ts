@@ -32,28 +32,8 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Qur'on tilovat qilishning o'zi faqat ma'lumot o'qish emas, balki ibodatdir. Rasululloh sollallohu alayhi vasallam har bir o'qilgan har bir harf yaxshilik keltiradi va har bir yaxshilik kamida o'n barobar ko'paytiriladi, deb o'rgatganlar - shuning uchun hatto bir satrni yangi boshlovchi ham allaqachon savob to'plagan bo'ladi. Qiyomat kuni Qur'on shafoatchi bo'lib keladi va bu hayotda o'zi bilan birga bo'lganlar nomidan iltijo qiladi. Uni ravon o‘qigan kishi olijanob farishta ulamolari safida bo‘lib, ilm olishga qiynalib, qoqilib qolgan kishi mehnatiga ikki baravar savob oladi.",
       "Bu Qur'on nima emasligini tushunishga yordam beradi. Qur'on Alloh taoloning arab tilidagi so'zma-so'z so'zlari bo'lib, nozil qilinganidan beri o'zgarmagan. Hadislar - Payg'ambar sollallohu alayhi vasallamning so'zlari, xatti-harakatlari va so'zsiz roziliklari - alohida: ular Qur'onni tushuntiradi va ko'rsatadi, lekin Rasululloh sollallohu alayhi vasallamning ifodasi bo'lib, rivoyatlar zanjirida saqlangan va ulamolar tomonidan sahih (sahih), hasan (yaxshi) yoki zoif (zaif) deb baholangan. Ikkalasi ham vahiy, ikkalasi ham majburiydir, lekin ibodatda ibodat sifatida faqat Qur'on o'qiladi va faqat Qur'on Allohning mo''jizaviy, betakror kalomidir.",
     ],
-    quran: [
-      {
-        excerpt: "Ramazon oyi, unda insoniyatga hidoyat bo'lib Qur'on nozil qilingan...",
-      },
-      {
-        excerpt:
-          "Ayting: «Agar insonlar va jinlar ushbu Qur'onga o'xshashni keltirish uchun to'plansalar, bas, qila olmadilar...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Allohning Kitobidan bir harf o'qisa, unga hasana bo'ladi va hasana o'nga ko'paytiriladi.",
-      },
-      {
-        excerpt: "Qur'on o'qing, chunki u qiyomat kuni o'z sahobalariga shafoatchi bo'lib keladi.",
-      },
-      {
-        excerpt:
-          "Qur'onni yaxshi bilgan zot oliyjanob, solih ulamolar bilan birga bo'ladi va uni qiyinchilik bilan, duduqlanib o'qigan kishi ikki barobar ajr oladi.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Qur'on uchun qat'iy kunlik vaqtni belgilang - hatto besh daqiqa ham baraka va mustahkamlikni mustahkamlaydi.",
       "Hech bo'lmaganda bitta satrni ma'no bilan o'qing: arabchani o'qing, keyin tarjimani sekin o'qing.",
@@ -72,14 +52,7 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Matnning saqlanishi Payg'ambar sollallohu alayhi vasallamning hayotlik davrida boshlangan. Sahobalar vahiy kelganda yod olishdi, ulamolar esa Payg'ambar sollallohu alayhi vasallamning bevosita nazorati ostida pergament, xurmo poyalari, suyak va toshlarga yozib qo'yishdi. Yamoma jangida ko‘plab hofizlar shahid bo‘lgach, Abu Bakr Zayd ibn Sobitga yozma Qur’onni bir to‘plamga (suhuf) to‘plashni buyurdi. Keyinchalik, imperiya keng tarqalib, shevalar xilma-xil bo'lganligi sababli, Usmon quraysh lahjasida nufuzli nusxalarini tayyorladi va yirik shaharlarga yuborilib, butun ummat uchun bitta yozma matnni standartlashtirdi.",
       "Alloh taoloning O‘zi Qur’oni karimning himoyasiga kafolat bergan: “Albatta, eslatmani Biz nozil qildik va, albatta, Biz uni saqlaguvchimiz”. Bu va'da bir-biriga bog'langan uchta kafolat orqali amalga oshdi: har bir avlodda ommaviy yodlash, diqqat bilan yozma ravishda etkazish va Payg'ambarimiz sollallohu alayhi vasallamga etib boruvchi uzluksiz o'qituvchidan shogirdga qiroat zanjiri. Mo'min uchun bu ilohiy belgidir; tarixchi uchun bu hujjatlashtirilgan fakt: bugun tilovat qilinayotgan Qur'on o'n to'rt asr oldin nozil qilingan matndir.",
     ],
-    quran: [
-      {
-        excerpt: "Albatta, zikrni Biz nozil qildik va, albatta, Biz uni saqlaguvchimiz.",
-      },
-      {
-        excerpt: "Yaratgan Robbing nomi bilan o'qing...",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -91,11 +64,7 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Boshqariladigan o'qish uchun Qur'on ham juz (ko'plik ajza') deb ataladigan 30 ta teng qismga va har bir juz hizb deb ataladigan ikki qismga bo'lingan va jami 60 ta hizb beradi. Qur'onni bir oyda to'liq nihoyasiga yetkazish - Ramazon xatmi shunchalik tabiiyki: kuniga bir juz Kitobni o'ttiz kunda tugatadi va kuniga ikki marta yarim juz ham yumshoqroqdir. Har bir sura ichidagi oyatlar (oyatlar) raqamlangan bo'lib, har qanday parchani aniq sura sifatida keltirish mumkin: oyat; Madinaning standart soni 6236 oyatni tashkil etadi, faqat bir nechta oyat chegaralari qanday raqamlanganligi bo'yicha kichik, yaxshi hujjatlashtirilgan farqlar bilan - matnning o'zi bir xil.",
       "Ushbu tuzilmani tushunish noaniq niyatlarni aniq rejaga aylantiradi. Siz kunlik belgilangan qismni belgilashingiz mumkin, yod olish uchun Juz Ammani (oxirgi, oʻttizinchi qism, qisqa suralarga toʻla) nishonlashingiz, bir nechta suralar boʻylab sabr kabi bir mavzuga amal qilishingiz yoki Ramazon oyi atrofida toʻliq oʻqishni rejalashtirishingiz mumkin. Tuzilish Qur'on bilan umrbod munosabatlarga erishish mumkin bo'lgan iskaladir.",
     ],
-    quran: [
-      {
-        excerpt: "...Oyatlari mufassal kitob, biladigan qavm uchun arabcha Qur'ondir.",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -123,15 +92,7 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Bir vaqtning o'zida hamma narsani o'zlashtirishingiz shart emas. Asosiy qoidalar tartib bilan o'rganiladi: peshin sakina va tanvin (izhor, idg'om, iqlob, ixfo) hukmlari, miim sukina hukmlari, turli xil madd (cho'zilish), qalqalah (yorug'lik ma'lum harflarga tegishi), g'unna (burun jarangi) va vaqf (qaerda va qanday to'xtash). Ularning har birida aniq ta'rif, kundalik misollar va mashq qilish uchun biror narsa bor va bu markaz ularni birma-bir bosib o'tadi.",
       "Qat'iy qoida: tajvidni faqat kitoblar yoki ilovalardan emas, balki malakali o'qituvchidan o'rganing. Xatolaringizni eshitadigan va ularni tuzatadigan odamga tilovat qiling - tajvid har doim shunday o'rgatilgan va bu haqiqiy aniqlikka va oxir-oqibat ijazaga (tasdiqlangan tilovat zanjiri) yagona ishonchli yo'ldir.",
     ],
-    hadith: [
-      {
-        excerpt: "Sizlarning eng yaxshilaringiz Qur'onni o'rgangan va uni o'rgatuvchidir.",
-      },
-      {
-        excerpt:
-          "Qur'onni yaxshi bilgan zot oliyjanob, solih ulamolar bilan birga bo'ladi va uni qiyinchilik bilan, duduqlanib o'qigan kishi ikki barobar ajr oladi.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}],
   },
   {
@@ -164,11 +125,7 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Siz Qur'onni so'zma-so'z tarjima qilmaysiz - bu tafsir va tarjima ishi - lekin siz o'qish vaqtida Allohning ismlarini, amrlarini, va'dalarini va ogohlantirishlarini jonli ravishda taniy boshlaysiz. Eng ko'p ko'rinadigan va eng og'ir so'zlardan boshlang: Alloh, Robb (Robbim), rahma (rahm-shafqat), iymon (iymon), sabr (sabr), taqvo (xudoni bilish), dunyo (bu dunyo) va oxirat (oxirat). Ushbu langar to'plamidan bir vaqtning o'zida tashqariga qarab kengaytiring.",
       "Qiyinchilikdan ko'ra intervalgacha takrorlashdan foydalaning. Haftada beshta yangi so'zni o'rganish va ularning barchasini har kuni ko'rib chiqish sizni bir o'tirishda ellikta so'zni yodlab olib, ularni unutishdan ko'ra bir yilda ancha uzoqqa olib boradi. Alloh taolo Qur'onni qalbga oson qilib qo'yganini va'da qiladi - uning lug'atiga qat'iy yaqinlashing va bu osonlikni o'zingiz his qilasiz.",
     ],
-    quran: [
-      {
-        excerpt: "Albatta, Biz Qur'onni zikr uchun oson qildik. Bas, zikr qiluvchi bormi?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -208,11 +165,7 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Ular orqali o'tadigan naqshga e'tibor bering. Payg'ambarlar qavmlarini yolg'iz Allohga ibodat qilishga chaqirdilar; ularni masxara qilishdi, qarshilik qilishdi va ko'pincha haydab chiqarishdi; Allohga tavakkul qilib, sabr-toqat bilan sabr qildilar. Oqibatda Allohning va'dasi ro'yobga chiqdi. Ularning qiyinchiliklarini o'qiyotganingizda, ularning qanday javob berganidan kuch oling - sizning darajangiz ularnikiga tengligini hech qachon tasavvur qilmasdan. Gap ularning mustahkamligi va ishonchini singdirish, maqomni solishtirish emas.",
       "Qur'onning o'zi bitta qissani ajratib ko'rsatadi: Alloh taolo uni \"qissalarning eng yaxshisi\" deb atagan Yusuf surasi. G'ayrioddiy tarzda, u bir surada boshidan oxirigacha aytiladi, shuning uchun uni bir o'tirishda davomiy sayohat sifatida o'qing - xiyonat, qullik va zindonda sabr-toqat, va nihoyat, kechirim va uchrashuv - va Allohning rejasi ko'rinadigan baxtsizliklar ortida qanday sodir bo'lishini tomosha qiling.",
     ],
-    quran: [
-      {
-        excerpt: "Albatta, ularning qissalarida aql egalari uchun ibrat bordir...",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -224,11 +177,7 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Shuningdek, siz \"ilmiy mo''jizalar\" haqida eshitasiz - embrionning bosqichlari, koinotning kengayishi va shunga o'xshash oyatlar. Bularga ehtiyotkorlik bilan munosabatda bo'ling. Klassik tafsir ko'pincha bunday oyatlarni zamonaviy apologistlardan butunlay farqli tarzda tushungan va Qur'onni har bir o'zgaruvchan ilmiy farazga moslashtirishga majburlash, nazariyalar o'zgarganda teskari natija berishi mumkin. O'rnatilgan talqin va zamonaviy taxmin o'rtasidagi farqni aniqlang.",
       "Tarixiy bashoratlar ham olimlar tomonidan keltiriladi - rimliklarning bashorat qilingan g'alabasi, Makkaning tinch ochilishi - va ular o'rganishga arziydi, ammo shov-shuvli videokliplar emas, balki hushyor tafsir va sira orqali. Qur'on uchun eng kuchli dalil uning tavhidi, xalqning axloqiy o'zgarishi, tengsiz tili va saqlanishi bo'lgan.",
     ],
-    quran: [
-      {
-        excerpt: "Agar rostgo'y bo'lsangiz, unga o'xshash sura keltiring.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "Tekshirilganda da'vatni sharmanda qiladigan ilmiy mo''jizaviy da'volardan saqlaning. Tavhid, axloq va Qur’onning lisoniy va tarixiy dalillari bilan yetaklang.",
   },
@@ -242,16 +191,7 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Amaliy usul: intervalgacha takrorlashdan foydalaning, bitta o'quvchiga yopishib oling, shunda kuyning o'zi sizning xotirangizga ishora qiladi, faqat o'qishdan ko'ra har kuni xotiradan ayting va o'qituvchiga tinglang va xatolaringizni belgilang - o'zingiz eshita olmaydigan xatolar. Munibning hifz kuzatuvchisi individual oyatgacha bo'lgan taraqqiyotni qayd etadi, shuning uchun siz har doim qayta ko'rib chiqish uchun nima kerakligini bilib olasiz.",
       "Sahnangizga mos keladigan rejani tanlang. Boshlovchi: Juz Ammani yod oling, oxirgi qism, qisqa suralarga to'la. O'rta: al-Mulk, Ya-Sin va al-Kahf kabi tez-tez o'qiladigan o'nta surani qo'shing. Murakkab: toʻliq juzni oldingi hamma narsani kuchli qayta koʻrib chiqish bilan yakunlang. Hofiz safari: malakali ustoz bilan yodlangan butun mus'haf va ideal holda sanad - Payg'ambarimiz sollallohu alayhi vasallamga etkazishning tasdiqlangan zanjiri.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Qur'on sahobasiga aytiladi: Dunyoda o'qiganingizdek o'qing va ko'tariling, chunki sizning darajangiz oxirgi o'qigan oyatdadir.",
-      },
-      {
-        excerpt:
-          "Qur'onning hamrohi misoli bog'langan tuya egasining misolidir: agar uni boqsa, uni saqlaydi, qo'yib yuborsa, uni yo'qotadi.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -272,15 +212,7 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Tadabbur tafsir bilan bir xil emas. Tafsir - oyat nimani anglatishini ilmiy izohlash; tadabbur - bu ma'noni tushunganingizdan keyin sizning shaxsiy, hurmatli javobingiz. Ikkisi birga ishlaydi: avval tafsirdan tovush ma’nosini o‘rganasiz, keyin u bilan o‘tirib, siz bilan qanday gaplashayotganini so‘raysiz. Foydali ramka uchta savoldan iborat: Alloh menga bu erda nimani o'rgatadi? Bu bugungi ishimni qanday o'zgartiradi? Buning uchun qanday odatni yaratishim yoki yo'q qilishim kerak?",
       "Bitta qat'iy chegara tadabburni xavfsiz saqlaydi: oyat sizdan nimani so'rayotgani haqida o'ylang, lekin matnning o'zi uchun hech qachon yangi ma'nolarni o'ylab topmang. Haqiqiy tafsir tafsir chegaralarini belgilab qo'ysin va shaxsiy mulohazalaringizni o'z o'rnida saqlang - Munib jurnali kabi shaxsiy jurnal oyat sizni hayajonga solgan narsalarni yozib olish va unga keyinroq qaytish uchun ideal.",
     ],
-    quran: [
-      {
-        excerpt: "Ular Qur'on haqida fikr yuritmaydilarmi yoki qalblarida qulf bormi?",
-      },
-      {
-        excerpt:
-          "Bas, ular Qur'on haqida fikr yuritmaydilarmi? Agar u Allohdan o'zga tomonidan bo'lganida edi, unda juda ko'p ziddiyat topgan bo'lur edilar.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -291,12 +223,7 @@ export const QURAN_GUIDE_TOPICS_UZ: DeepPartial<QuranGuideTopic>[] = [
       "Bu qiyinchiliklar aynan shu maqsadda. Ularning har biri ma’lum bir oyatni bugungi kun uchun amalga oshirilishi mumkin bo‘lgan yagona xatti-harakat bilan bog‘laydi: tilingizni yaxshi so‘z bilan asrang, sokin sadaqa bering, haromdan ko‘zingizni tiying, o‘zingizda ko‘tarilgan g‘azabni qo‘ying. Bitta oyat, bitta harakat - aslida qilish uchun etarlicha kichik, sizni o'zgartirish uchun etarlicha real.",
       "Mashg'ulotni chinakam bajarganingizdan keyingina tugallanganligini belgilang. Kuzatishning maqsadi ko'rsatish emas - bu maqsadni yo'q qiladi - lekin boshqalar ko'rmagan narsani ko'radigan Alloh oldida halol hisob berishdir. Vaqt o'tishi bilan misrama-yara qiroat shunday xarakterga aylanadi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Muqaddas Kitobni tilovat qilib, boshqalarga yaxshilikka buyurib, o'zingizni unutasizmi?",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -433,14 +360,7 @@ export const QURAN_GUIDE_STORIES_UZ: DeepPartial<QuranGuideStory>[] = [
       "Shaytonning usuli kuch bilan emas, doimiy shivirlashdir - uning takliflarini tan olish ularga qarshilik ko'rsatishning yarmidir.",
       "Inson qadr-qimmati ilmga va Allohga qaytishga bog'liq, gunohsiz bo'lish emas - bu bizni aniqlaydigan xatoga javobdir.",
     ],
-    quran: [
-      {
-        excerpt: "Odam Atoning yaratilishi va farishtalarning sajdasi.",
-      },
-      {
-        excerpt: "Sinov, yiqilish va tavba.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Jannat, keyin yer",
   },
   {
@@ -459,14 +379,7 @@ export const QURAN_GUIDE_STORIES_UZ: DeepPartial<QuranGuideStory>[] = [
       "Har doim masxara qilishga qarshi ham Allohga da'vat qilishda sabr-toqat qilishning o'zi ham ibodatdir.",
       "Allohning najoti belgilangan vaqtda keladi - mo'min va'daga ishonib, to'fondan oldin itoat kemasini quradi.",
     ],
-    quran: [
-      {
-        excerpt: "Nuhning hikoyasi batafsil.",
-      },
-      {
-        excerpt: "Nuhning qavmiga iltijosi.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Qadimgi Mesopotamiya (ilmiy baholar)",
   },
   {
@@ -484,14 +397,7 @@ export const QURAN_GUIDE_STORIES_UZ: DeepPartial<QuranGuideStory>[] = [
       "Allohga tavakkul passivlik degani emas: Hojar yugurib izladi, Zamzam keldi — harakat va tavakkul birga.",
       "Samimiy sadoqat amallari avlodlar osha aks sado beradi; haj marosimlari va Ka’baning izzati Ibrohim alayhissalomning itoatkorligiga borib taqaladi.",
     ],
-    quran: [
-      {
-        excerpt: "Ibrohim, Ismoil va qurbonlik.",
-      },
-      {
-        excerpt: "Ahd va meros.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Iroq, Levant, Makka",
   },
   {
@@ -510,11 +416,7 @@ export const QURAN_GUIDE_STORIES_UZ: DeepPartial<QuranGuideStory>[] = [
       "Allohning rejasi ko'pincha yillar davomida ko'rinadigan baxtsizliklar ortida yashirinadi - quduq, qullik va zindon Yusufning sha'ni sari qadamlar edi.",
       "Kuchlilar mag'firat bilan kuchini ko'rsatadilar: Yusuf qudrati cho'qqisida o'ziga zulm qilganlarni kechirdi.",
     ],
-    quran: [
-      {
-        excerpt: "Hikoyalarning eng yaxshisi - bir surada aytilgan.",
-      },
-    ],
+    quran: [{}],
     location: "Kan'on, Misr",
   },
   {
@@ -533,14 +435,7 @@ export const QURAN_GUIDE_STORIES_UZ: DeepPartial<QuranGuideStory>[] = [
       "Mo''jizalarga guvoh bo'lish o'z-o'zidan iymon keltirmaydi - hidoyat - bu Allohning qaysarga emas, balki kamtar qalbga bergan in'omidir.",
       "Alloh mazlumlarni qutqaradi va mutakabbirlarni qanchalik kuchli ko'rinsalar ham hisob-kitob qiladi.",
     ],
-    quran: [
-      {
-        excerpt: "Muso Turda va Fir'avndan oldin.",
-      },
-      {
-        excerpt: "Tug'ilish va tarbiya.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Misr, Sinay",
   },
   {
@@ -559,14 +454,7 @@ export const QURAN_GUIDE_STORIES_UZ: DeepPartial<QuranGuideStory>[] = [
       "Payg'ambarlar Allohning sharafli bandalari bo'lib, ularga hech qachon sig'inmaslik kerak - Qur'on Isoning haqiqiy mavqeini mubolag'alardan saqlaydi.",
       "Maryamning iffati, sabr-toqati va ishonchi uni barcha mo‘minlar, ayollar va erkaklar uchun iymon namunasi qiladi.",
     ],
-    quran: [
-      {
-        excerpt: "Tug'ilish va beshik nutqi.",
-      },
-      {
-        excerpt: "O'ldirilmagan va xochga mixlanmagan; ko'tarilgan.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Falastin",
   },
   {
@@ -584,14 +472,7 @@ export const QURAN_GUIDE_STORIES_UZ: DeepPartial<QuranGuideStory>[] = [
       "Allohga da'vat qiluvchi ixlos va sabr bilan xabarni yetkazadi, lekin oqibatini Allohga qoldiradi.",
       "Sinovlar payg'ambarlar yo'lidir; Alloh uchun mashaqqatlarga toqat qilganidek, haqiqiy iymonning belgisidir.",
     ],
-    quran: [
-      {
-        excerpt: "Biz seni faqat olamlarga rahmat qilib yubordik.",
-      },
-      {
-        excerpt: "O'zaro mehribon, kofirlarga qattiqqo'l.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [{}],
   },
 ];
@@ -607,18 +488,8 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Payg'ambarimiz sollallohu alayhi vasallam iymonning yetmishdan ortiq shoxlari borligini, eng ulug'i - Allohdan o'zga iloh yo'qligiga shahodat berishdan tortib, yo'ldan zararni olib tashlashgacha bo'lgan kichik yaxshilik ham iymonning bir qismi ekanligini ko'rsatib berganlar.",
       "Haqiqiy iymon tildan avval qalbning ishi: Allohni chinakam bilish, Uni hamma narsadan ko‘ra sevish, Uning g‘azabidan qo‘rqish va to‘liq Unga tavakkul qilishdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Payg'ambar o'ziga Robbidan nozil qilingan narsaga iymon keltirdi, mo'minlar ham...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Imonning yetmishdan ortiq shoxlari bor; eng yuqorisi «Allohdan o'zga iloh yo'q» deyish, eng pasti esa yo'ldan zararli narsani olib tashlash, hayo esa iymonning bir shoxidir.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Bugun shahodatingizni oddiy ibora sifatida emas, balki nimani anglatishini to'liq e'tibor bilan yangilang.",
       "Allohning ismlaridan birini o'rganing, uni tushunib oling va duolaringiz bilan Unga duo qiling.",
@@ -634,18 +505,8 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Er yuzida nozil qilingan boshqa farzlardan farqli o'laroq, namoz Payg'ambar sollallohu alayhi vasallam (al-Isro val-Me'roj) davrida ummatga farz qilingan bo'lib, uni o'ziga xos sovg'a va mo'minning Allohga ko'tarilish vositasi sifatida belgilagan.",
       "Namoz har kuni besh marta takrorlanganligi sababli, namoz bir amal bilan keyingi ibodat o'rtasida iymonni saqlab turuvchi barqaror ritmdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Darhaqiqat, namoz fahsh va yomon ishlardan qaytaradi va Allohni zikr qilish ulug‘roqdir.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Qiyomat kuni bandaning birinchi hukm qilinadigan amali uning namozi bo‘ladi; Agar u sog'lom bo'lsa, u muvaffaqiyatga erishdi va agar u nuqsonli bo'lsa, u muvaffaqiyatsizlikka uchradi va yutqazdi.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Bugun Fotiha surasini o'qiyotganingizda ularni tushunib, sekin bir marta namoz o'qing.",
       "Ibodatingizning bir qismini mustahkamlash uchun Munibning Namozni o'rganish qo'llanmasini oching.",
@@ -661,12 +522,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Buyruq ota-onalar sabr-toqatga muhtoj bo'lgan keksalikda cho'qqisiga chiqadi: ular bir paytlar sizga g'amxo'rlik qilganidek, ularga ham g'amxo'rlik qiling va ularga rahm-shafqat bilan kamtarlik qanotini tushiring.",
       "Sadoqat o'lim bilan tugamaydi - ota-ona uchun duo qilishda, ular nomidan sadaqa berishda, do'stlari va va'dalarini hurmat qilishda davom etuvchi sadoqat amallaridir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Parvardigoringiz faqat Unga ibodat qilishingizni va ota-onaga yaxshilik qilishingizni amr qildi...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugun ota-onangizga qo'ng'iroq qiling yoki xabar bering.",
       "Ota-onangizning nomi bilan duo qiling.",
@@ -681,12 +537,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Alloh taolo O'zini \"sabrlilar bilan birga\" deb e'lon qiladi va sabrlilarga ularning ajrini hisobsiz va'da qiladi.",
       "Payg'ambarlar odamlarning eng og'ir sinovlari bo'lgan va Qur'on ularning sabrini - kasallikda Ayyub, qayg'uda Yaqub, xiyonat va zindonda Yusufni taqlid qilish uchun namuna sifatida ko'rsatadi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey mo'minlar, sabr va namoz bilan yordam so'rang. Albatta, Alloh sabr qilguvchilar bilandir.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugun g'azab ko'tarilsa, javob berishdan oldin pauza qiling, nafas oling va \"Inna lillahi va inna ilayhi roji'un\" deb ayting.",
       "Bu haftadagi bir lahzalik mashaqqatni shikoyat o‘rniga ikki rakat namozga aylantiring.",
@@ -701,12 +552,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Xayriya faqat pul emas. Rasululloh sollallohu alayhi vasallam birodaringni yuzida tabassum bilan uchratish ham sadaqadir, shuning uchun hech kim kambag'al emasligini aytdilar.",
       "Sadaqa molni ham, beruvchini ham poklaydi, hirs changalini bo'shatadi va rahm-shafqatni rivojlantiradi - shuning uchun zakot so'zining o'zi poklanish va o'sish degan ma'noni anglatadi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Alloh yo'lida infoq-ehson qiluvchilarning misoli yetti boshoq o'sgan donga o'xshaydi...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugun biror narsa bering - pul, vaqtingiz yoki chinakam yoqimli so'z - hatto kichik va ko'rinmas bo'lsa ham.",
       "Munibdagi zakot majburiyatlaringizni ko'rib chiqing va keyingi to'lov qachon kelishiga e'tibor bering.",
@@ -721,12 +567,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Rahmat eshigi hayratlanarli darajada kengdir: Alloh taolo o'zlariga qattiq zulm qilganlarga ham noumid bo'lmanglar, chunki chin dildan tavba qilganning barcha gunohlarini mag'firat qiladi, deydi.",
       "Tavba katta gunohlar yoki dahshatli lahzalar uchun ajratilmaydi - kun bo'yi istig'for (istig'for) qalbni yumshoq va hisobni toza qiladi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ayting: Ey oʻzlariga zulm qilgan bandalarim, Allohning rahmatidan noumid boʻlmanglar...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugun 100 marta \"Astag'firulloh\" deb ayting va og'irlikni ko'taring.",
       "Allohni yoqtirmaydigan odatlardan birini ayting va undan voz kechish uchun birinchi aniq qadamni qo'ying.",
@@ -742,12 +583,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Qur'on mo'minlarni mag'firat va \"kengligi osmonlaru yerdek bo'lgan\" jannat sari musobaqalashishga va shoshilishga undaydi.",
       "Eng katta mukofot bu bog'lar yoki daryolar emas, balki Allohning yuzini ko'rish - jannat ahliga va'da qilingan eng katta quvonchdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Robbingizdan mag'firatga va kengligi osmonlaru yerdek bo'lgan jannatga shoshiling...",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -760,12 +596,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Qur'onda kechirilmas deb ko'rsatgan gunoh, agar biror kishi uning ustida vafot etsa, bu shirk, ya'ni Allohga shirk keltirishdir. Undan boshqa hamma narsani O'zi xohlagan kishi uchun mag'firat qilur.",
       "Alloh tavba qilganni ezmaslik uchun odamlarni O'ziga qaytarish uchun ogohlantiradi - har bir ogohlantirish Qur'onda qaytishga ochiq da'vat bilan bog'langan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Albatta, Alloh O'ziga shirk qo'shishni kechirmas, balki undan ozroq narsani O'zi xohlagan kishi uchun kechirur.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugun har bir namozdan keyin Allohdan sizni do'zaxdan saqlashini chin dildan so'rang.",
       "Tavhidingizni yangilang: Jahannamdan eng ishonchli himoya - yolg'iz Allohga ibodat qilish haqida fikr yuriting.",
@@ -780,12 +611,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Zulm (zulm)dan qattiq ogohlantiriladi; Payg'ambarimiz sollallohu alayhi vasallam zolimning qiyomat kunida zulmat bo'lib ko'rinishini ta'kidlaganlar.",
       "Adolat faqat sudyalar va hukmdorlar uchun emas, balki u halol so'zda, adolatli muomalada, so'zda va har bir kishiga o'z huquqini berishda yashaydi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "O'zingizga, ota-onangiz va qarindoshlaringizga qarshi bo'lsa ham, Alloh uchun guvoh bo'ling.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugun kimgadir o'z huquqini bering - adolatli ish haqi, halol javob yoki unga qarzdor bo'lgan kredit.",
       "Bir lahzada tarafkashlik sizni adolatsizlikka vasvasaga soladi va buning o'rniga adolatni tanlang.",
@@ -800,11 +626,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Foydali bilim amal qilish va o'tkazish uchun mo'ljallangan; Rasululloh sollallohu alayhi vasallam olimlar payg'ambarlarning merosxo'rlari bo'lib, boylik emas, ilm merosxo'rlar, deb ta'lim berganlar.",
       "Muqaddas ilmga intilishning o'zi ibodatdir va Qur'on biladiganlar va bilmaydiganlar o'rtasida ochiq-oydin ajratilgan - \"ular tengmi?\"",
     ],
-    quran: [
-      {
-        excerpt: "Va ayt: Robbim, ilmimni ziyoda qil.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugun Qur'ondan bir yangi narsa - oyat, so'z yoki hukmni o'rganing va uni kimgadir o'rgating.",
       '"Rabbi zidni ilmo" duosini yod oling va o\'rganishdan oldin ayting.',
@@ -820,11 +642,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Muhammad sollallohu alayhi vasallam payg'ambarlarning muhri, oxirgi elchisidir va musulmon o'zidan oldingi barcha payg'ambarlarga - Nuh, Ibrohim, Muso, Iso va boshqa payg'ambarlarga iymon keltirishi kerak - ular orasida farq qilmasdan.",
       "Payg'ambarlar inson va Allohning bandalari edilar, ilohiy emaslar; Qur'on ularni ulug'laydi, lekin ularni maxluq tomonida mahkam tutadi, hech qachon Yaratgan bilan birga sig'inmaydi.",
     ],
-    quran: [
-      {
-        excerpt: "Ularning hikoyalarida aql egalari uchun ibrat bor...",
-      },
-    ],
+    quran: [{}],
     appLinks: [{}],
   },
   {
@@ -836,11 +654,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Qur'on Iso alayhissalomning onasi Maryamni barcha mo'minlar uchun namuna qilib ko'rsatadi va onalarni shunday ulug'laydiki, mashhur ta'limot jannatni ularning oyoqlari ostiga qo'yadi.",
       'Ikkala jins ham bir kelib chiqishiga borib taqaladi - "sizlarni bir jondan yaratgan" - Niso surasining birinchi oyatidan boshlab umumiy insoniylik va qadr-qimmatni o\'rnatadi.',
     ],
-    quran: [
-      {
-        excerpt: "Sizlarni bir jondan yaratgan va undan juftini yaratgan Robbingizdan qo'rqing...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugun hayotingizdagi ayolni - onani, xotinini, opa-singilni yoki qizini - o'ziga tegishli huquq yoki mehribonlik bilan hurmat qiling.",
     ],
@@ -854,11 +668,7 @@ export const QURAN_GUIDE_THEMES_UZ: DeepPartial<QuranGuideTheme>[] = [
       "Ota-onalarning ko'p takrorlanadigan donoligi bolalarni o'z bosqichida uchratishni maslahat beradi - ular bilan dastlabki yillarda o'ynash, keyin ularni o'rgatish va muloyimlik bilan tarbiyalash, so'ngra ular etuk bo'lganda ular bilan do'stlashish.",
       "Solih farzandni tarbiyalash bu hayotdan tashqari sarmoyadir: ota-ona uchun ibodat qilgan solih avlod o'limidan keyin ham ularga foyda keltiradi.",
     ],
-    quran: [
-      {
-        excerpt: "Ey mo'minlar, o'zingizni va oilangizni do'zaxdan saqlaning...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Farzandingizga bugun sabr-toqat va dalda bilan qisqa oyat yoki bitta yaxshi xulqni o'rgating.",
       "Farzandlaringiz (yoki qaramog'ingizdagi bolalar) Alloh taologa to'g'ri va suyukli bo'lishlari uchun nomlarini aytib duo qilinglar.",
@@ -984,18 +794,14 @@ export const QURAN_GUIDE_VOCABULARY_UZ: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Yagona haqiqiy Xudo - barcha go'zal ismlarni o'z ichiga olgan to'g'ri ism.",
     frequency: "2700+ hodisa",
     example: "Bismilloh - Alloh nomi bilan",
-    quranRef: {
-      excerpt: "Mehribon va rahmli Alloh nomi bilan.",
-    },
+    quranRef: {},
   },
   {
     meaning:
       "Rabbiy, Ustoz, Qo'llab-quvvatlovchi - yaratuvchi, egalik qiluvchi, tarbiyalovchi va boshqaruvchi.",
     frequency: "Juda tez-tez",
     example: "Rabbana - Rabbimiz",
-    quranRef: {
-      excerpt: "Hamd olamlarning Robbi Allohga bo'lsin.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Allohdan va maxluqotlar orasidan rahmat, rahm-shafqat, mehr.",
@@ -1041,9 +847,7 @@ export const QURAN_GUIDE_VOCABULARY_UZ: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Nur - hidoyat, vahiy va qalbning yoritilishi.",
     frequency: "Tez-tez",
     example: "Alloh osmonlaru yerning nuridir",
-    quranRef: {
-      excerpt: "Alloh osmonlaru yerning nuridir...",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1264,8 +1068,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_UZ: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_UZ: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "Ey mo'minlar, sabr va namoz bilan yordam so'rang. Albatta, Alloh sabr qilguvchilar bilandir.",
     context:
       "Madinada nozil qilingan Baqara surasidan. Alloh taolo qiyinchilikka duchor bo‘lgan mo‘min uchun ikki quvvat manbasini – sabr-toqat va namozga yuzlanishni juft qilib qo‘ygan va mustahkam bo‘lganlarga O‘zining maxsus sherikligini va’da qilgan.",
     reflection:
@@ -1274,7 +1076,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_UZ: DeepPartial<QuranGuideDailyLesson>[] 
       "Bugun shoshilmasdan bir namoz o'qing va sajdangizda boshdan kechirayotgan muayyan sinovda Allohdan sabr so'rang.",
   },
   {
-    translation: "Mening rahmatim hamma narsani qamrab olgan.",
     context:
       "Muso va uning qavmi misolida aytilgan A'rof surasidan. Alloh taolo O'zining rahmatini hamma narsani qamrab oluvchi, deb ta'riflaydi - rahmati shunchalik kattaki, u O'zining jazosidan oldinroq va ustundir.",
     reflection:
@@ -1283,7 +1084,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_UZ: DeepPartial<QuranGuideDailyLesson>[] 
       "O'zingiz xafa bo'lgan bir kishini tanlang, ularni bugun qalbingizda chin dildan kechiring va Allohdan ularni ham hidoyat va kechirishini so'rab qisqa duo qiling.",
   },
   {
-    translation: "Agar shukr qilsangiz, albatta sizni ziyoda qilaman.",
     context:
       "Ibrohim surasidan, Musoning Bani Isroilga eslatmasidan. Alloh taolo O'zining ko'payishini to'g'ridan-to'g'ri shukr bilan bog'laydi - ne'matga shukr qilish uning o'sishiga sabab bo'ladi, noshukrlik esa uni yo'qotishga chorlaydi.",
     reflection:
@@ -1292,7 +1092,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_UZ: DeepPartial<QuranGuideDailyLesson>[] 
       "Kechasi uxlashdan oldin uchta aniq ne'mat uchun \"Alhamdulillah\" deb ovoz chiqarib ayting va har biriga nom bering, shunda shukr avtomatik emas, ongli bo'lsin.",
   },
   {
-    translation: "Va odamlarga yaxshi so'zlarni ayting.",
     context:
       "Isro surasidan. Alloh taolo mo'minlar o'zlarini qanday tutishlari kerakligi haqida ko'rsatma berib, odamlarga - barcha odamlarga eng yaxshi tarzda gapirishni buyuradi, chunki qattiq so'zlar shayton bo'linish uchun eshiklardan biridir.",
     reflection:
@@ -1301,7 +1100,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_UZ: DeepPartial<QuranGuideDailyLesson>[] 
       "Bugun hech qanday yashirin tanqidsiz bir odamni chin dildan rag'batlantiring yoki minnatdorchilik bildiring va siz aytishga vasvasaga tushgan bir qattiq so'zni ushlab turing.",
   },
   {
-    translation: "Kim Allohga tavakkul qilsa, bas, U zot unga kifoyadir.",
     context:
       "Taloq surasidan, ajralish va ta'minlashga oid hukmlar qatorida - odamlar moliyaviy jihatdan eng ko'p tashvishlanayotgan joyda. U erda Alloh kim Undan qo'rqsa, O'zi o'ylamagan joydan rizq berishini va kim Unga tavakkul qilsa, uni yetarlicha topishini va'da qiladi.",
     reflection:
@@ -1310,7 +1108,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_UZ: DeepPartial<QuranGuideDailyLesson>[] 
       "Sizni tashvishga solayotgan bitta qarorni qabul qiling, ikki rakat istixora namozini o'qing yoki uning ustidan chin dildan duo qiling, so'ngra natijasini Allohga ishoning.",
   },
   {
-    translation: "Robbim, ilmimni ziyoda qilgin.",
     context:
       "Toha surasidan. Bu Qur'onda Alloh taolo Payg'ambarimiz sollallohu alayhi vasallamga ko'proq narsani so'rashni buyurgan yagona narsa - ilm - bu ilmning qanchalik qadrli ekanligini va hech kim, qanchalik ilmli bo'lsa ham, uni izlab tugatmasligini ko'rsatadi.",
     reflection:
@@ -1319,8 +1116,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_UZ: DeepPartial<QuranGuideDailyLesson>[] 
       "“Rabbi zidni ilma” degan qisqa duoni yod oling va kunni boshlashdan oldin bomdoddan keyin aytishni odat qiling.",
   },
   {
-    translation:
-      "Mollarini Alloh yo'lida infoq qiluvchilarning misoli, yetti boshoq o'sgan urug'ga o'xshaydi...",
     context:
       "Baqara surasidan. Alloh taolo sadaqaning qanday o'sishini yorqin tasvirlab beradi: bitta urug' yetti boshoq o'sib chiqadi, har biri yuzta don beradi - yetti yuz barobar qaytaradi va O'zi xohlagan kishiga yana ko'paytirur. Uning roziligi uchun berilgan boylik hech qachon yo'qolmaydi.",
     reflection:

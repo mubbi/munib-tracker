@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Jika tidak boleh berpuasa secara kekal, tanyalah seorang ulama tentang fidyah bagi setiap hari yang tertinggal.",
       "Jika anda berbuka puasa dengan sengaja, jangan bergantung pada anggaran apl — tanya ulama yang mana ketetapan terpakai.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Dan atas orang-orang yang mampu [berpuasa, tetapi dengan susah payah] — tebusan untuk memberi makan orang miskin... Dan sesiapa yang sakit atau dalam perjalanan — maka sebanyak hari-hari yang lain.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Apakah fidyah bagi puasa yang tertinggal?",
@@ -38,12 +33,7 @@ export const FIDYAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Gunakan kadar fidya masjid atau majlis tempatan anda setiap hari apabila tersedia.",
       "Darabkan hari × satu hidangan (atau unit fidya yang diterbitkan) untuk anggaran perancangan.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...Dan atas orang-orang yang mampu [berpuasa, tetapi dalam kesusahan] — tebusan memberi makan orang miskin. Dan sesiapa yang memberi kerelaan untuk kebaikan - itu lebih baik baginya. Dan berpuasa adalah lebih baik bagi kamu, jika kamu mengetahui.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Siapa yang biasa membayar fidyah?",
@@ -55,18 +45,8 @@ export const FIDYAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Klasifikasi kehamilan, penyusuan susu ibu, dan penyakit kronik adalah pertimbangan ilmiah. Topik ini adalah pendidikan sahaja.",
-    quran: [
-      {
-        excerpt:
-          "...Maka sesiapa yang melihat [bulan baru] bulan itu, hendaklah dia berpuasa; dan sesiapa yang sakit atau dalam perjalanan - maka sama banyaknya hari-hari yang lain. Allah menghendaki kemudahan bagimu dan tidak menghendaki kesukaran bagimu...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Seorang lelaki berkata: Ibuku meninggal kerana berpuasa. Patutkah saya berpuasa bagi pihaknya? Rasulullah ﷺ bersabda: Ya, hutang Allah lebih berhak untuk dibayar.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kaffarah kerana sengaja berbuka",
@@ -82,16 +62,7 @@ export const FIDYAH_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
       "Tanya seorang ulama yang berkelayakan tentang kafarat - jika ada - yang anda berhutang.",
       "Jika memberi makan enam puluh orang miskin adalah pilihan yang boleh anda penuhi, gunakan kos makanan tempatan × 60 sebagai angka perancangan.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Seorang lelaki berkata: Saya telah binasa, ya Rasulullah - saya telah menyetubuhi isteri saya pada bulan Ramadhan. Dia ditanya tentang memerdekakan seorang budak, berpuasa dua bulan berturut-turut, dan memberi makan enam puluh orang miskin...",
-      },
-      {
-        excerpt:
-          "Ketika kami sedang duduk bersama Rasulullah ﷺ datang seorang lelaki dan berkata: Saya telah binasa... Dia menyetubuhi isterinya ketika dia sedang berpuasa...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Cara menggunakan pembantu ini",

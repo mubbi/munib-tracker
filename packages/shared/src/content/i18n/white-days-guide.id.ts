@@ -13,12 +13,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Puasa tiga hari setiap bulan adalah sunnah muakkadah Nabi ﷺ, dan Ayyām al-Bīḍ adalah tiga hari yang dianjurkan itu. Jarir bin Abdullah meriwayatkan bahwa Nabi ﷺ bersabda: “Puasa tiga hari setiap bulan adalah puasa sepanjang masa, dan Hari-Hari Putih (Ayyām al-Bīḍ) ialah hari ketiga belas, keempat belas, dan kelima belas” (Sunan an-Nasa'i 2422).",
       "Karena bulan Hijriah mengikuti peredaran bulan, ketiga hari ini bergeser dalam kalender Masehi setiap bulan dan dapat dimulai sehari lebih awal atau lambat, bergantung pada rukyat hilal di daerah Anda. Aplikasi ini menghitungnya dari kalender Hijriahnya sendiri agar Anda selalu tahu tanggalnya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Puasa tiga hari setiap bulan adalah puasa sepanjang masa, dan Hari-Hari Putih (Ayyām al-Bīḍ) ialah hari ketiga belas, keempat belas, dan kelima belas.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Buka tampilan fase bulan untuk melihat kapan Ayyām al-Bīḍ bulan ini.",
       "Catat ketiga tanggalnya agar Anda dapat merencanakan sahur dan iftar.",
@@ -34,21 +29,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Abdullah bin Amr meriwayatkan bahwa Nabi ﷺ bersabda kepadanya: “Cukuplah bagimu berpuasa tiga hari setiap bulan, karena pahala satu kebaikan dilipatgandakan sepuluh kali, maka itu seperti puasa sepanjang tahun” (Sahih al-Bukhari 1975). Dalam riwayat lain: “Puasa tiga hari setiap bulan setara dengan puasa sepanjang tahun” (Sahih al-Bukhari 1979).",
       "Itulah sebabnya tiga hari yang ringan, bila dijaga dengan istiqamah, sangat dicintai: ringan bagi tubuh namun dengan kemurahan Allah bernilai seperti puasa seumur hidup. Ayyām al-Bīḍ adalah tiga hari yang dipilih oleh sunnah.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Barangsiapa membawa kebaikan, baginya sepuluh kali lipatnya; dan barangsiapa membawa keburukan, ia tidak dibalas melainkan setimpal dengannya, dan mereka tidak dizalimi.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Cukuplah bagimu berpuasa tiga hari setiap bulan, karena pahala satu kebaikan dilipatgandakan sepuluh kali, maka itu seperti puasa sepanjang tahun.",
-      },
-      {
-        excerpt: "Puasa tiga hari setiap bulan setara dengan puasa sepanjang tahun.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Perbarui niat pada malam sebelumnya — karena Allah dan mengharap pahala-Nya.",
       "Utamakan istiqamah: tiga hari ringan setiap bulan daripada semangat sesaat yang tidak dapat dijaga.",
@@ -62,22 +44,8 @@ export const WHITE_DAYS_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Rasulullah ﷺ biasa memerintahkan puasa ini secara khusus. Ibnu Milhan al-Qaisi meriwayatkan dari ayahnya: “Rasulullah ﷺ biasa memerintahkan kami berpuasa pada Hari-Hari Putih: tanggal ketiga belas, keempat belas, dan kelima belas,” dan beliau bersabda, “Ini seperti puasa terus-menerus” (Sunan Abi Dawud 2449). Abu Dzar meriwayatkan bahwa Nabi ﷺ bersabda: “Jika engkau ingin berpuasa tiga hari dalam sebulan, maka berpuasalah pada tanggal ketiga belas, keempat belas, dan kelima belas” (Jami' at-Tirmidhi 761).",
       "Jika tidak mampu berpuasa ketiganya — karena safar, sakit, atau memulai hari tanpa niat puasa — berpuasalah semampunya; satu atau dua hari pun tetap mendapat pahala yang dilipatgandakan. Puasa sunnah boleh diniatkan pada pagi hari selama belum makan. Perempuan tidak berpuasa saat haid; ia melanjutkan sunnah ini pada bulan-bulan ketika mampu, tanpa kewajiban mengqada puasa sunnah yang terlewat karena sebab itu.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasulullah ﷺ biasa memerintahkan kami berpuasa pada Hari-Hari Putih: tanggal ketiga belas, keempat belas, dan kelima belas. Beliau bersabda: Ini seperti puasa terus-menerus.",
-      },
-      {
-        excerpt:
-          "Jika engkau ingin berpuasa tiga hari dalam sebulan, maka berpuasalah pada tanggal ketiga belas, keempat belas, dan kelima belas.",
-      },
-    ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, diwajibkan atas kamu berpuasa sebagaimana diwajibkan atas orang sebelum kamu agar kamu bertakwa.",
-      },
-    ],
+    hadith: [{}, {}],
+    quran: [{}],
     actions: [
       "Niatkan puasa Ayyām al-Bīḍ karena Allah, dengan mengharap pahala-Nya.",
       "Berpuasalah semampu Anda — satu atau dua hari tetap berpahala sepuluh kali lipat bila ketiganya tidak memungkinkan.",
@@ -94,12 +62,7 @@ export const WHITE_DAYS_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
       "Sebagian orang memilih tiga hari bulanan mereka pada Senin dan Kamis, bukan tanggal 13–15; itu juga memenuhi sunnah puasa tiga hari sebulan. Sebagian lainnya menggabungkan keduanya bila mampu. Tujuannya adalah kebiasaan puasa sunnah yang tulus dan tetap, bukan rumus yang kaku.",
       "Pilih pola yang dapat Anda pertahankan. Jika Ayyām al-Bīḍ sesuai dengan bulan Anda, lacaklah di sini; jika Senin dan Kamis lebih mudah, jalankan itu. Amalan yang paling Allah cintai ialah yang dikerjakan terus-menerus meski kecil.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Rasulullah ﷺ ditanya tentang puasa hari Senin. Beliau bersabda: Pada hari itu aku dilahirkan, dan pada hari itu wahyu diturunkan kepadaku.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Pilih pola yang berkelanjutan: Ayyām al-Bīḍ, atau Senin dan Kamis, atau keduanya.",
       "Jagalah istiqamah — amalan kecil yang rutin dicintai Allah.",

@@ -17,12 +17,7 @@ export const FIDYAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Ako je post trajno nemoguć, pitajte učenjaka o fidji za svaki propušteni dan.",
       "Ako ste namjerno prekršili post, nemojte se oslanjati na procjenu aplikacije – pitajte učenjaka koja se odluka primjenjuje.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...A na one koji mogu [da poste, ali s mukom] - otkupnina za hranjenje siromaha... I ko je bolestan ili na putu - onda jednak broj drugih dana.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Šta je fidyah za propuštene postove?",
@@ -37,12 +32,7 @@ export const FIDYAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Koristite stopu fidya vašeg lokalnog mesdžida ili vijeća po danu kada je dostupna.",
       "Pomnožite dane × jedan obrok (ili objavljena fidya jedinica) za procjenu planiranja.",
     ],
-    quran: [
-      {
-        excerpt:
-          "...A na one koji su u stanju [da poste, ali s mukom] — otkupnina za hranjenje siromaha. A ko dobro volontira – bolje mu je. A postiti je bolje za tebe, da samo znaš.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Ko obično plaća fidyah?",
@@ -54,18 +44,8 @@ export const FIDYAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
     ],
     disclaimer:
       "Klasifikacija trudnoće, dojenja i hronične bolesti je naučna prosudba. Ova tema je samo obrazovna.",
-    quran: [
-      {
-        excerpt:
-          "...Pa ko vidi [mladi mjesec] mjeseca, neka ga posti; a ko je bolestan ili je na putu - onda jednak broj drugih dana. Allah vam želi olakšanje, a ne želi vam teškoću...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Jedan čovjek je rekao: Moja majka je umrla od posta. Da li da postim u njeno ime? Poslanik, sallallahu alejhi ve sellem, je rekao: Da, Allahov dug ima više prava da bude plaćen.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
   },
   {
     title: "Kaffarah zbog namjernog prekida posta",
@@ -81,16 +61,7 @@ export const FIDYAH_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
       "Pitajte kvalifikovanog naučnika koju naknadu – ako postoji – dugujete.",
       "Ako je hranjenje šezdeset siromašnih opcija koju možete ispuniti, koristite lokalni trošak obroka × 60 kao cifru za planiranje.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Jedan čovjek reče: Propao sam, o Allahov Poslaniče, imao sam odnos sa svojom ženom u ramazanu. Pitali su ga da oslobodi roba, da posti dva mjeseca uzastopno i da nahrani šezdeset siromaha...",
-      },
-      {
-        excerpt:
-          "Dok smo sjedili sa Poslanikom sallallahu alejhi ve sellem, došao je čovjek i rekao: Propao sam... Imao je odnos sa svojom ženom dok je postio...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Kako koristiti ovaj pomoćnik",

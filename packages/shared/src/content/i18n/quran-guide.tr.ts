@@ -32,29 +32,8 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "Kur'an okumak yalnızca bilgi edinmek değil, başlı başına bir ibadettir. Peygamber ﷺ, okunan her harf için bir hasene (iyilik) yazıldığını ve her hasenenin en az on katıyla karşılık gördüğünü öğretmiştir; dolayısıyla tek bir satırı heceleyerek okuyan bir başlangıç seviyesindeki kişi bile şimdiden sevap biriktirmektedir. Kıyamet gününde Kur'an, bu dünyada kendisiyle beraber olanlara şefaatçi olarak gelecektir. Onu akıcı okuyan, değerli kâtip meleklerle beraberdir; öğrenmeye çalışırken okumakta zorlanıp takılan ise bu gayreti için iki kat sevap kazanır.",
       "Kur'an'ın ne olmadığını netleştirmek de faydalıdır. Kur'an, vahyedildiği günden beri değişmeden kalan, Allah'ın Arapça olarak bizzat kendi sözleridir. Hadisler — Peygamber'in ﷺ sözleri, fiilleri ve sessiz onayları (takrirleri) — bundan ayrıdır: Kur'an'ı açıklar ve uygulamasını gösterir, ancak Peygamber'in ﷺ kendi ifadesidir; ravileri isimleriyle bilinen senetlerle korunmuş ve âlimler tarafından sahih, hasen veya zayıf olarak derecelendirilmiştir. Her ikisi de vahiydir ve her ikisi de bağlayıcıdır; ancak namazda ibadet olarak yalnızca Kur'an okunur ve yalnızca Kur'an, Allah'ın mucize olan, benzeri getirilemeyen kelâmıdır.",
     ],
-    quran: [
-      {
-        excerpt: "Ramazan ayı, insanlara bir hidayet rehberi olarak Kur'an'ın indirildiği aydır…",
-      },
-      {
-        excerpt:
-          "De ki: İnsanlar ve cinler bu Kur'an'ın bir benzerini getirmek için bir araya gelseler, onun benzerini getiremezler…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Allah'ın Kitabı'ndan bir harf okursa ona bir hasene vardır; hasene de on katıyla verilir.",
-      },
-      {
-        excerpt:
-          "Kur'an okuyun; çünkü o, kıyamet gününde kendisiyle beraber olanlara şefaatçi olarak gelecektir.",
-      },
-      {
-        excerpt:
-          "Kur'an'ı mahir bir şekilde okuyan, değerli ve itaatkâr kâtip meleklerle beraberdir; onu zorlanarak, kekeleyerek okuyana ise iki kat sevap vardır.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}, {}],
     actions: [
       "Kur'an için her gün sabit bir vakit belirle — odaklanılmış beş dakika bile bereket ve süreklilik kazandırır.",
       "En az bir satırı anlamıyla birlikte oku: Arapçasını oku, ardından mealini yavaşça oku.",
@@ -80,14 +59,7 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "Metnin korunması Peygamber'in ﷺ sağlığında başladı. Sahabe vahyi indikçe ezberledi; vahiy kâtipleri de Peygamber'in ﷺ doğrudan gözetimi altında onu parşömen, hurma dalı, kemik ve taş üzerine yazdı. Yemame Savaşı'nda pek çok hafız şehit düşünce Ebu Bekir, Zeyd b. Sabit'e yazılı Kur'an'ı tek bir derlemede (suhuf) toplamasını emretti. Daha sonra İslam toprakları genişleyip lehçeler çeşitlenince Osman, Kureyş lehçesiyle resmî nüshalar hazırlattı ve bunları büyük şehirlere göndererek bütün ümmet için tek bir yazılı metni standart hâle getirdi.",
       "Kur'an'ın korunmasını bizzat Allah garanti etmiştir: “Şüphesiz Zikri (Kur'an'ı) biz indirdik ve onun koruyucusu da elbette biziz.” Bu vaat, birbirini destekleyen üç güvence ile yerine gelmiştir: her nesilde kitlesel ezber, titiz yazılı aktarım ve Peygamber'e ﷺ kadar uzanan, hocadan talebeye kesintisiz kıraat zincirleri. Mümin için bu ilahi bir alamettir; tarihçi için ise belgelenmiş bir gerçektir: Bugün okunan Kur'an, on dört asır önce indirilenle aynı metindir.",
     ],
-    quran: [
-      {
-        excerpt: "Şüphesiz Zikri biz indirdik ve onun koruyucusu da elbette biziz.",
-      },
-      {
-        excerpt: "Yaratan Rabbinin adıyla oku…",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       {
         label: "Vahiy zaman çizelgesi",
@@ -106,12 +78,7 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "Okumayı kolaylaştırmak için Kur'an ayrıca cüz (çoğulu ecza) denilen 30 eşit bölüme, her cüz de hizip denilen iki yarıma ayrılır; böylece toplam 60 hizip olur. Ramazan hatmini — Kur'an'ın tamamını bir ayda bitirmeyi — bu kadar doğal kılan da budur: Günde bir cüz okumak Kitab'ı otuz günde tamamlar; günde iki kez yarım cüz okumak ise daha da kolaydır. Her surede ayetler numaralandırılmıştır; böylece herhangi bir pasaj sure:ayet şeklinde tam olarak gösterilebilir. Standart Medine sayımı 6.236 ayettir; birkaç ayet sınırının numaralandırılmasında yalnızca çok küçük ve iyi belgelenmiş farklar vardır — metnin kendisi aynıdır.",
       "Bu yapıyı anlamak, belirsiz niyetleri somut bir plana dönüştürür. Her gün sabit bir miktar okumayı taahhüt edebilir, ezber için Amme cüzünü (kısa surelerle dolu son, otuzuncu cüz) hedefleyebilir, sabır gibi tek bir konuyu birkaç sure boyunca takip edebilir veya Ramazan'a göre tam bir hatim planlayabilirsin. Yapı, Kur'an ile ömür boyu sürecek bir bağı mümkün kılan iskelettir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…ayetleri bilen bir topluluk için Arapça bir Kur'an olarak ayrıntılı biçimde açıklanmış bir Kitap.",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
         label: "Yapı görseli",
@@ -153,15 +120,7 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "Her şeyi bir anda öğrenmen gerekmez. Temel kurallar sırayla öğrenilir: sakin nun ve tenvin hükümleri (izhar, idgam, iklab, ihfa), sakin mim hükümleri, med (uzatma) çeşitleri, kalkale (belirli harflerdeki hafif sekme), gunne (genizden gelen ses) ve vakf (nerede ve nasıl durulacağı). Her birinin açık bir tanımı, günlük örnekleri ve alıştırması vardır; bu bölüm bunları tek tek ele alır.",
       "Kesin bir kural: Tecvidi yalnızca kitaplardan veya uygulamalardan değil, yetkin bir hocadan dinleyerek öğren. Hatalarını duyup düzeltebilecek birine oku — tecvid her zaman böyle öğretilmiştir ve gerçek doğruluğa ve nihayetinde bir icazete (senetli kıraat zinciri) giden tek güvenilir yol budur.",
     ],
-    hadith: [
-      {
-        excerpt: "Sizin en hayırlınız Kur'an'ı öğrenen ve öğretendir.",
-      },
-      {
-        excerpt:
-          "Kur'an'ı mahir bir şekilde okuyan, değerli ve itaatkâr kâtip meleklerle beraberdir; onu zorlanarak, kekeleyerek okuyana ise iki kat sevap vardır.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [
       {
         label: "Tecvid dersleri",
@@ -209,11 +168,7 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "Bu yolla Kur'an'ı kelime kelime tercüme etmiş olmazsın — bu, tefsir ve mealin işidir — ama okuduğun anda Allah'ın isimlerini, emirleri, vaatleri ve uyarıları doğrudan tanımaya başlarsın. En sık geçen ve en çok anlam yükü taşıyan kelimelerle başla: Allah, Rab, rahmet, iman, sabır, takva (Allah bilinci), dünya ve ahiret. Bu temel gruptan yola çıkarak azar azar genişlet.",
       "Bir oturuşta yüklenmek yerine aralıklı tekrar kullan. Haftada beş yeni kelime öğrenip hepsini her gün tekrar etmek, bir yılda seni bir oturuşta elli kelime ezberleyip unutmaktan çok daha ileriye taşır. Allah, Kur'an'ın öğüt almak için kolaylaştırıldığını vaat eder — kelime hazinesine istikrarla yaklaş, bu kolaylığı bizzat hissedeceksin.",
     ],
-    quran: [
-      {
-        excerpt: "Andolsun, biz Kur'an'ı öğüt almak için kolaylaştırdık. Öğüt alan yok mu?",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
         label: "Kelime listesi",
@@ -264,11 +219,7 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "Hepsinde süregelen örüntüye dikkat et. Peygamberler kavimlerini yalnızca Allah'a ibadete çağırdılar; alay edildiler, karşı çıkıldılar ve çoğu zaman yurtlarından çıkarıldılar; sabırla ve Allah'a tam bir güvenle (tevekkül) dayandılar; ve sonunda Allah'ın vaadi gerçekleşti. Onların çektiği zorlukları okurken nasıl karşılık verdiklerinden güç al — ama kendi dereceni asla onlarınkine denk görme. Amaç, onların sebatını ve tevekkülünü içselleştirmektir, makam kıyaslamak değil.",
       "Kur'an'ın kendisi bir anlatıyı öne çıkarır: Allah'ın “kıssaların en güzeli” dediği Yusuf Suresi. Alışılmışın dışında bu kıssa baştan sona tek bir surede anlatılır; bu yüzden onu tek oturuşta, kesintisiz bir yolculuk olarak oku — ihanet, kölelik ve zindanda sabır, ve nihayet affediş ve kavuşma — ve Allah'ın planının yıllarca süren görünürdeki talihsizliklerin ardında nasıl açığa çıktığını izle.",
     ],
-    quran: [
-      {
-        excerpt: "Andolsun, onların kıssalarında akıl sahipleri için bir ibret vardır…",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
         label: "Peygamber kıssaları",
@@ -284,11 +235,7 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "“Bilimsel mucizeler” hakkında da şeyler duyacaksın — embriyonun evrelerine, kâinatın genişlemesine ve benzeri konulara değinen ayetler. Bunlara dikkatle yaklaş. Klasik tefsir bu tür ayetleri çoğu zaman modern savunuculardan oldukça farklı biçimlerde anlamıştır; Kur'an'ı sürekli değişen her bilimsel hipoteze uydurmaya zorlamak, teoriler değiştiğinde ters tepebilir. Yerleşik yorum ile çağdaş tahmini kesin bir şekilde birbirinden ayır.",
       "Tarihî kehanetler de âlimler tarafından zikredilir — Rumların önceden haber verilen zaferi, Mekke'nin barış içinde fethi — ve bunlar incelemeye değerdir; ancak sansasyonel video kliplerle değil, ölçülü tefsir ve siyer yoluyla. Kur'an lehine en güçlü delil her zaman onun tevhidi, bir toplumu ahlaken dönüştürmesi ve eşsiz dili ile korunmuşluğu olmuştur.",
     ],
-    quran: [
-      {
-        excerpt: "O hâlde onun benzeri bir sure getirin… eğer doğru söyleyenlerseniz.",
-      },
-    ],
+    quran: [{}],
     disclaimer:
       "İncelendiğinde daveti mahcup düşürecek abartılı bilimsel mucize iddialarından kaçın. Önce tevhidi, ahlakı ve Kur'an'ın dilsel ve tarihî delillerini öne çıkar.",
   },
@@ -301,16 +248,7 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "Pratik yöntem: Aralıklı tekrar kullan; melodinin kendisi hafızanı tetiklesin diye tek bir kâriye bağlı kal; her gün sadece metinden okumakla kalma, ezberden oku; ve bir hocanın seni dinleyip kendi duyamadığın hatalarını işaretlemesini sağla. Munib'in hıfz takipçisi ilerlemeni tek tek ayetlere kadar kaydeder; böylece neyin tekrar zamanının geldiğini her zaman bilirsin.",
       "Seviyene uygun bir plan seç. Başlangıç: Kısa surelerle dolu son cüz olan Amme cüzünü ezberle. Orta seviye: Mülk, Yasin ve Kehf gibi sıkça okunan on sure ekle. İleri seviye: Öncekilerin hepsini sağlamca tekrar ederek tam bir cüz tamamla. Ve hafızlık yolculuğu: Yetkin bir hocayla ve ideal olarak bir senetle — Peygamber'e ﷺ kadar uzanan belgeli bir aktarım zinciriyle — ezberlenen mushafın tamamı.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kur'an ehline şöyle denilecek: Dünyada okuduğun gibi oku ve yüksel; çünkü senin derecen okuduğun son ayettedir.",
-      },
-      {
-        excerpt:
-          "Kur'an ehlinin misali, bağlı devenin sahibinin misali gibidir: Onu gözetirse elinde tutar, salıverirse kaybeder.",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [
       {
         label: "Ezber planları",
@@ -342,15 +280,7 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "Tedebbür tefsirle aynı şey değildir. Tefsir, bir ayetin ne anlama geldiğinin ilmî açıklamasıdır; tedebbür ise o anlamı kavradıktan sonra senin ona verdiğin kişisel ve saygılı karşılıktır. İkisi birlikte işler: Önce tefsirden sağlam anlamı öğrenir, sonra onun üzerinde durup sana nasıl hitap ettiğini sorarsın. Yardımcı bir çerçeve üç sorudur: Allah burada bana ne öğretiyor? Bu, bugün yaptıklarımı nasıl değiştiriyor? Bu yüzden hangi alışkanlığı edinmeli veya bırakmalıyım?",
       "Kesin bir sınır tedebbürü güvenli tutar: Bir ayetin senden ne istediği üzerinde düşün, ama metnin kendisine asla yeni anlamlar uydurma. Yorumun sınırlarını sahih tefsirin belirlemesine izin ver ve kişisel düşüncelerini kendi yerlerinde tut — Munib'inki gibi özel bir günlük, bir ayetin sende uyandırdıklarını kaydetmek ve daha sonra onlara dönmek için idealdir.",
     ],
-    quran: [
-      {
-        excerpt: "Onlar Kur'an'ı düşünmüyorlar mı? Yoksa kalplerinin üzerinde kilitler mi var?",
-      },
-      {
-        excerpt:
-          "Hâlâ Kur'an'ı düşünmüyorlar mı? Eğer o Allah'tan başkası tarafından olsaydı, onda pek çok çelişki bulurlardı.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       {
         label: "Tedebbür soruları",
@@ -368,12 +298,7 @@ export const QURAN_GUIDE_TOPICS_TR: DeepPartial<QuranGuideTopic>[] = [
       "Bu görevler bunun için vardır. Her biri belirli bir ayeti bugün yapılabilecek tek bir davranışa bağlar: dilini güzel sözle korumak, gizlice bir sadaka vermek, haram olandan gözünü sakınmak, uzun süredir taşıdığın bir kini bırakmak. Bir ayet, bir eylem — gerçekten yapabileceğin kadar küçük, seni değiştirecek kadar gerçek.",
       "Bir görevi ancak gerçekten yaptığında tamamlandı olarak işaretle. Kayıt tutmanın amacı gösteriş değildir — bu, amacın kendisini boşa çıkarır — başkalarının görmediğini gören Allah'a karşı dürüst bir hesap verebilirliktir. Zamanla, ayet ayet, okuyuş böyle karaktere dönüşür.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Siz Kitab'ı okuduğunuz hâlde insanlara iyiliği emredip kendinizi unutuyor musunuz?",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
         label: "Bugünün görevi",
@@ -525,14 +450,7 @@ export const QURAN_GUIDE_STORIES_TR: DeepPartial<QuranGuideStory>[] = [
       "Şeytanın yöntemi zorlama değil, ısrarlı vesvesedir — telkinlerini tanımak, onlara direnmenin yarısıdır.",
       "İnsanın değeri günahsız olmaya değil, ilme ve Allah'a geri dönmeye bağlıdır — bizi tanımlayan, hataya verdiğimiz karşılıktır.",
     ],
-    quran: [
-      {
-        excerpt: "Âdem'in yaratılışı ve meleklerin secdesi.",
-      },
-      {
-        excerpt: "İmtihan, düşüş ve tövbe.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Cennet, sonra yeryüzü",
   },
   {
@@ -551,14 +469,7 @@ export const QURAN_GUIDE_STORIES_TR: DeepPartial<QuranGuideStory>[] = [
       "Sürekli alaylara rağmen Allah'a davette sebat etmek, başlı başına bir ibadettir.",
       "Allah'ın kurtarışı takdir edilen vakitte gelir — mümin, vaade güvenerek tufandan önce itaat “gemisini” inşa eder.",
     ],
-    quran: [
-      {
-        excerpt: "Nuh'un ayrıntılı kıssası.",
-      },
-      {
-        excerpt: "Nuh'un kavmine yakarışı.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Antik Mezopotamya (ilmî tahminler)",
   },
   {
@@ -576,14 +487,7 @@ export const QURAN_GUIDE_STORIES_TR: DeepPartial<QuranGuideStory>[] = [
       "Allah'a tevekkül pasiflik demek değildir: Hacer koştu ve aradı, ardından Zemzem geldi — gayret ve tevekkül birlikte işler.",
       "Samimi ibadetler nesiller boyunca yankılanır; haccın menasiki ve Kâbe'nin şerefi İbrahim'in itaatine dayanır.",
     ],
-    quran: [
-      {
-        excerpt: "İbrahim, İsmail ve kurban.",
-      },
-      {
-        excerpt: "Ahit ve miras.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Irak, Şam diyarı, Mekke",
   },
   {
@@ -602,11 +506,7 @@ export const QURAN_GUIDE_STORIES_TR: DeepPartial<QuranGuideStory>[] = [
       "Allah'ın planı çoğu zaman yıllar süren görünürdeki talihsizliklerin ardında gizlidir — kuyu, kölelik ve zindan, Yusuf'un şerefine giden adımlardı.",
       "Güçlüler güçlerini affederek gösterir: Gücünün zirvesinde Yusuf kendisine zulmedenleri bağışladı.",
     ],
-    quran: [
-      {
-        excerpt: "Kıssaların en güzeli — tek bir surede anlatılır.",
-      },
-    ],
+    quran: [{}],
     location: "Kenan, Mısır",
   },
   {
@@ -625,14 +525,7 @@ export const QURAN_GUIDE_STORIES_TR: DeepPartial<QuranGuideStory>[] = [
       "Mucizelere tanık olmak tek başına iman doğurmaz — hidayet, Allah'ın inatçı kalbe değil, alçakgönüllü kalbe verdiği bir lütuftur.",
       "Allah mazlumları kurtarır ve kibirlileri, ne kadar güçlü görünürlerse görünsünler hesaba çeker.",
     ],
-    quran: [
-      {
-        excerpt: "Musa Tur'da ve Firavun'un huzurunda.",
-      },
-      {
-        excerpt: "Doğumu ve yetişmesi.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Mısır, Sina",
   },
   {
@@ -651,14 +544,7 @@ export const QURAN_GUIDE_STORIES_TR: DeepPartial<QuranGuideStory>[] = [
       "Peygamberler Allah'ın şerefli insan kullarıdır, asla ibadet edilmezler — Kur'an İsa'nın gerçek konumunu aşırılığa karşı korur.",
       "Meryem'in iffeti, sabrı ve tevekkülü onu kadın erkek bütün müminler için bir iman örneği yapar.",
     ],
-    quran: [
-      {
-        excerpt: "Doğumu ve beşikte konuşması.",
-      },
-      {
-        excerpt: "Ne öldürüldü ne de çarmıha gerildi; yükseltildi.",
-      },
-    ],
+    quran: [{}, {}],
     location: "Filistin",
   },
   {
@@ -676,14 +562,7 @@ export const QURAN_GUIDE_STORIES_TR: DeepPartial<QuranGuideStory>[] = [
       "Allah'a davet eden kişi mesajı samimiyet ve sabırla tebliğ eder, ama sonucu Allah'a bırakır — hidayet vermek O'na aittir.",
       "İmtihanlar peygamberlerin yoludur; onun yaptığı gibi Allah rızası için zorluklara katlanmak, gerçek imanın alametidir.",
     ],
-    quran: [
-      {
-        excerpt: "Biz seni ancak âlemlere rahmet olarak gönderdik.",
-      },
-      {
-        excerpt: "Kendi aralarında merhametli, inkârcılara karşı çetindirler.",
-      },
-    ],
+    quran: [{}, {}],
     appLinks: [
       {
         label: "Siyer zaman çizelgesi",
@@ -702,17 +581,8 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Peygamber ﷺ imanın yetmişi aşkın şubesi olduğunu öğretmiştir; bunların en yükseği “Allah'tan başka ilah yoktur” şahadeti, en aşağısı ise yoldan eziyet veren bir şeyi kaldırmaktır. Bu da küçük iyiliklerin bile imandan olduğunu gösterir.",
       "Gerçek iman, dilden önce kalbin işidir: Allah'ı gerçekten tanımak, O'nu her şeyden çok sevmek, O'nun hoşnutsuzluğundan korkmak ve tamamen O'na dayanmak.",
     ],
-    quran: [
-      {
-        excerpt: "Peygamber, Rabbinden kendisine indirilene iman etti, müminler de…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "İman yetmiş küsur şubedir; en üstünü “Allah'tan başka ilah yoktur” demek, en aşağısı ise yoldan eziyet veren bir şeyi kaldırmaktır — haya da imandan bir şubedir.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Bugün şahadetini sıradan bir söz olarak değil, anlamına tam dikkat ederek yenile.",
       "Allah'ın isimlerinden birini öğren, anlamını kavra ve duanda O'na bu isimle yalvar.",
@@ -727,18 +597,8 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Yeryüzünde indirilen diğer farzların aksine namaz, Peygamber'in ﷺ miracı (İsra ve Miraç) sırasında ümmete farz kılınmıştır; bu, onu özel bir hediye ve müminin Allah'a yükselişinin aracı olarak öne çıkarır.",
       "Günde beş kez tekrarlandığı için namaz, bir ibadetle diğeri arasında imanı canlı tutan istikrarlı bir ritimdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Şüphesiz namaz hayâsızlıktan ve kötülükten alıkoyar. Allah'ı anmak ise elbette en büyüktür.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kıyamet gününde kulun amellerinden ilk hesaba çekileceği şey namazıdır; o düzgün olursa kurtuluşa erer ve başarır, bozuk olursa hüsrana uğrar ve kaybeder.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Bugün bir namazı, okurken Fatiha'nın kelimelerini anlayarak yavaşça kıl.",
       "Namazının bir yönünü güçlendirmek için Munib'in Namaz Öğren rehberini aç.",
@@ -754,12 +614,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Bu emir, anne babanın sabra en çok ihtiyaç duyduğu yaşlılık döneminde doruğa ulaşır: Bir zamanlar onlar sana nasıl baktıysa sen de onlara öyle bak ve merhametinden dolayı onlara tevazu kanadını indir.",
       "Bağlılık ölümle bitmez — anne baba için dua etmeye devam etmek, onlar adına sadaka vermek, dostlarına ve verdikleri sözlere saygı göstermek süregelen vefa davranışlarıdır.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbin, kendisinden başkasına kulluk etmemenizi ve anne babaya iyi davranmanızı kesin olarak emretti…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugün annene ya da babana güzel sözlerle telefon et veya mesaj gönder.",
       "Anne baban için isimlerini anarak dua et.",
@@ -774,12 +629,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Allah kendisinin “sabredenlerle beraber” olduğunu bildirir ve sabredenlere mükâfatlarını hesapsız vereceğini vaat eder — bu, neredeyse başka hiçbir vasfa verilmeyen bir şereftir.",
       "Peygamberler insanların en ağır imtihan edilenleriydi ve Kur'an onların sebatını — hastalıkta Eyyub'u, kederde Yakub'u, ihanet ve zindan karşısında Yusuf'u — örnek alınacak model olarak sunar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman edenler! Sabır ve namazla yardım dileyin. Şüphesiz Allah sabredenlerle beraberdir.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugün öfke yükseldiğinde, tepki vermeden önce dur, nefes al ve “İnnâ lillâhi ve innâ ileyhi râciûn” de.",
       "Bu hafta bir zorluk anını şikâyete değil, iki rekât namaza dönüştür.",
@@ -794,12 +644,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Sadaka sadece para değildir. Peygamber ﷺ, kardeşini güler yüzle karşılamanın bile sadaka olduğunu öğretmiştir; dolayısıyla hiç kimse veremeyecek kadar fakir değildir.",
       "Vermek hem malı hem de vereni arındırır, açgözlülüğün pençesini gevşetir ve merhameti geliştirir — zekât kelimesinin kendisinin arınma ve artış anlamına gelmesinin nedeni de budur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mallarını Allah yolunda harcayanların durumu, yedi başak bitiren bir tanenin durumu gibidir…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugün bir şey ver — para, zamanın ya da gerçekten güzel bir söz — küçük ve görünmez olsa bile.",
       "Munib'de zekât yükümlülüklerini gözden geçir ve bir sonraki ödemenin ne zaman olduğunu not et.",
@@ -814,12 +659,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Rahmet kapısı şaşırtıcı derecede geniştir: Allah, kendilerine çokça zulmetmiş olanlara bile ümitsizliğe düşmemelerini söyler; çünkü samimiyetle tövbe edenin bütün günahlarını bağışlar.",
       "Tövbe yalnızca büyük günahlara veya dramatik anlara mahsus değildir — gün boyu istiğfar (bağışlanma dilemek) kalbi yumuşak, amel defterini temiz tutar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "De ki: Ey kendi nefisleri aleyhine haddi aşan kullarım! Allah'ın rahmetinden ümidinizi kesmeyin…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugün anlamını düşünerek 100 kez “Estağfirullah” de ve yükün hafiflediğini hisset.",
       "Allah'ın hoşnut olmadığını bildiğin bir alışkanlığı belirle ve onu bırakmak için ilk somut adımı at.",
@@ -835,12 +675,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Kur'an müminleri bağışlanmaya ve “genişliği göklerle yer kadar olan” bir cennete koşmaya ve yarışmaya teşvik eder — cennet pasif olarak umulacak değil, aktif olarak peşinden gidilecek bir hedeftir.",
       "En büyük mükâfat bahçeler veya ırmaklar değil, Allah'ın yüzünü görmektir — cennet ehline vaat edilen en yüce sevinç.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Rabbinizden bir bağışlanmaya ve genişliği göklerle yer kadar olan bir cennete koşun…",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
         label: "Cennete yolculuk",
@@ -857,12 +692,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Kur'an'ın, kişi onun üzerine ölürse bağışlanmaz olarak belirttiği tek günah şirktir — Allah'a ortak koşmak; bundan aşağısını ise dilediği kimse için bağışlayabilir.",
       "Allah insanları ezmek için değil, kendisine geri döndürmek için uyarır; tövbe edeni ezmez — Kur'an'da her uyarı, geri dönüş için açık bir davetle birlikte gelir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Şüphesiz Allah kendisine ortak koşulmasını bağışlamaz; bundan başkasını ise dilediği kimse için bağışlar.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugün her namazdan sonra Allah'tan samimiyetle seni ateşten korumasını dile.",
       "Tevhidini yenile: Cehenneme karşı en sağlam koruma olan yalnızca Allah'a ibadet etmek üzerine tefekkür et.",
@@ -877,12 +707,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Zulüm şiddetle yasaklanmıştır; Peygamber ﷺ zulmün kıyamet gününde zalimin üzerinde karanlıklar olarak görüneceğini öğretmiştir.",
       "Adalet yalnızca hâkimler ve yöneticiler için değildir — dürüst sözde, adil alışverişte, sözünü tutmakta ve herkese hakkını vermekte yaşar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Kendinizin, anne babanızın ve akrabalarınızın aleyhine de olsa Allah için şahitler olarak adaleti ayakta tutun.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugün birine hakkını ver — adil bir ücret, dürüst bir cevap ya da ona borçlu olduğun bir takdir.",
       "Önyargının seni haksızlığa ittiği bir anı yakala ve onun yerine adaleti seç.",
@@ -897,11 +722,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Faydalı ilim uygulanmak ve aktarılmak içindir; Peygamber ﷺ âlimlerin peygamberlerin varisleri olduğunu, onlardan mal değil ilim miras aldıklarını öğretmiştir.",
       "Dinî ilim talep etmek başlı başına bir ibadettir ve Kur'an bilenlerle bilmeyenleri açıkça birbirinden ayırır — “hiç bir olurlar mı?”",
     ],
-    quran: [
-      {
-        excerpt: "Ve de ki: Rabbim, ilmimi artır.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugün Kur'an'dan yeni bir şey öğren — bir ayet, bir kelime veya bir hüküm — ve onu birine öğret.",
       "“Rabbi zidnî ilmâ” duasını ezberle ve çalışmaya başlamadan önce oku.",
@@ -916,11 +737,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Muhammed ﷺ peygamberlerin sonuncusu (Hâtemü'n-Nebiyyîn), son elçidir; bir Müslüman ondan önceki bütün peygamberlere — Nuh, İbrahim, Musa, İsa ve diğerlerine — aralarında ayrım yapmadan iman etmelidir.",
       "Peygamberler ilah değil, insan ve Allah'ın kullarıydı; Kur'an onları onurlandırır ama onları kesin olarak yaratılmışlar tarafında tutar, asla Yaratıcı ile birlikte ibadet edilmezler.",
     ],
-    quran: [
-      {
-        excerpt: "Onların kıssalarında akıl sahipleri için bir ibret vardır…",
-      },
-    ],
+    quran: [{}],
     appLinks: [
       {
         label: "Peygamber kıssaları",
@@ -936,11 +753,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Kur'an, İsa'nın annesi Meryem'i bütün müminler için bir örnek olarak sunar ve anneleri o kadar yüceltir ki, bilinen bir öğreti cenneti onların ayaklarının altına yerleştirir.",
       "Her iki cins de tek bir kökene dayanır — “sizi tek bir nefisten yarattı” — ve bu, Nisa Suresi'nin ilk ayetinden itibaren ortak bir insanlık ve onur temeli kurar.",
     ],
-    quran: [
-      {
-        excerpt: "Sizi tek bir nefisten yaratan ve ondan da eşini yaratan Rabbinizden sakının…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugün hayatındaki bir kadını — annen, eşin, kız kardeşin veya kızın — ona borçlu olduğun belirli bir hak veya iyilikle onurlandır.",
     ],
@@ -954,11 +767,7 @@ export const QURAN_GUIDE_THEMES_TR: DeepPartial<QuranGuideTheme>[] = [
       "Yaygın olarak aktarılan bir terbiye hikmeti, çocuklara içinde bulundukları evreye göre davranmayı öğütler — ilk yıllarda onlarla oynamak, ardından onlara öğretmek ve onları yumuşaklıkla terbiye etmek, büyüdüklerinde ise onlarla dost olmak.",
       "Salih bir çocuk yetiştirmek bu hayatın ötesine uzanan bir yatırımdır: Anne babası için dua eden salih bir evlat, ölümlerinden çok sonra da onlara fayda sağlamaya devam eder.",
     ],
-    quran: [
-      {
-        excerpt: "Ey iman edenler! Kendinizi ve ailenizi bir ateşten koruyun…",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Bugün bir çocuğa kısa bir ayet veya tek bir güzel davranış öğret; sabırla ve cesaretlendirerek.",
       "Çocukların (veya bakımındaki çocuklar) için, dürüst ve Allah'ın sevdiği kimseler olmaları için isimlerini anarak dua et.",
@@ -1085,26 +894,20 @@ export const QURAN_GUIDE_VOCABULARY_TR: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Tek gerçek ilah — bütün güzel isimleri kapsayan özel isim.",
     frequency: "2.700'den fazla geçer",
     example: "Bismillah — Allah'ın adıyla",
-    quranRef: {
-      excerpt: "Rahmân ve Rahîm olan Allah'ın adıyla.",
-    },
+    quranRef: {},
   },
   {
     meaning:
       "Rab, Efendi, Terbiye edip besleyen — yaratan, sahip olan, besleyip büyüten ve yöneten.",
     frequency: "Çok sık",
     example: "Rabbenâ — Rabbimiz",
-    quranRef: {
-      excerpt: "Hamd, âlemlerin Rabbi Allah'a mahsustur.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Allah'tan gelen ve yaratılmışlar arasındaki rahmet, merhamet ve şefkat.",
     frequency: "Yaygın kök: ر-ح-م",
     example: "er-Rahmân, er-Rahîm",
-    quranRef: {
-      excerpt: "O, Rahmân'dır, Rahîm'dir.",
-    },
+    quranRef: {},
   },
   {
     meaning: "Bahçe, Cennet — mükâfatın ebedî yurdu.",
@@ -1145,9 +948,7 @@ export const QURAN_GUIDE_VOCABULARY_TR: DeepPartial<QuranGuideVocabEntry>[] = [
     meaning: "Nur — hidayet, vahiy ve kalbin aydınlanması.",
     frequency: "Sık",
     example: "Allah göklerin ve yerin nurudur",
-    quranRef: {
-      excerpt: "Allah, göklerin ve yerin nurudur…",
-    },
+    quranRef: {},
   },
   {
     meaning:
@@ -1361,8 +1162,6 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_TR: DeepPartial<QuranGuideMemorizati
 
 export const QURAN_GUIDE_DAILY_LESSONS_TR: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "Ey iman edenler! Sabrederek ve namaz kılarak (Allah'tan) yardım dileyin. Şüphesiz Allah sabredenlerle beraberdir.",
     context:
       "Medine'de inen Bakara sûresinden. Allah, sıkıntıyla karşılaşan mümin için iki güç kaynağını bir araya getirir — sabırla direnmek ve namaza yönelmek — ve sebat edenlere özel beraberliğini vaat eder.",
     reflection:
@@ -1371,7 +1170,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TR: DeepPartial<QuranGuideDailyLesson>[] 
       "Bugün bir vakit namazı acele etmeden kılın ve secdenizde, içinden geçtiğiniz belirli imtihan için Allah'tan açıkça sabır dileyin.",
   },
   {
-    translation: "Rahmetim her şeyi kuşatmıştır.",
     context:
       "A'râf sûresinden; Mûsâ (a.s.) ve kavmi bağlamında söylenmiştir. Allah rahmetini her şeyi kuşatan bir rahmet olarak anlatır — o kadar geniştir ki, yalnızca haksızlıkta ısrar edenlere ayrılmış olan azabından önce gelir ve ona galip gelir.",
     reflection:
@@ -1380,7 +1178,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TR: DeepPartial<QuranGuideDailyLesson>[] 
       "Kırgın olduğunuz bir kişiyi seçin, bugün onu kalbinizde içtenlikle affedin ve Allah'ın ona da hidayet vermesi ve onu bağışlaması için kısa bir dua edin.",
   },
   {
-    translation: "Eğer şükrederseniz, elbette size (nimetimi) artıracağım.",
     context:
       "İbrâhîm sûresinden; Mûsâ'nın İsrâiloğulları'na yaptığı hatırlatmanın bir parçası. Allah, nimetini artırmayı doğrudan şükre bağlar — bir nimete şükretmek onu çoğaltan şeyin ta kendisidir, nankörlük ise onun kaybını davet eder.",
     reflection:
@@ -1389,7 +1186,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TR: DeepPartial<QuranGuideDailyLesson>[] 
       "Bu gece uyumadan önce belirli üç nimet için sesli olarak “Elhamdülillah” deyin; her birini adıyla anın ki şükrünüz otomatik değil, bilinçli olsun.",
   },
   {
-    translation: "İnsanlara güzel söz söyleyin.",
     context:
       "İsrâ sûresinden. Müminlerin nasıl davranması gerektiğine dair yönlendirmeler arasında Allah, insanlara — bütün insanlara — en güzel şekilde konuşmamızı emreder; çünkü sert sözler, şeytanın ayrılık tohumu ektiği kapılardan biridir.",
     reflection:
@@ -1398,7 +1194,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TR: DeepPartial<QuranGuideDailyLesson>[] 
       "Bugün bir kişiyi, içinde gizli bir eleştiri olmadan içtenlikle teşvik edin veya ona teşekkür edin; söylemeye niyetlendiğiniz sert bir sözü de tutun.",
   },
   {
-    translation: "Kim Allah'a tevekkül ederse, O ona yeter.",
     context:
       "Talâk sûresinden; boşanma ve geçim hükümleri arasında — insanların maddi açıdan en çok kaygılandığı yerde. Allah orada, kendisinden sakınana hiç ummadığı yerden rızık vereceğini, kendisine tevekkül edenin de O'nu yeterli bulacağını vaat eder.",
     reflection:
@@ -1407,7 +1202,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TR: DeepPartial<QuranGuideDailyLesson>[] 
       "Sizi kaygılandıran bir kararı ele alın, onun için iki rekât istihare namazı kılın veya içten bir dua edin, sonra sonucu Allah'a bırakın.",
   },
   {
-    translation: "Rabbim, ilmimi artır.",
     context:
       "Tâhâ sûresinden. Bu, Kur'an'da Allah'ın Peygamber'e ﷺ daha fazlasını istemesini emrettiği tek şeydir — ilim. Bu da faydalı ilmin ne kadar değerli olduğunu ve ne kadar âlim olursa olsun hiç kimsenin onu aramayı bitirmediğini gösterir.",
     reflection:
@@ -1416,8 +1210,6 @@ export const QURAN_GUIDE_DAILY_LESSONS_TR: DeepPartial<QuranGuideDailyLesson>[] 
       "Bu kısa duayı, “Rabbi zidnî ilmâ”yı ezberleyin ve güne başlamadan önce sabah namazından sonra onu söylemeyi alışkanlık hâline getirin.",
   },
   {
-    translation:
-      "Mallarını Allah yolunda harcayanların durumu, yedi başak bitiren bir tanenin durumu gibidir…",
     context:
       "Bakara sûresinden. Allah, sadakanın nasıl büyüdüğüne dair canlı bir tablo çizer: Tek bir tohum yedi başak verir, her başakta yüz tane vardır — yedi yüz katlık bir karşılık; Allah dilediğine daha da kat kat verir. O'nun rızası için verilen mal asla gerçekten kaybolmaz.",
     reflection:

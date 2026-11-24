@@ -13,22 +13,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Ebu Hurejre transmeton se Lajmëtari i Allahut ﷺ tha: «Kush kryen haxhin për Allahun dhe nuk bën rafas e as mëkat, kthehet ashtu si ditën kur e lindi nëna e tij» (Sahih el-Buhari 1521; Sahih Muslim 1350).",
       "Ai tha gjithashtu: «Haxhi i pranuar (haxhi mabrur) nuk ka shpërblim tjetër përveç Xhennetit» (Sahih el-Buhari 1773; Sahih Muslim 1349). Pranimi lidhet me sinqeritetin dhe mbajtjen e haxhit pa turp e pa mëkat — jo thjesht me plotësimin e hapave të jashtëm.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kush kryen haxhin për Allahun dhe nuk bën rafas e as mëkat, kthehet ashtu si ditën kur e lindi nëna e tij.",
-      },
-      {
-        excerpt:
-          "Kush kryen haxhin për Allahun dhe nuk bën rafas e as mëkat, kthehet ashtu si ditën kur e lindi nëna e tij.",
-      },
-      {
-        excerpt: "Haxhi i pranuar nuk ka shpërblim tjetër përveç Xhennetit.",
-      },
-      {
-        excerpt: "Haxhi i pranuar nuk ka shpërblim tjetër përveç Xhennetit.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Intendoje haxhin vetëm për Allahun — ruaje gjuhën dhe karakterin gjatë gjithë udhëtimit.",
       "Përdor listën e haxhit në aplikacion vetëm si kujtesë; mbaje zemrën të fokusuar te pranimi.",
@@ -46,16 +31,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Ebu Hurejre transmeton se Profeti ﷺ tha: «Kryerja e umres shlyen mëkatet ndërmjet saj dhe asaj të mëparshme, dhe haxhi i pranuar nuk ka shpërblim tjetër përveç Xhennetit» (Sahih el-Buhari 1773; Sahih Muslim 1349).",
       "Umra mund të kryhet në çdo kohë të vitit. Është më e shkurtër se haxhi, por mbetet adhurim i madh: ihram, tavaf, sa'j dhe rruajtje ose shkurtim flokësh.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kryerja e umres shlyen mëkatet ndërmjet saj dhe asaj të mëparshme, dhe haxhi i pranuar nuk ka shpërblim tjetër përveç Xhennetit.",
-      },
-      {
-        excerpt:
-          "Kryerja e umres shlyen mëkatet ndërmjet saj dhe asaj të mëparshme, dhe haxhi i pranuar nuk ka shpërblim tjetër përveç Xhennetit.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: ["Hap listën e umres kur të jesh gati të ecësh ritualet me radhë."],
     appLinks: [
       {
@@ -70,18 +46,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Abd er-Rahman ibn Ja'mar transmeton se Profeti ﷺ tha: «Haxhi është Arafah» (Sunan Ebu Davud 1949; Xhami' et-Tirmidhi 889). Kush humb qëndrimin brenda kufijve të Arafahut në kohën e saj, ka humbur haxhin e atij viti.",
       "Për ata që nuk janë në haxh, agjërimi në Ditën e Arafahut rekomandohet shumë: Ebu Katade transmeton se agjërimi në Arafah shlyen mëkatet e vitit të kaluar dhe të ardhshëm (Sahih Muslim 1162). Haxhinjtë vetë nuk agjërojnë që ta kushtojnë ditën duasë.",
     ],
-    hadith: [
-      {
-        excerpt: "Haxhi është Arafah.",
-      },
-      {
-        excerpt: "Haxhi është Arafah.",
-      },
-      {
-        excerpt:
-          "Agjërimi në Ditën e Arafahut, shpresoj nga Allahu, shlyen mëkatet e vitit para saj dhe të vitit pas saj.",
-      },
-    ],
+    hadith: [{}, {}, {}],
   },
   {
     title: "Haxhi — shtyllat e pestë",
@@ -91,25 +56,8 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Thirrja u shpall të gjithë njerëzve: «Shpall u njerëzve haxhin; do të vijnë te ti këmbë dhe mbi çdo deve të hollë; do të vijnë nga çdo shteg i largët» (Kur'ani 22:27).",
       "Ibn Omar transmeton se Profeti ﷺ tha se islami ndërtohet mbi pesë: dëshmi, namaz, zekat, agjërimi i Ramazanit dhe haxhi i Shtëpisë për atë që është i aftë (Sahih el-Buhari 8; Sahih Muslim 16). Ulema bien dakord se është i detyrueshëm një herë në jetë kur plotësohen kushtet; përsëritja është virtut vullnetar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe u takon njerëzve haxhi i Shtëpisë — atij që arrin të gjejë rrugë drejt saj...",
-      },
-      {
-        excerpt: "Shpall u njerëzve haxhin; do të vijnë te ti këmbë dhe mbi çdo deve të hollë...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Islami ndërtohet mbi pesë: dëshmia se nuk ka zot tjetër përveç Allahut dhe se Muhammedi është Lajmëtari i Allahut, kryerja e namazit, dhënia e zekatit, agjërimi i Ramazanit dhe haxhi i Shtëpisë për atë që arrin rrugë drejt saj.",
-      },
-      {
-        excerpt:
-          "Islami ndërtohet mbi pesë... dhe haxhi i Shtëpisë për atë që arrin rrugë drejt saj.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
   },
   {
     title: "Aftësia (istita'ah)",
@@ -119,11 +67,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Kushti në Kur'anin 3:97 është aftësia (istita'ah). Ulema klasik e përmbledhin si: shëndet fizik për udhëtimin, pasuri hallall të mjaftueshme për udhëtimin dhe nevojat e të varurve gjatë mungesës, dhe rrugë e sigurt e hapur.",
       "Kush nuk i ka këto mjete këtë vit nuk mëkaton duke e shtyrë derisa të jetë i aftë. Aftësia vlerësohet rast pas rasti — sëmundja, borxhi që duhet shlyer ose udhëtimi i pasigurt mund ta heqin detyrimin e menjëhershëm. Pyet një alim të kualifikuar kur situata të jetë e paqartë.",
     ],
-    quran: [
-      {
-        excerpt: "...atij që arrin të gjejë rrugë drejt saj.",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Shlyej borxhet e detyrueshme dhe rregullo mbajtjen e të varurve para rezervimit.",
       "Verifiko paketat vetëm përmes kanaleve zyrtare (shiko temat e Përgatitjes).",
@@ -137,16 +81,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas transmeton se Profeti ﷺ tha se gruaja nuk duhet të udhëtojë pa mahram, dhe burri nuk duhet të hyjë te ajo pa mahram (Sahih el-Buhari 1862; Sahih Muslim 1341). Shumë ulema e zbatojnë këtë për udhëtimin e haxhit dhe umres.",
       "Disa ulema të mëvonshëm — duke peshuar sigurinë, domosdoshmërinë dhe udhëtimin bashkëkohor — lejojnë gruan të udhëtojë për haxhin e detyrueshëm brenda një grupi të besueshëm kur nuk ka mahram. Kjo mbetet çështje fikh e diskutueshme.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Gruaja nuk duhet të udhëtojë pa mahram, dhe burri nuk duhet të hyjë te ajo pa mahram pranë saj.",
-      },
-      {
-        excerpt:
-          "Nuk lejohet gruas që beson në Allahun dhe Ditën e Fundit të udhëtojë një ditë e natë pa mahram.",
-      },
-    ],
+    hadith: [{}, {}],
     madhhabNote:
       "Shumica mendon se gruaja ka nevojë për mahram në udhëtimin e haxhit. Disa ulema të mëvonshëm lejojnë udhëtimin në grup të sigurt grash për haxhin e detyrueshëm. Ndiq alimin që i beson dhe rregulloret e autoritetit të haxhit.",
     disclaimer: "Ky është një përmbledhje e përgjithshme, jo fetva personale për rrethanat tuaja.",
@@ -160,12 +95,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Tamattu': kryej umre të plotë në muajt e haxhit, dil nga ihrami, pastaj hy përsëri në ihram për haxh më 8 Dhul-Hixhe. Këtë bën shumica e haxhinjve sot; kërkohet gjithashtu hady.",
       "Allahu thotë për ata që bashkojnë ritualet: «...Kush përfiton nga umra për haxh, le të sjellë kurban sa lehtë arrin...» dhe kush nuk mund, agjërojë tri ditë gjatë haxhit dhe shtatë pas kthimit (Kur'ani 2:196).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe plotësoni haxhin dhe umren për Allahun... Kush përfiton nga umra për haxh, le të sjellë kurban sa lehtë arrin. Kush nuk gjen — agjërim tri ditë gjatë haxhit dhe shtatë kur ktheheni...",
-      },
-    ],
+    quran: [{}],
     actions: [
       "Vendos llojin me udhëheqësin e grupit para mikat.",
       "Nëse bën tamattu', plotëso umren plotësisht para se të hysh përsëri në ihram për haxh.",
@@ -186,16 +116,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Ibn Abbas transmeton se Profeti ﷺ caktoi mikate për njerëzit: Zul-Hulajfe për Medinen, El-Xhufhe për Sham, Karn el-Manazil për Nejd dhe Jelamlam për Jemen; dhe për Irakun, Dat Irk. Tha se janë për ta dhe për këdo që kalon aty duke synuar haxh ose umre; dhe kush banon brenda këtyre vendeve hyn në ihram nga vendi ku niset, madje edhe banorët e Mekës nga Mekka (Sahih el-Buhari 1524; Sahih Muslim 1181).",
       "Aeroportet dhe portet moderne kanë pika ihrami ose procedura të shpallura — ndiq udhëzimet e transportuesit dhe Ministrisë së Haxhit dhe Umres që të mos kalosh kufirin pa ihram.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Lajmëtari i Allahut ﷺ caktoi Zul-Hulajfe për Medinen, El-Xhufhe për Sham, Karn el-Manazil për Nejd dhe Jelamlam për Jemen... Këto mikate janë për banorët e atyre vendeve dhe për ata që kalojnë aty duke synuar haxh ose umre...",
-      },
-      {
-        excerpt:
-          "Lajmëtari i Allahut ﷺ caktoi mikate... Kush banon brenda këtyre kufijve le të hyjë në ihram nga vendi ku niset...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "Hyrja në ihram",
@@ -205,19 +126,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Burrat mund të vërin parfum në trup para ihramit, jo në veshjet e ihramit pas hyrjes në gjendje (Sahih el-Buhari 1539). Pastaj formo nijetin dhe fillo telbijen.",
       "Telbija e mësuar nga Profeti ﷺ: «Lebbeyk Allāhumma lebbeyk, lebbeyke lā šerīke leke lebbeyk, inne'l-hamde ve'n-ni'mete leke ve'l-mulke, lā šerīke lek» — vazhdon deri sa të fillojë tavafi i umres, ose deri te guri i Xhemrat el-Akaba për haxh sipas praktikës së njohur (Sahih el-Buhari 1549; Sahih Muslim 1184).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Aisha tha: I vija parfum Lajmëtarit të Allahut ﷺ për ihramin e tij para se të hynte në ihram...",
-      },
-      {
-        excerpt:
-          "Lebbeyk Allāhumma lebbeyk, lebbeyke lā šerīke leke lebbeyk, inne'l-hamde ve'n-ni'mete leke ve'l-mulke, lā šerīke lek.",
-      },
-      {
-        excerpt: "Profeti ﷺ ngriti zërin me telbijen: Lebbeyk Allāhumma lebbeyk...",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Paketo të paktën dy grupe ihrami për burrat; mbaj artikuj pa parfum gati.",
       "Praktiko telbijen para udhëtimit që të rrjedhë në rrugë.",
@@ -261,12 +170,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Burrat bëjnë raml (hap të shpejtë) në tre rrethimet e para dhe idtiba' (zbulim i shpatullës së djathtë) gjatë këtij tavafi ardhjeje për umre, sipas sunnetit të njohur.",
       "Midis këndit Jemenas dhe Gurit të Zi rekomandohet të thuhet: «Zoti ynë, na jep të mirë në këtë botë dhe të mirë në ahiret, dhe na mbro nga dënimi i zjarrit» (Kur'ani 2:201).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Zoti ynë, na jep të mirë në këtë botë dhe të mirë në ahiret, dhe na mbro nga dënimi i zjarrit.",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Dy rekate dhe Zemzem",
@@ -275,11 +179,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Pas tavafit falo dy rekate pas Makam Ibrahim nëse ka hapësirë, ose diku tjetër në xhami nëse ka turm — lidhur me fjalët e Allahut: «...Dhe merrni, o besimtarë, nga vendi i Ibrahimit vend lutjeje...» (Kur'ani 2:125).",
       "Pastaj pi ujë Zemzem. Përshkrimi i Xhabirit për haxhin e Profetit ﷺ përfshin pirjen e Zemzemit pas tavafit; Profeti ﷺ tha se Zemzemi është për atë që pihet (raporte autentike të grumbulluara nga ulema të mëvonshëm; nijeti dhe duaja rekomandohen).",
     ],
-    quran: [
-      {
-        excerpt: "...Dhe merrni, o besimtarë, nga vendi i Ibrahimit vend lutjeje...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Sa'j midis Safa dhe Marves",
@@ -288,12 +188,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Allahu thotë: «Me të vërtetë, Safa dhe Marva janë midis shenjave të Allahut. Kush bën haxh Shtëpisë ose umre — nuk ka mëkat të ecë midis tyre...» (Kur'ani 2:158).",
       "Ece shtatë herë midis Safa dhe Marves, duke filluar nga Safa. Në Safa kthehu drejt Ka'bes, ngrit duart me tekbir dhe dua si Profeti ﷺ. Burrat vrapojnë midis shenjave të gjelbra.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Me të vërtetë, Safa dhe Marva janë midis shenjave të Allahut. Kush bën haxh Shtëpisë ose umre — nuk ka mëkat të ecë midis tyre...",
-      },
-    ],
+    quran: [{}],
   },
   {
     title: "Halq ose taqsir — përfundimi i umres",
@@ -302,16 +197,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Burrat rruajnë kokën (halq) — për të cilët Profeti ﷺ lut tri herë — ose shkurtojnë në mënyrë të barabartë (taqsir). Gratë mbledhin flokët dhe shkurtojnë afërsisht sa gisht. Me këtë umra përfundon dhe ndalimet e ihramit hiqen.",
       "Abdullah ibn Omar transmeton se Lajmëtari i Allahut ﷺ tha: «O Allah, ki mëshirë për ata që rruajnë kokën.» Thanë: «Edhe për ata që shkurtojnë, o Lajmëtar i Allahut?» Tha: «O Allah, ki mëshirë për ata që rruajnë kokën.» Thanë: «Edhe për ata që shkurtojnë?» Herën e tretë tha: «Edhe për ata që shkurtojnë» (Sahih el-Buhari 1727; Sahih Muslim 1301).",
     ],
-    hadith: [
-      {
-        excerpt:
-          "O Allah, ki mëshirë për ata që rruajnë kokën... Dhe (herën e tretë) për ata që shkurtojnë.",
-      },
-      {
-        excerpt:
-          "O Allah, fal ata që rruajnë kokën... pastaj herën e tretë: edhe ata që shkurtojnë flokët.",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "8 Dhul-Hixhe — Dita e Tarvijes",
@@ -320,12 +206,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Për haxhinjtë tamattu': formo nijetin për haxh dhe hy përsëri në ihram nga vendbanimi në Mekë, duke rifilluar telbijen. Haxhinjtë ifrad dhe kiran janë tashmë në ihram.",
       "Udhëto në Minë dhe falo Dhuhr, Asr, Magrib, Isha dhe Fajrin e nesërm, secila e shkurtuar në dy rekate në kohën e vet, duke ndjekur praktikën e Profetit ﷺ në Haxhin e Lamtumirës siç transmeton Xhabir (Sahih Muslim 1218). Kaloje ditën dhe natën në adhurim, duke pritur Arafahun.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Transmetimi i gjatë i Xhabirit për Haxhin e Lamtumirës të Profetit ﷺ — duke përfshirë qëndrimin në Minë dhe rendin e riteve.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Hap listën e haxhit në mëngjesin e ditës së tetë."],
     appLinks: [
       {
@@ -341,15 +222,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Falo Dhuhr dhe Asr së bashku dhe të shkurtuara në kohën e Dhuhr (džem' takdim), pastaj kushto pjesën tjetër të ditës duasë në vend të namazit nafile — duke ndjekur praktikën e Profetit ﷺ (Sahih Muslim 1218).",
       "Pas perëndimit udhëto me qetësi në Muzdelife. Bashko Magrib dhe Isha (Isha e shkurtuar), pusho natën dhe mblidh gurë për gjuajtjen. Të dobëtit dhe gratë mund të largohen për Minë pas mesnatës sipas lehtësive të njohura në sunnet.",
     ],
-    hadith: [
-      {
-        excerpt: "Haxhi është Arafah.",
-      },
-      {
-        excerpt:
-          "Profeti ﷺ bashkoi Dhuhr dhe Asr në Arafah, pastaj u nis pas perëndimit drejt Muzdelifes...",
-      },
-    ],
+    hadith: [{}, {}],
   },
   {
     title: "10 Dhul-Hixhe — Dita e Nahrit",
@@ -360,11 +233,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Rruaj (halq) ose shkurto (taqsir); gratë shkurtojnë sa gisht. Pas gjuajtjes dhe rruajtjes/shkurtimit vjen lirimi i parë (tahallul evvel) — shumica e ndalimeve hiqen përveç intimitetit.",
       "Shko në Mekë për Tavaf el-Ifade — shtylla e haxhit — dhe sa'j për haxhinjtë tamattu' (ifrad/kiran që kanë bërë sa'j me tavafin e ardhjes ndjekin vendimin e medhhebit). Me këtë përfundon lirimi i plotë nga ihrami.",
     ],
-    quran: [
-      {
-        excerpt: "...Kush përfiton nga umra për haxh, le të sjellë kurban sa lehtë arrin...",
-      },
-    ],
+    quran: [{}],
     madhhabNote:
       "Rendi i riteve të Ditës së Nahrit ka fleksibilitet në sunnet; medhhebet ndryshojnë për rendin e saktë dhe kur kërkohet sa'j për çdo lloj haxhi. Ndiq udhërrëfyesin e grupit.",
   },
@@ -376,22 +245,8 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Çdo pasdite pas Dhuhr hidh shtatë gurë te secili prej tre shtyllave me radhë — e vogla, pastaj e mesme, pastaj e madhe — me tekbir në çdo gur. Kush nxiton mund të largohet pas gjuajtjes më 12 (Kur'ani 2:203).",
       "Para se të largohesh nga Mekka, kryej Tavaf el-Vada që veprimi i fundit me Shtëpinë të jetë lamtumirë. Ibn Abbas transmeton se njerëzit u urdhëruan që veprimi i fundit të jetë te Shtëpia, por u lehtësoi për gruan menstruuese (Sahih el-Buhari 1755; Sahih Muslim 1328).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dhe kujtoni Allahun në ditë të numëruara. Kush nxiton në dy ditë — nuk ka mëkat; kush vonon — nuk ka mëkat — për atë që druhet nga Allahu...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Njerëzit u urdhëruan të kryejnin tavafin e lamtumirës së Ka'bes si rituali i fundit, përveç grave menstruuese që u falën.",
-      },
-      {
-        excerpt:
-          "Njerëzit u urdhëruan që veprimi i fundit të jetë te Shtëpia, por u lehtësoi për gruan në menstruacion.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
   },
   {
     title: "Shtyllat dhe detyrimet",
@@ -411,12 +266,7 @@ export const HAJJ_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
       "Hadithi i kthimit pa mëkat (Buhari 1521; Muslim 1350) tregon qartë se haxhin e prishin turpi (rafas), mëkati (fusuk) dhe debati. Durimi, butësia dhe ndihma për haxhinjtë e tjerë janë pjesë e adhurimit.",
       "Mos lejo që telefoni dhe biseda e kotë të dominojnë Arafahun dhe xhaminë. Lësho vend në tavaf; mos shty drejt Gurit të Zi. Haxhi i pranuar shoqëron Xhennetin — përpiq për karakter të shkëlqyer gjatë gjithë udhëtimit.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Kush kryen haxhin për Allahun dhe nuk bën rafas e as mëkat, kthehet ashtu si ditën kur e lindi nëna e tij.",
-      },
-    ],
+    hadith: [{}],
     actions: ["Vendos nijet ditore: një veprim mirësie dhe një dua sinqere mbi turmin."],
   },
   {

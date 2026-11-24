@@ -16,21 +16,8 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       "Mo'min osonlik va qiyinchilikda, ovoz chiqarib va ​​yashirin duo qiladi, albatta, Alloh har bir chaqiriqni eshitadi va xolisni quruq qo'l bilan qaytarmaydi. U shu qadar yaqinki, U: «Dovotchining chaqirig'iga, qachon Menga duo qilsa, ijobat qilaman», deydi.",
       "Javob Rasululloh sollallohu alayhi vasallam o'rgatgan uchta shakldan birini oladi: Alloh so'ragan narsani beradi; Yoki uni to'xtatib qo'yadi va oxirat uchun teng yoki kattaroq ajrni saqlaydi. Yoki unga teng zararni qaytarur. Shunday qilib, samimiy duo hech qachon javobsiz qolmaydi - ba'zida eng katta rahm-shafqat biz ko'rmaydigan javobdadir.",
     ],
-    quran: [
-      {
-        excerpt: "Robbingiz: «Menga duo qilinglar. Men sizga javob beraman.",
-      },
-      {
-        excerpt:
-          "Agar bandalarim sendan Men haqimda so'rasalar, albatta, Men yaqinman. Men chaqiruvchining chaqirig'iga, u Menga duo qilganida ijobat qilaman.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Duo ibodatdir. — dedilar, so'ng: «Robbingiz: «Menga duo qilinglar», dedi. Men sizga javob beraman. (Nu'mon ibn Bashir)",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{}],
   },
   {
@@ -42,16 +29,7 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       "Alloh taologa uchta botiniy sifat bilan duo qiling: tavoze, Uning ijobat qila olishiga va ijobat etishiga ishonch va U haqida yaxshi fikrda bo'lish (husn al-zann). Imkoniyatingiz bo'lgan joyda qiblaga yuzlaning, qo'l ko'taring, muborak vaqtlarni tanlab, dunyo va oxirat ishlarini so'rang. Muhim so'rovlarni takrorlash va boshlaganingizdek - maqtov va salovot bilan yakunlash tavsiya etiladi.",
       "Eng muhimi, shoshilmang. Rasululloh sollallohu alayhi vasallam: «Qo‘ng‘iroq qildim, qo‘ng‘iroq qildim, ammo javob bermadi», desa, duo ijobat bo‘ladi, deb ogohlantirganlar. So'rashda davom etishning o'zi ibodatdir va Alloh taolo o'z eshigini taqillatgan bandasini yaxshi ko'radi.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Xizmatkorning duosi shoshmay, “Men duo qildim, lekin ijobat boʻlmadi”, desa, ijobat boʻladi. (Abu Hurayra)",
-      },
-      {
-        excerpt:
-          "Sizlardan biringiz namoz o‘qisa, Parvardigoriga hamd va tasbih aytishdan boshlasin, so‘ngra Payg‘ambar sollallohu alayhi vasallamga salovot aytsin, so‘ngra xohlagan narsani so‘rasin. (Fadala ibn Ubayd)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Har bir duoni Alhamdulillah bilan oching va Payg'ambarimiz sollallohu alayhi vasallamga salovot ayting.",
       "Allohdan o'zingizga eng munosib ismlar bilan so'rang (masalan, rizqni Ya Razzoq, mag'firatni Ya G'afur).",
@@ -67,16 +45,7 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       "Halol rizq – kuchli kalit. Rasululloh sollallohu alayhi vasallam qoʻllarini osmonga koʻtarib: “Yo Rabbiy, yo Parvardigorim”, deb yigʻlayotgan bir yoʻlovchini taʼriflaganlar: “Uning taomi harom, ichganligi harom, kiyimi harom va haromdan oziqlangan boʻlsa, unga qanday javob berish mumkin?”. Daromadni asrash, gunohdan tavba qilish, biror gunohni so‘ramaslik, qarindosh-urug‘ rishtalarini uzish duo va uning qabul qilinishi o‘rtasidagi to‘siqlarni olib tashlaydi.",
       "Shunday bo'lsa ham, qabul qilish biz nazorat qiladigan savdo emas, oxir oqibat Allohning rahmatidir. Shuning uchun mo'min o'zining eng yaxshi sa'y-harakatlarini - ixlos, halol yashash, tavbani kamtar ishonch bilan birlashtiradi va agar javob kechiktirilsa, hech qachon umidsizlikka tushmaydi. Zaiflik va o'tmishdagi gunohlar so'rashni to'xtatish uchun sabab emas; Ular Rohmanga qaytishga ko'proq sababdir.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "...uning taomi harom, ichimligi harom, kiyimi harom, haromdan oziqlangan — unga qanday javob berish mumkin? (Abu Hurayra)",
-      },
-      {
-        excerpt:
-          "Bandaning duosi ijobat bo'ladi, toki u biron gunoh yoki qarindoshlik rishtalarini uzishni so'ramasa. (Abu Hurayra)",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Daromad va xarajatlaringizni qonuniylik uchun ko'rib chiqing - bu sizning duoingizga bevosita ta'sir qiladi.",
       "Uzoq duolardan oldin istig'for va sidqidildan tavba qiling.",
@@ -91,16 +60,7 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       "Eng kuchlilari quyidagilardir: kechaning oxirgi uchdan bir qismi, Alloh taolo eng past osmonga tushsa va: «Kim Mendan so'raydi, unga bersam?», deb nido qiladi; namozdagi sajda, Allohga eng yaqin joy; azon va iqomat orasidagi vaqt; bir kishi ro'za tutayotgan paytda, ayniqsa iftorlik paytida; yomg'ir paytida; va quyosh botishidan oldin jumaning oxirgi soati, unda duo rad etilmaydigan soat bor.",
       "Muborak joylar va hollar qatoriga hajda Arafada turish, harom hovlida bo'lish, musofirning ota-onaning farzandi uchun duosi va zulmga uchragan kishining duosi kiradi. Doimiy iltijo qilish uchun ularni sobit langar sifatida foydalaning.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Parvardigorimiz har kecha tunning oxirgi uchdan birida eng past osmonga tushib: “Kim Menga duo qilyapti, men unga ijobat qilsam? Kim Mendan so'raydi, unga bersam? (Abu Hurayra)",
-      },
-      {
-        excerpt:
-          "Bandaning Parvardigoriga eng yaqini sajda holatidadir. Bas, unda ko'p duo qiling. (Abu Hurayra)",
-      },
-    ],
+    hadith: [{}, {}],
     appLinks: [{}, {}],
   },
   {
@@ -114,14 +74,10 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sayyid al-Istig'for (mag'firat so'rash boshlig'i)",
         when: "Har kuni ertalab va kechqurun bir marta",
-        translation:
-          "Allohim, Sen mening Robbimsan. Sendan o'zga iloh yo'q. Sen meni yaratding va men Sening qulingman va qo'limdan kelgancha ahdingga va va'daga sodiqman. Men qilgan yomonlikdan Sendan panoh tilayman. Menga bergan ne’matingni tan olaman va gunohimga iqror bo‘ldim, meni mag‘firat et, chunki gunohlarni Sendan boshqa hech kim kechirmas.",
       },
       {
         title: "Hasbiyallohu la ilaha illa huva",
         when: "Har kuni ertalab va kechqurun etti marta",
-        translation:
-          "Menga Alloh kifoyadir. Undan o'zga iloh yo'q. Unga tavakkul qildim va U aziz Arshning Robbidir.",
       },
     ],
     appLinks: [{}, {}],
@@ -137,19 +93,14 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Uyg'onganda duo",
         when: "Uyg'ongandan so'ng darhol",
-        translation:
-          "Bizni o'ldirgandan keyin tiriltirgan Allohga hamdlar bo'lsin va qayta tirilish ham Ungadir.",
       },
       {
         title: "Uyqudan oldin duo",
         when: "Uxlash uchun yotganda",
-        translation: "Sening noming bilan, ey Alloh, men o'lib yashayman.",
       },
       {
         title: "Oyat al-Kursiy uyqudan oldin",
         when: "Uxlashdan oldin",
-        translation:
-          "Alloh O'zidan o'zga iloh yo'q, barhayot tirik va hamma narsaga rizq beruvchidir. U zotni na mudroqlik, na uyqu tutadi. Osmonlaru erdagi narsalar Unikidir. Kim Uning huzurida Uning iznisiz shafoat qila oladi? U ularning oldilaridagi va orqalaridagi narsani biladir. Ular Uning ilmidan faqat O'zi xohlagan narsani o'z ichiga olmaydilar. Uning Arshi osmonlaru erni qamrab oladi va ularni saqlash Uni charchamas. U eng oliy va ulug' zotdir.",
       },
     ],
     appLinks: [{}, {}],
@@ -165,13 +116,10 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Uydan chiqayotganda duo",
         when: "Uydan chiqayotganda",
-        translation:
-          "Alloh nomi bilan; Allohga tavakkul qilaman. Allohdan boshqa hech qanday kuch va kuch yo'q.",
       },
       {
         title: "Masjidga kirayotgan duo",
         when: "Kirganda, o'ng oyoq bilan qadam qo'yish",
-        translation: "Allohim, menga rahmating eshiklarini och.",
       },
     ],
     appLinks: [{}, {}],
@@ -187,13 +135,10 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Ovqatlanishdan oldin",
         when: "Ovqatlanish boshida",
-        translation: "Alloh nomi bilan.",
       },
       {
         title: "Ovqatdan keyin",
         when: "Ovqatni tugatayotganda",
-        translation:
-          "Menga hech qanday kuch va kuch-qudratsiz uni rizqlantirgan va menga rizq bergan Allohga hamdlar bo'lsin.",
       },
     ],
     appLinks: [{}],
@@ -209,14 +154,10 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Tahoratdan keyin",
         when: "Tahorat olgach, darhol",
-        translation:
-          "Guvohlik beramanki, Allohdan o'zga iloh yo'q, yolg'iz, sherigi yo'q va guvohlik beramanki, Muhammad Uning bandasi va rasulidir.",
       },
       {
         title: "Namozda salom berishdan oldin",
         when: "Oxirgi tashahhudda, namozni tugatishdan oldin",
-        translation:
-          "Allohim, do'zax azobidan, qabr azobidan, hayot va o'lim fitnasidan va Soxta Masih (Dajjol) fitnasining yomonligidan Sendan panoh so'rayman.",
       },
     ],
     appLinks: [{}, {}],
@@ -233,16 +174,9 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Azondan keyin duo",
         when: "Azon tugagach",
-        translation:
-          "Ey, bu mukammal da`vat va barkamol namoz egasi, Allohim, Muhammad al-Vasila va al-Fadilani ato et va uni O`zing va`da qilgan maqtovli maqomga ko`targin.",
       },
     ],
-    hadith: [
-      {
-        excerpt:
-          "Azon bilan iqomat orasida qilingan duo rad etilmaydi. (Anas ibn Molik; shuningdek, at-Termiziy 212)",
-      },
-    ],
+    hadith: [{}],
     appLinks: [{}, {}],
   },
   {
@@ -257,13 +191,10 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Xavotir va qayg'u uchun duo",
         when: "Qiyinchilikda, tashvishda yoki haddan tashqari qayg'uda",
-        translation:
-          "Allohim, tashvish va g'amdan, ojizlik va dangasalikdan, baxillik va qo'rqoqlikdan, qarz og'irligidan va boshqalarning qo'liga tushishdan panoh so'rayman.",
       },
       {
         title: "Bizga Alloh yetarli",
         when: "Qo'rqib ketganda yoki haddan tashqari ko'tarilganda",
-        translation: "Bizga Allohning o'zi kifoya va U eng yaxshi vakildir.",
       },
     ],
     appLinks: [{}, {}],
@@ -279,8 +210,6 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Shifo uchun duo",
         when: "Kasal bo'lganida yoki kasal bo'lgan kishi uchun ibodat qilish",
-        translation:
-          "Ey insonlar Robbisi Allohim, dardni ketkazgin va shifo bergin. Sen shifo beruvchisan. Sening shifoingdan o'zga davo yo'q - hech qanday kasallik qoldirmaydigan shifo.",
       },
     ],
     appLinks: [{}, {}],
@@ -296,12 +225,10 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Tez-tez tavba qilish",
         when: "Takroriy ravishda, kun davomida",
-        translation: "Allohdan mag'firat so'rayman va Unga tavba qilaman.",
       },
       {
         title: "Sobit yurak uchun duo",
         when: "Zalolatdan yoki ikkilanishdan qo'rqqaningizda",
-        translation: "Ey qalblarni aylantiruvchi, qalbimni diningda mustahkam qilgin.",
       },
     ],
     appLinks: [{}, {}],
@@ -317,13 +244,10 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sayohatga chiqishda duo",
         when: "Transportni o'rnatish va ketishda",
-        translation:
-          "O'zimiz buni qila olmagan bo'lsak, buni bizga bo'ysundirgan Zot pokdir. Albatta, biz Robbimizga qaytguvchimiz.",
       },
       {
         title: "Yomg'ir yog'sa duo",
         when: "Yomg'irning boshida",
-        translation: "Allohim, uni foydali yomg'irdan qil.",
       },
     ],
     appLinks: [{}, {}],
@@ -335,18 +259,11 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       "Rizq faqat Allohdandir. mo'min tuyasini bog'laydi - ishlab va topadi - keyin rizq beruvchidan halol rizq, topganidan barakot, qarzdan xalos bo'lish va boshqalarga muhtojlikdan mustaqil bo'lishni so'raydi. Rasululloh sollallohu alayhi vasallam aynan shuni so'raydigan go'zal duoni o'rgatganlar.",
       "Uy uchun Qur'onning o'zi solihlarning duosini o'rgatadi: \"ko'zlarga taskin\" bo'lgan turmush o'rtoqlar va farzandlar berish va imon, ibodat va rahm-shafqat bilan bog'langan xonadonni boshqarish.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Parvardigorimiz, bizni juftlarimiz va zurriyotlarimizdan ko‘zimizni rohat ato et va bizlarni taqvodorlarga peshvo qilgin.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "Qonuniy ta'minlash uchun duo",
         when: "Ertalab, namozdan keyin va moliyaviy tanglikda",
-        translation:
-          "Allohim, harom qilgan narsangni halol qilganing bilan menga kifoya qil va fazling ila meni boy berginki, sendan boshqa hech kimga muhtoj emasman.",
       },
     ],
     appLinks: [{}],
@@ -362,14 +279,10 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Ikki dunyoda ham yaxshi",
         when: "Rasululloh sollallohu alayhi vasallamning umumiy, har tomonlama duosi",
-        translation:
-          "Ey Robbimiz, bizga bu dunyoda ham, oxiratda ham yaxshilik ato et va bizni do'zax azobidan saqla.",
       },
       {
         title: "Imondagi sobitlik",
         when: "Og'ishdan qo'rqqaningizda yoki hidoyat qilinganidan keyin",
-        translation:
-          "Ey Robbimiz, bizlarni hidoyat qilganingdan keyin qalblarimizni og'dirmagin va bizga O'z huzuringdan rahmat ato et. Albatta, Sen ato etuvchisan.",
       },
     ],
     appLinks: [{}, {}],
@@ -385,7 +298,6 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "To'rtlikning keng qamrovli duosi",
         when: "Umumiy kundalik duo",
-        translation: "Allohim, sendan hidoyat, taqvo, iffat va qanoat so'rayman.",
       },
     ],
     appLinks: [{}],
@@ -401,12 +313,10 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       {
         title: "Sevimli va gunohlarni o'chiruvchi so'zlar",
         when: "Kun davomida; 100 marta gunohlarni o'chiradi",
-        translation: "Alloh taologa pokdir va hamma hamd Unga bo'lsin.",
       },
       {
         title: "Tarozida og'ir ikki so'z",
         when: "Istalgan vaqtda",
-        translation: "Alloh pokdir va unga hamd bo'lsin. Ulug' Alloh taologa pokdir.",
       },
     ],
     appLinks: [{}],
@@ -418,18 +328,11 @@ export const LEARN_DUA_TOPICS_UZ: DeepPartial<LearnDuaTopic>[] = [
       "Payg'ambar sollallohu alayhi vasallamga salovot aytishni Alloh taolo Qur'onda buyurgan: \"Albatta, Alloh va Uning farishtalari Payg'ambarga salovot aytadilar. Ey mo'minlar, u zotga salovot va salom aytinglar\" - va boshqa hech bir duo bunday kafolatli qaytarilmaydi: Payg'ambarimiz sollallohu alayhi vasallam aytdilarki, kim unga bir salovot aytsa, Alloh o'sha kishiga o'nta salovot yuboradi\".",
       "Tez-tez salovot o'qish rahm-shafqat keltiradi, martabalarni ko'taradi, gunohlarni o'chiradi va qiyomat kuni Rasululloh sollallohu alayhi vasallamga yaqinroq bo'ladi. Quyidagi to'liq Ibrohim qiyofasi - u sahobalari unga qanday salovat aytishni so'raganlarida o'rgatgan - har bir namozning tashahhudida o'qiladi va kun davomida tilda saqlash uchun ajoyibdir.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Albatta, Alloh va Uning farishtalari Payg'ambarga salovot aytadilar. Ey iymon keltirganlar, u zotga salovot va salomlar ayting.",
-      },
-    ],
+    quran: [{}],
     phrases: [
       {
         title: "To'liq salavot Ibrohimiya",
         when: "Namozning tashahhudida va kun davomida",
-        translation:
-          "Allohim, Ibrohimga va Ibrohimning oilasiga baraka berganingdek, Muhammadga va Muhammadning oilasiga salovotlar yubor. Albatta, Sen maqtovga sazovor va ulug' zotsan. Allohim, Ibrohimga va Ibrohimning oilasiga ne'mat berganingdek, Muhammadga va Muhammadning oilasiga marhamat qil. Albatta, Sen maqtovga sazovor va ulug' zotsan.",
       },
     ],
     appLinks: [{}],

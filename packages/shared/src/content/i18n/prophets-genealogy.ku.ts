@@ -7,118 +7,117 @@ export const PROPHETS_GENEALOGY_NODES_KU: DeepPartial<ProphetsGenealogyNode>[] =
   {
     name: "ئادەم",
     relationNote:
-      "Xwedê Adem bi destê xwe afirand û navan hînî wî kir. Ew bavê mirovahiyê ye - dêûbavê mirov tune.",
+      "خوا ئادەمی بە دەستی خۆی دروست کرد و ناوەکانی فێر کرد. ئەو باوکی مرۆڤایەتییە — هیچ دایک و باوکێکی مرۆیی نییە.",
   },
   {
-    name: "نوح",
+    name: "نووح",
     relationNote:
-      "Qur'an Nûh piştî belavbûna neviyên Adem li ser rûyê erdê wek qasidê destnîşan dike, lê navê bavên navbirî yên di navbera Adem û Nûh de nabêje. Ew li kêleka Adem li ser vê şaxê wekî cîgirê bav û kalan di dîroka pêxemberî de xuya dike - ne wekî kurê nêzîk Adem.",
+      "قورئان نووح وەک پەیامبەرێک دادەنێت دوای ئەوەی نەوەکانی ئادەم بەسەر زەویدا بڵاو بوونەوە، بەڵام ناوی ئەو باوانەی نێوان ئادەم و نووح ناهێنێت. گێڕانەوەیەک لە ئیبن عەبباسەوە دەڵێت نزیکەی دە نەوە لە نێوان ئادەم و نووحدا هەبووە. لەم لقەدا وەک جێنشینێک لە ڕیزی باپیراندا دەردەکەوێت — نەک وەک کوڕی ڕاستەوخۆی ئادەم یان شیس.",
   },
   {
     name: "ئیبراهیم",
     relationNote:
-      "Îbrahîm di dîroka pêxemberiya Qur'anê de ji neviyên Nûh e. Qur'an her nifşek di navbera wan de rêz nake; ew serokatîya şaxê mala xwe dike, ne ku wek kurê nuh xuya bike.",
+      "ئیبراهیم لە مێژووی پێغەمبەرایەتیی قورئاندا یەکێکە لە نەوەکانی نووح. قورئان هەموو نەوەکانی نێوانیان ڕیز ناکات؛ لیستی ناوەکانی ئادەم→ئیبراهیم لە ویکیپیدیادا بە زۆری ئیسرائیلیاتە و لێرەدا وەک پەیوەندیی چەسپاو نەکێشراوە. ئیبراهیم سەرۆکی لقی ماڵباتی خۆیەتی.",
   },
   {
     name: "ئیسماعیل",
     relationNote:
-      "Îsmaîl kurê Îbrahîm e. Bi hev re bingehên Kabeyê bilind kirin. Quran mizgîniya Ibrahîm a kurekî xweragir û rîwayeta qurbaniyê vedibêje.",
+      "ئیسماعیل کوڕی ئیبراهیمە. پێکەوە بناغەکانی کەعبەیان بەرز کردەوە. قورئان مژدەی ئیبراهیم بە کوڕێکی ئارامگر و چیرۆکی قوربانییەکە دەگێڕێتەوە. ڕەچەڵەکناسیی نەریتیی عەرەبی هێڵی عەدنانی (و بەمەش موحەممەد ﷺ) بە ئیسماعیلەوە دەبەستێتەوە — لەگەڵ زنجیرەیەکی ونبووی نەوەکان پێش عەدنان.",
   },
   {
     name: "ئیسحاق",
-    relationNote: "Îshaq kurê Îbrahîm e, piştî Îsmaîl hatiye dayîn û bi bavê xwe re pîroz e.",
+    relationNote:
+      "ئیسحاق کوڕی ئیبراهیمە، دوای ئیسماعیل پێی بەخشرا، و لەگەڵ باوکیدا بەرەکەتی پێدرا.",
   },
   {
     name: "لووت",
     relationNote:
-      "Qur'an Lut bi koçkirin û wezîfeya Îbrahîm ve girê dide lê navê Lût wek kurê Îbrahîm nade. Tefsîra klasîk gelek caran jê re dibêje biraziyê Îbrahîm. Ew di şaxê Îbrahîm de wekî hevkarek hevdem xuya dike - ti aliyekê dêûbav nayê îdîa kirin.",
+      "قورئان لووت بە توندی بە کۆچ و پەیامی ئیبراهیمەوە دەبەستێتەوە، بەڵام لووت بە کوڕی ئیبراهیم ناو نابات. تەفسیری کلاسیکی زۆر جار بە برازای ئیبراهیم ناوی دەبات. لە لقی ئیبراهیمدا وەک هاوچەرخ و هاوڕێیەکی ئەو دەردەکەوێت — هیچ پەیوەندییەکی باوک و کوڕ بانگەشە ناکرێت.",
   },
   {
-    name: "یەعقوب (ئیسرائیل)",
+    name: "یەعقووب (ئیسرائیل)",
     relationNote:
-      "Yaqûb kurê Îshaq e. Xuda pêxembertî û kitêb ji neviyên Îbrahîm, Îshaq û Yaqûb re daye.",
+      "یەعقووب کوڕی ئیسحاقە. خوا پێغەمبەرایەتی و کتێبی لە نێوان نەوەکانی ئیبراهیم، ئیسحاق و یەعقووبدا بەخشی.",
   },
   {
-    name: "یوسف",
+    name: "یووسف",
     relationNote:
-      "Yusuf kurê Yaqûb e. Sûreya Yûsif bi dirêjî çîroka xwe ji bav û birayên xwe re vedibêje.",
+      "یووسف کوڕی یەعقووبە. سووڕەتی یووسف بە درێژی چیرۆکی ئەو لەگەڵ باوک و براکانیدا دەگێڕێتەوە.",
   },
   {
     name: "مووسا",
     relationNote:
-      "Mûsa ji Benî Îsraîl e. Quran navê birayê wî Harûn û diya wî dide, lê ne hewce ye ku dêûbav-pêxember li ser vê darê binivîse. Ew wek serokê şaxa Mûsa-Harûn radiweste.",
+      "مووسا لە نەوەی ئیسرائیلە. قورئان باسی براکەی، هاروون، و دایکی دەکات، بەڵام پێویست ناکات لەم دارەدا باوکێکی پێغەمبەر بۆ ئەو دابنرێت. وەک سەرۆکی لقی مووسا–هاروون دەوەستێت. (زنجیرەکانی عەمرامی تەورات نەکێشراون — لە دەرەوەی پەیوەندییە چەسپاوەکانی باوک و کوڕی قورئانین.)",
   },
   {
     name: "هاروون",
     relationNote:
-      "Harûn birayê Mûsa ye. Mûsa ji Xwedê xwest ku Harûn ji malbata wî re bibe alîkar. Ew şaxek wek xwişk û bira parve dikin - ne wek bav û kur.",
+      "هاروون برای مووسایە. مووسا داوای لە خوا کرد هاروون لە خێزانەکەی وەک یاریدەدەرێک بۆ دابنێت. وەک دوو برا لقێکیان هاوبەشە — نەک وەک باوک و کوڕ.",
   },
   {
     name: "داوود",
     relationNote:
-      "Dawûd padîşah û Zabûr hat dayîn. Qur'an pêxembertiya wî û ku Silêman ji wî mîras wergirtiye piştrast dike.",
+      "داوود پاشایەتی و زەبووری پێدرا. قورئان پێغەمبەرایەتییەکەی دەچەسپێنێت و دەڵێت سولەیمان میراتی لێ وەرگرت.",
   },
   {
     name: "سولەیمان",
-    relationNote: "Silêman kurê Dawûd e û mîratî û pêxembertiya wî wergirtiye.",
+    relationNote: "سولەیمان کوڕی داوودە و پاشایەتی و پێغەمبەرایەتییەکەی بە میرات وەرگرت.",
   },
   {
     name: "زەکەریا",
-    relationNote: "Zekeriye pêxemberek bû ku ji bo mirazê xwe dua dikir. Xwedê Yehya daye wî.",
+    relationNote: "زەکەریا پێغەمبەرێک بوو کە دوعای کرد میراتگرێکی هەبێت. خوا یەحیای پێبەخشی.",
   },
   {
     name: "یەحیا",
-    relationNote: "Yehya kurê Zekeriye ye, di bersiva duaya bavê xwe de hatiye dayîn.",
+    relationNote: "یەحیا کوڕی زەکەریایە، کە وەک وەڵامی دوعای باوکی پێی بەخشرا.",
   },
   {
     name: "مەریەم",
     relationNote:
-      "Meryem keça Îmran di Quranê de qedr û qîmet e. Ew diya Îsa ye û di zayîna Îsa de mêrek tune bû - nîşaneke Xwedê ye.",
+      "مەریەمی کچی عیمران لە قورئاندا ڕێزی لێ گیراوە. دایکی عیسایە و لە لەدایکبوونی عیسادا هیچ مێردێکی نەبوو — نیشانەیەک لە خواوە.",
   },
   {
     name: "عیسا",
     relationNote:
-      "Îsa kurê Meryemê ye ku bi peyva Xwedê ya “Be” bê bav hatiye afirandin. Girêdana dêûbav bi diya wî Meryem re ye.",
+      "عیسا کوڕی مەریەمە، بە وشەی «ببە»ی خوا بەبێ باوکێکی مرۆیی دروست کرا. پەیوەندیی دایک و باوک بە دایکییەوە، مەریەم، بەستراوە.",
   },
   {
     name: "موحەممەد ﷺ",
     relationNote:
-      "Pêxember Muhammed ﷺ ji neviyê Îsmaîl kurê Îbrahîm e. Bi berfirehî nifşên navên di navbera Îsmaîl û Qureyşiyan de di sirahiya klasîk de hatine parastin; Qur'an mîrata Îbrahîmî bêyî navnîşana her bav û kalan piştrast dike. Li vir tixûbê bav-kur nayê kişandin - tenê pêxembertiya mohrkirî û nijada Îsmaîlî.",
-  },
-  // —— v2 appends ——
-  {
-    name: "Sheeth (Seth)",
-    relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "پێغەمبەر موحەممەد ﷺ کوڕی عەبدوڵڵای کوڕی عەبدولموتەلیبە لە بەنی هاشم. سیرەی کلاسیکی هێڵی باوکانی لە ڕێگەی هاشمەوە تا عەدنان تۆمار دەکات؛ لە دوای عەدنانەوە بەرەو ئیسماعیل، نەوە ناوبراوەکان ونبوون یان جێی ناکۆکین. ئەو لە نەوەکانی ئیسماعیلی کوڕی ئیبراهیمە (فەرموودەی سەحیحی واسیلە).",
   },
   {
-    name: "Idris",
+    name: "شیس (سێت)",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "نەریتی کلاسیکی ئیسلامی (و کورتەی باوی ڕەچەڵەکی چەند پێغەمبەرێک) شیس وەک کوڕێکی ئادەم و ئەڵقەیەک لە نەوە سەرەتاییەکاندا ناو دەبات. ناوە ناوەندییەکانی نێوان شیس و نووح بە زۆری ئیسرائیلیاتن و وەک پەیوەندیی چەسپاو نەکێشراون.",
   },
   {
-    name: "Imran",
+    name: "ئیدریس",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "قورئان ئیدریس وەک پێغەمبەرێکی ڕاستگۆ ناو دەبات کە بۆ پلەیەکی بەرز بەرز کرایەوە. لیستە کلاسیکییەکان زۆر جار لە نێوان ئادەم و نووحدا دایدەنێن (هەندێک جار بە ئەخنووخ دەناسرێتەوە)، بەڵام قورئان ناوی باوکی ناهێنێت — هیچ پەیوەندییەکی باوک و کوڕ نەکێشراوە.",
   },
   {
-    name: "Adnan",
+    name: "عیمران",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "خوا ماڵباتی عیمرانی بەسەر جیهانیاندا هەڵبژارد. مەریەم کچی عیمرانە. (ئەم عیمرانە باوکی مەریەمە — لێرەدا وەک پەیوەندیی باوک بۆ مووسا/هاروون بەکار نەهاتووە.)",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "عەدنان",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "نەریتی ئیسلامی دەڵێت موحەممەد ﷺ لە نەوەی عەدنانە و عەدنان لە نەوەی ئیسماعیلە — بەڵام نەریتی ڕەچەڵەکناسیی عەرەبی کۆکە لەسەر ئەوەی کە ڕەچەڵەکی ناوبراو لە عەدنانەوە تا ئیسماعیل ونبووە. عەدنان وەک سەرۆکی کلاسیکیی کۆدەنگی عەرەبە عەدنانییەکان دەوەستێت؛ هیچ پەیوەندییەکی باوک و کوڕ بۆ ئیسماعیل نەکێشراوە.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "هاشمی کوڕی عەبدومەناف",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "هاشم ئەو کەسەیە کە بەنی هاشم ناوی ئەویان لێنراوە و باپیرێکی کلاسیکیی پێغەمبەرە ﷺ. لیستی تەواوی سەرۆکەکانی عەدنان→هاشم (فیهر، موزەر، …) لە سیرەدا تۆمار کراوە، بەڵام لێرەدا وەک نەوە هۆزییە ناوەندییەکان — نەک پێغەمبەران — لێیان تێپەڕیوین. هاشم سەرۆکی بڕبڕەی نزیکی هاشمییە لەم نەخشەیەدا.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "عەبدولموتەلیب",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "عەبدولموتەلیب (شەیبە) باپیرەی باوکیی پێغەمبەرە ﷺ و لە سیرەی کلاسیکیدا کوڕی هاشمە.",
+  },
+  {
+    name: "عەبدوڵڵای کوڕی عەبدولموتەلیب",
+    relationNote: "عەبدوڵڵا باوکی پێغەمبەر موحەممەدە ﷺ و لە سیرەی کلاسیکیدا کوڕی عەبدولموتەلیبە.",
   },
 ];

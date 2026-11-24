@@ -7,22 +7,22 @@ export const PROPHETS_GENEALOGY_NODES_BS: DeepPartial<ProphetsGenealogyNode>[] =
   {
     name: "Adem",
     relationNote:
-      "Allah je stvorio Adama svojom rukom i naučio ga imenima. On je otac čovječanstva - nije ljudski roditelj.",
+      "Allah je stvorio Adema Svojom rukom i naučio ga imenima. On je otac čovječanstva — bez ljudskog roditelja.",
   },
   {
     name: "Nuh",
     relationNote:
-      "Kur'an utvrđuje Nuha kao glasnika nakon što su se Adamovi potomci raširili po zemlji, ali ne navodi imena posrednih očeva između Adama i Nuha. On se pojavljuje pored Adama na ovoj grani kao naslednik predaka u proročkoj istoriji - ne kao Adamov neposredni sin.",
+      "Kur'an utvrđuje Nuha kao poslanika nakon što su se Ademovi potomci raširili po zemlji, ali ne imenuje posredne očeve između Adema i Nuha. Predaja od Ibn Abbasa kaže da je između Adema i Nuha bilo desetak generacija. Na ovoj grani pojavljuje se kao kasniji potomak predaka — ne kao neposredni sin Adema ili Šita.",
   },
   {
     name: "Ibrahim",
     relationNote:
-      "Ibrahim je među Nuhovim potomcima u kur'anskoj proročkoj historiji. Kur'an ne navodi svaku generaciju između njih; on vodi vlastitu ogranak domaćinstva umjesto da se pojavljuje kao Nuhov neposredni sin.",
+      "Ibrahim je među Nuhovim potomcima u kur'anskoj historiji vjerovjesnika. Kur'an ne navodi svaku generaciju između njih; Wikipedijin spisak imena od Adema do Ibrahima uglavnom potiče iz israilijata i ovdje nije prikazan kao čvrsta veza. Ibrahim predvodi granu vlastite porodice.",
   },
   {
     name: "Ismail",
     relationNote:
-      "Ismail je Ibrahimov sin. Zajedno su podigli temelje Ka'be. Kur'an prepričava Ibrahimovu radosnu vijest o blagonaklonom sinu i naraciju o žrtvovanju.",
+      "Ismail je Ibrahimov sin. Zajedno su podigli temelje Kabe. Kur'an prenosi radosnu vijest Ibrahimu o blagom sinu i kazivanje o žrtvi. Tradicionalna arapska genealogija prati adnanijsku lozu (a time i Muhammeda ﷺ) preko Ismaila — uz izgubljeni niz generacija prije Adnana.",
   },
   {
     name: "Ishak",
@@ -32,94 +32,94 @@ export const PROPHETS_GENEALOGY_NODES_BS: DeepPartial<ProphetsGenealogyNode>[] =
   {
     name: "Lut",
     relationNote:
-      "Kur'an usko povezuje Luta sa Ibrahimovom migracijom i misijom, ali ne imenuje Luta kao Ibrahimovog sina. Klasični tefsir ga često naziva Ibrahimovim nećakom. On se pojavljuje na Ibrahimovoj grani kao savremeni saradnik - nema prava na roditeljsku prednost.",
+      "Kur'an usko povezuje Luta s Ibrahimovom hidžrom i misijom, ali ne imenuje Luta kao Ibrahimovog sina. Klasični tefsir ga često naziva Ibrahimovim bratićem. Na Ibrahimovoj grani pojavljuje se kao savremenik i saradnik — ne tvrdi se nikakva roditeljska veza.",
   },
   {
-    name: "Jakub (Israel)",
+    name: "Jakub (Israil)",
     relationNote:
-      "Yaqub je Ishakov sin. Allah je podario vjerovjesništvo i Knjigu potomcima Ibrahima, Ishaka i Jakuba.",
+      "Jakub je Ishakov sin. Allah je darovao vjerovjesništvo i Knjigu među potomcima Ibrahima, Ishaka i Jakuba.",
   },
   {
-    name: "Yusuf",
-    relationNote:
-      "Jusuf je Jakubov sin. Surat Jusuf opširno prenosi svoju priču sa svojim ocem i braćom.",
+    name: "Jusuf",
+    relationNote: "Jusuf je Jakubov sin. Sura Jusuf opširno kazuje njegovu priču s ocem i braćom.",
   },
   {
     name: "Musa",
     relationNote:
-      "Musa je od djece Izraela. Kur'an imenuje njegovog brata Haruna i njegovu majku, ali ne zahtijeva navođenje roditelja proroka na ovom drvetu. On je šef ogranka Musa-Harun.",
+      "Musa je od sinova Israilovih. Kur'an spominje njegovog brata Haruna i njegovu majku, ali ne zahtijeva da se na ovom stablu navede roditelj vjerovjesnik. On predvodi granu Musa–Harun. (Biblijski lanci preko Amrama nisu prikazani — oni su izvan čvrstih kur'anskih roditeljskih veza.)",
   },
   {
     name: "Harun",
     relationNote:
-      "Harun je Musaov brat. Musa je zamolio Allaha da odredi Haruna kao pomagača iz njegove porodice. Oni dijele granu kao braća i sestre - ne kao otac i sin.",
+      "Harun je Musaov brat. Musa je zamolio Allaha da mu odredi Haruna kao pomagača iz njegove porodice. Oni dijele granu kao braća — ne kao otac i sin.",
   },
   {
     name: "Davud",
     relationNote:
-      "Davud je dobio kraljevsku vlast i Zabur. Kur'an potvrđuje njegovo poslanstvo i ono što je Sulejman naslijedio od njega.",
+      "Davudu su data vlast i Zebur. Kur'an potvrđuje njegovo vjerovjesništvo i to da ga je Sulejman naslijedio.",
   },
   {
     name: "Sulejman",
-    relationNote: "Sulayman je Davudov sin i naslijedio je njegovo kraljevstvo i proročanstvo.",
+    relationNote: "Sulejman je Davudov sin i naslijedio je njegovo kraljevstvo i vjerovjesništvo.",
   },
   {
     name: "Zekerija",
-    relationNote: "Zakariyya je bio prorok koji se molio za nasljednika. Allah mu je dao Jahju.",
+    relationNote:
+      "Zekerija je bio vjerovjesnik koji je molio za nasljednika. Allah mu je darovao Jahju.",
   },
   {
     name: "Jahja",
-    relationNote: "Yahya je Zakarijev sin, odobren kao odgovor na dovu njegovog oca.",
+    relationNote: "Jahja je Zekerijin sin, darovan kao odgovor na dovu njegovog oca.",
   },
   {
     name: "Merjema",
     relationNote:
-      "Merjem ćerka Imranova je počašćena u Kur'anu. Ona je Isaova majka i nije imala muža u Isainom rođenju — Allahov znak.",
+      "Merjema, kćerka Imranova, počašćena je u Kur'anu. Ona je Isaova majka i rodila je Isaa bez muža — Allahov znak.",
   },
   {
     name: "Isa",
     relationNote:
-      "Isa je Merjemin sin, stvoren Allahovom riječju 'Budi' bez ljudskog oca. Roditeljska veza je sa njegovom majkom Maryam.",
+      "Isa je Merjemin sin, stvoren Allahovom riječju 'Budi' bez ljudskog oca. Roditeljska veza je s njegovom majkom Merjemom.",
   },
   {
     name: "Muhammed ﷺ",
     relationNote:
-      "Poslanik Muhammed, sallallahu alejhi ve sellem, je od potomaka Ismaila sina Ibrahimovog. Detaljno imenovane generacije između Ismaila i Kurejšija sačuvane su u klasičnom sirahu; Kur'an potvrđuje Ibrahimovo naslijeđe bez navođenja svakog pretka. Ovdje nije povučena neposredna ivica oca i sina – samo zapečaćeno proročanstvo i ismailičko porijeklo.",
+      "Poslanik Muhammed ﷺ sin je Abdullaha ibn Abdul-Muttaliba iz Benu Hašima. Klasična sira bilježi lozu po očevoj liniji preko Hašima do Adnana; od Adnana prema Ismailu imena generacija su izgubljena ili sporna. On je od potomaka Ismaila, sina Ibrahimova (vjerodostojni hadis od Vasile).",
   },
   // —— v2 appends ——
   {
-    name: "Sheeth (Seth)",
+    name: "Šit (Set)",
     relationNote:
-      "Classical Islamic tradition names Sheeth as a son of Adam and a link in the early generations. Intermediate names between Sheeth and Nuh are largely Isra'iliyyat and are not drawn as firm edges.",
+      "Klasična islamska predaja (i uobičajeni sažetak loze nekoliko vjerovjesnika) navodi Šita kao Ademovog sina i kariku u ranim generacijama. Posredna imena između Šita i Nuha uglavnom potiču iz israilijata i nisu prikazana kao čvrste veze.",
   },
   {
     name: "Idris",
     relationNote:
-      "The Qur'an names Idris as a truthful prophet raised to a high station. Classical lists often place him between Adam and Nuh, but the Qur'an does not name his father — no parent edge is drawn.",
+      "Kur'an spominje Idrisa kao istinoljubivog vjerovjesnika uzdignutog na visoko mjesto. Klasični spiskovi ga često smještaju između Adema i Nuha (ponekad ga poistovjećujući s Henohom), ali Kur'an ne imenuje njegovog oca — roditeljska veza nije prikazana.",
   },
   {
     name: "Imran",
     relationNote:
-      "Allah chose the family of Imran above the worlds. Maryam is the daughter of Imran. (This Imran is the father of Maryam — not used here as a father edge for Musa/Harun.)",
+      "Allah je odabrao porodicu Imranovu iznad svjetova. Merjema je Imranova kćerka. (Ovaj Imran je Merjemin otac — ovdje se ne koristi kao očeva veza za Musaa i Haruna.)",
   },
   {
     name: "Adnan",
     relationNote:
-      "Islamic tradition holds that Muhammad ﷺ descends from Adnan, and that Adnan descends from Ismail — but the named lineage from Adnan back to Ismail is lost. Adnan stands as the agreed classical head of the Adnanite Arabs; no parent edge to Ismail is drawn.",
+      "Islamska predaja smatra da Muhammed ﷺ potječe od Adnana, a Adnan od Ismaila — ali se arapska genealoška tradicija slaže da je imenovana loza od Adnana do Ismaila izgubljena. Adnan je općeprihvaćeni klasični rodonačelnik adnanijskih Arapa; roditeljska veza s Ismailom nije prikazana.",
   },
   {
-    name: "Hashim ibn Abd Manaf",
+    name: "Hašim ibn Abd Menaf",
     relationNote:
-      "Hashim is the eponym of Banu Hashim and a classical ancestor of the Prophet ﷺ. The full Adnan→Hashim chief-list is recorded in sirah but skipped here as intermediate tribal generations — not prophets. Hashim heads the near Hashimite spine on this map.",
+      "Hašim je rodonačelnik po kojem je nazvan Benu Hašim i klasični predak Poslanika ﷺ. Potpuni spisak prvaka od Adnana do Hašima (Fihr, Mudar, …) zabilježen je u siri, ali je ovdje izostavljen kao posredne plemenske generacije — ne vjerovjesnici. Hašim predvodi blisku hašimijsku okosnicu na ovoj mapi.",
   },
   {
-    name: "Abd al-Muttalib",
+    name: "Abdul-Muttalib",
     relationNote:
-      "Abd al-Muttalib (Shaybah) is the paternal grandfather of the Prophet ﷺ and son of Hashim in classical sirah.",
+      "Abdul-Muttalib (Šejba) je djed Poslanika ﷺ po ocu i Hašimov sin prema klasičnoj siri.",
   },
   {
-    name: "Abdullah ibn Abd al-Muttalib",
+    name: "Abdullah ibn Abdul-Muttalib",
     relationNote:
-      "Abdullah is the father of the Prophet Muhammad ﷺ and son of Abd al-Muttalib in classical sirah.",
+      "Abdullah je otac Poslanika Muhammeda ﷺ i sin Abdul-Muttaliba prema klasičnoj siri.",
   },
 ];

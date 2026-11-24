@@ -15,16 +15,7 @@ export const FRIDAY_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Onun ibadeti de sürekli bir bağışlanma vaadi taşır. Ebu Hureyre, Peygamber ﷺ'in şöyle buyurduğunu rivayet etmiştir: 'Kim Cuma günü gusül alır, sonra Cuma namazına gelir, imam hutbe verirken dinler ve susarsa, o Cuma ile bir sonraki Cuma arasındaki günahları, bir de üç gün daha eklenerek bağışlanır' (Sahih-i Müslim 857).",
       "Bu faziletler, erkenden hazırlanmaya, dikkatle dinlemeye ve Cuma'yı haftalık bir ruhi tazelenme olarak görmeye bir çağrıdır — sadece işten bir tatil günü olarak değil.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Güneşin doğduğu en hayırlı gün Cuma'dır; o gün Âdem yaratıldı, o gün Cennet'e girdirildi, o gün oradan çıkarıldı ve Kıyamet de Cuma gününden başka bir günde kopmayacaktır.",
-      },
-      {
-        excerpt:
-          "Kim Cuma günü gusül alır, sonra Cuma namazına gelir, imam hutbe verirken dinler ve susarsa, o Cuma ile bir sonraki Cuma arasındaki günahları, bir de üç gün daha eklenerek bağışlanır.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Cuma sabahı şu niyeti koyun: gusül, en güzel kıyafet ve erken gitmek.",
       "Hutbeyi bir ibadet olarak görün — sessizlik ve dikkat de sevabın bir parçasıdır.",
@@ -40,24 +31,8 @@ export const FRIDAY_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Onu ihmal etmek ağır bir uyarıdır: Ebu'l-Ca'd, ihmal yüzünden üç Cuma namazını bırakan kimsenin kalbine Allah'ın mühür vuracağını rivayet etmiştir (Nesai'nin Sünen'i 1369). Hutbe sırasında gereksiz konuşmak sevabı kaybettirir — Ebu Hureyre, imam hutbe verirken arkadaşına 'Sus' dersen, sen de boş söz söylemiş olursun demiştir (Sahih-i Buhari 934).",
       "Cuma'dan sonra dört rekât kılmak önerilir: Ebu Hureyre, Peygamber ﷺ'in 'Sizden biri Cuma namazını kıldığında, ardından dört (rekât) kılsın' buyurduğunu rivayet etmiştir (Sahih-i Müslim 881).",
     ],
-    quran: [
-      {
-        excerpt:
-          "Ey iman edenler! Cuma günü namaza çağrıldığında, Allah'ı zikretmeye koşun ve alışverişi bırakın. Eğer bilirseniz bu sizin için daha hayırlıdır. Namaz kılındığında ise yeryüzüne yayılın ve Allah'ın lütfundan isteyin...",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Cemaatle Cuma namazı, köle, kadın, çocuk veya hasta olan dört kişi hariç her Müslümana farzdır.",
-      },
-      { excerpt: "İhmal yüzünden üç Cuma namazını bırakan kimsenin kalbine Allah mühür vurur." },
-      {
-        excerpt:
-          "İmam Cuma günü hutbe verirken arkadaşına 'Sus' dersen, sen de boş söz (lağv) söylemiş olursun.",
-      },
-      { excerpt: "Sizden biri Cuma namazını kıldığında, ardından dört (rekât) kılsın." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Hutbe başlamadan önce camiye ulaşmak için yolculuğunuzu planlayın.",
       "Telefonlarınızı sessize alın ve hutbe sırasında konuşmaktan kaçının.",
@@ -75,18 +50,7 @@ export const FRIDAY_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Gusülün yanı sıra Peygamber ﷺ mümkün olduğunca iyi görünmeyi tavsiye etmiştir. Selman el-Farisi, Peygamber ﷺ'in şöyle buyurduğunu rivayet etmiştir: 'Kim Cuma günü gusül alır, mümkün olduğunca temizlenirse, sonra saç yağı veya güzel koku kullanırsa, sonra çıkar ve iki kişinin arasına girmeden kendi yerine oturursa, imam bitirene kadar dinlerse, sonra kendisine farz kılınan namazı kılarsa — o Cuma ile bir sonraki Cuma arasındaki günahları bağışlanır' (Sahih-i Buhari 883).",
       "Erken gelmek sevabı katlar. Ebu Hureyre, ilk saatte gidenin bir deve kurban eden kişi gibi olduğunu, sonra sığır, sonra koç, sonra tavuk, sonra yumurta kurban eden kişi gibi olduğunu; imam çıktığında meleklerin kayıtlarını topladığını ve hatırlatmayı dinlediklerini rivayet etmiştir (Sahih-i Buhari 881).",
     ],
-    hadith: [
-      { excerpt: "Cuma günü gusül almak, ergenlik yaşına gelmiş her kişiye farzdır." },
-      { excerpt: "Cuma günü gusül almak, ergenlik yaşına gelmiş her Müslüman erkeğe farzdır." },
-      {
-        excerpt:
-          "Kim Cuma günü gusül alır, mümkün olduğunca temizlenirse, sonra saç yağı veya güzel koku kullanırsa, sonra çıkar ve iki kişinin arasına girmeden kendi yerine oturursa, imam bitirene kadar dinlerse, sonra kendisine farz kılınan namazı kılarsa — o Cuma ile bir sonraki Cuma arasındaki günahları bağışlanır.",
-      },
-      {
-        excerpt:
-          "Kim Cuma günü gusül alır, sonra erken giderse, bir deve kurban eden kişi gibidir... sonra sığır... sonra koç... sonra tavuk... sonra yumurta. İmam çıktığında melekler hatırlatmayı dinlemek için gelirler.",
-      },
-    ],
+    hadith: [{}, {}, {}, {}],
     actions: [
       "Cuma sabahı (veya camiye gitmeden önce) gusül alın.",
       "En güzel ve temiz kıyafetlerinizi giyin, mümkünse hafif bir koku sürün.",
@@ -104,19 +68,8 @@ export const FRIDAY_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Bunun dışında, Kehf Suresi'nin ilk on ayeti Deccal'in fitnesinden korunmadır. Ebu Derda, Peygamber ﷺ'in şöyle buyurduğunu rivayet etmiştir: 'Kim Kehf Suresi'nin ilk on ayetini ezberlerse, Deccal'den korunur' (Sahih-i Müslim 809).",
       "Sureyi okumak için Perşembe akşamı ile Cuma günü güneş batımı arasında zaman bulun — tüm bölümü tamamlayamasanız bile, ilk ayetlerden başlayın ve mümkün olduğunca sık geri dönün.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Hamd, kuluna Kitabı indiren ve onda hiçbir çarpıklık koymayan Allah'a mahsustur... Yoksa siz mağara ve kitabe sahiplerinin bizim ayetlerimizden şaşılacak bir şey olduklarını mı sandınız?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Kim Cuma günü Kehf Suresi'ni okursa, ona iki cuma arasında bir nur ışıldar. (Şeyh el-Elbani tarafından sahih olarak değerlendirilmiştir)",
-      },
-      { excerpt: "Kim Kehf Suresi'nin ilk on ayetini ezberlerse, Deccal'den korunur." },
-    ],
+    quran: [{}],
+    hadith: [{}, {}],
     actions: [
       "Cuma günü Kehf Suresi'ni açın ve mümkün olduğunca dikkatle okuyun.",
       "Deccal'den korunmak için ilk on ayeti ezberleyin veya tekrar edin.",
@@ -132,12 +85,7 @@ export const FRIDAY_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Cuma, salavatın çoğaltılması için ayrılmıştır. Evs bin Evs, Peygamber ﷺ'in şöyle buyurduğunu rivayet etmiştir: 'Günlerinizin en hayırlılarından biri Cuma'dır; o gün bana çok salavat getirin, çünkü salavatlarınız bana ulaştırılır.' Onlar: 'Ey Allah'ın Resûlü, sen toprak olduğunda salavatlarımız sana nasıl ulaştırılır?' diye sordular. O: 'Allah, toprağa peygamberlerin bedenlerini yemeyi haram kılmıştır' buyurdu (Ebu Davud'un Sünen'i 1047).",
       "Sahih olan her salavat formülü uygundur — namazda öğretilen salavatlar olsun ya da sünnetten gelen daha uzun biçimler olsun. Önemli olan Cuma günü tekrar ve samimiyettir, sabit bir sayı değil.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Günlerinizin en hayırlılarından biri Cuma'dır; o gün bana çok salavat getirin, çünkü salavatlarınız bana ulaştırılır.",
-      },
-    ],
+    hadith: [{}],
     actions: [
       "Cuma günü için kişisel bir salavat hedefi belirleyin — az ama düzenli bir sayı olsa da.",
       "Hazır bir formül istiyorsanız, uygulamadaki salavat koleksiyonunu kullanın.",
@@ -152,20 +100,7 @@ export const FRIDAY_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
       "Âlimler bu saatin tam olarak ne zaman olduğu konusunda farklı görüşlere sahiptir. Güçlü bir görüş bunu Cuma günü ikindiden sonraki son bölüme yerleştirir: Cabir bin Abdullah, Peygamber ﷺ'in şöyle buyurduğunu rivayet etmiştir: 'Cuma on iki saattir ve içinde bir saat vardır, eğer bir Müslüman kul Allah'tan bir şey isterse, Allah ona onu verir — o yüzden bunu ikindiden sonraki son saatte arayın' (Ebu Davud'un Sünen'i 1048).",
       "Hangi görüşü izlerseniz izleyin, Cuma gününü — özellikle günün son kısmını — samimi dua, istiğfar ve salavatla doldurun, Allah'ın cevap verme vaadine güvenerek.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Cuma'da bir saat vardır, eğer bir Müslüman kul o saatte durup Allah'tan bir şey isterse, Allah ona onu verir — ve eliyle onun kısa olduğunu gösterdi.",
-      },
-      {
-        excerpt:
-          "Cuma'da bir saat vardır, eğer bir Müslüman namazda durup Allah'tan bir şey isterse, Allah ona onu verir.",
-      },
-      {
-        excerpt:
-          "Cuma on iki saattir ve içinde bir saat vardır, eğer bir Müslüman kul Allah'tan bir şey isterse, Allah ona onu verir — o yüzden bunu ikindiden sonraki son saatte arayın.",
-      },
-    ],
+    hadith: [{}, {}, {}],
     actions: [
       "Cuma günü ikindiden sonra, kısa bir dua listesiyle oturun ve samimiyetle isteyin.",
       "Duayı salavatla birleştirin — ikisi de özellikle bu günde tavsiye edilir.",

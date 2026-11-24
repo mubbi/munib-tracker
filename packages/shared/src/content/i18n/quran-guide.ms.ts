@@ -22,582 +22,436 @@ import type { DeepPartial } from "./localize";
 
 export const QURAN_GUIDE_TOPICS_MS: DeepPartial<QuranGuideTopic>[] = [
   {
-    title: "Pengantar",
-    summary: "Apa itu Al-Qur'an, mengapa diturunkan, dan keutamaan membacanya.",
+    title: "Pengenalan",
+    summary: "Apakah Al-Quran, mengapa ia diturunkan, dan kelebihan membacanya.",
     body: [
-      "Kata \"Qur'an\" berasal dari akar kata Arab qara'a, yang berarti membaca atau melafalkan dengan suara — jadi Kitab ini membawa tujuannya dalam namanya sendiri: ia dimaksudkan untuk dibaca, berulang kali, di lisan dan di hati. Menurut keyakinan Ahlus Sunnah, Al-Qur'an adalah kalam Allah yang sesungguhnya, tidak diciptakan, diturunkan dalam bahasa Arab yang jelas kepada Nabi Muhammad ﷺ melalui malaikat Jibril selama kurang lebih 23 tahun, mulai dari wahyu pertama di Gua Hira hingga tak lama sebelum wafatnya Nabi ﷺ.",
-      'Ia adalah kitab suci terakhir yang diturunkan kepada umat manusia, membenarkan kebenaran wahyu-wahyu sebelumnya yang diberikan kepada Musa, Dawud, dan Isa (semoga shalawat tercurah atas mereka) serta menyempurnakan risalah yang mereka bawa. Allah menjelaskan tujuannya dengan gamblang: ia diturunkan "sebagai petunjuk bagi manusia" — untuk membawa manusia keluar dari kegelapan kebingungan dan kemusyrikan menuju cahaya tauhid, ibadah yang ikhlas hanya kepada Allah, akhlak yang lurus, dan persiapan yang serius menghadapi kehidupan akhirat. Setiap nabi menyerukan inti ajaran yang sama; Al-Qur\\\'an adalah bentuk terakhirnya yang terjaga.',
-      "Membaca Al-Qur'an itu sendiri adalah ibadah, bukan sekadar membaca informasi. Nabi ﷺ mengajarkan bahwa setiap huruf yang dibaca mendatangkan satu kebaikan, dan setiap kebaikan dilipatgandakan minimal sepuluh kali — jadi bahkan seorang pemula yang mengeja satu baris pun sudah mengumpulkan pahala. Pada Hari Kebangkitan, Al-Qur'an akan datang sebagai pemberi syafaat, membela mereka yang menjaganya selama hidup di dunia. Orang yang membacanya dengan lancar bersama para malaikat penulis yang mulia, dan orang yang tersendat-sendat membacanya, dengan susah payah belajar, mendapat pahala berlipat ganda atas usahanya.",
-      "Penting untuk memahami apa yang bukan Al-Qur'an. Al-Qur'an adalah kalam Allah sendiri secara harfiah dalam bahasa Arab, tidak berubah sejak diturunkan. Hadis — ucapan, perbuatan, dan persetujuan diam Nabi ﷺ — berbeda: hadis menjelaskan dan mencontohkan Al-Qur'an tetapi merupakan ungkapan Nabi ﷺ sendiri, dijaga melalui rantai perawi yang disebutkan namanya dan dinilai oleh para ulama sebagai sahih, hasan, atau da'if (lemah). Keduanya adalah wahyu dan keduanya wajib diikuti, tetapi hanya Al-Qur'an yang dibaca sebagai ibadah dalam shalat, dan hanya Al-Qur'an yang merupakan kalam Allah yang mukjizat dan tak tertandingi.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Bulan Ramadhan adalah bulan yang di dalamnya diturunkan Al-Qur'an sebagai petunjuk bagi manusia…",
-      },
-      {
-        excerpt:
-          "Katakanlah: Sekiranya manusia dan jin berkumpul untuk membuat yang serupa Al-Qur'an ini, mereka tidak akan dapat membuat yang serupa dengannya…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa membaca satu huruf dari Kitab Allah, ia mendapat satu kebaikan, dan kebaikan itu dilipatgandakan sepuluh kali.",
-      },
-      {
-        excerpt:
-          "Bacalah Al-Qur'an, karena ia akan datang pada Hari Kebangkitan sebagai pemberi syafaat bagi para pembacanya.",
-      },
-      {
-        excerpt:
-          "Orang yang mahir membaca Al-Qur'an bersama para malaikat penulis yang mulia lagi berbakti, dan orang yang membacanya dengan tersendat-sendat serta merasa berat, baginya pahala berlipat ganda.",
-      },
+      "Perkataan Quran berasal daripada akar kata Arab qara'a, yang bermaksud membaca atau melafazkan dengan suara — maka Kitab ini membawa tujuannya dalam namanya sendiri: ia untuk dibaca, berulang-ulang kali, di lidah dan di hati. Menurut akidah arus perdana Ahli Sunnah, Al-Quran ialah kalam Allah yang sebenar dan bukan makhluk, diturunkan dalam bahasa Arab yang jelas kepada Nabi Muhammad ﷺ melalui malaikat Jibril dalam tempoh lebih kurang 23 tahun, bermula dengan kalimah pertama di Gua Hira hingga tidak lama sebelum kewafatan baginda ﷺ.",
+      "Ia ialah kitab suci terakhir yang diturunkan kepada manusia, membenarkan kebenaran dalam wahyu-wahyu terdahulu yang diberikan kepada Nabi Musa, Daud dan Isa (alaihimussalam) serta menyempurnakan risalah yang mereka bawa. Allah menerangkan tujuannya dengan jelas: ia diturunkan sebagai “petunjuk bagi sekalian manusia” — untuk mengeluarkan manusia daripada kegelapan kekeliruan dan penyembahan berhala kepada cahaya tauhid, ibadah yang ikhlas kepada Allah semata-mata, akhlak yang lurus, dan persediaan yang bersungguh-sungguh untuk kehidupan akhirat. Setiap nabi menyeru kepada teras yang sama; Al-Quran ialah bentuknya yang terakhir dan terpelihara.",
+      "Membaca Al-Quran itu sendiri ialah ibadah, bukan sekadar membaca maklumat. Nabi ﷺ mengajarkan bahawa setiap satu huruf yang dibaca mendapat satu kebaikan, dan setiap kebaikan digandakan sekurang-kurangnya sepuluh kali — maka seorang pemula yang mengeja satu baris pun sudah mengumpul pahala. Pada Hari Kebangkitan, Al-Quran akan datang sebagai pemberi syafaat, membela mereka yang mendampinginya dalam kehidupan ini. Orang yang membacanya dengan mahir bersama para malaikat pencatat yang mulia, dan orang yang tersekat-sekat membacanya kerana bersusah payah belajar mendapat dua pahala atas usahanya.",
+      "Penting juga untuk jelas tentang apa yang bukan Al-Quran. Al-Quran ialah kalam Allah sendiri, kata demi kata dalam bahasa Arab, tidak berubah sejak diturunkan. Hadis — sabda, perbuatan dan persetujuan diam Nabi ﷺ — adalah berbeza: hadis menjelaskan dan menunjukkan amalan Al-Quran, tetapi ia ialah ungkapan Nabi ﷺ sendiri, dipelihara melalui rantaian perawi yang dikenal pasti namanya dan dinilai oleh ulama sebagai sahih, hasan atau da'if (lemah). Kedua-duanya wahyu dan kedua-duanya wajib dipatuhi, tetapi hanya Al-Quran yang dibaca sebagai ibadah dalam solat, dan hanya Al-Quran merupakan kalam Allah yang mukjizat dan tidak dapat ditandingi.",
     ],
     actions: [
-      "Tetapkan waktu tetap setiap hari untuk Al-Qur'an — bahkan lima menit yang fokus membangun keberkahan dan konsistensi.",
-      "Baca minimal satu baris beserta maknanya: baca ayat Arabnya, lalu baca terjemahannya perlahan.",
-      "Buka pembaca Al-Qur'an Munib dan lanjutkan tepat dari tempat kamu berhenti.",
+      "Tetapkan waktu harian yang tetap untuk Al-Quran — walaupun lima minit yang fokus membina keberkatan dan istiqamah.",
+      "Baca sekurang-kurangnya satu baris bersama maknanya: baca ayat Arabnya, kemudian baca terjemahannya perlahan-lahan.",
+      "Buka pembaca Al-Quran Munib dan sambung tepat di tempat anda berhenti.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Baca Al-Quran" }, { label: "Pelajaran harian" }],
   },
   {
-    title: "Bagaimana Al-Qur'an diturunkan",
-    summary: "Gua Hira, Jibril, periode Makkah dan Madinah, kodifikasi, dan penjagaan.",
+    title: "Bagaimana Al-Quran diturunkan",
+    summary: "Gua Hira, Jibril, zaman Makkah dan Madinah, pembukuan dan pemeliharaan.",
     body: [
-      'Wahyu dimulai pada bulan Ramadhan, ketika Nabi ﷺ berusia empat puluh tahun dan sedang menyendiri di Gua Hira di sebuah gunung di luar Makkah untuk merenung. Di sana malaikat Jibril datang kepadanya dan memerintahkan, "Bacalah!" Nabi ﷺ, yang tidak bisa membaca atau menulis, menjawab bahwa ia tidak bisa — hingga malaikat itu mendekapnya dan menyampaikan lima ayat pertama Surah Al-Alaq: "Bacalah dengan (menyebut) nama Tuhanmu yang menciptakan." Terguncang, ia pulang menemui istrinya Khadijah, yang menenangkannya dan membawanya kepada kerabatnya, Waraqah bin Naufal, seorang yang berilmu yang mengenali malaikat wahyu dan membenarkan bahwa ini adalah utusan yang sama yang datang kepada Musa.',
-      "Kemudian terjadi jeda singkat dalam wahyu (fatrah), masa sunyi yang membuat Nabi ﷺ merindukan wahyu lebih lanjut; lalu wahyu berlanjut kembali secara bertahap sepanjang sisa hidupnya. Wahyu tidak turun sekaligus, melainkan diturunkan sebagai respons atas peristiwa, pertanyaan, dan kebutuhan komunitas yang terus berkembang — metode bertahap yang Allah gambarkan sebagai peneguh hati Nabi ﷺ dan mempermudah Kitab ini meresap ke dalam kehidupan manusia.",
-      "Periode Makkah berlangsung sekitar tiga belas tahun. Surah-surahnya seringkali pendek, berirama, dan penuh kekuatan; surah-surah itu menegaskan pokok-pokok dasar — keesaan Allah, kepastian kebangkitan dan pertanggungjawaban, kisah para nabi terdahulu yang didustakan lalu dibela, serta seruan menyeluruh untuk perbaikan moral dalam masyarakat yang tenggelam dalam kemusyrikan dan ketidakadilan.",
-      "Setelah hijrah ke Madinah pada tahun 622 M, kaum muslimin tidak lagi menjadi kelompok kecil yang teraniaya, melainkan komunitas yang sedang membangun masyarakat. Wahyu Madinah umumnya lebih panjang dan lebih rinci, meletakkan hukum dan tatanan sosial yang dibutuhkan umat yang baru ini: rincian shalat, zakat, puasa, warisan, pernikahan dan perceraian, perjanjian, peperangan, dan perdamaian, disertai kata-kata tegas bagi kaum munafik yang merongrong komunitas dari dalam.",
-      "Penjagaan teks dimulai sejak masa hidup Nabi ﷺ sendiri. Para sahabat menghafal wahyu begitu ia turun, dan para penulis mencatatnya di atas kulit, pelepah kurma, tulang, dan batu di bawah pengawasan langsung Nabi ﷺ. Setelah banyak penghafal gugur syahid dalam Perang Yamamah, Abu Bakar memerintahkan Zaid bin Tsabit untuk mengumpulkan Al-Qur'an yang tertulis menjadi satu kumpulan (suhuf). Kemudian, seiring meluasnya kekuasaan Islam dan beragamnya dialek, Utsman memerintahkan pembuatan salinan resmi dalam dialek Quraisy dan mengirimkannya ke kota-kota besar, menyatukan satu teks tertulis bagi seluruh umat.",
-      "Allah sendiri menjamin penjagaan Al-Qur'an: \"Sesungguhnya Kamilah yang menurunkan Adz-Dzikr (Al-Qur'an), dan sesungguhnya Kami benar-benar memeliharanya.\" Janji itu terpenuhi melalui tiga jaminan yang saling terkait — hafalan massal di setiap generasi, transmisi tertulis yang cermat, dan rantai bacaan (qira'at) guru-ke-murid yang tak terputus hingga kembali ke Nabi ﷺ. Bagi orang beriman ini adalah tanda keagamaan; bagi sejarawan ini adalah fakta yang terdokumentasi: Al-Qur'an yang dibaca hari ini adalah teks yang sama yang diturunkan empat belas abad lalu.",
+      "Wahyu bermula pada bulan Ramadan, ketika Nabi ﷺ berusia empat puluh tahun dan sedang beruzlah di Gua Hira di sebuah gunung di luar Makkah untuk bersendirian dan bertafakur. Di sana malaikat Jibril datang kepada baginda dan memerintahkan, “Bacalah!” Nabi ﷺ, yang tidak tahu membaca dan menulis, menjawab bahawa baginda tidak boleh membaca — sehinggalah malaikat itu memeluk baginda dan menyampaikan lima ayat pertama Surah al-'Alaq: “Bacalah (wahai Muhammad) dengan nama Tuhanmu yang menciptakan…” Dalam keadaan gementar, baginda pulang menemui isterinya Khadijah, yang menenangkan baginda lalu membawanya kepada kerabatnya Waraqah bin Naufal, seorang yang berilmu yang mengenali malaikat wahyu itu dan mengesahkan bahawa ia ialah utusan yang sama yang pernah datang kepada Nabi Musa.",
+      "Kemudian berlaku satu tempoh singkat terhentinya wahyu (fatrah), masa sunyi yang membuatkan Nabi ﷺ merindui wahyu seterusnya; kemudian wahyu kembali turun dan berterusan secara berperingkat sepanjang baki hayat baginda. Wahyu tidak turun sekali gus, tetapi diturunkan sebagai jawapan kepada peristiwa, soalan dan keperluan masyarakat yang semakin berkembang — kaedah berperingkat yang Allah sifatkan sebagai peneguh hati Nabi ﷺ dan memudahkan Kitab ini meresap ke dalam kehidupan manusia.",
+      "Zaman Makkah berlangsung kira-kira tiga belas tahun. Surah-surahnya sering pendek, berirama dan penuh kekuatan; ia menegaskan asas-asas — keesaan Allah, kepastian kebangkitan dan hari perhitungan, kisah para nabi terdahulu yang didustakan kemudian dibela, serta seruan menyeluruh kepada pembaikan akhlak dalam masyarakat yang tenggelam dalam penyembahan berhala dan kezaliman.",
+      "Selepas Hijrah ke Madinah pada tahun 622 M, umat Islam bukan lagi segelintir yang dianiaya tetapi sebuah komuniti yang sedang membina masyarakat. Wahyu Madaniyah umumnya lebih panjang dan terperinci, meletakkan undang-undang dan susunan sosial yang diperlukan oleh ummah yang baharu: perincian solat, zakat, puasa, pusaka, nikah dan cerai, kontrak, peperangan dan perjanjian, di samping amaran tegas terhadap golongan munafik yang meruntuhkan masyarakat dari dalam.",
+      "Pemeliharaan teks bermula semasa hayat Nabi ﷺ sendiri. Para sahabat menghafal wahyu sebaik sahaja ia turun, dan para penulis wahyu mencatatnya pada kulit, pelepah tamar, tulang dan batu di bawah pengawasan langsung Nabi ﷺ. Selepas ramai penghafal syahid dalam Perang Yamamah, Saidina Abu Bakar memerintahkan Zaid bin Thabit mengumpulkan Al-Quran yang bertulis ke dalam satu himpunan (suhuf). Kemudian, apabila wilayah Islam meluas dan dialek semakin pelbagai, Saidina Uthman mengarahkan salinan-salinan rasmi dibuat dalam dialek Quraisy dan dihantar ke kota-kota utama, lalu menyeragamkan satu teks bertulis bagi seluruh ummah.",
+      "Allah sendiri menjamin pemeliharaan Al-Quran: “Sesungguhnya Kamilah yang menurunkan Al-Quran, dan Kamilah yang memelihara dan menjaganya.” Janji itu telah ditunaikan melalui tiga benteng yang saling berkait — hafazan beramai-ramai dalam setiap generasi, penyalinan bertulis yang teliti, dan rantaian bacaan (qiraat) daripada guru kepada murid yang tidak terputus hingga kepada Nabi ﷺ. Bagi orang beriman, ini ialah satu tanda keimanan; bagi ahli sejarah, ini ialah fakta yang didokumentasikan: Al-Quran yang dibaca hari ini ialah teks yang sama yang diturunkan empat belas abad yang lalu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Kamilah yang menurunkan Adz-Dzikr (Al-Qur'an), dan sesungguhnya Kami benar-benar memeliharanya.",
-      },
-      {
-        excerpt: "Bacalah dengan (menyebut) nama Tuhanmu yang menciptakan…",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Garis masa penurunan wahyu" }, { label: "Sirah" }],
   },
   {
-    title: "Struktur Al-Qur'an",
-    summary: "114 surah, 30 juz, ayat, Makki/Madani, dan urutan vs turunnya wahyu.",
+    title: "Struktur Al-Quran",
+    summary:
+      "114 surah, 30 juz, ayat, Makkiyah/Madaniyah, tertib mushaf berbanding tertib penurunan.",
     body: [
-      "Mushaf — salinan fisik Al-Qur'an — memuat 114 surah (bab), masing-masing dengan namanya sendiri, biasanya diambil dari kata yang menonjol di dalamnya. Surah-surah itu disusun sebagian besar dari yang terpanjang ke yang terpendek, meski tidak selalu ketat: Al-Fatihah, surah pembuka yang pendek, datang pertama sebagai gerbang Kitab, diikuti Al-Baqarah yang panjang. Susunan ini bersifat tawqifi — urutannya diajarkan kepada Nabi ﷺ oleh Jibril dan bukan urutan turunnya ayat-ayat. Jadi urutan yang kamu baca dalam mushaf itu disengaja dan ditetapkan secara ilahi, bukan kronologis.",
-      "Setiap surah digolongkan sebagai Makki (diturunkan sebelum Hijrah) atau Madani (diturunkan sesudahnya), dan beberapa surah memuat ayat dari keduanya. Sebagai patokan umum, surah Makki berfokus pada akidah — tauhid, kebangkitan, dan kisah para nabi — dalam bagian-bagian yang lebih pendek dan mendesak, sementara surah Madani menambahkan perundangan rinci dan bimbingan komunitas yang dibutuhkan masyarakat yang sudah menetap. Mengetahui mana yang mana membantu kamu membaca sebuah surah dalam konteks yang tepat.",
-      "Untuk memudahkan bacaan, Al-Qur'an juga dibagi menjadi 30 bagian sama besar yang disebut juz, dan setiap juz dibagi lagi menjadi dua bagian yang disebut hizb, sehingga totalnya 60 hizb. Inilah yang membuat khatam Ramadhan — menyelesaikan seluruh Al-Qur'an dalam sebulan — terasa begitu alami: satu juz sehari menyelesaikan Kitab dalam tiga puluh hari, dan setengah juz dua kali sehari lebih ringan lagi. Di dalam setiap surah, ayat-ayat diberi nomor sehingga bagian mana pun bisa dirujuk secara tepat sebagai surah:ayat; hitungan standar Madinah adalah 6.236 ayat, dengan hanya sedikit perbedaan yang terdokumentasi dengan baik dalam cara beberapa batas ayat dihitung — teksnya sendiri identik.",
-      "Memahami struktur ini mengubah niat yang samar menjadi rencana yang konkret. Kamu bisa berkomitmen pada porsi harian yang tetap, menargetkan Juz Amma (juz terakhir, ketiga puluh, penuh surah pendek) untuk dihafal, mengikuti satu tema seperti kesabaran di beberapa surah, atau menjadwalkan khatam lengkap seputar Ramadhan. Struktur adalah kerangka yang membuat hubungan seumur hidup dengan Al-Qur'an bisa dicapai.",
+      "Mushaf — naskhah fizikal Al-Quran — mengandungi 114 surah, masing-masing dengan namanya sendiri, biasanya diambil daripada satu perkataan yang menonjol di dalamnya. Surah-surah itu kebanyakannya disusun daripada yang terpanjang kepada yang terpendek, walaupun tidak secara ketat: Al-Fatihah, surah pembuka yang pendek, diletakkan di awal sebagai pintu masuk kepada Kitab ini, diikuti Al-Baqarah yang panjang. Susunan ini bersifat tauqifi — tertibnya diajarkan kepada Nabi ﷺ oleh Jibril dan bukan mengikut urutan ayat-ayat itu diturunkan. Jadi urutan yang anda baca dalam mushaf adalah disengajakan dan ditetapkan oleh Allah, bukan mengikut kronologi.",
+      "Setiap surah dikelaskan sebagai Makkiyah (diturunkan sebelum Hijrah) atau Madaniyah (diturunkan selepasnya), dan sebilangan kecil mengandungi ayat daripada kedua-duanya. Secara umumnya, surah Makkiyah memberi tumpuan kepada akidah — tauhid, kebangkitan dan kisah para nabi — dalam petikan yang lebih pendek dan mendesak, manakala surah Madaniyah menambah perundangan terperinci dan panduan kemasyarakatan yang diperlukan oleh masyarakat yang telah mantap. Mengetahui yang mana satu membantu anda membaca sesuatu surah dalam konteksnya yang betul.",
+      "Untuk memudahkan bacaan, Al-Quran juga dibahagikan kepada 30 bahagian yang sama besar dipanggil juz (jamaknya ajza'), dan setiap juz kepada dua bahagian dipanggil hizb, menjadikan jumlahnya 60 hizb. Inilah yang menjadikan khatam Ramadan — menamatkan seluruh Al-Quran dalam sebulan — begitu mudah: satu juz sehari menamatkan Kitab ini dalam tiga puluh hari, dan setengah juz dua kali sehari lebih ringan lagi. Dalam setiap surah, ayat-ayatnya bernombor supaya mana-mana petikan boleh dirujuk dengan tepat sebagai surah:ayat; kiraan standard Madinah ialah 6,236 ayat, dengan hanya perbezaan yang sangat kecil dan didokumentasikan dengan baik tentang cara penomboran beberapa sempadan ayat — teksnya sendiri tetap sama.",
+      "Memahami struktur ini mengubah niat yang samar menjadi rancangan yang konkrit. Anda boleh komited kepada bahagian harian yang tetap, menyasarkan Juz Amma (bahagian terakhir, juz ketiga puluh, yang penuh dengan surah pendek) untuk dihafal, mengikuti satu tema seperti sabar merentasi beberapa surah, atau menjadualkan bacaan khatam penuh sekitar Ramadan. Struktur ialah perancah yang menjadikan hubungan sepanjang hayat dengan Al-Quran sesuatu yang boleh dicapai.",
     ],
-    quran: [
-      {
-        excerpt:
-          "…sebuah Kitab yang ayat-ayatnya dijelaskan secara terperinci, Al-Qur'an dalam bahasa Arab untuk kaum yang mengetahui.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Visual struktur" }, { label: "Semak imbas surah" }],
   },
   {
     title: "Belajar membaca",
-    summary: "Tujuh tingkatan dari alfabet hingga bacaan lancar — untuk pemula mutlak.",
+    summary: "Tujuh tahap daripada huruf hijaiyah hingga bacaan lancar — untuk pemula sepenuhnya.",
     body: [
-      "Hampir setiap muslim mendambakan bisa membaca Al-Qur'an dalam bahasa Arab aslinya, dan ini adalah tujuan yang sepenuhnya bisa dicapai di usia berapa pun — tak terhitung orang dewasa yang sebelumnya tidak mengenal bahasa Arab berhasil belajar membaca dengan lancar. Memahami terjemahan itu berharga, tetapi membaca kata-kata Arab yang sesungguhnya itu sendiri adalah ibadah, dan layak diperjuangkan. Jalan ini membimbingmu selangkah demi selangkah dari tidak mengenali satu huruf pun hingga membaca ayat dengan pelafalan yang benar.",
-      'Perjalanan ini melalui tujuh tahap alami. Tingkat 1 dan 2 membangun pengenalan huruf — pertama 28 huruf dalam bentuk tersendirinya, lalu bagaimana bentuknya berubah di awal, tengah, dan akhir kata. Tingkat 3 memperkenalkan harakat, tanda-tanda kecil (fathah, kasrah, dhammah, sukun, tasydid, tanwin) yang menunjukkan vokal yang dibawa setiap huruf. Tingkat 4 dan 5 adalah titik semuanya mulai tersambung: kamu menggabungkan huruf menjadi suku kata dan mengeja seluruh kata, termasuk aturan huruf syamsiyah dan qamariyah untuk kata sandang "al-". Tingkat 6 dan 7 beralih ke ayat-ayat pendek lalu ke bacaan yang halus dan lancar dengan kaidah dasar tajwid diterapkan.',
-      "Dua kebiasaan mempercepat segalanya. Pertama, dengarkan terus-menerus qari yang mumpuni dan tirukan persis — Al-Qur'an diwariskan dari telinga ke telinga, mulut ke mulut, jadi telingamu adalah gurumu yang terbaik; tirukan iramanya, panjang vokalnya, dan bentuk setiap bunyinya. Kedua, jiplak dan tulis huruf-hurufnya, di kertas atau layar, karena tangan memperkuat apa yang sedang dipelajari mata dan lisan.",
-      "Satu peringatan: aplikasi dan rekaman adalah pendukung yang sangat baik, tetapi tidak bisa mengoreksimu sebagaimana seseorang bisa. Nabi ﷺ belajar Al-Qur'an langsung dari Jibril dan mengajarkannya secara tatap muka kepada para sahabat, dan rantai koreksi yang hidup itulah cara bacaan yang akurat selalu terjaga. Carilah guru setempat atau program tajwid daring yang terstruktur untuk mendengarkan bacaanmu dan membetulkan kesalahan yang tidak bisa kamu dengar sendiri.",
+      "Hampir setiap Muslim ingin membaca Al-Quran dalam bahasa Arab asalnya, dan matlamat ini boleh dicapai pada usia berapa pun — tidak terkira ramainya orang dewasa yang tidak pernah belajar bahasa Arab berjaya membaca dengan lancar. Memahami terjemahan memang berharga, tetapi membaca kalimah Arab yang sebenar itu sendiri ialah ibadah, dan ia berbaloi diusahakan. Laluan ini membimbing anda langkah demi langkah daripada tidak mengenal satu huruf pun hingga mampu membaca ayat dengan sebutan yang betul.",
+      "Perjalanan ini melalui tujuh peringkat semula jadi. Tahap 1 dan 2 membina pengecaman huruf — mula-mula 28 huruf dalam bentuk tunggal, kemudian bagaimana bentuknya berubah di awal, tengah dan akhir perkataan. Tahap 3 memperkenalkan baris (harakat), tanda-tanda kecil (fathah, kasrah, dammah, sukun, syaddah, tanwin) yang menunjukkan vokal bagi setiap huruf. Tahap 4 dan 5 ialah ketika semuanya mula difahami: anda menyambung huruf menjadi suku kata dan mengeja perkataan penuh, termasuk hukum huruf syamsiah dan qamariah bagi kata sandang “al-”. Tahap 6 dan 7 beralih kepada ayat-ayat pendek dan seterusnya bacaan yang licin dan lancar dengan hukum asas tajwid diamalkan.",
+      "Dua tabiat mempercepat segala-galanya. Pertama, sentiasa dengar bacaan qari yang bertauliah dan tiru dengan tepat — Al-Quran diwarisi melalui pendengaran, dari mulut ke mulut, maka telinga anda ialah guru terbaik; tiru iramanya, panjang pendek vokalnya dan bentuk setiap bunyinya. Kedua, surih dan tulis huruf-hurufnya, di atas kertas atau skrin, kerana tangan mengukuhkan apa yang sedang dipelajari oleh mata dan lidah.",
+      "Satu peringatan: aplikasi dan rakaman ialah sokongan yang sangat baik, tetapi ia tidak dapat membetulkan anda seperti yang boleh dilakukan oleh seseorang. Nabi ﷺ menerima Al-Quran terus daripada Jibril dan mengajarkannya secara bersemuka kepada para sahabat, dan rantaian pembetulan yang hidup itulah cara bacaan yang tepat sentiasa dipelihara. Carilah guru tempatan atau program tajwid dalam talian yang tersusun untuk mendengar bacaan anda dan membetulkan kesilapan yang tidak dapat anda dengar sendiri.",
     ],
     actions: [
-      "Pelajari satu huruf sehari di bagian huruf Arab — lihat, dengar, ucapkan, tulis.",
-      "Dengarkan Surah Al-Fatihah berulang-ulang sambil mengikuti kata-katanya di mushaf.",
-      "Carilah guru — setempat atau daring — untuk mendengarkan bacaanmu dan membetulkannya setiap minggu.",
+      "Pelajari satu huruf sehari di bahagian huruf Arab — lihat, dengar, sebut, tulis.",
+      "Dengar Surah al-Fatihah berulang kali sambil mengikuti perkataannya dalam mushaf.",
+      "Aturkan seorang guru — tempatan atau dalam talian — untuk mendengar bacaan anda dan membetulkannya setiap minggu.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Tahap bacaan" }, { label: "Huruf Arab" }],
   },
   {
     title: "Tajwid",
-    summary: "Kaidah bacaan yang indah dan benar — nun sukun, mad, waqaf, dan lainnya.",
+    summary: "Hukum bacaan yang indah dan betul — nun sakinah, mad, wakaf dan banyak lagi.",
     body: [
-      "Tajwid berasal dari akar kata yang berarti membuat sesuatu menjadi unggul atau indah. Sebagai ilmu, tajwid berarti memberikan hak setiap huruf — makhrajnya yang tepat di mulut atau tenggorokan, sifat bawaannya, dan waktu yang tepat untuk vokal dan jeda. Singkatnya, tajwid adalah seni membaca Al-Qur'an persis seperti saat ia diturunkan.",
-      "Ini penting karena Al-Qur'an bukan sekadar teks biasa yang dibaca sembarangan. Ia turun dengan tajwid yang sudah melekat: Jibril membacakannya kepada Nabi ﷺ dengan pelafalan yang presisi, Nabi ﷺ membacakannya dengan cara yang sama kepada para sahabat, dan mereka mewariskannya tanpa terputus kepada kita. Salah mengucapkan satu huruf bukan perkara kecil — salah melafalkan satu huruf bisa mengubah seluruh makna kata (misalnya mencampuradukkan ص yang tebal dengan س yang biasa, atau huruf tenggorokan ع dan ح), dan di beberapa tempat itu mengubah makna kalam Allah. Ilmu tajwid ada tepat untuk menjaga dari hal itu.",
-      "Kamu tidak perlu menguasai semuanya sekaligus. Kaidah-kaidah inti dipelajari secara berurutan: hukum nun sukun dan tanwin (izhar, idgham, iqlab, ikhfa), hukum mim sukun, berbagai jenis mad (pemanjangan), qalqalah (pantulan ringan pada huruf tertentu), ghunnah (dengung hidung), dan waqaf (di mana dan bagaimana berhenti). Masing-masing punya definisi yang jelas, contoh sehari-hari, dan latihan, dan hub ini membahasnya satu per satu.",
-      "Satu patokan yang tegas: pelajari tajwid dengan mendengar langsung dari guru yang mumpuni, bukan hanya dari buku atau aplikasi. Bacalah di hadapan seseorang yang bisa mendengar kesalahanmu dan membetulkannya — begitulah tajwid selalu diajarkan, dan itulah satu-satunya jalan yang bisa diandalkan menuju ketepatan yang sesungguhnya dan, pada akhirnya, ijazah (rantai bacaan yang bersanad).",
+      "Tajwid berasal daripada akar kata yang bermaksud menjadikan sesuatu itu elok atau indah. Sebagai satu ilmu, ia bermaksud memberikan setiap huruf haknya — tempat sebutannya yang betul di mulut atau kerongkong (makhraj), sifat-sifat asalnya (sifat), dan kadar masa yang betul bagi vokal dan hentian. Ringkasnya, tajwid ialah seni membaca Al-Quran tepat seperti ia diturunkan.",
+      "Perkara ini penting kerana Al-Quran bukan sebarang teks untuk dibaca sambil lewa. Ia turun dengan tajwid yang sudah sedia ada: Jibril membacakannya kepada Nabi ﷺ dengan sebutan yang tepat, Nabi ﷺ membacakannya dengan cara yang sama kepada para sahabat, dan mereka menyampaikannya tanpa putus kepada kita. Tersalah sebut sesuatu huruf bukan perkara kecil — salah sebutan boleh mengubah perkataan sepenuhnya (contohnya mengelirukan ص yang tebal dengan س yang biasa, atau huruf kerongkong ع dan ح), dan di sesetengah tempat ia mengubah makna kalam Allah. Ilmu tajwid wujud tepat untuk menjaga daripada perkara itu.",
+      "Anda tidak perlu menguasai semuanya sekali gus. Hukum-hukum teras dipelajari secara berturutan: hukum nun sakinah dan tanwin (izhar, idgham, iqlab, ikhfa'), hukum mim sakinah, jenis-jenis mad (pemanjangan), qalqalah (lantunan ringan pada huruf tertentu), ghunnah (dengung di hidung), dan wakaf (di mana dan bagaimana berhenti). Setiap satu mempunyai takrif yang jelas, contoh harian dan latihan, dan hab ini membimbing anda satu demi satu.",
+      "Satu panduan yang tegas: pelajari tajwid melalui pendengaran daripada guru yang bertauliah, bukan daripada buku atau aplikasi semata-mata. Bacalah di hadapan seseorang yang dapat mendengar kesilapan anda dan membetulkannya — beginilah tajwid sentiasa diajarkan, dan inilah satu-satunya jalan yang boleh dipercayai menuju ketepatan sebenar dan, akhirnya, ijazah (rantaian bacaan bersanad yang diperakui).",
     ],
-    hadith: [
-      {
-        excerpt: "Sebaik-baik kalian adalah yang belajar Al-Qur'an dan mengajarkannya.",
-      },
-      {
-        excerpt:
-          "Orang yang mahir membaca Al-Qur'an bersama para malaikat penulis yang mulia lagi berbakti, dan orang yang membacanya dengan tersendat-sendat serta merasa berat, baginya pahala berlipat ganda.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Pelajaran tajwid" }],
   },
   {
     title: "Huruf Arab",
-    summary: "Alfabet interaktif — nama, bunyi, dan contoh untuk masing-masing dari 28 huruf.",
+    summary: "Huruf hijaiyah interaktif — nama, bunyi dan contoh bagi setiap 28 huruf.",
     body: [
-      "Alfabet Arab memiliki 28 huruf, ditulis dan dibaca dari kanan ke kiri. Berbeda dengan bahasa Inggris, sebagian besar huruf tersambung dengan huruf di sebelahnya, sehingga satu huruf bisa memiliki bentuk yang sedikit berbeda tergantung apakah ia berdiri sendiri atau berada di awal, tengah, atau akhir kata. Belajar mengenali huruf yang sama dalam bentuk-bentuknya yang berbeda adalah salah satu terobosan pertama yang nyata.",
-      'Bahasa Arab Al-Qur\\\'an menambahkan beberapa fitur ekstra di atas huruf dasar: hamzah (bunyi glotal berhenti), huruf vokal panjang alif, wau, dan ya yang memanjangkan bunyi, serta aturan huruf syamsiyah dan qamariyah yang menentukan apakah "l" pada kata sandang "al-" dilafalkan atau melebur diam ke huruf berikutnya. Semua ini sederhana begitu kamu menemuinya dalam kata-kata yang sesungguhnya.',
-      "Setiap kartu huruf di bagian ini memberimu bentuk tersendiri huruf itu, namanya, transliterasi, tips pelafalan praktis, dan contoh-contoh Al-Qur'an yang nyata sehingga kamu belajar bunyinya dalam konteks, bukan secara abstrak. Rutinitas yang paling efektif adalah lingkaran empat langkah untuk setiap huruf: lihat, dengar bacaannya, ucapkan sendiri dengan keras, lalu tulis.",
-      "Kaitkan setiap huruf baru dengan kata-kata yang mungkin sudah kamu kenal — Allah, Rabb (Tuhan), ar-Rahman (Yang Maha Pengasih), Bismillah. Menghubungkan bentuk yang asing dengan makna yang akrab membuatnya melekat jauh lebih cepat daripada menghafal huruf secara terpisah.",
+      "Abjad Arab mempunyai 28 huruf, ditulis dan dibaca dari kanan ke kiri. Tidak seperti tulisan rumi, kebanyakan huruf bersambung dengan huruf di sebelahnya, jadi satu huruf boleh mempunyai bentuk yang sedikit berbeza bergantung pada sama ada ia berdiri sendiri atau berada di awal, tengah atau akhir perkataan. Belajar mengenal huruf yang sama dalam bentuk-bentuknya yang berbeza ialah salah satu kejayaan besar yang pertama.",
+      "Bahasa Arab Al-Quran menambah beberapa ciri tambahan di atas huruf-huruf asas: hamzah (hentian glotis), huruf mad alif, wau dan ya yang memanjangkan bunyi, serta hukum huruf syamsiah dan qamariah yang menentukan sama ada “l” pada kata sandang “al-” disebut atau dileburkan secara senyap ke dalam huruf seterusnya. Semua ini mudah sebaik sahaja anda menemuinya dalam perkataan sebenar.",
+      "Setiap kad huruf dalam bahagian ini memberikan bentuk tunggal huruf itu, namanya, transliterasi, petua sebutan yang praktikal dan contoh sebenar daripada Al-Quran supaya anda mempelajari bunyinya dalam konteks, bukan secara abstrak. Rutin paling berkesan ialah kitaran empat langkah bagi setiap huruf: lihat, dengar ia dibaca, sebut dengan kuat sendiri, kemudian tulis.",
+      "Kaitkan setiap huruf baharu dengan perkataan yang mungkin sudah anda kenali — Allah, Rabb (Tuhan), ar-Rahman (Yang Maha Pemurah), Bismillah. Menghubungkan bentuk yang asing dengan makna yang biasa menjadikannya jauh lebih cepat melekat berbanding menghafal huruf secara terasing.",
     ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Pelayar huruf" }, { label: "Panduan sebutan" }],
   },
   {
-    title: "Pelafalan",
-    summary: "Kuasai huruf-huruf sulit — ain, ha, shad, dhad, qaf, dan huruf tebal.",
+    title: "Sebutan",
+    summary: "Kuasai huruf-huruf sukar — 'ain, ha, sad, dad, qaf dan huruf-huruf tebal.",
     body: [
-      "Bahasa Arab memiliki beberapa bunyi yang tidak memiliki padanan persis dalam bahasa Indonesia, dan di sinilah penutur non-asli paling sering keliru. Kekeliruan paling umum adalah antara huruf-huruf yang terdengar mirip bagi telinga yang belum terlatih tetapi dilafalkan dari titik yang berbeda di mulut atau tenggorokan — dan mencampuradukkannya bisa mengubah makna sebuah kata, itulah sebabnya huruf-huruf ini layak mendapat latihan khusus.",
-      'Huruf-huruf tebal (mufakhkham) — shad (ص), dhad (ض), tha (ط), dan zha (ظ) — adalah versi "berat" dari huruf yang lebih ringan. Untuk melafalkannya, kamu mengangkat bagian belakang lidah dan mengisi mulut dengan bunyi yang lebih penuh dan dalam, sesuatu yang diserap penutur asli sejak kecil tetapi harus dibangun secara sadar oleh pembelajar. Bandingkan setiap huruf tebal langsung dengan pasangan ringannya: sin dibanding shad, dal dibanding dhad, ta dibanding tha, dzal dibanding zha.',
-      'Huruf-huruf tenggorokan adalah rintangan besar lainnya. Ain (ع) adalah penyempitan bersuara dari tengah tenggorokan, dan ha (ح) adalah gesekan kuat dan berhembus — keduanya tidak ada dalam bahasa Indonesia, dan tidak ada penjelasan tertulis yang bisa sepenuhnya menggantikan mendengarnya langsung. Qaf (ق) adalah "k" yang dalam dari bagian paling belakang lidah, berbeda dari kaf (ك) yang lebih ke depan.',
-      "Metode yang bisa diandalkan adalah membandingkan pasangan huruf berdampingan, lalu menguji dirimu terhadap bacaan murattal yang perlahan dan jelas. Rekam suaramu sendiri membaca satu kata pendek, putar bersamaan dengan bacaan qari, dan sesuaikan. Lebih baik lagi, perdengarkan kepada guru yang mumpuni — beberapa kesalahan hampir mustahil ditangkap dalam rekaman sendiri.",
+      "Bahasa Arab mempunyai beberapa bunyi yang tiada padanan tepat dalam bahasa Melayu, dan di sinilah penutur bukan asli paling kerap tergelincir. Kekeliruan paling biasa ialah antara huruf yang kedengaran serupa bagi telinga yang belum terlatih tetapi disebut dari tempat berbeza di mulut atau kerongkong — dan mencampuradukkannya boleh mengubah makna sesuatu perkataan, sebab itulah ia memerlukan latihan khusus.",
+      "Huruf-huruf tebal — ṣ (ص), ḍ (ض), ṭ (ط) dan ẓ (ظ) — ialah versi “berat” bagi huruf yang lebih nipis. Untuk menyebutnya, anda mengangkat pangkal lidah dan memenuhkan mulut dengan bunyi yang lebih penuh dan dalam, sesuatu yang diserap penutur asli sejak kecil tetapi perlu dibina secara sedar oleh pelajar. Bandingkan setiap huruf tebal secara langsung dengan pasangan nipisnya: س dengan ص, د dengan ض, ت dengan ط, ذ dengan ظ.",
+      "Huruf kerongkong ialah cabaran besar yang lain. 'Ain (ع) ialah bunyi bersuara yang terhasil daripada penyempitan di tengah kerongkong, dan ha (ح) ialah geseran yang kuat dan berdesah — kedua-duanya tiada dalam sebutan Melayu biasa, dan tiada huraian bertulis yang benar-benar dapat menggantikan mendengarnya sendiri. Qaf (ق) ialah bunyi “k” yang dalam dari pangkal lidah paling belakang, berbeza daripada kaf (ك) yang lebih ke hadapan.",
+      "Kaedah yang boleh dipercayai ialah membandingkan pasangan huruf secara bersebelahan, kemudian menyemak diri dengan bacaan murattal yang perlahan dan jelas. Rakam suara anda membaca satu perkataan pendek, mainkan bersama bacaan qari, dan perbetulkan. Lebih baik lagi, minta guru yang bertauliah mendengar — sesetengah kesilapan hampir mustahil dikesan dalam rakaman anda sendiri.",
     ],
-    appLinks: [{}],
+    appLinks: [{ label: "Perbandingan huruf" }],
   },
   {
-    title: "Kosakata Al-Qur'an",
-    summary: "Kata-kata berfrekuensi tinggi — pahami lebih banyak setiap kali membaca.",
+    title: "Kosa kata Al-Quran",
+    summary: "Perkataan yang kerap muncul — fahami lebih banyak setiap kali anda membaca.",
     body: [
-      "Ini adalah fakta yang menggembirakan: sekumpulan kata berfrekuensi tinggi yang relatif kecil — sekitar beberapa ratus — mencakup porsi yang sangat besar dari keseluruhan teks Al-Qur'an, karena kata-kata kunci yang sama muncul berulang kali. Mempelajari kosakata inti itu adalah langkah paling berdampak yang bisa kamu ambil, karena ia mengubah bacaan dari sekadar aliran bunyi menjadi kata-kata yang maknanya benar-benar kamu tangkap saat membaca.",
-      "Kamu tidak menerjemahkan Al-Qur'an kata demi kata dengan cara ini — itu adalah pekerjaan tafsir dan terjemahan — tetapi kamu mulai mengenali nama-nama Allah, perintah, janji, dan peringatan secara langsung, pada saat membaca. Mulailah dengan kata-kata yang paling sering muncul dan paling berbobot: Allah, Rabb (Tuhan), rahmah (kasih sayang), iman (keyakinan), sabr (kesabaran), taqwa (kesadaran akan Allah), dunya (dunia ini), dan akhirah (kehidupan akhirat). Dari kumpulan inti itu, perluas sedikit demi sedikit.",
-      "Gunakan pengulangan berjarak (spaced repetition), bukan sistem kebut semalam. Mempelajari lima kata baru seminggu dan mengulang semuanya setiap hari akan membawamu jauh lebih maju dalam setahun dibanding menghafal lima puluh kata dalam satu kali duduk lalu melupakannya. Allah berjanji bahwa Al-Qur'an telah dimudahkan untuk diambil pelajaran — dekati kosakatanya secara konsisten dan kamu akan merasakan kemudahan itu sendiri.",
+      "Inilah fakta yang menggembirakan: satu set perkataan kerap yang agak kecil — sekitar beberapa ratus perkataan — merangkumi sebahagian besar teks Al-Quran, kerana perkataan-perkataan utama yang sama berulang-ulang kali. Mempelajari kosa kata teras itu ialah langkah paling berimpak yang boleh anda ambil, kerana ia mengubah bacaan daripada aliran bunyi kepada perkataan yang benar-benar anda tangkap maknanya semasa membaca.",
+      "Dengan cara ini anda tidak menterjemah Al-Quran perkataan demi perkataan — itu kerja tafsir dan terjemahan — tetapi anda mula mengenali nama-nama Allah, perintah, janji dan amaran secara langsung, ketika sedang membaca. Mulakan dengan perkataan yang paling kerap muncul dan paling berat maknanya: Allah, Rabb (Tuhan), rahmah (rahmat), iman, sabr (sabar), taqwa (takwa), dunya (dunia) dan akhirah (akhirat). Daripada set asas itu, kembangkan sedikit demi sedikit.",
+      "Gunakan ulang kaji berselang (spaced repetition) dan bukannya menghafal secara terburu-buru. Belajar lima perkataan baharu seminggu dan mengulang kaji kesemuanya setiap hari akan membawa anda jauh lebih ke hadapan dalam setahun berbanding menghafal lima puluh perkataan sekali duduk lalu melupakannya. Allah menjanjikan bahawa Al-Quran telah dimudahkan untuk diingati — dekati kosa katanya dengan tekun dan anda akan merasai sendiri kemudahan itu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan sesungguhnya telah Kami mudahkan Al-Qur'an untuk pelajaran, maka adakah orang yang mau mengambil pelajaran?",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Senarai kosa kata" }],
   },
   {
     title: "Tafsir",
-    summary: "Memahami wahyu — gambaran umum, konteks, dan sumber-sumber ilmiah yang diakui.",
+    summary: "Memahami wahyu — gambaran keseluruhan, konteks dan rujukan ulama yang diiktiraf.",
     body: [
-      "Tafsir berarti penjelasan dan penafsiran Al-Qur'an — menjelaskan apa makna sebuah ayat, mengapa ia diturunkan, dan bagaimana penerapannya. Karena ini adalah kalam Allah, para ulama menetapkan urutan otoritas yang ketat tentang bagaimana Al-Qur'an harus dijelaskan, dan tetap berada di dalamnya melindungimu dari kesalahan.",
-      "Tafsir yang paling sahih adalah Al-Qur'an menafsirkan dirinya sendiri: sebuah ayat yang singkat di satu tempat seringkali dijelaskan lebih luas di tempat lain, jadi Al-Qur'an adalah penafsir terbaik bagi dirinya sendiri. Selanjutnya datang penjelasan melalui Sunnah, karena Nabi ﷺ diutus justru untuk menjelaskan wahyu, dan ucapan serta perbuatannya menunjukkan kepada kita bagaimana ia dihayati. Setelah itu datang pemahaman para sahabat, yang menyaksikan wahyu turun dan mengetahui konteksnya secara langsung, diikuti para ulama besar yang datang setelah mereka. Terakhir dan paling rendah adalah penafsiran melalui bahasa Arab itu sendiri. Yang sama sekali tidak memiliki tempat adalah pendapat pribadi yang tidak berdasar — membaca gagasan sendiri ke dalam teks.",
-      'Alat kunci dalam tafsir adalah asbabun nuzul, sebab-sebab turunnya ayat: mengetahui peristiwa atau pertanyaan yang mendorong turunnya sebuah ayat seringkali membuka maknanya. Namun riwayat-riwayat ini sendiri harus diverifikasi keabsahannya, karena tidak setiap "sebab" yang diriwayatkan itu dapat diandalkan. Untuk setiap surah, tafsir yang baik memberimu latar sejarahnya bila sudah mapan, tema-tema utamanya, ayat-ayat pentingnya, dan pelajaran praktis untuk dibawa pulang.',
-      "Di antara rujukan yang paling diakui dan dapat dipercaya adalah Tafsir Ibnu Katsir (komprehensif dan cermat mengutip hadis serta perkataan generasi awal), Tafsir As-Sa'di (jelas, kontemporer, dan berfokus pada bimbingan praktis), serta Tafsir Ath-Thabari klasik (ensiklopedis, melestarikan penafsiran-penafsiran paling awal). Setiap kali kamu mempelajari sebuah makna, catat dari sumber mana ia berasal. Hub ini mengajarkan metodologinya; gunakan pembaca Al-Qur'an Munib, yang menghubungkan tafsir bawaan dan tafsir daring, untuk kajian ayat demi ayat.",
-    ],
-    sources: [
-      "Tafsir Ibnu Katsir — versi ringkas bahasa Inggris tersedia luas",
-      "Tafsir As-Sa'di — ringkasan yang mudah dipahami",
-      "Asbabun Nuzul karya Al-Wahidi — sebab-sebab turunnya ayat (verifikasi keabsahan tiap riwayat)",
+      "Tafsir bermaksud penjelasan dan huraian Al-Quran — menerangkan maksud sesuatu ayat, mengapa ia diturunkan, dan bagaimana ia diamalkan. Oleh kerana ini ialah kalam Allah, para ulama menetapkan tertib autoriti yang ketat tentang bagaimana Al-Quran wajar ditafsirkan, dan berpegang dengannya melindungi anda daripada kesilapan.",
+      "Tafsir yang paling kukuh ialah Al-Quran menafsirkan dirinya sendiri: ayat yang ringkas di satu tempat sering dihuraikan di tempat lain, maka Al-Quran ialah pentafsir terbaik bagi dirinya. Seterusnya ialah tafsiran dengan Sunnah, kerana Nabi ﷺ diutus tepat untuk menjelaskan wahyu dan sabda serta amalan baginda menunjukkan bagaimana ia dihayati. Selepas itu ialah kefahaman para sahabat, yang menyaksikan penurunan wahyu dan mengetahui konteksnya secara langsung, diikuti para ulama besar selepas mereka. Yang terakhir dan paling rendah ialah tafsiran melalui bahasa Arab itu sendiri. Yang langsung tiada tempat ialah pendapat peribadi tanpa kelayakan — memasukkan idea sendiri ke dalam teks.",
+      "Alat penting dalam tafsir ialah asbab al-nuzul, iaitu sebab-sebab turunnya ayat: mengetahui peristiwa atau soalan yang mendorong sesuatu ayat sering membuka maknanya. Namun riwayat-riwayat ini sendiri mesti disahkan, kerana bukan setiap “sebab turun” yang diriwayatkan itu boleh dipercayai. Bagi setiap surah, tafsir yang baik memberikan latar sejarahnya apabila ia sabit, tema-tema utamanya, ayat-ayat pentingnya dan pengajaran praktikal untuk dibawa pulang.",
+      "Antara rujukan yang paling diiktiraf dan dipercayai ialah Tafsir Ibnu Kathir (menyeluruh dan teliti dalam memetik hadis serta kata-kata generasi awal), Tafsir as-Sa'di (jelas, semasa dan menumpukan panduan praktikal), dan Tafsir at-Tabari yang klasik (ensiklopedik, memelihara tafsiran-tafsiran terawal). Setiap kali anda mempelajari sesuatu makna, catat sumber asalnya. Hab ini mengajar metodologinya; gunakan pembaca Al-Quran Munib, yang memautkan tafsir terbina dalam aplikasi dan tafsir dalam talian, untuk kajian ayat demi ayat.",
     ],
     disclaimer:
-      "Tafsir bervariasi kedalamannya. Ketika para ulama berbeda pendapat, catat perbedaannya tanpa mengklaim kepastian di tempat yang tidak dijelaskan Allah secara gamblang.",
-    appLinks: [{}],
+      "Tafsir berbeza dari segi kedalamannya. Apabila ulama berbeza pendapat, catatkan perbezaan itu tanpa mendakwa kepastian dalam perkara yang tidak dijelaskan secara pasti oleh Allah.",
+    appLinks: [{ label: "Buka pembaca Al-Quran" }],
   },
   {
-    title: "Tema-tema Al-Qur'an",
+    title: "Tema-tema Al-Quran",
+    summary: "Iman, solat, sabar, sedekah, para nabi — ayat-ayat dikumpulkan mengikut topik.",
+    body: [
+      "Al-Quran tidak disusun seperti buku teks, satu subjek bagi setiap bab. Sebaliknya, tema-temanya yang besar — keesaan Allah, solat, sabar, sedekah, para nabi, akhirat, keadilan, keluarga — dijalin di seluruhnya, muncul dan muncul semula dalam banyak surah, setiap kali dari sudut yang baharu. Apa yang pada mulanya kelihatan seperti pengulangan sebenarnya ialah pengukuhan: sesuatu tema diperkenalkan, kemudian diperdalam, kemudian dihubungkan dengan tema lain, sehingga keseluruhan mesejnya berdiri sebagai satu seruan yang padu.",
+      "Mengkaji Al-Quran mengikut tema menyerlahkan kesatuan itu. Apabila anda mengumpulkan apa yang Al-Quran katakan tentang, misalnya, syukur atau tawakal kepada Allah daripada pelbagai surah, ayat-ayat yang berasingan itu saling menerangi dan pengajarannya menjadi jelas dan lengkap. Setiap entri tema dalam hab ini menghimpunkan ayat-ayat berkaitan, hadis sahih sebagai sokongan apabila ia menambah kejelasan, pengajaran teras dan tindakan konkrit supaya ilmu itu tidak kekal sebagai teori.",
+      "Paling penting, hubungkan tema-tema itu dengan kehidupan anda sendiri. Berbuat baik kepada ibu bapa, jujur dalam perniagaan, adil dalam perkahwinan, menegakkan keadilan walaupun bertentangan dengan kepentingan sendiri — ini bukan bab-bab abstrak untuk dikagumi tetapi keputusan harian yang Al-Quran minta anda lakukan. Bacalah setiap tema sebagai soalan yang ditujukan kepada anda secara peribadi: bagaimana ini mengubah apa yang saya lakukan hari ini?",
+    ],
+    appLinks: [{ label: "Semak imbas tema" }],
+  },
+  {
+    title: "Kisah-kisah dalam Al-Quran",
+    summary: "Para nabi dari Adam hingga Muhammad ﷺ — pengajaran, lokasi dan ayat berkaitan.",
+    body: [
+      "Al-Quran menceritakan kisah para nabi — Adam, Nuh, Ibrahim, Yusuf, Musa, Isa dan ramai lagi — dan ia memberitahu kita dengan jelas sebabnya: “kisah Nabi-nabi itu mengandungi pelajaran yang mendatangkan iktibar bagi orang-orang yang mempunyai akal fikiran.” Kisah-kisah ini bukan cerita rakyat atau hiburan. Ia ialah pengajaran, dipilih dan diceritakan oleh Allah untuk mengajar iman, kesabaran dan cara menghadapi ujian yang sama yang berulang dalam setiap zaman.",
+      "Perhatikan corak yang mengalir dalam kisah-kisah itu. Para nabi menyeru kaum mereka supaya menyembah Allah semata-mata; mereka diejek, ditentang dan sering diusir; mereka bertahan dengan sabar dan tawakal sepenuhnya kepada Allah; dan akhirnya janji Allah menjadi kenyataan. Apabila anda membaca tentang kesusahan mereka, ambillah kekuatan daripada cara mereka bertindak balas — tanpa sekali-kali membayangkan kedudukan anda setaraf dengan mereka. Tujuannya ialah menghayati ketabahan dan tawakal mereka, bukan membandingkan martabat.",
+      "Al-Quran sendiri menonjolkan satu kisah: Surah Yusuf, yang Allah sebut sebagai “seindah-indah kisah”. Luar biasanya, ia diceritakan dari awal hingga akhir dalam satu surah, maka bacalah dalam satu duduk sebagai satu perjalanan yang berterusan — pengkhianatan, kesabaran ketika menjadi hamba dan dipenjarakan, dan akhirnya kemaafan serta pertemuan semula — dan perhatikan bagaimana rancangan Allah terungkap di sebalik bertahun-tahun musibah yang zahir.",
+    ],
+    appLinks: [{ label: "Kisah para nabi" }],
+  },
+  {
+    title: "Mukjizat Al-Quran",
     summary:
-      "Iman, shalat, kesabaran, sedekah, para nabi — ayat-ayat dikelompokkan berdasarkan topik.",
+      "Keunikan bahasa yang tidak tertanding, pemeliharaan, nubuatan — dengan sikap berhati-hati ilmiah.",
     body: [
-      "Al-Qur'an tidak disusun seperti buku pelajaran, satu subjek per bab. Sebaliknya, tema-tema besarnya — keesaan Allah, shalat, kesabaran, sedekah, para nabi, akhirat, keadilan, keluarga — dianyam di seluruh isinya, muncul dan muncul kembali di banyak surah, setiap kali dari sudut yang segar. Apa yang tampak seperti pengulangan pada awalnya sebenarnya adalah penguatan: sebuah tema diperkenalkan, lalu diperdalam, lalu dihubungkan dengan tema lain, hingga keseluruhan pesan berdiri sebagai satu seruan yang koheren.",
-      "Mengkaji Al-Qur'an berdasarkan tema mengungkap kesatuan itu. Ketika kamu mengumpulkan apa yang Al-Qur'an katakan tentang, misalnya, rasa syukur atau tawakal kepada Allah dari seluruh surahnya, ayat-ayat yang terpisah saling menerangi dan pelajarannya menjadi hidup dan utuh. Setiap entri tema di hub ini menghimpun ayat-ayat yang relevan, hadis sahih pendukung yang menambah kejelasan bila ada, pelajaran inti, dan tindakan konkret agar ilmu itu tidak sekadar teori.",
-      "Yang terpenting, hubungkan tema-tema itu dengan kehidupanmu sendiri. Berbakti kepada orang tua, kejujuran dalam bisnis, keadilan dalam pernikahan, berdiri tegak untuk keadilan bahkan melawan kepentinganmu sendiri — ini bukan bab-bab abstrak untuk dikagumi, melainkan keputusan sehari-hari yang diminta Al-Qur'an untuk kamu buat. Baca setiap tema sebagai pertanyaan yang ditujukan langsung kepadamu: bagaimana ini mengubah apa yang kulakukan hari ini?",
-    ],
-    appLinks: [{}],
-  },
-  {
-    title: "Kisah-kisah dalam Al-Qur'an",
-    summary: "Para nabi dari Adam hingga Muhammad ﷺ — pelajaran, lokasi, dan ayat-ayat terkait.",
-    body: [
-      'Al-Qur\\\'an menceritakan kisah para nabi — Adam, Nuh, Ibrahim, Yusuf, Musa, Isa, dan banyak lainnya — dan menyatakan dengan jelas mengapa: "Sesungguhnya pada kisah-kisah mereka itu terdapat pelajaran bagi orang-orang yang mempunyai akal." Kisah-kisah ini bukan dongeng atau hiburan. Ini adalah pengajaran, dipilih dan diceritakan oleh Allah untuk mengajarkan keimanan, kesabaran, dan cara menghadapi ujian yang sama yang berulang di setiap zaman.',
-      "Perhatikan pola yang berjalan di dalamnya. Para nabi menyeru kaumnya kepada penyembahan Allah semata; mereka diejek, ditentang, dan sering diusir; mereka bertahan dengan kesabaran dan tawakal penuh kepada Allah; dan pada akhirnya janji Allah terbukti benar. Ketika kamu membaca kesulitan mereka, ambillah kekuatan dari cara mereka menyikapinya — tanpa pernah membayangkan derajatmu setara dengan mereka. Intinya adalah menyerap keteguhan dan tawakal mereka, bukan membandingkan kedudukan.",
-      'Al-Qur\\\'an sendiri menonjolkan satu kisah: Surah Yusuf, yang Allah sebut sebagai "kisah yang terbaik". Secara tidak biasa, kisah ini dituturkan dari awal hingga akhir dalam satu surah, jadi bacalah dalam satu kali duduk sebagai perjalanan yang berkesinambungan — pengkhianatan, kesabaran dalam perbudakan dan penjara, dan akhirnya pengampunan serta pertemuan kembali — dan saksikan bagaimana rencana Allah terungkap di balik bertahun-tahun kemalangan yang tampak.',
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya pada kisah-kisah mereka itu terdapat pengajaran bagi orang-orang yang mempunyai akal…",
-      },
-    ],
-    appLinks: [{}],
-  },
-  {
-    title: "Mukjizat Al-Qur'an",
-    summary: "Keunikan bahasa, penjagaan, ramalan — dengan kehati-hatian ilmiah.",
-    body: [
-      "Mukjizat utama Al-Qur'an adalah Al-Qur'an itu sendiri. Diturunkan kepada seorang yang buta huruf di masa paling fasih dalam sejarah puisi Arab, ia mengeluarkan tantangan terbuka kepada para penentangnya yang paling gigih — para pakar bahasa — untuk membuat bahkan satu surah saja yang serupa dengannya. Empat belas abad kemudian, tantangan itu masih belum terjawab. Kekuatan retorikanya, strukturnya, cara tema-temanya saling terkait, dan keselarasan bimbingan serta hukumnya dikaji dalam ilmu balaghah klasik, dan semuanya tetap, menurut klaim Al-Qur'an sendiri, tak tertandingi.",
-      "Penjagaannya adalah tanda kedua yang dapat diverifikasi. Teks ini terjaga baik secara tertulis, melalui naskah yang ditransmisikan dengan cermat, maupun secara lisan, melalui qira'at — rantai qari yang tak terputus yang menghafal dan mengajarkannya secara persis, generasi demi generasi. Ini adalah sejarah yang terdokumentasi, bukan spekulasi saleh, dan ini memenuhi janji Allah sendiri untuk menjaga Adz-Dzikr.",
-      'Kamu juga akan mendengar tentang "mukjizat ilmiah" — ayat-ayat yang menyentuh tahapan embrio, perluasan alam semesta, dan sejenisnya. Sikapi ini dengan hati-hati. Tafsir klasik seringkali memahami ayat-ayat semacam itu dengan cara yang cukup berbeda dari para pembela modern, dan memaksa Al-Qur\'an untuk cocok dengan setiap hipotesis ilmiah yang berubah-ubah bisa menjadi bumerang ketika teori-teori itu berganti. Bedakan dengan tegas antara penafsiran yang mapan dan dugaan kontemporer.',
-      "Ramalan-ramalan sejarah juga dikutip oleh para ulama — kemenangan bangsa Romawi yang diramalkan, pembukaan Makkah secara damai — dan itu layak dikaji, tetapi melalui tafsir dan sirah yang cermat, bukan klip video yang sensasional. Argumen terkuat bagi Al-Qur'an selalu adalah tauhidnya, transformasi moral suatu kaum, serta bahasa dan penjagaannya yang tak tertandingi.",
-    ],
-    quran: [
-      {
-        excerpt: "Maka buatlah satu surah semisalnya… jika kamu orang-orang yang benar.",
-      },
+      "Mukjizat utama Al-Quran ialah Al-Quran itu sendiri. Diturunkan kepada seorang lelaki yang ummi pada zaman kemuncak kefasihan syair Arab, ia mengemukakan cabaran terbuka kepada penentang-penentangnya yang paling keras — pakar-pakar bahasa — untuk menghasilkan walau satu surah yang sepertinya. Empat belas abad kemudian, cabaran itu masih belum dijawab. Kekuatan retoriknya, strukturnya, cara tema-temanya saling berkait, dan keselarasan petunjuk serta hukumnya dikaji dalam ilmu balaghah klasik (ilm al-balagha), dan menurut dakwaan Al-Quran sendiri, ia kekal tidak dapat ditandingi.",
+      "Pemeliharaannya ialah tanda kedua yang boleh disahkan. Teksnya dilindungi secara bertulis, melalui manuskrip yang disalin dengan teliti, dan secara lisan, melalui qiraat — rantaian qari yang tidak terputus menghafal dan mengajarkannya dengan tepat, generasi demi generasi. Ini ialah sejarah yang didokumentasikan, bukan andaian kesalehan, dan ia menunaikan janji Allah sendiri untuk memelihara Al-Quran (az-Zikr).",
+      "Anda juga akan mendengar tentang “mukjizat saintifik” — ayat-ayat yang menyentuh peringkat perkembangan janin, pengembangan alam semesta dan seumpamanya. Tanganilah perkara ini dengan berhati-hati. Tafsir klasik sering memahami ayat-ayat sedemikian dengan cara yang agak berbeza daripada para pembela moden, dan memaksa Al-Quran agar sepadan dengan setiap hipotesis saintifik yang berubah-ubah boleh memakan diri apabila teori berubah. Bezakan dengan tegas antara tafsiran yang mantap dan andaian semasa.",
+      "Nubuatan sejarah juga dipetik oleh para ulama — kemenangan Rom yang telah dikhabarkan lebih awal, pembukaan Makkah secara aman — dan ia wajar dikaji, tetapi melalui tafsir dan sirah yang berhemah, bukan klip video yang sensasi. Hujah terkuat bagi Al-Quran sentiasa ialah tauhidnya, perubahan akhlak yang dibawanya kepada satu bangsa, serta bahasa dan pemeliharaannya yang tiada tandingan.",
     ],
     disclaimer:
-      "Hindari klaim mukjizat ilmiah yang berlebihan yang bisa mempermalukan dakwah ketika diteliti secara cermat. Utamakan tauhid, moralitas, dan bukti-bukti bahasa serta sejarah Al-Qur'an.",
+      "Elakkan dakwaan mukjizat saintifik yang keterlaluan yang memalukan dakwah apabila diteliti. Utamakan tauhid, akhlak, serta bukti bahasa dan sejarah Al-Quran.",
   },
   {
-    title: "Menghafal Al-Qur'an",
-    summary: "Rencana dari Juz Amma hingga hafalan penuh — muraja'ah, audio, target harian.",
+    title: "Hafazan (Hifz)",
+    summary:
+      "Rancangan daripada Juz Amma hingga hafazan penuh — ulang kaji, audio, sasaran harian.",
     body: [
-      "Menghafal Al-Qur\\'an (hifz) adalah salah satu upaya paling mulia dalam kehidupan seorang mukmin, dan ini bukan hanya untuk para ulama atau anak-anak — orang dewasa pun menyelesaikannya. Nabi ﷺ mengajarkan bahwa pada Hari Kebangkitan, orang yang membawa Al-Qur\\'an akan dikatakan kepadanya, \"Bacalah dan naiklah,\" naik derajat dengan setiap ayat. Mulailah dari tempat semua orang memulai: Surah Al-Fatihah, yang sudah kamu baca di setiap shalat, lalu surah-surah pendek di bagian paling akhir mushaf, bergerak mundur.",
-      "Pelajaran terpenting dalam hifz itu berlawanan dengan intuisi: muraja'ah (pengulangan) lebih penting daripada menambah hafalan baru. Nabi ﷺ memperingatkan bahwa Al-Qur'an yang dihafal lepas lebih cepat daripada unta yang terikat lepas dari talinya — biarkan tanpa diulang dan ia akan hilang. Jadi aturannya sederhana dan tegas: jangan pernah menambah bagian baru sampai kamu benar-benar mengulang dengan kuat apa yang sudah kamu pegang. Sedikit yang dihafal dengan kuat mengalahkan banyak yang dihafal dengan lemah.",
-      "Metode praktis: gunakan pengulangan berjarak, tetaplah pada satu qari agar melodinya sendiri memicu ingatanmu, baca dari hafalan setiap hari, bukan hanya membaca teks, dan mintalah guru mendengarkan serta menandai kesalahanmu — kesalahan yang tidak bisa kamu dengar sendiri. Pelacak hifz Munib mencatat kemajuan hingga ke ayat perorangan sehingga kamu selalu tahu apa yang perlu diulang.",
-      "Pilih rencana yang sesuai dengan tahapmu. Pemula: hafalkan Juz Amma, bagian terakhir, penuh dengan surah pendek. Menengah: tambahkan sepuluh surah yang sering dibaca seperti Al-Mulk, Ya-Sin, dan Al-Kahfi. Lanjut: selesaikan satu juz penuh dengan pengulangan yang kuat atas semua yang sebelumnya. Dan perjalanan Hafiz: seluruh mushaf, dihafal bersama guru yang mumpuni dan, idealnya, sanad — rantai transmisi bersertifikat kembali ke Nabi ﷺ.",
+      "Menghafal Al-Quran (hifz) ialah antara usaha paling mulia dalam kehidupan seorang mukmin, dan ia bukan khusus untuk ulama atau kanak-kanak — orang dewasa juga berjaya menamatkannya. Nabi ﷺ mengajarkan bahawa pada Hari Kebangkitan, orang yang membawa Al-Quran akan diseru, “Recite and ascend” (maksud dalam bahasa Inggeris), lalu darjatnya meningkat dengan setiap ayat. Mulakan di tempat semua orang bermula: Surah al-Fatihah, yang sudah anda baca dalam setiap solat, kemudian surah-surah pendek di hujung mushaf, bergerak ke belakang.",
+      "Pengajaran paling penting dalam hafazan agak berlawanan dengan jangkaan: ulang kaji (muraja'ah) lebih penting daripada menambah hafalan baharu. Nabi ﷺ memberi amaran bahawa Al-Quran yang dihafal lebih cepat terlepas daripada unta yang terlepas daripada ikatannya — biarkan tanpa ulang kaji dan ia akan hilang. Maka peraturannya mudah dan tegas: jangan sekali-kali menambah bahagian baharu sehingga anda telah mengulang kaji dengan kukuh apa yang sudah anda hafal. Sedikit yang dihafal dengan mantap lebih baik daripada banyak yang dihafal secara longgar.",
+      "Kaedah praktikal: gunakan ulang kaji berselang, kekal dengan seorang qari supaya irama bacaannya sendiri menjadi petunjuk kepada ingatan anda, baca dari ingatan setiap hari dan bukan sekadar membaca mushaf, dan minta seorang guru mendengar serta menandakan kesilapan anda — kesilapan yang tidak dapat anda dengar sendiri. Penjejak hafazan Munib merekodkan kemajuan hingga ke peringkat setiap ayat supaya anda sentiasa tahu apa yang perlu diulang kaji.",
+      "Pilih rancangan yang sesuai dengan tahap anda. Pemula: hafal Juz Amma, bahagian terakhir yang penuh dengan surah pendek. Pertengahan: tambah sepuluh surah yang kerap dibaca seperti al-Mulk, Yasin dan al-Kahfi. Lanjutan: lengkapkan satu juz penuh dengan ulang kaji yang kukuh bagi semua yang sebelumnya. Dan perjalanan Hafiz: seluruh mushaf, dihafal bersama guru yang bertauliah dan, sebaiknya, dengan sanad — rantaian penyampaian yang diperakui hingga kepada Nabi ﷺ.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Akan dikatakan kepada sahabat Al-Qur'an: Bacalah dan naiklah sebagaimana engkau dahulu membaca di dunia, karena derajatmu berada pada ayat terakhir yang engkau baca.",
-      },
-      {
-        excerpt:
-          "Perumpamaan sahabat Al-Qur'an adalah seperti pemilik unta yang terikat: jika ia menjaganya, ia akan tetap memilikinya, dan jika ia melepaskannya, ia akan kehilangannya.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Rancangan hafazan" }, { label: "Penjejak hafazan" }],
   },
   {
     title: "Pelajaran harian",
-    summary: "Satu ayat, konteks, renungan, dan tindakan — setiap hari.",
+    summary: "Satu ayat, konteks, renungan dan tindakan — setiap hari.",
     body: [
-      "Kedekatan seumur hidup dengan Al-Qur'an dibangun dengan cara yang sama seperti kebiasaan mendalam lainnya dibangun — sedikit demi sedikit, setiap hari, tanpa putus. Nabi ﷺ mengajarkan bahwa amalan yang paling dicintai Allah adalah yang dilakukan secara konsisten, sekalipun kecil, dan prinsip itulah seluruh gagasan di balik pelajaran harian. Setiap pelajaran memberimu satu ayat dalam bahasa Arab, terjemahannya, catatan tentang konteks sejarahnya, pertanyaan renungan untuk direnungkan, dan satu tindakan konkret untuk dibawa ke dalam harimu.",
-      "Perlakukan ayat-ayat ini sebagai bimbingan yang hidup, bukan bacaan yang berlalu begitu saja. Tandai yang menyentuh hatimu, kembalilah kepadanya, dan bagikan apa yang menggerakkanmu kepada keluargamu — ketika orang lain mengamalkan kebaikan yang kamu sampaikan, pahalanya sampai juga kepadamu, sehingga mengajarkan melipatgandakan manfaatnya.",
-      "Jangan tertipu oleh ukurannya yang kecil. Konsistensi selalu mengalahkan intensitas: lima menit yang tulus bersama Al-Qur'an setiap hari akan mengubahmu jauh lebih banyak daripada satu jam yang langka dan heroik sebulan sekali. Hadirlah setiap hari, dan biarkan hari-hari itu terkumpul.",
+      "Keterikatan sepanjang hayat dengan Al-Quran dibina sama seperti tabiat mendalam yang lain — sedikit, setiap hari, tanpa gagal. Nabi ﷺ mengajarkan bahawa amalan yang paling dicintai Allah ialah yang dilakukan secara berterusan walaupun sedikit, dan prinsip itulah idea di sebalik pelajaran harian. Setiap pelajaran memberikan satu ayat dalam bahasa Arab, terjemahannya, nota tentang konteks sejarahnya, satu soalan renungan untuk difikirkan, dan satu tindakan konkrit untuk dibawa sepanjang hari anda.",
+      "Anggaplah ayat-ayat ini sebagai petunjuk yang hidup, bukan bacaan sepintas lalu. Tandakan ayat-ayat yang menyentuh hati anda, kembali kepadanya, dan kongsikan apa yang menggerakkan hati anda dengan keluarga — apabila orang lain mengamalkan kebaikan yang anda sampaikan, pahalanya turut sampai kepada anda, maka mengajar menggandakan manfaat.",
+      "Jangan terpedaya dengan saiznya yang kecil. Istiqamah sentiasa mengatasi kesungguhan sesekali: lima minit yang ikhlas bersama Al-Quran setiap hari akan mengubah anda jauh lebih banyak daripada sejam yang hebat sekali-sekala dalam sebulan. Hadirlah setiap hari, dan biarkan hari-hari itu terkumpul.",
     ],
-    appLinks: [{}],
+    appLinks: [{ label: "Pelajaran hari ini" }],
   },
   {
-    title: "Perenungan (Tadabbur)",
-    summary: "Pertanyaan terpandu — apa yang Allah ajarkan, dan bagaimana kamu akan menghayatinya?",
+    title: "Renungan (Tadabbur)",
+    summary: "Soalan berpandu — apa yang Allah ajarkan, dan bagaimana anda akan menghayatinya?",
     body: [
-      "Tadabbur berarti merenungkan Al-Qur\\'an secara mendalam, membolak-balik sebuah ayat dalam hati hingga ia menggerakkanmu untuk berubah. Ini adalah perintah langsung, bukan tambahan opsional: Allah bertanya, \"Maka tidakkah mereka menghayati Al-Qur\\'an, ataukah hati mereka terkunci?\" Tujuan membaca tidak pernah sekadar bunyi — ia dimaksudkan untuk mencapai hati dan membentuk ulang sebuah kehidupan.",
-      "Tadabbur tidak sama dengan tafsir. Tafsir adalah penjelasan ilmiah tentang makna sebuah ayat; tadabbur adalah respons pribadimu yang penuh penghormatan terhadap makna itu setelah kamu memahaminya. Keduanya bekerja bersama: kamu terlebih dahulu mempelajari makna yang sahih dari tafsir, lalu kamu merenunginya dan bertanya bagaimana ia berbicara kepadamu. Kerangka yang membantu adalah tiga pertanyaan — Apa yang Allah ajarkan kepadaku di sini? Bagaimana ini mengubah apa yang kulakukan hari ini? Kebiasaan apa yang harus kubangun atau kutinggalkan karena ayat ini?",
-      "Satu batasan tegas menjaga tadabbur tetap aman: renungkan apa yang diminta sebuah ayat darimu, tetapi jangan pernah mengarang makna baru untuk teks itu sendiri. Biarkan tafsir yang sahih menetapkan batas-batas penafsiran, dan simpan renunganmu sendiri di tempatnya — jurnal pribadi, seperti milik Munib, sangat ideal untuk menangkap apa yang digerakkan sebuah ayat dalam dirimu dan untuk kembali kepadanya nanti.",
+      "Tadabbur bermaksud merenung Al-Quran secara mendalam, membolak-balikkan sesuatu ayat di dalam hati sehingga ia menggerakkan anda untuk berubah. Ia ialah perintah yang jelas, bukan tambahan pilihan: Allah bertanya, “adakah mereka sengaja tidak berusaha memahami serta memikirkan isi Al-Quran? Atau telah ada di atas hati mereka kunci penutup…?” Tujuan membaca tidak pernah sekadar bunyi — ia untuk sampai ke hati dan membentuk semula kehidupan.",
+      "Tadabbur tidak sama dengan tafsir. Tafsir ialah penjelasan ilmiah tentang maksud sesuatu ayat; tadabbur ialah tindak balas peribadi anda yang penuh hormat terhadap makna itu selepas anda memahaminya. Kedua-duanya saling melengkapi: mula-mula anda mempelajari makna yang betul daripada tafsir, kemudian anda meluangkan masa bersamanya dan bertanya bagaimana ia berbicara kepada anda. Satu kerangka yang membantu ialah tiga soalan — Apakah yang Allah ajarkan kepada saya di sini? Bagaimanakah ini mengubah apa yang saya lakukan hari ini? Apakah satu tabiat yang mesti saya bina atau tinggalkan kerananya?",
+      "Satu batas yang tegas memastikan tadabbur selamat: renungkan apa yang dituntut oleh sesuatu ayat daripada anda, tetapi jangan sekali-kali mereka makna baharu bagi teks itu sendiri. Biarkan tafsir yang sahih menetapkan had tafsiran, dan simpan renungan peribadi anda di tempatnya sendiri — jurnal peribadi, seperti jurnal Munib, sesuai untuk merakam apa yang dibangkitkan oleh sesuatu ayat dalam diri anda dan kembali kepadanya kemudian.",
     ],
-    quran: [
-      {
-        excerpt: "Maka tidakkah mereka menghayati Al-Qur'an, ataukah hati mereka terkunci?",
-      },
-      {
-        excerpt:
-          "Maka tidakkah mereka menghayati Al-Qur'an? Sekiranya (Al-Qur'an) itu bukan dari sisi Allah, tentulah mereka mendapat banyak pertentangan di dalamnya.",
-      },
-    ],
-    appLinks: [{}, {}],
+    appLinks: [{ label: "Soalan tadabbur" }, { label: "Jurnal" }],
   },
   {
-    title: "Mengamalkan Al-Qur'an",
-    summary: "Tantangan hari ini dari sebuah ayat — catat penyelesaian, hayati ayatnya.",
+    title: "Amalkan Al-Quran",
+    summary: "Cabaran hari ini daripada satu ayat — jejaki penyelesaian, hayati ayat itu.",
     body: [
-      "Ilmu tentang Al-Qur\\'an dimaksudkan untuk menjadi amal. Allah mengkritik tajam orang-orang sebelum kita yang membaca Kitab namun hidup bertentangan dengannya: \"Mengapa kamu suruh orang lain (mengerjakan) kebaikan, sedangkan kamu melupakan diri (kewajiban)mu sendiri, padahal kamu membaca Al-Kitab?\" Al-Qur\\'an adalah perjanjian antara kamu dan Tuhanmu, dan setiap ayat diam-diam meminta sesuatu darimu — pertanyaannya adalah apakah kamu menjawabnya.",
-      "Itulah tujuan tantangan-tantangan ini. Setiap tantangan menghubungkan satu ayat tertentu dengan satu perilaku yang bisa dilakukan hari ini: menjaga lisan dengan perkataan yang baik, memberi sedekah secara diam-diam, menundukkan pandangan dari yang diharamkan, melepaskan dendam yang selama ini kamu pendam. Satu ayat, satu tindakan — cukup kecil untuk benar-benar bisa dilakukan, cukup nyata untuk mengubahmu.",
-      "Tandai sebuah tantangan selesai hanya ketika kamu benar-benar telah melakukannya. Tujuan pencatatan bukan pamer — itu justru akan mengalahkan maksudnya — melainkan pertanggungjawaban yang jujur kepada Allah, yang melihat apa yang tidak dilihat orang lain. Seiring waktu, ayat demi ayat, begitulah cara bacaan berubah menjadi karakter.",
+      "Ilmu tentang Al-Quran bertujuan untuk menjadi amalan. Allah mengecam keras orang-orang sebelum kita yang membaca Kitab tetapi hidup bertentangan dengannya: “Patutkah kamu menyuruh manusia supaya berbuat kebaikan sedang kamu lupa akan diri kamu sendiri; padahal kamu semua membaca Kitab Allah…?” Al-Quran ialah perjanjian antara anda dan Tuhan anda, dan setiap ayat secara diam-diam menuntut sesuatu daripada anda — persoalannya ialah sama ada anda menyahutnya.",
+      "Itulah tujuan cabaran-cabaran ini. Setiap satu menghubungkan ayat tertentu dengan satu tingkah laku yang mampu dilakukan hari ini: menjaga lidah dengan tutur kata yang baik, bersedekah secara senyap, menundukkan pandangan daripada yang haram, melepaskan dendam yang telah lama anda pendam. Satu ayat, satu tindakan — cukup kecil untuk benar-benar dilakukan, cukup nyata untuk mengubah anda.",
+      "Tandakan sesuatu cabaran sebagai selesai hanya apabila anda benar-benar telah melakukannya. Tujuan penjejakan bukan untuk menunjuk-nunjuk — itu akan merosakkan tujuannya — tetapi muhasabah yang jujur di hadapan Allah, yang melihat apa yang tidak dilihat orang lain. Lama-kelamaan, ayat demi ayat, beginilah bacaan bertukar menjadi akhlak.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mengapa kamu suruh orang lain (mengerjakan) kebaikan, sedangkan kamu melupakan diri (kewajiban)mu sendiri, padahal kamu membaca Al-Kitab?",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Cabaran hari ini" }],
   },
   {
-    title: "Kuis Al-Qur'an",
-    summary: "Ulas nama surah, struktur, tajwid, kosakata, dan kisah-kisah.",
+    title: "Kuiz Al-Quran",
+    summary: "Ulang kaji nama surah, struktur, tajwid, kosa kata dan kisah.",
     body: [
-      "Menguji diri sendiri adalah salah satu cara paling efektif untuk membuat ilmu melekat — mengingat kembali sebuah jawaban memperkuat ingatan jauh lebih baik daripada sekadar membaca ulang. Kuis ini mengambil dari segala sesuatu di hub ini: jumlah surah dan juz, wahyu pertama dan bagaimana Al-Qur'an dijaga, kaidah tajwid seperti mad dan qalqalah, kosakata berfrekuensi tinggi, dan para nabi yang kisahnya diceritakan Al-Qur'an.",
-      "Jagalah niat tetap lurus. Skor hanyalah cermin dari pembelajaranmu — ia bukan ukuran derajatmu di sisi Allah, yang hanya menjadi milik-Nya. Gunakan setiap pertanyaan untuk mengungkap sisi yang lemah, lalu kembali ke pelajaran yang sesuai dan pelajari tepat topik itu, bukan mengejar angka.",
-      "Pertanyaan terakhir adalah renungan, bukan pertanyaan bernilai: pilih satu surah atau bagian untuk dipahami dan dihafal berikutnya, sehingga ulasanmu selalu berakhir dengan mengarahkanmu kembali ke Kitab itu sendiri.",
+      "Menguji diri ialah antara cara paling berkesan untuk mengukuhkan ilmu — mengingat semula jawapan menguatkan ingatan jauh lebih daripada sekadar membaca semula. Kuiz ini merangkumi segala yang ada dalam hab: bilangan surah dan juz, wahyu pertama dan bagaimana Al-Quran dipelihara, hukum tajwid seperti mad dan qalqalah, kosa kata yang kerap muncul, dan para nabi yang kisahnya diceritakan dalam Al-Quran.",
+      "Jagalah niat. Markah hanyalah cermin bagi pembelajaran anda — ia bukan sekali-kali ukuran kedudukan anda di sisi Allah, yang hanya Dia sahaja mengetahuinya. Gunakan setiap soalan untuk mendedahkan titik lemah, kemudian kembali kepada pelajaran yang berkaitan dan kaji topik itu, dan bukannya mengejar angka.",
+      "Soalan terakhir ialah renungan, bukan soalan yang dimarkahkan: pilih satu surah atau petikan untuk difahami dan dihafal seterusnya, supaya ulang kaji anda sentiasa berakhir dengan mengarahkan anda kembali kepada Kitab itu sendiri.",
     ],
-    appLinks: [{}],
+    appLinks: [{ label: "Mulakan kuiz" }],
   },
   {
-    title: "Rujukan dan sumber",
-    summary: "Bagaimana kami mengutip Al-Qur'an, hadis, tafsir, dan perbedaan pendapat ulama.",
+    title: "Rujukan & sumber",
+    summary: "Cara kami memetik Al-Quran, hadis, tafsir dan perbezaan pendapat ulama.",
     body: [
-      "Ilmu Islam yang sahih dibangun di atas bukti yang transparan, jadi setiap pelajaran di hub ini berusaha menunjukkan sumbernya. Klaim tentang Al-Qur'an didukung dengan rujukan dalam bentuk surah:ayat; klaim dari Sunnah menyebutkan nama kumpulan hadis (Bukhari, Muslim, Tirmidzi, dan sebagainya), nomor hadis, dan derajatnya (sahih, hasan, atau lebih lemah); klaim tentang makna sebuah ayat menyebutkan tafsir dari mana ia berasal; dan di tempat para ulama benar-benar berbeda pendapat, perbedaan itu dicatat, bukan disembunyikan.",
-      "Penting juga membedakan mana yang pasti dan mana yang bersifat penafsiran. Fakta yang mapan — shalat lima waktu, penjagaan Al-Qur'an, peristiwa-peristiwa utama sirah — dinyatakan secara gamblang. Perkara yang sejak lama diperselisihkan oleh para ulama yang tulus, seperti rincian halus eskatologi atau pembacaan isyarat ilmiah, disajikan sebagai penafsiran, bukan sebagai kepastian yang mapan. Keyakinan harus sepadan dengan kekuatan buktinya.",
-      "Untuk kajian yang lebih dalam, bersandarlah pada rujukan yang mapan: terjemahan Al-Qur\\'an yang dapat dipercaya (seperti Sahih International atau Pickthall), kumpulan hadis utama (terutama Sahih Al-Bukhari dan Sahih Muslim), tafsir yang dihormati (Ibnu Katsir dan As-Sa\\'di), dan sirah yang tepercaya (karya klasik Ibnu Hisyam, dan Ar-Rahiq Al-Makhtum, \"Nektar yang Tersegel,\" untuk narasi modern).",
-      "Terakhir, ketahuilah batas sebuah aplikasi. Munib mengedukasi dan mengarahkanmu ke sumber-sumber, tetapi tidak mengeluarkan fatwa agama. Untuk fikih bacaan, untuk ijazah tajwid, atau untuk pertanyaan apa pun yang memengaruhi ibadah atau keputusan hidupmu, konsultasikan dengan ulama yang mumpuni sesuai mazhab dan wilayahmu.",
-    ],
-    sources: [
-      "Al-Qur'an — cetakan Kompleks Raja Fahd / mushaf digital yang telah diverifikasi",
-      "Hadis — rujukan silang penilaian sunnah.com",
-      "Tafsir Ibnu Katsir (ringkasan Darussalam)",
-      "Tafsir As-Sa'di (bahasa Inggris)",
+      "Pembelajaran Islam yang kukuh dibina di atas bukti yang telus, maka setiap pelajaran dalam hab ini berusaha menunjukkan asas hujahnya. Dakwaan tentang Al-Quran disokong dengan rujukan dalam bentuk surah:ayat; dakwaan daripada Sunnah menyebut nama kitab himpunannya (Bukhari, Muslim, Tirmizi dan sebagainya), nombor hadis dan statusnya (sahih, hasan atau lebih lemah); dakwaan tentang makna sesuatu ayat menyebut tafsir yang menjadi sumbernya; dan apabila ulama benar-benar berbeza pendapat, perbezaan itu dinyatakan dan bukannya disembunyikan.",
+      "Penting juga untuk membezakan apa yang pasti daripada apa yang bersifat tafsiran. Fakta yang sabit — lima solat fardu sehari, pemeliharaan Al-Quran, peristiwa-peristiwa utama sirah — dinyatakan dengan jelas. Perkara yang telah lama diperselisihkan oleh ulama yang ikhlas, seperti perincian halus tentang hari akhirat atau cara memahami isyarat-isyarat saintifik, dibentangkan sebagai tafsiran, bukan sebagai kepastian yang muktamad. Tahap keyakinan hendaklah sepadan dengan kekuatan dalil.",
+      "Untuk kajian yang lebih mendalam, bersandarlah kepada rujukan yang mantap: terjemahan Al-Quran yang dipercayai (seperti Sahih International atau Pickthall), kitab-kitab hadis utama (terutamanya Sahih al-Bukhari dan Sahih Muslim), tafsir yang dihormati (Ibnu Kathir dan as-Sa'di), dan sirah yang boleh dipercayai (karya klasik Ibnu Hisyam, dan ar-Rahiq al-Makhtum, “The Sealed Nectar”, untuk naratif moden).",
+      "Akhir sekali, ketahuilah had sesebuah aplikasi. Munib mendidik dan menunjukkan anda kepada sumber, tetapi ia tidak mengeluarkan fatwa. Untuk fiqh bacaan, untuk ijazah tajwid, atau untuk sebarang soalan yang menjejaskan ibadah atau keputusan hidup anda, rujuklah ulama yang bertauliah dalam mazhab dan tempat anda sendiri.",
     ],
     disclaimer:
-      "Munib menghimpun konten edukasi terbuka. Verifikasi perkara-perkara penting dengan ulama yang mumpuni sesuai mazhab dan wilayahmu.",
+      "Munib menghimpunkan kandungan pendidikan terbuka. Sahkan perkara penting dengan ulama yang bertauliah dalam mazhab dan tempat anda.",
   },
 ];
 
 export const QURAN_GUIDE_STRUCTURE_LEVELS_MS: DeepPartial<QuranGuideStructureLevel>[] = [
   {
+    label: "Al-Quran",
     count: "1 Kitab",
     detail:
-      "Satu Kitab — Kalamullah, kalam Allah yang sesungguhnya, diturunkan melalui malaikat Jibril kepada Muhammad ﷺ, dalam bahasa Arab yang jelas, secara bertahap selama kurang lebih 23 tahun. Ia adalah satu-satunya teks yang sama di seluruh dunia.",
+      "Satu Kitab — kalam Allah, firman Allah yang sebenar, diturunkan kepada Muhammad ﷺ melalui malaikat Jibril, dalam bahasa Arab yang jelas, secara beransur-ansur dalam tempoh kira-kira 23 tahun. Ia ialah satu teks yang sama di seluruh dunia.",
   },
   {
+    label: "Surah",
     count: "114",
     detail:
-      "Al-Qur'an terbagi menjadi 114 surah, mulai dari hanya tiga ayat hingga 286 ayat. Masing-masing punya nama, biasanya diambil dari kata kunci di dalamnya, dan digolongkan sebagai Makki atau Madani. Urutannya dalam mushaf ditetapkan (tawqifi) oleh wahyu dan berbeda dari urutan turunnya.",
+      "Al-Quran dibahagikan kepada 114 surah, daripada hanya tiga ayat hingga 286 ayat. Setiap surah mempunyai nama, biasanya diambil daripada perkataan penting di dalamnya, dan dikelaskan sebagai Makkiyah atau Madaniyah. Tertibnya dalam mushaf ditetapkan melalui wahyu (tauqifi) dan berbeza daripada tertib penurunan.",
   },
   {
+    label: "Juz (bahagian)",
     count: "30",
     detail:
-      "Tiga puluh bagian yang kurang lebih sama besar, dibuat untuk memudahkan bacaan. Membaca satu juz setiap hari menyelesaikan seluruh Al-Qur'an dalam sebulan — cara klasik untuk khatam saat Ramadhan.",
+      "Tiga puluh bahagian yang hampir sama besar, direka untuk memudahkan bacaan. Membaca satu juz sehari menamatkan seluruh Al-Quran dalam sebulan — cara klasik untuk khatam pada bulan Ramadan.",
   },
   {
+    label: "Hizb (bahagian kecil)",
     count: "60",
     detail:
-      "Setiap juz terbagi menjadi dua hizb, sehingga totalnya 60, dan setiap hizb terbagi lagi menjadi seperempatan. Unit-unit kecil ini memudahkanmu menetapkan porsi harian yang ringan — setengah atau seperempat hizb — dan menjaga kebiasaan yang stabil.",
+      "Setiap juz terbahagi kepada dua hizb, menjadikan jumlahnya 60, dan setiap hizb pula kepada suku-suku. Unit-unit yang lebih kecil ini membolehkan anda menetapkan bahagian harian yang ringan — setengah atau suku hizb — dan mengekalkan tabiat yang konsisten.",
   },
   {
-    count: "6.236",
+    label: "Ayat",
+    count: "6,236",
     detail:
-      "Ayat-ayat perorangan, diberi nomor sehingga bagian mana pun bisa dirujuk secara tepat sebagai surah:ayat. 6.236 adalah hitungan standar Madinah; metode historis lain hanya berbeda dalam cara beberapa batas ayat ditandai — kata-katanya sendiri identik.",
+      "Ayat-ayat individu, bernombor supaya mana-mana petikan boleh dirujuk dengan tepat sebagai surah:ayat. 6,236 ialah kiraan standard Madinah; kaedah kiraan bersejarah yang lain hanya berbeza pada cara beberapa sempadan ayat ditandakan — perkataannya sendiri tetap sama.",
   },
   {
-    count: "2 periode",
+    label: "Makkiyah / Madaniyah",
+    count: "2 zaman",
     detail:
-      "Setiap surah termasuk salah satu dari dua periode wahyu. Surah Makki (sebelum Hijrah) sering lebih pendek dan berfokus pada akidah, tauhid, dan akhirat. Surah Madani (sesudah Hijrah) sering lebih panjang dan menambahkan perundangan serta bimbingan komunitas. Beberapa surah memuat ayat dari keduanya.",
+      "Setiap surah tergolong dalam salah satu daripada dua zaman penurunan. Surah Makkiyah (sebelum Hijrah) sering lebih pendek dan memberi tumpuan kepada akidah, tauhid dan akhirat. Surah Madaniyah (selepas Hijrah) sering lebih panjang dan menambah hukum serta panduan kemasyarakatan. Sebilangan kecil surah mengandungi ayat daripada kedua-duanya.",
   },
   {
+    label: "Tema",
     count: "Banyak",
     detail:
-      "Al-Qur'an dianyam di sekitar tema-tema yang berulang, bukan disusun tema demi tema. Tauhid, shalat, kisah para nabi, keluarga, sedekah, kesabaran, dan akhirat berjalan di seluruh Kitab, saling memperkuat di banyak surah.",
+      "Al-Quran dijalin di sekitar tema-tema yang berulang dan bukannya disusun topik demi topik. Tauhid, solat, kisah para nabi, keluarga, sedekah, sabar dan akhirat mengalir di seluruh Kitab, saling mengukuhkan dalam banyak surah.",
   },
 ];
 
 export const QURAN_GUIDE_TIMELINE_MS: DeepPartial<QuranGuideTimelineEvent>[] = [
   {
     title: "Kehidupan sebelum wahyu",
-    body: "Pada tahun-tahun sebelum kenabian, Muhammad ﷺ sering menyendiri berhari-hari di Gua Hira untuk merenung, gelisah dengan kemusyrikan dan ketidakadilan masyarakat Makkah. Meski dunia di sekelilingnya menyembah berhala, ia tidak pernah melakukannya, dan kaumnya begitu memercayainya hingga menjulukinya Al-Amin — yang tepercaya — jauh sebelum klaim kenabian.",
+    body: "Pada tahun-tahun sebelum kenabian, Muhammad ﷺ sering beruzlah ke Gua Hira selama beberapa hari untuk bersendirian dan bertafakur, resah melihat penyembahan berhala dan kezaliman masyarakat Makkah. Walaupun dunia di sekeliling baginda menyembah berhala, baginda tidak pernah berbuat demikian, dan kaumnya begitu mempercayai baginda sehingga mereka menggelarnya al-Amin — yang amanah — lama sebelum baginda menyatakan dirinya seorang nabi.",
     location: "Makkah",
   },
   {
     title: "Gua Hira",
-    body: 'Pada bulan Ramadhan, ketika ia berusia sekitar empat puluh tahun, malaikat Jibril datang ke gua itu dengan satu perintah: "Bacalah!" Nabi ﷺ, yang tidak bisa membaca atau menulis, menjawab bahwa ia tidak sanggup. Malaikat itu mendekapnya erat tiga kali lalu menyampaikan kata-kata pertama Surah Al-Alaq — "Bacalah dengan (menyebut) nama Tuhanmu yang menciptakan." Terguncang, ia bergegas pulang menemui istrinya Khadijah, yang menyelimutinya dan menenangkannya.',
-    location: "Gunung Nur, Makkah",
+    body: "Pada bulan Ramadan, ketika baginda berusia kira-kira empat puluh tahun, malaikat Jibril datang kepada baginda di gua itu dengan satu perintah: “Bacalah!” Nabi ﷺ, yang tidak tahu membaca dan menulis, menjawab bahawa baginda tidak mampu. Malaikat itu memeluk baginda dengan erat sebanyak tiga kali, lalu menyampaikan kalimah pertama Surah al-'Alaq — “Bacalah (wahai Muhammad) dengan nama Tuhanmu yang menciptakan…” Dalam keadaan gementar, baginda bergegas pulang kepada isterinya Khadijah, yang menyelimuti baginda dengan kain dan menenangkannya.",
+    location: "Jabal an-Nur, Makkah",
   },
   {
-    title: "Wahyu pertama — Surah Al-Alaq",
-    body: "Perintah membaca menandai dimulainya kenabian dan turunnya Al-Qur'an. Khadijah membawanya kepada kerabatnya yang berilmu, Waraqah bin Naufal, yang mengenali malaikat itu sebagai utusan yang sama yang datang kepada Musa dan meramalkan bahwa kaumnya sendiri akan mengusirnya. Wahyu-wahyu Makkah paling awal setelah itu berfokus pada keesaan Allah, kepastian akhirat, dan seruan luas untuk perbaikan moral.",
+    title: "Wahyu pertama — Surah al-'Alaq",
+    body: "Perintah membaca itu menandakan permulaan kenabian dan penurunan Al-Quran. Khadijah membawa baginda kepada kerabatnya yang berilmu, Waraqah bin Naufal, yang mengenali malaikat itu sebagai utusan yang sama yang pernah datang kepada Nabi Musa dan meramalkan bahawa kaum Nabi ﷺ akan mengusir baginda. Wahyu-wahyu Makkiyah terawal yang menyusul memberi tumpuan kepada keesaan Allah, kepastian akhirat dan seruan menyeluruh kepada pembaikan akhlak.",
   },
   {
-    title: "Awal periode Makkah",
-    body: "Beberapa tahun pertama dakwah dilakukan secara diam-diam, lalu secara terang-terangan. Seiring meluasnya dakwah, kaum Quraisy beralih ke kekerasan — menyiksa kaum mukmin yang lemah dan budak — dan akhirnya memberlakukan boikot keras selama tiga tahun terhadap keluarga Nabi ﷺ, Bani Hasyim. Untuk lolos dari penganiayaan, sekelompok muslim hijrah ke Habasyah, di mana seorang raja Kristen yang adil melindungi mereka. Surah-surah dari periode ini umumnya berbicara dalam ayat-ayat pendek, mendesak, dan berirama.",
+    title: "Awal zaman Makkah",
+    body: "Pada tahun-tahun pertama, dakwah dilakukan secara rahsia, kemudian secara terbuka. Apabila ia berkembang, kaum Quraisy beralih kepada penganiayaan — menyeksa golongan lemah dan hamba dalam kalangan orang beriman — dan akhirnya mengenakan pemulauan yang kejam selama tiga tahun ke atas kaum keluarga Nabi ﷺ, Bani Hasyim. Untuk melarikan diri daripada kekejaman itu, sekumpulan Muslim berhijrah ke Habsyah, tempat seorang raja Nasrani yang adil memberi mereka perlindungan. Surah-surah zaman ini lazimnya berbicara dalam ayat-ayat yang pendek, kuat dan berirama.",
     location: "Makkah",
   },
   {
     title: "Hijrah ke Madinah",
-    body: "Setelah bertahun-tahun teraniaya, dan setelah 'Amul Huzni (Tahun Duka) di mana ia kehilangan baik Khadijah maupun Abu Thalib, Nabi ﷺ dan para sahabatnya hijrah ke Madinah. Hijrah ini begitu penting hingga kelak menjadi awal penanggalan Islam. Di Madinah, kaum muslimin bukan lagi minoritas yang diburu, melainkan komunitas yang membangun masyarakat, dan wahyu mulai berbicara tentang hukum, keluarga, ekonomi, dan hubungan dengan Ahli Kitab.",
+    body: "Selepas bertahun-tahun dianiaya, dan berikutan “tahun kesedihan” ketika baginda kehilangan Khadijah serta bapa saudaranya Abu Talib, Nabi ﷺ dan para sahabat berhijrah ke Madinah. Hijrah ini begitu penting sehingga kemudiannya dijadikan permulaan kalendar Islam. Di Madinah, umat Islam bukan lagi golongan minoriti yang diburu tetapi sebuah komuniti yang sedang membina masyarakat, dan wahyu kini mula menyentuh undang-undang, keluarga, ekonomi dan hubungan dengan Ahli Kitab.",
     location: "Madinah",
   },
   {
-    title: "Periode Madinah",
-    body: "Surah-surah Madinah umumnya lebih panjang dan lebih rinci, meletakkan hukum yang dibutuhkan komunitas yang telah menetap: shalat, zakat, puasa, pernikahan dan perceraian, warisan, rincian perjanjian dan perdamaian. Periode ini juga menyaksikan peperangan besar — Badar, Uhud, dan Ahzab — dan Al-Qur'an menggambarkan ujian kaum mukmin serta makar kaum munafik dengan kejelasan yang mengagumkan.",
+    title: "Zaman Madinah",
+    body: "Surah-surah Madaniyah umumnya lebih panjang dan terperinci, meletakkan perundangan yang diperlukan oleh masyarakat yang telah mantap: perincian solat, zakat, puasa, nikah dan cerai, pusaka, kontrak dan perjanjian. Zaman ini juga menyaksikan peperangan-peperangan besar — Badar, Uhud dan Ahzab — dan Al-Quran menyentuh ujian orang-orang beriman serta tipu daya golongan munafik (munafiqun) dengan sangat jelas.",
     location: "Madinah",
   },
   {
-    title: "Haji Wada",
-    body: 'Pada tahun kesepuluh Hijrah, Nabi ﷺ menunaikan satu-satunya hajinya dan menyampaikan Khutbah Haji Wada di hadapan kumpulan besar di Arafah, mengingatkan umat akan kesucian jiwa dan harta, hak-hak perempuan, kesetaraan semua manusia tanpa memandang ras, serta berpegang teguh pada Al-Qur\'an dan Sunnah. Di sanalah ayat ini diturunkan: "Pada hari ini telah Kusempurnakan untuk kamu agamamu."',
+    title: "Haji Wada'",
+    body: "Pada tahun kesepuluh selepas Hijrah, Nabi ﷺ menunaikan satu-satunya haji baginda dan menyampaikan Khutbah Wada' di hadapan perhimpunan yang besar di Arafah, mengingatkan ummah tentang kehormatan nyawa dan harta, hak-hak wanita, kesamarataan semua manusia tanpa mengira bangsa, dan kewajipan berpegang teguh kepada Al-Quran dan Sunnah. Di sinilah ayat ini diturunkan: “Pada hari ini, Aku telah sempurnakan bagi kamu ugama kamu…”",
     location: "Arafah / Mina",
   },
   {
-    title: "Kodifikasi di masa Abu Bakar",
-    body: "Tak lama setelah wafatnya Nabi ﷺ, banyak sahabat yang telah menghafal seluruh Al-Qur'an gugur syahid dalam Perang Yamamah. Khawatir akan hilangnya para penghafal, Umar mendesak Khalifah Abu Bakar untuk mengumpulkan Al-Qur'an dalam satu tempat. Abu Bakar menugaskan penulis tepercaya Zaid bin Tsabit, yang dengan cermat mengumpulkan wahyu tertulis — memverifikasinya dengan ingatan para sahabat — menjadi satu kumpulan suhuf.",
+    title: "Pengumpulan pada zaman Abu Bakar",
+    body: "Tidak lama selepas kewafatan Nabi ﷺ, ramai sahabat yang menghafal seluruh Al-Quran terbunuh dalam Perang Yamamah. Bimbang akan kehilangan para huffaz, Saidina Umar mendesak khalifah Abu Bakar supaya Al-Quran dikumpulkan di satu tempat. Saidina Abu Bakar melantik penulis wahyu yang amanah, Zaid bin Thabit, yang dengan teliti mengumpulkan wahyu bertulis — disahkan dengan hafalan para sahabat — ke dalam satu himpunan lembaran (suhuf).",
   },
   {
-    title: "Mushaf standar — Utsman",
-    body: "Seiring meluasnya Islam ke berbagai wilayah, perbedaan bacaan di antara muslim baru mulai memicu perselisihan. Untuk menyatukan umat pada satu teks tertulis, Khalifah Utsman membuat salinan resmi dari suhuf Abu Bakar dalam dialek Quraisy dan mengirimkannya ke kota-kota besar, memerintahkan agar salinan pribadi lainnya dimusnahkan. Mushaf Utsmani inilah standar yang diikuti seluruh dunia muslim sejak saat itu.",
+    title: "Mushaf yang diseragamkan — Uthman",
+    body: "Apabila Islam tersebar ke banyak negeri, perbezaan bacaan dalam kalangan Muslim baharu mula menimbulkan perselisihan. Untuk menyatukan ummah di atas satu teks bertulis, khalifah Uthman mengarahkan salinan-salinan rasmi dibuat daripada suhuf Abu Bakar dalam dialek Quraisy dan menghantarnya ke kota-kota utama, serta meminta salinan peribadi yang lain diketepikan. Mushaf Uthmani inilah piawaian yang diikuti oleh seluruh dunia Islam sejak itu.",
   },
   {
-    title: "Terjaga hingga hari ini",
-    body: "Empat belas abad kemudian, Al-Qur\\'an tidak berubah, terjaga melalui tiga jaminan yang saling terkait — hafalan massal di setiap generasi, transmisi tertulis yang setia, dan rantai bacaan (qira\\'at) guru-ke-murid yang tak terputus hingga kembali ke Nabi ﷺ. Ini memenuhi janji Allah sendiri: \"Sesungguhnya Kamilah yang menurunkan Adz-Dzikr (Al-Qur\\'an), dan sesungguhnya Kami benar-benar memeliharanya.\"",
+    title: "Pemeliharaan hingga hari ini",
+    body: "Empat belas abad kemudian, Al-Quran kekal tidak berubah, dijaga melalui tiga cara yang saling berkait: hafazan beramai-ramai (hifz) dalam setiap generasi, penyalinan bertulis yang amanah, dan rantaian bacaan (qiraat) daripada guru kepada murid yang tidak terputus hingga kepada Nabi ﷺ. Ini menunaikan janji Allah sendiri: “Sesungguhnya Kamilah yang menurunkan Al-Quran, dan Kamilah yang memelihara dan menjaganya.”",
   },
 ];
 
 export const QURAN_GUIDE_STORIES_MS: DeepPartial<QuranGuideStory>[] = [
   {
-    prophetName: "Adam AS",
-    title: "Adam AS — Nabi pertama dan bapak umat manusia",
-    summary: "Penciptaan, sujud para malaikat, ujian pohon terlarang, diterimanya taubat.",
+    prophetName: "Nabi Adam a.s.",
+    title: "Nabi Adam — nabi pertama dan bapa manusia",
+    summary: "Penciptaan, sujud para malaikat, ujian pokok larangan, taubat yang diterima.",
     body: [
-      "Allah menciptakan manusia pertama, Adam AS, dari tanah dengan tangan-Nya sendiri, meniupkan ruh-Nya kepadanya, dan memberinya anugerah yang tidak diberikan kepada makhluk lain: Allah mengajarkan Adam nama-nama segala sesuatu. Ketika Allah menunjukkan ilmu itu, para malaikat mengakui keterbatasan mereka dan keutamaan Adam menjadi jelas — ilmu itu sendiri adalah bagian dari apa yang membedakan umat manusia.",
-      "Kemudian Allah memerintahkan para malaikat untuk sujud kepada Adam sebagai penghormatan, dan semua patuh — kecuali Iblis, yang berasal dari golongan jin. Ia menolak dengan sombong, berdalih bahwa ia diciptakan dari api dan Adam dari tanah, sehingga ia menganggap dirinya lebih unggul. Kesombongan itulah, bukan kebodohan, yang membinasakannya, dan ia bersumpah akan menyesatkan keturunan Adam.",
-      'Adam dan istrinya Hawa ditempatkan di surga dan diberi tahu bahwa mereka boleh makan apa saja dengan bebas kecuali mendekati satu pohon tertentu. Setan terus membisikkan godaan hingga akhirnya mereka memakannya. Seketika aurat mereka tersingkap, dan mereka menyadari kesalahan mereka. Namun alih-alih putus asa atau mencari alasan, mereka dengan rendah hati kembali kepada Allah: "Ya Tuhan kami, kami telah menganiaya diri kami sendiri, dan jika Engkau tidak mengampuni kami dan memberi rahmat kepada kami, niscaya pastilah kami termasuk orang-orang yang merugi."',
-      'Allah menerima taubat mereka dan menurunkan mereka ke bumi — bukan sebagai hukuman sewenang-wenang, melainkan sebagai awal ujian kemanusiaan, disertai janji petunjuk: "Barang siapa yang mengikuti petunjuk-Ku, ia tidak akan sesat dan tidak akan celaka." Kisah Adam dengan demikian adalah kisah setiap manusia: diciptakan dengan kemuliaan, diuji, rentan berbuat salah, dan selalu bisa kembali.',
+      "Allah menciptakan Adam, manusia pertama, dengan tangan-Nya sendiri daripada tanah liat, meniupkan ke dalamnya roh ciptaan-Nya, dan mengurniakan kepadanya satu anugerah yang tidak diterima oleh makhluk lain: Dia mengajarkan Adam nama-nama segala sesuatu. Apabila Allah menzahirkan ilmu ini, para malaikat mengakui batas ilmu mereka sendiri dan kemuliaan Adam menjadi jelas — ilmu itu sendiri sebahagian daripada apa yang membezakan manusia.",
+      "Kemudian Allah memerintahkan para malaikat sujud kepada Adam sebagai penghormatan, dan mereka semua patuh — kecuali Iblis, yang daripada golongan jin. Dia enggan kerana takbur, berhujah bahawa dia dicipta daripada api manakala Adam daripada tanah, lalu menganggap dirinya lebih mulia. Kesombongan itulah, bukan kejahilan, yang menjatuhkannya, dan dia bersumpah untuk menyesatkan anak cucu Adam.",
+      "Adam dan isterinya Hawa ditempatkan di dalam Syurga dan diberitahu bahawa mereka boleh menikmati segala-galanya dengan bebas tetapi tidak boleh menghampiri sebatang pokok tertentu. Syaitan terus-menerus membisikkan godaan kepada mereka sehingga mereka memakan buahnya. Serta-merta aurat mereka terdedah kepada mereka, dan mereka menyedari kesilapan mereka. Namun, daripada berputus asa atau memberi alasan, mereka kembali kepada Allah dengan rendah diri: “Wahai Tuhan kami, kami telah menganiaya diri kami sendiri, dan kalau Engkau tidak mengampunkan kami dan memberi rahmat kepada kami, nescaya menjadilah kami dari orang-orang yang rugi.”",
+      "Allah menerima taubat mereka dan menurunkan mereka ke bumi — bukan sebagai hukuman sewenang-wenangnya, tetapi sebagai permulaan ujian manusia, disertai janji petunjuk: “sesiapa yang mengikut petunjukKu itu nescaya ia tidak akan sesat dan ia pula tidak akan menderita azab sengsara.” Kisah Adam dengan itu ialah kisah setiap manusia: dicipta dengan kemuliaan, diuji, boleh melakukan kesilapan, dan sentiasa boleh kembali.",
     ],
     lessons: [
-      "Pintu taubat selalu terbuka — taubat Adam, yang diajukan tanpa alasan dan tanpa penundaan, adalah teladan bagi setiap pendosa.",
-      "Kesombongan adalah akar kebinasaan: Iblis mengetahui kebenaran namun tetap menolak karena angkuh, menunjukkan bahwa ilmu tanpa kerendahan hati justru menghancurkan.",
-      "Cara setan adalah bisikan yang terus-menerus, bukan paksaan — mengenali bisikannya adalah separuh jalan untuk menghindarinya.",
-      "Nilai kemanusiaan terikat pada ilmu dan kembali kepada Allah, bukan pada tidak pernah berbuat salah — responsmu terhadap kesalahanlah yang mendefinisikan siapa dirimu.",
+      "Pintu taubat sentiasa terbuka — taubat Adam, yang dilakukan tanpa alasan atau berlengah, ialah teladan bagi setiap pendosa.",
+      "Takbur ialah punca kebinasaan: Iblis mengetahui kebenaran tetapi menolaknya kerana sombong, menunjukkan bahawa ilmu tanpa rendah diri membinasakan.",
+      "Cara syaitan ialah bisikan yang berterusan, bukan paksaan — mengenali hasutannya ialah separuh daripada usaha menentangnya.",
+      "Nilai manusia terikat pada ilmu dan kembali kepada Allah, bukan pada bebas daripada dosa — tindak balas terhadap kesilapan itulah yang menentukan diri kita.",
     ],
-    quran: [
-      {
-        excerpt: "Penciptaan Adam dan sujud para malaikat.",
-      },
-      {
-        excerpt: "Ujian, kekhilafan, dan taubat.",
-      },
-    ],
-    location: "Surga, lalu bumi",
+    location: "Syurga, kemudian bumi",
   },
   {
-    prophetName: "Nuh AS",
-    title: "Nuh AS — Kesabaran dalam penolakan berabad-abad",
-    summary: "950 tahun berdakwah, bahtera, dan banjir sebagai keputusan ilahi.",
+    prophetName: "Nabi Nuh a.s.",
+    title: "Nabi Nuh — sabar menghadapi penolakan berabad-abad",
+    summary: "950 tahun berdakwah, bahtera, dan banjir besar sebagai hukuman Ilahi.",
     body: [
-      "Nuh AS diutus kepada kaum yang telah terjerumus dalam penyembahan berhala, dan ia menyerukan mereka untuk hanya menyembah Allah selama jangka waktu yang luar biasa — Al-Qur'an menyebutkan ia tinggal bersama mereka selama seribu tahun kurang lima puluh tahun. Ia menyeru mereka siang dan malam, secara terang-terangan dan sembunyi-sembunyi, menawarkan setiap bujukan: ampunan, hujan, harta, keturunan, dan kebun. Namun generasi demi generasi tetap berpaling, mengejek, dan menutup telinga.",
-      "Ketika menjadi jelas bahwa tidak akan ada lagi yang beriman, Allah memerintahkan Nuh AS untuk membuat bahtera. Kaumnya mengejeknya ketika ia membangun kapal besar jauh dari laut mana pun, tetapi ia menjawab bahwa akan datang hari ketika mereka akan mengerti. Tandanya datang ketika tungku meluap; Nuh AS membawa naik orang-orang yang beriman — hanya sedikit — dan sepasang dari setiap jenis hewan ke dalam bahtera.",
-      "Banjir bangkit dan menenggelamkan orang-orang yang mendustakan. Dalam salah satu momen paling menyentuh dalam kisah ini, putra Nuh AS sendiri menolak untuk naik, bersikeras bahwa ia akan naik ke gunung untuk menyelamatkan diri dari air, dan ia termasuk di antara yang tenggelam — kesedihan seorang ayah tidak bisa menghalangi kekufuran putranya. Ketika Nuh AS memohon untuknya, Allah mengajarkan bahwa perbuatan anak itu telah memutus ikatan iman di antara mereka.",
-      'Ketika perintah datang, air surut dan bahtera berhenti di Gunung Judi. Al-Qur\'an mengabadikan seluruh peristiwa itu sebagai "sebuah tanda" bagi siapa saja yang merenungkan bagaimana Allah menyelamatkan orang-orang yang beriman dan bagaimana kesabaran akhirnya membuahkan hasil.',
+      "Nuh diutus kepada kaum yang telah terjerumus ke dalam penyembahan berhala, dan baginda menyeru mereka supaya menyembah Allah semata-mata untuk tempoh yang menakjubkan — Al-Quran menyebut baginda tinggal bersama mereka seribu tahun kurang lima puluh. Baginda menyeru mereka siang dan malam, secara terang-terangan dan secara rahsia, menawarkan setiap sebab: keampunan, hujan, harta, anak-anak dan kebun-kebun. Namun generasi demi generasi berpaling, mengejek baginda dan menyumbat telinga mereka.",
+      "Apabila jelas bahawa tiada lagi yang akan beriman, Allah memerintahkan Nuh membina bahtera. Kaumnya memperolok-olokkan baginda ketika baginda membina sebuah kapal besar jauh dari mana-mana laut, tetapi baginda menjawab bahawa akan tiba suatu hari mereka akan faham. Tandanya tiba apabila tanur memancarkan air; Nuh membawa naik orang-orang beriman — hanya sedikit — dan sepasang daripada setiap jenis haiwan.",
+      "Banjir naik dan menenggelamkan mereka yang ingkar. Dalam salah satu detik paling memilukan dalam kisah ini, anak Nuh sendiri enggan menaiki bahtera, berkeras bahawa dia akan mendaki gunung untuk menyelamatkan diri daripada air, lalu dia termasuk dalam golongan yang lemas — kesedihan seorang bapa tidak dapat mengatasi kekufuran seorang anak. Apabila Nuh merayu untuknya, Allah mengajarkan bahawa kesalahan anak itu telah memutuskan ikatan iman antara mereka.",
+      "Apabila perintah tiba, air surut dan bahtera berlabuh di Gunung Judi. Al-Quran memelihara keseluruhan kisah ini sebagai “satu tanda” bagi setiap orang yang merenung bagaimana Allah menyelamatkan orang-orang yang setia dan bagaimana kesabaran akhirnya dibela.",
     ],
     lessons: [
-      "Misi yang panjang dan sulit dengan sedikit pengikut bukanlah kegagalan — Nuh AS berdakwah selama berabad-abad, dan keikhlasannya, bukan jumlah pengikutnya, yang dicintai Allah.",
-      "Tidak ada ikatan keluarga yang bisa menyelamatkan seseorang tanpa iman: putra Nuh AS sendiri tenggelam, membuktikan bahwa petunjuk tidak diwariskan.",
-      "Keteguhan dalam menyeru kepada Allah bahkan menghadapi ejekan terus-menerus adalah ibadah tersendiri.",
-      "Pertolongan Allah datang pada waktu yang telah ditetapkan — orang beriman membangun 'bahtera' ketaatan sebelum badai datang, percaya pada janji itu.",
+      "Misi yang panjang dan sukar dengan pengikut yang sedikit bukanlah kegagalan — Nuh berdakwah selama berabad-abad, dan keikhlasan baginda, bukan bilangan pengikutnya, yang diredai Allah.",
+      "Tiada ikatan keluarga yang menyelamatkan seseorang tanpa iman: anak Nuh sendiri lemas, membuktikan bahawa hidayah tidak diwarisi.",
+      "Ketekunan menyeru kepada Allah, walaupun berdepan ejekan berterusan, itu sendiri satu bentuk ibadah.",
+      "Pertolongan Allah datang pada waktu yang ditetapkan — orang beriman membina “bahtera” ketaatan sebelum banjir, dengan yakin akan janji-Nya.",
     ],
-    quran: [
-      {
-        excerpt: "Kisah Nuh AS secara rinci.",
-      },
-      {
-        excerpt: "Permohonan Nuh AS kepada kaumnya.",
-      },
-    ],
-    location: "Mesopotamia kuno (perkiraan ilmiah)",
+    location: "Mesopotamia purba (anggaran ulama)",
   },
   {
-    prophetName: "Ibrahim AS",
-    title: "Ibrahim AS — Kekasih Allah (Khalilullah)",
+    prophetName: "Nabi Ibrahim a.s.",
+    title: "Nabi Ibrahim — kekasih Allah (Khalilullah)",
+    summary: "Memecahkan berhala, api menjadi sejuk, penyembelihan Ismail, membina Kaabah.",
+    body: [
+      "Sejak muda lagi, Ibrahim menggunakan akalnya hingga sampai kepada tauhid, menolak berhala yang diukir dan disembah oleh kaumnya dan bapanya sendiri. Baginda berhujah dengan mereka, kemudian bertindak: ketika mereka keluar ke suatu perayaan, baginda memecahkan semua berhala mereka kecuali yang paling besar, dan apabila mereka menuntut penjelasan, baginda menyuruh mereka bertanya kepada berhala besar itu sendiri — mendedahkan betapa tidak berdayanya apa yang mereka sembah. Dalam kemarahan, mereka menyalakan api yang besar dan mencampakkan baginda ke dalamnya, tetapi Allah berfirman, “Hai api, jadilah engkau sejuk serta selamat sejahtera kepada Ibrahim,” dan baginda keluar tanpa sebarang kecederaan.",
+      "Dengan perintah Allah, Ibrahim meninggalkan isterinya Hajar dan anak kecil mereka Ismail di lembah Makkah yang gersang. Apabila air mereka habis, Hajar berlari dalam keadaan terdesak antara bukit Safa dan Marwah mencari pertolongan — usaha yang dilakonkan semula oleh umat Islam dalam saie ketika haji — sehingga mata air Zamzam memancar di kaki bayi itu. Bertahun-tahun kemudian, Ibrahim bermimpi bahawa baginda mesti menyembelih anak kesayangannya. Bapa dan anak sama-sama berserah kepada kehendak Allah; dan ketika Ibrahim hampir melaksanakannya, Allah menebus Ismail dengan seekor kibas yang besar, yang diperingati setiap tahun pada Aidiladha.",
+      "Bersama-sama, Ibrahim dan Ismail yang telah dewasa meninggikan asas Kaabah di Makkah, sambil berdoa ketika membina: “Wahai Tuhan kami! Terimalah daripada kami (amal kami)…” Ibrahim juga berdoa agar seorang rasul dibangkitkan daripada keturunan mereka — doa yang dimakbulkan berabad-abad kemudian melalui Nabi Muhammad ﷺ. Atas pengabdiannya yang tidak berbelah bahagi, Allah memuliakan Ibrahim dengan gelaran yang unik: Khalilullah, kekasih Allah.",
+    ],
+    lessons: [
+      "Tauhid menuntut agar ikatan yang batil diputuskan, walaupun penyembahan berhala ialah norma yang popular dan diwarisi serta menentangnya berbahaya.",
+      "Tawakal sepenuhnya kepada Allah paling terserlah ketika perintah-Nya paling berat — Ibrahim berserah walaupun untuk menyembelih anaknya, dan Allah menggantikan ujian itu dengan rahmat.",
+      "Bertawakal kepada Allah tidak bermaksud berdiam diri: Hajar berlari dan mencari, lalu Zamzam muncul — usaha dan tawakal berjalan seiring.",
+      "Amalan pengabdian yang ikhlas bergema merentasi generasi; ibadah haji dan kemuliaan Kaabah berpunca daripada ketaatan Ibrahim.",
+    ],
+    location: "Iraq, Syam, Makkah",
+  },
+  {
+    prophetName: "Nabi Yusuf a.s.",
+    title: "Nabi Yusuf — keindahan sabar (sabrun jamil)",
     summary:
-      "Menghancurkan berhala, api yang menjadi dingin, pengorbanan Ismail, membangun Ka'bah.",
+      "Pengkhianatan, perhambaan, penjara, naik ke tampuk kuasa — tawakal dalam setiap ujian.",
     body: [
-      'Sejak muda, Ibrahim AS menemukan tauhid melalui akalnya sendiri dan menolak berhala-berhala yang dipahat dan disembah oleh kaumnya serta ayahnya sendiri. Ia berdebat dengan mereka, lalu bertindak: ketika mereka pergi ke sebuah perayaan, ia menghancurkan semua berhala kecuali yang terbesar, dan ketika orang-orang menuntut penjelasan, ia berkata agar mereka bertanya kepada berhala yang terbesar itu — mengungkap ketidakberdayaan apa yang mereka sembah. Marah karenanya, mereka menyalakan api besar dan melemparkannya ke dalamnya, tetapi Allah memerintahkan: "Wahai api! Jadilah dingin dan keselamatan bagi Ibrahim," dan ia keluar dengan selamat.',
-      "Atas perintah Allah, Ibrahim AS meninggalkan istrinya Hajar dan bayinya Ismail di lembah tandus Makkah. Ketika air mereka habis, Hajar berlari cemas antara bukit Shafa dan Marwah mencari pertolongan — pencarian yang diulang kaum muslimin dalam sa'i haji — hingga mata air Zamzam memancar di dekat kaki bayi itu. Bertahun-tahun kemudian, Ibrahim AS bermimpi bahwa ia menyembelih putranya yang tercinta. Baik ayah maupun anak sama-sama tunduk pada kehendak Allah; dan tepat ketika Ibrahim AS akan melaksanakannya, Allah menebus Ismail dengan seekor domba jantan yang agung, yang diperingati setiap tahun pada Idul Adha.",
-      'Bersama-sama, Ibrahim dan Ismail AS meninggikan fondasi Ka\\\'bah di Makkah, sambil berdoa saat membangunnya: "Ya Tuhan kami, terimalah dari kami (amalan kami)." Ibrahim AS juga berdoa agar seorang rasul dibangkitkan dari keturunannya — doa yang dikabulkan berabad-abad kemudian dalam diri Nabi Muhammad ﷺ. Karena ibadahnya yang tak tergoyahkan, Allah menganugerahinya gelar unik: Khalilullah, kekasih Allah yang mendalam.',
+      "Ketika kecil, Yusuf bermimpi melihat sebelas bintang, matahari dan bulan sujud kepadanya — tanda masa depan yang besar. Bapanya Yaakub, yang juga seorang nabi, menyuruhnya merahsiakan mimpi itu daripada saudara-saudaranya yang cemburu. Hasad dengki menguasai mereka: mereka mencampakkan Yusuf ke dasar perigi dan memberitahu bapa mereka bahawa seekor serigala telah membahamnya. Sebuah kafilah yang lalu menemui budak itu dan menjualnya di Mesir.",
+      "Di rumah seorang pembesar, baginda membesar menjadi lelaki yang sangat tampan dan berintegriti. Apabila isteri pembesar itu cuba menggodanya, Yusuf menolak sambil berkata, “Aku berlindung kepada Allah,” dan memilih penjara daripada maksiat apabila wanita itu mengugutnya. Walaupun tidak bersalah, baginda dipenjarakan bertahun-tahun. Di sana baginda menyeru rakan-rakan sepenjara kepada tauhid dan mentakbirkan mimpi mereka dengan izin Allah.",
+      "Apabila raja gelisah kerana mimpi tujuh ekor lembu gemuk dimakan oleh tujuh ekor lembu kurus, Yusuf mentakbirkannya sebagai tujuh tahun kemakmuran yang diikuti tujuh tahun kebuluran, dan menasihatkan supaya bijirin disimpan. Akhirnya diiktiraf kerana kebijaksanaan dan sifat amanahnya, baginda diberi tanggungjawab mengurus gudang-gudang simpanan Mesir.",
+      "Kebuluran itu akhirnya membawa saudara-saudaranya ke Mesir untuk mencari makanan, tanpa mengenali menteri berkuasa di hadapan mereka. Selepas menguji mereka, Yusuf memperkenalkan dirinya dan — daripada membalas dendam — memaafkan mereka sepenuhnya: “Kamu pada hari ini tidak akan ditempelak atau disalahkan…, semoga Allah mengampunkan dosa kamu.” Keluarga itu bersatu semula, ibu bapanya dimuliakan, dan mimpi zaman kanak-kanaknya menjadi kenyataan.",
     ],
     lessons: [
-      "Tauhid menuntut pemutusan hubungan palsu, sekalipun penyembahan berhala populer, mengakar dari tradisi, dan melawannya berbahaya.",
-      "Tawakal penuh kepada Allah paling bersinar ketika perintah-Nya paling berat — Ibrahim AS bahkan tunduk pada pengorbanan putranya, dan Allah mengubah ujian itu menjadi rahmat.",
-      "Tawakal kepada Allah bukan berarti pasif: Hajar berlari dan berusaha mencari, dan Zamzam pun datang — usaha dan tawakal bekerja bersama.",
-      "Amal ibadah yang ikhlas bergema melintasi generasi; ritual haji dan keutamaan Ka'bah kembali kepada ketaatan Ibrahim AS.",
+      "Sabrun jamil — sabar yang indah — bermaksud menanggung kesusahan tanpa kepahitan atau mengadu kepada manusia, hanya membawa kesedihan kepada Allah seperti yang dilakukan oleh Yaakub.",
+      "Kesucian diri berbaloi walau apa pun harganya: Yusuf memilih penjara daripada maksiat, dan Allah mengangkat darjatnya kerananya.",
+      "Rancangan Allah sering tersembunyi di sebalik bertahun-tahun musibah yang zahir — perigi, perhambaan dan penjara semuanya langkah ke arah kemuliaan Yusuf.",
+      "Orang yang kuat menunjukkan kekuatannya melalui kemaafan: di puncak kuasanya, Yusuf memaafkan mereka yang menzaliminya.",
     ],
-    quran: [
-      {
-        excerpt: "Ibrahim, Ismail, dan pengorbanan.",
-      },
-      {
-        excerpt: "Perjanjian dan warisan.",
-      },
-    ],
-    location: "Irak, Syam, Makkah",
+    location: "Kan'an, Mesir",
   },
   {
-    prophetName: "Yusuf AS",
-    title: "Yusuf AS — Keindahan kesabaran (Sabrun Jamil)",
-    summary: "Pengkhianatan, perbudakan, penjara, mencapai kekuasaan — tawakal dalam setiap ujian.",
-    body: [
-      "Sejak kecil, Yusuf AS bermimpi melihat sebelas bintang, matahari, dan bulan bersujud kepadanya — pertanda masa depan yang agung. Ayahnya, Ya'qub AS, yang juga seorang nabi, menyuruhnya menyembunyikan mimpi itu dari saudara-saudaranya yang iri hati. Rasa iri mereka menguasai mereka: mereka melemparkan Yusuf ke dalam sumur yang dalam dan memberi tahu ayah mereka bahwa ia dimakan serigala. Sebuah kafilah yang lewat menemukan anak itu dan menjualnya di Mesir.",
-      'Di rumah seorang pembesar, ia tumbuh menjadi pria yang tampan dan jujur. Ketika istri pembesar itu mencoba menggodanya, Yusuf AS menolak, berkata: "Aku berlindung kepada Allah," dan ketika ia diancam, ia lebih memilih penjara daripada dosa. Meski tak bersalah, ia dipenjara bertahun-tahun. Di sana ia menyeru sesama tahanan kepada tauhid dan menafsirkan mimpi mereka dengan izin Allah.',
-      "Ketika raja tergelisah dengan mimpi tujuh sapi gemuk yang dimakan tujuh sapi kurus, Yusuf AS menafsirkannya sebagai tujuh tahun kemakmuran, lalu tujuh tahun paceklik, dan menyarankan untuk menyimpan hasil panen. Akhirnya dikenali karena kebijaksanaan dan kejujurannya, ia diangkat menjadi penjaga perbendaharaan Mesir.",
-      'Paceklik akhirnya membawa saudara-saudaranya ke Mesir mencari makanan, tanpa mengenali menteri berkuasa yang berdiri di hadapan mereka. Setelah mengujinya, Yusuf AS memperkenalkan dirinya dan — alih-alih membalas dendam — mengampuni mereka sepenuhnya: "Pada hari ini tak ada cercaan terhadap kamu. Semoga Allah mengampuni kamu." Keluarga itu bersatu kembali, orang tuanya dimuliakan, dan mimpi masa kecilnya menjadi kenyataan.',
-    ],
-    lessons: [
-      "Sabrun jamil — kesabaran yang indah — berarti menanggung kesulitan tanpa kepahitan atau mengeluh kepada manusia, membawa kesedihan hanya kepada Allah sebagaimana dilakukan Ya'qub AS.",
-      "Menjaga kesucian diri layak dengan harga berapa pun: Yusuf AS memilih penjara daripada dosa, dan karena itu Allah mengangkat derajatnya.",
-      "Rencana Allah seringkali tersembunyi di balik bertahun-tahun kemalangan yang tampak — sumur, perbudakan, dan penjara semuanya adalah langkah menuju kemuliaan Yusuf AS.",
-      "Orang yang berkuasa menunjukkan kekuatannya melalui pengampunan: pada puncak kekuasaannya, Yusuf AS mengampuni mereka yang telah menzaliminya.",
-    ],
-    quran: [
-      {
-        excerpt: "Kisah yang terbaik — dituturkan dalam satu surah.",
-      },
-    ],
-    location: "Kanaan, Mesir",
-  },
-  {
-    prophetName: "Musa AS",
-    title: "Musa AS — Berbicara langsung dengan Allah dan menghadapi Fir'aun",
+    prophetName: "Nabi Musa a.s.",
+    title: "Nabi Musa — berbicara dengan Allah dan menentang Firaun",
     summary:
-      "Semak yang menyala, tanda-tanda melawan Fir'aun, keluarnya Bani Israil, Taurat, dan kaum yang tersesat.",
+      "Api yang menyala, mukjizat di hadapan Firaun, keluar dari Mesir, Taurat, dan bangsa yang mengembara.",
     body: [
-      "Musa AS, dengan pengaturan Allah, dibesarkan justru di istana Fir'aun, setelah ibunya menghanyutkannya di sungai untuk menyelamatkannya dari pembantaian bayi laki-laki Israil oleh Fir'aun. Dewasa muda, ia meninggalkan Mesir setelah sebuah pembunuhan, dan bertahun-tahun kemudian, dalam perjalanan kembali dari padang pasir, ia melihat api di Gunung Sinai. Di sana Allah berbicara langsung kepadanya — sebuah keutamaan yang memberi Musa gelar Kalimullah, ia yang berbicara dengan Allah — berfirman: \"Sesungguhnya Akulah Tuhanmu.\" Ia diutus kembali, dengan bantuan saudaranya Harun AS, kepada Fir'aun yang durhaka dengan tuntutan: bebaskan Bani Israil.",
-      "Fir'aun mengaku sebagai tuhan dan menolak. Allah memberi Musa AS tanda-tanda yang nyata — tongkatnya menjadi ular hidup dan tangannya bersinar putih. Fir'aun memanggil para penyihir terbaiknya untuk mendustakannya, tetapi ketika tongkat Musa menelan tipu daya mereka, para penyihir itu mengenali kebenaran sejati di balik sihir semu dan tersungkur sujud, menyatakan iman kepada Tuhan Musa dan Harun — meski Fir'aun mengancam mereka dengan kematian. Berbagai azab silih berganti setelah itu, namun Fir'aun tetap keras kepala.",
-      "Akhirnya Allah memerintahkan Musa AS untuk membawa kaumnya pergi di malam hari. Fir'aun mengejar mereka hingga ke laut; Musa memukulkan tongkatnya dan air terbelah, membiarkan orang-orang beriman melewati tanah kering. Ketika Fir'aun dan pasukannya mengikuti, laut menutup kembali atas mereka dan mereka tenggelam. Kemudian Musa AS menerima Taurat, tetapi Bani Israil terbukti durhaka — menyembah anak sapi emas saat ketiadaannya dan menolak memasuki Tanah Suci — dan akibatnya mengembara selama empat puluh tahun.",
+      "Dengan ketentuan Allah, Musa membesar di dalam istana Firaun sendiri selepas ibunya menghanyutkannya di sungai untuk menyelamatkannya daripada pembunuhan anak-anak lelaki Bani Israil oleh Firaun. Ketika muda, baginda melarikan diri dari Mesir selepas satu insiden pembunuhan, dan bertahun-tahun kemudian, ketika kembali melalui padang pasir, baginda melihat api di Bukit Tur. Di sana Allah berbicara kepadanya secara langsung — satu kemuliaan yang memberi Musa gelaran Kalimullah, orang yang berbicara dengan Allah — dengan firman-Nya, “Sesungguhnya Aku Tuhanmu!” Baginda diutus, dengan saudaranya Harun sebagai pembantu, kembali kepada Firaun yang zalim dengan tuntutan: bebaskan Bani Israil.",
+      "Firaun mendakwa dirinya tuhan dan enggan. Allah memberikan Musa tanda-tanda yang nyata — tongkatnya bertukar menjadi ular yang hidup dan tangannya bersinar putih berseri. Firaun memanggil ahli-ahli sihirnya yang paling mahir untuk memalukan Musa, tetapi apabila tongkat Musa menelan ilusi-ilusi mereka, ahli-ahli sihir itu dapat membezakan kebenaran yang sebenar daripada tipu helah semata-mata lalu jatuh bersujud, mengisytiharkan iman kepada Tuhan Musa dan Harun — walaupun Firaun mengugut mereka dengan hukuman mati. Bala demi bala menyusul, namun Firaun hanya semakin keras hati.",
+      "Akhirnya Allah memerintahkan Musa membawa kaumnya keluar pada waktu malam. Firaun mengejar mereka hingga ke laut; Musa memukul laut dengan tongkatnya lalu air terbelah, membolehkan orang-orang beriman menyeberang di atas tanah kering. Apabila Firaun dan tenteranya mengikut, laut tertutup kembali ke atas mereka dan mereka lemas. Musa kemudian menerima Taurat, tetapi Bani Israil terbukti degil — menyembah anak lembu emas ketika ketiadaannya dan enggan memasuki tanah yang dijanjikan — lalu mereka mengembara selama empat puluh tahun sebagai akibatnya.",
     ],
     lessons: [
-      "Berkatalah benar di hadapan kezaliman sambil bertawakal penuh kepada Allah — Musa AS menghadapi orang paling berkuasa di zamannya hanya dengan senjata keimanan.",
-      "Bahkan orang beriman yang tulus bisa goyah: para penyihir yang menentang Musa, dalam satu momen kejelasan, menjadi lebih teguh daripada seluruh kaum yang telah menyaksikan mukjizat.",
-      "Melihat mukjizat itu sendiri tidak menciptakan iman — petunjuk adalah anugerah Allah yang datang kepada hati yang rendah hati, bukan yang durhaka.",
-      "Allah menyelamatkan yang tertindas dan menjatuhkan hukuman pada yang sombong, sekuat apa pun mereka.",
-    ],
-    quran: [
-      {
-        excerpt: "Musa AS di Gunung Sinai dan di hadapan Fir'aun.",
-      },
-      {
-        excerpt: "Kelahiran dan pengasuhan.",
-      },
+      "Sampaikan kebenaran di hadapan kezaliman sambil bertawakal sepenuhnya kepada Allah — Musa berdepan dengan manusia paling berkuasa pada zamannya hanya bersenjatakan iman.",
+      "Orang beriman yang ikhlas pun boleh goyah: ahli-ahli sihir yang dahulunya menentang Musa, dalam satu detik kejelasan, menjadi lebih teguh daripada seluruh bangsa yang telah menyaksikan mukjizat.",
+      "Menyaksikan keajaiban semata-mata tidak melahirkan iman — hidayah ialah anugerah yang Allah kurniakan kepada hati yang rendah diri, bukan hati yang degil.",
+      "Allah menyelamatkan orang yang tertindas dan menghisab orang yang sombong, betapa perkasa pun mereka kelihatan.",
     ],
     location: "Mesir, Sinai",
   },
   {
-    prophetName: "Isa AS",
-    title: "Isa bin Maryam AS — Kalimat dan ruh dari Allah",
+    prophetName: "Nabi Isa a.s.",
+    title: "Nabi Isa bin Maryam — kalimah dan roh daripada Allah",
     summary:
-      "Kelahiran ajaib, tanda-tanda, diangkat oleh Allah — menurut Al-Qur'an bukan dibunuh dan bukan disalib.",
+      "Kelahiran ajaib, mukjizat, diangkat kepada Allah — tidak dibunuh dan tidak disalib menurut Al-Quran.",
     body: [
-      'Maryam AS, seorang wanita suci dan tekun beribadah yang dipilih Allah sebagai wanita terbaik pada zamannya, mengasingkan diri dari keluarganya ke arah timur. Di sana malaikat Jibril mendatanginya dalam wujud seorang pria dan mengumumkan bahwa Allah akan menganugerahinya seorang putra yang suci, meski tidak ada laki-laki yang menyentuhnya. Ia mengandung dengan kalimat Allah "Jadilah," dan Isa pun lahir — Al-Qur\\\'an menyamakan penciptaannya dengan penciptaan Adam, yang dibuat tanpa ayah, menunjukkan bahwa Allah menciptakan sekehendak-Nya.',
-      'Ketika ia kembali membawa bayinya, kaumnya menuduhnya. Untuk membelanya, bayi Isa berbicara dari buaian, menyatakan dirinya sebagai hamba Allah yang diberi Kitab dan diangkat menjadi nabi — sebuah mukjizat yang membersihkan kehormatan ibunya. Sebagai nabi bagi Bani Israil, Isa AS diberi tanda-tanda yang nyata dengan izin Allah: ia menyembuhkan orang buta dan berpenyakit kusta, menghidupkan orang mati, dan membentuk seekor burung dari tanah liat yang lalu terbang — selalu menegaskan bahwa semua itu terjadi "dengan izin Allah," bukan dengan kekuatannya sendiri.',
-      "Al-Qur'an menyatakan dengan tegas bahwa Isa AS tidak dibunuh dan tidak disalib; sebaliknya, hal itu diserupakan bagi musuh-musuhnya, dan Allah mengangkatnya kepada-Nya. Keyakinan Ahlus Sunnah adalah bahwa ia akan kembali sebelum Hari Kiamat. Yang penting, Al-Qur'an menegaskan bahwa Isa adalah seorang nabi manusia dan hamba Allah, bukan tuhan dan bukan putra Allah — pesan yang ia sendiri nyatakan sejak dari buaian hingga akhir.",
+      "Maryam, seorang wanita yang suci dan taat yang dipilih oleh Allah sebagai sebaik-baik wanita pada zamannya, mengasingkan diri daripada keluarganya ke suatu tempat di sebelah timur. Di sana malaikat Jibril muncul kepadanya dalam rupa seorang lelaki dan mengkhabarkan bahawa Allah akan mengurniakan kepadanya seorang anak lelaki yang suci, walaupun tiada lelaki pernah menyentuhnya. Dia mengandung dengan kalimah Allah “Jadilah engkau”, lalu Isa dicipta — Al-Quran menyamakan penciptaannya dengan penciptaan Adam, yang dijadikan tanpa bapa, menunjukkan bahawa Allah mencipta sebagaimana yang Dia kehendaki.",
+      "Apabila dia kembali membawa bayinya, kaumnya menuduhnya. Untuk membelanya, bayi Isa berbicara dari dalam buaian, mengisytiharkan dirinya hamba Allah yang diberikan Kitab dan dijadikan nabi — membersihkan maruah ibunya dengan satu mukjizat. Sebagai nabi kepada Bani Israil, Isa diberikan tanda-tanda yang nyata dengan izin Allah: baginda menyembuhkan orang buta dan orang sopak, menghidupkan orang mati, dan membentuk seekor burung daripada tanah liat yang kemudian terbang — sentiasa menegaskan bahawa semua itu “dengan izin Allah”, bukan dengan kuasanya sendiri.",
+      "Al-Quran menyatakan dengan jelas bahawa Isa tidak dibunuh dan tidak disalib; sebaliknya, ia dijadikan kelihatan begitu bagi musuh-musuhnya, dan Allah mengangkatnya kepada-Nya. Akidah arus perdana Ahli Sunnah berpegang bahawa baginda akan kembali sebelum Hari Kiamat. Yang paling penting, Al-Quran menegaskan bahawa Isa ialah seorang nabi dan hamba Allah daripada kalangan manusia, bukan tuhan dan bukan anak Tuhan — mesej yang baginda sendiri isytiharkan dari dalam buaian hingga ke akhirnya.",
     ],
     lessons: [
-      "Allah menciptakan sekehendak-Nya — kelahiran Isa AS tanpa ayah, seperti penciptaan Adam dari tanah, menunjukkan bahwa kekuasaan-Nya tidak terikat sebab duniawi mana pun.",
-      'Mukjizat apa pun yang ditunjukkan Isa AS secara tegas terjadi "dengan izin Allah," mengajarkan bahwa para nabi adalah perantara kekuasaan Allah, bukan pemiliknya.',
-      "Para nabi adalah hamba Allah yang mulia, tidak pernah layak disembah — Al-Qur'an melindungi kedudukan sejati Isa dari pengagungan yang berlebihan.",
-      "Kesucian, kesabaran, dan tawakal Maryam AS menjadikannya teladan iman bagi semua orang beriman, baik perempuan maupun laki-laki.",
+      "Allah mencipta sebagaimana yang Dia kehendaki — kelahiran Isa tanpa bapa, seperti penciptaan Adam daripada tanah, menunjukkan kuasa-Nya tidak terikat dengan sebab-musabab duniawi.",
+      "Setiap mukjizat yang dilakukan oleh Isa dinyatakan secara jelas “dengan izin Allah”, mengajar bahawa para nabi menjadi saluran kuasa Allah, bukan pemiliknya.",
+      "Para nabi ialah hamba Allah daripada kalangan manusia yang dimuliakan, tidak sekali-kali untuk disembah — Al-Quran memelihara kedudukan sebenar Isa daripada sikap melampau.",
+      "Kesucian, kesabaran dan tawakal Maryam menjadikannya teladan iman bagi semua orang beriman, wanita dan lelaki.",
     ],
-    quran: [
-      {
-        excerpt: "Kelahiran dan perkataan dari buaian.",
-      },
-      {
-        excerpt: "Tidak dibunuh dan tidak disalib; melainkan diangkat.",
-      },
-    ],
-    location: "Palestina",
+    location: "Palestin",
   },
   {
-    prophetName: "Muhammad ﷺ",
-    title: "Muhammad ﷺ — Penutup para nabi",
-    summary: "Rasul terakhir; Al-Qur'an diturunkan selama 23 tahun; rahmat bagi semesta alam.",
+    prophetName: "Nabi Muhammad ﷺ",
+    title: "Nabi Muhammad ﷺ — penutup para nabi",
+    summary: "Rasul terakhir; Al-Quran diturunkan selama 23 tahun; rahmat bagi sekalian alam.",
     body: [
-      'Muhammad ﷺ lahir sekitar tahun 570 M dalam suku Quraisy di Makkah. Menjadi yatim piatu sejak kecil — ayahnya wafat sebelum ia lahir dan ibunya ketika ia berusia enam tahun — ia dibesarkan pertama oleh kakeknya lalu oleh pamannya, Abu Thalib. Jauh sebelum kenabian, ia begitu tepercaya karena kejujurannya hingga kaumnya menjulukinya Al-Amin, "yang tepercaya". Pada usia empat puluh tahun, saat merenung di Gua Hira, ia menerima wahyu pertama Al-Qur\\\'an melalui malaikat Jibril.',
-      'Selama tiga belas tahun di Makkah, ia menyeru manusia untuk hanya menyembah Allah dan menghadapi penganiayaan yang keras: ejekan, penyiksaan terhadap pengikutnya yang lemah, dan boikot sosial-ekonomi yang melumpuhkan bagi keluarganya. Dalam satu "Tahun Duka" yang sama, ia kehilangan baik istrinya yang tercinta, Khadijah, maupun pelindungnya, Abu Thalib, dan ketika ia mencari perlindungan di Thaif yang berdekatan, ia diusir dan dilempari batu — namun ia mendoakan petunjuk bagi mereka, bukan kehancuran mereka.',
-      'Setelah hijrah ke Madinah, ia membangun sebuah komunitas dan membawanya melalui ujian-ujian Badar, Uhud, dan Ahzab. Ketika akhirnya ia kembali menaklukkan Makkah dengan kekuatan yang luar biasa, ia tidak membalas dendam kepada mereka yang telah menyiksa dan mengusirnya; ia mengampuni mereka dan berkata: "Pergilah, kalian bebas." Al-Qur\\\'an merangkum misinya dalam satu kalimat — "rahmat bagi semesta alam" — dan menjelaskan bahwa tugasnya adalah menyampaikan pesan dengan jelas, bukan memaksa siapa pun untuk beriman.',
+      "Muhammad ﷺ dilahirkan di Makkah sekitar tahun 570 M dalam kabilah Quraisy. Menjadi yatim sejak kecil — bapanya meninggal dunia sebelum baginda lahir dan ibunya ketika baginda berusia enam tahun — baginda dipelihara mula-mula oleh datuknya dan kemudian oleh bapa saudaranya Abu Talib. Lama sebelum kenabian, baginda begitu dipercayai kerana kejujurannya sehingga kaumnya menggelarnya al-Amin, “yang amanah”. Pada usia empat puluh tahun, ketika bertafakur di Gua Hira, baginda menerima wahyu pertama Al-Quran melalui malaikat Jibril.",
+      "Selama tiga belas tahun di Makkah, baginda menyeru manusia supaya menyembah Allah semata-mata dan menghadapi penganiayaan yang dahsyat: ejekan, penyeksaan terhadap golongan lemah dalam kalangan pengikutnya, dan pemulauan sosial serta ekonomi yang melumpuhkan ke atas kaum keluarganya. Dalam satu “tahun kesedihan”, baginda kehilangan isteri tercinta Khadijah dan pelindungnya Abu Talib, dan apabila baginda mencari sokongan di Taif yang berdekatan, baginda diusir dan dilempari batu — namun baginda mendoakan hidayah untuk mereka, bukan kebinasaan.",
+      "Selepas berhijrah ke Madinah, baginda membina sebuah komuniti dan memimpinnya melalui ujian Badar, Uhud dan Ahzab. Apabila baginda akhirnya kembali untuk membuka Makkah dengan kekuatan yang besar, baginda tidak membalas dendam terhadap mereka yang pernah menyeksa dan mengusirnya; baginda memaafkan mereka dan mengisytiharkan, “Go, for you are free” (maksud dalam bahasa Inggeris). Al-Quran merumuskan misi baginda dalam satu ungkapan — “rahmat bagi sekalian alam” — dan menjelaskan bahawa tugas baginda ialah menyampaikan risalah dengan jelas, bukan memaksa sesiapa pun untuk beriman.",
     ],
     lessons: [
-      "Akhlak terbaik yang bisa dimiliki seseorang adalah akhlak Nabi ﷺ — pelajari sirahnya dengan saksama dan berusahalah menerapkannya dalam kehidupan sehari-hari.",
-      "Rahmat dan pengampunan adalah kekuatan, bukan kelemahan: pada puncak kekuasaannya, ia mengampuni musuh-musuhnya yang paling jahat.",
-      "Pesan dakwah kepada Allah disampaikan dengan keikhlasan dan kesabaran tetapi hasilnya diserahkan kepada Allah — memberi petunjuk adalah urusan-Nya semata.",
-      "Ujian adalah jalan para nabi; menanggung kesulitan demi Allah, sebagaimana yang ia lakukan, adalah tanda keimanan yang sejati.",
+      "Akhlak terbaik yang boleh dimiliki seseorang ialah akhlak Nabi ﷺ — kajilah sirah baginda dengan teliti dan berusahalah menghayatinya dalam kehidupan seharian.",
+      "Belas kasihan dan kemaafan ialah kekuatan, bukan kelemahan: di puncak kuasanya, baginda memaafkan musuh-musuhnya yang paling ketat.",
+      "Pendakwah menyampaikan risalah dengan ikhlas dan sabar tetapi menyerahkan hasilnya kepada Allah — hidayah adalah milik-Nya untuk dikurniakan.",
+      "Ujian ialah jalan para nabi; menanggung kesusahan kerana Allah, seperti yang baginda lakukan, ialah tanda iman yang sebenar.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan tiadalah Kami mengutus kamu, melainkan untuk (menjadi) rahmat bagi semesta alam.",
-      },
-      {
-        excerpt: "Berkasih sayang sesama mereka, keras terhadap orang-orang kafir.",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Garis masa Sirah" }],
   },
 ];
 
@@ -605,631 +459,459 @@ export const QURAN_GUIDE_THEMES_MS: DeepPartial<QuranGuideTheme>[] = [
   {
     title: "Iman",
     summary:
-      "Keimanan kepada Allah, malaikat-Nya, kitab-kitab-Nya, rasul-rasul-Nya, Hari Akhir, dan takdir.",
+      "Beriman kepada Allah, para malaikat-Nya, kitab-kitab, rasul-rasul, Hari Akhirat, serta qada' dan qadar.",
     lessons: [
-      "Iman berdiri di atas enam rukun yang dihimpun Al-Qur'an dalam satu tempat: keimanan kepada Allah, malaikat-Nya, kitab-kitab yang diturunkan-Nya, rasul-rasul-Nya, Hari Akhir, dan takdir — baik dan buruknya.",
-      "Iman bukanlah pengakuan yang tetap dan sekali jadi. Dalam keyakinan Ahlus Sunnah, iman bertambah dengan ketaatan dan dzikir serta berkurang dengan dosa dan kelalaian, sehingga iman adalah sesuatu yang secara aktif kamu tumbuhkan.",
-      "Nabi ﷺ mengajarkan bahwa iman memiliki lebih dari tujuh puluh cabang, dari yang tertinggi — kesaksian bahwa tiada tuhan selain Allah — hingga menyingkirkan sesuatu yang mengganggu dari jalan, menunjukkan bahwa kebaikan kecil pun bagian dari iman.",
-      "Iman yang sejati adalah urusan hati sebelum lisan: benar-benar mengenal Allah, mencintai-Nya melebihi segalanya, takut akan murka-Nya, dan bertawakal sepenuhnya kepada-Nya.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Rasul telah beriman kepada apa yang diturunkan kepadanya dari Tuhannya, demikian pula orang-orang yang beriman…",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          'Iman itu memiliki lebih dari tujuh puluh cabang; yang tertinggi adalah ucapan "laa ilaaha illallah", dan yang terendah adalah menyingkirkan gangguan dari jalan — dan rasa malu adalah salah satu cabang iman.',
-      },
+      "Iman berdiri di atas enam rukun yang dihimpunkan oleh Al-Quran di satu tempat: beriman kepada Allah, para malaikat-Nya, kitab-kitab yang diturunkan-Nya, para rasul-Nya, Hari Akhirat, serta qada' dan qadar — yang baik dan yang buruk.",
+      "Iman bukan pengakuan tetap yang dibuat sekali sahaja. Menurut akidah arus perdana Ahli Sunnah, iman bertambah dengan ketaatan dan zikir serta berkurang dengan dosa dan kelalaian, maka iman ialah sesuatu yang anda suburkan secara aktif.",
+      "Nabi ﷺ mengajarkan bahawa iman mempunyai lebih daripada tujuh puluh cabang, daripada yang paling tinggi — penyaksian bahawa tiada tuhan melainkan Allah — hinggalah membuang sesuatu yang menyakitkan dari jalan, menunjukkan bahawa amalan baik yang kecil pun sebahagian daripada iman.",
+      "Iman yang sebenar ialah urusan hati sebelum lidah: benar-benar mengenal Allah, mencintai-Nya melebihi segala-galanya, takut akan kemurkaan-Nya, dan bertawakal sepenuhnya kepada-Nya.",
     ],
     actions: [
-      "Ucapkan kembali syahadatmu hari ini dengan perhatian penuh pada maknanya, bukan sekadar kalimat rutin.",
-      "Pelajari salah satu nama Allah, pahami maknanya, dan panggillah Allah dengannya dalam doamu.",
+      "Perbaharui syahadah anda hari ini dengan penuh perhatian terhadap maknanya, bukan sebagai lafaz rutin.",
+      "Pelajari satu nama Allah, fahami maknanya, dan seru Dia dengan nama itu dalam doa anda.",
     ],
   },
   {
-    title: "Shalat",
+    title: "Solat",
     summary:
-      "Amalan pertama yang ditanya pada Hari Kiamat — tiang yang menghubungkan hamba dengan Tuhannya.",
+      "Amalan pertama yang dihisab pada Hari Kiamat — tiang yang menghubungkan hamba dengan Tuhannya.",
     lessons: [
-      "Shalat adalah rukun kedua Islam dan amalan pertama yang akan ditanyakan kepada hamba pada Hari Kiamat — jika ini benar, biasanya seluruh catatan amal lainnya pun ikut menjadi baik.",
-      "Al-Qur'an menyatakan bahwa shalat, jika dilaksanakan dengan kehadiran hati yang sesungguhnya, mencegah manusia dari perbuatan keji dan mungkar; ia bukan sekadar ritual melainkan pembaruan jiwa yang diulang lima kali sehari.",
-      "Berbeda dari kewajiban lain yang diturunkan di bumi, shalat diwajibkan bagi umat ini selama perjalanan malam dan mikraj Nabi ﷺ (Al-Isra wal Mi'raj), menjadikannya anugerah khusus dan sarana kenaikan hamba menuju Allah.",
-      "Karena diulang lima kali sehari, shalat adalah irama yang mantap yang menjaga iman tetap hidup di antara satu ibadah dengan ibadah lainnya.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya shalat itu mencegah dari (perbuatan-perbuatan) keji dan mungkar, dan dzikir kepada Allah lebih besar (keutamaannya).",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Amalan pertama yang akan dihisab dari seorang hamba pada Hari Kiamat adalah shalatnya; jika baik, ia beruntung dan sukses, dan jika rusak, ia gagal dan merugi.",
-      },
+      "Solat ialah rukun Islam yang kedua dan amalan pertama yang akan disoal daripada seorang hamba pada Hari Kiamat — jika ia baik, catatan amalan yang lain cenderung mengikutinya.",
+      "Al-Quran menyatakan bahawa solat, apabila didirikan dengan kehadiran hati yang sebenar, mencegah seseorang daripada perbuatan keji dan mungkar; ia bukan sekadar ritual tetapi penyegaran semula jiwa yang berulang lima kali sehari.",
+      "Tidak seperti kewajipan-kewajipan lain yang diturunkan di bumi, solat difardukan ke atas ummah ketika Isra' dan Mi'raj Nabi ﷺ, menjadikannya satu anugerah istimewa dan wasilah orang beriman sendiri untuk naik menuju Allah.",
+      "Kerana ia diulang lima kali sehari, solat ialah irama tetap yang memastikan iman terus hidup antara satu ibadah dengan ibadah yang berikutnya.",
     ],
     actions: [
-      "Kerjakan satu shalat hari ini dengan perlahan, memahami kata-kata Al-Fatihah saat kamu membacanya.",
-      "Buka panduan Belajar Shalat Munib untuk memperkuat satu bagian dari shalatmu.",
+      "Dirikan satu solat hari ini dengan perlahan, memahami kalimah-kalimah al-Fatihah ketika anda membacanya.",
+      "Buka panduan Belajar Solat dalam Munib untuk memperkukuh satu bahagian solat anda.",
     ],
   },
   {
-    title: "Orang tua",
+    title: "Ibu bapa",
     summary:
-      "Berbakti kepada orang tua dihubungkan dengan ibadah kepada Allah — peringatan keras terhadap durhaka setelah kemusyrikan.",
+      "Berbuat baik kepada ibu bapa digandingkan dengan ibadah kepada Allah — selepas syirik, tidak mengenang jasa mereka turut diberi amaran.",
     lessons: [
-      "Allah menghubungkan berbakti kepada orang tua langsung dalam ayat yang sama dengan ibadah kepada-Nya sendiri — tanda betapa beratnya hak mereka dalam Islam.",
-      'Al-Qur\'an melarang bahkan tanda ketidaksenangan yang paling kecil: jangan katakan "ah" kepada mereka, jangan membentak mereka, melainkan bicaralah kepada mereka dengan kata-kata yang lembut dan mulia.',
-      "Perintah ini memuncak di masa tua, ketika orang tua paling membutuhkan kesabaran: rawatlah mereka sebagaimana mereka dahulu merawatmu, dan rendahkanlah dirimu di hadapan mereka dengan penuh kasih sayang.",
-      "Ibadah tidak berakhir dengan kematian — terus mendoakan orang tua, bersedekah atas nama mereka, dan menghormati sahabat serta janji mereka adalah bentuk kesetiaan yang berkelanjutan.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Dan Tuhanmu telah memerintahkan supaya kamu jangan menyembah selain Dia dan hendaklah kamu berbuat baik pada ibu bapakmu…",
-      },
+      "Allah menggandingkan berbuat baik kepada ibu bapa secara langsung dengan ibadah kepada-Nya dalam ayat yang sama — tanda betapa beratnya hak mereka dalam Islam.",
+      "Al-Quran melarang walau tanda kejengkelan yang paling kecil: jangan berkata kepada mereka sekalipun perkataan “Ha”, dan jangan berkata kasar, tetapi bercakaplah kepada mereka dengan perkataan yang lembut dan mulia.",
+      "Perintah ini memuncak pada usia tua mereka, ketika ibu bapa paling memerlukan kesabaran: jagalah mereka sebagaimana mereka pernah menjaga anda, dan rendahkanlah sayap kerendahan diri kepada mereka kerana belas kasihan.",
+      "Bakti tidak berakhir dengan kematian — terus berdoa untuk ibu bapa, bersedekah bagi pihak mereka, serta memuliakan sahabat dan menunaikan janji mereka ialah tanda kesetiaan yang berterusan.",
     ],
     actions: [
-      "Hari ini, teleponlah atau kirim pesan kepada ayah atau ibumu dengan kata-kata yang lembut.",
-      "Doakan kedua orang tuamu dengan menyebut nama mereka.",
+      "Hubungi atau hantar mesej kepada ibu atau bapa anda dengan kata-kata yang baik hari ini.",
+      "Doakan ibu bapa anda dengan menyebut nama mereka.",
     ],
   },
   {
-    title: "Kesabaran",
-    summary:
-      "Keteguhan dalam ketaatan, menahan diri dari dosa, dan menerima takdir dengan lapang dada.",
+    title: "Sabar",
+    summary: "Teguh dalam ketaatan, menahan diri daripada maksiat, dan reda menerima ujian.",
     lessons: [
-      "Para ulama menjelaskan sabar dalam tiga bentuk: sabar dalam menaati Allah, sabar dalam menjauhi dosa, dan sabar dalam menerima takdir-Nya saat menghadapi ujian.",
-      "Sabar bukanlah keputusasaan yang pasrah atau menggerutu sendirian — Al-Qur'an menghubungkannya dengan shalat sebagai sumber pertolongan, jadi sabar bersifat aktif dan mengarahkanmu kepada Allah, bukan menjauh dari-Nya.",
-      'Allah menyebut diri-Nya "bersama orang-orang yang sabar," dan menjanjikan pahala tanpa batas bagi mereka yang sabar — sebuah kemuliaan yang hampir tidak dikaitkan dengan sifat lain mana pun.',
-      "Para nabi diuji paling berat, dan Al-Qur'an menyajikan keteguhan mereka — Ayyub AS dalam sakitnya, Ya'qub AS dalam kesedihannya, Yusuf AS dalam pengkhianatan dan penjaranya — sebagai teladan.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Hai orang-orang yang beriman, jadikanlah sabar dan shalat sebagai penolongmu, sesungguhnya Allah beserta orang-orang yang sabar.",
-      },
+      "Ulama menghuraikan sabar dalam tiga bentuk: sabar dalam mentaati Allah, sabar dalam menjauhi maksiat, dan sabar dalam menerima ketentuan-Nya apabila ujian melanda.",
+      "Sabar bukan putus asa secara pasif atau mengetap gigi bersendirian — Al-Quran menggandingkannya dengan solat sebagai sumber pertolongan, maka sabar itu aktif dan membawa anda menghadap Allah, bukan berpaling daripada-Nya.",
+      "Allah menyatakan bahawa Dia “menyertai (menolong) orang-orang yang sabar”, dan menjanjikan ganjaran tanpa batas bagi mereka — satu kemuliaan yang hampir tidak dikaitkan dengan sifat lain.",
+      "Para nabi ialah manusia yang paling berat diuji, dan Al-Quran mengangkat ketabahan mereka — Ayub dalam kesakitan, Yaakub dalam kesedihan, Yusuf melalui pengkhianatan dan penjara — sebagai teladan untuk diikuti.",
     ],
     actions: [
-      'Hari ini, ketika rasa kesal muncul, berhentilah, tarik napas, dan ucapkan "innaa lillaahi wa innaa ilaihi raaji\'uun" sebelum bereaksi.',
-      "Minggu ini, ubahlah satu momen kesulitan menjadi dua rakaat shalat, bukan keluhan.",
+      "Apabila rasa jengkel timbul hari ini, berhenti seketika, tarik nafas, dan ucapkan “Inna lillahi wa inna ilayhi raji'un” sebelum anda bertindak balas.",
+      "Ubah satu detik kesusahan minggu ini menjadi dua rakaat solat dan bukannya keluhan.",
     ],
   },
   {
-    title: "Sedekah (Sedekah dan Zakat)",
-    summary:
-      "Menyucikan harta dan memberi makan orang yang membutuhkan — tanda keimanan yang sejati.",
+    title: "Sedekah & Zakat",
+    summary: "Menyucikan harta dan memberi makan orang yang memerlukan — tanda iman yang sebenar.",
     lessons: [
-      "Zakat — sedekah wajib tahunan yang menyucikan atas harta yang mencapai nisab — adalah rukun ketiga Islam dan sebuah kewajiban, sementara sedekah adalah pemberian sukarela yang tidak terbatas dan memiliki banyak bentuk.",
-      "Al-Qur'an menjanjikan bahwa harta yang dibelanjakan di jalan Allah tidak sia-sia melainkan dilipatgandakan: seperti sebutir benih yang menumbuhkan tujuh tangkai, setiap tangkai berisi seratus biji, dan Allah melipatgandakan lagi bagi siapa yang Dia kehendaki.",
-      "Sedekah bukan hanya harta. Nabi ﷺ mengajarkan bahwa senyum kepada saudaramu pun adalah sedekah, jadi tak ada seorang pun yang terlalu miskin untuk memberi.",
-      'Memberi menyucikan baik harta maupun pemberinya, melonggarkan cengkeraman ketamakan dan menumbuhkan kepedulian — itulah sebabnya kata "zakat" sendiri bermakna penyucian dan pertumbuhan.',
-    ],
-    quran: [
-      {
-        excerpt:
-          "Perumpamaan (nafkah yang dikeluarkan oleh) orang-orang yang menafkahkan hartanya di jalan Allah adalah serupa dengan sebutir benih yang menumbuhkan tujuh bulir…",
-      },
+      "Zakat — sedekah tahunan yang menyucikan harta yang cukup syarat — ialah rukun Islam yang ketiga dan satu kewajipan, manakala sedekah ialah pemberian sukarela tanpa had dan dalam pelbagai bentuk yang tidak terhingga.",
+      "Al-Quran menjanjikan bahawa harta yang dibelanjakan kerana Allah tidak hilang tetapi digandakan: seperti sebiji benih yang menumbuhkan tujuh tangkai, setiap tangkai berisi seratus biji, dan Allah menggandakan lagi bagi sesiapa yang Dia kehendaki.",
+      "Sedekah bukan hanya wang. Nabi ﷺ mengajarkan bahawa bertemu saudara anda dengan wajah yang manis pun ialah sedekah, maka tiada siapa yang terlalu miskin untuk memberi.",
+      "Memberi menyucikan harta dan juga diri pemberi, melonggarkan cengkaman tamak dan memupuk belas kasihan — itulah sebabnya perkataan zakat itu sendiri bermaksud penyucian dan pertumbuhan.",
     ],
     actions: [
-      "Hari ini, berilah sesuatu — harta, waktumu, atau sepatah kata yang tulus dan baik — sekalipun kecil dan tak terlihat.",
-      "Tinjau kewajiban zakatmu di Munib dan catat kapan pembayaran berikutnya jatuh tempo.",
+      "Berikan sesuatu hari ini — wang, masa anda, atau kata-kata yang benar-benar baik — walaupun kecil dan tidak dilihat orang.",
+      "Semak kewajipan zakat anda dalam Munib dan catat bila bayaran seterusnya perlu dibuat.",
     ],
   },
   {
     title: "Taubat",
     summary:
-      "Allah mencintai orang-orang yang bertaubat — pintu tetap terbuka selama ruh belum sampai ke tenggorokan.",
+      "Allah mencintai orang yang bertaubat — pintunya terbuka sehingga nyawa sampai ke kerongkong.",
     lessons: [
-      "Taubat yang sejati memiliki syarat yang jelas: penyesalan yang sungguh-sungguh atas dosa, segera meninggalkannya, dan tekad kuat untuk tidak mengulanginya — dan jika dosa itu menzalimi orang lain, mengembalikan haknya juga.",
-      "Allah tidak sekadar mengizinkan taubat — Dia mencintai orang-orang yang terus-menerus kembali kepada-Nya, sehingga kembali setelah tergelincir itu sendiri dicintai-Nya, bukan noda yang memberatkanmu.",
-      "Pintu rahmat terbuka sangat luas: Allah bahkan kepada mereka yang telah menzalimi diri mereka sendiri secara berlebihan, berfirman agar tidak putus asa, karena Dia mengampuni semua dosa bagi yang bertaubat dengan sungguh-sungguh.",
-      "Taubat tidak hanya untuk dosa besar atau momen dramatis — istighfar sepanjang hari menjaga hati tetap lembut dan catatan amal tetap bersih.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Katakanlah: Hai hamba-hamba-Ku yang melampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah…",
-      },
+      "Taubat yang ikhlas mempunyai syarat yang jelas: benar-benar menyesali dosa, berhenti daripadanya serta-merta, dan berazam teguh untuk tidak mengulanginya — dan jika dosa itu menzalimi orang lain, mengembalikan hak mereka juga.",
+      "Allah bukan sekadar membenarkan taubat — Dia mencintai orang yang berulang kali kembali kepada-Nya, maka kembali selepas tergelincir itu sendiri dicintai-Nya, bukan satu cela terhadap anda.",
+      "Pintu rahmat sangat luas: Allah menyeru walaupun mereka yang telah banyak menzalimi diri sendiri agar tidak berputus asa, kerana Dia mengampunkan semua dosa bagi sesiapa yang bertaubat dengan ikhlas.",
+      "Taubat bukan khusus untuk dosa besar atau detik-detik dramatik — istighfar (memohon ampun) sepanjang hari memastikan hati tetap lembut dan catatan amalan tetap bersih.",
     ],
     actions: [
-      'Hari ini, ucapkan "astaghfirullah" 100 kali, dengan sepenuh hati, dan rasakan beban itu meringan.',
-      "Sebutkan satu kebiasaan yang kamu tahu tidak disukai Allah dan ambillah langkah nyata pertama untuk meninggalkannya.",
+      "Ucapkan “Astaghfirullah” 100 kali hari ini dengan penuh penghayatan, dan rasakan beban itu terangkat.",
+      "Kenal pasti satu tabiat yang anda tahu tidak diredai Allah dan ambil langkah konkrit pertama untuk meninggalkannya.",
     ],
   },
   {
-    title: "Surga",
+    title: "Syurga (Jannah)",
     summary:
-      "Balasan abadi yang disiapkan bagi orang-orang bertakwa — digambarkan dengan rincian yang hidup dan menggugah.",
+      "Ganjaran abadi yang disediakan untuk orang-orang bertakwa — digambarkan secara terperinci dan membangkitkan semangat.",
     lessons: [
-      "Al-Qur'an menggambarkan surga dengan rincian yang hidup dan menggugah — taman-taman yang di bawahnya mengalir sungai-sungai, kenyamanan abadi, dan pertemuan kembali dengan orang-orang saleh — tepat agar orang beriman merindukannya dan berusaha meraihnya.",
-      "Memasuki surga pada akhirnya adalah karena rahmat Allah, bukan semata amal; keimanan dan usaha yang tulus adalah sarana, tetapi amal seseorang tidak bisa meraih balasan abadi tanpa rahmat-Nya.",
-      'Al-Qur\\\'an mengajak orang-orang beriman untuk bersegera dan berlomba menuju ampunan dan surga yang "seluas langit dan bumi" — meraihnya secara aktif, bukan sekadar duduk berharap.',
-      "Balasan terbesar bukanlah taman atau sungai, melainkan memandang wajah Allah — kebahagiaan tertinggi yang dijanjikan bagi penghuni surga.",
+      "Al-Quran menggambarkan Syurga secara terperinci dan membangkitkan semangat — taman-taman yang mengalir di bawahnya sungai-sungai, kesenangan yang kekal, dan pertemuan semula dengan orang-orang soleh — tepat supaya orang beriman merinduinya dan berusaha.",
+      "Masuk Syurga akhirnya adalah dengan rahmat Allah, bukan dengan amalan semata-mata; iman dan usaha yang ikhlas ialah wasilahnya, tetapi amalan sesiapa pun tidak mampu meraih ganjaran abadi tanpa kurnia-Nya.",
+      "Al-Quran menggesa orang beriman berlumba-lumba dan bersegera menuju keampunan dan Syurga yang “seluas segala langit dan bumi” — ia untuk dikejar secara aktif, bukan sekadar diharapkan secara pasif.",
+      "Ganjaran yang paling agung bukanlah taman atau sungai tetapi melihat Wajah Allah — kegembiraan tertinggi yang dijanjikan kepada ahli Syurga.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan bersegeralah kamu kepada ampunan dari Tuhanmu dan kepada surga yang luasnya seluas langit dan bumi…",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Perjalanan ke Jannah" }],
   },
   {
-    title: "Neraka",
+    title: "Neraka (Jahannam)",
     summary:
-      "Peringatan yang nyata — bukan untuk membuat orang beriman putus asa, melainkan untuk membangunkan kewaspadaan.",
+      "Amaran yang nyata — bukan untuk menjadikan orang beriman berputus asa tetapi untuk membangkitkan kesedaran.",
     lessons: [
-      "Neraka adalah peringatan yang nyata, bukan kiasan — Al-Qur'an menjelaskannya dengan gamblang agar manusia menganggap bahaya itu serius dan berbalik arah selagi masih bisa.",
-      "Ketakutan akan api itu dimaksudkan untuk bekerja bersama harapan akan rahmat Allah: orang beriman berjalan di antara takut dan harap, agar tidak putus asa mendominasi maupun rasa aman yang keliru.",
-      "Satu-satunya dosa yang Al-Qur'an nyatakan tidak terampuni jika seseorang mati dalam keadaan itu adalah syirik — menyekutukan Allah; selain itu Dia mengampuni siapa yang Dia kehendaki.",
-      "Allah memperingatkan untuk membawa manusia kembali kepada-Nya, bukan untuk menghancurkan orang yang bertaubat — setiap peringatan dalam Al-Qur'an dipasangkan dengan ajakan terbuka untuk kembali.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak akan mengampuni dosa syirik, dan Dia mengampuni segala dosa yang selain dari (syirik) itu, bagi siapa yang dikehendaki-Nya.",
-      },
+      "Jahannam ialah amaran yang nyata, bukan kiasan — Al-Quran menggambarkannya dengan jelas supaya manusia memandang serius bahayanya dan mengubah haluan selagi masih sempat.",
+      "Takut kepada api Neraka bertujuan untuk berjalan seiring dengan harapan kepada rahmat Allah: orang beriman berjalan antara khauf (takut) dan raja' (harap), supaya tidak dikuasai oleh putus asa mahupun rasa aman yang palsu.",
+      "Satu-satunya dosa yang ditegaskan oleh Al-Quran sebagai tidak diampunkan jika seseorang mati di atasnya ialah syirik — menyekutukan Allah; segala dosa selain itu boleh Dia ampunkan bagi sesiapa yang Dia kehendaki.",
+      "Allah memberi amaran untuk membawa manusia kembali kepada-Nya, bukan untuk menghancurkan orang yang bertaubat — setiap amaran dalam Al-Quran digandingkan dengan jemputan terbuka untuk kembali.",
     ],
     actions: [
-      "Hari ini, setelah setiap shalat, mohonlah perlindungan dari api dengan sepenuh hati kepada Allah.",
-      "Perbarui tauhidmu: renungkan hanya beribadah kepada Allah, perlindungan paling pasti dari neraka.",
+      "Selepas setiap solat hari ini, mohonlah dengan ikhlas kepada Allah agar melindungi anda daripada api Neraka.",
+      "Perbaharui tauhid anda: renungkan tentang menyembah Allah semata-mata, perlindungan paling pasti daripada Jahannam.",
     ],
   },
   {
     title: "Keadilan",
-    summary: "Berdirilah teguh untuk keadilan, sekalipun melawan dirimu sendiri atau kerabatmu.",
+    summary: "Tegakkan keadilan walaupun terhadap diri sendiri atau kaum kerabat.",
     lessons: [
-      "Keadilan dalam Al-Qur'an tidak bisa ditawar: berdirilah teguh untuknya sekalipun kebenaran itu melawan dirimu, orang tuamu, atau kerabat terdekatmu.",
-      'Allah memerintahkan agar kebencian terhadap suatu kaum tidak pernah mendorongmu berbuat tidak adil — "berlaku adillah, karena itu lebih dekat kepada takwa" — jadi keadilan adalah hak bahkan bagi musuh sekalipun.',
-      "Kezaliman diperingatkan dengan tegas; Nabi ﷺ mengajarkan bahwa kezaliman akan muncul sebagai kegelapan berlapis-lapis bagi pelakunya pada Hari Kiamat.",
-      "Keadilan bukan hanya urusan hakim dan penguasa — ia hidup dalam ucapan yang jujur, transaksi yang jujur, menepati janji, dan memberikan hak setiap orang.",
-    ],
-    quran: [
-      {
-        excerpt:
-          "Jadilah kamu orang yang benar-benar penegak keadilan, menjadi saksi karena Allah, biarpun terhadap dirimu sendiri atau ibu bapak dan kaum kerabatmu.",
-      },
+      "Keadilan dalam Al-Quran tidak berkompromi: tegakkannya walaupun kebenaran itu memberatkan diri anda sendiri, ibu bapa anda atau kerabat terdekat anda.",
+      "Allah memerintahkan agar kebencian terhadap sesuatu kaum tidak sekali-kali mendorong anda kepada ketidakadilan — “Hendaklah kamu berlaku adil… kerana sikap adil itu lebih hampir kepada taqwa” — maka keadilan wajib diberikan walaupun kepada musuh.",
+      "Kezaliman (zulm) diberi amaran yang berat; Nabi ﷺ mengajarkan bahawa kezaliman akan menjadi kegelapan ke atas pelakunya pada Hari Kiamat.",
+      "Keadilan bukan hanya untuk hakim dan pemerintah — ia hidup dalam percakapan yang jujur, urusan yang adil, menepati janji, dan memberikan setiap orang hak yang sepatutnya.",
     ],
     actions: [
-      "Hari ini, berikan hak seseorang — upah yang adil, jawaban yang jujur, atau pengakuan yang menjadi haknya.",
-      "Tangkap satu momen ketika bias mendorongmu berbuat tidak adil, dan pilihlah keadilan sebagai gantinya.",
+      "Berikan seseorang haknya hari ini — upah yang adil, jawapan yang jujur, atau penghargaan yang sepatutnya anda berikan kepadanya.",
+      "Kesan satu detik apabila prasangka menggoda anda untuk berlaku tidak adil, dan pilihlah keadilan.",
     ],
   },
   {
     title: "Ilmu",
-    summary: 'Bacalah, renungkanlah, dan ucapkanlah "Ya Tuhanku, tambahkanlah ilmu kepadaku."',
+    summary: "Baca, renung, dan ucapkan “Wahai Tuhanku, tambahilah ilmuku.”",
     lessons: [
-      'Kata pertama yang diturunkan dalam Al-Qur\\\'an adalah "Bacalah" — Islam dibuka bukan dengan sebuah ritual, melainkan dengan perintah untuk belajar, memuliakan baik kecerdasan akal maupun ilmu hati.',
-      'Allah bahkan menyuruh Nabi-Nya ﷺ untuk terus meminta lebih: "Ya Tuhanku, tambahkanlah ilmu kepadaku" — satu-satunya hal yang diperintahkan Al-Qur\\\'an kepadanya untuk memintanya ditambahkan.',
-      "Ilmu yang bermanfaat dimaksudkan untuk diamalkan dan diteruskan; Nabi ﷺ mengajarkan bahwa para ulama adalah pewaris para nabi, yang mewarisi bukan harta melainkan ilmu.",
-      'Menuntut ilmu agama itu sendiri adalah ibadah, dan Al-Qur\\\'an dengan jelas membedakan antara yang berilmu dan yang tidak — "apakah sama?"',
-    ],
-    quran: [
-      {
-        excerpt: "Dan katakanlah: Ya Tuhanku, tambahkanlah ilmu kepadaku.",
-      },
+      "Kalimah pertama Al-Quran yang diturunkan ialah “Bacalah” — Islam bermula bukan dengan ritual tetapi dengan perintah untuk belajar, memuliakan celik akal dan ilmu hati.",
+      "Allah menyuruh Nabi-Nya ﷺ sendiri terus memohon tambahan: “Wahai Tuhanku, tambahilah ilmuku” — satu-satunya perkara yang Al-Quran perintahkan baginda memohon tambahan.",
+      "Ilmu yang bermanfaat bertujuan untuk diamalkan dan disampaikan; Nabi ﷺ mengajarkan bahawa ulama ialah pewaris para nabi, yang mewarisi bukan harta tetapi ilmu.",
+      "Menuntut ilmu agama itu sendiri ialah ibadah, dan Al-Quran membezakan dengan jelas antara orang yang mengetahui dengan orang yang tidak mengetahui — “Adakah sama…?”",
     ],
     actions: [
-      "Hari ini, pelajari satu hal baru dari Al-Qur'an — satu ayat, satu kata, atau satu hukum — dan ajarkan kepada seseorang.",
-      'Hafalkan doa "Rabbi zidnii \'ilman" dan ucapkan sebelum belajar.',
+      "Pelajari satu perkara baharu daripada Al-Quran hari ini — satu ayat, satu perkataan atau satu hukum — dan ajarkannya kepada seseorang.",
+      "Hafal doa “Rabbi zidni ilma” dan bacalah sebelum anda belajar.",
     ],
   },
   {
     title: "Para nabi",
-    summary: "Kisah petunjuk, ujian, dan pertolongan ilahi — bukan hiburan, melainkan pengajaran.",
+    summary: "Kisah petunjuk, ujian dan pertolongan Ilahi — bukan hiburan tetapi pengajaran.",
     lessons: [
-      'Al-Qur\\\'an mengajarkan bahwa tidak ada kaum yang dibiarkan tanpa petunjuk: "Tidak ada suatu umat pun melainkan telah ada padanya seorang pemberi peringatan" — pesan tauhid yang sama diutus ke mana-mana.',
-      'Semua nabi membawa satu seruan dasar yang sama — sembahlah hanya Allah — dan kisah mereka dituturkan bukan sebagai sejarah, melainkan sebagai pengajaran bagi "orang-orang yang berakal".',
-      "Muhammad ﷺ adalah Khataman Nabiyyin, penutup para rasul, dan seorang muslim wajib beriman kepada semua nabi sebelumnya — Nuh, Ibrahim, Musa, Isa, dan yang lainnya — tanpa membeda-bedakan mereka.",
-      "Para nabi adalah manusia dan hamba Allah, bukan tuhan; Al-Qur'an memuliakan mereka namun menempatkan mereka dengan tegas sebagai makhluk, tidak pernah disembah bersama Sang Pencipta.",
+      "Al-Quran mengajarkan bahawa tiada umat yang dibiarkan tanpa petunjuk: “tidak ada sesuatu umat pun melainkan telah ada dalam kalangannya dahulu seorang Rasul pemberi ingatan dan amaran” — mesej tauhid yang sama diutus ke merata tempat.",
+      "Semua nabi membawa satu seruan teras — sembahlah Allah semata-mata — dan kisah-kisah mereka diceritakan bukan sebagai sejarah semata-mata tetapi sebagai pengajaran bagi “orang-orang yang mempunyai akal fikiran”.",
+      "Muhammad ﷺ ialah Penutup para Nabi, rasul yang terakhir, dan seorang Muslim mesti beriman kepada semua nabi sebelum baginda — Nuh, Ibrahim, Musa, Isa dan yang lainnya — tanpa membeza-bezakan antara mereka.",
+      "Para nabi ialah manusia dan hamba Allah, bukan tuhan; Al-Quran memuliakan mereka tetapi tetap meletakkan mereka di pihak makhluk, tidak sekali-kali disembah bersama Pencipta.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya pada kisah-kisah mereka itu terdapat pelajaran bagi orang-orang yang mempunyai akal…",
-      },
-    ],
-    appLinks: [{}],
+    appLinks: [{ label: "Kisah para nabi" }],
   },
   {
-    title: "Perempuan",
-    summary: "Hak, martabat, dan kesetaraan spiritual — Maryam AS termasuk sebaik-baik perempuan.",
+    title: "Wanita",
+    summary: "Hak, maruah dan kesamaan rohani — Maryam antara wanita terbaik.",
     lessons: [
-      'Al-Qur\'an mengajarkan kesetaraan spiritual laki-laki dan perempuan di hadapan Allah: "laki-laki yang beriman dan perempuan yang beriman" dijanjikan keimanan yang setara, amal yang setara, dan pahala yang setara.',
-      'Perempuan dan laki-laki digambarkan sebagai sahabat dan pelindung satu sama lain dalam iman, bukan kepemilikan — surah keempat, An-Nisa ("Perempuan"), sebagian besar didedikasikan untuk melindungi hak, martabat, warisan, dan perlakuan terhadap mereka.',
-      "Al-Qur'an menghadirkan Maryam, ibu Isa AS, sebagai teladan bagi semua orang beriman, dan memuliakan para ibu hingga sebuah ajaran terkenal menempatkan surga di bawah telapak kaki mereka.",
-      'Kedua jenis kelamin berasal dari satu asal yang sama — "menciptakan kamu dari diri yang satu" — menetapkan kemanusiaan dan martabat yang sama sejak ayat pertama Surah An-Nisa.',
-    ],
-    quran: [
-      {
-        excerpt:
-          "Bertakwalah kepada Tuhanmu yang telah menciptakan kamu dari diri yang satu, dan daripadanya Allah menciptakan pasangannya…",
-      },
+      "Al-Quran mengajarkan kesamaan rohani lelaki dan wanita di sisi Allah: iman yang sama, amalan yang sama dan ganjaran yang sama dijanjikan kepada “orang-orang lelaki yang beriman serta orang-orang perempuan yang beriman”.",
+      "Wanita dan lelaki digambarkan sebagai rakan dan pelindung antara satu sama lain dalam iman, bukan sebagai milik — surah keempat, an-Nisa' (“Wanita”), sebahagian besarnya menumpukan perlindungan hak, maruah, pusaka dan layanan terhadap mereka.",
+      "Al-Quran mengangkat Maryam, ibu Nabi Isa, sebagai teladan bagi semua orang beriman, dan memuliakan para ibu begitu tinggi sehingga ajaran yang terkenal meletakkan Syurga di bawah telapak kaki mereka.",
+      "Kedua-dua jantina berasal daripada satu asal — “menjadikan kamu (bermula) dari diri yang satu” — menetapkan kemanusiaan dan maruah yang dikongsi bersama sejak ayat pertama Surah an-Nisa'.",
     ],
     actions: [
-      "Hari ini, berikan kepada seorang perempuan dalam hidupmu — ibu, istri, saudari, atau putri — suatu hak atau kebaikan tertentu yang menjadi haknya.",
+      "Muliakan seorang wanita dalam hidup anda hari ini — ibu, isteri, adik-beradik perempuan atau anak perempuan — dengan satu hak atau kebaikan khusus yang sepatutnya dia terima.",
     ],
   },
   {
     title: "Anak-anak",
-    summary: "Sebuah amanah — untuk dibesarkan dengan tauhid dan kasih sayang.",
+    summary: "Satu amanah — untuk dididik di atas tauhid dan kasih sayang.",
     lessons: [
-      'Anak-anak adalah amanah — sesuatu yang dititipkan dari Allah — dan Al-Qur\'an membebankan tanggung jawab pengasuhan mereka kepada orang tua: "Jagalah dirimu dan keluargamu dari api neraka" dimulai dengan mengajarkan mereka tauhid dan akhlak yang baik.',
-      "Nabi ﷺ menyebut belajar dan mengajarkan Al-Qur'an sebagai salah satu amalan terbaik, sehingga membimbing seorang anak membaca sekalipun sedikit menanam kebaikan yang terus berbuah, dengan pahala yang terus mengalir kepada orang tua.",
-      "Kebijaksanaan pengasuhan yang banyak diriwayatkan menganjurkan untuk memperlakukan anak sesuai tahapannya — bermain bersama mereka di tahun-tahun awal, lalu mengajari dan mendidik mereka dengan lembut, kemudian menjadi sahabat mereka setelah baligh.",
-      "Membesarkan anak yang saleh adalah investasi yang melampaui kehidupan ini: keturunan yang saleh yang mendoakan orang tuanya terus memberi manfaat bahkan lama setelah kematian.",
-    ],
-    quran: [
-      {
-        excerpt: "Hai orang-orang yang beriman, peliharalah dirimu dan keluargamu dari api neraka…",
-      },
+      "Anak-anak ialah amanah daripada Allah, dan Al-Quran meletakkan tanggungjawab pendidikan mereka pada ibu bapa: “Peliharalah diri kamu dan keluarga kamu dari neraka” bermula dengan mengajar mereka tauhid dan akhlak yang baik.",
+      "Nabi ﷺ menganggap mengajar dan mempelajari Al-Quran antara amalan terbaik, maka membimbing seorang anak membaca walau sedikit daripadanya menanam kebaikan yang berkekalan yang pahalanya terus kembali kepada ibu bapa.",
+      "Satu nasihat keibubapaan yang sering diulang menganjurkan agar anak-anak dilayan mengikut peringkat mereka — bermain dengan mereka pada tahun-tahun awal, kemudian mengajar dan mendisiplinkan mereka dengan lembut, kemudian bersahabat dengan mereka apabila mereka dewasa.",
+      "Mendidik anak yang soleh ialah pelaburan melangkaui kehidupan ini: zuriat soleh yang mendoakan ibu bapanya terus memberi manfaat kepada mereka lama selepas kematian.",
     ],
     actions: [
-      "Hari ini, ajarkan seorang anak satu ayat pendek atau satu akhlak baik dengan penuh kesabaran dan dorongan.",
-      "Doakan anak-anakmu (atau anak-anak dalam asuhanmu) dengan menyebut namanya agar menjadi lurus dan dicintai Allah.",
+      "Ajarkan seorang anak satu ayat pendek atau satu adab yang baik hari ini, dengan sabar dan penuh galakan.",
+      "Doakan anak-anak anda (atau anak-anak di bawah jagaan anda) dengan menyebut nama mereka agar menjadi insan yang lurus dan dicintai Allah.",
     ],
   },
 ];
 
 export const QURAN_GUIDE_TAJWEED_MS: DeepPartial<QuranGuideTajweedLesson>[] = [
   {
-    title: "Nun sukun dan tanwin",
-    summary: "Hukum nun mati dan tanwin — izhar, idgham, iqlab, ikhfa.",
+    title: "Nun Sakinah & Tanwin",
+    summary: "Hukum ن bersukun dan tanwin — izhar, idgham, iqlab, ikhfa'.",
     explanation: [
-      "Nun sukun adalah nun yang mati (tidak berharakat); tanwin adalah akhiran vokal ganda (an, in, un) yang di akhir kata terdengar persis seperti nun. Keduanya mengikuti empat hukum yang sama, yang ditentukan sepenuhnya oleh huruf yang mengikutinya.",
-      "Izhar (pengucapan jelas): ketika diikuti salah satu dari enam huruf tenggorokan (hamzah, ha, ain, ha, ghain, kha), ucapkan nun dengan jelas dan gamblang, tanpa campuran dengung.",
-      'Idgham (peleburan): sebelum huruf-huruf dalam kata "yarmaluuna" (ي ر م ل و ن), nun melebur ke huruf berikutnya — dengan ghunnah (dengung) untuk ي ن م و, dan tanpa ghunnah untuk ل ر.',
-      "Iqlab (penggantian): ketika diikuti huruf ba, nun berubah menjadi bunyi mim samar disertai ghunnah.",
-      'Ikhfa (penyamaran): sebelum lima belas huruf sisanya, nun tidak diucapkan sepenuhnya jelas maupun dilebur sepenuhnya — ia "disamarkan" dengan ghunnah hidung yang ringan sementara lidah bersiap untuk huruf berikutnya.',
+      "Nun sakinah ialah huruf ن yang bersukun (tidak berbaris); tanwin pula ialah baris berganda di hujung kalimah (an, in, un) yang berbunyi sama seperti nun di akhir kalimah. Kedua-duanya mengikut empat hukum yang sama, yang ditentukan sepenuhnya oleh huruf yang datang selepasnya.",
+      "Izhar (sebutan jelas): apabila diikuti salah satu daripada enam huruf halqi atau kerongkong (ء ه ع ح غ خ), sebutlah nun dengan jelas dan terang, tanpa sebarang dengung.",
+      "Idgham (memasukkan): sebelum huruf-huruf dalam kalimah 'yarmalun' (ي ر م ل و ن), nun dimasukkan ke dalam huruf seterusnya — dengan ghunnah (dengung) bagi ي ن م و, dan tanpa ghunnah bagi ل ر.",
+      "Iqlab (menukar): apabila diikuti ب, nun ditukar menjadi bunyi mim yang tersembunyi beserta ghunnah.",
+      "Ikhfa' (menyembunyikan): sebelum lima belas huruf yang selebihnya, nun tidak disebut sepenuhnya dan tidak juga dimasukkan sepenuhnya — ia 'disembunyikan' dengan ghunnah yang ringan sementara lidah bersedia untuk huruf seterusnya.",
     ],
     practice:
-      "Bacalah Surah Al-Fatihah perlahan-lahan, dan setiap kali menemukan nun sukun atau tanwin, berhentilah dan sebutkan hukum mana dari empat hukum itu yang berlaku dan mengapa.",
+      "Bacalah Surah al-Fatihah perlahan-lahan, dan setiap kali anda bertemu nun sakinah atau tanwin, berhenti seketika untuk menyebut hukum mana antara empat hukum itu yang terpakai dan mengapa.",
   },
   {
-    title: "Mim sukun",
-    summary: "Ikhfa syafawi, idgham syafawi, dan izhar syafawi untuk mim mati.",
+    title: "Mim Sakinah",
+    summary: "Ikhfa' syafawi, idgham syafawi dan izhar syafawi bagi م yang bersukun.",
     explanation: [
-      'Mim sukun adalah mim yang mati. Hukumnya hanya ada tiga, masing-masing disebut "syafawi" (berkaitan dengan bibir) karena mim diucapkan dengan bibir, dan mana yang berlaku hanya bergantung pada huruf yang mengikutinya.',
-      "Idgham syafawi (peleburan bibir): ketika mim sukun diikuti mim lainnya, keduanya melebur menjadi satu mim yang ditekan disertai ghunnah.",
-      "Ikhfa syafawi (penyamaran bibir): ketika diikuti huruf ba, mim disamarkan sedikit — bibir mendekat tetapi tidak sepenuhnya menutup — disertai ghunnah.",
-      "Izhar syafawi (kejelasan bibir): sebelum huruf lain mana pun, mim diucapkan dengan jelas. Berhati-hatilah khususnya sebelum wau dan fa, di mana pembelajar lebih cenderung mengaburkannya.",
+      "Mim sakinah ialah huruf م yang bersukun. Ia mempunyai tepat tiga hukum, setiap satunya dinamakan 'syafawi' (bibir) kerana mim disebut dengan bibir, dan hukum yang terpakai bergantung hanya pada huruf yang mengikutinya.",
+      "Idgham syafawi (memasukkan pada bibir): apabila mim sakinah diikuti mim yang lain, kedua-duanya bercantum menjadi satu mim bersabdu yang ditahan dengan ghunnah.",
+      "Ikhfa' syafawi (menyembunyikan pada bibir): apabila diikuti ب, mim disembunyikan sedikit — bibir dirapatkan tetapi tidak ditekan sepenuhnya — beserta ghunnah.",
+      "Izhar syafawi (jelas pada bibir): sebelum semua huruf yang lain, mim disebut dengan jelas. Berhati-hatilah terutamanya sebelum huruf و dan ف, kerana di situlah pelajar paling mudah tergelincir mengaburkannya.",
     ],
     practice:
-      "Bacalah beberapa surah pendek dari Juz Amma dan tandai setiap mim sukun, sebutkan hukumnya sebelum membaca kata itu.",
+      "Bacalah beberapa surah pendek daripada Juz Amma dan tandakan setiap mim sakinah, sambil menyebut hukumnya sebelum anda membaca kalimah itu.",
   },
   {
-    title: "Mad (pemanjangan)",
-    summary: "Pemanjangan vokal asli, cabang, dan wajib.",
+    title: "Mad (Pemanjangan)",
+    summary: "Pemanjangan bunyi baris secara asli, cabang (far'i) dan lazim.",
     explanation: [
-      "Mad berarti memanjangkan bunyi sebuah vokal, dan ini terjadi pada tiga huruf mad — alif (ا), wau (و), dan ya (ي) — ketika mereka sendiri tidak berharakat dan mengikuti harakat kecil yang sejenis.",
-      "Mad ashli (mad thabi'i) adalah pemanjangan dasar sekitar dua harakat, hadir di mana pun huruf mad muncul tanpa sebab khusus. Setiap qari memanjangkannya secara seragam.",
-      "Mad far'i (mad cabang) muncul karena hamzah atau sukun yang mengikutinya dan dipanjangkan lebih lama — biasanya empat atau enam harakat. Panjang yang tepat bergantung pada jenis mad dan riwayat yang kamu ikuti.",
-      "Karena berhenti di akhir kata bisa menghasilkan sukun, ini juga bisa memanjangkan mad — alasan lain untuk mempelajari panjang-panjang ini dengan mendengar dari guru yang mumpuni, bukan menebak-nebak.",
+      "Mad bermaksud memanjangkan bunyi baris, dan ia berlaku pada tiga huruf mad — alif (ا), wau (و) dan ya (ي) — apabila huruf itu tidak berbaris dan didahului oleh baris pendek yang sesuai dengannya.",
+      "Mad asli (mad tabi'i) ialah pemanjangan asas kira-kira dua harakat, yang ada di mana-mana sahaja huruf mad muncul tanpa sebab khusus selepasnya. Setiap qari memanjangkannya dengan sekata.",
+      "Mad far'i (mad cabang) berlaku kerana hamzah atau sukun yang datang selepasnya dan dipanjangkan lebih lama — lazimnya empat atau enam harakat. Kadar tepatnya bergantung pada jenis mad dan riwayat bacaan yang anda ikuti.",
+      "Oleh kerana berhenti di hujung kalimah boleh menghasilkan sukun, ia juga boleh memanjangkan mad — satu lagi sebab untuk mempelajari kadar panjang ini dengan mendengar daripada guru yang bertauliah, bukan dengan meneka.",
     ],
     practice:
-      'Pilih sebuah surah pendek yang sudah dikenal dan hitung perlahan "1-2" untuk setiap mad thabi\'i dan "1-2-3-4" untuk setiap mad far\'i, jaga kecepatanmu tetap konsisten.',
+      "Pilih satu surah pendek yang anda kenali dan kira perlahan-lahan '1-2' pada setiap mad asli dan '1-2-3-4' pada setiap mad far'i, sambil mengekalkan rentak yang sekata.",
   },
   {
     title: "Ghunnah",
-    summary: "Dengung hidung dengan nun dan mim dalam idgham dan ikhfa.",
+    summary: "Dengung hidung yang mengiringi nun dan mim dalam idgham dan ikhfa'.",
     explanation: [
-      "Ghunnah adalah dengung yang dihasilkan dari hidung, yang merupakan sifat bawaan huruf nun (ن) dan mim (م). Dalam bacaan standar, dengung ini ditahan sekitar dua harakat.",
-      "Ini wajib dan paling menonjol dalam beberapa hukum yang telah kamu temui: idgham ma'al ghunnah, ikhfa, iqlab, dan kapan pun ada tasydid pada nun atau mim.",
-      "Bunyinya harus halus dan terkendali — ini bukan nyanyian atau senandung, melainkan dengung hidung yang stabil yang diukur sesuai panjang yang tepat.",
-      "Uji sederhana: pencet hidungmu sedikit saat mengucapkan huruf berdengung; jika bunyinya berhenti, berarti dengungnya memang benar-benar dari hidung sebagaimana seharusnya.",
+      "Ghunnah ialah dengung yang terhasil melalui hidung, iaitu sifat semula jadi huruf nun (ن) dan mim (م). Dalam bacaan biasa, ia ditahan kira-kira dua harakat.",
+      "Ia wajib dan paling jelas dalam beberapa hukum yang telah anda temui: idgham dengan ghunnah, ikhfa', iqlab, dan setiap kali nun atau mim bersabdu.",
+      "Bunyinya mesti lancar dan terkawal — ia bukan menyanyi atau berlagu, tetapi dengung hidung yang stabil yang diukur mengikut kadar panjang yang betul.",
+      "Ujian mudah: picit hidung anda perlahan-lahan semasa menyebut huruf berghunnah; jika bunyinya tersekat, ini bermakna dengung itu benar-benar keluar melalui hidung sebagaimana sepatutnya.",
     ],
     practice:
-      "Baca sebuah kata dengan tasydid pada nun atau mim, tahan ghunnah selama dua harakat yang konsisten, lalu rekam dirimu dan bandingkan dengan qari yang mumpuni.",
+      "Bacalah satu kalimah yang mempunyai sabdu pada nun atau mim, tahan ghunnahnya selama dua harakat yang stabil, kemudian rakam bacaan anda dan bandingkan dengan seorang qari yang bertauliah.",
   },
   {
     title: "Qalqalah",
-    summary: "Pantulan bergema pada qaf, tha, ba, jim, dal saat mati atau saat berhenti padanya.",
+    summary: "Lantunan bergema pada ق ط ب ج د apabila bersukun atau apabila berhenti padanya.",
     explanation: [
-      'Qalqalah adalah "pantulan" bergema yang ringan yang diberikan pada lima huruf — terhimpun dalam frasa "qathbu jadin", yaitu ق ط ب ج د — kapan pun huruf-huruf itu mati.',
-      'Pantulan ini adalah getaran ringan pada titik keluarnya huruf; kamu tidak menambahkan harakat penuh setelah huruf itu, cukup biarkan ia "memantul" dengan bersih.',
-      "Ia ringan (sughra) ketika huruf itu mati di tengah kata, dan lebih kuat serta jelas (kubra) ketika kamu berhenti pada huruf itu di akhir kata.",
-      'Jagalah pantulan itu netral — jangan condongkan ke bunyi "a", "i", atau "u"; terlepas dari harakat di sekitarnya, ia tetap dengungan bersih yang sama.',
+      "Qalqalah ialah 'lantunan' bergema yang ringan pada lima huruf — yang dihimpunkan dalam ungkapan قُطْبُ جَدٍ, iaitu ق ط ب ج د — setiap kali huruf itu bersukun.",
+      "Lantunan itu ialah getaran ringan pada makhraj huruf; anda tidak boleh menambah baris penuh selepas huruf itu, cukup biarkan ia 'melantun' dengan bersih.",
+      "Ia lebih ringan (sughra) apabila huruf itu bersukun di tengah kalimah, dan lebih kuat serta jelas (kubra) apabila anda berhenti pada huruf itu di hujung kalimah.",
+      "Pastikan lantunan itu neutral — jangan condongkan ke arah bunyi 'a', 'i' atau 'u'; ia tetap gema jelas yang sama tanpa mengira baris di sekelilingnya.",
     ],
     practice:
-      'Bacalah Surah Al-Ikhlas dan berhentilah dengan mantap pada setiap huruf qalqalah — dal pada "ahad" dan "yuulad" — rasakan pantulan bersih itu.',
+      "Bacalah Surah al-Ikhlas dan berhenti dengan mantap pada setiap huruf qalqalah — د pada 'ahad' dan 'yulad' — sambil merasai lantunan yang bersih itu.",
   },
   {
-    title: "Waqaf (berhenti)",
-    summary: "Di mana berhenti, bernapas, dan bagaimana berhenti mengubah pelafalan.",
+    title: "Waqaf (Berhenti)",
+    summary: "Di mana hendak berhenti dan bernafas, serta bagaimana berhenti mengubah sebutan.",
     explanation: [
-      "Waqaf adalah seni tentang di mana dan bagaimana berhenti. Mushaf menunjukkan tempat-tempat berhenti dengan tanda-tanda kecil — misalnya mim untuk berhenti wajib, tha dan jim untuk berhenti yang diperbolehkan, dan laa yang berarti jangan berhenti di sini — untuk membimbing pembaca.",
-      "Berhenti umumnya membisukan harakat terakhir, mengubah huruf terakhir menjadi sukun. Perubahan ini bisa memunculkan hukum lain, seperti qalqalah atau mad yang lebih panjang, sehingga sebuah kata bisa terdengar berbeda saat kamu berhenti dibanding saat kamu melanjutkan.",
-      "Di mana kamu berhenti bisa memengaruhi makna, jadi jangan pernah berhenti di tengah kalimat sedemikian rupa hingga merusak makna. Satu kasus khusus adalah waqaf mu'anaqah (berhenti berpelukan), ditandai tiga titik, di mana kamu bisa berhenti di salah satu dari dua tempat tetapi tidak keduanya.",
-      "Cara paling aman mempelajari waqaf yang benar adalah dengan menggunakan mushaf bertanda waqaf bersama guru yang mumpuni, sehingga tempat berhentimu sesuai dengan bacaan yang diwariskan.",
+      "Waqaf ialah seni tentang di mana dan bagaimana berhenti. Mushaf menandakan tempat berhenti dengan simbol kecil — contohnya م untuk berhenti yang mesti, ط dan ج untuk berhenti yang dibenarkan, dan لا yang bermaksud jangan berhenti di sini — sebagai panduan kepada pembaca.",
+      "Berhenti biasanya mematikan baris terakhir, lalu menjadikan huruf terakhir bersukun. Perubahan itu boleh pula mencetuskan hukum lain, seperti qalqalah atau mad yang lebih panjang, maka sesuatu kalimah boleh berbunyi berbeza apabila anda berhenti padanya berbanding apabila anda menyambung bacaan.",
+      "Tempat anda berhenti boleh menjejaskan makna, jadi jangan sekali-kali memutuskan bacaan di tengah ungkapan sehingga merosakkan maknanya. Satu kes khas ialah waqaf mu'anaqah (berpelukan), yang ditandakan dengan tiga titik, di mana anda boleh berhenti pada salah satu daripada dua tempat tetapi bukan kedua-duanya.",
+      "Cara paling selamat untuk mempelajari waqaf yang betul ialah menggunakan mushaf yang menunjukkan tanda waqaf bersama-sama seorang qari yang bertauliah, supaya tempat anda berhenti sepadan dengan bacaan yang diwarisi.",
     ],
     practice:
-      "Ambil satu halaman bertanda waqaf dan bacalah dengan suara keras mengikuti rekaman seorang guru tajwid, berhenti tepat di tempat yang ditunjukkan tanda-tanda itu.",
+      "Ambil satu halaman yang bertanda waqaf dan bacalah dengan kuat mengikut rakaman seorang guru tajwid, berhenti tepat di tempat yang ditunjukkan oleh simbol-simbol itu.",
   },
   {
-    title: "Hamzat Wasl",
+    title: "Hamzah Wasal",
     summary:
-      "The connecting hamza that is pronounced only when starting, and dropped when joining.",
+      "Hamzah penyambung yang disebut hanya apabila memulakan bacaan, dan digugurkan apabila menyambung.",
     explanation: [
-      "Hamzat wasl (ٱ) is a connecting hamza written with a small saddah-like mark above an alif. It appears at the start of many nouns, verbs, and particles — including the definite article ال.",
-      "When you begin recitation on a word that starts with hamzat wasl, you pronounce it with a clear hamza sound so the word can open cleanly.",
-      "When the word is joined to what comes before it, the hamzat wasl is silent — you glide from the previous letter straight into the following letter and do not sound a separate hamza.",
-      "Recognizing hamzat wasl helps you avoid inserting an extra glottal stop mid-phrase, which is a common beginner habit when reading the mushaf slowly.",
+      "Hamzah wasal (ٱ) ialah hamzah penyambung yang ditulis dengan tanda kecil seakan-akan kepala huruf ص di atas alif. Ia terdapat di awal banyak kata nama, kata kerja dan partikel — termasuk alif lam ma'rifah ال.",
+      "Apabila anda memulakan bacaan pada kalimah yang bermula dengan hamzah wasal, anda menyebutnya dengan bunyi hamzah yang jelas supaya kalimah itu dapat dimulakan dengan bersih.",
+      "Apabila kalimah itu disambung dengan kalimah sebelumnya, hamzah wasal tidak dibunyikan — anda terus menyambung daripada huruf sebelumnya kepada huruf selepasnya tanpa membunyikan hamzah yang berasingan.",
+      "Mengenali hamzah wasal membantu anda mengelak daripada menyelitkan hentian glotis tambahan di tengah ungkapan, satu tabiat biasa pemula ketika membaca mushaf dengan perlahan.",
     ],
     practice:
-      "Recite the basmalah and Surah al-Fatiha, pausing at each ٱ to decide whether you are starting (pronounce) or joining (drop).",
+      "Bacalah basmalah dan Surah al-Fatihah, berhenti seketika pada setiap ٱ untuk menentukan sama ada anda sedang memulakan bacaan (sebut) atau menyambung (gugurkan).",
   },
   {
-    title: "Lam Shamsiyah",
-    summary: "Sun letters that assimilate the لام of ال, versus moon letters that keep it clear.",
+    title: "Alif Lam Syamsiah",
+    summary:
+      "Huruf syamsiah yang meleburkan لام pada ال, berbanding huruf qamariah yang mengekalkannya jelas.",
     explanation: [
-      "When the definite article ال is attached to a noun, the لام may be pronounced clearly or assimilated, depending on the following letter.",
-      "Sun letters (huruf shamsiyah) cause the لام to be silent and the next letter to be doubled with a shaddah — as in ٱلرَّحْمَٰن where the ر absorbs the لام.",
-      "Moon letters (huruf qamariyah) keep the لام clear — as in ٱلْقَمَر — so you hear both the لام and the following letter.",
-      "Learning the sun and moon sets by heart (or by ear from a teacher) prevents over-pronouncing silent لام and under-pronouncing clear لام.",
+      "Apabila alif lam ma'rifah ال bersambung dengan kata nama, لام itu mungkin disebut dengan jelas atau dileburkan, bergantung pada huruf selepasnya.",
+      "Huruf syamsiah menyebabkan لام tidak dibunyikan dan huruf seterusnya digandakan dengan sabdu — seperti dalam ٱلرَّحْمَٰن, di mana ر menyerap لام.",
+      "Huruf qamariah mengekalkan لام dengan jelas — seperti dalam ٱلْقَمَر — maka anda mendengar kedua-dua لام dan huruf selepasnya.",
+      "Menghafal kumpulan huruf syamsiah dan qamariah (atau mempelajarinya secara dengar daripada guru) mengelakkan anda daripada membunyikan لام yang sepatutnya senyap dan menenggelamkan لام yang sepatutnya jelas.",
     ],
     practice:
-      "Open Juz Amma and mark ten nouns with ال: for each, name whether the لام is shamsiyah (silent) or qamariyah (clear) before you recite.",
+      "Bukalah Juz Amma dan tandakan sepuluh kata nama yang mempunyai ال: bagi setiap satu, sebutkan sama ada لام itu syamsiah (senyap) atau qamariah (jelas) sebelum anda membacanya.",
   },
   {
-    title: "Silent Letters",
-    summary: "Letters written in the mushaf that are not pronounced in continuous recitation.",
+    title: "Huruf Senyap",
+    summary: "Huruf yang ditulis dalam mushaf tetapi tidak dibunyikan dalam bacaan bersambung.",
     explanation: [
-      "Some letters appear in the Uthmani script for historical or orthographic reasons but are not sounded when you recite — they are marked silent in tajweed colorings.",
-      "Common cases include certain alifs that are written but not elongated, and letters that are assimilated into a following shaddah so they leave no separate sound.",
-      "Silent marking is a reading aid: it keeps the written mushaf faithful while guiding the tongue not to invent an extra sound.",
-      "When in doubt, follow a colored tajweed mushaf or a qualified reciter — the goal is fidelity to the transmitted reading, not guessing from spelling alone.",
+      "Sesetengah huruf terdapat dalam rasm Uthmani atas sebab sejarah atau ejaan, tetapi tidak dibunyikan ketika dibaca — huruf ini ditandakan sebagai senyap dalam pewarnaan tajwid.",
+      "Antara contoh biasa ialah alif tertentu yang ditulis tetapi tidak dipanjangkan, dan huruf yang dileburkan ke dalam huruf bersabdu selepasnya sehingga tidak meninggalkan bunyi tersendiri.",
+      "Penandaan senyap ialah alat bantu bacaan: ia mengekalkan ketepatan tulisan mushaf sambil membimbing lidah supaya tidak mereka bunyi tambahan.",
+      "Jika ragu-ragu, ikutlah mushaf tajwid berwarna atau seorang qari yang bertauliah — matlamatnya ialah setia kepada bacaan yang diwarisi, bukan meneka berdasarkan ejaan semata-mata.",
     ],
     practice:
-      "With tajweed colors on, read one page slowly and whisper only the colored (sounded) letters — skip every silent-marked letter deliberately.",
+      "Dengan warna tajwid dihidupkan, bacalah satu halaman perlahan-lahan dan bisikkan hanya huruf yang berwarna (dibunyikan) — langkau setiap huruf yang ditandakan senyap dengan sengaja.",
   },
 ];
 
 export const QURAN_GUIDE_VOCABULARY_MS: DeepPartial<QuranGuideVocabEntry>[] = [
   {
     meaning:
-      "Satu-satunya sesembahan yang benar — nama pribadi yang mencakup semua nama-nama-Nya yang indah.",
-    frequency: "2.700+ kali",
-    example: "Bismillah — dengan nama Allah",
-    quranRef: {
-      excerpt: "Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.",
-    },
+      "Satu-satunya Tuhan yang sebenar — nama khas yang merangkumi semua nama-Nya yang indah.",
+    frequency: "2,700+ kali",
+    example: "Bismillah — Dengan nama Allah",
   },
   {
-    meaning:
-      "Tuhan, pemilik, pemelihara — Dia yang menciptakan, memiliki, memelihara, dan mengatur.",
-    frequency: "sangat sering",
-    example: "Rabbana — Tuhan kami",
-    quranRef: {
-      excerpt: "Segala puji bagi Allah, Tuhan semesta alam.",
-    },
+    meaning: "Tuhan, Pemilik, Pemelihara — Dia yang mencipta, memiliki, memelihara dan mentadbir.",
+    frequency: "Sangat kerap",
+    example: "Rabbana — Wahai Tuhan kami",
   },
   {
-    meaning: "Rahmat, kasih sayang, kelembutan — dari Allah dan di antara sesama makhluk.",
-    frequency: "akar kata umum r-h-m",
+    meaning: "Rahmat, kasih sayang dan kelembutan daripada Allah dan sesama makhluk.",
+    frequency: "Akar kata lazim ر-ح-م",
     example: "Ar-Rahman, Ar-Rahim",
   },
   {
-    meaning: "Taman, surga — tempat balasan yang abadi.",
-    frequency: "sering",
-    example: "Surga-surga yang mengalir sungai-sungai di bawahnya",
+    meaning: "Taman, syurga — tempat balasan yang kekal abadi.",
+    frequency: "Kerap",
+    example: "Syurga yang mengalir di bawahnya beberapa sungai",
   },
   {
-    meaning: "Api — merujuk kepada neraka, sebagai peringatan dan konsekuensi.",
-    frequency: "sering",
-    example: "Takutlah pada api yang disediakan bagi orang-orang kafir",
+    meaning: "Api — merujuk kepada neraka Jahanam sebagai amaran dan akibat.",
+    frequency: "Kerap",
+    example: "Peliharalah diri kamu dari api neraka… yang disediakan untuk orang-orang kafir",
   },
   {
-    meaning: "Iman, keyakinan, kepercayaan kepada Allah dan penerimaan risalah-Nya.",
-    frequency: "sangat sering",
-    example: "Wahai orang-orang yang beriman (yaa ayyuhal ladziina aamanuu)",
+    meaning: "Iman, kepercayaan dan keyakinan kepada Allah serta penerimaan risalah-Nya.",
+    frequency: "Sangat kerap",
+    example: "Wahai orang-orang yang beriman (ya ayyuha alladhina amanu)",
   },
   {
-    meaning: "Kesabaran, keteguhan, ketabahan demi Allah.",
-    frequency: "sering",
-    example: "Sesungguhnya Allah beserta orang-orang yang sabar",
+    meaning: "Sabar, keteguhan dan ketabahan kerana Allah.",
+    frequency: "Kerap",
+    example: "Sesungguhnya Allah menyertai (menolong) orang-orang yang sabar",
   },
   {
-    meaning: "Syukur — pengakuan atas nikmat dengan hati, lisan, dan anggota badan.",
-    frequency: "sering",
-    example: "Jika kamu bersyukur, pasti akan Kutambah (nikmat) kepadamu",
-  },
-  {
-    meaning:
-      "Rasa takut kepada Allah, ketakwaan, menjaga diri dari dosa karena takut kepada Allah.",
-    frequency: "sangat sering",
-    example: "Sesungguhnya orang yang paling mulia di sisi Allah adalah yang paling bertakwa",
-  },
-  {
-    meaning: "Rezeki, penghidupan — yang ditetapkan Allah bagi setiap jiwa.",
-    frequency: "sering",
-    example: "Dan Allah adalah sebaik-baik pemberi rezeki",
-  },
-  {
-    meaning: "Cahaya — petunjuk, wahyu, dan penerangan hati.",
-    frequency: "sering",
-    example: "Allah (Pemberi) cahaya (kepada) langit dan bumi",
-    quranRef: {
-      excerpt: "Allah (Pemberi) cahaya (kepada) langit dan bumi…",
-    },
+    meaning: "Syukur — mengakui nikmat dengan hati, lidah dan anggota badan.",
+    frequency: "Kerap",
+    example: "Jika kamu bersyukur nescaya Aku akan tambahi nikmatKu kepada kamu",
   },
   {
     meaning:
-      'Kehidupan dunia ini — secara harfiah kehidupan yang "lebih rendah/dekat". Dalam Al-Qur\\\'an, ini sementara dan sebuah ujian, berlawanan dengan akhirat yang kekal, dan bukan rumah sejati bagi orang beriman.',
-    frequency: "sering",
-    example: "Kehidupan dunia (al-hayaatud dunya) tidak lain hanyalah permainan dan senda gurau",
+      "Kesedaran tentang Allah, ketakwaan, memelihara diri daripada dosa kerana takut kepada Allah.",
+    frequency: "Sangat kerap",
+    example: "Sesungguhnya semulia-mulia kamu di sisi Allah ialah orang yang lebih taqwanya",
+  },
+  {
+    meaning: "Rezeki, sara hidup — apa yang ditetapkan Allah bagi setiap jiwa.",
+    frequency: "Kerap",
+    example: "Engkau jualah sebaik-baik Pemberi rezeki",
+  },
+  {
+    meaning: "Cahaya — petunjuk, wahyu dan penerang hati.",
+    frequency: "Kerap",
+    example: "Allah yang menerangi langit dan bumi",
   },
   {
     meaning:
-      "Akhirat — kehidupan abadi setelah kematian, termasuk kebangkitan, hisab, surga, dan neraka. Inilah kehidupan sejati dan kekal yang untuknya Al-Qur'an mendorong orang beriman berusaha.",
-    frequency: "sering",
-    example: "Dan sesungguhnya akhirat (al-aakhirah) itu lebih baik bagimu dan lebih kekal",
+      "Kehidupan dunia ini — secara harfiah kehidupan yang 'lebih rendah/dekat'. Dalam Al-Quran ia bersifat sementara dan merupakan ujian, berbeza dengan akhirat yang kekal, dan sama sekali bukan tempat tinggal hakiki orang beriman.",
+    frequency: "Kerap",
+    example:
+      "Dan tidak (dinamakan) kehidupan dunia (al-hayat ad-dunya) melainkan permainan yang sia-sia dan hiburan yang melalaikan",
   },
   {
     meaning:
-      "Shalat, rukun kedua Islam, ditunaikan lima kali sehari. Kata ini juga mengandung makna hubungan dan doa kepada Allah.",
-    frequency: "sangat sering",
-    example: "Dan dirikanlah shalat untuk mengingat-Ku (aqimish shalaata)",
+      "Akhirat — kehidupan kekal selepas mati, termasuk kebangkitan, perhitungan (hisab), syurga dan neraka. Inilah kehidupan sebenar dan kekal yang Al-Quran gesa orang beriman berusaha untuknya.",
+    frequency: "Kerap",
+    example: "Padahal kehidupan akhirat (al-akhirah) lebih baik dan lebih kekal",
   },
   {
     meaning:
-      'Kitab atau catatan — sering merujuk pada Al-Qur\'an sendiri ("Kitab ini"), tetapi juga kitab-kitab yang diturunkan sebelumnya dan catatan amal. Berasal dari akar kata k-t-b, yaitu menulis.',
-    frequency: "sangat sering",
-    example: "Kitab (dzaalikal kitaab) ini tidak ada keraguan padanya",
+      "Solat, rukun Islam yang kedua, ditunaikan lima kali sehari. Perkataan ini juga membawa maksud hubungan dan doa kepada Allah.",
+    frequency: "Sangat kerap",
+    example: "Dirikanlah sembahyang (aqim as-salah) untuk mengingati Daku",
+  },
+  {
+    meaning:
+      "Kitab atau tulisan suci — paling kerap merujuk kepada Al-Quran sendiri ('Kitab Al-Quran ini'), tetapi juga kitab-kitab yang diturunkan sebelumnya dan catatan amalan. Berasal daripada akar k-t-b, iaitu menulis.",
+    frequency: "Sangat kerap",
+    example: "Kitab Al-Quran ini (dhalika al-kitab), tidak ada sebarang syak padanya",
   },
 ];
 
 export const QURAN_GUIDE_LETTERS_MS: DeepPartial<QuranGuideLetter>[] = [
   {
     name: "Alif",
-    pronunciation: 'vokal panjang /a/ seperti pada "father" (ketika berupa hamzah atau mad)',
+    pronunciation:
+      "/a/ panjang seperti dalam perkataan Inggeris 'father' (apabila membawa hamzah atau mad)",
   },
+  { name: "Ba", pronunciation: "Seperti 'b' dalam bahasa Melayu" },
+  { name: "Ta", pronunciation: "Seperti 't' dalam bahasa Melayu" },
+  { name: "Tsa", pronunciation: "Seperti 'th' dalam perkataan Inggeris 'think'" },
+  { name: "Jim", pronunciation: "Seperti 'j' dalam 'jam'" },
   {
-    name: "Ba",
-    pronunciation: 'seperti "b" dalam bahasa Indonesia',
+    name: "Ha",
+    pronunciation: "Bunyi 'h' yang tajam dan berdesah dari kerongkong — bukan 'h' biasa",
   },
-  {
-    name: "Ta",
-    pronunciation: 'seperti "t" dalam bahasa Indonesia',
-  },
-  {
-    name: "Tsa",
-    pronunciation: 'seperti "th" dalam bahasa Inggris pada "think"',
-  },
-  {
-    name: "Jim",
-    pronunciation: 'seperti "j" pada "jam"',
-  },
-  {
-    name: "Ha (berat)",
-    pronunciation: 'bunyi ha yang tajam dan berhembus dari tenggorokan — bukan "h" biasa',
-  },
-  {
-    name: "Kha",
-    pronunciation: 'seperti "ch" pada bahasa Skotlandia "loch" — gesekan di tenggorokan',
-  },
-  {
-    name: "Dal",
-    pronunciation: 'seperti "d" dalam bahasa Indonesia',
-  },
-  {
-    name: "Dzal",
-    pronunciation: 'seperti "th" dalam bahasa Inggris pada "this"',
-  },
-  {
-    name: "Ra",
-    pronunciation: '"r" yang bergulir/bergetar',
-  },
-  {
-    name: "Za",
-    pronunciation: 'seperti "z" dalam bahasa Indonesia',
-  },
-  {
-    name: "Sin",
-    pronunciation: 'seperti "s" dalam bahasa Indonesia',
-  },
-  {
-    name: "Syin",
-    pronunciation: 'seperti "sh" pada "ship"',
-  },
-  {
-    name: "Shad",
-    pronunciation: '"s" tebal (mufakhkham) — lidah terangkat, bunyi lebih penuh',
-  },
-  {
-    name: "Dhad",
-    pronunciation: '"d" tebal — khas bahasa Arab',
-  },
-  {
-    name: "Tha (tebal)",
-    pronunciation: '"t" tebal — diucapkan lebih dalam di mulut',
-  },
-  {
-    name: "Zha (tebal)",
-    pronunciation: 'versi tebal dari bunyi "dh"',
-  },
+  { name: "Kho", pronunciation: "Seperti 'ch' dalam 'loch' (Scotland) — geseran di kerongkong" },
+  { name: "Dal", pronunciation: "Seperti 'd' dalam bahasa Melayu" },
+  { name: "Zal", pronunciation: "Seperti 'th' dalam perkataan Inggeris 'this'" },
+  { name: "Ro", pronunciation: "'r' yang digulung/bergetar" },
+  { name: "Zai", pronunciation: "Seperti 'z' dalam bahasa Melayu" },
+  { name: "Sin", pronunciation: "Seperti 's' dalam bahasa Melayu" },
+  { name: "Syin", pronunciation: "Seperti 'sy' dalam 'syarat'" },
+  { name: "Sod", pronunciation: "'s' yang tebal — lidah diangkat, bunyi lebih penuh" },
+  { name: "Dhod", pronunciation: "'d' yang tebal — unik bagi bahasa Arab" },
+  { name: "Tho", pronunciation: "'t' yang tebal — disebut lebih dalam di mulut" },
+  { name: "Zho", pronunciation: "Versi tebal bagi bunyi 'dh'" },
   {
     name: "Ain",
     pronunciation:
-      "penyempitan bersuara dari tengah tenggorokan — tidak ada padanan dalam bahasa Indonesia; pelajari dengan menirukan seorang qari",
+      "Bunyi tersekat yang bersuara dari tengah kerongkong — tiada padanan dalam bahasa Melayu; pelajarilah dengan meniru seorang qari",
   },
-  {
-    name: "Ghain",
-    pronunciation: 'seperti "r" Prancis atau "gh" yang digelutur',
-  },
-  {
-    name: "Fa",
-    pronunciation: 'seperti "f" dalam bahasa Indonesia',
-  },
-  {
-    name: "Qaf",
-    pronunciation: '"k" yang dalam dari bagian paling belakang lidah — bukan "k" biasa',
-  },
-  {
-    name: "Kaf",
-    pronunciation: 'seperti "k" dalam bahasa Indonesia (lebih ke depan mulut)',
-  },
-  {
-    name: "Lam",
-    pronunciation: 'seperti "l" dalam bahasa Indonesia',
-  },
-  {
-    name: "Mim",
-    pronunciation: 'seperti "m" dalam bahasa Indonesia',
-  },
-  {
-    name: "Nun",
-    pronunciation: 'seperti "n" dalam bahasa Indonesia',
-  },
-  {
-    name: "Ha (ringan)",
-    pronunciation: '"h" lembut di akhir kata',
-  },
-  {
-    name: "Wau",
-    pronunciation: 'seperti "w" atau "u" panjang',
-  },
-  {
-    name: "Ya",
-    pronunciation: 'seperti "y" atau "i" panjang',
-  },
+  { name: "Ghain", pronunciation: "Seperti 'r' Perancis atau bunyi 'gh' seperti berkumur" },
+  { name: "Fa", pronunciation: "Seperti 'f' dalam bahasa Melayu" },
+  { name: "Qof", pronunciation: "'k' yang dalam dari pangkal lidah — bukan 'k' biasa" },
+  { name: "Kaf", pronunciation: "Seperti 'k' dalam bahasa Melayu (di hadapan mulut)" },
+  { name: "Lam", pronunciation: "Seperti 'l' dalam bahasa Melayu" },
+  { name: "Mim", pronunciation: "Seperti 'm' dalam bahasa Melayu" },
+  { name: "Nun", pronunciation: "Seperti 'n' dalam bahasa Melayu" },
+  { name: "Ha (ringan)", pronunciation: "'h' yang lembut di hujung kalimah" },
+  { name: "Wau", pronunciation: "Seperti 'w' atau 'u' panjang" },
+  { name: "Ya", pronunciation: "Seperti 'y' atau 'i' panjang" },
 ];
 
 export const QURAN_GUIDE_PRONUNCIATION_MS: DeepPartial<QuranGuidePronunciationPair>[] = [
   {
-    title: "Ain vs Ha",
-    tip: "Keduanya keluar dari tenggorokan tetapi berbeda bunyinya. Ain (ع) adalah penyempitan bersuara dari tengah tenggorokan — pita suara bergetar. Ha (ح) adalah gesekan kuat dan tak bersuara yang berhembus, seperti helaan napas berat tanpa getaran. Keduanya tidak ada dalam bahasa Indonesia, jadi pelajarilah dengan mendengar langsung dari seorang qari.",
+    title: "Ain berbanding Ha",
+    tip: "Kedua-duanya keluar dari kerongkong tetapi berbeza dari segi suara. Ain (ع) ialah bunyi tersekat yang bersuara dari tengah kerongkong — pita suara bergetar. Ha (ح) ialah geseran berdesah yang kuat dan tidak bersuara, seperti keluhan yang berat tanpa getaran. Kedua-duanya tiada dalam bahasa Melayu, jadi pelajarilah dengan mendengar daripada seorang qari.",
   },
   {
-    title: "Ha vs Kha",
-    tip: 'Ha lebih tajam dan ringan; Kha lebih dalam dan lebih banyak gesekan — seperti "loch".',
+    title: "Ha berbanding Kho",
+    tip: "Ha lebih tajam dan ringan; Kho lebih dalam dengan lebih banyak geseran — seperti 'loch'.",
   },
   {
-    title: "Sin vs Shad",
-    tip: 'Sin (س) adalah "s" yang ringan dan tipis seperti pada "see" dalam bahasa Inggris. Shad (ص) adalah kembarannya yang tebal dan mufakhkham: angkat bagian belakang lidah, bulatkan mulut sedikit, dan bunyinya menjadi lebih dalam. Mencampuradukkan keduanya bisa mengubah kata — sabr dibanding bacaan dengan s ringan.',
+    title: "Sin berbanding Sod",
+    tip: "Sin (س) ialah 's' yang ringan dan nipis seperti dalam 'sini'. Sod (ص) pula kembarnya yang berat dan tebal: angkat pangkal lidah, bundarkan mulut sedikit, dan bunyinya menjadi lebih dalam. Mencampuradukkan kedua-duanya boleh mengubah perkataan — sabr (sabar) berbanding bacaan dengan 's' yang ringan.",
   },
   {
-    title: "Dal vs Dhad",
-    tip: 'Dal (د) adalah "d" biasa. Dhad (ض) adalah "d" tebal dan mufakhkham yang khas bahasa Arab — tekan tepi lidah ke gigi geraham atas dan biarkan bunyinya memenuhi mulut. Karena huruf khas inilah bahasa Arab juga disebut "lughatudh dhaad" (bahasa huruf dhad).',
+    title: "Dal berbanding Dhod",
+    tip: "Dal (د) ialah 'd' biasa. Dhod (ض) ialah 'd' yang berat dan tebal, unik bagi bahasa Arab — tekan sisi lidah ke gigi geraham atas dan biarkan bunyinya memenuhi mulut. Bahasa Arab bahkan digelar 'bahasa Dhod' kerana huruf istimewa ini.",
   },
   {
-    title: "Ta vs Tha (tebal)",
-    tip: 'Tha yang mufakhkham lebih dalam; jangan menggantinya begitu saja dengan "t" biasa.',
+    title: "Ta berbanding Tho",
+    tip: "ط yang tebal lebih dalam bunyinya; jangan gantikannya dengan 't' biasa sahaja.",
   },
   {
-    title: "Dzal vs Zha (tebal)",
-    tip: 'Keduanya memiliki bunyi "dh"; Zha lebih tebal dan mufakhkham.',
+    title: "Zal berbanding Zho",
+    tip: "Kedua-duanya melibatkan bunyi 'th' (seperti dalam 'this'); ظ lebih berat dan tebal.",
   },
   {
-    tip: 'Kaf (ك) adalah "k" dari depan mulut seperti pada "key" dalam bahasa Inggris. Qaf (ق) dibentuk dari jauh lebih belakang — bagian paling belakang lidah menyentuh langit-langit lunak, menghasilkan "k" yang dalam dari tenggorokan yang tidak memiliki padanan dalam bahasa Indonesia. Jagalah keduanya tetap terpisah: qalb (hati) bukan kalb (anjing).',
-    title: "Kaf vs Qaf",
+    title: "Kaf berbanding Qof",
+    tip: "Kaf (ك) ialah 'k' di hadapan mulut seperti dalam 'kita'. Qof (ق) dihasilkan jauh lebih ke belakang — pangkal lidah menyentuh anak tekak, menghasilkan 'k' yang dalam dari kerongkong yang tiada padanannya dalam bahasa Melayu. Bezakan kedua-duanya: qalb (hati) bukan kalb (anjing).",
   },
   {
-    title: "Ghain vs Kha",
-    tip: "Ghain bersuara; Kha adalah gesekan tak bersuara.",
+    title: "Ghain berbanding Kho",
+    tip: "Ghain bersuara; Kho pula geseran yang tidak bersuara.",
   },
 ];
 
@@ -1237,339 +919,331 @@ export const QURAN_GUIDE_MEMORIZATION_PLANS_MS: DeepPartial<QuranGuideMemorizati
   {
     title: "Pemula — Juz Amma",
     summary:
-      "Titik awal yang alami bagi semua orang. Mulailah dari surah-surah yang sangat pendek di bagian paling akhir mushaf — bergerak mundur dari An-Nas — yang mudah, cepat memberi pahala, dan berguna di setiap shalat.",
-    surahs: ["An-Nas", "Al-Falaq", "Al-Ikhlas", "Al-Masad", "An-Nasr", "Al-Kafirun", "Al-Kautsar"],
-    tip: "Hafalkan hanya satu ayat sehari: dengarkan seorang qari mengulanginya sekitar sepuluh kali, ulangi dengan suara keras hingga lancar, lalu sambungkan dengan yang sudah kamu miliki sebelum melanjutkan.",
+      "Titik permulaan yang semula jadi untuk semua orang. Mulakan dengan surah-surah yang sangat pendek di hujung mushaf — dari an-Nas secara mengundur — yang mudah, cepat membuahkan hasil, dan berguna dalam setiap solat.",
+    surahs: ["An-Nas", "Al-Falaq", "Al-Ikhlas", "Al-Masad", "An-Nasr", "Al-Kafirun", "Al-Kauthar"],
+    tip: "Hafal hanya satu ayat sehari: dengar seorang qari murattal mengulanginya kira-kira sepuluh kali, ikut membacanya dengan kuat sehingga lancar, kemudian sambungkan dengan hafalan yang sedia ada sebelum beralih ke ayat seterusnya.",
   },
   {
-    title: "Menengah — sepuluh surah inti",
+    title: "Pertengahan — Sepuluh surah teras",
     summary:
-      "Ketika surah-surah pendek sudah kuat, ambillah surah-surah panjang yang disukai yang memiliki keutamaan besar dan sering dibaca pada hari Jumat serta malam hari — Al-Mulk, Ya-Sin, Ar-Rahman, Al-Waqi'ah, dan Al-Kahfi termasuk di antaranya.",
+      "Apabila surah-surah pendek sudah kukuh, mulakan surah-surah panjang yang digemari, yang mempunyai kelebihan besar dan sering dibaca pada hari Jumaat dan waktu malam — antaranya al-Mulk, Yasin, ar-Rahman, al-Waqi'ah dan al-Kahfi.",
     surahs: [
       "Al-Fatihah",
       "Al-Mulk",
-      "Ya-Sin",
+      "Yasin",
       "Ar-Rahman",
       "Al-Waqi'ah",
       "Al-Kahfi",
       "Al-Jumu'ah",
       "Al-Hasyr",
     ],
-    tip: "Kaitkan hafalan baru dengan waktu tetap harian — sesaat setelah Subuh yang tenang dan pikiran jernih adalah yang terbaik — sehingga konsistensi itu sendiri yang menanggung sebagian besar bebannya.",
+    tip: "Tetapkan hafalan baharu pada slot masa harian yang tetap — waktu tenang dengan fikiran yang jernih selepas Subuh adalah paling ideal — supaya konsistensi yang memikul sebahagian besar bebannya.",
   },
   {
-    title: "Lanjut — satu juz",
+    title: "Lanjutan — Satu juz",
     summary:
-      "Berkomitmenlah menyelesaikan satu juz penuh sambil menjaga semua yang sebelumnya tetap benar-benar kuat. Banyak orang memulai dari juz 29 atau 30, yang surah-surahnya sudah sebagian mereka kenal, lalu meluas keluar juz demi juz.",
-    surahs: ["Pilih satu juz — banyak yang memulai dari juz 29 atau 30 lalu melanjutkan"],
-    tip: "Jangan pernah menambah bagian baru sampai yang lama sudah diulang dengan kuat. Nabi ﷺ memperingatkan bahwa Al-Qur'an yang dihafal lepas lebih cepat daripada unta yang terikat lepas dari talinya.",
+      "Berazamlah untuk menamatkan satu juz penuh sambil memastikan semua hafalan sebelumnya kekal sangat kukuh. Ramai yang bermula dengan Juz 29 atau 30, yang surah-surahnya sudah sebahagiannya mereka hafal, kemudian berkembang ke luar satu juz demi satu juz.",
+    surahs: ["Pilih satu juz — ramai bermula dengan Juz 29 atau 30, kemudian berkembang"],
+    tip: "Jangan sekali-kali menambah bahagian baharu sehingga hafalan lama diulang kaji dengan kukuh. Nabi ﷺ mengingatkan bahawa Al-Quran yang dihafal lebih cepat terlepas daripada unta yang terlepas daripada ikatannya.",
   },
   {
     title: "Perjalanan Hafiz",
     summary:
-      "Menghafal seluruh Al-Qur'an — sebuah kehormatan seumur hidup yang mengangkat derajat orang yang membawanya, dan dengan karunia Allah, juga orang tuanya. Ini adalah komitmen serius, biasanya membentang selama bertahun-tahun hafalan baru harian dan pengulangan yang teratur.",
-    surahs: ["Seluruh mushaf — biasanya 3–7 tahun dengan pengulangan harian"],
-    tip: "Jangan lakukan ini sendirian: gunakan pelacak hifz Munib untuk mengatur jadwal pengulanganmu, dan perdengarkan bacaanmu secara teratur kepada seorang hafiz atau guru yang mumpuni yang bisa menangkap dan membetulkan kesalahanmu.",
+      "Menghafal seluruh Al-Quran — satu penghormatan sepanjang hayat yang mengangkat darjat orang yang membawanya dan, dengan kurnia Allah, ibu bapanya. Ia satu komitmen yang serius, biasanya memakan masa beberapa tahun dengan hafalan baharu setiap hari dan ulang kaji yang berdisiplin.",
+    surahs: ["Seluruh mushaf — biasanya 3–7 tahun dengan ulang kaji setiap hari"],
+    tip: "Jangan lakukannya seorang diri: gunakan penjejak hifz Munib untuk mengurus jadual ulang kaji anda, dan perdengarkan bacaan anda secara berkala kepada seorang hafiz atau guru yang bertauliah yang dapat mengesan dan membetulkan kesilapan anda.",
   },
 ];
 
 export const QURAN_GUIDE_DAILY_LESSONS_MS: DeepPartial<QuranGuideDailyLesson>[] = [
   {
-    translation:
-      "Hai orang-orang yang beriman, jadikanlah sabar dan shalat sebagai penolongmu, sesungguhnya Allah beserta orang-orang yang sabar.",
     context:
-      "Dari Surah Al-Baqarah, yang diturunkan di Madinah. Allah menggabungkan dua sumber kekuatan bagi orang beriman yang menghadapi kesulitan — ketabahan melalui kesabaran dan berpaling kepada shalat — dan menjanjikan kebersamaan khusus-Nya bagi mereka yang teguh.",
+      "Daripada Surah al-Baqarah, yang diturunkan di Madinah. Allah menggandingkan dua sumber kekuatan bagi orang beriman yang berdepan kesusahan — ketabahan dengan sabar dan kembali kepada solat — serta menjanjikan penyertaan-Nya yang istimewa kepada mereka yang teguh.",
     reflection:
-      "Ujian apa yang sedang kulalui saat ini di mana aku justru condong pada jalan keluar yang cepat, alih-alih pada kesabaran dan shalat yang diarahkan ayat ini kepadaku?",
+      "Ujian apakah yang sedang saya hadapi sekarang, di mana saya mencari jalan keluar yang pantas dan bukannya sabar dan solat yang ditunjukkan oleh ayat ini?",
     action:
-      "Hari ini, kerjakan satu shalat tanpa tergesa-gesa, dan dalam sujudmu, mohonlah kesabaran kepada Allah dalam ujian tertentu yang sedang kamu lalui.",
+      "Tunaikan satu solat hari ini tanpa tergesa-gesa, dan dalam sujud anda, mohonlah kepada Allah dengan menyeru nama-Nya agar diberi kesabaran dalam ujian khusus yang sedang anda lalui.",
   },
   {
-    translation: "Rahmat-Ku meliputi segala sesuatu.",
     context:
-      "Dari Surah Al-A'raf, diucapkan dalam konteks Musa AS dan kaumnya. Allah menggambarkan rahmat-Nya meliputi segala sesuatu — rahmat yang begitu luas hingga mendahului dan melampaui azab-Nya, yang khusus bagi mereka yang tetap teguh dalam kezaliman.",
+      "Daripada Surah al-A'raf, dalam konteks Nabi Musa dan kaumnya. Allah menggambarkan rahmat-Nya meliputi segala sesuatu — rahmat yang begitu luas sehingga mendahului dan mengatasi azab-Nya, yang dikhususkan bagi mereka yang berterusan dalam kesalahan.",
     reflection:
-      "Kesalahan siapa yang kutolak untuk kumaafkan, padahal aku sendiri sepenuhnya bergantung pada rahmat Allah yang tak terbatas?",
+      "Kesilapan siapakah yang enggan saya maafkan, sedangkan saya sendiri bergantung sepenuhnya pada rahmat Allah yang tidak terbatas?",
     action:
-      "Pilihlah satu orang yang membuatmu kesal, maafkanlah ia hari ini dengan tulus, dan panjatkan doa singkat agar Allah juga memberinya petunjuk dan ampunan.",
+      "Pilih seorang yang anda simpan rasa tidak puas hati terhadapnya, maafkan dia dengan ikhlas dalam hati anda hari ini, dan panjatkan doa ringkas memohon Allah memberinya petunjuk dan keampunan juga.",
   },
   {
-    translation: "Jika kamu bersyukur, pasti akan Kutambah (nikmat) kepadamu.",
     context:
-      "Dari Surah Ibrahim, bagian dari nasihat Musa AS kepada Bani Israil. Allah menghubungkan pertambahan nikmat-Nya langsung dengan rasa syukur — bersyukur atas suatu nikmat itulah yang membuatnya bertambah, sementara kufur nikmat mengundang berkurangnya.",
+      "Daripada Surah Ibrahim, sebahagian daripada peringatan Nabi Musa kepada Bani Israel. Allah mengaitkan tambahan nikmat-Nya secara langsung dengan kesyukuran — bersyukur atas sesuatu nikmat itulah yang menyebabkannya bertambah, manakala kufur nikmat mengundang kehilangannya.",
     reflection:
-      "Nikmat Allah apa — kesehatanku, keluargaku, imanku, atau rezekiku — yang mulai kuanggap remeh dan biasa saja minggu ini?",
+      "Nikmat Allah yang manakah — kesihatan, keluarga, iman atau rezeki saya — yang minggu ini mula saya anggap biasa dan seolah-olah memang hak saya?",
     action:
-      'Malam ini sebelum tidur, ucapkan "Alhamdulillah" dengan suara keras atas tiga nikmat tertentu, sebutkan masing-masing agar syukurmu disadari, bukan otomatis.',
+      "Sebelum tidur malam ini, ucapkan 'Alhamdulillah' dengan kuat untuk tiga nikmat tertentu, sebutkan setiap satunya supaya kesyukuran itu disedari, bukan sekadar kebiasaan.",
   },
   {
-    translation: "Dan ucapkanlah kepada manusia perkataan yang baik.",
     context:
-      "Dari Surah Al-Isra. Di tengah bimbingan tentang bagaimana orang beriman seharusnya bersikap, Allah memerintahkan agar kita berbicara kepada manusia — semua manusia — dengan cara yang terbaik, karena kata-kata kasar adalah salah satu pintu yang dimasuki setan untuk memecah belah.",
+      "Daripada Surah al-Isra'. Di tengah-tengah panduan tentang bagaimana orang beriman sepatutnya membawa diri, Allah memerintahkan kita berkata kepada manusia — semua manusia — dengan cara yang terbaik, kerana kata-kata kasar ialah salah satu pintu yang digunakan oleh syaitan untuk menabur perpecahan.",
     reflection:
-      'Menengok hari ini, apakah kata-kataku lebih banyak membangun atau melukai orang lain — dan apakah aku juga mengucapkan "perkataan yang baik" kepada mereka yang kuanggap sulit?',
+      "Mengimbas kembali hari ini, adakah kata-kata saya lebih banyak membina orang lain atau menghakis mereka — dan adakah saya berkata dengan 'kata-kata yang amat baik' walaupun kepada mereka yang saya rasa sukar?",
     action:
-      "Hari ini, berikan pujian atau ucapan terima kasih yang tulus kepada satu orang tanpa kritik yang tersembunyi, dan tahanlah satu kata kasar yang hampir kamu ucapkan.",
+      "Berilah galakan atau ucapan terima kasih yang ikhlas kepada seorang hari ini tanpa kritikan tersembunyi, dan tahanlah satu ucapan kasar yang hampir anda lontarkan.",
   },
   {
-    translation:
-      "Dan barangsiapa yang bertawakal kepada Allah, niscaya Allah akan mencukupkan (keperluan)nya.",
     context:
-      "Dari Surah Ath-Thalaq, di tengah hukum tentang perceraian dan rezeki — tepat di mana orang paling cemas secara finansial. Di sana Allah berjanji akan memberi rezeki kepada siapa yang bertakwa dari arah yang tidak disangka-sangka, dan siapa yang bertawakal kepada-Nya akan mendapati-Nya mencukupi.",
+      "Daripada Surah at-Talaq, di tengah-tengah hukum tentang perceraian dan nafkah — tepat ketika manusia paling bimbang tentang kewangan. Di situ Allah berjanji bahawa sesiapa yang bertakwa kepada-Nya akan diberi rezeki dari jalan yang tidak disangka-sangka, dan sesiapa yang bertawakal kepada-Nya akan mendapati Dia mencukupi.",
     reflection:
-      "Di mana aku membuat rencana yang hati-hati tetapi tidak melibatkan Allah di dalamnya — atau bersandar pada bantuan manusia tanpa pernah berpaling kepada-Nya dalam doa?",
+      "Di manakah saya membuat perancangan yang teliti tetapi meninggalkan Allah di luarnya — atau bersandar pada bantuan manusia tanpa pernah kembali kepada-Nya dengan doa?",
     action:
-      "Ambil satu keputusan yang sedang mengganggumu, kerjakan dua rakaat shalat istikharah atau berdoalah dengan tulus, lalu serahkan hasilnya kepada Allah.",
+      "Ambil satu keputusan yang sedang merisaukan anda, tunaikan dua rakaat solat istikharah atau panjatkan doa yang ikhlas tentangnya, kemudian serahkan hasilnya kepada Allah.",
   },
   {
-    translation: "Ya Tuhanku, tambahkanlah ilmu kepadaku.",
     context:
-      "Dari Surah Thaha. Di seluruh Al-Qur'an, ini adalah satu-satunya hal yang Allah perintahkan kepada Nabi ﷺ untuk memintanya ditambahkan — ilmu — menunjukkan betapa berharganya ilmu yang bermanfaat dan bahwa siapa pun, seberapa pun luas ilmunya, tidak pernah selesai menuntutnya.",
+      "Daripada Surah Taha. Inilah satu-satunya perkara dalam Al-Quran yang Allah perintahkan Nabi ﷺ untuk memohon tambahannya — ilmu — yang menunjukkan betapa tingginya nilai ilmu yang bermanfaat dan bahawa tiada seorang pun, walau setinggi mana ilmunya, pernah selesai menuntutnya.",
     reflection:
-      "Berapa banyak waktu luangku hari ini habis untuk menggulir tanpa henti, dan bisakah sebagian darinya dipakai untuk mempelajari satu ayat atau satu hadis?",
+      "Berapa banyak masa lapang saya hari ini habis untuk menatal skrin tanpa henti, dan bolehkah sebahagian kecil daripadanya digunakan untuk mempelajari satu ayat atau satu hadis?",
     action:
-      'Hafalkan doa singkat "Rabbi zidnii \'ilman" ini, dan jadikan kebiasaan mengucapkannya setelah Subuh sebelum memulai harimu.',
+      "Hafalkan doa pendek ini, 'Rabbi zidni ilma,' dan biasakan membacanya selepas Subuh sebelum anda memulakan hari.",
   },
   {
-    translation:
-      "Perumpamaan orang yang membelanjakan hartanya di jalan Allah adalah seperti sebutir benih yang menumbuhkan tujuh bulir…",
     context:
-      "Dari Surah Al-Baqarah. Allah melukiskan gambaran hidup tentang bagaimana sedekah bertumbuh: satu benih menghasilkan tujuh bulir, setiap bulir berisi seratus biji — balasan tujuh ratus kali lipat, dan Allah melipatgandakan lagi bagi siapa yang Dia kehendaki. Harta yang diberikan karena-Nya tidak pernah benar-benar hilang.",
+      "Daripada Surah al-Baqarah. Allah melukiskan gambaran yang jelas tentang bagaimana sedekah berkembang: sebiji benih menumbuhkan tujuh tangkai, setiap tangkai mengandungi seratus biji — pulangan tujuh ratus kali ganda, dan Dia menggandakan lagi bagi sesiapa yang Dia kehendaki. Harta yang diberikan kerana-Nya tidak pernah benar-benar hilang.",
     reflection:
-      "Ketika aku memberi, apakah itu diam-diam karena Allah, atau aku mendapati diriku ingin dilihat orang lain dan dipuji karenanya?",
+      "Apabila saya memberi, adakah ia dilakukan secara diam-diam kerana Allah, atau adakah saya mendapati diri ingin orang lain melihat dan memuji saya kerananya?",
     action:
-      "Hari ini, berikan sedekah kecil, dan jika memungkinkan, berikan secara diam-diam — agar itu murni antara kamu dan Allah.",
+      "Berilah sedekah kecil hari ini, dan jika boleh, berikannya secara rahsia — supaya ia benar-benar antara anda dan Allah.",
   },
 ];
 
 export const QURAN_GUIDE_APPLY_CHALLENGES_MS: DeepPartial<QuranGuideApplyChallenge>[] = [
   {
-    verseExcerpt: "Dan ucapkanlah kepada manusia perkataan yang baik.",
+    verseExcerpt: "…supaya mereka berkata dengan kata-kata yang amat baik…",
     challenge:
-      "Lewati satu hari penuh tanpa mengucapkan satu pun kata kasar, sindiran, atau ejekan — sekalipun dalam candaan, sekalipun kamu dipancing.",
+      "Lalui sehari suntuk tanpa satu pun kata-kata kasar, sindiran atau ejekan — walaupun sekadar bergurau, walaupun anda diprovokasi.",
     habit:
-      "Ketika amarah muncul, berhentilah sejenak sebelum menjawab dan pilihlah diam atau ucapan yang baik.",
-  },
-  {
-    verseExcerpt: "Katakanlah kepada laki-laki yang beriman agar mereka menahan pandangannya…",
-    challenge:
-      "Hari ini, sengaja alihkan pandanganmu dari apa yang Allah haramkan — di layarmu, di berandamu, dan di tempat umum.",
-    habit:
-      "Setiap kali kamu menangkap dirimu melakukannya, alihkan momen itu ke lima menit membaca Al-Qur'an sebagai gantinya.",
-  },
-  {
-    verseExcerpt: 'Janganlah engkau katakan kepada keduanya "ah"…',
-    challenge:
-      "Hari ini, bicaralah kepada seorang orang tua atau orang yang lebih tua dengan kelembutan dan kesabaran yang nyata, tanpa sedikit pun kekesalan — dan lakukan sesuatu untuk melayani mereka.",
-    habit:
-      "Jika mereka masih hidup, janjikan telepon atau kunjungan rutin; jika tidak, doakan mereka.",
-  },
-  {
-    verseExcerpt: "Bergabunglah bersama orang-orang yang jujur.",
-    challenge:
-      "Lewati satu hari penuh dengan berkata jujur tanpa kebohongan kecil, tanpa berlebihan, dan tanpa ghibah — bahkan dalam bercanda.",
-    habit:
-      "Jika tergelincir, segera bertaubat dan perbaiki apa yang telah dirusak oleh kata-katamu.",
-  },
-  {
-    verseExcerpt: "Allah beserta orang-orang yang sabar.",
-    challenge:
-      "Lain kali sesuatu membuatmu jengkel, tahan setiap kata kasar selama enam puluh detik penuh sebelum menjawab.",
-    habit:
-      "Kapan pun memungkinkan, ubahlah momen-momen kejengkelan menjadi dzikir atau dua rakaat shalat.",
-  },
-  {
-    verseExcerpt: "Jika kamu bersyukur, akan Kutambah kepadamu.",
-    challenge:
-      "Hari ini, ucapkan terima kasih dengan menyebut nama kepada tiga orang berbeda atas suatu perbuatan tertentu yang mereka lakukan untukmu.",
-    habit: "Akhiri setiap malam dengan mencatat satu nikmat — satu baris di buku harian Munib-mu.",
+      "Apabila rasa geram timbul, berhenti seketika sebelum membalas dan pilihlah sama ada diam atau kata-kata yang baik.",
   },
   {
     verseExcerpt:
-      "Dan barangsiapa memaafkan dan berbuat baik, maka pahalanya atas (tanggungan) Allah.",
+      "Katakanlah (wahai Muhammad) kepada orang-orang lelaki yang beriman supaya mereka menyekat pandangan mereka…",
     challenge:
-      "Lepaskan satu dendam yang selama ini kamu pendam — setidaknya dalam hatimu sendiri, lepaskanlah dengan tulus.",
-    habit: "Alih-alih terus mengenang luka itu, diam-diam doakan orang yang telah menzalimimu.",
+      "Tundukkanlah pandangan anda dengan sengaja daripada apa yang Allah haramkan hari ini — di skrin anda, di suapan media sosial anda dan di tempat awam.",
+    habit: "Setiap kali anda tersedar, alihkan detik itu kepada lima minit membaca Al-Quran.",
+  },
+  {
+    verseExcerpt:
+      '…janganlah engkau berkata kepada mereka (sebarang perkataan kasar) sekalipun perkataan "Ha"…',
+    challenge:
+      "Bercakaplah dengan ibu bapa atau orang yang lebih tua hari ini dengan kelembutan dan kesabaran yang nyata, tanpa sedikit pun tanda kegusaran — dan lakukan sesuatu untuk berkhidmat kepada mereka.",
+    habit:
+      "Jika mereka masih hidup, berazamlah untuk menelefon atau menziarahi mereka secara tetap; jika tidak, doakanlah mereka.",
+  },
+  {
+    verseExcerpt: "…hendaklah kamu berada bersama-sama orang-orang yang benar.",
+    challenge:
+      "Bercakap benar sepanjang hari tanpa bohong sunat, tanpa membesar-besarkan cerita dan tanpa mengumpat — walaupun dalam gurauan.",
+    habit:
+      "Jika tergelincir, segeralah bertaubat dan perbetulkan apa sahaja yang terkesan oleh kata-kata anda.",
+  },
+  {
+    verseExcerpt: "…sesungguhnya Allah menyertai (menolong) orang-orang yang sabar.",
+    challenge:
+      "Lain kali apabila sesuatu mengecewakan anda, tahan setiap kata-kata kasar selama enam puluh saat penuh sebelum anda membalas.",
+    habit:
+      "Jadikan detik-detik kegusaran sebagai zikir atau dua rakaat solat bila-bila masa yang boleh.",
+  },
+  {
+    verseExcerpt: "Jika kamu bersyukur nescaya Aku akan tambahi nikmatKu kepada kamu…",
+    challenge:
+      "Ucapkan terima kasih kepada tiga orang yang berbeza dengan menyebut nama mereka hari ini atas sesuatu yang khusus yang telah mereka lakukan untuk anda.",
+    habit: "Akhiri setiap malam dengan mencatat satu nikmat — satu baris dalam jurnal Munib anda.",
+  },
+  {
+    verseExcerpt:
+      "…sesiapa yang memaafkan (kejahatan orang) dan berbuat baik (kepadanya), maka pahalanya tetap dijamin oleh Allah…",
+    challenge:
+      "Lepaskan satu dendam yang selama ini anda pendam — lepaskannya dengan ikhlas, sekurang-kurangnya dalam hati anda sendiri.",
+    habit:
+      "Panjatkan doa secara senyap untuk orang yang menzalimi anda, dan bukannya terus mengulang-ulang kesakitan itu.",
   },
 ];
 
 export const QURAN_GUIDE_TADABBUR_PROMPTS_MS: DeepPartial<QuranGuideTadabburPrompt>[] = [
   {
-    question: "Apa yang Allah ajarkan kepadaku dalam ayat ini?",
-    hint: "Baca ayat itu perlahan-lahan dan renungkan bagian-bagiannya: apakah Allah memberi perintah, peringatan, janji, atau menceritakan sebuah kisah? Nama-nama apa yang Dia gunakan, dan apa yang ditunjukkan nama itu tentang bagaimana Dia memperlakukan kita di sini?",
+    question: "Apakah yang Allah ajarkan kepada saya dalam ayat ini?",
+    hint: "Bacalah ayat itu perlahan-lahan dan perhatikan binaannya: adakah Allah memberi perintah, amaran, janji, atau menceritakan sebuah kisah? Nama-Nya yang manakah digunakan, dan apakah yang didedahkan oleh nama itu tentang cara Dia berurusan dengan kita di sini?",
   },
   {
-    question: "Bagaimana aku bisa mengamalkan ini hari ini dalam tindakan yang konkret?",
-    hint: "Niat yang samar memudar; niat yang spesifik terwujud. Ubahlah ayat itu menjadi satu langkah yang bisa dilakukan — sebuah percakapan yang harus dilakukan, kebiasaan yang harus dimulai, pilihan yang harus diambil sebelum hari berakhir.",
+    question: "Bagaimanakah saya boleh mengamalkannya hari ini melalui satu tindakan yang konkrit?",
+    hint: "Azam yang kabur akan pudar; azam yang khusus akan kekal. Jadikan ayat itu satu langkah yang boleh dilakukan — satu perbualan yang perlu diadakan, satu tabiat yang perlu dimulakan, satu pilihan yang perlu dibuat sebelum hari berakhir.",
   },
   {
-    question: "Kebiasaan apa yang harus kuperbaiki atau kutinggalkan karena ayat ini?",
-    hint: "Bawa ayat itu ke dalam rutinitas harianmu — tidurmu, ucapanmu, pengeluaranmu, shalatmu, hubunganmu. Yang mana dari semua itu yang secara diam-diam disentuh ayat ini?",
+    question: "Tabiat apakah yang perlu saya perbaiki atau tinggalkan kerana ayat ini?",
+    hint: "Bawalah ayat itu ke dalam rutin harian anda — tidur, percakapan, perbelanjaan, solat dan hubungan anda. Yang manakah antaranya yang disentuh secara halus oleh ayat ini?",
   },
   {
     question:
-      "Apakah ayat ini membawaku pada harapan akan rahmat Allah atau pada rasa takut akan keadilan-Nya — dan mengapa keduanya sama-sama penting?",
-    hint: "Orang beriman berjalan di antara khauf (takut akan azab Allah) dan raja' (harapan akan rahmat-Nya), seperti dua sayap. Renungkan yang mana dari keduanya yang diperkuat ayat ini dalam dirimu saat ini, dan yang mana yang lebih dibutuhkan hatimu.",
+      "Adakah ayat ini menggerakkan saya ke arah harapan akan rahmat Allah atau rasa takut akan keadilan-Nya — dan mengapa kedua-duanya penting?",
+    hint: "Orang beriman berjalan antara khauf (takut akan azab Allah) dan raja' (harapan akan rahmat-Nya), seperti dua sayap. Tanyalah diri, yang manakah antara keduanya diperkukuh oleh ayat ini dalam diri anda sekarang, dan adakah hati anda memerlukannya dengan lebih banyak.",
   },
   {
-    question: "Bagaimana Nabi ﷺ menghayati ayat ini?",
-    hint: 'Nabi ﷺ disebut sebagai "Al-Qur\\\'an yang berjalan". Lihatlah sirah dan tafsir yang otentik — Ibnu Katsir sering menyebutkan bagaimana beliau ﷺ mewujudkan sebuah ayat — dan jadikan teladannya sebagai contoh nyata.',
+    question: "Bagaimanakah Nabi ﷺ menghayati ayat ini?",
+    hint: "Nabi ﷺ digambarkan sebagai 'Al-Quran yang berjalan.' Rujuklah sirah dan tafsir yang sahih — Ibn Kathir sering menyebut bagaimana baginda menjelmakan sesuatu ayat — dan jadikan teladan baginda sebagai contoh amalan.",
   },
   {
-    question: "Doa apa yang digugah oleh ayat ini?",
-    hint: "Biarkan ayat itu menjadi sebuah doa. Dalam sujudmu, dengan kata-katamu sendiri, mintalah kepada Allah segala yang digugah ayat ini dalam hatimu — perlindungan dari sebuah peringatan, bagian dari sebuah janji, atau taufik untuk menaati sebuah perintah.",
+    question: "Doa apakah yang diilhamkan oleh ayat ini?",
+    hint: "Jadikan ayat itu satu doa. Mohonlah kepada Allah, dengan kata-kata anda sendiri ketika sujud, apa sahaja yang telah digerakkan oleh ayat itu — perlindungan daripada sesuatu amaran, bahagian daripada sesuatu janji, atau pertolongan untuk mematuhi sesuatu perintah.",
   },
 ];
 
 export const QURAN_GUIDE_READING_LEVELS_MS: DeepPartial<QuranGuideReadingLevel>[] = [
   {
-    title: "Alfabet Arab",
+    title: "Abjad Arab",
     summary:
-      "Pelajari mengenali semua 28 huruf dalam bentuk tersendirinya dan mengenal masing-masing dengan namanya. Ini adalah pengenalan murni — melihat sebuah huruf dan langsung menyebutkan nama bunyinya — dan inilah fondasi tempat semua hal lainnya dibangun.",
-    topics: ["Nama-nama huruf", "Bentuk dasar", "Arah kanan ke kiri"],
+      "Belajar mengenal kesemua 28 huruf dalam bentuk tunggalnya dan mengetahui nama setiap satu. Ini semata-mata pengenalan — melihat sesuatu huruf dan terus menyebut bunyinya — dan inilah asas bagi segala yang lain.",
+    topics: ["Nama huruf", "Bentuk asas", "Arah kanan ke kiri"],
   },
   {
     title: "Bentuk huruf",
     summary:
-      "Temukan bahwa sebagian besar huruf berubah bentuk sesuai posisinya — di awal, tengah, atau akhir kata — karena bahasa Arab tersambung seperti tulisan sambung. Pelajari beberapa huruf yang tidak pernah tersambung dengan huruf setelahnya.",
-    topics: ["Tulisan sambung", "Huruf yang tidak tersambung", "Bentuk alif, wau, ya"],
+      "Ketahuilah bahawa kebanyakan huruf berubah bentuk mengikut kedudukannya — di awal, tengah atau akhir kalimah — kerana tulisan Arab bersambung seperti tulisan berangkai. Pelajari beberapa huruf yang tidak pernah bersambung dengan huruf selepasnya.",
+    topics: ["Tulisan bersambung", "Huruf yang tidak bersambung", "Variasi alif, wau, ya"],
   },
   {
-    title: "Harakat",
+    title: "Baris (harakat)",
     summary:
-      "Kuasai tanda-tanda kecil yang memberi vokal pada setiap huruf: fathah (a), kasrah (i), dhammah (u), sukun tanpa vokal, tasydid yang menggandakan, dan akhiran tanwin. Tanda-tanda inilah yang mengubah huruf mati menjadi kata yang bisa dibaca.",
-    topics: ["Harakat pendek", "Sukun", "Penggandaan tasydid", "Tanwin"],
+      "Kuasai tanda-tanda kecil yang memberikan bunyi baris kepada setiap huruf: fathah (a), kasrah (i), dammah (u), sukun yang tidak berbaris, sabdu yang menggandakan huruf, dan baris dua (tanwin). Tanda-tanda inilah yang menjadikan huruf yang senyap sebagai kalimah yang boleh dibaca.",
+    topics: ["Baris pendek", "Sukun", "Sabdu (gandaan)", "Tanwin"],
   },
   {
-    title: "Menggabungkan huruf",
+    title: "Menyambung huruf",
     summary:
-      'Satukan semuanya: rangkai huruf dan harakatnya menjadi suku kata dan kata-kata pendek, membaca dari kanan ke kiri. Kuasai aturan huruf syamsiyah dan qamariyah yang menentukan bagaimana "al" di awal kata dibaca.',
-    topics: ["Pola huruf-harakat", "Awalan yang umum", "Huruf syamsiyah dan qamariyah"],
+      "Gabungkan semuanya: cantumkan huruf dan barisnya menjadi suku kata dan kalimah pendek, dibaca dari kanan ke kiri. Kenali hukum huruf syamsiah dan qamariah yang menentukan bagaimana 'al-' di awal kalimah disebut.",
+    topics: ["Pola huruf-baris", "Awalan biasa", "Huruf syamsiah dan qamariah"],
   },
   {
-    title: "Membaca kata",
+    title: "Membaca kalimah",
     summary:
-      "Mulailah membaca kata-kata Al-Qur'an yang sesungguhnya secara perlahan dan tepat — dimulai dari kata-kata Bismillah dan Al-Fatihah yang kamu baca di setiap shalat — sehingga bacaan langsung terhubung dengan ibadah sejak awal.",
-    topics: ["Kata-kata berfrekuensi tinggi", "Bismillah", "Kata-kata Al-Fatihah"],
+      "Mula membaca kosa kata Al-Quran yang sebenar dengan perlahan dan betul — bermula dengan Bismillah dan kalimah-kalimah al-Fatihah yang anda baca dalam setiap solat — supaya bacaan terhubung dengan ibadah sejak awal lagi.",
+    topics: ["Kalimah yang kerap muncul", "Bismillah", "Kalimah al-Fatihah"],
   },
   {
     title: "Membaca ayat",
     summary:
-      "Beralihlah ke ayat-ayat pendek yang lengkap dari Juz Amma, menambahkan kesadaran akan tajwid dasar dan tempat berhenti untuk bernapas (waqaf), selalu mengikuti bacaan seorang qari agar telingamu membimbing lisanmu.",
-    topics: ["Surah-surah Juz Amma", "Tanda-tanda waqaf", "Mengikuti seorang qari"],
+      "Naik ke peringkat ayat-ayat pendek yang lengkap daripada Juz Amma, sambil menambah kesedaran tentang tajwid asas dan tempat berhenti untuk bernafas (waqaf), sentiasa membaca bersama seorang qari supaya telinga anda membimbing lidah anda.",
+    topics: ["Surah-surah Juz Amma", "Tanda waqaf", "Mengikut bacaan qari"],
   },
   {
-    title: "Bacaan lancar",
+    title: "Membaca dengan lancar",
     summary:
-      "Capai bacaan yang halus dan percaya diri di mana kaidah tajwid diterapkan secara alami. Pertahankan porsi harian dan teruslah diperiksa oleh guru atau qari yang mumpuni, karena kelancaran terasah melalui koreksi yang terus-menerus, bukan dicapai sekali lalu ditinggalkan.",
-    topics: ["Porsi harian", "Penerapan kaidah tajwid", "Bimbingan guru"],
+      "Capai bacaan yang lancar dan yakin dengan hukum tajwid diamalkan secara semula jadi. Kekalkan bacaan harian dan biarkan seorang guru atau qari yang bertauliah terus menyemak bacaan anda, kerana kelancaran digilap melalui pembetulan yang berterusan, bukan dicapai sekali lalu ditinggalkan.",
+    topics: ["Bacaan harian", "Penerapan hukum tajwid", "Teguran guru"],
   },
 ];
 
 export const QURAN_GUIDE_QUIZ_MS: DeepPartial<QuranGuideQuizQuestion>[] = [
   {
-    prompt: "Ada berapa surah (bab) dalam Al-Qur'an?",
+    prompt: "Berapakah bilangan surah dalam Al-Quran?",
     options: ["99", "114", "124", "144"],
     explanation:
-      "Al-Qur'an memiliki 114 surah, mulai dari tiga ayat hingga 286 ayat. Urutannya dalam mushaf ditetapkan (tawqifi) oleh wahyu.",
+      "Al-Quran mempunyai 114 surah, antara tiga ayat hingga 286 ayat. Susunannya dalam mushaf ditetapkan melalui wahyu (tauqifi).",
   },
   {
-    prompt:
-      "Menjadi berapa bagian sama besar (juz) Al-Qur'an dibagi untuk memudahkan bacaan harian?",
+    prompt: "Al-Quran dibahagikan kepada berapa bahagian yang sama (juz) untuk bacaan harian?",
     options: ["7", "12", "30", "60"],
     explanation:
-      "Tiga puluh juz. Membaca satu juz setiap hari menyelesaikan seluruh Al-Qur'an dalam sebulan — cara klasik untuk khatam saat Ramadhan.",
+      "Tiga puluh juz. Membaca satu juz sehari akan mengkhatamkan seluruh Al-Quran dalam sebulan — cara klasik untuk khatam pada bulan Ramadan.",
   },
   {
-    prompt: "Surah manakah yang terpanjang dalam Al-Qur'an, dengan 286 ayat?",
-    options: ["Al-Fatihah", "Al-Baqarah", "Ya-Sin", "An-Nas"],
+    prompt: "Surah manakah yang paling panjang dalam Al-Quran, dengan 286 ayat?",
+    options: ["Al-Fatihah", "Al-Baqarah", "Yasin", "An-Nas"],
     explanation:
-      "Surah Al-Baqarah adalah yang terpanjang, dengan 286 ayat. Ini adalah surah Madani yang kaya akan hukum dan bimbingan.",
-  },
-  {
-    prompt: "Benar atau salah: surah Makki adalah surah yang diturunkan sebelum hijrah ke Madinah.",
-    options: ["Benar", "Salah"],
-    explanation:
-      "Surah Makki diturunkan sebelum Hijrah dan sering berfokus pada akidah dan tauhid; surah Madani diturunkan setelahnya dan sering menambahkan hukum serta bimbingan komunitas.",
+      "Surah al-Baqarah ialah surah yang paling panjang, dengan 286 ayat. Ia surah Madaniyah yang kaya dengan hukum dan panduan.",
   },
   {
     prompt:
-      "Surah manakah yang memuat ayat-ayat pertama yang diturunkan kepada Nabi ﷺ di Gua Hira?",
-    options: ["Al-Fatihah", "Al-Alaq (Iqra)", "Al-Baqarah", "Al-Ikhlas"],
+      "Betul atau salah: Surah Makkiyah ialah surah yang diturunkan sebelum Hijrah ke Madinah.",
+    options: ["Betul", "Salah"],
     explanation:
-      'Wahyu pertama adalah ayat-ayat awal Surah Al-Alaq (96): "Iqra — Bacalah, dengan (menyebut) nama Tuhanmu yang menciptakan."',
+      "Surah Makkiyah diturunkan sebelum Hijrah dan kerap memberi tumpuan kepada akidah dan tauhid; surah Madaniyah diturunkan selepasnya dan kerap menambah hukum serta panduan kemasyarakatan.",
   },
   {
-    prompt: "Al-Qur'an diturunkan selama kira-kira berapa tahun?",
+    prompt:
+      "Surah manakah yang mengandungi ayat-ayat terawal yang diturunkan kepada Nabi ﷺ di Gua Hira?",
+    options: ["Al-Fatihah", "Al-'Alaq (Iqra')", "Al-Baqarah", "Al-Ikhlas"],
+    explanation:
+      "Wahyu pertama ialah ayat-ayat pembukaan Surah al-'Alaq (96): 'Iqra' — Bacalah (wahai Muhammad) dengan nama Tuhanmu yang menciptakan (sekalian makhluk).'",
+  },
+  {
+    prompt: "Dalam tempoh kira-kira berapa tahunkah Al-Quran diturunkan?",
     options: ["3 tahun", "10 tahun", "23 tahun", "40 tahun"],
     explanation:
-      "Al-Qur'an diturunkan secara bertahap selama kurang lebih 23 tahun — 13 tahun di Makkah dan 10 tahun di Madinah — sebagai respons atas peristiwa dan kebutuhan.",
+      "Al-Quran diturunkan secara beransur-ansur dalam tempoh kira-kira 23 tahun — 13 tahun di Makkah dan 10 tahun di Madinah — sebagai respons kepada peristiwa dan keperluan.",
   },
   {
     prompt:
-      "Benar atau salah: penurunan Al-Qur'an dimulai pada bulan Ramadhan, pada malam Lailatul Qadar.",
-    options: ["Benar", "Salah"],
+      "Betul atau salah: Al-Quran mula diturunkan pada bulan Ramadan, pada malam Lailatulqadar.",
+    options: ["Betul", "Salah"],
     explanation:
-      "Allah berfirman bahwa Al-Qur'an diturunkan pada bulan Ramadhan (2:185) pada malam kemuliaan (97:1). Mencari malam itu memiliki keutamaan besar.",
+      "Allah berfirman bahawa Al-Quran diturunkan pada bulan Ramadan (2:185) pada Malam al-Qadar (97:1). Mencari malam itu mempunyai kelebihan yang besar.",
   },
   {
-    prompt: "Surah manakah yang dibaca di setiap rakaat shalat harian?",
-    options: ["Al-Ikhlas", "Al-Fatihah", "Al-Kautsar", "An-Nasr"],
+    prompt: "Surah manakah yang dibaca dalam setiap rakaat solat harian?",
+    options: ["Al-Ikhlas", "Al-Fatihah", "Al-Kauthar", "An-Nasr"],
     explanation:
-      'Surah Al-Fatihah — tujuh ayat — dibaca di setiap rakaat shalat. "Tidak sah shalat seseorang yang tidak membaca Ummul Kitab (Al-Fatihah)."',
+      "Surah al-Fatihah — tujuh ayat — dibaca dalam setiap rakaat solat. 'There is no prayer for the one who does not recite the Opening of the Book.' (maksud dalam bahasa Inggeris)",
   },
   {
-    prompt: 'Surah manakah satu-satunya yang tidak dimulai dengan "Bismillahir Rahmanir Rahim"?',
+    prompt: "Surah manakah satu-satunya yang tidak dimulakan dengan 'Bismillahir Rahmanir Rahim'?",
     options: ["Al-Fatihah", "At-Taubah", "Al-Ikhlas", "An-Nas"],
     explanation:
-      "Surah At-Taubah (9) adalah satu-satunya surah yang tidak dimulai dengan basmalah.",
+      "Surah at-Taubah (9) ialah satu-satunya surah yang tidak dimulakan dengan basmalah.",
   },
   {
-    prompt: "Kaidah mad dalam tajwid mengendalikan apa?",
+    prompt: "Dalam ilmu tajwid, apakah yang ditentukan oleh hukum mad?",
     options: [
-      "Melebur dua huruf menjadi satu",
-      "Memanjangkan bunyi sebuah harakat",
-      "Pantulan bergema pada huruf tertentu",
-      "Di mana berhenti dan bernapas",
+      "Mencantumkan dua huruf menjadi satu",
+      "Memanjangkan bunyi baris",
+      "Lantunan bergema pada huruf-huruf tertentu",
+      "Tempat untuk berhenti dan bernafas",
     ],
     explanation:
-      "Mad berarti memanjangkan bunyi vokal pada huruf-huruf mad — alif (ا), wau (و), dan ya (ي) — hingga sejumlah harakat tertentu.",
+      "Mad bermaksud memanjangkan bunyi baris pada huruf-huruf mad — alif (ا), wau (و) dan ya (ي) — mengikut bilangan harakat yang ditetapkan.",
   },
   {
     prompt:
-      "Qalqalah adalah pantulan bergema ringan yang diberikan pada kumpulan huruf apa saja ketika huruf itu mati?",
+      "Qalqalah ialah 'lantunan' bergema yang ringan pada kumpulan huruf manakah apabila huruf itu bersukun?",
     explanation:
-      'Lima huruf qalqalah terhimpun dalam frasa "qathbu jadin" — ق ط ب ج د — yang diberi pantulan bersih ketika mati.',
+      "Lima huruf qalqalah dihimpunkan dalam ungkapan قُطْبُ جَدٍ — ق ط ب ج د — yang diberi lantunan yang bersih apabila bersukun.",
   },
   {
-    prompt: 'Kata Al-Qur\\\'an yang sering muncul, "Rabb", berarti:',
-    options: ["Rahmat", "Tuhan, pemilik, pemelihara", "Kitab", "Taman"],
+    prompt: "Perkataan Al-Quran yang kerap muncul, 'Rabb' (رَبّ), bermaksud:",
+    options: ["Rahmat", "Tuhan, Pemilik, Pemelihara", "Kitab", "Taman"],
     explanation:
-      'Rabb berarti Tuhan, pemilik, dan pemelihara — Dia yang menciptakan, memiliki, memelihara, dan mengatur. "Rabbana" berarti "Tuhan kami".',
+      "'Rabb' bermaksud Tuhan, Pemilik dan Pemelihara — Dia yang mencipta, memiliki, memelihara dan mentadbir. 'Rabbana' bermaksud 'Wahai Tuhan kami'.",
   },
   {
-    prompt: 'Kata "jannah" merujuk pada:',
-    options: ["Api", "Taman surga", "Shalat", "Puasa"],
+    prompt: "Perkataan 'Jannah' (جَنَّة) merujuk kepada:",
+    options: ["Api neraka", "Taman syurga", "Solat", "Puasa"],
     explanation:
-      'Jannah berarti taman — tempat balasan yang abadi, "surga-surga yang mengalir sungai-sungai di bawahnya".',
+      "'Jannah' bermaksud taman — tempat balasan yang kekal abadi, 'syurga yang mengalir di bawahnya beberapa sungai'.",
   },
   {
-    prompt: "Nabi manakah yang bersama putranya Ismail membangun fondasi Ka'bah di Makkah?",
+    prompt: "Nabi manakah yang meninggikan asas Kaabah di Makkah bersama anaknya, Nabi Ismail?",
     options: ["Nuh", "Musa", "Ibrahim", "Yusuf"],
     explanation:
-      'Ibrahim (Khalilullah, kekasih Allah) dan Ismail membangun Ka\'bah, sambil berdoa "Ya Tuhan kami, terimalah dari kami" (2:127).',
+      "Nabi Ibrahim (Khalilullah, kekasih Allah) dan Nabi Ismail membina Kaabah sambil berdoa: 'Wahai Tuhan kami! Terimalah daripada kami (amal kami)' (2:127).",
   },
   {
     prompt:
-      "Nabi manakah yang berbicara langsung dengan Allah, menghadapi Fir'aun, dan membawa Bani Israil melintasi laut yang terbelah?",
+      "Nabi manakah yang berkata-kata secara langsung dengan Allah, berdepan dengan Firaun, dan memimpin Bani Israel menyeberangi laut yang terbelah?",
     options: ["Isa", "Musa", "Adam", "Yunus"],
     explanation:
-      "Musa (Kalimullah) berbicara dengan Allah, diutus kepada Fir'aun, dan laut terbelah atas perintah Allah agar kaumnya menyeberang dengan selamat.",
+      "Nabi Musa (Kalimullah) berkata-kata dengan Allah, diutus kepada Firaun, dan dengan perintah Allah laut terbelah supaya kaumnya dapat menyeberang dengan selamat.",
   },
   {
     prompt:
-      "Surah atau bagian pendek manakah yang akan kamu niatkan untuk dipahami dan dihafal selanjutnya, insya Allah?",
+      "Surah atau petikan pendek manakah yang akan anda usahakan untuk fahami dan hafal seterusnya, insya-Allah?",
     explanation:
-      "Langkah-langkah kecil yang konsisten membangun hubungan seumur hidup dengan Kitab Allah. Pilih bagianmu, pelajari maknanya, dan ulangi sesering mungkin.",
+      "Langkah kecil yang konsisten membina hubungan sepanjang hayat dengan Kitab Allah. Pilih bahagian anda, pelajari maknanya, dan ulang kajinya dengan kerap.",
   },
 ];

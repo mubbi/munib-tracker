@@ -26,38 +26,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Seorang mukmin harus memegang dua kebenaran sekaligus. Pertama, Surga itu nyata, dekat, dan layak diperjuangkan dengan segenap usaha — Al-Qur'an memerintahkan kita untuk 'berlomba-lomba' menujunya (Qur'an 3:133). Kedua, tidak ada seorang pun yang meraih Surga semata-mata dengan amalnya; masuknya pada akhirnya adalah karena rahmat Allah, dengan iman yang tulus dan amal saleh sebagai sarana yang Dia pilih untuk diterima. Keseimbangan ini menjaga harapan tetap hidup tanpa menumbuhkan kesombongan: kita berusaha sekuat tenaga, lalu menyerahkan diri sepenuhnya pada rahmat-Nya.",
       "Secara praktis, biarkan kenyataan tentang Jannah membentuk pilihan harianmu. Ketika ibadah terasa berat atau godaan terasa kuat, ingatlah apa yang menanti dan apa yang dipertaruhkan. Mintalah Surga kepada Allah dengan sering, berusahalah untuknya secara konsisten dengan cara-cara kecil yang berkelanjutan, dan biarkan kerinduan padanya melembutkan hatimu dalam kehidupan yang fana ini.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Bukanlah menghadapkan wajahmu ke arah timur dan barat itu suatu kebajikan, akan tetapi sesungguhnya kebajikan itu ialah beriman kepada Allah, hari kemudian, malaikat-malaikat, kitab-kitab, nabi-nabi…",
-      },
-      {
-        excerpt:
-          "Allah menjanjikan kepada laki-laki dan perempuan yang mukmin, (akan mendapat) surga yang di bawahnya mengalir sungai-sungai, kekal mereka di dalamnya, dan (mendapat) tempat-tempat yang bagus di surga 'Adn. Dan keridaan Allah adalah lebih besar.",
-      },
-      {
-        excerpt:
-          "Seorang pun tidak mengetahui berbagai nikmat yang menyenangkan hati yang disembunyikan (untuk mereka) sebagai balasan atas apa yang telah mereka kerjakan.",
-      },
-      {
-        excerpt:
-          "Mereka memperoleh di dalamnya apa yang mereka kehendaki, dan pada sisi Kami ada tambahannya.",
-      },
-      {
-        excerpt:
-          "Sesungguhnya orang-orang yang beriman dan beramal saleh, bagi mereka adalah surga Firdaus menjadi tempat tinggal.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah berfirman: Aku telah menyiapkan bagi hamba-hamba-Ku yang saleh apa yang belum pernah dilihat mata, belum pernah didengar telinga, dan belum pernah terlintas di hati manusia.",
-      },
-      {
-        excerpt:
-          "Allah Yang Mahatinggi berfirman: Aku telah menyiapkan bagi hamba-hamba-Ku yang saleh apa yang belum pernah dilihat mata, belum pernah didengar telinga, dan belum pernah sama sekali terlintas di hati manusia.",
-      },
-    ],
+    quran: [{}, {}, {}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{ label: "Meminta Al-Firdaus" }, { label: "Zikir pagi & petang" }],
   },
   {
@@ -71,30 +41,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmah di balik ini sungguh indah. Jika kita mengetahui posisi kita secara pasti, sebagian akan menjadi lengah dan sebagian lagi akan berputus asa. Sebaliknya, kita diajarkan untuk terus memandang kepada Allah, terus berusaha, dan terus berharap. Orang beriman berlomba dalam kebaikan — 'maka hendaklah orang yang berlomba-lomba berlomba dalam hal ini' — sambil menyerahkan penilaian akhir kepada Yang Mahaadil.",
       "Maka daripada membidik tingkatan bernomor, bidiklah yang tertinggi dan biarkan Allah menempatkanmu di mana Dia kehendaki. Nabi ﷺ mengajarkan para sahabat untuk tidak puas dengan permintaan yang biasa-biasa saja, tetapi meminta secara khusus Al-Firdaus, puncak tertinggi Surga.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan masing-masing orang memperoleh derajat-derajat (seimbang) dengan apa yang dikerjakannya.",
-      },
-      {
-        excerpt:
-          "Perhatikanlah bagaimana Kami lebihkan sebagian dari mereka atas sebagian (yang lain). Dan sesungguhnya kehidupan akhirat lebih tinggi tingkatnya dan lebih besar keutamaannya.",
-      },
-      {
-        excerpt:
-          "Dan barang siapa yang menaati Allah dan Rasul-Nya, mereka itu akan bersama-sama dengan orang-orang yang dianugerahi nikmat oleh Allah, yaitu para nabi, para siddiqin, orang-orang yang mati syahid, dan orang-orang saleh. Dan mereka itulah teman yang sebaik-baiknya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Surga memiliki seratus tingkat yang Allah siapkan bagi orang-orang yang berjuang di jalan-Nya. Jarak antara setiap dua tingkat bagaikan jarak antara langit dan bumi. Maka apabila kalian meminta kepada Allah, mintalah Al-Firdaus, karena ia adalah bagian Surga yang terbaik dan tertinggi.",
-      },
-      {
-        excerpt:
-          "Apabila kalian meminta kepada Allah, mintalah Al-Firdaus, karena ia adalah bagian Surga yang tertinggi dan pertengahan Surga, dan darinyalah mengalir sungai-sungai Surga, dan di atasnya adalah Arsy Yang Maha Pengasih.",
-      },
-    ],
+    quran: [{}, {}, {}],
+    hadith: [{}, {}],
     appLinks: [{ label: "Minta Al-Firdaus" }],
   },
   {
@@ -108,16 +56,7 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Namun anugerah terakhir dan penentu selalu adalah rahmat Allah. Dalam napas yang sama saat kita membidik yang tertinggi, kita mengingat sabda Nabi ﷺ sendiri: tidak seorang pun masuk Surga semata-mata karena amalnya — bahkan Nabi ﷺ sendiri pun tidak — kecuali bahwa Allah menyelimutinya dengan rahmat-Nya. Inilah keseimbangan sempurna yang dipegang orang beriman: harapan dan cita-cita yang tinggi di satu sisi, kerendahan hati yang tulus di sisi lain.",
       "Maka jadikanlah Al-Firdaus bagian tetap dari doamu — dalam sujud, di sepertiga malam terakhir, dan sebelum tidur — sementara engkau diam-diam berusaha sebaik mungkin setiap hari dan bersandar sepenuhnya pada rahmat Tuhanmu untuk selebihnya.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Apabila kalian meminta kepada Allah, mintalah Al-Firdaus, karena ia adalah bagian Surga yang tertinggi dan pertengahan Surga, dan darinyalah mengalir sungai-sungai Surga, dan di atasnya adalah Arsy Yang Maha Pengasih.",
-      },
-      {
-        excerpt:
-          "Tidak seorang pun di antara kalian yang masuk Surga semata-mata karena amalnya. Para sahabat bertanya: Tidak juga engkau, wahai Rasulullah? Beliau bersabda: Tidak juga aku, kecuali bahwa Allah menyelimutiku dengan rahmat-Nya.",
-      },
-    ],
+    hadith: [{}, {}],
     actions: [
       "Mintalah Al-Firdaus kepada Allah dalam doamu, terutama saat sujud dan sebelum tidur.",
       "Sempurnakan apa yang wajib atasmu, lalu perbanyak ibadah sunah.",
@@ -136,22 +75,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Dosa-dosa yang disebut 'kecil' pun penting dan tidak boleh pernah dianggap remeh. Gibah, dusta, kesombongan, memutus silaturahmi, dan kelalaian perlahan-lahan mengikis hati dan akhlak. Nabi ﷺ memperingatkan bahwa dosa-dosa kecil yang menumpuk dapat membinasakan seseorang sebagaimana ranting-ranting kecil yang dikumpulkan dapat memasak satu hidangan penuh. Masing-masing memerlukan kembali kepada Allah tersendiri.",
       "Intinya adalah harapan dalam tindakan: jangan pernah biarkan besarnya suatu dosa meyakinkanmu bahwa tobat itu sia-sia. Kembalilah kepada Allah begitu engkau tergelincir, ikuti perbuatan buruk dengan perbuatan baik untuk menghapusnya, dan jagalah pintu istigfar terbuka setiap hari. Rahmat-Nya selalu lebih besar daripada kesalahanmu.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya Allah tidak akan mengampuni dosa syirik, dan Dia mengampuni segala dosa yang selain dari (syirik) itu, bagi siapa yang dikehendaki-Nya.",
-      },
-      {
-        excerpt:
-          "Katakanlah: Wahai hamba-hamba-Ku yang melampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni dosa-dosa semuanya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Perjanjian antara kami dan mereka adalah salat; barang siapa meninggalkannya, ia telah kafir.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     appLinks: [{ label: "Pelacak Salah" }, { label: "Qaza & mengganti ibadah yang terlewat" }],
     disclaimer:
       "Daftar dosa besar dalam fikih berbeda-beda antar ulama, dan penilaian atas individu adalah wewenang orang yang berilmu. Ini adalah pengingat umum untuk bertobat — bukan vonis pribadi. Konsultasikan situasimu dengan ulama yang tepercaya.",
@@ -166,16 +91,7 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Di luar individu-individu yang disebutkan namanya, nas-nas menggambarkan kategori-kategori yang diberi kabar gembira: orang-orang yang jujur dan sabar, mereka yang mati sebagai syahid sejati di jalan Allah sesuai syariat Islam, dan mereka yang kata-kata terakhirnya dalam hidup ini adalah kalimat tauhid, la ilaha illallah. Setiap sifat menunjuk pada suatu kenyataan batin — keikhlasan, pengorbanan, atau hati yang terpaut kepada Allah pada napas terakhir — bukan sekadar label lahiriah.",
       "Pelajaran bagi kita bukanlah merasa aman karena keterkaitan, ataupun mengklaim derajat-derajat ini untuk diri kita sendiri, melainkan agar terinspirasi. Biarkan teladan mereka menarik kita ke atas: cintailah apa yang mereka cintai, berjuanglah sebagaimana mereka berjuang, dan ubahlah kekaguman itu menjadi doa dan amal, memohon di atas segalanya kepada Allah husnul khatimah — akhir yang baik.",
     ],
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakar di Surga, Umar di Surga, Utsman di Surga, Ali di Surga, Thalhah di Surga, Zubair di Surga, Abdurrahman bin Auf di Surga, Sa'ad di Surga, Sa'id bin Zaid di Surga, dan Abu Ubaidah bin Al-Jarrah di Surga.",
-      },
-      {
-        excerpt:
-          "Barang siapa yang kata-kata terakhirnya adalah 'Tiada tuhan selain Allah' akan masuk Surga.",
-      },
-    ],
+    hadith: [{}, {}],
     disclaimer:
       "Kabar gembira dalam hadis merujuk pada mereka yang disebutkan namanya atau kategori yang digambarkan. Ini tidak menggantikan kebutuhan akan iman, amal, dan akhir yang baik bagi diri seseorang. Allah yang paling mengetahui.",
   },
@@ -190,22 +106,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmah menjadikan tauhid sebagai fondasi adalah bahwa ia membebaskan hati. Orang yang menyembah Allah semata dibebaskan dari rasa takut kepada makhluk, dari mengejar restu semua orang, dan dari keletihan melayani banyak tuan. Hidupnya memperoleh satu arah yang jelas: meridakan Yang menciptakannya.",
       "Secara praktis, pelajarilah akidah yang benar dari ulama yang tepercaya, murnikan ibadahmu dari syirik dan kemunafikan, dan periksalah niatmu sebelum bertindak. Langkah pertama ini bukan opsional atau lanjutan — di sinilah setiap jalan menuju Surga dimulai.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan sesungguhnya telah diwahyukan kepadamu dan kepada (nabi-nabi) yang sebelummu: Jika kamu mempersekutukan (Allah), niscaya akan hapuslah amalmu dan tentulah kamu termasuk orang-orang yang merugi.",
-      },
-      {
-        excerpt:
-          "Padahal mereka tidak disuruh kecuali supaya menyembah Allah dengan memurnikan ketaatan kepada-Nya dalam (menjalankan) agama.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sesungguhnya setiap amal tergantung niatnya, dan setiap orang akan mendapatkan sesuai dengan apa yang ia niatkan.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Pelajari dasar-dasar tauhid dari ulama yang tepercaya.",
       "Perbarui niatmu sebelum beribadah.",
@@ -223,26 +125,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmah mendalam dari salah adalah transformasi. Salah yang dilaksanakan dengan benar mencegah seseorang dari perbuatan keji dan mungkar; ia adalah pengatur ulang berulang yang menarik kembali hati kepada Allah di tengah hari yang sibuk. Karena itu, meninggalkan salah tanpa uzur yang sah adalah perkara serius yang memerlukan tobat yang tulus dan mengqada-nya. Salah sunah dan rawatib — salah sunah sebelum dan sesudah yang wajib — menambahkan cahaya lebih dan mengangkat derajat.",
       "Secara praktis: jagalah lima waktu salah pada waktunya sebagai prioritas utamamu, gantilah (qaza) salah yang terlewat, dan tambahkan salah sunah yang bisa kau lakukan secara konsisten. Jika salahmu membaik, seluruh ibadahmu yang lain cenderung membaik bersamanya.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya beruntunglah orang-orang yang beriman, (yaitu) orang-orang yang khusyuk dalam salatnya.",
-      },
-      {
-        excerpt:
-          "Kecuali orang-orang yang mengerjakan salat, yang mereka tetap setia melaksanakan salatnya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Perkara pertama yang akan dihisab dari seorang hamba pada Hari Kiamat adalah salahnya. Jika ia baik, maka ia beruntung dan berhasil; dan jika ia rusak, maka ia gagal dan merugi.",
-      },
-      {
-        excerpt:
-          "Seandainya ada sungai di depan pintu salah seorang dari kalian, lalu ia mandi di dalamnya lima kali sehari, apakah masih tersisa kotoran padanya? Para sahabat menjawab: Tidak. Beliau bersabda: Itulah perumpamaan lima waktu salah — dengannya Allah menghapus dosa-dosa.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Jagalah lima waktu salah pada waktunya.",
       "Qadalah salah yang terlewat dengan tulus.",
@@ -266,22 +150,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmahnya sangat dalam: dosa tidak harus menjadi akhir dari kisah seseorang. 'Allah akan mengganti kejahatan mereka dengan kebajikan' (Qur'an 25:70) — tobat yang tulus dapat mengubah catatan kegagalan menjadi keberhasilan, dan dapat mengubah keterjatuhan menjadi awal baru yang membawa seseorang lebih dekat kepada Allah daripada sebelumnya. Putus asa setelah berbuat dosa itu sendiri adalah jebakan setan; harapan pada rahmat Allah adalah jawaban orang beriman.",
       "Secara praktis: jangan menunda tobat walau sehari — kembalilah begitu engkau tergelincir. Ikuti setiap perbuatan buruk dengan perbuatan baik untuk menghapusnya, dan jagalah istigfar terus mengalir di lidahmu sepanjang hari, sebagaimana Nabi ﷺ memohon ampunan berkali-kali setiap hari meskipun beliau telah diampuni.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, bertobatlah kepada Allah dengan tobat yang semurni-murninya, mudah-mudahan Tuhanmu akan menghapus kesalahan-kesalahanmu dan memasukkanmu ke dalam surga yang mengalir di bawahnya sungai-sungai.",
-      },
-      {
-        excerpt:
-          "Kecuali orang-orang yang bertobat, beriman, dan mengerjakan amal saleh; maka Allah akan mengganti kejahatan mereka dengan kebajikan. Dan Allah Maha Pengampun lagi Maha Penyayang.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Allah lebih bergembira dengan tobat hamba-Nya daripada seseorang di antara kalian yang, setelah kehilangan untanya di padang tandus, tiba-tiba menemukannya kembali.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Bertobatlah segera saat engkau berbuat dosa — jangan menunda.",
       "Ikuti dosa dengan perbuatan baik untuk menghapusnya.",
@@ -300,19 +170,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Namun tujuan yang lebih dalam bukanlah bacaan demi bacaan itu sendiri, melainkan transformasi. Allah memerintahkan kita untuk 'membaca Al-Qur'an dengan tartil' (Qur'an 73:4) justru agar maknanya meresap dan membentuk ulang cara kita berpikir, merasa, dan berperilaku. Al-Qur'an diturunkan untuk dijalani, bukan sekadar dibaca; para sahabat mempelajari sepuluh ayat dan tidak melangkah maju sampai mereka memahaminya dan mengamalkannya.",
       "Secara praktis: bacalah sebagian setiap hari, walau hanya beberapa ayat, tetapi bacalah dengan perenungan. Hafalkan surah-surah baru atau jagalah yang sudah kau hafal, dan — yang terpenting — amalkan apa yang kau pelajari sebelum bergegas mempelajari lebih banyak lagi.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Sesungguhnya orang-orang yang selalu membaca kitab Allah dan mendirikan salat dan menafkahkan sebagian dari rezeki yang Kami anugerahkan kepada mereka dengan diam-diam dan terang-terangan, mereka itu mengharapkan perniagaan yang tidak akan merugi, agar Allah menyempurnakan kepada mereka pahalanya dan menambah kepada mereka dari karunia-Nya.",
-      },
-      { excerpt: "Dan bacalah Al-Qur'an itu dengan perlahan-lahan (tartil)." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Akan dikatakan kepada sahabat Al-Qur'an: Bacalah dan naiklah, dan bacalah sebagaimana engkau dahulu membaca di dunia, karena kedudukanmu berada pada ayat terakhir yang engkau baca.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Bacalah setiap hari — walau beberapa ayat dengan perenungan.",
       "Hafalkan surah-surah baru atau jagalah yang sudah kau hafal.",
@@ -335,22 +194,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmah zikir adalah bahwa ia menjaga hubungan dengan Allah tetap hidup di sela-sela amal ibadah formal. Lidah yang basah dengan zikir dan — yang lebih penting — hati yang mengingat Allah dalam pilihan-pilihan hariannya, berhenti sejenak sebelum marah, sebelum berbelanja, sebelum mengambil keputusan — itulah tujuan sesungguhnya. Zikir tidak dimaksudkan untuk tinggal di bibir saja; ia dimaksudkan untuk mengarahkan kehidupan.",
       "Secara praktis: jadikan zikir pagi dan petang sebagai kebiasaan harian, jagalah sebagian sederhana tasbih, istigfar, atau selawat tetap mengalir di waktu-waktu luang, dan ingatlah Allah terutama sebelum tidur dan setelah bangun. Konsistensi dalam sedikit lebih baik daripada semangat sesaat dalam jumlah banyak.",
     ],
-    quran: [
-      {
-        excerpt:
-          "(Yaitu) orang-orang yang beriman dan hati mereka menjadi tenteram dengan mengingat Allah. Ingatlah, hanya dengan mengingat Allah hati menjadi tenteram.",
-      },
-      {
-        excerpt:
-          "Wahai orang-orang yang beriman, berzikirlah (dengan menyebut nama) Allah, zikir yang sebanyak-banyaknya. Dan bertasbihlah kepada-Nya pagi dan petang.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Ada dua kalimat yang ringan di lidah, berat di timbangan, dan dicintai oleh Yang Maha Pengasih: subhanallahi wa bihamdihi, subhanallahil-'azhim.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Selesaikan zikir pagi dan petang setiap hari.",
       "Gunakan penghitung tasbih untuk istigfar atau selawat.",
@@ -369,22 +214,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmah sedekah adalah bahwa ia bekerja pada pemberi sama besarnya seperti pada penerima. Ia melonggarkan cengkeraman keserakahan dari hati, membangun rasa iba, memperkuat ikatan masyarakat, dan mengingatkan orang kaya bahwa ia adalah pemegang amanah, bukan pemilik sejati. Dan Islam meluaskan definisi sedekah sehingga tidak seorang pun terkecualikan: Nabi ﷺ mengajarkan bahwa senyum kepada saudaramu, perkataan yang bermanfaat, dan bahkan menyingkirkan benda berbahaya dari jalan adalah bentuk-bentuk sedekah.",
       "Secara praktis: jika engkau wajib berzakat, hitunglah dan bayarlah dengan akurat; berilah sedekah secara rutin, sekecil apa pun, agar memberi menjadi kebiasaan bukan sekadar peristiwa; dan carilah sedekah jariah yang bertahan lama — membiayai seorang penuntut ilmu, membangun sumur, atau mendukung sebuah masjid — yang terus memberimu pahala jauh setelah engkau tiada.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Perumpamaan (nafkah yang dikeluarkan oleh) orang-orang yang menafkahkan hartanya di jalan Allah adalah serupa dengan sebutir benih yang menumbuhkan tujuh bulir, pada tiap-tiap bulir seratus biji. Allah melipatgandakan (ganjaran) bagi siapa yang Dia kehendaki.",
-      },
-      {
-        excerpt:
-          "Dan infakkanlah sebagian dari apa yang telah Kami berikan kepadamu sebelum datang kematian kepada salah seorang di antara kamu, lalu ia berkata: Ya Tuhanku, mengapa Engkau tidak menangguhkan (kematian)ku sampai waktu yang dekat, yang menyebabkan aku dapat bersedekah dan aku termasuk orang-orang yang saleh.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Apabila seorang manusia meninggal dunia, maka terputuslah amalnya kecuali tiga perkara: sedekah jariah, ilmu yang bermanfaat, atau anak saleh yang mendoakannya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Hitung dan bayarlah zakat jika engkau wajib atasnya.",
       "Berilah sedekah rutin, walau sedikit.",
@@ -403,23 +234,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmahnya adalah bahwa Islam bukan hanya hubungan pribadi antara seseorang dengan Allah; ia dimaksudkan untuk meluap ke dalam cara seseorang memperlakukan semua orang di sekitarnya. Seorang ahli ibadah yang salatnya tidak melembutkan sikapnya telah kehilangan intinya, sedangkan akhlak yang baik adalah dakwah itu sendiri, menarik orang menuju keimanan melalui teladan hidup. Inilah sebabnya nas-nas berulang kali memasangkan ibadah kepada Allah dengan keunggulan terhadap makhluk-Nya.",
       "Secara praktis: kerjakan satu sifat pada satu waktu — tahanlah lidahmu saat tersulut amarah, maafkanlah mereka yang menzalimimu, perbaikilah hubungan yang telah putus, dan tepatilah janjimu meski harus membayar mahal. Perenungan singkat setiap hari setelah salah tentang bagaimana engkau memperlakukan orang hari itu adalah cara sederhana untuk terus berkembang.",
     ],
-    quran: [
-      { excerpt: "Dan sesungguhnya engkau benar-benar berbudi pekerti yang agung." },
-      {
-        excerpt:
-          "(Yaitu) orang-orang yang menafkahkan (hartanya), baik di waktu lapang maupun sempit, dan orang-orang yang menahan amarahnya dan memaafkan (kesalahan) orang. Allah menyukai orang-orang yang berbuat kebajikan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tidak ada sesuatu pun yang lebih berat di timbangan seorang mukmin pada Hari Kiamat daripada akhlak yang baik. Dan sesungguhnya Allah membenci orang yang berkata keji dan kasar.",
-      },
-      {
-        excerpt:
-          "Orang beriman yang paling sempurna imannya adalah mereka yang paling baik akhlaknya, dan sebaik-baik kalian adalah yang paling baik terhadap istri-istrinya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Berlatihlah bersabar ketika tersulut.",
       "Maafkanlah orang lain dan perbaikilah hubungan yang putus.",
@@ -435,72 +251,52 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       {
         title: "Kejujuran",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-        },
+        quran: {},
       },
       {
         title: "Kesabaran",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-        },
+        quran: {},
       },
       {
         title: "Menahan marah",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-        },
+        quran: {},
       },
       {
         title: "Memaafkan",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-        },
+        quran: {},
       },
       {
         title: "Rendah hati",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-        },
+        quran: {},
       },
       {
         title: "Amanah",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-        },
+        quran: {},
       },
       {
         title: "Berbakti kepada orang tua",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-        },
+        quran: {},
       },
       {
         title: "Ucapan baik",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        hadith: {
-          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
-        },
+        hadith: {},
       },
       {
         title: "Senyuman",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        hadith: {
-          excerpt: "Dua kalimat ringan di lisan, berat di timbangan.",
-        },
+        hadith: {},
       },
       {
         title: "Keadilan",
         summary: "Berpeganglah pada Al-Qur’an dan Sunnah, lalu bertobatlah hari ini.",
-        quran: {
-          excerpt: "Allah akan menegakkan timbangan keadilan pada Hari Kiamat.",
-        },
+        quran: {},
       },
     ],
     characterDestroyers: [
@@ -541,23 +337,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmahnya adalah bahwa amal tanpa ilmu itu buta, dan ilmu tanpa amal itu tidak berbuah. Ilmu yang benar melindungi seseorang dari bidah dan kesesatan, memperdalam keikhlasan, dan memberinya kemampuan untuk memberi manfaat bukan hanya bagi dirinya sendiri tetapi juga bagi orang lain. Para ulama Islam selalu memperingatkan dua bahaya: beramal tanpa ilmu, dan berilmu tanpa beramal.",
       "Secara praktis: bertekadlah untuk mempelajari sesuatu yang bermanfaat secara rutin — satu ayat, satu hadis, satu masalah yang engkau perlukan untuk ibadah harianmu. Mulailah dari dasar-dasar akidah, salah, bersuci, dan larangan-larangan besar, lalu perdalamlah secara bertahap. Bagikan apa yang kau pelajari dengan rendah hati, dan selalu amalkan lebih dahulu pada dirimu sendiri.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Katakanlah: Apakah sama orang-orang yang mengetahui dengan orang-orang yang tidak mengetahui? Sesungguhnya orang yang berakallah yang dapat menerima pelajaran.",
-      },
-      { excerpt: "Dan katakanlah: Ya Tuhanku, tambahkanlah kepadaku ilmu pengetahuan." },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Barang siapa menempuh suatu jalan untuk mencari ilmu, Allah akan memudahkan baginya jalan menuju Surga.",
-      },
-      {
-        excerpt:
-          "Apabila seorang manusia meninggal dunia, maka terputuslah amalnya kecuali tiga perkara: sedekah jariah, ilmu yang bermanfaat, atau anak saleh yang mendoakannya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Pelajari sesuatu yang bermanfaat setiap minggu.",
       "Bagikan ilmu tanpa kesombongan.",
@@ -576,18 +357,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmahnya adalah bahwa amalan sunah menjaga iman tetap hidup dan bertumbuh. Kewajiban menjaga fondasi, tetapi amalan sukarela adalah tempat hati meluas, tempat ibadah pribadi yang tidak dilihat siapa pun membangun keikhlasan, dan tempat seseorang melatih dirinya untuk ujian-ujian hidup yang lebih berat. Ini juga suatu rahmat bahwa amal-amal ini bersifat opsional — Allah membuka banyak pintu agar setiap orang dapat melewati pintu-pintu yang sesuai dengannya.",
       "Secara praktis, kuncinya adalah keberlanjutan, bukan intensitas. Nabi ﷺ mengajarkan bahwa amal yang paling dicintai Allah adalah yang paling konsisten, walau sedikit. Pilihlah beberapa amalan sunah yang benar-benar bisa kau pertahankan — dua rakaat tahajud, satu hari puasa seminggu, satu bagian tetap Al-Qur'an — daripada lonjakan semangat ambisius yang padam dalam beberapa hari.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Lambung mereka jauh dari tempat tidurnya, sedang mereka berdoa kepada Tuhannya dengan rasa takut dan penuh harap, dan mereka menafkahkan sebagian dari rezeki yang Kami berikan kepada mereka. Seorang pun tidak mengetahui berbagai nikmat yang menyenangkan hati yang disembunyikan (untuk mereka) sebagai balasan atas apa yang telah mereka kerjakan.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Hamba-Ku tidak mendekat kepada-Ku dengan sesuatu yang lebih Aku cintai daripada apa yang telah Aku wajibkan atasnya. Dan hamba-Ku terus mendekat kepada-Ku melalui amalan-amalan sunah hingga Aku mencintainya.",
-      },
-    ],
+    quran: [{}],
+    hadith: [{}],
     actions: [
       "Salatlah tahajud walau hanya dua rakaat.",
       "Berpuasalah sunah bila mampu.",
@@ -610,22 +381,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmah di sini mengubah seluruh makna penderitaan. Ujian bukanlah hukuman secara otomatis; bagi orang beriman yang meresponsnya dengan baik, ujian bisa menjadi penyucian yang menghapus dosa dan pengangkatan yang menaikkan derajat. Nabi ﷺ mengajarkan bahwa tidak ada kelelahan, penyakit, kekhawatiran, bahkan tusukan duri yang menimpa seorang muslim melainkan Allah menghapus sebagian dosanya melaluinya. Ini mengubah momen-momen tersulit dalam hidup menjadi peluang, bukan semata kerugian.",
       "Secara praktis: ketika musibah menimpa, ucapkanlah kata-kata yang Allah ajarkan — 'inna lillahi wa inna ilaihi raji'un' (sesungguhnya kami milik Allah dan kepada-Nya kami kembali) — dan tahanlah lidahmu dari keluhan yang menolak ketetapan-Nya. Di saat lapang, hitunglah nikmatmu dengan suara keras dan syukurilah Allah untuk setidaknya beberapa nikmat setiap hari; menyebutnya menjaga hati tetap lembut dan bersyukur.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan sampaikanlah kabar gembira kepada orang-orang yang sabar, (yaitu) orang-orang yang apabila ditimpa musibah, mereka mengucapkan: Sesungguhnya kami milik Allah dan kepada-Nya kami kembali. Mereka itulah yang mendapat keberkatan yang sempurna dan rahmat dari Tuhan mereka, dan mereka itulah orang-orang yang mendapat petunjuk.",
-      },
-      {
-        excerpt:
-          "Jika kamu bersyukur, pasti akan Kutambah (nikmat) kepadamu, dan jika kamu mengingkari (nikmat-Ku), maka sesungguhnya azab-Ku sangat pedih.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Sungguh menakjubkan perkara orang beriman, seluruh perkaranya adalah baik. Jika kemudahan menimpanya, ia bersyukur dan itu baik baginya; dan jika kesulitan menimpanya, ia bersabar dan itu pun baik baginya. Ini tidak berlaku bagi siapa pun kecuali orang beriman.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Ucapkanlah 'inna lillahi wa inna ilaihi raji'un' ketika diuji.",
       "Syukurilah Allah dengan suara keras untuk tiga nikmat setiap hari.",
@@ -643,22 +400,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmah mengaitkan pahala yang begitu luas dengan membimbing orang lain adalah bahwa ini menjadikan setiap mukmin sumber kebaikan yang berkelanjutan. Ini juga melindungi iman si penyeru sendiri: mengajak orang lain kepada salah, kejujuran, dan ibadah adalah pengingat untuk berpegang teguh padanya sendiri. Dan ini mengikat umat dalam kepedulian bersama, bukan kelalaian bersama.",
       "Secara praktis, mulailah dari rumahmu sendiri. Perbaiki dan ajarkan keluargamu — pasangan, anak, saudara — karena mereka adalah tanggung jawabmu yang pertama dan paling bertahan lama. Bagikan ilmu yang bermanfaat dengan kebaikan, bantulah seseorang belajar salah atau membaca Al-Qur'an, dan ingatlah bahwa kehidupan berakhlak baik dan beribadah secara konsisten seringkali merupakan dakwah paling efektif.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Serulah (manusia) kepada jalan Tuhanmu dengan hikmah dan pelajaran yang baik, dan bantahlah mereka dengan cara yang lebih baik.",
-      },
-      {
-        excerpt:
-          "Siapakah yang lebih baik perkataannya daripada orang yang menyeru kepada Allah, mengerjakan amal saleh, dan berkata: Sesungguhnya aku termasuk orang-orang yang berserah diri?",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang membimbing seseorang kepada kebaikan akan mendapat pahala seperti orang yang mengamalkannya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}],
     actions: [
       "Bagikan ilmu yang bermanfaat dengan kebaikan.",
       "Bantulah seseorang belajar salah atau membaca Al-Qur'an.",
@@ -676,26 +419,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Hikmah dari amal-amal ini adalah bahwa ia memperluas catatan seseorang melampaui masa hidupnya. Tahun-tahun aktif seorang mukmin singkat, tetapi sumur yang ia gali atau anak yang ia besarkan dengan baik dapat terus mendatangkan pahala baginya selama berabad-abad. Islam dengan demikian mendorong visi jangka panjang: bukan hanya memikirkan salah hari ini, tetapi juga memikirkan kebaikan apa yang akan terus mengalir darimu setelah engkau tiada.",
       "Secara praktis: jika engkau mampu, rencanakanlah haji atau umrah dengan sungguh-sungguh, bukan terus-menerus menundanya. Curahkan usaha nyata untuk iman dan akhlak keluargamu, karena mereka adalah warisanmu yang paling bertahan lama. Dan pilihlah setidaknya satu proyek amal yang bertahan lama untuk didukung — ilmu, air, tempat tinggal, atau anak yatim — agar amal kebaikanmu terus berlanjut setelah kematian.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Mengerjakan haji adalah kewajiban manusia terhadap Allah, yaitu (bagi) orang yang sanggup mengadakan perjalanan ke Baitullah.",
-      },
-      {
-        excerpt:
-          "Dan berserulah kepada manusia untuk mengerjakan haji, niscaya mereka akan datang kepadamu dengan berjalan kaki, dan mengendarai unta yang kurus yang datang dari segenap penjuru yang jauh, supaya mereka menyaksikan berbagai manfaat bagi mereka.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang berhaji karena Allah dan tidak berbuat keji atau maksiat, akan kembali bersih dari dosa, seperti hari ketika ibunya melahirkannya.",
-      },
-      {
-        excerpt:
-          "Apabila seorang manusia meninggal dunia, maka terputuslah amalnya kecuali tiga perkara: sedekah jariah, ilmu yang bermanfaat, atau anak saleh yang mendoakannya.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Rencanakan haji atau umrah jika engkau mampu.",
       "Investasikan pada iman dan akhlak keluargamu.",
@@ -714,26 +439,8 @@ export const JANNAH_TOPICS_ID: DeepPartial<JannahTopic>[] = [
       "Inilah sebabnya orang beriman yang seimbang hidup di antara harapan dan rasa takut, seperti burung yang terbang dengan dua sayap. Ia cukup takut akan keadilan Allah sehingga tidak pernah lengah atau berani nekat berbuat dosa, dan ia cukup berharap pada rahmat Allah sehingga tidak pernah berputus asa, betapapun jauh ia tersesat. Condong sepenuhnya pada rasa takut menumbuhkan keputusasaan; condong sepenuhnya pada harapan menumbuhkan kesombongan. Nama-nama Allah — Ar-Rahman (Yang Maha Pengasih), Ar-Rahim (Yang Maha Penyayang), Al-Ghafur (Yang Maha Pengampun) — menjadi penopang sayap harapan.",
       "Maka jadikanlah ini semangat yang menutup setiap harimu: mintalah Al-Firdaus kepada Allah, berusahalah sebaik-baiknya dengan tulus, bertobatlah atas kekuranganmu, lalu serahkan derajat akhirmu kepada Yang Mahaadil dan Maha Penyayang — dengan keyakinan bahwa Dia yang menyimpan sembilan puluh sembilan bagian rahmat untuk hari itu tidak akan menolak hamba yang datang kepada-Nya dengan berusaha dan berharap.",
     ],
-    quran: [
-      {
-        excerpt:
-          "Dan rahmat-Ku meliputi segala sesuatu. Maka akan Kutetapkan rahmat-Ku untuk orang-orang yang bertakwa, yang menunaikan zakat dan orang-orang yang beriman kepada ayat-ayat Kami.",
-      },
-      {
-        excerpt:
-          "Katakanlah: Wahai hamba-hamba-Ku yang melampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni dosa-dosa semuanya.",
-      },
-    ],
-    hadith: [
-      {
-        excerpt:
-          "Tidak seorang pun di antara kalian yang masuk Surga semata-mata karena amalnya. Para sahabat bertanya: Tidak juga engkau, wahai Rasulullah? Beliau bersabda: Tidak juga aku, kecuali bahwa Allah menyelimutiku dengan rahmat-Nya.",
-      },
-      {
-        excerpt:
-          "Allah memiliki seratus bagian rahmat. Dia menurunkan satu bagian di antara jin, manusia, hewan, dan serangga, yang dengannya mereka saling mengasihi satu sama lain; dan Dia menyimpan sembilan puluh sembilan bagian pada diri-Nya, yang dengannya Dia akan menunjukkan rahmat kepada hamba-hamba-Nya pada Hari Kiamat.",
-      },
-    ],
+    quran: [{}, {}],
+    hadith: [{}, {}],
     actions: [
       "Seimbangkan rasa takut kepada Allah dengan harapan pada rahmat-Nya.",
       "Jangan pernah berputus asa setelah berbuat dosa — bertobatlah dan teruslah berusaha.",
@@ -747,113 +454,49 @@ export const JANNAH_GATES_ID: DeepPartial<JannahGate>[] = [
   {
     name: "Pintu Salah",
     deedSummary: "Bagi mereka yang menjaga dan menegakkan lima waktu salah.",
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang berinfak sepasang sesuatu di jalan Allah, ia akan dipanggil dari pintu-pintu Surga. Siapa yang termasuk ahli salah akan dipanggil dari Pintu Salah.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Pintu Sedekah",
     deedSummary: "Bagi mereka yang bersedekah dengan tulus karena Allah.",
-    hadith: [
-      {
-        excerpt: "Siapa yang termasuk ahli sedekah akan dipanggil dari Pintu Sedekah.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Pintu Ar-Rayyan",
     deedSummary:
       "Dikhususkan bagi orang-orang yang berpuasa — pintu yang hanya mereka yang masuk melaluinya.",
-    hadith: [
-      {
-        excerpt:
-          "Di Surga ada sebuah pintu bernama Ar-Rayyan, yang hanya dimasuki oleh orang-orang yang berpuasa pada Hari Kiamat. Apabila yang terakhir dari mereka telah masuk, pintu itu akan ditutup.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Pintu Jihad",
     deedSummary: "Bagi mereka yang berjihad di jalan Allah dengan tulus.",
-    hadith: [
-      {
-        excerpt: "Siapa yang termasuk ahli jihad akan dipanggil dari Pintu Jihad.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Pahala Haji",
     deedSummary: "Bagi mereka yang berhaji dengan murni dan kembali bersih dari dosa.",
-    hadith: [
-      {
-        excerpt:
-          "Siapa yang berhaji karena Allah dan tidak berbuat keji atau maksiat, akan kembali bersih dari dosa, seperti hari ketika ibunya melahirkannya.",
-      },
-    ],
+    hadith: [{}],
   },
   {
     name: "Dipanggil dari setiap pintu",
     deedSummary: "Sebagian orang, seperti Abu Bakar, akan dipanggil untuk masuk dari semua pintu.",
-    hadith: [
-      {
-        excerpt:
-          "Abu Bakar bertanya: Apakah ada yang akan dipanggil dari semua pintu ini? Beliau bersabda: Ya, dan aku berharap engkau termasuk salah satu di antara mereka.",
-      },
-    ],
+    hadith: [{}],
   },
 ];
 
 export const JANNAH_VERSES_ID: DeepPartial<JannahVerseEntry>[] = [
-  {
-    excerpt:
-      "Berlomba-lombalah kamu kepada ampunan dari Tuhanmu dan surga yang luasnya seluas langit dan bumi, yang disediakan bagi orang-orang yang bertakwa.",
-  },
-  {
-    excerpt:
-      "Surga yang di bawahnya mengalir sungai-sungai, dan tempat-tempat tinggal yang bagus di surga 'Adn. Dan keridaan Allah adalah lebih besar.",
-  },
-  {
-    excerpt:
-      "Bagi orang-orang yang beriman dan beramal saleh adalah surga Firdaus menjadi tempat tinggal.",
-  },
-  {
-    excerpt:
-      "Seorang pun tidak mengetahui berbagai nikmat yang menyenangkan hati yang disembunyikan (untuk mereka) sebagai balasan atas apa yang telah mereka kerjakan.",
-  },
-  {
-    excerpt:
-      "Mereka memperoleh di dalamnya apa yang mereka kehendaki, dan pada sisi Kami ada tambahannya.",
-  },
-  {
-    excerpt:
-      "Dan masing-masing orang memperoleh derajat-derajat (seimbang) dengan apa yang dikerjakannya.",
-  },
-  {
-    excerpt:
-      "Mereka memperoleh derajat-derajat di sisi Allah, dan Allah Maha Melihat apa yang mereka kerjakan.",
-  },
-  {
-    excerpt:
-      "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan peliharalah kami dari siksa neraka.",
-  },
-  {
-    excerpt:
-      "Janganlah kamu berputus asa dari rahmat Allah — sesungguhnya Allah mengampuni dosa-dosa semuanya.",
-  },
-  {
-    excerpt:
-      "Wahai hamba-hamba-Ku, tidak ada rasa takut atasmu pada hari ini, dan tidak pula kamu bersedih hati.",
-  },
-  {
-    excerpt:
-      "Dan orang-orang yang paling dahulu (beriman), merekalah yang paling dahulu (masuk Surga). Mereka itulah orang-orang yang didekatkan (kepada Allah).",
-  },
-  {
-    excerpt:
-      "Maka Allah memelihara mereka dari kesusahan hari itu, dan memberikan kepada mereka kejernihan (wajah) dan kegembiraan hati.",
-  },
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
 ];
 
 export const JANNAH_DUAS_ID: DeepPartial<JannahDuaEntry>[] = [
@@ -907,7 +550,5 @@ export const JANNAH_FIRDAWS_DUA_ID: DeepPartial<{
   translation: string;
   reference: string;
 }> = {
-  translation:
-    "Ya Allah, aku memohon kepada-Mu Al-Firdaus yang tertinggi — bagian Surga yang paling tinggi.",
   reference: "Berdasarkan Sahih al-Bukhari 7423 — mohonlah Al-Firdaus secara khusus.",
 };
