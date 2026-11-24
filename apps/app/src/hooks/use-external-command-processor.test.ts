@@ -94,6 +94,11 @@ describe("useExternalCommandProcessor", () => {
     expect(handleMock).not.toHaveBeenCalled();
   });
 
+  it("ignores open-route commands that are not in-app paths", async () => {
+    await drainWith([{ type: "open-route", href: "https://evil.example/login" }]);
+    expect(mockRouter.push).not.toHaveBeenCalled();
+  });
+
   it.each([
     [{ ok: true }, "success", "externalCommands.marked"],
     [{ ok: true, alreadyCompleted: true }, "success", "externalCommands.alreadyDone"],

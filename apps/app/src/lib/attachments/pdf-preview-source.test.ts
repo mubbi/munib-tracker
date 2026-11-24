@@ -1,7 +1,11 @@
 import { fakeResponse, mockFetch } from "@/test-support/fetch";
 import { usePlatform } from "@/test-support/platform";
 
-import { buildPdfJsViewerHtml, readAttachmentAsBase64 } from "./pdf-preview-source";
+import {
+  buildPdfJsViewerHtml,
+  isPdfViewerNavigationAllowed,
+  readAttachmentAsBase64,
+} from "./pdf-preview-source";
 
 jest.mock("expo-file-system", () => ({
   File: class {
@@ -49,5 +53,22 @@ describe("buildPdfJsViewerHtml", () => {
     const html = buildPdfJsViewerHtml("QUJD");
     expect(html.startsWith("<!DOCTYPE html>")).toBe(true);
     expect(html).toContain("QUJD");
+  });
+});
+
+describe("PDF viewer hardening", () => {
+  it("turns off PDF.js eval font compilation (CVE-2024-4367)", () => {
+    expect(buildPdfJsViewerHtml("QUJD")).toContain("isEvalSupported: false");
+  });
+
+  it.each([
+    ["https://localhost/", true],
+    ["about:blank", true],
+    ["https://evil.example/login", false],
+    ["https://localhost.evil.example/", false],
+    ["javascript:alert(1)", false],
+    ["file:///data/user/0/app/files/x", false],
+  ])("native navigation to %s allowed=%p", (url, allowed) => {
+    expect(isPdfViewerNavigationAllowed(url)).toBe(allowed);
   });
 });

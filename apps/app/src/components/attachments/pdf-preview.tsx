@@ -6,7 +6,12 @@ import { WebView } from "react-native-webview";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Spacing } from "@/constants/theme";
-import { buildPdfJsViewerHtml, readAttachmentAsBase64 } from "@/lib/attachments/pdf-preview-source";
+import {
+  buildPdfJsViewerHtml,
+  isPdfViewerNavigationAllowed,
+  PDF_VIEWER_BASE_URL,
+  readAttachmentAsBase64,
+} from "@/lib/attachments/pdf-preview-source";
 import { isTV } from "@/lib/platform/is-tv";
 
 type PdfPreviewProps = {
@@ -90,10 +95,13 @@ export function PdfPreview({ uri, fileName, headers, style, onOpenExternally }: 
   return (
     <View style={[styles.frame, style]}>
       <WebView
-        source={{ html, baseUrl: "https://localhost/" }}
+        source={{ html, baseUrl: PDF_VIEWER_BASE_URL }}
         style={styles.webview}
+        // "*" so a non-matching URL is never handed to Linking.openURL; the guard
+        // below blocks every navigation away from the inline viewer instead.
         originWhitelist={["*"]}
-        mixedContentMode="always"
+        onShouldStartLoadWithRequest={(request) => isPdfViewerNavigationAllowed(request.url)}
+        mixedContentMode="never"
         allowsInlineMediaPlayback
         setSupportMultipleWindows={false}
         javaScriptEnabled

@@ -33,4 +33,14 @@ describe("openNotificationRoute", () => {
     jest.runAllTimers();
     expect(navigate).toHaveBeenCalledWith("/notifications", { withAnchor: true });
   });
+
+  it.each(["https://evil.example/login", "javascript:alert(1)", "//evil.example"])(
+    "never follows a non-app route %p from a payload",
+    (route) => {
+      const navigate = jest.fn();
+      openNotificationRoute({ navigate }, route);
+      jest.runAllTimers();
+      expect(navigate).toHaveBeenCalledWith("/notifications", { withAnchor: true });
+    },
+  );
 });

@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { claimTvPairing } from "@/api/endpoints";
@@ -18,6 +18,11 @@ import { useAuth } from "@/providers/auth-provider";
 /**
  * Phone companion route: open from TV QR (`/tv-pair?code=…`), sign in if needed,
  * then claim the pairing so the TV receives a session.
+ *
+ * Claiming hands a full session for this account to whichever device created the
+ * code, so it never happens on link open: anyone can mint a code (the create call
+ * is unauthenticated) and send `/tv-pair?code=…` as a link. The user confirms
+ * with a tap, next to the code to compare with the one on their TV.
  */
 export default function TvPairScreen() {
   const { t } = useTranslation();
@@ -54,13 +59,6 @@ export default function TvPairScreen() {
       setStatus("error");
     }
   }, [code, session?.accessToken, isGuest, t]);
-
-  useEffect(() => {
-    if (!isReady || !code || tv) return;
-    if (isAuthenticated && !isGuest) {
-      void claim();
-    }
-  }, [isReady, code, tv, isAuthenticated, isGuest, claim]);
 
   // TV should not host the phone claim flow.
   if (tv) {
@@ -112,10 +110,19 @@ export default function TvPairScreen() {
             </ThemedText>
             <SocialLoginButtons
               onSuccess={() => {
-                // applySessionDto runs inside social auth; effect will claim.
+                // Signed in: the confirm button appears; the claim still needs a tap.
               }}
             />
           </>
+        ) : null}
+
+        {code && isReady && isAuthenticated && !isGuest && status === "idle" ? (
+          <Button
+            label={t("tv.qrPhoneTitle")}
+            fullWidth
+            preferredFocus
+            onPress={() => void claim()}
+          />
         ) : null}
 
         {status === "claiming" ? (

@@ -87,8 +87,11 @@ export function PdfPreview({ uri, fileName, headers, style, onOpenExternally }: 
       {createElement("iframe", {
         src,
         title: t("customAdhkar.attachments.pdfPreviewTitle"),
-        // allow-scripts + allow-same-origin needed for PDF.js; sandbox keeps it contained.
-        sandbox: "allow-scripts allow-same-origin",
+        // Scripts only — never allow-same-origin: the blob: document would share the
+        // app origin (sessionStorage session, credentialed API calls), and a sandbox with
+        // both flags can remove itself. PDF.js renders from in-memory bytes, so an opaque
+        // origin is all it needs.
+        sandbox: "allow-scripts",
         style: {
           width: "100%",
           height: "100%",

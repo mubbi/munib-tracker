@@ -1,6 +1,7 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 
 import { PdfPreview } from "@/components/attachments/pdf-preview.web";
+import { queryHostsByType } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 
 const mockReadBase64 = jest.fn();
@@ -52,6 +53,14 @@ describe("PdfPreview (web)", () => {
     expect(createObjectURL).toHaveBeenCalledTimes(1);
     await utils.unmount();
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:viewer");
+  });
+
+  it("sandboxes the viewer without the app origin", async () => {
+    await renderPreview();
+    const [frame] = queryHostsByType("iframe");
+    expect(frame?.props.src).toBe("blob:viewer");
+    // allow-same-origin would give the PDF's scripts the app session.
+    expect(frame?.props.sandbox).toBe("allow-scripts");
   });
 
   it("offers to open the PDF externally when reading fails", async () => {

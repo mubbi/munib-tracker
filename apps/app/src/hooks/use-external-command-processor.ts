@@ -11,6 +11,7 @@ import {
   subscribeNativeCommands,
 } from "@/lib/external-commands/native-bridge";
 import { coalesceMarkCurrentCommands } from "@/lib/external-commands/queue";
+import { toInAppPath } from "@/lib/in-app-path";
 import { isTV } from "@/lib/platform/is-tv";
 import { captureAppException } from "@/lib/sentry";
 import { useToast } from "@/providers/toast-provider";
@@ -30,6 +31,8 @@ function resultMessage(result: Awaited<ReturnType<typeof handleExternalCommand>>
       return i18n.t("externalCommands.allDone");
     case "locked":
       return i18n.t("externalCommands.locked");
+    case "not_started":
+      return i18n.t("widgets.watch.notYet");
     default:
       return i18n.t("externalCommands.failed");
   }
@@ -46,7 +49,9 @@ export function useExternalCommandProcessor(): void {
   const processOne = useCallback(
     async (command: ExternalCommand) => {
       if (command.type === "open-route") {
-        router.push(command.href as Href);
+        // Queued natively (widgets / Siri / Wear): only follow in-app paths.
+        const href = toInAppPath(command.href);
+        if (href) router.push(href as Href);
         return;
       }
 

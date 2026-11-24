@@ -1,4 +1,8 @@
-import { getRegisteredTokenRefresher, isWebCookieSessionToken } from "@munib-tracker/api-client";
+import {
+  getApiBaseUrl,
+  getRegisteredTokenRefresher,
+  isWebCookieSessionToken,
+} from "@munib-tracker/api-client";
 import { useEffect, useState } from "react";
 import { Platform } from "react-native";
 
@@ -32,8 +36,23 @@ export function isRemoteUri(uri: string): boolean {
   return uri.startsWith("http://") || uri.startsWith("https://");
 }
 
-/** Rotate the session once; returns headers for the retry, or null when signed out. */
-async function refreshedHeaders(headers: Headers): Promise<Headers | null> {
+function originOf(uri: string): string | null {
+  const match = /^(https?:\/\/[^/?#\\]+)/i.exec(uri);
+  return match ? match[1].toLowerCase() : null;
+}
+
+/** True when `uri` points at our API — the only host a fresh session token may go to. */
+export function isApiOrigin(uri: string): boolean {
+  const origin = originOf(uri);
+  return origin !== null && origin === originOf(getApiBaseUrl());
+}
+
+/**
+ * Rotate the session once; returns headers for the retry, or null when signed out.
+ * A 401 from any other host never mints or attaches a token.
+ */
+async function refreshedHeaders(uri: string, headers: Headers): Promise<Headers | null> {
+  if (!isApiOrigin(uri)) return null;
   const refresher = getRegisteredTokenRefresher();
   if (!refresher) return null;
   const token = await refresher();
@@ -48,7 +67,7 @@ async function fetchWebBlob(uri: string, headers: Headers): Promise<Blob> {
 
   let response = await send(headers);
   if (response.status === 401) {
-    const retryHeaders = await refreshedHeaders(headers);
+    const retryHeaders = await refreshedHeaders(uri, headers);
     if (retryHeaders !== null) response = await send(retryHeaders);
   }
   if (!response.ok) {
@@ -69,7 +88,7 @@ export async function downloadAuthedFile(
 ): Promise<string> {
   let result = await downloadToUri(remoteUri, localUri, headers ?? {});
   if (result.status === 401) {
-    const retryHeaders = await refreshedHeaders(headers);
+    const retryHeaders = await refreshedHeaders(remoteUri, headers);
     if (retryHeaders !== null) {
       result = await downloadToUri(remoteUri, localUri, retryHeaders ?? {});
     }

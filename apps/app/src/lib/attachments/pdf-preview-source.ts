@@ -36,6 +36,18 @@ export async function readAttachmentAsBase64(options: {
   return new File(localUri).base64();
 }
 
+/** Base URL the native WebView loads the viewer HTML under (no real host behind it). */
+export const PDF_VIEWER_BASE_URL = "https://localhost/";
+
+/**
+ * Native WebView navigation guard for the PDF viewer. The viewer is one inline
+ * document; anything else (a link or script inside a crafted PDF navigating the
+ * frame) is blocked so it can't load a lookalike page inside the app.
+ */
+export function isPdfViewerNavigationAllowed(url: string): boolean {
+  return url.startsWith("about:") || url.startsWith(PDF_VIEWER_BASE_URL);
+}
+
 /**
  * Interactive PDF.js viewer: scroll pages, pinch/wheel zoom, and toolbar controls.
  * Used on web (iframe) and native (WebView) so Chrome's broken iframe PDF chrome is avoided.
@@ -297,7 +309,9 @@ export function buildPdfJsViewerHtml(base64: string): string {
         var raw = atob(${JSON.stringify(base64)});
         var bytes = new Uint8Array(raw.length);
         for (var i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
-        pdfjsLib.getDocument({ data: bytes }).promise.then(function (pdf) {
+        // isEvalSupported:false — PDF.js 3.x compiles font paths with eval/new Function,
+        // which a crafted PDF can abuse to run script (CVE-2024-4367, fixed in 4.2.67).
+        pdfjsLib.getDocument({ data: bytes, isEvalSupported: false }).promise.then(function (pdf) {
           pdfDoc = pdf;
           return pdf.getPage(1).then(function (page) {
             fitScale = fitWidthScale(page);

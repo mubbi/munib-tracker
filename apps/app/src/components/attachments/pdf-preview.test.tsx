@@ -6,9 +6,13 @@ import { renderWithTheme } from "@/test-support/render";
 
 const mockReadBase64 = jest.fn();
 
+const mockWebViewProps: { current: Record<string, unknown> | null } = { current: null };
+
 jest.mock("@/lib/attachments/pdf-preview-source", () => ({
   readAttachmentAsBase64: (args: unknown) => mockReadBase64(args),
   buildPdfJsViewerHtml: (base64: string) => `<html>${base64}</html>`,
+  PDF_VIEWER_BASE_URL: "https://localhost/",
+  isPdfViewerNavigationAllowed: (url: string) => url === "https://localhost/",
 }));
 jest.mock("react-native-webview", () => {
   const { View } = require("react-native");
@@ -17,14 +21,17 @@ jest.mock("react-native-webview", () => {
       source: { html: string };
       onError: () => void;
       onHttpError: () => void;
-    }) => (
-      <View
-        testID="pdf-webview"
-        accessibilityLabel={props.source.html}
-        onTouchStart={props.onError}
-        onTouchEnd={props.onHttpError}
-      />
-    ),
+    }) => {
+      mockWebViewProps.current = props;
+      return (
+        <View
+          testID="pdf-webview"
+          accessibilityLabel={props.source.html}
+          onTouchStart={props.onError}
+          onTouchEnd={props.onHttpError}
+        />
+      );
+    },
   };
 });
 
@@ -59,6 +66,15 @@ describe("PdfPreview (native)", () => {
       headers: undefined,
       fileName: "a.pdf",
     });
+  });
+
+  it("blocks navigation away from the inline viewer and mixed content", async () => {
+    await renderPreview();
+    const props = mockWebViewProps.current ?? {};
+    const guard = props.onShouldStartLoadWithRequest as (r: { url: string }) => boolean;
+    expect(guard({ url: "https://localhost/" })).toBe(true);
+    expect(guard({ url: "https://phish.example/" })).toBe(false);
+    expect(props.mixedContentMode).toBe("never");
   });
 
   it.each(["touchStart", "touchEnd"])(
