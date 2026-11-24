@@ -1,6 +1,0 @@
-{
-  "en": {
-    "settingsGaps.account.lastSynced": "Last synced {{when}}",
-    "settingsGaps.onboarding.setupHint": "A few things are still unset. Do them now or any time from Settings."
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "en": {
-    "khatmGroups.deal.hint": "Parts are dealt out in turn once at least two people are in the group, and shared out again when someone new joins. Anyone can give a part back for others to claim.",
-    "khatmGroups.deal.body": "Some parts nobody has started yet can be shared out more evenly. Parts being read or already done stay where they are.",
-    "khatmGroups.deal.waiting": "Parts stay open until someone else joins — then they're dealt out in turn. Invite people below.",
-    "khatmGroups.deal.button": "Deal remaining parts",
-    "khatmGroups.deal.done": "Parts dealt out"
-  }
-}

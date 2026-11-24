@@ -1,8 +1,0 @@
-{
-  "en": {
-    "circles.inbox.family_digest.title": "Your family's week",
-    "circles.inbox.family_digest.body": "{{prayed}} of {{possible}} Salah logged this week — mashaAllah.",
-    "circles.settings.familyDigest": "Weekly family digest",
-    "circles.settings.familyDigestSub": "Once a week, on Friday: how many Salah your children logged. Counts only, no names."
-  }
-}
