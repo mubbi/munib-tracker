@@ -18,6 +18,8 @@ allowBuilds:
   esbuild: true
   protobufjs: false
   "@parcel/watcher": false
+  # NF-3.12 web OCR: its postinstall only prints an Open Collective banner.
+  tesseract.js: false
 
 overrides:
   react: 19.3.1
