@@ -6,7 +6,7 @@
 | ------------------------------------------ | ------------------------------------------------------------------------------------- |
 | [`FEATURES.md`](./FEATURES.md)             | Shipped product features (NF-* catalog, incl. the NF-3.x wave and its fallbacks)      |
 | [`BACKLOG.md`](./BACKLOG.md)               | Open work: owner actions, device QA, translations review, engineering follow-ups      |
-| [`DECISIONS.md`](./DECISIONS.md)           | Locked product decisions D1–D51, standing rules for new features, notification budget |
+| [`DECISIONS.md`](./DECISIONS.md)           | Locked product decisions D1–D65, standing rules for new features, notification budget |
 | [`proofs/`](./proofs/)                     | Proof-backed review logs (D11) — sources for every religious claim, per feature       |
 | [`ARTICLE.md`](./ARTICLE.md)               | Medium-style product story (features, platforms, open release)                        |
 | [`OPEN_SOURCE.md`](./OPEN_SOURCE.md)       | Source-available release checklist (PolyForm NC)                                      |

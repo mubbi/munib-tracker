@@ -103,6 +103,8 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 **Requirements:** iOS **17.0+** (widget / Live Activity target `deploymentTarget`); `NSSupportsLiveActivities: true`; EAS dev/production build (not Expo Go). ActivityKit itself supports 16.2+, but Munib’s extension targets **17.0**.
 
+**Threading (D64):** `PrayerActivityController` is `@MainActor`; the Expo functions reach it with `await` and the listener hooks hop to the main queue, so the cached activity, observer tasks and JS callbacks are never raced. JS `isRunning()` stays synchronous by reading `Activity.activities` directly.
+
 **Attributes duplication:** ActivityKit matches by attributes type + Codable shape in both main app and widget extension — change both files together.
 
 **Discovery banner (NF-1.19):** one-shot coach mark above the toggle in **Settings → Notifications** when the platform supports the live countdown (iOS Live Activity or Android ongoing notification) and the preference is still off. Uses `toursStore` with a dedicated id (`liveActivityDiscovery`, distinct from the `/tour` carousel ids) so it dismisses permanently once turned on or closed — `components/notifications/live-activity-discovery-banner.tsx`.
@@ -122,7 +124,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 - iOS: `targets/munib-tracker-intents/_shared/MunibAppIntents.swift` — compiled into **both** the main app target and the `MunibTrackerIntents` App Intents extension (Apple requires the `AppShortcutsProvider` + its intents in the main app target; extension-only intents fail in Shortcuts with "internal error"). Foreground (`openAppWhenRun: true`) intents and the provider are app-only via the `MUNIB_INTENTS_EXTENSION` compile condition (`plugins/withAppIntentsExtensionDefine.cjs`); background mark intents also run in the extension so Siri doesn't launch the app.
 - Queue writes post a Darwin notification (`app.munibtracker.commands.changed`) → `MunibExternalCommandsModule` emits `onCommandsAvailable` → a running app instance drains immediately (Siri, widget button, watch marks apply without waiting for the next foreground).
 - Android: `plugins/withExternalCommands.cjs` → App Actions (`OPEN_APP_FEATURE` + inventory) + broadcast receiver + launcher shortcut (`android.app.shortcuts` → `@xml/shortcuts` → `munib-tracker://mark-current`)
-- Android broadcast actions (must match Kotlin + manifest): `app.munibtracker.action.MARK_CURRENT` / `MARK_PRAYER`
+- Android broadcast actions (must match Kotlin + manifest): `app.munibtracker.action.MARK_CURRENT` / `MARK_PRAYER` — the receiver is **not exported** (only the Wear listener and the widget click task, both in-app, send them; App Actions open deep links)
 - JS drain: `ExternalCommandProcessor` in root `_layout.tsx` (respects pin lock deferral); Android also emits `onCommandsAvailable` when the shared queue is written (Assistant, Wear, or JS enqueue)
 - Help: **Settings → Siri & voice shortcuts** (iOS) / **Google Assistant & voice shortcuts** (Android)
 
@@ -134,14 +136,34 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 ## Apple Watch (NF-2.14)
 
+### Watch / Wear snapshot contract
+
+Both watches read the phone's `widget_snapshot_v1` (`src/lib/appSurfaces/widgets/types.ts`). Fields added for them (all optional on the native side, so older snapshots still decode):
+
+| Field                               | Use                                                                                                                                                                                        |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `date`                              | Phone-local day (`YYYY-MM-DD`) the schedule is for. A snapshot from another day is **stale**: the watch shows `strings.staleData` and offers no marks                                      |
+| `schedule.rows[].atMs`              | Adhan instant (epoch ms, 0 = unknown). The watch re-derives each row's state (done / due / next / later) so it moves on without a phone push                                               |
+| `strings.*` (`watchSurfaceStrings`) | `today`, `overview`, `cancel`, `markConfirm`, `sentToPhone`, `willSync`, `allDone`, `notYet`, `staleData`, `freeCount`, `tapToCount`, `sequenceDone` — i18n `widgets.watch.*` (24 locales) |
+| `afterSalahTasbeeh.steps`           | The after-Salah 33 / 33 / 34 sequence (D69) with Arabic + transliteration from the bundled adhkar items (`afterSalahTasbeehSteps`); empty while the corpus loads                           |
+
+**Marks are explicit (D71):** a watch or Wear mark always sends `mark-prayer` with the prayer id and the snapshot's `date`, never `mark-current-obligatory`. Both transports can deliver late (queued `transferUserInfo`, Data Layer items synced on reconnect), and "current" resolved at delivery time could mark the wrong Salah; the phone drops a `mark-prayer` for another day (`invalid_date`). The watch only offers a Salah whose time has begun and isn't logged.
+
 ### Companion app
 
-- Target: `targets/munib-tracker-watch/` (`type: "watch"`, watchOS 10+)
-- Reads `widget_snapshot_v1` from App Group (same schema as WidgetKit)
-- Marks reach the phone over WatchConnectivity only (the watch's App Group is on the watch): `sendMessage` when the phone is reachable, falling back to queued `transferUserInfo` when it isn't (or the live send fails). The phone bridge (`MunibExternalCommandsModule`) handles both `didReceiveMessage` variants and `didReceiveUserInfo`, enqueueing into `pending_commands_v1`
+- Target: `targets/munib-tracker-watch/` (`type: "watch"`, watchOS 10+). Pure state rules in `targets/_shared/WatchSalahResolver.swift` (`#if os(watchOS)`), shared with the complications
+- Reads `widget_snapshot_v1` from the watch's App Group (same schema as WidgetKit)
+- **Vertical pages** (`TabView` `.verticalPage`):
+  - **Now** — Hijri date, next Salah with a live countdown inside today's progress ring, a **Mark** button for the Salah whose time is running, all-done / stale / location-denied / never-synced states, "updated … ago" once the data is over an hour old. Re-resolves every minute (`TimelineView`)
+  - **Today** — the five rows; a begun-but-unlogged row asks `markConfirm` before marking, later rows are dimmed (`notYet`), logged rows aren't actionable; VoiceOver reads the status
+  - **Tasbeeh** — opens the counter (below)
+  - **Overview** — streak, Qaza, Ramadan (only in Ramadan), Jumu'ah (only on Friday), Khatm (only with a plan), Qibla bearing
+- **Marking:** optimistic tick + success haptic, then `sentToPhone` (reachable) or `willSync`. Sends over WatchConnectivity only (the watch's App Group is on the watch): `sendMessage` when the phone is reachable, falling back to queued `transferUserInfo` when it isn't (or the live send fails). The phone bridge (`MunibExternalCommandsModule`) handles both `didReceiveMessage` variants and `didReceiveUserInfo`, enqueueing into `pending_commands_v1` (it still accepts the legacy `mark-current` message from older watch builds). The local tick clears once a snapshot confirms it, if a snapshot arriving 120 s later still shows it pending, or at the day change
+- **Complication taps** open the matching page (`onOpenURL`): `tasbeeh…` → Tasbeeh, `tracker` → Today, stats / Qaza / Ramadan / calendar / Qibla / Friday / Qur'an → Overview, anything else → Now
 - Requires paired iPhone with Munib Tracker installed
-- Phone pushes `widget_snapshot_v1` over WatchConnectivity (`updateApplicationContext` + complication userInfo) so the face stays fresh
-- **Tasbeeh (watch-local):** `WatchTasbeehView.swift` — a NavigationLink from the root list opens a self-contained `@State` counter (33 / 99 / 100 / unlimited via segmented picker). Tap or Digital Crown rotation (`digitalCrownRotation`) increments; haptics (`WKInterfaceDevice.current().play`) on tap/target-reached/reset. **No ExternalCommand, no WatchConnectivity** — purely local to the watch, independent of the phone counter.
+- `WCSession` activates in the `App` initialiser (before any UI), so a background launch for a phone push still writes the App Group and reloads the complications
+- Phone pushes `widget_snapshot_v1` over WatchConnectivity so the face stays fresh: every push updates the latest-wins `updateApplicationContext`; `transferCurrentComplicationUserInfo` (50/day budget) is spent only when the complication-relevant sections (now incl. `date` and `hijriDate`) changed since the last transfer (SHA-256 fingerprint without the minute-ticking countdown fields) and `remainingComplicationUserInfoTransfers > 0` (D64)
+- **Tasbeeh (watch-local):** `WatchTasbeehView.swift` — free count (33 / 99 / 100 / unlimited) or the **after-Salah sequence** (Arabic + transliteration, advances phrase to phrase by itself, `sequenceDone` at 100). Tap or Digital Crown counts; haptics on count / phrase done / target / reset; reset asks first. Count, target and mode persist in the watch App Group (`WatchTasbeehStore`) so they survive leaving the screen and feed the Tasbeeh complication. **No ExternalCommand, no WatchConnectivity** — independent of the phone counter.
 
 ### Face complications (WidgetKit)
 
@@ -149,17 +171,19 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 - Same App Group snapshot as phone widgets / Watch app
 - Families: **circular**, **corner** (`accessoryCorner` + `widgetLabel` gauge), **inline**, **rectangular** (Smart Stack–eligible)
 - Complications:
-  | Kind                     | Families                              | Glance                                    |
-  | ------------------------ | ------------------------------------- | ----------------------------------------- |
-  | Next Salah               | circular, corner, inline, rectangular | Name, time, countdown / urgency gauge     |
-  | Schedule                 | rectangular, inline                   | Next 2–3 obligatory times + status        |
-  | Progress                 | circular, corner, inline, rectangular | Closed ring for fard `n/5`                |
-  | Salah streak             | circular, corner, inline, rectangular | Flame glyph + current streak days         |
-  | Qaza                     | circular, corner, inline, rectangular | Remaining debt + today's make-up gauge    |
-  | Suhoor & Iftar (Ramadan) | circular, corner, inline, rectangular | Suhoor/iftar times + live countdown gauge |
-- Timeline reloads at next Salah boundary (and ~15 min pre-Adhan when the wait is longer)
+  | Kind                     | Families                              | Glance                                         |
+  | ------------------------ | ------------------------------------- | ---------------------------------------------- |
+  | Next Salah               | circular, corner, inline, rectangular | Name, time, live countdown / urgency gauge     |
+  | Schedule                 | rectangular, inline                   | Next 2–3 obligatory times + status             |
+  | Progress                 | circular, corner, inline, rectangular | Closed ring for fard `n/5`                     |
+  | Salah streak             | circular, corner, inline, rectangular | Flame glyph + current streak days              |
+  | Qaza                     | circular, corner, inline, rectangular | Remaining debt + today's make-up gauge         |
+  | Suhoor & Iftar (Ramadan) | circular, corner, inline, rectangular | Suhoor/iftar times + live countdown gauge      |
+  | Islamic date             | circular, inline, rectangular         | Hijri date + weekday (hint once the day turns) |
+  | Tasbeeh                  | circular, corner                      | The watch's own count; opens the counter       |
+- Timeline: one entry per upcoming Adhan (from `atMs`) plus 60 / 45 / 30 / 15 / 5 min before it and local midnight; Next Salah and Schedule resolve the Salah **for each entry's date**, so the face advances without a phone push. Past midnight on an un-refreshed snapshot, Progress reads `0/5` and the others show `staleData`. Snapshots without `atMs` keep the old boundary schedule
 - Always-On: dimmed luminance reduces countdown / location; location uses `privacySensitive`
-- Deep links match snapshot section URLs (same as phone widgets): streak → `munib-tracker://statistics`, qaza → `munib-tracker://qaza`, ramadan → `munib-tracker://ramadan`
+- Deep links match snapshot section URLs (same as phone widgets): streak → `munib-tracker://statistics`, qaza → `munib-tracker://qaza`, ramadan → `munib-tracker://ramadan`, tasbeeh → `munib-tracker://tasbeeh/free`
 - Streak/Qaza read `WidgetSnapshotPayload.streak` / `.qaza` (unaffected by location denial); Ramadan follows the same location-denied + `isRamadan` gating as the phone widget
 
 **Design notes (Apple HIG):** complications show dynamic Salah data on raise-wrist — the companion list is for marking. Prefer WidgetKit over ClockKit (`watchOS 9+`).
@@ -168,9 +192,9 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 - Phone pushes snapshot via Wearable Data Layer (`pushWearSnapshot` in `munib-external-commands`)
 - `plugins/withWearOs.cjs` scaffolds `android/wear/` tile module on prebuild
-- **Next Salah tile** (`MunibWearTileService`): tap uses a LoadAction clickable (`mark_current`); the tile re-requests and sends `/munib/mark_current` to the phone (not on tile-add)
+- **Next Salah tile** (`MunibWearTileService`): tap uses a LoadAction clickable (`mark_current`); the tile re-requests and sends `/munib/mark_current` to the phone (not on tile-add). Tiles build on a worker thread (`WearDataLayer.kt`: `onTileRequest` runs on the main thread, where `Tasks.await` throws) with 3 s Data Layer timeouts, and the tile asks to be re-requested every 15 minutes (`setFreshnessIntervalMillis`)
 - **Tasbeeh tile** (`MunibWearTasbeehTileService`): second, independent tile — a watch-local dhikr counter stored in `SharedPreferences` (`munib_wear_tasbeeh`). Tap increments (capped at target when set); a Reset row zeroes the count. **Never talks to the phone** — no Data Layer / message client calls.
-- Phone `MunibWearListenerService` broadcasts `app.munibtracker.action.MARK_CURRENT` with `source=wear` → shared command queue + JS drain
+- Phone `MunibWearListenerService` (manifest filter `MESSAGE_RECEIVED` + `wear://*/munib/mark_current`, not the deprecated catch-all `BIND_LISTENER`) broadcasts `app.munibtracker.action.MARK_CURRENT` with `source=wear` → shared command queue + JS drain
 - Requires Google Play Services + paired watch
 - **Application ID:** the Wear app uses the phone's `app.munibtracker` (namespace `app.munibtracker.wear`) and the same signing key — the Wearable Data Layer only connects apps that share both. (Before Expo SDK 58 it generated `app.munibtracker.wear`, which could never reach the phone.) Version code: the shared `EXPO_ANDROID_VERSION_CODE` in `apps/app/.env` (one counter for phone, TV and Wear — bump it before every Play upload).
 - **Release:** `pnpm release:app:wear` (Gradle `:wear:bundleRelease`, phone prebuild) → `pnpm release:app:wear:upload` (Play `wear:internal` track). Enable the Wear OS form factor in Play Console first.
@@ -194,7 +218,7 @@ Blocks the apps the user chose during a window around each Salah until they mark
 
 **iOS flow.** `requestAuthorization(for: .individual)` → `FamilyActivityPicker` (selection stored encoded in the App Group, never synced) → `setPlan` writes the plan JSON to the App Group and calls `DeviceActivityCenter.startMonitoring` once per window (≤ 12, two days). Windows shorter than DeviceActivity's 15-minute minimum are scheduled padded with `warningTime` = padding, so `intervalWillEndWarning` marks the real end. The monitor applies `ManagedSettingsStore(named: "munib.focus").shield` at `intervalDidStart` and clears it at the end (unless another window is running). The shield's primary button posts a local "Tap to confirm your Salah" notification (`data.route = /mark-current`) because a shield can't open the app; gentle mode also lifts the shield on that one tap (D39: Apple's shield has no press-and-hold, so iOS doesn't use the 10 s hold). The secondary button is the counted emergency unlock. A `BGAppRefreshTask` (`app.munibtracker.focuslock.refresh`) re-arms from the cached plan.
 
-**Android flow.** `setExactAndAllowWhileIdle` alarms at each window start/end → `FocusLockReceiver` → `FocusLockService` (foreground, `specialUse`, low-priority ongoing notification) polls `UsageStatsManager.queryEvents` for `ACTIVITY_RESUMED` every 750 ms → full-screen `TYPE_APPLICATION_OVERLAY` over a blocked app ("I've prayed" deep link, 10 s hold in gentle mode, emergency unlock). Never blocked: our app, default dialer / SMS / launcher, Settings, telephony and emergency packages (`FocusLockAllowlist.kt` = `allowlist.ts`). `BOOT_COMPLETED`, package replace, time / timezone and exact-alarm permission changes re-arm from the plan cached in SharedPreferences. No Accessibility API, no `QUERY_ALL_PACKAGES`.
+**Android flow.** `setExactAndAllowWhileIdle` alarms at each window start/end → `FocusLockReceiver` → `FocusLockService` (foreground, `specialUse`, low-priority ongoing notification) polls `UsageStatsManager.queryEvents` for `ACTIVITY_RESUMED` every 750 ms (the first poll of a window looks back 6 h so an app already open at the window start is covered; later polls read only new events) → full-screen `TYPE_APPLICATION_OVERLAY` over a blocked app ("I've prayed" deep link, 10 s hold in gentle mode, emergency unlock). Never blocked: our app, default dialer / SMS / launcher, Settings, telephony and emergency packages (`FocusLockAllowlist.kt` = `allowlist.ts`). `BOOT_COMPLETED`, package replace, time / timezone and exact-alarm permission changes re-arm from the plan cached in SharedPreferences. No Accessibility API, no `QUERY_ALL_PACKAGES`.
 
 **Marking the Salah anywhere** (tracker, widget, Siri, Watch → tracker store) ends the running window: the host calls `endWindowNow(id)`. Excused periods (`activeExcusedReason` + `pauseWhileExcused`) and quiet dates plan no windows. **Weekdays only** skips the user's own weekend days (D37, `schedule.weekendDays`, 0 = Sunday … 6 = Saturday); unset, they default from the region (`lib/focus-lock/weekend.ts`: stored country, else the location's / device's timezone — e.g. Friday + Saturday in Saudi Arabia, Friday in Iran, Saturday + Sunday elsewhere). On Fridays the **Jumu'ah window** replaces Dhuhr with its own length (D38, `jumuahDurationMin`, default 60, 5–120) from the home masjid's Jumu'ah time when known, else the Dhuhr adhan. Both are resolved in JS: the native side only receives concrete windows, so its payload is unchanged. Emergency unlocks are logged on the device only and shown as a neutral weekly count.
 
@@ -308,6 +332,19 @@ pnpm --filter app ios   # or android
 ```
 
 Set `EXPO_APPLE_TEAM_ID` for iOS extensions. App Group: `group.app.munibtracker.widgets`.
+
+**Privacy manifests (D54).** The app's `PrivacyInfo.xcprivacy` comes from `ios.privacyManifests` in
+`app.config.js` (merged by prebuild into the template's RN/Expo entries): UserDefaults `CA92.1`
+(own defaults) + `1C8F.1` (App Group); tvOS declares `CA92.1` only. Every extension folder under
+`targets/` carries its own `PrivacyInfo.xcprivacy` (UserDefaults `1C8F.1`, no tracking, no
+collected data). `@bacons/apple-targets` links each target folder as a synchronized group, so the
+file lands in that extension's bundle. Keep it out of `targets/_shared`, which is also linked into
+the main app. A new target that reads the App Group needs a copy; one that calls another
+required-reason API (file timestamps, boot time, disk space) needs that category added.
+
+**SecureStore backup (D53).** The `expo-secure-store` config plugin points Android Auto Backup at
+its own rules so SecureStore entries are never backed up (their Keystore keys don't survive a
+restore). It edits the manifest, so it needs a clean prebuild.
 
 ## Manual QA matrix
 

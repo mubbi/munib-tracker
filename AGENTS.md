@@ -124,7 +124,7 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | [`BACKLOG.md`](docs/BACKLOG.md)                                                                             | Open work: owner actions, device QA, translations, eng follow-ups   |
 | [`FEATURES.md`](docs/FEATURES.md)                                                                           | Shipped NF-* feature catalog (incl. NF-3.x status + fallbacks)      |
-| [`DECISIONS.md`](docs/DECISIONS.md)                                                                         | Locked decisions D1–D51, new-feature rules, notification budget     |
+| [`DECISIONS.md`](docs/DECISIONS.md)                                                                         | Locked decisions D1–D65, new-feature rules, notification budget     |
 | [`proofs/`](docs/proofs/)                                                                                   | Proof-backed review logs (D11) per religious feature                |
 | [`DATA_INVENTORY.md`](docs/DATA_INVENTORY.md)                                                               | Where user data lives: sync, backup, reset, server tables           |
 | [`CIRCLES.md`](docs/CIRCLES.md)                                                                             | Circles backend (family, partner, group khatm, nearby join)         |

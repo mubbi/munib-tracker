@@ -67,7 +67,7 @@
 
 ## 1. Delivery decisions
 
-> These D-numbers are local to this guide (content delivery). The product decisions D1–D51 are in
+> These D-numbers are local to this guide (content delivery). The product decisions D1–D65 are in
 > [`DECISIONS.md`](./DECISIONS.md).
 
 | #   | Decision                                                                                                                    | Delivery                                                                     | Source (no-key)                                                                                       |

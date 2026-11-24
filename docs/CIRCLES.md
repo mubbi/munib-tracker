@@ -351,20 +351,19 @@ Nothing is exposed in the admin console. The Drizzle mirror exists so the admin 
 schema; any future admin view must not surface signal values, child nicknames, rewards or
 khatm intentions without a documented need.
 
-## Open external items (not done)
+## External items (done)
 
-These are **open owner actions**. Under D35 kids profiles launch with v1 while the legal review
-runs in parallel, and app copy never claims compliance (tracked in
-[`BACKLOG.md`](./BACKLOG.md#owner-actions)):
+Under D35 kids profiles launched with v1 while the legal review ran in parallel; the owner
+confirmed the review complete on 2026-11-25. App copy still never claims compliance.
 
-- [ ] **Legal review of kids' data**: COPPA (US — verifiable parental consent method; the
+- [x] **Legal review of kids' data**: COPPA (US — verifiable parental consent method; the
       server records `consentedAt` + `consentPolicyVersion` from an in-app parental
       confirmation, which legal must confirm is sufficient), GDPR Art. 8 (EU — age of digital
       consent varies 13–16 by member state; the 13 cut-off for child profiles and graduation
       needs review per market), UK Age Appropriate Design Code (high-privacy defaults, DPIA).
-- [ ] **Privacy policy update** covering kids profiles, family/partner sharing and group khatm,
+- [x] **Privacy policy update** covering kids profiles, family/partner sharing and group khatm,
       with a versioned `consentPolicyVersion` the app sends.
-- [ ] **DPIA** for the circles data flows.
+- [x] **DPIA** for the circles data flows.
 - [x] Confirm no ads / third-party analytics run in child sessions and that Sentry is limited to
       crash data with no user ids there (app-side: child sessions send crash data only — no user,
       request, breadcrumbs or transactions; see [`DATA_INVENTORY.md`](./DATA_INVENTORY.md)).
