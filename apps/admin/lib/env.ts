@@ -1,3 +1,4 @@
+import "server-only";
 import { OFFICIAL_ADMIN_ORIGIN } from "@munib-tracker/shared/constants";
 import { z } from "zod";
 

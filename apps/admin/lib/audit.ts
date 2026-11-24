@@ -1,3 +1,4 @@
+import "server-only";
 import type { AdminRole } from "@munib-tracker/db/schema";
 import { adminAuditLogTable } from "@munib-tracker/db/schema";
 import { getDb } from "./db";

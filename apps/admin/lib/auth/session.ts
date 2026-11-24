@@ -1,3 +1,4 @@
+import "server-only";
 import { createHash, randomBytes } from "node:crypto";
 import {
   type AdminRole,
@@ -8,6 +9,7 @@ import {
 import { and, eq, gt } from "drizzle-orm";
 import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
+import { cache } from "react";
 import { getDb } from "../db";
 import { getAdminEnv, requireAdminEnv } from "../env";
 import { normalizeEmail } from "../utils";
@@ -126,7 +128,16 @@ export async function clearSessionCookie(): Promise<void> {
   cookieStore.delete(SESSION_COOKIE);
 }
 
-export async function getSession(): Promise<AdminSessionPayload | null> {
+/**
+ * Current admin session, memoised per server request with React `cache()`:
+ * the dashboard layout and its page both guard on it, and without the memo
+ * every render paid the session SELECT + `lastUsedAt` UPDATE twice.
+ * (https://nextjs.org/docs/app/getting-started/fetching-data#reusing-data-with-reactcache)
+ * Outside a React server render (route handlers) `cache` is a pass-through.
+ */
+export const getSession = cache(readSession);
+
+async function readSession(): Promise<AdminSessionPayload | null> {
   if (isLocalAuthBypassEnabled()) {
     return getLocalBypassSession();
   }

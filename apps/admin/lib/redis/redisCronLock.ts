@@ -1,3 +1,4 @@
+import "server-only";
 /**
  * Optional Redis connection for admin cron leader locks.
  * When REDIS_URL is unset, locks are skipped (fail-open — every instance may run).

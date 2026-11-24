@@ -1,3 +1,4 @@
+import "server-only";
 import {
   CONTACT_MESSAGE_STATUSES,
   type ContactMessageStatus,

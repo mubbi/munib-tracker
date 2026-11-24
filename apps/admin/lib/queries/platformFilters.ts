@@ -1,3 +1,4 @@
+import "server-only";
 import { pushTokensTable, usersTable } from "@munib-tracker/db/schema";
 import { type AnyColumn, and, eq, exists, or, type SQL } from "drizzle-orm";
 import { getDb } from "../db";

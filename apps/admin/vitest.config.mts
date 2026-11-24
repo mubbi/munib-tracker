@@ -6,6 +6,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "."),
+      // `server-only` throws outside the react-server condition; Vitest runs plain Node.
+      "server-only": path.resolve(import.meta.dirname, "vitest.server-only-stub.ts"),
     },
   },
   test: {
