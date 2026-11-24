@@ -1,3 +1,4 @@
+import i18n from "@/i18n";
 import { buildAppUrl } from "@/lib/app-links";
 import type { WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
 import {
@@ -107,7 +108,8 @@ export function snapshotForNextPrayerArrival(snapshot: WidgetSnapshot): WidgetSn
   };
 }
 
-function progressForPhase(phase: SalahPhase): {
+/** Segmented progress for a phase — shared by Live Activity boundaries and the Android notification. */
+export function progressForPhase(phase: SalahPhase): {
   progressPercent: number;
   progressSegments: [number, number, number];
   progressPoints: number[];
@@ -124,15 +126,24 @@ function progressForPhase(phase: SalahPhase): {
   return { progressPercent: 100, progressSegments: segments, progressPoints: points };
 }
 
-function shortCritical(phase: SalahPhase, prayerName: string, minutesUntil: number): string {
+/**
+ * Android 16 Live Update status-chip text (`setShortCriticalText`; the native
+ * side shows at most 6 characters): the countdown while a Salah is upcoming,
+ * then a localized one-word action for the phase.
+ */
+export function shortCriticalTextForPhase(
+  phase: SalahPhase,
+  prayerName: string,
+  minutesUntil: number,
+): string {
   if (phase === "upcoming") {
     if (minutesUntil <= 0) return prayerName.slice(0, 6);
     if (minutesUntil < 60) return `${minutesUntil}m`;
     return `${Math.floor(minutesUntil / 60)}h`;
   }
-  if (phase === "markSalah") return "Mark";
-  if (phase === "afterSalah") return "Adhkar";
-  return "Done";
+  if (phase === "markSalah") return i18n.t("notif.trackSalah.chip.mark");
+  if (phase === "afterSalah") return i18n.t("notif.trackSalah.chip.adhkar");
+  return i18n.t("notif.trackSalah.chip.done");
 }
 
 function boundaryFromSnapshot(
@@ -185,7 +196,7 @@ function boundaryFromSnapshot(
     progressPercent: progress.progressPercent,
     progressSegments: progress.progressSegments,
     progressPoints: progress.progressPoints,
-    shortCriticalText: shortCritical(phase, prayerName, minutesUntil),
+    shortCriticalText: shortCriticalTextForPhase(phase, prayerName, minutesUntil),
     stopLabel,
   };
 }

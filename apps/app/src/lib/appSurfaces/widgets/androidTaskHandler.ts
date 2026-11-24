@@ -3,35 +3,46 @@ import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { Platform } from "react-native";
 import { WIDGET_MARK_CLICK_ACTIONS } from "@/lib/appSurfaces/widgets/constants";
 import { normalizeWidgetInfo } from "@/lib/appSurfaces/widgets/normalizeWidgetInfo";
+import { rememberLocalWidgetMark } from "@/lib/appSurfaces/widgets/widgetRenderUtils";
 import { nativeSendWidgetMarkBroadcast } from "@/lib/external-commands/native-bridge";
+import type { ExternalCommand } from "@/lib/external-commands/types";
 import { isTV } from "@/lib/platform/is-tv";
 
 export { normalizeWidgetInfo } from "@/lib/appSurfaces/widgets/normalizeWidgetInfo";
 
 /**
  * Handles the widget Mark control's `WIDGET_CLICK` by re-sending the tap as
- * the real `ACTION_MARK_CURRENT` / `ACTION_MARK_PRAYER` broadcast (the same
- * one Assistant/App Actions use), so `ExternalCommandReceiver` enqueues it —
+ * the in-app `ACTION_MARK_CURRENT` / `ACTION_MARK_PRAYER` broadcast (the same
+ * one the Wear listener sends), so `ExternalCommandReceiver` enqueues it —
  * no Activity/app UI is opened for this headless click task.
  */
 async function handleWidgetMarkClick(
   clickAction: string | undefined,
   clickActionData: Record<string, unknown>,
 ): Promise<void> {
+  let command: ExternalCommand | null = null;
   if (clickAction === WIDGET_MARK_CLICK_ACTIONS.markCurrent) {
-    await nativeSendWidgetMarkBroadcast({ type: "mark-current-obligatory", source: "widget" });
-    return;
-  }
-  if (clickAction === WIDGET_MARK_CLICK_ACTIONS.markPrayer) {
+    command = { type: "mark-current-obligatory", source: "widget" };
+  } else if (clickAction === WIDGET_MARK_CLICK_ACTIONS.markPrayer) {
     const prayerId = clickActionData.prayerId;
     if (typeof prayerId !== "string" || !prayerId) return;
-    await nativeSendWidgetMarkBroadcast({
+    command = {
       type: "mark-prayer",
       prayerId: prayerId as ObligatoryPrayer,
       date: getLocalDateString(new Date()),
       source: "widget",
-    });
+    };
   }
+  if (!command) return;
+  rememberLocalWidgetMark(command);
+  await nativeSendWidgetMarkBroadcast(command);
+}
+
+function isMarkClick(clickAction: string | undefined): boolean {
+  return (
+    clickAction === WIDGET_MARK_CLICK_ACTIONS.markCurrent ||
+    clickAction === WIDGET_MARK_CLICK_ACTIONS.markPrayer
+  );
 }
 
 /** Headless entry for Android home-screen widgets (dev/prod native builds only). */
@@ -50,6 +61,12 @@ export function registerAndroidWidgetTaskHandler(): void {
           if (widgetAction === "WIDGET_DELETED") return;
           if (widgetAction === "WIDGET_CLICK") {
             await handleWidgetMarkClick(clickAction, clickActionData ?? {});
+          }
+          if (widgetAction === "WIDGET_CLICK" && isMarkClick(clickAction)) {
+            // A mark changes several widgets (progress, schedule, next Salah):
+            // redraw all of them, not only the one that was tapped.
+            await refreshRegisteredAndroidWidgets();
+            return;
           }
           const definition = getAppWidgetByName(widgetInfo.widgetName);
           if (!definition) return;

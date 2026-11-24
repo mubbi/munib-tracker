@@ -74,6 +74,17 @@ describe("buildReminders", () => {
     expect(ids).toContain("morningZikr");
   });
 
+  it("anchors Salah reminders on the `now` it is given, not the wall clock", () => {
+    // Regression: the Salah days were derived from `new Date()`, so a build for
+    // another instant mixed today's Salah with that instant's other nudges.
+    const later = new Date(2026, 7, 20, 4, 0);
+    const prayerIds = buildReminders(basePrefs, SET_LOCATION, later)
+      .map((item) => item.id)
+      .filter((id) => id.startsWith("prayer:"));
+    expect(prayerIds).toContain("prayer:dhuhr:2026-08-21");
+    expect(prayerIds.some((id) => id.includes("2026-07-"))).toBe(false);
+  });
+
   it("includes prayer, azan, and before-prayer slots for enabled toggles", () => {
     const reminders = buildReminders(basePrefs, SET_LOCATION);
     const ids = reminders.map((item) => item.id.split(":")[0]);

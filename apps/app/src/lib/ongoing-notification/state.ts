@@ -3,9 +3,11 @@ import { buildAppUrl } from "@/lib/app-links";
 import type { WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
 import {
   actionForPhase,
+  progressForPhase,
   resolveSalahPhase,
   type SalahPhase,
   type SalahPhaseBoundary,
+  shortCriticalTextForPhase,
 } from "@/lib/salah-phase";
 
 /**
@@ -94,19 +96,18 @@ export function buildOngoingNotificationState(
   const action = actionForPhase(phase === "ended" ? "afterSalah" : phase, snapshot);
   const showingCurrent = phase !== "upcoming" && phase !== "ended";
   const boundary = input.boundaries?.[0];
-  const progressPercent =
-    boundary?.progressPercent ?? (phase === "upcoming" ? 20 : phase === "markSalah" ? 65 : 85);
-  const progressSegments = boundary?.progressSegments ?? [60, 15, 30];
-  const progressPoints = boundary?.progressPoints ?? [60, 75];
+  // Without a scheduled boundary, derive the same values the boundaries carry.
+  const fallback = progressForPhase(phase);
+  const progressPercent = boundary?.progressPercent ?? fallback.progressPercent;
+  const progressSegments = boundary?.progressSegments ?? fallback.progressSegments;
+  const progressPoints = boundary?.progressPoints ?? fallback.progressPoints;
   const shortCriticalText =
     boundary?.shortCriticalText ??
-    (phase === "upcoming"
-      ? minutesUntil < 60
-        ? `${minutesUntil}m`
-        : `${Math.floor(minutesUntil / 60)}h`
-      : phase === "markSalah"
-        ? "Mark"
-        : "Adhkar");
+    shortCriticalTextForPhase(
+      phase,
+      showingCurrent ? nextPrayer.currentPrayerName : nextPrayer.prayerName,
+      minutesUntil,
+    );
 
   const schedule = (input.boundaries ?? []).map((b) => ({
     executeAtMs: Date.parse(b.executeAt),

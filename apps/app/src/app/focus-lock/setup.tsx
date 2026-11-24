@@ -10,6 +10,7 @@ import {
   useFocusLockPrefs,
 } from "@/components/focus-lock/focus-lock-settings-form";
 import { FocusSoftPrompt } from "@/components/focus-lock/focus-soft-prompt";
+import { useNativeFocusTheme } from "@/components/focus-lock/use-native-focus-theme";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -19,7 +20,6 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Spacing } from "@/constants/theme";
 import { useFocusPlan } from "@/hooks/use-focus-lock";
 import { useForegroundInterval } from "@/hooks/use-foreground-interval";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type LaunchableApp, pickableApps } from "@/lib/focus-lock/allowlist";
 import { syncNativePlan } from "@/lib/focus-lock/controller";
 import {
@@ -56,7 +56,6 @@ type Step = (typeof STEPS)[number];
 export default function FocusLockSetupScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
   const params = useLocalSearchParams<{ step?: string }>();
   const hard = focusLockCapability() === "hard";
   const platform = focusLockPlatform();
@@ -73,13 +72,7 @@ export default function FocusLockSetupScreen() {
   const confirmAlert = useSetting<boolean>("notifications.salah.focusLockConfirm");
   const [test, setTest] = useState<FocusWindow | null>(null);
 
-  const theme = {
-    accent: colors.accent,
-    accentForeground: colors.accentForeground,
-    background: colors.background,
-    foreground: colors.foreground,
-    muted: colors.mutedForeground,
-  };
+  const theme = useNativeFocusTheme();
 
   const finish = async () => {
     await focusLockStore.getState().patch({ setupDone: true });
@@ -345,14 +338,20 @@ function AndroidAppPicker() {
   };
 
   useEffect(() => {
-    void (async () => {
-      const [{ apps: all, context }, current] = await Promise.all([
-        listLaunchableApps(),
-        blockedPackages(),
-      ]);
-      setApps(context ? pickableApps(all, context, i18n.language) : []);
-      setSelected(new Set(current));
-    })();
+    let cancelled = false;
+    Promise.all([listLaunchableApps(), blockedPackages()])
+      .then(([{ apps: all, context }, current]) => {
+        if (cancelled) return;
+        setApps(context ? pickableApps(all, context, i18n.language) : []);
+        setSelected(new Set(current));
+      })
+      .catch(() => {
+        // Native module failed — show the "no apps" note instead of a blank step.
+        if (!cancelled) setApps([]);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [i18n.language]);
 
   if (!apps) return null;

@@ -265,6 +265,35 @@ describe("rescheduleAll", () => {
     expect(snoozeCall?.trigger.seconds).toBe(400);
   });
 
+  it("restores a snoozed adhan without the delivered `custom` sound marker", async () => {
+    // iOS reports a scheduled custom sound back as the literal "custom" (not a
+    // file name); scheduling that back made iOS look for a file called "custom".
+    mockGetAll.mockResolvedValue([
+      {
+        identifier: "snooze:prayer:fajr:2026-07-03",
+        content: {
+          title: "Fajr",
+          body: "Pray",
+          sound: "custom",
+          data: { channelId: "prayerAdhan", androidChannelId: "adhan-default" },
+        },
+        trigger: { type: "timeInterval", seconds: 300 },
+      },
+    ] as never);
+
+    await rescheduleAll(makePrefs(), SET_LOCATION);
+
+    const restored = mockSchedule.mock.calls
+      .map(([arg]) => arg as Notifications.NotificationRequestInput)
+      .find((arg) => arg.identifier === "snooze:prayer:fajr:2026-07-03");
+    expect(restored?.content).not.toHaveProperty("sound");
+    expect(restored?.content).toMatchObject({
+      categoryIdentifier: "prayer_now",
+      threadIdentifier: "prayerAdhan",
+    });
+    expect(restored?.trigger).toMatchObject({ channelId: "adhan-default", seconds: 300 });
+  });
+
   it("keeps scheduling reminders when restoring a snooze throws", async () => {
     mockGetAll.mockResolvedValue([
       {

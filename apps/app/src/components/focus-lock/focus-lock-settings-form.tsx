@@ -9,11 +9,12 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { Chip } from "@/components/ui/chip";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stepper } from "@/components/ui/stepper";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
-import { Radius, Spacing } from "@/constants/theme";
+import { SwitchRow } from "@/components/ui/switch-row";
+import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { focusLockCapability, focusLockPlatform } from "@/lib/focus-lock/native";
 import {
@@ -212,7 +213,6 @@ function ToggleChips<T extends string | number>({
   max?: number;
   onToggle: (id: T, on: boolean) => void;
 }) {
-  const { colors, tokens } = useThemeTokens();
   const full = max != null && selected.length >= max;
   return (
     <View style={styles.weekend}>
@@ -222,29 +222,17 @@ function ToggleChips<T extends string | number>({
       <View style={styles.chips}>
         {options.map(({ id, short, long }) => {
           const on = selected.includes(id);
-          const disabled = readOnly || (!on && full);
           return (
-            <PressableScale
+            <Chip
               key={String(id)}
-              haptic="selection"
-              scaleTo={0.95}
-              disabled={disabled}
-              accessibilityRole="checkbox"
+              role="checkbox"
+              label={short}
               accessibilityLabel={long}
-              accessibilityState={{ checked: on, disabled }}
+              selected={on}
+              disabled={readOnly || (!on && full)}
               onPress={() => onToggle(id, !on)}
-              style={[
-                styles.chip,
-                {
-                  backgroundColor: on ? tokens.accentSoft : colors.card,
-                  borderColor: on ? colors.accent : colors.border,
-                },
-              ]}
-            >
-              <ThemedText type="caption" numberOfLines={1}>
-                {short}
-              </ThemedText>
-            </PressableScale>
+              style={styles.chip}
+            />
           );
         })}
       </View>
@@ -323,6 +311,10 @@ function weekdayNames(bcp47: string): { day: number; short: string; long: string
   });
 }
 
+/**
+ * A focus-lock on/off row: the shared `SwitchRow` with this form's hairline
+ * divider (matching `StepperRow`). `readOnly` disables the switch.
+ */
 export function ToggleRow({
   label,
   hint,
@@ -338,20 +330,13 @@ export function ToggleRow({
 }) {
   const { colors } = useThemeTokens();
   return (
-    <View style={[styles.row, { borderColor: colors.border }]}>
-      <View style={styles.copy}>
-        <ThemedText type="small">{label}</ThemedText>
-        {hint ? (
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {hint}
-          </ThemedText>
-        ) : null}
-      </View>
-      <ThemedSwitch
+    <View style={[styles.divider, { borderColor: colors.border }]}>
+      <SwitchRow
+        title={label}
+        subtitle={hint}
         value={value}
         disabled={readOnly}
         onValueChange={onChange}
-        accessibilityLabel={label}
       />
     </View>
   );
@@ -408,15 +393,8 @@ const styles = StyleSheet.create({
   copy: { flex: 1, gap: Spacing.half },
   weekend: { gap: Spacing.two },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
-  chip: {
-    minWidth: 44,
-    minHeight: 44,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.two,
-  },
+  /** Short weekday names: keep a 44pt-wide target and centre the label. */
+  chip: { minWidth: 44, justifyContent: "center" },
+  divider: { borderBottomWidth: StyleSheet.hairlineWidth },
   reset: { alignSelf: "flex-start", paddingVertical: Spacing.one },
 });

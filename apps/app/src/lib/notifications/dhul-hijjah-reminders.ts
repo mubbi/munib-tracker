@@ -11,11 +11,11 @@ import {
   tashriqSlotsAllViews,
 } from "@/lib/dhul-hijjah";
 import { gregorianToHijri } from "@/lib/hijri";
-import { locationCalcExtras, type StoredLocation } from "@/lib/location";
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import type { BuiltReminder } from "@/lib/notifications/build-reminders";
 import { priorityForKind } from "@/lib/notifications/reminder-budget";
-import { computePrayerTimes } from "@/lib/prayer-times";
-import { parseHhMm, prayerDayAnchor, shiftPrayerDay, wallClockInTimeZoneToDate } from "@/lib/time";
+import { addMinutes, isPastFireTime, wallClockOnDay } from "@/lib/notifications/reminder-clock";
+import { prayerDayAnchor, shiftPrayerDay } from "@/lib/time";
 import { isPilgrimForHijriYear } from "@/lib/voluntary-fasting/pilgrim";
 
 /**
@@ -62,18 +62,6 @@ function morningVariant(day: number): MorningVariant {
   return "tashriq";
 }
 
-function at(day: Date, hhmm: string, timeZone: string | undefined): Date {
-  const { hour, minute } = parseHhMm(hhmm);
-  return wallClockInTimeZoneToDate(
-    day.getFullYear(),
-    day.getMonth() + 1,
-    day.getDate(),
-    hour,
-    minute,
-    timeZone,
-  );
-}
-
 export function pushDhulHijjahReminders(
   reminders: BuiltReminder[],
   prefs: UserPreferences,
@@ -90,9 +78,8 @@ export function pushDhulHijjahReminders(
 
   const tz = location.timeZone;
   const anchor = prayerDayAnchor(now, tz);
-  const cutoff = now.getTime() - 60_000;
   const push = (reminder: BuiltReminder) => {
-    if (reminder.fireAt.getTime() > cutoff) reminders.push(reminder);
+    if (!isPastFireTime(reminder.fireAt, now)) reminders.push(reminder);
   };
 
   for (let offset = 0; offset < daysAhead; offset += 1) {
@@ -107,7 +94,7 @@ export function pushDhulHijjahReminders(
       const intends = options.dhulHijjah?.intendsUdhiyahByYear[String(next.year)] === true;
       push({
         id: `dhulHijjah:eve:${key}`,
-        fireAt: at(day, EVE_TIME, tz),
+        fireAt: wallClockOnDay(day, EVE_TIME, tz),
         title: i18n.t("dhulHijjah.reminder.eveTitle"),
         body: intends
           ? i18n.t("dhulHijjah.reminder.eveBody")
@@ -126,7 +113,7 @@ export function pushDhulHijjahReminders(
       const pilgrim = isPilgrimForHijriYear(prefs.voluntaryFasting, hijri.year);
       push({
         id: `dhulHijjah:day:${key}`,
-        fireAt: at(day, MORNING_TIME, tz),
+        fireAt: wallClockOnDay(day, MORNING_TIME, tz),
         title: i18n.t(`dhulHijjah.reminder.morningTitle.${variant}`, { day: hijri.day }),
         body:
           variant === "arafah" && pilgrim
@@ -140,7 +127,7 @@ export function pushDhulHijjahReminders(
       if (hijri.day === 8) {
         push({
           id: `dhulHijjah:arafahEve:${key}`,
-          fireAt: at(day, EVE_TIME, tz),
+          fireAt: wallClockOnDay(day, EVE_TIME, tz),
           title: i18n.t("dhulHijjah.reminder.arafahEveTitle"),
           body: pilgrim
             ? i18n.t("dhulHijjah.reminder.arafahEveBodyPilgrim")
@@ -159,19 +146,13 @@ export function pushDhulHijjahReminders(
       const slots = rules ? tashriqSlots(rules, hijri.year) : tashriqSlotsAllViews(hijri.year);
       const prayers = slots.filter((s) => s.date === key).map((s) => s.prayer);
       if (prayers.length === 0) continue;
-      const times = computePrayerTimes(
-        { latitude: location.latitude, longitude: location.longitude },
-        day,
-        location.method,
-        location.madhab,
-        locationCalcExtras(location),
-      );
+      const times = computeLocationPrayerTimes(location, day);
       for (const prayer of prayers) {
         const start = times.timeForPrayer(prayer as ObligatoryPrayer);
         if (!start) continue;
         push({
           id: `takbirTashriq:${key}:${prayer}`,
-          fireAt: new Date(start.getTime() + TAKBIR_AFTER_FARD_MINUTES * 60_000),
+          fireAt: addMinutes(start, TAKBIR_AFTER_FARD_MINUTES),
           title: i18n.t("dhulHijjah.reminder.takbirTitle"),
           body: i18n.t("dhulHijjah.reminder.takbirBody", { prayer: i18n.t(`prayers.${prayer}`) }),
           channelId: "zikr",

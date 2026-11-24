@@ -3,12 +3,8 @@ import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 
 import i18n from "@/i18n";
-import { coachReminderOptions } from "@/lib/coach/reminder-options";
 import { nativeEnqueueCommand } from "@/lib/external-commands/native-bridge";
-import { familyTiesReminderOptions } from "@/lib/family-ties/reminder-options";
 import type { StoredLocation } from "@/lib/location";
-import { iqamahReminderOptions } from "@/lib/masjid/iqamah-reminder-options";
-import { muhasabahReminderOptions } from "@/lib/muhasabah/reminder-options";
 import {
   adhanChannelId,
   adhanNotificationSound,
@@ -17,11 +13,9 @@ import {
 import {
   type BuiltReminder,
   buildReminders,
-  hasOutstandingQazaDebt,
   type ScheduledReminderRow,
   summarizeReminders,
 } from "@/lib/notifications/build-reminders";
-import { dhulHijjahReminderOptions } from "@/lib/notifications/dhul-hijjah-reminder-options";
 import {
   parseScheduledTriggerAtMs,
   type RawScheduledTrigger,
@@ -32,41 +26,21 @@ import {
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
 import { isLocalNotificationSupported } from "@/lib/notifications/platform";
-import { sunnahHabitsReminderOptions } from "@/lib/notifications/sunnah-habits-reminder-options";
-import { vaultReminderOptions } from "@/lib/notifications/vault-reminder-options";
-import { quranRevisionReminderOptions } from "@/lib/quran-companion/reminder-options";
-import { rawatibNudgeOptions } from "@/lib/rawatib-nudge";
+import {
+  MARK_ACTION_IDENTIFIER,
+  markCommandFromReminderData,
+  PRAYER_NOW_CATEGORY,
+  type ReminderActionData,
+  SNOOZE_ACTION_IDENTIFIER,
+  SNOOZE_ID_PREFIX,
+  SNOOZE_MINUTES,
+} from "@/lib/notifications/reminder-actions";
+import { JUST_MISSED_WINDOW_MS } from "@/lib/notifications/reminder-clock";
+import { collectReminderOptions } from "@/lib/notifications/reminder-options";
 import { captureAppException } from "@/lib/sentry";
 import { formatDisplayHhMm } from "@/lib/time";
-import { voluntaryFastingReminderOptions } from "@/lib/voluntary-fasting/reminder-options";
-import { trackerStore } from "@/stores/tracker-store";
 
-/** Snapshot current Qaza/roza debt for reminder builds. */
-/**
- * Async: also reads the Qur'an practice revision-reminder inputs straight from
- * their repositories (the practice stores are lazy and usually not loaded at launch).
- */
-async function buildReminderOptions() {
-  const { qazaCounters, roza } = trackerStore.getState();
-  return {
-    hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza),
-    ...(await quranRevisionReminderOptions()),
-    ...(await voluntaryFastingReminderOptions()),
-    // NF-3.5 habits (selected / bedtime counts) + NF-3.3 udhiyah intention flags.
-    ...(await sunnahHabitsReminderOptions()),
-    ...(await dhulHijjahReminderOptions()),
-    // NF-3.1 opt-in after-fard rawatib nudge (today's unlogged after-rows).
-    ...(await rawatibNudgeOptions()),
-    // NF-3.11 home-masjid iqamah reminders (private/public times only).
-    ...(await iqamahReminderOptions()),
-    muhasabah: await muhasabahReminderOptions(),
-    familyTies: await familyTiesReminderOptions(),
-    // NF-3.14 weekly coach (recent-activity flag only).
-    ...(await coachReminderOptions()),
-    // NF-3.8 / NF-3.9: debts due + wasiyyah review (vault dates only).
-    ...(await vaultReminderOptions()),
-  };
-}
+export { MARK_ACTION_IDENTIFIER, PRAYER_NOW_CATEGORY, SNOOZE_ACTION_IDENTIFIER };
 
 /** Serializes reschedule passes so overlapping calls cannot stack duplicate OS notifications. */
 let rescheduleTail: Promise<void> = Promise.resolve();
@@ -79,11 +53,12 @@ function enqueueReschedule(task: () => Promise<void>): Promise<void> {
   return run;
 }
 
-type ChannelId = "prayer" | "prayerAdhan" | "zikr" | "qaza";
+type ChannelId = BuiltReminder["channelId"];
 
 /**
  * Channels created up front. The adhan channel is per style (`adhan-<styleId>`,
  * see `lib/notifications/adhan-sounds.ts`) and is synced by {@link syncAdhanChannel}.
+ * https://developer.android.com/develop/ui/views/notifications/channels
  */
 const STATIC_CHANNEL_IDS: Exclude<ChannelId, "prayerAdhan">[] = ["prayer", "zikr", "qaza"];
 
@@ -102,12 +77,22 @@ function osChannelId(channelId: ChannelId, androidChannelId?: string): string {
   return channelId === "prayerAdhan" ? activeAdhanChannelId : channelId;
 }
 
+/** The OS channel recorded in a scheduled / delivered reminder's `data`. */
+function osChannelIdFromData(data: Record<string, unknown> | null | undefined): string {
+  const { channelId, androidChannelId } = (data ?? {}) as {
+    channelId?: ChannelId;
+    androidChannelId?: string;
+  };
+  return osChannelId(channelId ?? "prayer", androidChannelId);
+}
+
 /**
  * Android: make sure the selected adhan style's channel exists with that style's
  * sound (HIGH importance so it isn't silenced) and delete every other adhan
- * channel — channel sounds are immutable after creation, so switching style
- * switches channel (B2). Callers reschedule afterwards so pending adhan
+ * channel — a channel's sound can't be changed after it is created, so switching
+ * style switches channel (B2). Callers reschedule afterwards so pending adhan
  * reminders move to the new channel. No-op elsewhere.
+ * https://developer.android.com/develop/ui/views/notifications/channels#UpdateChannel
  */
 export async function syncAdhanChannel(adhanStyleId?: string | null): Promise<void> {
   if (Platform.OS !== "android" || !isLocalNotificationSupported()) return;
@@ -134,74 +119,65 @@ export async function syncAdhanChannel(adhanStyleId?: string | null): Promise<vo
 }
 
 /**
- * Category for obligatory prayer-time-now reminders only — Mark + Snooze.
- * Prep / zikr / qaza nudges omit this so they don't offer a premature Mark.
- */
-export const PRAYER_NOW_CATEGORY = "prayer_now";
-/** Mark is listed first so Apple Watch Double Tap invokes the nondestructive Mark action. */
-export const MARK_ACTION_IDENTIFIER = "markcurrent";
-export const SNOOZE_ACTION_IDENTIFIER = "snooze";
-const SNOOZE_MINUTES = 10;
-const SNOOZE_ID_PREFIX = "snooze:";
-/**
  * Expo iOS DATE triggers become `UNTimeIntervalNotificationTrigger(timeIntervalSinceNow)`
  * with the timestamp truncated to whole seconds. Intervals ≤ 0 throw
  * `ERR_NOTIFICATIONS_FAILED_TO_SCHEDULE` (native reason often just "undefined reason").
  * Keep a 2s lead so truncation and scheduling latency cannot go non-positive.
  */
 export const MIN_DATE_TRIGGER_LEAD_MS = 2_000;
-/** Match `buildReminders`: still deliver a DATE reminder that fired up to 60s ago. */
-const JUST_MISSED_WINDOW_MS = 60_000;
 
-type PendingSnooze = {
-  identifier: string;
-  content: Notifications.NotificationContentInput;
-  seconds: number;
-  channelId: string;
-};
+type SnoozeSource = { title: string | null; body: string | null; data?: Record<string, unknown> };
 
-async function collectPendingSnoozes(): Promise<PendingSnooze[]> {
+/**
+ * A snoozed reminder: the original text and data, re-armed in `seconds`. Snooze
+ * is only offered on prayer-time-now reminders, so it keeps Mark + Snooze. No
+ * explicit sound — the OS default (iOS) or the channel's sound (Android); the
+ * delivered content only reports a custom sound as the literal `"custom"`, which
+ * is not a file name and must never be scheduled back.
+ */
+function snoozeRequest(
+  identifier: string,
+  source: SnoozeSource,
+  seconds: number,
+): Notifications.NotificationRequestInput {
+  const data = source.data ?? {};
+  return {
+    identifier,
+    content: {
+      title: source.title ?? i18n.t("notif.defaultTitle"),
+      body: source.body ?? "",
+      categoryIdentifier: PRAYER_NOW_CATEGORY,
+      ...(typeof data.channelId === "string" ? { threadIdentifier: data.channelId } : {}),
+      data,
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+      seconds,
+      channelId: osChannelIdFromData(data),
+      repeats: false,
+    },
+  };
+}
+
+/** Pending snoozes, captured before a reschedule pass cancels everything. */
+async function collectPendingSnoozes(): Promise<Notifications.NotificationRequestInput[]> {
   const scheduled = await Notifications.getAllScheduledNotificationsAsync();
   const now = Date.now();
-  const out: PendingSnooze[] = [];
+  const out: Notifications.NotificationRequestInput[] = [];
   for (const item of scheduled) {
     if (!item.identifier.startsWith(SNOOZE_ID_PREFIX)) continue;
     const fireAtMs = parseScheduledTriggerAtMs(item.trigger as RawScheduledTrigger);
     if (fireAtMs == null || fireAtMs <= now) continue;
-    const data = item.content.data as {
-      channelId?: ChannelId;
-      androidChannelId?: string;
-    } | null;
-    const channelId = osChannelId(data?.channelId ?? "prayer", data?.androidChannelId);
-    out.push({
-      identifier: item.identifier,
-      content: {
-        title: item.content.title ?? i18n.t("notif.defaultTitle"),
-        body: item.content.body ?? "",
-        categoryIdentifier: PRAYER_NOW_CATEGORY,
-        data: item.content.data ?? {},
-        ...(item.content.sound ? { sound: item.content.sound } : {}),
-      },
-      seconds: Math.max(1, Math.round((fireAtMs - now) / 1000)),
-      channelId,
-    });
+    const seconds = Math.max(1, Math.round((fireAtMs - now) / 1000));
+    out.push(snoozeRequest(item.identifier, item.content, seconds));
   }
   return out;
 }
 
-async function restoreSnoozes(snoozes: PendingSnooze[]): Promise<void> {
+async function restoreSnoozes(snoozes: Notifications.NotificationRequestInput[]): Promise<void> {
   for (const snooze of snoozes) {
     try {
-      await Notifications.scheduleNotificationAsync({
-        identifier: snooze.identifier,
-        content: snooze.content,
-        trigger: {
-          type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
-          seconds: snooze.seconds,
-          channelId: snooze.channelId,
-          repeats: false,
-        },
-      });
+      await Notifications.scheduleNotificationAsync(snooze);
     } catch (error) {
       captureAppException(error, {
         tags: { area: "notifications", phase: "restore-snooze" },
@@ -225,8 +201,9 @@ export type ReminderTriggerOptions = {
   /**
    * "Precise Adhan timing" (Android): schedule Adhan-channel reminders with
    * `delivery: "alarmClock"` (AlarmManager.setAlarmClock) so battery optimisation
-   * can't defer them. Without the exact-alarm permission Android falls back to
+   * can't defer them. Without the exact-alarm permission Expo falls back to
    * best-effort delivery on its own.
+   * https://developer.android.com/develop/background-work/services/alarms/schedule#exact
    */
   preciseAdhan?: boolean;
 };
@@ -242,6 +219,7 @@ export function osTriggerForReminder(
 ): Notifications.NotificationTriggerInput | null {
   const fireAtMs = reminder.fireAt.getTime();
   if (!Number.isFinite(fireAtMs)) return null;
+  const channelId = osChannelId(reminder.channelId, reminder.androidChannelId);
   const alarmClock =
     preciseAdhan && Platform.OS === "android" && reminder.channelId === "prayerAdhan"
       ? ({ delivery: "alarmClock" } as const)
@@ -256,7 +234,7 @@ export function osTriggerForReminder(
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
       hour,
       minute,
-      channelId: osChannelId(reminder.channelId, reminder.androidChannelId),
+      channelId,
       ...alarmClock,
     };
   }
@@ -267,7 +245,7 @@ export function osTriggerForReminder(
     return {
       type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
       seconds: 1,
-      channelId: osChannelId(reminder.channelId, reminder.androidChannelId),
+      channelId,
       repeats: false,
     };
   }
@@ -275,7 +253,7 @@ export function osTriggerForReminder(
   return {
     type: Notifications.SchedulableTriggerInputTypes.DATE,
     date: reminder.fireAt,
-    channelId: osChannelId(reminder.channelId, reminder.androidChannelId),
+    channelId,
     ...alarmClock,
   };
 }
@@ -367,37 +345,38 @@ async function scheduleReminder(
   });
 }
 
-/** Cancels existing reminders and schedules the set implied by preferences + location. */
+/**
+ * Cancels existing reminders and schedules the set implied by preferences + location.
+ * Prefer `rescheduleReminders()` (`lib/notifications/reschedule.ts`), which reads
+ * both from the stores; only the notification lifecycle calls this directly.
+ */
 export async function rescheduleAll(
   prefs: UserPreferences,
   location: StoredLocation,
 ): Promise<void> {
   if (!isLocalNotificationSupported()) return;
   return enqueueReschedule(async () => {
-    // Preserve snoozes across cancel/rebuild so foreground reschedule doesn't
-    // erase an intentional deferral.
     // Select (or create) the chosen adhan style's channel before arming reminders.
     await syncAdhanChannel(prefs.adhanStyleId).catch((error) => {
       captureAppException(error, { tags: { area: "notifications", phase: "adhan-channel" } });
     });
+    // Preserve snoozes across cancel/rebuild so a foreground reschedule doesn't
+    // erase an intentional deferral.
     const snoozes = await collectPendingSnoozes();
+    const now = new Date();
     const nextReminders =
       prefs.notificationPrefs.masterEnabled && (await getPermissionStatus()) === "granted"
-        ? buildReminders(prefs, location, new Date(), await buildReminderOptions())
+        ? buildReminders(prefs, location, now, await collectReminderOptions())
         : [];
-    const now = Date.now();
-    const toSchedule = nextReminders.filter(
-      (reminder) => reminder.fireAt.getTime() > now - JUST_MISSED_WINDOW_MS,
-    );
+    const preciseAdhan = prefs.notificationPrefs.preciseAdhan === true;
 
     // Cancel only after we know what to arm. Schedule each reminder independently —
     // one iOS DATE reject must not leave the user with an empty pending set.
+    // (`buildReminders` already dropped anything past the just-missed window.)
     await cancelAll();
-    for (const reminder of toSchedule) {
+    for (const reminder of nextReminders) {
       try {
-        await scheduleReminder(reminder, {
-          preciseAdhan: prefs.notificationPrefs.preciseAdhan === true,
-        });
+        await scheduleReminder(reminder, { preciseAdhan });
       } catch (error) {
         captureAppException(error, {
           tags: { area: "notifications", phase: "schedule" },
@@ -418,39 +397,13 @@ export async function snoozeNotification(
 ): Promise<void> {
   if (!isLocalNotificationSupported()) return;
   const { content } = response.notification.request;
-  const channelId = osChannelId(
-    (content.data?.channelId as ChannelId | undefined) ?? "prayer",
-    content.data?.androidChannelId as string | undefined,
-  );
+  const data = content.data ?? {};
   const baseId =
-    (content.data?.reminderId as string | undefined) ??
-    (content.data?.prayerId as string | undefined) ??
-    "prayer";
-  const identifier = `${SNOOZE_ID_PREFIX}${baseId}`;
-  await Notifications.scheduleNotificationAsync({
-    identifier,
-    content: {
-      title: content.title ?? i18n.t("notif.defaultTitle"),
-      body: content.body ?? "",
-      // Snooze is only offered on prayer-time-now reminders — keep Mark + Snooze.
-      categoryIdentifier: PRAYER_NOW_CATEGORY,
-      data: content.data ?? {},
-    },
-    trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
-      seconds: SNOOZE_MINUTES * 60,
-      channelId,
-      repeats: false,
-    },
-  });
+    (data.reminderId as string | undefined) ?? (data.prayerId as string | undefined) ?? "prayer";
+  await Notifications.scheduleNotificationAsync(
+    snoozeRequest(`${SNOOZE_ID_PREFIX}${baseId}`, content, SNOOZE_MINUTES * 60),
+  );
 }
-
-type ReminderActionData = {
-  prayerId?: string;
-  prayerDate?: string;
-};
-
-const OBLIGATORY_IDS = new Set(["fajr", "dhuhr", "asr", "maghrib", "isha"]);
 
 /**
  * Enqueues a mark command from the notification Mark action (no UI navigation).
@@ -460,113 +413,65 @@ export async function markFromNotification(
   response: Notifications.NotificationResponse,
 ): Promise<void> {
   if (!isLocalNotificationSupported()) return;
-  const data = (response.notification.request.content.data ?? {}) as ReminderActionData;
-  const prayerId = data.prayerId;
-  const prayerDate = data.prayerDate;
-  if (prayerId && prayerDate && OBLIGATORY_IDS.has(prayerId)) {
-    await nativeEnqueueCommand({
-      type: "mark-prayer",
-      prayerId: prayerId as "fajr" | "dhuhr" | "asr" | "maghrib" | "isha",
-      date: prayerDate,
-      source: "notification",
-    });
-    return;
-  }
-  await nativeEnqueueCommand({
-    type: "mark-current-obligatory",
-    source: "notification",
-  });
+  const data = response.notification.request.content.data as ReminderActionData | undefined;
+  await nativeEnqueueCommand(markCommandFromReminderData(data));
 }
 
+/** Centre rows for what the OS actually has pending, one per title + body, soonest first. */
+function rowsFromPending(
+  scheduled: Notifications.NotificationRequest[],
+  prefs: UserPreferences,
+): ScheduledReminderRow[] {
+  const now = Date.now();
+  const parsed: (ScheduledReminderRow & { atMs: number })[] = [];
+  for (const item of scheduled) {
+    const atMs = parseScheduledTriggerAtMs(item.trigger as RawScheduledTrigger, now);
+    if (atMs == null) continue;
+    const fireAt = scheduledFireAtIso(atMs);
+    if (!fireAt) continue;
+    const date = new Date(atMs);
+    parsed.push({
+      id: item.identifier,
+      title: item.content.title ?? i18n.t("notif.defaultTitle"),
+      body: item.content.body ?? "",
+      time: formatDisplayHhMm(date.getHours(), date.getMinutes(), prefs.timeFormat),
+      route: (item.content.data as { route?: string } | undefined)?.route,
+      fireAt,
+      atMs,
+    });
+  }
+  parsed.sort((a, b) => a.atMs - b.atMs);
+
+  const seen = new Set<string>();
+  const rows: ScheduledReminderRow[] = [];
+  for (const { atMs: _atMs, ...row } of parsed) {
+    const dedupeKey = `${row.title}\0${row.body}`;
+    if (seen.has(dedupeKey)) continue;
+    seen.add(dedupeKey);
+    rows.push(row);
+  }
+  return rows.sort((a, b) => a.fireAt.localeCompare(b.fireAt));
+}
+
+/**
+ * The notification centre's "upcoming" list: what the OS has pending, or — when
+ * nothing is pending yet (fresh install, unsupported build) — what a reschedule
+ * would arm.
+ */
 export async function listScheduled(
   prefs: UserPreferences,
   location: StoredLocation,
 ): Promise<ScheduledReminderRow[]> {
-  const options = await buildReminderOptions();
-  if (!isLocalNotificationSupported()) {
-    if (!prefs.notificationPrefs.masterEnabled) return [];
-    return summarizeReminders(
-      buildReminders(prefs, location, new Date(), options),
-      prefs.timeFormat,
-      new Date(),
-      location.timeZone,
-    );
+  if (isLocalNotificationSupported()) {
+    const rows = rowsFromPending(await Notifications.getAllScheduledNotificationsAsync(), prefs);
+    if (rows.length > 0) return rows;
   }
-
-  const scheduled = await Notifications.getAllScheduledNotificationsAsync();
-  if (scheduled.length > 0) {
-    const now = Date.now();
-    const parsed: {
-      id: string;
-      title: string;
-      body: string;
-      time?: string;
-      atMs: number;
-      route?: string;
-      fireAt: string;
-    }[] = [];
-
-    for (const item of scheduled) {
-      const trigger = item.trigger as RawScheduledTrigger;
-      const atMs = parseScheduledTriggerAtMs(trigger, now);
-      if (atMs == null) continue;
-
-      const fireAt = scheduledFireAtIso(atMs);
-      if (!fireAt) continue;
-
-      const date = new Date(atMs);
-      const time = formatDisplayHhMm(date.getHours(), date.getMinutes(), prefs.timeFormat);
-
-      const title = item.content.title ?? i18n.t("notif.defaultTitle");
-      const body = item.content.body ?? "";
-      const route = (item.content.data as { route?: string } | undefined)?.route;
-      parsed.push({
-        id: item.identifier,
-        title,
-        body,
-        time,
-        atMs,
-        route,
-        fireAt,
-      });
-    }
-
-    if (parsed.length === 0) {
-      if (!prefs.notificationPrefs.masterEnabled) return [];
-      return summarizeReminders(
-        buildReminders(prefs, location, new Date(), options),
-        prefs.timeFormat,
-        new Date(),
-        location.timeZone,
-      );
-    }
-
-    parsed.sort((a, b) => a.atMs - b.atMs);
-
-    const seen = new Set<string>();
-    const rows: ScheduledReminderRow[] = [];
-    for (const item of parsed) {
-      const dedupeKey = `${item.title}\0${item.body}`;
-      if (seen.has(dedupeKey)) continue;
-      seen.add(dedupeKey);
-      rows.push({
-        id: item.id,
-        title: item.title,
-        body: item.body,
-        fireAt: item.fireAt,
-        time: item.time,
-        route: item.route,
-      });
-    }
-
-    return rows.sort((a, b) => a.fireAt.localeCompare(b.fireAt));
-  }
-
   if (!prefs.notificationPrefs.masterEnabled) return [];
+  const now = new Date();
   return summarizeReminders(
-    buildReminders(prefs, location, new Date(), options),
+    buildReminders(prefs, location, now, await collectReminderOptions()),
     prefs.timeFormat,
-    new Date(),
+    now,
     location.timeZone,
   );
 }

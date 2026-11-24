@@ -3,11 +3,10 @@ import type { UserPreferences } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 
 import i18n from "@/i18n";
-import { locationCalcExtras, type StoredLocation } from "@/lib/location";
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import type { BuiltReminder } from "@/lib/notifications/build-reminders";
 import { priorityForKind } from "@/lib/notifications/reminder-budget";
 import { isPrayerAlertEnabled } from "@/lib/prayer-alerts";
-import { computePrayerTimes } from "@/lib/prayer-times";
 import {
   PREFERRED_WINDOW_PRAYERS,
   type PreferredWindowPrayer,
@@ -108,20 +107,12 @@ export function pushPreferredTimeReminders(
   if (!preferredTimeRemindersActive(prefs)) return;
   const rules = rulesFor(prefs, "salah");
   if (!rules) return;
-  const coords = { latitude: location.latitude, longitude: location.longitude };
-  const extras = locationCalcExtras(location);
   const anchor = prayerDayAnchor(now, location.timeZone);
 
   for (let offset = 0; offset < daysAhead; offset += 1) {
     const day = shiftPrayerDay(anchor, offset);
-    const today = computePrayerTimes(coords, day, location.method, location.madhab, extras);
-    const tomorrow = computePrayerTimes(
-      coords,
-      shiftPrayerDay(day, 1),
-      location.method,
-      location.madhab,
-      extras,
-    );
+    const today = computeLocationPrayerTimes(location, day);
+    const tomorrow = computeLocationPrayerTimes(location, shiftPrayerDay(day, 1));
     const times: PreferredWindowTimes = {
       fajr: today.fajr,
       sunrise: today.sunrise,

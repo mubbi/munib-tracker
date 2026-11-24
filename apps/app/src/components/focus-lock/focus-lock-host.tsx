@@ -2,14 +2,12 @@ import { useEffect, useReducer, useRef, useState } from "react";
 
 import { useFocusPlan } from "@/hooks/use-focus-lock";
 import { useForegroundInterval } from "@/hooks/use-foreground-interval";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   drainNativeStatus,
   emergencyLeftNow,
   endWindowIfPrayed,
   syncNativePlan,
 } from "@/lib/focus-lock/controller";
-import type { NativeFocusTheme } from "@/lib/focus-lock/native";
 import { focusLockCapability } from "@/lib/focus-lock/native";
 import type { FocusWindow } from "@/lib/focus-lock/plan";
 import { IDLE_SESSION, reduceFocusSession } from "@/lib/focus-lock/state";
@@ -19,6 +17,7 @@ import { focusLockStore } from "@/stores/focus-lock-store";
 import { trackerStore } from "@/stores/tracker-store";
 
 import { FocusSoftPrompt } from "./focus-soft-prompt";
+import { useNativeFocusTheme } from "./use-native-focus-theme";
 
 /** Re-arm the native plan at most this often while nothing changes (covers day rollover). */
 const RESYNC_MS = 15 * 60_000;
@@ -39,20 +38,13 @@ export function FocusLockHost() {
 
 function FocusLockHostInner() {
   const plan = useFocusPlan(15_000);
-  const { colors } = useThemeTokens();
   const hard = focusLockCapability() === "hard";
   const previous = useRef<readonly FocusWindow[]>([]);
   const [foregroundTick, setForegroundTick] = useState(0);
   const [session, dispatch] = useReducer(reduceFocusSession, IDLE_SESSION);
   const [dismissedId, setDismissedId] = useState<string | null>(null);
 
-  const theme: NativeFocusTheme = {
-    accent: colors.accent,
-    accentForeground: colors.accentForeground,
-    background: colors.background,
-    foreground: colors.foreground,
-    muted: colors.mutedForeground,
-  };
+  const theme = useNativeFocusTheme();
   const themeKey = Object.values(theme).join("|");
   const planKey = plan.windows
     .map((w) => `${w.id}@${w.start.getTime()}-${w.end.getTime()}`)

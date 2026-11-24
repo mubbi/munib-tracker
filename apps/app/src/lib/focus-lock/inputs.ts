@@ -2,8 +2,7 @@ import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import type { FocusLockPrayer, ObligatoryPrayer } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 
-import { locationCalcExtras, type StoredLocation } from "@/lib/location";
-import { computePrayerTimes } from "@/lib/prayer-times";
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import { parseHhMm, wallClockInTimeZoneToDate } from "@/lib/time";
 import { prayerDayAnchor, shiftPrayerDay } from "@/lib/timezone-anchor";
 
@@ -49,14 +48,12 @@ export function buildFocusDays(
   iqamah?: IqamahLookup | null,
   count = 2,
 ): FocusDayInput[] {
-  const coords = { latitude: location.latitude, longitude: location.longitude };
-  const extras = locationCalcExtras(location);
   const today = prayerDayAnchor(now, location.timeZone);
   const days: FocusDayInput[] = [];
   for (let offset = 0; offset < count; offset++) {
     const anchor = shiftPrayerDay(today, offset);
     const date = getLocalDateString(anchor);
-    const times = computePrayerTimes(coords, anchor, location.method, location.madhab, extras);
+    const times = computeLocationPrayerTimes(location, anchor);
     const adhan: Partial<Record<ObligatoryPrayer, Date>> = {
       fajr: times.fajr,
       dhuhr: times.dhuhr,

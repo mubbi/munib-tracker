@@ -45,12 +45,9 @@ export async function syncOngoingNotification({
   const promote = shouldPromoteSession(activeSession, snapshot, now);
   const showAmbient = enabled === true;
 
+  // `activeSession` already excludes dismissed sessions, so a dismissed Track
+  // session falls back to ambient (or nothing) here.
   if (!promote && !showAmbient) {
-    await nativeCancelOngoingNotification();
-    return;
-  }
-
-  if (activeSession?.dismissed) {
     await nativeCancelOngoingNotification();
     return;
   }

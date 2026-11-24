@@ -4,13 +4,7 @@ import i18n from "@/i18n";
 import type { StoredLocation } from "@/lib/location";
 import type { BuiltReminder } from "@/lib/notifications/build-reminders";
 import { priorityForKind } from "@/lib/notifications/reminder-budget";
-import {
-  getZonedParts,
-  parseHhMm,
-  prayerDayAnchor,
-  shiftPrayerDay,
-  wallClockInTimeZoneToDate,
-} from "@/lib/time";
+import { nextDailyFireAt } from "@/lib/notifications/reminder-clock";
 
 /**
  * Daily Sunnah habits reminders (NF-3.5, §11 tier 5 "habits"):
@@ -45,27 +39,7 @@ export function pushSunnahHabitsReminders(
 ): void {
   if (prefs.notificationPrefs.habits !== true) return;
   if (!options.sunnahHabits || options.sunnahHabits.selectedCount <= 0) return;
-  const { hour, minute } = parseHhMm(HABITS_NUDGE_TIME);
-  const parts = getZonedParts(now, location.timeZone);
-  let fireAt = wallClockInTimeZoneToDate(
-    parts.year,
-    parts.month,
-    parts.day,
-    hour,
-    minute,
-    location.timeZone,
-  );
-  if (fireAt.getTime() <= now.getTime() - 60_000) {
-    const tomorrow = shiftPrayerDay(prayerDayAnchor(now, location.timeZone), 1);
-    fireAt = wallClockInTimeZoneToDate(
-      tomorrow.getFullYear(),
-      tomorrow.getMonth() + 1,
-      tomorrow.getDate(),
-      hour,
-      minute,
-      location.timeZone,
-    );
-  }
+  const fireAt = nextDailyFireAt(HABITS_NUDGE_TIME, now, location);
   reminders.push({
     id: "sunnahHabits",
     fireAt,
