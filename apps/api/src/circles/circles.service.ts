@@ -18,7 +18,7 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { DataSource, In, IsNull, MoreThan } from "typeorm";
+import { DataSource, type EntityManager, In, IsNull, MoreThan } from "typeorm";
 import { isRateLimited } from "../common/durable-rate-limit";
 import {
   ChildProfileEntity,
@@ -431,13 +431,42 @@ export class CirclesService {
     const user = requireUserActor(actor);
     await this.throttleJoin(user.userId);
     const { invite, circle } = await this.findUsableInvite(dto.code);
+    await this.admitMember(circle, user, invite.role, dto.displayName, async (manager) => {
+      const claimed = await manager
+        .createQueryBuilder()
+        .update(CircleInviteEntity)
+        .set({ uses: () => `"uses" + 1` })
+        .where("id = :id", { id: invite.id })
+        .andWhere(`"uses" < "maxUses"`)
+        .andWhere(`"revokedAt" IS NULL`)
+        .andWhere(`"expiresAt" > :now`, { now: new Date() })
+        .execute();
+      if ((claimed.affected ?? 0) !== 1) throw new GoneException("Invite expired or used up");
+    });
+    return this.detail(actor, circle.id);
+  }
+
+  /**
+   * The one membership-creation path shared by invite joins and approved nearby
+   * requests (NF-3.25): linked-account rule, member / circle caps, then — inside
+   * one transaction — the caller's `claim` (a conditional UPDATE that consumes
+   * the invite use or the request) and the member row. Returns `false` when the
+   * user is already an active member (nothing is claimed).
+   */
+  async admitMember(
+    circle: CircleEntity,
+    user: Extract<CircleActor, { kind: "user" }>,
+    role: CircleRole,
+    displayName: string | null | undefined,
+    claim: (manager: EntityManager) => Promise<void>,
+  ): Promise<boolean> {
     if (circle.type !== "khatm_group") requireLinkedAccount(user);
 
     const members = this.dataSource.getRepository(CircleMemberEntity);
     const existing = await members.findOne({
       where: { circleId: circle.id, memberId: user.userId },
     });
-    if (existing && !existing.leftAt) return this.detail(actor, circle.id);
+    if (existing && !existing.leftAt) return false;
 
     const activeCount = (await this.memberCounts([circle.id])).get(circle.id) ?? 0;
     if (activeCount >= MAX_MEMBERS[circle.type]) {
@@ -449,24 +478,14 @@ export class CirclesService {
     }
 
     await this.dataSource.transaction(async (manager) => {
-      const claimed = await manager
-        .createQueryBuilder()
-        .update(CircleInviteEntity)
-        .set({ uses: () => `"uses" + 1` })
-        .where("id = :id", { id: invite.id })
-        .andWhere(`"uses" < "maxUses"`)
-        .andWhere(`"revokedAt" IS NULL`)
-        .andWhere(`"expiresAt" > :now`, { now: new Date() })
-        .execute();
-      if ((claimed.affected ?? 0) !== 1) throw new GoneException("Invite expired or used up");
-
+      await claim(manager);
       await manager.save(
         manager.create(CircleMemberEntity, {
           circleId: circle.id,
           memberId: user.userId,
           memberKind: "user",
-          role: invite.role,
-          displayName: dto.displayName ?? existing?.displayName ?? null,
+          role,
+          displayName: displayName ?? existing?.displayName ?? null,
           shareScope: {},
           joinedAt: new Date(),
           leftAt: null,
@@ -475,7 +494,12 @@ export class CirclesService {
     });
     // NF-3.18: a round-robin khatm deals its not-started parts to the newcomer too.
     if (circle.type === "khatm_group") await this.khatms.onMemberJoined(circle.id);
-    return this.detail(actor, circle.id);
+    return true;
+  }
+
+  /** Active member count of one circle (NF-3.25 nearby preview). */
+  async memberCount(circleId: string): Promise<number> {
+    return (await this.memberCounts([circleId])).get(circleId) ?? 0;
   }
 
   // -------------------------------------------------------------------------

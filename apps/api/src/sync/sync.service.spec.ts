@@ -1,17 +1,21 @@
+import { DataSource } from "typeorm";
 import { beforeEach, describe, expect, it } from "vitest";
 import { createAuthTestingModule } from "../../test/support/testing-module";
 import { AuthService } from "../auth/auth.service";
 import { AuthProvider } from "../auth/dto/auth.dto";
+import { SyncRecordEntity } from "../database/entities";
 import { SyncService } from "./sync.service";
 
 describe("SyncService", () => {
   let authService: AuthService;
   let syncService: SyncService;
+  let dataSource: DataSource;
 
   beforeEach(async () => {
     const module = await createAuthTestingModule([SyncService]);
     authService = module.get(AuthService);
     syncService = module.get(SyncService);
+    dataSource = module.get(DataSource);
   });
 
   it("blocks guest accounts from syncing", async () => {
@@ -147,5 +151,115 @@ describe("SyncService", () => {
 
     expect(pulled.changes).toHaveLength(1);
     expect(pulled.changes[0]?.id).toBe("new-record");
+  });
+
+  describe("D46 — private fields never stored or returned in plaintext", () => {
+    const at = "2026-11-24T00:00:00.000Z";
+
+    it("strips the excused reasons and rounds the location on push", async () => {
+      const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+      await syncService.push(session.accessToken, {
+        changes: [
+          {
+            entity: "preferences",
+            id: "preferences",
+            data: { locale: "en", activeExcusedReason: "hayd" },
+            updatedAt: at,
+          },
+          {
+            entity: "prayer_logs",
+            id: "fajr::2026-11-24",
+            data: { prayerId: "fajr", isExcused: true, excusedReason: "nifas" },
+            updatedAt: at,
+          },
+          {
+            entity: "location",
+            id: "location",
+            data: { value: { latitude: 24.894812, longitude: 91.871534, label: "Sylhet" } },
+            updatedAt: at,
+          },
+        ],
+      });
+
+      const stored = await dataSource
+        .getRepository(SyncRecordEntity)
+        .find({ where: { userId: session.userId } });
+      const raw = JSON.stringify(stored.map((row) => row.data));
+      expect(raw).not.toContain("hayd");
+      expect(raw).not.toContain("nifas");
+      expect(raw).not.toContain("24.894812");
+      const location = stored.find((row) => row.entity === "location");
+      expect(location?.data).toEqual({
+        value: { latitude: 24.89, longitude: 91.87, label: "Sylhet" },
+      });
+      const log = stored.find((row) => row.entity === "prayer_logs");
+      expect(log?.data).toEqual({ prayerId: "fajr", isExcused: true });
+    });
+
+    it("accepts the retired khushu_journal entity but stores nothing and drops old rows", async () => {
+      const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+      const repo = dataSource.getRepository(SyncRecordEntity);
+      // A row written before D46.
+      await repo.save(
+        repo.create({
+          userId: session.userId,
+          entity: "khushu_journal",
+          recordId: "khushu_journal",
+          data: { value: { k: { note: "private reflection" } } },
+          updatedAt: new Date(at),
+        }),
+      );
+      expect((await syncService.pull(session.accessToken)).changes).toHaveLength(0);
+
+      const response = await syncService.push(session.accessToken, {
+        changes: [
+          {
+            entity: "khushu_journal",
+            id: "khushu_journal",
+            data: { value: { k: { note: "private reflection" } } },
+            updatedAt: at,
+          },
+        ],
+      });
+
+      expect(response.accepted).toBe(1);
+      expect(await repo.count({ where: { userId: session.userId } })).toBe(0);
+    });
+
+    it("strips plaintext from rows stored before D46 when they are pulled", async () => {
+      const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+      const repo = dataSource.getRepository(SyncRecordEntity);
+      await repo.save(
+        repo.create({
+          userId: session.userId,
+          entity: "preferences",
+          recordId: "preferences",
+          data: { locale: "en", activeExcusedReason: "hayd" },
+          updatedAt: new Date(at),
+        }),
+      );
+
+      const pulled = await syncService.pull(session.accessToken);
+
+      expect(pulled.changes[0]?.data).toEqual({ locale: "en" });
+    });
+
+    it("accepts the new vault entities as ciphertext only", async () => {
+      const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+      const repo = dataSource.getRepository(SyncRecordEntity);
+      await syncService.push(session.accessToken, {
+        changes: [
+          {
+            entity: "vault_excused",
+            id: "vault_excused",
+            data: { value: { reason: "hayd" } },
+            updatedAt: at,
+          },
+          { entity: "vault_khushu", id: "vault_khushu", data: { value: null }, updatedAt: at },
+        ],
+      });
+      const rows = await repo.find({ where: { userId: session.userId } });
+      expect(rows.map((row) => row.entity)).toEqual(["vault_khushu"]);
+    });
   });
 });

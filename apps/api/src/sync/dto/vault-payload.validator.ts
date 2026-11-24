@@ -12,6 +12,8 @@ export const VAULT_DOC_ENTITIES = [
   "vault_debts",
   "vault_wasiyyah",
   "vault_relatives",
+  "vault_excused",
+  "vault_khushu",
 ] as const;
 export const VAULT_KEYRING_ENTITY = "vault_keyring";
 export const VAULT_ENTITIES = [VAULT_KEYRING_ENTITY, ...VAULT_DOC_ENTITIES] as const;

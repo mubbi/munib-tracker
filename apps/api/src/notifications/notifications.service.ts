@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -15,6 +16,8 @@ import type {
   InAppNotificationDto,
   InAppNotificationListResponseDto,
   PushTokenResponseDto,
+  RemovePushTokenDto,
+  RemovePushTokenResponseDto,
   UnreadCountResponseDto,
   UpsertPushTokenDto,
   VapidPublicKeyResponseDto,
@@ -92,6 +95,33 @@ export class NotificationsService {
       clientPlatform: row.clientPlatform ?? null,
       updatedAt: row.updatedAt.toISOString(),
     };
+  }
+
+  /**
+   * Sign-out: removes this device's push token(s) from the caller's account so
+   * the account's broadcasts and circle pushes stop reaching the device before
+   * the session is revoked. Only the caller's own rows are touched.
+   */
+  async removePushToken(
+    accessToken: string,
+    dto: RemovePushTokenDto,
+  ): Promise<RemovePushTokenResponseDto> {
+    const user = await this.requireAuthenticatedUser(accessToken);
+    const deviceId = dto.deviceId?.trim();
+    const token = dto.token?.trim();
+    if (!deviceId && !token) {
+      throw new BadRequestException("deviceId or token is required");
+    }
+    let removed = 0;
+    if (deviceId) {
+      removed +=
+        (await this.pushTokenRepository.delete({ userId: user.userId, deviceId })).affected ?? 0;
+    }
+    if (token) {
+      removed +=
+        (await this.pushTokenRepository.delete({ userId: user.userId, token })).affected ?? 0;
+    }
+    return { removed };
   }
 
   async listInApp(accessToken: string): Promise<InAppNotificationListResponseDto> {

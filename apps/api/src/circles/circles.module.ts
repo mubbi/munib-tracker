@@ -10,6 +10,8 @@ import {
   CircleChildSessionController,
 } from "./circle-children.controller";
 import { CircleEventsService } from "./circle-events.service";
+import { CircleNearbyHostController, CircleNearbyJoinController } from "./circle-nearby.controller";
+import { CircleNearbyService } from "./circle-nearby.service";
 import { CIRCLE_PUSH_PROVIDERS, CirclePushService } from "./circle-push.service";
 import { CircleRetentionService } from "./circle-retention.service";
 import { CircleSignalsController } from "./circle-signals.controller";
@@ -27,6 +29,8 @@ export const CIRCLE_CONTROLLERS = [
   CircleChildSessionController,
   CircleSignalsController,
   GroupKhatmController,
+  CircleNearbyHostController,
+  CircleNearbyJoinController,
 ];
 
 /** Circles backend for NF-3.16 family, NF-3.17 partner, NF-3.18 group khatm (D1). */
@@ -46,6 +50,7 @@ export const CIRCLE_CONTROLLERS = [
     GroupKhatmService,
     FamilyDigestService,
     CircleRetentionService,
+    CircleNearbyService,
   ],
   // D40: the surface-push cron also ticks the weekly family digest, and (A4)
   // the circles retention sweep so deletions never wait for circle traffic.

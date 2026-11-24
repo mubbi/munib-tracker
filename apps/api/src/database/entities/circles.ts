@@ -9,6 +9,7 @@ import type {
   KhatmStatus,
   KhatmUnit,
 } from "@munib-tracker/shared/circles";
+import type { NearbyRequestStatus } from "@munib-tracker/shared/circles/nearby";
 import {
   Column,
   CreateDateColumn,
@@ -381,6 +382,95 @@ export class CircleNudgeEntity {
   createdAt!: Date;
 }
 
+/**
+ * NF-3.25 nearby-join session (D41–D44): lives while the host's invite screen is
+ * open (10 min). The id is the 8-byte opaque value the host's phone advertises
+ * over Bluetooth LE — no invite code, no personal data. The 4-digit match code is
+ * derived from it server-side (`nearbyMatchCode`), never stored.
+ */
+@Entity("circle_nearby_sessions")
+@Index("circle_nearby_sessions_circle_idx", ["circleId"])
+@Index("circle_nearby_sessions_creator_idx", ["createdBy", "createdAt"])
+export class CircleNearbySessionEntity {
+  /** 16 lowercase hex chars (`NEARBY_SERVICE_UUID_PREFIX` + this = the BLE service UUID). */
+  @PrimaryColumn({ type: "varchar", length: 16 })
+  id!: string;
+
+  @Column("uuid")
+  circleId!: string;
+
+  @ManyToOne(() => CircleEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "circleId" })
+  circle?: CircleEntity;
+
+  /** Host (`users.id`). */
+  @Column("uuid")
+  createdBy!: string;
+
+  /** Role a `member` session grants on accept (`parent` / `member`). `child` for a device link. */
+  @Column({ type: "varchar", length: 8 })
+  role!: CircleRole;
+
+  /** `child_link` sessions: the child profile whose device is being linked. */
+  @Column({ type: "uuid", nullable: true })
+  childId?: string | null;
+
+  @Column({ type: TIMESTAMP_TYPE })
+  expiresAt!: Date;
+
+  /** Host closed the invite screen (or the app went to the background). */
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  endedAt?: Date | null;
+
+  /** Single-use sessions (parent invite, child link) are consumed by the first accept. */
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  consumedAt?: Date | null;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+}
+
+/** A joiner's "Asking to join" request; the host accepts or declines (D42). */
+@Entity("circle_nearby_requests")
+@Index("circle_nearby_requests_session_idx", ["sessionId", "status"])
+@Index("circle_nearby_requests_requester_idx", ["requesterId"])
+@Index("circle_nearby_requests_token_unique", ["tokenHash"], { unique: true })
+export class CircleNearbyRequestEntity {
+  @PrimaryColumn("uuid")
+  id!: string;
+
+  @Column({ type: "varchar", length: 16 })
+  sessionId!: string;
+
+  @ManyToOne(() => CircleNearbySessionEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "sessionId" })
+  session?: CircleNearbySessionEntity;
+
+  /** Account asking to join (`member` sessions); `null` for a child device (no account, D7). */
+  @Column({ type: "uuid", nullable: true })
+  requesterId?: string | null;
+
+  @Column({ type: "varchar", length: 8, nullable: true })
+  requesterAccountType?: "guest" | "user" | null;
+
+  /** Name the joiner chose for this circle (shown to the host only). */
+  @Column({ type: "varchar", length: 32, nullable: true })
+  displayName?: string | null;
+
+  /** SHA-256 of the joiner's one-time request secret (`mtn_…`) — authenticates polling. */
+  @Column({ type: "varchar", length: 64 })
+  tokenHash!: string;
+
+  @Column({ type: "varchar", length: 10 })
+  status!: NearbyRequestStatus;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  decidedAt?: Date | null;
+}
+
 export const CIRCLE_ENTITIES = [
   CircleEntity,
   CircleMemberEntity,
@@ -390,4 +480,6 @@ export const CIRCLE_ENTITIES = [
   GroupKhatmEntity,
   KhatmPartEntity,
   CircleNudgeEntity,
+  CircleNearbySessionEntity,
+  CircleNearbyRequestEntity,
 ];

@@ -41,10 +41,40 @@ export function isChildSessionToken(token: string): boolean {
   return token.startsWith(CHILD_TOKEN_PREFIX);
 }
 
+/** Prefix of a nearby joiner's one-time request secret (NF-3.25). */
+export const NEARBY_REQUEST_TOKEN_PREFIX = "mtn_";
+
+/** NF-3.25: the 8-byte opaque session id the host's phone advertises over BLE. */
+export function generateNearbySessionId(): string {
+  return randomBytes(8).toString("hex");
+}
+
+/** NF-3.25: the joiner's poll secret (returned once, stored as SHA-256 only). */
+export function generateNearbyRequestToken(): string {
+  return `${NEARBY_REQUEST_TOKEN_PREFIX}${randomBytes(24).toString("base64url")}`;
+}
+
+/** HMAC key derived from JWT_SECRET for a dedicated purpose. */
+function purposeKey(purpose: string): Buffer {
+  const secret = process.env.JWT_SECRET?.trim() || DEV_JWT_SECRET;
+  return createHash("sha256").update(`${purpose}:${secret}`).digest();
+}
+
+/**
+ * D44: the 4-digit match code both screens show, derived from the session id
+ * with a server key — so a spoofing phone advertising its own session shows
+ * different digits, and the code never needs storing.
+ */
+export function nearbyMatchCode(sessionId: string): string {
+  const digest = createHmac("sha256", purposeKey("circle-nearby-match"))
+    .update(sessionId, "utf8")
+    .digest();
+  return String(digest.readUInt32BE(0) % 10_000).padStart(4, "0");
+}
+
 /** HMAC key for opaque member ids (dedicated purpose string, derived from JWT_SECRET). */
 function memberIdKey(): Buffer {
-  const secret = process.env.JWT_SECRET?.trim() || DEV_JWT_SECRET;
-  return createHash("sha256").update(`circle-member-id:${secret}`).digest();
+  return purposeKey("circle-member-id");
 }
 
 /**

@@ -10,6 +10,12 @@ import {
   ContentReportAttachmentEntity,
   ContentReportEntity,
   DeletedAccountEntity,
+  InAppNotificationEntity,
+  LiveActivityPushJobEntity,
+  LiveActivityPushTokenEntity,
+  PushTokenEntity,
+  SurfacePushJobEntity,
+  SurfacePushRegistrationEntity,
   SyncRecordEntity,
   UserEntity,
   UserMediaEntity,
@@ -606,6 +612,88 @@ describe("AuthService", () => {
       await expect(service.getCurrentUser(secondDevice.accessToken)).rejects.toThrow(
         "Invalid or expired session",
       );
+    });
+
+    it("removes push tokens, the inbox and every push surface with its scheduled jobs", async () => {
+      const { service, repo, signIn } = await setup();
+      const session = await signIn();
+      const other = await signIn({ providerAccountId: "other-account" });
+      const userId = session.userId;
+      const later = new Date(Date.now() + 3_600_000);
+
+      const seed = async (owner: string, suffix: string) => {
+        await repo(PushTokenEntity).save(
+          repo(PushTokenEntity).create({
+            userId: owner,
+            token: `expo-${suffix}`,
+            platform: "expo",
+          }),
+        );
+        await repo(InAppNotificationEntity).save(
+          repo(InAppNotificationEntity).create({
+            userId: owner,
+            kind: "system",
+            title: "t",
+            body: "b",
+          }),
+        );
+        const token = await repo(LiveActivityPushTokenEntity).save(
+          repo(LiveActivityPushTokenEntity).create({
+            userId: owner,
+            activityId: `activity-${suffix}`,
+            tokenHash: `hash-${suffix}`,
+            tokenCiphertext: "ciphertext",
+            apnsEnvironment: "sandbox",
+            expiresAt: later,
+          }),
+        );
+        await repo(LiveActivityPushJobEntity).save(
+          repo(LiveActivityPushJobEntity).create({
+            id: randomUUID(),
+            activityTokenId: token.id,
+            phase: "adhan",
+            executeAt: later,
+            contentStateJson: "{}",
+          }),
+        );
+        const registration = await repo(SurfacePushRegistrationEntity).save(
+          repo(SurfacePushRegistrationEntity).create({
+            userId: owner,
+            channel: "web_push",
+            targetHash: `target-${suffix}`,
+            target: "{}",
+          }),
+        );
+        await repo(SurfacePushJobEntity).save(
+          repo(SurfacePushJobEntity).create({
+            id: randomUUID(),
+            registrationId: registration.id,
+            channel: "web_push",
+            phase: "adhan",
+            dedupeKey: `dedupe-${suffix}`,
+            executeAt: later,
+            payloadJson: "{}",
+          }),
+        );
+      };
+      await seed(userId, "mine");
+      await seed(other.userId, "theirs");
+
+      await service.deleteAccount(session.accessToken, DELETE_BODY);
+
+      await expect(repo(PushTokenEntity).countBy({ userId })).resolves.toBe(0);
+      await expect(repo(InAppNotificationEntity).countBy({ userId })).resolves.toBe(0);
+      await expect(repo(LiveActivityPushTokenEntity).countBy({ userId })).resolves.toBe(0);
+      await expect(repo(SurfacePushRegistrationEntity).countBy({ userId })).resolves.toBe(0);
+      // Only the other account's surfaces (and their jobs) remain.
+      await expect(repo(LiveActivityPushJobEntity).count()).resolves.toBe(1);
+      await expect(repo(SurfacePushJobEntity).count()).resolves.toBe(1);
+      await expect(
+        repo(LiveActivityPushTokenEntity).countBy({ userId: other.userId }),
+      ).resolves.toBe(1);
+      await expect(
+        repo(SurfacePushRegistrationEntity).countBy({ userId: other.userId }),
+      ).resolves.toBe(1);
     });
 
     it("retains the user row with a tombstoned identity", async () => {

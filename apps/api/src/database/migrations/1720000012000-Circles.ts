@@ -16,6 +16,8 @@ export class Circles1720000012000 implements MigrationInterface {
     "group_khatms",
     "khatm_parts",
     "circle_nudges",
+    "circle_nearby_sessions",
+    "circle_nearby_requests",
   ] as const;
 
   async up(queryRunner: QueryRunner): Promise<void> {
@@ -182,6 +184,52 @@ export class Circles1720000012000 implements MigrationInterface {
     );
     await queryRunner.query(
       `CREATE INDEX "circle_nudges_to_idx" ON "circle_nudges" ("toMember", "createdAt")`,
+    );
+
+    // NF-3.25 nearby join (D41–D44): short-lived BLE sessions + host-approved requests.
+    await queryRunner.query(`
+      CREATE TABLE "circle_nearby_sessions" (
+        "id" varchar(16) PRIMARY KEY CHECK ("id" ~ '^[0-9a-f]{16}$'),
+        "circleId" uuid NOT NULL REFERENCES "circles"("id") ON DELETE CASCADE,
+        "createdBy" uuid NOT NULL,
+        "role" varchar(8) NOT NULL CHECK ("role" IN ('parent', 'member', 'child')),
+        "childId" uuid REFERENCES "child_profiles"("id") ON DELETE CASCADE,
+        "expiresAt" TIMESTAMP NOT NULL,
+        "endedAt" TIMESTAMP,
+        "consumedAt" TIMESTAMP,
+        "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+        CHECK (("role" = 'child') = ("childId" IS NOT NULL))
+      )
+    `);
+    await queryRunner.query(
+      `CREATE INDEX "circle_nearby_sessions_circle_idx" ON "circle_nearby_sessions" ("circleId")`,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "circle_nearby_sessions_creator_idx" ON "circle_nearby_sessions" ("createdBy", "createdAt")`,
+    );
+
+    await queryRunner.query(`
+      CREATE TABLE "circle_nearby_requests" (
+        "id" uuid PRIMARY KEY,
+        "sessionId" varchar(16) NOT NULL REFERENCES "circle_nearby_sessions"("id") ON DELETE CASCADE,
+        "requesterId" uuid,
+        "requesterAccountType" varchar(8) CHECK ("requesterAccountType" IN ('guest', 'user')),
+        "displayName" varchar(32),
+        "tokenHash" varchar(64) NOT NULL,
+        "status" varchar(10) NOT NULL DEFAULT 'pending'
+          CHECK ("status" IN ('pending', 'accepted', 'declined', 'cancelled', 'completed')),
+        "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+        "decidedAt" TIMESTAMP
+      )
+    `);
+    await queryRunner.query(
+      `CREATE INDEX "circle_nearby_requests_session_idx" ON "circle_nearby_requests" ("sessionId", "status")`,
+    );
+    await queryRunner.query(
+      `CREATE INDEX "circle_nearby_requests_requester_idx" ON "circle_nearby_requests" ("requesterId")`,
+    );
+    await queryRunner.query(
+      `CREATE UNIQUE INDEX "circle_nearby_requests_token_unique" ON "circle_nearby_requests" ("tokenHash")`,
     );
 
     // Deny-by-default on Supabase's Data API, same as every other app table.

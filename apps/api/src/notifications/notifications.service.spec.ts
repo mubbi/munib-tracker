@@ -1,4 +1,9 @@
-import { ForbiddenException, NotFoundException, UnauthorizedException } from "@nestjs/common";
+import {
+  BadRequestException,
+  ForbiddenException,
+  NotFoundException,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { DataSource } from "typeorm";
 import { describe, expect, it, vi } from "vitest";
@@ -178,6 +183,52 @@ describe("NotificationsService", () => {
       expect(await pushTokens.find({ where: { token: dto.token } })).toMatchObject([
         { userId: guest.userId },
       ]);
+    });
+  });
+
+  describe("removePushToken (sign-out)", () => {
+    it("removes this device's tokens from the caller's account only", async () => {
+      const { service, authService, accessToken, userId, pushTokens } = await setup();
+      const guest = await authService.createGuestSession({});
+      await service.upsertPushToken(accessToken, {
+        token: "ExponentPushToken[mine]",
+        deviceId: "device-1",
+        platform: "expo",
+      });
+      await service.upsertPushToken(accessToken, {
+        token: "ExponentPushToken[tablet]",
+        deviceId: "device-2",
+        platform: "expo",
+      });
+      await service.upsertPushToken(guest.accessToken, {
+        token: "ExponentPushToken[guest]",
+        deviceId: "device-1",
+        platform: "expo",
+      });
+
+      await expect(
+        service.removePushToken(accessToken, { deviceId: " device-1 " }),
+      ).resolves.toEqual({ removed: 1 });
+
+      expect((await pushTokens.find({ where: { userId } })).map((row) => row.deviceId)).toEqual([
+        "device-2",
+      ]);
+      expect(await pushTokens.count({ where: { userId: guest.userId } })).toBe(1);
+    });
+
+    it("can match by token, and needs a device id or a token", async () => {
+      const { service, accessToken, pushTokens } = await setup();
+      await service.upsertPushToken(accessToken, { token: "t-1", platform: "web" });
+      await expect(service.removePushToken(accessToken, { token: "t-1" })).resolves.toEqual({
+        removed: 1,
+      });
+      expect(await pushTokens.count()).toBe(0);
+      await expect(service.removePushToken(accessToken, {})).rejects.toBeInstanceOf(
+        BadRequestException,
+      );
+      await expect(service.removePushToken("", { deviceId: "d" })).rejects.toBeInstanceOf(
+        UnauthorizedException,
+      );
     });
   });
 

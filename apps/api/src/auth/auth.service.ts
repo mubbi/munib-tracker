@@ -10,7 +10,7 @@ import {
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DataSource, In, Repository } from "typeorm";
+import { DataSource, type EntityManager, In, Repository } from "typeorm";
 import { purgeUserCircleData } from "../circles/circle-lifecycle";
 import { AttachmentStorageService } from "../common/attachment-storage.service";
 import type { EnvironmentVariables } from "../config/env.schema";
@@ -21,8 +21,12 @@ import {
   ContentReportEntity,
   DeletedAccountEntity,
   InAppNotificationEntity,
+  LiveActivityPushJobEntity,
+  LiveActivityPushTokenEntity,
   OssContentDownloadFailureEntity,
   PushTokenEntity,
+  SurfacePushJobEntity,
+  SurfacePushRegistrationEntity,
   SyncRecordEntity,
   UserEntity,
   UserMediaEntity,
@@ -64,6 +68,29 @@ import {
 
 /** Client-supplied device ids must be high-entropy; reject empty / trivial values. */
 const MIN_DEVICE_ID_LENGTH = 16;
+
+/**
+ * Deletes every server-side push surface bound to `userId`: ActivityKit tokens
+ * (encrypted APNs tokens) and Expo / Web Push surface registrations, each with
+ * its scheduled jobs. Jobs are deleted explicitly rather than relying on the FK
+ * cascade so the purge is complete on every driver.
+ */
+export async function purgeUserPushSurfaces(manager: EntityManager, userId: string): Promise<void> {
+  const activityTokenIds = (
+    await manager.find(LiveActivityPushTokenEntity, { where: { userId }, select: { id: true } })
+  ).map((row) => row.id);
+  if (activityTokenIds.length) {
+    await manager.delete(LiveActivityPushJobEntity, { activityTokenId: In(activityTokenIds) });
+    await manager.delete(LiveActivityPushTokenEntity, { id: In(activityTokenIds) });
+  }
+  const registrationIds = (
+    await manager.find(SurfacePushRegistrationEntity, { where: { userId }, select: { id: true } })
+  ).map((row) => row.id);
+  if (registrationIds.length) {
+    await manager.delete(SurfacePushJobEntity, { registrationId: In(registrationIds) });
+    await manager.delete(SurfacePushRegistrationEntity, { id: In(registrationIds) });
+  }
+}
 
 @Injectable()
 export class AuthService {
@@ -392,6 +419,12 @@ export class AuthService {
       await manager.delete(OssContentDownloadFailureEntity, { userId });
       await manager.delete(InAppNotificationEntity, { userId });
       await manager.delete(PushTokenEntity, { userId });
+      // Live Activity (APNs) tokens + Android/Web surface-push registrations and
+      // their scheduled jobs. The `users` row is kept (tombstoned), so the FK
+      // cascades never fire — without this the device kept receiving phase pushes
+      // after the account was closed (the client's own DELETE runs after the
+      // session is already revoked and fails).
+      await purgeUserPushSurfaces(manager, userId);
       // Circles: hand over / dissolve owned circles, transfer consented child
       // profiles to a co-parent with consent pending (D34) or delete them, and
       // remove memberships, signals, nudges and invites (docs/CIRCLES.md).

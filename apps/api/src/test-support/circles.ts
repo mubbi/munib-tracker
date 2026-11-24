@@ -8,6 +8,7 @@ import { CircleAccessService } from "../circles/circle-access.service";
 import type { CircleActor } from "../circles/circle-auth";
 import { CircleActorService } from "../circles/circle-auth";
 import { CircleEventsService } from "../circles/circle-events.service";
+import { CircleNearbyService } from "../circles/circle-nearby.service";
 import {
   CIRCLE_PUSH_SENDERS,
   type CirclePushSenders,
@@ -77,6 +78,7 @@ export async function createCirclesTestBed(options: { pushSenders?: CirclePushSe
     GroupKhatmService,
     FamilyDigestService,
     CircleRetentionService,
+    CircleNearbyService,
   ]);
   const dataSource = module.get(DataSource);
 
@@ -100,6 +102,7 @@ export async function createCirclesTestBed(options: { pushSenders?: CirclePushSe
     events: module.get(CircleEventsService),
     familyDigest: module.get(FamilyDigestService),
     retention: module.get(CircleRetentionService),
+    nearby: module.get(CircleNearbyService),
     pushSends,
     close: () => module.close(),
   };

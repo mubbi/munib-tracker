@@ -6,6 +6,7 @@ import { AuthService } from "./auth/auth.service";
 import { AuthOAuthService } from "./auth/auth-oauth.service";
 import { ChildProfilesService } from "./circles/child-profiles.service";
 import { CircleActorService } from "./circles/circle-auth";
+import { CircleNearbyService } from "./circles/circle-nearby.service";
 import { CircleSignalsService } from "./circles/circle-signals.service";
 import { CIRCLE_CONTROLLERS } from "./circles/circles.module";
 import { CirclesService } from "./circles/circles.service";
@@ -171,6 +172,7 @@ const openApiServiceMocks = {
     { provide: ChildProfilesService, useValue: {} },
     { provide: CircleSignalsService, useValue: {} },
     { provide: GroupKhatmService, useValue: {} },
+    { provide: CircleNearbyService, useValue: {} },
     { provide: CircleActorService, useValue: { resolve: async () => undefined } },
   ],
 })

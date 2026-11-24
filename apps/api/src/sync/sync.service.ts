@@ -1,3 +1,7 @@
+import {
+  isDeprecatedPlaintextEntity,
+  stripPrivateSyncData,
+} from "@munib-tracker/shared/validators/private-sync";
 import { BadRequestException, ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { parseISO } from "date-fns";
@@ -37,7 +41,11 @@ export class SyncService {
     });
 
     return {
-      changes: records.map((record) => this.toDto(record)),
+      // D46: rows of a retired plaintext entity are never returned (the
+      // migration deletes them; this covers rows written before it ran).
+      changes: records
+        .filter((record) => !isDeprecatedPlaintextEntity(record.entity))
+        .map((record) => this.toDto(record)),
       serverTime: new Date().toISOString(),
     };
   }
@@ -58,6 +66,12 @@ export class SyncService {
       // Per-record payload guard (H2): a malformed or oversized vault / ayah-notes
       // record is skipped and never stored. It doesn't fail the batch, so one bad
       // blob can't stall every other entity's sync. Payloads are never logged.
+      // D46: a retired plaintext entity (khushu journal → `vault_khushu`) from an
+      // old client is accepted but never stored, and any old copy is removed.
+      if (isDeprecatedPlaintextEntity(change.entity)) {
+        await this.syncRecordsRepository.delete({ userId: user.userId, entity: change.entity });
+        continue;
+      }
       if (
         !isValidVaultPayload(change.entity, change.data) ||
         !isValidQuranNotesRecord(change.entity, change.data)
@@ -87,10 +101,7 @@ export class SyncService {
           userId: user.userId,
           entity: change.entity,
           recordId: change.id,
-          data:
-            change.entity === "preferences"
-              ? sanitizePreferencesSyncData(change.data)
-              : change.data,
+          data: this.storableData(change.entity, change.data),
           updatedAt,
           deletedAt: change.deletedAt ? parseISO(change.deletedAt) : null,
         }),
@@ -114,11 +125,22 @@ export class SyncService {
     return user;
   }
 
+  /**
+   * What is persisted for a pushed record: preferences are sanitized, and the
+   * D46 private fields (excused reasons, exact coordinates) are stripped so an
+   * old client can't store them in plaintext.
+   */
+  private storableData(entity: string, data: Record<string, unknown>): Record<string, unknown> {
+    const clean = entity === "preferences" ? sanitizePreferencesSyncData(data) : data;
+    return stripPrivateSyncData(entity, clean);
+  }
+
   private toDto(record: SyncRecordEntity): SyncRecordDto {
     return {
       entity: record.entity as SyncRecordDto["entity"],
       id: record.recordId,
-      data: record.data,
+      // Defense in depth for rows stored before D46 (the migration strips them).
+      data: stripPrivateSyncData(record.entity, record.data),
       updatedAt: record.updatedAt.toISOString(),
       deletedAt: record.deletedAt?.toISOString(),
     };

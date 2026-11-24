@@ -43,6 +43,9 @@ export const SYNC_ENTITIES = [
   "khatm",
   "hifz",
   "custom_adhkar",
+  // Deprecated (D46): the khushu journal now syncs only as `vault_khushu`. Still
+  // accepted for one release so old clients don't fail, but SyncService stores
+  // nothing for it (and deletes any old row), then it is removed.
   "khushu_journal",
   "hajj_checklist",
   "umrah_checklist",
@@ -104,6 +107,10 @@ export const SYNC_ENTITIES = [
   "vault_debts",
   "vault_wasiyyah",
   "vault_relatives",
+  // D46: the excused period (hayd / nifas / illness / travel) and the khushu
+  // journal sync only through the vault, never as plaintext.
+  "vault_excused",
+  "vault_khushu",
 ] as const;
 
 export type SyncEntity = (typeof SYNC_ENTITIES)[number];

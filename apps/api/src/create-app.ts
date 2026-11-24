@@ -15,6 +15,7 @@ import { DataSource } from "typeorm";
 import { AppModule } from "./app.module";
 import { AppOpenApiModule } from "./app.openapi.module";
 import { trustProxyHops } from "./common/client-ip";
+import { SafeExceptionFilter } from "./common/safe-exception.filter";
 import { type EnvironmentVariables, NodeEnvironment } from "./config/env.schema";
 import { parseCorsOrigins } from "./config/env.validation";
 import { assertPostgresUtf8Encoding } from "./database/postgres-connection";
@@ -145,6 +146,9 @@ export async function createApp(
       },
     }),
   );
+  // Logs only error class + method + route template + status — never request
+  // or user values (no raw URL, body, IP or driver message).
+  app.useGlobalFilters(new SafeExceptionFilter());
 
   if (process.env.EXPORT_OPENAPI === "true" || enableSwagger) {
     const swaggerConfig = new DocumentBuilder()

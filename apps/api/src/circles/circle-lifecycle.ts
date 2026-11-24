@@ -6,6 +6,8 @@ import {
   CircleEntity,
   CircleInviteEntity,
   CircleMemberEntity,
+  CircleNearbyRequestEntity,
+  CircleNearbySessionEntity,
   CircleNudgeEntity,
   GroupKhatmEntity,
   KhatmPartEntity,
@@ -49,6 +51,21 @@ export async function releaseMemberParts(
   });
 }
 
+/** NF-3.25: delete nearby sessions matching `where` and every request on them. */
+export async function deleteNearbySessions(
+  manager: EntityManager,
+  where: Record<string, unknown>,
+): Promise<void> {
+  const sessions = await manager.find(CircleNearbySessionEntity, {
+    where,
+    select: { id: true },
+  });
+  if (!sessions.length) return;
+  const ids = sessions.map((session) => session.id);
+  await manager.delete(CircleNearbyRequestEntity, { sessionId: In(ids) });
+  await manager.delete(CircleNearbySessionEntity, { id: In(ids) });
+}
+
 /** Immediate, hard delete of a child profile and everything keyed to it (D7). */
 export async function deleteChildProfileData(
   manager: EntityManager,
@@ -57,6 +74,7 @@ export async function deleteChildProfileData(
   await manager.delete(CircleDailySignalEntity, { memberId: child.id });
   await manager.delete(CircleNudgeEntity, { fromMember: child.id });
   await manager.delete(CircleNudgeEntity, { toMember: child.id });
+  await deleteNearbySessions(manager, { childId: child.id });
   await manager.delete(CircleMemberEntity, { circleId: child.circleId, memberId: child.id });
   await manager.delete(ChildProfileEntity, { id: child.id });
 }
@@ -76,6 +94,7 @@ export async function dissolveCircle(
   await manager.delete(CircleDailySignalEntity, { circleId });
   await manager.delete(CircleNudgeEntity, { circleId });
   await manager.delete(CircleInviteEntity, { circleId });
+  await deleteNearbySessions(manager, { circleId });
   await manager.delete(ChildProfileEntity, { circleId });
   await manager.delete(CircleMemberEntity, { circleId });
   await manager.update(
@@ -218,6 +237,8 @@ export async function purgeUserCircleData(
   await manager.delete(CircleNudgeEntity, { fromMember: userId });
   await manager.delete(CircleNudgeEntity, { toMember: userId });
   await manager.delete(CircleInviteEntity, { createdBy: userId });
+  await deleteNearbySessions(manager, { createdBy: userId });
+  await manager.delete(CircleNearbyRequestEntity, { requesterId: userId });
   await manager.delete(CircleMemberEntity, { memberId: userId, memberKind: "user" });
 }
 
@@ -229,6 +250,7 @@ export async function purgeUserCircleData(
  * - invites 30 days after expiry / revocation;
  * - circle tombstones 30 days after dissolution;
  * - expired one-time child link tokens;
+ * - nearby sessions (and their requests) a day after they expired (NF-3.25);
  * - transferred child profiles still awaiting consent after 30 days (D34).
  */
 export async function purgeExpiredCircleData(
@@ -259,6 +281,7 @@ export async function purgeExpiredCircleData(
   await manager.delete(CircleNudgeEntity, { createdAt: LessThan(nudgeCutoff) });
   await manager.delete(CircleInviteEntity, { expiresAt: LessThan(retentionCutoff) });
   await manager.delete(CircleInviteEntity, { revokedAt: LessThan(retentionCutoff) });
+  await deleteNearbySessions(manager, { expiresAt: LessThan(new Date(now.getTime() - DAY_MS)) });
   await manager.delete(CircleEntity, { deletedAt: LessThan(retentionCutoff) });
   await manager.update(
     ChildProfileEntity,

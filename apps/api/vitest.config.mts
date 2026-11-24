@@ -1,11 +1,12 @@
 import { resolve } from "node:path";
-import { ciReporting } from "@munib-tracker/vitest-config/ci";
+import { ciReporting, NO_NETWORK_SETUP } from "@munib-tracker/vitest-config/ci";
 import swc from "unplugin-swc";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     ...ciReporting,
+    setupFiles: [NO_NETWORK_SETUP],
     globals: true,
     root: "./",
     include: ["src/**/*.spec.ts"],
