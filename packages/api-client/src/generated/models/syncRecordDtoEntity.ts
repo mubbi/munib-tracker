@@ -71,4 +71,6 @@ export const SyncRecordDtoEntity = {
   vault_debts: 'vault_debts',
   vault_wasiyyah: 'vault_wasiyyah',
   vault_relatives: 'vault_relatives',
+  vault_excused: 'vault_excused',
+  vault_khushu: 'vault_khushu',
 } as const;

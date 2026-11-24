@@ -39,6 +39,8 @@ import type {
   CreateCircleDto,
   CreateInviteDto,
   CreateKhatmDto,
+  CreateNearbyRequestDto,
+  CreateNearbySessionDto,
   CreateNudgeDto,
   FardStatusSignalDto,
   GoalDoneSignalDto,
@@ -49,6 +51,13 @@ import type {
   JoinCircleDto,
   KhatmDetailDto,
   KhatmListDto,
+  NearbyRequestCreatedDto,
+  NearbyRequestDto,
+  NearbyRequestListDto,
+  NearbyRequestStatusDto,
+  NearbyRequestTokenDto,
+  NearbySessionDto,
+  NearbySessionPreviewDto,
   NudgeDto,
   NudgeListDto,
   RedeemChildLinkDto,
@@ -3177,4 +3186,655 @@ export const useGroupKhatmControllerAssign = <TError = unknown,
         TContext
       > => {
       return useMutation(getGroupKhatmControllerAssignMutationOptions(options), queryClient);
+    }
+    /**
+ * @summary Open a 10-minute nearby (Bluetooth) session — same role rules as invites; `childId` links a child's device
+ */
+export const circleNearbyHostControllerCreate = (
+    circleId: string,
+    createNearbySessionDto: CreateNearbySessionDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<NearbySessionDto>(
+      {url: `/api/v1/circles/${circleId}/nearby-sessions`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createNearbySessionDto, signal
+    },
+      options);
+    }
+
+
+
+
+export const getCircleNearbyHostControllerCreateMutationKey = () => ['circleNearbyHostControllerCreate'] as const;
+
+export const getCircleNearbyHostControllerCreateMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerCreate>>, TError,CircleNearbyHostControllerCreateMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerCreate>>, TError,CircleNearbyHostControllerCreateMutationVariables, TContext> => {
+
+const mutationKey = getCircleNearbyHostControllerCreateMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof circleNearbyHostControllerCreate>>, CircleNearbyHostControllerCreateMutationVariables> = (props) => {
+          const {circleId,data} = props ?? {};
+
+          return  circleNearbyHostControllerCreate(circleId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CircleNearbyHostControllerCreateMutationResult = NonNullable<Awaited<ReturnType<typeof circleNearbyHostControllerCreate>>>
+    export type CircleNearbyHostControllerCreateMutationBody = CreateNearbySessionDto
+    export type CircleNearbyHostControllerCreateMutationError = unknown
+    export type CircleNearbyHostControllerCreateMutationVariables = {circleId: string;data: CreateNearbySessionDto}
+
+    /** @summary Open a 10-minute nearby (Bluetooth) session — same role rules as invites; `childId` links a child's device */
+export const useCircleNearbyHostControllerCreate = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerCreate>>, TError,CircleNearbyHostControllerCreateMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof circleNearbyHostControllerCreate>>,
+        TError,
+        CircleNearbyHostControllerCreateMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCircleNearbyHostControllerCreateMutationOptions(options), queryClient);
+    }
+    /**
+ * @summary End a nearby session (host left the screen)
+ */
+export const circleNearbyHostControllerEnd = (
+    circleId: string,
+    sessionId: string,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<void>(
+      {url: `/api/v1/circles/${circleId}/nearby-sessions/${sessionId}`, method: 'DELETE', signal
+    },
+      options);
+    }
+
+
+
+
+export const getCircleNearbyHostControllerEndMutationKey = () => ['circleNearbyHostControllerEnd'] as const;
+
+export const getCircleNearbyHostControllerEndMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerEnd>>, TError,CircleNearbyHostControllerEndMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerEnd>>, TError,CircleNearbyHostControllerEndMutationVariables, TContext> => {
+
+const mutationKey = getCircleNearbyHostControllerEndMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof circleNearbyHostControllerEnd>>, CircleNearbyHostControllerEndMutationVariables> = (props) => {
+          const {circleId,sessionId} = props ?? {};
+
+          return  circleNearbyHostControllerEnd(circleId,sessionId,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CircleNearbyHostControllerEndMutationResult = NonNullable<Awaited<ReturnType<typeof circleNearbyHostControllerEnd>>>
+
+    export type CircleNearbyHostControllerEndMutationError = unknown
+    export type CircleNearbyHostControllerEndMutationVariables = {circleId: string;sessionId: string}
+
+    /** @summary End a nearby session (host left the screen) */
+export const useCircleNearbyHostControllerEnd = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerEnd>>, TError,CircleNearbyHostControllerEndMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof circleNearbyHostControllerEnd>>,
+        TError,
+        CircleNearbyHostControllerEndMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCircleNearbyHostControllerEndMutationOptions(options), queryClient);
+    }
+    /**
+ * @summary Asking to join (host polls while the screen is open)
+ */
+export const circleNearbyHostControllerRequests = (
+    circleId: string,
+    sessionId: string,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<NearbyRequestListDto>(
+      {url: `/api/v1/circles/${circleId}/nearby-sessions/${sessionId}/requests`, method: 'GET', signal
+    },
+      options);
+    }
+
+
+
+
+export const getCircleNearbyHostControllerRequestsQueryKey = (circleId: string,
+    sessionId: string,) => {
+    return [
+    `/api/v1/circles/${circleId}/nearby-sessions/${sessionId}/requests`
+    ] as const;
+    }
+
+
+export const getCircleNearbyHostControllerRequestsQueryOptions = <TData = Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError = unknown>(circleId: string,
+    sessionId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getCircleNearbyHostControllerRequestsQueryKey(circleId,sessionId);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>> = ({ signal }) => circleNearbyHostControllerRequests(circleId,sessionId, requestOptions, signal);
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: circleId !== null && circleId !== undefined && sessionId !== null && sessionId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type CircleNearbyHostControllerRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>>
+export type CircleNearbyHostControllerRequestsQueryError = unknown
+
+
+/** @summary Asking to join (host polls while the screen is open) */
+export function useCircleNearbyHostControllerRequests<TData = Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError = unknown>(
+ circleId: string,
+    sessionId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>,
+          TError,
+          Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Asking to join (host polls while the screen is open) */
+export function useCircleNearbyHostControllerRequests<TData = Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError = unknown>(
+ circleId: string,
+    sessionId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>,
+          TError,
+          Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Asking to join (host polls while the screen is open) */
+export function useCircleNearbyHostControllerRequests<TData = Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError = unknown>(
+ circleId: string,
+    sessionId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Asking to join (host polls while the screen is open) */
+export function useCircleNearbyHostControllerRequests<TData = Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError = unknown>(
+ circleId: string,
+    sessionId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyHostControllerRequests>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getCircleNearbyHostControllerRequestsQueryOptions(circleId,sessionId,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+/**
+ * @summary Accept — joins them exactly like an invite (or links the child's device)
+ */
+export const circleNearbyHostControllerAccept = (
+    circleId: string,
+    sessionId: string,
+    requestId: string,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<NearbyRequestDto>(
+      {url: `/api/v1/circles/${circleId}/nearby-sessions/${sessionId}/requests/${requestId}/accept`, method: 'POST', signal
+    },
+      options);
+    }
+
+
+
+
+export const getCircleNearbyHostControllerAcceptMutationKey = () => ['circleNearbyHostControllerAccept'] as const;
+
+export const getCircleNearbyHostControllerAcceptMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerAccept>>, TError,CircleNearbyHostControllerAcceptMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerAccept>>, TError,CircleNearbyHostControllerAcceptMutationVariables, TContext> => {
+
+const mutationKey = getCircleNearbyHostControllerAcceptMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof circleNearbyHostControllerAccept>>, CircleNearbyHostControllerAcceptMutationVariables> = (props) => {
+          const {circleId,sessionId,requestId} = props ?? {};
+
+          return  circleNearbyHostControllerAccept(circleId,sessionId,requestId,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CircleNearbyHostControllerAcceptMutationResult = NonNullable<Awaited<ReturnType<typeof circleNearbyHostControllerAccept>>>
+
+    export type CircleNearbyHostControllerAcceptMutationError = unknown
+    export type CircleNearbyHostControllerAcceptMutationVariables = {circleId: string;sessionId: string;requestId: string}
+
+    /** @summary Accept — joins them exactly like an invite (or links the child's device) */
+export const useCircleNearbyHostControllerAccept = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerAccept>>, TError,CircleNearbyHostControllerAcceptMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof circleNearbyHostControllerAccept>>,
+        TError,
+        CircleNearbyHostControllerAcceptMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCircleNearbyHostControllerAcceptMutationOptions(options), queryClient);
+    }
+    /**
+ * @summary Decline a nearby join request
+ */
+export const circleNearbyHostControllerDecline = (
+    circleId: string,
+    sessionId: string,
+    requestId: string,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<NearbyRequestDto>(
+      {url: `/api/v1/circles/${circleId}/nearby-sessions/${sessionId}/requests/${requestId}/decline`, method: 'POST', signal
+    },
+      options);
+    }
+
+
+
+
+export const getCircleNearbyHostControllerDeclineMutationKey = () => ['circleNearbyHostControllerDecline'] as const;
+
+export const getCircleNearbyHostControllerDeclineMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerDecline>>, TError,CircleNearbyHostControllerDeclineMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerDecline>>, TError,CircleNearbyHostControllerDeclineMutationVariables, TContext> => {
+
+const mutationKey = getCircleNearbyHostControllerDeclineMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof circleNearbyHostControllerDecline>>, CircleNearbyHostControllerDeclineMutationVariables> = (props) => {
+          const {circleId,sessionId,requestId} = props ?? {};
+
+          return  circleNearbyHostControllerDecline(circleId,sessionId,requestId,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CircleNearbyHostControllerDeclineMutationResult = NonNullable<Awaited<ReturnType<typeof circleNearbyHostControllerDecline>>>
+
+    export type CircleNearbyHostControllerDeclineMutationError = unknown
+    export type CircleNearbyHostControllerDeclineMutationVariables = {circleId: string;sessionId: string;requestId: string}
+
+    /** @summary Decline a nearby join request */
+export const useCircleNearbyHostControllerDecline = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyHostControllerDecline>>, TError,CircleNearbyHostControllerDeclineMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof circleNearbyHostControllerDecline>>,
+        TError,
+        CircleNearbyHostControllerDeclineMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCircleNearbyHostControllerDeclineMutationOptions(options), queryClient);
+    }
+    /**
+ * @summary Preview a discovered nearby session (rate-limited per client)
+ */
+export const circleNearbyJoinControllerPreview = (
+    sessionId: string,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<NearbySessionPreviewDto>(
+      {url: `/api/v1/nearby-sessions/${sessionId}`, method: 'GET', signal
+    },
+      options);
+    }
+
+
+
+
+export const getCircleNearbyJoinControllerPreviewQueryKey = (sessionId: string,) => {
+    return [
+    `/api/v1/nearby-sessions/${sessionId}`
+    ] as const;
+    }
+
+
+export const getCircleNearbyJoinControllerPreviewQueryOptions = <TData = Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError = unknown>(sessionId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getCircleNearbyJoinControllerPreviewQueryKey(sessionId);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>> = ({ signal }) => circleNearbyJoinControllerPreview(sessionId, requestOptions, signal);
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: sessionId !== null && sessionId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type CircleNearbyJoinControllerPreviewQueryResult = NonNullable<Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>>
+export type CircleNearbyJoinControllerPreviewQueryError = unknown
+
+
+/** @summary Preview a discovered nearby session (rate-limited per client) */
+export function useCircleNearbyJoinControllerPreview<TData = Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError = unknown>(
+ sessionId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>,
+          TError,
+          Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Preview a discovered nearby session (rate-limited per client) */
+export function useCircleNearbyJoinControllerPreview<TData = Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError = unknown>(
+ sessionId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>,
+          TError,
+          Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Preview a discovered nearby session (rate-limited per client) */
+export function useCircleNearbyJoinControllerPreview<TData = Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError = unknown>(
+ sessionId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary Preview a discovered nearby session (rate-limited per client) */
+export function useCircleNearbyJoinControllerPreview<TData = Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError = unknown>(
+ sessionId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerPreview>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getCircleNearbyJoinControllerPreviewQueryOptions(sessionId,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+/**
+ * @summary Ask to join after confirming the 4 digits (account session required, guests only for khatm; a child device needs none)
+ */
+export const circleNearbyJoinControllerRequest = (
+    sessionId: string,
+    createNearbyRequestDto: CreateNearbyRequestDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<NearbyRequestCreatedDto>(
+      {url: `/api/v1/nearby-sessions/${sessionId}/requests`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: createNearbyRequestDto, signal
+    },
+      options);
+    }
+
+
+
+
+export const getCircleNearbyJoinControllerRequestMutationKey = () => ['circleNearbyJoinControllerRequest'] as const;
+
+export const getCircleNearbyJoinControllerRequestMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerRequest>>, TError,CircleNearbyJoinControllerRequestMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerRequest>>, TError,CircleNearbyJoinControllerRequestMutationVariables, TContext> => {
+
+const mutationKey = getCircleNearbyJoinControllerRequestMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof circleNearbyJoinControllerRequest>>, CircleNearbyJoinControllerRequestMutationVariables> = (props) => {
+          const {sessionId,data} = props ?? {};
+
+          return  circleNearbyJoinControllerRequest(sessionId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CircleNearbyJoinControllerRequestMutationResult = NonNullable<Awaited<ReturnType<typeof circleNearbyJoinControllerRequest>>>
+    export type CircleNearbyJoinControllerRequestMutationBody = CreateNearbyRequestDto
+    export type CircleNearbyJoinControllerRequestMutationError = unknown
+    export type CircleNearbyJoinControllerRequestMutationVariables = {sessionId: string;data: CreateNearbyRequestDto}
+
+    /** @summary Ask to join after confirming the 4 digits (account session required, guests only for khatm; a child device needs none) */
+export const useCircleNearbyJoinControllerRequest = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerRequest>>, TError,CircleNearbyJoinControllerRequestMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof circleNearbyJoinControllerRequest>>,
+        TError,
+        CircleNearbyJoinControllerRequestMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCircleNearbyJoinControllerRequestMutationOptions(options), queryClient);
+    }
+    /**
+ * @summary Joiner polls its request (child-device link: returns the child session once)
+ */
+export const circleNearbyJoinControllerStatus = (
+    sessionId: string,
+    requestId: string,
+    nearbyRequestTokenDto: NearbyRequestTokenDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<NearbyRequestStatusDto>(
+      {url: `/api/v1/nearby-sessions/${sessionId}/requests/${requestId}/status`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: nearbyRequestTokenDto, signal
+    },
+      options);
+    }
+
+
+
+
+export const getCircleNearbyJoinControllerStatusMutationKey = () => ['circleNearbyJoinControllerStatus'] as const;
+
+export const getCircleNearbyJoinControllerStatusMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerStatus>>, TError,CircleNearbyJoinControllerStatusMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerStatus>>, TError,CircleNearbyJoinControllerStatusMutationVariables, TContext> => {
+
+const mutationKey = getCircleNearbyJoinControllerStatusMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof circleNearbyJoinControllerStatus>>, CircleNearbyJoinControllerStatusMutationVariables> = (props) => {
+          const {sessionId,requestId,data} = props ?? {};
+
+          return  circleNearbyJoinControllerStatus(sessionId,requestId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CircleNearbyJoinControllerStatusMutationResult = NonNullable<Awaited<ReturnType<typeof circleNearbyJoinControllerStatus>>>
+    export type CircleNearbyJoinControllerStatusMutationBody = NearbyRequestTokenDto
+    export type CircleNearbyJoinControllerStatusMutationError = unknown
+    export type CircleNearbyJoinControllerStatusMutationVariables = {sessionId: string;requestId: string;data: NearbyRequestTokenDto}
+
+    /** @summary Joiner polls its request (child-device link: returns the child session once) */
+export const useCircleNearbyJoinControllerStatus = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerStatus>>, TError,CircleNearbyJoinControllerStatusMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof circleNearbyJoinControllerStatus>>,
+        TError,
+        CircleNearbyJoinControllerStatusMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCircleNearbyJoinControllerStatusMutationOptions(options), queryClient);
+    }
+    /**
+ * @summary Joiner withdraws a pending request
+ */
+export const circleNearbyJoinControllerCancel = (
+    sessionId: string,
+    requestId: string,
+    nearbyRequestTokenDto: NearbyRequestTokenDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+
+
+      return apiFetch<void>(
+      {url: `/api/v1/nearby-sessions/${sessionId}/requests/${requestId}/cancel`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: nearbyRequestTokenDto, signal
+    },
+      options);
+    }
+
+
+
+
+export const getCircleNearbyJoinControllerCancelMutationKey = () => ['circleNearbyJoinControllerCancel'] as const;
+
+export const getCircleNearbyJoinControllerCancelMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerCancel>>, TError,CircleNearbyJoinControllerCancelMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerCancel>>, TError,CircleNearbyJoinControllerCancelMutationVariables, TContext> => {
+
+const mutationKey = getCircleNearbyJoinControllerCancelMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof circleNearbyJoinControllerCancel>>, CircleNearbyJoinControllerCancelMutationVariables> = (props) => {
+          const {sessionId,requestId,data} = props ?? {};
+
+          return  circleNearbyJoinControllerCancel(sessionId,requestId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CircleNearbyJoinControllerCancelMutationResult = NonNullable<Awaited<ReturnType<typeof circleNearbyJoinControllerCancel>>>
+    export type CircleNearbyJoinControllerCancelMutationBody = NearbyRequestTokenDto
+    export type CircleNearbyJoinControllerCancelMutationError = unknown
+    export type CircleNearbyJoinControllerCancelMutationVariables = {sessionId: string;requestId: string;data: NearbyRequestTokenDto}
+
+    /** @summary Joiner withdraws a pending request */
+export const useCircleNearbyJoinControllerCancel = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof circleNearbyJoinControllerCancel>>, TError,CircleNearbyJoinControllerCancelMutationVariables, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof circleNearbyJoinControllerCancel>>,
+        TError,
+        CircleNearbyJoinControllerCancelMutationVariables,
+        TContext
+      > => {
+      return useMutation(getCircleNearbyJoinControllerCancelMutationOptions(options), queryClient);
     }

@@ -1081,6 +1081,41 @@
         "tags": [
           "notifications"
         ]
+      },
+      "delete": {
+        "operationId": "NotificationsController_removePushToken",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemovePushTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemovePushTokenResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Unregister this device's push token(s) (call before sign-out)",
+        "tags": [
+          "notifications"
+        ]
       }
     },
     "/api/v1/notifications/in-app": {
@@ -3443,6 +3478,405 @@
         ]
       }
     },
+    "/api/v1/circles/{circleId}/nearby-sessions": {
+      "post": {
+        "operationId": "CircleNearbyHostController_create",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNearbySessionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NearbySessionDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Open a 10-minute nearby (Bluetooth) session — same role rules as invites; `childId` links a child's device",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/nearby-sessions/{sessionId}": {
+      "delete": {
+        "operationId": "CircleNearbyHostController_end",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "End a nearby session (host left the screen)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/nearby-sessions/{sessionId}/requests": {
+      "get": {
+        "operationId": "CircleNearbyHostController_requests",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NearbyRequestListDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Asking to join (host polls while the screen is open)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/nearby-sessions/{sessionId}/requests/{requestId}/accept": {
+      "post": {
+        "operationId": "CircleNearbyHostController_accept",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NearbyRequestDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Accept — joins them exactly like an invite (or links the child's device)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/nearby-sessions/{sessionId}/requests/{requestId}/decline": {
+      "post": {
+        "operationId": "CircleNearbyHostController_decline",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NearbyRequestDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Decline a nearby join request",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/nearby-sessions/{sessionId}": {
+      "get": {
+        "operationId": "CircleNearbyJoinController_preview",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NearbySessionPreviewDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Preview a discovered nearby session (rate-limited per client)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/nearby-sessions/{sessionId}/requests": {
+      "post": {
+        "operationId": "CircleNearbyJoinController_request",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNearbyRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NearbyRequestCreatedDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Ask to join after confirming the 4 digits (account session required, guests only for khatm; a child device needs none)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/nearby-sessions/{sessionId}/requests/{requestId}/status": {
+      "post": {
+        "operationId": "CircleNearbyJoinController_status",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NearbyRequestTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NearbyRequestStatusDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Joiner polls its request (child-device link: returns the child session once)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/nearby-sessions/{sessionId}/requests/{requestId}/cancel": {
+      "post": {
+        "operationId": "CircleNearbyJoinController_cancel",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "requestId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NearbyRequestTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "summary": "Joiner withdraws a pending request",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
     "/": {
       "get": {
         "operationId": "RootController_getRoot",
@@ -3933,7 +4367,9 @@
               "vault_muhasabah",
               "vault_debts",
               "vault_wasiyyah",
-              "vault_relatives"
+              "vault_relatives",
+              "vault_excused",
+              "vault_khushu"
             ]
           },
           "id": {
@@ -4505,6 +4941,31 @@
           "token",
           "platform",
           "updatedAt"
+        ]
+      },
+      "RemovePushTokenDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Expo push token or web push subscription endpoint"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "Stable device id used when the token was registered"
+          }
+        }
+      },
+      "RemovePushTokenResponseDto": {
+        "type": "object",
+        "properties": {
+          "removed": {
+            "type": "number",
+            "description": "Push token rows removed from the caller's account"
+          }
+        },
+        "required": [
+          "removed"
         ]
       },
       "InAppNotificationDto": {
@@ -6369,6 +6830,288 @@
             "description": "null returns it to the pool"
           }
         }
+      },
+      "CreateNearbySessionDto": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "parent",
+              "member"
+            ],
+            "default": "member",
+            "description": "Role granted on accept (same rules as invites: a family `parent` session is owner-only and single-use). Ignored with `childId`."
+          },
+          "childId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Link this child profile's device instead (family parents only, single-use)"
+          }
+        }
+      },
+      "NearbySessionDto": {
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "type": "string",
+            "description": "8-byte opaque id (16 hex chars) the host advertises over BLE"
+          },
+          "serviceUuid": {
+            "type": "string",
+            "description": "128-bit BLE service UUID to advertise (app prefix + sessionId)"
+          },
+          "matchCode": {
+            "type": "string",
+            "description": "4 digits both screens show (D44)",
+            "example": "0472"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "member",
+              "child_link"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "parent",
+              "member",
+              "child"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "sessionId",
+          "serviceUuid",
+          "matchCode",
+          "purpose",
+          "role",
+          "expiresAt"
+        ]
+      },
+      "NearbyRequestDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name the joiner chose (may be empty)"
+          },
+          "requester": {
+            "type": "string",
+            "enum": [
+              "account",
+              "guest",
+              "device"
+            ],
+            "description": "`device` = a child's device (no account)"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "declined",
+              "cancelled",
+              "completed"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "displayName",
+          "requester",
+          "status",
+          "createdAt"
+        ]
+      },
+      "NearbyRequestListDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NearbyRequestDto"
+            }
+          },
+          "active": {
+            "type": "boolean",
+            "description": "False once the session expired, ended or was used up"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "items",
+          "active",
+          "expiresAt"
+        ]
+      },
+      "NearbySessionPreviewDto": {
+        "type": "object",
+        "properties": {
+          "circleType": {
+            "type": "string",
+            "enum": [
+              "family",
+              "partner",
+              "khatm_group"
+            ]
+          },
+          "circleName": {
+            "type": "string"
+          },
+          "memberCount": {
+            "type": "number"
+          },
+          "matchCode": {
+            "type": "string",
+            "description": "Compare with the host's screen before asking (D44)"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "member",
+              "child_link"
+            ]
+          },
+          "needsAccount": {
+            "type": "boolean",
+            "description": "Asking needs a linked account (family / partner)"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "circleType",
+          "circleName",
+          "memberCount",
+          "matchCode",
+          "purpose",
+          "needsAccount",
+          "expiresAt"
+        ]
+      },
+      "CreateNearbyRequestDto": {
+        "type": "object",
+        "properties": {
+          "matchCode": {
+            "type": "string",
+            "example": "0472",
+            "description": "The 4 digits the joiner confirmed"
+          },
+          "displayName": {
+            "type": "string",
+            "maxLength": 32
+          }
+        },
+        "required": [
+          "matchCode"
+        ]
+      },
+      "NearbyRequestCreatedDto": {
+        "type": "object",
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requestToken": {
+            "type": "string",
+            "description": "One-time secret (`mtn_…`) for polling; returned once"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "declined",
+              "cancelled",
+              "completed"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "requestId",
+          "requestToken",
+          "status",
+          "expiresAt"
+        ]
+      },
+      "NearbyRequestTokenDto": {
+        "type": "object",
+        "properties": {
+          "requestToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "requestToken"
+        ]
+      },
+      "NearbyRequestStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "declined",
+              "cancelled",
+              "completed",
+              "expired"
+            ]
+          },
+          "circleType": {
+            "type": "string",
+            "enum": [
+              "family",
+              "partner",
+              "khatm_group"
+            ]
+          },
+          "circleId": {
+            "type": "string",
+            "nullable": true,
+            "format": "uuid",
+            "description": "Set once a member request is accepted"
+          },
+          "childToken": {
+            "type": "string",
+            "description": "Child-device link only: the scoped child-session bearer (`mtc_…`), returned exactly once"
+          },
+          "child": {
+            "$ref": "#/components/schemas/ChildProfileDto"
+          }
+        },
+        "required": [
+          "status",
+          "circleType",
+          "circleId"
+        ]
       }
     }
   }
