@@ -42,6 +42,9 @@ and the in-app / marketing Credits pages. Do not strip upstream attributions.
 Qur'an practice (on-device recitation listener)
 - Tilawa (https://github.com/yazinsai/tilawa) — MIT licence (code, used as the @tilawa/core npm package).
 - Zipformer a0w model weights and phoneme corpus (downloaded at run time, not distributed in this repository) — NPL-1.2, Quran-Lab No-Profit License: non-commercial, share-alike; features they power must stay free and ad-free.
-- FastConformer alternate model (downloaded at run time) — NVIDIA CC-BY-4.0.
+- FastConformer alternate model (downloaded at run time) — NVIDIA FastConformer, CC-BY-4.0, exported by yazinsai/tilawa. Also used on the device for hands-free tasbeeh counting (NF-3.20). On the web the same pinned files are fetched from the public Hugging Face mirror acibZ/tilawa-quran-onnx (commit 0cd79471524bc9cfa1c9296055242a935a1873e4), checked against the same SHA-256 values.
 - ONNX Runtime (onnxruntime-web / onnxruntime-react-native) — MIT licence.
 - Quran Lab TajweedFormer SDKs and model (optional pronunciation drill, downloaded at run time) — NPL-1.2.
+
+Tasbeeh counter click sounds (apps/app/assets/audio/tasbeeh/)
+- Kenney (https://kenney.nl) — Impact Sounds, Interface Sounds and UI Audio packs, CC0 1.0. Clips trimmed and re-encoded to mono AAC; per-file sources in that folder's README.md.

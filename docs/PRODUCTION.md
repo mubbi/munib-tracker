@@ -139,6 +139,16 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
   **off** in the console, use `redis://…`; if TLS is **on**, use `rediss://…`.
   Optional `REDIS_TLS=true|false` overrides the scheme. Ensure the database CIDR
   allow list permits Vercel (or leave the public endpoint open with a strong password).
+- **Client IP & rate limits:** per-IP limits (auth, child-link redeem, masjids proxy)
+  key on `clientIp(req)` (`apps/api/src/common/client-ip.ts`), never the first
+  `X-Forwarded-For` value (client-controlled, so trivially spoofed). The API assumes
+  it sits behind **exactly one trusted proxy hop** — Vercel's edge, which overwrites
+  `X-Forwarded-For` with the real client address. `create-app.ts` therefore sets
+  Express `trust proxy` to `1` whenever `VERCEL` is set and `clientIp` uses `req.ip`.
+  Hosting elsewhere (Fly, a load balancer, Cloudflare in front of Vercel …) must set
+  `TRUST_PROXY_HOPS` to the real number of trusted hops (`0` disables); without
+  `trust proxy` the helper falls back to the right-most `X-Forwarded-For` hop, then
+  the socket address. Client IPs are rate-limit keys only — never logged.
 - Optional `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` (+ `VAPID_SUBJECT`) for Web Push (admin + API scheduler).
 - **ActivityKit Live Activity push:** `APNS_*`, `LIVE_ACTIVITY_CRON_SECRET` (+ cron), optional `QSTASH_*` / `API_PUBLIC_URL` / `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` — [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md).
 - **Surface push (Web + Android Expo Push):** `SURFACE_PUSH_CRON_SECRET` — [`WEB_PUSH.md`](./WEB_PUSH.md).

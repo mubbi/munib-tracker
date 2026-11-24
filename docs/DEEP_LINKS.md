@@ -228,6 +228,20 @@ Full OAuth console setup: [OAUTH_SETUP.md](./OAUTH_SETUP.md).
 
 ---
 
+## Circle invites & child-device links (NF-3.16–3.18, D36)
+
+| Path                           | Opens                                                                                                                                                                                                                                    |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/circle/join/<CODE>`          | Invite landing: preview + join. `CODE` is the 10-char base32 invite code (`ABCDE-FGH23` display grouping; dashes/spaces/case are ignored). Built with `appLink.circleJoin(code)` / `circleJoinPath()` (`@munib-tracker/shared/circles`). |
+| `/kids/link?token=mtl_…`       | Child device: redeems the parent's one-time QR token (5-minute TTL) for a scoped child session. Built with `appLink.kidsLink(token)`.                                                                                                    |
+| `/circles`, `/family`, `/kids` | Circles hub, parent view, kids mode.                                                                                                                                                                                                     |
+
+- **HTTPS is the shared form** (`https://my.munibtracker.app/circle/join/<CODE>`). Devices with the app open it through App Links / Universal Links (Android `intentFilters` `pathPrefix` `/circle/join` + `/kids/link` in `app.json`; AASA paths `/circle/join/*`, `/kids/link`, `/kids/link/*` from `scripts/generate-well-known.mjs`). Without the app it opens the **Expo web join screen** — guests can join a group khatm on the web; family and partner circles ask to sign in. There is no marketing-site landing page.
+- `munib-tracker://circle/join/<CODE>` also works (the plan's `munib://` is this app's `munib-tracker://` scheme).
+- Both routes are `index: false` in the SEO registry.
+
+---
+
 ## Push notifications
 
 Local and web push use **structured route data** (screen/tab/focus fields), not URL schemes — see `apps/app/src/lib/notifications/`. Paths should match catalog destinations (e.g. `/tracker`, `/zikr/after_prayer`).

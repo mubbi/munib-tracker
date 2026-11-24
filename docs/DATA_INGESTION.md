@@ -500,8 +500,9 @@ Acceptance: Zikr/Dua/Names screens show the full sets with **no UI code change**
   routes valid for `typedRoutes`.
 - `src/db/repositories/hadith-repository.ts`: bookmarks (`createId()` ids) + book cache. New
   `DB_KEYS.hadithBookmarks`, `DB_KEYS.hadithBookCache`; register both in `resetDatabase()`.
-- Nawawi highlights get audio (D9) via Internet Archive; full corpus has no per-hadith audio — hide
-  the audio control when no `audioUri`.
+- No hadith audio ships (NF-3.23 / D19: licence-cleared human recordings only, and no source passed
+  the D12 licence review — see `docs/proofs/hadith-audio.md`). No bundled or remote hadith item has
+  an `audioUri`; the reader hides the audio control when it is absent, and no hadith surface uses TTS.
 - Regenerate isnad extract alone:
   `node apps/app/scripts/build-data/extract-hadith-isnad.mjs`
   (optional `HADITH_KG_PATH` for emadjumaah/hadith-kg enrichment scaffolding).

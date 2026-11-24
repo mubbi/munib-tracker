@@ -1,0 +1,33 @@
+# Proof log: Vault — E2E-encrypted private journals (D2, plan §4.2)
+
+- **Feature:** the encrypted local store and opt-in end-to-end-encrypted sync used by muhasabah, debts, wasiyyah and silat al-rahim relatives (the features themselves ship in the next wave).
+- **Code:** `apps/app/src/lib/vault/*`, `apps/app/src/components/vault/*`, `apps/api/src/sync/dto/vault-payload.validator.ts`
+- **Review:** AI proof-backed review (D11), 2026-11-23
+
+## 1. Religious content
+
+None. The vault is infrastructure: it renders no Qur'an, hadith or dua text and states no ruling. Fiqh claims about debts, wasiyyah and silat al-rahim belong to those features' own proof logs. The copy mentions "muhasabah", "wasiyyah" and "family contacts" only as names of the user's own records.
+
+## 2. Security claims made in user-facing copy
+
+| Copy claim (`vault.*`)                                                                                          | Basis in the implementation                                                                                                                                                                                                                                                                             | Verified by                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| "Kept only on this device, encrypted" (`sync.body`)                                                             | Each document is a `VaultEnvelope`: AES-256-GCM with a 12-byte random IV under a 256-bit DEK. The DEK is in SecureStore (`WHEN_UNLOCKED_THIS_DEVICE_ONLY`) on native. On web it is wrapped by a non-extractable IndexedDB `CryptoKey`. Nothing is pushed until the user opts in (the blob-sync `gate`). | `vault.test.ts` (round trip, no plaintext stored), `vault-sync.test.ts` ("pushes nothing until the user opts in") |
+| "We only store scrambled data and can't read it" (`sync.howItWorks`)                                            | The server receives only `VaultEnvelope` / `VaultKeyring` shapes; the API rejects anything else and never logs values. The KEK is derived on the device from the passphrase and is never sent.                                                                                                          | `vault-payload.validator.spec.ts`, `vault-sync.test.ts` (no plaintext in pushed records)                          |
+| "If you lose both your passphrase and your recovery code, the cloud copy is gone for good" (`sync.warningBody`) | Only two wrapped copies of the DEK exist server-side, under the scrypt passphrase KEK and the recovery-code KEK. There is no escrow copy.                                                                                                                                                               | Design (`keyring.ts`); `vault.test.ts` (wrong passphrase / foreign code both fail)                                |
+| "Your journals on this device keep working"                                                                     | The local DEK stays in SecureStore / IndexedDB regardless of sync state.                                                                                                                                                                                                                                | `vault.test.ts`                                                                                                   |
+| "This code is shown only once" (`recovery.onlyOnce`)                                                            | The recovery words are returned from `setUpVaultSync` / `regenerateVaultRecoveryCode` and never persisted (only the HKDF-wrapped DEK is).                                                                                                                                                               | `vault.test.ts` (keyring JSON does not contain the words)                                                         |
+| "Tampered data can't be opened" (`errors.corrupt`)                                                              | A GCM tag failure surfaces as `vault-corrupt`. Associated data binds each envelope to its document id.                                                                                                                                                                                                  | `vault.test.ts` (tamper + AAD-swap cases)                                                                         |
+
+## 3. Cryptographic parameters and sources
+
+| Parameter      | Value                                                                                                                  | Source                                                                                  |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Cipher         | AES-256-GCM, 96-bit random IV, 128-bit tag                                                                             | NIST SP 800-38D (GCM), §5.2.1.1 / §8.2.2 (random IV construction)                       |
+| Passphrase KDF | scrypt N=2^15, r=8, p=1, 16-byte salt, 32-byte output                                                                  | RFC 7914; plan §4.2. The parameters are stored per keyring so they can be raised later. |
+| Recovery code  | 24 BIP-39 English words = 256-bit entropy + checksum; KEK = HKDF-SHA-256(entropy, salt, "munib-vault:v1:recovery-kek") | BIP-0039 (wordlist from `@scure/bip39`); RFC 5869 (HKDF)                                |
+| Key id         | first 64 bits of SHA-256("munib-vault:v1:key-id" ‖ DEK)                                                                | Non-secret fingerprint (a SHA-256 preimage is infeasible)                               |
+
+## 4. Open items
+
+- **Low-end Android benchmark (target ≤ 1.5 s):** not measured yet; no device was available. Run `benchmarkVaultKdf()` (`lib/vault/benchmark.ts`) on a reference device and record the result here.

@@ -24,6 +24,7 @@ are omitted — see [`TV.md`](./TV.md).
 | Watch complications    | `targets/munib-tracker-watch-widgets/`                                                         | WidgetKit face complications (NF-2.14)                               |
 | Live Activity control  | `modules/munib-live-activity/`                                                                 | ActivityKit start/update/end                                         |
 | Config plugins         | `plugins/homeScreenSurfaces.cjs`, `withExternalCommands.cjs`, `withWearOs.cjs`                 | Native project wiring                                                |
+| Salah focus lock       | `modules/munib-focus-lock/` + `targets/munib-tracker-focus-*`                                  | NF-3.13 hard block (see below)                                       |
 | Hooks                  | `use-app-quick-actions.ts`, `use-widget-snapshot-sync.ts`, `use-external-command-processor.ts` | Sync + drain loops                                                   |
 
 **App Group:** `group.app.munibtracker.widgets`
@@ -172,6 +173,45 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 - Requires Google Play Services + paired watch
 - **Application ID:** the Wear app uses the phone's `app.munibtracker` (namespace `app.munibtracker.wear`) and the same signing key — the Wearable Data Layer only connects apps that share both. (Before Expo SDK 58 it generated `app.munibtracker.wear`, which could never reach the phone.) Version code: the shared `EXPO_ANDROID_VERSION_CODE` in `apps/app/.env` (one counter for phone, TV and Wear — bump it before every Play upload).
 - **Release:** `pnpm release:app:wear` (Gradle `:wear:bundleRelease`, phone prebuild) → `pnpm release:app:wear:upload` (Play `wear:internal` track). Enable the Wear OS form factor in Play Console first.
+
+## Salah focus lock (NF-3.13)
+
+Blocks the apps the user chose during a window around each Salah until they mark it prayed or the window ends (D4). Settings: **Devices & integrations › Salah focus** (`devices.focusLock`, opens `/focus-lock`); the shield's confirm alert is **Reminders › Salah & adhan** (`notifications.salah.focusLockConfirm` → `notificationPrefs.focusLock`).
+
+| Layer                 | Path                                                                                                                     |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Pure planner + rules  | `src/lib/focus-lock/` — `plan.ts` (windows, skips, merges), `state.ts` (unlock rules), `allowlist.ts`, `prefs.ts`        |
+| Store glue            | `src/lib/focus-lock/controller.ts`, `inputs.ts` (adhan from `prayer-times.ts`, iqamah from `lib/masjid`)                 |
+| JS ↔ native contract  | `src/lib/focus-lock/native.ts` (`requireOptionalNativeModule("MunibFocusLock")`, soft no-op elsewhere)                   |
+| Host + UI             | `components/focus-lock/focus-lock-host.tsx` (root layout), soft prompt, tracker chip; routes `app/focus-lock/*`          |
+| Native module         | `modules/munib-focus-lock/` — `ios/` (FamilyControls, DeviceActivity, BGAppRefreshTask) + `android/` (Kotlin)            |
+| iOS extensions        | `targets/munib-tracker-focus-monitor` / `-shield` / `-action` (DeviceActivityMonitor, ShieldConfiguration, ShieldAction) |
+| Config plugin         | `modules/munib-focus-lock/app.plugin.js` (entitlement, App Group, BGTask id; Android permissions + launcher `<queries>`) |
+| Device-local JS state | `DB_KEYS.focusLockDevice` (`deviceLocal`): setup done, app count, ended windows, emergency-unlock log                    |
+
+**D17 build flag.** Apple granted the Family Controls **Distribution** entitlement on 2026-11-24, so the iOS hard block is compiled in **by default**. Setting `EXPO_PUBLIC_FOCUS_LOCK_HARD_IOS=0` builds the soft-prompt fallback: then `app.config.js` excludes `targets/munib-tracker-focus-*` from `@bacons/apple-targets` (`match: "!(munib-tracker-focus-*)"`), the plugin adds no entitlement, the JS never loads the module, and iOS ships the soft in-app prompt. Android always ships the hard block. Web, TV and visionOS get the soft prompt only (TV: hidden; the module is in `TV_EXCLUDED_PACKAGES`).
+
+**iOS flow.** `requestAuthorization(for: .individual)` → `FamilyActivityPicker` (selection stored encoded in the App Group, never synced) → `setPlan` writes the plan JSON to the App Group and calls `DeviceActivityCenter.startMonitoring` once per window (≤ 12, two days). Windows shorter than DeviceActivity's 15-minute minimum are scheduled padded with `warningTime` = padding, so `intervalWillEndWarning` marks the real end. The monitor applies `ManagedSettingsStore(named: "munib.focus").shield` at `intervalDidStart` and clears it at the end (unless another window is running). The shield's primary button posts a local "Tap to confirm your Salah" notification (`data.route = /mark-current`) because a shield can't open the app; gentle mode also lifts the shield on that one tap (D39: Apple's shield has no press-and-hold, so iOS doesn't use the 10 s hold). The secondary button is the counted emergency unlock. A `BGAppRefreshTask` (`app.munibtracker.focuslock.refresh`) re-arms from the cached plan.
+
+**Android flow.** `setExactAndAllowWhileIdle` alarms at each window start/end → `FocusLockReceiver` → `FocusLockService` (foreground, `specialUse`, low-priority ongoing notification) polls `UsageStatsManager.queryEvents` for `ACTIVITY_RESUMED` every 750 ms → full-screen `TYPE_APPLICATION_OVERLAY` over a blocked app ("I've prayed" deep link, 10 s hold in gentle mode, emergency unlock). Never blocked: our app, default dialer / SMS / launcher, Settings, telephony and emergency packages (`FocusLockAllowlist.kt` = `allowlist.ts`). `BOOT_COMPLETED`, package replace, time / timezone and exact-alarm permission changes re-arm from the plan cached in SharedPreferences. No Accessibility API, no `QUERY_ALL_PACKAGES`.
+
+**Marking the Salah anywhere** (tracker, widget, Siri, Watch → tracker store) ends the running window: the host calls `endWindowNow(id)`. Excused periods (`activeExcusedReason` + `pauseWhileExcused`) and quiet dates plan no windows. **Weekdays only** skips the user's own weekend days (D37, `schedule.weekendDays`, 0 = Sunday … 6 = Saturday); unset, they default from the region (`lib/focus-lock/weekend.ts`: stored country, else the location's / device's timezone — e.g. Friday + Saturday in Saudi Arabia, Friday in Iran, Saturday + Sunday elsewhere). On Fridays the **Jumu'ah window** replaces Dhuhr with its own length (D38, `jumuahDurationMin`, default 60, 5–120) from the home masjid's Jumu'ah time when known, else the Dhuhr adhan. Both are resolved in JS: the native side only receives concrete windows, so its payload is unchanged. Emergency unlocks are logged on the device only and shown as a neutral weekly count.
+
+### Focus lock — verify before release (real devices / Mac)
+
+| Area                | Check                                                                                                                                                                                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mac build (flag on) | `pnpm cleanbuild:app:ios` generates the three targets; app + module + extensions compile and sign with the Family Controls (Distribution) entitlement; `EXPO_PUBLIC_FOCUS_LOCK_HARD_IOS=0` builds with no FamilyControls entitlement                       |
+| iOS authorization   | Screen Time prompt; denied / revoked in Settings → JS reports `denied`; picker presents, Done saves, count matches                                                                                                                                         |
+| DeviceActivity      | Shield appears at window start with the app closed; 20-min window clears at the real end (padded schedule + `warningTime`); 1-min test window; ≤ 12 schedules accepted (find the real monitored-activity limit); DST day; reboot                           |
+| Shield UI / actions | Title/body/colours from the plan in light + dark + RTL locales; "I've prayed" posts the confirm notification and tapping it marks via `/mark-current`; gentle unlock lifts the shield on one tap (D39); emergency count decrements and resets the next day |
+| Background refresh  | `BGAppRefreshTask` registers (no launch crash when the plist id is absent) and re-arms after a few days without opening the app                                                                                                                            |
+| Android permissions | Usage access, overlay, exact alarm, notifications, battery screens open on Android 10–16; status refreshes on return                                                                                                                                       |
+| Android service     | Exact alarm starts the specialUse FGS from the background on Android 12–16 (FGS-start exemption); overlay shows over a blocked app within ~1 s and hides on Home/our app; stops at window end; Doze; reboot re-arms                                        |
+| OEM battery killers | Xiaomi (MIUI/HyperOS), Samsung (One UI), Huawei/Honor: windows still start after hours idle once unrestricted; note any OEM autostart toggle needed                                                                                                        |
+| Never-block         | Phone, SMS, emergency dialer, default launcher, Settings and Munib Tracker are never covered (incl. third-party default dialer / SMS)                                                                                                                      |
+| Mark anywhere       | Marking from the tracker, widget, Siri / App Intent, Watch and Wear ends the active window on both platforms                                                                                                                                               |
+| Soft prompt         | Web + iOS (flag off): prompt shows during a window, "Not now" hides it for that window, marking ends it                                                                                                                                                    |
 
 ## iOS scene life cycle (Expo SDK 58)
 
