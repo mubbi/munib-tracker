@@ -128,10 +128,10 @@
       "errorGeneric": "ध्वनि खोज विफल रही. पुनः प्रयास करें या टाइप करें."
     },
     "cat": {
-      "quran": "Qur'an",
+      "quran": "क़ुरआन",
       "hadith": "हदीथ",
       "dua": "दुआ",
-      "zikr": "Adhkar",
+      "zikr": "अज़कार",
       "name": "99 नाम",
       "durood": "डुरूड्स",
       "learn": "सीखना",
@@ -148,19 +148,19 @@
   },
   "actions": {
     "checklist": "जांच सूची",
-    "zikr": "Zikr",
-    "tasbeeh": "Tasbeeh",
-    "qaza": "Qaza",
+    "zikr": "ज़िक्र",
+    "tasbeeh": "तस्बीह",
+    "qaza": "क़ज़ा",
     "duas": "दुआ",
     "duroods": "दुरूद",
     "names": "99 नाम",
-    "quran": "Qur'an",
+    "quran": "क़ुरआन",
     "hadith": "हदीस",
     "calendar": "कैलेंडर",
     "stats": "आँकड़े",
     "qibla": "किबला",
     "bookmarks": "बुकमार्क",
-    "ramadan": "Ramadan",
+    "ramadan": "रमज़ान",
     "salahGuide": "जानें Salah",
     "jannah": "जन्नत की यात्रा",
     "goodCharacter": "अच्छा चरित्र",
@@ -176,7 +176,7 @@
     "events": "घटनाएँ",
     "zakat": "जकात",
     "journal": "प्रार्थना पत्रिका",
-    "tahajjud": "Tahajjud",
+    "tahajjud": "तहज्जुद",
     "lastThirdNight": "अंतिम तीसरा कैलकुलेटर",
     "hayd": "हेड और पूजा",
     "sick": "बीमारी और प्रार्थना",
@@ -188,7 +188,7 @@
     "friday": "शुक्रवार और Jumu'ah",
     "whiteDays": "सफेद दिन का उपवास",
     "ruqyah": "रुक्य्याह",
-    "newMuslim": "नई Muslim गाइड",
+    "newMuslim": "नव-मुस्लिम गाइड",
     "finance": "इस्लामी वित्त",
     "flashCards": "फ़्लैश कार्ड",
     "verseDetector": "पद्य डिटेक्टर",
@@ -237,11 +237,11 @@
     "streakDays": "{{count}} दिन",
     "streakDays_one": "{{count}} दिन",
     "streakDays_other": "{{count}} दिन",
-    "streakHint": "हर farz Salah दर्ज करते रहें",
-    "qaza": "Qaza",
+    "streakHint": "हर फ़र्ज़ नमाज़ दर्ज करते रहें",
+    "qaza": "क़ज़ा",
     "qazaRemainingCount": "{{count}} शेष",
     "qazaNoTarget": "कोई दैनिक लक्ष्य निर्धारित नहीं",
-    "ramadan": "Ramadan",
+    "ramadan": "रमज़ान",
     "suhoorIftar": "Suhoor और Iftar",
     "khatm": "Khatm योजना",
     "khatmStartHint": "ऐप में Khatm योजना शुरू करें",
@@ -250,7 +250,7 @@
     "khatmPaceDone": "पूर्ण",
     "khatmPaceOnTrack": "ट्रैक पर",
     "dailyHadith": "आज की hadith",
-    "hijriDate": "Islamic तिथि",
+    "hijriDate": "इस्लामी तारीख़",
     "qibla": "किबला",
     "qiblaBearing": "{{degrees}}°",
     "qiblaHint": "Kaaba की दिशा",
@@ -269,22 +269,22 @@
       },
       "schedule": {
         "label": "शेड्यूल",
-        "description": "आज के farz Salah समय एक नज़र में"
+        "description": "आज की फ़र्ज़ नमाज़ों के समय एक नज़र में"
       },
       "progress": {
         "label": "प्रगति",
-        "description": "आज की farz Salah प्रगति"
+        "description": "आज की फ़र्ज़ नमाज़ों की प्रगति"
       },
       "streak": {
         "label": "लकीर",
-        "description": "वर्तमान farz Salah की लकीर"
+        "description": "फ़र्ज़ नमाज़ों का मौजूदा सिलसिला"
       },
       "qaza": {
-        "label": "Qaza",
+        "label": "क़ज़ा",
         "description": "शेष Qaza और आज की अदायगी प्रगति"
       },
       "ramadan": {
-        "label": "Ramadan",
+        "label": "रमज़ान",
         "description": "Suhoor और iftar समय उलटी गिनती के साथ"
       },
       "khatm": {
@@ -296,36 +296,36 @@
         "description": "Imam al-Nawawi की चालीस में से आज की hadith"
       },
       "hijriDate": {
-        "label": "Islamic तिथि",
-        "description": "Hijri और Gregorian तिथि"
+        "label": "इस्लामी तारीख़",
+        "description": "हिजरी और ग्रेगोरियन तारीख़"
       },
       "qibla": {
         "label": "किबला",
         "description": "Kaaba की ओर कम्पास दिशा"
       },
       "tasbeeh": {
-        "label": "Tasbeeh",
+        "label": "तस्बीह",
         "description": "आज के अनुकूल tasbeeh काउंटर की प्रगति"
       },
       "friday": {
-        "label": "Jumu'ah",
+        "label": "जुमा",
         "description": "शुक्रवार चेकलिस्ट प्रगति या Jumu'ah तक दिन"
       }
     },
-    "tasbeeh": "Tasbeeh",
+    "tasbeeh": "तस्बीह",
     "tasbeehHint": "गिनती शुरू करने के लिए ऐप खोलें",
     "tasbeehRemaining": "{{count}} शेष",
     "tasbeehUnlimited": "असीमित गिनती",
-    "friday": "Jumu'ah",
+    "friday": "जुमा",
     "fridayProgress": "{{completed}}/{{total}} पूर्ण",
-    "fridayAllDone": "सब पूर्ण — क़बूल हो, in sha Allah",
+    "fridayAllDone": "सब पूरा — इन शा अल्लाह क़बूल हो",
     "fridayCountdown": "{{count}} दिन में Jumu'ah",
     "fridayCountdown_one": "{{count}} दिन में Jumu'ah",
     "fridayCountdown_other": "{{count}} दिन में Jumu'ah"
   },
   "ramadan": {
-    "eyebrow": "Ramadan",
-    "title": "Ramadan",
+    "eyebrow": "रमज़ान",
+    "title": "रमज़ान",
     "subtitle": "रोज़े के समय और आपका रोज़ा लॉग",
     "dayOf": "{{total}} का दिन {{day}}",
     "timesTitle": "आज के रोज़े के समय",
@@ -338,8 +338,8 @@
     "countdownSuhoor": "Suhoor {{time}} में समाप्त",
     "countdownIftar": "Iftar {{time}} में",
     "afterIftar": "आज का रोज़ा पूर्ण",
-    "dayCell": "Ramadan {{day}} · {{gregorian}}",
-    "dayCellStatus": "Ramadan {{day}} ({{gregorian}}), {{status}}",
+    "dayCell": "रमज़ान {{day}} · {{gregorian}}",
+    "dayCellStatus": "रमज़ान {{day}} ({{gregorian}}), {{status}}",
     "dayCellHint": "अपनी रोज़े की स्थिति चुनने के लिए टैप करें",
     "statusNone": "चिह्नित नहीं",
     "gridHint": "रोज़े की स्थिति दर्ज करने के लिए किसी दिन पर टैप करें",
@@ -349,14 +349,14 @@
     "statusFasted": "रोज़ा रखा",
     "statusMissed": "छूटा",
     "statusExempt": "छूट",
-    "disclaimer": "समय गणना अनुमान हैं — Ramadan की शुरुआत और दैनिक समय के लिए अपनी स्थानीय Masjid का अनुसरण करें।",
+    "disclaimer": "समय गणना पर आधारित अनुमान हैं — रमज़ान की शुरुआत और रोज़ाना के समय के लिए अपनी स्थानीय मस्जिद का पालन करें।",
     "lastTenTitle": "आखिरी दस रातें",
     "lastTenBody": "विषम रातों में Laylat al-Qadr की तलाश करें — Salah में खड़े रहें, Qur'an पढ़ें, और Dua करें। नबी ﷺ ने इन रातों में उपासना में सबसे अधिक प्रयास किया।",
     "laylatQadrTitle": "लैलात अल-क़द्र",
-    "laylatQadrBody": "हज़ार महीनों से बेहतर — इस रात की ibadat दशकों की भक्ति से अधिक है। Qur'an पढ़ें, Tahajjud पढ़ें, और कहें: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.",
-    "dayCellHintTv": "अपनी रोज़े की स्थिति चुनने के लिए Select दबाएँ",
-    "gridHintTv": "रोज़े की स्थिति दर्ज करने के लिए किसी दिन को Select करें",
-    "fastingLogBackfillNoteTv": "Ramadan {{year}} AH ({{gregorian}}) दिखाया जा रहा है ताकि आप अपना लॉग भर सकें। रोज़े की स्थिति अपडेट करने के लिए किसी भी दिन को Select करें।",
+    "laylatQadrBody": "हज़ार मास से उत्तम — इस रात की इबादत दशकों की इबादत से बढ़कर है। क़ुरआन पढ़ें, तहज्जुद पढ़ें, और यह दुआ करें: अल्लाहुम्मा इन्नका अफ़ुव्वुन तुहिब्बुल अफ़्वा फ़अ्फ़ु अन्नी।",
+    "dayCellHintTv": "अपने रोज़े की स्थिति चुनने के लिए दबाएँ",
+    "gridHintTv": "रोज़े की स्थिति दर्ज करने के लिए कोई दिन चुनें",
+    "fastingLogBackfillNoteTv": "रमज़ान {{year}} हिजरी ({{gregorian}}) दिखाया जा रहा है ताकि आप अपना पिछला रिकॉर्ड भर सकें। रोज़े की स्थिति अपडेट करने के लिए कोई भी दिन चुनें।",
     "fiqh": {
       "title": "रोज़े के अहकाम",
       "forgetful": {
@@ -441,9 +441,9 @@
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "ट्रैकिंग प्रारंभ करें",
     "goToChecklist": "चेकलिस्ट पर जाएं",
-    "prayersStat": "Salah",
-    "dhikrStat": "Zikr",
-    "qazaStat": "Qaza",
+    "prayersStat": "नमाज़",
+    "dhikrStat": "ज़िक्र",
+    "qazaStat": "क़ज़ा",
     "khatmStat": "ख़तम",
     "streakStat": "धारी",
     "qazaRemaining": "Qaza शेष",
@@ -495,9 +495,9 @@
       "motivation": "दैनिक अनुस्मारक"
     },
     "knowledgeTopic": {
-      "prayer": "Salah",
-      "qaza": "Qaza",
-      "zikr": "Zikr",
+      "prayer": "नमाज़",
+      "qaza": "क़ज़ा",
+      "zikr": "ज़िक्र",
       "fasting": "उपवास",
       "steadfastness": "दृढ़ता",
       "general": "अनुस्मारक"
@@ -559,10 +559,10 @@
       "daysAgo_other": "{{count}} दिन पहले"
     },
     "continueKind": {
-      "quran": "Qur'an",
+      "quran": "क़ुरआन",
       "hadith": "हदीथ",
-      "dua": "Dua",
-      "zikr": "Adhkar",
+      "dua": "दुआ",
+      "zikr": "अज़कार",
       "durood": "दुरूद",
       "names": "99 नाम",
       "audio": "ऑडियो"
@@ -589,19 +589,19 @@
       },
       "qaza-hope": {
         "text": "छूटी हुई दुआएं पूरी की जा सकती हैं। अपराध बोध लेकर चलने के बजाय qaza के लिए एक सौम्य दैनिक गति निर्धारित करें।",
-        "topic": "qaza"
+        "topic": "क़ज़ा"
       },
       "qaza-one": {
         "text": "एक qaza आज साफ़ हो जाना, कल एक आदर्श स्ट्रीक की प्रतीक्षा करने से बेहतर है।",
-        "topic": "qaza"
+        "topic": "क़ज़ा"
       },
       "zikr-heart": {
         "text": "zikr के बाद salah के कुछ क्षण भी दिल को नरम कर देते हैं और जीभ को स्थिर कर देते हैं।",
-        "topic": "zikr"
+        "topic": "ज़िक्र"
       },
       "zikr-walking": {
         "text": "याद रखें Allah प्रतीक्षा करते समय, चलते समय, या आराम करते समय - zikr एक व्यस्त दिन के अंतराल में फिट बैठता है।",
-        "topic": "zikr"
+        "topic": "ज़िक्र"
       },
       "fasting-patience": {
         "text": "उपवास शरीर में धैर्य को प्रशिक्षित करता है इसलिए रोजमर्रा की जिंदगी में सब्र आसान हो जाता है।",
@@ -614,7 +614,7 @@
       "consistency": {
         "text": "Allah को निरंतर कार्य पसंद हैं, भले ही वे छोटे हों। दिखाते रहो.",
         "topic": "दृढ़ता",
-        "source": "ए"
+        "source": "सहीह बुख़ारी 6464 · सहीह मुस्लिम 782"
       },
       "tracker-honest": {
         "text": "एक ईमानदार ट्रैकर आपको पैटर्न देखने में मदद करता है, न कि खुद का मूल्यांकन करने में। प्रगति की शुरुआत जागरूकता से होती है।",
@@ -638,7 +638,7 @@
       },
       "tasbeeh-count": {
         "text": "एक छोटा tasbeeh सत्र मायने रखता है। Zikr केवल लंबी बैठकों के लिए नहीं है - दस से शुरू करें।",
-        "topic": "zikr"
+        "topic": "ज़िक्र"
       }
     },
     "exploreQuranHintTv": "किसी भी अयाह पर बुकमार्क आइकन का चयन करें",
@@ -670,20 +670,20 @@
     "cardTip": "अपडेट करने के लिए salah नाम पर टैप करें · zikr के लिए Adhkar · विवरण के लिए जानकारी",
     "tapToMark": "चिह्नित करने के लिए टैप करें",
     "sectionProgress": "{{completed}}/{{total}}",
-    "witr": "Witr",
+    "witr": "वित्र",
     "witrSubtitle": "Sunnah मुअक्कदाह - दृढ़ता से जोर दिया गया, पाँच फ़र्ज़ प्रार्थनाओं में से एक नहीं।",
     "sunnahOptional": "Sunnah एवं वैकल्पिक",
     "sunnahSubtitle": "वैकल्पिक और ज़ोर दिया गया sunnah salah",
     "keepGoing": "जाता रहना",
-    "salahAdhkar": "Salah adhkar",
+    "salahAdhkar": "नमाज़ के बाद के अज़कार",
     "salahAdhkarSubtitle": "Sunnah adhkar हर प्रार्थना के आसपास पढ़ना।",
-    "salahCaption": "salah",
+    "salahCaption": "नमाज़",
     "glanceTitle": "आज की प्रगति",
     "rings": {
       "sunnah": "वैकल्पिक Salah",
-      "witr": "Witr",
-      "adhkar": "Adhkar",
-      "qaza": "Qaza",
+      "witr": "वित्र",
+      "adhkar": "अज़कार",
+      "qaza": "क़ज़ा",
       "khatm": "ख़तम",
       "a11y": "{{label}}: {{percent}}% पूर्ण, {{completed}} में से {{total}}"
     },
@@ -708,7 +708,7 @@
       "items": {
         "ghusl": {
           "title": "Ghusl शुक्रवार के लिए",
-          "hint": "masjid पर जाने से पहले नहा लें"
+          "hint": "मस्जिद जाने से पहले ग़ुस्ल करें"
         },
         "prepare": {
           "title": "बेहतरीन कपड़े और खुशबू",
@@ -716,7 +716,7 @@
         },
         "jumuah": {
           "title": "उपस्थित रहें Jumu'ah (या प्रार्थना करें Dhuhr)",
-          "hint": "खुतबा + दो rakahs;क्षमा प्रार्थना Dhuhr"
+          "hint": "ख़ुत्बा + दो रकअत; जो माज़ूर हों वे ज़ुहर पढ़ें"
         },
         "kahf": {
           "title": "सूरह अल-काहफ़ पढ़ें",
@@ -769,7 +769,7 @@
     "qazaTargetsProgress": "{{done}} का {{total}} qaza आज",
     "afterSalahAdhkarReminderTitle": "{{prayer}} के बाद",
     "afterSalahAdhkarReminderBody": "tasbeeh के लिए एक क्षण लें और उसके बाद-salah adhkar।",
-    "afterSalahProgress": "Adhkar {{completed}}/{{total}}",
+    "afterSalahProgress": "अज़कार {{completed}}/{{total}}",
     "afterSalahProgressA11y": "{{prayer}} के बाद-salah adhkar: {{total}} में से {{completed}} आज पूरा हुआ",
     "cardTipTv": "अपडेट करने के लिए कोई नमाज़ चुनें · ज़िक्र के लिए अज़कार · विवरण के लिए जानकारी",
     "tapToMarkTv": "चिह्नित करने के लिए चुनें",
@@ -831,7 +831,7 @@
   "settings": {
     "eyebrow": "व्यक्तिगत करें",
     "title": "सेटिंग्स",
-    "subtitle": "Appearance और प्राथमिकताएँ",
+    "subtitle": "रूप-रंग और प्राथमिकताएँ",
     "account": "खाता",
     "accountGuest": "अतिथि — सिंक के लिए साइन इन करें",
     "appearance": "उपस्थिति",
@@ -849,7 +849,7 @@
     "timeFormat": "समय प्रारूप",
     "timeFormatSub": "12-घंटे या 24-घंटे घड़ी",
     "defaultCalendar": "डिफ़ॉल्ट कैलेंडर",
-    "defaultCalendarSub": "Gregorian या Hijri तिथियाँ",
+    "defaultCalendarSub": "ग्रेगोरियन या हिजरी तारीख़ें",
     "weather": "मौसम",
     "weatherSub": "हीरो प्रभाव और तापमान इकाई",
     "achievements": "उपलब्धियाँ",
@@ -869,7 +869,7 @@
     "updateRequiredDesc": "ऐप उपयोग जारी रखने के लिए संस्करण {{latest}} पर अपडेट करें।",
     "updateNow": "अभी अपडेट करें",
     "viewUpdateDetails": "विवरण देखें",
-    "remindInSettings": "Settings में याद दिलाएँ",
+    "remindInSettings": "सेटिंग्स में याद दिलाएँ",
     "import": "Salah इतिहास आयात करें",
     "importSub": "JSON या CSV फ़ाइल से पिछले दिन भरें",
     "footer": "{{app}} · इरादे से बनाया गया",
@@ -904,19 +904,19 @@
       },
       "mecca-fajr": {
         "name": "मक्का - Fajr",
-        "location": "अल-Masjid अल-हरम"
+        "location": "अल-मस्जिद अल-हराम"
       },
       "medina": {
         "name": "मेडिना",
-        "location": "अल-Masjid अन-नबावी"
+        "location": "अल-मस्जिद अन-नबवी"
       },
       "mishary": {
         "name": "मिश्री अलाफसी",
         "location": "कुवैट"
       },
       "makkah-muezzin": {
-        "name": "अली इब्न अहमद माला",
-        "location": "अल-Masjid अल-हरम"
+        "name": "अली अहमद मुल्ला",
+        "location": "अल-मस्जिद अल-हराम"
       }
     },
     "tvSubtitle": "रिमोट से ब्राउज़ करें — कुछ उपकरणों के लिए फ़ोन चाहिए"
@@ -992,20 +992,19 @@
     "brandDuaLabel": "सहजता के लिए एक प्रार्थना",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
     "brandDuaTransliteration": "अल्लाहुम्मा ला सहला इल्ला मा जलतहु सहला, वा अन्ता तज'अलुल-हज़ना इधा शि'ता सहला",
-    "brandDuaTranslation": "ऐ Allah, कोई आसान नहीं उसके सिवा जिसे तू आसान बना दे, और तू चाहे तो मुश्किल को भी आसान बना देता है।",
-    "slide1Eyebrow": "Salah",
+    "slide1Eyebrow": "नमाज़",
     "slide1Title": "अपनी प्रार्थनाओं पर नज़र रखें",
     "slide1Body": "अपनी वापसी यात्रा में प्रत्येक प्रार्थना को Allah पर चिह्नित करें - पूर्ण, छूटी हुई, विलंबित, या qaza।",
     "slide1Highlight1": "पाँच फ़र्ज़ नमाज़ प्लस Witr (sunnah मु'अक्कदाह) और sunnah",
     "slide1Highlight2": "धारियाँ, प्रगति वलय और कैलेंडर",
     "slide1Highlight3": "हिजरी तिथि और उलटी गिनती के साथ प्रार्थना समय नायक",
-    "slide2Eyebrow": "Qaza",
+    "slide2Eyebrow": "क़ज़ा",
     "slide2Title": "जो छूट गया उसे पूरा करो",
     "slide2Body": "qaza को जबरदस्त से करने योग्य की ओर मोड़ें - अनुमान लगाएं, गति की योजना बनाएं और तेजी से ट्रैक करें।",
     "slide2Highlight1": "प्रति-प्रार्थना काउंटर आपके ट्रैकर से सिंक किए गए",
     "slide2Highlight2": "विद्वान-जागरूक मार्गदर्शन के साथ आजीवन कैलकुलेटर",
     "slide2Highlight3": "आपके बैकलॉग को साफ़ करने के लिए ईटीए के साथ दैनिक गति योजनाकार",
-    "slide3Eyebrow": "Zikr",
+    "slide3Eyebrow": "ज़िक्र",
     "slide3Title": "प्रतिदिन Allah याद रखें",
     "slide3Body": "सुबह, शाम, और स्थितिजन्य adhkar एक स्पर्शनीय tasbeeh काउंटर के साथ।",
     "slide3Highlight1": "सात adhkar श्रेणियां और पसंदीदा",
@@ -1172,7 +1171,7 @@
     "webGrantedMobileNote": "ब्राउज़र सूचनाएं चालू हैं.विश्वसनीय Salah-समय अनुस्मारक के लिए, iOS या Android ऐप इंस्टॉल करें।",
     "webLimitedTitle": "रिमाइंडर मोबाइल ऐप पर चलते हैं",
     "groupWorship": "पूजा",
-    "groupZikr": "Zikr",
+    "groupZikr": "ज़िक्र",
     "groupMilestones": "मील के पत्थर",
     "channels": {
       "prayer": "Salah अनुस्मारक",
@@ -1325,20 +1324,20 @@
   },
   "zikr": {
     "eyebrow": "स्मरण",
-    "title": "Zikr",
+    "title": "ज़िक्र",
     "subtitle": "Adhkar आपके दिन के प्रत्येक भाग के लिए",
     "favorites": "पसंदीदा",
     "seeAll": "सभी देखें",
     "categories": "श्रेणियाँ",
-    "categoryEyebrow": "Zikr",
-    "adhkarCount": "{{count}} adhkar",
+    "categoryEyebrow": "ज़िक्र",
+    "adhkarCount": "{{count}} अज़कार",
     "allPrayers": "सभी",
     "done": "हो गया",
     "afterSalahTodayForPrayer": "आज {{prayer}} के बाद",
     "afterSalahProgress": "{{completed}}/{{total}} हो गया",
     "emptyTitle": "अभी तक adhkar नहीं",
     "emptyDesc": "इस श्रेणी के लिए और अधिक प्रविष्टियाँ आने वाली हैं।",
-    "detailEyebrow": "Zikr",
+    "detailEyebrow": "ज़िक्र",
     "today": "आज",
     "openInTasbeeh": "Tasbeeh में खोलें",
     "markAsDone": "पूर्ण हुआ चिह्नित करें",
@@ -1429,7 +1428,7 @@
     "proofOrVisit": "या जाएँ: {{url}}",
     "proofNotice": "लाभ के लिए साझा किया गया - कृपया धार्मिक सामग्री को किसी विश्वसनीय विद्वान से सत्यापित करें।",
     "sectionReading": "पढ़ना",
-    "sectionQuran": "Qur'an",
+    "sectionQuran": "क़ुरआन",
     "sectionHadith": "हदीथ",
     "sectionNames": "Allah के 99 नाम",
     "sectionAchievement": "उपलब्धि",
@@ -1447,7 +1446,7 @@
     "duroodsLink": "दुरूद और सलावत",
     "categoryEyebrow": "दुआ",
     "supplicationsCount": "{{count}} प्रार्थना",
-    "detailEyebrow": "Dua",
+    "detailEyebrow": "दुआ",
     "notFoundTitle": "Dua नहीं मिला",
     "notFoundDesc": "हो सकता है कि यह आइटम हटा दिया गया हो.",
     "share": "शेयर करना",
@@ -1483,12 +1482,17 @@
     "positionInCategory": "{{category}}: {{total}} में से {{current}}",
     "positionInOccasion": "{{total}} में से {{current}}",
     "previous": "पिछली",
-    "next": "अगली"
+    "next": "अगली",
+    "topic": {
+      "deceased": "मरहूमों के लिए दुआएँ",
+      "showing": "{{category}} में से चुनी हुई",
+      "showAll": "सभी दिखाएँ"
+    }
   },
   "duaCat": {
     "morning_evening": "सुबह और शाम",
     "sleep": "सोना और जागना",
-    "prayer": "Salah एवं Masjid",
+    "prayer": "नमाज़ और मस्जिद",
     "forgiveness": "क्षमा और कृतज्ञता",
     "distress": "संकट और कठिनाई",
     "protection": "सुरक्षा एवं शरण",
@@ -1559,9 +1563,9 @@
     "readingProgress": "पढ़ने की प्रगति",
     "enterFullscreen": "फ़ुलस्क्रीन दर्ज करें",
     "exitFullscreen": "फ़ुलस्क्रीन से बाहर निकलें",
-    "playSurah": "सुरा खेलें",
-    "playPage": "प्ले पेज",
-    "playAyah": "अयाह {{n}} खेलें",
+    "playSurah": "सूरह चलाएँ",
+    "playPage": "पृष्ठ चलाएँ",
+    "playAyah": "आयत {{n}} चलाएँ",
     "bookmark": "बुकमार्क",
     "bookmarks": "बुकमार्क",
     "viewBookmarks": "बुकमार्क देखें",
@@ -1670,7 +1674,7 @@
     "layoutMushaf": "मुसहफ़",
     "mushafOnlyHint": "केवल अरबी",
     "loadingMushafFont": "लोड हो रहा है...",
-    "pageReaderTitle": "Qur'an पेज {{page}} का {{total}}",
+    "pageReaderTitle": "क़ुरआन, पृष्ठ {{page}} / {{total}}",
     "pageReaderDesc": "नोबल Qur'an - मदनी मुशाफ पेज {{page}} पढ़ें, ऑडियो और बुकमार्क के साथ ऑफ़लाइन।",
     "prevPage": "पिछला पृष्ठ",
     "nextPage": "अगला पृष्ठ",
@@ -1755,7 +1759,11 @@
     "goToAyahInvalid": "1 से {{max}} के बीच कोई आयत दर्ज करें",
     "searchAyahs": "आयतें खोजें",
     "findSurah": "सूरह खोजें",
-    "noSurahResults": "आपकी खोज से कोई सूरह मेल नहीं खाती।"
+    "noSurahResults": "आपकी खोज से कोई सूरह मेल नहीं खाती।",
+    "actionMore": "और",
+    "moreActionsA11y": "आयत {{n}} के लिए और विकल्प",
+    "mushafFontFailedTitle": "यह पेज लोड नहीं हो सका",
+    "mushafFontFailedBody": "इस पेज का मुसहफ़ फ़ॉन्ट डाउनलोड नहीं हुआ। अपना कनेक्शन जाँचें और फिर कोशिश करें।"
   },
   "hadith": {
     "eyebrow": "भविष्यवाणी परंपरा",
@@ -1814,7 +1822,7 @@
     "viewSource": "स्रोत देखें"
   },
   "tasbeeh": {
-    "eyebrow": "Tasbeeh",
+    "eyebrow": "तस्बीह",
     "freeTitle": "विरोध करना",
     "freeSubtitle": "किसी भी zikr को हैंड्स-फ़्री गिनें",
     "freeHint": "त्वरित काउंटर - जब आप निकलते हैं तो यह कुल रीसेट हो जाता है।अपनी प्रगति बनाए रखने के लिए नीचे एक सहेजा गया काउंटर बनाएं।",
@@ -1840,14 +1848,14 @@
     "notFoundDesc": "हो सकता है कि यह आइटम हटा दिया गया हो."
   },
   "prayers": {
-    "fajr": "Fajr",
+    "fajr": "फ़ज्र",
     "sunrise": "सूर्योदय",
-    "dhuhr": "Dhuhr",
-    "asr": "Asr",
-    "maghrib": "Maghrib",
-    "isha": "Isha",
-    "witr": "Witr",
-    "tahajjud": "Tahajjud",
+    "dhuhr": "ज़ुहर",
+    "asr": "अस्र",
+    "maghrib": "मग़रिब",
+    "isha": "इशा",
+    "witr": "वित्र",
+    "tahajjud": "तहज्जुद",
     "ishraq": "इशराक",
     "duha": "दुहा",
     "tahiyyatul_masjid": "तहिय्यतुल मस्जिद",
@@ -1867,7 +1875,7 @@
     "why": "हम यह प्रार्थना क्यों करते हैं",
     "benefits": "फ़ायदे",
     "references": "संदर्भ",
-    "quranRef": "Qur'an",
+    "quranRef": "क़ुरआन",
     "viewHadith": "पूरी हदीस देखें",
     "viewAyah": "Qur'an में देखें",
     "infoA11y": "{{prayer}} के बारे में जानें",
@@ -1880,7 +1888,7 @@
     },
     "fajr": {
       "summary": "भोर की प्रार्थना - पाँच दैनिक अनिवार्य प्रार्थनाओं में से पहली।",
-      "why": "Allah दिन के किनारों पर प्रार्थना स्थापित करने का आदेश दिया गया;Fajr Muslim दिन की शुरुआत का प्रतीक है और पैगंबर ﷺ द्वारा इसे कभी भी मण्डली में या अकेले नहीं छोड़ा गया था।",
+      "why": "अल्लाह ने दिन के दोनों किनारों पर नमाज़ क़ायम करने का हुक्म दिया; फ़ज्र मुसलमान के दिन की शुरुआत है, और नबी ﷺ ने इसे जमाअत में हो या अकेले, कभी नहीं छोड़ा।",
       "benefits": "जो कोई प्रार्थना करता है Fajr वह Allah के संरक्षण में है।यह रात और दिन के स्वर्गदूतों द्वारा देखा जाता है और शेष दिन के लिए प्रकाश लाता है।"
     },
     "sunrise": {
@@ -1889,13 +1897,13 @@
       "benefits": "आकाश में Allah के चिन्हों को देखने से विस्मय (तकवा) बढ़ता है और सुबह sunnah की प्रार्थना को सही ढंग से करने में मदद मिलती है।"
     },
     "ishraq": {
-      "summary": "सूर्य के पूर्ण रूप से उगने के बाद (सूर्योदय के लगभग 15-20 मिनट बाद) दो-rakah sunnah प्रार्थना।",
-      "why": "पैगंबर ﷺ ने कहा कि जो कोई मण्डली में Fajr प्रार्थना करता है, फिर सूर्योदय तक Allah को याद करता रहता है, फिर दो rakahs प्रार्थना करता है, उसे पूर्ण हज और 'उमरा' का इनाम मिलता है।",
+      "summary": "सूरज पूरी तरह निकल आने के बाद (सूर्योदय के लगभग 15–20 मिनट बाद) दो रकअत की सुन्नत नमाज़।",
+      "why": "नबी ﷺ ने बताया कि जो फ़ज्र जमाअत से पढ़े, फिर सूर्योदय तक बैठकर अल्लाह का ज़िक्र करता रहे, फिर दो रकअत पढ़े, उसे पूरे हज और उमरा का सवाब मिलता है।",
       "benefits": "मण्डली में Fajr के साथ संयुक्त होने पर न्यूनतम प्रयास के साथ अपार इनाम।zikr में दिन की शांतिपूर्ण शुरुआत और वैकल्पिक प्रार्थना।"
     },
     "duha": {
-      "summary": "पूर्वाह्न की प्रार्थना - आम तौर पर सूर्योदय और Dhuhr के बीच दो से आठ rakahs तक।",
-      "why": "शरीर के प्रत्येक जोड़ पर प्रतिदिन दान देना चाहिए;दुहा के कुछ rakahs भी अंगों के लिए उस दान को पूजा के माध्यम से पूरा करते हैं।",
+      "summary": "चाश्त (ज़ुहा) की नमाज़ — आम तौर पर सूर्योदय और ज़ुहर के बीच दो से आठ रकअत।",
+      "why": "हर दिन शरीर के हर जोड़ पर एक सदक़ा वाजिब होता है; ज़ुहा की कुछ रकअतें भी इबादत के ज़रिये अंगों का यह सदक़ा अदा कर देती हैं।",
       "benefits": "पापों को क्षमा करता है, जीविका (रिज़्क) लाता है, और उपेक्षित sunnah को पुनर्जीवित करता है।लचीला समय इसे तब सुलभ बनाता है जब दिन अनुकूल हो।"
     },
     "dhuhr": {
@@ -1919,13 +1927,13 @@
       "benefits": "सोने से पहले शांति मिलती है और दिन की फ़र्ज़ नमाज़ पूरी होती है।इसके बाद अक्सर Witr आता है, जो sunnah मु'अक्कदाह है।"
     },
     "witr": {
-      "summary": "Fajr से पहले Isha के बाद एक विषम संख्या वाली प्रार्थना (आमतौर पर एक या तीन rakahs) - sunnah मुअक्कदह, पांच फ़र्ज़ प्रार्थनाओं में से एक नहीं।",
+      "summary": "इशा के बाद और फ़ज्र से पहले विषम संख्या वाली नमाज़ (आम तौर पर एक या तीन रकअत) — सुन्नत-ए-मुअक्कदा, पाँच फ़र्ज़ नमाज़ों में से नहीं।",
       "why": "पैगंबर ﷺ ने कहा Allah Witr (एक) है और Witr से प्यार करता है, इसलिए Witr प्रार्थना बनाए रखें।यात्रा के दौरान भी उन्होंने इसे कभी नहीं छोड़ा।",
       "benefits": "आस्तिक की रात्रि दिनचर्या का एक विशिष्ट चिह्न।विषम संख्या वाली प्रार्थना के साथ दिन का समापन Allah के नाम और पैगंबर के निरंतर अभ्यास के अनुरूप है।"
     },
     "tahiyyatul_masjid": {
-      "summary": "प्रवेश करते समय, बैठने से पहले दो rakahs masjid का अभिवादन करते हैं।",
-      "why": "जब आप में से कोई masjid में प्रवेश करता है, तो उसे बैठने से पहले दो rakahs प्रार्थना करने दें - पैगंबर ﷺ का सीधा निर्देश।",
+      "summary": "मस्जिद में दाख़िल होने पर, बैठने से पहले मस्जिद के सम्मान में दो रकअत।",
+      "why": "नबी ﷺ का सीधा निर्देश है कि जब कोई मस्जिद में दाख़िल हो, तो बैठने से पहले दो रकअत पढ़े।",
       "benefits": "Allah के घर का सम्मान करता है, मण्डली या निजी पूजा के लिए हृदय को तैयार करता है, और निष्क्रिय बैठने को तत्काल भलाई से बदल देता है।"
     },
     "hajat_istikhara": {
@@ -1949,7 +1957,7 @@
   },
   "qaza": {
     "eyebrow": "श्रृंगार पूजा",
-    "title": "Qaza",
+    "title": "क़ज़ा",
     "subtitle": "छूटी हुई प्रार्थनाओं को ट्रैक करें और साफ़ करें",
     "calculator": "कैलकुलेटर",
     "planner": "योजनाकार",
@@ -1996,7 +2004,7 @@
       "othersTitle": "शफ़ीई, मलिकी और हनबली",
       "othersBody": "Witr एक जोरदार जोर दिया गया sunnah (sunnah मु'अक्कदाह) है, जो अनिवार्य नहीं है। इसे बनाना अनुशंसित (मुस्तहब) है लेकिन आवश्यक नहीं है। पैगंबर ﷺ नींद या बीमारी के कारण छूटी हुई रात की प्रार्थनाओं को पूरा करेंगे।",
       "evidenceTitle": "प्रमाण",
-      "evidenceBody": "पैगंबर ﷺ ने कहा: \"जो कोई सोता है और याद करता है या भूल जाता है, उसे याद आने पर प्रार्थना करनी चाहिए।\" (तिर्मिधि, इब्न माजा - विद्वान इसकी ग्रेडिंग पर भिन्न हैं।) Sahih Muslim में, जब वह बीमारी या नींद के कारण रात की प्रार्थना करने से चूक गए, तो उन्होंने इसे दिन के दौरान सम संख्या में rakahs के साथ पूरा किया।",
+      "evidenceBody": "नबी ﷺ ने फ़रमाया: \"Whoever sleeps and misses Witr or forgets it, let him pray it when he remembers.\" (अंग्रेज़ी अर्थ) (तिर्मिज़ी, इब्न माजा — इसकी सनद के दर्जे पर विद्वानों में मतभेद है।) सहीह मुस्लिम में है कि जब बीमारी या नींद के कारण आपकी रात की नमाज़ छूट जाती, तो आप दिन में सम संख्या वाली रकअतों से उसे पूरा करते।",
       "tableHeader": "मदहब द्वारा सारांश",
       "rows": {
         "hanafi": "हनफ़ी - वाजिब - Qaza आवश्यक",
@@ -2011,7 +2019,7 @@
     "editCountHintTv": "− और + से तय करें कि इस नमाज़ की कितनी क़ज़ा अभी बाकी है।"
   },
   "qazaCalc": {
-    "eyebrow": "Qaza",
+    "eyebrow": "क़ज़ा",
     "title": "कैलकुलेटर",
     "subtitle": "जीवन भर छूटी हुई प्रार्थनाओं का अनुमान लगाएं",
     "currentAge": "वर्तमान आयु",
@@ -2044,12 +2052,11 @@
     "enterAgePromptTv": "अनुमान देखने के लिए ऊपर अपनी वर्तमान उम्र सेट करें।"
   },
   "qazaPlan": {
-    "eyebrow": "Qaza",
+    "eyebrow": "क़ज़ा",
     "title": "योजनाकार",
     "subtitle": "ऐसी गति चुनें जिसे आप केवल दिनों तक नहीं, बल्कि वर्षों तक बनाए रख सकें",
     "consistencyTitle": "तीव्रता से अधिक संगति",
-    "consistencyHadith": "Allah के लिए सबसे प्रिय कार्य वे हैं जो सुसंगत हैं, भले ही वे छोटे हों।",
-    "consistencySource": "हदीस - Bukhari और Muslim",
+    "consistencySource": "हदीस — बुख़ारी और मुस्लिम",
     "consistencyPrinciple": "एक स्थिर दैनिक योजना आम तौर पर एक बड़े बैकलॉग को एक आक्रामक स्प्रिंट की तुलना में अधिक विश्वसनीय रूप से साफ़ करती है जो खत्म हो जाता है।",
     "prayersPerDay": "प्रार्थना/दिन",
     "dailyTimeLabel": "अनुमानित समय/दिन",
@@ -2108,7 +2115,7 @@
     "fiqhNote": "छूटी हुई प्रार्थनाओं का अनुमान लगाने और व्यवस्थित करने के तरीके पर विद्वानों में मतभेद है।अपनी स्थिति और मदहब के लिए किसी भरोसेमंद विद्वान से सलाह लें।"
   },
   "qazaRoza": {
-    "eyebrow": "Qaza",
+    "eyebrow": "क़ज़ा",
     "title": "उपवास",
     "subtitle": "छूटे हुए व्रतों पर नज़र रखें और उनकी पूर्ति करें",
     "fastsRemaining": "व्रत शेष हैं",
@@ -2194,17 +2201,17 @@
     "perfectDays": "मुकम्मल दिन",
     "viewAchievements": "उपलब्धियाँ देखें",
     "todayPrayers": "नमाज़",
-    "todayZikr": "Zikr",
+    "todayZikr": "ज़िक्र",
     "todayQaza": "क़ज़ा",
     "week": "हफ़्ता",
     "month": "महीना",
     "year": "साल",
     "prayerCompletion": "Salah पूरा होना",
-    "prayer": "Salah",
+    "prayer": "नमाज़",
     "consistency": "पाबंदी",
     "qaza": "क़ज़ा",
     "roza": "रोज़ा",
-    "zikr": "Zikr",
+    "zikr": "ज़िक्र",
     "perPrayer": "प्रति प्रार्थना",
     "zikrBreakdown": "Zikr श्रेणी के अनुसार",
     "reading": "पढ़ाई",
@@ -2362,13 +2369,13 @@
     "setLocation": "स्थान निर्धारित करें",
     "calculationTitle": "प्रार्थना गणना",
     "method": "गणना विधि",
-    "methodHint": "उस प्राधिकारी को चुनें जिसका तरीका आपके क्षेत्र से मेल खाता हो ताकि salah बार आपके स्थानीय masjid के अनुरूप हो।",
+    "methodHint": "वह संस्था चुनें जिसका तरीक़ा आपके क्षेत्र से मेल खाता हो, ताकि नमाज़ के समय आपकी स्थानीय मस्जिद से मिलें।",
     "madhab": "Asr गणना",
     "madhabShafi": "मानक",
     "madhabHanafi": "हनाफी",
     "madhabHint": "हनाफ़ी बाद में Asr की गणना करता है;मानक (शफ़ीई, मलिकी, हनबली) पहले के समय का उपयोग करता है।",
     "methods": {
-      "MuslimWorldLeague": "Muslim वर्ल्ड लीग",
+      "MuslimWorldLeague": "मुस्लिम वर्ल्ड लीग",
       "Egyptian": "मिस्र के जनरल अथॉरिटी",
       "Karachi": "इस्लामिक साइंसेज विश्वविद्यालय, कराची",
       "UmmAlQura": "उम्म अल-क़ुरा, मक्का",
@@ -2417,27 +2424,27 @@
     "waxing": "वर्धमान — हर रात चमक बढ़ती है",
     "waning": "क्षीण — प्रकाशित भाग घट रहा है",
     "illuminationLabel": "प्रकाशित",
-    "hijriDate": "Islamic तिथि",
+    "hijriDate": "इस्लामी तारीख़",
     "monthProgress": "महीने की प्रगति",
     "monthProgressValue": "{{length}} का दिन {{day}} · {{month}}",
-    "nextMonth": "अगला Islamic महीना",
+    "nextMonth": "अगला इस्लामी महीना",
     "nextMonthValue": "~{{days}} दिन · {{month}} शुरू",
     "nextMonthOneDay": "~1 दिन · {{month}} शुरू",
     "nextMonthTonight": "आज Maghrib के बाद · {{month}} शुरू",
     "note": {
       "whiteDaysTitle": "अय्याम अल-बिद - सफेद दिन",
-      "whiteDaysBody": "हर Islamic महीने की 13, 14 और 15 तारीखें पूर्णिमा के आसपास पड़ती हैं। इन तीन उजली तिथियों का रोज़ा रखना नबी ﷺ की प्रिय Sunnah है।",
-      "whiteDaysCta": "White Days रोज़े के बारे में जानें",
+      "whiteDaysBody": "हर इस्लामी महीने की 13, 14 और 15 तारीख़ पूर्णिमा के आसपास पड़ती है। इन तीन रौशन दिनों का रोज़ा नबी ﷺ की प्रिय सुन्नत है।",
+      "whiteDaysCta": "अय्याम-ए-बीज़ के रोज़ों के बारे में जानें",
       "newMonthTitle": "नया महीना शुरू",
-      "newMonthBody": "पतली हिलाल (hilāl) {{month}} की शुरुआत दर्शाती है। हर Islamic महीना Maghrib के बाद पहली बार देखी गई हिलाल से शुरू होता है — खगोलीय संयोग से नहीं।",
+      "newMonthBody": "पतला हिलाल (नया चाँद) {{month}} की शुरुआत बताता है। हर इस्लामी महीना तब शुरू होता है जब मग़रिब के बाद पहली बार हिलाल दिखता है — खगोलीय संयोग (अमावस) के समय नहीं।",
       "monthTurnTitle": "हिलाल की तलाश करें",
-      "monthTurnBody": "Maghrib के बाद {{month}} की hilāl देखें। Islamic महीने देखी गई हिलाल से शुरू होते हैं; आपके स्थानीय प्राधिकरण की घोषणा इस गणना से एक दिन भिन्न हो सकती है।",
+      "monthTurnBody": "मग़रिब के बाद {{month}} का हिलाल देखें। इस्लामी महीने देखे गए हिलाल से शुरू होते हैं; आपकी स्थानीय संस्था की घोषणा इस गणना से एक दिन अलग हो सकती है।",
       "fullTitle": "आज पूर्णिमा",
-      "fullBody": "चाँद {{month}} के मध्य के पास पूरी तरह प्रकाशित है — White Days की रातें, जब रोज़ा विशेष रूप से अनुशंसित है।",
+      "fullBody": "{{month}} के बीच के आसपास चाँद पूरा रौशन होता है — ये अय्याम-ए-बीज़ (रौशन दिनों) की रातें हैं, जब रोज़ा रखना ख़ास तौर पर पसंदीदा है।",
       "generalTitle": "चाँद का कैलेंडर",
-      "generalBody": "Islamic (Hijri) कैलेंडर चाँद का अनुसरण करता है: हर महीना 29 या 30 दिन का होता है, देखी गई हिलाल (hilāl) से शुरू। यहाँ की तिथियाँ आपके स्थान पर हिलाल दृश्यता से गणना की जाती हैं और स्थानीय प्राधिकरण की घोषणा से एक दिन भिन्न हो सकती हैं।"
+      "generalBody": "इस्लामी (हिजरी) कैलेंडर चाँद के हिसाब से चलता है: हर महीना 29 या 30 दिन का होता है और देखे गए हिलाल (नए चाँद) से शुरू होता है। यहाँ की तारीख़ें आपके स्थान पर हिलाल के दिखने की संभावना से गणना की जाती हैं और आपकी स्थानीय संस्था की घोषणा से एक दिन अलग हो सकती हैं।"
     },
-    "openTv": "{{phase}}. विवरण के लिए Select दबाएँ"
+    "openTv": "{{phase}}। विवरण के लिए चुनें"
   },
   "achievements": {
     "eyebrow": "प्रगति",
@@ -2465,7 +2472,7 @@
     },
     "milestones": {
       "salah": {
-        "titleFallback": "Salah {{level}}",
+        "titleFallback": "नमाज़ {{level}}",
         "description": "{{count}} अनिवार्य प्रार्थनाएँ पूरी करें",
         "description_one": "पूर्ण {{count}} अनिवार्य प्रार्थना",
         "titles": {
@@ -2502,7 +2509,7 @@
         }
       },
       "zikr": {
-        "titleFallback": "Zikr {{level}}",
+        "titleFallback": "ज़िक्र {{level}}",
         "description": "पूर्ण {{count}} zikr सत्र",
         "description_one": "पूर्ण {{count}} zikr सत्र",
         "titles": {
@@ -2624,9 +2631,9 @@
     "confirmClearAllMessage": "यह इस सूची से प्रत्येक अधिसूचना को हटा देता है।इसे पूर्ववत नहीं किया जा सकता.",
     "loadMore": "और लोड करें",
     "upcoming": "आगामी",
-    "categorySalah": "Salah",
-    "categoryZikr": "Zikr",
-    "categoryQaza": "Qaza",
+    "categorySalah": "नमाज़",
+    "categoryZikr": "ज़िक्र",
+    "categoryQaza": "क़ज़ा",
     "categoryMilestone": "मील का पत्थर",
     "categorySystem": "प्रणाली",
     "categoryAnnouncement": "घोषणा",
@@ -2800,7 +2807,7 @@
     "goToScreen": "पढ़ने के दृश्य पर जाएँ",
     "play": "खेल",
     "pause": "विराम",
-    "replay": "Replay",
+    "replay": "दोबारा चलाएँ",
     "next": "अगला ट्रैक",
     "previous": "पिछला ट्रैक",
     "close": "प्लेयर बंद करें",
@@ -2838,11 +2845,11 @@
   "seo": {
     "intro": {
       "title": "स्वागत है",
-      "description": "अपने ऑफ़लाइन-प्रथम Islamic साथी के साथ शुरुआत करें।"
+      "description": "अपने ऑफ़लाइन-प्रथम इस्लामी साथी के साथ शुरुआत करें।"
     },
     "introLocation": {
       "title": "स्थान और अनुस्मारक",
-      "description": "Munib Tracker सटीक Salah समय, qibla और वैकल्पिक अनुस्मारकों के लिए स्थान और सूचनाएँ उपयोग करता है। आप Settings में बाद में दोनों बदल सकते हैं।"
+      "description": "Munib Tracker नमाज़ के सटीक समय, क़िबला और वैकल्पिक रिमाइंडर के लिए स्थान और सूचनाओं का उपयोग करता है। आप इन्हें बाद में सेटिंग्स में बदल सकते हैं।"
     },
     "login": {
       "description": "अपने उपासना डेटा को उपकरणों में सिंक करने के लिए साइन इन करें।"
@@ -2924,9 +2931,9 @@
     "title": "Khatm योजना",
     "subtitle": "Qur'an को स्थिर गति से पूरा करें",
     "startTitle": "योजना शुरू करें",
-    "startHint": "चुनें कि कितने दिनों में Qur'an पूरा करना है। हम दैनिक ayah लक्ष्य निर्धारित करेंगे।",
-    "startHintPages": "चुनें कि कितने दिनों में Qur'an पूरा करना है। हम दैनिक mushaf पृष्ठ लक्ष्य निर्धारित करेंगे।",
-    "unitAyah": "Ayah के अनुसार",
+    "startHint": "चुनें कि कितने दिनों में क़ुरआन मुकम्मल करना है। हम रोज़ाना आयतों का लक्ष्य तय कर देंगे।",
+    "startHintPages": "चुनें कि कितने दिनों में क़ुरआन मुकम्मल करना है। हम रोज़ाना मुसहफ़ के पन्नों का लक्ष्य तय कर देंगे।",
+    "unitAyah": "आयत के हिसाब से",
     "unitPage": "पृष्ठ के अनुसार",
     "continueReading": "पढ़ना जारी रखें",
     "dayPlan": "{{count}} दिन",
@@ -2943,11 +2950,11 @@
     "customInvalid": "{{min}} से {{max}} दिन के बीच दर्ज करें",
     "customStart": "अनुकूल योजना शुरू करें",
     "startConfirmTitle": "यह Khatm योजना शुरू करें?",
-    "startConfirmMsg": "Qur'an {{days}} दिनों में पूरा करें — प्रतिदिन लगभग {{count}} ayah। पढ़ते हुए यहाँ प्रगति ट्रैक करें।",
+    "startConfirmMsg": "{{days}} दिनों में क़ुरआन मुकम्मल करें — रोज़ाना लगभग {{count}} आयतें। पढ़ते हुए आप यहाँ अपनी प्रगति देख सकते हैं।",
     "startConfirmMsgPages": "Qur'an {{days}} दिनों में पूरा करें — प्रतिदिन लगभग {{count}} पृष्ठ। पढ़ते हुए यहाँ प्रगति ट्रैक करें।",
     "startConfirmAction": "योजना शुरू करें",
     "dayOf": "दिन {{day}} / {{total}}",
-    "dailyTarget": "प्रतिदिन {{count}} ayah",
+    "dailyTarget": "रोज़ाना {{count}} आयतें",
     "dailyTargetPages": "प्रतिदिन {{count}} पृष्ठ",
     "progress": "{{read}} / {{total}} आयतें",
     "progressPages": "{{read}} / {{total}} पृष्ठ",
@@ -2957,44 +2964,44 @@
     "remainingAyahs": "शेष",
     "remainingPages": "शेष पृष्ठ",
     "todayTarget": "दैनिक लक्ष्य",
-    "catchUp": "{{count}} ayah पीछे — आज थोड़ा अतिरिक्त पढ़कर पकड़ें।",
+    "catchUp": "{{count}} आयतें पीछे — बराबर आने के लिए आज थोड़ा ज़्यादा पढ़ें।",
     "catchUpPages": "{{count}} पृष्ठ पीछे — आज थोड़ा अतिरिक्त पढ़कर पकड़ें।",
-    "aheadBy": "शेड्यूल से {{count}} ayah आगे — गति बनाए रखें।",
+    "aheadBy": "तय समय से {{count}} आयतें आगे — यही रफ़्तार बनाए रखें।",
     "aheadByPages": "शेड्यूल से {{count}} पृष्ठ आगे — गति बनाए रखें।",
-    "adjustHint": "{{count}} ayah से समायोजित करें",
+    "adjustHint": "{{count}} आयतों से बदलें",
     "logSectionTitle": "आज की तिलावत दर्ज करें",
-    "logSectionHint": "आज पढ़ी गई ayah की संख्या दर्ज करें, फिर अपनी प्रगति में जोड़ें।",
-    "logSectionHintPages": "आज पढ़े गए mushaf पृष्ठ दर्ज करें, फिर अपनी प्रगति में जोड़ें।",
+    "logSectionHint": "आज आपने कितनी आयतें पढ़ीं, दर्ज करें, फिर उन्हें अपनी प्रगति में जोड़ें।",
+    "logSectionHintPages": "आज आपने मुसहफ़ के कितने पन्ने पढ़े, दर्ज करें, फिर उन्हें अपनी प्रगति में जोड़ें।",
     "logAmountPlaceholder": "आयतों",
     "logAmountPlaceholderPages": "पृष्ठ",
-    "logAmountA11y": "आज दर्ज करने वाली ayah",
+    "logAmountA11y": "आज दर्ज करने के लिए आयतें",
     "logAmountA11yPages": "आज दर्ज करने वाले पृष्ठ",
     "logQuickDaily": "दैनिक लक्ष्य · {{count}}",
-    "logAdd": "{{count}} ayah जोड़ें",
+    "logAdd": "{{count}} आयतें जोड़ें",
     "logAddPages": "{{count}} पृष्ठ जोड़ें",
     "logConfirmTitle": "पढ़ने की प्रगति जोड़ें?",
-    "logConfirmMsg": "अपने Khatm कुल में {{count}} ayah जोड़ें?",
+    "logConfirmMsg": "अपने ख़त्म के कुल में {{count}} आयतें जोड़ें?",
     "logConfirmMsgPages": "अपने Khatm कुल में {{count}} पृष्ठ जोड़ें?",
     "logConfirmAction": "जोड़ें",
-    "logInvalid": "1–{{max}} ayah दर्ज करें",
+    "logInvalid": "1–{{max}} आयतें दर्ज करें",
     "logInvalidPages": "1–{{max}} पृष्ठ दर्ज करें",
     "correctTotalTitle": "कुल सही करें",
-    "correctTotalHint": "अब तक पढ़ी गई ayah की सटीक संख्या निर्धारित करें।",
-    "correctTotalHintPages": "अब तक पढ़े गए mushaf पृष्ठ की सटीक संख्या निर्धारित करें।",
-    "correctTotalA11y": "कुल पढ़ी गई ayah",
+    "correctTotalHint": "अब तक पढ़ी गई आयतों की सही संख्या दर्ज करें।",
+    "correctTotalHintPages": "अब तक पढ़े गए मुसहफ़ के पन्नों की सही संख्या दर्ज करें।",
+    "correctTotalA11y": "कुल पढ़ी गई आयतें",
     "correctTotalA11yPages": "कुल पढ़े गए पृष्ठ",
     "correctTotalApply": "कुल अपडेट करें",
     "correctTotalConfirmTitle": "पढ़ा हुआ कुल अपडेट करें?",
-    "correctTotalConfirmMsg": "अपना Khatm कुल {{count}} ayah पर सेट करें?",
+    "correctTotalConfirmMsg": "अपने ख़त्म का कुल {{count}} आयतें कर दें?",
     "correctTotalConfirmMsgPages": "अपना Khatm कुल {{count}} पृष्ठ पर सेट करें?",
     "correctTotalConfirmAction": "कुल अपडेट करें",
-    "correctTotalInvalid": "0–{{max}} ayah दर्ज करें",
+    "correctTotalInvalid": "0–{{max}} आयतें दर्ज करें",
     "correctTotalInvalidPages": "0–{{max}} पृष्ठ दर्ज करें",
     "correctTotalToggle": "गलत कुल? मैन्युअल रूप से सेट करें",
     "logToday": "आज की तिलावत दर्ज करें",
     "logTodayWithTarget": "आज की तिलावत दर्ज करें (+{{count}})",
-    "less": "कम ayah",
-    "more": "अधिक ayah",
+    "less": "कम आयतें",
+    "more": "ज़्यादा आयतें",
     "lessPages": "कम पृष्ठ",
     "morePages": "अधिक पृष्ठ",
     "reset": "योजना रीसेट करें",
@@ -3006,7 +3013,7 @@
     "motivationShuffle": "दूसरा अनुस्मारक दिखाएँ",
     "motivationKind": {
       "hadith": "हदीथ",
-      "quran": "Qur'an",
+      "quran": "क़ुरआन",
       "reminder": "अनुस्मारक"
     },
     "motivationQuote": {
@@ -3015,11 +3022,11 @@
         "source": "निरंतरता का सिद्धांत"
       },
       "portion": {
-        "text": "आज सब कुछ पूरा करना ज़रूरी नहीं — बस आज के हिस्से को sincerity से पूरा करें।",
+        "text": "आज ही सब ख़त्म करना ज़रूरी नहीं — बस आज के हिस्से को इख़लास के साथ पूरा करें।",
         "source": "स्थिर प्रगति"
       },
       "return": {
-        "text": "अगर पीछे रह जाएँ तो योजना न छोड़ें। आज की ayah पढ़कर आगे बढ़ें।",
+        "text": "अगर पीछे रह जाएँ तो योजना न छोड़ें। आज की आयतों से फिर शुरू करें और आगे बढ़ें।",
         "source": "बार-बार लौटना"
       }
     },
@@ -3063,50 +3070,33 @@
     "quranTitle": "Qur'an से",
     "hadithTitle": "Sunnah से",
     "obligationsTitle": "जिसके लिए आप अभी भी जिम्मेदार हैं",
-    "rakatsTitle": "Rakahs एक नज़र में",
-    "rakatsPrayer": "Salah",
+    "rakatsTitle": "रकअतें एक नज़र में",
+    "rakatsPrayer": "नमाज़",
     "rakatsResident": "घर पर",
     "rakatsTravel": "यात्रा का",
     "rakatsNote": "सिर्फ फर्द दिखाई गई है।Sunnah रावतिब और Witr पर नीचे चर्चा की गई है - वे अनुशंसित हैं, हालांकि कई यात्री कठिनाई के कारण उन्हें हल्का कर देते हैं।",
     "duasLink": "यात्रा दुआएँ और प्रार्थनाएँ",
-    "quran": [
-      {
-        "excerpt": "जब तुम ज़मीन में सफ़र करते हो, तो तुम पर कोई दोष नहीं अगर तुम Salah क़सर करो, अगर तुम्हें डर हो कि काफ़िर तुम्हें नुक़सान पहुँचा सकें। बेशक काफ़िर तुम्हारे लिए खुला दुश्मन हैं।"
-      }
-    ],
-    "hadith": [
-      {
-        "excerpt": "अनस ने कहा: हम अल्लाह के रसूल ﷺ के साथ सफ़र में थे। मुअज़्ज़िन ने अज़ान दी तो आपने कहा: 'दो रकअत पढ़ो' — और मग़रिब (तीन) तथा फ़ज्र (दो) के अलावा अन्य नमाज़ों में भी वैसा ही किया।"
-      },
-      {
-        "excerpt": "इब्न अब्बास ने कहा: नबी ﷺ ने मदीना में बिना डर या बारिश के ज़ुहर व अस्र तथा मग़रिब व इशा जमा कीं। जब कारण पूछा गया तो कहा: 'उन्होंने अपनी उम्मत पर बोझ नहीं डालना चाहा।'"
-      },
-      {
-        "excerpt": "याला इब्न उमैय्या ने कहा: मैंने उमर इब्न अल-ख़त्ताब से कहा: 'सफ़र में नमाज़ क़स्र करने में कोई गुनाह नहीं।' उमर ने जवाब दिया: 'मुझे भी यही अचरज हुआ, तो मैंने नबी ﷺ से पूछा और आपने कहा: यह अल्लाह की तरफ़ से सदक़ा है — उनका सदक़ा क़बूल करो।'"
-      },
-      {
-        "excerpt": "नबी ﷺ ने फ़रमाया: 'अल्लाह पसंद करता है कि उसकी दी हुई राहत ली जाए, जैसे वह नाफ़रमानी को नापसंद करता है।'"
-      }
-    ],
+    "quran": [{}],
+    "hadith": [{}, {}, {}, {}],
     "obligations": [
-      "पाँच daily Salah वाजिब रहती हैं — क़सर जब आप traveller qualify करें।",
-      "Fajr (do rakahs) और Maghrib (teen rakahs) कभी क़सर नहीं होते।",
+      "पाँचों रोज़ाना नमाज़ें फ़र्ज़ रहती हैं — मुसाफ़िर की शर्तें पूरी होने पर क़स्र (छोटी) करके पढ़ी जाती हैं।",
+      "फ़ज्र (दो रकअत) और मग़रिब (तीन रकअत) कभी क़स्र नहीं होतीं।",
       "सफ़र की शर्तों पर Dhuhr को Asr के साथ, और Maghrib को Isha के साथ जमा कर सकते हैं।",
-      "हर क़सर Salah पूरी Salah के पहले do rakahs की तरह पढ़ी जाती है — Al-Fatiha और एक surah पढ़ो, ruku, sajda, फिर tashahhud और salam के लिए बैठो।",
-      "घर लौटने या बसने का इरादा करने पर हर Salah पूरी अपने waqt पर दोबारा शुरू करें।",
-      "सफ़र में छूटी Salah अभी भी qaza करनी होगी — सफ़र छूटी हुई चीज़ को maaf नहीं करता।"
+      "हर क़स्र नमाज़ पूरी नमाज़ की पहली दो रकअतों की तरह पढ़ी जाती है — अल-फ़ातिहा और कोई सूरह पढ़ें, रुकू करें, सजदा करें, फिर तशह्हुद और सलाम के लिए बैठें।",
+      "घर लौटने या कहीं ठहरने की नीयत करने पर हर नमाज़ फिर से पूरी और उसके सही समय पर पढ़ें।",
+      "सफ़र में छूटी नमाज़ों की भी क़ज़ा करनी होगी — सफ़र छूटी हुई नमाज़ को माफ़ नहीं करता।"
     ],
     "qasr": {
       "title": "क़स्र - छोटा करना",
-      "body": "चार-rakah फ़र्ज़ प्रार्थनाएँ - Dhuhr, Asr, और Isha - एक योग्य यात्रा पर दो rakahs के रूप में प्रार्थना की जाती हैं।उन्हें घर पर पहले दो rakahs की तरह ही प्रार्थना करें: खड़े होकर पाठ करना, एक रुकु, दो सुजुद, तशहुद, और सलाम।Fajr दो रहता है rakahs और Maghrib तीन रहता है;न ही छोटा किया गया है.क़सर केवल फर्द पर लागू होता है।"
+      "body": "चार रकअत वाली फ़र्ज़ नमाज़ें — ज़ुहर, अस्र और इशा — शरई सफ़र में दो रकअत पढ़ी जाती हैं। इन्हें बिल्कुल घर की पहली दो रकअतों की तरह पढ़ें: खड़े होकर क़िराअत, एक रुकू, दो सजदे, तशह्हुद और सलाम। फ़ज्र दो रकअत और मग़रिब तीन रकअत ही रहती हैं; इनमें क़स्र नहीं होता। क़स्र केवल फ़र्ज़ पर लागू होता है।"
     },
     "jam": {
       "title": "जाम' - संयोजन",
       "body": "एक यात्री एक बैठक में Dhuhr को Asr के साथ जोड़ सकता है, और एक बैठक में Maghrib को Isha के साथ जोड़ सकता है - एक adhan और इकामा के साथ दोनों फ़र्ज़ प्रार्थनाएँ एक के बाद एक कर सकता है।Fajr को किसी अन्य प्रार्थना के साथ नहीं जोड़ा जा सकता।संयोजन छोटा करने से अलग रियायत है: आप बिना संयोजन के छोटा कर सकते हैं, बिना छोटा किए संयोजन कर सकते हैं (कुछ स्थितियों में), या दोनों एक साथ कर सकते हैं।"
     },
     "jamTypes": {
-      "title": "जमक-तकदीम दान अत-तख़िर",
-      "body": "जाम अल-तकदीम (प्रारंभिक संयोजन): पिछली प्रार्थना के समय दोनों प्रार्थनाएँ एक साथ पढ़ें - उदाहरण के लिएDhuhr और Asr Dhuhr समय पर।जाम अल-तख़िर (विलंबित संयोजन): बाद की प्रार्थना के समय दोनों प्रार्थना करें - उदाहरण के लिएDhuhr और Asr Asr समय पर।पैगंबर ﷺ ने अराफा (Dhuhr Asr समय पर) और मुजदलिफा (Maghrib Isha समय पर) में संयुक्त रूप से दोनों रूपों की स्थापना की।"
+      "title": "जमा-ए-तक़दीम और ताख़ीर",
+      "body": "जमा-ए-तक़दीम (पहले मिलाना): दोनों नमाज़ें पहली नमाज़ के वक़्त में एक साथ पढ़ना — जैसे ज़ुहर और अस्र ज़ुहर के वक़्त। जमा-ए-ताख़ीर (बाद में मिलाना): दोनों को दूसरी नमाज़ के वक़्त में पढ़ना — जैसे ज़ुहर और अस्र अस्र के वक़्त। अरफ़ात में नबी ﷺ ने अस्र को ज़ुहर के वक़्त में पहले पढ़ा, और मुज़दलिफ़ा में मग़रिब को इशा के वक़्त तक मुअख़्ख़र किया — हर सूरत की एक मिसाल (सहीह मुस्लिम 1218)।"
     },
     "when": {
       "title": "जब रियायतें शुरू और ख़त्म होती हैं",
@@ -3118,11 +3108,11 @@
     },
     "sunnah": {
       "title": "Sunnah यात्रा के दौरान प्रार्थना",
-      "body": "फर्द से पहले और बाद में जोर दी गई sunnah प्रार्थना (रावतीब) नेक रहती है लेकिन इसकी आवश्यकता नहीं होती है।कई विद्वान कठिनाई के कारण यात्रा के दौरान उन्हें छोड़ने की अनुमति देते हैं, खासकर प्रार्थनाओं का संयोजन करते समय।जब भी आपके पास समय और ऊर्जा हो तो masjid (तहियातुल masjid) का अभिवादन और अन्य स्वैच्छिक प्रार्थनाएँ स्वीकार्य रहती हैं।"
+      "body": "फ़र्ज़ से पहले और बाद की मुअक्कदा सुन्नतें (रवातिब) फ़ज़ीलत वाली रहती हैं, लेकिन ज़रूरी नहीं। कई विद्वान सफ़र की मुश्किल के कारण, ख़ास तौर पर नमाज़ें जमा करते समय, इन्हें छोड़ने की इजाज़त देते हैं। तहिय्यतुल मस्जिद और दूसरी नफ़्ल नमाज़ें जब भी समय और ताक़त हो, जायज़ रहती हैं।"
     },
     "witr": {
       "title": "Witr यात्रा पर",
-      "body": "Witr sunnah मुअक्कदह (जोर से जोर दिया गया) है और इसे यात्रा के दौरान नहीं छोड़ा जाना चाहिए।इसे Isha के बाद प्रार्थना करें - भले ही आपने Maghrib और Isha को जोड़ दिया हो - आप जितना प्रबंधित कर सकते हैं उसके अनुसार एक, तीन, या अधिक विषम rakahs के रूप में।यदि आप यात्रा करते समय Isha से पहले सोने से डरते हैं, तो पैगंबर ﷺ ने संयुक्त Maghrib-Isha के बाद पहले Witr प्रार्थना करने की अनुमति दी है।"
+      "body": "वित्र सुन्नत-ए-मुअक्कदा (बहुत ताकीद वाली) है और सफ़र में भी इसे नहीं छोड़ना चाहिए। इसे इशा के बाद पढ़ें — चाहे आपने मग़रिब और इशा जमा की हों — अपनी सुविधा के अनुसार एक, तीन या उससे ज़्यादा विषम रकअतें। अगर सफ़र में इशा से पहले सो जाने का डर हो, तो नबी ﷺ ने मग़रिब-इशा जमा करने के बाद वित्र पहले पढ़ लेने की इजाज़त दी है।"
     },
     "disclaimer": "यह शैक्षिक सामग्री है, व्यक्तिगत फतवा नहीं।चार स्कूलों के बीच दूरी की सीमाएं, ठहरने की अवधि, नियमों का संयोजन, और क्या Jam' आवश्यकता तक सीमित है - अपनी यात्रा के लिए किसी योग्य विद्वान से परामर्श लें।",
     "markExcused": "उज़्र अवधि शुरू करें (यात्रा)",
@@ -3195,16 +3185,14 @@
     "obligationsTitle": "जिसके लिए आप अभी भी जिम्मेदार हैं",
     "hadith": [
       {
-        "reference": "Sahih al-Bukhari · 321",
-        "excerpt": "आयशा ने कहा: अल्लाह के रसूल ﷺ ने मुझसे फ़रमाया: 'जब तुम्हारा हय्ज़ समाप्त हो जाए, ग़ुस्ल करो फिर नमाज़ पढ़ो।'"
+        "reference": "Sahih al-Bukhari · 321"
       },
       {
-        "reference": "Sahih al-Bukhari · 304",
-        "excerpt": "नबी ﷺ ने फ़रमाया: 'क्या यह नहीं कि जब तुम में से कोई हय्ज़ में होती है, तो न नमाज़ पढ़ती है और न रोज़ा रखती है?'"
+        "reference": "Sahih al-Bukhari · 304"
       }
     ],
     "obligations": [
-      "Hayd में Salah न पढ़ें — यह Allah की राहत है, ibadat की उपेक्षा नहीं।",
+      "हैज़ की हालत में नमाज़ न पढ़ें — यह अल्लाह की दी हुई छूट है, इबादत में लापरवाही नहीं।",
       "हय्ज़ में रोज़ा न रखें; छूटे हुए रमज़ान के रोज़े बाद में पूरे करें।",
       "आप फिर भी ज़िक्र, दुआ, क़ुरआन सुनना, सदक़ा देना और अन्य नेकियाँ कर सकती हैं।",
       "जब हय्ज़ समाप्त हो, ग़ुस्ल करें और नमाज़ व रोज़ा फिर शुरू करें।"
@@ -3237,36 +3225,33 @@
     "obligationsTitle": "आप पर अभी भी क्या वाजिब है",
     "hadith": [
       {
-        "reference": "Sahih al-Bukhari · 1117",
-        "excerpt": "Nabi ﷺ ne farmaya: 'खड़े होकर Salah पढ़ो; यदि न कर सकें तो बैठकर; यदि न कर सकें तो पहलू के बल।'"
+        "reference": "Sahih al-Bukhari · 1117"
       },
       {
-        "reference": "Sahih al-Bukhari · 1936",
-        "excerpt": "Nabi ﷺ ne farmaya: 'Allah ne meri Ummah se गलतियाँ, भूल और मजबूरी से किए गए काम हटा दिए हैं।'"
+        "reference": "Sahih al-Bukhari · 1936"
       },
       {
-        "reference": "Sahih al-Bukhari · 1118",
-        "excerpt": "इमरान इब्न हुसैन को दर्द की वजह से बैठकर नमाज़ पढ़नी पड़ी। नबी ﷺ ने उनसे पूछा: 'क्या आप खड़े हो सकते हैं?' उन्होंने कहा नहीं, तो नबी ﷺ ने फ़रमाया: 'तो बैठकर पढ़ो; यदि वह भी न हो सके तो करवट के बल।'"
+        "reference": "Sahih al-Bukhari · 1118"
       }
     ],
     "obligations": [
       "यदि सक्षम हों, तो जिस भी स्थिति में कर सकें Salah पढ़ें — खड़े, बैठे, या लेटे।",
       "रुकू और सजदा केवल तभी कम करें या छोड़ें जब वास्तव में न कर सकें।",
-      "यदि बिल्कुल Salah न पढ़ सकें, तो वह Salah waived — स्वस्थ होने पर qaza करें।",
-      "बीमारी से छूटे Ramadan rozas स्वस्थ होने पर पूरे करें।",
+      "जब तक आप होश में हैं, नमाज़ माफ़ नहीं होती — जैसे भी हो सके पढ़ें, चाहे इशारे से ही। बीमारी के कारण छूटी नमाज़ की ठीक होने पर क़ज़ा की जाती है; अगर आप बेहोश थे, तो उसकी क़ज़ा ज़रूरी है या नहीं, इस पर मसलकों में मतभेद है।",
+      "बीमारी के कारण छूटे रमज़ान के रोज़े, जब संभव हो, क़ज़ा कर लें।",
       "आप अभी भी Zikr, Dua, Qur'an पढ़ सकते हैं, और Sadaqah दे सकते हैं।"
     ],
     "positions": {
       "title": "बीमारी में Salah — स्थितियाँ",
-      "body": "मूल यह है कि खड़े होकर पूर्ण ruku और sujud के साथ Salah पढ़ी जाए। यदि खड़े होने से तीव्र दर्द, कमज़ोरी या नुकसान हो तो बैठकर पढ़ें — कई विद्वान बीमारी में खड़े न हो सकने पर सीधे बैठकर Salah जायज़ मानते हैं।\n\nयदि सीधे न बैठ सकें तो करवट या पीठ के बल लेटकर सिर से ruku और sujud का इशारा करें। Salah पूरी तरह छोड़ने से पहले हर संभव राहत उपयोग करें।\n\nयदि बीमारी या नुकसान के डर से पानी से wudu न हो सके तो tayammum की शर्तें पूरी हों तो tayammum करें।"
+      "body": "असल तरीक़ा यह है कि खड़े होकर पूरे रुकू और सजदे के साथ नमाज़ पढ़ी जाए। अगर खड़े होने से तेज़ दर्द, कमज़ोरी या नुक़सान हो, तो बैठकर पढ़ें — जब बीमारी के कारण खड़ा होना सचमुच मुश्किल हो, तो कई विद्वान पहले खड़े हुए बिना भी बैठकर पढ़ने की इजाज़त देते हैं।\n\nअगर सीधे बैठ न सकें, तो करवट या पीठ के बल लेटकर पढ़ें और रुकू व सजदे के लिए सिर से इशारा करें। नमाज़ पूरी तरह छोड़ने से पहले हर स्थिति वाली छूट का इस्तेमाल करें।\n\nअगर बीमारी या नुक़सान के डर से पानी से वुज़ू न कर सकें, तो शर्तें पूरी होने पर तयम्मुम करें।"
     },
     "rukuSujud": {
-      "title": "सीमित गति में ruku और sujud",
-      "body": "यदि पूर्ण ruku न हो सके तो सिर झुकाकर ruku करें — sujud के लिए अधिक झुकाएँ। बैठ या लेटकर Salah में यही राहत है।\n\nयदि सिर बिल्कुल न हिल सके तो विद्वानों में न्यूनतम गति पर मतभेद है — कुछ अत्यंत स्थिति में केवल niyyah काफी मानते हैं, कुछ जितनी गति संभव हो वह आवश्यक।\n\nयदि कम गति से Salah हो सके तो पूरी Salah न छोड़ें। नबी ﷺ ने राहतें क्रम से उपयोग करना सिखाया, Salah छोड़ना नहीं।"
+      "title": "सीमित हरकत के साथ रुकू और सजदा",
+      "body": "जब पूरी तरह न झुक सकें, तो रुकू के लिए सिर झुकाएँ — सजदे के लिए उससे ज़्यादा झुकाएँ। बैठकर या लेटकर नमाज़ पढ़ते समय यही छूट है।\n\nअगर सिर बिल्कुल न हिला सकें, तो कम से कम कितनी हरकत ज़रूरी है, इस पर विद्वानों में मतभेद है — कुछ बहुत मजबूरी की हालत में केवल नीयत को काफ़ी मानते हैं, जबकि दूसरे जितनी हरकत शारीरिक रूप से संभव हो, उसे ज़रूरी मानते हैं।\n\nअगर कम हरकतों के साथ नमाज़ पढ़ सकते हैं, तो पूरी नमाज़ न छोड़ें। नबी ﷺ ने हमें नमाज़ छोड़ने के बजाय क़दम-ब-क़दम छूटों का इस्तेमाल करना सिखाया।"
     },
     "unable": {
       "title": "Salah से पूर्ण असमर्थता",
-      "body": "यदि बेहोश हो जाएँ, गहरी नींद में Salah का समय गुज़र जाए, या इतनी गंभीर बीमारी हो कि सभी स्थिति राहतों के बावजूद Salah न हो सके — और पूरा समय गुज़र जाए — तो वह Salah बिना गुनाह माफ, लेकिन ठीक होने पर Qaza वाजिब है।\n\nइस ऐप में दिन को excused (बीमारी) चिह्नित करना अनिवार्य ट्रैकिंग रोकता है और streak रखता है — बाद में Qaza की ज़िम्मेदारी नहीं मिटाता।\n\nदीर्घकालिक या लंबी बीमारी में योग्य विद्वान से अपनी स्थिति के स्थायी अहकाम सीखें; हर दिन पूर्ण माफ न समझें।"
+      "body": "अगर आप बेहोश हो जाएँ, नमाज़ के पूरे समय गहरी नींद में रहें, या इतने गंभीर बीमार हों कि हर स्थिति वाली छूट के बावजूद नमाज़ न पढ़ सकें — और उस नमाज़ का पूरा समय निकल जाए — तो उस समय वह नमाज़ बिना गुनाह के हट जाती है, लेकिन ठीक होने पर उसकी क़ज़ा करनी होगी।\n\nइस ऐप में किसी दिन को माज़ूर (बीमारी) चिह्नित करने से फ़र्ज़ नमाज़ों की ट्रैकिंग रुक जाती है और आपका सिलसिला बना रहता है — इससे छूटी नमाज़ों की बाद में क़ज़ा की ज़िम्मेदारी ख़त्म नहीं होती।\n\nपुरानी या लंबी बीमारी में अपनी हालत पर लागू होने वाली स्थायी छूटें किसी योग्य आलिम से सीखें, हर दिन को पूरी तरह माफ़ न समझें।"
     },
     "fastingQaza": {
       "title": "रोज़ा, स्वास्थ्य लाभ और Qaza",
@@ -3300,7 +3285,9 @@
       "dhul-hijjah": "ज़िलहिज्जा",
       "muhasabah": "मुहासबा",
       "family-ties-due": "रिश्तेदारी निभाना (बाक़ी)",
-      "weekly-coach": "साप्ताहिक आत्मचिंतन"
+      "weekly-coach": "साप्ताहिक आत्मचिंतन",
+      "seasonal-banner": "मौसमी बैनर",
+      "umrah-mode": "अपना उमरा जारी रखें"
     }
   },
   "schedule": {
@@ -3326,11 +3313,11 @@
     "progressCardTitle": "सीखने की प्रगति",
     "progressCardHint": "{{total}} में से {{completed}} पाठ पूर्ण चिह्नित",
     "topicsTitle": "मार्गदर्शिकाएँ",
-    "rakatsTitle": "एक नज़र में rakah",
-    "prayer": "Salah",
+    "rakatsTitle": "रकअतें एक नज़र में",
+    "prayer": "नमाज़",
     "fard": "फर्द",
-    "sunnah": "Sunnah",
-    "travelPointer": "यात्रा में नमाज़ qasar और jama",
+    "sunnah": "सुन्नत",
+    "travelPointer": "सफ़र में नमाज़ों को क़स्र करना और जमा करना",
     "relatedTitle": "संबंधित मार्गदर्शिकाएँ",
     "qazaLink": "छूटी (Qaza) Salah",
     "qazaLinkHint": "छूटी नमाज़ें अदा करें — अपने Qaza ट्रैकर से जुड़ें",
@@ -3341,8 +3328,8 @@
     "continueInApp": "Munib में जारी रखें",
     "stepsTitle": "कदम दर कदम",
     "ruling": {
-      "fard": "Fard · रुक्न",
-      "wajib": "Wajib · आवश्यक",
+      "fard": "फ़र्ज़ · रुक्न",
+      "wajib": "वाजिब · ज़रूरी",
       "sunnah": "Sunnah · वैकल्पिक"
     },
     "markComplete": "पाठ पूर्ण चिह्नित करें",
@@ -3350,7 +3337,7 @@
     "featuredPhraseTitle": "आज का वाक्य",
     "phrasesTitle": "Salah के शब्द",
     "phrasesSubtitle": "अरबी, अनुवाद और हर वाक्य के पीछे का अर्थ",
-    "phrasesIntro": "जो आप कहते हैं उसे समझना khushu बढ़ाता है। अगली Salah से पहले अर्थ पढ़ें।",
+    "phrasesIntro": "जो आप पढ़ते हैं उसे समझने से ख़ुशू बढ़ता है। अगली नमाज़ से पहले उसका अर्थ पढ़ें।",
     "exploreTitle": "सीखना जारी रखें",
     "progressExploreHint": "Salah के मुख्य पाठ और शब्द फिर से देखें",
     "exploreStepByStep": "कदम दर कदम Salah",
@@ -3358,7 +3345,7 @@
     "meaningLabel": "यह क्या सिखाता है",
     "progressTitle": "मेरी सीखने की प्रगति",
     "progressSubtitle": "पाठ ट्रैक करें — Allah के साथ आध्यात्मिक रैंक नहीं",
-    "progressIntro": "यह डैशबोर्ड Munib में आपके अध्ययन और अभ्यास को ट्रैक करता है। पाठ पूरा करना Allah के साथ आपकी स्थिति नापता नहीं — sincerity नापती है।",
+    "progressIntro": "यह डैशबोर्ड Munib में आपके अध्ययन और अभ्यास को दर्ज करता है। पाठ पूरे करना अल्लाह के यहाँ आपके मक़ाम का पैमाना नहीं — असल पैमाना इख़लास है।",
     "lessonsTitle": "पूर्ण पाठ",
     "lessonsHint": "अध्ययन पूरा होने पर विषय पूर्ण चिह्नित करें",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -3367,9 +3354,9 @@
     "phaseV2": "निपुणता",
     "journey": {
       "why": "क्यों नमाज़?",
-      "whyHint": "उद्देश्य, महत्व और किस पर farz है",
+      "whyHint": "मक़सद, अहमियत, और किस पर नमाज़ फ़र्ज़ है",
       "prepare": "तैयारी",
-      "prepareHint": "शर्तें, taharah, wudu, वस्त्र, समय, qiblah",
+      "prepareHint": "शर्तें, तहारत, वुज़ू, लिबास, समय, क़िबला",
       "learn": "सीखना",
       "learnHint": "Adhan, कदम दर कदम Salah, और हर स्थिति",
       "practice": "अभ्यास",
@@ -3387,12 +3374,12 @@
     },
     "progress": {
       "salah": "आज की Salah",
-      "salahHint": "आज पूर्ण farz नमाज़ें",
+      "salahHint": "आज पूरी की गई फ़र्ज़ नमाज़ें",
       "qaza": "Qaza प्रगति",
       "qazaHint": "अदा की गई छूटी नमाज़ें",
       "streak": "Salah की लकीर",
       "streakHint": "लगातार दिन जिनमें Salah दर्ज हुई",
-      "khushu": "Khushu डायरी",
+      "khushu": "ख़ुशू डायरी",
       "khushuHint": "Salah के बाद दिल की उपस्थिति पर चिंतन"
     },
     "adhan": {
@@ -3471,9 +3458,9 @@
       "modernLocation": "आधुनिक स्थान",
       "hijri": "हिजरी तारीख",
       "year": "वर्ष (सीई)",
-      "muslimForces": "Muslim बल",
+      "muslimForces": "मुस्लिम सेना",
       "opposingForces": "विरोधी ताकतें",
-      "muslimCommander": "Muslim कमांडर",
+      "muslimCommander": "मुस्लिम सेनापति",
       "opposingCommander": "विरोधी सेनापति",
       "weather": "स्थितियाँ",
       "outcome": "नतीजा",
@@ -3536,12 +3523,12 @@
     "mizan": {
       "panHeavy": "भारी पलड़ा",
       "panLight": "हल्का पलड़ा",
-      "pansCaption": "प्रामाणिक ग्रंथों में Mizan पर भारी कहे गए",
+      "pansCaption": "सहीह नुसूस (क़ुरआन व हदीस) में जिन्हें मीज़ान पर भारी कहा गया है",
       "noLeaderboard": "ये वाक्य वज़न और फ़ज़ीलत बताते हैं — हर अमल की पूर्ण ईश्वरीय रैंकिंग नहीं।",
       "deedsTitle": "ग्रंथों में नामित अमल",
       "category": {
-        "heavy-on-scale": "Mizan पर भारी",
-        "fills-the-scale": "Mizan भरता है",
+        "heavy-on-scale": "मीज़ान पर भारी",
+        "fills-the-scale": "मीज़ान को भर देता है",
         "best-beloved": "सर्वश्रेष्ठ / सबसे प्रिय",
         "equal-reward": "महान समतुल्य सवाब"
       }
@@ -3560,7 +3547,7 @@
     "versesTitle": "Qur'an की आयतें",
     "versesSubtitle": "क़ियामत पर चुनी गई आयतें",
     "versesHint": "अरबी, अनुवाद, संदर्भ और संक्षिप्त tafsir",
-    "versesIntro": "Qur'an reader में खोलने के लिए आयत पर टैप करें। संक्षिप्त सारांश शैक्षिक हैं, पूर्ण tafsir का विकल्प नहीं।",
+    "versesIntro": "किसी आयत को क़ुरआन रीडर में खोलने के लिए उस पर टैप करें। संक्षिप्त सारांश केवल शैक्षिक हैं, पूरी तफ़सीर का विकल्प नहीं।",
     "verseTheme": {
       "resurrection": "पुनरुत्थान",
       "accountability": "जवाबदेही",
@@ -3576,9 +3563,9 @@
     "hadithIntro": "Hadith के दर्जे सामान्य विद्वतापूर्ण वर्गीकरण का अनुसरण करते हैं। कमज़ोर रिवायतें निश्चित के रूप में प्रस्तुत नहीं की जातीं।",
     "hadithTheme": {
       "death": "मृत्यु",
-      "grave": "क़ब्र और barzakh",
+      "grave": "क़ब्र और बरज़ख़",
       "resurrection": "पुनरुत्थान और निशानियाँ",
-      "reckoning": "हिसाब और Sirat",
+      "reckoning": "हिसाब और पुल-सिरात",
       "intercession": "शफ़ाअत",
       "paradise": "जन्नत",
       "hell": "जहन्नम"
@@ -3607,19 +3594,19 @@
       "salah": "आज की Salah",
       "salahHint": "Salah ट्रैकर — अपनी दैनिक नमाज़ें पूरी करें",
       "quran": "आज का Qur'an",
-      "quranHint": "पढ़ें या सुनें — कुछ ayah भी",
+      "quranHint": "पढ़ें या सुनें — चाहे कुछ ही आयतें",
       "dhikr": "आज का Zikr",
       "dhikrHint": "सुबह, शाम और दैनिक adhkar",
       "charity": "आज की सदक़ा",
       "charityHint": "Zakat और sadaqah ट्रैकर",
       "repentance": "आज की तौबा",
-      "repentanceHint": "Tawbah नवीनीकरण — आज तौबा करने पर टैप करें",
+      "repentanceHint": "तौबा ताज़ा करें — आज तौबा कर लें तो टैप करें",
       "rights": "दूसरों के हक़",
       "rightsHint": "Qaza और लोगों के ऋण",
       "character": "अच्छा चरित्र",
       "characterHint": "आज अपने आचरण की समीक्षा करने पर टैप करें",
       "reflection": "चिंतन डायरी",
-      "reflectionHint": "Khushu और Salah चिंतन",
+      "reflectionHint": "ख़ुशू और नमाज़ पर चिंतन",
       "learning": "सीखने की प्रगति",
       "learningHint": "इस मॉड्यूल में पूर्ण विषय",
       "characterHintTv": "आज अपने आचरण की समीक्षा करने पर चुनें",
@@ -3627,7 +3614,7 @@
     },
     "progressTitle": "सीखने की प्रगति",
     "progressSubtitle": "अध्ययन ट्रैक करें — Allah के साथ आध्यात्मिक रैंक नहीं",
-    "progressIntro": "पढ़ते हुए विषय पूर्ण चिह्नित करें। ज्ञान साधन है; Allah के साथ sincerity लक्ष्य है।",
+    "progressIntro": "पढ़ते हुए विषयों को पूरा चिह्नित करें। इल्म एक ज़रिया है; मक़सद अल्लाह के लिए इख़लास है।",
     "lessonsTitle": "पूर्ण विषय",
     "lessonsHint": "अध्ययन पूरा होने पर विषय पूर्ण चिह्नित करें",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -3635,12 +3622,12 @@
     "section": {
       "intro": "परिचय",
       "introHint": "क़ियामत क्या है और इस पर ईमान क्यों?",
-      "journey": "मृत्यु और Barzakh",
+      "journey": "मौत और बरज़ख़",
       "journeyHint": "मृत्यु के बाद पुनरुत्थान तक क्या होता है",
       "signs": "क़ियामत की निशानियाँ",
       "signsHint": "छोटी और बड़ी — अटकलों से बेहतर तैयारी",
       "events": "क़ियामत के वाक़ियात",
-      "eventsHint": "सूर, हश्र, हिसाब, Hawd और Sirat",
+      "eventsHint": "सूर फूँकना, हश्र, हिसाब, हौज़ और पुल-सिरात",
       "outcomes": "जन्नत और जहन्नम",
       "outcomesHint": "शाश्वत ठिकाने — गहरी मार्गदर्शिकाओं के लिंक",
       "practice": "तैयारी",
@@ -3652,7 +3639,7 @@
       "highly-recommended": "अत्यंत अनुशंसित",
       "recommended": "अनुशंसित"
     },
-    "versesIntroTv": "Qur'an reader में खोलने के लिए आयत चुनें। संक्षिप्त सारांश शैक्षिक हैं, पूर्ण tafsir का विकल्प नहीं।",
+    "versesIntroTv": "किसी आयत को क़ुरआन रीडर में खोलने के लिए उसे चुनें। संक्षिप्त सारांश केवल शैक्षिक हैं, पूरी तफ़सीर का विकल्प नहीं।",
     "preparationHabitsHintTv": "ट्रैकर खोलने या दैनिक नीयत टॉगल करने के लिए चुनें",
     "characterHintTv": "आज अपने आचरण की समीक्षा करने पर चुनें",
     "timelineCardHintTv": "मुख्य भाग — पूरे पाठ के लिए हर चरण चुनें"
@@ -3680,9 +3667,9 @@
     "checklistIntro": "एक व्यावहारिक अनुस्मारक सूची - तहराह के फ़िक़्ह को सीखने का विकल्प नहीं है।",
     "checklistListTitle": "जांच सूची",
     "checklistHint": "अपनी दैनिक शुद्धता की आदतों की समीक्षा करते समय वस्तुओं पर टैप करें",
-    "wuduTitle": "Wudu",
+    "wuduTitle": "वुज़ू",
     "wuduHint": "शर्तें, चरण, दुआएं और अशक्तकर्ता",
-    "ghuslTitle": "Ghusl",
+    "ghuslTitle": "ग़ुस्ल",
     "ghuslHint": "इसकी आवश्यकता कब होती है और इसे कैसे करना है",
     "salahGuidePointer": "जानें Salah - शुद्धि के बाद प्रार्थना",
     "learnDuaPointer": "पहले और बाद की दुआ wudu",
@@ -3706,9 +3693,9 @@
       "introHint": "तहरा क्या है और यह क्यों मायने रखता है",
       "water": "इस्लाम में पानी",
       "waterHint": "पानी को शुद्ध करना और क्या इसे अमान्य करता है",
-      "wudu": "Wudu",
+      "wudu": "वुज़ू",
       "wuduHint": "स्नान - शर्तें, कदम, sunnah, और गलतियाँ",
-      "ghusl": "Ghusl",
+      "ghusl": "ग़ुस्ल",
       "ghuslHint": "प्रमुख अशुद्धता के लिए पूर्ण स्नान",
       "tayammum": "तयम्मुम",
       "tayammumHint": "पानी उपलब्ध न होने पर सूखा स्नान करें",
@@ -3807,7 +3794,7 @@
       "sources": "सूत्रों का कहना है",
       "openBio": "जीवनी खोलें",
       "certainty": {
-        "quran": "Qur'an",
+        "quran": "क़ुरआन",
         "authentic-hadith": "प्रामाणिक हदीस",
         "classical-history": "शास्त्रीय इतिहास"
       },
@@ -3838,15 +3825,15 @@
   "aqeedah": {
     "eyebrow": "सीखें",
     "title": "Aqeedah सीखें",
-    "subtitle": "Qur'an और प्रामाणिक Sunnah से Islam के मूलभूत विश्वास",
-    "intro": "व्यापक Sunni सहमति स्पष्ट रूप से प्रस्तुत है; विद्वानों के मतभेदों का सम्मानपूर्वक उल्लेख है। Aqeedah शिक्षकों से सीखा जाता है, ऑनलाइन बहस नहीं।",
+    "subtitle": "क़ुरआन और सहीह सुन्नत से इस्लाम के बुनियादी अक़ीदे",
+    "intro": "सुन्नी उलमा की व्यापक सहमति साफ़ तौर पर प्रस्तुत की गई है; जहाँ विद्वानों में मतभेद है, उसका सम्मान के साथ उल्लेख किया गया है। अक़ीदा उस्तादों से सीखा जाता है, ऑनलाइन बहस से नहीं।",
     "quickLinksTitle": "यहाँ से शुरू करें",
     "quickSixArticles": "ईमान के छह स्तंभ",
     "quickSixArticlesHint": "Iman के स्तंभ",
-    "quickTawheed": "Tawheed समझाएँ",
-    "quickTawheedHint": "Ibadaat और Rububiyyah में Allah की एकता",
+    "quickTawheed": "तौहीद की व्याख्या",
+    "quickTawheedHint": "इबादत और रुबूबियत में अल्लाह की एकता",
     "quickGlossary": "शब्दावली",
-    "quickGlossaryHint": "मुख्य creed शब्दों की परिभाषा",
+    "quickGlossaryHint": "अक़ीदे के मुख्य शब्दों की परिभाषा",
     "quickProgress": "मेरी सीख",
     "quickProgressHint": "पढ़े गए विषय और अध्ययन प्रगति",
     "progressCardTitle": "सीखने की प्रगति",
@@ -3854,15 +3841,15 @@
     "exploreTitle": "खोजें",
     "sixArticlesTitle": "ईमान के छह स्तंभ",
     "sixArticlesHint": "Allah, फ़रिश्ते, किताबें, नबी, आख़िरत, qadr",
-    "tawheedTitle": "Tawheed और shirk",
-    "tawheedHint": "केवल Allah की ibadat — shirk से बचें",
+    "tawheedTitle": "तौहीद और शिर्क",
+    "tawheedHint": "सिर्फ़ अल्लाह की इबादत करें — शिर्क से बचें",
     "glossaryTitle": "शब्दावली",
-    "glossarySubtitle": "Islamic creed में प्रयुक्त शब्द",
+    "glossarySubtitle": "इस्लामी अक़ीदे में प्रयुक्त शब्द",
     "glossaryHint": "तौहीद, शिर्क, क़द्र और अधिक",
     "glossaryIntro": "शब्दावली समझना aqeedah अध्ययन में भ्रम रोकता है।",
     "glossaryListTitle": "शब्द",
     "notFound": "विषय नहीं मिला",
-    "disclaimer": "शैक्षिक अवलोकन — fatwa नहीं। व्यक्तिगत प्रश्नों के लिए योग्य विद्वान से पूछें।",
+    "disclaimer": "शैक्षिक परिचय — फ़तवा नहीं। निजी सवालों के लिए किसी योग्य आलिम से पूछें।",
     "continueInApp": "Munib में जारी रखें",
     "misconceptionsTitle": "सामान्य गलतफ़हमियाँ",
     "markComplete": "विषय पूर्ण चिह्नित करें",
@@ -3874,20 +3861,20 @@
     "lessonsTitle": "पूर्ण विषय",
     "lessonsHint": "अध्ययन पूरा होने पर विषय पूर्ण चिह्नित करें",
     "lessonsCount": "{{completed}} / {{total}}",
-    "progressExploreHint": "मूल creed विषयों पर वापस जाएँ",
+    "progressExploreHint": "अक़ीदे के मूल विषयों पर लौटें",
     "section": {
       "intro": "परिचय",
       "introHint": "Aqeedah क्या है और क्यों महत्वपूर्ण",
       "articles": "ईमान के स्तंभ",
       "articlesHint": "Iman के छह स्तंभों की व्याख्या",
-      "tawheed": "Tawheed और ibadat",
+      "tawheed": "तौहीद और इबादत",
       "tawheedHint": "अल्लाह में इख़लास, मुहब्बत, ख़ौफ़ और उम्मीद",
       "afterlife": "आख़िरत",
       "afterlifeHint": "जन्नत, जहन्नम, पुनरुत्थान और फ़ैसला",
       "signs": "क़यामत की निशानियाँ",
       "signsHint": "आख़िरत से पहले बड़ी और छोटी निशानियाँ",
       "reference": "संदर्भ",
-      "referenceHint": "FAQ और आगे पढ़ें"
+      "referenceHint": "अक्सर पूछे जाने वाले सवाल और आगे का अध्ययन"
     },
     "importance": {
       "foundational": "मूलभूत",
@@ -3939,7 +3926,7 @@
       "intro": "परिचय",
       "introHint": "dua क्या है, शिष्टाचार और सर्वोत्तम समय",
       "daily": "दैनिक दुआएँ",
-      "dailyHint": "सुबह, शाम, घर, masjid, खाना, और salah",
+      "dailyHint": "सुबह, शाम, घर, मस्जिद, खाना और नमाज़",
       "situational": "परिस्थितिजन्य युगल",
       "situationalHint": "चिंता, बीमारी, यात्रा, क्षमा, और भी बहुत कुछ",
       "categories": "श्रेणियाँ",
@@ -4122,18 +4109,18 @@
     "incorrectTitle": "लगभग - यही विचार है",
     "empty": "अपने फ़्लैश कार्ड डेक का निर्माण... विषय सीखें खोलें या एक क्षण प्रतीक्षा करें।",
     "category": {
-      "salahGuide": "Salah",
+      "salahGuide": "नमाज़",
       "jannah": "जैनाह",
       "lastDay": "आखिरी दिन",
       "jahannam": "जहन्नम",
       "battles": "लड़ाई",
-      "learnQuran": "Qur'an",
+      "learnQuran": "क़ुरआन",
       "taharah": "शुद्धिकरण",
       "hayd": "हेड",
       "sick": "बीमारी",
       "prophets": "नबियों",
       "aqeedah": "अक़ीदा",
-      "learnDua": "Dua",
+      "learnDua": "दुआ",
       "travel": "यात्रा",
       "hajj": "हज",
       "seerah": "सीरा",
@@ -4144,13 +4131,13 @@
       "eid": "ईद",
       "whiteDays": "सफ़ेद दिन",
       "ruqyah": "रुक्य्याह",
-      "newMuslim": "नया Muslim",
+      "newMuslim": "नव-मुस्लिम",
       "names": "99 नाम",
       "hadith": "हदीथ",
-      "quran": "Qur'an",
+      "quran": "क़ुरआन",
       "duas": "दुआ",
-      "janazah": "Janazah",
-      "fidyah": "Fidyah"
+      "janazah": "जनाज़ा",
+      "fidyah": "फ़िद्या"
     },
     "introTv": "Qur'an, हदीस, Allah के नाम और प्रत्येक सीखने की मार्गदर्शिका से ड्रा करें। स्वयं जांचने के लिए एक उत्तर चुनें, फिर जब तक आप चाहें तब तक जारी रखें।"
   },
@@ -4159,7 +4146,7 @@
     "subtitle": "इस उपकरण पर डाउनलोड की गई सामग्री",
     "cachesTitle": "कैश की गई सामग्री",
     "quran": "Qur'an संस्करण और अध्ययन कैश",
-    "mushafFonts": "Mushaf पृष्ठ फ़ॉन्ट (QCF)",
+    "mushafFonts": "मुसहफ़ पन्नों के फ़ॉन्ट (QCF)",
     "hadith": "Hadith संग्रह",
     "audio": "ऑडियो तिलावत",
     "location": "मौसम और स्थान खोज",
@@ -4195,14 +4182,14 @@
       "eidAdha": "ईद अल-अधा"
     },
     "descriptions": {
-      "newYear": "मुहर्रम के पहले दिन से हिजरी (चंद्र) वर्ष शुरू होता है, जिसकी गिनती पैगंबर के मक्का से मदीना तक प्रवास (हिजड़ा) से शुरू होती है।मुहर्रम चार पवित्र महीनों में से एक है और पैगंबर ﷺ ने इसे \"Allah का महीना\" कहा, इसके स्वैच्छिक उपवास को Ramadan (Sahih Muslim 1163) के बाद सबसे अच्छा बताया।यह बीते वर्ष पर विचार करने और अच्छे इरादों को नवीनीकृत करने का समय है।इस दिन के लिए कोई विशिष्ट अनिवार्य अनुष्ठान नहीं है, इसलिए निराधार \"नए साल\" प्रथाओं से सावधान रहें;महीने भर में स्वैच्छिक उपवास बढ़ाना स्थापित Sunnah है।",
-      "ashura": "मुहर्रम की 10वीं तारीख.पैगंबर ﷺ ने मदीना के यहूदियों को फिरौन से मूसा और इसराइल के बच्चों को बचाने के लिए आभार व्यक्त करते हुए इसे उपवास करते हुए पाया, और कहा, \"हमारा मूसा पर तुमसे अधिक अधिकार है,\" फिर उन्होंने उपवास किया और मुसलमानों को उपवास करने के लिए कहा (Sahih al-Bukhari 2004)।आशूरा का उपवास पिछले वर्ष के छोटे पापों का प्रायश्चित करता है (Sahih Muslim 1162)।अन्य समुदायों से अलग होने के लिए, 9वें (तसु'आ) को भी उपवास करने की सिफारिश की जाती है: पैगंबर ﷺ ने अगले वर्ष ऐसा करने का इरादा किया था (Sahih Muslim 1134)।9वीं और 10वीं को एक साथ उपवास करना पसंदीदा अभ्यास है।",
+      "newYear": "मुहर्रम की पहली तारीख़ से हिजरी (चंद्र) वर्ष शुरू होता है, जिसकी गिनती नबी ﷺ की मक्का से मदीना की हिजरत से होती है। मुहर्रम चार हुरमत वाले महीनों में से एक है, और नबी ﷺ ने इसे \"the month of Allah\" (अंग्रेज़ी अर्थ) कहा तथा इसके नफ़्ल रोज़ों को रमज़ान के बाद सबसे अफ़ज़ल बताया (सहीह मुस्लिम 1163)। यह बीते साल पर ग़ौर करने और नेक इरादों को ताज़ा करने का समय है। इस दिन के लिए कोई ख़ास तय की हुई रस्म नहीं है, इसलिए बेबुनियाद \"नए साल\" वाली रस्मों से बचें; पूरे महीने नफ़्ल रोज़े बढ़ाना ही साबित सुन्नत है।",
+      "ashura": "मुहर्रम की 10 तारीख़। नबी ﷺ ने मदीना के यहूदियों को यह रोज़ा रखते पाया, अल्लाह का शुक्र अदा करते हुए कि उसने मूसा और बनी इसराईल को फ़िरऔन से बचाया था, तो आप ﷺ ने फ़रमाया: \"We have more right to Musa than you,\" (अंग्रेज़ी अर्थ) फिर आपने ख़ुद रोज़ा रखा और मुसलमानों को रोज़ा रखने का हुक्म दिया (सहीह बुख़ारी 2004)। आशूरा का रोज़ा पिछले साल के छोटे गुनाहों का कफ़्फ़ारा बनता है (सहीह मुस्लिम 1162)। दूसरे समुदायों से अलग दिखने के लिए 9 तारीख़ (तासूआ) का रोज़ा भी रखना मुस्तहब है: नबी ﷺ ने अगले साल ऐसा करने का इरादा किया था (सहीह मुस्लिम 1134)। 9 और 10 दोनों का रोज़ा एक साथ रखना बेहतर तरीक़ा है।",
       "mawlid": "रबी अल-अव्वल की 12वीं तारीख व्यापक रूप से पैगंबर मुहम्मद ﷺ के जन्म से जुड़ी हुई है (इतिहासकारों के बीच सटीक तारीख पर बहस होती है)।मुसलमान सार्वभौमिक रूप से उससे प्यार करते हैं और उसका सम्मान करते हैं और उसे उस पर आशीर्वाद भेजने का आदेश दिया गया है (Qur'an 33:56)।एक समर्पित वार्षिक उत्सव (मावलिद) आयोजित करना है या नहीं, इस पर मुख्यधारा के विद्वानों में मतभेद है: कई, विशेष रूप से सूफी और पारंपरिक परंपराओं में, स्मरण की सभाओं और सलावत भेजने की अनुमति देते हैं या प्रोत्साहित करते हैं, जबकि अन्य (विशेष रूप से सलाफी परंपरा में) मानते हैं कि प्रारंभिक पीढ़ियों द्वारा एक निश्चित वार्षिक उत्सव का अभ्यास नहीं किया जाता था और इसलिए इससे बचा जाना चाहिए।यह ऐप दिन को तटस्थता से प्रस्तुत करता है;सलावत बढ़ाना और पैगंबर के Sunnah का पालन करना सहमत सामान हैं।",
       "isra": "अल-इज़राइल वा अल-मिराज पैगंबर की मक्का से यरूशलेम (अल-अक्सा) तक की चमत्कारी रात की यात्रा और स्वर्ग के माध्यम से उनके स्वर्गारोहण की याद दिलाता है, जिसका संदर्भ Qur'an 17:1 और 53 में है। इस रात पांच दैनिक प्रार्थनाएं निर्धारित की गईं - मूल रूप से पचास, फिर Allah की दया से घटाकर पांच कर दी गईं जबकि उनका इनाम पचास रहा (Sahih)अल-Bukhari 349).रात अल-अक्सा की पवित्रता और Salah की केंद्रीयता की पुष्टि करती है।इसकी सटीक तारीख (आमतौर पर 27 रजब को रखी जाती है) दृढ़ता से स्थापित नहीं है, और कोई भी विशिष्ट पूजा प्रामाणिक रूप से रात से जुड़ी नहीं है;पाँचों वक्त की नमाज़ों की हिफ़ाज़त करना इसका स्थायी सबक है।",
-      "ramadan": "नौवां महीना और इस्लाम का चौथा स्तंभ।सुबह से सूर्यास्त तक रोज़ा रखना हर सक्षम वयस्क Muslim (Qur'an 2:183–185) पर अनिवार्य है।यह वह महीना है जिसमें Qur'an पहली बार सामने आया था (Qur'an 2:185)।पैगंबर ﷺ ने कहा, \"जो कोई विश्वास और इनाम की तलाश में Ramadan उपवास करेगा, उसके पिछले पाप माफ कर दिए जाएंगे\" (Sahih अल-Bukhari 38)।रातें Tarawih प्रार्थना से जीवंत होती हैं, और आखिरी दस दिन लैलात अल-क़द्र को लेकर आते हैं।यह उपवास, Qur'an, दान और Allah के करीब आने का महीना है।",
+      "ramadan": "नौवाँ महीना और इस्लाम का चौथा स्तंभ। फ़ज्र से सूर्यास्त तक रोज़ा रखना हर सक्षम बालिग़ मुसलमान पर फ़र्ज़ है (क़ुरआन 2:183–185)। यह वह महीना है जिसमें क़ुरआन पहली बार नाज़िल हुआ (क़ुरआन 2:185)। नबी ﷺ ने फ़रमाया: \"Whoever fasts Ramadan out of faith and seeking reward will have his past sins forgiven\" (अंग्रेज़ी अर्थ) (सहीह बुख़ारी 38)। रातें तरावीह की नमाज़ से रौशन होती हैं, और आख़िरी दस दिनों में लैलतुल क़द्र होती है। यह रोज़े, क़ुरआन, सदक़े और अल्लाह के क़रीब होने का महीना है।",
       "laylatQadr": "हुक्म की रात - \"हजार महीनों से बेहतर\" (Qur'an 97:3), वह रात जब Qur'an उतरना शुरू हुआ।इस पर पूजा करने से जीवनकाल तिरासी वर्ष से अधिक का हो जाता है।पैगंबर ﷺ ने कहा, \"जो कोई भी विश्वास के कारण और इनाम की तलाश में लैलात अल-क़द्र पर (प्रार्थना में) खड़ा होगा, उसके पिछले पाप माफ कर दिए जाएंगे\" (Sahih अल-Bukhari 1901)।इसकी सटीक रात छिपी हुई है;Ramadan के अंतिम दस की विषम रातों में इसकी तलाश करें - 21वीं, 23वीं, 25वीं, 27वीं, और 29वीं (Sahih अल-Bukhari 2017), 27वीं विशेष रूप से आशा के साथ।इन रातों को प्रार्थना में बिताएं, Qur'an, और dua: \"अल्लाहुम्मा इन्नाका 'अफुवुन तुहिब्बू अल-'अफवा फा'फू 'अन्नी।\"",
       "eidFitr": "शव्वाल की पहली तारीख को व्रत तोड़ने का त्योहार Ramadan के अंत का प्रतीक है।दिन की शुरुआत ईद की नमाज़ से होती है और उससे पहले ज़कात-अल-फितर होती है, जो प्रार्थना से पहले दिया जाने वाला एक दान है ताकि गरीब भी खुशियाँ मना सकें।मुसलमान तकबीर पढ़ते हैं, wear अपना सर्वश्रेष्ठ देते हैं, शुभकामनाओं का आदान-प्रदान करते हैं, और परिवार और सामुदायिक संबंधों को मजबूत करते हैं।इस दिन उपवास करना वर्जित है (Sahih अल-Bukhari 1991) - यह Ramadan में पूरी की गई पूजा के लिए कृतज्ञता और अनुमत उत्सव का दिन है।",
-      "arafah": "ज़िलहिज्जा का 9वां दिन, हज का सबसे बड़ा दिन, जब तीर्थयात्री अराफा के मैदान पर पूजा में खड़े होते हैं - \"हज अराफा है।\"यह ज़ुल-हिज्जा के धन्य पहले दस दिनों के भीतर आता है, जिन दिनों में धार्मिक कर्म किसी भी अन्य की तुलना में Allah को अधिक प्रिय होते हैं (Sahih अल-Bukhari 969)।जो लोग हज पर नहीं हैं, उनके लिए इस दिन उपवास करने की अत्यधिक अनुशंसा की जाती है: यह पिछले वर्ष और आने वाले वर्ष के पापों का प्रायश्चित करता है (Sahih Muslim 1162)।तीर्थयात्री स्वयं उपवास नहीं करते, ताकि खड़े होकर प्रार्थना करने की शक्ति प्राप्त हो सके।",
+      "arafah": "ज़ुल-हिज्जा की 9 तारीख़, हज का सबसे बड़ा दिन, जब हाजी अरफ़ा के मैदान में इबादत के लिए ठहरते हैं — \"Hajj is Arafah.\" (अंग्रेज़ी अर्थ) यह ज़ुल-हिज्जा के मुबारक पहले दस दिनों में आता है, जिन दिनों के नेक अमल अल्लाह को किसी भी दूसरे दिनों से ज़्यादा प्रिय हैं (सहीह बुख़ारी 969)। जो हज पर नहीं हैं, उनके लिए इस दिन का रोज़ा बहुत पसंदीदा है: यह पिछले और अगले साल के गुनाहों का कफ़्फ़ारा बनता है (सहीह मुस्लिम 1162)। हाजी ख़ुद रोज़ा नहीं रखते, ताकि वुक़ूफ़ और दुआ के लिए उनमें ताक़त बनी रहे।",
       "eidAdha": "ज़ुल-हिज्जा की 10वीं तारीख को बलिदान का त्योहार, दो ईदों में से बड़ा है और हज की समाप्ति के साथ मेल खाता है।यह पैगंबर इब्राहिम की Allah की आज्ञाकारिता में अपने बेटे की बलि देने की इच्छा की याद दिलाता है, जिसने उसे एक मेढ़े से फिरौती दी थी (Qur'an 37:100–107)।जो सक्षम हैं वे बलिदान (उधियह/कुर्बानी) देते हैं, मांस को परिवार, पड़ोसियों और गरीबों के साथ साझा करते हैं।दिन की शुरुआत ईद की नमाज़ और तकबीर से होती है और तशरीक़ के तीन दिनों तक जारी रहती है।इस दिन और तशरीक़ (Sahih al-Bukhari 1991) के दिनों में रोज़ा रखना मना है।"
     }
   },
@@ -4210,8 +4197,8 @@
     "eyebrow": "दान",
     "title": "Zakat कैलकुलेटर",
     "subtitle": "आवश्यक बातें जानें और अपनी संपत्ति का Zakat अनुमान लगाएं",
-    "intro": "Zakat Islam का तीसरा स्तंभ है - nisab से ऊपर एक चंद्र वर्ष के लिए योग्य संपत्ति का 2.5%। नीचे दिए गए कैलकुलेटर का उपयोग करें, फिर भुगतान करने से पहले गाइड या चेकलिस्ट पढ़ें।",
-    "takeaway": "Zakat धन का अनिवार्य शुद्धिकरण है - एक चंद्र वर्ष के लिए रखी गई योग्य संपत्तियों का 2.5% एक बार nisab तक पहुंचने पर। यह Islam का एक स्तंभ है और गरीबों का अमीरों पर अधिकार है।",
+    "intro": "ज़कात इस्लाम का तीसरा स्तंभ है — निसाब से ऊपर एक चंद्र वर्ष तक रखी गई योग्य दौलत का 2.5%। नीचे दिए कैलकुलेटर का उपयोग करें, फिर अदा करने से पहले गाइड या चेकलिस्ट पढ़ें।",
+    "takeaway": "ज़कात दौलत की फ़र्ज़ पाकीज़गी है — योग्य संपत्ति का 2.5%, जब वह निसाब तक पहुँचकर एक चंद्र वर्ष तक रखी रहे। यह इस्लाम का एक स्तंभ है और मालदारों पर ग़रीबों का हक़ है।",
     "notFound": "विषय नहीं मिला",
     "pillarBadge": "तीसरा स्तंभ",
     "quickLinksTitle": "त्वरित सम्पक",
@@ -4234,7 +4221,7 @@
     },
     "breakdown": {
       "wealth": "धन Zakat (2.5%): {{value}}",
-      "agriculture": "फसलें (ushr): {{value}}",
+      "agriculture": "फ़सलें (उश्र): {{value}}",
       "livestock": "पशुधन (नकद अनुमान): {{value}}"
     },
     "toolbar": {
@@ -4279,52 +4266,52 @@
       "basics": {
         "title": "Zakat क्या है?",
         "summary": "तीसरा स्तंभ - योग्य संपत्ति पर 2.5%",
-        "body": "Zakat Islam का तीसरा स्तंभ है, जो Salah और Ramadan के उपवास के बीच स्थित है। Qur'an में Salah क़ायम करने और Zakat देने का आदेश एक जोड़ी के रूप में कई बार दोहराया गया है - यह दर्शाता है कि Allah की ibadat और उसकी रचना की देखभाल एक साथ बुनी गई है। यह एक वैकल्पिक उपहार नहीं है बल्कि एक निश्चित, अनिवार्य अधिकार है जो गरीबों को अमीरों की संपत्ति पर अधिकार देता है।\n\nZakat शब्द का अर्थ शुद्धि और विकास दोनों है। अपने अधिशेष का एक छोटा, निश्चित हिस्सा देने से आपका शेष धन और आपका हृदय लालच से शुद्ध हो जाता है, और - Allah के वादे के अनुसार - जो बचता है वह सिकुड़ने के बजाय आशीर्वाद में बढ़ता है।\n\nमौद्रिक संपत्ति पर मानक दर एक-चालीसवाँ है, यानी 2.5% है। तो प्रत्येक 1,000 योग्य संपत्ति के लिए जिसने अपना चंद्र वर्ष सीमा से ऊपर पूरा कर लिया है, 25 देय है। डिज़ाइन के हिसाब से यह एक मामूली हिस्सा है: देने वाले पर दबाव डाले बिना संसाधनों को जरूरतमंदों तक पहुंचाने के लिए पर्याप्त है।\n\nZakat, sadaqah के समान नहीं है। sadaqah कोई भी स्वैच्छिक दान है, जो किसी भी समय, किसी भी राशि में, लगभग किसी को भी दिया जाता है। Zakat एक परिभाषित दायित्व है - धन की निर्धारित श्रेणियों पर एक निर्धारित दर, एक बार निर्धारित शर्तें पूरी होने पर, निर्धारित श्रेणियों के लोगों को भुगतान किया जाता है। जानबूझकर इसकी उपेक्षा करना एक गंभीर पाप है; Qur'an और Sunnah दोनों ही संपत्ति का हक रोककर जमा करने के खिलाफ कड़ी चेतावनी देते हैं।"
+        "body": "ज़कात इस्लाम का तीसरा स्तंभ है, जो नमाज़ और रमज़ान के रोज़ों के बीच आता है। क़ुरआन में नमाज़ क़ायम करने और ज़कात देने का हुक्म कई बार एक साथ जोड़ी के रूप में दोहराया गया है — इससे पता चलता है कि अल्लाह की इबादत और उसकी मख़लूक़ की फ़िक्र आपस में जुड़ी हुई हैं। यह कोई वैकल्पिक तोहफ़ा नहीं, बल्कि एक तय, अनिवार्य हक़ है जो मालदारों की दौलत पर ग़रीबों का है।\n\nज़कात शब्द का अर्थ पाकीज़गी भी है और बढ़ोतरी भी। अपनी ज़रूरत से ज़्यादा दौलत का एक छोटा, तय हिस्सा देने से बाक़ी दौलत और आपका दिल लालच से पाक होता है, और — अल्लाह के वादे के अनुसार — जो बचता है वह घटने के बजाय बरकत में बढ़ता है।\n\nनक़द दौलत पर तय दर चालीसवाँ हिस्सा, यानी 2.5% है। अगर कोई योग्य दौलत निसाब से ऊपर रहते हुए अपना चंद्र वर्ष पूरा कर ले, तो हर 1,000 पर 25 देय होते हैं। यह जान-बूझकर रखा गया मामूली हिस्सा है: इतना कि ज़रूरतमंदों तक संसाधन पहुँचें, पर देने वाले पर बोझ न पड़े।\n\nज़कात और सदक़ा एक नहीं हैं। सदक़ा कोई भी नफ़्ल दान है — किसी भी मात्रा में, किसी भी समय, लगभग किसी को भी। ज़कात एक तय फ़र्ज़ है — तय दर, दौलत की तय क़िस्मों पर, तय शर्तें पूरी होने पर, लोगों की तय श्रेणियों को। इसे जान-बूझकर छोड़ना बड़ा गुनाह है; क़ुरआन और सुन्नत दोनों दौलत जमा करके उसका हक़ रोकने पर सख़्त चेतावनी देते हैं।"
       },
       "purpose": {
         "title": "क्यों Zakat - उद्देश्य और ज्ञान",
         "summary": "यह धन और आत्मा को शुद्ध करता है, और गरीबों को ऊपर उठाता है",
-        "body": "Allah Zakat के बारे में कहता है: \"उनके धन में से दान ले लो जिसके द्वारा तुम उन्हें शुद्ध करोगे और उन्हें बढ़ाओगे\" (Qur'an 9:103)। दायित्व एक साथ दो स्तरों पर काम करता है - यह देने वाले की आत्मा को कंजूसी और दुनिया के प्यार से शुद्ध करता है, और यह धन को भी शुद्ध करता है ताकि जो आपके हाथ में रहे वह पौष्टिक और धन्य हो।\n\nसामाजिक दृष्टि से, Zakat परिसंचरण की एक दैवीय रूप से आदेशित प्रणाली है। जब Nabi ﷺ ने Mu'adh को Yemen भेजा तो उसने निर्देश दिया कि Zakat को उनके अमीरों से लिया जाए और उनके गरीबों को दे दिया जाए। धन का उद्देश्य कुछ लोगों के बीच ढेर लगाना नहीं है; Zakat इसे वापस गति में लाता है ताकि जरूरतमंदों को खाना खिलाया जा सके, कर्जदारों को मुक्ति मिले और समुदाय के बंधन मजबूत हों।\n\nआध्यात्मिक रूप से, Zakat देना कृतज्ञता और विश्वास का कार्य है। यह जमा करने की मानवीय इच्छा का जवाब इस निश्चितता के साथ देता है कि प्रावधान Allah से आता है, और यह आस्तिक को देना पसंद करने के लिए प्रशिक्षित करता है। जो स्वेच्छा से भुगतान करता है वह पाता है कि उसका धन सुरक्षित है, उसका दिल हल्का हो गया है, और उसका इनाम उसके प्रभु के पास जमा हो गया है - \"उन्हें कोई डर नहीं होगा, न ही वे शोक करेंगे\" (Qur'an 2:277)।"
+        "body": "अल्लाह ज़कात के बारे में फ़रमाता है: \"आप उनके धनों से दान लें और उसके द्वारा उन (के धनों) को पवित्र और उन (के मनों) को शुध्द करें…\" (क़ुरआन 9:103)। यह फ़र्ज़ एक साथ दो स्तरों पर काम करता है — यह देने वाले की रूह को कंजूसी और दुनिया की मोहब्बत से पाक करता है, और ख़ुद दौलत को भी पाक करता है, ताकि जो आपके हाथ में रहे वह पाकीज़ा और बरकत वाला हो।\n\nसामाजिक रूप से, ज़कात दौलत को गर्दिश में रखने का अल्लाह का ठहराया हुआ निज़ाम है। जब नबी ﷺ ने मुआज़ को यमन भेजा, तो हिदायत दी कि ज़कात वहाँ के मालदारों से लेकर वहीं के ग़रीबों को दी जाए। दौलत कुछ लोगों के बीच जमा होने के लिए नहीं है; ज़कात उसे फिर से गर्दिश में लाती है, ताकि ज़रूरतमंदों को खाना मिले, क़र्ज़दार आज़ाद हों और समाज के रिश्ते मज़बूत हों।\n\nरूहानी तौर पर, ज़कात देना शुक्र और भरोसे का अमल है। यह जमा करने की इंसानी चाहत का जवाब इस यक़ीन से देता है कि रोज़ी अल्लाह की तरफ़ से है, और मोमिन को देने से मोहब्बत करना सिखाता है। जो ख़ुशी से ज़कात देता है, वह अपनी दौलत को महफ़ूज़, अपने दिल को हल्का और अपना सवाब अपने रब के पास जमा पाता है — \"उन्हें कोई डर नहीं होगा और न वे उदासीन होंगे\" (क़ुरआन 2:277)।"
       },
       "hawl": {
         "title": "चंद्र वर्ष (hawl)",
         "summary": "धन एक Hijri वर्ष के लिए nisab से ऊपर रहना चाहिए",
-        "body": "Zakat नकदी, सोना, चांदी और व्यापार संपत्ति पर आम तौर पर तभी देय होता है जब वह संपत्ति एक पूरे Hijri (चंद्र) वर्ष के लिए nisab सीमा पर या उससे ऊपर बनी रहती है, जिसे hawl के रूप में जाना जाता है। Nabi ﷺ ने सिखाया कि धन पर कोई Zakat नहीं है जब तक कि एक वर्ष बीत न जाए।\n\nव्यवहार में, उस तारीख को नोट करें जब आपकी zakatable संपत्ति पहली बार nisab तक पहुंची। वह तारीख आपकी वार्षिक Zakat वर्षगाँठ बन जाती है - प्रत्येक वर्ष, उसी Hijri तारीख को, आप अपनी हर चीज़ को महत्व देते हैं और कुल का 2.5% भुगतान करते हैं।\n\nआपको प्रत्येक सिक्के को अलग से ट्रैक करने की आवश्यकता नहीं है। अधिकांश विद्वानों का मानना ​​है कि जब तक आपका कुल वर्ष भर में nisab पर या उससे ऊपर रहता है, तब तक बीच में छोटी-मोटी गिरावट और बढ़ोतरी से कोई फर्क नहीं पड़ता - आप बस अपनी सालगिरह पर पूरे योग का आकलन करते हैं। यदि वर्ष के दौरान आपकी संपत्ति पूरी तरह से nisab से नीचे गिर जाती है, तो कई विद्वान hawl को रीसेट करने पर विचार करते हैं, केवल तभी पुनः आरंभ करते हैं जब आप अगली बार nisab पर पहुंचते हैं।\n\nयाद रखें कि Hijri (चंद्र) वर्ष सौर वर्ष से लगभग ग्यारह दिन छोटा होता है। यदि आप सुविधा के लिए किसी निश्चित Gregorian तारीख पर भुगतान करना पसंद करते हैं, तो कुछ विद्वान इसकी अनुमति देते हैं, बशर्ते कि आप छोटे चंद्र चक्र के लिए दर को थोड़ा बढ़ा दें। कृषि उपज और पशुधन अपने समय के नियमों का पालन करते हैं और उसी तरह hawl से बंधे नहीं होते हैं।"
+        "body": "नक़दी, सोना, चाँदी और व्यापार की दौलत पर ज़कात आम तौर पर तभी देय होती है जब वह दौलत पूरे एक हिजरी (चंद्र) वर्ष तक निसाब की सीमा पर या उससे ऊपर रहे — इसे हौल कहते हैं। नबी ﷺ ने सिखाया कि किसी दौलत पर तब तक ज़कात नहीं जब तक उस पर एक साल न गुज़र जाए।\n\nव्यवहार में, वह तारीख़ नोट कर लें जब आपकी ज़कात योग्य दौलत पहली बार निसाब तक पहुँची। वही तारीख़ आपकी सालाना ज़कात की तारीख़ बन जाती है — हर साल उसी हिजरी तारीख़ को अपनी सारी चीज़ों का मूल्य लगाएँ और कुल का 2.5% अदा करें।\n\nहर सिक्के का अलग हिसाब रखने की ज़रूरत नहीं। ज़्यादातर विद्वानों के अनुसार जब तक साल भर आपकी कुल दौलत निसाब पर या उससे ऊपर रहे, बीच के छोटे उतार-चढ़ाव से फ़र्क़ नहीं पड़ता — आप बस अपनी तारीख़ पर पूरी रक़म का हिसाब लगाएँ। अगर साल के दौरान आपकी दौलत पूरी तरह निसाब से नीचे चली जाए, तो कई विद्वान मानते हैं कि हौल नए सिरे से शुरू होता है, यानी जब आप अगली बार निसाब तक पहुँचें।\n\nयाद रखें कि हिजरी (चंद्र) वर्ष सौर वर्ष से लगभग ग्यारह दिन छोटा होता है। अगर सुविधा के लिए आप किसी तय ग्रेगोरियन तारीख़ पर अदा करना चाहें, तो कुछ विद्वान इसकी इजाज़त देते हैं, बशर्ते छोटे चंद्र चक्र की भरपाई के लिए दर थोड़ी बढ़ा दें। खेती की पैदावार और मवेशियों के अपने अलग समय-नियम हैं और वे इस तरह हौल से बँधे नहीं होते।"
       },
       "nisab": {
         "title": "Nisab - न्यूनतम सीमा",
         "summary": "~87.5 ग्राम सोने या ~595-612 ग्राम चांदी के विरुद्ध मापा गया",
-        "body": "Nisab वह न्यूनतम राशि है जो किसी व्यक्ति के पास Zakat अनिवार्य होने से पहले होनी चाहिए। कोई व्यक्ति जिसकी शुद्ध संपत्ति पूरे वर्ष nisab से नीचे रहती है, उस पर कोई Zakat बकाया नहीं है - दायित्व केवल उन लोगों पर है जिनके पास वास्तविक अधिशेष है।\n\nNabi ﷺ ने अपने समय की मुद्रा की सीमा तय की: 20 दीनार सोना या 200 दिरहम चाँदी। वजन में यह लगभग 85-87.5 ग्राम सोना और लगभग 595-612 ग्राम चांदी बैठता है (छोटी भिन्नता दिरहम के विभिन्न विद्वानों के रूपांतरण को दर्शाती है)। यह कैलकुलेटर लगभग 87.48 ग्राम सोने और 612.36 ग्राम चांदी के व्यापक रूप से उद्धृत आंकड़ों का उपयोग करता है।\n\nचूँकि सोने और चाँदी का व्यापार अब उस अनुपात पर नहीं होता जैसा कि वे पैगंबर के युग में करते थे, दोनों सीमाएँ अब बहुत अलग मौद्रिक मूल्य देती हैं - चाँदी nisab बहुत कम है। इसलिए कई समकालीन विद्वान नकदी और मिश्रित संपत्ति को चांदी के मुकाबले मापने की सलाह देते हैं nisab: यह अधिक लोगों को उत्तरदायी बनाता है, लेकिन इसका मतलब है कि अधिक गरीबों की मदद की जाती है, जो दायित्व की भावना है। अन्य लोग सोने का अनुसरण करते हैं nisab। दोनों पद सम्मानित हैं - अपने विद्वान के मार्गदर्शन का पालन करें।"
+        "body": "निसाब दौलत की वह न्यूनतम मात्रा है जो किसी के पास होनी चाहिए, तब जाकर ज़कात फ़र्ज़ होती है। जिसकी शुद्ध दौलत पूरे साल निसाब से नीचे रहे, उस पर कोई ज़कात नहीं — यह फ़र्ज़ केवल उन पर है जिनके पास सचमुच ज़रूरत से ज़्यादा दौलत हो।\n\nनबी ﷺ ने अपने समय की मुद्रा में ये सीमाएँ तय कीं: 20 दीनार सोना या 200 दिरहम चाँदी। वज़न में यह लगभग 85–87.5 ग्राम सोना और लगभग 595–612 ग्राम चाँदी बनता है (यह छोटा अंतर दिरहम के अलग-अलग विद्वानों के हिसाब से आता है)। यह कैलकुलेटर व्यापक रूप से उद्धृत आँकड़े — लगभग 87.48 ग्राम सोना और 612.36 ग्राम चाँदी — इस्तेमाल करता है।\n\nचूँकि सोने और चाँदी का आपसी अनुपात अब वैसा नहीं जैसा नबी ﷺ के ज़माने में था, इसलिए दोनों सीमाएँ अब बहुत अलग मौद्रिक मूल्य देती हैं — चाँदी का निसाब कहीं कम है। इसी कारण कई समकालीन विद्वान नक़दी और मिली-जुली दौलत को चाँदी के निसाब से नापने की सलाह देते हैं: इससे ज़्यादा लोगों पर ज़कात लागू होती है, और इसका मतलब है कि ज़्यादा ग़रीबों की मदद होती है, जो इस फ़र्ज़ की असल भावना है। दूसरे विद्वान सोने के निसाब का पालन करते हैं। दोनों राय सम्मानित हैं — अपने आलिम के मार्गदर्शन पर चलें।"
       },
       "zakatable": {
-        "title": "जो सामान्यतः zakatable है",
+        "title": "आम तौर पर किन चीज़ों पर ज़कात होती है",
         "summary": "नकद, धातु, निवेश, व्यापारिक वस्तुएँ, प्राप्य",
-        "body": "Zakat उस धन पर देय है जिसमें बढ़ने की क्षमता है - धन और धन के रूप में रखी गई चीजें - न कि उन वस्तुओं पर जिनका आप बस उपयोग करते हैं। स्कूलों में जिन मुख्य श्रेणियों पर सहमति बनी है वे हैं नकदी, सोना और चांदी, व्यापारिक सामान, और (अपने नियमों के साथ) फसलें और पशुधन।\n\nआज आमतौर पर zakatable: हाथ में नकदी और बैंक खातों में; सोना और चाँदी, जिसमें बुलियन, सिक्के भी शामिल हैं, और भंडारित jewellery जो नियमित उपयोग में नहीं है; stocks, शेयर और म्यूचुअल फंड का मूल्य उनके मौजूदा बाजार मूल्य पर; किसी व्यवसाय (व्यापारिक सामान) का माल और सूची, पुनर्विक्रय मूल्य पर मूल्यांकित; मजबूत प्राप्य - ऋण और चालान जिन्हें आप उचित रूप से एकत्र करने की उम्मीद करते हैं; और किराये या व्यावसायिक आय को आपने खर्च करने के बजाय बचाया है।\n\nकई विद्वान सुलभ सेवानिवृत्ति बचत और परिसंपत्ति के रूप में रखी गई मुद्राओं को नकदी या निवेश की तरह मानते हैं। जब संदेह होता है, तो मार्गदर्शक प्रश्न सरल होता है: क्या यह संपत्ति मूल्य का भंडार है या विकास का एक साधन है जिसे मैं नष्ट कर सकता हूं?यदि हां, तो यह संभवतः zakatable है। अपनी Zakat तारीख को हर चीज़ का मूल्य आज के बाज़ार मूल्य पर रखें - न कि उस मूल्य पर जो आपने मूल रूप से भुगतान किया था।"
+        "body": "ज़कात उस दौलत पर देय है जिसमें बढ़ने की क्षमता हो — पैसा और पैसे के रूप में रखी चीज़ें — न कि उन चीज़ों पर जिन्हें आप बस इस्तेमाल करते हैं। सभी मज़हबों में सहमति वाली मुख्य श्रेणियाँ हैं: नक़दी, सोना और चाँदी, व्यापार का माल, और (अपने अलग नियमों के साथ) फ़सलें और मवेशी।\n\nआज आम तौर पर ज़कात योग्य: हाथ में और बैंक खातों में रखी नक़दी; सोना और चाँदी, जिसमें बुलियन, सिक्के और नियमित इस्तेमाल में न आने वाले रखे हुए ज़ेवर शामिल हैं; शेयर, स्टॉक और म्यूचुअल फ़ंड, उनके मौजूदा बाज़ार भाव पर; कारोबार का माल और स्टॉक (व्यापार का सामान), दोबारा बेचने के भाव पर; पक्की मिलने वाली रक़में — ऐसे क़र्ज़ और बिल जिनकी वसूली की आपको उचित उम्मीद है; और किराये या कारोबार की वह आय जो आपने ख़र्च करने के बजाय बचा रखी है।\n\nकई विद्वान निकाली जा सकने वाली रिटायरमेंट बचत और संपत्ति के रूप में रखी क्रिप्टोकरेंसी को भी शामिल करते हैं, और उन्हें नक़दी या निवेश की तरह मानते हैं। शक हो तो मार्गदर्शक सवाल सीधा है: क्या यह दौलत मूल्य जमा रखने का ज़रिया है या बढ़ोतरी का साधन, जिसे मैं नक़द में बदल सकता हूँ? अगर हाँ, तो यह शायद ज़कात योग्य है। हर चीज़ का मूल्य अपनी ज़कात की तारीख़ पर आज के बाज़ार भाव से लगाएँ — उस क़ीमत से नहीं जो आपने शुरू में चुकाई थी।"
       },
       "exempt": {
-        "title": "जो आमतौर पर zakatable नहीं होता",
-        "summary": "व्यक्तिगत उपयोग की वस्तुएं, खराब jewellery, बंद पेंशन",
-        "body": "आपके सामान्य दैनिक जीवन में बंधा हुआ धन आम तौर पर zakatable नहीं होता है, क्योंकि Zakat बढ़ती हुई संपत्ति को लक्षित करता है, न कि उन चीज़ों को जिनके साथ आप रहते हैं और उपयोग करते हैं। आपका घर, आपकी कार, आपके कपड़े, फर्नीचर, उपकरण, और आपके व्यापार के उपकरण और उपकरण सभी मुक्त हैं - चाहे वे कितने भी मूल्यवान क्यों न हों।\n\nसोना और चांदी jewellery जो एक महिला नियमित रूप से पहनती है, यह अंतर का एक सर्वविदित बिंदु है। Hanafi स्कूल का मानना ​​है कि सभी सोना और चांदी पहनने पर भी zakatable हैं; बहुमत - Maliki, Shafi'i, और Hanbali - छूट jewellery को सामान्य व्यक्तिगत उपयोग के लिए रखा जाता है, लेकिन अगर इसे धन के भंडार के रूप में जमा किया जाता है या प्रथागत अलंकरण से अधिक हो तो इसे शामिल किया जाता है। आप जिस स्कूल का अनुसरण करते हैं उसके नियमों का पालन करें।\n\nपेंशन या भविष्य निधि जिसे आप अभी तक एक्सेस नहीं कर पाते हैं, उसे अक्सर तब तक बाहर रखा जाता है जब तक कि पैसा वास्तव में आपके हाथ में नहीं आ जाता है, हालांकि कुछ विद्वान सुलभ हिस्से पर Zakat की मांग करते हैं। आप पर बकाया ऋण जो कभी भी चुकाए जाने की संभावना नहीं है, आमतौर पर पुनर्प्राप्त होने तक नहीं गिना जाता है। हमेशा की तरह, बारीक विवरण स्कूलों के बीच भिन्न-भिन्न होते हैं - जब कोई मामला अस्पष्ट हो, तो अनुमान लगाने के बजाय किसी योग्य विद्वान से पूछें।"
+        "title": "आम तौर पर किन चीज़ों पर ज़कात नहीं होती",
+        "summary": "निजी इस्तेमाल की चीज़ें, पहने जाने वाले ज़ेवर, बंद पेंशन",
+        "body": "आपकी रोज़मर्रा की ज़िंदगी में लगी दौलत पर आम तौर पर ज़कात नहीं होती, क्योंकि ज़कात बढ़ने वाली दौलत पर है, उन चीज़ों पर नहीं जिनके साथ आप रहते हैं और जिन्हें इस्तेमाल करते हैं। आपका घर, आपकी गाड़ी, कपड़े, फ़र्नीचर, घरेलू उपकरण, और आपके पेशे के औज़ार व साज़-सामान — सब छूट में हैं, चाहे वे कितने भी क़ीमती हों।\n\nसोने और चाँदी के वे ज़ेवर जो कोई महिला नियमित रूप से पहनती है, एक जाना-माना मतभेद का मसला है। हनफ़ी मज़हब के अनुसार सारा सोना और चाँदी ज़कात योग्य है, चाहे पहना जाता हो; अधिकांश — मालिकी, शाफ़ई और हंबली — सामान्य निजी इस्तेमाल के ज़ेवर को छूट देते हैं, लेकिन अगर उसे दौलत के रूप में जमा किया गया हो या वह आम रिवाज के श्रृंगार से ज़्यादा हो, तो उसे शामिल करते हैं। जिस मज़हब का आप पालन करते हैं, उसके फ़ैसले पर चलें।\n\nपेंशन या प्रोविडेंट फ़ंड जिन तक आप अभी पहुँच नहीं सकते, उन्हें अक्सर तब तक नहीं गिना जाता जब तक पैसा सचमुच आपके हाथ में न आ जाए, हालाँकि कुछ विद्वान निकाले जा सकने वाले हिस्से पर ज़कात ज़रूरी मानते हैं। आपको मिलने वाले ऐसे क़र्ज़ जिनके कभी लौटने की उम्मीद नहीं, आम तौर पर वसूल होने तक नहीं गिने जाते। हमेशा की तरह, बारीक बातें मज़हबों में अलग-अलग हैं — जब कोई मामला साफ़ न हो, तो अंदाज़ा लगाने के बजाय किसी योग्य आलिम से पूछें।"
       },
       "debts": {
         "title": "ऋण एवं कटौतियाँ",
         "summary": "2.5% की गणना से पहले तत्काल ऋण काटा जा सकता है",
-        "body": "Zakat की गणना आपकी शुद्ध zakatable संपत्ति पर की जाती है, इसलिए आपके द्वारा दिए गए वास्तविक ऋण आपके द्वारा भुगतान की जाने वाली राशि को कम कर सकते हैं। सबसे स्पष्ट मामला अभी देय ऋण है - एक अवैतनिक व्यक्तिगत ऋण, बकाया क्रेडिट-कार्ड शेष, किराया या पहले से ही बकाया बिल। अधिकांश विद्वान 2.5% लागू करने से पहले इन्हें आपकी सकल संपत्ति से घटाने की अनुमति देते हैं।\n\nदीर्घकालिक ऋण जैसे कि mortgage या बहु-वर्षीय किस्त योजना को अधिक सावधानी से संभाला जाता है, क्योंकि संपूर्ण शेष राशि में कटौती करने से गृह ऋण वाले लगभग किसी भी व्यक्ति का Zakat समाप्त हो जाएगा। एक सामान्य समसामयिक दृष्टिकोण यह है कि केवल आने वाले वर्ष के भीतर देय भुगतानों में कटौती की जाए, न कि संपूर्ण बकाया राशि में। यहां स्कूल और विद्वान अलग-अलग हैं, इसलिए मार्गदर्शन के तहत एक सुसंगत विधि चुनें।\n\nदो सावधानियाँ. सबसे पहले, भविष्य या काल्पनिक खर्चों को कटौती योग्य ऋण के रूप में न मानें - केवल वही मायने रखता है जो आप पर वास्तव में बकाया है। दूसरा, पिछले वर्ष के बकाया Zakat को ऐसे न घटाएं जैसे कि यह कोई सामान्य ऋण हो; अवैतनिक Zakat एक उचित दायित्व बना हुआ है और इसका भुगतान आसानी से किया जाना चाहिए। जब आपकी ऋण स्थिति जटिल होती है, तो एक विद्वान का निर्णय किसी मोटे अनुमान से अधिक मूल्यवान होता है।"
+        "body": "ज़कात आपकी शुद्ध ज़कात योग्य दौलत पर गिनी जाती है, इसलिए आप पर जो असली क़र्ज़ हैं, वे उस रक़म को घटा सकते हैं जिस पर आप ज़कात देते हैं। सबसे साफ़ मामला अभी देय क़र्ज़ों का है — बिना चुकाया निजी क़र्ज़, बकाया क्रेडिट कार्ड बैलेंस, पहले से देय किराया या बिल। ज़्यादातर विद्वान 2.5% लगाने से पहले इन्हें कुल दौलत से घटाने की इजाज़त देते हैं।\n\nलंबी अवधि के क़र्ज़, जैसे होम लोन (मॉर्गेज) या कई साल की क़िस्त योजना, के साथ ज़्यादा सावधानी बरती जाती है, क्योंकि पूरी बकाया रक़म घटाने से होम लोन वाले लगभग हर व्यक्ति की ज़कात ख़त्म हो जाएगी। आज का एक आम तरीक़ा यह है कि केवल आने वाले साल में देय क़िस्तें घटाई जाएँ, पूरी बकाया रक़म नहीं। इसमें मज़हबों और विद्वानों में मतभेद है, इसलिए मार्गदर्शन लेकर एक ही तरीक़ा लगातार अपनाएँ।\n\nदो सावधानियाँ। पहली, भविष्य के या काल्पनिक ख़र्चों को घटाने योग्य क़र्ज़ न मानें — केवल वही गिना जाता है जो आप पर सचमुच बकाया है। दूसरी, पिछले साल की न दी गई ज़कात को आम क़र्ज़ की तरह न घटाएँ; न दी गई ज़कात एक बाक़ी फ़र्ज़ है और उसे बस अदा कर देना चाहिए। जब आपकी क़र्ज़ की स्थिति उलझी हुई हो, तो मोटे अंदाज़े से ज़्यादा क़ीमती किसी आलिम का फ़ैसला है।"
       },
       "recipients": {
         "title": "कौन प्राप्त कर सकता है Zakat",
         "summary": "Qur'an 9:60 में आठ श्रेणियां नामित",
-        "body": "Zakat केवल उन लोगों की श्रेणियों को दिया जा सकता है Allah जिनका नाम Surah at-Tawbah (9:60) में है। यह ibadat के कुछ कृत्यों में से एक है जहां प्राप्तकर्ताओं को रहस्योद्घाटन द्वारा तय किया जाता है, न कि देने वाले की पसंद पर छोड़ दिया जाता है। आठ श्रेणियां हैं: गरीब (al-fuqara); जरूरतमंद (al-masakin); Zakat को एकत्र करने और प्रशासित करने के लिए नियोजित लोग; जिनके दिलों में मेल-मिलाप होना है (al-mu'allafah); बंदियों और बंधन में पड़े लोगों की मुक्ति (fi'r-riqab); कर्ज़ का बोझ (al-gharimin); Allah (fi sabili Allah) के कारण; और फंसे हुए यात्री (ibn as-sabil)।\n\nआठों को देना जरूरी नहीं; अपना Zakat एक भी योग्य वर्ग को देना दायित्व पूरा करता है, और इसे गरीबों और जरूरतमंदों तक पहुंचाना सबसे आम अभ्यास है।\n\nउतना ही महत्वपूर्ण यह भी है कि इसे कौन प्राप्त नहीं कर सकता है। Zakat न तो अमीरों को दिया जा सकता है, न ही उन लोगों को जिनका समर्थन करने के लिए आप पहले से ही बाध्य हैं - आपके माता-पिता, आपके बच्चे, या आपका जीवनसाथी - क्योंकि उनका समर्थन करना वैसे भी आपका कर्तव्य है। शास्त्रीय दृष्टिकोण में यह एक योग्य व्यक्ति को स्वामित्व का व्यक्तिगत हस्तांतरण है, सामान्य दान नहीं; विद्वानों में इस बात पर मतभेद है कि मस्जिद या व्यापक सार्वजनिक परियोजनाएँ जैसे संस्थान Allah के तहत योग्य हैं या नहीं। इसे Nabi ﷺ, Banu Hashim, के परिवार को Zakat के रूप में भी नहीं दिया जा सकता है। इसे जानबूझकर उन लोगों पर लक्षित करें जो Qur'anic श्रेणियों से मेल खाते हों।"
+        "body": "ज़कात केवल उन्हीं श्रेणियों के लोगों को दी जा सकती है जिनका नाम ख़ुद अल्लाह ने सूरह अत-तौबा (9:60) में लिया है। यह उन गिनी-चुनी इबादतों में से है जिनमें पाने वाले वह्य से तय हैं, देने वाले की पसंद पर नहीं छोड़े गए। आठ श्रेणियाँ ये हैं: फ़क़ीर (अल-फ़ुक़रा); मिस्कीन (अल-मसाकीन); ज़कात इकट्ठा करने और उसका प्रबंधन करने वाले कर्मचारी; जिनके दिलों को जोड़ना हो (अल-मुअल्लफ़तु क़ुलूबुहुम); ग़ुलामों और क़ैदियों को आज़ाद कराना (फ़िर-रिक़ाब); क़र्ज़ के बोझ तले दबे लोग (अल-ग़ारिमीन); अल्लाह की राह में (फ़ी सबीलिल्लाह); और रास्ते में फँसा मुसाफ़िर (इब्नुस-सबील)।\n\nआठों को देना ज़रूरी नहीं; अपनी ज़कात किसी एक योग्य श्रेणी को देने से भी फ़र्ज़ अदा हो जाता है, और फ़क़ीरों व मिस्कीनों को देना सबसे आम तरीक़ा है।\n\nउतना ही अहम यह जानना है कि ज़कात किसे नहीं दी जा सकती। ज़कात न मालदारों को दी जा सकती है, न उन्हें जिनका ख़र्च उठाना आप पर पहले से वाजिब है — आपके माता-पिता, आपके बच्चे या आपका जीवनसाथी — क्योंकि उनका ख़र्च तो आपका फ़र्ज़ है ही। पारंपरिक राय में यह किसी योग्य व्यक्ति को मिल्कियत का निजी हस्तांतरण है, आम दान नहीं; मस्जिदों या बड़ी सार्वजनिक परियोजनाओं जैसी संस्थाएँ \"अल्लाह की राह में\" के तहत आती हैं या नहीं, इस पर विद्वानों में मतभेद है। नबी ﷺ के परिवार, बनू हाशिम, को भी ज़कात के रूप में नहीं दी जा सकती। इसे सोच-समझकर उन्हीं लोगों तक पहुँचाएँ जो क़ुरआन में बताई गई श्रेणियों में आते हों।"
       },
       "otherRates": {
         "title": "अन्य प्रकार के Zakat और Zakat al-fitr",
         "summary": "फसलें, पशुधन और Eid से पहले Zakat al-fitr अलग-अलग होते हैं",
-        "body": "2.5% की दर धन और व्यापार संपत्ति पर लागू होती है - Zakat al-mal, जिसे यह कैलकुलेटर कवर करता है। कई अन्य श्रेणियों के नियम और दरें बिल्कुल अलग हैं।\n\nफसलें और फल कटाई के समय Zakat देय होते हैं, एक वर्ष के बाद नहीं: बारिश या झरनों द्वारा प्राकृतिक रूप से सिंचित भूमि के लिए दर 10% (ushr) है, और कृत्रिम प्रयास या लागत से सिंचित भूमि के लिए 5% है। चरने वाले पशुधन - ऊँट, मवेशी, भेड़, और बकरियाँ जो वर्ष के अधिकांश समय स्वतंत्र रूप से चरते हैं - की अपनी प्रजाति-दर-प्रजाति गिनती और स्लाइडिंग स्केल होते हैं, जो सीधे Sunnah से खींचे जाते हैं।\n\nZakat al-fitr फिर से अलग है, और हर मुसलमान को यह जानना चाहिए। यह एक छोटा, निश्चित दान है - लगभग एक सा' (लगभग 2.5-3 किग्रा) मुख्य भोजन जैसे कि खजूर, जौ, गेहूं, या चावल, या कई फैसलों में इसका नकद मूल्य - घर के प्रत्येक सदस्य, युवा और बूढ़े की ओर से Ramadan के अंत में दिया जाता है। इसका उद्देश्य रोज़ेदार को किसी भी कमी से शुद्ध करना और यह सुनिश्चित करना है कि गरीबों को भी Eid मनाने के लिए भोजन मिले। Nabi ﷺ ने आदेश दिया कि इसका भुगतान Eid al-Fitr Salah से पहले किया जाए; बाद में भुगतान किया गया यह केवल सामान्य दान के रूप में गिना जाता है। इनमें से प्रत्येक श्रेणी के अपने विस्तृत निर्णय हैं - परिसंपत्ति के लिए विशिष्ट मार्गदर्शन प्राप्त करें।"
+        "body": "2.5% की दर पैसे और व्यापार की दौलत पर लागू होती है — ज़कातुल माल, जिसे यह कैलकुलेटर शामिल करता है। कई दूसरी श्रेणियों के नियम और दरें बिल्कुल अलग हैं।\n\nफ़सलों और फलों पर ज़कात कटाई के समय देय होती है, एक साल बाद नहीं: बारिश या झरनों से प्राकृतिक रूप से सींची गई ज़मीन के लिए दर 10% (उश्र) है, और मेहनत या ख़र्च से सींची गई ज़मीन के लिए 5%। चरने वाले मवेशी — ऊँट, गाय-बैल, भेड़ और बकरियाँ जो साल के ज़्यादातर हिस्से में खुले चरते हैं — हर जानवर के लिए अपना अलग निसाब और घटती-बढ़ती तालिका रखते हैं, जो सीधे सुन्नत से ली गई है।\n\nसदक़ा-ए-फ़ित्र (ज़कातुल फ़ित्र) फिर अलग है, और हर मुसलमान को इसे जानना चाहिए। यह एक छोटा, तय सदक़ा है — लगभग एक साअ (करीब 2.5–3 किग्रा) मुख्य अनाज जैसे खजूर, जौ, गेहूँ या चावल, या कई फ़ैसलों के अनुसार उसका नक़द मूल्य — जो रमज़ान के आख़िर में घर के हर सदस्य, छोटे-बड़े, की ओर से दिया जाता है। इसका मक़सद रोज़ेदार को हर कमी से पाक करना और यह पक्का करना है कि ग़रीबों के पास भी ईद मनाने के लिए खाना हो। नबी ﷺ ने हुक्म दिया कि इसे ईदुल फ़ित्र की नमाज़ से पहले अदा किया जाए; बाद में दिया जाए तो वह केवल आम सदक़ा गिना जाता है। इनमें से हर श्रेणी के अपने विस्तृत अहकाम हैं — उस ख़ास संपत्ति के लिए अलग मार्गदर्शन लें।"
       },
       "mistakes": {
         "title": "बचने योग्य सामान्य गलतियाँ",
         "summary": "त्रुटियाँ जो Zakat को अमान्य या गलत गणना करती हैं",
-        "body": "यहां तक ​​कि ईमानदार मुसलमान भी अक्सर Zakat के व्यावहारिक विवरण से चूक जाते हैं। सामान्य त्रुटियों को जानने से आपको सही ढंग से और मानसिक शांति के साथ भुगतान करने में मदद मिलती है।\n\nhawl या सालगिरह को भूल जाना: यादृच्छिक समय पर भुगतान करना, या वर्षों को छोड़ देना, एक बकाया दायित्व छोड़ देता है। हर साल एक Hijri तारीख तय करें और उस पर अपनी संपत्ति का आकलन करें।\n\nसंपत्ति की गलत गणना करना: सोने या शेयरों का मूल्यांकन आज के बाजार मूल्य के बजाय उनके खरीद मूल्य पर करना, कई खातों या मुद्राओं में रखी नकदी को भूल जाना, या व्यावसायिक सूची और आपके पास बकाया धन को नजरअंदाज करना। Zakat उस सभी zakatable पर है जो आपकी तिथि पर आपके स्वामित्व में है।\n\nगलत लोगों को देना: माता-पिता, बच्चों, या जीवनसाथी को सौंपना जिसका आप पहले से ही समर्थन करते हैं, या इसे किसी अच्छे कारण के लिए सामान्य दान के रूप में मानना। इसे आठ Qur'anic श्रेणियों में से एक तक पहुंचना होगा।\n\nइरादे की त्रुटियाँ: पूरे वर्ष उदारतापूर्वक देना लेकिन कभी भी इसका कोई इरादा नहीं रखना Zakat। Zakat ibadat का एक कार्य है और इसके इरादे की आवश्यकता है (niyyah) कि यह विशेष भुगतान आपका अनिवार्य है Zakat।\n\nऋणों में अधिक कटौती करना: बिल को कम करने के लिए संपूर्ण दीर्घकालिक mortgage, या भविष्य के खर्चों को घटाना जो अभी तक बकाया नहीं हैं। केवल वास्तविक, वर्तमान देनदारियाँ ही आपकी zakatable संपत्ति को कम करती हैं। जब इनमें से कोई भी आपकी स्थिति के लिए अस्पष्ट हो, तो अनुमान लगाने के बजाय किसी योग्य विद्वान से पूछें।"
+        "body": "नेक नीयत वाले मुसलमान भी अक्सर ज़कात की व्यावहारिक बारीकियों में चूक जाते हैं। आम ग़लतियों को जानने से आप सही तरीक़े से और दिल के इत्मीनान के साथ अदा कर पाते हैं।\n\nहौल या सालाना तारीख़ भूल जाना: कभी भी अदा कर देना, या कुछ साल छोड़ देना, एक बाक़ी फ़र्ज़ छोड़ देता है। हर साल के लिए एक हिजरी तारीख़ तय करें और उसी दिन अपनी दौलत का हिसाब लगाएँ।\n\nदौलत गलत गिनना: सोने या शेयरों का मूल्य आज के बाज़ार भाव के बजाय ख़रीद के भाव पर लगाना, कई खातों या मुद्राओं में रखी नक़दी भूल जाना, या कारोबार का माल और आपको मिलने वाली रक़में नज़रअंदाज़ करना। ज़कात आपकी तारीख़ पर आपकी मिल्कियत की हर ज़कात योग्य चीज़ पर है।\n\nग़लत लोगों को देना: माता-पिता, बच्चों या जीवनसाथी को ज़कात देना जिनका ख़र्च आप पहले से उठाते हैं, या इसे किसी भी अच्छे काम के लिए आम दान समझ लेना। इसे क़ुरआन में बताई गई आठ श्रेणियों में से किसी तक पहुँचना ज़रूरी है।\n\nनीयत की ग़लतियाँ: साल भर दिल खोलकर देना, लेकिन उसमें से किसी को भी ज़कात की नीयत से न देना। ज़कात एक इबादत है और इसके लिए यह नीयत ज़रूरी है कि यह ख़ास अदायगी आपकी फ़र्ज़ ज़कात है।\n\nक़र्ज़ ज़्यादा घटाना: रक़म कम करने के लिए लंबी अवधि का पूरा होम लोन (मॉर्गेज) या भविष्य के ऐसे ख़र्च घटा देना जो अभी देय ही नहीं। केवल असली, मौजूदा देनदारियाँ ही आपकी ज़कात योग्य दौलत घटाती हैं। जब इनमें से कुछ भी आपकी स्थिति में साफ़ न हो, तो मान लेने के बजाय किसी योग्य आलिम से पूछें।"
       }
     },
     "recipientsListTitle": "आठ श्रेणियाँ",
@@ -4366,36 +4353,10 @@
     "nisabWeightGold": "सोना: ~87.48 ग्राम (≈ 7.5 tola)",
     "nisabWeightSilver": "चाँदी: ~612.36 ग्राम (≈ 52.5 tola)",
     "nisabWeightNote": "सटीक वजन और कौन सी धातु को प्राथमिकता दी जाए, यह स्कूलों के बीच थोड़ा भिन्न होता है। कैलकुलेटर इन व्यापक रूप से उद्धृत Hanafi आंकड़ों का उपयोग करता है।",
-    "quran": [
-      {
-        "excerpt": "ज़कात के ख़र्च केवल गरीब, मुहताज, इकट्ठा करने वालों, दिल मिलाने वालों, बंदियों की मुक्ति, क़र्ज़दारों, अल्लाह के मक़सद और मुसाफ़िर के लिए हैं — अल्लाह की तरफ़ से एक फ़र्ज़। और अल्लाह जानने वाला, हिकमत वाला है।"
-      },
-      {
-        "excerpt": "उनकी दौलत से एक सदक़ा लो जिससे तुम उन्हें शुद्ध करो और बढ़ाओ, और उन पर दुआ करो। बेशक तुम्हारी दुआ उनके लिए सुकून है। और अल्लाह सुनने वाला, जानने वाला है।"
-      },
-      {
-        "excerpt": "ऐ ईमान वालों, अपनी कमाई की अच्छी चीज़ों से और जो हमने तुम्हारे लिए ज़मीन से पैदा किया उससे ख़र्च करो।"
-      },
-      {
-        "excerpt": "जो ईमान लाए और नेकी की और नमाज़ क़ायम की और ज़कात दी, उनका अज्र उनके रब के पास है, और उन्हें कोई ख़ौफ़ नहीं होगा और न वे ग़म करेंगे।"
-      }
-    ],
-    "hadith": [
-      {
-        "excerpt": "इस्लाम पाँच चीज़ों पर बना है: गवाही कि अल्लाह के सिवा कोई माबूद नहीं और मुहम्मद अल्लाह के रसूल हैं, नमाज़ क़ायम करना, ज़कात देना, घर की हज, और रमज़ान का रोज़ा।"
-      },
-      {
-        "excerpt": "नबी ﷺ ने मुआज़ को यमन भेजा और कहा: उन्हें सिखाओ कि अल्लाह ने उन पर ज़कात फ़र्ज़ की है — उनके अमीर से लेकर उनके गरीब को लौटाओ।"
-      },
-      {
-        "excerpt": "सोना या चाँदी का कोई मालिक नहीं जो उस पर देय अदा न करे मगर क़यामत के दिन उसके लिए आग की थालियाँ बनेंगी, जहन्नम की आग में गरम की जाएँगी, और उसकी कमर, पेशानी और पीठ उनसे जलती होंगी।"
-      },
-      {
-        "excerpt": "जब तुम्हारे पास दो सौ दिरहम हों और एक साल गुज़र जाए, तो पाँच दिरहम देय हैं। और किसी संपत्ति पर ज़कात तब तक नहीं जब तक एक साल न गुज़र जाए।"
-      }
-    ],
+    "quran": [{}, {}, {}, {}],
+    "hadith": [{}, {}, {}, {}],
     "assetsTitle": "आपका धन",
-    "assetsHint": "अपनी चयनित मुद्रा में वर्तमान बाज़ार मूल्य दर्ज करें। सोने और चांदी को वजन (tola, ग्राम, karat) के आधार पर भी दर्ज किया जा सकता है। निजी घरों और कारों को आमतौर पर छूट दी जाती है - संपत्ति अनुभाग का उपयोग केवल निवेश या व्यापार परिसंपत्तियों के लिए करें।",
+    "assetsHint": "अपनी चुनी हुई मुद्रा में मौजूदा बाज़ार मूल्य दर्ज करें। सोना और चाँदी वज़न (तोला, ग्राम, कैरेट) से भी दर्ज किए जा सकते हैं। निजी घर और गाड़ियाँ आम तौर पर छूट में होती हैं — संपत्ति वाला भाग केवल निवेश या व्यापार की संपत्ति के लिए इस्तेमाल करें।",
     "learnMore": "और अधिक जानें",
     "reset": {
       "title": "कैलकुलेटर रीसेट करें?",
@@ -4405,8 +4366,8 @@
       "hint": "पुष्टि के लिए पूछता है, फिर दर्ज की गई सभी राशियाँ साफ़ कर देता है"
     },
     "sectionInfo": {
-      "educational": "Qur'an और Sunnah से शैक्षिक सारांश - व्यक्तिगत fatwa नहीं।",
-      "footnote": "स्कूलों में विवरण (jewellery, mortgages, खिलाया गया पशुधन, crypto) पर मतभेद है। अपने मामले के बारे में किसी योग्य विद्वान से पूछें।",
+      "educational": "क़ुरआन और सुन्नत से शैक्षिक सारांश — निजी फ़तवा नहीं।",
+      "footnote": "बारीकियों (ज़ेवर, होम लोन, चारा खिलाए गए मवेशी, क्रिप्टो) पर मज़हबों में मतभेद है। अपने मामले के लिए किसी योग्य आलिम से पूछें।",
       "openGuide": "पूरी गाइड खोलें",
       "a11y": "{{section}} के बारे में और जानें",
       "currency": {
@@ -4415,42 +4376,41 @@
       },
       "liquid": {
         "title": "नकदी और कीमती धातुएँ",
-        "body": "धन के रूप में रखी गई नकदी, बैंक शेष और सोना या चांदी सबसे स्पष्ट संपत्ति में से हैं। Nabi ﷺ सोने और चांदी पर बकाया राशि रोकने के बारे में सख्त चेतावनी दी। सामान्य उपयोग के लिए पहना जाने वाला Jewellery स्कूलों के बीच अंतर का एक ज्ञात बिंदु है - अपने madhhab का पालन करें। आप यहां नकद मूल्य दर्ज कर सकते हैं, या अगले भाग में वजन के आधार पर धातुओं की गणना कर सकते हैं।"
+        "body": "नक़दी, बैंक बैलेंस, और दौलत के रूप में रखा सोना या चाँदी सबसे साफ़ ज़कात योग्य संपत्तियों में से हैं। नबी ﷺ ने सोने और चाँदी का हक़ रोकने पर सख़्त चेतावनी दी। सामान्य इस्तेमाल के लिए पहने जाने वाले ज़ेवर मज़हबों के बीच एक जाना-माना मतभेद का मसला है — अपने मज़हब का पालन करें। आप यहाँ नक़द मूल्य दर्ज कर सकते हैं, या अगले भाग में वज़न से धातुओं का हिसाब लगा सकते हैं।"
       },
       "metals": {
         "title": "वजन के हिसाब से सोना और चांदी",
-        "body": "Nisab को वजन के आधार पर Sunnah में तय किया गया था: लगभग 20 दीनार सोना या 200 दिरहम चांदी (आमतौर पर ~87.5 ग्राम सोना या ~612 ग्राम चांदी के रूप में उद्धृत)। Karat और शुद्धता मायने रखती है क्योंकि Zakat शुद्ध धातु सामग्री पर है। लाइव कीमतें 24k / महीन धातु प्रति ग्राम के लिए हैं - अपनी इकाई (ग्राम, tola, troy oz) और karat चुनें ताकि कैलकुलेटर सही ढंग से परिवर्तित हो सके।"
+        "body": "सुन्नत में निसाब वज़न से तय किया गया: लगभग 20 दीनार सोना या 200 दिरहम चाँदी (आम तौर पर ~87.5 ग्राम सोना या ~612 ग्राम चाँदी बताया जाता है)। कैरेट और शुद्धता मायने रखती है, क्योंकि ज़कात शुद्ध धातु की मात्रा पर है। लाइव भाव 24 कैरेट / शुद्ध धातु प्रति ग्राम के हैं — अपनी इकाई (ग्राम, तोला, ट्रॉय औंस) और कैरेट चुनें ताकि कैलकुलेटर सही रूपांतरण करे।"
       },
       "investments": {
         "title": "निवेश और व्यापार",
-        "body": "व्यापार की वस्तुएं, माल और संपत्ति बढ़ने के लिए आम तौर पर आज के बाजार मूल्य पर zakatable हैं। शेयर और फंड को आमतौर पर व्यापार संपत्ति की तरह महत्व दिया जाता है। आपके द्वारा एकत्र की जाने वाली मजबूत प्राप्य राशियाँ अक्सर शामिल होती हैं। Qur'an 2:267 आपने जो कमाया है उसमें से खर्च करने का आग्रह करता है - अपनी Zakat तिथि पर ईमानदारी से मूल्य लगाएं।"
+        "body": "व्यापार का माल, सामान और बढ़ने के लिए रखी दौलत आम तौर पर आज के बाज़ार मूल्य पर ज़कात योग्य है। शेयरों और फ़ंड का मूल्य आम तौर पर व्यापार की दौलत की तरह लगाया जाता है। पक्की मिलने वाली रक़में, जिनकी वसूली की आपको उम्मीद है, अक्सर शामिल की जाती हैं। क़ुरआन 2:267 अपनी पाक कमाई में से ख़र्च करने पर ज़ोर देता है — अपनी ज़कात की तारीख़ पर ईमानदारी से मूल्य लगाएँ।"
       },
       "property": {
         "title": "भूमि, संपत्ति एवं वाहन",
-        "body": "आपका निजी घर, निजी कार और सामान्य घरेलू सामान आम तौर पर zakatable नहीं होते - Zakat का लक्ष्य बढ़ती संपत्ति है, न कि उपयोग की वस्तुएं। निवेश, बिक्री या व्यापार के लिए रखे गए प्लॉट, मकान या वाहन को बाजार मूल्य (या किस्त निवेश प्लॉट पर पहले से भुगतान की गई राशि) पर शामिल किया जा सकता है। जब अनिश्चित हो तो किसी विद्वान से पूछें।"
+        "body": "आपका निजी घर, निजी गाड़ी और आम घरेलू सामान पर आम तौर पर ज़कात नहीं होती — ज़कात बढ़ने वाली दौलत पर है, इस्तेमाल की चीज़ों पर नहीं। निवेश, बिक्री या व्यापार के लिए रखे प्लॉट, मकान या गाड़ियाँ बाज़ार मूल्य पर शामिल की जा सकती हैं (या क़िस्तों पर लिए गए निवेश प्लॉट पर अब तक चुकाई गई रक़म)। शक हो तो किसी आलिम से पूछें।"
       },
       "livestock": {
         "title": "पशुधन (चरने वाले झुंड)",
         "body": "स्वतंत्र रूप से चरने वाली भेड़, बकरी, मवेशी और ऊँटों के अपने Sunnah तराजू और जानवर nisab होते हैं (उदाहरण के लिए 40 भेड़, 30 मवेशी, 5 ऊँट) - 2.5% धन दर नहीं। देय का भुगतान आमतौर पर निर्दिष्ट आयु के जानवरों में किया जाता है। व्यवसाय के रूप में पाले गए पशु अक्सर व्यापार-वस्तु नियमों का पालन करते हैं। यहां वैकल्पिक नकद मूल्य केवल एक योजना अनुमान है।"
       },
       "agriculture": {
-        "title": "कृषि एवं फसल (ushr)",
-        "body": "Zakat फसलों पर फसल कटाई के समय देय होती है, चंद्र वर्ष के बाद नहीं। सुप्रसिद्ध दर 10% (ushr) है जब भूमि को बारिश या झरनों से पानी दिया जाता है, और 5% जब सिंचाई में प्रयास या पैसा खर्च होता है। इस सीज़न की फसल का बाज़ार मूल्य दर्ज करें और वह जल स्रोत चुनें जो आपकी स्थिति से मेल खाता हो।",
-        "localRefLabel": "Qur'an 6:141",
-        "localRefExcerpt": "और वही है जो जालीदार और बिना जालीदार बगीचे पैदा करता है, और खजूर के पेड़ और भिन्न-भिन्न स्वादों की फसलें, और जैतून और अनार, समान और असमान पैदा करता है। जब वे फल लाएँ तो उनका फल खाओ, और फ़सल के दिन उनका हक़ अदा करो. . ."
+        "title": "खेती और फ़सल (उश्र)",
+        "body": "फ़सलों पर ज़कात कटाई के समय देय होती है, चंद्र वर्ष के बाद नहीं। जानी-मानी दर 10% (उश्र) है जब ज़मीन बारिश या झरनों से सींची जाए, और 5% जब सिंचाई में मेहनत या पैसा लगे। इस मौसम की फ़सल का बाज़ार मूल्य दर्ज करें और अपनी स्थिति के अनुसार पानी का स्रोत चुनें।",
+        "localRefLabel": "क़ुरआन 6:141"
       },
       "deductions": {
         "title": "कटौती",
-        "body": "Zakat शुद्ध zakatable संपत्ति है। अब देय तत्काल ऋण आमतौर पर 2.5% लागू करने से पहले काट लिए जाते हैं। दीर्घकालिक mortgages को अधिक सावधानी से व्यवहार किया जाता है - कई समकालीन विद्वान केवल आने वाले वर्ष के भुगतान में कटौती करते हैं, संपूर्ण शेष राशि में नहीं। तत्काल देय जीवन-यापन व्यय की अनुमति केवल तभी दी जाती है जब आपका विद्वान अनुमति देता है।"
+        "body": "ज़कात शुद्ध ज़कात योग्य दौलत पर है। अभी देय तात्कालिक क़र्ज़ आम तौर पर 2.5% लगाने से पहले घटा दिए जाते हैं। लंबी अवधि के होम लोन (मॉर्गेज) के साथ ज़्यादा सावधानी बरती जाती है — कई समकालीन विद्वान केवल आने वाले साल की क़िस्तें घटाते हैं, पूरी बकाया रक़म नहीं। तुरंत देय रोज़मर्रा के ख़र्च तभी घटाए जा सकते हैं जब आपके आलिम इजाज़त दें।"
       },
       "nisab": {
         "title": "Nisab सीमा",
-        "body": "Nisab धन Zakat देय होने से पहले न्यूनतम अधिशेष है। Nabi ﷺ ने इसे 20 दीनार सोने या 200 दिरहम चांदी पर तय किया, और सिखाया कि जब तक धन पर एक वर्ष बीत नहीं जाता, तब तक कोई Zakat बकाया नहीं है। क्योंकि आज सोने और चांदी की कीमतें अलग-अलग हैं, कई विद्वान निचली (अक्सर चांदी) सीमा को प्राथमिकता देते हैं ताकि अधिक गरीबों को मदद मिल सके। यह कैलकुलेटर दो लाइव अनुमानों में से निम्न का सुझाव देता है।"
+        "body": "निसाब वह न्यूनतम अतिरिक्त दौलत है जिसके बाद दौलत पर ज़कात देय होती है। नबी ﷺ ने इसे 20 दीनार सोना या 200 दिरहम चाँदी तय किया, और सिखाया कि जब तक दौलत पर एक साल न गुज़र जाए, ज़कात देय नहीं। चूँकि आज सोने और चाँदी के भाव बहुत अलग हैं, कई विद्वान कम (अक्सर चाँदी वाली) सीमा को तरजीह देते हैं, ताकि ज़्यादा ग़रीबों की मदद हो। यह कैलकुलेटर दोनों लाइव अनुमानों में से कम वाला सुझाता है।"
       }
     },
     "groupHint": {
-      "liquid": "नकद, crypto, और धातु मूल्य आप पहले से ही जानते हैं। या धातु कार्ड में वजन का उपयोग करें.",
-      "investments": "Stocks, व्यापार माल, प्राप्य, और आज के मूल्य पर बचाई गई व्यावसायिक आय।",
+      "liquid": "नक़दी, क्रिप्टो और धातुओं का मूल्य जो आपको पहले से पता है। या धातु वाले कार्ड में वज़न का उपयोग करें।",
+      "investments": "शेयर, व्यापार का माल, मिलने वाली रक़में और बचाई गई व्यावसायिक आय — आज के मूल्य पर।",
       "property": "केवल निवेश या व्यापार परिसंपत्तियाँ - आपका निजी घर या कार नहीं।"
     },
     "deductionsCardHint": "तत्काल ऋण (और जीवनयापन की लागत केवल तभी जब आपका विद्वान अनुमति दे)।",
@@ -4500,15 +4460,15 @@
     "nisabGoldShort": "सोना{{value}}",
     "nisabSilverShort": "चाँदी {{value}}",
     "nisabUsingLower": "निचली सीमा का उपयोग करना: {{value}}",
-    "netWealth": "शुद्ध zakatable संपत्ति",
+    "netWealth": "शुद्ध ज़कात योग्य दौलत",
     "dueLabel": "अनुमानित Zakat देय",
     "dueLabelOther": "बकाया फसलें/पशुधन (संपत्ति nisab से कम)",
     "belowNisab": "nisab से नीचे - इस अनुमान पर कोई संपत्ति नहीं Zakat (फसलें/पशुधन अभी भी लागू हो सकते हैं)",
     "hawlReminder": "याद रखें: धन Zakat तभी देय है जब यह धन पूरे चंद्र वर्ष के लिए nisab पर या उससे ऊपर रहे। फ़सलों की कटाई होने वाली है; पशुधन अपने स्वयं के Sunnah पैमाने का पालन करते हैं।",
-    "disclaimer": "केवल शैक्षिक अनुमान - व्यक्तिगत नहीं fatwa। Nisab वजन, hawl, jewellery, पशुधन चराई की स्थिति, फसल के प्रकार, संपत्ति और पात्र प्राप्तकर्ता चार स्कूलों के बीच भिन्न होते हैं। हाजिर कीमतें और FX दरें सांकेतिक हैं। अपनी स्थिति के लिए किसी योग्य विद्वान से परामर्श लें।",
+    "disclaimer": "केवल शैक्षिक अनुमान — निजी फ़तवा नहीं। निसाब के वज़न, हौल, ज़ेवर, मवेशियों के चरने की शर्तें, फ़सलों के प्रकार, संपत्ति और ज़कात के हक़दार — इन सब पर चारों मज़हबों में मतभेद है। हाज़िर भाव और मुद्रा विनिमय दरें केवल संकेत हैं। अपनी स्थिति के लिए किसी योग्य आलिम से सलाह लें।",
     "weight": {
-      "cardHint": "Tola, ग्राम, karat / शुद्धता × लाइव 24k या बढ़िया स्थान।",
-      "hint": "लाइव स्पॉट कीमतें 24k सोना और बढ़िया चांदी प्रति ग्राम हैं। अपनी इकाई चुनें (g, tola, troy oz, kg) और karat/शुद्धता - मान शुद्ध धातु × स्पॉट में परिवर्तित हो जाता है।",
+      "cardHint": "तोला, ग्राम, कैरेट / शुद्धता × 24 कैरेट या शुद्ध धातु का लाइव हाज़िर भाव।",
+      "hint": "लाइव हाज़िर भाव 24 कैरेट सोने और शुद्ध चाँदी के प्रति ग्राम हैं। अपनी इकाई (ग्राम, तोला, ट्रॉय औंस, किग्रा) और कैरेट/शुद्धता चुनें — मूल्य शुद्ध धातु × हाज़िर भाव में बदला जाता है।",
       "unit": "वजन यूनिट",
       "karat": "सोनाkarat",
       "purity": "चाँदी की शुद्धता",
@@ -4517,7 +4477,7 @@
       "units": {
         "g": "ग्राम",
         "tola": "तोला",
-        "oz": "Troy आउंस",
+        "oz": "ट्रॉय औंस",
         "kg": "किलोग्राम"
       },
       "pureGrams": "≈ {{grams}} g शुद्ध धातु",
@@ -4546,7 +4506,7 @@
       "sheep": "भेड़/बकरी (सिर)",
       "sheepHint": "Nisab 40 हेड से शुरू होता है।",
       "cattle": "मवेशी/भैंस (सिर)",
-      "cattleHint": "Nisab 30 हेड (tabi' / musinnah स्केल) से शुरू होता है।",
+      "cattleHint": "निसाब 30 जानवरों से शुरू होता है (तबीअ / मुसिन्ना तालिका)।",
       "camels": "ऊँट (सिर)",
       "camelsHint": "Nisab 5 हेड से शुरू होता है।",
       "valueTitle": "वैकल्पिक नकद मूल्य (प्रति व्यक्ति)",
@@ -4558,16 +4518,16 @@
       "cashEstimate": "नकद अनुमान: {{value}}",
       "due": {
         "sheep": "{{count}} भेड़/बकरी",
-        "cattleTabi": "{{count}} tabi' (1 वर्षीय मवेशी)",
-        "cattleMusinnah": "{{count}} musinnah (2 वर्षीय मवेशी)",
-        "bintMakhad": "{{count}} bint makhad (1 वर्षीय ऊँट)",
-        "bintLabun": "{{count}} bint labun (2 वर्षीय ऊँट)",
-        "hiqqah": "{{count}} hiqqah (3 वर्षीय ऊँट)",
-        "jadhah": "{{count}} jadhah (4 वर्षीय ऊँट)"
+        "cattleTabi": "{{count}} तबीअ (1 साल का गोवंश)",
+        "cattleMusinnah": "{{count}} मुसिन्ना (2 साल का गोवंश)",
+        "bintMakhad": "{{count}} बिन्त मख़ाज़ (1 साल की ऊँटनी)",
+        "bintLabun": "{{count}} बिन्त लबून (2 साल की ऊँटनी)",
+        "hiqqah": "{{count}} हिक़्क़ा (3 साल की ऊँटनी)",
+        "jadhah": "{{count}} जज़आ (4 साल की ऊँटनी)"
       }
     },
     "agriculture": {
-      "title": "कृषि एवं फसल (ushr)",
+      "title": "खेती और फ़सल (उश्र)",
       "cardHint": "कटाई के समय देय - 10% वर्षा/झरने, 5% सिंचित।",
       "hint": "फसल कटाई के समय - चंद्र वर्ष के बाद नहीं। वर्षा/झरनों से सिंचित भूमि के लिए दर 10% है, और जब सिंचाई में प्रयास या पैसा खर्च होता है तो 5% है (Qur'an 6:141; Sunnah)।",
       "harvest": "फसल का बाजार मूल्य",
@@ -4575,20 +4535,20 @@
       "irrigation": "जलस्रोत",
       "natural": "वर्षा / झरने (10%)",
       "irrigated": "सिंचित (5%)",
-      "naturalHint": "Ushr महंगी सिंचाई के बिना प्राकृतिक रूप से पानी देने पर 10%।",
-      "irrigatedHint": "आधा-ushr 5% जब कुओं, पंपों या सशुल्क सिंचाई द्वारा पानी दिया जाता है।",
-      "due": "Ushr देय: {{value}}"
+      "naturalHint": "बिना महँगी सिंचाई के प्राकृतिक रूप से पानी मिलने पर उश्र 10%।",
+      "irrigatedHint": "कुओं, पंपों या पैसे देकर सिंचाई होने पर आधा उश्र 5%।",
+      "due": "उश्र देय: {{value}}"
     },
     "field": {
       "cash": "नकद और बचत",
       "gold": "सोना (मूल्य)",
       "silver": "चाँदी (मूल्य)",
-      "stocks": "Stocks और निवेश",
+      "stocks": "शेयर और निवेश",
       "business": "व्यापार एवं व्यापारिक सामान",
       "receivables": "आपके ऊपर पैसा बकाया है",
       "rentalIncome": "किराये/व्यावसायिक आय की बचत",
       "otherAssets": "अन्य तरल संपत्ति",
-      "crypto": "Cryptocurrency",
+      "crypto": "क्रिप्टोकरेंसी",
       "investmentPlots": "निवेश प्लॉट (बाजार मूल्य)",
       "installmentPlotsPaid": "किस्त प्लॉट - भुगतान की गई राशि",
       "investmentProperty": "निवेश गृह/भवन",
@@ -4601,19 +4561,19 @@
     },
     "fieldHint": {
       "cash": "बैंक खाते, हाथ में नकदी और तरल बचत।",
-      "gold": "वैकल्पिक नकद मूल्य यदि आप इसे पहले से जानते हैं - या नीचे वजन का उपयोग करें (tola, karat, आदि)। Jewellery कुछ स्कूलों में रोजाना पहनने पर छूट दी जा सकती है।",
+      "gold": "अगर नक़द मूल्य पहले से पता है तो वैकल्पिक रूप से दर्ज करें — या नीचे वज़न (तोला, कैरेट आदि) का उपयोग करें। रोज़ पहने जाने वाले ज़ेवर कुछ मज़हबों में ज़कात से मुक्त हो सकते हैं।",
       "silver": "वैकल्पिक नकद मूल्य - या नीचे वजन और शुद्धता का उपयोग करें।",
       "stocks": "शेयरों, फंडों और समान निवेशों का वर्तमान बाजार मूल्य।",
       "business": "बिक्री के लिए रखे गए माल, इन्वेंट्री और माल का मूल्य।",
       "receivables": "ऋण और चालान जिन्हें आप एकत्र करने की यथोचित अपेक्षा करते हैं।",
       "rentalIncome": "किराया या व्यावसायिक मुनाफ़ा अभी भी आपके पास है - जिसे पहले ही खर्च नहीं किया गया है।",
-      "otherAssets": "आपके विद्वान के अनुसार सुलभ सेवानिवृत्ति निधि या अन्य zakatable संपत्ति।",
-      "crypto": "परिसंपत्ति के रूप में रखे गए crypto का बाज़ार मूल्य - निर्णय भिन्न-भिन्न हैं; किसी विद्वान से पूछो.",
+      "otherAssets": "आपके आलिम के अनुसार निकाली जा सकने वाली रिटायरमेंट निधि या दूसरी ज़कात योग्य दौलत।",
+      "crypto": "संपत्ति के रूप में रखी गई क्रिप्टो का बाज़ार मूल्य — अहकाम में मतभेद है; किसी आलिम से पूछें।",
       "investmentPlots": "निवेश या बिक्री के लिए धारित भूमि या भूखंड (वर्तमान बाजार मूल्य)। रहने के लिए उपयोग की जाने वाली व्यक्तिगत कृषि भूमि अलग है - किसी विद्वान से पूछें।",
       "installmentPlotsPaid": "आपने किस्त निवेश प्लॉट पर पहले ही कितना भुगतान कर दिया है (पूरा अवैतनिक अनुबंध नहीं जब तक कि आपके विद्वान ने इसे शामिल नहीं किया हो)।",
       "investmentProperty": "निवेश या व्यापार के लिए रखे गए घर या भवन - आपका निजी निवास नहीं।",
       "tradeVehicles": "बिक्री के लिए या व्यापार स्टॉक के रूप में रखी गई कारें या वाहन - व्यक्तिगत उपयोग वाले वाहन नहीं।",
-      "debts": "व्यक्तिगत ऋण, क्रेडिट कार्ड और अभी देय बिल - दीर्घकालिक mortgage योग नहीं हैं जब तक कि आपका विद्वान अनुमति न दे।",
+      "debts": "निजी क़र्ज़, क्रेडिट कार्ड और अभी देय बिल — लंबी अवधि के होम लोन (मॉर्गेज) की पूरी रक़म नहीं, जब तक आपके आलिम इजाज़त न दें।",
       "livingExpenses": "किराया, भोजन और बिल तुरंत देय हों - केवल तभी जब आपका विद्वान इस कटौती की अनुमति देता हो।",
       "nisab": "गणना की गई सीमा का उपयोग करने के लिए खाली छोड़ें, या एक कस्टम nisab दर्ज करें।"
     },
@@ -4706,7 +4666,7 @@
       "label": "अनुलग्नक (वैकल्पिक)",
       "add": "फ़ाइल जोड़ें",
       "remove": "अनुलग्नक हटाएँ",
-      "hint": "अधिकतम 5 फ़ाइलें (JPEG, पीएनजी, WebP, या पीडीएफ), प्रत्येक 1 एमबी।हटाने के लिए थंबनेल पर × टैप करें।",
+      "hint": "अधिकतम 5 फ़ाइलें (JPEG, PNG, WebP या PDF), हर एक 1 MB तक। हटाने के लिए थंबनेल पर × टैप करें।",
       "signInRequired": "अपने adhkar में निजी फ़ाइलें संलग्न करने के लिए साइन इन करें।",
       "permissionDenied": "फ़ाइलें संलग्न करने के लिए अनुमति आवश्यक है.",
       "permissionTitle": "उपयोग की अनुमति दें",
@@ -4751,7 +4711,7 @@
   },
   "tahajjud": {
     "eyebrow": "रात्रि प्रार्थना",
-    "title": "Tahajjud",
+    "title": "तहज्जुद",
     "subtitle": "रात्रि प्रार्थना की स्थायी आदत बनाएँ।",
     "streakValue": "{{count}}",
     "streakCaption": "रात की लकीर",
@@ -4761,8 +4721,7 @@
     "markedTonight": "आज रात प्रार्थना की - माशाअल्लाह",
     "lastNights": "पिछली {{count}} रातें",
     "virtueTitle": "रात्रि प्रार्थना का पुण्य",
-    "virtueBody": "फर्ज़ नमाज़ों के बाद सबसे अच्छी नमाज़ रात की नमाज़ है।",
-    "virtueRef": "Sahih Muslim 1163",
+    "virtueRef": "सहीह मुस्लिम 1163",
     "streakRow": "Tahajjud लकीर",
     "calculatorCta": "रात का आखिरी तीसरा कैलकुलेटर",
     "calculatorHint": "मध्य रात्रि और Maghrib तथा Fajr से सर्वोत्तम Tahajjud विंडो ढूंढें",
@@ -4779,8 +4738,8 @@
     "eyebrow": "रात्रि प्रार्थना",
     "title": "रात्रि का अंतिम तीसरा भाग",
     "subtitle": "Tahajjud और dua के लिए सर्वश्रेष्ठ विंडो।",
-    "maghribLabel": "Maghrib",
-    "fajrLabel": "Fajr",
+    "maghribLabel": "मग़रिब",
+    "fajrLabel": "फ़ज्र",
     "basedOn": "पर आधारित",
     "autoDetect": "प्रार्थना के समय का उपयोग करें",
     "autoDetectHint": "{{location}} · समायोजित करने के लिए एक समय टैप करें",
@@ -4804,7 +4763,7 @@
     "ashuraEyebrow": "पवित्र दिन",
     "ashuraBannerTitle": "आशूरा के दिन",
     "ashuraBannerDesc": "मुहर्रम की 9वीं और 10वीं तारीख को उपवास करें - एक प्रिय sunnah जो छोटे पापों का प्रायश्चित करता है।",
-    "ramadanEyebrow": "Ramadan",
+    "ramadanEyebrow": "रमज़ान",
     "ramadanBannerTitle": "Ramadan मुबारक",
     "ramadanBannerDesc": "Qur'an का महीना - उपवास करें, प्रार्थना करें, और Allah के करीब आएं।",
     "lastTenEyebrow": "पिछली दस रातें",
@@ -4824,7 +4783,15 @@
     "arafahBannerDesc": "हज का दिल - यदि आप हज पर नहीं हैं, तो इस दिन उपवास करने से दो साल के पापों का प्रायश्चित हो जाता है।",
     "eidAdhaEyebrow": "ईद",
     "eidAdhaBannerTitle": "ईद अल-अधा मुबारक",
-    "eidAdhaBannerDesc": "बलिदान का त्योहार - प्रार्थना, तकबीर, और जरूरतमंदों के साथ साझा करना।"
+    "eidAdhaBannerDesc": "बलिदान का त्योहार - प्रार्थना, तकबीर, और जरूरतमंदों के साथ साझा करना।",
+    "cta": {
+      "events": "और जानें",
+      "ramadan": "रमज़ान खोलें",
+      "dhulHijjah": "ज़िलहिज्जा खोलें"
+    },
+    "dismiss": "अगले मौसम तक छिपाएँ",
+    "hiddenToast": "इस मौसम के लिए छिपा दिया गया",
+    "hiddenToastHint": "मौसमी बैनर कभी भी घर को अनुकूलित करें में बंद करें।"
   },
   "journal": {
     "eyebrow": "चिंतन",
@@ -4838,15 +4805,15 @@
     "editTitle": "चिंतन संपादित करें",
     "navRow": "किसी Salah पर चिंतन करें",
     "recentTitle": "हाल के चिंतन",
-    "fieldPrayer": "Salah",
-    "fieldRating": "Khushu (उपस्थिति)",
+    "fieldPrayer": "नमाज़",
+    "fieldRating": "ख़ुशू (दिल की हाज़िरी)",
     "fieldNote": "नोट (वैकल्पिक)",
     "notePlaceholder": "किसने मदद की या ध्यान भटकाया?",
     "emptyTitle": "अभी कोई चिंतन नहीं",
     "emptyDesc": "Salah के बाद एक पल रुककर लिखें कि आपका दिल कितना उपस्थित था।",
-    "avgLabel": "औसत Khushu",
-    "khushuInfoA11y": "Khushu के बारे में जानें",
-    "khushuInfoHint": "Salah गाइड में Khushu पाठ खोलता है",
+    "avgLabel": "औसत ख़ुशू",
+    "khushuInfoA11y": "ख़ुशू के बारे में जानें",
+    "khushuInfoHint": "नमाज़ गाइड में ख़ुशू वाला पाठ खोलता है",
     "outOf": "/ {{max}}",
     "totalReflections": "{{count}} चिंतन",
     "today": "आज",
@@ -4871,19 +4838,19 @@
       "stopDictate": "डिक्टेशन रोकें",
       "listening": "सुन रहा है…",
       "permissionDenied": "डिक्टेट करने के लिए माइक्रोफ़ोन अनुमति आवश्यक है। आप अभी भी टाइप कर सकते हैं।",
-      "unavailable": "इस उपकरण पर speech recognition उपलब्ध नहीं है।",
+      "unavailable": "इस डिवाइस पर आवाज़ पहचान उपलब्ध नहीं है।",
       "couldNotHear": "सुन नहीं सका — फिर कोशिश करें या टाइप करें।",
       "errorGeneric": "डिक्टेशन विफल। फिर कोशिश करें या टाइप करें।"
     },
-    "ratingHintTv": "Salah में अपनी उपस्थिति रेट करने के लिए सितारा Select करें।"
+    "ratingHintTv": "नमाज़ में अपनी दिल की हाज़िरी आँकने के लिए कोई सितारा चुनें।"
   },
   "prayerTuning": {
     "title": "Salah समय समायोजन",
-    "subtitle": "दिखाए गए Adhan समय को अपनी Masjid से मिलाएँ",
+    "subtitle": "दिखाए गए अज़ान के समय अपनी मस्जिद से मिलाएँ",
     "settingsSub": "दिखाए गए समय और उच्च अक्षांश नियम",
     "rowValue": "दिखाए गए समय",
-    "offsetTitle": "Masjid ऑफ़सेट",
-    "offsetHint": "ऐप में हर Salah का दिखाया गया समय बदलता है। सूचना अनुस्मारकों से अलग (Settings → Notifications)।",
+    "offsetTitle": "मस्जिद के अनुसार समायोजन",
+    "offsetHint": "पूरे ऐप में हर नमाज़ का दिखाया जाने वाला समय बदलता है। सूचना रिमाइंडर से अलग (सेटिंग्स → सूचनाएँ)।",
     "onTime": "समय पर",
     "earlierMin": "−{{count}} मिनट",
     "laterMin": "+{{count}} मिनट",
@@ -4962,7 +4929,7 @@
     "quickLinksTitle": "अन्वेषण करना",
     "continueInApp": "मुनीब में जारी रखें",
     "gatesListTitle": "हदीस में नामित",
-    "duaNumber": "Dua {{number}}",
+    "duaNumber": "दुआ {{number}}",
     "pathsTitle": "उच्च पद तक पहुंचने का मार्ग",
     "pathsHint": "ऐसे कार्य जो Allah की अनुमति से रैंक बढ़ाते हैं - साक्ष्य और ऐप लिंक के लिए किसी भी पथ पर टैप करें।",
     "gatesTitle": "जन्नत के दरवाज़े",
@@ -4970,7 +4937,7 @@
     "gatesSubtitle": "भिन्न-भिन्न कर्मों के लिये भिन्न-भिन्न द्वार",
     "gatesLead": "प्रामाणिक हदीसों में प्रार्थना, दान, उपवास, जिहाद और हज से प्रतिष्ठित लोगों के लिए खोले गए स्वर्ग के द्वारों का वर्णन किया गया है।कुछ को एक से अधिक माध्यमों से प्रवेश के लिए बुलाया जा सकता है।",
     "duasTitle": "स्वर्ग के लिए दुआ",
-    "duasSummary": "Hisnul Muslim से प्रार्थनाएँ",
+    "duasSummary": "हिस्नुल मुस्लिम से दुआएँ",
     "duasSubtitle": "Allah से जन्नत और आग से पनाह मांगो",
     "duasLead": "पैगंबर ﷺ ने हमें दैनिक dua में स्वर्ग - विशेष रूप से अल-फ़िरदौस - माँगना सिखाया।",
     "versesTitle": "Qur'an जन्नत पर",
@@ -4997,7 +4964,7 @@
       "tahajjudHint": "पिछले 7 दिनों में रात्रि प्रार्थना",
       "reflection": "इस सप्ताह चिंतन",
       "reflectionHint": "खुशु जर्नल प्रविष्टियाँ",
-      "quran": "Qur'an",
+      "quran": "क़ुरआन",
       "quranHint": "पढ़ना या याद रखना जारी रखें"
     },
     "intentionsTitle": "आज का इरादा",
@@ -5013,7 +4980,7 @@
     "promisedTitle": "ग्रंथों में सम्मानित",
     "firdawsCardTitle": "अल-फ़िरदौस के लिए पूछें",
     "firdawsDuaTitle": "Dua अल-फिरदौस के लिए",
-    "quranTitle": "Qur'an",
+    "quranTitle": "क़ुरआन",
     "hadithTitle": "हदीथ",
     "actionsTitle": "व्यावहारिक कदम",
     "notFound": "विषय नहीं मिला",
@@ -5039,9 +5006,9 @@
       "destroysHintTv": "वे आदतें जिनसे शरई ग्रंथ सावधान करते हैं — संबंधित पाठ के लिए कोई टाइल चुनें।"
     },
     "grade": {
-      "sahih": "Sahih",
-      "hasan": "Hasan",
-      "daif": "Da'if",
+      "sahih": "सहीह",
+      "hasan": "हसन",
+      "daif": "ज़ईफ़",
       "scholarly-opinion": "विद्वत्तापूर्ण टिप्पणी"
     },
     "verseTheme": {
@@ -5087,7 +5054,7 @@
     "duasSummary": "आग से पनाह मांगो",
     "duasSubtitle": "नमाज़, हिसनुल मुस्लिम और क़ुरआन से",
     "duasLead": "पैगंबर ﷺ ने हमें जहन्नम से सुरक्षा के लिए Allah मांगना सिखाया - विशेष रूप से प्रार्थना में और दैनिक adhkar।",
-    "duaNumber": "Dua {{number}}",
+    "duaNumber": "दुआ {{number}}",
     "refugeDuaTitle": "salah में जहन्नम से शरण",
     "reflectionTitle": "दैनिक चिंतन",
     "reflectionSummary": "स्व-जवाबदेही प्रश्न",
@@ -5113,7 +5080,7 @@
       "salahHint": "आपकी चेकलिस्ट पर पाँच दैनिक प्रार्थनाएँ",
       "istighfar": "Adhkar और इस्तिघफ़ार",
       "istighfarHint": "सुबह शाम और रोज़ याद",
-      "quran": "Qur'an",
+      "quran": "क़ुरआन",
       "quranHint": "पढ़ना या सुनना जारी रखें",
       "charity": "दान और देना",
       "charityHint": "आज के स्व-जवाबदेही इरादे",
@@ -5163,9 +5130,9 @@
       "hopeCallout": "Allah की दया से निराश न हों - वह उन लोगों के सभी पापों को क्षमा कर देता है जो पीछे मुड़ जाते हैं (Qur'an 39:53)।पश्चाताप के बिना शिर्क पर मरना एक अपवाद है जिसे पाठ स्पष्ट करते हैं।"
     },
     "grade": {
-      "sahih": "Sahih",
-      "hasan": "Hasan",
-      "daif": "Da'if",
+      "sahih": "सहीह",
+      "hasan": "हसन",
+      "daif": "ज़ईफ़",
       "scholarly-opinion": "विद्वत्तापूर्ण टिप्पणी"
     },
     "section": {
@@ -5231,7 +5198,7 @@
       },
       "adhkar": {
         "title": "दैनिक adhkar और दुआएँ",
-        "body": "सुबह और शाम की यादें, एक tasbeeh काउंटर, और पूरा Hisnul Muslim।"
+        "body": "सुबह और शाम के अज़कार, तस्बीह काउंटर, और पूरी हिस्नुल मुस्लिम।"
       },
       "personalize": {
         "title": "इसे अपना बनाएं",
@@ -5378,11 +5345,11 @@
     "titleIos": "Siri और आवाज शॉर्टकट",
     "titleAndroid": "Google सहायक और आवाज शॉर्टकट",
     "settingsSubtitleIos": "Salah को Siri या Apple Watch से अंकित करें",
-    "settingsSubtitleAndroid": "Salah को Google Assistant या Wear OS से चिह्नित करें",
-    "introIos": "चेकलिस्ट खोले बिना Salah को चिह्नित करने के लिए Siri, शॉर्टकट, या Apple Watch का उपयोग करें।EAS डेव या प्रोडक्शन बिल्ड की आवश्यकता है - Expo गो में उपलब्ध नहीं है।",
-    "introAndroid": "चेकलिस्ट खोले बिना Salah को चिह्नित करने के लिए Google असिस्टेंट, ऐप-आइकन शॉर्टकट या Wear OS का उपयोग करें।EAS डेव या प्रोडक्शन बिल्ड की आवश्यकता है - Expo गो में उपलब्ध नहीं है।",
+    "settingsSubtitleAndroid": "Google Assistant या Wear OS से नमाज़ दर्ज करें",
+    "introIos": "चेकलिस्ट खोले बिना नमाज़ दर्ज करने के लिए Siri, शॉर्टकट्स या Apple Watch का उपयोग करें। इसके लिए EAS डेवलपमेंट या प्रोडक्शन बिल्ड ज़रूरी है — Expo Go में उपलब्ध नहीं।",
+    "introAndroid": "चेकलिस्ट खोले बिना नमाज़ दर्ज करने के लिए Google Assistant, ऐप-आइकन शॉर्टकट या Wear OS का उपयोग करें। इसके लिए EAS डेवलपमेंट या प्रोडक्शन बिल्ड ज़रूरी है — Expo Go में उपलब्ध नहीं।",
     "siriTitle": "Siri और शॉर्टकट",
-    "siriHint": "TestFlight या ऐप स्टोर से इंस्टॉल करने के बाद, शॉर्टकट ऐप खोलें या कहें \"अरे Siri, मेरे Salah को Munib Tracker में चिह्नित करें\"।यदि ऐप को बलपूर्वक बंद कर दिया गया था, तो अगली बार जब आप Munib Tracker खोलते हैं तो चिह्न सिंक हो जाता है।",
+    "siriHint": "TestFlight या App Store से इंस्टॉल करने के बाद शॉर्टकट्स ऐप खोलें या कहें “Hey Siri, mark my Salah in Munib Tracker”। अगर ऐप को ज़बरदस्ती बंद किया गया था, तो अगली बार Munib Tracker खोलने पर निशान सिंक हो जाएगा।",
     "assistantTitle": "Google सहायक",
     "assistantHint": "कहें \"अरे Google, मेरे Salah को Munib Tracker में चिह्नित करें\", या Munib Tracker आइकन को लंबे समय तक दबाएं और मार्क Salah चुनें।यदि ऐप को बलपूर्वक बंद कर दिया गया था, तो अगली बार जब आप Munib Tracker खोलते हैं तो चिह्न सिंक हो जाता है।",
     "watchTitle": "Apple Watch",
@@ -5421,10 +5388,10 @@
     "settingsSubtitle": "ऐप खोलने के लिए PIN आवश्यक",
     "webUnavailable": "ऐप लॉक केवल iOS और Android पर उपलब्ध है।",
     "expoGoTitle": "Expo Go में ऐप लॉक उपलब्ध नहीं",
-    "expoGoHint": "PIN लॉक और biometrics के लिए development client या production ऐप बनाएँ।",
+    "expoGoHint": "PIN लॉक और बायोमेट्रिक्स इस्तेमाल करने के लिए डेवलपमेंट क्लाइंट या प्रोडक्शन ऐप बिल्ड करें।",
     "enterPin": "PIN दर्ज करें",
     "enterPinSubtitle": "अनलॉक करने के लिए अपना 6-अंकीय PIN दर्ज करें",
-    "unlockWithBiometrics": "Biometrics उपयोग करें",
+    "unlockWithBiometrics": "बायोमेट्रिक्स का उपयोग करें",
     "unlockWithFaceId": "Face ID उपयोग करें",
     "unlockWithTouchId": "Touch ID उपयोग करें",
     "unlockWithFingerprint": "फ़िंगरप्रिंट उपयोग करें",
@@ -5521,7 +5488,7 @@
   },
   "laylatAlQadr": {
     "eyebrow": "सीखें",
-    "title": "Laylat al-Qadr",
+    "title": "लैलतुल क़द्र",
     "subtitle": "शब-ए-क़द्र — हज़ार महीनों से बेहतर",
     "intro": "Laylat al-Qadr Ramadan के अंतिम दस दिनों की विषम रातों में छिपी होती है, किसी एक तारीख पर तय नहीं। एक अनुमानित रात के बजाय सभी में ईमानदार इबादत से तलाश करें।",
     "section": {
@@ -5539,34 +5506,34 @@
     "eyebrow": "सीखें",
     "title": "Eid गाइड",
     "subtitle": "Eid al-Fitr और Eid al-Adha — Salah, Sunnah और अहकाम",
-    "intro": "Qur'an और प्रामाणिक hadith से दोनों Eid — Eid Salah कैसे पढ़ें, Zakat al-Fitr, udhiyah, और दिन की Sunnah प्रथाएँ।",
+    "intro": "क़ुरआन और सहीह हदीस की रोशनी में दोनों ईदें — ईद की नमाज़ कैसे पढ़ें, सदक़ा-ए-फ़ित्र, क़ुर्बानी (उज़्हिया) और इस दिन की सुन्नतें।",
     "section": {
-      "fitr": "Eid al-Fitr",
-      "adha": "Eid al-Adha",
+      "fitr": "ईदुल फ़ित्र",
+      "adha": "ईदुल अज़हा",
       "prayer": "Eid Salah",
       "sunnah": "Sunnah प्रथाएँ",
-      "zakat-fitr": "Zakat al-Fitr",
-      "udhiyah": "Udhiyah (बलि)"
+      "zakat-fitr": "सदक़ा-ए-फ़ित्र",
+      "udhiyah": "उज़्हिया (क़ुर्बानी)"
     },
     "notFound": "विषय नहीं मिला",
-    "disclaimer": "शैक्षिक अवलोकन — fatwa नहीं। जहाँ madhhab भिन्न हों (जैसे अतिरिक्त takbir की संख्या), दोनों स्थितियाँ प्रस्तुत हैं; अपने imam या स्थानीय योग्य आलिम का अनुसरण करें।",
+    "disclaimer": "शैक्षिक परिचय — फ़तवा नहीं। जहाँ मज़हबों में मतभेद है (जैसे अतिरिक्त तकबीरों की संख्या), वहाँ दोनों राय दी गई हैं; अपने इमाम या किसी योग्य स्थानीय आलिम का पालन करें।",
     "continueInApp": "Munib में जारी रखें"
   },
   "friday": {
     "eyebrow": "सीखें",
     "title": "शुक्रवार और जुमा",
     "subtitle": "फ़ज़ीलतें, तैयारी, Surah al-Kahf, salawat, और Dua की स्वीकृत घड़ी",
-    "intro": "Friday वह सबसे अच्छा दिन है जिस पर सूरज उगता है। Jumu'ah की प्रामाणिक प्रथाएँ सीखें — Ghusl, Salah, Surah al-Kahf, salawat, और स्वीकृत घड़ी की तलाश — Qur'an और sahih hadith से।",
+    "intro": "जुमा उन सब दिनों में सबसे अच्छा दिन है जिन पर सूरज निकलता है। क़ुरआन और सहीह हदीस से जुमा की सही सुन्नतें सीखें — ग़ुस्ल, जुमा की नमाज़, सूरह अल-काहफ़, दुरूद, और क़बूलियत की घड़ी की तलाश।",
     "section": {
-      "virtues": "Friday की फ़ज़ीलतें",
+      "virtues": "जुमा की फ़ज़ीलतें",
       "obligation": "Jumu'ah Salah",
       "prepare": "तैयारी",
-      "kahf": "Surah al-Kahf",
-      "salawat": "Salawat",
+      "kahf": "सूरह अल-काहफ़",
+      "salawat": "दुरूद",
       "dua": "Dua की घड़ी"
     },
     "notFound": "विषय नहीं मिला",
-    "disclaimer": "शैक्षिक अवलोकन — fatwa नहीं। जहाँ madhhab भिन्न हों (जैसे Friday Ghusl wajib है या sunnah mu'akkadah), दोनों स्थितियाँ दर्ज हैं; अपने imam या योग्य स्थानीय विद्वान का अनुसरण करें।",
+    "disclaimer": "शैक्षिक परिचय — फ़तवा नहीं। जहाँ मज़हबों में मतभेद है (जैसे जुमा का ग़ुस्ल वाजिब है या सुन्नत-ए-मुअक्कदा), वहाँ दोनों राय दी गई हैं; अपने इमाम या किसी योग्य स्थानीय आलिम का पालन करें।",
     "continueInApp": "Munib में जारी रखें"
   },
   "whiteDays": {
@@ -5582,14 +5549,14 @@
       "track": "मुनीब में ट्रैक करें"
     },
     "notFound": "विषय नहीं मिला",
-    "disclaimer": "शैक्षिक सिंहावलोकन - फतवा नहीं।सटीक तारीखें हिजरी महीने पर निर्भर करती हैं, जो चंद्रमा के दिखने के अनुसार बदलती रहती है;धार्मिक तिथियों और फैसलों के लिए अपने स्थानीय masjid या किसी योग्य विद्वान का अनुसरण करें।",
+    "disclaimer": "शैक्षिक परिचय — फ़तवा नहीं। सटीक तारीख़ें हिजरी महीने पर निर्भर करती हैं, जो चाँद दिखने के अनुसार बदलता है; धार्मिक तारीख़ों और अहकाम के लिए अपनी स्थानीय मस्जिद या किसी योग्य आलिम का पालन करें।",
     "continueInApp": "मुनीब में जारी रखें"
   },
   "ruqyah": {
     "eyebrow": "सीखें",
-    "title": "Ruqyah",
-    "subtitle": "Qur'anic और नबवी आध्यात्मिक उपचार",
-    "intro": "Ruqyah Qur'an, Allah के नाम, या प्रामाणिक नबवी supplications का पाठ शफा और सुरक्षा के लिए है — कभी भी Salah या चिकित्सा देखभाल का विकल्प नहीं।",
+    "title": "रुक़्या",
+    "subtitle": "क़ुरआन और सुन्नत से रूहानी इलाज",
+    "intro": "रुक़्या का मतलब है शिफ़ा और हिफ़ाज़त के लिए क़ुरआन, अल्लाह के नाम या नबी ﷺ से साबित दुआएँ पढ़ना — यह कभी नमाज़ या इलाज का विकल्प नहीं।",
     "section": {
       "basics": "बुनियादी बातें",
       "verses": "मुख्य आयतें",
@@ -5602,9 +5569,9 @@
   },
   "newMuslim": {
     "eyebrow": "सीखें",
-    "title": "नए Muslim गाइड",
+    "title": "नव-मुस्लिम गाइड",
     "subtitle": "पहले दिनों और हफ़्तों के लिए एक गर्म, व्यावहारिक शुरुआत",
-    "intro": "Islam में स्वागत है। यह गाइड shahada, पाँच स्तंभ, iman की बुनियाद, और Salah पर पहली नज़र कवर करती है, फिर इस ऐप में पूरे Salah, Aqeedah, और Qur'an गाइड की ओर इशारा करती है।",
+    "intro": "इस्लाम में आपका स्वागत है। यह गाइड शहादत (कलिमा), पाँच स्तंभ, ईमान की बुनियादी बातें और नमाज़ का पहला परिचय देती है, फिर आपको इस ऐप की विस्तृत नमाज़, अक़ीदा और क़ुरआन गाइड की ओर ले जाती है।",
     "section": {
       "start": "शुरुआत",
       "pillars": "पाँच स्तंभ",
@@ -5619,30 +5586,30 @@
   },
   "finance": {
     "eyebrow": "सीखें",
-    "title": "Islamic finance",
-    "subtitle": "Riba, निष्पक्ष व्यापार, दान, और takaful",
-    "intro": "Islam द्वारा पैसे पर लाई गई नैतिक रूपरेखा का शैक्षिक परिचय — riba की मनाही, निष्पक्ष व्यापार, Zakat और Sadaqah, और takaful (सहकारी जोखिम-साझाकरण)।",
+    "title": "इस्लामी वित्त",
+    "subtitle": "रिबा, ईमानदार व्यापार, दान और तकाफ़ुल",
+    "intro": "इस्लाम पैसे के लिए जो नैतिक ढाँचा देता है, उसका शैक्षिक परिचय — रिबा (सूद) की मनाही, ईमानदार व्यापार, ज़कात और सदक़ा, और तकाफ़ुल (आपसी सहयोग से जोखिम बाँटना)।",
     "section": {
       "principles": "सिद्धांत",
-      "riba": "Riba (ब्याज)",
+      "riba": "रिबा (सूद)",
       "trade": "निष्पक्ष व्यापार",
       "giving": "दान",
-      "takaful": "Takaful",
+      "takaful": "तकाफ़ुल",
       "faq": "सामान्य प्रश्न"
     },
     "notFound": "विषय नहीं मिला",
-    "disclaimer": "सामान्य शिक्षा, वित्तीय या fatwa सलाह नहीं। फंड screener, विशिष्ट products, और आपके अनुबंधों पर फ़ैसले के लिए योग्य, प्रमाणित Islamic finance विद्वान या संस्थान की आवश्यकता है।",
+    "disclaimer": "सामान्य शिक्षा — वित्तीय सलाह या फ़तवा नहीं। फ़ंड जाँचने के टूल, विशेष वित्तीय उत्पादों और आपके अपने अनुबंधों पर फ़ैसलों के लिए किसी योग्य, प्रमाणित इस्लामी वित्त विशेषज्ञ आलिम या संस्था से संपर्क करें।",
     "continueInApp": "Munib में जारी रखें"
   },
   "dateConverter": {
     "eyebrow": "कैलेंडर",
     "title": "तारीख कनवर्टर",
-    "subtitle": "Hijri और Gregorian कैलेंडर के बीच रूपांतरित करें",
-    "intro": "दूसरे में समतुल्य देखने के लिए किसी भी कैलेंडर में तारीख दर्ज करें, आपके स्थान पर अर्धचंद्र दृश्यता से offline गणना की गई।",
+    "subtitle": "हिजरी और ग्रेगोरियन कैलेंडर के बीच बदलें",
+    "intro": "किसी भी कैलेंडर में तारीख़ दर्ज करें और दूसरे कैलेंडर में उसकी बराबर तारीख़ देखें — आपके स्थान पर हिलाल के दिखने के आधार पर ऑफ़लाइन गणना।",
     "directionTitle": "रूपांतरण दिशा",
     "toHijri": "ग्रेगोरियन → हिजरी",
     "toGregorian": "हिजरी → ग्रेगोरियन",
-    "gregorianDateLabel": "Gregorian तारीख",
+    "gregorianDateLabel": "ग्रेगोरियन तारीख़",
     "hijriDateLabel": "Hijri तारीख",
     "day": "दिन",
     "month": "महीना",
@@ -5653,47 +5620,47 @@
     "quickLinksTitle": "संबंधित",
     "quickCalendar": "इबादत कैलेंडर",
     "quickCalendarHint": "अपने Salah लॉग के साथ महीनों को ब्राउज़ करें",
-    "quickEvents": "Islamic events",
+    "quickEvents": "इस्लामी घटनाएँ",
     "quickEventsHint": "Hijri कैलेंडर पर आगामी तारीखें",
-    "quickRamadan": "Ramadan",
+    "quickRamadan": "रमज़ान",
     "quickRamadanHint": "उपवास के समय और आपका उपवास लॉग",
     "quickHistory": "प्रारंभिक इतिहास",
-    "quickHistoryHint": "Hijri वर्षों के साथ Rashidun टाइमलाइन",
+    "quickHistoryHint": "हिजरी वर्षों के साथ ख़ुलफ़ा-ए-राशिदीन की टाइमलाइन",
     "exploreTitle": "सीखना जारी रखें",
     "exploreCalendar": "कैलेंडर खोलें",
-    "exploreCalendarHint": "दिन-प्रति-दिन ibadat इतिहास देखें",
-    "exploreEvents": "Islamic events खोलें",
-    "exploreEventsHint": "आगे के मील के पत्थर और observances",
-    "disclaimer": "तारीखें आपके स्थान पर अर्धचंद्र (hilāl) दृश्यता से गणना की जाती हैं और आधिकारिक चंद्रमा दृष्टि घोषणाओं से एक दिन भिन्न हो सकती हैं — धार्मिक तिथियों के लिए हमेशा अपने स्थानीय masjid या प्राधिकरण का अनुसरण करें।"
+    "exploreCalendarHint": "दिन-ब-दिन इबादत का इतिहास देखें",
+    "exploreEvents": "इस्लामी घटनाएँ खोलें",
+    "exploreEventsHint": "आने वाले अहम दिन और मौक़े",
+    "disclaimer": "तारीख़ें आपके स्थान पर हिलाल (नए चाँद) के दिखने की संभावना से गणना की जाती हैं और आधिकारिक चाँद-दर्शन की घोषणा से एक दिन अलग हो सकती हैं — धार्मिक तारीख़ों के लिए हमेशा अपनी स्थानीय मस्जिद या संबंधित संस्था का पालन करें।"
   },
   "fidyah": {
     "eyebrow": "टूल्स",
-    "title": "Fidyah & kaffarah",
-    "subtitle": "छूटे या टूटे Ramadan rozas के लिए अनुमान सहायक — स्वचालित फ़ैसले नहीं",
-    "intro": "इसे केवल योजना अनुमान के रूप में उपयोग करें। Qur'an 2:184–185 और Sahih Muslim 1111 बुनियाद तय करते हैं; योग्य विद्वान को यह तय करना चाहिए कि आप पर qaza, fidyah, kaffarah, या कुछ और है।",
+    "title": "फ़िद्या और कफ़्फ़ारा",
+    "subtitle": "छूटे या टूटे रमज़ान के रोज़ों के लिए अनुमान सहायक — अपने-आप फ़ैसले नहीं",
+    "intro": "इसे केवल योजना के अनुमान के रूप में उपयोग करें। क़ुरआन 2:184–185 और सहीह मुस्लिम 1111 बुनियादी बातें बताते हैं; आप पर क़ज़ा, फ़िद्या, कफ़्फ़ारा या कुछ और है, यह कोई योग्य आलिम ही तय करे।",
     "helperTitle": "अनुमान सहायक",
-    "helperHint": "दिन और स्थानीय भोजन या fidya इकाई लागत दर्ज करें। विश्वसनीय स्थानीय masjid या council द्वारा प्रकाशित दर प्राथमिकता दें।",
+    "helperHint": "दिनों की संख्या और अपने यहाँ एक भोजन या फ़िद्या की इकाई की क़ीमत दर्ज करें। किसी भरोसेमंद स्थानीय मस्जिद या इस्लामी परिषद की प्रकाशित दर को प्राथमिकता दें।",
     "scenario": {
-      "fidyah": "Fidyah",
-      "kaffarah": "Kaffarah"
+      "fidyah": "फ़िद्या",
+      "kaffarah": "कफ़्फ़ारा"
     },
     "currency": "मुद्रा",
     "daysLabel": "छूटे दिन",
     "unitsLabel": "Kaffarah इकाइयाँ",
     "mealCostLabel": "एक गरीब व्यक्ति को भोजन की लागत",
-    "mealCostHint": "एक भोजन, या प्रति दिन आपकी स्थानीय प्रकाशित fidya राशि।",
+    "mealCostHint": "एक भोजन, या आपके यहाँ प्रकाशित प्रतिदिन की फ़िद्या राशि।",
     "estimateLabel": "योजना अनुमान",
     "estimateEmpty": "दिन और भोजन लागत दर्ज करें",
     "estimateFidyahDetail": "{{meals}} गरीब व्यक्ति(यों) को भोजन",
     "estimateKaffarahDetail": "{{meals}} भोजन (खिलाने का विकल्प) · या {{fasts}} लगातार उपवास दिन",
     "section": {
       "overview": "अवलोकन",
-      "fidyah": "Fidyah",
-      "kaffarah": "Kaffarah",
+      "fidyah": "फ़िद्या",
+      "kaffarah": "कफ़्फ़ारा",
       "practice": "सहायक का उपयोग"
     },
     "notFound": "विषय नहीं मिला",
-    "disclaimer": "केवल शैक्षिक अनुमान — fatwa नहीं। Madhhab विवरण भिन्न हैं; अपने मामले के लिए योग्य स्थानीय विद्वान का अनुसरण करें।",
+    "disclaimer": "केवल शैक्षिक अनुमान — फ़तवा नहीं। मज़हबों के विवरण अलग-अलग हैं; अपने मामले के लिए किसी योग्य स्थानीय आलिम का पालन करें।",
     "continueInApp": "Munib में जारी रखें",
     "fiqh": {
       "unit": {
@@ -5727,7 +5694,7 @@
     "eyebrow": "सीखना",
     "title": "Janazah मार्गदर्शक",
     "subtitle": "अंतिम संस्कार प्रार्थना, धुलाई, दफ़नाना, और प्रामाणिक दुआएँ",
-    "intro": "सामुदायिक दायित्व के रूप में Janazah का एक व्यावहारिक अवलोकन - रुकु या सुजुद के बिना चार तकबीर, Hisnul Muslim पुरुषों, महिलाओं और बच्चों के लिए दुआ, और धोने, दफनाने, शहीदों और शोक संतप्तों के लिए मार्गदर्शन।",
+    "intro": "फ़र्ज़-ए-किफ़ाया के रूप में जनाज़े का व्यावहारिक परिचय — बिना रुकू और सजदे के चार तकबीरें, पुरुषों, महिलाओं और बच्चों के लिए हिस्नुल मुस्लिम की दुआएँ, और ग़ुस्ल, दफ़न, शहीदों तथा शोक-संतप्त परिवार के लिए मार्गदर्शन।",
     "section": {
       "obligation": "दायित्व",
       "prepare": "तैयारी",
@@ -5744,7 +5711,7 @@
     "eyebrow": "टूल्स",
     "title": "Sadaqah लक्ष्य",
     "subtitle": "दैनिक या साप्ताहिक इरादा और एक सरल दान लॉग",
-    "intro": "एक स्वैच्छिक charity इरादा सेट करें और जो देते हैं उसे लॉग करें। Zakat एक अलग दायित्व रहता है — उसके लिए Zakat कैलकुलेटर उपयोग करें।",
+    "intro": "नफ़्ल सदक़े की नीयत तय करें और जो देते हैं उसे दर्ज करें। ज़कात एक अलग फ़र्ज़ है — उसके लिए ज़कात कैलकुलेटर का उपयोग करें।",
     "intentionTitle": "मेरा इरादा",
     "intentionHint": "स्वैच्छिक Sadaqah के लिए व्यक्तिगत लक्ष्य — Zakat नहीं।",
     "period": {
@@ -5759,19 +5726,19 @@
     "logTitle": "उपहार लॉग करें",
     "logAmount": "राशि",
     "logNote": "नोट (वैकल्पिक)",
-    "logNotePlaceholder": "जैसे food bank",
+    "logNotePlaceholder": "जैसे फ़ूड बैंक",
     "addEntry": "लॉग में जोड़ें",
     "logEmpty": "अभी तक कोई उपहार लॉग नहीं।",
     "learnMoreTitle": "और जानें",
     "linkZakat": "Zakat कैलकुलेटर",
-    "linkZakatHint": "अनिवार्य शुद्धिकरण charity",
+    "linkZakatHint": "माल को पाक करने वाला फ़र्ज़ सदक़ा",
     "linkFinance": "इस्लामी वित्त में सदक़ा",
     "linkFinanceHint": "स्वैच्छिक दान समझाया गया",
-    "disclaimer": "केवल व्यक्तिगत ट्रैकर — fatwa नहीं और देय होने पर Zakat की गणना का विकल्प नहीं।",
+    "disclaimer": "केवल निजी ट्रैकर — फ़तवा नहीं, और ज़कात वाजिब होने पर उसकी गणना का विकल्प भी नहीं।",
     "continueInApp": "Munib में जारी रखें"
   },
   "adhan": {
-    "listenHintTv": "चलाने के लिए एक रिकॉर्डिंग चुनें। Medina हर वाक्य को अज़ान के समय highlight करता है। शब्द-दर-शब्द audio के लिए नीचे Learn the words का उपयोग करें।"
+    "listenHintTv": "चलाने के लिए कोई रिकॉर्डिंग चुनें। मदीना वाली रिकॉर्डिंग में हर वाक्य पुकारे जाते ही हाइलाइट होता है। हर वाक्यांश का साफ़ ऑडियो सुनने के लिए नीचे “शब्द सीखें” का उपयोग करें।"
   },
   "quranCompanion": {
     "entry": {
@@ -6205,7 +6172,7 @@
     "resetHint": "इस ज़िक्र की आज की गिनती मिटाता है",
     "recited": "पढ़ लिया",
     "tapWhenRecited": "पढ़ने के बाद टैप करें",
-    "selectWhenRecited": "पढ़ने के बाद Select दबाएँ",
+    "selectWhenRecited": "पढ़ लेने के बाद चुनें बटन दबाएँ",
     "tapAnywhere": "गिनने के लिए पैड पर टैप करें",
     "previous": "पिछला ज़िक्र",
     "next": "अगला ज़िक्र",
@@ -6249,7 +6216,6 @@
     "offsetHint": "सभी हिजरी तारीखें खिसकाता है। केवल एक महीना सुधारने के लिए “यह महीना शुरू हुआ…” का उपयोग करें।",
     "monthStartedRow": "{{month}} शुरू हुआ…",
     "correctionsTitle": "महीनों के सुधार",
-    "noCorrections": "अभी कोई महीना सुधार नहीं।",
     "startedOn": "{{date}} को शुरू हुआ",
     "notApplied": "लागू नहीं हुआ ({{date}}): कोई महीना 29 दिन से कम या 30 दिन से अधिक हो जाता।",
     "removeCorrection": "{{month}} का सुधार हटाएँ",
@@ -6468,7 +6434,8 @@
         "abudawud1501": "सुनन अबू दाऊद 1501 — उँगलियों के सिरों पर गिनना: हसन (अल-अलबानी, शुऐब अल-अरनऊत)",
         "tirmidhi3583": "जामे अत-तिर्मिज़ी 3583 — दर्जे में मतभेद: हसन (अहमद शाकिर), ज़ईफ़ (अल-अलबानी)"
       }
-    }
+    },
+    "customizeBeads": "दाने अपने अनुसार बनाएँ"
   },
   "vault": {
     "passphrase": {
@@ -6532,7 +6499,7 @@
     },
     "sync": {
       "title": "निजी डायरियाँ सिंक करें",
-      "body": "आपका मुहासबा, क़र्ज़ों का रिकॉर्ड, वसीयत और रिश्तेदारों के संपर्क सिर्फ़ इसी डिवाइस पर एन्क्रिप्ट करके रखे जाते हैं। आप चाहें तो इन्हें एंड-टू-एंड एन्क्रिप्शन के साथ क्लाउड में बैकअप कर सकते हैं।",
+      "body": "आपका मुहासबा, क़र्ज़ों का रिकॉर्ड, वसीयत और परिवार के संपर्क सिर्फ़ इसी डिवाइस पर, एन्क्रिप्ट करके रखे जाते हैं। आपकी ख़ुशू डायरी और चल रही उज़्र की अवधि (हैज़/निफ़ास) भी इसी डिवाइस पर रहती है। चाहें तो इन सबका एंड-टू-एंड एन्क्रिप्शन के साथ क्लाउड पर बैकअप ले सकते हैं।",
       "howItWorks": "इस डिवाइस से निकलने से पहले आपका पासफ़्रेज़ इन्हें लॉक कर देता है। हम सिर्फ़ उलझा हुआ डेटा रखते हैं और उसे पढ़ नहीं सकते।",
       "warningTitle": "ज़रूरी",
       "warningBody": "अगर आप पासफ़्रेज़ और रिकवरी कोड दोनों खो दें, तो क्लाउड कॉपी हमेशा के लिए चली जाएगी — हम समेत कोई उसे नहीं खोल सकता। इस डिवाइस पर आपकी डायरियाँ चलती रहेंगी।",
@@ -6594,7 +6561,8 @@
       "otherViews": "अन्य मत ({{total}})",
       "hideOtherViews": "अन्य मत छिपाएँ",
       "positionA11y": "{{school}}: {{position}}",
-      "validViews": "चारों मज़हब अहले सुन्नत के उलमा के मान्य मत हैं।"
+      "validViews": "चारों मज़हब अहले सुन्नत के उलमा के मान्य मत हैं।",
+      "sameView": "यही मत: {{schools}}"
     },
     "compare": {
       "title": "मज़हबों में अंतर",
@@ -7265,10 +7233,8 @@
       "notNow": "अभी नहीं — सभी मत दिखाएँ"
     },
     "onboarding": {
-      "eyebrow": "फ़िक़्ह",
       "title": "आपका मज़हब",
       "body": "गाइड और कैलकुलेटर के अहकाम आपके मज़हब के अनुसार चल सकते हैं। मतभेद हमेशा चिह्नित रहते हैं, और आप इसे कभी भी सेटिंग्स में बदल सकते हैं।",
-      "continue": "जारी रखें",
       "later": "बाद में तय करूँगा"
     },
     "detail": {
@@ -7532,7 +7498,21 @@
       "creditLabel": "अरबी पाठ"
     },
     "syncFull_one": "आपके दूसरे डिवाइस से 1 नोट इंतज़ार में है: आपके नोट भर चुके हैं। जगह बनाने के लिए कुछ नोट हटाएँ। तब तक इस डिवाइस के नोट सिंक नहीं होंगे। कुछ भी हटाया नहीं गया है।",
-    "syncFull_other": "आपके दूसरे डिवाइसों से {{count}} नोट इंतज़ार में हैं: आपके नोट भर चुके हैं। जगह बनाने के लिए कुछ नोट हटाएँ। तब तक इस डिवाइस के नोट सिंक नहीं होंगे। कुछ भी हटाया नहीं गया है।"
+    "syncFull_other": "आपके दूसरे डिवाइसों से {{count}} नोट इंतज़ार में हैं: आपके नोट भर चुके हैं। जगह बनाने के लिए कुछ नोट हटाएँ। तब तक इस डिवाइस के नोट सिंक नहीं होंगे। कुछ भी हटाया नहीं गया है।",
+    "hint": {
+      "label": "{{ref}} पर मेरा नोट: {{title}}",
+      "a11yOpen": "नोट खोलता है",
+      "a11yPeek": "नोट की झलक के लिए टैप करें। और विकल्पों के लिए देर तक दबाएँ।",
+      "clickToOpen": "खोलने के लिए क्लिक करें · बंद करने के लिए Esc",
+      "open": "नोट खोलें",
+      "changeHighlight": "हाइलाइट बदलें",
+      "addAnother": "एक और नोट जोड़ें",
+      "inView": "स्क्रीन पर",
+      "moreTags": "+{{n}}",
+      "moreNotes_one": "+{{count}} और नोट",
+      "moreNotes_other": "+{{count}} और नोट"
+    },
+    "clearFilters": "फ़िल्टर हटाएँ"
   },
   "selfReview": {
     "vaultLockedTitle": "आपकी निजी डायरियाँ इस डिवाइस पर लॉक हैं",
@@ -7545,7 +7525,7 @@
     "eyebrow": "निजी · एन्क्रिप्टेड",
     "title": "रात का मुहासबा",
     "subtitle": "सोने से पहले अपने साथ एक मिनट: दिन पर नज़र डालें, शुक्र अदा करें, माफ़ी माँगें और एक नीयत करें।",
-    "searchKeywords": "मुहासबा आत्म-जवाबदेही आत्म-समीक्षा रात का चिंतन इस्तिग़फ़ार तौबा शुक्र नीयत muhasabah",
+    "searchKeywords": "मुहासबा आत्म-जवाबदेही आत्म-समीक्षा रात का चिंतन इस्तिग़फ़ार तौबा शुक्र नीयत",
     "stepOf": "चरण {{current}} / {{total}}",
     "steps": {
       "salah": {
@@ -7692,7 +7672,7 @@
     "eyebrow": "सिला-ए-रहमी · निजी",
     "title": "रिश्तेदारी",
     "subtitle": "अपने माता-पिता और रिश्तेदारों से नरमी और नियमित रूप से जुड़े रहें। नाम आपके डिवाइस पर एन्क्रिप्टेड रहते हैं।",
-    "searchKeywords": "सिला-ए-रहमी रिश्तेदारी रिश्ते रिश्तेदार माता-पिता माँ पिता कॉल मुलाक़ात संपर्क में रहें silat al-rahim",
+    "searchKeywords": "सिला-ए-रहमी रिश्तेदारी रिश्ते नातेदार रिश्तेदार माता-पिता माँ पिता कॉल मुलाक़ात संपर्क में रहें",
     "add": "रिश्तेदार जोड़ें",
     "historyLink": "इतिहास",
     "emptyTitle": "अपने माता-पिता से शुरू करें",
@@ -7903,12 +7883,6 @@
       "testA11y": "{{language}} में छोटा नमूना चलाएँ"
     },
     "fiqh": {
-      "rulingsUpdated": "पूरे ऐप में अहकाम अपडेट हो गए",
-      "asrOfferTitle": "क्या अस्र का {{asr}} समय भी इस्तेमाल करें?",
-      "asrOfferBody": "आपका मज़हब आम तौर पर अस्र ऐसे ही निकालता है। आपके सलाह के समय और रिमाइंडर इसके अनुसार होंगे।",
-      "asrOfferAccept": "इस्तेमाल करें",
-      "asrOfferDecline": "मौजूदा रखें",
-      "asrUpdated": "अस्र अब {{asr}} के अनुसार है",
       "asrSub": "सलाह के समय के साथ तय होता है। मज़हब बदलने पर इसे बदलने का सुझाव दिया जाता है।",
       "advanced": "उन्नत",
       "advancedSub": "हर क्षेत्र के लिए मज़हब और आपके आलिम के बताए विशेष मान",
@@ -7989,7 +7963,7 @@
     "eyebrow": "निजी रिकॉर्ड",
     "title": "क़र्ज़ और अमानतें",
     "subtitle": "आप पर क्या बाक़ी है, आपका क्या बाक़ी है, और आपके पास क्या अमानत है",
-    "searchKeywords": "क़र्ज़ कर्ज उधार दैन देनदारी चुकाना अदायगी अमानत जमा मन्नत नज़्र गवाह तारीख़ debt loan dayn qarz amanah nadhr",
+    "searchKeywords": "क़र्ज़ कर्ज उधार दैन देनदारी चुकाना अदायगी अमानत जमा मन्नत नज़्र गवाह नियत तारीख़",
     "intro": "क़ुरआन (2:282) ईमान वालों से अपने क़र्ज़ लिख लेने को कहता है। अपने क़र्ज़, अमानतें और मन्नतें यहाँ रखें ताकि वे पूरी हों — या आपकी संपत्ति से अदा हों — और कोई भूली न जाए। सब कुछ इस डिवाइस पर एन्क्रिप्ट रहता है।",
     "tvBody": "आपका क़र्ज़ का रिकॉर्ड निजी है। इसे देखने के लिए अपने फ़ोन या टैबलेट पर Munib Tracker खोलें।",
     "lockedTitle": "आपके निजी रिकॉर्ड लॉक हैं",
@@ -8177,7 +8151,7 @@
     "eyebrow": "निजी रिकॉर्ड",
     "title": "वसीयत",
     "subtitle": "मार्गदर्शन के साथ इस्लामी वसीयत — पहले क़र्ज़, वसीयतें एक-तिहाई के भीतर",
-    "searchKeywords": "वसीयत वसीयतनामा विल संपत्ति तरका वसी संरक्षक विरासत मीरास एक-तिहाई गवाह wasiyyah will wasiyat testament",
+    "searchKeywords": "वसीयत वसीयतनामा विल संपत्ति तरका वसी निष्पादक संरक्षक विरासत मीरास एक-तिहाई गवाह",
     "intro": "नबी ﷺ ने ताकीद की कि जिस मुसलमान के पास वसीयत करने लायक़ कुछ हो, वह लिखित वसीयत के बिना दो रातें भी न गुज़ारे (सहीह बुख़ारी 2738)। अपनी वसीयत क़दम-ब-क़दम लिखें; यह इस डिवाइस पर एन्क्रिप्ट रहती है।",
     "tvBody": "आपकी वसीयत निजी है। इसे देखने के लिए अपने फ़ोन या टैबलेट पर Munib Tracker खोलें।",
     "status": {
@@ -8391,7 +8365,6 @@
     "eyebrow": "मौसम",
     "title": "ज़िलहिज्जा",
     "searchKeywords": "ज़िलहिज्जा दस दिन अरफ़ा तकबीर तशरीक़ तहलील तहमीद उज़्हिया क़ुर्बानी ईद उल अज़हा बक़रीद बाल नाख़ून",
-    "virtue": "अल्लाह को कोई नेक अमल इन दस दिनों के अमल से ज़्यादा प्यारा नहीं। ज़िक्र ज़्यादा करें: तकबीर, तहलील और तहमीद।",
     "offSeason": "अगले दस दिन {{date}} से शुरू होंगे",
     "teaserBody": "ज़िलहिज्जा के दस दिन {{date}} से शुरू होंगे। अगर क़ुर्बानी का इरादा है, तो उनके शुरू होने से पहले तय कर लें।",
     "excusedBanner": "आपके उज़्र के दिन चालू हैं। यहाँ किसी चीज़ का हिसाब नहीं — जो हो सके करें, ज़िक्र और दुआ हमेशा खुले हैं।",
@@ -8776,7 +8749,7 @@
     "eyebrow": "सीखें · फ़िक़्ह टूल",
     "title": "मीरास कैलकुलेटर",
     "subtitle": "चारों मसलकों के अनुसार इस्लामी विरासत के हिस्से, क़दम-ब-क़दम",
-    "searchKeywords": "विरासत मीरास फ़राइज़ वारिस तरका हिस्से वसीयत औल रद्द असबा दादा मुशतरका अकदरिय्या inheritance mirath faraid",
+    "searchKeywords": "विरासत मीरास फ़राइज़ वारिस तरका हिस्से वसीयत औल रद्द असबा दादा मुशतरका अकदरिय्या",
     "disclaimer": "शैक्षिक कैलकुलेटर — किसी भी तरके का बँटवारा करने से पहले किसी योग्य आलिम या शरई अदालत से पुष्टि करें। असामान्य मामले इसमें शामिल नहीं हैं।",
     "deceased": {
       "male": "पुरुष",
@@ -9210,7 +9183,7 @@
     "listeningFor": "{{phrase}} सुन रहा है",
     "levelA11y": "माइक्रोफ़ोन स्तर",
     "stuck": "ज़िक्र साफ़ बोलें, या गिनने के लिए टैप करें",
-    "focusTip": "सुझाव: मिनिमल डिज़ाइन सुनते समय स्क्रीन को शांत रखता है।",
+    "focusTip": "सुझाव: फ़ोकस / रात डिज़ाइन सुनते समय स्क्रीन को शांत रखता है।",
     "stopped": {
       "silence": "कुछ देर की खामोशी के बाद सुनना रुक गया। जारी रखने के लिए हैंड्स-फ़्री पर टैप करें।",
       "background": "ऐप छोड़ने पर सुनना रुक गया।",
@@ -9233,7 +9206,7 @@
     },
     "sheet": {
       "title": "हैंड्स-फ़्री गिनती",
-      "howItWorks": "ज़िक्र बोलें और काउंटर उसे गिनेगा। सुनना सिर्फ़ इसी डिवाइस पर होता है: कोई ऑडियो रिकॉर्ड, सेव या भेजा नहीं जाता।",
+      "howItWorks": "ज़िक्र बोलें और काउंटर उसे गिनेगा। सुनना सिर्फ़ इसी डिवाइस पर होता है। कोई ऑडियो रिकॉर्ड या भेजा नहीं जाता। अगर आप कोई ज़िक्र सिखाते हैं, तो एक छोटा आवाज़-पैटर्न (रिकॉर्डिंग नहीं) इसी डिवाइस पर रहता है।",
       "lowVoice": "धीमी आवाज़ काफ़ी है। ख़ामोश ज़िक्र और टैप करके गिनना भी उतना ही अच्छा है।",
       "accuracy": "जब यक़ीन न हो तो यह नहीं गिनता। छूटी गिनती टैप करके जोड़ें।",
       "choosePhrase": "आप कौन-सा ज़िक्र पढ़ रहे हैं?",
@@ -9280,7 +9253,10 @@
       "sensitivitySub": "बिना हाथ लगाए गिनती गिनने से पहले कितनी पक्की हो",
       "silenceSecondsUnit": "सेकंड",
       "calibrateSub": "एक वाक्यांश 5 बार बोलें ताकि गिनती आपकी आवाज़ के अनुसार हो। केवल इसी डिवाइस पर रखा जाता है।",
-      "modelStorageSub": "डिवाइस पर चलने वाला श्रोता क़ुरआन अभ्यास के साथ साझा है"
+      "modelStorageSub": "डिवाइस पर चलने वाला श्रोता क़ुरआन अभ्यास के साथ साझा है",
+      "forgetTaught": "सिखाए गए ज़िक्र की आवाज़ें भूल जाएँ",
+      "forgetTaughtSub": "कोई ऑडियो रिकॉर्ड या भेजा नहीं जाता। अगर आप कोई ज़िक्र सिखाते हैं, तो एक छोटा आवाज़-पैटर्न (रिकॉर्डिंग नहीं) इसी डिवाइस पर रहता है। यह उन सभी को हटा देता है।",
+      "forgetTaughtConfirm": "इस डिवाइस पर सिखाए गए ज़िक्र के सभी आवाज़-पैटर्न भूल जाएँ? आप उन्हें कभी भी फिर से सिखा सकते हैं।"
     },
     "announce": {
       "title": "तस्बीह गिनती की घोषणाएँ",
@@ -9288,6 +9264,37 @@
       "milestones": "सिर्फ़ पड़ाव",
       "off": "बंद",
       "hint": "आवाज़ से गिनती के सुनते समय सिर्फ़ पड़ाव घोषित होते हैं।"
+    },
+    "picker": {
+      "search": "अज़कार या अपनी तस्बीह खोजें",
+      "noResults": "कोई ज़िक्र नहीं मिला। फिर भी गिनने के लिए “कुछ और” चुनें।",
+      "somethingElse": "कुछ और",
+      "somethingElseHint": "कोई भी दूसरा ज़िक्र। आप इस सत्र के लिए इसे सिखा सकते हैं।",
+      "taught": "सिखाया गया",
+      "chosen": "गिनती जारी",
+      "change": "बदलें",
+      "changeA11y": "{{phrase}} गिना जा रहा है। ज़िक्र बदलें"
+    },
+    "teach": {
+      "title": "एक बार बोलें ताकि सिर्फ़ यही ज़िक्र गिना जाए",
+      "explain": "बीच में रुकते हुए {{phrase}} 3 बार तक बोलें। एक छोटा आवाज़-पैटर्न (रिकॉर्डिंग नहीं) इसी डिवाइस पर रहता है ताकि सिर्फ़ यही ज़िक्र गिना जाए।",
+      "explainOther": "बीच में रुकते हुए अपना ज़िक्र 3 बार तक बोलें। इस सत्र में सिर्फ़ इसी के दोहराव गिने जाएँगे।",
+      "start": "बोलकर सिखाएँ",
+      "skip": "छोड़ें — हर ठहराव गिनें",
+      "sayNow": "अब {{phrase}} बोलें",
+      "sayNowOther": "अब अपना ज़िक्र बोलें",
+      "pauseBetween": "हर बार के बाद थोड़ा रुकें।",
+      "listening": "सुन रहा है…",
+      "progress": "सुन लिया {{heard}}/{{total}}",
+      "issueShort": "यह बहुत छोटा था। पूरा ज़िक्र बोलें।",
+      "issueLong": "यह बहुत लंबा हो गया। ज़िक्र एक बार बोलें, फिर रुकें।",
+      "issueDifferent": "यह अलग सुनाई दिया। वही ज़िक्र फिर से बोलें।",
+      "done": "हो गया — गिनती शुरू करें",
+      "cancel": "रद्द करें",
+      "reteach": "फिर से सिखाएँ",
+      "taughtReady": "इस डिवाइस पर सिखाया गया।",
+      "countsTaught": "सिर्फ़ आपका सिखाया ज़िक्र गिनता है — किसी ग़लत गिनती को ठीक करने के लिए टैप करें।",
+      "countsPauses": "हर ठहराव गिनता है — कम सटीक। किसी ग़लत गिनती को ठीक करने के लिए टैप करें।"
     }
   },
   "masjids": {
@@ -9376,7 +9383,10 @@
       "savedToast": "आपके समय सहेज लिए गए",
       "clearedToast": "आपके समय मिटा दिए गए",
       "privacy": "आपके समय निजी हैं: इस डिवाइस और आपके अपने सिंक डिवाइस पर रहते हैं, मस्जिद खोज सेवा या दूसरे उपयोगकर्ताओं को कभी नहीं भेजे जाते।",
-      "importHint": "समय आपके फ़ोन पर ही पढ़े जाते हैं। फ़ोटो कभी अपलोड नहीं होती।"
+      "importHint": "समय आपके फ़ोन पर ही पढ़े जाते हैं। फ़ोटो कभी अपलोड नहीं होती।",
+      "clearConfirmTitle": "अपने समय मिटाएँ?",
+      "clearConfirmBody": "इस मस्जिद के लिए आपके दैनिक, जुमा और आयात किए गए मासिक समय आपके सभी डिवाइस से हटा दिए जाएँगे।",
+      "saveError": "आपके समय सहेजे नहीं जा सके। कृपया फिर से कोशिश करें।"
     },
     "reminder": {
       "settingTitle": "इक़ामत रिमाइंडर",
@@ -9397,7 +9407,9 @@
       "walkSub": "इक़ामत के \"अभी निकलें\" रिमाइंडर के लिए इस्तेमाल होता है",
       "minutes": "{{minutes}} मिनट",
       "iqamahSub": "आपके समय के अनुसार, इक़ामत से पहले अपनी मुख्य मस्जिद के लिए निकलने का रिमाइंडर"
-    }
+    },
+    "showMore": "और मस्जिदें दिखाएँ",
+    "unavailableBody": "अभी मस्जिद खोजने की सेवा तक पहुँचा नहीं जा सका। कृपया बाद में फिर कोशिश करें।"
   },
   "focusLock": {
     "title": "नमाज़ फ़ोकस लॉक",
@@ -9598,7 +9610,8 @@
       "expires": "{{when}} तक मान्य · एक बार इस्तेमाल हो सकता है",
       "error": "आमंत्रण नहीं बन सका। कृपया फिर से कोशिश करें।",
       "codeA11y": "आमंत्रण कोड {{code}}",
-      "qrA11y": "आमंत्रण लिंक का QR कोड"
+      "qrA11y": "आमंत्रण लिंक का QR कोड",
+      "expiresShared": "{{when}} तक मान्य · आपके समूह का कोई भी व्यक्ति इसका इस्तेमाल कर सकता है"
     },
     "join": {
       "eyebrow": "आमंत्रण",
@@ -10220,7 +10233,8 @@
       "deadline_other": "अगर आप पुष्टि नहीं करते, तो ये {{count}} दिनों में हटा दी जाएँगी।",
       "confirm": "पुष्टि करें और रखें",
       "delete": "ये प्रोफ़ाइल हटाएँ",
-      "confirmed": "धन्यवाद — सहमति की पुष्टि हो गई"
+      "confirmed": "धन्यवाद — सहमति की पुष्टि हो गई",
+      "deleteConfirm": "इससे ये प्रोफ़ाइल, उनकी स्थितियाँ, स्टिकर और जुड़े डिवाइस अभी हटा दिए जाएँगे। इसे पूर्ववत नहीं किया जा सकता।"
     },
     "child": {
       "title": "बच्चा",
@@ -10630,5 +10644,268 @@
       "reminderSub": "जब कोचिंग की कोई आवाज़ बाकी हो, तो दोहराई का रिमाइंडर उसका ज़िक्र करता है",
       "keywords": "तजवीद, कोचिंग, क़लक़ला, ग़ुन्ना, मद, शद्दा, दोहराई रिमाइंडर, अभ्यास"
     }
+  },
+  "setupFlow": {
+    "stepOf": "चरण {{current}} / {{total}}",
+    "allSet": "सेटअप पूरा",
+    "language": {
+      "title": "अपनी भाषा चुनें",
+      "body": "पूरा ऐप इसी भाषा का इस्तेमाल करेगा। क़ुरआन, हदीस और दुआओं का अर्थ इसी भाषा में या किसी दूसरी भाषा में हो सकता है।"
+    },
+    "location": {
+      "title": "आप कहाँ नमाज़ पढ़ते हैं?",
+      "body": "नमाज़ के समय और क़िबले की दिशा आपकी जगह पर निर्भर करते हैं।",
+      "privacy": "आपकी लोकेशन इसी डिवाइस पर रहती है और सिर्फ़ नमाज़ के समय और क़िबले के लिए इस्तेमाल होती है। इसे कभी साझा नहीं किया जाता।",
+      "chooseCity": "इसके बजाय मेरा शहर खोजें",
+      "confirmBody": "अपनी जगह और नमाज़ के समय की गणना का तरीक़ा जाँच लें। अगर आपकी मस्जिद कोई और तरीक़ा अपनाती है, तो उसे यहाँ चुनें।",
+      "defaultHint": "जब तक आप अपनी जगह नहीं चुनते, नमाज़ के समय मक्का के अनुसार हैं।"
+    },
+    "reminders": {
+      "title": "कोई नमाज़ न छूटे",
+      "body": "हर नमाज़ के समय अज़ान और ज़िक्र के नरम रिमाइंडर पाएँ। ये इसी डिवाइस पर तय होते हैं और कभी कुछ निजी नहीं दिखाते।",
+      "onTitle": "रिमाइंडर चालू हैं",
+      "onBody": "मुख्य रिमाइंडर अभी सेट करें, या बाक़ी सब बाद में सेटिंग्स में।",
+      "offTitle": "रिमाइंडर बंद हैं",
+      "offBody": "आप इन्हें कभी भी सेटिंग्स › रिमाइंडर और सूचनाएँ में चालू कर सकते हैं।"
+    },
+    "personalise": {
+      "title": "इसे अपना बनाएँ",
+      "body": "वैकल्पिक — ये सब आप बाद में सेटिंग्स में बदल सकते हैं।"
+    },
+    "done": {
+      "title": "सब तैयार है",
+      "body": "ऐप इस तरह सेट किया गया है। बदलने के लिए किसी भी चीज़ पर टैप करें।",
+      "recap": "आपका सेटअप"
+    }
+  },
+  "privateUx": {
+    "saveFailed": "सहेजा नहीं जा सका। कृपया फिर से कोशिश करें।",
+    "saving": "सहेजा जा रहा है…",
+    "export": {
+      "unavailable": "इस डिवाइस पर प्रिंट और शेयर उपलब्ध नहीं है।",
+      "failed": "दस्तावेज़ नहीं बन सका। कृपया फिर से कोशिश करें।",
+      "preparing": "दस्तावेज़ तैयार हो रहा है…"
+    },
+    "date": {
+      "invalid": "यह तारीख़ पढ़ी नहीं जा सकी। साल-महीना-दिन लिखें, जैसे 2026-11-23।",
+      "reads": "पढ़ी गई तारीख़: {{date}}",
+      "preset": {
+        "week": "1 हफ़्ते बाद",
+        "month": "1 महीने बाद",
+        "threeMonths": "3 महीने बाद"
+      }
+    },
+    "payments": {
+      "errorAmount": "चुकाई गई रक़म दर्ज करें।",
+      "removeTitle": "यह भुगतान हटाएँ?",
+      "removeBody": "बाक़ी चुकाने वाली रक़म फिर बढ़ जाएगी। इसे वापस नहीं किया जा सकता।"
+    },
+    "wasiyyah": {
+      "nameRequired": "आगे बढ़ने के लिए अपना नाम लिखें।",
+      "reviewTitle": "हर हिस्सा जाँच लें",
+      "summary": {
+        "nameMissing": "आपका नाम दर्ज नहीं है",
+        "selected": "{{total}} में से {{done}} चुने गए",
+        "confirmed": "{{total}} में से {{done}} की पुष्टि हुई",
+        "none": "कुछ नहीं जोड़ा गया",
+        "added": "जोड़े गए: {{total}}",
+        "snapshot": "विरासत का हिसाब जुड़ा है (उदाहरण के तौर पर)",
+        "noSnapshot": "कोई हिसाब नहीं जुड़ा (वैकल्पिक)",
+        "named": "{{total}} में से {{done}} के नाम दर्ज",
+        "dateInvalid": "तारीख़ पढ़ी नहीं जा सकी"
+      },
+      "draftNote": "आपका एक अधूरा मसौदा है। जहाँ छोड़ा था वहीं से जारी रखें।",
+      "discardTitle": "मसौदा हटाएँ?",
+      "discardBody": "जो बदलाव आपने संस्करण के रूप में नहीं सहेजे, वे मिट जाएँगे। आपकी सहेजी गई वसीयत जैसी है वैसी ही रहेगी।",
+      "dateBlocked": "सहेजने से पहले “आपके बारे में” में तारीख़ ठीक करें।"
+    },
+    "muhasabah": {
+      "customAddedOff": "सवाल जोड़ दिया गया। आपके {{max}} सवाल पहले से चालू हैं, इसे इस्तेमाल करने के लिए कोई एक बंद करें।",
+      "retentionTitle": "पुरानी समीक्षाएँ मिटाएँ?",
+      "retentionBody_one": "{{count}} सहेजी गई समीक्षा इस अवधि से पुरानी है और अभी मिटा दी जाएगी। इसे वापस नहीं किया जा सकता।",
+      "retentionBody_other": "{{count}} सहेजी गई समीक्षाएँ इस अवधि से पुरानी हैं और अभी मिटा दी जाएँगी। इसे वापस नहीं किया जा सकता।",
+      "retentionConfirm": "मिटाएँ और बदलें",
+      "clearNotesTitle": "सहेजे गए नोट भी मिटाएँ?",
+      "clearNotesBody_one": "{{count}} सहेजी गई समीक्षा में अभी भी तौबा का नोट है। क्या शब्द अभी मिटा दें? आपने तौबा की, यह बात बनी रहेगी।",
+      "clearNotesBody_other": "{{count}} सहेजी गई समीक्षाओं में अभी भी तौबा के नोट हैं। क्या शब्द अभी मिटा दें? आपने तौबा की, यह बात बनी रहेगी।",
+      "clearNotesConfirm": "नोट मिटाएँ",
+      "clearNotesKeep": "रहने दें",
+      "clearNotesDone": "तौबा के नोट मिटा दिए गए"
+    },
+    "familyTies": {
+      "digestAfterDhuhr": "Dhuhr के बाद",
+      "notFound": "यह रिश्तेदार अब आपकी सूची में नहीं है।",
+      "phoneInvalid": "यह नंबर कॉल या मैसेज के लिए बहुत छोटा लगता है।"
+    },
+    "mirath": {
+      "highlightHint": "हाइलाइट किए गए वारिसों को किसी दूसरे मसलक में अलग हिस्सा मिलता है।"
+    },
+    "undo": "पूर्ववत करें",
+    "debts": {
+      "selectTitle": "कोई रिकॉर्ड चुनें",
+      "selectBody": "विवरण देखने के लिए सूची से कोई रिकॉर्ड चुनें, या नया जोड़ें।"
+    }
+  },
+  "settingsSubgroups": {
+    "salah": {
+      "title": "नमाज़ और अज़ान",
+      "subtitle": "अज़ान, अलर्ट, रिमाइंडर का समय, सुन्नत और क़ज़ा"
+    },
+    "zikr": {
+      "title": "ज़िक्र और क़ुरआन",
+      "subtitle": "सुबह, शाम और सोने से पहले के अज़कार, क़ुरआन की दोहराई"
+    },
+    "fasting": {
+      "title": "रोज़ा और ख़ास दिन",
+      "subtitle": "नफ़्ल रोज़े, सहरी, ज़ुल-हिज्जा और तकबीर"
+    },
+    "personal": {
+      "title": "निजी और परिवार",
+      "subtitle": "मुहासबा, रिश्तेदारी, क़र्ज़, वसीयत और चिंतन"
+    },
+    "other": {
+      "title": "रोज़ाना सामग्री और ऐप",
+      "subtitle": "रोज़ का चिंतन, जुमा, सफ़ेद दिन, उपलब्धियाँ और फ़ीडबैक"
+    }
+  },
+  "prayerMethodSuggestion": {
+    "searchTitle": "सुझाई गई गणना विधि",
+    "title": "{{country}} के लिए सुझाव",
+    "body": "वहाँ आम तौर पर {{method}} इस्तेमाल होती है। फिर भी आपकी मस्जिद की अपनी समय-सारणी सबसे अच्छा मार्गदर्शन है।",
+    "use": "यह विधि अपनाएँ",
+    "keep": "मौजूदा रखें",
+    "updated": "गणना विधि अपडेट हो गई"
+  },
+  "nearby": {
+    "tabs": {
+      "code": "कोड और QR",
+      "nearby": "आस-पास"
+    },
+    "host": {
+      "title": "अपने पास मौजूद किसी को आमंत्रित करें",
+      "body": "उनका फ़ोन Bluetooth से आपका फ़ोन ढूंढ लेता है — कुछ टाइप नहीं करना पड़ता। हर अनुरोध को आप मंज़ूरी देते हैं।",
+      "childTitle": "अपने पास का फ़ोन लिंक करें",
+      "childBody": "अपने बच्चे के फ़ोन पर Munib Tracker खोलें, “पास के माता-पिता के फ़ोन से लिंक करें” चुनें और फ़ोन पास-पास रखें। लिंक की मंज़ूरी आप यहां देंगे।",
+      "start": "दिखने योग्य बनाएं",
+      "starting": "शुरू हो रहा है…",
+      "visible": "आस-पास के फ़ोन को दिख रहा है",
+      "stopsAt": "{{time}} पर बंद होगा",
+      "codeLabel": "देखें कि दूसरे फ़ोन पर भी यही अंक दिख रहे हैं",
+      "codeA11y": "मिलान कोड {{code}}",
+      "stop": "बंद करें",
+      "asking": "जुड़ने का अनुरोध",
+      "noneYet": "अभी कोई नहीं। उनसे अपने फ़ोन पर “आस-पास से जुड़ें” टैप करने को कहें।",
+      "someone": "आस-पास कोई",
+      "guest": "मेहमान",
+      "childDevice": "आपके बच्चे का फ़ोन",
+      "accept": "स्वीकार करें",
+      "decline": "अस्वीकार करें",
+      "acceptA11y": "{{name}} को स्वीकार करें",
+      "declineA11y": "{{name}} को अस्वीकार करें",
+      "status": {
+        "accepted": "स्वीकार किया",
+        "declined": "अस्वीकार किया",
+        "completed": "लिंक हो गया"
+      },
+      "stopped": {
+        "timeout": "बैटरी बचाने के लिए 10 मिनट बाद बंद हो गया।",
+        "background": "बंद हो गया क्योंकि आपने Munib Tracker छोड़ दिया।",
+        "bluetoothOff": "बंद हो गया क्योंकि Bluetooth बंद कर दिया गया।",
+        "used": "हो गया — यह आस-पास का आमंत्रण इस्तेमाल हो चुका है।",
+        "error": "यह फ़ोन दिखने योग्य नहीं बन सका। फिर से कोशिश करें, या कोड या QR इस्तेमाल करें।"
+      },
+      "again": "फिर से दिखने योग्य बनाएं",
+      "acceptedToast": "स्वीकार किया — अब वे सर्कल में हैं।",
+      "linkedToast": "मंज़ूर — फ़ोन कुछ ही पलों में लिंक हो जाएगा।",
+      "errorFull": "स्वीकार नहीं हो सका — शायद सर्कल भर चुका है, या इस अनुरोध का जवाब पहले ही दिया जा चुका है।",
+      "errorEnded": "यह आस-पास का आमंत्रण समाप्त हो गया है।",
+      "errorForbidden": "अब आप इस सर्कल में लोगों को आमंत्रित नहीं कर सकते।"
+    },
+    "rationale": {
+      "title": "एक-दूसरे को ढूंढने के लिए Bluetooth इस्तेमाल करें",
+      "hostBody": "आपका फ़ोन यह सर्कल सिर्फ़ आपके ठीक पास के फ़ोन को दिखाता है, और सिर्फ़ तब तक जब तक यह स्क्रीन खुली है (ज़्यादा से ज़्यादा 10 मिनट)। यह एक अस्थायी कोड शेयर करता है — कभी आपका नाम या लोकेशन नहीं।",
+      "joinBody": "आपका फ़ोन सिर्फ़ तब तक आपके ठीक पास के सर्कल ढूंढता है जब तक यह शीट खुली है। जब तक आप पुष्टि न करें और होस्ट मंज़ूरी न दे, कुछ भी शेयर नहीं होता।",
+      "androidLocation": "इस Android वर्शन में Bluetooth स्कैन के लिए लोकेशन की अनुमति चाहिए। आपकी लोकेशन कभी इस्तेमाल या सेव नहीं की जाती।",
+      "continue": "जारी रखें",
+      "notNow": "अभी नहीं"
+    },
+    "blocked": {
+      "unsupported": {
+        "title": "इस फ़ोन पर आस-पास की सुविधा उपलब्ध नहीं है",
+        "body": "इसके बजाय कोड या QR इस्तेमाल करें।"
+      },
+      "bluetoothOff": {
+        "title": "Bluetooth बंद है",
+        "bodyIos": "कंट्रोल सेंटर में Bluetooth चालू करें, फिर से कोशिश करें।",
+        "bodyAndroid": "Bluetooth चालू करें, फिर से कोशिश करें।"
+      },
+      "permissionDenied": {
+        "title": "Bluetooth की अनुमति चाहिए",
+        "body": "“आस-पास मौजूद डिवाइस” की अनुमति दें ताकि फ़ोन एक-दूसरे को ढूंढ सकें। आप अब भी कोड या QR इस्तेमाल कर सकते हैं।"
+      },
+      "permissionBlocked": {
+        "title": "Munib Tracker के लिए Bluetooth बंद है",
+        "body": "सेटिंग में Munib Tracker के लिए Bluetooth (Android पर “आस-पास मौजूद डिवाइस”) की अनुमति दें, या कोड या QR इस्तेमाल करें।"
+      },
+      "locationOff": {
+        "title": "लोकेशन सेवाएं बंद हैं",
+        "body": "इस Android वर्शन में Bluetooth स्कैन तभी काम करता है जब लोकेशन सेवाएं चालू हों। आपकी लोकेशन कभी इस्तेमाल नहीं की जाती।"
+      },
+      "openSettings": "सेटिंग खोलें",
+      "openBluetooth": "Bluetooth सेटिंग",
+      "openLocation": "लोकेशन सेटिंग",
+      "retry": "फिर से कोशिश करें"
+    },
+    "join": {
+      "button": "आस-पास से जुड़ें",
+      "buttonHint": "अपने पास के फ़ोन पर सर्कल ढूंढें",
+      "title": "आस-पास से जुड़ें",
+      "childButton": "पास के माता-पिता के फ़ोन से लिंक करें",
+      "childTitle": "आस-पास लिंक करें",
+      "scanning": "आस-पास सर्कल ढूंढे जा रहे हैं…",
+      "scanningHint": "होस्ट से कहें कि आमंत्रण खोलें, आस-पास चुनें और “दिखने योग्य बनाएं” टैप करें। फ़ोन पास-पास रखें।",
+      "childScanning": "आपके माता-पिता का फ़ोन ढूंढा जा रहा है…",
+      "childScanningHint": "अपने माता-पिता से कहें कि आपकी प्रोफ़ाइल खोलें, आस-पास चुनें और “दिखने योग्य बनाएं” टैप करें।",
+      "childItem": "यह फ़ोन लिंक करें",
+      "proximity": {
+        "veryClose": "बहुत पास",
+        "near": "आस-पास",
+        "far": "थोड़ा दूर"
+      },
+      "itemA11y": "{{name}}, {{type}}, {{proximity}}",
+      "compareTitle": "क्या ये अंक मेल खाते हैं?",
+      "compareBody": "देखें कि होस्ट की स्क्रीन पर यही 4 अंक दिख रहे हैं। अगर मेल न खाएं तो वापस जाएं — यह कोई दूसरा फ़ोन है।",
+      "match": "मेल खाते हैं",
+      "noMatch": "मेल नहीं खाते",
+      "sending": "भेजा जा रहा है…",
+      "waiting": "होस्ट की मंज़ूरी का इंतज़ार है…",
+      "waitingHint": "इसे खुला रखें। होस्ट अब आपका अनुरोध देख सकते हैं।",
+      "cancel": "अनुरोध रद्द करें",
+      "joined": "आप {{name}} से जुड़ गए",
+      "childLinked": "यह फ़ोन लिंक हो गया है",
+      "open": "खोलें",
+      "declined": "होस्ट ने यह अनुरोध अस्वीकार कर दिया।",
+      "expired": "यह आस-पास का आमंत्रण समाप्त हो गया है। होस्ट से अपना फ़ोन फिर से दिखने योग्य बनाने को कहें।",
+      "paused": {
+        "timeout": "बैटरी बचाने के लिए 10 मिनट बाद खोज बंद हो गई।",
+        "background": "Munib Tracker बैकग्राउंड में होने के कारण रुका रहा।",
+        "error": "आस-पास के फ़ोन नहीं ढूंढे जा सके।",
+        "bluetoothOff": "बंद हो गया क्योंकि Bluetooth बंद कर दिया गया।"
+      },
+      "scanAgain": "फिर से खोजें",
+      "error": {
+        "mismatch": "ये अंक किसी दूसरे आमंत्रण के हैं। वापस जाकर सही सर्कल चुनें।",
+        "alreadyMember": "आप पहले से इस सर्कल में हैं।",
+        "needsAccount": "इस सर्कल से जुड़ने के लिए किसी खाते से साइन इन करें।",
+        "busy": "अभी बहुत से लोग अनुरोध कर रहे हैं। थोड़ी देर में फिर से कोशिश करें।"
+      },
+      "back": "वापस",
+      "close": "बंद करें",
+      "fallback": "नहीं मिल रहा? इसके बजाय कोड इस्तेमाल करें या QR स्कैन करें।"
+    }
+  },
+  "scriptureMeaning": {
+    "englishLabel": "अंग्रेज़ी अर्थ",
+    "englishLabelA11y": "अर्थ अंग्रेज़ी में दिखाया गया है: आपकी भाषा में अभी किसी विश्वसनीय स्रोत का अनुवाद उपलब्ध नहीं है"
   }
 }

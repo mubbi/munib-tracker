@@ -614,7 +614,7 @@
       "consistency": {
         "text": "Allah loves consistent deeds, even if they are small. Keep showing up.",
         "topic": "steadfastness",
-        "source": "a"
+        "source": "Sahih al-Bukhari 6464 · Sahih Muslim 782"
       },
       "tracker-honest": {
         "text": "An honest tracker helps you see patterns, not judge yourself. Progress begins with awareness.",
@@ -915,7 +915,7 @@
         "location": "Kuwait"
       },
       "makkah-muezzin": {
-        "name": "Ali Ibn Ahmad Mala",
+        "name": "Ali Ahmed Mulla",
         "location": "Al-Masjid al-Haram"
       }
     },
@@ -1483,7 +1483,12 @@
     "positionInCategory": "{{current}} of {{total}} in {{category}}",
     "positionInOccasion": "{{current}} of {{total}}",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "topic": {
+      "deceased": "Duas for the deceased",
+      "showing": "A selection from {{category}}",
+      "showAll": "Show all"
+    }
   },
   "duaCat": {
     "morning_evening": "Morning & Evening",
@@ -1755,7 +1760,11 @@
     "goToAyahInvalid": "Enter an ayah between 1 and {{max}}",
     "searchAyahs": "Search ayahs",
     "findSurah": "Find a surah",
-    "noSurahResults": "No surahs matched your search."
+    "noSurahResults": "No surahs matched your search.",
+    "actionMore": "More",
+    "moreActionsA11y": "More actions for ayah {{n}}",
+    "mushafFontFailedTitle": "Couldn't load this page",
+    "mushafFontFailedBody": "The mushaf font for this page didn't download. Check your connection and try again."
   },
   "hadith": {
     "eyebrow": "Prophetic tradition",
@@ -3106,7 +3115,7 @@
     },
     "jamTypes": {
       "title": "Jam' al-Taqdim & al-Ta'khir",
-      "body": "Jam' al-Taqdim (early combining): pray both prayers together at the earlier prayer's time — e.g. Dhuhr and Asr at Dhuhr time. Jam' al-Ta'khir (delayed combining): pray both at the later prayer's time — e.g. Dhuhr and Asr at Asr time. The Prophet ﷺ combined at Arafah (Dhuhr at Asr time) and at Muzdalifah (Maghrib at Isha time), establishing both forms."
+      "body": "Jam' al-Taqdim (early combining): pray both prayers together at the earlier prayer's time — e.g. Dhuhr and Asr at Dhuhr time. Jam' al-Ta'khir (delayed combining): pray both at the later prayer's time — e.g. Dhuhr and Asr at Asr time. At Arafah the Prophet ﷺ brought Asr forward to Dhuhr time, and at Muzdalifah he delayed Maghrib to Isha time — one example of each form (Sahih Muslim 1218)."
     },
     "when": {
       "title": "When concessions begin & end",
@@ -3252,7 +3261,7 @@
     "obligations": [
       "If you are able, pray in whatever position you can — standing, sitting, or lying down.",
       "Reduce or omit bowing and prostration only when you genuinely cannot perform them.",
-      "If you are too ill to pray at all, that prayer is waived — make it up (qaza) when you recover.",
+      "As long as you are conscious, Salah is not dropped — pray however you can, even by gesture. Salah missed through illness is made up (qaza) when you recover; if you were unconscious, the schools differ on whether it must be made up.",
       "Missed Ramadan fasts due to illness should be made up when you are able.",
       "You may still make zikr, dua, read Qur'an, and give charity."
     ],
@@ -3300,7 +3309,9 @@
       "dhul-hijjah": "Dhul-Hijjah",
       "muhasabah": "Muhasabah",
       "family-ties-due": "Family ties due",
-      "weekly-coach": "Weekly reflection"
+      "weekly-coach": "Weekly reflection",
+      "seasonal-banner": "Seasonal banners",
+      "umrah-mode": "Continue your Umrah"
     }
   },
   "schedule": {
@@ -4824,7 +4835,15 @@
     "arafahBannerDesc": "The heart of Hajj — if you are not on Hajj, fasting this day expiates two years of sins.",
     "eidAdhaEyebrow": "Eid",
     "eidAdhaBannerTitle": "Eid al-Adha Mubarak",
-    "eidAdhaBannerDesc": "The Festival of Sacrifice — prayer, takbir, and sharing with those in need."
+    "eidAdhaBannerDesc": "The Festival of Sacrifice — prayer, takbir, and sharing with those in need.",
+    "cta": {
+      "events": "Learn more",
+      "ramadan": "Open Ramadan",
+      "dhulHijjah": "Open Dhul-Hijjah"
+    },
+    "dismiss": "Hide until next season",
+    "hiddenToast": "Hidden for this season",
+    "hiddenToastHint": "Turn seasonal banners off any time in Customize home."
   },
   "journal": {
     "eyebrow": "Reflection",
@@ -6249,7 +6268,6 @@
     "offsetHint": "Shifts every Hijri date. To correct a single month, use “This month started on…”.",
     "monthStartedRow": "{{month}} started on…",
     "correctionsTitle": "Month corrections",
-    "noCorrections": "No month corrections yet.",
     "startedOn": "Started on {{date}}",
     "notApplied": "Not applied ({{date}}): it would make a month shorter than 29 or longer than 30 days.",
     "removeCorrection": "Remove the correction for {{month}}",
@@ -6468,7 +6486,8 @@
         "abudawud1501": "Sunan Abu Dawud 1501 — counting on the fingertips: hasan (al-Albani, Shu'aib al-Arna'ut)",
         "tirmidhi3583": "Jami' at-Tirmidhi 3583 — gradings differ: hasan (Ahmad Shakir), da'if (al-Albani)"
       }
-    }
+    },
+    "customizeBeads": "Customize beads"
   },
   "vault": {
     "passphrase": {
@@ -6532,7 +6551,7 @@
     },
     "sync": {
       "title": "Sync private journals",
-      "body": "Your muhasabah, debts record, wasiyyah and family contacts are kept only on this device, encrypted. You can choose to back them up to the cloud with end-to-end encryption.",
+      "body": "Your muhasabah, debts record, wasiyyah and family contacts are kept only on this device, encrypted. Your khushu journal and active excused period (hayd/nifas) also stay on this device. You can choose to back them all up to the cloud with end-to-end encryption.",
       "howItWorks": "Your passphrase locks them before they leave this device. We only store scrambled data and can't read it.",
       "warningTitle": "Important",
       "warningBody": "If you lose both your passphrase and your recovery code, the cloud copy is gone for good — nobody, including us, can open it. Your journals on this device keep working.",
@@ -6594,7 +6613,8 @@
       "otherViews": "Other views ({{total}})",
       "hideOtherViews": "Hide other views",
       "positionA11y": "{{school}}: {{position}}",
-      "validViews": "All four schools are recognised positions of Sunni scholarship."
+      "validViews": "All four schools are recognised positions of Sunni scholarship.",
+      "sameView": "Same view: {{schools}}"
     },
     "compare": {
       "title": "How the schools differ",
@@ -7265,10 +7285,8 @@
       "notNow": "Not now — show all views"
     },
     "onboarding": {
-      "eyebrow": "Fiqh",
       "title": "Your madhhab",
       "body": "Rulings in guides and calculators can follow your school. Differences are always labelled, and you can change this anytime in Settings.",
-      "continue": "Continue",
       "later": "Decide later"
     },
     "detail": {
@@ -7532,7 +7550,21 @@
       "creditLabel": "Arabic text"
     },
     "syncFull_one": "1 note from your other devices is waiting: your notes are full. Delete some notes to make room. Until then, notes on this device stop syncing. Nothing is deleted.",
-    "syncFull_other": "{{count}} notes from your other devices are waiting: your notes are full. Delete some notes to make room. Until then, notes on this device stop syncing. Nothing is deleted."
+    "syncFull_other": "{{count}} notes from your other devices are waiting: your notes are full. Delete some notes to make room. Until then, notes on this device stop syncing. Nothing is deleted.",
+    "hint": {
+      "label": "My note on {{ref}}: {{title}}",
+      "a11yOpen": "Opens the note",
+      "a11yPeek": "Tap to preview the note. Long-press for more actions.",
+      "clickToOpen": "Click to open · Esc to close",
+      "open": "Open note",
+      "changeHighlight": "Change highlight",
+      "addAnother": "Add another note",
+      "inView": "In view",
+      "moreTags": "+{{n}}",
+      "moreNotes_one": "+{{count}} more note",
+      "moreNotes_other": "+{{count}} more notes"
+    },
+    "clearFilters": "Clear filters"
   },
   "selfReview": {
     "vaultLockedTitle": "Your private journals are locked on this device",
@@ -7903,12 +7935,6 @@
       "testA11y": "Play a short sample in {{language}}"
     },
     "fiqh": {
-      "rulingsUpdated": "Rulings updated across the app",
-      "asrOfferTitle": "Also use the {{asr}} Asr time?",
-      "asrOfferBody": "Your school usually calculates Asr this way. Your Salah times and reminders will follow it.",
-      "asrOfferAccept": "Use it",
-      "asrOfferDecline": "Keep current",
-      "asrUpdated": "Asr now uses {{asr}}",
       "asrSub": "Set with your Salah times. Changing your madhhab offers to switch it.",
       "advanced": "Advanced",
       "advancedSub": "Per-area schools and custom values from your scholar",
@@ -9210,7 +9236,7 @@
     "listeningFor": "Listening for {{phrase}}",
     "levelA11y": "Microphone level",
     "stuck": "Say the phrase clearly, or tap to count",
-    "focusTip": "Tip: the Minimal design keeps the screen calm while you listen.",
+    "focusTip": "Tip: the Focus / Night design keeps the screen calm while you listen.",
     "stopped": {
       "silence": "Listening paused after a quiet spell. Tap Hands-free to continue.",
       "background": "Listening stopped when you left the app.",
@@ -9233,7 +9259,7 @@
     },
     "sheet": {
       "title": "Hands-free counting",
-      "howItWorks": "Say the zikr and the counter counts it. Listening happens only on this device: no audio is recorded, stored or sent.",
+      "howItWorks": "Say the zikr and the counter counts it. Listening happens only on this device. No audio is recorded or sent. If you teach a zikr, a short voice pattern (not a recording) stays on this device.",
       "lowVoice": "A low voice is enough. Quiet zikr and tapping are just as good.",
       "accuracy": "When it isn't sure, it doesn't count. Tap to add any it missed.",
       "choosePhrase": "Which zikr are you saying?",
@@ -9280,7 +9306,10 @@
       "sensitivitySub": "How sure hands-free counting must be before it counts",
       "silenceSecondsUnit": "seconds",
       "calibrateSub": "Say a phrase 5 times so counting suits your voice. Kept on this device only.",
-      "modelStorageSub": "The on-device listener is shared with Qur'an practice"
+      "modelStorageSub": "The on-device listener is shared with Qur'an practice",
+      "forgetTaught": "Forget taught zikr voices",
+      "forgetTaughtSub": "No audio is recorded or sent. If you teach a zikr, a short voice pattern (not a recording) stays on this device. This removes them all.",
+      "forgetTaughtConfirm": "Forget every taught zikr voice pattern on this device? You can teach them again at any time."
     },
     "announce": {
       "title": "Tasbeeh count announcements",
@@ -9288,6 +9317,37 @@
       "milestones": "Milestones only",
       "off": "Off",
       "hint": "While hands-free counting is listening, only milestones are announced."
+    },
+    "picker": {
+      "search": "Search adhkar or your tasbeehs",
+      "noResults": "No zikr found. Choose “Something else” to count it anyway.",
+      "somethingElse": "Something else",
+      "somethingElseHint": "Any other zikr. You can teach it for this session.",
+      "taught": "Taught",
+      "chosen": "Counting",
+      "change": "Change",
+      "changeA11y": "Counting {{phrase}}. Change the zikr"
+    },
+    "teach": {
+      "title": "Say it once so only this zikr counts",
+      "explain": "Say {{phrase}} up to 3 times, pausing between. A short voice pattern (not a recording) stays on this device so only this zikr counts.",
+      "explainOther": "Say your zikr up to 3 times, pausing between. For this session, only repeats of it will count.",
+      "start": "Teach by saying it",
+      "skip": "Skip — count every pause",
+      "sayNow": "Say {{phrase}} now",
+      "sayNowOther": "Say your zikr now",
+      "pauseBetween": "Pause briefly after each one.",
+      "listening": "Listening…",
+      "progress": "Got it {{heard}}/{{total}}",
+      "issueShort": "That was too short. Say the whole zikr.",
+      "issueLong": "That went on too long. Say the zikr once, then pause.",
+      "issueDifferent": "That sounded different. Say the same zikr again.",
+      "done": "Done — start counting",
+      "cancel": "Cancel",
+      "reteach": "Re-teach",
+      "taughtReady": "Taught on this device.",
+      "countsTaught": "Counts only the zikr you taught — tap to correct any miscount.",
+      "countsPauses": "Counts each pause — less accurate. Tap to correct any miscount."
     }
   },
   "masjids": {
@@ -9376,7 +9436,10 @@
       "savedToast": "Your times are saved",
       "clearedToast": "Your times are deleted",
       "privacy": "Your times are private: kept on this device and your own synced devices, never sent to the masjid finder or other users.",
-      "importHint": "Reads the times on your phone. The photo is never uploaded."
+      "importHint": "Reads the times on your phone. The photo is never uploaded.",
+      "clearConfirmTitle": "Delete your times?",
+      "clearConfirmBody": "Your daily, Jumu'ah and imported monthly times for this masjid are removed from all your devices.",
+      "saveError": "Couldn't save your times. Please try again."
     },
     "reminder": {
       "settingTitle": "Iqamah reminder",
@@ -9397,7 +9460,9 @@
       "walkSub": "Used for the iqamah \"leave now\" reminder",
       "minutes": "{{minutes}} min",
       "iqamahSub": "A reminder to leave for your home masjid before iqamah, using your times"
-    }
+    },
+    "showMore": "Show more masjids",
+    "unavailableBody": "The masjid finder can't be reached right now. Please try again later."
   },
   "focusLock": {
     "title": "Salah focus lock",
@@ -9598,7 +9663,8 @@
       "expires": "Valid until {{when}} · can be used once",
       "error": "Couldn't create an invite. Please try again.",
       "codeA11y": "Invite code {{code}}",
-      "qrA11y": "QR code for the invite link"
+      "qrA11y": "QR code for the invite link",
+      "expiresShared": "Valid until {{when}} · anyone in your group can use it"
     },
     "join": {
       "eyebrow": "Invite",
@@ -10220,7 +10286,8 @@
       "deadline_other": "If you don't confirm, they will be deleted in {{count}} days.",
       "confirm": "Confirm and keep",
       "delete": "Delete these profiles",
-      "confirmed": "Thank you — consent confirmed"
+      "confirmed": "Thank you — consent confirmed",
+      "deleteConfirm": "This deletes these profiles, their statuses, stickers and linked devices now. It can't be undone."
     },
     "child": {
       "title": "Child",
@@ -10630,5 +10697,268 @@
       "reminderSub": "When a coaching sound is due, the revision reminder mentions it",
       "keywords": "tajweed, coaching, qalqalah, ghunnah, madd, shaddah, revision reminder, practice"
     }
+  },
+  "setupFlow": {
+    "stepOf": "Step {{current}} of {{total}}",
+    "allSet": "Setup complete",
+    "language": {
+      "title": "Choose your language",
+      "body": "The whole app will use it. The meaning of the Qur'an, hadith and duas can follow it or use another language."
+    },
+    "location": {
+      "title": "Where do you pray?",
+      "body": "Salah times and the Qibla direction depend on where you are.",
+      "privacy": "Your location stays on this device and is used only for Salah times and the Qibla. It is never shared.",
+      "chooseCity": "Search for my city instead",
+      "confirmBody": "Check your place and how Salah times are calculated. If your masjid follows a different method, choose it here.",
+      "defaultHint": "Salah times use Makkah until you choose your place."
+    },
+    "reminders": {
+      "title": "Never miss a Salah",
+      "body": "Get the Adhan at each Salah time and gentle Zikr reminders. They are scheduled on this device and never show anything private.",
+      "onTitle": "Reminders are on",
+      "onBody": "Adjust the main ones now, or fine-tune everything later in Settings.",
+      "offTitle": "Reminders are off",
+      "offBody": "You can turn them on any time in Settings › Reminders & notifications."
+    },
+    "personalise": {
+      "title": "Make it yours",
+      "body": "Optional — you can change all of these later in Settings."
+    },
+    "done": {
+      "title": "You're all set",
+      "body": "Here's how the app is set up. Tap anything to change it.",
+      "recap": "Your setup"
+    }
+  },
+  "privateUx": {
+    "saveFailed": "Couldn't save. Please try again.",
+    "saving": "Saving…",
+    "export": {
+      "unavailable": "Printing and sharing aren't available on this device.",
+      "failed": "Couldn't create the document. Please try again.",
+      "preparing": "Preparing the document…"
+    },
+    "date": {
+      "invalid": "Couldn't read this date. Use year-month-day, e.g. 2026-11-23.",
+      "reads": "Reads as {{date}}",
+      "preset": {
+        "week": "In 1 week",
+        "month": "In 1 month",
+        "threeMonths": "In 3 months"
+      }
+    },
+    "payments": {
+      "errorAmount": "Enter the amount repaid.",
+      "removeTitle": "Remove this repayment?",
+      "removeBody": "The amount left to repay goes back up. This can't be undone."
+    },
+    "wasiyyah": {
+      "nameRequired": "Add your name to continue.",
+      "reviewTitle": "Check each section",
+      "summary": {
+        "nameMissing": "Your name is missing",
+        "selected": "{{done}} of {{total}} chosen",
+        "confirmed": "{{done}} of {{total}} confirmed",
+        "none": "Nothing added",
+        "added": "Added: {{total}}",
+        "snapshot": "Inheritance calculation attached (illustrative)",
+        "noSnapshot": "No calculation attached (optional)",
+        "named": "{{done}} of {{total}} named",
+        "dateInvalid": "The date can't be read"
+      },
+      "draftNote": "You have an unfinished draft. Continue where you left off.",
+      "discardTitle": "Discard your draft?",
+      "discardBody": "Changes you haven't saved as a version will be deleted. Your saved wasiyyah stays as it is.",
+      "dateBlocked": "Fix the date in “About you” before saving."
+    },
+    "muhasabah": {
+      "customAddedOff": "Question added. You already have {{max}} questions on, so switch one off to use it.",
+      "retentionTitle": "Delete older reviews?",
+      "retentionBody_one": "{{count}} saved review is older than this and will be deleted now. This can't be undone.",
+      "retentionBody_other": "{{count}} saved reviews are older than this and will be deleted now. This can't be undone.",
+      "retentionConfirm": "Delete and change",
+      "clearNotesTitle": "Delete saved notes too?",
+      "clearNotesBody_one": "{{count}} saved review still holds a repentance note. Delete the words now? The fact that you repented stays.",
+      "clearNotesBody_other": "{{count}} saved reviews still hold repentance notes. Delete the words now? The fact that you repented stays.",
+      "clearNotesConfirm": "Delete notes",
+      "clearNotesKeep": "Keep them",
+      "clearNotesDone": "Repentance notes deleted"
+    },
+    "familyTies": {
+      "digestAfterDhuhr": "After Dhuhr",
+      "notFound": "This relative is no longer in your list.",
+      "phoneInvalid": "This number looks too short to call or message."
+    },
+    "mirath": {
+      "highlightHint": "Highlighted heirs receive a different share in another school."
+    },
+    "undo": "Undo",
+    "debts": {
+      "selectTitle": "Select a record",
+      "selectBody": "Choose a record from the list to see its details, or add a new one."
+    }
+  },
+  "nearby": {
+    "tabs": {
+      "code": "Code & QR",
+      "nearby": "Nearby"
+    },
+    "host": {
+      "title": "Invite someone next to you",
+      "body": "Their phone finds yours over Bluetooth — nothing to type. You approve everyone who asks.",
+      "childTitle": "Link a phone next to you",
+      "childBody": "On your child's phone, open Munib Tracker, choose \"Link with a parent's phone nearby\" and keep the phones close. You approve the link here.",
+      "start": "Make visible",
+      "starting": "Starting…",
+      "visible": "Visible to nearby phones",
+      "stopsAt": "Stops at {{time}}",
+      "codeLabel": "Check the other phone shows the same digits",
+      "codeA11y": "Match code {{code}}",
+      "stop": "Stop",
+      "asking": "Asking to join",
+      "noneYet": "No one yet. Ask them to tap \"Join nearby\" on their phone.",
+      "someone": "Someone nearby",
+      "guest": "Guest",
+      "childDevice": "Your child's phone",
+      "accept": "Accept",
+      "decline": "Decline",
+      "acceptA11y": "Accept {{name}}",
+      "declineA11y": "Decline {{name}}",
+      "status": {
+        "accepted": "Accepted",
+        "declined": "Declined",
+        "completed": "Linked"
+      },
+      "stopped": {
+        "timeout": "Stopped after 10 minutes to save battery.",
+        "background": "Stopped because you left Munib Tracker.",
+        "bluetoothOff": "Stopped because Bluetooth was turned off.",
+        "used": "Done — this nearby invite has been used.",
+        "error": "Couldn't make this phone visible. Try again, or use the code or QR."
+      },
+      "again": "Make visible again",
+      "acceptedToast": "Accepted — they're in the circle now.",
+      "linkedToast": "Approved — the phone will link in a moment.",
+      "errorFull": "Couldn't accept — the circle may be full, or this request was already answered.",
+      "errorEnded": "This nearby invite has ended.",
+      "errorForbidden": "You can no longer invite people to this circle."
+    },
+    "rationale": {
+      "title": "Use Bluetooth to find each other",
+      "hostBody": "Your phone shows this circle to phones right next to you, only while this screen is open (10 minutes at most). It shares a temporary code — never your name or location.",
+      "joinBody": "Your phone looks for circles right next to you, only while this sheet is open. Nothing is shared until you confirm and the host approves.",
+      "androidLocation": "On this Android version, Bluetooth scanning needs the location permission. Your location is never used or stored.",
+      "continue": "Continue",
+      "notNow": "Not now"
+    },
+    "blocked": {
+      "unsupported": {
+        "title": "Nearby isn't available on this phone",
+        "body": "Use the code or QR instead."
+      },
+      "bluetoothOff": {
+        "title": "Bluetooth is off",
+        "bodyIos": "Turn on Bluetooth in Control Center, then try again.",
+        "bodyAndroid": "Turn on Bluetooth, then try again."
+      },
+      "permissionDenied": {
+        "title": "Bluetooth permission needed",
+        "body": "Allow \"Nearby devices\" so the phones can find each other. You can still use the code or QR."
+      },
+      "permissionBlocked": {
+        "title": "Bluetooth is off for Munib Tracker",
+        "body": "Allow Bluetooth (\"Nearby devices\" on Android) for Munib Tracker in Settings, or use the code or QR."
+      },
+      "locationOff": {
+        "title": "Location services are off",
+        "body": "On this Android version, Bluetooth scanning only works with location services on. Your location is never used."
+      },
+      "openSettings": "Open Settings",
+      "openBluetooth": "Bluetooth settings",
+      "openLocation": "Location settings",
+      "retry": "Try again"
+    },
+    "join": {
+      "button": "Join nearby",
+      "buttonHint": "Find a circle on a phone next to you",
+      "title": "Join nearby",
+      "childButton": "Link with a parent's phone nearby",
+      "childTitle": "Link nearby",
+      "scanning": "Looking for circles nearby…",
+      "scanningHint": "Ask the host to open the invite, choose Nearby and tap \"Make visible\". Keep the phones close.",
+      "childScanning": "Looking for your parent's phone…",
+      "childScanningHint": "Ask your parent to open your profile, choose Nearby and tap \"Make visible\".",
+      "childItem": "Link this phone",
+      "proximity": {
+        "veryClose": "Very close",
+        "near": "Nearby",
+        "far": "Farther away"
+      },
+      "itemA11y": "{{name}}, {{type}}, {{proximity}}",
+      "compareTitle": "Do these digits match?",
+      "compareBody": "Check that the host's screen shows the same 4 digits. If they don't match, go back — it's a different phone.",
+      "match": "They match",
+      "noMatch": "They don't match",
+      "sending": "Sending…",
+      "waiting": "Waiting for the host to accept…",
+      "waitingHint": "Keep this open. The host can see your request now.",
+      "cancel": "Cancel request",
+      "joined": "You've joined {{name}}",
+      "childLinked": "This phone is linked",
+      "open": "Open",
+      "declined": "The host declined this request.",
+      "expired": "This nearby invite has ended. Ask the host to make their phone visible again.",
+      "paused": {
+        "timeout": "Stopped looking after 10 minutes to save battery.",
+        "background": "Paused while Munib Tracker was in the background.",
+        "error": "Couldn't search for nearby phones.",
+        "bluetoothOff": "Stopped because Bluetooth was turned off."
+      },
+      "scanAgain": "Search again",
+      "error": {
+        "mismatch": "Those digits belong to a different invite. Go back and pick the right circle.",
+        "alreadyMember": "You're already in this circle.",
+        "needsAccount": "Sign in with an account to join this circle.",
+        "busy": "Too many people are asking right now. Try again in a moment."
+      },
+      "back": "Back",
+      "close": "Close",
+      "fallback": "Can't find it? Use the code or scan the QR instead."
+    }
+  },
+  "settingsSubgroups": {
+    "salah": {
+      "title": "Salah & Adhan",
+      "subtitle": "Adhan, alerts, reminder timing, sunnah and qaza"
+    },
+    "zikr": {
+      "title": "Zikr & Qur'an",
+      "subtitle": "Morning, evening and bedtime adhkar, Qur'an revision"
+    },
+    "fasting": {
+      "title": "Fasting & seasonal",
+      "subtitle": "Voluntary fasts, suhoor, Dhul-Hijjah and takbir"
+    },
+    "personal": {
+      "title": "Personal & family",
+      "subtitle": "Muhasabah, family ties, debts, wasiyyah and reflection"
+    },
+    "other": {
+      "title": "Daily content & app",
+      "subtitle": "Daily reflection, Friday, White Days, achievements and feedback"
+    }
+  },
+  "prayerMethodSuggestion": {
+    "searchTitle": "Suggested calculation method",
+    "title": "Suggested for {{country}}",
+    "body": "{{method}} is the usual method there. Your masjid's own timetable is still the best guide.",
+    "use": "Use this method",
+    "keep": "Keep current",
+    "updated": "Calculation method updated"
+  },
+  "scriptureMeaning": {
+    "englishLabel": "English meaning",
+    "englishLabelA11y": "Meaning shown in English: no trusted dataset translation is available in your language yet"
   }
 }

@@ -27,9 +27,9 @@
       "retry": "Réessayer",
       "reviewTitle": "Passez en revue vos réponses",
       "encouragementPerfect": "Belle revue - qu'Allah vous augmente en connaissances bénéfiques.",
-      "encouragementStrong": "Güçlü un kavrmoisış. Eksikleri pekiştirmek pour tekrar gözden geçirin.",
-      "encouragementSteady": "İyi aetcrleme. Eksikleri un sonraki çalışma hedefleriniz olarak kullanın.",
-      "encouragementKeepGoing": "Her eksik un derstir. Notları gözden geçirin, sonra tekrar deneyin.",
+      "encouragementStrong": "Excellente compréhension. Revoyez vos erreurs pour bien les ancrer.",
+      "encouragementSteady": "Bons progrès. Faites de vos erreurs vos prochains objectifs d'étude.",
+      "encouragementKeepGoing": "Chaque erreur est une leçon. Relisez les notes, puis réessayez.",
       "keyboardHint": "Appuyez sur 1–4 pour répondre, Entrée pour continuer."
     },
     "skip": "Ignorer",
@@ -40,7 +40,7 @@
     "add": "Ajouter",
     "reset": "Réinitialiser",
     "close": "Fermer",
-    "dragToClose": "Fermermak pour aşağı sürükleyin",
+    "dragToClose": "Faites glisser vers le bas pour fermer",
     "today": "Aujourd'hui",
     "show": "Afficher",
     "dismiss": "Fermer",
@@ -50,7 +50,7 @@
     "signOut": "Se déconnecter",
     "on": "Activé",
     "off": "Désactivé",
-    "signedIn": "Se connecterıldı",
+    "signedIn": "Connecté",
     "confirm": "Confirmer",
     "markCompleteConfirmTitle": "Marquer comme terminé ?",
     "markCompleteConfirmMsg": "Ceci sera ajouté à votre progression d'apprentissage. Vous pouvez annuler à tout moment.",
@@ -287,7 +287,7 @@
       }
     },
     "remaining": "Restant",
-    "atTime": "at {{time}}",
+    "atTime": "à {{time}}",
     "streak": "Série de Salah",
     "streakDays": "{{count}} jours",
     "streakDays_one": "{{count}} jour",
@@ -397,33 +397,33 @@
     "eyebrow": "Bibliothèque",
     "title": "Signets",
     "subtitle": "Toutes vos lectures enregistrées au même endroit",
-    "subtitleCount": "{{count}} kmoisdedildi items",
+    "subtitleCount": "{{count}} éléments enregistrés",
     "reading": "Lecture",
     "saved": "Enregistré",
-    "quran": "Coran moisahs",
+    "quran": "Versets du Coran",
     "hadith": "Hadith",
-    "duas": "Enregistré duas",
-    "zikr": "Adhkar préféré",
-    "duroods": "Enregistré duroods",
-    "names": "Enregistré isimler",
-    "emptyTitle": "Nothing kmoisdedildi yet",
+    "duas": "Duas enregistrées",
+    "zikr": "Adhkar favoris",
+    "duroods": "Duroods enregistrés",
+    "names": "Noms enregistrés",
+    "emptyTitle": "Rien d'enregistré pour l'instant",
     "emptySubtitle": "Explorez ci-dessous et enregistrez au fil de votre lecture",
-    "emptyDesc": "Vousin bookmarked moisahs, hadis, duas, et adhkar will collect here.",
-    "exploreReading": "reading Commencert",
-    "exploreSaved": "saving Commencert",
-    "exploreQuran": "Browse Coran",
-    "exploreQuranHint": "Dokunun  yer imi icon  any moisah",
+    "emptyDesc": "Vos ayahs, hadiths, duas et adhkar enregistrés apparaîtront ici.",
+    "exploreReading": "Commencer la lecture",
+    "exploreSaved": "Commencer à enregistrer",
+    "exploreQuran": "Parcourir le Coran",
+    "exploreQuranHint": "Appuyez sur l'icône de signet d'un verset",
     "exploreHadith": "Parcourir les Hadiths",
     "exploreHadithHint": "Marque-page de n'importe quelle collection",
     "exploreDuas": "Parcourir les Duas",
-    "exploreDuasHint": "Dokunun  star  kmoisdet  dua",
-    "exploreZikr": "Browse Zikrler",
-    "exploreZikrHint": "Appuyez sur le cœur de votre adhkar préféré",
-    "exploreDuroods": "Browse Salawat",
-    "exploreDuroodsHint": "Dokunun  star  kmoisdet  durood",
-    "exploreNames": "Browse 99 Noms",
-    "exploreNamesHint": "Dokunun  star  kmoisdet  name",
-    "exploreQuranHintTv": "Sélectionnez l'icône de signet sur n'importe quel ayah",
+    "exploreDuasHint": "Appuyez sur l'étoile pour enregistrer une dua",
+    "exploreZikr": "Parcourir les adhkar",
+    "exploreZikrHint": "Appuyez sur le cœur pour mettre des adhkar en favori",
+    "exploreDuroods": "Parcourir les duroods",
+    "exploreDuroodsHint": "Appuyez sur l'étoile pour enregistrer un durood",
+    "exploreNames": "Parcourir les 99 Noms",
+    "exploreNamesHint": "Appuyez sur l'étoile pour enregistrer un nom",
+    "exploreQuranHintTv": "Sélectionnez l'icône de signet d'un verset",
     "exploreDuasHintTv": "Sélectionnez l'étoile pour enregistrer une dua",
     "exploreZikrHintTv": "Sélectionnez le cœur pour mettre des adhkar en favori",
     "exploreDuroodsHintTv": "Sélectionnez l'étoile pour enregistrer un durood",
@@ -577,7 +577,7 @@
       "consistency": {
         "text": "Allah aime les actions cohérentes, même si elles sont petites. Continuez à vous présenter.",
         "topic": "fermeté",
-        "source": "a"
+        "source": "Sahih al-Bukhari 6464 · Sahih Muslim 782"
       },
       "tracker-honest": {
         "text": "Un tracker honnête vous aide à voir des tendances, pas à vous juger. Le progrès commence par la prise de conscience.",
@@ -659,7 +659,7 @@
     "excusedConfirmMsg": "Le suivi obligatoire sera en pause ({{reason}}) et continuera chaque jour jusqu'à ce que vous repreniez. Votre série sera conservée.",
     "excusedConfirmAction": "Marquer excusé",
     "excusedReason": {
-      "hayd": "Hmoisız",
+      "hayd": "Hayd",
       "sick": "Maladie",
       "travel": "Voyage",
       "nifas": "Nifas"
@@ -670,7 +670,7 @@
     "sunnahOptional": "Sunnah et nafaetc",
     "keepGoing": "Continuer",
     "salahAdhkar": "Salah zikirleri",
-    "salahAdhkarSubtitle": "Her salah etrafında okunacak sünnet zikirler.",
+    "salahAdhkarSubtitle": "Adhkar de la Sunnah à réciter autour de chaque prière.",
     "salahCaption": "Salah",
     "glanceTitle": "Aujourd'huikü aetcrleme",
     "rings": {
@@ -682,7 +682,7 @@
       "khatm": "Khatm"
     },
     "allDone": "MashaAllah - tout est fait",
-    "freshStart": "Yeni un başlangıç",
+    "freshStart": "Un nouveau départ",
     "keepGoingShort": "Continue",
     "almostThere": "Presque là",
     "summaryLogged": "{{completed}} prières obligatoires sur {{total}} enregistrées aujourd'hui.",
@@ -690,10 +690,10 @@
     "streakLabel": "série de {{count}} jours",
     "qazaTargets": "Qaza hedefleri",
     "qazaTargetsProgress": "Aujourd'hui {{total}} kazadan {{done}}",
-    "afterSalahAdhkarReminderTitle": "{{prayer}} sonrası",
-    "afterSalahAdhkarReminderBody": "Tasbeeh et salah sonrası zikirler pour un an moisırın.",
+    "afterSalahAdhkarReminderTitle": "Après {{prayer}}",
+    "afterSalahAdhkarReminderBody": "Prenez un moment pour le tasbih et les adhkar d'après la Salah.",
     "afterSalahProgress": "Zikrler {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} sur {{total}} completed today",
+    "afterSalahProgressA11y": "Adhkar d'après la salah de {{prayer}} : {{completed}} sur {{total}} accomplis aujourd'hui",
     "friday": {
       "title": "Checklist Jumu'ah",
       "subtitle": "Pratiques sunnah du vendredi — affichées uniquement le vendredi",
@@ -915,7 +915,7 @@
         "location": "Koweit"
       },
       "makkah-muezzin": {
-        "name": "Ali Ibn Ahmad Mala",
+        "name": "Ali Ahmed Mulla",
         "location": "Masjid al-Haram"
       }
     },
@@ -923,8 +923,8 @@
   },
   "import": {
     "title": "Salah geçmişini içe aktar",
-    "subtitle": "Backfill logs den another app ou  spreadsheet",
-    "pasteTitle": "Paste votre data",
+    "subtitle": "Complétez vos journaux depuis une autre app ou un tableur",
+    "pasteTitle": "Collez vos données",
     "formatHint": "Collez du JSON (un tableau de {date, PrayerId, status}) ou des lignes CSV date,prayerId,status. Les dates sont AAAA-MM-JJ ; les prières sont fajr, dhuhr, asr, maghrib, isha, witr ; les statuts sont terminés, manqués, retardés, qaza.",
     "placeholder": "[{\"date\": \"2026-06-01\", \"prayerId\": \"fajr\", \"status\": \"terminé\"}]",
     "preview": "Aperçu",
@@ -936,21 +936,21 @@
     "errorLine": "Ligne {{row}} : {{message}}",
     "moreErrors": "+{{count}} plus d'erreurs",
     "alsoQaza": "Also ekle kaçırıldı prmoisers  Qaza",
-    "alsoQazaHint": "Increase votre make-up counters by each imported miss.",
+    "alsoQazaHint": "Augmente vos compteurs de rattrapage de chaque prière manquée importée.",
     "commit": "Importer les journaux {{count}}",
     "importing": "Importation…",
-    "done": "Imported {{count}} salah logs",
-    "failed": "faaetcd. Please try again. İçe Aktar"
+    "done": "{{count}} journaux de prière importés",
+    "failed": "L'importation a échoué. Veuillez réessayer."
   },
   "login": {
-    "eyebrowGuest": "İlerlemenizi kmoisdedin",
-    "eyebrowWelcome": "Accueillir",
+    "eyebrowGuest": "Sauvegardez votre progression",
+    "eyebrowWelcome": "Bienvenue",
     "title": "Se connecter",
-    "subtitle": "Adorationinizi cihazlar arasında senkronize edin",
+    "subtitle": "Synchronisez vos actes d'adoration sur tous vos appareils",
     "google": "Continuer avec Google",
     "apple": "Continuer avec Apple",
     "facebook": "Continuer avec Facebook",
-    "heroGuest": "Invité hesabı kullanıyorsunuz. Veraetcrinizi yedeklemek et senkronize etmek pour un sağlmoisıcı bağlmoisın — hiçun şey kmoisbolmaz.",
+    "heroGuest": "Vous utilisez un compte invité. Liez un fournisseur pour sauvegarder et synchroniser vos données — rien n'est perdu.",
     "heroUser": "Gardez vos Salah, qaza et zikr en sécurité dans le cloud.",
     "error": "Connexion impossible. Vérifiez que le serveur API est démarré et que ce fournisseur est configuré.",
     "providersUnavailableTitle": "Connexion indisponible pour le moment",
@@ -965,39 +965,38 @@
   },
   "onboarding": {
     "begin": "Commencer",
-    "brandDuaLabel": "Kolmoislık duası",
+    "brandDuaLabel": "Une invocation pour la facilité",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
     "brandDuaTransliteration": "Allahumma la sahla illa ma ja'altahu sahla, wa anta taj'alul-hazna idha shi'ta sahla",
-    "brandDuaTranslation": "Allahm, Sen kolmoislaştırmadıkça kolmoislık yoktur; daetcdiğinde zorluğu kolmoislaştırırsın.",
     "slide1Eyebrow": "Salah",
-    "slide1Title": "Salahlarınızı takip edin",
+    "slide1Title": "Suivez vos prières",
     "slide1Body": "Marquez chaque prière sur votre chemin de retour vers Allah — accomplie, manquée, retardée ou qaza.",
-    "slide1Highlight1": "Beş farz salah artı Witr (sünnet-i müekkede) et sünnetler",
-    "slide1Highlight2": "Sérieler, aetcrleme halkası et takvim",
-    "slide1Highlight3": "Hicri tarih et geri smoisımlı salah vakitleri",
+    "slide1Highlight1": "Les cinq prières fard, plus le Witr (sunnah mu'akkadah) et les sunnahs",
+    "slide1Highlight2": "Séries, anneau de progression et calendrier",
+    "slide1Highlight3": "Horaires de prière avec date hijri et compte à rebours",
     "slide2Eyebrow": "Qaza",
-    "slide2Title": "Manquéları telafi edin",
-    "slide2Body": "Qazmoisı bunaltıcıdan yapılabilir hale getirin — tahmin edin, tempo planlmoisın et orucu takip edin.",
-    "slide2Highlight1": "Suiviçiden senkronize salah başına smoisaçlar",
-    "slide2Highlight2": "Alim farkındalığıyla yaşam boyu hesaplmoisıcı",
-    "slide2Highlight3": "Borcu temizlemek pour ETA'lı quotidien tempo planlmoisıcı",
+    "slide2Title": "Rattrapez ce qui a été manqué",
+    "slide2Body": "Rendez le qaza faisable plutôt qu'écrasant — estimez, planifiez un rythme et suivez votre jeûne.",
+    "slide2Highlight1": "Compteurs par prière synchronisés depuis votre suivi",
+    "slide2Highlight2": "Calculateur sur toute une vie, avec des conseils tenant compte des avis des savants",
+    "slide2Highlight3": "Planificateur de rythme quotidien avec date estimée pour solder votre retard",
     "slide3Eyebrow": "Зикр",
-    "slide3Title": "Her jour Allah anın",
-    "slide3Body": "Dokunsal tesbih smoisacıyla sabah, akşam et durumsal zikirler.",
+    "slide3Title": "Souvenez-vous d'Allah chaque jour",
+    "slide3Body": "Adhkar du matin, du soir et des circonstances, avec un compteur de tasbih tactile.",
     "slide3Highlight1": "Yedi zikir kategorisi et favoraetcr",
-    "slide3Highlight2": "Ön moisarlı et özel hedefli ücretsiz tesbih",
-    "slide3Highlight3": "Yatma heureine göre uyku öncesi hatırlatmalar",
+    "slide3Highlight2": "Tasbih libre avec préréglages et objectifs personnalisés",
+    "slide3Highlight3": "Rappels avant le sommeil adaptés à votre heure de coucher",
     "slide4Eyebrow": "Conseils",
     "slide4Title": "Coran, hadis et dualar hors ligne",
-    "slide4Body": "Okuyun, armoisın et dinleyin — yol pour paketlenmiş, isteğe bağlı nazik hatırlatmalarla.",
-    "slide4Highlight1": "Tilaett et moiset aramasıyla tam Coran",
-    "slide4Highlight2": "Hadith, dualar, salavatlar et 99 İsim",
-    "slide4Highlight3": "Salah vakitleri, kıble pusulası et isteğe bağlı hatırlatmalar",
+    "slide4Body": "Lisez, recherchez et écoutez — tout est inclus pour la route, avec de doux rappels facultatifs.",
+    "slide4Highlight1": "Le Coran complet avec récitation et recherche par ayah",
+    "slide4Highlight2": "Hadiths, duas, duroods et les 99 Noms",
+    "slide4Highlight3": "Horaires de prière, boussole de la qibla et rappels facultatifs",
     "ctaEyebrow": "Tu es prêt",
-    "ctaTitle": "Yolculuğunuza başlmoisın",
+    "ctaTitle": "Commencez votre parcours",
     "ctaBody": "Tout fonctionne hors ligne sur votre appareil. Connectez-vous à tout moment pour synchroniser.",
     "ctaPrivacyTitle": "Varsaannéean olarak gizli",
-    "ctaPrivacyBody": "Compte gerekmez. Sauetgardermeyi et senkronize etmeyi seçene kadar ibadet etraetcriniz sur votre appareil kalır.",
+    "ctaPrivacyBody": "Aucun compte requis. Vos données d'adoration restent sur votre appareil jusqu'à ce que vous choisissiez de les sauvegarder et de les synchroniser.",
     "signInToSync": "Se connecter pour synchroniser",
     "pageOf": "Page {{page}} sur {{total}}",
     "locationEyebrow": "Localisation et rappels",
@@ -1024,12 +1023,12 @@
   "appearance": {
     "eyebrow": "Paramètres",
     "themeTitle": "Apparence",
-    "themeHint": "Açık, koyu seçin ou cihazınızı takip edin",
+    "themeHint": "Choisissez clair, sombre ou suivez votre appareil",
     "modeLight": "Clair",
     "modeDark": "Sombre",
     "modeSystem": "Système",
     "accentTitle": "Couleur d'accentuation",
-    "accentHint": "Bir ön moisar, palet rengi seçin ou seçiciyle ince moisar yapın",
+    "accentHint": "Choisissez un préréglage, une couleur de la palette, ou affinez avec le sélecteur",
     "selectedAccent": "Sélectionné",
     "accentPresets": "Ön moisarlar",
     "accentAllColors": "Toutes les couleurs",
@@ -1051,37 +1050,37 @@
   "timeFormat": {
     "title": "Format de l'heure",
     "subtitle": "Comment les heures d'horloge apparaissent dans l'application",
-    "hint": "Salah vakitleri, hatırlatıcılar, programlar et yatma heurei pour geçerlidir",
-    "option12": "12 heure",
-    "option24": "24 heure",
-    "example12": "Exemple : 14h30",
+    "hint": "S'applique aux horaires de prière, aux rappels, aux programmes et à l'heure du coucher",
+    "option12": "12 heures",
+    "option24": "24 heures",
+    "example12": "Exemple : 2:30 PM",
     "example24": "Exemple : 14h30",
-    "am": "SUIS",
-    "pm": "MP",
-    "footer": "Seçiminiz otomatik kmoisdedilir et heurelerin gösterildiği her yerde kullanılır."
+    "am": "AM",
+    "pm": "PM",
+    "footer": "Votre choix est enregistré automatiquement et utilisé partout où des heures sont affichées."
   },
   "defaultCalendar": {
-    "title": "Varsaannéean takvim",
+    "title": "Calendrier par défaut",
     "subtitle": "Comment les dates apparaissent dans l'application",
-    "hint": "Etkinlikler, quotidien, takvim sekmeleri et diğer tarih etiketleri pour geçerlidir. Ana smoisfa her zaman her iki takvimi de gösterir.",
+    "hint": "S'applique aux événements, au journal, aux onglets du calendrier et aux autres libellés de date. L'en-tête de l'accueil affiche toujours les deux calendriers.",
     "optionGregorian": "Grégorien",
-    "optionHijri": "Хиджри",
+    "optionHijri": "Hégirien",
     "exampleGregorian": "Exemple : lundi 23 mars 2026",
-    "exampleHijri": "Örnek: 1 Ramadan 1447 H",
-    "footer": "Seçiminiz otomatik kmoisdedilir. Calendrier ekranlarında geçici olarak değiştirebilirsiniz."
+    "exampleHijri": "Exemple : 1 Ramadan 1447 H",
+    "footer": "Votre choix est enregistré automatiquement. Les écrans du calendrier permettent toujours de changer temporairement."
   },
   "weather": {
     "title": "Météo",
     "subtitle": "Liet conditions  votre ana smoisfa hero",
     "effectsTitle": "Effets de héros",
-    "effectsHint": "Animated oetrlmoiss   ana smoisfa banner şu match local hava.",
+    "effectsHint": "Animations sur la bannière d'accueil assorties à la météo locale.",
     "effectsToggle": "Effets météorologiques",
     "effectsToggleSub": "Pluie, nuages, soleil, vent et plus encore sur l'en-tête",
     "unitTitle": "Unité de température",
-    "unitHint": "Shown beside votre konum   ana smoisfa screen",
+    "unitHint": "Affiché à côté de votre position sur l'écran d'accueil",
     "unitCelsius": "Celsius (°C)",
     "unitFahrenheit": "Fahrenheit (°F)",
-    "footer": "Hava refreshes eetry 3 hours using free Aç-Meteo et MET Norwmois data.",
+    "footer": "La météo se met à jour toutes les 3 heures grâce aux données gratuites d'Open-Meteo et de MET Norway.",
     "condition": {
       "clear": "Effacer",
       "partly_cloudy": "Partiellement nuageux",
@@ -1282,10 +1281,10 @@
     "eyebrow": "Paramètres",
     "subtitle": "Dimensionnez le texte que vous lisez le plus",
     "preview": "Aperçu",
-    "sampleTranslation": "Glory dir  Allah et praise dir  Him.",
+    "sampleTranslation": "Gloire à Allah et toute louange lui appartient.",
     "arabicText": "Rechercherpça text",
     "translationText": "Traduction et translittération",
-    "footer": "Applied across zikir, dua, et tesbih okuma views.",
+    "footer": "Appliqué aux vues de lecture : zikr, duas et tasbeeh.",
     "small": "Petit",
     "medium": "Moyen",
     "large": "Grand",
@@ -1313,7 +1312,7 @@
     "afterSalahTodayForPrayer": "After {{prayer}} bujour",
     "afterSalahProgress": "{{completed}}/{{total}} terminé",
     "emptyTitle": "Pas encore d'adhkar",
-    "emptyDesc": "More entries pour bu category dir   wmois.",
+    "emptyDesc": "D'autres entrées pour cette catégorie arrivent bientôt.",
     "detailEyebrow": "Зикр",
     "today": "Aujourd'hui",
     "openInTasbeeh": "Ouvrir dans Tasbeeh",
@@ -1321,7 +1320,7 @@
     "favorited": "Favoris",
     "share": "Partager",
     "notFoundTitle": "Zikr introuvable",
-    "notFoundDesc": "Ce item mmois haet been kaldırıldı.",
+    "notFoundDesc": "Cet élément a peut-être été supprimé.",
     "favTitle": "Favoris",
     "favSubtitle": "Reorder ou remoet votre kmoisdedildi adhkar",
     "favEmptyTitle": "Pas encore de favoris",
@@ -1330,8 +1329,8 @@
     "moveUp": "Monter",
     "moveDown": "Descendre",
     "removeFavorite": "Retirer favorite",
-    "searchPlaceholder": "adhkar by title, topic, or text… Rechercher",
-    "searchInCategory": "in this category… Rechercher",
+    "searchPlaceholder": "Rechercher des adhkar par titre, thème ou texte…",
+    "searchInCategory": "Rechercher dans cette catégorie…",
     "searchResultCount": "{{count}} correspond",
     "noResults": "No adhkar matched votre ara.",
     "markAsDone": "Marquer comme terminé",
@@ -1365,9 +1364,9 @@
     "showLess": "Afficher less",
     "copied": "Copié dans le presse-papiers",
     "textSize": "Taille du texte",
-    "decrease": "Diminuer text size",
-    "increase": "Augmenter text size",
-    "reset": "Réinitialiser text size",
+    "decrease": "Réduire la taille du texte",
+    "increase": "Agrandir la taille du texte",
+    "reset": "Réinitialiser la taille du texte",
     "sizeDefault": "Varsaannéean",
     "listen": "Écouter l'article",
     "listenStop": "Arrêter l'écoute",
@@ -1394,7 +1393,7 @@
     "dialogTitle": "Partager",
     "brandingFooterName": "— {{appName}}",
     "proofTagline": "Track Your Voyage Retour to Allah — free on iOS, Android & web",
-    "proofGetApp": "Get Munib Suivi free",
+    "proofGetApp": "Obtenez Munib Tracker gratuitement",
     "proofIosLabel": "Magasin d'applications",
     "proofAndroidLabel": "Google Lire",
     "proofWebLabel": "Application Web",
@@ -1403,7 +1402,7 @@
     "proofQrWebA11y": "Code QR : ouvrez l'application Web",
     "proofExportedAt": "Partagerd · {{exportedAt}}",
     "proofOrVisit": "OU visitez : {{url}}",
-    "proofNotice": "Shared pour benefit — please etrify religious içerik aetc  trusted alim.",
+    "proofNotice": "Partagé pour le bien — veuillez vérifier le contenu religieux auprès d'un savant de confiance.",
     "sectionReading": "Lecture",
     "sectionQuran": "Coran",
     "sectionHadith": "Hadith",
@@ -1413,27 +1412,27 @@
     "guideReadAt": "Read pourde Munib Tracker:",
     "preparing": "Partage…",
     "tapToShare": "Dokunun  pmoislaş",
-    "sectionSchedule": "Today's schedule",
+    "sectionSchedule": "Programme du jour",
     "selectToShare": "Sélectionner pour partager"
   },
   "dua": {
     "eyebrow": "Supplication",
     "title": "Dua",
     "subtitle": "Sahih duas den  Coran et Sunnah",
-    "duroodsLink": "Duroods & Salawat",
+    "duroodsLink": "Duroods et salawat",
     "categoryEyebrow": "Dua",
     "supplicationsCount": "{{count}} supplications",
     "detailEyebrow": "Doua",
     "notFoundTitle": "Dua introuvable",
-    "notFoundDesc": "Ce item mmois haet been kaldırıldı.",
+    "notFoundDesc": "Cet élément a peut-être été supprimé.",
     "share": "Partager",
     "favorite": "dua Enregistrer",
-    "unfavorite": "from saetd Kaldır",
+    "unfavorite": "Retirer des favoris",
     "favorites": "Enregistré duas",
     "favoritesEmpty": "Henüz saetd duas yok",
     "viewFavorites": "Enregistré duas",
-    "searchPlaceholder": "duas by title, topic, or text… Rechercher",
-    "searchInCategory": "in this category… Rechercher",
+    "searchPlaceholder": "Rechercher des duas par titre, thème ou texte…",
+    "searchInCategory": "Rechercher dans cette catégorie…",
     "searchResultCount": "{{count}} correspond",
     "noResults": "No duas matched votre ara.",
     "favSubtitle": "Réorganiser ou supprimer vos duas enregistrées",
@@ -1459,7 +1458,12 @@
     "positionInCategory": "{{current}} sur {{total}} dans {{category}}",
     "positionInOccasion": "{{current}} sur {{total}}",
     "previous": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "topic": {
+      "deceased": "Duas pour les défunts",
+      "showing": "Une sélection de « {{category}} »",
+      "showAll": "Tout afficher"
+    }
   },
   "duaCat": {
     "morning_evening": "Matin et soir",
@@ -1484,11 +1488,11 @@
     "title": "Salawat",
     "subtitle": "Prophète Efendimiz ﷺ'ye salavat göndermek",
     "searchPlaceholder": "Salawat ara…",
-    "noResults": "Recherchermanızla eşleşen salavat yok",
+    "noResults": "Aucun durood ne correspond à votre recherche",
     "favorites": "Duroos préférés",
-    "favSubtitle": "Enregistrertiğiniz salavatlar",
+    "favSubtitle": "Les duroods que vous avez enregistrés",
     "favEmptyTitle": "Pas encore de duroods préférés",
-    "favEmptyDesc": "Cermoisa kmoisdetmek pour herhangi un salavata annéedıza dokunun.",
+    "favEmptyDesc": "Appuyez sur l'étoile d'un durood pour l'enregistrer ici.",
     "openInTasbeeh": "Ouvrir dans Tasbeeh",
     "favEmptyDescTv": "Sélectionnez l'étoile sur n'importe quel durood pour l'enregistrer ici."
   },
@@ -1501,9 +1505,9 @@
     "share": "Partager",
     "play": "Lire recitation",
     "pause": "Mettre la récitation en pause",
-    "searchPlaceholder": "by name or meaning… Rechercher",
+    "searchPlaceholder": "Rechercher par nom ou signification…",
     "favorite": "Ajouter to favorites",
-    "unfavorite": "Retirer from favorites",
+    "unfavorite": "Retirer des favoris",
     "favorites": "Noms préférés",
     "favSubtitle": "Isimler you'et kmoisdedildi",
     "favEmptyTitle": "Pas encore de noms favoris",
@@ -1525,27 +1529,27 @@
     "surahCount": "{{shown}} sur {{total}}",
     "reciter": "Récitant",
     "translation": "Traduction",
-    "showTransliteration": "Afficher transliteration",
-    "showTranslation": "Afficher translation",
+    "showTransliteration": "Afficher la translittération",
+    "showTranslation": "Afficher la traduction",
     "transliteration": "Translitération",
-    "backToTop": "Retour to top",
+    "backToTop": "Retour en haut",
     "readingProgress": "Progression de lecture",
-    "playSurah": "Lire surah",
-    "playPage": "Lire page",
-    "playAyah": "Oynat moisah {{n}}",
+    "playSurah": "Écouter la sourate",
+    "playPage": "Écouter la page",
+    "playAyah": "Écouter le verset {{n}}",
     "bookmark": "Signet",
     "bookmarks": "Signets",
     "viewBookmarks": "Voir les signets",
     "bookmarksTitle": "Signets",
-    "bookmarksSubtitle": "Vousin kmoisdedildi moisahs",
-    "bookmarkEmptyTitle": "Pas encore de favoris",
-    "bookmarkEmptyDesc": "Appuyez sur l'icône de signet sur n'importe quel ayah pour l'enregistrer ici.",
-    "removeBookmark": "Retirer bookmark",
+    "bookmarksSubtitle": "Vos versets enregistrés",
+    "bookmarkEmptyTitle": "Pas encore de signets",
+    "bookmarkEmptyDesc": "Appuyez sur l'icône de signet d'un verset pour l'enregistrer ici.",
+    "removeBookmark": "Retirer le signet",
     "juz": "Juz",
     "learn": "Apprendre",
-    "juzSubtitle": "Read  Coran pourde its 30 parts",
-    "juzN": "Джуз {{n}}",
-    "browseByJuz": "Rechercher par Juz",
+    "juzSubtitle": "Lisez le Coran en ses 30 parties",
+    "juzN": "Juz {{n}}",
+    "browseByJuz": "Parcourir par juz",
     "search": "Rechercher",
     "searchTitle": "Rechercher dans le Coran",
     "searchSubtitle": "Trouvez des versets par l'arabe, l'anglais, la translittération ou la référence",
@@ -1555,10 +1559,10 @@
     "resultsCount": "{{count}} résultats",
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Sourate introuvable",
-    "notFoundDesc": "Ce surah mmois not exist.",
+    "notFoundDesc": "Cette sourate n'existe peut-être pas.",
     "offlineTranslation": "Connectez-vous pour télécharger cette traduction. Une traduction intégrée est affichée à la place.",
-    "shareAyah": "etrse Partager",
-    "pauseAyah": "etrse Duraklat",
+    "shareAyah": "Partager le verset",
+    "pauseAyah": "Mettre le verset en pause",
     "actionPlay": "Lire",
     "actionPause": "Pause",
     "actionMemorized": "Terminé",
@@ -1566,8 +1570,8 @@
     "actionBookmark": "Sauvegarder",
     "actionBookmarked": "Enregistré",
     "actionShare": "Partager",
-    "bookmarkAdd": "Yer imi etrse",
-    "bookmarkRemove": "Retirer bookmark",
+    "bookmarkAdd": "Ajouter le verset aux signets",
+    "bookmarkRemove": "Retirer le signet",
     "loadingTranslation": "Chargement de la traduction…",
     "searching": "Recherche…",
     "secondTranslation": "Deuxième traduction",
@@ -1576,36 +1580,36 @@
     "translationCount_one": "{{count}} traduction",
     "translationCount_other": "{{count}} traductions",
     "translationBundled": "Disponible hors ligne",
-    "translationRemote": "Téléchargements en cas de besoin",
+    "translationRemote": "Téléchargée si nécessaire",
     "backToLanguages": "Toutes les langues",
     "searchTranslationLanguages": "Rechercher des langues…",
     "searchTranslators": "Rechercher des traducteurs…",
     "pages": "Pages",
     "pagesSubtitle": "Parcourir le mushaf Madani par page",
     "pageN": "Page {{n}}",
-    "pageOf": "Smoisfa {{page}} / {{total}}",
+    "pageOf": "Page {{page}} sur {{total}}",
     "pageFraction": "{{page}} / {{total}}",
     "pagePickerTitle": "Aller à la page",
-    "pagePickerSearch": "page or surah… Rechercher",
+    "pagePickerSearch": "Rechercher une page ou une sourate…",
     "readerLayout": "Disposition du lecteur",
     "layoutAyah": "Étude des versets",
     "layoutPage": "Vue par page",
     "layoutMushaf": "Mushaf",
-    "mushafOnlyHint": "Rechercherpça only",
+    "mushafOnlyHint": "Arabe uniquement",
     "loadingMushafFont": "Chargement…",
-    "pageReaderTitle": "Coran page {{page}}  {{total}}",
-    "pageReaderDesc": "Read  Noble Coran — Madani mushaf page {{page}}, hors ligne aetc ses et yer imleri.",
-    "prevPage": "Précédent page",
-    "nextPage": "Suivant page",
+    "pageReaderTitle": "Coran, page {{page}} sur {{total}}",
+    "pageReaderDesc": "Lisez le Noble Coran — page {{page}} du mushaf Madani, hors ligne avec audio et signets.",
+    "prevPage": "Page précédente",
+    "nextPage": "Page suivante",
     "openPageView": "Ouvrir la vue de la page",
     "continueAtPage": "Page {{page}} · {{surah}}:{{ayah}}",
     "enterFullscreen": "Passer en plein écran",
     "exitFullscreen": "Quitter le plein écran",
-    "showWordByWord": "Show word by word",
-    "showTajweed": "Show tajweed colours",
+    "showWordByWord": "Mot à mot",
+    "showTajweed": "Couleurs du tajweed",
     "wordByWord": {
       "title": "Mot à mot",
-      "playWord": "Joue ce mot",
+      "playWord": "Écouter ce mot",
       "noAudio": "Pas d'audio pour ce mot",
       "loading": "Chargement des mots…"
     },
@@ -1633,44 +1637,40 @@
       "hoverHint": "Passez la souris pour voir la règle du tajweed",
       "tapHint": "Appuyez pour voir la règle du tajweed",
       "hints": {
-        "ghunnah": "Son nasal – 2 battements",
+        "ghunnah": "Son nasal — 2 temps",
         "ikhafa": "Dissimulation avec Ghunnah — 2 temps",
-        "ikhafaShafawi": "Dissimulation labiale — 2 battements",
-        "idghamGhunnah": "Fusion avec le son nasal — 2 battements",
+        "ikhafaShafawi": "Dissimulation labiale — 2 temps",
+        "idghamGhunnah": "Fusion avec son nasal — 2 temps",
         "idghamNoGhunnah": "Fusion sans son nasal",
-        "idghamShafawi": "Fusion labiale — 2 battements",
+        "idghamShafawi": "Fusion labiale — 2 temps",
         "iqlab": "Conversion en meem caché — 2 temps",
-        "qalqalah": "Faisant écho au rebond sur la lettre",
-        "maddNormal": "Allongement normal — 2 battements",
-        "maddPermissible": "Allongement autorisé – 2, 4 ou 6 battements",
-        "maddObligatory": "Allongement obligatoire — 4 ou 5 battements",
-        "maddNecessary": "Allongement nécessaire — 6 battements",
-        "hamWasl": "Connexion du hamza — abandonné lors de l'adhésion",
+        "qalqalah": "Rebond sonore sur la lettre",
+        "maddNormal": "Allongement normal — 2 temps",
+        "maddPermissible": "Allongement permis — 2, 4 ou 6 temps",
+        "maddObligatory": "Allongement obligatoire — 4 ou 5 temps",
+        "maddNecessary": "Allongement nécessaire — 6 temps",
+        "hamWasl": "Hamza de liaison — omise dans l'enchaînement",
         "lamShamsiyah": "Lettre solaire لام — non prononcée",
         "silent": "Écrit mais non prononcé"
       },
       "tapHintTv": "Sélectionner pour voir la règle de tajweed"
     },
-    "wordByWordLoading": "Loading word-by-word…",
-    "tajweedLoading": "Loading tajweed…",
-    "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
-    "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
       "title": "Lecture",
       "open": "Paramètres de lecture",
       "repeatMode": "Mode répétition",
       "repeatOff": "Désactivé",
       "repeatVerse": "Verset",
-      "repeatRange": "Gamme",
+      "repeatRange": "Plage",
       "repeatSurah": "Sourate",
-      "rangeStart": "De Ayah",
-      "rangeEnd": "À ayah",
+      "rangeStart": "Depuis le verset",
+      "rangeEnd": "Jusqu'au verset",
       "translationAudio": "Traduction audio",
       "translationOff": "Désactivé",
       "translationAfter": "Après chaque verset",
       "translationAudioHint": "Lit la traduction à haute voix après chaque verset arabe (appareil TTS)",
-      "ttsVoice": "Traduction vocale",
-      "ttsVoiceDefault": "Langue par défaut",
+      "ttsVoice": "Voix de lecture de la traduction",
+      "ttsVoiceDefault": "Par défaut pour la langue",
       "ttsVoiceEmpty": "Aucune voix trouvée pour cette langue sur cet appareil.",
       "summaryVerse": "Répéter le verset",
       "summarySurah": "Répéter la sourate",
@@ -1679,7 +1679,7 @@
       "summaryWithTts": "{{summary}} · TTS"
     },
     "actionTafsir": "Tafsir",
-    "openTafsir": "Ouvre le tafsir pour ce verset",
+    "openTafsir": "Ouvrir le tafsir de ce verset",
     "tafsir": "Tafsir",
     "tafsirNone": "Sélectionnez le tafsir",
     "selectTafsirAuthor": "Choisissez tafsir — {{language}}",
@@ -1687,9 +1687,9 @@
     "tafsirCount_other": "{{count}} tafsirs",
     "searchTafsirLanguages": "Rechercher des langues…",
     "searchTafsirAuthors": "Rechercher des auteurs…",
-    "tafsirLoading": "Chargement de tafsir…",
+    "tafsirLoading": "Chargement du tafsir…",
     "tafsirOffline": "Connectez-vous pour télécharger ce tafsir. Les éditions ouvertes restent disponibles hors ligne.",
-    "tafsirEmpty": "Aucun tafsir n'est disponible pour cet ayah dans l'édition sélectionnée.",
+    "tafsirEmpty": "Aucun tafsir n'est disponible pour ce verset dans l'édition sélectionnée.",
     "detector": {
       "title": "Détecteur de versets",
       "subtitle": "Trouvez la sourate et le verset à partir de l'arabe ou de l'anglais parlé ou écrit",
@@ -1722,46 +1722,50 @@
     },
     "searchPlaceholderArabic": "Rechercher le texte arabe ou une référence comme ٢:٢٥٥…",
     "goToPagePlaceholder": "Page 1–{{max}}",
-    "goToPageA11y": "Go to page number",
-    "goToPageAction": "Go",
-    "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "goToPageA11y": "Aller au numéro de page",
+    "goToPageAction": "Aller",
+    "goToPageHint": "Saisissez une page de 1 à {{max}}",
+    "goToPageInvalid": "Saisissez une page entre 1 et {{max}}",
     "surahNumber": "Sourate {{number}}",
     "selectSurah": "Choisir une sourate",
     "openReader": "Ouvrir le lecteur",
-    "bookmarkEmptyDescTv": "Sélectionnez l'icône de signet sur n'importe quel ayah pour l'enregistrer ici.",
-    "goToAyahPlaceholder": "Ayah 1–{{max}}",
-    "goToAyahA11y": "Aller au numéro d'ayah",
-    "goToAyahInvalid": "Saisissez un ayah entre 1 et {{max}}",
+    "bookmarkEmptyDescTv": "Sélectionnez l'icône de signet d'un verset pour l'enregistrer ici.",
+    "goToAyahPlaceholder": "Verset 1–{{max}}",
+    "goToAyahA11y": "Aller au numéro de verset",
+    "goToAyahInvalid": "Saisissez un verset entre 1 et {{max}}",
     "searchAyahs": "Rechercher des versets",
     "findSurah": "Trouver une sourate",
-    "noSurahResults": "Aucune sourate ne correspond à votre recherche."
+    "noSurahResults": "Aucune sourate ne correspond à votre recherche.",
+    "actionMore": "Plus",
+    "moreActionsA11y": "Autres actions pour le verset {{n}}",
+    "mushafFontFailedTitle": "Impossible de charger cette page",
+    "mushafFontFailedBody": "La police du mushaf pour cette page n'a pas été téléchargée. Vérifiez votre connexion et réessayez."
   },
   "hadith": {
     "eyebrow": "Tradition prophétique",
     "title": "Hadith",
-    "subtitle": "Collections   smoisings   Prophet ﷺ",
+    "subtitle": "Recueils des paroles du Prophète ﷺ",
     "collections": "Collections",
     "highlights": "Hors ligne highlights",
     "fullCollections": "Collections complètes",
-    "hadithCount": "{{count}} hadith",
+    "hadithCount": "{{count}} hadiths",
     "ungraded": "Non évalué",
     "grade": "Degré : {{grade}}",
     "narrator": "Rapporté par {{narrator}}",
     "bookmark": "Signet",
     "searchPlaceholder": "Rechercher dans ce recueil…",
     "emptyTitle": "Rien ici encore",
-    "emptyDesc": "Ce collection could not be loaded.",
+    "emptyDesc": "Impossible de charger cette collection.",
     "offlineTitle": "Connectez-vous pour charger cette collection",
     "offlineDesc": "Les collections complètes sont téléchargées à la demande et mises en cache pour une lecture hors ligne par la suite.",
     "loading": "Chargement…",
     "notFoundTitle": "Pas trouvé",
-    "notFoundDesc": "Ce item mmois haet been kaldırıldı.",
+    "notFoundDesc": "Cet élément a peut-être été supprimé.",
     "bookCount": "{{count}} livres",
     "loadMore": "Charger plus",
     "share": "hadith Partager",
     "bookmarkAdd": "Ajouter un signet",
-    "bookmarkRemove": "Retirer bookmark",
+    "bookmarkRemove": "Retirer le signet",
     "bookmarks": "Signets",
     "bookmarksSubtitle": "Vousin kmoisdedildi hadis",
     "bookmarksEmpty": "Henüz saetd hadith yok",
@@ -1786,17 +1790,17 @@
   },
   "credits": {
     "eyebrow": "Attribution",
-    "title": "Katkılar et kmoisnaklar",
-    "subtitle": "Ce uygulammoisı güçlendiren açık etri et ses",
-    "settingsLabel": "Katkılar et etri kmoisnakları",
-    "settingsSub": "Lisanslar et atıf",
+    "title": "Crédits et sources",
+    "subtitle": "Les données ouvertes et l'audio qui font fonctionner cette application",
+    "settingsLabel": "Crédits et sources de données",
+    "settingsSub": "Licences et attributions",
     "openSource": "Source ouverte",
     "viewSource": "Voir la source"
   },
   "tasbeeh": {
     "eyebrow": "Tasbih",
     "freeTitle": "Compteer",
-    "freeSubtitle": "Smois any zikir, hands-free",
+    "freeSubtitle": "Comptez n'importe quel zikr, sans les mains",
     "freeHint": "Compteur rapide : ce total se réinitialise lorsque vous partez. Créez un compteur enregistré ci-dessous pour conserver votre progression.",
     "quickCounter": "Compteur rapide",
     "customSection": "Vousin counters",
@@ -1807,17 +1811,17 @@
     "customTitleLabel": "Titre",
     "customTitlePlaceholder": "e.g. Durood Partageref",
     "customDescLabel": "Description (facultatif)",
-    "customDescPlaceholder": "e.g. After every salah",
+    "customDescPlaceholder": "ex. Après chaque salah",
     "customTargetLabel": "Hedef smois",
     "customTargetSummary": "Objectif : {{target}}",
     "customUnlimitedSummary": "Unlimited smois",
     "customEmptyTitle": "Henüz saetd counters yok",
     "customEmptyDesc": "Créez un compteur pour durood, istighfar ou tout autre zikr que vous répétez souvent : votre décompte est enregistré automatiquement.",
     "customDeleteTitle": "counter? Supprimer",
-    "customDeleteMessage": "\"{{title}}\" et its kmoisdedildi smois will be kaldırıldı kalıcı.",
+    "customDeleteMessage": "\"{{title}}\" et son compteur enregistré seront supprimés définitivement.",
     "customBackToCounters": "Retour to counters",
     "notFoundTitle": "Zikr introuvable",
-    "notFoundDesc": "Ce item mmois haet been kaldırıldı."
+    "notFoundDesc": "Cet élément a peut-être été supprimé."
   },
   "prayers": {
     "fajr": "Fajr",
@@ -1848,68 +1852,68 @@
     "benefits": "Avantages",
     "references": "Références",
     "quranRef": "Coran",
-    "viewHadith": "View full hadith",
+    "viewHadith": "Voir le hadith complet",
     "viewAyah": "in Coran Görüntüle",
     "infoA11y": "Apprendre about {{prayer}}",
     "infoHint": "Ouvre les détails, les bienfaits et les références",
     "learnMore": "Apprendre more",
     "tahajjud": {
       "summary": "La prière nocturne offerte dans le dernier tiers de la nuit, avant le Fajr.",
-      "why": "Allah descends   lowest heaetn pourde  last third   night et asks who will call upon Him.  Prophet ﷺ regularly prmoised at night eetn when isteğe bağlı pour him.",
+      "why": "« Notre Seigneur… descend chaque nuit au ciel le plus proche de nous quand il ne reste qu'un tiers de la nuit, et Il dit : “Y a-t-il quelqu'un qui M'invoque pour que Je lui réponde ?” » Le Prophète ﷺ priait régulièrement la nuit, même lorsque c'était facultatif pour lui.",
       "benefits": "Rapproche d'Allah, adoucit le cœur et était l'habitude des justes avant lui. Un moment où dua reçoit une réponse particulière."
     },
     "fajr": {
-      "summary": " dawn salah —  first   fiet daily farz prmoisers.",
-      "why": "Allah commanded establishing salah at  edges   jour; Fajr marks  start   Muslim jour et was neetr abandoned by  Prophet ﷺ pourde congregation ou alone.",
+      "summary": "La prière de l'aube — la première des cinq prières obligatoires quotidiennes.",
+      "why": "Allah a ordonné d'accomplir la Salât « aux deux extrémités du jour » ; Fajr marque le début de la journée du musulman, et le Prophète ﷺ ne l'a jamais délaissée, ni en assemblée ni seul.",
       "benefits": "Celui qui prie le Fajr est sous la protection d'Allah. Les anges de la nuit et du jour en sont témoins et apportent de la lumière pour le reste de la journée."
     },
     "sunrise": {
       "summary": "Le moment où le soleil se lève au-dessus de l’horizon – un marqueur temporel, pas une prière en soi.",
       "why": "La prière est interdite lorsque le soleil se lève (ainsi qu'au zénith et au coucher), afin que la Oumma ne ressemble pas aux adorateurs du soleil. Connaître le lever du soleil permet de chronométrer Ishraq et d'éviter les heures de prière invalides.",
-      "benefits": "Observing Allah's signs pourde  sky increases awe (taqwa) et helps structure  morning sunnah prmoisers correctly."
+      "benefits": "Observer les signes d'Allah dans le ciel accroît la crainte révérencielle (taqwa) et aide à bien organiser les prières sunnah du matin."
     },
     "ishraq": {
       "summary": "Une prière sunnah de deux rak'as après le lever complet du soleil (environ 15 à 20 minutes après le lever du soleil).",
-      "why": " Prophet ﷺ said whoeetr prmoiss Fajr pourde congregation then sits remembering Allah until sunrise, then prmoiss two rak'ahs, receiets  reward   tamamlandı Hac et 'Umre.",
-      "benefits": "Immense reward aetc minimal effort when combined aetc Fajr pourde congregation.  peaceful start   jour pourde zikir et isteğe bağlı salah."
+      "why": "Le Prophète ﷺ a dit : « whoever prays Fajr in congregation then sits remembering Allah until sunrise, then prays two rakahs, receives the reward of a complete Hajj and 'Umrah » (sens en anglais).",
+      "benefits": "Une immense récompense pour un effort minime lorsqu'elle suit Fajr accomplie en assemblée. Un début de journée paisible dans le zikr et la prière surérogatoire."
     },
     "duha": {
-      "summary": " forenoon salah — typically two  eight rak'ahs between sunrise et Dhuhr.",
+      "summary": "La prière de la matinée — généralement de deux à huit rakahs entre le lever du soleil et Dhuhr.",
       "why": "La charité est due chaque jour à chaque jointure du corps ; même quelques rak'ahs de Duha accomplissent cette charité pour les membres par l'adoration.",
       "benefits": "Pardonne les péchés, apporte de la subsistance (rizq) et ravive une sunna négligée. Un horaire flexible le rend accessible lorsque la journée le permet."
     },
     "dhuhr": {
-      "summary": " middmois salah —  second farz salah, when  sun passes its zenith.",
-      "why": " fiet daily prmoisers were made farz   Night Voyage; Dhuhr breaks  dmois's busyness aetc remembrance  Allah.",
+      "summary": "La prière de midi — la deuxième prière obligatoire, lorsque le soleil passe son zénith.",
+      "why": "Les cinq prières quotidiennes ont été rendues obligatoires lors du Voyage nocturne ; Dhuhr interrompt l'agitation de la journée par le rappel d'Allah.",
       "benefits": "Le Prophète ﷺ a dit que la première action jugée le Jour de la Résurrection est la prière. Garder Dhuhr protège le reste de ses actes."
     },
     "asr": {
-      "summary": " afternoon salah —  middle salah emphasized pourde  Coran.",
+      "summary": "La prière de l'après-midi — la prière médiane soulignée dans le Coran.",
       "why": "Allah met spécifiquement en garde contre la surveillance de la prière du milieu (Salat al-Wusta). Il tombe lorsque beaucoup sont occupés ou fatigués, donc le préserver est un signe de sincérité.",
       "benefits": "Celui qui manque Asr, c’est comme s’il perdait sa famille et sa richesse, ce qui souligne son poids. Le garder renforce la discipline tout au long de la journée."
     },
     "maghrib": {
-      "summary": " sunset salah — prmoised immediately after  sun has moisarla.",
+      "summary": "La prière du coucher du soleil — accomplie juste après le coucher du soleil.",
       "why": "Son temps commence dès le coucher du soleil ; la retarder sans raison risque de faire manquer le moment préférable. Le Prophète ﷺ a mis en garde contre le fait de négliger la prière jusqu'au coucher du soleil.",
       "benefits": "Elle marque la gratitude en fin de journée et fut parmi les premières prières sur lesquelles le Prophète ﷺ a insisté auprès de ses compagnons."
     },
     "isha": {
-      "summary": " night salah —  last   fiet farz prmoisers, after twilight fades.",
+      "summary": "La prière de la nuit — la dernière des cinq prières obligatoires, après la disparition du crépuscule.",
       "why": "Complète le cycle du culte quotidien. Le Prophète ﷺ a dit que si quelqu'un priait Isha en congrégation, c'était comme s'il priait la moitié de la nuit.",
       "benefits": "Apporte la tranquillité avant de dormir et complète les prières fard de la journée. Souvent suivi de Witr, qui est la sunnah mu'akkadah."
     },
     "witr": {
       "summary": "Une prière impaire (généralement une ou trois rak'ahs) après Isha avant Fajr - sunnah mu'akkadah, pas une des cinq prières fard.",
-      "why": "The Prophet ﷺ said Allah is Witr (Activée) and loves Witr, so maintain the Witr prayer. He never abandoned it, even when traveling.",
-      "benefits": " distinctiet mark   belieetr's night routine. Closing  jour aetc odd-numbered salah aligns aetc Allah's isimler et  Prophet's istikrarlı pratik."
+      "why": "Le Prophète ﷺ a dit : « Allah est unique (witr) et Il aime ce qui est unique, alors accomplissez le witr… » Il ne l'a jamais délaissé, même en voyage.",
+      "benefits": "Une marque distinctive de la routine nocturne du croyant. Clore la journée par une prière au nombre impair s'accorde avec les noms d'Allah et la pratique constante du Prophète."
     },
     "tahiyyatul_masjid": {
       "summary": "Deux rak'ahs saluent la mosquée en entrant, avant de s'asseoir.",
       "why": "Lorsque l'un de vous entre dans la mosquée, laissez-le prier deux rak'ahs avant de s'asseoir – une instruction directe du Prophète ﷺ.",
-      "benefits": "Honors  house  Allah, prepares  heart pour congregation ou private ibadet, et replaces idle sitting aetc immediate good."
+      "benefits": "Honore la maison d'Allah, prépare le cœur à la prière en assemblée ou à l'adoration personnelle, et remplace une attente oisive par un bien immédiat."
     },
     "hajat_istikhara": {
-      "summary": "Isteğe bağlı prmoisers pour personal needs (Salat al-Hajah) et seeking Allah's guidance (Salat al-Istikhara).",
+      "summary": "Prières facultatives pour les besoins personnels (Salat al-Hajah) et pour demander la guidance d'Allah (Salat al-Istikhara).",
       "why": "Istikhara consiste à demander à Allah de choisir le bien pour vous lorsque vous êtes confronté à une décision. Hajah consiste à présenter son besoin à Allah par la prière avant ou à côté dua.",
       "benefits": "Elle nourrit la confiance en Allah (tawakkul) plutôt que la seule inquiétude. L'istikhara apporte la clarté ; la Hajah associe l'adoration à une demande sincère — et Allah répond à ceux qui L'invoquent."
     }
@@ -2028,7 +2032,6 @@
     "title": "Planificateur",
     "subtitle": "Choisissez un rythme que vous pouvez maintenir pendant des années, pas seulement des jours",
     "consistencyTitle": "Cohérence sur l'intensité",
-    "consistencyHadith": "Les actions les plus appréciées d’Allah sont celles qui sont cohérentes, même si elles sont petites.",
     "consistencySource": "Hadith — Boukhari et Muslim",
     "consistencyPrinciple": "Un plan quotidien régulier élimine généralement un retard important de manière plus fiable qu'un sprint agressif qui s'épuise.",
     "prayersPerDay": "prières / jour",
@@ -2112,7 +2115,7 @@
     "confirmDecrementMsg": "Réduire le décompte rapide restant à {{remaining}} ?",
     "confirmIncrementTitle": "Augmenter le nombre restant ?",
     "confirmIncrementMsg": "Augmenter le décompte rapide restant à {{remaining}} ?",
-    "confirmPerformTitle": "Mark fast exécuté?",
+    "confirmPerformTitle": "Marquer le jeûne comme accompli ?",
     "confirmPerformMsg": "Enregistrer un qaza rapide comme terminé ?",
     "confirmAddEstimateTitle": "Ajouter des jeûnes estimés ?",
     "confirmAddEstimateMsg": "Ajouter {{count}} jeûnes au reste (nouveau total : {{total}}) ?",
@@ -2145,12 +2148,12 @@
     "today": "Aujourd'hui",
     "history": "Historique",
     "futureSubtitle": "Ce jour henüz gelmedi",
-    "summary": "{{completed}} sur {{total}} obligatory prayers",
-    "emptyTitle": "Henüz kmoisıt yok",
-    "emptyDesc": "Yalnızca bujour et geçmiş jourler pour ibadet kmoisdedebilirsiniz.",
+    "summary": "{{completed}} sur {{total}} prières obligatoires",
+    "emptyTitle": "Rien à enregistrer pour l'instant",
+    "emptyDesc": "Vous ne pouvez enregistrer vos actes d'adoration que pour aujourd'hui et les jours passés.",
     "prevWeek": "Önceki semaine",
     "nextWeek": "Sonraki semaine",
-    "weekOf": "{{date}} semainesı",
+    "weekOf": "Semaine du {{date}}",
     "selected": "Sélectionné"
   },
   "statistics": {
@@ -2159,7 +2162,7 @@
     "subtitle": "Progression globale, aperçu du jour et tendances dans le temps",
     "overview": "Aperçu",
     "today": "Aujourd'hui",
-    "todayHint": "Ilerleme logged so far bujour",
+    "todayHint": "Progression enregistrée aujourd'hui jusqu'ici",
     "trends": "Tendances",
     "periodWeek": "7 derniers jours",
     "periodMonth": "30 derniers jours",
@@ -2167,9 +2170,9 @@
     "avgCompletion": "{{percent}} % en moyenne",
     "chartEmpty": "Aucune prière enregistrée sur cette période",
     "details": "Détails",
-    "detailsHint": "Breakdowns when siz haet tracked data",
+    "detailsHint": "Détails disponibles une fois que vous avez des données suivies",
     "streak": "Série actuelle",
-    "totalPrayers": "Salah logged",
+    "totalPrayers": "Salah enregistrées",
     "totalZikr": "Séances de Zikr",
     "perfectDays": "Journées parfaites",
     "viewAchievements": "Voir les réussites",
@@ -2263,14 +2266,14 @@
   },
   "statusSheet": {
     "prompt": "How did bu salah go bujour?",
-    "afterSalahAdhkar": "Read after-salah adhkar",
+    "afterSalahAdhkar": "Lire les adhkar d'après la salah",
     "editNote": "note Modifier",
     "addNote": "Ajouter a note",
     "noteTitle": "{{prayer}} — remarque",
     "rowA11y": "{{prayer}}, {{status}}",
     "rowA11yJama": "{{prayer}}, {{status}}, prmoised pourde congregation",
     "qazaPromptTitle": "Ajouter to qaza count?",
-    "qazaPromptMessage": "Ajouter one to your qaza count for {{prayer}}?",
+    "qazaPromptMessage": "Ajouter une prière à votre compteur de qaza pour {{prayer}} ?",
     "qazaPromptConfirm": "Oui, ajouter à qaza",
     "qazaPromptDecline": "Non, saute",
     "jama": "Prmoised pourde congregation"
@@ -2283,23 +2286,23 @@
   "tasbeehUi": {
     "custom": "Personnalisé",
     "targetReached": "MashaAllah — objectif atteint",
-    "tapToCount": "Dokunun  circle  smois",
+    "tapToCount": "Appuyez sur le cercle pour compter",
     "ofTarget": "de {{target}}",
     "remaining": "{{count}} restant",
     "complete": "Terminé",
-    "startAgain": "again Commencert",
+    "startAgain": "Recommencer",
     "undo": "Défaire",
     "unlimited": "illimité",
-    "customTitle": "Personnalisé target",
+    "customTitle": "Objectif personnalisé",
     "customPrompt": "Combien de fois aimeriez-vous répéter ?",
     "customPlaceholder": "par ex. 313",
-    "modeLabel": "{{mode}}, smois {{count}}",
-    "confirmUndoTitle": "Undo last smois?",
-    "confirmUndoMessage": "Ce will subtract one den votre current smois.",
-    "confirmResetTitle": "Réinitialiser counter?",
-    "confirmResetMessage": "Vousin smois  {{count}} will be cleared.",
-    "confirmStartAgainTitle": "again? Commencert",
-    "confirmStartAgainMessage": "Vousin completed smois will be cleared so siz can begin  yeni round.",
+    "modeLabel": "{{mode}}, compte {{count}}",
+    "confirmUndoTitle": "Annuler le dernier comptage ?",
+    "confirmUndoMessage": "Cela retirera un de votre compte actuel.",
+    "confirmResetTitle": "Réinitialiser le compteur ?",
+    "confirmResetMessage": "Votre compte de {{count}} sera effacé.",
+    "confirmStartAgainTitle": "Recommencer ?",
+    "confirmStartAgainMessage": "Votre compte terminé sera effacé pour que vous puissiez commencer une nouvelle série.",
     "dockLabel": "Compter",
     "tapToCountTv": "Appuyez sur Sélectionner pour compter",
     "tapToCountKeyboard": "Cliquez sur le cercle ou appuyez sur Espace pour compter"
@@ -2317,36 +2320,36 @@
     "prayerItemActive": "{{name}} at {{time}}, current salah",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Changer d'emplacement",
-    "dateRowA11y": "{{phase}}. {{dates}}. Dokunun pour moon details",
+    "dateRowA11y": "{{phase}}. {{dates}}. Appuyez pour les détails de la lune",
     "dateRowA11yTv": "{{phase}}. {{dates}}. Sélectionner pour les détails de la lune"
   },
   "location": {
     "eyebrow": "Lieu",
-    "title": "Définir your location",
+    "title": "Définir votre position",
     "subtitle": "Les horaires de salah sont calculés pour ce lieu. Recherchez une ville ou utilisez votre position actuelle.",
     "currentTitle": "Emplacement actuel",
     "useCurrent": "Utiliser ma position actuelle",
     "locating": "Getting votre konum…",
-    "searchLabel": "city or country Rechercher",
-    "searchPlaceholder": "for a city… Rechercher",
-    "hint": "Type at least two harfler  ara pour  city.",
+    "searchLabel": "Rechercher une ville ou un pays",
+    "searchPlaceholder": "Rechercher une ville…",
+    "hint": "Saisissez au moins deux lettres pour rechercher une ville.",
     "noResultsTitle": "Aucun lieu trouvé",
-    "noResultsDesc": "Try  different spelling, ou ara pour  larger city nearby.",
-    "permissionDenied": "Lieu access is off. Turn it on in Paramètres, or just search for your city above.",
+    "noResultsDesc": "Essayez une autre orthographe, ou recherchez une ville plus grande à proximité.",
+    "permissionDenied": "L'accès à la localisation est désactivé. Activez-le dans les Paramètres, ou recherchez simplement votre ville ci-dessus.",
     "deviceError": "Impossible d'obtenir votre position actuelle. Recherchez plutôt votre ville ci-dessus.",
     "manualBadge": "Définir by you",
     "gpsBadge": "Depuis l'appareil",
     "defaultBadge": "Varsaannéean",
     "calculationTitle": "Salah calculation",
     "method": "Méthode de calcul",
-    "methodHint": "Pick  authority whose method matches votre region so salah vakitler line up aetc votre local masjid.",
+    "methodHint": "Choisissez l'autorité dont la méthode correspond à votre région, afin que les horaires de salah concordent avec ceux de votre masjid local.",
     "madhab": "Calcul Asr",
     "madhabShafi": "Standard",
     "madhabHanafi": "Hfi",
     "madhabHint": "La méthode hanafite calcule l'Asr plus tard ; la méthode standard (shafiʿite, malikite, hanbalite) utilise l'horaire plus tôt.",
     "methods": {
       "MuslimWorldLeague": "Ligue musulmane mondiale",
-      "Egyptian": "Egyptian General Auteurity",
+      "Egyptian": "Autorité générale égyptienne",
       "Karachi": "Université des sciences islamiques, Karachi",
       "UmmAlQura": "Umm al-Qura, La Mecque",
       "Dubai": "Dubaï (EAU)",
@@ -2360,7 +2363,7 @@
       "Other": "Personnalisé / Other"
     },
     "methodHints": {
-      "MuslimWorldLeague": "Europe,  Far East, et parts   US",
+      "MuslimWorldLeague": "Europe, Extrême-Orient et une partie des États-Unis",
       "Egyptian": "Afrique, Syrie, Liban, Malaisie",
       "Karachi": "Pakistan, Inde, Bangladesh, Afghanistan",
       "UmmAlQura": "Arabie saoudite",
@@ -2369,10 +2372,10 @@
       "NorthAmerica": "États-Unis et Canada",
       "Kuwait": "Kuetyt",
       "Qatar": "Qatar",
-      "Singapore": "Singapore et  region",
+      "Singapore": "Singapour et la région",
       "Tehran": "Iran et communautés chiites",
       "Turkey": "Turkey (Diyet)",
-      "Other": "Définir manually elsewhere"
+      "Other": "Défini manuellement ailleurs"
     },
     "defaultLabel": "La Mecque, Arabie saoudite",
     "defaultTimesHint": "Les horaires de Salah utilisent actuellement La Mecque. Définissez votre ville pour des horaires précis. Les rappels Salah et Adhan restent désactivés jusque-là.",
@@ -2400,7 +2403,7 @@
     "hijriDate": "date islamique",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ — les Jours blancs",
-      "whiteDaysBody": " 13th, 14th, et 15th  each Islamic month fall around  full moon. Jeûne these three bright jour dir  beloetd sunnah   Prophet ﷺ.",
+      "whiteDaysBody": "Les 13, 14 et 15 de chaque mois islamique tombent autour de la pleine lune. Jeûner ces trois jours lumineux est une sunnah aimée du Prophète ﷺ.",
       "newMonthTitle": "Un nouveau mois commence",
       "newMonthBody": "Le mince croissant (hilāl) marque le début de {{month}}. Chaque mois islamique commence lorsque le croissant est aperçu après le Maghrib — pas à la conjonction astronomique.",
       "fullTitle": "Pleine lune ce soir",
@@ -2615,7 +2618,7 @@
   "qibla": {
     "eyebrow": "Direction",
     "subtitle": "Tournez-vous vers la Kaaba à La Mecque",
-    "locationDenied": "Lieu permission is needed to find the qibla.",
+    "locationDenied": "L'autorisation de localisation est nécessaire pour trouver la qibla.",
     "locationError": "Impossible de déterminer votre position. Réessayez à l'extérieur.",
     "locating": "Localisation…",
     "distanceKm": "{{km}} km de la Kaaba",
@@ -2624,24 +2627,24 @@
     "calibrateHint": "Pour plus de précision, maintenez votre appareil à plat et déplacez-le en forme de huit pour calibrer la boussole, loin du métal et des aimants.",
     "tryAgain": "Réessayer",
     "compassLabel": "Boussole de la qibla",
-    "compassValue": "{{bearing}} degrees   Kaaba, {{distance}} awmois",
-    "aligned": "Aligned aetc  Qibla",
+    "compassValue": "{{bearing}} degrés vers la Kaaba, à {{distance}}",
+    "aligned": "Aligné avec la qibla",
     "alignedHint": "Tenez bon, vous faites face à la Kaaba",
-    "turnFineTuneLeft": "Coup de pouce vers la gauche",
-    "turnFineTuneRight": "Poussez à droite",
+    "turnFineTuneLeft": "Ajustez un peu à gauche",
+    "turnFineTuneRight": "Ajustez un peu à droite",
     "turnSlightLeft": "Légèrement à gauche",
-    "turnSlightRight": "Un peu à droite",
-    "turnLeft": "Tourner à gauche",
+    "turnSlightRight": "Légèrement à droite",
+    "turnLeft": "Tournez à gauche",
     "turnRight": "Tournez à droite",
-    "degreesOff": "{{deg}}° éteint",
+    "degreesOff": "{{deg}}° d'écart",
     "rotatePhone": "Tenez votre téléphone à plat, puis suivez la flèche",
-    "bearingLabel": "Roulement de Qibla",
+    "bearingLabel": "Direction de la qibla",
     "distanceLabel": "Distance",
-    "cardinalN": "С",
-    "cardinalE": "В",
-    "cardinalS": "Ю",
-    "cardinalW": "З",
-    "defaultLocationHint": "Utilisation du lieu par defaut (La Mecque). Definissez votre ville pour une direction de qibla precise.",
+    "cardinalN": "N",
+    "cardinalE": "E",
+    "cardinalS": "S",
+    "cardinalW": "O",
+    "defaultLocationHint": "Position par défaut utilisée (La Mecque). Définissez votre ville pour obtenir une direction de la qibla précise là où vous êtes.",
     "setLocation": "Définir l'emplacement",
     "tvHint": "La boussole en direct n’est pas disponible sur TV. La flèche indique l’orientation de la qibla depuis le nord pour votre ville — utilisez un téléphone pour l’alignement en direct."
   },
@@ -2713,10 +2716,10 @@
     "failed": "Échec de la synchronisation. Vérifiez votre connexion et réessayez.",
     "mergeNoChanges": "Tout était déjà à jour",
     "mergeSummary": "{{received}} reçu · {{sent}} envoyé",
-    "conflictsResolved": "{{count}} conflicts auto-resoletd — kept  newest düzenle",
+    "conflictsResolved": "{{count}} conflits résolus automatiquement — la modification la plus récente a été conservée",
     "conflictAffected": "Concerné : {{list}}",
     "entities": {
-      "prayer_logs": "Salah log",
+      "prayer_logs": "Journal des salah",
       "zikr_progress": "Zikr aetcrleme",
       "qaza_entries": "Entrées de qaza",
       "preferences": "Préférences",
@@ -2725,7 +2728,7 @@
       "durood_favorites": "Favoris Durood",
       "name_favorites": "Noms favoris",
       "quran_bookmarks": "Coran yer imleri",
-      "quran_last_read": "Coran last read",
+      "quran_last_read": "Dernière lecture du Coran",
       "hadith_bookmarks": "Hadith yer imleri",
       "custom_tasbeeh": "Personnalisé tasbeeh"
     }
@@ -2770,7 +2773,7 @@
     "scanOnPhoneTv": "Scannez avec votre téléphone pour ouvrir cette page."
   },
   "player": {
-    "nowPlaying": "Now Lireing",
+    "nowPlaying": "Lecture en cours",
     "upNext": "À suivre",
     "remaining": "{{count}} restant",
     "trackOf": "{{current}} sur {{total}}",
@@ -2778,24 +2781,24 @@
     "play": "Lire",
     "pause": "Pause",
     "replay": "Rejouer",
-    "next": "Suivant track",
-    "previous": "Précédent track",
-    "close": "plmoiser Fermer",
+    "next": "Piste suivante",
+    "previous": "Piste précédente",
+    "close": "Fermer le lecteur",
     "closeLabel": "Fermer",
     "minimize": "Minimiser",
-    "closeConfirmTitle": "plmoisback? Durdur",
-    "closeConfirmMessage": "Ce stops  ses et closes  oynatıcı.",
+    "closeConfirmTitle": "Arrêter la lecture ?",
+    "closeConfirmMessage": "Cela arrête l'audio et ferme le lecteur.",
     "closeConfirmCta": "Arrêter",
     "collapse": "Réduire",
     "expand": "Développer le lecteur",
-    "speed": "Lireback speed",
+    "speed": "Vitesse de lecture",
     "speedValue": "Vitesse {{value}}×",
-    "loopOff": "Répéter",
-    "loopAll": "Repeat tout",
+    "loopOff": "Répétition désactivée",
+    "loopAll": "Tout répéter",
     "loopOne": "Répéter une fois",
-    "seek": "Lireback position",
-    "volume": "Громкость",
-    "volumeValue": "Громкость {{value}}%",
+    "seek": "Position de lecture",
+    "volume": "Volume",
+    "volumeValue": "Volume {{value}} %",
     "buffering": "Mise en mémoire tampon…",
     "loading": "Chargement…",
     "streamingOnlyNote": "Streaming uniquement : l'audio n'est pas enregistré sur cet appareil",
@@ -2841,11 +2844,11 @@
     }
   },
   "pwa": {
-    "installBannerMessage": "iPhone'da uygulama benzeri un deneyim et tarmoisıcı bildirimleri pour Munib Tracker'ı Ana Ekranınıza yükleyin.",
-    "installStepsViaSafari": "Aşağıdaki bağlantıyı kopyalmoisın, Safari'de açın, ardından Partager → Ana Ekrana Ekle.",
-    "installCopyLink": "Safari pour bağlantıyı kopyala",
+    "installBannerMessage": "Installez Munib Tracker sur votre écran d'accueil pour une expérience proche d'une application et des notifications du navigateur sur iPhone.",
+    "installStepsViaSafari": "Copiez le lien ci-dessous, ouvrez-le dans Safari, puis Partager → Sur l'écran d'accueil.",
+    "installCopyLink": "Copier le lien pour Safari",
     "installLinkCopied": "Lien copié — collez-le dans la barre d’adresse de Safari pour continuer.",
-    "installLinkCopyFailed": "Bağlantı kopyalanamadı. Ce smoisfmoisı Safari'de manuel olarak açın.",
+    "installLinkCopyFailed": "Impossible de copier le lien. Ouvrez cette page manuellement dans Safari.",
     "installDismiss": "Fermer"
   },
   "qazaHistory": {
@@ -2885,94 +2888,94 @@
     }
   },
   "reminderOffsets": {
-    "title": "Rappel zamanlaması",
-    "subtitle": "Notificationsin ne zaman çaldığı — gösteraetcn salah vakitlerini değiştirmez",
-    "rowSub": "Her ezan öncesi ou sonrası bildir",
-    "hint": "Her farz salah hatırlatıcısını ezandan {{max}} dakika önceye ou sonrmoisa kmoisdırın. Uygulamadaki vakitler moisnı kalır.",
-    "atTime": "t time",
+    "title": "Horaire des rappels",
+    "subtitle": "Quand les notifications sonnent — ne modifie pas les horaires de prière affichés",
+    "rowSub": "Notifier avant ou après chaque adhan",
+    "hint": "Décalez chaque rappel de prière obligatoire jusqu'à {{max}} minutes avant ou après l'adhan. Les horaires affichés dans l'application restent inchangés.",
+    "atTime": "À l'heure",
     "before": "{{count}} min avant",
     "after": "{{count}} min après",
-    "earlier": "Earlier",
+    "earlier": "Plus tôt",
     "later": "Plus tard"
   },
   "khatm": {
-    "eyebrow": " Noble Coran",
+    "eyebrow": "Le Noble Coran",
     "short": "Khatm",
     "title": "Plan khatm",
     "subtitle": "Terminez le Coran à un rythme régulier",
-    "startTitle": "a plan Commencert",
-    "startHint": "Choisissez combien de jours pour terminer le Coran. Nous fixerons un objectif quotidien d'ayah.",
+    "startTitle": "Commencer un plan",
+    "startHint": "Choisissez en combien de jours terminer le Coran. Nous fixerons un objectif quotidien de versets.",
     "startHintPages": "Choisissez combien de jours pour terminer le Coran. Nous définirons un objectif de page mushaf quotidien.",
-    "unitAyah": "Par Ayah",
-    "unitPage": "Par pages",
+    "unitAyah": "Par verset",
+    "unitPage": "Par page",
     "continueReading": "Continuer la lecture",
-    "dayPlan": "{{count}} jour",
+    "dayPlan": "{{count}} jours",
     "preset": {
       "intensive": "Intensif",
-      "balanced": "Blced",
+      "balanced": "Équilibré",
       "steady": "Régulier",
       "custom": "Personnalisé"
     },
-    "customPlan": "Personnalisé plan",
-    "customDaysPlaceholder": "Number  jour",
-    "customDaysA11y": "Plan length pourde jour",
-    "customHint": "Enter {{min}}–{{max}} jour",
-    "customInvalid": "Enter between {{min}} et {{max}} jour",
-    "customStart": "custom plan Commencert",
+    "customPlan": "Plan personnalisé",
+    "customDaysPlaceholder": "Nombre de jours",
+    "customDaysA11y": "Durée du plan en jours",
+    "customHint": "Saisissez de {{min}} à {{max}} jours",
+    "customInvalid": "Saisissez entre {{min}} et {{max}} jours",
+    "customStart": "Lancer un plan personnalisé",
     "startConfirmTitle": "Commencer ce plan khatm ?",
-    "startConfirmMsg": "Finish  Coran pourde {{days}} jour — about {{count}} moisahs each jour. Vous can takip aetcrleme here as siz read.",
-    "startConfirmMsgPages": "Finish  Coran pourde {{days}} jour — about {{count}} pages each jour. Vous can takip aetcrleme here as siz read.",
-    "startConfirmAction": "plan Commencert",
-    "dayOf": "{{total}} jourün {{day}}. jourü",
-    "dailyTarget": "{{count}} moisahs  jour",
-    "dailyTargetPages": "{{count}} pages  jour",
+    "startConfirmMsg": "Terminez le Coran en {{days}} jours — environ {{count}} ayahs par jour. Vous pouvez suivre votre progression ici au fil de votre lecture.",
+    "startConfirmMsgPages": "Terminez le Coran en {{days}} jours — environ {{count}} pages par jour. Vous pouvez suivre votre progression ici au fil de votre lecture.",
+    "startConfirmAction": "Commencer le plan",
+    "dayOf": "Jour {{day}} sur {{total}}",
+    "dailyTarget": "{{count}} versets par jour",
+    "dailyTargetPages": "{{count}} pages par jour",
     "progress": "{{read}} / {{total}} ayahs",
     "progressPages": "{{read}} / {{total}} pages",
-    "expected": "-takip: {{ayahs}}",
-    "expectedLabel": "Activé-track total",
+    "expected": "dans les temps : {{ayahs}}",
+    "expectedLabel": "Total prévu",
     "percentComplete": "{{percent}}% terminé",
     "remainingAyahs": "Restant",
     "remainingPages": "Pages restantes",
-    "todayTarget": "Quotidien goal",
-    "catchUp": "{{count}} moisahs behind — read  little extra bujour  catch up.",
+    "todayTarget": "Objectif quotidien",
+    "catchUp": "{{count}} ayahs de retard — lisez un peu plus aujourd'hui pour rattraper.",
     "catchUpPages": "{{count}} pages de retard — lisez un peu plus aujourd'hui pour rattraper.",
     "aheadBy": "{{count}} ayahs d'avance sur le programme — gardez cet élan.",
     "aheadByPages": "{{count}} pages en avance – gardez l’élan.",
-    "adjustHint": "by {{count}} moisahs Ayarla",
-    "logSectionTitle": "todmois's reading Enregistrer",
-    "logSectionHint": "Enter how many moisahs siz read bujour, then ekle them  votre aetcrleme.",
-    "logSectionHintPages": "Enter how many mushaf pages siz read bujour, then ekle them  votre aetcrleme.",
+    "adjustHint": "Ajuster de {{count}} versets",
+    "logSectionTitle": "Enregistrer la lecture du jour",
+    "logSectionHint": "Indiquez combien d'ayahs vous avez lues aujourd'hui, puis ajoutez-les à votre progression.",
+    "logSectionHintPages": "Indiquez combien de pages du mushaf vous avez lues aujourd'hui, puis ajoutez-les à votre progression.",
     "logAmountPlaceholder": "Ayahs",
     "logAmountPlaceholderPages": "Pages",
-    "logAmountA11y": "Ayahs  log bujour",
-    "logAmountA11yPages": "Pages  log bujour",
-    "logQuickDaily": "Quotidien goal · {{count}}",
-    "logAdd": "{{count}} moisahs Ekle",
+    "logAmountA11y": "Ayahs à enregistrer aujourd'hui",
+    "logAmountA11yPages": "Pages à enregistrer aujourd'hui",
+    "logQuickDaily": "Objectif quotidien · {{count}}",
+    "logAdd": "Ajouter {{count}} versets",
     "logAddPages": "Ajouter {{count}} pages",
-    "logInvalid": "Enter 1–{{max}} ayahs",
+    "logInvalid": "Saisissez entre 1 et {{max}} ayahs",
     "logInvalidPages": "Saisissez entre 1 et {{max}} pages",
     "correctTotalTitle": "Corriger le total",
     "correctTotalHint": "Indiquez le nombre exact d'ayahs que vous avez lus jusqu'ici.",
     "correctTotalHintPages": "Indiquez le nombre exact de pages du mushaf que vous avez lues jusqu'ici.",
-    "correctTotalA11y": "Toplam moisahs read",
+    "correctTotalA11y": "Total de versets lus",
     "correctTotalA11yPages": "Nombre total de pages lues",
     "correctTotalApply": "Mettre à jour le total",
-    "correctTotalInvalid": "Enter 0–{{max}} ayahs",
+    "correctTotalInvalid": "Saisissez entre 0 et {{max}} ayahs",
     "correctTotalInvalidPages": "Saisissez entre 0 et {{max}} pages",
-    "correctTotalToggle": "Wrong total? Définir it manually",
-    "logToday": "todmois's reading Enregistrer",
-    "logTodayWithTarget": "todmois's reading (+{{count}}) Enregistrer",
-    "less": "Fewer ayahs",
+    "correctTotalToggle": "Total erroné ? Définissez-le manuellement",
+    "logToday": "Enregistrer la lecture du jour",
+    "logTodayWithTarget": "Enregistrer la lecture du jour (+{{count}})",
+    "less": "Moins d'ayahs",
     "more": "Plus de versets",
     "lessPages": "Moins de pages",
     "morePages": "Plus de pages",
-    "reset": "Réinitialiser plan",
-    "resetConfirmTitle": "Réinitialiser khatm plan?",
-    "resetConfirmMsg": "Vousin aetcrleme will be cleared. Vous can start  yeni plan anytime.",
+    "reset": "Réinitialiser le plan",
+    "resetConfirmTitle": "Réinitialiser le plan khatm ?",
+    "resetConfirmMsg": "Votre progression sera effacée. Vous pouvez commencer un nouveau plan à tout moment.",
     "completedTitle": "Khatm terminé",
-    "startNew": "a new plan Commencert",
-    "motivationTitle": "Continue",
-    "motivationShuffle": "Afficher another reminder",
+    "startNew": "Commencer un nouveau plan",
+    "motivationTitle": "Continuez",
+    "motivationShuffle": "Afficher un autre rappel",
     "motivationKind": {
       "hadith": "Hadith",
       "quran": "Coran",
@@ -2981,22 +2984,22 @@
     "motivationQuote": {
       "steady": {
         "text": "Un khatm construit sur une lecture quotidienne régulière dure plus longtemps qu'un sprint qui s'épuise.",
-        "source": "Principe de cohérence"
+        "source": "Principe de constance"
       },
       "portion": {
-        "text": "Vous do not haet  finish bujour — only honour todmois's portion aetc sincerity.",
+        "text": "Vous n'avez pas à terminer aujourd'hui — honorez seulement la part du jour avec sincérité.",
         "source": "Des progrès constants"
       },
       "return": {
-        "text": "If siz fall behind, do not abandon  plan. Resume aetc todmois's moisahs et moet forward.",
+        "text": "Si vous prenez du retard, n'abandonnez pas le plan. Reprenez avec les ayahs du jour et avancez.",
         "source": "Continuez à revenir"
       }
     },
     "pace": {
       "done": "Terminé",
       "ahead": "En avance",
-      "onTrack": "Activé track",
-      "behind": "Derrière"
+      "onTrack": "Dans les temps",
+      "behind": "En retard"
     },
     "logConfirmTitle": "Ajouter la progression de lecture ?",
     "logConfirmMsg": "Ajouter {{count}} ayahs à votre total de khatm ?",
@@ -3009,27 +3012,27 @@
   },
   "hifz": {
     "short": "Hifz",
-    "title": "Hifz tracker",
-    "subtitle": "Ayahs you'et memorized ou need  gözden geçir",
-    "markMemorized": "Marque mémorisée",
+    "title": "Suivi du hifz",
+    "subtitle": "Les ayahs que vous avez mémorisées ou devez réviser",
+    "markMemorized": "Marquer comme mémorisé",
     "markReview": "Marquer à réviser",
-    "clear": "Effacer memorization",
+    "clear": "Effacer la mémorisation",
     "totals": "Total",
-    "memorizedCount": "{{count}} mémorisé",
+    "memorizedCount": "{{count}} mémorisés",
     "reviewCount": "{{count}} à revoir",
     "emptyTitle": "Pas encore de mémorisation",
-    "emptyDesc": "Appuyez sur Hifz sur n'importe quel ayah du lecteur pour le marquer comme mémorisé.",
+    "emptyDesc": "Appuyez sur Hifz sur un verset du lecteur pour le marquer comme mémorisé.",
     "toastRef": "{{surah}}, ayah {{ayah}}",
     "toastMemorizedTitle": "Marqué comme mémorisé",
-    "toastMemorizedBody": "{{ref}} was eklendi  votre Hifz tracker.",
-    "toastReviewTitle": "Flagged pour gözden geçir",
+    "toastMemorizedBody": "{{ref}} a été ajouté à votre suivi Hifz.",
+    "toastReviewTitle": "Marqué à réviser",
     "toastReviewBody": "{{ref}} est marqué à réviser.",
     "toastClearedTitle": "Mémorisation effacée",
-    "toastClearedBody": "{{ref}} was kaldırıldı den votre Hifz tracker.",
+    "toastClearedBody": "{{ref}} a été retiré de votre suivi du hifz.",
     "confirmTitle": "Mettre à jour le statut Hifz ?",
-    "confirmReviewBody": "{{ref}} will be flagged pour gözden geçir.",
+    "confirmReviewBody": "{{ref}} sera marqué à réviser.",
     "confirmMemorizedBody": "{{ref}} sera marqué comme mémorisé.",
-    "confirmClearBody": "{{ref}} will be kaldırıldı den votre Hifz tracker.",
+    "confirmClearBody": "{{ref}} sera retiré de votre suivi du hifz.",
     "emptyDescTv": "Sélectionnez un ayah dans le lecteur, puis choisissez Hifz pour le marquer comme mémorisé."
   },
   "travel": {
@@ -3046,32 +3049,15 @@
     "rakatsTravel": "Voyageling",
     "rakatsNote": "Seule la fard est indiquée. Les sunnah rawatib et le Witr sont abordés ci-dessous — ils restent recommandés, même si de nombreux voyageurs les allègent en cas de difficulté.",
     "duasLink": "Voyage duas & supplications",
-    "quran": [
-      {
-        "excerpt": "When you travel through the land, there is no blame on you if you shorten the prayer, if you fear that those who disbelieve may harm you. Indeed, the disbelievers are ever a clear enemy to you."
-      }
-    ],
-    "hadith": [
-      {
-        "excerpt": "Anas said: We traetlled aetc  Messenger  Allah ﷺ.  mu'adhin called pour salah et he said: 'Prmois two rakahs' — et he did  same pour  other prmoisers except Maghrib (three) et Fajr (two)."
-      },
-      {
-        "excerpt": "Ibn Abbas said:  Prophet ﷺ combined Dhuhr et Asr, et Maghrib et Isha pourde Madinah without fear ou rain. When asked why, he said: 'He wanted not  burden his Ummah.'"
-      },
-      {
-        "excerpt": "Ya'la ibn Umayyah said: I said to Umar ibn al-Khattab: 'There is no sin if one shortens the prayer while travelling.' Umar replied: 'I wondered the same, so I asked the Prophet ﷺ and he said: It is charity from Allah — accept His charity.'"
-      },
-      {
-        "excerpt": " Prophet ﷺ said: 'Allah loets şu His concessions be taken, just as He hates  be disobeyed.'"
-      }
-    ],
+    "quran": [{}],
+    "hadith": [{}, {}, {}, {}],
     "obligations": [
-      " fiet daily prmoisers remain farz — shortened (Qasr) when siz qualify as  traetller.",
-      "Fajr (two rakahs) and Maghrib (three rakahs) are never shortened.",
+      "Les cinq prières quotidiennes restent obligatoires — raccourcies (Qasr) lorsque vous remplissez les conditions du voyageur.",
+      "Fajr (deux rakahs) et Maghrib (trois rakahs) ne sont jamais raccourcies.",
       "Vous mmois combine Dhuhr aetc Asr, et Maghrib aetc Isha, when  conditions  seyahat uygula.",
-      "Each shortened prayer is prayed like the first two rakahs of the full prayer — recite Al-Fatiha and a surah, bow, prostrate, then sit for tashahhud and salam.",
-      "When siz return ana smoisfa ou intend  settle, resume prmoising each salah pourde full at its proper time.",
-      "Kaçırıldı prmoisers whaetc traetlling must still be made up (kaza) — seyahat does not waiet what was omitted."
+      "Chaque prière raccourcie s'accomplit comme les deux premières rakahs de la prière complète — récitez Al-Fatiha et une sourate, inclinez-vous, prosternez-vous, puis asseyez-vous pour le tashahhud et le salam.",
+      "Lorsque vous rentrez chez vous ou avez l'intention de vous établir, reprenez chaque prière en entier à son heure.",
+      "Les prières manquées en voyage doivent quand même être rattrapées (qaza) — le voyage n'annule pas ce qui a été omis."
     ],
     "qasr": {
       "title": "Qasr — raccourcissement",
@@ -3079,11 +3065,11 @@
     },
     "jam": {
       "title": "Jam' — combiner",
-      "body": " traetller mmois combine Dhuhr aetc Asr into one sitting, et Maghrib aetc Isha into one sitting — prmoising both fard prmoisers geri--geri aetc one ezan et iqamah. Fajr cannot be combined aetc any other salah. Combining dir  separate concession den shortening: siz mmois shorten without combining, combine without shortening (pourde some situations), ou do both together."
+      "body": "Le voyageur peut regrouper Dhuhr avec Asr en une seule fois, et Maghrib avec Isha en une seule fois — en accomplissant les deux prières fard l'une après l'autre avec un seul adhan et une iqamah. Fajr ne peut être regroupée avec aucune autre prière. Le regroupement est une dispense distincte du raccourcissement : vous pouvez raccourcir sans regrouper, regrouper sans raccourcir (dans certaines situations), ou faire les deux à la fois."
     },
     "jamTypes": {
       "title": "Jam' al-Taqdim et al-Ta'khir",
-      "body": "Jam' al-Taqdim (early combining): prmois both prmoisers together at  earlier prmoiser's time — e.g. Dhuhr et Asr at Dhuhr time. Jam' al-Ta'khir (gecikti combining): prmois both at  later prmoiser's time — e.g. Dhuhr et Asr at Asr time.  Prophet ﷺ combined at Rechercherfah (Dhuhr at Asr time) et at Muzdalifah (Maghrib at Isha time), establishing both forms."
+      "body": "Jam' al-Taqdim (regroupement avancé) : accomplir les deux prières ensemble au temps de la première — p. ex. Dhuhr et Asr au temps de Dhuhr. Jam' al-Ta'khir (regroupement retardé) : les accomplir au temps de la seconde — p. ex. Dhuhr et Asr au temps d'Asr. À Arafat, le Prophète ﷺ avança Asr au temps de Dhuhr, et à Muzdalifa il retarda Maghrib jusqu'au temps d'Isha — un exemple de chaque forme (Sahih Muslim 1218)."
     },
     "when": {
       "title": "Quand les concessions commencent et se terminent",
@@ -3103,7 +3089,7 @@
     },
     "disclaimer": "Il s’agit d’un contenu éducatif et non d’une fatwa personnelle. Les seuils de distance, la durée du séjour, les règles de combinaison et la limitation ou non de Jam' aux besoins varient entre les quatre écoles — consultez un universitaire qualifié pour votre voyage.",
     "markExcused": "Commencer la période d'excuse (voyage)",
-    "clearExcused": "Reprendre obligatory tracking",
+    "clearExcused": "Reprendre le suivi des obligations",
     "qasrCalc": {
       "title": "Calculateur de qasr",
       "hint": "Saisissez votre trajet pour savoir si votre école vous considère comme voyageur.",
@@ -3172,19 +3158,17 @@
     "obligationsTitle": "Ce dont vous êtes toujours responsable",
     "hadith": [
       {
-        "reference": "Sahih al-Bukhari · 321",
-        "excerpt": "Aisha said:  Messenger  Allah ﷺ said  me: 'When votre menses ends, perform ghusl et then prmois.'"
+        "reference": "Sahih al-Bukhari · 321"
       },
       {
-        "reference": "Sahih al-Bukhari · 304",
-        "excerpt": "The Prophet ﷺ said: 'Is it not the case that when one of you menstruates, she neither prays nor fasts?'"
+        "reference": "Sahih al-Bukhari · 304"
       }
     ],
     "obligations": [
-      "Do not offer salah while in hayd — this is Allah's concession, not neglect of worship.",
-      "Do not oruç during hmoisız; any kaçırıldı Ramadan fasts must be made up afterward.",
-      "Vous mmois still make zikir, dua, listen  Coran, giet charity, et other good deeds.",
-      "When hmoisız ends, perform ghusl et resume salah et oruç."
+      "N'accomplissez pas la salah pendant le hayd — c'est une dispense accordée par Allah, et non une négligence de l'adoration.",
+      "Ne jeûnez pas pendant le hayd ; les jeûnes de Ramadan manqués doivent être rattrapés ensuite.",
+      "Vous pouvez toujours faire le zikr, des duas, écouter le Coran, donner l'aumône et accomplir d'autres bonnes actions.",
+      "Lorsque le hayd prend fin, faites le ghusl et reprenez la salah et le jeûne."
     ],
     "duration": {
       "title": "Durée des foins",
@@ -3204,53 +3188,38 @@
     },
     "disclaimer": "Il s’agit d’une orientation pédagogique et non d’une décision personnelle. Les détails ci-dessus varient selon les écoles – consultez une universitaire qualifiée si votre situation n’est pas claire.",
     "markExcused": "Commencer la période d'excuse (hayd)",
-    "clearExcused": "Reprendre le suivi obligatoire",
-    "hadith[0]": {
-      "reference": "Sahih al-Bukhari · 321",
-      "excerpt": "Aïcha a dit : Le Messager d'Allah ﷺ m'a dit : « Quand tes règles se terminent, fais un ghusl puis prie. »"
-    },
-    "hadith[1]": {
-      "reference": "Sahih al-Bukhari · 304",
-      "excerpt": "Le Prophète ﷺ a dit : « N'est-il pas vrai que lorsque l'une d'entre vous a ses règles, elle ne prie ni ne jeûne ?"
-    },
-    "obligations[0]": "N'offrez pas de salah pendant le hayd - c'est une concession d'Allah et non une négligence de l'adoration.",
-    "obligations[1]": "Ne jeûnez pas pendant le foin ; tout jeûne du Ramadan manqué doit être rattrapé par la suite.",
-    "obligations[2]": "Vous pouvez toujours faire le zikr, le dua, écouter le Coran, faire la charité et faire d'autres bonnes actions.",
-    "obligations[3]": "À la fin du hayd, effectuez le ghusl et reprenez la salah et le jeûne."
+    "clearExcused": "Reprendre le suivi obligatoire"
   },
   "sick": {
     "eyebrow": "Apprendre",
-    "title": "Hastalık & salah",
-    "subtitle": "Concessions pour sickness et what remains upon siz",
+    "title": "Maladie et prière",
+    "subtitle": "Les dispenses en cas de maladie et ce qui reste à votre charge",
     "hadithTitle": "Den  Sunnah",
     "obligationsTitle": "Ce dont vous êtes toujours responsable",
     "hadith": [
       {
-        "reference": "Sahih al-Bukhari · 1117",
-        "excerpt": " Prophet ﷺ said: 'Prmois standing; if siz cannot, then sitting; if siz cannot, then  votre side.'"
+        "reference": "Sahih al-Bukhari · 1117"
       },
       {
-        "reference": "Sahih al-Bukhari · 1936",
-        "excerpt": "The Prophet ﷺ said: 'Allah has removed from my Ummah mistakes, forgetfulness, and what they are forced to do.'"
+        "reference": "Sahih al-Bukhari · 1936"
       },
       {
-        "reference": "Sahih al-Bukhari · 1118",
-        "excerpt": "Imran ibn Husmoisn had  painful condition et prmoised sitting.  Prophet ﷺ asked him: 'Can siz stand?' He said no, so  Prophet ﷺ said: 'Then prmois sitting; if siz cannot, then lying  votre side.'"
+        "reference": "Sahih al-Bukhari · 1118"
       }
     ],
     "obligations": [
-      "If you are able, pray in whatever position you can — standing, sitting, or lying down.",
+      "Si vous le pouvez, priez dans la position qui vous est possible — debout, assis ou allongé.",
       "Réduisez ou omettez l'inclinaison et la prosternation uniquement si vous ne pouvez vraiment pas les accomplir.",
-      "If you are too ill to pray at all, that prayer is waived — make it up (qaza) when you recover.",
-      "Manqué Ramadan fasts due to illness should be made up when you are able.",
-      "Vous mmois still make zikir, dua, read Coran, et giet charity."
+      "Tant que vous êtes conscient, la Salah ne tombe pas — priez comme vous le pouvez, même par des gestes. La Salah manquée pour cause de maladie se rattrape (qaza) une fois guéri ; si vous étiez inconscient, les écoles divergent sur l'obligation de la rattraper.",
+      "Les jeûnes de Ramadan manqués pour cause de maladie doivent être rattrapés lorsque vous en êtes capable.",
+      "Vous pouvez toujours faire le zikr, des duas, lire le Coran et donner l'aumône."
     ],
     "positions": {
       "title": "Prier quand on est malade – positions",
       "body": "La valeur par défaut est de prier debout avec un ruku et un sujud complets. Si rester debout provoque une douleur, une faiblesse ou un préjudice intense, priez assis : de nombreux érudits autorisent la position assise même sans se lever au préalable lorsque la maladie rend la position debout vraiment difficile.\n\nSi vous ne pouvez pas vous asseoir droit, priez allongé sur le côté ou sur le dos, en faisant des gestes pour le ruku et le sujud avec votre tête. Utilisez toutes les concessions de position avant de sauter complètement une prière.\n\nSi vous ne pouvez pas utiliser l’eau pour vos ablutions en raison d’une maladie ou d’un risque de préjudice, effectuez le tayammum lorsque les conditions sont remplies."
     },
     "rukuSujud": {
-      "title": "Ruku & sujud aetc limited moetment",
+      "title": "Ruku et sujud avec une mobilité réduite",
       "body": "Lorsque vous ne pouvez pas vous incliner complètement, inclinez la tête pour le ruku, davantage pour le sujud. Cette facilité s’applique lorsque vous priez assis ou allongé.\n\nSi vous ne pouvez pas bouger la tête, les savants divergent sur le minimum requis. N’abandonnez pas une prière entière si vous pouvez prier avec des mouvements réduits. Le Prophète ﷺ nous a enseigné d’utiliser les facilités progressivement plutôt que d’abandonner la salah."
     },
     "unable": {
@@ -3263,7 +3232,7 @@
     },
     "disclaimer": "Il s’agit d’une orientation pédagogique et non d’une décision personnelle. Le degré de maladie justifiant chaque concession varie selon l'école et la gravité – consultez un spécialiste qualifié pour votre situation.",
     "markExcused": "Commencer la période d'excuse (maladie)",
-    "clearExcused": "Reprendre obligatory tracking"
+    "clearExcused": "Reprendre le suivi des obligations"
   },
   "homeCustomize": {
     "title": "Personnaliser la maison",
@@ -3289,29 +3258,31 @@
       "dhul-hijjah": "Dhou al-Hijja",
       "muhasabah": "Muhasaba",
       "family-ties-due": "Liens familiaux à entretenir",
-      "weekly-coach": "Bilan de la semaine"
+      "weekly-coach": "Bilan de la semaine",
+      "seasonal-banner": "Bannières saisonnières",
+      "umrah-mode": "Poursuivre votre Omra"
     }
   },
   "schedule": {
     "eyebrow": "Heures de Salah",
     "subtitle": "Prières obligatoires, fenêtres sunnah et actes flexibles pour aujourd'hui",
-    "shareA11y": "Share today's complete schedule as an image",
-    "shareMessageIntro": "Today's schedule — {{date}}"
+    "shareA11y": "Partager le programme complet du jour en image",
+    "shareMessageIntro": "Programme du jour — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Apprendre",
     "title": "Apprendre Salah",
-    "subtitle": "Den votre first salah  istikrarlı ibadet — step by step",
-    "intro": "Vousin learning yolculuk: Why Prmois → Hazırla → Apprendre → Pratik → Parfait → Be Istikrarlı. Eetry lesson cites Coran ou sahih hadis et links  Munib trackers.",
+    "subtitle": "De votre première prière à une adoration régulière — étape par étape",
+    "intro": "Votre parcours d'apprentissage : Pourquoi prier → Se préparer → Apprendre → Pratiquer → Perfectionner → Persévérer. Chaque leçon cite le Coran ou un hadith authentique et renvoie aux suivis de Munib.",
     "quickLinksTitle": "Commencer ici",
     "quickHowToPray": "Salah étape par étape",
-    "quickHowToPrayHint": " centerpiece — eetry position et recitation",
+    "quickHowToPrayHint": "L'essentiel — chaque position et chaque récitation",
     "quickWudu": "Guide Wudu",
     "quickWuduHint": "Ablution avant chaque prière",
     "quickPhrases": "Mots et significations",
     "quickPhrasesHint": "Ce que tu dis et ce que ça enseigne",
     "quickProgress": "Mon progress",
-    "quickProgressHint": "Lessons learned et daily pratik",
+    "quickProgressHint": "Leçons apprises et pratique quotidienne",
     "progressCardTitle": "Progression d'apprentissage",
     "progressCardHint": "{{completed}} leçons sur {{total}} marquées comme terminées",
     "topicsTitle": "Руководства",
@@ -3319,34 +3290,34 @@
     "prayer": "Salah",
     "fard": "Fard",
     "sunnah": "Sunnah",
-    "travelPointer": "Shortening et combining prmoisers when traetlling",
+    "travelPointer": "Raccourcir et regrouper les prières en voyage",
     "relatedTitle": "Guides associés",
     "qazaLink": "Manqué (qaza) salah",
-    "qazaLinkHint": "Make up what siz kaçırıldı — connect  votre kaza tracker",
+    "qazaLinkHint": "Rattrapez ce que vous avez manqué — accédez à votre suivi du qaza",
     "duasLink": "Salah duas",
     "duasLinkHint": "Ezan, abdest, masjid, et after salah",
     "notFound": "Guide introuvable",
-    "disclaimer": " concise guide pour learning et revision. Için votre situation, consult  qualified teacher.",
+    "disclaimer": "Un guide concis pour apprendre et réviser. Pour votre situation, consultez un enseignant qualifié.",
     "continueInApp": "Continuer dans Munib",
     "stepsTitle": "Pas à pas",
     "ruling": {
       "fard": "Fard · pilier",
       "wajib": "Wajib · obligatoire",
-      "sunnah": "Sunnah · isteğe bağlı"
+      "sunnah": "Sunnah · facultative"
     },
     "markComplete": "Marquer la leçon comme terminée",
     "markIncomplete": "Marquer comme pas encore terminé",
     "featuredPhraseTitle": "Phrase   jour",
     "phrasesTitle": "Les paroles de Salah",
-    "phrasesSubtitle": "Rechercherpça, çeviri, et  meaning behind each phrase",
+    "phrasesSubtitle": "L'arabe, la traduction et le sens de chaque formule",
     "phrasesIntro": "Comprendre ce que vous dites nourrit le khushu. Lisez le sens avant votre prochaine prière.",
     "exploreTitle": "Continuer à apprendre",
-    "progressExploreHint": "Revisit  key lessons et words   salah",
+    "progressExploreHint": "Revoir les leçons clés et les paroles de la prière",
     "exploreStepByStep": "Salah étape par étape",
     "explorePositions": "Chaque poste",
     "meaningLabel": "Ce qu'elle enseigne",
-    "progressTitle": "Mon learning progress",
-    "progressSubtitle": "lessons — not spiritual rank with Allah Suivi Et",
+    "progressTitle": "Mon apprentissage",
+    "progressSubtitle": "Suivez vos leçons — pas votre rang spirituel auprès d'Allah",
     "progressIntro": "Ce tableau de bord suit vos études et votre pratique à Munib. Terminer les leçons ne mesure pas votre position auprès d’Allah – c’est la sincérité qui le fait.",
     "lessonsTitle": "Leçons completed",
     "lessonsHint": "Marquez les sujets comme terminés à mesure que vous avez fini de les étudier",
@@ -3356,17 +3327,17 @@
     "phaseV2": "Maîtrise",
     "journey": {
       "why": "Pourquoi prier ?",
-      "whyHint": "Purpose, importance, et who must prmois",
+      "whyHint": "But, importance et qui doit prier",
       "prepare": "Préparer",
       "prepareHint": "Conditions, taharah, wudu, vêtements, horaires, qiblah",
       "learn": "Apprendre",
-      "learnHint": "Ezan, step-by-step salah, et eetry position",
+      "learnHint": "Adhan, la salah étape par étape et chaque position",
       "practice": "Pratique",
-      "practiceHint": "Common mistakes et sunnah practices",
+      "practiceHint": "Erreurs courantes et pratiques de la sunnah",
       "perfect": "Parfait",
       "perfectHint": "Huşu, rükünler, et nullifiers",
       "consistency": "Soyez cohérent",
-      "consistencyHint": "Salah types, congregation, kaza, et after salah"
+      "consistencyHint": "Types de salah, prière en assemblée, qaza et après la salah"
     },
     "importance": {
       "foundational": "Fondamental",
@@ -3376,9 +3347,9 @@
     },
     "progress": {
       "salah": "Aujourd'huiün salah",
-      "salahHint": "Fard prmoisers completed bujour",
+      "salahHint": "Prières fard accomplies aujourd'hui",
       "qaza": "Qaza aetcrleme",
-      "qazaHint": "Kaçırıldı prmoisers made up",
+      "qazaHint": "Prières manquées rattrapées",
       "streak": "Salah seri",
       "streakHint": "Consecutiet jour aetc salah logged",
       "khushu": "Huşu quotidien",
@@ -3569,7 +3540,7 @@
     "quizRetry": "Essayer à nouveau",
     "quizReflectContinue": "Continuer",
     "referencesTitle": "Références",
-    "referencesSubtitle": "Sources et notes scientifiques",
+    "referencesSubtitle": "Sources et notes des savants",
     "referencesHint": "Coran, recueils de hadiths et textes de croyance",
     "referencesIntro": "Chaque leçon distingue la révélation explicite des opinions interprétatives des chercheurs.",
     "referencesListTitle": "Sources",
@@ -3649,7 +3620,7 @@
   "taharah": {
     "eyebrow": "Apprendre",
     "title": "Apprendre Purification",
-    "subtitle": "Purification, abdest, ghusl, tmoisammum, et removing impurity — step by step",
+    "subtitle": "Taharah, wudu, ghusl, tayammum et élimination des impuretés — étape par étape",
     "intro": "Purity dir  foundation  ibadet. Eetry lesson cites Coran ou sahih hadis, notlar where alimler differ, et links  salah et dua pourde Munib.",
     "quickLinksTitle": "Commencer ici",
     "quickWudu": "Guide Wudu",
@@ -3665,26 +3636,26 @@
     "exploreTitle": "Explorer",
     "relatedTitle": "Guides associés",
     "checklistTitle": "Quotidien checklist",
-    "checklistSubtitle": "Gözden geçir these temizlik habits each jour",
-    "checklistIntro": " practical hatırlatıcı list — not  substitute pour learning  fiqh  temizlik.",
+    "checklistSubtitle": "Révisez ces habitudes de purification chaque jour",
+    "checklistIntro": "Une liste de rappels pratique — elle ne remplace pas l'apprentissage du fiqh de la taharah.",
     "checklistListTitle": "Liste de contrôle",
-    "checklistHint": "Dokunun items as siz gözden geçir votre daily purity habits",
+    "checklistHint": "Touchez les éléments au fil de la révision de vos habitudes de pureté quotidiennes",
     "wuduTitle": "Вуду",
-    "wuduHint": "Conditions, steps, duas, et nullifiers",
+    "wuduHint": "Conditions, étapes, duas et annulatifs",
     "ghuslTitle": "Ghousl",
     "ghuslHint": "Quand cela est nécessaire et comment l’effectuer",
-    "salahGuidePointer": "Apprendre Salah — prayer after purification",
+    "salahGuidePointer": "Apprendre la Salah — la prière après la purification",
     "learnDuaPointer": "Duas avant et après le wudu",
     "haydPointer": "Guide de pureté menstruelle et postnatale",
     "notFound": "Sujet introuvable",
-    "disclaimer": "Eğitim genel bakış pour learning et revision. Için votre situation, consult  qualified teacher.",
+    "disclaimer": "Aperçu pédagogique pour apprendre et réviser. Pour votre situation, consultez un enseignant qualifié.",
     "continueInApp": "Continuer dans Munib",
     "stepsTitle": "Pas à pas",
     "markComplete": "Marquer le sujet comme terminé",
     "markIncomplete": "Marquer comme pas encore terminé",
     "phaseV1": "V1 — Fondations",
-    "progressTitle": "Mon learning progress",
-    "progressSubtitle": "lessons — not spiritual rank with Allah Suivi Et",
+    "progressTitle": "Mon apprentissage",
+    "progressSubtitle": "Suivez vos leçons — pas votre rang spirituel auprès d'Allah",
     "progressIntro": "Marquez les sujets comme terminés pendant que vous étudiez. Terminer les leçons ne mesure pas votre position auprès d’Allah – c’est la sincérité qui le fait.",
     "lessonsTitle": "Sujets completed",
     "lessonsHint": "Marquez les sujets comme terminés à mesure que vous avez fini de les étudier",
@@ -3693,18 +3664,18 @@
     "section": {
       "intro": "Введение",
       "introHint": "Qu'est-ce que taharah et pourquoi c'est important",
-      "water": "Water pourde Islam",
-      "waterHint": "Purifying water et what invalidates it",
+      "water": "L'eau en islam",
+      "waterHint": "L'eau purifiante et ce qui la rend impropre",
       "wudu": "Вуду",
-      "wuduHint": "Ablution — conditions, steps, sunnah, et mistakes",
+      "wuduHint": "Ablutions — conditions, étapes, sunnah et erreurs",
       "ghusl": "Ghousl",
       "ghuslHint": "Bain complet après une impureté majeure",
       "tayammum": "Tayammum",
       "tayammumHint": "Ablutions à sec lorsque l’eau n’est pas disponible",
       "najasah": "Najasah",
-      "najasahHint": "Impurities et how  remoet them",
+      "najasahHint": "Les impuretés et comment les éliminer",
       "exceptions": "Exceptions",
-      "exceptionsHint": "Hmoisız, nifas, et common questions",
+      "exceptionsHint": "Hayd, nifas et questions courantes",
       "reference": "Références",
       "referenceHint": "Kmoisnaklar et further okuma"
     },
@@ -3718,8 +3689,8 @@
   },
   "prophets": {
     "eyebrow": "Apprendre",
-    "title": "Apprendre the Prophets",
-    "subtitle": "Liets, missions, et lessons   peygamberler named pourde  Coran",
+    "title": "Découvrir les prophètes",
+    "subtitle": "Vies, missions et enseignements des prophètes nommés dans le Coran",
     "intro": "Chaque prophète est appelé au tawhid et à une vie juste. Les histoires sont citées dans le Coran et dans la Sunna authentique – à des fins de réflexion et non de divertissement.",
     "quickLinksTitle": "Commencer ici",
     "quickTimeline": "Chronologie",
@@ -3727,7 +3698,7 @@
     "quickMuhammad": "Muhammad ﷺ",
     "quickMuhammadHint": "Le sceau des prophètes",
     "quickLessons": "Leçons",
-    "quickLessonsHint": "Moral et spiritual takeawmoiss",
+    "quickLessonsHint": "Enseignements moraux et spirituels",
     "quickProgress": "Mon apprentissage",
     "quickProgressHint": "Sujets lus et progrès d’étude",
     "progressCardTitle": "Progression d'apprentissage",
@@ -3735,32 +3706,32 @@
     "exploreTitle": "Explorer",
     "relatedTitle": "Guides associés",
     "timelineTitle": "Chronologie",
-    "timelineSubtitle": "Prophèteler across history",
-    "timelineHint": "Chronological genel bakış aetc links  prophet topics",
+    "timelineSubtitle": "Les prophètes à travers l'histoire",
+    "timelineHint": "Vue chronologique avec des liens vers les fiches des prophètes",
     "timelineIntro": "Les dates et les époques sont approximatives là où le Coran et la Sunna ne précisent pas de chronologie exacte.",
     "readTopic": "Lire le sujet en entier",
     "muhammadTitle": "Muhammad ﷺ",
     "muhammadHint": "Le dernier messager envoyé à toute l'humanité",
     "lessonsTopicTitle": "Leçons tirées des prophètes",
     "seerahPointer": "Biographie prophétique complète",
-    "quranPointer": "Read their stories pourde  Coran",
+    "quranPointer": "Lisez leurs histoires dans le Coran",
     "notFound": "Sujet introuvable",
-    "disclaimer": "Eğitim summaries drawn den  Coran et graded hadis. Için detaaetcd tafsir, consult qualified alimler.",
+    "disclaimer": "Résumés pédagogiques tirés du Coran et de hadiths authentifiés. Pour un tafsir détaillé, consultez des savants qualifiés.",
     "continueInApp": "Continuer dans Munib",
     "markComplete": "Marquer le sujet comme terminé",
     "markIncomplete": "Marquer comme pas encore terminé",
     "phaseV1": "V1 — Fondations",
     "profileTitle": "Profil",
-    "progressTitle": "Mon learning progress",
-    "progressSubtitle": "lessons — not spiritual rank with Allah Suivi Et",
+    "progressTitle": "Mon apprentissage",
+    "progressSubtitle": "Suivez vos leçons — pas votre rang spirituel auprès d'Allah",
     "progressIntro": "Marquez les sujets comme terminés pendant que vous étudiez la vie des prophètes.",
     "lessonsTitle": "Sujets completed",
     "lessonsHint": "Marquez les sujets comme terminés à mesure que vous avez fini de les étudier",
     "lessonsCount": "{{completed}} из {{total}}",
-    "progressExploreHint": "Return  timeline et key peygamberler",
+    "progressExploreHint": "Revenir à la chronologie et aux principaux prophètes",
     "section": {
       "context": "Contexte",
-      "contextHint": "What dir  prophet et why Allah sent them",
+      "contextHint": "Qu'est-ce qu'un prophète et pourquoi Allah les a envoyés",
       "prophets": "Prophèteler pourde  Coran",
       "prophetsHint": "Biographie, mission, miracles et leçons",
       "themes": "Thèmes",
@@ -3812,14 +3783,14 @@
       },
       "disclaimer": "Généalogie pédagogique – pas une liste complète de tous les prophètes. De nombreux messagers sont nommés dans le Qur'an sans chaîne parent détaillée ; ils apparaissent dans les biographies de Learn the Prophets mais sont omis ici plutôt que devinés.",
       "panHint": "Pincez pour zoomer, faites glisser pour vous déplacer, touchez deux fois pour ajuster",
-      "fitView": "Fit tree to screen",
-      "mapA11y": "Interactive prophets family tree map",
+      "fitView": "Ajuster l'arbre à l'écran",
+      "mapA11y": "Carte interactive de l'arbre généalogique des prophètes",
       "legendParent": "Lignée (parent → enfant)",
-      "legendSibling": "Siblings",
-      "allBranches": "All branches",
-      "tapHint": "Tap a name on the map to read the sourced note.",
-      "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out",
+      "legendSibling": "Frères et sœurs",
+      "allBranches": "Toutes les branches",
+      "tapHint": "Appuyez sur un nom sur la carte pour lire la note sourcée.",
+      "zoomIn": "Zoom avant",
+      "zoomOut": "Zoom arrière",
       "tapHintTv": "Sélectionnez un nom sur la carte pour lire la note sourcée.",
       "listHintTv": "Sélectionnez un nom dans la liste pour lire la note sourcée."
     }
@@ -3827,7 +3798,7 @@
   "aqeedah": {
     "eyebrow": "Apprendre",
     "title": "Apprendre Aqeedah",
-    "subtitle": "Foundational beliefs  Islam den  Coran et sahih Sunnah",
+    "subtitle": "Les croyances fondamentales de l'islam d'après le Coran et la Sunnah authentique",
     "intro": "Un large accord sunnite est présenté clairement ; les domaines de divergence scientifique sont notés avec respect. La Aqida s'apprend avec les enseignants et n'est pas débattue en ligne.",
     "quickLinksTitle": "Commencer ici",
     "quickSixArticles": "Six articles de foi",
@@ -3846,7 +3817,7 @@
     "tawheedTitle": "Tawhid et Shirk",
     "tawheedHint": "Adorez Allah seul – évitez les associations",
     "glossaryTitle": "Glossaire",
-    "glossarySubtitle": "Şartlar used pourde Islamic creed",
+    "glossarySubtitle": "Termes employés dans la croyance islamique",
     "glossaryHint": "Tawhid, shirk, qadr et plus encore",
     "glossaryIntro": "Comprendre le vocabulaire évite la confusion lorsqu'on étudie l'aqida.",
     "glossaryListTitle": "Termes",
@@ -3857,9 +3828,9 @@
     "markComplete": "Marquer le sujet comme terminé",
     "markIncomplete": "Marquer comme pas encore terminé",
     "phaseV1": "V1 — Fondations",
-    "progressTitle": "Mon learning progress",
-    "progressSubtitle": "lessons — not spiritual rank with Allah Suivi Et",
-    "progressIntro": "Studying aqeedah strengthens iman when tamamlandı aetc sincerity et reliable kmoisnaklar.",
+    "progressTitle": "Mon apprentissage",
+    "progressSubtitle": "Suivez vos leçons — pas votre rang spirituel auprès d'Allah",
+    "progressIntro": "Étudier l'aqeedah renforce l'iman lorsqu'on le fait avec sincérité et à partir de sources fiables.",
     "lessonsTitle": "Sujets completed",
     "lessonsHint": "Marquez les sujets comme terminés à mesure que vous avez fini de les étudier",
     "lessonsCount": "{{completed}} из {{total}}",
@@ -3870,13 +3841,13 @@
       "articles": "Articles de foi",
       "articlesHint": "Les six piliers de l'iman expliqués",
       "tawheed": "Tawhid et culte",
-      "tawheedHint": "Sincerity, loet, fear, et hope pourde Allah",
+      "tawheedHint": "Sincérité, amour, crainte et espoir en Allah",
       "afterlife": "Vie après la mort",
       "afterlifeHint": "Jannah, Jahannam, resurrection, et hesap",
       "signs": "Signes de l'heure",
       "signsHint": "Signes majeurs et mineurs avant le Jour Dernier",
       "reference": "Références",
-      "referenceHint": "FAQ et further okuma"
+      "referenceHint": "FAQ et lectures complémentaires"
     },
     "importance": {
       "foundational": "Fondamental",
@@ -3889,24 +3860,24 @@
     "eyebrow": "Apprendre",
     "title": "Apprendre Dua",
     "subtitle": "Invocations authentiques — sens, mérites et moments où les réciter",
-    "intro": "Dua is worship. Apprendre etiquette, best times, and the words of the Qur'an and Sunnah — then practise from the Munib dua library.",
+    "intro": "La dua est une adoration. Apprenez ses règles de bienséance, les meilleurs moments et les paroles transmises dans le Coran et la Sunnah — puis pratiquez avec la bibliothèque de duas de Munib.",
     "quickLinksTitle": "Commencer ici",
     "quickMorningEvening": "Matin et soir",
     "quickMorningEveningHint": "Zikrler şu bookend votre jour",
     "quickEtiquette": "Étiquette de dua",
     "quickEtiquetteHint": "Comment demander correctement à Allah",
     "quickOccasions": "Par occasion",
-    "quickOccasionsHint": "Browse duas pour eetry moment",
+    "quickOccasionsHint": "Des duas pour chaque moment",
     "quickProgress": "Mon apprentissage",
     "quickProgressHint": "Sujets lus et progrès d’étude",
     "progressCardTitle": "Progression d'apprentissage",
     "progressCardHint": "{{completed}} sujets sur {{total}} marqués comme terminés",
     "exploreTitle": "Explorer",
     "occasionsTitle": "Duas par occasion",
-    "occasionsSubtitle": "Find  right supplication pour votre situation",
-    "occasionsHint": "Daily, situational, et Coranic duas",
-    "occasionsIntro": "Dokunun  occasion  aç  lesson ou browse  full dua library.",
-    "duaLibraryPointer": "Full dua library — read et memorise",
+    "occasionsSubtitle": "Trouvez l'invocation adaptée à votre situation",
+    "occasionsHint": "Duas quotidiennes, de circonstance et coraniques",
+    "occasionsIntro": "Appuyez sur une occasion pour ouvrir la leçon, ou parcourez la bibliothèque complète de duas.",
+    "duaLibraryPointer": "Bibliothèque complète de duas — lire et mémoriser",
     "featuredPhraseTitle": "Dua à la une",
     "featuredPhraseTitleWithTopic": "À partir de {{topic}}",
     "morningEveningTitle": "Adhkar matin et soir",
@@ -3917,20 +3888,20 @@
     "markComplete": "Marquer le sujet comme terminé",
     "markIncomplete": "Marquer comme pas encore terminé",
     "phaseV1": "V1 — Fondations",
-    "progressTitle": "Mon learning progress",
+    "progressTitle": "Mon apprentissage",
     "progressSubtitle": "Suivez les leçons - pas si Allah accepte votre dua",
-    "progressIntro": "Allah hears eetry sincere call. Ce screen tracks votre study, not His response.",
+    "progressIntro": "Allah entend chaque appel sincère. Cet écran suit votre étude, pas Sa réponse.",
     "lessonsTitle": "Sujets completed",
     "lessonsHint": "Marquez les sujets comme terminés à mesure que vous avez fini de les étudier",
     "lessonsCount": "{{completed}} из {{total}}",
     "progressExploreHint": "Retour aux leçons clés dua",
     "section": {
       "intro": "Введение",
-      "introHint": "What dua dir, etiquette, et best vakitler",
+      "introHint": "Ce qu'est la dua, ses règles et les meilleurs moments",
       "daily": "Quotidien duas",
-      "dailyHint": "Morning, eetning, ana smoisfa, masjid, food, et salah",
+      "dailyHint": "Matin, soir, maison, masjid, repas et salah",
       "situational": "Duas situationnels",
-      "situationalHint": "Anxiety, hastalık, seyahat, forgietness, et more",
+      "situationalHint": "Anxiété, maladie, voyage, pardon et plus encore",
       "categories": "Catégories",
       "categoriesHint": "Coranic, prophetic, zikir, et salawat",
       "reference": "Références",
@@ -4070,7 +4041,7 @@
       "live": "En direct",
       "liveHint": "Appliquer des versets aux habitudes et aux défis quotidiens",
       "evidence": "Références",
-      "evidenceHint": "Sources, citations et notes scientifiques"
+      "evidenceHint": "Sources, citations et notes des savants"
     },
     "importance": {
       "foundational": "Fondamental",
@@ -4129,7 +4100,7 @@
       "mawlid": "Mawlid an-Nabi",
       "isra": "Isra et Mi'raj",
       "ramadan": "Premier Ramadan",
-      "laylatQadr": "Laylat al-Qadr (est.)",
+      "laylatQadr": "Laylat al-Qadr (estim.)",
       "eidFitr": "Aïd al-Fitr",
       "arafah": "Jour d'Arafa",
       "eidAdha": "Aïd al-Adha"
@@ -4176,26 +4147,26 @@
     "checklist": [
       {
         "title": "Confirmer  hawl (kameri year)",
-        "body": "Your net zakatable wealth must have stayed at or above nisab for one complete Hijri year. Note the date it first reached nisab."
+        "body": "Votre patrimoine net soumis à la zakat doit être resté égal ou supérieur au nisab pendant une année hégirienne complète. Notez la date à laquelle il a atteint le nisab pour la première fois."
       },
       {
-        "title": "Use current market values",
+        "title": "Utilisez les valeurs actuelles du marché",
         "body": "Évaluez l'or, l'argent, les actions et les marchandises au prix du jour — et non au prix d'achat d'origine."
       },
       {
-        "title": "Deduct only eligible debts",
-        "body": "Immediate debts due now are commonly deducted. Long-term liabilities are treated differently between schools."
+        "title": "Ne déduisez que les dettes admissibles",
+        "body": "Les dettes immédiates arrivant à échéance sont généralement déduites. Les engagements à long terme sont traités différemment selon les écoles."
       },
       {
-        "title": "Pay eligible recipients",
+        "title": "Versez-la aux bénéficiaires éligibles",
         "body": "Distribuez-la aux huit catégories citées dans le Coran 9:60 — et non comme un don générique à n'importe quelle cause."
       },
       {
-        "title": "Make the intention (niyyah)",
-        "body": "Zakat is an act of worship. Intend it as zakat when paying, not ordinary sadaqah."
+        "title": "Formulez l'intention (niyyah)",
+        "body": "La zakat est un acte d'adoration. En la versant, formulez l'intention de la zakat, et non d'une simple sadaqah."
       },
       {
-        "title": "Ask when unsure",
+        "title": "Demandez en cas de doute",
         "body": "Les bijoux, retraites, cryptomonnaies, prêts immobiliers et stocks d'entreprise font tous l'objet de règles nuancées — consultez un savant qualifié."
       }
     ],
@@ -4254,35 +4225,35 @@
     "recipientsListTitle": "Les huit catégories",
     "recipients": [
       {
-        "title": "Al-fuqara (the poor)",
-        "body": "Those who cannot meet basic needs."
+        "title": "Al-fuqara (les pauvres)",
+        "body": "Ceux qui ne peuvent subvenir à leurs besoins essentiels."
       },
       {
-        "title": "Al-masakin (the needy)",
+        "title": "Al-masakin (les nécessiteux)",
         "body": "Ceux qui sont dans la gêne et possèdent encore moins que les pauvres."
       },
       {
-        "title": "Al-'amilun (administrators)",
-        "body": "Those employed  collect et distribute zekat."
+        "title": "Al-'amilun (les administrateurs)",
+        "body": "Ceux qui sont employés pour collecter et distribuer la zakat."
       },
       {
         "title": "Al-mu'allafatu qulubuhum",
-        "body": "Those whose hearts dir  be reconcaetcd  Islam."
+        "body": "Ceux dont les cœurs sont à rallier à l'islam."
       },
       {
-        "title": "Fi'r-riqab (captives)",
-        "body": "Freeing those pourde bondage — historically captiets; alimler uygula  relevant cases bujour."
+        "title": "Fi'r-riqab (les captifs)",
+        "body": "L'affranchissement des personnes en servitude — historiquement les captifs ; les savants l'appliquent aujourd'hui aux cas pertinents."
       },
       {
-        "title": "Al-gharimin (the indebted)",
-        "body": "Those burdened by debt they cannot repay."
+        "title": "Al-gharimin (les endettés)",
+        "body": "Ceux qui sont accablés de dettes qu'ils ne peuvent rembourser."
       },
       {
         "title": "Fi sabili Allah",
-        "body": "In the cause of Allah — scholars define eligible causes."
+        "body": "Dans le sentier d'Allah — les savants définissent les causes éligibles."
       },
       {
-        "title": "Ibn as-sabil ( wmoisfarer)",
+        "title": "Ibn as-sabil (le voyageur)",
         "body": "Le voyageur bloqué sans ressources."
       }
     ],
@@ -4290,34 +4261,8 @@
     "nisabWeightGold": "Or : ~87,48 g (≈ 7,5 tola)",
     "nisabWeightSilver": "Argent : ~612,36 g (≈ 52,5 tola)",
     "nisabWeightNote": "Les poids exacts et le métal à préférer varient légèrement selon les écoles. Le calculateur utilise ces chiffres Hanafi largement cités.",
-    "quran": [
-      {
-        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
-      },
-      {
-        "excerpt": "Take from their wealth a charity by which you purify them and cause them to grow, and invoke blessings upon them. Indeed, your invocation is reassurance for them. And Allah is Hearing and Knowing."
-      },
-      {
-        "excerpt": "O siz who belieet, spend den  good things which siz haet earned et den şu which We haet produced pour siz den  earth."
-      },
-      {
-        "excerpt": "Those who believe and do righteous deeds and establish prayer and give zakat will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve."
-      }
-    ],
-    "hadith": [
-      {
-        "excerpt": "Islam is built upon five: the testimony that none has the right to be worshipped but Allah and that Muhammad is the Messenger of Allah, establishing prayer, paying zakat, pilgrimage to the House, and fasting Ramadan."
-      },
-      {
-        "excerpt": "بَعَثَ النَّبِيُّ ﷺ مُعَاذًا إِلَى الْيَمَنِ فَقَالَ: فَأَعْلِمْهُمْ أَنَّ اللَّهَ افْتَرَضَ عَلَيْهِمْ صَدَقَةً تُؤْخَذُ مِنْ أَغْنِيَائِهِمْ فَتُرَدُّ عَلَى فُقَرَائِهِمْ."
-      },
-      {
-        "excerpt": "There is no owner of gold or silver who does not pay what is due on it except that on the Day of Resurrection plates of fire will be made for him, heated in the Fire of Hell, and his side, forehead, and back will be seared with them."
-      },
-      {
-        "excerpt": "When you own two hundred dirhams and a year has passed over them, five dirhams are due. And no zakat is due on wealth until a year has passed over it."
-      }
-    ],
+    "quran": [{}, {}, {}, {}],
+    "hadith": [{}, {}, {}, {}],
     "assetsTitle": "Votre richesse",
     "assetsHint": "Saisissez les valeurs marchandes actuelles dans votre devise locale.",
     "group": {
@@ -4411,89 +4356,9 @@
       "investmentProperty": "Maisons ou bâtiments détenus à des fins d’investissement ou de commerce – et non votre résidence personnelle.",
       "tradeVehicles": "Voitures ou véhicules détenus pour la vente ou comme stock commercial – pas de véhicules à usage personnel."
     },
-    "checklist[0]": {
-      "title": "Confirmer le hawl (année lunaire)",
-      "body": "Votre richesse nette zakatable doit être restée égale ou supérieure au nisab pendant une année complète de l'Hégire. Notez la date à laquelle il a atteint le nisab pour la première fois."
-    },
-    "checklist[1]": {
-      "title": "Utiliser les valeurs actuelles du marché",
-      "body": "Évaluez l’or, l’argent, les actions et les biens commerciaux aux prix actuels – et non au coût d’achat historique."
-    },
-    "checklist[2]": {
-      "title": "Déduire uniquement les dettes admissibles",
-      "body": "Les dettes immédiates dues maintenant sont généralement déduites. Les passifs à long terme sont traités différemment selon les écoles."
-    },
-    "checklist[3]": {
-      "title": "Payer les destinataires éligibles",
-      "body": "Distribuez aux huit catégories nommées dans le Coran 9 :60 – et non comme un don générique à quelque cause que ce soit."
-    },
-    "checklist[4]": {
-      "title": "Faire l'intention (niyyah)",
-      "body": "La Zakat est un acte d'adoration. Considérez-le comme une Zakat lors du paiement, et non comme une sadaqah ordinaire."
-    },
-    "checklist[5]": {
-      "title": "Demander en cas de doute",
-      "body": "Les bijoux, les retraites, les cryptomonnaies, les hypothèques et les actions commerciales ont tous des décisions nuancées – consultez un spécialiste qualifié."
-    },
-    "recipients[0]": {
-      "title": "Al-fuqara (les pauvres)",
-      "body": "Ceux qui ne peuvent pas subvenir à leurs besoins fondamentaux."
-    },
-    "recipients[1]": {
-      "title": "Al-masakin (le nécessiteux)",
-      "body": "Ceux qui sont en difficulté avec moins que les pauvres."
-    },
-    "recipients[2]": {
-      "title": "Al-'amilun (administrateurs)",
-      "body": "Ceux employés pour collecter et distribuer la zakat."
-    },
-    "recipients[3]": {
-      "title": "Al-mu'allafatu qulubuhum",
-      "body": "Ceux dont le cœur doit se réconcilier avec l’Islam."
-    },
-    "recipients[4]": {
-      "title": "Fi'r-riqab (captifs)",
-      "body": "Libérer ceux qui sont en servitude – historiquement captifs ; les chercheurs s’appliquent aujourd’hui aux cas pertinents."
-    },
-    "recipients[5]": {
-      "title": "Al-gharimin (l'endetté)",
-      "body": "Ceux qui sont accablés par des dettes ne peuvent pas les rembourser."
-    },
-    "recipients[6]": {
-      "title": "Fi sabili Allah",
-      "body": "Dans la cause d’Allah – les savants définissent les causes éligibles."
-    },
-    "recipients[7]": {
-      "title": "Ibn as-sabil (le voyageur)",
-      "body": "Un voyageur bloqué sans ressources."
-    },
-    "quran[0]": {
-      "excerpt": "Les dépenses de la Zakat sont réservées aux pauvres et aux nécessiteux et à ceux qui sont employés pour la collecter et pour rassembler les cœurs et pour libérer les captifs et pour les endettés et pour la cause d'Allah et pour le voyageur - une obligation d'Allah. Et Allah est Omniscient et Sage."
-    },
-    "quran[1]": {
-      "excerpt": "Prenez de leurs richesses une aumône par laquelle vous les purifiez et les faites croître, et invoquez sur eux des bénédictions. En effet, votre invocation est pour eux un réconfort. Et Allah est Audient et Omniscient."
-    },
-    "quran[2]": {
-      "excerpt": "Ô vous qui croyez, dépensez sur les biens que vous avez acquis et sur ce que Nous avons produit pour vous de la terre."
-    },
-    "quran[3]": {
-      "excerpt": "Ceux qui croient et accomplissent de bonnes actions, accomplissent la prière et donnent la zakat auront leur récompense auprès de leur Seigneur, et il n'y aura aucune crainte à leur égard et ils ne seront pas attristés."
-    },
-    "hadith[0]": {
-      "excerpt": "L'Islam est construit sur cinq : le témoignage que nul n'a le droit d'être adoré sauf Allah et que Mahomet est le Messager d'Allah, l'établissement de la prière, le paiement de la zakat, le pèlerinage à la Maison et le jeûne du Ramadan."
-    },
-    "hadith[1]": {
-      "excerpt": "Le Prophète ﷺ a envoyé Mu'adh au Yémen et a dit : Apprenez-leur qu'Allah leur a rendu obligatoire la charité (zakat) – prise sur leurs riches et restituée à leurs pauvres."
-    },
-    "hadith[2]": {
-      "excerpt": "Il n'y a aucun propriétaire d'or ou d'argent qui ne paie ce qui lui est dû, sauf que le jour de la résurrection, des plaques de feu lui seront fabriquées, chauffées dans le feu de l'enfer, et son côté, son front et son dos en seront brûlés."
-    },
-    "hadith[3]": {
-      "excerpt": "Lorsque vous possédez deux cents dirhams et qu’un an s’est écoulé, cinq dirhams vous sont dus. Et aucune zakat n’est due sur la richesse avant qu’un an ne se soit écoulé."
-    },
     "currency": {
       "title": "Currency",
-      "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
+      "hint": "Choisissez la devise et le format des nombres. Les cours de l'or et de l'argent en direct sont convertis automatiquement.",
       "changeA11y": "Changer la devise de la zakat",
       "pickerTitle": "Sélectionnez la devise",
       "pickerHint": "Devises {{count}} — recherche par code ou par nom",
@@ -4514,7 +4379,7 @@
       "refreshA11y": "Actualiser les prix du marché en temps réel",
       "livePrice": "En temps réel"
     },
-    "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
+    "nisabHintLive": "Estimé à partir des prix en direct. De nombreux savants retiennent le plus bas des nisabs de l'or et de l'argent.",
     "bar": {
       "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
       "belowNisab": "Net {{wealth}} · ci-dessous nisab {{nisab}}",
@@ -4524,7 +4389,7 @@
       "gold": "Or/g",
       "silver": "Argent/g",
       "nisab": "Nissab",
-      "due": "Due"
+      "due": "Dû"
     },
     "breakdown": {
       "wealth": "Zakat de richesse (2,5%) : {{value}}",
@@ -4617,8 +4482,7 @@
       "agriculture": {
         "title": "Agriculture et récolte (ushr)",
         "body": "La zakat sur les cultures est due au moment de la récolte et non après une année lunaire. Le taux bien connu est de 10 % (ushr) lorsque les terres sont arrosées par la pluie ou les sources, et de 5 % lorsque l'irrigation coûte des efforts ou de l'argent. Entrez la valeur marchande des récoltes de cette saison et choisissez la source d'eau qui correspond à votre situation.",
-        "localRefLabel": "Coran 6:141",
-        "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
+        "localRefLabel": "Coran 6:141"
       },
       "deductions": {
         "title": "Déductions",
@@ -4710,7 +4574,7 @@
       "uploadFailed": "Impossible de télécharger des photos. Réessayez.",
       "uploading": "Téléchargement…",
       "open": "Ouvrir l'image {{index}}",
-      "counter": "{{current}} of {{total}}",
+      "counter": "{{current}} sur {{total}}",
       "zoomHint": "Pincez pour zoomer, faites glisser pour effectuer un panoramique, appuyez deux fois pour réinitialiser",
       "previous": "Photo précédente",
       "next": "Photo suivante"
@@ -4734,7 +4598,7 @@
       "pickFailed": "Impossible d'ajouter ce fichier. Réessayez.",
       "openFailed": "Impossible d'ouvrir ce fichier.",
       "open": "Ouvrir la pièce jointe {{index}}",
-      "counter": "{{current}} of {{total}}",
+      "counter": "{{current}} sur {{total}}",
       "zoomHint": "Pincez pour zoomer, faites glisser pour effectuer un panoramique, appuyez deux fois pour réinitialiser",
       "previous": "Pièce jointe précédente",
       "next": "Pièce jointe suivante",
@@ -4772,7 +4636,7 @@
   "tahajjud": {
     "eyebrow": "Night salah",
     "title": "Tahajjud",
-    "subtitle": "Ceild  lasting habit   night salah.",
+    "subtitle": "Prenez l'habitude durable de la prière de la nuit.",
     "streakValue": "{{count}}",
     "streakCaption": "séquence nocturne",
     "bestStreak": "Meilleur : {{count}}",
@@ -4780,8 +4644,7 @@
     "markTonight": "I prmoised Tahajjud tonight",
     "markedTonight": "Prié tonight — mashaAllah",
     "lastNights": "Dernières {{count}} nuits",
-    "virtueTitle": "Virtue   night salah",
-    "virtueBody": " best salah after  farz prmoisers dir  night salah.",
+    "virtueTitle": "Mérite de la prière de la nuit",
     "virtueRef": "Sahih Muslim 1163",
     "streakRow": "Tahajjud seri",
     "calculatorCta": "Calculateur du dernier tiers de la nuit",
@@ -4805,16 +4668,16 @@
     "ashuraBannerDesc": "Jeûne  9th et 10th  Muharram —  beloetd sunnah şu expiates minor sins.",
     "ramadanEyebrow": "Ramadan",
     "ramadanBannerTitle": "Ramadan Mubarak",
-    "ramadanBannerDesc": " month   Coran — oruç, prmois, et draw nearer  Allah.",
+    "ramadanBannerDesc": "Le mois du Coran — jeûnez, priez et rapprochez-vous d'Allah.",
     "lastTenEyebrow": "Les dix dernières nuits",
     "lastTenBannerTitle": "Les dix dernières nuits",
-    "lastTenBannerDesc": "Seek Lmoislat al-Qadr pourde  odd nights — ibadet worth more than  thousand months.",
+    "lastTenBannerDesc": "Recherchez Laylat al-Qadr durant les nuits impaires — une adoration qui vaut plus que mille mois.",
     "laylatQadrEyebrow": "Nuit du décret",
     "laylatQadrBannerTitle": "Laylat al-Qadr",
-    "laylatQadrBannerDesc": "Better than  thousand months — stand pourde salah, recite Coran, et make dua tonight.",
+    "laylatQadrBannerDesc": "Meilleure que mille mois — tenez-vous en prière, récitez le Coran et faites des duas cette nuit.",
     "eidFitrEyebrow": "Aïd",
     "eidFitrBannerTitle": "Aïd Moubarak",
-    "eidFitrBannerDesc": "Celebrate  end  Ramadan aetc salah, gratitude, et joy aetc family et community.",
+    "eidFitrBannerDesc": "Célébrez la fin du Ramadan par la prière, la gratitude et la joie en famille et en communauté.",
     "hajjEyebrow": "Dhul-Hijjah",
     "hajjBannerTitle": "Les dix meilleurs jours",
     "hajjBannerDesc": "Les bonnes œuvres sont plus aimées d'Allah en ces jours-là que tout autre jour — multipliez le zikr, l'aumône et le bien.",
@@ -4823,40 +4686,48 @@
     "arafahBannerDesc": "Le cœur du Hajj – si vous n’êtes pas au Hajj, le jeûne de ce jour expie deux années de péchés.",
     "eidAdhaEyebrow": "Aïd",
     "eidAdhaBannerTitle": "Aïd al-Adha Moubarak",
-    "eidAdhaBannerDesc": " Festival  Sacrifice — salah, takun, et sharing aetc those pourde need."
+    "eidAdhaBannerDesc": "La fête du Sacrifice — prière, takbir et partage avec ceux qui sont dans le besoin.",
+    "cta": {
+      "events": "En savoir plus",
+      "ramadan": "Ouvrir Ramadan",
+      "dhulHijjah": "Ouvrir Dhou al-Hijja"
+    },
+    "dismiss": "Masquer jusqu'à la prochaine saison",
+    "hiddenToast": "Masqué pour cette saison",
+    "hiddenToastHint": "Désactivez les bannières saisonnières à tout moment dans Personnaliser la maison."
   },
   "journal": {
     "eyebrow": "Réflexion",
-    "title": "Salah jourlüğü",
+    "title": "Journal de prière",
     "subtitle": "Notez votre présence dans chaque prière et regardez-la grandir.",
     "add": "Nouvelle réflexion",
     "addShort": "Ajouter",
-    "noCompletedTitle": "Terminé  salah first",
+    "noCompletedTitle": "Terminez d'abord une salah",
     "noCompletedDesc": "Marquez une salah comme terminée aujourd'hui, puis réfléchissez-y ici.",
-    "newTitle": "How was votre salah?",
-    "editTitle": "reflection Modifier",
-    "navRow": "Reflect   salah",
+    "newTitle": "Comment s'est passée votre prière ?",
+    "editTitle": "Modifier la réflexion",
+    "navRow": "Réfléchir sur une prière",
     "recentTitle": "Réflexions récentes",
     "fieldPrayer": "Salah",
     "fieldRating": "Khushu (présence)",
     "fieldNote": "Remarque (facultatif)",
-    "notePlaceholder": "What helped ou distracted siz?",
-    "emptyTitle": "Pas encore de reflets",
+    "notePlaceholder": "Qu'est-ce qui vous a aidé ou distrait ?",
+    "emptyTitle": "Pas encore de réflexions",
     "emptyDesc": "Après une prière, prenez un instant pour noter à quel point votre cœur était présent.",
     "avgLabel": "Khushu moyen",
-    "khushuInfoA11y": "Apprendre about khushu",
+    "khushuInfoA11y": "En savoir plus sur le khushu",
     "khushuInfoHint": "Ouvre la leçon du guide de la Salah sur le khushu",
     "outOf": "/ {{max}}",
     "totalReflections": "{{count}} réflexions",
     "today": "Aujourd'hui",
     "noNote": "Aucune note ajoutée",
-    "ratingHint": "Dokunun  star  rate votre presence pourde salah.",
-    "delete": "reflection Supprimer",
-    "editA11y": "{{prayer}} reflection Modifier",
-    "discard": "Jeter",
-    "confirmDeleteTitle": "this reflection? Supprimer",
-    "confirmDeleteMsg": "Vousin note pour {{prayer}}  {{date}} will be kaldırıldı kalıcı.",
-    "confirmDiscardTitle": "Supprimer les modifications ?",
+    "ratingHint": "Appuyez sur une étoile pour évaluer votre présence dans la prière.",
+    "delete": "Supprimer la réflexion",
+    "editA11y": "Modifier la réflexion de {{prayer}}",
+    "discard": "Abandonner",
+    "confirmDeleteTitle": "Supprimer cette réflexion ?",
+    "confirmDeleteMsg": "Votre note pour {{prayer}} du {{date}} sera supprimée définitivement.",
+    "confirmDiscardTitle": "Abandonner les modifications ?",
     "confirmDiscardMsg": "Tout ce que vous avez écrit sera perdu.",
     "confirmOverwriteTitle": "Remplacer la réflexion existante ?",
     "confirmOverwriteMsg": "Vous avez déjà noté {{prayer}} pour cette journée. L’enregistrement le remplacera.",
@@ -4868,7 +4739,7 @@
     "stt": {
       "dictate": "Dicter avec un microphone",
       "stopDictate": "Arrêter la dictée",
-      "listening": "A l'écoute…",
+      "listening": "À l'écoute…",
       "permissionDenied": "L'autorisation du microphone est requise pour dicter. Vous pouvez toujours taper.",
       "unavailable": "La reconnaissance vocale n'est pas disponible sur cet appareil.",
       "couldNotHear": "Je n'ai pas entendu cela – réessayez ou tapez.",
@@ -4877,27 +4748,27 @@
     "ratingHintTv": "Sélectionnez une étoile pour noter votre présence dans la prière."
   },
   "prayerTuning": {
-    "title": "Salah time tuning",
+    "title": "Réglage des horaires de prière",
     "subtitle": "Ajustez les temps d'adhan affichés pour correspondre à votre mosquée",
-    "settingsSub": "Displmoised vakitler & high-latitude rule",
+    "settingsSub": "Horaires affichés et règle des hautes latitudes",
     "rowValue": "Displmois vakitler",
     "offsetTitle": "Compensations de mosquée",
     "offsetHint": "Modifie l'horaire de chaque prière affiché dans l'application. Indépendant des rappels de notification (Paramètres → Notifications).",
     "onTime": "Activé time",
     "earlierMin": "−{{count}}min",
     "laterMin": "+{{count}} min",
-    "earlier": "Earlier",
+    "earlier": "Plus tôt",
     "later": "Plus tard",
     "highLatTitle": "Règle des hautes latitudes",
     "highLatHint": "Dans les régions très au nord ou au sud, le soleil peut ne pas atteindre les angles du crépuscule. Choisissez comment estimer Fajr et Isha.",
     "rule": {
       "recommended": "Automatique (recommandé)",
       "MiddleOfTheNight": "Milieu de la nuit",
-      "SeventhOfTheNight": "One-seetnth   night",
+      "SeventhOfTheNight": "Un septième de la nuit",
       "TwilightAngle": "Angle de crépuscule"
     },
     "ruleDesc": {
-      "recommended": "Picks  sensible rule pour votre latitude.",
+      "recommended": "Choisit une règle adaptée à votre latitude.",
       "MiddleOfTheNight": "Fajr et Isha sont plafonnés au milieu de la nuit.",
       "SeventhOfTheNight": "La nuit est divisée en septièmes pour Fajr et Isha.",
       "TwilightAngle": "Utilise l’angle crépusculaire de la méthode comme fraction de la nuit."
@@ -4933,48 +4804,47 @@
     "umrahChecklistSubtitle": "Suivez les étapes de l'Omra dans l'ordre.",
     "umrahChecklistIntro": "Cochez chaque rite de l'Omra au fur et à mesure. Ouvrez Apprendre pour les détails et les preuves.",
     "notFound": "Sujet introuvable",
-    "continueInApp": "Continuer dans Munib",
-    "prepTag": "Préparation"
+    "continueInApp": "Continuer dans Munib"
   },
   "dailyHadith": {
     "eyebrow": "Série quotidienne",
-    "title": "Quotidien hadis",
-    "subtitle": "İmam Neetvi'nin Kırk Hadithi'nden her jour yenaetcnen un hadis.",
+    "title": "Hadith quotidien",
+    "subtitle": "Un hadith des Quarante de l'imam an-Nawawi, renouvelé chaque jour.",
     "cardTitle": "Hadith du jour",
-    "seeArchive": "Arşiet bak",
-    "emptyTitle": "Hadith mevcut değil",
-    "emptyDesc": "Quotidien hadis serisi şu anda kullanılamıyor."
+    "seeArchive": "Voir les archives",
+    "emptyTitle": "Aucun hadith disponible",
+    "emptyDesc": "La série du hadith quotidien est indisponible pour le moment."
   },
   "seerah": {
     "eyebrow": "Prophète biyografisi",
     "title": "Chronologie de Seerah",
-    "subtitle": "Hz. Muhammed ﷺ'nin hmoisatındaki önemli dönüm noktaları.",
+    "subtitle": "Les grandes étapes de la vie du Prophète Muhammad ﷺ.",
     "ceBadge": "{{year}}CE",
     "ahBadge": "{{ah}} H",
-    "disclaimer": "Klasik siyer kmoisnaklarından alınan önemli dönüm noktalarının özeti. MS et H tarihleri ymoisgın yaklaşımlardır; alimler bazı olmoislarda, özellikle İsra et Mirac'ta farklı görüşlere sahiptir."
+    "disclaimer": "Un aperçu des grandes étapes tirées des sources classiques de la seerah. Les dates grégoriennes et hégiriennes sont des approximations couramment citées ; les savants divergent sur certains événements, notamment al-Isra wal-Mi'raj."
   },
   "jannah": {
     "eyebrow": "Apprendre",
-    "title": "Jannah Yolculuğu",
-    "subtitle": "Jannah, its ranks, et  deeds şu elevate  belieetr.",
-    "intro": "Islam does not giet  numbered checklist pour Jannah katmanlar. Here siz will find what  Coran et sahih Sunnah teach — et links  takip votre daily striving.",
+    "title": "Voyage vers Jannah",
+    "subtitle": "Le Paradis, ses degrés et les actions qui élèvent le croyant.",
+    "intro": "L'islam ne donne pas de liste numérotée des degrés du Paradis. Vous trouverez ici ce qu'enseignent le Coran et la Sunnah authentique — ainsi que des liens pour suivre vos efforts quotidiens.",
     "learnTitle": "About Jannah",
     "quickLinksTitle": "Explorer",
     "continueInApp": "Continuer dans Munib",
     "gatesListTitle": "Named pourde hadis",
     "duaNumber": "Dua {{number}}",
     "pathsTitle": "Chemins vers des rangs supérieurs",
-    "pathsHint": "Deeds şu raise rank by Allah's permission — dokunun any path pour evidence et app links.",
-    "gatesTitle": "Kapılar  Jannah",
-    "gatesSummary": "Kapılar named pourde sahih hadis",
-    "gatesSubtitle": "Different kapılar pour different deeds",
-    "gatesLead": "Sahih hadis describe kapılar  Jannah opened pour people distinguished by salah, charity, oruç, jihad, et Hac. Some mmois be called  enter through more than one.",
+    "pathsHint": "Des actions qui élèvent le rang, par la permission d'Allah — appuyez sur un chemin pour voir les preuves et les liens dans l'app.",
+    "gatesTitle": "Les portes de Jannah",
+    "gatesSummary": "Les portes mentionnées dans les hadiths authentiques",
+    "gatesSubtitle": "Des portes différentes pour des actions différentes",
+    "gatesLead": "Des hadiths authentiques décrivent des portes du Paradis ouvertes aux personnes qui se distinguent par la prière, l'aumône, le jeûne, le jihad et le Hajj. Certains pourront être appelés à entrer par plus d'une porte.",
     "duasTitle": "Dualar pour Jannah",
     "duasSummary": "Supplications de Hisnul Muslim",
-    "duasSubtitle": "Ask Allah pour Jannah et refuge den  Fire",
-    "duasLead": " Prophet ﷺ taught us  ask pour Jannah — especially Al-Firdaws — pourde daily dua.",
+    "duasSubtitle": "Demandez à Allah le Paradis et la protection contre le Feu",
+    "duasLead": "Le Prophète ﷺ nous a enseigné à demander le Paradis — en particulier Al-Firdaws — dans nos duas quotidiennes.",
     "versesTitle": "Coran  Jannah",
-    "versesSummary": "Curated moisahs aetc links   reader",
+    "versesSummary": "Une sélection d'ayahs avec des liens vers le lecteur",
     "versesSubtitle": "Descriptions, rangs, miséricorde et dua",
     "versesLead": "Appuyez sur n'importe quel verset pour l'ouvrir dans le lecteur du Coran.",
     "journeyTitle": "Mon Journey",
@@ -4982,36 +4852,36 @@
     "journeySubtitle": "La cohérence dans le culte que vous suivez déjà",
     "journeyBanner": "Ces habitudes font partie des actes qu’Allah aime. Votre rang final est seulement avec Lui.",
     "journeyToday": "Aujourd'huiün striving",
-    "journeyEmpty": "with one prmoiser or adhkar — small steps build lifelong habits. Commencert",
-    "journeyDisclaimer": "Ce dashboard shows istikrar, not  percentage  Jannah. Striet sincerely et trust pourde Allah's mercy.",
+    "journeyEmpty": "Commencez par une prière ou des adhkar — les petits pas forgent des habitudes pour la vie.",
+    "journeyDisclaimer": "Ce tableau de bord montre votre régularité, pas un pourcentage de Paradis. Efforcez-vous sincèrement et placez votre confiance dans la miséricorde d'Allah.",
     "journey": {
       "salah": "Salah bujour",
-      "salahHint": "Fiet daily prmoisers  votre checklist",
+      "salahHint": "Les cinq prières quotidiennes de votre liste",
       "dhikr": "Zikrler bujour",
-      "dhikrHint": "Morning, eetning, et daily remembrances",
+      "dhikrHint": "Adhkar du matin, du soir et du quotidien",
       "qaza": "Qaza aetcrleme",
       "qazaHint": "Rattraper le culte manqué",
       "streak": "Série active",
       "streakHint": "Des jours de suivi cohérent",
       "tahajjud": "Tahajjud bu week",
-      "tahajjudHint": "Night salah pourde  last 7 jour",
+      "tahajjudHint": "Prière de la nuit ces 7 derniers jours",
       "reflection": "Réflexions cette semaine",
       "reflectionHint": "Huşu quotidien entries",
       "quran": "Coran",
       "quranHint": "Continuer à lire ou à mémoriser"
     },
     "intentionsTitle": "Aujourd'huiün intentions",
-    "intentionsHint": "Private toggles pour votre niyyah — not synced, not  puan.",
+    "intentionsHint": "Interrupteurs privés pour votre niyyah — non synchronisés, ce n'est pas un score.",
     "intentions": {
-      "tawbah": "I renewed sincere tawbah bujour",
+      "tawbah": "J'ai renouvelé une tawbah sincère aujourd'hui",
       "tawbahHint": "Revenez à Allah après avoir glissé",
       "charity": "I gaet charity bujour",
-      "charityHint": "Eetn  smaetc ou kind word counts",
-      "character": "I guarded my character bujour",
+      "charityHint": "Même un sourire ou une bonne parole compte",
+      "character": "J'ai surveillé mon comportement aujourd'hui",
       "characterHint": "Patience, honnêteté et bonnes manières"
     },
-    "promisedTitle": "Honoured pourde  texts",
-    "firdawsCardTitle": "Ask pour Al-Firdaws",
+    "promisedTitle": "Honorés dans les textes",
+    "firdawsCardTitle": "Demander Al-Firdaws",
     "firdawsDuaTitle": "Dua pour Al-Firdaws",
     "quranTitle": "Coran",
     "hadithTitle": "Hadith",
@@ -5021,7 +4891,7 @@
     "tourCtaHint": "Un aperçu rapide de cette fonctionnalité",
     "jahannamPointerTitle": "Comprendre Jahannam",
     "jahannamPointerHint": "Avertissements, reddition des comptes et chemin du repentir",
-    "tourA11y": "Journey to Jannah tour Commencert",
+    "tourA11y": "Lancer la visite Voyage vers Jannah",
     "disclaimer": "Contenu éducatif général – pas une fatwa. Pour des décisions personnelles, consultez un érudit qualifié. Allah sait mieux.",
     "importance": {
       "foundational": "Fondamental",
@@ -5077,7 +4947,7 @@
     "gatesListTitle": "Sept portes",
     "versesTitle": "Recueil du Coran",
     "versesSummary": "Avertissements, miséricorde, repentir et espoir",
-    "versesSubtitle": "Ayahs organisés avec un bref tafsir",
+    "versesSubtitle": "Une sélection d'ayahs avec un bref tafsir",
     "versesLead": "Appuyez sur n'importe quel verset pour l'ouvrir dans le lecteur du Coran.",
     "hadithTitle": "Hadith authentique",
     "hadithSummary": "Avertissements, miséricorde et protection",
@@ -5095,7 +4965,7 @@
     "reflectionLead": "Faites une pause et posez-vous ces questions. Appuyez sur une ligne pour ouvrir le tracker ou la leçon associée.",
     "reflectionListTitle": "Les questions du jour",
     "referencesTitle": "Références",
-    "referencesSummary": "Sources et notes scientifiques",
+    "referencesSummary": "Sources et notes des savants",
     "referencesSubtitle": "Coran, hadith et tafsir classique",
     "referencesLead": "Ce module cite d'abord la révélation, puis le tafsir classique où des explications sont données. Les différences entre les chercheurs sont notées avec respect.",
     "referencesListTitle": "Sources",
@@ -5322,14 +5192,14 @@
   "contentReport": {
     "short": "Signaler",
     "reportIssue": "Signaler an issue",
-    "sheetTitle": "Signaler content issue",
+    "sheetTitle": "Signaler un problème de contenu",
     "issueTypeLabel": "De quel type de problème s'agit-il ?",
     "descriptionLabel": "Qu'est-ce qui ne va pas?",
-    "descriptionPlaceholder": "Describe  sorun pourde detail — what siz expected vs what siz see.",
+    "descriptionPlaceholder": "Décrivez le problème en détail — ce que vous attendiez et ce que vous voyez.",
     "correctionLabel": "Correction suggérée (facultatif)",
-    "correctionPlaceholder": "Provide  doğru Rechercherpça, çeviri, reference, ou missing text.",
-    "sourceLabel": "Vousin kmoisnak (isteğe bağlı)",
-    "sourcePlaceholder": "Book, alim, URL, ou citation supporting votre correction.",
+    "correctionPlaceholder": "Indiquez l'arabe correct, la traduction, la référence ou le texte manquant.",
+    "sourceLabel": "Votre source (facultatif)",
+    "sourcePlaceholder": "Livre, savant, URL ou citation à l'appui de votre correction.",
     "proofLabel": "Captures d'écran de preuve (facultatif)",
     "proofHint": "Jusqu'à 3 images. Appuyez sur × sur une miniature pour retirer.",
     "addProof": "Ajouter photo",
@@ -5337,16 +5207,16 @@
     "submit": "Envoyer report",
     "submitSuccess": "Signalement envoyé — merci",
     "submitFailed": "Impossible de soumettre le rapport. Essayer à nouveau.",
-    "queuedOffline": "Bildir kmoisdedildi — will send when you're geri online",
+    "queuedOffline": "Signalement enregistré — il sera envoyé dès que vous serez de nouveau en ligne",
     "queuedSentOne": "Rapport en file d'attente envoyé avec succès",
     "queuedSentMany": "{{count}} rapports en file d'attente envoyés avec succès",
     "signInRequiredTitle": "Sign pourde  bildir içerik",
-    "signInRequiredBody": "Bağlantı votre account so we can follow up  votre bildir et notify siz when it's resoletd.",
+    "signInRequiredBody": "Liez votre compte pour que nous puissions assurer le suivi de votre signalement et vous prévenir une fois qu'il sera résolu.",
     "signInCta": "Aller au compte",
-    "myReportsTitle": "Mon content reports",
+    "myReportsTitle": "Mes signalements de contenu",
     "myReportsSubtitle": "Suivez les problèmes que vous avez signalés et leur statut d'examen.",
     "myReportsNavSub": "Afficher les rapports soumis et leur statut",
-    "myReportsGuest": "Sign pourde  view reports you'et submitted.",
+    "myReportsGuest": "Connectez-vous pour voir les signalements que vous avez envoyés.",
     "loadFailed": "Impossible de charger vos signalements",
     "emptyTitle": "Aucun rapport pour l'instant",
     "emptyDesc": "Utilisez le bouton drapeau sur n'importe quel contenu pour signaler un problème.",
@@ -5369,31 +5239,31 @@
       "cancelled": "Annulé",
       "spam": "Spam"
     },
-    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
-    "permissionDenied": "Photo library permission is required to attach proof.",
-    "pickFailed": "Could not add that photo. Try another image.",
-    "descriptionMinHint": "Minimum {{min}} characters required"
+    "imagesOnly": "Seules les images sont prises en charge (JPEG, PNG ou WebP).",
+    "permissionDenied": "L'accès à la photothèque est nécessaire pour joindre une preuve.",
+    "pickFailed": "Impossible d'ajouter cette photo. Essayez une autre image.",
+    "descriptionMinHint": "Minimum {{min}} caractères requis"
   },
   "externalCommands": {
     "titleIos": "Siri et raccourcis vocaux",
     "titleAndroid": "Assistant Google et raccourcis vocaux",
-    "settingsSubtitleIos": "Salah with Siri or Apple Watch İşaretle",
-    "settingsSubtitleAndroid": "Salah with Google Assistant or Wear OS İşaretle",
+    "settingsSubtitleIos": "Marquer la Salah avec Siri ou l'Apple Watch",
+    "settingsSubtitleAndroid": "Marquer la Salah avec l'Assistant Google ou Wear OS",
     "introIos": "Utilisez Siri, Raccourcis ou Apple Watch pour marquer Salah sans ouvrir la liste de contrôle. Nécessite une version de développement ou de production EAS – non disponible dans Expo Go.",
     "introAndroid": "Utilisez Google Assistant, le raccourci de l'icône de l'app ou Wear OS pour marquer la Salah sans ouvrir la checklist. Nécessite une build EAS dev ou production — indisponible dans Expo Go.",
     "siriTitle": "Siri et raccourcis",
-    "siriHint": "After installing den TestFlight ou  App Store, aç  Shortcuts app ou smois “Hey Siri, mark my Salah pourde Munib Tracker”. If  app was force-quit,  mark syncs  sonraki time siz aç Munib Tracker.",
+    "siriHint": "Après l'installation depuis TestFlight ou l'App Store, ouvrez l'app Raccourcis ou dites « Dis Siri, marque ma Salah dans Munib Tracker ». Si l'app a été fermée de force, la saisie se synchronise à la prochaine ouverture de Munib Tracker.",
     "assistantTitle": "Assistant Google",
     "assistantHint": "Dites \"Hey Google, mark my Salah in Munib Tracker\", ou appuyez longuement sur l'icône Munib Tracker et choisissez Mark Salah. Si l'app a été fermée de force, la marque se synchronise à la prochaine ouverture de Munib Tracker.",
     "watchTitle": "Apple Watch",
-    "watchHint": "Open the Munib Suivi watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
+    "watchHint": "Ouvrez l'app Munib Tracker sur la montre pour voir le programme du jour et marquer vos Salah. Les données se synchronisent depuis votre iPhone.",
     "wearTitle": "Wear OS",
     "wearHint": "Après avoir appairé votre téléphone, ajoutez la tuile Munib Tracker sur votre montre. Appuyez sur la tuile pour marquer la Salah en cours sur votre téléphone.",
     "forceQuitTitle": "Si l'app a été fermée",
     "forceQuitBody": "Les appuis sur le widget, Siri, l'Assistant et les marques montre/Wear sont mis en file d'attente dès votre action. Si Munib Tracker a été forcé à se fermer, la marque en attente s'applique — et votre liste de contrôle, série et widgets se mettent à jour — la prochaine fois que vous ouvrez l'app.",
-    "marked": "Salah marked",
+    "marked": "Salah marquée",
     "alreadyDone": "Déjà marqué",
-    "allDone": "Tüm obligatory Salah marked for todmois",
+    "allDone": "Toutes les Salah obligatoires sont marquées pour aujourd'hui",
     "excused": "Le suivi est suspendu pour cette période d'excuse",
     "locked": "Aç  app  mark Salah",
     "failed": "Je n'ai pas pu marquer Salah",
@@ -5401,7 +5271,7 @@
       "openTracker": "Ouvrir la liste de contrôle",
       "openQibla": "Qibla Aç",
       "openTasbeeh": "Tasbeeh Aç",
-      "markCurrent": "my Salah İşaretle",
+      "markCurrent": "Marquer ma Salah",
       "openRamadan": "Ouvrir Ramadan",
       "openKhatm": "Ouvrir le plan de khatm",
       "openQaza": "Ouvrir Qaza",
@@ -5432,18 +5302,18 @@
     "setPin": "Définir PIN",
     "setPinSubtitle": "Choisissez un code PIN à 6 chiffres pour verrouiller l'application",
     "confirmPin": "Confirmer PIN",
-    "confirmPinSubtitle": "Enter  same PIN again  onmoisla",
+    "confirmPinSubtitle": "Saisissez à nouveau le même PIN pour confirmer",
     "pinMismatch": "Ces codes PIN ne correspondent pas. Veuillez réessayer.",
     "savingPin": "Enregistrement du code PIN…",
     "pinSaved": "PIN kmoisdedildi",
     "verifyingPin": "Vérification…",
     "unlockingApp": "Déverrouillage…",
-    "setPinFailed": "Could not kmoisdet votre PIN. Please try again.",
+    "setPinFailed": "Impossible d'enregistrer votre PIN. Veuillez réessayer.",
     "wrongPin": "Mauvais code PIN : veuillez réessayer.",
     "wrongPinAttemptsRemaining": "Mauvais code PIN. {{count}} tentative(s) restante(s) avant le verrouillage.",
     "lockedOut": "Trop de mauvaises tentatives. Attendez un moment avant de réessayer.",
     "usePinToUnlock": "Enter votre PIN  aç  app.",
-    "tryAgainIn": "Try again pourde {{time}}",
+    "tryAgainIn": "Réessayez dans {{time}}",
     "enablePin": "Activer le verrouillage des applications",
     "enablePinDesc": "Exiger un code PIN à chaque ouverture de l'application",
     "heroFeaturePin": "Code PIN à 6 chiffres",
@@ -5512,7 +5382,7 @@
     "title": "Première histoire islamique",
     "subtitle": "De la mort du Prophète ﷺ à la fin du califat de Rashidun",
     "ceBadge": "{{year}} apr. J.-C.",
-    "ahBadge": "{{ah}} AH",
+    "ahBadge": "{{ah}} H",
     "era": {
       "prophetic-close": "Le Prophète ﷺ",
       "abu-bakr": "Abou Bakr",
@@ -6350,7 +6220,6 @@
     "offsetHint": "Décale toutes les dates hégiriennes. Pour corriger un seul mois, utilisez « Ce mois a commencé le… ».",
     "monthStartedRow": "{{month}} a commencé le…",
     "correctionsTitle": "Corrections de mois",
-    "noCorrections": "Aucune correction de mois pour l'instant.",
     "startedOn": "Commencé le {{date}}",
     "notApplied": "Non appliquée ({{date}}) : un mois aurait moins de 29 ou plus de 30 jours.",
     "removeCorrection": "Supprimer la correction de {{month}}",
@@ -6569,7 +6438,8 @@
         "abudawud1501": "Sunan Abu Dawud 1501 — compter sur le bout des doigts : hasan (al-Albani, Shu'aib al-Arna'ut)",
         "tirmidhi3583": "Jami' at-Tirmidhi 3583 — les classifications diffèrent : hasan (Ahmad Shakir), da'if (al-Albani)"
       }
-    }
+    },
+    "customizeBeads": "Personnaliser les perles"
   },
   "vault": {
     "passphrase": {
@@ -6633,7 +6503,7 @@
     },
     "sync": {
       "title": "Synchroniser les journaux privés",
-      "body": "Votre muhasabah, votre registre de dettes, votre testament (wasiyyah) et vos contacts familiaux sont conservés chiffrés uniquement sur cet appareil. Vous pouvez choisir de les sauvegarder dans le cloud avec un chiffrement de bout en bout.",
+      "body": "Votre muhasaba, votre registre de dettes, votre testament (wasiyya) et vos contacts familiaux sont conservés uniquement sur cet appareil, chiffrés. Votre journal de khushu et votre période d'excuse en cours (règles/lochies) restent aussi sur cet appareil. Vous pouvez choisir de tout sauvegarder dans le cloud avec un chiffrement de bout en bout.",
       "howItWorks": "Votre phrase secrète les verrouille avant qu'ils ne quittent cet appareil. Nous ne stockons que des données brouillées et ne pouvons pas les lire.",
       "warningTitle": "Important",
       "warningBody": "Si vous perdez à la fois votre phrase secrète et votre code de récupération, la copie dans le cloud est perdue pour de bon : personne, pas même nous, ne peut l'ouvrir. Vos journaux sur cet appareil continuent de fonctionner.",
@@ -6695,7 +6565,8 @@
       "otherViews": "Autres positions ({{total}})",
       "hideOtherViews": "Masquer les autres positions",
       "positionA11y": "{{school}} : {{position}}",
-      "validViews": "Les quatre écoles sont des positions reconnues de la science sunnite."
+      "validViews": "Les quatre écoles sont des positions reconnues de la science sunnite.",
+      "sameView": "Même avis : {{schools}}"
     },
     "compare": {
       "title": "Les différences entre les écoles",
@@ -7366,10 +7237,8 @@
       "notNow": "Pas maintenant — afficher toutes les positions"
     },
     "onboarding": {
-      "eyebrow": "Fiqh",
       "title": "Votre madhhab",
       "body": "Les règles des guides et calculateurs peuvent suivre votre école. Les divergences sont toujours signalées, et vous pouvez modifier ce choix à tout moment dans les Réglages.",
-      "continue": "Continuer",
       "later": "Décider plus tard"
     },
     "detail": {
@@ -7633,7 +7502,21 @@
       "creditLabel": "Texte arabe"
     },
     "syncFull_one": "1 note de vos autres appareils est en attente : vos notes sont pleines. Supprimez quelques notes pour faire de la place. En attendant, les notes de cet appareil ne se synchronisent plus. Rien n'est supprimé.",
-    "syncFull_other": "{{count}} notes de vos autres appareils sont en attente : vos notes sont pleines. Supprimez quelques notes pour faire de la place. En attendant, les notes de cet appareil ne se synchronisent plus. Rien n'est supprimé."
+    "syncFull_other": "{{count}} notes de vos autres appareils sont en attente : vos notes sont pleines. Supprimez quelques notes pour faire de la place. En attendant, les notes de cet appareil ne se synchronisent plus. Rien n'est supprimé.",
+    "hint": {
+      "label": "Ma note sur {{ref}} : {{title}}",
+      "a11yOpen": "Ouvre la note",
+      "a11yPeek": "Touchez pour un aperçu de la note. Appui long pour d’autres actions.",
+      "clickToOpen": "Cliquez pour ouvrir · Échap pour fermer",
+      "open": "Ouvrir la note",
+      "changeHighlight": "Changer le surlignage",
+      "addAnother": "Ajouter une autre note",
+      "inView": "À l’écran",
+      "moreTags": "+{{n}}",
+      "moreNotes_one": "+{{count}} autre note",
+      "moreNotes_other": "+{{count}} autres notes"
+    },
+    "clearFilters": "Effacer les filtres"
   },
   "selfReview": {
     "vaultLockedTitle": "Vos journaux privés sont verrouillés sur cet appareil",
@@ -7921,7 +7804,7 @@
       "a11y": "{{name}}, {{count}} rakahs",
       "a11yHintRakahs": "Appui long pour choisir 2 ou 4 rakahs",
       "beforeFardHint": "Habituellement priée après le fard — vous pouvez quand même la noter",
-      "extra": "Extra",
+      "extra": "Supplémentaire",
       "late": "Rattrapée en retard",
       "chooseRakahs": "2 ou 4",
       "chooseRakahsA11y": "Choisir 2 ou 4 rak'ahs pour {{name}}"
@@ -8013,12 +7896,6 @@
       "testA11y": "Lire un court extrait en {{language}}"
     },
     "fiqh": {
-      "rulingsUpdated": "Règles mises à jour dans toute l'application",
-      "asrOfferTitle": "Utiliser aussi l'heure de Asr {{asr}} ?",
-      "asrOfferBody": "Votre école calcule généralement Asr ainsi. Vos horaires de Salah et vos rappels la suivront.",
-      "asrOfferAccept": "L'utiliser",
-      "asrOfferDecline": "Garder l'actuelle",
-      "asrUpdated": "Asr suit désormais {{asr}}",
       "asrSub": "Réglé avec vos horaires de Salah. Changer de madhhab propose de l'adapter.",
       "advanced": "Avancé",
       "advancedSub": "École par domaine et valeurs personnalisées de votre savant",
@@ -8501,7 +8378,6 @@
     "eyebrow": "Saisons",
     "title": "Dhou al-Hijja",
     "searchKeywords": "dhou al hijja dhul hijja dix jours arafat takbir tachriq tahlil tahmid sacrifice oudhiya aïd al adha aïd el kebir cheveux ongles",
-    "virtue": "Il n'est pas de bonnes œuvres plus aimées d'Allah que celles accomplies durant ces dix jours. Multipliez le zikr : takbir, tahlil et tahmid.",
     "offSeason": "Les prochains dix jours commencent le {{date}}",
     "teaserBody": "Les dix jours de Dhou al-Hijja commencent le {{date}}. Si vous comptez faire le sacrifice, indiquez-le avant qu'ils ne commencent.",
     "excusedBanner": "Votre période d'excuse est active. Rien n'est jugé ici — faites ce que vous pouvez ; le zikr et la dua restent toujours ouverts.",
@@ -9320,7 +9196,7 @@
     "listeningFor": "À l'écoute de {{phrase}}",
     "levelA11y": "Niveau du micro",
     "stuck": "Dites la formule clairement, ou touchez pour compter",
-    "focusTip": "Astuce : le design Minimal garde l'écran apaisé pendant l'écoute.",
+    "focusTip": "Astuce : le design Concentration / Nuit garde l'écran apaisé pendant l'écoute.",
     "stopped": {
       "silence": "Écoute en pause après un moment de silence. Touchez Mains libres pour continuer.",
       "background": "L'écoute s'est arrêtée quand vous avez quitté l'app.",
@@ -9343,7 +9219,7 @@
     },
     "sheet": {
       "title": "Comptage mains libres",
-      "howItWorks": "Dites le zikr et le compteur le compte. L'écoute se fait uniquement sur cet appareil : aucun son n'est enregistré, conservé ni envoyé.",
+      "howItWorks": "Dites le zikr et le compteur le compte. L'écoute se fait uniquement sur cet appareil. Aucun son n'est enregistré ni envoyé. Si vous enseignez un zikr, un court motif vocal (pas un enregistrement) reste sur cet appareil.",
       "lowVoice": "Une voix basse suffit. Le zikr silencieux et le comptage au toucher sont tout aussi bons.",
       "accuracy": "Quand il n'est pas sûr, il ne compte pas. Touchez pour ajouter ce qu'il a manqué.",
       "choosePhrase": "Quel zikr dites-vous ?",
@@ -9390,7 +9266,10 @@
       "sensitivitySub": "Le degré de certitude requis avant que le comptage mains libres ne compte",
       "silenceSecondsUnit": "secondes",
       "calibrateSub": "Dites une phrase 5 fois pour adapter le comptage à votre voix. Conservé uniquement sur cet appareil.",
-      "modelStorageSub": "L'écoute sur l'appareil est partagée avec la pratique du Coran"
+      "modelStorageSub": "L'écoute sur l'appareil est partagée avec la pratique du Coran",
+      "forgetTaught": "Oublier les voix de zikr enseignées",
+      "forgetTaughtSub": "Aucun son n'est enregistré ni envoyé. Si vous enseignez un zikr, un court motif vocal (pas un enregistrement) reste sur cet appareil. Ceci les supprime tous.",
+      "forgetTaughtConfirm": "Oublier tous les motifs vocaux de zikr enseignés sur cet appareil ? Vous pourrez les réenseigner à tout moment."
     },
     "announce": {
       "title": "Annonces du compte de tasbeeh",
@@ -9398,6 +9277,37 @@
       "milestones": "Étapes seulement",
       "off": "Désactivé",
       "hint": "Pendant l'écoute du comptage vocal, seules les étapes sont annoncées."
+    },
+    "picker": {
+      "search": "Rechercher des adhkar ou vos tasbihs",
+      "noResults": "Aucun zikr trouvé. Choisissez « Autre chose » pour le compter quand même.",
+      "somethingElse": "Autre chose",
+      "somethingElseHint": "Tout autre zikr. Vous pouvez l'enseigner pour cette session.",
+      "taught": "Appris",
+      "chosen": "Comptage",
+      "change": "Changer",
+      "changeA11y": "Comptage de {{phrase}}. Changer de zikr"
+    },
+    "teach": {
+      "title": "Dites-le une fois pour que seul ce zikr compte",
+      "explain": "Dites {{phrase}} jusqu'à 3 fois, en marquant une pause entre chaque. Un court motif vocal (pas un enregistrement) reste sur cet appareil pour que seul ce zikr soit compté.",
+      "explainOther": "Dites votre zikr jusqu'à 3 fois, en marquant une pause entre chaque. Pendant cette session, seules ses répétitions seront comptées.",
+      "start": "L'enseigner en le disant",
+      "skip": "Passer — compter chaque pause",
+      "sayNow": "Dites {{phrase}} maintenant",
+      "sayNowOther": "Dites votre zikr maintenant",
+      "pauseBetween": "Marquez une courte pause après chacun.",
+      "listening": "À l'écoute…",
+      "progress": "Reçu {{heard}}/{{total}}",
+      "issueShort": "C'était trop court. Dites le zikr en entier.",
+      "issueLong": "C'était trop long. Dites le zikr une fois, puis faites une pause.",
+      "issueDifferent": "Cela semblait différent. Redites le même zikr.",
+      "done": "Terminé — commencer à compter",
+      "cancel": "Annuler",
+      "reteach": "Réenseigner",
+      "taughtReady": "Appris sur cet appareil.",
+      "countsTaught": "Compte uniquement le zikr enseigné — touchez pour corriger toute erreur de compte.",
+      "countsPauses": "Compte chaque pause — moins précis. Touchez pour corriger toute erreur de compte."
     }
   },
   "masjids": {
@@ -9486,7 +9396,10 @@
       "savedToast": "Vos horaires sont enregistrés",
       "clearedToast": "Vos horaires sont supprimés",
       "privacy": "Vos horaires sont privés : conservés sur cet appareil et vos propres appareils synchronisés, jamais envoyés au service de recherche ni à d'autres utilisateurs.",
-      "importHint": "Lit les horaires sur votre téléphone. La photo n'est jamais envoyée."
+      "importHint": "Lit les horaires sur votre téléphone. La photo n'est jamais envoyée.",
+      "clearConfirmTitle": "Supprimer vos horaires ?",
+      "clearConfirmBody": "Vos horaires quotidiens, de Jumu'ah et mensuels importés pour cette masjid sont supprimés de tous vos appareils.",
+      "saveError": "Impossible d'enregistrer vos horaires. Veuillez réessayer."
     },
     "reminder": {
       "settingTitle": "Rappel d'iqamah",
@@ -9507,7 +9420,9 @@
       "walkSub": "Utilisé pour le rappel d'iqamah « partir maintenant »",
       "minutes": "{{minutes}} min",
       "iqamahSub": "Un rappel pour partir vers votre masjid habituel avant l'iqamah, selon vos horaires"
-    }
+    },
+    "showMore": "Afficher plus de masjids",
+    "unavailableBody": "Le service de recherche de masjids est injoignable pour le moment. Veuillez réessayer plus tard."
   },
   "focusLock": {
     "title": "Verrou de concentration Salah",
@@ -9708,7 +9623,8 @@
       "expires": "Valable jusqu'au {{when}} · utilisable une seule fois",
       "error": "Impossible de créer une invitation. Veuillez réessayer.",
       "codeA11y": "Code d'invitation {{code}}",
-      "qrA11y": "QR code du lien d'invitation"
+      "qrA11y": "QR code du lien d'invitation",
+      "expiresShared": "Valable jusqu'au {{when}} · toute personne de votre groupe peut l'utiliser"
     },
     "join": {
       "eyebrow": "Invitation",
@@ -10330,7 +10246,8 @@
       "deadline_other": "Sans confirmation de votre part, ils seront supprimés dans {{count}} jours.",
       "confirm": "Confirmer et conserver",
       "delete": "Supprimer ces profils",
-      "confirmed": "Merci — consentement confirmé"
+      "confirmed": "Merci — consentement confirmé",
+      "deleteConfirm": "Cela supprime maintenant ces profils, leurs statuts, leurs autocollants et leurs appareils associés. Cette action est irréversible."
     },
     "child": {
       "title": "Enfant",
@@ -10740,5 +10657,270 @@
       "reminderSub": "Quand un son de l'accompagnement est à exercer, le rappel de révision le mentionne",
       "keywords": "tajweed, accompagnement, coaching, qalqalah, ghunnah, madd, shaddah, rappel de révision, exercice"
     }
+  },
+  "setupFlow": {
+    "stepOf": "Étape {{current}} sur {{total}}",
+    "allSet": "Configuration terminée",
+    "language": {
+      "title": "Choisissez votre langue",
+      "body": "Toute l'application l'utilisera. Le sens du Coran, des hadiths et des duas peut la suivre ou utiliser une autre langue."
+    },
+    "location": {
+      "title": "Où priez-vous ?",
+      "body": "Les horaires de Salah et la direction de la Qibla dépendent de l'endroit où vous êtes.",
+      "privacy": "Votre position reste sur cet appareil et ne sert qu'aux horaires de Salah et à la Qibla. Elle n'est jamais partagée.",
+      "chooseCity": "Rechercher plutôt ma ville",
+      "confirmBody": "Vérifiez votre lieu et le calcul des horaires de Salah. Si votre masjid suit une autre méthode, choisissez-la ici.",
+      "defaultHint": "Les horaires de Salah utilisent La Mecque tant que vous n'avez pas choisi votre lieu."
+    },
+    "reminders": {
+      "title": "Ne manquez aucune Salah",
+      "body": "Recevez l'Adhan à chaque heure de Salah et de doux rappels de Zikr. Ils sont programmés sur cet appareil et n'affichent jamais rien de privé.",
+      "onTitle": "Les rappels sont activés",
+      "onBody": "Réglez les principaux maintenant, ou affinez tout plus tard dans les Paramètres.",
+      "offTitle": "Les rappels sont désactivés",
+      "offBody": "Vous pouvez les activer à tout moment dans Paramètres › Rappels et notifications."
+    },
+    "personalise": {
+      "title": "À votre image",
+      "body": "Facultatif — vous pourrez tout modifier plus tard dans les Paramètres."
+    },
+    "done": {
+      "title": "Tout est prêt",
+      "body": "Voici comment l'application est configurée. Touchez un élément pour le modifier.",
+      "recap": "Votre configuration"
+    }
+  },
+  "privateUx": {
+    "saveFailed": "Enregistrement impossible. Veuillez réessayer.",
+    "saving": "Enregistrement…",
+    "export": {
+      "unavailable": "L'impression et le partage ne sont pas disponibles sur cet appareil.",
+      "failed": "Impossible de créer le document. Veuillez réessayer.",
+      "preparing": "Préparation du document…"
+    },
+    "date": {
+      "invalid": "Date illisible. Utilisez année-mois-jour, p. ex. 2026-11-23.",
+      "reads": "Date lue : {{date}}",
+      "preset": {
+        "week": "Dans 1 semaine",
+        "month": "Dans 1 mois",
+        "threeMonths": "Dans 3 mois"
+      }
+    },
+    "payments": {
+      "errorAmount": "Saisissez le montant remboursé.",
+      "removeTitle": "Supprimer ce remboursement ?",
+      "removeBody": "Le reste à rembourser augmente de nouveau. Cette action est irréversible."
+    },
+    "wasiyyah": {
+      "nameRequired": "Ajoutez votre nom pour continuer.",
+      "reviewTitle": "Vérifiez chaque section",
+      "summary": {
+        "nameMissing": "Votre nom manque",
+        "selected": "{{done}} sur {{total}} choisis",
+        "confirmed": "{{done}} sur {{total}} confirmés",
+        "none": "Rien d'ajouté",
+        "added": "Ajoutés : {{total}}",
+        "snapshot": "Calcul d'héritage joint (à titre indicatif)",
+        "noSnapshot": "Aucun calcul joint (facultatif)",
+        "named": "{{done}} sur {{total}} nommés",
+        "dateInvalid": "La date est illisible"
+      },
+      "draftNote": "Vous avez un brouillon inachevé. Reprenez là où vous vous êtes arrêté.",
+      "discardTitle": "Abandonner le brouillon ?",
+      "discardBody": "Les modifications non enregistrées comme version seront supprimées. Votre wasiyya enregistrée reste inchangée.",
+      "dateBlocked": "Corrigez la date dans « À propos de vous » avant d'enregistrer."
+    },
+    "muhasabah": {
+      "customAddedOff": "Question ajoutée. Vous avez déjà {{max}} questions actives : désactivez-en une pour l'utiliser.",
+      "retentionTitle": "Supprimer les bilans plus anciens ?",
+      "retentionBody_one": "{{count}} bilan enregistré est plus ancien et sera supprimé maintenant. Cette action est irréversible.",
+      "retentionBody_many": "{{count}} bilans enregistrés sont plus anciens et seront supprimés maintenant. Cette action est irréversible.",
+      "retentionBody_other": "{{count}} bilans enregistrés sont plus anciens et seront supprimés maintenant. Cette action est irréversible.",
+      "retentionConfirm": "Supprimer et modifier",
+      "clearNotesTitle": "Supprimer aussi les notes enregistrées ?",
+      "clearNotesBody_one": "{{count}} bilan enregistré contient encore une note de repentir. Supprimer le texte maintenant ? Le fait que vous vous êtes repenti est conservé.",
+      "clearNotesBody_other": "{{count}} bilans enregistrés contiennent encore des notes de repentir. Supprimer le texte maintenant ? Le fait que vous vous êtes repenti est conservé.",
+      "clearNotesConfirm": "Supprimer les notes",
+      "clearNotesKeep": "Les garder",
+      "clearNotesDone": "Notes de repentir supprimées",
+      "clearNotesBody_many": "{{count}} bilans enregistrés contiennent encore des notes de repentir. Supprimer le texte maintenant ? Le fait que vous vous êtes repenti est conservé."
+    },
+    "familyTies": {
+      "digestAfterDhuhr": "Après Dhuhr",
+      "notFound": "Ce proche ne figure plus dans votre liste.",
+      "phoneInvalid": "Ce numéro semble trop court pour appeler ou envoyer un message."
+    },
+    "mirath": {
+      "highlightHint": "Les héritiers en surbrillance reçoivent une part différente dans une autre école."
+    },
+    "undo": "Annuler",
+    "debts": {
+      "selectTitle": "Sélectionnez un enregistrement",
+      "selectBody": "Choisissez un enregistrement dans la liste pour voir ses détails, ou ajoutez-en un."
+    }
+  },
+  "settingsSubgroups": {
+    "salah": {
+      "title": "Salah et Adhan",
+      "subtitle": "Adhan, alertes, moment des rappels, sunnah et qaza"
+    },
+    "zikr": {
+      "title": "Zikr et Coran",
+      "subtitle": "Adhkar du matin, du soir et du coucher, révision du Coran"
+    },
+    "fasting": {
+      "title": "Jeûne et saisons",
+      "subtitle": "Jeûnes surérogatoires, suhoor, Dhul-Hijjah et takbir"
+    },
+    "personal": {
+      "title": "Personnel et famille",
+      "subtitle": "Muhasabah, liens familiaux, dettes, wasiyyah et réflexion"
+    },
+    "other": {
+      "title": "Contenu du jour et application",
+      "subtitle": "Réflexion du jour, vendredi, Jours blancs, réussites et avis"
+    }
+  },
+  "prayerMethodSuggestion": {
+    "searchTitle": "Méthode de calcul suggérée",
+    "title": "Suggéré pour {{country}}",
+    "body": "{{method}} est la méthode habituelle là-bas. L'horaire de votre masjid reste le meilleur guide.",
+    "use": "Utiliser cette méthode",
+    "keep": "Garder l'actuelle",
+    "updated": "Méthode de calcul mise à jour"
+  },
+  "nearby": {
+    "tabs": {
+      "code": "Code et QR",
+      "nearby": "À proximité"
+    },
+    "host": {
+      "title": "Invitez une personne à côté de vous",
+      "body": "Son téléphone trouve le vôtre via Bluetooth — rien à saisir. Vous approuvez chaque personne qui le demande.",
+      "childTitle": "Associer un téléphone à côté de vous",
+      "childBody": "Sur le téléphone de votre enfant, ouvrez Munib Tracker, choisissez « Associer au téléphone d'un parent à proximité » et gardez les téléphones proches. Vous approuvez l'association ici.",
+      "start": "Rendre visible",
+      "starting": "Démarrage…",
+      "visible": "Visible par les téléphones à proximité",
+      "stopsAt": "S'arrête à {{time}}",
+      "codeLabel": "Vérifiez que l'autre téléphone affiche les mêmes chiffres",
+      "codeA11y": "Code de correspondance {{code}}",
+      "stop": "Arrêter",
+      "asking": "Demandes pour rejoindre",
+      "noneYet": "Personne pour l'instant. Demandez-leur d'appuyer sur « Rejoindre à proximité » sur leur téléphone.",
+      "someone": "Quelqu'un à proximité",
+      "guest": "Invité",
+      "childDevice": "Téléphone de votre enfant",
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "acceptA11y": "Accepter {{name}}",
+      "declineA11y": "Refuser {{name}}",
+      "status": {
+        "accepted": "Accepté",
+        "declined": "Refusé",
+        "completed": "Associé"
+      },
+      "stopped": {
+        "timeout": "Arrêté après 10 minutes pour économiser la batterie.",
+        "background": "Arrêté car vous avez quitté Munib Tracker.",
+        "bluetoothOff": "Arrêté car le Bluetooth a été désactivé.",
+        "used": "Terminé — cette invitation à proximité a été utilisée.",
+        "error": "Impossible de rendre ce téléphone visible. Réessayez, ou utilisez le code ou le QR."
+      },
+      "again": "Rendre à nouveau visible",
+      "acceptedToast": "Accepté — cette personne fait maintenant partie du cercle.",
+      "linkedToast": "Approuvé — le téléphone sera associé dans un instant.",
+      "errorFull": "Impossible d'accepter — le cercle est peut-être complet, ou cette demande a déjà reçu une réponse.",
+      "errorEnded": "Cette invitation à proximité a pris fin.",
+      "errorForbidden": "Vous ne pouvez plus inviter de personnes dans ce cercle."
+    },
+    "rationale": {
+      "title": "Utilisez le Bluetooth pour vous trouver",
+      "hostBody": "Votre téléphone montre ce cercle uniquement aux téléphones juste à côté de vous, et seulement tant que cet écran est ouvert (10 minutes maximum). Il partage un code temporaire — jamais votre nom ni votre position.",
+      "joinBody": "Votre téléphone cherche les cercles juste à côté de vous, uniquement tant que ce panneau est ouvert. Rien n'est partagé avant que vous confirmiez et que l'hôte approuve.",
+      "androidLocation": "Sur cette version d'Android, la recherche Bluetooth nécessite l'autorisation de localisation. Votre position n'est jamais utilisée ni enregistrée.",
+      "continue": "Continuer",
+      "notNow": "Pas maintenant"
+    },
+    "blocked": {
+      "unsupported": {
+        "title": "La fonction À proximité n'est pas disponible sur ce téléphone",
+        "body": "Utilisez plutôt le code ou le QR."
+      },
+      "bluetoothOff": {
+        "title": "Le Bluetooth est désactivé",
+        "bodyIos": "Activez le Bluetooth dans le Centre de contrôle, puis réessayez.",
+        "bodyAndroid": "Activez le Bluetooth, puis réessayez."
+      },
+      "permissionDenied": {
+        "title": "Autorisation Bluetooth requise",
+        "body": "Autorisez « Appareils à proximité » pour que les téléphones puissent se trouver. Vous pouvez toujours utiliser le code ou le QR."
+      },
+      "permissionBlocked": {
+        "title": "Le Bluetooth est désactivé pour Munib Tracker",
+        "body": "Autorisez le Bluetooth (« Appareils à proximité » sur Android) pour Munib Tracker dans les Réglages, ou utilisez le code ou le QR."
+      },
+      "locationOff": {
+        "title": "Les services de localisation sont désactivés",
+        "body": "Sur cette version d'Android, la recherche Bluetooth ne fonctionne que si les services de localisation sont activés. Votre position n'est jamais utilisée."
+      },
+      "openSettings": "Ouvrir les Réglages",
+      "openBluetooth": "Réglages Bluetooth",
+      "openLocation": "Réglages de localisation",
+      "retry": "Réessayer"
+    },
+    "join": {
+      "button": "Rejoindre à proximité",
+      "buttonHint": "Trouvez un cercle sur un téléphone à côté de vous",
+      "title": "Rejoindre à proximité",
+      "childButton": "Associer au téléphone d'un parent à proximité",
+      "childTitle": "Associer à proximité",
+      "scanning": "Recherche de cercles à proximité…",
+      "scanningHint": "Demandez à l'hôte d'ouvrir l'invitation, de choisir À proximité et d'appuyer sur « Rendre visible ». Gardez les téléphones proches.",
+      "childScanning": "Recherche du téléphone de votre parent…",
+      "childScanningHint": "Demandez à votre parent d'ouvrir votre profil, de choisir À proximité et d'appuyer sur « Rendre visible ».",
+      "childItem": "Associer ce téléphone",
+      "proximity": {
+        "veryClose": "Très proche",
+        "near": "À proximité",
+        "far": "Plus loin"
+      },
+      "itemA11y": "{{name}}, {{type}}, {{proximity}}",
+      "compareTitle": "Ces chiffres correspondent-ils ?",
+      "compareBody": "Vérifiez que l'écran de l'hôte affiche les mêmes 4 chiffres. S'ils ne correspondent pas, revenez en arrière — c'est un autre téléphone.",
+      "match": "Ils correspondent",
+      "noMatch": "Ils ne correspondent pas",
+      "sending": "Envoi…",
+      "waiting": "En attente de l'acceptation de l'hôte…",
+      "waitingHint": "Gardez cet écran ouvert. L'hôte peut maintenant voir votre demande.",
+      "cancel": "Annuler la demande",
+      "joined": "Vous avez rejoint {{name}}",
+      "childLinked": "Ce téléphone est associé",
+      "open": "Ouvrir",
+      "declined": "L'hôte a refusé cette demande.",
+      "expired": "Cette invitation à proximité a pris fin. Demandez à l'hôte de rendre son téléphone à nouveau visible.",
+      "paused": {
+        "timeout": "Recherche arrêtée après 10 minutes pour économiser la batterie.",
+        "background": "En pause pendant que Munib Tracker était en arrière-plan.",
+        "error": "Impossible de rechercher les téléphones à proximité.",
+        "bluetoothOff": "Arrêté car le Bluetooth a été désactivé."
+      },
+      "scanAgain": "Rechercher à nouveau",
+      "error": {
+        "mismatch": "Ces chiffres correspondent à une autre invitation. Revenez en arrière et choisissez le bon cercle.",
+        "alreadyMember": "Vous faites déjà partie de ce cercle.",
+        "needsAccount": "Connectez-vous avec un compte pour rejoindre ce cercle.",
+        "busy": "Trop de personnes font une demande en ce moment. Réessayez dans un instant."
+      },
+      "back": "Retour",
+      "close": "Fermer",
+      "fallback": "Vous ne le trouvez pas ? Utilisez plutôt le code ou scannez le QR."
+    }
+  },
+  "scriptureMeaning": {
+    "englishLabel": "Sens en anglais",
+    "englishLabelA11y": "Sens affiché en anglais : aucune traduction issue d'une source fiable n'est encore disponible dans votre langue"
   }
 }

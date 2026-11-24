@@ -287,7 +287,7 @@
       }
     },
     "remaining": "Осталось",
-    "atTime": "at {{time}}",
+    "atTime": "в {{time}}",
     "streak": "Серия намазов",
     "streakDays": "{{count}} дней",
     "streakDays_one": "{{count}} день",
@@ -405,7 +405,7 @@
     "reading": "чтение",
     "saved": "Сохранённое",
     "quran": "аяты Корана",
-    "hadith": "Hadith",
+    "hadith": "Хадисы",
     "duas": "Сохраненные дуа",
     "zikr": "Любимый адхкар",
     "duroods": "Сохраненные дуроды",
@@ -458,7 +458,7 @@
     "knowledgeShuffle": "Показать другую карточку",
     "knowledgeKind": {
       "quran": "Аят Корана",
-      "hadith": "Hadith",
+      "hadith": "Хадис",
       "name": "Имя Аллаха",
       "friday": "Напоминание о Джуме",
       "motivation": "ежедневно напоминание"
@@ -472,7 +472,7 @@
       "general": "напоминание"
     },
     "knowledgeAction": {
-      "quran": "нажмите к red в Qur'",
+      "quran": "Нажмите, чтобы читать в Коране",
       "hadith": "Нажмите, чтобы прочитать полный хадис",
       "name": "Исследуйте все 99 имен",
       "quranTv": "Выберите, чтобы читать в Qur'an",
@@ -483,7 +483,7 @@
     "devotionA11y": "Уровень преданности {{level}}, {{noor}} всего нет, {{current}} из {{next}} на следующий уровень",
     "scheduleTitle": "Расписание на сегодня",
     "explore": "Обзор",
-    "manage": "Mge",
+    "manage": "Управлять",
     "manageA11y": "Настройте ярлыки главного экрана",
     "exploreHint": "{{shown}} из показанных ярлыков {{total}} — коснитесь «Управление», чтобы добавить или изменить порядок.",
     "scheduleNext": "Далее",
@@ -497,7 +497,7 @@
     "scheduleGroupMorning": "утро",
     "scheduleGroupDay": "день",
     "scheduleGroupEvening": "вечер",
-    "scheduleGroupFlexible": "ytime",
+    "scheduleGroupFlexible": "В любое время",
     "scheduleShowPast_one": "{{count}} предыдущая молитва скрыта",
     "scheduleShowPast_other": "{{count}} предыдущие молитвы скрыты",
     "scheduleShowPastHint": "Нажмите, чтобы показать всё расписание",
@@ -533,7 +533,7 @@
     },
     "continueKind": {
       "quran": "Коран",
-      "hadith": "Hadith",
+      "hadith": "Хадис",
       "dua": "Дуа",
       "zikr": "Азкары",
       "durood": "Дуруд",
@@ -587,7 +587,7 @@
       "consistency": {
         "text": "Аллах любит постоянные дела, даже если они малы. Не сдавайтесь.",
         "topic": "стойкость",
-        "source": "a"
+        "source": "Сахих аль-Бухари 6464 · Сахих Муслим 782"
       },
       "tracker-honest": {
         "text": "Честный трекер помогает видеть закономерности, а не осуждать себя. Прогресс начинается с осознанности.",
@@ -932,7 +932,7 @@
         "location": "Кувейт"
       },
       "makkah-muezzin": {
-        "name": "Али ибн Ахмад Мала",
+        "name": "Али Ахмед Мулла",
         "location": "Аль-Масджид аль-Харам"
       }
     },
@@ -985,7 +985,6 @@
     "brandDuaLabel": "Просьба о легкости",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
     "brandDuaTransliteration": "Аллахумма ла сахла илля ма джаалтаху сахла, ва анта таджалуль-хазна идха шита сахла",
-    "brandDuaTranslation": "О Аллах, нет облегчения кроме того, что Ты облегчаешь, и Ты облегчаешь трудное, если пожелаешь.",
     "slide1Eyebrow": "Салят",
     "slide1Title": "Отслеживайте свои намазы",
     "slide1Body": "Отмечайте каждый намаз на пути обратно к Аллаху — выполнен, пропущен, отложен или каза.",
@@ -1004,7 +1003,7 @@
     "slide3Highlight1": "Семь категорий азкара плюс избранное",
     "slide3Highlight2": "Бесплатный тасбих с предустановками и настраиваемыми целями",
     "slide3Highlight3": "Напоминания перед сном с учётом времени отхода ко сну",
-    "slide4Eyebrow": "Guidce",
+    "slide4Eyebrow": "Наставление",
     "slide4Title": "Коран, хадисы и дуа офлайн",
     "slide4Body": "Читайте, ищите и слушайте — в комплекте с дополнительными ненавязчивыми напоминаниями.",
     "slide4Highlight1": "Полный Коран с чтением и поиском аятов",
@@ -1324,7 +1323,7 @@
     "seeAll": "Показать все",
     "categories": "Категории",
     "categoryEyebrow": "Зикр",
-    "adhkarCount": "{{count}} adhkar",
+    "adhkarCount": "Зикров: {{count}}",
     "allPrayers": "все",
     "done": "Готово",
     "afterSalahTodayForPrayer": "После намаза {{prayer}} сегодня",
@@ -1423,7 +1422,7 @@
     "proofNotice": "Распространено ради пользы — пожалуйста, проверьте религиозный контент у доверенного ученого.",
     "sectionReading": "чтение",
     "sectionQuran": "Коран",
-    "sectionHadith": "Hadith",
+    "sectionHadith": "Хадис",
     "sectionNames": "99 Имен Аллаха",
     "sectionAchievement": "Достижение",
     "sectionGuide": "Изучить",
@@ -1476,7 +1475,12 @@
     "positionInCategory": "{{current}} из {{total}} · {{category}}",
     "positionInOccasion": "{{current}} из {{total}}",
     "previous": "Назад",
-    "next": "Далее"
+    "next": "Далее",
+    "topic": {
+      "deceased": "Дуа за умерших",
+      "showing": "Подборка из раздела «{{category}}»",
+      "showAll": "Показать все"
+    }
   },
   "duaCat": {
     "morning_evening": "утро & вечер",
@@ -1670,10 +1674,6 @@
       },
       "tapHintTv": "Выберите, чтобы увидеть правило таджвида"
     },
-    "wordByWordLoading": "Loading word-by-word…",
-    "tajweedLoading": "Loading tajweed…",
-    "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
-    "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
       "title": "Воспроизведение",
       "open": "Настройки воспроизведения",
@@ -1744,7 +1744,7 @@
     "searchPlaceholderArabic": "Поиск по арабскому тексту или ссылке вроде ٢:٢٥٥…",
     "goToPagePlaceholder": "Страница 1–{{max}}",
     "goToPageA11y": "Перейти к странице по номеру",
-    "goToPageAction": "Go",
+    "goToPageAction": "Перейти",
     "goToPageHint": "Введите страницу от 1 до {{max}}",
     "goToPageInvalid": "Введите страницу от 1 до {{max}}",
     "surahNumber": "Сура {{number}}",
@@ -1756,16 +1756,20 @@
     "goToAyahInvalid": "Введите аят от 1 до {{max}}",
     "searchAyahs": "Поиск аятов",
     "findSurah": "Найти суру",
-    "noSurahResults": "По вашему запросу сур не найдено."
+    "noSurahResults": "По вашему запросу сур не найдено.",
+    "actionMore": "Ещё",
+    "moreActionsA11y": "Другие действия для аята {{n}}",
+    "mushafFontFailedTitle": "Не удалось загрузить страницу",
+    "mushafFontFailedBody": "Шрифт мусхафа для этой страницы не загрузился. Проверьте подключение и попробуйте снова."
   },
   "hadith": {
     "eyebrow": "Пророческая традиция",
-    "title": "Hadith",
+    "title": "Хадисы",
     "subtitle": "Сборники изречений Пророка ﷺ",
     "collections": "Сборники",
     "highlights": "Оффлайн основные моменты",
     "fullCollections": "Полные коллекции",
-    "hadithCount": "{{count}} hadith",
+    "hadithCount": "Хадисов: {{count}}",
     "ungraded": "Без оценки",
     "grade": "Степень: {{grade}}",
     "narrator": "Передал {{narrator}}",
@@ -1953,7 +1957,7 @@
     "title": "Каза",
     "subtitle": "Отслеживайте и восполняйте пропущенные намазы",
     "calculator": "калькулятор",
-    "planner": "Plner",
+    "planner": "Планировщик",
     "roza": "Пост",
     "perPrayer": "По каждому намазу",
     "rowMeta": "{{remaining}} осталось · {{completed}} выполнено",
@@ -2046,10 +2050,9 @@
   },
   "qazaPlan": {
     "eyebrow": "Каза",
-    "title": "Plner",
+    "title": "Планировщик",
     "subtitle": "Выберите темп, который сможете держать годами, а не днями",
     "consistencyTitle": "Последовательность важнее интенсивности",
-    "consistencyHadith": "Самые любимые дела перед Аллахом – это те, которые последовательны, даже если они малы.",
     "consistencySource": "Хадисы — Бухари и Муслим",
     "consistencyPrinciple": "Постоянный ежедневный план обычно устраняет большое отставание более надежно, чем агрессивный спринт, который выгорает.",
     "prayersPerDay": "молитвы/день",
@@ -2092,7 +2095,7 @@
         "subtitle": "{{perPrayer}} каждый · {{dailyTotal}} / день"
       },
       "balanced": {
-        "title": "⭐ Blced",
+        "title": "⭐ Сбалансированный",
         "subtitle": "{{perPrayer}} каждый · {{dailyTotal}} / день"
       },
       "committed": {
@@ -2337,7 +2340,7 @@
     "nextPrayerAway": "{{prayer}} находится всего в {{min}} минуте ходьбы",
     "nextPrayerAwayHours": "{{prayer}} через {{hours}} ч {{min}} мин",
     "locating": "Поиск вашего местоположения…",
-    "changeLocation": "Chge Место",
+    "changeLocation": "Изменить местоположение",
     "scheduleTitle": "Салят на сегодня",
     "nextIn": "в {{time}}",
     "current": "Сейчас",
@@ -2345,7 +2348,7 @@
     "prayerItem": "{{name}} t {{time}}",
     "prayerItemActive": "{{name}} и {{time}}, текущая молитва",
     "weatherA11y": "{{temp}}, {{condition}}",
-    "locationWeatherA11y": "{{location}}, {{weather}}. Chge Место",
+    "locationWeatherA11y": "{{location}}, {{weather}}. Изменить местоположение",
     "dateRowA11y": "{{phase}}. {{dates}}. Нажмите, чтобы узнать подробности о луне",
     "dateRowA11yTv": "{{phase}}. {{dates}}. Выберите для сведений о луне"
   },
@@ -2371,7 +2374,7 @@
     "methodHint": "Выберите метод, принятый в вашем регионе, чтобы время намаза совпадало с расписанием местной мечети.",
     "madhab": "Расчет Аср",
     "madhabShafi": "Стандартный",
-    "madhabHanafi": "Hfi",
+    "madhabHanafi": "Ханафитский",
     "madhabHint": "По ханафитскому методу аср наступает позже; стандартный метод (шафиитский, маликитский, ханбалитский) использует более раннее время.",
     "methods": {
       "MuslimWorldLeague": "Мировая мусульманская лига",
@@ -2446,9 +2449,6 @@
     "nextMonthValue": "~{{days}} дн. · начало {{month}}",
     "nextMonthTonight": "Сегодня вечером после Магриба · начало {{month}}",
     "nextMonthOneDay": "~1 день · начало {{month}}",
-    "age": "Возраст Луны",
-    "ageValue": "{{days}} дней после новолуния",
-    "nextNewMoonValue": "~{{days}} дней · начинается {{month}}",
     "openTv": "{{phase}}. Выберите для подробностей"
   },
   "achievements": {
@@ -2772,7 +2772,7 @@
       "dua_favorites": "Избранные дуа",
       "durood_favorites": "Избранные дуруды",
       "name_favorites": "Избранные имена",
-      "quran_bookmarks": "Qur' закладки",
+      "quran_bookmarks": "Закладки Корана",
       "quran_last_read": "Последнее прочитанное в Коране",
       "hadith_bookmarks": "Закладки хадисов",
       "custom_tasbeeh": "Пользовательский тасбих"
@@ -2957,7 +2957,7 @@
     "dayPlan": "{{count}} дн.",
     "preset": {
       "intensive": "Интенсивный",
-      "balanced": "Blced",
+      "balanced": "Сбалансированный",
       "steady": "Размеренный",
       "custom": "Свой"
     },
@@ -3022,7 +3022,7 @@
     "motivationTitle": "Продолжайте идти",
     "motivationShuffle": "показать или напоминание",
     "motivationKind": {
-      "hadith": "Hadith",
+      "hadith": "Хадис",
       "quran": "Коран",
       "reminder": "напоминание"
     },
@@ -3085,34 +3085,17 @@
     "title": "Путешествие и молитва",
     "subtitle": "Каср, Джам и что Коран и Сунна говорят о намазе в путешествии",
     "takeaway": "Аллах узаконил сокращение (Каср) и объединение (Джам’) из милости к путнику — не для того, чтобы отказаться от молитвы, а для облегчения ее совершения в дороге.",
-    "quranTitle": "из  Qur'",
+    "quranTitle": "Из Корана",
     "hadithTitle": "Из Сунны",
     "obligationsTitle": "За что вы по-прежнему несете ответственность",
     "rakatsTitle": "Ракаты с первого взгляда",
-    "rakatsPrayer": "Salah",
+    "rakatsPrayer": "Намаз",
     "rakatsResident": "Дома",
     "rakatsTravel": "В пути",
     "rakatsNote": "Показан только фард. Сунна раватиб и витр обсуждаются ниже — они по-прежнему рекомендуются, хотя многие путешественники облегчают их в случае затруднений.",
     "duasLink": "Дуа и мольбы о путешествиях",
-    "quran": [
-      {
-        "excerpt": "When you travel through the land, there is no blame on you if you shorten the prayer, if you fear that those who disbelieve may harm you. Indeed, the disbelievers are ever a clear enemy to you."
-      }
-    ],
-    "hadith": [
-      {
-        "excerpt": "Anas said: We travelled with the Messenger of Allah ﷺ. The mu'adhin called for prayer and he said: 'Pray two rakahs' — and he did the same for the other prayers except Maghrib (three) and Fajr (two)."
-      },
-      {
-        "excerpt": "Ibn Abbas said: The Prophet ﷺ combined Dhuhr and Asr, and Maghrib and Isha in Madinah without fear or rain. When asked why, he said: 'He wanted not to burden his Ummah.'"
-      },
-      {
-        "excerpt": "Ya'la ibn Umayyah said: I said to Umar ibn al-Khattab: 'There is no sin if one shortens the prayer while travelling.' Umar replied: 'I wondered the same, so I asked the Prophet ﷺ and he said: It is charity from Allah — accept His charity.'"
-      },
-      {
-        "excerpt": "The Prophet ﷺ said: 'Allah loves that His concessions be taken, just as He hates to be disobeyed.'"
-      }
-    ],
+    "quran": [{}],
+    "hadith": [{}, {}, {}, {}],
     "obligations": [
       "Пять ежедневных намазов остаются обязательными — в сокращённом виде (каср), если вы считаетесь путником.",
       "Фаджр (два раката) и Магриб (три раката) никогда не сокращаются.",
@@ -3131,7 +3114,7 @@
     },
     "jamTypes": {
       "title": "Джам ат-такдим и джам ат-та'хир",
-      "body": "Джам аль-Такдим (раннее объединение): прочтите обе молитвы одновременно во время предыдущей молитвы, например Зухр и Аср во время Зура. Джам ат-Тахир (отложенное объединение): молитесь и в то, и в другое время молитвы, например Зухр и Аср во время Асра. Пророк ﷺ объединился в Арафате (Зухр во время Асра) и в Муздалифе (Магриб во время Иша), установив обе формы."
+      "body": "Джам ат-такдим (объединение с переносом вперёд): совершить оба намаза вместе во время первого — например, зухр и аср во время зухра. Джам ат-та'хир (объединение с отсрочкой): совершить оба во время второго — например, зухр и аср во время асра. В Арафате Пророк ﷺ перенёс аср на время зухра, а в Муздалифе отложил магриб до времени иша — по одному примеру каждой формы (Сахих Муслим 1218)."
     },
     "when": {
       "title": "Когда начинаются и заканчиваются уступки",
@@ -3220,12 +3203,10 @@
     "obligationsTitle": "За что вы по-прежнему несете ответственность",
     "hadith": [
       {
-        "reference": "Сахих аль-Бухари · 321",
-        "excerpt": "Aisha said: The Messenger of Allah ﷺ said to me: 'When your menses ends, perform ghusl and then pray.'"
+        "reference": "Сахих аль-Бухари · 321"
       },
       {
-        "reference": "Сахих аль-Бухари · 304",
-        "excerpt": "The Prophet ﷺ said: 'Is it not the case that when one of you menstruates, she neither prays nor fasts?'"
+        "reference": "Сахих аль-Бухари · 304"
       }
     ],
     "obligations": [
@@ -3262,22 +3243,19 @@
     "obligationsTitle": "За что вы по-прежнему несете ответственность",
     "hadith": [
       {
-        "reference": "Сахих аль-Бухари · 1117",
-        "excerpt": "The Prophet ﷺ said: 'Pray standing; if you cannot, then sitting; if you cannot, then on your side.'"
+        "reference": "Сахих аль-Бухари · 1117"
       },
       {
-        "reference": "Сахих аль-Бухари · 1936",
-        "excerpt": "The Prophet ﷺ said: 'Allah has removed from my Ummah mistakes, forgetfulness, and what they are forced to do.'"
+        "reference": "Сахих аль-Бухари · 1936"
       },
       {
-        "reference": "Сахих аль-Бухари · 1118",
-        "excerpt": "Imran ibn Husayn had a painful condition and prayed sitting. The Prophet ﷺ asked him: 'Can you stand?' He said no, so the Prophet ﷺ said: 'Then pray sitting; if you cannot, then lying on your side.'"
+        "reference": "Сахих аль-Бухари · 1118"
       }
     ],
     "obligations": [
       "Если можете, молитесь в любом доступном положении — стоя, сидя или лёжа.",
       "Сокращайте или опускайте руку и суджуд, только если действительно не можете их совершить.",
-      "Если вы настолько больны, что вовсе не можете молиться, этот намаз откладывается — восполните его (каза), когда поправитесь.",
+      "Пока вы в сознании, намаз с вас не снимается — молитесь как можете, хотя бы знаками. Намаз, пропущенный из-за болезни, восполняется (каза), когда вы поправитесь; если же вы были без сознания, мазхабы расходятся в том, нужно ли его восполнять.",
       "Посты Рамадана, пропущенные из-за болезни, следует восполнить, когда сможете.",
       "Вы по-прежнему можете совершать зикр и дуа, читать Коран и давать садаку."
     ],
@@ -3325,7 +3303,9 @@
       "dhul-hijjah": "Зуль-хиджа",
       "muhasabah": "Мухасаба",
       "family-ties-due": "Родственные связи: пора навестить",
-      "weekly-coach": "Еженедельная рефлексия"
+      "weekly-coach": "Еженедельная рефлексия",
+      "seasonal-banner": "Сезонные баннеры",
+      "umrah-mode": "Продолжить умру"
     }
   },
   "schedule": {
@@ -3354,7 +3334,7 @@
     "rakatsTitle": "Ракаты с первого взгляда",
     "prayer": "Салят",
     "fard": "Фард",
-    "sunnah": "Sunnah",
+    "sunnah": "Сунна",
     "travelPointer": "Сокращение и объединение молитв во время путешествия",
     "relatedTitle": "Связанные руководства",
     "qazaLink": "Пропущенный (каза) намаз",
@@ -3988,7 +3968,7 @@
     "quickLinksTitle": "Начните здесь",
     "quickDaily": "ежедневно Урок",
     "quickDailyHint": "Стих, размышление и одно действие на сегодня",
-    "quickRead": "Red Qur'",
+    "quickRead": "Читать Коран",
     "quickReadHint": "Откройте полный мусхаф с аудио и закладками",
     "quickVocab": "Словарь",
     "quickVocabHint": "Часто встречающиеся слова, которые раскрывают смысл",
@@ -4093,7 +4073,7 @@
       "stories": "Истории"
     },
     "journey": {
-      "read": "Red",
+      "read": "Читать",
       "readHint": "Введение, откровение, структура и ежедневные стихи",
       "understand": "Понимать",
       "understandHint": "Словарный запас, тафсир, темы, истории и чудеса.",
@@ -4122,7 +4102,7 @@
     "subtitle": "Коран, инструменты и обучение — ежедневный чеклист во вкладке Трекер",
     "explore": "Обзор",
     "track": "Отслеживание",
-    "read": "Red",
+    "read": "Читать",
     "supplicate": "Мольбы",
     "learn": "Изучить",
     "more": "Инструменты и ещё",
@@ -4326,34 +4306,8 @@
     "nisabWeightGold": "Золото: ~87,48 г (≈ 7,5 тола)",
     "nisabWeightSilver": "Серебро: ~612,36 г (≈ 52,5 тола)",
     "nisabWeightNote": "Точный вес и какой металл предпочесть немного различаются в разных школах. В калькуляторе используются широко цитируемые ханафитские цифры.",
-    "quran": [
-      {
-        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
-      },
-      {
-        "excerpt": "Take from their wealth a charity by which you purify them and cause them to grow, and invoke blessings upon them. Indeed, your invocation is reassurance for them. And Allah is Hearing and Knowing."
-      },
-      {
-        "excerpt": "O you who believe, spend from the good things which you have earned and from that which We have produced for you from the earth."
-      },
-      {
-        "excerpt": "Those who believe and do righteous deeds and establish prayer and give zakat will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve."
-      }
-    ],
-    "hadith": [
-      {
-        "excerpt": "Islam is built upon five: the testimony that none has the right to be worshipped but Allah and that Muhammad is the Messenger of Allah, establishing prayer, paying zakat, pilgrimage to the House, and fasting Ramadan."
-      },
-      {
-        "excerpt": "The Prophet ﷺ sent Mu'adh to Yemen and said: Teach them that Allah has made charity (zakat) obligatory upon them — taken from their rich and returned to their poor."
-      },
-      {
-        "excerpt": "There is no owner of gold or silver who does not pay what is due on it except that on the Day of Resurrection plates of fire will be made for him, heated in the Fire of Hell, and his side, forehead, and back will be seared with them."
-      },
-      {
-        "excerpt": "إِذَا كَانَتْ لَكَ مِائَتَا دِرْهَمٍ وَحَالَ عَلَيْهَا الْحَوْلُ فَفِيهَا خَمْسَةُ دَرَاهِمَ، وَلَا زَكَاةَ فِي مَالٍ حَتَّى يَحُولَ عَلَيْهِ الْحَوْلُ."
-      }
-    ],
+    "quran": [{}, {}, {}, {}],
+    "hadith": [{}, {}, {}, {}],
     "assetsTitle": "Ваше имущество",
     "assetsHint": "Введите текущую рыночную стоимость в выбранной валюте. Золото и серебро можно также указать по весу (тола, граммы, караты). Личное жильё и автомобили обычно освобождены — используйте раздел недвижимости только для инвестиционных или торговых активов.",
     "group": {
@@ -4398,7 +4352,7 @@
       "unit": "Весовая единица",
       "karat": "Золото в каратах",
       "purity": "Чистота серебра",
-      "karatLabel": "{{karat}}k",
+      "karatLabel": "{{karat}} кар.",
       "purityLabel": "{{purity}}",
       "units": {
         "g": "Грамм",
@@ -4461,7 +4415,7 @@
       "title": "Живое золото и серебро",
       "goldPerGram": "Золото / грамм",
       "silverPerGram": "Серебро / грамм",
-      "source": "{{source}} · FX {{date}}",
+      "source": "{{source}} · курс {{date}}",
       "loading": "Получение текущих цен…",
       "error": "Не удалось загрузить актуальные цены. Введите цены на золото и серебро вручную.",
       "prefilled": "Цены на нисаб и металлы предварительно заполняются на основе текущих котировок.",
@@ -4573,8 +4527,7 @@
       "agriculture": {
         "title": "Сельское хозяйство и сбор урожая (ушр)",
         "body": "Закят на урожай выплачивается во время сбора урожая, а не после лунного года. Известная ставка составляет 10% (ушр), когда земля орошается дождем или родниками, и 5%, когда орошение требует усилий или денег. Введите рыночную стоимость урожая этого сезона и выберите источник воды, соответствующий вашей ситуации.",
-        "localRefLabel": "Коран 6:141",
-        "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
+        "localRefLabel": "Коран 6:141"
       },
       "deductions": {
         "title": "Вычеты",
@@ -4666,7 +4619,7 @@
       "uploadFailed": "Не удалось загрузить фотографии. Попробуйте еще раз.",
       "uploading": "Загрузка…",
       "open": "Открыть картинку {{index}}",
-      "counter": "{{current}} of {{total}}",
+      "counter": "{{current}} из {{total}}",
       "zoomHint": "Сведите пальцы, чтобы увеличить масштаб, перетащите, чтобы панорамировать, дважды коснитесь, чтобы сбросить настройки.",
       "previous": "Предыдущее изображение",
       "next": "Следующее изображение"
@@ -4690,7 +4643,7 @@
       "pickFailed": "Не удалось добавить этот файл. Попробуйте еще раз.",
       "openFailed": "Не удалось открыть этот файл.",
       "open": "Открыть вложение {{index}}",
-      "counter": "{{current}} of {{total}}",
+      "counter": "{{current}} из {{total}}",
       "zoomHint": "Сведите пальцы, чтобы увеличить масштаб, перетащите, чтобы панорамировать, дважды коснитесь, чтобы сбросить настройки.",
       "previous": "Предыдущее вложение",
       "next": "Следующее вложение",
@@ -4727,7 +4680,7 @@
   },
   "tahajjud": {
     "eyebrow": "Ночная молитва",
-    "title": "Tahajjud",
+    "title": "Тахаджуд",
     "subtitle": "Выработайте устойчивую привычку к ночной молитве.",
     "streakValue": "{{count}}",
     "streakCaption": "ночь Серия",
@@ -4737,7 +4690,6 @@
     "markedTonight": "Молился сегодня вечером — машаАллах",
     "lastNights": "Последние ночи {{count}}",
     "virtueTitle": "Польза ночной молитвы",
-    "virtueBody": "Лучшей молитвой после обязательных молитв является ночная молитва.",
     "virtueRef": "Сахих Муслим 1163",
     "streakRow": "Тахаджуд полоса",
     "calculatorCta": "Калькулятор последней трети ночи",
@@ -4759,7 +4711,7 @@
     "ashuraEyebrow": "Священные дни",
     "ashuraBannerTitle": "Дни Ашуры",
     "ashuraBannerDesc": "Поститесь 9 и 10 числа Мухаррама — любимая сунна, искупающая мелкие грехи.",
-    "ramadanEyebrow": "Ramadan",
+    "ramadanEyebrow": "Рамадан",
     "ramadanBannerTitle": "Рамадан Мубарак",
     "ramadanBannerDesc": "Месяц Корана — поститесь, молись и приближайтесь к Аллаху.",
     "lastTenEyebrow": "Последние десять ночей",
@@ -4779,7 +4731,15 @@
     "arafahBannerDesc": "Сердце хаджа — если вы не в хадже, пост в этот день искупает два года грехов.",
     "eidAdhaEyebrow": "Ид",
     "eidAdhaBannerTitle": "Ид аль-Адха мубарак",
-    "eidAdhaBannerDesc": "Праздник жертвоприношения — молитва, такбир и помощь нуждающимся."
+    "eidAdhaBannerDesc": "Праздник жертвоприношения — молитва, такбир и помощь нуждающимся.",
+    "cta": {
+      "events": "Подробнее",
+      "ramadan": "Открыть Рамадан",
+      "dhulHijjah": "Открыть Зуль-хиджа"
+    },
+    "dismiss": "Скрыть до следующего сезона",
+    "hiddenToast": "Скрыто на этот сезон",
+    "hiddenToastHint": "Сезонные баннеры можно отключить в любой момент в разделе «Настроить дом»."
   },
   "journal": {
     "eyebrow": "Отражение",
@@ -4793,7 +4753,7 @@
     "editTitle": "Редактировать отражение",
     "navRow": "Размышляйте о молитве",
     "recentTitle": "Недавние размышления",
-    "fieldPrayer": "Salah",
+    "fieldPrayer": "Намаз",
     "fieldRating": "Хушу (присутствие)",
     "fieldNote": "Примечание (необязательно)",
     "notePlaceholder": "Что вам помогло или отвлекло?",
@@ -4889,8 +4849,7 @@
     "umrahChecklistSubtitle": "Отслеживайте обряды умры по порядку.",
     "umrahChecklistIntro": "Отмечайте каждый обряд умры по мере выполнения. Подробности и доказательства — в разделе «Изучить».",
     "notFound": "Тема не найдена",
-    "continueInApp": "Продолжить в Munib",
-    "prepTag": "Подготовка"
+    "continueInApp": "Продолжить в Munib"
   },
   "dailyHadith": {
     "eyebrow": "Ежедневная серия",
@@ -4944,7 +4903,7 @@
       "salah": "Салах сегодня",
       "salahHint": "Пять ежедневных молитв в вашем контрольном списке",
       "dhikr": "Азкары сегодня",
-      "dhikrHint": "утро, вечер, и ежедневно remembrces",
+      "dhikrHint": "Утренние, вечерние и ежедневные зикры",
       "qaza": "Прогресс каза",
       "qazaHint": "Восполнение пропущенного богослужения",
       "streak": "Активная серия",
@@ -4970,7 +4929,7 @@
     "firdawsCardTitle": "Просите аль-Фирдаус",
     "firdawsDuaTitle": "Дуа об аль-Фирдаусе",
     "quranTitle": "Коран",
-    "hadithTitle": "Hadith",
+    "hadithTitle": "Хадис",
     "actionsTitle": "Практические шаги",
     "notFound": "Тема не найдена",
     "tourCta": "Пройти экскурсию",
@@ -4994,7 +4953,7 @@
     "verseTheme": {
       "description": "Описание",
       "reward": "Награда",
-      "ranks": "Rks",
+      "ranks": "Степени",
       "mercy": "Милость",
       "supplication": "Мольба"
     },
@@ -5068,14 +5027,14 @@
       "salah": "Салах сегодня",
       "salahHint": "Пять ежедневных молитв в вашем контрольном списке",
       "istighfar": "Азкар и истигфар",
-      "istighfarHint": "утро, вечер, и ежедневно remembrces",
+      "istighfarHint": "Утренние, вечерние и ежедневные зикры",
       "quran": "Коран",
       "quranHint": "Продолжить чтение или прослушивание",
       "charity": "Благотворительность и пожертвования",
       "charityHint": "Сегодняшние намерения по обеспечению самоотчетности",
       "character": "Хороший нрав",
       "characterHint": "Охрана манер и речи",
-      "repentance": "Repentce",
+      "repentance": "Покаяние",
       "repentanceHint": "Искренний тауба и истигфар",
       "rights": "Права других",
       "rightsHint": "Исправляем ошибки там, где это возможно",
@@ -5129,7 +5088,7 @@
     "verseTheme": {
       "warnings": "Предупреждения",
       "mercy": "Милость",
-      "repentance": "Repentce",
+      "repentance": "Покаяние",
       "accountability": "Ответственность",
       "justice": "Справедливость",
       "hope": "Надежда"
@@ -5137,7 +5096,7 @@
     "hadithTheme": {
       "warning": "Предупреждение",
       "mercy": "Милость",
-      "repentance": "Repentce",
+      "repentance": "Покаяние",
       "accountability": "Ответственность",
       "protection": "Защита"
     },
@@ -5178,7 +5137,7 @@
         "body": "Время молитвы на устройстве указано в зависимости от вашего местоположения, а также напоминания об азанах, которые вы можете настроить."
       },
       "quran": {
-        "title": "Red  Qur'",
+        "title": "Читайте Коран",
         "body": "Полный Коран с переводами, аудиодекламацией, закладками и планировщиком катмов."
       },
       "qibla": {
@@ -5322,7 +5281,7 @@
       "in_review": "На рассмотрении",
       "in_progress": "В работе",
       "completed": "выполнено",
-      "cancelled": "Ccelled",
+      "cancelled": "Отменено",
       "spam": "Спам"
     },
     "imagesOnly": "Поддерживаются только изображения (JPEG, PNG или WebP).",
@@ -5467,8 +5426,8 @@
     "eyebrow": "Узнать",
     "title": "Ранняя исламская история",
     "subtitle": "От смерти Пророка ﷺ до конца халифата Рашидун",
-    "ceBadge": "{{year}} CE",
-    "ahBadge": "{{ah}} AH",
+    "ceBadge": "{{year}} г.",
+    "ahBadge": "{{ah}} г. х.",
     "era": {
       "prophetic-close": "Пророк ﷺ",
       "abu-bakr": "Абу Бакр",
@@ -5645,8 +5604,8 @@
     "eyebrow": "Ночная Salah",
     "title": "Последняя Треть Ночи",
     "subtitle": "Лучшее время для Tahajjud и dua.",
-    "maghribLabel": "Maghrib",
-    "fajrLabel": "Fajr",
+    "maghribLabel": "Магриб",
+    "fajrLabel": "Фаджр",
     "autoDetect": "Использовать время Salah",
     "autoDetectHint": "{{location}} · нажмите время для настройки",
     "lastThirdLabel": "Последняя треть начинается",
@@ -6326,7 +6285,6 @@
     "offsetHint": "Сдвигает все даты по хиджре. Чтобы исправить только один месяц, используйте «Этот месяц начался…».",
     "monthStartedRow": "{{month}} начался…",
     "correctionsTitle": "Исправления месяцев",
-    "noCorrections": "Исправлений месяцев пока нет.",
     "startedOn": "Начался {{date}}",
     "notApplied": "Не применено ({{date}}): месяц стал бы короче 29 или длиннее 30 дней.",
     "removeCorrection": "Удалить исправление для {{month}}",
@@ -6549,7 +6507,8 @@
         "abudawud1501": "Сунан Абу Дауда 1501 — счёт на кончиках пальцев: хасан (аль-Албани, Шуайб аль-Арнаут)",
         "tirmidhi3583": "Джами ат-Тирмизи 3583 — оценки расходятся: хасан (Ахмад Шакир), даиф (аль-Албани)"
       }
-    }
+    },
+    "customizeBeads": "Настроить бусины"
   },
   "vault": {
     "passphrase": {
@@ -6613,7 +6572,7 @@
     },
     "sync": {
       "title": "Синхронизация личных записей",
-      "body": "Ваша мухасаба, учёт долгов, завещание (васыя) и контакты родственников хранятся только на этом устройстве в зашифрованном виде. Можно сохранить их в облаке со сквозным шифрованием.",
+      "body": "Ваша мухасаба, учёт долгов, завещание (васыйя) и семейные контакты хранятся только на этом устройстве в зашифрованном виде. Дневник хушу и текущий период освобождения (хайд/нифас) тоже остаются на этом устройстве. Вы можете включить резервное копирование всего этого в облако со сквозным шифрованием.",
       "howItWorks": "Кодовая фраза запирает их ещё до того, как они покинут устройство. Мы храним только зашифрованные данные и не можем их прочитать.",
       "warningTitle": "Важно",
       "warningBody": "Если вы потеряете и кодовую фразу, и код восстановления, облачная копия будет утрачена навсегда — никто, включая нас, не сможет её открыть. Записи на этом устройстве продолжат работать.",
@@ -6675,7 +6634,8 @@
       "otherViews": "Другие мнения ({{total}})",
       "hideOtherViews": "Скрыть другие мнения",
       "positionA11y": "{{school}}: {{position}}",
-      "validViews": "Все четыре мазхаба — признанные позиции суннитской науки."
+      "validViews": "Все четыре мазхаба — признанные позиции суннитской науки.",
+      "sameView": "То же мнение: {{schools}}"
     },
     "compare": {
       "title": "Чем различаются мазхабы",
@@ -7346,10 +7306,8 @@
       "notNow": "Не сейчас — показать все мнения"
     },
     "onboarding": {
-      "eyebrow": "Фикх",
       "title": "Ваш мазхаб",
       "body": "Нормы в руководствах и калькуляторах могут следовать вашему мазхабу. Расхождения всегда отмечены, а изменить выбор можно в любое время в Настройках.",
-      "continue": "Продолжить",
       "later": "Решить позже"
     },
     "detail": {
@@ -7615,7 +7573,23 @@
     "syncFull_one": "{{count}} заметка с других ваших устройств ожидает: ваши заметки переполнены. Удалите часть заметок, чтобы освободить место. До тех пор заметки на этом устройстве не синхронизируются. Ничего не удаляется.",
     "syncFull_few": "{{count}} заметки с других ваших устройств ожидают: ваши заметки переполнены. Удалите часть заметок, чтобы освободить место. До тех пор заметки на этом устройстве не синхронизируются. Ничего не удаляется.",
     "syncFull_many": "{{count}} заметок с других ваших устройств ожидают: ваши заметки переполнены. Удалите часть заметок, чтобы освободить место. До тех пор заметки на этом устройстве не синхронизируются. Ничего не удаляется.",
-    "syncFull_other": "{{count}} заметки с других ваших устройств ожидают: ваши заметки переполнены. Удалите часть заметок, чтобы освободить место. До тех пор заметки на этом устройстве не синхронизируются. Ничего не удаляется."
+    "syncFull_other": "{{count}} заметки с других ваших устройств ожидают: ваши заметки переполнены. Удалите часть заметок, чтобы освободить место. До тех пор заметки на этом устройстве не синхронизируются. Ничего не удаляется.",
+    "hint": {
+      "label": "Моя заметка к {{ref}}: {{title}}",
+      "a11yOpen": "Открывает заметку",
+      "a11yPeek": "Нажмите, чтобы посмотреть заметку. Удерживайте для других действий.",
+      "clickToOpen": "Нажмите, чтобы открыть · Esc — закрыть",
+      "open": "Открыть заметку",
+      "changeHighlight": "Изменить выделение",
+      "addAnother": "Добавить ещё заметку",
+      "inView": "На экране",
+      "moreTags": "+{{n}}",
+      "moreNotes_one": "ещё {{count}} заметка",
+      "moreNotes_few": "ещё {{count}} заметки",
+      "moreNotes_many": "ещё {{count}} заметок",
+      "moreNotes_other": "ещё {{count}} заметки"
+    },
+    "clearFilters": "Сбросить фильтры"
   },
   "selfReview": {
     "vaultLockedTitle": "Ваши личные записи заблокированы на этом устройстве",
@@ -8004,12 +7978,6 @@
       "testA11y": "Воспроизвести короткий пример на языке: {{language}}"
     },
     "fiqh": {
-      "rulingsUpdated": "Решения обновлены во всём приложении",
-      "asrOfferTitle": "Использовать также время Аср {{asr}}?",
-      "asrOfferBody": "Ваш мазхаб обычно рассчитывает Аср так. Время Салята и напоминания будут следовать ему.",
-      "asrOfferAccept": "Использовать",
-      "asrOfferDecline": "Оставить текущее",
-      "asrUpdated": "Аср теперь: {{asr}}",
       "asrSub": "Задаётся вместе со временем Салята. При смене мазхаба предлагается изменить и его.",
       "advanced": "Дополнительно",
       "advancedSub": "Мазхаб по разделам и особые значения от вашего учёного",
@@ -8034,7 +8002,7 @@
     "kw": {
       "madhhab": "мазхаб, madhhab, фикх, ханафи, шафии, малики, ханбали",
       "fiqhAdvanced": "тальфик, каср, расстояние пути, проживание, нисаб, хайд, нифас, особое, учёный",
-      "biometric": "face id, отпечаток пальца, биометрия, разблокировка",
+      "biometric": "face id, touch id, отпечаток пальца, биометрия, разблокировка",
       "vault": "сейф, дневник, мухасаба, парольная фраза, код восстановления, зашифровано, блокировка",
       "hijri": "хиджра, исламская дата, наблюдение луны, начало месяца, коррекция",
       "money": "валюта, деньги, формат чисел, закят, фидья, садака",
@@ -8492,7 +8460,6 @@
     "eyebrow": "Сезоны",
     "title": "Зуль-хиджа",
     "searchKeywords": "зуль хиджа десять дней арафа такбир ташрик тахлиль тахмид жертвоприношение курбан курбан байрам ид аль адха волосы ногти",
-    "virtue": "Нет добрых дел, более любимых Аллахом, чем совершённые в эти десять дней. Умножайте зикр: такбир, тахлиль и тахмид.",
     "offSeason": "Следующие десять дней начнутся {{date}}",
     "teaserBody": "Десять дней Зуль-хиджа начнутся {{date}}. Если вы намерены совершить жертвоприношение, отметьте это до их начала.",
     "excusedBanner": "У вас включён период освобождения. Здесь ничего не оценивается — делайте что можете; зикр и дуа открыты всегда.",
@@ -9311,7 +9278,7 @@
     "listeningFor": "Слушаю: {{phrase}}",
     "levelA11y": "Уровень микрофона",
     "stuck": "Произнесите зикр чётко или нажмите, чтобы посчитать",
-    "focusTip": "Совет: дизайн «Минимал» сохраняет экран спокойным во время прослушивания.",
+    "focusTip": "Совет: дизайн «Фокус / Ночь» сохраняет экран спокойным во время прослушивания.",
     "stopped": {
       "silence": "Прослушивание приостановлено после тишины. Нажмите «Без рук», чтобы продолжить.",
       "background": "Прослушивание остановлено, когда вы вышли из приложения.",
@@ -9334,7 +9301,7 @@
     },
     "sheet": {
       "title": "Счёт без рук",
-      "howItWorks": "Произнесите зикр — счётчик его посчитает. Прослушивание идёт только на этом устройстве: звук не записывается, не хранится и не отправляется.",
+      "howItWorks": "Произнесите зикр — счётчик его посчитает. Прослушивание идёт только на этом устройстве. Звук не записывается и не отправляется. Если вы обучите зикр, короткий голосовой шаблон (не запись) останется на этом устройстве.",
       "lowVoice": "Достаточно тихого голоса. Тихий зикр и счёт нажатием ничуть не хуже.",
       "accuracy": "Если не уверен — не считает. Нажмите, чтобы добавить пропущенное.",
       "choosePhrase": "Какой зикр вы произносите?",
@@ -9381,7 +9348,10 @@
       "sensitivitySub": "Насколько уверенным должен быть счёт без рук, прежде чем засчитать",
       "silenceSecondsUnit": "секунд",
       "calibrateSub": "Произнесите фразу 5 раз, чтобы счёт подстроился под ваш голос. Хранится только на этом устройстве.",
-      "modelStorageSub": "Распознаватель на устройстве общий с практикой Корана"
+      "modelStorageSub": "Распознаватель на устройстве общий с практикой Корана",
+      "forgetTaught": "Забыть голоса обученных зикров",
+      "forgetTaughtSub": "Звук не записывается и не отправляется. Если вы обучите зикр, короткий голосовой шаблон (не запись) останется на этом устройстве. Это удалит их все.",
+      "forgetTaughtConfirm": "Забыть все голосовые шаблоны обученных зикров на этом устройстве? Вы сможете снова обучить их в любое время."
     },
     "announce": {
       "title": "Озвучивание счёта тасбиха",
@@ -9389,6 +9359,37 @@
       "milestones": "Только этапы",
       "off": "Выкл.",
       "hint": "Пока голосовой счёт слушает, озвучиваются только этапы."
+    },
+    "picker": {
+      "search": "Поиск по азкарам и вашим тасбихам",
+      "noResults": "Зикр не найден. Выберите «Другое», чтобы всё равно его считать.",
+      "somethingElse": "Другое",
+      "somethingElseHint": "Любой другой зикр. На этот сеанс его можно обучить голосом.",
+      "taught": "Обучено",
+      "chosen": "Считаем",
+      "change": "Изменить",
+      "changeA11y": "Считаем {{phrase}}. Изменить зикр"
+    },
+    "teach": {
+      "title": "Произнесите один раз, чтобы считался только этот зикр",
+      "explain": "Произнесите {{phrase}} до 3 раз, делая паузы между повторами. Короткий голосовой шаблон (не запись) остаётся на этом устройстве, чтобы считался только этот зикр.",
+      "explainOther": "Произнесите свой зикр до 3 раз, делая паузы между повторами. В этом сеансе будут считаться только его повторы.",
+      "start": "Обучить голосом",
+      "skip": "Пропустить — считать каждую паузу",
+      "sayNow": "Сейчас произнесите {{phrase}}",
+      "sayNowOther": "Сейчас произнесите свой зикр",
+      "pauseBetween": "Делайте короткую паузу после каждого.",
+      "listening": "Слушаю…",
+      "progress": "Принято {{heard}}/{{total}}",
+      "issueShort": "Слишком коротко. Произнесите зикр целиком.",
+      "issueLong": "Слишком долго. Произнесите зикр один раз и сделайте паузу.",
+      "issueDifferent": "Прозвучало иначе. Произнесите тот же зикр ещё раз.",
+      "done": "Готово — начать счёт",
+      "cancel": "Отмена",
+      "reteach": "Обучить заново",
+      "taughtReady": "Обучено на этом устройстве.",
+      "countsTaught": "Считает только обученный зикр — исправляйте ошибки касанием.",
+      "countsPauses": "Считает каждую паузу — менее точно. Исправляйте ошибки касанием."
     }
   },
   "masjids": {
@@ -9477,7 +9478,10 @@
       "savedToast": "Ваше время сохранено",
       "clearedToast": "Ваше время удалено",
       "privacy": "Ваше время приватно: хранится на этом устройстве и ваших синхронизированных устройствах, никогда не отправляется в поиск мечетей или другим пользователям.",
-      "importHint": "Время считывается прямо на телефоне. Фото никогда не загружается."
+      "importHint": "Время считывается прямо на телефоне. Фото никогда не загружается.",
+      "clearConfirmTitle": "Удалить ваше время?",
+      "clearConfirmBody": "Ваше ежедневное время, время Джумы и импортированное месячное расписание для этой мечети будут удалены со всех ваших устройств.",
+      "saveError": "Не удалось сохранить ваше время. Попробуйте ещё раз."
     },
     "reminder": {
       "settingTitle": "Напоминание об икамате",
@@ -9498,7 +9502,9 @@
       "walkSub": "Используется для напоминания «пора выходить» к икамату",
       "minutes": "{{minutes}} мин",
       "iqamahSub": "Напоминание выйти в свою мечеть до икамата по вашему расписанию"
-    }
+    },
+    "showMore": "Показать больше мечетей",
+    "unavailableBody": "Сервис поиска мечетей сейчас недоступен. Пожалуйста, попробуйте позже."
   },
   "focusLock": {
     "title": "Фокус на намазе",
@@ -9699,7 +9705,8 @@
       "expires": "Действует до {{when}} · можно использовать один раз",
       "error": "Не удалось создать приглашение. Попробуйте ещё раз.",
       "codeA11y": "Код приглашения {{code}}",
-      "qrA11y": "QR-код ссылки-приглашения"
+      "qrA11y": "QR-код ссылки-приглашения",
+      "expiresShared": "Действует до {{when}} · им может воспользоваться любой участник вашей группы"
     },
     "join": {
       "eyebrow": "Приглашение",
@@ -10333,7 +10340,8 @@
       "deadline_other": "Если вы не подтвердите, они будут удалены через {{count}} дня.",
       "confirm": "Подтвердить и сохранить",
       "delete": "Удалить эти профили",
-      "confirmed": "Спасибо — согласие подтверждено"
+      "confirmed": "Спасибо — согласие подтверждено",
+      "deleteConfirm": "Эти профили, их статусы, наклейки и привязанные устройства будут удалены сейчас. Это действие нельзя отменить."
     },
     "child": {
       "title": "Ребёнок",
@@ -10509,7 +10517,7 @@
     "captureTitle": "Сфотографируйте расписание",
     "intro": "Импортируйте время икамата для «{{name}}» с печатной ежедневной доски или месячного листа.",
     "tips": "Положите лист ровно, заполните кадр таблицей и избегайте бликов. По возможности обрежьте фото по таблице.",
-    "webDownload": "В первый раз браузер скачает около {{size}} МБ данных для распознавания текста из публичной CDN. Скачиваются только данные — ваше фото остаётся в этом браузере.",
+    "webDownload": "В первый раз браузер скачает около {{size}} МБ данных для распознавания текста с jsDelivr (публичной CDN). Скачиваются только данные — ваше фото остаётся в этом браузере.",
     "webCached": "Данные для распознавания текста уже сохранены в этом браузере.",
     "arabicToggle": "Распознавать и арабский текст (+{{size}} МБ)",
     "keepPhoto": "Показывать фото во время проверки",
@@ -10759,5 +10767,272 @@
       "reminderSub": "Когда подходит время звука для тренировки, напоминание о повторении упоминает его",
       "keywords": "таджвид, тренировка, калькала, гунна, мадд, шадда, напоминание о повторении, практика"
     }
+  },
+  "setupFlow": {
+    "stepOf": "Шаг {{current}} из {{total}}",
+    "allSet": "Настройка завершена",
+    "language": {
+      "title": "Выберите язык",
+      "body": "Его будет использовать всё приложение. Смысловой перевод Корана, хадисов и дуа может следовать ему или быть на другом языке."
+    },
+    "location": {
+      "title": "Где вы совершаете намаз?",
+      "body": "Время салята и направление киблы зависят от того, где вы находитесь.",
+      "privacy": "Ваше местоположение остаётся на этом устройстве и используется только для времени салята и киблы. Оно никогда не передаётся.",
+      "chooseCity": "Лучше найти мой город",
+      "confirmBody": "Проверьте место и способ расчёта времени салята. Если ваша мечеть следует другому методу, выберите его здесь.",
+      "defaultHint": "Пока вы не выберете место, время салята рассчитывается для Мекки."
+    },
+    "reminders": {
+      "title": "Не пропускайте салят",
+      "body": "Получайте азан в каждое время салята и мягкие напоминания о зикре. Они планируются на этом устройстве и никогда не показывают ничего личного.",
+      "onTitle": "Напоминания включены",
+      "onBody": "Настройте основные сейчас или всё остальное позже в Настройках.",
+      "offTitle": "Напоминания выключены",
+      "offBody": "Их можно включить в любое время в Настройки › Напоминания и уведомления."
+    },
+    "personalise": {
+      "title": "Сделайте под себя",
+      "body": "Необязательно — всё это можно изменить позже в Настройках."
+    },
+    "done": {
+      "title": "Всё готово",
+      "body": "Вот как настроено приложение. Нажмите на любой пункт, чтобы изменить его.",
+      "recap": "Ваша настройка"
+    }
+  },
+  "privateUx": {
+    "saveFailed": "Не удалось сохранить. Попробуйте ещё раз.",
+    "saving": "Сохранение…",
+    "export": {
+      "unavailable": "Печать и отправка недоступны на этом устройстве.",
+      "failed": "Не удалось создать документ. Попробуйте ещё раз.",
+      "preparing": "Готовим документ…"
+    },
+    "date": {
+      "invalid": "Не удалось прочитать дату. Используйте формат год-месяц-день, напр. 2026-11-23.",
+      "reads": "Распознано как {{date}}",
+      "preset": {
+        "week": "Через неделю",
+        "month": "Через месяц",
+        "threeMonths": "Через 3 месяца"
+      }
+    },
+    "payments": {
+      "errorAmount": "Введите выплаченную сумму.",
+      "removeTitle": "Удалить эту выплату?",
+      "removeBody": "Остаток долга снова увеличится. Это действие нельзя отменить."
+    },
+    "wasiyyah": {
+      "nameRequired": "Укажите своё имя, чтобы продолжить.",
+      "reviewTitle": "Проверьте каждый раздел",
+      "summary": {
+        "nameMissing": "Имя не указано",
+        "selected": "Выбрано: {{done}} из {{total}}",
+        "confirmed": "Подтверждено: {{done}} из {{total}}",
+        "none": "Ничего не добавлено",
+        "added": "Добавлено: {{total}}",
+        "snapshot": "Расчёт наследства приложен (для примера)",
+        "noSnapshot": "Расчёт не приложен (необязательно)",
+        "named": "Указано имён: {{done}} из {{total}}",
+        "dateInvalid": "Дату не удаётся прочитать"
+      },
+      "draftNote": "У вас есть незавершённый черновик. Продолжите с того места, где остановились.",
+      "discardTitle": "Удалить черновик?",
+      "discardBody": "Изменения, не сохранённые как версия, будут удалены. Сохранённое завещание останется без изменений.",
+      "dateBlocked": "Исправьте дату в разделе «О вас» перед сохранением."
+    },
+    "muhasabah": {
+      "customAddedOff": "Вопрос добавлен. У вас уже включено вопросов: {{max}}, отключите один, чтобы использовать этот.",
+      "retentionTitle": "Удалить старые самоотчёты?",
+      "retentionBody_one": "{{count}} сохранённый самоотчёт старше этого срока и будет удалён сейчас. Это действие нельзя отменить.",
+      "retentionBody_few": "{{count}} сохранённых самоотчёта старше этого срока и будут удалены сейчас. Это действие нельзя отменить.",
+      "retentionBody_many": "{{count}} сохранённых самоотчётов старше этого срока и будут удалены сейчас. Это действие нельзя отменить.",
+      "retentionBody_other": "{{count}} сохранённого самоотчёта старше этого срока и будут удалены сейчас. Это действие нельзя отменить.",
+      "retentionConfirm": "Удалить и изменить",
+      "clearNotesTitle": "Удалить и сохранённые заметки?",
+      "clearNotesBody_one": "В {{count}} сохранённом самоотчёте ещё есть заметка о покаянии. Удалить текст сейчас? Отметка о покаянии останется.",
+      "clearNotesBody_other": "В {{count}} сохранённых самоотчётах ещё есть заметки о покаянии. Удалить текст сейчас? Отметка о покаянии останется.",
+      "clearNotesConfirm": "Удалить заметки",
+      "clearNotesKeep": "Оставить",
+      "clearNotesDone": "Заметки о покаянии удалены",
+      "clearNotesBody_few": "В {{count}} сохранённых самоотчётах ещё есть заметки о покаянии. Удалить текст сейчас? Отметка о покаянии останется.",
+      "clearNotesBody_many": "В {{count}} сохранённых самоотчётах ещё есть заметки о покаянии. Удалить текст сейчас? Отметка о покаянии останется."
+    },
+    "familyTies": {
+      "digestAfterDhuhr": "После Зухра",
+      "notFound": "Этого родственника больше нет в вашем списке.",
+      "phoneInvalid": "Номер выглядит слишком коротким для звонка или сообщения."
+    },
+    "mirath": {
+      "highlightHint": "Выделенные наследники получают другую долю в другом мазхабе."
+    },
+    "undo": "Отменить",
+    "debts": {
+      "selectTitle": "Выберите запись",
+      "selectBody": "Выберите запись в списке, чтобы увидеть подробности, или добавьте новую."
+    }
+  },
+  "settingsSubgroups": {
+    "salah": {
+      "title": "Салят и азан",
+      "subtitle": "Азан, оповещения, время напоминаний, сунна и каза"
+    },
+    "zikr": {
+      "title": "Зикр и Коран",
+      "subtitle": "Утренние, вечерние и перед сном азкары, повторение Корана"
+    },
+    "fasting": {
+      "title": "Пост и особые дни",
+      "subtitle": "Добровольные посты, сухур, Зуль-хиджа и такбир"
+    },
+    "personal": {
+      "title": "Личное и семья",
+      "subtitle": "Мухасаба, родственные связи, долги, завещание и размышления"
+    },
+    "other": {
+      "title": "Ежедневное и приложение",
+      "subtitle": "Размышление дня, пятница, Белые дни, достижения и отзывы"
+    }
+  },
+  "prayerMethodSuggestion": {
+    "searchTitle": "Рекомендуемый метод расчёта",
+    "title": "Рекомендация для: {{country}}",
+    "body": "Там обычно используют метод «{{method}}». Расписание вашей мечети всё равно лучший ориентир.",
+    "use": "Использовать этот метод",
+    "keep": "Оставить текущий",
+    "updated": "Метод расчёта обновлён"
+  },
+  "nearby": {
+    "tabs": {
+      "code": "Код и QR",
+      "nearby": "Рядом"
+    },
+    "host": {
+      "title": "Пригласите человека рядом с вами",
+      "body": "Его телефон находит ваш по Bluetooth — ничего вводить не нужно. Вы одобряете каждого, кто попросится.",
+      "childTitle": "Связать телефон рядом с вами",
+      "childBody": "На телефоне ребёнка откройте Munib Tracker, выберите «Связать с телефоном родителя рядом» и держите телефоны близко. Связь вы подтверждаете здесь.",
+      "start": "Сделать видимым",
+      "starting": "Запуск…",
+      "visible": "Виден телефонам поблизости",
+      "stopsAt": "Остановится в {{time}}",
+      "codeLabel": "Убедитесь, что на другом телефоне те же цифры",
+      "codeA11y": "Код сверки {{code}}",
+      "stop": "Остановить",
+      "asking": "Хотят присоединиться",
+      "noneYet": "Пока никого. Попросите нажать «Присоединиться рядом» на своём телефоне.",
+      "someone": "Кто-то рядом",
+      "guest": "Гость",
+      "childDevice": "Телефон вашего ребёнка",
+      "accept": "Принять",
+      "decline": "Отклонить",
+      "acceptA11y": "Принять: {{name}}",
+      "declineA11y": "Отклонить: {{name}}",
+      "status": {
+        "accepted": "Принят",
+        "declined": "Отклонён",
+        "completed": "Связан"
+      },
+      "stopped": {
+        "timeout": "Остановлено через 10 минут для экономии заряда.",
+        "background": "Остановлено, так как вы вышли из Munib Tracker.",
+        "bluetoothOff": "Остановлено, так как Bluetooth был выключен.",
+        "used": "Готово — это приглашение рядом уже использовано.",
+        "error": "Не удалось сделать телефон видимым. Повторите попытку или используйте код или QR."
+      },
+      "again": "Снова сделать видимым",
+      "acceptedToast": "Принято — теперь они в круге.",
+      "linkedToast": "Одобрено — телефон свяжется через мгновение.",
+      "errorFull": "Не удалось принять — возможно, круг заполнен или на этот запрос уже ответили.",
+      "errorEnded": "Это приглашение рядом завершено.",
+      "errorForbidden": "Вы больше не можете приглашать людей в этот круг."
+    },
+    "rationale": {
+      "title": "Найдите друг друга через Bluetooth",
+      "hostBody": "Ваш телефон показывает этот круг только телефонам прямо рядом с вами и только пока открыт этот экран (не более 10 минут). Передаётся лишь временный код — никогда ваше имя или местоположение.",
+      "joinBody": "Ваш телефон ищет круги прямо рядом с вами, только пока открыта эта панель. Ничего не передаётся, пока вы не подтвердите и организатор не одобрит.",
+      "androidLocation": "В этой версии Android для поиска по Bluetooth нужно разрешение на доступ к местоположению. Ваше местоположение никогда не используется и не сохраняется.",
+      "continue": "Продолжить",
+      "notNow": "Не сейчас"
+    },
+    "blocked": {
+      "unsupported": {
+        "title": "Функция «Рядом» недоступна на этом телефоне",
+        "body": "Используйте вместо этого код или QR."
+      },
+      "bluetoothOff": {
+        "title": "Bluetooth выключен",
+        "bodyIos": "Включите Bluetooth в Пункте управления и повторите попытку.",
+        "bodyAndroid": "Включите Bluetooth и повторите попытку."
+      },
+      "permissionDenied": {
+        "title": "Нужно разрешение Bluetooth",
+        "body": "Разрешите доступ к «Устройствам поблизости», чтобы телефоны нашли друг друга. Код или QR по-прежнему доступны."
+      },
+      "permissionBlocked": {
+        "title": "Bluetooth отключён для Munib Tracker",
+        "body": "Разрешите Bluetooth («Устройства поблизости» на Android) для Munib Tracker в Настройках или используйте код или QR."
+      },
+      "locationOff": {
+        "title": "Геолокация отключена",
+        "body": "В этой версии Android поиск по Bluetooth работает только при включённой геолокации. Ваше местоположение никогда не используется."
+      },
+      "openSettings": "Открыть Настройки",
+      "openBluetooth": "Настройки Bluetooth",
+      "openLocation": "Настройки геолокации",
+      "retry": "Повторить"
+    },
+    "join": {
+      "button": "Присоединиться рядом",
+      "buttonHint": "Найдите круг на телефоне рядом с вами",
+      "title": "Присоединиться рядом",
+      "childButton": "Связать с телефоном родителя рядом",
+      "childTitle": "Связать рядом",
+      "scanning": "Поиск кругов поблизости…",
+      "scanningHint": "Попросите организатора открыть приглашение, выбрать «Рядом» и нажать «Сделать видимым». Держите телефоны близко.",
+      "childScanning": "Поиск телефона родителя…",
+      "childScanningHint": "Попросите родителя открыть ваш профиль, выбрать «Рядом» и нажать «Сделать видимым».",
+      "childItem": "Связать этот телефон",
+      "proximity": {
+        "veryClose": "Совсем рядом",
+        "near": "Рядом",
+        "far": "Дальше"
+      },
+      "itemA11y": "{{name}}, {{type}}, {{proximity}}",
+      "compareTitle": "Цифры совпадают?",
+      "compareBody": "Проверьте, что на экране организатора те же 4 цифры. Если не совпадают, вернитесь назад — это другой телефон.",
+      "match": "Совпадают",
+      "noMatch": "Не совпадают",
+      "sending": "Отправка…",
+      "waiting": "Ждём, пока организатор примет…",
+      "waitingHint": "Не закрывайте экран. Организатор уже видит ваш запрос.",
+      "cancel": "Отменить запрос",
+      "joined": "Вы присоединились к «{{name}}»",
+      "childLinked": "Этот телефон связан",
+      "open": "Открыть",
+      "declined": "Организатор отклонил этот запрос.",
+      "expired": "Это приглашение рядом завершено. Попросите организатора снова сделать телефон видимым.",
+      "paused": {
+        "timeout": "Поиск остановлен через 10 минут для экономии заряда.",
+        "background": "Приостановлено, пока Munib Tracker был в фоне.",
+        "error": "Не удалось найти телефоны поблизости.",
+        "bluetoothOff": "Остановлено, так как Bluetooth был выключен."
+      },
+      "scanAgain": "Искать снова",
+      "error": {
+        "mismatch": "Эти цифры относятся к другому приглашению. Вернитесь и выберите нужный круг.",
+        "alreadyMember": "Вы уже в этом круге.",
+        "needsAccount": "Войдите в аккаунт, чтобы присоединиться к этому кругу.",
+        "busy": "Сейчас слишком много запросов. Повторите попытку чуть позже."
+      },
+      "back": "Назад",
+      "close": "Закрыть",
+      "fallback": "Не находится? Используйте код или отсканируйте QR."
+    }
+  },
+  "scriptureMeaning": {
+    "englishLabel": "Смысл на английском",
+    "englishLabelA11y": "Смысл показан на английском: перевода из надёжного источника на вашем языке пока нет"
   }
 }

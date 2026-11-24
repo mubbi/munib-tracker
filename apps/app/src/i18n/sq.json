@@ -53,7 +53,7 @@
     "signedIn": "Signed në",
     "confirm": "Konfirmo",
     "markCompleteConfirmTitle": "Mark as përfunduar?",
-    "markCompleteConfirmMsg": "Kjo adds it në juaj learning progresi. Ju can undo kjo anytime.",
+    "markCompleteConfirmMsg": "Kjo e shton në përparimin tuaj të mësimit. Mund ta zhbëni në çdo kohë.",
     "markCompleteConfirmAction": "Mark përfunduar",
     "search": "Kërko",
     "notifications": "Njoftime",
@@ -79,7 +79,7 @@
       "hint": "Rishikoni çfarë keni mësuar",
       "empty": "Pyetjet e këtij udhëzuesi ende po ngarkohen. Hapni disa mësime, pastaj provoni përsëri."
     },
-    "pause": "Pause",
+    "pause": "Pauzë",
     "tvUnavailableTitle": "Nuk disponohet në TV",
     "tvUnavailableBody": "Kjo veçori kërkon telefon ose tablet. Hap Munib Tracker atje për të vazhduar.",
     "tvOauthHint": "Preferoni kodin QR sipër për t’u futur nga telefoni. Ose vazhdoni si mysafir — lidhni një llogari në çdo kohë nga Profili në telefon.",
@@ -114,7 +114,7 @@
       "rizq": "Ризк",
       "rahman": "Ар-Рахман",
       "sleep": "Flini",
-      "istighfar": "Istighfar",
+      "istighfar": "Istigfar",
       "quranTv": "Zgjidhni për të lexuar në Qur'an",
       "hadithTv": "Zgjidhni për të lexuar hadithin e plotë"
     },
@@ -124,7 +124,7 @@
       "dua": "Дуа",
       "zikr": "Zikret",
       "name": "99 emra",
-      "durood": "Duroods",
+      "durood": "Salavatet",
       "learn": "Mëso",
       "notes": "Shënimet e mia",
       "roots": "Rrënjët"
@@ -178,7 +178,7 @@
     "hayd": "Hayd dhe ibadeti",
     "sick": "Sëmundja dhe Salah",
     "adhkarBuilder": "Adhkarët e mi",
-    "sahaba": "Sahaba",
+    "sahaba": "Sahabët",
     "history": "Histori Islame",
     "laylatAlQadr": "Nata e Kadrit",
     "eid": "Guida e Bajramit",
@@ -216,7 +216,7 @@
     "family": "Familja"
   },
   "quickActions": {
-    "checklistSubtitle": "Log today's salah",
+    "checklistSubtitle": "Regjistroni namazet e sotme",
     "qiblaSubtitle": "Gjeni drejtimin e kibles",
     "tasbeehSubtitle": "Hapur banak tesbih",
     "qazaSubtitle": "Manage humbur salah",
@@ -287,7 +287,7 @@
       }
     },
     "remaining": "E mbetur",
-    "atTime": "at {{time}}",
+    "atTime": "në {{time}}",
     "streak": "Seria e namazit",
     "streakDays": "{{count}} ditë",
     "streakDays_one": "{{count}} ditë",
@@ -387,7 +387,7 @@
     }
   },
   "fastStatusSheet": {
-    "prompt": "Choose juaj agjërimi status",
+    "prompt": "Zgjidhni statusin e agjërimit tuaj",
     "fasted": "Agjëroi",
     "missed": "Humbur",
     "exempt": "Përjashtohen",
@@ -396,37 +396,37 @@
   "bookmarks": {
     "eyebrow": "Biblioteka",
     "title": "Faqerojtësit",
-    "subtitle": "Të gjitha juaj saved reading në one place",
-    "subtitleCount": "{{count}} saved items",
+    "subtitle": "Të gjitha leximet tuaja të ruajtura në një vend",
+    "subtitleCount": "{{count}} elemente të ruajtura",
     "reading": "Leximi",
     "saved": "Të ruajtura",
-    "quran": "Kurani ayahs",
-    "hadith": "Hadith",
-    "duas": "Saved duas",
-    "zikr": "Adkari i preferuar",
-    "duroods": "Saved duroods",
-    "names": "Saved names",
+    "quran": "Ajetet e Kuranit",
+    "hadith": "Hadithet",
+    "duas": "Duatë e ruajtura",
+    "zikr": "Adhkarët e preferuar",
+    "duroods": "Salavatet e ruajtura",
+    "names": "Emrat e ruajtur",
     "emptyTitle": "Asgjë nuk është ruajtur ende",
-    "emptySubtitle": "Eksploro më poshtë dhe ruaj as ju read",
-    "emptyDesc": "Juaj bookmarked ayahs, hadith, duas, dhe adhkar will collect here.",
-    "exploreReading": "Fillo reading",
-    "exploreSaved": "Fillo saving",
-    "exploreQuran": "Browse Kurani",
+    "emptySubtitle": "Eksploroni më poshtë dhe ruani ndërsa lexoni",
+    "emptyDesc": "Ajetet, hadithet, duatë dhe zikret që ruani do të mblidhen këtu.",
+    "exploreReading": "Fillo leximin",
+    "exploreSaved": "Filloni të ruani",
+    "exploreQuran": "Shfletoni Kuranin",
     "exploreQuranHint": "Prekni ikonën e faqeshënuesit te çdo ajet",
-    "exploreHadith": "Browse Hadith",
+    "exploreHadith": "Shfletoni hadithet",
     "exploreHadithHint": "Ruani nga çdo koleksion",
     "exploreDuas": "Shfletoni duatë",
-    "exploreDuasHint": "Tap  star në ruaj  dua",
+    "exploreDuasHint": "Prekni yllin për të ruajtur një dua",
     "exploreZikr": "Shfletoni adhkarët",
-    "exploreZikrHint": "Tap  zemër në favorite adhkar",
-    "exploreDuroods": "Shfletoni Duroods",
-    "exploreDuroodsHint": "Tap  star në ruaj  durood",
-    "exploreNames": "Browse 99 emra",
-    "exploreNamesHint": "Tap  star në ruaj  name",
-    "exploreQuranHintTv": "Zgjidhni ikonën e shenjës në çdo ajet",
+    "exploreZikrHint": "Prekni zemrën për t'i shtuar zikret te të preferuarat",
+    "exploreDuroods": "Shfletoni salavatet",
+    "exploreDuroodsHint": "Prekni yllin për të ruajtur një salavat",
+    "exploreNames": "Shfletoni 99 Emrat",
+    "exploreNamesHint": "Prekni yllin për të ruajtur një emër",
+    "exploreQuranHintTv": "Zgjidhni ikonën e faqeshënuesit te çdo ajet",
     "exploreDuasHintTv": "Zgjidhni yllin për të ruajtur një dua",
-    "exploreZikrHintTv": "Zgjidhni zemrën për të bërë të preferuar adhkar",
-    "exploreDuroodsHintTv": "Zgjidhni yllin për të ruajtur një durood",
+    "exploreZikrHintTv": "Zgjidhni zemrën për t'i shtuar adhkarët te të preferuarat",
+    "exploreDuroodsHintTv": "Zgjidhni yllin për të ruajtur një salavat",
     "exploreNamesHintTv": "Zgjidhni yllin për të ruajtur një emër",
     "exploreHadithHintTv": "Zgjidhni për të hapur një koleksion hadithi"
   },
@@ -441,9 +441,9 @@
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Filloni të gjurmoni",
     "goToChecklist": "Shkoni te Lista e Kontrollit",
-    "prayersStat": "Salah",
+    "prayersStat": "Namazi",
     "dhikrStat": "Zikri",
-    "qazaStat": "Qaza",
+    "qazaStat": "Kaza",
     "streakStat": "brez",
     "qazaRemaining": "Kaza e mbetur",
     "qazaMeta": "{{completed}} i krijuar deri tani · trokit për ta menaxhuar",
@@ -460,8 +460,8 @@
       "motivation": "Kujtesa ditore"
     },
     "knowledgeTopic": {
-      "prayer": "Salah",
-      "qaza": "Qaza",
+      "prayer": "Namazi",
+      "qaza": "Kaza",
       "zikr": "Zikri",
       "fasting": "agjërimi",
       "steadfastness": "Qëndrueshmëria",
@@ -525,8 +525,8 @@
       "quran": "Kurani",
       "hadith": "Hadithi",
       "dua": "Dua",
-      "zikr": "Adhkar",
-      "durood": "Durood",
+      "zikr": "Zikret",
+      "durood": "Salavat",
       "names": "99 Emra",
       "audio": "Audio"
     },
@@ -552,11 +552,11 @@
       },
       "qaza-hope": {
         "text": "Lutjet e humbura mund të kompensohen. Vendosni një ritëm të butë ditor për kaza në vend që të mbani faj.",
-        "topic": "qaza"
+        "topic": "kaza"
       },
       "qaza-one": {
         "text": "Një kaza e pastruar sot është më mirë sesa të presësh për një brez të përsosur nesër.",
-        "topic": "qaza"
+        "topic": "kaza"
       },
       "zikr-heart": {
         "text": "Edhe pak çaste zikri pas namazit e zbut zemrën dhe e qetëson gjuhën.",
@@ -577,7 +577,7 @@
       "consistency": {
         "text": "Allahu i do veprat e qëndrueshme, edhe nëse ato janë të vogla. Vazhdoni të shfaqeni.",
         "topic": "qëndrueshmëri",
-        "source": "a"
+        "source": "Sahih al-Buhari 6464 · Sahih Muslim 782"
       },
       "tracker-honest": {
         "text": "Një gjurmues i sinqertë ju ndihmon të shihni modelet, jo të gjykoni veten. Progresi fillon me ndërgjegjësimin.",
@@ -612,9 +612,9 @@
       "reminderTitle": "Xhuma Mubarek",
       "reminderBody": "Falni Jumu'ah dhe plotësoni sunetin e së premtes — Ghusl, Surah al-Kahf, salawat dhe Dua."
     },
-    "khatmStat": "Khatm",
+    "khatmStat": "Hatme",
     "khatmCard": {
-      "badge": "Khatm",
+      "badge": "Hatme",
       "reminderTitle": "Pjesa e Qur'an për sot",
       "catchUpTitle": "Kompenso khatm",
       "reminderBody": "Regjistro {{done}}/{{total}} ayahs drejt objektivit khatm të sotëm.",
@@ -650,8 +650,8 @@
   },
   "tracker": {
     "eyebrow": "Ndiq & log",
-    "title": "Tracker",
-    "subtitle": "Tap  salah në set its status — saved në kjo pajisja.",
+    "title": "Ndjekësi",
+    "subtitle": "Prekni një namaz për t'i caktuar statusin — ruhet në këtë pajisje.",
     "excusedTitle": "Excused ditë",
     "excusedHint": "Hayd, sëmundje ose udhëtim — ndërpritni gjurmimin e detyrueshëm pa thyer serinë. Ndërprerja vazhdon çdo ditë derisa të rifilloni.",
     "excusedActive": "Gjurmimi i detyrueshëm është ndërprerë për këtë periudhë — seria juaj ruhet derisa të rifilloni.",
@@ -669,29 +669,29 @@
     "witrSubtitle": "Sunet mu'ekkede — shumë i theksuar, jo një nga pesë namazet farz.",
     "sunnahOptional": "Sunnet & opsionale",
     "keepGoing": "Vazhdo",
-    "salahAdhkar": "Salah adhkar",
-    "salahAdhkarSubtitle": "Sunnet adhkar në recite around every salah.",
-    "salahCaption": "salah",
-    "glanceTitle": "Today's progresi",
+    "salahAdhkar": "Zikret e namazit",
+    "salahAdhkarSubtitle": "Zikre sunet për t'u recituar rreth çdo namazi.",
+    "salahCaption": "namaz",
+    "glanceTitle": "Përparimi i sotëm",
     "rings": {
       "sunnah": "Opsionale Salah",
       "witr": "Vitr",
       "adhkar": "Zikret",
       "qaza": "Kaza",
       "a11y": "{{label}}: {{percent}}% përfunduar, {{completed}} e {{total}}",
-      "khatm": "Khatm"
+      "khatm": "Hatme"
     },
-    "allDone": "MashaAllah — të gjitha done",
+    "allDone": "MashaAllah — të gjitha u kryen",
     "freshStart": " fresh fillo",
     "keepGoingShort": "Vazhdo",
     "almostThere": "Edhe pak",
-    "summaryLogged": "{{completed}} e {{total}} obligatory salah logged sot.",
+    "summaryLogged": "{{completed}} nga {{total}} namaze farz të regjistruara sot.",
     "streakLine": "🔥 {{count}}-ditë seria",
     "streakLabel": "{{count}} ditë seria",
     "qazaTargets": "Qaza objektivat",
     "qazaTargetsProgress": "{{done}} e {{total}} qaza sot",
     "afterSalahAdhkarReminderTitle": "Pas {{prayer}}",
-    "afterSalahAdhkarReminderBody": "Take  moment për tasbeeh dhe after-salah adhkar.",
+    "afterSalahAdhkarReminderBody": "Ndaluni një çast për tesbih dhe zikret pas namazit.",
     "afterSalahProgress": "Adhkarët {{completed}}/{{total}}",
     "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} e {{total}} përfunduar sot",
     "friday": {
@@ -915,7 +915,7 @@
         "location": "Kuvajti"
       },
       "makkah-muezzin": {
-        "name": "Ali Ibn Ahmed Mala",
+        "name": "Ali Ahmed Mulla",
         "location": "El-Mesxhid el-Haram"
       }
     },
@@ -923,7 +923,7 @@
   },
   "import": {
     "title": "Import salah historia",
-    "subtitle": "Backfill logs nga another app ose  spreadsheet",
+    "subtitle": "Plotësoni regjistrimet nga një aplikacion tjetër ose nga një fletëllogaritëse",
     "pasteTitle": "Ngjit juaj të dhënat",
     "formatHint": "Ngjit JSON ( array e { date, prayerId, status }) ose CSV rows date,prayerId,status. Dates janë YYYY-MM-DD; salah janë fajr, dhuhr, asr, maghrib, isha, witr; statuses janë përfunduar, humbur, delayed, qaza.",
     "placeholder": "[{\"date\":\"2026-06-01\",\"prayerId\":\"fajr\",\"status\":\"përfunduar\"}]",
@@ -932,25 +932,25 @@
     "summaryValid": "{{count}} rreshta të vlefshëm",
     "summaryErrors": "{{count}} gabime",
     "summaryDuplicates": "{{count}} rreshta të dyfishtë u bashkuan",
-    "summaryRange": "Dates {{from}} → {{to}}",
+    "summaryRange": "Datat {{from}} → {{to}}",
     "errorLine": "Rreshti {{row}}: {{message}}",
     "moreErrors": "+{{count}} gabime të tjera",
     "alsoQaza": "Also shto humbur salah në Qaza",
-    "alsoQazaHint": "Increase juaj make-up counters by each imported miss.",
+    "alsoQazaHint": "Rritni numëruesit e kazasë me çdo namaz të humbur të importuar.",
     "commit": "Importo regjistrat {{count}}",
     "importing": "Importimi…",
-    "done": "Imported {{count}} salah logs",
+    "done": "U importuan {{count}} regjistrime namazi",
     "failed": "Importi dështoi. Ju lutemi provoni përsëri."
   },
   "login": {
-    "eyebrowGuest": "Ruaj juaj progresi",
+    "eyebrowGuest": "Ruani përparimin tuaj",
     "eyebrowWelcome": "Mirë se vini",
-    "title": "Sign në",
-    "subtitle": "Sync juaj ibadeti across devices",
+    "title": "Hyr",
+    "subtitle": "Sinkronizoni ibadetin tuaj në të gjitha pajisjet",
     "google": "Vazhdo me Google",
     "apple": "Vazhdoni me Apple",
     "facebook": "Vazhdo me Facebook",
-    "heroGuest": "You're using  guest llogaria. Link  provider në back up dhe sync juaj të dhënat — nothing është lost.",
+    "heroGuest": "Po përdorni një llogari mysafiri. Lidhni një ofrues për të rezervuar dhe sinkronizuar të dhënat tuaja — asgjë nuk humbet.",
     "heroUser": "Mbajini namazin, kazën dhe zikrin të sigurt në re.",
     "error": "Nuk u krye hyrja. Sigurohu që serveri API është duke u ekzekutuar dhe ky ofrues është konfiguruar.",
     "providersUnavailableTitle": "Hyrja nuk është e disponueshme ende",
@@ -965,40 +965,39 @@
   },
   "onboarding": {
     "begin": "Filloni",
-    "brandDuaLabel": " supplication për ease",
+    "brandDuaLabel": "Një dua për lehtësim",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
     "brandDuaTransliteration": "Allahumma la sahla illa ma ja'altahu sahla, wa anta taj'alul-hazna idha shi'ta sahla",
-    "brandDuaTranslation": "O Allah, there është no ease except në ajo which Ju make easy, dhe Ju make  difficult easy if Ju wish.",
-    "slide1Eyebrow": "Salah",
+    "slide1Eyebrow": "Namazi",
     "slide1Title": "Ndiq juaj salah",
     "slide1Body": "Mark each salah në juaj udhëtimi back në Allah — përfunduar, humbur, delayed, ose qaza.",
-    "slide1Highlight1": "Five fard salah plus Witr (sunnah mu'akkadah) dhe sunnah",
-    "slide1Highlight2": "Streaks, progresi ring, dhe calendar",
-    "slide1Highlight3": "Salah times hero me Hijri date dhe countdown",
+    "slide1Highlight1": "Pesë namazet farz, plus vitri (sunet mu'ekkede) dhe sunetet",
+    "slide1Highlight2": "Seritë, unaza e përparimit dhe kalendari",
+    "slide1Highlight3": "Kohët e namazit në krye, me datën hixhri dhe numërimin mbrapsht",
     "slide2Eyebrow": "Kaza",
-    "slide2Title": "Make up what was humbur",
-    "slide2Body": "Turn qaza nga overwhelming në doable — estimate, plan  pace, dhe ndiq agjërimi.",
-    "slide2Highlight1": "Per-salah counters synced nga juaj tracker",
-    "slide2Highlight2": "Lifetime calculator me dijetar-aware guidance",
-    "slide2Highlight3": "Ditor pace planner me ETA në clear juaj backlog",
+    "slide2Title": "Kompensoni atë që keni humbur",
+    "slide2Body": "Ktheni kazanë nga diçka dërrmuese në diçka të arritshme — vlerësoni, planifikoni një ritëm dhe ndiqni agjërimin.",
+    "slide2Highlight1": "Numërues për çdo namaz, të sinkronizuar nga ndjekësi juaj",
+    "slide2Highlight2": "Llogaritës për gjithë jetën me udhëzime të mbështetura te dijetarët",
+    "slide2Highlight3": "Planifikues i ritmit ditor me afatin e parashikuar për të shlyer mbetjet",
     "slide3Eyebrow": "Zikri",
     "slide3Title": "Remember Allah ditor",
-    "slide3Body": "Morning, evening, dhe situational adhkar me  tactile tasbeeh counter.",
+    "slide3Body": "Zikret e mëngjesit, të mbrëmjes dhe të rasteve të ndryshme, me një numërues tesbihu që ndihet në prekje.",
     "slide3Highlight1": "Shtatë kategori adkar plus të preferuarat",
-    "slide3Highlight2": "Free tasbeeh me presets dhe custom objektivat",
+    "slide3Highlight2": "Tesbih i lirë me paracaktime dhe objektiva të personalizuar",
     "slide3Highlight3": "Përkujtues para gjumit të vetëdijshëm për kohën e gjumit",
     "slide4Eyebrow": "Guidce",
     "slide4Title": "Kurani, hadith & duas offline",
-    "slide4Body": "Read, kërko, dhe listen — bundled për  road me opsionale gentle reminders.",
-    "slide4Highlight1": "Full Kurani me recitation dhe ayah kërko",
+    "slide4Body": "Lexoni, kërkoni dhe dëgjoni — gjithçka me vete për rrugë, me përkujtues të butë opsionalë.",
+    "slide4Highlight1": "Kurani i plotë me recitim dhe kërkim ajetesh",
     "slide4Highlight2": "Hadith, duas, duroods, dhe  99 emra",
-    "slide4Highlight3": "Salah times, qibla compass, dhe opsionale nudges",
+    "slide4Highlight3": "Kohët e namazit, busulla e kibles dhe kujtesa opsionale",
     "ctaEyebrow": "Ju jeni gati",
     "ctaTitle": "Begin juaj udhëtimi",
-    "ctaBody": "Everything works offline në juaj pajisja. Sign në anytime në sync across phones dhe tablets.",
+    "ctaBody": "Gjithçka funksionon jashtë linje në pajisjen tuaj. Hyni në çdo kohë për të sinkronizuar mes telefonave dhe tabletave.",
     "ctaPrivacyTitle": "Privat si parazgjedhje",
     "ctaPrivacyBody": "No llogaria e detyrueshme. Juaj ibadeti të dhënat stays në juaj pajisja until ju choose në back up dhe sync.",
-    "signInToSync": "Sign në në sync",
+    "signInToSync": "Hyni për të sinkronizuar",
     "pageOf": "Faqja {{page}} nga {{total}}",
     "locationEyebrow": "Vendndodhja dhe rikujtimet",
     "locationTitle": "Oraret e namazit dhe rikujtime të buta",
@@ -1051,37 +1050,37 @@
   "timeFormat": {
     "title": "Formati i kohës",
     "subtitle": "Si shfaqen orët në të gjithë aplikacionin",
-    "hint": "Applies në salah times, reminders, schedules, dhe bedtime",
+    "hint": "Vlen për kohët e namazit, përkujtuesit, oraret dhe orën e gjumit",
     "option12": "12-orëshe",
     "option24": "24-orëshe",
-    "example12": "Shembull: 2:30 PM",
+    "example12": "Shembull: 2:30 m.d.",
     "example24": "Shembull: 14:30",
-    "am": "M",
-    "pm": "ПП",
-    "footer": "Juaj choice është saved automatically dhe used everywhere times janë shown."
+    "am": "p.d.",
+    "pm": "m.d.",
+    "footer": "Zgjedhja juaj ruhet automatikisht dhe përdoret kudo ku shfaqen orët."
   },
   "defaultCalendar": {
     "title": "Kalendari i parazgjedhur",
     "subtitle": "Si shfaqen datat në të gjithë aplikacionin",
     "hint": "Zbatohet për ngjarjet, ditarin, skedat e kalendarit dhe etiketat e tjera të datave. Banderola e faqes kryesore shfaq gjithmonë të dy kalendarët.",
     "optionGregorian": "Gregorian",
-    "optionHijri": "hixhri",
+    "optionHijri": "Hixhri",
     "exampleGregorian": "Shembull: e hënë, 23 mars 2026",
-    "exampleHijri": "Example: Ramazani 1, 1447 AH",
+    "exampleHijri": "Shembull: 1 Ramazan 1447 H",
     "footer": "Zgjedhja juaj ruhet automatikisht. Ekranet e kalendarit ju lejojnë ende të ndërroni përkohësisht."
   },
   "weather": {
     "title": "Moti",
-    "subtitle": "Live conditions në juaj kryefaqja hero",
+    "subtitle": "Kushtet e drejtpërdrejta në kreun e faqes kryesore",
     "effectsTitle": "Efektet e heroit",
-    "effectsHint": "Animated overlays në  kryefaqja banner ajo match local weather.",
+    "effectsHint": "Efekte të animuara mbi banerin e faqes kryesore që përputhen me motin vendor.",
     "effectsToggle": "Efektet e motit",
     "effectsToggleSub": "Shi, re, diell, erë dhe më shumë në banderolën kryesore",
     "unitTitle": "Njësia e temperaturës",
-    "unitHint": "Shown beside juaj location në  kryefaqja screen",
+    "unitHint": "Shfaqet pranë vendndodhjes suaj në ekranin kryesor",
     "unitCelsius": "Цельсий (°C)",
     "unitFahrenheit": "Farenhait (°F)",
-    "footer": "Weather refreshes every 3 hours using free Open-Meteo dhe MET Norway të dhënat.",
+    "footer": "Moti rifreskohet çdo 3 orë me të dhëna falas nga Open-Meteo dhe MET Norway.",
     "condition": {
       "clear": "Pastro",
       "partly_cloudy": "Pjesërisht me re",
@@ -1136,10 +1135,10 @@
     "groupZikr": "Zikri",
     "groupMilestones": "Piketat",
     "channels": {
-      "prayer": "Përkujtime për Salah",
+      "prayer": "Përkujtues për namazin",
       "prayerAdhan": "Ezani në kohën e namazit",
-      "zikr": "Përkujtues Zikri",
-      "qaza": "Kujtime kaza",
+      "zikr": "Përkujtues për zikrin",
+      "qaza": "Përkujtues për kazanë",
       "prayerOngoing": "Numërimi i namazit të radhës"
     },
     "snooze": "Shty {{minutes}} min",
@@ -1259,8 +1258,8 @@
       }
     },
     "groupContent": "Përmbajtje ditore",
-    "defaultLocationTitle": "Set your location for Salah alerts",
-    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
+    "defaultLocationTitle": "Caktoni vendndodhjen për njoftimet e namazit",
+    "defaultLocationMessage": "Përkujtuesit e namazit dhe të ezanit kanë nevojë për qytetin tuaj. Kujtesat e zikrit dhe të kazasë me orë fikse planifikohen gjithsesi.",
     "liveActivityHintAndroid": "Shfaq një njoftim të përhershëm me numërimin e gjallë të namazit të radhës dhe veprimin Shëno.",
     "markPrayed": "Shëno si të falur",
     "trackSalah": {
@@ -1285,7 +1284,7 @@
     "sampleTranslation": "Glory është në Allah dhe praise është në Him.",
     "arabicText": "Teksti arab",
     "translationText": "Përkthim dhe transliterim",
-    "footer": "Applied across zikr, dua, dhe tasbeeh reading views.",
+    "footer": "Zbatohet në pamjet e leximit të zikrit, duasë dhe tesbihut.",
     "small": "I vogël",
     "medium": "E mesme",
     "large": "I madh",
@@ -1313,7 +1312,7 @@
     "afterSalahTodayForPrayer": "After {{prayer}} sot",
     "afterSalahProgress": "{{completed}}/{{total}} kryer",
     "emptyTitle": "Ende nuk ka adkar",
-    "emptyDesc": "More entries për kjo category janë në  way.",
+    "emptyDesc": "Më shumë zëra për këtë kategori janë në rrugë.",
     "detailEyebrow": "Zikri",
     "today": "Sot",
     "openInTasbeeh": "Hap në Tesbih",
@@ -1323,9 +1322,9 @@
     "notFoundTitle": "Zikri nuk u gjet",
     "notFoundDesc": "Ky element mund të jetë hequr.",
     "favTitle": "Të preferuarat",
-    "favSubtitle": "Reorder ose remove juaj saved adhkar",
+    "favSubtitle": "Rirenditni ose hiqni zikret tuaja të ruajtura",
     "favEmptyTitle": "Ende nuk ka të preferuar",
-    "favEmptyDesc": "Tap  star në any zikr në keep it here për quick access.",
+    "favEmptyDesc": "Prekni yllin te çdo zikër për ta mbajtur këtu për qasje të shpejtë.",
     "browseZikr": "Shfletoni zikrin",
     "moveUp": "Lëvizni lart",
     "moveDown": "Lëvizni poshtë",
@@ -1363,7 +1362,7 @@
     "share": "Ndaj",
     "showMore": "Shfaq more",
     "showLess": "Shfaq less",
-    "copied": "Copied në clipboard",
+    "copied": "U kopjua në kujtesë",
     "textSize": "Madhësia e tekstit",
     "decrease": "Zvogëlo madhësinë e tekstit",
     "increase": "Rritni madhësinë e tekstit",
@@ -1394,26 +1393,26 @@
     "dialogTitle": "Ndaj",
     "brandingFooterName": "— {{appName}}",
     "proofTagline": "Ndiq Juaj Udhëtimi Back në Allah — free në iOS, Android & web",
-    "proofGetApp": "Get Munib Tracker free",
+    "proofGetApp": "Shkarkoni Munib Tracker falas",
     "proofIosLabel": "App Store",
     "proofAndroidLabel": "Google Play",
     "proofWebLabel": "Aplikacioni web",
     "proofQrIosA11y": "QR code — download në  App Store",
     "proofQrAndroidA11y": "QR code — get it në Google Play",
-    "proofQrWebA11y": "QR code — open  web app",
+    "proofQrWebA11y": "Kodi QR — hap aplikacionin web",
     "proofExportedAt": "E ndarë · {{exportedAt}}",
     "proofOrVisit": "Ose visit: {{url}}",
-    "proofNotice": "Shared për benefit — please verify religious përmbajtja me  trusted dijetar.",
+    "proofNotice": "U nda për dobi — ju lutemi verifikoni përmbajtjen fetare me një dijetar të besuar.",
     "sectionReading": "Leximi",
     "sectionQuran": "Kurani",
-    "sectionHadith": "Hadith",
+    "sectionHadith": "Hadithi",
     "sectionNames": "99 emra e Allah",
     "sectionAchievement": "Arritje",
     "sectionGuide": "Mëso",
     "guideReadAt": "Read në Munib Tracker:",
     "preparing": "Po ndan…",
-    "tapToShare": "Tap në ndaj",
-    "sectionSchedule": "Today's schedule",
+    "tapToShare": "Prek për ta ndarë",
+    "sectionSchedule": "Orari i sotëm",
     "selectToShare": "Zgjidhni për të ndarë"
   },
   "dua": {
@@ -1428,10 +1427,10 @@
     "notFoundDesc": "Ky element mund të jetë hequr.",
     "share": "Ndaj",
     "favorite": "Ruaj dua",
-    "unfavorite": "Remove nga saved",
-    "favorites": "Saved duas",
+    "unfavorite": "Hiqe nga të ruajturat",
+    "favorites": "Duatë e ruajtura",
     "favoritesEmpty": "Nuk ka ende dua të ruajtura",
-    "viewFavorites": "Saved duas",
+    "viewFavorites": "Duatë e ruajtura",
     "searchPlaceholder": "Kërko duas by title, tema, ose text…",
     "searchInCategory": "Kërko në kjo category…",
     "searchResultCount": "{{count}} përputhje",
@@ -1459,12 +1458,17 @@
     "positionInCategory": "{{current}} nga {{total}} në {{category}}",
     "positionInOccasion": "{{current}} nga {{total}}",
     "previous": "E mëparshme",
-    "next": "Tjetra"
+    "next": "Tjetra",
+    "topic": {
+      "deceased": "Dua për të vdekurit",
+      "showing": "Përzgjedhje nga {{category}}",
+      "showAll": "Shfaq të gjitha"
+    }
   },
   "duaCat": {
     "morning_evening": "Mëngjes & Mbrëmje",
     "sleep": "Gjumi dhe zgjimi",
-    "prayer": "Salah & Masjid",
+    "prayer": "Namazi & xhamia",
     "forgiveness": "Falje dhe Mirënjohje",
     "distress": "Vështirësi & Vështirësi",
     "protection": "Mbrojtje & Strehim",
@@ -1481,33 +1485,33 @@
   },
   "duroods": {
     "eyebrow": "Salavate",
-    "title": "Duroods",
+    "title": "Salavatet",
     "subtitle": "Dërgimi i salavateve mbi Profetin ﷺ",
     "searchPlaceholder": "Kërko duroods…",
-    "noResults": "No duroods match juaj kërko",
+    "noResults": "Asnjë salavat nuk përputhet me kërkimin tuaj",
     "favorites": "Duroodet e preferuara",
     "favSubtitle": "Durood që ke ruajtur",
     "favEmptyTitle": "Nuk ka ende durood të preferuar",
-    "favEmptyDesc": "Tap  star në any durood në ruaj it here.",
+    "favEmptyDesc": "Prekni yllin te çdo salavat për ta ruajtur këtu.",
     "openInTasbeeh": "Hap në Tesbih",
     "favEmptyDescTv": "Zgjidhni yllin në çdo durood për ta ruajtur këtu."
   },
   "names": {
     "eyebrow": "Esmaul-Husna",
     "title": "99 emra",
-    "subtitle": "{{count}} e  beautiful names e Allah",
-    "playAll": "Play të gjitha",
+    "subtitle": "{{count}} nga emrat e bukur të Allahut",
+    "playAll": "Luaj të gjitha",
     "playContinuous": "E vazhdueshme",
     "share": "Ndaj",
     "play": "Luaj recitim",
     "pause": "Ndalo recitimin",
-    "searchPlaceholder": "Kërko by name ose meaning…",
+    "searchPlaceholder": "Kërkoni sipas emrit ose kuptimit…",
     "favorite": "Shto në favorites",
-    "unfavorite": "Remove nga favorites",
+    "unfavorite": "Hiqe nga të preferuarat",
     "favorites": "Emrat e preferuar",
     "favSubtitle": "Emrat që keni ruajtur",
     "favEmptyTitle": "Nuk ka ende emra të preferuar",
-    "favEmptyDesc": "Tap  star në any name në ruaj it here.",
+    "favEmptyDesc": "Prekni yllin te çdo emër për ta ruajtur këtu.",
     "favEmptyDescTv": "Zgjidhni yllin në çdo emër për ta ruajtur këtu."
   },
   "quran": {
@@ -1525,10 +1529,10 @@
     "surahCount": "{{shown}} nga {{total}}",
     "reciter": "Recitues",
     "translation": "Përkthimi",
-    "showTransliteration": "Shfaq transliteration",
-    "showTranslation": "Shfaq translation",
+    "showTransliteration": "Shfaq transliterimin",
+    "showTranslation": "Shfaq përkthimin",
     "transliteration": "Transliterimi",
-    "backToTop": "Back në top",
+    "backToTop": "Kthehu në krye",
     "readingProgress": "Ecuria e leximit",
     "playSurah": "Luaj suren",
     "playPage": "Luaj faqen",
@@ -1537,15 +1541,15 @@
     "bookmarks": "Faqerojtës",
     "viewBookmarks": "Shiko faqerojtësit",
     "bookmarksTitle": "Faqerojtësit",
-    "bookmarksSubtitle": "Juaj saved ayahs",
+    "bookmarksSubtitle": "Ajetet tuaja të ruajtura",
     "bookmarkEmptyTitle": "Nuk ka ende faqeshënues",
-    "bookmarkEmptyDesc": "Tap  bookmark icon në any ayah në ruaj it here.",
+    "bookmarkEmptyDesc": "Prekni ikonën e faqerojtësit te çdo ajet për ta ruajtur këtu.",
     "removeBookmark": "Hiq faqerojtësin",
     "juz": "Xhuz",
     "learn": "Mëso",
-    "juzSubtitle": "Read  Kurani në its 30 parts",
-    "juzN": "Джуз {{n}}",
-    "browseByJuz": "Shfleto sipas Juz",
+    "juzSubtitle": "Lexoni Kuranin sipas 30 xhuzeve të tij",
+    "juzN": "Xhuzi {{n}}",
+    "browseByJuz": "Shfleto sipas xhuzit",
     "search": "Kërko",
     "searchTitle": "Kërko në Kuran",
     "searchSubtitle": "Gjeni ajete sipas arabishtes, anglishtes, transliterimit ose referencës",
@@ -1557,18 +1561,18 @@
     "notFoundTitle": "Surja nuk u gjet",
     "notFoundDesc": "Kjo sure mund të mos ekzistojë.",
     "offlineTranslation": "Lidhuni me internetin për ta shkarkuar këtë përkthim. Po shfaqet në vend të tij një përkthim i përfshirë në aplikacion.",
-    "shareAyah": "Ndaj verse",
+    "shareAyah": "Ndaj ajetin",
     "pauseAyah": "Pauzo ajetin",
     "actionPlay": "Luaj",
     "actionPause": "Pauzë",
-    "actionMemorized": "Sukses",
+    "actionMemorized": "U krye",
     "actionReview": "Rishikimi",
     "actionBookmark": "Ruaj",
     "actionBookmarked": "U ruajt",
     "actionShare": "Ndaj",
     "bookmarkAdd": "Ruaj ajetin",
     "bookmarkRemove": "Hiq faqerojtësin",
-    "loadingTranslation": "Duke ngarkuar translation…",
+    "loadingTranslation": "Duke ngarkuar përkthimin…",
     "searching": "Duke kërkuar…",
     "secondTranslation": "Përkthimi i dytë",
     "secondTranslationNone": "Asnjë",
@@ -1576,33 +1580,33 @@
     "translationCount_one": "{{count}} përkthim",
     "translationCount_other": "{{count}} përkthime",
     "translationBundled": "E disponueshme jashtë linje",
-    "translationRemote": "Shkarkimet kur nevojitet",
+    "translationRemote": "Shkarkohet kur nevojitet",
     "backToLanguages": "Të gjitha gjuhët",
     "searchTranslationLanguages": "Kërko gjuhët…",
     "searchTranslators": "Kërko përkthyes…",
     "pages": "Faqet",
     "pagesSubtitle": "Shfletoni mushafin e Medinës sipas faqeve",
     "pageN": "Faqja {{n}}",
-    "pageOf": "Page {{page}} e {{total}}",
+    "pageOf": "Faqja {{page}} nga {{total}}",
     "pageFraction": "{{page}} / {{total}}",
-    "pagePickerTitle": "Jump në page",
-    "pagePickerSearch": "Kërko page ose surah…",
+    "pagePickerTitle": "Shko te faqja",
+    "pagePickerSearch": "Kërko faqe ose sure…",
     "readerLayout": "Paraqitja e lexuesit",
     "layoutAyah": "Studim i ajeteve",
     "layoutPage": "Pamje faqeje",
     "layoutMushaf": "Mus'haf",
     "mushafOnlyHint": "Vetëm arabisht",
     "loadingMushafFont": "Duke ngarkuar…",
-    "pageReaderTitle": "Kurani page {{page}} e {{total}}",
+    "pageReaderTitle": "Kurani, faqja {{page}} nga {{total}}",
     "pageReaderDesc": "Lexoni Kuranin Fisnik — faqja {{page}} e mushafit të Medinës, pa internet, me audio dhe faqeshënues.",
-    "prevPage": "I mëparshëm page",
-    "nextPage": "Tjetër page",
+    "prevPage": "Faqja e mëparshme",
+    "nextPage": "Faqja tjetër",
     "openPageView": "Hapni pamjen e faqes",
     "continueAtPage": "Faqja {{page}} · {{surah}}:{{ayah}}",
     "enterFullscreen": "Hyr në ekran të plotë",
     "exitFullscreen": "Dil nga ekrani i plotë",
-    "showWordByWord": "Show word by word",
-    "showTajweed": "Show tajweed colours",
+    "showWordByWord": "Fjalë për fjalë",
+    "showTajweed": "Ngjyrat e texhvidit",
     "wordByWord": {
       "title": "Fjalë për fjalë",
       "playWord": "Luaj këtë fjalë",
@@ -1610,9 +1614,9 @@
       "loading": "Fjalët po ngarkohen…"
     },
     "tajweed": {
-      "legend": "Legjenda e Tajvidit",
-      "openLesson": "Hapni mësimin Mësoni Kur'anin",
-      "loading": "Po ngarkohet tajvidi…",
+      "legend": "Legjenda e texhvidit",
+      "openLesson": "Hapni mësimin te Mësoni Kuranin",
+      "loading": "Po ngarkohet texhvidi…",
       "rules": {
         "ghunnah": "Gunne",
         "ikhafa": "Ihfa",
@@ -1622,39 +1626,35 @@
         "idghamShafawi": "Idgam shefevi",
         "iqlab": "Iklab",
         "qalqalah": "Kalkale",
-        "maddNormal": "Madd (2)",
-        "maddPermissible": "Madd (2-4-6)",
-        "maddObligatory": "Madd (4-5)",
-        "maddNecessary": "Madd (6)",
+        "maddNormal": "Medd (2)",
+        "maddPermissible": "Medd (2-4-6)",
+        "maddObligatory": "Medd (4-5)",
+        "maddNecessary": "Medd (6)",
         "hamWasl": "Hemzetul-vasl",
         "lamShamsiyah": "Lami shemsij",
         "silent": "Nuk lexohet"
       },
       "hoverHint": "Rri pezull për të parë rregullin e texhvidit",
-      "tapHint": "Prekni për të parë rregullin e tajvidit",
+      "tapHint": "Prekni për të parë rregullin e texhvidit",
       "hints": {
         "ghunnah": "Tingulli i hundës - 2 rrahje",
-        "ikhafa": "Fshehja me gunnah - 2 rrahje",
+        "ikhafa": "Fshehje me gunne — 2 rrahje",
         "ikhafaShafawi": "Fshehja labiale - 2 rrahje",
         "idghamGhunnah": "Bashkimi me tingullin e hundës - 2 rrahje",
-        "idghamNoGhunnah": "Bashkimi pa zhurmë hundore",
+        "idghamNoGhunnah": "Bashkim pa tingull hundor",
         "idghamShafawi": "Bashkimi labial - 2 rrahje",
-        "iqlab": "Konvertimi në meem të fshehur - 2 rrahje",
-        "qalqalah": "Kërcim me jehonë në letër",
+        "iqlab": "Shndërrim në mim të fshehur — 2 rrahje",
+        "qalqalah": "Kërcim me jehonë te shkronja",
         "maddNormal": "Zgjatim normal - 2 rrahje",
         "maddPermissible": "Zgjatimi i lejuar - 2, 4 ose 6 rrahje",
         "maddObligatory": "Zgjatimi i detyrueshëm - 4 ose 5 rrahje",
         "maddNecessary": "Zgjatimi i nevojshëm - 6 rrahje",
-        "hamWasl": "Hamza lidhëse - ra kur bashkohet",
-        "lamShamsiyah": "Shkronja e diellit لام - nuk shqiptohet",
+        "hamWasl": "Hemze lidhëse — bie kur bashkohet",
+        "lamShamsiyah": "Shkronjë diellore لام — nuk shqiptohet",
         "silent": "E shkruar por jo e shqiptuar"
       },
       "tapHintTv": "Zgjidhni për të parë rregullin e texhvidit"
     },
-    "wordByWordLoading": "Loading word-by-word…",
-    "tajweedLoading": "Loading tajweed…",
-    "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
-    "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
       "title": "Riprodhimi",
       "open": "Cilësimet e riprodhimit",
@@ -1664,15 +1664,15 @@
       "repeatRange": "Gama",
       "repeatSurah": "Surja",
       "rangeStart": "Nga ajeti",
-      "rangeEnd": "Për ajah",
-      "translationAudio": "Përkthim audio",
+      "rangeEnd": "Deri te ajeti",
+      "translationAudio": "Audioja e përkthimit",
       "translationOff": "Joaktiv",
-      "translationAfter": "Pas çdo vargu",
-      "translationAudioHint": "Lexon përkthimin me zë të lartë pas çdo vargu arab (pajisja TTS)",
-      "ttsVoice": "Përkthimi i të folurit zë",
+      "translationAfter": "Pas çdo ajeti",
+      "translationAudioHint": "Lexon përkthimin me zë pas çdo ajeti në arabisht (TTS e pajisjes)",
+      "ttsVoice": "Zëri i leximit të përkthimit",
       "ttsVoiceDefault": "Parazgjedhja për gjuhën",
       "ttsVoiceEmpty": "Nuk u gjetën zëra për këtë gjuhë në këtë pajisje.",
-      "summaryVerse": "Përsëritni vargun",
+      "summaryVerse": "Përsërit ajetin",
       "summarySurah": "Përsërite suren",
       "summaryRange": "Gama {{start}}–{{end}}",
       "summaryTts": "Përkthimi TTS",
@@ -1721,39 +1721,43 @@
       "tvUnavailableBody": "Njohja e ajeteve kërkon mikrofon, të cilin televizori nuk e ka. Në vend të kësaj kërkoni në Kuran me fjalë ose përdorni aplikacionin në telefon."
     },
     "searchPlaceholderArabic": "Kërko tekstin arab ose një referencë si ٢:٢٥٥…",
-    "goToPagePlaceholder": "Page 1–{{max}}",
-    "goToPageA11y": "Go to page number",
-    "goToPageAction": "Go",
-    "goToPageHint": "Enter a page from 1 to {{max}}",
-    "goToPageInvalid": "Enter a page between 1 and {{max}}",
+    "goToPagePlaceholder": "Faqja 1–{{max}}",
+    "goToPageA11y": "Shko te numri i faqes",
+    "goToPageAction": "Shko",
+    "goToPageHint": "Shkruani një faqe nga 1 deri në {{max}}",
+    "goToPageInvalid": "Shkruani një faqe midis 1 dhe {{max}}",
     "surahNumber": "Sureja {{number}}",
     "selectSurah": "Zgjidhni një sure",
     "openReader": "Hap lexuesin",
-    "bookmarkEmptyDescTv": "Zgjidhni ikonën e shenjës në çdo ajet për ta ruajtur këtu.",
+    "bookmarkEmptyDescTv": "Zgjidhni ikonën e faqeshënuesit te çdo ajet për ta ruajtur këtu.",
     "goToAyahPlaceholder": "Ajeti 1–{{max}}",
     "goToAyahA11y": "Shko te numri i ajetit",
     "goToAyahInvalid": "Shkruani një ajet nga 1 deri në {{max}}",
     "searchAyahs": "Kërko ajete",
     "findSurah": "Gjej një sure",
-    "noSurahResults": "Asnjë sure nuk përputhet me kërkimin tuaj."
+    "noSurahResults": "Asnjë sure nuk përputhet me kërkimin tuaj.",
+    "actionMore": "Më shumë",
+    "moreActionsA11y": "Më shumë veprime për ajetin {{n}}",
+    "mushafFontFailedTitle": "Kjo faqe nuk u ngarkua",
+    "mushafFontFailedBody": "Shkronja e mushafit për këtë faqe nuk u shkarkua. Kontrolloni lidhjen dhe provoni përsëri."
   },
   "hadith": {
     "eyebrow": "Tradita profetike",
-    "title": "Hadith",
-    "subtitle": "Collections e  sayings e  Prophet ﷺ",
+    "title": "Hadithi",
+    "subtitle": "Koleksione të thënieve të Profetit ﷺ",
     "collections": "Koleksionet",
     "highlights": "Pikat kryesore jashtë linje",
     "fullCollections": "Koleksione të plota",
-    "hadithCount": "{{count}} hadith",
+    "hadithCount": "{{count}} hadithe",
     "ungraded": "Pa vlerësim",
     "grade": "Vlerësimi: {{grade}}",
     "narrator": "Treguar nga {{narrator}}",
     "bookmark": "Faqeshënues",
-    "searchPlaceholder": "Kërko within kjo collection…",
+    "searchPlaceholder": "Kërkoni brenda këtij koleksioni…",
     "emptyTitle": "Asgjë këtu ende",
-    "emptyDesc": "Kjo collection could not be loaded.",
-    "offlineTitle": "Connect në load kjo collection",
-    "offlineDesc": "Full collections janë downloaded në demand dhe cached për offline reading afterward.",
+    "emptyDesc": "Ky koleksion nuk u ngarkua dot.",
+    "offlineTitle": "Lidhuni për të ngarkuar këtë koleksion",
+    "offlineDesc": "Koleksionet e plota shkarkohen sipas nevojës dhe më pas ruhen për lexim jashtë linje.",
     "loading": "Duke ngarkuar…",
     "notFoundTitle": "Nuk u gjet",
     "notFoundDesc": "Ky element mund të jetë hequr.",
@@ -1763,7 +1767,7 @@
     "bookmarkAdd": "Faqeshënues",
     "bookmarkRemove": "Hiq faqerojtësin",
     "bookmarks": "Faqerojtësit",
-    "bookmarksSubtitle": "Juaj saved hadith",
+    "bookmarksSubtitle": "Hadithet tuaja të ruajtura",
     "bookmarksEmpty": "Nuk ka ende hadith të ruajtur",
     "viewBookmarks": "Shiko faqeshënuesit",
     "arabic": "Arabisht",
@@ -1786,36 +1790,36 @@
   },
   "credits": {
     "eyebrow": "Atribuimi",
-    "title": "Kreditet & sources",
-    "subtitle": " open të dhënat dhe audio ajo power kjo app",
-    "settingsLabel": "Kreditet & të dhënat sources",
-    "settingsSub": "Licenses dhe attribution",
-    "openSource": "Open burimi",
-    "viewSource": "View burimi"
+    "title": "Kreditet dhe burimet",
+    "subtitle": "Të dhënat e hapura dhe audioja që e mundësojnë këtë aplikacion",
+    "settingsLabel": "Kreditet dhe burimet e të dhënave",
+    "settingsSub": "Licencat dhe atribuimi",
+    "openSource": "Burim i hapur",
+    "viewSource": "Shiko burimin"
   },
   "tasbeeh": {
     "eyebrow": "Tesbih",
     "freeTitle": "Kundër",
     "freeSubtitle": "Numëroni çdo zikër, pa duar",
-    "freeHint": "Quick counter — kjo total resets when ju leave. Create  saved counter më poshtë në keep juaj progresi.",
+    "freeHint": "Numërues i shpejtë — ky total rifillon kur largoheni. Krijoni më poshtë një numërues të ruajtur për ta mbajtur përparimin.",
     "quickCounter": "Numërues i shpejtë",
     "customSection": "Juaj counters",
     "customCreateTitle": "I ri counter",
     "customEditTitle": "Redakto counter",
     "customCreateAction": "Krijo numërues",
-    "customFormHint": "Name juaj zikr, shto  note, dhe pick  target count.",
+    "customFormHint": "Emërtoni zikrin tuaj, shtoni një shënim dhe zgjidhni një numër objektiv.",
     "customTitleLabel": "Titulli",
     "customTitlePlaceholder": "p.sh. Durood Shareef",
     "customDescLabel": "Description (opsionale)",
-    "customDescPlaceholder": "e.g. After every salah",
+    "customDescPlaceholder": "p.sh. Pas çdo namazi",
     "customTargetLabel": "Numri i synuar",
     "customTargetSummary": "Synimi: {{target}}",
     "customUnlimitedSummary": "Numërim i pakufizuar",
     "customEmptyTitle": "Nuk ka ende numërues të ruajtur",
-    "customEmptyDesc": "Create  counter për durood, istighfar, ose any zikr ju repeat often — juaj count është saved automatically.",
+    "customEmptyDesc": "Krijoni një numërues për salavat, istigfar ose çdo zikër që e përsërisni shpesh — numri juaj ruhet automatikisht.",
     "customDeleteTitle": "Fshi counter?",
     "customDeleteMessage": "\"{{title}}\" dhe numërimi i tij i ruajtur do të fshihen përgjithmonë.",
-    "customBackToCounters": "Back në counters",
+    "customBackToCounters": "Kthehu te numëruesit",
     "notFoundTitle": "Zikri nuk u gjet",
     "notFoundDesc": "Ky element mund të jetë hequr."
   },
@@ -1827,11 +1831,11 @@
     "maghrib": "Akshami",
     "isha": "Jacia",
     "witr": "Vitr",
-    "tahajjud": "Tahajjud",
-    "ishraq": "Ishraq",
+    "tahajjud": "Tahaxhud",
+    "ishraq": "Ishrak",
     "duha": "Duha",
     "tahiyyatul_masjid": "Tehijetul-mesxhid",
-    "hajat_istikhara": "Hajat & Istikhara",
+    "hajat_istikhara": "Haxhet & Istihare",
     "fajr_before": "Suneti para sabahut",
     "dhuhr_before": "Suneti para drekës",
     "dhuhr_after": "Suneti pas drekës",
@@ -1848,70 +1852,70 @@
     "benefits": "Përfitimet",
     "references": "Referencat",
     "quranRef": "Kurani",
-    "viewHadith": "View full hadith",
+    "viewHadith": "Shiko hadithin e plotë",
     "viewAyah": "View në Kurani",
     "infoA11y": "Mëso about {{prayer}}",
     "infoHint": "Hap detajet, dobitë dhe referencat",
     "learnMore": "Mëso more",
     "tahajjud": {
-      "summary": " night salah offered në  last third e  night, before Fajr.",
-      "why": "Allah descends në  lowest heaven në  last third e  night dhe asks who will call upon Him.  Prophet ﷺ regularly prayed at night even when opsionale për him.",
-      "benefits": "Draws one closer në Allah, softens  zemër, dhe was  habit e  righteous before him.  time when dua është especially answered."
+      "summary": "Namazi i natës që falet në të tretën e fundit të natës, para sabahut.",
+      "why": "Allahu zbret në qiellin më të afërt në të tretën e fundit të natës dhe pyet kush do t'i lutet Atij. Profeti ﷺ falej rregullisht natën, edhe pse për të ishte vullnetare.",
+      "benefits": "E afron njeriun me Allahun, e zbut zemrën dhe ishte zakoni i të devotshmëve para tij. Një kohë kur duaja pranohet veçanërisht."
     },
     "fajr": {
       "summary": " dawn salah —  i pari e  five ditor obligatory salah.",
-      "why": "Allah commanded establishing salah at  edges e  ditë; Fajr marks  fillo e  Muslim ditë dhe was never abandoned by  Prophet ﷺ në congregation ose vetëm.",
-      "benefits": "Whoever prays Fajr është under Allah's protection. It është witnessed by  angels e  night dhe ditë dhe brings e çelët për  rest e  ditë."
+      "why": "Allahu urdhëroi falljen e namazit në skajet e ditës; sabahu shënon fillimin e ditës së muslimanit dhe Profeti ﷺ nuk e la kurrë, as me xhemat as vetëm.",
+      "benefits": "Kush e fal sabahun është nën mbrojtjen e Allahut. Ai dëshmohet nga engjëjt e natës dhe të ditës dhe sjell dritë për pjesën tjetër të ditës."
     },
     "sunrise": {
       "summary": "Çasti kur dielli lind mbi horizont — shenjë kohore, jo vetë namaz.",
-      "why": "Salah është forbidden while  sun është rising (dhe at zenith dhe setting) so  ummah does not resemble sun-worshippers. Knowing sunrise helps time Ishraq dhe avoid invalid salah times.",
-      "benefits": "Observing Allah's signs në  sky increases awe (taqwa) dhe helps structure  morning sunnah salah correctly."
+      "why": "Namazi është i ndaluar ndërsa dielli po lind (si dhe kur është në zenit dhe kur perëndon), që ummeti të mos u ngjajë adhuruesve të diellit. Njohja e lindjes së diellit ndihmon për kohën e ishrakut dhe për të shmangur kohët kur namazi nuk vlen.",
+      "benefits": "Vëzhgimi i shenjave të Allahut në qiell e shton frikërespektin (takvanë) dhe ndihmon që namazet sunet të mëngjesit të caktohen saktë."
     },
     "ishraq": {
-      "summary": " two-rak'ah sunnah salah after  sun has fully risen (rreth 15–20 minutes after sunrise).",
-      "why": " Prophet ﷺ said whoever prays Fajr në congregation then sits remembering Allah until sunrise, then prays two rak'ahs, receives  reward e  përfunduar Haxhi dhe 'Umra.",
-      "benefits": "Immense reward me minimal effort when combined me Fajr në congregation.  peaceful fillo në  ditë në zikr dhe opsionale salah."
+      "summary": "Namaz sunet me dy rekate pasi dielli të jetë ngritur plotësisht (rreth 15–20 minuta pas lindjes së diellit).",
+      "why": "Profeti ﷺ ka thënë se kush e fal sabahun me xhemat, pastaj rri duke e përmendur Allahun derisa të lindë dielli, e pastaj fal dy rekate, merr shpërblimin e një Haxhi dhe një Umreje të plotë.",
+      "benefits": "Shpërblim i madh me pak mund kur bashkohet me sabahun me xhemat. Një fillim i qetë i ditës me zikër dhe namaz vullnetar."
     },
     "duha": {
-      "summary": " forenoon salah — typically two në eight rak'ahs between sunrise dhe Dhuhr.",
+      "summary": "Namazi i paraditës — zakonisht dy deri në tetë rekate mes lindjes së diellit dhe drekës.",
       "why": "Sadakaja i takon çdo nyjeje të trupit çdo ditë; edhe disa rekate Duha e plotëson atë sadaka për gjymtyrët përmes adhurimit.",
       "benefits": "Fal mëkatet, sjell rizkun dhe ringjall një sunet të lënë pas dore. Koha fleksibël e bën të arritshëm kur dita e lejon."
     },
     "dhuhr": {
       "summary": "Namazi i drekës — namazi i dytë i detyrueshëm, kur dielli kalon zenitin.",
-      "why": " five ditor salah were made obligatory në  Night Udhëtimi; Dhuhr breaks  day's busyness me kujtim e Allah.",
-      "benefits": " Prophet ﷺ said  i pari deed judged në  Ditë e Resurrection është salah. Guarding Dhuhr protects  rest e one's deeds."
+      "why": "Pesë namazet e përditshme u bënë obligim gjatë Udhëtimit të Natës (Miraxhit); dreka e ndërpret ngarkesën e ditës me përmendjen e Allahut.",
+      "benefits": "Profeti ﷺ ka thënë se vepra e parë që do të llogaritet në Ditën e Ringjalljes është namazi. Ruajtja e namazit të drekës i mbron veprat e tjera."
     },
     "asr": {
-      "summary": " afternoon salah —  middle salah emphasized në  Kurani.",
-      "why": "Allah specifically warns rreth guarding  middle salah (Salat al-Wusta). It falls when many janë busy ose tired, so preserving it është  sign e sincerity.",
-      "benefits": "Whoever misses Asr, it është as if he lost his family dhe wealth — highlighting its weight. Keeping it strengthens discipline through  ditë."
+      "summary": "Namazi i pasdites — namazi i mesëm që theksohet në Kuran.",
+      "why": "Allahu në mënyrë të veçantë tërheq vëmendjen për ruajtjen e namazit të mesëm (Salat el-Vusta). Ai bie kur shumë njerëz janë të zënë ose të lodhur, prandaj ruajtja e tij është shenjë sinqeriteti.",
+      "benefits": "Kush e humb namazin e ikindisë, është sikur të ketë humbur familjen dhe pasurinë e tij — gjë që tregon peshën e tij. Ruajtja e tij e forcon disiplinën gjatë ditës."
     },
     "maghrib": {
       "summary": "Namazi i akshamit — falet menjëherë pasi të perëndojë dielli.",
       "why": "Koha hyn menjëherë me perëndimin e diellit; vonesa pa arsye rrezikon humbjen e kohës së preferuar. Profeti ﷺ paralajmëroi kundër lënies pas dore të namazit derisa të perëndojë dielli.",
-      "benefits": "Marks gratitude at  day's end dhe was among  i pari salah  Prophet ﷺ emphasized në his companions."
+      "benefits": "Shënon falënderimin në fund të ditës dhe ishte ndër namazet e para që Profeti ﷺ ua theksoi shokëve të tij."
     },
     "isha": {
       "summary": "Namazi i jacisë — i fundit nga pesë namazet e detyrueshme, pasi të shuhet muzgu.",
-      "why": "Completes  cycle e ditor ibadeti.  Prophet ﷺ said if someone prayed Isha në congregation, it është as if he prayed half  night.",
-      "benefits": "Brings tranquility before sleep dhe completes  day's fard salah. Often followed by Witr, which është sunnah mu'akkadah."
+      "why": "Plotëson ciklin e ibadetit të përditshëm. Profeti ﷺ ka thënë se kush e fal jacinë me xhemat, është sikur të jetë falur gjysmën e natës.",
+      "benefits": "Sjell qetësi para gjumit dhe i plotëson namazet farz të ditës. Shpesh pasohet nga vitri, i cili është sunet mu'ekkede."
     },
     "witr": {
-      "summary": " odd-numbered salah (usually one ose three rak'ahs) after Isha before Fajr — sunnah mu'akkadah, not one e  five fard salah.",
-      "why": " Prophet ﷺ said Allah është Witr (One) dhe loves Witr, so maintain  Witr salah. He never abandoned it, even when traveling.",
-      "benefits": " distinctive mark e  believer's night routine. Closing  ditë me odd-numbered salah aligns me Allah's names dhe  Prophet's consistent practice."
+      "summary": "Namaz me numër tek rekatesh (zakonisht një ose tre rekate) pas jacisë dhe para sabahut — sunet mu'ekkede, jo një nga pesë namazet farz.",
+      "why": "Profeti ﷺ ka thënë se Allahu është Vitr (Një) dhe e do vitrin, prandaj ruajeni namazin e vitrit. Ai nuk e la kurrë, as kur udhëtonte.",
+      "benefits": "Një shenjë dalluese e rutinës së natës së besimtarit. Mbyllja e ditës me një namaz me numër tek rekatesh përputhet me emrat e Allahut dhe me praktikën e vazhdueshme të Profetit."
     },
     "tahiyyatul_masjid": {
       "summary": "Dy rekate përshëndetjeje për xhaminë kur hyn, para se të ulesh.",
       "why": "Kur ndonjëri prej jush hyn në xhami, le të falë dy rekate para se të ulet — urdhër i drejtpërdrejtë i Profetit ﷺ.",
-      "benefits": "Honors  house e Allah, prepares  zemër për congregation ose private ibadeti, dhe replaces idle sitting me immediate good."
+      "benefits": "Nderon shtëpinë e Allahut, e përgatit zemrën për namazin me xhemat ose për ibadetin e veçuar dhe e zëvendëson ndenjjen kot me një vepër të mirë të menjëhershme."
     },
     "hajat_istikhara": {
       "summary": "Opsionale salah për personale needs (Salat al-Hajah) dhe seeking Allah's guidance (Salat al-Istikhara).",
-      "why": "Istikhara është në ask Allah në choose good për ju when facing  decision. Hajah është në present one's need në Allah through salah before ose alongside dua.",
-      "benefits": "Builds reliance në Allah (tawakkul) instead e anxiety vetëm. Istikhara brings clarity; Hajah pairs ibadeti me sincere request — dhe Allah answers those who call upon Him."
+      "why": "Istiharja është t'i kërkosh Allahut të të zgjedhë të mirën kur përballesh me një vendim. Namazi i haxhetit është t'ia paraqesh nevojën tënde Allahut përmes namazit, para ose krahas duasë.",
+      "benefits": "Ndërton mbështetjen te Allahu (teuekul) në vend të ankthit. Istiharja sjell qartësi; namazi i haxhetit e bashkon ibadetin me kërkesën e sinqertë — dhe Allahu u përgjigjet atyre që i luten."
     }
   },
   "stats": {
@@ -1925,11 +1929,11 @@
     "perfectDays": "ditë të përsosura",
     "activeDays": "ditë aktive",
     "madeUpPeriod": "kjo period",
-    "total": "total"
+    "total": "gjithsej"
   },
   "qaza": {
     "eyebrow": "Adhurimi i grimit",
-    "title": "Qaza",
+    "title": "Kaza",
     "subtitle": "Ndiqni dhe pastroni lutjet e humbura",
     "calculator": "Llogaritësi",
     "planner": "Planifikues",
@@ -1991,7 +1995,7 @@
     "editCountHintTv": "Me − dhe + caktoni sa nga ky namaz ju duhet ende të kompensoni."
   },
   "qazaCalc": {
-    "eyebrow": "Qaza",
+    "eyebrow": "Kaza",
     "title": "Llogaritësi",
     "subtitle": "Llogaritni një jetë të lutjeve të humbura",
     "currentAge": "Mosha aktuale",
@@ -2024,11 +2028,10 @@
     "enterAgePromptTv": "Caktoni moshën tuaj aktuale më lart për të parë një vlerësim."
   },
   "qazaPlan": {
-    "eyebrow": "Qaza",
+    "eyebrow": "Kaza",
     "title": "Planifikues",
     "subtitle": "Zgjidhni një ritëm që mund ta mbani me vite, jo vetëm me ditë",
     "consistencyTitle": "Konsistenca mbi intensitetin",
-    "consistencyHadith": "Veprat më të dashura tek Allahu janë ato të qëndrueshme, edhe nëse janë të vogla.",
     "consistencySource": "Hadithi - Buhariu dhe Muslimi",
     "consistencyPrinciple": "Një plan i qëndrueshëm ditor zakonisht pastron një sasi të madhe të mbetur në mënyrë më të besueshme sesa një sprint agresiv që digjet.",
     "prayersPerDay": "lutjet / ditë",
@@ -2088,7 +2091,7 @@
     "fiqhNote": "Dijetarët ndryshojnë në mënyrën e vlerësimit dhe organizimit të lutjeve të humbura. Konsultohuni me një dijetar të cilit i besoni për gjendjen dhe medhhebin tuaj."
   },
   "qazaRoza": {
-    "eyebrow": "Qaza",
+    "eyebrow": "Kaza",
     "title": "agjërimi",
     "subtitle": "Ndiqni dhe plotësoni agjërimet e humbura",
     "fastsRemaining": "agjërimet e mbetura",
@@ -2130,13 +2133,13 @@
     "prevYear": "I mëparshëm vit",
     "nextYear": "Tjetër vit",
     "pickMonthYear": "Pick muaj dhe vit",
-    "selectYear": "Select vit",
+    "selectYear": "Zgjidh vitin",
     "gregorian": "Gregorian",
     "hijri": "hixhri",
     "prayed": "U fal",
     "partial": "Pjesërisht",
     "missed": "Humbur",
-    "legendHint": "Tap any past ose current ditë në review dhe adjust it. Sot është {{date}}.",
+    "legendHint": "Prekni çdo ditë të kaluar ose të sotme për ta rishikuar dhe ndryshuar. Sot është {{date}}.",
     "converterRowTitle": "Konvertuesi hixhri ⟷ gregorian",
     "converterRowSubtitle": "Konvertoni një datë midis dy kalendarëve",
     "legendHintTv": "Zgjidhni çdo ditë të kaluar ose aktuale për ta shqyrtuar dhe rregulluar. Sot është {{date}}."
@@ -2144,10 +2147,10 @@
   "calDay": {
     "today": "Sot",
     "history": "Historia",
-    "futureSubtitle": "Kjo ditë hasn't happened yet",
+    "futureSubtitle": "Kjo ditë ende nuk ka ardhur",
     "summary": "{{completed}} e {{total}} obligatory salah",
     "emptyTitle": "Ende asgjë për të regjistruar",
-    "emptyDesc": "Ju can only record ibadeti për sot dhe past ditë.",
+    "emptyDesc": "Mund ta regjistroni ibadetin vetëm për sot dhe për ditët e kaluara.",
     "prevWeek": "I mëparshëm javë",
     "nextWeek": "Tjetër javë",
     "weekOf": "Javë e {{date}}",
@@ -2159,7 +2162,7 @@
     "subtitle": "Përparimi i përgjithshëm, pasqyra e sotme dhe tendencat me kalimin e kohës",
     "overview": "Përmbledhje",
     "today": "Sot",
-    "todayHint": "Progresi logged so far sot",
+    "todayHint": "Përparimi i regjistruar deri tani sot",
     "trends": "Tendencat",
     "periodWeek": "7 ditët e fundit",
     "periodMonth": "30 ditët e fundit",
@@ -2167,9 +2170,9 @@
     "avgCompletion": "{{percent}}% mesatarisht",
     "chartEmpty": "Ende asnjë namaz i regjistruar në këtë periudhë",
     "details": "Detajet",
-    "detailsHint": "Breakdowns when ju have tracked të dhënat",
+    "detailsHint": "Ndarje të hollësishme kur keni të dhëna të regjistruara",
     "streak": "Seria aktuale",
-    "totalPrayers": "Salah logged",
+    "totalPrayers": "Namaze të regjistruara",
     "totalZikr": "Zikr seanca",
     "perfectDays": "Ditë të përsosura",
     "viewAchievements": "Shiko arritjet",
@@ -2180,7 +2183,7 @@
     "month": "Muaji",
     "year": "Viti",
     "prayerCompletion": "Përfundimi i Salah",
-    "prayer": "Salah",
+    "prayer": "Namazi",
     "consistency": "Qëndrueshmëria",
     "qaza": "Kaza",
     "roza": "Agjërim",
@@ -2263,43 +2266,43 @@
   },
   "statusSheet": {
     "prompt": "How did kjo salah go sot?",
-    "afterSalahAdhkar": "Read after-salah adhkar",
+    "afterSalahAdhkar": "Lexo zikret pas namazit",
     "editNote": "Redakto note",
     "addNote": "Shto  note",
     "noteTitle": "{{prayer}} - shënim",
     "rowA11y": "{{prayer}}, {{status}}",
-    "rowA11yJama": "{{prayer}}, {{status}}, prayed në congregation",
+    "rowA11yJama": "{{prayer}}, {{status}}, u fal me xhemat",
     "qazaPromptTitle": "Shto në qaza count?",
     "qazaPromptMessage": "Shto one në juaj qaza count për {{prayer}}?",
     "qazaPromptConfirm": "Yes, shto në qaza",
     "qazaPromptDecline": "Jo, kalo",
-    "jama": "Prayed në congregation"
+    "jama": "U fal me xhemat"
   },
   "notesModal": {
     "hint": "Opsionale —  private note për kjo ditë.",
-    "placeholder": "e.g. prayed në congregation at  masjid",
+    "placeholder": "p.sh. u fala me xhemat në xhami",
     "saveNote": "Ruaj note"
   },
   "tasbeehUi": {
-    "custom": "Me porosi",
-    "targetReached": "MashaAllah — target të arritura",
+    "custom": "I personalizuar",
+    "targetReached": "MashaAllah — objektivi u arrit",
     "tapToCount": "Prekni rrethin për të numëruar",
-    "ofTarget": "e {{target}}",
-    "remaining": "{{count}} u largua",
+    "ofTarget": "nga {{target}}",
+    "remaining": "{{count}} të mbetura",
     "complete": "Përfunduar",
-    "startAgain": "Fillo again",
+    "startAgain": "Fillo përsëri",
     "undo": "Zhbër",
     "unlimited": "e pakufizuar",
     "customTitle": "Objektivi i personalizuar",
     "customPrompt": "Sa herë dëshironi ta përsërisni?",
     "customPlaceholder": "p.sh. 313",
-    "modeLabel": "{{mode}}, numëro {{count}}",
+    "modeLabel": "{{mode}}, numërimi {{count}}",
     "confirmUndoTitle": "Të zhbëhet numërimi i fundit?",
-    "confirmUndoMessage": "Kjo will subtract one nga juaj current count.",
+    "confirmUndoMessage": "Kjo do të zbresë një nga numri juaj aktual.",
     "confirmResetTitle": "Të rivendoset numëruesi?",
-    "confirmResetMessage": "Juaj count e {{count}} will be pastrohet.",
-    "confirmStartAgainTitle": "Fillo again?",
-    "confirmStartAgainMessage": "Juaj përfunduar count will be pastrohet so ju can begin  i ri round.",
+    "confirmResetMessage": "Numërimi juaj prej {{count}} do të fshihet.",
+    "confirmStartAgainTitle": "Të fillohet përsëri?",
+    "confirmStartAgainMessage": "Numri juaj i përfunduar do të fshihet, që të mund të filloni një raund të ri.",
     "dockLabel": "Numëro",
     "tapToCountTv": "Shtypni Zgjidh për të numëruar",
     "tapToCountKeyboard": "Klikoni rrethin ose shtypni Hapësirën për të numëruar"
@@ -2307,7 +2310,7 @@
   "hero": {
     "nextPrayerAway": "{{prayer}} është vetëm {{min}} min larg",
     "nextPrayerAwayHours": "{{prayer}} është {{hours}}h {{min}}m away",
-    "locating": "Finding juaj location…",
+    "locating": "Po gjendet vendndodhja juaj…",
     "changeLocation": "Ndrysho vendndodhjen",
     "scheduleTitle": "Salahu i sotëm",
     "nextIn": "në {{time}}",
@@ -2322,26 +2325,26 @@
   },
   "location": {
     "eyebrow": "Vendndodhja",
-    "title": "Set juaj location",
-    "subtitle": "Salah times janë calculated për kjo place. Kërko any city, ose use juaj current location.",
+    "title": "Caktoni vendndodhjen tuaj",
+    "subtitle": "Kohët e namazit llogariten për këtë vend. Kërkoni çdo qytet ose përdorni vendndodhjen tuaj aktuale.",
     "currentTitle": "Vendndodhja aktuale",
     "useCurrent": "Përdor vendndodhjen time aktuale",
-    "locating": "Getting juaj location…",
-    "searchLabel": "Kërko city ose country",
+    "locating": "Po merret vendndodhja juaj…",
+    "searchLabel": "Kërkoni qytet ose shtet",
     "searchPlaceholder": "Kërko për  city…",
-    "hint": "Type at least two letters në kërko për  city.",
+    "hint": "Shkruani të paktën dy shkronja për të kërkuar një qytet.",
     "noResultsTitle": "Nuk u gjet asnjë vend",
-    "noResultsDesc": "Try  different spelling, ose kërko për  larger city nearby.",
-    "permissionDenied": "Location access është off. Turn it në në Cilësimet, ose just kërko për juaj city above.",
-    "deviceError": "Couldn't get juaj current location. Kërko për juaj city above instead.",
+    "noResultsDesc": "Provoni një drejtshkrim tjetër ose kërkoni një qytet më të madh aty pranë.",
+    "permissionDenied": "Qasja në vendndodhje është e çaktivizuar. Aktivizojeni te Cilësimet ose thjesht kërkoni qytetin tuaj më sipër.",
+    "deviceError": "Vendndodhja juaj aktuale nuk u mor dot. Kërkoni qytetin tuaj më sipër.",
     "manualBadge": "Set by ju",
     "gpsBadge": "Nga pajisja",
     "defaultBadge": "E parazgjedhur",
     "calculationTitle": "Salah calculation",
     "method": "Mënyra e llogaritjes",
-    "methodHint": "Pick  authority whose method matches juaj region so salah times line up me juaj local masjid.",
+    "methodHint": "Zgjidhni autoritetin, metoda e të cilit i përshtatet rajonit tuaj, që kohët e namazit të përputhen me xhaminë tuaj vendore.",
     "madhab": "Llogaritja e Asr",
-    "madhabShafi": "Standard",
+    "madhabShafi": "Standarde",
     "madhabHanafi": "Hfi",
     "madhabHint": "Medhhebi hanefi e llogarit ikindinë më vonë; standardi (shafi'i, maliki, hanbeli) përdor kohën më të hershme.",
     "methods": {
@@ -2360,7 +2363,7 @@
       "Other": "Me porosi / Të tjera"
     },
     "methodHints": {
-      "MuslimWorldLeague": "Europe,  Far East, dhe parts e  US",
+      "MuslimWorldLeague": "Evropa, Lindja e Largët dhe pjesë të SHBA-së",
       "Egyptian": "Afrika, Siria, Libani, Malajzia",
       "Karachi": "Pakistani, India, Bangladeshi, Afganistani",
       "UmmAlQura": "Arabia Saudite",
@@ -2369,7 +2372,7 @@
       "NorthAmerica": "Shtetet e Bashkuara dhe Kanadaja",
       "Kuwait": "Kuvajt",
       "Qatar": "Katar",
-      "Singapore": "Singapore dhe  region",
+      "Singapore": "Singapori dhe rajoni",
       "Tehran": "Irani dhe bashkësitë shiite",
       "Turkey": "Turkey (Diyet)",
       "Other": "Vendoseni manualisht diku tjetër"
@@ -2393,14 +2396,14 @@
     "waningCrescent": "Gjysmëhënës në rënie"
   },
   "moonSheet": {
-    "open": "{{phase}}. Tap për details",
+    "open": "{{phase}}. Prekni për detaje",
     "waxing": "Depilimi - bëhet më i ndritshëm çdo natë",
     "waning": "Zvogëlim — pjesa e ndriçuar po tkurret",
     "illuminationLabel": "I ndriçuar",
     "hijriDate": "datë islame",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ —  White Ditë",
-      "whiteDaysBody": " 13th, 14th, dhe 15th e each Islamic muaj fall around  full moon. Agjërimi these three bright ditë është  beloved sunnah e  Prophet ﷺ.",
+      "whiteDaysBody": "Dita e 13-të, e 14-të dhe e 15-të e çdo muaji islam bien rreth hënës së plotë. Agjërimi i këtyre tri ditëve të ndritshme është sunet i dashur i Profetit ﷺ.",
       "newMonthTitle": " i ri muaj begins",
       "newMonthBody": "Hëna e hollë (hilāl) shënon fillimin e {{month}}. Çdo muaj islam fillon kur hëna shihet pas Maghribit — jo në konjunkcionin astronomik.",
       "fullTitle": "Hëna e plotë sonte",
@@ -2445,7 +2448,7 @@
     },
     "milestones": {
       "salah": {
-        "titleFallback": "Salah {{level}}",
+        "titleFallback": "Namazi {{level}}",
         "description": "Plotësoni {{count}} lutjet e detyrueshme",
         "description_one": "Plotësoni {{count}} namazin e detyrueshëm",
         "titles": {
@@ -2458,7 +2461,7 @@
           "6": "çerek mijë",
           "7": "Gjysmë mijë",
           "8": "Mijë Drita",
-          "9": "Two Thousand",
+          "9": "Dy mijë",
           "10": "Salah gjatë gjithë jetës"
         }
       },
@@ -2470,11 +2473,11 @@
           "0": "Dita e Parë",
           "1": "Duke u konsistent",
           "2": "Një javë e fortë",
-          "3": "Two Weeks Steady",
+          "3": "Dy javë të qëndrueshme",
           "4": "Zakon trejavor",
           "5": "Një muaj përkushtimi",
-          "6": "Six Weeks Firma",
-          "7": "Two Months Steadfast",
+          "6": "Gjashtë javë të patundura",
+          "7": "Dy muaj këmbëngulje",
           "8": "Sezoni i Qëndrueshmërisë",
           "9": "Katër muaj të fortë",
           "10": "Gjysmë viti i dritës",
@@ -2505,9 +2508,9 @@
           "0": "Dita perfekte",
           "1": "Tre ditë perfekte",
           "2": "Java e ekselencës",
-          "3": "Two Weeks Complete",
+          "3": "Dy javë të plota",
           "4": "Muaji i Ekselencës",
-          "5": "Two Months Complete",
+          "5": "Dy muaj të plotë",
           "6": "Njëqind ditë perfekte",
           "7": "Dyqind ditë",
           "8": "Viti i ditëve perfekte"
@@ -2603,9 +2606,9 @@
     "confirmClearAllMessage": "Kjo heq çdo njoftim nga kjo listë. Kjo nuk mund të zhbëhet.",
     "loadMore": "Ngarko më shumë",
     "upcoming": "E ardhme",
-    "categorySalah": "Salah",
+    "categorySalah": "Namazi",
     "categoryZikr": "Zikri",
-    "categoryQaza": "Qaza",
+    "categoryQaza": "Kaza",
     "categoryMilestone": "Pika historike",
     "categorySystem": "Sistemi",
     "categoryAnnouncement": "Njoftim",
@@ -2618,29 +2621,29 @@
     "locationDenied": "Nevojitet leja e vendndodhjes për të gjetur kiblen.",
     "locationError": "Vendndodhja juaj nuk u përcaktua dot. Provoni përsëri në hapësirë të hapur.",
     "locating": "Po lokalizohet…",
-    "distanceKm": "{{km}} km në  Kaaba",
+    "distanceKm": "{{km}} km deri te Qabja",
     "webHint": "Sensorët e busullës nuk disponohen në shfletues. Shigjeta tregon drejtimin e kibles nga veriu — përdorni një busull fizike për t'u drejtuar.",
     "noCompassHint": "Nuk u gjet sensor busulle. Shigjeta tregon drejtimin e kibles, të matur në drejtim të akrepave të orës nga veriu i vërtetë.",
-    "calibrateHint": "Për accuracy, hold juaj pajisja flat dhe move it në  figure-eight në calibrate  compass, away nga metal dhe magnets.",
+    "calibrateHint": "Për saktësi, mbajeni pajisjen rrafsh dhe lëvizeni në formë tetëshi për të kalibruar busullën, larg metaleve dhe magneteve.",
     "tryAgain": "Provoni përsëri",
     "compassLabel": "Busulla e kibles",
     "compassValue": "{{bearing}} gradë drejt Qabes, {{distance}} larg",
-    "aligned": "Aligned me  Qibla",
-    "alignedHint": "Qëndroni të qëndrueshme - jeni përballë Qabes",
-    "turnFineTuneLeft": "Shtyqe majtas",
-    "turnFineTuneRight": "Tërhiqe djathtas",
+    "aligned": "Në drejtim të kibles",
+    "alignedHint": "Qëndroni të palëvizur — jeni përballë Qabes",
+    "turnFineTuneLeft": "Pak më majtas",
+    "turnFineTuneRight": "Pak më djathtas",
     "turnSlightLeft": "Pak majtas",
-    "turnSlightRight": "Pak e drejtë",
+    "turnSlightRight": "Pak djathtas",
     "turnLeft": "Ktheni majtas",
     "turnRight": "Ktheni djathtas",
-    "degreesOff": "{{deg}}° fikur",
-    "rotatePhone": "Mbajeni telefonin horizontalisht, pastaj ndiqni shigjetën",
-    "bearingLabel": "Mbajtëse kibla",
+    "degreesOff": "{{deg}}° larg",
+    "rotatePhone": "Mbajeni telefonin të shtrirë, pastaj ndiqni shigjetën",
+    "bearingLabel": "Drejtimi i kibles",
     "distanceLabel": "Largësia",
-    "cardinalN": "С",
-    "cardinalE": "В",
-    "cardinalS": "Ю",
-    "cardinalW": "З",
+    "cardinalN": "V",
+    "cardinalE": "L",
+    "cardinalS": "J",
+    "cardinalW": "P",
     "defaultLocationHint": "Po përdoret vendndodhja e paracaktuar (Mekë). Vendosni qytetin tuaj për drejtim të saktë të kibles aty ku jeni.",
     "setLocation": "Vendos vendndodhjen",
     "tvHint": "Busulla drejtpërdrejt nuk disponohet në TV. Shigjeta tregon drejtimin e kibles nga veriu për qytetin tënd — përdor telefonin për orientim të drejtpërdrejtë."
@@ -2716,7 +2719,7 @@
     "conflictsResolved": "{{count}} konflikte u zgjidhën automatikisht — u mbajt ndryshimi më i ri",
     "conflictAffected": "Të prekura: {{list}}",
     "entities": {
-      "prayer_logs": "Salah log",
+      "prayer_logs": "Regjistri i namazeve",
       "zikr_progress": "Zikr progresi",
       "qaza_entries": "Regjistrimet e kazasë",
       "preferences": "Preferencat",
@@ -2724,8 +2727,8 @@
       "dua_favorites": "Dua të preferuarat",
       "durood_favorites": "Të preferuarat e Durood",
       "name_favorites": "Emrat e preferuar",
-      "quran_bookmarks": "Kurani bookmarks",
-      "quran_last_read": "Kurani last read",
+      "quran_bookmarks": "Faqeshënuesit e Kuranit",
+      "quran_last_read": "Leximi i fundit i Kuranit",
       "hadith_bookmarks": "Faqeshënuesit e Hadithit",
       "custom_tasbeeh": "Tesbih me porosi"
     }
@@ -2735,7 +2738,7 @@
     "appLanguage": "Gjuha e aplikacionit",
     "translationLanguage": "Gjuha e përkthimit",
     "translationHint": "Përdoret për kuptimin e teksteve fetare në arabisht.",
-    "footer": "More e  interface është being translated over time. Arabic dhe Urdu switch  app në  right-në-left layout.",
+    "footer": "Gjithnjë e më shumë pjesë të ndërfaqes përkthehen me kalimin e kohës. Arabishtja dhe urdishtja e kalojnë aplikacionin në paraqitje nga e djathta në të majtë.",
     "scriptureAvailable": "Përkthimi i Kur'anit është i disponueshëm",
     "scriptureUnavailable": "Vetëm ndërfaqja — tekstet e shenjta mbeten në anglisht",
     "eyebrow": "Cilësimet",
@@ -2746,9 +2749,9 @@
   },
   "languagePicker": {
     "selectLanguage": "Zgjidhni një gjuhë",
-    "selectLanguageWithCount": "Choose  language ({{filtered}} e {{total}})",
+    "selectLanguageWithCount": "Zgjidhni një gjuhë ({{filtered}} nga {{total}})",
     "searchLanguages": "Kërko languages…",
-    "noResults": "No languages match juaj kërko."
+    "noResults": "Asnjë gjuhë nuk përputhet me kërkimin tuaj."
   },
   "about": {
     "eyebrow": "Cilësimet",
@@ -2771,42 +2774,42 @@
   },
   "player": {
     "nowPlaying": "Tani po luhet",
-    "upNext": "Up tjetër",
+    "upNext": "Në vijim",
     "remaining": "{{count}} mbetur",
     "trackOf": "{{current}} nga {{total}}",
-    "goToScreen": "Go në reading view",
+    "goToScreen": "Shko te pamja e leximit",
     "play": "Luaj",
     "pause": "Pauzë",
     "replay": "Riluaj",
-    "next": "Tjetër ndiq",
-    "previous": "I mëparshëm ndiq",
-    "close": "Mbyll player",
+    "next": "Pjesa tjetër",
+    "previous": "Pjesa e mëparshme",
+    "close": "Mbyll luajtësin",
     "closeLabel": "Mbyll",
     "minimize": "Minimizoje",
     "closeConfirmTitle": "Të ndalohet riprodhimi?",
-    "closeConfirmMessage": "Kjo stops  audio dhe closes  player.",
+    "closeConfirmMessage": "Kjo e ndalon audion dhe e mbyll luajtësin.",
     "closeConfirmCta": "Ndalo",
     "collapse": "Palos",
     "expand": "Zgjero luajtësin",
     "speed": "Shpejtësia e riprodhimit",
     "speedValue": "Shpejtësia {{value}}×",
-    "loopOff": "Përsëriteni jashtë",
-    "loopAll": "Repeat të gjitha",
-    "loopOne": "Përsëriteni një herë",
+    "loopOff": "Përsëritja joaktive",
+    "loopAll": "Përsërit të gjitha",
+    "loopOne": "Përsërit një herë",
     "seek": "Pozicioni i riprodhimit",
-    "volume": "Vëllimi",
-    "volumeValue": "Vëllimi {{value}}%",
-    "buffering": "Buferimi…",
+    "volume": "Volumi",
+    "volumeValue": "Volumi {{value}}%",
+    "buffering": "Po ngarkohet…",
     "loading": "Duke ngarkuar…",
-    "streamingOnlyNote": "Streaming only — audio është not saved në kjo pajisja",
+    "streamingOnlyNote": "Vetëm transmetim — audioja nuk ruhet në këtë pajisje",
     "ttsVoice": "Zëri",
-    "ttsVoiceHint": "Zgjidhni një zë tekst-në-ligjërim",
+    "ttsVoiceHint": "Zgjidhni një zë për leximin e tekstit",
     "seekBack": "{{seconds}} sekonda prapa",
     "seekForward": "{{seconds}} sekonda përpara"
   },
   "errors": {
     "title": "Diçka shkoi keq",
-    "body": " app ran into  unexpected problem. Juaj saved të dhënat është i sigurt — ju can try again."
+    "body": "Aplikacioni hasi në një problem të papritur. Të dhënat tuaja të ruajtura janë të sigurta — mund të provoni përsëri."
   },
   "notFound": {
     "title": "Faqja nuk u gjet",
@@ -2841,11 +2844,11 @@
     }
   },
   "pwa": {
-    "installBannerMessage": "Install Munib Tracker në juaj Kryefaqja Screen për  app-like experience dhe browser notifications në iPhone.",
+    "installBannerMessage": "Instaloni Munib Tracker në ekranin bazë për një përvojë si aplikacion dhe njoftime të shfletuesit në iPhone.",
     "installStepsViaSafari": "Copy  link më poshtë, open it në Safari, then Ndaj → Shto në Kryefaqja Screen.",
-    "installCopyLink": "Copy link për Safari",
-    "installLinkCopied": "Link copied — ngjit it into Safari's address bar në vazhdo.",
-    "installLinkCopyFailed": "Could not copy  link. Open kjo page në Safari manually.",
+    "installCopyLink": "Kopjo lidhjen për Safari",
+    "installLinkCopied": "Lidhja u kopjua — ngjiteni te shiriti i adresës në Safari për të vazhduar.",
+    "installLinkCopyFailed": "Lidhja nuk u kopjua dot. Hapeni këtë faqe manualisht në Safari.",
     "installDismiss": "Largoje"
   },
   "qazaHistory": {
@@ -2887,221 +2890,204 @@
   "reminderOffsets": {
     "title": "Koha e kujtesës",
     "subtitle": "Kur bien njoftimet — nuk i ndryshon kohët e namazit që shfaqen",
-    "rowSub": "Notify before ose after each adhan",
-    "hint": "Shift each obligatory salah reminder up në {{max}} minutes before ose after  adhan. Times shown në  app stay  same.",
-    "atTime": "t time",
+    "rowSub": "Njofto para ose pas çdo ezani",
+    "hint": "Zhvendoseni çdo përkujtues të namazit farz deri në {{max}} minuta para ose pas ezanit. Kohët e shfaqura në aplikacion mbeten të njëjta.",
+    "atTime": "Në kohë",
     "before": "{{count}} min më parë",
     "after": "{{count}} min pas",
-    "earlier": "Earlier",
+    "earlier": "Më herët",
     "later": "Më vonë"
   },
   "khatm": {
-    "eyebrow": " Noble Kurani",
+    "eyebrow": "Kurani Fisnik",
     "short": "Hatme",
-    "title": "Hatmi plan",
+    "title": "Plani i hatmes",
     "subtitle": "Përfundoni Kuranin me një ritëm të qëndrueshëm",
-    "startTitle": "Fillo  plan",
-    "startHint": "Choose how many ditë në përfunduar  Kurani. We'll set  ditor ayah target.",
-    "startHintPages": "Choose how many ditë në përfunduar  Kurani. We'll set  ditor mushaf page target.",
-    "unitAyah": "Nga ajah",
+    "startTitle": "Filloni një plan",
+    "startHint": "Zgjidhni për sa ditë ta përfundoni Kuranin. Do të vendosim një objektiv ditor ajetesh.",
+    "startHintPages": "Zgjidhni për sa ditë ta përfundoni Kuranin. Do të vendosim një objektiv ditor faqesh të mus'hafit.",
+    "unitAyah": "Sipas ajetit",
     "unitPage": "Sipas faqes",
     "continueReading": "Vazhdo leximin",
     "dayPlan": "{{count}} ditë",
     "preset": {
-      "intensive": "Intensive",
-      "balanced": "Blced",
+      "intensive": "Intensiv",
+      "balanced": "I balancuar",
       "steady": "I qëndrueshëm",
-      "custom": "Me porosi"
+      "custom": "I personalizuar"
     },
     "customPlan": "Plani i personalizuar",
-    "customDaysPlaceholder": "Number e ditë",
-    "customDaysA11y": "Plan length në ditë",
-    "customHint": "Enter {{min}}–{{max}} ditë",
-    "customInvalid": "Enter between {{min}} dhe {{max}} ditë",
-    "customStart": "Fillo custom plan",
-    "startConfirmTitle": "Fillo kjo khatm plan?",
-    "startConfirmMsg": "Finish  Kurani në {{days}} ditë — rreth {{count}} ayahs each ditë. Ju can ndiq progresi here as ju read.",
-    "startConfirmMsgPages": "Finish  Kurani në {{days}} ditë — rreth {{count}} pages each ditë. Ju can ndiq progresi here as ju read.",
-    "startConfirmAction": "Fillo plan",
-    "dayOf": "Ditë {{day}} e {{total}}",
-    "dailyTarget": "{{count}} ayahs  ditë",
-    "dailyTargetPages": "{{count}} pages  ditë",
-    "progress": "{{read}} / {{total}} ayahs",
+    "customDaysPlaceholder": "Numri i ditëve",
+    "customDaysA11y": "Kohëzgjatja e planit në ditë",
+    "customHint": "Shkruani {{min}}–{{max}} ditë",
+    "customInvalid": "Shkruani midis {{min}} dhe {{max}} ditëve",
+    "customStart": "Filloni planin e personalizuar",
+    "startConfirmTitle": "Të fillohet ky plan hatmeje?",
+    "startConfirmMsg": "Përfundojeni Kuranin për {{days}} ditë — rreth {{count}} ajete çdo ditë. Mund ta ndiqni përparimin këtu ndërsa lexoni.",
+    "startConfirmMsgPages": "Përfundojeni Kuranin për {{days}} ditë — rreth {{count}} faqe çdo ditë. Mund ta ndiqni përparimin këtu ndërsa lexoni.",
+    "startConfirmAction": "Fillo planin",
+    "dayOf": "Dita {{day}} nga {{total}}",
+    "dailyTarget": "{{count}} ajete në ditë",
+    "dailyTargetPages": "{{count}} faqe në ditë",
+    "progress": "{{read}} / {{total}} ajete",
     "progressPages": "{{read}} / {{total}} faqe",
-    "expected": "në-ndiq: {{ayahs}}",
-    "expectedLabel": "Në-ndiq total",
+    "expected": "sipas planit: {{ayahs}}",
+    "expectedLabel": "Totali sipas planit",
     "percentComplete": "{{percent}}% përfunduar",
     "remainingAyahs": "E mbetur",
     "remainingPages": "Faqet e mbetura",
-    "todayTarget": "Ditor goal",
-    "catchUp": "{{count}} ayahs behind — read  little extra sot në catch up.",
-    "catchUpPages": "{{count}} pages behind — read  little extra sot në catch up.",
+    "todayTarget": "Objektivi ditor",
+    "catchUp": "{{count}} ajete prapa — lexoni pak më shumë sot për ta arritur.",
+    "catchUpPages": "{{count}} faqe prapa — lexoni pak më shumë sot për ta arritur.",
     "aheadBy": "{{count}} ajete përpara planit — vazhdoni me këtë ritëm.",
     "aheadByPages": "{{count}} faqe përpara planit — vazhdoni me këtë ritëm.",
     "adjustHint": "Rregullo me {{count}} ajete",
     "logSectionTitle": "Regjistro leximin e sotëm",
-    "logSectionHint": "Enter how many ayahs ju read sot, then shto them në juaj progresi.",
-    "logSectionHintPages": "Enter how many mushaf pages ju read sot, then shto them në juaj progresi.",
-    "logAmountPlaceholder": "Ayahs",
+    "logSectionHint": "Shkruani sa ajete lexuat sot, pastaj shtojini në përparimin tuaj.",
+    "logSectionHintPages": "Shkruani sa faqe të mus'hafit lexuat sot, pastaj shtojini në përparimin tuaj.",
+    "logAmountPlaceholder": "Ajete",
     "logAmountPlaceholderPages": "Faqe",
-    "logAmountA11y": "Ayahs në log sot",
-    "logAmountA11yPages": "Pages në log sot",
-    "logQuickDaily": "Ditor goal · {{count}}",
-    "logAdd": "Shto {{count}} ayahs",
-    "logAddPages": "Shto {{count}} pages",
-    "logInvalid": "Enter 1–{{max}} ayahs",
+    "logAmountA11y": "Ajetet për t'u regjistruar sot",
+    "logAmountA11yPages": "Faqet për t'u regjistruar sot",
+    "logQuickDaily": "Objektivi ditor · {{count}}",
+    "logAdd": "Shto {{count}} ajete",
+    "logAddPages": "Shto {{count}} faqe",
+    "logInvalid": "Shkruani 1–{{max}} ajete",
     "logInvalidPages": "Shkruani 1–{{max}} faqe",
     "correctTotalTitle": "Totali i saktë",
     "correctTotalHint": "Vendosni numrin e saktë të ajeteve që keni lexuar deri tani.",
     "correctTotalHintPages": "Vendosni numrin e saktë të faqeve të mushafit që keni lexuar deri tani.",
     "correctTotalA11y": "Gjithsej ajetet e lexuara",
     "correctTotalA11yPages": "Gjithsej faqet e lexuara",
-    "correctTotalApply": "Përditëso gjithsej",
-    "correctTotalInvalid": "Enter 0–{{max}} ayahs",
+    "correctTotalApply": "Përditëso totalin",
+    "correctTotalInvalid": "Shkruani 0–{{max}} ajete",
     "correctTotalInvalidPages": "Shkruani 0–{{max}} faqe",
     "correctTotalToggle": "Totali i gabuar? Vendoseni manualisht",
     "logToday": "Regjistro leximin e sotëm",
     "logTodayWithTarget": "Regjistro leximin e sotëm (+{{count}})",
-    "less": "Fewer ayahs",
+    "less": "Më pak ajete",
     "more": "Më shumë ajete",
     "lessPages": "Më pak faqe",
     "morePages": "Më shumë faqe",
     "reset": "Rivendos planin",
-    "resetConfirmTitle": "Të rivendoset plani khatm?",
-    "resetConfirmMsg": "Juaj progresi will be pastrohet. Ju can fillo  i ri plan anytime.",
-    "completedTitle": "Hatmi përfunduar",
-    "startNew": "Fillo  i ri plan",
+    "resetConfirmTitle": "Të rivendoset plani i hatmes?",
+    "resetConfirmMsg": "Përparimi juaj do të fshihet. Mund të filloni një plan të ri në çdo kohë.",
+    "completedTitle": "Hatmja përfundoi",
+    "startNew": "Filloni një plan të ri",
     "motivationTitle": "Vazhdo",
-    "motivationShuffle": "Shfaq another reminder",
+    "motivationShuffle": "Shfaq një përkujtim tjetër",
     "motivationKind": {
-      "hadith": "Hadith",
+      "hadith": "Hadithi",
       "quran": "Kurani",
       "reminder": "Përkujtues"
     },
     "motivationQuote": {
       "steady": {
-        "text": "Një khatm i ndërtuar mbi lexim të vazhdueshëm ditor zgjat më shumë se një sprint që digjet.",
-        "source": "Principle e konsistenca"
+        "text": "Një hatme e ndërtuar mbi lexim të rregullt ditor zgjat më shumë se një vrull që shuhet shpejt.",
+        "source": "Parimi i vazhdueshmërisë"
       },
       "portion": {
-        "text": "Ju do not have në finish sot — only honour today's portion me sincerity.",
+        "text": "Nuk keni pse ta përfundoni sot — vetëm nderojeni pjesën e sotme me sinqeritet.",
         "source": "Përparim i qëndrueshëm"
       },
       "return": {
-        "text": "If ju fall behind, do not abandon  plan. Resume me today's ayahs dhe move forward.",
+        "text": "Nëse mbeteni prapa, mos e braktisni planin. Rifilloni me ajetet e sotme dhe ecni përpara.",
         "source": "Vazhdoni të ktheheni"
       }
     },
     "pace": {
       "done": "Përfunduar",
       "ahead": "Përpara",
-      "onTrack": "Në ndiq",
+      "onTrack": "Sipas planit",
       "behind": "Prapa"
     },
     "logConfirmTitle": "Të shtohet përparimi i leximit?",
-    "logConfirmMsg": "Të shtohen {{count}} ajete në totalin e khatm-it?",
-    "logConfirmMsgPages": "Të shtohen {{count}} faqe në totalin e khatm-it?",
+    "logConfirmMsg": "Të shtohen {{count}} ajete në totalin e hatmes?",
+    "logConfirmMsgPages": "Të shtohen {{count}} faqe në totalin e hatmes?",
     "logConfirmAction": "Shto",
     "correctTotalConfirmTitle": "Të përditësohet totali i lexuar?",
-    "correctTotalConfirmMsg": "Të vendoset totali i khatm-it në {{count}} ajete?",
-    "correctTotalConfirmMsgPages": "Të vendoset totali i khatm-it në {{count}} faqe?",
+    "correctTotalConfirmMsg": "Të vendoset totali i hatmes në {{count}} ajete?",
+    "correctTotalConfirmMsgPages": "Të vendoset totali i hatmes në {{count}} faqe?",
     "correctTotalConfirmAction": "Përditëso totalin"
   },
   "hifz": {
     "short": "Hifz",
-    "title": "Hifz tracker",
+    "title": "Ndjekësi i hifzit",
     "subtitle": "Ajetet që keni mësuar përmendësh ose që duhet t'i përsëritni",
-    "markMemorized": "Mark memorizoi",
+    "markMemorized": "Shëno si të mësuar përmendësh",
     "markReview": "Shëno për përsëritje",
-    "clear": "Memorizimi i qartë",
+    "clear": "Hiq memorizimin",
     "totals": "Gjithsej",
     "memorizedCount": "{{count}} memorizuar",
-    "reviewCount": "{{count}} në review",
+    "reviewCount": "{{count}} për përsëritje",
     "emptyTitle": "Nuk ka ende memorizim",
-    "emptyDesc": "Tap Hifz në any ayah në  reader në mark it memorized.",
+    "emptyDesc": "Prekni Hifz te çdo ajet në lexues për ta shënuar si të mësuar përmendësh.",
     "toastRef": "{{surah}}, ajeti {{ayah}}",
-    "toastMemorizedTitle": "Shënuar as memorized",
-    "toastMemorizedBody": "{{ref}} was added në juaj Hifz tracker.",
-    "toastReviewTitle": "Flagged për review",
-    "toastReviewBody": "{{ref}} është shënuar në revise.",
-    "toastClearedTitle": "Memorization pastrohet",
-    "toastClearedBody": "{{ref}} was removed nga juaj Hifz tracker.",
+    "toastMemorizedTitle": "U shënua si i mësuar përmendësh",
+    "toastMemorizedBody": "{{ref}} u shtua te ndjekësi juaj i Hifzit.",
+    "toastReviewTitle": "U shënua për përsëritje",
+    "toastReviewBody": "{{ref}} është shënuar për përsëritje.",
+    "toastClearedTitle": "Memorizimi u hoq",
+    "toastClearedBody": "{{ref}} u hoq nga ndjekësi juaj i Hifzit.",
     "confirmTitle": "Të përditësohet statusi i Hifz?",
-    "confirmReviewBody": "{{ref}} will be flagged për review.",
-    "confirmMemorizedBody": "{{ref}} will be shënuar as memorized.",
-    "confirmClearBody": "{{ref}} will be removed nga juaj Hifz tracker.",
+    "confirmReviewBody": "{{ref}} do të shënohet për përsëritje.",
+    "confirmMemorizedBody": "{{ref}} do të shënohet si i mësuar përmendësh.",
+    "confirmClearBody": "{{ref}} do të hiqet nga ndjekësi juaj i Hifzit.",
     "emptyDescTv": "Zgjidhni një ajet në lexues, pastaj zgjidhni Hifz për ta shënuar si të mësuar përmendësh."
   },
   "travel": {
     "eyebrow": "Mëso",
     "title": "Travelling & salah",
     "subtitle": "Qasr, Jam', dhe what  Kurani dhe Sunnet teach rreth salah në  udhëtimi",
-    "takeaway": "Allah legislated shortening (Qasr) dhe combining (Jam') out e mercy për  traveller — not në abandon salah, but në ease its performance në  road.",
+    "takeaway": "Allahu e ligjësoi shkurtimin (Qasr) dhe bashkimin (Jam') nga mëshira për udhëtarin — jo për ta braktisur namazin, por për ta lehtësuar faljen e tij gjatë rrugës.",
     "quranTitle": "Nga  Kurani",
     "hadithTitle": "Nga  Sunnet",
-    "obligationsTitle": "What ju janë still responsible për",
+    "obligationsTitle": "Për çfarë jeni ende përgjegjës",
     "rakatsTitle": "Rakaat me një vështrim",
-    "rakatsPrayer": "Salah",
+    "rakatsPrayer": "Namazi",
     "rakatsResident": "At kryefaqja",
     "rakatsTravel": "Udhëtimi",
-    "rakatsNote": "Only  fard është shown. Sunnet rawatib dhe Witr janë discussed më poshtë — they remain recommended, though many travellers lighten them për hardship.",
+    "rakatsNote": "Shfaqen vetëm farzet. Sunetet revatib dhe vitri trajtohen më poshtë — ato mbeten të pëlqyeshme, edhe pse shumë udhëtarë i lehtësojnë për shkak të vështirësisë.",
     "duasLink": "Duat dhe lutjet e udhëtimit",
-    "quran": [
-      {
-        "excerpt": "When ju travel through  land, there është no blame në ju if ju shorten  salah, if ju fear ajo those who disbelieve may harm ju. Indeed,  disbelievers janë ever  clear enemy në ju."
-      }
-    ],
-    "hadith": [
-      {
-        "excerpt": "Anas said: We travelled me  Messenger e Allah ﷺ.  mu'adhin called për salah dhe he said: 'Pray two rakahs' — dhe he did  same për  other salah except Maghrib (three) dhe Fajr (two)."
-      },
-      {
-        "excerpt": "Ibn Abbas said:  Prophet ﷺ combined Dhuhr dhe Asr, dhe Maghrib dhe Isha në Madinah without fear ose rain. When asked why, he said: 'He wanted not në burden his Ummah.'"
-      },
-      {
-        "excerpt": "Ya'la ibn Umayyah said: I said në Umar ibn al-Khattab: 'There është no sin if one shortens  salah while travelling.' Umar replied: 'I wondered  same, so I asked  Prophet ﷺ dhe he said: It është charity nga Allah — accept His charity.'"
-      },
-      {
-        "excerpt": " Prophet ﷺ said: 'Allah loves ajo His concessions be taken, just as He hates në be disobeyed.'"
-      }
-    ],
+    "quran": [{}],
+    "hadith": [{}, {}, {}, {}],
     "obligations": [
-      " five ditor salah remain obligatory — shortened (Qasr) when ju qualify as  traveller.",
-      "Fajr (two rakahs) dhe Maghrib (three rakahs) janë never shortened.",
+      "Pesë namazet e përditshme mbeten obligim — të shkurtuara (Qasr) kur plotësoni kushtet e udhëtarit.",
+      "Sabahu (dy rekate) dhe akshami (tre rekate) nuk shkurtohen kurrë.",
       "Ju may combine Dhuhr me Asr, dhe Maghrib me Isha, when  conditions e travel apliko.",
-      "Each shortened salah është prayed like  i pari two rakahs e  full salah — recite Al-Fatiha dhe  surah, bow, prostrate, then sit për tashahhud dhe salam.",
-      "When ju return kryefaqja ose intend në settle, resume praying each salah në full at its proper time.",
+      "Çdo namaz i shkurtuar falet si dy rekatet e para të namazit të plotë — recitoni El-Fatihan dhe një sure, bëni ruku dhe sexhde, pastaj uluni për teshehud dhe jepni selam.",
+      "Kur ktheheni në shtëpi ose keni nijet të vendoseni, rifilloni ta falni çdo namaz të plotë në kohën e tij.",
       "Namazet e humbura gjatë udhëtimit duhet ende të shlyhen (kaza) — udhëtimi nuk e fal atë që është lënë."
     ],
     "qasr": {
       "title": "Qasr - shkurtim",
-      "body": " four-rakah fard salah — Dhuhr, Asr, dhe Isha — janë prayed as two rakahs në  qualifying udhëtimi. Pray them exactly as  i pari two rakahs at kryefaqja: standing recitation, one ruku, two sujud, tashahhud, dhe salam. Fajr stays two rakahs dhe Maghrib stays three; neither është shortened. Qasr applies në  fard only."
+      "body": "Namazet farz me katër rekate — dreka, ikindia dhe jacia — falen me dy rekate në një udhëtim që plotëson kushtet. Falini ashtu si dy rekatet e para në shtëpi: me recitim në këmbë, një ruku, dy sexhde, teshehud dhe selam. Sabahu mbetet dy rekate dhe akshami tre; asnjëri nuk shkurtohet. Qasr vlen vetëm për farzet."
     },
     "jam": {
       "title": "Jam' - duke kombinuar",
-      "body": " traveller may combine Dhuhr me Asr into one sitting, dhe Maghrib me Isha into one sitting — praying both fard salah back-në-back me one adhan dhe iqamah. Fajr cannot be combined me any other salah. Combining është  separate concession nga shortening: ju may shorten without combining, combine without shortening (në some situations), ose do both together."
+      "body": "Udhëtari mund ta bashkojë drekën me ikindinë në një ndenjje, dhe akshamin me jacinë në një ndenjje — duke i falur të dy namazet farz njëri pas tjetrit me një ezan dhe ikamet. Sabahu nuk mund të bashkohet me asnjë namaz tjetër. Bashkimi është lehtësim i ndarë nga shkurtimi: mund të shkurtoni pa bashkuar, të bashkoni pa shkurtuar (në disa situata), ose t'i bëni të dyja bashkë."
     },
     "jamTypes": {
       "title": "Xhem takdim & xhem te'hir",
-      "body": "Jam' al-Taqdim (early combining): pray both salah together at  earlier prayer's time — e.g. Dhuhr dhe Asr at Dhuhr time. Jam' al-Ta'khir (delayed combining): pray both at  later prayer's time — e.g. Dhuhr dhe Asr at Asr time.  Prophet ﷺ combined at Arafah (Dhuhr at Asr time) dhe at Muzdalifah (Maghrib at Isha time), establishing both forms."
+      "body": "Xhem takdim (bashkim i përparuar): falja e të dy namazeve bashkë në kohën e të parit — p.sh. dreka dhe ikindia në kohën e drekës. Xhem te'hir (bashkim i shtyrë): falja e të dyve në kohën e të dytit — p.sh. dreka dhe ikindia në kohën e ikindisë. Në Arafat Profeti ﷺ e solli ikindinë përpara në kohën e drekës, ndërsa në Muzdelife e shtyu akshamin deri në kohën e jacisë — nga një shembull për secilën formë (Sahih Muslim 1218)."
     },
     "when": {
       "title": "Kur fillojnë dhe mbarojnë lëshimet",
-      "body": "Concessions begin once ju leave juaj town ose city në  udhëtimi — not për ditor commutes within juaj locality. They end when ju return kryefaqja, ose when ju intend në stay at juaj destination për  period scholars define as 'settling' ( number e ditë differs between schools). If ju janë unsure whether ju still count as  traveller, ask  dijetar before assuming  concessions."
+      "body": "Lehtësimet fillojnë sapo të largoheni nga qyteti ose vendbanimi juaj për një udhëtim — jo për lëvizjet e përditshme brenda zonës suaj. Ato mbarojnë kur ktheheni në shtëpi, ose kur keni nijet të qëndroni në destinacion për periudhën që dijetarët e përcaktojnë si 'vendosje' (numri i ditëve ndryshon mes medhhebeve). Nëse nuk jeni të sigurt nëse ende llogariteni udhëtar, pyesni një dijetar para se t'i zbatoni lehtësimet."
     },
     "distance": {
       "title": "Distanca e udhëtimit",
-      "body": "Most scholars require  minimum travel distance before Qasr dhe Jam' apliko — commonly cited as roughly 80 km (48 miles), ose rreth two ditë' udhëtimi në foot. Some schools measure nga  last buildings e one's city; others use  shorter threshold.  app does not calculate kjo për ju — know juaj school's criterion dhe apliko it me  scholar's guidance."
+      "body": "Shumica e dijetarëve kërkojnë një distancë minimale udhëtimi para se të zbatohen Qasr dhe Jam' — zakonisht përmendet rreth 80 km (48 milje), ose afërsisht dy ditë udhëtim në këmbë. Disa medhhebe e masin nga ndërtesat e fundit të qytetit; të tjerët përdorin një prag më të shkurtër. Aplikacioni nuk e llogarit këtë për ju — njihni kriterin e medhhebit tuaj dhe zbatojeni me udhëzimin e një dijetari."
     },
     "sunnah": {
-      "title": "Sunnet salah while travelling",
+      "title": "Namazet sunet gjatë udhëtimit",
       "body": "Namazet sunete të theksuara (revatib) para dhe pas farzit mbeten të vlefshme, por nuk janë të detyrueshme. Shumë dijetarë lejojnë lënien e tyre gjatë udhëtimit për shkak të vështirësisë, sidomos kur bashkohen namazet. Përshëndetja e xhamisë (tehijetul-mesxhid) dhe namazet e tjera vullnetare mbeten të lejuara sa herë që keni kohë dhe energji."
     },
     "witr": {
       "title": "Witr në  udhëtimi",
-      "body": "Witr është sunnah mu'akkadah (strongly emphasized) dhe should not be abandoned while travelling. Pray it after Isha — even if ju combined Maghrib dhe Isha — as one, three, ose more odd rakahs according në what ju can manage. If ju fear sleeping before Isha while travelling,  Prophet ﷺ permitted praying Witr earlier after  combined Maghrib-Isha."
+      "body": "Vitri është sunet mu'ekkede (i theksuar fort) dhe nuk duhet lënë gjatë udhëtimit. Faleni pas jacisë — edhe nëse e keni bashkuar akshamin me jacinë — me një, tre ose më shumë rekate tek, sipas mundësisë. Nëse keni frikë se do t'ju zërë gjumi para jacisë gjatë udhëtimit, Profeti ﷺ lejoi që vitri të falet më herët, pas akshamit dhe jacisë së bashkuar."
     },
-    "disclaimer": "Kjo është edukative përmbajtja, not  personale fatwa. Distance thresholds, stay duration, combining rules, dhe whether Jam' është limited në need vary between  four schools — consult  qualified dijetar për juaj udhëtimi.",
+    "disclaimer": "Kjo është përmbajtje edukative, jo fetva personale. Pragjet e distancës, kohëzgjatja e qëndrimit, rregullat e bashkimit dhe nëse bashkimi (Jam') kufizohet vetëm në raste nevoje ndryshojnë mes katër medhhebeve — konsultohuni me një dijetar të kualifikuar për udhëtimin tuaj.",
     "markExcused": "Nis periudhën e justifikimit (udhëtim)",
     "clearExcused": "Rifilloni ndjekjen e detyrueshme",
     "qasrCalc": {
@@ -3172,19 +3158,17 @@
     "obligationsTitle": "Për çfarë jeni akoma përgjegjës",
     "hadith": [
       {
-        "reference": "Sahih el-Buhari · 321",
-        "excerpt": "Aisha said:  Messenger e Allah ﷺ said në me: 'When juaj menses ends, perform ghusl dhe then pray.'"
+        "reference": "Sahih el-Buhari · 321"
       },
       {
-        "reference": "Sahih el-Buhari · 304",
-        "excerpt": "قال النبي ﷺ: «أليس إذا حاضت لم تصلِّ ولم تصم؟»"
+        "reference": "Sahih el-Buhari · 304"
       }
     ],
     "obligations": [
-      "Do not offer salah while në hayd — kjo është Allah's concession, not neglect e ibadeti.",
-      "Do not fast during hayd; any humbur Ramazani fasts must be made up afterward.",
-      "Ju may still make zikr, dua, listen në Kurani, give charity, dhe other good deeds.",
-      "When hayd ends, perform ghusl dhe resume salah dhe agjërimi."
+      "Mos falni namaz gjatë hajdit — ky është lehtësim nga Allahu, jo neglizhim i ibadetit.",
+      "Mos agjëroni gjatë hajdit; çdo agjërim i humbur i Ramazanit duhet të kompensohet më pas.",
+      "Mund të bëni ende zikër e dua, të dëgjoni Kuranin, të jepni sadaka dhe vepra të tjera të mira.",
+      "Kur të përfundojë hajdi, merrni gusl dhe rifilloni namazin dhe agjërimin."
     ],
     "duration": {
       "title": "Kohëzgjatja e hajdit",
@@ -3204,64 +3188,49 @@
     },
     "disclaimer": "Ky është udhëzim arsimor, jo një vendim personal. Detajet e mësipërme ndryshojnë midis shkollave - konsultohuni me një studiuese të kualifikuar nëse situata juaj është e paqartë.",
     "markExcused": "Nis periudhën e justifikimit (hayd)",
-    "clearExcused": "Rifilloni ndjekjen e detyrueshme",
-    "hadith[0]": {
-      "reference": "Sahih el-Buhari · 321",
-      "excerpt": "Aishja tha: I Dërguari i Allahut (sal-lAllahu alejhi ue sel-lem) më tha: \"Kur t'ju mbarojnë menstruacionet, merrni gusl dhe pastaj faluni.\""
-    },
-    "hadith[1]": {
-      "reference": "Sahih el-Buhari · 304",
-      "excerpt": "Pejgamberi salAllahu alejhi ue selem tha: \"A nuk është rasti që kur ndonjërit prej jush i vjen menstruacionet, ajo as nuk falet e as nuk agjëron?\""
-    },
-    "obligations[0]": "Mos falni namaz gjatë kohës që jeni në hajd - kjo është leje e Allahut, jo neglizhencë e adhurimit.",
-    "obligations[1]": "Mos agjëroni gjatë hajdit; çdo agjërim i humbur i Ramazanit duhet të kompensohet më pas.",
-    "obligations[2]": "Ju ende mund të bëni zikër, dua, të dëgjoni Kur'an, të jepni sadaka dhe vepra të tjera të mira.",
-    "obligations[3]": "Kur të përfundojë hajdi, bëni gusl dhe rifilloni namazin dhe agjërimin."
+    "clearExcused": "Rifilloni ndjekjen e detyrueshme"
   },
   "sick": {
     "eyebrow": "Mëso",
     "title": "Sëmundja dhe Salah",
-    "subtitle": "Concessions për sickness dhe what remains upon ju",
+    "subtitle": "Lehtësimet për sëmundjen dhe çfarë mbetet obligim për ju",
     "hadithTitle": "Nga  Sunnet",
-    "obligationsTitle": "What ju janë still responsible për",
+    "obligationsTitle": "Për çfarë jeni ende përgjegjës",
     "hadith": [
       {
-        "reference": "Sahih el-Buhari · 1117",
-        "excerpt": " Prophet ﷺ said: 'Pray standing; if ju cannot, then sitting; if ju cannot, then në juaj side.'"
+        "reference": "Sahih el-Buhari · 1117"
       },
       {
-        "reference": "Sahih el-Buhari · 1936",
-        "excerpt": " Prophet ﷺ said: 'Allah has removed nga my Ummah mistakes, forgetfulness, dhe what they janë forced në do.'"
+        "reference": "Sahih el-Buhari · 1936"
       },
       {
-        "reference": "Sahih el-Buhari · 1118",
-        "excerpt": "Imran ibn Husayn had  painful condition dhe prayed sitting.  Prophet ﷺ asked him: 'Can ju stand?' He said no, so  Prophet ﷺ said: 'Then pray sitting; if ju cannot, then lying në juaj side.'"
+        "reference": "Sahih el-Buhari · 1118"
       }
     ],
     "obligations": [
-      "If ju janë able, pray në whatever position ju can — standing, sitting, ose lying down.",
+      "Nëse jeni në gjendje, faluni në çfarëdo pozicioni që mundeni — në këmbë, ulur ose shtrirë.",
       "Pakësojini ose lërini rukunë dhe sexhden vetëm kur vërtet nuk mund t'i kryeni.",
-      "If ju janë too ill në pray at të gjitha, ajo salah është waived — make it up (qaza) when ju recover.",
-      "Humbur Ramazani fasts due në illness should be made up when ju janë able.",
-      "Ju may still make zikr, dua, read Kurani, dhe give charity."
+      "Për sa kohë jeni në vetëdije, namazi nuk bie prej jush — faluni si të mundeni, qoftë edhe me shenjë. Namazi i humbur për shkak të sëmundjes kompensohet (kaza) kur të shëroheni; nëse keni qenë pa vetëdije, medhhebet kanë mendime të ndryshme nëse duhet kompensuar.",
+      "Agjërimet e humbura të Ramazanit për shkak të sëmundjes duhet të kompensohen kur të jeni në gjendje.",
+      "Mund të bëni ende zikër e dua, të lexoni Kuran dhe të jepni sadaka."
     ],
     "positions": {
       "title": "Falja e namazit gjatë sëmundjes - pozita",
-      "body": " default është në pray standing me full ruku dhe sujud. If standing causes severe pain, weakness, ose harm, pray sitting — many scholars permit sitting even without standing i pari when illness makes standing genuinely difficult.\n\nIf ju cannot sit upright, pray lying në juaj side ose back, gesturing për ruku dhe sujud me juaj head. Use every position concession before skipping  salah entirely.\n\nIf ju cannot use water për wudu because e illness ose risk e harm, perform tayammum when its conditions janë met."
+      "body": "Parimi bazë është të falesh në këmbë, me ruku dhe sexhde të plota. Nëse qëndrimi në këmbë shkakton dhimbje të forta, dobësi ose dëm, faluni ulur — shumë dijetarë e lejojnë faljen ulur edhe pa u ngritur më parë në këmbë, kur sëmundja e bën qëndrimin vërtet të vështirë.\n\nNëse nuk mund të uleni drejt, faluni shtrirë në krah ose në shpinë, duke bërë ruku dhe sexhde me shenjë me kokë. Përdorni çdo lehtësim pozicioni para se ta lini krejt një namaz.\n\nNëse nuk mund ta përdorni ujin për abdes për shkak të sëmundjes ose rrezikut të dëmit, merrni tejemum kur plotësohen kushtet e tij."
     },
     "rukuSujud": {
       "title": "Rukuja & sexhdja me lëvizje të kufizuar",
-      "body": "When ju cannot perform full bowing, incline juaj head për ruku —  deeper incline për sujud. Kjo është  concession used when praying sitting ose lying down.\n\nIf ju cannot move juaj head at të gjitha, scholars differ në  minimum movement e detyrueshme — some allow intention vetëm në extreme cases, while others require whatever movement është physically possible.\n\nDo not omit  entire salah if ju can pray me reduced movements.  Prophet ﷺ taught us në use concessions hapi by hapi rather than abandoning salah."
+      "body": "Kur nuk mund ta bëni përkuljen e plotë, përkulni kokën për ruku — dhe më thellë për sexhde. Ky është lehtësimi që përdoret kur falesh ulur ose shtrirë.\n\nNëse nuk mund ta lëvizni fare kokën, dijetarët kanë mendime të ndryshme për lëvizjen minimale të kërkuar — disa lejojnë vetëm nijetin në raste ekstreme, ndërsa të tjerë kërkojnë çfarëdo lëvizjeje që është fizikisht e mundur.\n\nMos e lini krejt një namaz nëse mund të faleni me lëvizje të kufizuara. Profeti ﷺ na mësoi t'i përdorim lehtësimet hap pas hapi, në vend që ta braktisim namazin."
     },
     "unable": {
-      "title": "Përfunduar inability në pray",
-      "body": "If ju lose consciousness, fall into deep sleep through  salah time, ose janë so severely ill ajo ju cannot pray even me të gjitha position concessions — dhe  entire time për ajo salah passes — ajo salah është waived me no sin, but must be made up (qaza) when ju recover.\n\nMarking  ditë as excused (illness) në kjo app pauses obligatory tracking dhe holds juaj seria — it does not replace  obligation në make up humbur salah later.\n\nPër chronic ose long-term illness, mëso  fixed concessions ajo apliko në juaj situation nga  qualified dijetar rather than assuming every ditë është fully waived."
+      "title": "Pamundësi e plotë për t'u falur",
+      "body": "Nëse humbni vetëdijen, bini në gjumë të thellë gjatë kohës së një namazi, ose jeni aq rëndë të sëmurë sa nuk mund të faleni as me të gjitha lehtësimet e pozicionit — dhe kalon e gjithë koha e atij namazi — për atë namaz nuk keni gjynah, por ai duhet kompensuar (kaza) kur të shëroheni.\n\nShënimi i një dite si të justifikuar (sëmundje) në këtë aplikacion e pezullon ndjekjen e obligimeve dhe e ruan serinë tuaj — por nuk e zëvendëson detyrimin për t'i kompensuar më vonë namazet e humbura.\n\nPër sëmundje kronike ose afatgjata, mësoni nga një dijetar i kualifikuar lehtësimet e përcaktuara që vlejnë për situatën tuaj, në vend që të supozoni se çdo ditë jeni plotësisht të përjashtuar."
     },
     "fastingQaza": {
-      "title": "Agjërimi, recovery & make-up (qaza)",
-      "body": "If agjërimi në Ramazani would worsen juaj illness ose delay recovery, break  fast dhe make it up në other ditë after ju recover —  Kurani explicitly permits kjo për  ill.\n\nEach humbur Ramazani fast është made up me one ditë e agjërimi later; there është no kaffarah (expiation) unless  fast was broken without  valid excuse.\n\nHumbur salah during illness must also be made up në order once ju janë able — unlike hayd, where humbur salah janë not qaza. When ju recover, resume normal tracking dhe work through juaj qaza at  sustainable pace."
+      "title": "Agjërimi, shërimi dhe kompensimi (kaza)",
+      "body": "Nëse agjërimi në Ramazan do ta përkeqësonte sëmundjen tuaj ose do ta vononte shërimin, prisheni agjërimin dhe kompensojeni në ditë të tjera pasi të shëroheni — Kurani e lejon shprehimisht këtë për të sëmurët.\n\nÇdo agjërim i humbur i Ramazanit kompensohet më vonë me një ditë agjërimi; nuk ka keffaret (shpagim) përveçse kur agjërimi është prishur pa arsye të vlefshme.\n\nNamazet e humbura gjatë sëmundjes duhet gjithashtu të kompensohen sipas radhës sapo të jeni në gjendje — ndryshe nga hajdi, ku namazet e humbura nuk bëhen kaza. Kur të shëroheni, rifilloni ndjekjen normale dhe shlyeni kazanë tuaj me një ritëm të qëndrueshëm."
     },
-    "disclaimer": "Kjo është edukative guidance, not  personale ruling. How much illness justifies each concession varies by school dhe severity — consult  qualified dijetar për juaj situation.",
+    "disclaimer": "Ky është udhëzim edukativ, jo dispozitë personale. Sa e rëndë duhet të jetë sëmundja për çdo lehtësim ndryshon sipas medhhebit dhe rëndesës — konsultohuni me një dijetar të kualifikuar për situatën tuaj.",
     "markExcused": "Nis periudhën e justifikimit (sëmundje)",
     "clearExcused": "Rifilloni ndjekjen e detyrueshme"
   },
@@ -3289,44 +3258,46 @@
       "dhul-hijjah": "Dhul-Hixhe",
       "muhasabah": "Muhasebe",
       "family-ties-due": "Lidhjet familjare në pritje",
-      "weekly-coach": "Reflektim javor"
+      "weekly-coach": "Reflektim javor",
+      "seasonal-banner": "Banerat sezonalë",
+      "umrah-mode": "Vazhdoni Umren tuaj"
     }
   },
   "schedule": {
     "eyebrow": "Salah times",
     "subtitle": "Obligatory salah, sunnah windows, dhe flexible acts për sot",
-    "shareA11y": "Share today's complete schedule as an image",
-    "shareMessageIntro": "Today's schedule — {{date}}"
+    "shareA11y": "Ndani orarin e plotë të sotëm si imazh",
+    "shareMessageIntro": "Orari i sotëm — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Mëso",
     "title": "Mëso Salah",
     "subtitle": "Nga juaj i pari salah në consistent ibadeti — hapi by hapi",
-    "intro": "Juaj learning udhëtimi: Why Pray → Prepare → Mëso → Practice → E përsosur → Be Consistent. Every mësimi cites Kurani ose autentike hadith dhe links në Munib trackers.",
+    "intro": "Rrugëtimi juaj i mësimit: Pse falemi → Përgatitja → Mësimi → Praktika → Përsosja → Qëndrueshmëria. Çdo mësim citon Kuranin ose hadithe autentike dhe lidhet me ndjekësit e Munib.",
     "quickLinksTitle": "Filloni këtu",
     "quickHowToPray": "Hapi-by-hapi salah",
     "quickHowToPrayHint": "Pjesa qendrore — çdo pozicion dhe çdo lexim",
     "quickWudu": "Udhërrëfyes i abdesit",
     "quickWuduHint": "Abdesi para çdo namazi",
     "quickPhrases": "Fjalët dhe kuptimet",
-    "quickPhrasesHint": "What ju say dhe what it teaches",
+    "quickPhrasesHint": "Çfarë thoni dhe çfarë ju mëson",
     "quickProgress": "progress e mi",
-    "quickProgressHint": "Lessons learned dhe ditor practice",
+    "quickProgressHint": "Mësimet e mësuara dhe praktika e përditshme",
     "progressCardTitle": "Learning progresi",
     "progressCardHint": "{{completed}} e {{total}} lessons shënuar përfunduar",
     "topicsTitle": "Udhëzues",
     "rakatsTitle": "Rakaat me një vështrim",
-    "prayer": "Salah",
+    "prayer": "Namazi",
     "fard": "Farz",
     "sunnah": "Sunnet",
-    "travelPointer": "Shortening dhe combining salah when travelling",
+    "travelPointer": "Shkurtimi dhe bashkimi i namazeve gjatë udhëtimit",
     "relatedTitle": "Udhëzues të lidhur",
     "qazaLink": "Humbur (qaza) salah",
     "qazaLinkHint": "Make up what ju humbur — connect në juaj qaza tracker",
     "duasLink": "Salah duas",
     "duasLinkHint": "Adhan, wudu, masjid, dhe after salah",
     "notFound": "Udhëzuesi nuk u gjet",
-    "disclaimer": " concise guide për learning dhe revision. Për juaj situation, consult  qualified teacher.",
+    "disclaimer": "Një udhëzues i përmbledhur për mësim dhe përsëritje. Për situatën tuaj, konsultohuni me një mësues të kualifikuar.",
     "continueInApp": "Vazhdo në Munib",
     "stepsTitle": "Hapi by hapi",
     "ruling": {
@@ -3341,15 +3312,15 @@
     "phrasesSubtitle": "Arabisht, përkthimi dhe kuptimi pas çdo fraze",
     "phrasesIntro": "Kuptimi i asaj që thoni ndërton khushu-në. Lexoni kuptimin para namazit tuaj të radhës.",
     "exploreTitle": "Vazhdo learning",
-    "progressExploreHint": "Revisit  key lessons dhe words e  salah",
+    "progressExploreHint": "Rishikoni mësimet kryesore dhe fjalët e namazit",
     "exploreStepByStep": "Hapi-by-hapi salah",
     "explorePositions": "Çdo pozicion",
     "meaningLabel": "Çfarë mëson",
-    "progressTitle": "learning progress e mi",
-    "progressSubtitle": "Ndiq lessons — not shpirtërore rank me Allah",
+    "progressTitle": "Përparimi im në mësim",
+    "progressSubtitle": "Ndiqni mësimet — jo gradën shpirtërore te Allahu",
     "progressIntro": "Ky panel kontrollon studimin dhe praktikën tuaj në Munib. Përfundimi i mësimeve nuk matë qëndrimin tuaj tek Allahu - e bën sinqeriteti.",
     "lessonsTitle": "Lessons përfunduar",
-    "lessonsHint": "Mark temat përfunduar as ju finish studimi them",
+    "lessonsHint": "Shënojini temat si të përfunduara kur t'i mbaroni së studiuari",
     "lessonsCount": "{{completed}} из {{total}}",
     "practiceTitle": "Ditor practice",
     "phaseV1": "themelet",
@@ -3366,7 +3337,7 @@
       "perfect": "E përsosur",
       "perfectHint": "Khushu, shtyllat dhe prishësit",
       "consistency": "Jini të qëndrueshëm",
-      "consistencyHint": "Salah types, congregation, qaza, dhe after salah"
+      "consistencyHint": "Llojet e namazit, xhemati, kazaja dhe pas namazit"
     },
     "importance": {
       "foundational": "Themelore",
@@ -3380,9 +3351,9 @@
       "qaza": "Qaza progresi",
       "qazaHint": "Humbur salah made up",
       "streak": "Salah seria",
-      "streakHint": "Consecutive ditë me salah logged",
+      "streakHint": "Ditë radhazi me namaz të regjistruar",
       "khushu": "Ditari Khushu",
-      "khushuHint": "Reflect në presence e zemër after salah"
+      "khushuHint": "Reflektoni për praninë e zemrës pas namazit"
     },
     "adhan": {
       "listenTitle": "Listen në  adhan",
@@ -3650,7 +3621,7 @@
     "eyebrow": "Mëso",
     "title": "Mëso pastrimin",
     "subtitle": "Taharah, wudu, ghusl, tayammum, dhe removing impurity — hapi by hapi",
-    "intro": "Purity është  foundation e ibadeti. Every mësimi cites Kurani ose autentike hadith, notes where scholars differ, dhe links në salah dhe dua në Munib.",
+    "intro": "Pastërtia është themeli i ibadetit. Çdo mësim citon Kuranin ose hadithe autentike, shënon ku dijetarët kanë mendime të ndryshme dhe lidhet me namazin dhe duatë në Munib.",
     "quickLinksTitle": "Filloni këtu",
     "quickWudu": "Udhërrëfyes i abdesit",
     "quickWuduHint": "Hapi-by-hapi ablution before salah",
@@ -3668,41 +3639,41 @@
     "checklistSubtitle": "Rishikoni këto zakone pastërtie çdo ditë",
     "checklistIntro": "Një listë praktike përkujtuese — jo zëvendësim për mësimin e fikhut të teharetit.",
     "checklistListTitle": "Lista e kontrollit",
-    "checklistHint": "Tap items as ju review juaj ditor purity habits",
+    "checklistHint": "Prekni elementet ndërsa rishikoni zakonet tuaja të përditshme të pastërtisë",
     "wuduTitle": "Abdesi",
-    "wuduHint": "Conditions, steps, duas, dhe nullifiers",
+    "wuduHint": "Kushtet, hapat, duatë dhe prishësit",
     "ghuslTitle": "Gusl",
     "ghuslHint": "When it është e detyrueshme dhe how në perform it",
-    "salahGuidePointer": "Mëso Salah — prayer after purification",
-    "learnDuaPointer": "Duas before dhe after wudu",
+    "salahGuidePointer": "Mësoni namazin — falja pas pastrimit",
+    "learnDuaPointer": "Duatë para dhe pas abdesit",
     "haydPointer": "Udhëzues për menstruacionet dhe pastërtinë pas lindjes",
-    "notFound": "Tema not found",
-    "disclaimer": "Edukative përmbledhje për learning dhe revision. Për juaj situation, consult  qualified teacher.",
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Përmbledhje edukative për mësim dhe përsëritje. Për situatën tuaj, konsultohuni me një mësues të kualifikuar.",
     "continueInApp": "Vazhdo në Munib",
     "stepsTitle": "Hapi by hapi",
     "markComplete": "Shëno temën si të përfunduar",
     "markIncomplete": "Shëno si ende e papërfunduar",
     "phaseV1": "V1 — Bazat",
-    "progressTitle": "learning progress e mi",
-    "progressSubtitle": "Ndiq lessons — not shpirtërore rank me Allah",
-    "progressIntro": "Mark temat përfunduar as ju study. Completing lessons does not measure juaj standing me Allah — sincerity does.",
+    "progressTitle": "Përparimi im në mësim",
+    "progressSubtitle": "Ndiqni mësimet — jo gradën shpirtërore te Allahu",
+    "progressIntro": "Shënojini temat si të përfunduara ndërsa studioni. Përfundimi i mësimeve nuk e mat pozitën tuaj te Allahu — sinqeriteti po.",
     "lessonsTitle": "Temat përfunduar",
-    "lessonsHint": "Mark temat përfunduar as ju finish studimi them",
+    "lessonsHint": "Shënojini temat si të përfunduara kur t'i mbaroni së studiuari",
     "lessonsCount": "{{completed}} из {{total}}",
     "progressExploreHint": "Kthehuni te temat kryesore të pastërtisë",
     "section": {
       "intro": "Hyrje",
-      "introHint": "What taharah është dhe why it matters",
+      "introHint": "Çfarë është tehareti dhe pse ka rëndësi",
       "water": "Water në Islami",
-      "waterHint": "Purifying water dhe what invalidates it",
+      "waterHint": "Uji që pastron dhe çfarë e prish atë",
       "wudu": "Abdesi",
-      "wuduHint": "Ablution — conditions, steps, sunnah, dhe mistakes",
+      "wuduHint": "Abdesi — kushtet, hapat, sunetet dhe gabimet",
       "ghusl": "Gusl",
       "ghuslHint": "Larje e plotë për papastërtinë e madhe",
       "tayammum": "Tejemumi",
       "tayammumHint": "Abdes i thatë kur nuk ka ujë",
       "najasah": "Nexhaseti",
-      "najasahHint": "Impurities dhe how në remove them",
+      "najasahHint": "Papastërtitë (nexhaset) dhe si të hiqen",
       "exceptions": "Përjashtimet",
       "exceptionsHint": "Hayd, nifas, dhe e zakonshme pyetje",
       "reference": "Referencat",
@@ -3719,15 +3690,15 @@
   "prophets": {
     "eyebrow": "Mëso",
     "title": "Mëso profetët",
-    "subtitle": "Lives, missions, dhe lessons e  prophets named në  Kurani",
-    "intro": "Every prophet called në Tawheed dhe righteous living. Stories janë cited nga  Kurani dhe autentike Sunnet — për reflection, not entertainment.",
+    "subtitle": "Jeta, misionet dhe mësimet e profetëve të përmendur në Kuran",
+    "intro": "Çdo profet thirri në teuhid dhe në jetë të drejtë. Tregimet citohen nga Kurani dhe Suneti autentik — për reflektim, jo për argëtim.",
     "quickLinksTitle": "Filloni këtu",
     "quickTimeline": "Afati kohor",
     "quickTimelineHint": "Nga Adam në Muhammad ﷺ — key eras",
     "quickMuhammad": "Muhamedi ﷺ",
-    "quickMuhammadHint": " seal e  prophets",
+    "quickMuhammadHint": "Vula e profetëve",
     "quickLessons": "Mësimet",
-    "quickLessonsHint": "Moral dhe shpirtërore takeaways",
+    "quickLessonsHint": "Mësime morale dhe shpirtërore",
     "quickProgress": "learning e mi",
     "quickProgressHint": "Temat e lexuara dhe studimi përparimin",
     "progressCardTitle": "Learning progresi",
@@ -3735,38 +3706,38 @@
     "exploreTitle": "Eksploro",
     "relatedTitle": "Udhëzues të lidhur",
     "timelineTitle": "Afati kohor",
-    "timelineSubtitle": "Prophets across historia",
-    "timelineHint": "Chronological përmbledhje me links në prophet temat",
-    "timelineIntro": "Dates dhe eras janë approximate where  Kurani dhe Sunnet do not specify exact chronology.",
-    "readTopic": "Read full tema",
+    "timelineSubtitle": "Profetët përgjatë historisë",
+    "timelineHint": "Përmbledhje kronologjike me lidhje te temat e profetëve",
+    "timelineIntro": "Datat dhe epokat janë të përafërta aty ku Kurani dhe Suneti nuk përcaktojnë kronologji të saktë.",
+    "readTopic": "Lexo temën e plotë",
     "muhammadTitle": "Muhamedi ﷺ",
-    "muhammadHint": " final messenger në të gjitha humanity",
-    "lessonsTopicTitle": "Lessons nga  prophets",
+    "muhammadHint": "I dërguari i fundit për të gjithë njerëzimin",
+    "lessonsTopicTitle": "Mësime nga profetët",
     "seerahPointer": "Biografia e plotë profetike",
-    "quranPointer": "Read their stories në  Kurani",
-    "notFound": "Tema not found",
-    "disclaimer": "Edukative summaries drawn nga  Kurani dhe graded hadith. Për detailed tafsir, consult qualified scholars.",
+    "quranPointer": "Lexoni tregimet e tyre në Kuran",
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Përmbledhje edukative të nxjerra nga Kurani dhe hadithe të vlerësuara. Për tefsir të hollësishëm, konsultohuni me dijetarë të kualifikuar.",
     "continueInApp": "Vazhdo në Munib",
     "markComplete": "Shëno temën si të përfunduar",
     "markIncomplete": "Shëno si ende e papërfunduar",
     "phaseV1": "V1 — Bazat",
     "profileTitle": "Profili",
-    "progressTitle": "learning progress e mi",
-    "progressSubtitle": "Ndiq lessons — not shpirtërore rank me Allah",
+    "progressTitle": "Përparimi im në mësim",
+    "progressSubtitle": "Ndiqni mësimet — jo gradën shpirtërore te Allahu",
     "progressIntro": "Shënoni temat të përfunduara ndërsa studioni jetën e profetëve.",
     "lessonsTitle": "Temat përfunduar",
-    "lessonsHint": "Mark temat përfunduar as ju finish studimi them",
+    "lessonsHint": "Shënojini temat si të përfunduara kur t'i mbaroni së studiuari",
     "lessonsCount": "{{completed}} из {{total}}",
-    "progressExploreHint": "Return në afati kohor dhe key prophets",
+    "progressExploreHint": "Kthehuni te kronologjia dhe profetët kryesorë",
     "section": {
       "context": "Konteksti",
-      "contextHint": "What është  prophet dhe why Allah sent them",
+      "contextHint": "Çfarë është profeti dhe pse i dërgoi Allahu",
       "prophets": "Prophets në  Kurani",
       "prophetsHint": "Biografia, misioni, mrekullitë dhe mësimet",
       "themes": "Temat",
       "themesHint": "Mrekullitë, popujt dhe mësimet e përbashkëta",
       "evidence": "Dëshmi",
-      "evidenceHint": "Kuraniic references dhe sources"
+      "evidenceHint": "Referenca kuranore dhe burime"
     },
     "profile": {
       "nation": "Kombi / popull",
@@ -3812,14 +3783,14 @@
       },
       "disclaimer": "Gjenealogjia arsimore - jo një listë e plotë e çdo profeti. Shumë lajmëtarë janë emëruar në Qur'an pa një zinxhir të detajuar prind; ato shfaqen në Mësoni biografinë e Profetëve, por këtu janë lënë mënjanë sesa të hamendësohen.",
       "panHint": "Afroni gishtat për zmadhim, tërhiqni për ta lëvizur, prekni dy herë për ta përshtatur",
-      "fitView": "Fit tree to screen",
-      "mapA11y": "Interactive prophets family tree map",
+      "fitView": "Përshtate pemën në ekran",
+      "mapA11y": "Hartë interaktive e pemës familjare të profetëve",
       "legendParent": "Prejardhja (prindi → fëmija)",
-      "legendSibling": "Siblings",
-      "allBranches": "All branches",
-      "tapHint": "Tap a name on the map to read the sourced note.",
-      "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out",
+      "legendSibling": "Vëllezër e motra",
+      "allBranches": "Të gjitha degët",
+      "tapHint": "Prekni një emër në hartë për të lexuar shënimin me burim.",
+      "zoomIn": "Zmadho",
+      "zoomOut": "Zvogëlo",
       "tapHintTv": "Zgjidhni një emër në hartë për të lexuar shënimin me burim.",
       "listHintTv": "Zgjidhni një emër në listë për të lexuar shënimin me burim."
     }
@@ -3844,36 +3815,36 @@
     "sixArticlesTitle": "Six nenet e iman",
     "sixArticlesHint": "Allahu, melekët, librat, profetët, Dita e Fundit, kaderi",
     "tawheedTitle": "Teuhidi dhe shirku",
-    "tawheedHint": "Ibadeti Allah vetëm — avoid association",
+    "tawheedHint": "Adhuroni vetëm Allahun — shmangni shirkun",
     "glossaryTitle": "Fjalori",
-    "glossarySubtitle": "Kushtet used në Islamic creed",
+    "glossarySubtitle": "Terma të përdorur në besimin islam",
     "glossaryHint": "Teuhidi, shirku, kaderi dhe më shumë",
     "glossaryIntro": "Njohja e fjalorit parandalon ngatërresat gjatë studimit të akides.",
     "glossaryListTitle": "Kushtet",
-    "notFound": "Tema not found",
-    "disclaimer": "Edukative përmbledhje — not  fatwa. Për personale pyetje, ask  qualified dijetar.",
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Përmbledhje edukative — jo fetva. Për pyetje personale, pyetni një dijetar të kualifikuar.",
     "continueInApp": "Vazhdo në Munib",
     "misconceptionsTitle": "E zakonshme misconceptions",
     "markComplete": "Shëno temën si të përfunduar",
     "markIncomplete": "Shëno si ende e papërfunduar",
     "phaseV1": "V1 — Bazat",
-    "progressTitle": "learning progress e mi",
-    "progressSubtitle": "Ndiq lessons — not shpirtërore rank me Allah",
+    "progressTitle": "Përparimi im në mësim",
+    "progressSubtitle": "Ndiqni mësimet — jo gradën shpirtërore te Allahu",
     "progressIntro": "Studimi i akides e forcon imanin kur bëhet me sinqeritet dhe me burime të besueshme.",
     "lessonsTitle": "Temat përfunduar",
-    "lessonsHint": "Mark temat përfunduar as ju finish studimi them",
+    "lessonsHint": "Shënojini temat si të përfunduara kur t'i mbaroni së studiuari",
     "lessonsCount": "{{completed}} из {{total}}",
-    "progressExploreHint": "Return në core creed temat",
+    "progressExploreHint": "Kthehuni te temat bazë të besimit",
     "section": {
       "intro": "Hyrje",
-      "introHint": "What aqeedah është dhe why it matters",
+      "introHint": "Çfarë është akideja dhe pse ka rëndësi",
       "articles": "Nenet e iman",
       "articlesHint": "Gjashtë shtyllat e imanit, të shpjeguara",
       "tawheed": "Tawheed & ibadeti",
-      "tawheedHint": "Sincerity, love, fear, dhe hope në Allah",
+      "tawheedHint": "Sinqeriteti, dashuria, frika dhe shpresa te Allahu",
       "afterlife": "Jeta e përtejme",
       "afterlifeHint": "Xheneti, Xhehenemi, ringjallja dhe gjykimi",
-      "signs": "Signs e  Hour",
+      "signs": "Shenjat e Kiametit",
       "signsHint": "Shenjat e mëdha dhe të vogla para Ditës së Fundit",
       "reference": "Referencat",
       "referenceHint": "Pyetje të shpeshta dhe lexime të mëtejshme"
@@ -3888,47 +3859,47 @@
   "learnDua": {
     "eyebrow": "Mëso",
     "title": "Mëso Dua",
-    "subtitle": "Autentike supplications — meanings, virtues, dhe when në recite them",
-    "intro": "Dua është ibadeti. Mëso etiquette, best times, dhe  words e  Kurani dhe Sunnet — then practise nga  Munib dua library.",
+    "subtitle": "Dua autentike — kuptimet, vlerat dhe kur të recitohen",
+    "intro": "Duaja është ibadet. Mësoni edukatën, kohët më të mira dhe fjalët e Kuranit e të Sunetit — pastaj praktikoni nga biblioteka e duave në Munib.",
     "quickLinksTitle": "Filloni këtu",
     "quickMorningEvening": "Mëngjes dhe mbrëmje",
     "quickMorningEveningHint": "Adhkar ajo bookend juaj ditë",
     "quickEtiquette": "Etiquette e dua",
-    "quickEtiquetteHint": "How në ask Allah properly",
+    "quickEtiquetteHint": "Si t'i luteni Allahut siç duhet",
     "quickOccasions": "Sipas rastit",
-    "quickOccasionsHint": "Browse duas për every moment",
+    "quickOccasionsHint": "Shfletoni duatë për çdo çast",
     "quickProgress": "learning e mi",
     "quickProgressHint": "Temat e lexuara dhe studimi përparimin",
     "progressCardTitle": "Learning progresi",
     "progressCardHint": "{{completed}} nga {{total}} tema të shënuara si të përfunduara",
     "exploreTitle": "Eksploro",
     "occasionsTitle": "Dua sipas rastit",
-    "occasionsSubtitle": "Find  right supplication për juaj situation",
+    "occasionsSubtitle": "Gjeni duanë e duhur për situatën tuaj",
     "occasionsHint": "Ditor, situational, dhe Kuraniic duas",
-    "occasionsIntro": "Tap  occasion në open  mësimi ose browse  full dua library.",
-    "duaLibraryPointer": "Full dua library — read dhe memorise",
+    "occasionsIntro": "Prekni një rast për të hapur mësimin ose shfletoni bibliotekën e plotë të duave.",
+    "duaLibraryPointer": "Biblioteka e plotë e duave — lexoni dhe mësoni përmendësh",
     "featuredPhraseTitle": "Dua e veçuar",
     "featuredPhraseTitleWithTopic": "Nga {{topic}}",
     "morningEveningTitle": "Adkari i mëngjesit dhe i mbrëmjes",
     "duaEtiquetteTitle": "Etiquette e dua",
-    "notFound": "Tema not found",
-    "disclaimer": "Edukative guide — verify wording me  teacher when memorising. Translations janë aids, not replacements për Arabic në ibadeti.",
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Udhëzues edukativ — verifikoni formulimin me një mësues kur e mësoni përmendësh. Përkthimet janë ndihmëse, jo zëvendësim i arabishtes në ibadet.",
     "continueInApp": "Vazhdo në Munib",
     "markComplete": "Shëno temën si të përfunduar",
     "markIncomplete": "Shëno si ende e papërfunduar",
     "phaseV1": "V1 — Bazat",
-    "progressTitle": "learning progress e mi",
-    "progressSubtitle": "Ndiq lessons — not whether Allah accepts juaj dua",
+    "progressTitle": "Përparimi im në mësim",
+    "progressSubtitle": "Ndiqni mësimet — jo nëse Allahu jua pranon duanë",
     "progressIntro": "Allahu e dëgjon çdo thirrje të sinqertë. Ky ekran ndjek studimin tuaj, jo përgjigjen e Tij.",
     "lessonsTitle": "Temat përfunduar",
-    "lessonsHint": "Mark temat përfunduar as ju finish studimi them",
+    "lessonsHint": "Shënojini temat si të përfunduara kur t'i mbaroni së studiuari",
     "lessonsCount": "{{completed}} из {{total}}",
-    "progressExploreHint": "Return në key dua lessons",
+    "progressExploreHint": "Kthehuni te mësimet kryesore për duanë",
     "section": {
       "intro": "Hyrje",
-      "introHint": "What dua është, etiquette, dhe best times",
+      "introHint": "Çfarë është duaja, edukata dhe kohët më të mira",
       "daily": "Ditor duas",
-      "dailyHint": "Morning, evening, kryefaqja, masjid, food, dhe salah",
+      "dailyHint": "Mëngjesi, mbrëmja, shtëpia, xhamia, ushqimi dhe namazi",
       "situational": "Duat e situatës",
       "situationalHint": "Ankthi, sëmundja, udhëtimi, falja dhe më shumë",
       "categories": "Kategoritë",
@@ -4121,7 +4092,7 @@
     "subtitle": "Datat e ardhshme në vitin Hixhri",
     "today": "Sot",
     "inDays": "në {{count}} ditë",
-    "hijriYear": "{{year}} AH",
+    "hijriYear": "{{year}} h.",
     "disclaimer": "Datat ndjekin dukshmërinë e hënës në vendndodhjen tuaj (ose kalendarin zyrtar Umm al-Qura në rajonet që e përdorin) dhe mund të ndryshojnë me një ditë nga njoftimi i autoritetit lokal.",
     "names": {
       "newYear": "Viti i Ri Islamik",
@@ -4176,7 +4147,7 @@
     "checklist": [
       {
         "title": "Konfirmo  hawl (lunar vit)",
-        "body": "Juaj net zakatable wealth must have stayed at ose above nisab për one përfunduar Hijri vit. Note  date it i pari të arritura nisab."
+        "body": "Pasuria juaj neto e zekatueshme duhet të ketë qëndruar në nivelin e nisabit ose mbi të për një vit të plotë hixhri. Shënoni datën kur arriti për herë të parë nisabin."
       },
       {
         "title": "Përdorni vlerat aktuale të tregut",
@@ -4188,11 +4159,11 @@
       },
       {
         "title": "Paguani marrësit e përshtatshëm",
-        "body": "Distribute në  eight categories named në Kurani 9:60 — not as  generic donation në any cause."
+        "body": "Shpërndajeni te tetë kategoritë e përmendura në Kuran 9:60 — jo si dhurim i përgjithshëm për çfarëdo qëllimi."
       },
       {
         "title": "Bëni nijetin (qëllimin)",
-        "body": "Zakat është  act e ibadeti. Intend it as zakat when paying, not ordinary sadaqah."
+        "body": "Zekati është ibadet. Bëni nijet që është zekat kur e jepni, jo sadaka e zakonshme."
       },
       {
         "title": "Pyetni kur nuk jeni të sigurt",
@@ -4254,11 +4225,11 @@
     "recipientsListTitle": "Tetë kategoritë",
     "recipients": [
       {
-        "title": "Al-fuqara ( poor)",
+        "title": "Al-fuqara (të varfrit)",
         "body": "Ata që nuk mund të përmbushin nevojat bazë."
       },
       {
-        "title": "Al-masakin ( needy)",
+        "title": "Al-masakin (nevojtarët)",
         "body": "Ata në vështirësi, që kanë më pak se të varfrit."
       },
       {
@@ -4267,22 +4238,22 @@
       },
       {
         "title": "Al-mu'allafatu qulubuhum (ata që zemërohen zemërat e tyre)",
-        "body": "Those whose hearts janë në be reconciled në Islami."
+        "body": "Ata, zemrat e të cilëve duhen afruar me Islamin."
       },
       {
-        "title": "Fi'r-riqab (skllevërit)",
-        "body": "Freeing those në bondage — historically captives; scholars apliko në relevant cases sot."
+        "title": "Fi'r-riqab (robërit)",
+        "body": "Lirimi i atyre që janë në robëri — historikisht robërit; sot dijetarët e zbatojnë në rastet përkatëse."
       },
       {
-        "title": "Al-gharimin ( indebted)",
+        "title": "Al-gharimin (të zhyturit në borxhe)",
         "body": "Ata të ngarkuar me borxhe që nuk mund t'i shlyejnë."
       },
       {
         "title": "Fi sabili Allah (në rrugën e Allahut)",
-        "body": "Në  cause e Allah — scholars define eligible causes."
+        "body": "Në rrugën e Allahut — dijetarët përcaktojnë qëllimet e lejuara."
       },
       {
-        "title": "Ibn as-sabil ( wayfarer)",
+        "title": "Ibn as-sabil (udhëtari)",
         "body": "Udhëtari që ka ngecur pa mjete."
       }
     ],
@@ -4290,34 +4261,8 @@
     "nisabWeightGold": "Ar: ~ 87,48 g (≈ 7,5 tola)",
     "nisabWeightSilver": "Argjendi: ~ 612,36 g (≈ 52,5 tola)",
     "nisabWeightNote": "Peshat e sakta dhe cilin metal të preferoni ndryshojnë pak nga shkollat. Llogaritësi përdor këto shifra Hanefite të cituara gjerësisht.",
-    "quran": [
-      {
-        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
-      },
-      {
-        "excerpt": "Take nga their wealth  charity by which ju purify them dhe cause them në grow, dhe invoke blessings upon them. Indeed, juaj invocation është reassurance për them. Dhe Allah është Hearing dhe Knowing."
-      },
-      {
-        "excerpt": "O ju who believe, spend nga  good things which ju have earned dhe nga ajo which We have produced për ju nga  earth."
-      },
-      {
-        "excerpt": "إِنَّ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَأَقَامُوا الصَّلَاةَ وَآتَوُا الزَّكَاةَ لَهُمْ أَجْرُهُمْ عِندَ رَبِّهِمْ وَلَا خَوْفٌ عَلَيْهِمْ وَلَا هُمْ يَحْزَنُونَ"
-      }
-    ],
-    "hadith": [
-      {
-        "excerpt": "Islami është built upon five:  testimony ajo none has  right në be worshipped but Allah dhe ajo Muhammad është  Messenger e Allah, establishing salah, paying zakat, pilgrimage në  House, dhe agjërimi Ramazani."
-      },
-      {
-        "excerpt": "بَعَثَ النَّبِيُّ ﷺ مُعَاذًا إِلَى الْيَمَنِ فَقَالَ: فَأَعْلِمْهُمْ أَنَّ اللَّهَ افْتَرَضَ عَلَيْهِمْ صَدَقَةً تُؤْخَذُ مِنْ أَغْنِيَائِهِمْ فَتُرَدُّ عَلَى فُقَرَائِهِمْ."
-      },
-      {
-        "excerpt": "There është no owner e gold ose silver who does not pay what është due në it except ajo në  Ditë e Resurrection plates e fire will be made për him, heated në  Fire e Hell, dhe his side, forehead, dhe back will be seared me them."
-      },
-      {
-        "excerpt": "When ju own two hundred dirhams dhe  vit has passed over them, five dirhams janë due. Dhe no zakat është due në wealth until  vit has passed over it."
-      }
-    ],
+    "quran": [{}, {}, {}, {}],
+    "hadith": [{}, {}, {}, {}],
     "assetsTitle": "Pasuria juaj",
     "assetsHint": "Futni vlerat aktuale të tregut në monedhën tuaj vendase.",
     "group": {
@@ -4329,7 +4274,7 @@
     "nisabOverrideTitle": "Ndalimi manual i nisabit",
     "deductionsTitle": "Zbritjet",
     "nisabTitle": "pragu i Nisabit",
-    "nisabHint": "Enter today's gold and silver price per gram to estimate nisab (~87.5 g gold or ~612 g silver). Many scholars use the lower of the two values.",
+    "nisabHint": "Shkruani çmimin e arit dhe të argjendit për gram (~87.5 g / ~612 g). Shumë dijetarë përdorin pragun më të ulët.",
     "nisabGoldValue": "Nisabi ari (~87,5 g): {{value}}",
     "nisabSilverValue": "Nisabi argjendi (~612 g): {{value}}",
     "nisabGoldShort": "Ar {{value}}",
@@ -4367,7 +4312,7 @@
       "units": {
         "g": "gram",
         "tola": "Tola",
-        "oz": "Troy oz",
+        "oz": "Ons troy",
         "kg": "kilogram"
       },
       "pureGrams": "≈ {{grams}} g metal të pastër",
@@ -4411,89 +4356,9 @@
       "investmentProperty": "Shtëpi ose ndërtesa të mbajtura për investime ose tregti - jo vendbanimi juaj personal.",
       "tradeVehicles": "Makina ose automjete të mbajtura për shitje ose si stok tregtimi - jo automjete për përdorim personal."
     },
-    "checklist[0]": {
-      "title": "Konfirmo hawl (viti hënor)",
-      "body": "Pasuria juaj neto e zekatit duhet të ketë qëndruar në ose mbi nisab për një vit të plotë Hixhri. Vini re datën kur arriti fillimisht në nisab."
-    },
-    "checklist[1]": {
-      "title": "Përdorni vlerat aktuale të tregut",
-      "body": "Vlerësoni arin, argjendin, aksionet dhe tregtoni mallrat me çmimet e sotme - jo kosto historike të blerjes."
-    },
-    "checklist[2]": {
-      "title": "Zbrisni vetëm borxhet e pranueshme",
-      "body": "Borxhet e menjëhershme që duhet tani zbriten zakonisht. Detyrimet afatgjata trajtohen ndryshe ndërmjet shkollave."
-    },
-    "checklist[3]": {
-      "title": "Paguani marrësit e kualifikuar",
-      "body": "Shpërndani te tetë kategoritë e përmendura në Kur'an 9:60 - jo si një dhurim i përgjithshëm për ndonjë kauzë."
-    },
-    "checklist[4]": {
-      "title": "Bëje nijetin (nijet)",
-      "body": "Zekati është një akt adhurimi. Synoni atë si zekat kur paguani, jo sadaka të zakonshme."
-    },
-    "checklist[5]": {
-      "title": "Pyetni kur nuk jeni të sigurt",
-      "body": "Bizhuteritë, pensionet, kriptomat, hipotekat dhe aksionet e biznesit kanë të gjitha vendime të nuancuara – konsultohuni me një studiues të kualifikuar."
-    },
-    "recipients[0]": {
-      "title": "El-fuqara (të varfërit)",
-      "body": "Ata që nuk mund të plotësojnë nevojat bazë."
-    },
-    "recipients[1]": {
-      "title": "Al-masakin (në nevojë)",
-      "body": "Ata në vështirësi me më pak se të varfërit."
-    },
-    "recipients[2]": {
-      "title": "Al-'amilun (administratorët)",
-      "body": "Të punësuar për mbledhjen dhe shpërndarjen e zekatit."
-    },
-    "recipients[3]": {
-      "title": "El-muallafatu kulubuhum",
-      "body": "Ata, zemrat e të cilëve duhet të pajtohen me Islamin."
-    },
-    "recipients[4]": {
-      "title": "Fi'r-rikab (robër)",
-      "body": "Lirimi i atyre që janë në robëri - historikisht robër; studiuesit aplikojnë sot për rastet përkatëse."
-    },
-    "recipients[5]": {
-      "title": "Al-gharimin (i borxhli)",
-      "body": "Ata që janë të ngarkuar nga borxhi nuk mund të shlyejnë."
-    },
-    "recipients[6]": {
-      "title": "Fi sabili Allah",
-      "body": "Në rrugën e Allahut - dijetarët përcaktojnë shkaqet e pranueshme."
-    },
-    "recipients[7]": {
-      "title": "Ibn es-sabil (udhëtar)",
-      "body": "Një udhëtar i bllokuar pa burime."
-    },
-    "quran[0]": {
-      "excerpt": "Shpenzimet e zekatit janë vetëm për të varfrit dhe nevojtarët dhe për ata që janë të punësuar për ta mbledhur atë, për bashkimin e zemrave dhe për lirimin e robërve dhe për ata që kanë borxhe, për rrugën e Allahut dhe për udhëtarët - obligim nga Allahu. Dhe Allahu është i Gjithëdijshëm dhe i Urtë."
-    },
-    "quran[1]": {
-      "excerpt": "Merr nga pasuria e tyre një sadaka me të cilën do t'i pastrosh, do t'i rritësh dhe do t'u lutesh atyre. Në të vërtetë, thirrja juaj është siguri për ta. Dhe Allahu dëgjon dhe di."
-    },
-    "quran[2]": {
-      "excerpt": "O ju që besuat, shpenzoni nga të mirat që keni fituar dhe nga ajo që ju kemi prodhuar nga toka."
-    },
-    "quran[3]": {
-      "excerpt": "Ata që besojnë, bëjnë vepra të mira, e falin namazin dhe japin zekatin, do të kenë shpërblimin e tyre te Zoti i tyre dhe nuk do të ketë frikë e as pikëllim për ta."
-    },
-    "hadith[0]": {
-      "excerpt": "Islami është ndërtuar mbi pesë: dëshminë se askush nuk ka të drejtë të adhurohet përveç Allahut dhe se Muhamedi është i Dërguari i Allahut, falja e namazit, dhënia e zekatit, haxhi në shtëpi dhe agjërimi i Ramazanit."
-    },
-    "hadith[1]": {
-      "excerpt": "Pejgamberi ﷺ dërgoi Muadhin në Jemen dhe i tha: Mësojuni atyre se Allahu ua ka obliguar bamirësinë (zekatin) – marrë nga të pasurit e tyre dhe kthehet te të varfërit e tyre."
-    },
-    "hadith[2]": {
-      "excerpt": "Nuk ka asnjë pronar ari apo argjendi që nuk e paguan atë që i takon, përveç se në Ditën e Kijametit do t'i bëhen pjata të zjarrit, të nxehta në zjarrin e Xhehenemit dhe me to do t'i nxehen anët, balli dhe shpina."
-    },
-    "hadith[3]": {
-      "excerpt": "Kur të posedoni dyqind dirhemë dhe të kalojë një vit mbi to, ju duhet pesë dirhemë. Dhe nuk i jepet zekat pasurisë derisa të kalojë një vit mbi të."
-    },
     "currency": {
       "title": "Currency",
-      "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
+      "hint": "Zgjidhni monedhën dhe formatin e numrave. Çmimet e drejtpërdrejta të arit dhe argjendit konvertohen automatikisht.",
       "changeA11y": "Ndryshoni monedhën e zekatit",
       "pickerTitle": "Zgjidhni monedhën",
       "pickerHint": "Monedhat {{count}} — kërkoni sipas kodit ose emrit",
@@ -4505,7 +4370,7 @@
       "title": "Ari dhe argjendi i gjallë",
       "goldPerGram": "Ar / gram",
       "silverPerGram": "Argjend / gram",
-      "source": "{{source}} · FX {{date}}",
+      "source": "{{source}} · Kursi {{date}}",
       "loading": "Po merren çmimet e drejtpërdrejta…",
       "error": "Çmimet në kohë reale nuk mund të ngarkoheshin. Futni manualisht çmimet e arit dhe argjendit.",
       "prefilled": "Çmimet e Nisabit dhe të metaleve janë të parambushura nga tarifat e drejtpërdrejta.",
@@ -4514,9 +4379,9 @@
       "refreshA11y": "Rifresko çmimet e drejtpërdrejta të tregut",
       "livePrice": "Jetoni"
     },
-    "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
+    "nisabHintLive": "Vlerësuar nga çmimet e drejtpërdrejta. Shumë dijetarë përdorin nisabin më të ulët mes arit dhe argjendit.",
     "bar": {
-      "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
+      "meetsNisab": "Neto {{wealth}} · Nisabi {{nisab}}",
       "belowNisab": "Net {{wealth}} · më poshtë nisab {{nisab}}",
       "hasOtherDue": "Net {{wealth}} · kulturat / bagëtitë e duhura"
     },
@@ -4617,8 +4482,7 @@
       "agriculture": {
         "title": "Bujqësi dhe korrje (ushr)",
         "body": "Zekati për të korrat jepet gjatë korrjes, jo pas një viti hënor. Shkalla e njohur është 10% (ushr) kur toka ujitet nga shiu ose burimet, dhe 5% kur ujitja kushton përpjekje ose para. Futni vlerën e tregut të korrjeve të këtij sezoni dhe zgjidhni burimin e ujit që përputhet me situatën tuaj.",
-        "localRefLabel": "Kur'ani 6:141",
-        "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
+        "localRefLabel": "Kur'ani 6:141"
       },
       "deductions": {
         "title": "Zbritjet",
@@ -4685,7 +4549,7 @@
   "customAdhkar": {
     "eyebrow": "Kujtim",
     "title": "Adhkarët e mi",
-    "subtitle": "Juaj own saved zikr dhe supplications",
+    "subtitle": "Zikret dhe duatë tuaja të ruajtura",
     "add": "Shto adhkar",
     "newTitle": "I ri adhkar",
     "delete": "Fshi",
@@ -4710,7 +4574,7 @@
       "uploadFailed": "Fotot nuk mund të ngarkoheshin. Provo sërish.",
       "uploading": "Po ngarkohet…",
       "open": "Hape foton {{index}}",
-      "counter": "{{current}} of {{total}}",
+      "counter": "{{current}} nga {{total}}",
       "zoomHint": "Pini për të zmadhuar, zvarriteni për të shtrirë, prekni dy herë për ta rivendosur",
       "previous": "Foto e mëparshme",
       "next": "Fotografia e radhës"
@@ -4734,7 +4598,7 @@
       "pickFailed": "Nuk mund të shtohej ai skedar. Provo sërish.",
       "openFailed": "Nuk mund të hapej ai skedar.",
       "open": "Hap shtojcën {{index}}",
-      "counter": "{{current}} of {{total}}",
+      "counter": "{{current}} nga {{total}}",
       "zoomHint": "Pini për të zmadhuar, zvarriteni për të shtrirë, prekni dy herë për ta rivendosur",
       "previous": "Shtojca e mëparshme",
       "next": "Shtojca e radhës",
@@ -4771,8 +4635,8 @@
   },
   "tahajjud": {
     "eyebrow": "Night salah",
-    "title": "Tahajjud",
-    "subtitle": "Build  lasting habit e  night salah.",
+    "title": "Tahaxhud",
+    "subtitle": "Ndërtoni një zakon të qëndrueshëm të namazit të natës.",
     "streakValue": "{{count}}",
     "streakCaption": "night seria",
     "bestStreak": "Më e mira: {{count}}",
@@ -4780,8 +4644,7 @@
     "markTonight": "Unë e fala Tahaxhudin sonte",
     "markedTonight": "U fal sonte - MashaAllah",
     "lastNights": "{{count}} netët e fundit",
-    "virtueTitle": "Virtue e  night salah",
-    "virtueBody": " best salah after  obligatory salah është  night salah.",
+    "virtueTitle": "Vlera e namazit të natës",
     "virtueRef": "Sahih Muslim 1163",
     "streakRow": "Tahajjud seria",
     "calculatorCta": "Llogaritësi i të tretës së fundit të natës",
@@ -4799,22 +4662,22 @@
     "dateDisclaimer": "Datat janë vlerësime të llogaritura — shikimi i hënës në vendin tuaj mund të ndryshojë.",
     "newYearEyebrow": "I ri vit",
     "newYearBannerTitle": "Viti i ri islamik",
-    "newYearBannerDesc": "Muharram opens  Hijri vit —  time në reflect dhe renew juaj intentions.",
+    "newYearBannerDesc": "Muharremi e hap vitin hixhri — një kohë për të reflektuar dhe për të përtërirë nijetet tuaja.",
     "ashuraEyebrow": "Sacred ditë",
     "ashuraBannerTitle": "Ditë e Ashura",
-    "ashuraBannerDesc": "Fast  9th dhe 10th e Muharram —  beloved sunnah ajo expiates minor sins.",
+    "ashuraBannerDesc": "Agjëroni ditën e 9-të dhe të 10-të të Muharremit — një sunet i dashur që shlyen gjynahet e vogla.",
     "ramadanEyebrow": "Ramazani",
     "ramadanBannerTitle": "Ramazani Mubarak",
-    "ramadanBannerDesc": " muaj e  Kurani — fast, pray, dhe draw nearer në Allah.",
+    "ramadanBannerDesc": "Muaji i Kuranit — agjëroni, faluni dhe afrohuni më shumë te Allahu.",
     "lastTenEyebrow": "Dhjetë netët e fundit",
     "lastTenBannerTitle": "Dhjetë netët e fundit",
     "lastTenBannerDesc": "Kërkoni Natën e Kadrit në netët tek — adhurim që vlen më shumë se një mijë muaj.",
-    "laylatQadrEyebrow": "Night e Decree",
-    "laylatQadrBannerTitle": "Laylat al-Qadr",
-    "laylatQadrBannerDesc": "Better than  thousand months — stand në salah, recite Kurani, dhe make dua tonight.",
+    "laylatQadrEyebrow": "Nata e Caktimit",
+    "laylatQadrBannerTitle": "Nata e Kadrit",
+    "laylatQadrBannerDesc": "Më e rëndësishme se një mijë muaj — qëndroni në namaz, recitoni Kuran dhe bëni dua sonte.",
     "eidFitrEyebrow": "Bajrami",
     "eidFitrBannerTitle": "Bajram Mubarek",
-    "eidFitrBannerDesc": "Celebrate  end e Ramazani me salah, gratitude, dhe joy me family dhe community.",
+    "eidFitrBannerDesc": "Festoni fundin e Ramazanit me namaz, falënderim dhe gëzim me familjen dhe bashkësinë.",
     "hajjEyebrow": "Dhul-Hixhe",
     "hajjBannerTitle": "Dhjetë ditët më të mira",
     "hajjBannerDesc": "Veprat e mira janë më të dashurat për Allahun në këto ditë — shtoni zikrin, sadakanë dhe mirësinë.",
@@ -4823,46 +4686,54 @@
     "arafahBannerDesc": " zemër e Haxhi — if ju janë not në Haxhi, agjërimi kjo ditë expiates two years e sins.",
     "eidAdhaEyebrow": "Bajrami",
     "eidAdhaBannerTitle": "Kurban Bajrami Mubarek",
-    "eidAdhaBannerDesc": " Festival e Sacrifice — salah, takbir, dhe sharing me those në need."
+    "eidAdhaBannerDesc": "Kurban Bajrami — namaz, tekbir dhe ndarje me nevojtarët.",
+    "cta": {
+      "events": "Mëso më shumë",
+      "ramadan": "Hap Ramazanin",
+      "dhulHijjah": "Hap Dhul-Hixhxhen"
+    },
+    "dismiss": "Fshih deri në sezonin e ardhshëm",
+    "hiddenToast": "U fsheh për këtë sezon",
+    "hiddenToastHint": "Çaktivizo banerat sezonalë në çdo kohë te Personalizo shtëpinë."
   },
   "journal": {
     "eyebrow": "Reflektim",
-    "title": "Ditari i salahut",
-    "subtitle": "Note juaj presence në each salah dhe watch it grow.",
-    "add": "I ri reflection",
+    "title": "Ditari i namazit",
+    "subtitle": "Shënoni praninë tuaj në çdo namaz dhe shihni si rritet.",
+    "add": "Reflektim i ri",
     "addShort": "Shto",
-    "noCompletedTitle": "Përfunduar  salah i pari",
-    "noCompletedDesc": "Mark  salah as përfunduar sot, then reflect në it here.",
-    "newTitle": "How was juaj salah?",
-    "editTitle": "Redakto reflection",
-    "navRow": "Reflect në  salah",
+    "noCompletedTitle": "Fillimisht kryeni një namaz",
+    "noCompletedDesc": "Shënoni një namaz si të falur sot, pastaj reflektoni për të këtu.",
+    "newTitle": "Si ishte namazi juaj?",
+    "editTitle": "Redakto reflektimin",
+    "navRow": "Reflektoni për një namaz",
     "recentTitle": "Reflektimet e fundit",
-    "fieldPrayer": "Salah",
-    "fieldRating": "Kushu (prania)",
-    "fieldNote": "Note (opsionale)",
-    "notePlaceholder": "What helped ose distracted ju?",
+    "fieldPrayer": "Namazi",
+    "fieldRating": "Khushu (prania)",
+    "fieldNote": "Shënim (opsional)",
+    "notePlaceholder": "Çfarë ju ndihmoi ose ju shpërqendroi?",
     "emptyTitle": "Ende nuk ka reflektime",
-    "emptyDesc": "After  salah, take  moment në note how present juaj zemër was.",
+    "emptyDesc": "Pas një namazi, ndaluni një çast për të shënuar sa e pranishme ishte zemra juaj.",
     "avgLabel": "Khushu mesatar",
-    "khushuInfoA11y": "Mëso about khushu",
-    "khushuInfoHint": "Opens  Salah guide mësimi në khushu",
+    "khushuInfoA11y": "Mësoni për përulësinë (hushu)",
+    "khushuInfoHint": "Hap mësimin për përulësinë (hushu) në udhëzuesin e namazit",
     "outOf": "/ {{max}}",
     "totalReflections": "{{count}} reflektime",
     "today": "Sot",
     "noNote": "Nuk u shtua asnjë shënim",
-    "ratingHint": "Tap  star në rate juaj presence në salah.",
-    "delete": "Fshi reflection",
-    "editA11y": "Redakto {{prayer}} reflection",
-    "discard": "Hidhni",
-    "confirmDeleteTitle": "Fshi kjo reflection?",
-    "confirmDeleteMsg": "Juaj note për {{prayer}} në {{date}} will be removed permanently.",
+    "ratingHint": "Prekni një yll për të vlerësuar praninë tuaj në namaz.",
+    "delete": "Fshi reflektimin",
+    "editA11y": "Redakto reflektimin për {{prayer}}",
+    "discard": "Hidh poshtë",
+    "confirmDeleteTitle": "Të fshihet ky reflektim?",
+    "confirmDeleteMsg": "Shënimi juaj për {{prayer}} më {{date}} do të fshihet përgjithmonë.",
     "confirmDiscardTitle": "Të hiqen ndryshimet?",
-    "confirmDiscardMsg": "Anything ju wrote will be lost.",
+    "confirmDiscardMsg": "Gjithçka që keni shkruar do të humbasë.",
     "confirmOverwriteTitle": "Të zëvendësohet reflektimi ekzistues?",
-    "confirmOverwriteMsg": "Tashmë ke vënë re {{prayer}} për këtë ditë. Ruajtja do ta zëvendësojë atë.",
+    "confirmOverwriteMsg": "Tashmë keni shënuar {{prayer}} për këtë ditë. Ruajtja do ta zëvendësojë.",
     "level1": "I hutuar",
     "level2": "I shqetësuar",
-    "level3": "Prezantoni mjaftueshëm",
+    "level3": "Mjaftueshëm i pranishëm",
     "level4": "I fokusuar",
     "level5": "Thellësisht i pranishëm",
     "stt": {
@@ -4871,35 +4742,35 @@
       "listening": "Po dëgjon…",
       "permissionDenied": "Për të diktuar kërkohet leja e mikrofonit. Ju ende mund të shkruani.",
       "unavailable": "Njohja e të folurit nuk ofrohet në këtë pajisje.",
-      "couldNotHear": "Nuk mund ta dëgjoja - provo përsëri ose shkruani.",
+      "couldNotHear": "Nuk u dëgjua — provoni përsëri ose shkruani.",
       "errorGeneric": "Diktimi dështoi. Provo sërish ose shkruaj."
     },
     "ratingHintTv": "Zgjidhni një yll për të vlerësuar praninë tuaj në namaz."
   },
   "prayerTuning": {
-    "title": "Salah time tuning",
-    "subtitle": "Adjust displayed adhan times në match juaj masjid",
+    "title": "Rregullimi i kohëve të namazit",
+    "subtitle": "Rregulloni kohët e ezanit që shfaqen, që të përputhen me xhaminë tuaj",
     "settingsSub": "Oraret e shfaqura dhe rregulli me gjerësi të lartë",
     "rowValue": "Shfaq kohët",
     "offsetTitle": "Kompensimet e xhamisë",
-    "offsetHint": "Changes when each salah time është shown across  app. Separate nga notification reminders (Cilësimet → Notifications).",
+    "offsetHint": "Ndryshon orën kur shfaqet çdo kohë namazi në aplikacion. E ndarë nga përkujtuesit e njoftimeve (Cilësimet → Njoftimet).",
     "onTime": "Në time",
     "earlierMin": "−{{count}} min",
     "laterMin": "+{{count}} min",
-    "earlier": "Earlier",
+    "earlier": "Më herët",
     "later": "Më vonë",
     "highLatTitle": "Rregulli i gjerësive të larta",
     "highLatHint": "Në zonat shumë veriore ose shumë jugore dielli mund të mos i arrijë këndet e muzgut. Zgjidhni si të vlerësohen sabahu dhe jacia.",
     "rule": {
       "recommended": "Automatik (rekomandohet)",
-      "MiddleOfTheNight": "Middle e  night",
+      "MiddleOfTheNight": "Mesi i natës",
       "SeventhOfTheNight": "Një e shtata e natës",
       "TwilightAngle": "Këndi i muzgut"
     },
     "ruleDesc": {
-      "recommended": "Picks  sensible rule për juaj latitude.",
+      "recommended": "Zgjedh një rregull të arsyeshëm për gjerësinë tuaj gjeografike.",
       "MiddleOfTheNight": "Fajr dhe Isha janë capped at  midpoint e  night.",
-      "SeventhOfTheNight": "Night është split into sevenths për Fajr dhe Isha.",
+      "SeventhOfTheNight": "Nata ndahet në të shtatat për sabahun dhe jacinë.",
       "TwilightAngle": "Përdor këndin e muzgut të metodës si pjesë të natës."
     }
   },
@@ -4933,17 +4804,16 @@
     "umrahChecklistSubtitle": "Ndiqni hapat e Umres me radhë.",
     "umrahChecklistIntro": "Shënoni çdo ritual të Umres kur ta kryeni. Hapni Mëso për detajet dhe argumentet.",
     "notFound": "Tema nuk u gjet",
-    "continueInApp": "Vazhdo në Munib",
-    "prepTag": "Përgatitja"
+    "continueInApp": "Vazhdo në Munib"
   },
   "dailyHadith": {
-    "eyebrow": "Ditor series",
-    "title": "Ditor hadith",
-    "subtitle": " hadith nga Imam al-Nawawi's Forty, renewed each ditë.",
-    "cardTitle": "Hadith e  ditë",
+    "eyebrow": "Seri ditore",
+    "title": "Hadithi i ditës",
+    "subtitle": "Një hadith nga Dyzetëshja e Imam Neveviut, i ri çdo ditë.",
+    "cardTitle": "Hadithi i ditës",
     "seeArchive": "Shiko arkivin",
     "emptyTitle": "Asnjë hadith në dispozicion",
-    "emptyDesc": " ditor hadith series është unavailable right now."
+    "emptyDesc": "Seria e hadithit ditor nuk është e disponueshme tani."
   },
   "seerah": {
     "eyebrow": "Biografia profetike",
@@ -4951,78 +4821,78 @@
     "subtitle": "Momentet kryesore në jetën e Profetit Muhamed ﷺ.",
     "ceBadge": "{{year}} н.э.",
     "ahBadge": "{{ah}} H",
-    "disclaimer": " përmbledhje e major milestones drawn nga classical seerah sources. CE dhe AH dates janë commonly-cited approximations; scholars differ në some ngjarjet, especially al-Isra wal-Mi'raj."
+    "disclaimer": "Një përmbledhje e ngjarjeve kryesore, e nxjerrë nga burimet klasike të siresë. Datat e.s. dhe h. janë përafrime që citohen zakonisht; dijetarët kanë mendime të ndryshme për disa ngjarje, veçanërisht për Isranë dhe Miraxhin."
   },
   "jannah": {
     "eyebrow": "Mëso",
     "title": "Udhëtimi në Xhennet",
     "subtitle": "Xheneti, shkallët e tij dhe veprat që e lartësojnë besimtarin.",
-    "intro": "Islami does not give  numbered checklist për Paradise levels. Here ju will find what  Kurani dhe autentike Sunnet teach — dhe links në ndiq juaj ditor striving.",
+    "intro": "Islami nuk jep një listë të numëruar për shkallët e Xhenetit. Këtu do të gjeni çfarë mësojnë Kurani dhe Suneti autentik — si dhe lidhje për të ndjekur përpjekjen tuaj të përditshme.",
     "learnTitle": "Rreth Paradise",
     "quickLinksTitle": "Eksploro",
     "continueInApp": "Vazhdo në Munib",
     "gatesListTitle": "Named në hadith",
     "duaNumber": "Duaja {{number}}",
     "pathsTitle": "Rrugët drejt shkallëve më të larta",
-    "pathsHint": "Deeds ajo raise rank by Allah's permission — tap any rrugë për evidence dhe app links.",
+    "pathsHint": "Vepra që e ngrenë gradën me lejen e Allahut — prekni çdo rrugë për argumente dhe lidhje në aplikacion.",
     "gatesTitle": "Gates e Xhenneti",
-    "gatesSummary": "Gates named në autentike hadith",
+    "gatesSummary": "Dyert e përmendura në hadithe autentike",
     "gatesSubtitle": "Dyer të ndryshme për vepra të ndryshme",
-    "gatesLead": "Autentike hadith describe gates e Paradise opened për people distinguished by salah, charity, agjërimi, jihad, dhe Haxhi. Some may be called në enter through more than one.",
+    "gatesLead": "Hadithet autentike përshkruajnë dyer të Xhenetit të hapura për njerëz të dalluar për namaz, sadaka, agjërim, xhihad dhe Haxh. Disa mund të thirren të hyjnë nga më shumë se një derë.",
     "duasTitle": "Duas për Paradise",
-    "duasSummary": "Supplications nga Hisnul Muslim",
-    "duasSubtitle": "Ask Allah për Xhenneti dhe refuge nga  Fire",
-    "duasLead": " Prophet ﷺ taught us në ask për Paradise — especially Al-Firdaws — në ditor dua.",
+    "duasSummary": "Dua nga Hisnul Muslim",
+    "duasSubtitle": "Kërkojini Allahut Xhenetin dhe mbrojtje nga Zjarri",
+    "duasLead": "Profeti ﷺ na mësoi t'i kërkojmë Xhenetin — veçanërisht el-Firdeusin — në duanë e përditshme.",
     "versesTitle": "Kurani në Paradise",
-    "versesSummary": "Curated ayahs me links në  reader",
-    "versesSubtitle": "Descriptions, ranks, mercy, dhe dua",
-    "versesLead": "Tap any verse në open it në  Kurani reader.",
+    "versesSummary": "Ajete të përzgjedhura me lidhje te lexuesi",
+    "versesSubtitle": "Përshkrime, shkallë, mëshirë dhe dua",
+    "versesLead": "Prekni çdo ajet për ta hapur në lexuesin e Kuranit.",
     "journeyTitle": "Journey e mi",
-    "journeySummary": "Today's habits — not juaj rank me Allah",
+    "journeySummary": "Zakonet e sotme — jo grada juaj te Allahu",
     "journeySubtitle": "Qëndrueshmëria në adhurim ju tashmë e gjurmoni",
-    "journeyBanner": "These habits janë among  deeds Allah loves. Juaj final rank është only me Him.",
+    "journeyBanner": "Këto zakone janë ndër veprat që Allahu i do. Grada juaj përfundimtare është vetëm tek Ai.",
     "journeyToday": "Përpjekja e sotme",
-    "journeyEmpty": "Fillo me one salah ose adhkar — small steps build lifelong habits.",
-    "journeyDisclaimer": "Kjo dashboard shows konsistenca, not  percentage e Paradise. Strive sincerely dhe trust në Allah's mercy.",
+    "journeyEmpty": "Filloni me një namaz ose me zikër — hapat e vegjël ndërtojnë zakone për gjithë jetën.",
+    "journeyDisclaimer": "Ky panel tregon vazhdimësinë, jo një përqindje të Xhenetit. Përpiquni me sinqeritet dhe mbështetuni në mëshirën e Allahut.",
     "journey": {
       "salah": "Salah sot",
       "salahHint": "Five ditor salah në juaj checklist",
       "dhikr": "Adhkar sot",
-      "dhikrHint": "Morning, evening, dhe ditor remembrances",
+      "dhikrHint": "Zikret e mëngjesit, të mbrëmjes dhe të përditshme",
       "qaza": "Qaza progresi",
       "qazaHint": "Making up humbur ibadeti",
       "streak": "Active seria",
-      "streakHint": "Ditë e consistent tracking",
+      "streakHint": "Ditë ndjekjeje të vazhdueshme",
       "tahajjud": "Tahajjud kjo javë",
-      "tahajjudHint": "Night salah në  last 7 ditë",
+      "tahajjudHint": "Namazi i natës në 7 ditët e fundit",
       "reflection": "Reflections kjo javë",
       "reflectionHint": "Regjistrimet e ditarit Kushhu",
       "quran": "Kurani",
-      "quranHint": "Vazhdo reading ose memorising"
+      "quranHint": "Vazhdoni leximin ose mësimin përmendësh"
     },
     "intentionsTitle": "Synimet e sotme",
     "intentionsHint": "Ndërprerës privatë për nijetin tuaj — nuk sinkronizohen dhe nuk janë pikë.",
     "intentions": {
-      "tawbah": "I renewed sincere tawbah sot",
-      "tawbahHint": "Turn back në Allah after slipping",
-      "charity": "I gave charity sot",
+      "tawbah": "Sot e përtëriva teuben e sinqertë",
+      "tawbahHint": "Kthehuni te Allahu pas një rrëshqitjeje",
+      "charity": "Sot dhashë sadaka",
       "charityHint": "Edhe një buzëqeshje ose një fjalë e mirë vlen",
-      "character": "I guarded my character sot",
+      "character": "Sot e ruajta moralin tim",
       "characterHint": "Durimi, ndershmëria dhe sjellja e mirë"
     },
-    "promisedTitle": "Honoured në  texts",
-    "firdawsCardTitle": "Ask për Al-Firdaws",
+    "promisedTitle": "Të nderuar në tekste",
+    "firdawsCardTitle": "Kërkoni el-Firdeusin",
     "firdawsDuaTitle": "Dua për Al-Firdaws",
     "quranTitle": "Kurani",
-    "hadithTitle": "Hadith",
+    "hadithTitle": "Hadithi",
     "actionsTitle": "Hapa praktikë",
-    "notFound": "Tema not found",
+    "notFound": "Tema nuk u gjet",
     "tourCta": "Bëni turin e udhëzuar",
-    "tourCtaHint": " quick walkthrough e kjo feature",
+    "tourCtaHint": "Një prezantim i shpejtë i këtij funksioni",
     "jahannamPointerTitle": "Kuptimi i Xhehennemit",
-    "jahannamPointerHint": "Warnings, accountability, dhe  rrugë e repentance",
+    "jahannamPointerHint": "Paralajmërimet, llogaridhënia dhe rruga e pendimit",
     "tourA11y": "Fillo Udhëtimi në Xhenneti tour",
-    "disclaimer": "General edukative përmbajtja — not  fatwa. Për personale rulings, consult  qualified dijetar. Allah knows best.",
+    "disclaimer": "Përmbajtje e përgjithshme edukative — jo fetva. Për dispozita personale, konsultohuni me një dijetar të kualifikuar. Allahu e di më së miri.",
     "importance": {
       "foundational": "Themelore",
       "obligatory": "E detyrueshme",
@@ -5153,7 +5023,7 @@
     "grade": {
       "sahih": "Sahih",
       "hasan": "Hasani",
-      "daif": "Da'if",
+      "daif": "Daif",
       "scholarly-opinion": "Shënim shkencor"
     },
     "section": {
@@ -5322,15 +5192,15 @@
   "contentReport": {
     "short": "Raportoni",
     "reportIssue": "Raporto një problem",
-    "sheetTitle": "Report përmbajtja issue",
-    "issueTypeLabel": "What type e issue është kjo?",
+    "sheetTitle": "Raportoni një problem me përmbajtjen",
+    "issueTypeLabel": "Çfarë lloj problemi është ky?",
     "descriptionLabel": "Çfarë nuk shkon?",
-    "descriptionPlaceholder": "Describe  issue në detail — what ju expected vs what ju see.",
-    "correctionLabel": "Suggested correction (opsionale)",
+    "descriptionPlaceholder": "Përshkruani problemin në detaje — çfarë prisnit dhe çfarë shihni.",
+    "correctionLabel": "Korrigjimi i sugjeruar (opsionale)",
     "correctionPlaceholder": "Jepni tekstin e saktë arab, përkthimin, referencën ose tekstin që mungon.",
     "sourceLabel": "Juaj burimi (opsionale)",
-    "sourcePlaceholder": "Book, dijetar, URL, ose citation supporting juaj correction.",
-    "proofLabel": "Proof screenshots (opsionale)",
+    "sourcePlaceholder": "Libër, dijetar, URL ose citim që mbështet korrigjimin tuaj.",
+    "proofLabel": "Pamje ekrani si provë (opsionale)",
     "proofHint": "Deri në 3 imazhe. Prekni × te miniaturë për ta hequr.",
     "addProof": "Shto photo",
     "removeProof": "Hiq pamjen e ekranit",
@@ -5340,16 +5210,16 @@
     "queuedOffline": "Raporti u ruajt — do të dërgohet kur të ktheheni në linjë",
     "queuedSentOne": "Raporti në radhë u dërgua me sukses",
     "queuedSentMany": "{{count}} raportet në radhë u dërguan me sukses",
-    "signInRequiredTitle": "Sign në në report përmbajtja",
-    "signInRequiredBody": "Link juaj llogaria so we can follow up në juaj report dhe notify ju when it's resolved.",
+    "signInRequiredTitle": "Hyni për të raportuar përmbajtje",
+    "signInRequiredBody": "Lidhni llogarinë tuaj që ta ndjekim raportimin tuaj dhe t'ju njoftojmë kur të zgjidhet.",
     "signInCta": "Go në llogaria",
-    "myReportsTitle": "content reports e mi",
+    "myReportsTitle": "Raportimet e mia për përmbajtjen",
     "myReportsSubtitle": "Ndiqni problemet që keni raportuar dhe statusin e shqyrtimit të tyre.",
     "myReportsNavSub": "Shikoni raportet e dërguara dhe statusin",
     "myReportsGuest": "Hyni për të parë raportet që keni dërguar.",
     "loadFailed": "Raportet tuaja nuk u ngarkuan dot",
     "emptyTitle": "Nuk ka ende raporte",
-    "emptyDesc": "Use  flag button në any përmbajtja në report  issue.",
+    "emptyDesc": "Përdorni butonin e flamurit te çdo përmbajtje për të raportuar një problem.",
     "attachmentCount": "{{count}} bashkëngjitje",
     "issueTypes": {
       "incorrect_arabic": "Teksti arab",
@@ -5369,20 +5239,20 @@
       "cancelled": "Ccelled",
       "spam": "Spam"
     },
-    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
-    "permissionDenied": "Photo library permission is required to attach proof.",
-    "pickFailed": "Could not add that photo. Try another image.",
-    "descriptionMinHint": "Minimum {{min}} characters required"
+    "imagesOnly": "Mbështeten vetëm imazhe (JPEG, PNG ose WebP).",
+    "permissionDenied": "Për të bashkëngjitur provë kërkohet leja për galerinë e fotove.",
+    "pickFailed": "Kjo foto nuk u shtua dot. Provoni një imazh tjetër.",
+    "descriptionMinHint": "Kërkohen të paktën {{min}} karaktere"
   },
   "externalCommands": {
     "titleIos": "Shkurtoret e Siri dhe zëri",
     "titleAndroid": "\"Asistenti i Google\" dhe shkurtoret zanore",
     "settingsSubtitleIos": "Mark Salah me Siri ose Apple Watch",
     "settingsSubtitleAndroid": "Mark Salah me Google Assistant ose Wear OS",
-    "introIos": "Use Siri, Shortcuts, ose Apple Watch në mark Salah without opening  checklist. Requires  EAS dev ose production build — not available në Expo Go.",
+    "introIos": "Përdorni Siri, Shortcuts ose Apple Watch për të shënuar namazin pa hapur listën. Kërkon një version EAS dev ose production — nuk funksionon në Expo Go.",
     "introAndroid": "Përdor Google Assistant, shkurtoren e ikonës së app ose Wear OS për të shënuar Salah pa hapur listën. Kërkon EAS dev ose production build — jo në Expo Go.",
     "siriTitle": "Siri & Shkurtoret",
-    "siriHint": "After installing nga TestFlight ose  App Store, open  Shortcuts app ose say “Hey Siri, mark my Salah në Munib Tracker”. If  app was force-quit,  mark syncs  tjetër time ju open Munib Tracker.",
+    "siriHint": "Pas instalimit nga TestFlight ose App Store, hapni aplikacionin Shortcuts ose thoni “Hey Siri, mark my Salah in Munib Tracker”. Nëse aplikacioni është mbyllur me forcë, shënimi sinkronizohet herën tjetër që hapni Munib Tracker.",
     "assistantTitle": "Google Assistant",
     "assistantHint": "Thuaj \"Hey Google, mark my Salah in Munib Tracker\", ose shtyp gjatë ikonën Munib Tracker dhe zgjidh Mark Salah. Nëse app u mbyll me forcë, shënimi sinkronizohet kur hap Munib Tracker.",
     "watchTitle": "Apple Watch",
@@ -5395,7 +5265,7 @@
     "alreadyDone": "Tashmë e shënuar",
     "allDone": "Të gjitha obligatory Salah shënuar për sot",
     "excused": "Gjurmimi është ndërprerë për këtë periudhë justifikimi",
-    "locked": "Unlock  app në mark Salah",
+    "locked": "Shkyçni aplikacionin për të shënuar namazin",
     "failed": "Nuk mundi të shënonte Salah",
     "intents": {
       "openTracker": "Hap listën e kontrollit",
@@ -5418,19 +5288,19 @@
   "pinLock": {
     "title": "Kyçja e aplikacionit",
     "backspace": "Fshi",
-    "settingsSubtitle": "Require  PIN në open  app",
+    "settingsSubtitle": "Kërko një PIN për të hapur aplikacionin",
     "webUnavailable": "App lock është available në iOS dhe Android only.",
     "expoGoTitle": "App lock unavailable në Expo Go",
-    "expoGoHint": "Build  development client ose production app në use PIN lock dhe biometrics.",
+    "expoGoHint": "Ndërtoni një development client ose një aplikacion production për të përdorur kyçjen me PIN dhe biometrinë.",
     "enterPin": "Fut kodin PIN",
     "enterPinSubtitle": "Enter juaj 6-digit PIN në unlock",
     "unlockWithBiometrics": "Përdorni biometrikë",
     "unlockWithFaceId": "Përdor Face ID",
     "unlockWithTouchId": "Përdorni Touch ID",
     "unlockWithFingerprint": "Përdorni gjurmët e gishtërinjve",
-    "biometricUnlockPrompt": "Unlock Munib Tracker",
+    "biometricUnlockPrompt": "Shkyçni Munib Tracker",
     "setPin": "Cakto PIN",
-    "setPinSubtitle": "Choose  6-digit PIN në lock  app",
+    "setPinSubtitle": "Zgjidhni një PIN 6-shifror për të kyçur aplikacionin",
     "confirmPin": "Konfirmo PIN",
     "confirmPinSubtitle": "Enter  same PIN again në konfirmo",
     "pinMismatch": "Këto kode PIN nuk përputhen - ju lutemi provoni përsëri.",
@@ -5438,21 +5308,21 @@
     "pinSaved": "Kodi PIN u ruajt",
     "verifyingPin": "Po verifikon…",
     "unlockingApp": "Po zhbllokohet…",
-    "setPinFailed": "Could not ruaj juaj PIN. Please try again.",
+    "setPinFailed": "PIN-i juaj nuk u ruajt dot. Ju lutemi provoni përsëri.",
     "wrongPin": "PIN i gabuar - ju lutemi provoni përsëri.",
     "wrongPinAttemptsRemaining": "PIN i gabuar. {{count}} përpjekje të mbetura përpara bllokimit.",
     "lockedOut": "Shumë përpjekje të gabuara. Prisni pak para se të provoni përsëri.",
     "usePinToUnlock": "Enter juaj PIN në unlock  app.",
-    "tryAgainIn": "Try again në {{time}}",
+    "tryAgainIn": "Provoni përsëri pas {{time}}",
     "enablePin": "Aktivizo kyçjen e aplikacionit",
-    "enablePinDesc": "Require  PIN each time  app opens",
+    "enablePinDesc": "Kërko PIN sa herë që hapet aplikacioni",
     "heroFeaturePin": "PIN 6-shifror",
     "heroFeatureBiometric": "Biometrike",
     "heroFeatureAutoLock": "Bllokim automatik",
     "statusProtected": "I mbrojtur",
     "disablePin": "Çaktivizo kyçjen e aplikacionit",
     "changePin": "Ndrysho PIN-in",
-    "lockTimeout": "Lock when app goes në background",
+    "lockTimeout": "Kyçe kur aplikacioni kalon në sfond",
     "immediately": "Menjëherë",
     "after1Min": "Pas 1 minute",
     "after5Min": "Pas 5 minutash",
@@ -5463,13 +5333,13 @@
   },
   "sahaba": {
     "eyebrow": "Mësoni",
-    "title": "Sahaba",
+    "title": "Sahabët",
     "subtitle": "Profilet e shkurtra të sahabëve të Profetit ﷺ",
     "intro": "Sahabët janë brezi që e çoi Islamin nga Profeti ﷺ në pjesën tjetër të botës. Këto profile të shkurtra ndjekin tonin e afatit kohor të seerahut - një jetë, një mësim dhe një burim për çdo pretendim.",
     "categoryAll": "Të gjitha",
     "category": {
       "caliphs": "Kalifët",
-      "ashara": "Ashara Mubashara",
+      "ashara": "Dhjetë të përgëzuarit me Xhenet",
       "family": "Familja",
       "women": "Gratë",
       "notable": "I shquar"
@@ -5511,8 +5381,8 @@
     "eyebrow": "Mësoni",
     "title": "Historia e hershme islame",
     "subtitle": "Nga vdekja e Profetit ﷺ deri në fund të Kalifatit Rashidun",
-    "ceBadge": "{{year}} CE",
-    "ahBadge": "{{ah}} AH",
+    "ceBadge": "{{year}} e.s.",
+    "ahBadge": "{{ah}} h.",
     "era": {
       "prophetic-close": "Pejgamberi ﷺ",
       "abu-bakr": "Ebu Bekri",
@@ -5651,14 +5521,14 @@
     "incorrectTitle": "Pothuajse — ja ideja",
     "empty": "Po ndërtohet paketa e kartave… hapni tema Mëso ose prisni një moment.",
     "category": {
-      "salahGuide": "Salah",
+      "salahGuide": "Namazi",
       "jannah": "Xhennet",
       "lastDay": "Dita e Fundit",
       "jahannam": "Xhehennem",
       "battles": "Beteja",
       "learnQuran": "Kurani",
       "taharah": "Pastrim",
-      "hayd": "Hayd",
+      "hayd": "Hajdi",
       "sick": "Sëmundje",
       "prophets": "Profetët",
       "aqeedah": "Akide",
@@ -5674,7 +5544,7 @@
       "ruqyah": "Rukje",
       "newMuslim": "Musliman i ri",
       "names": "99 emra",
-      "hadith": "Hadith",
+      "hadith": "Hadithi",
       "quran": "Kurani",
       "duas": "Duaja",
       "janazah": "Xhenaze",
@@ -5689,8 +5559,8 @@
     "eyebrow": "Salah e natës",
     "title": "E Treta e Fundit e Natës",
     "subtitle": "Koha më e mirë për Tahajjud dhe dua.",
-    "maghribLabel": "Maghrib",
-    "fajrLabel": "Fajr",
+    "maghribLabel": "Akshami",
+    "fajrLabel": "Sabahu",
     "autoDetect": "Përdor kohët e Salah",
     "autoDetectHint": "{{location}} · prek një kohë për ta rregulluar",
     "lastThirdLabel": "E treta e fundit fillon",
@@ -6302,7 +6172,7 @@
     "resetHint": "Fshin numërimin e sotëm për këtë dhikër",
     "recited": "U recitua",
     "tapWhenRecited": "Prekni pasi ta recitoni",
-    "selectWhenRecited": "Shtypni Select pasi ta recitoni",
+    "selectWhenRecited": "Shtypni Zgjidh pasi ta keni recituar",
     "tapAnywhere": "Prekni panelin për të numëruar",
     "previous": "Dhikri i mëparshëm",
     "next": "Dhikri tjetër",
@@ -6346,7 +6216,6 @@
     "offsetHint": "Zhvendos të gjitha datat hixhrije. Për të korrigjuar vetëm një muaj, përdorni “Ky muaj filloi më…”.",
     "monthStartedRow": "{{month}} filloi më…",
     "correctionsTitle": "Korrigjimet e muajve",
-    "noCorrections": "Ende nuk ka korrigjime muajsh.",
     "startedOn": "Filloi më {{date}}",
     "notApplied": "Nuk u zbatua ({{date}}): një muaj do të kishte më pak se 29 ose më shumë se 30 ditë.",
     "removeCorrection": "Hiq korrigjimin për {{month}}",
@@ -6557,15 +6426,16 @@
       "title": "Rreth këtij dizajni",
       "pebbles": {
         "body": "Një transmetim tregon për një grua që e numëronte tesbihun e saj me bërthama hurmash ose guralecë në prani të Profetit ﷺ; ai i mësoi një formulim më të plotë dhe nuk transmetohet se e kundërshtoi. Dijetarët e vlerësojnë ndryshe këtë transmetim. Shumë lejojnë numërimin me guralecë, bërthama hurmash ose rruaza, ndërsa të tjerë mendojnë se numërimi me majat e gishtave është më i mirë. Çdo dizajn numëron saktësisht njësoj.",
-        "tirmidhi3568": "Jami' at-Tirmidhi 3568 — hasan gharib (at-Tirmidhi), hasan (Bashar Awwad Ma'ruf), da'if (al-Albani), munkar (Ahmad Shakir)",
-        "abudawud1500": "Sunan Abu Dawud 1500 — hasan li-ghayrihi (Shu'aib al-Arna'ut), da'if (al-Albani)"
+        "tirmidhi3568": "Xhamiu i Tirmidhiut 3568 — hasen garib (Tirmidhiu), hasen (Beshar Avvad Maruf), daif (el-Albani), munker (Ahmed Shakir)",
+        "abudawud1500": "Sunen Ebu Davud 1500 — hasen li-gajrihi (Shuajb el-Arnaut), daif (el-Albani)"
       },
       "fingers": {
         "body": "Profeti ﷺ mësoi numërimin e zikrit me majat e gishtave. Kjo dorë është vetëm ndihmë vizuale — metoda juaj me gishta është në rregull, në cilëndo mënyrë që ju kanë mësuar të numëroni. Çdo dizajn numëron saktësisht njësoj.",
         "abudawud1501": "Sunan Abu Dawud 1501 — numërimi me majat e gishtave: hasan (al-Albani, Shu'aib al-Arna'ut)",
         "tirmidhi3583": "Jami' at-Tirmidhi 3583 — vlerësimet ndryshojnë: hasan (Ahmad Shakir), da'if (al-Albani)"
       }
-    }
+    },
+    "customizeBeads": "Personalizo rruazat"
   },
   "vault": {
     "passphrase": {
@@ -6629,7 +6499,7 @@
     },
     "sync": {
       "title": "Sinkronizo ditarët privatë",
-      "body": "Muhasebja, regjistri i borxheve, testamenti (vasijeti) dhe kontaktet e të afërmve ruhen të enkriptuara vetëm në këtë pajisje. Mund të zgjidhni t'i ruani në re me enkriptim nga skaji në skaj.",
+      "body": "Muhasebja juaj, regjistri i borxheve, vasijeti dhe kontaktet familjare ruhen vetëm në këtë pajisje, të enkriptuara. Ditari i khushu-së dhe periudha juaj aktuale e arsyetimit (hajd/nifas) gjithashtu mbeten në këtë pajisje. Mund të zgjidhni t'i ruani të gjitha në re me enkriptim nga skaji në skaj.",
       "howItWorks": "Fjalëkalim-fjalia juaj i kyç para se të largohen nga kjo pajisje. Ne ruajmë vetëm të dhëna të ngatërruara dhe nuk mund t'i lexojmë.",
       "warningTitle": "E rëndësishme",
       "warningBody": "Nëse humbni edhe fjalëkalim-fjalinë edhe kodin e rikuperimit, kopja në re humbet përgjithmonë — askush, as ne, nuk mund ta hapë. Ditarët në këtë pajisje vazhdojnë të funksionojnë.",
@@ -6691,7 +6561,8 @@
       "otherViews": "Pikëpamje të tjera ({{total}})",
       "hideOtherViews": "Fshih pikëpamjet e tjera",
       "positionA11y": "{{school}}: {{position}}",
-      "validViews": "Të katër medhhebet janë qëndrime të pranuara të dijes synite (Ehli Sunnet)."
+      "validViews": "Të katër medhhebet janë qëndrime të pranuara të dijes synite (Ehli Sunnet).",
+      "sameView": "I njëjti mendim: {{schools}}"
     },
     "compare": {
       "title": "Si ndryshojnë medhhebet",
@@ -7292,7 +7163,7 @@
       "playback": "Luajtja",
       "practice": "Ushtrimi",
       "privateJournals": "Ditarët privatë",
-      "qaza": "Qaza",
+      "qaza": "Kaza",
       "quran": "Kurani",
       "reading": "Leximi",
       "readingAids": "Ndihmesat e leximit",
@@ -7362,10 +7233,8 @@
       "notNow": "Jo tani — shfaq të gjitha pikëpamjet"
     },
     "onboarding": {
-      "eyebrow": "Fikh",
       "title": "Medhhebi juaj",
       "body": "Dispozitat në udhëzues dhe llogaritës mund të ndjekin medhhebin tuaj. Dallimet shënohen gjithmonë dhe mund ta ndryshoni këtë në çdo kohë te Cilësimet.",
-      "continue": "Vazhdo",
       "later": "Vendos më vonë"
     },
     "detail": {
@@ -7629,7 +7498,21 @@
       "creditLabel": "Teksti arab"
     },
     "syncFull_one": "1 shënim nga pajisjet tuaja të tjera po pret: shënimet tuaja janë plot. Fshini disa shënime për të liruar vend. Deri atëherë, shënimet në këtë pajisje nuk sinkronizohen. Asgjë nuk fshihet.",
-    "syncFull_other": "{{count}} shënime nga pajisjet tuaja të tjera po presin: shënimet tuaja janë plot. Fshini disa shënime për të liruar vend. Deri atëherë, shënimet në këtë pajisje nuk sinkronizohen. Asgjë nuk fshihet."
+    "syncFull_other": "{{count}} shënime nga pajisjet tuaja të tjera po presin: shënimet tuaja janë plot. Fshini disa shënime për të liruar vend. Deri atëherë, shënimet në këtë pajisje nuk sinkronizohen. Asgjë nuk fshihet.",
+    "hint": {
+      "label": "Shënimi im për {{ref}}: {{title}}",
+      "a11yOpen": "Hap shënimin",
+      "a11yPeek": "Prekni për një parapamje të shënimit. Shtypni gjatë për veprime të tjera.",
+      "clickToOpen": "Klikoni për ta hapur · Esc për ta mbyllur",
+      "open": "Hap shënimin",
+      "changeHighlight": "Ndrysho theksimin",
+      "addAnother": "Shto një shënim tjetër",
+      "inView": "Në ekran",
+      "moreTags": "+{{n}}",
+      "moreNotes_one": "+{{count}} shënim tjetër",
+      "moreNotes_other": "+{{count}} shënime të tjera"
+    },
+    "clearFilters": "Pastro filtrat"
   },
   "selfReview": {
     "vaultLockedTitle": "Ditarët tuaj privatë janë të kyçur në këtë pajisje",
@@ -8000,12 +7883,6 @@
       "testA11y": "Luaj një shembull të shkurtër në {{language}}"
     },
     "fiqh": {
-      "rulingsUpdated": "Dispozitat u përditësuan në gjithë aplikacionin",
-      "asrOfferTitle": "Të përdoret edhe koha e ikindisë {{asr}}?",
-      "asrOfferBody": "Medhhebi juaj zakonisht e llogarit ikindinë kështu. Kohët e namazit dhe kujtesat do ta ndjekin.",
-      "asrOfferAccept": "Përdore",
-      "asrOfferDecline": "Mbaj të tanishmen",
-      "asrUpdated": "Ikindia tani përdor {{asr}}",
       "asrSub": "Caktohet bashkë me kohët e namazit. Ndryshimi i medhhebit ofron ta ndryshoni.",
       "advanced": "Të avancuara",
       "advancedSub": "Medhheb sipas fushës dhe vlera të veçanta nga dijetari juaj",
@@ -8488,7 +8365,6 @@
     "eyebrow": "Stinët",
     "title": "Dhul-Hixhxhe",
     "searchKeywords": "dhul hixhxhe dhjetë ditë arafat tekbir teshrik tehlil tahmid kurban kurban bajrami flokë thonj",
-    "virtue": "Nuk ka vepra të mira më të dashura për Allahun se ato të bëra në këto dhjetë ditë. Shto dhikrin: tekbir, tehlil dhe tahmid.",
     "offSeason": "Dhjetë ditët e ardhshme fillojnë më {{date}}",
     "teaserBody": "Dhjetë ditët e Dhul-Hixhxhes fillojnë më {{date}}. Nëse ke për qëllim kurbanin, caktoje para se të fillojnë.",
     "excusedBanner": "Periudha jote e përjashtimit është aktive. Asgjë këtu nuk gjykohet — bëj sa mundesh, dhikri dhe duaja janë gjithmonë të hapura.",
@@ -9307,7 +9183,7 @@
     "listeningFor": "Po dëgjon {{phrase}}",
     "levelA11y": "Niveli i mikrofonit",
     "stuck": "Thuaje zikrin qartë, ose prek për të numëruar",
-    "focusTip": "Këshillë: dizajni Minimal e mban ekranin të qetë ndërsa dëgjon.",
+    "focusTip": "Këshillë: dizajni Fokus / Natë e mban ekranin të qetë ndërsa dëgjon.",
     "stopped": {
       "silence": "Dëgjimi u ndal pas një heshtjeje. Prek Pa duar për të vazhduar.",
       "background": "Dëgjimi u ndal kur dole nga aplikacioni.",
@@ -9330,7 +9206,7 @@
     },
     "sheet": {
       "title": "Numërim pa duar",
-      "howItWorks": "Thuaje zikrin dhe numëruesi e numëron. Dëgjimi bëhet vetëm në këtë pajisje: asnjë zë nuk regjistrohet, ruhet ose dërgohet.",
+      "howItWorks": "Thuaje zikrin dhe numëruesi e numëron. Dëgjimi bëhet vetëm në këtë pajisje. Asnjë zë nuk regjistrohet ose dërgohet. Nëse mësoni një zikër, një model i shkurtër zëri (jo regjistrim) mbetet në këtë pajisje.",
       "lowVoice": "Një zë i ulët mjafton. Zikri i heshtur dhe numërimi me prekje janë po aq të mirë.",
       "accuracy": "Kur nuk është i sigurt, nuk numëron. Prek për të shtuar ato që i shpëtuan.",
       "choosePhrase": "Cilin zikër po thua?",
@@ -9377,7 +9253,10 @@
       "sensitivitySub": "Sa i sigurt duhet të jetë numërimi pa duar para se të numërojë",
       "silenceSecondsUnit": "sekonda",
       "calibrateSub": "Thoni një frazë 5 herë që numërimi t'i përshtatet zërit tuaj. Ruhet vetëm në këtë pajisje.",
-      "modelStorageSub": "Dëgjuesi në pajisje ndahet me praktikën e Kuranit"
+      "modelStorageSub": "Dëgjuesi në pajisje ndahet me praktikën e Kuranit",
+      "forgetTaught": "Harro zërat e zikrave të mësuar",
+      "forgetTaughtSub": "Asnjë zë nuk regjistrohet ose dërgohet. Nëse mësoni një zikër, një model i shkurtër zëri (jo regjistrim) mbetet në këtë pajisje. Kjo i heq të gjitha.",
+      "forgetTaughtConfirm": "Të harrohen të gjitha modelet e zërit të zikrave të mësuar në këtë pajisje? Mund t'i mësoni përsëri në çdo kohë."
     },
     "announce": {
       "title": "Njoftimet e numrit të tesbihut",
@@ -9385,6 +9264,37 @@
       "milestones": "Vetëm pikat kyçe",
       "off": "Joaktiv",
       "hint": "Ndërsa numërimi me zë dëgjon, njoftohen vetëm pikat kyçe."
+    },
+    "picker": {
+      "search": "Kërkoni zikra ose tesbihet tuaja",
+      "noResults": "Nuk u gjet asnjë zikër. Zgjidhni „Diçka tjetër“ për ta numëruar gjithsesi.",
+      "somethingElse": "Diçka tjetër",
+      "somethingElseHint": "Çdo zikër tjetër. Mund ta mësoni për këtë seancë.",
+      "taught": "I mësuar",
+      "chosen": "Po numërohet",
+      "change": "Ndrysho",
+      "changeA11y": "Po numërohet {{phrase}}. Ndrysho zikrin"
+    },
+    "teach": {
+      "title": "Thuajeni një herë që të numërohet vetëm ky zikër",
+      "explain": "Thoni {{phrase}} deri në 3 herë, me pauzë ndërmjet. Një model i shkurtër zëri (jo regjistrim) mbetet në këtë pajisje që të numërohet vetëm ky zikër.",
+      "explainOther": "Thoni zikrin tuaj deri në 3 herë, me pauzë ndërmjet. Në këtë seancë do të numërohen vetëm përsëritjet e tij.",
+      "start": "Mësojeni duke e thënë",
+      "skip": "Kapërce — numëro çdo pauzë",
+      "sayNow": "Thoni {{phrase}} tani",
+      "sayNowOther": "Thoni zikrin tuaj tani",
+      "pauseBetween": "Ndaluni shkurt pas secilit.",
+      "listening": "Po dëgjon…",
+      "progress": "U mor {{heard}}/{{total}}",
+      "issueShort": "Ishte shumë e shkurtër. Thoni gjithë zikrin.",
+      "issueLong": "Zgjati shumë. Thoni zikrin një herë, pastaj ndaluni.",
+      "issueDifferent": "Tingëlloi ndryshe. Thoni të njëjtin zikër përsëri.",
+      "done": "U krye — fillo numërimin",
+      "cancel": "Anulo",
+      "reteach": "Mëso përsëri",
+      "taughtReady": "I mësuar në këtë pajisje.",
+      "countsTaught": "Numëron vetëm zikrin që mësuat — prekni për të korrigjuar çdo numërim të gabuar.",
+      "countsPauses": "Numëron çdo pauzë — më pak e saktë. Prekni për të korrigjuar çdo numërim të gabuar."
     }
   },
   "masjids": {
@@ -9473,7 +9383,10 @@
       "savedToast": "Kohët tuaja u ruajtën",
       "clearedToast": "Kohët tuaja u fshinë",
       "privacy": "Kohët tuaja janë private: ruhen në këtë pajisje dhe në pajisjet tuaja të sinkronizuara, nuk u dërgohen kurrë gjetësit të xhamive apo përdoruesve të tjerë.",
-      "importHint": "I lexon kohët në telefonin tuaj. Fotoja nuk ngarkohet kurrë."
+      "importHint": "I lexon kohët në telefonin tuaj. Fotoja nuk ngarkohet kurrë.",
+      "clearConfirmTitle": "Të fshihen kohët tuaja?",
+      "clearConfirmBody": "Kohët tuaja ditore, të Xhumasë dhe ato mujore të importuara për këtë xhami hiqen nga të gjitha pajisjet tuaja.",
+      "saveError": "Kohët tuaja nuk u ruajtën. Ju lutemi provoni përsëri."
     },
     "reminder": {
       "settingTitle": "Kujtues ikameti",
@@ -9494,7 +9407,9 @@
       "walkSub": "Përdoret për kujtesën “nisuni tani” të ikametit",
       "minutes": "{{minutes}} min",
       "iqamahSub": "Kujtesë për t'u nisur për në xhaminë tuaj kryesore para ikametit, sipas kohëve tuaja"
-    }
+    },
+    "showMore": "Shfaq më shumë xhami",
+    "unavailableBody": "Shërbimi i kërkimit të xhamive nuk arrihet për momentin. Ju lutemi provoni përsëri më vonë."
   },
   "focusLock": {
     "title": "Kyçja e fokusit për namaz",
@@ -9695,7 +9610,8 @@
       "expires": "E vlefshme deri më {{when}} · mund të përdoret një herë",
       "error": "Ftesa nuk u krijua dot. Ju lutemi provoni përsëri.",
       "codeA11y": "Kodi i ftesës {{code}}",
-      "qrA11y": "Kodi QR për lidhjen e ftesës"
+      "qrA11y": "Kodi QR për lidhjen e ftesës",
+      "expiresShared": "E vlefshme deri më {{when}} · çdokush në grupin tuaj mund ta përdorë"
     },
     "join": {
       "eyebrow": "Ftesë",
@@ -10317,7 +10233,8 @@
       "deadline_other": "Nëse nuk konfirmoni, ato do të fshihen pas {{count}} ditësh.",
       "confirm": "Konfirmoni dhe mbajini",
       "delete": "Fshini këto profile",
-      "confirmed": "Faleminderit — pëlqimi u konfirmua"
+      "confirmed": "Faleminderit — pëlqimi u konfirmua",
+      "deleteConfirm": "Kjo i fshin tani këto profile, statuset, ngjitëset dhe pajisjet e lidhura të tyre. Nuk mund të zhbëhet."
     },
     "child": {
       "title": "Fëmija",
@@ -10690,7 +10607,7 @@
       "loading": "Po ngarkohen fjalët…",
       "unavailable": "Fjalët shembull kanë nevojë për lidhje herën e parë.",
       "a11y": "{{surah}}, ajeti {{ayah}}, fjala {{word}}",
-      "playHint": "Luan lexuesin duke e thënë këtë fjalë",
+      "playHint": "Luan zërin e lexuesit duke e thënë këtë fjalë",
       "noAudio": "Nuk ka audio leximi për këtë fjalë",
       "trackSubtitle": "Ajeti {{ayah}} · fjala {{word}}",
       "ref": "{{surah}}:{{ayah}}"
@@ -10727,5 +10644,268 @@
       "reminderSub": "Kur është radha e një tingulli ushtrimi, kujtesa e përsëritjes e përmend",
       "keywords": "texhvid, tajweed, ushtrim, coaching, kalkale, gunne, medd, shedde, kujtesë përsëritjeje, praktikë"
     }
+  },
+  "setupFlow": {
+    "stepOf": "Hapi {{current}} nga {{total}}",
+    "allSet": "Konfigurimi përfundoi",
+    "language": {
+      "title": "Zgjidhni gjuhën tuaj",
+      "body": "I gjithë aplikacioni do ta përdorë. Kuptimi i Kur'anit, haditheve dhe duave mund ta ndjekë atë ose të përdorë një gjuhë tjetër."
+    },
+    "location": {
+      "title": "Ku falni namaz?",
+      "body": "Oraret e Salah dhe drejtimi i kiblës varen nga vendi ku ndodheni.",
+      "privacy": "Vendndodhja juaj mbetet në këtë pajisje dhe përdoret vetëm për oraret e Salah dhe kiblën. Nuk ndahet kurrë.",
+      "chooseCity": "Më mirë kërko qytetin tim",
+      "confirmBody": "Kontrolloni vendin dhe mënyrën si llogariten oraret e Salah. Nëse xhamia juaj ndjek një metodë tjetër, zgjidheni këtu.",
+      "defaultHint": "Oraret e Salah përdorin Mekën derisa të zgjidhni vendin tuaj."
+    },
+    "reminders": {
+      "title": "Mos humbisni asnjë Salah",
+      "body": "Merrni ezanin në kohën e çdo Salah dhe përkujtime të buta për zikër. Planifikohen në këtë pajisje dhe nuk shfaqin kurrë asgjë private.",
+      "onTitle": "Përkujtimet janë aktive",
+      "onBody": "Rregulloni kryesoret tani, ose gjithçka tjetër më vonë te Cilësimet.",
+      "offTitle": "Përkujtimet janë joaktive",
+      "offBody": "Mund t'i aktivizoni në çdo kohë te Cilësimet › Përkujtimet dhe njoftimet."
+    },
+    "personalise": {
+      "title": "Bëjeni tuajin",
+      "body": "Opsionale — të gjitha këto mund t'i ndryshoni më vonë te Cilësimet."
+    },
+    "done": {
+      "title": "Gjithçka është gati",
+      "body": "Kështu është konfiguruar aplikacioni. Prekni çdo gjë për ta ndryshuar.",
+      "recap": "Konfigurimi juaj"
+    }
+  },
+  "privateUx": {
+    "saveFailed": "Nuk u ruajt. Ju lutemi provoni përsëri.",
+    "saving": "Po ruhet…",
+    "export": {
+      "unavailable": "Printimi dhe ndarja nuk janë të disponueshme në këtë pajisje.",
+      "failed": "Dokumenti nuk u krijua. Ju lutemi provoni përsëri.",
+      "preparing": "Po përgatitet dokumenti…"
+    },
+    "date": {
+      "invalid": "Kjo datë nuk u lexua. Përdorni vit-muaj-ditë, p.sh. 2026-11-23.",
+      "reads": "Lexohet si {{date}}",
+      "preset": {
+        "week": "Pas 1 jave",
+        "month": "Pas 1 muaji",
+        "threeMonths": "Pas 3 muajsh"
+      }
+    },
+    "payments": {
+      "errorAmount": "Vendosni shumën e paguar.",
+      "removeTitle": "Të hiqet kjo shlyerje?",
+      "removeBody": "Shuma që mbetet për t'u shlyer rritet përsëri. Kjo nuk mund të zhbëhet."
+    },
+    "wasiyyah": {
+      "nameRequired": "Shtoni emrin tuaj për të vazhduar.",
+      "reviewTitle": "Kontrolloni çdo pjesë",
+      "summary": {
+        "nameMissing": "Mungon emri juaj",
+        "selected": "{{done}} nga {{total}} të zgjedhura",
+        "confirmed": "{{done}} nga {{total}} të konfirmuara",
+        "none": "Asgjë e shtuar",
+        "added": "Të shtuara: {{total}}",
+        "snapshot": "Llogaritja e trashëgimisë e bashkëngjitur (ilustruese)",
+        "noSnapshot": "Asnjë llogaritje e bashkëngjitur (opsionale)",
+        "named": "{{done}} nga {{total}} me emër",
+        "dateInvalid": "Data nuk mund të lexohet"
+      },
+      "draftNote": "Keni një draft të papërfunduar. Vazhdoni aty ku e latë.",
+      "discardTitle": "Të hidhet drafti?",
+      "discardBody": "Ndryshimet që nuk i keni ruajtur si version do të fshihen. Vasijeti juaj i ruajtur mbetet siç është.",
+      "dateBlocked": "Korrigjoni datën te “Rreth jush” para se të ruani."
+    },
+    "muhasabah": {
+      "customAddedOff": "Pyetja u shtua. Keni tashmë {{max}} pyetje aktive, ndaj fikni njërën për ta përdorur.",
+      "retentionTitle": "Të fshihen shqyrtimet më të vjetra?",
+      "retentionBody_one": "{{count}} shqyrtim i ruajtur është më i vjetër se kjo dhe do të fshihet tani. Kjo nuk mund të zhbëhet.",
+      "retentionBody_other": "{{count}} shqyrtime të ruajtura janë më të vjetra se kjo dhe do të fshihen tani. Kjo nuk mund të zhbëhet.",
+      "retentionConfirm": "Fshi dhe ndrysho",
+      "clearNotesTitle": "Të fshihen edhe shënimet e ruajtura?",
+      "clearNotesBody_one": "{{count}} shqyrtim i ruajtur ka ende një shënim pendimi. Të fshihen fjalët tani? Fakti që jeni penduar mbetet.",
+      "clearNotesBody_other": "{{count}} shqyrtime të ruajtura kanë ende shënime pendimi. Të fshihen fjalët tani? Fakti që jeni penduar mbetet.",
+      "clearNotesConfirm": "Fshi shënimet",
+      "clearNotesKeep": "Mbaji",
+      "clearNotesDone": "Shënimet e pendimit u fshinë"
+    },
+    "familyTies": {
+      "digestAfterDhuhr": "Pas drekës",
+      "notFound": "Ky i afërm nuk është më në listën tuaj.",
+      "phoneInvalid": "Ky numër duket shumë i shkurtër për thirrje ose mesazh."
+    },
+    "mirath": {
+      "highlightHint": "Trashëgimtarët e theksuar marrin pjesë të ndryshme në një medhheb tjetër."
+    },
+    "undo": "Zhbëje",
+    "debts": {
+      "selectTitle": "Zgjidhni një regjistrim",
+      "selectBody": "Zgjidhni një regjistrim nga lista për të parë hollësitë, ose shtoni një të ri."
+    }
+  },
+  "settingsSubgroups": {
+    "salah": {
+      "title": "Salah dhe ezani",
+      "subtitle": "Ezani, njoftimet, koha e përkujtimeve, sunetet dhe kazaja"
+    },
+    "zikr": {
+      "title": "Zikri dhe Kur'ani",
+      "subtitle": "Adhkaret e mëngjesit, mbrëmjes dhe para gjumit, përsëritja e Kur'anit"
+    },
+    "fasting": {
+      "title": "Agjërimi dhe ditët e veçanta",
+      "subtitle": "Agjërimet vullnetare, syfyri, Dhul-Hixhe dhe tekbiri"
+    },
+    "personal": {
+      "title": "Personale dhe familja",
+      "subtitle": "Muhasebe, lidhjet familjare, borxhet, testamenti dhe reflektimi"
+    },
+    "other": {
+      "title": "Përmbajtja ditore dhe aplikacioni",
+      "subtitle": "Reflektimi i ditës, e premtja, Ditët e bardha, arritjet dhe komentet"
+    }
+  },
+  "prayerMethodSuggestion": {
+    "searchTitle": "Metoda e sugjeruar e llogaritjes",
+    "title": "Sugjerim për {{country}}",
+    "body": "{{method}} është metoda e zakonshme atje. Orari i xhamisë suaj mbetet udhëzuesi më i mirë.",
+    "use": "Përdor këtë metodë",
+    "keep": "Mbaj të tanishmen",
+    "updated": "Metoda e llogaritjes u përditësua"
+  },
+  "nearby": {
+    "tabs": {
+      "code": "Kodi dhe QR",
+      "nearby": "Në afërsi"
+    },
+    "host": {
+      "title": "Fto dikë pranë teje",
+      "body": "Telefoni i tij e gjen tëndin përmes Bluetooth — s'ka nevojë të shkruash asgjë. Ti miraton këdo që kërkon.",
+      "childTitle": "Lidh një telefon pranë teje",
+      "childBody": "Në telefonin e fëmijës tënd, hap Munib Tracker, zgjidh “Lidhu me telefonin e prindit afër” dhe mbaji telefonat pranë. Lidhjen e miraton këtu.",
+      "start": "Bëje të dukshëm",
+      "starting": "Po nis…",
+      "visible": "I dukshëm për telefonat në afërsi",
+      "stopsAt": "Ndalon në {{time}}",
+      "codeLabel": "Kontrollo që telefoni tjetër shfaq të njëjtat shifra",
+      "codeA11y": "Kodi i përputhjes {{code}}",
+      "stop": "Ndalo",
+      "asking": "Kërkojnë të bashkohen",
+      "noneYet": "Askush ende. Kërkoju të prekin “Bashkohu nga afër” në telefonin e tyre.",
+      "someone": "Dikush në afërsi",
+      "guest": "Mysafir",
+      "childDevice": "Telefoni i fëmijës tënd",
+      "accept": "Prano",
+      "decline": "Refuzo",
+      "acceptA11y": "Prano {{name}}",
+      "declineA11y": "Refuzo {{name}}",
+      "status": {
+        "accepted": "Pranuar",
+        "declined": "Refuzuar",
+        "completed": "Lidhur"
+      },
+      "stopped": {
+        "timeout": "U ndal pas 10 minutash për të kursyer baterinë.",
+        "background": "U ndal sepse dole nga Munib Tracker.",
+        "bluetoothOff": "U ndal sepse Bluetooth u çaktivizua.",
+        "used": "U krye — kjo ftesë në afërsi është përdorur.",
+        "error": "Ky telefon nuk u bë dot i dukshëm. Provo përsëri, ose përdor kodin ose QR."
+      },
+      "again": "Bëje përsëri të dukshëm",
+      "acceptedToast": "U pranua — tani janë në rreth.",
+      "linkedToast": "U miratua — telefoni do të lidhet pas pak.",
+      "errorFull": "Pranimi dështoi — rrethi mund të jetë plot, ose kësaj kërkese i është përgjigjur tashmë.",
+      "errorEnded": "Kjo ftesë në afërsi ka përfunduar.",
+      "errorForbidden": "Nuk mund të ftosh më njerëz në këtë rreth."
+    },
+    "rationale": {
+      "title": "Përdor Bluetooth për ta gjetur njëri-tjetrin",
+      "hostBody": "Telefoni yt ua tregon këtë rreth vetëm telefonave menjëherë pranë teje, dhe vetëm sa është hapur ky ekran (deri në 10 minuta). Ndan një kod të përkohshëm — kurrë emrin apo vendndodhjen tënde.",
+      "joinBody": "Telefoni yt kërkon rrathë menjëherë pranë teje vetëm sa është hapur kjo fletë. Asgjë nuk ndahet derisa të konfirmosh ti dhe ta miratojë organizatori.",
+      "androidLocation": "Në këtë version të Android, skanimi me Bluetooth kërkon lejen e vendndodhjes. Vendndodhja jote nuk përdoret dhe nuk ruhet kurrë.",
+      "continue": "Vazhdo",
+      "notNow": "Jo tani"
+    },
+    "blocked": {
+      "unsupported": {
+        "title": "Funksioni në afërsi nuk ofrohet në këtë telefon",
+        "body": "Përdor kodin ose QR në vend të tij."
+      },
+      "bluetoothOff": {
+        "title": "Bluetooth është joaktiv",
+        "bodyIos": "Aktivizo Bluetooth te Qendra e kontrollit, pastaj provo përsëri.",
+        "bodyAndroid": "Aktivizo Bluetooth, pastaj provo përsëri."
+      },
+      "permissionDenied": {
+        "title": "Nevojitet leja e Bluetooth",
+        "body": "Lejo “Pajisjet në afërsi” që telefonat ta gjejnë njëri-tjetrin. Mund të përdorësh ende kodin ose QR."
+      },
+      "permissionBlocked": {
+        "title": "Bluetooth është joaktiv për Munib Tracker",
+        "body": "Lejo Bluetooth (“Pajisjet në afërsi” në Android) për Munib Tracker te Cilësimet, ose përdor kodin ose QR."
+      },
+      "locationOff": {
+        "title": "Shërbimet e vendndodhjes janë joaktive",
+        "body": "Në këtë version të Android, skanimi me Bluetooth funksionon vetëm kur shërbimet e vendndodhjes janë aktive. Vendndodhja jote nuk përdoret kurrë."
+      },
+      "openSettings": "Hap Cilësimet",
+      "openBluetooth": "Cilësimet e Bluetooth",
+      "openLocation": "Cilësimet e vendndodhjes",
+      "retry": "Provo përsëri"
+    },
+    "join": {
+      "button": "Bashkohu nga afër",
+      "buttonHint": "Gjej një rreth në një telefon pranë teje",
+      "title": "Bashkohu nga afër",
+      "childButton": "Lidhu me telefonin e prindit afër",
+      "childTitle": "Lidhu nga afër",
+      "scanning": "Po kërkohen rrathë në afërsi…",
+      "scanningHint": "Kërkoji organizatorit të hapë ftesën, të zgjedhë Në afërsi dhe të prekë “Bëje të dukshëm”. Mbaji telefonat pranë.",
+      "childScanning": "Po kërkohet telefoni i prindit tënd…",
+      "childScanningHint": "Kërkoji prindit të hapë profilin tënd, të zgjedhë Në afërsi dhe të prekë “Bëje të dukshëm”.",
+      "childItem": "Lidh këtë telefon",
+      "proximity": {
+        "veryClose": "Shumë afër",
+        "near": "Në afërsi",
+        "far": "Më larg"
+      },
+      "itemA11y": "{{name}}, {{type}}, {{proximity}}",
+      "compareTitle": "A përputhen këto shifra?",
+      "compareBody": "Kontrollo që ekrani i organizatorit shfaq të njëjtat 4 shifra. Nëse nuk përputhen, kthehu prapa — është një telefon tjetër.",
+      "match": "Përputhen",
+      "noMatch": "Nuk përputhen",
+      "sending": "Po dërgohet…",
+      "waiting": "Në pritje të pranimit nga organizatori…",
+      "waitingHint": "Mbaje të hapur. Organizatori tani e sheh kërkesën tënde.",
+      "cancel": "Anulo kërkesën",
+      "joined": "U bashkove me {{name}}",
+      "childLinked": "Ky telefon është lidhur",
+      "open": "Hap",
+      "declined": "Organizatori e refuzoi këtë kërkesë.",
+      "expired": "Kjo ftesë në afërsi ka përfunduar. Kërkoji organizatorit ta bëjë përsëri telefonin të dukshëm.",
+      "paused": {
+        "timeout": "Kërkimi u ndal pas 10 minutash për të kursyer baterinë.",
+        "background": "U ndërpre ndërsa Munib Tracker ishte në sfond.",
+        "error": "Kërkimi i telefonave në afërsi dështoi.",
+        "bluetoothOff": "U ndal sepse Bluetooth u çaktivizua."
+      },
+      "scanAgain": "Kërko përsëri",
+      "error": {
+        "mismatch": "Këto shifra i përkasin një ftese tjetër. Kthehu dhe zgjidh rrethin e duhur.",
+        "alreadyMember": "Je tashmë në këtë rreth.",
+        "needsAccount": "Hyr me një llogari për t'u bashkuar me këtë rreth.",
+        "busy": "Shumë njerëz po kërkojnë tani. Provo përsëri pas pak."
+      },
+      "back": "Prapa",
+      "close": "Mbyll",
+      "fallback": "Nuk e gjen? Përdor kodin ose skano QR në vend të tij."
+    }
+  },
+  "scriptureMeaning": {
+    "englishLabel": "Kuptimi në anglisht",
+    "englishLabelA11y": "Kuptimi shfaqet në anglisht: ende nuk ka përkthim nga një burim i besueshëm në gjuhën tuaj"
   }
 }

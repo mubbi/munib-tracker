@@ -201,8 +201,8 @@ describe.each(localeCatalogs)("i18n translation quality (%s)", (name, catalog, s
 });
 
 /**
- * Mid-string English / mixed-script corruption from failed auto-translate.
- * Keep in sync with `scripts/i18n/fix-runglish-catalog.mjs` CORRUPT_RE.
+ * Mid-string English / mixed-script corruption from failed auto-translate
+ * (catches it at review time; fix the value in a patch file — see I18N_GUIDE).
  */
 const CORRUPTION_RE =
   /\byhs\b|bookmrked|\bdevam et\b|Fcebook|MYMEMORY WARNING|\bsecret\b.*\bnever\b|without review|Revэто|Revdiri|Revwiku|Revbuid|[a-zA-Z][а-яА-ЯёЁ]|[а-яА-ЯёЁ][a-zA-Z]/i;
