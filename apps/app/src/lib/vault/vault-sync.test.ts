@@ -26,13 +26,15 @@ const vaultEntities = (records: Awaited<ReturnType<typeof buildBlobRecords>>) =>
 beforeEach(resetVaultTestState);
 
 describe("vault blob sync", () => {
-  it("registers the five vault entities", () => {
+  it("registers the vault entities", () => {
     expect(VAULT_SYNC_ENTITIES).toEqual([
       "vault_keyring",
       "vault_muhasabah",
       "vault_debts",
       "vault_wasiyyah",
       "vault_relatives",
+      "vault_excused",
+      "vault_khushu",
     ]);
     for (const entity of VAULT_SYNC_ENTITIES) expect(isBlobEntity(entity)).toBe(true);
   });

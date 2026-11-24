@@ -12,6 +12,7 @@ import {
   markVaultUnlocked,
   shouldPromptVaultUnlock,
   useVaultLockJournals,
+  useVaultLockPrefReady,
 } from "@/lib/vault/vault-lock";
 
 /**
@@ -23,11 +24,20 @@ import {
 export function useRequireVaultUnlock(): {
   requireVaultUnlock: () => Promise<boolean>;
   unlockPrompt: ReactNode;
+  /** Both the "Lock private journals" pref and the app PIN state have loaded. */
+  ready: boolean;
 } {
   const { t } = useTranslation();
   const lockJournals = useVaultLockJournals();
-  const { isPinEnabled, hasStoredPin, biometricsAvailable, unlock, unlockWithBiometrics } =
-    usePinLock();
+  const prefReady = useVaultLockPrefReady();
+  const {
+    isReady: pinReady,
+    isPinEnabled,
+    hasStoredPin,
+    biometricsAvailable,
+    unlock,
+    unlockWithBiometrics,
+  } = usePinLock();
   const [visible, setVisible] = useState(false);
   const pending = useRef<((ok: boolean) => void) | null>(null);
 
@@ -70,26 +80,36 @@ export function useRequireVaultUnlock(): {
     />
   );
 
-  return { requireVaultUnlock, unlockPrompt };
+  return { requireVaultUnlock, unlockPrompt, ready: prefReady && pinReady };
 }
 
 /**
  * Wraps a vault screen's content: renders children only after
  * `requireVaultUnlock()` succeeds, with a retry state if the user cancels.
+ *
+ * The decision waits until the lock pref and the PIN state have loaded (so the
+ * content never flashes before a lock that is still loading), and runs once per
+ * mount: later identity changes of the PIN callbacks must not unmount an open
+ * screen mid-edit.
  */
 export function VaultLockGate({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
-  const { requireVaultUnlock, unlockPrompt } = useRequireVaultUnlock();
+  const { requireVaultUnlock, unlockPrompt, ready } = useRequireVaultUnlock();
   const [state, setState] = useState<"checking" | "open" | "locked">("checking");
+  const requireRef = useRef(requireVaultUnlock);
+  requireRef.current = requireVaultUnlock;
+  const started = useRef(false);
 
   const check = useCallback(() => {
     setState("checking");
-    void requireVaultUnlock().then((ok) => setState(ok ? "open" : "locked"));
-  }, [requireVaultUnlock]);
+    void requireRef.current().then((ok) => setState(ok ? "open" : "locked"));
+  }, []);
 
   useEffect(() => {
+    if (!ready || started.current) return;
+    started.current = true;
     check();
-  }, [check]);
+  }, [ready, check]);
 
   if (state === "open") return <>{children}</>;
   return (

@@ -32,7 +32,6 @@ jest.mock("@/components/ui/glass-surface", () => {
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 jest.mock("@/lib/haptics", () => require("@/test-support/mocks/haptics").hapticsMock);
 // Imported transitively (reading typography → audio provider); never played here.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 
 // The first render warms the theme + i18n graph, which is slow on a busy machine.
 

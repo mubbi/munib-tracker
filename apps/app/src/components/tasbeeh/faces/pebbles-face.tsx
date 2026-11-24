@@ -1,16 +1,9 @@
 import type { TasbeehPebbleItem } from "@munib-tracker/shared/types";
-import { memo, useLayoutEffect, useMemo, useRef } from "react";
+import { memo, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
-import Animated, {
-  Easing,
-  type SharedValue,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import Animated, { type SharedValue, useAnimatedStyle } from "react-native-reanimated";
 import Svg, { Defs, Ellipse, RadialGradient, Stop } from "react-native-svg";
 
-import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle } from "@/lib/chart-rtl";
@@ -31,6 +24,7 @@ import { roundSizeFor, roundState } from "@/lib/tasbeeh/rounds";
 
 import { RoundReadout } from "./round-readout";
 import type { TasbeehFaceProps } from "./types";
+import { useForwardStep } from "./use-forward-step";
 
 /** Each dish gets a different spiral twist so the two never look copied. */
 const SOURCE_SALT = 1;
@@ -68,23 +62,7 @@ export default function PebblesFace({
   const tones = PEBBLE_TONES[item];
 
   // The last item to move travels from the source dish to the counted dish.
-  // Layout effect: rewind before paint so the pebble never flashes at its destination.
-  const move = useSharedValue(1);
-  const prevCount = useRef(count);
-  useLayoutEffect(() => {
-    const delta = count - prevCount.current;
-    prevCount.current = count;
-    // Undo / reset / jumps snap; only a single forward step travels.
-    if (delta !== 1 || reduceMotion || preview) {
-      move.value = 1;
-      return;
-    }
-    move.value = 0;
-    move.value = withTiming(1, {
-      duration: Durations.slow,
-      easing: Easing.out(Easing.cubic),
-    });
-  }, [count, move, reduceMotion, preview]);
+  const move = useForwardStep(count, { animate: !reduceMotion, curve: "cubic" });
 
   const sourceSlots = useMemo(
     () =>

@@ -5,6 +5,7 @@ import * as Reanimated from "react-native-reanimated";
 
 import { triggerHaptic } from "@/lib/haptics";
 import {
+  TOAST_ACTION_DURATION_MS,
   type ToastContextValue,
   ToastHost,
   ToastProvider,
@@ -245,6 +246,35 @@ describe("toast swipe gesture", () => {
     });
 
     expect(screen.getByText("Swipe me")).toBeTruthy();
+  });
+});
+
+describe("toast action", () => {
+  it("shows an accessible action that runs once, dismisses the toast and lasts longer", async () => {
+    const onPress = jest.fn();
+    const { show } = await setup();
+    await show((toast) =>
+      toast.show("Logged", { type: "success", action: { label: "Undo", onPress } }),
+    );
+
+    // Still visible after the normal duration: there is time to reach the action.
+    await act(async () => {
+      jest.advanceTimersByTime(TOAST_DURATION_MS + 100);
+    });
+    expect(screen.getByRole("button", { name: "Undo" })).toBeTruthy();
+
+    await fireEvent.press(screen.getByRole("button", { name: "Undo" }));
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(screen.queryByText("Logged")).toBeNull();
+  });
+
+  it("auto-dismisses an action toast after the longer duration", async () => {
+    const { show } = await setup();
+    await show((toast) => toast.show("Logged", { action: { label: "Undo", onPress: jest.fn() } }));
+    await act(async () => {
+      jest.advanceTimersByTime(TOAST_ACTION_DURATION_MS + 100);
+    });
+    expect(screen.queryByText("Logged")).toBeNull();
   });
 });
 

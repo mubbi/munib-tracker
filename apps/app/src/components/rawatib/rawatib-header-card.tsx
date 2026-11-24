@@ -164,6 +164,8 @@ const styles = StyleSheet.create({
   },
   toggle: {
     alignSelf: "flex-start",
+    justifyContent: "center",
+    minHeight: 44,
     paddingVertical: Spacing.two,
     marginTop: Spacing.one,
   },

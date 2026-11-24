@@ -46,6 +46,33 @@ function markAccepted(): void {
   }
 }
 
+/** IndexedDB database tesseract.js caches its language data in (`idb-keyval`'s default). */
+export const TESSERACT_CACHE_DB = "keyval-store";
+
+/**
+ * "Reset app data": forgets the one-time download consent and deletes the
+ * cached Tesseract language data from this browser. Never throws.
+ */
+export async function clearOcrBrowserData(): Promise<void> {
+  try {
+    globalThis.localStorage?.removeItem(READY_KEY);
+  } catch {
+    /* storage blocked */
+  }
+  const idb = (globalThis as { indexedDB?: IDBFactory }).indexedDB;
+  if (!idb) return;
+  await new Promise<void>((resolve) => {
+    try {
+      const request = idb.deleteDatabase(TESSERACT_CACHE_DB);
+      request.onsuccess = () => resolve();
+      request.onerror = () => resolve();
+      request.onblocked = () => resolve();
+    } catch {
+      resolve();
+    }
+  });
+}
+
 type TesseractModule = typeof import("tesseract.js");
 
 /** Image size, read locally (only used for diagnostics; the parser needs boxes, not size). */

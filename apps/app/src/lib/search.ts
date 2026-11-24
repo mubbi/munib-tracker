@@ -32,6 +32,7 @@ import {
 import { resolveHadithTranslation, resolveTranslationField } from "@/lib/translation-locale";
 import { zikrQuranDestination } from "@/lib/zikr-quran";
 import type { CustomAdhkar } from "@/stores/custom-adhkar-store";
+import type { CustomTasbeeh } from "@/stores/custom-tasbeeh-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
 export type { FuzzyField, FuzzyIndex } from "@/lib/search-fuse";
@@ -285,6 +286,14 @@ const CUSTOM_ADHKAR_FIELDS: FuzzyField<CustomAdhkar>[] = [
 /** A fuzzy index over the user's custom adhkar list. */
 export function createCustomAdhkarSearch(items: CustomAdhkar[]): FuzzyIndex<CustomAdhkar> {
   return createFuzzyIndex(items, CUSTOM_ADHKAR_FIELDS);
+}
+
+/** A fuzzy index over the user's custom tasbeeh counters (hands-free zikr picker). */
+export function createCustomTasbeehSearch(items: CustomTasbeeh[]): FuzzyIndex<CustomTasbeeh> {
+  return createFuzzyIndex(items, [
+    { key: "title", weight: 5, get: (c) => c.title },
+    { key: "description", weight: 1, get: (c) => c.description },
+  ]);
 }
 
 /** A fuzzy index over the 99 names, for the in-screen search bar. */

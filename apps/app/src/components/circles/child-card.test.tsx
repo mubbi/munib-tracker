@@ -59,13 +59,8 @@ describe("ChildCard (parent view, D7)", () => {
       />,
     );
     fireEvent.press(screen.getByRole("checkbox", { name: t("prayers.asr") }));
-    expect(onToggle).toHaveBeenCalledWith("asr", {
-      fajr: false,
-      dhuhr: false,
-      asr: true,
-      maghrib: false,
-      isha: false,
-    });
+    // The screen computes the new value from fresh (optimistic) data — see useFardStatusLog.
+    expect(onToggle).toHaveBeenCalledWith("asr");
   });
 
   it("uses the learning line under 7", async () => {

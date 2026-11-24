@@ -38,6 +38,8 @@ describe("useQcfPageFont", () => {
     const { result } = await setup(3);
     expect(result.current).toEqual({
       ready: true,
+      failed: false,
+      retry: expect.any(Function),
       fontFamily: qcfPageFontFamily(3),
       basmalaFontFamily: QCF_BSML_FONT_FAMILY,
     });
@@ -75,5 +77,14 @@ describe("useQcfPageFont", () => {
     await act(async () => pending.resolve());
     expect(result.current.ready).toBe(false);
     expect(result.current.fontFamily).toBe(qcfPageFontFamily(7));
+  });
+
+  it("reports a failed load and loads again on retry", async () => {
+    (loadQcfPageFont as jest.Mock).mockRejectedValueOnce(new Error("network"));
+    const { result } = await setup(8);
+    expect(result.current).toMatchObject({ ready: false, failed: true });
+    await act(async () => result.current.retry());
+    expect(loadQcfPageFont).toHaveBeenCalledTimes(2);
+    expect(result.current).toMatchObject({ ready: true, failed: false });
   });
 });

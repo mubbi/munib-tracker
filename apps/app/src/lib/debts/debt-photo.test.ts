@@ -31,7 +31,10 @@ jest.mock(
   "@/lib/vault/vault-file-store",
   () => require("@/test-support/mocks/vault-file-store").vaultFileStoreMock,
 );
-jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+jest.mock(
+  "@/lib/quran-companion/reschedule",
+  () => require("@/test-support/mocks/reminder-reschedule").reminderRescheduleMock,
+);
 
 /** A tiny "JPEG" (SOI marker + payload) — content is irrelevant to the vault. */
 const JPEG = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);

@@ -71,16 +71,17 @@ export function FocusLockSettingsForm({
 
   return (
     <View style={styles.stack}>
-      <ThemedText type="smallBold">{t("focusLock.form.prayersTitle")}</ThemedText>
-      {FOCUS_LOCK_PRAYERS.map((prayer) => (
-        <ToggleRow
-          key={prayer}
-          label={prayer === "jumuah" ? t("focusLock.jumuah") : t(`prayers.${prayer}`)}
-          value={prefs.prayers.includes(prayer)}
-          readOnly={readOnly}
-          onChange={(on) => void save(toggleFocusPrayer(prefs, prayer, on))}
-        />
-      ))}
+      {/* Six Salah as one compact chip group instead of six switch rows. */}
+      <ToggleChips
+        title={t("focusLock.form.prayersTitle")}
+        options={FOCUS_LOCK_PRAYERS.map((prayer) => {
+          const label = prayer === "jumuah" ? t("focusLock.jumuah") : t(`prayers.${prayer}`);
+          return { id: prayer, short: label, long: label };
+        })}
+        selected={prefs.prayers}
+        readOnly={readOnly}
+        onToggle={(prayer, on) => void save(toggleFocusPrayer(prefs, prayer, on))}
+      />
 
       {iqamahAvailable ? (
         <>
@@ -190,41 +191,48 @@ function sameDays(a: readonly number[], b: readonly number[]): boolean {
   return a.length === b.length && a.every((d) => b.includes(d));
 }
 
-/** Seven Sunday-first day chips (D37); the selected days are the weekend. */
-function WeekendDayChips({
+type ChipOption<T> = { id: T; short: string; long: string };
+
+/**
+ * Multi-select chips (checkbox semantics, 44pt targets). `max` keeps at least
+ * one option unselected (the weekend can't be the whole week).
+ */
+function ToggleChips<T extends string | number>({
+  title,
+  options,
   selected,
   readOnly,
+  max,
   onToggle,
-  onReset,
 }: {
-  selected: readonly number[];
+  title: string;
+  options: readonly ChipOption<T>[];
+  selected: readonly T[];
   readOnly?: boolean;
-  onToggle: (day: number, on: boolean) => void;
-  onReset?: () => void;
+  max?: number;
+  onToggle: (id: T, on: boolean) => void;
 }) {
-  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const days = useMemo(() => weekdayNames(localeToBcp47(i18n.language)), [i18n.language]);
-  // Keep at least one working day.
-  const full = selected.length >= 6;
-
+  const full = max != null && selected.length >= max;
   return (
     <View style={styles.weekend}>
-      <ThemedText type="smallBold">{t("focusLock.form.weekendDaysTitle")}</ThemedText>
+      <ThemedText type="smallBold" accessibilityRole="header">
+        {title}
+      </ThemedText>
       <View style={styles.chips}>
-        {days.map(({ day, short, long }) => {
-          const on = selected.includes(day);
+        {options.map(({ id, short, long }) => {
+          const on = selected.includes(id);
           const disabled = readOnly || (!on && full);
           return (
             <PressableScale
-              key={day}
+              key={String(id)}
               haptic="selection"
               scaleTo={0.95}
               disabled={disabled}
               accessibilityRole="checkbox"
               accessibilityLabel={long}
               accessibilityState={{ checked: on, disabled }}
-              onPress={() => onToggle(day, !on)}
+              onPress={() => onToggle(id, !on)}
               style={[
                 styles.chip,
                 {
@@ -240,6 +248,44 @@ function WeekendDayChips({
           );
         })}
       </View>
+    </View>
+  );
+}
+
+/** Seven Sunday-first day chips (D37); the selected days are the weekend. */
+function WeekendDayChips({
+  selected,
+  readOnly,
+  onToggle,
+  onReset,
+}: {
+  selected: readonly number[];
+  readOnly?: boolean;
+  onToggle: (day: number, on: boolean) => void;
+  onReset?: () => void;
+}) {
+  const { t, i18n } = useTranslation();
+  const days = useMemo(
+    () =>
+      weekdayNames(localeToBcp47(i18n.language)).map(({ day, short, long }) => ({
+        id: day,
+        short,
+        long,
+      })),
+    [i18n.language],
+  );
+
+  return (
+    <View style={styles.weekend}>
+      {/* Keep at least one working day. */}
+      <ToggleChips
+        title={t("focusLock.form.weekendDaysTitle")}
+        options={days}
+        selected={selected}
+        readOnly={readOnly}
+        max={6}
+        onToggle={onToggle}
+      />
       {onReset && !readOnly ? (
         <PressableScale
           accessibilityRole="button"
@@ -364,7 +410,7 @@ const styles = StyleSheet.create({
   chips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
   chip: {
     minWidth: 44,
-    minHeight: 36,
+    minHeight: 44,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,

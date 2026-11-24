@@ -5,7 +5,7 @@ import {
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { ArafahSection } from "@/components/dhul-hijjah/arafah-section";
 import { DhulHijjahDeedsChecklist } from "@/components/dhul-hijjah/deeds-checklist";
 import { DHUL_HIJJAH_ICON, phaseHeadline } from "@/components/dhul-hijjah/dhul-hijjah-home-card";
@@ -99,7 +99,9 @@ export default function DhulHijjahScreen() {
         {focus === "tashriq" ? tashriq : null}
 
         <View>
-          <JannahCallout tone="accent">{t("dhulHijjah.virtue")}</JannahCallout>
+          <ScriptureMeaning english={t("dhulHijjah.virtue")}>
+            {(text) => <JannahCallout tone="accent">{text}</JannahCallout>}
+          </ScriptureMeaning>
           <EvidenceLine refs={DHUL_HIJJAH_EVIDENCE.tenDaysVirtue} />
           <EvidenceLine
             refs={[

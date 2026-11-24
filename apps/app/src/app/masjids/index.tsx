@@ -35,6 +35,9 @@ type LoadState =
   | { status: "ready"; result: MasjidListResult }
   | { status: "error"; kind: MasjidApiError["kind"] };
 
+/** First page of nearby masjids; "Show more" adds the same again (OSM can return hundreds). */
+export const MASJID_PAGE_SIZE = 15;
+
 function detailHref(m: { osmType: string; osmId: string }): Href {
   return {
     pathname: "/masjids/[osmType]/[osmId]",
@@ -64,6 +67,7 @@ function MasjidFinder() {
   const home = useHomeMasjid();
   const [state, setState] = useState<LoadState>({ status: "loading" });
   const [reloadKey, setReloadKey] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(MASJID_PAGE_SIZE);
 
   const hasLocation = location.source !== "default";
   const cell = hasLocation ? cellFor(location.latitude, location.longitude) : null;
@@ -73,6 +77,7 @@ function MasjidFinder() {
     if (!cell) return;
     const controller = new AbortController();
     setState({ status: "loading" });
+    setVisibleCount(MASJID_PAGE_SIZE);
     fetchMasjidList(cell, controller.signal)
       .then((result) => {
         if (!controller.signal.aborted) setState({ status: "ready", result });
@@ -169,10 +174,18 @@ function MasjidFinder() {
 
       {state.status === "error" ? (
         <EmptyState
-          icon={{ ios: "wifi.slash", android: "wifi_off", web: "wifi_off" }}
+          icon={
+            state.kind === "offline"
+              ? { ios: "wifi.slash", android: "wifi_off", web: "wifi_off" }
+              : { ios: "exclamationmark.triangle", android: "warning", web: "warning" }
+          }
           title={state.kind === "offline" ? t("masjids.offlineTitle") : t("masjids.errorTitle")}
           description={
-            state.kind === "rate_limited" ? t("masjids.rateLimited") : t("masjids.errorBody")
+            state.kind === "rate_limited"
+              ? t("masjids.rateLimited")
+              : state.kind === "offline"
+                ? t("masjids.errorBody")
+                : t("masjids.unavailableBody")
           }
           actionLabel={t("masjids.retry")}
           onAction={() => setReloadKey((k) => k + 1)}
@@ -195,7 +208,7 @@ function MasjidFinder() {
           ) : (
             <>
               <SectionHeader title={t("masjids.nearbyTitle")} subtitle={t("masjids.nearbySub")} />
-              {sorted.map((m) => (
+              {sorted.slice(0, visibleCount).map((m) => (
                 <MasjidRow
                   key={masjidKey(m)}
                   masjid={m}
@@ -212,6 +225,13 @@ function MasjidFinder() {
                   onSetHome={() => onSetHome(m)}
                 />
               ))}
+              {sorted.length > visibleCount ? (
+                <Button
+                  variant="secondary"
+                  label={t("masjids.showMore")}
+                  onPress={() => setVisibleCount((n) => n + MASJID_PAGE_SIZE)}
+                />
+              ) : null}
             </>
           )}
         </>

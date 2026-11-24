@@ -5,7 +5,7 @@ import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { FASTCONFORMER_ENGINE, isFastConformerRuntimeSupported } from "@/lib/speech/fastconformer";
 
 import { usesModel } from "./mode";
-import type { PhraseKey } from "./phrases";
+import type { VoiceZikr } from "./voice-zikr";
 
 /**
  * When the hands-free (voice) toggle may appear on a counter (NF-3.20):
@@ -14,7 +14,9 @@ import type { PhraseKey } from "./phrases";
  * - the FastConformer engine is pinned for the platform: native always; web once
  *   its files have a browser source (`webHosted`, D18 Hugging Face mirror),
  * - an ONNX runtime is available (wasm on web, ORT on native),
- * - and the counter's phrase is in the v1 catalog.
+ * - and the counter listens for something: any zikr (D49) — a taught zikr counts
+ *   by its voice pattern, an untaught one by pauses (or by the spotter for a
+ *   catalog phrase, once it ships).
  *
  * Whether the model is downloaded is NOT part of availability — the first-use
  * sheet offers the (shared) download.
@@ -28,8 +30,8 @@ export function isVoiceTasbeehPlatformAvailable(captureAvailable: boolean): bool
 }
 
 export function isVoiceTasbeehAvailable(
-  phrase: PhraseKey | null | undefined,
+  zikr: VoiceZikr | null | undefined,
   captureAvailable: boolean,
 ): boolean {
-  return phrase != null && isVoiceTasbeehPlatformAvailable(captureAvailable);
+  return zikr != null && isVoiceTasbeehPlatformAvailable(captureAvailable);
 }

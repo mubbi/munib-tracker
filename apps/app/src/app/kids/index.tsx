@@ -24,13 +24,7 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Spacing } from "@/constants/theme";
 import { contentAudioTrack } from "@/lib/audio-tracks";
-import {
-  type ChildProfile,
-  type CircleSignal,
-  type FardStatusInput,
-  listChildSignals,
-  putFardStatus,
-} from "@/lib/circles/api";
+import { type ChildProfile, type CircleSignal, listChildSignals } from "@/lib/circles/api";
 import {
   clearChildSession,
   dismissGraduationPrompt,
@@ -49,8 +43,8 @@ import {
 import {
   useChildProfiles,
   useCircleAuth,
-  useCircleMutation,
   useCircleSignals,
+  useFardStatusLog,
 } from "@/lib/circles/hooks";
 import {
   KIDS_ADHKAR_IDS,
@@ -152,9 +146,24 @@ export default function KidsScreen() {
           onChange={setTab}
         />
         {!child ? (
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("circles.common.loading")}
-          </ThemedText>
+          actingAsParent && parentChildren.isError ? (
+            <Card padding="three" style={styles.gap}>
+              <ThemedText type="small" themeColor="mutedForeground">
+                {t("circles.common.offline")}
+              </ThemedText>
+              <Button
+                label={t("circles.common.retry")}
+                variant="secondary"
+                onPress={() => void parentChildren.refetch()}
+              />
+            </Card>
+          ) : (
+            <ThemedText type="small" themeColor="mutedForeground">
+              {actingAsParent && parentChildren.isSuccess
+                ? t("family.child.notFound")
+                : t("circles.common.loading")}
+            </ThemedText>
+          )
         ) : tab === "pray" ? (
           onDevice ? (
             <DevicePrayTab child={child} />
@@ -279,9 +288,7 @@ function ParentPrayTab({ child, circleId }: { child: ChildProfile; circleId: str
   const today = getLocalDateString();
   const window = signalWindow(today, 35);
   const signals = useCircleSignals(circleId, window.from, window.to);
-  const log = useCircleMutation((token, input: FardStatusInput) =>
-    putFardStatus(token, circleId, input),
-  );
+  const log = useFardStatusLog(circleId, window.from, window.to);
   const value =
     indexSignals(signals.data ?? [])
       .get(child.id)
@@ -293,7 +300,7 @@ function ParentPrayTab({ child, circleId }: { child: ChildProfile; circleId: str
       signals={signals.data ?? []}
       onToggle={(prayer) =>
         void log
-          .mutateAsync({ date: today, memberId: child.id, ...value, [prayer]: !value[prayer] })
+          .toggle(child.id, today, prayer)
           .catch(() => toast.error(t("circles.common.offline")))
       }
     />
@@ -362,21 +369,26 @@ function DuasTab() {
 
   useEffect(() => {
     let cancelled = false;
-    void Promise.all([loadDuaItems(), loadZikrItems()]).then(([duas, adhkar]) => {
-      if (cancelled) return;
-      const duaById = new Map(duas.map((d) => [d.id, d]));
-      const zikrById = new Map(adhkar.map((z) => [z.id, z]));
-      const out: KidsItem[] = [];
-      for (const id of KIDS_DUA_IDS) {
-        const item = duaById.get(id);
-        if (item) out.push({ kind: "dua", item });
-      }
-      for (const id of KIDS_ADHKAR_IDS) {
-        const item = zikrById.get(id);
-        if (item) out.push({ kind: "zikr", item });
-      }
-      setItems(out);
-    });
+    void Promise.all([loadDuaItems(), loadZikrItems()])
+      .then(([duas, adhkar]) => {
+        if (cancelled) return;
+        const duaById = new Map(duas.map((d) => [d.id, d]));
+        const zikrById = new Map(adhkar.map((z) => [z.id, z]));
+        const out: KidsItem[] = [];
+        for (const id of KIDS_DUA_IDS) {
+          const item = duaById.get(id);
+          if (item) out.push({ kind: "dua", item });
+        }
+        for (const id of KIDS_ADHKAR_IDS) {
+          const item = zikrById.get(id);
+          if (item) out.push({ kind: "zikr", item });
+        }
+        setItems(out);
+      })
+      .catch(() => {
+        // Bundled content failed to load — show the empty list instead of "Loading…" forever.
+        if (!cancelled) setItems([]);
+      });
     return () => {
       cancelled = true;
     };

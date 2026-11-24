@@ -99,3 +99,77 @@ export function concatPcm(...parts: Float32Array[]): Float32Array {
   }
   return out;
 }
+
+/* ---------------------------------------------- "teach a zikr" fixtures */
+
+/** Deterministic pseudo-random noise in [-0.5, 0.5). */
+export function seededNoise(seed: number): () => number {
+  let s = seed >>> 0;
+  return () => {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    return s / 2 ** 32 - 0.5;
+  };
+}
+
+/**
+ * One synthetic "syllable": a 140 Hz voiced tone whose harmonics are shaped by
+ * two formant peaks, with a smooth attack / release — enough spectral structure
+ * for the MFCC + DTW matcher to tell syllables apart. No recorded audio is ever
+ * committed; tests build "zikr" from these.
+ */
+export function syllable(
+  [f1, f2]: readonly [number, number],
+  ms: number,
+  { amplitude = 0.25, pitch = 140 } = {},
+): Float32Array {
+  const n = Math.round((ms * 16_000) / 1000);
+  const out = new Float32Array(n);
+  const ramp = Math.min(n / 4, 16_000 * 0.03);
+  for (let h = 1; h * pitch < 7000; h++) {
+    const f = h * pitch;
+    const gain =
+      Math.exp(-(((f - f1) / 160) ** 2)) + 0.6 * Math.exp(-(((f - f2) / 220) ** 2)) + 0.02;
+    for (let i = 0; i < n; i++)
+      out[i] += (gain / h ** 0.3) * Math.sin((2 * Math.PI * f * i) / 16_000);
+  }
+  let peak = 0;
+  for (let i = 0; i < n; i++) peak = Math.max(peak, Math.abs(out[i]));
+  for (let i = 0; i < n; i++) {
+    const env = Math.min(1, i / ramp, (n - 1 - i) / ramp);
+    out[i] = (out[i] / Math.max(1e-9, peak)) * amplitude * env;
+  }
+  return out;
+}
+
+/** Formant pairs for the synthetic syllables (vowel-like). */
+export const VOWELS = {
+  a: [750, 1250],
+  i: [300, 2300],
+  u: [320, 850],
+  e: [500, 1900],
+  o: [500, 900],
+} as const;
+
+/** A synthetic "phrase": syllables back to back, each `ms` long (× `stretch`). */
+export function syntheticPhrase(
+  vowels: readonly (keyof typeof VOWELS)[],
+  { ms = 160, stretch = 1, amplitude = 0.25, pitch = 140 } = {},
+): Float32Array {
+  return concatPcm(...vowels.map((v) => syllable(VOWELS[v], ms * stretch, { amplitude, pitch })));
+}
+
+/** `parts` separated by `gapMs` of room floor, with lead-in / tail. */
+export function withPauses(parts: readonly Float32Array[], gapMs = 600): Float32Array {
+  const pieces: Float32Array[] = [hush(500)];
+  parts.forEach((part, i) => {
+    if (i > 0) pieces.push(hush(gapMs));
+    pieces.push(part);
+  });
+  pieces.push(hush(900));
+  return concatPcm(...pieces);
+}
+
+/** Feed PCM to a listener in 100 ms chunks (what the capture layer delivers). */
+export function feedInChunks(listener: { feed(pcm: Float32Array): void }, pcm: Float32Array) {
+  for (let i = 0; i < pcm.length; i += 1600) listener.feed(pcm.subarray(i, i + 1600));
+}

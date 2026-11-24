@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   row: { flexDirection: "row", gap: Spacing.two },
   wrap: { flexWrap: "wrap" },
   chip: {
-    minHeight: 40,
+    minHeight: 44,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.one + 2,
     borderRadius: Radius.pill,

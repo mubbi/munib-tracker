@@ -26,7 +26,12 @@ import { StyleSheet, View } from "react-native";
 import { FastDaySheet } from "@/components/fasting/fast-day-sheet";
 import { FastDayStrip } from "@/components/fasting/fast-day-strip";
 import { FastKindChips } from "@/components/fasting/fast-kind-chips";
-import { FASTING_ICON, STATUS_ICON, STATUS_TONE } from "@/components/fasting/fasting-ui";
+import {
+  FASTING_ICON,
+  RULING_ICON,
+  STATUS_ICON,
+  STATUS_TONE,
+} from "@/components/fasting/fasting-ui";
 import { GuideMadhhabNotes } from "@/components/fiqh/guide-madhhab-notes";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { HijriAdjustLink } from "@/components/hijri/hijri-adjust-link";
@@ -36,6 +41,7 @@ import { useIntentTimeOptions } from "@/components/settings/editors/fasting-edit
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { NavRow } from "@/components/ui/nav-row";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
@@ -218,7 +224,7 @@ export default function VoluntaryFastingScreen() {
           </Card>
         ) : null}
 
-        {blockedMessage ? (
+        {blockedMessage && sheetDate == null ? (
           <Card padding="three" style={{ backgroundColor: tokens.status.warning.soft }}>
             <ThemedText type="small" accessibilityLiveRegion="polite">
               {blockedMessage}
@@ -470,37 +476,47 @@ export default function VoluntaryFastingScreen() {
 
         {/* Why these days — evidence by reference (never typed scripture) */}
         <Card padding="three">
-          <SectionHeader title={t("voluntaryFasting.evidence.title")} />
-          {[...FOLLOWABLE_FAST_KINDS, "dawud" as const].map((kind) => (
-            <View key={kind} style={styles.evidenceRow}>
-              <ThemedText type="smallBold">{t(`voluntaryFasting.kind.${kind}`)}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t(`voluntaryFasting.evidence.kind.${kind}`)}
-              </ThemedText>
-              <ThemedText type="caption" style={{ color: colors.accentText }}>
-                {refLine(VOLUNTARY_FAST_EVIDENCE[kind])}
-              </ThemedText>
-            </View>
-          ))}
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader title={t("voluntaryFasting.restrictions.title")} />
-          {(
-            Object.keys(
-              VOLUNTARY_FAST_RESTRICTION_EVIDENCE,
-            ) as (keyof typeof VOLUNTARY_FAST_RESTRICTION_EVIDENCE)[]
-          )
-            .filter((id) => id !== "qazaInShaban" && id !== "afterMidShaban")
-            .map((id) => (
-              <View key={id} style={styles.evidenceRow}>
-                <ThemedText type="small">{t(`voluntaryFasting.reason.${id}`)}</ThemedText>
+          <CollapsibleSection
+            title={t("voluntaryFasting.evidence.title")}
+            icon={{ ios: "text.book.closed.fill", android: "auto_stories", web: "auto_stories" }}
+            defaultOpen={tv}
+          >
+            {[...FOLLOWABLE_FAST_KINDS, "dawud" as const].map((kind) => (
+              <View key={kind} style={styles.evidenceRow}>
+                <ThemedText type="smallBold">{t(`voluntaryFasting.kind.${kind}`)}</ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t(`voluntaryFasting.evidence.kind.${kind}`)}
+                </ThemedText>
                 <ThemedText type="caption" style={{ color: colors.accentText }}>
-                  {refLine(VOLUNTARY_FAST_RESTRICTION_EVIDENCE[id])}
+                  {refLine(VOLUNTARY_FAST_EVIDENCE[kind])}
                 </ThemedText>
               </View>
             ))}
-          <MadhhabNote id="fasting.afterMidShaban" />
+          </CollapsibleSection>
+        </Card>
+
+        <Card padding="three">
+          <CollapsibleSection
+            title={t("voluntaryFasting.restrictions.title")}
+            icon={RULING_ICON.prohibited}
+            defaultOpen={tv}
+          >
+            {(
+              Object.keys(
+                VOLUNTARY_FAST_RESTRICTION_EVIDENCE,
+              ) as (keyof typeof VOLUNTARY_FAST_RESTRICTION_EVIDENCE)[]
+            )
+              .filter((id) => id !== "qazaInShaban" && id !== "afterMidShaban")
+              .map((id) => (
+                <View key={id} style={styles.evidenceRow}>
+                  <ThemedText type="small">{t(`voluntaryFasting.reason.${id}`)}</ThemedText>
+                  <ThemedText type="caption" style={{ color: colors.accentText }}>
+                    {refLine(VOLUNTARY_FAST_RESTRICTION_EVIDENCE[id])}
+                  </ThemedText>
+                </View>
+              ))}
+            <MadhhabNote id="fasting.afterMidShaban" />
+          </CollapsibleSection>
         </Card>
 
         {/* NF-3.0a: eating or drinking forgetfully while fasting. */}
@@ -539,17 +555,25 @@ export default function VoluntaryFastingScreen() {
         rozaRemaining={roza.remaining}
         excused={sheetExcused}
         hints={sheetHints}
+        error={blockedMessage}
         readOnly={tv}
         onSelect={(status) => void onSelect(status)}
         onToggleQaza={(asQaza) => {
           if (!sheetDate) return;
+          setBlockedMessage(null);
           if (!sheetEntry) {
-            void markFast(sheetDate, "intended", { asQaza, today }).then(afterWrite);
+            void markFast(sheetDate, "intended", { asQaza, today }).then((result) => {
+              if (!result.ok) setBlockedMessage(t(`voluntaryFasting.blocked.${result.reason}`));
+              else afterWrite();
+            });
             return;
           }
           void setFastAsQaza(sheetDate, asQaza).then(afterWrite);
         }}
-        onClose={() => setSheetDate(null)}
+        onClose={() => {
+          setSheetDate(null);
+          setBlockedMessage(null);
+        }}
       />
     </ScreenLayout>
   );
@@ -596,6 +620,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
+    minHeight: 44,
     paddingVertical: Spacing.two,
   },
   switchRow: {

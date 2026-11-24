@@ -386,7 +386,7 @@ export function SelectChip({
           style={[
             styles.chipValue,
             filterValueTextStyle(value),
-            active ? { color: colors.accent } : null,
+            active ? { color: colors.accentText } : null,
             tv ? { fontSize: TvLayout.bodyFontSize } : null,
           ]}
         >

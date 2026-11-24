@@ -41,7 +41,7 @@ export const NEW_FEATURES: readonly NewFeatureDef[] = [
   // NF-3.8 / NF-3.9 private records: Library row badges (no home tile).
   { id: "debts" },
   { id: "wasiyyah" },
-  // NF-3.10 Mirath calculator: Library row badge (Learn → fiqh tools).
+  // NF-3.10 Mirath calculator: Library row badge (Tools & more).
   { id: "mirath" },
   // NF-3.21 ayah notes: Library row badge (no home tile — notes live in the reader).
   { id: "quranNotes" },

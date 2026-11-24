@@ -16,11 +16,12 @@ import { isTV } from "@/lib/platform/is-tv";
 import { useLocation } from "@/stores/location-store";
 
 /**
- * The per-month corrections the user made, each removable, plus the months
+ * The per-month corrections the user made (with an optional heading; nothing
+ * renders while there are none), each removable, plus the months
  * whose length moved because of them (a correction can lengthen the previous
  * month or ripple a few months forward until it converges).
  */
-export function HijriCorrectionsList() {
+export function HijriCorrectionsList({ title }: { title?: string } = {}) {
   const { t, i18n } = useTranslation();
   const { colors } = useThemeTokens();
   const locale = toAppLocale(i18n.language ?? "en");
@@ -34,18 +35,14 @@ export function HijriCorrectionsList() {
     return { corrections: calendar.corrections(), affected: calendar.affectedMonths() };
   }, [adjustment, location]);
 
-  if (corrections.length === 0) {
-    return (
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {t("hijriAdjust.noCorrections")}
-      </ThemedText>
-    );
-  }
+  // No corrections: nothing to list (Settings offers "This month started on…" right above).
+  if (corrections.length === 0) return null;
 
   const rippled = affected.filter((m) => !m.corrected && m.length !== m.predictedLength);
 
   return (
     <View style={styles.container}>
+      {title ? <ThemedText type="smallBold">{title}</ThemedText> : null}
       {corrections.map((correction) => {
         const label = hijriMonthLabel(correction.year, correction.month, locale);
         const jdn = isoDateToJDN(correction.date);

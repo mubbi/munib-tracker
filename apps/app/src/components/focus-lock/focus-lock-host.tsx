@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useRef, useState } from "react";
-import { AppState } from "react-native";
 
 import { useFocusPlan } from "@/hooks/use-focus-lock";
+import { useForegroundInterval } from "@/hooks/use-foreground-interval";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   drainNativeStatus,
@@ -61,15 +61,9 @@ function FocusLockHostInner() {
 
   useEffect(() => {
     void ensureHomeMasjidLoaded().catch(() => {});
-    const sub = AppState.addEventListener("change", (state) => {
-      if (state === "active") setForegroundTick((n) => n + 1);
-    });
-    const id = setInterval(() => setForegroundTick((n) => n + 1), RESYNC_MS);
-    return () => {
-      sub.remove();
-      clearInterval(id);
-    };
   }, []);
+  // Re-plan on foreground and every 15 minutes while open (paused in the background).
+  useForegroundInterval(() => setForegroundTick((n) => n + 1), RESYNC_MS, { immediate: false });
 
   // Marking the salah completed (any surface → tracker store) ends its window.
   useEffect(() => {

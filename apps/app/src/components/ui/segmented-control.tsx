@@ -23,12 +23,21 @@ import { isRTL, ltrControlViewProps } from "@/lib/rtl";
 type SegmentOption<T extends string> = {
   id: T;
   label: string;
+  /** Screen-reader label when the visible label needs context (defaults to `label`). */
+  accessibilityLabel?: string;
 };
 
 type SegmentedControlProps<T extends string> = {
   options: SegmentOption<T>[];
   value: T;
   onChange: (value: T) => void;
+  /**
+   * Also report a press on the already-selected segment — for segments that
+   * open something (e.g. "Custom" re-opens its target picker). Default false.
+   */
+  allowReselect?: boolean;
+  /** Expose the track as a tab list (`tablist` / `tab`) instead of toggle buttons. */
+  tabs?: boolean;
 };
 
 const PAD = Spacing.half + 2;
@@ -38,6 +47,8 @@ export function SegmentedControl<T extends string>({
   options,
   value,
   onChange,
+  allowReselect = false,
+  tabs = false,
 }: SegmentedControlProps<T>) {
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
@@ -70,6 +81,7 @@ export function SegmentedControl<T extends string>({
     <TvFocusGuide trapFocusLeft trapFocusRight>
       <View
         {...ltrControlViewProps()}
+        {...(tabs ? { accessibilityRole: "tablist" as const } : null)}
         style={[
           styles.container,
           chartCoordinateStyle,
@@ -94,13 +106,14 @@ export function SegmentedControl<T extends string>({
           return (
             <PressableScale
               key={option.id}
-              accessibilityRole="button"
+              accessibilityRole={tabs ? "tab" : "button"}
+              accessibilityLabel={option.accessibilityLabel}
               accessibilityState={{ selected }}
               haptic={false}
               scaleTo={0.98}
               rippleRadius={Radius.sm}
               onPress={() => {
-                if (selected) return;
+                if (selected && !allowReselect) return;
                 triggerHaptic("selection");
                 onChange(option.id);
               }}

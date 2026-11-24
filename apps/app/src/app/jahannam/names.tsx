@@ -3,6 +3,7 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import {
   LearnColumnsGrid,
@@ -81,7 +82,9 @@ function NameRow({
           <QuranAyahBookmarkButton surah={entry.quran.surah} ayah={entry.quran.ayahFrom} />
         </View>
         <TvReadableBlock>
-          <LearnProseText themeColor="mutedForeground">{entry.quran.excerpt}</LearnProseText>
+          <ScriptureMeaning english={entry.quran.excerpt} quranRef={entry.quran}>
+            {(text) => <LearnProseText themeColor="mutedForeground">{text}</LearnProseText>}
+          </ScriptureMeaning>
         </TvReadableBlock>
       </View>
       <TvReadableBlock style={styles.notesTv}>

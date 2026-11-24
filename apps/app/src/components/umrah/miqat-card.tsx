@@ -13,6 +13,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Radius, Spacing } from "@/constants/theme";
+import { useForegroundInterval } from "@/hooks/use-foreground-interval";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { checkMiqatProximity } from "@/lib/umrah/miqat";
@@ -86,12 +87,9 @@ function LandCheck() {
     [t],
   );
 
-  // Quiet foreground re-checks (no permission prompt) while the step is open.
-  useEffect(() => {
-    void run(false);
-    const id = setInterval(() => void run(false), RECHECK_MS);
-    return () => clearInterval(id);
-  }, [run]);
+  // Quiet re-checks (no permission prompt) while the step is open — foreground
+  // only, so a phone left on this step never reads location in the background.
+  useForegroundInterval(() => void run(false), RECHECK_MS);
 
   const proximity = state.kind === "result" ? state.proximity : null;
   const name = proximity ? t(`umrahMode.miqat.name.${proximity.miqat.id}`) : "";

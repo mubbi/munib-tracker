@@ -62,6 +62,20 @@ export const PreferencesRepository = {
     });
   },
 
+  /**
+   * Writes fields that never sync (D46: the active excused period, applied from
+   * the vault) **without** stamping `updatedAt`, so no preferences push is
+   * triggered and last-write-wins on the synced fields is unaffected.
+   */
+  async patchLocal(patch: Partial<UserPreferences>): Promise<UserPreferences> {
+    return withKeyLock(DB_KEYS.userPreferences, async () => {
+      const current = await this.get();
+      const next = withDefaults({ ...current, ...patch, updatedAt: current.updatedAt });
+      await writeJSON(DB_KEYS.userPreferences, next);
+      return next;
+    });
+  },
+
   async toggleFavorite(zikrId: string): Promise<UserPreferences> {
     return withKeyLock(DB_KEYS.userPreferences, async () => {
       const current = await this.get();

@@ -23,6 +23,7 @@ import { useHomeMasjid } from "@/lib/masjid/home-masjid";
 import { isTV } from "@/lib/platform/is-tv";
 import type { PrayerCombined } from "@/lib/prayer-combining";
 import {
+  PRAYER_MASJID_ICON,
   PRAYER_STATUS_META,
   selectablePrayerStatuses,
   statusToneColor,
@@ -183,9 +184,9 @@ export function PrayerStatusSheet({
         {onToggleJama && isObligatoryPrayer(prayerId) ? (
           <PressableScale
             haptic="selection"
-            accessibilityRole="button"
+            accessibilityRole="switch"
             accessibilityLabel={t("statusSheet.jama")}
-            accessibilityState={{ selected: !!isJama }}
+            accessibilityState={{ checked: !!isJama }}
             onPress={() => onToggleJama(!isJama)}
             style={[
               styles.jamaRow,
@@ -228,10 +229,10 @@ export function PrayerStatusSheet({
         {onToggleAtMasjid && isObligatoryPrayer(prayerId) && (homeMasjid || atMasjid) ? (
           <PressableScale
             haptic="selection"
-            accessibilityRole="button"
+            accessibilityRole="switch"
             accessibilityLabel={t("masjidLog.toggle")}
             accessibilityHint={homeMasjid?.name ?? undefined}
-            accessibilityState={{ selected: !!atMasjid }}
+            accessibilityState={{ checked: !!atMasjid }}
             onPress={() => onToggleAtMasjid(atMasjid || !homeMasjid ? null : masjidKey(homeMasjid))}
             style={[
               styles.jamaRow,
@@ -247,7 +248,7 @@ export function PrayerStatusSheet({
             ]}
           >
             <SymbolView
-              name={{ ios: "building.columns.fill", android: "mosque", web: "mosque" }}
+              name={PRAYER_MASJID_ICON}
               size={20}
               tintColor={atMasjid ? tokens.status.success.color : colors.mutedForeground}
             />

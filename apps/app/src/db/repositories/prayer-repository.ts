@@ -1,4 +1,5 @@
 import type {
+  ExcusedReason,
   ObligatoryPrayer,
   PrayerCombineMode,
   PrayerId,
@@ -172,8 +173,31 @@ export const PrayerRepository = {
       const key = prayerLogKey(log.prayerId, log.date);
       const existing = map[key];
       if (existing && existing.updatedAt >= log.updatedAt) return;
-      map[key] = log;
+      // D46: synced logs carry `isExcused` but not the reason (it travels in the
+      // vault). Keep this device's reason for a day that is still excused.
+      map[key] =
+        log.isExcused && !log.excusedReason && existing?.isExcused && existing.excusedReason
+          ? { ...log, excusedReason: existing.excusedReason }
+          : log;
     });
+  },
+
+  /**
+   * D46: applies per-day excused reasons that arrived through the vault onto
+   * this day's excused logs, without touching `updatedAt` (the reason never
+   * syncs in plaintext, so no push is due). Returns how many logs changed.
+   */
+  async setExcusedReasonsLocal(reasons: Record<string, ExcusedReason>): Promise<number> {
+    let changed = 0;
+    await collection.mutate((map) => {
+      for (const [key, log] of Object.entries(map)) {
+        const reason = reasons[log.date];
+        if (!reason || !log.isExcused || log.excusedReason === reason) continue;
+        map[key] = { ...log, excusedReason: reason };
+        changed += 1;
+      }
+    });
+    return changed;
   },
 
   /**

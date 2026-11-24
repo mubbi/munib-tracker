@@ -1,4 +1,5 @@
 import type { TajweedWordRef } from "@munib-tracker/shared/types";
+import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -7,7 +8,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahByNumber } from "@/lib/quran-meta";
-import { isRTL } from "@/lib/rtl";
+import { useIsRTL } from "@/lib/rtl";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 
 import { useCoachingWords, wordRefKey } from "./use-coaching-words";
@@ -22,6 +23,7 @@ export function ExampleWords({ refs }: { refs: readonly TajweedWordRef[] }) {
   const { colors, tokens } = useThemeTokens();
   const audio = useAudioPlayerContext();
   const { words, loading } = useCoachingWords(refs);
+  const rtl = useIsRTL();
 
   if (!refs.length) return null;
   if (!words.size) {
@@ -33,7 +35,7 @@ export function ExampleWords({ refs }: { refs: readonly TajweedWordRef[] }) {
   }
 
   return (
-    <View style={[styles.row, { flexDirection: isRTL() ? "row" : "row-reverse" }]}>
+    <View style={[styles.row, { flexDirection: rtl ? "row" : "row-reverse" }]}>
       {refs.map((ref) => {
         const word = words.get(wordRefKey(ref));
         if (!word) return null;
@@ -78,9 +80,19 @@ export function ExampleWords({ refs }: { refs: readonly TajweedWordRef[] }) {
             <ThemedText type="arabic" style={styles.arabic}>
               {word.arabic}
             </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("tajweedCoaching.words.ref", { surah: ref.surah, ayah: ref.ayah })}
-            </ThemedText>
+            <View style={styles.meta}>
+              {uri ? (
+                // Playable affordance (the chip plays the reciter's word audio).
+                <SymbolView
+                  name={{ ios: "speaker.wave.2", android: "volume_up", web: "volume_up" }}
+                  size={12}
+                  tintColor={colors.mutedForeground}
+                />
+              ) : null}
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("tajweedCoaching.words.ref", { surah: ref.surah, ayah: ref.ayah })}
+              </ThemedText>
+            </View>
           </PressableScale>
         );
       })}
@@ -96,6 +108,8 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
+    minHeight: 44,
   },
+  meta: { flexDirection: "row", alignItems: "center", gap: Spacing.one },
   arabic: { fontSize: 24, lineHeight: 40, textAlign: "center", writingDirection: "rtl" },
 });

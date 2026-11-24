@@ -48,6 +48,8 @@ export type FastDaySheetProps = {
   excused: ExcusedReason | null;
   /** Hint keys shown under the reasons (Ashura companion, Shawwal qaza order…). */
   hints: string[];
+  /** Why the last write was refused — shown here, where the user just tapped. */
+  error?: string | null;
   /** Read-only (TV): show the ruling and status, no logging controls. */
   readOnly?: boolean;
   onSelect: (status: VoluntaryFastStatus | null) => void;
@@ -66,6 +68,7 @@ export function FastDaySheet({
   rozaRemaining,
   excused,
   hints,
+  error,
   readOnly = false,
   onSelect,
   onToggleQaza,
@@ -153,6 +156,23 @@ export function FastDaySheet({
           {t(key)}
         </ThemedText>
       ))}
+
+      {error ? (
+        <View
+          style={[styles.notice, { backgroundColor: tokens.status.warning.soft }]}
+          accessibilityRole="alert"
+          accessibilityLiveRegion="polite"
+        >
+          <SymbolView
+            name={RULING_ICON.disliked}
+            size={18}
+            tintColor={tokens.status.warning.color}
+          />
+          <ThemedText type="small" style={styles.noticeText}>
+            {error}
+          </ThemedText>
+        </View>
+      ) : null}
 
       {readOnly ? (
         entry ? (

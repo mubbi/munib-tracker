@@ -3,6 +3,7 @@ import { act, fireEvent, screen } from "@testing-library/react-native";
 import { AccessibilityInfo } from "react-native";
 import * as reanimated from "react-native-reanimated";
 
+import { ScreenLayout } from "@/components/screen-layout";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { triggerHaptic } from "@/lib/haptics";
 import { DEFAULT_TASBEEH_APPEARANCE } from "@/lib/tasbeeh/designs";
@@ -202,6 +203,72 @@ describe("TasbeehCounter designs", () => {
     });
   });
 
+  describe("focus / night full-screen surface", () => {
+    it("takes the whole screen, and the whole surface counts", async () => {
+      const { props } = await renderCounter("minimal", { count: 4 });
+      expect(screen.getByTestId("tasbeeh-night-surface")).toBeTruthy();
+      expect(stage().props.accessibilityValue).toEqual({ now: 4, min: 0, max: 33 });
+      await fireEvent.press(stage());
+      expect(props.onIncrement).toHaveBeenCalledTimes(1);
+      // The dim control strip keeps undo / style / reset.
+      expect(screen.getByRole("button", { name: "Style" })).toBeTruthy();
+      expect(screen.getByRole("button", { name: "Reset" })).toBeTruthy();
+    });
+
+    it("uses the screen's own back action", async () => {
+      await seed(appearance({ design: "minimal" }));
+      const onBack = jest.fn();
+      await renderWithTheme(
+        <ScreenLayout title="Tasbeeh" onBack={onBack}>
+          <TasbeehCounter
+            count={1}
+            target={33}
+            onIncrement={jest.fn()}
+            onDecrement={jest.fn()}
+            onReset={jest.fn()}
+          />
+        </ScreenLayout>,
+      );
+      await act(async () => {});
+      const backs = screen.getAllByRole("button", { name: "Back" });
+      await fireEvent.press(backs[backs.length - 1]);
+      expect(onBack).toHaveBeenCalledTimes(1);
+    }, 60_000);
+
+    it("falls back to the router outside a ScreenLayout", async () => {
+      await renderCounter("minimal", { count: 1 });
+      await fireEvent.press(screen.getByRole("button", { name: "Back" }));
+      expect(mockRouter.replace).toHaveBeenCalledWith("/");
+    });
+
+    it("hides the target picker on the night surface", async () => {
+      await renderCounter("minimal", { count: 1, onSelectMode: jest.fn() });
+      expect(screen.queryByRole("tab", { name: /^99/ })).toBeNull();
+    });
+
+    it("steps aside while the screen is not focused", async () => {
+      const router = jest.requireMock("expo-router") as { useIsFocused: () => boolean };
+      const original = router.useIsFocused;
+      router.useIsFocused = () => false;
+      try {
+        await renderCounter("minimal", { count: 1 });
+        expect(screen.queryByTestId("tasbeeh-night-surface")).toBeNull();
+      } finally {
+        router.useIsFocused = original;
+      }
+    });
+
+    describe("on TV", () => {
+      usePlatform({ isTV: true });
+
+      it("keeps Focus / Night inside the landscape card", async () => {
+        await renderCounter("minimal", { count: 1 });
+        expect(screen.queryByTestId("tasbeeh-night-surface")).toBeNull();
+        expect(screen.getByText("1")).toBeTruthy();
+      });
+    });
+  });
+
   describe("focus / night", () => {
     it("pulses twice at every 33", async () => {
       jest.useFakeTimers();
@@ -331,6 +398,86 @@ describe("TasbeehCounter designs", () => {
       },
       60_000,
     );
+  });
+
+  it("gives the count that reaches the target the completion cue alone", async () => {
+    jest.useFakeTimers();
+    const announce = jest.spyOn(AccessibilityInfo, "announceForAccessibility");
+    try {
+      // Focus / Night at 33 of 33: a milestone *and* the target — only the target cue plays.
+      const { props, view } = await renderCounter("minimal", { count: 32, target: 33 });
+      announce.mockClear();
+      await fireEvent.press(stage());
+      expect(props.onIncrement).toHaveBeenCalledTimes(1);
+      await act(async () => jest.runOnlyPendingTimers());
+      expect(triggerHaptic).not.toHaveBeenCalled();
+      expect(announce).not.toHaveBeenCalledWith("33 counted");
+      await view.rerender(<TasbeehCounter {...props} count={33} />);
+      expect(jest.mocked(triggerHaptic).mock.calls).toEqual([["success"]]);
+      expect(announce).toHaveBeenCalledWith("MashaAllah — target reached");
+    } finally {
+      jest.useRealTimers();
+    }
+  });
+
+  describe("Counter style sheet", () => {
+    async function openStyleSheet(design: TasbeehAppearance["design"] = "misbaha") {
+      await renderCounter(design, { count: 1 });
+      await fireEvent.press(screen.getByRole("button", { name: "Style" }));
+      await act(async () => {});
+    }
+
+    it("shows misbaha presets first and the fine-tuning behind Customize beads", async () => {
+      await openStyleSheet("misbaha");
+      expect(screen.getByRole("radio", { name: "Onyx night" })).toBeTruthy();
+      expect(screen.queryByRole("radio", { name: "Faceted" })).toBeNull();
+
+      await fireEvent.press(screen.getByRole("button", { name: "Customize beads" }));
+      await fireEvent.press(screen.getByRole("radio", { name: "Faceted" }));
+      await act(async () => {});
+      expect(preferencesStore.getState().prefs.tasbeehAppearance?.misbaha?.shape).toBe("faceted");
+      // A silk tassel offers its colours; a metal chain does not.
+      expect(screen.getByText("Tassel color")).toBeTruthy();
+      await fireEvent.press(screen.getByRole("radio", { name: "Metal chain" }));
+      await act(async () => {});
+      expect(screen.queryByText("Tassel color")).toBeNull();
+    }, 60_000);
+
+    it("applies a preset over the strand size, which it keeps", async () => {
+      await openStyleSheet("misbaha");
+      await fireEvent.press(screen.getByRole("button", { name: "Customize beads" }));
+      await fireEvent.press(screen.getByRole("radio", { name: "Always 99" }));
+      await act(async () => {});
+      await fireEvent.press(screen.getByRole("radio", { name: "Onyx night" }));
+      await act(async () => {});
+      expect(preferencesStore.getState().prefs.tasbeehAppearance?.misbaha).toMatchObject({
+        preset: "onyxNight",
+        material: "onyx",
+        strand: 99,
+      });
+    }, 60_000);
+
+    it("lets the demo stage be felt at the chosen haptic level", async () => {
+      await openStyleSheet("ring");
+      jest.mocked(triggerHaptic).mockClear();
+      await fireEvent.press(screen.getByRole("button", { name: "Tap the preview to try it" }));
+      expect(triggerHaptic).toHaveBeenCalledWith("light");
+      await fireEvent.press(screen.getByRole("button", { name: "Rich" }));
+      await act(async () => {});
+      jest.mocked(triggerHaptic).mockClear();
+      await fireEvent.press(screen.getByRole("button", { name: "Tap the preview to try it" }));
+      expect(triggerHaptic).toHaveBeenCalledWith("tick");
+    }, 60_000);
+
+    it("reveals the sound pack and volume only once click sound is on", async () => {
+      await openStyleSheet("ring");
+      expect(screen.queryByText("Sound pack")).toBeNull();
+      await fireEvent(screen.getByRole("switch", { name: "Click sound" }), "valueChange", true);
+      await act(async () => {});
+      expect(preferencesStore.getState().prefs.tasbeehAppearance?.sound.enabled).toBe(true);
+      expect(screen.getByText("Sound pack")).toBeTruthy();
+      expect(screen.getByText("60%")).toBeTruthy();
+    }, 60_000);
   });
 
   it("honours the haptics Off level", async () => {

@@ -1,19 +1,19 @@
 import type { DebtDirection } from "@munib-tracker/shared/types";
 import { DEBT_DIRECTIONS } from "@munib-tracker/shared/types";
-import { getLocalDateString, parseLocalDateString } from "@munib-tracker/shared/utils";
+import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { type Href, useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { DebtPhotoCard } from "@/components/debts/debt-photo-card";
 import { JannahCallout, JannahNavRow } from "@/components/jannah/primitives";
+import { DayInput } from "@/components/records/day-input";
 import { LabeledInput } from "@/components/records/labeled-input";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
@@ -25,8 +25,8 @@ import { type DebtInput, debtsActions, useDebt, useDebts } from "@/lib/debts/deb
 import { DEFAULT_NUMBER_FORMAT, formatNumberInput, parseNumberInput } from "@/lib/format-currency";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
-
-const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+import { dueDayPresets, normalizeDayInput } from "@/lib/records/day";
+import { useToast } from "@/providers/toast-provider";
 
 interface FormState {
   direction: DebtDirection;
@@ -54,29 +54,26 @@ function formFrom(record: DebtEntry | undefined, direction: DebtDirection): Form
   };
 }
 
-export function isValidDay(value: string): boolean {
-  if (!DATE_RE.test(value)) return false;
-  try {
-    parseLocalDateString(value);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 /** `/debts/[id]` content: create (`id === "new"`) or view/edit one record. */
 export function DebtDetailBody({
   id,
   initialDirection = "i_owe",
+  onCreated,
+  onClosed,
 }: {
   id: string;
   initialDirection?: DebtDirection;
+  /** Master–detail: a new record was saved (default: replace the route with it). */
+  onCreated?: (id: string) => void;
+  /** Master–detail: cancel on a new record / delete (default: back to `/debts`). */
+  onClosed?: () => void;
 }) {
   const { t } = useTranslation();
   const router = useRouter();
   const format = useRecordFormat();
   const { tokens } = useThemeTokens();
-  useDebts();
+  const toast = useToast();
+  const { status } = useDebts();
   const isNew = id === "new";
   const record = useDebt(isNew ? undefined : id);
   const [form, setForm] = useState<FormState>(() => formFrom(record, initialDirection));
@@ -88,11 +85,21 @@ export function DebtDetailBody({
   const [payAmount, setPayAmount] = useState("");
   const [payDate, setPayDate] = useState(getLocalDateString());
   const [payNote, setPayNote] = useState("");
+  const [payError, setPayError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  // Synchronous guards: state updates land a render later, so a fast second tap
+  // would still see `saving === false`. Once a new record exists, later saves
+  // (before the route swaps to it) update that record instead of adding another.
+  const savingRef = useRef(false);
+  const createdId = useRef<string | null>(null);
+  const [removePaymentId, setRemovePaymentId] = useState<string | null>(null);
 
   // The vault store may finish loading after the first render.
   useEffect(() => {
     if (record && !editing) setForm(formFrom(record, initialDirection));
   }, [record, editing, initialDirection]);
+
+  const close = () => (onClosed ? onClosed() : goBackOrReplace(router, "/debts"));
 
   const directionOptions = useMemo(
     () => DEBT_DIRECTIONS.map((d) => ({ id: d, label: t(`debts.direction.${d}`) })),
@@ -102,20 +109,22 @@ export function DebtDetailBody({
     setForm((prev) => ({ ...prev, [key]: value }));
 
   const save = async () => {
+    if (savingRef.current) return;
     const amount = parseNumberInput(form.amount, DEFAULT_NUMBER_FORMAT);
+    const createdOn = normalizeDayInput(form.createdOn);
+    const dueOn = form.dueOn.trim() ? normalizeDayInput(form.dueOn) : "";
     if (!form.counterparty.trim()) return setError(t("debts.form.errorWho"));
     if (isLoan(form.direction) && !(amount > 0)) return setError(t("debts.form.errorAmount"));
-    if (!isValidDay(form.createdOn) || (form.dueOn && !isValidDay(form.dueOn))) {
-      return setError(t("debts.form.errorDate"));
-    }
+    if (!createdOn || dueOn == null) return setError(t("debts.form.errorDate"));
     setError(null);
     const input: DebtInput = {
       direction: form.direction,
       counterparty: form.counterparty,
       ...(amount > 0 ? { amount, currency: form.currency } : {}),
-      item: form.item,
-      createdOn: form.createdOn,
-      ...(form.dueOn ? { dueOn: form.dueOn } : {}),
+      // A loan has no "item"; drop text left over from switching the type.
+      item: isLoan(form.direction) ? "" : form.item,
+      createdOn,
+      ...(dueOn ? { dueOn } : {}),
       witnesses: form.witnesses.split(/[,،]/),
       notes: form.notes,
       payments: record?.payments ?? [],
@@ -124,24 +133,52 @@ export function DebtDetailBody({
       ...(record?.forgivenOn ? { forgivenOn: record.forgivenOn } : {}),
       ...(record?.documentUri ? { documentUri: record.documentUri } : {}),
     };
-    const savedId = await debtsActions.saveDebt(input, isNew ? undefined : id);
-    setEditing(false);
-    if (isNew) router.replace({ pathname: "/debts/[id]", params: { id: savedId } } as Href);
+    // One save at a time: a double tap on "Save" must not create two records.
+    savingRef.current = true;
+    setSaving(true);
+    try {
+      const target = isNew ? (createdId.current ?? undefined) : id;
+      const savedId = await debtsActions.saveDebt(input, target);
+      if (isNew && !createdId.current) {
+        createdId.current = savedId;
+        if (onCreated) onCreated(savedId);
+        else router.replace({ pathname: "/debts/[id]", params: { id: savedId } } as Href);
+      }
+      setEditing(false);
+    } catch {
+      toast.error(t("privateUx.saveFailed"));
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
+    }
   };
 
   const typedPayment = parseNumberInput(payAmount, DEFAULT_NUMBER_FORMAT);
   const excess = record ? ribaExcess(record, typedPayment) : 0;
 
   const addPayment = () => {
-    if (!record || !(typedPayment > 0) || !isValidDay(payDate)) return;
-    void debtsActions.addPayment(record.id, {
-      amount: typedPayment,
-      date: payDate,
-      ...(payNote.trim() ? { note: payNote } : {}),
-    });
-    setPayAmount("");
-    setPayNote("");
+    if (!record) return;
+    const date = normalizeDayInput(payDate);
+    if (!(typedPayment > 0)) return setPayError(t("privateUx.payments.errorAmount"));
+    if (!date) return setPayError(t("debts.form.errorDate"));
+    setPayError(null);
+    void debtsActions
+      .addPayment(record.id, {
+        amount: typedPayment,
+        date,
+        ...(payNote.trim() ? { note: payNote } : {}),
+      })
+      .then(
+        () => {
+          setPayAmount("");
+          setPayNote("");
+        },
+        () => toast.error(t("privateUx.saveFailed")),
+      );
   };
+
+  // The encrypted record may still be opening: don't flash "no longer exists".
+  if (status !== "ready" && !isNew) return null;
 
   if (!isNew && !record) {
     return (
@@ -190,19 +227,18 @@ export function DebtDetailBody({
             placeholder={t("debts.form.itemPlaceholder")}
           />
         ) : null}
-        <LabeledInput
+        <DayInput
           label={t("debts.form.createdOn")}
           value={form.createdOn}
           onChangeText={(v) => set("createdOn", v)}
-          placeholder={t("debts.form.datePlaceholder")}
           hint={t("debts.form.dateHint")}
         />
-        <LabeledInput
+        <DayInput
           label={t("debts.form.dueOn")}
           value={form.dueOn}
           onChangeText={(v) => set("dueOn", v)}
-          placeholder={t("debts.form.datePlaceholder")}
           hint={t("debts.form.dueHint")}
+          presets={dueDayPresets(normalizeDayInput(form.createdOn) ?? getLocalDateString())}
         />
         <LabeledInput
           label={t("debts.form.witnesses")}
@@ -226,11 +262,15 @@ export function DebtDetailBody({
           </ThemedText>
         ) : null}
         <View style={styles.actions}>
-          <Button label={t("common.save")} onPress={() => void save()} />
+          <Button
+            label={saving ? t("privateUx.saving") : t("common.save")}
+            disabled={saving}
+            onPress={() => void save()}
+          />
           <Button
             label={t("common.cancel")}
             variant="ghost"
-            onPress={() => (isNew ? goBackOrReplace(router, "/debts") : setEditing(false))}
+            onPress={() => (isNew ? close() : setEditing(false))}
           />
         </View>
       </View>
@@ -335,15 +375,13 @@ export function DebtDetailBody({
                       {p.note ? ` · ${p.note}` : ""}
                     </ThemedText>
                   </View>
-                  <PressableScale
-                    accessibilityRole="button"
-                    accessibilityLabel={t("debts.payments.remove")}
-                    onPress={() => void debtsActions.removePayment(record.id, p.id)}
-                  >
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {t("common.remove")}
-                    </ThemedText>
-                  </PressableScale>
+                  <Button
+                    label={t("common.remove")}
+                    variant="ghost"
+                    size="sm"
+                    accessibilityHint={t("debts.payments.remove")}
+                    onPress={() => setRemovePaymentId(p.id)}
+                  />
                 </View>
               ))
             )}
@@ -356,11 +394,10 @@ export function DebtDetailBody({
                   keyboardType="decimal-pad"
                   placeholder="0"
                 />
-                <LabeledInput
+                <DayInput
                   label={t("debts.payments.date")}
                   value={payDate}
                   onChangeText={setPayDate}
-                  placeholder={t("debts.form.datePlaceholder")}
                 />
                 <LabeledInput
                   label={t("debts.payments.note")}
@@ -383,6 +420,15 @@ export function DebtDetailBody({
                       }
                     />
                   </View>
+                ) : null}
+                {payError ? (
+                  <ThemedText
+                    type="small"
+                    style={{ color: tokens.status.danger.text }}
+                    accessibilityRole="alert"
+                  >
+                    {payError}
+                  </ThemedText>
                 ) : null}
                 <Button label={t("debts.payments.add")} onPress={addPayment} />
               </>
@@ -412,6 +458,19 @@ export function DebtDetailBody({
         onClose={() => setConfirmForgive(false)}
       />
       <ConfirmDialog
+        visible={removePaymentId != null}
+        title={t("privateUx.payments.removeTitle")}
+        message={t("privateUx.payments.removeBody")}
+        confirmLabel={t("common.remove")}
+        destructive
+        onConfirm={() => {
+          const paymentId = removePaymentId;
+          setRemovePaymentId(null);
+          if (paymentId) void debtsActions.removePayment(record.id, paymentId);
+        }}
+        onClose={() => setRemovePaymentId(null)}
+      />
+      <ConfirmDialog
         visible={confirmDelete}
         title={t("debts.detail.deleteTitle")}
         message={t("debts.detail.deleteBody")}
@@ -419,7 +478,7 @@ export function DebtDetailBody({
         destructive
         onConfirm={() => {
           setConfirmDelete(false);
-          void debtsActions.deleteDebt(record.id).then(() => goBackOrReplace(router, "/debts"));
+          void debtsActions.deleteDebt(record.id).then(close);
         }}
         onClose={() => setConfirmDelete(false)}
       />

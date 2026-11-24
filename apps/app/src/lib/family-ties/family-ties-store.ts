@@ -138,19 +138,25 @@ export const familyTiesActions = {
     requestReminderReschedule();
   },
 
-  /** Logs a call / visit / message / gift / dua. A dua resets the due date only for cadences ≥ 30 days. */
+  /**
+   * Logs a call / visit / message / gift / dua. A dua resets the due date only
+   * for cadences ≥ 30 days. Returns the log id (for "Undo" → `removeLog`), or
+   * `null` when the relative no longer exists.
+   */
   async logContact(
     relativeId: string,
     contact: ContactKind,
     date: string = getLocalDateString(),
-  ): Promise<void> {
+  ): Promise<string | null> {
     const existing = getRelative(relativeId);
-    if (!existing) return;
-    await relativesVault.actions.put(createId("log"), { type: "log", relativeId, date, contact });
+    if (!existing) return null;
+    const logId = createId("log");
+    await relativesVault.actions.put(logId, { type: "log", relativeId, date, contact });
     const base = strip(existing);
     const next = applyContact(base, contact, date);
     if (next !== base) await relativesVault.actions.put(relativeId, next);
     requestReminderReschedule();
+    return logId;
   },
 
   /** Removes one log entry and recomputes that relative's last contact. */

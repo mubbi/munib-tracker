@@ -3,6 +3,7 @@ import WatchKit
 
 /// Watch-local Tasbeeh counter — no ExternalCommand / phone sync, mirrors the
 /// phone's 33 / 99 / 100 / unlimited modes with tap-to-count + Digital Crown.
+/// Like the phone, changing the target keeps the count and Reset asks first.
 private let watchTasbeehModes: [(label: String, target: Int)] = [
   ("33", 33),
   ("99", 99),
@@ -14,6 +15,7 @@ struct WatchTasbeehView: View {
   let snapshot: WidgetSnapshotPayload?
   @State private var target: Int = 33
   @State private var crownCount: Double = 0
+  @State private var confirmingReset = false
 
   init(snapshot: WidgetSnapshotPayload? = nil) {
     self.snapshot = snapshot
@@ -30,8 +32,7 @@ struct WatchTasbeehView: View {
         HStack(spacing: 4) {
           ForEach(watchTasbeehModes, id: \.target) { mode in
             Button {
-              target = mode.target
-              crownCount = 0
+              selectTarget(mode.target)
             } label: {
               Text(mode.label)
                 .font(.caption2.weight(target == mode.target ? .semibold : .regular))
@@ -61,12 +62,17 @@ struct WatchTasbeehView: View {
           .font(.caption2)
           .foregroundStyle(.secondary)
 
+        // Same as the phone: reset asks first, so a stray tap never wipes a count.
         Button(role: .destructive) {
-          reset()
+          confirmingReset = true
         } label: {
-          Label(snapshot?.strings?.reset ?? "Reset", systemImage: "arrow.counterclockwise")
+          Label(resetLabel, systemImage: "arrow.counterclockwise")
         }
         .font(.caption2)
+        .disabled(count == 0)
+        .confirmationDialog(resetLabel, isPresented: $confirmingReset, titleVisibility: .hidden) {
+          Button(resetLabel, role: .destructive) { reset() }
+        }
       }
       .padding(.horizontal, 4)
     }
@@ -74,6 +80,8 @@ struct WatchTasbeehView: View {
     .environment(\.locale, Locale(identifier: snapshot?.locale ?? "en"))
     .environment(\.layoutDirection, snapshot?.isRtl == true ? .rightToLeft : .leftToRight)
   }
+
+  private var resetLabel: String { snapshot?.strings?.reset ?? "Reset" }
 
   private var remainingLabel: String {
     guard target > 0 else {
@@ -129,6 +137,14 @@ struct WatchTasbeehView: View {
     guard target > 0 else { return }
     if Int(oldValue.rounded()) < target, Int(newValue.rounded()) >= target {
       WKInterfaceDevice.current().play(.success)
+    }
+  }
+
+  /// Switching the target keeps the count (like the phone), held at the new target.
+  private func selectTarget(_ next: Int) {
+    target = next
+    if next > 0 {
+      crownCount = min(crownCount, Double(next))
     }
   }
 

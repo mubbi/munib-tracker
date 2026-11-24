@@ -48,15 +48,15 @@ export function VoluntaryFastGoalReminder() {
   const todayEntry = useVoluntaryFastEntry(today);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: hijriAdjustment changes hijri.ts output.
-  const day = useMemo(
-    () => classifyDate(today, fastingCalendarContext(prefs, entries)),
-    [today, prefs, entries, hijriAdjustment],
+  const ctx = useMemo(
+    () => fastingCalendarContext(prefs, entries),
+    [prefs, entries, hijriAdjustment],
   );
+  const day = useMemo(() => classifyDate(today, ctx), [today, ctx]);
 
   if (prefs.hiddenHomeModules?.includes(VOLUNTARY_FASTING_HOME_MODULE)) return null;
   if (prefs.activeExcusedReason || todayEntry) return null;
-  const ctxPrefs = fastingCalendarContext(prefs, entries).prefs;
-  if (!matchesEnabledKinds(day, ctxPrefs)) return null;
+  if (!matchesEnabledKinds(day, ctx.prefs)) return null;
   const kind = headlineKind(day.kinds);
   if (!kind || kind === "white_day") return null;
 

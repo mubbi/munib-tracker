@@ -1,7 +1,7 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AppState, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { FocusLockEvidence } from "@/components/focus-lock/focus-lock-evidence";
 import {
@@ -18,6 +18,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Spacing } from "@/constants/theme";
 import { useFocusPlan } from "@/hooks/use-focus-lock";
+import { useForegroundInterval } from "@/hooks/use-foreground-interval";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type LaunchableApp, pickableApps } from "@/lib/focus-lock/allowlist";
 import { syncNativePlan } from "@/lib/focus-lock/controller";
@@ -217,15 +218,9 @@ export default function FocusLockSetupScreen() {
   );
 }
 
-/** Re-runs `check` whenever the app returns to the foreground (back from Settings). */
+/** Re-runs `check` on mount and whenever the app returns to the foreground (back from Settings). */
 function useForegroundCheck(check: () => Promise<void>) {
-  useEffect(() => {
-    void check();
-    const sub = AppState.addEventListener("change", (s) => {
-      if (s === "active") void check();
-    });
-    return () => sub.remove();
-  }, [check]);
+  useForegroundInterval(() => void check(), null);
 }
 
 function PermissionRow({
@@ -340,6 +335,15 @@ function AndroidAppPicker() {
   const [apps, setApps] = useState<LaunchableApp[] | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
+  const persist = async (next: ReadonlySet<string>) => {
+    try {
+      const { count } = await setBlockedPackages([...next]);
+      await focusLockStore.getState().patch({ appsCount: count });
+    } catch {
+      // Native module unavailable — the hub still shows the last saved count.
+    }
+  };
+
   useEffect(() => {
     void (async () => {
       const [{ apps: all, context }, current] = await Promise.all([
@@ -371,17 +375,12 @@ function AndroidAppPicker() {
             if (on) next.add(app.packageName);
             else next.delete(app.packageName);
             setSelected(next);
+            // Saved on every change: "Next" / "Finish" never drops a selection.
+            void persist(next);
           }}
         />
       ))}
-      <Button
-        label={t("focusLock.setup.apps.save")}
-        onPress={async () => {
-          const { count } = await setBlockedPackages([...selected]);
-          await focusLockStore.getState().patch({ appsCount: count });
-        }}
-      />
-      <ThemedText type="smallBold">
+      <ThemedText type="smallBold" accessibilityLiveRegion="polite">
         {t("focusLock.setup.apps.count", { count: selected.size })}
       </ThemedText>
     </View>

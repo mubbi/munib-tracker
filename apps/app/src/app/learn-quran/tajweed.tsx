@@ -1,5 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
@@ -35,7 +35,16 @@ export default function LearnQuranTajweedScreen() {
   const { t, i18n } = useTranslation();
   // NF-3.15: "Lessons" | "Coaching" (deep link: ?tab=coaching from the practice summary).
   const params = useLocalSearchParams<{ tab?: string }>();
-  const [tab, setTab] = useState<TajweedTab>(params.tab === "coaching" ? "coaching" : "lessons");
+  const paramTab: TajweedTab = params.tab === "coaching" ? "coaching" : "lessons";
+  const [tab, setTab] = useState<TajweedTab>(paramTab);
+  // A later deep link (e.g. "See your plan" while this screen is still mounted
+  // under the stack) must switch the tab too, not only the first mount.
+  useEffect(() => setTab(paramTab), [paramTab]);
+  const changeTab = (next: TajweedTab) => {
+    setTab(next);
+    // Keep the URL in step so web refresh / back and shared links land on the same tab.
+    router.setParams({ tab: next });
+  };
   const { ready: contentReady } = useEnsureContent(
     ensureQuranGuideContent,
     isQuranGuideContentReady,
@@ -67,7 +76,7 @@ export default function LearnQuranTajweedScreen() {
                 { id: "coaching", label: t("tajweedCoaching.tab.coaching") },
               ]}
               value={tab}
-              onChange={setTab}
+              onChange={changeTab}
             />
             {tab === "coaching" ? (
               <CoachingPanel />

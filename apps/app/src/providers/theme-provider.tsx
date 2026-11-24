@@ -359,6 +359,24 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
+/**
+ * Renders `children` with the dark palette (same accent / custom accent),
+ * whatever the app's colour mode — for surfaces that must stay dark, like the
+ * tasbeeh Focus / Night screen. A dark app passes its own theme through.
+ */
+export function DarkThemeScope({ children }: { children: ReactNode }) {
+  const parent = useTheme();
+  const value = useMemo<ThemeContextValue>(() => {
+    if (parent.scheme === "dark") return parent;
+    const base = resolveTheme("dark", "dark", parent.accentColorId);
+    const colors = parent.customAccent
+      ? resolveCustomAccentTheme(base, "dark", parent.customAccent)
+      : base;
+    return { ...parent, colors, tokens: computeThemeTokens(colors, "dark"), scheme: "dark" };
+  }, [parent]);
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+}
+
 export function useTheme() {
   const context = useContext(ThemeContext);
 

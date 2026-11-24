@@ -52,9 +52,6 @@ const DIRECT_WRITES: readonly RegExp[] = [
  * (or location data captured as part of a flow) rather than a user option.
  */
 const ALLOWLIST: Readonly<Record<string, string>> = {
-  "app/(onboarding)/intro.tsx":
-    "Onboarding completion (`hasCompletedOnboarding`) + first-run choices (incl. the language step's `setLocale`) saved as one step.",
-  "app/(onboarding)/intro-location.tsx": "Onboarding completion after the location step.",
   "app/(tabs)/tracker.tsx": "`activeExcusedReason` (excused period) — user data, not a setting.",
   "app/profile/index.tsx": "Account identity (`displayName`, `avatarUri`) edited in Account.",
   "components/locale-path-bootstrap.tsx":

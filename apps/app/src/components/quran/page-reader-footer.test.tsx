@@ -136,4 +136,13 @@ describe("PageReaderFooter", () => {
       expect(buttonOrder()).toEqual(["Next page", "Jump to page", "Play page", "Previous page"]);
     });
   });
+
+  it("shows Pause while page audio plays and still calls the one toggle", async () => {
+    const props = await renderFooter({ playing: true });
+    expect(screen.queryByLabelText("Play page")).toBeNull();
+    const pause = screen.getByLabelText("Pause");
+    expect(pause.props.accessibilityState).toMatchObject({ selected: true });
+    await fireEvent.press(pause);
+    expect(props.onPlay).toHaveBeenCalledTimes(1);
+  });
 });

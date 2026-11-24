@@ -2,7 +2,8 @@ import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import { debtsVault } from "@/lib/debts/debts-store";
 import { emptyWasiyyahData } from "@/lib/wasiyyah/wasiyyah";
-import { wasiyyahVault } from "@/lib/wasiyyah/wasiyyah-store";
+import { wasiyyahActions, wasiyyahVault } from "@/lib/wasiyyah/wasiyyah-store";
+import { resetToastMock } from "@/test-support/mocks/toast-provider";
 import { resetVaultTestState } from "@/test-support/mocks/vault";
 import { renderWithTheme } from "@/test-support/render";
 
@@ -17,6 +18,10 @@ jest.mock(
   () => require("@/test-support/mocks/safe-secure-store").safeSecureStoreMock,
 );
 jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+jest.mock(
+  "@/providers/toast-provider",
+  () => require("@/test-support/mocks/toast-provider").toastProviderMock,
+);
 
 const idle = {
   isReady: false,
@@ -26,6 +31,7 @@ const idle = {
 };
 
 beforeEach(async () => {
+  resetToastMock();
   await resetVaultTestState();
   debtsVault.store.setState(idle);
   wasiyyahVault.store.setState(idle);
@@ -88,12 +94,50 @@ describe("WasiyyahWizard", () => {
     );
   });
 
+  it("won't save while the testator's date can't be read, and says why", async () => {
+    await wasiyyahVault.actions.load();
+    await renderWithTheme(
+      <WasiyyahWizard
+        initialData={{ ...base, testator: { name: "Aminah", date: "2026-13-40" } }}
+      />,
+    );
+    expect(screen.getByText(/Couldn't read this date/)).toBeTruthy();
+    await goToReview();
+    expect(screen.getByText("Fix the date in “About you” before saving.")).toBeTruthy();
+    await fireEvent.press(screen.getByText("Save this version"));
+    expect(wasiyyahVault.store.getState().items.some((i) => i.kind === "version")).toBe(false);
+  });
+
   it("requires the testator's name before moving on", async () => {
     await renderWithTheme(
       <WasiyyahWizard initialData={{ ...base, testator: { name: "", date: "2026-11-23" } }} />,
     );
     await fireEvent.press(screen.getByText("Next"));
     expect(screen.getByText("1. About you")).toBeTruthy();
+    expect(screen.getByText("Add your name to continue.")).toBeTruthy();
+  });
+
+  it("lists every section on the review step and jumps back to edit one", async () => {
+    const onStepChange = jest.fn();
+    await renderWithTheme(<WasiyyahWizard initialData={base} onStepChange={onStepChange} />);
+    await goToReview();
+    expect(screen.getByText("Check each section")).toBeTruthy();
+    expect(screen.getByText("Aminah")).toBeTruthy();
+    expect(screen.getByText("2 of 2 named")).toBeTruthy();
+    // "Edit" on the first row (About you) goes straight back to step 1.
+    await fireEvent.press(screen.getAllByText("Edit")[0] as never);
+    expect(screen.getByText("1. About you")).toBeTruthy();
+    expect(onStepChange).toHaveBeenCalled();
+  });
+
+  it("keeps the guardians field as typed while storing clean names", async () => {
+    await wasiyyahVault.actions.load();
+    await renderWithTheme(<WasiyyahWizard initialData={base} />);
+    const people = WASIYYAH_STEPS.indexOf("people");
+    for (let i = 0; i < people; i += 1) await fireEvent.press(screen.getByText("Next"));
+    const field = screen.getByLabelText(/Guardian\(s\) for minor children/);
+    await fireEvent.changeText(field, "Ali, ");
+    expect(screen.getByLabelText(/Guardian\(s\) for minor children/).props.value).toBe("Ali, ");
   });
 });
 
@@ -105,5 +149,17 @@ describe("WasiyyahOverview", () => {
     );
     expect(screen.getByText(/Not legally binding in many jurisdictions/)).toBeTruthy();
     expect(screen.getByText(/Sahih al-Bukhari 2742/)).toBeTruthy();
+  });
+
+  it("asks before discarding a draft", async () => {
+    await wasiyyahActions.saveDraft({
+      ...emptyWasiyyahData("2026-11-23", "USD"),
+      testator: { name: "Aminah", date: "2026-11-23" },
+    });
+    await renderWithTheme(<WasiyyahOverview />);
+    await waitFor(() => expect(screen.getByText("Discard draft")).toBeTruthy());
+    await fireEvent.press(screen.getByText("Discard draft"));
+    expect(screen.getByText("Discard your draft?")).toBeTruthy();
+    expect(wasiyyahVault.store.getState().items.some((i) => i.kind === "draft")).toBe(true);
   });
 });

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { JoinNearbyButton } from "@/components/circles/nearby/nearby-join-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { TextField } from "@/components/self-review/text-field";
 import { Seo } from "@/components/seo/seo";
@@ -103,6 +104,8 @@ export default function KidsLinkScreen() {
               disabled={!valid || status === "linking"}
               onPress={() => void redeem(token)}
             />
+            {/* NF-3.25: find the parent's phone over Bluetooth; the parent approves (D42). */}
+            <JoinNearbyButton purpose="child_link" />
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("kids.link.privacy")}
             </ThemedText>

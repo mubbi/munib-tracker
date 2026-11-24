@@ -77,7 +77,7 @@ const HifzEntryRow = memo(function HifzEntryRow({
       style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
     >
       <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
-        <ThemedText type="caption" style={{ color: colors.accent }}>
+        <ThemedText type="caption" style={{ color: colors.accentText }}>
           {entry.surah}:{entry.ayah} · {t("quran.pageN", { n: page })}
         </ThemedText>
       </View>

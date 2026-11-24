@@ -12,6 +12,7 @@ import {
   MATERIALS,
   MIN_EDGE_CONTRAST,
   materialFor,
+  NIGHT_PALETTE,
   PRESETS,
   SPACER_METALS,
   shade,
@@ -111,6 +112,16 @@ describe("presets", () => {
     expect(next).toMatchObject({ preset: "onyxNight", material: "onyx", shape: "faceted" });
     expect(next).toMatchObject({ strand: 99, layout: "loop", background: "velvet" });
     expect(getPreset("missing").id).toBe(PRESETS[0].id);
+  });
+
+  it("keeps the Focus / Night text legible on true black (WCAG AA)", () => {
+    for (const color of [
+      NIGHT_PALETTE.numeral,
+      NIGHT_PALETTE.numeralComplete,
+      NIGHT_PALETTE.caption,
+    ]) {
+      expect(contrastRatio(color, NIGHT_PALETTE.background)).toBeGreaterThanOrEqual(4.5);
+    }
   });
 
   it("has three LCD backlights", () => {

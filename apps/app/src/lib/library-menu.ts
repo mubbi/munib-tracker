@@ -94,8 +94,6 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("ruqyah", "learn"),
   fromQuickAction("newMuslim", "learn"),
   fromQuickAction("janazah", "learn"),
-  // NF-3.10: Learn → fiqh tools.
-  fromQuickAction("mirath", "learn"),
   fromQuickAction("flashCards", "learn"),
   // Tools & more — Qibla first (high-frequency worship tool).
   fromQuickAction("qibla", "more"),
@@ -110,6 +108,9 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("fidyah", "more"),
   fromQuickAction("debts", "more"),
   fromQuickAction("wasiyyah", "more"),
+  // NF-3.10 Mirath: a calculator, so Tools (beside the will it links to); its
+  // basis, evidence and school differences are explained inside the results.
+  fromQuickAction("mirath", "more"),
   fromQuickAction("finance", "more"),
   fromQuickAction("achievements", "more"),
   fromQuickAction("stats", "more"),

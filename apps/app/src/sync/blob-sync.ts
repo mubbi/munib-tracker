@@ -7,6 +7,8 @@ import {
   mergeVoluntaryFasting,
 } from "@munib-tracker/shared/utils";
 
+import { coarsenCoordinate, coarsenLocation } from "@munib-tracker/shared/validators/private-sync";
+
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, withKeyLock, writeJSON } from "@/db/store";
 import { mergeDhulHijjah } from "@/lib/dhul-hijjah";
@@ -32,7 +34,6 @@ import { homeMasjidTimesStore } from "@/stores/home-masjid-times-store";
 import { jahannamIntentionsStore } from "@/stores/jahannam-intentions-store";
 import { jannahIntentionsStore } from "@/stores/jannah-intentions-store";
 import { khatmStore } from "@/stores/khatm-store";
-import { khushuStore } from "@/stores/khushu-store";
 import { lastDayProgressStore } from "@/stores/last-day-progress-store";
 import { learnDuaProgressStore } from "@/stores/learn-dua-progress-store";
 import { locationStore } from "@/stores/location-store";
@@ -67,7 +68,7 @@ import {
 /**
  * Generic cloud sync for the many small "blob" userData entities that carry no
  * per-record `updatedAt` of their own — Ramadan fasting, khatm/hifz plans, the
- * personal adhkar/khushu/hajj collections, every Learn section's progress, the
+ * personal adhkar/hajj collections, every Learn section's progress, the
  * qaza schedule, and so on. Rather than retrofit a hand-written record + apply
  * path (and a bumped watermark on every mutation) into ~20 stores, change and
  * deletion detection is centralised here:
@@ -130,6 +131,18 @@ interface BlobEntity {
    * pushed, because the server would refuse it (H2).
    */
   validatePush?: (value: unknown) => boolean;
+  /**
+   * Optional: the form of the value that is pushed (and fingerprinted) when it
+   * differs from what is stored locally — D46 location: coordinates rounded to
+   * ~1 km, while the device keeps its exact fix.
+   */
+  toPushValue?: (value: unknown) => unknown;
+  /**
+   * Optional: how a pulled LWW value is stored, given the local one — D46
+   * location: the device's exact coordinates are kept when the pulled (rounded)
+   * copy points at the same ~1 km cell.
+   */
+  fromRemote?: (local: unknown, remote: unknown) => unknown;
 }
 
 /** Reloads a store's persisted state only if it has already been loaded once. */
@@ -172,6 +185,23 @@ function isPristineLocation(value: unknown): boolean {
 }
 
 /**
+ * D46 pull side of the location coarsening: when the pulled (rounded) location
+ * is the same ~1 km cell as this device's exact one, the exact coordinates are
+ * kept and everything else (label, method, offsets…) is taken from the pull.
+ * A different place replaces the location, rounded coordinates and all.
+ */
+export function keepExactCoordinates(local: unknown, remote: unknown): unknown {
+  if (remote == null || typeof remote !== "object") return remote;
+  if (local == null || typeof local !== "object") return remote;
+  const exact = local as Partial<StoredLocation>;
+  const pulled = remote as Partial<StoredLocation>;
+  const sameCell =
+    coarsenCoordinate(exact.latitude) === pulled.latitude &&
+    coarsenCoordinate(exact.longitude) === pulled.longitude;
+  return sameCell ? { ...pulled, latitude: exact.latitude, longitude: exact.longitude } : remote;
+}
+
+/**
  * The blob-synced entities. Deliberately excluded: `continue_activity` (device
  * session UX) and `achievements` (derived from already-synced stats — recomputed
  * per device).
@@ -185,11 +215,8 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     storageKey: DB_KEYS.customAdhkar,
     reload: reloadIfReady(customAdhkarStore),
   },
-  {
-    entity: "khushu_journal",
-    storageKey: DB_KEYS.khushuJournal,
-    reload: reloadIfReady(khushuStore),
-  },
+  // `khushu_journal` is retired (D46): the journal syncs only as the vault doc
+  // `vault_khushu` (`lib/private-sync/khushu-mirror.ts`).
   {
     entity: "hajj_checklist",
     storageKey: DB_KEYS.hajjChecklist,
@@ -294,6 +321,9 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     storageKey: DB_KEYS.location,
     reload: reloadLocationFromDisk,
     isPristine: isPristineLocation,
+    // D46: the server only ever sees coordinates rounded to ~1 km.
+    toPushValue: coarsenLocation,
+    fromRemote: keepExactCoordinates,
   },
   // `reading_text_visibility` is no longer written or applied (D13): the pair now
   // lives in `preferences.readingDisplay`. The API keeps accepting the entity for
@@ -476,7 +506,8 @@ export async function buildBlobRecords(nowIso: string): Promise<SyncRecordDto[]>
       }
       skippedEntities.delete(e.entity);
 
-      const hash = fingerprint(value);
+      const pushValue = e.toPushValue ? e.toPushValue(value) : value;
+      const hash = fingerprint(pushValue);
       let updatedAt: string;
       if (tracked && tracked.hash === hash) {
         updatedAt = tracked.updatedAt;
@@ -489,7 +520,7 @@ export async function buildBlobRecords(nowIso: string): Promise<SyncRecordDto[]>
       records.push({
         entity: e.entity as SyncRecordDto["entity"],
         id: e.entity,
-        data: { value },
+        data: { value: pushValue },
         updatedAt,
       });
     }
@@ -547,8 +578,9 @@ export async function applyRemoteBlob(
 
     const outcome = await withKeyLock(e.storageKey, async () => {
       for (let attempt = 0; ; attempt += 1) {
-        const localValue = unionMerge ? await readJSON<unknown>(e.storageKey, null) : null;
-        let value: unknown = remoteValue;
+        const localValue =
+          unionMerge || e.fromRemote ? await readJSON<unknown>(e.storageKey, null) : null;
+        let value: unknown = e.fromRemote ? e.fromRemote(localValue, remoteValue) : remoteValue;
         let held: HeldMerge | null = null;
         if (unionMerge) {
           const merged = await runMerge(e, localValue, remoteValue);
@@ -558,7 +590,8 @@ export async function applyRemoteBlob(
           const now = await readJSON<unknown>(e.storageKey, null);
           if (attempt < 2 && fingerprint(now) !== fingerprint(localValue)) continue;
         }
-        const hash = fingerprint(value);
+        // Fingerprint the pushed form, so a kept exact location isn't re-pushed.
+        const hash = fingerprint(e.toPushValue ? e.toPushValue(value) : value);
         if (held) {
           const changed = hash !== fingerprint(localValue);
           if (changed) await writeJSON(e.storageKey, value);

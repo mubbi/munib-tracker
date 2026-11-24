@@ -126,7 +126,7 @@ export const NOTIFICATION_SETTINGS: AnySettingDef[] = [
     // "Reset settings" must never silently switch every reminder off.
     resettable: false,
     summary: onOff,
-    shortcuts: ["/notifications", "/(onboarding)/intro-location"],
+    shortcuts: ["/notifications", "/(onboarding)/setup"],
     fields: ["prefs.notificationPrefs.masterEnabled"],
   }),
 

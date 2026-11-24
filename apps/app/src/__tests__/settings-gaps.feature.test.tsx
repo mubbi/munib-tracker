@@ -1,19 +1,19 @@
 import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 import type { ReactTestInstance } from "react-test-renderer";
 
-import OnboardingMadhhabScreen from "@/app/(onboarding)/intro-madhhab";
+import SetupScreen from "@/app/(onboarding)/setup";
 import SettingsHub from "@/app/(tabs)/settings";
 import AudioSettingsScreen from "@/app/settings/audio";
 import VoiceShortcutsScreen from "@/app/settings/voice-shortcuts";
 import i18n from "@/i18n";
 import { availableGroups } from "@/lib/settings/groups";
 import { getSetting } from "@/lib/settings/registry";
-import { settingHref } from "@/lib/settings/routes";
 import { devicePreferencesStore } from "@/stores/device-preferences-store";
 import {
   mockRouter,
   mockRouterCanDismiss,
   resetExpoRouterMock,
+  setMockSearchParams,
 } from "@/test-support/mocks/expo-router";
 import { usePlatformSwitch } from "@/test-support/platform";
 import { renderWithProviders } from "@/test-support/render";
@@ -121,15 +121,15 @@ describe("Settings hub on TV (§4.5.10)", () => {
 });
 
 describe("onboarding uses the shared setup checklist (§4.5.3)", () => {
-  it("lists the pending items except the madhhab this step asks", async () => {
-    await renderWithProviders(<OnboardingMadhhabScreen />);
+  it("lists the pending items on the setup summary and opens their step", async () => {
+    setMockSearchParams({ step: "done" });
+    await renderWithProviders(<SetupScreen />);
     expect(screen.getByText("Finish setting up")).toBeTruthy();
-    expect(screen.getByText("Turn on reminders")).toBeTruthy();
-    expect(screen.queryByText(i18n.t("settingsStep4.setup.madhhab"))).toBeNull();
+    expect(screen.getByText(i18n.t("settingsStep4.setup.madhhab"))).toBeTruthy();
     // Onboarding ignores the hub's "Not now" and offers no dismiss button of its own.
     expect(screen.queryByRole("button", { name: "Not now" })).toBeNull();
     await fireEvent.press(screen.getByText("Turn on reminders"));
-    expect(mockRouter.replace).toHaveBeenCalledWith(settingHref("notifications.master"));
+    expect(screen.getByText("Never miss a Salah")).toBeTruthy();
   });
 });
 

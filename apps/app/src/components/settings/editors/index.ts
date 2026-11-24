@@ -4,6 +4,7 @@
  */
 
 export { AsrMismatchHint } from "@/components/fiqh/asr-mismatch-hint";
+export { MethodSuggestionHint } from "../method-suggestion-card";
 export { AboutPanel } from "./about-panel";
 export { AccentEditor } from "./accent-editor";
 export { AdhanPreviewRow, AdhanStyleControl } from "./adhan-controls";

@@ -77,6 +77,17 @@ jest.mock("@/lib/report-oss-content-download-failure", () => ({
   flushPendingOssContentFailures: jest.fn(),
 }));
 jest.mock("@/sync/sync-engine", () => ({ runSync: jest.fn() }));
+jest.mock("@/lib/notifications/register-push-token", () => ({
+  unregisterPushTokenWithApi: jest.fn(async () => undefined),
+  unsubscribeWebPushSubscription: jest.fn(async () => undefined),
+}));
+jest.mock("@/lib/surface-push/register", () => ({
+  deleteSurfacePushRegistration: jest.fn(async () => undefined),
+}));
+jest.mock("@/lib/in-app-notifications/storage", () => ({
+  ...jest.requireActual("@/lib/in-app-notifications/storage"),
+  removeServerInAppNotifications: jest.fn(async () => undefined),
+}));
 
 const api = jest.requireMock("@/api/endpoints") as Record<string, jest.Mock>;
 const { SessionStore, SessionPersistError } = jest.requireMock("@/auth/session-store") as {
@@ -84,6 +95,12 @@ const { SessionStore, SessionPersistError } = jest.requireMock("@/auth/session-s
   SessionPersistError: new () => Error;
 };
 const { runSync } = jest.requireMock("@/sync/sync-engine") as { runSync: jest.Mock };
+const { unregisterPushTokenWithApi } = jest.requireMock(
+  "@/lib/notifications/register-push-token",
+) as { unregisterPushTokenWithApi: jest.Mock };
+const { removeServerInAppNotifications } = jest.requireMock(
+  "@/lib/in-app-notifications/storage",
+) as { removeServerInAppNotifications: jest.Mock };
 const { recordReviewErrorMarker } = jest.requireMock(
   "@/features/reviews/lib/reviewEngagementBridge",
 ) as { recordReviewErrorMarker: jest.Mock };
@@ -385,6 +402,23 @@ describe("signOut", () => {
     const { result } = await setup({ stored: user });
     await perform(() => result.current.signOut());
     expect(result.current).toMatchObject({ isGuest: true, user: null });
+  });
+
+  it("unregisters this device's push token before the session is revoked", async () => {
+    const { result } = await setup({ stored: user });
+    unregisterPushTokenWithApi.mockClear();
+    await perform(() => result.current.signOut());
+    expect(unregisterPushTokenWithApi).toHaveBeenCalledWith(user.accessToken);
+    expect(unregisterPushTokenWithApi.mock.invocationCallOrder[0]).toBeLessThan(
+      api.logout.mock.invocationCallOrder[0] ?? 0,
+    );
+  });
+
+  it("drops the signed-out account's server inbox rows from this device", async () => {
+    const { result } = await setup({ stored: user });
+    removeServerInAppNotifications.mockClear();
+    await perform(() => result.current.signOut());
+    expect(removeServerInAppNotifications).toHaveBeenCalledTimes(1);
   });
 
   it("ignores an overlapping sign-out", async () => {

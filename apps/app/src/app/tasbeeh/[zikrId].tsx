@@ -21,7 +21,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useReadingDisplay } from "@/lib/settings/reading-display";
-import { phraseForZikr } from "@/lib/tasbeeh-voice/phrases";
+import { voiceZikrFromZikr } from "@/lib/tasbeeh-voice/voice-zikr";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrCountKey, zikrTarget } from "@/lib/zikr-count-key";
 import { usePreferences } from "@/stores/preferences-store";
@@ -150,7 +150,7 @@ export default function ZikrTasbeehScreen() {
         onIncrement={() => persist(count + 1)}
         onDecrement={() => persist(count - 1)}
         onReset={() => persist(0)}
-        voicePhrase={phraseForZikr(item.id)}
+        voiceZikr={voiceZikrFromZikr(item)}
       />
     </Card>
   );

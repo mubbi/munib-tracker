@@ -8,12 +8,16 @@ import {
 } from "@/lib/appSurfaces/widgets/snapshotStorage";
 import { clearDownloadedAudio, clearDownloadedQcfFonts } from "@/lib/cache-manager";
 import { clearChildSession } from "@/lib/circles/child-session";
+import { clearPendingExternalCommands } from "@/lib/external-commands/native-bridge";
 import { resetNative as resetFocusLockNative } from "@/lib/focus-lock/native";
 import { clearAllInAppNotifications } from "@/lib/in-app-notifications/storage";
+import { clearPrintableExports } from "@/lib/printable/export-document";
 import { deleteRecitationModelFiles } from "@/lib/quran-companion/model/model-store";
 import { clearRecentSearches } from "@/lib/search-history";
 import { THEME_MIRROR_KEYS } from "@/lib/theme-storage-keys";
+import { clearOcrBrowserData } from "@/lib/timetable-ocr/recognize";
 import { deleteVaultKey } from "@/lib/vault/vault";
+import { clearVaultUnlockSession } from "@/lib/vault/vault-lock";
 import { quranListenerStore } from "@/stores/quran-listener-store";
 import { wipePronunciationModels } from "@/stores/quran-pronunciation-store";
 import { reloadAllStores } from "@/stores/reload-all-stores";
@@ -55,6 +59,14 @@ export async function wipeLocalDeviceData(): Promise<void> {
     clearChildSession().catch(() => {}),
     // NF-3.13: picked apps + plan live natively (iOS App Group / Android prefs).
     resetFocusLockNative(),
+    // Plaintext wasiyyah / debts PDF left in the cache by a killed share sheet.
+    clearPrintableExports().catch(() => {}),
+    // Widget / Siri / Wear commands still queued natively must not re-apply.
+    clearPendingExternalCommands().catch(() => {}),
+    // Web OCR: the download consent flag + Tesseract's cached language data.
+    clearOcrBrowserData().catch(() => {}),
   ]);
+  // In-memory "vault unlocked" grace window: the next vault screen asks again.
+  clearVaultUnlockSession();
   await reloadAllStores();
 }

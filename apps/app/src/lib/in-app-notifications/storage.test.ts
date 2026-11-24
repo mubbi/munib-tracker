@@ -10,6 +10,7 @@ import {
   markAllInAppNotificationsRead,
   markInAppNotificationRead,
   mergeServerInAppNotifications,
+  removeServerInAppNotifications,
 } from "./storage";
 
 const KEY = "@munib_tracker_in_app_notifications_v1";
@@ -125,5 +126,23 @@ describe("read state", () => {
   it("clears everything", async () => {
     await clearAllInAppNotifications();
     expect(await loadInAppNotifications()).toEqual([]);
+  });
+});
+
+describe("removeServerInAppNotifications (sign-out)", () => {
+  it("drops the account's server inbox rows and keeps device-local ones", async () => {
+    await seed([
+      buildInAppNotification({ id: "local", serverId: null }),
+      buildInAppNotification({ id: "announcement", kind: "admin_announcement", serverId: 7 }),
+      buildInAppNotification({ id: "circle", kind: "circle", serverId: 8 }),
+    ]);
+    await removeServerInAppNotifications();
+    expect((await loadInAppNotifications()).map((n) => n.id)).toEqual(["local"]);
+  });
+
+  it("removes the key when only server rows were stored", async () => {
+    await seed([buildInAppNotification({ id: "s", serverId: 1 })]);
+    await removeServerInAppNotifications();
+    expect(await AsyncStorage.getItem(KEY)).toBeNull();
   });
 });

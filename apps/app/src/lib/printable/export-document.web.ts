@@ -6,6 +6,9 @@ export type {
   ExportDocumentResult,
 } from "./export-document-types";
 
+/** Web never writes an export file (the browser's print dialog owns it). */
+export async function clearPrintableExports(): Promise<void> {}
+
 /**
  * Web: renders the printable HTML in a hidden iframe and opens the browser's
  * print dialog (where "Save as PDF" is offered) for every mode (D30). Nothing

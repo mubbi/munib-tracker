@@ -5,14 +5,16 @@ import { renderWithTheme } from "@/test-support/render";
 
 import { MirathCalculator } from "./mirath-calculator";
 
-jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 jest.mock("react-native-quick-crypto", () => require("react-native-quick-crypto/jest"));
 jest.mock(
   "@/lib/storage/safe-secure-store",
   () => require("@/test-support/mocks/safe-secure-store").safeSecureStoreMock,
 );
-jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+jest.mock(
+  "@/lib/quran-companion/reschedule",
+  () => require("@/test-support/mocks/reminder-reschedule").reminderRescheduleMock,
+);
 // The PIN provider is app-level; the debts prefill only needs the unlock hook.
 jest.mock("@/components/vault", () => ({
   useRequireVaultUnlock: () => ({ requireVaultUnlock: async () => true, unlockPrompt: null }),

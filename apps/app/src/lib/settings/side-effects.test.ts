@@ -9,10 +9,10 @@ import { getSetting } from "./registry";
 import { runSideEffects } from "./side-effects";
 import { writeSetting } from "./use-setting";
 
-jest.mock("@/notifications/scheduler", () => ({
-  rescheduleAll: jest.fn(async () => {}),
-  listScheduled: jest.fn(async () => []),
-}));
+jest.mock(
+  "@/notifications/scheduler",
+  () => require("@/test-support/mocks/notifications-scheduler").notificationsSchedulerMock,
+);
 
 let changeAppLocale: jest.SpyInstance;
 

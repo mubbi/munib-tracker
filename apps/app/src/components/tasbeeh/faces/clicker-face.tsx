@@ -17,6 +17,7 @@ import { gradientBackground } from "@/lib/gradient";
 import { LCD_BACKLIGHTS } from "@/lib/tasbeeh/materials";
 import { lcdCells, segmentPolygons, segmentsFor } from "@/lib/tasbeeh/seven-segment";
 
+import { targetCaption } from "./round-readout";
 import type { TasbeehFaceProps } from "./types";
 
 /**
@@ -47,12 +48,12 @@ export default function ClickerFace({
     if (count === prev.current) return;
     const forward = count > prev.current;
     prev.current = count;
-    if (reduceMotion || preview || !forward) return;
+    if (reduceMotion || !forward) return;
     press.value = withSequence(
       withTiming(0.92, { duration: 60 }),
       withTiming(1, { duration: 140 }),
     );
-  }, [count, press, reduceMotion, preview]);
+  }, [count, press, reduceMotion]);
   const pressStyle = useAnimatedStyle(() => ({ transform: [{ scale: press.value }] }));
 
   const cells = lcdCells(count, count >= 10000 ? 5 : 4);
@@ -118,11 +119,7 @@ export default function ClickerFace({
 
       {preview ? null : (
         <ThemedText type="caption" themeColor="mutedForeground">
-          {target > 0
-            ? complete
-              ? t("tasbeehUi.complete")
-              : t("tasbeehUi.ofTarget", { target })
-            : t("tasbeehUi.unlimited")}
+          {targetCaption(t, target, complete)}
         </ThemedText>
       )}
 

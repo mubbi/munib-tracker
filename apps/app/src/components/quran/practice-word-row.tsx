@@ -1,12 +1,15 @@
 import { memo, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View, type ViewInstance } from "react-native";
+import { StyleSheet, Text, View, type ViewInstance } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { getTajweedRule } from "@/constants/tajweed";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { withArabicJoiningZwj } from "@/lib/arabic-text-join";
 import { arabicWordRowStyle } from "@/lib/quran-companion/arabic-row";
+import type { TajweedWordRun } from "@/lib/quran-companion/tajweed-word-runs";
 import type { WordState } from "@/lib/quran-companion/types";
 import type { AssessmentMode, PronunciationWordState } from "@/lib/quran-pronunciation/types";
 import { useIsRTL } from "@/lib/rtl";
@@ -45,6 +48,12 @@ type PracticeWordRowProps = {
    * the screen can keep a long ayah's current word in view (§9.2).
    */
   onActiveWordMeasured?: (rect: { y: number; height: number }) => void;
+  /**
+   * Tajweed colouring per study word (`studyWordTajweedRuns`, memoised by the
+   * caller): the row itself is coloured, so the ayah is never shown twice. Word
+   * status then moves to the non-colour dot mark, so the two never clash.
+   */
+  tajweedRuns?: (TajweedWordRun[] | null)[] | null;
 };
 
 export const PracticeWordRow = memo(function PracticeWordRow({
@@ -60,7 +69,10 @@ export const PracticeWordRow = memo(function PracticeWordRow({
   onActiveWordMeasured,
   pronunciation,
   pronunciationMode = "full",
+  tajweedRuns,
 }: PracticeWordRowProps) {
+  // Letter colours carry tajweed: status must not also be a colour on the glyphs.
+  const marks = tajweedRuns ? "dot" : markStyle;
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const rtl = useIsRTL();
@@ -134,7 +146,7 @@ export const PracticeWordRow = memo(function PracticeWordRow({
         const isHidden = hidden.has(i);
         const isActive = i === activeIndex || i === hearIndex;
         const color = pron ? pronColor(pron) : markColor(state);
-        const underline = isActive ? colors.accent : markStyle === "underline" ? color : null;
+        const underline = isActive ? colors.accent : marks === "underline" ? color : null;
         const label = isHidden
           ? t("quranCompanion.word.hidden", { n: i + 1 })
           : [word, pron ? pronLabel(pron) : stateLabel(state)].filter(Boolean).join(", ");
@@ -146,9 +158,10 @@ export const PracticeWordRow = memo(function PracticeWordRow({
           isHidden,
           isActive,
           underline,
-          dotColor: markStyle === "dot" && color && !isActive ? color : null,
+          dotColor: marks === "dot" && color && !isActive ? color : null,
           fontSize,
           fontFamily,
+          runs: tajweedRuns?.[i] ?? null,
         };
         return pressable ? (
           <PressableScale
@@ -184,6 +197,7 @@ function WordCell({
   dotColor,
   fontSize,
   fontFamily,
+  runs,
 }: {
   word: string;
   state: WordState;
@@ -193,8 +207,9 @@ function WordCell({
   dotColor: string | null;
   fontSize: number;
   fontFamily?: string;
+  runs: TajweedWordRun[] | null;
 }) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   return (
     <View style={styles.word}>
       {isHidden ? (
@@ -213,9 +228,11 @@ function WordCell({
             writingDirection: "rtl",
             ...(fontFamily ? { fontFamily } : null),
             color: state === "upcoming" ? colors.mutedForeground : colors.foreground,
+            // Tajweed-coloured words dim (not grey out) while still upcoming.
+            ...(runs && state === "upcoming" ? { opacity: 0.6 } : null),
           }}
         >
-          {word}
+          {runs ? <TajweedRuns runs={runs} isDark={tokens.isDark} /> : word}
         </ThemedText>
       )}
       <View
@@ -224,8 +241,31 @@ function WordCell({
           { backgroundColor: underline ?? "transparent", height: isActive ? 3 : 2 },
         ]}
       />
-      {dotColor ? <View style={[styles.dot, { backgroundColor: dotColor }]} /> : null}
+      {dotColor ? (
+        <View testID="word-status-dot" style={[styles.dot, { backgroundColor: dotColor }]} />
+      ) : null}
     </View>
+  );
+}
+
+/** Coloured runs of one word; ZWJ keeps letters joined across runs (Android Fabric / web). */
+function TajweedRuns({ runs, isDark }: { runs: TajweedWordRun[]; isDark: boolean }) {
+  const texts = withArabicJoiningZwj(runs.map((run) => run.text));
+  return (
+    <>
+      {runs.map((run, i) => {
+        const rule = run.rule ? getTajweedRule(run.rule) : undefined;
+        return (
+          <Text
+            // biome-ignore lint/suspicious/noArrayIndexKey: ordered runs of one fixed word
+            key={i}
+            style={rule ? { color: isDark ? rule.colorDark : rule.colorLight } : undefined}
+          >
+            {texts[i] ?? run.text}
+          </Text>
+        );
+      })}
+    </>
   );
 }
 

@@ -8,12 +8,14 @@
  * - Every mutation invalidates the `circles` root for that user (cheap: a family
  *   has a handful of rows) so lists, details and signals stay consistent.
  */
+import type { FardPrayer, FardStatusValue } from "@munib-tracker/shared/circles";
 import { type QueryKey, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
 import { useAuth } from "@/providers/auth-provider";
-import type { CircleToken } from "./api";
+import type { CircleSignal, CircleToken } from "./api";
 import * as api from "./api";
+import { EMPTY_FARD_STATUS, fardOn, toggleFard, upsertFardSignal } from "./family";
 
 export const CIRCLE_POLL_MS = 60_000;
 
@@ -205,4 +207,64 @@ export function useInvalidateCircles(): () => Promise<void> {
     () => queryClient.invalidateQueries({ queryKey: circleKeys.root(userId) }),
     [queryClient, userId],
   );
+}
+
+/**
+ * Log fard statuses on someone's behalf (parent view, child detail, parent
+ * "Child: <nickname>" kids mode) with an **optimistic** update of the signals
+ * window the screen shows. Each tap is computed from the cached value, which
+ * the previous tap already updated — so quickly ticking Fajr then Dhuhr never
+ * sends a write that reverts the first. A failed write rolls that member's day
+ * back and rethrows (the screen shows the offline toast); the circles cache is
+ * re-read once the last pending write settles.
+ */
+export function useFardStatusLog(circleId: string | undefined, from: string, to: string) {
+  const queryClient = useQueryClient();
+  const { token, userId } = useCircleAuth();
+  const mutationKey = [...circleKeys.root(userId), "fard-log", circleId ?? ""] as const;
+  const signalsKey = useMemo(
+    () => circleKeys.signals(userId, circleId ?? "", from, to),
+    [userId, circleId, from, to],
+  );
+  const mutation = useMutation({
+    mutationKey,
+    mutationFn: (input: api.FardStatusInput) => api.putFardStatus(token, circleId as string, input),
+    onSettled: () => {
+      // Only the last write in a burst refetches (no flicker back to an older value).
+      if (queryClient.isMutating({ mutationKey }) <= 1) {
+        void queryClient.invalidateQueries({ queryKey: circleKeys.root(userId) });
+      }
+    },
+  });
+  const { mutateAsync } = mutation;
+
+  const write = useCallback(
+    async (memberId: string, date: string, next: FardStatusValue, previous: FardStatusValue) => {
+      void queryClient.cancelQueries({ queryKey: signalsKey });
+      queryClient.setQueryData<CircleSignal[]>(signalsKey, (current) =>
+        upsertFardSignal(current ?? [], memberId, date, next),
+      );
+      try {
+        await mutateAsync({ date, memberId, ...next });
+      } catch (error) {
+        queryClient.setQueryData<CircleSignal[]>(signalsKey, (current) =>
+          upsertFardSignal(current ?? [], memberId, date, previous),
+        );
+        throw error;
+      }
+    },
+    [queryClient, mutateAsync, signalsKey],
+  );
+
+  /** Flip one prayer for `memberId` on `date`, from the freshest cached value. */
+  const toggle = useCallback(
+    (memberId: string, date: string, prayer: FardPrayer) => {
+      const cached = queryClient.getQueryData<CircleSignal[]>(signalsKey) ?? [];
+      const current = fardOn(cached, memberId, date) ?? EMPTY_FARD_STATUS;
+      return write(memberId, date, toggleFard(current, prayer), current);
+    },
+    [queryClient, write, signalsKey],
+  );
+
+  return { toggle, isPending: mutation.isPending };
 }

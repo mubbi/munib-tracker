@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -51,7 +51,7 @@ export function RootLetterPicker({
           </ThemedText>
         </View>
         {/* Arabic order reads right-to-left whatever the UI language. */}
-        <View style={[styles.grid, { direction: "rtl" }]}>
+        <View style={[styles.grid, styles.rtlGrid]}>
           {ROOT_ALPHABET.map((bw, i) => {
             const letter = rootLetters(bw)[0];
             return (
@@ -113,6 +113,11 @@ const styles = StyleSheet.create({
   },
   previewText: { fontSize: 30, lineHeight: 44 },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, justifyContent: "center" },
+  // RN Web rejects the Yoga `direction` prop; it maps `writingDirection` to CSS `direction`.
+  rtlGrid: Platform.select({
+    web: { writingDirection: "rtl" } as const,
+    default: { direction: "rtl" } as const,
+  }),
   key: {
     width: 48,
     height: 48,

@@ -6,6 +6,8 @@ import {
   type MasjidListResponse,
   type MasjidOsmType,
 } from "@munib-tracker/shared/masjid";
+import * as Network from "expo-network";
+import { Platform } from "react-native";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, updateJSON } from "@/db/store";
@@ -32,6 +34,23 @@ export class MasjidApiError extends Error {
   }
 }
 
+/**
+ * A failed `fetch` is not proof of being offline: on web a server that is down,
+ * missing a route, or refusing the page's origin (CORS) fails the same way. Only
+ * report "offline" when the device itself says it has no connection.
+ */
+async function deviceIsOffline(): Promise<boolean> {
+  if (Platform.OS === "web") {
+    return typeof navigator !== "undefined" && navigator.onLine === false;
+  }
+  try {
+    const state = await Network.getNetworkStateAsync();
+    return state.isConnected === false || state.isInternetReachable === false;
+  } catch {
+    return false;
+  }
+}
+
 async function getJson<T>(path: string, signal?: AbortSignal): Promise<T> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -47,7 +66,7 @@ async function getJson<T>(path: string, signal?: AbortSignal): Promise<T> {
         signal: controller.signal,
       });
     } catch {
-      throw new MasjidApiError("offline");
+      throw new MasjidApiError((await deviceIsOffline()) ? "offline" : "unavailable");
     }
     if (response.status === 404) throw new MasjidApiError("not_found");
     if (response.status === 429) throw new MasjidApiError("rate_limited");

@@ -50,6 +50,8 @@ import {
   AyahNoteMarker,
 } from "@/components/quran/ayah-annotations";
 import { AyahSeparator, ayahKeyExtractor, SurahAyahList } from "@/components/quran/ayah-reader";
+import { HifzActionButton } from "@/components/quran/hifz-action-button";
+import { TvNoteFocusPreview, useNoteHintLabel } from "@/components/quran/note-hints";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
 import { PlaybackSettingsSheet } from "@/components/quran/playback-settings-sheet";
 import { QuranNotesSheetHost } from "@/components/quran/quran-notes-sheet-host";
@@ -139,6 +141,7 @@ import {
   useHifzMap,
 } from "@/stores/hifz-store";
 import { usePreferences } from "@/stores/preferences-store";
+import { openQuranNoteEditor, setQuranReaderViewport } from "@/stores/quran-notes-store";
 import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
 
 const BUNDLED_EN_FALLBACK = "en-pickthall";
@@ -348,6 +351,7 @@ export default function SurahReaderScreen() {
   // estimated `contentSize` are unreliable (variable row heights, recycling), so
   // derive progress from the furthest ayah on screen instead — always accurate.
   const ayahCountRef = useRef(0);
+  const viewportSurahRef = useRef(0);
   const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 0 }).current;
 
   const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ListViewToken[] }) => {
@@ -371,6 +375,14 @@ export default function SurahReaderScreen() {
       if (Number.isFinite(minIndex)) topVisibleAyahRef.current = minIndex + 1;
       bottomVisibleAyahRef.current = maxIndex >= 0 ? maxIndex + 1 : null;
     }
+    // NF-3.21: the wide-screen notes panel highlights notes on the ayahs in view.
+    const top = topVisibleAyahRef.current;
+    const bottom = bottomVisibleAyahRef.current ?? top;
+    setQuranReaderViewport(
+      top != null && bottom != null
+        ? { surah: viewportSurahRef.current, from: top, to: bottom }
+        : null,
+    );
     if (flushTimerRef.current) clearTimeout(flushTimerRef.current);
     flushTimerRef.current = setTimeout(() => flushReadingPositionRef.current(), LAST_READ_FLUSH_MS);
   }).current;
@@ -391,6 +403,9 @@ export default function SurahReaderScreen() {
 
   const ayahs = useMemo(() => (surah ? getSurahAyahs(surahNumber) : []), [surah, surahNumber]);
   ayahCountRef.current = ayahs.length;
+  viewportSurahRef.current = surahNumber;
+  // Leaving the reader clears the panel's "in view" state.
+  useEffect(() => () => setQuranReaderViewport(null), []);
 
   // Resolve a `surah:ayah` key to its row index. Ayahs are contiguous starting at
   // 1, so the ayah number maps directly to `index = ayah - 1` — but guard against
@@ -1279,7 +1294,8 @@ export default function SurahReaderScreen() {
           onOpenTafsir={openTafsirForAyah}
           isSharing={extras.activeShareKey === ayahShareKey}
           isGesturePending={extras.gesturePendingKey === ayahShareKey}
-          onOpenActions={tv ? openAyahActions : undefined}
+          onOpenActions={tv || !showSideFilters ? openAyahActions : undefined}
+          compactActions={!tv && !showSideFilters}
           tvPreferredFocus={index === tvInitialFocusIndex}
         />
       );
@@ -1291,6 +1307,7 @@ export default function SurahReaderScreen() {
       openTafsirForAyah,
       playOrToggleAyah,
       shareAyah,
+      showSideFilters,
       surahNumber,
       tv,
       tvInitialFocusIndex,
@@ -1561,8 +1578,9 @@ export default function SurahReaderScreen() {
         onTranslationAudioChange={(mode) => updatePrefs({ translationAudio: mode })}
         onTtsVoiceChange={(voiceId) => void setTtsVoice(ttsLang, voiceId)}
       />
-      {tv ? (
-        <TvAyahActions
+      {/* TV: Select on an ayah card. Phones / narrow web: the row's "More" button. */}
+      {tv || !showSideFilters ? (
+        <AyahMoreActions
           ayah={tvActionIndex != null ? ayahs[tvActionIndex] : undefined}
           surahNumber={surahNumber}
           surahName={surah.nameTransliteration}
@@ -1601,6 +1619,64 @@ export default function SurahReaderScreen() {
             setTvActionIndex(null);
             runAfterSheetDismiss(() => openTafsirForAyah(ayahNum));
           }}
+          {...(tv
+            ? {}
+            : {
+                isSharing:
+                  tvActionIndex != null &&
+                  activeShareKey === `${surahNumber}:${ayahs[tvActionIndex]?.ayah}`,
+                isGesturePending:
+                  tvActionIndex != null &&
+                  gesturePendingKey === `${surahNumber}:${ayahs[tvActionIndex]?.ayah}`,
+                onShare: (target: Ayah) =>
+                  shareAyah(
+                    target.arabic,
+                    showTranslation ? (translation[String(target.ayah)] ?? "") : "",
+                    surahNumber,
+                    target.ayah,
+                    showTransliteration ? transliteration[String(target.ayah)] : undefined,
+                  ),
+                onPractise: isPracticeAvailable()
+                  ? (ayahNum: number) => {
+                      setTvActionIndex(null);
+                      router.push({
+                        pathname: "/quran/practice/session",
+                        params: {
+                          surah: String(surahNumber),
+                          from: String(ayahNum),
+                          to: String(ayahNum),
+                          source: "reader",
+                        },
+                      });
+                    }
+                  : undefined,
+                onCheckRecitation:
+                  isPracticeAvailable() && isPronunciationCheckPlatformAvailable()
+                    ? (ayahNum: number) => {
+                        setTvActionIndex(null);
+                        router.push(
+                          pronunciationCheckHref(surahNumber, ayahNum, ayahNum, "reader"),
+                        );
+                      }
+                    : undefined,
+                onNote: (ayahNum: number, noteId?: string) => {
+                  setTvActionIndex(null);
+                  runAfterSheetDismiss(() =>
+                    openQuranNoteEditor({
+                      mode: "note",
+                      surah: surahNumber,
+                      ayah: ayahNum,
+                      noteId,
+                    }),
+                  );
+                },
+                onHighlight: (ayahNum: number) => {
+                  setTvActionIndex(null);
+                  runAfterSheetDismiss(() =>
+                    openQuranNoteEditor({ mode: "highlight", surah: surahNumber, ayah: ayahNum }),
+                  );
+                },
+              })}
         />
       ) : null}
       <ConfirmDialog
@@ -1962,6 +2038,8 @@ type AyahRowProps = {
   isGesturePending: boolean;
   /** TV only: Select on the card opens the action sheet (inline actions hidden). */
   onOpenActions?: (index: number) => void;
+  /** Phones / narrow web: a few inline actions + "More" (the ayah action sheet). */
+  compactActions?: boolean;
   tvPreferredFocus?: boolean;
 };
 
@@ -1992,6 +2070,7 @@ function ayahRowPropsAreEqual(prev: AyahRowProps, next: AyahRowProps): boolean {
     prev.isSharing === next.isSharing &&
     prev.isGesturePending === next.isGesturePending &&
     prev.onOpenActions === next.onOpenActions &&
+    prev.compactActions === next.compactActions &&
     prev.tvPreferredFocus === next.tvPreferredFocus
   );
 }
@@ -2026,7 +2105,13 @@ function AyahFocusRing({ color }: { color: string }) {
  * TV: Select on an ayah card opens this sheet instead of a row of six inline
  * buttons per ayah, so D-pad Up/Down moves ayah-by-ayah.
  */
-function TvAyahActions({
+/**
+ * The ayah action sheet for the surah reader: TV opens it with Select on a card
+ * (read-only notes, no share); phones / narrow web open it from the row's
+ * "More" button, so the rarer actions (practise, check, highlight, share,
+ * report) live here instead of crowding every ayah card.
+ */
+function AyahMoreActions({
   ayah,
   surahNumber,
   surahName,
@@ -2041,6 +2126,13 @@ function TvAyahActions({
   onBookmark,
   onHifz,
   onTafsir,
+  onShare,
+  isSharing,
+  isGesturePending,
+  onPractise,
+  onCheckRecitation,
+  onNote,
+  onHighlight,
 }: {
   ayah?: Ayah;
   surahNumber: number;
@@ -2056,6 +2148,15 @@ function TvAyahActions({
   onBookmark: (ayah: number) => void;
   onHifz: (ayah: number) => void;
   onTafsir: (ayah: number) => void;
+  /** Omit on TV (no system share sheet). */
+  onShare?: (ayah: Ayah) => void;
+  isSharing?: boolean;
+  isGesturePending?: boolean;
+  onPractise?: (ayah: number) => void;
+  onCheckRecitation?: (ayah: number) => void;
+  /** Omit on TV (notes are read-only there). */
+  onNote?: (ayah: number, noteId?: string) => void;
+  onHighlight?: (ayah: number) => void;
 }) {
   const ayahNum = ayah?.ayah ?? 1;
   const reportRef = useMemo(
@@ -2093,8 +2194,14 @@ function TvAyahActions({
       onBookmark={() => onBookmark(ayahNum)}
       onHifz={() => onHifz(ayahNum)}
       onTafsir={() => onTafsir(ayahNum)}
-      // The sheet hides Share on TV (no system share sheet); keep the prop satisfied.
-      onShare={onClose}
+      // The sheet hides Share on TV (no system share sheet); keep the prop satisfied there.
+      onShare={() => (onShare && ayah ? onShare(ayah) : onClose())}
+      isSharing={isSharing}
+      isGesturePending={isGesturePending}
+      onPractise={onPractise ? () => onPractise(ayahNum) : undefined}
+      onCheckRecitation={onCheckRecitation ? () => onCheckRecitation(ayahNum) : undefined}
+      onNote={onNote ? (noteId) => onNote(ayahNum, noteId) : undefined}
+      onHighlight={onHighlight ? () => onHighlight(ayahNum) : undefined}
       reportRef={reportRef}
       onClose={onClose}
     />
@@ -2120,6 +2227,9 @@ function AyahStudyCard({
   const { ayah } = useQuranPlayback();
   const tracker = useContext(AyahFocusTrackerContext);
   const isActive = ayah === ayahNumber;
+  // NF-3.21 TV note hint: the focused card shows its note inline, read-only.
+  const [tvFocused, setTvFocused] = useState(false);
+  const noteLabel = useNoteHintLabel(surahNumber, ayahNumber);
 
   if (onSelect) {
     const focus = tracker?.current;
@@ -2136,14 +2246,20 @@ function AyahStudyCard({
     return (
       <PressableScale
         accessibilityRole="button"
-        accessibilityLabel={t("quran.ayahRef", { surah: surahNumber, ayah: ayahNumber })}
+        accessibilityLabel={
+          noteLabel
+            ? `${t("quran.ayahRef", { surah: surahNumber, ayah: ayahNumber })}, ${noteLabel}`
+            : t("quran.ayahRef", { surah: surahNumber, ayah: ayahNumber })
+        }
         accessibilityState={{ selected: isActive }}
         onPress={onSelect}
         onFocus={() => {
           if (focus) focus.focused = ayahNumber;
+          if (noteLabel) setTvFocused(true);
         }}
         onBlur={() => {
           if (focus && focus.focused === ayahNumber) focus.focused = null;
+          setTvFocused(false);
         }}
         {...(preferredFocus || follow ? { hasTVPreferredFocus: true } : {})}
         scaleTo={0.99}
@@ -2159,6 +2275,9 @@ function AyahStudyCard({
         ]}
       >
         {children}
+        {tvFocused && noteLabel ? (
+          <TvNoteFocusPreview surah={surahNumber} ayah={ayahNumber} />
+        ) : null}
       </PressableScale>
     );
   }
@@ -2253,6 +2372,7 @@ const AyahRow = memo(function AyahRow({
   isSharing,
   isGesturePending,
   onOpenActions,
+  compactActions = false,
   tvPreferredFocus,
 }: AyahRowProps) {
   const { colors, tokens } = useThemeTokens();
@@ -2332,7 +2452,7 @@ const AyahRow = memo(function AyahRow({
               <ThemedText
                 type="caption"
                 numberOfLines={1}
-                style={{ color: colors.accent, textAlign: "center" }}
+                style={{ color: colors.accentText, textAlign: "center" }}
               >
                 {ayah.ayah}
               </ThemedText>
@@ -2350,47 +2470,11 @@ const AyahRow = memo(function AyahRow({
                 <Pill label="۩" color={colors.accent} background={tokens.accentSoft} />
               ) : null}
               <AyahPlayButton ayahNumber={ayah.ayah} onPlay={handlePlay} />
-              <LabeledIconButton
-                name={
-                  hifzStatus === "memorized"
-                    ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
-                    : hifzStatus === "review"
-                      ? { ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }
-                      : { ios: "book.closed", android: "menu_book", web: "menu_book" }
-                }
-                label={
-                  hifzStatus === "memorized"
-                    ? t("quran.actionMemorized")
-                    : hifzStatus === "review"
-                      ? t("quran.actionReview")
-                      : t("hifz.short")
-                }
-                tintColor={
-                  hifzStatus === "memorized"
-                    ? tokens.status.success.color
-                    : hifzStatus === "review"
-                      ? tokens.status.warning.color
-                      : colors.mutedForeground
-                }
-                labelColor={
-                  hifzStatus === "memorized"
-                    ? tokens.status.success.color
-                    : hifzStatus === "review"
-                      ? tokens.status.warning.color
-                      : colors.mutedForeground
-                }
-                accessibilityLabel={
-                  hifzStatus === "memorized"
-                    ? t("hifz.clear")
-                    : hifzStatus === "review"
-                      ? t("hifz.markMemorized")
-                      : t("hifz.markReview")
-                }
-                accessibilityState={{ selected: !!hifzStatus }}
-                haptic="selection"
-                onPress={handleHifz}
-              />
-              {showPractise ? (
+              {/* Compact rows keep the hifz toggle inline only once it carries a status. */}
+              {!compactActions || hifzStatus ? (
+                <HifzActionButton status={hifzStatus} onPress={handleHifz} />
+              ) : null}
+              {showPractise && !compactActions ? (
                 <LabeledIconButton
                   name={{ ios: "mic", android: "mic_none", web: "mic_none" }}
                   label={t("quranCompanion.entry.practise")}
@@ -2400,7 +2484,7 @@ const AyahRow = memo(function AyahRow({
                   onPress={handlePractise}
                 />
               ) : null}
-              {showCheck ? (
+              {showCheck && !compactActions ? (
                 <LabeledIconButton
                   name={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
                   label={t("quranPronunciation.entry.check")}
@@ -2425,7 +2509,7 @@ const AyahRow = memo(function AyahRow({
                 accessibilityState={{ selected: isBookmarked }}
                 onPress={handleBookmark}
               />
-              <AyahNoteActions surah={surahNumber} ayah={ayah.ayah} />
+              <AyahNoteActions surah={surahNumber} ayah={ayah.ayah} noteOnly={compactActions} />
               <LabeledIconButton
                 name={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
                 label={t("quran.actionTafsir")}
@@ -2434,20 +2518,34 @@ const AyahRow = memo(function AyahRow({
                 accessibilityLabel={t("quran.openTafsir")}
                 onPress={handleTafsir}
               />
-              <LabeledIconButton
-                name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                label={
-                  isGesturePending
-                    ? tTv(t, "share.tapToShare", "share.selectToShare")
-                    : t("quran.actionShare")
-                }
-                tintColor={colors.mutedForeground}
-                accessibilityLabel={t("quran.shareAyah")}
-                loading={isSharing}
-                loadingLabel={t("share.preparing")}
-                onPress={handleShare}
-              />
-              <ContentReportButton contentRef={reportRef} />
+              {compactActions && onOpenActions ? (
+                // Progressive disclosure (HIG / M3): the rest of the ayah's
+                // actions live in one sheet instead of two extra rows of icons.
+                <LabeledIconButton
+                  name={{ ios: "ellipsis.circle", android: "more_horiz", web: "more_horiz" }}
+                  label={t("quran.actionMore")}
+                  tintColor={colors.mutedForeground}
+                  labelColor={colors.mutedForeground}
+                  accessibilityLabel={t("quran.moreActionsA11y", { n: ayah.ayah })}
+                  onPress={handleOpenActions}
+                />
+              ) : null}
+              {compactActions ? null : (
+                <LabeledIconButton
+                  name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                  label={
+                    isGesturePending
+                      ? tTv(t, "share.tapToShare", "share.selectToShare")
+                      : t("quran.actionShare")
+                  }
+                  tintColor={colors.mutedForeground}
+                  accessibilityLabel={t("quran.shareAyah")}
+                  loading={isSharing}
+                  loadingLabel={t("share.preparing")}
+                  onPress={handleShare}
+                />
+              )}
+              {compactActions ? null : <ContentReportButton contentRef={reportRef} />}
             </View>
           )}
         </View>
@@ -2473,7 +2571,7 @@ const AyahRow = memo(function AyahRow({
         {transliteration ? (
           <ThemedText
             type="small"
-            style={[styles.translit, { color: colors.accent, fontSize: translitSize }]}
+            style={[styles.translit, { color: colors.accentText, fontSize: translitSize }]}
           >
             {transliteration}
           </ThemedText>

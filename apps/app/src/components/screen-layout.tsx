@@ -4,7 +4,7 @@ import { NavigationBar } from "expo-navigation-bar";
 import { useFocusEffect, usePathname } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import type { ReactNode, RefObject } from "react";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   KeyboardAvoidingView,
@@ -48,6 +48,23 @@ const XWideMaxContentWidth = 1320;
  * that add a side panel (TOC / related) pass their own `maxContentWidth`.
  */
 const WideProseMaxWidth = 880;
+
+/** What a screen's chrome offers to content that takes over the whole screen. */
+export interface ScreenChrome {
+  title: string;
+  onBack?: () => void;
+}
+
+const ScreenChromeContext = createContext<ScreenChrome | null>(null);
+
+/**
+ * The enclosing `ScreenLayout`'s title and back action, for full-screen
+ * surfaces rendered from inside a screen (e.g. the tasbeeh Focus / Night
+ * surface) so their back control behaves exactly like the header's.
+ */
+export function useScreenChrome(): ScreenChrome | null {
+  return useContext(ScreenChromeContext);
+}
 
 type ScreenLayoutProps = {
   title: string;
@@ -190,6 +207,7 @@ export function ScreenLayout({
   );
 
   const tv = isTV();
+  const chrome = useMemo<ScreenChrome>(() => ({ title, onBack }), [title, onBack]);
 
   // Phone/web: cap the column so it doesn't stretch into a sparse strip.
   // TV: fill the tab pane (minus overscan padding on the content wrapper).
@@ -315,74 +333,76 @@ export function ScreenLayout({
     );
 
   return (
-    <View
-      ref={rootRef}
-      // Web-only: programmatically focusable screen landmark (tabIndex -1).
-      {...(Platform.OS === "web" ? { tabIndex: -1 as const } : {})}
-      // iOS 26 tab-bar minimize-on-scroll: UIKit walks first subviews from the
-      // tab screen root to find the content scroll view — don't flatten.
-      collapsable={false}
-      // Left/right safe area: iOS 27 vertical system rail (iPhone Duo) and notches.
-      style={[
-        styles.root,
-        { backgroundColor: colors.background },
-        tv ? null : horizontalSafeAreaPadding(insets),
-      ]}
-    >
-      {/* Native immersive reading: hide status bar (iOS HIG / Android immersive).
+    <ScreenChromeContext.Provider value={chrome}>
+      <View
+        ref={rootRef}
+        // Web-only: programmatically focusable screen landmark (tabIndex -1).
+        {...(Platform.OS === "web" ? { tabIndex: -1 as const } : {})}
+        // iOS 26 tab-bar minimize-on-scroll: UIKit walks first subviews from the
+        // tab screen root to find the content scroll view — don't flatten.
+        collapsable={false}
+        // Left/right safe area: iOS 27 vertical system rail (iPhone Duo) and notches.
+        style={[
+          styles.root,
+          { backgroundColor: colors.background },
+          tv ? null : horizontalSafeAreaPadding(insets),
+        ]}
+      >
+        {/* Native immersive reading: hide status bar (iOS HIG / Android immersive).
           Android also hides the nav bar; expo-navigation-bar uses transient
           swipe-to-reveal (BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE). */}
-      {Platform.OS !== "web" && !tv ? (
-        <StatusBar
-          hidden={fullscreenActive}
-          hideTransitionAnimation="fade"
-          // iOS 27: immersive reading keeps the system bars out of the side rail so
-          // the page gets the full window width (iPhone Duo).
-          verticalBarBehaviorIOS={fullscreenActive ? "disabled" : "automatic"}
-        />
-      ) : null}
-      {Platform.OS === "android" && !tv ? <NavigationBar hidden={fullscreenActive} /> : null}
-      {tv ? (
-        <TvFocusGuide style={styles.focusGuide} autoFocus>
-          {screenBody}
-        </TvFocusGuide>
-      ) : (
-        screenBody
-      )}
-      {/* Rendered last so it stacks above scrolling content on Android; content
+        {Platform.OS !== "web" && !tv ? (
+          <StatusBar
+            hidden={fullscreenActive}
+            hideTransitionAnimation="fade"
+            // iOS 27: immersive reading keeps the system bars out of the side rail so
+            // the page gets the full window width (iPhone Duo).
+            verticalBarBehaviorIOS={fullscreenActive ? "disabled" : "automatic"}
+          />
+        ) : null}
+        {Platform.OS === "android" && !tv ? <NavigationBar hidden={fullscreenActive} /> : null}
+        {tv ? (
+          <TvFocusGuide style={styles.focusGuide} autoFocus>
+            {screenBody}
+          </TvFocusGuide>
+        ) : (
+          screenBody
+        )}
+        {/* Rendered last so it stacks above scrolling content on Android; content
           scrolls beneath the translucent material for the glass effect. Only the
           header bar itself is measured for the content inset — the accessory
           floats over content below it. */}
-      <View
-        style={[
-          styles.headerFloat,
-          // Immersive: AppHeader (which owns the top safe-area pad) is gone — keep
-          // the floating reading toolbar clear of the notch / camera cutout.
-          !showAppHeader && headerAccessory ? { paddingTop: insets.top } : null,
-        ]}
-        onLayout={(event) => setHeaderHeight(event.nativeEvent.layout.height)}
-      >
-        {showAppHeader ? (
-          <AppHeader
-            title={title}
-            subtitle={subtitle}
-            eyebrow={eyebrow}
-            notificationCount={notificationCount}
-            onNotificationsPress={onNotificationsPress}
-            onBack={onBack}
-            blurTargetRef={Platform.OS === "android" && !tv ? contentBlurTargetRef : undefined}
-            contentMaxWidth={maxWidth}
-          />
-        ) : null}
-        {headerAccessory}
-        {trackProgress && canScroll ? (
-          <ReadingProgressBar
-            progress={progress}
-            accessibilityLabel={t("common.readingProgress")}
-          />
-        ) : null}
+        <View
+          style={[
+            styles.headerFloat,
+            // Immersive: AppHeader (which owns the top safe-area pad) is gone — keep
+            // the floating reading toolbar clear of the notch / camera cutout.
+            !showAppHeader && headerAccessory ? { paddingTop: insets.top } : null,
+          ]}
+          onLayout={(event) => setHeaderHeight(event.nativeEvent.layout.height)}
+        >
+          {showAppHeader ? (
+            <AppHeader
+              title={title}
+              subtitle={subtitle}
+              eyebrow={eyebrow}
+              notificationCount={notificationCount}
+              onNotificationsPress={onNotificationsPress}
+              onBack={onBack}
+              blurTargetRef={Platform.OS === "android" && !tv ? contentBlurTargetRef : undefined}
+              contentMaxWidth={maxWidth}
+            />
+          ) : null}
+          {headerAccessory}
+          {trackProgress && canScroll ? (
+            <ReadingProgressBar
+              progress={progress}
+              accessibilityLabel={t("common.readingProgress")}
+            />
+          ) : null}
+        </View>
       </View>
-    </View>
+    </ScreenChromeContext.Provider>
   );
 }
 

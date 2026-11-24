@@ -13,7 +13,6 @@ import Animated, {
 } from "react-native-reanimated";
 import Svg, { Line, Path } from "react-native-svg";
 
-import { ThemedText } from "@/components/themed-text";
 import { Springs } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -47,6 +46,7 @@ import {
 } from "@/lib/tasbeeh/materials";
 
 import { Bead, beadBox } from "./bead";
+import { CountReadout } from "./round-readout";
 import type { TasbeehFaceProps } from "./types";
 
 /** Bead diameter as a share of the stage. */
@@ -95,7 +95,6 @@ export default function MisbahaFace({
   const recipe = materialFor(misbaha.material, colors.accent);
   const spacerRecipe = spacerMaterialFor(misbaha.spacer, misbaha.material, colors.accent);
   const edge = beadEdgeColor(recipe, colors.card);
-  const imamRecipe = recipe;
 
   // One shared progress (count, animating between integers) + the live drag.
   const progress = useSharedValue(count);
@@ -176,13 +175,7 @@ export default function MisbahaFace({
             drag={drag}
             bead={bead}
             shape={misbaha.shape}
-            recipe={
-              kind === "spacer" && spacerRecipe
-                ? spacerRecipe
-                : kind === "imam"
-                  ? imamRecipe
-                  : recipe
-            }
+            recipe={kind === "spacer" && spacerRecipe ? spacerRecipe : recipe}
             edge={
               kind === "spacer" && spacerRecipe ? beadEdgeColor(spacerRecipe, colors.card) : edge
             }
@@ -204,36 +197,20 @@ export default function MisbahaFace({
       ]}
       pointerEvents="none"
     >
-      {complete ? (
-        <View
-          style={[
-            styles.glow,
-            { backgroundColor: tokens.status.success.soft, borderRadius: Radius.pill },
-          ]}
-        />
-      ) : null}
-      <ThemedText
-        type="display"
-        style={[styles.count, complete && { color: tokens.status.success.color }]}
-      >
-        {count}
-      </ThemedText>
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {target > 0 ? t("tasbeehUi.ofTarget", { target }) : t("tasbeehUi.unlimited")}
-      </ThemedText>
-      {model.loop ? (
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("tasbeehDesigns.misbaha.lap", {
-            lap: lap + 1,
-            done: lapCount,
-            size: model.unitsPerLap,
-          })}
-        </ThemedText>
-      ) : (
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("tasbeehDesigns.misbaha.strandSize", { beads: model.beads })}
-        </ThemedText>
-      )}
+      <CountReadout
+        count={count}
+        target={target}
+        complete={complete}
+        detail={
+          model.loop
+            ? t("tasbeehDesigns.misbaha.lap", {
+                lap: lap + 1,
+                done: lapCount,
+                size: model.unitsPerLap,
+              })
+            : t("tasbeehDesigns.misbaha.strandSize", { beads: model.beads })
+        }
+      />
     </View>
   );
 
@@ -425,7 +402,6 @@ const styles = StyleSheet.create({
   readout: {
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one,
     paddingBottom: Spacing.two,
   },
   readoutArc: {
@@ -441,14 +417,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     start: 0,
     end: 0,
-  },
-  glow: {
-    position: "absolute",
-    width: "80%",
-    aspectRatio: 1,
-    opacity: 0.6,
-  },
-  count: {
-    fontVariant: ["tabular-nums"],
   },
 });

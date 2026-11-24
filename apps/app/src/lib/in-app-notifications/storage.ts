@@ -107,6 +107,19 @@ export async function clearAllInAppNotifications(): Promise<void> {
   await AsyncStorage.removeItem(STORAGE_KEY);
 }
 
+/**
+ * Sign-out: drops the account's server inbox rows (`serverId` set — admin
+ * announcements, circle events) so the next account or guest on this device
+ * never sees them. Device-local reminders/achievements stay.
+ */
+export async function removeServerInAppNotifications(): Promise<void> {
+  const items = await loadInAppNotifications();
+  const local = items.filter((item) => item.serverId == null);
+  if (local.length === items.length) return;
+  if (local.length === 0) await AsyncStorage.removeItem(STORAGE_KEY);
+  else await saveInAppNotifications(local);
+}
+
 export function countUnreadInAppNotifications(items: InAppNotification[]): number {
   return items.filter((item) => item.readAt == null).length;
 }

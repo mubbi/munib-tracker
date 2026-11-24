@@ -97,6 +97,7 @@ export default function CalendarDayScreen() {
             status={status}
             notes={notes}
             jama={jama}
+            atMasjid={records.atMasjid}
             combined={records.combined}
             zikrCounts={zikrCounts}
             excusedReason={excusedReason}

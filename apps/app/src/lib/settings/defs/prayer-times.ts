@@ -27,6 +27,7 @@ import { NO_VALUE, updatePrefs } from "./helpers";
 
 const LocationPicker = editor("LocationPicker");
 const AsrMismatchHint = editor("AsrMismatchHint");
+const MethodSuggestionHint = editor("MethodSuggestionHint");
 
 const G = "prayer-times" as const;
 const HOME_MASJID = "settingsPanel.section.homeMasjid";
@@ -80,7 +81,7 @@ export const PRAYER_TIMES_SETTINGS: AnySettingDef[] = [
     // Never "reset" someone back to Makkah.
     resettable: false,
     summary: (v) => v,
-    shortcuts: ["/", "/qibla", "/(onboarding)/intro-location"],
+    shortcuts: ["/", "/qibla", "/(onboarding)/setup"],
     fields: [
       "location.latitude",
       "location.longitude",
@@ -89,6 +90,7 @@ export const PRAYER_TIMES_SETTINGS: AnySettingDef[] = [
       "location.country",
       "location.source",
       "location.timeZone",
+      "location.countryCode",
     ],
   }),
   defineSetting<CalculationMethodKey>({
@@ -117,6 +119,19 @@ export const PRAYER_TIMES_SETTINGS: AnySettingDef[] = [
     summary: (v, t) => t(`location.methods.${v}`),
     sideEffects: ["refresh-prayer-times", "reschedule-reminders"],
     fields: ["location.method"],
+  }),
+  // One-tap suggestion of the usual method for the user's country, shown only
+  // while it differs from the current method (never applied automatically).
+  defineSetting<null>({
+    ...NO_VALUE,
+    id: "prayer-times.methodSuggestion",
+    group: G,
+    section: "location.calculationTitle",
+    titleKey: "prayerMethodSuggestion.searchTitle",
+    keywordsKey: "settingsPanel.kw.calculation",
+    scope: "device",
+    control: { kind: "custom", Component: MethodSuggestionHint },
+    shortcuts: ["/(onboarding)/setup"],
   }),
   defineSetting<MadhabKey>({
     id: "prayer-times.asr",
@@ -160,9 +175,10 @@ export const PRAYER_TIMES_SETTINGS: AnySettingDef[] = [
     subtitleKey: "prayerTuning.highLatHint",
     keywordsKey: "settingsPanel.kw.highLatitude",
     scope: "device",
+    // Rarely changed, long descriptions: a row with the current rule opens the list.
     control: {
       kind: "choice",
-      presentation: "list",
+      presentation: "sheet",
       options: HIGH_LATITUDE_RULE_KEYS.map((rule) => ({
         value: rule,
         labelKey: `prayerTuning.rule.${rule}`,

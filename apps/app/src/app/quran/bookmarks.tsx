@@ -100,7 +100,7 @@ export default function QuranBookmarksScreen() {
                     >
                       <View style={styles.meta}>
                         <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
-                          <ThemedText type="caption" style={{ color: colors.accent }}>
+                          <ThemedText type="caption" style={{ color: colors.accentText }}>
                             {bm.surah}:{bm.ayah} · {t("quran.pageN", { n: page })}
                           </ThemedText>
                         </View>
@@ -141,7 +141,7 @@ export default function QuranBookmarksScreen() {
                       style={styles.meta}
                     >
                       <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
-                        <ThemedText type="caption" style={{ color: colors.accent }}>
+                        <ThemedText type="caption" style={{ color: colors.accentText }}>
                           {bm.surah}:{bm.ayah} · {t("quran.pageN", { n: page })}
                         </ThemedText>
                       </View>

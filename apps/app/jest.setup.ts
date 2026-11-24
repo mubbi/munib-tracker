@@ -2,24 +2,15 @@ import type { ReactNode } from "react";
 
 process.env.RNTL_SKIP_DEPS_CHECK = "1";
 
-// Expo installs `fetch` as a lazy global getter backed by its "winter" runtime.
-// Once Jest tears down a suite's module registry, touching that getter throws
-// ("Cannot read properties of undefined (reading 'get')" from
-// ExpoModulesCoreJSLogger). Background store work started during a test
-// (weather sync, location refresh) can outlive the test and trip it, surfacing
-// as "Cannot log after tests are done" and flipping the run's exit code even
-// though every test passed. Install a benign default so that never happens;
-// tests that assert on the network still override `global.fetch` themselves.
-Object.defineProperty(globalThis, "fetch", {
-  configurable: true,
-  writable: true,
-  value: jest.fn(async () => ({
-    ok: false,
-    status: 503,
-    json: async () => ({}),
-    text: async () => "",
-  })),
-});
+// No test reaches a real network: `fetch` defaults to a rejecting `jest.fn`
+// (which also replaces Expo's lazy `fetch` getter — touching it after a suite
+// tears down throws), WebSocket/XHR throw, Node sockets refuse non-loopback
+// hosts, and any attempt fails the test that made it. Mock the boundary with
+// `mockFetch` / `mockFetchByUrl` (`@/test-support/fetch`) or a module mock.
+// See `src/test-support/no-network.ts`.
+(
+  require("./src/test-support/no-network") as typeof import("./src/test-support/no-network")
+).installNoNetworkGuard();
 
 // `runWhenIdle` polyfills `requestIdleCallback` with `setTimeout`, which defers
 // work off the current tick. In tests that lets deferred state updates (e.g. the
@@ -376,63 +367,130 @@ jest.mock("expo-location", () => ({
     timestamp: Date.now(),
   })),
   getLastKnownPositionAsync: jest.fn(async () => null),
-  reverseGeocodeAsync: jest.fn(async () => []),
+  // One empty OS-geocoder hit: `lib/location` stops there instead of falling
+  // through to the BigDataCloud HTTP geocoder (the silent GPS refresh runs in
+  // every suite that loads the location store). Same {} place, no network.
+  reverseGeocodeAsync: jest.fn(async () => [{ city: null, country: null }]),
   Accuracy: { Lowest: 1, Low: 2, Balanced: 3, High: 4, Highest: 5, BestForNavigation: 6 },
 }));
 
 // Initialise i18n (English) so `t()` returns real strings in component tests.
 require("./src/i18n");
+// The preferences store (and its `@/db` / haptics graph) is part of the
+// documented preload contract (test-support/README "Gotchas"): suites that
+// partially mock `@/db` or `@/lib/haptics` rely on it binding the real ones.
+require("./src/stores/preferences-store");
 
-// Warm async content caches via sync `require` loaders. Jest cannot use
-// production `import()` without --experimental-vm-modules; never `require`
-// sync-engine here (it locks `@/db` → `location` before suite mocks apply).
-(() => {
-  const { __setSearchCorporaForTests, __setSearchGuideGroupsForTests, __setQuranModuleForTests } =
-    require("./src/lib/search") as typeof import("./src/lib/search");
-  const { __setZikrItemsForTests } = require("./src/lib/zikr") as typeof import("./src/lib/zikr");
-  const { __setKnowledgeCardNamesForTests, __setKnowledgeCardQuranForTests } =
-    require("./src/lib/knowledge-card") as typeof import("./src/lib/knowledge-card");
-  const { __setBundledHadithForTests } =
-    require("./src/lib/hadith-bundled") as typeof import("./src/lib/hadith-bundled");
-  const { __setContentLoaderCachesForTests } =
-    require("./src/lib/content-loaders") as typeof import("./src/lib/content-loaders");
+// Warm async content caches via sync `require` loaders — lazily. Jest cannot use
+// production `import()` without --experimental-vm-modules, so these modules get
+// their corpora injected through `__set*ForTests`. Each one is wrapped in a mock
+// factory that returns the *real* module, warmed, the first time a suite
+// requires it: suites that never touch search/zikr/hadith content skip the
+// ~0.5 s corpus + guide graph load, and `jest.resetModules()` re-warms instead of
+// starting cold. A suite's own `jest.mock()` of one of these modules still
+// replaces the factory. Caveat: inside `jest.isolateModules` Jest reuses the
+// outer registry's mocked instance — `jest.requireActual()` the module there for
+// a fresh, unwarmed copy (see knowledge-card.test.ts `withPool`).
+// Never `require` sync-engine here (it locks `@/db` → `location` before suite
+// mocks apply), nor `app/(tabs)/index` (home tests inject below-fold themselves).
+function mockWarmedContentModule<T>(path: string, warm: (actual: T) => void): () => T {
+  let warming = false;
+  return () => {
+    // Re-entry through an import cycle gets the (partially initialised) real module.
+    if (warming) return jest.requireActual<T>(path);
+    warming = true;
+    try {
+      const actual = jest.requireActual<T>(path);
+      warm(actual);
+      return actual;
+    } finally {
+      warming = false;
+    }
+  };
+}
+
+function mockTestCorpora() {
   const corpora =
     require("./src/lib/search-corpora-test-loader") as typeof import("./src/lib/search-corpora-test-loader");
-  const { loadNawawiSyncForTests } =
-    require("./src/lib/hadith-nawawi-test-loader") as typeof import("./src/lib/hadith-nawawi-test-loader");
-  const { loadRiyadSyncForTests } =
-    require("./src/lib/hadith-riyad-test-loader") as typeof import("./src/lib/hadith-riyad-test-loader");
-  const { loadQuranSyncForTests } =
-    require("./src/lib/knowledge-card-quran-test-loader") as typeof import("./src/lib/knowledge-card-quran-test-loader");
-  const { searchGuideGroups } =
-    require("./src/lib/search-guides") as typeof import("./src/lib/search-guides");
+  return {
+    duas: corpora.loadDuaItemsSyncForTests(),
+    zikr: corpora.loadZikrItemsSyncForTests(),
+    duroods: corpora.loadDuroodItemsSyncForTests(),
+    names: corpora.loadNamesSyncForTests(),
+  };
+}
 
-  const duas = corpora.loadDuaItemsSyncForTests();
-  const zikr = corpora.loadZikrItemsSyncForTests();
-  const duroods = corpora.loadDuroodItemsSyncForTests();
-  const names = corpora.loadNamesSyncForTests();
-  const quran = loadQuranSyncForTests();
+function mockTestQuran() {
+  return (
+    require("./src/lib/knowledge-card-quran-test-loader") as typeof import("./src/lib/knowledge-card-quran-test-loader")
+  ).loadQuranSyncForTests();
+}
 
-  __setContentLoaderCachesForTests({ duas, zikr, duroods, names });
-  __setSearchCorporaForTests({ duas, zikr, duroods, names });
-  __setZikrItemsForTests(zikr);
-  __setKnowledgeCardNamesForTests(names);
-  __setKnowledgeCardQuranForTests(quran);
-  __setQuranModuleForTests(quran);
-  __setBundledHadithForTests("nawawi40", loadNawawiSyncForTests());
-  __setBundledHadithForTests("riyad_assalihin", loadRiyadSyncForTests());
-  __setSearchGuideGroupsForTests(searchGuideGroups);
+jest.mock("./src/lib/content-loaders", () =>
+  mockWarmedContentModule<typeof import("./src/lib/content-loaders")>(
+    "./src/lib/content-loaders",
+    (m) => m.__setContentLoaderCachesForTests(mockTestCorpora()),
+  )(),
+);
 
-  const { __setLightSearchWithGuidesForTests } =
-    require("./src/lib/run-search-light-with-guides") as typeof import("./src/lib/run-search-light-with-guides");
-  const { searchLightWithGuides } =
-    require("./src/lib/search-with-guides") as typeof import("./src/lib/search-with-guides");
-  __setLightSearchWithGuidesForTests(searchLightWithGuides);
+jest.mock("./src/lib/zikr", () =>
+  mockWarmedContentModule<typeof import("./src/lib/zikr")>("./src/lib/zikr", (m) =>
+    m.__setZikrItemsForTests(mockTestCorpora().zikr),
+  )(),
+);
 
-  // Do not require `app/(tabs)/index` here — it pulls the home graph and
-  // poisons suite-level mocks (notifications, Platform, RTL). Home tests inject
-  // below-fold via `__setHomeBelowFoldForTests` themselves.
-})();
+jest.mock("./src/lib/hadith-bundled", () =>
+  mockWarmedContentModule<typeof import("./src/lib/hadith-bundled")>(
+    "./src/lib/hadith-bundled",
+    (m) => {
+      m.__setBundledHadithForTests(
+        "nawawi40",
+        (
+          require("./src/lib/hadith-nawawi-test-loader") as typeof import("./src/lib/hadith-nawawi-test-loader")
+        ).loadNawawiSyncForTests(),
+      );
+      m.__setBundledHadithForTests(
+        "riyad_assalihin",
+        (
+          require("./src/lib/hadith-riyad-test-loader") as typeof import("./src/lib/hadith-riyad-test-loader")
+        ).loadRiyadSyncForTests(),
+      );
+    },
+  )(),
+);
+
+jest.mock("./src/lib/knowledge-card", () =>
+  mockWarmedContentModule<typeof import("./src/lib/knowledge-card")>(
+    "./src/lib/knowledge-card",
+    (m) => {
+      m.__setKnowledgeCardNamesForTests(mockTestCorpora().names);
+      m.__setKnowledgeCardQuranForTests(mockTestQuran());
+    },
+  )(),
+);
+
+jest.mock("./src/lib/search", () =>
+  mockWarmedContentModule<typeof import("./src/lib/search")>("./src/lib/search", (m) => {
+    const { duas, zikr, duroods, names } = mockTestCorpora();
+    m.__setSearchCorporaForTests({ duas, zikr, duroods, names });
+    m.__setQuranModuleForTests(mockTestQuran());
+    m.__setSearchGuideGroupsForTests(
+      (require("./src/lib/search-guides") as typeof import("./src/lib/search-guides"))
+        .searchGuideGroups,
+    );
+  })(),
+);
+
+jest.mock("./src/lib/run-search-light-with-guides", () =>
+  mockWarmedContentModule<typeof import("./src/lib/run-search-light-with-guides")>(
+    "./src/lib/run-search-light-with-guides",
+    (m) =>
+      m.__setLightSearchWithGuidesForTests(
+        (require("./src/lib/search-with-guides") as typeof import("./src/lib/search-with-guides"))
+          .searchLightWithGuides,
+      ),
+  )(),
+);
 
 // Foldable hinge (iPhone Duo / Android foldables) is native-only: no hinge in tests.
 jest.mock("expo-hinge", () => ({
@@ -441,3 +499,8 @@ jest.mock("expo-hinge", () => ({
   useHinge: () => null,
   addHingeListener: () => ({ remove: () => {} }),
 }));
+
+// `expo-audio` touches native classes at import time and throws under Jest; most
+// suites only reach it transitively (audio-player-provider → Learn primitives).
+// Suites that drive playback still `jest.mock("expo-audio", …)` their own fake.
+jest.mock("expo-audio", () => require("./src/test-support/mocks/expo-audio").expoAudioMock);

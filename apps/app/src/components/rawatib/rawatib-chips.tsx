@@ -3,7 +3,7 @@ import type { PrayerStatus, RawatibId, RawatibPreset } from "@munib-tracker/shar
 import { hasRakahChoice, rakahsForLog } from "@munib-tracker/shared/utils";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -15,6 +15,9 @@ import { isRawatibExtra, rawatibChipKey } from "@/lib/rawatib";
 
 const CHECK = { ios: "checkmark", android: "check", web: "check" } as const;
 const PLUS = { ios: "plus", android: "add", web: "add" } as const;
+/** Visual chip height stays compact; the touch target is padded to 44pt (HIG / M3). */
+const CHIP_HEIGHT = 32;
+const CHIP_HIT_SLOP = { top: 6, bottom: 6, left: 2, right: 2 } as const;
 
 export type RawatibChipRowProps = {
   ids: readonly RawatibId[];
@@ -27,8 +30,9 @@ export type RawatibChipRowProps = {
   late?: Record<string, boolean | undefined>;
   onToggle: (id: RawatibId, completed: boolean) => void;
   /**
-   * Opens the 2 | 4 rak'at sheet for a variable row: long-press on touch; on TV a
-   * separate D-pad-focusable "2 or 4" button next to the chip.
+   * Opens the 2 | 4 rak'at sheet for a variable row: long-press (and a screen-reader
+   * action) on touch; on TV and web — where long-press isn't a convention — a
+   * separate focusable "2 or 4" button next to the chip.
    */
   onChooseRakahs?: (id: RawatibId) => void;
   testID?: string;
@@ -64,7 +68,9 @@ export function RawatibChipRow({
         const name = t(`prayers.${id}`);
         const dim = !done && beforeFardIds?.has(id);
         const choosable = onChooseRakahs != null && hasRakahChoice(id);
-        const canChoose = !tv && choosable;
+        // Touch phones keep long-press; TV (D-pad) and web (mouse) get a visible button.
+        const chooseButton = choosable && (tv || Platform.OS === "web");
+        const canChoose = choosable && !chooseButton;
         const isLate = done && late?.[id] === true;
         const tint = done ? tokens.status.success.color : colors.mutedForeground;
         return (
@@ -89,6 +95,19 @@ export function RawatibChipRow({
               }
               onPress={() => onToggle(id, !done)}
               onLongPress={canChoose ? () => onChooseRakahs?.(id) : undefined}
+              accessibilityActions={
+                canChoose
+                  ? [{ name: "longpress", label: t("rawatib.chip.chooseRakahsA11y", { name }) }]
+                  : undefined
+              }
+              onAccessibilityAction={
+                canChoose
+                  ? (event) => {
+                      if (event.nativeEvent.actionName === "longpress") onChooseRakahs?.(id);
+                    }
+                  : undefined
+              }
+              hitSlop={tv ? undefined : CHIP_HIT_SLOP}
               style={[
                 styles.chip,
                 tv ? styles.chipTv : null,
@@ -117,7 +136,7 @@ export function RawatibChipRow({
                 </ThemedText>
               ) : null}
             </PressableScale>
-            {tv && choosable ? (
+            {chooseButton ? (
               <PressableScale
                 testID={`rawatib-rakahs-${id}`}
                 haptic="selection"
@@ -125,9 +144,10 @@ export function RawatibChipRow({
                 accessibilityRole="button"
                 accessibilityLabel={t("rawatib.chip.chooseRakahsA11y", { name })}
                 onPress={() => onChooseRakahs?.(id)}
+                hitSlop={tv ? undefined : CHIP_HIT_SLOP}
                 style={[
                   styles.chip,
-                  styles.chipTv,
+                  tv ? styles.chipTv : null,
                   { backgroundColor: colors.muted, borderColor: colors.border },
                 ]}
               >
@@ -163,7 +183,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.two + 2,
     borderRadius: Radius.pill,
     borderWidth: StyleSheet.hairlineWidth,
-    minHeight: 32,
+    minHeight: CHIP_HEIGHT,
   },
   chipTv: {
     minHeight: TvLayout.minFocusTarget,

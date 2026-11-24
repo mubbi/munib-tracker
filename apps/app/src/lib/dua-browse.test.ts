@@ -5,13 +5,16 @@ import {
   DUA_CATEGORY_GROUPS,
   DUA_CATEGORY_ICONS,
   DUA_CATEGORY_IDS,
+  DUA_TOPICS,
   duaMomentFor,
   duaNeighbors,
   duaOccasion,
   duaOfTheDay,
+  filterDuasByTopic,
   formatDuaHeading,
   groupDuasByOccasion,
   isDuaCategoryId,
+  isDuaTopicId,
   shortOccasionLabel,
 } from "./dua-browse";
 
@@ -154,5 +157,27 @@ describe("suggestions", () => {
     expect(duaOfTheDay(DUA_ITEMS, night)?.id).toBe(pick?.id);
     expect(duaOfTheDay(DUA_ITEMS, new Date(2026, 10, 24, 6))?.id).not.toBe(pick?.id);
     expect(duaOfTheDay([], morning)).toBeUndefined();
+  });
+});
+
+describe("dua topics", () => {
+  it("every topic id exists in the corpus, inside the topic's category", () => {
+    const byId = new Map(DUA_ITEMS.map((item) => [item.id, item]));
+    for (const topic of Object.values(DUA_TOPICS)) {
+      for (const id of topic.ids) expect(byId.get(id)?.categoryId).toBe(topic.categoryId);
+    }
+  });
+
+  it("deceased keeps the funeral and burial duas, not condolence or other illness duas", () => {
+    const titles = filterDuasByTopic(DUA_ITEMS, "deceased").map((item) => item.title);
+    expect(titles).toHaveLength(DUA_TOPICS.deceased.ids.length);
+    expect(titles.every((title) => /deceased|grave/i.test(title))).toBe(true);
+    expect(titles).not.toContain("Condolence");
+  });
+
+  it("recognises only known topic ids", () => {
+    expect(isDuaTopicId("deceased")).toBe(true);
+    expect(isDuaTopicId("toString")).toBe(false);
+    expect(isDuaTopicId(undefined)).toBe(false);
   });
 });

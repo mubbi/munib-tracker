@@ -1,6 +1,6 @@
 import type { UmrahRoundKind } from "@munib-tracker/shared/types";
 import { saiDirection, UMRAH_ROUNDS } from "@munib-tracker/shared/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type AccessibilityActionEvent, AccessibilityInfo, StyleSheet, View } from "react-native";
 
@@ -20,6 +20,17 @@ const UNDO_ICON = {
 } as const;
 
 const ROUNDS = Array.from({ length: UMRAH_ROUNDS }, (_, index) => index + 1);
+
+/**
+ * A second count this soon after the last one is treated as an accidental
+ * double tap (a jostled phone in the crowd) — a real circuit or course takes
+ * minutes, so nothing legitimate is ever dropped.
+ */
+export const ROUND_REPEAT_GUARD_MS = 1500;
+
+export function isAccidentalRepeat(lastAt: number | null, now: number): boolean {
+  return lastAt != null && now - lastAt >= 0 && now - lastAt < ROUND_REPEAT_GUARD_MS;
+}
 
 /** "m:ss" for the per-lap timer. */
 export function formatLapDuration(ms: number): string {
@@ -65,8 +76,12 @@ export function RoundCounter({
   const forwardIcon = useArrowForward();
   const done = laps >= UMRAH_ROUNDS;
 
+  const lastCountAt = useRef<number | null>(null);
   const countOnce = () => {
     if (readOnly || done) return;
+    const at = Date.now();
+    if (isAccidentalRepeat(lastCountAt.current, at)) return;
+    lastCountAt.current = at;
     const next = laps + 1;
     triggerHaptic(next >= UMRAH_ROUNDS ? "success" : "medium");
     AccessibilityInfo.announceForAccessibility?.(
@@ -76,6 +91,8 @@ export function RoundCounter({
   };
   const undo = () => {
     if (readOnly || laps <= 0) return;
+    // Undo re-opens counting straight away (the pilgrim is correcting a count).
+    lastCountAt.current = null;
     triggerHaptic("light");
     AccessibilityInfo.announceForAccessibility?.(
       t(`umrahMode.counter.undone.${kind}`, { number: laps }),

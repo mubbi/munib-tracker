@@ -19,6 +19,7 @@ import { EvidenceCard, type EvidenceItem } from "@/components/records/evidence-c
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stepper } from "@/components/ui/stepper";
@@ -78,6 +79,7 @@ export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: bool
   const [currency, setCurrency] = useState(defaultCurrencyCode);
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [debtsNote, setDebtsNote] = useState<string | null>(null);
+  const [estateOpen, setEstateOpen] = useState(false);
   const [browse, setBrowse] = useState<MadhhabId>(school ?? "hanafi");
   const [showCompare, setShowCompare] = useState(school == null);
   const { requireVaultUnlock, unlockPrompt } = useRequireVaultUnlock();
@@ -250,57 +252,61 @@ export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: bool
       </Card>
 
       {!tv ? (
+        // Optional: collapsed until wanted, so "Show shares" lands next to the results.
         <Card padding="three">
-          <SectionHeader
+          <CollapsibleSection
             title={t("mirath.estate.title")}
             icon={{ ios: "banknote.fill", android: "payments", web: "payments" }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("mirath.estate.hint")}
-          </ThemedText>
-          <JannahNavRow
-            icon={{ ios: "coloncurrencysign.circle", android: "payments", web: "payments" }}
-            title={t("mirath.estate.currency")}
-            subtitle={currency}
-            onPress={() => setCurrencyOpen(true)}
-          />
-          <View key={estateKey} style={styles.gap}>
-            <AmountInput
-              label={t("mirath.estate.gross")}
-              value={estate.gross}
-              onChange={(gross) => setEstate((e) => ({ ...e, gross }))}
-            />
-            <AmountInput
-              label={t("mirath.estate.funeral")}
-              value={estate.funeral}
-              onChange={(funeral) => setEstate((e) => ({ ...e, funeral }))}
-            />
-            <AmountInput
-              label={t("mirath.estate.debts")}
-              hint={t("mirath.estate.debtsHint")}
-              value={estate.debts}
-              onChange={(debts) => setEstate((e) => ({ ...e, debts }))}
-            />
-            <AmountInput
-              label={t("mirath.estate.bequests")}
-              hint={t("mirath.estate.bequestsHint")}
-              value={estate.bequests}
-              onChange={(bequests) => setEstate((e) => ({ ...e, bequests }))}
-            />
-          </View>
-          <View style={styles.nav}>
-            <Button
-              label={t("mirath.estate.useDebts")}
-              variant="ghost"
-              size="sm"
-              onPress={() => void prefillDebts()}
-            />
-          </View>
-          {debtsNote ? (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {debtsNote}
+            open={estateOpen}
+            onOpenChange={setEstateOpen}
+          >
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+              {t("mirath.estate.hint")}
             </ThemedText>
-          ) : null}
+            <JannahNavRow
+              icon={{ ios: "coloncurrencysign.circle", android: "payments", web: "payments" }}
+              title={t("mirath.estate.currency")}
+              subtitle={currency}
+              onPress={() => setCurrencyOpen(true)}
+            />
+            <View key={estateKey} style={styles.gap}>
+              <AmountInput
+                label={t("mirath.estate.gross")}
+                value={estate.gross}
+                onChange={(gross) => setEstate((e) => ({ ...e, gross }))}
+              />
+              <AmountInput
+                label={t("mirath.estate.funeral")}
+                value={estate.funeral}
+                onChange={(funeral) => setEstate((e) => ({ ...e, funeral }))}
+              />
+              <AmountInput
+                label={t("mirath.estate.debts")}
+                hint={t("mirath.estate.debtsHint")}
+                value={estate.debts}
+                onChange={(debts) => setEstate((e) => ({ ...e, debts }))}
+              />
+              <AmountInput
+                label={t("mirath.estate.bequests")}
+                hint={t("mirath.estate.bequestsHint")}
+                value={estate.bequests}
+                onChange={(bequests) => setEstate((e) => ({ ...e, bequests }))}
+              />
+            </View>
+            <View style={styles.nav}>
+              <Button
+                label={t("mirath.estate.useDebts")}
+                variant="ghost"
+                size="sm"
+                onPress={() => void prefillDebts()}
+              />
+            </View>
+            {debtsNote ? (
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {debtsNote}
+              </ThemedText>
+            ) : null}
+          </CollapsibleSection>
         </Card>
       ) : null}
 
@@ -354,16 +360,18 @@ export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: bool
         </>
       ) : null}
 
+      {/* Advanced fiqh detail: collapsed so the calculator stays the focus. */}
       <Card padding="three">
-        <SectionHeader
+        <CollapsibleSection
           title={t("mirath.differences.title")}
           icon={{ ios: "book.closed", android: "menu_book", web: "menu_book" }}
-        />
-        <View style={styles.gap}>
-          {MIRATH_DIFFERENCES.map((id) => (
-            <MadhhabNote key={id} id={id} />
-          ))}
-        </View>
+        >
+          <View style={[styles.gap, styles.block]}>
+            {MIRATH_DIFFERENCES.map((id) => (
+              <MadhhabNote key={id} id={id} />
+            ))}
+          </View>
+        </CollapsibleSection>
       </Card>
 
       <Card padding="three">

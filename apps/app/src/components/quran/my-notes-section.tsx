@@ -1,3 +1,4 @@
+import { formatNoteRef } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -29,7 +30,7 @@ export function MyNotesSection() {
             key={note.id}
             haptic="light"
             accessibilityRole="button"
-            accessibilityLabel={t("quranNotes.goToAyah", { ref: `${note.surah}:${note.ayah}` })}
+            accessibilityLabel={t("quranNotes.goToAyah", { ref: formatNoteRef(note) })}
             onPress={() =>
               router.push({
                 pathname: "/quran/[surah]",

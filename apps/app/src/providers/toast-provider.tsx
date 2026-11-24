@@ -26,18 +26,33 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
+import { isTV } from "@/lib/platform/is-tv";
 
 export type ToastType = "success" | "error" | "info" | "warning";
+
+/** One optional inline action (e.g. "Undo"); pressing it runs `onPress` and dismisses the toast. */
+export interface ToastAction {
+  label: string;
+  onPress: () => void;
+}
+
+export interface ToastOptions {
+  type?: ToastType;
+  subtitle?: string;
+  /** Not shown on TV (toasts aren't D-pad focusable there); the toast still appears. */
+  action?: ToastAction;
+}
 
 interface ToastItem {
   id: string;
   type: ToastType;
   title: string;
   subtitle?: string;
+  action?: ToastAction;
 }
 
 export interface ToastContextValue {
-  show: (title: string, options?: { type?: ToastType; subtitle?: string }) => void;
+  show: (title: string, options?: ToastOptions) => void;
   success: (title: string, subtitle?: string) => void;
   error: (title: string, subtitle?: string) => void;
   info: (title: string, subtitle?: string) => void;
@@ -53,6 +68,8 @@ const ToastContext = createContext<ToastContextValue | null>(null);
 const ToastControllerContext = createContext<ToastController | null>(null);
 
 const TOAST_DURATION_MS = 3500;
+/** Toasts with an action stay longer so there is time to reach and press it (WCAG 2.2.1). */
+export const TOAST_ACTION_DURATION_MS = 7000;
 const TOAST_TOP_WEB = 72;
 /** Upward drag distance (px) before a toast dismisses. */
 const SWIPE_DISMISS_PX = 40;
@@ -80,7 +97,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const show = useCallback(
-    (title: string, options?: { type?: ToastType; subtitle?: string }) => {
+    (title: string, options?: ToastOptions) => {
       const id = uid();
       const type: ToastType = options?.type ?? "info";
       const hapticMap: Record<ToastType, Parameters<typeof triggerHaptic>[0]> = {
@@ -90,8 +107,15 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         info: "light",
       };
       triggerHaptic(hapticMap[type]);
-      setToasts((prev) => [...prev.slice(-2), { id, type, title, subtitle: options?.subtitle }]);
-      timers.current[id] = setTimeout(() => dismiss(id), TOAST_DURATION_MS);
+      const action = isTV() ? undefined : options?.action;
+      setToasts((prev) => [
+        ...prev.slice(-2),
+        { id, type, title, subtitle: options?.subtitle, ...(action ? { action } : {}) },
+      ]);
+      timers.current[id] = setTimeout(
+        () => dismiss(id),
+        action ? TOAST_ACTION_DURATION_MS : TOAST_DURATION_MS,
+      );
     },
     [dismiss],
   );
@@ -233,6 +257,22 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
             </ThemedText>
           ) : null}
         </View>
+        {item.action ? (
+          <PressableScale
+            onPress={() => {
+              item.action?.onPress();
+              onDismiss();
+            }}
+            accessibilityRole="button"
+            accessibilityLabel={item.action.label}
+            hitSlop={8}
+            style={styles.action}
+          >
+            <ThemedText type="smallBold" style={{ color: palette.text }}>
+              {item.action.label}
+            </ThemedText>
+          </PressableScale>
+        ) : null}
         <PressableScale onPress={onDismiss} accessibilityLabel={t("common.dismiss")}>
           <ThemedText type="caption" themeColor="mutedForeground">
             ✕
@@ -250,6 +290,7 @@ export function useToast(): ToastContextValue {
 }
 
 const styles = StyleSheet.create({
+  action: { minHeight: 44, justifyContent: "center", paddingHorizontal: Spacing.two },
   container: {
     position: "absolute",
     left: 0,

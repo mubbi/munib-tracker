@@ -46,7 +46,9 @@ describe("Voluntary fasting hub", () => {
         ).toBeTruthy(),
       { timeout: 15_000 },
     );
-    // Once in the day sheet, once in the "Days not to fast" card.
+    // In the day sheet; the "Days not to fast" reference card stays collapsed until opened.
+    expect(screen.getAllByText("Fasting on the day of Eid is not allowed.")).toHaveLength(1);
+    await fireEvent.press(screen.getByRole("button", { name: "Days not to fast" }));
     expect(screen.getAllByText("Fasting on the day of Eid is not allowed.")).toHaveLength(2);
     fireEvent.press(screen.getByLabelText("Fasted"));
     expect(voluntaryFastingStore.getState().entries[eid]).toBeUndefined();

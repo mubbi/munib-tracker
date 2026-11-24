@@ -1,16 +1,10 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Svg, { Circle, G, Line, Path, Rect } from "react-native-svg";
 
 import { ThemedText } from "@/components/themed-text";
-import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle } from "@/lib/chart-rtl";
@@ -32,6 +26,7 @@ import { roundSizeFor, roundState } from "@/lib/tasbeeh/rounds";
 
 import { RoundReadout } from "./round-readout";
 import type { TasbeehFaceProps } from "./types";
+import { useForwardStep } from "./use-forward-step";
 
 /** Finger stroke width in hand units. */
 const STROKE = 1.6;
@@ -65,18 +60,7 @@ export default function FingersFace({
   const handHeight = HAND_BOX.height * scale;
 
   // A soft ring spreads from the spot that was just marked (not under reduced motion).
-  const pulse = useSharedValue(1);
-  const prevCount = useRef(count);
-  useEffect(() => {
-    const delta = count - prevCount.current;
-    prevCount.current = count;
-    if (delta !== 1 || reduceMotion || preview) {
-      pulse.value = 1;
-      return;
-    }
-    pulse.value = 0;
-    pulse.value = withTiming(1, { duration: Durations.slow, easing: Easing.out(Easing.quad) });
-  }, [count, pulse, reduceMotion, preview]);
+  const pulse = useForwardStep(count, { animate: !reduceMotion });
   const pulseStyle = useAnimatedStyle(() => ({
     opacity: (1 - pulse.value) * 0.6,
     transform: [{ scale: 0.6 + pulse.value * 1.2 }],
@@ -125,7 +109,7 @@ export default function FingersFace({
                     />
                   ))}
                 </Svg>
-                {last && !preview ? (
+                {last ? (
                   <Animated.View
                     style={[
                       styles.pulse,

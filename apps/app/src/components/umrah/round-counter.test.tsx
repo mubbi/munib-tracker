@@ -1,6 +1,11 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
-import { formatLapDuration, RoundCounter } from "@/components/umrah/round-counter";
+import {
+  formatLapDuration,
+  isAccidentalRepeat,
+  ROUND_REPEAT_GUARD_MS,
+  RoundCounter,
+} from "@/components/umrah/round-counter";
 import i18n from "@/i18n";
 import { triggerHaptic } from "@/lib/haptics";
 import {
@@ -43,6 +48,23 @@ describe("RoundCounter", () => {
     fireEvent.press(screen.getByRole("button", { name: tile("tawaf", 3) }));
     expect(onCount).toHaveBeenCalledTimes(1);
     expect(triggerHaptic).toHaveBeenCalledWith("medium");
+  });
+
+  it("ignores an accidental double tap on the big button", async () => {
+    const { onCount, view } = renderCounter({ laps: 2 });
+    await view;
+    const next = screen.getByRole("button", {
+      name: i18n.t("umrahMode.counter.next.tawaf", { number: 3 }),
+    });
+    await fireEvent.press(next);
+    await fireEvent.press(next);
+    expect(onCount).toHaveBeenCalledTimes(1);
+  });
+
+  it("isAccidentalRepeat: only counts within the guard window", () => {
+    expect(isAccidentalRepeat(null, 1000)).toBe(false);
+    expect(isAccidentalRepeat(1000, 1000 + ROUND_REPEAT_GUARD_MS - 1)).toBe(true);
+    expect(isAccidentalRepeat(1000, 1000 + ROUND_REPEAT_GUARD_MS)).toBe(false);
   });
 
   it("only the next tile is a tap target", async () => {

@@ -63,6 +63,8 @@ export function AppStack() {
             <Stack.Screen name="(onboarding)/intro" options={{ gestureEnabled: false }} />
             <Stack.Screen name="(onboarding)/intro-location" options={{ gestureEnabled: false }} />
             <Stack.Screen name="(onboarding)/intro-madhhab" options={{ gestureEnabled: false }} />
+            {/* Setup wizard: Back / Android back walk its steps, so no swipe-to-dismiss. */}
+            <Stack.Screen name="(onboarding)/setup" options={{ gestureEnabled: false }} />
             <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
           </Stack>
         </View>

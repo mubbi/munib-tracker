@@ -8,8 +8,10 @@ import {
 } from "@munib-tracker/shared/utils";
 import { useMemo } from "react";
 
+import { rawatibRakahsDone } from "@/lib/rawatib";
 import { useStore } from "@/stores/create-store";
 import { preferencesStore } from "@/stores/preferences-store";
+import { usePrayerRakahsMap, useTodayPrayers } from "@/stores/tracker-store";
 
 /**
  * The user's rawatib setup (NF-3.1, D8). Subscribes only to the fields it reads
@@ -58,4 +60,15 @@ export function useWitrQaza(): WitrQazaState {
       isCustom: typeof witrQaza === "boolean",
     };
   }, [madhhab, madhhabOverrides, witrQaza]);
+}
+
+/** Today's mu'akkadah rakahs toward the user's 12 / 10 (home card + hub). */
+export function useTodayRawatibProgress(): { done: number; target: RawatibConfig["preset"] } {
+  const config = useRawatibConfig();
+  const { status } = useTodayPrayers();
+  const rakahs = usePrayerRakahsMap();
+  return {
+    done: rawatibRakahsDone(status, rakahs, config.preset),
+    target: config.preset,
+  };
 }

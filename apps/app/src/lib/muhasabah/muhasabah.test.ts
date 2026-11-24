@@ -13,9 +13,11 @@ import {
   buildMuhasabahEntry,
   DEFAULT_MUHASABAH_CONFIG,
   emptyMuhasabahDraft,
+  entriesWithRepentText,
   muhasabahDayKey,
   normalizeMuhasabahConfig,
   togglePrompt,
+  withoutRepentText,
 } from "./model";
 
 function log(prayerId: PrayerLog["prayerId"], status: PrayerLog["status"], extra = {}): PrayerLog {
@@ -31,6 +33,18 @@ function log(prayerId: PrayerLog["prayerId"], status: PrayerLog["status"], extra
 }
 
 describe("muhasabah model", () => {
+  it("finds entries holding repentance text and strips only the text", () => {
+    const entries = [
+      entry("2026-11-20", { repented: true, repentNote: "words" }),
+      entry("2026-11-21", { repented: true }),
+      entry("2026-11-22", { repentNote: "   " }),
+    ];
+    expect(entriesWithRepentText(entries)).toEqual(["2026-11-20"]);
+    const stripped = withoutRepentText(entries[0] as never);
+    expect(stripped.repentNote).toBeUndefined();
+    expect(stripped).toMatchObject({ repented: true, date: "2026-11-20" });
+  });
+
   it("normalizes configs: drops unknown and removed custom prompts, tops up to 3", () => {
     const config = normalizeMuhasabahConfig({
       prompts: ["bogus" as never, "custom:gone", "anger"],

@@ -5,6 +5,7 @@ import {
   circleHomeHref,
   EMPTY_FARD_STATUS,
   earnedSticker,
+  fardOn,
   fardValueFromStatuses,
   indexSignals,
   isFamilyParent,
@@ -15,6 +16,7 @@ import {
   sameFardStatus,
   signalWindow,
   stickerForDate,
+  upsertFardSignal,
   weeklyDigest,
 } from "./family";
 
@@ -123,5 +125,40 @@ describe("dates, stickers and routing", () => {
     expect(canUseCircleType("khatm_group", false)).toBe(true);
     expect(isFamilyParent("parent")).toBe(true);
     expect(isFamilyParent("member")).toBe(false);
+  });
+});
+
+describe("fardOn / upsertFardSignal (optimistic parent logging)", () => {
+  const rest = makeRestDaySignal("kid-1", TODAY);
+  const other = makeFardSignal("kid-2", TODAY, { fajr: true });
+
+  it("reads one member's day, or null when there is no signal", () => {
+    const signals = [rest, other, makeFardSignal("kid-1", TODAY, { asr: true })];
+    expect(fardOn(signals, "kid-1", TODAY)).toEqual({ ...EMPTY_FARD_STATUS, asr: true });
+    expect(fardOn(signals, "kid-1", "2026-11-23")).toBeNull();
+  });
+
+  it("adds a missing day and replaces an existing one, leaving other signals alone", () => {
+    const now = new Date("2026-11-24T10:00:00.000Z");
+    const added = upsertFardSignal([rest, other], "kid-1", TODAY, ALL_FIVE, now);
+    expect(added).toHaveLength(3);
+    expect(fardOn(added, "kid-1", TODAY)).toEqual(ALL_FIVE);
+    expect(added).toContain(rest);
+    expect(added).toContain(other);
+
+    const replaced = upsertFardSignal(added, "kid-1", TODAY, EMPTY_FARD_STATUS, now);
+    expect(replaced).toHaveLength(3);
+    expect(fardOn(replaced, "kid-1", TODAY)).toEqual(EMPTY_FARD_STATUS);
+  });
+
+  it("two quick toggles build on each other", () => {
+    let signals = upsertFardSignal([], "kid-1", TODAY, { ...EMPTY_FARD_STATUS, fajr: true });
+    const current = fardOn(signals, "kid-1", TODAY) ?? EMPTY_FARD_STATUS;
+    signals = upsertFardSignal(signals, "kid-1", TODAY, { ...current, dhuhr: true });
+    expect(fardOn(signals, "kid-1", TODAY)).toEqual({
+      ...EMPTY_FARD_STATUS,
+      fajr: true,
+      dhuhr: true,
+    });
   });
 });

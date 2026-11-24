@@ -10,16 +10,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { AsrOfferCard, useMadhhabChooser } from "@/components/fiqh/madhhab-chooser";
 import { MadhhabPicker } from "@/components/fiqh/madhhab-picker";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { Sheet } from "@/components/ui/sheet";
 import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { acceptAsrOffer, type MadhhabChoice, setMadhhab } from "@/lib/fiqh/set-madhhab";
-import type { MadhabKey } from "@/lib/prayer-times";
 import {
   FIQH_CUSTOM_NUMERIC,
   type FiqhOverrideChoice,
@@ -30,8 +26,8 @@ import {
   setFiqhOverride,
   whereThisApplies,
 } from "@/lib/settings/fiqh-settings";
-import { useToast } from "@/providers/toast-provider";
 import { useStore } from "@/stores/create-store";
+import { useLocation } from "@/stores/location-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
 import { ChoiceList } from "../choice-list";
@@ -47,64 +43,30 @@ function useFiqhPrefs() {
 
 /**
  * "My madhhab" (§4.1.5 items 1, 2, 5): the shared picker (with its neutral
- * "Not sure?" explainer). A change saves through `setMadhhab` (which reschedules
- * reminders), shows "Rulings updated across the app", and — when the school's
- * Asr calculation differs from the device's — offers to switch it.
+ * "Not sure?" explainer) and the shared pick flow — saves through `setMadhhab`
+ * (which reschedules reminders), shows "Rulings updated across the app", and
+ * offers the school's Asr calculation when it differs from the device's (the
+ * same card onboarding, the home card and the lazy sheet show).
  */
 export function MadhhabEditor() {
   const { t } = useTranslation();
-  const toast = useToast();
-  const { colors, tokens } = useThemeTokens();
   const { madhhab } = useFiqhPrefs();
-  const [asrOffer, setAsrOffer] = useState<MadhabKey | null>(null);
-
-  const onChange = (choice: MadhhabChoice) => {
-    void setMadhhab(choice).then((result) => {
-      if (result.changed) toast.success(t("settingsStep4.fiqh.rulingsUpdated"));
-      setAsrOffer(result.asrOffer);
-    });
-  };
-
-  const asrLabel = (key: MadhabKey) =>
-    t(key === "hanafi" ? "location.madhabHanafi" : "location.madhabShafi");
+  const location = useLocation();
+  const chooser = useMadhhabChooser();
 
   return (
     <View style={styles.block}>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("fiqh.picker.subtitle")}
       </ThemedText>
-      <MadhhabPicker value={madhhab} onChange={onChange} />
-      {asrOffer ? (
-        <Card
-          padding="three"
-          style={[styles.offer, { backgroundColor: tokens.accentSoft, borderColor: colors.accent }]}
-        >
-          <ThemedText type="smallBold">
-            {t("settingsStep4.fiqh.asrOfferTitle", { asr: asrLabel(asrOffer) })}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("settingsStep4.fiqh.asrOfferBody")}
-          </ThemedText>
-          <View style={styles.actions}>
-            <Button
-              label={t("settingsStep4.fiqh.asrOfferAccept")}
-              size="sm"
-              onPress={() => {
-                const key = asrOffer;
-                setAsrOffer(null);
-                void acceptAsrOffer(key).then(() =>
-                  toast.success(t("settingsStep4.fiqh.asrUpdated", { asr: asrLabel(key) })),
-                );
-              }}
-            />
-            <Button
-              label={t("settingsStep4.fiqh.asrOfferDecline")}
-              size="sm"
-              variant="ghost"
-              onPress={() => setAsrOffer(null)}
-            />
-          </View>
-        </Card>
+      <MadhhabPicker value={madhhab} onChange={(choice) => void chooser.choose(choice)} />
+      {chooser.offer ? (
+        <AsrOfferCard
+          offer={chooser.offer}
+          currentAsr={location.madhab}
+          onAccept={() => void chooser.acceptOffer()}
+          onDecline={chooser.declineOffer}
+        />
       ) : null}
     </View>
   );
@@ -130,8 +92,9 @@ export function FiqhAdvancedEditor() {
   const choices: FiqhOverrideChoice[] = ["inherit", ...MADHHAB_IDS, "all"];
   const nisab = prefs.fiqhCustom?.nisabBasis;
 
+  // The "Advanced" section folds this editor (groups.ts `collapsedSections`).
   return (
-    <CollapsibleSection title={t("settingsStep4.fiqh.advanced")}>
+    <View style={styles.block}>
       <View style={styles.block}>
         <ThemedText type="smallBold">{t("fiqh.talfiq.title")}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
@@ -167,7 +130,6 @@ export function FiqhAdvancedEditor() {
               <View key={key} style={styles.customRow}>
                 <StepperRow
                   title={title}
-                  subtitle={t("fiqh.customHint")}
                   value={custom}
                   min={bounds.min}
                   max={bounds.max}
@@ -204,7 +166,6 @@ export function FiqhAdvancedEditor() {
               value === "default"
                 ? t("settingsStep4.fiqh.schoolDefaultOption")
                 : t(`zakat.fiqh.basis.${value}`),
-            description: value === "default" ? undefined : t("fiqh.customHint"),
           }))}
           value={nisab ?? "default"}
           onChange={(value) =>
@@ -234,7 +195,7 @@ export function FiqhAdvancedEditor() {
           </View>
         ) : null}
       </Sheet>
-    </CollapsibleSection>
+    </View>
   );
 }
 
@@ -243,28 +204,27 @@ export function FiqhWhereAppliesEditor() {
   const { t } = useTranslation();
   const router = useRouter();
   const groups = whereThisApplies();
+  // The "Where this applies" section folds this list (groups.ts `collapsedSections`).
   return (
-    <CollapsibleSection title={t("settingsStep4.fiqh.whereApplies")}>
-      <View style={styles.block}>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("settingsStep4.fiqh.whereAppliesSub")}
-        </ThemedText>
-        {groups.map((group) => (
-          <View key={group.domain} style={styles.block}>
-            <ThemedText type="smallBold" style={styles.subhead}>
-              {t(`fiqh.domain.${group.domain}`)}
-            </ThemedText>
-            {group.items.map((item) => (
-              <SettingsRow
-                key={item.id}
-                title={t(item.titleKey)}
-                onPress={() => router.push(item.route as Href)}
-              />
-            ))}
-          </View>
-        ))}
-      </View>
-    </CollapsibleSection>
+    <View style={styles.block}>
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {t("settingsStep4.fiqh.whereAppliesSub")}
+      </ThemedText>
+      {groups.map((group) => (
+        <View key={group.domain} style={styles.block}>
+          <ThemedText type="smallBold" style={styles.subhead}>
+            {t(`fiqh.domain.${group.domain}`)}
+          </ThemedText>
+          {group.items.map((item) => (
+            <SettingsRow
+              key={item.id}
+              title={t(item.titleKey)}
+              onPress={() => router.push(item.route as Href)}
+            />
+          ))}
+        </View>
+      ))}
+    </View>
   );
 }
 
@@ -272,6 +232,4 @@ const styles = StyleSheet.create({
   block: { gap: Spacing.two },
   subhead: { marginTop: Spacing.two },
   customRow: { gap: Spacing.one },
-  offer: { gap: Spacing.two, borderWidth: 1 },
-  actions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
 });

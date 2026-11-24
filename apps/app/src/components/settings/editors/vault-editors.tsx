@@ -5,8 +5,11 @@ import { Platform, StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/ui/sheet";
+import {
+  canSubmitNewPassphrase,
+  NewPassphraseFields,
+} from "@/components/vault/new-passphrase-fields";
 import { PassphraseField } from "@/components/vault/passphrase-field";
-import { PassphraseStrengthMeter } from "@/components/vault/passphrase-strength-meter";
 import { RecoveryCodeDisplay } from "@/components/vault/recovery-code-display";
 import { VaultSyncSheet } from "@/components/vault/vault-sync-sheet";
 import { VaultUnlockSheet } from "@/components/vault/vault-unlock-sheet";
@@ -15,7 +18,6 @@ import { usePinLock } from "@/features/pin-lock";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { vaultErrorI18nKey } from "@/lib/vault/errors";
-import { assessPassphrase } from "@/lib/vault/passphrase-strength";
 import {
   changeVaultPassphrase,
   disableVaultSync,
@@ -116,7 +118,10 @@ export function VaultSyncRow() {
             fullWidth
             onPress={() => {
               setSheet(null);
-              void disableVaultSync().then(() => toast.success(t("settingsPanel.done")));
+              void disableVaultSync().then(
+                () => toast.success(t("settingsPanel.done")),
+                (e: unknown) => toast.error(t(vaultErrorI18nKey(e))),
+              );
             }}
           />
           <Button
@@ -146,6 +151,7 @@ export function VaultCredentialsRows() {
   const [sheet, setSheet] = useState<CredentialSheet>(null);
   const [current, setCurrent] = useState("");
   const [next, setNext] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [words, setWords] = useState<string[] | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -156,6 +162,7 @@ export function VaultCredentialsRows() {
     setSheet(null);
     setCurrent("");
     setNext("");
+    setConfirm("");
     setWords(null);
     setError(null);
     setBusy(false);
@@ -213,22 +220,26 @@ export function VaultCredentialsRows() {
               onChangeText={setCurrent}
               purpose="password"
             />
-            <PassphraseField
+            <NewPassphraseFields
               label={t("vault.passphrase.newLabel")}
               value={next}
               onChangeText={setNext}
-              purpose="newPassword"
+              confirm={confirm}
+              onChangeConfirm={setConfirm}
             />
-            <PassphraseStrengthMeter passphrase={next} />
             {error ? (
-              <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
+              <ThemedText
+                type="caption"
+                accessibilityRole="alert"
+                style={{ color: tokens.status.danger.text }}
+              >
                 {error}
               </ThemedText>
             ) : null}
             <Button
               label={t("vault.unlock.savePassphrase")}
               fullWidth
-              disabled={busy || current.length === 0 || !assessPassphrase(next).meetsMinimum}
+              disabled={busy || current.length === 0 || !canSubmitNewPassphrase(next, confirm)}
               onPress={() => void changePassphrase()}
             />
           </View>
@@ -243,7 +254,11 @@ export function VaultCredentialsRows() {
                   {t("vault.settings.newRecoveryCodeHint")}
                 </ThemedText>
                 {error ? (
-                  <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
+                  <ThemedText
+                    type="caption"
+                    accessibilityRole="alert"
+                    style={{ color: tokens.status.danger.text }}
+                  >
                     {error}
                   </ThemedText>
                 ) : null}

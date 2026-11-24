@@ -34,6 +34,7 @@ import { useIsOnline } from "@/hooks/use-is-online";
 import type { DeleteAccountRequestBody } from "@/lib/auth/account-closure-reasons";
 import "@/lib/auth/auth-session-bootstrap";
 import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
+import { removeServerInAppNotifications } from "@/lib/in-app-notifications/storage";
 import { flushPendingOssContentFailures } from "@/lib/report-oss-content-download-failure";
 import {
   hasUnsyncedTrackingChanges,
@@ -154,9 +155,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (current) {
         try {
           const { deleteSurfacePushRegistration } = await import("@/lib/surface-push/register");
-          const { unsubscribeWebPushSubscription } = await import(
+          const { unregisterPushTokenWithApi, unsubscribeWebPushSubscription } = await import(
             "@/lib/notifications/register-push-token"
           );
+          // While the session is still valid: this device stops receiving the
+          // account's broadcasts / circle pushes before logout revokes it.
+          await unregisterPushTokenWithApi(current.accessToken);
           await deleteSurfacePushRegistration(current.accessToken);
           await unsubscribeWebPushSubscription();
         } catch {
@@ -170,6 +174,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
       await clearSessionState();
+      // The account's server inbox (announcements, circle events) must not stay
+      // visible to whoever uses this device next.
+      await removeServerInAppNotifications().catch(() => {});
       try {
         await signInAsGuest();
       } catch {

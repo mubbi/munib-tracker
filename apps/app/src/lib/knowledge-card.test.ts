@@ -156,8 +156,10 @@ describe("knowledge card translation fallbacks", () => {
 });
 
 describe("pickKnowledgeCard fallbacks", () => {
-  // jest.setup already loaded knowledge-card against the real pool, so load an
-  // isolated copy whose pool is stubbed.
+  // This file already loaded knowledge-card against the real pool, so load an
+  // isolated copy whose pool is stubbed. `requireActual` bypasses jest.setup's
+  // warm-up wrapper, which `isolateModules` would otherwise share from the
+  // outer registry.
   function withPool(pool: KnowledgeCardEntry[]): typeof import("@/lib/knowledge-card") {
     let mod!: typeof import("@/lib/knowledge-card");
     jest.isolateModules(() => {
@@ -165,7 +167,7 @@ describe("pickKnowledgeCard fallbacks", () => {
         ...jest.requireActual("@/lib/knowledge-card-data"),
         buildKnowledgeCardPool: () => pool,
       }));
-      mod = require("@/lib/knowledge-card");
+      mod = jest.requireActual("@/lib/knowledge-card");
     });
     jest.dontMock("@/lib/knowledge-card-data");
     mod.__setKnowledgeCardQuranForTests(loadQuranSyncForTests());

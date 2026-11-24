@@ -1,7 +1,7 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import type { AppLocale } from "@munib-tracker/shared/types";
 import { Image } from "expo-image";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
@@ -16,6 +16,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { LanguagePickerSheet } from "@/components/language-picker-sheet";
 import { LocaleFlag } from "@/components/locale-flag";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
@@ -34,10 +35,11 @@ import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
 import { APP_LOCALES } from "@/lib/locale-display";
+import { chooseSetupLanguage, readSetupProgress } from "@/lib/onboarding/setup-flow";
 import { isTV } from "@/lib/platform/is-tv";
 import { useArrowForward, useIsRTL } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
+import { usePreferences } from "@/stores/preferences-store";
 
 type SlideKind = "brand" | "feature" | "cta";
 
@@ -136,10 +138,11 @@ export default function OnboardingIntroScreen() {
   const slidePadBottom = tv ? Spacing.three : Spacing.two;
   const scrollRef = useRef<ScrollViewInstance>(null);
   const buttonDrivenScrollRef = useRef(false);
-  const [index, setIndex] = useState(0);
+  // `?at=end`: Back from the first setup step returns to the guest / sign-in page.
+  const { at } = useLocalSearchParams<{ at?: string }>();
+  const [index, setIndex] = useState(at === "end" ? PAGE_COUNT - 1 : 0);
   const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
   const prefs = usePreferences();
-  const { setLocale, update } = usePreferencesActions();
 
   const slide = SLIDES[index];
   const isLast = index === PAGE_COUNT - 1;
@@ -156,18 +159,31 @@ export default function OnboardingIntroScreen() {
     scrollRef.current?.scrollTo({ x: offsetForLogical(logical), animated });
   };
 
-  /** Carousel complete → location permission step (onboarding finishes there). */
-  const goToLocationStep = (destination: "/" | "/login") => {
+  /** Welcome done → the setup wizard (language, location, madhhab, reminders…). */
+  const goToSetup = (destination: "/" | "/login") => {
     router.replace({
-      pathname: "/intro-location",
-      params: { next: destination },
+      pathname: "/setup",
+      params: destination === "/login" ? { next: destination } : {},
     });
   };
 
+  // A first run interrupted mid-setup (app closed, or an RTL language switch
+  // reloaded it) resumes at the saved step instead of replaying the welcome.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: mount-only resume check
+  useEffect(() => {
+    if (at === "end" || prefs.hasCompletedOnboarding) return;
+    const saved = readSetupProgress();
+    if (!saved) return;
+    router.replace({
+      pathname: "/setup",
+      params:
+        saved.next === "/login" ? { step: saved.step, next: saved.next } : { step: saved.step },
+    });
+  }, []);
+
+  // Same write path as the setup wizard's language step (translation follows the UI).
   const onSelectLocale = (locale: AppLocale) => {
-    void setLocale(locale);
-    // Match scripture meaning language on first run so content aligns with the UI.
-    void update({ translationLocale: locale });
+    void chooseSetupLanguage(locale);
   };
 
   const commitPageFromOffset = (offsetX: number) => {
@@ -307,7 +323,7 @@ export default function OnboardingIntroScreen() {
             ]}
             onPress={() => {
               triggerHaptic("light");
-              goToLocationStep("/");
+              goToSetup("/");
             }}
           >
             <ThemedText type="smallBold" style={{ color: Brand.heroSubtext }}>
@@ -430,7 +446,7 @@ export default function OnboardingIntroScreen() {
                     label={t("common.continueAsGuest")}
                     fullWidth
                     preferredFocus
-                    onPress={() => goToLocationStep("/")}
+                    onPress={() => goToSetup("/")}
                     style={styles.finalActionTv}
                   />
                   <Button
@@ -438,7 +454,7 @@ export default function OnboardingIntroScreen() {
                     variant="ghost"
                     fullWidth
                     labelColor={Brand.heroText}
-                    onPress={() => goToLocationStep("/login")}
+                    onPress={() => goToSetup("/login")}
                     style={[
                       styles.finalActionTv,
                       {
@@ -453,7 +469,7 @@ export default function OnboardingIntroScreen() {
                   <Button
                     label={t("onboarding.signInToSync")}
                     fullWidth
-                    onPress={() => goToLocationStep("/login")}
+                    onPress={() => goToSetup("/login")}
                     style={wide ? styles.finalActionTv : undefined}
                   />
                   <Button
@@ -461,7 +477,7 @@ export default function OnboardingIntroScreen() {
                     variant="ghost"
                     fullWidth
                     labelColor={Brand.heroText}
-                    onPress={() => goToLocationStep("/")}
+                    onPress={() => goToSetup("/")}
                     style={[
                       wide ? styles.finalActionTv : null,
                       {
@@ -585,9 +601,16 @@ function BrandSlide({ layout }: { layout: SlideLayout }) {
       <ThemedText type="caption" style={[styles.duaTranslit, { color: Brand.heroSubtext }]}>
         {t("onboarding.brandDuaTransliteration")}
       </ThemedText>
-      <ThemedText type="small" style={[styles.duaTranslation, { color: Brand.heroSubtext }]}>
-        {t("onboarding.brandDuaTranslation")}
-      </ThemedText>
+      <ScriptureMeaning
+        english={t("onboarding.brandDuaTranslation")}
+        labelStyle={{ color: Brand.heroSubtext }}
+      >
+        {(text) => (
+          <ThemedText type="small" style={[styles.duaTranslation, { color: Brand.heroSubtext }]}>
+            {text}
+          </ThemedText>
+        )}
+      </ScriptureMeaning>
     </View>
   );
 

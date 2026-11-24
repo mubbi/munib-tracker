@@ -56,7 +56,7 @@ function useWordStyle(props: PracticePageViewProps) {
     }
     const current = ayah === props.currentAyah;
     if (end) {
-      return current ? { color: colors.accent } : null;
+      return current ? { color: colors.accentText } : null;
     }
     const hidden = props.hiddenOf(ayah);
     const isHidden =
@@ -68,16 +68,16 @@ function useWordStyle(props: PracticePageViewProps) {
       return { color: "transparent", backgroundColor: colors.muted };
     }
     if (current && word != null && word === props.activeWord) {
-      return { color: colors.accent, backgroundColor: tokens.accentSoft };
+      return { color: colors.accentText, backgroundColor: tokens.accentSoft };
     }
     const state = word == null ? "idle" : props.statesOf(ayah)[word];
     switch (state) {
       case "upcoming":
         return { color: colors.mutedForeground };
       case "uncertain":
-        return { color: tokens.status.warning.color };
+        return { color: tokens.status.warning.text };
       case "confirmedMismatch":
-        return { color: tokens.status.danger.color };
+        return { color: tokens.status.danger.text };
       default:
         return current ? { backgroundColor: withAlpha(colors.accent, 0.08) } : null;
     }
@@ -153,7 +153,7 @@ function TextPageView(props: PracticePageViewProps) {
                     )}
                     <Text
                       style={[
-                        { color: colors.accent },
+                        { color: colors.accentText },
                         styleFor(practised ? a.ayah : null, null, true),
                       ]}
                     >

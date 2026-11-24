@@ -23,6 +23,7 @@ import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { WallClockPicker } from "@/components/ui/wall-clock-picker";
 import { VaultLockGate } from "@/components/vault";
 import { Spacing } from "@/constants/theme";
+import { DUA_TOPICS } from "@/lib/dua-browse";
 import { familyTiesActions, useFamilyTies } from "@/lib/family-ties/family-ties-store";
 import { buildDueList, buildUpcomingList, CONTACT_KINDS } from "@/lib/family-ties/model";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -41,13 +42,15 @@ export const FAMILY_TIES_EVIDENCE: readonly EvidenceRef[] = [
   { kind: "hadith", collection: "bukhari", number: "5971", labelKey: "familyTies.evidence.b5971" },
 ];
 
-/** The janazah guide's dua section, for relatives who have passed away. */
-const JANAZAH_DUAS_HREF = {
-  pathname: "/janazah/[topic]",
-  params: { topic: "janazah-duas-adult" },
+/** Duas section narrowed to the duas for the deceased (Hisnul Muslim funeral + burial). */
+const DECEASED_DUAS_HREF = {
+  pathname: "/dua/[category]",
+  params: { category: DUA_TOPICS.deceased.categoryId, topic: "deceased" },
 } as Href;
 
 const WEEKDAYS = [0, 1, 2, 3, 4, 5, 6] as const;
+/** `Date#getDay()` for Friday: "after Jumu'ah" only means that on Fridays (otherwise after Dhuhr). */
+const FRIDAY = 5;
 type DigestMode = "after-jumuah" | "custom";
 
 function FamilyTiesContent() {
@@ -171,14 +174,23 @@ function FamilyTiesContent() {
                   label={t("familyTies.actions.dua")}
                   size="sm"
                   variant="ghost"
+                  accessibilityHint={relative.name}
                   onPress={() => void log(relative.id, "dua")}
+                />
+                {/* Otherwise a relative marked as passed away could never be edited again. */}
+                <Button
+                  label={t("common.edit")}
+                  size="sm"
+                  variant="ghost"
+                  accessibilityHint={relative.name}
+                  onPress={() => edit(relative.id)}
                 />
               </View>
             ))}
             <Button
               label={t("familyTies.janazahDuas")}
               variant="secondary"
-              onPress={() => router.push(JANAZAH_DUAS_HREF)}
+              onPress={() => router.push(DECEASED_DUAS_HREF)}
             />
           </View>
         </Card>
@@ -203,47 +215,57 @@ function FamilyTiesContent() {
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("familyTies.digestPrivacy")}
           </ThemedText>
-          <ChoiceChips
-            options={WEEKDAYS.map((day) => ({
-              id: String(day),
-              // 2024-01-07 was a Sunday: locale weekday names without extra i18n keys.
-              label: new Intl.DateTimeFormat(i18n.language, { weekday: "short" }).format(
-                new Date(2024, 0, 7 + day),
-              ),
-            }))}
-            value={String(settings.digestWeekday)}
-            onChange={(day) =>
-              void familyTiesActions.saveSettings({ ...settings, digestWeekday: Number(day) })
-            }
-            accessibilityLabel={t("familyTies.digestDay")}
-          />
-          <ChoiceChips<DigestMode>
-            options={[
-              { id: "after-jumuah", label: t("familyTies.digestAfterJumuah") },
-              { id: "custom", label: t("familyTies.digestCustom") },
-            ]}
-            value={digestMode}
-            onChange={(mode) =>
-              void familyTiesActions.saveSettings({
-                ...settings,
-                digestTime:
-                  mode === "after-jumuah"
-                    ? "after-jumuah"
-                    : formatHhMm(digestClock.hour, digestClock.minute),
-              })
-            }
-            accessibilityLabel={t("familyTies.digestTime")}
-          />
-          {digestMode === "custom" ? (
-            <WallClockPicker
-              value={digestClock}
-              onChange={(value) =>
-                void familyTiesActions.saveSettings({
-                  ...settings,
-                  digestTime: formatHhMm(value.hour, value.minute),
-                })
-              }
-            />
+          {digestReminder.value ? (
+            <>
+              <ChoiceChips
+                options={WEEKDAYS.map((day) => ({
+                  id: String(day),
+                  // 2024-01-07 was a Sunday: locale weekday names without extra i18n keys.
+                  label: new Intl.DateTimeFormat(i18n.language, { weekday: "short" }).format(
+                    new Date(2024, 0, 7 + day),
+                  ),
+                }))}
+                value={String(settings.digestWeekday)}
+                onChange={(day) =>
+                  void familyTiesActions.saveSettings({ ...settings, digestWeekday: Number(day) })
+                }
+                accessibilityLabel={t("familyTies.digestDay")}
+              />
+              <ChoiceChips<DigestMode>
+                options={[
+                  {
+                    id: "after-jumuah",
+                    label:
+                      settings.digestWeekday === FRIDAY
+                        ? t("familyTies.digestAfterJumuah")
+                        : t("privateUx.familyTies.digestAfterDhuhr"),
+                  },
+                  { id: "custom", label: t("familyTies.digestCustom") },
+                ]}
+                value={digestMode}
+                onChange={(mode) =>
+                  void familyTiesActions.saveSettings({
+                    ...settings,
+                    digestTime:
+                      mode === "after-jumuah"
+                        ? "after-jumuah"
+                        : formatHhMm(digestClock.hour, digestClock.minute),
+                  })
+                }
+                accessibilityLabel={t("familyTies.digestTime")}
+              />
+              {digestMode === "custom" ? (
+                <WallClockPicker
+                  value={digestClock}
+                  onChange={(value) =>
+                    void familyTiesActions.saveSettings({
+                      ...settings,
+                      digestTime: formatHhMm(value.hour, value.minute),
+                    })
+                  }
+                />
+              ) : null}
+            </>
           ) : null}
         </View>
       </Card>

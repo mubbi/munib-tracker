@@ -12,7 +12,6 @@ import { renderWithProviders } from "@/test-support/render";
 import { resetTrackerStore } from "@/test-support/store";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
-jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("@/components/reading-typography-context", () => ({ ReadingTypographyBar: () => null }));
 
 /**

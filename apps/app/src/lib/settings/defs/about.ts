@@ -47,7 +47,7 @@ export const ABOUT_SETTINGS: AnySettingDef[] = [
     keywordsKey: "settingsStep4.kw.runSetup",
     icon: { ios: "arrow.counterclockwise.circle", android: "restart_alt", web: "restart_alt" },
     scope: "account",
-    control: { kind: "link", href: "/intro" as Href },
+    control: { kind: "link", href: "/setup" as Href },
   }),
   defineSetting<null>({
     ...NO_VALUE,

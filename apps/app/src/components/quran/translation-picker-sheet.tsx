@@ -236,7 +236,7 @@ export function TranslationPickerSheet({
             style={styles.backRow}
           >
             <SymbolView name={chevronBack} size={16} tintColor={colors.accent} />
-            <ThemedText type="small" style={{ color: colors.accent }}>
+            <ThemedText type="small" style={{ color: colors.accentText }}>
               {t("quran.backToLanguages")}
             </ThemedText>
           </PressableScale>

@@ -1,12 +1,15 @@
 import type { ContentReportReference } from "@munib-tracker/shared/types/content-report";
+import { formatNoteRef } from "@munib-tracker/shared/utils";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { HIGHLIGHT_ICON, NOTE_ICON } from "@/components/quran/ayah-annotations";
+import { HifzActionButton } from "@/components/quran/hifz-action-button";
 import { MyNoteCard } from "@/components/quran/my-note-card";
 import { ThemedText } from "@/components/themed-text";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Spacing } from "@/constants/theme";
@@ -46,8 +49,11 @@ type AyahActionSheetProps = {
   /** NF-3.24 "Check my recitation" — a one-ayah pronunciation check (omit to hide). */
   onCheckRecitation?: () => void;
   onTafsir?: () => void;
-  /** NF-3.21 "Note" — open the My-note editor (omit to hide, e.g. on TV: read-only). */
-  onNote?: () => void;
+  /**
+   * NF-3.21 "Note" — open the My-note editor (omit to hide, e.g. on TV: read-only).
+   * Called with a note id when the user taps one of the ayah's notes in the sheet.
+   */
+  onNote?: (noteId?: string) => void;
   /** NF-3.21 "Highlight" — open the 5-swatch picker (omit to hide). */
   onHighlight?: () => void;
   reportRef?: ContentReportReference;
@@ -101,6 +107,7 @@ export function AyahActionSheet({
   // inside or styled like the tafsir panel.
   const ayahNotes = useNotesForAyah(surah, ayah);
   const writtenNotes = (ayahNotes ?? []).filter((note) => note.body.trim() || note.tags.length);
+  const highlighted = (ayahNotes ?? []).some((note) => note.color);
 
   return (
     <Sheet visible={visible} onClose={onClose} variant="bottom">
@@ -123,7 +130,7 @@ export function AyahActionSheet({
           {transliteration ? (
             <ThemedText
               type="small"
-              style={[styles.translit, { color: colors.accent, fontSize: transliterationSize }]}
+              style={[styles.translit, { color: colors.accentText, fontSize: transliterationSize }]}
             >
               {transliteration}
             </ThemedText>
@@ -162,9 +169,28 @@ export function AyahActionSheet({
 
       {writtenNotes.length > 0 ? (
         <View style={[styles.notes, { borderTopColor: tokens.hairline }]}>
-          {writtenNotes.slice(0, 2).map((note) => (
-            <MyNoteCard key={note.id} note={note} numberOfLines={isTV() ? undefined : 4} />
-          ))}
+          {writtenNotes.slice(0, 2).map((note) =>
+            onNote ? (
+              // Tap a note to open it (the peek → "Open note" step of the note hint).
+              <PressableScale
+                key={note.id}
+                haptic="light"
+                scaleTo={0.99}
+                accessibilityRole="button"
+                accessibilityLabel={t("quranNotes.openNote", { ref: formatNoteRef(note) })}
+                onPress={() => onNote(note.id)}
+              >
+                <MyNoteCard note={note} numberOfLines={4} />
+              </PressableScale>
+            ) : (
+              <MyNoteCard key={note.id} note={note} numberOfLines={isTV() ? undefined : 4} />
+            ),
+          )}
+          {writtenNotes.length > 2 ? (
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("quranNotes.hint.moreNotes", { count: writtenNotes.length - 2 })}
+            </ThemedText>
+          ) : null}
         </View>
       ) : null}
 
@@ -178,48 +204,7 @@ export function AyahActionSheet({
           accessibilityLabel={isPlaying ? t("quran.pauseAyah") : t("quran.playAyah", { n: ayah })}
           onPress={onPlay}
         />
-        {onHifz ? (
-          <LabeledIconButton
-            name={
-              hifzStatus === "memorized"
-                ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
-                : hifzStatus === "review"
-                  ? { ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }
-                  : { ios: "book.closed", android: "menu_book", web: "menu_book" }
-            }
-            label={
-              hifzStatus === "memorized"
-                ? t("quran.actionMemorized")
-                : hifzStatus === "review"
-                  ? t("quran.actionReview")
-                  : t("hifz.short")
-            }
-            tintColor={
-              hifzStatus === "memorized"
-                ? tokens.status.success.color
-                : hifzStatus === "review"
-                  ? tokens.status.warning.color
-                  : colors.mutedForeground
-            }
-            labelColor={
-              hifzStatus === "memorized"
-                ? tokens.status.success.color
-                : hifzStatus === "review"
-                  ? tokens.status.warning.color
-                  : colors.mutedForeground
-            }
-            accessibilityLabel={
-              hifzStatus === "memorized"
-                ? t("hifz.clear")
-                : hifzStatus === "review"
-                  ? t("hifz.markMemorized")
-                  : t("hifz.markReview")
-            }
-            accessibilityState={{ selected: !!hifzStatus }}
-            haptic="selection"
-            onPress={onHifz}
-          />
-        ) : null}
+        {onHifz ? <HifzActionButton status={hifzStatus} onPress={onHifz} /> : null}
         {onPractise ? (
           <LabeledIconButton
             name={{ ios: "mic", android: "mic_none", web: "mic_none" }}
@@ -248,7 +233,9 @@ export function AyahActionSheet({
           }
           label={isBookmarked ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
           tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+          labelColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
           accessibilityLabel={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
+          accessibilityState={{ selected: isBookmarked }}
           onPress={onBookmark}
         />
         {onNote ? (
@@ -258,16 +245,18 @@ export function AyahActionSheet({
             tintColor={writtenNotes.length ? colors.accent : colors.mutedForeground}
             labelColor={writtenNotes.length ? colors.accent : colors.mutedForeground}
             accessibilityLabel={t("quranNotes.actionNoteA11y", { ref: `${surah}:${ayah}` })}
-            onPress={onNote}
+            accessibilityState={{ selected: writtenNotes.length > 0 }}
+            onPress={() => onNote()}
           />
         ) : null}
         {onHighlight ? (
           <LabeledIconButton
             name={HIGHLIGHT_ICON}
             label={t("quranNotes.actionHighlight")}
-            tintColor={colors.mutedForeground}
-            labelColor={colors.mutedForeground}
+            tintColor={highlighted ? colors.accent : colors.mutedForeground}
+            labelColor={highlighted ? colors.accent : colors.mutedForeground}
             accessibilityLabel={t("quranNotes.actionHighlightA11y", { ref: `${surah}:${ayah}` })}
+            accessibilityState={{ selected: highlighted }}
             onPress={onHighlight}
           />
         ) : null}

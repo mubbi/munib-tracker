@@ -48,6 +48,8 @@ const TV_EXCLUDED_PACKAGES = [
   "munib-focus-lock",
   // NF-3.12 timetable OCR (ML Kit / Vision): no camera or photo import on TV.
   "munib-text-recognition",
+  // NF-3.25 nearby join (BLE advertise / scan): web and TV keep QR / code only (D41).
+  "munib-nearby",
 ];
 
 function isTvEnv() {

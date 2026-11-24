@@ -8,6 +8,7 @@ import { type DuaOccasionChip, DuaOccasionChips } from "@/components/dua/dua-occ
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ResponsiveGrid, useResponsiveColumns } from "@/components/ui/responsive-grid";
@@ -21,8 +22,10 @@ import {
   DUA_CATEGORY_IDS,
   type DuaSection,
   duaCategoryGroup,
+  filterDuasByTopic,
   groupDuasByOccasion,
   isDuaCategoryId,
+  isDuaTopicId,
   shortOccasionLabel,
 } from "@/lib/dua-browse";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -61,10 +64,14 @@ export default function DuaCategoryScreen() {
   const favoriteIds = useFavoriteDuaIds();
   const favoriteSet = useMemo(() => new Set(favoriteIds), [favoriteIds]);
   const { toggle } = useDuaFavoritesActions();
-  const params = useLocalSearchParams<{ category: string | string[] }>();
+  const params = useLocalSearchParams<{ category: string | string[]; topic?: string | string[] }>();
   const categoryParam = paramValue(params.category);
   const isKnownCategory = isDuaCategoryId(categoryParam);
   const categoryId: DuaCategoryId = isKnownCategory ? categoryParam : "morning_evening";
+  // `?topic=` narrows the category to a curated slice (e.g. Family ties →
+  // duas for the deceased); "Show all" drops it.
+  const topicParam = paramValue(params.topic);
+  const topic = isDuaTopicId(topicParam) ? topicParam : null;
   const hue = useCategoryHue(duaCategoryGroup(categoryId).hue);
   const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
   const [corpusReady, setCorpusReady] = useState(false);
@@ -80,8 +87,11 @@ export default function DuaCategoryScreen() {
     };
   }, []);
   const items = useMemo(
-    () => duaItems.filter((item) => item.categoryId === categoryId),
-    [categoryId, duaItems],
+    () =>
+      topic
+        ? filterDuasByTopic(duaItems, topic)
+        : duaItems.filter((item) => item.categoryId === categoryId),
+    [categoryId, duaItems, topic],
   );
   const sections = useMemo(() => groupDuasByOccasion(items), [items]);
   const [query, setQuery] = useState("");
@@ -171,6 +181,22 @@ export default function DuaCategoryScreen() {
 
   const controls = (
     <View style={styles.controls}>
+      {topic ? (
+        <View style={styles.topicRow}>
+          <ThemedText type="small" themeColor="mutedForeground" style={styles.topicNote}>
+            {t("dua.topic.showing", { category: categoryName })}
+          </ThemedText>
+          <Button
+            label={t("dua.topic.showAll")}
+            variant="secondary"
+            size="sm"
+            onPress={() => {
+              setOccasion(null);
+              router.setParams({ topic: undefined });
+            }}
+          />
+        </View>
+      ) : null}
       <SearchField
         value={query}
         onChangeText={setQuery}
@@ -190,8 +216,8 @@ export default function DuaCategoryScreen() {
 
   return (
     <ScreenLayout
-      eyebrow={t("dua.categoryEyebrow")}
-      title={categoryName}
+      eyebrow={topic ? categoryName : t("dua.categoryEyebrow")}
+      title={topic ? t(`dua.topic.${topic}`) : categoryName}
       subtitle={
         !corpusReady
           ? undefined
@@ -331,6 +357,14 @@ const styles = StyleSheet.create({
   flatList: { flex: 1 },
   tvList: { gap: Spacing.four },
   controls: { gap: Spacing.three, marginBottom: Spacing.three },
+  topicRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  topicNote: { flexShrink: 1 },
   searchWide: { maxWidth: 640 },
   section: { gap: Spacing.two },
   group: {

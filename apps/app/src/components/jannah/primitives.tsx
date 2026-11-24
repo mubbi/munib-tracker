@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { ContentReportFooterLink } from "@/components/content-report/content-report-footer-link";
 import {
   HadithCitationBookmarkButton,
@@ -359,6 +360,7 @@ function QuranEvidenceItem({ refItem }: { refItem: JannahQuranRef }) {
           arabic={range?.arabic}
           transliteration={range?.transliteration}
           translation={refItem.excerpt}
+          quranRef={refItem}
           compact
         />
       </TvReadableBlock>
@@ -417,9 +419,17 @@ export function JannahHadithEvidence({ refs }: { refs: JannahHadithRef[] }) {
               </View>
             </View>
             <TvReadableBlock>
-              <LearnProseText type="small" themeColor="mutedForeground" style={styles.quoteText}>
-                “{ref.excerpt}”
-              </LearnProseText>
+              <ScriptureMeaning english={ref.excerpt}>
+                {(text) => (
+                  <LearnProseText
+                    type="small"
+                    themeColor="mutedForeground"
+                    style={styles.quoteText}
+                  >
+                    “{text}”
+                  </LearnProseText>
+                )}
+              </ScriptureMeaning>
             </TvReadableBlock>
           </View>
         ))}

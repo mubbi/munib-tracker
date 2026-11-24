@@ -3,18 +3,30 @@ import { noteAyahKey } from "@munib-tracker/shared/utils";
 import { SymbolView } from "expo-symbols";
 import { memo, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, type TextStyle, View } from "react-native";
+import { Platform, StyleSheet, Text, type TextStyle, View } from "react-native";
 
+import {
+  noteHintHandlers,
+  noteUnderlineStyle,
+  runNoteAction,
+  useNoteActions,
+  useNoteHintHandlers,
+  useNoteHintLabel,
+  webHintProps,
+} from "@/components/quran/note-hints";
 import { TajweedText } from "@/components/quran/tajweed-text";
+import { ContextMenu } from "@/components/ui/context-menu";
 import { IconButton } from "@/components/ui/icon-button";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Radius } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
+import { useFinePointerHover } from "@/hooks/use-fine-pointer-hover";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { annotationSwatch, annotationTint } from "@/lib/quran-notes/annotation-colors";
 import {
   type AyahAnnotation,
+  ayahTintColor,
   EMPTY_ANNOTATION,
   resolveAyahAnnotation,
   segmentAyahForSpans,
@@ -24,6 +36,7 @@ import { useStore } from "@/stores/create-store";
 import { preferencesStore } from "@/stores/preferences-store";
 import {
   openQuranNoteEditor,
+  openQuranNotePeek,
   useNotesForAyah,
   useQuranNotesIndex,
 } from "@/stores/quran-notes-store";
@@ -50,9 +63,11 @@ export function useAyahAnnotation(surah: number, ayah: number, ayahText: string)
 }
 
 /**
- * Small "My note" glyph next to the ayah number. Tap opens the note (TV: a
- * read-only viewer — the glyph is decorative there because the card itself is
- * the focus target and its action sheet shows the note).
+ * Small "My note" glyph next to the ayah number — the note hint for the ayah.
+ * Desktop web: hover / keyboard focus shows a preview card, click opens the
+ * note. Phones: tap shows a compact peek, long-press shows the note's actions
+ * (iOS: native context menu). TV: decorative — the card itself is the focus
+ * target and shows the note inline while focused.
  */
 export function AyahNoteMarker({
   surah,
@@ -66,38 +81,79 @@ export function AyahNoteMarker({
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const annotation = useAyahAnnotation(surah, ayah, ayahText);
+  const label = useNoteHintLabel(surah, ayah);
+  const handlers = useNoteHintHandlers({ surah, ayah, noteId: annotation.latestNoteId });
+  const noteActions = useNoteActions();
   if (!annotation.hasNote) return null;
   const tint = annotation.color ? annotationSwatch(annotation.color, colors.card) : colors.accent;
   if (isTV()) {
     return (
-      <View accessible accessibilityLabel={t("quranNotes.hasNote")} testID="ayah-note-marker">
+      <View
+        accessible
+        accessibilityLabel={label ?? t("quranNotes.hasNote")}
+        testID="ayah-note-marker"
+      >
         <SymbolView name={NOTE_ICON} size={22} tintColor={tint} />
       </View>
     );
   }
+  const noteId = annotation.latestNoteId;
+  const button = (
+    <IconButton
+      name={NOTE_ICON}
+      size={18}
+      tintColor={tint}
+      haptic="light"
+      accessibilityLabel={label ?? t("quranNotes.openNote", { ref: `${surah}:${ayah}` })}
+      accessibilityHint={
+        handlers.onPointerEnter ? t("quranNotes.hint.a11yOpen") : t("quranNotes.hint.a11yPeek")
+      }
+      onPress={handlers.onPress}
+      // iOS gets the native context menu below instead.
+      onLongPress={Platform.OS === "ios" ? undefined : handlers.onLongPress}
+    />
+  );
   return (
-    <View testID="ayah-note-marker">
-      <IconButton
-        name={NOTE_ICON}
-        size={18}
-        tintColor={tint}
-        haptic="light"
-        accessibilityLabel={t("quranNotes.openNote", { ref: `${surah}:${ayah}` })}
-        onPress={() =>
-          openQuranNoteEditor({
-            mode: "note",
-            surah,
-            ayah,
-            noteId: annotation.latestNoteId ?? undefined,
-          })
-        }
-      />
+    <View testID="ayah-note-marker" {...webHintProps(handlers)}>
+      {Platform.OS === "ios" && noteId ? (
+        <ContextMenu
+          title={t("quranNotes.myNote")}
+          actions={noteActions.map((action) => ({
+            id: action.id,
+            title: action.label,
+            systemIcon: typeof action.icon === "object" ? action.icon.ios : undefined,
+            destructive: action.destructive,
+          }))}
+          onAction={(id) => {
+            const note = { id: noteId, surah, ayah };
+            // Delete goes through the confirming action sheet.
+            if (id === "delete") openQuranNotePeek({ surah, ayah, noteId, via: "actions" });
+            else runNoteAction(id as "open" | "highlight" | "new", note);
+          }}
+          style={styles.menu}
+        >
+          {button}
+        </ContextMenu>
+      ) : (
+        button
+      )}
     </View>
   );
 }
 
-/** "Note" + "Highlight" buttons for the inline ayah action row (hidden on TV — read-only). */
-export function AyahNoteActions({ surah, ayah }: { surah: number; ayah: number }) {
+/**
+ * "Note" + "Highlight" buttons for the inline ayah action row (hidden on TV —
+ * read-only). `noteOnly` (compact phone rows) keeps Highlight in the "More" sheet.
+ */
+export function AyahNoteActions({
+  surah,
+  ayah,
+  noteOnly = false,
+}: {
+  surah: number;
+  ayah: number;
+  noteOnly?: boolean;
+}) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const notes = useNotesForAyah(surah, ayah);
@@ -115,15 +171,17 @@ export function AyahNoteActions({ surah, ayah }: { surah: number; ayah: number }
         accessibilityState={{ selected: hasText }}
         onPress={() => openQuranNoteEditor({ mode: "note", surah, ayah })}
       />
-      <LabeledIconButton
-        name={HIGHLIGHT_ICON}
-        label={t("quranNotes.actionHighlight")}
-        tintColor={hasColor ? colors.accent : colors.mutedForeground}
-        labelColor={hasColor ? colors.accent : colors.mutedForeground}
-        accessibilityLabel={t("quranNotes.actionHighlightA11y", { ref: `${surah}:${ayah}` })}
-        accessibilityState={{ selected: hasColor }}
-        onPress={() => openQuranNoteEditor({ mode: "highlight", surah, ayah })}
-      />
+      {noteOnly ? null : (
+        <LabeledIconButton
+          name={HIGHLIGHT_ICON}
+          label={t("quranNotes.actionHighlight")}
+          tintColor={hasColor ? colors.accent : colors.mutedForeground}
+          labelColor={hasColor ? colors.accent : colors.mutedForeground}
+          accessibilityLabel={t("quranNotes.actionHighlightA11y", { ref: `${surah}:${ayah}` })}
+          accessibilityState={{ selected: hasColor }}
+          onPress={() => openQuranNoteEditor({ mode: "highlight", surah, ayah })}
+        />
+      )}
     </>
   );
 }
@@ -140,8 +198,10 @@ type AnnotatedAyahTextProps = {
 /**
  * The ayah-mode Arabic with its highlight: a whole-ayah tint, or inline word
  * span tints (each word its own text run, so the band follows the glyphs at any
- * size and in RTL). With tajweed colouring on, spans show as an ayah tint so
- * the tajweed runs stay intact.
+ * size and in RTL). Words with a written note also get a dotted underline in the
+ * note's colour and the note hint (hover / tap / long-press). With tajweed
+ * colouring on, spans show as an ayah tint so the tajweed runs stay intact (the
+ * marker by the ayah number still carries the hint).
  */
 export const AnnotatedAyahText = memo(function AnnotatedAyahText({
   surah,
@@ -151,16 +211,18 @@ export const AnnotatedAyahText = memo(function AnnotatedAyahText({
   fontSize,
   style,
 }: AnnotatedAyahTextProps) {
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const fontFamily = useArabicFontFamily();
+  const fineHover = useFinePointerHover();
   const arabicFamilyId = useStore(preferencesStore, (s) => s.prefs.fontPrefs.arabic.family);
   const annotation = useAyahAnnotation(surah, ayah, text);
   const spans = annotation.wordSpans;
-  const wholeColor =
-    annotation.color ?? (tajweedSegments?.length && spans[0] ? spans[0].color : null);
+  const wholeColor = tajweedSegments?.length ? ayahTintColor(annotation) : annotation.color;
 
   if (spans.length && !tajweedSegments?.length) {
     const lineHeight = resolveArabicLineHeight(fontSize, arabicFamilyId);
+    const tv = isTV();
     return (
       <Text
         testID="annotated-ayah-spans"
@@ -174,19 +236,40 @@ export const AnnotatedAyahText = memo(function AnnotatedAyahText({
           style,
         ]}
       >
-        {segmentAyahForSpans(text, spans).map((segment, index) => (
-          <Text
-            // biome-ignore lint/suspicious/noArrayIndexKey: ordered runs of one fixed ayah
-            key={`${index}:${segment.color ?? ""}:${segment.text}`}
-            style={
-              segment.color
-                ? { backgroundColor: annotationTint(segment.color, tokens.isDark) }
-                : undefined
-            }
-          >
-            {segment.text}
-          </Text>
-        ))}
+        {segmentAyahForSpans(text, spans).map((segment, index) => {
+          const key = `${index}:${segment.color ?? ""}:${segment.noteId ?? ""}:${segment.text}`;
+          const tint = segment.color
+            ? { backgroundColor: annotationTint(segment.color, tokens.isDark) }
+            : null;
+          if (!segment.noteId || tv) {
+            return (
+              <Text key={key} style={tint ?? undefined}>
+                {segment.text}
+              </Text>
+            );
+          }
+          const handlers = noteHintHandlers({ surah, ayah, noteId: segment.noteId }, fineHover);
+          const underline = noteUnderlineStyle(
+            segment.color ? annotationSwatch(segment.color, colors.card) : colors.accentText,
+          );
+          return (
+            <Text
+              key={key}
+              testID={`noted-words-${segment.noteId}`}
+              // Stays a nested span (no role) — a <button> would split Arabic joining on web.
+              accessibilityHint={
+                fineHover ? t("quranNotes.hint.a11yOpen") : t("quranNotes.hint.a11yPeek")
+              }
+              suppressHighlighting
+              onPress={handlers.onPress}
+              onLongPress={handlers.onLongPress}
+              {...webHintProps(handlers, { keyboard: true })}
+              style={[tint, underline, Platform.OS === "web" ? styles.webNoted : null]}
+            >
+              {segment.text}
+            </Text>
+          );
+        })}
       </Text>
     );
   }
@@ -208,30 +291,57 @@ export const AnnotatedAyahText = memo(function AnnotatedAyahText({
 const styles = StyleSheet.create({
   arabic: { writingDirection: "rtl", textAlign: "right", width: "100%" },
   tint: { borderRadius: Radius.md, paddingHorizontal: 6, paddingVertical: 2 },
+  menu: { alignSelf: "auto", width: "auto" },
+  webNoted: {
+    cursor: "pointer",
+    // Keep the run inline so Arabic letters stay joined across it.
+    display: "inline",
+  } as unknown as TextStyle,
 });
 
+export type PageAyahHint = {
+  /** Highlight tint for the ayah (whole ayah or its first coloured span), or null. */
+  tint: string | null;
+  /** The ayah has a written note: underline it and show the hint. */
+  noteId: string | null;
+  /** Underline colour (the note's colour ≥3:1, or accent text). */
+  underline: string | null;
+};
+
 /**
- * Level A page (text layout): one tint per highlighted ayah, keyed `surah:ayah`.
- * Word spans show as the ayah tint here; word-exact spans are drawn in the
- * mushaf (Level B) layout and in ayah mode.
+ * Level A page (text layout): what each annotated ayah shows, keyed `surah:ayah`
+ * — one tint per highlighted ayah (word spans show as the ayah tint here;
+ * word-exact spans are drawn in the mushaf (Level B) layout and in ayah mode),
+ * and a "has note" underline for ayahs with a written note. Memoised off the
+ * notes index: unannotated pages return null and render exactly as before.
  */
-export function usePageAyahTints(
+export function usePageAyahHints(
   ayahs: ReadonlyArray<{ surah: number; ayah: number; arabic: string }>,
   enabled: boolean,
-): Map<string, string> | null {
-  const { tokens } = useThemeTokens();
+): Map<string, PageAyahHint> | null {
+  const { colors, tokens } = useThemeTokens();
   const index = useQuranNotesIndex();
   return useMemo(() => {
     if (!enabled || index.live.length === 0) return null;
-    const out = new Map<string, string>();
+    const out = new Map<string, PageAyahHint>();
     for (const a of ayahs) {
       const key = noteAyahKey(a.surah, a.ayah);
       const notes = index.byAyah[key];
       if (!notes) continue;
       const annotation = resolveAyahAnnotation(notes, a.ayah, a.arabic);
-      const color = annotation.color ?? annotation.wordSpans[0]?.color ?? null;
-      if (color) out.set(key, annotationTint(color, tokens.isDark));
+      const color = ayahTintColor(annotation);
+      const noteId = annotation.hasNote ? annotation.latestNoteId : null;
+      if (!color && !noteId) continue;
+      out.set(key, {
+        tint: color ? annotationTint(color, tokens.isDark) : null,
+        noteId,
+        underline: noteId
+          ? color
+            ? annotationSwatch(color, colors.card)
+            : colors.accentText
+          : null,
+      });
     }
     return out.size ? out : null;
-  }, [ayahs, enabled, index, tokens.isDark]);
+  }, [ayahs, colors.accentText, colors.card, enabled, index, tokens.isDark]);
 }

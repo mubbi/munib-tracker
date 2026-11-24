@@ -1,4 +1,6 @@
+import { RAWATIB_PRAYERS } from "@munib-tracker/shared/constants";
 import type {
+  PrayerStatus,
   RawatibExtraPrayer,
   RawatibId,
   RawatibPreferences,
@@ -7,6 +9,7 @@ import type {
 import {
   type RawatibConfig,
   type RawatibDayTimes,
+  rakahsForLog,
   sanitizeRawatibPreferences,
 } from "@munib-tracker/shared/utils";
 import type { Href } from "expo-router";
@@ -155,5 +158,21 @@ export function isRawatibExtra(id: RawatibId): id is RawatibExtraPrayer {
     id === "maghrib_before" ||
     id === "isha_before" ||
     id === "dhuhr_after_extra"
+  );
+}
+
+/**
+ * Mu'akkadah rakahs logged for one day toward the 12 / 10 target — extras never
+ * count. Shared by the home card, the tracker header and the hub so all three agree.
+ */
+export function rawatibRakahsDone(
+  status: Readonly<Record<string, PrayerStatus | undefined>>,
+  rakahs: Readonly<Record<string, number | undefined>>,
+  preset: RawatibPreset,
+): number {
+  return RAWATIB_PRAYERS.reduce(
+    (sum, id) =>
+      status[id] === "completed" ? sum + rakahsForLog({ rakahs: rakahs[id] }, id, preset) : sum,
+    0,
   );
 }

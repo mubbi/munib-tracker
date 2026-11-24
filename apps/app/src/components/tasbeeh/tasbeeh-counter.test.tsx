@@ -27,7 +27,6 @@ jest.mock(
   () => require("@/test-support/mocks/use-window-dimensions").useWindowDimensionsMock,
 );
 // Imported transitively (reading typography → audio provider); never played here.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("@/lib/platform/hinge", () => ({ useHingePosture: jest.fn(() => null) }));
 
 // The first render warms the theme + i18n graph, which is slow on a busy machine.

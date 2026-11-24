@@ -69,6 +69,15 @@ describe("tasbeeh sound engine", () => {
     expect(engine.play("bead", 120)).toBe(false);
   });
 
+  it("never skips the completion cue, even right after the final click", () => {
+    const { deps, players } = fakeDeps();
+    const engine = createTasbeehSoundEngine(deps, "woodSoft", 0.6);
+    expect(engine.play("bead", 1000)).toBe(true);
+    expect(engine.play("complete", 1001)).toBe(true);
+    const complete = players.find((p) => p.source === deps.files.woodSoft.complete);
+    expect(complete?.play).toHaveBeenCalledTimes(1);
+  });
+
   it("changes volume and releases every player once", () => {
     const { deps, players } = fakeDeps();
     const engine = createTasbeehSoundEngine(deps, "glass", 0.5);

@@ -91,7 +91,7 @@ export function RootDataGate({ children }: { children: ReactNode }) {
             {error ? (
               <ThemedText
                 type="small"
-                style={{ color: tokens.status.danger.color }}
+                style={{ color: tokens.status.danger.text }}
                 accessibilityRole="alert"
               >
                 {t(`quranRoots.data.error.${error}`)}

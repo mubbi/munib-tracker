@@ -27,6 +27,10 @@
  *
  * Needs ffmpeg: FFMPEG_PATH, `ffmpeg` on PATH, or Python's `imageio-ffmpeg`.
  * Usage: pnpm --filter app tasbeeh-voice:eval [--quick]
+ *
+ * `--template` evaluates "teach a zikr" counting instead (D48–D51, no model at
+ * count time): see `tasbeeh-voice-template-eval.mjs`. It needs the phrase
+ * snippets this script cuts, which `--snippets-only` caches and then exits.
  */
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -36,6 +40,11 @@ import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { loadPhraseInputs, pinnedBytes } from "./build-tasbeeh-voice-tokens.mjs";
+
+if (process.argv.includes("--template")) {
+  await import("./tasbeeh-voice-template-eval.mjs");
+  process.exit(0);
+}
 
 const here = dirname(fileURLToPath(import.meta.url));
 const appRoot = join(here, "..");
@@ -447,6 +456,32 @@ for (const key of PHRASE_KEYS) {
 }
 
 log("snippets cut");
+if (process.argv.includes("--snippets-only")) {
+  // Cache for `--template`: the cut snippets (PCM, git-ignored cache only) and the
+  // cross-checked natural clips it uses as negatives.
+  mkdirSync(join(CACHE, "snippets"), { recursive: true });
+  const index = {};
+  for (const key of PHRASE_KEYS) {
+    index[key] = snippets[key].map((snip, n) => {
+      const file = `${key}-${n}.f32`;
+      writeFileSync(join(CACHE, "snippets", file), Buffer.from(snip.pcm.buffer));
+      return { from: snip.from, file, score: snip.score };
+    });
+  }
+  const natural = crossChecked.map((clip) => ({
+    id: clip.id,
+    kind: clip.kind,
+    url: clip.url,
+    truth: clip.truth,
+  }));
+  writeFileSync(
+    join(CACHE, "snippets", "index.json"),
+    `${JSON.stringify({ quick: QUICK, snippets: index, natural, excluded, excludedSnippets }, null, 2)}
+`,
+  );
+  log("snippets cached");
+  process.exit(0);
+}
 /* ---------------------------------------------------- synthetic clips */
 
 function concat(parts, gapMs) {

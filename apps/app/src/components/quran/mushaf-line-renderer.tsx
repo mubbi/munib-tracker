@@ -1,14 +1,21 @@
 import type { MushafLine, MushafPageLayout } from "@munib-tracker/shared/types";
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 
 import { useMushafAnnotations } from "@/components/quran/mushaf-annotations";
-import { MushafFontLoading } from "@/components/quran/mushaf-font-loading";
+import { MushafFontError, MushafFontLoading } from "@/components/quran/mushaf-font-loading";
 import { MushafPageFrame } from "@/components/quran/mushaf-page-frame";
+import {
+  noteHintHandlers,
+  noteUnderlineStyle,
+  TvNoteFocusPreview,
+  webHintProps,
+} from "@/components/quran/note-hints";
 import { SurahBanner } from "@/components/quran/surah-banner";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
+import { useFinePointerHover } from "@/hooks/use-fine-pointer-hover";
 import { useQcfPageFont } from "@/hooks/use-qcf-page-font";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -123,8 +130,14 @@ export function MushafLineRenderer({
     (line) => line.type === "basmala" || line.type === "text",
   );
   const hasBasmala = layout.lines.some((line) => line.type === "basmala");
-  const { ready, fontFamily, basmalaFontFamily } = useQcfPageFont(page, hasBasmala);
+  const { ready, failed, retry, fontFamily, basmalaFontFamily } = useQcfPageFont(page, hasBasmala);
   const annotations = useMushafAnnotations(page, layout, showAnnotations && !renderLineGlyphs);
+  const fineHover = useFinePointerHover();
+  // NF-3.21 TV note hint: the focused line's note shows read-only over the page foot.
+  const tv = isTV();
+  const [tvFocusedLine, setTvFocusedLine] = useState<number | null>(null);
+  const tvNote =
+    tv && tvFocusedLine != null ? (annotations?.lineNote(tvFocusedLine) ?? null) : null;
 
   // TV: which text line should take initial D-pad focus (by line index).
   let tvFocusLineIndex = -1;
@@ -180,21 +193,38 @@ export function MushafLineRenderer({
           const primary = refs[0];
           const highlighted = lineHighlightsAyah(refs, highlightAyah);
           const annotationTint = highlighted ? null : (annotations?.lineTint(lineIndex) ?? null);
+          const lineNote = annotations?.lineNote(lineIndex) ?? null;
+          const baseLabel = primary
+            ? t("quran.ayahRef", { surah: primary.surah, ayah: primary.ayah })
+            : t("quran.pageN", { n: page });
+          // Fallback pages (no word map): the whole line carries the note hint.
+          const lineHint =
+            lineNote && annotations?.lineLevelNotes && fineHover
+              ? webHintProps(
+                  noteHintHandlers(
+                    { surah: lineNote.surah, ayah: lineNote.ayah, noteId: lineNote.noteId },
+                    true,
+                  ),
+                )
+              : {};
           return (
             <PressableScale
               key={lineKey}
               haptic="light"
               scaleTo={0.997}
               accessibilityRole="button"
-              accessibilityLabel={
-                primary
-                  ? t("quran.ayahRef", { surah: primary.surah, ayah: primary.ayah })
-                  : t("quran.pageN", { n: page })
-              }
+              accessibilityLabel={lineNote ? `${baseLabel}, ${t("quranNotes.hasNote")}` : baseLabel}
               onPress={() => primary && onAyahPress?.(primary.surah, primary.ayah)}
-              onFocus={onItemFocus}
-              onBlur={onItemBlur}
+              onFocus={() => {
+                onItemFocus?.();
+                if (tv) setTvFocusedLine(lineIndex);
+              }}
+              onBlur={() => {
+                onItemBlur?.();
+                if (tv) setTvFocusedLine((prev) => (prev === lineIndex ? null : prev));
+              }}
               {...(lineIndex === tvFocusLineIndex ? { hasTVPreferredFocus: true } : {})}
+              {...lineHint}
               style={[
                 styles.textLine,
                 highlighted ? { backgroundColor: tokens.mushaf.highlight } : null,
@@ -208,6 +238,9 @@ export function MushafLineRenderer({
                   MUSHAF_GLYPH_STYLE,
                   { fontFamily },
                   line.alignment === "centered" ? styles.centeredText : styles.justifiedText,
+                  lineNote && annotations?.lineLevelNotes
+                    ? noteUnderlineStyle(lineNote.underline)
+                    : null,
                 ]}
               >
                 {renderLineGlyphs?.(lineIndex, line.glyphs) ??
@@ -217,7 +250,19 @@ export function MushafLineRenderer({
             </PressableScale>
           );
         })}
-        {!ready && hasGlyphLines ? <MushafFontLoading /> : null}
+        {!ready && hasGlyphLines ? (
+          failed ? (
+            <MushafFontError onRetry={retry} />
+          ) : (
+            <MushafFontLoading />
+          )
+        ) : null}
+        {tvNote ? (
+          // Overlay, not an inserted row: the 15-line leaf keeps its layout.
+          <View style={[styles.tvNoteOverlay, { pointerEvents: "none" }]}>
+            <TvNoteFocusPreview surah={tvNote.surah} ayah={tvNote.ayah} />
+          </View>
+        ) : null}
       </View>
     </MushafPageFrame>
   );
@@ -225,6 +270,7 @@ export function MushafLineRenderer({
 
 const styles = StyleSheet.create({
   lines: { flexGrow: 1 },
+  tvNoteOverlay: { position: "absolute", start: 0, end: 0, bottom: 0 },
   // Full page → spread lines edge-to-edge; sparse page → center the block.
   linesDense: { justifyContent: "space-between" },
   linesSparse: { justifyContent: "center", gap: Spacing.two },

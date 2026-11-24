@@ -7,10 +7,11 @@ import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { isFriday } from "@/lib/friday";
 import { getRamadanInfo } from "@/lib/ramadan";
-import { currentSeasonalTheme } from "@/lib/seasonal-themes";
+import { currentSeasonalBanner } from "@/lib/seasonal-themes";
 import { isWhiteDay } from "@/lib/white-days";
 import { continueStore } from "@/stores/continue-store";
 import { locationStore } from "@/stores/location-store";
+import { __resetSeasonalBannerStore, seasonalBannerStore } from "@/stores/seasonal-banner-store";
 import { defined } from "@/test-support/assert";
 import { buildContinueActivity } from "@/test-support/fixtures/continue";
 import { buildKhatmPlan } from "@/test-support/fixtures/khatm";
@@ -26,6 +27,10 @@ import { renderWithTheme } from "@/test-support/render";
 import { restoreTrackerStore, seedTrackerStore } from "@/test-support/store";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
+jest.mock(
+  "@/providers/toast-provider",
+  () => require("@/test-support/mocks/toast-provider").toastProviderMock,
+);
 jest.mock(
   "react-native/Libraries/Utilities/useWindowDimensions",
   () => require("@/test-support/mocks/use-window-dimensions").useWindowDimensionsMock,
@@ -99,8 +104,10 @@ jest.mock("@/lib/ramadan", () => ({
 }));
 jest.mock("@/lib/seasonal-themes", () => ({
   ...jest.requireActual("@/lib/seasonal-themes"),
-  currentSeasonalTheme: jest.fn(() => null),
+  currentSeasonalBanner: jest.fn(() => null),
 }));
+
+const IN_SEASON = { season: {} as never, dismissKey: "ramadan:1448" };
 
 const share = jest.fn(async () => {});
 const initialLocation = locationStore.getState().location;
@@ -152,7 +159,7 @@ afterEach(async () => {
   jest.mocked(isFriday).mockReturnValue(false);
   jest.mocked(isWhiteDay).mockReturnValue(false);
   jest.mocked(getRamadanInfo).mockReturnValue({ isRamadan: false } as never);
-  jest.mocked(currentSeasonalTheme).mockReturnValue(null);
+  jest.mocked(currentSeasonalBanner).mockReturnValue(null);
   restoreTrackerStore();
   resetMockWindowSize();
   locationStore.setState({ location: initialLocation });
@@ -248,19 +255,14 @@ describe("HomeBelowFold cards", () => {
 
   it("shows banners and progress cards when they apply", async () => {
     locationStore.setState({ location: buildStoredLocation({ source: "default" }) });
-    jest.mocked(currentSeasonalTheme).mockReturnValue({} as never);
+    jest.mocked(currentSeasonalBanner).mockReturnValue(IN_SEASON);
     jest.mocked(getRamadanInfo).mockReturnValue({ isRamadan: true } as never);
     continueStore.setState({ activity: buildContinueActivity() });
     await seedTrackerStore({ qazaCounters: [buildQazaCounter({ remaining: 4 })] });
     await renderFold();
 
-    for (const label of [
-      "location-banner",
-      "seasonal-banner",
-      "ramadan-card",
-      "continue-card",
-      "qaza-card",
-    ]) {
+    expect(await screen.findByText("seasonal-banner")).toBeTruthy();
+    for (const label of ["location-banner", "ramadan-card", "continue-card", "qaza-card"]) {
       expect(screen.getByText(label)).toBeTruthy();
     }
   });
@@ -345,13 +347,34 @@ describe("HomeBelowFold dashboard layout", () => {
     setMockWindowSize(1500);
     jest.mocked(getRamadanInfo).mockReturnValue({ isRamadan: true } as never);
     locationStore.setState({ location: buildStoredLocation({ source: "default" }) });
-    jest.mocked(currentSeasonalTheme).mockReturnValue({} as never);
+    jest.mocked(currentSeasonalBanner).mockReturnValue(IN_SEASON);
     await seedKhatm({ plan: buildKhatmPlan(), ayahsRead: 6236 });
     await renderFold({ hero: <Text>hero</Text> });
 
     expect(screen.getByText("ramadan-card")).toBeTruthy();
     expect(screen.getByText("khatm-card")).toBeTruthy();
     expect(screen.getByText("location-banner")).toBeTruthy();
+  });
+});
+
+describe("HomeBelowFold seasonal banner", () => {
+  beforeEach(() => {
+    __resetSeasonalBannerStore();
+    jest.mocked(currentSeasonalBanner).mockReturnValue(IN_SEASON);
+  });
+
+  it("stays hidden once dismissed for this season", async () => {
+    await seasonalBannerStore.getState().dismiss(IN_SEASON.dismissKey);
+    await renderFold();
+
+    expect(screen.queryByText("seasonal-banner")).toBeNull();
+  });
+
+  it("stays hidden when turned off in Customize home", async () => {
+    await setPreferences({ hiddenHomeModules: ["seasonal-banner"] });
+    await renderFold();
+
+    expect(screen.queryByText("seasonal-banner")).toBeNull();
   });
 });
 

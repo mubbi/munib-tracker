@@ -1,9 +1,8 @@
 import type { HijriOffsetDays } from "@munib-tracker/shared/types";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import { StepperRow } from "@/components/settings/stepper-row";
 import { ThemedText } from "@/components/themed-text";
-import { Stepper } from "@/components/ui/stepper";
 import { Spacing } from "@/constants/theme";
 import { useHijriAdjustment } from "@/hooks/use-hijri-adjustment";
 import { useNow } from "@/hooks/use-now";
@@ -18,7 +17,8 @@ const MAX_OFFSET = 2;
 
 /**
  * "Hijri date adjustment": a −2…+2 whole-calendar shift with a live preview
- * line ("Today: 21 Jumada al-Ula 1448"). Read-only on TV.
+ * line ("Today: 21 Jumada al-Ula 1448"). Uses the shared settings stepper
+ * (bounded both ways); read-only on TV.
  */
 export function HijriOffsetStepper() {
   const { t, i18n } = useTranslation();
@@ -36,32 +36,35 @@ export function HijriOffsetStepper() {
           count: Math.abs(offset),
         });
 
-  const step = (delta: number) => {
-    const next = Math.max(MIN_OFFSET, Math.min(MAX_OFFSET, offset + delta));
-    if (next !== offset) void setHijriOffsetDays(next as HijriOffsetDays);
-  };
+  const signed = (value: number) => (value > 0 ? `+${value}` : `${value}`);
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <View style={styles.copy}>
-          <ThemedText type="smallBold">{t("hijriAdjust.offsetTitle")}</ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {valueLabel}
-          </ThemedText>
+      {isTV() ? (
+        <View style={styles.row}>
+          <View style={styles.copy}>
+            <ThemedText type="smallBold">{t("hijriAdjust.offsetTitle")}</ThemedText>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {valueLabel}
+            </ThemedText>
+          </View>
+          <ThemedText type="smallBold">{signed(offset)}</ThemedText>
         </View>
-        {isTV() ? (
-          <ThemedText type="smallBold">{offset > 0 ? `+${offset}` : `${offset}`}</ThemedText>
-        ) : (
-          <Stepper
-            value={offset}
-            min={MIN_OFFSET}
-            label={t("hijriAdjust.offsetTitle")}
-            onIncrement={() => step(1)}
-            onDecrement={() => step(-1)}
-          />
-        )}
-      </View>
+      ) : (
+        // The settings stepper: disabled at −2 / +2, value read out with the title.
+        <StepperRow
+          title={t("hijriAdjust.offsetTitle")}
+          subtitle={valueLabel}
+          value={offset}
+          min={MIN_OFFSET}
+          max={MAX_OFFSET}
+          step={1}
+          format={signed}
+          onChange={(next) => {
+            if (next !== offset) void setHijriOffsetDays(next as HijriOffsetDays);
+          }}
+        />
+      )}
       <ThemedText
         type="caption"
         themeColor="mutedForeground"

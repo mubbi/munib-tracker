@@ -3,9 +3,9 @@ import { FARD_PRAYERS } from "@munib-tracker/shared/circles";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { usePathname, useRouter } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AppState } from "react-native";
 
 import { ReconsentSheet } from "@/components/circles/reconsent-sheet";
+import { useForegroundInterval } from "@/hooks/use-foreground-interval";
 import { type CircleSummary, putFardStatus } from "@/lib/circles/api";
 import {
   flushPendingChildStatuses,
@@ -62,14 +62,15 @@ function ChildDeviceGuard() {
     if (pathname && !isKidsAllowedPath(pathname)) router.replace("/kids");
   }, [pathname, router]);
 
-  useEffect(() => {
-    const sub = AppState.addEventListener("change", (state) => {
-      if (state !== "active") return;
+  // Resume: refresh the profile and retry pending fard-status pushes.
+  useForegroundInterval(
+    () => {
       void refreshChildProfile();
       void flushPendingChildStatuses();
-    });
-    return () => sub.remove();
-  }, []);
+    },
+    null,
+    { immediate: false },
+  );
 
   return null;
 }

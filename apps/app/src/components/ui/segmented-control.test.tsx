@@ -46,6 +46,29 @@ describe("SegmentedControl", () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
+  it("reports a re-press of the selected segment when allowReselect is set", async () => {
+    const onChange = jest.fn();
+    await renderWithTheme(
+      <SegmentedControl options={OPTIONS} value="day" onChange={onChange} allowReselect tabs />,
+    );
+
+    await fireEvent.press(screen.getByRole("tab", { name: "Day" }));
+
+    expect(onChange).toHaveBeenCalledWith("day");
+  });
+
+  it("uses an option's screen-reader label", async () => {
+    await renderWithTheme(
+      <SegmentedControl
+        options={[{ id: "day", label: "D", accessibilityLabel: "Daily view" }]}
+        value="day"
+        onChange={jest.fn()}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Daily view" })).toBeSelected();
+  });
+
   it("adds the sliding thumb once the track is measured", async () => {
     await renderControl("missing" as Period);
     const before = track().children.length;

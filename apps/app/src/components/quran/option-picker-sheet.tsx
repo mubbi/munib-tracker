@@ -59,7 +59,7 @@ export function SelectTrigger({
           style={[
             styles.triggerLabel,
             filterValueTextStyle(label),
-            active ? { color: colors.accent, fontWeight: "700" } : null,
+            active ? { color: colors.accentText, fontWeight: "700" } : null,
             tv ? { fontSize: TvLayout.bodyFontSize } : null,
           ]}
         >

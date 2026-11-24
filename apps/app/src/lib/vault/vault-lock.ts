@@ -45,6 +45,11 @@ export function useVaultLockJournals(): boolean {
   return useStore(vaultLockPrefStore, (s) => s.lockJournals);
 }
 
+/** True once the stored "Lock private journals" pref has been read (gates must wait for it). */
+export function useVaultLockPrefReady(): boolean {
+  return useStore(vaultLockPrefStore, (s) => s.isReady);
+}
+
 const vaultLockActions = {
   setLockJournals: (value: boolean) => vaultLockPrefStore.getState().setLockJournals(value),
 } as const;

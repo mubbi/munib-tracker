@@ -7,10 +7,19 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getSettingsGroup, isGroupAvailable } from "@/lib/settings/groups";
+import {
+  getSettingsGroup,
+  getSettingsSubgroup,
+  isGroupAvailable,
+  subgroupOfSection,
+} from "@/lib/settings/groups";
 import { getPlatformCtx } from "@/lib/settings/platform";
 import { getSetting } from "@/lib/settings/registry";
-import { type SettingsGroupId, settingsGroupPath } from "@/lib/settings/routes";
+import {
+  type SettingsGroupId,
+  settingsGroupPath,
+  settingsSubgroupPath,
+} from "@/lib/settings/routes";
 
 import { SettingsGroupBody } from "./settings-group-body";
 import { useSettingsFormMaxWidth } from "./settings-layout";
@@ -19,34 +28,53 @@ import { useSettingsFormMaxWidth } from "./settings-layout";
  * A settings group route (§4.5.5): ScreenLayout + form max width + Back to the
  * hub + availability gate (TV / web never land on an empty state — they bounce
  * to the hub) + `?focus=<settingId>` scroll-and-pulse.
+ *
+ * With `subgroup` it is one sub-screen of a split group (Back → the group).
+ * A group screen asked to focus a row that lives on a sub-screen forwards the
+ * focus there, so every `settingHref(id)` keeps landing on the right row.
  */
-export function SettingsScreen({ group }: { group: SettingsGroupId }) {
+export function SettingsScreen({ group, subgroup }: { group: SettingsGroupId; subgroup?: string }) {
   const router = useRouter();
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ focus?: string }>();
   const formMaxWidth = useSettingsFormMaxWidth();
   const meta = getSettingsGroup(group);
+  const sub = subgroup ? getSettingsSubgroup(group, subgroup) : null;
   const ctx = useMemo(getPlatformCtx, []);
   const scrollRef = useRef<ScrollViewInstance | null>(null);
 
   const focus = typeof params.focus === "string" ? params.focus : null;
-  const focusId = focus && getSetting(focus)?.group === group ? focus : null;
+  const focusDef = focus ? getSetting(focus) : undefined;
+  const focusSub = focusDef?.group === group ? subgroupOfSection(group, focusDef.section) : null;
+  const focusHere = focusDef?.group === group && (focusSub?.id ?? null) === (sub?.id ?? null);
+  const focusId = focus && focusHere ? focus : null;
   const { register, onScroll } = useScrollToActive(scrollRef, focusId);
 
   if (!isGroupAvailable(meta, ctx)) return <Redirect href="/settings" />;
+  const groupPath = settingsGroupPath(group);
+  if (subgroup && !sub) return <Redirect href={groupPath as Href} />;
+  if (focus && focusSub && focusSub.id !== sub?.id) {
+    const target = `${settingsSubgroupPath(group, focusSub.id)}?focus=${encodeURIComponent(focus)}`;
+    return <Redirect href={target as Href} />;
+  }
 
   return (
     <ScreenLayout
       maxContentWidth={formMaxWidth}
-      eyebrow={t("settings.title")}
-      title={t(meta.titleKey)}
-      subtitle={t(meta.subtitleKey)}
-      onBack={() => goBackOrReplace(router, "/settings")}
+      eyebrow={sub ? t(meta.titleKey) : t("settings.title")}
+      title={t(sub?.titleKey ?? meta.titleKey)}
+      subtitle={t(sub?.subtitleKey ?? meta.subtitleKey)}
+      onBack={() => goBackOrReplace(router, (sub ? groupPath : "/settings") as Href)}
       scrollRef={scrollRef}
       onScroll={onScroll}
     >
-      <Seo path={settingsGroupPath(group)} />
-      <SettingsGroupBody group={group} focusId={focusId} register={register} />
+      <Seo path={sub ? settingsSubgroupPath(group, sub.id) : groupPath} />
+      <SettingsGroupBody
+        group={group}
+        subgroup={sub?.id ?? null}
+        focusId={focusId}
+        register={register}
+      />
     </ScreenLayout>
   );
 }

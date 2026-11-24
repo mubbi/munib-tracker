@@ -448,12 +448,16 @@ export const LCD_BACKLIGHTS: Record<
   mono: { panel: "#C9CCC4", segmentOn: "#1A1C18", segmentOff: "#B7BAB2" },
 };
 
-/** Focus / Night design: true black for OLED, dimmed numerals (device data). */
+/**
+ * Focus / Night design: true black for OLED, dimmed numerals (device data).
+ * Dim but legible: every text colour stays at or above WCAG AA (4.5:1) on the
+ * black stage — the caption used to sit at 2.6:1.
+ */
 export const NIGHT_PALETTE = {
   background: "#000000",
   numeral: "#8A8F98",
   numeralComplete: "#6FA889",
-  caption: "#4C5058",
+  caption: "#70757E",
 } as const;
 
 /** Applies a preset over the current misbaha options, keeping strand / layout / background. */

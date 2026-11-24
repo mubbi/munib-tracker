@@ -1,4 +1,5 @@
 import { masjidKey } from "@munib-tracker/shared/masjid";
+import * as Network from "expo-network";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
@@ -16,6 +17,11 @@ import { homeMasjidTimesActions, homeMasjidTimesStore } from "@/stores/home-masj
 import { preferencesStore } from "@/stores/preferences-store";
 import { fakeResponse, mockFetch } from "@/test-support/fetch";
 import { setPreferences } from "@/test-support/preferences";
+
+jest.mock("expo-network", () => ({
+  getNetworkStateAsync: jest.fn(async () => ({ isConnected: true, isInternetReachable: true })),
+}));
+const mockNetworkState = Network.getNetworkStateAsync as jest.Mock;
 
 const HOME = { osmType: "node" as const, osmId: "1", name: "East Masjid", lat: 51.5, lon: -0.12 };
 const KEY = masjidKey(HOME);
@@ -59,6 +65,14 @@ describe("masjid api client (privacy)", () => {
       masjids: [{ osmId: "9" }],
     });
     await expect(fetchMasjidList("gcpvm")).rejects.toBeInstanceOf(MasjidApiError);
+  });
+
+  it("reports a failed request as offline only when the device has no connection", async () => {
+    mockFetch(new Error("Failed to fetch"));
+    // Online device: the server is down / refusing the origin — not "offline".
+    await expect(fetchMasjidDetail("node", "1")).rejects.toMatchObject({ kind: "unavailable" });
+    mockNetworkState.mockResolvedValueOnce({ isConnected: false, isInternetReachable: false });
+    await expect(fetchMasjidDetail("node", "1")).rejects.toMatchObject({ kind: "offline" });
   });
 
   it("maps HTTP errors to kinds", async () => {

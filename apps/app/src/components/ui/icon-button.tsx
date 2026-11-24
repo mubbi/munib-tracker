@@ -17,6 +17,8 @@ type IconButtonProps = {
   preferredFocus?: boolean;
   name: SymbolViewProps["name"];
   onPress?: () => void;
+  /** Long-press (touch) — e.g. a context action sheet. */
+  onLongPress?: () => void;
   /** Glyph size in points. The tap target stays >= `hitTarget` regardless. */
   size?: number;
   tintColor?: string;
@@ -52,6 +54,7 @@ type IconButtonProps = {
 export function IconButton({
   name,
   onPress,
+  onLongPress,
   size = 20,
   tintColor,
   accessibilityLabel,
@@ -80,6 +83,7 @@ export function IconButton({
       accessibilityState={{ disabled: isDisabled, busy: loading, ...accessibilityState }}
       disabled={isDisabled}
       onPress={loading ? undefined : onPress}
+      onLongPress={loading ? undefined : onLongPress}
       haptic={haptic}
       hitSlop={8}
       {...(preferredFocus && isTV() ? { hasTVPreferredFocus: true } : {})}

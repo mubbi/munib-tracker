@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["MunibNearbyModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.munibnearby.MunibNearbyModule"]
+  }
+}

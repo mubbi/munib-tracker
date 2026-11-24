@@ -10,7 +10,7 @@ import {
 } from "@/test-support/mocks/native-file-store";
 import { setPlatform } from "@/test-support/platform";
 
-import { exportPrintableDocument } from "./export-document";
+import { clearPrintableExports, exportPrintableDocument } from "./export-document";
 
 jest.mock(
   "@/lib/native-file-store",
@@ -75,7 +75,10 @@ describe("with expo-print (D30)", () => {
 
     await expect(exportDoc()).resolves.toBe("shared");
 
-    expect(printToFile).toHaveBeenCalledWith({ html: HTML });
+    // A4 with margins: iOS ignores the page's CSS @page rule.
+    expect(printToFile).toHaveBeenCalledWith(
+      expect.objectContaining({ html: HTML, width: 595, height: 842, margins: expect.any(Object) }),
+    );
     expect(shareAsync).toHaveBeenCalledWith(PDF, {
       mimeType: "application/pdf",
       UTI: "com.adobe.pdf",
@@ -108,7 +111,7 @@ describe("with expo-print (D30)", () => {
 
   it("opens the system print dialog in print mode without writing a file", async () => {
     await expect(exportDoc("print")).resolves.toBe("printed");
-    expect(printAsync).toHaveBeenCalledWith({ html: HTML });
+    expect(printAsync).toHaveBeenCalledWith(expect.objectContaining({ html: HTML }));
     expect(printToFile).not.toHaveBeenCalled();
     expect(shareAsync).not.toHaveBeenCalled();
   });
@@ -170,5 +173,24 @@ describe("on TV", () => {
     expect(printToFile).not.toHaveBeenCalled();
     expect(printAsync).not.toHaveBeenCalled();
     expect(shareAsync).not.toHaveBeenCalled();
+  });
+});
+
+describe("clearPrintableExports (reset / account deletion)", () => {
+  it("deletes any export a killed share sheet left in the printable cache folder", async () => {
+    mockNativeFiles.set(PDF, { size: 2048 });
+    mockNativeFiles.set(HTML_FILE, { size: 512 });
+    mockNativeFiles.set("file:///cache/other/keep.bin", { size: 1 });
+
+    await clearPrintableExports();
+
+    expect(mockDeletePath).toHaveBeenCalledWith("file:///cache/printable/");
+    expect([...mockNativeFiles.keys()]).toEqual(["file:///cache/other/keep.bin"]);
+  });
+
+  it("is a no-op without a cache directory", async () => {
+    mockNativeFileStore.cacheDir = null;
+    await clearPrintableExports();
+    expect(mockDeletePath).not.toHaveBeenCalled();
   });
 });

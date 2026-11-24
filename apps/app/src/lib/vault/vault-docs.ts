@@ -8,7 +8,15 @@ import { mergeVaultDocs, type VaultDoc } from "./doc-merge";
  * `SYNC_ENTITIES`, and nothing else — blob sync, wipe, backup and store
  * reloads all iterate this table.
  */
-export const VAULT_DOC_IDS = ["muhasabah", "debts", "wasiyyah", "relatives"] as const;
+export const VAULT_DOC_IDS = [
+  "muhasabah",
+  "debts",
+  "wasiyyah",
+  "relatives",
+  // D46 mirrors of plaintext local stores (see `lib/private-sync`).
+  "excused",
+  "khushu",
+] as const;
 
 export type VaultDocId = (typeof VAULT_DOC_IDS)[number];
 
@@ -17,6 +25,8 @@ export const VAULT_DOC_STORAGE_KEYS: Record<VaultDocId, string> = {
   debts: DB_KEYS.vaultDebts,
   wasiyyah: DB_KEYS.vaultWasiyyah,
   relatives: DB_KEYS.vaultRelatives,
+  excused: DB_KEYS.vaultExcused,
+  khushu: DB_KEYS.vaultKhushu,
 };
 
 export const VAULT_KEYRING_ENTITY = "vault_keyring";
@@ -28,7 +38,7 @@ export function vaultDocEntity(docId: VaultDocId): VaultDocEntity {
   return `vault_${docId}`;
 }
 
-/** All five sync entities, keyring first (it must be applied before the documents). */
+/** Every vault sync entity, keyring first (it must be applied before the documents). */
 export const VAULT_SYNC_ENTITIES: readonly VaultSyncEntity[] = [
   VAULT_KEYRING_ENTITY,
   ...VAULT_DOC_IDS.map(vaultDocEntity),

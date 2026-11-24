@@ -26,12 +26,16 @@ export function DebtRow({
   record,
   today,
   onPress,
+  selected = false,
 }: {
   record: DebtEntry;
   today: string;
   onPress: () => void;
+  /** Master–detail: this record is open in the detail pane. */
+  selected?: boolean;
 }) {
   const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
   const format = useRecordFormat();
   const toneFor = useDebtStatusTone();
   const overdue = isOverdue(record, today);
@@ -52,6 +56,10 @@ export function DebtRow({
     <Card
       padding="three"
       onPress={onPress}
+      accessibilityState={{ selected }}
+      style={
+        selected ? { borderColor: colors.accent, backgroundColor: tokens.accentSoft } : undefined
+      }
       accessibilityLabel={t("debts.row.a11y", {
         who: record.counterparty,
         amount: amountText,

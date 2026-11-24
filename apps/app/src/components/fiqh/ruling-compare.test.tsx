@@ -19,15 +19,21 @@ const cellDirection = () =>
 describe("RulingCompare", () => {
   const onPlatform = usePlatformSwitch();
 
-  it("lists every school's position with an accessible label", async () => {
+  it("lists every school's position, grouping schools that agree", async () => {
     await renderWithTheme(<RulingCompare id="witr.status" />);
     expect(screen.getByText("Ruling of Witr")).toBeTruthy();
     expect(
       screen.getByLabelText("Hanafi: Wajib (necessary): below fard, above sunnah."),
     ).toBeTruthy();
+    // Three schools share one position: shown once, under all three names.
     expect(screen.getAllByText("Sunnah mu'akkadah (a strongly emphasised sunnah).")).toHaveLength(
-      3,
+      1,
     );
+    expect(
+      screen.getByLabelText(
+        "Shafi'i · Maliki · Hanbali: Sunnah mu'akkadah (a strongly emphasised sunnah).",
+      ),
+    ).toBeTruthy();
     expect(
       screen.getByText("All four schools are recognised positions of Sunni scholarship."),
     ).toBeTruthy();
@@ -54,7 +60,7 @@ describe("RulingCompare", () => {
       <RulingCompare id="qasr.residency" hideTitle schools={["hanafi", "maliki"]} />,
     );
     expect(screen.queryByText("When a traveller becomes resident")).toBeNull();
-    expect(screen.queryByTestId("ruling-compare-shafii")).toBeNull();
-    expect(screen.getByTestId("ruling-compare-maliki")).toBeTruthy();
+    expect(screen.queryByTestId(/ruling-compare-.*shafii/)).toBeNull();
+    expect(screen.getByTestId(/ruling-compare-.*maliki/)).toBeTruthy();
   });
 });

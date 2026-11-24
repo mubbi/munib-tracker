@@ -180,6 +180,8 @@ module.exports = ({ config }) => {
           ? "@bacons/apple-targets"
           : ["@bacons/apple-targets", { match: `!(${FOCUS_LOCK_TARGET_GLOB})` }],
         ["./modules/munib-focus-lock/app.plugin.js", { hardIos: focusLockHardIos }],
+        /** NF-3.25 nearby join (BLE): Bluetooth usage string + Android 12+ scan/advertise permissions. */
+        "./modules/munib-nearby/app.plugin.js",
         "./plugins/withExternalCommands.cjs",
         "./plugins/withWearOs.cjs",
         ["react-native-android-widget", { widgets: ANDROID_HOME_SCREEN_WIDGETS }],

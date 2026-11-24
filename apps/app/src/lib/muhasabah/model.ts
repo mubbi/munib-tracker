@@ -221,3 +221,14 @@ export function buildMuhasabahEntry(input: {
     durationMs: Math.max(0, Math.round(input.durationMs)),
   };
 }
+
+/** Dates of entries that still hold repentance text (to offer clearing it when saving text is turned off). */
+export function entriesWithRepentText(entries: readonly MuhasabahEntry[]): string[] {
+  return entries.filter((entry) => Boolean(entry.repentNote?.trim())).map((entry) => entry.date);
+}
+
+/** The entry without its repentance text; the fact that the person repented is kept. */
+export function withoutRepentText(entry: MuhasabahEntry): MuhasabahEntry {
+  const { repentNote: _drop, ...rest } = entry;
+  return { ...rest, repented: true };
+}

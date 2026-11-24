@@ -165,6 +165,11 @@ export function MirathResultView({
         />
         <MadhhabBadge school={school ?? result.school} />
       </View>
+      {highlight.some((heir) => result.heirs.some((h) => h.heir === heir)) ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.meta}>
+          {t("privateUx.mirath.highlightHint")}
+        </ThemedText>
+      ) : null}
 
       {result.outcome === "dhawu_al_arham" ? (
         <JannahCallout tone="warning">{t("mirath.result.dhawuAlArham")}</JannahCallout>
@@ -343,7 +348,8 @@ const styles = StyleSheet.create({
   rowValue: { alignItems: "flex-end", gap: Spacing.half },
   track: { height: 6, borderRadius: 3, overflow: "hidden", flexDirection: "row" },
   fill: { height: 6, borderRadius: 3 },
-  why: { alignSelf: "flex-start", paddingVertical: Spacing.half },
+  // 44pt touch target without making the row taller than the label needs.
+  why: { alignSelf: "flex-start", minHeight: 44, justifyContent: "center" },
   whyList: { gap: Spacing.one },
   excludedTitle: { marginTop: Spacing.two },
   compareHint: { marginTop: Spacing.one, marginBottom: Spacing.two },

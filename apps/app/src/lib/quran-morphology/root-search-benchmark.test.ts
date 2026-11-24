@@ -32,7 +32,9 @@ const DEFAULT_FILE = join(
   "../../../scripts/build-data/.cache/quran-morphology/quranic-corpus-morphology-0.4.txt",
 );
 const FILE = process.env.MORPHOLOGY_FILE ?? DEFAULT_FILE;
-const run = process.env.ROOT_SEARCH_BENCH && existsSync(FILE) ? describe : describe.skip;
+// Opt-in local benchmark only — never in CI (timings there are meaningless).
+const run =
+  process.env.ROOT_SEARCH_BENCH && !process.env.CI && existsSync(FILE) ? describe : describe.skip;
 
 function loadSurahArabic(surah: number): Record<string, string> {
   const pad = String(surah).padStart(3, "0");

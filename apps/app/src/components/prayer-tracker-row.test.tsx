@@ -61,6 +61,20 @@ describe("PrayerTrackerRow", () => {
     expect(screen.getByRole("button", { name: "Fajr, Delayed" })).toBeTruthy();
   });
 
+  it("announces a Salah prayed at the masjid once completed", async () => {
+    await renderRow({ status: "completed", atMasjid: true });
+
+    expect(
+      screen.getByRole("button", { name: "Fajr, Completed. Prayed at the masjid" }),
+    ).toBeTruthy();
+  });
+
+  it("ignores the masjid flag until the prayer is completed", async () => {
+    await renderRow({ status: "pending", atMasjid: true });
+
+    expect(screen.getByRole("button", { name: "Fajr, Pending" })).toBeTruthy();
+  });
+
   it("links to after-salah adhkar with progress", async () => {
     const onPressAfterSalah = jest.fn();
     await renderRow({ afterSalahProgress: adhkar(2, 5), onPressAfterSalah });

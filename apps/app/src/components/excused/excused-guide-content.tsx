@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { BloodPeriodStatus } from "@/components/excused/blood-period-status";
 import { GuideMadhhabNotes } from "@/components/fiqh/guide-madhhab-notes";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
@@ -144,9 +145,13 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
                 <HadithCitationBookmarkButton collection={ref.collection} citation={ref.citation} />
               </View>
             </View>
-            <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
-              “{ref.excerpt}”
-            </LearnProseText>
+            <ScriptureMeaning english={ref.excerpt}>
+              {(text) => (
+                <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
+                  “{text}”
+                </LearnProseText>
+              )}
+            </ScriptureMeaning>
           </View>
         ))}
       </View>

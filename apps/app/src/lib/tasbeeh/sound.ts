@@ -5,7 +5,7 @@
  * lazily: with sound off (the phone default) nothing audio-related loads.
  *
  * Rules: a click is skipped — never the count — when taps come under 40 ms
- * apart; ticks mix with other audio and never pause Qur'an or the Adhan; the
+ * apart (the completion "strand settles" cue is never skipped); ticks mix with other audio and never pause Qur'an or the Adhan; the
  * iOS silent switch is respected whenever the shared player is idle.
  */
 
@@ -100,7 +100,9 @@ export function createTasbeehSoundEngine(
 
   return {
     play(kind, now = Date.now()) {
-      if (released || !shouldPlaySound(now, lastAt)) return false;
+      if (released) return false;
+      // The completion cue always plays, even right after the final click.
+      if (kind !== "complete" && !shouldPlaySound(now, lastAt)) return false;
       const pool = pools[kind];
       if (pool.length === 0) return false;
       lastAt = now;

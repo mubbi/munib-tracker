@@ -18,10 +18,10 @@ import { resetSection, resetSettings } from "./reset";
 import { groupOfSettingId, SETTINGS_GROUP_IDS, settingHref } from "./routes";
 import { getSettingsSnapshot } from "./snapshot";
 
-jest.mock("@/notifications/scheduler", () => ({
-  rescheduleAll: jest.fn(async () => {}),
-  listScheduled: jest.fn(async () => []),
-}));
+jest.mock(
+  "@/notifications/scheduler",
+  () => require("@/test-support/mocks/notifications-scheduler").notificationsSchedulerMock,
+);
 
 function hasKey(key: string): boolean {
   return (

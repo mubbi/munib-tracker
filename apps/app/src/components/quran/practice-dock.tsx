@@ -135,7 +135,7 @@ export function PracticeDock({
         <ThemedText
           type="caption"
           themeColor="mutedForeground"
-          style={[styles.label, options.selected ? { color: colors.accent } : null]}
+          style={[styles.label, options.selected ? { color: colors.accentText } : null]}
           numberOfLines={1}
         >
           {label}

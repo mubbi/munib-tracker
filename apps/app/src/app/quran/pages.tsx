@@ -100,7 +100,7 @@ const PageRow = memo(function PageRow({
           { backgroundColor: highlighted ? colors.background : tokens.accentSoft },
         ]}
       >
-        <ThemedText type="smallBold" style={{ color: colors.accent }}>
+        <ThemedText type="smallBold" style={{ color: colors.accentText }}>
           {entry.page}
         </ThemedText>
       </View>

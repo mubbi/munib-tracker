@@ -2,6 +2,7 @@ import type { JannahGate } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import {
   LearnColumnsGrid,
@@ -94,9 +95,13 @@ function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
             </View>
           </View>
           <TvReadableBlock>
-            <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
-              “{ref.excerpt}”
-            </LearnProseText>
+            <ScriptureMeaning english={ref.excerpt}>
+              {(text) => (
+                <LearnProseText themeColor="mutedForeground" style={styles.quoteText}>
+                  “{text}”
+                </LearnProseText>
+              )}
+            </ScriptureMeaning>
           </TvReadableBlock>
         </View>
       ))}

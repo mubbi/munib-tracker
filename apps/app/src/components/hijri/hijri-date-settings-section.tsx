@@ -43,8 +43,7 @@ export function HijriDateSettingsSection() {
           onPress={() => setSheetOpen(true)}
         />
       )}
-      <ThemedText type="smallBold">{t("hijriAdjust.correctionsTitle")}</ThemedText>
-      <HijriCorrectionsList />
+      <HijriCorrectionsList title={t("hijriAdjust.correctionsTitle")} />
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("hijriAdjust.neutralNote")}
       </ThemedText>

@@ -1,4 +1,4 @@
-import { CIRCLE_LIMITS, type FardStatusValue } from "@munib-tracker/shared/circles";
+import { CIRCLE_LIMITS, KIDS_MODE_MAX_AGE } from "@munib-tracker/shared/circles";
 import { formatShortDate, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { FardDots } from "@/components/circles/fard-dots";
+import { InviteMethodTabs } from "@/components/circles/nearby/invite-method-tabs";
+import { NearbyHostPanel } from "@/components/circles/nearby/nearby-host-panel";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { TextField } from "@/components/self-review/text-field";
@@ -24,19 +26,18 @@ import {
   clearSignal,
   createChildDeviceLink,
   deleteChild,
-  type FardStatusInput,
-  putFardStatus,
   putRestDay,
   revokeChildDevice,
   type UpdateChildInput,
   updateChild,
 } from "@/lib/circles/api";
-import { EMPTY_FARD_STATUS, indexSignals, lastNDates, signalWindow } from "@/lib/circles/family";
+import { indexSignals, lastNDates, signalWindow } from "@/lib/circles/family";
 import {
   useChildProfiles,
   useCircleAction,
   useCircleMutation,
   useCircleSignals,
+  useFardStatusLog,
 } from "@/lib/circles/hooks";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -72,6 +73,9 @@ export default function ChildProfileScreen() {
   const [link, setLink] = useState<ChildDeviceLink | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const thisYear = new Date().getUTCFullYear();
+  // Same range as "Add a child" (kids mode is under 13); a profile already past
+  // it keeps its stored year as the floor instead of jumping.
+  const minBirthYear = Math.min(child?.birthYear ?? thisYear, thisYear - KIDS_MODE_MAX_AGE);
 
   useEffect(() => {
     if (!child) return;
@@ -84,9 +88,7 @@ export default function ChildProfileScreen() {
   const update = useCircleMutation((token, input: UpdateChildInput) =>
     updateChild(token, circleId as string, childId, input),
   );
-  const log = useCircleMutation((token, input: FardStatusInput) =>
-    putFardStatus(token, circleId as string, input),
-  );
+  const log = useFardStatusLog(circleId, window.from, window.to);
   const rest = useCircleMutation(async (token, input: { date: string; on: boolean }) => {
     if (input.on) {
       await putRestDay(token, circleId as string, { date: input.date, memberId: childId });
@@ -146,7 +148,6 @@ export default function ChildProfileScreen() {
               .reverse()
               .map((date) => {
                 const day = days?.get(date);
-                const value: FardStatusValue = day?.fard ?? EMPTY_FARD_STATUS;
                 return (
                   <View key={date} style={styles.day}>
                     <View style={styles.switchRow}>
@@ -165,16 +166,7 @@ export default function ChildProfileScreen() {
                     <FardDots
                       value={day?.fard ?? null}
                       showLabels={date === today}
-                      onToggle={(prayer) =>
-                        void run(() =>
-                          log.mutateAsync({
-                            date,
-                            memberId: childId,
-                            ...value,
-                            [prayer]: !value[prayer],
-                          }),
-                        )
-                      }
+                      onToggle={(prayer) => void run(() => log.toggle(childId, date, prayer))}
                     />
                   </View>
                 );
@@ -189,29 +181,38 @@ export default function ChildProfileScreen() {
             <ThemedText type="small" themeColor="mutedForeground">
               {child.linkedDeviceAt ? t("family.device.linked") : t("family.device.body")}
             </ThemedText>
-            {link ? (
-              <View style={styles.center}>
-                <BrandQrCode
-                  data={childLinkUrl(link.linkToken)}
-                  size={220}
-                  accessibilityLabel={t("family.device.qrA11y")}
-                />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("family.device.qrHint")}
-                </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground" selectable>
-                  {link.linkToken}
-                </ThemedText>
-              </View>
-            ) : null}
-            <Button
-              label={t(child.linkedDeviceAt ? "family.device.relink" : "family.device.link")}
-              onPress={() =>
-                void run(async () => {
-                  setLink(await deviceLink.mutateAsync());
-                })
+            {/* NF-3.25: link the child's phone over Bluetooth (parent approves), or by QR. */}
+            <InviteMethodTabs
+              nearby={
+                child.consentPending ? null : (
+                  <NearbyHostPanel circleId={circleId} childId={childId} />
+                )
               }
-            />
+            >
+              {link ? (
+                <View style={styles.center}>
+                  <BrandQrCode
+                    data={childLinkUrl(link.linkToken)}
+                    size={220}
+                    accessibilityLabel={t("family.device.qrA11y")}
+                  />
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("family.device.qrHint")}
+                  </ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground" selectable>
+                    {link.linkToken}
+                  </ThemedText>
+                </View>
+              ) : null}
+              <Button
+                label={t(child.linkedDeviceAt ? "family.device.relink" : "family.device.link")}
+                onPress={() =>
+                  void run(async () => {
+                    setLink(await deviceLink.mutateAsync());
+                  })
+                }
+              />
+            </InviteMethodTabs>
             {child.linkedDeviceAt ? (
               <Button
                 label={t("family.device.revoke")}
@@ -280,9 +281,9 @@ export default function ChildProfileScreen() {
             <ThemedText type="smallBold">{`${t("family.add.birthYear")}: ${birthYear}`}</ThemedText>
             <Stepper
               value={birthYear}
-              min={thisYear - CIRCLE_LIMITS.signalReadMaxDays}
+              min={minBirthYear}
               label={t("family.add.birthYear")}
-              onDecrement={() => setBirthYear((y) => y - 1)}
+              onDecrement={() => setBirthYear((y) => Math.max(minBirthYear, y - 1))}
               onIncrement={() => setBirthYear((y) => Math.min(thisYear, y + 1))}
             />
             <Button

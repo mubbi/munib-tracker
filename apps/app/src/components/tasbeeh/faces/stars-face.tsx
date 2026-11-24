@@ -1,14 +1,8 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Svg, { Circle, Defs, LinearGradient, Path, Polyline, Stop } from "react-native-svg";
 
-import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { chartCoordinateStyle } from "@/lib/chart-rtl";
 import { isRTL } from "@/lib/rtl";
@@ -18,6 +12,7 @@ import { roundSizeFor, roundState } from "@/lib/tasbeeh/rounds";
 
 import { RoundReadout } from "./round-readout";
 import type { TasbeehFaceProps } from "./types";
+import { useForwardStep } from "./use-forward-step";
 
 /** The home hero's night sky (lib/sky.ts) — scene data, like bead materials. */
 const NIGHT = SKY_PALETTES.night;
@@ -55,18 +50,7 @@ export default function StarsFace({
   const starRadius = Math.max(1.2, width * 0.009);
 
   // The newest star brightens in (instant under reduced motion).
-  const glow = useSharedValue(1);
-  const prevCount = useRef(count);
-  useEffect(() => {
-    const delta = count - prevCount.current;
-    prevCount.current = count;
-    if (delta !== 1 || reduceMotion || preview) {
-      glow.value = 1;
-      return;
-    }
-    glow.value = 0;
-    glow.value = withTiming(1, { duration: Durations.slow, easing: Easing.out(Easing.quad) });
-  }, [count, glow, reduceMotion, preview]);
+  const glow = useForwardStep(count, { animate: !reduceMotion });
   const glowStyle = useAnimatedStyle(() => ({
     opacity: 1 - glow.value,
     transform: [{ scale: 0.5 + glow.value * 1.5 }],
@@ -149,7 +133,7 @@ export default function StarsFace({
             );
           })}
         </Svg>
-        {newest && !preview ? (
+        {newest ? (
           <Animated.View
             style={[
               styles.halo,

@@ -1,6 +1,8 @@
 import type { WasiyyahSettings } from "@munib-tracker/shared/types";
 import { addDays, diffInDays, getLocalDateString } from "@munib-tracker/shared/utils";
 
+import { addMonthsToDay } from "@/lib/records/day";
+
 /**
  * "Review your wasiyyah" (NF-3.9): every N months (default 12, configurable) and
  * whenever open debts change by more than 20 %. Overdue reviews repeat weekly
@@ -22,11 +24,7 @@ export function clampReviewInterval(months: number | undefined): number {
 
 /** YYYY-MM-DD + whole months, clamped to the target month's last day (Jan 31 + 1 → Feb 28/29). */
 export function addMonthsToDate(date: string, months: number): string {
-  const [y, m, d] = date.split("-").map(Number) as [number, number, number];
-  const target = new Date(y, m - 1 + months, 1);
-  const lastDay = new Date(target.getFullYear(), target.getMonth() + 1, 0).getDate();
-  target.setDate(Math.min(d, lastDay));
-  return getLocalDateString(target);
+  return addMonthsToDay(date, months);
 }
 
 /** True when open debts moved by more than 20 % since the last review (or appeared from zero). */

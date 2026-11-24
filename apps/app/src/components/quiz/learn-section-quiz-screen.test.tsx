@@ -16,7 +16,6 @@ import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 // Imported transitively (jannah primitives → audio provider); never played here.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("@/lib/navigation", () => ({ goBackOrReplace: jest.fn() }));
 
 /** Header chrome reduced to labelled text + a back button. */

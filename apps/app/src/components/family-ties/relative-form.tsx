@@ -1,6 +1,6 @@
 import type { Kinship } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -11,9 +11,11 @@ import { VaultStateNotice } from "@/components/self-review/vault-state-notice";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Stepper } from "@/components/ui/stepper";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   familyTiesActions,
   type RelativeInput,
@@ -23,14 +25,17 @@ import {
 import {
   CADENCE_MAX_DAYS,
   CADENCE_MIN_DAYS,
+  CADENCE_PRESET_DAYS,
   clampCadence,
   DEFAULT_CADENCE_DAYS,
   KINSHIPS,
+  normalizePhone,
   RELATIVE_NAME_MAX_LENGTH,
   RELATIVE_NOTES_MAX_LENGTH,
   relativeToInput,
 } from "@/lib/family-ties/model";
 import { goBackOrReplace } from "@/lib/navigation";
+import { useToast } from "@/providers/toast-provider";
 
 const EMPTY: RelativeInput = {
   name: "",
@@ -42,12 +47,17 @@ const EMPTY: RelativeInput = {
 export function RelativeForm({ id }: { id: string | undefined }) {
   const { t } = useTranslation();
   const router = useRouter();
+  const toast = useToast();
+  const { tokens } = useThemeTokens();
   const { status, error } = useFamilyTies();
   const existing = useRelative(id);
   const [form, setForm] = useState<RelativeInput>(EMPTY);
   const [cadenceTouched, setCadenceTouched] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [loadedId, setLoadedId] = useState<string | undefined>(undefined);
+  const [saving, setSaving] = useState(false);
+  // Synchronous double-tap guard (state lands a render later).
+  const savingRef = useRef(false);
 
   useEffect(() => {
     if (existing && loadedId !== existing.id) {
@@ -61,6 +71,22 @@ export function RelativeForm({ id }: { id: string | undefined }) {
     return <VaultStateNotice status={status} error={error} />;
   }
   if (status !== "ready") return null;
+  // A stale link (relative deleted, maybe on another device): don't show an
+  // "Edit" form that would silently add a new person.
+  if (id && !existing) {
+    return (
+      <EmptyState
+        icon={{
+          ios: "person.crop.circle.badge.questionmark",
+          android: "person_off",
+          web: "person_off",
+        }}
+        title={t("privateUx.familyTies.notFound")}
+        actionLabel={t("familyTies.form.cancel")}
+        onAction={() => goBackOrReplace(router, "/family-ties")}
+      />
+    );
+  }
 
   const update = (patch: Partial<RelativeInput>) => setForm((f) => ({ ...f, ...patch }));
   const setKinship = (kinship: Kinship) =>
@@ -71,11 +97,22 @@ export function RelativeForm({ id }: { id: string | undefined }) {
   };
   const done = () => goBackOrReplace(router, "/family-ties");
 
+  const phoneInvalid = Boolean(form.phone?.trim()) && normalizePhone(form.phone) == null;
+
   const save = async () => {
-    if (!form.name.trim()) return;
-    if (id && existing) await familyTiesActions.updateRelative(id, form);
-    else await familyTiesActions.addRelative(form);
-    done();
+    if (!form.name.trim() || savingRef.current) return;
+    savingRef.current = true;
+    setSaving(true);
+    try {
+      if (id && existing) await familyTiesActions.updateRelative(id, form);
+      else await familyTiesActions.addRelative(form);
+      done();
+    } catch {
+      // Only a failed save unlocks the form; a saved one is on its way out.
+      savingRef.current = false;
+      setSaving(false);
+      toast.error(t("privateUx.saveFailed"));
+    }
   };
 
   return (
@@ -98,26 +135,43 @@ export function RelativeForm({ id }: { id: string | undefined }) {
           />
           <TextField
             label={t("familyTies.form.phone")}
-            hint={t("familyTies.form.phoneHint")}
+            hint={phoneInvalid ? undefined : t("familyTies.form.phoneHint")}
             value={form.phone ?? ""}
             onChangeText={(phone) => update({ phone })}
             keyboardType="phone-pad"
             autoComplete="tel"
           />
+          {phoneInvalid ? (
+            <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
+              {t("privateUx.familyTies.phoneInvalid")}
+            </ThemedText>
+          ) : null}
           {form.deceased ? null : (
-            <View style={styles.switchRow}>
-              <View style={styles.flex}>
-                <ThemedText type="smallBold">{t("familyTies.form.cadence")}</ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("familyTies.form.cadenceValue", { count: form.cadenceDays })}
-                </ThemedText>
+            <View style={styles.cadence}>
+              <View style={styles.switchRow}>
+                <View style={styles.flex}>
+                  <ThemedText type="smallBold">{t("familyTies.form.cadence")}</ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("familyTies.form.cadenceValue", { count: form.cadenceDays })}
+                  </ThemedText>
+                </View>
+                <Stepper
+                  value={form.cadenceDays}
+                  min={CADENCE_MIN_DAYS}
+                  label={t("familyTies.form.cadence")}
+                  onDecrement={() => setCadence(form.cadenceDays - 1)}
+                  onIncrement={() => setCadence(Math.min(CADENCE_MAX_DAYS, form.cadenceDays + 1))}
+                />
               </View>
-              <Stepper
-                value={form.cadenceDays}
-                min={CADENCE_MIN_DAYS}
-                label={t("familyTies.form.cadence")}
-                onDecrement={() => setCadence(form.cadenceDays - 1)}
-                onIncrement={() => setCadence(Math.min(CADENCE_MAX_DAYS, form.cadenceDays + 1))}
+              {/* Common rhythms in one tap; the stepper fine-tunes (7 → 30 was 23 taps). */}
+              <ChoiceChips<string>
+                options={CADENCE_PRESET_DAYS.map((days) => ({
+                  id: String(days),
+                  label: t("familyTies.form.cadenceValue", { count: days }),
+                }))}
+                value={String(form.cadenceDays)}
+                onChange={(days) => setCadence(Number(days))}
+                accessibilityLabel={t("familyTies.form.cadence")}
               />
             </View>
           )}
@@ -128,16 +182,18 @@ export function RelativeForm({ id }: { id: string | undefined }) {
             maxLength={RELATIVE_NOTES_MAX_LENGTH}
             multiline
           />
-          <View style={styles.switchRow}>
-            <ThemedText type="small" style={styles.flex}>
-              {t("familyTies.form.paused")}
-            </ThemedText>
-            <ThemedSwitch
-              value={Boolean(form.paused)}
-              onValueChange={(paused) => update({ paused })}
-              accessibilityLabel={t("familyTies.form.paused")}
-            />
-          </View>
+          {form.deceased ? null : (
+            <View style={styles.switchRow}>
+              <ThemedText type="small" style={styles.flex}>
+                {t("familyTies.form.paused")}
+              </ThemedText>
+              <ThemedSwitch
+                value={Boolean(form.paused)}
+                onValueChange={(paused) => update({ paused })}
+                accessibilityLabel={t("familyTies.form.paused")}
+              />
+            </View>
+          )}
           <View style={styles.switchRow}>
             <ThemedText type="small" style={styles.flex}>
               {t("familyTies.form.deceased")}
@@ -156,19 +212,20 @@ export function RelativeForm({ id }: { id: string | undefined }) {
 
       <View style={styles.row}>
         <Button
-          label={t("familyTies.form.save")}
-          disabled={!form.name.trim()}
+          label={saving ? t("privateUx.saving") : t("familyTies.form.save")}
+          disabled={!form.name.trim() || saving}
           onPress={() => void save()}
         />
         <Button label={t("familyTies.form.cancel")} variant="ghost" onPress={done} />
-        {existing ? (
-          <Button
-            label={t("familyTies.form.delete")}
-            variant="ghost"
-            onPress={() => setConfirmDelete(true)}
-          />
-        ) : null}
       </View>
+      {/* Destructive action apart from Save / Cancel. */}
+      {existing ? (
+        <Button
+          label={t("familyTies.form.delete")}
+          variant="ghost"
+          onPress={() => setConfirmDelete(true)}
+        />
+      ) : null}
 
       <ConfirmDialog
         visible={confirmDelete}
@@ -189,6 +246,7 @@ export function RelativeForm({ id }: { id: string | undefined }) {
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
   list: { gap: Spacing.three },
+  cadence: { gap: Spacing.two },
   row: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
   switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   flex: { flex: 1 },

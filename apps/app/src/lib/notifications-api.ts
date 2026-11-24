@@ -117,6 +117,25 @@ export async function upsertPushToken(
   );
 }
 
+/**
+ * Sign-out: removes this device's push token(s) from the signed-in account
+ * (`DELETE /notifications/push-token`), so the account's broadcasts and circle
+ * pushes stop reaching the device. Must run before the session is revoked.
+ */
+export async function removePushToken(
+  accessToken: string,
+  input: { deviceId?: string; token?: string },
+): Promise<void> {
+  await apiFetch(
+    {
+      url: "/notifications/push-token",
+      method: "DELETE",
+      body: JSON.stringify(input),
+    },
+    apiAuthOptions(accessToken),
+  );
+}
+
 export function resolveInAppOpenTarget(item: InAppNotification): {
   type: "route" | "external" | "none";
   value?: string;

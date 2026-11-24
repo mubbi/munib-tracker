@@ -123,6 +123,7 @@ describe("runSync", () => {
 
   it("skips the push request when no local records changed", async () => {
     await writeJSON(DB_KEYS.syncMetadata, {
+      privacyCleanup: 1,
       lastPushedAt: "2999-01-01T00:00:00.000Z",
       lastSyncedAt: "2026-07-04T00:00:00.000Z",
     });
@@ -729,6 +730,216 @@ describe("runSync session and store refresh", () => {
       lastSyncedAt: "2026-07-04T00:00:00.000Z",
       lastPulled: 0,
       lastConflicts: 0,
+    });
+  });
+});
+
+describe("runSync — sync cursors are per account", () => {
+  const OLD_CURSOR = "2026-07-01T00:00:00.000Z";
+
+  async function seedCursorsFor(accountId: string | undefined) {
+    await writeJSON(DB_KEYS.syncMetadata, {
+      ...(accountId ? { accountId } : {}),
+      privacyCleanup: 1,
+      lastSyncedAt: OLD_CURSOR,
+      lastPushedAt: "2999-01-01T00:00:00.000Z",
+    });
+    await writeJSON(DB_KEYS.blobSyncState, { fasting: { hash: "h", updatedAt: OLD_CURSOR } });
+    await writeJSON(DB_KEYS.blobSyncHold, { quran_notes: { value: {}, updatedAt: OLD_CURSOR } });
+    await writeJSON(DB_KEYS.vaultSyncState, {
+      enabled: true,
+      inbox: { vault_debts: { value: { ct: "x" }, updatedAt: OLD_CURSOR } },
+    });
+    await PrayerRepository.upsertLog({
+      id: "p",
+      prayerId: "fajr",
+      date: "2026-06-01",
+      status: "completed",
+      updatedAt: "2026-06-01T05:00:00.000Z",
+      source: "manual",
+    });
+  }
+
+  it("does a full push + pull after signing in to a different account", async () => {
+    await seedCursorsFor("someone-else");
+
+    await runSync(user);
+
+    // Full pull (no `since`) and the old row is offered to the new account.
+    expect(mockPull).toHaveBeenCalledWith("access", undefined);
+    const pushed = mockPush.mock.calls[0]?.[1] as SyncRecordDto[];
+    expect(pushed.some((r) => r.entity === "prayer_logs")).toBe(true);
+    expect(await readJSON(DB_KEYS.blobSyncHold, null)).toBeNull();
+    const fingerprints = await readJSON<Record<string, unknown>>(DB_KEYS.blobSyncState, {});
+    expect(fingerprints.fasting).toBeUndefined();
+    // The other account's parked vault ciphertext is dropped; the opt-in stays.
+    await expect(readJSON(DB_KEYS.vaultSyncState, null)).resolves.toEqual({
+      enabled: true,
+      inbox: {},
+    });
+    await expect(readSyncMetadata()).resolves.toMatchObject({ accountId: user.userId });
+  });
+
+  it("keeps the cursors of the same account", async () => {
+    await seedCursorsFor(user.userId);
+
+    await runSync(user);
+
+    expect(mockPull).toHaveBeenCalledWith("access", OLD_CURSOR);
+    expect(mockPush).not.toHaveBeenCalled();
+  });
+
+  it("adopts cursors written before they were tagged with an account", async () => {
+    await seedCursorsFor(undefined);
+
+    await runSync(user);
+
+    expect(mockPull).toHaveBeenCalledWith("access", OLD_CURSOR);
+    await expect(readSyncMetadata()).resolves.toMatchObject({ accountId: user.userId });
+  });
+});
+
+describe("runSync — D46 private fields never leave the device in plaintext", () => {
+  const EXCUSED_LOG = {
+    id: "p-ex",
+    prayerId: "dhuhr" as const,
+    date: "2026-06-02",
+    status: "pending" as const,
+    isExcused: true,
+    excusedReason: "hayd" as const,
+    updatedAt: "2026-06-02T05:00:00.000Z",
+    source: "manual" as const,
+  };
+
+  async function seedPrivate() {
+    await PrayerRepository.upsertLog(EXCUSED_LOG);
+    await PreferencesRepository.update({
+      activeExcusedReason: "hayd",
+      updatedAt: "2026-06-02T06:00:00.000Z",
+    });
+    await writeJSON(DB_KEYS.khushuJournal, {
+      "2026-06-01:fajr": { id: "k", date: "2026-06-01", note: "private reflection" },
+    });
+  }
+
+  function pushedPayload(): string {
+    return JSON.stringify(mockPush.mock.calls.flatMap((call) => call[1] as SyncRecordDto[]));
+  }
+
+  it("pushes no excused reason, no khushu journal and only rounded coordinates", async () => {
+    await seedPrivate();
+    await writeJSON(DB_KEYS.location, {
+      latitude: 24.894812,
+      longitude: 91.871534,
+      label: "Sylhet",
+      method: "Karachi",
+      madhab: "hanafi",
+      source: "gps",
+      updatedAt: "2026-06-01T00:00:00.000Z",
+    });
+
+    await runSync(user);
+
+    const payload = pushedPayload();
+    expect(payload).not.toContain("hayd");
+    expect(payload).not.toContain("activeExcusedReason");
+    expect(payload).not.toContain("private reflection");
+    expect(payload).not.toContain("24.894812");
+    const records = mockPush.mock.calls[0]?.[1] as SyncRecordDto[];
+    expect(records.find((r) => r.entity === "prayer_logs")?.data).toMatchObject({
+      isExcused: true,
+    });
+    expect(records.find((r) => r.entity === "location")?.data).toMatchObject({
+      value: { latitude: 24.89, longitude: 91.87 },
+    });
+    // The device keeps its exact fix and its private data.
+    await expect(readJSON(DB_KEYS.location, null)).resolves.toMatchObject({ latitude: 24.894812 });
+    await expect(PreferencesRepository.get()).resolves.toMatchObject({
+      activeExcusedReason: "hayd",
+    });
+  });
+
+  it("re-pushes old records once without their plaintext and clears the retired khushu entity", async () => {
+    await seedPrivate();
+    // A device that already synced before D46: the watermark is past every record.
+    await writeJSON(DB_KEYS.syncMetadata, {
+      accountId: user.userId,
+      lastPushedAt: "2026-07-01T00:00:00.000Z",
+      lastSyncedAt: "2026-07-01T00:00:00.000Z",
+    });
+
+    await runSync(user);
+
+    const first = mockPush.mock.calls[0]?.[1] as SyncRecordDto[];
+    expect(first.map((r) => r.entity).sort()).toEqual(
+      ["khushu_journal", "preferences", "prayer_logs"].sort(),
+    );
+    const retired = first.find((r) => r.entity === "khushu_journal");
+    expect(retired).toMatchObject({ data: { value: null }, deletedAt: expect.any(String) });
+    expect(first.find((r) => r.entity === "prayer_logs")?.updatedAt).toBe(EXCUSED_LOG.updatedAt);
+    expect(JSON.stringify(first)).not.toContain("hayd");
+    await expect(readSyncMetadata()).resolves.toMatchObject({ privacyCleanup: 1 });
+
+    mockPush.mockClear();
+    await runSync(user);
+    // Only new edits go now (the active period carries today's logs forward).
+    const second = (mockPush.mock.calls[0]?.[1] as SyncRecordDto[] | undefined) ?? [];
+    expect(second.map((r) => r.entity)).not.toContain("khushu_journal");
+    expect(second.map((r) => r.entity)).not.toContain("preferences");
+    expect(second.some((r) => r.id === "dhuhr::2026-06-02")).toBe(false);
+    expect(JSON.stringify(second)).not.toContain("hayd");
+  });
+
+  it("never applies a plaintext excused period pulled from the server", async () => {
+    await PreferencesRepository.update({
+      activeExcusedReason: null,
+      updatedAt: "2026-06-01T00:00:00.000Z",
+    });
+    mockPull.mockResolvedValue(
+      pullResult({
+        changes: [
+          {
+            entity: "preferences",
+            id: "preferences",
+            data: { activeExcusedReason: "hayd", locale: "ur" },
+            updatedAt: "2026-06-05T00:00:00.000Z",
+          },
+        ],
+      }),
+    );
+
+    await runSync(user);
+
+    const prefs = await PreferencesRepository.get();
+    expect(prefs.locale).toBe("ur");
+    expect(prefs.activeExcusedReason).toBeNull();
+  });
+
+  it("keeps this device's excused reason when the pulled log has none", async () => {
+    await PrayerRepository.upsertLog(EXCUSED_LOG);
+    mockPull.mockResolvedValue(
+      pullResult({
+        changes: [
+          {
+            entity: "prayer_logs",
+            id: "dhuhr::2026-06-02",
+            data: {
+              ...EXCUSED_LOG,
+              excusedReason: undefined,
+              notes: "edited elsewhere",
+              updatedAt: "2026-06-03T00:00:00.000Z",
+            },
+            updatedAt: "2026-06-03T00:00:00.000Z",
+          },
+        ],
+      }),
+    );
+
+    await runSync(user);
+
+    await expect(PrayerRepository.getLog("dhuhr", "2026-06-02")).resolves.toMatchObject({
+      excusedReason: "hayd",
+      notes: "edited elsewhere",
     });
   });
 });

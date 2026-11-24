@@ -67,7 +67,8 @@ th{background:#f2f2f2}
 .sig{display:flex;flex-wrap:wrap;gap:24px;margin-top:16px}
 .sig div{flex:1 1 200px;border-top:1px solid #333;padding-top:4px;margin-top:36px;font-size:12px;color:#333}
 .disclaimer{margin-top:32px;border:1px solid #333;padding:12px;font-size:12px}
-@media print{body{padding:0}h2{break-after:avoid}table,.sig{break-inside:avoid}}
+@page{size:A4;margin:16mm}
+@media print{body{padding:0}h2{break-after:avoid}tr,table,.sig,.disclaimer,.pair{break-inside:avoid}}
 `;
 
 function paragraph(p: PrintableParagraph): string {

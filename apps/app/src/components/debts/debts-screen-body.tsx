@@ -1,3 +1,4 @@
+import type { DebtDirection } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { type Href, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
@@ -6,10 +7,11 @@ import { StyleSheet, View } from "react-native";
 
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { EvidenceCard, type EvidenceItem } from "@/components/records/evidence-card";
+import { useExportFeedback } from "@/components/records/use-export-feedback";
+import { VaultStateNotice } from "@/components/self-review/vault-state-notice";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Spacing } from "@/constants/theme";
@@ -30,12 +32,25 @@ export const DEBTS_EVIDENCE: readonly EvidenceItem[] = [
   { key: "debts.evidence.intention" },
 ];
 
-/** `/debts` content (inside `VaultLockGate`): tabs, totals, obligations, export. */
-export function DebtsScreenBody() {
+/**
+ * `/debts` content (inside `VaultLockGate`): tabs, totals, obligations, export.
+ * Phones push `/debts/[id]`; the wide master–detail layout passes `onOpenRecord`
+ * / `onAddRecord` to show the record beside the list instead, and `selectedId`
+ * to mark the open row.
+ */
+export function DebtsScreenBody({
+  selectedId,
+  onOpenRecord,
+  onAddRecord,
+}: {
+  selectedId?: string | null;
+  onOpenRecord?: (id: string) => void;
+  onAddRecord?: (direction: DebtDirection) => void;
+} = {}) {
   const { t } = useTranslation();
   const router = useRouter();
   const format = useRecordFormat();
-  const { debts, vows, status } = useDebts();
+  const { debts, vows, status, error } = useDebts();
   const obligations = useObligationsSummary(vows);
   const [tab, setTab] = useState<DebtTab>("i_owe");
   const today = getLocalDateString();
@@ -51,21 +66,16 @@ export function DebtsScreenBody() {
       .join(" · ") || "—";
 
   const exportDebtsStatement = useDebtsStatementExport();
+  const exportFeedback = useExportFeedback();
   const exportStatement = () => {
-    void exportDebtsStatement({ debts, obligations, today });
+    void exportFeedback.run(() => exportDebtsStatement({ debts, obligations, today }));
   };
 
   if (status === "locked" || status === "error") {
-    return (
-      <EmptyState
-        icon={{ ios: "lock.fill", android: "lock", web: "lock" }}
-        title={t("debts.lockedTitle")}
-        description={t("debts.lockedBody")}
-        actionLabel={t("debts.openPrivacy")}
-        onAction={() => router.push("/settings/privacy" as Href)}
-      />
-    );
+    return <VaultStateNotice status={status} error={error} />;
   }
+  // Don't flash "nothing recorded" totals while the encrypted record opens.
+  if (status !== "ready") return null;
 
   return (
     <View style={styles.stack}>
@@ -101,8 +111,11 @@ export function DebtsScreenBody() {
               key={record.id}
               record={record}
               today={today}
+              selected={selectedId === record.id}
               onPress={() =>
-                router.push({ pathname: "/debts/[id]", params: { id: record.id } } as Href)
+                onOpenRecord
+                  ? onOpenRecord(record.id)
+                  : router.push({ pathname: "/debts/[id]", params: { id: record.id } } as Href)
               }
             />
           ))
@@ -110,12 +123,15 @@ export function DebtsScreenBody() {
         <Button
           label={t("debts.add")}
           icon={{ ios: "plus", android: "add", web: "add" }}
-          onPress={() =>
-            router.push({
-              pathname: "/debts/[id]",
-              params: { id: "new", direction: tab === "trusts" ? "trust_held" : tab },
-            } as Href)
-          }
+          onPress={() => {
+            const direction: DebtDirection = tab === "trusts" ? "trust_held" : tab;
+            if (onAddRecord) onAddRecord(direction);
+            else
+              router.push({
+                pathname: "/debts/[id]",
+                params: { id: "new", direction },
+              } as Href);
+          }}
         />
       </View>
 
@@ -136,7 +152,7 @@ export function DebtsScreenBody() {
           <JannahNavRow
             icon={{ ios: "square.and.arrow.up", android: "ios_share", web: "ios_share" }}
             title={t("debts.export")}
-            subtitle={t("debts.exportHint")}
+            subtitle={exportFeedback.busy ? t("privateUx.export.preparing") : t("debts.exportHint")}
             onPress={exportStatement}
           />
         </View>

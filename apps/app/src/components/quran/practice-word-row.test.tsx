@@ -101,4 +101,22 @@ describe("PracticeWordRow", () => {
     expect(onActiveWordMeasured).not.toHaveBeenCalled();
     measure.mockRestore();
   });
+
+  it("colours the row itself with tajweed runs and keeps status as a labelled dot", async () => {
+    const { getTajweedRule } =
+      require("@/constants/tajweed") as typeof import("@/constants/tajweed");
+    const word = WORDS[1] ?? "";
+    await renderRow({
+      tajweedRuns: [null, [{ text: word, rule: "ghunnah" }], null, null],
+      markStyle: "underline",
+    });
+    // One copy of the word, its run in the rule colour.
+    const run = screen.getByText(word);
+    const rule = getTajweedRule("ghunnah");
+    expect([rule?.colorLight, rule?.colorDark]).toContain(run.props.style?.color);
+    // Status stays accessible (label) and is not a coloured underline any more.
+    expect(screen.getByLabelText(`${word}, not sure`)).toBeTruthy();
+    // matched / uncertain / mismatch words each get a dot; "upcoming" has none.
+    expect(screen.getAllByTestId("word-status-dot")).toHaveLength(3);
+  });
 });

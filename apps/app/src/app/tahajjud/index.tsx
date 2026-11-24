@@ -11,6 +11,7 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { NightTimeline } from "@/components/night-timeline";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -434,9 +435,13 @@ export default function TahajjudScreen() {
         />
         <ThemedText type="smallBold">{t("tahajjud.virtueTitle")}</ThemedText>
       </View>
-      <ThemedText type="default" themeColor="foreground" style={styles.hadithBody}>
-        {t("tahajjud.virtueBody")}
-      </ThemedText>
+      <ScriptureMeaning english={t("tahajjud.virtueBody")}>
+        {(text) => (
+          <ThemedText type="default" themeColor="foreground" style={styles.hadithBody}>
+            {text}
+          </ThemedText>
+        )}
+      </ScriptureMeaning>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("tahajjud.virtueRef")}
       </ThemedText>

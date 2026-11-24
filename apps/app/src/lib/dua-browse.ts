@@ -36,6 +36,54 @@ export function isDuaCategoryId(value: unknown): value is DuaCategoryId {
   return typeof value === "string" && (DUA_CATEGORY_IDS as readonly string[]).includes(value);
 }
 
+// ── Topics (cross-occasion shortcuts inside a category) ──────────────────────
+
+/**
+ * A curated slice of one category that other screens deep-link to, e.g. Family
+ * ties → "Duas for the deceased" (`/dua/illness?topic=deceased`). Ids are the
+ * Hisnul Muslim numbers from the generated corpus (asserted in tests).
+ */
+export interface DuaTopic {
+  categoryId: DuaCategoryId;
+  ids: readonly string[];
+}
+
+export const DUA_TOPICS = {
+  // Hisnul Muslim #155–165 except #162 (condolence, said to the bereaved):
+  // closing the eyes, the funeral prayer (adult + child), burial, visiting graves.
+  deceased: {
+    categoryId: "illness",
+    ids: [
+      "hisn-155",
+      "hisn-156",
+      "hisn-157",
+      "hisn-158",
+      "hisn-159",
+      "hisn-160",
+      "hisn-161",
+      "hisn-163",
+      "hisn-164",
+      "hisn-165",
+    ],
+  },
+} as const satisfies Record<string, DuaTopic>;
+
+export type DuaTopicId = keyof typeof DUA_TOPICS;
+
+export function isDuaTopicId(value: unknown): value is DuaTopicId {
+  return typeof value === "string" && Object.hasOwn(DUA_TOPICS, value);
+}
+
+/** The topic's duas in corpus order, or `items` unchanged when the topic belongs elsewhere. */
+export function filterDuasByTopic<T extends Pick<DuaItem, "id" | "categoryId">>(
+  items: readonly T[],
+  topicId: DuaTopicId,
+): T[] {
+  const topic: DuaTopic = DUA_TOPICS[topicId];
+  const ids = new Set(topic.ids);
+  return items.filter((item) => item.categoryId === topic.categoryId && ids.has(item.id));
+}
+
 export const DUA_CATEGORY_ICONS: Record<DuaCategoryId, AppIcon> = {
   morning_evening: { ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" },
   sleep: { ios: "moon.zzz.fill", android: "bedtime", web: "bedtime" },

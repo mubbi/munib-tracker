@@ -102,7 +102,7 @@ export function PracticePassagePicker({
                     ]}
                   >
                     <View style={[styles.surahNumber, { backgroundColor: tokens.accentSoft }]}>
-                      <ThemedText type="caption" style={{ color: colors.accent }}>
+                      <ThemedText type="caption" style={{ color: colors.accentText }}>
                         {s.number}
                       </ThemedText>
                     </View>
@@ -132,13 +132,13 @@ export function PracticePassagePicker({
               style={[styles.surahRow, { backgroundColor: colors.muted }]}
             >
               <View style={[styles.surahNumber, { backgroundColor: tokens.accentSoft }]}>
-                <ThemedText type="caption" style={{ color: colors.accent }}>
+                <ThemedText type="caption" style={{ color: colors.accentText }}>
                   {surah}
                 </ThemedText>
               </View>
               <View style={styles.flex}>
                 <ThemedText type="small">{name}</ThemedText>
-                <ThemedText type="caption" style={{ color: colors.accent }}>
+                <ThemedText type="caption" style={{ color: colors.accentText }}>
                   {t("quranCompanion.picker.changeSurah")}
                 </ThemedText>
               </View>

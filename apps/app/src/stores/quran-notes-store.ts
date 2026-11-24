@@ -294,6 +294,8 @@ export const quranNoteEditorStore = createStore<{ target: QuranNoteEditorTarget 
 }));
 
 export function openQuranNoteEditor(target: QuranNoteEditorTarget): void {
+  // The editor replaces any preview that led to it.
+  quranNotePeekStore.setState({ target: null });
   quranNoteEditorStore.setState({ target });
 }
 
@@ -303,4 +305,81 @@ export function closeQuranNoteEditor(): void {
 
 export function useQuranNoteEditorTarget(): QuranNoteEditorTarget | null {
   return useStore(quranNoteEditorStore, (s) => s.target);
+}
+
+// ---------------------------------------------------------------------------
+// Note hints — the read-only preview shown from a noted ayah / word.
+// ---------------------------------------------------------------------------
+
+export type QuranNotePeekVia =
+  /** Desktop web: pointer hover — a popover that follows the anchor. */
+  | "hover"
+  /** Desktop web: keyboard focus — the same popover. */
+  | "focus"
+  /** Touch: tap — a compact bottom peek with "Open note". */
+  | "press"
+  /** Touch: long-press — the note's actions. */
+  | "actions";
+
+export type QuranNotePeekTarget = {
+  surah: number;
+  ayah: number;
+  /** The note pointed at (a word span's note); else the ayah's newest note leads. */
+  noteId?: string | null;
+  via: QuranNotePeekVia;
+  /** Desktop popover anchor in viewport coordinates (hover / focus only). */
+  anchor?: { x: number; y: number; width: number; height: number } | null;
+};
+
+export const quranNotePeekStore = createStore<{ target: QuranNotePeekTarget | null }>(() => ({
+  target: null,
+}));
+
+export function openQuranNotePeek(target: QuranNotePeekTarget): void {
+  quranNotePeekStore.setState({ target });
+}
+
+/** Closes the peek; with `via`, only when it is still the one showing (hover-out vs a tap). */
+export function closeQuranNotePeek(via?: QuranNotePeekVia | readonly QuranNotePeekVia[]): void {
+  const current = quranNotePeekStore.getState().target;
+  if (!current) return;
+  if (via) {
+    const list: readonly QuranNotePeekVia[] = Array.isArray(via) ? via : [via];
+    if (!list.includes(current.via)) return;
+  }
+  quranNotePeekStore.setState({ target: null });
+}
+
+export function useQuranNotePeek(): QuranNotePeekTarget | null {
+  return useStore(quranNotePeekStore, (s) => s.target);
+}
+
+// ---------------------------------------------------------------------------
+// Reader viewport — keeps the wide-screen notes panel in sync with the list.
+// ---------------------------------------------------------------------------
+
+export type QuranReaderViewport = { surah: number; from: number; to: number } | null;
+
+/** Written by the surah reader on viewability changes; read only by the notes side panel. */
+export const quranReaderViewportStore = createStore<{ viewport: QuranReaderViewport }>(() => ({
+  viewport: null,
+}));
+
+export function setQuranReaderViewport(viewport: QuranReaderViewport): void {
+  const prev = quranReaderViewportStore.getState().viewport;
+  if (
+    prev === viewport ||
+    (prev &&
+      viewport &&
+      prev.surah === viewport.surah &&
+      prev.from === viewport.from &&
+      prev.to === viewport.to)
+  ) {
+    return;
+  }
+  quranReaderViewportStore.setState({ viewport });
+}
+
+export function useQuranReaderViewport(): QuranReaderViewport {
+  return useStore(quranReaderViewportStore, (s) => s.viewport);
 }

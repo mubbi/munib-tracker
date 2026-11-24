@@ -29,7 +29,7 @@ export function RakahsSheet({ id, current, onSelect, onClose }: RakahsSheetProps
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("rawatib.rakahsSheet.prompt")}
       </ThemedText>
-      <View style={styles.options}>
+      <View style={styles.options} accessibilityRole="radiogroup">
         {options.map((count) => {
           const active = count === current;
           return (
@@ -37,7 +37,7 @@ export function RakahsSheet({ id, current, onSelect, onClose }: RakahsSheetProps
               key={count}
               haptic="selection"
               accessibilityRole="radio"
-              accessibilityState={{ selected: active }}
+              accessibilityState={{ checked: active }}
               accessibilityLabel={t("rawatib.rakahsSheet.option", { count })}
               onPress={() => {
                 if (id) onSelect(id, count);
@@ -74,6 +74,8 @@ const styles = StyleSheet.create({
   option: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
+    minHeight: 48,
     paddingVertical: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",

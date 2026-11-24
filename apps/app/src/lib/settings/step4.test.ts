@@ -304,6 +304,18 @@ describe("Tasbeeh counter", () => {
     expect(read("content.tasbeeh.misbaha.shape")).toBe("olive");
   });
 
+  it("a preset keeps the strand; the tassel colour only applies to a silk tassel", async () => {
+    await write("content.tasbeeh.design", "misbaha");
+    await write("content.tasbeeh.misbaha.strand", 99);
+    await write("content.tasbeeh.misbaha.preset", "turquoise");
+    expect(read("content.tasbeeh.misbaha.strand")).toBe(99);
+    expect(read("content.tasbeeh.misbaha.material")).toBe("turquoise");
+    const tasselColor = def("content.tasbeeh.misbaha.tasselColor");
+    expect(isSettingEnabled(tasselColor, getSettingsSnapshot())).toBe(true);
+    await write("content.tasbeeh.misbaha.tassel", "chain");
+    expect(isSettingEnabled(tasselColor, getSettingsSnapshot())).toBe(false);
+  });
+
   it("changing the pack or volume keeps sound.enabled unset (D16)", async () => {
     await write("content.tasbeeh.sound.pack", "stone");
     await write("content.tasbeeh.sound.volume", 30);
@@ -350,9 +362,9 @@ describe("Privacy › Private journals + biometric unlock", () => {
 });
 
 describe("Help › Run setup again", () => {
-  it("re-opens onboarding without resetting anything", () => {
+  it("re-opens the setup wizard without resetting anything", () => {
     const control = def("about.runSetup").control;
-    expect(control).toEqual({ kind: "link", href: "/intro" });
+    expect(control).toEqual({ kind: "link", href: "/setup" });
     expect(def("about.runSetup").resettable).toBe(false);
   });
 });

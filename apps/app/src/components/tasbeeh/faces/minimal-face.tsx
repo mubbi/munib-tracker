@@ -5,6 +5,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Radius, Spacing } from "@/constants/theme";
 import { NIGHT_PALETTE } from "@/lib/tasbeeh/materials";
 
+import { targetCaption } from "./round-readout";
 import type { TasbeehFaceProps } from "./types";
 
 /**
@@ -47,11 +48,7 @@ export default function MinimalFace({
       </ThemedText>
       {preview ? null : (
         <ThemedText type="caption" style={{ color: NIGHT_PALETTE.caption }}>
-          {target > 0
-            ? complete
-              ? t("tasbeehUi.complete")
-              : t("tasbeehUi.ofTarget", { target })
-            : t("tasbeehUi.unlimited")}
+          {targetCaption(t, target, complete)}
         </ThemedText>
       )}
     </View>

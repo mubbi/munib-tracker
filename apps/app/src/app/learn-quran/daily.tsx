@@ -1,6 +1,7 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import {
   JannahActionSteps,
   JannahCallout,
@@ -86,9 +87,13 @@ export default function LearnQuranDailyScreen() {
                 <ThemedText type="arabic" style={styles.arabic}>
                   {lesson.excerpt}
                 </ThemedText>
-                <ThemedText type="small" style={styles.translation}>
-                  {lesson.translation}
-                </ThemedText>
+                <ScriptureMeaning english={lesson.translation} quranRef={lesson}>
+                  {(text) => (
+                    <ThemedText type="small" style={styles.translation}>
+                      {text}
+                    </ThemedText>
+                  )}
+                </ScriptureMeaning>
               </Card>
 
               <JannahTakeaway text={lesson.context} />

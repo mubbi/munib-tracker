@@ -16,7 +16,6 @@ import { buildFixtureIndex, seedRootIndex } from "@/test-support/quran-morpholog
 import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
-jest.mock("expo-audio", () => require("@/test-support/mocks/expo-audio").expoAudioMock);
 jest.mock(
   "@/providers/toast-provider",
   () => require("@/test-support/mocks/toast-provider").toastProviderMock,

@@ -9,8 +9,7 @@ import { Sheet } from "@/components/ui/sheet";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { vaultErrorI18nKey } from "@/lib/vault/errors";
-import { isRecoveryCodeWellFormed, VAULT_MIN_PASSPHRASE_LENGTH } from "@/lib/vault/keyring";
-import { assessPassphrase } from "@/lib/vault/passphrase-strength";
+import { isRecoveryCodeWellFormed } from "@/lib/vault/keyring";
 import {
   changeVaultPassphrase,
   resetVaultOnDevice,
@@ -19,8 +18,8 @@ import {
 } from "@/lib/vault/vault";
 import { useVaultStatus } from "@/lib/vault/vault-store";
 
+import { canSubmitNewPassphrase, NewPassphraseFields } from "./new-passphrase-fields";
 import { PassphraseField } from "./passphrase-field";
-import { PassphraseStrengthMeter } from "./passphrase-strength-meter";
 import { RecoveryCodeEntry } from "./recovery-code-entry";
 
 type Mode = "passphrase" | "recovery" | "newPassphrase";
@@ -52,6 +51,7 @@ export function VaultUnlockSheet({
   const [passphrase, setPassphrase] = useState("");
   const [code, setCode] = useState("");
   const [newPassphrase, setNewPassphrase] = useState("");
+  const [newConfirm, setNewConfirm] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
@@ -62,6 +62,7 @@ export function VaultUnlockSheet({
       setPassphrase("");
       setCode("");
       setNewPassphrase("");
+      setNewConfirm("");
       setError(null);
       setBusy(false);
     }
@@ -102,7 +103,7 @@ export function VaultUnlockSheet({
         setMode("newPassphrase");
       });
     } else {
-      if (!assessPassphrase(newPassphrase).meetsMinimum) return;
+      if (!canSubmitNewPassphrase(newPassphrase, newConfirm)) return;
       void run(async () => {
         await changeVaultPassphrase(newPassphrase);
         finish();
@@ -114,7 +115,7 @@ export function VaultUnlockSheet({
     busy ||
     (mode === "passphrase" && passphrase.length === 0) ||
     (mode === "recovery" && !isRecoveryCodeWellFormed(code)) ||
-    (mode === "newPassphrase" && newPassphrase.length < VAULT_MIN_PASSPHRASE_LENGTH);
+    (mode === "newPassphrase" && !canSubmitNewPassphrase(newPassphrase, newConfirm));
 
   return (
     <>
@@ -171,16 +172,15 @@ export function VaultUnlockSheet({
             ) : mode === "recovery" ? (
               <RecoveryCodeEntry value={code} onChangeText={setCode} />
             ) : (
-              <>
-                <PassphraseField
-                  label={t("vault.passphrase.newLabel")}
-                  value={newPassphrase}
-                  onChangeText={setNewPassphrase}
-                  purpose="newPassword"
-                  autoFocus
-                />
-                <PassphraseStrengthMeter passphrase={newPassphrase} />
-              </>
+              <NewPassphraseFields
+                label={t("vault.passphrase.newLabel")}
+                value={newPassphrase}
+                onChangeText={setNewPassphrase}
+                confirm={newConfirm}
+                onChangeConfirm={setNewConfirm}
+                autoFocus
+                onSubmitEditing={submit}
+              />
             )}
 
             {error ? (

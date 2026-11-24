@@ -32,7 +32,8 @@ type FetchReply = FakeResponse | Error;
 /**
  * Installs a `global.fetch` mock that answers with `replies` in order (the
  * last reply repeats). An `Error` reply rejects, modelling a network failure.
- * `jest.setup.ts` reinstalls a benign default per test file.
+ * `jest.setup.ts` reinstalls the rejecting no-network default per test file
+ * (`no-network.ts`), so an unmocked call fails the test.
  *
  * @example const fetchMock = mockFetch(fakeResponse({ ok: 1 }), new Error("offline"));
  */

@@ -1,6 +1,7 @@
 import { setPlatform } from "@/test-support/platform";
 
 import { isVoiceTasbeehAvailable, isVoiceTasbeehPlatformAvailable } from "./availability";
+import { SOMETHING_ELSE } from "./voice-zikr";
 
 const mockState = { usesModel: false, runtime: true, webHosted: true };
 
@@ -69,11 +70,11 @@ describe("hands-free tasbeeh availability (NF-3.20)", () => {
     });
   });
 
-  it("requires a catalog phrase on the counter", () => {
+  it("needs a zikr to listen for (any zikr, D49)", () => {
     on({ OS: "ios", isTV: false });
     expect(isVoiceTasbeehAvailable(null, true)).toBe(false);
     expect(isVoiceTasbeehAvailable(undefined, true)).toBe(false);
-    expect(isVoiceTasbeehAvailable("subhanallah" as never, true)).toBe(true);
-    expect(isVoiceTasbeehAvailable("subhanallah" as never, false)).toBe(false);
+    expect(isVoiceTasbeehAvailable(SOMETHING_ELSE, true)).toBe(true);
+    expect(isVoiceTasbeehAvailable(SOMETHING_ELSE, false)).toBe(false);
   });
 });

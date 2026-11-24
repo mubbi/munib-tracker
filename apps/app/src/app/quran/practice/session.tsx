@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AccessibilityInfo,
+  Platform,
   type ScrollViewInstance,
   StyleSheet,
   useWindowDimensions,
@@ -17,7 +18,6 @@ import { PracticePassagePicker } from "@/components/quran/practice-passage-picke
 import { PracticeToolbar } from "@/components/quran/practice-toolbar";
 import { PracticeWordRow } from "@/components/quran/practice-word-row";
 import { PronunciationCheckSession } from "@/components/quran/pronunciation-check-session";
-import { TajweedText } from "@/components/quran/tajweed-text";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -29,20 +29,23 @@ import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduce
 import { usePracticeSession } from "@/hooks/use-practice-session";
 import { useSurahTajweed } from "@/hooks/use-quran";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { canOpenAppSettings, openAppSettings } from "@/lib/quran-companion/open-app-settings";
 import { isSessionMode, parsePassage } from "@/lib/quran-companion/passage";
 import { tryAgainIndexes, visibleWordStates } from "@/lib/quran-companion/reduce-session";
+import { practiceSessionKeyAction } from "@/lib/quran-companion/session-keys";
+import { studyWordTajweedRuns } from "@/lib/quran-companion/tajweed-word-runs";
 import type { Passage, SessionMode } from "@/lib/quran-companion/types";
 import { getPageForAyah, getSurahByNumber } from "@/lib/quran-meta";
 import { PRONUNCIATION_MODE } from "@/lib/quran-pronunciation/entry";
 import {
-  arabicReadingLayout,
   resolveArabicFontFamily,
   resolveReadingFontSizes,
   translationReadingStyle,
 } from "@/lib/reading-typography";
+import { useIsRTL } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useReadingDisplay } from "@/lib/settings/reading-display";
 import { usePreferences } from "@/stores/preferences-store";
@@ -147,6 +150,16 @@ function PracticeSessionScreen({
 
   const tajweedQuery = useSurahTajweed(passage.surah, prefs.showTajweedColors);
   const ayahState = s.session.ayahs[s.ayah];
+  // Tajweed colours go on the interactive word row itself (one copy of the ayah).
+  const rowWords = ayahState?.words ?? s.row?.words;
+  const tajweedSegments = tajweedQuery.data?.[String(s.ayah)];
+  const tajweedRuns = useMemo(
+    () =>
+      prefs.showTajweedColors && tajweedSegments && rowWords
+        ? studyWordTajweedRuns(tajweedSegments, rowWords)
+        : null,
+    [prefs.showTajweedColors, rowWords, tajweedSegments],
+  );
   const takeActive = s.mic === "listening" || s.mic === "starting" || s.mic === "settling";
   const settled = s.settledAyahs.has(s.ayah);
   const states = ayahState ? visibleWordStates(ayahState, prefs.feedbackTiming, !settled) : [];
@@ -266,6 +279,34 @@ function PracticeSessionScreen({
   };
   const showCoach = !prefs.coachDismissed && !listenOnly && s.mic === "idle";
 
+  // Desktop web: Space = mic (Hear when listen-only), ← / → = previous / next ayah.
+  const uiRtl = useIsRTL();
+  useWebScreenKeyHandler(
+    (event) => {
+      const action = practiceSessionKeyAction(event.key, {
+        rtl: uiRtl,
+        interactiveTarget: isWebInteractiveTarget(event.target),
+        canNavigate: s.ayahs.length > 1 && !takeActive,
+        shiftKey: event.shiftKey,
+      });
+      if (action === "primary") {
+        if (listenOnly) void s.hear();
+        else if (!preparing && s.engineError == null) void s.toggleMic();
+        return true;
+      }
+      if (action === "next") {
+        if (s.index < s.ayahs.length - 1) s.next();
+        return true;
+      }
+      if (action === "previous") {
+        if (s.index > 0) s.previous();
+        return true;
+      }
+      return undefined;
+    },
+    Platform.OS === "web" && !pickerOpen && !confirmOpen,
+  );
+
   return (
     <View style={styles.root}>
       <ScreenLayout
@@ -331,7 +372,7 @@ function PracticeSessionScreen({
         >
           <View style={styles.cardHead}>
             <View style={[styles.ayahBadge, { backgroundColor: tokens.accentSoft }]}>
-              <ThemedText type="smallBold" style={{ color: colors.accent }}>
+              <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                 {s.ayah}
               </ThemedText>
             </View>
@@ -380,16 +421,6 @@ function PracticeSessionScreen({
               }}
             />
           ) : null}
-          {!pageView && prefs.showTajweedColors && !s.hidden.size ? (
-            <View style={styles.tajweed}>
-              <TajweedText
-                segments={tajweedQuery.data?.[String(s.ayah)] ?? null}
-                fallback={s.row?.arabic ?? ""}
-                fontSize={sizes.arabic}
-                style={arabicReadingLayout(sizes.arabic)}
-              />
-            </View>
-          ) : null}
           {pageView ? null : s.row ? (
             <PracticeWordRow
               words={ayahState?.words ?? s.row.words}
@@ -400,6 +431,7 @@ function PracticeSessionScreen({
               fontSize={sizes.arabic}
               fontFamily={arabicFamily}
               markStyle={prefs.showTajweedColors ? "dot" : "underline"}
+              tajweedRuns={tajweedRuns}
               onWordPress={(i) => void s.hearWord(i)}
               onActiveWordMeasured={keepActiveWordVisible}
             />
@@ -638,7 +670,6 @@ const styles = StyleSheet.create({
   },
   liveDot: { width: 10, height: 10, borderRadius: 5 },
   flexText: { flex: 1 },
-  tajweed: { marginBottom: Spacing.two },
   text: { marginTop: Spacing.three },
   inlineButtons: {
     flexDirection: "row",

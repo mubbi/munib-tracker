@@ -1,11 +1,13 @@
 import type { AnnotationColorId } from "@munib-tracker/shared/types";
 import { highlightColorFor } from "@munib-tracker/shared/utils";
+import { useIsFocused } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { AnnotationSwatches } from "@/components/quran/annotation-swatches";
 import { AyahNoteSheet } from "@/components/quran/ayah-note-sheet";
 import { MyNoteCard } from "@/components/quran/my-note-card";
+import { QuranNotePeekHost } from "@/components/quran/note-hints";
 import { ThemedText } from "@/components/themed-text";
 import { Sheet } from "@/components/ui/sheet";
 import { Spacing } from "@/constants/theme";
@@ -20,11 +22,25 @@ import {
 } from "@/stores/quran-notes-store";
 
 /**
- * One host per screen for the NF-3.21 sheets, driven by `openQuranNoteEditor`.
- * Phones/web get the editor and the highlight picker; TV is read-only — the
- * same request opens a viewer and editing is never offered (remote text entry).
+ * One host per screen for the NF-3.21 sheets, driven by `openQuranNoteEditor`
+ * and `openQuranNotePeek`. Phones/web get the editor, the highlight picker and
+ * the note hints (hover card / peek / long-press actions); TV is read-only —
+ * the same request opens a viewer and editing is never offered (remote text entry).
  */
 export function QuranNotesSheetHost() {
+  // Stack screens stay mounted underneath (native stack and web): only the
+  // focused screen's host may answer, or one request opens two sheets.
+  const focused = useIsFocused();
+  if (!focused) return null;
+  return (
+    <>
+      <QuranNoteEditorHost />
+      <QuranNotePeekHost />
+    </>
+  );
+}
+
+function QuranNoteEditorHost() {
   useEnsureQuranNotesLoaded();
   const target = useQuranNoteEditorTarget();
   const tv = isTV();

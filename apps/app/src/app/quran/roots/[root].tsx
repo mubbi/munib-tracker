@@ -307,9 +307,7 @@ function OccurrenceRow({ loc }: { loc: WordLocation }) {
         {snippet.clippedStart ? "… " : ""}
         {snippet.before ? `${snippet.before} ` : ""}
         {snippet.match ? (
-          <Text
-            style={{ color: colors.accent, backgroundColor: tokens.accentSoft, fontWeight: "700" }}
-          >
+          <Text style={{ color: colors.accentText, backgroundColor: tokens.accentSoft }}>
             {snippet.match}
           </Text>
         ) : null}

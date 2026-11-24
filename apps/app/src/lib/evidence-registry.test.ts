@@ -43,14 +43,16 @@ import { TAJWEED_COACHING_EVIDENCE } from "@/lib/tajweed-coaching/evidence";
 import { TASBEEH_DESIGN_NOTES } from "@/lib/tasbeeh/design-notes";
 
 // Only the exported evidence constants are read; the screens' native deps are stubbed.
-jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 jest.mock("react-native-quick-crypto", () => require("react-native-quick-crypto/jest"));
 jest.mock(
   "@/lib/storage/safe-secure-store",
   () => require("@/test-support/mocks/safe-secure-store").safeSecureStoreMock,
 );
-jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+jest.mock(
+  "@/lib/quran-companion/reschedule",
+  () => require("@/test-support/mocks/reminder-reschedule").reminderRescheduleMock,
+);
 
 const ASSETS = join(__dirname, "../../assets/data");
 const PROOFS = join(__dirname, "../../../../docs/proofs");

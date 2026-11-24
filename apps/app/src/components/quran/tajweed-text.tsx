@@ -1,5 +1,5 @@
 import type { TajweedRuleId, TajweedSegment } from "@munib-tracker/shared/types";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, Text, type TextStyle, View } from "react-native";
 
@@ -7,6 +7,7 @@ import { ThemedText } from "@/components/themed-text";
 import { getTajweedRule, type TajweedRuleDef } from "@/constants/tajweed";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
+import { useFinePointerHover } from "@/hooks/use-fine-pointer-hover";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { withArabicJoiningZwj } from "@/lib/arabic-text-join";
 import { tTv } from "@/lib/i18n/t-tv";
@@ -21,22 +22,6 @@ type TajweedTextProps = {
   fontSize: number;
   style?: TextStyle;
 };
-
-/** Desktop web with a fine pointer — use hover; otherwise tap. */
-function useFinePointerHover(): boolean {
-  const [fine, setFine] = useState(false);
-  useEffect(() => {
-    if (Platform.OS !== "web" || typeof window === "undefined" || !window.matchMedia) {
-      return;
-    }
-    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const sync = () => setFine(mq.matches);
-    sync();
-    mq.addEventListener?.("change", sync);
-    return () => mq.removeEventListener?.("change", sync);
-  }, []);
-  return fine;
-}
 
 function formatRuleTooltip(rule: TajweedRuleDef, t: (key: string) => string): string {
   return `${t(rule.labelKey)} — ${t(rule.hintKey)}`;

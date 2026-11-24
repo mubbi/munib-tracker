@@ -94,6 +94,49 @@ export function indexSignals(
   return out;
 }
 
+/** A member's `fard_status` for one date from a signals list (null = no signal). */
+export function fardOn(
+  signals: readonly CircleSignal[],
+  memberId: string,
+  date: string,
+): FardStatusValue | null {
+  const signal = signals.find(
+    (s) => s.kind === "fard_status" && s.memberId === memberId && s.date === date,
+  );
+  return signal && isFardStatusValue(signal.value)
+    ? { ...EMPTY_FARD_STATUS, ...signal.value }
+    : null;
+}
+
+/**
+ * Optimistic copy of a signals list with one member's `fard_status` for `date`
+ * replaced (or added). Used so a parent tapping two prayers quickly builds the
+ * second write on the first — never on a stale server copy.
+ */
+export function upsertFardSignal(
+  signals: readonly CircleSignal[],
+  memberId: string,
+  date: string,
+  value: FardStatusValue,
+  now: Date = new Date(),
+): CircleSignal[] {
+  const next: CircleSignal = {
+    memberId,
+    date,
+    kind: "fard_status",
+    value: { ...value },
+    updatedAt: now.toISOString(),
+  };
+  let replaced = false;
+  const out = signals.map((s) => {
+    if (s.kind !== "fard_status" || s.memberId !== memberId || s.date !== date) return s;
+    replaced = true;
+    return next;
+  });
+  if (!replaced) out.push(next);
+  return out;
+}
+
 /** Oldest → newest list of `count` ISO dates ending at `today`. */
 export function lastNDates(today: string, count: number): string[] {
   return Array.from({ length: count }, (_, i) => addDays(today, i - count + 1));

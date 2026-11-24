@@ -14,6 +14,7 @@ import {
   pickAttachmentFromCamera,
   pickAttachmentFromGallery,
 } from "@/lib/attachments/attachment-file-manager";
+import { discardPickedFile } from "@/lib/attachments/discard-picked-file";
 import { loadDebtPhoto, preparePickedPhoto } from "@/lib/debts/debt-photo";
 import { debtsActions } from "@/lib/debts/debts-store";
 
@@ -66,16 +67,20 @@ export function DebtPhotoCard({
   const attach = async (pick: () => Promise<AttachmentPickOutcome>) => {
     setError(null);
     setBusy(true);
+    let pickedUri: string | null = null;
     try {
       const outcome = await pick();
       if (outcome.kind === "permission_denied") return setError("permission");
       if (outcome.kind !== "picked") return;
-      const prepared = await preparePickedPhoto(outcome.attachment.uri);
+      pickedUri = outcome.attachment.uri;
+      const prepared = await preparePickedPhoto(pickedUri);
       if (!prepared.ok) return setError(prepared.reason);
       await debtsActions.setDocumentPhoto(debtId, prepared.bytes, prepared.mimeType);
     } catch {
       setError("save-failed");
     } finally {
+      // The picker's plaintext copy in the cache must not outlive the sealed one.
+      discardPickedFile(pickedUri);
       setBusy(false);
     }
   };

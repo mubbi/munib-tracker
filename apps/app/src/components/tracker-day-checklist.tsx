@@ -74,6 +74,8 @@ export type TrackerDayChecklistProps = {
   status: Record<string, PrayerStatus>;
   notes: Record<string, string | undefined>;
   jama: Record<string, boolean>;
+  /** Prayed-at-the-masjid flags keyed by prayer id (NF-3.11); shown on the fard rows. */
+  atMasjid?: Record<string, boolean>;
   /** Jam' (combined) flags keyed by prayer id (NF-3.0a); shown on the fard rows. */
   combined?: Record<string, PrayerCombined>;
   /** Pre-localized preferred-time hints keyed by prayer id (today only, NF-3.0a). */
@@ -101,6 +103,7 @@ export function TrackerDayChecklist({
   status,
   notes,
   jama,
+  atMasjid,
   combined,
   preferredHints,
   zikrCounts,
@@ -263,6 +266,7 @@ export function TrackerDayChecklist({
                   time={prayerTimes[prayerId]}
                   hasNotes={!!notes[prayerId]}
                   isJama={jama[prayerId] ?? false}
+                  atMasjid={atMasjid?.[prayerId] ?? false}
                   combinedWith={combined?.[prayerId]?.with}
                   preferredHint={preferredHints?.[prayerId]}
                   afterSalahProgress={afterSalahProgress}

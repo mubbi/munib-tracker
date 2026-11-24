@@ -26,28 +26,34 @@ describe("MadhhabNote", () => {
     expect(screen.getByText(HANAFI_WITR)).toBeTruthy();
     expect(screen.getByText("Hanafi")).toBeTruthy();
     expect(screen.queryByText(MAJORITY_WITR)).toBeNull();
-    expect(screen.getByRole("button", { name: "Other views (3)" })).toBeTruthy();
+    // The other three schools hold one shared view.
+    expect(screen.getByRole("button", { name: "Other views (1)" })).toBeTruthy();
   });
 
-  it("expands and collapses the other three views", async () => {
+  it("expands and collapses the other views, grouping schools that agree", async () => {
     await renderNote("witr.status", { madhhab: "hanafi" });
-    await fireEvent.press(screen.getByRole("button", { name: "Other views (3)" }));
-    expect(screen.getAllByText(MAJORITY_WITR)).toHaveLength(3);
-    expect(screen.getByLabelText(`Maliki: ${MAJORITY_WITR}`)).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Other views (1)" }));
+    expect(screen.getAllByText(MAJORITY_WITR)).toHaveLength(1);
+    expect(screen.getByLabelText(`Shafi'i · Maliki · Hanbali: ${MAJORITY_WITR}`)).toBeTruthy();
     await fireEvent.press(screen.getByRole("button", { name: "Hide other views" }));
     expect(screen.queryByText(MAJORITY_WITR)).toBeNull();
   });
 
-  it("labels a majority position", async () => {
+  it("labels a majority position and lists only the differing view", async () => {
     await renderNote("witr.status", { madhhab: "shafii" });
     expect(screen.getByText("Majority view")).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Other views (1)" }));
+    expect(screen.getByLabelText(`Hanafi: ${HANAFI_WITR}`)).toBeTruthy();
+    // Schools sharing the Shafi'i view aren't repeated as "other" views.
+    expect(screen.queryByLabelText(`Maliki · Hanbali: ${MAJORITY_WITR}`)).toBeNull();
   });
 
   it("renders the comparison in all-views mode", async () => {
     await renderNote("witr.status", { madhhab: null });
     expect(screen.getByText("All views")).toBeTruthy();
-    expect(screen.getByTestId("ruling-compare-hanbali")).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Other views (3)" })).toBeNull();
+    expect(screen.getByText("Ruling of Witr")).toBeTruthy();
+    expect(screen.getByTestId(/ruling-compare-.*hanbali/)).toBeTruthy();
+    expect(screen.queryByRole("button", { name: /Other views/ })).toBeNull();
   });
 
   it("follows a domain override over the global school", async () => {

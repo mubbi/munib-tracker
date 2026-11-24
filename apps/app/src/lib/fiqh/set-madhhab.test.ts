@@ -10,10 +10,10 @@ import { locationStore } from "@/stores/location-store";
 import { preferencesStore } from "@/stores/preferences-store";
 import { resetSettingsStores } from "@/test-support/settings";
 
-jest.mock("@/notifications/scheduler", () => ({
-  rescheduleAll: jest.fn(async () => {}),
-  listScheduled: jest.fn(async () => []),
-}));
+jest.mock(
+  "@/notifications/scheduler",
+  () => require("@/test-support/mocks/notifications-scheduler").notificationsSchedulerMock,
+);
 
 const { rescheduleAll } = jest.requireMock("@/notifications/scheduler") as {
   rescheduleAll: jest.Mock;

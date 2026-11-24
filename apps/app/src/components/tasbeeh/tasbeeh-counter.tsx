@@ -1,3 +1,4 @@
+import { useIsFocused } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { Fragment, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,14 +12,10 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import Animated, {
-  useAnimatedStyle,
-  useReducedMotion,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
+import { useReducedMotion } from "react-native-reanimated";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { TasbeehFace } from "@/components/tasbeeh/faces/tasbeeh-face";
+import { NightSurface } from "@/components/tasbeeh/night-surface";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { TasbeehDesignNote } from "@/components/tasbeeh/tasbeeh-design-note";
 import { TasbeehStyleSheet } from "@/components/tasbeeh/tasbeeh-style-sheet";
@@ -26,37 +23,29 @@ import { VoiceListeningPanel } from "@/components/tasbeeh/voice/voice-listening-
 import { VoiceTasbeehSheet } from "@/components/tasbeeh/voice/voice-tasbeeh-sheet";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Springs } from "@/constants/motion";
-import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { SegmentedControl } from "@/components/ui/segmented-control";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { NO_VOICE, useVoiceTasbeeh, type VoiceTasbeeh } from "@/hooks/use-voice-tasbeeh";
 import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
-import {
-  chartCoordinateStyle,
-  segmentedThumbAnchor,
-  segmentedThumbOffset,
-  segmentedTrackDirection,
-} from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
 import { useHingePosture } from "@/lib/platform/hinge";
 import { isTV } from "@/lib/platform/is-tv";
-import { isRTL, ltrControlViewProps } from "@/lib/rtl";
-import { getDesign, resolveSoundPack, strandModelFor } from "@/lib/tasbeeh/designs";
+import { getDesign, resolveSoundPack } from "@/lib/tasbeeh/designs";
 import {
-  countEventFor,
+  countEventForAppearance,
   feedbackFor,
-  HAPTIC_PULSE_GAP_MS,
+  playHapticPattern,
   type TasbeehFeedbackEvent,
 } from "@/lib/tasbeeh/feedback";
 import { materialFor } from "@/lib/tasbeeh/materials";
-import { roundSizeFor } from "@/lib/tasbeeh/rounds";
 import { useTasbeehAppearance } from "@/lib/tasbeeh/use-tasbeeh-appearance";
 import { useTasbeehSound } from "@/lib/tasbeeh/use-tasbeeh-sound";
-import type { PhraseKey } from "@/lib/tasbeeh-voice/phrases";
 import { effectiveAnnouncements } from "@/lib/tasbeeh-voice/session";
+import { sameVoiceZikr, type VoiceZikr } from "@/lib/tasbeeh-voice/voice-zikr";
 import { AudioContext } from "@/providers/audio-player-context";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -94,11 +83,12 @@ type TasbeehCounterProps = {
    */
   keyboardShortcuts?: boolean;
   /**
-   * Hands-free counting (NF-3.20): the catalog phrase this counter listens for.
+   * Hands-free counting (NF-3.20, D49): the zikr this counter is for (catalog
+   * zikr, durood or custom tasbeeh) — used automatically, no picker.
    * Null/absent → no voice toggle (unless `voiceChoosable`).
    */
-  voicePhrase?: PhraseKey | null;
-  /** Free counter: the user picks a catalog phrase in the hands-free sheet. */
+  voiceZikr?: VoiceZikr | null;
+  /** Free counter: the user picks any zikr (or "Something else") in the hands-free sheet. */
   voiceChoosable?: boolean;
 };
 
@@ -116,17 +106,21 @@ export function TasbeehCounter(props: TasbeehCounterProps) {
   // Hands-free counting (NF-3.20) only mounts the microphone / model plumbing on
   // counters that can listen; every other counter renders without it (and TV
   // never has a microphone path).
-  const voiceWanted = (props.voicePhrase != null || props.voiceChoosable === true) && !isTV();
+  const voiceWanted = (props.voiceZikr != null || props.voiceChoosable === true) && !isTV();
   return voiceWanted ? <VoiceTasbeehCounter {...props} /> : <CounterView {...props} />;
 }
 
 function VoiceTasbeehCounter(props: TasbeehCounterProps) {
-  const { count, target, voicePhrase = null, voiceChoosable = false } = props;
-  const [chosenPhrase, setChosenPhrase] = useState<PhraseKey | null>(null);
-  const activePhrase = voicePhrase ?? (voiceChoosable ? chosenPhrase : null);
+  const { count, target, voiceZikr = null, voiceChoosable = false } = props;
+  const [chosenZikr, setChosenZikr] = useState<VoiceZikr | null>(null);
+  // Screens rebuild the zikr object every render: keep one per identity.
+  const incoming = voiceZikr ?? (voiceChoosable ? chosenZikr : null);
+  const stableZikr = useRef(incoming);
+  if (!sameVoiceZikr(stableZikr.current, incoming)) stableZikr.current = incoming;
+  const activeZikr = stableZikr.current;
   const countOnceRef = useRef<() => void>(() => {});
   const voice = useVoiceTasbeeh({
-    phrase: activePhrase,
+    zikr: activeZikr,
     atLimit: target > 0 && count >= target,
     onVoiceCount: () => countOnceRef.current(),
   });
@@ -134,8 +128,8 @@ function VoiceTasbeehCounter(props: TasbeehCounterProps) {
     <CounterView
       {...props}
       voice={voice}
-      activePhrase={activePhrase}
-      onChoosePhrase={setChosenPhrase}
+      activeZikr={activeZikr}
+      onChooseZikr={setChosenZikr}
       countOnceRef={countOnceRef}
     />
   );
@@ -143,8 +137,8 @@ function VoiceTasbeehCounter(props: TasbeehCounterProps) {
 
 type CounterViewProps = TasbeehCounterProps & {
   voice?: VoiceTasbeeh;
-  activePhrase?: PhraseKey | null;
-  onChoosePhrase?: (phrase: PhraseKey) => void;
+  activeZikr?: VoiceZikr | null;
+  onChooseZikr?: (zikr: VoiceZikr) => void;
   /** Filled with the shell's countOnce() so a recognised phrase counts like a tap. */
   countOnceRef?: { current: () => void };
 };
@@ -159,11 +153,11 @@ function CounterView({
   onSelectMode,
   onCustom,
   keyboardShortcuts = true,
-  voicePhrase = null,
+  voiceZikr = null,
   voiceChoosable = false,
   voice = NO_VOICE,
-  activePhrase = null,
-  onChoosePhrase,
+  activeZikr = null,
+  onChooseZikr,
   countOnceRef,
 }: CounterViewProps) {
   const { colors, tokens } = useThemeTokens();
@@ -174,6 +168,10 @@ function CounterView({
   const reduceMotion = useReducedMotion();
   const appearance = useTasbeehAppearance();
   const design = getDesign(appearance.design);
+  // Focus / Night fills the screen while this route is focused (phones, tablets,
+  // web). TV keeps it inside its landscape card, beside the controls.
+  const screenFocused = useIsFocused();
+  const night = design.id === "minimal" && !tv && screenFocused;
   // Foldables (iPhone Duo, Android foldables) in tabletop posture: the count stays
   // readable on the upper half and a full-width tap pad fills the lower half. The
   // hinge drives this interaction only — layout still follows window size.
@@ -201,12 +199,6 @@ function CounterView({
   );
 
   // Feedback: one table for every design (lib/tasbeeh/feedback.ts).
-  const strand = useMemo(
-    () => (design.id === "misbaha" ? strandModelFor(appearance.misbaha, target) : undefined),
-    [design.id, appearance.misbaha, target],
-  );
-  // Round-based v2 designs (pebbles, fingers, rosette, night sky) mark each finished round.
-  const roundSize = roundSizeFor(design.id, target, appearance);
   const sharedPlaying = useContext(AudioContext)?.isPlaying ?? false;
   const playSound = useTasbeehSound({
     enabled: appearance.sound.enabled,
@@ -223,10 +215,7 @@ function CounterView({
   const dispatch = useCallback(
     (event: TasbeehFeedbackEvent) => {
       const feedback = feedbackFor(design.id, event, appearance.haptics);
-      feedback.haptics.forEach((haptic, index) => {
-        if (index === 0) triggerHaptic(haptic);
-        else setTimeout(() => triggerHaptic(haptic), index * HAPTIC_PULSE_GAP_MS);
-      });
+      playHapticPattern(feedback.haptics);
       if (feedback.sound && appearance.sound.enabled && !voiceListeningRef.current) {
         playSound(feedback.sound);
       }
@@ -238,7 +227,7 @@ function CounterView({
   const { tasbeehAnnouncements } = usePreferences();
   const [voiceSheetOpen, setVoiceSheetOpen] = useState(false);
   voiceListeningRef.current = voice.listening;
-  const voiceOffered = voice.platformAvailable && (voicePhrase != null || voiceChoosable);
+  const voiceOffered = voice.platformAvailable && (voiceZikr != null || voiceChoosable);
   // Screen-reader speech must not be counted: the spotter ignores audio meanwhile.
   const muteVoiceRef = useRef<((durationMs: number) => void) | null>(null);
   muteVoiceRef.current = voice.listening ? voice.muteFor : null;
@@ -251,7 +240,9 @@ function CounterView({
       voice.stop("user");
       return;
     }
-    if (!activePhrase) {
+    // Choosing a zikr, or one not taught yet (D50: the sheet offers teaching
+    // first), or teaching in progress → the sheet. A taught zikr starts at once.
+    if (!activeZikr || !voice.taught || voice.teach.status !== "idle") {
       setVoiceSheetOpen(true);
       return;
     }
@@ -277,18 +268,22 @@ function CounterView({
       return;
     }
     const next = displayCount + 1;
-    const event = countEventFor(
-      design.id,
-      next,
-      strand,
-      roundSize ? { size: roundSize, target } : undefined,
-    );
-    dispatch(event);
-    const frequency = effectiveAnnouncements(tasbeehAnnouncements ?? "milestones", voice.listening);
-    if (event !== "bead" && frequency !== "off") {
-      announce(t("tasbeehDesigns.a11y.milestone", { number: next }));
-    } else if (frequency === "every") {
-      announce(t("tasbeehVoice.a11y.count", { number: next }));
+    // The count that reaches the target gets the completion cue alone (from the
+    // effect above): one success haptic, the "strand settles" sound — not
+    // swallowed by the click-gap rule — and one "target reached" announcement.
+    if (target <= 0 || next < target) {
+      // Spacer beads, misbaha laps, finished rounds and Focus / Night milestones.
+      const event = countEventForAppearance(appearance, next, target);
+      dispatch(event);
+      const frequency = effectiveAnnouncements(
+        tasbeehAnnouncements ?? "milestones",
+        voice.listening,
+      );
+      if (event !== "bead" && frequency !== "off") {
+        announce(t("tasbeehDesigns.a11y.milestone", { number: next }));
+      } else if (frequency === "every") {
+        announce(t("tasbeehVoice.a11y.count", { number: next }));
+      }
     }
     onIncrement();
   };
@@ -425,9 +420,10 @@ function CounterView({
   );
 
   const voicePanel =
-    voiceOffered && activePhrase ? (
+    voiceOffered && activeZikr ? (
       <VoiceListeningPanel
-        phrase={activePhrase}
+        zikr={activeZikr}
+        countingMode={voice.countingMode}
         listening={voice.listening}
         preparing={voice.preparing}
         level={voice.level}
@@ -443,6 +439,75 @@ function CounterView({
   if (ring) stageStyle = { width: ringSize, height: ringSize, borderRadius: ringSize / 2 };
   else if (fullWidth) stageStyle = { alignSelf: "stretch", borderRadius: Radius.lg };
   else stageStyle = { width: ringSize, borderRadius: Radius.lg };
+
+  // The accessible counter every stage exposes (also the Focus / Night surface).
+  const stageA11y = {
+    accessibilityRole: "button" as const,
+    accessibilityLabel: t("common.count"),
+    accessibilityValue: { now: displayCount, min: 0, max: target > 0 ? target : undefined },
+    accessibilityActions: [{ name: "increment", label: t("common.count") }],
+    onAccessibilityAction: handleAccessibilityAction,
+  };
+
+  const overlays = (
+    <>
+      {/* Sibling of the animated counter tree so Fabric + Reanimated cannot
+          zero-out Modal hit-testing after the completion celebration. */}
+      <ConfirmDialog
+        visible={pending !== null}
+        title={confirmCopy?.title ?? ""}
+        message={confirmCopy?.message}
+        confirmLabel={confirmCopy?.confirmLabel}
+        destructive={confirmCopy?.destructive}
+        onConfirm={executePending}
+        onClose={() => setPending(null)}
+      />
+      <TasbeehStyleSheet visible={styleOpen} onClose={() => setStyleOpen(false)} />
+      {voiceOffered ? (
+        <VoiceTasbeehSheet
+          visible={voiceSheetOpen}
+          onClose={() => setVoiceSheetOpen(false)}
+          voice={voice}
+          choosable={voiceChoosable && voiceZikr == null}
+          zikr={activeZikr}
+          onChooseZikr={(zikr) => onChooseZikr?.(zikr)}
+        />
+      ) : null}
+    </>
+  );
+
+  if (night) {
+    // Focus / Night takes the whole screen (NF-3.19): true black, the numerals,
+    // and everything but the dim control strip counts a tap. The target picker
+    // stays on the regular page (switch style or go back to change it).
+    return (
+      <NightSurface
+        onTap={handleTap}
+        stageA11y={{ ...stageA11y, accessibilityHint: hint }}
+        face={(size) => (
+          <TasbeehFace
+            count={displayCount}
+            target={target}
+            complete={complete}
+            size={size}
+            tv={tv}
+            reduceMotion={reduceMotion}
+            appearance={appearance}
+            onCount={handleFaceCount}
+          />
+        )}
+        footer={
+          <>
+            {status}
+            {voicePanel}
+            {controls}
+          </>
+        }
+      >
+        {overlays}
+      </NightSurface>
+    );
+  }
 
   return (
     <Fragment>
@@ -465,12 +530,8 @@ function CounterView({
             onPress={handleTap}
             scaleTo={ring ? 0.96 : 0.99}
             hitSlop={ring ? tapHitSlop : undefined}
-            accessibilityRole="button"
-            accessibilityLabel={t("common.count")}
+            {...stageA11y}
             accessibilityHint={ring ? undefined : hint}
-            accessibilityValue={{ now: displayCount, min: 0, max: target > 0 ? target : undefined }}
-            accessibilityActions={[{ name: "increment", label: t("common.count") }]}
-            onAccessibilityAction={handleAccessibilityAction}
             {...(tv ? { hasTVPreferredFocus: true } : {})}
             style={[styles.tapZone, stageStyle]}
           >
@@ -508,7 +569,6 @@ function CounterView({
                 scaleTo={0.98}
                 accessibilityRole="button"
                 accessibilityLabel={t("common.count")}
-                accessibilityHint={t("tasbeehUi.tapToCount")}
                 style={[
                   styles.tabletopPad,
                   {
@@ -517,8 +577,9 @@ function CounterView({
                   },
                 ]}
               >
-                <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-                  {t("tasbeehUi.tapToCount")}
+                {/* A pad, not the circle: "Tap the circle to count" would mislead here. */}
+                <ThemedText type="subtitle" style={{ color: colors.accentText }}>
+                  {t("common.count")}
                 </ThemedText>
               </PressableScale>
             ) : null}
@@ -526,32 +587,17 @@ function CounterView({
         )}
       </View>
 
-      {/* Sibling of the animated counter tree so Fabric + Reanimated cannot
-          zero-out Modal hit-testing after the completion celebration. */}
-      <ConfirmDialog
-        visible={pending !== null}
-        title={confirmCopy?.title ?? ""}
-        message={confirmCopy?.message}
-        confirmLabel={confirmCopy?.confirmLabel}
-        destructive={confirmCopy?.destructive}
-        onConfirm={executePending}
-        onClose={() => setPending(null)}
-      />
-      <TasbeehStyleSheet visible={styleOpen} onClose={() => setStyleOpen(false)} />
-      {voiceOffered ? (
-        <VoiceTasbeehSheet
-          visible={voiceSheetOpen}
-          onClose={() => setVoiceSheetOpen(false)}
-          voice={voice}
-          choosable={voiceChoosable && voicePhrase == null}
-          phrase={activePhrase}
-          onChoosePhrase={(phrase) => onChoosePhrase?.(phrase)}
-        />
-      ) : null}
+      {overlays}
     </Fragment>
   );
 }
 
+const CUSTOM_SEGMENT = "custom";
+
+/**
+ * Target presets (33 / 99 / 100 / ∞) plus an optional Custom segment, on the
+ * shared `SegmentedControl`. Custom re-opens its picker when pressed again.
+ */
 function TargetModeBar({
   modes,
   target,
@@ -565,103 +611,35 @@ function TargetModeBar({
   onSelectMode: (target: number) => void;
   onCustom?: () => void;
 }) {
-  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
-  const tv = isTV();
-  const isCustom =
-    onCustom && target > 0 && !modes.some((mode) => mode.target === target && mode.target > 0);
-
-  const segments = onCustom
-    ? [...modes, { label: "custom", target: isCustom ? target : -1 }]
-    : modes;
-  const selectedIndex = Math.max(
-    0,
-    segments.findIndex((mode) =>
-      mode.target === -1 ? isCustom : mode.target === target && (mode.target > 0 || target === 0),
-    ),
-  );
-
-  const [trackWidth, setTrackWidth] = useState(0);
-  const pad = Spacing.half + 2;
-  const gap = Spacing.half;
-  const countSegments = segments.length;
-  const segmentWidth =
-    trackWidth > 0 ? (trackWidth - pad * 2 - gap * (countSegments - 1)) / countSegments : 0;
-  const rtl = isRTL();
-  const thumbTravel = segmentedThumbOffset(selectedIndex, segmentWidth, gap, rtl);
-  const translateX = useSharedValue(0);
-
-  useEffect(() => {
-    translateX.value = withSpring(thumbTravel, Springs.gentle);
-  }, [thumbTravel, translateX]);
-
-  const thumbStyle = useAnimatedStyle(() => ({ transform: [{ translateX: translateX.value }] }));
-
+  const isCustom = onCustom != null && target > 0 && !modes.some((mode) => mode.target === target);
+  const options = modes.map((mode) => ({
+    id: String(mode.target),
+    label: mode.label,
+    accessibilityLabel: t("tasbeehUi.modeLabel", {
+      mode: mode.target > 0 ? mode.label : t("tasbeehUi.unlimited"),
+      count,
+    }),
+  }));
+  if (onCustom) {
+    const label = isCustom ? String(target) : t("tasbeehUi.custom");
+    options.push({
+      id: CUSTOM_SEGMENT,
+      label,
+      accessibilityLabel: t("tasbeehUi.modeLabel", { mode: label, count }),
+    });
+  }
   return (
-    <View
-      accessibilityRole="tablist"
-      {...ltrControlViewProps()}
-      onLayout={(event) => setTrackWidth(event.nativeEvent.layout.width)}
-      style={[
-        styles.modeTrack,
-        chartCoordinateStyle,
-        { flexDirection: segmentedTrackDirection(), backgroundColor: colors.muted },
-      ]}
-    >
-      {segmentWidth > 0 ? (
-        <Animated.View
-          style={[
-            styles.modeThumb,
-            segmentedThumbAnchor(pad, rtl),
-            { width: segmentWidth, backgroundColor: tokens.segmentThumb, pointerEvents: "none" },
-            thumbStyle,
-          ]}
-        />
-      ) : null}
-
-      {modes.map((mode) => {
-        const active = mode.target === target;
-        const modeName = mode.target > 0 ? mode.label : t("tasbeehUi.unlimited");
-        return (
-          <PressableScale
-            key={mode.label}
-            haptic="selection"
-            accessibilityRole="tab"
-            accessibilityLabel={t("tasbeehUi.modeLabel", { mode: modeName, count })}
-            accessibilityState={{ selected: active }}
-            onPress={() => onSelectMode(mode.target)}
-            style={[styles.modeSegment, tv && styles.modeSegmentTv]}
-          >
-            <ThemedText
-              type="smallBold"
-              style={{ color: active ? colors.accentText : colors.mutedForeground }}
-            >
-              {mode.label}
-            </ThemedText>
-          </PressableScale>
-        );
-      })}
-      {onCustom ? (
-        <PressableScale
-          haptic="selection"
-          accessibilityRole="tab"
-          accessibilityLabel={t("tasbeehUi.modeLabel", {
-            mode: isCustom && target > 0 ? String(target) : t("tasbeehUi.custom"),
-            count,
-          })}
-          accessibilityState={{ selected: !!isCustom }}
-          onPress={onCustom}
-          style={[styles.modeSegment, tv && styles.modeSegmentTv]}
-        >
-          <ThemedText
-            type="smallBold"
-            style={{ color: isCustom ? colors.accentText : colors.mutedForeground }}
-          >
-            {isCustom && target > 0 ? String(target) : t("tasbeehUi.custom")}
-          </ThemedText>
-        </PressableScale>
-      ) : null}
-    </View>
+    <SegmentedControl
+      tabs
+      allowReselect
+      options={options}
+      value={isCustom ? CUSTOM_SEGMENT : String(target)}
+      onChange={(id) => {
+        if (id === CUSTOM_SEGMENT) onCustom?.();
+        else onSelectMode(Number(id));
+      }}
+    />
   );
 }
 
@@ -838,7 +816,15 @@ function ControlButton({
         size={20}
         tintColor={disabled ? colors.mutedForeground : colors.foreground}
       />
-      <ThemedText type="smallBold" themeColor={disabled ? "mutedForeground" : "foreground"}>
+      {/* Up to four actions share the bar: long translations shrink instead of wrapping. */}
+      <ThemedText
+        type="smallBold"
+        themeColor={disabled ? "mutedForeground" : "foreground"}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.8}
+        style={styles.controlLabel}
+      >
         {label}
       </ThemedText>
     </PressableScale>
@@ -871,35 +857,6 @@ const styles = StyleSheet.create({
     minWidth: 0,
     gap: Spacing.four,
     justifyContent: "center",
-  },
-  modeTrack: {
-    position: "relative",
-    padding: Spacing.half + 2,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    gap: Spacing.half,
-    overflow: "hidden",
-  },
-  modeThumb: {
-    position: "absolute",
-    top: Spacing.half + 2,
-    bottom: Spacing.half + 2,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    ...Shadows.sm,
-  },
-  modeSegment: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: Spacing.two + 2,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    minHeight: 40,
-    zIndex: 1,
-  },
-  modeSegmentTv: {
-    minHeight: TvLayout.chipMinHeight,
   },
   counterStage: {
     position: "relative",
@@ -978,7 +935,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: Spacing.one,
+    minHeight: 48,
     paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.one,
   },
   controlColumnTv: {
     gap: Spacing.four,
@@ -989,6 +948,9 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
+  },
+  controlLabel: {
+    flexShrink: 1,
   },
   controlDisabled: {
     opacity: 0.45,

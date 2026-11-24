@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AccessibilityInfo, StyleSheet, View } from "react-native";
+import { AccessibilityInfo, Platform, StyleSheet, View } from "react-native";
 
 import { ReferenceLine } from "@/components/content/reference-line";
 import { PracticeWordRow } from "@/components/quran/practice-word-row";
@@ -19,6 +19,7 @@ import { createId } from "@/db/id";
 import { usePracticeAyahText } from "@/hooks/use-practice-ayah-text";
 import { type CheckTarget, usePronunciationCheck } from "@/hooks/use-pronunciation-check";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { goBackOrReplace } from "@/lib/navigation";
 import { singleAyahTrack } from "@/lib/quran-audio";
 import { arabicWordRowStyle } from "@/lib/quran-companion/arabic-row";
@@ -26,6 +27,7 @@ import { restorePlaybackMode } from "@/lib/quran-companion/audio/audio-mode";
 import { PRACTICE_ERROR_COPY } from "@/lib/quran-companion/error-codes";
 import { canOpenAppSettings, openAppSettings } from "@/lib/quran-companion/open-app-settings";
 import { passageAyahs } from "@/lib/quran-companion/passage";
+import { practiceSessionKeyAction } from "@/lib/quran-companion/session-keys";
 import type { Passage, PracticeSummary } from "@/lib/quran-companion/types";
 import { getSurahByNumber } from "@/lib/quran-meta";
 import { PINNED_CALIBRATION } from "@/lib/quran-pronunciation/calibration";
@@ -35,8 +37,13 @@ import {
   type PronunciationResults,
 } from "@/lib/quran-pronunciation/summary";
 import type { StudyWordVerdict } from "@/lib/quran-pronunciation/types";
-import { resolveArabicFontFamily, resolveReadingFontSizes } from "@/lib/reading-typography";
+import {
+  resolveArabicFontFamily,
+  resolveReadingFontSizes,
+  translationReadingStyle,
+} from "@/lib/reading-typography";
 import { useIsRTL } from "@/lib/rtl";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
 import { FASTCONFORMER_ENGINE, FASTCONFORMER_VERSION } from "@/lib/speech/fastconformer";
 import { downloadFraction } from "@/lib/tasbeeh-voice/model-status";
 import { useAudioPlayerContext } from "@/providers/audio-player-context";
@@ -74,6 +81,8 @@ export function PronunciationCheckSession({
   const check = usePronunciationCheck();
   const rtl = useIsRTL();
   const mode = PINNED_CALIBRATION.mode;
+  // The app-wide translation toggle (D13), as in the reader and practice session.
+  const { showTranslation } = useReadingDisplay();
 
   const ayahs = useMemo(() => passageAyahs(passage), [passage]);
   const { rows } = usePracticeAyahText(passage.surah, ayahs, translationLocale || locale || "en");
@@ -185,6 +194,12 @@ export function PronunciationCheckSession({
 
   const finish = async () => {
     if (busy) return;
+    // Nothing was checked: a "nothing to listen to again" summary would be
+    // misleading, so just leave (nothing is saved either).
+    if (Object.keys(results).length === 0) {
+      onBack();
+      return;
+    }
     const wordCounts: Record<number, number> = {};
     for (const a of ayahs) wordCounts[a] = rows[a]?.words.length ?? 0;
     const summary = buildPronunciationSummary({
@@ -196,12 +211,36 @@ export function PronunciationCheckSession({
       engineVersion: FASTCONFORMER_VERSION,
       wordCounts,
     });
-    if (Object.keys(results).length) await quranPracticeStore.getState().addSummary(summary);
+    await quranPracticeStore.getState().addSummary(summary);
     setFinished(summary);
   };
 
   const onBack = () =>
     goBackOrReplace(router, source === "reader" ? `/quran/${passage.surah}` : "/quran/practice");
+
+  // Desktop web: Space starts / finishes a take, ← / → move between ayahs.
+  useWebScreenKeyHandler(
+    (event) => {
+      const action = practiceSessionKeyAction(event.key, {
+        rtl,
+        interactiveTarget: isWebInteractiveTarget(event.target),
+        canNavigate: ayahs.length > 1 && !busy,
+        shiftKey: event.shiftKey,
+      });
+      if (action === "primary") {
+        if (check.modelStatus !== "ready" || check.permission === "denied") return undefined;
+        if (listening) void check.stop();
+        else if (!busy) void begin(false);
+        return true;
+      }
+      if (action === "next" || action === "previous") {
+        goTo(index + (action === "next" ? 1 : -1));
+        return true;
+      }
+      return undefined;
+    },
+    Platform.OS === "web" && finished == null,
+  );
 
   const model = check.modelStatus;
   const permission = check.permission;
@@ -362,20 +401,28 @@ export function PronunciationCheckSession({
             {t("quranCompanion.session.loading")}
           </ThemedText>
         )}
-        <View style={styles.legend} accessibilityElementsHidden>
-          {[
-            { label: clearLabel, color: tokens.status.success.color },
-            { label: listenLabel, color: tokens.status.warning.color },
-            { label: t("quranPronunciation.word.notSure"), color: colors.mutedForeground },
-          ].map((item) => (
-            <View key={item.label} style={styles.legendItem}>
-              <View style={[styles.dot, { backgroundColor: item.color }]} />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {item.label}
-              </ThemedText>
-            </View>
-          ))}
-        </View>
+        {showTranslation && row?.translation ? (
+          <ThemedText style={[styles.gapTop, translationReadingStyle(locale, sizes.translation)]}>
+            {row.translation}
+          </ThemedText>
+        ) : null}
+        {/* The key explains marks — only once this ayah has some. */}
+        {verdicts && !calibrating ? (
+          <View style={styles.legend} accessibilityElementsHidden>
+            {[
+              { label: clearLabel, color: tokens.status.success.color },
+              { label: listenLabel, color: tokens.status.warning.color },
+              { label: t("quranPronunciation.word.notSure"), color: colors.mutedForeground },
+            ].map((item) => (
+              <View key={item.label} style={styles.legendItem}>
+                <View style={[styles.dot, { backgroundColor: item.color }]} />
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {item.label}
+                </ThemedText>
+              </View>
+            ))}
+          </View>
+        ) : null}
       </Card>
 
       {/* Model / permission / mic */}
@@ -508,15 +555,6 @@ export function PronunciationCheckSession({
             />
           </View>
           <View style={styles.actions}>
-            {ayahs.length > 1 && index < ayahs.length - 1 ? (
-              <Button
-                label={t("quranCompanion.result.nextAyah")}
-                variant="ghost"
-                size="sm"
-                disabled={busy}
-                onPress={() => goTo(index + 1)}
-              />
-            ) : null}
             {index > 0 ? (
               <Button
                 label={t("quranPronunciation.previous")}
@@ -524,6 +562,15 @@ export function PronunciationCheckSession({
                 size="sm"
                 disabled={busy}
                 onPress={() => goTo(index - 1)}
+              />
+            ) : null}
+            {ayahs.length > 1 && index < ayahs.length - 1 ? (
+              <Button
+                label={t("quranCompanion.result.nextAyah")}
+                variant="ghost"
+                size="sm"
+                disabled={busy}
+                onPress={() => goTo(index + 1)}
               />
             ) : null}
             <Button
@@ -539,6 +586,7 @@ export function PronunciationCheckSession({
             accessibilityRole="button"
             disabled={busy}
             onPress={() => void begin(true)}
+            accessibilityState={{ disabled: busy }}
             style={[styles.link, { borderColor: tokens.hairline, borderRadius: Radius.md }]}
           >
             <ThemedText type="caption" themeColor="mutedForeground">
@@ -576,6 +624,7 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingHorizontal: Spacing.two,
     paddingVertical: 2,
+    minHeight: 44,
     borderRadius: Radius.sm,
     borderWidth: 1,
   },
@@ -583,6 +632,8 @@ const styles = StyleSheet.create({
   actions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, marginTop: Spacing.two },
   link: {
     alignSelf: "flex-start",
+    minHeight: 44,
+    justifyContent: "center",
     paddingVertical: Spacing.one,
     paddingHorizontal: Spacing.two,
     borderWidth: StyleSheet.hairlineWidth,

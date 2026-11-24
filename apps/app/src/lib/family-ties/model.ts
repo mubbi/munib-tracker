@@ -73,6 +73,8 @@ export const KINSHIP_WEIGHT: Record<Kinship, number> = {
 
 export const CADENCE_MIN_DAYS = 1;
 export const CADENCE_MAX_DAYS = 365;
+/** One-tap cadence choices in the add/edit form (the stepper still allows any 1–365). */
+export const CADENCE_PRESET_DAYS: readonly number[] = [2, 7, 14, 30, 60, 90];
 /** A dua resets the due date only for relatives contacted this rarely or less (plan §6). */
 export const DUA_RESETS_CADENCE_FROM_DAYS = 30;
 export const RELATIVE_NAME_MAX_LENGTH = 60;

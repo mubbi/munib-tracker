@@ -10,23 +10,37 @@ import { loadInstalledModel } from "@/stores/quran-listener-store";
 import { compilePhrase } from "./ctc-keyword-spotter";
 import type { TimedHit } from "./hit-dedupe";
 import { createVoiceListener, type VoiceListener } from "./listener";
-import { usesModel } from "./mode";
+import type { TaughtPattern } from "./matcher";
+import type { SessionCountingMode } from "./mode";
 import { createPauseCounter } from "./pause-count";
 import { phraseTokens } from "./phrase-tokens";
 import { type PhraseKey, VOICE_PHRASES } from "./phrases";
+import { createTeachRecorder, createTemplateCounter } from "./template-count";
 
 /**
- * Starts one on-device listening pipeline (capture → VAD → FastConformer →
- * spotter → de-dupe) for a phrase. Used by the counter hook and by calibration.
- * The ORT session is created here and released by `stop()`. Throws a
- * `PracticeError` with a stable code; nothing about the audio is reported.
+ * Starts one on-device listening pipeline for a session. Used by the counter
+ * hook and by calibration:
+ * - "spotter": capture → VAD → FastConformer → CTC spotter → de-dupe (needs
+ *   `phrase`; the ORT session is created here and released by `stop()`);
+ * - "pause": capture → VAD, one hit per spoken burst (D24 fallback);
+ * - "template": capture → VAD → taught-pattern matcher (D48–D51, needs `pattern`);
+ * - "teach": capture → VAD, each burst handed to `onSample` (never stored).
+ * Throws a `PracticeError` with a stable code; nothing about the audio is reported.
  */
 
 export type VoicePipelineOptions = {
   capture: RecitationCapture;
-  phrase: PhraseKey;
-  threshold: () => number;
+  mode: SessionCountingMode | "teach";
+  /** Spotter only. */
+  phrase?: PhraseKey | null;
+  /** Template only. */
+  pattern?: TaughtPattern | null;
+  threshold?: () => number;
   onHit: (hit: TimedHit) => void;
+  /** Teach only: one spoken burst (16 kHz PCM, in memory only). */
+  onSample?: (pcm: Float32Array) => void;
+  /** Teach only: the speech ran far longer than one zikr. */
+  onTooLong?: () => void;
   onSpeech?: (speaking: boolean) => void;
   onLevel?: (db: number) => void;
   /** The model or the microphone failed mid-session. */
@@ -67,28 +81,39 @@ export async function startVoicePipeline(options: VoicePipelineOptions): Promise
 
   try {
     await claimMicrophone("tasbeeh-voice", stop);
-    if (!usesModel()) {
-      // D24 fallback: count each spoken burst; no model is loaded.
-      listener = createPauseCounter({
-        onHit: options.onHit,
-        onSpeech: options.onSpeech,
-        onLevel: options.onLevel,
-      });
+    if (options.mode !== "spotter") {
+      // No model: pause count (D24), taught pattern (D48–D51) or teaching.
+      const { onHit, onSpeech, onLevel } = options;
+      let modelFree: VoiceListener;
+      if (options.mode === "teach") {
+        modelFree = createTeachRecorder({
+          onSample: (pcm) => options.onSample?.(pcm),
+          onTooLong: options.onTooLong,
+          onSpeech,
+          onLevel,
+        });
+      } else if (options.mode === "template" && options.pattern) {
+        modelFree = createTemplateCounter({ pattern: options.pattern, onHit, onSpeech, onLevel });
+      } else {
+        modelFree = createPauseCounter({ onHit, onSpeech, onLevel });
+      }
+      listener = modelFree;
       await enterRecordMode();
-      const pauseListener = listener;
       await options.capture.start(
-        (pcm) => pauseListener.feed(pcm),
+        (pcm) => modelFree.feed(pcm),
         (status) => {
           if (status.interrupted) options.onInterrupted();
         },
       );
       return {
         mute(durationMs) {
-          pauseListener.mute(durationMs);
+          modelFree.mute(durationMs);
         },
         stop,
       };
     }
+    if (!options.phrase) throw new PracticeError("engine-init-failed");
+    const phrase = options.phrase;
     const { assets } = await loadInstalledModel();
     runner = await openFastConformerRunner(assets);
     if (stopped) {
@@ -98,10 +123,10 @@ export async function startVoicePipeline(options: VoicePipelineOptions): Promise
     const tokens = phraseTokens();
     listener = createVoiceListener({
       runner,
-      phrase: compilePhrase(tokens.phrases[options.phrase].variants),
+      phrase: compilePhrase(tokens.phrases[phrase].variants),
       vocab: { blankId: tokens.blankId, fillers: tokens.fillers },
-      minGapMs: VOICE_PHRASES[options.phrase].minMs,
-      threshold: options.threshold,
+      minGapMs: VOICE_PHRASES[phrase].minMs,
+      threshold: options.threshold ?? (() => 0),
       onHit: options.onHit,
       onSpeech: options.onSpeech,
       onLevel: options.onLevel,

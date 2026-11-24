@@ -1,4 +1,7 @@
 import { partnerGoalStore } from "@/lib/circles/partner-goal-store";
+import { homeMasjidCacheStore } from "@/lib/masjid/home-masjid";
+import { loadSetupDismissed, setupDismissStore } from "@/lib/settings/setup-checklist";
+import { vaultLockPrefStore } from "@/lib/vault/vault-lock";
 import { reloadVaultStores } from "@/lib/vault/vault-store";
 import { aqeedahProgressStore } from "./aqeedah-progress-store";
 import { battlesProgressStore } from "./battles-progress-store";
@@ -26,6 +29,7 @@ import { lastDayProgressStore } from "./last-day-progress-store";
 import { learnDuaProgressStore } from "./learn-dua-progress-store";
 import { locationStore } from "./location-store";
 import { nameFavoritesStore } from "./name-favorites-store";
+import { newFeaturesStore } from "./new-features-store";
 import { preferencesStore } from "./preferences-store";
 import { pronunciationCalibrationStore } from "./pronunciation-calibration-store";
 import { prophetsProgressStore } from "./prophets-progress-store";
@@ -38,10 +42,12 @@ import { quranReadingLogStore } from "./quran-reading-log-store";
 import { quranStore } from "./quran-store";
 import { sadaqahStore } from "./sadaqah-store";
 import { salahGuideProgressStore } from "./salah-guide-progress-store";
+import { seasonalBannerStore } from "./seasonal-banner-store";
 import { sunnahHabitsStore } from "./sunnah-habits-store";
 import { taharahProgressStore } from "./taharah-progress-store";
 import { tajweedCoachingStore } from "./tajweed-coaching-store";
 import { tasbeehVoiceCalibrationStore } from "./tasbeeh-voice-calibration-store";
+import { tasbeehVoiceTemplatesStore } from "./tasbeeh-voice-templates-store";
 import { toursStore } from "./tours-store";
 import { trackerStore } from "./tracker-store";
 import { umrahChecklistStore } from "./umrah-checklist-store";
@@ -49,6 +55,20 @@ import { umrahSessionStore } from "./umrah-session-store";
 import { voluntaryFastingStore } from "./voluntary-fasting-store";
 
 import { whiteDaysChecklistStore } from "./white-days-checklist-store";
+
+/** Reloads a lazily loaded store only when something already loaded it. */
+function reloadIfLoaded(store: {
+  getState: () => { isReady: boolean; load: () => Promise<void> };
+}): Promise<void> | undefined {
+  return store.getState().isReady ? store.getState().load() : undefined;
+}
+
+async function reloadSetupDismissed(): Promise<void> {
+  if (!setupDismissStore.getState().isReady) return;
+  // `loadSetupDismissed` is load-once; clear the flag so it re-reads the key.
+  setupDismissStore.setState({ isReady: false });
+  await loadSetupDismissed();
+}
 
 /**
  * Reloads every store that reads a persisted key from disk, so screens already
@@ -70,6 +90,7 @@ export async function reloadAllStores(): Promise<void> {
     duaFavoritesStore.getState().load(),
     duaRecentsStore.getState().load(),
     tasbeehVoiceCalibrationStore.getState().load(),
+    tasbeehVoiceTemplatesStore.getState().load(),
     pronunciationCalibrationStore.getState().load(),
     duroodFavoritesStore.getState().load(),
     nameFavoritesStore.getState().load(),
@@ -86,6 +107,13 @@ export async function reloadAllStores(): Promise<void> {
     whiteDaysChecklistStore.getState().load(),
     homeMasjidTimesStore.getState().load(),
     partnerGoalStore.getState().load(),
+    // Lazily loaded stores outside `stores/` (home masjid cache, "Lock private
+    // journals", setup-card dismissals, "New" badges): reload the live ones so a
+    // reset doesn't leave the old values in memory until the next launch.
+    reloadIfLoaded(homeMasjidCacheStore),
+    reloadIfLoaded(vaultLockPrefStore),
+    reloadIfLoaded(newFeaturesStore),
+    reloadSetupDismissed(),
     focusLockStore.getState().load(),
     sunnahHabitsStore.getState().load(),
     dhulHijjahStore.getState().load(),
@@ -104,6 +132,7 @@ export async function reloadAllStores(): Promise<void> {
     lastDayProgressStore.getState().load(),
     learnDuaProgressStore.getState().load(),
     sadaqahStore.getState().load(),
+    seasonalBannerStore.getState().load(),
     // Qur'an practice stays lazy at launch; after a restore/reset any already-mounted
     // practice screen must see the new data.
     quranCompanionPrefsStore.getState().load(),

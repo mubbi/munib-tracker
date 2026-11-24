@@ -16,7 +16,6 @@ jest.mock("expo-keep-awake", () => ({
   activateKeepAwakeAsync: jest.fn(() => Promise.resolve()),
   deactivateKeepAwake: jest.fn(() => Promise.resolve()),
 }));
-jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("expo-network", () => ({
   getNetworkStateAsync: jest.fn(() => Promise.resolve({ type: "WIFI" })),
   NetworkStateType: { WIFI: "WIFI", ETHERNET: "ETHERNET" },

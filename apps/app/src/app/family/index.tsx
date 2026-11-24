@@ -1,4 +1,4 @@
-import { CIRCLE_LIMITS, type FardStatusValue } from "@munib-tracker/shared/circles";
+import { CIRCLE_LIMITS, type FardPrayer } from "@munib-tracker/shared/circles";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
@@ -19,14 +19,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Spacing } from "@/constants/theme";
-import {
-  createCircle,
-  deleteCircle,
-  type FardStatusInput,
-  leaveCircle,
-  putFardStatus,
-  updateMyMembership,
-} from "@/lib/circles/api";
+import { createCircle, deleteCircle, leaveCircle, updateMyMembership } from "@/lib/circles/api";
 import { indexSignals, isFamilyParent, signalWindow } from "@/lib/circles/family";
 import {
   useChildProfiles,
@@ -36,6 +29,7 @@ import {
   useCircleMutation,
   useCircleSignals,
   useCircles,
+  useFardStatusLog,
 } from "@/lib/circles/hooks";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -182,9 +176,7 @@ function FamilyDashboard({ circleId }: { circleId: string }) {
   const index = useMemo(() => indexSignals(signals.data ?? []), [signals.data]);
   const [confirm, setConfirm] = useState<"leave" | "delete" | null>(null);
 
-  const logFard = useCircleMutation((token, input: FardStatusInput) =>
-    putFardStatus(token, circleId, input),
-  );
+  const logFard = useFardStatusLog(circleId, window.from, window.to);
   const share = useCircleMutation((token, on: boolean) =>
     updateMyMembership(token, circleId, { shareFardStatus: on }),
   );
@@ -196,9 +188,17 @@ function FamilyDashboard({ circleId }: { circleId: string }) {
     (m) => m.memberKind === "user" && !m.isMe && m.role === "member" && m.shareFardStatus,
   );
 
-  const onToggle = async (memberId: string, next: FardStatusValue) => {
+  const onToggle = async (memberId: string, prayer: FardPrayer) => {
     try {
-      await logFard.mutateAsync({ date: today, memberId, ...next });
+      await logFard.toggle(memberId, today, prayer);
+    } catch {
+      toast.error(t("circles.common.offline"));
+    }
+  };
+
+  const onShare = async (on: boolean) => {
+    try {
+      await share.mutateAsync(on);
     } catch {
       toast.error(t("circles.common.offline"));
     }
@@ -223,6 +223,20 @@ function FamilyDashboard({ circleId }: { circleId: string }) {
       </ThemedText>
     );
   }
+  if (detail.isError || !detail.data) {
+    return (
+      <Card padding="three" style={styles.gap}>
+        <ThemedText type="small" themeColor="mutedForeground">
+          {t("circles.common.offline")}
+        </ThemedText>
+        <Button
+          label={t("circles.common.retry")}
+          variant="secondary"
+          onPress={() => void detail.refetch()}
+        />
+      </Card>
+    );
+  }
 
   return (
     <View style={styles.stack}>
@@ -243,7 +257,7 @@ function FamilyDashboard({ circleId }: { circleId: string }) {
                 days={index.get(child.id)}
                 today={today}
                 canEdit={!tv}
-                onToggle={(_, next) => void onToggle(child.id, next)}
+                onToggle={(prayer) => void onToggle(child.id, prayer)}
                 onOpen={
                   tv
                     ? undefined
@@ -293,7 +307,7 @@ function FamilyDashboard({ circleId }: { circleId: string }) {
             <ThemedSwitch
               value={me.shareFardStatus}
               disabled={tv || share.isPending}
-              onValueChange={(on) => void share.mutateAsync(on).catch(() => undefined)}
+              onValueChange={(on) => void onShare(on)}
               accessibilityLabel={t("family.shareMine")}
             />
           </View>

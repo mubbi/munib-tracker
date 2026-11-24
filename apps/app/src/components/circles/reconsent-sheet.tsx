@@ -30,6 +30,8 @@ export function ReconsentSheet({
   const { t } = useTranslation();
   const toast = useToast();
   const [consent, setConsent] = useState(false);
+  // Deleting can't be undone: a second, explicit tap (inline — no dialog on top of this sheet).
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const confirm = useCircleAction((token) =>
     Promise.all(
       pending.map((child) =>
@@ -75,12 +77,31 @@ export function ReconsentSheet({
           disabled={!consent || busy}
           onPress={() => void run(() => confirm.mutateAsync(), "family.reconsent.confirmed")}
         />
-        <Button
-          label={t("family.reconsent.delete")}
-          variant="secondary"
-          disabled={busy}
-          onPress={() => void run(() => remove.mutateAsync(), "family.child.deleted")}
-        />
+        {confirmDelete ? (
+          <View style={styles.confirm} accessibilityLiveRegion="polite">
+            <ThemedText type="small">{t("family.reconsent.deleteConfirm")}</ThemedText>
+            <View style={styles.row}>
+              <Button
+                label={t("family.reconsent.delete")}
+                disabled={busy}
+                onPress={() => void run(() => remove.mutateAsync(), "family.child.deleted")}
+              />
+              <Button
+                label={t("common.cancel")}
+                variant="ghost"
+                disabled={busy}
+                onPress={() => setConfirmDelete(false)}
+              />
+            </View>
+          </View>
+        ) : (
+          <Button
+            label={t("family.reconsent.delete")}
+            variant="secondary"
+            disabled={busy}
+            onPress={() => setConfirmDelete(true)}
+          />
+        )}
       </View>
     </Sheet>
   );
@@ -88,4 +109,6 @@ export function ReconsentSheet({
 
 const styles = StyleSheet.create({
   body: { gap: Spacing.two },
+  confirm: { gap: Spacing.two },
+  row: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
 });

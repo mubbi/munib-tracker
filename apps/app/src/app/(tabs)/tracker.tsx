@@ -625,6 +625,7 @@ export default function TrackerScreen() {
       status={status}
       notes={notes}
       jama={jamaMap}
+      atMasjid={atMasjidMap}
       combined={combinedMap}
       preferredHints={preferredHints}
       zikrCounts={zikrCounts}

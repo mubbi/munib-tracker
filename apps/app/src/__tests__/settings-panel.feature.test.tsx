@@ -30,10 +30,10 @@ jest.mock(
   "@/providers/app-version-provider",
   () => require("@/test-support/mocks/app-version-provider").appVersionProviderMock,
 );
-jest.mock("@/notifications/scheduler", () => ({
-  rescheduleAll: jest.fn(async () => {}),
-  listScheduled: jest.fn(async () => []),
-}));
+jest.mock(
+  "@/notifications/scheduler",
+  () => require("@/test-support/mocks/notifications-scheduler").notificationsSchedulerMock,
+);
 
 beforeEach(async () => {
   resetExpoRouterMock();

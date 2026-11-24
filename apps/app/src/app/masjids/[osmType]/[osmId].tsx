@@ -76,11 +76,6 @@ function MasjidDetailScreenBody({
       .then((detail) => {
         if (controller.signal.aborted) return;
         setState({ status: "ready", detail, cached: false });
-        if (isHome) {
-          void homeMasjidCacheStore
-            .getState()
-            .set({ key, savedAt: new Date().toISOString(), detail });
-        }
       })
       .catch((error: unknown) => {
         if (controller.signal.aborted) return;
@@ -90,7 +85,17 @@ function MasjidDetailScreenBody({
         });
       });
     return () => controller.abort();
-  }, [osmType, osmId, isHome, key, reloadKey]);
+  }, [osmType, osmId, reloadKey]);
+
+  // Keep the home masjid's public detail for offline use. Separate from the
+  // fetch so "Set as home masjid" doesn't reload (and blank) the screen.
+  const fresh = state.status === "ready" && !state.cached ? state.detail : null;
+  useEffect(() => {
+    if (!isHome || !fresh) return;
+    void homeMasjidCacheStore
+      .getState()
+      .set({ key, savedAt: new Date().toISOString(), detail: fresh });
+  }, [isHome, fresh, key]);
 
   // Offline: the home masjid's last public detail is cached on the device.
   const shown =
@@ -112,9 +117,27 @@ function MasjidDetailScreenBody({
     return (
       <View style={styles.stack}>
         <EmptyState
-          icon={{ ios: "wifi.slash", android: "wifi_off", web: "wifi_off" }}
-          title={kind === "not_found" ? t("masjids.notFoundTitle") : t("masjids.errorTitle")}
-          description={kind === "not_found" ? t("masjids.notFoundBody") : t("masjids.errorBody")}
+          icon={
+            kind === "offline"
+              ? { ios: "wifi.slash", android: "wifi_off", web: "wifi_off" }
+              : { ios: "exclamationmark.triangle", android: "warning", web: "warning" }
+          }
+          title={
+            kind === "not_found"
+              ? t("masjids.notFoundTitle")
+              : kind === "offline"
+                ? t("masjids.offlineTitle")
+                : t("masjids.errorTitle")
+          }
+          description={
+            kind === "not_found"
+              ? t("masjids.notFoundBody")
+              : kind === "rate_limited"
+                ? t("masjids.rateLimited")
+                : kind === "offline"
+                  ? t("masjids.errorBody")
+                  : t("masjids.unavailableBody")
+          }
           actionLabel={kind === "not_found" ? undefined : t("masjids.retry")}
           onAction={kind === "not_found" ? undefined : () => setReloadKey((k) => k + 1)}
         />
@@ -187,13 +210,17 @@ function MasjidDetailScreenBody({
               onPress={() => setHome(true)}
             />
           )}
-          <Button
-            variant="ghost"
-            label={t("masjids.reportOnOsm")}
-            accessibilityHint={t("masjids.reportOnOsmHint")}
-            onPress={() => void Linking.openURL(osmUrl({ osmType, osmId }))}
-          />
         </View>
+      )}
+      {/* Corrections happen upstream on OSM — a quiet link next to the attribution. */}
+      {tv ? null : (
+        <Button
+          variant="ghost"
+          size="sm"
+          label={t("masjids.reportOnOsm")}
+          accessibilityHint={t("masjids.reportOnOsmHint")}
+          onPress={() => void Linking.openURL(osmUrl({ osmType, osmId }))}
+        />
       )}
       <OsmAttribution />
     </View>

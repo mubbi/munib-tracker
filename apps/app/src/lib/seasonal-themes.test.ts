@@ -1,8 +1,10 @@
 import { hijriToGregorian } from "@/lib/hijri";
 import {
+  currentSeasonalBanner,
   currentSeasonalTheme,
   SEASONAL_THEMES,
   seasonalBannerHref,
+  seasonalBannerKey,
   seasonalThemeById,
   seasonalThemeForHijri,
   seasonalThemesForHijri,
@@ -62,6 +64,7 @@ describe("seasonal themes (NF-2.23)", () => {
       expect(season.priority).toBeGreaterThan(0);
       expect(season.focusKey.length).toBeGreaterThan(0);
       expect(String(season.route).startsWith("/")).toBe(true);
+      expect(season.ctaKey).toMatch(/^seasonalTheme.cta./);
     }
   });
 
@@ -94,5 +97,16 @@ describe("seasonal themes (NF-2.23)", () => {
 
     const outOfSeason = hijriToGregorian(1447, 6, 15);
     expect(currentSeasonalTheme(outOfSeason)).toBeNull();
+  });
+
+  it("keys a dismissal to one occurrence of a season (id + Hijri year)", () => {
+    expect(currentSeasonalBanner(hijriToGregorian(1447, 9, 15))).toEqual({
+      season: seasonalThemeById("ramadan"),
+      dismissKey: "ramadan:1447",
+    });
+    expect(currentSeasonalBanner(hijriToGregorian(1448, 9, 15))?.dismissKey).toBe(
+      seasonalBannerKey("ramadan", 1448),
+    );
+    expect(currentSeasonalBanner(hijriToGregorian(1447, 6, 15))).toBeNull();
   });
 });

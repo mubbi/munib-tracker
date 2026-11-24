@@ -16,6 +16,7 @@ import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { QazaDailyTargets } from "@/components/qaza-daily-targets";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -103,9 +104,13 @@ export default function QazaPlannerScreen() {
       <ThemedText type="smallBold" style={{ color: colors.accentText }}>
         {t("qazaPlan.consistencyTitle")}
       </ThemedText>
-      <ThemedText type="small" themeColor="foreground" style={styles.hadithText}>
-        {t("qazaPlan.consistencyHadith")}
-      </ThemedText>
+      <ScriptureMeaning english={t("qazaPlan.consistencyHadith")}>
+        {(text) => (
+          <ThemedText type="small" themeColor="foreground" style={styles.hadithText}>
+            {text}
+          </ThemedText>
+        )}
+      </ScriptureMeaning>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("qazaPlan.consistencySource")}
       </ThemedText>

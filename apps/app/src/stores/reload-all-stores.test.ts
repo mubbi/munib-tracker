@@ -89,3 +89,29 @@ describe("reloadAllStores", () => {
     for (const load of loads) expect(load).toHaveBeenCalledTimes(1);
   });
 });
+
+describe("reloadAllStores — lazily loaded stores outside stores/", () => {
+  it("re-reads the live ones from disk and leaves never-loaded ones alone", async () => {
+    const { DB_KEYS } = require("@/db/keys") as typeof import("@/db/keys");
+    const { writeJSON } = require("@/db/store") as typeof import("@/db/store");
+    const { homeMasjidCacheStore } =
+      require("@/lib/masjid/home-masjid") as typeof import("@/lib/masjid/home-masjid");
+    const { setupDismissStore } =
+      require("@/lib/settings/setup-checklist") as typeof import("@/lib/settings/setup-checklist");
+    const { vaultLockPrefStore } =
+      require("@/lib/vault/vault-lock") as typeof import("@/lib/vault/vault-lock");
+
+    // Stale in-memory values from before a reset (the keys are already gone on disk).
+    vaultLockPrefStore.setState({ lockJournals: true, isReady: true });
+    setupDismissStore.setState({ dismissed: ["location"], isReady: true });
+    homeMasjidCacheStore.setState({ cache: null, isReady: false });
+    await writeJSON(DB_KEYS.homeMasjidCache, { stale: true });
+
+    await reloadAllStores();
+
+    expect(vaultLockPrefStore.getState().lockJournals).toBe(false);
+    expect(setupDismissStore.getState()).toMatchObject({ dismissed: [], isReady: true });
+    // Never loaded on this run → not force-loaded by the reset.
+    expect(homeMasjidCacheStore.getState()).toMatchObject({ cache: null, isReady: false });
+  });
+});

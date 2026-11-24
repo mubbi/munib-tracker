@@ -30,4 +30,21 @@ describe("resetDatabase", () => {
     await resetDatabase();
     expect(await readJSON(DB_KEYS.fasting, null)).toBeNull();
   });
+
+  it("also removes quarantined __corrupt copies and shards of user data", async () => {
+    // A corrupt value is moved aside by readJSON, not deleted — reset must not leave it behind.
+    await AsyncStorage.setItem(DB_KEYS.prayerLogs, "{not-json");
+    expect(await readJSON(DB_KEYS.prayerLogs, null)).toBeNull();
+    expect(await AsyncStorage.getItem(`${DB_KEYS.prayerLogs}__corrupt`)).toBe("{not-json");
+    await AsyncStorage.setItem(`${DB_KEYS.quranRootIndex}/meta`, "{}");
+    await AsyncStorage.setItem(`${DB_KEYS.vaultDebts}__corrupt`, "ciphertext");
+    await AsyncStorage.setItem(DB_KEYS.version, "9");
+
+    await resetDatabase();
+
+    expect(await AsyncStorage.getItem(`${DB_KEYS.prayerLogs}__corrupt`)).toBeNull();
+    expect(await AsyncStorage.getItem(`${DB_KEYS.quranRootIndex}/meta`)).toBeNull();
+    expect(await AsyncStorage.getItem(`${DB_KEYS.vaultDebts}__corrupt`)).toBeNull();
+    expect(await AsyncStorage.getItem(DB_KEYS.version)).toBe("9");
+  });
 });

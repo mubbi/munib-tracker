@@ -9,12 +9,11 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { vaultErrorI18nKey } from "@/lib/vault/errors";
-import { assessPassphrase } from "@/lib/vault/passphrase-strength";
+import { VAULT_MIN_PASSPHRASE_LENGTH } from "@/lib/vault/keyring";
 import { resumeVaultSync, setUpVaultSync } from "@/lib/vault/vault";
 import { useVaultStatus } from "@/lib/vault/vault-store";
 
-import { PassphraseField } from "./passphrase-field";
-import { PassphraseStrengthMeter } from "./passphrase-strength-meter";
+import { canSubmitNewPassphrase, NewPassphraseFields } from "./new-passphrase-fields";
 import { RecoveryCodeDisplay } from "./recovery-code-display";
 import { VaultUnlockSheet } from "./vault-unlock-sheet";
 
@@ -65,9 +64,7 @@ export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetPr
   }
 
   const canResume = status?.hasKeyring === true && !status.syncEnabled;
-  const assessment = assessPassphrase(passphrase);
-  const mismatch = confirm.length > 0 && confirm !== passphrase;
-  const canSubmit = assessment.meetsMinimum && confirm === passphrase && !busy;
+  const canSubmit = canSubmitNewPassphrase(passphrase, confirm) && !busy;
 
   const run = async (task: () => Promise<void>) => {
     setBusy(true);
@@ -165,28 +162,16 @@ export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetPr
             {t("vault.passphrase.title")}
           </ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
-            {t("vault.passphrase.body", { min: 10 })}
+            {t("vault.passphrase.body", { min: VAULT_MIN_PASSPHRASE_LENGTH })}
           </ThemedText>
-          <PassphraseField
-            label={t("vault.passphrase.label")}
+          <NewPassphraseFields
             value={passphrase}
             onChangeText={setPassphrase}
-            purpose="newPassword"
+            confirm={confirm}
+            onChangeConfirm={setConfirm}
             autoFocus
-          />
-          <PassphraseStrengthMeter passphrase={passphrase} />
-          <PassphraseField
-            label={t("vault.passphrase.confirmLabel")}
-            value={confirm}
-            onChangeText={setConfirm}
-            purpose="newPassword"
             onSubmitEditing={submit}
           />
-          {mismatch ? (
-            <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
-              {t("vault.passphrase.mismatch")}
-            </ThemedText>
-          ) : null}
           {error ? (
             <ThemedText
               type="small"

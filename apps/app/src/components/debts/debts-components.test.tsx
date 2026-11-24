@@ -1,6 +1,7 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import { debtsVault } from "@/lib/debts/debts-store";
+import { resetToastMock } from "@/test-support/mocks/toast-provider";
 import { resetVaultTestState } from "@/test-support/mocks/vault";
 import { renderWithTheme } from "@/test-support/render";
 
@@ -15,8 +16,13 @@ jest.mock(
   () => require("@/test-support/mocks/safe-secure-store").safeSecureStoreMock,
 );
 jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+jest.mock(
+  "@/providers/toast-provider",
+  () => require("@/test-support/mocks/toast-provider").toastProviderMock,
+);
 
 beforeEach(async () => {
+  resetToastMock();
   await resetVaultTestState();
   debtsVault.store.setState({
     isReady: false,
@@ -89,5 +95,50 @@ describe("DebtDetailBody", () => {
     await waitFor(() => expect(screen.getByText("Repayments")).toBeTruthy());
     await fireEvent.changeText(screen.getByLabelText("Repayment amount"), "120");
     expect(screen.getByText(/An increase agreed on a loan is riba/)).toBeTruthy();
+  });
+
+  it("creates one record on a double tap and reads a forgiving date", async () => {
+    await renderWithTheme(<DebtDetailBody id="new" initialDirection="i_owe" />);
+    await fireEvent.changeText(screen.getByLabelText("Person or organisation"), "Bilal");
+    await fireEvent.changeText(screen.getByLabelText("Amount"), "250");
+    await fireEvent.changeText(screen.getByLabelText("Date"), "2026/1/5");
+    expect(screen.getByText(/^Reads as /)).toBeTruthy();
+    await fireEvent.press(screen.getByText("Save"));
+    await fireEvent.press(screen.getByText("Save"));
+    await waitFor(() => expect(debtsVault.store.getState().items).toHaveLength(1));
+    expect(debtsVault.store.getState().items[0]).toMatchObject({ createdOn: "2026-01-05" });
+  });
+
+  it("flags an unreadable due date instead of saving", async () => {
+    await renderWithTheme(<DebtDetailBody id="new" initialDirection="i_owe" />);
+    await fireEvent.changeText(screen.getByLabelText("Person or organisation"), "Bilal");
+    await fireEvent.changeText(screen.getByLabelText("Amount"), "250");
+    await fireEvent.changeText(screen.getByLabelText("Due date (optional)"), "2026-02-30");
+    expect(screen.getByText(/Couldn't read this date/)).toBeTruthy();
+    await fireEvent.press(screen.getByText("Save"));
+    expect(screen.getByText("Use a valid date in the form YYYY-MM-DD.")).toBeTruthy();
+    expect(debtsVault.store.getState().items).toHaveLength(0);
+  });
+
+  it("explains a missing repayment amount and confirms before removing a repayment", async () => {
+    await debtsVault.actions.put("d1", {
+      kind: "debt",
+      direction: "i_owe",
+      counterparty: "Yusuf",
+      amount: 100,
+      currency: "USD",
+      createdOn: "2026-11-01",
+      payments: [{ id: "p1", date: "2026-11-02", amount: 40 }],
+      status: "open",
+    });
+    await renderWithTheme(<DebtDetailBody id="d1" />);
+    await waitFor(() => expect(screen.getByText("Repayments")).toBeTruthy());
+    await fireEvent.press(screen.getByText("Add repayment"));
+    expect(screen.getByText("Enter the amount repaid.")).toBeTruthy();
+
+    await fireEvent.press(screen.getByText("Remove"));
+    expect(screen.getByText("Remove this repayment?")).toBeTruthy();
+    // Nothing is removed until the person confirms.
+    expect(debtsVault.store.getState().items[0]).toMatchObject({ payments: [{ id: "p1" }] });
   });
 });

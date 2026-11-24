@@ -36,13 +36,13 @@ describe("GuideMadhhabNotes", () => {
     await setPreferences({ madhhab: "hanafi" });
     expect(screen.getByText("Where the schools differ")).toBeTruthy();
     expect(screen.getByText("For your own situation, consult a qualified scholar.")).toBeTruthy();
-    expect(screen.getAllByRole("button", { name: "Other views (3)" })).toHaveLength(2);
+    expect(screen.getAllByRole("button", { name: /^Other views \(\d\)$/ })).toHaveLength(2);
   });
 
   it("shows the side-by-side comparison in all-views mode", async () => {
     await renderWithTheme(<GuideMadhhabNotes ids={["wudu.dalk"]} />);
     await setPreferences({ madhhab: null });
-    expect(screen.getByTestId("ruling-compare-maliki")).toBeTruthy();
+    expect(screen.getByTestId(/ruling-compare-.*maliki/)).toBeTruthy();
     expect(
       screen.getByText("Obligatory: pass the hand over each washed limb with the water."),
     ).toBeTruthy();

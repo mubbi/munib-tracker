@@ -246,6 +246,8 @@ function ImportFlow() {
       setPhotoUri(null);
       toast.success(t("timetableImport.savedToast"), t("masjids.yourTimesNote"));
       router.replace(TIMES_HREF);
+    } catch {
+      toast.error(t("masjids.times.saveError"));
     } finally {
       setSaving(false);
     }

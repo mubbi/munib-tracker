@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { TimetableRows } from "@/components/masjid/masjid-detail-view";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -95,6 +96,7 @@ function YourTimes() {
   const [daily, setDaily] = useState<DraftDaily>({});
   const [jumuah, setJumuah] = useState<JumuahDraft[]>([]);
   const [dirty, setDirty] = useState(false);
+  const [confirmClear, setConfirmClear] = useState(false);
 
   useEffect(() => {
     if (dirty) return;
@@ -158,20 +160,31 @@ function YourTimes() {
     const jumuahSlots: JumuahSlot[] = jumuah.map(({ value: v }) => ({
       iqamahAt: formatHhMm(v.hour, v.minute),
     }));
-    await homeMasjidTimesActions.save(key, {
-      daily: fromDraft(daily),
-      jumuah: jumuahSlots,
-      // Keep a monthly timetable imported via OCR (NF-3.12) untouched.
-      ...(saved?.monthly ? { monthly: saved.monthly } : {}),
-      origin: "manual",
-    });
+    try {
+      await homeMasjidTimesActions.save(key, {
+        daily: fromDraft(daily),
+        jumuah: jumuahSlots,
+        // Keep a monthly timetable imported via OCR (NF-3.12) untouched.
+        ...(saved?.monthly ? { monthly: saved.monthly } : {}),
+        origin: "manual",
+      });
+    } catch {
+      toast.error(t("masjids.times.saveError"));
+      return;
+    }
     setDirty(false);
     requestIqamahReschedule();
     toast.success(t("masjids.times.savedToast"));
   };
 
   const clearAll = async () => {
-    await homeMasjidTimesActions.remove(key);
+    setConfirmClear(false);
+    try {
+      await homeMasjidTimesActions.remove(key);
+    } catch {
+      toast.error(t("masjids.times.saveError"));
+      return;
+    }
     setDirty(false);
     requestIqamahReschedule();
     toast.success(t("masjids.times.clearedToast"));
@@ -272,10 +285,19 @@ function YourTimes() {
           <Button
             variant="ghost"
             label={t("masjids.times.clearAll")}
-            onPress={() => void clearAll()}
+            onPress={() => setConfirmClear(true)}
           />
         ) : null}
       </View>
+      <ConfirmDialog
+        visible={confirmClear}
+        title={t("masjids.times.clearConfirmTitle")}
+        message={t("masjids.times.clearConfirmBody")}
+        confirmLabel={t("masjids.times.clearAll")}
+        destructive
+        onConfirm={() => void clearAll()}
+        onClose={() => setConfirmClear(false)}
+      />
 
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("masjids.times.privacy")}

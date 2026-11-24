@@ -20,4 +20,8 @@ export const HOME_MODULES = [
   "family-ties-due",
   // NF-3.14 weekly reflection card (`COACH_HOME_MODULE`).
   "weekly-coach",
+  // NF-3.4 "Continue your Umrah" card (`UMRAH_HOME_MODULE`).
+  "umrah-mode",
+  // NF-2.23 seasonal banners (`SEASONAL_BANNER_HOME_MODULE`); per-season hiding is on the banner.
+  "seasonal-banner",
 ] as const;

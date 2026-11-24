@@ -92,7 +92,7 @@ export default function JuzBrowserScreen() {
                       { backgroundColor: isContinue ? colors.background : tokens.accentSoft },
                     ]}
                   >
-                    <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                    <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                       {entry.juz}
                     </ThemedText>
                   </View>

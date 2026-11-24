@@ -19,6 +19,8 @@ import {
   type CreateCircleDto,
   type CreateInviteDto,
   type CreateKhatmDto,
+  type CreateNearbyRequestDto,
+  type CreateNearbySessionDto,
   type GraduateChildDto,
   type JoinCircleDto,
   type UpdateChildProfileDto,
@@ -39,6 +41,11 @@ import type {
   KhatmStatus,
   KhatmUnit,
 } from "@munib-tracker/shared/circles";
+import type {
+  NearbyJoinerStatus,
+  NearbyPurpose,
+  NearbyRequestStatus,
+} from "@munib-tracker/shared/circles/nearby";
 
 import { apiAuthOptions } from "@/api/auth-options";
 
@@ -657,5 +664,158 @@ export async function assignKhatmPart(
       as<AssignKhatmPartDto>({ memberId }),
       auth(token),
     ),
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Nearby join (NF-3.25, D41–D44)
+// ---------------------------------------------------------------------------
+
+export type NearbySession = {
+  sessionId: string;
+  /** 128-bit BLE service UUID the host's phone advertises (app prefix + sessionId). */
+  serviceUuid: string;
+  /** 4 digits shown large on the host's screen (D44). */
+  matchCode: string;
+  purpose: NearbyPurpose;
+  role: CircleRole;
+  expiresAt: string;
+};
+
+export type CreateNearbySessionInput = { role?: "parent" | "member"; childId?: string };
+
+export type NearbyRequest = {
+  id: string;
+  displayName: string | null;
+  /** `device` = a child's device (no account). */
+  requester: "account" | "guest" | "device";
+  status: NearbyRequestStatus;
+  createdAt: string;
+};
+
+export type NearbyRequestList = { items: NearbyRequest[]; active: boolean; expiresAt: string };
+
+export type NearbySessionPreview = {
+  circleType: CircleType;
+  circleName: string;
+  memberCount: number;
+  matchCode: string;
+  purpose: NearbyPurpose;
+  needsAccount: boolean;
+  expiresAt: string;
+};
+
+export type NearbyRequestCreated = {
+  requestId: string;
+  /** One-time poll secret (`mtn_…`) — only ever kept in memory. */
+  requestToken: string;
+  status: NearbyRequestStatus;
+  expiresAt: string;
+};
+
+export type NearbyRequestState = {
+  status: NearbyJoinerStatus;
+  circleType: CircleType;
+  circleId: string | null;
+  /** Child-device link: the scoped child session, returned exactly once. */
+  childToken?: string;
+  child?: ChildProfile;
+};
+
+/** Host: open a 10-minute nearby session (same role rules as invites; `childId` links a device). */
+export async function createNearbySession(
+  token: CircleToken,
+  circleId: string,
+  input: CreateNearbySessionInput = {},
+): Promise<NearbySession> {
+  return as(
+    await gen.circleNearbyHostControllerCreate(
+      circleId,
+      as<CreateNearbySessionDto>(input),
+      auth(token),
+    ),
+  );
+}
+
+/** Host: end the session (screen closed / app backgrounded). */
+export async function endNearbySession(
+  token: CircleToken,
+  circleId: string,
+  sessionId: string,
+): Promise<void> {
+  await gen.circleNearbyHostControllerEnd(circleId, sessionId, auth(token));
+}
+
+export async function listNearbyRequests(
+  token: CircleToken,
+  circleId: string,
+  sessionId: string,
+): Promise<NearbyRequestList> {
+  return as(await gen.circleNearbyHostControllerRequests(circleId, sessionId, auth(token)));
+}
+
+export async function decideNearbyRequest(
+  token: CircleToken,
+  circleId: string,
+  sessionId: string,
+  requestId: string,
+  decision: "accept" | "decline",
+): Promise<NearbyRequest> {
+  const call =
+    decision === "accept"
+      ? gen.circleNearbyHostControllerAccept
+      : gen.circleNearbyHostControllerDecline;
+  return as(await call(circleId, sessionId, requestId, auth(token)));
+}
+
+/** Joiner: preview a discovered beacon (no auth; rate-limited per client). */
+export async function previewNearbySession(sessionId: string): Promise<NearbySessionPreview> {
+  return as(await gen.circleNearbyJoinControllerPreview(sessionId, { skipAuthRefresh: true }));
+}
+
+/**
+ * Joiner: ask to join after confirming the digits. Pass the account `token` for
+ * a member session; `null` asks anonymously (a child's device — no account).
+ */
+export async function requestNearbyJoin(
+  token: CircleToken | null,
+  sessionId: string,
+  input: { matchCode: string; displayName?: string },
+): Promise<NearbyRequestCreated> {
+  const options = token === null ? { skipAuthRefresh: true } : auth(token);
+  return as(
+    await gen.circleNearbyJoinControllerRequest(
+      sessionId,
+      as<CreateNearbyRequestDto>(input),
+      options,
+    ),
+  );
+}
+
+export async function nearbyRequestStatus(
+  sessionId: string,
+  requestId: string,
+  requestToken: string,
+): Promise<NearbyRequestState> {
+  return as(
+    await gen.circleNearbyJoinControllerStatus(
+      sessionId,
+      requestId,
+      { requestToken },
+      { skipAuthRefresh: true },
+    ),
+  );
+}
+
+export async function cancelNearbyRequest(
+  sessionId: string,
+  requestId: string,
+  requestToken: string,
+): Promise<void> {
+  await gen.circleNearbyJoinControllerCancel(
+    sessionId,
+    requestId,
+    { requestToken },
+    { skipAuthRefresh: true },
   );
 }

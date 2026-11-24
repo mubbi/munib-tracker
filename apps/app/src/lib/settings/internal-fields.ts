@@ -26,6 +26,9 @@ export const INTERNAL_FIELDS: Readonly<Record<string, string>> = {
   "device.avatarUri": "Account identity (local gallery path), edited in Account (/profile).",
   "device.languageConfirmedAt": "'Finish setting up' marker: language confirmed.",
   "device.methodReviewedAt": "'Finish setting up' marker: calculation method reviewed.",
+  "device.setupProgress": "First-run setup resume state (step + destination), not a preference.",
+  "device.methodSuggestionDismissed":
+    "'Keep current' on the suggested calculation method (Salah times › Prayer calculation).",
 };
 
 /**

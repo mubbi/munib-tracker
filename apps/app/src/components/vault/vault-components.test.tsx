@@ -8,6 +8,7 @@ import { vaultStatusStore } from "@/lib/vault/vault-store";
 import { resetVaultTestState, TEST_PASSPHRASE } from "@/test-support/mocks/vault";
 import { renderWithTheme } from "@/test-support/render";
 
+import { canSubmitNewPassphrase, NewPassphraseFields } from "./new-passphrase-fields";
 import { PassphraseStrengthMeter } from "./passphrase-strength-meter";
 import { RecoveryCodeDisplay } from "./recovery-code-display";
 import { VaultSyncSheet } from "./vault-sync-sheet";
@@ -38,6 +39,27 @@ describe("PassphraseStrengthMeter", () => {
     await rerender(<PassphraseStrengthMeter passphrase="Tq9#vL2!mZ8@pX4$" />);
     expect(screen.getByText("Strong")).toBeTruthy();
     expect(screen.getByRole("progressbar").props.accessibilityValue).toMatchObject({ now: 4 });
+  });
+});
+
+describe("NewPassphraseFields", () => {
+  it("only allows a passphrase that meets the minimum and is confirmed exactly", () => {
+    expect(canSubmitNewPassphrase("short", "short")).toBe(false);
+    expect(canSubmitNewPassphrase(TEST_PASSPHRASE, `${TEST_PASSPHRASE}x`)).toBe(false);
+    expect(canSubmitNewPassphrase(TEST_PASSPHRASE, TEST_PASSPHRASE)).toBe(true);
+  });
+
+  it("says when the confirmation doesn't match", async () => {
+    await renderWithTheme(
+      <NewPassphraseFields
+        value={TEST_PASSPHRASE}
+        onChangeText={jest.fn()}
+        confirm="something else"
+        onChangeConfirm={jest.fn()}
+      />,
+    );
+    expect(screen.getByText("The passphrases don't match.")).toBeTruthy();
+    expect(screen.getByLabelText("Confirm passphrase")).toBeTruthy();
   });
 });
 

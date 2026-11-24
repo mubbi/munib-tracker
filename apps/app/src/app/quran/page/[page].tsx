@@ -507,6 +507,8 @@ export default function QuranPageReaderScreen() {
     }
     playFromPage();
   };
+  const pageAudioPlaying =
+    audio.isPlaying && audio.current != null && audio.sourceHref?.startsWith("/quran/") === true;
   const playPausePageRef = useRef(playPausePage);
   playPausePageRef.current = playPausePage;
 
@@ -875,7 +877,9 @@ export default function QuranPageReaderScreen() {
             canGoNext={canTurnForward}
             onPrev={() => void navigateToPage(prevPage)}
             onNext={() => void navigateToPage(nextPage)}
-            onPlay={playFromPage}
+            // Same toggle as Space / the remote: pause what's playing, else start this page.
+            onPlay={playPausePage}
+            playing={pageAudioPlaying}
             onOpenPage={() => setPagePickerOpen(true)}
           />
 
@@ -1000,11 +1004,13 @@ export default function QuranPageReaderScreen() {
         onNote={
           tv
             ? undefined
-            : () => {
+            : (noteId?: string) => {
                 if (!actionAyah) return;
                 const target = actionAyah;
                 setActionAyah(null);
-                runAfterSheetDismiss(() => openQuranNoteEditor({ mode: "note", ...target }));
+                runAfterSheetDismiss(() =>
+                  openQuranNoteEditor({ mode: "note", ...target, noteId }),
+                );
               }
         }
         onHighlight={

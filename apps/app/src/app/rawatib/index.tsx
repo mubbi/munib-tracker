@@ -1,6 +1,6 @@
 import { RAWATIB_EXTRA_PRAYERS, RAWATIB_PRAYERS } from "@munib-tracker/shared/constants";
 import type { RawatibId } from "@munib-tracker/shared/types";
-import { defaultRakahs, rakahsForLog } from "@munib-tracker/shared/utils";
+import { defaultRakahs } from "@munib-tracker/shared/utils";
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -22,7 +22,7 @@ import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
-import { useRawatibConfig } from "@/hooks/use-rawatib";
+import { useRawatibConfig, useTodayRawatibProgress } from "@/hooks/use-rawatib";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { SCREEN_DIFFERENCES } from "@/lib/fiqh/screen-differences";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -35,7 +35,6 @@ import {
 } from "@/lib/rawatib";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useSetting } from "@/lib/settings/use-setting";
-import { usePrayerRakahsMap, useTodayPrayers } from "@/stores/tracker-store";
 
 const CORE_EVIDENCE = [
   RAWATIB_EVIDENCE.twelve,
@@ -62,17 +61,7 @@ export default function RawatibScreen() {
   const tv = isTV();
   const config = useRawatibConfig();
   const nudge = useSetting<boolean>("notifications.sunnah.rawatibNudge");
-  const { status } = useTodayPrayers();
-  const rakahs = usePrayerRakahsMap();
-
-  const done = RAWATIB_PRAYERS.reduce(
-    (sum, id) =>
-      status[id] === "completed"
-        ? sum + rakahsForLog({ rakahs: rakahs[id] }, id, config.preset)
-        : sum,
-    0,
-  );
-  const target = config.preset;
+  const { done, target } = useTodayRawatibProgress();
   const schoolName = config.school ? t(`fiqh.school.${config.school}`) : null;
   const presetHint =
     config.presetSource === "school" && schoolName
@@ -147,65 +136,70 @@ export default function RawatibScreen() {
                   : updateRawatibPreferences(config, { enabled: next }))
               }
             />
-            <ThemedText type="smallBold">{t("rawatib.hub.presetTitle")}</ThemedText>
-            {tv ? (
-              <ThemedText type="small">
-                {t("rawatib.hub.presetValue", { count: config.preset })}
-              </ThemedText>
-            ) : (
-              <SegmentedControl
-                options={[
-                  { id: "12", label: t("rawatib.hub.presetValue", { count: 12 }) },
-                  { id: "10", label: t("rawatib.hub.presetValue", { count: 10 }) },
-                ]}
-                value={String(config.preset) as "10" | "12"}
-                onChange={(id) =>
-                  void updateRawatibPreferences(config, { preset: id === "12" ? 12 : 10 })
-                }
-              />
-            )}
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {presetHint}
-            </ThemedText>
-            {!tv && config.presetSource === "user" && config.school ? (
-              <Button
-                label={t("rawatib.hub.followSchool")}
-                variant="ghost"
-                size="sm"
-                onPress={() => void updateRawatibPreferences(config, { preset: null })}
-              />
-            ) : null}
-            <TvReadableBlock>
-              <View style={[styles.list, { backgroundColor: colors.muted }]}>
-                {RAWATIB_PRAYERS.map((id) => (
-                  <ThemedText key={id} type="small">
-                    {rowLabel(id)}
+            {/* Progressive disclosure: the set, extras and reminder only matter while on. */}
+            {config.enabled ? (
+              <>
+                <ThemedText type="smallBold">{t("rawatib.hub.presetTitle")}</ThemedText>
+                {tv ? (
+                  <ThemedText type="small">
+                    {t("rawatib.hub.presetValue", { count: config.preset })}
                   </ThemedText>
+                ) : (
+                  <SegmentedControl
+                    options={[
+                      { id: "12", label: t("rawatib.hub.presetValue", { count: 12 }) },
+                      { id: "10", label: t("rawatib.hub.presetValue", { count: 10 }) },
+                    ]}
+                    value={String(config.preset) as "10" | "12"}
+                    onChange={(id) =>
+                      void updateRawatibPreferences(config, { preset: id === "12" ? 12 : 10 })
+                    }
+                  />
+                )}
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {presetHint}
+                </ThemedText>
+                {!tv && config.presetSource === "user" && config.school ? (
+                  <Button
+                    label={t("rawatib.hub.followSchool")}
+                    variant="ghost"
+                    size="sm"
+                    onPress={() => void updateRawatibPreferences(config, { preset: null })}
+                  />
+                ) : null}
+                <TvReadableBlock>
+                  <View style={[styles.list, { backgroundColor: colors.muted }]}>
+                    {RAWATIB_PRAYERS.map((id) => (
+                      <ThemedText key={id} type="small">
+                        {rowLabel(id)}
+                      </ThemedText>
+                    ))}
+                  </View>
+                </TvReadableBlock>
+
+                <ThemedText type="smallBold">{t("rawatib.hub.extrasTitle")}</ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("rawatib.hub.extrasHint")}
+                </ThemedText>
+                {RAWATIB_EXTRA_PRAYERS.map((id) => (
+                  <SettingRow
+                    key={id}
+                    label={rowLabel(id)}
+                    value={config.extras.includes(id)}
+                    readOnly={tv}
+                    onChange={(on) => void updateRawatibPreferences(config, { extra: id, on })}
+                  />
                 ))}
-              </View>
-            </TvReadableBlock>
 
-            <ThemedText type="smallBold">{t("rawatib.hub.extrasTitle")}</ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("rawatib.hub.extrasHint")}
-            </ThemedText>
-            {RAWATIB_EXTRA_PRAYERS.map((id) => (
-              <SettingRow
-                key={id}
-                label={rowLabel(id)}
-                value={config.extras.includes(id)}
-                readOnly={tv}
-                onChange={(on) => void updateRawatibPreferences(config, { extra: id, on })}
-              />
-            ))}
-
-            <SettingRow
-              label={t("rawatib.hub.nudge")}
-              hint={t("rawatib.hub.nudgeHint")}
-              value={nudge.value}
-              readOnly={tv}
-              onChange={(next) => void nudge.setValue(next)}
-            />
+                <SettingRow
+                  label={t("rawatib.hub.nudge")}
+                  hint={t("rawatib.hub.nudgeHint")}
+                  value={nudge.value}
+                  readOnly={tv}
+                  onChange={(next) => void nudge.setValue(next)}
+                />
+              </>
+            ) : null}
           </View>
         </Card>
 

@@ -4,10 +4,10 @@ import { PHONE_ANDROID, TV, WEB } from "@/test-support/settings";
 
 import { buildSettingsEntries, searchSettings } from "./search";
 
-jest.mock("@/notifications/scheduler", () => ({
-  rescheduleAll: jest.fn(async () => {}),
-  listScheduled: jest.fn(async () => []),
-}));
+jest.mock(
+  "@/notifications/scheduler",
+  () => require("@/test-support/mocks/notifications-scheduler").notificationsSchedulerMock,
+);
 
 const tEn = i18n.getFixedT("en");
 

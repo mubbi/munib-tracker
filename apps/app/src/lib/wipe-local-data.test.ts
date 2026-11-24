@@ -3,12 +3,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
+import { clearPendingExternalCommands } from "@/lib/external-commands/native-bridge";
 import {
   appendInAppNotification,
   loadInAppNotifications,
 } from "@/lib/in-app-notifications/storage";
+import { clearPrintableExports } from "@/lib/printable/export-document";
 import { loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
 import { CUSTOM_ACCENT_KEY } from "@/lib/theme-storage-keys";
+import { clearOcrBrowserData } from "@/lib/timetable-ocr/recognize";
+import { isVaultSessionUnlocked, markVaultUnlocked } from "@/lib/vault/vault-lock";
 import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
 import { quranListenerStore } from "@/stores/quran-listener-store";
 import { wipePronunciationModels } from "@/stores/quran-pronunciation-store";
@@ -30,6 +34,18 @@ jest.mock("@/stores/quran-listener-store", () => {
 
 jest.mock("@/stores/quran-pronunciation-store", () => ({
   wipePronunciationModels: jest.fn(async () => undefined),
+}));
+
+jest.mock("@/lib/printable/export-document", () => ({
+  clearPrintableExports: jest.fn(async () => undefined),
+}));
+
+jest.mock("@/lib/external-commands/native-bridge", () => ({
+  clearPendingExternalCommands: jest.fn(async () => undefined),
+}));
+
+jest.mock("@/lib/timetable-ocr/recognize", () => ({
+  clearOcrBrowserData: jest.fn(async () => undefined),
 }));
 
 jest.mock("@/stores/reload-all-stores", () => ({
@@ -91,5 +107,25 @@ describe("wipeLocalDeviceData", () => {
     for (const key of [STORAGE_KEYS.colorMode, STORAGE_KEYS.accent, CUSTOM_ACCENT_KEY]) {
       expect(await AsyncStorage.getItem(key)).toBeNull();
     }
+  });
+
+  it("deletes printable exports, queued widget commands and web OCR data, and ends the vault unlock window", async () => {
+    markVaultUnlocked();
+    expect(isVaultSessionUnlocked()).toBe(true);
+
+    await wipeLocalDeviceData();
+
+    expect(clearPrintableExports).toHaveBeenCalledTimes(1);
+    expect(clearPendingExternalCommands).toHaveBeenCalledTimes(1);
+    expect(clearOcrBrowserData).toHaveBeenCalledTimes(1);
+    expect(isVaultSessionUnlocked()).toBe(false);
+  });
+
+  it("removes quarantined __corrupt copies of user data", async () => {
+    await AsyncStorage.setItem(`${DB_KEYS.khushuJournal}__corrupt`, "{broken");
+
+    await wipeLocalDeviceData();
+
+    expect(await AsyncStorage.getItem(`${DB_KEYS.khushuJournal}__corrupt`)).toBeNull();
   });
 });

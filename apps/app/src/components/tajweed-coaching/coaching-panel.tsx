@@ -148,6 +148,17 @@ export function CoachingPanel() {
           style={styles.center}
         />
       ) : null}
+      {/* A refresh that failed offline keeps the stored plan — say why it didn't change. */}
+      {status === "offline" && plan?.items.length ? (
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          style={styles.centerText}
+          accessibilityLiveRegion="polite"
+        >
+          {t("tajweedCoaching.empty.offline")}
+        </ThemedText>
+      ) : null}
 
       <CoachingProgress state={state} />
 

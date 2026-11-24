@@ -18,7 +18,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useReadingDisplay } from "@/lib/settings/reading-display";
-import { phraseForArabic } from "@/lib/tasbeeh-voice/phrase-display";
+import { voiceZikrFromDurood } from "@/lib/tasbeeh-voice/voice-zikr";
 import { usePreferences } from "@/stores/preferences-store";
 
 /** Pre-render a static HTML page for every bundled durood at web export time. */
@@ -124,7 +124,7 @@ export default function DuroodTasbeehScreen() {
         onSelectMode={setTarget}
         onCustom={() => setCustomOpen(true)}
         keyboardShortcuts={!customOpen}
-        voicePhrase={item ? phraseForArabic(item.arabic) : null}
+        voiceZikr={item ? voiceZikrFromDurood(item) : null}
       />
     </Card>
   );

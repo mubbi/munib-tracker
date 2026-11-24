@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import {
   LearnColumnsGrid,
@@ -122,16 +123,20 @@ function JahannamVersesList({ columns }: { columns: number }) {
                   />
                   <View style={styles.rowCopy}>
                     <ReferenceLine reference={verse.label} />
-                    <ThemedText
-                      type="small"
-                      themeColor="mutedForeground"
-                      style={{
-                        fontSize: sizes.translation,
-                        lineHeight: sizes.translation * 1.45,
-                      }}
-                    >
-                      {verse.excerpt}
-                    </ThemedText>
+                    <ScriptureMeaning english={verse.excerpt} quranRef={verse}>
+                      {(text) => (
+                        <ThemedText
+                          type="small"
+                          themeColor="mutedForeground"
+                          style={{
+                            fontSize: sizes.translation,
+                            lineHeight: sizes.translation * 1.45,
+                          }}
+                        >
+                          {text}
+                        </ThemedText>
+                      )}
+                    </ScriptureMeaning>
                     {verse.context ? (
                       <ThemedText type="caption" themeColor="mutedForeground">
                         {verse.context}

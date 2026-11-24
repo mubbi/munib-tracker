@@ -5,8 +5,6 @@ import { renderWithTheme } from "@/test-support/render";
 
 import { MirathResultView } from "./mirath-results";
 
-jest.mock("expo-audio", () => ({ __esModule: true }));
-
 const male = (heirs: MirathInput["heirs"], estate: MirathInput["estate"]): MirathInput => ({
   school: "hanafi",
   deceased: { gender: "male" },

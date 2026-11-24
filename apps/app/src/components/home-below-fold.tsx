@@ -28,6 +28,7 @@ import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
 import { QazaSummaryCard } from "@/components/qaza-summary-card";
 import { RamadanCard } from "@/components/ramadan-card";
 import { RawatibHomeCard, useRawatibHomeVisible } from "@/components/rawatib/rawatib-home-card";
+import { useSeasonalBanner } from "@/components/seasonal/use-seasonal-banner";
 import { useSeasonalHomeCards } from "@/components/seasonal/use-seasonal-home-cards";
 import { SeasonalThemeBanner } from "@/components/seasonal-theme-banner";
 import {
@@ -69,14 +70,15 @@ import {
 import { getRamadanInfo } from "@/lib/ramadan";
 import { RAWATIB_HOME_MODULE_ID } from "@/lib/rawatib";
 import { useArrowForward } from "@/lib/rtl";
-import { currentSeasonalTheme } from "@/lib/seasonal-themes";
 import { formatScheduleShare } from "@/lib/share";
 import { isWhiteDay } from "@/lib/white-days";
+import { useToast } from "@/providers/toast-provider";
 import { useContinueActivity } from "@/stores/continue-store";
 import { useEnsureKhatmLoaded, useKhatm } from "@/stores/khatm-store";
 import { useLocation } from "@/stores/location-store";
 import { useEnsureNewFeaturesLoaded, useNewFeatureIds } from "@/stores/new-features-store";
 import { usePreferences, usePreferencesReady } from "@/stores/preferences-store";
+import { seasonalBannerStore } from "@/stores/seasonal-banner-store";
 import {
   useDailySummary,
   useDayExcused,
@@ -189,7 +191,9 @@ export function HomeBelowFold({
   const showDefaultLocationBanner = location.source === "default";
   // NF-3.0a: one-time "Choose your madhhab for rulings" for never-asked users.
   const showMadhhabCard = useShowMadhhabPromptCard();
-  const showSeasonalBanner = currentSeasonalTheme(new Date(), location.timeZone) != null;
+  // NF-2.23: out of season, turned off in Customize home, or hidden for this season → null.
+  const seasonalBanner = useSeasonalBanner(hiddenModules);
+  const toast = useToast();
   // Gate optional cards before Stagger wraps them — null-returning children still
   // occupy flex `gap` slots (same issue as the banners above).
   const showRamadanCard = getRamadanInfo(location).isRamadan;
@@ -554,6 +558,16 @@ export function HomeBelowFold({
     </Card>
   ) : null;
 
+  const seasonalBannerCard = seasonalBanner ? (
+    <SeasonalThemeBanner
+      banner={seasonalBanner}
+      onDismiss={() => {
+        void seasonalBannerStore.getState().dismiss(seasonalBanner.dismissKey);
+        toast.info(t("seasonalTheme.hiddenToast"), t("seasonalTheme.hiddenToastHint"));
+      }}
+    />
+  ) : null;
+
   const qazaCard = showQazaCard ? (
     <QazaSummaryCard
       remaining={qaza.remaining}
@@ -595,7 +609,7 @@ export function HomeBelowFold({
           <Stagger entranceKey="home">
             {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
             {showMadhhabCard ? <MadhhabPromptCard /> : null}
-            {showSeasonalBanner ? <SeasonalThemeBanner /> : null}
+            {seasonalBannerCard}
             {goalCard}
             {knowledgeCard}
             {quickActionsCard}
@@ -632,7 +646,7 @@ export function HomeBelowFold({
         {/* Mount only when visible — empty Stagger wrappers still take flex `gap`. */}
         {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
         {showMadhhabCard ? <MadhhabPromptCard /> : null}
-        {showSeasonalBanner ? <SeasonalThemeBanner /> : null}
+        {seasonalBannerCard}
 
         {/* TV: Continue owns preferred focus — keep it right under the hero so the
           landing scroll stays shallow and the hero clock remains on screen. */}

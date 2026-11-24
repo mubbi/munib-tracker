@@ -131,6 +131,7 @@ const LOCATION_KEYS = {
   source: 1,
   updatedAt: 1,
   timeZone: 1,
+  countryCode: 1,
 } satisfies Record<keyof StoredLocation, 1>;
 
 const COMPANION_KEYS = {
@@ -147,6 +148,8 @@ const DEVICE_KEYS = {
   avatarUri: 1,
   languageConfirmedAt: 1,
   methodReviewedAt: 1,
+  setupProgress: 1,
+  methodSuggestionDismissed: 1,
 } satisfies Record<keyof DevicePreferences, unknown>;
 
 function allPreferenceFields(): string[] {

@@ -370,7 +370,7 @@ export default function PracticeHubScreen() {
         ]}
       >
         <View style={[styles.passageBadge, { backgroundColor: tokens.accentSoft }]}>
-          <ThemedText type="smallBold" style={{ color: colors.accent }}>
+          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
             {passage?.surah ?? start.surah}
           </ThemedText>
         </View>
@@ -389,7 +389,7 @@ export default function PracticeHubScreen() {
             size={14}
             tintColor={colors.accent}
           />
-          <ThemedText type="smallBold" style={{ color: colors.accent }}>
+          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
             {t("quranCompanion.hub.change")}
           </ThemedText>
         </View>
@@ -455,7 +455,7 @@ export default function PracticeHubScreen() {
             tintColor={tokens.status.warning.color}
             style={styles.calloutIcon}
           />
-          <ThemedText type="caption" style={[styles.flex, { color: tokens.status.warning.color }]}>
+          <ThemedText type="caption" style={[styles.flex, { color: tokens.status.warning.text }]}>
             {t("quranCompanion.hub.captionManualMode")}
           </ThemedText>
         </View>

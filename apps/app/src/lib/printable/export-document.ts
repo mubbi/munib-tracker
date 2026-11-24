@@ -17,6 +17,17 @@ export type {
 type PrintModule = typeof import("expo-print");
 
 /**
+ * A4 in PostScript points with ~16 mm margins. Android and web honour the
+ * printable page's CSS `@page` rule; iOS's renderer ignores it, so without
+ * explicit margins the text would run to the paper's edge.
+ */
+const A4_PAGE = {
+  width: 595,
+  height: 842,
+  margins: { top: 45, bottom: 45, left: 45, right: 45 },
+} as const;
+
+/**
  * `expo-print`, or null when this binary doesn't have it: TV builds exclude it
  * (records are hidden there), and a dev/store binary built before D30 has the
  * JS but not the native module — importing `expo-print` then throws, so it is
@@ -43,6 +54,16 @@ function removeQuietly(uri: string): void {
   }
 }
 
+/**
+ * Deletes the whole `printable/` cache folder — any PDF/HTML a crash or a killed
+ * share sheet left behind (they hold plaintext wasiyyah / debt records). Called
+ * by "Reset app data" and account deletion.
+ */
+export async function clearPrintableExports(): Promise<void> {
+  const base = cacheDirectoryUri();
+  if (base) removeQuietly(`${base}printable/`);
+}
+
 /** Opens the share sheet for `uri`, then deletes it (plaintext vault data stays off disk). */
 async function shareThenDelete(
   uri: string,
@@ -64,7 +85,7 @@ async function renderPdf(
 ): Promise<string | null> {
   let rendered: string | null = null;
   try {
-    rendered = (await Print.printToFileAsync({ html })).uri;
+    rendered = (await Print.printToFileAsync({ html, ...A4_PAGE })).uri;
     const target = `${dir}${safeName(fileName)}.pdf`;
     removeQuietly(target);
     await moveFile(rendered, target);
@@ -108,7 +129,7 @@ export async function exportPrintableDocument(
 
   if (Print && mode === "print") {
     try {
-      await Print.printAsync({ html });
+      await Print.printAsync({ html, margins: A4_PAGE.margins });
       return "printed";
     } catch (error) {
       // Android rejects when the dialog is dismissed without printing; anything

@@ -23,7 +23,7 @@ export function TasbeehStyleSheet({ visible, onClose }: { visible: boolean; onCl
               {t("tasbeehDesigns.sheetSubtitle")}
             </ThemedText>
           </View>
-          <TasbeehAppearanceEditor />
+          <TasbeehAppearanceEditor focusSelected />
           <Button label={t("common.done")} onPress={onClose} fullWidth />
         </View>
       ) : null}

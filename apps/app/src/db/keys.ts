@@ -144,6 +144,9 @@ export const DB_KEYS = {
   // (`Record<PhraseKey, { thresholdOffset, at }>`) — this device's voice only,
   // never synced or backed up.
   tasbeehVoiceCalibration: `${PREFIX}/tasbeeh_voice_calibration`,
+  // NF-3.20 D48 "teach a zikr": per-zikr voice patterns (quantised features of 1–3
+  // samples + a threshold, never audio) — this device only, never synced or backed up.
+  tasbeehVoiceTemplates: `${PREFIX}/tasbeeh_voice_templates`,
   // NF-3.24 pronunciation check: optional "read one ayah to calibrate" offset
   // (`{ offset, at }`) — this device's voice only, never synced or backed up.
   quranPronunciationCalibration: `${PREFIX}/quran_pronunciation_calibration`,
@@ -156,6 +159,8 @@ export const DB_KEYS = {
   duaRecentsUpdatedAt: `${PREFIX}/dua_recents_updated_at`,
   // Settings hub (NF-3.0b): the dismissed "Finish setting up" checklist item ids.
   settingsSetupDismissed: `${PREFIX}/settings_setup_dismissed`,
+  // Home seasonal banners hidden "for this season" (`<seasonId>:<hijriYear>`, capped).
+  seasonalBannerDismissed: `${PREFIX}/seasonal_banner_dismissed`,
   // Device preferences (NF-3.0b B4): haptics, cache toggles, volume, precise adhan,
   // Live Activity, avatar, TTS voices — device-specific, never synced or backed up.
   devicePreferences: `${PREFIX}/device_preferences`,
@@ -167,6 +172,14 @@ export const DB_KEYS = {
   vaultDebts: `${PREFIX}/vault/debts`,
   vaultWasiyyah: `${PREFIX}/vault/wasiyyah`,
   vaultRelatives: `${PREFIX}/vault/relatives`,
+  // D46: the excused period (active reason + per-day reasons) and the khushu
+  // journal sync only through these vault docs. Their source of truth stays the
+  // plaintext local stores (preferences / prayer logs / `khushu_journal`); the
+  // docs are mirrors written only while vault sync is on (`lib/private-sync`).
+  vaultExcused: `${PREFIX}/vault/excused`,
+  vaultKhushu: `${PREFIX}/vault/khushu`,
+  // Last agreed fingerprint per mirrored item (3-way reconcile base). Device-local.
+  vaultMirrorBase: `${PREFIX}/vault_mirror_base`,
   // Opt-in sync keyring: the DEK wrapped under the passphrase + recovery code.
   vaultKeyring: `${PREFIX}/vault/keyring`,
   // Device-local vault sync switch + inbox of pulled records awaiting unlock.
@@ -291,16 +304,21 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   quranRecitationModel: "deviceLocal",
   quranPronunciationModel: "deviceLocal",
   tasbeehVoiceCalibration: "deviceLocal",
+  tasbeehVoiceTemplates: "deviceLocal",
   quranPronunciationCalibration: "deviceLocal",
   newFeaturesSeen: "deviceLocal",
   duaRecents: "deviceLocal",
   duaRecentsUpdatedAt: "deviceLocal",
   settingsSetupDismissed: "deviceLocal",
+  seasonalBannerDismissed: "deviceLocal",
   devicePreferences: "deviceLocal",
   vaultMuhasabah: "userData",
   vaultDebts: "userData",
   vaultWasiyyah: "userData",
   vaultRelatives: "userData",
+  vaultExcused: "userData",
+  vaultKhushu: "userData",
+  vaultMirrorBase: "deviceLocal",
   vaultKeyring: "userData",
   vaultSyncState: "deviceLocal",
   vaultLockJournals: "deviceLocal",

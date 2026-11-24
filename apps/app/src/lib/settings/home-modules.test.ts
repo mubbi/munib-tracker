@@ -7,9 +7,11 @@ import {
   FAMILY_TIES_HOME_MODULE,
   MUHASABAH_HOME_MODULE,
 } from "@/components/self-review/home-cards";
+import { UMRAH_HOME_MODULE } from "@/components/umrah/umrah-home-card";
 import en from "@/i18n/en.json";
 import { COACH_HOME_MODULE } from "@/lib/coach/constants";
 import { RAWATIB_HOME_MODULE_ID } from "@/lib/rawatib";
+import { SEASONAL_BANNER_HOME_MODULE } from "@/lib/seasonal-themes";
 
 import { HOME_MODULES } from "./home-modules";
 
@@ -23,6 +25,8 @@ describe("Customize home › modules", () => {
       MUHASABAH_HOME_MODULE,
       FAMILY_TIES_HOME_MODULE,
       COACH_HOME_MODULE,
+      UMRAH_HOME_MODULE,
+      SEASONAL_BANNER_HOME_MODULE,
     ]) {
       expect(HOME_MODULES).toContain(id);
     }

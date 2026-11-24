@@ -41,6 +41,12 @@ export interface StoredLocation {
   label: string;
   city?: string;
   country?: string;
+  /**
+   * ISO 3166-1 alpha-2 country ("PK"), from the geocoder. Drives the suggested
+   * calculation method. Older records lack it until their next geocode (the
+   * location store backfills it in the background); the Makkah default has none.
+   */
+  countryCode?: string;
   method: CalculationMethodKey;
   madhab: MadhabKey;
   /** High-latitude twilight rule override; unset ⇒ latitude-aware default (NF-2.21). */
@@ -87,6 +93,14 @@ export function locationCalcExtras(location: StoredLocation): PrayerCalcExtras {
 interface Place {
   city?: string;
   country?: string;
+  countryCode?: string;
+}
+
+/** "pk" / "PK" → "PK"; anything that isn't two letters → undefined. */
+export function normalizeCountryCode(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const code = value.trim().toUpperCase();
+  return /^[A-Z]{2}$/.test(code) ? code : undefined;
 }
 
 export type { ReverseGeocodePlace };
@@ -131,6 +145,7 @@ async function fetchReverseGeocodeFromNetwork(
         return {
           city: result.city ?? result.subregion ?? result.district ?? undefined,
           country: result.country ?? undefined,
+          countryCode: normalizeCountryCode(result.isoCountryCode),
         };
       }
     } catch {
@@ -148,10 +163,12 @@ async function fetchReverseGeocodeFromNetwork(
         city?: string;
         locality?: string;
         countryName?: string;
+        countryCode?: string;
       };
       return {
         city: data.city || data.locality || undefined,
         country: data.countryName || undefined,
+        countryCode: normalizeCountryCode(data.countryCode),
       };
     }
   } catch {
@@ -164,11 +181,12 @@ async function fetchReverseGeocodeFromNetwork(
 export async function resolvePlaceFromCoordinates(
   latitude: number,
   longitude: number,
-): Promise<{ city?: string; country?: string; label: string }> {
+): Promise<{ city?: string; country?: string; countryCode?: string; label: string }> {
   const place = await reverseGeocode(latitude, longitude);
   return {
     city: place.city,
     country: place.country,
+    countryCode: place.countryCode,
     label: buildLabel(place, latitude, longitude),
   };
 }
@@ -183,15 +201,23 @@ async function reverseGeocode(latitude: number, longitude: number): Promise<Reve
 
   const promise = (async () => {
     const cached = await ReverseGeocodeCacheRepository.get(latitude, longitude);
-    if (cached && (cached.city || cached.country)) {
+    const cachedUsable = !!cached && !!(cached.city || cached.country);
+    if (cachedUsable && cached.countryCode) {
       reverseGeocodeMemory.set(key, cached);
       return cached;
     }
 
+    // Entries cached before country codes were stored are refreshed once; if
+    // the geocoder is unreachable the cached name is still used.
     const place = await fetchReverseGeocodeFromNetwork(latitude, longitude);
     if (place.city || place.country) {
       reverseGeocodeMemory.set(key, place);
       await ReverseGeocodeCacheRepository.set(latitude, longitude, place);
+      return place;
+    }
+    if (cachedUsable) {
+      reverseGeocodeMemory.set(key, cached);
+      return cached;
     }
     return place;
   })();
@@ -204,8 +230,20 @@ async function reverseGeocode(latitude: number, longitude: number): Promise<Reve
   }
 }
 
-/** How long to wait for a fresh GPS fix before falling back to the last known one. */
-const LOCATION_TIMEOUT_MS = 10_000;
+/**
+ * How long to wait for a fresh fix before falling back to the last known one.
+ * Browsers on desktops resolve position over the network (no GPS) and are often
+ * slower than a phone, so web gets a longer window.
+ */
+const LOCATION_TIMEOUT_MS = Platform.OS === "web" ? 20_000 : 10_000;
+
+/** No fix arrived in time and there was no last known one — expected indoors / offline. */
+export class LocationTimeoutError extends Error {
+  constructor() {
+    super("Location request timed out");
+    this.name = "LocationTimeoutError";
+  }
+}
 
 /**
  * Gets a device fix, but never hangs: if `getCurrentPositionAsync` doesn't
@@ -225,16 +263,24 @@ async function getPositionWithTimeout(): Promise<Location.LocationObject> {
     if (result) return result;
     const last = await Location.getLastKnownPositionAsync();
     if (last) return last;
-    throw new Error("Location request timed out");
+    throw new LocationTimeoutError();
   } finally {
     if (timer) clearTimeout(timer);
   }
 }
 
+/** Browser `GeolocationPositionError` codes for "no fix" (not a bug): 2 unavailable, 3 timeout. */
+function isExpectedFixFailure(error: unknown): boolean {
+  if (error instanceof LocationTimeoutError) return true;
+  const code = (error as { code?: unknown } | null)?.code;
+  return code === 2 || code === 3;
+}
+
 export type LocationResult =
   | { status: "granted"; location: Omit<StoredLocation, "method" | "madhab"> }
   | { status: "denied" }
-  | { status: "error" };
+  /** `timeout`: no fix could be obtained (indoors, desktop without Wi-Fi location, offline). */
+  | { status: "error"; reason?: "timeout" };
 
 /**
  * Reads the current foreground location permission without prompting.
@@ -263,7 +309,7 @@ export async function getLocationPermissionGranted(): Promise<boolean> {
  * Background refresh should gate on {@link getLocationPermissionGranted} first.
  */
 export async function getDeviceLocation(
-  existing?: Pick<StoredLocation, "latitude" | "longitude" | "city" | "country">,
+  existing?: Pick<StoredLocation, "latitude" | "longitude" | "city" | "country" | "countryCode">,
 ): Promise<LocationResult> {
   // Apple TV / Android TV: force the manual city-search path (no GPS).
   if (isTV()) return { status: "denied" };
@@ -273,11 +319,14 @@ export async function getDeviceLocation(
 
     const position = await getPositionWithTimeout();
     const { latitude, longitude } = position.coords;
-    const place =
+    // Same spot as last time: reuse the stored place (a record without a
+    // country code is re-geocoded once so the method suggestion can work).
+    const place: Place =
       existing &&
       coordsMatchCache(existing, latitude, longitude) &&
-      (existing.city || existing.country)
-        ? { city: existing.city, country: existing.country }
+      (existing.city || existing.country) &&
+      existing.countryCode
+        ? { city: existing.city, country: existing.country, countryCode: existing.countryCode }
         : await reverseGeocode(latitude, longitude);
 
     return {
@@ -287,6 +336,7 @@ export async function getDeviceLocation(
         longitude,
         city: place.city,
         country: place.country,
+        countryCode: place.countryCode,
         label: buildLabel(place, latitude, longitude),
         source: "device",
         updatedAt: new Date().toISOString(),
@@ -296,6 +346,9 @@ export async function getDeviceLocation(
       },
     };
   } catch (error) {
+    // Not getting a fix is an expected outcome, not a bug — callers keep the
+    // stored location. Only unexpected failures are worth a dev warning.
+    if (isExpectedFixFailure(error)) return { status: "error", reason: "timeout" };
     if (__DEV__) console.warn("[location] device location failed:", error);
     return { status: "error" };
   }
@@ -310,6 +363,8 @@ export interface LocationSearchResult {
   /** Region/state for disambiguation, e.g. "Sindh" (omitted if same as name). */
   admin?: string;
   country?: string;
+  /** ISO 3166-1 alpha-2 code, e.g. "PK". */
+  countryCode?: string;
   latitude: number;
   longitude: number;
   /** Compact display label persisted as the location, e.g. "Karachi, Pakistan". */
@@ -346,6 +401,7 @@ function toSearchResult(place: OpenMeteoPlace): LocationSearchResult {
     name: place.name,
     admin,
     country: place.country,
+    countryCode: normalizeCountryCode(place.country_code),
     latitude: place.latitude,
     longitude: place.longitude,
     label: [place.name, place.country].filter(Boolean).join(", "),

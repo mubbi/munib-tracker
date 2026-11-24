@@ -57,6 +57,19 @@ describe("without the native module", () => {
   });
 });
 
+describe("clearPendingExternalCommands (Reset app data)", () => {
+  it("drains and discards the native queue", async () => {
+    const module = fakeModule();
+    const bridge = load(module, "android");
+    await expect(bridge.clearPendingExternalCommands()).resolves.toBeUndefined();
+    expect(module.drainCommands).toHaveBeenCalledTimes(1);
+  });
+
+  it("no-ops without the module", async () => {
+    await expect(load(null).clearPendingExternalCommands()).resolves.toBeUndefined();
+  });
+});
+
 describe("with the native module", () => {
   it("enqueues commands as JSON", async () => {
     const module = fakeModule();

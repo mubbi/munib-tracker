@@ -250,7 +250,11 @@ export default function UmrahModeScreen() {
         message={t("umrahMode.endMessage")}
         confirmLabel={t("umrahMode.end")}
         destructive
-        onConfirm={() => void actions.discard()}
+        onConfirm={() => {
+          // Close first: the dialog stays mounted for the next session otherwise.
+          setConfirmEnd(false);
+          void actions.discard();
+        }}
         onClose={() => setConfirmEnd(false)}
       />
     </ScreenLayout>

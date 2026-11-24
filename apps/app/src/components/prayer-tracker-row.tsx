@@ -22,6 +22,7 @@ import {
   PRAYER_COMBINED_ICON,
   PRAYER_ICONS,
   PRAYER_JAMA_ICON,
+  PRAYER_MASJID_ICON,
   PRAYER_STATUS_MARK_GLYPH,
   PRAYER_STATUS_META,
   statusToneColor,
@@ -56,6 +57,8 @@ type PrayerTrackerRowProps = {
   hasNotes?: boolean;
   /** Prayed in congregation (jama') — shows a badge on completed fard rows (NF-1.5). */
   isJama?: boolean;
+  /** Prayed at the masjid (NF-3.11) — a small masjid glyph on completed fard rows. */
+  atMasjid?: boolean;
   /** Prayed combined (jam') with this fard (NF-3.0a) — a small label in the row / history. */
   combinedWith?: ObligatoryPrayer;
   /** Pre-localized preferred-time hint (Fajr / Asr / Isha, NF-3.0a); today only. */
@@ -144,6 +147,7 @@ export function PrayerTrackerRow({
   time,
   hasNotes,
   isJama,
+  atMasjid,
   combinedWith,
   preferredHint,
   onPress,
@@ -167,6 +171,7 @@ export function PrayerTrackerRow({
     afterSalahProgress.total > 0 &&
     afterSalahProgress.completed >= afterSalahProgress.total;
   const showJama = status === "completed" && !!isJama;
+  const showMasjid = status === "completed" && !!atMasjid;
   const combinedLabel = combinedWith
     ? t("tracker.combined.rowLabel", { prayer: t(`prayers.${combinedWith}`) })
     : null;
@@ -174,6 +179,7 @@ export function PrayerTrackerRow({
     showJama
       ? t("statusSheet.rowA11yJama", { prayer: prayerName, status: statusLabel })
       : t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel }),
+    showMasjid ? t("masjidLog.toggle") : null,
     combinedLabel,
     preferredHint,
   ]
@@ -276,10 +282,13 @@ export function PrayerTrackerRow({
                 {preferredHint}
               </ThemedText>
             ) : null}
-            {hasNotes || showJama || combinedLabel ? (
+            {hasNotes || showJama || showMasjid || combinedLabel ? (
               <View style={styles.metaLine}>
                 {showJama ? (
                   <SymbolView name={PRAYER_JAMA_ICON} size={12} tintColor={successColor} />
+                ) : null}
+                {showMasjid ? (
+                  <SymbolView name={PRAYER_MASJID_ICON} size={12} tintColor={successColor} />
                 ) : null}
                 {combinedLabel ? (
                   <>

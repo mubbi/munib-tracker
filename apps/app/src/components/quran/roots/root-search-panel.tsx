@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
@@ -242,12 +243,14 @@ function RootResults({
               {t("quranRoots.lemmaCount", { count: lemmaCount(index, root) })}
             </ThemedText>
           </View>
-          <IconButton
-            accessibilityLabel={t("quranRoots.search.open")}
+          {/* Decorative: the whole row opens the root. A nested IconButton
+              rendered <button> inside <button> on web (invalid HTML). */}
+          <SymbolView
             name={chevron}
             size={16}
             tintColor={colors.mutedForeground}
-            onPress={() => openRoot(root)}
+            accessibilityElementsHidden
+            importantForAccessibility="no"
           />
         </PressableScale>
       ))}

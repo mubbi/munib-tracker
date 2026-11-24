@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { CircleAccountGate } from "@/components/circles/account-gate";
+import { JoinNearbyButton } from "@/components/circles/nearby/nearby-join-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { TextField } from "@/components/self-review/text-field";
 import { Seo } from "@/components/seo/seo";
@@ -138,6 +139,8 @@ export default function CirclesHubScreen() {
                 onSubmitEditing={join}
               />
               <Button label={t("circles.hub.join")} disabled={!codeValid} onPress={join} />
+              {/* NF-3.25: phones next to each other, host-approved (hidden on web / TV). */}
+              <JoinNearbyButton />
             </Card>
           </>
         ) : null}

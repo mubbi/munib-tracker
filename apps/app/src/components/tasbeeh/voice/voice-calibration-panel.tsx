@@ -73,6 +73,7 @@ export function VoiceCalibrationPanel({
       const { startVoicePipeline } = await import("@/lib/tasbeeh-voice/pipeline");
       pipeline.current = await startVoicePipeline({
         capture,
+        mode: "spotter",
         phrase,
         threshold: () => CALIBRATION_LISTEN_THRESHOLD,
         onHit: (hit) => {

@@ -190,7 +190,9 @@ describe("PrayerStatusSheet extras", () => {
     const onToggleJama = jest.fn();
     await renderSheet({ isJama, onToggleJama });
 
-    await fireEvent.press(screen.getByRole("button", { name: "Prayed in congregation" }));
+    const toggle = screen.getByRole("switch", { name: "Prayed in congregation" });
+    expect(toggle.props.accessibilityState).toMatchObject({ checked: isJama });
+    await fireEvent.press(toggle);
 
     expect(onToggleJama).toHaveBeenCalledWith(next);
   });

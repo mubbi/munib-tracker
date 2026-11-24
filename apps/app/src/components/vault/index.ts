@@ -1,3 +1,4 @@
+export { canSubmitNewPassphrase, NewPassphraseFields } from "./new-passphrase-fields";
 export { PassphraseField } from "./passphrase-field";
 export { PassphraseStrengthMeter } from "./passphrase-strength-meter";
 export { RecoveryCodeDisplay } from "./recovery-code-display";

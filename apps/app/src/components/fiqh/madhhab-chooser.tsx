@@ -36,7 +36,7 @@ export interface MadhhabChooser {
  * lazy sheet, Settings). Wraps `lib/fiqh/set-madhhab` with the toast and the
  * Asr offer state; hosts render {@link AsrOfferCard} inline while `offer` is set.
  */
-export function useMadhhabChooser(): MadhhabChooser {
+export function useMadhhabChooser({ quiet = false }: { quiet?: boolean } = {}): MadhhabChooser {
   const { t } = useTranslation();
   const toast = useToast();
   const [offer, setOffer] = useState<MadhhabChooser["offer"]>(null);
@@ -44,19 +44,20 @@ export function useMadhhabChooser(): MadhhabChooser {
   const choose = useCallback(
     async (choice: MadhhabChoice) => {
       const result = await setMadhhab(choice);
-      if (result.changed) toast.success(t("fiqhRetrofit.rulingsUpdated"));
+      // Onboarding passes `quiet`: nothing has used the old value yet, so no toast.
+      if (result.changed && !quiet) toast.success(t("fiqhRetrofit.rulingsUpdated"));
       setOffer(choice != null && result.asrOffer ? { school: choice, asr: result.asrOffer } : null);
       return result;
     },
-    [t, toast],
+    [quiet, t, toast],
   );
 
   const acceptOffer = useCallback(async () => {
     if (!offer) return;
     await acceptAsrOffer(offer.asr);
     setOffer(null);
-    toast.success(t("fiqhRetrofit.asr.updated"));
-  }, [offer, t, toast]);
+    if (!quiet) toast.success(t("fiqhRetrofit.asr.updated"));
+  }, [offer, quiet, t, toast]);
 
   const declineOffer = useCallback(() => setOffer(null), []);
 

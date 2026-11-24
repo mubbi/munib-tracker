@@ -41,7 +41,8 @@ export function ChildCard({
   child: ChildProfile;
   days: Map<string, MemberDay> | undefined;
   today: string;
-  onToggle?: (prayer: FardPrayer, next: FardStatusValue) => void;
+  /** Flip one prayer for today (the caller computes the value from fresh data). */
+  onToggle?: (prayer: FardPrayer) => void;
   onOpen?: () => void;
   canEdit: boolean;
 }) {
@@ -68,25 +69,9 @@ export function ChildCard({
         </ThemedText>
       ) : null}
 
-      <FardDots
-        value={value}
-        onToggle={
-          canEdit && onToggle
-            ? (prayer) => {
-                const base = value ?? {
-                  fajr: false,
-                  dhuhr: false,
-                  asr: false,
-                  maghrib: false,
-                  isha: false,
-                };
-                onToggle(prayer, { ...base, [prayer]: !base[prayer] });
-              }
-            : undefined
-        }
-      />
+      <FardDots value={value} onToggle={canEdit && onToggle ? onToggle : undefined} />
 
-      <View style={styles.stickers} accessibilityLabel={t("family.stickersA11y")}>
+      <View style={styles.stickers} accessible accessibilityLabel={t("family.stickersA11y")}>
         {lastNDates(today, 7).map((date) => {
           const earned = earnedSticker(days?.get(date));
           return (

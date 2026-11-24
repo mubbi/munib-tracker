@@ -29,7 +29,10 @@ import {
   useZikrCounts,
 } from "./tracker-store";
 
-jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+jest.mock(
+  "@/lib/quran-companion/reschedule",
+  () => require("@/test-support/mocks/reminder-reschedule").reminderRescheduleMock,
+);
 
 const { requestReminderReschedule: mockReschedule } = jest.requireMock(
   "@/lib/quran-companion/reschedule",

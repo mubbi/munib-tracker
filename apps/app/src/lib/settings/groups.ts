@@ -4,7 +4,7 @@ import type { CategoryHueKey } from "@/constants/theme";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 
 import { getSetting, isSettingAvailable, settingsForGroup } from "./registry";
-import type { SettingsGroupId } from "./routes";
+import type { SettingsGroupId, SettingsSubgroupId } from "./routes";
 import type { PlatformCtx, SettingsSnapshot } from "./types";
 
 export type SettingsClusterId = "worship" | "reading" | "personalise" | "privacy" | "help";
@@ -50,6 +50,16 @@ export const SETTINGS_CLUSTERS: readonly SettingsClusterMeta[] = [
   },
 ];
 
+/** A sub-screen of a long group (`/settings/<group>/<id>`), holding whole sections. */
+export interface SettingsSubgroupMeta {
+  id: SettingsSubgroupId;
+  titleKey: string;
+  subtitleKey: string;
+  icon: AppIcon;
+  /** Section keys (`SettingDef.section`) shown on this sub-screen, in order. */
+  sections: readonly string[];
+}
+
 export interface SettingsGroupMeta {
   id: SettingsGroupId;
   cluster: SettingsClusterId;
@@ -60,6 +70,18 @@ export interface SettingsGroupMeta {
   tv: boolean;
   /** Setting ids whose summaries make up the group row's one-line value. */
   summaryIds: readonly string[];
+  /**
+   * Long, rarely-changed sections (per-prayer steppers and toggles) that start
+   * collapsed behind a header showing how many are customised. A deep link /
+   * search result into one opens it.
+   */
+  collapsedSections?: readonly string[];
+  /**
+   * Sub-screens for a group too long for one page. Sections not listed in any
+   * sub-screen (the master switch, the upcoming preview) stay on the group
+   * screen, which lists the sub-screens as rows.
+   */
+  subgroups?: readonly SettingsSubgroupMeta[];
 }
 
 /** Group order = how often each task is done (§4.5.3). */
@@ -72,6 +94,7 @@ export const SETTINGS_GROUPS: readonly SettingsGroupMeta[] = [
     icon: { ios: "location.fill", android: "location_on", web: "location_on" },
     tv: true,
     summaryIds: ["prayer-times.method", "prayer-times.asr", "prayer-times.location"],
+    collapsedSections: ["prayerTuning.offsetTitle"],
   },
   {
     id: "fiqh",
@@ -81,6 +104,7 @@ export const SETTINGS_GROUPS: readonly SettingsGroupMeta[] = [
     icon: { ios: "building.columns.fill", android: "account_balance", web: "account_balance" },
     tv: false,
     summaryIds: ["fiqh.madhhab", "fiqh.asrMethod"],
+    collapsedSections: ["settingsStep4.fiqh.advanced", "settingsStep4.fiqh.whereApplies"],
   },
   {
     id: "notifications",
@@ -90,6 +114,58 @@ export const SETTINGS_GROUPS: readonly SettingsGroupMeta[] = [
     icon: { ios: "bell.fill", android: "notifications", web: "notifications" },
     tv: false,
     summaryIds: ["notifications.master", "notifications.salah.adhanStyle"],
+    collapsedSections: [
+      "notif.prayerAlertsObligatory",
+      "notif.prayerAlertsSunnah",
+      "reminderOffsets.title",
+    ],
+    subgroups: [
+      {
+        id: "salah",
+        titleKey: "settingsSubgroups.salah.title",
+        subtitleKey: "settingsSubgroups.salah.subtitle",
+        icon: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
+        sections: [
+          "settingsPanel.section.salahAdhan",
+          "notif.prayerAlertsObligatory",
+          "notif.prayerAlertsSunnah",
+          "reminderOffsets.title",
+          "settingsIntegration.section.sunnah",
+          "settingsPanel.section.qaza",
+        ],
+      },
+      {
+        id: "zikr",
+        titleKey: "settingsSubgroups.zikr.title",
+        subtitleKey: "settingsSubgroups.zikr.subtitle",
+        icon: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
+        sections: ["notif.groupZikr", "settingsPanel.section.quran"],
+      },
+      {
+        id: "fasting",
+        titleKey: "settingsSubgroups.fasting.title",
+        subtitleKey: "settingsSubgroups.fasting.subtitle",
+        icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
+        sections: [
+          "settingsIntegration.section.remindersFasting",
+          "settingsIntegration.section.seasonal",
+        ],
+      },
+      {
+        id: "personal",
+        titleKey: "settingsSubgroups.personal.title",
+        subtitleKey: "settingsSubgroups.personal.subtitle",
+        icon: { ios: "person.2.fill", android: "group", web: "group" },
+        sections: ["settingsIntegration.section.personal"],
+      },
+      {
+        id: "other",
+        titleKey: "settingsSubgroups.other.title",
+        subtitleKey: "settingsSubgroups.other.subtitle",
+        icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
+        sections: ["notif.groupContent", "settingsPanel.section.feedback"],
+      },
+    ],
   },
   {
     id: "quran",
@@ -235,4 +311,25 @@ export function groupSummary(
     if (text) parts.push(text);
   }
   return parts.length > 0 ? parts.join(" · ") : t(group.subtitleKey);
+}
+
+/** The sub-screen holding `section` in `group`, or null (shown on the group screen itself). */
+export function subgroupOfSection(
+  group: SettingsGroupId,
+  section: string,
+): SettingsSubgroupMeta | null {
+  return getSettingsGroup(group).subgroups?.find((sub) => sub.sections.includes(section)) ?? null;
+}
+
+/** The sub-screen that holds a setting (by id), or null. */
+export function subgroupOfSetting(id: string): SettingsSubgroupMeta | null {
+  const def = getSetting(id);
+  return def ? subgroupOfSection(def.group, def.section) : null;
+}
+
+export function getSettingsSubgroup(
+  group: SettingsGroupId,
+  subgroup: string,
+): SettingsSubgroupMeta | null {
+  return getSettingsGroup(group).subgroups?.find((sub) => sub.id === subgroup) ?? null;
 }

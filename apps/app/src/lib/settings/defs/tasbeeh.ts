@@ -28,11 +28,13 @@ import {
   resolveTasbeehAppearance,
 } from "@/lib/tasbeeh/designs";
 import {
+  applyPreset,
   BEAD_SHAPES,
   COLOR_NAMES,
   MATERIAL_IDS,
   PRESETS,
   SPACER_STYLES,
+  TASSEL_COLORS,
   TASSEL_STYLES,
   THREAD_COLORS,
 } from "@/lib/tasbeeh/materials";
@@ -41,6 +43,7 @@ import { updateTasbeehAppearance } from "@/lib/tasbeeh/use-tasbeeh-appearance";
 import { resolveTasbeehVoicePrefs } from "@/lib/tasbeeh-voice/gate";
 import { usesModel } from "@/lib/tasbeeh-voice/mode";
 import { preferencesStore } from "@/stores/preferences-store";
+import { tasbeehVoiceTemplatesStore } from "@/stores/tasbeeh-voice-templates-store";
 
 import { editor } from "../editors";
 import { nativeOnly, notOnTv } from "../platform";
@@ -140,11 +143,11 @@ const DESIGN_OPTIONS: ChoiceOption<TasbeehDesignId>[] = availableDesigns({ tv: i
 type ThreadChoice = "theme" | "hidden" | string;
 const THREAD_OPTIONS: ChoiceOption<ThreadChoice>[] = [
   { value: "theme", labelKey: "tasbeehDesigns.thread.theme" },
-  { value: "hidden", labelKey: "tasbeehDesigns.thread.hidden" },
   ...THREAD_COLORS.map((hex) => ({
     value: hex,
     labelKey: `tasbeehDesigns.colors.${COLOR_NAMES[hex] ?? "brown"}`,
   })),
+  { value: "hidden", labelKey: "tasbeehDesigns.thread.hidden" },
 ];
 
 type LayoutChoice = "auto" | TasbeehStrandLayout;
@@ -181,19 +184,11 @@ export const TASBEEH_SETTINGS: AnySettingDef[] = [
     titleKey: "tasbeehDesigns.preset",
     options: PRESETS.map((p) => ({ value: p.id, labelKey: `tasbeehDesigns.presets.${p.id}` })),
     read: (r) => r.misbaha.preset,
-    patch: (preset, s) => {
-      const p = PRESETS.find((x) => x.id === preset);
-      return p
-        ? misbahaPatch(s, {
-            preset: p.id,
-            shape: p.shape,
-            material: p.material,
-            spacer: p.spacer,
-            tassel: { ...p.tassel },
-            thread: { ...p.thread },
-          })
-        : {};
-    },
+    // A preset replaces the bead look but keeps strand, layout and background.
+    patch: (preset, s) =>
+      PRESETS.some((p) => p.id === preset)
+        ? { misbaha: applyPreset(resolved(s).misbaha, preset) }
+        : {},
     enabledWhen: isMisbaha,
   }),
   tasbeehChoice<TasbeehBeadShape>({
@@ -227,6 +222,18 @@ export const TASBEEH_SETTINGS: AnySettingDef[] = [
     read: (r) => r.misbaha.tassel.style,
     patch: (style, s) => misbahaPatch(s, { tassel: { ...resolved(s).misbaha.tassel, style } }),
     enabledWhen: isMisbaha,
+  }),
+  tasbeehChoice<string>({
+    id: "content.tasbeeh.misbaha.tasselColor",
+    titleKey: "tasbeehDesigns.tassel.color",
+    options: TASSEL_COLORS.map((hex) => ({
+      value: hex,
+      labelKey: `tasbeehDesigns.colors.${COLOR_NAMES[hex] ?? "burgundy"}`,
+    })),
+    read: (r) => r.misbaha.tassel.color ?? "",
+    patch: (color, s) => misbahaPatch(s, { tassel: { ...resolved(s).misbaha.tassel, color } }),
+    // Only a silk tassel takes a colour.
+    enabledWhen: (s) => isMisbaha(s) && resolved(s).misbaha.tassel.style === "silk",
   }),
   tasbeehChoice<ThreadChoice>({
     id: "content.tasbeeh.misbaha.thread",
@@ -458,6 +465,24 @@ export const TASBEEH_SETTINGS: AnySettingDef[] = [
     scope: "device",
     control: { kind: "custom", Component: TasbeehVoiceCalibrationEditor },
     available: modelVoice,
+  }),
+  // D48: taught zikr voice patterns (numbers, never audio) live only on this device.
+  defineSetting<null>({
+    ...NO_VALUE,
+    id: "content.tasbeeh.voice.forgetTaught",
+    group: G,
+    section: SECTION,
+    titleKey: "tasbeehVoice.settings.forgetTaught",
+    subtitleKey: "tasbeehVoice.settings.forgetTaughtSub",
+    keywordsKey: VOICE_KEYWORDS,
+    scope: "device",
+    control: {
+      kind: "action",
+      run: () => tasbeehVoiceTemplatesStore.getState().forget(),
+      destructive: true,
+      confirmKey: "tasbeehVoice.settings.forgetTaughtConfirm",
+    },
+    available: notOnTv,
   }),
   defineSetting<null>({
     ...NO_VALUE,

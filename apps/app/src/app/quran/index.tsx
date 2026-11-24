@@ -438,7 +438,7 @@ function ContinueReadingCard({
             { backgroundColor: colors.background },
           ]}
         >
-          <ThemedText type="subtitle" style={{ color: colors.accent }}>
+          <ThemedText type="subtitle" style={{ color: colors.accentText }}>
             {surahNumber}
           </ThemedText>
         </View>

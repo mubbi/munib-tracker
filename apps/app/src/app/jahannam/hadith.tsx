@@ -3,6 +3,7 @@ import type { SymbolViewProps } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import {
   LearnColumnsGrid,
@@ -111,17 +112,21 @@ export default function JahannamHadithScreen() {
                           </View>
                         </View>
                         <TvReadableBlock>
-                          <ThemedText
-                            type="small"
-                            themeColor="mutedForeground"
-                            style={{
-                              fontSize: sizes.translation,
-                              lineHeight: sizes.translation * 1.45,
-                              fontStyle: "italic",
-                            }}
-                          >
-                            "{entry.hadith.excerpt}"
-                          </ThemedText>
+                          <ScriptureMeaning english={entry.hadith.excerpt}>
+                            {(text) => (
+                              <ThemedText
+                                type="small"
+                                themeColor="mutedForeground"
+                                style={{
+                                  fontSize: sizes.translation,
+                                  lineHeight: sizes.translation * 1.45,
+                                  fontStyle: "italic",
+                                }}
+                              >
+                                "{text}"
+                              </ThemedText>
+                            )}
+                          </ScriptureMeaning>
                           {entry.context ? (
                             <ThemedText type="caption" themeColor="mutedForeground">
                               {entry.context}

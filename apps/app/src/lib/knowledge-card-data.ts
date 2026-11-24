@@ -140,7 +140,7 @@ export const MOTIVATION_QUOTES: MotivationQuote[] = [
     id: "consistency",
     text: "Allah loves consistent deeds, even if they are small. Keep showing up.",
     topic: "steadfastness",
-    source: "Hadith — Bukhari & Muslim",
+    source: "Sahih al-Bukhari 6464 · Sahih Muslim 782",
   },
   {
     id: "tracker-honest",

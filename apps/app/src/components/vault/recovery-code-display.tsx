@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Platform, Pressable, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -69,11 +69,14 @@ export function RecoveryCodeDisplay({ words, onConfirmed }: RecoveryCodeDisplayP
         <ThemedText type="small" style={styles.confirmLabel}>
           {t("vault.recovery.confirmSaved")}
         </ThemedText>
-        <ThemedSwitch
-          value={saved}
-          onValueChange={setSaved}
-          accessibilityLabel={t("vault.recovery.confirmSaved")}
-        />
+        {/* The row is the one accessible checkbox; the switch is its visual only. */}
+        <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+          <ThemedSwitch
+            value={saved}
+            onValueChange={setSaved}
+            accessibilityLabel={t("vault.recovery.confirmSaved")}
+          />
+        </View>
       </Pressable>
       <Button label={t("vault.recovery.done")} disabled={!saved} fullWidth onPress={onConfirmed} />
     </View>
@@ -83,7 +86,12 @@ export function RecoveryCodeDisplay({ words, onConfirmed }: RecoveryCodeDisplayP
 const styles = StyleSheet.create({
   wrap: { gap: Spacing.two },
   grid: {
-    direction: "ltr",
+    // Word order stays left-to-right in RTL locales. RN Web rejects the Yoga
+    // `direction` prop; it maps `writingDirection` to CSS `direction`.
+    ...Platform.select({
+      web: { writingDirection: "ltr" } as const,
+      default: { direction: "ltr" } as const,
+    }),
     flexDirection: "row",
     flexWrap: "wrap",
     borderWidth: StyleSheet.hairlineWidth,
@@ -96,6 +104,7 @@ const styles = StyleSheet.create({
   number: { minWidth: 20, textAlign: "right", writingDirection: "ltr" },
   word: { writingDirection: "ltr" },
   confirmRow: {
+    minHeight: 44,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,

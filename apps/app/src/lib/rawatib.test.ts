@@ -1,7 +1,7 @@
 import { RAWATIB_IDS } from "@munib-tracker/shared/constants";
 import { rawatibRowState, rawatibWindow } from "@munib-tracker/shared/utils";
 
-import { nextRawatibPreferences, rawatibDayTimes } from "@/lib/rawatib";
+import { nextRawatibPreferences, rawatibDayTimes, rawatibRakahsDone } from "@/lib/rawatib";
 import { buildStoredLocation } from "@/test-support/fixtures/location";
 
 describe("rawatibDayTimes (visibility windows from real prayer times)", () => {
@@ -83,5 +83,24 @@ describe("nextRawatibPreferences", () => {
       enabled: false,
       extras: ["maghrib_before"],
     });
+  });
+});
+
+describe("rawatibRakahsDone (home card, tracker header and hub agree)", () => {
+  it("sums the mu'akkadah rakahs logged, using the preset default for dhuhr_before", () => {
+    const status = {
+      fajr_before: "completed",
+      dhuhr_before: "completed",
+      isha_after: "pending",
+    } as const;
+    expect(rawatibRakahsDone(status, {}, 12)).toBe(6);
+    expect(rawatibRakahsDone(status, {}, 10)).toBe(4);
+    expect(rawatibRakahsDone(status, { dhuhr_before: 2 }, 12)).toBe(4);
+  });
+
+  it("never counts the optional extras toward the 12 / 10", () => {
+    expect(
+      rawatibRakahsDone({ asr_before: "completed", maghrib_before: "completed" }, {}, 12),
+    ).toBe(0);
   });
 });

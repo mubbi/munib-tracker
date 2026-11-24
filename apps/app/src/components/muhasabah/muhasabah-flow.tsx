@@ -100,6 +100,10 @@ export function MuhasabahFlow({ now = new Date() }: { now?: Date }) {
   if (status !== "ready") return null;
 
   const showFlow = !existing || editing;
+  const cancelEdit = () => {
+    setEditing(false);
+    setStep("salah");
+  };
   const index = STEPS.indexOf(step);
   const isLast = index === STEPS.length - 1;
 
@@ -334,6 +338,9 @@ export function MuhasabahFlow({ now = new Date() }: { now?: Date }) {
             variant="ghost"
             onPress={() => setStep(STEPS[index - 1] as Step)}
           />
+        ) : existing && editing ? (
+          // Editing tonight's saved review: leave without changing it.
+          <Button label={t("common.cancel")} variant="ghost" onPress={cancelEdit} />
         ) : null}
         <View style={styles.flex} />
         {isLast ? (

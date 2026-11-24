@@ -1,4 +1,4 @@
-import { type FiqhDifferenceId, getFiqhDifference, otherSchools } from "@munib-tracker/shared/fiqh";
+import { type FiqhDifferenceId, getFiqhDifference } from "@munib-tracker/shared/fiqh";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,6 +11,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useMadhhab } from "@/hooks/use-madhhab";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { otherPositions } from "@/lib/fiqh/position-groups";
 
 const CHEVRON_DOWN = {
   ios: "chevron.down",
@@ -26,8 +27,9 @@ type MadhhabNoteProps = {
 
 /**
  * One labelled fiqh difference (NF-3.0a). With a school selected for the
- * difference's domain: that school's position + badge, and a collapsed
- * "Other views (3)" disclosure. In all-views mode: `<RulingCompare>`.
+ * difference's domain: that school's position + badge, which schools share
+ * it, and a collapsed "Other views" disclosure listing only the positions that
+ * differ (schools that agree grouped). In all-views mode: `<RulingCompare>`.
  * The selected view is never presented as the only valid one.
  */
 export function MadhhabNote({ id, defaultExpanded = false }: MadhhabNoteProps) {
@@ -41,14 +43,22 @@ export function MadhhabNote({ id, defaultExpanded = false }: MadhhabNoteProps) {
   if (school == null) {
     return (
       <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
-        <MadhhabBadge school={null} />
-        <RulingCompare id={id} />
+        <View style={styles.header}>
+          <ThemedText type="smallBold" heading={4} style={styles.title}>
+            {t(diff.titleKey)}
+          </ThemedText>
+          <MadhhabBadge school={null} />
+        </View>
+        <RulingCompare id={id} hideTitle />
       </View>
     );
   }
 
-  const others = otherSchools(school);
+  const { sameView, differing } = otherPositions(diff, school);
   const inMajority = diff.majority?.includes(school) ?? false;
+  const schoolNames = (ids: readonly string[]) =>
+    ids.map((other) => t(`fiqh.school.${other}`)).join(" · ");
+  const otherViewsLabel = t("fiqh.note.otherViews", { total: differing.length });
 
   return (
     <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
@@ -63,45 +73,45 @@ export function MadhhabNote({ id, defaultExpanded = false }: MadhhabNoteProps) {
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("fiqh.note.majority")}
         </ThemedText>
-      ) : null}
-      <PressableScale
-        haptic="light"
-        accessibilityRole="button"
-        accessibilityState={{ expanded }}
-        accessibilityLabel={
-          expanded
-            ? t("fiqh.note.hideOtherViews")
-            : t("fiqh.note.otherViews", { total: others.length })
-        }
-        onPress={() => setExpanded((open) => !open)}
-        scaleTo={0.98}
-        style={styles.toggle}
-      >
-        <ThemedText type="label" style={{ color: colors.accentText }}>
-          {expanded
-            ? t("fiqh.note.hideOtherViews")
-            : t("fiqh.note.otherViews", { total: others.length })}
+      ) : sameView.length > 0 ? (
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("fiqh.note.sameView", { schools: schoolNames(sameView) })}
         </ThemedText>
-        <SymbolView
-          name={CHEVRON_DOWN}
-          size={14}
-          tintColor={colors.accentText}
-          style={{ transform: [{ rotate: expanded ? "180deg" : "0deg" }] }}
-        />
-      </PressableScale>
-      {expanded ? (
+      ) : null}
+      {differing.length > 0 ? (
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityState={{ expanded }}
+          accessibilityLabel={expanded ? t("fiqh.note.hideOtherViews") : otherViewsLabel}
+          onPress={() => setExpanded((open) => !open)}
+          scaleTo={0.98}
+          style={styles.toggle}
+        >
+          <ThemedText type="label" style={{ color: colors.accentText }}>
+            {expanded ? t("fiqh.note.hideOtherViews") : otherViewsLabel}
+          </ThemedText>
+          <SymbolView
+            name={CHEVRON_DOWN}
+            size={14}
+            tintColor={colors.accentText}
+            style={{ transform: [{ rotate: expanded ? "180deg" : "0deg" }] }}
+          />
+        </PressableScale>
+      ) : null}
+      {expanded && differing.length > 0 ? (
         <View style={styles.others}>
-          {others.map((other) => {
-            const name = t(`fiqh.school.${other}`);
-            const position = t(diff.positions[other].summaryKey);
+          {differing.map((group) => {
+            const names = schoolNames(group.schools);
+            const position = t(group.summaryKey);
             return (
               <View
-                key={other}
+                key={group.summaryKey}
                 accessible
-                accessibilityLabel={t("fiqh.note.positionA11y", { school: name, position })}
+                accessibilityLabel={t("fiqh.note.positionA11y", { school: names, position })}
                 style={[styles.otherRow, { borderColor: colors.border }]}
               >
-                <ThemedText type="label">{name}</ThemedText>
+                <ThemedText type="label">{names}</ThemedText>
                 <ThemedText type="small" themeColor="mutedForeground">
                   {position}
                 </ThemedText>

@@ -1,4 +1,4 @@
-import { RAWATIB_PARENT, RAWATIB_PRAYERS } from "@munib-tracker/shared/constants";
+import { RAWATIB_PARENT } from "@munib-tracker/shared/constants";
 import type {
   ObligatoryPrayer,
   PrayerStatus,
@@ -16,7 +16,12 @@ import { RawatibHeaderCard } from "@/components/rawatib/rawatib-header-card";
 import { PrayerRepository } from "@/db";
 import { useNow } from "@/hooks/use-now";
 import { useRawatibConfig } from "@/hooks/use-rawatib";
-import { rawatibDayTimes, startRawatib, updateRawatibPreferences } from "@/lib/rawatib";
+import {
+  rawatibDayTimes,
+  rawatibRakahsDone,
+  startRawatib,
+  updateRawatibPreferences,
+} from "@/lib/rawatib";
 import { requestRawatibNudgeReschedule } from "@/lib/rawatib-nudge";
 import { useLocation } from "@/stores/location-store";
 import { trackerStore, usePrayerRakahsMap } from "@/stores/tracker-store";
@@ -210,13 +215,7 @@ export function useRawatibDay({
     );
   };
 
-  const rakahsDone = RAWATIB_PRAYERS.reduce(
-    (sum, id) =>
-      effective[id] === "completed"
-        ? sum + rakahsForLog({ rakahs: rakahs[id] }, id, config.preset)
-        : sum,
-    0,
-  );
+  const rakahsDone = rawatibRakahsDone(effective, rakahs, config.preset);
 
   const onChoose = useCallback(
     (choice: RawatibPreset | "off") => {

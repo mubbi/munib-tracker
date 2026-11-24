@@ -22,7 +22,10 @@ type PageReaderFooterProps = {
   canGoNext: boolean;
   onPrev: () => void;
   onNext: () => void;
+  /** Play / pause page audio (toggles while this reader's audio is loaded). */
   onPlay: () => void;
+  /** Page audio is playing: show Pause instead of Play. */
+  playing?: boolean;
   onOpenPage: () => void;
 };
 
@@ -35,6 +38,7 @@ export function PageReaderFooter({
   onPrev,
   onNext,
   onPlay,
+  playing = false,
   onOpenPage,
 }: PageReaderFooterProps) {
   const { t } = useTranslation();
@@ -106,8 +110,13 @@ export function PageReaderFooter({
   );
   const playButton = (
     <IconButton
-      name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
-      accessibilityLabel={t("quran.playPage")}
+      name={
+        playing
+          ? { ios: "pause.fill", android: "pause", web: "pause" }
+          : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
+      }
+      accessibilityLabel={playing ? t("quran.actionPause") : t("quran.playPage")}
+      accessibilityState={{ selected: playing }}
       onPress={onPlay}
       background={colors.accent}
       tintColor={colors.accentForeground}
@@ -242,7 +251,7 @@ function PageNavButton({
         <>
           <SymbolView name={icon} size={18} tintColor={colors.accent} />
           {showLabel ? (
-            <ThemedText type="smallBold" numberOfLines={1} style={{ color: colors.accent }}>
+            <ThemedText type="smallBold" numberOfLines={1} style={{ color: colors.accentText }}>
               {label}
             </ThemedText>
           ) : null}
@@ -250,7 +259,7 @@ function PageNavButton({
       ) : (
         <>
           {showLabel ? (
-            <ThemedText type="smallBold" numberOfLines={1} style={{ color: colors.accent }}>
+            <ThemedText type="smallBold" numberOfLines={1} style={{ color: colors.accentText }}>
               {label}
             </ThemedText>
           ) : null}

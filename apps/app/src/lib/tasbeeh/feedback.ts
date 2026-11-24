@@ -7,11 +7,11 @@
 
 import type { TasbeehDesignId, TasbeehHapticsLevel } from "@munib-tracker/shared/types";
 
-import type { HapticFeedback } from "@/lib/haptics";
+import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 
 import { type StrandModel, strandCountEvent } from "./bead-layout";
-import { getDesign } from "./designs";
-import { closesRound } from "./rounds";
+import { getDesign, type ResolvedTasbeehAppearance, strandModelFor } from "./designs";
+import { closesRound, roundSizeFor } from "./rounds";
 import type { TasbeehSoundKind } from "./sound-packs";
 
 /**
@@ -93,4 +93,31 @@ export function countEventFor(
   if (design === "misbaha" && strand) return strandCountEvent(strand, nextCount);
   if (round && closesRound(nextCount, round.size, round.target)) return "lap";
   return "bead";
+}
+
+/**
+ * {@link countEventFor} for a resolved appearance: builds the misbaha strand and
+ * the round size the face draws, so the counter shell and the style sheet's
+ * demo classify a count the same way.
+ */
+export function countEventForAppearance(
+  appearance: Pick<ResolvedTasbeehAppearance, "design" | "misbaha" | "fingers">,
+  nextCount: number,
+  target: number,
+): Exclude<TasbeehFeedbackEvent, "complete" | "limit"> {
+  const strand =
+    appearance.design === "misbaha" ? strandModelFor(appearance.misbaha, target) : undefined;
+  const size = roundSizeFor(appearance.design, target, appearance);
+  return countEventFor(appearance.design, nextCount, strand, size ? { size, target } : undefined);
+}
+
+/**
+ * Plays a haptic pattern through `triggerHaptic()` (so the global haptics
+ * toggle applies): the first pulse at once, the rest {@link HAPTIC_PULSE_GAP_MS} apart.
+ */
+export function playHapticPattern(pattern: readonly HapticFeedback[]): void {
+  pattern.forEach((haptic, index) => {
+    if (index === 0) triggerHaptic(haptic);
+    else setTimeout(() => triggerHaptic(haptic), index * HAPTIC_PULSE_GAP_MS);
+  });
 }

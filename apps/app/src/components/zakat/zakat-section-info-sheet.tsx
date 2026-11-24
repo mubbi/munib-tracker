@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ScriptureMeaning } from "@/components/content/scripture-meaning";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Pill } from "@/components/ui/pill";
@@ -10,6 +11,7 @@ import { Sheet } from "@/components/ui/sheet";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { QuranMeaningRef } from "@/lib/scripture-meaning";
 import { ZAKAT_CALC_SECTIONS, type ZakatCalcSectionId } from "@/lib/zakat-section-info";
 
 type ZakatSectionInfoSheetProps = {
@@ -31,7 +33,7 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
   const refs = useMemo(() => {
     if (!meta)
       return {
-        quran: [] as { label: string; excerpt: string }[],
+        quran: [] as { label: string; excerpt: string; quranRef?: QuranMeaningRef }[],
         hadith: [] as {
           label: string;
           excerpt: string;
@@ -39,7 +41,7 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
         }[],
       };
 
-    const quran: { label: string; excerpt: string }[] = [];
+    const quran: { label: string; excerpt: string; quranRef?: QuranMeaningRef }[] = [];
     const hadith: { label: string; excerpt: string; grade?: string }[] = [];
 
     for (const ref of meta.refs) {
@@ -49,6 +51,7 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
         quran.push({
           label: base.label,
           excerpt: t(`zakat.quran.${ref.sharedIndex}.excerpt`),
+          quranRef: base,
         });
       }
       if (ref.kind === "hadith" && ref.sharedIndex != null) {
@@ -110,9 +113,13 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
                 <ThemedText type="caption" style={{ color: colors.accent, fontWeight: "700" }}>
                   {item.label}
                 </ThemedText>
-                <ThemedText type="small" style={{ color: colors.foreground, lineHeight: 20 }}>
-                  {item.excerpt}
-                </ThemedText>
+                <ScriptureMeaning english={item.excerpt} quranRef={item.quranRef}>
+                  {(text) => (
+                    <ThemedText type="small" style={{ color: colors.foreground, lineHeight: 20 }}>
+                      {text}
+                    </ThemedText>
+                  )}
+                </ScriptureMeaning>
               </View>
             </TvReadableBlock>
           ))}
@@ -138,9 +145,17 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
                     />
                   ) : null}
                 </View>
-                <ThemedText type="small" themeColor="mutedForeground" style={{ lineHeight: 20 }}>
-                  {item.excerpt}
-                </ThemedText>
+                <ScriptureMeaning english={item.excerpt}>
+                  {(text) => (
+                    <ThemedText
+                      type="small"
+                      themeColor="mutedForeground"
+                      style={{ lineHeight: 20 }}
+                    >
+                      {text}
+                    </ThemedText>
+                  )}
+                </ScriptureMeaning>
               </View>
             </TvReadableBlock>
           ))}

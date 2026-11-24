@@ -13,11 +13,13 @@ import { StyleSheet, View } from "react-native";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { AmountInput } from "@/components/records/amount-input";
+import { DayInput } from "@/components/records/day-input";
 import { LabeledInput } from "@/components/records/labeled-input";
+import { useExportFeedback } from "@/components/records/use-export-feedback";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { PressableScale } from "@/components/ui/pressable-scale";
+import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
@@ -29,6 +31,7 @@ import { useDebts } from "@/lib/debts/debts-store";
 import { useObligationsSummary } from "@/lib/debts/use-obligations";
 import { takePendingMirathSnapshot } from "@/lib/mirath/wasiyyah-handoff";
 import { goBackOrReplace } from "@/lib/navigation";
+import { normalizeDayInput } from "@/lib/records/day";
 import { useWasiyyahExport, wasiyyahShahadah } from "@/lib/wasiyyah/use-wasiyyah-export";
 import {
   canSaveWasiyyah,
@@ -38,9 +41,11 @@ import {
   importTrustLines,
 } from "@/lib/wasiyyah/wasiyyah";
 import { wasiyyahActions } from "@/lib/wasiyyah/wasiyyah-store";
+import { useToast } from "@/providers/toast-provider";
 
 import { HeirPickerSheet } from "./heir-picker-sheet";
 import { WasiyyahIssues } from "./wasiyyah-issues";
+import { WasiyyahReviewSummary } from "./wasiyyah-review-summary";
 
 export const WASIYYAH_STEPS = [
   "testator",
@@ -54,6 +59,9 @@ export const WASIYYAH_STEPS = [
   "review",
 ] as const;
 export type WasiyyahStep = (typeof WASIYYAH_STEPS)[number];
+const SUMMARY_STEPS = WASIYYAH_STEPS.filter(
+  (s): s is Exclude<WasiyyahStep, "review"> => s !== "review",
+);
 
 function SwitchRow({
   label,
@@ -74,10 +82,34 @@ function SwitchRow({
   );
 }
 
-/** The 8-section wasiyyah wizard + a review step (NF-3.9). Autosaves a draft. */
-export function WasiyyahWizard({ initialData }: { initialData: WasiyyahData }) {
+/** Names typed into one comma-separated field (guardians). */
+function splitNames(text: string): string[] {
+  return text
+    .split(/[,،]/)
+    .map((name) => name.trim())
+    .filter(Boolean);
+}
+
+/** Wait after the last edit before the draft is written to the vault. */
+export const WASIYYAH_AUTOSAVE_MS = 600;
+
+/**
+ * The 8-section wasiyyah wizard + a review step (NF-3.9). Autosaves a draft
+ * (debounced, and flushed when leaving the screen); the review step lists every
+ * section with a jump back to edit it. `onStepChange` lets the route scroll to
+ * the top of the new step.
+ */
+export function WasiyyahWizard({
+  initialData,
+  onStepChange,
+}: {
+  initialData: WasiyyahData;
+  onStepChange?: () => void;
+}) {
   const { t } = useTranslation();
   const router = useRouter();
+  const toast = useToast();
+  const exportFeedback = useExportFeedback();
   const format = useRecordFormat();
   const school = useMadhhabFor("inheritance");
   const { debts, vows } = useDebts();
@@ -88,20 +120,44 @@ export function WasiyyahWizard({ initialData }: { initialData: WasiyyahData }) {
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [heirPickerFor, setHeirPickerFor] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  // Guardians are edited as free text; the list is derived, so typing ", " isn't reformatted.
+  const [guardiansText, setGuardiansText] = useState(() => initialData.guardians.join(", "));
   const step = WASIYYAH_STEPS[stepIndex] ?? "testator";
   const computation = useMemo(() => computeWasiyyah(data, school), [data, school]);
   const shahadah = useMemo(() => wasiyyahShahadah(), []);
 
-  // Autosave the draft (debounced) so leaving mid-way loses nothing.
+  // Autosave the draft (debounced) so leaving mid-way loses nothing: an edit
+  // still waiting for its timer is flushed on unmount. Once the will is saved
+  // as a version, no draft is written again (it would resurrect "Continue").
   const firstRender = useRef(true);
+  const pendingDraft = useRef<WasiyyahData | null>(null);
+  const savedVersion = useRef(false);
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
       return;
     }
-    const timer = setTimeout(() => void wasiyyahActions.saveDraft(data).catch(() => {}), 600);
+    pendingDraft.current = data;
+    const timer = setTimeout(() => {
+      pendingDraft.current = null;
+      if (!savedVersion.current) void wasiyyahActions.saveDraft(data).catch(() => {});
+    }, WASIYYAH_AUTOSAVE_MS);
     return () => clearTimeout(timer);
   }, [data]);
+  useEffect(
+    () => () => {
+      const pending = pendingDraft.current;
+      if (pending && !savedVersion.current) void wasiyyahActions.saveDraft(pending).catch(() => {});
+    },
+    [],
+  );
+
+  const goToStep = (next: number) => {
+    const clamped = Math.max(0, Math.min(WASIYYAH_STEPS.length - 1, next));
+    if (clamped === stepIndex) return;
+    setStepIndex(clamped);
+    onStepChange?.();
+  };
 
   // First visit to sections 3/4 imports from the debts record.
   useEffect(() => {
@@ -145,12 +201,22 @@ export function WasiyyahWizard({ initialData }: { initialData: WasiyyahData }) {
     return [l.label ? `${kind}: ${l.label}` : kind, value].filter(Boolean).join(" — ");
   };
 
+  const testatorDay = normalizeDayInput(data.testator.date);
+  // A will needs a readable date (section 1): saving waits until it is fixed.
+  const canSave = canSaveWasiyyah(computation) && testatorDay != null;
   const save = async () => {
-    if (!canSaveWasiyyah(computation)) return;
+    // `savedVersion` is a synchronous guard: a second tap must not save twice.
+    if (!canSave || savedVersion.current) return;
     setSaving(true);
+    savedVersion.current = true;
+    pendingDraft.current = null;
     try {
-      await wasiyyahActions.saveVersion(data, debts);
+      const testator = { ...data.testator, date: testatorDay ?? data.testator.date };
+      await wasiyyahActions.saveVersion({ ...data, testator }, debts);
       goBackOrReplace(router, "/wasiyyah");
+    } catch {
+      savedVersion.current = false;
+      toast.error(t("privateUx.saveFailed"));
     } finally {
       setSaving(false);
     }
@@ -167,11 +233,10 @@ export function WasiyyahWizard({ initialData }: { initialData: WasiyyahData }) {
             onChangeText={(name) => update({ testator: { ...data.testator, name } })}
             autoCapitalize="words"
           />
-          <LabeledInput
+          <DayInput
             label={t("wasiyyah.testator.date")}
             value={data.testator.date}
             onChangeText={(date) => update({ testator: { ...data.testator, date } })}
-            placeholder={t("debts.form.datePlaceholder")}
           />
           <ThemedText type="smallBold">{t("wasiyyah.testator.shahadah")}</ThemedText>
           <ThemedText type="arabic" style={styles.arabic}>
@@ -411,15 +476,12 @@ export function WasiyyahWizard({ initialData }: { initialData: WasiyyahData }) {
                     />
                   </>
                 ) : null}
-                <PressableScale
-                  accessibilityRole="button"
-                  accessibilityLabel={t("wasiyyah.bequests.remove")}
+                <Button
+                  label={t("wasiyyah.bequests.remove")}
+                  variant="ghost"
+                  size="sm"
                   onPress={() => update({ bequests: data.bequests.filter((x) => x.id !== b.id) })}
-                >
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("wasiyyah.bequests.remove")}
-                  </ThemedText>
-                </PressableScale>
+                />
               </View>
             </Card>
           ))}
@@ -459,8 +521,11 @@ export function WasiyyahWizard({ initialData }: { initialData: WasiyyahData }) {
           <LabeledInput
             label={t("wasiyyah.people.guardians")}
             hint={t("wasiyyah.people.guardiansHint")}
-            value={data.guardians.join(", ")}
-            onChangeText={(v) => update({ guardians: v.split(/[,،]/) })}
+            value={guardiansText}
+            onChangeText={(v) => {
+              setGuardiansText(v);
+              update({ guardians: splitNames(v) });
+            }}
           />
           <LabeledInput
             label={t("wasiyyah.people.executor")}
@@ -524,22 +589,35 @@ export function WasiyyahWizard({ initialData }: { initialData: WasiyyahData }) {
       body = (
         <>
           <WasiyyahIssues computation={computation} data={data} />
+          <WasiyyahReviewSummary
+            data={data}
+            steps={SUMMARY_STEPS}
+            onEdit={(target) => goToStep(WASIYYAH_STEPS.indexOf(target))}
+          />
           <SwitchRow
             label={t("wasiyyah.review.sideBySide")}
             value={data.sideBySideEnglish}
             onChange={(sideBySideEnglish) => update({ sideBySideEnglish })}
           />
           <Button
-            label={t("wasiyyah.review.preview")}
-            variant="secondary"
-            icon={{ ios: "printer.fill", android: "print", web: "print" }}
-            onPress={() => void exportDoc(data, { mode: "print" })}
-          />
-          <Button
-            label={t("wasiyyah.review.save")}
-            disabled={!canSaveWasiyyah(computation) || saving}
+            label={saving ? t("privateUx.saving") : t("wasiyyah.review.save")}
+            disabled={!canSave || saving}
             onPress={() => void save()}
           />
+          <Button
+            label={
+              exportFeedback.busy ? t("privateUx.export.preparing") : t("wasiyyah.review.preview")
+            }
+            variant="secondary"
+            icon={{ ios: "printer.fill", android: "print", web: "print" }}
+            disabled={exportFeedback.busy}
+            onPress={() => void exportFeedback.run(() => exportDoc(data, { mode: "print" }))}
+          />
+          {testatorDay == null ? (
+            <ThemedText type="caption" themeColor="mutedForeground" accessibilityRole="alert">
+              {t("privateUx.wasiyyah.dateBlocked")}
+            </ThemedText>
+          ) : null}
           {!canSaveWasiyyah(computation) ? (
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("wasiyyah.review.blocked")}
@@ -551,11 +629,16 @@ export function WasiyyahWizard({ initialData }: { initialData: WasiyyahData }) {
       break;
   }
 
+  const nameMissing = step === "testator" && !data.testator.name.trim();
+
   return (
     <View style={styles.stack}>
-      <ThemedText type="caption" themeColor="mutedForeground" accessibilityRole="header">
-        {t("wasiyyah.wizard.stepOf", { current: stepIndex + 1, total: WASIYYAH_STEPS.length })}
-      </ThemedText>
+      <View style={styles.progress}>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("wasiyyah.wizard.stepOf", { current: stepIndex + 1, total: WASIYYAH_STEPS.length })}
+        </ThemedText>
+        <SegmentedProgress total={WASIYYAH_STEPS.length} completed={stepIndex + 1} />
+      </View>
       <ThemedText type="subtitle" heading={2}>
         {t(`wasiyyah.step.${step}`)}
       </ThemedText>
@@ -567,18 +650,23 @@ export function WasiyyahWizard({ initialData }: { initialData: WasiyyahData }) {
       <Card padding="three">
         <View style={styles.stack}>{body}</View>
       </Card>
+      {nameMissing ? (
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("privateUx.wasiyyah.nameRequired")}
+        </ThemedText>
+      ) : null}
       <View style={styles.nav}>
         <Button
           label={t("common.back")}
           variant="ghost"
           disabled={stepIndex === 0}
-          onPress={() => setStepIndex((i) => Math.max(0, i - 1))}
+          onPress={() => goToStep(stepIndex - 1)}
         />
         {stepIndex < WASIYYAH_STEPS.length - 1 ? (
           <Button
             label={t("common.next")}
-            disabled={step === "testator" && !data.testator.name.trim()}
-            onPress={() => setStepIndex((i) => Math.min(WASIYYAH_STEPS.length - 1, i + 1))}
+            disabled={nameMissing}
+            onPress={() => goToStep(stepIndex + 1)}
           />
         ) : null}
       </View>
@@ -614,6 +702,7 @@ export function initialWasiyyahData(
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
+  progress: { gap: Spacing.two },
   nav: { flexDirection: "row", justifyContent: "space-between", gap: Spacing.two },
   switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   flex: { flex: 1 },

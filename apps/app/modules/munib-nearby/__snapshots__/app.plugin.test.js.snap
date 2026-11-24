@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`munib-nearby config plugin (NF-3.25) adds only the Bluetooth usage string on iOS — no background modes 1`] = `
+{
+  "bundleIdentifier": "app.munibtracker",
+  "infoPlist": {
+    "NSBluetoothAlwaysUsageDescription": "Munib Tracker uses Bluetooth only while you invite someone or join a circle nearby, so phones next to each other can find each other. It is never used to find your location.",
+    "UIBackgroundModes": [
+      "remote-notification",
+    ],
+  },
+}
+`;
+
+exports[`munib-nearby config plugin (NF-3.25) declares Android 12+ scan (neverForLocation) / advertise, legacy perms capped at 30, BLE optional 1`] = `
+{
+  "$": {
+    "xmlns:tools": "http://schemas.android.com/tools",
+  },
+  "application": [
+    {},
+  ],
+  "uses-feature": [
+    {
+      "$": {
+        "android:name": "android.hardware.bluetooth_le",
+        "android:required": "false",
+      },
+    },
+  ],
+  "uses-permission": [
+    {
+      "$": {
+        "android:maxSdkVersion": "30",
+        "android:name": "android.permission.BLUETOOTH",
+      },
+    },
+    {
+      "$": {
+        "android:maxSdkVersion": "30",
+        "android:name": "android.permission.BLUETOOTH_ADMIN",
+      },
+    },
+    {
+      "$": {
+        "android:name": "android.permission.BLUETOOTH_SCAN",
+        "android:usesPermissionFlags": "neverForLocation",
+        "tools:targetApi": "s",
+      },
+    },
+    {
+      "$": {
+        "android:name": "android.permission.BLUETOOTH_ADVERTISE",
+      },
+    },
+  ],
+}
+`;

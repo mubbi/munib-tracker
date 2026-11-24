@@ -25,6 +25,11 @@ export const RING_STROKE = 14;
 const RING_GLOW = 36;
 const BASE_RING = 272;
 
+/** Count size inside a preview ring: ~22% of the ring, never below 14. */
+export function previewCountSize(ringSize: number): number {
+  return Math.max(14, Math.round(ringSize * 0.22));
+}
+
 /**
  * Ring (default, D10): the original `ArcProgressRing` donut with the count
  * inside, moved unchanged out of the counter shell.
@@ -103,7 +108,8 @@ function CounterRing({
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (reducedMotion || preview) {
+    // Previews animate too (the style sheet's demo stage); thumbnails pass reduced motion.
+    if (reducedMotion) {
       displayRef.current = progressTarget;
       setDisplayProgress(progressTarget);
       return;
@@ -127,7 +133,7 @@ function CounterRing({
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
-  }, [progressTarget, reducedMotion, preview]);
+  }, [progressTarget, reducedMotion]);
 
   const knob = ringStroke + 2;
   const inset = ringStroke;
@@ -202,7 +208,17 @@ function CounterRing({
       ) : null}
 
       {preview ? (
-        <ThemedText type="smallBold" style={styles.count}>
+        // Scales with the preview: legible in a thumbnail, not lost in the demo stage.
+        <ThemedText
+          type="smallBold"
+          style={[
+            styles.count,
+            {
+              fontSize: previewCountSize(ringSize),
+              lineHeight: Math.round(previewCountSize(ringSize) * 1.2),
+            },
+          ]}
+        >
           {count}
         </ThemedText>
       ) : (

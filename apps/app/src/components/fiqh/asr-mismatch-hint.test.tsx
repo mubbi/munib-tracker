@@ -11,10 +11,10 @@ jest.mock(
   "@/providers/toast-provider",
   () => require("@/test-support/mocks/toast-provider").toastProviderMock,
 );
-jest.mock("@/notifications/scheduler", () => ({
-  rescheduleAll: jest.fn(async () => {}),
-  listScheduled: jest.fn(async () => []),
-}));
+jest.mock(
+  "@/notifications/scheduler",
+  () => require("@/test-support/mocks/notifications-scheduler").notificationsSchedulerMock,
+);
 
 const asr = () => locationStore.getState().location.madhab;
 

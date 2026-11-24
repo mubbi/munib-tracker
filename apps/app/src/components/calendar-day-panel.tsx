@@ -256,6 +256,7 @@ export function CalendarDayPanel({
           status={records.status}
           notes={records.notes}
           jama={records.jama}
+          atMasjid={records.atMasjid}
           combined={records.combined}
           zikrCounts={records.zikrCounts}
           excusedReason={records.excusedReason}

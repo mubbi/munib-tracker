@@ -138,6 +138,52 @@ describe("buildBlobRecords", () => {
   });
 });
 
+describe("location coarsening (D46)", () => {
+  const EXACT = buildStoredLocation({ latitude: 24.894812, longitude: 91.871534 });
+
+  it("pushes coordinates rounded to ~1 km and keeps the exact fix on the device", async () => {
+    await writeJSON(DB_KEYS.location, EXACT);
+    const record = (await buildBlobRecords(T1)).find((r) => r.entity === "location");
+    expect(record?.data).toEqual({ value: { ...EXACT, latitude: 24.89, longitude: 91.87 } });
+    expect(await readJSON(DB_KEYS.location, null)).toEqual(EXACT);
+  });
+
+  it("doesn't re-push for GPS jitter inside the same ~1 km cell", async () => {
+    await writeJSON(DB_KEYS.location, EXACT);
+    await buildBlobRecords(T1);
+    await writeJSON(DB_KEYS.location, { ...EXACT, latitude: 24.8932 });
+    const record = (await buildBlobRecords(T2)).find((r) => r.entity === "location");
+    expect(record?.updatedAt).toBe(T1);
+  });
+
+  it("a pulled rounded copy of the same place keeps the exact coordinates", async () => {
+    await writeJSON(DB_KEYS.location, EXACT);
+    await buildBlobRecords(T1);
+    const pulled = { ...EXACT, latitude: 24.89, longitude: 91.87, method: "Egyptian" };
+
+    await applyRemoteBlob("location", { value: pulled }, T2);
+
+    expect(await readJSON(DB_KEYS.location, null)).toEqual({
+      ...pulled,
+      latitude: 24.894812,
+      longitude: 91.871534,
+    });
+    // Our own echo is then a no-op (the push form is what's fingerprinted).
+    const record = (await buildBlobRecords(T3)).find((r) => r.entity === "location");
+    expect(record?.updatedAt).toBe(T2);
+  });
+
+  it("a pulled different place replaces the location", async () => {
+    await writeJSON(DB_KEYS.location, EXACT);
+    await buildBlobRecords(T1);
+    const elsewhere = buildStoredLocation({ latitude: 51.51, longitude: -0.13 });
+
+    await applyRemoteBlob("location", { value: elsewhere }, T2);
+
+    expect(await readJSON(DB_KEYS.location, null)).toEqual(elsewhere);
+  });
+});
+
 describe("applyRemoteBlob (last-write-wins)", () => {
   it("writes a pulled value and records it as applied", async () => {
     const applied = await applyRemoteBlob(KHATM, { value: { plan: "juz" } }, T2);

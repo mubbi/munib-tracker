@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Share, StyleSheet, View } from "react-native";
 
+import { InviteMethodTabs } from "@/components/circles/nearby/invite-method-tabs";
+import { NearbyHostPanel } from "@/components/circles/nearby/nearby-host-panel";
 import { BrandQrCode } from "@/components/share/brand-qr-code";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -25,7 +27,8 @@ export function inviteJoinUrl(code: string): string {
 
 /**
  * Create an invite and show it three ways (§9.0): the 10-char code, a QR and a
- * share link `…/circle/join/<CODE>`. The code is returned once by the server
+ * share link `…/circle/join/<CODE>` — plus, on phones, a "Nearby" tab that
+ * advertises the circle over Bluetooth for host-approved joins (NF-3.25). The code is returned once by the server
  * (stored hashed), so it only lives in this component's state.
  */
 export function InvitePanel({
@@ -73,55 +76,61 @@ export function InvitePanel({
       <ThemedText type="small" themeColor="mutedForeground">
         {hint}
       </ThemedText>
-      {invite ? (
-        <View style={styles.result}>
-          <ThemedText
-            type="title"
-            selectable
-            accessibilityLabel={t("circles.invite.codeA11y", {
-              code: invite.code.split("").join(" "),
-            })}
-            style={styles.code}
-          >
-            {formatInviteCode(invite.code)}
-          </ThemedText>
-          {!isTV() ? (
-            <BrandQrCode
-              data={inviteJoinUrl(invite.code)}
-              size={200}
-              accessibilityLabel={t("circles.invite.qrA11y")}
-            />
-          ) : null}
-          <ThemedText type="caption" themeColor="mutedForeground" selectable>
-            {inviteJoinUrl(invite.code)}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("circles.invite.expires", {
-              when: formatDisplayDateTime(
-                new Date(invite.expiresAt),
-                prefs.timeFormat,
-                prefs.locale,
-                location.timeZone,
-                prefs.defaultCalendar,
-              ),
-            })}
-          </ThemedText>
-          <View style={[styles.actions, { borderColor: colors.border }]}>
-            <Button label={t("circles.invite.share")} onPress={() => void onShare()} />
-            <Button
-              label={t("circles.invite.another")}
-              variant="secondary"
-              onPress={() => void onCreate()}
-            />
+      <InviteMethodTabs
+        nearby={
+          inviteRole === "admin" ? null : <NearbyHostPanel circleId={circleId} role={inviteRole} />
+        }
+      >
+        {invite ? (
+          <View style={styles.result}>
+            <ThemedText
+              type="title"
+              selectable
+              accessibilityLabel={t("circles.invite.codeA11y", {
+                code: invite.code.split("").join(" "),
+              })}
+              style={styles.code}
+            >
+              {formatInviteCode(invite.code)}
+            </ThemedText>
+            {!isTV() ? (
+              <BrandQrCode
+                data={inviteJoinUrl(invite.code)}
+                size={200}
+                accessibilityLabel={t("circles.invite.qrA11y")}
+              />
+            ) : null}
+            <ThemedText type="caption" themeColor="mutedForeground" selectable>
+              {inviteJoinUrl(invite.code)}
+            </ThemedText>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t(invite.maxUses > 1 ? "circles.invite.expiresShared" : "circles.invite.expires", {
+                when: formatDisplayDateTime(
+                  new Date(invite.expiresAt),
+                  prefs.timeFormat,
+                  prefs.locale,
+                  location.timeZone,
+                  prefs.defaultCalendar,
+                ),
+              })}
+            </ThemedText>
+            <View style={[styles.actions, { borderColor: colors.border }]}>
+              <Button label={t("circles.invite.share")} onPress={() => void onShare()} />
+              <Button
+                label={t("circles.invite.another")}
+                variant="secondary"
+                onPress={() => void onCreate()}
+              />
+            </View>
           </View>
-        </View>
-      ) : (
-        <Button
-          label={create.isPending ? t("circles.common.working") : t("circles.invite.create")}
-          disabled={create.isPending}
-          onPress={() => void onCreate()}
-        />
-      )}
+        ) : (
+          <Button
+            label={create.isPending ? t("circles.common.working") : t("circles.invite.create")}
+            disabled={create.isPending}
+            onPress={() => void onCreate()}
+          />
+        )}
+      </InviteMethodTabs>
     </Card>
   );
 }

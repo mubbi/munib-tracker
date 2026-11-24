@@ -1,7 +1,7 @@
 import { TAJWEED_COACHING_GUIDE } from "@munib-tracker/shared/content/tajweed-coaching-guide";
 import type { TajweedWordRef } from "@munib-tracker/shared/types";
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
@@ -14,6 +14,7 @@ import { RuleExplanation } from "@/components/tajweed-coaching/rule-explanation"
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
@@ -56,6 +57,8 @@ export default function TajweedCoachItemScreen() {
   const key = category ? planItemKey(category) : "";
   const dueLabel = useDueLabel(state, key);
   const canPractise = isPracticeAvailable();
+  // One "I listened" per visit, so a double tap can't log two sessions.
+  const [listened, setListened] = useState(false);
 
   useEffect(() => {
     if (!category) router.replace(COACHING_TAB);
@@ -97,9 +100,40 @@ export default function TajweedCoachItemScreen() {
         <ExampleWords refs={words} />
       </Card>
 
+      {canPractise && isDrillHead(category) ? (
+        <DrillTakeCard
+          head={category}
+          onVerdict={(verdict) => void recordCoachingDrill(category, verdict)}
+        />
+      ) : null}
+
+      {canPractise && !isDrillHead(category) ? (
+        <Card padding="three">
+          <ThemedText type="small">{t("tajweedCoaching.coach.listenIntro")}</ThemedText>
+          <Button
+            label={t("tajweedCoaching.coach.listened")}
+            icon={{ ios: "checkmark", android: "check", web: "check" }}
+            disabled={listened}
+            onPress={() => {
+              setListened(true);
+              recordCoachingListen(category)
+                .then(() => toast.success(t("tajweedCoaching.coach.listenedToast")))
+                .catch(() => setListened(false));
+            }}
+            style={styles.button}
+          />
+        </Card>
+      ) : null}
+
+      {/* Practice leads (the screen's one job); the rule explanation is there on demand. */}
       <Card padding="three">
-        <ThemedText type="smallBold">{t("tajweedCoaching.card.aboutRule", { rule })}</ThemedText>
-        <RuleExplanation category={category} />
+        <CollapsibleSection
+          title={t("tajweedCoaching.card.aboutRule", { rule })}
+          // Read-only (TV): the explanation is the content, so start open.
+          defaultOpen={!canPractise}
+        >
+          <RuleExplanation category={category} />
+        </CollapsibleSection>
         {entry.lessonId ? (
           <Button
             label={t("tajweedCoaching.coach.readLesson")}
@@ -115,29 +149,6 @@ export default function TajweedCoachItemScreen() {
           />
         ) : null}
       </Card>
-
-      {canPractise && isDrillHead(category) ? (
-        <DrillTakeCard
-          head={category}
-          onVerdict={(verdict) => void recordCoachingDrill(category, verdict)}
-        />
-      ) : null}
-
-      {canPractise && !isDrillHead(category) ? (
-        <Card padding="three">
-          <ThemedText type="small">{t("tajweedCoaching.coach.listenIntro")}</ThemedText>
-          <Button
-            label={t("tajweedCoaching.coach.listened")}
-            icon={{ ios: "checkmark", android: "check", web: "check" }}
-            onPress={() =>
-              void recordCoachingListen(category).then(() =>
-                toast.success(t("tajweedCoaching.coach.listenedToast")),
-              )
-            }
-            style={styles.button}
-          />
-        </Card>
-      ) : null}
 
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
         {canPractise ? dueLabel : t("tajweedCoaching.tvReadOnly")}

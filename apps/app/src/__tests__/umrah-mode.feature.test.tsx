@@ -14,16 +14,15 @@ import { renderWithProviders } from "@/test-support/render";
 import { resetSettingsStores } from "@/test-support/settings";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
-jest.mock("expo-audio", () => require("@/test-support/mocks/expo-audio").expoAudioMock);
 // Duas render in the shared reading card, which reads the audio player context.
 jest.mock(
   "@/providers/audio-player-provider",
   () => require("@/test-support/mocks/audio-player-provider").audioPlayerProviderMock,
 );
-jest.mock("@/notifications/scheduler", () => ({
-  rescheduleAll: jest.fn(async () => {}),
-  listScheduled: jest.fn(async () => []),
-}));
+jest.mock(
+  "@/notifications/scheduler",
+  () => require("@/test-support/mocks/notifications-scheduler").notificationsSchedulerMock,
+);
 
 const tr = (key: string, options?: Record<string, unknown>) => i18n.t(key, options);
 

@@ -35,7 +35,18 @@ export interface SeasonalThemeDef {
   route: Href;
   /** Scroll target on the destination screen (`?focus=` query param). */
   focusKey: string;
+  /** i18n key of the visible call-to-action (names where the banner leads). */
+  ctaKey: SeasonalCtaKey;
 }
+
+/** Banner CTA labels — one per destination so the action says where it goes. */
+export type SeasonalCtaKey =
+  | "seasonalTheme.cta.events"
+  | "seasonalTheme.cta.ramadan"
+  | "seasonalTheme.cta.dhulHijjah";
+
+/** `hiddenHomeModules` id that turns every seasonal banner off (Customize home). */
+export const SEASONAL_BANNER_HOME_MODULE = "seasonal-banner";
 
 function matchesHijriWindow(
   season: Pick<SeasonalThemeDef, "hijriMonth" | "fromDay" | "toDay">,
@@ -62,6 +73,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     priority: 40,
     route: "/events",
     focusKey: "newYear",
+    ctaKey: "seasonalTheme.cta.events",
     visual: {
       gradientTop: "#0F1F1A",
       gradientMid: "#1A3329",
@@ -80,6 +92,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     priority: 80,
     route: "/events",
     focusKey: "ashura",
+    ctaKey: "seasonalTheme.cta.events",
     visual: {
       gradientTop: "#1A1520",
       gradientMid: "#2A2238",
@@ -98,6 +111,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     priority: 50,
     route: "/ramadan",
     focusKey: "ramadan-times",
+    ctaKey: "seasonalTheme.cta.ramadan",
     visual: {
       gradientTop: "#1A0F3D",
       gradientMid: "#2A1860",
@@ -116,6 +130,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     priority: 70,
     route: "/ramadan",
     focusKey: "ramadan-lastTen",
+    ctaKey: "seasonalTheme.cta.ramadan",
     visual: {
       gradientTop: "#12082A",
       gradientMid: "#1E1050",
@@ -134,6 +149,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     priority: 85,
     route: "/ramadan",
     focusKey: "ramadan-laylatQadr",
+    ctaKey: "seasonalTheme.cta.ramadan",
     visual: {
       gradientTop: "#0A0520",
       gradientMid: "#180A45",
@@ -152,6 +168,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     priority: 100,
     route: "/events",
     focusKey: "eidFitr",
+    ctaKey: "seasonalTheme.cta.events",
     visual: {
       gradientTop: "#0A2818",
       gradientMid: "#145A32",
@@ -172,6 +189,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     // dashboard is the default view, so `?focus=ten` needs no special handling there.
     route: "/dhul-hijjah",
     focusKey: "ten",
+    ctaKey: "seasonalTheme.cta.dhulHijjah",
     visual: {
       gradientTop: "#1A1408",
       gradientMid: "#2D2210",
@@ -190,6 +208,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     priority: 90,
     route: "/dhul-hijjah",
     focusKey: "arafah",
+    ctaKey: "seasonalTheme.cta.dhulHijjah",
     visual: {
       gradientTop: "#2A1808",
       gradientMid: "#4A3010",
@@ -208,6 +227,7 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     priority: 100,
     route: "/events",
     focusKey: "eidAdha",
+    ctaKey: "seasonalTheme.cta.events",
     visual: {
       gradientTop: "#1A1206",
       gradientMid: "#3D2A0A",
@@ -249,6 +269,27 @@ export function currentSeasonalTheme(
   date: Date = new Date(),
   timeZone?: string,
 ): SeasonalThemeDef | null {
+  return currentSeasonalBanner(date, timeZone)?.season ?? null;
+}
+
+/** An active banner plus the key its "hide for this season" dismissal is stored under. */
+export interface ActiveSeasonalBanner {
+  season: SeasonalThemeDef;
+  /** `<id>:<hijriYear>` — hiding Ramadan 1448 never hides Ramadan 1449. */
+  dismissKey: string;
+}
+
+/** Dismissal key for one occurrence of a season (season id + Hijri year). */
+export function seasonalBannerKey(id: SeasonalThemeId, hijriYear: number): string {
+  return `${id}:${hijriYear}`;
+}
+
+/** The active seasonal banner with its dismissal key, or null when out of season. */
+export function currentSeasonalBanner(
+  date: Date = new Date(),
+  timeZone?: string,
+): ActiveSeasonalBanner | null {
   const hijri = gregorianToHijri(date, timeZone);
-  return seasonalThemeForHijri(hijri.month, hijri.day);
+  const season = seasonalThemeForHijri(hijri.month, hijri.day);
+  return season ? { season, dismissKey: seasonalBannerKey(season.id, hijri.year) } : null;
 }

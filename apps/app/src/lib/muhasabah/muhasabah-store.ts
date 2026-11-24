@@ -12,11 +12,13 @@ import { createVaultStore, liveItems, type VaultRecord, vault } from "@/lib/vaul
 
 import { expiredEntryDates, summarizeMuhasabahWeek } from "./logic";
 import {
+  entriesWithRepentText,
   isMuhasabahConfig,
   isMuhasabahEntry,
   MUHASABAH_CONFIG_ID,
   muhasabahEntryId,
   normalizeMuhasabahConfig,
+  withoutRepentText,
 } from "./model";
 
 /**
@@ -80,6 +82,28 @@ export const muhasabahActions = {
     for (const entry of entriesOf(currentItems())) {
       await muhasabahVault.actions.remove(muhasabahEntryId(entry.date));
     }
+  },
+
+  /**
+   * Deletes the repentance text from every saved review (offered when "Save
+   * repentance notes" is turned off). The fact of repenting stays. Returns how
+   * many reviews changed.
+   */
+  async clearRepentNotes(): Promise<number> {
+    const entries = entriesOf(currentItems());
+    const dates = new Set(entriesWithRepentText(entries));
+    for (const entry of entries) {
+      if (!dates.has(entry.date)) continue;
+      const {
+        id: _id,
+        updatedAt: _u,
+        deletedAt: _d,
+        ...plain
+      } = entry as MuhasabahEntry &
+        Partial<Pick<VaultRecord<MuhasabahItem>, "id" | "updatedAt" | "deletedAt">>;
+      await muhasabahVault.actions.put(muhasabahEntryId(entry.date), withoutRepentText(plain));
+    }
+    return dates.size;
   },
 
   async answerReminderOffer(): Promise<void> {

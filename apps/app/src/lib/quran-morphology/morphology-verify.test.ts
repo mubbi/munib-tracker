@@ -14,7 +14,8 @@ import { type AyahAlignmentReport, buildRootIndex } from "./build-index";
 import { QAC_MORPHOLOGY, verifyMorphologyText } from "./source";
 
 const FILE = process.env.MORPHOLOGY_FILE;
-const run = FILE ? describe : describe.skip;
+// Opt-in local verification only — never in CI, even if the variable leaks in.
+const run = FILE && !process.env.CI ? describe : describe.skip;
 
 function loadSurahArabic(surah: number): Record<string, string> {
   const pad = String(surah).padStart(3, "0");

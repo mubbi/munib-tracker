@@ -56,6 +56,9 @@ export function ocrDownloadAccepted(): boolean {
   return true;
 }
 
+/** Native OCR keeps no downloaded data or consent flag (see `recognize.web.ts`). */
+export async function clearOcrBrowserData(): Promise<void> {}
+
 export async function recognizeImage(
   uri: string,
   _options: { arabic?: boolean } = {},

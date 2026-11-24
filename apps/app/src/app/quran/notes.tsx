@@ -82,6 +82,8 @@ export default function QuranNotesScreen() {
     return out;
   }, [query, visible]);
 
+  const filtersActive = query.trim().length > 0 || tag != null || color != null;
+
   const openAyah = (note: AyahNote) =>
     router.push({
       pathname: "/quran/[surah]",
@@ -138,6 +140,7 @@ export default function QuranNotesScreen() {
                     accessibilityState={{ selected: on }}
                     accessibilityLabel={t("quranNotes.filterTag", { tag: name })}
                     onPress={() => setTag(on ? null : name)}
+                    hitSlop={6}
                     style={[
                       styles.chip,
                       { backgroundColor: on ? tokens.accentSoft : colors.muted },
@@ -174,9 +177,23 @@ export default function QuranNotesScreen() {
             />
           ) : null}
 
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("quranNotes.count", { count: visible.length })}
-          </ThemedText>
+          <View style={styles.countRow}>
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.countText}>
+              {t("quranNotes.count", { count: visible.length })}
+            </ThemedText>
+            {filtersActive ? (
+              <Button
+                label={t("quranNotes.clearFilters")}
+                variant="ghost"
+                size="sm"
+                onPress={() => {
+                  setQuery("");
+                  setTag(null);
+                  setColor(null);
+                }}
+              />
+            ) : null}
+          </View>
 
           {groups.map((group, groupIndex) => (
             <Card key={group.notes[0]?.id ?? group.surah} padding="three">
@@ -256,17 +273,28 @@ function ExportSheet({
   const chosenSurah = scope === "surah" ? (surah ?? surahs[0] ?? null) : null;
 
   const run = async () => {
+    if (busy) return;
     setBusy(true);
-    const text = await buildQuranNotesExport(notes, {
-      format,
-      surah: chosenSurah ?? undefined,
-      includeAyahText,
-    });
-    const outcome = await shareNotesText(text, t("quranNotes.export.titleAll"));
-    setBusy(false);
-    if (outcome === "copied") toast.success(t("quranNotes.export.copied"));
-    else if (outcome === "failed") toast.error(t("quranNotes.export.failed"));
-    else onClose();
+    try {
+      const text = await buildQuranNotesExport(notes, {
+        format,
+        surah: chosenSurah ?? undefined,
+        includeAyahText,
+      });
+      const surahName = chosenSurah ? getSurahByNumber(chosenSurah)?.nameTransliteration : null;
+      const title = surahName
+        ? t("quranNotes.export.titleSurah", { surah: surahName })
+        : t("quranNotes.export.titleAll");
+      const outcome = await shareNotesText(text, title);
+      if (outcome === "copied") toast.success(t("quranNotes.export.copied"));
+      else if (outcome === "failed") toast.error(t("quranNotes.export.failed"));
+      else onClose();
+    } catch {
+      // Loading the bundled ayah text can fail (chunk load); never leave the sheet stuck.
+      toast.error(t("quranNotes.export.failed"));
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -293,6 +321,7 @@ function ExportSheet({
                   accessibilityState={{ selected: on }}
                   accessibilityLabel={getSurahByNumber(n)?.nameTransliteration ?? String(n)}
                   onPress={() => setSurah(n)}
+                  hitSlop={6}
                   style={[styles.chip, { backgroundColor: on ? tokens.accentSoft : colors.muted }]}
                 >
                   <ThemedText
@@ -342,10 +371,15 @@ const styles = StyleSheet.create({
   root: { gap: Spacing.three },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.one },
   chip: {
-    paddingHorizontal: Spacing.two,
+    // 32pt chip + 6pt hit slop each side ≈ the 44pt minimum target.
+    minHeight: 32,
+    justifyContent: "center",
+    paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.half + 1,
     borderRadius: Radius.pill,
   },
+  countRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two, minHeight: 32 },
+  countText: { flex: 1 },
   filterRow: { gap: Spacing.one },
   groupTitle: { marginBottom: Spacing.two },
   list: { gap: Spacing.two },

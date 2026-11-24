@@ -14,7 +14,10 @@ jest.mock(
   "@/lib/storage/safe-secure-store",
   () => require("@/test-support/mocks/safe-secure-store").safeSecureStoreMock,
 );
-jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+jest.mock(
+  "@/lib/quran-companion/reschedule",
+  () => require("@/test-support/mocks/reminder-reschedule").reminderRescheduleMock,
+);
 
 const NOW = new Date(2026, 10, 23, 12);
 const idle = { isReady: false, items: [], doc: { v: 1, items: {} }, status: "idle" } as never;

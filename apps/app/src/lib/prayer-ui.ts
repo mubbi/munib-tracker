@@ -94,6 +94,13 @@ export const PRAYER_JAMA_ICON: SymbolName = {
   web: "groups",
 };
 
+/** Prayed-at-the-masjid indicator on completed fard rows and in the status sheet (NF-3.11). */
+export const PRAYER_MASJID_ICON: SymbolName = {
+  ios: "building.columns.fill",
+  android: "mosque",
+  web: "mosque",
+};
+
 /** Jam' (combined with the paired fard) indicator — NF-3.0a. Not a direction glyph (no RTL flip). */
 export const PRAYER_COMBINED_ICON: SymbolName = {
   ios: "arrow.triangle.merge",

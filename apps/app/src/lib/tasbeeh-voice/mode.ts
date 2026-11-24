@@ -23,3 +23,24 @@ export const VOICE_COUNTING_MODE: VoiceCountingMode = "pause";
 export function usesModel(mode: VoiceCountingMode = VOICE_COUNTING_MODE): boolean {
   return mode === "spotter";
 }
+
+/**
+ * How ONE listening session counts (D48–D51). A zikr the person has taught on
+ * this device counts by its voice pattern ("template": only repeats of that zikr
+ * count, no model). Otherwise the app-wide mode applies: "pause" today, or
+ * "spotter" for a catalog phrase once the model passes its gate.
+ */
+export type SessionCountingMode = VoiceCountingMode | "template";
+
+export function sessionCountingMode(options: {
+  taught: boolean;
+  /** "Skip — count every pause" for this session. */
+  skipTeaching?: boolean;
+  hasCatalogPhrase: boolean;
+  /** The app-wide mode ships the model spotter (`usesModel()`). */
+  spotterOn: boolean;
+}): SessionCountingMode {
+  if (options.taught && !options.skipTeaching) return "template";
+  if (options.spotterOn && options.hasCatalogPhrase && !options.skipTeaching) return "spotter";
+  return "pause";
+}

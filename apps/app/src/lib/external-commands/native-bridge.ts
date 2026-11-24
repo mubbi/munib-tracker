@@ -56,6 +56,14 @@ export async function nativeDrainCommands(): Promise<ExternalCommand[]> {
 }
 
 /**
+ * "Reset app data": drops any widget / Siri / Wear command still queued
+ * natively (iOS App Group, Android prefs) so it can't re-apply after the wipe.
+ */
+export async function clearPendingExternalCommands(): Promise<void> {
+  await nativeDrainCommands();
+}
+
+/**
  * Android home-screen widgets: re-sends the command as the real
  * `ACTION_MARK_CURRENT` / `ACTION_MARK_PRAYER` broadcast (handled by
  * `ExternalCommandReceiver`) from the widget's headless click task, instead of

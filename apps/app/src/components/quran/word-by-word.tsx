@@ -395,7 +395,7 @@ export const WordByWord = memo(function WordByWord({
           onPress={() => router.push({ pathname: "/quran/search", params: { mode: "root" } })}
           style={styles.rootsLink}
         >
-          <Text style={[styles.rootChipText, { color: colors.accent }]}>
+          <Text style={[styles.rootChipText, { color: colors.accentText }]}>
             {t("quranRoots.showRoots")}
           </Text>
         </Pressable>

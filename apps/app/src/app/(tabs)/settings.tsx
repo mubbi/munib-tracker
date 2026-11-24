@@ -1,9 +1,9 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import { Image } from "expo-image";
 import { type Href, useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 import { AppUpdateSection } from "@/components/app-update/app-update-section";
 import { HijriBasisMovedCard } from "@/components/hijri/hijri-basis-moved-card";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -26,18 +26,27 @@ import { SearchField } from "@/components/ui/search-field";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
 import { Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
+import { useScrollToActive } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
+import { useChevronBack } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   availableGroups,
+  getSettingsSubgroup,
   groupSummary,
   SETTINGS_CLUSTERS,
   type SettingsClusterMeta,
   type SettingsGroupMeta,
+  subgroupOfSetting,
 } from "@/lib/settings/groups";
 import { getPlatformCtx } from "@/lib/settings/platform";
-import { type SettingsGroupId, settingHref, settingsGroupPath } from "@/lib/settings/routes";
+import {
+  type SettingsGroupId,
+  type SettingsSubgroupId,
+  settingHref,
+  settingsGroupPath,
+} from "@/lib/settings/routes";
 import type { SettingSearchEntry } from "@/lib/settings/search";
 import {
   dismissLayoutTip,
@@ -67,8 +76,16 @@ export default function SettingsScreen() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<SettingsGroupId>(groups[0]?.id ?? "about");
   const [focusId, setFocusId] = useState<string | null>(null);
+  // Master–detail: the open sub-screen of a split group (Reminders & notifications).
+  const [selectedSub, setSelectedSub] = useState<SettingsSubgroupId | null>(null);
   const results = useSettingsSearch(query);
   const searching = query.trim().length >= 2;
+  // Master–detail: a search result / checklist item scrolls the page to its row.
+  const scrollRef = useRef<ScrollViewInstance | null>(null);
+  const { register, onScroll } = useScrollToActive(scrollRef, masterDetail ? focusId : null);
+  const selectedGroup = groups.find((g) => g.id === selected);
+  const selectedSubMeta = selectedSub ? getSettingsSubgroup(selected, selectedSub) : null;
+  const chevronBack = useChevronBack();
 
   useEffect(() => {
     ensureSettingsStoresLoaded();
@@ -80,6 +97,7 @@ export default function SettingsScreen() {
       if (masterDetail) {
         setSelected(group);
         setFocusId(focus ?? null);
+        setSelectedSub(focus ? (subgroupOfSetting(focus)?.id ?? null) : null);
         return;
       }
       router.push((focus ? settingHref(focus) : settingsGroupPath(group)) as Href);
@@ -120,11 +138,13 @@ export default function SettingsScreen() {
             }
           />
           <HijriBasisMovedCard />
-          {masterDetail || tv ? (
+          {/* TV: big cluster tiles for the D-pad. Master–detail skips them — the
+              group list beside the detail pane already is the navigation. */}
+          {tv ? (
             <ClusterTiles
               groups={groups}
               onOpen={(id) => openGroup(id)}
-              columns={tv ? SETTINGS_CLUSTERS.length : 2}
+              columns={SETTINGS_CLUSTERS.length}
             />
           ) : null}
           {SETTINGS_CLUSTERS.map((cluster) => {
@@ -153,16 +173,45 @@ export default function SettingsScreen() {
       eyebrow={t("settings.eyebrow")}
       title={t("settings.title")}
       subtitle={tTv(t, "settings.subtitle", "settings.tvSubtitle")}
+      scrollRef={scrollRef}
+      onScroll={onScroll}
     >
       <Seo path="/settings" />
       {masterDetail ? (
         <View style={styles.columns}>
           <View style={styles.masterColumn}>{master}</View>
           <View style={styles.detailColumn}>
-            <ThemedText type="subtitle" accessibilityRole="header">
-              {t(groups.find((g) => g.id === selected)?.titleKey ?? "settings.title")}
-            </ThemedText>
-            <SettingsGroupBody key={selected} group={selected} focusId={focusId} />
+            <View style={styles.detailHeader}>
+              {selectedSubMeta ? (
+                <Button
+                  label={t(selectedGroup?.titleKey ?? "settings.title")}
+                  icon={chevronBack}
+                  variant="ghost"
+                  size="sm"
+                  onPress={() => setSelectedSub(null)}
+                  style={styles.detailBack}
+                />
+              ) : null}
+              <ThemedText type="subtitle" accessibilityRole="header">
+                {t(selectedSubMeta?.titleKey ?? selectedGroup?.titleKey ?? "settings.title")}
+              </ThemedText>
+              {selectedGroup ? (
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t(selectedSubMeta?.subtitleKey ?? selectedGroup.subtitleKey)}
+                </ThemedText>
+              ) : null}
+            </View>
+            <SettingsGroupBody
+              key={`${selected}:${selectedSub ?? ""}`}
+              group={selected}
+              subgroup={selectedSub}
+              focusId={focusId}
+              register={register}
+              onOpenSubgroup={(sub) => {
+                setFocusId(null);
+                setSelectedSub(sub);
+              }}
+            />
           </View>
         </View>
       ) : (
@@ -252,7 +301,7 @@ function LayoutTipCard() {
 }
 
 /**
- * Wide web / tablets and TV: the five clusters as `BrowseTile`s (same look as
+ * TV: the five clusters as `BrowseTile`s (same look as
  * the Duas and Zikr hubs). A tile opens the cluster's first group.
  */
 function ClusterTiles({
@@ -377,6 +426,8 @@ const styles = StyleSheet.create({
   columns: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
   masterColumn: { width: 360, maxWidth: "40%" },
   detailColumn: { flex: 1, minWidth: 0, gap: Spacing.three },
+  detailHeader: { gap: Spacing.half },
+  detailBack: { alignSelf: "flex-start" },
   setup: { gap: Spacing.two },
   cluster: { gap: Spacing.two },
   clusterHeader: { flexDirection: "row", alignItems: "center", gap: Spacing.two },

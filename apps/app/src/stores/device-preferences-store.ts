@@ -34,6 +34,14 @@ export interface DevicePreferences {
   languageConfirmedAt?: string;
   /** "Finish setting up": when the calculation method was reviewed (ISO). */
   methodReviewedAt?: string;
+  /**
+   * First-run setup in progress (`lib/onboarding/setup-flow.ts`): the step to
+   * resume after a restart (an RTL language switch reloads the app) and where
+   * to go when it finishes. Cleared once the core steps are done.
+   */
+  setupProgress?: { step: string; next?: "/login" };
+  /** "Keep current" on the suggested calculation method (`"PK:Karachi"`). */
+  methodSuggestionDismissed?: string;
 }
 
 export const DEFAULT_DEVICE_PREFERENCES: DevicePreferences = {
@@ -130,6 +138,8 @@ export function resolveDevicePreferences(
       DEFAULT_DEVICE_PREFERENCES.ttsVoiceByLang,
     languageConfirmedAt: device.languageConfirmedAt,
     methodReviewedAt: device.methodReviewedAt,
+    setupProgress: device.setupProgress,
+    methodSuggestionDismissed: device.methodSuggestionDismissed,
   };
 }
 

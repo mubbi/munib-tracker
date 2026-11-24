@@ -14,17 +14,19 @@ import Animated, {
 
 import { ThemedText } from "@/components/themed-text";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import type { PhraseKey } from "@/lib/tasbeeh-voice/phrases";
+import type { SessionCountingMode } from "@/lib/tasbeeh-voice/mode";
 import type { VoiceStopReason } from "@/lib/tasbeeh-voice/session";
-
-import { usePhraseDisplay } from "./use-phrase-display";
+import type { VoiceZikr } from "@/lib/tasbeeh-voice/voice-zikr";
 
 const MIC_ICON = { ios: "mic.fill", android: "mic", web: "mic" } as const;
 const CHECK_ICON = { ios: "checkmark", android: "check", web: "check" } as const;
 
 type Props = {
-  phrase: PhraseKey;
+  zikr: VoiceZikr;
+  /** How this session counts (taught pattern, pauses, or the model spotter). */
+  countingMode: SessionCountingMode | null;
   listening: boolean;
   preparing: boolean;
   /** 0–1 */
@@ -48,11 +50,14 @@ const STOP_COPY: Partial<Record<VoiceStopReason, string>> = {
 
 /**
  * Hands-free status under the counter (NF-3.20): a pulsing mic chip, a small
- * level meter, the phrase being listened for (Arabic from the dataset + its
- * translation), a soft ✓ flash per counted phrase, and the gentle "stuck" hint.
+ * level meter, the zikr being listened for (Arabic from the dataset + its
+ * translation; a custom tasbeeh shows its own title), how this session counts
+ * (D51: honest labels, "tap to correct"), a soft ✓ flash per count, and the
+ * gentle "stuck" hint.
  */
 export function VoiceListeningPanel({
-  phrase,
+  zikr,
+  countingMode,
   listening,
   preparing,
   level,
@@ -64,7 +69,8 @@ export function VoiceListeningPanel({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const reduceMotion = useReducedMotion();
-  const { arabic, translation } = usePhraseDisplay(phrase);
+  const translation = useScriptureTranslation(zikr.entry ?? { translation: "" });
+  const arabic = zikr.entry?.arabic ?? null;
 
   const pulse = useSharedValue(1);
   useEffect(() => {
@@ -153,17 +159,42 @@ export function VoiceListeningPanel({
         </Animated.View>
       </View>
 
-      <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
-        {t("tasbeehVoice.listeningFor", { phrase: t(`tasbeehVoice.phrase.${phrase}`) })}
-      </ThemedText>
+      {zikr.label ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
+          {t("tasbeehVoice.listeningFor", { phrase: zikr.label })}
+        </ThemedText>
+      ) : null}
       {arabic ? (
-        <ThemedText type="arabic" style={styles.arabic}>
+        <ThemedText type="arabic" style={styles.arabic} numberOfLines={2}>
           {arabic}
         </ThemedText>
       ) : null}
-      {translation ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
+      {arabic && translation ? (
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          style={styles.center}
+          numberOfLines={2}
+        >
           {translation}
+        </ThemedText>
+      ) : null}
+      {countingMode === "template" || countingMode === "pause" ? (
+        <ThemedText
+          type="caption"
+          style={[
+            styles.center,
+            {
+              color:
+                countingMode === "pause" ? tokens.status.warning.color : colors.mutedForeground,
+            },
+          ]}
+        >
+          {t(
+            countingMode === "template"
+              ? "tasbeehVoice.teach.countsTaught"
+              : "tasbeehVoice.teach.countsPauses",
+          )}
         </ThemedText>
       ) : null}
 

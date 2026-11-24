@@ -6,7 +6,7 @@ import { SessionStore } from "@/auth/session-store";
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 import { clearPreferencesDirty } from "@/lib/sync/preferences-cloud-sync";
-import { stripDevicePreferenceFields } from "@/stores/device-preferences-store";
+import { syncedPreferencesData } from "@/sync/records";
 import type { SyncMetadata } from "@/sync/sync-engine";
 
 const PREFERENCES_DEBOUNCE_MS = 400;
@@ -17,8 +17,8 @@ function preferencesRecord(prefs: UserPreferences): SyncRecordDto {
   return {
     entity: "preferences",
     id: "preferences",
-    // B4: device preferences (haptics, cache toggles, volume…) never sync.
-    data: stripDevicePreferenceFields(prefs),
+    // B4 device preferences and the D46 excused period never sync in plaintext.
+    data: syncedPreferencesData(prefs),
     updatedAt: prefs.updatedAt ?? new Date().toISOString(),
   };
 }

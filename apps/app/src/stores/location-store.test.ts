@@ -85,6 +85,20 @@ describe("refresh", () => {
     await state().refresh();
     expect(state().location).toMatchObject({ city: "Bursa", latitude: 40 });
   });
+  it("keeps a saved device fix when a silent refresh times out", async () => {
+    mockPermission.mockResolvedValue(true);
+    mockDevice.mockResolvedValue({ status: "error", reason: "timeout" });
+    locationStore.setState({ location: GPS_FIX, status: "ready" });
+    await state().refresh();
+    expect(state()).toMatchObject({ status: "ready", location: { city: "Bursa" } });
+  });
+
+  it("still reports a timeout when there is no saved device fix", async () => {
+    mockPermission.mockResolvedValue(true);
+    mockDevice.mockResolvedValue({ status: "error", reason: "timeout" });
+    await state().refresh();
+    expect(state().status).toBe("error");
+  });
 });
 
 describe("requestDeviceLocation", () => {
@@ -98,6 +112,13 @@ describe("requestDeviceLocation", () => {
     mockDevice.mockResolvedValue({ status });
     await state().requestDeviceLocation();
     expect(state().status).toBe(status);
+  });
+
+  it("surfaces a timeout on an explicit request even with a saved fix", async () => {
+    mockDevice.mockResolvedValue({ status: "error", reason: "timeout" });
+    locationStore.setState({ location: GPS_FIX, status: "ready" });
+    await state().requestDeviceLocation();
+    expect(state().status).toBe("error");
   });
 
   it("ignores a second request while one is loading", async () => {
@@ -147,6 +168,46 @@ describe("setManualLocation", () => {
     await state().setManualLocation(buildLocationSearchResult());
     expect(update).toHaveBeenCalledTimes(1);
     update.mockRestore();
+  });
+  it("stores the ISO country code from search, else from the geocoder", async () => {
+    mockResolve.mockResolvedValue({
+      city: "Karachi",
+      country: "Pakistan",
+      countryCode: "PK",
+      label: "Karachi, Pakistan",
+    });
+    await state().setManualLocation(buildLocationSearchResult({ countryCode: undefined }));
+    expect(state().location.countryCode).toBe("PK");
+    await state().setManualLocation(
+      buildLocationSearchResult({ countryCode: "IN", name: "Delhi" }),
+    );
+    expect(state().location.countryCode).toBe("IN");
+  });
+});
+
+describe("backfillCountryCode", () => {
+  it("adds the code to an older saved place without touching its label", async () => {
+    const saved = await LocationRepository.update(
+      buildStoredLocation({ source: "manual", label: "My city", countryCode: undefined }),
+    );
+    locationStore.setState({ location: saved });
+    mockResolve.mockResolvedValue({
+      city: "London",
+      country: "UK",
+      countryCode: "GB",
+      label: "London, UK",
+    });
+    await state().backfillCountryCode();
+    expect(state().location).toMatchObject({ countryCode: "GB", label: "My city" });
+  });
+
+  it("does nothing for the Makkah default or when the geocoder has no code", async () => {
+    await state().backfillCountryCode();
+    expect(mockResolve).not.toHaveBeenCalled();
+    locationStore.setState({ location: buildStoredLocation({ source: "device" }) });
+    mockResolve.mockRejectedValue(new Error("offline"));
+    await expect(state().backfillCountryCode()).resolves.toBeUndefined();
+    expect(state().location.countryCode).toBeUndefined();
   });
 });
 

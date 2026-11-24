@@ -89,6 +89,10 @@ channels, including the legacy `prayerAdhan`, are deleted) and reschedules.
 | `notification/adhan_mishary.wav`        | `mishary`        | `Mishary_Rashid_Alafasy_1_-_Kuwait_(مشاري_راشد_العفاسي_-_الكويت).mp3`               | 0.0 – 17.6     | 17.6 s |
 | `notification/adhan_makkah_muezzin.wav` | `makkah-muezzin` | `Ali_Ibn_Ahmad_Mala_1_-_Al_Haram_Al_Maki_(علي_بن_أحمد_ملا_-_الحرم_المكي).mp3`        | 0.4 – 23.6     | 23.2 s |
 
+The `makkah-muezzin` recording is by **Ali Ahmed Mulla** (علي أحمد ملا), the long-serving chief
+muezzin of al-Masjid al-Haram; the upstream file name spells it "Ali Ibn Ahmad Mala" — the app shows
+the correct name (`settings.adhanStyles.makkah-muezzin.name`, `ADHAN_STYLES`).
+
 Every file is 16 kHz mono 16-bit PCM WAV (a documented iOS notification format
 and a valid Android raw resource), named `[a-z0-9_]+.wav` (Android resource
 names), ≤ 30 s (iOS ignores longer sounds). Each style clip is the opening of

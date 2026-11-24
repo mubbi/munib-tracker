@@ -89,6 +89,7 @@ export function FardDots({
 const styles = StyleSheet.create({
   row: { flexDirection: "row", justifyContent: "space-between", gap: Spacing.one },
   cell: { alignItems: "center", gap: Spacing.half },
-  pressable: { borderRadius: Radius.md },
+  // 44pt minimum touch target (HIG / Material) around the 32pt dot.
+  pressable: { borderRadius: Radius.md, minWidth: 44, minHeight: 44, alignItems: "center" },
   dot: { alignItems: "center", justifyContent: "center", borderWidth: 1.5 },
 });

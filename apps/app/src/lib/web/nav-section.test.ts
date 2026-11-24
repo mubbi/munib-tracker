@@ -32,6 +32,8 @@ describe("isChromelessRoute", () => {
   it("flags first-run and auth routes", () => {
     expect(isChromelessRoute("/intro")).toBe(true);
     expect(isChromelessRoute("/intro-location")).toBe(true);
+    expect(isChromelessRoute("/setup")).toBe(true);
+    expect(isChromelessRoute("/settings")).toBe(false);
     expect(isChromelessRoute("/login")).toBe(true);
     expect(isChromelessRoute("/oauth/apple")).toBe(true);
   });

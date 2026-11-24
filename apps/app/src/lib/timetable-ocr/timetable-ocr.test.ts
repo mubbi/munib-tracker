@@ -91,6 +91,29 @@ describe("on-device recognition availability (D3)", () => {
     expect(native.recognize).toHaveBeenCalledWith("file:///photo.jpg");
   });
 
+  it("Reset app data forgets the web OCR consent and deletes Tesseract's cached data", async () => {
+    const web = require("./recognize.web") as typeof import("./recognize.web");
+    const deleteDatabase = jest.fn(() => {
+      const request: Record<string, (() => void) | null> = { onsuccess: null };
+      setTimeout(() => request.onsuccess?.(), 0);
+      return request;
+    });
+    const g = globalThis as { indexedDB?: unknown };
+    const previous = g.indexedDB;
+    g.indexedDB = { deleteDatabase };
+    globalThis.localStorage?.setItem("munib.timetableOcr.dataAccepted", "1");
+    try {
+      await web.clearOcrBrowserData();
+    } finally {
+      g.indexedDB = previous;
+    }
+    expect(deleteDatabase).toHaveBeenCalledWith(web.TESSERACT_CACHE_DB);
+    expect(web.ocrDownloadAccepted()).toBe(false);
+    // Native keeps nothing to clear.
+    const native = require("./recognize") as typeof import("./recognize");
+    await expect(native.clearOcrBrowserData()).resolves.toBeUndefined();
+  });
+
   it("states the web download size before first use", () => {
     const web = require("./recognize.web") as typeof import("./recognize.web");
     expect(web.ocrDownloadBytes()).toBeGreaterThan(6_000_000);

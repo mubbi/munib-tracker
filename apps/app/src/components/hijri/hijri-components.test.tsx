@@ -93,6 +93,13 @@ describe("HijriOffsetStepper", () => {
     await fireEvent.press(screen.getByLabelText(/increase/i));
     expect(setHijriOffsetDays).toHaveBeenCalledWith(1);
   });
+
+  it("can't step past +2", async () => {
+    await setAdjustment({ offsetDays: 2, updatedAt: UPDATED_AT });
+    await renderWithTheme(<HijriOffsetStepper />);
+    const increase = screen.getByLabelText(/increase/i);
+    expect(increase.props.accessibilityState).toEqual(expect.objectContaining({ disabled: true }));
+  });
 });
 
 describe("HijriCorrectionsList", () => {
@@ -102,15 +109,16 @@ describe("HijriCorrectionsList", () => {
       monthStarts: { "1445-09": "2024-03-12" },
       updatedAt: UPDATED_AT,
     });
-    await renderWithTheme(<HijriCorrectionsList />);
+    await renderWithTheme(<HijriCorrectionsList title="Month corrections" />);
+    expect(screen.getByText("Month corrections")).toBeTruthy();
     expect(screen.getByText("Ramadan 1445 AH")).toBeTruthy();
     await fireEvent.press(screen.getByLabelText("Remove the correction for Ramadan 1445 AH"));
     expect(setHijriMonthStart).toHaveBeenCalledWith(1445, 9, null);
   });
 
-  it("shows an empty state", async () => {
-    await renderWithTheme(<HijriCorrectionsList />);
-    expect(screen.getByText("No month corrections yet.")).toBeTruthy();
+  it("renders nothing (not even its heading) without corrections", async () => {
+    await renderWithTheme(<HijriCorrectionsList title="Month corrections" />);
+    expect(screen.queryByText("Month corrections")).toBeNull();
   });
 });
 
