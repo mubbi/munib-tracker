@@ -1,4 +1,5 @@
 import { SymbolView } from "expo-symbols";
+import type { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -81,6 +82,8 @@ type OptionPickerSheetProps = {
   selectedId: string;
   onSelect: (id: string) => void;
   onClose: () => void;
+  /** Optional row under the options (e.g. a "More in Settings" link). */
+  footer?: ReactNode;
 };
 
 export function OptionPickerSheet({
@@ -90,6 +93,7 @@ export function OptionPickerSheet({
   selectedId,
   onSelect,
   onClose,
+  footer,
 }: OptionPickerSheetProps) {
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
@@ -144,6 +148,7 @@ export function OptionPickerSheet({
           );
         })}
       </View>
+      {footer}
     </Sheet>
   );
 }

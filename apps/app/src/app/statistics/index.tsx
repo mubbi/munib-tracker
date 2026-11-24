@@ -25,6 +25,7 @@ import {
   StatLine,
   StatsGroup,
 } from "@/components/statistics/metrics";
+import { RawatibStatsCard } from "@/components/statistics/rawatib-stats-card";
 import { SalahRateList } from "@/components/statistics/salah-rate-list";
 import { StatusDistribution } from "@/components/statistics/status-distribution";
 import { TodaySalahStrip } from "@/components/statistics/today-salah-strip";
@@ -57,6 +58,7 @@ import {
   adhkarSetsForDay,
   zikrCountsByDate,
 } from "@/lib/adhkar-history";
+import { masjidPrayerStats } from "@/lib/masjid/masjid-stats";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
@@ -603,6 +605,30 @@ export default function StatisticsScreen() {
         }))}
       />
     ) : null;
+  // NF-3.11: Salah logged at the masjid — only rendered when the period has any.
+  const masjidStats = useMemo(
+    () => masjidPrayerStats(logs, range.from, [range.to, today].sort()[0] ?? today),
+    [logs, range, today],
+  );
+  const masjidBlock =
+    masjidStats.count > 0 ? (
+      <StatsGroup
+        title={t("masjidLog.statsTitle")}
+        columns={2}
+        metrics={[
+          {
+            value: formatCount(masjidStats.count),
+            label: t("masjidLog.statsCount"),
+            color: colors.accentText,
+          },
+          {
+            value: masjidStats.perWeek.toLocaleString(locale, { maximumFractionDigits: 1 }),
+            label: t("masjidLog.statsPerWeek"),
+            color: tokens.status.success.text,
+          },
+        ]}
+      />
+    ) : null;
   const adhkarBlock = hasAdhkarHistory ? (
     <View style={styles.block}>
       <BlockTitle title={t("statistics.adhkarBySet")} hint={t("statistics.adhkarBySetHint")} />
@@ -871,6 +897,7 @@ export default function StatisticsScreen() {
                     {consistencyBlock}
                     {zikrQazaBlock}
                     {sunnahBlock}
+                    {masjidBlock}
                   </View>
                   <View style={styles.column}>
                     {perSalahBlock}
@@ -884,6 +911,7 @@ export default function StatisticsScreen() {
                   {consistencyBlock}
                   {zikrQazaBlock}
                   {sunnahBlock}
+                  {masjidBlock}
                   {adhkarBlock}
                 </View>
               )}
@@ -892,6 +920,16 @@ export default function StatisticsScreen() {
                 onPress={() => router.push("/calendar")}
               />
             </Card>
+
+            {/* ── Sunnah rawatib (NF-3.1) — separate from the fard rates above ── */}
+            <RawatibStatsCard
+              logs={logs}
+              index={index}
+              from={range.from}
+              to={range.to}
+              today={today}
+              formatCount={formatCount}
+            />
 
             {/* ── Lifetime make-up (qaza + fasting) and reading ───────────── */}
             <ResponsiveGrid columns={wide && hasDebt && hasReadingData ? 2 : 1} gap={Spacing.four}>

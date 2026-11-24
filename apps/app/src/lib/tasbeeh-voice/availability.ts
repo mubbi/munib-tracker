@@ -1,0 +1,35 @@
+import { Platform } from "react-native";
+
+import { RECITATION_MODELS } from "@/constants/recitation-models";
+import { isPracticeAvailable } from "@/lib/quran-companion/availability";
+import { FASTCONFORMER_ENGINE, isFastConformerRuntimeSupported } from "@/lib/speech/fastconformer";
+
+import { usesModel } from "./mode";
+import type { PhraseKey } from "./phrases";
+
+/**
+ * When the hands-free (voice) toggle may appear on a counter (NF-3.20):
+ * - not TV (`isPracticeAvailable()` — TV has no microphone path),
+ * - a microphone capture path exists on this platform,
+ * - the FastConformer engine is pinned for the platform: native always; web once
+ *   its files have a browser source (`webHosted`, D18 Hugging Face mirror),
+ * - an ONNX runtime is available (wasm on web, ORT on native),
+ * - and the counter's phrase is in the v1 catalog.
+ *
+ * Whether the model is downloaded is NOT part of availability — the first-use
+ * sheet offers the (shared) download.
+ */
+export function isVoiceTasbeehPlatformAvailable(captureAvailable: boolean): boolean {
+  if (!isPracticeAvailable() || !captureAvailable) return false;
+  // Pause-count fallback (D24) runs no model: the microphone is enough.
+  if (!usesModel()) return true;
+  if (Platform.OS === "web" && !RECITATION_MODELS[FASTCONFORMER_ENGINE].webHosted) return false;
+  return isFastConformerRuntimeSupported();
+}
+
+export function isVoiceTasbeehAvailable(
+  phrase: PhraseKey | null | undefined,
+  captureAvailable: boolean,
+): boolean {
+  return phrase != null && isVoiceTasbeehPlatformAvailable(captureAvailable);
+}

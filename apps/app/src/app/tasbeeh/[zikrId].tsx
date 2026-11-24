@@ -20,10 +20,11 @@ import { resolveAfterSalahPrayer } from "@/lib/adhkar-session";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
+import { phraseForZikr } from "@/lib/tasbeeh-voice/phrases";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrCountKey, zikrTarget } from "@/lib/zikr-count-key";
 import { usePreferences } from "@/stores/preferences-store";
-import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 /** Fallback dock height before onLayout (excludes safe-area already in ScreenLayout). */
 const DOCK_BAR_FALLBACK = 72;
@@ -48,7 +49,7 @@ export default function ZikrTasbeehScreen() {
   // TV: the landscape counter fits the viewport and keeps preferred focus — a
   // second floating glass dock would only add focus targets (and blur cost).
   const dockVisible = dock.dockVisible && !isTV();
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
+  const { showTransliteration, showTranslation } = useReadingDisplay();
   const { fontPrefs } = usePreferences();
   const [dockBarHeight, setDockBarHeight] = useState(DOCK_BAR_FALLBACK);
   const [corpusReady, setCorpusReady] = useState(false);
@@ -149,6 +150,7 @@ export default function ZikrTasbeehScreen() {
         onIncrement={() => persist(count + 1)}
         onDecrement={() => persist(count - 1)}
         onReset={() => persist(0)}
+        voicePhrase={phraseForZikr(item.id)}
       />
     </Card>
   );

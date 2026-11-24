@@ -41,15 +41,11 @@ import { useChevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
+import { updateQuranPrefs } from "@/lib/settings/quran-shortcuts";
 import { useEnsureHifzLoaded } from "@/stores/hifz-store";
 import { useEnsureCompanionPrefsLoaded } from "@/stores/quran-companion-prefs-store";
 import { useDueQueue, useEnsureMemorizationLoaded } from "@/stores/quran-memorization-store";
-import {
-  useLastRead,
-  useQuranActions,
-  useQuranBookmarks,
-  useQuranPrefs,
-} from "@/stores/quran-store";
+import { useLastRead, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
 
 /** Extra width for list–detail so the surah list and preview pane can sit side by side. */
 const LIST_DETAIL_MAX_WIDTH = 1280;
@@ -625,7 +621,8 @@ export default function QuranHomeScreen() {
   const lastRead = useLastRead();
   const quranPrefs = useQuranPrefs();
   const quranBookmarks = useQuranBookmarks();
-  const { updatePrefs } = useQuranActions();
+  // Layout picker is a shortcut to Settings › Qur'an › Reading.
+  const updatePrefs = updateQuranPrefs;
   const preferredLayout = quranPrefs.readerLayout ?? "ayah";
   // Qur'an practice: the due count is always on here (never a setting).
   const practiceAvailable = isPracticeAvailable();
@@ -751,7 +748,7 @@ export default function QuranHomeScreen() {
       }
       openSurahAt(surah, ayah);
     },
-    [openSurahAt, router, updatePrefs],
+    [openSurahAt, router],
   );
 
   const openSurah = useCallback(

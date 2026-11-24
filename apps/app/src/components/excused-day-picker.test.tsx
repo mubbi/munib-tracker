@@ -25,7 +25,15 @@ describe("ExcusedDayPicker (tracker store)", () => {
   it("offers each excused reason with a hint", async () => {
     await renderPicker();
 
-    expect(["Hayd", "Illness", "Travel"].map(chip)).toHaveLength(3);
+    expect(["Hayd", "Nifas", "Illness", "Travel"].map(chip)).toHaveLength(4);
+  });
+
+  it("sends nifas to the hayd guide (it covers nifas)", async () => {
+    await renderPicker();
+
+    await fireEvent.press(chip("Nifas"));
+
+    expect(mockRouter.push).toHaveBeenCalledWith("/hayd");
   });
 
   it("opens the reason's guide to start an excused period", async () => {
@@ -59,6 +67,30 @@ describe("ExcusedDayPicker (controlled)", () => {
 
     expect(onExcusedChange).toHaveBeenCalledWith(next);
     expect(mockRouter.push).not.toHaveBeenCalled();
+  });
+
+  it("asks the two qasr questions before reporting travel (§4.1.4)", async () => {
+    const onExcusedChange = jest.fn();
+    await renderPicker({ excusedReason: null, onExcusedChange });
+
+    await fireEvent.press(chip("Travel"));
+
+    expect(onExcusedChange).not.toHaveBeenCalled();
+    expect(screen.getByText("Are you a traveller?")).toBeTruthy();
+    await fireEvent.press(screen.getByText("Turn on travel mode"));
+
+    expect(onExcusedChange).toHaveBeenCalledWith("travel");
+    expect(mockRouter.push).not.toHaveBeenCalled();
+  });
+
+  it("ends a travel day directly, without the questions", async () => {
+    const onExcusedChange = jest.fn();
+    await renderPicker({ excusedReason: "travel", onExcusedChange });
+
+    await fireEvent.press(chip("Travel"));
+
+    expect(onExcusedChange).toHaveBeenCalledWith(null);
+    expect(screen.queryByText("Are you a traveller?")).toBeNull();
   });
 
   it("treats a missing reason as none", async () => {

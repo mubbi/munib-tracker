@@ -8,6 +8,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { arabicWordRowStyle } from "@/lib/quran-companion/arabic-row";
 import type { WordState } from "@/lib/quran-companion/types";
+import type { AssessmentMode, PronunciationWordState } from "@/lib/quran-pronunciation/types";
 import { useIsRTL } from "@/lib/rtl";
 
 /**
@@ -33,6 +34,13 @@ type PracticeWordRowProps = {
   /** Tap a "try again" word to hear it. */
   onWordPress?: (index: number) => void;
   /**
+   * NF-3.24 pronunciation check: per-word Clear / Listen again / Not sure. When
+   * set it replaces the practice marks, and every checked word can be tapped to
+   * hear the reciter. "Listen again" is amber, never red.
+   */
+  pronunciation?: (PronunciationWordState | null)[];
+  pronunciationMode?: AssessmentMode;
+  /**
    * Window position of the reciter's active word, reported whenever it moves, so
    * the screen can keep a long ayah's current word in view (§9.2).
    */
@@ -50,6 +58,8 @@ export const PracticeWordRow = memo(function PracticeWordRow({
   markStyle,
   onWordPress,
   onActiveWordMeasured,
+  pronunciation,
+  pronunciationMode = "full",
 }: PracticeWordRowProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -94,6 +104,25 @@ export const PracticeWordRow = memo(function PracticeWordRow({
     }
   };
 
+  const pronColor = (state: PronunciationWordState): string => {
+    if (state === "clear") return tokens.status.success.color;
+    if (state === "listen-again") return tokens.status.warning.color;
+    return colors.mutedForeground;
+  };
+  const pronLabel = (state: PronunciationWordState): string => {
+    if (state === "clear") {
+      return pronunciationMode === "full"
+        ? t("quranPronunciation.word.clear")
+        : t("quranPronunciation.word.heard");
+    }
+    if (state === "listen-again") {
+      return pronunciationMode === "full"
+        ? t("quranPronunciation.word.listenAgain")
+        : t("quranPronunciation.word.skippedOrUnclear");
+    }
+    return t("quranPronunciation.word.notSure");
+  };
+
   // A word's position is its identity inside a fixed ayah; keys stay stable across marks.
   const wordKeys = words.map((word, index) => `${index}:${word}`);
 
@@ -101,14 +130,16 @@ export const PracticeWordRow = memo(function PracticeWordRow({
     <View style={[styles.row, arabicWordRowStyle(rtl)]} accessibilityRole="text">
       {words.map((word, i) => {
         const state = states[i] ?? "idle";
+        const pron = pronunciation?.[i] ?? null;
         const isHidden = hidden.has(i);
         const isActive = i === activeIndex || i === hearIndex;
-        const color = markColor(state);
+        const color = pron ? pronColor(pron) : markColor(state);
         const underline = isActive ? colors.accent : markStyle === "underline" ? color : null;
         const label = isHidden
           ? t("quranCompanion.word.hidden", { n: i + 1 })
-          : [word, stateLabel(state)].filter(Boolean).join(", ");
-        const pressable = !!onWordPress && state === "confirmedMismatch" && !isHidden;
+          : [word, pron ? pronLabel(pron) : stateLabel(state)].filter(Boolean).join(", ");
+        const pressable =
+          !!onWordPress && (pron != null || state === "confirmedMismatch") && !isHidden;
         const cell = {
           word,
           state,

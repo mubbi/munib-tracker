@@ -15,8 +15,7 @@ import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward, useIsRTL } from "@/lib/rtl";
 
-/** Window width at which settings row groups lay out in two columns (web / tablets). */
-export const SETTINGS_TWO_COLUMN_MIN_WIDTH = 1024;
+import { SETTINGS_TWO_COLUMN_MIN_WIDTH } from "./settings-layout";
 
 /** True inside a multi-column `SettingsRowGroup` — rows fill their grid cell. */
 const FillCellContext = createContext(false);
@@ -58,14 +57,28 @@ export function SettingsRow({
   value,
   onPress,
   preferredFocus,
+  accessory,
+  showChevron = true,
+  disabled,
+  titleColor,
+  leading,
 }: {
-  icon: AppIcon;
+  icon?: AppIcon;
+  /** Custom leading visual (e.g. the account avatar) in place of the icon well. */
+  leading?: ReactNode;
   title: string;
   subtitle?: string;
   value?: string;
   onPress: () => void;
   /** TV: request initial D-pad focus on this row. */
   preferredFocus?: boolean;
+  /** Small trailing-title adornment (e.g. the "This device" badge). */
+  accessory?: ReactNode;
+  /** Actions (preview, reset…) don't navigate, so they draw no chevron. */
+  showChevron?: boolean;
+  disabled?: boolean;
+  /** Destructive rows tint the title. */
+  titleColor?: string;
 }) {
   const { colors } = useThemeTokens();
   const rtl = useIsRTL();
@@ -76,21 +89,36 @@ export function SettingsRow({
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={title}
+      // Screen readers hear the current value with the title ("Time format, 24-hour").
+      accessibilityLabel={value ? `${title}, ${value}` : title}
+      accessibilityState={disabled ? { disabled: true } : undefined}
+      disabled={disabled}
       onPress={onPress}
       {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
       style={[
         styles.row,
         tv && styles.rowTv,
         fill && styles.rowFill,
-        { backgroundColor: colors.muted },
+        { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 },
       ]}
     >
-      <IconWell icon={icon} well={tv ? TV_WELL : undefined} size={tv ? 22 : undefined} />
+      {leading ??
+        (icon ? (
+          <IconWell icon={icon} well={tv ? TV_WELL : undefined} size={tv ? 22 : undefined} />
+        ) : null)}
       <View style={styles.body}>
-        <ThemedText type="small" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
-          {title}
-        </ThemedText>
+        <View style={styles.titleLine}>
+          <ThemedText
+            type="small"
+            style={[
+              tv ? { fontSize: TvLayout.bodyFontSize } : undefined,
+              titleColor ? { color: titleColor } : undefined,
+            ]}
+          >
+            {title}
+          </ThemedText>
+          {accessory}
+        </View>
         {subtitle ? (
           <ThemedText type="caption" themeColor="mutedForeground">
             {subtitle}
@@ -107,12 +135,14 @@ export function SettingsRow({
           {value}
         </ThemedText>
       ) : null}
-      <SymbolView
-        key={rtl ? "chevron-rtl" : "chevron-ltr"}
-        name={chevron}
-        size={tv ? 20 : 16}
-        tintColor={colors.mutedForeground}
-      />
+      {showChevron ? (
+        <SymbolView
+          key={rtl ? "chevron-rtl" : "chevron-ltr"}
+          name={chevron}
+          size={tv ? 20 : 16}
+          tintColor={colors.mutedForeground}
+        />
+      ) : null}
     </PressableScale>
   );
 }
@@ -125,6 +155,7 @@ export const ToggleRow = memo(
     value,
     disabled,
     onValueChange,
+    accessory,
   }: {
     icon?: AppIcon;
     title: string;
@@ -132,6 +163,8 @@ export const ToggleRow = memo(
     value: boolean;
     disabled?: boolean;
     onValueChange: (value: boolean) => void;
+    /** Small trailing-title adornment (e.g. the "This device" badge). */
+    accessory?: ReactNode;
   }) {
     const { colors, tokens } = useThemeTokens();
     const tv = isTV();
@@ -156,9 +189,12 @@ export const ToggleRow = memo(
         >
           {icon ? <IconWell icon={icon} well={TV_WELL} size={22} /> : null}
           <View style={styles.body}>
-            <ThemedText type="small" style={{ fontSize: TvLayout.bodyFontSize }}>
-              {title}
-            </ThemedText>
+            <View style={styles.titleLine}>
+              <ThemedText type="small" style={{ fontSize: TvLayout.bodyFontSize }}>
+                {title}
+              </ThemedText>
+              {accessory}
+            </View>
             {subtitle ? (
               <ThemedText type="caption" themeColor="mutedForeground">
                 {subtitle}
@@ -190,7 +226,10 @@ export const ToggleRow = memo(
       >
         {icon ? <IconWell icon={icon} /> : null}
         <View style={styles.body}>
-          <ThemedText type="small">{title}</ThemedText>
+          <View style={styles.titleLine}>
+            <ThemedText type="small">{title}</ThemedText>
+            {accessory}
+          </View>
           {subtitle ? (
             <ThemedText type="caption" themeColor="mutedForeground">
               {subtitle}
@@ -211,7 +250,9 @@ export const ToggleRow = memo(
     prev.disabled === next.disabled &&
     prev.title === next.title &&
     prev.subtitle === next.subtitle &&
-    prev.icon === next.icon,
+    prev.icon === next.icon &&
+    // Badges are static adornments; compare presence, not element identity.
+    Boolean(prev.accessory) === Boolean(next.accessory),
 );
 
 const styles = StyleSheet.create({
@@ -241,6 +282,12 @@ const styles = StyleSheet.create({
     // calculation-method name) otherwise squeezed it to ~80dp and Android broke
     // "Calculation" mid-word.
     minWidth: "40%",
+  },
+  titleLine: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: Spacing.two,
   },
   /** Trailing value shrinks and wraps instead of claiming its full text width. */
   value: {

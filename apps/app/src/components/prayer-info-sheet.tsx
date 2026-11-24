@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { IconWell } from "@/components/ui/icon-well";
@@ -18,6 +19,10 @@ import {
   type PrayerInfoId,
   type PrayerInfoReference,
 } from "@/lib/prayer-info";
+import {
+  isPreferredWindowPrayer,
+  PREFERRED_DIFFERENCE_IDS,
+} from "@/lib/salah-phase/preferred-window";
 import { scheduleEntryIcon } from "@/lib/schedule-ui";
 
 type PrayerInfoSheetProps = {
@@ -169,6 +174,18 @@ export function PrayerInfoSheet({ visible, prayerId, onClose }: PrayerInfoSheetP
             {t(`prayerInfo.${prayerId}.benefits`)}
           </ThemedText>
         </View>
+
+        {isPreferredWindowPrayer(prayerId) ? (
+          <View style={styles.section}>
+            <ThemedText type="smallBold" themeColor="accent">
+              {t("prayerWindow.preferred.title")}
+            </ThemedText>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("prayerWindow.preferred.sheetHint")}
+            </ThemedText>
+            <MadhhabNote id={PREFERRED_DIFFERENCE_IDS[prayerId]} />
+          </View>
+        ) : null}
 
         {entry?.refs.length ? (
           <View style={styles.section}>

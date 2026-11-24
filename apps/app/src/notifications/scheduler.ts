@@ -3,16 +3,25 @@ import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 
 import i18n from "@/i18n";
+import { coachReminderOptions } from "@/lib/coach/reminder-options";
 import { nativeEnqueueCommand } from "@/lib/external-commands/native-bridge";
+import { familyTiesReminderOptions } from "@/lib/family-ties/reminder-options";
 import type { StoredLocation } from "@/lib/location";
+import { iqamahReminderOptions } from "@/lib/masjid/iqamah-reminder-options";
+import { muhasabahReminderOptions } from "@/lib/muhasabah/reminder-options";
 import {
-  ADHAN_NOTIFICATION_SOUND,
+  adhanChannelId,
+  adhanNotificationSound,
+  isAdhanChannelId,
+} from "@/lib/notifications/adhan-sounds";
+import {
   type BuiltReminder,
   buildReminders,
   hasOutstandingQazaDebt,
   type ScheduledReminderRow,
   summarizeReminders,
 } from "@/lib/notifications/build-reminders";
+import { dhulHijjahReminderOptions } from "@/lib/notifications/dhul-hijjah-reminder-options";
 import {
   parseScheduledTriggerAtMs,
   type RawScheduledTrigger,
@@ -23,9 +32,13 @@ import {
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
 import { isLocalNotificationSupported } from "@/lib/notifications/platform";
+import { sunnahHabitsReminderOptions } from "@/lib/notifications/sunnah-habits-reminder-options";
+import { vaultReminderOptions } from "@/lib/notifications/vault-reminder-options";
 import { quranRevisionReminderOptions } from "@/lib/quran-companion/reminder-options";
+import { rawatibNudgeOptions } from "@/lib/rawatib-nudge";
 import { captureAppException } from "@/lib/sentry";
 import { formatDisplayHhMm } from "@/lib/time";
+import { voluntaryFastingReminderOptions } from "@/lib/voluntary-fasting/reminder-options";
 import { trackerStore } from "@/stores/tracker-store";
 
 /** Snapshot current Qaza/roza debt for reminder builds. */
@@ -38,6 +51,20 @@ async function buildReminderOptions() {
   return {
     hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza),
     ...(await quranRevisionReminderOptions()),
+    ...(await voluntaryFastingReminderOptions()),
+    // NF-3.5 habits (selected / bedtime counts) + NF-3.3 udhiyah intention flags.
+    ...(await sunnahHabitsReminderOptions()),
+    ...(await dhulHijjahReminderOptions()),
+    // NF-3.1 opt-in after-fard rawatib nudge (today's unlogged after-rows).
+    ...(await rawatibNudgeOptions()),
+    // NF-3.11 home-masjid iqamah reminders (private/public times only).
+    ...(await iqamahReminderOptions()),
+    muhasabah: await muhasabahReminderOptions(),
+    familyTies: await familyTiesReminderOptions(),
+    // NF-3.14 weekly coach (recent-activity flag only).
+    ...(await coachReminderOptions()),
+    // NF-3.8 / NF-3.9: debts due + wasiyyah review (vault dates only).
+    ...(await vaultReminderOptions()),
   };
 }
 
@@ -54,7 +81,57 @@ function enqueueReschedule(task: () => Promise<void>): Promise<void> {
 
 type ChannelId = "prayer" | "prayerAdhan" | "zikr" | "qaza";
 
-const CHANNEL_IDS: ChannelId[] = ["prayer", "prayerAdhan", "zikr", "qaza"];
+/**
+ * Channels created up front. The adhan channel is per style (`adhan-<styleId>`,
+ * see `lib/notifications/adhan-sounds.ts`) and is synced by {@link syncAdhanChannel}.
+ */
+const STATIC_CHANNEL_IDS: Exclude<ChannelId, "prayerAdhan">[] = ["prayer", "zikr", "qaza"];
+
+/** Android channel currently carrying the adhan sound (selected style). */
+let activeAdhanChannelId = adhanChannelId(undefined);
+/** `${channelId}|${locale}` last synced, so reschedules skip redundant channel work. */
+let syncedAdhanChannelKey: string | null = null;
+
+/**
+ * OS (Android) channel for a reminder: an explicit per-style override first, then
+ * the logical id — with the logical `prayerAdhan` mapped to the active style channel
+ * (covers snoozes scheduled before per-style channels existed).
+ */
+function osChannelId(channelId: ChannelId, androidChannelId?: string): string {
+  if (androidChannelId) return androidChannelId;
+  return channelId === "prayerAdhan" ? activeAdhanChannelId : channelId;
+}
+
+/**
+ * Android: make sure the selected adhan style's channel exists with that style's
+ * sound (HIGH importance so it isn't silenced) and delete every other adhan
+ * channel — channel sounds are immutable after creation, so switching style
+ * switches channel (B2). Callers reschedule afterwards so pending adhan
+ * reminders move to the new channel. No-op elsewhere.
+ */
+export async function syncAdhanChannel(adhanStyleId?: string | null): Promise<void> {
+  if (Platform.OS !== "android" || !isLocalNotificationSupported()) return;
+  const channelId = adhanChannelId(adhanStyleId);
+  const key = `${channelId}|${i18n.language}`;
+  activeAdhanChannelId = channelId;
+  if (syncedAdhanChannelKey === key) return;
+  await Notifications.setNotificationChannelAsync(channelId, {
+    name: i18n.t("notif.channels.prayerAdhan"),
+    importance: Notifications.AndroidImportance.HIGH,
+    sound: adhanNotificationSound(adhanStyleId),
+  });
+  try {
+    const existing = await Notifications.getNotificationChannelsAsync();
+    for (const channel of existing) {
+      if (channel.id !== channelId && isAdhanChannelId(channel.id)) {
+        await Notifications.deleteNotificationChannelAsync(channel.id);
+      }
+    }
+  } catch (error) {
+    captureAppException(error, { tags: { area: "notifications", phase: "adhan-channel" } });
+  }
+  syncedAdhanChannelKey = key;
+}
 
 /**
  * Category for obligatory prayer-time-now reminders only — Mark + Snooze.
@@ -80,7 +157,7 @@ type PendingSnooze = {
   identifier: string;
   content: Notifications.NotificationContentInput;
   seconds: number;
-  channelId: ChannelId;
+  channelId: string;
 };
 
 async function collectPendingSnoozes(): Promise<PendingSnooze[]> {
@@ -91,10 +168,11 @@ async function collectPendingSnoozes(): Promise<PendingSnooze[]> {
     if (!item.identifier.startsWith(SNOOZE_ID_PREFIX)) continue;
     const fireAtMs = parseScheduledTriggerAtMs(item.trigger as RawScheduledTrigger);
     if (fireAtMs == null || fireAtMs <= now) continue;
-    const channelId =
-      ((item.content.data as { channelId?: ChannelId } | null)?.channelId as
-        | ChannelId
-        | undefined) ?? "prayer";
+    const data = item.content.data as {
+      channelId?: ChannelId;
+      androidChannelId?: string;
+    } | null;
+    const channelId = osChannelId(data?.channelId ?? "prayer", data?.androidChannelId);
     out.push({
       identifier: item.identifier,
       content: {
@@ -178,7 +256,7 @@ export function osTriggerForReminder(
       type: Notifications.SchedulableTriggerInputTypes.DAILY,
       hour,
       minute,
-      channelId: reminder.channelId,
+      channelId: osChannelId(reminder.channelId, reminder.androidChannelId),
       ...alarmClock,
     };
   }
@@ -189,7 +267,7 @@ export function osTriggerForReminder(
     return {
       type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
       seconds: 1,
-      channelId: reminder.channelId,
+      channelId: osChannelId(reminder.channelId, reminder.androidChannelId),
       repeats: false,
     };
   }
@@ -197,13 +275,16 @@ export function osTriggerForReminder(
   return {
     type: Notifications.SchedulableTriggerInputTypes.DATE,
     date: reminder.fireAt,
-    channelId: reminder.channelId,
+    channelId: osChannelId(reminder.channelId, reminder.androidChannelId),
     ...alarmClock,
   };
 }
 
-/** Sets the foreground handler and Android channels. Call once at startup. */
-export async function configureNotifications(): Promise<void> {
+/**
+ * Sets the foreground handler and Android channels. Call at startup and on locale
+ * change (channel names are localised). `adhanStyleId` picks the adhan channel.
+ */
+export async function configureNotifications(adhanStyleId?: string | null): Promise<void> {
   if (!isLocalNotificationSupported()) return;
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -226,19 +307,17 @@ export async function configureNotifications(): Promise<void> {
     },
   ]);
   if (Platform.OS === "android") {
-    for (const id of CHANNEL_IDS) {
-      // The adhan channel carries the custom call-to-prayer sound (Android plays
-      // channel-level sounds) at HIGH importance so it isn't silenced; the rest
-      // keep the default notification tone.
-      const isAdhan = id === "prayerAdhan";
+    // Non-adhan channels keep the default notification tone.
+    for (const id of STATIC_CHANNEL_IDS) {
       await Notifications.setNotificationChannelAsync(id, {
         name: i18n.t(`notif.channels.${id}`),
-        importance: isAdhan
-          ? Notifications.AndroidImportance.HIGH
-          : Notifications.AndroidImportance.DEFAULT,
-        ...(isAdhan ? { sound: ADHAN_NOTIFICATION_SOUND } : {}),
+        importance: Notifications.AndroidImportance.DEFAULT,
       });
     }
+    // The adhan channel carries the selected style's call-to-prayer sound
+    // (Android plays channel-level sounds). Force a resync so it's renamed too.
+    syncedAdhanChannelKey = null;
+    await syncAdhanChannel(adhanStyleId);
   }
 }
 
@@ -273,6 +352,7 @@ async function scheduleReminder(
     ...(reminder.sound ? { sound: reminder.sound } : {}),
     data: {
       channelId: reminder.channelId,
+      ...(reminder.androidChannelId ? { androidChannelId: reminder.androidChannelId } : {}),
       reminderId: reminder.id,
       route: reminder.route,
       ...(reminder.prayerId ? { prayerId: reminder.prayerId } : {}),
@@ -296,6 +376,10 @@ export async function rescheduleAll(
   return enqueueReschedule(async () => {
     // Preserve snoozes across cancel/rebuild so foreground reschedule doesn't
     // erase an intentional deferral.
+    // Select (or create) the chosen adhan style's channel before arming reminders.
+    await syncAdhanChannel(prefs.adhanStyleId).catch((error) => {
+      captureAppException(error, { tags: { area: "notifications", phase: "adhan-channel" } });
+    });
     const snoozes = await collectPendingSnoozes();
     const nextReminders =
       prefs.notificationPrefs.masterEnabled && (await getPermissionStatus()) === "granted"
@@ -334,7 +418,10 @@ export async function snoozeNotification(
 ): Promise<void> {
   if (!isLocalNotificationSupported()) return;
   const { content } = response.notification.request;
-  const channelId = (content.data?.channelId as ChannelId | undefined) ?? "prayer";
+  const channelId = osChannelId(
+    (content.data?.channelId as ChannelId | undefined) ?? "prayer",
+    content.data?.androidChannelId as string | undefined,
+  );
   const baseId =
     (content.data?.reminderId as string | undefined) ??
     (content.data?.prayerId as string | undefined) ??

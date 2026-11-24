@@ -33,7 +33,6 @@ export interface HadithBookmark {
 /** Reader display toggles for hadith collection / bookmark screens. */
 export interface HadithPrefs {
   showArabic: boolean;
-  showTranslation: boolean;
   showNarrator: boolean;
   showGrade: boolean;
   /** NF-2.9 structured isnad chain */
@@ -44,7 +43,6 @@ export interface HadithPrefs {
 
 export const DEFAULT_HADITH_PREFS: HadithPrefs = {
   showArabic: true,
-  showTranslation: true,
   showNarrator: true,
   showGrade: true,
   showIsnad: true,

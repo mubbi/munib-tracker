@@ -8,16 +8,13 @@ import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWeb } from "@/lib/notifications/platform";
-import { registerWebPushSubscriptionWithApi } from "@/lib/notifications/register-push-token";
 import {
   beginWebNotificationPermissionRequest,
   canRequestWebNotificationPermission,
 } from "@/lib/notifications/web-environment";
-import { rescheduleAll } from "@/notifications/scheduler";
+import { enableNotifications } from "@/lib/settings/actions";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
-import { locationStore } from "@/stores/location-store";
-import { preferencesStore, usePreferencesActions } from "@/stores/preferences-store";
 
 type NotificationPermissionBannerProps = {
   showWhenGranted?: boolean;
@@ -30,7 +27,6 @@ export function NotificationPermissionBanner({
   const toast = useToast();
   const { session } = useAuth();
   const { tokens } = useThemeTokens();
-  const { setNotificationPrefs } = usePreferencesActions();
   const {
     permission,
     granted,
@@ -45,13 +41,10 @@ export function NotificationPermissionBanner({
   if (!showWhenGranted && granted) return null;
   if (!canEnableLocalReminders && !isWeb) return null;
 
-  const onGranted = async () => {
-    await setNotificationPrefs({ masterEnabled: true });
-    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
-    if (isWeb && session?.accessToken) {
-      void registerWebPushSubscriptionWithApi(session.accessToken);
-    }
-  };
+  // Permission already granted by this banner's own flow — the shared action sets
+  // the master switch, reschedules and registers the push token.
+  const onGranted = () =>
+    enableNotifications({ permissionGranted: true, accessToken: session?.accessToken });
 
   const handleAllow = () => {
     if (isWeb) {

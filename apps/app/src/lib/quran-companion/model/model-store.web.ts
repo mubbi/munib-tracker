@@ -1,4 +1,4 @@
-import { RECITATION_MODELS, webModelUrl } from "@/constants/recitation-models";
+import { RECITATION_MODELS, webSourceUrl } from "@/constants/recitation-models";
 
 import { PracticeError } from "../error-codes";
 import type { EngineId } from "../types";
@@ -129,9 +129,10 @@ export function createRecitationModelStore(): RecitationModelStore {
           onProgress({ bytesDone: doneBefore, bytesTotal: total });
           continue;
         }
-        // Same-origin copy: GitHub release assets send no CORS headers (see constants).
+        // Same-origin copy, or the pinned public mirror (D18): GitHub release assets
+        // send no CORS headers (see constants). The SHA-256 check below applies to both.
         const buffer = await fetchWithProgress(
-          webModelUrl(engine, file),
+          webSourceUrl(engine, file),
           file.bytes,
           (bytes) => onProgress({ bytesDone: doneBefore + bytes, bytesTotal: total }),
           signal,

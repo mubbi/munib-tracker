@@ -13,7 +13,7 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
-import { ConfirmDialog } from "@/components/confirm-dialog";
+import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { LearnTwoPane, useLearnHubLayout } from "@/components/jannah/hub-layout";
 import {
   JannahHadithEvidence,
@@ -23,6 +23,7 @@ import {
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
 import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
+import { TravelModeSheet } from "@/components/travel/travel-mode-sheet";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { NavRow } from "@/components/ui/nav-row";
@@ -32,6 +33,7 @@ import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { screenDifferences } from "@/lib/fiqh/screen-differences";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
 
 const SECTION_ICONS: Record<TravelSectionKey, SymbolViewProps["name"]> = {
@@ -116,6 +118,10 @@ export function TravelGuideContent() {
           {t(`travel.${sectionKey}.body`)}
         </LearnProseText>
       </TvReadableBlock>
+      {/* NF-3.0a: the section's per-school notes (registered in SCREEN_DIFFERENCES). */}
+      {screenDifferences(`/travel#${sectionKey}`).map((id) => (
+        <MadhhabNote key={id} id={id} />
+      ))}
     </Card>
   ));
 
@@ -263,13 +269,8 @@ export function TravelGuideContent() {
         </Stagger>
       )}
 
-      <ConfirmDialog
+      <TravelModeSheet
         visible={confirmOpen}
-        title={t("tracker.excusedConfirmTitle")}
-        message={t("tracker.excusedConfirmMsg", {
-          reason: t("tracker.excusedReason.travel"),
-        })}
-        confirmLabel={t("tracker.excusedConfirmAction")}
         onConfirm={handleMarkExcused}
         onClose={() => setConfirmOpen(false)}
       />

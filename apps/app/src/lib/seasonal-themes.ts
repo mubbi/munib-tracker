@@ -168,8 +168,10 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     fromDay: 1,
     toDay: 8,
     priority: 60,
-    route: "/hajj",
-    focusKey: "hajj-tarwiyah",
+    // NF-3.3: the ten days open Dhul-Hijjah mode (deeds, udhiyah, takbir); the ten-days
+    // dashboard is the default view, so `?focus=ten` needs no special handling there.
+    route: "/dhul-hijjah",
+    focusKey: "ten",
     visual: {
       gradientTop: "#1A1408",
       gradientMid: "#2D2210",
@@ -186,8 +188,8 @@ export const SEASONAL_THEMES: readonly SeasonalThemeDef[] = [
     fromDay: 9,
     toDay: 9,
     priority: 90,
-    route: "/hajj",
-    focusKey: "hajj-arafah-day",
+    route: "/dhul-hijjah",
+    focusKey: "arafah",
     visual: {
       gradientTop: "#2A1808",
       gradientMid: "#4A3010",

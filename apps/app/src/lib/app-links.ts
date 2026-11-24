@@ -1,3 +1,10 @@
+import { QUICK_ACTION_ROUTES } from "@/lib/quick-actions";
+import {
+  SETTINGS_ROUTE_PATHS,
+  type SettingsGroupId,
+  settingHref,
+  settingsGroupPath,
+} from "@/lib/settings/routes";
 import { zikrQuranPath } from "@/lib/zikr-quran";
 
 /** Custom URL scheme for widgets, shortcuts, and deep links (`app.json` → `scheme`). */
@@ -170,28 +177,37 @@ export const DEEP_LINK_DESTINATIONS = [
   "/location",
   "/credits",
   "/tour",
-  // Major settings
-  "/settings/appearance",
-  "/settings/language",
-  "/settings/notifications",
-  "/settings/home",
-  "/settings/fonts",
-  "/settings/offline-data",
-  "/settings/backup",
-  "/settings/app-lock",
-  "/settings/reminder-offsets",
-  "/settings/prayer-tuning",
-  "/settings/voice-shortcuts",
-  "/settings/quran-practice",
-  "/settings/about",
+  // Wave-3 sub-screens (their hubs come from QUICK_ACTION_ROUTES below)
+  "/dhul-hijjah/udhiyah",
+  "/muhasabah/history",
+  "/muhasabah/settings",
+  "/family-ties/history",
+  "/wasiyyah/edit",
+  // NF-3.16 family & kids (circle/join/<CODE> and /kids/link?token= are parametric: appLink.*)
+  "/circles",
+  "/family",
+  "/kids",
+  "/kids/link",
+  // Settings: hub, every group, detail screens and old-route aliases are
+  // generated from the settings registry routes (SETTINGS_ROUTE_PATHS, B7).
   // Special action bridges
   "/mark-current",
   "/open-review",
 ] as const;
 
-/** Unique sorted static destination paths (deduped). */
+/**
+ * Unique sorted static destination paths (deduped). Every quick action / Library
+ * entry (`QUICK_ACTION_ROUTES`, which also builds `LIBRARY_MENU_META`) is
+ * included automatically, so a new feature's hub can't drift out of the catalog.
+ */
 export const DEEP_LINK_PATHS: readonly string[] = [
-  ...new Set(DEEP_LINK_DESTINATIONS.map((path) => normalizeAppPath(path))),
+  ...new Set(
+    [
+      ...DEEP_LINK_DESTINATIONS,
+      ...SETTINGS_ROUTE_PATHS,
+      ...Object.values(QUICK_ACTION_ROUTES).map(String),
+    ].map((path) => normalizeAppPath(path)),
+  ),
 ].sort((a, b) => a.localeCompare(b));
 
 function link(path: string): AppLinkUrls {
@@ -222,6 +238,11 @@ export const appLink = {
   profile: () => link("/profile"),
   login: () => link("/login"),
   tvPair: (code?: string) => link(code ? `/tv-pair?code=${encodeURIComponent(code)}` : "/tv-pair"),
+  /** D36: circle invite — HTTPS opens the app (App Links) or the Expo web join screen. */
+  circleJoin: (code: string) =>
+    link(`/circle/join/${encodeURIComponent(code.replace(/[\s-]+/g, "").toUpperCase())}`),
+  /** NF-3.16: child-device QR target (one-time `mtl_…` token, 5-minute TTL). */
+  kidsLink: (token: string) => link(`/kids/link?token=${encodeURIComponent(token)}`),
   achievements: () => link("/achievements"),
   statistics: () => link("/statistics"),
   ramadan: () => link("/ramadan"),
@@ -249,6 +270,8 @@ export const appLink = {
   hayd: () => link("/hayd"),
   sick: () => link("/sick"),
   sahaba: () => link("/sahaba"),
+  /** A labelled difference between the schools (`/fiqh/[id]`, NF-3.0a). */
+  fiqhDifference: (slug: string) => link(`/fiqh/${encodeURIComponent(slug)}`),
   history: () => link("/history"),
   laylatAlQadr: () => link("/laylat-al-qadr"),
   eid: () => link("/eid"),
@@ -269,6 +292,10 @@ export const appLink = {
   quranPractice: () => link("/quran/practice"),
   quranRevision: () => link("/quran/revision"),
   quranPracticeSettings: () => link("/settings/quran-practice"),
+  /** A settings group screen: `/settings/<group>`. */
+  settingsGroup: (group: SettingsGroupId) => link(settingsGroupPath(group)),
+  /** One setting, scrolled to and highlighted: `/settings/<group>?focus=<id>`. */
+  setting: (id: string) => link(settingHref(id)),
   /** `/quran/practice/session` for one passage (validated on entry; invalid → hub). */
   quranPracticeSession: (surah: number, from: number, to = from, mode?: string) =>
     link(withQuery("/quran/practice/session", { surah, from, to, mode })),

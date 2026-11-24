@@ -1,0 +1,97 @@
+# PLEASE DO NOT REMOVE OR CHANGE THIS COPYRIGHT BLOCK
+#====================================================================
+#
+#  Quranic Arabic Corpus (morphology, version 0.4)
+#  Copyright (C) 2011 Kais Dukes
+#  License: GNU General Public License
+#
+#  The Quranic Arabic Corpus includes syntactic and morphological
+#  annotation of the Quran, and builds on the verified Arabic text
+#  distributed by the Tanzil project.
+#
+#  TERMS OF USE:
+#
+#  - Permission is granted to copy and distribute verbatim copies
+#    of this file, but CHANGING IT IS NOT ALLOWED.
+#
+#  - This annotation can be used in any website or application,
+#    provided its source (the Quranic Arabic Corpus) is clearly
+#    indicated, and a link is made to http://corpus.quran.com to enable
+#    users to keep track of changes.
+#
+#  - This copyright notice shall be included in all verbatim copies
+#    of the text, and shall be reproduced appropriately in all works
+#    derived from or containing substantial portion of this file.
+#
+#  Please check updates at: http://corpus.quran.com/download
+
+# PLEASE DO NOT REMOVE OR CHANGE THIS COPYRIGHT BLOCK
+#====================================================================
+#
+#  Tanzil Quran Text (Uthmani, version 1.0.2)
+#  Copyright (C) 2008-2009 Tanzil.info
+#  License: Creative Commons BY-ND 3.0 Unported
+#
+#  This copy of quran text is carefully produced, highly
+#  verified and continuously monitored by a group of specialists
+#  at Tanzil project.
+#
+#  TERMS OF USE:
+#
+#  - Permission is granted to copy and distribute verbatim copies
+#    of this text, but CHANGING IT IS NOT ALLOWED.
+#
+#  - This quran text can be used in any website or application,
+#    provided its source (Tanzil.info) is clearly indicated, and
+#    a link is made to http://tanzil.info to enable users to keep
+#    track of changes.
+#
+#  - This copyright notice shall be included in all verbatim copies
+#    of the text, and shall be reproduced appropriately in all files
+#    derived from or containing substantial portion of this text.
+#
+#  Please check updates at: http://tanzil.info/updates/
+#
+#====================================================================
+
+LOCATION	FORM	TAG	FEATURES
+(2:72:1:1)	wa	CONJ	PREFIX|w:CONJ+
+(2:72:1:2)	<i*o	T	STEM|POS:T|LEM:<i*
+(2:72:2:1)	qatalo	V	STEM|POS:V|PERF|LEM:qatala|ROOT:qtl|2MP
+(2:72:2:2)	tumo	PRON	SUFFIX|PRON:2MP
+(2:72:3:1)	nafosFA	N	STEM|POS:N|LEM:nafos|ROOT:nfs|FS|INDEF|ACC
+(2:72:4:1)	fa	RSLT	PREFIX|f:RSLT+
+(2:72:4:2)	{d~a`ra`#o	V	STEM|POS:V|PERF|(VI)|LEM:{d~a`ra`#o|ROOT:drA|2MP
+(2:72:4:3)	tumo	PRON	SUFFIX|PRON:2MP
+(2:72:5:1)	fiy	P	STEM|POS:P|LEM:fiY
+(2:72:5:2)	haA	PRON	SUFFIX|PRON:3FS
+(2:72:6:1)	wa	REM	PREFIX|w:REM+
+(2:72:6:2)	{ll~ahu	PN	STEM|POS:PN|LEM:{ll~ah|ROOT:Alh|NOM
+(2:72:7:1)	muxorijN	N	STEM|POS:N|ACT|PCPL|(IV)|LEM:muxorij|ROOT:xrj|M|INDEF|NOM
+(2:72:8:1)	m~aA	REL	STEM|POS:REL|LEM:maA
+(2:72:9:1)	kun	V	STEM|POS:V|PERF|LEM:kaAna|ROOT:kwn|SP:kaAn|2MP
+(2:72:9:2)	tumo	PRON	SUFFIX|PRON:2MP
+(2:72:10:1)	takotumu	V	STEM|POS:V|IMPF|LEM:katama|ROOT:ktm|2MP
+(2:72:10:2)	wna	PRON	SUFFIX|PRON:2MP
+(15:7:1:1)	l~awo	COND	STEM|POS:COND|LEM:law
+(15:7:2:1)	maA	NEG	STEM|POS:NEG|LEM:maA
+(15:7:3:1)	ta>otiy	V	STEM|POS:V|IMPF|LEM:>ataY|ROOT:Aty|2MS
+(15:7:3:2)	naA	PRON	SUFFIX|PRON:1P
+(15:7:4:1)	bi	P	PREFIX|bi+
+(15:7:4:2)	{lo	DET	PREFIX|Al+
+(15:7:4:3)	mala`^}ikapi	N	STEM|POS:N|LEM:malak|ROOT:mlk|MP|GEN
+(15:7:5:1)	<in	COND	STEM|POS:COND|LEM:<in
+(15:7:6:1)	kun	V	STEM|POS:V|PERF|LEM:kaAna|ROOT:kwn|SP:kaAn|2MS
+(15:7:6:2)	ta	PRON	SUFFIX|PRON:2MS
+(15:7:7:1)	mina	P	STEM|POS:P|LEM:min
+(15:7:8:1)	{l	DET	PREFIX|Al+
+(15:7:8:2)	S~a`diqiyna	N	STEM|POS:N|ACT|PCPL|LEM:SaAdiq|ROOT:Sdq|MP|GEN
+(37:164:1:1)	wa	CONJ	PREFIX|w:CONJ+
+(37:164:1:2)	maA	NEG	STEM|POS:NEG|LEM:maA
+(37:164:2:1)	min~a	P	STEM|POS:P|LEM:min
+(37:164:2:2)	A^	PRON	SUFFIX|PRON:1P
+(37:164:3:1)	<il~aA	RES	STEM|POS:RES|LEM:<il~aA
+(37:164:4:1)	la	P	PREFIX|l:P+
+(37:164:4:2)	hu,	PRON	STEM|POS:PRON|3MS
+(37:164:5:1)	maqaAmN	N	STEM|POS:N|LEM:maqaAm|ROOT:qwm|M|INDEF|NOM
+(37:164:6:1)	m~aEoluwmN	N	STEM|POS:N|PASS|PCPL|LEM:m~aEoluwm|ROOT:Elm|M|INDEF|NOM

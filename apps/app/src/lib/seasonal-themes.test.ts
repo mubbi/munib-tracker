@@ -70,6 +70,11 @@ describe("seasonal themes (NF-2.23)", () => {
     expect(seasonalBannerHref(season)).toBe("/events?focus=eidFitr");
   });
 
+  it("the ten days and Arafah open Dhul-Hijjah mode (NF-3.3)", () => {
+    expect(seasonalBannerHref(seasonalThemeById("hajj"))).toBe("/dhul-hijjah?focus=ten");
+    expect(seasonalBannerHref(seasonalThemeById("arafah"))).toBe("/dhul-hijjah?focus=arafah");
+  });
+
   it("looks up themes by id", () => {
     expect(seasonalThemeById("eidFitr").route).toBe("/events");
   });

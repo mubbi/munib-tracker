@@ -44,14 +44,20 @@ import { hasEditionAyahs, isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-r
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { AyahActionSheet } from "@/components/quran/ayah-action-sheet";
+import {
+  AnnotatedAyahText,
+  AyahNoteActions,
+  AyahNoteMarker,
+} from "@/components/quran/ayah-annotations";
 import { AyahSeparator, ayahKeyExtractor, SurahAyahList } from "@/components/quran/ayah-reader";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
 import { PlaybackSettingsSheet } from "@/components/quran/playback-settings-sheet";
+import { QuranNotesSheetHost } from "@/components/quran/quran-notes-sheet-host";
+import { QuranNotesSidePanel } from "@/components/quran/quran-notes-side-panel";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
 import { TafsirAyahSheet } from "@/components/quran/tafsir-ayah-sheet";
 import { TafsirPickerSheet } from "@/components/quran/tafsir-picker-sheet";
 import { TajweedLegend, TajweedStickyLegendBar } from "@/components/quran/tajweed-legend";
-import { TajweedText } from "@/components/quran/tajweed-text";
 import { TranslationPickerSheet } from "@/components/quran/translation-picker-sheet";
 import {
   QuranWordStudyProviders,
@@ -61,6 +67,7 @@ import {
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -84,6 +91,7 @@ import {
   useSurahWords,
   useTafsirSurah,
 } from "@/hooks/use-quran";
+import { useQuranReadingRecorder } from "@/hooks/use-quran-reading-recorder";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useScrollToActive, useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
@@ -105,6 +113,8 @@ import {
 } from "@/lib/quran";
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
+import { isPronunciationCheckPlatformAvailable } from "@/lib/quran-pronunciation/availability";
+import { pronunciationCheckHref } from "@/lib/quran-pronunciation/entry";
 import { normalizeRepeatPlan } from "@/lib/quran-repeat";
 import { resolvePreferredTafsirId } from "@/lib/quran-tafsir-options";
 import { ALL_QURAN_TRANSLATIONS } from "@/lib/quran-translation-options";
@@ -113,6 +123,9 @@ import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typo
 import { useChevronBackward, useChevronForward, useIsRTL } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
+import { updateQuranPrefs } from "@/lib/settings/quran-shortcuts";
+import { setTtsVoice, useTtsVoice } from "@/lib/settings/tts-voice";
+import { useReadingDisplayToggles } from "@/lib/settings/use-reading-display-toggles";
 import { buildAyahSharePayload } from "@/lib/share";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
@@ -187,11 +200,13 @@ export function generateStaticParams(): Array<{ surah: string }> {
 export default function SurahReaderScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const params = useLocalSearchParams<{ surah: string; ayah?: string }>();
+  const params = useLocalSearchParams<{ surah: string; ayah?: string; word?: string }>();
   const surahNumber = Number(params.surah);
   const surah = getSurahByNumber(surahNumber);
   // Optional deep-link target (e.g. from universal search) — scroll to & mark it.
   const focusAyah = params.ayah ? Number(params.ayah) : undefined;
+  // NF-3.22 root search: 1-based bundled word to mark in word-by-word view.
+  const focusWordNumber = params.word ? Number(params.word) : undefined;
 
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
@@ -209,7 +224,11 @@ export default function SurahReaderScreen() {
   const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
   const defaultEditionId = resolveQuranEditionId({ translationLocale, locale: appLocale });
   const readingSizes = resolveReadingFontSizes("quran", fontPrefs);
-  const { updatePrefs, setLastRead, toggleBookmark, recordProgress } = useQuranActions();
+  const { setLastRead, toggleBookmark, recordProgress } = useQuranActions();
+  // Reader controls are shortcuts to Settings › Qur'an (one write path, §4.5.2).
+  const updatePrefs = updateQuranPrefs;
+  const { showTranslation, showTransliteration, toggleTranslation, toggleTransliteration } =
+    useReadingDisplayToggles();
   useEnsureHifzLoaded();
   const hifzMap = useHifzMap();
   const { cycle: cycleHifz } = useHifzActions();
@@ -243,6 +262,17 @@ export default function SurahReaderScreen() {
   const [tvActionIndex, setTvActionIndex] = useState<number | null>(null);
   const ayahFocusRef = useRef<AyahFocusTracker>({ focused: null, prevPlaying: null });
   const [focusHighlightAyah, setFocusHighlightAyah] = useState<number | undefined>(focusAyah);
+  // The word highlight follows the ayah flash (cleared with it).
+  const focusWordValue = useMemo(
+    () =>
+      focusHighlightAyah != null &&
+      focusHighlightAyah === focusAyah &&
+      focusWordNumber != null &&
+      focusWordNumber >= 1
+        ? { ayah: focusHighlightAyah, index: focusWordNumber - 1 }
+        : null,
+    [focusAyah, focusHighlightAyah, focusWordNumber],
+  );
   const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
   const focusTargetKey = focusAyah != null ? `${surahNumber}:${focusAyah}` : null;
 
@@ -264,6 +294,9 @@ export default function SurahReaderScreen() {
   // persist it (debounced) so "continue reading" drops the user back precisely
   // where they left off — critical for long surahs.
   const topVisibleAyahRef = useRef<number | null>(null);
+  // D40 reading log: last ayah on screen + the focus/foreground-aware recorder.
+  const bottomVisibleAyahRef = useRef<number | null>(null);
+  const readingRecorder = useQuranReadingRecorder();
   const lastRecordedAyahRef = useRef(0);
   const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Deep-link / continue-reading scrolls often leave the previous ayah as the
@@ -336,6 +369,7 @@ export default function SurahReaderScreen() {
       }
       // Ayahs are contiguous from 1, so the row index maps to `ayah = index + 1`.
       if (Number.isFinite(minIndex)) topVisibleAyahRef.current = minIndex + 1;
+      bottomVisibleAyahRef.current = maxIndex >= 0 ? maxIndex + 1 : null;
     }
     if (flushTimerRef.current) clearTimeout(flushTimerRef.current);
     flushTimerRef.current = setTimeout(() => flushReadingPositionRef.current(), LAST_READ_FLUSH_MS);
@@ -383,6 +417,10 @@ export default function SurahReaderScreen() {
   flushReadingPositionRef.current = () => {
     flushTimerRef.current = null;
     const ayah = topVisibleAyahRef.current;
+    // D40: the settled viewport counts toward today's reading (debounced like this flush).
+    if (ayah != null) {
+      readingRecorder.noteAyahRange(surahNumber, ayah, bottomVisibleAyahRef.current ?? ayah);
+    }
     if (ayah == null || ayah === lastRecordedAyahRef.current) return;
     if (audioActiveKey != null) return;
     // scrollToIndex for continue/deep-link often reports the previous ayah as
@@ -631,7 +669,7 @@ export default function SurahReaderScreen() {
     ALL_QURAN_TRANSLATIONS[0];
 
   const ttsLang = resolveIntlLocale(translationLocale);
-  const ttsVoiceId = prefs.ttsVoiceByLang?.[ttsLang];
+  const ttsVoiceId = useTtsVoice(ttsLang);
   const repeatPlan = useMemo(
     () => normalizeRepeatPlan(prefs.repeatMode, prefs.repeatRange, ayahs.length),
     [prefs.repeatMode, prefs.repeatRange, ayahs.length],
@@ -690,7 +728,7 @@ export default function SurahReaderScreen() {
       if (index < 0) return;
       playFrom(index, id);
     },
-    [currentAudioId, ayahs, playFrom, reciterDir, surahNumber, updatePrefs],
+    [currentAudioId, ayahs, playFrom, reciterDir, surahNumber],
   );
 
   /** Per-ayah control: pause/resume when this ayah is already current; otherwise start it. */
@@ -784,7 +822,7 @@ export default function SurahReaderScreen() {
         `/quran/page/${getPageForAyah(surahNumber, ayah)}?surah=${surahNumber}&ayah=${ayah}`,
       );
     },
-    [focusAyah, router, surahNumber, updatePrefs],
+    [focusAyah, router, surahNumber],
   );
 
   const handleLayoutSelect = useCallback(
@@ -796,7 +834,7 @@ export default function SurahReaderScreen() {
       }
       openPageReader(next);
     },
-    [openPageReader, updatePrefs],
+    [openPageReader],
   );
 
   const scrollToTop = useCallback(() => {
@@ -1029,14 +1067,14 @@ export default function SurahReaderScreen() {
         <PrefToggle
           icon={CONTROL_ICONS.showTransliteration}
           label={t("quran.showTransliteration")}
-          enabled={prefs.showTransliteration}
-          onToggle={() => updatePrefs({ showTransliteration: !prefs.showTransliteration })}
+          enabled={showTransliteration}
+          onToggle={() => void toggleTransliteration()}
         />
         <PrefToggle
           icon={CONTROL_ICONS.showTranslation}
           label={t("quran.showTranslation")}
-          enabled={prefs.showTranslation}
-          onToggle={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+          enabled={showTranslation}
+          onToggle={() => void toggleTranslation()}
         />
         <PrefToggle
           icon={CONTROL_ICONS.wordByWord}
@@ -1089,14 +1127,15 @@ export default function SurahReaderScreen() {
 
         {/* Side pane: play / pause lives in the surah navigation card above. */}
         {showSideFilters ? null : <PlaySurahButton onPress={() => playFrom(0)} />}
+        <MoreInSettingsLink settingId="quran.reader.layout" />
       </Card>
     );
   }, [
     colors.accent,
     playFrom,
     showSideFilters,
-    prefs.showTransliteration,
-    prefs.showTranslation,
+    showTransliteration,
+    showTranslation,
     showWordByWord,
     showTajweed,
     studyExtrasLoading,
@@ -1107,10 +1146,11 @@ export default function SurahReaderScreen() {
     tafsirEdition?.name,
     translationLoading,
     tv,
-    updatePrefs,
     usingFallback,
     playbackSummary.active,
     playbackSummary.label,
+    toggleTransliteration,
+    toggleTranslation,
   ]);
 
   // Bismillah (+ tajweed legend on narrow) rides above the ayah list. Filters and
@@ -1157,8 +1197,8 @@ export default function SurahReaderScreen() {
       arabicSize: readingSizes.arabic,
       translitSize: readingSizes.transliteration,
       translationSize: readingSizes.translation,
-      showTransliteration: prefs.showTransliteration,
-      showTranslation: prefs.showTranslation,
+      showTransliteration,
+      showTranslation,
       showWordByWord,
       showTajweed,
       translationDir,
@@ -1181,8 +1221,8 @@ export default function SurahReaderScreen() {
       gesturePendingKey,
       hifzMap,
       locale,
-      prefs.showTransliteration,
-      prefs.showTranslation,
+      showTransliteration,
+      showTranslation,
       readingSizes.arabic,
       readingSizes.transliteration,
       readingSizes.translation,
@@ -1344,8 +1384,8 @@ export default function SurahReaderScreen() {
                 translationName={selectedEdition.name}
                 secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
                 tafsirName={tafsirEdition?.name ?? t("quran.tafsirNone")}
-                showTransliteration={prefs.showTransliteration}
-                showTranslation={prefs.showTranslation}
+                showTransliteration={showTransliteration}
+                showTranslation={showTranslation}
                 showWordByWord={showWordByWord}
                 showTajweed={showTajweed}
                 layoutLabel={t("quran.layoutAyah")}
@@ -1354,10 +1394,8 @@ export default function SurahReaderScreen() {
                 onOpenTranslation={() => setTranslationPickerOpen(true)}
                 onOpenSecondary={() => setSecondaryPickerOpen(true)}
                 onOpenTafsir={() => setTafsirPickerOpen(true)}
-                onToggleTransliteration={() =>
-                  updatePrefs({ showTransliteration: !prefs.showTransliteration })
-                }
-                onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+                onToggleTransliteration={() => void toggleTransliteration()}
+                onToggleTranslation={() => void toggleTranslation()}
                 onToggleWordByWord={() => updatePrefs({ showWordByWord: !showWordByWord })}
                 onToggleTajweed={() => updatePrefs({ showTajweed: !showTajweed })}
                 onOpenPlayback={() => setPlaybackSheetOpen(true)}
@@ -1376,6 +1414,8 @@ export default function SurahReaderScreen() {
             audioIsPlaying={audioIsPlaying}
             activeWordIndex={activeWordIndex}
             wordsByAyah={wordByWordByAyah}
+            surah={surahNumber}
+            focusWord={focusWordValue}
           >
             {tvMappedList ? (
               <View style={[styles.tvMappedRoot, { paddingBottom: contentBottomInset }]}>
@@ -1443,6 +1483,7 @@ export default function SurahReaderScreen() {
                       />
                       {showTajweed ? <TajweedLegend /> : null}
                       {readerFilters}
+                      <QuranNotesSidePanel surah={surahNumber} onOpenAyah={jumpToAyah} />
                     </TvScrollView>
                   </View>
                 ) : null}
@@ -1518,12 +1559,7 @@ export default function SurahReaderScreen() {
         onRepeatModeChange={(mode) => updatePrefs({ repeatMode: mode })}
         onRepeatRangeChange={(range) => updatePrefs({ repeatRange: range })}
         onTranslationAudioChange={(mode) => updatePrefs({ translationAudio: mode })}
-        onTtsVoiceChange={(voiceId) => {
-          const next = { ...(prefs.ttsVoiceByLang ?? {}) };
-          if (voiceId) next[ttsLang] = voiceId;
-          else delete next[ttsLang];
-          updatePrefs({ ttsVoiceByLang: next });
-        }}
+        onTtsVoiceChange={(voiceId) => void setTtsVoice(ttsLang, voiceId)}
       />
       {tv ? (
         <TvAyahActions
@@ -1592,6 +1628,7 @@ export default function SurahReaderScreen() {
         onCancel={() => setHifzPending(null)}
         onClose={() => setHifzPending(null)}
       />
+      <QuranNotesSheetHost />
     </>
   );
 }
@@ -2255,6 +2292,13 @@ const AyahRow = memo(function AyahRow({
     [ayah.ayah, practiceRouter, surahNumber],
   );
 
+  // NF-3.24 "Check my recitation": a one-ayah pronunciation check.
+  const showCheck = showPractise && isPronunciationCheckPlatformAvailable();
+  const handleCheck = useCallback(
+    () => practiceRouter.push(pronunciationCheckHref(surahNumber, ayah.ayah, ayah.ayah, "reader")),
+    [ayah.ayah, practiceRouter, surahNumber],
+  );
+
   const reportRef = useMemo(
     () =>
       buildContentReportRef(
@@ -2294,6 +2338,7 @@ const AyahRow = memo(function AyahRow({
               </ThemedText>
             </View>
             <AyahContinuePill ayahNumber={ayah.ayah} highlighted={highlighted} />
+            <AyahNoteMarker surah={surahNumber} ayah={ayah.ayah} ayahText={ayah.arabic} />
           </View>
           {cardActions ? (
             ayah.sajda ? (
@@ -2355,6 +2400,16 @@ const AyahRow = memo(function AyahRow({
                   onPress={handlePractise}
                 />
               ) : null}
+              {showCheck ? (
+                <LabeledIconButton
+                  name={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+                  label={t("quranPronunciation.entry.check")}
+                  tintColor={colors.mutedForeground}
+                  labelColor={colors.mutedForeground}
+                  accessibilityLabel={t("quranPronunciation.entry.checkAyah", { n: ayah.ayah })}
+                  onPress={handleCheck}
+                />
+              ) : null}
               <LabeledIconButton
                 name={
                   isBookmarked
@@ -2370,6 +2425,7 @@ const AyahRow = memo(function AyahRow({
                 accessibilityState={{ selected: isBookmarked }}
                 onPress={handleBookmark}
               />
+              <AyahNoteActions surah={surahNumber} ayah={ayah.ayah} />
               <LabeledIconButton
                 name={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
                 label={t("quran.actionTafsir")}
@@ -2396,9 +2452,11 @@ const AyahRow = memo(function AyahRow({
           )}
         </View>
 
-        <TajweedText
-          segments={tajweedSegments}
-          fallback={ayah.arabic}
+        <AnnotatedAyahText
+          surah={surahNumber}
+          ayah={ayah.ayah}
+          text={ayah.arabic}
+          tajweedSegments={tajweedSegments}
           fontSize={arabicSize}
           style={styles.arabic}
         />

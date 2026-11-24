@@ -22,11 +22,12 @@ Import each module **by path** — there is deliberately no barrel, so a lib tes
 
 ## State seeding
 
-| Module                     | Use it for                                                                                                    |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `store`                    | `resetTrackerStore()` / `loadTrackerStore()` / `seedTrackerStore()` / `restoreTrackerStore()`                 |
-| `preferences`              | `await setPreferences({ timeFormat: "24" })` / `resetPreferences()` — always `await` (RNTL 14 `act` is async) |
-| `khatm-store` · `pin-lock` | `seedKhatm()` · `pressPinDigits()` / `pressPinBackspace()` / `requestModalClose()`                            |
+| Module                     | Use it for                                                                                                                          |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `store`                    | `resetTrackerStore()` / `loadTrackerStore()` / `seedTrackerStore()` / `restoreTrackerStore()`                                       |
+| `preferences`              | `await setPreferences({ timeFormat: "24" })` / `resetPreferences()` — always `await` (RNTL 14 `act` is async)                       |
+| `storage`                  | `await storedKeysUnder(DB_KEYS.quranEditionCache)` — AsyncStorage keys under a `DB_KEYS` root (assert a cache did / didn't persist) |
+| `khatm-store` · `pin-lock` | `seedKhatm()` · `pressPinDigits()` / `pressPinBackspace()` / `requestModalClose()`                                                  |
 
 ## Contract suites (one spec, many stores)
 

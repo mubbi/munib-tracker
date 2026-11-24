@@ -1,0 +1,28 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!--
+    NF-3.13 Salah focus lock. Permissions + the launcher <queries> are added by
+    modules/munib-focus-lock/app.plugin.js; the components live here.
+    No AccessibilityService (Play policy) and no QUERY_ALL_PACKAGES.
+  -->
+  <application>
+    <service
+      android:name="expo.modules.munibfocuslock.FocusLockService"
+      android:exported="false"
+      android:foregroundServiceType="specialUse">
+      <property
+        android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+        android:value="Salah focus lock: during a short prayer-time window the user scheduled, keeps the apps the user chose paused by showing a full-screen Salah reminder over them until the user marks the prayer or the window ends." />
+    </service>
+    <receiver
+      android:name="expo.modules.munibfocuslock.FocusLockReceiver"
+      android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+        <action android:name="android.intent.action.TIME_SET" />
+        <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+        <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
+      </intent-filter>
+    </receiver>
+  </application>
+</manifest>

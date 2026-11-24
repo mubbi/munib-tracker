@@ -8,13 +8,10 @@ import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
-import {
-  DEFAULT_ARABIC_SIZE,
-  nextReadingDelta,
-  resolveReadingFontSizes,
-} from "@/lib/reading-typography";
+import { DEFAULT_ARABIC_SIZE, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { ltrControlViewProps } from "@/lib/rtl";
-import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
+import { clearReadingOverride, stepReadingOverride } from "@/lib/settings/defs/fonts";
+import { usePreferences } from "@/stores/preferences-store";
 
 /**
  * Compact in-context A−/A+ text-size control (NF-1.32). Adjusts the Arabic +
@@ -35,7 +32,6 @@ export function ReadingFontControls({
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const prefs = usePreferences();
-  const { update } = usePreferencesActions();
   const tv = isTV();
 
   const override = prefs.fontPrefs.readingOverrides?.[surface];
@@ -47,26 +43,13 @@ export function ReadingFontControls({
 
   const stepLabel = delta === 0 ? t("reading.sizeDefault") : delta > 0 ? `+${delta}` : `${delta}`;
 
+  // Shortcut to Settings › Text & fonts › Per-screen text sizes (same field).
   const apply = (direction: 1 | -1) => {
-    const next = nextReadingDelta(prefs.fontPrefs, surface, direction);
-    void update({
-      fontPrefs: {
-        ...prefs.fontPrefs,
-        readingOverrides: { ...prefs.fontPrefs.readingOverrides, [surface]: next },
-      },
-    });
+    void stepReadingOverride(surface, direction);
   };
 
   const reset = () => {
-    void update({
-      fontPrefs: {
-        ...prefs.fontPrefs,
-        readingOverrides: {
-          ...prefs.fontPrefs.readingOverrides,
-          [surface]: { arabicDelta: 0, textDelta: 0 },
-        },
-      },
-    });
+    void clearReadingOverride(surface);
   };
 
   return (

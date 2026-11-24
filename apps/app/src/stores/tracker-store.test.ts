@@ -29,7 +29,14 @@ import {
   useZikrCounts,
 } from "./tracker-store";
 
+jest.mock("@/lib/quran-companion/reschedule", () => ({ requestReminderReschedule: jest.fn() }));
+
+const { requestReminderReschedule: mockReschedule } = jest.requireMock(
+  "@/lib/quran-companion/reschedule",
+) as { requestReminderReschedule: jest.Mock };
+
 beforeEach(resetTrackerStore);
+beforeEach(() => mockReschedule.mockClear());
 
 describe("trackerStore", () => {
   it("becomes ready after load", () => {
@@ -227,6 +234,29 @@ describe("trackerStore", () => {
     expect((await PreferencesRepository.get()).activeExcusedReason).toBe("travel");
   });
 
+  it("reschedules reminders right away when an excused period starts or ends (H4)", async () => {
+    await preferencesStore.getState().load();
+    await trackerStore.getState().setDayExcused("hayd");
+    expect(mockReschedule).toHaveBeenCalledTimes(1);
+
+    // Same reason again — nothing to re-arm.
+    await trackerStore.getState().setDayExcused("hayd");
+    expect(mockReschedule).toHaveBeenCalledTimes(1);
+
+    await trackerStore.getState().setDayExcused(null);
+    expect(mockReschedule).toHaveBeenCalledTimes(2);
+
+    // A past-day calendar edit doesn't touch the ongoing period.
+    await trackerStore.getState().setDayExcusedOnDate(addDays(getLocalDateString(), -3), "sick");
+    expect(mockReschedule).toHaveBeenCalledTimes(2);
+  });
+
+  it("reschedules after a repository-only write too (prefs not ready)", async () => {
+    preferencesStore.setState({ isReady: false });
+    await trackerStore.getState().setDayExcused("travel");
+    expect(mockReschedule).toHaveBeenCalledTimes(1);
+  });
+
   it("updates the in-memory preferences store once it is ready", async () => {
     await preferencesStore.getState().load();
     await trackerStore.getState().setDayExcused("hayd");
@@ -261,6 +291,35 @@ describe("trackerStore notes, jama and past days", () => {
     expect(state().prayerNotes.isha).toBeUndefined();
     expect(state().prayerJama.isha).toBeUndefined();
     expect(await PrayerRepository.getLog("isha", yesterday())).toBeDefined();
+  });
+
+  it("setPrayerCombinedOnDate flags both prayers of the pair and keeps other fields", async () => {
+    const today = getLocalDateString();
+    await state().setPrayerStatus("asr", "completed");
+    await state().setPrayerJama("asr", true);
+    await state().setPrayerCombinedOnDate(today, "asr", "takhir");
+    expect(state().prayerCombined).toEqual({
+      asr: { with: "dhuhr", mode: "takhir" },
+      dhuhr: { with: "asr", mode: "takhir" },
+    });
+    expect(await PrayerRepository.getLog("asr", today)).toMatchObject({
+      status: "completed",
+      isJama: true,
+      combinedWith: "dhuhr",
+      combineMode: "takhir",
+    });
+    // A later status change keeps the jam' flag.
+    await state().setPrayerStatus("asr", "delayed");
+    expect((await PrayerRepository.getLog("asr", today))?.combinedWith).toBe("dhuhr");
+
+    await state().setPrayerCombinedOnDate(today, "dhuhr", null);
+    expect(state().prayerCombined).toEqual({});
+    expect((await PrayerRepository.getLog("asr", today))?.combinedWith).toBeUndefined();
+  });
+
+  it("setPrayerCombinedOnDate ignores prayers that can't be combined", async () => {
+    await state().setPrayerCombinedOnDate(getLocalDateString(), "fajr", "taqdim");
+    expect(await PrayerRepository.getLog("fajr", getLocalDateString())).toBeUndefined();
   });
 
   it("setZikrCountOnDate for a past day only touches storage", async () => {

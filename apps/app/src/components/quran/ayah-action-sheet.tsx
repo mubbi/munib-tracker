@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { HIGHLIGHT_ICON, NOTE_ICON } from "@/components/quran/ayah-annotations";
+import { MyNoteCard } from "@/components/quran/my-note-card";
 import { ThemedText } from "@/components/themed-text";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Sheet } from "@/components/ui/sheet";
@@ -13,6 +15,7 @@ import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import type { HifzStatus } from "@/stores/hifz-store";
+import { useNotesForAyah } from "@/stores/quran-notes-store";
 
 type AyahActionSheetProps = {
   visible: boolean;
@@ -40,7 +43,13 @@ type AyahActionSheetProps = {
   onHifz?: () => void;
   /** "Practise this ayah" — opens a one-ayah practice session (omit to hide, e.g. on TV). */
   onPractise?: () => void;
+  /** NF-3.24 "Check my recitation" — a one-ayah pronunciation check (omit to hide). */
+  onCheckRecitation?: () => void;
   onTafsir?: () => void;
+  /** NF-3.21 "Note" — open the My-note editor (omit to hide, e.g. on TV: read-only). */
+  onNote?: () => void;
+  /** NF-3.21 "Highlight" — open the 5-swatch picker (omit to hide). */
+  onHighlight?: () => void;
   reportRef?: ContentReportReference;
   isSharing?: boolean;
   isGesturePending?: boolean;
@@ -71,7 +80,10 @@ export function AyahActionSheet({
   hifzStatus,
   onHifz,
   onPractise,
+  onCheckRecitation,
   onTafsir,
+  onNote,
+  onHighlight,
   reportRef,
   isSharing = false,
   isGesturePending = false,
@@ -85,6 +97,10 @@ export function AyahActionSheet({
     surahNameEnglish || null,
   ].filter(Boolean);
   const hasBody = Boolean(arabic || transliteration || translation || secondTranslation);
+  // Personal notes are shown (read-only here, and on TV) below the ayah — never
+  // inside or styled like the tafsir panel.
+  const ayahNotes = useNotesForAyah(surah, ayah);
+  const writtenNotes = (ayahNotes ?? []).filter((note) => note.body.trim() || note.tags.length);
 
   return (
     <Sheet visible={visible} onClose={onClose} variant="bottom">
@@ -141,6 +157,14 @@ export function AyahActionSheet({
               {secondTranslation}
             </ThemedText>
           ) : null}
+        </View>
+      ) : null}
+
+      {writtenNotes.length > 0 ? (
+        <View style={[styles.notes, { borderTopColor: tokens.hairline }]}>
+          {writtenNotes.slice(0, 2).map((note) => (
+            <MyNoteCard key={note.id} note={note} numberOfLines={isTV() ? undefined : 4} />
+          ))}
         </View>
       ) : null}
 
@@ -206,6 +230,16 @@ export function AyahActionSheet({
             onPress={onPractise}
           />
         ) : null}
+        {onCheckRecitation ? (
+          <LabeledIconButton
+            name={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+            label={t("quranPronunciation.entry.check")}
+            tintColor={colors.mutedForeground}
+            labelColor={colors.mutedForeground}
+            accessibilityLabel={t("quranPronunciation.entry.checkAyah", { n: ayah })}
+            onPress={onCheckRecitation}
+          />
+        ) : null}
         <LabeledIconButton
           name={
             isBookmarked
@@ -217,6 +251,26 @@ export function AyahActionSheet({
           accessibilityLabel={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
           onPress={onBookmark}
         />
+        {onNote ? (
+          <LabeledIconButton
+            name={NOTE_ICON}
+            label={t("quranNotes.actionNote")}
+            tintColor={writtenNotes.length ? colors.accent : colors.mutedForeground}
+            labelColor={writtenNotes.length ? colors.accent : colors.mutedForeground}
+            accessibilityLabel={t("quranNotes.actionNoteA11y", { ref: `${surah}:${ayah}` })}
+            onPress={onNote}
+          />
+        ) : null}
+        {onHighlight ? (
+          <LabeledIconButton
+            name={HIGHLIGHT_ICON}
+            label={t("quranNotes.actionHighlight")}
+            tintColor={colors.mutedForeground}
+            labelColor={colors.mutedForeground}
+            accessibilityLabel={t("quranNotes.actionHighlightA11y", { ref: `${surah}:${ayah}` })}
+            onPress={onHighlight}
+          />
+        ) : null}
         {onTafsir ? (
           <LabeledIconButton
             name={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
@@ -272,6 +326,12 @@ const styles = StyleSheet.create({
   rtl: {
     writingDirection: "rtl",
     textAlign: "right",
+  },
+  notes: {
+    gap: Spacing.two,
+    marginTop: Spacing.four,
+    paddingTop: Spacing.four,
+    borderTopWidth: StyleSheet.hairlineWidth,
   },
   actions: {
     flexDirection: "row",

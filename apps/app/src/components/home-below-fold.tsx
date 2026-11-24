@@ -7,10 +7,18 @@ import {
   AcceptanceHourGoalReminder,
   useAcceptanceHourActive,
 } from "@/components/acceptance-hour-goal-reminder";
+import {
+  COACH_HOME_MODULE,
+  CoachHomeCard,
+  useCoachHomeCard,
+} from "@/components/coach/coach-home-card";
 import { ContinueCard } from "@/components/continue-card";
 import { DefaultLocationBanner } from "@/components/default-location-banner";
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
+import { DhulHijjahHomeCard } from "@/components/dhul-hijjah/dhul-hijjah-home-card";
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
+import { VoluntaryFastGoalReminder } from "@/components/fasting/voluntary-fast-goal-reminder";
+import { MadhhabPromptCard, useShowMadhhabPromptCard } from "@/components/fiqh/madhhab-prompt-card";
 import { FridayGoalReminder } from "@/components/friday-goal-reminder";
 import { KhatmCard } from "@/components/khatm-card";
 import { KhatmGoalReminder } from "@/components/khatm-goal-reminder";
@@ -19,7 +27,18 @@ import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
 import { QazaSummaryCard } from "@/components/qaza-summary-card";
 import { RamadanCard } from "@/components/ramadan-card";
+import { RawatibHomeCard, useRawatibHomeVisible } from "@/components/rawatib/rawatib-home-card";
+import { useSeasonalHomeCards } from "@/components/seasonal/use-seasonal-home-cards";
 import { SeasonalThemeBanner } from "@/components/seasonal-theme-banner";
+import {
+  FAMILY_TIES_HOME_MODULE,
+  FamilyTiesHomeCard,
+  MUHASABAH_HOME_MODULE,
+  MuhasabahHomeCard,
+  useFamilyTiesDueCount,
+  useMuhasabahHomeCard,
+} from "@/components/self-review/home-cards";
+import { SunnahHabitsSection } from "@/components/sunnah-habits/sunnah-habits-section";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -29,6 +48,7 @@ import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { QuickActionGrid } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { UmrahHomeCard, useShowUmrahHomeCard } from "@/components/umrah/umrah-home-card";
 import { WhiteDaysGoalReminder } from "@/components/white-days-goal-reminder";
 import { Radius, Spacing, type StatusKey } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -47,6 +67,7 @@ import {
   orderQuickActions,
 } from "@/lib/quick-actions";
 import { getRamadanInfo } from "@/lib/ramadan";
+import { RAWATIB_HOME_MODULE_ID } from "@/lib/rawatib";
 import { useArrowForward } from "@/lib/rtl";
 import { currentSeasonalTheme } from "@/lib/seasonal-themes";
 import { formatScheduleShare } from "@/lib/share";
@@ -63,6 +84,7 @@ import {
   useQazaSummary,
   useRoza,
   useStreak,
+  useTrackerDate,
 } from "@/stores/tracker-store";
 
 /** Phone/web only — lazy so TV home never pulls Qur'an/hadith knowledge corpora. */
@@ -144,6 +166,7 @@ export function HomeBelowFold({
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const summary = useDailySummary();
   const excusedReason = useDayExcused();
+  const trackerDate = useTrackerDate();
   const streak = useStreak();
   const devotion = useDevotionProgress();
   const qaza = useQazaSummary();
@@ -164,6 +187,8 @@ export function HomeBelowFold({
   const arrowForward = useArrowForward();
   const hiddenModules = new Set(hiddenHomeModules ?? []);
   const showDefaultLocationBanner = location.source === "default";
+  // NF-3.0a: one-time "Choose your madhhab for rulings" for never-asked users.
+  const showMadhhabCard = useShowMadhhabPromptCard();
   const showSeasonalBanner = currentSeasonalTheme(new Date(), location.timeZone) != null;
   // Gate optional cards before Stagger wraps them — null-returning children still
   // occupy flex `gap` slots (same issue as the banners above).
@@ -171,7 +196,19 @@ export function HomeBelowFold({
   const showKhatmCard = !hiddenModules.has("khatm") && khatmPlan != null;
   const showContinueCard = !hiddenModules.has("continue") && continueActivity != null;
   const showQazaCard = !hiddenModules.has("qaza") && (qaza.remaining > 0 || roza.remaining > 0);
+  // NF-3.1 optional module — only while rawatib are on (hideable as `rawatib-progress`).
+  const rawatibHomeVisible = useRawatibHomeVisible();
+  const showRawatibCard = !hiddenModules.has(RAWATIB_HOME_MODULE_ID) && rawatibHomeVisible;
   const acceptanceHourActive = useAcceptanceHourActive();
+  // NF-3.5 Sunnah habits + NF-3.3 Dhul-Hijjah (teaser from 25 Dhul-Qa'dah → 13 Dhul-Hijjah).
+  const seasonalCards = useSeasonalHomeCards(hiddenModules);
+  // NF-3.4: resume card while an Umrah is in progress.
+  const showUmrahCard = useShowUmrahHomeCard(hiddenModules);
+  // NF-3.6 / NF-3.7 private self-review cards (vault-backed; hidden on TV).
+  const muhasabahCard = useMuhasabahHomeCard(!hiddenModules.has(MUHASABAH_HOME_MODULE));
+  const familyTiesDue = useFamilyTiesDueCount(!hiddenModules.has(FAMILY_TIES_HOME_MODULE));
+  // NF-3.14 weekly reflection (hidden on TV, after "until next week", or with nothing tracked).
+  const coachReport = useCoachHomeCard(!hiddenModules.has(COACH_HOME_MODULE));
 
   const onShareSchedule = async () => {
     const locationLabel = scheduleLocationLabel || undefined;
@@ -354,6 +391,7 @@ export function HomeBelowFold({
       <AcceptanceHourGoalReminder />
       <FridayGoalReminder />
       <WhiteDaysGoalReminder />
+      <VoluntaryFastGoalReminder />
       <KhatmGoalReminder />
 
       {isExcused ? (
@@ -556,6 +594,7 @@ export function HomeBelowFold({
           <IosPwaInstallBanner />
           <Stagger entranceKey="home">
             {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
+            {showMadhhabCard ? <MadhhabPromptCard /> : null}
             {showSeasonalBanner ? <SeasonalThemeBanner /> : null}
             {goalCard}
             {knowledgeCard}
@@ -566,9 +605,18 @@ export function HomeBelowFold({
           <Stagger entranceKey="home-aside">
             {scheduleCard}
             {showRamadanCard ? <RamadanCard /> : null}
+            {showUmrahCard ? <UmrahHomeCard /> : null}
+            {seasonalCards.showDhulHijjah ? <DhulHijjahHomeCard /> : null}
             {showKhatmCard ? <KhatmCard /> : null}
+            {seasonalCards.showHabits ? (
+              <SunnahHabitsSection date={trackerDate} variant="home" />
+            ) : null}
             {showContinueCard ? <ContinueCard /> : null}
+            {muhasabahCard ? <MuhasabahHomeCard state={muhasabahCard} /> : null}
+            {familyTiesDue ? <FamilyTiesHomeCard count={familyTiesDue} /> : null}
+            {coachReport ? <CoachHomeCard report={coachReport} /> : null}
             {qazaCard}
+            {showRawatibCard ? <RawatibHomeCard /> : null}
           </Stagger>
         </View>
       </View>
@@ -583,6 +631,7 @@ export function HomeBelowFold({
       <Stagger entranceKey="home">
         {/* Mount only when visible — empty Stagger wrappers still take flex `gap`. */}
         {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
+        {showMadhhabCard ? <MadhhabPromptCard /> : null}
         {showSeasonalBanner ? <SeasonalThemeBanner /> : null}
 
         {/* TV: Continue owns preferred focus — keep it right under the hero so the
@@ -592,9 +641,18 @@ export function HomeBelowFold({
         {goalCard}
 
         {showRamadanCard ? <RamadanCard /> : null}
+        {showUmrahCard ? <UmrahHomeCard /> : null}
+        {seasonalCards.showDhulHijjah ? <DhulHijjahHomeCard /> : null}
         {showKhatmCard ? <KhatmCard /> : null}
+        {seasonalCards.showHabits ? (
+          <SunnahHabitsSection date={trackerDate} variant="home" />
+        ) : null}
 
         {!tv && showContinueCard ? <ContinueCard /> : null}
+
+        {muhasabahCard ? <MuhasabahHomeCard state={muhasabahCard} /> : null}
+        {familyTiesDue ? <FamilyTiesHomeCard count={familyTiesDue} /> : null}
+        {coachReport ? <CoachHomeCard report={coachReport} /> : null}
 
         {knowledgeCard}
 

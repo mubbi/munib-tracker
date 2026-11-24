@@ -11,9 +11,9 @@ import {
 } from "@/lib/quran-ayah-range";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
 import type { ZikrQuranRange } from "@/lib/zikr-quran";
-import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
+import { setReadingDisplayState } from "@/test-support/settings";
 
 const mockAudio = {
   current: null as { id: string } | null,
@@ -137,7 +137,7 @@ describe("QuranAyahRangeCards", () => {
     mockBookmarks = [];
     mockShare.isSharing.mockReturnValue(false);
     mockShare.isGesturePending.mockReturnValue(false);
-    readingTextVisibilityStore.setState({ showTransliteration: true, showTranslation: true });
+    setReadingDisplayState({ showTransliteration: true, showTranslation: true });
     loadMock.mockResolvedValue([section()]);
   });
 
@@ -171,7 +171,7 @@ describe("QuranAyahRangeCards", () => {
   });
 
   it("hides transliteration and translation when switched off", async () => {
-    readingTextVisibilityStore.setState({ showTransliteration: false, showTranslation: false });
+    setReadingDisplayState({ showTransliteration: false, showTranslation: false });
     await renderCards();
     expect(screen.queryByText("La ikraha fid-din")).toBeNull();
     expect(screen.queryByText("There is no compulsion in religion")).toBeNull();

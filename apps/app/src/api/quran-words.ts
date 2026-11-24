@@ -5,6 +5,7 @@
 import type { QuranWord } from "@munib-tracker/shared/types";
 
 import { QuranStudyCacheRepository } from "@/db";
+import { shouldCacheQuranEditions } from "@/lib/cache-prefs";
 import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
 
@@ -124,7 +125,7 @@ export async function fetchSurahWords(surah: number, language = "en"): Promise<S
     throw error;
   }
 
-  await QuranStudyCacheRepository.set(cacheKey, out);
+  await QuranStudyCacheRepository.set(cacheKey, out, shouldCacheQuranEditions());
   return out;
 }
 
@@ -210,7 +211,7 @@ export async function fetchSurahWordSegments(
     }
 
     if (Object.keys(out).length > 0) {
-      await QuranStudyCacheRepository.set(cacheKey, out);
+      await QuranStudyCacheRepository.set(cacheKey, out, shouldCacheQuranEditions());
     }
     return out;
   } catch {

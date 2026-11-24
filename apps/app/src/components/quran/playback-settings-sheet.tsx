@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
+import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -203,6 +204,8 @@ export function PlaybackSettingsSheet({
           )}
         </View>
       ) : null}
+
+      <MoreInSettingsLink settingId="quran.recitation.repeat" onNavigate={onClose} />
     </Sheet>
   );
 }

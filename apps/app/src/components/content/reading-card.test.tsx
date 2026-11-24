@@ -1,10 +1,10 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 
 import { ReadingCard, type ReadingItem } from "@/components/content/reading-card";
-import { readingTextVisibilityStore } from "@/stores/reading-text-visibility-store";
 import { mockAudioPlayer, resetAudioPlayerMock } from "@/test-support/mocks/audio-player-provider";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
+import { setReadingDisplayState } from "@/test-support/settings";
 
 const mockRecordContinue = jest.fn();
 
@@ -76,11 +76,7 @@ describe("ReadingCard", () => {
   beforeEach(() => {
     resetAudioPlayerMock();
     mockRecordContinue.mockClear();
-    readingTextVisibilityStore.setState({
-      showTransliteration: true,
-      showTranslation: true,
-      isReady: true,
-    });
+    setReadingDisplayState({ showTransliteration: true, showTranslation: true });
   });
 
   it("shows Arabic, transliteration, meaning and reference", async () => {
@@ -92,7 +88,7 @@ describe("ReadingCard", () => {
   });
 
   it("hides transliteration and meaning when toggled off", async () => {
-    readingTextVisibilityStore.setState({ showTransliteration: false, showTranslation: false });
+    setReadingDisplayState({ showTransliteration: false, showTranslation: false });
     await renderCard({ item: { ...baseItem, reference: undefined } });
     expect(screen.queryByText(baseItem.translation)).toBeNull();
     expect(screen.queryByText(baseItem.transliteration ?? "")).toBeNull();

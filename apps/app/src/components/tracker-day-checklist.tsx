@@ -6,11 +6,15 @@ import { Fragment, type RefObject, useCallback, useEffect, useMemo, useRef, useS
 import { useTranslation } from "react-i18next";
 import { type ScrollViewInstance, StyleSheet, View, type ViewInstance } from "react-native";
 
+import { TakbirTashriqTrackerSection } from "@/components/dhul-hijjah/takbir-tracker-section";
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { FridayTrackerSection } from "@/components/friday-tracker-section";
 import { KhatmDailyChecklist } from "@/components/khatm-daily-checklist";
 import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
 import { QazaDailyChecklist } from "@/components/qaza-daily-checklist";
+import { useRawatibDay } from "@/components/rawatib/use-rawatib-day";
+import { useWitrStatusLabel } from "@/components/rawatib/witr-status";
+import { SunnahHabitsSection } from "@/components/sunnah-habits/sunnah-habits-section";
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Card } from "@/components/ui/card";
@@ -30,10 +34,13 @@ import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { FRIDAY_CHECKLIST_FOCUS, isFridayDateString } from "@/lib/friday";
 import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
+import type { PrayerCombined } from "@/lib/prayer-combining";
+import { RAWATIB_TRACKER_FOCUS } from "@/lib/rawatib";
 import { useChevronForward } from "@/lib/rtl";
 import { isWhiteDayDateString, WHITE_DAYS_CHECKLIST_FOCUS } from "@/lib/white-days";
 import { ensureZikrCorpus, zikrCategories } from "@/lib/zikr";
 import { zikrCategoryBadge } from "@/lib/zikr-list-progress";
+import { useDayExcused } from "@/stores/tracker-store";
 
 function salahAdhkarCategories() {
   const byId = new Map(zikrCategories().map((category) => [category.id, category]));
@@ -67,6 +74,10 @@ export type TrackerDayChecklistProps = {
   status: Record<string, PrayerStatus>;
   notes: Record<string, string | undefined>;
   jama: Record<string, boolean>;
+  /** Jam' (combined) flags keyed by prayer id (NF-3.0a); shown on the fard rows. */
+  combined?: Record<string, PrayerCombined>;
+  /** Pre-localized preferred-time hints keyed by prayer id (today only, NF-3.0a). */
+  preferredHints?: Record<string, string>;
   zikrCounts: Record<string, number>;
   excusedReason?: ExcusedReason | null;
   prayerTimes: Record<PrayerId, string>;
@@ -90,6 +101,8 @@ export function TrackerDayChecklist({
   status,
   notes,
   jama,
+  combined,
+  preferredHints,
   zikrCounts,
   excusedReason,
   prayerTimes,
@@ -117,6 +130,20 @@ export function TrackerDayChecklist({
   const cardTip = tTv(t, "tracker.cardTip", "tracker.cardTipTv");
 
   const obligatoryDone = useMemo(() => countCompleted(OBLIGATORY_PRAYERS, status), [status]);
+  // NF-3.1 rawatib chips + header card. Today's excused reason lives in the store;
+  // calendar days pass theirs explicitly.
+  const storeExcused = useDayExcused();
+  const rawatib = useRawatibDay({
+    date,
+    isToday,
+    status,
+    excusedReason: onExcusedChange ? excusedReason : (excusedReason ?? storeExcused),
+  });
+  const witrSubtitle = useWitrStatusLabel();
+  const setRawatibRef = useCallback(
+    (node: ViewInstance | null) => registerFocus?.(RAWATIB_TRACKER_FOCUS)(node),
+    [registerFocus],
+  );
   const witrDone = status[WITR_PRAYER] === "completed" ? 1 : 0;
   const sunnahDone = useMemo(() => countCompleted(SUNNAH_PRAYERS, status), [status]);
 
@@ -236,6 +263,8 @@ export function TrackerDayChecklist({
                   time={prayerTimes[prayerId]}
                   hasNotes={!!notes[prayerId]}
                   isJama={jama[prayerId] ?? false}
+                  combinedWith={combined?.[prayerId]?.with}
+                  preferredHint={preferredHints?.[prayerId]}
                   afterSalahProgress={afterSalahProgress}
                   onPressAfterSalah={
                     isToday && afterSalahProgress.total > 0
@@ -245,6 +274,7 @@ export function TrackerDayChecklist({
                   onPress={() => onPrayerPress(prayerId)}
                   preferredFocus={tv && preferredFocusFirstPrayer && prayerIndex === 0}
                 />
+                {rawatib.chipsFor(prayerId)}
                 {/* TV: the Jumu'ah / White Days sections are the next D-pad stops
                   below — a scroll-jump shortcut would strand focus off-screen. */}
                 {prayerId === "fajr" && showFriday && !tv ? (
@@ -303,6 +333,12 @@ export function TrackerDayChecklist({
         </View>
       </Card>
 
+      {rawatib.headerCard ? (
+        <View ref={setRawatibRef} testID="rawatib-card">
+          {rawatib.headerCard}
+        </View>
+      ) : null}
+
       {showFriday ? (
         <FocusHighlight ref={setFridaySectionRef} active={fridayHighlight || fridayFocused}>
           <FridayTrackerSection date={date} />
@@ -318,10 +354,13 @@ export function TrackerDayChecklist({
         </FocusHighlight>
       ) : null}
 
+      {/* NF-3.3: Takbir al-Tashriq chips (only inside the window; none during hayd). */}
+      <TakbirTashriqTrackerSection date={date} status={status} hidden={excusedReason === "hayd"} />
+
       <Card padding="three">
         <SectionHeader
           title={t("tracker.witr")}
-          subtitle={t("tracker.witrSubtitle")}
+          subtitle={witrSubtitle}
           icon={{ ios: "moon.fill", android: "dark_mode", web: "dark_mode" }}
           badge={
             <Pill
@@ -378,6 +417,9 @@ export function TrackerDayChecklist({
         </View>
       </Card>
 
+      {/* NF-3.5: Sunnah habits under the zikr section. */}
+      <SunnahHabitsSection date={date} />
+
       <QazaDailyChecklist date={date} />
       <KhatmDailyChecklist />
 
@@ -428,6 +470,7 @@ export function TrackerDayChecklist({
           />
         </View>
       </Card>
+      {rawatib.sheet}
     </View>
   );
 }

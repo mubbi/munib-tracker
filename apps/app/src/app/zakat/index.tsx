@@ -28,6 +28,7 @@ import { ZakatResultHero } from "@/components/zakat/zakat-result-hero";
 import { ZakatSummaryBar } from "@/components/zakat/zakat-summary-bar";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useZakatCalculator } from "@/hooks/use-zakat-calculator";
 import { tTv } from "@/lib/i18n/t-tv";
@@ -42,6 +43,8 @@ const SUMMARY_BAR_FALLBACK = 72;
 const FILTERS_TOOLBAR_SCROLL_Y = 140;
 
 export default function ZakatScreen() {
+  // §4.1.1 item 4: once per session while the madhhab was never chosen.
+  const madhhabPrompt = useMadhhabPrompt();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -126,6 +129,12 @@ export default function ZakatScreen() {
       silverNisab={calculator.silverNisab}
       suggestedNisab={calculator.suggestedNisab}
       currencyCode={calculator.currencyCode}
+      zakatSchool={calculator.zakatSchool}
+      nisabBasis={calculator.nisabBasis}
+      nisabBasisCustom={calculator.nisabBasisCustom}
+      basisRows={calculator.basisRows}
+      personalJewelleryValue={calculator.personalJewelleryValue}
+      personalJewelleryCounted={calculator.personalJewelleryCounted}
       onReset={docked ? undefined : calculator.resetForm}
     />
   );
@@ -239,6 +248,7 @@ export default function ZakatScreen() {
         }
       >
         <Seo path="/zakat" />
+        {madhhabPrompt.sheet}
         {wide.twoPane ? (
           <Stagger>
             <JannahCallout tone="info">{t("zakat.intro")}</JannahCallout>

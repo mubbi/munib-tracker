@@ -25,10 +25,7 @@ import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { ltrControlViewProps } from "@/lib/rtl";
-import {
-  useReadingTextVisibility,
-  useReadingTextVisibilityActions,
-} from "@/stores/reading-text-visibility-store";
+import { useReadingDisplayToggles } from "@/lib/settings/use-reading-display-toggles";
 
 /** Extra width so a reading list and filters pane can sit side by side. */
 export const SCRIPTURE_LIST_DETAIL_MAX_WIDTH = 1280;
@@ -86,8 +83,8 @@ const FILTER_ICONS = {
 export function ScriptureReadingFilters() {
   const { t } = useTranslation();
   const tv = isTV();
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
-  const { toggleTransliteration, toggleTranslation } = useReadingTextVisibilityActions();
+  const { showTransliteration, showTranslation, toggleTransliteration, toggleTranslation } =
+    useReadingDisplayToggles();
 
   return (
     <Card padding="three" style={[styles.filtersCard, tv && styles.filtersCardTv]}>
@@ -141,8 +138,8 @@ export function ScriptureReadingToolbar({
   const tv = isTV();
   const scrollRef = useHorizontalWheelScroll();
   const fullscreen = useReadingFullscreen({ exitOnBlur: true });
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
-  const { toggleTransliteration, toggleTranslation } = useReadingTextVisibilityActions();
+  const { showTransliteration, showTranslation, toggleTransliteration, toggleTranslation } =
+    useReadingDisplayToggles();
   const showBar = visible || fullscreen.active;
   const reveal = useSharedValue(showBar ? 1 : 0);
 

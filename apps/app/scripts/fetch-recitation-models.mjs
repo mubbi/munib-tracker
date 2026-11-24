@@ -72,6 +72,9 @@ try {
   for (const [engine, spec] of Object.entries(data.engines)) {
     if (!spec.webHosted) continue;
     for (const file of spec.files) {
+      // D18: files with a pinned public mirror (`webUrl`) are fetched by the browser
+      // from that mirror — never copied into our own origin.
+      if (file.webUrl) continue;
       const source = await ensureCached(file);
       const target = join(outRoot, engine, file.sha256.slice(0, 12), file.fileName);
       if (existsSync(target) && statSync(target).size === file.bytes) continue;

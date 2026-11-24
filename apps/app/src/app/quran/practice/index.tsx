@@ -28,12 +28,14 @@ import { isListenerUsable } from "@/lib/quran-companion/model/download-job";
 import { clampPassage, modeNeedsListener, passageForPreset } from "@/lib/quran-companion/passage";
 import type { Passage, PracticeMode, PracticeView, RangePreset } from "@/lib/quran-companion/types";
 import { getSurahByNumber } from "@/lib/quran-meta";
+import { isPronunciationCheckPlatformAvailable } from "@/lib/quran-pronunciation/availability";
+import { pronunciationCheckHref } from "@/lib/quran-pronunciation/entry";
 import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { updateCompanionPrefs } from "@/lib/settings/companion-shortcuts";
 import { useEnsureHifzLoaded } from "@/stores/hifz-store";
 import {
   useCompanionPrefs,
-  useCompanionPrefsActions,
   useCompanionPrefsReady,
   useEnsureCompanionPrefsLoaded,
 } from "@/stores/quran-companion-prefs-store";
@@ -114,7 +116,8 @@ export default function PracticeHubScreen() {
   useEnsureHifzLoaded();
   const prefsReady = useCompanionPrefsReady();
   const prefs = useCompanionPrefs();
-  const { update } = useCompanionPrefsActions();
+  // Hub pickers are shortcuts to Settings › Qur'an › Practice (one write path).
+  const update = updateCompanionPrefs;
   // TV: never warm the on-device recitation model — practice is mic-only.
   useEnsureListenerLoaded(prefs.engineChoice, prefsReady && isPracticeAvailable());
   const listener = useListenerState();
@@ -470,6 +473,20 @@ export default function PracticeHubScreen() {
         icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
         style={styles.startButton}
       />
+      {passage && isPronunciationCheckPlatformAvailable() ? (
+        <Button
+          label={t("quranPronunciation.entry.hub")}
+          variant="secondary"
+          onPress={() =>
+            router.push(
+              pronunciationCheckHref(passage.surah, passage.ayahStart, passage.ayahEnd, "hub"),
+            )
+          }
+          fullWidth
+          icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+          style={styles.startButton}
+        />
+      ) : null}
     </Card>
   );
   const recentCard =

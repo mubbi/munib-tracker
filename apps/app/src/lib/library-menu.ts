@@ -35,9 +35,13 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   // Read first — Qur'an / hadith are primary destinations, not buried under Track.
   fromQuickAction("quran", "read"),
   fromQuickAction("quranPractice", "read"),
+  fromQuickAction("quranNotes", "read"),
+  fromQuickAction("quranRoots", "read"),
   fromQuickAction("verseDetector", "read"),
   fromQuickAction("hadith", "read"),
   fromQuickAction("bookmarks", "read"),
+  // NF-3.18 group khatm (circles).
+  fromQuickAction("khatmGroups", "read"),
   fromQuickAction("duas", "supplicate"),
   fromQuickAction("zikr", "supplicate"),
   fromQuickAction("adhkarBuilder", "supplicate"),
@@ -47,8 +51,20 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("qaza", "track"),
   fromQuickAction("tasbeeh", "track"),
   fromQuickAction("ramadan", "track"),
+  fromQuickAction("voluntaryFasting", "track"),
+  fromQuickAction("rawatib", "track"),
+  fromQuickAction("sunnahHabits", "track"),
+  fromQuickAction("dhulHijjah", "track"),
+  fromQuickAction("umrahMode", "track"),
   fromQuickAction("tahajjud", "track"),
   fromQuickAction("journal", "track"),
+  fromQuickAction("muhasabah", "track"),
+  fromQuickAction("familyTies", "track"),
+  // NF-3.17 accountability partner (circles).
+  fromQuickAction("partner", "track"),
+  // NF-3.16 family & kids mode (circles).
+  fromQuickAction("family", "track"),
+  fromQuickAction("coach", "track"),
   fromQuickAction("checklist", "track"),
   fromQuickAction("schedule", "track"),
   fromQuickAction("salahGuide", "learn"),
@@ -78,15 +94,22 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("ruqyah", "learn"),
   fromQuickAction("newMuslim", "learn"),
   fromQuickAction("janazah", "learn"),
+  // NF-3.10: Learn → fiqh tools.
+  fromQuickAction("mirath", "learn"),
   fromQuickAction("flashCards", "learn"),
   // Tools & more — Qibla first (high-frequency worship tool).
   fromQuickAction("qibla", "more"),
+  // NF-3.13 Salah focus lock.
+  fromQuickAction("focusLock", "more"),
+  fromQuickAction("masjids", "more"),
   fromQuickAction("calendar", "more"),
   fromQuickAction("dateConverter", "more"),
   fromQuickAction("lastThirdNight", "more"),
   fromQuickAction("zakat", "more"),
   fromQuickAction("sadaqah", "more"),
   fromQuickAction("fidyah", "more"),
+  fromQuickAction("debts", "more"),
+  fromQuickAction("wasiyyah", "more"),
   fromQuickAction("finance", "more"),
   fromQuickAction("achievements", "more"),
   fromQuickAction("stats", "more"),
@@ -144,6 +167,29 @@ export const LIBRARY_SECTIONS: {
   },
 ];
 
+/**
+ * Library tab section order (D13, `UserPreferences.libraryMenuOrder`): the
+ * user's order first, unknown ids dropped (and duplicates ignored), then any
+ * section the saved order doesn't mention — e.g. one added in a later release —
+ * appended in its default relative position.
+ */
+export function orderLibrarySections<T extends { id: string }>(
+  sections: readonly T[],
+  order: readonly string[] | undefined,
+): T[] {
+  if (!order || order.length === 0) return [...sections];
+  const byId = new Map(sections.map((section) => [section.id, section]));
+  const out: T[] = [];
+  for (const id of order) {
+    const section = byId.get(id);
+    if (section && !out.includes(section)) out.push(section);
+  }
+  for (const section of sections) {
+    if (!out.includes(section)) out.push(section);
+  }
+  return out;
+}
+
 /** Groups library entries into their section cards. */
 export function groupLibraryMenuBySection(
   entries: LibraryMenuDef[],
@@ -182,15 +228,75 @@ export const LIBRARY_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>>
     "memorize",
     "tajweed practice",
   ],
+  quranNotes: ["notes", "my notes", "reflection", "tadabbur", "highlight", "annotation", "tags"],
+  quranRoots: ["root", "roots", "word root", "arabic root", "jidhr", "morphology", "lemma"],
   hadith: ["hadeeth", "ahadith", "hadiths"],
   verseDetector: ["verse", "ayah", "ayat", "detector", "recognize verse"],
   bookmarks: ["saved", "favorites", "favourite"],
   qaza: ["qada", "qadha", "qadah", "missed salah", "makeup salah", "make up"],
   tasbeeh: ["tasbih", "tasbi", "counter", "beads"],
   ramadan: ["ramazan", "ramadhan"],
+  voluntaryFasting: [
+    "nafl fasting",
+    "sunnah fasting",
+    "voluntary fast",
+    "monday thursday",
+    "arafah",
+    "ashura",
+    "shawwal six",
+    "sawm",
+    "roza",
+  ],
   tahajjud: ["night prayer", "qiyam"],
   lastThirdNight: ["last third", "last third of the night"],
   journal: ["prayer journal", "notes", "diary"],
+  muhasabah: [
+    "muhasaba",
+    "self accountability",
+    "self review",
+    "nightly reflection",
+    "istighfar",
+    "repentance",
+    "tawbah",
+  ],
+  partner: [
+    "accountability partner",
+    "partner",
+    "accountability",
+    "dua for each other",
+    "friend",
+    "circle",
+  ],
+  family: ["family", "kids", "children", "child", "kids mode", "parent", "teach salah", "circle"],
+  khatmGroups: [
+    "group khatm",
+    "khatam",
+    "khatm",
+    "complete quran together",
+    "juz",
+    "hizb",
+    "quran khani",
+  ],
+  familyTies: [
+    "silat al rahim",
+    "silat ar-rahim",
+    "sila rahmi",
+    "kinship",
+    "relatives",
+    "family",
+    "parents",
+    "call mother",
+  ],
+  focusLock: [
+    "focus lock",
+    "app blocker",
+    "block apps",
+    "screen time",
+    "do not disturb",
+    "distraction",
+    "focus mode",
+  ],
+  coach: ["weekly coach", "weekly reflection", "weekly report", "insights", "tips", "progress"],
   checklist: ["tracker", "daily checklist", "today"],
   schedule: ["prayer times", "salah times", "timetable"],
   salahGuide: ["salat", "namaz", "salah", "prayer guide", "how to pray", "learn prayer"],
@@ -257,11 +363,46 @@ export const LIBRARY_SEARCH_ALIASES: Readonly<Record<string, readonly string[]>>
   janazah: ["janaza", "funeral", "burial"],
   flashCards: ["flashcards", "quiz", "cards", "practice"],
   qibla: ["kibla", "direction", "direction of prayer"],
+  masjids: ["mosque", "masjid", "nearby", "jumuah", "jummah", "iqamah", "congregation", "jamaat"],
   calendar: ["hijri", "islamic calendar", "moon calendar"],
   dateConverter: ["hijri converter", "gregorian", "date convert"],
   zakat: ["zakaat", "zakah"],
   sadaqah: ["sadaqa", "charity", "donation", "sadaqah"],
+  sunnahHabits: [
+    "habits",
+    "daily sunnah",
+    "miswak",
+    "siwak",
+    "ayat al kursi",
+    "surah mulk",
+    "istighfar",
+    "salam",
+  ],
+  dhulHijjah: [
+    "dhul hijjah",
+    "zul hijjah",
+    "ten days",
+    "arafah",
+    "takbir tashriq",
+    "udhiyah",
+    "qurbani",
+    "eid al adha",
+  ],
+  umrahMode: [
+    "umrah",
+    "umrah mode",
+    "tawaf",
+    "tawaf counter",
+    "sai",
+    "miqat",
+    "ihram",
+    "talbiyah",
+    "halq",
+  ],
   fidyah: ["fidya", "fidyaah"],
+  debts: ["debt", "dayn", "loan", "loans", "amanah", "trust", "owe", "qarz", "vow", "nadhr"],
+  wasiyyah: ["will", "wasiyat", "wasiyya", "testament", "bequest", "last will", "islamic will"],
+  mirath: ["inheritance", "faraid", "fara'id", "miras", "virasat", "estate", "heirs", "warisan"],
   finance: ["money", "budget", "spending"],
   achievements: ["badges", "awards", "trophies"],
   stats: ["statistics", "progress", "analytics"],

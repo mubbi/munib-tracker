@@ -23,11 +23,11 @@ import {
   resolveReadingFontSizes,
   translationReadingStyle,
 } from "@/lib/reading-typography";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
 import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
-import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 export type ReadingItem = {
   id?: string;
@@ -97,7 +97,7 @@ export function ReadingCard({
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
   const { fontPrefs, translationLocale } = usePreferences();
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
+  const { showTransliteration, showTranslation } = useReadingDisplay();
   const displayTranslation = useScriptureTranslation(item);
   const audio = useAudioPlayerContext();
   const internalShare = useShareContentCard();

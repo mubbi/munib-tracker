@@ -1,11 +1,13 @@
 import { act, renderHook } from "@testing-library/react-native";
-
+import { PreferencesRepository } from "@/db/repositories/preferences-repository";
 import { ZakatCalculatorRepository } from "@/db/repositories/zakat-calculator-repository";
+import { preferencesStore } from "@/stores/preferences-store";
 import { deferred } from "@/test-support/async";
 import {
   resetMockDeviceLocales,
   setMockDeviceLocales,
 } from "@/test-support/mocks/expo-localization";
+import { resetPreferences, setPreferences } from "@/test-support/preferences";
 
 import { useZakatCalculator, ZAKAT_ASSET_GROUPS } from "./use-zakat-calculator";
 
@@ -387,6 +389,97 @@ describe("useZakatCalculator", () => {
     expect(result.current.goldWeight).toBe("");
     expect(result.current.nisabManual).toBe(false);
     expect(result.current.irrigation).toBe("natural");
+    await unmount();
+  });
+});
+
+describe("useZakatCalculator — madhhab (NF-3.0a)", () => {
+  afterEach(resetPreferences);
+
+  async function withPrices(fill?: (c: ReturnType<typeof useZakatCalculator>) => void) {
+    const hook = await setup();
+    await act(async () => {
+      // Gold nisab = 87.48 × 100 = 8748; silver nisab = 612.36 × 1 = 612.36.
+      hook.result.current.setNisabGoldPrice("100");
+      hook.result.current.setNisabSilverPrice("1");
+      fill?.(hook.result.current);
+    });
+    return hook;
+  }
+
+  it("Hanafi: lower nisab, personal jewellery counted, pooled by value", async () => {
+    await setPreferences({ madhhab: "hanafi" });
+    const { result, unmount } = await withPrices((c) => c.setField("personalJewellery", "700"));
+    expect(result.current.zakatSchool).toBe("hanafi");
+    expect(result.current.nisabBasis).toBe("lower");
+    expect(result.current.effectiveNisab).toBe(612.36);
+    expect(result.current.combineMethod).toBe("value");
+    expect(result.current.personalJewelleryCounted).toBe(true);
+    expect(result.current.result.wealthDue).toBe(17.5);
+    expect(result.current.basisRows).toEqual([]);
+    await unmount();
+  });
+
+  it("Shafi'i: gold basis flagged contested, jewellery excluded, metals separate", async () => {
+    await setPreferences({ madhhab: "shafii" });
+    const { result, unmount } = await withPrices((c) => c.setField("personalJewellery", "700"));
+    expect(result.current.nisabBasis).toBe("gold");
+    expect(result.current.nisabBasisContested).toBe(true);
+    expect(result.current.effectiveNisab).toBe(8748);
+    expect(result.current.combineMethod).toBe("separate");
+    expect(result.current.personalJewelleryCounted).toBe(false);
+    expect(result.current.result.wealthDue).toBe(0);
+    await unmount();
+  });
+
+  it("saves the basis override to fiqhCustom without touching other custom values", async () => {
+    const prefs = { madhhab: "shafii", fiqhCustom: { qasrDistanceKm: 80 } } as const;
+    // `update()` persists then reloads from the repository — seed both.
+    await PreferencesRepository.update(prefs);
+    await setPreferences(prefs);
+    const { result, unmount } = await withPrices();
+    await act(async () => {
+      await result.current.setNisabBasisOverride("silver");
+    });
+    expect(preferencesStore.getState().prefs.fiqhCustom).toEqual({
+      qasrDistanceKm: 80,
+      nisabBasis: "silver",
+    });
+    expect(result.current.nisabBasis).toBe("silver");
+    expect(result.current.nisabBasisCustom).toBe(true);
+    expect(result.current.nisabBasisContested).toBe(false);
+    expect(result.current.effectiveNisab).toBe(612.36);
+    await act(async () => {
+      await result.current.setNisabBasisOverride(null);
+    });
+    expect(preferencesStore.getState().prefs.fiqhCustom).toEqual({ qasrDistanceKm: 80 });
+    expect(result.current.nisabBasis).toBe("gold");
+    await unmount();
+    await PreferencesRepository.update({ madhhab: undefined, fiqhCustom: undefined });
+  });
+
+  it("all views: one row per basis, with and without personal jewellery", async () => {
+    await setPreferences({ madhhab: null, fiqhCustom: { nisabBasis: "gold" } });
+    const { result, unmount } = await withPrices((c) => {
+      c.setField("cash", "9000");
+      c.setField("personalJewellery", "1000");
+    });
+    expect(result.current.zakatSchool).toBeNull();
+    expect(result.current.basisRows.map((r) => [r.basis, r.totalDue, r.selected])).toEqual([
+      ["lower", 250, false],
+      ["gold", 250, true],
+      ["silver", 250, false],
+    ]);
+    expect(result.current.basisRows[0]?.totalDueWithoutJewellery).toBe(225);
+    expect(result.current.nisabBasis).toBe("gold");
+    await unmount();
+  });
+
+  it("loads an older draft that has no personal jewellery field", async () => {
+    repoGet.mockResolvedValue({ ...FULL_DRAFT, values: { cash: "1.000" } });
+    const { result, unmount } = await setup();
+    expect(result.current.values.personalJewellery).toBeUndefined();
+    expect(result.current.personalJewelleryValue).toBe(0);
     await unmount();
   });
 });

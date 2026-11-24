@@ -3,7 +3,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const STORAGE_KEY = "@munib_tracker_in_app_notifications_v1";
 const MAX_ITEMS = 100;
 
-export type InAppNotificationKind = "reminder" | "achievement" | "system" | "admin_announcement";
+export type InAppNotificationKind =
+  | "reminder"
+  | "achievement"
+  | "system"
+  | "admin_announcement"
+  /** NF-3.16–3.18 circle events — localized by `routeData.event` (`lib/circles/inbox.ts`). */
+  | "circle";
 
 export interface InAppNotification {
   id: string;

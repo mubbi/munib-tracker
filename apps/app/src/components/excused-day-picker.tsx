@@ -1,9 +1,12 @@
-import type { ExcusedReason } from "@munib-tracker/shared/types";
+import { EXCUSED_REASONS, type ExcusedReason } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { BloodPeriodStatus } from "@/components/excused/blood-period-status";
 import { ThemedText } from "@/components/themed-text";
+import { TravelModeSheet } from "@/components/travel/travel-mode-sheet";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing } from "@/constants/theme";
@@ -14,14 +17,15 @@ import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
 /** Keep routes local — importing excused-guide content would pull guide copy into home `__common`. */
 const EXCUSED_GUIDE_ROUTES: Record<ExcusedReason, Href> = {
   hayd: "/hayd",
+  // Nifas lives in the hayd guide (start button + nifas section).
+  nifas: "/hayd",
   sick: "/sick",
   travel: "/travel",
 };
 
-const EXCUSED_REASONS = ["hayd", "sick", "travel"] as const satisfies readonly ExcusedReason[];
-
 const EXCUSED_REASON_ICONS: Record<ExcusedReason, SymbolViewProps["name"]> = {
   hayd: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
+  nifas: { ios: "figure.and.child.holdinghands", android: "child_care", web: "child_care" },
   sick: { ios: "cross.case.fill", android: "medical_services", web: "medical_services" },
   travel: { ios: "airplane", android: "flight", web: "flight" },
 };
@@ -46,6 +50,8 @@ export function ExcusedDayPicker({
   const { setDayExcused } = useTrackerActions();
   const controlled = onExcusedChange != null;
   const excusedReason = controlled ? (excusedReasonProp ?? null) : storeExcusedReason;
+  // Controlled (calendar) travel asks the same two qasr questions as `/travel` (§4.1.4).
+  const [travelSheetOpen, setTravelSheetOpen] = useState(false);
 
   const handleChipPress = (reason: ExcusedReason, active: boolean) => {
     if (active) {
@@ -57,6 +63,10 @@ export function ExcusedDayPicker({
       return;
     }
     if (controlled) {
+      if (reason === "travel") {
+        setTravelSheetOpen(true);
+        return;
+      }
       onExcusedChange(reason);
       return;
     }
@@ -130,12 +140,24 @@ export function ExcusedDayPicker({
     </ThemedText>
   );
 
+  const travelSheet = controlled ? (
+    <TravelModeSheet
+      visible={travelSheetOpen}
+      onClose={() => setTravelSheetOpen(false)}
+      onConfirm={() => {
+        setTravelSheetOpen(false);
+        onExcusedChange?.("travel");
+      }}
+    />
+  ) : null;
+
   if (variant === "inline") {
     return (
       <View style={[styles.inline, { borderTopColor: colors.border }]}>
         <ThemedText type="smallBold">{t("tracker.excusedTitle")}</ThemedText>
         {hint}
         {chips}
+        {travelSheet}
       </View>
     );
   }
@@ -148,6 +170,9 @@ export function ExcusedDayPicker({
       />
       {hint}
       {chips}
+      {/* Hayd / nifas day counter + prompts — only for today's tracker (uncontrolled). */}
+      {controlled ? null : <BloodPeriodStatus />}
+      {travelSheet}
     </>
   );
 }

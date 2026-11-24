@@ -16,10 +16,10 @@ import { fakeCacheResponse, installWebCache, type WebCacheFake } from "@/test-su
 
 const mockPrefs = { cacheAudioLocally: true };
 
-jest.mock("@/stores/preferences-store", () => ({
-  preferencesStore: {
-    getState: () => ({ prefs: mockPrefs }),
-  },
+// The cache toggle is read through `lib/cache-prefs` (already loaded by
+// jest.setup's module graph), so mock that seam rather than the store.
+jest.mock("@/lib/cache-prefs", () => ({
+  shouldCacheAudio: () => mockPrefs.cacheAudioLocally !== false,
 }));
 
 // Functional in-memory file store (overrides the empty default in jest.setup.ts).

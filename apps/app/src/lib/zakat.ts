@@ -1,3 +1,5 @@
+import type { MadhhabRules, NisabBasis } from "@munib-tracker/shared/fiqh";
+
 /**
  * Zakat calculator (NF-2.2). Pure math + educational estimates — not a fatwa engine.
  * Wealth zakat is 2.5% above nisab. Crops (ushr) and livestock follow separate
@@ -29,6 +31,11 @@ export const SILVER_PURITIES: readonly SilverPurity[] = [999, 925, 900, 800];
 export interface ZakatAssets {
   cash?: number;
   gold?: number;
+  /**
+   * Women's personal-use jewellery (market value). Counted with gold unless the
+   * fiqh options exclude it (only the Hanafi school holds it zakatable; NF-3.0a).
+   */
+  personalJewellery?: number;
   silver?: number;
   stocks?: number;
   business?: number;
@@ -87,6 +94,55 @@ export interface ZakatResult {
   livestockCashEstimate: number;
   /** Wealth + agriculture + optional livestock cash estimate. */
   totalDue: number;
+  /** How the nisab was assessed (present when `computeZakat` got fiqh options). */
+  assessment?: ZakatAssessment;
+}
+
+/**
+ * How gold, silver and other wealth are put together to reach nisab (NF-3.0a,
+ * `MADHHAB_RULES[*].zakat`):
+ * - `value`: everything pooled by value against the nisab (Hanafi; also the
+ *   app's behaviour before madhhab support).
+ * - `parts`: pooled by each holding's share of its own nisab (Maliki, Hanbali).
+ * - `separate`: gold and silver are not added to each other (Shafi'i). Cash and
+ *   trade goods are measured as the basis metal and pooled with it (app choice).
+ */
+export type ZakatCombineMethod = "value" | "parts" | "separate";
+
+export interface ZakatFiqhOptions {
+  combine: ZakatCombineMethod;
+  basis: NisabBasis;
+  /** Value of the gold nisab (87.48 g) — 0 when unknown. */
+  goldNisab: number;
+  /** Value of the silver nisab (612.36 g) — 0 when unknown. */
+  silverNisab: number;
+  /** Count `personalJewellery` (in the gold pool). Default `true`. */
+  includePersonalJewellery?: boolean;
+}
+
+/** `all` = one pooled total; `basis` = cash/trade goods + the basis metal (`separate`). */
+export type ZakatPoolId = "all" | "basis" | "gold" | "silver";
+
+export interface ZakatPoolAssessment {
+  pool: ZakatPoolId;
+  /** Net value of the pool after deductions. */
+  value: number;
+  /** Nisab the pool is measured against (`parts`: 1 = a full nisab share). */
+  nisab: number;
+  meets: boolean;
+  due: number;
+}
+
+export interface ZakatAssessment {
+  combine: ZakatCombineMethod;
+  basis: NisabBasis;
+  /** Metal cash/trade goods are measured as (`lower` → the metal with the lower nisab). */
+  basisMetal: "gold" | "silver";
+  pools: ZakatPoolAssessment[];
+  /** `parts` only: Σ holding ÷ its own nisab; nisab is met at ≥ 1. */
+  nisabShare?: number;
+  jewelleryCounted: boolean;
+  jewelleryValue: number;
 }
 
 const positive = (value: number | undefined): number => Math.max(0, value ?? 0);
@@ -184,6 +240,42 @@ export function lowerNisab(goldNisab: number, silverNisab: number): number {
   const candidates = [goldNisab, silverNisab].filter((n) => n > 0);
   if (candidates.length === 0) return 0;
   return Math.min(...candidates);
+}
+
+export const NISAB_BASES: readonly NisabBasis[] = ["lower", "gold", "silver"];
+
+/**
+ * Nisab for cash / trade goods on the given basis (NF-3.0a):
+ * - `lower`: the lower positive of the two (Hanafi, Hanbali — "most beneficial to the poor").
+ * - `gold` / `silver`: that metal's nisab. When its price is unknown (0) the other
+ *   metal's nisab is used so the calculator still has a threshold; 0 when both are unknown.
+ */
+export function nisabFor(basis: NisabBasis, goldNisab: number, silverNisab: number): number {
+  const gold = Math.max(0, goldNisab);
+  const silver = Math.max(0, silverNisab);
+  if (basis === "gold") return gold > 0 ? gold : silver;
+  if (basis === "silver") return silver > 0 ? silver : gold;
+  return lowerNisab(gold, silver);
+}
+
+/** The metal cash and trade goods are measured as on `basis` (`lower` → whichever nisab is lower). */
+export function basisMetalFor(
+  basis: NisabBasis,
+  goldNisab: number,
+  silverNisab: number,
+): "gold" | "silver" {
+  if (basis === "gold" || basis === "silver") return basis;
+  if (silverNisab > 0 && (goldNisab <= 0 || silverNisab <= goldNisab)) return "silver";
+  return goldNisab > 0 ? "gold" : "silver";
+}
+
+/** Maps a school's zakat rules to the combining method (`null` ⇒ all views ⇒ pooled by value). */
+export function zakatCombineFor(
+  zakat: { combineGoldSilver: boolean; combineMethod: "value" | "parts" | null } | null,
+): ZakatCombineMethod {
+  if (zakat == null) return "value";
+  if (!zakat.combineGoldSilver) return "separate";
+  return zakat.combineMethod === "parts" ? "parts" : "value";
 }
 
 /**
@@ -298,16 +390,130 @@ export function computeAgricultureDue(input: AgricultureInput): number {
   return Math.round(value * rate * 100) / 100;
 }
 
-/** Computes net zakatable monetary wealth and the 2.5% due against a nisab threshold. */
+const round2 = (n: number): number => Math.round(n * 100) / 100;
+
+/** Takes `amount` off `pools` in order, never below zero; returns the remaining pools. */
+function deductInOrder(pools: readonly number[], amount: number): number[] {
+  let left = Math.max(0, amount);
+  return pools.map((value) => {
+    const taken = Math.min(value, left);
+    left -= taken;
+    return value - taken;
+  });
+}
+
+export interface ZakatWealthParts {
+  gold: number;
+  silver: number;
+  /** Cash, trade goods, investments … (everything that is neither metal). */
+  rest: number;
+  deductions: number;
+  jewellery: number;
+}
+
+/**
+ * School-aware nisab assessment of monetary wealth (gold, silver, personal
+ * jewellery, cash and trade goods) — NF-3.0a. Deductions come off cash/trade
+ * wealth first, then the basis metal, then the other metal (app choice — see
+ * the proof log). Personal jewellery counts with gold unless excluded.
+ */
+export function assessZakatWealth(
+  parts: ZakatWealthParts,
+  nisab: number,
+  options: ZakatFiqhOptions,
+): { meetsNisab: boolean; wealthDue: number; assessment: ZakatAssessment } {
+  const jewelleryCounted = options.includePersonalJewellery !== false;
+  const jewelleryValue = Math.max(0, parts.jewellery);
+  const metals = {
+    gold: Math.max(0, parts.gold) + (jewelleryCounted ? jewelleryValue : 0),
+    silver: Math.max(0, parts.silver),
+  };
+  const basisMetal = basisMetalFor(options.basis, options.goldNisab, options.silverNisab);
+  const otherMetal = basisMetal === "gold" ? "silver" : "gold";
+  const [restNet = 0, basisNet = 0, otherNet = 0] = deductInOrder(
+    [Math.max(0, parts.rest), metals[basisMetal], metals[otherMetal]],
+    parts.deductions,
+  );
+  const net = { gold: 0, silver: 0 };
+  net[basisMetal] = basisNet;
+  net[otherMetal] = otherNet;
+  const total = restNet + net.gold + net.silver;
+  /** A metal's own nisab; falls back to the basis nisab when its price is unknown. */
+  const ownNisab = (metal: "gold" | "silver") => {
+    const own = metal === "gold" ? options.goldNisab : options.silverNisab;
+    return own > 0 ? own : nisab;
+  };
+  const base = {
+    combine: options.combine,
+    basis: options.basis,
+    basisMetal,
+    jewelleryCounted,
+    jewelleryValue,
+  };
+  const pool = (id: ZakatPoolId, value: number, against: number): ZakatPoolAssessment => {
+    const meets = against > 0 && value > 0 && value >= against;
+    return {
+      pool: id,
+      value,
+      nisab: against,
+      meets,
+      due: meets ? round2(value * ZAKAT_WEALTH_RATE) : 0,
+    };
+  };
+
+  if (options.combine === "separate") {
+    const pools = [
+      pool("basis", restNet + basisNet, nisab),
+      pool(otherMetal, otherNet, ownNisab(otherMetal)),
+    ];
+    return {
+      meetsNisab: pools.some((p) => p.meets),
+      wealthDue: round2(pools.reduce((sum, p) => sum + p.due, 0)),
+      assessment: { ...base, pools },
+    };
+  }
+
+  if (options.combine === "parts") {
+    const share = (value: number, of: number) => (value > 0 && of > 0 ? value / of : 0);
+    const nisabShare =
+      share(net.gold, ownNisab("gold")) +
+      share(net.silver, ownNisab("silver")) +
+      share(restNet, nisab);
+    const meets = total > 0 && nisabShare >= 1 - 1e-9;
+    const due = meets ? round2(total * ZAKAT_WEALTH_RATE) : 0;
+    return {
+      meetsNisab: meets,
+      wealthDue: due,
+      assessment: {
+        ...base,
+        nisabShare,
+        pools: [{ pool: "all", value: total, nisab: 1, meets, due }],
+      },
+    };
+  }
+
+  const all = pool("all", total, nisab);
+  return { meetsNisab: all.meets, wealthDue: all.due, assessment: { ...base, pools: [all] } };
+}
+
+/**
+ * Computes net zakatable monetary wealth and the 2.5% due against a nisab
+ * threshold. Without `fiqh`, everything (personal jewellery included) is pooled
+ * by value — the behaviour before madhhab support. With `fiqh`, the school's
+ * combining method and jewellery ruling apply (NF-3.0a).
+ */
 export function computeZakat(
   assets: ZakatAssets,
   nisab: number,
   extras?: { livestock?: LivestockInput; agriculture?: AgricultureInput },
+  fiqh?: ZakatFiqhOptions,
 ): ZakatResult {
-  const gross =
+  const jewelleryCounted = fiqh?.includePersonalJewellery !== false;
+  const gold = positive(assets.gold);
+  const silver = positive(assets.silver);
+  const jewellery = positive(assets.personalJewellery);
+  const rest =
     positive(assets.cash) +
-    positive(assets.gold) +
-    positive(assets.silver) +
     positive(assets.stocks) +
     positive(assets.business) +
     positive(assets.receivables) +
@@ -318,10 +524,20 @@ export function computeZakat(
     positive(assets.installmentPlotsPaid) +
     positive(assets.investmentProperty) +
     positive(assets.tradeVehicles);
+  const gross = rest + gold + silver + (jewelleryCounted ? jewellery : 0);
   const deductions = positive(assets.debts) + positive(assets.livingExpenses);
   const netWealth = Math.max(0, gross - deductions);
-  const meetsNisab = nisab > 0 && netWealth >= nisab;
-  const wealthDue = meetsNisab ? Math.round(netWealth * ZAKAT_WEALTH_RATE * 100) / 100 : 0;
+
+  let meetsNisab = nisab > 0 && netWealth >= nisab;
+  let wealthDue = meetsNisab ? round2(netWealth * ZAKAT_WEALTH_RATE) : 0;
+  let assessment: ZakatAssessment | undefined;
+  if (fiqh) {
+    ({ meetsNisab, wealthDue, assessment } = assessZakatWealth(
+      { gold, silver, rest, deductions, jewellery },
+      nisab,
+      fiqh,
+    ));
+  }
 
   const livestockAnimals = extras?.livestock
     ? computeLivestockAnimals(extras.livestock)
@@ -330,7 +546,7 @@ export function computeZakat(
     ? livestockCashEstimate(livestockAnimals, extras.livestock)
     : 0;
   const agricultureDue = extras?.agriculture ? computeAgricultureDue(extras.agriculture) : 0;
-  const totalDue = Math.round((wealthDue + agricultureDue + livestockCash) * 100) / 100;
+  const totalDue = round2(wealthDue + agricultureDue + livestockCash);
 
   return {
     netWealth,
@@ -339,7 +555,75 @@ export function computeZakat(
     wealthDue,
     agricultureDue,
     livestockAnimals,
-    livestockCashEstimate: Math.round(livestockCash * 100) / 100,
+    livestockCashEstimate: round2(livestockCash),
     totalDue,
+    ...(assessment && { assessment }),
   };
 }
+
+// ── Madhhab setup shared by /zakat and the obligations summary (NF-3.0a) ─────
+
+/** The zakat rules a school (with `fiqhCustom` applied) contributes to the calculation. */
+export type ZakatSchoolRules = Pick<
+  MadhhabRules["zakat"],
+  "nisabBasis" | "combineGoldSilver" | "combineMethod" | "personalJewelleryZakatable"
+>;
+
+export interface ZakatFiqhSetup {
+  basis: NisabBasis;
+  combine: ZakatCombineMethod;
+  includePersonalJewellery: boolean;
+  /** No school chosen: the headline uses the user's saved basis, else `lower`, pooled by value, jewellery counted. */
+  allViews: boolean;
+}
+
+/**
+ * The basis / combining / jewellery rules for one zakat calculation. `zakat` is
+ * the resolved school's rules (`null` ⇒ all views); `customBasis` is
+ * `fiqhCustom.nisabBasis`, which only matters in all-views mode (a school's
+ * rules already have it applied).
+ */
+export function resolveZakatFiqhSetup(
+  zakat: ZakatSchoolRules | null,
+  customBasis: NisabBasis | null,
+): ZakatFiqhSetup {
+  return {
+    basis: zakat?.nisabBasis ?? customBasis ?? "lower",
+    combine: zakatCombineFor(zakat),
+    includePersonalJewellery: zakat?.personalJewelleryZakatable ?? true,
+    allViews: zakat == null,
+  };
+}
+
+/** The nisab actually used: the manual figure, else the basis nisab, else the manual figure as a fallback. */
+export function effectiveZakatNisab(input: {
+  basis: NisabBasis;
+  goldNisab: number;
+  silverNisab: number;
+  manual: boolean;
+  manualNisab: number;
+}): number {
+  if (input.manual) return input.manualNisab;
+  const suggested = nisabFor(input.basis, input.goldNisab, input.silverNisab);
+  return suggested > 0 ? suggested : input.manualNisab;
+}
+
+/** Every `ZakatAssets` field the calculator stores in its draft `values` (wealth, then deductions). */
+export const ZAKAT_DRAFT_ASSET_FIELDS: readonly (keyof ZakatAssets)[] = [
+  "cash",
+  "gold",
+  "personalJewellery",
+  "silver",
+  "stocks",
+  "business",
+  "receivables",
+  "rentalIncome",
+  "otherAssets",
+  "crypto",
+  "investmentPlots",
+  "installmentPlotsPaid",
+  "investmentProperty",
+  "tradeVehicles",
+  "debts",
+  "livingExpenses",
+];

@@ -3,8 +3,16 @@
  * sheet. The White Days are the 13th, 14th and 15th of each Hijri month; the
  * exact Gregorian dates are resolved from the app's Hijri engine (`hijri.ts`),
  * so they follow the same moon-sighting authority as the rest of the app.
+ *
+ * "White Day" here means a day a White Day fast may be suggested: the lunar
+ * 13th–15th minus the days no voluntary fast can be logged on — 13 Dhul-Hijjah
+ * is a day of Tashriq (prohibited, Muslim 1141) and Ramadan days belong to the
+ * Ramadan log (`voluntaryFastBlockForHijri`, the same gate as `/fasting`). So the
+ * tracker section, the home banner and the reminder never invite a blocked fast.
  */
-import { getLocalDateString } from "@munib-tracker/shared/utils";
+import { WHITE_DAYS_CHECKLIST } from "@munib-tracker/shared/content/white-days-checklist";
+import type { WhiteDaysChecklistItem } from "@munib-tracker/shared/types";
+import { getLocalDateString, voluntaryFastBlockForHijri } from "@munib-tracker/shared/utils";
 
 import { gregorianToHijri, type HijriDate, hijriToGregorian } from "@/lib/hijri";
 
@@ -14,9 +22,17 @@ export const WHITE_DAYS_HIJRI = [13, 14, 15] as const;
 /** `?focus=` key — scrolls the Tracker to the White Days checklist section. */
 export const WHITE_DAYS_CHECKLIST_FOCUS = "white-days" as const;
 
-/** True when the Hijri day-of-month is one of the White Days (13, 14, 15). */
-export function isWhiteDayHijri(hijri: HijriDate): boolean {
+/** The lunar 13th, 14th or 15th, whatever the month (no fasting rules applied). */
+export function isLunarWhiteDayHijri(hijri: Pick<HijriDate, "day">): boolean {
   return hijri.day >= 13 && hijri.day <= 15;
+}
+
+/**
+ * True when a White Day fast may be suggested: the 13th–15th, except 13
+ * Dhul-Hijjah (Tashriq) and Ramadan.
+ */
+export function isWhiteDayHijri(hijri: HijriDate): boolean {
+  return isLunarWhiteDayHijri(hijri) && voluntaryFastBlockForHijri(hijri) == null;
 }
 
 /** True when the given Gregorian date falls on a White Day. */
@@ -33,6 +49,14 @@ export function isWhiteDayDateString(date: string, timeZone?: string): boolean {
   const day = Number(match[3]);
   // Local noon avoids DST edge cases around midnight.
   return isWhiteDay(new Date(year, month - 1, day, 12, 0, 0), timeZone);
+}
+
+/** The lunar 13th–15th for a local `YYYY-MM-DD` (ignores fasting rules; e.g. Hijri correction checks). */
+export function isLunarWhiteDayDateString(date: string, timeZone?: string): boolean {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
+  if (!match) return false;
+  const at = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 12, 0, 0);
+  return isLunarWhiteDayHijri(gregorianToHijri(at, timeZone));
 }
 
 /**
@@ -66,6 +90,27 @@ export function whiteDaysForHijriMonth(
   return WHITE_DAYS_HIJRI.map((hijriDay) => ({
     hijriDay,
     date: getLocalDateString(hijriToGregorian(year, month, hijriDay)),
+  }));
+}
+
+export interface WhiteDayFast {
+  item: WhiteDaysChecklistItem;
+  hijriDay: number;
+  /** Local `YYYY-MM-DD` of the fast. */
+  date: string;
+}
+
+/**
+ * The White Day fasts that may be logged in a Hijri month (the checklist rows):
+ * all three normally, only the 14th and 15th in Dhul-Hijjah, none in Ramadan.
+ */
+export function whiteDayFastsForHijriMonth(year: number, month: number): WhiteDayFast[] {
+  return WHITE_DAYS_CHECKLIST.filter((item) =>
+    isWhiteDayHijri({ year, month, day: item.hijriDay }),
+  ).map((item) => ({
+    item,
+    hijriDay: item.hijriDay,
+    date: getLocalDateString(hijriToGregorian(year, month, item.hijriDay)),
   }));
 }
 

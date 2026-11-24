@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 
+import { useMushafAnnotations } from "@/components/quran/mushaf-annotations";
 import { MushafFontLoading } from "@/components/quran/mushaf-font-loading";
 import { MushafPageFrame } from "@/components/quran/mushaf-page-frame";
 import { SurahBanner } from "@/components/quran/surah-banner";
@@ -34,6 +35,11 @@ type MushafLineRendererProps = {
    * reveals single words). Return null to fall back to the plain glyph run.
    */
   renderLineGlyphs?: (lineIndex: number, glyphs: string) => ReactNode | null;
+  /**
+   * NF-3.21: draw the user's highlights (word spans, or an ayah/line tint on
+   * pages that don't map word-exactly). Off for practice, which owns the glyphs.
+   */
+  showAnnotations?: boolean;
 };
 
 /**
@@ -94,6 +100,7 @@ export function MushafLineRenderer({
   onItemFocus,
   onItemBlur,
   renderLineGlyphs,
+  showAnnotations = false,
 }: MushafLineRendererProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -117,6 +124,7 @@ export function MushafLineRenderer({
   );
   const hasBasmala = layout.lines.some((line) => line.type === "basmala");
   const { ready, fontFamily, basmalaFontFamily } = useQcfPageFont(page, hasBasmala);
+  const annotations = useMushafAnnotations(page, layout, showAnnotations && !renderLineGlyphs);
 
   // TV: which text line should take initial D-pad focus (by line index).
   let tvFocusLineIndex = -1;
@@ -171,6 +179,7 @@ export function MushafLineRenderer({
           const refs = parseVerseRange(line.verseRange);
           const primary = refs[0];
           const highlighted = lineHighlightsAyah(refs, highlightAyah);
+          const annotationTint = highlighted ? null : (annotations?.lineTint(lineIndex) ?? null);
           return (
             <PressableScale
               key={lineKey}
@@ -189,6 +198,7 @@ export function MushafLineRenderer({
               style={[
                 styles.textLine,
                 highlighted ? { backgroundColor: tokens.mushaf.highlight } : null,
+                annotationTint ? { backgroundColor: annotationTint } : null,
               ]}
             >
               <Text
@@ -200,7 +210,9 @@ export function MushafLineRenderer({
                   line.alignment === "centered" ? styles.centeredText : styles.justifiedText,
                 ]}
               >
-                {renderLineGlyphs?.(lineIndex, line.glyphs) ?? line.glyphs}
+                {renderLineGlyphs?.(lineIndex, line.glyphs) ??
+                  annotations?.renderLineGlyphs(lineIndex) ??
+                  line.glyphs}
               </Text>
             </PressableScale>
           );

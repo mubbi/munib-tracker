@@ -1,5 +1,6 @@
-import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
-import { isObligatoryPrayer, isQazaPrayer } from "@munib-tracker/shared/validators";
+import { masjidKey } from "@munib-tracker/shared/masjid";
+import type { PrayerCombineMode, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import { isObligatoryPrayer, isQazaPrayer, isWitrPrayer } from "@munib-tracker/shared/validators";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useState } from "react";
@@ -7,16 +8,20 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { PrayerCombinePicker } from "@/components/prayer-combine-picker";
 import { PrayerNotesModal } from "@/components/prayer-notes-modal";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useWitrQaza } from "@/hooks/use-rawatib";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
+import { useHomeMasjid } from "@/lib/masjid/home-masjid";
 import { isTV } from "@/lib/platform/is-tv";
+import type { PrayerCombined } from "@/lib/prayer-combining";
 import {
   PRAYER_STATUS_META,
   selectablePrayerStatuses,
@@ -51,6 +56,16 @@ type PrayerStatusSheetProps = {
   /** Congregation flag for this prayer (NF-1.5); toggle shown for all obligatory prayers. */
   isJama?: boolean;
   onToggleJama?: (next: boolean) => void;
+  /** Jam' flag (NF-3.0a) — the picker shows only when the school allows combining this prayer. */
+  combined?: PrayerCombined | null;
+  onSetCombined?: (mode: PrayerCombineMode | null) => void;
+  /**
+   * "Prayed at the masjid" (NF-3.11) — shown for obligatory prayers when a home
+   * masjid is set (an existing flag is always shown so it can be cleared).
+   * `masjidId` is the home masjid OSM ref, or null to clear.
+   */
+  atMasjid?: boolean;
+  onToggleAtMasjid?: (masjidId: string | null) => void;
   onSelect: (status: PrayerStatus, options?: PrayerStatusSelectionOptions) => void;
   onSaveNotes: (notes: string) => void;
   onClose: () => void;
@@ -64,14 +79,20 @@ export function PrayerStatusSheet({
   currentNotes,
   isJama,
   onToggleJama,
+  combined,
+  onSetCombined,
+  atMasjid,
+  onToggleAtMasjid,
   onSelect,
   onSaveNotes,
   onClose,
 }: PrayerStatusSheetProps) {
+  const homeMasjid = useHomeMasjid();
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const router = useRouter();
   const [notesOpen, setNotesOpen] = useState(false);
+  const witrQaza = useWitrQaza();
   const [qazaPromptOpen, setQazaPromptOpen] = useState(false);
   const [pendingStatus, setPendingStatus] = useState<PrayerStatus | null>(null);
   const tv = isTV();
@@ -103,7 +124,10 @@ export function PrayerStatusSheet({
     const next = active ? "pending" : status;
     triggerHaptic(outcomeHaptic(next));
 
-    if ((status === "missed" || status === "qaza") && !active && isQazaPrayer(prayerId)) {
+    // Witr qaza accrual follows the school default (on only for Hanafi) or the
+    // user's explicit choice (§4.1.4 retrofit); with it off, Witr is just marked.
+    const offersQaza = isQazaPrayer(prayerId) && (!isWitrPrayer(prayerId) || witrQaza.enabled);
+    if ((status === "missed" || status === "qaza") && !active && offersQaza) {
       setPendingStatus(status);
       setQazaPromptOpen(true);
       return;
@@ -199,6 +223,56 @@ export function PrayerStatusSheet({
               />
             ) : null}
           </PressableScale>
+        ) : null}
+
+        {onToggleAtMasjid && isObligatoryPrayer(prayerId) && (homeMasjid || atMasjid) ? (
+          <PressableScale
+            haptic="selection"
+            accessibilityRole="button"
+            accessibilityLabel={t("masjidLog.toggle")}
+            accessibilityHint={homeMasjid?.name ?? undefined}
+            accessibilityState={{ selected: !!atMasjid }}
+            onPress={() => onToggleAtMasjid(atMasjid || !homeMasjid ? null : masjidKey(homeMasjid))}
+            style={[
+              styles.jamaRow,
+              tv ? styles.optionTv : null,
+              {
+                backgroundColor: atMasjid ? tokens.status.success.soft : colors.muted,
+                borderColor: atMasjid
+                  ? tv
+                    ? tokens.hairline
+                    : tokens.status.success.color
+                  : "transparent",
+              },
+            ]}
+          >
+            <SymbolView
+              name={{ ios: "building.columns.fill", android: "mosque", web: "mosque" }}
+              size={20}
+              tintColor={atMasjid ? tokens.status.success.color : colors.mutedForeground}
+            />
+            <ThemedText
+              type="small"
+              style={{ flex: 1, color: atMasjid ? tokens.status.success.color : colors.foreground }}
+            >
+              {t("masjidLog.toggle")}
+            </ThemedText>
+            {atMasjid ? (
+              <SymbolView
+                name={{ ios: "checkmark", android: "check", web: "check" }}
+                size={16}
+                tintColor={tokens.status.success.color}
+              />
+            ) : null}
+          </PressableScale>
+        ) : null}
+
+        {onSetCombined && isObligatoryPrayer(prayerId) ? (
+          <PrayerCombinePicker
+            prayerId={prayerId}
+            combined={combined ?? null}
+            onChange={onSetCombined}
+          />
         ) : null}
 
         <PressableScale

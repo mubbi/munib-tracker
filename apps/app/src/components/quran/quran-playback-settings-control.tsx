@@ -8,9 +8,11 @@ import { usePlaybackSummaryLabel } from "@/hooks/use-playback-summary-label";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahByNumber } from "@/lib/quran-meta";
 import { normalizeRepeatPlan, surahNumberFromSourceHref } from "@/lib/quran-repeat";
+import { updateQuranPrefs as updatePrefs } from "@/lib/settings/quran-shortcuts";
+import { setTtsVoice, useTtsVoice } from "@/lib/settings/tts-voice";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { usePreferences } from "@/stores/preferences-store";
-import { useQuranActions, useQuranPrefs } from "@/stores/quran-store";
+import { useQuranPrefs } from "@/stores/quran-store";
 
 const PLAYBACK_ICON = {
   ios: "slider.horizontal.3",
@@ -35,7 +37,6 @@ export function QuranPlaybackSettingsControl({
   const { colors, tokens } = useThemeTokens();
   const audio = useAudioPlayerContext();
   const prefs = useQuranPrefs();
-  const { updatePrefs } = useQuranActions();
   const translationLocale = usePreferences().translationLocale;
   const [open, setOpen] = useState(false);
 
@@ -52,7 +53,7 @@ export function QuranPlaybackSettingsControl({
   const translationAudio = prefs.translationAudio ?? "off";
   const { label, active } = usePlaybackSummaryLabel(repeatPlan, translationAudio);
   const ttsLang = resolveIntlLocale(translationLocale);
-  const ttsVoiceId = prefs.ttsVoiceByLang?.[ttsLang];
+  const ttsVoiceId = useTtsVoice(ttsLang);
 
   if (surahNumber == null) return null;
 
@@ -92,12 +93,7 @@ export function QuranPlaybackSettingsControl({
           void updatePrefs({ translationAudio: mode });
           audio.setTranslationAudio(mode);
         }}
-        onTtsVoiceChange={(voiceId) => {
-          const next = { ...(prefs.ttsVoiceByLang ?? {}) };
-          if (voiceId) next[ttsLang] = voiceId;
-          else delete next[ttsLang];
-          void updatePrefs({ ttsVoiceByLang: next });
-        }}
+        onTtsVoiceChange={(voiceId) => void setTtsVoice(ttsLang, voiceId)}
       />
     </>
   );

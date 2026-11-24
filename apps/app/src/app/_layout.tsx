@@ -12,9 +12,11 @@ import { setAppVersionInfo } from "@munib-tracker/api-client";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import { AppStack } from "@/components/app-stack";
 import { AppVersionGate } from "@/components/app-update/app-version-gate";
+import { CirclesHost } from "@/components/circles/circles-host";
 import { ContentReportProvider } from "@/components/content-report/content-report-provider";
 import { ErrorFallback } from "@/components/error-boundary";
 import { ExternalCommandProcessor } from "@/components/external-command-processor";
+import { FocusLockHost } from "@/components/focus-lock/focus-lock-host";
 import { IdleMount } from "@/components/idle-mount";
 import { LocalePathBootstrap } from "@/components/locale-path-bootstrap";
 import { OnboardingGate } from "@/components/onboarding-gate";
@@ -197,6 +199,10 @@ function RootLayout() {
                                                 <WebPwaBootstrap />
                                                 <OnboardingGate />
                                                 <PinLockGate />
+                                                {/* NF-3.13: focus-lock planner + soft prompt (no-op on TV). */}
+                                                <FocusLockHost />
+                                                {/* NF-3.16: kids-mode guard, fard share, D34 re-consent. */}
+                                                <CirclesHost />
                                                 <DeferredMiniPlayer />
                                                 <TvRemoteBridge />
                                                 {/* Outside BlurTargetView so Android can

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { MadhhabBadge } from "@/components/fiqh/madhhab-badge";
 import { MoneyText } from "@/components/money/money-text";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -23,13 +24,24 @@ type ZakatResultHeroProps = Pick<
   | "silverNisab"
   | "suggestedNisab"
   | "currencyCode"
-> & {
-  /**
-   * Wide two-pane layout: the docked summary bar (which owns Reset) is replaced
-   * by this hero in the aside, so the hero hosts the reset action instead.
-   */
-  onReset?: () => void;
-};
+> &
+  Partial<
+    Pick<
+      ZakatCalculatorState,
+      | "zakatSchool"
+      | "nisabBasis"
+      | "nisabBasisCustom"
+      | "basisRows"
+      | "personalJewelleryValue"
+      | "personalJewelleryCounted"
+    >
+  > & {
+    /**
+     * Wide two-pane layout: the docked summary bar (which owns Reset) is replaced
+     * by this hero in the aside, so the hero hosts the reset action instead.
+     */
+    onReset?: () => void;
+  };
 
 export function ZakatResultHero({
   result,
@@ -41,6 +53,12 @@ export function ZakatResultHero({
   suggestedNisab,
   currencyCode,
   onReset,
+  zakatSchool = null,
+  nisabBasis = "lower",
+  nisabBasisCustom = false,
+  basisRows = [],
+  personalJewelleryValue = 0,
+  personalJewelleryCounted = true,
 }: ZakatResultHeroProps) {
   const { t } = useTranslation();
   const [confirmReset, setConfirmReset] = useState(false);
@@ -48,6 +66,8 @@ export function ZakatResultHero({
   const success = tokens.status.success;
   const hasDue = hasInput && result.totalDue > 0;
   const palette = hasDue ? success : { color: colors.mutedForeground, soft: colors.muted };
+  const separatePools = result.assessment?.combine === "separate" ? result.assessment.pools : [];
+  const basisMetal = result.assessment?.basisMetal ?? "silver";
 
   return (
     <Card
@@ -86,6 +106,7 @@ export function ZakatResultHero({
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("zakat.currency.inCurrency", { code: currencyCode })}
           </ThemedText>
+          <MadhhabBadge school={zakatSchool} custom={nisabBasisCustom} />
         </View>
       </View>
 
@@ -140,6 +161,70 @@ export function ZakatResultHero({
             : t("zakat.belowNisab")
           : t("zakat.heroHint")}
       </ThemedText>
+
+      {hasInput && separatePools.length > 0 ? (
+        <View style={styles.breakdown}>
+          {separatePools.map((pool) => (
+            <ThemedText key={pool.pool} type="caption" themeColor="mutedForeground">
+              {pool.pool === "basis"
+                ? t(pool.meets ? "zakat.fiqh.poolBasisDue" : "zakat.fiqh.poolBasisBelow", {
+                    metal: t(`zakat.fiqh.metal.${basisMetal}`),
+                    value: money(pool.due),
+                  })
+                : t(pool.meets ? "zakat.fiqh.poolMetalDue" : "zakat.fiqh.poolMetalBelow", {
+                    metal: t(`zakat.fiqh.metal.${pool.pool === "gold" ? "gold" : "silver"}`),
+                    value: money(pool.due),
+                  })}
+            </ThemedText>
+          ))}
+        </View>
+      ) : null}
+
+      {hasInput && personalJewelleryValue > 0 && !personalJewelleryCounted ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.hawl}>
+          {t("zakat.fiqh.jewelleryNotCounted", { value: money(personalJewelleryValue) })}
+        </ThemedText>
+      ) : null}
+
+      {hasInput && zakatSchool == null && basisRows.length > 0 ? (
+        <View style={[styles.rows, { borderTopColor: tokens.hairline }]}>
+          <ThemedText type="smallBold">{t("zakat.fiqh.rowsTitle")}</ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("zakat.fiqh.allViewsHeadline", { basis: t(`zakat.fiqh.basis.${nisabBasis}`) })}
+          </ThemedText>
+          {basisRows.map((row) => (
+            <View
+              key={row.basis}
+              accessible
+              style={[
+                styles.basisRow,
+                {
+                  backgroundColor: row.selected ? success.soft : withAlpha(colors.foreground, 0.04),
+                },
+              ]}
+            >
+              <View style={styles.basisRowTop}>
+                <ThemedText type="caption" style={styles.basisLabel}>
+                  {t(`zakat.fiqh.basis.${row.basis}`)}
+                </ThemedText>
+                {row.selected ? <Pill label={t("zakat.fiqh.yourBasis")} compact /> : null}
+                <MoneyText style={[styles.statValue, { color: colors.foreground }]}>
+                  {row.meetsNisab || row.totalDue > 0
+                    ? money(row.totalDue)
+                    : t("zakat.fiqh.rowBelow")}
+                </MoneyText>
+              </View>
+              {row.totalDueWithoutJewellery != null ? (
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("zakat.fiqh.rowWithoutJewellery", {
+                    value: money(row.totalDueWithoutJewellery),
+                  })}
+                </ThemedText>
+              ) : null}
+            </View>
+          ))}
+        </View>
+      ) : null}
 
       {hasInput && result.meetsNisab ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.hawl}>
@@ -225,4 +310,18 @@ const styles = StyleSheet.create({
   hawl: { marginTop: Spacing.two, lineHeight: 18 },
   pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, marginTop: Spacing.three },
   reset: { marginTop: Spacing.three, alignSelf: "flex-start" },
+  rows: {
+    marginTop: Spacing.three,
+    paddingTop: Spacing.three,
+    gap: Spacing.two,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  basisRow: {
+    gap: Spacing.half,
+    padding: Spacing.two + 2,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  basisRowTop: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  basisLabel: { flex: 1, fontWeight: "600" },
 });

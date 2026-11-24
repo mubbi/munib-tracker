@@ -2,6 +2,7 @@ import { getTafsirEdition } from "@munib-tracker/shared/i18n";
 
 import { hasEditionAyahs } from "@/api/quran-remote";
 import { QuranCacheRepository } from "@/db";
+import { shouldCacheQuranEditions } from "@/lib/cache-prefs";
 import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
 
@@ -129,7 +130,7 @@ export async function fetchTafsirSurah(
     throw error;
   }
 
-  await QuranCacheRepository.set(cacheId, surah, out);
+  await QuranCacheRepository.set(cacheId, surah, out, shouldCacheQuranEditions());
   return out;
 }
 

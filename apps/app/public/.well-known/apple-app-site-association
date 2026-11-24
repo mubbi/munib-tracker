@@ -6,7 +6,10 @@
         "appID": "MHNXY53R3X.app.munibtracker",
         "paths": [
           "/oauth/apple",
-          "/oauth/apple/*"
+          "/oauth/apple/*",
+          "/circle/join/*",
+          "/kids/link",
+          "/kids/link/*"
         ]
       }
     ]

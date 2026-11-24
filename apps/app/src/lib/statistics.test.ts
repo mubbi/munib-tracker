@@ -241,3 +241,56 @@ describe("summarizeQuranReading", () => {
     ).toEqual({ ayahsRead: 107, totalAyahs: 297, surahsStarted: 2, surahsCompleted: 1 });
   });
 });
+
+describe("rawatib keep fard rates rawatib-free (NF-3.1)", () => {
+  const RAWATIB: PrayerId[] = [
+    "fajr_before",
+    "dhuhr_before",
+    "dhuhr_after",
+    "maghrib_after",
+    "isha_after",
+  ];
+  const rawatibDay = (date: string) => RAWATIB.map((p) => log(date, p, "completed"));
+
+  it("adding rawatib changes no fard tally, point, summary or breakdown", () => {
+    const today = "2026-03-10";
+    const fard = [...day("2026-03-08", "completed"), ...day("2026-03-09", "missed")];
+    const withRawatib = [...fard, ...rawatibDay("2026-03-08"), ...rawatibDay("2026-03-09")];
+    const a = indexPrayerDays(fard);
+    const b = indexPrayerDays(withRawatib);
+    const pa = dailyPoints(a, "2026-03-07", today, today);
+    const pb = dailyPoints(b, "2026-03-07", today, today);
+    expect(pb).toEqual(pa);
+    expect(summarizePeriod(b, pb)).toEqual(summarizePeriod(a, pa));
+    expect(salahBreakdown(b, pb, FARD)).toEqual(salahBreakdown(a, pa, FARD));
+  });
+
+  it("a rawatib-only day neither starts tracking nor makes today countable", () => {
+    const today = "2026-03-10";
+    const index = indexPrayerDays([
+      ...day("2026-03-09", "completed"),
+      ...rawatibDay(today),
+      ...rawatibDay("2026-03-01"),
+    ]);
+    expect(index.firstDate).toBe("2026-03-09");
+    const points = dailyPoints(index, "2026-03-09", today, today);
+    expect(points.find((p) => p.isToday)?.hasLogs).toBe(false);
+    expect(averageLevel(points)).toBe(1);
+  });
+
+  it("rates each rawatib row over the rawatib cells", async () => {
+    const { rawatibConsistency } = await import("@munib-tracker/shared/utils");
+    const { rawatibBreakdown } = await import("./statistics");
+    const today = "2026-03-10";
+    const logs = [
+      log("2026-03-08", "fajr_before", "completed"),
+      log("2026-03-09", "dhuhr_after", "completed"),
+    ];
+    const cells = rawatibConsistency(logs, "2026-03-07", today, today);
+    const rows = rawatibBreakdown(indexPrayerDays(logs), cells, ["fajr_before", "dhuhr_after"]);
+    expect(rows.map((r) => [r.prayerId, r.completed, r.days])).toEqual([
+      ["fajr_before", 1, 2],
+      ["dhuhr_after", 1, 2],
+    ]);
+  });
+});

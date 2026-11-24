@@ -1,7 +1,8 @@
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
+import { RootSearchPanel } from "@/components/quran/roots/root-search-panel";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { VoiceInputButton } from "@/components/stt/voice-input-button";
@@ -46,6 +47,9 @@ const WIDE_CONTROLS_MIN_WIDTH = 1024;
 export default function QuranSearchScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  // NF-3.22: Text | Root toggle (`?mode=root` deep-links straight to root search).
+  const params = useLocalSearchParams<{ mode?: string; q?: string }>();
+  const [mode, setMode] = useState<"text" | "root">(params.mode === "root" ? "root" : "text");
   const toast = useToast();
   const { colors, tokens } = useThemeTokens();
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
@@ -193,152 +197,136 @@ export default function QuranSearchScreen() {
     >
       {SnapshotHost}
       <Seo path="/quran/search" />
-      <Card padding="three">
-        <View style={wideControls ? styles.controlsWide : undefined}>
-          <View style={[styles.fieldGroup, wideControls && styles.fieldGroupWide]}>
-            <ThemedText type="smallBold">{t("quran.detector.languageLabel")}</ThemedText>
-            <SegmentedControl options={langOptions} value={lang} onChange={onLangChange} />
-          </View>
+      <View style={styles.modeRow}>
+        <SegmentedControl
+          options={[
+            { id: "text" as const, label: t("quranRoots.mode.text") },
+            { id: "root" as const, label: t("quranRoots.mode.root") },
+          ]}
+          value={mode}
+          onChange={setMode}
+        />
+      </View>
+      {mode === "root" ? (
+        <RootSearchPanel
+          initialQuery={params.mode === "root" ? (params.q ?? "") : ""}
+          onSearchText={(text) => {
+            setLang("ar");
+            setQuery(text);
+            setMode("text");
+          }}
+        />
+      ) : (
+        <Card padding="three">
+          <View style={wideControls ? styles.controlsWide : undefined}>
+            <View style={[styles.fieldGroup, wideControls && styles.fieldGroupWide]}>
+              <ThemedText type="smallBold">{t("quran.detector.languageLabel")}</ThemedText>
+              <SegmentedControl options={langOptions} value={lang} onChange={onLangChange} />
+            </View>
 
-          <View
-            style={[
-              styles.inputWrap,
-              wideControls && styles.inputWrapWide,
-              {
-                backgroundColor: colors.input,
-                borderWidth: stt.listening ? 1.5 : 1,
-                borderColor: stt.listening ? colors.accent : colors.inputBorder,
-              },
-            ]}
-          >
-            <TextInput
-              value={query}
-              onChangeText={setQueryFromInput}
-              placeholder={placeholder}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={placeholder}
-              // TV: never pop the on-screen keyboard on mount.
-              autoFocus={!tv}
-              autoCorrect={false}
+            <View
               style={[
-                styles.input,
-                tv && styles.inputTv,
+                styles.inputWrap,
+                wideControls && styles.inputWrapWide,
                 {
-                  color: colors.foreground,
-                  paddingEnd: hasInput ? micPad + 28 : micPad,
-                  textAlign: lang === "ar" ? "right" : "left",
-                  writingDirection: lang === "ar" ? "rtl" : "ltr",
+                  backgroundColor: colors.input,
+                  borderWidth: stt.listening ? 1.5 : 1,
+                  borderColor: stt.listening ? colors.accent : colors.inputBorder,
                 },
               ]}
-            />
-            <View style={styles.inputActions}>
-              {hasInput ? (
-                <IconButton
-                  accessibilityLabel={t("search.clear")}
-                  onPress={() => setQueryFromInput("")}
-                  name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
-                  size={18}
-                  tintColor={colors.mutedForeground}
-                />
-              ) : null}
-              {voiceAvailable ? (
-                <VoiceInputButton
-                  size="sm"
-                  listening={stt.listening}
-                  level={stt.level}
-                  accessibilityLabel={
-                    stt.listening ? t("quran.detector.stopDictate") : t("quran.detector.dictate")
-                  }
-                  accessibilityHint={stt.listening ? t("quran.detector.listening") : undefined}
-                  onPress={toggleVoice}
-                />
-              ) : null}
+            >
+              <TextInput
+                value={query}
+                onChangeText={setQueryFromInput}
+                placeholder={placeholder}
+                placeholderTextColor={colors.mutedForeground}
+                accessibilityLabel={placeholder}
+                // TV: never pop the on-screen keyboard on mount.
+                autoFocus={!tv}
+                autoCorrect={false}
+                style={[
+                  styles.input,
+                  tv && styles.inputTv,
+                  {
+                    color: colors.foreground,
+                    paddingEnd: hasInput ? micPad + 28 : micPad,
+                    textAlign: lang === "ar" ? "right" : "left",
+                    writingDirection: lang === "ar" ? "rtl" : "ltr",
+                  },
+                ]}
+              />
+              <View style={styles.inputActions}>
+                {hasInput ? (
+                  <IconButton
+                    accessibilityLabel={t("search.clear")}
+                    onPress={() => setQueryFromInput("")}
+                    name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
+                    size={18}
+                    tintColor={colors.mutedForeground}
+                  />
+                ) : null}
+                {voiceAvailable ? (
+                  <VoiceInputButton
+                    size="sm"
+                    listening={stt.listening}
+                    level={stt.level}
+                    accessibilityLabel={
+                      stt.listening ? t("quran.detector.stopDictate") : t("quran.detector.dictate")
+                    }
+                    accessibilityHint={stt.listening ? t("quran.detector.listening") : undefined}
+                    onPress={toggleVoice}
+                  />
+                ) : null}
+              </View>
             </View>
           </View>
-        </View>
 
-        {busy ? (
-          <View style={styles.statusRow}>
-            <ActivityIndicator size="small" color={colors.accent} />
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("quran.searching")}
+          {busy ? (
+            <View style={styles.statusRow}>
+              <ActivityIndicator size="small" color={colors.accent} />
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("quran.searching")}
+              </ThemedText>
+            </View>
+          ) : (
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+              {results.length > 0
+                ? t("quran.resultsCount", { count: results.length })
+                : stt.listening
+                  ? t("quran.detector.listening")
+                  : t("quran.searchHint")}
             </ThemedText>
-          </View>
-        ) : (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {results.length > 0
-              ? t("quran.resultsCount", { count: results.length })
-              : stt.listening
-                ? t("quran.detector.listening")
-                : t("quran.searchHint")}
-          </ThemedText>
-        )}
+          )}
 
-        {showEmpty ? (
-          <EmptyState
-            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            title={t("quran.noResults")}
-          />
-        ) : !busy ? (
-          // TV: single focus column. Tablet / desktop: two result columns.
-          <ResponsiveGrid
-            gap={Spacing.two}
-            maxColumns={2}
-            columns={tv ? 1 : undefined}
-            style={styles.resultsGrid}
-          >
-            {results.map((hit) =>
-              tv ? (
-                // TV: one focus stop per result (Select opens the ayah); no share.
-                <PressableScale
-                  key={`${hit.surah}:${hit.ayah}`}
-                  accessibilityRole="button"
-                  accessibilityLabel={`${hit.surahName} ${hit.ayah}`}
-                  onPress={() =>
-                    router.push({
-                      pathname: "/quran/[surah]",
-                      params: { surah: String(hit.surah), ayah: String(hit.ayah) },
-                    })
-                  }
-                  style={[styles.row, styles.rowTv, { backgroundColor: colors.muted }]}
-                >
-                  <View style={styles.rowHeaderContent}>
-                    <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
-                      {hit.popularName ?? hit.surahName}
-                    </ThemedText>
-                    <Pill
-                      label={t("quran.ayahRef", { surah: hit.surah, ayah: hit.ayah })}
-                      color={colors.accent}
-                      background={tokens.accentSoft}
-                    />
-                  </View>
-                  {hit.arabic ? (
-                    <ThemedText type="arabic" numberOfLines={2} style={compactArabicTextStyle()}>
-                      {hit.arabic}
-                    </ThemedText>
-                  ) : null}
-                  <ThemedText type="small" themeColor="mutedForeground" numberOfLines={2}>
-                    {hit.translation}
-                  </ThemedText>
-                </PressableScale>
-              ) : (
-                <View
-                  key={`${hit.surah}:${hit.ayah}`}
-                  style={[styles.row, { backgroundColor: colors.muted }]}
-                >
-                  <View style={styles.rowHeader}>
-                    <PressableScale
-                      haptic="light"
-                      accessibilityRole="button"
-                      accessibilityLabel={`${hit.surahName} ${hit.ayah}`}
-                      onPress={() =>
-                        router.push({
-                          pathname: "/quran/[surah]",
-                          params: { surah: String(hit.surah), ayah: String(hit.ayah) },
-                        })
-                      }
-                      style={styles.rowHeaderContent}
-                    >
+          {showEmpty ? (
+            <EmptyState
+              icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+              title={t("quran.noResults")}
+            />
+          ) : !busy ? (
+            // TV: single focus column. Tablet / desktop: two result columns.
+            <ResponsiveGrid
+              gap={Spacing.two}
+              maxColumns={2}
+              columns={tv ? 1 : undefined}
+              style={styles.resultsGrid}
+            >
+              {results.map((hit) =>
+                tv ? (
+                  // TV: one focus stop per result (Select opens the ayah); no share.
+                  <PressableScale
+                    key={`${hit.surah}:${hit.ayah}`}
+                    accessibilityRole="button"
+                    accessibilityLabel={`${hit.surahName} ${hit.ayah}`}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/quran/[surah]",
+                        params: { surah: String(hit.surah), ayah: String(hit.ayah) },
+                      })
+                    }
+                    style={[styles.row, styles.rowTv, { backgroundColor: colors.muted }]}
+                  >
+                    <View style={styles.rowHeaderContent}>
                       <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
                         {hit.popularName ?? hit.surahName}
                       </ThemedText>
@@ -347,40 +335,78 @@ export default function QuranSearchScreen() {
                         color={colors.accent}
                         background={tokens.accentSoft}
                       />
-                    </PressableScale>
-                    <IconButton
-                      name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                      size={18}
-                      tintColor={colors.mutedForeground}
-                      haptic="light"
-                      loading={isSharing(`${hit.surah}:${hit.ayah}`)}
-                      accessibilityLabel={
-                        isGesturePending(`${hit.surah}:${hit.ayah}`)
-                          ? tTv(t, "share.tapToShare", "share.selectToShare")
-                          : t("quran.shareAyah")
-                      }
-                      onPress={() => shareAyah(hit)}
-                    />
-                  </View>
-                  {hit.arabic ? (
-                    <ThemedText type="arabic" numberOfLines={2} style={compactArabicTextStyle()}>
-                      {hit.arabic}
+                    </View>
+                    {hit.arabic ? (
+                      <ThemedText type="arabic" numberOfLines={2} style={compactArabicTextStyle()}>
+                        {hit.arabic}
+                      </ThemedText>
+                    ) : null}
+                    <ThemedText type="small" themeColor="mutedForeground" numberOfLines={2}>
+                      {hit.translation}
                     </ThemedText>
-                  ) : null}
-                  <ThemedText type="small" themeColor="mutedForeground" numberOfLines={2}>
-                    {hit.translation}
-                  </ThemedText>
-                </View>
-              ),
-            )}
-          </ResponsiveGrid>
-        ) : null}
-      </Card>
+                  </PressableScale>
+                ) : (
+                  <View
+                    key={`${hit.surah}:${hit.ayah}`}
+                    style={[styles.row, { backgroundColor: colors.muted }]}
+                  >
+                    <View style={styles.rowHeader}>
+                      <PressableScale
+                        haptic="light"
+                        accessibilityRole="button"
+                        accessibilityLabel={`${hit.surahName} ${hit.ayah}`}
+                        onPress={() =>
+                          router.push({
+                            pathname: "/quran/[surah]",
+                            params: { surah: String(hit.surah), ayah: String(hit.ayah) },
+                          })
+                        }
+                        style={styles.rowHeaderContent}
+                      >
+                        <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
+                          {hit.popularName ?? hit.surahName}
+                        </ThemedText>
+                        <Pill
+                          label={t("quran.ayahRef", { surah: hit.surah, ayah: hit.ayah })}
+                          color={colors.accent}
+                          background={tokens.accentSoft}
+                        />
+                      </PressableScale>
+                      <IconButton
+                        name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                        size={18}
+                        tintColor={colors.mutedForeground}
+                        haptic="light"
+                        loading={isSharing(`${hit.surah}:${hit.ayah}`)}
+                        accessibilityLabel={
+                          isGesturePending(`${hit.surah}:${hit.ayah}`)
+                            ? tTv(t, "share.tapToShare", "share.selectToShare")
+                            : t("quran.shareAyah")
+                        }
+                        onPress={() => shareAyah(hit)}
+                      />
+                    </View>
+                    {hit.arabic ? (
+                      <ThemedText type="arabic" numberOfLines={2} style={compactArabicTextStyle()}>
+                        {hit.arabic}
+                      </ThemedText>
+                    ) : null}
+                    <ThemedText type="small" themeColor="mutedForeground" numberOfLines={2}>
+                      {hit.translation}
+                    </ThemedText>
+                  </View>
+                ),
+              )}
+            </ResponsiveGrid>
+          ) : null}
+        </Card>
+      )}
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  modeRow: { marginBottom: Spacing.three },
   fieldGroup: { gap: Spacing.two, marginBottom: Spacing.three },
   controlsWide: { flexDirection: "row", alignItems: "flex-end", gap: Spacing.three },
   fieldGroupWide: { width: 280, marginBottom: 0 },

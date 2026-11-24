@@ -1,0 +1,152 @@
+import {
+  CIRCLE_LIMITS,
+  formatInviteCode,
+  isValidInviteCode,
+  normalizeInviteCode,
+} from "@munib-tracker/shared/circles";
+import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
+
+import { CircleAccountGate } from "@/components/circles/account-gate";
+import { ScreenLayout } from "@/components/screen-layout";
+import { TextField } from "@/components/self-review/text-field";
+import { Seo } from "@/components/seo/seo";
+import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Spacing } from "@/constants/theme";
+import { circleErrorStatus, joinCircle } from "@/lib/circles/api";
+import { canUseCircleType, circleHomeHref } from "@/lib/circles/family";
+import { useCircleAuth, useCircleMutation, useInvitePreview } from "@/lib/circles/hooks";
+import { goBackOrReplace } from "@/lib/navigation";
+import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useAuth } from "@/providers/auth-provider";
+import { useToast } from "@/providers/toast-provider";
+
+function errorKey(status: number): string {
+  if (status === 404 || status === 410) return "circles.join.invalid";
+  if (status === 429) return "circles.join.rateLimited";
+  if (status === 409) return "circles.join.full";
+  if (status === 403) return "circles.join.forbidden";
+  return "circles.common.offline";
+}
+
+/**
+ * Invite landing (`circle/join/<CODE>`, D36): opened from the share link, the
+ * QR or the hub. Works as a direct web entry — a guest session is created on
+ * boot, so a guest can join a khatm group on the web without an account; family
+ * and partner circles ask to sign in first.
+ */
+export default function CircleJoinScreen() {
+  const { t } = useTranslation();
+  const router = useRouter();
+  const toast = useToast();
+  const { isReady } = useAuth();
+  const auth = useCircleAuth();
+  const params = useLocalSearchParams<{ code?: string | string[] }>();
+  const raw = Array.isArray(params.code) ? params.code[0] : params.code;
+  const code = normalizeInviteCode(raw ?? "");
+  const valid = isValidInviteCode(code);
+  const preview = useInvitePreview(valid ? code : undefined);
+  const [displayName, setDisplayName] = useState("");
+  const join = useCircleMutation((token, input: { code: string; displayName?: string }) =>
+    joinCircle(token, input),
+  );
+
+  const data = preview.data;
+  const needsAccount = data ? !canUseCircleType(data.circleType, auth.isAccount) : false;
+
+  const onJoin = async () => {
+    try {
+      const circle = await join.mutateAsync({
+        code,
+        displayName: displayName.trim() || undefined,
+      });
+      toast.success(t("circles.join.joined"));
+      router.replace(circleHomeHref(circle) as Href);
+    } catch (error) {
+      toast.error(t(errorKey(circleErrorStatus(error))));
+    }
+  };
+
+  return (
+    <ScreenLayout
+      eyebrow={t("circles.join.eyebrow")}
+      title={t("circles.join.title")}
+      subtitle={valid ? formatInviteCode(code) : undefined}
+      onBack={() => goBackOrReplace(router, "/circles")}
+    >
+      <Seo path="/circle/join" index={false} />
+      <View style={styles.stack}>
+        {!valid ? (
+          <Card padding="three">
+            <ThemedText type="small" themeColor="mutedForeground">
+              {t("circles.join.badCode")}
+            </ThemedText>
+          </Card>
+        ) : !isReady || preview.isLoading ? (
+          <ThemedText type="small" themeColor="mutedForeground">
+            {t("circles.common.loading")}
+          </ThemedText>
+        ) : preview.isError || !data ? (
+          <Card padding="three" style={styles.gap}>
+            <ThemedText type="small" themeColor="mutedForeground">
+              {t(errorKey(circleErrorStatus(preview.error)))}
+            </ThemedText>
+            <Button
+              label={t("circles.common.retry")}
+              variant="secondary"
+              onPress={() => void preview.refetch()}
+            />
+          </Card>
+        ) : (
+          <Card padding="three" style={styles.gap}>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t(`circles.type.${data.circleType}`)}
+            </ThemedText>
+            <ThemedText type="subtitle">{data.circleName}</ThemedText>
+            <ThemedText type="small" themeColor="mutedForeground">
+              {t("circles.join.members", { count: data.memberCount })}
+            </ThemedText>
+            <ThemedText type="small" themeColor="mutedForeground">
+              {t(`circles.join.roleHint.${data.circleType}`)}
+            </ThemedText>
+            {data.alreadyMember ? (
+              <>
+                <ThemedText type="small">{t("circles.join.already")}</ThemedText>
+                <Button label={t("circles.join.open")} onPress={() => router.replace("/circles")} />
+              </>
+            ) : needsAccount ? (
+              <CircleAccountGate />
+            ) : (
+              <>
+                <TextField
+                  label={t("circles.join.displayName")}
+                  hint={t("circles.join.displayNameHint")}
+                  value={displayName}
+                  onChangeText={setDisplayName}
+                  maxLength={CIRCLE_LIMITS.displayNameMaxLength}
+                />
+                <Button
+                  label={join.isPending ? t("circles.common.working") : t("circles.join.confirm")}
+                  disabled={join.isPending || !auth.hasSession}
+                  onPress={() => void onJoin()}
+                />
+              </>
+            )}
+          </Card>
+        )}
+      </View>
+    </ScreenLayout>
+  );
+}
+
+const styles = StyleSheet.create({
+  stack: { gap: Spacing.three },
+  gap: { gap: Spacing.two },
+});
+
+/** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
+export const generateMetadata = routeMetadata("/circle/join/[code]");

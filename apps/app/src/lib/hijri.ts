@@ -1,5 +1,14 @@
-import type { AppLocale } from "@munib-tracker/shared/types";
+import type { AppLocale, HijriAdjustment } from "@munib-tracker/shared/types";
 
+import {
+  type AdjustedHijriCalendar,
+  createAdjustedCalendar,
+  type HijriBaseCalendar,
+  hijriAdjustmentSignature,
+  hijriMonthFromIndex,
+  hijriMonthIndex,
+  normalizeHijriAdjustment,
+} from "@/lib/hijri-adjustment";
 import {
   gregorianToJDN,
   type HijriDate,
@@ -53,15 +62,78 @@ let hijriObserver: SightingObserver | null = null;
  * shown in the app reflects crescent visibility at that place.
  */
 export function setHijriObserver(observer: SightingObserver | null): void {
-  hijriObserver =
+  const next =
     observer && sightingAvailable(observer.latitude)
       ? { latitude: observer.latitude, longitude: observer.longitude }
       : null;
+  if (next?.latitude !== hijriObserver?.latitude || next?.longitude !== hijriObserver?.longitude) {
+    // The base month starts change with the observer — drop adjusted starts.
+    adjustedCalendar = null;
+  }
+  hijriObserver = next;
 }
 
 /** Currently registered sighting coordinates (null ⇒ Umm al-Qura dates). */
 export function getHijriObserver(): SightingObserver | null {
   return hijriObserver;
+}
+
+/**
+ * User Hijri adjustment (D14, `UserPreferences.hijriAdjustment`), fed by the
+ * preferences store. `null` (or a neutral value) ⇒ the computed dates exactly.
+ */
+let hijriAdjustment: HijriAdjustment | null = null;
+let hijriAdjustmentKey = "0";
+/** Memoised effective month starts for the current adjustment + observer. */
+let adjustedCalendar: AdjustedHijriCalendar | null = null;
+
+/** Registers the user's Hijri adjustment; clears memoised starts when it changes. */
+export function setHijriAdjustment(adjustment: HijriAdjustment | null | undefined): void {
+  const key = hijriAdjustmentSignature(adjustment);
+  if (key === hijriAdjustmentKey) {
+    hijriAdjustment = normalizeHijriAdjustment(adjustment);
+    return;
+  }
+  hijriAdjustment = normalizeHijriAdjustment(adjustment);
+  hijriAdjustmentKey = key;
+  adjustedCalendar = null;
+}
+
+/** Currently applied adjustment (null ⇒ none). */
+export function getHijriAdjustment(): HijriAdjustment | null {
+  return hijriAdjustment;
+}
+
+/** Test-only: drops memoised adjusted starts (pair with `resetSightingCacheForTests`). */
+export function resetHijriAdjustmentCacheForTests(): void {
+  adjustedCalendar = null;
+}
+
+/**
+ * The unadjusted method as a {@link HijriBaseCalendar}: crescent visibility at
+ * the registered observer, else Umm al-Qura, else tabular — exactly today's
+ * conversions. The adjustment layer and the "this month started on…" sheet
+ * build on it.
+ */
+export function hijriBaseCalendar(): HijriBaseCalendar {
+  return {
+    monthStart(index) {
+      const { year, month } = hijriMonthFromIndex(index);
+      return baseHijriToJDN(year, month, 1);
+    },
+    monthIndexOf(jdn) {
+      const { year, month } = baseJDNToHijri(jdn);
+      return hijriMonthIndex(year, month);
+    },
+  };
+}
+
+function activeAdjustedCalendar(): AdjustedHijriCalendar | null {
+  if (!hijriAdjustment) return null;
+  if (!adjustedCalendar) {
+    adjustedCalendar = createAdjustedCalendar(hijriBaseCalendar(), hijriAdjustment);
+  }
+  return adjustedCalendar;
 }
 
 const HIJRI_MONTHS_EN = [
@@ -429,6 +501,12 @@ const HIJRI_SUFFIX: Partial<Record<AppLocale, string>> = {
 export function gregorianToHijri(date: Date, timeZone?: string): HijriDate {
   const anchor = prayerDayAnchor(date, timeZone);
   const jdn = gregorianToJDN(anchor.getFullYear(), anchor.getMonth() + 1, anchor.getDate());
+  const adjusted = activeAdjustedCalendar();
+  return adjusted ? adjusted.toHijri(jdn) : baseJDNToHijri(jdn);
+}
+
+/** Unadjusted civil day → Hijri date (sighting → Umm al-Qura → tabular). */
+function baseJDNToHijri(jdn: number): HijriDate {
   if (hijriObserver) {
     try {
       const sighted = sightingHijriFromJDN(hijriObserver, jdn);
@@ -445,6 +523,33 @@ export function gregorianToHijri(date: Date, timeZone?: string): HijriDate {
 
 /** Converts a Hijri date to a Gregorian `Date` at local midnight. */
 export function hijriToGregorian(year: number, month: number, day: number): Date {
+  const adjusted = activeAdjustedCalendar();
+  const jdn = adjusted ? adjusted.toJDN(year, month, day) : baseHijriToJDN(year, month, day);
+  const { year: gy, month: gm, day: gd } = jdnToGregorian(jdn);
+  return new Date(gy, gm - 1, gd);
+}
+
+/** Unadjusted Hijri date → civil JDN (sighting → Umm al-Qura → tabular). */
+/** Which method predicts a Hijri month's start (mirrors `baseHijriToJDN`). */
+export type HijriPredictionSource = "sighting" | "ummAlQura" | "tabular";
+
+/**
+ * The method behind the predicted day 1 of `year`/`month` before any user
+ * adjustment: crescent sighting at the observer when it covers the month, else
+ * Umm al-Qura inside its table range, else the tabular calendar (§4.5.11).
+ */
+export function hijriPredictionSource(year: number, month: number): HijriPredictionSource {
+  if (hijriObserver) {
+    try {
+      if (sightingJDNFromHijri(hijriObserver, year, month, 1) !== null) return "sighting";
+    } catch {
+      // Same fallback as baseHijriToJDN.
+    }
+  }
+  return inUmalquraYearRange(year) ? "ummAlQura" : "tabular";
+}
+
+function baseHijriToJDN(year: number, month: number, day: number): number {
   let jdn: number | null = null;
   if (hijriObserver) {
     try {
@@ -458,12 +563,13 @@ export function hijriToGregorian(year: number, month: number, day: number): Date
       ? umalquraToJDN(year, month, day)
       : islamicTabularToJDN(year, month, day);
   }
-  const { year: gy, month: gm, day: gd } = jdnToGregorian(jdn);
-  return new Date(gy, gm - 1, gd);
+  return jdn;
 }
 
 /** Number of days (29 or 30) in the given Hijri month. */
 export function hijriMonthLength(year: number, month: number): number {
+  const adjusted = activeAdjustedCalendar();
+  if (adjusted) return adjusted.monthLength(hijriMonthIndex(year, month));
   if (hijriObserver) {
     try {
       const sighted = sightingMonthLength(hijriObserver, year, month);

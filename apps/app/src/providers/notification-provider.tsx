@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { AppState, Platform } from "react-native";
 import { maybeOpenReviewFunnelFromNotificationData } from "@/features/reviews/lib/reviewNotificationTap";
 import { markColdStartReady } from "@/lib/boot/cold-start";
+import { circleEventHref, parseCircleRouteData } from "@/lib/circles/inbox";
 import {
   handleLiveActivityPushToken,
   notifyLiveActivityLifecycle,
@@ -67,7 +68,14 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const notificationPrefs = useStore(preferencesStore, (s) => s.prefs.notificationPrefs);
   const prayerAlerts = useStore(preferencesStore, (s) => s.prefs.prayerAlerts);
   const prayerReminderOffsets = useStore(preferencesStore, (s) => s.prefs.prayerReminderOffsets);
+  // B2: a style change swaps the Android adhan channel and re-arms reminders with its sound.
+  const adhanStyleId = useStore(preferencesStore, (s) => s.prefs.adhanStyleId);
   const bedtime = useStore(preferencesStore, (s) => s.prefs.bedtime);
+  // D31 / rule 5: starting or ending an excused period pauses / re-arms nudges at once.
+  const activeExcusedReason = useStore(
+    preferencesStore,
+    (s) => s.prefs.activeExcusedReason ?? null,
+  );
   const location = useStore(locationStore, (s) => s.location);
   const locationReady = useStore(locationStore, (s) => s.isReady);
   const trackerReady = useStore(trackerStore, (s) => s.isReady);
@@ -81,7 +89,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!activeLocale || !notificationsOk) return;
-    void configureNotifications();
+    void configureNotifications(preferencesStore.getState().prefs.adhanStyleId);
   }, [activeLocale, notificationsOk]);
 
   useEffect(() => {
@@ -154,9 +162,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     }
     // qazaDebtKey keeps this effect tied to remaining debt so OS nudges drop when cleared.
     void qazaDebtKey;
+    void activeExcusedReason;
     const prefs = preferencesStore.getState().prefs;
     void rescheduleAll(
-      { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime },
+      { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime, adhanStyleId },
       location,
     );
   }, [
@@ -165,10 +174,12 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     locationReady,
     trackerReady,
     qazaDebtKey,
+    activeExcusedReason,
     notificationPrefs,
     prayerAlerts,
     prayerReminderOffsets,
     bedtime,
+    adhanStyleId,
     activeLocale,
     location,
     onboardingDone,
@@ -180,7 +191,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       if (status !== "active" || !ready || !locationReady) return;
       const prefs = preferencesStore.getState().prefs;
       void rescheduleAll(
-        { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime },
+        { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime, adhanStyleId },
         location,
       );
       if (isAuthenticated && session?.accessToken) {
@@ -196,6 +207,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     prayerAlerts,
     prayerReminderOffsets,
     bedtime,
+    adhanStyleId,
     activeLocale,
     location,
     isAuthenticated,
@@ -243,7 +255,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
           clearLastResponse();
           return;
         }
-        openNotificationRoute(routerRef.current, data?.route);
+        // D33: a circle push opens the same screen as its inbox row.
+        const circle = parseCircleRouteData(data);
+        openNotificationRoute(routerRef.current, circle ? circleEventHref(circle) : data?.route);
         clearLastResponse();
       };
 

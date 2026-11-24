@@ -1,11 +1,15 @@
-import { OBLIGATORY_PRAYER_SET, OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import {
+  OBLIGATORY_PRAYER_SET,
+  OBLIGATORY_PRAYERS,
+  RAWATIB_PRAYER_SET,
+} from "@munib-tracker/shared/constants";
 import type {
   PrayerId,
   PrayerLog,
   QazaDailyProgress,
   QazaSchedule,
 } from "@munib-tracker/shared/types";
-import { addDays, parseLocalDateString } from "@munib-tracker/shared/utils";
+import { addDays, parseLocalDateString, type RawatibDayCell } from "@munib-tracker/shared/utils";
 
 /**
  * Pure aggregation behind the Statistics screen. Everything here works from one
@@ -32,7 +36,12 @@ export type DayRecord = {
   qaza: number;
   missed: number;
   excused: boolean;
-  /** Per-salah status for this day (fard + Witr + sunnah). */
+  /**
+   * Any non-rawatib log that day. Rawatib (NF-3.1) are recorded in `statuses`
+   * but never make a day "tracked" — fard rates stay rawatib-free.
+   */
+  tracked: boolean;
+  /** Per-salah status for this day (fard + Witr + sunnah + rawatib). */
   statuses: Partial<Record<PrayerId, PrayerLog["status"]>>;
 };
 
@@ -43,7 +52,15 @@ export type PrayerDayIndex = {
 };
 
 function emptyDay(): DayRecord {
-  return { completed: 0, delayed: 0, qaza: 0, missed: 0, excused: false, statuses: {} };
+  return {
+    completed: 0,
+    delayed: 0,
+    qaza: 0,
+    missed: 0,
+    excused: false,
+    tracked: false,
+    statuses: {},
+  };
 }
 
 /** One pass over every log → per-date fard tallies, excused flags and statuses. */
@@ -58,6 +75,8 @@ export function indexPrayerDays(logs: PrayerLog[]): PrayerDayIndex {
     }
     if (log.isExcused) day.excused = true;
     day.statuses[log.prayerId] = log.status;
+    if (RAWATIB_PRAYER_SET.has(log.prayerId)) continue;
+    day.tracked = true;
     if (firstDate === null || log.date < firstDate) firstDate = log.date;
     if (!OBLIGATORY_PRAYER_SET.has(log.prayerId)) continue;
     if (log.status === "completed") day.completed += 1;
@@ -118,7 +137,7 @@ export function dailyPoints(
       excused: day?.excused ?? false,
       beforeStart: index.firstDate === null || date < index.firstDate,
       isToday: date === today,
-      hasLogs: day != null,
+      hasLogs: day?.tracked ?? false,
     });
   }
   return points;
@@ -277,6 +296,39 @@ export function salahBreakdown(
       else if (status === "delayed") row.delayed += 1;
       else if (status === "qaza") row.qaza += 1;
       else if (status === "missed") row.missed += 1;
+    }
+    row.onTimeRate = row.days > 0 ? row.completed / row.days : null;
+    return row;
+  });
+}
+
+/**
+ * Per-rawatib rates (NF-3.1) over the rawatib consistency cells — a row's
+ * denominator is the tracked, non-excused days since the first rawatib log
+ * (today only once something is logged). Same `SalahRow` shape as the fard
+ * list so `SalahRateList` renders both; fard rows are never affected.
+ */
+export function rawatibBreakdown(
+  index: PrayerDayIndex,
+  cells: readonly RawatibDayCell[],
+  prayers: readonly PrayerId[],
+): SalahRow[] {
+  return prayers.map((prayerId) => {
+    const row: SalahRow = {
+      prayerId,
+      completed: 0,
+      delayed: 0,
+      qaza: 0,
+      missed: 0,
+      days: 0,
+      onTimeRate: null,
+    };
+    for (const cell of cells) {
+      if (cell.beforeStart || cell.excused) continue;
+      const status = index.days.get(cell.date)?.statuses[prayerId];
+      if (cell.isToday && status !== "completed") continue;
+      row.days += 1;
+      if (status === "completed") row.completed += 1;
     }
     row.onTimeRate = row.days > 0 ? row.completed / row.days : null;
     return row;

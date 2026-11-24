@@ -42,12 +42,12 @@ import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { createDuroodSearch } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { webPageSchema } from "@/lib/seo/structured-data";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
 import {
   useDuroodFavoritesActions,
   useEnsureDuroodFavoritesLoaded,
   useFavoriteDuroodIds,
 } from "@/stores/durood-favorites-store";
-import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 type DuroodItem = Awaited<ReturnType<typeof loadDuroodItems>>[number];
 
@@ -63,7 +63,7 @@ export default function DuroodsScreen() {
   useEnsureDuroodFavoritesLoaded();
   const favoriteIds = useFavoriteDuroodIds();
   const { toggle } = useDuroodFavoritesActions();
-  const visibility = useReadingTextVisibility();
+  const visibility = useReadingDisplay();
 
   const [query, setQuery] = useState("");
   const [duroodItems, setDuroodItems] = useState<DuroodItem[]>([]);

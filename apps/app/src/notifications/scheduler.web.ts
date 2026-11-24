@@ -1,17 +1,23 @@
 import type { ObligatoryPrayer, UserPreferences } from "@munib-tracker/shared/types";
-
+import { coachReminderOptions } from "@/lib/coach/reminder-options";
 import { handleExternalCommand } from "@/lib/external-commands";
+import { familyTiesReminderOptions } from "@/lib/family-ties/reminder-options";
 import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
+import { iqamahReminderOptions } from "@/lib/masjid/iqamah-reminder-options";
+import { muhasabahReminderOptions } from "@/lib/muhasabah/reminder-options";
 import {
   type BuiltReminder,
   buildReminders,
   hasOutstandingQazaDebt,
   summarizeReminders,
 } from "@/lib/notifications/build-reminders";
+import { dhulHijjahReminderOptions } from "@/lib/notifications/dhul-hijjah-reminder-options";
 import {
   readNotificationPermissionUiState,
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
+import { sunnahHabitsReminderOptions } from "@/lib/notifications/sunnah-habits-reminder-options";
+import { vaultReminderOptions } from "@/lib/notifications/vault-reminder-options";
 import { getWebNotificationBlockingReason } from "@/lib/notifications/web-environment";
 import {
   armWebReminderTimer,
@@ -19,7 +25,9 @@ import {
   scheduleWebReminderTimers,
 } from "@/lib/notifications/web-reminder-scheduler";
 import { quranRevisionReminderOptions } from "@/lib/quran-companion/reminder-options";
+import { rawatibNudgeOptions } from "@/lib/rawatib-nudge";
 import { captureAppException } from "@/lib/sentry";
+import { voluntaryFastingReminderOptions } from "@/lib/voluntary-fasting/reminder-options";
 import { trackerStore } from "@/stores/tracker-store";
 
 /**
@@ -41,6 +49,20 @@ async function buildReminderOptions() {
   return {
     hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza),
     ...(await quranRevisionReminderOptions()),
+    ...(await voluntaryFastingReminderOptions()),
+    // NF-3.5 habits (selected / bedtime counts) + NF-3.3 udhiyah intention flags.
+    ...(await sunnahHabitsReminderOptions()),
+    ...(await dhulHijjahReminderOptions()),
+    // NF-3.1 opt-in after-fard rawatib nudge (today's unlogged after-rows).
+    ...(await rawatibNudgeOptions()),
+    // NF-3.11 home-masjid iqamah reminders (private/public times only).
+    ...(await iqamahReminderOptions()),
+    muhasabah: await muhasabahReminderOptions(),
+    familyTies: await familyTiesReminderOptions(),
+    // NF-3.14 weekly coach (recent-activity flag only).
+    ...(await coachReminderOptions()),
+    // NF-3.8 / NF-3.9: debts due + wasiyyah review (vault dates only).
+    ...(await vaultReminderOptions()),
   };
 }
 

@@ -9,15 +9,20 @@
 
 import { buildAdhkar } from "./build-adhkar.mjs";
 import { buildHadithHighlights } from "./build-hadith-highlights.mjs";
+import { buildMiqat } from "./build-miqat.mjs";
 import { buildNames } from "./build-names.mjs";
 import { buildQuran } from "./build-quran.mjs";
 import { writeManifest } from "./manifest.mjs";
+import { buildRemoteSources } from "./remote-sources.mjs";
 
 const BUILDERS = {
   quran: buildQuran,
   adhkar: buildAdhkar,
   names: buildNames,
   hadith: buildHadithHighlights,
+  miqat: buildMiqat,
+  // Pinned remote datasets (fetched by the app on demand; manifest entry only).
+  remote: buildRemoteSources,
 };
 
 async function main() {

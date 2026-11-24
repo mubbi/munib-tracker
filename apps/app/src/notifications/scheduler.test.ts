@@ -28,6 +28,8 @@ jest.mock("expo-notifications", () => ({
   setNotificationHandler: jest.fn(),
   setNotificationCategoryAsync: jest.fn().mockResolvedValue(undefined),
   setNotificationChannelAsync: jest.fn().mockResolvedValue(undefined),
+  getNotificationChannelsAsync: jest.fn().mockResolvedValue([]),
+  deleteNotificationChannelAsync: jest.fn().mockResolvedValue(undefined),
   cancelAllScheduledNotificationsAsync: jest.fn().mockResolvedValue(undefined),
   scheduleNotificationAsync: jest.fn().mockResolvedValue("id"),
   getAllScheduledNotificationsAsync: jest.fn().mockResolvedValue([]),
@@ -70,6 +72,7 @@ import {
   osTriggerForReminder,
   rescheduleAll,
   snoozeNotification,
+  syncAdhanChannel,
 } from "./scheduler";
 
 const mockCancelAll = Notifications.cancelAllScheduledNotificationsAsync as jest.MockedFunction<
@@ -309,17 +312,23 @@ describe("osTriggerForReminder", () => {
   describe("precise Adhan timing on Android (alarm-clock delivery)", () => {
     usePlatform({ OS: "android" });
 
-    it("adds alarmClock delivery to Adhan-channel DATE triggers", () => {
+    it("adds alarmClock delivery to Adhan-channel DATE triggers on the style channel", () => {
       const reminder = dateReminder({
         fireAt: new Date(nowMs + 60_000),
         channelId: "prayerAdhan",
+        androidChannelId: "adhan-medina",
       });
       expect(osTriggerForReminder(reminder, nowMs, { preciseAdhan: true })).toEqual({
         type: TRIGGER.DATE,
         date: reminder.fireAt,
-        channelId: "prayerAdhan",
+        channelId: "adhan-medina",
         delivery: "alarmClock",
       });
+    });
+
+    it("maps a logical Adhan reminder without an override to the active style channel", () => {
+      const reminder = dateReminder({ fireAt: new Date(nowMs + 60_000), channelId: "prayerAdhan" });
+      expect(osTriggerForReminder(reminder, nowMs)).toMatchObject({ channelId: "adhan-default" });
     });
 
     it("leaves other channels and the default setting on best-effort delivery", () => {
@@ -508,14 +517,15 @@ describe("markFromNotification", () => {
 describe("configureNotifications on Android", () => {
   usePlatform({ OS: "android" });
 
-  it("creates every channel, giving the Adhan channel its sound at high importance", async () => {
+  it("creates every channel, giving the style's Adhan channel its sound at high importance", async () => {
     const setChannel = Notifications.setNotificationChannelAsync as jest.Mock;
     setChannel.mockClear();
     await configureNotifications();
     expect(setChannel).toHaveBeenCalledWith(
-      "prayerAdhan",
-      expect.objectContaining({ importance: 4, sound: "adhan.mp3" }),
+      "adhan-default",
+      expect.objectContaining({ importance: 4, sound: "adhan_default.wav" }),
     );
+    expect(setChannel).not.toHaveBeenCalledWith("prayerAdhan", expect.anything());
     expect(setChannel).toHaveBeenCalledWith(
       "zikr",
       expect.not.objectContaining({ sound: expect.anything() }),
@@ -595,5 +605,53 @@ describe("listScheduled", () => {
     await expect(listScheduled(makePrefs({ masterEnabled: false }), SET_LOCATION)).resolves.toEqual(
       [],
     );
+  });
+});
+
+describe("syncAdhanChannel on Android (B2)", () => {
+  usePlatform({ OS: "android" });
+  const setChannel = Notifications.setNotificationChannelAsync as jest.Mock;
+  const getChannels = Notifications.getNotificationChannelsAsync as jest.Mock;
+  const deleteChannel = Notifications.deleteNotificationChannelAsync as jest.Mock;
+
+  beforeEach(() => {
+    setChannel.mockClear();
+    deleteChannel.mockClear();
+  });
+
+  it("creates the selected style's channel and deletes stale adhan channels", async () => {
+    getChannels.mockResolvedValueOnce([
+      { id: "prayerAdhan" },
+      { id: "adhan-default" },
+      { id: "adhan-medina" },
+      { id: "zikr" },
+    ]);
+    await syncAdhanChannel("medina");
+    expect(setChannel).toHaveBeenCalledWith(
+      "adhan-medina",
+      expect.objectContaining({ importance: 4, sound: "adhan_medina.wav" }),
+    );
+    expect(deleteChannel.mock.calls.map(([id]) => id).sort()).toEqual([
+      "adhan-default",
+      "prayerAdhan",
+    ]);
+  });
+
+  it("switching style re-arms adhan reminders on the new style's channel", async () => {
+    const prefs = buildUserPreferences({
+      adhanStyleId: "mishary",
+      notificationPrefs: buildNotificationPreferences({ playAdhanOnPrayer: true }),
+    });
+    await rescheduleAll(prefs, SET_LOCATION);
+
+    expect(setChannel).toHaveBeenCalledWith("adhan-mishary", expect.anything());
+    const adhanCalls = mockSchedule.mock.calls
+      .map(([arg]) => arg as { content: { sound?: string }; trigger: { channelId?: string } })
+      .filter((arg) => arg.content.sound);
+    expect(adhanCalls.length).toBeGreaterThan(0);
+    for (const call of adhanCalls) {
+      expect(call.trigger.channelId).toBe("adhan-mishary");
+      expect(call.content.sound).toBe("adhan_mishary.wav");
+    }
   });
 });

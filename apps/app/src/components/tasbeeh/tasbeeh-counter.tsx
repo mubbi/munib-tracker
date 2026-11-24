@@ -1,7 +1,9 @@
 import { SymbolView } from "expo-symbols";
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  type AccessibilityActionEvent,
+  AccessibilityInfo,
   Platform,
   type StyleProp,
   StyleSheet,
@@ -13,23 +15,26 @@ import Animated, {
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
-  withSequence,
   withSpring,
 } from "react-native-reanimated";
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { TasbeehFace } from "@/components/tasbeeh/faces/tasbeeh-face";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
+import { TasbeehDesignNote } from "@/components/tasbeeh/tasbeeh-design-note";
+import { TasbeehStyleSheet } from "@/components/tasbeeh/tasbeeh-style-sheet";
+import { VoiceListeningPanel } from "@/components/tasbeeh/voice/voice-listening-panel";
+import { VoiceTasbeehSheet } from "@/components/tasbeeh/voice/voice-tasbeeh-sheet";
 import { ThemedText } from "@/components/themed-text";
-import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Springs } from "@/constants/motion";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { NO_VOICE, useVoiceTasbeeh, type VoiceTasbeeh } from "@/hooks/use-voice-tasbeeh";
 import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import {
   chartCoordinateStyle,
-  progressRingKnobStyle,
   segmentedThumbAnchor,
   segmentedThumbOffset,
   segmentedTrackDirection,
@@ -39,6 +44,21 @@ import { tTv } from "@/lib/i18n/t-tv";
 import { useHingePosture } from "@/lib/platform/hinge";
 import { isTV } from "@/lib/platform/is-tv";
 import { isRTL, ltrControlViewProps } from "@/lib/rtl";
+import { getDesign, resolveSoundPack, strandModelFor } from "@/lib/tasbeeh/designs";
+import {
+  countEventFor,
+  feedbackFor,
+  HAPTIC_PULSE_GAP_MS,
+  type TasbeehFeedbackEvent,
+} from "@/lib/tasbeeh/feedback";
+import { materialFor } from "@/lib/tasbeeh/materials";
+import { roundSizeFor } from "@/lib/tasbeeh/rounds";
+import { useTasbeehAppearance } from "@/lib/tasbeeh/use-tasbeeh-appearance";
+import { useTasbeehSound } from "@/lib/tasbeeh/use-tasbeeh-sound";
+import type { PhraseKey } from "@/lib/tasbeeh-voice/phrases";
+import { effectiveAnnouncements } from "@/lib/tasbeeh-voice/session";
+import { AudioContext } from "@/providers/audio-player-context";
+import { usePreferences } from "@/stores/preferences-store";
 
 export type TasbeehMode = { label: string; target: number };
 
@@ -52,10 +72,12 @@ export const TASBEEH_MODES: TasbeehMode[] = [
 const RING_SIZE = 272;
 /** TV: landscape stage beside the controls — sized so the whole card fits 540dp. */
 const RING_SIZE_TV = 288;
-const RING_STROKE = 14;
 const TAP_PADDING = 48;
 const TAP_PADDING_TV = 32;
-const RING_GLOW = 36;
+/** After a face gesture counts, ignore the stage tap it may also produce (web click). */
+const GESTURE_TAP_GUARD_MS = 350;
+/** While listening, the spotter ignores audio for this long after a screen-reader announcement. */
+const ANNOUNCE_MUTE_MS = 1800;
 
 type TasbeehCounterProps = {
   count: number;
@@ -71,11 +93,63 @@ type TasbeehCounterProps = {
    * Screens pass `false` while one of their own modals is open.
    */
   keyboardShortcuts?: boolean;
+  /**
+   * Hands-free counting (NF-3.20): the catalog phrase this counter listens for.
+   * Null/absent → no voice toggle (unless `voiceChoosable`).
+   */
+  voicePhrase?: PhraseKey | null;
+  /** Free counter: the user picks a catalog phrase in the hands-free sheet. */
+  voiceChoosable?: boolean;
 };
 
 type PendingConfirm = "decrement" | "reset" | "startAgain";
 
-export function TasbeehCounter({
+/**
+ * The tasbeeh counter shell (NF-3.19): everything that is not visual — mode
+ * bar, controls, confirm dialogs, completion, the target limit, web Space /
+ * Enter, TV focus, tabletop pad, accessibility, and haptic + sound dispatch.
+ * The look comes from the chosen face (`faces/*`); Ring is the default (D10).
+ * Every count — tap, Select, keyboard, screen-reader action or a face gesture —
+ * goes through one `countOnce()` path (NF-3.20 voice counting will too).
+ */
+export function TasbeehCounter(props: TasbeehCounterProps) {
+  // Hands-free counting (NF-3.20) only mounts the microphone / model plumbing on
+  // counters that can listen; every other counter renders without it (and TV
+  // never has a microphone path).
+  const voiceWanted = (props.voicePhrase != null || props.voiceChoosable === true) && !isTV();
+  return voiceWanted ? <VoiceTasbeehCounter {...props} /> : <CounterView {...props} />;
+}
+
+function VoiceTasbeehCounter(props: TasbeehCounterProps) {
+  const { count, target, voicePhrase = null, voiceChoosable = false } = props;
+  const [chosenPhrase, setChosenPhrase] = useState<PhraseKey | null>(null);
+  const activePhrase = voicePhrase ?? (voiceChoosable ? chosenPhrase : null);
+  const countOnceRef = useRef<() => void>(() => {});
+  const voice = useVoiceTasbeeh({
+    phrase: activePhrase,
+    atLimit: target > 0 && count >= target,
+    onVoiceCount: () => countOnceRef.current(),
+  });
+  return (
+    <CounterView
+      {...props}
+      voice={voice}
+      activePhrase={activePhrase}
+      onChoosePhrase={setChosenPhrase}
+      countOnceRef={countOnceRef}
+    />
+  );
+}
+
+type CounterViewProps = TasbeehCounterProps & {
+  voice?: VoiceTasbeeh;
+  activePhrase?: PhraseKey | null;
+  onChoosePhrase?: (phrase: PhraseKey) => void;
+  /** Filled with the shell's countOnce() so a recognised phrase counts like a tap. */
+  countOnceRef?: { current: () => void };
+};
+
+function CounterView({
   count,
   target,
   onIncrement,
@@ -85,20 +159,29 @@ export function TasbeehCounter({
   onSelectMode,
   onCustom,
   keyboardShortcuts = true,
-}: TasbeehCounterProps) {
+  voicePhrase = null,
+  voiceChoosable = false,
+  voice = NO_VOICE,
+  activePhrase = null,
+  onChoosePhrase,
+  countOnceRef,
+}: CounterViewProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const [pending, setPending] = useState<PendingConfirm | null>(null);
+  const [styleOpen, setStyleOpen] = useState(false);
   const tv = isTV();
+  const reduceMotion = useReducedMotion();
+  const appearance = useTasbeehAppearance();
+  const design = getDesign(appearance.design);
   // Foldables (iPhone Duo, Android foldables) in tabletop posture: the count stays
   // readable on the upper half and a full-width tap pad fills the lower half. The
   // hinge drives this interaction only — layout still follows window size.
   const tabletop = useHingePosture() === "halfOpen" && !tv;
-  // TV: the ring is the one big Select target (preferred focus). A landscape
+  // TV: the stage is the one big Select target (preferred focus). A landscape
   // layout puts modes / undo / reset in a side column so the card fits the
   // 540dp viewport and Reset is never the next thing below the counter.
   const ringSize = tv ? tvDp(RING_SIZE_TV) : RING_SIZE;
-  const ringStroke = tv ? tvDp(RING_STROKE) : RING_STROKE;
   const tapSize = ringSize + (tv ? tvDp(TAP_PADDING_TV) : TAP_PADDING);
   const tapHitSlop = (tapSize - ringSize) / 2;
   const displayCount = target > 0 ? Math.min(count, target) : count;
@@ -117,21 +200,114 @@ export function TasbeehCounter({
     [colors.accent, colors.foreground, tokens.status.success.color, tokens.status.warning.color],
   );
 
-  useEffect(() => {
-    if (complete && !prevComplete.current) {
-      triggerHaptic("success");
-      setCelebrationKey((key) => key + 1);
-    }
-    prevComplete.current = complete;
-  }, [complete]);
+  // Feedback: one table for every design (lib/tasbeeh/feedback.ts).
+  const strand = useMemo(
+    () => (design.id === "misbaha" ? strandModelFor(appearance.misbaha, target) : undefined),
+    [design.id, appearance.misbaha, target],
+  );
+  // Round-based v2 designs (pebbles, fingers, rosette, night sky) mark each finished round.
+  const roundSize = roundSizeFor(design.id, target, appearance);
+  const sharedPlaying = useContext(AudioContext)?.isPlaying ?? false;
+  const playSound = useTasbeehSound({
+    enabled: appearance.sound.enabled,
+    pack: resolveSoundPack(
+      appearance,
+      materialFor(appearance.misbaha.material, colors.accent).sound,
+    ),
+    volume: appearance.sound.volume,
+    sharedPlaying,
+  });
+  // Counter sounds are muted while hands-free listening (the mic would hear
+  // them); haptics stay on.
+  const voiceListeningRef = useRef(false);
+  const dispatch = useCallback(
+    (event: TasbeehFeedbackEvent) => {
+      const feedback = feedbackFor(design.id, event, appearance.haptics);
+      feedback.haptics.forEach((haptic, index) => {
+        if (index === 0) triggerHaptic(haptic);
+        else setTimeout(() => triggerHaptic(haptic), index * HAPTIC_PULSE_GAP_MS);
+      });
+      if (feedback.sound && appearance.sound.enabled && !voiceListeningRef.current) {
+        playSound(feedback.sound);
+      }
+    },
+    [design.id, appearance.haptics, appearance.sound.enabled, playSound],
+  );
 
-  const handleTap = () => {
-    if (atLimit) {
-      triggerHaptic("light");
+  // Hands-free counting (NF-3.20): recognised phrases go through countOnce() too.
+  const { tasbeehAnnouncements } = usePreferences();
+  const [voiceSheetOpen, setVoiceSheetOpen] = useState(false);
+  voiceListeningRef.current = voice.listening;
+  const voiceOffered = voice.platformAvailable && (voicePhrase != null || voiceChoosable);
+  // Screen-reader speech must not be counted: the spotter ignores audio meanwhile.
+  const muteVoiceRef = useRef<((durationMs: number) => void) | null>(null);
+  muteVoiceRef.current = voice.listening ? voice.muteFor : null;
+  const announce = useCallback((message: string) => {
+    muteVoiceRef.current?.(ANNOUNCE_MUTE_MS);
+    AccessibilityInfo.announceForAccessibility?.(message);
+  }, []);
+  const handleVoicePress = async () => {
+    if (voice.listening || voice.preparing) {
+      voice.stop("user");
       return;
     }
-    triggerHaptic("light");
+    if (!activePhrase) {
+      setVoiceSheetOpen(true);
+      return;
+    }
+    const result = await voice.start();
+    if (result !== "started") setVoiceSheetOpen(true);
+  };
+
+  useEffect(() => {
+    if (complete && !prevComplete.current) {
+      dispatch("complete");
+      if (design.celebrates) setCelebrationKey((key) => key + 1);
+      if (tasbeehAnnouncements !== "off") announce(t("tasbeehUi.targetReached"));
+    }
+    prevComplete.current = complete;
+  }, [complete, dispatch, design.celebrates, t, tasbeehAnnouncements, announce]);
+
+  // The single counting path (tap, Select, Space / Enter, a11y action, face gesture, voice).
+  const gestureActive = useRef(false);
+  const tapGuardUntil = useRef(0);
+  const countOnce = () => {
+    if (atLimit) {
+      dispatch("limit");
+      return;
+    }
+    const next = displayCount + 1;
+    const event = countEventFor(
+      design.id,
+      next,
+      strand,
+      roundSize ? { size: roundSize, target } : undefined,
+    );
+    dispatch(event);
+    const frequency = effectiveAnnouncements(tasbeehAnnouncements ?? "milestones", voice.listening);
+    if (event !== "bead" && frequency !== "off") {
+      announce(t("tasbeehDesigns.a11y.milestone", { number: next }));
+    } else if (frequency === "every") {
+      announce(t("tasbeehVoice.a11y.count", { number: next }));
+    }
     onIncrement();
+  };
+  if (countOnceRef) countOnceRef.current = countOnce;
+  const handleTap = () => {
+    if (gestureActive.current || Date.now() < tapGuardUntil.current) return;
+    countOnce();
+  };
+  const handleFaceCount = () => {
+    tapGuardUntil.current = Date.now() + GESTURE_TAP_GUARD_MS;
+    countOnce();
+  };
+  const handleGestureActive = (active: boolean) => {
+    gestureActive.current = active;
+    if (!active) tapGuardUntil.current = Math.max(tapGuardUntil.current, Date.now() + 120);
+  };
+  const handleAccessibilityAction = (event: AccessibilityActionEvent) => {
+    const action = event.nativeEvent.actionName;
+    if (action === "increment" || action === "activate") countOnce();
   };
 
   // Desktop web: Space / Enter count. A focused button / chip keeps its own
@@ -142,10 +318,10 @@ export function TasbeehCounter({
     (event) => {
       if (event.key !== " " && event.key !== "Enter") return undefined;
       if (isWebInteractiveTarget(event.target)) return undefined;
-      if (!event.repeat) handleTap();
+      if (!event.repeat) countOnce();
       return true;
     },
-    !tv && keyboardShortcuts && pending === null,
+    !tv && keyboardShortcuts && pending === null && !styleOpen,
   );
 
   const confirmCopy = useMemo(() => {
@@ -198,6 +374,21 @@ export function TasbeehCounter({
     />
   ) : null;
 
+  const ring = design.id === "ring";
+  let hint: string;
+  if (ring) {
+    hint = keyboardHint
+      ? t("tasbeehUi.tapToCountKeyboard")
+      : tTv(t, "tasbeehUi.tapToCount", "tasbeehUi.tapToCountTv");
+  } else if (keyboardHint) {
+    hint = t("tasbeehDesigns.hint.keyboard");
+  } else if (tv) {
+    hint = t("tasbeehUi.tapToCountTv");
+  } else {
+    hint =
+      design.id === "misbaha" ? t("tasbeehDesigns.hint.misbaha") : t("tasbeehDesigns.hint.tap");
+  }
+
   const status = complete ? (
     <CompletionBanner onStartAgain={() => setPending("startAgain")} />
   ) : (
@@ -214,9 +405,7 @@ export function TasbeehCounter({
         themeColor="mutedForeground"
         style={[styles.hintText, tv && styles.hintTextTv]}
       >
-        {keyboardHint
-          ? t("tasbeehUi.tapToCountKeyboard")
-          : tTv(t, "tasbeehUi.tapToCount", "tasbeehUi.tapToCountTv")}
+        {hint}
       </ThemedText>
     </View>
   );
@@ -226,36 +415,76 @@ export function TasbeehCounter({
       count={displayCount}
       onDecrement={() => setPending("decrement")}
       onReset={() => setPending("reset")}
+      onStyle={() => setStyleOpen(true)}
+      voice={
+        voiceOffered
+          ? { active: voice.listening || voice.preparing, onPress: () => void handleVoicePress() }
+          : undefined
+      }
     />
   );
+
+  const voicePanel =
+    voiceOffered && activePhrase ? (
+      <VoiceListeningPanel
+        phrase={activePhrase}
+        listening={voice.listening}
+        preparing={voice.preparing}
+        level={voice.level}
+        stuck={voice.stuck}
+        flashKey={voice.flashKey}
+        stopReason={voice.session.stopReason}
+        showFocusTip={design.id !== "minimal"}
+      />
+    ) : null;
+
+  const fullWidth = design.id === "minimal";
+  let stageStyle: StyleProp<ViewStyle>;
+  if (ring) stageStyle = { width: ringSize, height: ringSize, borderRadius: ringSize / 2 };
+  else if (fullWidth) stageStyle = { alignSelf: "stretch", borderRadius: Radius.lg };
+  else stageStyle = { width: ringSize, borderRadius: Radius.lg };
 
   return (
     <Fragment>
       <View style={[styles.root, tv && styles.rootTv]}>
         {tv ? null : modeBar}
 
-        <View style={[styles.counterStage, { minHeight: tapSize }, tv && { width: tapSize }]}>
-          <PartyPopper burstKey={celebrationKey} colors={celebrationColors} />
+        <View
+          style={[
+            styles.counterStage,
+            ring && { minHeight: tapSize },
+            tv && { width: tapSize },
+            fullWidth && styles.counterStageFull,
+          ]}
+        >
+          {design.celebrates ? (
+            <PartyPopper burstKey={celebrationKey} colors={celebrationColors} />
+          ) : null}
           <PressableScale
             haptic={false}
             onPress={handleTap}
-            scaleTo={0.96}
-            hitSlop={tapHitSlop}
+            scaleTo={ring ? 0.96 : 0.99}
+            hitSlop={ring ? tapHitSlop : undefined}
             accessibilityRole="button"
             accessibilityLabel={t("common.count")}
+            accessibilityHint={ring ? undefined : hint}
             accessibilityValue={{ now: displayCount, min: 0, max: target > 0 ? target : undefined }}
+            accessibilityActions={[{ name: "increment", label: t("common.count") }]}
+            onAccessibilityAction={handleAccessibilityAction}
             {...(tv ? { hasTVPreferredFocus: true } : {})}
-            style={[
-              styles.tapZone,
-              { width: ringSize, height: ringSize, borderRadius: ringSize / 2 },
-            ]}
+            style={[styles.tapZone, stageStyle]}
           >
-            <CounterRing
+            <TasbeehFace
               count={displayCount}
               target={target}
               complete={complete}
-              ringSize={ringSize}
-              ringStroke={ringStroke}
+              size={ringSize}
+              tv={tv}
+              reduceMotion={reduceMotion}
+              appearance={appearance}
+              onCount={handleFaceCount}
+              onGestureActive={handleGestureActive}
+              tabletop={tabletop}
             />
           </PressableScale>
         </View>
@@ -269,7 +498,9 @@ export function TasbeehCounter({
         ) : (
           <>
             {status}
+            {voicePanel}
             {controls}
+            <TasbeehDesignNote design={design.id} />
             {tabletop ? (
               <PressableScale
                 haptic={false}
@@ -306,6 +537,17 @@ export function TasbeehCounter({
         onConfirm={executePending}
         onClose={() => setPending(null)}
       />
+      <TasbeehStyleSheet visible={styleOpen} onClose={() => setStyleOpen(false)} />
+      {voiceOffered ? (
+        <VoiceTasbeehSheet
+          visible={voiceSheetOpen}
+          onClose={() => setVoiceSheetOpen(false)}
+          voice={voice}
+          choosable={voiceChoosable && voicePhrase == null}
+          phrase={activePhrase}
+          onChoosePhrase={(phrase) => onChoosePhrase?.(phrase)}
+        />
+      ) : null}
     </Fragment>
   );
 }
@@ -423,186 +665,6 @@ function TargetModeBar({
   );
 }
 
-function CounterRing({
-  count,
-  target,
-  complete,
-  ringSize,
-  ringStroke,
-}: {
-  count: number;
-  target: number;
-  complete: boolean;
-  ringSize: number;
-  ringStroke: number;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  const { t } = useTranslation();
-  const reducedMotion = useReducedMotion();
-  const progressTarget = target > 0 ? Math.min(count / target, 1) : 0;
-  const progress = useSharedValue(progressTarget);
-  const countPop = useSharedValue(1);
-  const prevCount = useRef(count);
-
-  useEffect(() => {
-    progress.value = reducedMotion ? progressTarget : withSpring(progressTarget, Springs.gentle);
-  }, [progress, progressTarget, reducedMotion]);
-
-  useEffect(() => {
-    if (count !== prevCount.current) {
-      if (!reducedMotion) {
-        countPop.value = withSequence(withSpring(1.1, Springs.pop), withSpring(1, Springs.gentle));
-      }
-      prevCount.current = count;
-    }
-  }, [count, countPop, reducedMotion]);
-
-  const fill = complete ? tokens.status.success.color : colors.accent;
-  const glowOpacity = complete ? 0.28 : 0.12 + progressTarget * 0.14;
-  const [displayProgress, setDisplayProgress] = useState(progressTarget);
-  const displayRef = useRef(displayProgress);
-  const rafRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (reducedMotion) {
-      displayRef.current = progressTarget;
-      setDisplayProgress(progressTarget);
-      return;
-    }
-
-    const from = displayRef.current;
-    const delta = progressTarget - from;
-    let start: number | null = null;
-
-    const tick = (timestamp: number) => {
-      if (start === null) start = timestamp;
-      const t = Math.min(1, (timestamp - start) / 420);
-      const eased = 1 - (1 - t) ** 3;
-      const value = from + delta * eased;
-      displayRef.current = value;
-      setDisplayProgress(value);
-      if (t < 1) rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-    };
-  }, [progressTarget, reducedMotion]);
-
-  const knob = ringStroke + 2;
-  const inset = ringStroke;
-  const glow = ringSize + (isTV() ? tvDp(RING_GLOW) : RING_GLOW);
-
-  const countAnimStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: countPop.value }],
-  }));
-
-  return (
-    <View style={[styles.ring, chartCoordinateStyle, { width: ringSize, height: ringSize }]}>
-      <View
-        style={[
-          styles.ringGlow,
-          {
-            width: glow,
-            height: glow,
-            borderRadius: glow / 2,
-            backgroundColor: withAlpha(fill, glowOpacity),
-          },
-        ]}
-      />
-
-      {target > 0 ? (
-        <ArcProgressRing
-          size={ringSize}
-          stroke={ringStroke}
-          progress={displayProgress}
-          fillColor={fill}
-          trackColor={tokens.track}
-          surfaceColor={colors.card}
-          surfaceShadow
-        />
-      ) : (
-        <View
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              borderRadius: ringSize / 2,
-              borderWidth: ringStroke,
-              borderColor: withAlpha(colors.accent, 0.35),
-            },
-          ]}
-        >
-          <View
-            style={{
-              position: "absolute",
-              top: inset,
-              left: inset,
-              right: inset,
-              bottom: inset,
-              borderRadius: ringSize / 2,
-              backgroundColor: colors.card,
-              ...Shadows.sm,
-            }}
-          />
-        </View>
-      )}
-
-      {target > 0 && displayProgress > 0 ? (
-        <View
-          style={[
-            progressRingKnobStyle(ringSize, ringStroke, displayProgress, knob),
-            styles.knob,
-            {
-              borderRadius: knob / 2,
-              backgroundColor: fill,
-              borderColor: colors.card,
-            },
-          ]}
-        />
-      ) : null}
-
-      <View style={styles.ringCenter}>
-        <View style={[styles.countRow, ltrControlViewProps().style]}>
-          <Animated.View style={countAnimStyle}>
-            <ThemedText type="display" style={styles.count}>
-              {count}
-            </ThemedText>
-          </Animated.View>
-          {target > 0 ? (
-            <ThemedText type="header" themeColor="mutedForeground" style={styles.targetSuffix}>
-              / {target}
-            </ThemedText>
-          ) : null}
-        </View>
-
-        {target > 0 ? (
-          complete ? (
-            <View style={[styles.completeBadge, { backgroundColor: tokens.status.success.soft }]}>
-              <SymbolView
-                name={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
-                size={16}
-                tintColor={tokens.status.success.color}
-              />
-              <ThemedText type="smallBold" style={{ color: tokens.status.success.color }}>
-                {t("tasbeehUi.complete")}
-              </ThemedText>
-            </View>
-          ) : (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("tasbeehUi.ofTarget", { target })}
-            </ThemedText>
-          )
-        ) : (
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("tasbeehUi.unlimited")}
-          </ThemedText>
-        )}
-      </View>
-    </View>
-  );
-}
-
 function CompletionBanner({ onStartAgain }: { onStartAgain: () => void }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -639,14 +701,22 @@ function CompletionBanner({ onStartAgain }: { onStartAgain: () => void }) {
   );
 }
 
+const PALETTE_ICON = { ios: "paintpalette.fill", android: "palette", web: "palette" } as const;
+
 function ControlBar({
   count,
   onDecrement,
   onReset,
+  onStyle,
+  voice,
 }: {
   count: number;
   onDecrement: () => void;
   onReset: () => void;
+  /** Opens the "Counter style" sheet (NF-3.19). */
+  onStyle?: () => void;
+  /** Hands-free toggle (NF-3.20); never offered on TV (no microphone path). */
+  voice?: { active: boolean; onPress: () => void };
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -668,6 +738,14 @@ function ControlBar({
           disabled={count <= 0}
           style={pill}
         />
+        {onStyle ? (
+          <ControlButton
+            icon={PALETTE_ICON}
+            label={t("tasbeehDesigns.styleButton")}
+            onPress={onStyle}
+            style={pill}
+          />
+        ) : null}
         <ControlButton
           icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
           label={t("common.reset")}
@@ -689,6 +767,34 @@ function ControlBar({
         disabled={count <= 0}
       />
       <View style={[styles.controlDivider, { backgroundColor: tokens.hairline }]} />
+      {onStyle ? (
+        <>
+          <ControlButton
+            icon={PALETTE_ICON}
+            label={t("tasbeehDesigns.styleButton")}
+            onPress={onStyle}
+          />
+          <View style={[styles.controlDivider, { backgroundColor: tokens.hairline }]} />
+        </>
+      ) : null}
+      {voice ? (
+        <>
+          <ControlButton
+            icon={
+              voice.active
+                ? { ios: "mic.slash.fill", android: "mic_off", web: "mic_off" }
+                : { ios: "mic.fill", android: "mic", web: "mic" }
+            }
+            label={voice.active ? t("tasbeehVoice.toggle.stop") : t("tasbeehVoice.toggle.start")}
+            accessibilityLabel={
+              voice.active ? t("tasbeehVoice.toggle.a11yStop") : t("tasbeehVoice.toggle.a11yStart")
+            }
+            selected={voice.active}
+            onPress={voice.onPress}
+          />
+          <View style={[styles.controlDivider, { backgroundColor: tokens.hairline }]} />
+        </>
+      ) : null}
       <ControlButton
         icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
         label={t("common.reset")}
@@ -701,14 +807,19 @@ function ControlBar({
 function ControlButton({
   icon,
   label,
+  accessibilityLabel,
   onPress,
   disabled = false,
+  selected,
   style,
 }: {
   icon: Parameters<typeof SymbolView>[0]["name"];
   label: string;
+  accessibilityLabel?: string;
   onPress: () => void;
   disabled?: boolean;
+  /** Toggle buttons (hands-free) report their on/off state. */
+  selected?: boolean;
   style?: StyleProp<ViewStyle>;
 }) {
   const { colors } = useThemeTokens();
@@ -716,8 +827,8 @@ function ControlButton({
   return (
     <PressableScale
       accessibilityRole="button"
-      accessibilityLabel={label}
-      accessibilityState={{ disabled }}
+      accessibilityLabel={accessibilityLabel ?? label}
+      accessibilityState={selected === undefined ? { disabled } : { disabled, selected }}
       disabled={disabled}
       onPress={onPress}
       style={[styles.controlButton, style, disabled && styles.controlDisabled]}
@@ -796,50 +907,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     overflow: "visible",
   },
+  counterStageFull: {
+    alignSelf: "stretch",
+    alignItems: "stretch",
+  },
   tapZone: {
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
-  },
-  ring: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  ringGlow: {
-    position: "absolute",
-    alignSelf: "center",
-  },
-  knob: {
-    position: "absolute",
-    borderWidth: 2,
-    ...Shadows.sm,
-  },
-  ringCenter: {
-    alignItems: "center",
-    gap: Spacing.one,
-  },
-  countRow: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "center",
-    gap: Spacing.one,
-  },
-  count: {
-    fontVariant: ["tabular-nums"],
-  },
-  targetSuffix: {
-    fontVariant: ["tabular-nums"],
-    opacity: 0.55,
-    marginBottom: 6,
-  },
-  completeBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one,
-    paddingHorizontal: Spacing.two,
-    paddingVertical: Spacing.half + 2,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
   },
   hintRow: {
     alignItems: "center",

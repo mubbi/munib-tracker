@@ -18,13 +18,12 @@ jest.mock("@/stores/tours-store", () => ({
   useHasSeenTour: () => mockSeen,
   useToursActions: () => ({ markSeen: mockMarkSeen }),
 }));
-jest.mock("@/stores/preferences-store", () => ({
-  ...jest.requireActual("@/stores/preferences-store"),
-  usePreferences: () => ({
-    ...jest.requireActual("@/stores/preferences-store").preferencesStore.getState().prefs,
-    liveActivityEnabled: mockLiveActivityEnabled,
+// The banner is a shortcut to the registered Live Activity setting (§4.5.4).
+jest.mock("@/lib/settings/use-setting", () => ({
+  useSetting: () => ({
+    value: mockLiveActivityEnabled,
+    setValue: (value: boolean) => mockUpdate({ liveActivityEnabled: value }),
   }),
-  usePreferencesActions: () => ({ update: mockUpdate }),
 }));
 
 const TITLE = "Try the live countdown";

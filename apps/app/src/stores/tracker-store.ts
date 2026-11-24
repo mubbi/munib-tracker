@@ -9,6 +9,8 @@ import type {
   AfterSalahPrayer,
   DailySummary,
   ExcusedReason,
+  ObligatoryPrayer,
+  PrayerCombineMode,
   PrayerId,
   PrayerStatus,
   QazaCounter,
@@ -16,6 +18,7 @@ import type {
   QazaPrayer,
   QazaRozaCounter,
   QazaSchedule,
+  RawatibId,
 } from "@munib-tracker/shared/types";
 import {
   buildDailySummary,
@@ -36,6 +39,7 @@ import {
   ZikrRepository,
 } from "@/db";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
+import { combinedFromLog, combinePartner, type PrayerCombined } from "@/lib/prayer-combining";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 import { markPreferencesDirty } from "@/lib/sync/preferences-cloud-sync";
 import { markTrackingChanged } from "@/lib/sync/tracking-changes";
@@ -72,6 +76,14 @@ function emptySummary(date: string): DailySummary {
   };
 }
 
+/** Rawatib log details (NF-3.1). */
+export type RawatibLogOptions = {
+  /** Rak'at prayed (variable-count rows only, e.g. 2 | 4 before Dhuhr). */
+  rakahs?: number;
+  /** Logged after its usual time (the Fajr sunnah after sunrise). */
+  late?: boolean;
+};
+
 export type SetPrayerStatusOptions = {
   /** When marking missed, whether to increment the obligatory qaza counter. */
   addToQaza?: boolean;
@@ -96,6 +108,12 @@ export interface TrackerState {
   prayerNotes: Record<string, string | undefined>;
   /** Per-prayer congregation flag for the active day (NF-1.5). */
   prayerJama: Record<string, boolean>;
+  /** Per-prayer "prayed at the masjid" flag for the active day (NF-3.11). */
+  prayerAtMasjid: Record<string, boolean>;
+  /** Per-prayer jam' (combined) flag for the active day (NF-3.0a); absent = not combined. */
+  prayerCombined: Record<string, PrayerCombined>;
+  /** Rak'at logged on the active day's rawatib rows (NF-3.1); absent = the preset default. */
+  prayerRakahs: Record<string, number>;
   /** The active day's excused reason (hayd / sick / travel), or null (NF-1.2/1.4). */
   excusedReason: ExcusedReason | null;
   zikrCounts: Record<string, number>;
@@ -126,6 +144,33 @@ export interface TrackerState {
   setPrayerNotesOnDate: (date: string, prayerId: PrayerId, notes: string) => Promise<void>;
   setPrayerJama: (prayerId: PrayerId, isJama: boolean) => Promise<void>;
   setPrayerJamaOnDate: (date: string, prayerId: PrayerId, isJama: boolean) => Promise<void>;
+  /** NF-3.11: logs / clears "prayed at the masjid" (with the masjid OSM ref) without touching the status. */
+  setPrayerAtMasjidOnDate: (
+    date: string,
+    prayerId: PrayerId,
+    masjidId: string | null,
+  ) => Promise<void>;
+  /** Log / clear a sunnah rawatib row today (NF-3.1) — never touches qaza or the streak. */
+  setRawatib: (
+    prayerId: RawatibId,
+    completed: boolean,
+    options?: RawatibLogOptions,
+  ) => Promise<void>;
+  setRawatibOnDate: (
+    date: string,
+    prayerId: RawatibId,
+    completed: boolean,
+    options?: RawatibLogOptions,
+  ) => Promise<void>;
+  /**
+   * Sets (or clears with `null`) the jam' flag on `prayerId` AND its pair
+   * partner (Dhuhr↔Asr, Maghrib↔Isha). No-op for prayers that can't be combined.
+   */
+  setPrayerCombinedOnDate: (
+    date: string,
+    prayerId: PrayerId,
+    mode: PrayerCombineMode | null,
+  ) => Promise<void>;
   setDayExcused: (reason: ExcusedReason | null) => Promise<void>;
   setDayExcusedOnDate: (date: string, reason: ExcusedReason | null) => Promise<void>;
   setZikrCount: (
@@ -190,14 +235,33 @@ function patchQazaCounters(
   });
 }
 
+/**
+ * Starting or ending an excused period pauses / re-arms nudges right away
+ * (D31 / rule 5) — not at the next foreground. Lazy require: the scheduler
+ * imports this store, so a static import would be a cycle.
+ */
+function rescheduleRemindersForExcusedChange(): void {
+  try {
+    const { requestReminderReschedule } =
+      require("@/lib/quran-companion/reschedule") as typeof import("@/lib/quran-companion/reschedule");
+    requestReminderReschedule();
+  } catch {
+    // Non-fatal; the next foreground reschedule catches up.
+  }
+}
+
 /** Persist the ongoing excused period and keep the preferences store / sync in sync. */
 async function syncActiveExcusedReason(reason: ExcusedReason | null): Promise<void> {
   if (preferencesStore.getState().isReady) {
+    const previous = preferencesStore.getState().prefs.activeExcusedReason ?? null;
     await preferencesStore.getState().update({ activeExcusedReason: reason });
+    if (previous !== reason) rescheduleRemindersForExcusedChange();
     return;
   }
+  const previous = (await PreferencesRepository.get()).activeExcusedReason ?? null;
   await PreferencesRepository.update({ activeExcusedReason: reason });
   markPreferencesDirty();
+  if (previous !== reason) rescheduleRemindersForExcusedChange();
 }
 
 /**
@@ -257,12 +321,19 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
   const prayerStatus: Record<string, PrayerStatus> = {};
   const prayerNotes: Record<string, string | undefined> = {};
   const prayerJama: Record<string, boolean> = {};
+  const prayerAtMasjid: Record<string, boolean> = {};
+  const prayerRakahs: Record<string, number> = {};
+  const prayerCombined: Record<string, PrayerCombined> = {};
   let excusedReason: ExcusedReason | null = null;
   for (const log of allLogs) {
     if (log.date !== date) continue;
     prayerStatus[log.prayerId] = log.status;
     if (log.notes) prayerNotes[log.prayerId] = log.notes;
     if (log.isJama) prayerJama[log.prayerId] = true;
+    if (log.atMasjid) prayerAtMasjid[log.prayerId] = true;
+    if (typeof log.rakahs === "number") prayerRakahs[log.prayerId] = log.rakahs;
+    const combined = combinedFromLog(log);
+    if (combined) prayerCombined[log.prayerId] = combined;
     if (log.isExcused) excusedReason = log.excusedReason ?? "sick";
   }
 
@@ -305,6 +376,9 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
     prayerStatus,
     prayerNotes,
     prayerJama,
+    prayerAtMasjid,
+    prayerRakahs,
+    prayerCombined,
     excusedReason,
     zikrCounts,
     qazaCounters: counters,
@@ -345,6 +419,9 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     prayerStatus: {},
     prayerNotes: {},
     prayerJama: {},
+    prayerAtMasjid: {},
+    prayerRakahs: {},
+    prayerCombined: {},
     excusedReason: null,
     zikrCounts: {},
     qazaCounters: [],
@@ -414,12 +491,59 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       return get().setPrayerJamaOnDate(get().date, prayerId, isJama);
     },
 
+    setRawatib(prayerId, completed, options) {
+      return get().setRawatibOnDate(get().date, prayerId, completed, options);
+    },
+
+    setRawatibOnDate(date, prayerId, completed, options) {
+      return enqueue(async () => {
+        if (date === get().date) {
+          const { prayerStatus, prayerRakahs } = get();
+          set({
+            prayerStatus: { ...prayerStatus, [prayerId]: completed ? "completed" : "pending" },
+            ...(options?.rakahs != null && {
+              prayerRakahs: { ...prayerRakahs, [prayerId]: options.rakahs },
+            }),
+          });
+        }
+        await PrayerRepository.setRawatib(prayerId, date, completed, options);
+        await refreshUnlocked();
+      });
+    },
+
     setPrayerJamaOnDate(date, prayerId, isJama) {
       return enqueue(async () => {
         if (date === get().date) {
           set({ prayerJama: { ...get().prayerJama, [prayerId]: isJama } });
         }
         await PrayerRepository.setFlags(prayerId, date, { isJama });
+        await refreshUnlocked();
+      });
+    },
+
+    setPrayerAtMasjidOnDate(date, prayerId, masjidId) {
+      return enqueue(async () => {
+        if (date === get().date) {
+          set({ prayerAtMasjid: { ...get().prayerAtMasjid, [prayerId]: masjidId != null } });
+        }
+        await PrayerRepository.setFlags(prayerId, date, {
+          masjid: masjidId != null ? { masjidId } : null,
+        });
+        await refreshUnlocked();
+      });
+    },
+
+    setPrayerCombinedOnDate(date, prayerId, mode) {
+      return enqueue(async () => {
+        const partner = combinePartner(prayerId);
+        if (partner == null) return;
+        const self = prayerId as ObligatoryPrayer;
+        await PrayerRepository.setFlags(self, date, {
+          combined: mode ? { with: partner, mode } : null,
+        });
+        await PrayerRepository.setFlags(partner, date, {
+          combined: mode ? { with: self, mode } : null,
+        });
         await refreshUnlocked();
       });
     },
@@ -686,6 +810,21 @@ export function usePrayerJamaMap(): Record<string, boolean> {
   return useStore(trackerStore, (s) => s.prayerJama);
 }
 
+/** Today's "prayed at the masjid" flags keyed by prayer id (NF-3.11). */
+export function usePrayerAtMasjidMap(): Record<string, boolean> {
+  return useStore(trackerStore, (s) => s.prayerAtMasjid);
+}
+
+/** Today's jam' (combined) flags keyed by prayer id (NF-3.0a). */
+export function usePrayerCombinedMap(): Record<string, PrayerCombined> {
+  return useStore(trackerStore, (s) => s.prayerCombined);
+}
+
+/** Today's logged rawatib rak'at keyed by prayer id (NF-3.1). */
+export function usePrayerRakahsMap(): Record<string, number> {
+  return useStore(trackerStore, (s) => s.prayerRakahs);
+}
+
 export function useDayExcused(): ExcusedReason | null {
   return useStore(trackerStore, (s) => s.excusedReason);
 }
@@ -702,6 +841,14 @@ const trackerActions = {
     trackerStore.getState().setPrayerNotes(...args),
   setPrayerJama: (...args: Parameters<TrackerState["setPrayerJama"]>) =>
     trackerStore.getState().setPrayerJama(...args),
+  setRawatib: (...args: Parameters<TrackerState["setRawatib"]>) =>
+    trackerStore.getState().setRawatib(...args),
+  setRawatibOnDate: (...args: Parameters<TrackerState["setRawatibOnDate"]>) =>
+    trackerStore.getState().setRawatibOnDate(...args),
+  setPrayerCombinedOnDate: (...args: Parameters<TrackerState["setPrayerCombinedOnDate"]>) =>
+    trackerStore.getState().setPrayerCombinedOnDate(...args),
+  setPrayerAtMasjidOnDate: (...args: Parameters<TrackerState["setPrayerAtMasjidOnDate"]>) =>
+    trackerStore.getState().setPrayerAtMasjidOnDate(...args),
   setDayExcused: (...args: Parameters<TrackerState["setDayExcused"]>) =>
     trackerStore.getState().setDayExcused(...args),
   setZikrCount: (...args: Parameters<TrackerState["setZikrCount"]>) =>

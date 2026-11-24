@@ -15,8 +15,8 @@ import {
   resolveReadingFontSizes,
   translationReadingStyle,
 } from "@/lib/reading-typography";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
 import { usePreferences } from "@/stores/preferences-store";
-import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 type AdhkarReadingCardProps = {
   item: ZikrItem;
@@ -51,7 +51,7 @@ export function AdhkarReadingCard({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs, translationLocale } = usePreferences();
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
+  const { showTransliteration, showTranslation } = useReadingDisplay();
   const translation = useScriptureTranslation(item).trim();
   const sizes = resolveReadingFontSizes("dua_zikr", fontPrefs);
   const arabicSize = Math.round(sizes.arabic * (emphasis ? 1.18 : 1));

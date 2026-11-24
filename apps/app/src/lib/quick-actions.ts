@@ -36,6 +36,8 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   zikr: "/zikr",
   tasbeeh: "/tasbeeh/free",
   ramadan: "/ramadan",
+  // NF-3.2 voluntary fasting hub (Mon/Thu, Arafah, Ashura, Shawwal six…).
+  voluntaryFasting: "/fasting" as Href,
   salahGuide: "/salah-guide",
   jannah: "/jannah" as Href,
   goodCharacter: "/jannah/character" as Href,
@@ -45,6 +47,9 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   battles: "/battles" as Href,
   learnQuran: "/learn-quran" as Href,
   quranPractice: "/quran/practice" as Href,
+  quranNotes: "/quran/notes" as Href,
+  // NF-3.22 Arabic root-word search (Root tab of Qur'an search).
+  quranRoots: "/quran/search?mode=root" as Href,
   taharah: "/taharah" as Href,
   prophets: "/prophets" as Href,
   aqeedah: "/aqeedah" as Href,
@@ -68,6 +73,12 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   stats: "/statistics",
   journal: "/journal",
   tahajjud: "/tahajjud",
+  rawatib: "/rawatib" as Href,
+  // NF-3.5 daily Sunnah habits; NF-3.3 Dhul-Hijjah mode.
+  sunnahHabits: "/habits" as Href,
+  dhulHijjah: "/dhul-hijjah" as Href,
+  // NF-3.4 Umrah mode (live guided companion).
+  umrahMode: "/umrah" as Href,
   lastThirdNight: "/last-third-night" as Href,
   hayd: "/hayd",
   sick: "/sick",
@@ -86,6 +97,25 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   fidyah: "/fidyah" as Href,
   janazah: "/janazah" as Href,
   sadaqah: "/sadaqah" as Href,
+  // NF-3.6 / NF-3.7 private self-review (vault; hidden on TV).
+  muhasabah: "/muhasabah" as Href,
+  familyTies: "/family-ties" as Href,
+  // NF-3.14 weekly gentle coach (on-device rules, read-only on TV).
+  coach: "/coach" as Href,
+  // NF-3.11 masjid finder (list-first, OpenStreetMap).
+  masjids: "/masjids" as Href,
+  // NF-3.17 accountability partner / NF-3.18 group khatm (circles; read-only on TV).
+  partner: "/partner" as Href,
+  khatmGroups: "/khatm-groups" as Href,
+  // NF-3.16 family & kids mode (parent view; read-only on TV).
+  family: "/family" as Href,
+  // NF-3.8 / NF-3.9 private records (vault; hidden on TV).
+  debts: "/debts" as Href,
+  wasiyyah: "/wasiyyah" as Href,
+  // NF-3.10 Mirath (inheritance) calculator — all four schools.
+  mirath: "/mirath" as Href,
+  // NF-3.13 Salah focus lock (native block on phones; hidden on TV).
+  focusLock: "/focus-lock" as Href,
 };
 
 export const QUICK_ACTION_META: QuickActionDef[] = [
@@ -124,6 +154,40 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     labelKey: "actions.ramadan",
     icon: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
     tone: "info",
+  },
+  {
+    id: "voluntaryFasting",
+    labelKey: "actions.voluntaryFasting",
+    icon: { ios: "moon.haze.fill", android: "nights_stay", web: "nights_stay" },
+    tone: "success",
+  },
+  {
+    // NF-3.1 sunnah rawatib (the 12 / 10 daily rakahs).
+    id: "rawatib",
+    labelKey: "actions.rawatib",
+    icon: { ios: "sun.horizon.fill", android: "wb_sunny", web: "wb_sunny" },
+    tone: "success",
+  },
+  {
+    // NF-3.5 daily Sunnah habits (miswak, Ayat al-Kursi, salam…).
+    id: "sunnahHabits",
+    labelKey: "actions.sunnahHabits",
+    icon: { ios: "checkmark.seal.fill", android: "verified", web: "verified" },
+    tone: "success",
+  },
+  {
+    // NF-3.3 Dhul-Hijjah mode (the ten days, Arafah, takbir, udhiyah).
+    id: "dhulHijjah",
+    labelKey: "actions.dhulHijjah",
+    icon: { ios: "star.circle.fill", android: "stars", web: "stars" },
+    tone: "warning",
+  },
+  {
+    // NF-3.4 Umrah mode: steps, tawaf / sa'i counters, miqat alert.
+    id: "umrahMode",
+    labelKey: "actions.umrahMode",
+    icon: { ios: "arrow.triangle.2.circlepath", android: "autorenew", web: "autorenew" },
+    tone: "accent",
   },
   {
     id: "tahajjud",
@@ -212,6 +276,34 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     labelKey: "actions.qibla",
     icon: { ios: "location.north.line.fill", android: "explore", web: "explore" },
     tone: "info",
+  },
+  {
+    id: "masjids",
+    labelKey: "actions.masjids",
+    icon: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
+    tone: "info",
+  },
+  {
+    id: "partner",
+    labelKey: "actions.partner",
+    icon: { ios: "person.2.fill", android: "group", web: "group" },
+    tone: "success",
+  },
+  {
+    id: "khatmGroups",
+    labelKey: "actions.khatmGroups",
+    icon: { ios: "book.fill", android: "menu_book", web: "menu_book" },
+    tone: "success",
+  },
+  {
+    id: "family",
+    labelKey: "actions.family",
+    icon: {
+      ios: "figure.2.and.child.holdinghands",
+      android: "family_restroom",
+      web: "family_restroom",
+    },
+    tone: "success",
   },
   {
     id: "calendar",
@@ -392,6 +484,30 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     tone: "accent",
   },
   {
+    id: "muhasabah",
+    labelKey: "actions.muhasabah",
+    icon: { ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" },
+    tone: "info",
+  },
+  {
+    id: "familyTies",
+    labelKey: "actions.familyTies",
+    icon: { ios: "person.2.fill", android: "group", web: "group" },
+    tone: "danger",
+  },
+  {
+    id: "coach",
+    labelKey: "actions.coach",
+    icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
+    tone: "accent",
+  },
+  {
+    id: "focusLock",
+    labelKey: "actions.focusLock",
+    icon: { ios: "moon.circle.fill", android: "do_not_disturb_on", web: "do_not_disturb_on" },
+    tone: "accent",
+  },
+  {
     id: "finance",
     labelKey: "actions.finance",
     icon: { ios: "chart.pie.fill", android: "pie_chart", web: "pie_chart" },
@@ -402,6 +518,20 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     labelKey: "actions.quranPractice",
     icon: { ios: "mic.fill", android: "mic", web: "mic" },
     tone: "accent",
+  },
+  {
+    // NF-3.21 personal ayah notes, highlights and tags.
+    id: "quranNotes",
+    labelKey: "actions.quranNotes",
+    icon: { ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" },
+    tone: "accent",
+  },
+  {
+    // NF-3.22 Arabic root-word search (Quranic Arabic Corpus, built on the device).
+    id: "quranRoots",
+    labelKey: "actions.quranRoots",
+    icon: { ios: "character.book.closed.fill", android: "translate", web: "translate" },
+    tone: "info",
   },
   {
     id: "verseDetector",
@@ -437,6 +567,27 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     },
     tone: "success",
   },
+  {
+    // NF-3.8 Debts & trusts record (Dayn / Amanah).
+    id: "debts",
+    labelKey: "actions.debts",
+    icon: { ios: "list.bullet.rectangle.fill", android: "receipt_long", web: "receipt_long" },
+    tone: "warning",
+  },
+  {
+    // NF-3.9 Wasiyyah (Islamic will) builder.
+    id: "wasiyyah",
+    labelKey: "actions.wasiyyah",
+    icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
+    tone: "info",
+  },
+  {
+    // NF-3.10 Mirath (inheritance) calculator.
+    id: "mirath",
+    labelKey: "actions.mirath",
+    icon: { ios: "chart.pie.fill", android: "account_tree", web: "account_tree" },
+    tone: "accent",
+  },
 ];
 
 /**
@@ -459,6 +610,7 @@ export const DEFAULT_QUICK_ACTION_ORDER: string[] = [
   "stats",
   "adhkarBuilder",
   "tahajjud",
+  "sunnahHabits",
   "journal",
   "names",
   "dateConverter",
@@ -486,7 +638,18 @@ export function resolveQuickActionTint(
 }
 
 /** Quick-action / library ids that need mic, camera, or phone-only chrome. */
-export const TV_HIDDEN_QUICK_ACTION_IDS = new Set(["verseDetector", "quranPractice"]);
+export const TV_HIDDEN_QUICK_ACTION_IDS = new Set([
+  // NF-3.13: blocking apps is a personal-phone feature.
+  "focusLock",
+  "verseDetector",
+  "quranPractice",
+  // Private journals / phone calls belong on a personal device (NF-3.6, NF-3.7).
+  "muhasabah",
+  "familyTies",
+  // Debts and the wasiyyah are private vault records (NF-3.8, NF-3.9).
+  "debts",
+  "wasiyyah",
+]);
 
 /** Builds the home Explore grid from shared quick-action metadata. */
 export function buildQuickActionItems(

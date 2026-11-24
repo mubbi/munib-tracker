@@ -9,7 +9,36 @@ import { getLocalDateString } from "@munib-tracker/shared/utils";
 import i18n from "@/i18n";
 import { ACCEPTANCE_HOUR_ROUTE, acceptanceHourMidpoint } from "@/lib/acceptance-hour";
 import { afterSalahAdhkarHref } from "@/lib/after-salah-adhkar-reminder";
+import { type CoachReminderInput, pushCoachReminders } from "@/lib/coach/reminders";
+import type { FamilyTiesReminderInput } from "@/lib/family-ties/model";
+import { buildFamilyTiesReminders } from "@/lib/family-ties/reminders";
 import { locationCalcExtras, type StoredLocation } from "@/lib/location";
+import { buildMuhasabahReminders, type MuhasabahReminderInput } from "@/lib/muhasabah/reminders";
+import { adhanChannelId, adhanNotificationSound } from "@/lib/notifications/adhan-sounds";
+import {
+  type DhulHijjahReminderInput,
+  dedupeArafahEveNudges,
+  pushDhulHijjahReminders,
+} from "@/lib/notifications/dhul-hijjah-reminders";
+import {
+  type IqamahReminderInput,
+  pushIqamahReminders,
+} from "@/lib/notifications/iqamah-reminders";
+import { pushPreferredTimeReminders } from "@/lib/notifications/preferred-time-reminders";
+import {
+  pushRawatibNudgeReminders,
+  type RawatibReminderInput,
+} from "@/lib/notifications/rawatib-reminders";
+import { normalizedBudgetPriority, priorityForKind } from "@/lib/notifications/reminder-budget";
+import {
+  beforeSleepBodyWithHabits,
+  pushSunnahHabitsReminders,
+  type SunnahHabitsReminderInput,
+} from "@/lib/notifications/sunnah-habits-reminders";
+import {
+  pushVaultRecordReminders,
+  type VaultReminderOptions,
+} from "@/lib/notifications/vault-reminders";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
 import { computePrayerTimes, prayerReminderTime, witrTime } from "@/lib/prayer-times";
 import {
@@ -20,7 +49,21 @@ import {
   shiftPrayerDay,
   wallClockInTimeZoneToDate,
 } from "@/lib/time";
+import {
+  pushVoluntaryFastingReminders,
+  type VoluntaryFastingReminderInput,
+} from "@/lib/voluntary-fasting/reminders";
 import { isWhiteDay, whiteDaysChecklistHref } from "@/lib/white-days";
+
+// §11 budget tiers — new reminder kinds take `priority: priorityForKind("<kind>")`.
+export {
+  budgetPriority,
+  priorityForKind,
+  REMINDER_BUDGET_TIER,
+  type ReminderBudgetKind,
+  type ReminderBudgetTier,
+  reminderBudgetTier,
+} from "@/lib/notifications/reminder-budget";
 
 export type ReminderChannelId = "prayer" | "prayerAdhan" | "zikr" | "qaza";
 
@@ -46,8 +89,15 @@ export type BuiltReminder = {
    */
   sound?: string;
   /**
+   * Android OS channel override. Set with {@link sound} on adhan reminders to the
+   * selected style's channel (`adhan-<styleId>`), since Android channel sounds are
+   * fixed at creation. `channelId` stays the logical kind (`prayerAdhan`).
+   */
+  androidChannelId?: string;
+  /**
    * Scheduling priority — lower numbers keep a slot when we trim to the iOS
-   * pending-notification budget (~64). Fard prayers win over optional nudges.
+   * pending-notification budget (~64). §11 tiers: `budgetPriority(tier, rank)`
+   * / `priorityForKind(kind)` from `reminder-budget.ts` (a bare tier 1–5 also works).
    */
   priority: number;
   /**
@@ -85,29 +135,41 @@ export const SCHEDULE_DAYS_AHEAD = 2;
  */
 export const MAX_PENDING_REMINDERS = 60;
 
+/**
+ * §11 budget priorities (`tier × 100 + rank`, see `reminder-budget.ts`). Lower
+ * keeps its slot when we trim to the OS budget; the in-tier ranks preserve the
+ * pre-§11 order of every existing kind.
+ */
 const PRIORITY = {
-  fard: 10,
-  witr: 20,
-  sunnah: 30,
-  afterAzan: 40,
-  beforePrayer: 50,
-  afterPrayer: 55,
-  morningZikr: 60,
-  eveningZikr: 61,
-  beforeSleep: 62,
-  qaza: 70,
-  dailyContent: 80,
-  friday: 85,
+  fard: priorityForKind("prayer", 10),
+  witr: priorityForKind("prayer", 20),
+  sunnah: priorityForKind("prayer", 30),
+  // Zikr nudges are §11 tier 3 (only Salah, Adhan and Qaza are tier 1), after the
+  // named fast-intent / seasonal kinds and before the other daily nudges (M3).
+  afterAzan: priorityForKind("salahZikr", 73),
+  beforePrayer: priorityForKind("salahZikr", 74),
+  afterPrayer: priorityForKind("salahZikr", 75),
+  morningZikr: priorityForKind("salahZikr", 76),
+  eveningZikr: priorityForKind("salahZikr", 77),
+  beforeSleep: priorityForKind("salahZikr", 78),
+  qaza: priorityForKind("qaza", 70),
+  dailyContent: priorityForKind("dailyNudge", 80),
+  friday: priorityForKind("dailyNudge", 85),
   /** Hour of acceptance (Asr + mid-window) — slightly ahead of Kahf nudge. */
-  acceptanceHour: 83,
+  acceptanceHour: priorityForKind("dailyNudge", 83),
   /** White Days fasting — morning of Hijri 13–15. */
-  whiteDays: 86,
-  /** Qur'an practice revision — lowest: a full budget drops it before any Salah alert. */
-  quranRevision: 90,
+  whiteDays: priorityForKind("dailyNudge", 86),
+  /** Qur'an practice revision — last of the daily nudges: a full budget drops it before any Salah alert. */
+  quranRevision: priorityForKind("dailyNudge", 90),
+  /** NF-3.7 family-ties weekly digest + parent nudge (§11 tier 5). */
+  familyTies: priorityForKind("familyTies", 10),
+  /** NF-3.6 nightly muhasabah (§11 tier 5). */
+  muhasabah: priorityForKind("muhasabah", 20),
+  /** NF-3.8 "A payment is due" (§11 tier 4). */
+  debtsDue: priorityForKind("debtsDue", 10),
+  /** NF-3.9 wasiyyah review (§11 tier 4). */
+  wasiyyahReview: priorityForKind("wasiyyahReview", 20),
 } as const;
-
-/** Registered adhan sound file (see the `sounds` array in `app.json`). */
-export const ADHAN_NOTIFICATION_SOUND = "adhan.mp3";
 
 function addMinutes(date: Date, minutes: number): Date {
   return new Date(date.getTime() + minutes * 60_000);
@@ -195,7 +257,13 @@ function pushPrayerReminders(
       repeat: "date",
       route: "/tracker",
       priority: isFard ? PRIORITY.fard : isWitr ? PRIORITY.witr : PRIORITY.sunnah,
-      ...(playAdhan ? { sound: ADHAN_NOTIFICATION_SOUND } : {}),
+      // B2: the selected adhan style's registered sound + its own Android channel.
+      ...(playAdhan
+        ? {
+            sound: adhanNotificationSound(prefs.adhanStyleId),
+            androidChannelId: adhanChannelId(prefs.adhanStyleId),
+          }
+        : {}),
       ...(isFard ? { prayerId: slot as ObligatoryPrayer, prayerDateKey: dayKey } : {}),
     });
 
@@ -308,6 +376,7 @@ function pushQuranRevisionReminders(
   location: StoredLocation,
   now: Date,
   options: BuildRemindersOptions,
+  excused = false,
 ): void {
   if (!options.revisionReminderEnabled || !options.revisionDueByDay) return;
   const { hour, minute } = parseHhMm("09:00");
@@ -326,11 +395,16 @@ function pushQuranRevisionReminders(
       location.timeZone,
     );
     if (fireAt.getTime() <= now.getTime() - 60_000) continue;
+    // NF-3.15: an optional line for a due tajweed coaching sound (same reminder,
+    // no extra notification; generic text; paused during excused periods).
+    const withTajweed = !excused && options.revisionTajweedDueByDay?.[dayKey] === true;
     reminders.push({
       id: `quran-revision:${dayKey}`,
       fireAt,
       title: i18n.t("quranCompanion.reminder.title"),
-      body: i18n.t("quranCompanion.reminder.body", { count }),
+      body: withTajweed
+        ? i18n.t("tajweedCoaching.reminder.body", { count })
+        : i18n.t("quranCompanion.reminder.body", { count }),
       channelId: "zikr",
       repeat: "date",
       route: "/quran/revision",
@@ -398,7 +472,8 @@ function pushWhiteDaysReminders(
 
   for (let offset = 0; offset <= 16; offset += 1) {
     const day = shiftPrayerDay(anchor, offset);
-    if (!isWhiteDay(day, location.timeZone)) continue;
+    // `day` already carries the location's Y/M/D — no second re-zoning (M1).
+    if (!isWhiteDay(day)) continue;
 
     const fireAt = wallClockInTimeZoneToDate(
       day.getFullYear(),
@@ -486,15 +561,23 @@ function pushAcceptanceHourReminders(
   }
 }
 
-/** Keep the highest-priority reminders within the OS pending budget. */
+/**
+ * Keep reminders within the OS pending budget (§11): drop the lowest tier first
+ * (5 → 2; tier 1 Salah/Adhan/Qaza is kept longest), then the highest in-tier
+ * rank, then the latest fire time. The kept set is returned in fire order.
+ */
 export function trimRemindersToBudget(
   reminders: BuiltReminder[],
   max = MAX_PENDING_REMINDERS,
 ): BuiltReminder[] {
   if (reminders.length <= max) return reminders;
   return [...reminders]
-    .sort((a, b) => a.priority - b.priority || a.fireAt.getTime() - b.fireAt.getTime())
-    .slice(0, max)
+    .sort(
+      (a, b) =>
+        normalizedBudgetPriority(a.priority) - normalizedBudgetPriority(b.priority) ||
+        a.fireAt.getTime() - b.fireAt.getTime(),
+    )
+    .slice(0, Math.max(0, max))
     .sort((a, b) => a.fireAt.getTime() - b.fireAt.getTime());
 }
 
@@ -516,12 +599,24 @@ export type BuildRemindersOptions = {
   revisionReminderEnabled?: boolean;
   /** Qur'an practice: local day key (YYYY-MM-DD) → ayahs due on or before that day. */
   revisionDueByDay?: Record<string, number>;
+  /** NF-3.15: local day key → a tajweed coaching item is due (adds a line to the revision reminder). */
+  revisionTajweedDueByDay?: Record<string, boolean>;
   /**
    * When false, the daily Qaza nudge is omitted even if the preference is on.
    * Defaults to false so empty/cleared debt never schedules a make-up reminder.
    */
   hasQazaDebt?: boolean;
-};
+  /** NF-3.6 muhasabah reminder inputs (vault-derived; time + reviewed nights, no text). */
+  muhasabah?: MuhasabahReminderInput;
+  /** NF-3.7 family-ties inputs (vault-derived; due dates only, never names). */
+  familyTies?: FamilyTiesReminderInput;
+} & VoluntaryFastingReminderInput &
+  VaultReminderOptions &
+  SunnahHabitsReminderInput &
+  CoachReminderInput &
+  DhulHijjahReminderInput &
+  RawatibReminderInput &
+  IqamahReminderInput;
 
 export function buildReminders(
   prefs: UserPreferences,
@@ -572,7 +667,8 @@ export function buildReminders(
     prefs.bedtime ?? "22:30",
     "beforeSleep",
     i18n.t("notif.reminders.beforeSleepTitle"),
-    i18n.t("notif.reminders.beforeSleepBody"),
+    // NF-3.5: bedtime sunnah habits fold into this text — no extra slot.
+    beforeSleepBodyWithHabits(options),
     "zikr",
     zikrRoute("before_sleep"),
     n.beforeSleep,
@@ -612,10 +708,65 @@ export function buildReminders(
   pushFridayReminder(reminders, location, now, n.friday);
   // Hour of acceptance — Asr + mid-window on the next Friday (needs location).
   pushAcceptanceHourReminders(reminders, location, now, n.friday);
-  // White Days fasting — morning of each upcoming Hijri 13–15.
-  pushWhiteDaysReminders(reminders, location, now, n.whiteDays);
+  // White Days fasting — morning of each upcoming Hijri 13–15. A fast invite, so
+  // an excused period pauses it (rule 5 / D31; M2).
+  pushWhiteDaysReminders(
+    reminders,
+    location,
+    now,
+    n.whiteDays === true && prefs.activeExcusedReason == null,
+  );
   // Qur'an revision — 09:00 on days with ayahs due (opt-in, practice prefs).
-  pushQuranRevisionReminders(reminders, location, now, options);
+  pushQuranRevisionReminders(reminders, location, now, options, prefs.activeExcusedReason != null);
+  // NF-3.2 voluntary fasting — night-before intent, Arafah/Ashura 2-day nudge, suhoor (§11 tiers 2–3).
+  pushVoluntaryFastingReminders(reminders, prefs, location, now, SCHEDULE_DAYS_AHEAD, options);
+  // NF-3.3 Dhul-Hijjah — eve of the ten, daily card, Arafah eve, opt-in takbir (§11 tier 3).
+  pushDhulHijjahReminders(reminders, prefs, location, now, SCHEDULE_DAYS_AHEAD, options);
+  // 8 Dhul-Hijjah evening: one "intend the Arafah fast" nudge, not two (L6).
+  dedupeArafahEveNudges(reminders);
+  // NF-3.5 Sunnah habits — one opt-in evening nudge (§11 tier 5).
+  pushSunnahHabitsReminders(reminders, prefs, location, now, options);
+  // NF-3.14 weekly coach — one generic "reflection is ready" note on the coach day (§11 tier 5).
+  pushCoachReminders(reminders, prefs, location, now, options);
+  // NF-3.1 rawatib — opt-in one-off nudge after a marked fard (§11 tier 5).
+  pushRawatibNudgeReminders(reminders, prefs, now, options);
+  // NF-3.11 iqamah "leave now" for the home masjid — opt-in, only with iqamah times (§11 tier 2).
+  pushIqamahReminders(reminders, prefs, location, now, SCHEDULE_DAYS_AHEAD, options);
+  // D40 school's preferred-time reminder — opt-in, after Salah/iqamah so it never duplicates them (§11 tier 2).
+  pushPreferredTimeReminders(reminders, prefs, location, now, SCHEDULE_DAYS_AHEAD);
+  // NF-3.6 nightly muhasabah — opt-in, generic text, skips nights already reviewed.
+  if (n.muhasabah === true && options.muhasabah) {
+    reminders.push(
+      ...buildMuhasabahReminders({
+        location,
+        now,
+        bedtime: prefs.bedtime,
+        reminder: options.muhasabah,
+        priority: PRIORITY.muhasabah,
+      }),
+    );
+  }
+  // NF-3.7 family ties — weekly digest (count only) + one parent nudge; on unless turned off.
+  if (n.familyTies !== false && options.familyTies) {
+    reminders.push(
+      ...buildFamilyTiesReminders({
+        location,
+        now,
+        reminder: options.familyTies,
+        excused: prefs.activeExcusedReason != null,
+        priority: PRIORITY.familyTies,
+      }),
+    );
+  }
+
+  // NF-3.8 debts due + NF-3.9 wasiyyah review — vault-derived dates, generic text (§11 tier 4).
+  pushVaultRecordReminders(reminders, {
+    prefs,
+    location,
+    now,
+    options,
+    priority: { debts: PRIORITY.debtsDue, wasiyyahReview: PRIORITY.wasiyyahReview },
+  });
 
   // Drop reminders whose fire time has already passed (DATE only; daily uses next slot).
   const upcoming = reminders.filter(

@@ -12,7 +12,9 @@ import {
   View,
   type ViewInstance,
 } from "react-native";
+import { useQuranRootsSearchGroup } from "@/components/quran/roots/use-roots-search-group";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsSearch } from "@/components/settings/settings-search-results";
 import { VoiceInputButton } from "@/components/stt/voice-input-button";
 import { ThemedText } from "@/components/themed-text";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -32,6 +34,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { useQuranNotesSearchGroup } from "@/lib/quran-notes/use-notes-search-group";
 import { useChevronBack, useChevronForward } from "@/lib/rtl";
 import { runSearchLightWithGuides } from "@/lib/run-search-light-with-guides";
 import { runWhenIdle } from "@/lib/run-when-idle";
@@ -47,6 +50,7 @@ import {
 } from "@/lib/search";
 import { clearRecentSearches, loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { settingHref, settingsGroupPath } from "@/lib/settings/routes";
 import type { SttErrorKind } from "@/lib/stt";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
@@ -215,6 +219,21 @@ export default function SearchScreen() {
         tint: tokens.status.info.color,
         soft: tokens.status.info.soft,
       },
+      settings: {
+        icon: { ios: "gearshape.fill", android: "settings", web: "settings" },
+        tint: colors.accent,
+        soft: tokens.hairline,
+      },
+      notes: {
+        icon: { ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" },
+        tint: colors.accent,
+        soft: tokens.accentSoft,
+      },
+      roots: {
+        icon: { ios: "character.book.closed.fill", android: "translate", web: "translate" },
+        tint: colors.accent,
+        soft: tokens.accentSoft,
+      },
     }),
     [colors.accent, tokens],
   );
@@ -320,8 +339,31 @@ export default function SearchScreen() {
     };
   }, [debounced, hasQuery]);
 
+  // Settings rows from the same index as the Settings hub (current locale + English).
+  const settingsHits = useSettingsSearch(hasQuery ? debounced : "");
+  const settingsGroup = useMemo<SearchGroup | null>(() => {
+    if (settingsHits.length === 0) return null;
+    return {
+      category: "settings",
+      total: settingsHits.length,
+      results: settingsHits.map((entry) => ({
+        key: `settings:${entry.def.id}`,
+        category: "settings",
+        title: entry.title,
+        subtitle: entry.path,
+        href: settingsGroupPath(entry.def.group),
+        params: { focus: entry.def.id },
+      })),
+    };
+  }, [settingsHits]);
+
+  // NF-3.21 "My notes": the user's own notes, searched on-device only.
+  const notesGroup = useQuranNotesSearchGroup(hasQuery ? debounced : "");
+  // NF-3.22: Arabic 2–4 letter input that is a root → a "Root" group on top.
+  const rootsGroup = useQuranRootsSearchGroup(hasQuery ? debounced : "");
+
   // Merge ayah matches into the Qur'an group (surah matches first), keeping order.
-  const groups = useMemo<SearchGroup[]>(() => {
+  const contentGroups = useMemo<SearchGroup[]>(() => {
     if (!ayah || ayah.total === 0) return lightGroups;
     const hasQuran = lightGroups.some((g) => g.category === "quran");
     const merged: SearchGroup[] = hasQuran
@@ -339,6 +381,14 @@ export default function SearchScreen() {
       (g): g is SearchGroup => Boolean(g),
     );
   }, [lightGroups, ayah]);
+
+  const groups = useMemo<SearchGroup[]>(
+    () =>
+      [rootsGroup, ...contentGroups, notesGroup, settingsGroup].filter((g): g is SearchGroup =>
+        Boolean(g),
+      ),
+    [contentGroups, notesGroup, rootsGroup, settingsGroup],
+  );
 
   const presentCategories = useMemo<SearchCategory[]>(
     () =>
@@ -368,6 +418,10 @@ export default function SearchScreen() {
   const openResult = useCallback(
     (result: SearchResult) => {
       remember(query.trim() || result.title);
+      if (result.category === "settings") {
+        router.push(settingHref(result.params?.focus ?? "") as Href);
+        return;
+      }
       switch (result.href) {
         case "/quran/[surah]":
           router.push({
@@ -424,7 +478,11 @@ export default function SearchScreen() {
             params: { topic: result.params?.topic ?? "" },
           });
           break;
+        case "/quran/roots/[root]":
+          router.push({ pathname: result.href, params: { root: result.params?.root ?? "" } });
+          break;
         case "/sahaba/[id]":
+        case "/fiqh/[id]":
           router.push({
             pathname: result.href,
             params: { id: result.params?.id ?? "" },

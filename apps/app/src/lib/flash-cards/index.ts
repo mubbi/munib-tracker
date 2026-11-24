@@ -14,6 +14,7 @@ export {
   startFlashDeck,
 } from "./flash-card-deck";
 export { getLearnSectionDef, LEARN_QUIZ_SECTIONS, type LearnQuizSectionId } from "./learn-sections";
+export { filterMcqsForMadhhab, type SchoolResolver } from "./madhhab-filter";
 export {
   buildMcq,
   condenseText,

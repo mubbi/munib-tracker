@@ -277,16 +277,21 @@ function ScheduleTimelineRow({
 
       <View
         accessibilityRole="text"
-        accessibilityLabel={t(
-          isCurrent
-            ? "hero.prayerItemActive"
-            : isNext
-              ? "home.scheduleNextA11y"
-              : "hero.prayerItem",
-          isNext
-            ? { name: item.name, time: item.time, countdown: nextIn ?? "" }
-            : { name: item.name, time: item.time },
-        )}
+        accessibilityLabel={[
+          t(
+            isCurrent
+              ? "hero.prayerItemActive"
+              : isNext
+                ? "home.scheduleNextA11y"
+                : "hero.prayerItem",
+            isNext
+              ? { name: item.name, time: item.time, countdown: nextIn ?? "" }
+              : { name: item.name, time: item.time },
+          ),
+          item.preferred && item.status !== "past" ? item.preferred : null,
+        ]
+          .filter(Boolean)
+          .join(". ")}
         style={[
           styles.row,
           compact ? styles.rowCompact : null,
@@ -336,6 +341,11 @@ function ScheduleTimelineRow({
           {item.status === "flexible" ? (
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("home.scheduleFlexibleHint")}
+            </ThemedText>
+          ) : null}
+          {item.preferred && item.status !== "past" ? (
+            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
+              {item.preferred}
             </ThemedText>
           ) : null}
         </View>

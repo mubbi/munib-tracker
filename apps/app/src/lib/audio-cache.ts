@@ -1,6 +1,7 @@
 import type { OssContentErrorCode } from "@munib-tracker/shared/types/oss-content-download-failure";
 import { Paths } from "expo-file-system";
 import { Platform } from "react-native";
+import { shouldCacheAudio } from "@/lib/cache-prefs";
 import { classifyOssAudioUri } from "@/lib/classify-oss-audio-uri";
 import {
   deletePath,
@@ -15,7 +16,6 @@ import {
   classifyFetchError,
   reportOssContentDownloadFailure,
 } from "@/lib/report-oss-content-download-failure";
-import { preferencesStore } from "@/stores/preferences-store";
 
 const HTTP_RANGE_NOT_SATISFIABLE = 416;
 
@@ -146,7 +146,7 @@ const webInflight = new Map<string, Promise<string>>();
  * to true when unset so existing installs keep caching until they opt out.
  */
 export function isAudioLocalCacheEnabled(): boolean {
-  return preferencesStore.getState().prefs.cacheAudioLocally !== false;
+  return shouldCacheAudio();
 }
 
 /** Whether the Cache Storage + fetch APIs needed for the web cache exist. */

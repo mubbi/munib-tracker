@@ -16,22 +16,26 @@ import { PageLayoutRenderer } from "@/components/quran/page-layout-renderer";
 import { PagePickerSheet } from "@/components/quran/page-picker-sheet";
 import { PageReaderFooter } from "@/components/quran/page-reader-footer";
 import PagerView, { type PagerViewHandle } from "@/components/quran/pager-view";
+import { QuranNotesSheetHost } from "@/components/quran/quran-notes-sheet-host";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
 import { TafsirPickerSheet } from "@/components/quran/tafsir-picker-sheet";
 import { TranslationPickerSheet } from "@/components/quran/translation-picker-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { IconButton } from "@/components/ui/icon-button";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useQuranReadingRecorder } from "@/hooks/use-quran-reading-recorder";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTvKeyDown, type TvHwEvent } from "@/hooks/use-tv-event-handler";
 import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { runAfterSheetDismiss } from "@/lib/platform/run-after-sheet-dismiss";
 import {
   ensureMushafPageFonts,
   isMushafPageFontReady,
@@ -54,14 +58,19 @@ import {
 } from "@/lib/quran";
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
+import { isPronunciationCheckPlatformAvailable } from "@/lib/quran-pronunciation/availability";
+import { pronunciationCheckHref } from "@/lib/quran-pronunciation/entry";
 import { resolvePreferredTafsirId } from "@/lib/quran-tafsir-options";
 import { resolveReadingFontSizes } from "@/lib/reading-typography";
 import { mushafPageBackward, mushafPageForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { updateQuranPrefs } from "@/lib/settings/quran-shortcuts";
+import { useReadingDisplayToggles } from "@/lib/settings/use-reading-display-toggles";
 import { buildAyahSharePayload } from "@/lib/share";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { usePreferences } from "@/stores/preferences-store";
+import { openQuranNoteEditor } from "@/stores/quran-notes-store";
 import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
 
 const LAYOUT_OPTIONS: Array<{ id: QuranReaderLayout; labelKey: string }> = [
@@ -130,7 +139,13 @@ export default function QuranPageReaderScreen() {
   const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
   const readingSizes = resolveReadingFontSizes("quran", fontPrefs);
   const defaultEditionId = resolveQuranEditionId({ translationLocale, locale: appLocale });
-  const { updatePrefs, setLastRead, toggleBookmark, recordProgress } = useQuranActions();
+  const { setLastRead, toggleBookmark, recordProgress } = useQuranActions();
+  // D40 reading log: counts settled pages + active time while focused/foreground.
+  const readingRecorder = useQuranReadingRecorder();
+  // Reader controls are shortcuts to Settings › Qur'an (one write path, §4.5.2).
+  const updatePrefs = updateQuranPrefs;
+  const { showTranslation, showTransliteration, toggleTranslation, toggleTransliteration } =
+    useReadingDisplayToggles();
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
   const pagerRef = useRef<PagerViewHandle>(null);
@@ -333,11 +348,12 @@ export default function QuranPageReaderScreen() {
       if (!start) return;
       if (flushRef.current) clearTimeout(flushRef.current);
       flushRef.current = setTimeout(() => {
+        readingRecorder.notePage(page);
         void recordProgress(start.surah, start.ayah);
         void setLastRead(start.surah, start.ayah, { page });
       }, LAST_READ_FLUSH_MS);
     },
-    [recordProgress, setLastRead],
+    [readingRecorder, recordProgress, setLastRead],
   );
 
   useEffect(() => {
@@ -541,7 +557,7 @@ export default function QuranPageReaderScreen() {
       pathname: "/quran/[surah]",
       params: { surah: String(start.surah), ayah: String(start.ayah) },
     });
-  }, [currentPage, router, updatePrefs]);
+  }, [currentPage, router]);
 
   const layoutOptions = LAYOUT_OPTIONS.map((o) => ({ id: o.id, label: t(o.labelKey) }));
 
@@ -603,7 +619,7 @@ export default function QuranPageReaderScreen() {
         sourceHref: `/quran/page/${currentPage}`,
       });
     },
-    [audio, currentPage, prefs.preferredReciterDir, startSurahMeta, updatePrefs],
+    [audio, currentPage, prefs.preferredReciterDir, startSurahMeta],
   );
 
   const actionBookmarked = actionAyah
@@ -710,6 +726,7 @@ export default function QuranPageReaderScreen() {
             page={page}
             arabicSize={readingSizes.arabic}
             highlightAyah={pageHighlight}
+            showAnnotations
             onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
             tvFocusTarget={tvFocusTarget}
             onItemFocus={tv ? onPageItemFocus : undefined}
@@ -725,11 +742,12 @@ export default function QuranPageReaderScreen() {
             transliteration={transliteration}
             translation={translationText}
             secondTranslation={secondTranslationText}
-            showTransliteration={prefs.showTransliteration}
-            showTranslation={prefs.showTranslation && !translationLoading}
+            showTransliteration={showTransliteration}
+            showTranslation={showTranslation && !translationLoading}
             translationDir={translationDir}
             secondTranslationDir={secondaryDir}
             highlightAyah={pageHighlight}
+            showAnnotations
             onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
             tvFocusTarget={tvFocusTarget}
             onItemFocus={tv ? onPageItemFocus : undefined}
@@ -769,8 +787,8 @@ export default function QuranPageReaderScreen() {
             translationName={selectedEdition.name}
             secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
             tafsirName={tafsirEdition?.name ?? t("quran.tafsirNone")}
-            showTransliteration={prefs.showTransliteration}
-            showTranslation={layout === "page" && prefs.showTranslation}
+            showTransliteration={showTransliteration}
+            showTranslation={layout === "page" && showTranslation}
             showTranslationControls={layout === "page"}
             layoutLabel={t(layout === "mushaf" ? "quran.layoutMushaf" : "quran.layoutPage")}
             onOpenLayout={() => setLayoutPickerOpen(true)}
@@ -778,10 +796,8 @@ export default function QuranPageReaderScreen() {
             onOpenTranslation={() => setTranslationPickerOpen(true)}
             onOpenSecondary={() => setSecondaryPickerOpen(true)}
             onOpenTafsir={() => setTafsirPickerOpen(true)}
-            onToggleTransliteration={() =>
-              updatePrefs({ showTransliteration: !prefs.showTransliteration })
-            }
-            onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+            onToggleTransliteration={() => void toggleTransliteration()}
+            onToggleTranslation={() => void toggleTranslation()}
           />
 
           <TvPageTurnTrap>
@@ -890,6 +906,13 @@ export default function QuranPageReaderScreen() {
         selectedId={layout}
         onSelect={handleLayoutSelect}
         onClose={() => setLayoutPickerOpen(false)}
+        // §4.5.6: the reader's options are shortcuts; the full Qur'an group lives in Settings.
+        footer={
+          <MoreInSettingsLink
+            settingId="quran.reader.layout"
+            onNavigate={() => setLayoutPickerOpen(false)}
+          />
+        }
       />
       <OptionPickerSheet
         visible={reciterPickerOpen}
@@ -961,6 +984,39 @@ export default function QuranPageReaderScreen() {
               }
             : undefined
         }
+        onCheckRecitation={
+          isPronunciationCheckPlatformAvailable()
+            ? () => {
+                if (!actionAyah) return;
+                const target = actionAyah;
+                setActionAyah(null);
+                router.push(
+                  pronunciationCheckHref(target.surah, target.ayah, target.ayah, "reader"),
+                );
+              }
+            : undefined
+        }
+        // NF-3.21: editing is phone/web only — TV shows notes read-only in this sheet.
+        onNote={
+          tv
+            ? undefined
+            : () => {
+                if (!actionAyah) return;
+                const target = actionAyah;
+                setActionAyah(null);
+                runAfterSheetDismiss(() => openQuranNoteEditor({ mode: "note", ...target }));
+              }
+        }
+        onHighlight={
+          tv
+            ? undefined
+            : () => {
+                if (!actionAyah) return;
+                const target = actionAyah;
+                setActionAyah(null);
+                runAfterSheetDismiss(() => openQuranNoteEditor({ mode: "highlight", ...target }));
+              }
+        }
         onClose={() => setActionAyah(null)}
         onPlay={() => {
           if (!actionAyah) return;
@@ -1001,6 +1057,7 @@ export default function QuranPageReaderScreen() {
           });
         }}
       />
+      <QuranNotesSheetHost />
     </>
   );
 }

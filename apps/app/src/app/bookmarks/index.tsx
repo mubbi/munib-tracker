@@ -4,6 +4,7 @@ import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { MyNotesSection } from "@/components/quran/my-notes-section";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -267,6 +268,8 @@ export default function BookmarksHubScreen() {
           renderSection("reading")
         )}
         {sideBySide ? null : renderSection("saved")}
+        {/* NF-3.21: latest personal ayah notes (hidden until the first note). */}
+        <MyNotesSection />
       </Stagger>
     </ScreenLayout>
   );

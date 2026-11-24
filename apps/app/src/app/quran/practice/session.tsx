@@ -16,6 +16,7 @@ import { PracticePageView } from "@/components/quran/practice-page-view";
 import { PracticePassagePicker } from "@/components/quran/practice-passage-picker";
 import { PracticeToolbar } from "@/components/quran/practice-toolbar";
 import { PracticeWordRow } from "@/components/quran/practice-word-row";
+import { PronunciationCheckSession } from "@/components/quran/pronunciation-check-session";
 import { TajweedText } from "@/components/quran/tajweed-text";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -35,6 +36,7 @@ import { isSessionMode, parsePassage } from "@/lib/quran-companion/passage";
 import { tryAgainIndexes, visibleWordStates } from "@/lib/quran-companion/reduce-session";
 import type { Passage, SessionMode } from "@/lib/quran-companion/types";
 import { getPageForAyah, getSurahByNumber } from "@/lib/quran-meta";
+import { PRONUNCIATION_MODE } from "@/lib/quran-pronunciation/entry";
 import {
   arabicReadingLayout,
   resolveArabicFontFamily,
@@ -42,10 +44,10 @@ import {
   translationReadingStyle,
 } from "@/lib/reading-typography";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
 import { usePreferences } from "@/stores/preferences-store";
 import {
   useCompanionPrefs,
-  useCompanionPrefsActions,
   useCompanionPrefsReady,
   useEnsureCompanionPrefsLoaded,
 } from "@/stores/quran-companion-prefs-store";
@@ -56,7 +58,6 @@ import {
   useEnsurePracticeLoaded,
   useRevisionSitting,
 } from "@/stores/quran-practice-store";
-import { useQuranPrefs } from "@/stores/quran-store";
 
 /**
  * Live practice session (§9.2). The ayah is the screen: one ayah at a time, the
@@ -91,6 +92,16 @@ export default function PracticeSessionRoute() {
   }, [passage, router]);
 
   if (!passage || !prefsReady || !isPracticeAvailable()) return null;
+  // NF-3.24 "Check pronunciation" — its own flow, not a memorisation session.
+  if (params.mode === PRONUNCIATION_MODE) {
+    return (
+      <PronunciationCheckSession
+        key={`${passage.surah}:${passage.ayahStart}-${passage.ayahEnd}:pronunciation`}
+        passage={passage}
+        source={params.source ?? "hub"}
+      />
+    );
+  }
   // Keyed by passage + mode so changing the passage always starts a fresh session.
   return (
     <PracticeSessionScreen
@@ -120,24 +131,12 @@ function PracticeSessionScreen({
   const contentBottom = useContentBottomInset();
   const { fontPrefs, translationLocale, locale } = usePreferences();
   const prefs = useCompanionPrefs();
-  const { seedReadingToggles } = useCompanionPrefsActions();
-  const quranPrefs = useQuranPrefs();
+  // Translation / transliteration are the app-wide pair (D13), shared with the reader.
+  const { showTranslation, showTransliteration } = useReadingDisplay();
   const surahMeta = getSurahByNumber(passage.surah);
   const surahName = surahMeta?.nameTransliteration ?? String(passage.surah);
   const sizes = resolveReadingFontSizes("quran", fontPrefs);
   const arabicFamily = resolveArabicFontFamily(fontPrefs.arabic.family);
-
-  // First visit: practice toggles start as a copy of the reader's, then stay independent.
-  useEffect(() => {
-    if (!prefs.readingTogglesSeeded) {
-      void seedReadingToggles(quranPrefs.showTranslation, quranPrefs.showTransliteration);
-    }
-  }, [
-    prefs.readingTogglesSeeded,
-    quranPrefs.showTranslation,
-    quranPrefs.showTransliteration,
-    seedReadingToggles,
-  ]);
 
   const s = usePracticeSession({
     passage,
@@ -425,7 +424,7 @@ function PracticeSessionScreen({
               ))}
             </View>
           )}
-          {prefs.showTransliteration && s.row?.transliteration && !s.hidden.size ? (
+          {showTransliteration && s.row?.transliteration && !s.hidden.size ? (
             <ThemedText
               type="small"
               themeColor="mutedForeground"
@@ -434,7 +433,7 @@ function PracticeSessionScreen({
               {s.row.transliteration}
             </ThemedText>
           ) : null}
-          {prefs.showTranslation &&
+          {showTranslation &&
           s.row?.translation &&
           !(s.displayMode === "hide-ayahs" && s.hidden.size) ? (
             <ThemedText style={[styles.text, translationReadingStyle(locale, sizes.translation)]}>

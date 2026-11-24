@@ -6,6 +6,7 @@ import {
   type BuildRemindersOptions,
   SCHEDULE_DAYS_AHEAD,
 } from "@/lib/notifications/build-reminders";
+import { coachingDueByDay, sanitizeTajweedCoaching } from "@/lib/tajweed-coaching/progress";
 
 import { isPracticeAvailable } from "./availability";
 import { dueCountsByDay } from "./due-queue";
@@ -17,14 +18,22 @@ import { dueCountsByDay } from "./due-queue";
  */
 export async function quranRevisionReminderOptions(
   now = new Date(),
-): Promise<Pick<BuildRemindersOptions, "revisionReminderEnabled" | "revisionDueByDay">> {
+): Promise<
+  Pick<
+    BuildRemindersOptions,
+    "revisionReminderEnabled" | "revisionDueByDay" | "revisionTajweedDueByDay"
+  >
+> {
   if (!isPracticeAvailable()) return { revisionReminderEnabled: false };
   try {
     const prefs = await QuranCompanionPrefsRepository.get();
     if (!prefs.revisionReminder) return { revisionReminderEnabled: false };
-    const [records, hifz] = await Promise.all([
+    const [records, hifz, coaching] = await Promise.all([
       QuranMemorizationRepository.getAll(),
       readJSON<Record<string, "memorized" | "review">>(DB_KEYS.hifz, {}),
+      prefs.tajweedInRevisionReminder === false
+        ? Promise.resolve(null)
+        : readJSON<unknown>(DB_KEYS.tajweedCoaching, null),
     ]);
     return {
       revisionReminderEnabled: true,
@@ -33,6 +42,16 @@ export async function quranRevisionReminderOptions(
         now,
         SCHEDULE_DAYS_AHEAD,
       ),
+      // NF-3.15: days with a tajweed coaching item due (a line in the same reminder).
+      ...(coaching != null
+        ? {
+            revisionTajweedDueByDay: coachingDueByDay(
+              sanitizeTajweedCoaching(coaching),
+              now,
+              SCHEDULE_DAYS_AHEAD,
+            ),
+          }
+        : {}),
     };
   } catch {
     return { revisionReminderEnabled: false };

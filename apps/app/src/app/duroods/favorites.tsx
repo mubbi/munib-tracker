@@ -36,12 +36,12 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
 import {
   useDuroodFavoritesActions,
   useEnsureDuroodFavoritesLoaded,
   useFavoriteDuroodIds,
 } from "@/stores/durood-favorites-store";
-import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 type DuroodItem = Awaited<ReturnType<typeof loadDuroodItems>>[number];
 
@@ -56,7 +56,7 @@ export default function DuroodFavoritesScreen() {
   useEnsureDuroodFavoritesLoaded();
   const favoriteIds = useFavoriteDuroodIds();
   const { toggle } = useDuroodFavoritesActions();
-  const visibility = useReadingTextVisibility();
+  const visibility = useReadingDisplay();
   const [duroodItems, setDuroodItems] = useState<DuroodItem[]>([]);
   const [corpusReady, setCorpusReady] = useState(false);
   const listRef = useRef<FlatList<DuroodItem>>(null);

@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import type { TFunction } from "i18next";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -19,24 +20,20 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
+import { localizeCircleInboxItem } from "@/lib/circles/inbox";
 import { goBackOrReplace } from "@/lib/navigation";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isLocalNotificationSupported, isWeb } from "@/lib/notifications/platform";
-import { registerExpoPushTokenWithApi } from "@/lib/notifications/register-push-token";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { enableNotifications } from "@/lib/settings/actions";
 import { formatDisplayDateTime } from "@/lib/time";
-import { rescheduleAll } from "@/notifications/scheduler";
 import { useAuth } from "@/providers/auth-provider";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
-import { locationStore, useLocation } from "@/stores/location-store";
-import {
-  preferencesStore,
-  usePreferences,
-  usePreferencesActions,
-} from "@/stores/preferences-store";
+import { useLocation } from "@/stores/location-store";
+import { usePreferences } from "@/stores/preferences-store";
 
 const PAGE_SIZE = 10;
 /** Wide web / tablets: keep inbox rows at a readable measure (≈ 80–90 chars). */
@@ -44,29 +41,33 @@ const INBOX_MAX_WIDTH = 880;
 
 function mapInboxItems(
   inbox: ReturnType<typeof useInAppNotifications>["items"],
+  t: TFunction,
 ): NotificationListItem[] {
-  return inbox.map((item) => ({
-    id: `inbox:${item.id}`,
-    title: item.title,
-    body: item.body,
-    at: item.createdAt,
-    readAt: item.readAt,
-    inboxId: item.id,
-    kind: item.kind,
-    reminderKey: extractReminderKey(`inbox:${item.id}`, item.id),
-  }));
+  return inbox.map((raw) => {
+    // NF-3.16–3.18: circle events are localized by `routeData.event`.
+    const item = localizeCircleInboxItem(raw, t);
+    return {
+      id: `inbox:${item.id}`,
+      title: item.title,
+      body: item.body,
+      at: item.createdAt,
+      readAt: item.readAt,
+      inboxId: item.id,
+      kind: item.kind,
+      reminderKey: extractReminderKey(`inbox:${item.id}`, item.id),
+    };
+  });
 }
 
 export default function NotificationCenterScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
-  const { setNotificationPrefs } = usePreferencesActions();
   const location = useLocation();
   const toast = useToast();
   const { session, isAuthenticated } = useAuth();
   const { items, unreadCount, open, markAllRead, clearAll } = useInAppNotifications();
-  const { requestPermission, granted } = useNotificationPermissions();
+  const { refresh: refreshPermission, granted } = useNotificationPermissions();
   const { isWide, isTv } = useLargeScreenLayout();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [confirmClear, setConfirmClear] = useState(false);
@@ -94,23 +95,18 @@ export default function NotificationCenterScreen() {
       return;
     }
     const webGesture = isWeb ? beginWebNotificationPermissionRequest() : null;
-    const result = await requestPermission({ webPermissionRequest: webGesture });
-    if (!result.granted) {
-      if (result.reason === "permission_denied") {
-        toast.warning(t("notif.permissionDenied"), t("notif.openSettingsHint"));
-      }
-      return;
-    }
-    // Turn on the reminder master switch so scheduling actually runs after a
-    // late grant (e.g. user skipped onboarding permissions).
-    await setNotificationPrefs({ masterEnabled: true });
-    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
-    if (isAuthenticated && session?.accessToken) {
-      void registerExpoPushTokenWithApi(session.accessToken);
+    // Shared path: permission → master switch → reschedule → push token.
+    const result = await enableNotifications({
+      webPermissionRequest: webGesture,
+      accessToken: isAuthenticated ? session?.accessToken : undefined,
+    });
+    await refreshPermission();
+    if (!result.granted && result.reason === "permission_denied") {
+      toast.warning(t("notif.permissionDenied"), t("notif.openSettingsHint"));
     }
   };
 
-  const delivered = useMemo(() => mapInboxItems(items), [items]);
+  const delivered = useMemo(() => mapInboxItems(items, t), [items, t]);
   const visible = delivered.slice(0, visibleCount);
   const formatWhen = (iso: string) =>
     formatDisplayDateTime(

@@ -35,7 +35,11 @@ const IMPORTANCE_TONE: Record<
   recommended: "warning",
 };
 
-function ProphetsProfileCard({ profile }: { profile: NonNullable<ProphetsTopic["profile"]> }) {
+export function ProphetsProfileCard({
+  profile,
+}: {
+  profile: NonNullable<ProphetsTopic["profile"]>;
+}) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();

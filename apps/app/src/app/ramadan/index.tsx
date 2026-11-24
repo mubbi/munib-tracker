@@ -6,6 +6,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { FastStatusSheet } from "@/components/fast-status-sheet";
+import { HijriAdjustLink } from "@/components/hijri/hijri-adjust-link";
+import { RamadanFiqhCard } from "@/components/ramadan/ramadan-fiqh-card";
+import { RamadanMakeUpOffer } from "@/components/ramadan/ramadan-make-up-offer";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -19,6 +22,8 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useHijriAdjustment } from "@/hooks/use-hijri-adjustment";
+import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatCompactGridDateFromIso } from "@/lib/calendar-format";
@@ -76,6 +81,8 @@ function formatGregorianRange(startIso: string, endIso: string, locale: AppLocal
 }
 
 export default function RamadanScreen() {
+  // §4.1.1 item 4: once per session while the madhhab was never chosen.
+  const madhhabPrompt = useMadhhabPrompt();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -93,12 +100,16 @@ export default function RamadanScreen() {
   const { width } = useWindowDimensions();
   const wide = !tv && width >= WIDE_BREAKPOINT;
 
-  const info = useMemo(() => getRamadanInfo(location, now), [location, now]);
+  // D14: a Hijri correction moves Ramadan's days — recompute when it changes.
+  const hijriAdjustment = useHijriAdjustment();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: hijriAdjustment changes hijri.ts output.
+  const info = useMemo(() => getRamadanInfo(location, now), [location, now, hijriAdjustment]);
   const locale = prefs.locale as AppLocale;
   const success = tokens.status.success;
   const danger = tokens.status.danger;
   const infoTone = tokens.status.info;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: hijriAdjustment changes hijri.ts output.
   const ramadanDays = useMemo(
     () =>
       Array.from({ length: info.fastingLogTotalDays }, (_, i) => {
@@ -108,8 +119,10 @@ export default function RamadanScreen() {
           date: getLocalDateString(hijriToGregorian(info.fastingLogHijriYear, RAMADAN_MONTH, day)),
         };
       }),
-    [info.fastingLogTotalDays, info.fastingLogHijriYear],
+    [info.fastingLogTotalDays, info.fastingLogHijriYear, hijriAdjustment],
   );
+
+  const ramadanDayDates = useMemo(() => ramadanDays.map((d) => d.date), [ramadanDays]);
 
   const fastingLogGregorianRange = useMemo(() => {
     const first = ramadanDays[0]?.date;
@@ -348,6 +361,7 @@ export default function RamadanScreen() {
         title={t("ramadan.fastingTitle")}
         icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
       />
+      <HijriAdjustLink year={info.fastingLogHijriYear} month={RAMADAN_MONTH} />
 
       {showBackfillNote ? (
         <View
@@ -487,6 +501,17 @@ export default function RamadanScreen() {
     </Card>
   );
 
+  // NF-3.0a: offer (never auto-apply) adding this Ramadan's make-up days to fasting qaza.
+  const makeUpOffer = (
+    <RamadanMakeUpOffer
+      hijriYear={info.fastingLogHijriYear}
+      ramadanDates={ramadanDayDates}
+      fastStatus={days}
+      today={today}
+    />
+  );
+  const fiqhCard = <RamadanFiqhCard />;
+
   const disclaimer = (
     <View style={styles.disclaimerRow}>
       <SymbolView
@@ -514,6 +539,7 @@ export default function RamadanScreen() {
       onScroll={onScroll}
     >
       <Seo path="/ramadan" />
+      {madhhabPrompt.sheet}
       {wide ? (
         // Wide web / tablets: the 30-day log gets the main column (3 rows of 10);
         // today, Suhoor / Iftar and seasonal notes sit in an aside beside it.
@@ -521,6 +547,7 @@ export default function RamadanScreen() {
           <View style={styles.wideMain}>
             <Stagger>
               {fastingCard}
+              {makeUpOffer}
               {disclaimer}
             </Stagger>
           </View>
@@ -530,6 +557,7 @@ export default function RamadanScreen() {
               {timesCard}
               {lastTenCard}
               {laylatCard}
+              {fiqhCard}
             </Stagger>
           </View>
         </View>
@@ -540,6 +568,8 @@ export default function RamadanScreen() {
           {lastTenCard}
           {laylatCard}
           {fastingCard}
+          {makeUpOffer}
+          {fiqhCard}
           {disclaimer}
         </Stagger>
       )}

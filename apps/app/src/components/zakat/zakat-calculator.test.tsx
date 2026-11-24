@@ -41,7 +41,7 @@ describe("ZakatCalculator", () => {
       "Nisab and metal prices are prefilled from live rates.",
       "Adds $733 to wealth",
       "Gold nisab (~87.5 g): $7000",
-      "Using lower threshold: $600",
+      "Using nisab (Lower of gold and silver): $600",
       "Ushr 10% when watered naturally without costly irrigation.",
     ])("shows %s", async (text) => {
       await renderCalc();
@@ -196,7 +196,44 @@ describe("ZakatCalculator", () => {
     it("drops the live badges and the lower-threshold hint", async () => {
       await renderCalc(overrides);
       expect(screen.queryAllByText("Live")).toHaveLength(0);
-      expect(screen.queryByText(/Using lower threshold/)).toBeNull();
+      expect(screen.queryByText(/Using nisab \(/)).toBeNull();
+    });
+  });
+
+  describe("madhhab (NF-3.0a)", () => {
+    it("saves the nisab basis override from the chips and clears it with the school default", async () => {
+      const state = await renderCalc();
+      await fireEvent.press(screen.getByText("Gold"));
+      expect(state.setNisabBasisOverride).toHaveBeenCalledWith("gold");
+      await fireEvent.press(screen.getByText("School default: Lower of gold and silver"));
+      expect(state.setNisabBasisOverride).toHaveBeenCalledWith(null);
+    });
+
+    it.each([
+      [{}, "Counted: in your school, women's personal jewellery is zakatable."],
+      [
+        { zakatSchool: "shafii", personalJewelleryCounted: false, combineMethod: "separate" },
+        "Not counted: in your school, permissible jewellery in normal use is not zakatable.",
+      ],
+      [
+        { zakatSchool: null },
+        "The Hanafi school counts personal jewellery; the other three schools do not. The amount above counts it, and each row below also shows the amount without it.",
+      ],
+    ] as const)("explains the jewellery ruling %#", async (overrides, text) => {
+      await renderCalc(overrides as Partial<Props>);
+      expect(screen.getByText(text)).toBeTruthy();
+    });
+
+    it("flags a contested basis and the separate-metals rule", async () => {
+      await renderCalc({
+        zakatSchool: "shafii",
+        schoolNisabBasis: "gold",
+        nisabBasis: "gold",
+        nisabBasisContested: true,
+        combineMethod: "separate",
+      } as Partial<Props>);
+      expect(screen.getByText(/Scholars differ on the nisab for modern currency/)).toBeTruthy();
+      expect(screen.getByText(/does not add gold and silver together/)).toBeTruthy();
     });
   });
 

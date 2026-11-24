@@ -62,6 +62,7 @@ export function AppStack() {
             </Stack.Protected>
             <Stack.Screen name="(onboarding)/intro" options={{ gestureEnabled: false }} />
             <Stack.Screen name="(onboarding)/intro-location" options={{ gestureEnabled: false }} />
+            <Stack.Screen name="(onboarding)/intro-madhhab" options={{ gestureEnabled: false }} />
             <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
           </Stack>
         </View>

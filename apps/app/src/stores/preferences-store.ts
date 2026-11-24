@@ -12,7 +12,9 @@ import * as Localization from "expo-localization";
 import { initDatabase, PreferencesRepository } from "@/db";
 import { bootstrapAppLocale, changeAppLocale } from "@/i18n";
 import { syncHapticsEnabled } from "@/lib/haptics";
+import { setHijriAdjustment } from "@/lib/hijri";
 import { willRequireNativeReloadForLocale } from "@/lib/i18n/rtl";
+import { migrateStoredReadingDisplay } from "@/lib/settings/reading-display-migration";
 import { clearPreferencesDirty, markPreferencesDirty } from "@/lib/sync/preferences-cloud-sync";
 import {
   cancelScheduledPreferencesCloudSync,
@@ -21,6 +23,16 @@ import {
 } from "@/lib/sync/push-preferences";
 
 import { createStore, useStore } from "./create-store";
+import {
+  devicePreferencesStore,
+  overlayDeviceOnUserPrefs,
+  splitDeviceUserPatch,
+} from "./device-preferences-store";
+
+/** B4: readers see this device's values over the legacy synced fields. */
+function withDevice(prefs: UserPreferences): UserPreferences {
+  return overlayDeviceOnUserPrefs(prefs, devicePreferencesStore.getState().prefs);
+}
 
 /** Shallow merge for optimistic UI — matches repository defaults for nested blobs. */
 function mergePrefs(current: UserPreferences, patch: Partial<UserPreferences>): UserPreferences {
@@ -36,12 +48,6 @@ function mergePrefs(current: UserPreferences, patch: Partial<UserPreferences>): 
           ...patch.fontPrefs,
           arabic: { ...current.fontPrefs.arabic, ...patch.fontPrefs.arabic },
           translation: { ...current.fontPrefs.translation, ...patch.fontPrefs.translation },
-          transliteration: {
-            ...current.fontPrefs.transliteration,
-            ...patch.fontPrefs.transliteration,
-          },
-          global: { ...current.fontPrefs.global, ...patch.fontPrefs.global },
-          titles: { ...current.fontPrefs.titles, ...patch.fontPrefs.titles },
         }
       : current.fontPrefs,
     weatherPrefs: patch.weatherPrefs
@@ -49,6 +55,14 @@ function mergePrefs(current: UserPreferences, patch: Partial<UserPreferences>): 
       : current.weatherPrefs,
     updatedAt: patch.updatedAt ?? new Date().toISOString(),
   };
+}
+
+/** Stored prefs after one-time migrations (D13 `readingDisplay` seeded from the legacy toggles). */
+async function readPrefsWithMigrations(): Promise<UserPreferences> {
+  const prefs = await PreferencesRepository.get();
+  if (prefs.readingDisplay) return prefs;
+  const readingDisplay = await migrateStoredReadingDisplay();
+  return readingDisplay ? { ...prefs, readingDisplay } : PreferencesRepository.get();
 }
 
 function scheduleCloudSync(prefs: UserPreferences): void {
@@ -83,7 +97,9 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
 
     try {
       await initDatabase();
-      let prefs = await PreferencesRepository.get();
+      // Device preferences first (one-time migration from the legacy synced fields).
+      await devicePreferencesStore.getState().load();
+      let prefs = await readPrefsWithMigrations();
 
       if (!prefs.hasCompletedOnboarding && prefs.locale === "en") {
         const deviceTags = Localization.getLocales().map((l) => l.languageTag);
@@ -96,7 +112,7 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
         }
       }
 
-      set({ prefs });
+      set({ prefs: withDevice(prefs) });
       await bootstrapAppLocale(prefs.locale);
     } finally {
       // Always unblock startup. When a native RTL reload succeeds, JS remounts
@@ -107,16 +123,22 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
   },
 
   async refreshFromDb() {
-    const prefs = await PreferencesRepository.get();
-    set({ prefs });
+    const prefs = await readPrefsWithMigrations();
+    set({ prefs: withDevice(prefs) });
   },
 
-  async update(patch) {
+  async update(input) {
+    // B4: device-only values (haptics, cache toggles, volume…) never enter the synced blob.
+    const { device, rest: patch } = splitDeviceUserPatch(input);
+    if (Object.keys(device).length > 0) {
+      await devicePreferencesStore.getState().update(device);
+      if (Object.keys(patch).length === 0) return;
+    }
     const previous = get().prefs;
     set({ prefs: mergePrefs(previous, patch) });
     try {
       const prefs = await PreferencesRepository.update(patch);
-      set({ prefs });
+      set({ prefs: withDevice(prefs) });
       scheduleCloudSync(prefs);
     } catch {
       set({ prefs: previous });
@@ -129,7 +151,7 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
     set({ prefs: mergePrefs(previous, { locale }) });
     try {
       const prefs = await PreferencesRepository.update({ locale });
-      set({ prefs });
+      set({ prefs: withDevice(prefs) });
       markPreferencesDirty();
 
       const willReload = willRequireNativeReloadForLocale(locale);
@@ -154,7 +176,13 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
     }
   },
 
-  async setNotificationPrefs(patch) {
+  async setNotificationPrefs(input) {
+    // B4: `preciseAdhan` mirrors an Android permission on this device only.
+    const { preciseAdhan, ...patch } = input;
+    if (preciseAdhan !== undefined) {
+      await devicePreferencesStore.getState().update({ preciseAdhan });
+      if (Object.keys(patch).length === 0) return;
+    }
     const previous = get().prefs;
     const optimistic = mergePrefs(previous, {
       notificationPrefs: { ...previous.notificationPrefs, ...patch },
@@ -165,7 +193,7 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
       const prefs = await PreferencesRepository.update({
         notificationPrefs: { ...current.notificationPrefs, ...patch },
       });
-      set({ prefs });
+      set({ prefs: withDevice(prefs) });
       scheduleCloudSync(prefs);
     } catch {
       set({ prefs: previous });
@@ -183,7 +211,7 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
       const prefs = await PreferencesRepository.update({
         weatherPrefs: { ...current.weatherPrefs, ...patch },
       });
-      set({ prefs });
+      set({ prefs: withDevice(prefs) });
       scheduleCloudSync(prefs);
     } catch {
       set({ prefs: previous });
@@ -200,7 +228,7 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
       const prefs = await PreferencesRepository.update({
         prayerAlerts: { ...get().prefs.prayerAlerts, [prayerId]: enabled },
       });
-      set({ prefs });
+      set({ prefs: withDevice(prefs) });
       scheduleCloudSync(prefs);
     } catch {
       set({ prefs: previous });
@@ -209,13 +237,13 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
 
   async toggleFavorite(zikrId) {
     const prefs = await PreferencesRepository.toggleFavorite(zikrId);
-    set({ prefs });
+    set({ prefs: withDevice(prefs) });
     scheduleCloudSync(prefs);
   },
 
   async setFavoriteOrder(order) {
     const prefs = await PreferencesRepository.setFavoriteOrder(order);
-    set({ prefs });
+    set({ prefs: withDevice(prefs) });
     scheduleCloudSync(prefs);
   },
 }));
@@ -266,5 +294,14 @@ export function usePreferencesActions() {
 // state via getState() rather than a listener argument that is never passed.
 preferencesStore.subscribe(() => {
   syncHapticsEnabled(preferencesStore.getState().prefs.hapticsEnabled);
+  // D14: every Hijri date in the app follows the user's adjustment (no-op when unchanged).
+  setHijriAdjustment(preferencesStore.getState().prefs.hijriAdjustment);
 });
 syncHapticsEnabled(preferencesStore.getState().prefs.hapticsEnabled);
+setHijriAdjustment(preferencesStore.getState().prefs.hijriAdjustment);
+// B4: a device-preference write re-overlays the in-memory prefs readers see.
+devicePreferencesStore.subscribe(() => {
+  const current = preferencesStore.getState().prefs;
+  const next = withDevice(current);
+  if (next !== current) preferencesStore.setState({ prefs: next });
+});

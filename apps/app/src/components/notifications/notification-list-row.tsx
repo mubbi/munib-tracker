@@ -98,6 +98,7 @@ const CATEGORY_LABEL_KEY: Record<NotificationCategory, string> = {
   milestone: "notifCenter.categoryMilestone",
   system: "notifCenter.categorySystem",
   announcement: "notifCenter.categoryAnnouncement",
+  circle: "notifCenter.categoryCircle",
 };
 
 export function NotificationListRow({ item, formattedWhen, onPress }: NotificationListRowProps) {

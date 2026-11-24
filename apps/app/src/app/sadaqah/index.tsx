@@ -1,4 +1,3 @@
-import * as Localization from "expo-localization";
 import { type Href, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,7 +13,6 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
-import { getCurrencyInfo } from "@/constants/currencies";
 import { Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -24,6 +22,7 @@ import {
   formatNumberInput,
   parseNumberInput,
 } from "@/lib/format-currency";
+import { defaultCurrencyCode } from "@/lib/money-defaults";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -36,10 +35,9 @@ import {
   useSadaqahLog,
 } from "@/stores/sadaqah-store";
 
+/** Settings default currency (seeds a new goal), else the device region. */
 function defaultCurrency(): string {
-  const device = Localization.getLocales()[0]?.currencyCode?.toUpperCase();
-  if (device && getCurrencyInfo(device)) return device;
-  return "USD";
+  return defaultCurrencyCode();
 }
 
 export default function SadaqahScreen() {

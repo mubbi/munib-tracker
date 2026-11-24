@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { BloodPeriodStatus } from "@/components/excused/blood-period-status";
+import { GuideMadhhabNotes } from "@/components/fiqh/guide-madhhab-notes";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import { LearnTwoPane, useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { JannahBody } from "@/components/jannah/primitives";
@@ -20,6 +22,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { SCREEN_DIFFERENCES } from "@/lib/fiqh/screen-differences";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
 
 type ExcusedGuideContentProps = {
@@ -51,7 +54,10 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
   // Desktop: evidence + rulings in the main column; the excused toggle and
   // practical steps stay beside it.
   const wide = useLearnHubLayout();
-  const isActive = excusedReason === reason;
+  // The hayd guide also covers nifas (its own start button + maximum).
+  const coversNifas = reason === "hayd";
+  const isActive = excusedReason === reason || (coversNifas && excusedReason === "nifas");
+  const [startReason, setStartReason] = useState<ExcusedReason>(reason);
 
   const hadithRefs = useMemo((): JannahHadithRef[] => {
     return config.hadith.map((ref, index) => ({
@@ -72,19 +78,39 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
   useRegisterLearnListenText(listenExtras);
 
   const handleMarkExcused = () => {
-    void setDayExcused(reason);
+    void setDayExcused(startReason);
     setConfirmOpen(false);
   };
 
-  const excusedButton = isActive ? (
-    <Button
-      label={t(`${ns}.clearExcused`)}
-      variant="secondary"
-      fullWidth
-      onPress={() => void setDayExcused(null)}
-    />
-  ) : (
-    <Button label={t(`${ns}.markExcused`)} fullWidth onPress={() => setConfirmOpen(true)} />
+  const openConfirm = (next: ExcusedReason) => {
+    setStartReason(next);
+    setConfirmOpen(true);
+  };
+
+  const excusedButton = (
+    <View style={styles.excusedBlock}>
+      {isActive ? (
+        <Button
+          label={t(`${ns}.clearExcused`)}
+          variant="secondary"
+          fullWidth
+          onPress={() => void setDayExcused(null)}
+        />
+      ) : (
+        <>
+          <Button label={t(`${ns}.markExcused`)} fullWidth onPress={() => openConfirm(reason)} />
+          {coversNifas ? (
+            <Button
+              label={t("excusedFiqh.markNifas")}
+              variant="secondary"
+              fullWidth
+              onPress={() => openConfirm("nifas")}
+            />
+          ) : null}
+        </>
+      )}
+      {coversNifas ? <BloodPeriodStatus /> : null}
+    </View>
   );
 
   const hadithCard = (
@@ -178,6 +204,11 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
     </Card>
   ));
 
+  // NF-3.0a: hayd/nifas durations and istihada — one note per difference.
+  const differencesCard = coversNifas ? (
+    <GuideMadhhabNotes ids={SCREEN_DIFFERENCES["/hayd"]} />
+  ) : null;
+
   const disclaimer = (
     <TvReadableBlock>
       <View style={[styles.disclaimer, { backgroundColor: tokens.status.info.soft }]}>
@@ -202,6 +233,7 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
               <>
                 {hadithCard}
                 {extraSections}
+                {differencesCard}
               </>
             }
             aside={
@@ -219,6 +251,7 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
           {hadithCard}
           {obligationsCard}
           {extraSections}
+          {differencesCard}
           {disclaimer}
         </Stagger>
       )}
@@ -227,7 +260,7 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
         visible={confirmOpen}
         title={t("tracker.excusedConfirmTitle")}
         message={t("tracker.excusedConfirmMsg", {
-          reason: t(`tracker.excusedReason.${reason}`),
+          reason: t(`tracker.excusedReason.${startReason}`),
         })}
         confirmLabel={t("tracker.excusedConfirmAction")}
         onConfirm={handleMarkExcused}
@@ -238,6 +271,7 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
 }
 
 const styles = StyleSheet.create({
+  excusedBlock: { gap: Spacing.two },
   evidenceList: { gap: Spacing.three, marginTop: Spacing.three },
   hadithQuote: {
     padding: Spacing.three,

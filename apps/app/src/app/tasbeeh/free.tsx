@@ -62,6 +62,7 @@ export default function FreeTasbeehScreen() {
         onSelectMode={setTarget}
         onCustom={() => setCustomOpen(true)}
         keyboardShortcuts={!customOpen && !createOpen}
+        voiceChoosable
       />
     </Card>,
     <View key="quick-hint" style={styles.hint}>

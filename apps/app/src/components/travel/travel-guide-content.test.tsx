@@ -38,10 +38,12 @@ describe("TravelGuideContent", () => {
     expect(screen.getByText("Rakahs at a glance")).toBeTruthy();
   });
 
-  it("marks the day excused after confirmation", async () => {
+  it("asks the qasr questions, then marks the day excused", async () => {
     await renderWithTheme(<TravelGuideContent />);
     await fireEvent.press(screen.getByText(MARK));
-    await fireEvent.press(screen.getByText("Mark excused"));
+    expect(screen.getByText("Trip distance (one way)")).toBeTruthy();
+    expect(screen.getByText("Days you intend to stay")).toBeTruthy();
+    await fireEvent.press(screen.getByText("Turn on travel mode"));
     expect(mockTrackerExcused.setDayExcused).toHaveBeenCalledWith("travel");
   });
 

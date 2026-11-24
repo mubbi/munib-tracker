@@ -30,10 +30,11 @@ jest.mock(
 );
 
 const mockQuranPrefs: { ttsVoiceByLang?: Record<string, string> } = {};
-const mockUpdatePrefs = jest.fn(async () => {});
-jest.mock("@/stores/quran-store", () => ({
-  useQuranPrefs: () => mockQuranPrefs,
-  useQuranActions: () => ({ updatePrefs: mockUpdatePrefs }),
+const mockSetTtsVoice = jest.fn(async (_lang: string, _voiceId?: string) => {});
+// Device voices are read and written through the settings layer (B4, §4.5.4).
+jest.mock("@/lib/settings/tts-voice", () => ({
+  useTtsVoice: (lang: string) => mockQuranPrefs.ttsVoiceByLang?.[lang],
+  setTtsVoice: (lang: string, voiceId?: string) => mockSetTtsVoice(lang, voiceId),
 }));
 
 const LANG = localeToBcp47("en");
@@ -175,9 +176,7 @@ describe("LearnTtsProvider startWithVoice", () => {
 
     await act(async () => result.current.startWithVoice("voice-2"));
 
-    await waitFor(() =>
-      expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: { [LANG]: "voice-2" } }),
-    );
+    await waitFor(() => expect(mockSetTtsVoice).toHaveBeenCalledWith(LANG, "voice-2"));
     expect(resolveTtsVoice).toHaveBeenCalledWith(LANG, "voice-2");
   });
 
@@ -187,7 +186,7 @@ describe("LearnTtsProvider startWithVoice", () => {
 
     await act(async () => result.current.startWithVoice(undefined));
 
-    await waitFor(() => expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: {} }));
+    await waitFor(() => expect(mockSetTtsVoice).toHaveBeenCalledWith(LANG, undefined));
   });
 
   it.each([

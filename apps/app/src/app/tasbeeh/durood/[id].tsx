@@ -17,8 +17,9 @@ import { getDuroodByIdFrom, loadDuroodItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
+import { phraseForArabic } from "@/lib/tasbeeh-voice/phrase-display";
 import { usePreferences } from "@/stores/preferences-store";
-import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 /** Pre-render a static HTML page for every bundled durood at web export time. */
 export async function generateStaticParams(): Promise<Array<{ id: string }>> {
@@ -48,7 +49,7 @@ export default function DuroodTasbeehScreen() {
   // TV: the landscape counter fits the viewport and keeps preferred focus — a
   // second floating glass dock would only add focus targets (and blur cost).
   const dockVisible = dock.dockVisible && !isTV();
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
+  const { showTransliteration, showTranslation } = useReadingDisplay();
   const { fontPrefs } = usePreferences();
   const [dockBarHeight, setDockBarHeight] = useState(DOCK_BAR_FALLBACK);
   const [corpusReady, setCorpusReady] = useState(false);
@@ -123,6 +124,7 @@ export default function DuroodTasbeehScreen() {
         onSelectMode={setTarget}
         onCustom={() => setCustomOpen(true)}
         keyboardShortcuts={!customOpen}
+        voicePhrase={item ? phraseForArabic(item.arabic) : null}
       />
     </Card>
   );

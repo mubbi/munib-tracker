@@ -4,14 +4,11 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { ToggleRow } from "@/components/settings/settings-rows";
+import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
@@ -27,7 +24,6 @@ import { trackerStore } from "@/stores/tracker-store";
 const MAX_ERRORS_SHOWN = 8;
 
 export default function ImportScreen() {
-  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -38,21 +34,15 @@ export default function ImportScreen() {
   const [alsoQaza, setAlsoQaza] = useState(false);
   const [importing, setImporting] = useState(false);
 
+  // No route-level empty state on TV (§4.5.10): bounce to the group.
   if (isTV()) {
     return (
-      <ScreenLayout
-        maxContentWidth={formMaxWidth}
-        eyebrow={t("settings.title")}
+      <SettingsDetailScreen
+        parent="data"
+        path="/settings/import"
         title={t("import.title")}
-        onBack={() => goBackOrReplace(router, "/settings")}
-      >
-        <Seo path="/settings/import" />
-        <EmptyState
-          icon={{ ios: "tv", android: "tv", web: "tv" }}
-          title={t("common.tvUnavailableTitle")}
-          description={t("common.tvUnavailableBody")}
-        />
-      </ScreenLayout>
+        available={false}
+      />
     );
   }
 
@@ -83,7 +73,7 @@ export default function ImportScreen() {
       toast.success(t("import.done", { count: preview.rows.length }));
       setText("");
       setPreview(null);
-      goBackOrReplace(router, "/settings");
+      goBackOrReplace(router, "/settings/data");
     } catch {
       toast.error(t("import.failed"));
     } finally {
@@ -95,14 +85,12 @@ export default function ImportScreen() {
   const extraErrors = Math.max(0, (preview?.errors.length ?? 0) - MAX_ERRORS_SHOWN);
 
   return (
-    <ScreenLayout
-      maxContentWidth={formMaxWidth}
-      eyebrow={t("settings.title")}
+    <SettingsDetailScreen
+      parent="data"
+      path="/settings/import"
       title={t("import.title")}
       subtitle={t("import.subtitle")}
-      onBack={() => goBackOrReplace(router, "/settings")}
     >
-      <Seo path="/settings/import" />
       <Stagger>
         <Card padding="three">
           <SectionHeader
@@ -218,7 +206,7 @@ export default function ImportScreen() {
           </Card>
         ) : null}
       </Stagger>
-    </ScreenLayout>
+    </SettingsDetailScreen>
   );
 }
 

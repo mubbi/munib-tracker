@@ -1,5 +1,5 @@
 {
-  "$comment": "Pinned on-device listener files (Qur'an practice). Single source of truth for the app (constants/recitation-models.ts) and the web build script (scripts/fetch-recitation-models.mjs). sha256 = GitHub release digest; md5 computed from the same verified downloads.",
+  "$comment": "Pinned on-device listener files (Qur'an practice). Single source of truth for the app (constants/recitation-models.ts) and the web build script (scripts/fetch-recitation-models.mjs). sha256 = GitHub release digest; md5 computed from the same verified downloads. webUrl (D18): browser source for engines the app may not self-host — FastConformer comes from the public CC-BY-4.0 Hugging Face mirror acibZ/tilawa-quran-onnx pinned to commit 0cd79471524bc9cfa1c9296055242a935a1873e4 (CORS *); the same sha256 check applies.",
   "tilawaCoreVersion": "0.4.0",
   "ortWebVersion": "1.24.3",
   "engines": {
@@ -39,11 +39,12 @@
       "version": "0.4.0+fastconformer-v0.2.0",
       "confirmedMismatchEnabled": false,
       "supportsCorrection": false,
-      "webHosted": false,
+      "webHosted": true,
       "files": [
         {
           "fileName": "fastconformer_full_mixed.onnx",
           "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/fastconformer_full_mixed.onnx",
+          "webUrl": "https://huggingface.co/acibZ/tilawa-quran-onnx/resolve/0cd79471524bc9cfa1c9296055242a935a1873e4/fastconformer_full_mixed.onnx",
           "bytes": 88307366,
           "sha256": "4767182cd92975869f81a7e32700b14ca2b04e8dc97a15ff220a8697f4639488",
           "md5": "84fee3dd9a590ee20fd3a874b84adb81",
@@ -52,6 +53,7 @@
         {
           "fileName": "vocab.json",
           "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/vocab.json",
+          "webUrl": "https://huggingface.co/acibZ/tilawa-quran-onnx/resolve/0cd79471524bc9cfa1c9296055242a935a1873e4/vocab.json",
           "bytes": 21062,
           "sha256": "c55877f3bff8bc3aaefc160e8c2fb88cb349088d092513d40210ccfe535e671b",
           "md5": "8af808a05442990a52e7622a0c350247",
@@ -60,6 +62,7 @@
         {
           "fileName": "quran_ctc_tokens.json",
           "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/quran_ctc_tokens.json",
+          "webUrl": "https://huggingface.co/acibZ/tilawa-quran-onnx/resolve/0cd79471524bc9cfa1c9296055242a935a1873e4/quran_ctc_tokens.json",
           "bytes": 12211783,
           "sha256": "96aa32d188d075598536fcbb936dc793466fce2a8da331e48f15932022f4dce8",
           "md5": "eb0efdba069cb925b36eb12e54e39433",
@@ -68,6 +71,7 @@
         {
           "fileName": "quran.json",
           "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/quran.json",
+          "webUrl": "https://huggingface.co/acibZ/tilawa-quran-onnx/resolve/0cd79471524bc9cfa1c9296055242a935a1873e4/quran.json",
           "bytes": 3186385,
           "sha256": "6e6f31f642c701b49a1ba090311ca4c7a97c6a5b79a302712dff815a9d7b3d03",
           "md5": "55c92e5294248a085d479da5f9b29a71",
@@ -76,6 +80,7 @@
         {
           "fileName": "export_metadata.json",
           "url": "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/export_metadata.json",
+          "webUrl": "https://huggingface.co/acibZ/tilawa-quran-onnx/resolve/0cd79471524bc9cfa1c9296055242a935a1873e4/export_metadata.json",
           "bytes": 1130,
           "sha256": "449588983498ff19f0efd0c9ebaf03e1b58e7e2c959bf2893297fe0533c6eae1",
           "md5": "e53681a538d998bd677c8eb021b551dc",

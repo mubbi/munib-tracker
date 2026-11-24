@@ -19,12 +19,14 @@ import {
   groupLibraryMenuBySection,
   LIBRARY_MENU_META,
   LIBRARY_SECTIONS,
+  orderLibrarySections,
 } from "@/lib/library-menu";
 import { isTV } from "@/lib/platform/is-tv";
 import { TV_HIDDEN_QUICK_ACTION_IDS } from "@/lib/quick-actions";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useStore } from "@/stores/create-store";
 import { useEnsureNewFeaturesLoaded, useNewFeatureIds } from "@/stores/new-features-store";
-import { usePreferencesReady } from "@/stores/preferences-store";
+import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
 /** TV: tiles per row — the landscape pane fits three readable NavRows. */
 const TV_GRID_COLUMNS = 3;
@@ -76,9 +78,14 @@ export default function LibraryScreen() {
 
   const grouped = useMemo(() => groupLibraryMenuBySection(visibleMenu), [visibleMenu]);
 
+  // D13: Settings › Appearance & home › Library order.
+  const libraryOrder = useStore(preferencesStore, (s) => s.prefs.libraryMenuOrder);
   const sections = useMemo(
-    () => LIBRARY_SECTIONS.filter((section) => grouped[section.id].length > 0),
-    [grouped],
+    () =>
+      orderLibrarySections(LIBRARY_SECTIONS, libraryOrder).filter(
+        (section) => grouped[section.id].length > 0,
+      ),
+    [grouped, libraryOrder],
   );
 
   return (

@@ -5,6 +5,7 @@
 import type { TajweedRuleId, TajweedSegment } from "@munib-tracker/shared/types";
 
 import { QuranStudyCacheRepository } from "@/db";
+import { shouldCacheQuranEditions } from "@/lib/cache-prefs";
 import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
 
@@ -120,6 +121,6 @@ export async function fetchSurahTajweed(surah: number): Promise<SurahTajweedMap>
     throw error;
   }
 
-  await QuranStudyCacheRepository.set(cacheKey, out);
+  await QuranStudyCacheRepository.set(cacheKey, out, shouldCacheQuranEditions());
   return out;
 }

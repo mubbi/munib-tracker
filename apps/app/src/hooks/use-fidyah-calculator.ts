@@ -1,17 +1,15 @@
-import * as Localization from "expo-localization";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { getCurrencyInfo } from "@/constants/currencies";
 import { FidyahCalculatorRepository } from "@/db/repositories/fidyah-calculator-repository";
 import { computeFidyahEstimate, type FidyahScenario } from "@/lib/fidyah";
 import { DEFAULT_NUMBER_FORMAT, formatMoneyAmount, parseNumberInput } from "@/lib/format-currency";
+import { defaultCurrencyCode } from "@/lib/money-defaults";
 
 const PERSIST_DEBOUNCE_MS = 350;
 
+/** Settings default currency (first open only — a saved draft wins), else the device region. */
 function resolveDefaultCurrency(): string {
-  const device = Localization.getLocales()[0]?.currencyCode?.toUpperCase();
-  if (device && getCurrencyInfo(device)) return device;
-  return "USD";
+  return defaultCurrencyCode();
 }
 
 export function useFidyahCalculator() {

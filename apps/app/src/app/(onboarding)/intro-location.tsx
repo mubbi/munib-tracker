@@ -17,17 +17,14 @@ import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
-import {
-  canEnableLocalReminders,
-  requestNotificationPermission,
-} from "@/lib/notifications/permissions";
+import { canEnableLocalReminders } from "@/lib/notifications/permissions";
 import { isWeb } from "@/lib/notifications/platform";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { rescheduleAll } from "@/notifications/scheduler";
-import { locationStore, useLocationActions, useLocationStatus } from "@/stores/location-store";
-import { preferencesStore, usePreferencesActions } from "@/stores/preferences-store";
+import { enableNotifications } from "@/lib/settings/actions";
+import { useLocationActions, useLocationStatus } from "@/stores/location-store";
+import { usePreferencesActions } from "@/stores/preferences-store";
 
 const LOCATION_ICON = {
   ios: "location.fill" as const,
@@ -61,7 +58,7 @@ export default function OnboardingLocationScreen() {
   const { t } = useTranslation();
   const insets = useAppSafeAreaInsets();
   const { next: nextParam } = useLocalSearchParams<{ next?: string }>();
-  const { update, setNotificationPrefs } = usePreferencesActions();
+  const { update } = usePreferencesActions();
   const { requestDeviceLocation } = useLocationActions();
   const status = useLocationStatus();
   const [busy, setBusy] = useState(false);
@@ -81,8 +78,14 @@ export default function OnboardingLocationScreen() {
     tTv(t, "onboarding.locationHighlight4", "onboarding.locationHighlight4Tv"),
   ];
 
-  const finish = async () => {
+  const finish = async (askMadhhab = !isTV()) => {
     await update({ hasCompletedOnboarding: true });
+    if (askMadhhab) {
+      // NF-3.0a: "My madhhab" step after location (TV relies on the home card).
+      const next = Array.isArray(nextParam) ? nextParam[0] : nextParam;
+      router.replace({ pathname: "/intro-madhhab", params: next ? { next } : {} } as Href);
+      return;
+    }
     router.replace(resolveNext(nextParam));
   };
 
@@ -92,12 +95,8 @@ export default function OnboardingLocationScreen() {
     if (isTV()) return;
     if (Platform.OS !== "web" && !canEnableLocalReminders()) return;
     const webGesture = isWeb ? beginWebNotificationPermissionRequest() : null;
-    const result = await requestNotificationPermission({
-      webPermissionRequest: webGesture,
-    });
-    if (!result.granted) return;
-    await setNotificationPrefs({ masterEnabled: true });
-    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+    // Shared path with Settings / inbox / banner: permission → master → reschedule.
+    await enableNotifications({ webPermissionRequest: webGesture });
   };
 
   const onContinue = async () => {
@@ -109,7 +108,7 @@ export default function OnboardingLocationScreen() {
         // No GPS on TV — finish onboarding (lands on Home or the QR sign-in the
         // user picked), then stack city search on top so Back / picking a city
         // returns there instead of dropping the chosen /login step.
-        await finish();
+        await finish(false);
         router.push("/location" as Href);
         return;
       }

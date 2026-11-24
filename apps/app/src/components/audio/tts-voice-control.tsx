@@ -5,9 +5,9 @@ import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { IconButton } from "@/components/ui/icon-button";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
+import { setTtsVoice, useTtsVoices } from "@/lib/settings/tts-voice";
 import { isTtsPlaybackTrack } from "@/lib/tts-audio-tracks";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
-import { useQuranActions, useQuranPrefs } from "@/stores/quran-store";
 
 const VOICE_ICON = {
   ios: "waveform",
@@ -28,8 +28,7 @@ export function TtsVoiceControl({ size = 18, wellRadius = 20 }: TtsVoiceControlP
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const audio = useAudioPlayerContext();
-  const quranPrefs = useQuranPrefs();
-  const { updatePrefs } = useQuranActions();
+  const voices = useTtsVoices();
   const [open, setOpen] = useState(false);
 
   const track = audio.current;
@@ -37,7 +36,7 @@ export function TtsVoiceControl({ size = 18, wellRadius = 20 }: TtsVoiceControlP
   if (isTV() || !isTtsPlaybackTrack(track) || !track.ttsPlayback) return null;
 
   const lang = track.ttsPlayback.lang;
-  const selectedVoiceId = track.ttsPlayback.voice ?? quranPrefs.ttsVoiceByLang?.[lang];
+  const selectedVoiceId = track.ttsPlayback.voice ?? voices[lang];
 
   return (
     <>
@@ -60,10 +59,7 @@ export function TtsVoiceControl({ size = 18, wellRadius = 20 }: TtsVoiceControlP
         lang={lang}
         selectedVoiceId={selectedVoiceId}
         onSelectVoice={(voiceId) => {
-          const nextVoices = { ...(quranPrefs.ttsVoiceByLang ?? {}) };
-          if (voiceId) nextVoices[lang] = voiceId;
-          else delete nextVoices[lang];
-          void updatePrefs({ ttsVoiceByLang: nextVoices });
+          void setTtsVoice(lang, voiceId);
           audio.setTtsVoice(voiceId);
         }}
       />

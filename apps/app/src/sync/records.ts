@@ -13,6 +13,7 @@ import type { QuranBookmark, QuranLastRead } from "@/db/repositories/quran-repos
 import type { Tombstone } from "@/db/repositories/tombstone-repository";
 import type { FavoritesBlob } from "@/stores/create-favorites-store";
 import type { CustomTasbeehBlob } from "@/stores/custom-tasbeeh-store";
+import { stripDevicePreferenceFields } from "@/stores/device-preferences-store";
 
 export interface LocalSnapshot {
   nowIso: string;
@@ -111,7 +112,8 @@ export function buildSyncRecords(snapshot: LocalSnapshot): SyncRecordDto[] {
     records.push({
       entity: "preferences",
       id: "preferences",
-      data: { ...snapshot.preferences },
+      // B4: device preferences (haptics, cache toggles, volume…) never sync.
+      data: stripDevicePreferenceFields(snapshot.preferences),
       updatedAt: snapshot.preferences.updatedAt,
     });
   }

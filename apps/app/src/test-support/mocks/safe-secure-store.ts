@@ -13,7 +13,10 @@
 /** Backing store for the mock — seed or inspect it directly. */
 export const mockSecureStore = new Map<string, string>();
 
-const defaultGet = async (key: string): Promise<string | null> => mockSecureStore.get(key) ?? null;
+const defaultGet = async (
+  key: string,
+  _options?: { throwOnAccessDenied?: boolean },
+): Promise<string | null> => mockSecureStore.get(key) ?? null;
 const defaultSet = async (key: string, value: string): Promise<boolean> => {
   mockSecureStore.set(key, value);
   return true;
@@ -36,8 +39,12 @@ export function resetSafeSecureStoreMock(): void {
 
 export const safeSecureStoreMock = {
   __esModule: true,
-  getSecureItem: (key: string) => mockGetSecureItem(key),
+  getSecureItem: (key: string, options?: { throwOnAccessDenied?: boolean }) =>
+    options === undefined ? mockGetSecureItem(key) : mockGetSecureItem(key, options),
   setSecureItem: (key: string, value: string) => mockSetSecureItem(key, value),
   deleteSecureItem: (key: string) => mockDeleteSecureItem(key),
-  isSecureStoreAccessDeniedError: () => false,
+  // Same shape as the real check: a locked iOS Keychain refuses with this message.
+  isSecureStoreAccessDeniedError: (error: unknown) =>
+    error instanceof Error &&
+    error.message.toLowerCase().includes("user interaction is not allowed"),
 };

@@ -22,6 +22,7 @@ import { Appearance, AppState, useColorScheme } from "react-native";
 import { peekStoredColorMode } from "@/lib/boot/cold-start";
 import { normalizeHex } from "@/lib/color";
 import { setResolvedThemeScheme } from "@/lib/resolved-theme-scheme";
+import { CUSTOM_ACCENT_KEY } from "@/lib/theme-storage-keys";
 import { computeThemeTokens, type ThemeTokens } from "@/lib/theme-tokens";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -43,7 +44,6 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const defaultColorMode: ColorMode = "dark";
-const CUSTOM_ACCENT_KEY = "@munib-tracker/custom-accent";
 const STARTUP_HYDRATION_TIMEOUT_MS = 5000;
 
 /** Cache custom-accent overrides so light/dark toggles reuse stable object references. */

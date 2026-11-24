@@ -1,3 +1,4 @@
+import { STORAGE_KEYS } from "@munib-tracker/theme/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { DB_KEYS } from "@/db/keys";
@@ -7,6 +8,7 @@ import {
   loadInAppNotifications,
 } from "@/lib/in-app-notifications/storage";
 import { loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
+import { CUSTOM_ACCENT_KEY } from "@/lib/theme-storage-keys";
 import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
 import { quranListenerStore } from "@/stores/quran-listener-store";
 import { wipePronunciationModels } from "@/stores/quran-pronunciation-store";
@@ -77,5 +79,17 @@ describe("wipeLocalDeviceData", () => {
     expect(wipePronunciationModels).toHaveBeenCalledTimes(1);
     expect(await readJSON(DB_KEYS.quranRecitationModel, null)).toBeNull();
     expect(await readJSON(DB_KEYS.quranMemorization, null)).toBeNull();
+  });
+
+  it("clears the theme mirror (colour mode, accent, custom accent) — B6", async () => {
+    await AsyncStorage.setItem("@munib-tracker/color-mode", "light");
+    await AsyncStorage.setItem("@munib-tracker/accent", "rose");
+    await AsyncStorage.setItem("@munib-tracker/custom-accent", "#112233");
+
+    await wipeLocalDeviceData();
+
+    for (const key of [STORAGE_KEYS.colorMode, STORAGE_KEYS.accent, CUSTOM_ACCENT_KEY]) {
+      expect(await AsyncStorage.getItem(key)).toBeNull();
+    }
   });
 });

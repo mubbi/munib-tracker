@@ -11,15 +11,17 @@ const mockAudio: { current: AudioTrack | null; setTtsVoice: jest.Mock } = {
   setTtsVoice: jest.fn(),
 };
 const mockPrefs: { ttsVoiceByLang?: Record<string, string> } = {};
-const mockUpdatePrefs = jest.fn(async () => undefined);
+const mockSetTtsVoice = jest.fn(async (_lang: string, _voiceId: string | undefined) => undefined);
 
 jest.mock("@/providers/audio-player-provider", () => ({
   useAudioPlayerContext: () => mockAudio,
 }));
 
-jest.mock("@/stores/quran-store", () => ({
-  useQuranPrefs: () => mockPrefs,
-  useQuranActions: () => ({ updatePrefs: mockUpdatePrefs }),
+// Device voices are read and written through the settings layer (B4, §4.5.4).
+jest.mock("@/lib/settings/tts-voice", () => ({
+  useTtsVoices: () => mockPrefs.ttsVoiceByLang ?? {},
+  useTtsVoice: (lang: string) => mockPrefs.ttsVoiceByLang?.[lang],
+  setTtsVoice: (lang: string, voiceId: string | undefined) => mockSetTtsVoice(lang, voiceId),
 }));
 
 jest.mock("@/lib/tts", () => ({
@@ -86,9 +88,7 @@ describe("TtsVoiceControl", () => {
     await openVoiceSheet();
     await fireEvent.press(screen.getByText("Voice X"));
 
-    expect(mockUpdatePrefs).toHaveBeenCalledWith({
-      ttsVoiceByLang: { ar: "arabic-voice", en: "voice-x" },
-    });
+    expect(mockSetTtsVoice).toHaveBeenCalledWith("en", "voice-x");
     expect(mockAudio.setTtsVoice).toHaveBeenCalledWith("voice-x");
   });
 
@@ -98,7 +98,7 @@ describe("TtsVoiceControl", () => {
     await openVoiceSheet();
     await fireEvent.press(screen.getByText("System default"));
 
-    expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: { ar: "arabic-voice" } });
+    expect(mockSetTtsVoice).toHaveBeenCalledWith("en", undefined);
     expect(mockAudio.setTtsVoice).toHaveBeenCalledWith(undefined);
   });
 

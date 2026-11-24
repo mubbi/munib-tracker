@@ -41,7 +41,7 @@ describe("isPristineCompanionPrefs", () => {
     expect(isPristineCompanionPrefs(value)).toBe(true);
   });
 
-  it("ignores the seeded reading toggles", () => {
+  it("ignores legacy reading toggles left in old blobs (D13)", () => {
     expect(isPristineCompanionPrefs({ ...DEFAULT_COMPANION_PREFS, showTranslation: false })).toBe(
       true,
     );

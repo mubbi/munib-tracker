@@ -8,7 +8,7 @@ import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
 import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
@@ -18,6 +18,7 @@ import {
   View,
 } from "react-native";
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
+import { FocusActiveChip } from "@/components/focus-lock/focus-active-chip";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -98,6 +99,8 @@ import {
   useAchievementStats,
   useDailySummary,
   useDevotionProgress,
+  usePrayerAtMasjidMap,
+  usePrayerCombinedMap,
   usePrayerJamaMap,
   useStreak,
   useTodayPrayers,
@@ -153,13 +156,27 @@ export default function TrackerScreen() {
   const { status, notes } = useTodayPrayers();
   const zikrCounts = useZikrCounts();
   const jamaMap = usePrayerJamaMap();
+  const atMasjidMap = usePrayerAtMasjidMap();
+  const combinedMap = usePrayerCombinedMap();
   const prayerTimes = useDailyPrayerTimes();
   const homeHero = useHomeHero();
   const { isListDetail, width } = useLargeScreenLayout();
   // Desktop / wide tablet (never TV): checklist + summary in the main column,
   // schedule, devotion and secondary cards in a side column.
   const dashboard = !isTV() && width >= TRACKER_DASHBOARD_BREAKPOINT;
-  const { setPrayerStatus, setPrayerNotes, setPrayerJama } = useTrackerActions();
+  const {
+    setPrayerStatus,
+    setPrayerNotes,
+    setPrayerJama,
+    setPrayerCombinedOnDate,
+    setPrayerAtMasjidOnDate,
+  } = useTrackerActions();
+  // Preferred-time hints (NF-3.0a) come pre-localized on the home schedule items.
+  const preferredHints = useMemo(() => {
+    const hints: Record<string, string> = {};
+    for (const item of homeHero.schedule) if (item.preferred) hints[item.id] = item.preferred;
+    return hints;
+  }, [homeHero.schedule]);
   useEnsureKhatmLoaded();
   const { plan: khatmPlan, ayahsRead: khatmRead } = useKhatm();
   const khatmToday = khatmPlan ? khatmTodayProgress(khatmPlan, khatmRead) : null;
@@ -608,6 +625,8 @@ export default function TrackerScreen() {
       status={status}
       notes={notes}
       jama={jamaMap}
+      combined={combinedMap}
+      preferredHints={preferredHints}
       zikrCounts={zikrCounts}
       prayerTimes={prayerTimes}
       onPrayerPress={setActivePrayer}
@@ -711,6 +730,7 @@ export default function TrackerScreen() {
       onScroll={onTrackerScroll}
     >
       <Seo path="/tracker" />
+      <FocusActiveChip />
       {dashboard ? (
         <View style={styles.listDetailRoot}>
           <View style={styles.listDetailPrimary}>
@@ -759,6 +779,12 @@ export default function TrackerScreen() {
           currentNotes={notes[sheetPrayer]}
           isJama={jamaMap[sheetPrayer] ?? false}
           onToggleJama={(next) => setPrayerJama(sheetPrayer, next)}
+          combined={combinedMap[sheetPrayer] ?? null}
+          onSetCombined={(mode) => setPrayerCombinedOnDate(getLocalDateString(), sheetPrayer, mode)}
+          atMasjid={atMasjidMap[sheetPrayer] ?? false}
+          onToggleAtMasjid={(masjidId) =>
+            setPrayerAtMasjidOnDate(getLocalDateString(), sheetPrayer, masjidId)
+          }
           onSelect={(next, options) => markPrayerStatus(sheetPrayer, next, options)}
           onSaveNotes={(text) => setPrayerNotes(sheetPrayer, text)}
           onClose={() => setActivePrayer(null)}

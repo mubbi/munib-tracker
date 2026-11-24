@@ -52,6 +52,11 @@ export function AppProviders({ children }: { children: ReactNode }) {
       void quranStore.getState().load();
       void continueStore.getState().load();
       void weatherStore.getState().load();
+      // NF-3.6: muhasabah retention on app start (no-op unless the vault holds
+      // muhasabah entries and can open them). Lazy so the vault stays off the boot graph.
+      void import("@/lib/muhasabah/retention-on-start")
+        .then((m) => m.runMuhasabahRetentionOnStart())
+        .catch(() => {});
     });
 
     const scheduleWeatherSync = () => {

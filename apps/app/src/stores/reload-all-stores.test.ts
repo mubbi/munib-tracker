@@ -26,7 +26,6 @@ import { quranGuideProgressStore } from "./quran-guide-progress-store";
 import { quranMemorizationStore } from "./quran-memorization-store";
 import { quranPracticeStore } from "./quran-practice-store";
 import { quranStore } from "./quran-store";
-import { readingTextVisibilityStore } from "./reading-text-visibility-store";
 import { reloadAllStores } from "./reload-all-stores";
 import { sadaqahStore } from "./sadaqah-store";
 import { salahGuideProgressStore } from "./salah-guide-progress-store";
@@ -64,7 +63,6 @@ const STORES = [
   quranMemorizationStore,
   quranPracticeStore,
   quranStore,
-  readingTextVisibilityStore,
   sadaqahStore,
   salahGuideProgressStore,
   taharahProgressStore,

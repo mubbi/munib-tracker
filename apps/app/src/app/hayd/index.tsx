@@ -6,10 +6,13 @@ import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
+import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
 import { goBackOrReplace } from "@/lib/navigation";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function HaydGuideScreen() {
+  // §4.1.1 item 4: once per session while the madhhab was never chosen.
+  const madhhabPrompt = useMadhhabPrompt();
   const router = useRouter();
   const { t } = useTranslation();
   const wide = useLearnHubLayout();
@@ -23,6 +26,7 @@ export default function HaydGuideScreen() {
       maxContentWidth={wide.twoPane ? wide.maxContentWidth : undefined}
     >
       <Seo path="/hayd" />
+      {madhhabPrompt.sheet}
       <Stagger>
         <LearnQuizNavRow
           quizPath={"/hayd/quiz" as Href}

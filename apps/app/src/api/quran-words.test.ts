@@ -1,7 +1,10 @@
 import { QuranStudyCacheRepository } from "@/db";
+import { DB_KEYS } from "@/db/keys";
 import * as ossReport from "@/lib/report-oss-content-download-failure";
 import { clearStaticJsonCache } from "@/lib/static-json-fetch";
 import { fakeResponse, mockFetch } from "@/test-support/fetch";
+import { resetPreferences, setPreferences } from "@/test-support/preferences";
+import { storedKeysUnder } from "@/test-support/storage";
 
 import {
   fetchAyahWordSegments,
@@ -194,5 +197,34 @@ describe("fetchSurahWordSegments", () => {
     mockFetch(fakeResponse(payload));
     await expect(fetchAyahWordSegments(7, 5, 1)).resolves.toEqual([[1, 0, 500]]);
     await expect(fetchAyahWordSegments(7, 5, 3)).resolves.toBeNull();
+  });
+});
+
+describe("word-by-word — cacheQuranEditionsLocally (B1)", () => {
+  afterEach(resetPreferences);
+
+  it("persists words and timings by default", async () => {
+    mockFetch(fakeResponse({ verses: [{ verse_number: 1, words: [word()] }] }));
+    await fetchSurahWords(20);
+    mockFetch(
+      fakeResponse({ audio_file: { timestamps: [{ verse_key: "20:1", segments: [[1, 0, 9]] }] } }),
+    );
+    await fetchSurahWordSegments(7, 20);
+    expect(await storedKeysUnder(DB_KEYS.quranStudyCache)).toHaveLength(2);
+  });
+
+  it("keeps words and timings for the session only when the toggle is off", async () => {
+    await setPreferences({ cacheQuranEditionsLocally: false });
+    mockFetch(fakeResponse({ verses: [{ verse_number: 1, words: [word()] }] }));
+    const words = await fetchSurahWords(21);
+    mockFetch(
+      fakeResponse({ audio_file: { timestamps: [{ verse_key: "21:1", segments: [[1, 0, 9]] }] } }),
+    );
+    await expect(fetchSurahWordSegments(7, 21)).resolves.toEqual({ "1": [[1, 0, 9]] });
+    expect(await storedKeysUnder(DB_KEYS.quranStudyCache)).toEqual([]);
+
+    const fetchMock = mockFetch(new Error("offline"));
+    await expect(fetchSurahWords(21)).resolves.toEqual(words);
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

@@ -141,7 +141,12 @@ describe("LearnSectionQuizScreen", () => {
   it("loads the section's quiz content on mount", async () => {
     await renderScreen();
     expect(ensureMock).toHaveBeenCalledWith(sectionId);
-    expect(questionsMock).toHaveBeenCalledWith(sectionId, expect.any(Function));
+    // (t, schoolFor): school-dependent questions follow "My madhhab" (NF-3.0a).
+    expect(questionsMock).toHaveBeenCalledWith(
+      sectionId,
+      expect.any(Function),
+      expect.any(Function),
+    );
   });
 
   it("falls back to the common quiz copy when the namespace has none", async () => {

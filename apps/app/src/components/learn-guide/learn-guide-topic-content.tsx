@@ -2,6 +2,7 @@ import type { LearnGuideTopic } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { GuideMadhhabNotes } from "@/components/fiqh/guide-madhhab-notes";
 import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
@@ -53,6 +54,7 @@ export function LearnGuideTopicContent({
       {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}
 
       {topic.madhhabNote ? <JannahCallout tone="info">{topic.madhhabNote}</JannahCallout> : null}
+      <GuideMadhhabNotes ids={topic.differenceIds} />
 
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
 

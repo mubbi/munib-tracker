@@ -19,7 +19,41 @@ export type NewFeatureDef = {
 };
 
 export const NEW_FEATURES: readonly NewFeatureDef[] = [
+  // NF-3.13 Salah focus lock: Library row badge (no home tile — set up once).
+  { id: "focusLock" },
   { id: "quranPractice", homeAnchor: "quran" },
+  // NF-3.19 tasbeeh counter designs: badge the existing Tasbeeh tile (no new tile).
+  { id: "tasbeeh" },
+  // NF-3.1 sunnah rawatib: Library row badge (the chips live on the tracker).
+  { id: "rawatib" },
+  // NF-3.5 Sunnah habits: new tile after Tahajjud. NF-3.3 Dhul-Hijjah: Library badge (seasonal home card).
+  { id: "sunnahHabits", homeAnchor: "tahajjud" },
+  { id: "dhulHijjah" },
+  // NF-3.4 Umrah mode: Library row badge (a resume card appears on home while in progress).
+  { id: "umrahMode" },
+  // NF-3.6 / NF-3.7: badge the new Library rows (no home tile — private features).
+  { id: "muhasabah" },
+  { id: "familyTies" },
+  // NF-3.14 weekly coach: Library row badge (home gets the reflection card).
+  { id: "coach" },
+  // NF-3.2 voluntary fasting: Library row badge (home gets the Today's Goal banner).
+  { id: "voluntaryFasting" },
+  // NF-3.8 / NF-3.9 private records: Library row badges (no home tile).
+  { id: "debts" },
+  { id: "wasiyyah" },
+  // NF-3.10 Mirath calculator: Library row badge (Learn → fiqh tools).
+  { id: "mirath" },
+  // NF-3.21 ayah notes: Library row badge (no home tile — notes live in the reader).
+  { id: "quranNotes" },
+  // NF-3.22 Arabic root-word search: Library row badge (no home tile).
+  { id: "quranRoots" },
+  // NF-3.11 masjid finder: Library row badge (Tools & more).
+  { id: "masjids" },
+  // NF-3.17 / NF-3.18 circles: Library row badges (no home tile).
+  { id: "partner" },
+  { id: "khatmGroups" },
+  // NF-3.16 family & kids mode: Library row badge (no home tile).
+  { id: "family" },
 ];
 
 export type NewFeatureSeen = {

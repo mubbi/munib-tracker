@@ -43,6 +43,20 @@ describe("ExcusedGuideContent", () => {
     expect(mockTrackerExcused.setDayExcused).toHaveBeenCalledWith("sick");
   });
 
+  it("starts a nifas period from the hayd guide", async () => {
+    await renderWithTheme(<ExcusedGuideContent reason="hayd" />);
+    await fireEvent.press(screen.getByText("Start excused period (nifas)"));
+    await fireEvent.press(screen.getByText("Mark excused"));
+    expect(mockTrackerExcused.setDayExcused).toHaveBeenCalledWith("nifas");
+  });
+
+  it("shows resume on the hayd guide while nifas is active", async () => {
+    mockTrackerExcused.reason = "nifas";
+    await renderWithTheme(<ExcusedGuideContent reason="hayd" />);
+    await fireEvent.press(screen.getByText("Resume obligatory tracking"));
+    expect(mockTrackerExcused.setDayExcused).toHaveBeenCalledWith(null);
+  });
+
   it("closes the confirmation without marking", async () => {
     await renderWithTheme(<ExcusedGuideContent reason="sick" />);
     await fireEvent.press(screen.getByText("Start excused period (illness)"));

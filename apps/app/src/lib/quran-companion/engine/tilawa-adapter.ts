@@ -1,4 +1,5 @@
 import { RECITATION_MODELS } from "@/constants/recitation-models";
+import { createFastConformerRunner } from "@/lib/speech/fastconformer-runner";
 
 import { createChunker } from "../audio/resample";
 import { PracticeError, reportPracticeError, toPracticeErrorCode } from "../error-codes";
@@ -88,16 +89,9 @@ export async function createTilawaEngine(
     engineWords = (s, a) => zipformerWords(corpus, s, a);
   } else {
     const quran = assets.json["quran.json"];
-    const runner = {
-      async run(audio: Float32Array) {
-        const input = new ort.Tensor("float32", audio, [1, audio.length]);
-        const length = new ort.Tensor("int64", BigInt64Array.from([BigInt(audio.length)]), [1]);
-        const results = await inference.run({ audio_signal: input, length });
-        const output = results[inference.outputNames[0]];
-        const [, timeSteps, vocabSize] = output.dims as number[];
-        return { logprobs: output.data as Float32Array, timeSteps, vocabSize };
-      },
-    };
+    // Shared with hands-free tasbeeh / pronunciation (lib/speech/fastconformer-runner).
+    // The adapter keeps owning the session's release (dispose below).
+    const runner = createFastConformerRunner(ort, inference);
     const session = await tilawa.createRecognitionSession({
       engine: "fastconformer",
       runner,

@@ -93,10 +93,6 @@ export type QuranCompanionPrefs = {
   defaultMode: PracticeMode;
   rangePreset: RangePreset;
   feedbackTiming: FeedbackTiming;
-  showTranslation: boolean;
-  showTransliteration: boolean;
-  /** True once the two reading toggles above were copied from the reader. */
-  readingTogglesSeeded: boolean;
   showTajweedColors: boolean;
   /** How the session lays out the passage: one ayah, a text page, or the 604-page mushaf. */
   practiceView: PracticeView;
@@ -112,6 +108,18 @@ export type QuranCompanionPrefs = {
   wifiOnlyDownload: boolean;
   /** Phase 6: when the person agreed to the pronunciation listener sheet. */
   pronunciationConsentAt?: string;
+  /**
+   * NF-3.24 (D20): words a pronunciation check marks "Listen again" feed the
+   * NF-3.15 tajweed coaching plan as example words. On by default; Settings ›
+   * Qur'an › Practice turns it off.
+   */
+  feedCoachingFromAssessment: boolean;
+  /**
+   * NF-3.15: when the revision reminder fires and a tajweed coaching item is
+   * due, its text also mentions the sound to practise. On by default; only
+   * matters while `revisionReminder` is on.
+   */
+  tajweedInRevisionReminder: boolean;
   /** Last companion passage. Independent of the reader's last-read. */
   lastPassage?: LastPassage;
 };
@@ -136,6 +144,19 @@ export type PracticeSummary = {
   weakAyahs: number[];
   /** True when the engine could not confirm mismatches (copy says "not sure"). */
   mismatchesUnconfirmed?: boolean;
+  /**
+   * NF-3.24 pronunciation check: the state of each checked study word (0-based,
+   * Quran.com word order). Word states only — never audio, GOP values or
+   * transcripts. Older clients ignore it.
+   */
+  pronunciation?: {
+    words: Array<{
+      surah: number;
+      ayah: number;
+      word: number;
+      state: "clear" | "listen-again" | "not-sure";
+    }>;
+  };
 };
 
 /** Stored value of `quranPracticeSessions`. An object so a clear survives sync. */

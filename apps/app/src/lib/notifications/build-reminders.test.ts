@@ -1,7 +1,9 @@
 import { DEFAULT_NOTIFICATION_PREFERENCES } from "@munib-tracker/shared/constants";
 import type { UserPreferences } from "@munib-tracker/shared/types";
 
+import { ADHAN_STYLES } from "@/lib/adhan-audio";
 import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
+import { ADHAN_NOTIFICATION_SOUNDS } from "@/lib/notifications/adhan-sounds";
 import {
   buildReminders,
   hasOutstandingQazaDebt,
@@ -36,11 +38,8 @@ const basePrefs: UserPreferences = {
   },
   prayerAlerts: {},
   fontPrefs: {
-    global: {},
     arabic: {},
     translation: {},
-    transliteration: {},
-    titles: {},
   },
   favoriteZikrIds: [],
   favoriteZikrOrder: [],
@@ -177,8 +176,9 @@ describe("buildReminders", () => {
     const reminders = buildReminders(withAdhan, SET_LOCATION);
 
     const fard = reminders.find((r) => r.id.startsWith("prayer:fajr:"));
-    expect(fard?.sound).toBe("adhan.mp3");
+    expect(fard?.sound).toBe("adhan_default.wav");
     expect(fard?.channelId).toBe("prayerAdhan");
+    expect(fard?.androidChannelId).toBe("adhan-default");
 
     // Sunnah/witr and the surrounding zikr nudges stay silent.
     const witr = reminders.find((r) => r.id.startsWith("prayer:witr:"));
@@ -188,11 +188,40 @@ describe("buildReminders", () => {
     );
   });
 
+  it.each(ADHAN_STYLES.map((style) => style.id))(
+    "uses adhan style %p's registered sound and channel (B2)",
+    (styleId) => {
+      const prefs: UserPreferences = {
+        ...basePrefs,
+        adhanStyleId: styleId,
+        notificationPrefs: { ...basePrefs.notificationPrefs, playAdhanOnPrayer: true },
+      };
+      const fard = buildReminders(prefs, SET_LOCATION).filter((r) => r.prayerId);
+      expect(fard.length).toBeGreaterThan(0);
+      for (const reminder of fard) {
+        expect(reminder.sound).toBe(ADHAN_NOTIFICATION_SOUNDS[styleId]?.sound);
+        expect(reminder.androidChannelId).toBe(`adhan-${styleId}`);
+      }
+    },
+  );
+
+  it("falls back to the default style's sound and channel for an unknown style", () => {
+    const prefs: UserPreferences = {
+      ...basePrefs,
+      adhanStyleId: "removed-style",
+      notificationPrefs: { ...basePrefs.notificationPrefs, playAdhanOnPrayer: true },
+    };
+    const fard = buildReminders(prefs, SET_LOCATION).find((r) => r.prayerId);
+    expect(fard?.sound).toBe("adhan_default.wav");
+    expect(fard?.androidChannelId).toBe("adhan-default");
+  });
+
   it("keeps obligatory prayers silent when the adhan option is off", () => {
     const reminders = buildReminders(basePrefs, SET_LOCATION);
     const fard = reminders.find((r) => r.id.startsWith("prayer:fajr:"));
     expect(fard?.sound).toBeUndefined();
     expect(fard?.channelId).toBe("prayer");
+    expect(fard?.androidChannelId).toBeUndefined();
   });
 
   it("shifts the main prayer reminder by the per-prayer offset (NF-1.7)", () => {
@@ -321,6 +350,43 @@ describe("buildReminders", () => {
     expect(whiteDays.length).toBe(3);
     expect(whiteDays.every((r) => r.route === "/tracker?focus=white-days")).toBe(true);
     expect(whiteDays.map((r) => r.id)).toEqual([
+      "whiteDays:2026-07-27",
+      "whiteDays:2026-07-28",
+      "whiteDays:2026-07-29",
+    ]);
+  });
+
+  it("pauses the White Days fast nudge during an excused period (M2)", () => {
+    const on: UserPreferences = {
+      ...basePrefs,
+      notificationPrefs: { ...basePrefs.notificationPrefs, whiteDays: true },
+    };
+    const beforeWhiteDays = new Date("2026-07-20T06:00:00.000Z");
+    for (const reason of ["hayd", "sick", "travel"] as const) {
+      const reminders = buildReminders(
+        { ...on, activeExcusedReason: reason },
+        SET_LOCATION,
+        beforeWhiteDays,
+      );
+      expect(reminders.some((r) => r.id.startsWith("whiteDays:"))).toBe(false);
+    }
+  });
+
+  it("keys White Days to the city's own day when it is west of the device (M1)", () => {
+    const on: UserPreferences = {
+      ...basePrefs,
+      notificationPrefs: { ...basePrefs.notificationPrefs, whiteDays: true },
+    };
+    // Pago Pago (UTC−11) is west of practically every device/CI zone.
+    const west: StoredLocation = {
+      ...SET_LOCATION,
+      latitude: -14.27,
+      longitude: -170.7,
+      timeZone: "Pacific/Pago_Pago",
+      source: "manual",
+    };
+    const reminders = buildReminders(on, west, new Date("2026-07-20T18:00:00.000Z"));
+    expect(reminders.filter((r) => r.id.startsWith("whiteDays:")).map((r) => r.id)).toEqual([
       "whiteDays:2026-07-27",
       "whiteDays:2026-07-28",
       "whiteDays:2026-07-29",
@@ -466,6 +532,32 @@ describe("Qur'an revision reminder (§10)", () => {
     expect(rows[0]).toMatchObject({ repeat: "date", route: "/quran/revision", channelId: "zikr" });
     // Never names the ayah — only a count.
     expect(rows[0].body).not.toMatch(/\d+:\d+/);
+  });
+
+  it("NF-3.15: mentions a due tajweed sound in the same row (no extra notification)", () => {
+    const reminders = buildReminders(basePrefs, SET_LOCATION, new Date(), {
+      revisionReminderEnabled: true,
+      revisionDueByDay: { [today]: 0, [tomorrow]: 2 },
+      revisionTajweedDueByDay: { [today]: true, [tomorrow]: true },
+    });
+    const rows = reminders.filter((r) => r.id.startsWith("quran-revision:"));
+    expect(rows).toHaveLength(1);
+    expect(rows[0].body).toBe("2 ayahs to revise today, and a tajweed sound to practise");
+  });
+
+  it("NF-3.15: drops the tajweed line during an excused period", () => {
+    const reminders = buildReminders(
+      { ...basePrefs, activeExcusedReason: "travel" },
+      SET_LOCATION,
+      new Date(),
+      {
+        revisionReminderEnabled: true,
+        revisionDueByDay: { [today]: 0, [tomorrow]: 2 },
+        revisionTajweedDueByDay: { [tomorrow]: true },
+      },
+    );
+    const row = reminders.find((r) => r.id === `quran-revision:${tomorrow}`);
+    expect(row?.body).toBe("2 ayahs to revise today");
   });
 
   it("is dropped before any Salah reminder when the budget is full", () => {

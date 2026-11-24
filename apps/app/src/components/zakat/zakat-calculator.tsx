@@ -1,9 +1,12 @@
+import type { NisabBasis } from "@munib-tracker/shared/fiqh";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import type { TFunction } from "i18next";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, I18nManager, StyleSheet, TextInput, View } from "react-native";
 
+import { MadhhabBadge } from "@/components/fiqh/madhhab-badge";
+import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { CurrencyGlyph } from "@/components/money/currency-glyph";
 import { MoneyText } from "@/components/money/money-text";
 import { TvStepButtons, useTvInputFocus } from "@/components/money/tv-number-input";
@@ -20,7 +23,7 @@ import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ZakatCalculatorState } from "@/hooks/use-zakat-calculator";
-import { ZAKAT_ASSET_GROUPS } from "@/hooks/use-zakat-calculator";
+import { PERSONAL_JEWELLERY_FIELD, ZAKAT_ASSET_GROUPS } from "@/hooks/use-zakat-calculator";
 import {
   formatNumberForInput,
   formatNumberInput,
@@ -30,11 +33,13 @@ import {
 } from "@/lib/format-currency";
 import { isTV } from "@/lib/platform/is-tv";
 import {
+  basisMetalFor,
   GOLD_KARATS,
   type GoldKarat,
   goldPureGrams,
   METAL_WEIGHT_UNITS,
   type MetalWeightUnit,
+  NISAB_BASES,
   SILVER_PURITIES,
   type SilverPurity,
   silverFineGrams,
@@ -56,6 +61,7 @@ type ZakatCalculatorProps = ZakatCalculatorState & {
 const FIELD_ICONS: Record<string, SymbolViewProps["name"]> = {
   cash: { ios: "banknote.fill", android: "payments", web: "payments" },
   gold: { ios: "circle.fill", android: "circle", web: "circle" },
+  personalJewellery: { ios: "sparkles", android: "diamond", web: "diamond" },
   silver: { ios: "circle.fill", android: "circle", web: "circle" },
   stocks: { ios: "chart.line.uptrend.xyaxis", android: "show_chart", web: "show_chart" },
   business: { ios: "storefront.fill", android: "storefront", web: "storefront" },
@@ -444,6 +450,78 @@ function livestockSummaryLines(
   return lines;
 }
 
+type BasisChoice = "default" | NisabBasis;
+const BASIS_CHOICES: readonly BasisChoice[] = ["default", ...NISAB_BASES];
+
+/**
+ * NF-3.0a: nisab basis (school default or the user's custom choice, saved to
+ * `fiqhCustom.nisabBasis`), the combining rule in effect, and the labelled
+ * differences. In all-views mode the notes render the four-school comparison.
+ */
+function NisabBasisPicker(
+  props: Pick<
+    ZakatCalculatorState,
+    | "zakatSchool"
+    | "schoolNisabBasis"
+    | "customNisabBasis"
+    | "nisabBasis"
+    | "nisabBasisContested"
+    | "setNisabBasisOverride"
+    | "combineMethod"
+    | "goldNisab"
+    | "silverNisab"
+  >,
+) {
+  const { t } = useTranslation();
+  const value: BasisChoice = props.customNisabBasis ?? "default";
+  const basisMetal = basisMetalFor(props.nisabBasis, props.goldNisab, props.silverNisab);
+  const labelFor = (choice: BasisChoice) => {
+    if (choice !== "default") return t(`zakat.fiqh.basis.${choice}`);
+    return props.schoolNisabBasis
+      ? t("zakat.fiqh.basisDefault", { basis: t(`zakat.fiqh.basis.${props.schoolNisabBasis}`) })
+      : t("zakat.fiqh.basisNotSet");
+  };
+
+  return (
+    <View style={styles.fiqhBlock}>
+      <View style={styles.fieldLabelRow}>
+        <ThemedText type="smallBold" style={styles.fieldLabel}>
+          {t("zakat.fiqh.basisTitle")}
+        </ThemedText>
+        <MadhhabBadge school={props.zakatSchool} custom={props.customNisabBasis != null} />
+      </View>
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldHint}>
+        {t("zakat.fiqh.basisHint")}
+      </ThemedText>
+      <ChipSelect
+        options={BASIS_CHOICES}
+        value={value}
+        onChange={(next) => void props.setNisabBasisOverride(next === "default" ? null : next)}
+        labelFor={labelFor}
+      />
+      {props.nisabBasisContested ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldHint}>
+          {t("zakat.fiqh.basisContested")}
+        </ThemedText>
+      ) : null}
+      {props.customNisabBasis ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldHint}>
+          {t("zakat.fiqh.basisCustomSaved")}
+        </ThemedText>
+      ) : null}
+      {props.zakatSchool ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldHint}>
+          {t(`zakat.fiqh.combine.${props.combineMethod}`, {
+            metal: t(`zakat.fiqh.metal.${basisMetal}`),
+          })}
+        </ThemedText>
+      ) : null}
+      <MadhhabNote id="zakat.nisabBasis" />
+      <MadhhabNote id="zakat.combineGoldSilver" />
+    </View>
+  );
+}
+
 export function ZakatCalculator(props: ZakatCalculatorProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -691,6 +769,31 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
         hint={t("zakat.weight.cardHint")}
         onLearnMore={openInfo}
         columns={formColumns}
+        footer={
+          <View
+            style={[styles.nisabSummary, styles.fiqhBlock, { borderTopColor: tokens.hairline }]}
+          >
+            <MoneyField
+              label={t("zakat.fiqh.jewelleryLabel")}
+              hint={t("zakat.fiqh.jewelleryHint")}
+              value={props.values[PERSONAL_JEWELLERY_FIELD] ?? ""}
+              onChange={(v) => props.setField(PERSONAL_JEWELLERY_FIELD, v)}
+              currencySymbol={symbol}
+              currencyGlyph={glyph}
+              icon={FIELD_ICONS.personalJewellery}
+              iconTint={FIELD_ICON_TINT.gold}
+              numberFormat={props.numberFormat}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldHint}>
+              {props.zakatSchool == null
+                ? t("zakat.fiqh.jewelleryAllViews")
+                : props.personalJewelleryCounted
+                  ? t("zakat.fiqh.jewelleryIncluded")
+                  : t("zakat.fiqh.jewelleryExcluded")}
+            </ThemedText>
+            <MadhhabNote id="zakat.jewellery" />
+          </View>
+        }
       >
         <WeightCalculator
           metal="gold"
@@ -888,6 +991,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
         hint={livePrefill ? t("zakat.nisabHintLive") : t("zakat.nisabHint")}
         onLearnMore={openInfo}
       >
+        <NisabBasisPicker {...props} />
         <MoneyField
           label={t("zakat.field.nisabGoldPrice")}
           value={props.nisabGoldPrice}
@@ -925,7 +1029,10 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
             ) : null}
             {props.suggestedNisab > 0 && !props.nisabManual ? (
               <MoneyText style={{ color: colors.accent, fontSize: 13, fontWeight: "700" }}>
-                {t("zakat.nisabUsingLower", { value: props.money(props.suggestedNisab) })}
+                {t("zakat.fiqh.usingBasis", {
+                  basis: t(`zakat.fiqh.basis.${props.nisabBasis}`),
+                  value: props.money(props.suggestedNisab),
+                })}
               </MoneyText>
             ) : null}
           </View>
@@ -982,6 +1089,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
 
 const styles = StyleSheet.create({
   stack: { width: "100%", gap: Spacing.four },
+  fiqhBlock: { gap: Spacing.two },
   sectionHint: { marginTop: Spacing.two, lineHeight: 20 },
   group: { marginTop: Spacing.three, gap: Spacing.two },
   groupLabel: { fontWeight: "600", letterSpacing: 0.3, textTransform: "uppercase" },

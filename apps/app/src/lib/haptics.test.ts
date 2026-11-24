@@ -62,6 +62,34 @@ describe("haptic types", () => {
     expect(Haptics.notificationAsync).toHaveBeenCalledWith(feedback);
   });
 
+  it("tick falls back to a selection tick off Android", () => {
+    triggerHaptic("tick");
+    expect(Haptics.selectionAsync).toHaveBeenCalled();
+  });
+
+  it("detent falls back to a medium impact off Android", () => {
+    triggerHaptic("detent");
+    expect(Haptics.impactAsync).toHaveBeenCalledWith(Haptics.ImpactFeedbackStyle.Medium);
+  });
+
+  it.each([
+    ["tick", "segment-tick"],
+    ["detent", "clock-tick"],
+  ] as const)("%s uses the Android %s primitive when available", (type, primitive) => {
+    const restore = require("@/test-support/platform").setPlatform({ OS: "android" });
+    const perform = jest.fn().mockResolvedValue(undefined);
+    Object.assign(Haptics, { performAndroidHapticsAsync: perform });
+    try {
+      triggerHaptic(type);
+      expect(perform).toHaveBeenCalledWith(primitive);
+      expect(Haptics.selectionAsync).not.toHaveBeenCalled();
+      expect(Haptics.impactAsync).not.toHaveBeenCalled();
+    } finally {
+      delete (Haptics as { performAndroidHapticsAsync?: unknown }).performAndroidHapticsAsync;
+      restore();
+    }
+  });
+
   it("defaults to a light impact", () => {
     triggerHaptic();
     expect(Haptics.impactAsync).toHaveBeenCalledWith(Haptics.ImpactFeedbackStyle.Light);

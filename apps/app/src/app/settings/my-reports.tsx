@@ -3,9 +3,7 @@ import { useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
+import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -17,13 +15,11 @@ import { Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { listContentReports } from "@/lib/content-report-api";
-import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAuth } from "@/providers/auth-provider";
 
 export default function MyReportsScreen() {
-  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { session, isGuest } = useAuth();
@@ -61,14 +57,13 @@ export default function MyReportsScreen() {
   }, [load]);
 
   return (
-    <ScreenLayout
-      maxContentWidth={formMaxWidth}
-      eyebrow={t("settings.eyebrow")}
+    <SettingsDetailScreen
+      parent="privacy"
+      path="/settings/my-reports"
       title={t("contentReport.myReportsTitle")}
       subtitle={t("contentReport.myReportsSubtitle")}
-      onBack={() => goBackOrReplace(router, "/settings")}
+      seoTitle={t("contentReport.myReportsTitle")}
     >
-      <Seo path="/settings/my-reports" title={t("contentReport.myReportsTitle")} />
       {isGuest ? (
         <EmptyState
           icon={{ ios: "person.crop.circle", android: "account_circle", web: "account_circle" }}
@@ -171,7 +166,7 @@ export default function MyReportsScreen() {
           ) : null}
         </Sheet>
       ) : null}
-    </ScreenLayout>
+    </SettingsDetailScreen>
   );
 }
 

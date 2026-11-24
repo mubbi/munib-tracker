@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
+import { GuideMadhhabNotes } from "@/components/fiqh/guide-madhhab-notes";
 import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
@@ -106,6 +107,7 @@ export function TaharahTopicContent({ topic }: { topic: TaharahTopic }) {
       {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}
       {topic.steps?.length ? <TaharahSteps steps={topic.steps} /> : null}
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
+      <GuideMadhhabNotes ids={topic.differenceIds} />
 
       {topic.appLinks?.length ? (
         <Card padding="three">

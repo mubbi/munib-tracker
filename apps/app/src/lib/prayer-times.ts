@@ -561,6 +561,16 @@ export function buildPrayerTimeMap(
     duha: formatPrayerTime(duha.recommended, timeFormat, timeZone),
     tahiyyatul_masjid: flexibleLabel,
     hajat_istikhara: flexibleLabel,
+    // NF-3.1 rawatib open with their fard's time (the tracker shows them as chips).
+    fajr_before: formatPrayerTime(today.fajr, timeFormat, timeZone),
+    dhuhr_before: formatPrayerTime(today.dhuhr, timeFormat, timeZone),
+    dhuhr_after: formatPrayerTime(today.dhuhr, timeFormat, timeZone),
+    dhuhr_after_extra: formatPrayerTime(today.dhuhr, timeFormat, timeZone),
+    asr_before: formatPrayerTime(today.asr, timeFormat, timeZone),
+    maghrib_before: formatPrayerTime(today.maghrib, timeFormat, timeZone),
+    maghrib_after: formatPrayerTime(today.maghrib, timeFormat, timeZone),
+    isha_before: formatPrayerTime(today.isha, timeFormat, timeZone),
+    isha_after: formatPrayerTime(today.isha, timeFormat, timeZone),
   };
 }
 

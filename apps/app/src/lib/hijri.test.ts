@@ -5,7 +5,9 @@ import {
   hijriMonthLength,
   hijriMonthName,
   hijriMonthProgress,
+  hijriPredictionSource,
   hijriToGregorian,
+  setHijriObserver,
 } from "@/lib/hijri";
 
 describe("gregorianToHijri", () => {
@@ -157,5 +159,22 @@ describe("formatHijriDate", () => {
 
   it("formats Arabic day-first", () => {
     expect(formatHijriDate(new Date(2023, 2, 23), "ar")).toBe("1 رمضان 1444 هـ");
+  });
+});
+
+describe("hijriPredictionSource", () => {
+  afterEach(() => setHijriObserver(null));
+
+  it("is Umm al-Qura inside the table and tabular outside it without an observer", () => {
+    expect(hijriPredictionSource(1445, 9)).toBe("ummAlQura");
+    expect(hijriPredictionSource(1300, 1)).toBe("ummAlQura");
+    expect(hijriPredictionSource(1299, 12)).toBe("tabular");
+    expect(hijriPredictionSource(1601, 1)).toBe("tabular");
+  });
+
+  it("is sighting where the observer covers the month, tabular beyond the table", () => {
+    setHijriObserver({ latitude: 24.86, longitude: 67.01 });
+    expect(hijriPredictionSource(1445, 9)).toBe("sighting");
+    expect(hijriPredictionSource(1601, 1)).toBe("tabular");
   });
 });

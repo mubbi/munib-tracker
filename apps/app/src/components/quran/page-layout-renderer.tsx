@@ -3,6 +3,7 @@ import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, Text, View } from "react-native";
 
+import { usePageAyahTints } from "@/components/quran/ayah-annotations";
 import { MushafPageFrame } from "@/components/quran/mushaf-page-frame";
 import { SurahBanner } from "@/components/quran/surah-banner";
 import { ThemedText } from "@/components/themed-text";
@@ -41,6 +42,8 @@ type PageLayoutRendererProps = {
   /** TV: lets the reader know focus is inside the page body (D-pad Left/Right turns pages). */
   onItemFocus?: () => void;
   onItemBlur?: () => void;
+  /** NF-3.21: tint the user's highlighted ayahs (off for previews / practice). */
+  showAnnotations?: boolean;
 };
 
 const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
@@ -195,6 +198,7 @@ export function PageLayoutRenderer({
   tvFocusTarget,
   onItemFocus,
   onItemBlur,
+  showAnnotations = false,
 }: PageLayoutRendererProps) {
   const { t } = useTranslation();
   const tv = isTV();
@@ -203,6 +207,8 @@ export function PageLayoutRenderer({
   const arabicFontFamily = useArabicFontFamily();
   const groups = useMemo(() => groupBySurah(ayahs), [ayahs]);
   const interleaved = showTransliteration || showTranslation;
+  const annotationTints = usePageAyahTints(ayahs, showAnnotations);
+  const tintFor = (ayah: Ayah) => annotationTints?.get(`${ayah.surah}:${ayah.ayah}`) ?? null;
 
   // TV: key of the block (interleaved: ayah, flow: surah group) that takes
   // initial D-pad focus.
@@ -285,7 +291,9 @@ export function PageLayoutRenderer({
                       { borderBottomColor: mushaf.bandBorder },
                       highlighted
                         ? { backgroundColor: mushaf.highlight, borderRadius: Radius.sm }
-                        : null,
+                        : tintFor(ayah)
+                          ? { backgroundColor: tintFor(ayah) ?? undefined, borderRadius: Radius.sm }
+                          : null,
                     ]}
                   >
                     <ThemedText
@@ -372,7 +380,9 @@ export function PageLayoutRenderer({
                         { fontSize: arabicSize },
                         ayahMatchesHighlight(ayah, highlightAyah)
                           ? { backgroundColor: mushaf.highlight }
-                          : null,
+                          : tintFor(ayah)
+                            ? { backgroundColor: tintFor(ayah) ?? undefined }
+                            : null,
                       ]}
                     >
                       {ayahTextWithMarker(ayah, renderMarker(ayah))}
@@ -402,7 +412,11 @@ export function PageLayoutRenderer({
                       onPress={() => onAyahPress?.(ayah.surah, ayah.ayah)}
                       style={[
                         { fontSize: arabicSize },
-                        highlighted ? { backgroundColor: mushaf.highlight } : null,
+                        highlighted
+                          ? { backgroundColor: mushaf.highlight }
+                          : tintFor(ayah)
+                            ? { backgroundColor: tintFor(ayah) ?? undefined }
+                            : null,
                       ]}
                     >
                       {ayahTextWithMarker(ayah, renderMarker(ayah))}

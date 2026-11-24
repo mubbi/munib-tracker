@@ -1,10 +1,13 @@
+import type { UserPreferences } from "@munib-tracker/shared/types";
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
+import { PreferencesRepository } from "@/db";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { triggerHaptic } from "@/lib/haptics";
 import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
+import { resetPreferences, setPreferences } from "@/test-support/preferences";
 import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
@@ -84,6 +87,43 @@ describe("PrayerStatusSheet status options", () => {
 
     expect(onSelect).toHaveBeenCalledWith("missed");
     expect(triggerHaptic).toHaveBeenCalledWith("warning");
+  });
+});
+
+/** Store + repository (providers may re-read the repository on mount). */
+async function seedPrefs(patch: Partial<UserPreferences>) {
+  await PreferencesRepository.update(patch);
+  await setPreferences(patch);
+}
+
+describe("PrayerStatusSheet Witr qaza (madhhab retrofit)", () => {
+  afterEach(resetPreferences);
+
+  it.each([
+    ["hanafi", true],
+    ["shafii", false],
+    ["maliki", false],
+    ["hanbali", false],
+  ] as const)(
+    "%s: offers the Witr qaza prompt only when accrual is on (%s)",
+    async (madhhab, asks) => {
+      await seedPrefs({ madhhab, witrQaza: undefined });
+      const { onSelect } = await renderSheet({ prayerId: "witr", prayerLabel: "Witr" });
+      await fireEvent.press(option("Missed"));
+      if (asks) {
+        expect(screen.getByText("Add one to your qaza count for Witr?")).toBeTruthy();
+        expect(onSelect).not.toHaveBeenCalled();
+      } else {
+        expect(onSelect).toHaveBeenCalledWith("missed");
+      }
+    },
+  );
+
+  it("an explicit opt-in brings the prompt back for other schools", async () => {
+    await seedPrefs({ madhhab: "shafii", witrQaza: true });
+    await renderSheet({ prayerId: "witr", prayerLabel: "Witr" });
+    await fireEvent.press(option("Missed"));
+    expect(screen.getByText("Add one to your qaza count for Witr?")).toBeTruthy();
   });
 });
 

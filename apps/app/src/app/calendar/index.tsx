@@ -4,6 +4,7 @@ import {
   aggregateByDate,
   type DayActivity,
   getLocalDateString,
+  matchesEnabledKinds,
 } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -19,6 +20,7 @@ import {
 } from "react-native";
 import { CalendarDayPanel } from "@/components/calendar-day-panel";
 import { CalendarMonthPicker } from "@/components/calendar-month-picker";
+import { HijriAdjustLink } from "@/components/hijri/hijri-adjust-link";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -32,6 +34,7 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { PrayerRepository } from "@/db";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
+import { useHijriAdjustment } from "@/hooks/use-hijri-adjustment";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   buildHijriMonthGrid,
@@ -47,8 +50,14 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { fastingCalendarContext, fastingDaysForRange } from "@/lib/voluntary-fasting";
 import { isTypingTarget } from "@/lib/web/is-typing-target";
 import { useLocation } from "@/stores/location-store";
+import { usePreferences } from "@/stores/preferences-store";
+import {
+  useEnsureVoluntaryFastingLoaded,
+  useVoluntaryFastingEntries,
+} from "@/stores/voluntary-fasting-store";
 
 /** Stable empty list so row-edge guides stay tvOS-selectable without re-setting on render. */
 const NO_DESTINATIONS: ViewInstance[] = [];
@@ -103,11 +112,36 @@ export default function CalendarScreen() {
   );
 
   const today = getLocalDateString();
+  // D14: a Hijri correction moves month boundaries — rebuild the grid when it changes.
+  const hijriAdjustment = useHijriAdjustment();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: hijriAdjustment changes hijri.ts output.
   const weeks = useMemo(
     () =>
       mode === "hijri" ? buildHijriMonthGrid(hYear, hMonth, today) : buildMonthGrid(year, month),
-    [mode, hYear, hMonth, year, month, today],
+    [mode, hYear, hMonth, year, month, today, hijriAdjustment],
   );
+
+  // NF-3.2: fasting ruling dots — a recommended fast the user follows, or a day
+  // fasting is not allowed (Eid / Tashriq). Missed-salah dots take precedence.
+  const fastingPrefs = usePreferences();
+  useEnsureVoluntaryFastingLoaded();
+  const fastingEntries = useVoluntaryFastingEntries();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: hijriAdjustment changes hijri.ts output.
+  const fastRulings = useMemo(() => {
+    const dates = weeks.flat().map((day) => day.date);
+    const map = new Map<string, "recommended" | "prohibited">();
+    if (dates.length === 0) return map;
+    const ctx = fastingCalendarContext(fastingPrefs, fastingEntries);
+    for (const { date, classification } of fastingDaysForRange(
+      dates[0] as string,
+      dates[dates.length - 1] as string,
+      ctx,
+    )) {
+      if (classification.blocking) map.set(date, "prohibited");
+      else if (matchesEnabledKinds(classification, ctx.prefs)) map.set(date, "recommended");
+    }
+    return map;
+  }, [weeks, fastingPrefs, fastingEntries, hijriAdjustment]);
 
   // TV: D-pad past the end of a week wraps to the next week's first selectable
   // day (and before its start to the previous week's last one). Edge guides
@@ -289,6 +323,7 @@ export default function CalendarScreen() {
         </PressableScale>
         <NavButton icon={chevronForward} label={t("calendar.nextMonth")} onPress={() => shift(1)} />
       </View>
+      {mode === "hijri" ? <HijriAdjustLink year={hYear} month={hMonth} align="center" /> : null}
 
       <View style={styles.weekRow}>
         {weekdays.map((weekday) => (
@@ -373,6 +408,18 @@ export default function CalendarScreen() {
                 </PressableScale>
                 {hasMiss ? (
                   <View style={[styles.dot, { backgroundColor: tokens.status.danger.color }]} />
+                ) : fastRulings.has(day.date) ? (
+                  <View
+                    style={[
+                      styles.dot,
+                      {
+                        backgroundColor:
+                          fastRulings.get(day.date) === "prohibited"
+                            ? tokens.status.warning.color
+                            : tokens.status.info.color,
+                      },
+                    ]}
+                  />
                 ) : (
                   <View style={styles.dot} />
                 )}
@@ -405,6 +452,14 @@ export default function CalendarScreen() {
           label={t("calendar.partial")}
         />
         <LegendDot color={tokens.status.danger.color} label={t("calendar.missed")} />
+        <LegendDot
+          color={tokens.status.info.color}
+          label={t("voluntaryFasting.calendar.recommended")}
+        />
+        <LegendDot
+          color={tokens.status.warning.color}
+          label={t("voluntaryFasting.calendar.prohibited")}
+        />
       </View>
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
         {tTv(t, "calendar.legendHint", "calendar.legendHintTv", {

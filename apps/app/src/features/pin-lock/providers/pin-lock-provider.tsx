@@ -23,6 +23,7 @@ import {
 } from "@/features/pin-lock/lib/pin-lock-app-state";
 import { shouldDeferActionsUntilPinUnlock } from "@/features/pin-lock/lib/pin-lock-defer-actions";
 import {
+  BIOMETRIC_UNLOCK_KEY,
   clearPinLockStorage,
   LOCK_TIMEOUT_STORAGE_KEY,
   PIN_ENABLED_KEY,
@@ -105,7 +106,13 @@ export interface PinLockContextValue {
   deferActionsUntilPinUnlock: boolean;
   unlockError: string | null;
   unlockErrorParams: Record<string, number> | null;
+  /** Biometrics can unlock: the device supports them AND the user left the toggle on. */
   biometricsAvailable: boolean;
+  /** Hardware present and enrolled (whether or not the user turned biometric unlock off). */
+  biometricsSupported: boolean;
+  /** Settings › App lock › biometric unlock (device, default on). */
+  biometricUnlockEnabled: boolean;
+  setBiometricUnlockEnabled: (enabled: boolean) => void;
   biometricUnlockLabelKey: BiometricUnlockLabelKey;
   isLockedOut: boolean;
   lockoutRemainingMs: number;
@@ -132,7 +139,9 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
   const [unlockError, setUnlockError] = useState<string | null>(null);
   const [unlockErrorParams, setUnlockErrorParams] = useState<Record<string, number> | null>(null);
   const [lockTimeoutMs, setLockTimeoutMsState] = useState(0);
-  const [biometricsAvailable, setBiometricsAvailable] = useState(false);
+  const [biometricsSupported, setBiometricsAvailable] = useState(false);
+  const [biometricUnlockEnabled, setBiometricUnlockEnabledState] = useState(true);
+  const biometricsAvailable = biometricsSupported && biometricUnlockEnabled;
   const [biometricUnlockLabelKey, setBiometricUnlockLabelKey] = useState<BiometricUnlockLabelKey>(
     "pinLock.unlockWithBiometrics",
   );
@@ -157,6 +166,13 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const setBiometricUnlockEnabled = useCallback((enabled: boolean) => {
+    setBiometricUnlockEnabledState(enabled);
+    if (Platform.OS !== "web") {
+      setSecureItem(BIOMETRIC_UNLOCK_KEY, enabled ? "1" : "0").catch(() => {});
+    }
+  }, []);
+
   const lock = useCallback(() => {
     setIsLocked(true);
   }, []);
@@ -170,6 +186,7 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
     setHasStoredPin(false);
     setIsLocked(false);
     setLockTimeoutMsState(0);
+    setBiometricUnlockEnabledState(true);
   }, []);
 
   const factoryResetPinLock = useCallback(async () => {
@@ -230,7 +247,7 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
   );
 
   const unlockWithBiometrics = useCallback(async (): Promise<boolean> => {
-    if (Platform.OS === "web") return false;
+    if (Platform.OS === "web" || !biometricUnlockEnabled) return false;
     biometricAuthInProgressRef.current = true;
     try {
       const hasHardware = await LocalAuthentication.hasHardwareAsync();
@@ -263,7 +280,7 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
     } finally {
       biometricAuthInProgressRef.current = false;
     }
-  }, [t]);
+  }, [t, biometricUnlockEnabled]);
 
   const enablePin = useCallback(async (pin: string): Promise<boolean> => {
     if (Platform.OS === "web") return false;
@@ -332,16 +349,26 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
         return;
       }
       try {
-        const [enabled, hash, timeoutStr, lockoutUntilTs, hasHardware, isEnrolled, authTypes] =
-          await Promise.all([
-            getPinEnabled(),
-            getStoredPinHash(),
-            getSecureItem(LOCK_TIMEOUT_STORAGE_KEY),
-            getLockoutUntil(),
-            LocalAuthentication.hasHardwareAsync(),
-            LocalAuthentication.isEnrolledAsync(),
-            LocalAuthentication.supportedAuthenticationTypesAsync(),
-          ]);
+        const [
+          enabled,
+          hash,
+          timeoutStr,
+          lockoutUntilTs,
+          hasHardware,
+          isEnrolled,
+          authTypes,
+          biometricPref,
+        ] = await Promise.all([
+          getPinEnabled(),
+          getStoredPinHash(),
+          getSecureItem(LOCK_TIMEOUT_STORAGE_KEY),
+          getLockoutUntil(),
+          LocalAuthentication.hasHardwareAsync(),
+          LocalAuthentication.isEnrolledAsync(),
+          LocalAuthentication.supportedAuthenticationTypesAsync(),
+          getSecureItem(BIOMETRIC_UNLOCK_KEY),
+        ]);
+        setBiometricUnlockEnabledState(biometricPref !== "0");
         setIsPinEnabled(enabled);
         const pinIsStored = !!(hash && hash.length > 0);
         setHasStoredPin(pinIsStored);
@@ -437,6 +464,9 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
       unlockError,
       unlockErrorParams,
       biometricsAvailable,
+      biometricsSupported,
+      biometricUnlockEnabled,
+      setBiometricUnlockEnabled,
       biometricUnlockLabelKey,
       isLockedOut: lockoutRemainingMs > 0,
       lockoutRemainingMs,
@@ -461,6 +491,9 @@ export function PinLockProvider({ children }: { children: ReactNode }) {
       unlockError,
       unlockErrorParams,
       biometricsAvailable,
+      biometricsSupported,
+      biometricUnlockEnabled,
+      setBiometricUnlockEnabled,
       biometricUnlockLabelKey,
       lockoutRemainingMs,
       clearUnlockError,

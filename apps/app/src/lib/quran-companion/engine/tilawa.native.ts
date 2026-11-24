@@ -11,7 +11,8 @@ import type { EnginePlatform, OrtNamespace, RecitationEngine } from "./types";
  * TV builds resolve `onnxruntime-react-native` to a stub (metro.config.js) and
  * never reach this code (`isPracticeAvailable()`).
  */
-const platform: EnginePlatform = {
+/** Per-platform ORT loader, shared with the FastConformer runner (`lib/speech`). */
+export const enginePlatform: EnginePlatform = {
   async loadOrt() {
     const ort = (await import("onnxruntime-react-native")) as unknown as OrtNamespace;
     if (!ort?.InferenceSession) throw new PracticeError("runtime-unsupported");
@@ -30,7 +31,7 @@ export function createPlatformEngine(
   engine: EngineId,
   assets: LoadedModelAssets,
 ): Promise<RecitationEngine> {
-  return createTilawaEngine(engine, assets, platform);
+  return createTilawaEngine(engine, assets, enginePlatform);
 }
 
 export function isEngineRuntimeSupported(): boolean {

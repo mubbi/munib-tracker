@@ -1,0 +1,25 @@
+// expo-module-gradle-plugin supplies compileSdk / minSdk / targetSdk, Kotlin (AGP 9
+// built-in Kotlin or the Kotlin Gradle plugin, matching the app) and expo-modules-core.
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'expo.modules.munibfocuslock'
+version = '1.0.0'
+
+android {
+  namespace "expo.modules.munibfocuslock"
+  defaultConfig {
+    versionCode 1
+    versionName "1.0.0"
+  }
+  lint {
+    abortOnError false
+  }
+}
+
+dependencies {
+  // NotificationCompat / ContextCompat / ServiceCompat for the specialUse foreground service.
+  implementation "androidx.core:core-ktx:1.19.1"
+}

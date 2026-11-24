@@ -1,3 +1,5 @@
+import type { FiqhDifferenceId, MadhhabId } from "@munib-tracker/shared/fiqh";
+
 /** Learn hubs + global corpora that can supply study MCQs. */
 export type StudySourceId =
   | "salahGuide"
@@ -40,6 +42,10 @@ export type StudyMcq = {
   explanation: string;
   /** Optional i18n key for a category chip. */
   categoryLabelKey?: string;
+  /** NF-3.0a: the answer depends on the school — see `filterMcqsForMadhhab`. */
+  differenceId?: FiqhDifferenceId;
+  /** Schools for which `correctIndex` is the right answer (set with `differenceId`). */
+  answerSchools?: readonly MadhhabId[];
 };
 
 /** Topic-like shape used by most learn hubs. */

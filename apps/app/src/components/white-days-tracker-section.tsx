@@ -1,7 +1,7 @@
-import { WHITE_DAYS_CHECKLIST } from "@munib-tracker/shared/content/white-days-checklist";
 import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -15,16 +15,17 @@ import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
+import { clearFast, markFast } from "@/lib/voluntary-fasting";
 import {
   isWhiteDayDateString,
-  whiteDaysForHijriMonth,
+  whiteDayFastsForHijriMonth,
   whiteDaysHijriMonthKeyForDateString,
 } from "@/lib/white-days";
 import {
-  useEnsureWhiteDaysChecklistLoaded,
-  useWhiteDaysChecklistActions,
-  useWhiteDaysChecklistForMonth,
-} from "@/stores/white-days-checklist-store";
+  useEnsureVoluntaryFastingLoaded,
+  useVoluntaryFastingEntries,
+} from "@/stores/voluntary-fasting-store";
+import { useEnsureWhiteDaysChecklistLoaded } from "@/stores/white-days-checklist-store";
 
 type WhiteDaysTrackerSectionProps = {
   date: string;
@@ -32,28 +33,49 @@ type WhiteDaysTrackerSectionProps = {
 
 /**
  * White Days (Ayyām al-Bīḍ) checklist on the Tracker day view. Renders nothing
- * unless `date` falls on the 13th, 14th or 15th of the Hijri month. Progress is
- * month-scoped, so all three rows for the current Hijri month share one bucket
- * and stay in sync whichever of the three days is being viewed.
+ * unless `date` is a White Day a fast may be suggested on (13th–15th, never 13
+ * Dhul-Hijjah or Ramadan — see `lib/white-days.ts`).
+ *
+ * One record of a fast (NF-3.2): each row is the voluntary-fasting entry for
+ * that day's date, so a tick here shows in `/fasting` (history, stats, coach)
+ * and vice versa. Ticks go through `markFast`, so the same blocking rules apply
+ * (a refusal shows its gentle reason). Only a kept fast (`fasted`) is checked;
+ * a planned one shows as "intended". Legacy month ticks are migrated on load.
  */
 export function WhiteDaysTrackerSection({ date }: WhiteDaysTrackerSectionProps) {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForward = useChevronForward();
+  useEnsureVoluntaryFastingLoaded();
+  // Loading the legacy store folds any old checklist ticks into the fasting log.
   useEnsureWhiteDaysChecklistLoaded();
+  const entries = useVoluntaryFastingEntries();
+  const [blockedMessage, setBlockedMessage] = useState<string | null>(null);
   const monthKey = whiteDaysHijriMonthKeyForDateString(date);
-  const done = useWhiteDaysChecklistForMonth(monthKey);
-  const { toggle } = useWhiteDaysChecklistActions();
 
   if (!isWhiteDayDateString(date)) return null;
 
   const [yearStr, monthStr] = monthKey.split("-");
-  const days = whiteDaysForHijriMonth(Number(yearStr), Number(monthStr));
-  const dateByHijriDay = new Map(days.map((d) => [d.hijriDay, d.date]));
+  const fasts = whiteDayFastsForHijriMonth(Number(yearStr), Number(monthStr));
+  const statusOf = (day: string) => {
+    const entry = entries[day];
+    return entry && entry.deleted !== true ? entry.status : undefined;
+  };
 
-  const completed = WHITE_DAYS_CHECKLIST.filter((item) => done[item.id]).length;
-  const total = WHITE_DAYS_CHECKLIST.length;
+  const completed = fasts.filter((fast) => statusOf(fast.date) === "fasted").length;
+  const total = fasts.length;
+
+  const toggle = (day: string) => {
+    setBlockedMessage(null);
+    if (statusOf(day) === "fasted") {
+      void clearFast(day);
+      return;
+    }
+    void markFast(day, "fasted").then((result) => {
+      if (!result.ok) setBlockedMessage(t(`voluntaryFasting.blocked.${result.reason}`));
+    });
+  };
 
   const formatDayLabel = (iso: string | undefined): string => {
     if (!iso) return "";
@@ -80,16 +102,17 @@ export function WhiteDaysTrackerSection({ date }: WhiteDaysTrackerSectionProps) 
         {t("tracker.whiteDays.subtitle")} · {t("tracker.whiteDays.progress", { completed, total })}
       </ThemedText>
       <View style={styles.rows}>
-        {WHITE_DAYS_CHECKLIST.map((item) => {
-          const checked = !!done[item.id];
-          const dayLabel = formatDayLabel(dateByHijriDay.get(item.hijriDay));
+        {fasts.map(({ item, date: fastDate }) => {
+          const status = statusOf(fastDate);
+          const checked = status === "fasted";
+          const dayLabel = formatDayLabel(fastDate);
           return (
             <View key={item.id} style={styles.row}>
               <PressableScale
                 accessibilityRole="checkbox"
                 accessibilityState={{ checked }}
                 accessibilityLabel={t(`tracker.whiteDays.items.${item.id}.title`)}
-                onPress={() => void toggle(item.id, monthKey)}
+                onPress={() => toggle(fastDate)}
                 scaleTo={0.98}
                 haptic="selection"
                 style={[styles.rowMain, isTV() ? styles.rowMainTv : null]}
@@ -116,7 +139,12 @@ export function WhiteDaysTrackerSection({ date }: WhiteDaysTrackerSectionProps) 
                     {t(`tracker.whiteDays.items.${item.id}.title`)}
                   </ThemedText>
                   <ThemedText type="caption" themeColor="mutedForeground">
-                    {[dayLabel, t(`tracker.whiteDays.items.${item.id}.hint`), item.reference]
+                    {[
+                      dayLabel,
+                      status === "intended" ? t("tracker.whiteDays.intended") : null,
+                      t(`tracker.whiteDays.items.${item.id}.hint`),
+                      item.reference,
+                    ]
                       .filter(Boolean)
                       .join(" · ")}
                   </ThemedText>
@@ -126,6 +154,16 @@ export function WhiteDaysTrackerSection({ date }: WhiteDaysTrackerSectionProps) 
           );
         })}
       </View>
+      {blockedMessage ? (
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          style={styles.blocked}
+          accessibilityLiveRegion="polite"
+        >
+          {blockedMessage}
+        </ThemedText>
+      ) : null}
       <PressableScale
         accessibilityRole="link"
         onPress={() => router.push("/white-days" as Href)}
@@ -164,6 +202,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
   },
   rowText: { flex: 1, gap: 2, minWidth: 0 },
+  blocked: { marginTop: Spacing.two },
   learnLink: {
     flexDirection: "row",
     alignItems: "center",

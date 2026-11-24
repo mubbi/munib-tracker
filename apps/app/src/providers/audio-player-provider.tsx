@@ -48,6 +48,8 @@ import { buildAudioActivity } from "@/lib/continue-activity";
 import { triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
 import { nextIndexForRepeatPlan } from "@/lib/quran-repeat";
+import { setSetting } from "@/lib/settings/shortcuts";
+import { useSetting } from "@/lib/settings/use-setting";
 import {
   canPauseTts,
   pauseTts,
@@ -72,7 +74,11 @@ import type {
   TranslationAudioMode,
 } from "@/providers/audio-player-types";
 import { recordContinueActivity } from "@/stores/continue-store";
-import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
+import { usePreferencesReady } from "@/stores/preferences-store";
+
+/** Registered settings the player follows and writes (§4.5.4 shortcuts). */
+const AUDIO_SPEED_SETTING = "audio.speed";
+const AUDIO_VOLUME_SETTING = "audio.volume";
 
 export {
   useAudioPlayerContext,
@@ -580,35 +586,6 @@ function AudioPlayerProviderLive({
     };
   }, []);
 
-  // Apply the saved playback speed once preferences have loaded, to both players.
-  useEffect(() => {
-    if (!prefsReady) return;
-    const saved = preferencesStore.getState().prefs.audioSpeed;
-    if (saved) {
-      setRateState(saved);
-      try {
-        applyPlaybackRate(playerA, saved);
-        applyPlaybackRate(playerB, saved);
-      } catch {
-        // player not ready
-      }
-    }
-  }, [prefsReady, playerA, playerB]);
-
-  useEffect(() => {
-    if (!prefsReady) return;
-    const saved = preferencesStore.getState().prefs.audioVolume;
-    if (saved != null) {
-      setVolumeState(saved);
-      try {
-        applyVolume(playerA, saved);
-        applyVolume(playerB, saved);
-      } catch {
-        // player not ready
-      }
-    }
-  }, [prefsReady, playerA, playerB]);
-
   // Stage the next track into the idle (inactive) player and warm the clips
   // after it into the byte cache. Staging = load the source but stay paused, so
   // the finish handler can swap to an already-decoded player with no gap.
@@ -1103,7 +1080,8 @@ function AudioPlayerProviderLive({
     });
   }, [playIndex, anchorQueueTimeline]);
 
-  const setRate = useCallback((nextRate: number) => {
+  /** Apply a speed to both players (and the TTS slice) without persisting it. */
+  const applyRate = useCallback((nextRate: number) => {
     setRateState(nextRate);
     rateRef.current = nextRate;
     try {
@@ -1112,7 +1090,6 @@ function AudioPlayerProviderLive({
     } catch {
       // ignore
     }
-    void preferencesStore.getState().update({ audioSpeed: nextRate });
 
     const track = queueRef.current[indexRef.current];
     if (!isTtsPlaybackTrack(track) || userPausedRef.current) return;
@@ -1131,6 +1108,15 @@ function AudioPlayerProviderLive({
     pendingSeekRef.current = position;
     playIndexRef.current(queueRef.current, indexRef.current, false);
   }, []);
+
+  // The mini-player speed control is a shortcut to Settings › Audio & voice.
+  const setRate = useCallback(
+    (nextRate: number) => {
+      applyRate(nextRate);
+      void setSetting(AUDIO_SPEED_SETTING, nextRate);
+    },
+    [applyRate],
+  );
 
   const setTtsVoice = useCallback((voiceId: string | undefined) => {
     const q = queueRef.current;
@@ -1176,7 +1162,8 @@ function AudioPlayerProviderLive({
     playIndexRef.current(nextQueue, indexRef.current, false);
   }, []);
 
-  const setVolume = useCallback((nextVolume: number) => {
+  /** Apply a 0–1 volume to both players without persisting it. */
+  const applyVolumeLevel = useCallback((nextVolume: number) => {
     const clamped = Math.max(0, Math.min(1, nextVolume));
     setVolumeState(clamped);
     volumeRef.current = clamped;
@@ -1186,8 +1173,34 @@ function AudioPlayerProviderLive({
     } catch {
       // ignore
     }
-    void preferencesStore.getState().update({ audioVolume: clamped });
+    return clamped;
   }, []);
+
+  // The mini-player volume slider is a shortcut to Settings › Audio & voice
+  // (stored as a whole percentage, a device preference).
+  const setVolume = useCallback(
+    (nextVolume: number) => {
+      const clamped = applyVolumeLevel(nextVolume);
+      void setSetting(AUDIO_VOLUME_SETTING, Math.round(clamped * 100));
+    },
+    [applyVolumeLevel],
+  );
+
+  // Follow the stored speed / volume — on load and whenever Settings (or a sync
+  // pull) changes them — so a running player picks the change up immediately.
+  const savedSpeed = useSetting<number>(AUDIO_SPEED_SETTING).value;
+  const savedVolumePct = useSetting<number>(AUDIO_VOLUME_SETTING).value;
+  useEffect(() => {
+    if (!prefsReady || !savedSpeed || savedSpeed === rateRef.current) return;
+    applyRate(savedSpeed);
+  }, [prefsReady, savedSpeed, applyRate]);
+  useEffect(() => {
+    if (!prefsReady) return;
+    const saved = savedVolumePct / 100;
+    // The slider writes whole percentages; ignore the rounding echo of its own write.
+    if (Math.abs(saved - volumeRef.current) < 0.006) return;
+    applyVolumeLevel(saved);
+  }, [prefsReady, savedVolumePct, applyVolumeLevel]);
 
   const cycleLoopMode = useCallback(() => {
     setLoopMode((prev) => LOOP_CYCLE[(LOOP_CYCLE.indexOf(prev) + 1) % LOOP_CYCLE.length]);

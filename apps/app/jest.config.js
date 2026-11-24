@@ -17,6 +17,11 @@ module.exports = {
     "^@/assets/(.*)$": "<rootDir>/assets/$1",
     ...(expoPreset.moduleNameMapper ?? {}),
   },
+  // @noble/hashes and @scure/bip39 (vault crypto) ship ESM only — let Babel
+  // transform them like the react-native packages the preset already allows.
+  transformIgnorePatterns: (expoPreset.transformIgnorePatterns ?? []).map((pattern, index) =>
+    index === 0 ? pattern.replace("(?!(", "(?!(@noble|@scure|") : pattern,
+  ),
   testMatch: [
     "**/__tests__/**/*.(test|spec|feature.test).[jt]s?(x)",
     "**/*.(test|spec|feature.test).[jt]s?(x)",

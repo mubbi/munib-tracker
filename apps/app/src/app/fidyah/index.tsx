@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
+import { FidyahFiqhPanel } from "@/components/fidyah/fidyah-fiqh-panel";
 import {
   LearnColumnsGrid,
   LearnTwoPane,
@@ -20,6 +21,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
 import { Spacing } from "@/constants/theme";
 import { useFidyahCalculator } from "@/hooks/use-fidyah-calculator";
+import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import type { FidyahScenario } from "@/lib/fidyah";
@@ -38,6 +40,8 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 };
 
 export default function FidyahScreen() {
+  // §4.1.1 item 4: once per session while the madhhab was never chosen.
+  const madhhabPrompt = useMadhhabPrompt();
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -187,6 +191,10 @@ export default function FidyahScreen() {
       </View>
 
       {wide.twoPane ? null : resultView}
+      <FidyahFiqhPanel
+        scenario={calc.scenario}
+        people={calc.result.days > 0 ? calc.result.mealsDue : 0}
+      />
     </Card>
   );
 
@@ -234,6 +242,7 @@ export default function FidyahScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/fidyah" />
+      {madhhabPrompt.sheet}
       {wide.twoPane ? (
         <Stagger>
           <JannahCallout tone="warning">{t("fidyah.intro")}</JannahCallout>

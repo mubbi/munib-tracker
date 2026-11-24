@@ -9,7 +9,7 @@ import { renderWithTheme } from "@/test-support/render";
 const mockResolveTarget = jest.fn();
 const mockIsTtsAvailable = jest.fn(async () => true);
 const mockResolveVoice = jest.fn(async (_lang: string, voiceId?: string) => voiceId);
-const mockUpdatePrefs = jest.fn(async (_p: unknown) => undefined);
+const mockSetTtsVoice = jest.fn(async (_lang: string, _voiceId?: string) => undefined);
 
 jest.mock(
   "@/providers/audio-player-provider",
@@ -21,10 +21,10 @@ jest.mock("@/lib/tts", () => ({
   isTtsAvailable: () => mockIsTtsAvailable(),
   resolveTtsVoice: (lang: string, voiceId?: string) => mockResolveVoice(lang, voiceId),
 }));
-jest.mock("@/stores/quran-store", () => ({
-  ...jest.requireActual("@/stores/quran-store"),
-  useQuranPrefs: () => ({ ttsVoiceByLang: { "ar-SA": "old-voice" } }),
-  useQuranActions: () => ({ updatePrefs: mockUpdatePrefs }),
+// Device voices are read and written through the settings layer (B4, §4.5.4).
+jest.mock("@/lib/settings/tts-voice", () => ({
+  useTtsVoice: (lang: string) => ({ "ar-SA": "old-voice" })[lang],
+  setTtsVoice: (lang: string, voiceId?: string) => mockSetTtsVoice(lang, voiceId),
 }));
 jest.mock("@/components/tts-voice-sheet", () => {
   const { Pressable, Text, View } = require("react-native");
@@ -82,7 +82,7 @@ describe("ReadingTtsButton", () => {
     mockResolveTarget.mockReset();
     mockResolveTarget.mockResolvedValue({ text: "بِسْمِ اللَّهِ", lang: "ar-SA" });
     mockIsTtsAvailable.mockResolvedValue(true);
-    mockUpdatePrefs.mockClear();
+    mockSetTtsVoice.mockClear();
   });
 
   it("renders nothing without any text", async () => {
@@ -115,7 +115,7 @@ describe("ReadingTtsButton", () => {
     await openSheet();
     await fireEvent.press(screen.getByLabelText("pick-voice"));
     await settle();
-    expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: { "ar-SA": "v1" } });
+    expect(mockSetTtsVoice).toHaveBeenCalledWith("ar-SA", "v1");
     expect(mockAudioPlayer.play).toHaveBeenCalledWith(
       [expect.objectContaining({ id: "dua-1:tts:0", title: "Morning dua" })],
       0,
@@ -128,7 +128,7 @@ describe("ReadingTtsButton", () => {
     await openSheet();
     await fireEvent.press(screen.getByLabelText("pick-default"));
     await settle();
-    expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: {} });
+    expect(mockSetTtsVoice).toHaveBeenCalledWith("ar-SA", undefined);
     expect(mockAudioPlayer.play).toHaveBeenCalledWith(
       [expect.objectContaining({ title: "Listen" })],
       0,

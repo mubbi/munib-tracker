@@ -24,6 +24,7 @@ import { HadithReadingToolbar } from "@/components/hadith/reading-toolbar";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
@@ -67,16 +68,21 @@ import { runWhenIdle } from "@/lib/run-when-idle";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
+import { setSetting } from "@/lib/settings/shortcuts";
+import { useReadingDisplayToggles } from "@/lib/settings/use-reading-display-toggles";
 import { buildHadithSharePayload } from "@/lib/share";
 import { resolveHadithTranslation } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
-import { useHadithActions, useHadithPrefs } from "@/stores/hadith-store";
+import { useHadithPrefs } from "@/stores/hadith-store";
 import { usePreferences } from "@/stores/preferences-store";
 
 /** Stable empty sentinels so `?? []` does not churn effect deps every render. */
 const EMPTY_HADITH_ITEMS: HadithItem[] = [];
 const EMPTY_SECTIONS: HadithSection[] = [];
+
+/** Hadith display toggles + the app-wide translation visibility (D13). */
+type HadithDisplayPrefs = HadithPrefs & { showTranslation: boolean };
 
 /** Extra width so the hadith list and filters pane can sit side by side. */
 const LIST_DETAIL_MAX_WIDTH = 1280;
@@ -137,8 +143,23 @@ export default function HadithCollectionScreen() {
   const hasSharh = useMemo(() => allItems.some((item) => Boolean(item.sharhArabic)), [allItems]);
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const { translationLocale, fontPrefs } = usePreferences();
-  const prefs = useHadithPrefs();
-  const { updatePrefs } = useHadithActions();
+  const hadithPrefs = useHadithPrefs();
+  const { showTranslation, setShowTranslation } = useReadingDisplayToggles();
+  const prefs = useMemo<HadithDisplayPrefs>(
+    () => ({ ...hadithPrefs, showTranslation }),
+    [hadithPrefs, showTranslation],
+  );
+  // Toolbar + filter card are shortcuts to Settings › Hadith (and Text & fonts
+  // for translation): every write goes through the registered setting.
+  const updatePrefs = useCallback(
+    async (patch: Partial<HadithDisplayPrefs>) => {
+      for (const [key, value] of Object.entries(patch) as [keyof HadithDisplayPrefs, boolean][]) {
+        if (key === "showTranslation") await setShowTranslation(value);
+        else await setSetting(`content.hadith.${key}`, value);
+      }
+    },
+    [setShowTranslation],
+  );
   const readingSizes = resolveReadingFontSizes("hadith", fontPrefs);
   const listRef = useRef<FlatList<HadithItem>>(null);
   const screenScrollRef = useRef<ScrollViewInstance>(null);
@@ -512,6 +533,7 @@ export default function HadithCollectionScreen() {
             onToggle={() => void updatePrefs({ showSharh: !prefs.showSharh })}
           />
         ) : null}
+        <MoreInSettingsLink settingId="content.hadith.showArabic" />
       </Card>
     ),
     [hasGrade, hasIsnad, hasNarrator, hasSharh, prefs, t, tv, updatePrefs],
@@ -984,7 +1006,7 @@ function HadithCard({
   onShare: (item: HadithItem) => void;
   isSharing: (shareKey: string) => boolean;
   isGesturePending: (shareKey: string) => boolean;
-  prefs: HadithPrefs;
+  prefs: HadithDisplayPrefs;
   arabicSize: number;
   translationSize: number;
 }) {

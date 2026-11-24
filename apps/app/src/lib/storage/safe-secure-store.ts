@@ -45,7 +45,16 @@ async function deleteSecureItemWithOptions(
   }
 }
 
-export async function getSecureItem(key: string): Promise<string | null> {
+/**
+ * Reads `key`. By default a refused read (locked Keychain) resolves `null`,
+ * the same as a missing item. Pass `{ throwOnAccessDenied: true }` when "not
+ * there" and "can't read it right now" must be told apart (the vault key). The
+ * refusal error is then rethrown.
+ */
+export async function getSecureItem(
+  key: string,
+  { throwOnAccessDenied = false }: { throwOnAccessDenied?: boolean } = {},
+): Promise<string | null> {
   for (const options of READ_OPTION_CHAIN) {
     try {
       const value = await SecureStore.getItemAsync(key, options);
@@ -63,7 +72,7 @@ export async function getSecureItem(key: string): Promise<string | null> {
       }
       return value;
     } catch (error) {
-      if (isSecureStoreAccessDeniedError(error)) {
+      if (isSecureStoreAccessDeniedError(error) && !throwOnAccessDenied) {
         return null;
       }
       throw error;

@@ -4,10 +4,8 @@ import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { I18nManager, StyleSheet, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
 import { SettingsRow } from "@/components/settings/settings-rows";
+import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -28,7 +26,6 @@ import {
   getCacheSummary,
   getRecitationListenerBytes,
 } from "@/lib/cache-manager";
-import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -37,7 +34,6 @@ import { useToast } from "@/providers/toast-provider";
 type PendingClear = { kind: "group"; group: CacheGroupSize } | { kind: "all" } | null;
 
 export default function OfflineDataScreen() {
-  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -96,14 +92,12 @@ export default function OfflineDataScreen() {
   const pendingGroupName = pending?.kind === "group" ? t(pending.group.labelKey) : undefined;
 
   return (
-    <ScreenLayout
-      maxContentWidth={formMaxWidth}
-      eyebrow={t("settings.title")}
+    <SettingsDetailScreen
+      parent="data"
+      path="/settings/offline-data"
       title={t("offlineData.title")}
       subtitle={t("offlineData.subtitle")}
-      onBack={() => goBackOrReplace(router, "/settings")}
     >
-      <Seo path="/settings/offline-data" />
       <Stagger>
         <Card padding="three">
           <SectionHeader
@@ -210,7 +204,7 @@ export default function OfflineDataScreen() {
         onConfirm={handleConfirm}
         onClose={() => setPending(null)}
       />
-    </ScreenLayout>
+    </SettingsDetailScreen>
   );
 }
 

@@ -10,6 +10,7 @@ import {
 } from "@/components/quran/practice-session-summary";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { CoachingPlanCard } from "@/components/tajweed-coaching/coaching-plan-card";
 import { Button } from "@/components/ui/button";
 import { Spacing } from "@/constants/theme";
 import { singleAyahTrack } from "@/lib/quran-audio";
@@ -200,6 +201,9 @@ export default function PracticeSummaryScreen() {
             : null
         }
       />
+
+      {/* NF-3.15: sounds the practised ayahs include, with words from this recitation. */}
+      <CoachingPlanCard sessionId={summary.id} />
 
       {offerAyah != null ? (
         <View style={styles.center}>

@@ -29,6 +29,9 @@ const TV_EXCLUDED_PACKAGES = [
   "expo-image-picker",
   "expo-document-picker",
   "expo-sharing",
+  // D30 PDF export (wasiyyah / debts are hidden on TV). JS loads it only after
+  // `requireOptionalNativeModule("ExpoPrint")` succeeds — see lib/printable.
+  "expo-print",
   "expo-store-review",
   "expo-speech",
   "expo-apple-authentication",
@@ -41,6 +44,10 @@ const TV_EXCLUDED_PACKAGES = [
   // Wear OS listener service + App Actions / widget receivers (Android phone only).
   "munib-wear",
   "munib-external-commands",
+  // NF-3.13 Salah focus lock: UsageStats/overlay service + FamilyControls (phone only).
+  "munib-focus-lock",
+  // NF-3.12 timetable OCR (ML Kit / Vision): no camera or photo import on TV.
+  "munib-text-recognition",
 ];
 
 function isTvEnv() {

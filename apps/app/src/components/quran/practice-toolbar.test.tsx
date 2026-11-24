@@ -3,10 +3,12 @@ import { fireEvent, screen } from "@testing-library/react-native";
 import { PracticeToolbar } from "@/components/quran/practice-toolbar";
 import { DEFAULT_COMPANION_PREFS } from "@/lib/quran-companion/prefs";
 import type { PracticeMode, QuranCompanionPrefs } from "@/lib/quran-companion/types";
+import { preferencesStore } from "@/stores/preferences-store";
 import { quranCompanionPrefsStore } from "@/stores/quran-companion-prefs-store";
 import { quranStore } from "@/stores/quran-store";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
+import { setReadingDisplayState } from "@/test-support/settings";
 
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 
@@ -113,9 +115,18 @@ describe("PracticeToolbar", () => {
     expect(screen.queryByLabelText(/^Mode:/)).toBeNull();
   });
 
-  it.each<[string, keyof QuranCompanionPrefs]>([
+  it.each([
     ["Show translation", "showTranslation"],
     ["Show transliteration", "showTransliteration"],
+  ] as const)("toggles the app-wide %s (D13)", async (label, key) => {
+    setReadingDisplayState({ [key]: false });
+    await renderToolbar();
+    await press(label);
+    expect(preferencesStore.getState().prefs.readingDisplay?.[key]).toBe(true);
+    expect(updateCompanion).not.toHaveBeenCalled();
+  });
+
+  it.each<[string, keyof QuranCompanionPrefs]>([
     ["Tajweed colors", "showTajweedColors"],
     ["Move on automatically", "autoAdvance"],
   ])("toggles %s", async (label, key) => {

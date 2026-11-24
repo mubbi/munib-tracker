@@ -14,6 +14,21 @@ function isExpoGoClient(): boolean {
 let initialized = false;
 
 /**
+ * NF-3.16 (D7): while a child session is active, Sentry keeps crash reports
+ * only — no user id, no breadcrumbs, no performance transactions.
+ */
+let childSessionPrivacy = false;
+
+export function setChildSessionPrivacy(active: boolean): void {
+  childSessionPrivacy = active;
+  if (active && initialized) Sentry.setUser(null);
+}
+
+export function isChildSessionPrivacyActive(): boolean {
+  return childSessionPrivacy;
+}
+
+/**
  * Initialize Sentry as early as possible (before Expo Router loads).
  * Hooks global JS handlers, native crashes, and unhandled promise rejections.
  */
@@ -43,6 +58,14 @@ export function initSentry(): void {
       }),
     ],
     enableNativeFramesTracking: !runningInExpoGo,
+    beforeSend: (event) => {
+      if (!childSessionPrivacy) return event;
+      // Crash data only in child sessions: drop user, request and breadcrumbs.
+      const { user: _user, request: _request, breadcrumbs: _crumbs, ...rest } = event;
+      return rest;
+    },
+    beforeBreadcrumb: (breadcrumb) => (childSessionPrivacy ? null : breadcrumb),
+    beforeSendTransaction: (event) => (childSessionPrivacy ? null : event),
   });
 }
 

@@ -1,22 +1,16 @@
-import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
+import { OrderedListEditor } from "@/components/settings/ordered-list-editor";
 import { ToggleRow } from "@/components/settings/settings-rows";
+import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
-import { AppIcon } from "@/components/ui/app-icon";
 import { Card } from "@/components/ui/card";
-import { IconButton } from "@/components/ui/icon-button";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { Spacing } from "@/constants/theme";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
-import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import {
   DEFAULT_QUICK_ACTION_ORDER,
@@ -25,166 +19,15 @@ import {
   TV_HIDDEN_QUICK_ACTION_IDS,
 } from "@/lib/quick-actions";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
-
-/** Home modules the user can hide (NF-1.21). */
-const HOME_MODULES = [
-  "continue",
-  "knowledge",
-  "quickActions",
-  "khatm",
-  "qaza",
-  "schedule",
-] as const;
-
-function RowIcon({ tint, icon }: { tint: string; icon: AppIconType }) {
-  const { tokens } = useThemeTokens();
-  return (
-    <View
-      style={[
-        styles.iconWell,
-        {
-          backgroundColor: withAlpha(tint, tokens.isDark ? 0.2 : 0.12),
-          borderColor: withAlpha(tint, tokens.isDark ? 0.34 : 0.22),
-        },
-      ]}
-    >
-      <AppIcon icon={icon} size={18} tintColor={tint} />
-    </View>
-  );
-}
-
-function CustomizeList({
-  order,
-  allIds,
-  labelFor,
-  iconFor,
-  onMove,
-  onToggle,
-}: {
-  order: string[];
-  allIds: string[];
-  labelFor: (id: string) => string;
-  iconFor: (id: string) => { icon: AppIconType; tint: string } | undefined;
-  onMove: (index: number, direction: -1 | 1) => void;
-  onToggle: (id: string, on: boolean) => void;
-}) {
-  const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const hiddenItems = allIds.filter((id) => !order.includes(id));
-  const tv = isTV();
-  /**
-   * TV: never disable the focused Up/Down control at the list edge — a disabled
-   * Pressable drops D-pad focus and the engine jumps elsewhere. Dim it instead;
-   * `onMove` already ignores out-of-range moves.
-   */
-  const edgeProps = (atEdge: boolean) =>
-    tv
-      ? {
-          accessibilityState: { disabled: atEdge },
-          style: atEdge ? styles.edgeDimmedTv : undefined,
-        }
-      : { disabled: atEdge };
-
-  return (
-    <>
-      <View style={styles.rows}>
-        {order.map((id, index) => {
-          const iconMeta = iconFor(id);
-          return (
-            <View
-              key={id}
-              style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
-            >
-              {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
-              <ThemedText type="small" style={styles.rowLabel} numberOfLines={1}>
-                {labelFor(id)}
-              </ThemedText>
-              <IconButton
-                name={{
-                  ios: "chevron.up",
-                  android: "keyboard_arrow_up",
-                  web: "keyboard_arrow_up",
-                }}
-                size={18}
-                tintColor={colors.foreground}
-                accessibilityLabel={t("zikr.moveUp")}
-                {...edgeProps(index === 0)}
-                onPress={() => onMove(index, -1)}
-              />
-              <IconButton
-                name={{
-                  ios: "chevron.down",
-                  android: "keyboard_arrow_down",
-                  web: "keyboard_arrow_down",
-                }}
-                size={18}
-                tintColor={colors.foreground}
-                accessibilityLabel={t("zikr.moveDown")}
-                {...edgeProps(index === order.length - 1)}
-                onPress={() => onMove(index, 1)}
-              />
-              <IconButton
-                name={{
-                  ios: "minus.circle.fill",
-                  android: "remove_circle",
-                  web: "remove_circle",
-                }}
-                size={18}
-                tintColor={tokens.status.danger.color}
-                accessibilityLabel={t("homeCustomize.remove")}
-                onPress={() => onToggle(id, false)}
-              />
-            </View>
-          );
-        })}
-      </View>
-
-      {hiddenItems.length > 0 ? (
-        <>
-          <ThemedText type="smallBold" style={styles.hiddenHeader}>
-            {t("homeCustomize.available")}
-          </ThemedText>
-          <View style={styles.rows}>
-            {hiddenItems.map((id) => {
-              const iconMeta = iconFor(id);
-              return (
-                <View
-                  key={id}
-                  style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
-                >
-                  {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
-                  <ThemedText
-                    type="small"
-                    themeColor="mutedForeground"
-                    style={styles.rowLabel}
-                    numberOfLines={1}
-                  >
-                    {labelFor(id)}
-                  </ThemedText>
-                  <IconButton
-                    name={{ ios: "plus.circle.fill", android: "add_circle", web: "add_circle" }}
-                    size={18}
-                    tintColor={colors.accent}
-                    accessibilityLabel={t("homeCustomize.add")}
-                    onPress={() => onToggle(id, true)}
-                  />
-                </View>
-              );
-            })}
-          </View>
-        </>
-      ) : null}
-    </>
-  );
-}
+import { HOME_MODULES } from "@/lib/settings/home-modules";
+import { useSetting } from "@/lib/settings/use-setting";
 
 export default function HomeCustomizeScreen() {
-  const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const prefs = usePreferences();
-  const { update } = usePreferencesActions();
+  // Both lists write through the registry (single write path, §4.5.4).
+  const homeCards = useSetting<string[]>("appearance.homeCards");
+  const quickActions = useSetting<string[] | undefined>("appearance.quickActions");
   const tv = isTV();
   const { isListDetail } = useLargeScreenLayout();
   const twoColumn = tv || isListDetail;
@@ -197,8 +40,8 @@ export default function HomeCustomizeScreen() {
     [],
   );
 
-  const hidden = new Set(prefs.hiddenHomeModules ?? []);
-  const actionOrder = (prefs.quickActionOrder ?? DEFAULT_QUICK_ACTION_ORDER).filter((id) =>
+  const hidden = new Set(homeCards.value);
+  const actionOrder = (quickActions.value ?? DEFAULT_QUICK_ACTION_ORDER).filter((id) =>
     allActionIds.includes(id),
   );
 
@@ -206,20 +49,7 @@ export default function HomeCustomizeScreen() {
     const next = new Set(hidden);
     if (visible) next.delete(id);
     else next.add(id);
-    void update({ hiddenHomeModules: [...next] });
-  };
-
-  const toggleAction = (id: string, on: boolean) => {
-    const next = on ? [...actionOrder, id] : actionOrder.filter((x) => x !== id);
-    void update({ quickActionOrder: next });
-  };
-
-  const moveAction = (index: number, direction: -1 | 1) => {
-    const target = index + direction;
-    if (target < 0 || target >= actionOrder.length) return;
-    const next = [...actionOrder];
-    [next[index], next[target]] = [next[target], next[index]];
-    void update({ quickActionOrder: next });
+    void homeCards.setValue([...next]);
   };
 
   const labelForAction = (id: string) => {
@@ -261,25 +91,26 @@ export default function HomeCustomizeScreen() {
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
         {t("homeCustomize.actionsHint")}
       </ThemedText>
-      <CustomizeList
+      <OrderedListEditor
         order={actionOrder}
         allIds={allActionIds}
         labelFor={labelForAction}
         iconFor={iconForAction}
-        onMove={moveAction}
-        onToggle={toggleAction}
+        removable
+        onChange={(next) => void quickActions.setValue(next)}
       />
     </Card>
   );
 
   return (
-    <ScreenLayout
-      eyebrow={t("settings.title")}
+    <SettingsDetailScreen
+      parent="appearance"
+      path="/settings/home"
       title={t("homeCustomize.title")}
       subtitle={t("homeCustomize.subtitle")}
-      onBack={() => goBackOrReplace(router, "/settings")}
+      // Lays out its own two columns on TV / wide windows.
+      wide
     >
-      <Seo path="/settings/home" />
       {twoColumn ? (
         // TV: modules beside quick actions so the landscape width is used.
         // Wide web / tablets reuse the same two columns.
@@ -293,37 +124,15 @@ export default function HomeCustomizeScreen() {
           {actionsCard}
         </Stagger>
       )}
-    </ScreenLayout>
+    </SettingsDetailScreen>
   );
 }
 
 const styles = StyleSheet.create({
   rows: { gap: Spacing.two, marginTop: Spacing.three },
   hint: { marginTop: Spacing.two },
-  hiddenHeader: { marginTop: Spacing.four },
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one,
-    padding: Spacing.two + 2,
-    paddingStart: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  rowLabel: { flex: 1 },
-  rowTv: { minHeight: TvLayout.minFocusTarget, gap: Spacing.two },
-  edgeDimmedTv: { opacity: 0.35 },
   tvColumns: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
   tvColumn: { flex: 1, minWidth: 0 },
-  iconWell: {
-    width: 32,
-    height: 32,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

@@ -9,8 +9,8 @@ const mockVisibility = { showTransliteration: true, showTranslation: true };
 // Imported transitively (reading typography → audio provider); never played here.
 jest.mock("expo-audio", () => ({ __esModule: true }));
 jest.mock("@/components/reading-typography-context", () => ({ ReadingTypographyBar: () => null }));
-jest.mock("@/stores/reading-text-visibility-store", () => ({
-  useReadingTextVisibility: () => mockVisibility,
+jest.mock("@/lib/settings/reading-display", () => ({
+  useReadingDisplay: () => mockVisibility,
 }));
 jest.mock("@/hooks/use-scripture-translation", () => ({
   useScriptureTranslation: (item: { translation: string }) => item.translation,

@@ -140,6 +140,18 @@
     "description": "Upcoming dates in the Hijri year — the Islamic New Year, Ashura, Ramadan, Laylat al-Qadr, the two Eids, and more, with the significance of each day.",
     "keywords": ["islamic events", "hijri calendar", "islamic dates", "eid", "muharram"]
   },
+  "/fasting": {
+    "title": "Voluntary Fasting — Mondays, Thursdays, Arafah & Ashura",
+    "description": "Plan and log voluntary fasts: Mondays and Thursdays, the White Days, six of Shawwal, Arafah, Ashura and more, with the days on which fasting is not allowed.",
+    "keywords": [
+      "voluntary fasting",
+      "sunnah fasting",
+      "monday thursday fasting",
+      "six days of shawwal",
+      "day of arafah fasting",
+      "ashura fasting"
+    ]
+  },
   "/finance": {
     "title": "Islamic Finance — Riba, Trade & Giving",
     "description": "An educational introduction to Islamic finance — the prohibition of riba, fair trade, zakah and sadaqah, and takaful, from the Qur'an and Sunnah. Not financial advice.",
@@ -181,6 +193,17 @@
     "title": "Umrah Rites Checklist",
     "description": "Ordered Umrah checklist — ihram, tawaf, sa'i, and halq or taqsir. Use with the Hajj & Umrah Learn guide.",
     "keywords": ["umrah checklist", "umrah rites", "lesser pilgrimage"]
+  },
+  "/umrah": {
+    "title": "Umrah Mode — Live Step-by-Step Umrah Companion",
+    "description": "A live, offline Umrah companion: miqat alert, ihram and talbiyah, tawaf and sa'i counters with undo, duas from Hisnul Muslim, wudu-for-tawaf notes per madhhab, and halq or taqsir.",
+    "keywords": [
+      "umrah mode",
+      "umrah guide step by step",
+      "tawaf counter",
+      "sai counter",
+      "miqat alert"
+    ]
   },
   "/hayd": {
     "title": "Hayd & Worship — Menstruation Guide",
@@ -287,6 +310,153 @@
       "Paradise in the Quran",
       "ayahs on Jannah"
     ]
+  },
+  "/masjids": {
+    "title": "Masjid Finder",
+    "description": "Find nearby masjids from OpenStreetMap, sorted by distance, with directions and Jumu'ah times where public data has them. Set a home masjid and keep your own iqamah times privately.",
+    "index": false
+  },
+  "/partner": {
+    "title": "Accountability Partner",
+    "description": "Encourage a friend in your daily ibadah privately: share only a quiet \"done\" for your own goal, make dua for each other and send a gentle reminder — no scores or leaderboards.",
+    "index": false
+  },
+  "/khatm-groups": {
+    "title": "Group Khatm",
+    "description": "Finish the Qur'an together: split 30 juz (or 60 hizb or 114 surahs) across a group, claim a part, read it and mark it done.",
+    "index": false
+  },
+  "/khatm-groups/new": {
+    "title": "Start a Group Khatm",
+    "description": "Start a group khatm with a title, an optional intention and deadline, and choose how parts are shared out.",
+    "index": false
+  },
+  "/masjids/times": {
+    "title": "Your Iqamah Times",
+    "description": "Keep your own iqamah and Jumu'ah times for your home masjid — private to your devices.",
+    "index": false
+  },
+  "/masjids/import": {
+    "title": "Import a Masjid Timetable",
+    "description": "Photograph your masjid's printed timetable and import the iqamah times. Text recognition runs on your device; the photo is never uploaded.",
+    "index": false
+  },
+  "/debts": {
+    "title": "Debts & Trusts Record",
+    "description": "Record what you owe and are owed, trusts you hold, repayments and vows — kept private and encrypted on your device, with reminders before due dates.",
+    "index": false
+  },
+  "/wasiyyah": {
+    "title": "Wasiyyah — Islamic Will Builder",
+    "description": "Write a guided Islamic will: funeral wishes, debts first, bequests within one third, guardians, executor and witnesses. Private and encrypted on your device.",
+    "index": false
+  },
+  "/wasiyyah/edit": {
+    "title": "Write Your Wasiyyah",
+    "description": "Step-by-step wasiyyah wizard with the one-third bequest check and no bequest to an heir. Private and encrypted on your device.",
+    "index": false
+  },
+  "/mirath": {
+    "title": "Mirath — Islamic Inheritance Calculator",
+    "description": "Educational faraid calculator for all four schools: fixed shares, residuaries, awl and radd, with each heir's share explained. Confirm with a qualified scholar.",
+    "keywords": [
+      "mirath calculator",
+      "islamic inheritance calculator",
+      "faraid",
+      "inheritance shares",
+      "hanafi inheritance",
+      "shafii inheritance"
+    ]
+  },
+  "/muhasabah": {
+    "title": "Nightly Muhasabah",
+    "description": "A private one-minute review before sleep — your Salah, a few honest questions, gratitude, istighfar and one intention for tomorrow. Encrypted on your device.",
+    "index": false
+  },
+  "/muhasabah/history": {
+    "title": "Muhasabah History",
+    "description": "Your private nightly reviews and gentle 30-day trends. Visible only to you.",
+    "index": false
+  },
+  "/muhasabah/settings": {
+    "title": "Muhasabah Settings",
+    "description": "Choose your nightly questions, reminder time and how long reviews are kept.",
+    "index": false
+  },
+  "/coach": {
+    "title": "Weekly Reflection",
+    "description": "A few kind, small steps from your week of worship — worked out on your device, never sent anywhere.",
+    "index": false
+  },
+  "/circles": {
+    "title": "Circles",
+    "description": "Your family, accountability partner and group khatm circles. Private by design: no leaderboards, no comparisons.",
+    "index": false
+  },
+  "/circle/join": {
+    "title": "Join a Circle",
+    "description": "Join a family, partner or group khatm circle with an invite code.",
+    "index": false
+  },
+  "/family": {
+    "title": "Family",
+    "description": "Gently help your children build the habit of salah. Parents see only the five fard salah statuses and their child's stickers.",
+    "index": false
+  },
+  "/family/add-child": {
+    "title": "Add a Child",
+    "description": "Add a child profile with a nickname and birth year only.",
+    "index": false
+  },
+  "/family/invite": {
+    "title": "Invite to Your Family Circle",
+    "description": "Invite the other parent or a young person aged 13 or over with their own account.",
+    "index": false
+  },
+  "/family/child": {
+    "title": "Child Profile",
+    "description": "Log on your child's behalf, link their device, set a reward and manage graduation.",
+    "index": false
+  },
+  "/kids": {
+    "title": "Kids Mode",
+    "description": "A simple space for children: five big salah buttons, short surahs and daily duas.",
+    "index": false
+  },
+  "/kids/link": {
+    "title": "Link a Child's Device",
+    "description": "Link this device to a child profile with the parent's one-time QR code.",
+    "index": false
+  },
+  "/kids/graduate": {
+    "title": "Move to Your Own Account",
+    "description": "Turn a child profile into your own account inside the family circle.",
+    "index": false
+  },
+  "/kids/salah": {
+    "title": "Salah Path for Kids",
+    "description": "Wudu, the five daily Salah and how to pray, step by step, from the Salah guide.",
+    "index": false
+  },
+  "/kids/prophets": {
+    "title": "Prophets for Kids",
+    "description": "Stories of the prophets chosen for children from the prophets guide.",
+    "index": false
+  },
+  "/family-ties": {
+    "title": "Family Ties (Silat al-Rahim)",
+    "description": "Gentle reminders to keep in touch with your parents and relatives — call, message or make dua. Names stay encrypted on your device.",
+    "index": false
+  },
+  "/family-ties/edit": {
+    "title": "Add a Relative",
+    "description": "Add or edit a relative and how often you would like to keep in touch.",
+    "index": false
+  },
+  "/family-ties/history": {
+    "title": "Family Ties History",
+    "description": "The calls, visits, messages, gifts and duas you have logged.",
+    "index": false
   },
   "/journal": {
     "title": "Prayer Journal",
@@ -617,6 +787,11 @@
     "description": "Your saved Qur'an ayahs, kept together for quick return.",
     "index": false
   },
+  "/quran/notes": {
+    "title": "My Qur'an Notes",
+    "description": "Your own reflections, highlights and tags on ayahs of the Qur'an — kept on your device and synced to your account.",
+    "index": false
+  },
   "/quran/hifz": {
     "title": "Hifz Tracker — Memorize the Qur'an",
     "description": "Track the surahs and ayahs you are memorizing. A lightweight hifz companion that stays on your device.",
@@ -749,8 +924,8 @@
     "index": false
   },
   "/settings/notifications": {
-    "title": "Notification Settings",
-    "description": "Choose reminders for salah, qaza, and zikr.",
+    "title": "Reminders & Notifications",
+    "description": "Choose reminders for salah, adhan, qaza, and zikr.",
     "index": false
   },
   "/settings/time-format": {
@@ -761,6 +936,56 @@
   "/settings/weather": {
     "title": "Weather",
     "description": "Home hero weather effects and temperature unit.",
+    "index": false
+  },
+  "/settings/accessibility": {
+    "title": "Accessibility & Feedback",
+    "description": "Haptics, text sizes and screen-reader tips.",
+    "index": false
+  },
+  "/settings/audio": {
+    "title": "Audio & Voice",
+    "description": "Playback speed, volume and the device voice for each language.",
+    "index": false
+  },
+  "/settings/content": {
+    "title": "Hadith, Duas & Adhkar Settings",
+    "description": "What hadith and dua reading views show.",
+    "index": false
+  },
+  "/settings/data": {
+    "title": "Data & Storage",
+    "description": "Cloud sync, offline data, backup, and resetting settings or app data.",
+    "index": false
+  },
+  "/settings/circles": {
+    "title": "Family & Circles Settings",
+    "description": "Family circles, kids mode on a child's device, and notifications for partner and group khatm circles.",
+    "index": false
+  },
+  "/settings/devices": {
+    "title": "Devices & Integrations",
+    "description": "Voice assistants, Live Activities, widgets, TV pairing and the native apps.",
+    "index": false
+  },
+  "/settings/fiqh": {
+    "title": "Fiqh & Madhhab",
+    "description": "Your school of jurisprudence for rulings across the app.",
+    "index": false
+  },
+  "/settings/prayer-times": {
+    "title": "Salah Times & Location",
+    "description": "Location, calculation method, Asr method, high-latitude rule and masjid offsets.",
+    "index": false
+  },
+  "/settings/privacy": {
+    "title": "Privacy & Security",
+    "description": "App lock, device history and your content reports.",
+    "index": false
+  },
+  "/settings/quran": {
+    "title": "Qur'an Settings",
+    "description": "Reader layout, translations, tafsir, reciter and practice defaults.",
     "index": false
   },
   "/sick": {
@@ -825,6 +1050,50 @@
       "shortening salah"
     ]
   },
+  "/habits": {
+    "title": "Daily Sunnah Habits — Miswak, Ayat al-Kursi, Salam & More",
+    "description": "A small, personal checklist of everyday sunnahs — miswak, wudu before sleep, Ayat al-Kursi, Surah al-Mulk, istighfar, salawat, salam and smiling — each with its hadith or Qur'an reference and gentle 30-day consistency dots.",
+    "keywords": [
+      "daily sunnah habits",
+      "sunnah checklist",
+      "miswak sunnah",
+      "ayat al kursi before sleep",
+      "surah mulk every night"
+    ]
+  },
+  "/dhul-hijjah": {
+    "title": "Dhul-Hijjah Mode — The Best Ten Days, Arafah & Takbir al-Tashriq",
+    "description": "Make the most of the first ten days of Dhul-Hijjah: daily deeds checklist, takbir, tahlil and tahmid counters, the Day of Arafah, Takbir al-Tashriq after each fard per your madhhab, and an udhiyah planner.",
+    "keywords": [
+      "dhul hijjah ten days",
+      "day of arafah",
+      "takbir al tashriq",
+      "udhiyah planner",
+      "eid al adha"
+    ]
+  },
+  "/dhul-hijjah/udhiyah": {
+    "title": "Udhiyah (Qurbani) Planner",
+    "description": "Plan your udhiyah: who it is due on per madhhab, animal and shares, minimum ages, the slaughter window after the Eid prayer, distribution and the hair-and-nails ruling.",
+    "keywords": [
+      "udhiyah planner",
+      "qurbani planner",
+      "udhiyah rules",
+      "qurbani animal age",
+      "hair and nails dhul hijjah"
+    ]
+  },
+  "/rawatib": {
+    "title": "Sunnah Rawatib Tracker — The 12 Daily Sunnah Rakahs",
+    "description": "Track the confirmed sunnah rawatib before and after each Salah — the 12 (or 10) daily rakahs — with your madhhab's preset, optional extras and evidence from Sahih Muslim, Bukhari and Tirmidhi.",
+    "keywords": [
+      "sunnah rawatib",
+      "12 rakahs sunnah",
+      "sunnah muakkadah",
+      "sunnah before fajr",
+      "sunnah salah tracker"
+    ]
+  },
   "/white-days": {
     "title": "White Days Fasting — Ayyām al-Bīḍ (13th, 14th, 15th)",
     "description": "The sunnah of fasting the White Days — the 13th, 14th and 15th of each Hijri month. Their virtue as fasting a lifetime, how to observe them, and evidence from Qur'an and hadith.",
@@ -864,6 +1133,22 @@
   "/zikr/favorites": {
     "title": "Favorite Adhkar",
     "description": "Your favorited adhkar, kept together for quick access.",
+    "index": false
+  },
+  "/focus-lock": {
+    "title": "Salah Focus Lock — Put Distracting Apps Away at Salah Time",
+    "description": "Choose apps to pause around each Salah until you pray or the window ends. Gentle, firm or strict modes, emergency unlocks, and calls and messages are never blocked.",
+    "keywords": [
+      "salah focus lock",
+      "prayer time app blocker",
+      "block apps at salah time",
+      "namaz app lock",
+      "focus mode for salah"
+    ]
+  },
+  "/focus-lock/setup": {
+    "title": "Set Up Salah Focus",
+    "description": "Grant permissions, choose apps and pick your Salah windows, timing and unlock mode.",
     "index": false
   }
 }

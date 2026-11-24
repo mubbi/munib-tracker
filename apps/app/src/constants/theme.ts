@@ -117,6 +117,9 @@ export const CategoryHues = {
   dawn: "#C9923A",
   sky: "#4C8FD9",
   rose: "#C46A7A",
+  // NF-3.21: the app keeps ONE palette of soft hues — ayah highlights use these too.
+  sage: "#5E9E72",
+  violet: "#8E6CC8",
 } as const;
 
 /** Browse-section hue keys (`accent` follows the user's chosen accent). */

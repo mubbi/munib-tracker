@@ -7,6 +7,7 @@ import { QuizPlayer } from "@/components/quiz/quiz-player";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
+import { useMadhhab } from "@/hooks/use-madhhab";
 import {
   ensureSectionQuizContent,
   getLearnSectionDef,
@@ -40,10 +41,12 @@ export function LearnSectionQuizScreen({ sectionId }: LearnSectionQuizScreenProp
     });
   }, [sectionId]);
 
+  // School-dependent questions follow "My madhhab" (NF-3.0a).
+  const { schoolFor } = useMadhhab();
   // biome-ignore lint/correctness/useExhaustiveDependencies: locale + content version
   const questions = useMemo(
-    () => toQuizPlayerQuestions(getQuestionsForSection(sectionId, (key) => t(key))),
-    [sectionId, i18n.language, version, t],
+    () => toQuizPlayerQuestions(getQuestionsForSection(sectionId, (key) => t(key), schoolFor)),
+    [sectionId, i18n.language, version, t, schoolFor],
   );
 
   if (!def) {

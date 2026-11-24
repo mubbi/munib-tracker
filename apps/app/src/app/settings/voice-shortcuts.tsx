@@ -1,24 +1,17 @@
-import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
+import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getIntentsForPlatform } from "@/lib/appSurfaces/intents/registry";
-import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function VoiceShortcutsScreen() {
-  const formMaxWidth = useSettingsFormMaxWidth();
-  const router = useRouter();
   const { t } = useTranslation();
   const isAndroid = Platform.OS === "android";
   const isIos = Platform.OS === "ios";
@@ -32,47 +25,25 @@ export default function VoiceShortcutsScreen() {
     [isAndroid],
   );
 
-  if (isTV()) {
+  // Siri / Assistant shortcuts are phone-only: TV and web bounce to the group (§4.5.10).
+  if (isTV() || Platform.OS === "web") {
     return (
-      <ScreenLayout
-        maxContentWidth={formMaxWidth}
-        eyebrow={t("settings.title")}
+      <SettingsDetailScreen
+        parent="devices"
+        path="/settings/voice-shortcuts"
         title={title}
-        onBack={() => goBackOrReplace(router, "/settings")}
-      >
-        <Seo path="/settings/voice-shortcuts" />
-        <EmptyState
-          icon={{ ios: "tv", android: "tv", web: "tv" }}
-          title={t("common.tvUnavailableTitle")}
-          description={t("common.tvUnavailableBody")}
-        />
-      </ScreenLayout>
-    );
-  }
-
-  if (Platform.OS === "web") {
-    return (
-      <ScreenLayout
-        maxContentWidth={formMaxWidth}
-        eyebrow={t("settings.title")}
-        title={title}
-        subtitle={t("pinLock.webUnavailable")}
-        onBack={() => goBackOrReplace(router, "/settings")}
-      >
-        <Seo path="/settings/voice-shortcuts" />
-      </ScreenLayout>
+        available={false}
+      />
     );
   }
 
   return (
-    <ScreenLayout
-      maxContentWidth={formMaxWidth}
-      eyebrow={t("settings.title")}
+    <SettingsDetailScreen
+      parent="devices"
+      path="/settings/voice-shortcuts"
       title={title}
       subtitle={subtitle}
-      onBack={() => goBackOrReplace(router, "/settings")}
     >
-      <Seo path="/settings/voice-shortcuts" />
       <Stagger>
         <Card padding="three">
           <ThemedText type="small" themeColor="mutedForeground">
@@ -158,7 +129,7 @@ export default function VoiceShortcutsScreen() {
           </Card>
         ) : null}
       </Stagger>
-    </ScreenLayout>
+    </SettingsDetailScreen>
   );
 }
 

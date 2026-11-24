@@ -9,7 +9,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isLiveActivitySupported } from "@/lib/live-activity";
-import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
+import { useSetting } from "@/lib/settings/use-setting";
 import { useHasSeenTour, useToursActions } from "@/stores/tours-store";
 
 /** Tours-store id for the one-shot Live Activity / countdown notification coach mark. */
@@ -24,21 +24,21 @@ export const LIVE_ACTIVITY_DISCOVERY_TOUR_ID = "liveActivityDiscovery";
 export function LiveActivityDiscoveryBanner() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const prefs = usePreferences();
-  const { update } = usePreferencesActions();
+  // Shortcut to Settings › Reminders & notifications › Live Activity (device pref).
+  const liveActivity = useSetting<boolean>("notifications.salah.liveActivity");
   const { markSeen } = useToursActions();
   const seen = useHasSeenTour(LIVE_ACTIVITY_DISCOVERY_TOUR_ID);
 
   const isIOS = Platform.OS === "ios";
   const isAndroid = Platform.OS === "android";
   const supported = isAndroid || (isIOS && isLiveActivitySupported());
-  const alreadyOn = prefs.liveActivityEnabled === true;
+  const alreadyOn = liveActivity.value === true;
 
   if (!supported || alreadyOn || seen) return null;
 
   const dismiss = () => void markSeen(LIVE_ACTIVITY_DISCOVERY_TOUR_ID);
   const enable = () => {
-    void update({ liveActivityEnabled: true });
+    void liveActivity.setValue(true);
     dismiss();
   };
 

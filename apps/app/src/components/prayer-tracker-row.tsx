@@ -1,4 +1,9 @@
-import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import type {
+  ObligatoryPrayer,
+  PrayerId,
+  PrayerStatus,
+  RawatibId,
+} from "@munib-tracker/shared/types";
 import { bestForeground } from "@munib-tracker/theme/color";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
@@ -14,6 +19,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
 import {
+  PRAYER_COMBINED_ICON,
   PRAYER_ICONS,
   PRAYER_JAMA_ICON,
   PRAYER_STATUS_MARK_GLYPH,
@@ -42,13 +48,18 @@ const ADHKAR_SEGMENT_IDS = [
 ] as const;
 
 type PrayerTrackerRowProps = {
-  prayerId: PrayerId;
+  /** Rawatib (NF-3.1) render as compact chips under their fard, never as a full row. */
+  prayerId: Exclude<PrayerId, RawatibId>;
   status: PrayerStatus;
   /** Computed or flexible display time for this prayer. */
   time?: string;
   hasNotes?: boolean;
   /** Prayed in congregation (jama') — shows a badge on completed fard rows (NF-1.5). */
   isJama?: boolean;
+  /** Prayed combined (jam') with this fard (NF-3.0a) — a small label in the row / history. */
+  combinedWith?: ObligatoryPrayer;
+  /** Pre-localized preferred-time hint (Fajr / Asr / Isha, NF-3.0a); today only. */
+  preferredHint?: string;
   onPress: () => void;
   /** After-salah adhkar completion for this fard prayer today. */
   afterSalahProgress?: { completed: number; total: number };
@@ -133,6 +144,8 @@ export function PrayerTrackerRow({
   time,
   hasNotes,
   isJama,
+  combinedWith,
+  preferredHint,
   onPress,
   afterSalahProgress,
   onPressAfterSalah,
@@ -154,9 +167,18 @@ export function PrayerTrackerRow({
     afterSalahProgress.total > 0 &&
     afterSalahProgress.completed >= afterSalahProgress.total;
   const showJama = status === "completed" && !!isJama;
-  const rowA11y = showJama
-    ? t("statusSheet.rowA11yJama", { prayer: prayerName, status: statusLabel })
-    : t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel });
+  const combinedLabel = combinedWith
+    ? t("tracker.combined.rowLabel", { prayer: t(`prayers.${combinedWith}`) })
+    : null;
+  const rowA11y = [
+    showJama
+      ? t("statusSheet.rowA11yJama", { prayer: prayerName, status: statusLabel })
+      : t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel }),
+    combinedLabel,
+    preferredHint,
+  ]
+    .filter(Boolean)
+    .join(". ");
 
   const showAdhkar = afterSalahProgress != null && afterSalahProgress.total > 0;
   const adhkarPressable = showAdhkar && onPressAfterSalah != null;
@@ -249,10 +271,27 @@ export function PrayerTrackerRow({
             >
               {markHint}
             </ThemedText>
-            {hasNotes || showJama ? (
+            {preferredHint ? (
+              <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
+                {preferredHint}
+              </ThemedText>
+            ) : null}
+            {hasNotes || showJama || combinedLabel ? (
               <View style={styles.metaLine}>
                 {showJama ? (
                   <SymbolView name={PRAYER_JAMA_ICON} size={12} tintColor={successColor} />
+                ) : null}
+                {combinedLabel ? (
+                  <>
+                    <SymbolView name={PRAYER_COMBINED_ICON} size={12} tintColor={colors.accent} />
+                    <ThemedText
+                      type="caption"
+                      numberOfLines={1}
+                      style={{ color: colors.mutedForeground, flexShrink: 1 }}
+                    >
+                      {combinedLabel}
+                    </ThemedText>
+                  </>
                 ) : null}
                 {hasNotes ? (
                   <SymbolView

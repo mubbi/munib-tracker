@@ -1,14 +1,11 @@
-import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
+import { BiometricUnlockRow } from "@/components/settings/editors/link-rows";
+import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -18,7 +15,6 @@ import { VerifyPinModal } from "@/features/pin-lock/components/verify-pin-modal"
 import { LOCK_TIMEOUT_OPTIONS, usePinLock } from "@/features/pin-lock/providers/pin-lock-provider";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
-import { goBackOrReplace } from "@/lib/navigation";
 import { isExpoGo } from "@/lib/notifications/platform";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
@@ -26,8 +22,6 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
 
 export default function AppLockScreen() {
-  const formMaxWidth = useSettingsFormMaxWidth();
-  const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const toast = useToast();
@@ -51,35 +45,15 @@ export default function AppLockScreen() {
   const expoGo = isExpoGo();
   const isNative = Platform.OS === "ios" || Platform.OS === "android";
 
-  if (isTV()) {
+  // TV has no PIN pad and web has no secure storage: the route bounces to Privacy.
+  if (isTV() || !isNative) {
     return (
-      <ScreenLayout
-        maxContentWidth={formMaxWidth}
-        eyebrow={t("settings.title")}
+      <SettingsDetailScreen
+        parent="privacy"
+        path="/settings/app-lock"
         title={t("pinLock.title")}
-        onBack={() => goBackOrReplace(router, "/")}
-      >
-        <Seo path="/settings/app-lock" />
-        <EmptyState
-          icon={{ ios: "tv", android: "tv", web: "tv" }}
-          title={t("common.tvUnavailableTitle")}
-          description={t("common.tvUnavailableBody")}
-        />
-      </ScreenLayout>
-    );
-  }
-
-  if (!isNative) {
-    return (
-      <ScreenLayout
-        maxContentWidth={formMaxWidth}
-        eyebrow={t("settings.title")}
-        title={t("pinLock.title")}
-        subtitle={t("pinLock.webUnavailable")}
-        onBack={() => goBackOrReplace(router, "/")}
-      >
-        <Seo path="/settings/app-lock" />
-      </ScreenLayout>
+        available={false}
+      />
     );
   }
 
@@ -90,14 +64,12 @@ export default function AppLockScreen() {
   };
 
   return (
-    <ScreenLayout
-      maxContentWidth={formMaxWidth}
-      eyebrow={t("settings.title")}
+    <SettingsDetailScreen
+      parent="privacy"
+      path="/settings/app-lock"
       title={t("pinLock.title")}
       subtitle={t("pinLock.settingsSubtitle")}
-      onBack={() => goBackOrReplace(router, "/")}
     >
-      <Seo path="/settings/app-lock" />
       <Stagger>
         {expoGo ? (
           <Card padding="three">
@@ -185,6 +157,8 @@ export default function AppLockScreen() {
                 </ThemedText>
                 <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
               </PressableScale>
+
+              <BiometricUnlockRow />
 
               <View style={styles.timeoutSection}>
                 <ThemedText type="small">{t("pinLock.lockTimeout")}</ThemedText>
@@ -308,7 +282,7 @@ export default function AppLockScreen() {
           return false;
         }}
       />
-    </ScreenLayout>
+    </SettingsDetailScreen>
   );
 }
 

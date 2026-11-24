@@ -6,6 +6,7 @@ import { EMPTY_HISTORY } from "@/lib/quran-companion/merge";
 import type { PracticeHistory, PracticeSummary } from "@/lib/quran-companion/types";
 
 import { createStore, useStore } from "./create-store";
+import { recordPracticeReading } from "./quran-reading-log-store";
 
 /**
  * Practice history (§10) plus two in-memory pieces the routes share:
@@ -48,6 +49,8 @@ export const quranPracticeStore = createStore<PracticeState>((set, get) => ({
     set({ lastSummary: summary });
     const history = await QuranPracticeRepository.add(summary);
     set({ history });
+    // D40: a practice session is a reading day in the daily Qur'an reading log.
+    void recordPracticeReading(summary);
   },
 
   async clearHistory() {

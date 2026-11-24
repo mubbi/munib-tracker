@@ -3,13 +3,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, TextInput } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { useSettingsFormMaxWidth } from "@/components/settings/settings-layout";
+import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
@@ -28,7 +25,6 @@ import { useToast } from "@/providers/toast-provider";
 import { reloadAllStores } from "@/stores/reload-all-stores";
 
 export default function BackupScreen() {
-  const formMaxWidth = useSettingsFormMaxWidth();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -39,21 +35,15 @@ export default function BackupScreen() {
   const [pending, setPending] = useState<BackupFile | null>(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
+  // No route-level empty state on TV (§4.5.10): bounce to the group.
   if (isTV()) {
     return (
-      <ScreenLayout
-        maxContentWidth={formMaxWidth}
-        eyebrow={t("settings.title")}
+      <SettingsDetailScreen
+        parent="data"
+        path="/settings/backup"
         title={t("backup.title")}
-        onBack={() => goBackOrReplace(router, "/settings")}
-      >
-        <Seo path="/settings/backup" />
-        <EmptyState
-          icon={{ ios: "tv", android: "tv", web: "tv" }}
-          title={t("common.tvUnavailableTitle")}
-          description={t("common.tvUnavailableBody")}
-        />
-      </ScreenLayout>
+        available={false}
+      />
     );
   }
 
@@ -98,18 +88,16 @@ export default function BackupScreen() {
     setPending(null);
     setImportText("");
     toast.success(t("backup.restored"));
-    goBackOrReplace(router, "/settings");
+    goBackOrReplace(router, "/settings/data");
   };
 
   return (
-    <ScreenLayout
-      maxContentWidth={formMaxWidth}
-      eyebrow={t("settings.title")}
+    <SettingsDetailScreen
+      parent="data"
+      path="/settings/backup"
       title={t("backup.title")}
       subtitle={t("backup.subtitle")}
-      onBack={() => goBackOrReplace(router, "/settings")}
     >
-      <Seo path="/settings/backup" />
       <Stagger>
         <Card padding="three">
           <SectionHeader
@@ -174,7 +162,7 @@ export default function BackupScreen() {
         onConfirm={() => void onRestore()}
         onClose={() => setConfirmOpen(false)}
       />
-    </ScreenLayout>
+    </SettingsDetailScreen>
   );
 }
 

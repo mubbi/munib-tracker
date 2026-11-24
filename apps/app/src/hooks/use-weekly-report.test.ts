@@ -56,7 +56,7 @@ beforeEach(() => {
 });
 
 describe("useWeeklyReport", () => {
-  it("delivers the weekly report linking to statistics", async () => {
+  it("delivers the weekly report linking to the weekly reflection", async () => {
     await setup();
     expect(readJSON).toHaveBeenCalledWith(expect.any(String), undefined);
     expect(writeJSON).toHaveBeenCalledWith(expect.any(String), expect.any(String));
@@ -65,7 +65,7 @@ describe("useWeeklyReport", () => {
       id: "weekly-2026-11-18",
       title: i18n.t("weeklyReport.title"),
       body: i18n.t("weeklyReport.body", { prayers: 20, perfect: 2, qaza: 3, zikr: 4 }),
-      route: "/statistics",
+      route: "/coach",
     });
     expect(scheduleReviewTriggerFromWake).toHaveBeenCalled();
     expect(maybeDeliverReviewReactivation).toHaveBeenCalled();

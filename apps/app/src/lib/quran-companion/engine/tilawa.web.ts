@@ -53,7 +53,8 @@ export function isEngineRuntimeSupported(): boolean {
   );
 }
 
-const platform: EnginePlatform = {
+/** Per-platform ORT loader, shared with the FastConformer runner (`lib/speech`). */
+export const enginePlatform: EnginePlatform = {
   loadOrt() {
     if (!isEngineRuntimeSupported())
       return Promise.reject(new PracticeError("runtime-unsupported"));
@@ -85,5 +86,5 @@ export function createPlatformEngine(
   engine: EngineId,
   assets: LoadedModelAssets,
 ): Promise<RecitationEngine> {
-  return createTilawaEngine(engine, assets, platform);
+  return createTilawaEngine(engine, assets, enginePlatform);
 }

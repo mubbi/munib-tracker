@@ -28,6 +28,7 @@ import {
   resolveReadingFontSizes,
   translationReadingStyle,
 } from "@/lib/reading-typography";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
 import { buildAyahSharePayload } from "@/lib/share";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
 import type { ZikrQuranRange } from "@/lib/zikr-quran";
@@ -35,7 +36,6 @@ import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import type { AudioTrack } from "@/providers/audio-player-types";
 import { usePreferences } from "@/stores/preferences-store";
 import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
-import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 const BUNDLED_EN_FALLBACK = "en-pickthall";
 
@@ -74,7 +74,7 @@ export function QuranAyahRangeCards({
   const internalShare = useShareContentCard();
   const shareCard = shareCardProp ?? internalShare;
   const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
+  const { showTransliteration, showTranslation } = useReadingDisplay();
   const sizes = resolveReadingFontSizes("quran", fontPrefs);
   const editionId = resolveQuranEditionId({ translationLocale, locale: appLocale });
 

@@ -13,7 +13,9 @@ const mockAudio = {
   setTranslationAudio: jest.fn(),
 };
 const mockUpdatePrefs = jest.fn(async (_patch: Partial<QuranPrefs>) => undefined);
+const mockSetTtsVoice = jest.fn(async (_lang: string, _voiceId: string | undefined) => undefined);
 let mockPrefs: Partial<QuranPrefs> = {};
+let mockVoices: Record<string, string> = {};
 let mockSheetProps: PlaybackSettingsSheetProps | null = null;
 
 jest.mock("@/providers/audio-player-provider", () => ({
@@ -22,7 +24,16 @@ jest.mock("@/providers/audio-player-provider", () => ({
 
 jest.mock("@/stores/quran-store", () => ({
   useQuranPrefs: () => mockPrefs,
-  useQuranActions: () => ({ updatePrefs: mockUpdatePrefs }),
+}));
+
+// Writes go through the settings registry (single write path, §4.5.4).
+jest.mock("@/lib/settings/quran-shortcuts", () => ({
+  updateQuranPrefs: (patch: Partial<QuranPrefs>) => mockUpdatePrefs(patch),
+}));
+
+jest.mock("@/lib/settings/tts-voice", () => ({
+  useTtsVoice: (lang: string) => mockVoices[lang],
+  setTtsVoice: (lang: string, voiceId: string | undefined) => mockSetTtsVoice(lang, voiceId),
 }));
 
 jest.mock("@/stores/preferences-store", () => ({
@@ -62,6 +73,7 @@ describe("QuranPlaybackSettingsControl", () => {
     mockAudio.sourceHref = "/quran/1";
     mockAudio.queue = [];
     mockPrefs = {};
+    mockVoices = {};
     mockSheetProps = null;
   });
 
@@ -138,23 +150,17 @@ describe("QuranPlaybackSettingsControl", () => {
   });
 
   it("passes the stored voice for the TTS language", async () => {
-    mockPrefs = { ttsVoiceByLang: { "en-US": "voice-old" } };
+    mockVoices = { "en-US": "voice-old" };
     await renderControl();
     expect(sheet().ttsVoiceId).toBe("voice-old");
   });
 
-  it.each([
-    [undefined, "voice-x", { "en-US": "voice-x" }],
-    [
-      { "en-US": "voice-old", "ur-PK": "voice-ur" },
-      "voice-x",
-      { "en-US": "voice-x", "ur-PK": "voice-ur" },
-    ],
-    [{ "en-US": "voice-old", "ur-PK": "voice-ur" }, undefined, { "ur-PK": "voice-ur" }],
-  ])("updates the voice map %j with %p", async (ttsVoiceByLang, voiceId, expected) => {
-    mockPrefs = { ttsVoiceByLang };
-    await renderControl();
-    await act(() => sheet().onTtsVoiceChange(voiceId));
-    expect(mockUpdatePrefs).toHaveBeenCalledWith({ ttsVoiceByLang: expected });
-  });
+  it.each(["voice-x", undefined])(
+    "stores the device voice %p for the TTS language",
+    async (voiceId) => {
+      await renderControl();
+      await act(() => sheet().onTtsVoiceChange(voiceId));
+      expect(mockSetTtsVoice).toHaveBeenCalledWith("en-US", voiceId);
+    },
+  );
 });

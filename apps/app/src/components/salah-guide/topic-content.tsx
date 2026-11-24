@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View, type ViewInstance } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
+import { GuideMadhhabNotes } from "@/components/fiqh/guide-madhhab-notes";
 import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
@@ -69,7 +70,7 @@ export type SalahGuideStepsAudioProps = {
   registerStep?: (index: number) => (node: ViewInstance | null) => void;
 };
 
-function SalahGuideSteps({
+export function SalahGuideSteps({
   steps,
   audio,
 }: {
@@ -265,6 +266,7 @@ export function SalahGuideTopicContent({
       {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}
       {topic.steps?.length ? <SalahGuideSteps steps={topic.steps} audio={stepsAudio} /> : null}
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
+      <GuideMadhhabNotes ids={topic.differenceIds} />
 
       {topic.appLinks?.length ? (
         <Card padding="three">

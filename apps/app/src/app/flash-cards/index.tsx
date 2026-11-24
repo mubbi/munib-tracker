@@ -7,6 +7,7 @@ import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
+import { useMadhhab } from "@/hooks/use-madhhab";
 import { ensureFlashCardContent, getFlashCardPool, type StudyMcq } from "@/lib/flash-cards";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -28,10 +29,12 @@ export default function FlashCardsScreen() {
     });
   }, []);
 
+  // School-dependent cards follow "My madhhab" (NF-3.0a).
+  const { schoolFor } = useMadhhab();
   // biome-ignore lint/correctness/useExhaustiveDependencies: rebuild when locale or warm pool changes
   const pool: StudyMcq[] = useMemo(
-    () => getFlashCardPool((key) => t(key)),
-    [i18n.language, poolVersion, t],
+    () => getFlashCardPool((key) => t(key), schoolFor),
+    [i18n.language, poolVersion, t, schoolFor],
   );
 
   return (

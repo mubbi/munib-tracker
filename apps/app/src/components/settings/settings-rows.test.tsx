@@ -61,7 +61,7 @@ describe("SettingsRowGroup", () => {
 describe("SettingsRow", () => {
   it("presses through", async () => {
     const { onPress } = await renderGroup();
-    await fireEvent.press(screen.getByLabelText("Language"));
+    await fireEvent.press(screen.getByLabelText("Language, English"));
     expect(onPress).toHaveBeenCalled();
   });
 
@@ -122,7 +122,7 @@ describe("ToggleRow", () => {
           preferredFocus
         />,
       );
-      await fireEvent.press(screen.getByLabelText("Language"));
+      await fireEvent.press(screen.getByLabelText("Language, English"));
       expect(onPress).toHaveBeenCalled();
     });
   });

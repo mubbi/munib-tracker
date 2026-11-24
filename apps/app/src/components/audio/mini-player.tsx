@@ -29,6 +29,7 @@ import Reanimated, {
 import { TtsVoiceControl } from "@/components/audio/tts-voice-control";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QuranPlaybackSettingsControl } from "@/components/quran/quran-playback-settings-control";
+import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { ThemedText } from "@/components/themed-text";
 import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
@@ -1425,6 +1426,15 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           </PressableScale>
         ) : null}
 
+        {/* Speed / volume / voice here are shortcuts to Settings › Audio & voice. */}
+        {tv ? null : (
+          <MoreInSettingsLink
+            settingId="audio.speed"
+            onNavigate={onCollapse}
+            style={styles.moreInSettings}
+          />
+        )}
+
         {/* Playlist — isolated so progress-clock re-renders don't thrash FlatList */}
         {hasQueue ? <ExpandedPlaylist queue={queue} activeIndex={index} onJumpTo={jumpTo} /> : null}
       </ExpandedSheetHost>
@@ -1633,6 +1643,7 @@ const PlaylistRow = memo(function PlaylistRow({
 });
 
 const styles = StyleSheet.create({
+  moreInSettings: { alignSelf: "center" },
   container: {
     position: "absolute",
     start: 0,

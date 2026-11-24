@@ -3,6 +3,11 @@ import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 import AppearanceScreen from "@/app/settings/appearance";
 import { renderWithProviders } from "@/test-support/render";
 
+jest.mock(
+  "@/providers/audio-player-provider",
+  () => require("@/test-support/mocks/audio-player-provider").audioPlayerProviderMock,
+);
+
 /** Theme prefs hydrate from AsyncStorage before swatches paint. */
 async function waitForAppearanceScreen() {
   await waitFor(

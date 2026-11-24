@@ -1,12 +1,14 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 
 import { NotificationPermissionBanner } from "@/components/notifications/permission-banner";
+import { preferencesStore } from "@/stores/preferences-store";
 import { resetAuthMock, setMockAuth } from "@/test-support/mocks/auth-provider";
 import {
   mockNotificationsOs,
   resetSwitchableNotificationsPlatformMock,
 } from "@/test-support/mocks/notifications-platform";
 import { mockToast, resetToastMock } from "@/test-support/mocks/toast-provider";
+import { resetPreferences } from "@/test-support/preferences";
 import { renderWithTheme } from "@/test-support/render";
 
 type PermState = {
@@ -23,7 +25,6 @@ type PermState = {
 let mockPerm: PermState;
 let mockBeginResult: unknown = null;
 let mockCanRequestWeb = true;
-const mockSetPrefs = jest.fn(async (_p: unknown) => undefined);
 const mockReschedule = jest.fn(async (..._a: unknown[]) => undefined);
 const mockRegisterWebPush = jest.fn(async (_t: string) => undefined);
 
@@ -51,10 +52,6 @@ jest.mock("@/lib/notifications/web-environment", () => ({
 }));
 jest.mock("@/notifications/scheduler", () => ({
   rescheduleAll: (...args: unknown[]) => mockReschedule(...args),
-}));
-jest.mock("@/stores/preferences-store", () => ({
-  ...jest.requireActual("@/stores/preferences-store"),
-  usePreferencesActions: () => ({ setNotificationPrefs: mockSetPrefs }),
 }));
 
 const ENABLE = "Enable notifications";
@@ -84,11 +81,11 @@ async function pressEnable() {
 }
 
 describe("NotificationPermissionBanner", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     resetSwitchableNotificationsPlatformMock();
     mockBeginResult = null;
     mockCanRequestWeb = true;
-    mockSetPrefs.mockClear();
+    await resetPreferences();
     mockReschedule.mockClear();
     mockRegisterWebPush.mockClear();
     resetAuthMock();
@@ -108,7 +105,8 @@ describe("NotificationPermissionBanner", () => {
       const perm = await renderBanner();
       await pressEnable();
       expect(perm.requestPermission).toHaveBeenCalledWith();
-      expect(mockSetPrefs).toHaveBeenCalledWith({ masterEnabled: true });
+      // Shared `enableNotifications()` path (NF-3.0b): master on + one reschedule.
+      expect(preferencesStore.getState().prefs.notificationPrefs.masterEnabled).toBe(true);
       expect(mockReschedule).toHaveBeenCalledTimes(1);
       expect(mockRegisterWebPush).not.toHaveBeenCalled();
     });

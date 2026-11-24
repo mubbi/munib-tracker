@@ -48,6 +48,8 @@ type PrayerTimesHeroProps = {
   currentTime: string;
   /** Pre-localized countdown line, e.g. "Maghrib is 27 min away". */
   countdown: string;
+  /** Pre-localized home-masjid iqamah line (NF-3.11), e.g. "Dhuhr iqamah in 25 min"; null hides it. */
+  iqamahCountdown?: string | null;
   prayers: PrayerTime[];
   /** Index of the prayer whose window is currently running (the highlighted card). */
   activeIndex: number;
@@ -162,6 +164,7 @@ export function PrayerTimesHero({
   displayDates,
   currentTime,
   countdown,
+  iqamahCountdown = null,
   prayers,
   activeIndex,
   topInset,
@@ -484,7 +487,11 @@ export function PrayerTimesHero({
             <View
               accessible
               accessibilityLiveRegion="polite"
-              accessibilityLabel={t("hero.clockLabel", { time: currentTime, countdown })}
+              accessibilityLabel={
+                iqamahCountdown
+                  ? `${t("hero.clockLabel", { time: currentTime, countdown })}. ${iqamahCountdown}`
+                  : t("hero.clockLabel", { time: currentTime, countdown })
+              }
               style={styles.clockGroup}
             >
               <ThemedText type="display" style={[styles.clock, { color: Brand.heroText }]}>
@@ -500,6 +507,18 @@ export function PrayerTimesHero({
               >
                 {countdown}
               </ThemedText>
+              {iqamahCountdown ? (
+                <ThemedText
+                  style={[
+                    styles.iqamahLine,
+                    tv ? styles.iqamahLineTv : null,
+                    styles.softShadow,
+                    { color: Brand.heroText },
+                  ]}
+                >
+                  {iqamahCountdown}
+                </ThemedText>
+              ) : null}
             </View>
           </View>
 
@@ -934,6 +953,16 @@ const styles = StyleSheet.create({
   countdownTv: {
     fontSize: 24,
     lineHeight: 30,
+  },
+  iqamahLine: {
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: "500",
+    opacity: 0.92,
+  },
+  iqamahLineTv: {
+    fontSize: 20,
+    lineHeight: 26,
   },
   /** Soft dark shadow that lifts light text off any sky. */
   softShadow: {

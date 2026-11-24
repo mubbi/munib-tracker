@@ -740,6 +740,12 @@ function assembleLightGroups(
     name: searchNames(query, perGroupLimit),
     durood: searchDuroods(query, perGroupLimit),
     ...guides,
+    // Settings are searched by the screen (needs the UI locale + live values).
+    settings: { results: [], total: 0 },
+    // NF-3.21 personal notes are searched by the screen from the notes store (local only).
+    notes: { results: [], total: 0 },
+    // NF-3.22 roots come from the on-device index, merged in by the screen.
+    roots: { results: [], total: 0 },
   };
 
   return SEARCH_CATEGORY_ORDER.map((category) => ({ category, ...byCategory[category] })).filter(

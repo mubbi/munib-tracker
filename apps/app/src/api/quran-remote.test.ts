@@ -1,9 +1,12 @@
 import { BUNDLED_QURAN_EDITION_IDS } from "@munib-tracker/shared/i18n";
 
 import { QuranCacheRepository } from "@/db";
+import { DB_KEYS } from "@/db/keys";
 import * as ossReport from "@/lib/report-oss-content-download-failure";
 import { clearStaticJsonCache } from "@/lib/static-json-fetch";
 import { fakeResponse, mockFetch } from "@/test-support/fetch";
+import { resetPreferences, setPreferences } from "@/test-support/preferences";
+import { storedKeysUnder } from "@/test-support/storage";
 
 import {
   fetchRemoteEditionSurah,
@@ -101,5 +104,30 @@ describe("fetchRemoteEditionSurah", () => {
       "Empty Qur'an edition payload for en-clearquran surah 5",
     );
     expect(report).toHaveBeenCalledWith(expect.objectContaining({ errorCode: "empty_payload" }));
+  });
+});
+
+describe("fetchRemoteEditionSurah — cacheQuranEditionsLocally (B1)", () => {
+  afterEach(resetPreferences);
+
+  it("persists the surah to on-device storage by default", async () => {
+    mockFetch(fakeResponse({ chapter: [{ verse: 1, text: "Kept" }] }));
+    await fetchRemoteEditionSurah("en-clearquran", 6);
+    expect(await storedKeysUnder(DB_KEYS.quranEditionCache)).toHaveLength(1);
+  });
+
+  it("keeps the surah for the session only when the toggle is off", async () => {
+    await setPreferences({ cacheQuranEditionsLocally: false });
+    mockFetch(fakeResponse({ chapter: [{ verse: 1, text: "Session only" }] }));
+    await expect(fetchRemoteEditionSurah("en-clearquran", 7)).resolves.toEqual({
+      "1": "Session only",
+    });
+    expect(await storedKeysUnder(DB_KEYS.quranEditionCache)).toEqual([]);
+
+    const fetchMock = mockFetch(new Error("offline"));
+    await expect(fetchRemoteEditionSurah("en-clearquran", 7)).resolves.toEqual({
+      "1": "Session only",
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

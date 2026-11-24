@@ -1,5 +1,6 @@
 import type { QuranWord } from "@munib-tracker/shared/types";
 import { useAudioPlayer } from "expo-audio";
+import { useRouter } from "expo-router";
 import {
   createContext,
   memo,
@@ -14,6 +15,10 @@ import {
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import {
+  useRootDataNeedsDownload,
+  useSurahWordRoots,
+} from "@/components/quran/roots/use-word-roots";
 import { ThemedText } from "@/components/themed-text";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -21,6 +26,7 @@ import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
+import { rootToArabic } from "@/lib/quran-roots";
 import { arabicReadingLayout, sanitizeArabicText } from "@/lib/reading-typography";
 
 export { activeWordIndexAt } from "@/lib/quran-word-timing";
@@ -42,6 +48,10 @@ export function useQuranPlayback(): PlaybackValue {
 }
 
 const QuranWordsContext = createContext<Record<string, QuranWord[]>>(EMPTY_WORDS);
+
+/** NF-3.22: the surah being read (root chips) + a deep-linked word to highlight. */
+type WordFocusValue = { surah: number | null; focus: { ayah: number; index: number } | null };
+const QuranWordFocusContext = createContext<WordFocusValue>({ surah: null, focus: null });
 
 type WordAudioValue = { playUri: (uri: string) => Promise<void> };
 
@@ -95,8 +105,14 @@ export function QuranWordStudyProviders({
   audioIsPlaying = false,
   activeWordIndex,
   wordsByAyah,
+  surah = null,
+  focusWord = null,
   children,
 }: {
+  /** NF-3.22: enables "Root" chips on word tiles for this surah. */
+  surah?: number | null;
+  /** NF-3.22: word to highlight after a root-search deep link (0-based index). */
+  focusWord?: { ayah: number; index: number } | null;
   wordAudioEnabled: boolean;
   playingAyah: number | null;
   audioIsPlaying?: boolean;
@@ -112,14 +128,17 @@ export function QuranWordStudyProviders({
     () => ({ ayah: playingAyah, isPlaying: audioIsPlaying }),
     [playingAyah, audioIsPlaying],
   );
+  const focus = useMemo<WordFocusValue>(() => ({ surah, focus: focusWord }), [surah, focusWord]);
   const tree = (
-    <QuranPlaybackContext.Provider value={playback}>
-      <QuranWordsContext.Provider value={wordsByAyah ?? EMPTY_WORDS}>
-        <QuranActiveWordContext.Provider value={highlight}>
-          {children}
-        </QuranActiveWordContext.Provider>
-      </QuranWordsContext.Provider>
-    </QuranPlaybackContext.Provider>
+    <QuranWordFocusContext.Provider value={focus}>
+      <QuranPlaybackContext.Provider value={playback}>
+        <QuranWordsContext.Provider value={wordsByAyah ?? EMPTY_WORDS}>
+          <QuranActiveWordContext.Provider value={highlight}>
+            {children}
+          </QuranActiveWordContext.Provider>
+        </QuranWordsContext.Provider>
+      </QuranPlaybackContext.Provider>
+    </QuranWordFocusContext.Provider>
   );
   return wordAudioEnabled ? <WordAudioProviderLive>{tree}</WordAudioProviderLive> : tree;
 }
@@ -144,6 +163,8 @@ type WordCardTheme = {
   arabicFontFamily?: string;
   playHint: string;
   noAudioHint: string;
+  rootLabel: (root: string) => string;
+  noRootLabel: string;
 };
 
 type WordCardProps = {
@@ -156,6 +177,9 @@ type WordCardProps = {
   wordGlossSize: number;
   theme: WordCardTheme;
   onPlay: (index: number, uri: string | undefined) => void;
+  /** NF-3.22: roots from the dataset; [] = rootless; undefined = no chip. */
+  roots?: string[];
+  onOpenRoot?: (root: string) => void;
 };
 
 const WordCard = memo(function WordCard({
@@ -168,6 +192,8 @@ const WordCard = memo(function WordCard({
   wordGlossSize,
   theme,
   onPlay,
+  roots,
+  onOpenRoot,
 }: WordCardProps) {
   const handlePress = useCallback(() => {
     if (!word.audioUrl) return;
@@ -242,6 +268,27 @@ const WordCard = memo(function WordCard({
           </View>
         ) : null}
       </Host>
+      {roots && !tv ? (
+        roots.length ? (
+          roots.map((root) => (
+            <Pressable
+              key={root}
+              accessibilityRole="link"
+              accessibilityLabel={theme.rootLabel(rootToArabic(root))}
+              onPress={() => onOpenRoot?.(root)}
+              style={[styles.rootChip, { backgroundColor: theme.accentSoft }]}
+            >
+              <Text style={[styles.rootChipText, { color: theme.accent }]}>
+                {theme.rootLabel(rootToArabic(root))}
+              </Text>
+            </Pressable>
+          ))
+        ) : (
+          <Text style={[styles.rootChipText, styles.noRoot, { color: theme.mutedForeground }]}>
+            {theme.noRootLabel}
+          </Text>
+        )
+      ) : null}
     </View>
   );
 });
@@ -268,6 +315,18 @@ export const WordByWord = memo(function WordByWord({
   const wordAudio = useContext(WordAudioContext);
   const words = wordsProp ?? wordsFromContext[String(ayahNumber)] ?? EMPTY_WORD_LIST;
   const activeWordIndex = activeWord.ayah === ayahNumber ? activeWord.index : null;
+  const router = useRouter();
+  const wordFocus = useContext(QuranWordFocusContext);
+  const focusIndex = wordFocus.focus?.ayah === ayahNumber ? wordFocus.focus.index : null;
+  const surahRoots = useSurahWordRoots(wordFocus.surah, !tv && words.length > 0);
+  const rootsNeedDownload = useRootDataNeedsDownload();
+  // Chips only when Quran.com's word split matches the bundled split for this ayah.
+  const rootsAligned =
+    surahRoots != null && surahRoots.bundledCounts.get(ayahNumber) === words.length;
+  const openRoot = useCallback(
+    (root: string) => router.push({ pathname: "/quran/roots/[root]", params: { root } }),
+    [router],
+  );
 
   const theme = useMemo<WordCardTheme>(
     () => ({
@@ -280,6 +339,8 @@ export const WordByWord = memo(function WordByWord({
       arabicFontFamily,
       playHint: t("quran.wordByWord.playWord"),
       noAudioHint: t("quran.wordByWord.noAudio"),
+      rootLabel: (root: string) => t("quranRoots.chip", { root }),
+      noRootLabel: t("quranRoots.noRoot"),
     }),
     [
       arabicFontFamily,
@@ -328,6 +389,17 @@ export const WordByWord = memo(function WordByWord({
       >
         {t("quran.wordByWord.title")}
       </ThemedText>
+      {rootsNeedDownload && !tv && wordFocus.surah != null ? (
+        <Pressable
+          accessibilityRole="link"
+          onPress={() => router.push({ pathname: "/quran/search", params: { mode: "root" } })}
+          style={styles.rootsLink}
+        >
+          <Text style={[styles.rootChipText, { color: colors.accent }]}>
+            {t("quranRoots.showRoots")}
+          </Text>
+        </Pressable>
+      ) : null}
       <View style={[styles.grid, tv && styles.gridTv]}>
         {words.map((word, index) => (
           <WordCard
@@ -335,7 +407,11 @@ export const WordByWord = memo(function WordByWord({
             key={`${word.arabic}-${index}`}
             word={word}
             index={index}
-            isActive={activeWordIndex === index || tappedIndex === index}
+            isActive={activeWordIndex === index || tappedIndex === index || focusIndex === index}
+            roots={
+              rootsAligned ? (surahRoots?.roots.get(`${ayahNumber}:${index}`) ?? []) : undefined
+            }
+            onOpenRoot={openRoot}
             tv={tv}
             wordArabicSize={wordArabicSize}
             wordTranslitSize={wordTranslitSize}
@@ -350,6 +426,16 @@ export const WordByWord = memo(function WordByWord({
 });
 
 const styles = StyleSheet.create({
+  rootChip: {
+    alignSelf: "center",
+    marginTop: Spacing.one,
+    paddingHorizontal: Spacing.two,
+    paddingVertical: 2,
+    borderRadius: Radius.pill,
+  },
+  rootChipText: { fontSize: 12, textAlign: "center" },
+  noRoot: { marginTop: Spacing.one },
+  rootsLink: { alignSelf: "flex-start" },
   section: {
     marginTop: Spacing.three,
     gap: Spacing.two,

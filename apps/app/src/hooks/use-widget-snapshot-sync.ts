@@ -51,6 +51,7 @@ export function useWidgetSnapshotSync(enabled = true): void {
     liveActivityEnabled,
     translationLocale,
     salahTrackingSession,
+    hijriAdjustment,
   } = usePreferences();
   const summary = useDailySummary();
   const { status: prayerStatus } = useTodayPrayers();
@@ -67,6 +68,7 @@ export function useWidgetSnapshotSync(enabled = true): void {
   const locale = toAppLocale(i18n.language ?? "en");
   const meaningLocale = toAppLocale(translationLocale ?? locale);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: hijriAdjustment (D14) changes hijri.ts output in the snapshot.
   const sync = useCallback(async () => {
     if (!enabled || Platform.OS === "web" || isTV()) return;
     await ensureDailyHadithPool();
@@ -156,6 +158,7 @@ export function useWidgetSnapshotSync(enabled = true): void {
     tasbeehToday,
     timeFormat,
     enabled,
+    hijriAdjustment,
   ]);
 
   useEffect(() => {

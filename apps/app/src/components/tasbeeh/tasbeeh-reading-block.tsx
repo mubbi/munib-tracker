@@ -12,8 +12,8 @@ import {
   resolveReadingFontSizes,
   translationReadingStyle,
 } from "@/lib/reading-typography";
+import { useReadingDisplay } from "@/lib/settings/reading-display";
 import { usePreferences } from "@/stores/preferences-store";
-import { useReadingTextVisibility } from "@/stores/reading-text-visibility-store";
 
 type TasbeehReadingItem = {
   arabic: string;
@@ -32,7 +32,7 @@ export function TasbeehReadingBlock({
   footer?: ReactNode;
 }) {
   const { fontPrefs, translationLocale } = usePreferences();
-  const { showTransliteration, showTranslation } = useReadingTextVisibility();
+  const { showTransliteration, showTranslation } = useReadingDisplay();
   const displayTranslation = useScriptureTranslation(item);
   const readingSizes = resolveReadingFontSizes("dua_zikr", fontPrefs);
   const transliteration = item.transliteration?.trim() ?? "";

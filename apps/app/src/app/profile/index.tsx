@@ -11,6 +11,7 @@ import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useSettingsTwoColumn } from "@/components/settings/settings-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -21,7 +22,6 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { usePinLock } from "@/features/pin-lock";
-import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { DeleteAccountRequestBody } from "@/lib/auth/account-closure-reasons";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -34,9 +34,6 @@ import { useInAppNotifications } from "@/providers/in-app-notifications-provider
 import { useToast } from "@/providers/toast-provider";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 import { readSyncMetadata, type SyncMetadata } from "@/sync/sync-engine";
-
-/** Window width at which the account page splits into two columns. */
-const PROFILE_TWO_COLUMN_MIN_WIDTH = 1024;
 
 const PROVIDER_LOGOS: Record<AuthUserResponseDtoProvider, number> = {
   google: require("@/assets/brands/google.svg"),
@@ -76,7 +73,6 @@ export default function ProfileScreen() {
     signOut,
     syncNow,
     deleteAccount: deleteServerAccount,
-    resetAppData: resetServerAppData,
   } = useAuth();
   const toast = useToast();
   const { factoryResetPinLock } = usePinLock();
@@ -98,17 +94,14 @@ export default function ProfileScreen() {
       : t("common.signedIn");
   const [editing, setEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(displayName);
-  const [confirmResetData, setConfirmResetData] = useState(false);
   const [confirmDeleteAccount, setConfirmDeleteAccount] = useState(false);
   const [confirmSignOut, setConfirmSignOut] = useState(false);
   const [syncMeta, setSyncMeta] = useState<SyncMetadata | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
-  const [isResetting, setIsResetting] = useState(false);
   const locale = i18n.language?.split("-")[0];
   const tv = isTV();
-  const { width } = useLargeScreenLayout();
   // Wide web / tablets: two-column account layout instead of one long stack.
-  const twoColumn = !tv && width >= PROFILE_TWO_COLUMN_MIN_WIDTH;
+  const twoColumn = useSettingsTwoColumn();
 
   const refreshSyncMeta = useCallback(async () => {
     setSyncMeta(await readSyncMetadata());
@@ -153,24 +146,6 @@ export default function ProfileScreen() {
     await factoryResetPinLock();
     await clearInAppInbox();
     router.replace("/");
-  };
-
-  const resetAppData = async () => {
-    if (isResetting) return;
-    setIsResetting(true);
-    try {
-      if (isAuthenticated) {
-        const outcome = await resetServerAppData();
-        if (outcome === "error") {
-          toast.error(t("profile.resetDataFailed"));
-          return;
-        }
-      }
-      await finishLocalDataWipe();
-      toast.success(t("profile.resetDataSuccess"));
-    } finally {
-      setIsResetting(false);
-    }
   };
 
   const deleteSignedInAccount = async (body: DeleteAccountRequestBody) => {
@@ -472,20 +447,19 @@ export default function ProfileScreen() {
     </Card>
   ) : null;
 
-  const dangerCard = (
+  // D13: "Reset app data" moved to Settings › Data & storage; Account keeps Delete account.
+  const dangerCard = isAuthenticated ? (
     <Card padding="three" variant="muted">
       <SectionHeader title={t("profile.dangerTitle")} />
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.dangerHint}>
-        {t("profile.dangerHint")}
+        {t("settingsPanel.accountDangerHint")}
       </ThemedText>
       <View style={styles.dangerActions}>
         <PressableScale
           haptic="medium"
           accessibilityRole="button"
-          accessibilityLabel={t("profile.resetData")}
-          onPress={() => {
-            if (!isResetting) setConfirmResetData(true);
-          }}
+          accessibilityLabel={t("profile.deleteAccount")}
+          onPress={() => setConfirmDeleteAccount(true)}
           style={[
             styles.dangerButton,
             tv && styles.dangerButtonTv,
@@ -496,43 +470,17 @@ export default function ProfileScreen() {
           ]}
         >
           <SymbolView
-            name={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+            name={{ ios: "trash", android: "delete", web: "delete" }}
             size={16}
             tintColor={tokens.status.danger.color}
           />
           <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
-            {t("profile.resetData")}
+            {t("profile.deleteAccount")}
           </ThemedText>
         </PressableScale>
-
-        {isAuthenticated ? (
-          <PressableScale
-            haptic="medium"
-            accessibilityRole="button"
-            accessibilityLabel={t("profile.deleteAccount")}
-            onPress={() => setConfirmDeleteAccount(true)}
-            style={[
-              styles.dangerButton,
-              tv && styles.dangerButtonTv,
-              {
-                backgroundColor: tokens.status.danger.soft,
-                borderColor: tokens.status.danger.border,
-              },
-            ]}
-          >
-            <SymbolView
-              name={{ ios: "trash", android: "delete", web: "delete" }}
-              size={16}
-              tintColor={tokens.status.danger.color}
-            />
-            <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
-              {t("profile.deleteAccount")}
-            </ThemedText>
-          </PressableScale>
-        ) : null}
       </View>
     </Card>
-  );
+  ) : null;
 
   return (
     <ScreenLayout
@@ -573,16 +521,6 @@ export default function ProfileScreen() {
         confirmLabel={t("common.signOut")}
         onConfirm={() => void signOut()}
         onClose={() => setConfirmSignOut(false)}
-      />
-
-      <ConfirmDialog
-        visible={confirmResetData}
-        title={t("profile.resetDataTitle")}
-        message={t(isAuthenticated ? "profile.resetDataMsgAccount" : "profile.resetDataMsg")}
-        confirmLabel={t("profile.resetDataConfirm")}
-        destructive
-        onConfirm={() => void resetAppData()}
-        onClose={() => setConfirmResetData(false)}
       />
 
       <DeleteAccountModal

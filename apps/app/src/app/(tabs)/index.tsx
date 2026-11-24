@@ -17,6 +17,7 @@ import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
+import { useIqamahCountdown } from "@/lib/masjid/use-iqamah-countdown";
 import { isTV } from "@/lib/platform/is-tv";
 import { horizontalSafeAreaPadding } from "@/lib/rtl";
 import { HOME_FAQ } from "@/lib/seo/faq-content";
@@ -112,6 +113,7 @@ export default function HomeScreen() {
   const { refresh } = useTrackerActions();
   const location = useLocationActions();
   const hero = useHomeHero();
+  const iqamahCountdown = useIqamahCountdown(hero.now);
   const weather = useWeatherDisplay();
   const weatherSnapshot = useWeatherSnapshot();
   const { weatherPrefs } = usePreferences();
@@ -137,6 +139,7 @@ export default function HomeScreen() {
       displayDates={hero.displayDates}
       currentTime={hero.currentTime}
       countdown={hero.countdown}
+      iqamahCountdown={iqamahCountdown}
       prayers={hero.prayers}
       activeIndex={hero.activeIndex}
       topInset={dashboard ? Spacing.two : insets.top}
