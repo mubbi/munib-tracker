@@ -24,6 +24,8 @@ export {
 export { formatApiDateTime, fromApiDateTime, toApiDateTime } from "./datetime";
 export * from "./generated/endpoints/app-feedback/app-feedback";
 export * from "./generated/endpoints/auth/auth";
+// NF-3.16–3.18 circles (wrapped by apps/app `lib/circles/api.ts`).
+export * from "./generated/endpoints/circles/circles";
 export * from "./generated/endpoints/health/health";
 export * from "./generated/endpoints/oss-content-failures/oss-content-failures";
 export * from "./generated/endpoints/sync/sync";

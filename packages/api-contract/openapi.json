@@ -1369,6 +1369,97 @@
         ]
       }
     },
+    "/api/v1/masjids": {
+      "get": {
+        "operationId": "MasjidsController_list",
+        "parameters": [
+          {
+            "name": "cell",
+            "required": true,
+            "in": "query",
+            "description": "Geohash precision-5 cell (~5 km). The client never sends precise coordinates; the response covers this cell plus its 8 neighbours.",
+            "schema": {
+              "example": "gcpvj",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasjidListResponseDto"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "summary": "Masjids in a geohash-5 cell and its 8 neighbours (OpenStreetMap, ODbL)",
+        "tags": [
+          "masjids"
+        ]
+      }
+    },
+    "/api/v1/masjids/{osmType}/{osmId}": {
+      "get": {
+        "operationId": "MasjidsController_detail",
+        "parameters": [
+          {
+            "name": "osmType",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "node",
+                "way",
+                "relation"
+              ]
+            }
+          },
+          {
+            "name": "osmId",
+            "required": true,
+            "in": "path",
+            "description": "OpenStreetMap element id",
+            "schema": {
+              "example": "123456789",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasjidDetailDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not a masjid in OpenStreetMap"
+          },
+          "429": {
+            "description": "Rate limited"
+          },
+          "503": {
+            "description": "Upstream unavailable and nothing cached"
+          }
+        },
+        "summary": "One masjid's public OpenStreetMap details (+ licence-cleared timetable)",
+        "tags": [
+          "masjids"
+        ]
+      }
+    },
     "/api/v1/surface-push": {
       "put": {
         "operationId": "SurfacePushController_upsert",
@@ -1518,6 +1609,1837 @@
         "summary": "Cron fallback: deliver due surface push jobs",
         "tags": [
           "surface-push"
+        ]
+      }
+    },
+    "/api/v1/circles": {
+      "get": {
+        "operationId": "CirclesController_list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircleListDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "My circles (active memberships)",
+        "tags": [
+          "circles"
+        ]
+      },
+      "post": {
+        "operationId": "CirclesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCircleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircleDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a circle (family / partner need a linked account; you become the owner)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/join/{code}": {
+      "get": {
+        "operationId": "CirclesController_previewInvite",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitePreviewDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Preview an invite before joining (rate-limited)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/join": {
+      "post": {
+        "operationId": "CirclesController_join",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JoinCircleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircleDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Join a circle with an invite code (deep link / QR)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}": {
+      "get": {
+        "operationId": "CirclesController_detail",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircleDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Circle detail with members (members only)",
+        "tags": [
+          "circles"
+        ]
+      },
+      "patch": {
+        "operationId": "CirclesController_update",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCircleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircleDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Rename / tag a circle (managers)",
+        "tags": [
+          "circles"
+        ]
+      },
+      "delete": {
+        "operationId": "CirclesController_remove",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a circle and all its data now (owner)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/members/me": {
+      "patch": {
+        "operationId": "CirclesController_updateMe",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMyMembershipDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircleDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update my display name / sharing switches in this circle",
+        "tags": [
+          "circles"
+        ]
+      },
+      "delete": {
+        "operationId": "CirclesController_leave",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Leave silently (signals purged after 30 days)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/members/{memberId}": {
+      "patch": {
+        "operationId": "CirclesController_updateRole",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMemberRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircleDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Change a member's role (owner)",
+        "tags": [
+          "circles"
+        ]
+      },
+      "delete": {
+        "operationId": "CirclesController_removeMember",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Remove an adult member (managers)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/invites": {
+      "post": {
+        "operationId": "CirclesController_createInvite",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInviteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InviteCreatedDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create an invite (code returned once; 20 per user per day; default 7-day expiry)",
+        "tags": [
+          "circles"
+        ]
+      },
+      "get": {
+        "operationId": "CirclesController_listInvites",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InviteListDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Live invites (managers: all; others: their own)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/invites/{inviteId}": {
+      "delete": {
+        "operationId": "CirclesController_revokeInvite",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "inviteId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Revoke an invite",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/children": {
+      "get": {
+        "operationId": "CircleChildrenController_list",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChildProfileDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Child profiles in a family circle (parents)",
+        "tags": [
+          "circles"
+        ]
+      },
+      "post": {
+        "operationId": "CircleChildrenController_create",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChildProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChildProfileDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a child profile — nickname + birth year only, under 13, records parental consent",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/children/{childId}": {
+      "patch": {
+        "operationId": "CircleChildrenController_update",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "childId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateChildProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChildProfileDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Edit nickname / birth year / avatar / reward / early graduation",
+        "tags": [
+          "circles"
+        ]
+      },
+      "delete": {
+        "operationId": "CircleChildrenController_remove",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "childId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a child profile and all its data immediately",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/children/{childId}/consent": {
+      "post": {
+        "operationId": "CircleChildrenController_confirmConsent",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "childId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmChildConsentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChildProfileDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Re-confirm parental consent (D34: a profile transferred from a parent who deleted their account)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/children/{childId}/device-link": {
+      "post": {
+        "operationId": "CircleChildrenController_deviceLink",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "childId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChildDeviceLinkDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "One-time QR token (5 min) to link the child's device",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/children/{childId}/device": {
+      "delete": {
+        "operationId": "CircleChildrenController_revokeDevice",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "childId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Revoke the child's linked device session",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circle-child/session": {
+      "post": {
+        "operationId": "CircleChildSessionController_redeem",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RedeemChildLinkDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChildSessionDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Child device: exchange the one-time QR token for a scoped child session",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circle-child/me": {
+      "get": {
+        "operationId": "CircleChildSessionController_me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChildProfileDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Child session: my profile (nickname, age band, reward)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circle-child/graduate": {
+      "post": {
+        "operationId": "CircleChildSessionController_graduate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GraduateChildDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CircleSummaryDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Signed-in young person converts their child profile into an adult family membership",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/signals": {
+      "get": {
+        "operationId": "CircleSignalsController_list",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "2026-11-17",
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": "2026-11-23",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignalListDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Signals I may see for a date range (≤ 35 days). Absence = 'no signal', never 'missed'",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/signals/fard-status": {
+      "put": {
+        "operationId": "CircleSignalsController_putFardStatus",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FardStatusSignalDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignalDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Family: the 5 fard statuses for a day (child itself or a parent on its behalf)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/signals/rest-day": {
+      "put": {
+        "operationId": "CircleSignalsController_putRestDay",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RestDaySignalDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignalDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Family: parent marks a generic rest day for a child",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/signals/goal-done": {
+      "put": {
+        "operationId": "CircleSignalsController_putGoalDone",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoalDoneSignalDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignalDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Partner: share 'done' for a day (the goal itself is never shared)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/signals/{kind}/{date}": {
+      "delete": {
+        "operationId": "CircleSignalsController_clear",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberId",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "name": "kind",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "enum": [
+                "fard_status",
+                "rest_day",
+                "goal_done"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Un-share a day's signal",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/nudges": {
+      "post": {
+        "operationId": "CircleSignalsController_nudge",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNudgeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NudgeDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Partner: 'made dua for you' or a gentle reminder — 1 per member pair per day",
+        "tags": [
+          "circles"
+        ]
+      },
+      "get": {
+        "operationId": "CircleSignalsController_nudges",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NudgeListDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Nudges I received in the last 7 days (anonymous). Show 'reminder' only after local Isha",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/khatms": {
+      "post": {
+        "operationId": "GroupKhatmController_create",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateKhatmDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Start a khatm (creator / admins); 30 juz default, 60 hizb, 114 surahs",
+        "tags": [
+          "circles"
+        ]
+      },
+      "get": {
+        "operationId": "GroupKhatmController_list",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmListDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Khatms of this group (newest first)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/khatms/{khatmId}": {
+      "get": {
+        "operationId": "GroupKhatmController_detail",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Khatm with its part grid",
+        "tags": [
+          "circles"
+        ]
+      },
+      "patch": {
+        "operationId": "GroupKhatmController_update",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateKhatmDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Edit / extend deadline / open remaining parts after the deadline",
+        "tags": [
+          "circles"
+        ]
+      },
+      "delete": {
+        "operationId": "GroupKhatmController_remove",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a khatm (creator / admins)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/khatms/{khatmId}/rounds": {
+      "post": {
+        "operationId": "GroupKhatmController_nextRound",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Start another round after completion (resets every part)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/khatms/{khatmId}/deal": {
+      "post": {
+        "description": "Open parts and assigned-but-not-started parts are shared out in join order; parts being read or done never move. Runs automatically when someone joins. 400 for other assignment modes, 409 with fewer than 2 members or a completed khatm.",
+        "operationId": "GroupKhatmController_deal",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not a round-robin khatm"
+          },
+          "409": {
+            "description": "Fewer than 2 members, or the khatm is complete"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Round-robin only (creator / admins): deal the parts nobody has started evenly over the current members",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/khatms/{khatmId}/parts/{partNo}/claim": {
+      "post": {
+        "operationId": "GroupKhatmController_claim",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partNo",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Claim an open part (409 if someone else got it first)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/khatms/{khatmId}/parts/{partNo}/release": {
+      "post": {
+        "operationId": "GroupKhatmController_release",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partNo",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Give a part back to the pool (assignee, or creator / admins)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/khatms/{khatmId}/parts/{partNo}/reading": {
+      "post": {
+        "operationId": "GroupKhatmController_reading",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partNo",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark my part as being read",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/khatms/{khatmId}/parts/{partNo}/complete": {
+      "post": {
+        "operationId": "GroupKhatmController_complete",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partNo",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Confirm 'Done' for my part (notifies the group)",
+        "tags": [
+          "circles"
+        ]
+      }
+    },
+    "/api/v1/circles/{circleId}/khatms/{khatmId}/parts/{partNo}/assign": {
+      "post": {
+        "operationId": "GroupKhatmController_assign",
+        "parameters": [
+          {
+            "name": "circleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "khatmId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partNo",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignKhatmPartDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KhatmDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Creator / admins assign or reassign a part (open, stale, or creator-assigns mode)",
+        "tags": [
+          "circles"
         ]
       }
     },
@@ -1973,6 +3895,13 @@
               "umrah_checklist",
               "friday_checklist",
               "white_days_checklist",
+              "home_masjid_times",
+              "sunnah_habits",
+              "dhul_hijjah",
+              "voluntary_fasting",
+              "coach_history",
+              "quran_reading_log",
+              "umrah_sessions",
               "jannah_intentions",
               "jahannam_intentions",
               "salah_guide_progress",
@@ -1997,7 +3926,14 @@
               "tours_seen",
               "quran_companion_prefs",
               "quran_practice_sessions",
-              "quran_memorization"
+              "quran_memorization",
+              "tajweed_coaching",
+              "quran_notes",
+              "vault_keyring",
+              "vault_muhasabah",
+              "vault_debts",
+              "vault_wasiyyah",
+              "vault_relatives"
             ]
           },
           "id": {
@@ -2784,6 +4720,292 @@
           "cleaned"
         ]
       },
+      "MasjidSummaryDto": {
+        "type": "object",
+        "properties": {
+          "osmType": {
+            "type": "string",
+            "enum": [
+              "node",
+              "way",
+              "relation"
+            ]
+          },
+          "osmId": {
+            "type": "string",
+            "example": "123456789"
+          },
+          "name": {
+            "type": "string",
+            "description": "OSM `name` tag (omitted when absent)"
+          },
+          "names": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "`name:<lang>` tags, lang → name"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "lon": {
+            "type": "number"
+          },
+          "jumuah": {
+            "description": "Friday `service_times` entries between 11:00 and 15:30 (HH:mm)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "badges": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "wheelchair",
+                "toilets",
+                "toilets_wheelchair"
+              ]
+            }
+          }
+        },
+        "required": [
+          "osmType",
+          "osmId",
+          "lat",
+          "lon"
+        ]
+      },
+      "MasjidListResponseDto": {
+        "type": "object",
+        "properties": {
+          "masjids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MasjidSummaryDto"
+            }
+          },
+          "attribution": {
+            "description": "Attribution lines the client must display (ODbL)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stale": {
+            "type": "boolean",
+            "description": "True when upstream failed and cached data is stale or empty"
+          }
+        },
+        "required": [
+          "masjids",
+          "attribution",
+          "stale"
+        ]
+      },
+      "MasjidAddressDto": {
+        "type": "object",
+        "properties": {
+          "housenumber": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "postcode": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "full": {
+            "type": "string"
+          }
+        }
+      },
+      "IqamahDailyDto": {
+        "type": "object",
+        "properties": {
+          "fajr": {
+            "type": "string",
+            "example": "05:30"
+          },
+          "dhuhr": {
+            "type": "string"
+          },
+          "asr": {
+            "type": "string"
+          },
+          "maghrib": {
+            "type": "string"
+          },
+          "isha": {
+            "type": "string"
+          }
+        }
+      },
+      "JumuahSlotDto": {
+        "type": "object",
+        "properties": {
+          "khutbahAt": {
+            "type": "string",
+            "example": "13:00"
+          },
+          "iqamahAt": {
+            "type": "string",
+            "example": "13:30"
+          }
+        }
+      },
+      "TimetableSourceRefDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "attribution": {
+            "type": "string"
+          },
+          "fetchedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "IqamahTimetableDto": {
+        "type": "object",
+        "properties": {
+          "daily": {
+            "$ref": "#/components/schemas/IqamahDailyDto"
+          },
+          "monthly": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/IqamahDailyDto"
+            },
+            "description": "YYYY-MM-DD → per-prayer times"
+          },
+          "jumuah": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JumuahSlotDto"
+            }
+          },
+          "source": {
+            "$ref": "#/components/schemas/TimetableSourceRefDto"
+          }
+        },
+        "required": [
+          "source"
+        ]
+      },
+      "MasjidDetailDto": {
+        "type": "object",
+        "properties": {
+          "osmType": {
+            "type": "string",
+            "enum": [
+              "node",
+              "way",
+              "relation"
+            ]
+          },
+          "osmId": {
+            "type": "string",
+            "example": "123456789"
+          },
+          "name": {
+            "type": "string",
+            "description": "OSM `name` tag (omitted when absent)"
+          },
+          "names": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "`name:<lang>` tags, lang → name"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "lon": {
+            "type": "number"
+          },
+          "jumuah": {
+            "description": "Friday `service_times` entries between 11:00 and 15:30 (HH:mm)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "badges": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "wheelchair",
+                "toilets",
+                "toilets_wheelchair"
+              ]
+            }
+          },
+          "address": {
+            "$ref": "#/components/schemas/MasjidAddressDto"
+          },
+          "website": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "denomination": {
+            "type": "string"
+          },
+          "serviceTimes": {
+            "description": "Other `service_times` rules, verbatim (never per-prayer iqamah)",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "openingHours": {
+            "type": "string",
+            "description": "Raw `opening_hours` (clients show an open/closed hint)"
+          },
+          "timetable": {
+            "description": "Public timetable from a licence-cleared source, with attribution",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IqamahTimetableDto"
+              }
+            ]
+          },
+          "attribution": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stale": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "osmType",
+          "osmId",
+          "lat",
+          "lon",
+          "attribution",
+          "stale"
+        ]
+      },
       "SurfacePhaseUpdateDto": {
         "type": "object",
         "properties": {
@@ -2910,6 +5132,1243 @@
           "processed",
           "cleaned"
         ]
+      },
+      "CircleSummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "family",
+              "partner",
+              "khatm_group"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "myRole": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "parent",
+              "member",
+              "child"
+            ]
+          },
+          "myMemberId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Your opaque per-circle member id"
+          },
+          "memberCount": {
+            "type": "number"
+          },
+          "masjidOsmRef": {
+            "type": "object",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "name",
+          "myRole",
+          "myMemberId",
+          "memberCount",
+          "createdAt"
+        ]
+      },
+      "CircleListDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CircleSummaryDto"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "CreateCircleDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "family",
+              "partner",
+              "khatm_group"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 60
+          },
+          "displayName": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Your name inside this circle (never your account name)"
+          },
+          "masjidOsmRef": {
+            "type": "string",
+            "description": "Khatm groups only: display-only OpenStreetMap ref, e.g. node/123",
+            "example": "node/123456"
+          }
+        },
+        "required": [
+          "type",
+          "name"
+        ]
+      },
+      "ChildSummaryDto": {
+        "type": "object",
+        "properties": {
+          "nickname": {
+            "type": "string"
+          },
+          "birthYear": {
+            "type": "number"
+          },
+          "avatar": {
+            "type": "object",
+            "nullable": true
+          },
+          "ageBand": {
+            "type": "string",
+            "enum": [
+              "learning",
+              "gentle",
+              "graduate"
+            ]
+          },
+          "consentPending": {
+            "type": "boolean",
+            "description": "D34: transferred from a parent who deleted their account — a parent must re-confirm consent (POST …/children/:childId/consent); the parent view is hidden until then"
+          }
+        },
+        "required": [
+          "nickname",
+          "birthYear",
+          "ageBand",
+          "consentPending"
+        ]
+      },
+      "CircleMemberDto": {
+        "type": "object",
+        "properties": {
+          "memberId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Opaque per-circle member id (child profiles: the child id). Never the account's user id; use it wherever an endpoint takes a memberId"
+          },
+          "memberKind": {
+            "type": "string",
+            "enum": [
+              "user",
+              "child"
+            ]
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "parent",
+              "member",
+              "child"
+            ]
+          },
+          "displayName": {
+            "type": "object",
+            "nullable": true
+          },
+          "joinedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isMe": {
+            "type": "boolean"
+          },
+          "paused": {
+            "type": "boolean",
+            "description": "Partner: sharing paused (shown as 'no signal')"
+          },
+          "shareFardStatus": {
+            "type": "boolean",
+            "description": "Family adult member shares fard status with parents"
+          },
+          "child": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChildSummaryDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "memberId",
+          "memberKind",
+          "role",
+          "joinedAt",
+          "isMe",
+          "paused",
+          "shareFardStatus"
+        ]
+      },
+      "CircleDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "family",
+              "partner",
+              "khatm_group"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "myRole": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "parent",
+              "member",
+              "child"
+            ]
+          },
+          "myMemberId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Your opaque per-circle member id"
+          },
+          "memberCount": {
+            "type": "number"
+          },
+          "masjidOsmRef": {
+            "type": "object",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CircleMemberDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "name",
+          "myRole",
+          "myMemberId",
+          "memberCount",
+          "createdAt",
+          "members"
+        ]
+      },
+      "InvitePreviewDto": {
+        "type": "object",
+        "properties": {
+          "circleType": {
+            "type": "string",
+            "enum": [
+              "family",
+              "partner",
+              "khatm_group"
+            ]
+          },
+          "circleName": {
+            "type": "string"
+          },
+          "memberCount": {
+            "type": "number"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "parent",
+              "member",
+              "child"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "alreadyMember": {
+            "type": "boolean",
+            "description": "Caller is already an active member"
+          }
+        },
+        "required": [
+          "circleType",
+          "circleName",
+          "memberCount",
+          "role",
+          "expiresAt",
+          "alreadyMember"
+        ]
+      },
+      "JoinCircleDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "ABCDE-FGH23"
+          },
+          "displayName": {
+            "type": "string",
+            "maxLength": 32
+          }
+        },
+        "required": [
+          "code"
+        ]
+      },
+      "UpdateCircleDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 60
+          },
+          "masjidOsmRef": {
+            "type": "object",
+            "nullable": true,
+            "description": "Khatm groups only; null clears"
+          }
+        }
+      },
+      "UpdateMyMembershipDto": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "object",
+            "maxLength": 32,
+            "nullable": true
+          },
+          "paused": {
+            "type": "boolean",
+            "description": "Partner circles: pause sharing goal_done"
+          },
+          "shareFardStatus": {
+            "type": "boolean",
+            "description": "Family adult members only: opt in to share fard salah status with parents"
+          }
+        }
+      },
+      "UpdateMemberRoleDto": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "parent",
+              "member"
+            ]
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "CreateInviteDto": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "parent",
+              "member"
+            ],
+            "default": "member",
+            "description": "`parent` (family) and `admin` (khatm group) invites are owner-only; a parent invite is always single-use"
+          },
+          "maxUses": {
+            "type": "number",
+            "description": "Default 1 (family/partner) or 200 (khatm)"
+          },
+          "expiresInHours": {
+            "type": "number",
+            "default": 168,
+            "description": "Default 168 h (max 720); a parent invite defaults to and is capped at 48 h"
+          }
+        }
+      },
+      "InviteCreatedDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "parent",
+              "member",
+              "child"
+            ]
+          },
+          "maxUses": {
+            "type": "number"
+          },
+          "uses": {
+            "type": "number"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "code": {
+            "type": "string",
+            "description": "10-char base32 code — returned ONCE, stored only hashed"
+          },
+          "joinPath": {
+            "type": "string",
+            "example": "circle/join/ABCDEFGH23",
+            "description": "Deep-link path for QR / links"
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "maxUses",
+          "uses",
+          "expiresAt",
+          "createdAt",
+          "code",
+          "joinPath"
+        ]
+      },
+      "InviteDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "parent",
+              "member",
+              "child"
+            ]
+          },
+          "maxUses": {
+            "type": "number"
+          },
+          "uses": {
+            "type": "number"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "maxUses",
+          "uses",
+          "expiresAt",
+          "createdAt"
+        ]
+      },
+      "InviteListDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InviteDto"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "ChildRewardDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 60,
+            "example": "Park trip"
+          },
+          "days": {
+            "type": "number",
+            "description": "Days with all 5 prayers needed",
+            "example": 7
+          }
+        },
+        "required": [
+          "title",
+          "days"
+        ]
+      },
+      "ChildProfileDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "circleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nickname": {
+            "type": "string"
+          },
+          "birthYear": {
+            "type": "number"
+          },
+          "avatar": {
+            "type": "object",
+            "nullable": true
+          },
+          "ageBand": {
+            "type": "string",
+            "enum": [
+              "learning",
+              "gentle",
+              "graduate"
+            ]
+          },
+          "reward": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChildRewardDto"
+              }
+            ]
+          },
+          "graduationUnlocked": {
+            "type": "boolean"
+          },
+          "graduationAvailable": {
+            "type": "boolean",
+            "description": "Graduation to a full account may be offered now"
+          },
+          "linkedDeviceAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "consentPending": {
+            "type": "boolean",
+            "description": "D34: the consenting parent deleted their account and this profile passed to you — re-confirm consent to restore the parent view"
+          },
+          "consentTransferredAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When consent became pending (transfer time); null when not pending"
+          },
+          "consentPendingUntil": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "The profile is deleted after this unless consent is re-confirmed"
+          }
+        },
+        "required": [
+          "id",
+          "circleId",
+          "nickname",
+          "birthYear",
+          "ageBand",
+          "graduationUnlocked",
+          "graduationAvailable",
+          "createdAt",
+          "consentPending"
+        ]
+      },
+      "CreateChildProfileDto": {
+        "type": "object",
+        "properties": {
+          "nickname": {
+            "type": "string",
+            "maxLength": 24
+          },
+          "birthYear": {
+            "type": "number",
+            "description": "Birth year only (no birth date); child must be under 13"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "Bundled avatar id"
+          },
+          "parentalConsent": {
+            "type": "boolean",
+            "description": "Parent confirms verifiable consent (must be true)"
+          },
+          "consentPolicyVersion": {
+            "type": "string",
+            "description": "Privacy policy version the parent consented to",
+            "example": "2026-11"
+          }
+        },
+        "required": [
+          "nickname",
+          "birthYear",
+          "parentalConsent",
+          "consentPolicyVersion"
+        ]
+      },
+      "UpdateChildProfileDto": {
+        "type": "object",
+        "properties": {
+          "nickname": {
+            "type": "string",
+            "maxLength": 24
+          },
+          "birthYear": {
+            "type": "number"
+          },
+          "avatar": {
+            "type": "object",
+            "nullable": true
+          },
+          "reward": {
+            "nullable": true,
+            "description": "null clears",
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ChildRewardDto"
+              }
+            ]
+          },
+          "graduationUnlocked": {
+            "type": "boolean",
+            "description": "Allow graduation before the approximate age of 13"
+          }
+        }
+      },
+      "ConfirmChildConsentDto": {
+        "type": "object",
+        "properties": {
+          "parentalConsent": {
+            "type": "boolean",
+            "description": "Parent confirms verifiable consent (must be true)"
+          },
+          "consentPolicyVersion": {
+            "type": "string",
+            "description": "Privacy policy version the parent consented to",
+            "example": "2026-11"
+          }
+        },
+        "required": [
+          "parentalConsent",
+          "consentPolicyVersion"
+        ]
+      },
+      "ChildDeviceLinkDto": {
+        "type": "object",
+        "properties": {
+          "linkToken": {
+            "type": "string",
+            "description": "One-time token for the QR code (5-min TTL)"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "linkToken",
+          "expiresAt"
+        ]
+      },
+      "RedeemChildLinkDto": {
+        "type": "object",
+        "properties": {
+          "linkToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "linkToken"
+        ]
+      },
+      "ChildSessionDto": {
+        "type": "object",
+        "properties": {
+          "childToken": {
+            "type": "string",
+            "description": "Scoped child-session bearer (send as Authorization: Bearer). Write own salah status, read own signals only."
+          },
+          "child": {
+            "$ref": "#/components/schemas/ChildProfileDto"
+          }
+        },
+        "required": [
+          "childToken",
+          "child"
+        ]
+      },
+      "GraduateChildDto": {
+        "type": "object",
+        "properties": {
+          "childToken": {
+            "type": "string",
+            "description": "The child-session token held by the child's device"
+          },
+          "displayName": {
+            "type": "string",
+            "maxLength": 32
+          },
+          "shareFardStatus": {
+            "type": "boolean",
+            "default": false,
+            "description": "Opt in to keep sharing fard salah status with parents"
+          }
+        },
+        "required": [
+          "childToken"
+        ]
+      },
+      "SignalDto": {
+        "type": "object",
+        "properties": {
+          "memberId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "date": {
+            "type": "string",
+            "example": "2026-11-23"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "fard_status",
+              "rest_day",
+              "goal_done"
+            ]
+          },
+          "value": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "description": "fard_status: {fajr..isha}; rest_day: {rest}; goal_done: {done}"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "memberId",
+          "date",
+          "kind",
+          "value",
+          "updatedAt"
+        ]
+      },
+      "SignalListDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SignalDto"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "FardStatusSignalDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2026-11-23",
+            "description": "Member's local date"
+          },
+          "memberId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Family parents writing on a child's behalf; defaults to yourself"
+          },
+          "fajr": {
+            "type": "boolean"
+          },
+          "dhuhr": {
+            "type": "boolean"
+          },
+          "asr": {
+            "type": "boolean"
+          },
+          "maghrib": {
+            "type": "boolean"
+          },
+          "isha": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "date",
+          "fajr",
+          "dhuhr",
+          "asr",
+          "maghrib",
+          "isha"
+        ]
+      },
+      "RestDaySignalDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2026-11-23",
+            "description": "Member's local date"
+          },
+          "memberId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Family parents writing on a child's behalf; defaults to yourself"
+          }
+        },
+        "required": [
+          "date"
+        ]
+      },
+      "GoalDoneSignalDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "example": "2026-11-23",
+            "description": "Your local date"
+          }
+        },
+        "required": [
+          "date"
+        ]
+      },
+      "CreateNudgeDto": {
+        "type": "object",
+        "properties": {
+          "toMemberId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "dua",
+              "reminder"
+            ]
+          }
+        },
+        "required": [
+          "toMemberId",
+          "kind"
+        ]
+      },
+      "NudgeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "dua",
+              "reminder"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "createdAt"
+        ]
+      },
+      "NudgeListDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "description": "Nudges received in the last 7 days — sender is never revealed",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NudgeDto"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "CreateKhatmDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "intention": {
+            "type": "string",
+            "maxLength": 280
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "juz",
+              "hizb",
+              "surah"
+            ],
+            "default": "juz"
+          },
+          "deadline": {
+            "type": "string",
+            "example": "2026-12-20"
+          },
+          "assignmentMode": {
+            "type": "string",
+            "enum": [
+              "self_pick",
+              "round_robin",
+              "creator_assigns"
+            ],
+            "default": "self_pick",
+            "description": "round_robin deals parts in join order once the group has at least 2 members (until then parts stay open); not-started parts are re-dealt when someone joins or via POST …/deal"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "KhatmPartDto": {
+        "type": "object",
+        "properties": {
+          "partNo": {
+            "type": "number"
+          },
+          "assigneeMemberId": {
+            "type": "object",
+            "format": "uuid",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "assigned",
+              "reading",
+              "done"
+            ]
+          },
+          "dealt": {
+            "type": "boolean",
+            "description": "Assigned by round-robin dealing (re-dealt when members join); false for a member's own claim, a manager's assignment, or any non-assigned part"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "stale": {
+            "type": "boolean",
+            "description": "Claimed but idle past max(2, remaining/3) days — reassignable"
+          }
+        },
+        "required": [
+          "partNo",
+          "status",
+          "dealt",
+          "updatedAt",
+          "stale"
+        ]
+      },
+      "KhatmDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "circleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "intention": {
+            "type": "object",
+            "nullable": true
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "juz",
+              "hizb",
+              "surah"
+            ]
+          },
+          "partCount": {
+            "type": "number"
+          },
+          "assignmentMode": {
+            "type": "string",
+            "enum": [
+              "self_pick",
+              "round_robin",
+              "creator_assigns"
+            ]
+          },
+          "deadline": {
+            "type": "object",
+            "nullable": true,
+            "example": "2026-12-20"
+          },
+          "deadlinePassed": {
+            "type": "boolean"
+          },
+          "round": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "completed"
+            ]
+          },
+          "createdBy": {
+            "type": "object",
+            "format": "uuid",
+            "nullable": true
+          },
+          "doneCount": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KhatmPartDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "circleId",
+          "title",
+          "unit",
+          "partCount",
+          "assignmentMode",
+          "deadlinePassed",
+          "round",
+          "status",
+          "doneCount",
+          "createdAt",
+          "parts"
+        ]
+      },
+      "KhatmDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "circleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "intention": {
+            "type": "object",
+            "nullable": true
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "juz",
+              "hizb",
+              "surah"
+            ]
+          },
+          "partCount": {
+            "type": "number"
+          },
+          "assignmentMode": {
+            "type": "string",
+            "enum": [
+              "self_pick",
+              "round_robin",
+              "creator_assigns"
+            ]
+          },
+          "deadline": {
+            "type": "object",
+            "nullable": true,
+            "example": "2026-12-20"
+          },
+          "deadlinePassed": {
+            "type": "boolean"
+          },
+          "round": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "completed"
+            ]
+          },
+          "createdBy": {
+            "type": "object",
+            "format": "uuid",
+            "nullable": true
+          },
+          "doneCount": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "circleId",
+          "title",
+          "unit",
+          "partCount",
+          "assignmentMode",
+          "deadlinePassed",
+          "round",
+          "status",
+          "doneCount",
+          "createdAt"
+        ]
+      },
+      "KhatmListDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KhatmDto"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "UpdateKhatmDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "intention": {
+            "type": "object",
+            "maxLength": 280,
+            "nullable": true
+          },
+          "deadline": {
+            "type": "object",
+            "nullable": true,
+            "description": "Extend / change; null removes"
+          },
+          "openRemainingParts": {
+            "type": "boolean",
+            "description": "After the deadline: return every unfinished claimed part to the pool"
+          }
+        }
+      },
+      "AssignKhatmPartDto": {
+        "type": "object",
+        "properties": {
+          "memberId": {
+            "type": "object",
+            "format": "uuid",
+            "nullable": true,
+            "description": "null returns it to the pool"
+          }
+        }
       }
     }
   }
