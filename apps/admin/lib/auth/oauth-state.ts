@@ -19,7 +19,7 @@ export async function createOAuthState(): Promise<string> {
 
 export async function verifyOAuthState(state: string): Promise<boolean> {
   try {
-    const { payload } = await jwtVerify(state, getSecretKey());
+    const { payload } = await jwtVerify(state, getSecretKey(), { algorithms: ["HS256"] });
     return payload.purpose === "google_oauth";
   } catch {
     return false;

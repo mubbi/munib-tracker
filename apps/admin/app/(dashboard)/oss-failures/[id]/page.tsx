@@ -10,7 +10,7 @@ import { requirePageSession } from "@/lib/auth/guards";
 import { assertModuleAccess } from "@/lib/auth/module-guard";
 import { humanizeEnum } from "@/lib/display";
 import { getOssContentFailureById } from "@/lib/queries/oss-content-failures";
-import { formatDate } from "@/lib/utils";
+import { formatDate, safeExternalHref } from "@/lib/utils";
 
 type OssFailureDetailProps = {
   params: Promise<{ id: string }>;
@@ -22,6 +22,7 @@ export default async function OssFailureDetailPage({ params }: OssFailureDetailP
   const { id } = await params;
   const row = await getOssContentFailureById(id);
   if (!row) notFound();
+  const sourceHref = safeExternalHref(row.sourceUrl);
 
   return (
     <PageShell
@@ -55,15 +56,18 @@ export default async function OssFailureDetailPage({ params }: OssFailureDetailP
             },
             {
               term: "Source URL",
-              description: (
+              // Client-reported value: only http(s) becomes a link (no javascript:/data:).
+              description: sourceHref ? (
                 <a
-                  href={row.sourceUrl}
+                  href={sourceHref}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="break-all font-mono text-xs text-accent underline-offset-2 hover:underline"
                 >
                   {row.sourceUrl}
                 </a>
+              ) : (
+                <span className="break-all font-mono text-xs">{row.sourceUrl}</span>
               ),
             },
             {

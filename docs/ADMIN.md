@@ -64,7 +64,9 @@ pnpm dev:admin   # http://localhost:3002
 
 With `ADMIN_DEV_BYPASS_AUTH=1` (default in `.env.example`), local `next dev` skips Google login and uses a synthetic **super_admin** session (`local-dev@localhost`). Open http://localhost:3002/dashboard directly.
 
-This bypass is **hard-disabled** when `NODE_ENV !== "development"` or `VERCEL` is set — Vercel preview and production always require real OAuth.
+This bypass is **hard-disabled** when `NODE_ENV !== "development"`, when `VERCEL` is set, or when `ADMIN_URL` points at a non-loopback host — Vercel preview and production always require real OAuth, and a `next dev` reachable on a public host never hands out the synthetic session.
+
+Production also refuses a placeholder or low-entropy `ADMIN_SESSION_SECRET` (e.g. the `.env.example` value). Session JWTs are bound to the server-side `admin_sessions.token_hash`, so rotating the secret or deleting a session row signs that admin out immediately.
 
 To exercise real Google sign-in locally: set `ADMIN_DEV_BYPASS_AUTH=0`, seed an allowlisted admin, then open `/login?iAmAdmin=1`.
 

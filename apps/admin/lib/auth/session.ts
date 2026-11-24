@@ -1,5 +1,5 @@
 import "server-only";
-import { createHash, randomBytes } from "node:crypto";
+import { randomBytes } from "node:crypto";
 import {
   type AdminRole,
   type AdminUser,
@@ -15,6 +15,12 @@ import { getAdminEnv, requireAdminEnv } from "../env";
 import { normalizeEmail } from "../utils";
 
 import { isLocalAuthBypassEnabled, SESSION_COOKIE } from "./constants";
+import {
+  type AdminSessionClaims,
+  hashSessionToken,
+  parseSessionClaims,
+  SESSION_JWT_ALGORITHMS,
+} from "./session-claims";
 
 export { SESSION_COOKIE };
 
@@ -68,10 +74,6 @@ async function getLocalBypassSession(): Promise<AdminSessionPayload> {
   };
 }
 
-function hashToken(token: string): string {
-  return createHash("sha256").update(token).digest("hex");
-}
-
 function getSecretKey(): Uint8Array {
   const { ADMIN_SESSION_SECRET } = requireAdminEnv();
   return new TextEncoder().encode(ADMIN_SESSION_SECRET);
@@ -83,7 +85,7 @@ export async function createAdminSession(
 ): Promise<string> {
   const db = getDb();
   const token = randomBytes(32).toString("hex");
-  const tokenHash = hashToken(token);
+  const tokenHash = hashSessionToken(token);
   const expiresAt = new Date(Date.now() + SESSION_DAYS * 24 * 60 * 60 * 1000);
 
   const [row] = await db
@@ -98,12 +100,16 @@ export async function createAdminSession(
     })
     .returning({ id: adminSessionsTable.id });
 
+  // `tok` binds the cookie to the random token whose hash lives in admin_sessions:
+  // even with ADMIN_SESSION_SECRET leaked, a forged JWT cannot name a live session
+  // without that per-session secret (session ids are sequential integers).
   const jwt = await new SignJWT({
     sessionId: row.id,
     adminUserId: admin.id,
     email: admin.email,
     role: admin.role,
-  } satisfies AdminSessionPayload)
+    tok: token,
+  } satisfies AdminSessionClaims)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(`${SESSION_DAYS}d`)
@@ -147,16 +153,11 @@ async function readSession(): Promise<AdminSessionPayload | null> {
   if (!token) return null;
 
   try {
-    const { payload } = await jwtVerify(token, getSecretKey());
-    const session = payload as AdminSessionPayload;
-    if (
-      typeof session.sessionId !== "number" ||
-      typeof session.adminUserId !== "number" ||
-      typeof session.email !== "string" ||
-      typeof session.role !== "string"
-    ) {
-      return null;
-    }
+    const { payload } = await jwtVerify(token, getSecretKey(), {
+      algorithms: SESSION_JWT_ALGORITHMS,
+    });
+    const session = parseSessionClaims(payload);
+    if (!session) return null;
 
     const db = getDb();
     const now = new Date();
@@ -175,6 +176,7 @@ async function readSession(): Promise<AdminSessionPayload | null> {
         and(
           eq(adminSessionsTable.id, session.sessionId),
           eq(adminSessionsTable.adminUserId, session.adminUserId),
+          eq(adminSessionsTable.tokenHash, hashSessionToken(session.tok)),
           gt(adminSessionsTable.expiresAt, now),
         ),
       )

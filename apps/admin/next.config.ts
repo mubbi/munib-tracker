@@ -1,15 +1,15 @@
 import type { NextConfig } from "next";
-
-const ROBOTS_HEADER_VALUE = "noindex, nofollow, noarchive, nosnippet, noimageindex";
+import { ADMIN_SECURITY_HEADERS } from "./lib/security-headers";
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@munib-tracker/db", "@munib-tracker/shared"],
   serverExternalPackages: ["pg"],
+  poweredByHeader: false,
   async headers() {
     return [
       {
         source: "/:path*",
-        headers: [{ key: "X-Robots-Tag", value: ROBOTS_HEADER_VALUE }],
+        headers: ADMIN_SECURITY_HEADERS,
       },
     ];
   },

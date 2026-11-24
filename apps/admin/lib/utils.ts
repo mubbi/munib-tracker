@@ -87,3 +87,19 @@ export function maskEmail(email: string | null | undefined): string {
   const visible = local.slice(0, 2);
   return `${visible}***@${domain}`;
 }
+
+/**
+ * `href` for an untrusted (client-reported) URL: only absolute http(s) links are
+ * clickable, anything else (javascript:, data:, relative paths) returns null so
+ * callers render plain text instead.
+ */
+export function safeExternalHref(value: string | null | undefined): string | null {
+  const trimmed = value?.trim();
+  if (!trimmed) return null;
+  try {
+    const url = new URL(trimmed);
+    return url.protocol === "https:" || url.protocol === "http:" ? url.href : null;
+  } catch {
+    return null;
+  }
+}

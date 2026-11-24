@@ -1,5 +1,6 @@
 import { BROADCAST_BATCH_GUARD } from "@munib-tracker/shared";
 import { NextResponse } from "next/server";
+import { rejectCrossOrigin } from "@/lib/auth/csrf";
 import { requirePageSession } from "@/lib/auth/guards";
 import { assertModuleAccess } from "@/lib/auth/module-guard";
 import { processBroadcastBatch } from "@/lib/notifications/broadcastProcessor";
@@ -9,7 +10,10 @@ export const maxDuration = 60;
 
 type RouteContext = { params: Promise<{ id: string }> };
 
-export async function POST(_request: Request, context: RouteContext): Promise<NextResponse> {
+export async function POST(request: Request, context: RouteContext): Promise<NextResponse> {
+  const forbidden = rejectCrossOrigin(request);
+  if (forbidden) return forbidden;
+
   const session = await requirePageSession();
   assertModuleAccess(session.role, "/notifications");
   if (!canSendBroadcasts(session.role)) {
@@ -49,7 +53,8 @@ export async function POST(_request: Request, context: RouteContext): Promise<Ne
       },
     });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Broadcast processing failed";
-    return NextResponse.json({ error: message }, { status: 500 });
+    // Raw driver / push errors stay in server logs; the client gets a stable message.
+    console.error("[admin broadcasts] manual process failed:", broadcastId, err);
+    return NextResponse.json({ error: "Broadcast processing failed" }, { status: 500 });
   }
 }

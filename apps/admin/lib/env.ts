@@ -59,6 +59,27 @@ export function getAdminEnv(): AdminEnv {
   return cached;
 }
 
+/**
+ * Placeholder / low-entropy session secrets (e.g. the `.env.example` value) let anyone
+ * mint OAuth state + session JWTs. Refused in production builds; tolerated in local dev.
+ */
+export function isWeakSessionSecret(secret: string | undefined): boolean {
+  if (!secret) return true;
+  const value = secret.trim();
+  if (value.length < 32) return true;
+  if (/change[-_ ]?me|example|placeholder|secret[-_ ]?here/i.test(value)) return true;
+  // A single repeated character ("aaaa…") or fewer than 8 distinct characters.
+  return new Set(value).size < 8;
+}
+
+function assertStrongSessionSecret(secret: string): void {
+  if (process.env.NODE_ENV === "production" && isWeakSessionSecret(secret)) {
+    throw new Error(
+      "ADMIN_SESSION_SECRET is a placeholder or too weak — set a random value (openssl rand -hex 32)",
+    );
+  }
+}
+
 export function requireAdminEnv(): Required<
   Pick<
     AdminEnv,
@@ -73,6 +94,7 @@ export function requireAdminEnv(): Required<
   if (!env.ADMIN_SESSION_SECRET) {
     throw new Error("ADMIN_SESSION_SECRET is required (min 32 chars)");
   }
+  assertStrongSessionSecret(env.ADMIN_SESSION_SECRET);
   if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_CLIENT_SECRET) {
     throw new Error("GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET are required");
   }
@@ -87,6 +109,13 @@ export function requireAdminEnv(): Required<
 
 export function isAuthConfigured(): boolean {
   const env = getAdminEnv();
+  if (
+    process.env.NODE_ENV === "production" &&
+    env.ADMIN_SESSION_SECRET &&
+    isWeakSessionSecret(env.ADMIN_SESSION_SECRET)
+  ) {
+    return false;
+  }
   return Boolean(
     env.DATABASE_URL &&
       env.ADMIN_SESSION_SECRET &&

@@ -2,7 +2,9 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { isLocalAuthBypassEnabled, SESSION_COOKIE } from "@/lib/auth/constants";
 
-const PUBLIC_PATHS = ["/login", "/access-denied", "/api/auth", "/api/cron"];
+// Route handlers listed here enforce their own auth (OAuth state, cron bearer,
+// coarse-only health output without a session).
+const PUBLIC_PATHS = ["/login", "/access-denied", "/api/auth", "/api/cron", "/api/health"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
