@@ -185,9 +185,20 @@ export async function previewBroadcastAudience(input: {
 }): Promise<{ totalUsers: number }> {
   const ctx = await getActionContext();
   assertBroadcastActions(ctx);
-  const filters = normalizeBroadcastFilters(input.filters ?? {});
+  // Server actions are directly POSTable — validate like createAdminBroadcast does.
+  const parsed = filtersSchema.safeParse(input?.filters ?? {});
+  if (!parsed.success) {
+    throw new AdminActionValidationError(parsed.error.issues[0]?.message ?? "Invalid filters");
+  }
+  const filters = normalizeBroadcastFilters(parsed.data);
   const totalUsers = await countAudienceUsers({ audience: "all_linked", filters });
   return { totalUsers };
+}
+
+function assertBroadcastId(broadcastId: unknown): asserts broadcastId is number {
+  if (typeof broadcastId !== "number" || !Number.isSafeInteger(broadcastId) || broadcastId <= 0) {
+    throw new AdminActionValidationError("Invalid broadcast id");
+  }
 }
 
 const RESUMABLE_STATUSES = new Set(["failed", "processing", "pending"]);
@@ -196,6 +207,7 @@ const CANCELLABLE_STATUSES = new Set(["pending", "scheduled", "processing"]);
 export async function cancelAdminBroadcast(broadcastId: number): Promise<void> {
   const ctx = await getActionContext();
   assertBroadcastActions(ctx);
+  assertBroadcastId(broadcastId);
 
   const db = getDb();
   const [row] = await db
@@ -231,6 +243,7 @@ export async function cancelAdminBroadcast(broadcastId: number): Promise<void> {
 export async function resumeAdminBroadcast(broadcastId: number): Promise<void> {
   const ctx = await getActionContext();
   assertBroadcastActions(ctx);
+  assertBroadcastId(broadcastId);
 
   const db = getDb();
   const [row] = await db
