@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { rejectCrossSiteWrite } from "@/lib/same-origin-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,8 @@ const EXPORT_DIR = path.join(process.cwd(), "exports");
 const SAFE_PATH = /^[A-Za-z0-9][A-Za-z0-9_\-./]*\.png$/;
 
 export async function POST(req: Request) {
+  const rejected = rejectCrossSiteWrite(req);
+  if (rejected) return rejected;
   let body: { path?: string; dataUrl?: string };
   try {
     body = (await req.json()) as { path?: string; dataUrl?: string };

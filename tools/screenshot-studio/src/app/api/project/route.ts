@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { rejectCrossSiteWrite } from "@/lib/same-origin-guard";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +29,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const rejected = rejectCrossSiteWrite(req);
+  if (rejected) return rejected;
   let body: unknown;
   try {
     body = await req.json();
