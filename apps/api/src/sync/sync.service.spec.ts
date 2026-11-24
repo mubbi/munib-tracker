@@ -196,35 +196,43 @@ describe("SyncService", () => {
       expect(log?.data).toEqual({ prayerId: "fajr", isExcused: true });
     });
 
-    it("accepts the retired khushu_journal entity but stores nothing and drops old rows", async () => {
-      const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
-      const repo = dataSource.getRepository(SyncRecordEntity);
-      // A row written before D46.
-      await repo.save(
-        repo.create({
-          userId: session.userId,
-          entity: "khushu_journal",
-          recordId: "khushu_journal",
-          data: { value: { k: { note: "private reflection" } } },
-          updatedAt: new Date(at),
-        }),
-      );
-      expect((await syncService.pull(session.accessToken)).changes).toHaveLength(0);
-
-      const response = await syncService.push(session.accessToken, {
-        changes: [
-          {
-            entity: "khushu_journal",
-            id: "khushu_journal",
+    it.each(["khushu_journal", "reading_text_visibility", "white_days_checklist"] as const)(
+      "accepts the retired %s entity but stores nothing and drops old rows",
+      async (entity) => {
+        const session = await authService.completeOAuth(AuthProvider.Google, {
+          code: "oauth-code",
+        });
+        const repo = dataSource.getRepository(SyncRecordEntity);
+        // A row written by an older release.
+        await repo.save(
+          repo.create({
+            userId: session.userId,
+            entity,
+            recordId: entity,
             data: { value: { k: { note: "private reflection" } } },
-            updatedAt: at,
-          },
-        ],
-      });
+            updatedAt: new Date(at),
+          }),
+        );
+        expect((await syncService.pull(session.accessToken)).changes).toHaveLength(0);
 
-      expect(response.accepted).toBe(1);
-      expect(await repo.count({ where: { userId: session.userId } })).toBe(0);
-    });
+        // An old client's batch mixes a retired entity with live ones.
+        const response = await syncService.push(session.accessToken, {
+          changes: [
+            {
+              entity,
+              id: entity,
+              data: { value: { k: { note: "private reflection" } } },
+              updatedAt: at,
+            },
+            { entity: "fasting", id: "fasting", data: { value: {} }, updatedAt: at },
+          ],
+        });
+
+        expect(response).toMatchObject({ accepted: 2, conflicts: [] });
+        const rows = await repo.find({ where: { userId: session.userId } });
+        expect(rows.map((row) => row.entity)).toEqual(["fasting"]);
+      },
+    );
 
     it("strips plaintext from rows stored before D46 when they are pulled", async () => {
       const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });

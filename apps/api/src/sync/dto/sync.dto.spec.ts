@@ -1,7 +1,12 @@
 import { plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
 import { describe, expect, it } from "vitest";
-import { MAX_SYNC_PUSH_CHANGES, SyncPushDto } from "./sync.dto";
+import {
+  MAX_SYNC_PUSH_CHANGES,
+  RETIRED_SYNC_ENTITIES,
+  SYNC_ENTITIES,
+  SyncPushDto,
+} from "./sync.dto";
 
 function makeChange(index: number) {
   return {
@@ -41,5 +46,25 @@ describe("SyncPushDto validation", () => {
       ),
     });
     expect(validateSync(dto)).toHaveLength(0);
+  });
+
+  it("still accepts retired entities so an old client's batch is not rejected", () => {
+    const dto = plainToInstance(SyncPushDto, {
+      changes: [
+        makeChange(0),
+        ...RETIRED_SYNC_ENTITIES.map((entity) => ({ ...makeChange(1), entity, id: entity })),
+      ],
+    });
+    expect(validateSync(dto)).toHaveLength(0);
+    for (const entity of RETIRED_SYNC_ENTITIES) {
+      expect(SYNC_ENTITIES as readonly string[]).not.toContain(entity);
+    }
+  });
+
+  it("rejects the whole batch for an unknown entity", () => {
+    const dto = plainToInstance(SyncPushDto, {
+      changes: [makeChange(0), { ...makeChange(1), entity: "no_such_entity" }],
+    });
+    expect(validateSync(dto)).not.toHaveLength(0);
   });
 });

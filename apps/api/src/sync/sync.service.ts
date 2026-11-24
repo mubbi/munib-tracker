@@ -1,25 +1,31 @@
-import {
-  isDeprecatedPlaintextEntity,
-  stripPrivateSyncData,
-} from "@munib-tracker/shared/validators/private-sync";
+import { stripPrivateSyncData } from "@munib-tracker/shared/validators/private-sync";
 import { BadRequestException, ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { parseISO } from "date-fns";
-import { MoreThan, Repository } from "typeorm";
+import { In, MoreThan, Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
 import { SyncRecordEntity } from "../database/entities";
 import { sanitizePreferencesSyncData } from "./dto/preferences.dto";
 import { isValidQuranNotesRecord } from "./dto/quran-notes-payload.validator";
-import type {
-  SyncPullResponseDto,
-  SyncPushDto,
-  SyncPushResponseDto,
-  SyncRecordDto,
+import {
+  isRetiredSyncEntity,
+  type SyncPullResponseDto,
+  type SyncPushDto,
+  type SyncPushResponseDto,
+  type SyncRecordDto,
 } from "./dto/sync.dto";
 import { isValidVaultPayload } from "./dto/vault-payload.validator";
 
 /** Reject client timestamps more than this far in the future (clock skew). */
 const MAX_FUTURE_SKEW_MS = 5 * 60 * 1000;
+
+/**
+ * Identity of a sync row within one user's data. Entities are
+ * `@IsIn(SYNC_ENTITIES)` ids, which never contain ":".
+ */
+function recordKey(entity: string, recordId: string): string {
+  return `${entity}:${recordId}`;
+}
 
 @Injectable()
 export class SyncService {
@@ -41,10 +47,10 @@ export class SyncService {
     });
 
     return {
-      // D46: rows of a retired plaintext entity are never returned (the
-      // migration deletes them; this covers rows written before it ran).
+      // Rows of a retired entity are never returned (old rows linger until a
+      // push of that entity drops them, or the D46 migration for khushu_journal).
       changes: records
-        .filter((record) => !isDeprecatedPlaintextEntity(record.entity))
+        .filter((record) => !isRetiredSyncEntity(record.entity))
         .map((record) => this.toDto(record)),
       serverTime: new Date().toISOString(),
     };
@@ -54,6 +60,12 @@ export class SyncService {
     const user = await this.requireSyncedUser(accessToken);
     const conflicts: SyncRecordDto[] = [];
     const now = Date.now();
+    // One read for the whole batch instead of a findOne per change (≤ 500).
+    const stored = await this.loadStored(
+      user.userId,
+      dto.changes.filter((change) => !isRetiredSyncEntity(change.entity)),
+    );
+    const droppedRetired = new Set<string>();
 
     for (const change of dto.changes) {
       if (change.entity === "data_reset") {
@@ -66,10 +78,13 @@ export class SyncService {
       // Per-record payload guard (H2): a malformed or oversized vault / ayah-notes
       // record is skipped and never stored. It doesn't fail the batch, so one bad
       // blob can't stall every other entity's sync. Payloads are never logged.
-      // D46: a retired plaintext entity (khushu journal → `vault_khushu`) from an
-      // old client is accepted but never stored, and any old copy is removed.
-      if (isDeprecatedPlaintextEntity(change.entity)) {
-        await this.syncRecordsRepository.delete({ userId: user.userId, entity: change.entity });
+      // A retired entity (RETIRED_SYNC_ENTITIES) from an old client is accepted
+      // but never stored, and the user's old rows of it are dropped (once per batch).
+      if (isRetiredSyncEntity(change.entity)) {
+        if (!droppedRetired.has(change.entity)) {
+          droppedRetired.add(change.entity);
+          await this.syncRecordsRepository.delete({ userId: user.userId, entity: change.entity });
+        }
         continue;
       }
       if (
@@ -82,20 +97,15 @@ export class SyncService {
       const updatedAt =
         clientUpdatedAt.getTime() > now + MAX_FUTURE_SKEW_MS ? new Date(now) : clientUpdatedAt;
 
-      const existing = await this.syncRecordsRepository.findOne({
-        where: {
-          userId: user.userId,
-          entity: change.entity,
-          recordId: change.id,
-        },
-      });
+      const key = recordKey(change.entity, change.id);
+      const existing = stored.get(key);
 
       if (existing && existing.updatedAt > updatedAt) {
         conflicts.push(this.toDto(existing));
         continue;
       }
 
-      await this.syncRecordsRepository.save(
+      const saved = await this.syncRecordsRepository.save(
         this.syncRecordsRepository.create({
           id: existing?.id,
           userId: user.userId,
@@ -106,6 +116,8 @@ export class SyncService {
           deletedAt: change.deletedAt ? parseISO(change.deletedAt) : null,
         }),
       );
+      // A later change to the same record in this batch compares against this write.
+      stored.set(key, saved);
     }
 
     return {
@@ -113,6 +125,24 @@ export class SyncService {
       conflicts,
       serverTime: new Date().toISOString(),
     };
+  }
+
+  /** Stored rows this batch touches, keyed by {@link recordKey}. */
+  private async loadStored(
+    userId: string,
+    changes: SyncRecordDto[],
+  ): Promise<Map<string, SyncRecordEntity>> {
+    const stored = new Map<string, SyncRecordEntity>();
+    if (!changes.length) return stored;
+    const rows = await this.syncRecordsRepository.find({
+      where: {
+        userId,
+        entity: In([...new Set(changes.map((change) => change.entity))]),
+        recordId: In([...new Set(changes.map((change) => change.id))]),
+      },
+    });
+    for (const row of rows) stored.set(recordKey(row.entity, row.recordId), row);
+    return stored;
   }
 
   private async requireSyncedUser(accessToken: string) {

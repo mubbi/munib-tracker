@@ -43,14 +43,9 @@ export const SYNC_ENTITIES = [
   "khatm",
   "hifz",
   "custom_adhkar",
-  // Deprecated (D46): the khushu journal now syncs only as `vault_khushu`. Still
-  // accepted for one release so old clients don't fail, but SyncService stores
-  // nothing for it (and deletes any old row), then it is removed.
-  "khushu_journal",
   "hajj_checklist",
   "umrah_checklist",
   "friday_checklist",
-  "white_days_checklist",
   // NF-3.11 the user's private iqamah times per masjid (own devices only, never shared).
   "home_masjid_times",
   // NF-3.5 daily Sunnah habits; NF-3.3 Dhul-Hijjah mode (per Hijri year).
@@ -79,13 +74,9 @@ export const SYNC_ENTITIES = [
   "qaza_schedule",
   "qaza_daily_progress",
   "qaza_daily_plans",
-  // Portable settings previously device-local (location calc + place, reading
-  // text toggles, zakat draft, feature-tour dismissals).
+  // Portable settings previously device-local (location calc + place, zakat
+  // draft, feature-tour dismissals).
   "location",
-  // Deprecated (D13): new clients store the pair in `preferences.readingDisplay`
-  // and never write this. Still accepted for one release so old clients don't
-  // fail, then removed (with `pnpm generate:api`).
-  "reading_text_visibility",
   "zakat_calculator",
   "fidyah_calculator",
   "sadaqah_goals",
@@ -115,6 +106,30 @@ export const SYNC_ENTITIES = [
 
 export type SyncEntity = (typeof SYNC_ENTITIES)[number];
 
+/**
+ * Retired entities that app builds still in the wild may push. They pass
+ * validation (so `@IsIn` doesn't 400 an old client's whole batch) but are not in
+ * the OpenAPI enum: SyncService stores nothing for them, drops any old row on
+ * push and never returns one on pull.
+ *
+ * - `khushu_journal` (D46): the journal syncs only as `vault_khushu`.
+ * - `reading_text_visibility` (D13): the pair lives in `preferences.readingDisplay`.
+ * - `white_days_checklist` (NF-3.2): White Days fasts live in `voluntary_fasting`.
+ */
+export const RETIRED_SYNC_ENTITIES = [
+  "khushu_journal",
+  "reading_text_visibility",
+  "white_days_checklist",
+] as const;
+
+export type RetiredSyncEntity = (typeof RETIRED_SYNC_ENTITIES)[number];
+
+export function isRetiredSyncEntity(entity: unknown): entity is RetiredSyncEntity {
+  return (RETIRED_SYNC_ENTITIES as readonly unknown[]).includes(entity);
+}
+
+const ACCEPTED_SYNC_ENTITIES: readonly string[] = [...SYNC_ENTITIES, ...RETIRED_SYNC_ENTITIES];
+
 export class SyncPullQueryDto {
   @ApiPropertyOptional({
     description: "ISO timestamp — return changes updated after this moment",
@@ -126,11 +141,12 @@ export class SyncPullQueryDto {
 }
 
 export class SyncRecordDto {
+  // The contract lists live entities only; retired ones are still accepted on push.
   @ApiProperty({ enum: SYNC_ENTITIES })
   @IsString()
   @IsNotEmpty()
-  @IsIn(SYNC_ENTITIES)
-  entity!: SyncEntity;
+  @IsIn(ACCEPTED_SYNC_ENTITIES)
+  entity!: SyncEntity | RetiredSyncEntity;
 
   @ApiProperty()
   @IsString()

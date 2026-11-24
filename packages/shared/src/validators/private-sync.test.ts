@@ -3,7 +3,6 @@ import { describe, expect, it } from "vitest";
 import {
   coarsenCoordinate,
   coarsenLocation,
-  isDeprecatedPlaintextEntity,
   stripPrivatePrayerLogFields,
   stripPrivatePreferenceFields,
   stripPrivateSyncData,
@@ -46,10 +45,8 @@ describe("private sync fields (D46)", () => {
     expect(stripPrivateSyncData("location", { value: null })).toEqual({ value: null });
   });
 
-  it("passes other entities through and flags the deprecated khushu entity", () => {
+  it("passes other entities through", () => {
     const data = { value: { a: 1 } };
     expect(stripPrivateSyncData("fasting", data)).toBe(data);
-    expect(isDeprecatedPlaintextEntity("khushu_journal")).toBe(true);
-    expect(isDeprecatedPlaintextEntity("vault_khushu")).toBe(false);
   });
 });

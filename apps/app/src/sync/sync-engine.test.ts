@@ -859,7 +859,7 @@ describe("runSync — D46 private fields never leave the device in plaintext", (
     });
   });
 
-  it("re-pushes old records once without their plaintext and clears the retired khushu entity", async () => {
+  it("re-pushes old records once without their plaintext", async () => {
     await seedPrivate();
     // A device that already synced before D46: the watermark is past every record.
     await writeJSON(DB_KEYS.syncMetadata, {
@@ -871,11 +871,7 @@ describe("runSync — D46 private fields never leave the device in plaintext", (
     await runSync(user);
 
     const first = mockPush.mock.calls[0]?.[1] as SyncRecordDto[];
-    expect(first.map((r) => r.entity).sort()).toEqual(
-      ["khushu_journal", "preferences", "prayer_logs"].sort(),
-    );
-    const retired = first.find((r) => r.entity === "khushu_journal");
-    expect(retired).toMatchObject({ data: { value: null }, deletedAt: expect.any(String) });
+    expect(first.map((r) => r.entity).sort()).toEqual(["prayer_logs", "preferences"]);
     expect(first.find((r) => r.entity === "prayer_logs")?.updatedAt).toBe(EXCUSED_LOG.updatedAt);
     expect(JSON.stringify(first)).not.toContain("hayd");
     await expect(readSyncMetadata()).resolves.toMatchObject({ privacyCleanup: 1 });
@@ -884,7 +880,6 @@ describe("runSync — D46 private fields never leave the device in plaintext", (
     await runSync(user);
     // Only new edits go now (the active period carries today's logs forward).
     const second = (mockPush.mock.calls[0]?.[1] as SyncRecordDto[] | undefined) ?? [];
-    expect(second.map((r) => r.entity)).not.toContain("khushu_journal");
     expect(second.map((r) => r.entity)).not.toContain("preferences");
     expect(second.some((r) => r.id === "dhuhr::2026-06-02")).toBe(false);
     expect(JSON.stringify(second)).not.toContain("hayd");

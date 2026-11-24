@@ -55,7 +55,6 @@ import { trackerStore } from "@/stores/tracker-store";
 import { umrahChecklistStore } from "@/stores/umrah-checklist-store";
 import { umrahSessionStore } from "@/stores/umrah-session-store";
 import { voluntaryFastingStore } from "@/stores/voluntary-fasting-store";
-import { whiteDaysChecklistStore } from "@/stores/white-days-checklist-store";
 import {
   clearBlobHold,
   type HeldMerge,
@@ -215,8 +214,10 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     storageKey: DB_KEYS.customAdhkar,
     reload: reloadIfReady(customAdhkarStore),
   },
-  // `khushu_journal` is retired (D46): the journal syncs only as the vault doc
-  // `vault_khushu` (`lib/private-sync/khushu-mirror.ts`).
+  // Retired (the API ignores them, see RETIRED_SYNC_ENTITIES in sync.dto.ts):
+  // `khushu_journal` (D46, syncs only as `vault_khushu`), `white_days_checklist`
+  // (NF-3.2, folded into `voluntary_fasting`) and `reading_text_visibility`
+  // (D13, now `preferences.readingDisplay`). Their local keys stay device-only.
   {
     entity: "hajj_checklist",
     storageKey: DB_KEYS.hajjChecklist,
@@ -231,11 +232,6 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     entity: "friday_checklist",
     storageKey: DB_KEYS.fridayChecklist,
     reload: reloadIfReady(fridayChecklistStore),
-  },
-  {
-    entity: "white_days_checklist",
-    storageKey: DB_KEYS.whiteDaysChecklist,
-    reload: reloadIfReady(whiteDaysChecklistStore),
   },
   // NF-3.11 private iqamah times per masjid — plain LWW (not union) so deletions propagate.
   {
@@ -325,9 +321,6 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     toPushValue: coarsenLocation,
     fromRemote: keepExactCoordinates,
   },
-  // `reading_text_visibility` is no longer written or applied (D13): the pair now
-  // lives in `preferences.readingDisplay`. The API keeps accepting the entity for
-  // one release so old clients don't fail; it is then removed from SYNC_ENTITIES.
   {
     entity: "zakat_calculator",
     storageKey: DB_KEYS.zakatCalculator,
@@ -703,7 +696,6 @@ const UNION_MERGE_ENTITIES = new Set([
   "hajj_checklist",
   "umrah_checklist",
   "friday_checklist",
-  "white_days_checklist",
   "salah_guide_progress",
   "taharah_progress",
   "aqeedah_progress",

@@ -45,8 +45,9 @@ describe("isBlobEntity", () => {
     expect(isBlobEntity("qaza_schedule")).toBe(true);
     expect(isBlobEntity("learn_dua_progress")).toBe(true);
     expect(isBlobEntity("location")).toBe(true);
-    // D13: merged into preferences.readingDisplay — no longer a client blob.
+    // Retired sync entities (local keys only): D13 readingDisplay, NF-3.2 fasting log.
     expect(isBlobEntity("reading_text_visibility")).toBe(false);
+    expect(isBlobEntity("white_days_checklist")).toBe(false);
     expect(isBlobEntity("hadith_prefs")).toBe(true);
     expect(isBlobEntity("zakat_calculator")).toBe(true);
     expect(isBlobEntity("fidyah_calculator")).toBe(true);
@@ -384,9 +385,14 @@ describe("buildBlobRecords pristine guards", () => {
   const entityRecord = (records: Awaited<ReturnType<typeof buildBlobRecords>>, entity: string) =>
     records.find((r) => r.entity === entity);
 
-  it("never writes the retired reading-text visibility blob (D13)", async () => {
+  it("never writes the retired reading-text visibility / White Days checklist blobs", async () => {
     await writeJSON(DB_KEYS.readingTextVisibility, { showTranslation: false });
-    expect(entityRecord(await buildBlobRecords(T1), "reading_text_visibility")).toBeUndefined();
+    await writeJSON(DB_KEYS.whiteDaysChecklist, {
+      "day13::1448-2": { id: "day13", monthKey: "1448-2", completedAt: T1 },
+    });
+    const records = await buildBlobRecords(T1);
+    expect(entityRecord(records, "reading_text_visibility")).toBeUndefined();
+    expect(entityRecord(records, "white_days_checklist")).toBeUndefined();
   });
 
   it("emits a default-sourced location that carries per-salah adjustments", async () => {

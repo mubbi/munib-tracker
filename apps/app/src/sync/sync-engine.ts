@@ -72,7 +72,7 @@ export interface SyncMetadata {
   /**
    * D46 one-time cleanup done for this account: preferences and excused prayer
    * logs were re-pushed without their private fields (so the server copy loses
-   * the old plaintext) and the retired `khushu_journal` entity was cleared.
+   * the old plaintext).
    */
   privacyCleanup?: 1;
   /** Server clock at our last successful pull — the `since` cursor for the next pull. */
@@ -279,17 +279,6 @@ function isPrivacyCleanupRecord(record: SyncRecordDto): boolean {
   return record.entity === "prayer_logs" && (record.data as Partial<PrayerLog>)?.isExcused === true;
 }
 
-/** Clears the retired plaintext `khushu_journal` entity (the server stores nothing for it). */
-function retiredKhushuRecord(nowIso: string): SyncRecordDto {
-  return {
-    entity: "khushu_journal" as SyncRecordDto["entity"],
-    id: "khushu_journal",
-    data: { value: null },
-    updatedAt: nowIso,
-    deletedAt: nowIso,
-  };
-}
-
 /**
  * Push local changes then pull remote changes (last-write-wins on `updatedAt`).
  * Guest accounts never sync — the server returns 403 for them anyway.
@@ -377,9 +366,7 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
           record.updatedAt > since ||
           (needsCleanup && isPrivacyCleanupRecord(record)),
       )
-    : [...allRecords];
-  // D46 one-time cleanup: clears the retired plaintext khushu entity on the server.
-  if (needsCleanup) records.push(retiredKhushuRecord(nowIso));
+    : allRecords;
 
   // Pull-only syncs are common on foreground. Do not POST an empty change set.
   const pushResult: SyncPushResponseDto =

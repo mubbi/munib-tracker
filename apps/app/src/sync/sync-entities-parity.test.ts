@@ -20,19 +20,14 @@ import { buildSyncRecords, TYPED_SYNC_ENTITIES } from "./records";
 const SERVER_ONLY = new Set([
   // Server-managed reset marker: pulled and applied by `sync-engine`, never pushed.
   "data_reset",
-  // Deprecated (D13): still accepted for one release so old clients don't fail.
-  "reading_text_visibility",
-  // Retired (D46): syncs only as `vault_khushu`; the server stores nothing for it.
-  // The client sends it once, as an empty tombstone, to clear the old server copy.
-  "khushu_journal",
 ]);
 
-/** `SYNC_ENTITIES` parsed from the API source (the app can't import NestJS DTOs). */
-function serverSyncEntities(): string[] {
+/** A `const NAME = [...] as const` list parsed from the API source (the app can't import NestJS DTOs). */
+function serverEntityList(name: "SYNC_ENTITIES" | "RETIRED_SYNC_ENTITIES"): string[] {
   const file = path.resolve(__dirname, "../../../api/src/sync/dto/sync.dto.ts");
   const source = readFileSync(file, "utf8");
-  const body = /export const SYNC_ENTITIES = \[([\s\S]*?)\] as const;/.exec(source)?.[1];
-  if (!body) throw new Error("SYNC_ENTITIES not found in apps/api/src/sync/dto/sync.dto.ts");
+  const body = new RegExp(`export const ${name} = \\[([\\s\\S]*?)\\] as const;`).exec(source)?.[1];
+  if (!body) throw new Error(`${name} not found in apps/api/src/sync/dto/sync.dto.ts`);
   const withoutComments = body.replace(/\/\/.*$/gm, "");
   return [...withoutComments.matchAll(/"([a-z_]+)"/g)].map((m) => m[1] as string);
 }
@@ -57,7 +52,8 @@ const EMPTY_SNAPSHOT = {
 const clientEntities = [...TYPED_SYNC_ENTITIES, ...BLOB_ENTITIES.map((e) => e.entity)];
 
 describe("sync entity parity (client ↔ API)", () => {
-  const server = serverSyncEntities();
+  const server = serverEntityList("SYNC_ENTITIES");
+  const retired = serverEntityList("RETIRED_SYNC_ENTITIES");
 
   it("has no duplicate entity on either side", () => {
     expect(new Set(server).size).toBe(server.length);
@@ -73,6 +69,16 @@ describe("sync entity parity (client ↔ API)", () => {
     const unusedOnClient = server.filter((e) => !clientEntities.includes(e) && !SERVER_ONLY.has(e));
     expect(unusedOnClient).toEqual([]);
     for (const e of SERVER_ONLY) expect(clientEntities).not.toContain(e);
+  });
+
+  it("never pushes an entity the API has retired (accepted only for old clients, then ignored)", () => {
+    expect(retired).toEqual(
+      expect.arrayContaining(["khushu_journal", "reading_text_visibility", "white_days_checklist"]),
+    );
+    for (const e of retired) {
+      expect(server).not.toContain(e);
+      expect(clientEntities).not.toContain(e);
+    }
   });
 
   it("the generated api-client enum matches the API source (run `pnpm generate:api` if not)", () => {

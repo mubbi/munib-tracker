@@ -6,9 +6,9 @@
  * - The excused period (hayd / nifas / illness / travel) — the active reason
  *   in preferences and the per-day reason on prayer logs — syncs only inside the
  *   E2E vault document `vault_excused` (or stays on the device).
- * - The khushu journal syncs only as the vault document `vault_khushu`; the old
- *   plaintext `khushu_journal` entity is accepted for one release so old clients
- *   don't fail, but the server stores nothing for it.
+ * - The khushu journal syncs only as the vault document `vault_khushu` (the old
+ *   plaintext `khushu_journal` entity is retired: see `RETIRED_SYNC_ENTITIES` in
+ *   `apps/api/src/sync/dto/sync.dto.ts`).
  * - The synced location is rounded to ~1 km; exact coordinates stay on the device.
  */
 
@@ -18,15 +18,8 @@ export const PRIVATE_PREFERENCE_KEYS = ["activeExcusedReason"] as const;
 /** Prayer-log fields kept off the plaintext `prayer_logs` sync records (`isExcused` stays). */
 export const PRIVATE_PRAYER_LOG_KEYS = ["excusedReason"] as const;
 
-/** Plaintext entities replaced by a vault document: accepted, never stored or returned. */
-export const DEPRECATED_PLAINTEXT_ENTITIES = ["khushu_journal"] as const;
-
 /** Decimal places kept for synced coordinates: 0.01° ≈ 1.1 km of latitude. */
 export const SYNCED_COORDINATE_DECIMALS = 2;
-
-export function isDeprecatedPlaintextEntity(entity: unknown): boolean {
-  return (DEPRECATED_PLAINTEXT_ENTITIES as readonly unknown[]).includes(entity);
-}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value != null && typeof value === "object" && !Array.isArray(value);
