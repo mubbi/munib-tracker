@@ -10,6 +10,7 @@ vi.mock("web-push", () => webPushMock);
 import type { SurfaceSendOptions } from "./types.js";
 import {
   createWebPushSender,
+  isAllowedWebPushEndpoint,
   isValidWebPushSubscription,
   type WebPushSenderConfig,
 } from "./web-push.js";
@@ -49,8 +50,41 @@ describe("isValidWebPushSubscription", () => {
     ["missing auth", { endpoint: "https://x", keys: { p256dh: "a" } }],
     ["empty p256dh", { endpoint: "https://x", keys: { p256dh: "", auth: "a" } }],
     ["empty auth", { endpoint: "https://x", keys: { p256dh: "a", auth: "" } }],
+    [
+      "an endpoint outside the push-service allowlist",
+      { endpoint: "https://169.254.169.254/latest", keys: SUBSCRIPTION.keys },
+    ],
   ])("rejects %s", (_label, value) => {
     expect(isValidWebPushSubscription(value)).toBe(false);
+  });
+});
+
+describe("isAllowedWebPushEndpoint", () => {
+  it.each([
+    "https://fcm.googleapis.com/fcm/send/abc",
+    "https://android.googleapis.com/gcm/send/abc",
+    "https://updates.push.services.mozilla.com/wpush/v2/abc",
+    "https://web.push.apple.com/QAbc",
+    "https://wns2-par02p.notify.windows.com/w/?token=abc",
+    "https://FCM.googleapis.com/fcm/send/abc",
+  ])("accepts known push service %s", (endpoint) => {
+    expect(isAllowedWebPushEndpoint(endpoint)).toBe(true);
+  });
+
+  it.each([
+    ["a non-string", 42],
+    ["an unparsable URL", "https://"],
+    ["http", "http://fcm.googleapis.com/fcm/send/abc"],
+    ["an explicit port", "https://fcm.googleapis.com:8443/fcm/send/abc"],
+    ["credentials", "https://user:pw@fcm.googleapis.com/fcm/send/abc"],
+    ["a metadata IP", "https://169.254.169.254/latest/meta-data"],
+    ["localhost", "https://localhost/push"],
+    ["an arbitrary host", "https://attacker.example/push"],
+    ["a lookalike suffix", "https://evilfcm.googleapis.com.attacker.example/x"],
+    ["a bare suffix", "https://notify.windows.com/x"],
+    ["an over-long URL", `https://fcm.googleapis.com/${"a".repeat(2048)}`],
+  ])("rejects %s", (_label, endpoint) => {
+    expect(isAllowedWebPushEndpoint(endpoint)).toBe(false);
   });
 });
 
@@ -77,6 +111,11 @@ describe("createWebPushSender", () => {
       "an invalid subscription",
       JSON.stringify({ endpoint: "http://x", keys: SUBSCRIPTION.keys }),
       "Invalid Web Push subscription",
+    ],
+    [
+      "an endpoint outside the push-service allowlist",
+      JSON.stringify({ endpoint: "https://169.254.169.254/latest", keys: SUBSCRIPTION.keys }),
+      "Web Push endpoint is not a known push service",
     ],
   ])("invalidates %s without sending", async (_label, target, reason) => {
     const { send } = setup();

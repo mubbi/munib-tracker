@@ -35,4 +35,9 @@ export {
   VISIBLE_WEB_PUSH_CONCURRENCY,
 } from "./visible.js";
 export type { WebPushSenderConfig, WebPushSubscription } from "./web-push.js";
-export { createWebPushSender, isValidWebPushSubscription } from "./web-push.js";
+export {
+  createWebPushSender,
+  isAllowedWebPushEndpoint,
+  isValidWebPushSubscription,
+  WEB_PUSH_SERVICE_HOSTS,
+} from "./web-push.js";

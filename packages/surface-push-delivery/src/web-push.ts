@@ -15,7 +15,8 @@ export type WebPushSenderConfig = {
   ttlSeconds?: number;
 };
 
-export function isValidWebPushSubscription(value: unknown): value is WebPushSubscription {
+/** Structural check only: an `https://` endpoint string plus non-empty keys. */
+function hasWebPushShape(value: unknown): value is WebPushSubscription {
   if (!value || typeof value !== "object") return false;
   const sub = value as WebPushSubscription;
   return (
@@ -25,6 +26,47 @@ export function isValidWebPushSubscription(value: unknown): value is WebPushSubs
     sub.keys.p256dh.length > 0 &&
     typeof sub.keys?.auth === "string" &&
     sub.keys.auth.length > 0
+  );
+}
+
+/** Well-formed subscription whose endpoint is on a known push service (see allowlist). */
+export function isValidWebPushSubscription(value: unknown): value is WebPushSubscription {
+  return hasWebPushShape(value) && isAllowedWebPushEndpoint(value.endpoint);
+}
+
+/**
+ * Push services a browser `PushSubscription.endpoint` can legitimately point at
+ * (Chrome / Edge-on-Android / Opera / Samsung → FCM, Firefox → Mozilla autopush,
+ * Safari → Apple, Edge on Windows → WNS). Senders POST to the stored endpoint,
+ * so an arbitrary `https://` URL would let any client that can register a
+ * subscription make the server request hosts of its choosing (SSRF into
+ * internal / metadata services). Exact hosts, or a `.suffix` for subdomains.
+ */
+export const WEB_PUSH_SERVICE_HOSTS: readonly string[] = [
+  "fcm.googleapis.com",
+  "android.googleapis.com",
+  "updates.push.services.mozilla.com",
+  ".push.services.mozilla.com",
+  "web.push.apple.com",
+  ".push.apple.com",
+  ".notify.windows.com",
+];
+
+/** True for an `https:` endpoint on a known push service (default port, no credentials). */
+export function isAllowedWebPushEndpoint(endpoint: unknown): boolean {
+  if (typeof endpoint !== "string" || endpoint.length > 2048) return false;
+  let url: URL;
+  try {
+    url = new URL(endpoint);
+  } catch {
+    return false;
+  }
+  if (url.protocol !== "https:" || url.port !== "" || url.username || url.password) return false;
+  const host = url.hostname.toLowerCase();
+  return WEB_PUSH_SERVICE_HOSTS.some((allowed) =>
+    allowed.startsWith(".")
+      ? host.endsWith(allowed) && host.length > allowed.length
+      : host === allowed,
   );
 }
 
@@ -77,10 +119,20 @@ export function parseWebPushTarget(
       invalidateToken: true,
     };
   }
-  if (!isValidWebPushSubscription(subscription)) {
+  if (!hasWebPushShape(subscription)) {
     return {
       ok: false,
       reason: "Invalid Web Push subscription",
+      retryable: false,
+      invalidateToken: true,
+    };
+  }
+  // Enforced at send time (not only at registration) so rows stored before the
+  // allowlist, or written by another surface, are never POSTed to (SSRF).
+  if (!isAllowedWebPushEndpoint(subscription.endpoint)) {
+    return {
+      ok: false,
+      reason: "Web Push endpoint is not a known push service",
       retryable: false,
       invalidateToken: true,
     };
