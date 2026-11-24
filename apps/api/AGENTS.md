@@ -19,7 +19,7 @@ NestJS backend for cloud sync, social login, and future server-side features.
 - **PostgreSQL** via **TypeORM 1.x** (`@nestjs/typeorm`) — find `where` values that are `null`/`undefined` throw; use `IsNull()` or guard first
 - **OpenAPI** exported to `@munib-tracker/api-contract` → Orval SDK in `@munib-tracker/api-client`
 - **rspack + SWC** monorepo build (Nest CLI `builder: rspack`, `rspack.config.js`; inlines `@munib-tracker/*` sources)
-- **Biome** lint, **Vitest 5** tests (`vitest.config.mts` for `src/**/*.spec.ts`, `vitest.config.e2e.mts` for `test/**/*.e2e-spec.ts`)
+- **Biome** lint, **Vitest 5** tests (`vitest.config.mts` for `src/**/*.spec.ts`, `vitest.config.e2e.mts` for `test/**/*.e2e-spec.ts`). Both load `NO_NETWORK_SETUP`: only loopback (supertest, in-memory SQLite) is allowed — stub OAuth, APNs, Web Push, QStash, Overpass and Cloudinary clients
 - **date-fns** for API datetime parsing
 
 ## Client integration
@@ -42,7 +42,8 @@ pnpm generate:api
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `health`               | Liveness probes at `GET /` and `GET /api/v1/health`                                                                                                                            |
 | `auth`                 | Guest sessions, Google/Apple/Facebook OAuth, account linking, web cookie sessions                                                                                              |
-| `sync`                 | Pull/push cloud sync (last-write-wins)                                                                                                                                         |
+| `sync`                 | Pull/push cloud sync (last-write-wins); `vault_*` entities are E2E-encrypted — shape/size checks only (`dto/vault-payload.validator.ts`), never log or inspect values          |
+| `masjids`              | Masjid finder: public read-only OpenStreetMap (Overpass) proxy by geohash-5 cell (`/masjids`), Redis/in-memory cache + IP rate limit                                           |
 | `content-reports`      | User content issue reports with optional attachments                                                                                                                           |
 | `user-media`           | Private custom-adhkar images (Cloudinary authenticated / disk); UTF-8 filenames, RFC 5987 `Content-Disposition`                                                                |
 | `app-feedback`         | Low-star in-app feedback submissions                                                                                                                                           |

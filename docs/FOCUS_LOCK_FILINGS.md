@@ -1,8 +1,8 @@
 # Salah focus lock — store filings (NF-3.13, D4 / D25)
 
-Draft text for the owner to submit. Tick each box only once you have submitted it and record the date and the reviewer's answer. **Apple's Family Controls (Distribution) entitlement was approved on 2026-11-24 (owner-reported)**, so the iOS hard block is now **on by default** (`EXPO_PUBLIC_FOCUS_LOCK_HARD_IOS=0` builds the D17 soft-prompt fallback). Plan §4.3 lists the lead times (Apple: weeks, can be rejected; Play: days to weeks).
+Draft text for the owner to submit. Tick each box only once you have submitted it and record the date and the reviewer's answer. **Apple's Family Controls (Distribution) entitlement was approved on 2026-11-24 (owner-reported)**, so the iOS hard block is now **on by default** (`EXPO_PUBLIC_FOCUS_LOCK_HARD_IOS=0` builds the D17 soft-prompt fallback). Lead times: Apple takes weeks and can reject; Play takes days to weeks.
 
-D17 (Apple refusal) no longer applies; it remains available as a build switch (`EXPO_PUBLIC_FOCUS_LOCK_HARD_IOS=0`: soft in-app prompt only, extensions and entitlement left out automatically). If Play rejects `specialUse`, the plan's fallback is an overlay triggered from the exact alarm only, without the service (lower reliability).
+D17 (Apple refusal) no longer applies; it remains available as a build switch (`EXPO_PUBLIC_FOCUS_LOCK_HARD_IOS=0`: soft in-app prompt only, extensions and entitlement left out automatically). If Play rejects `specialUse`, the fallback is an overlay triggered from the exact alarm only, without the service (lower reliability).
 
 | #   | Filing                                                                    | Where                                                            | Status                                                                                                                               |
 | --- | ------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |

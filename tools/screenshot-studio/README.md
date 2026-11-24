@@ -22,9 +22,9 @@ pnpm screenshots:android           # or pnpm screenshots:ios (macOS)
 ### Step 1 — Seed, sync, edit, export
 
 ```bash
-cd tools/screenshot-studio
-npm install                              # first time only
-pnpm seed:screenshot-studio              # from repo root — decks + en/ar/ur copy
+# all from the repo root
+npm --prefix tools/screenshot-studio install   # first time only
+pnpm seed:screenshot-studio              # decks + en/ar/ur copy
 pnpm sync:screenshot-captures            # copies captures (STUDIO_THEME, default light) → public/screenshots/app/<platform>/<locale>/
 pnpm dev:screenshot-studio               # editor on http://localhost:3010
 ```

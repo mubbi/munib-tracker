@@ -4,7 +4,7 @@ Ops console at `apps/admin` (`@munib-tracker/admin`). Full product docs: [`docs/
 
 ## Stack
 
-- **Next.js 16.4** App Router (React 19.3, Tailwind 4.3, Vitest 5 — `vitest.config.mts`), port **3002** (`app/`, `lib/`, `components/` — no `src/`)
+- **Next.js 16.4** App Router (React 19.3, Tailwind 4.3, Vitest 5 — `vitest.config.mts`, `lib/**/*.{test,spec}.ts` only, behind the shared no-network guard; `test:db` is the one opt-in live-DB smoke), port **3002** (`app/`, `lib/`, `components/` — no `src/`)
 - **Drizzle** through `@munib-tracker/db` — same Postgres as Nest; **no Nest admin CRUD**
 - **Custom Google OAuth** + jose-signed cookie `mt_admin_session` (`ADMIN_SESSION_SECRET`)
 - **Allowlist** `admin_users` with `enabled`; roles: `super_admin` | `support` | `ops` | `content` | `analytics`

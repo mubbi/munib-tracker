@@ -4,7 +4,7 @@
 >
 > Architecture and operations for the content pipeline (already shipping). Open data work: [`BACKLOG.md`](./BACKLOG.md#content-pipeline).
 >
-> **Companion docs:** [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) · [`FEATURES.md`](./FEATURES.md)
+> **Companion docs:** [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) (which sources and licences, and why) · [`FEATURES.md`](./FEATURES.md). This guide is the _how_: pipeline, file layout, types and guardrails.
 
 ---
 
@@ -67,21 +67,24 @@
 
 ## 1. Delivery decisions
 
-| #   | Decision                                                                                                                    | Delivery                                                              | Source (no-key)                                                                                       |
-| --- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| D1  | **Qur'an Arabic (Uthmani/Ḥafṣ) + English transliteration + Pickthall (EN) + Jalandhry (UR); Yusuf Ali is remote-only (D2)** | **Bundled JSON assets**, lazy per-surah                               | `risan/quran-json` via jsDelivr CDN (build-time fetch)                                                |
-| D2  | **Extra Qur'an translations (Saheeh International, Clear Qur'an/Khattab) + tafsir**                                         | **Live CDN, on-demand**, cached (react-query + AsyncStorage)          | Translations: `fawazahmed0/quran-api` jsDelivr. Tafsir: `spa5k/tafsir_api` (multi-lang) + fawaz Siraj |
-| D3  | **Qur'an recitation audio (Arabic, per-ayah)**                                                                              | **Streamed** from CDN, optional per-surah download later              | `everyayah.com` predictable URLs                                                                      |
-| D4  | **Qur'an English audio-translation**                                                                                        | **Streamed**, per-surah                                               | `QuranicAudio.com` (Ibrahim Walk / Saheeh Intl)                                                       |
-| D5  | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)**                                                               | **Bundled JSON**, offline                                             | `AhmedBaset/hadith-json` (build-time; license policy §12). Includes structured `isnad[]` (NF-2.9).    |
-| D5b | **Hadith — Nawawi Arabic sharh (NF-2.8)**                                                                                   | **Bundled sidecar** `nawawi40-sharh.json`                             | `osamayy/40-hadith-nawawi-db` (Unlicense); merged at load in `hadith-bundled.ts`                      |
-| D6  | **Hadith — full six-books browse/search**                                                                                   | **Live CDN, on-demand**, cached                                       | `fawazahmed0/hadith-api` jsDelivr (no key). No sharh/isnad yet.                                       |
-| D7  | **Duas + Adhkar → full Hisnul Muslim**                                                                                      | **Bundled** (`packages/shared` via `build-adhkar.mjs`) — **270** duas | `sheikhhanif/Hisnul_Muslim_Database` + related OSS                                                    |
-| D8  | **Names of Allah → complete 99**                                                                                            | **Bundled** (`names.ts` via `build-names.mjs`)                        | standard Asma-ul-Husna (from fawazahmed0 / muslimKit)                                                 |
-| D9  | **Dua/Adhkar/99-Names audio**                                                                                               | **Streamed**                                                          | Internet Archive (Hisnul Muslim audio, Asma-ul-Husna)                                                 |
-| D10 | **Prayer times / Qibla**                                                                                                    | **On-device calc (unchanged)**                                        | `adhan` (installed) + `expo-location`                                                                 |
-| D11 | **Adhan call audio (for notifications)**                                                                                    | **Bundled baseline MP3** + remote CDN styles; expand local set        | `assets/audio/adhan/` + Kiwifu/adhan-mp3                                                              |
-| D12 | **Integrity, not encryption**                                                                                               | SHA-256 per data file in a manifest; **no encryption of scripture**   | `expo-crypto` (installed)                                                                             |
+> These D-numbers are local to this guide (content delivery). The product decisions D1–D51 are in
+> [`DECISIONS.md`](./DECISIONS.md).
+
+| #   | Decision                                                                                                                    | Delivery                                                                     | Source (no-key)                                                                                       |
+| --- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| D1  | **Qur'an Arabic (Uthmani/Ḥafṣ) + English transliteration + Pickthall (EN) + Jalandhry (UR); Yusuf Ali is remote-only (D2)** | **Bundled JSON assets**, lazy per-surah                                      | `risan/quran-json` via jsDelivr CDN (build-time fetch)                                                |
+| D2  | **Extra Qur'an translations (Saheeh International, Clear Qur'an/Khattab) + tafsir**                                         | **Live CDN, on-demand**, cached (react-query + AsyncStorage)                 | Translations: `fawazahmed0/quran-api` jsDelivr. Tafsir: `spa5k/tafsir_api` (multi-lang) + fawaz Siraj |
+| D3  | **Qur'an recitation audio (Arabic, per-ayah)**                                                                              | **Streamed** from CDN, optional per-surah download later                     | `everyayah.com` predictable URLs                                                                      |
+| D4  | **Qur'an English audio-translation**                                                                                        | **Streamed**, per-surah                                                      | `QuranicAudio.com` (Ibrahim Walk / Saheeh Intl)                                                       |
+| D5  | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)**                                                               | **Bundled JSON**, offline                                                    | `AhmedBaset/hadith-json` (build-time; license policy §12). Includes structured `isnad[]` (NF-2.9).    |
+| D5b | **Hadith — Nawawi Arabic sharh (NF-2.8)**                                                                                   | **Bundled sidecar** `nawawi40-sharh.json`                                    | `osamayy/40-hadith-nawawi-db` (Unlicense); merged at load in `hadith-bundled.ts`                      |
+| D6  | **Hadith — full six-books browse/search**                                                                                   | **Live CDN, on-demand**, cached                                              | `fawazahmed0/hadith-api` jsDelivr (no key). No sharh/isnad yet.                                       |
+| D7  | **Duas + Adhkar → full Hisnul Muslim**                                                                                      | **Bundled** (`packages/shared` via `build-adhkar.mjs`) — **293** dua entries | `sheikhhanif/Hisnul_Muslim_Database` + related OSS                                                    |
+| D8  | **Names of Allah → complete 99**                                                                                            | **Bundled** (`names.ts` via `build-names.mjs`)                               | standard Asma-ul-Husna (from fawazahmed0 / muslimKit)                                                 |
+| D9  | **Dua/Adhkar/99-Names audio**                                                                                               | **Streamed**                                                                 | Internet Archive (Hisnul Muslim audio, Asma-ul-Husna)                                                 |
+| D10 | **Prayer times / Qibla**                                                                                                    | **On-device calc (unchanged)**                                               | `adhan` (installed) + `expo-location`                                                                 |
+| D11 | **Adhan call audio (for notifications)**                                                                                    | **Bundled baseline MP3** + remote CDN styles; expand local set               | `assets/audio/adhan/` + Kiwifu/adhan-mp3                                                              |
+| D12 | **Integrity, not encryption**                                                                                               | SHA-256 per data file in a manifest; **no encryption of scripture**          | `expo-crypto` (installed)                                                                             |
 
 **Why these specific no-key sources:** `sunnah.com` and `Quran.Foundation` require a
 manually-requested API key/registration → they would **block a one-pass automated build**. They are
@@ -250,7 +253,7 @@ packages/shared/src/
     quran.ts                          # Surah, Ayah, AyahEdition types (§6)
     hadith.ts                         # HadithItem, HadithCollection types (§6)
   content/
-    duas.ts                           # full Hisnul Muslim (270) — regenerate via build-adhkar.mjs
+    duas.ts                           # full Hisnul Muslim (293 entries) — regenerate via build-adhkar.mjs
     zikr.ts                           # expanded adhkar — regenerate via build-adhkar.mjs
     duroods.ts                        # regenerate via build-adhkar.mjs
     names.ts                          # all 99 — regenerate via build-names.mjs
@@ -392,7 +395,7 @@ required.
 
 ## 7. Content expansion — Duas, Adhkar, Duroods, 99 Names (D7, D8)
 
-**Phase 1 is shipped** — full Hisnul corpus (**270** duas), expanded adhkar/duroods, and all **99**
+**Phase 1 is shipped** — full Hisnul corpus (**293** dua entries, 16 categories), expanded adhkar/duroods, and all **99**
 Names. Re-run builders when sources or locale overlays change; do not AI-author religious text.
 
 - Regenerate `packages/shared/src/content/{duas,zikr,duroods,names}.ts` from the §3 sources via

@@ -1,7 +1,11 @@
 <!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
 <!-- END:nextjs-agent-rules -->
 
 # Marketing site (`apps/marketing-web`)
@@ -24,7 +28,7 @@ Long-form pages are typed data in `src/content/` rendered by shared templates in
 - Header mega-menus and footer groups are literals in `lib/site.ts` (`NAV_MENUS`, `FOOTER_GROUPS`) so the client header ships no page copy; the same test checks their hrefs.
 - Article rules (citations, Arabic copied verbatim from the bundled Tanzil text / sunnah.com, no rulings, verified app facts only): `content/resources/ARTICLE_BRIEF.md`.
 - Comparison rules: official sources only, `unverified` instead of guesses, list `sources`, update `VERIFIED_ON` when re-checked.
-- **Feature inventory:** `content/munib-features.ts` lists every shipped feature plus every roadmap item from `docs/NEW_FEATURES_TODO_PLAN.md` (`status: "planned"`, with its NF id). It renders as "Everything in Munib Tracker" on each comparison and "On the roadmap" on `/features`. Roadmap items use the `planned` cell status ("Coming soon") via `MUNIB_PLANNED` in `compare/shared.ts` — only Munib cells may use it (tested), and planned features must never be shown as available. **When an NF-3.x feature ships:** set it to `shipped` in the inventory, change its `MUNIB_PLANNED` entry to an available cell, and add it to the relevant feature page.
+- **Feature inventory:** `content/munib-features.ts` lists every shipped feature (verified against [`docs/FEATURES.md`](../../docs/FEATURES.md) and the app code); NF ids use `nf()` (shipped) or `soon()` (`status: "planned"`, for an item from [`docs/BACKLOG.md`](../../docs/BACKLOG.md) that is being built). It renders as "Everything in Munib Tracker" on each comparison and "On the roadmap" on `/features` (hidden while nothing is planned). Comparison cells for NF features come from `MUNIB_NF` in `compare/shared.ts`, which follows the inventory status — a planned item renders "Coming soon" and must never be shown as available; only Munib cells may use `planned` (tested). **When a feature ships:** flip it to `nf()` in the inventory and add it to the relevant feature page.
 - Screenshots: only real captures (`public/screenshots/*.webp`, registry `lib/screenshots.ts`). Illustrations must be labelled as such (see `PracticePreview`).
 - Counts in copy (adhkar, duas, translations…) must match the app data; shared counts live in `@munib-tracker/shared/constants` (`features.ts`).
 

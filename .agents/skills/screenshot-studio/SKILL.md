@@ -1,4 +1,5 @@
 ---
+name: screenshot-studio
 description: Generate App Store and Google Play marketing screenshots for Munib Tracker — native Maestro capture, screenshot-studio frames, localized copy, export at store resolutions, distribute to apps/app/store-assets. Use when creating store assets, refreshing app captures, updating screenshot copy, exporting new locales, or preparing App Store Connect / Play Console listings.
 ---
 
@@ -65,10 +66,10 @@ Manual capture is still valid: place JPEGs/PNGs under `captures/<android|ios>/<l
 ### Phase B — Studio frames & export
 
 ```bash
-cd tools/screenshot-studio
-npm install                    # once
+# all from the repo root
+npm --prefix tools/screenshot-studio install  # once
 pnpm sync:screenshot-brand-assets  # Munib icon + logo from apps/app/assets/images/
-pnpm seed:screenshot-studio    # from repo root — refresh decks + en/ar/ur copy
+pnpm seed:screenshot-studio    # refresh decks + en/ar/ur copy
 pnpm sync:screenshot-captures  # copies captures → public/screenshots/app/
 pnpm dev:screenshot-studio     # http://localhost:3010
 # Export each device tab → writes tools/screenshot-studio/exports/

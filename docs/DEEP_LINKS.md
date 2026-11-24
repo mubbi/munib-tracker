@@ -237,7 +237,7 @@ Full OAuth console setup: [OAUTH_SETUP.md](./OAUTH_SETUP.md).
 | `/circles`, `/family`, `/kids` | Circles hub, parent view, kids mode.                                                                                                                                                                                                     |
 
 - **HTTPS is the shared form** (`https://my.munibtracker.app/circle/join/<CODE>`). Devices with the app open it through App Links / Universal Links (Android `intentFilters` `pathPrefix` `/circle/join` + `/kids/link` in `app.json`; AASA paths `/circle/join/*`, `/kids/link`, `/kids/link/*` from `scripts/generate-well-known.mjs`). Without the app it opens the **Expo web join screen** — guests can join a group khatm on the web; family and partner circles ask to sign in. There is no marketing-site landing page.
-- `munib-tracker://circle/join/<CODE>` also works (the plan's `munib://` is this app's `munib-tracker://` scheme).
+- `munib-tracker://circle/join/<CODE>` also works (the app's custom scheme is `munib-tracker://`, not `munib://`).
 - Both routes are `index: false` in the SEO registry.
 
 ---

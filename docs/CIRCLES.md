@@ -1,10 +1,11 @@
 # Circles backend (NF-3.16 family · NF-3.17 partner · NF-3.18 group khatm)
 
-Decision **D1** (`docs/NEW_FEATURES_TODO_PLAN.md` §9.0): a `circles` module in `apps/api`
+Decision **D1** ([`DECISIONS.md`](./DECISIONS.md)): a `circles` module in `apps/api`
 (Postgres + TypeORM migration `1720000012000-Circles`, Drizzle mirror
 `packages/db/src/schema/circles.ts`). Shared vocabulary and pure rules (roles, signal kinds,
 age bands, invite-code format, khatm units / stale rule) live in `@munib-tracker/shared/circles`
-so the app and the API agree. App UIs ship in the next wave; this document covers the server.
+so the app and the API agree. The app UIs have shipped ([`FEATURES.md`](./FEATURES.md#social-circles));
+this document covers the server.
 
 ## Code map
 
@@ -21,13 +22,15 @@ so the app and the API agree. App UIs ship in the next wave; this document cover
 | `apps/api/src/circles/circle-events.service.ts`    | Event fan-out into the in-app inbox + OS push (D33)                    |
 | `apps/api/src/circles/circle-push.service.ts`      | Expo + Web Push delivery, prefs gating, server-side localization       |
 | `apps/api/src/circles/family-digest.service.ts`    | D40 weekly family digest (inbox + push to parents, counts only)        |
+| `apps/api/src/circles/circle-nearby.*`             | NF-3.25 nearby join: BLE sessions, match code, host-approved requests  |
 | `apps/api/src/database/entities/circles.ts`        | TypeORM entities (`CIRCLE_ENTITIES`)                                   |
 
 ## Tables
 
 `circles`, `circle_members` (PK `circleId, memberId`), `circle_invites`, `child_profiles`,
 `daily_signals` (PK `circleId, memberId, date, kind`), `group_khatms`, `khatm_parts`
-(PK `khatmId, partNo`), `circle_nudges`. Column names follow the existing camelCase convention.
+(PK `khatmId, partNo`), `circle_nudges`, `circle_nearby_sessions`, `circle_nearby_requests`
+(NF-3.25, see "Nearby join" below). Column names follow the existing camelCase convention.
 CHECK constraints (types, roles, kinds, units, statuses, part ranges) and RLS (enabled + forced,
 like every other table) are in the migration. Differences from the plan's sketch:
 
@@ -153,6 +156,10 @@ family per ISO week: an inbox row (`kind = "circle"`, `routeData = { type: "circ
 | Nudges                | 1 per kind per (sender, receiver) pair per circle per UTC day (D32: one `dua` + one `reminder`) | unique index `(circleId, fromMember, toMember, kind, day)` → 429 |
 | Join / invite preview | 30 per user per hour                                                                            | `durable-rate-limit` (Redis)                                     |
 | Child-link redeem     | 20 per IP per 15 min                                                                            | `durable-rate-limit`                                             |
+| Nearby sessions       | 30 per host per rolling 24 h; one live session per host per circle                              | DB count → 429                                                   |
+| Nearby preview        | 120 per client IP per 15 min (a crowded masjid shares one IP)                                   | `durable-rate-limit`                                             |
+| Nearby requests       | 60 per client IP per 15 min; ≤ 20 pending per session                                           | `durable-rate-limit` + DB count → 429                            |
+| Nearby status polls   | 450 per request per 15 min (3 s polling for 10 min, with headroom)                              | `durable-rate-limit`                                             |
 | Members               | partner 2–5, khatm group 200, family 24 (≤ 12 children)                                         | service                                                          |
 | Circles               | 30 active memberships per user                                                                  | service                                                          |
 
@@ -218,6 +225,7 @@ can deal them out again.
 | Transferred child, consent not re-confirmed | Deleted (profile, membership, signals, nudges) 30 days after the transfer (D34)                                                                                                                                                                                                                                                                                           |
 | Daily signals                               | Purged after 90 days (data minimisation)                                                                                                                                                                                                                                                                                                                                  |
 | Nudges                                      | Purged after 30 days                                                                                                                                                                                                                                                                                                                                                      |
+| Nearby sessions + requests                  | Purged 1 day after the session expired; deleted with the circle, the child profile (link sessions) and the host's / requester's account (NF-3.25)                                                                                                                                                                                                                         |
 | Expired / revoked invites                   | Purged 30 days after expiry / revocation                                                                                                                                                                                                                                                                                                                                  |
 
 ### Child profiles when the consenting parent leaves, is removed or demoted, or deletes their account (D34)
@@ -265,6 +273,78 @@ once an hour per instance, never fails the dispatch, and is idempotent (deletes 
 so overlapping instances are harmless. It never runs inside a user's request (`GET /circles` has
 no lazy call).
 
+## Nearby join (NF-3.25, D41–D44)
+
+Phones standing next to each other find each other over **Bluetooth LE** instead of typing a code.
+Offered for **group khatm, family (adult members; parents owner-only), accountability partner and
+child-device linking** (D43). Web and TV keep QR / code only, and the code / QR stays one tap away
+on phones too ("Code & QR" | "Nearby" tabs).
+
+**Flow**
+
+1. **Host** opens an invite's **Nearby** tab (or the device card on a child's profile) and taps
+   **Make visible** → `POST /circles/:circleId/nearby-sessions` `{ role? | childId? }` returns
+   `{ sessionId, serviceUuid, matchCode, purpose, role, expiresAt }`. Role rules are the invite
+   rules (`canInviteRole` + `nearbyRolesFor`): `parent` sessions are owner-only, khatm `admin`
+   stays code-only, a `childId` session needs a parent and confirmed consent (D34). Opening a new
+   session ends the host's previous one for that circle.
+2. The host's phone advertises **one 128-bit service UUID**: the fixed app prefix
+   `9a3c5e71-2b84-4f06` + the 8-byte random `sessionId` (`nearbyServiceUuid` in
+   `@munib-tracker/shared/circles/nearby`). No invite code, name, account id or device name is
+   broadcast, and the id dies with the session (10 min, `NEARBY_SESSION_TTL_MINUTES`).
+3. **Joiner** opens **Join nearby** (circles hub) or **Link with a parent's phone nearby** (kids
+   link screen). The phone scans for the prefix only while the sheet is open and previews each
+   beacon once: `GET /nearby-sessions/:sessionId` → circle name, type, member count, purpose,
+   `needsAccount` and the 4-digit match code (no auth; rate-limited per trusted client IP via
+   `clientIp`). The hub lists `member` sessions, the kids screen only `child_link` ones; closest
+   first with a coarse "Very close / Nearby / Farther away" hint (never a number).
+4. **Match code (D44).** Both screens show the same 4 digits — an HMAC of the session id with a
+   server key (`nearbyMatchCode`, never stored). A phone advertising its own session under a
+   look-alike name shows different digits, so the joiner taps **They match** only when the host's
+   screen agrees. `POST /nearby-sessions/:sessionId/requests` `{ matchCode, displayName? }`
+   echoes the digits (409 `NEARBY_MATCH_MISMATCH` otherwise) and returns
+   `{ requestId, requestToken }` — a one-time `mtn_…` poll secret stored as SHA-256 only. Member
+   sessions need the account bearer (guests only for khatm; family / partner need a linked
+   account → 401; already a member → 409 `NEARBY_ALREADY_MEMBER`). A child device asks without an
+   account. Asking again replaces the joiner's earlier pending request.
+5. **Host approval (D42).** The host panel polls `GET …/nearby-sessions/:sessionId/requests` every
+   3 s ("Asking to join", with the name each joiner chose; a child device shows as "Your child's
+   phone") and taps **Accept** / **Decline** (`POST …/requests/:requestId/accept|decline`).
+   Nothing auto-joins.
+   - **Accept (member)** runs the same membership creation as an invite join —
+     `CirclesService.admitMember` (linked-account rule, member / circle caps, khatm round-robin
+     deal) with the request claimed by a conditional `UPDATE … WHERE status = 'pending'` in the
+     same transaction. The host's rights are re-checked at decision time.
+   - **Accept (child link)** flips the request to `accepted`; the child's phone collects its scoped
+     child session on its next poll, within 5 minutes.
+   - `parent` and child-link sessions are **single-use**: the first accept consumes the session
+     with a conditional `UPDATE … WHERE consumedAt IS NULL AND endedAt IS NULL AND expiresAt > now`.
+6. **Joiner waits.** `POST /nearby-sessions/:sessionId/requests/:requestId/status`
+   `{ requestToken }` (secret in the body, never the URL) → `pending | accepted | declined |
+   cancelled | completed | expired` (+ `circleId` once a member is in; the app then navigates like
+   an invite join). For a child link the first poll after the accept atomically flips
+   `accepted → completed`, mints the `mtc_…` child session (same effect as the QR redeem: one
+   linked device, re-linking replaces it) and returns it **exactly once** with the child profile;
+   the app stores it and opens the kids shell. Closing the sheet withdraws a pending request
+   (`…/cancel`).
+7. The host's **Stop**, leaving the screen (blur / unmount), backgrounding the app, Bluetooth
+   turning off and the 10-minute expiry all stop advertising **and** end the session
+   (`DELETE /circles/:circleId/nearby-sessions/:sessionId`); a still-pending request then reads
+   `expired`.
+
+**Privacy.** Nothing user-written, no IP, id or code is logged. Stored: the session (circle, host,
+role, child id, times) and requests (requester account id + account type, chosen display name,
+token hash, status, times). The preview exposes no more than an invite preview — never child
+nicknames. Sessions and requests are purged a day after expiry and on circle / child / account
+deletion (`deleteNearbySessions` in `circle-lifecycle.ts`).
+
+**App code.** `apps/app/src/lib/nearby/` — `native.ts` (JS ↔ native; null on web / TV / Expo Go),
+`permissions.ts` (rationale first, then the OS prompt), `machine.ts` (pure host / joiner reducers,
+preflight, beacon list), `use-nearby-host.ts`, `use-nearby-join.ts`; UI in
+`components/circles/nearby/` (`InviteMethodTabs` on `InvitePanel` and the child device card,
+`NearbyHostPanel`, `NearbyJoinSheet` / `JoinNearbyButton`, `MatchCode`). Native module and the
+device QA checklist: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md#nearby-join-nf-325).
+
 ## Admin console
 
 Nothing is exposed in the admin console. The Drizzle mirror exists so the admin app shares one
@@ -273,7 +353,9 @@ khatm intentions without a documented need.
 
 ## Open external items (not done)
 
-These are **open** and must be closed before NF-3.16 ships (plan §4.3):
+These are **open owner actions**. Under D35 kids profiles launch with v1 while the legal review
+runs in parallel, and app copy never claims compliance (tracked in
+[`BACKLOG.md`](./BACKLOG.md#owner-actions)):
 
 - [ ] **Legal review of kids' data**: COPPA (US — verifiable parental consent method; the
       server records `consentedAt` + `consentPolicyVersion` from an in-app parental
@@ -283,10 +365,13 @@ These are **open** and must be closed before NF-3.16 ships (plan §4.3):
 - [ ] **Privacy policy update** covering kids profiles, family/partner sharing and group khatm,
       with a versioned `consentPolicyVersion` the app sends.
 - [ ] **DPIA** for the circles data flows.
-- [ ] Confirm no ads / third-party analytics run in child sessions and that Sentry is limited to
-      crash data with no user ids there (app-side; next wave).
+- [x] Confirm no ads / third-party analytics run in child sessions and that Sentry is limited to
+      crash data with no user ids there (app-side: child sessions send crash data only — no user,
+      request, breadcrumbs or transactions; see [`DATA_INVENTORY.md`](./DATA_INVENTORY.md)).
 
-## Open engineering items
+## Engineering status
 
-- `pnpm generate:api` (orchestrator) to produce the Orval client.
-- Marketing-web landing page + Expo-web fallback for khatm invite links (NF-3.18).
+- The Orval client is generated (`packages/api-client/src/generated/endpoints/circles/`).
+- Khatm invite links open the Expo web join screen (`app/circle/join/[code].tsx`); D36 dropped the
+  marketing-site landing page. Open engineering follow-ups live in
+  [`BACKLOG.md`](./BACKLOG.md#engineering-follow-ups).

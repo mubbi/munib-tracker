@@ -14,7 +14,7 @@ Reference for **24 app locales** (`en` + 23 translations): architecture, workflo
 | 4     | `so`, `uz`, `kk`, `ku`, `bs`, `sq`, `ky`, `tg`, `tk` | Key parity + polish | Native overlays       | English fallback                   | **Shipped** |
 | 5     | `hi`                                                 | Key parity + polish | Native overlays       | Qur'an OSS; dua/hadith EN fallback | **Shipped** |
 
-**CI:** App i18n Jest suite (`pnpm --filter app test -- i18n`) · Shared overlay coverage ≥90% · SEO **23×133** routes (non-`en` locale packs × `seo-routes.data.json`) · ICU plural audit for `ar`/`ru`/`bn` · curated UI polish in `ui-polish-patches.json` (**23** locales, ~2,220 unique keys / ~21k locale→string patches).
+**CI:** App i18n Jest suite (`pnpm --filter app test -- i18n`) · Shared overlay coverage ≥90% · SEO **23×133** routes (non-`en` locale packs × `seo-routes.data.json`) · ICU plural audit for `ar`/`ru`/`bn`.
 
 **RTL:** `ar`, `ur`, `fa`, `ps`, `ku` — `apps/app/src/lib/i18n/rtl-locale.ts`.
 
@@ -57,15 +57,19 @@ node apps/app/scripts/i18n/merge-missing-keys.mjs
 
 ### 3. Translate
 
-**Phase 1 (`ar`, `ur`):** Edit `{locale}.json` directly — must pass Latin-leakage guard.
+The catalogs in `apps/app/src/i18n/{locale}.json` are the **only source of truth**. To translate a change:
 
-**Phase 2–4:** Prefer curated patches in `apps/app/scripts/i18n/ui-polish-patches.json`, then:
+1. Write a one-off patch `apps/app/scripts/i18n/<change>-i18n.json` — `{ "<locale>": { "dot.path.key": "value" } }` for `en` plus all 23 locales (array items use their index, e.g. `sick.obligations.1`).
+2. Apply it:
 
-```bash
-node apps/app/scripts/i18n/apply-ui-polish.mjs [locale...]
-```
+   ```bash
+   node apps/app/scripts/i18n/apply-patch-i18n.mjs [locale...]
+   ```
 
-**Per-feature patch files:** new features usually ship a `apps/app/scripts/i18n/<feature>-i18n.json` (`{ locale: { "dot.path.key": "value" } }`, e.g. `quran-practice-summary-i18n.json`). `apply-patch-i18n.mjs [locale...]` merges every `*-i18n.json` into the catalogs.
+   `en` is patched first; every other catalog is then pruned to `en`'s keys (plus CLDR plural variants), and D45 scripture keys stay English-only.
+3. **Delete the patch file in the same change.** Keeping applied patches around let stale values re-apply on the next run (2026-11-24 cleanup removed ~160 of them after verifying the catalogs were byte-identical without them).
+
+Phase 1 (`ar`, `ur`) must pass the Latin-leakage guard; every locale must pass the corruption guard.
 
 ### 4. Verify
 
@@ -99,11 +103,7 @@ Enforced by `apps/app/src/i18n/plural-audit.test.ts`.
 
 ## Fixing bad auto-translations
 
-| Script                                 | When to use                                                   |
-| -------------------------------------- | ------------------------------------------------------------- |
-| `sanitize-corrupted-catalog.mjs <loc>` | Values contain `MYMEMORY WARNING`                             |
-| `fix-runglish-catalog.mjs <loc>`       | Mixed-script / Runglish — uses `catalog-overrides/{loc}.json` |
-| `fix-placeholders.mjs`                 | Broken `{{interpolation}}`                                    |
+Fix the value with a patch file (above). `fix-placeholders.mjs` repairs broken `{{interpolation}}` tokens in bulk; `audit-en-identical.mjs` lists values still identical to English.
 
 **Do not** hand-translate Qur'an, hadith, or dua _body text_ in JSON catalogs — only UI chrome.
 
@@ -171,19 +171,15 @@ node apps/app/scripts/i18n/apply-seo-translations.mjs all
 
 ## Maintenance scripts (`apps/app/scripts/i18n/`)
 
-| Script                                  | Purpose                                          |
-| --------------------------------------- | ------------------------------------------------ |
-| `merge-missing-keys.mjs`                | Sync new `en.json` keys → all locales            |
-| `fix-placeholders.mjs`                  | Repair corrupted `{{…}}` tokens                  |
-| `sanitize-corrupted-catalog.mjs`        | Strip MyMemory rate-limit strings                |
-| `fix-runglish-catalog.mjs`              | Repair garbled auto-translate                    |
-| `apply-ui-polish.mjs`                   | Apply `ui-polish-patches.json`                   |
-| `apply-patch-i18n.mjs`                  | Apply every per-feature `*-i18n.json` patch file |
-| `apply-delete-account-translations.mjs` | Apply `delete-account-profile-translations.json` |
-| `audit-en-identical.mjs`                | Count English-identical values per locale        |
-| `generate-flags.mjs`                    | Scaffold missing flag assets                     |
-| `generate-seo-locale-files.mjs`         | Scaffold SEO locale JSON                         |
-| `apply-seo-translations.mjs`            | Merge SEO marketing copy                         |
+| Script                          | Purpose                                                                          |
+| ------------------------------- | -------------------------------------------------------------------------------- |
+| `apply-patch-i18n.mjs`          | Apply a one-off `*-i18n.json` patch, prune orphans (delete the patch afterwards) |
+| `merge-missing-keys.mjs`        | Sync new `en.json` keys → all locales                                            |
+| `fix-placeholders.mjs`          | Repair corrupted `{{…}}` tokens                                                  |
+| `audit-en-identical.mjs`        | Count English-identical values per locale                                        |
+| `generate-flags.mjs`            | Scaffold missing flag assets                                                     |
+| `generate-seo-locale-files.mjs` | Scaffold SEO locale JSON                                                         |
+| `apply-seo-translations.mjs`    | Merge SEO marketing copy                                                         |
 
 ---
 
@@ -212,6 +208,35 @@ Religious texts **must never** be translated manually, paraphrased, rewritten, o
 **UI chrome** (buttons, settings, notifications, tracker labels) may be translated normally.
 
 Enforced in code comments (`translation-locale.ts`) and `i18n-guard.test.ts` for English source terminology.
+
+### D45 — scripture meaning in Learn guides and catalogs (locked 2026-11-24)
+
+Ayah / hadith / dua **meaning excerpts** come only from dataset translations; otherwise the English meaning is
+shown with an **"English meaning"** label (`scriptureMeaning.englishLabel`). Structure:
+
+- **Single source:** `packages/shared/src/i18n/scripture-meaning.ts` — `SCRIPTURE_MEANING_CONTENT_KEYS`
+  (`excerpt`, `translation` in Learn content) and `isScriptureMeaningCatalogKey()` (catalog keys such as
+  `*.quran.N.excerpt`, `*.hadith.N.excerpt`, `*.localRefExcerpt`, `qazaPlan.consistencyHadith`, `tahajjud.virtueBody`,
+  `dhulHijjah.virtue`, `onboarding.brandDuaTranslation`).
+- **Overlays never carry those fields.** `localizeContent()` ignores them (English source wins); the overlay coverage
+  test excludes them and fails if an overlay contains one.
+- **Catalogs:** those keys live in `en.json` only. `apply-patch-i18n.mjs` / `merge-missing-keys.mjs` never write them
+  to other locales; `parity.test.ts` exempts them from parity and fails if a locale carries one. i18next falls back to
+  English.
+- **Rendering:** `useScriptureMeaning(english, quranRef?)` (`apps/app/src/hooks/use-scripture-meaning.ts`) — a Qur'an
+  ref of ≤ 5 ayahs shows the user's translation edition (bundled or remote, cache-first); everything else, or offline,
+  shows the English + `<EnglishMeaningLabel />`. Use `<ScriptureMeaning>` (render prop) or `ReligiousTextStack`
+  (`quranRef` prop) — never print `ref.excerpt` / `translation` directly.
+- **Quotes inside prose** (overlay body text): copy the dataset wording verbatim (Qur'an edition of the locale;
+  hadith editions for `ur id tr bn fr ru`); with no dataset keep the English quote followed by the locale's
+  "(English meaning)".
+
+### Catalog hygiene
+
+- **Orphan keys** (removed/renamed in `en`, bracket paths like `a[0].b`) are pruned by `apply-patch-i18n.mjs` on
+  every run (array elements are kept so indices stay stable); `parity.test.ts` fails on any orphan.
+- `locale-repair-*` patches apply **last**; `locale-repair-zz-*` (English source fixes, D45/D46 copy) after the
+  per-locale repairs.
 
 ---
 

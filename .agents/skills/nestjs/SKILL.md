@@ -25,7 +25,7 @@ Official NestJS markdown guides are mirrored locally from [nestjs/docs.nestjs.co
 4. **Apply project conventions** from [apps/api/AGENTS.md](../../../apps/api/AGENTS.md):
    - Biome lint (not ESLint/Prettier)
    - Vitest (not Jest) for unit/e2e tests
-   - Webpack + SWC monorepo build
+   - rspack + SWC monorepo build (Nest CLI `builder: rspack`)
    - `@munib-tracker/shared` workspace package
    - Global prefix `api/v1`, port `3001`
 
@@ -44,7 +44,7 @@ Official NestJS markdown guides are mirrored locally from [nestjs/docs.nestjs.co
 | Exception handling | `docs/exception-filters.md` |
 | Guards & interceptors | `docs/guards.md`, `docs/interceptors.md` |
 | Unit / e2e testing | `docs/fundamentals/unit-testing.md` |
-| Monorepo / SWC / webpack | `docs/recipes/swc.md`, `docs/cli/workspaces.md` |
+| Monorepo / SWC build | `docs/recipes/swc.md`, `docs/cli/workspaces.md` |
 | Database (Prisma) | `docs/recipes/prisma.md` |
 | Database (TypeORM) | `docs/recipes/sql-typeorm.md` |
 | Health checks | `docs/recipes/terminus.md` |
@@ -61,7 +61,7 @@ Full file list: [docs-index.md](docs-index.md).
 
 ## Munib Tracker API context
 
-Our API (`apps/api`) currently has:
+The full module list (auth, sync + E2E vault entities, notifications, live-activities, surface-push, circles, masjids, …) is the **Modules** table in [`apps/api/AGENTS.md`](../../../apps/api/AGENTS.md). Starting points when extending the core ones:
 
 | Module | Status | Next doc to read when extending |
 |--------|--------|--------------------------------|
@@ -86,7 +86,7 @@ Online equivalent: `https://docs.nestjs.com/<path-without-md>` (e.g. `docs/secur
 Re-sync when NestJS releases new features or docs change:
 
 ```bash
-node .agents/skills/nestjs/scripts/sync-docs.js
+pnpm sync:nestjs-docs   # = node .agents/skills/nestjs/scripts/sync-docs.js
 ```
 
 This sparse-clones [nestjs/docs.nestjs.com](https://github.com/nestjs/docs.nestjs.com), copies `content/` into `docs/`, and updates `docs/SOURCE.md` + `docs-index.md`.
@@ -95,5 +95,5 @@ This sparse-clones [nestjs/docs.nestjs.com](https://github.com/nestjs/docs.nestj
 
 1. **Official mirrored docs** override general knowledge for NestJS-specific APIs.
 2. **apps/api/AGENTS.md** overrides generic NestJS lint/test tooling choices.
-3. **Monorepo**: prefer `docs/recipes/swc.md` webpack pattern already used in `apps/api/webpack.config.js`.
+3. **Monorepo**: the build is Nest CLI `builder: rspack` + SWC (`apps/api/rspack.config.js`); use `docs/recipes/swc.md` for SWC options, not a webpack config.
 4. **Security**: always read `docs/security/` guides before shipping auth endpoints.

@@ -25,6 +25,7 @@ are omitted — see [`TV.md`](./TV.md).
 | Live Activity control  | `modules/munib-live-activity/`                                                                 | ActivityKit start/update/end                                         |
 | Config plugins         | `plugins/homeScreenSurfaces.cjs`, `withExternalCommands.cjs`, `withWearOs.cjs`                 | Native project wiring                                                |
 | Salah focus lock       | `modules/munib-focus-lock/` + `targets/munib-tracker-focus-*`                                  | NF-3.13 hard block (see below)                                       |
+| Nearby join (BLE)      | `modules/munib-nearby/`                                                                        | NF-3.25 circle invites between nearby phones (see below)             |
 | Hooks                  | `use-app-quick-actions.ts`, `use-widget-snapshot-sync.ts`, `use-external-command-processor.ts` | Sync + drain loops                                                   |
 
 **App Group:** `group.app.munibtracker.widgets`
@@ -212,6 +213,80 @@ Blocks the apps the user chose during a window around each Salah until they mark
 | Never-block         | Phone, SMS, emergency dialer, default launcher, Settings and Munib Tracker are never covered (incl. third-party default dialer / SMS)                                                                                                                      |
 | Mark anywhere       | Marking from the tracker, widget, Siri / App Intent, Watch and Wear ends the active window on both platforms                                                                                                                                               |
 | Soft prompt         | Web + iOS (flag off): prompt shows during a window, "Not now" hides it for that window, marking ends it                                                                                                                                                    |
+
+## Nearby join (NF-3.25)
+
+Circle invites between phones standing next to each other, over Bluetooth LE (D41–D44; backend
+and flow in [`CIRCLES.md`](./CIRCLES.md#nearby-join-nf-325-d41d44)). Phone builds only: the module
+is excluded from TV autolinking (`plugins/tvExcludedPackages.cjs`) and its config plugin is in
+`phoneOnlyPlugins`; on web, TV, Expo Go or a phone without BLE `isNearbyAvailable()` is false and
+the UI shows only "Code & QR".
+
+| Piece                | Where                                                                                               |
+| -------------------- | --------------------------------------------------------------------------------------------------- |
+| Native module        | `modules/munib-nearby/` — `ios/MunibNearbyModule.swift` (CoreBluetooth), `android/…/NearbyRadio.kt` |
+| Config plugin        | `modules/munib-nearby/app.plugin.js` (+ snapshot test `app.plugin.test.js`)                         |
+| JS ↔ native contract | `src/lib/nearby/native.ts` (`requireOptionalNativeModule("MunibNearby")`, no-op elsewhere)          |
+| Permissions          | `src/lib/nearby/permissions.ts` (in-app rationale first, then the OS prompt)                        |
+| Flows                | `src/lib/nearby/machine.ts` (pure reducers), `use-nearby-host.ts`, `use-nearby-join.ts`             |
+| UI                   | `src/components/circles/nearby/` (host panel, join sheet, match code, "Code & QR" / "Nearby" tabs)  |
+
+**Payload.** One 128-bit service UUID = app prefix `9a3c5e71-2b84-4f06` (bytes 0–7) + the opaque
+8-byte nearby-session id (bytes 8–15). With the flags that is 21 of the 31 legacy advertising bytes,
+so it fits the primary packet on both platforms and doesn't depend on scan responses, a local name
+(Android can't set one per advert) or service data (iOS can't advertise it). Nothing personal is
+advertised; the id expires with the 10-minute session.
+
+**iOS (CoreBluetooth).** `CBPeripheralManager.startAdvertising([CBAdvertisementDataServiceUUIDsKey:
+[uuid]])` — no local name, no GATT service, no connections. `CBCentralManager.scanForPeripherals(
+withServices: nil, AllowDuplicates: true)` while the Join sheet is open: the session id lives in
+the UUID, so a fixed-UUID filter isn't possible; scanning with `nil` is allowed in the foreground
+only, and duplicates let the list drop phones that walked away (events throttled to 1 per beacon
+per second). Managers are created lazily so the system prompt appears only after the rationale
+(`CBManager.authorization` is read without creating one). `NSBluetoothAlwaysUsageDescription` only;
+**no `bluetooth-central` / `bluetooth-peripheral` background modes** — `UIApplication.
+didEnterBackgroundNotification` stops both roles (Apple: foreground-only apps stop advertising and
+scanning in the background anyway). Lifecycle uses the SDK 58 `didCreate` / `willDestroy` overrides.
+
+**Android.** `BluetoothLeAdvertiser`: `ADVERTISE_MODE_BALANCED`, `TX_POWER_MEDIUM` (room scale),
+non-connectable, no device name / TX power, `setTimeout(0)` with our own 10-minute timer (the
+platform caps the built-in timeout at 3 minutes); needs `isMultipleAdvertisementSupported`.
+`BluetoothLeScanner`: `SCAN_MODE_LOW_LATENCY` (foreground, short, user-initiated), legacy adverts,
+`ScanFilter` on the service UUID **with a prefix mask** (hardware-offloaded where supported; the
+callback re-checks the prefix). Permissions: Android 12+ `BLUETOOTH_SCAN`
+(`usesPermissionFlags="neverForLocation"`) and `BLUETOOTH_ADVERTISE`; Android ≤ 11 legacy
+`BLUETOOTH` / `BLUETOOTH_ADMIN` (`maxSdkVersion=30`) and, to scan, `ACCESS_FINE_LOCATION` (already
+declared by expo-location — the plugin never touches location permissions) with location services
+on. `<uses-feature android.hardware.bluetooth_le required="false">` keeps the app installable without
+BLE. No `BLUETOOTH_CONNECT`: the Bluetooth-off state links to the system Bluetooth settings rather
+than the enable-request intent. A `ACTION_STATE_CHANGED` receiver and `OnActivityEntersBackground`
+stop both roles.
+
+**When it runs.** Advertising: only between **Make visible** and Stop / leaving the screen (blur or
+unmount) / app background / Bluetooth off / 10 minutes — and the server session ends at the same
+moment. Scanning: only while the Join nearby sheet is open and the app is in the foreground (resumes
+when the user returns), stopping once a request is sent, and after 10 minutes at most.
+
+### Nearby join — verify on real devices
+
+Simulators and emulators can't advertise or scan BLE; everything below needs two (or three) real
+phones and a dev / production build (`pnpm prebuild:app:ios|android` — new native module).
+
+| Area                    | Check                                                                                                                                                                                                                                                                         |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Discovery matrix        | iOS host → iOS joiner, iOS → Android, Android → iOS, Android → Android: the circle appears within ~2–5 s at 0.5–3 m; it disappears ≤ 10 s after the host taps Stop or leaves the screen                                                                                       |
+| Android versions / OEMs | Android 8–11 (location permission + location services on), 12–16 (`BLUETOOTH_SCAN` with `neverForLocation` still returns our adverts), at least one Samsung, Xiaomi and Pixel; a phone without peripheral mode shows "Nearby isn't available" for the host but can still join |
+| Scan filter             | On chipsets that ignore the UUID mask, results still arrive (software prefix check) and unrelated beacons never show                                                                                                                                                          |
+| Permissions — iOS       | Rationale shows before the system prompt; Allow → advertising starts; Don't Allow → "Bluetooth is off for Munib Tracker" + Open Settings; toggling Bluetooth for the app in Settings and returning works; usage string reads correctly                                        |
+| Permissions — Android   | "Nearby devices" prompt on 12+; deny once → "permission needed" + Try again re-prompts; "Don't ask again" → Open Settings; Android ≤ 11 location prompt + "Location services are off" → Location settings                                                                     |
+| Bluetooth off / on      | Off before starting → blocked state (Control Center hint on iOS, Bluetooth settings on Android); turning it off mid-session stops advertising / scanning with the matching message; on again + Try again recovers                                                             |
+| Background              | Host: Home / app switcher stops advertising within a second and ends the session (joiner sees it vanish; a pending request reads "ended"); joiner: scanning pauses and resumes on return; no Bluetooth activity in the background (iOS Settings › Privacy shows no use)       |
+| Timeout                 | Host stops after 10 min ("Stopped after 10 minutes to save battery"); joiner scan stops after 10 min ("Search again")                                                                                                                                                         |
+| Match code + approval   | Both screens show the same 4 digits; a second host nearby shows different digits; "They don't match" returns to the list; Accept joins (member list updates, joiner lands on the circle); Decline shows "declined"; nothing joins without Accept                              |
+| Scope / roles           | Group khatm (guest joiner allowed), family adult member, family parent (owner only, single-use — second Accept fails), partner (cap 5 enforced on Accept), child-device link (child phone without account → kids shell, parent revoke still works)                            |
+| Battery                 | 10 min advertising and 10 min scanning each cost < ~1 % battery on a mid-range phone; no wake locks left after Stop (Android `dumpsys bluetooth_manager` shows no active advertiser / scanner)                                                                                |
+| Accessibility / RTL     | VoiceOver / TalkBack read the digits one by one ("Match code 0 4 7 2"), request rows and buttons; Arabic / Urdu layout mirrors except the digits (always left-to-right); Dynamic Type / font scale up to 200 % keeps buttons usable                                           |
+| Web / TV                | Web, PWA, Apple TV and Android TV show only Code & QR (no Nearby tab, no Join nearby button); TV prebuild contains no Bluetooth permission or usage string                                                                                                                    |
 
 ## iOS scene life cycle (Expo SDK 58)
 

@@ -1,0 +1,133 @@
+# Locked product decisions (D1–D51)
+
+Decisions agreed with the product owner for the NF-3.x wave. Change one only with the owner, and
+update this table in the same change. Shipped features: [`FEATURES.md`](./FEATURES.md) · open work:
+[`BACKLOG.md`](./BACKLOG.md) · per-feature evidence: [`proofs/`](./proofs/).
+
+The full NF-3.x plan (`docs/NEW_FEATURES_TODO_PLAN.md`, every feature's spec, data model and
+acceptance criteria) was retired on 2026-11-24 once everything in it had shipped or been settled.
+Read it in git history: `git show cb129334:docs/NEW_FEATURES_TODO_PLAN.md`. Proof logs and code
+comments that cite "plan §N" refer to that file.
+
+> `DATA_INGESTION.md` has its own, older D1–D12 table for content delivery. Those ids are local to
+> that guide and are not these decisions.
+
+---
+
+## Decisions
+
+| #   | Date       | Topic                              | Rule                                                                                                                                                                                                                                                                      |
+| --- | ---------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D1  | 2026-11-19 | Social backend                     | A `circles` module in `apps/api` (Postgres + TypeORM migrations, Drizzle mirror in `packages/db`); family, partner and group khatm ship in the final phase, after the single-user features.                                                                               |
+| D2  | 2026-11-19 | Sensitive data                     | Muhasabah, wasiyyah, the debts record and silat al-rahim relatives are stored on the device by default; cloud sync is opt-in and end-to-end encrypted (the server stores ciphertext only).                                                                                |
+| D3  | 2026-11-19 | AI approach                        | On-device only, permanently: the coach is a deterministic rules engine, OCR is on-device recognition + a rule parser, speech features run the pinned FastConformer ONNX model on the device. No OS/cloud speech, no cloud LLM, no server inference.                       |
+| D4  | 2026-11-19 | Focus lock                         | Hard block from v1 (iOS FamilyControls / ManagedSettings / DeviceActivity; Android UsageStats + overlay + foreground service); start both store approvals early.                                                                                                          |
+| D5  | 2026-11-19 | Masjid data                        | Publicly available data only (OpenStreetMap via a read-only API proxy + cache). No user submissions, voting, moderation or masjid-admin claims; a field with no public data isn't shown; users may keep private iqamah times that are never shared.                       |
+| D6  | 2026-11-19 | Mirath scope                       | All four schools in v1, one engine with per-school parameters for the disputed cases; release gated on the reviewed fixture suite (review = D11).                                                                                                                         |
+| D7  | 2026-11-19 | Kids                               | Parent-managed child profile (no email; nickname + birth year), child device linked by QR, kids mode below 13; the parent sees fard Salah status only.                                                                                                                    |
+| D8  | 2026-11-19 | Rawatib default                    | Follows the global madhhab and is editable: Hanafi → 12, Shafi'i / Hanbali / Maliki → 10 mu'akkadah; switch 10/12 and opt into ghayr mu'akkadah extras.                                                                                                                   |
+| D9  | 2026-11-19 | Global madhhab (NF-3.0a)           | One "My madhhab" setting (four schools or "Show all views") read by every guide and calculator, retrofitted to shipped features; differences are labelled, never hidden; independent of the Asr `MadhabKey` but offers to match it.                                       |
+| D10 | 2026-11-19 | Tasbeeh design default             | The circular Ring with the count inside stays the default for everyone; other designs are opt-in.                                                                                                                                                                         |
+| D11 | 2026-11-23 | Religious-content review           | AI review with proofs and references replaces a named scholar panel: every ruling, copy line, fixture and ref gets a `docs/proofs/<feature>.md` entry; an unsourced claim is removed or shown as "scholars differ". "Consult a qualified scholar" disclaimers stay.       |
+| D12 | 2026-11-23 | Licences                           | A source with an unclear licence is not used (no bundling, no runtime fetch); the feature ships without that tier until a source passes review.                                                                                                                           |
+| D13 | 2026-11-23 | Settings panel (NF-3.0b)           | Build the "Reorder library" editor; bundle one native notification sound per adhan style; merge the four translation/transliteration visibility stores into one setting; "Reset app data" lives only in Data & storage.                                                   |
+| D14 | 2026-11-23 | Hijri date adjustment              | A global offset plus per-month corrections that keep months at 29 or 30 days, applied once inside `lib/hijri.ts` so every surface agrees.                                                                                                                                 |
+| D15 | 2026-11-23 | Ayah notes (NF-3.21)               | Normal sync (not the vault); word-level highlights ship in mushaf page mode in v1.                                                                                                                                                                                        |
+| D16 | 2026-11-23 | Tasbeeh (NF-3.19, 3.20)            | All designs free; TV sound on by default, phones off; CC0 sound packs, credited; the pebbles / date-pits design ships with a grading note; hands-free keeps Strict (default) + Balanced.                                                                                  |
+| D17 | 2026-11-23 | Focus lock iOS fallback            | If Apple denies the entitlement, ship the soft prompt on iOS (`focusLockHardIos` off). Update 2026-11-24: the entitlement was approved, so iOS ships the hard block (`EXPO_PUBLIC_FOCUS_LOCK_HARD_IOS=0` keeps the fallback buildable).                                   |
+| D18 | 2026-11-23 | Speech model on web                | No self-hosting or own CDN: web loads FastConformer from the CC-BY-4.0 Hugging Face mirror `acibZ/tilawa-quran-onnx` pinned to commit `0cd79471…`, sha256-checked; GitHub releases stay the native source; credit the mirror and the originals.                           |
+| D19 | 2026-11-23 | Hadith audio (NF-3.23)             | Licence-cleared human recordings only, no device voice in any language; if no source passes D12, hadith audio doesn't ship.                                                                                                                                               |
+| D20 | 2026-11-23 | Pronunciation (NF-3.24)            | Clear / Listen again / Not sure per word, gated: if spike S3 misses the gate, v1 falls back to "skipped or unclear words". Flagged words feed NF-3.15 coaching automatically, with an opt-out.                                                                            |
+| D21 | 2026-11-23 | Timeline                           | The whole plan is built in one push, so the phase order stays and no early-launch exception is needed.                                                                                                                                                                    |
+| D22 | 2026-11-23 | Root-word source (NF-3.22)         | The unmodified Quranic Arabic Corpus morphology v0.4, fetched cache-first from a pinned public GitHub copy, sha256 `910b721a…532d` after LF normalisation; the root index is built on the device; full QAC notice + link in Credits.                                      |
+| D23 | 2026-11-23 | Speech testing                     | No new human recordings and no own storage: eval sets are built at eval time from audio the app already streams, with synthetic variants; gates are reported as "measured on reference + synthetic audio" and copy never claims accuracy on learners' voices.             |
+| D24 | 2026-11-23 | Spike failures                     | If a spike (S1–S4, N1) fails, the documented fallback ships without asking again (pause count for 3.20, "skipped or unclear words" for 3.24, ayah tint for N1); the result goes in the proof log.                                                                         |
+| D25 | 2026-11-23 | External filings, Quran Lab SDK    | File the Apple entitlement and Play declarations now; NF-3.15 Phase B uses NF-3.24's own alignment instead of waiting for the SDK; head-level judging inside an ayah stays out of scope until the SDK supports it.                                                        |
+| D26 | 2026-11-23 | Iqamah sources (NF-3.11)           | OpenStreetMap plus any public feed that passes D12, each with a recorded licence review; with no cleared feed, only OSM and the user's private times.                                                                                                                     |
+| D27 | 2026-11-23 | Kids content (NF-3.16)             | A curated subset of the bundled datasets (short duas, daily adhkar, 99 Names, short surahs) chosen under D11, existing audio only; no new kids-specific sources.                                                                                                          |
+| D28 | 2026-11-23 | Tasbeeh sound sources              | Kenney CC0 packs plus individual Freesound clips filtered to CC0, each file's licence recorded (D12).                                                                                                                                                                     |
+| D29 | 2026-11-24 | Adhan audio licences               | Adhan recordings are exempt from D12; each style gets its own ≤ 30 s notification clip cut from its existing source. D12 still applies to every other source.                                                                                                             |
+| D30 | 2026-11-24 | PDF export                         | Add `expo-print`: wasiyyah and the debts statement export as a real PDF on iOS/Android via the native print/share sheet; web keeps the browser print dialog.                                                                                                              |
+| D31 | 2026-11-24 | Debt reminders, excused periods    | Debt due-date reminders keep firing during excused periods (generic text, no amounts); wasiyyah review pauses; other NF-3.x nudges follow their own section (habits evening nudge, muhasabah and family-ties digest keep running; parent nudge pauses).                   |
+| D32 | 2026-11-24 | Partner nudge limit                | One nudge per kind per member pair per day (one dua nudge, one reminder nudge).                                                                                                                                                                                           |
+| D33 | 2026-11-24 | Circle push notifications          | Circle events push in v1 (native + web push) besides the inbox: khatm part done, khatm completed, dua received; fixed content-free localized copy, each kind behind its own `notificationPrefs` toggle.                                                                   |
+| D34 | 2026-11-24 | Child profiles on parent deletion  | Transfer to a remaining co-parent, who re-confirms consent next time; deleted after 30 days without consent, or immediately with no co-parent.                                                                                                                            |
+| D35 | 2026-11-24 | Kids profiles at launch            | Kids profiles launch with v1; the owner completes the legal review (COPPA, GDPR Art. 8, UK AADC, privacy policy, DPIA) in parallel, and copy never claims compliance.                                                                                                     |
+| D36 | 2026-11-24 | Circle invite links                | `circle/join/<CODE>` opens the app's web build (guests can join a khatm on web); installed apps open it via App Links / Universal Links; no marketing-site landing page.                                                                                                  |
+| D37 | 2026-11-24 | Focus lock weekend days            | "Weekdays only" skips the user's own weekend days, defaulting from their region and editable.                                                                                                                                                                             |
+| D38 | 2026-11-24 | Focus lock Jumu'ah window          | Jumu'ah has its own longer window: default 60 minutes from the Jumu'ah/iqamah time, editable separately.                                                                                                                                                                  |
+| D39 | 2026-11-24 | Focus lock iOS gentle mode         | On iOS gentle mode lifts the shield on one tap (Apple's shield has no press-and-hold); Android keeps the 10-second hold.                                                                                                                                                  |
+| D40 | 2026-11-24 | Optional extras                    | Build all three: preferred-time reminders (off by default, hidden in all-views mode), a family weekly digest push (counts only, own toggle), and a daily Qur'an reading log.                                                                                              |
+| D41 | 2026-11-24 | Nearby join (NF-3.25)              | Bluetooth Low Energy invite beacon, iOS↔Android: the host's invite screen advertises a short-lived token, nearby phones scan, list the circle and join through the normal invite flow; web and TV keep QR / code only.                                                    |
+| D42 | 2026-11-24 | Nearby join approval               | The host approves each nearby join request (Accept / Decline); nothing auto-joins.                                                                                                                                                                                        |
+| D43 | 2026-11-24 | Nearby join scope                  | Group khatm, family (adult members), accountability partner and child-device linking; existing rules still apply (parent invites owner-only, single-use, ≤ 48 h; child profiles via the parent).                                                                          |
+| D44 | 2026-11-24 | Nearby join verification           | A 4-digit match code derived from the session shows on both screens; the joiner confirms it matches before the request is sent.                                                                                                                                           |
+| D45 | 2026-11-24 | Scripture excerpts in translations | Ayah/hadith meaning excerpts in translated Learn guides come only from dataset translations; otherwise show the English meaning, labelled, with the Arabic. No AI-translated scripture anywhere.                                                                          |
+| D46 | 2026-11-24 | Sensitive data in sync             | The active excused period (hayd/nifas) and the khushu journal sync only through the E2E vault (when vault sync is on); synced location is rounded to ~1 km; Qur'an notes keep normal sync (D15).                                                                          |
+| D47 | 2026-11-24 | Sign-out                           | Sign-out keeps local data on the device; only Reset app data wipes it.                                                                                                                                                                                                    |
+| D48 | 2026-11-24 | Hands-free: saved voice pattern    | A taught zikr's voice pattern (numeric features, never audio) is kept on this device only, per zikr: never synced, uploaded, exported or in a backup/vault; cleared by Reset app data and by Settings › Tasbeeh counter › "Forget taught zikr voices".                    |
+| D49 | 2026-11-24 | Hands-free: any zikr               | A counter for a specific zikr (catalog, durood, custom tasbeeh) uses it automatically; the free counter gets a searchable picker over the adhkar library + custom tasbeehs + "Something else".                                                                            |
+| D50 | 2026-11-24 | Hands-free: teaching               | Teaching is optional but prompted: 1–3 samples with live feedback, then counting; "Skip — count every pause" falls back to pause counting ("less accurate"); an already-taught zikr starts at once with "Re-teach".                                                       |
+| D51 | 2026-11-24 | Hands-free: ships without the gate | Sample matching ships even below the targets (≤ 0.5 % over-count, ≤ 5 % missed), labelled "Counts only the zikr you taught — tap to correct any miscount", never "beta"; still measured (`tasbeeh-voice:eval --template`) and recorded in `proofs/hands-free-tasbeeh.md`. |
+
+Also locked on 2026-11-23:
+
+- **Masjid finder v1 is list-first.** "Open in Maps" uses the OS deep link; an in-app map (MapLibre + OpenFreeMap tiles) is v2.
+- **Group khatm unit:** 30 juz by default; 60 hizb or 114 surahs optional.
+- **Rawatib are stored as new `PrayerId`s** reusing `PrayerLog`, not as a new entity.
+
+---
+
+## Standing rules for new features
+
+These came from the plan's §2 and §10 and still apply to every new feature.
+
+1. **No AI-written or hand-typed scripture.** Qur'an and hadith render from the bundled or remote
+   corpus by reference (`surah:ayah`, `collection:number`); guide copy follows
+   `packages/shared/src/content/*-guide.ts` with refs checked by `content-verification.ts`.
+2. **Madhhab-aware, not madhhab-imposing.** Any ruling that differs between schools reads
+   `useMadhhab()` / `rulesFor(prefs, domain)`; `madhhab === null` shows all views. New differences
+   go into `FIQH_DIFFERENCES` with `usedIn` (coverage test).
+3. **Proof-backed review (D11).** No religious feature ships without a complete
+   `docs/proofs/<feature>.md`.
+4. **Privacy by default.** Worship stats are private; no ibadah leaderboards; lock-screen text never
+   reveals sensitive state (hayd, sins, debt amounts); Sentry gets tags only, never user content.
+5. **Gentle tone.** A missed act is "make it up / ask Allah's forgiveness", never "you failed" or
+   "streak lost". Excused periods (`activeExcusedReason`) pause judgements and nudges unless a
+   decision says otherwise (D31).
+6. **Theming and i18n.** `useTheme()`, no hardcoded colors; every string in all 24 locales
+   ([`I18N_GUIDE.md`](./I18N_GUIDE.md)); Arabic zikr text is never translated in place.
+7. **Tests.** Pure logic in `packages/shared/src/utils` or `apps/app/src/lib` with unit tests using
+   the shared `test-support` helpers; only UI in routes.
+
+**Per-feature checklist** (copy into the PR):
+
+- [ ] Types in `packages/shared/src/types`; logic + unit tests in `packages/shared/src/utils` or `apps/app/src/lib`
+- [ ] Storage plumbing: `DB_KEYS` (classified in `KEY_PERSISTENCE`), sync entity on both sides, backup / wipe / reload — or a vault document ([`DATA_INVENTORY.md`](./DATA_INVENTORY.md))
+- [ ] `pnpm generate:api` if an API/DTO changed (OpenAPI drift passes in `pnpm check:ci`)
+- [ ] Routes use `ScreenLayout`, `generateMetadata = routeMetadata(...)`, `goBackOrReplace`
+- [ ] Every preference registered in `lib/settings/registry.ts` (search keywords, `available`, `defaultValue`, `scope`)
+- [ ] Library menu, home module id, search registration, feature tour, "new features" badge
+- [ ] i18n in all 24 locales; RTL check (`lib/rtl.ts`)
+- [ ] Reduced motion + accessibility labels; TV behaviour decided via `isTV()`
+- [ ] Notifications in `build-reminders.ts` with a budget tier (below) and a `notificationPrefs` toggle
+- [ ] Excused-period behaviour implemented and tested
+- [ ] Evidence refs verified; proof log complete; privacy review (lock-screen text, Sentry tags, minimisation)
+- [ ] `FEATURES.md` row added; marketing entry (`apps/marketing-web/src/content/munib-features.ts`, `content/compare/shared.ts`) kept honest
+
+## Notification budget
+
+`MAX_PENDING_REMINDERS = 60` over `SCHEDULE_DAYS_AHEAD = 2`
+(`apps/app/src/lib/notifications/build-reminders.ts`). When over budget the lowest tier is dropped
+first (`lib/notifications/reminder-budget.ts`, which also holds the in-tier ranks):
+
+| Tier     | Kinds                                                                                    |
+| -------- | ---------------------------------------------------------------------------------------- |
+| 1 (keep) | Salah, Adhan, existing Qaza                                                              |
+| 2        | Iqamah (home masjid), focus-lock confirm, suhoor (intended fasts), D40 preferred time    |
+| 3        | Fast intent, Dhul-Hijjah / Arafah / Ashura seasonal, zikr nudges, daily content, Jumu'ah |
+| 4        | Debts due, wasiyyah review                                                               |
+| 5        | Family-ties digest, muhasabah, habits, coach, rawatib nudge                              |
+
+Focus-lock timing lives in the native schedulers (DeviceActivity / AlarmManager) and doesn't count
+against this budget.
