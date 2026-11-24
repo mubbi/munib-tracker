@@ -30,11 +30,8 @@ const targets = [
   { name: "web", url: SITE },
 ];
 
-// Ink variants so QRs sit correctly on light or dark panels.
-const inks = [
-  { suffix: "ink", dark: "#152921", light: "#00000000" },
-  { suffix: "black", dark: "#000000", light: "#ffffff" },
-];
+// Brand ink on a transparent background; the pamphlets give each QR a white quiet-zone panel.
+const inks = [{ suffix: "ink", dark: "#152921", light: "#00000000" }];
 
 for (const t of targets) {
   for (const ink of inks) {

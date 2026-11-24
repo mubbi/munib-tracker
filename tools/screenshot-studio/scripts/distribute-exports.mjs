@@ -5,13 +5,9 @@
 // Pipeline: docs/STORE_ASSETS.md
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { readSpec, repoRoot, studioRoot } from "./paths.mjs";
 
-const studioRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const repoRoot = path.resolve(studioRoot, "..", "..");
-const spec = JSON.parse(
-  fs.readFileSync(path.join(repoRoot, "packages", "store-screenshots", "spec.json"), "utf8"),
-);
+const spec = readSpec();
 const exportsDir = path.join(studioRoot, "exports");
 const storeAssets = path.join(repoRoot, spec.storeAssetsRoot);
 

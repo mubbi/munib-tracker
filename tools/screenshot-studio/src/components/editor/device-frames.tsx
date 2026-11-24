@@ -11,6 +11,9 @@ type FrameProps = {
   hideEmpty?: boolean;
 };
 
+/** Shared dark bezel for the Android / foldable frames. */
+const BEZEL_BG = "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)";
+
 // iPhone — uses pre-measured mockup.png overlay
 export function Phone({ src, alt = "", style, hideEmpty }: FrameProps) {
   const resolved = img(src);
@@ -35,22 +38,7 @@ export function Phone({ src, alt = "", style, hideEmpty }: FrameProps) {
           background: "#111",
         }}
       >
-        {resolved ? (
-          <img
-            src={resolved}
-            alt={alt}
-            style={{
-              display: "block",
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "top",
-            }}
-            draggable={false}
-          />
-        ) : hideEmpty ? null : (
-          <EmptySlot />
-        )}
+        <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} />
       </div>
     </div>
   );
@@ -65,7 +53,7 @@ export function AndroidPhone({ src, alt = "", style, hideEmpty }: FrameProps) {
           width: "100%",
           height: "100%",
           borderRadius: "8% / 4%",
-          background: "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)",
+          background: BEZEL_BG,
           boxShadow:
             "inset 0 0 0 1px rgba(255,255,255,0.1), 0 12px 48px rgba(0,0,0,0.45), 0 4px 16px rgba(11,42,34,0.35)",
           position: "relative",
@@ -98,22 +86,7 @@ export function AndroidPhone({ src, alt = "", style, hideEmpty }: FrameProps) {
             background: "#000",
           }}
         >
-          {resolved ? (
-            <img
-              src={resolved}
-              alt={alt}
-              style={{
-                display: "block",
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "top",
-              }}
-              draggable={false}
-            />
-          ) : hideEmpty ? null : (
-            <EmptySlot />
-          )}
+          <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} />
         </div>
       </div>
     </div>
@@ -129,7 +102,7 @@ export function AndroidTabletP({ src, alt = "", style, hideEmpty }: FrameProps) 
           width: "100%",
           height: "100%",
           borderRadius: "4.5% / 2.8%",
-          background: "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)",
+          background: BEZEL_BG,
           boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 48px rgba(0,0,0,0.6)",
           position: "relative",
           overflow: "hidden",
@@ -160,22 +133,7 @@ export function AndroidTabletP({ src, alt = "", style, hideEmpty }: FrameProps) 
             background: "#000",
           }}
         >
-          {resolved ? (
-            <img
-              src={resolved}
-              alt={alt}
-              style={{
-                display: "block",
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "top",
-              }}
-              draggable={false}
-            />
-          ) : hideEmpty ? null : (
-            <EmptySlot />
-          )}
+          <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} />
         </div>
       </div>
     </div>
@@ -191,7 +149,7 @@ export function AndroidTabletL({ src, alt = "", style, hideEmpty }: FrameProps) 
           width: "100%",
           height: "100%",
           borderRadius: "2.8% / 4.5%",
-          background: "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)",
+          background: BEZEL_BG,
           boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 48px rgba(0,0,0,0.6)",
           position: "relative",
           overflow: "hidden",
@@ -222,22 +180,7 @@ export function AndroidTabletL({ src, alt = "", style, hideEmpty }: FrameProps) 
             background: "#000",
           }}
         >
-          {resolved ? (
-            <img
-              src={resolved}
-              alt={alt}
-              style={{
-                display: "block",
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "top",
-              }}
-              draggable={false}
-            />
-          ) : hideEmpty ? null : (
-            <EmptySlot />
-          )}
+          <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} />
         </div>
       </div>
     </div>
@@ -284,29 +227,14 @@ export function IPad({ src, alt = "", style, hideEmpty }: FrameProps) {
             background: "#000",
           }}
         >
-          {resolved ? (
-            <img
-              src={resolved}
-              alt={alt}
-              style={{
-                display: "block",
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "top",
-              }}
-              draggable={false}
-            />
-          ) : hideEmpty ? null : (
-            <EmptySlot />
-          )}
+          <ScreenImage resolved={resolved} alt={alt} hideEmpty={hideEmpty} />
         </div>
       </div>
     </div>
   );
 }
 
-// Screen content shared by the newer frames (cover-fit, top-anchored).
+// Screen content shared by every frame (cover-fit, top-anchored by default).
 function ScreenImage({
   resolved,
   alt,
@@ -336,8 +264,6 @@ function ScreenImage({
   }
   return hideEmpty ? null : <EmptySlot />;
 }
-
-const BEZEL_BG = "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)";
 
 // iPhone Duo (foldable, unfolded). Portrait shows a vertical hinge crease.
 function Foldable({

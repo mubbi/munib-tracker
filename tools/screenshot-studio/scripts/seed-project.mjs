@@ -9,11 +9,9 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { readSpec, studioRoot as root } from "./paths.mjs";
 
-const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const specPath = path.resolve(root, "..", "..", "packages", "store-screenshots", "spec.json");
-const spec = JSON.parse(fs.readFileSync(specPath, "utf8"));
+const spec = readSpec();
 const LOCALES = spec.locales;
 
 const COPY = {

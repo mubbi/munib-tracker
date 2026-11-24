@@ -4,14 +4,14 @@ Print-ready **A4** advertisement / pamphlet concepts for Munib Tracker. Plain st
 
 ## Layout
 
-| Path                                            | Contents                                                                                                |
-| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `01-the-return.html` … `05-never-too-late.html` | One concept per file (one A4 page each)                                                                 |
-| `base.css`                                      | Shared page size, safe area, print type scale, brand tokens, store badge / devices / privacy components |
-| `assets/`                                       | Logo + light/dark app screenshots                                                                       |
-| `qr/`                                           | Generated QR SVGs (`appstore` / `play` / `web`, each in `-ink` and `-black` variants)                   |
-| `scripts/make-qr.mjs`                           | Regenerates `qr/`, reading the official URLs from `packages/shared/src/constants/site.ts`               |
-| `scripts/render.mjs`                            | Exports each concept to PDF + PNG via headless Chrome, with a print preflight                           |
+| Path                                            | Contents                                                                                                 |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `01-the-return.html` … `05-never-too-late.html` | One concept per file (one A4 page each)                                                                  |
+| `base.css`                                      | Shared page size, safe area, print type scale, brand tokens, store badge / devices / privacy / CTA copy  |
+| `assets/`                                       | Logo, light/dark app screenshots, and the store-badge marks (`badge-apple.svg`, `badge-google-play.svg`) |
+| `qr/`                                           | Generated QR SVGs (`appstore-ink` / `play-ink` / `web-ink`, brand ink on transparent)                    |
+| `scripts/make-qr.mjs`                           | Regenerates `qr/`, reading the official URLs from `packages/shared/src/constants/site.ts`                |
+| `scripts/render.mjs`                            | Exports each concept to PDF + PNG via headless Chrome, with a print preflight                            |
 
 ## Usage
 

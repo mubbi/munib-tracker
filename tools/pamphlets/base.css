@@ -172,7 +172,9 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.28);
   white-space: nowrap;
 }
-.badge svg {
+/* Platform mark: assets/badge-apple.svg (white) or assets/badge-google-play.svg. */
+.badge svg,
+.badge .mark {
   flex-shrink: 0;
 }
 .badge .b-text {
@@ -250,4 +252,21 @@ body {
 }
 .promise b {
   font-weight: 600;
+}
+
+/* ---------- CTA copy: headline, supporting line, site URL ---------- */
+
+.words h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.words p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.words .url {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
 }

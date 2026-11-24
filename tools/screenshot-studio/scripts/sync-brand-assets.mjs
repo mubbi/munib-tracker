@@ -8,10 +8,8 @@
 // Also runs automatically at the end of pnpm seed:screenshot-studio.
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { repoRoot, studioRoot } from "./paths.mjs";
 
-const studioRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const repoRoot = path.resolve(studioRoot, "..", "..");
 const appImages = path.join(repoRoot, "apps", "app", "assets", "images");
 const publicDir = path.join(studioRoot, "public");
 const appDir = path.join(studioRoot, "src", "app");

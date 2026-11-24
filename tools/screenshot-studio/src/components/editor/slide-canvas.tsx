@@ -24,7 +24,7 @@ import {
   watchW,
   wearW,
 } from "@/lib/constants";
-import { toTextElementId } from "@/lib/elements";
+import { defaultElementZ, toTextElementId } from "@/lib/elements";
 import { img } from "@/lib/image-cache";
 import { pickText, resolveScreenshot, textDir } from "@/lib/locale";
 import type {
@@ -660,14 +660,8 @@ export function getElementTransform(
     width: rect.width,
     height: rect.height,
     rotation: saved?.rotation ?? 0,
-    zIndex: saved?.zIndex ?? defaultElementZ(id as BuiltInElementId),
+    zIndex: saved?.zIndex ?? defaultElementZ(id),
   };
-}
-
-function defaultElementZ(id: BuiltInElementId): number {
-  if (id === "deviceSecondary") return 2;
-  if (id === "device") return 3;
-  return 4;
 }
 
 // ---------- Main single-screen canvas ----------
@@ -1130,7 +1124,7 @@ function SlideElements({
     if (!captionRect) return null;
     const saved = slide.transforms?.caption;
     const rotation = saved?.rotation ?? 0;
-    const zIndex = saved?.zIndex ?? 4;
+    const zIndex = saved?.zIndex ?? defaultElementZ("caption");
     const inner = (
       <Caption
         cW={cW}
@@ -1183,7 +1177,7 @@ function SlideElements({
   ) {
     const saved = slide.transforms?.[id];
     const rotation = saved?.rotation ?? 0;
-    const zIndex = saved?.zIndex ?? (id === "deviceSecondary" ? 2 : 3);
+    const zIndex = saved?.zIndex ?? defaultElementZ(id);
     return (
       <Movable
         rect={toGlobal(rect)}
