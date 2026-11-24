@@ -212,6 +212,58 @@ export const circleNudgesTable = pgTable(
   ],
 );
 
+/**
+ * NF-3.25 nearby join (D41–D44). Short-lived (10 min) BLE session; the id is the
+ * opaque value the host's phone advertises. The 4-digit match code is derived
+ * server-side and never stored.
+ */
+export const circleNearbySessionsTable = pgTable(
+  "circle_nearby_sessions",
+  {
+    id: varchar("id", { length: 16 }).primaryKey(),
+    circleId: uuid("circleId")
+      .notNull()
+      .references(() => circlesTable.id, { onDelete: "cascade" }),
+    createdBy: uuid("createdBy").notNull(),
+    /** 'parent' | 'member' | 'child' (child-device link) */
+    role: varchar("role", { length: 8 }).notNull(),
+    childId: uuid("childId").references(() => childProfilesTable.id, { onDelete: "cascade" }),
+    expiresAt: timestamp("expiresAt", { mode: "date" }).notNull(),
+    endedAt: timestamp("endedAt", { mode: "date" }),
+    consumedAt: timestamp("consumedAt", { mode: "date" }),
+    createdAt: timestampNowOptional("createdAt"),
+  },
+  (table) => [
+    index("circle_nearby_sessions_circle_idx").on(table.circleId),
+    index("circle_nearby_sessions_creator_idx").on(table.createdBy, table.createdAt),
+  ],
+);
+
+/** A joiner's host-approved request (D42). `tokenHash` = SHA-256 of the joiner's poll secret. */
+export const circleNearbyRequestsTable = pgTable(
+  "circle_nearby_requests",
+  {
+    id: uuid("id").primaryKey(),
+    sessionId: varchar("sessionId", { length: 16 })
+      .notNull()
+      .references(() => circleNearbySessionsTable.id, { onDelete: "cascade" }),
+    requesterId: uuid("requesterId"),
+    /** 'guest' | 'user'; null for a child device */
+    requesterAccountType: varchar("requesterAccountType", { length: 8 }),
+    displayName: varchar("displayName", { length: 32 }),
+    tokenHash: varchar("tokenHash", { length: 64 }).notNull(),
+    /** 'pending' | 'accepted' | 'declined' | 'cancelled' | 'completed' */
+    status: varchar("status", { length: 10 }).notNull().default("pending"),
+    createdAt: timestampNowOptional("createdAt"),
+    decidedAt: timestamp("decidedAt", { mode: "date" }),
+  },
+  (table) => [
+    index("circle_nearby_requests_session_idx").on(table.sessionId, table.status),
+    index("circle_nearby_requests_requester_idx").on(table.requesterId),
+    uniqueIndex("circle_nearby_requests_token_unique").on(table.tokenHash),
+  ],
+);
+
 export type Circle = typeof circlesTable.$inferSelect;
 export type CircleMember = typeof circleMembersTable.$inferSelect;
 export type ChildProfile = typeof childProfilesTable.$inferSelect;
