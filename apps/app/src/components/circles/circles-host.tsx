@@ -1,7 +1,7 @@
 import type { FardStatusValue } from "@munib-tracker/shared/circles";
 import { FARD_PRAYERS } from "@munib-tracker/shared/circles";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
-import { usePathname, useRouter } from "expo-router";
+import { type Href, useGlobalSearchParams, usePathname, useRouter } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ReconsentSheet } from "@/components/circles/reconsent-sheet";
@@ -16,7 +16,7 @@ import {
 import { pendingConsentChildren } from "@/lib/circles/consent";
 import { fardValueFromStatuses, isFamilyParent, sameFardStatus } from "@/lib/circles/family";
 import { useChildProfiles, useCircle, useCircleAuth, useCircles } from "@/lib/circles/hooks";
-import { isKidsAllowedPath } from "@/lib/circles/kids-content";
+import { isKidsAllowedPath, kidsRedirectFor } from "@/lib/circles/kids-content";
 import { isTV } from "@/lib/platform/is-tv";
 import { setChildSessionPrivacy } from "@/lib/sentry";
 import { usePreferences } from "@/stores/preferences-store";
@@ -57,10 +57,15 @@ export function CirclesHost() {
 function ChildDeviceGuard() {
   const pathname = usePathname();
   const router = useRouter();
+  const params = useGlobalSearchParams();
+  const surahParam = params.surah;
 
   useEffect(() => {
-    if (pathname && !isKidsAllowedPath(pathname)) router.replace("/kids");
-  }, [pathname, router]);
+    if (!pathname || isKidsAllowedPath(pathname)) return;
+    // The reader's "Practise" on a curated short surah opens kids recite-along
+    // for it instead of bouncing home (D68); everything else lands on /kids.
+    router.replace(kidsRedirectFor(pathname, { surah: surahParam }) as Href);
+  }, [pathname, router, surahParam]);
 
   // Resume: refresh the profile and retry pending fard-status pushes.
   useForegroundInterval(

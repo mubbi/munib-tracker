@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { QuranGuideClipPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
@@ -75,6 +76,20 @@ function LevelCard({ level }: { level: QuranGuideReadingLevel }) {
           ))}
         </View>
       </TvReadableBlock>
+      {/* D68: read the level's practice ayah aloud and see which words sounded off. */}
+      {level.practiceAudio ? (
+        <ReciteAlongButton
+          passage={{
+            surah: level.practiceAudio.surah,
+            ayahStart: level.practiceAudio.ayah,
+            ayahEnd: level.practiceAudio.ayah,
+          }}
+          mode="check"
+          variant="ghost"
+          size="sm"
+          style={styles.recite}
+        />
+      ) : null}
     </Card>
   );
 }
@@ -137,6 +152,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   badge: { alignSelf: "flex-start" },
+  recite: { alignSelf: "flex-start" },
   prose: { gap: Spacing.two },
   topics: {
     gap: Spacing.one,

@@ -11,6 +11,7 @@ import {
 } from "@/lib/quran-ayah-range";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
 import type { ZikrQuranRange } from "@/lib/zikr-quran";
+import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 import { setReadingDisplayState } from "@/test-support/settings";
@@ -29,6 +30,8 @@ const mockShare = {
   isGesturePending: jest.fn((_key: string) => false),
   SnapshotHost: null,
 };
+
+jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 
 jest.mock("@/providers/audio-player-provider", () => ({
   useAudioPlayerContext: () => mockAudio,
@@ -131,6 +134,7 @@ function playedTrackIds(): string[] {
 describe("QuranAyahRangeCards", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    resetExpoRouterMock();
     editionMock.mockReturnValue("en-sahih");
     mockAudio.current = null;
     mockAudio.isPlaying = false;
@@ -260,12 +264,39 @@ describe("QuranAyahRangeCards", () => {
     expect(mockAudio.play).toHaveBeenCalledWith(expect.any(Array), 2, expect.any(Object));
   });
 
+  it("recites a single span along beside Play (D68)", async () => {
+    await renderCards();
+    await fireEvent.press(screen.getByText("Recite along"));
+    expect(mockRouter.push).toHaveBeenCalledWith({
+      pathname: "/quran/practice/session",
+      params: { surah: "2", from: "255", to: "256", mode: "follow", source: "recite-along" },
+    });
+  });
+
+  it("offers one recite-along per section for multi-surah spans", async () => {
+    loadMock.mockResolvedValue([section(), IKHLAS]);
+    await renderCards({ ranges: [KURSI_RANGE, { surah: 112, ayahFrom: 1, ayahTo: 4 }] });
+    const buttons = screen.getAllByText("Recite along");
+    expect(buttons).toHaveLength(2);
+    await fireEvent.press(buttons[1]);
+    expect(mockRouter.push).toHaveBeenCalledWith(
+      expect.objectContaining({
+        params: expect.objectContaining({ surah: "112", from: "1", to: "4" }),
+      }),
+    );
+  });
+
   describe("on TV", () => {
     usePlatform({ isTV: true });
 
     it("hides share", async () => {
       await renderCards();
       expect(screen.queryByLabelText("Share verse")).toBeNull();
+    });
+
+    it("hides recite-along (no microphone path)", async () => {
+      await renderCards();
+      expect(screen.queryByText("Recite along")).toBeNull();
     });
   });
 });

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { RECITE_ALONG_ICON } from "@/components/quran/recite-along-button";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { NavRow } from "@/components/ui/nav-row";
@@ -39,6 +40,7 @@ export function KhatmPartSheet({
   onClose,
   onAction,
   onAssign,
+  onReciteAlong,
 }: {
   part: KhatmPart | null;
   unit: KhatmUnit;
@@ -50,6 +52,8 @@ export function KhatmPartSheet({
   onClose: () => void;
   onAction: (part: KhatmPart, action: Exclude<KhatmUiAction, "assign" | "reassignStale">) => void;
   onAssign: (part: KhatmPart, memberId: string | null) => void;
+  /** Recite along with this part (D68) — offered only on my own unfinished part. */
+  onReciteAlong?: (part: KhatmPart) => void;
 }) {
   const { t } = useTranslation();
   const [step, setStep] = useState<Step>("actions");
@@ -70,6 +74,10 @@ export function KhatmPartSheet({
   const actions = partActions(part, { myMemberId, isManager, khatm });
   const who = assigneeName(members, part, t);
   const candidates = (members ?? []).filter((m) => m.memberKind === "user");
+  const canRecite =
+    onReciteAlong != null &&
+    part.assigneeMemberId === myMemberId &&
+    (part.status === "assigned" || part.status === "reading");
 
   return (
     <Sheet visible onClose={onClose} variant="bottom" solid>
@@ -130,6 +138,15 @@ export function KhatmPartSheet({
                 />
               );
             })}
+            {canRecite ? (
+              <Button
+                variant="secondary"
+                label={t("reciteAlong.button")}
+                icon={RECITE_ALONG_ICON}
+                disabled={busy}
+                onPress={() => onReciteAlong?.(part)}
+              />
+            ) : null}
             {part.stale && !isManager && part.assigneeMemberId === myMemberId ? (
               <ThemedText type="caption" themeColor="mutedForeground">
                 {t("khatmGroups.sheet.staleMine")}

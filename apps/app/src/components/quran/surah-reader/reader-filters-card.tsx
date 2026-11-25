@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { SelectTrigger } from "@/components/quran/option-picker-sheet";
 import type { ReaderEditionSheet } from "@/components/quran/reader-edition-sheets";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { ThemedText } from "@/components/themed-text";
@@ -10,6 +11,7 @@ import { Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
+import { wholeSurah } from "@/lib/recite-along/passages";
 import { updateQuranPrefs } from "@/lib/settings/quran-shortcuts";
 import { readerControlStyles } from "./reader-control-styles";
 import { CONTROL_ICONS, ControlLabel, PlaySurahButton, PrefToggle } from "./reading-controls";
@@ -41,6 +43,7 @@ export function ReaderFiltersCard({
   onOpenEdition,
   onOpenPlayback,
   onPlaySurah,
+  reciteSurah,
 }: {
   reciterName: string;
   translationName: string;
@@ -64,10 +67,13 @@ export function ReaderFiltersCard({
   onOpenPlayback: () => void;
   /** Omit to hide "Play surah" (the side pane's nav card owns play / pause). */
   onPlaySurah?: () => void;
+  /** Surah to offer "Recite along" for (whole surah; long ones are sectioned). Omit to hide. */
+  reciteSurah?: number;
 }) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const tv = isTV();
+  const recitePassage = reciteSurah != null ? wholeSurah(reciteSurah) : null;
   return (
     <Card padding="three">
       <View style={readerControlStyles.controlRow}>
@@ -189,6 +195,9 @@ export function ReaderFiltersCard({
       </View>
 
       {onPlaySurah ? <PlaySurahButton onPress={onPlaySurah} /> : null}
+      {recitePassage ? (
+        <ReciteAlongButton passage={recitePassage} fullWidth style={styles.recite} />
+      ) : null}
       <MoreInSettingsLink settingId="quran.reader.layout" />
     </Card>
   );
@@ -208,6 +217,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   translationRow: { marginTop: Spacing.three },
+  recite: { marginTop: Spacing.two },
   offlineNote: { marginTop: Spacing.two },
   loadingRow: {
     flexDirection: "row",

@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { ReciteAlongCard } from "@/components/quran/recite-along-card";
+import { ReciteAlongInlineScope } from "@/components/quran/recite-along-inline";
 import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { QuranGuideTopicContent } from "@/components/quran-guide/topic-content";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -19,6 +21,7 @@ import {
   getQuranGuideTopics,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { learnQuranTopicPassages } from "@/lib/recite-along/guides";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureQuranGuideProgressLoaded } from "@/stores/quran-guide-progress-store";
@@ -39,6 +42,7 @@ export default function LearnQuranTopicScreen() {
   const reportRef = useGuideContentReportRef("learn_quran", topic, "/learn-quran");
   useEnsureQuranGuideProgressLoaded();
   const { maxContentWidth } = useLearnWideLayout();
+  const recitePassages = topic ? learnQuranTopicPassages(topic) : [];
 
   const detailPath = topic ? `/learn-quran/${topic.id}` : "/learn-quran";
   const crumbs = topic
@@ -91,8 +95,13 @@ export default function LearnQuranTopicScreen() {
         <LearnSplitLayout aside={<QuranGuideTopicAside currentId={topic.id} />}>
           <Stagger>
             <LearnReadingChrome surface="learn_quran">
-              <QuranGuideTopicContent topic={topic} />
+              {/* The card below already offers these ayahs — no inline buttons too. */}
+              <ReciteAlongInlineScope enabled={recitePassages.length === 0}>
+                <QuranGuideTopicContent topic={topic} />
+              </ReciteAlongInlineScope>
             </LearnReadingChrome>
+            {/* D68: recite the topic's ayahs with the on-device listener (hidden on TV). */}
+            <ReciteAlongCard passages={recitePassages} title={t("reciteAlong.topicTitle")} />
             <JannahDisclaimer textKey="learnQuran.disclaimer" contentRef={reportRef} />
           </Stagger>
         </LearnSplitLayout>

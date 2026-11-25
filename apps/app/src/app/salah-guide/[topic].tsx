@@ -5,6 +5,8 @@ import type { ScrollViewInstance } from "react-native";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { ReciteAlongCard } from "@/components/quran/recite-along-card";
+import { FatihahCheckCard } from "@/components/quran/recite-along-fatihah-card";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { SalahGuideTopicAside } from "@/components/salah-guide/salah-guide-aside";
 import { SalahGuideTopicContent } from "@/components/salah-guide/topic-content";
@@ -16,6 +18,7 @@ import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
 import { goBackOrReplace } from "@/lib/navigation";
+import { AFTER_SALAH_TOPIC_ID, afterSalahPassages } from "@/lib/recite-along/guides";
 import {
   ensureSalahGuideContent,
   getSalahGuideTopic,
@@ -194,6 +197,16 @@ export default function SalahGuideTopicScreen() {
             <LearnReadingChrome surface="salah_guide">
               <SalahGuideTopicContent topic={topic} stepsAudio={stepsAudio} />
             </LearnReadingChrome>
+            {/* D68: on-device al-Fatihah check beside the how-to-pray steps (hidden on TV). */}
+            {isHowToPray ? <FatihahCheckCard compact /> : null}
+            {/* D68: Ayat al-Kursi and the three Quls, recited after each fard Salah. */}
+            {topic.id === AFTER_SALAH_TOPIC_ID ? (
+              <ReciteAlongCard
+                passages={afterSalahPassages()}
+                title={t("reciteAlong.afterSalah.title")}
+                body={t("reciteAlong.afterSalah.body")}
+              />
+            ) : null}
             <JannahDisclaimer textKey="salahGuide.disclaimer" contentRef={reportRef} />
           </Stagger>
         </LearnSplitLayout>

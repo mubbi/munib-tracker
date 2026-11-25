@@ -3,20 +3,22 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { PracticeHabitDoneButton } from "@/components/quran/practice-habit-done";
 import {
   PracticeSessionSummary,
   type SummaryAction,
   summaryOutcome,
 } from "@/components/quran/practice-session-summary";
+import { PracticeReadingCreditLine } from "@/components/quran/practice-session-summary-credit";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { CoachingPlanCard } from "@/components/tajweed-coaching/coaching-plan-card";
 import { Button } from "@/components/ui/button";
 import { Spacing } from "@/constants/theme";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { singleAyahTrack } from "@/lib/quran-audio";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { ayahCount } from "@/lib/quran-companion/passage";
-import { requestReminderReschedule } from "@/lib/quran-companion/reschedule";
 import type { SessionMode } from "@/lib/quran-companion/types";
 import { getSurahByNumber } from "@/lib/quran-meta";
 import { useArrowForward } from "@/lib/rtl";
@@ -31,6 +33,7 @@ import {
 } from "@/stores/quran-memorization-store";
 import {
   quranPracticeStore,
+  useLastPracticeCredit,
   useLastPracticeSummary,
   useRevisionSitting,
 } from "@/stores/quran-practice-store";
@@ -47,8 +50,10 @@ export default function PracticeSummaryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const toast = useToast();
-  const params = useLocalSearchParams<{ source?: string }>();
+  const params = useLocalSearchParams<{ source?: string; habit?: string }>();
   const summary = useLastPracticeSummary();
+  // D68: what this session added to today's reading log / personal khatm.
+  const credit = useLastPracticeCredit(summary?.id);
   const sitting = useRevisionSitting();
   const audio = useAudioPlayerContext();
   const quranPrefs = useQuranPrefs();
@@ -201,6 +206,14 @@ export default function PracticeSummaryScreen() {
             : null
         }
       />
+
+      <PracticeReadingCreditLine
+        credit={credit}
+        onOpen={() => router.push("/quran/khatm" as Href)}
+      />
+
+      {/* D74: a habit's recite-along offers to tick today's habit — never automatic. */}
+      <PracticeHabitDoneButton habitId={params.habit} summary={summary} />
 
       {/* NF-3.15: sounds the practised ayahs include, with words from this recitation. */}
       <CoachingPlanCard sessionId={summary.id} />

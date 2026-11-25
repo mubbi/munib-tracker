@@ -3,6 +3,7 @@ import { SymbolView } from "expo-symbols";
 import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -13,10 +14,12 @@ import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import { useReciteAlongAvailable } from "@/hooks/use-recite-along-available";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { getJuzList, juzForAyah } from "@/lib/quran-meta";
+import { juzPassage } from "@/lib/quran-ref-parse";
 import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useLastRead } from "@/stores/quran-store";
@@ -35,6 +38,7 @@ export default function JuzBrowserScreen() {
   const chevronForwardIcon = useChevronForward();
   const lastRead = useLastRead();
   const tv = isTV();
+  const reciteAvailable = useReciteAlongAvailable();
 
   const continueJuz = useMemo(() => {
     if (!lastRead) return null;
@@ -63,29 +67,17 @@ export default function JuzBrowserScreen() {
             {JUZ_LIST.map((entry) => {
               const isContinue = entry.juz === continueJuz;
               const landFocus = tv && entry.juz === (continueJuz ?? 1);
-              return (
-                <PressableScale
-                  key={entry.juz}
-                  haptic="light"
-                  accessibilityRole="button"
-                  accessibilityLabel={
-                    isContinue
-                      ? `${t("quran.juzN", { n: entry.juz })}, ${t("quran.continueReading")}`
-                      : t("quran.juzN", { n: entry.juz })
-                  }
-                  onPress={() => openJuz(entry.surah, entry.ayah)}
-                  {...(landFocus ? { hasTVPreferredFocus: true } : {})}
-                  style={[
-                    styles.row,
-                    tv && styles.rowTv,
-                    {
-                      backgroundColor: isContinue ? tokens.accentSoft : colors.muted,
-                      borderColor: isContinue
-                        ? withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28)
-                        : "transparent",
-                    },
-                  ]}
-                >
+              const rowColors = {
+                backgroundColor: isContinue ? tokens.accentSoft : colors.muted,
+                borderColor: isContinue
+                  ? withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28)
+                  : "transparent",
+              };
+              const rowA11y = isContinue
+                ? `${t("quran.juzN", { n: entry.juz })}, ${t("quran.continueReading")}`
+                : t("quran.juzN", { n: entry.juz });
+              const body = (
+                <>
                   <View
                     style={[
                       styles.badge,
@@ -124,6 +116,37 @@ export default function JuzBrowserScreen() {
                       tintColor={colors.mutedForeground}
                     />
                   ) : null}
+                </>
+              );
+              const recitePassage = reciteAvailable ? juzPassage(entry.juz) : null;
+              // Recite along (D68) sits beside the row button, never inside it (web <button>).
+              if (recitePassage) {
+                return (
+                  <View key={entry.juz} style={[styles.rowShell, rowColors]}>
+                    <PressableScale
+                      haptic="light"
+                      accessibilityRole="button"
+                      accessibilityLabel={rowA11y}
+                      onPress={() => openJuz(entry.surah, entry.ayah)}
+                      style={[styles.rowContent, styles.rowPress]}
+                    >
+                      {body}
+                    </PressableScale>
+                    <ReciteAlongButton passage={recitePassage} appearance="icon" />
+                  </View>
+                );
+              }
+              return (
+                <PressableScale
+                  key={entry.juz}
+                  haptic="light"
+                  accessibilityRole="button"
+                  accessibilityLabel={rowA11y}
+                  onPress={() => openJuz(entry.surah, entry.ayah)}
+                  {...(landFocus ? { hasTVPreferredFocus: true } : {})}
+                  style={[styles.row, tv && styles.rowTv, rowColors]}
+                >
+                  {body}
                 </PressableScale>
               );
             })}
@@ -160,6 +183,21 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: 1,
   },
+  rowShell: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingEnd: Spacing.two,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: 1,
+  },
+  rowContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    padding: Spacing.three,
+  },
+  rowPress: { flex: 1, minWidth: 0 },
   badge: {
     width: 34,
     height: 34,

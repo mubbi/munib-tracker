@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { EvidenceLine } from "@/components/seasonal/evidence-line";
 import { ConsistencyDots } from "@/components/sunnah-habits/consistency-dots";
 import { ThemedText } from "@/components/themed-text";
@@ -24,7 +25,12 @@ import {
   isQuranRecitationHabit,
   type ResolvedHabit,
 } from "@/lib/sunnah-habits";
-import { habitIcon, habitLinkHref, habitSourceLabelKey } from "@/lib/sunnah-habits-ui";
+import {
+  habitIcon,
+  habitLinkHref,
+  habitRecitePassage,
+  habitSourceLabelKey,
+} from "@/lib/sunnah-habits-ui";
 import { useSunnahHabitsActions } from "@/stores/sunnah-habits-store";
 
 type HabitRowProps = {
@@ -83,6 +89,9 @@ export function HabitRow({
   const isLinkedOnly = def?.kind === "linked";
   const link = def?.link;
   const showRecitationNote = excusedReason === "hayd" && isQuranRecitationHabit(habit.id);
+  // Ayat al-Kursi / al-Mulk: recite along on this device (D68) until today's is ticked;
+  // the take's summary offers "Mark habit done" (D74), never ticks it by itself.
+  const recitePassage = progress.done ? null : habitRecitePassage(def);
 
   const subtitleParts = [
     def ? t(`sunnahHabits.items.${habit.id}.hint`) : null,
@@ -168,6 +177,15 @@ export function HabitRow({
           </PressableScale>
         ) : null}
       </View>
+      {recitePassage ? (
+        <ReciteAlongButton
+          passage={recitePassage}
+          habitId={habit.id}
+          size="sm"
+          variant="ghost"
+          style={styles.recite}
+        />
+      ) : null}
       {showEvidence && def ? <EvidenceLine refs={def.refs} /> : null}
       {showDots ? (
         <ConsistencyDots dots={consistencyDots(state, habit, date, ctx)} label={title} />
@@ -188,6 +206,7 @@ const styles = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   text: { flex: 1, minWidth: 0, gap: 2 },
   open: { padding: Spacing.one },
+  recite: { alignSelf: "flex-start" },
   openTv: { minHeight: TvLayout.minFocusTarget, justifyContent: "center" },
   checkTv: { minHeight: TvLayout.minFocusTarget, justifyContent: "center" },
 });

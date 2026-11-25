@@ -1,9 +1,16 @@
 import type {
+  SunnahHabitDef,
   SunnahHabitLink,
   SunnahHabitSource,
 } from "@munib-tracker/shared/content/sunnah-habits";
+import type { SunnahHabitsState } from "@munib-tracker/shared/types";
 import type { Href } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
+
+import { parsePassage } from "@/lib/quran-companion/passage";
+import type { Passage } from "@/lib/quran-companion/types";
+import { wholeSurah } from "@/lib/recite-along/passages";
+import { EMPTY_HABIT_CONTEXT, habitProgress, resolveHabit } from "@/lib/sunnah-habits";
 
 /** Route a habit row's "open" action goes to (adhkar set, ayah, tasbeeh, dua, hub). */
 export function habitLinkHref(link: SunnahHabitLink): Href {
@@ -25,6 +32,39 @@ export function habitLinkHref(link: SunnahHabitLink): Href {
     case "route":
       return link.route as Href;
   }
+}
+
+/**
+ * The passage a Qur'an-recitation habit is recited along with (D68): its Qur'an
+ * link — one ayah (Ayat al-Kursi 2:255) or the whole surah (al-Mulk, sectioned
+ * by the recite-along sheet). `null` for every other habit.
+ */
+export function habitRecitePassage(
+  def: Pick<SunnahHabitDef, "link" | "quranRecitation"> | undefined,
+): Passage | null {
+  const link = def?.link;
+  if (!def?.quranRecitation || link?.kind !== "quran") return null;
+  return link.ayah != null
+    ? parsePassage({ surah: link.surah, from: link.ayah, to: link.ayah })
+    : wholeSurah(link.surah);
+}
+
+/**
+ * D74: whether a practice summary offers "Mark habit done" — the session came
+ * from a Qur'an-recitation habit's recite-along (`habit` route param), at least
+ * one ayah was credited (heard ≥ ⅔ of its words), and the habit isn't ticked on
+ * `date` yet. Never ticks anything itself.
+ */
+export function canOfferHabitDone(input: {
+  state: SunnahHabitsState;
+  habitId: string | null | undefined;
+  date: string;
+  creditedAyahs: number;
+}): boolean {
+  if (!input.habitId || !(input.creditedAyahs > 0)) return false;
+  const habit = resolveHabit(input.state, input.habitId);
+  if (!habit || !habitRecitePassage(habit.def)) return false;
+  return !habitProgress(input.state, habit, input.date, EMPTY_HABIT_CONTEXT).done;
 }
 
 /** i18n key of the "from …" label on a derived habit. */

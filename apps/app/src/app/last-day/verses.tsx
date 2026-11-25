@@ -13,6 +13,7 @@ import {
 } from "@/components/jannah/hub-layout";
 import { JannahActionRow, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -28,7 +29,19 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { ensureLastDayContent, getLastDayVerses, isLastDayContentReady } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
+import { passageFromRef } from "@/lib/recite-along/passages";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+
+/** Bookmark + recite along (D68) for one verse row; recite hides where practice is unavailable. */
+function VerseActions({ verse }: { verse: { surah: number; ayahFrom: number; ayahTo?: number } }) {
+  const passage = passageFromRef(verse);
+  return (
+    <>
+      {passage ? <ReciteAlongButton passage={passage} appearance="icon" /> : null}
+      <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
+    </>
+  );
+}
 
 export default function LastDayVersesScreen() {
   const router = useRouter();
@@ -103,9 +116,7 @@ export default function LastDayVersesScreen() {
                                 borderTopWidth: StyleSheet.hairlineWidth,
                               },
                         ]}
-                        actions={
-                          <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
-                        }
+                        actions={<VerseActions verse={verse} />}
                       >
                         <IconWell
                           icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}

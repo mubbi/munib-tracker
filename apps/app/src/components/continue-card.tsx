@@ -78,6 +78,12 @@ const KIND_VISUALS: Record<ContinueKind, KindVisual> = {
     labelKey: "home.continueKind.audio",
     actionKey: "home.continueAction.audio",
   },
+  practice: {
+    icon: { ios: "mic.fill", android: "mic", web: "mic" },
+    palette: "success",
+    labelKey: "home.continueKind.practice",
+    actionKey: "home.continueAction.practice",
+  },
 };
 
 function getPalette(

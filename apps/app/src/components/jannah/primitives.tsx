@@ -14,6 +14,8 @@ import {
 } from "@/components/jannah/bookmark-button";
 import { tvLearnRowStyle } from "@/components/learn-guide/tv-learn-chrome";
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
+import { useReciteAlongInlineEnabled } from "@/components/quran/recite-along-inline";
 import { QuranAyahPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { LearnProseText, useReadingTypography } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
@@ -30,6 +32,7 @@ import { useQuranAyahRange } from "@/hooks/use-quran-ayah-range";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 import { isTV } from "@/lib/platform/is-tv";
+import { isLongPassage, passageFromRef } from "@/lib/recite-along/passages";
 import { useChevronForward } from "@/lib/rtl";
 
 type CalloutTone = "info" | "success" | "accent" | "warning";
@@ -170,10 +173,11 @@ export function JannahNavRow({
 
 /**
  * Pressable list row that also hosts its own secondary control (e.g. a bookmark
- * button). Phone/web: one `PressableScale` with `actions` inline before
- * `trailing` — unchanged layout. TV: nested focusables are unreachable on tvOS
- * (and awkward on Android TV), so the row splits into the pressable body plus
- * `actions` as a sibling the D-pad reaches with Right.
+ * button). `actions` are never nested inside the row pressable (invalid nested
+ * <button>s on RN Web). Phone/web: body pressable, then `actions`, then `trailing`
+ * as siblings in the row — the same visual order as before. TV: nested focusables
+ * are unreachable on tvOS (and awkward on Android TV), so the row splits into the
+ * pressable body (with `trailing`) plus `actions` the D-pad reaches with Right.
  */
 export function JannahActionRow({
   onPress,
@@ -196,7 +200,7 @@ export function JannahActionRow({
   /** Non-interactive trailing glyph (chevron) — stays inside the row. */
   trailing?: ReactNode;
 }) {
-  if (!isTV()) {
+  if (!isTV() && !actions) {
     return (
       <PressableScale
         haptic="light"
@@ -206,22 +210,53 @@ export function JannahActionRow({
         style={style}
       >
         {children}
-        {actions}
         {trailing}
       </PressableScale>
     );
   }
   const flat: ViewStyle = StyleSheet.flatten(style) ?? {};
+  const bodyLayout = { alignItems: flat.alignItems ?? "center", gap: flat.gap ?? Spacing.three };
+  if (!isTV()) {
+    // Phone/web: `actions` are buttons, so they sit BESIDE the row pressable, never
+    // inside it (a nested pressable is a <button> in a <button> on RN Web). Same
+    // order as before — body, actions, chevron; the chevron is a second hit target
+    // for the row, hidden from screen readers and the tab order (the body carries
+    // the label).
+    return (
+      <View style={[style, styles.actionRowSplit]}>
+        <PressableScale
+          haptic="light"
+          accessibilityRole={accessibilityRole}
+          accessibilityLabel={accessibilityLabel}
+          onPress={onPress}
+          // The body lays its children out exactly as the row style did.
+          style={[styles.actionRowBody, { alignItems: flat.alignItems, gap: flat.gap }]}
+        >
+          {children}
+        </PressableScale>
+        {actions}
+        {trailing ? (
+          <PressableScale
+            haptic="light"
+            onPress={onPress}
+            accessible={false}
+            focusable={false}
+            importantForAccessibility="no-hide-descendants"
+            accessibilityElementsHidden
+          >
+            {trailing}
+          </PressableScale>
+        ) : null}
+      </View>
+    );
+  }
   return (
     <View style={[style, styles.actionRowTv]}>
       <PressableScale
         accessibilityRole={accessibilityRole}
         accessibilityLabel={accessibilityLabel}
         onPress={onPress}
-        style={[
-          styles.actionRowBodyTv,
-          { alignItems: flat.alignItems ?? "center", gap: flat.gap ?? Spacing.three },
-        ]}
+        style={[styles.actionRowBodyTv, bodyLayout]}
       >
         {children}
         {trailing}
@@ -334,6 +369,10 @@ export function JannahBody({
 function QuranEvidenceItem({ refItem }: { refItem: JannahQuranRef }) {
   const { colors, tokens } = useThemeTokens();
   const range = useQuranAyahRange(refItem.surah, refItem.ayahFrom, refItem.ayahTo);
+  // D68: a compact recite-along beside Play — short quotes only (long ranges are
+  // left to the screen's own recite-along card / section sheet).
+  const inlineRecite = useReciteAlongInlineEnabled();
+  const recitePassage = inlineRecite ? passageFromRef(refItem) : null;
 
   return (
     <View
@@ -352,6 +391,9 @@ function QuranEvidenceItem({ refItem }: { refItem: JannahQuranRef }) {
             ayahFrom={refItem.ayahFrom}
             ayahTo={refItem.ayahTo}
           />
+          {recitePassage && !isLongPassage(recitePassage) ? (
+            <ReciteAlongButton passage={recitePassage} appearance="icon" />
+          ) : null}
           <QuranAyahBookmarkButton surah={refItem.surah} ayah={refItem.ayahFrom} />
         </View>
       </View>
@@ -557,6 +599,8 @@ const styles = StyleSheet.create({
   navRowFill: { flexGrow: 1 },
   navCopy: { flex: 1, gap: Spacing.half, minWidth: 0 },
   actionRowTv: { alignItems: "center" },
+  actionRowSplit: { flexDirection: "row" },
+  actionRowBody: { flex: 1, flexDirection: "row", minWidth: 0 },
   actionRowBodyTv: {
     flex: 1,
     flexDirection: "row",

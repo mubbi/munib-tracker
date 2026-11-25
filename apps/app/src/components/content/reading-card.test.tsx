@@ -1,7 +1,12 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 
-import { ReadingCard, type ReadingItem } from "@/components/content/reading-card";
+import {
+  isDuaReadingSource,
+  ReadingCard,
+  type ReadingItem,
+} from "@/components/content/reading-card";
 import { mockAudioPlayer, resetAudioPlayerMock } from "@/test-support/mocks/audio-player-provider";
+import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 import { setReadingDisplayState } from "@/test-support/settings";
@@ -12,6 +17,7 @@ jest.mock(
   "@/providers/audio-player-provider",
   () => require("@/test-support/mocks/audio-player-provider").audioPlayerProviderMock,
 );
+jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 jest.mock("@/stores/continue-store", () => ({
   recordContinueActivity: (activity: unknown) => mockRecordContinue(activity),
 }));
@@ -176,6 +182,47 @@ describe("ReadingCard", () => {
   it("renders without the context menu", async () => {
     await renderCard({ enableContextMenu: false });
     expect(screen.queryByLabelText("menu:share")).toBeNull();
+  });
+
+  describe("recite along (D68)", () => {
+    const quranicDua: ReadingItem = {
+      ...baseItem,
+      id: "quranic-hasanah",
+      reference: "Quran 2:201",
+    };
+    beforeEach(resetExpoRouterMock);
+
+    it("checks the cited ayah on dua screens", async () => {
+      await renderWithTheme(
+        <ReadingCard item={quranicDua} sourceHref="/dua/detail/quranic-hasanah" />,
+      );
+      await fireEvent.press(screen.getByText("Check my recitation"));
+      expect(mockRouter.push).toHaveBeenCalledWith({
+        pathname: "/quran/practice/session",
+        params: { surah: "2", from: "201", to: "201", mode: "check", source: "recite-along" },
+      });
+    });
+
+    it("is off for adhkar and hadith-only references", async () => {
+      await renderWithTheme(
+        <ReadingCard item={quranicDua} sourceHref="/zikr/detail/before_prayer-taawwudh" />,
+      );
+      expect(screen.queryByText("Check my recitation")).toBeNull();
+    });
+
+    it("needs a Qur'an reference", async () => {
+      await renderWithTheme(<ReadingCard item={baseItem} sourceHref="/jannah/duas" />);
+      expect(screen.queryByText("Check my recitation")).toBeNull();
+    });
+
+    it("recognises dua sources", () => {
+      expect(isDuaReadingSource("/dua/detail/x")).toBe(true);
+      expect(isDuaReadingSource("/jannah/duas")).toBe(true);
+      expect(isDuaReadingSource("/jahannam/duas")).toBe(true);
+      expect(isDuaReadingSource("/zikr/detail/x")).toBe(false);
+      expect(isDuaReadingSource("/duroods")).toBe(false);
+      expect(isDuaReadingSource(undefined)).toBe(false);
+    });
   });
 
   describe("on TV", () => {

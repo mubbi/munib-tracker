@@ -376,9 +376,12 @@ export default function SurahReaderScreen() {
         onOpenPlayback={() => setPlaybackSheetOpen(true)}
         // Side pane: play / pause lives in the surah navigation card above.
         onPlaySurah={showSideFilters ? undefined : () => playFrom(0)}
+        // Recite along with the whole surah rides beside "Play surah" (D68).
+        reciteSurah={showSideFilters ? undefined : surahNumber}
       />
     ),
     [
+      surahNumber,
       playFrom,
       showSideFilters,
       showTransliteration,

@@ -16,6 +16,7 @@ import {
   useLearnWideLayout,
 } from "@/components/learn-guide/learn-wide-layout";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
+import { FatihahCheckCard } from "@/components/quran/recite-along-fatihah-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -279,6 +280,9 @@ export default function SalahGuideScreen() {
             {split ? null : quickLinksCard}
 
             {split ? null : progressRow}
+
+            {/* D68: on-device al-Fatihah check (hidden on TV). */}
+            <FatihahCheckCard />
 
             {JOURNEY_ORDER.map((phase) => {
               const topics = TOPICS_BY_JOURNEY[phase];

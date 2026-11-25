@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
+import { ReciteToFindPanel } from "@/components/quran/recite-to-find-panel";
 import { RootSearchPanel } from "@/components/quran/roots/root-search-panel";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +18,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
+import { useReciteToFindAvailability } from "@/hooks/use-recite-to-find";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -30,6 +32,7 @@ import {
   type VerseDetectorLang,
 } from "@/lib/quran-verse-detector";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
+import { RECITE_MODE_PARAM } from "@/lib/recite-to-find/links";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { clearAyahIndex } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -48,8 +51,13 @@ export default function QuranSearchScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   // NF-3.22: Text | Root toggle (`?mode=root` deep-links straight to root search).
+  // D68: + Recite (on-device listener, `?mode=recite`) where the listener can run.
   const params = useLocalSearchParams<{ mode?: string; q?: string }>();
-  const [mode, setMode] = useState<"text" | "root">(params.mode === "root" ? "root" : "text");
+  const [mode, setMode] = useState<"text" | "root" | "recite">(
+    params.mode === "root" ? "root" : params.mode === RECITE_MODE_PARAM ? "recite" : "text",
+  );
+  const { available: reciteAvailable } = useReciteToFindAvailability();
+  const activeMode = mode === "recite" && !reciteAvailable ? "text" : mode;
   const toast = useToast();
   const { colors, tokens } = useThemeTokens();
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
@@ -170,6 +178,15 @@ export default function QuranSearchScreen() {
     [stt],
   );
 
+  const modeOptions = useMemo(
+    () => [
+      { id: "text" as const, label: t("quranRoots.mode.text") },
+      { id: "root" as const, label: t("quranRoots.mode.root") },
+      ...(reciteAvailable ? [{ id: "recite" as const, label: t("reciteToFind.mode.recite") }] : []),
+    ],
+    [reciteAvailable, t],
+  );
+
   const langOptions = useMemo(
     () => [
       { id: "en" as const, label: t("quran.detector.langEnglish") },
@@ -199,15 +216,17 @@ export default function QuranSearchScreen() {
       <Seo path="/quran/search" />
       <View style={styles.modeRow}>
         <SegmentedControl
-          options={[
-            { id: "text" as const, label: t("quranRoots.mode.text") },
-            { id: "root" as const, label: t("quranRoots.mode.root") },
-          ]}
-          value={mode}
-          onChange={setMode}
+          options={modeOptions}
+          value={activeMode}
+          onChange={(next) => {
+            if (stt.listening) stt.abort();
+            setMode(next);
+          }}
         />
       </View>
-      {mode === "root" ? (
+      {activeMode === "recite" ? (
+        <ReciteToFindPanel twoPane={wideControls} />
+      ) : activeMode === "root" ? (
         <RootSearchPanel
           initialQuery={params.mode === "root" ? (params.q ?? "") : ""}
           onSearchText={(text) => {

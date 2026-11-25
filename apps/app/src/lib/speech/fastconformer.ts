@@ -12,8 +12,12 @@ import { createFastConformerRunner, type FastConformerRunner } from "./fastconfo
  * the same pinned, hash-checked store (`model/model-store.*`), so a user who
  * already downloaded FastConformer for practice downloads nothing new.
  *
- * The session is created lazily by the caller (when listening starts) and must be
- * released when it stops (`runner.release()`).
+ * The session is opened lazily by the caller (when listening starts) and must be
+ * released when it stops (`runner.release()`). `createSession` leases it from
+ * the shared cache (`session-cache.ts`): practice, the pronunciation check and
+ * hands-free tasbeeh reuse one warm FastConformer session, and `release()` only
+ * drops this holder's lease (the session is freed after an idle minute or when
+ * the app goes to the background).
  */
 
 export const FASTCONFORMER_ENGINE = "tilawa-fastconformer" as const;
@@ -31,7 +35,7 @@ export function isFastConformerManifest(manifest: RecitationModelManifest | null
   return manifest?.engine === FASTCONFORMER_ENGINE && manifest.version === FASTCONFORMER_VERSION;
 }
 
-/** Create an ORT session over the installed FastConformer files. Throws a `PracticeError`. */
+/** Lease the (shared, warmed-up) ORT session over the installed FastConformer files. Throws a `PracticeError`. */
 export async function openFastConformerRunner(
   assets: LoadedModelAssets,
 ): Promise<FastConformerRunner> {

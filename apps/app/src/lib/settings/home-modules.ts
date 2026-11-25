@@ -24,4 +24,6 @@ export const HOME_MODULES = [
   "umrah-mode",
   // NF-2.23 seasonal banners (`SEASONAL_BANNER_HOME_MODULE`); per-season hiding is on the banner.
   "seasonal-banner",
+  // D68 "N ayahs to revise" card (`QURAN_REVISION_HOME_MODULE`).
+  "quran-revision",
 ] as const;

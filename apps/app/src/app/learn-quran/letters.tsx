@@ -5,6 +5,7 @@ import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { RECITE_ALONG_ICON } from "@/components/quran/recite-along-button";
 import { QuranLetterPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
@@ -17,6 +18,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { useTajweedDrillAvailable } from "@/hooks/use-recite-along-available";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -31,6 +33,7 @@ import {
   isLetterPronunciationTrack,
   letterIdFromTrack,
 } from "@/lib/quran-guide-audio";
+import { isQalqalahLetter, QALQALAH_DRILL_LESSON } from "@/lib/recite-along/tajweed";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 
@@ -48,6 +51,8 @@ export default function LearnQuranLettersScreen() {
     isQuranGuideContentReady,
   );
   const letters = getQuranGuideLetters();
+  // D68: the qalqalah letters link to the qalqalah sound drill where it can run.
+  const qalqalahDrill = useTajweedDrillAvailable(QALQALAH_DRILL_LESSON);
   const tv = isTV();
   // Tablet / desktop: dense 4-up alphabet grid (beside the module aside at ≥1200).
   const { wide, maxContentWidth } = useLearnWideLayout();
@@ -180,6 +185,22 @@ export default function LearnQuranLettersScreen() {
                             </ThemedText>
                           ))}
                         </View>
+                        {qalqalahDrill && isQalqalahLetter(letter.id) ? (
+                          <Button
+                            label={t("quranCompanion.pronunciation.practiseSound")}
+                            icon={RECITE_ALONG_ICON}
+                            variant="ghost"
+                            size="sm"
+                            accessibilityHint={t("learnQuran.qalqalahDrillHint")}
+                            onPress={() =>
+                              router.push({
+                                pathname: "/learn-quran/tajweed/drill/[id]",
+                                params: { id: QALQALAH_DRILL_LESSON },
+                              })
+                            }
+                            style={styles.drillChip}
+                          />
+                        ) : null}
                       </Card>
                     </View>
                   );
@@ -197,6 +218,7 @@ export default function LearnQuranLettersScreen() {
 
 const styles = StyleSheet.create({
   playAll: { marginBottom: Spacing.two },
+  drillChip: { alignSelf: "flex-start" },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",

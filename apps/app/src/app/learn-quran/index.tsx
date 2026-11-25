@@ -23,6 +23,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { useReciteAlongAvailable } from "@/hooks/use-recite-along-available";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -39,6 +40,7 @@ import {
   useEnsureQuranGuideProgressLoaded,
   useQuranGuideCompletedCount,
 } from "@/stores/quran-guide-progress-store";
+import { useDueQueue, useEnsureMemorizationLoaded } from "@/stores/quran-memorization-store";
 
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
@@ -83,6 +85,10 @@ export default function LearnQuranScreen() {
   const JOURNEY_ORDER = useMemo(() => getQuranGuideJourneyOrder(), [i18n.language, contentVersion]);
 
   const { split, maxContentWidth } = useLearnWideLayout();
+  // D68: recitation practice + tajweed coaching tiles (hidden on TV / unsupported runtimes).
+  const reciteAvailable = useReciteAlongAvailable();
+  useEnsureMemorizationLoaded();
+  const dueCount = useDueQueue().length;
 
   const quickLinks = useMemo(
     () => [
@@ -122,8 +128,33 @@ export default function LearnQuranScreen() {
         tint: tokens.status.warning.color,
         onPress: () => router.push("/learn-quran/progress" as Href),
       },
+      ...(reciteAvailable
+        ? [
+            {
+              id: "practise",
+              icon: { ios: "mic.fill", android: "mic", web: "mic" } as AppIcon,
+              title: t("learnQuran.quickPractise"),
+              // Revision due today → straight to the due queue; otherwise the practice hub.
+              subtitle:
+                dueCount > 0
+                  ? t("quranCompanion.entry.toRevise", { count: dueCount })
+                  : t("learnQuran.quickPractiseHint"),
+              tint: colors.accent,
+              onPress: () =>
+                router.push((dueCount > 0 ? "/quran/revision" : "/quran/practice") as Href),
+            },
+            {
+              id: "coaching",
+              icon: { ios: "waveform", android: "graphic_eq", web: "graphic_eq" } as AppIcon,
+              title: t("learnQuran.quickCoaching"),
+              subtitle: t("learnQuran.quickCoachingHint"),
+              tint: tokens.status.info.color,
+              onPress: () => router.push("/learn-quran/tajweed" as Href),
+            },
+          ]
+        : []),
     ],
-    [router, t, colors.accent, tokens],
+    [router, t, colors.accent, tokens, reciteAvailable, dueCount],
   );
 
   const quickLinksCard = (

@@ -6,6 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { ReadingTtsButton } from "@/components/content/reading-tts-button";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
@@ -18,6 +19,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildDuroodActivity } from "@/lib/continue-activity";
 import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
+import { parseQuranReference } from "@/lib/quran-ref-parse";
 import {
   arabicReadingLayout,
   resolveReadingFontSizes,
@@ -46,6 +48,16 @@ export type ReadingItem = {
     reference?: string;
   }>;
 };
+
+/**
+ * Dua screens (`/dua/…`, Umrah `DuaByRef`, `/jannah/duas`, `/jahannam/duas`) show
+ * the bundled duas, whose "Quran X:Y" reference is the ayah the dua is from.
+ * Adhkar are left out on purpose: some cite an ayah they only quote in part.
+ */
+export function isDuaReadingSource(sourceHref: string | undefined): boolean {
+  if (!sourceHref) return false;
+  return sourceHref.startsWith("/dua/") || /\/duas$/.test(sourceHref);
+}
 
 /**
  * Shared reading view for religious text (zikr, dua, durood, names).
@@ -79,6 +91,11 @@ export function ReadingCard({
    * inside a parent card).
    */
   framed = true,
+  /**
+   * Offer "Recite along" (Check mode, D68) on the ayah in a "Quran X:Y"
+   * reference. Defaults to on for dua screens ({@link isDuaReadingSource}).
+   */
+  reciteAlong,
 }: {
   item: ReadingItem;
   sourceHref?: string;
@@ -92,6 +109,7 @@ export function ReadingCard({
   enableTts?: boolean;
   enableContextMenu?: boolean;
   framed?: boolean;
+  reciteAlong?: boolean;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -173,6 +191,8 @@ export function ReadingCard({
   const arabicText = item.arabic.trim();
   const showTranslit = showTransliteration && Boolean(transliteration);
   const showMeaning = showTranslation && Boolean(translationText);
+  const recitePassage =
+    (reciteAlong ?? isDuaReadingSource(sourceHref)) ? parseQuranReference(item.reference) : null;
   const hasMeta = showTranslit || showMeaning || !!item.virtues?.trim() || !!item.reference?.trim();
 
   const body = (
@@ -291,6 +311,10 @@ export function ReadingCard({
 
       {item.reference ? (
         <ReferenceLine reference={item.reference} style={styles.reference} />
+      ) : null}
+
+      {recitePassage ? (
+        <ReciteAlongButton passage={recitePassage} mode="check" size="sm" style={styles.recite} />
       ) : null}
 
       {item.variants?.length
@@ -413,6 +437,7 @@ const styles = StyleSheet.create({
   },
   noteText: { flex: 1 },
   reference: { marginTop: Spacing.three },
+  recite: { alignSelf: "flex-start", marginTop: Spacing.three },
   variantBlock: {
     marginTop: Spacing.four,
     paddingTop: Spacing.four,

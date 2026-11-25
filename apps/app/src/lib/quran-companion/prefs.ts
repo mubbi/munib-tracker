@@ -25,6 +25,7 @@ export const DEFAULT_COMPANION_PREFS: QuranCompanionPrefs = {
   wifiOnlyDownload: true,
   feedCoachingFromAssessment: true,
   tajweedInRevisionReminder: true,
+  logToReadingLog: true,
 };
 
 const MODES = new Set(["follow", "check", "hide-words", "hide-ayahs"]);
@@ -49,6 +50,9 @@ export function coercePrefs(value: unknown): QuranCompanionPrefs | null {
   }
   if (typeof merged.tajweedInRevisionReminder !== "boolean") {
     merged.tajweedInRevisionReminder = DEFAULT_COMPANION_PREFS.tajweedInRevisionReminder;
+  }
+  if (typeof merged.logToReadingLog !== "boolean") {
+    merged.logToReadingLog = DEFAULT_COMPANION_PREFS.logToReadingLog;
   }
   if (!LIMITS.has(merged.dailyRevisionLimit)) {
     merged.dailyRevisionLimit = DEFAULT_COMPANION_PREFS.dailyRevisionLimit;

@@ -124,6 +124,11 @@ export const DB_KEYS = {
   quranCompanionPrefs: `${PREFIX}/quran_companion_prefs`,
   // Last 30 practice session summaries + a clearedAt marker — cloud-synced, custom merge.
   quranPracticeSessions: `${PREFIX}/quran_practice_sessions`,
+  // D71 Recitation track: lifetime practice totals (sessions, ayahs recited, revision
+  // days) credited once per session id, so the 30-row history cap never lowers
+  // recitation milestones or Noor. Backed up, NOT a sync entity — each device credits
+  // the synced practice rows it sees (`lib/quran-companion/recitation-totals.ts`).
+  recitationTotals: `${PREFIX}/recitation_totals`,
   // Per-ayah revision ladder records — cloud-synced, custom merge.
   quranMemorization: `${PREFIX}/quran_memorization`,
   // NF-3.15 tajweed coaching: drill counts, spacing and the last plan (no audio) —
@@ -299,6 +304,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   readingTextVisibility: "userData",
   quranCompanionPrefs: "userData",
   quranPracticeSessions: "userData",
+  recitationTotals: "userData",
   quranMemorization: "userData",
   tajweedCoaching: "userData",
   quranNotes: "userData",

@@ -42,6 +42,33 @@ describe("SunnahHabitsSection", () => {
     expect(screen.getByText("1/2")).toBeTruthy();
   });
 
+  it("recites Ayat al-Kursi along from its habit row until it is ticked (D68, D74)", async () => {
+    await seed(["ayat_kursi_sleep"]);
+    await renderWithTheme(<SunnahHabitsSection date={DAY} />);
+
+    await fireEvent.press(screen.getByText(i18n.t("reciteAlong.button")));
+    expect(mockRouter.push).toHaveBeenCalledWith({
+      pathname: "/quran/practice/session",
+      // D74: a habit's take carries the habit so its summary can offer "Mark habit done".
+      params: {
+        surah: "2",
+        from: "255",
+        to: "255",
+        mode: "follow",
+        source: "habit",
+        habit: "ayat_kursi_sleep",
+      },
+    });
+
+    const box = screen.getByRole("checkbox", {
+      name: i18n.t("sunnahHabits.items.ayat_kursi_sleep.title"),
+    });
+    await act(async () => {
+      fireEvent.press(box);
+    });
+    expect(screen.queryByText(i18n.t("reciteAlong.button"))).toBeNull();
+  });
+
   it("shows at most four habits on the home card", async () => {
     await seed(["miswak", "smile", "salam_home", "spread_salam", "eat_right_bismillah"]);
     await renderWithTheme(<SunnahHabitsSection date={DAY} variant="home" />);

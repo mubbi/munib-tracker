@@ -1,5 +1,6 @@
 import type { Ayah } from "@munib-tracker/shared/types";
 
+import i18n from "@/i18n";
 import type { AudioTrack } from "@/providers/audio-player-provider";
 
 /**
@@ -48,6 +49,16 @@ function ayahPreview(arabic: string, maxChars = 42): string {
   return `${text.slice(0, maxChars)}…`;
 }
 
+/** Localized "Ayah {{n}}" (shown in the player and on the lock screen). */
+function ayahLabel(ayah: number): string {
+  return i18n.t("quranCompanion.picker.ayahN", { n: ayah });
+}
+
+/** Reciter display name for the lock screen "artist" line (proper noun, not translated). */
+export function reciterName(reciterDir: string): string | undefined {
+  return RECITERS.find((r) => r.dir === reciterDir)?.name;
+}
+
 /** everyayah file id: zero-padded surah(3) + ayah(3), e.g. 001001. */
 function ayahFileId(surah: number, ayah: number): string {
   return `${pad3(surah)}${pad3(ayah)}`;
@@ -61,12 +72,14 @@ export function ayahTracks(
   ayahs: Ayah[],
   tts?: AyahTrackTtsOptions,
 ): AudioTrack[] {
+  const reciter = reciterName(reciterDir);
   return ayahs.map((a) => {
     const text = tts?.translations[String(a.ayah)]?.trim();
     return {
       id: `${surah}:${a.ayah}`,
       title: surahName,
-      subtitle: `Ayah ${a.ayah}`,
+      subtitle: ayahLabel(a.ayah),
+      lockScreenArtist: reciter,
       preview: ayahPreview(a.arabic),
       uri: `${EVERYAYAH}/${reciterDir}/${ayahFileId(surah, a.ayah)}.mp3`,
       ...(text && tts
@@ -92,7 +105,8 @@ export function singleAyahTrack(
   return {
     id: `${surah}:${ayah}`,
     title: surahName,
-    subtitle: `Ayah ${ayah}`,
+    subtitle: ayahLabel(ayah),
+    lockScreenArtist: reciterName(reciterDir),
     uri: `${EVERYAYAH}/${reciterDir}/${ayahFileId(surah, ayah)}.mp3`,
   };
 }
@@ -104,8 +118,9 @@ export function singleAyahTrack(
 export function surahTranslationTrack(surah: number, surahName: string): AudioTrack {
   return {
     id: `translation:${surah}`,
-    title: `${surahName} — English`,
-    subtitle: "Audio translation",
+    title: `${surahName} — ${i18n.t("language.en")}`,
+    subtitle: i18n.t("player.track.audioTranslation"),
+    lockScreenArtist: "Ibrahim Walk",
     uri: `${QURANICAUDIO}/english/Ibrahim_Walk_192kbps/${pad3(surah)}.mp3`,
   };
 }

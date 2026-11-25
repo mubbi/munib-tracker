@@ -5,6 +5,7 @@ import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -52,7 +53,9 @@ import {
 } from "@/lib/khatm-motivation";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import type { Passage } from "@/lib/quran-companion/types";
 import { pageToStartAyah } from "@/lib/quran-meta";
+import { khatmPortionPassage } from "@/lib/quran-ref-parse";
 import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useEnsureKhatmLoaded, useKhatm, useKhatmActions } from "@/stores/khatm-store";
@@ -487,6 +490,7 @@ function KhatmActivePlanCard({
   onSetTotal,
   onReset,
   onContinue,
+  recitePassage,
 }: {
   plan: KhatmPlan;
   unit: "ayah" | "page";
@@ -505,6 +509,8 @@ function KhatmActivePlanCard({
   onSetTotal: (total: number) => void;
   onReset: () => void;
   onContinue?: () => void;
+  /** Today's portion as a recite-along passage (D68); its first surah only. */
+  recitePassage?: Passage | null;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -678,6 +684,16 @@ function KhatmActivePlanCard({
           onPress={onContinue}
           preferredFocus
           icon={{ ios: "book.pages.fill", android: "menu_book", web: "menu_book" }}
+          fullWidth
+        />
+      ) : null}
+
+      {/* Follow along by default; a long portion offers ten-ayah sections first. */}
+      {pace !== "done" && recitePassage ? (
+        <ReciteAlongButton
+          passage={recitePassage}
+          label={t("reciteAlong.khatmToday")}
+          variant={isPageUnit && onContinue ? "secondary" : "primary"}
           fullWidth
         />
       ) : null}
@@ -1029,6 +1045,7 @@ export default function KhatmScreen() {
               )
           : undefined
       }
+      recitePassage={khatmPortionPassage(activeUnit, ayahsRead, target)}
     />
   ) : null;
 

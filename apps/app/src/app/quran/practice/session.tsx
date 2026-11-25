@@ -30,6 +30,7 @@ import { usePracticeSession } from "@/hooks/use-practice-session";
 import { useSurahTajweed } from "@/hooks/use-quran";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
+import { buildPracticeActivity } from "@/lib/continue-activity";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { canOpenAppSettings, openAppSettings } from "@/lib/quran-companion/open-app-settings";
@@ -48,6 +49,7 @@ import {
 import { useIsRTL } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useReadingDisplay } from "@/lib/settings/reading-display";
+import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
 import {
   useCompanionPrefs,
@@ -75,6 +77,8 @@ export default function PracticeSessionRoute() {
     to?: string;
     mode?: string;
     source?: string;
+    /** D74: the Sunnah habit a recite-along take came from (`source=habit`). */
+    habit?: string;
   }>();
   useEnsureCompanionPrefsLoaded();
   useEnsureMemorizationLoaded();
@@ -94,6 +98,14 @@ export default function PracticeSessionRoute() {
     else if (!passage) router.replace("/quran/practice" as Href);
   }, [passage, router]);
 
+  // Home "Continue" resumes practice (D68): recorded when a session starts here;
+  // `onEnd` records it again when the session finishes.
+  const continueMode = params.mode === PRONUNCIATION_MODE ? PRONUNCIATION_MODE : mode;
+  useEffect(() => {
+    if (!passage || !prefsReady || !isPracticeAvailable()) return;
+    recordContinueActivity(buildPracticeActivity(passage, continueMode));
+  }, [continueMode, passage, prefsReady]);
+
   if (!passage || !prefsReady || !isPracticeAvailable()) return null;
   // NF-3.24 "Check pronunciation" — its own flow, not a memorisation session.
   if (params.mode === PRONUNCIATION_MODE) {
@@ -102,6 +114,7 @@ export default function PracticeSessionRoute() {
         key={`${passage.surah}:${passage.ayahStart}-${passage.ayahEnd}:pronunciation`}
         passage={passage}
         source={params.source ?? "hub"}
+        habitId={params.habit}
       />
     );
   }
@@ -112,6 +125,7 @@ export default function PracticeSessionRoute() {
       passage={passage}
       mode={mode}
       source={params.source ?? "hub"}
+      habitId={params.habit}
     />
   );
 }
@@ -120,10 +134,13 @@ function PracticeSessionScreen({
   passage,
   mode,
   source,
+  habitId,
 }: {
   passage: Passage;
   mode: SessionMode;
   source: string;
+  /** D74: carried to the summary so it can offer "Mark habit done". */
+  habitId?: string;
 }) {
   const router = useRouter();
   const { t } = useTranslation();
@@ -206,9 +223,10 @@ function PracticeSessionScreen({
     try {
       const summary = await s.finish();
       quranPracticeStore.getState().setLastSummary(summary);
+      recordContinueActivity(buildPracticeActivity(passage, mode));
       router.replace({
         pathname: "/quran/practice/summary",
-        params: { source },
+        params: { source, ...(habitId ? { habit: habitId } : {}) },
       } as unknown as Href);
     } finally {
       setEnding(false);

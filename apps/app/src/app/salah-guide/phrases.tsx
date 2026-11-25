@@ -1,11 +1,12 @@
 import { useRouter } from "expo-router";
-import { useCallback, useEffect, useMemo } from "react";
+import { Fragment, useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { FatihahCheckCard } from "@/components/quran/recite-along-fatihah-card";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { SalahGuideTopicAside } from "@/components/salah-guide/salah-guide-aside";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -31,6 +32,9 @@ import { salahGuidePhraseAudio } from "@/lib/salah-how-to-pray-audio";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranPrefs } from "@/stores/quran-store";
+
+/** The Salah-guide phrase that is al-Fatihah (`salah-guide-phrases.ts`). */
+const FATIHAH_PHRASE_ID = "fatiha";
 
 function PhraseCard({
   id,
@@ -175,9 +179,17 @@ export default function SalahGuidePhrasesScreen() {
             <LearnReadingChrome surface="salah_guide">
               <JannahCallout tone="accent">{t("salahGuide.phrasesIntro")}</JannahCallout>
 
-              {phrases.map((phrase) => (
-                <PhraseCard key={phrase.id} {...phrase} />
-              ))}
+              {phrases.map((phrase) =>
+                phrase.id === FATIHAH_PHRASE_ID ? (
+                  <Fragment key={phrase.id}>
+                    <PhraseCard {...phrase} />
+                    {/* D68: check this recitation with the on-device listener (hidden on TV). */}
+                    <FatihahCheckCard compact />
+                  </Fragment>
+                ) : (
+                  <PhraseCard key={phrase.id} {...phrase} />
+                ),
+              )}
             </LearnReadingChrome>
 
             <JannahDisclaimer textKey="salahGuide.disclaimer" />

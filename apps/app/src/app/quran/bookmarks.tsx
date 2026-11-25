@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { RECITE_ALONG_ICON } from "@/components/quran/recite-along-button";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -18,6 +19,7 @@ import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { getBundledEdition, getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
+import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { arabicReadingLayout, DEFAULT_ARABIC_SIZE } from "@/lib/reading-typography";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildAyahSharePayload } from "@/lib/share";
@@ -25,6 +27,14 @@ import { usePreferences } from "@/stores/preferences-store";
 import { useQuranActions, useQuranBookmarks } from "@/stores/quran-store";
 
 const FALLBACK_TRANSLATION = "en-pickthall";
+
+/** Practice session on one bookmarked ayah (session default mode, reader as the source). */
+function practiseBookmarkHref(surah: number, ayah: number) {
+  return {
+    pathname: "/quran/practice/session" as const,
+    params: { surah: String(surah), from: String(ayah), to: String(ayah), source: "reader" },
+  };
+}
 
 export default function QuranBookmarksScreen() {
   const router = useRouter();
@@ -36,6 +46,8 @@ export default function QuranBookmarksScreen() {
   const { toggleBookmark } = useQuranActions();
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const tv = isTV();
+  // One-ayah practice session from a bookmark (D68); back returns to the reader.
+  const practiceAvailable = isPracticeAvailable();
 
   const shareAyah = useCallback(
     (arabic: string, translation: string, surah: number, ayah: number) => {
@@ -150,6 +162,18 @@ export default function QuranBookmarksScreen() {
                       </ThemedText>
                     </PressableScale>
                     <View style={styles.actions}>
+                      {practiceAvailable ? (
+                        <IconButton
+                          name={RECITE_ALONG_ICON}
+                          size={18}
+                          tintColor={colors.mutedForeground}
+                          accessibilityLabel={t("quranCompanion.entry.practiseAyah", {
+                            n: shareKey,
+                          })}
+                          haptic="light"
+                          onPress={() => router.push(practiseBookmarkHref(bm.surah, bm.ayah))}
+                        />
+                      ) : null}
                       <IconButton
                         name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
                         size={18}

@@ -1,4 +1,5 @@
 import { VOLUNTARY_FASTING_HOME_MODULE } from "@/components/fasting/voluntary-fast-goal-reminder";
+import { QURAN_REVISION_HOME_MODULE } from "@/components/quran-revision-home-card";
 import {
   DHUL_HIJJAH_HOME_MODULE,
   SUNNAH_HABITS_HOME_MODULE,
@@ -27,6 +28,7 @@ describe("Customize home › modules", () => {
       COACH_HOME_MODULE,
       UMRAH_HOME_MODULE,
       SEASONAL_BANNER_HOME_MODULE,
+      QURAN_REVISION_HOME_MODULE,
     ]) {
       expect(HOME_MODULES).toContain(id);
     }

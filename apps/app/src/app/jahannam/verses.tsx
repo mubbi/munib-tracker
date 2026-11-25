@@ -14,6 +14,7 @@ import {
 } from "@/components/jannah/hub-layout";
 import { JannahActionRow, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -28,6 +29,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { ensureJahannamContent, getJahannamVerses, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
+import { passageFromRef } from "@/lib/recite-along/passages";
 import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
@@ -48,6 +50,17 @@ const THEME_ICONS: Record<(typeof THEME_ORDER)[number], SymbolViewProps["name"]>
   justice: { ios: "checkmark.seal.fill", android: "verified", web: "verified" },
   hope: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
 };
+
+/** Bookmark + recite along (D68) for one verse row; recite hides where practice is unavailable. */
+function VerseActions({ verse }: { verse: { surah: number; ayahFrom: number; ayahTo?: number } }) {
+  const passage = passageFromRef(verse);
+  return (
+    <>
+      {passage ? <ReciteAlongButton passage={passage} appearance="icon" /> : null}
+      <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
+    </>
+  );
+}
 
 function JahannamVersesList({ columns }: { columns: number }) {
   const router = useRouter();
@@ -106,7 +119,7 @@ function JahannamVersesList({ columns }: { columns: number }) {
                           borderTopWidth: StyleSheet.hairlineWidth,
                         },
                   ]}
-                  actions={<QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />}
+                  actions={<VerseActions verse={verse} />}
                   trailing={
                     <SymbolView
                       name={chevronForwardIcon}

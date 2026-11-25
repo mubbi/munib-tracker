@@ -26,6 +26,10 @@ import type { PrayerScheduleCardProps } from "@/components/prayer-schedule-card"
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
 import { QazaSummaryCard } from "@/components/qaza-summary-card";
+import {
+  QuranRevisionHomeCard,
+  useQuranRevisionHomeDue,
+} from "@/components/quran-revision-home-card";
 import { RamadanCard } from "@/components/ramadan-card";
 import { RawatibHomeCard, useRawatibHomeVisible } from "@/components/rawatib/rawatib-home-card";
 import { useSeasonalBanner } from "@/components/seasonal/use-seasonal-banner";
@@ -213,6 +217,8 @@ export function HomeBelowFold({
   const familyTiesDue = useFamilyTiesDueCount(!hiddenModules.has(FAMILY_TIES_HOME_MODULE));
   // NF-3.14 weekly reflection (hidden on TV, after "until next week", or with nothing tracked).
   const coachReport = useCoachHomeCard(!hiddenModules.has(COACH_HOME_MODULE));
+  // D68: "N ayahs to revise" while the practice revision queue has ayahs due (not TV).
+  const revisionDue = useQuranRevisionHomeDue(hiddenModules);
 
   const onShareSchedule = async () => {
     const locationLabel = scheduleLocationLabel || undefined;
@@ -622,6 +628,7 @@ export function HomeBelowFold({
             {showUmrahCard ? <UmrahHomeCard /> : null}
             {seasonalCards.showDhulHijjah ? <DhulHijjahHomeCard /> : null}
             {showKhatmCard ? <KhatmCard /> : null}
+            {revisionDue ? <QuranRevisionHomeCard due={revisionDue} /> : null}
             {seasonalCards.showHabits ? (
               <SunnahHabitsSection date={trackerDate} variant="home" />
             ) : null}
@@ -658,6 +665,7 @@ export function HomeBelowFold({
         {showUmrahCard ? <UmrahHomeCard /> : null}
         {seasonalCards.showDhulHijjah ? <DhulHijjahHomeCard /> : null}
         {showKhatmCard ? <KhatmCard /> : null}
+        {revisionDue ? <QuranRevisionHomeCard due={revisionDue} /> : null}
         {seasonalCards.showHabits ? (
           <SunnahHabitsSection date={trackerDate} variant="home" />
         ) : null}

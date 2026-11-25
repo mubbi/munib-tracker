@@ -4,6 +4,7 @@ import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { SurahBanner } from "@/components/quran/surah-banner";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -23,11 +24,13 @@ import {
   type QuranAyahCardData,
   type QuranAyahCardsPayload,
 } from "@/lib/quran-ayah-range";
+import type { Passage } from "@/lib/quran-companion/types";
 import {
   arabicReadingLayout,
   resolveReadingFontSizes,
   translationReadingStyle,
 } from "@/lib/reading-typography";
+import { passageFromRef } from "@/lib/recite-along/passages";
 import { useReadingDisplay } from "@/lib/settings/reading-display";
 import { buildAyahSharePayload } from "@/lib/share";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
@@ -79,6 +82,15 @@ export function QuranAyahRangeCards({
   const editionId = resolveQuranEditionId({ translationLocale, locale: appLocale });
 
   const rangesKey = ranges.map((r) => `${r.surah}:${r.ayahFrom}-${r.ayahTo}`).join("|");
+  // Recite-along passages (D68), one per span; spans never cross a surah.
+  const passages = useMemo(
+    () => ranges.map((r) => passageFromRef(r)).filter((p): p is Passage => p != null),
+    [ranges],
+  );
+  const sectionPassages = useMemo(
+    () => new Map(passages.map((p) => [p.surah, p] as const)),
+    [passages],
+  );
 
   const { data, isPending } = useQuery({
     queryKey: ["quran-ayah-cards-ranges", rangesKey, editionId],
@@ -169,33 +181,44 @@ export function QuranAyahRangeCards({
   const rangePlaying = rangeActive && audio.isPlaying;
   const locale = i18n.language?.split("-")[0] ?? "en";
   const showSectionHeaders = data.length > 1;
+  const singlePassage = showSectionHeaders ? null : (passages[0] ?? null);
 
   let flatCursor = 0;
 
   return (
     <View style={styles.root}>
       {shareCardProp ? null : shareCard.SnapshotHost}
-      <Button
-        label={rangePlaying ? t("quran.actionPause") : t("common.play")}
-        icon={rangePlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
-        fullWidth
-        onPress={() => {
-          if (rangeActive) {
-            audio.toggle();
-            return;
-          }
-          playFrom(0);
-        }}
-      />
+      <View style={styles.topActions}>
+        <Button
+          label={rangePlaying ? t("quran.actionPause") : t("common.play")}
+          icon={rangePlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
+          style={styles.topAction}
+          onPress={() => {
+            if (rangeActive) {
+              audio.toggle();
+              return;
+            }
+            playFrom(0);
+          }}
+        />
+        {/* One span: recite it along here. Several (the three Quls): one per section. */}
+        {singlePassage ? (
+          <ReciteAlongButton passage={singlePassage} style={styles.topAction} />
+        ) : null}
+      </View>
 
       {data.map((section) => {
         const sectionStart = flatCursor;
         const sectionRows = flatAyahs.slice(sectionStart, sectionStart + section.ayahs.length);
         flatCursor += section.ayahs.length;
+        const sectionPassage = showSectionHeaders ? sectionPassages.get(section.surah) : undefined;
 
         return (
           <View key={section.surah} style={styles.section}>
             {showSectionHeaders ? <SectionHeader section={section} /> : null}
+            {sectionPassage ? (
+              <ReciteAlongButton passage={sectionPassage} size="sm" style={styles.sectionRecite} />
+            ) : null}
             {sectionRows.map((row) => {
               const trackId = `${row.surah}:${row.ayah.ayah}`;
               const isActive = audio.current?.id === trackId;
@@ -438,6 +461,18 @@ function RangeAyahCard({
 const styles = StyleSheet.create({
   root: {
     gap: Spacing.three,
+  },
+  topActions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.two,
+  },
+  topAction: {
+    flexGrow: 1,
+    flexBasis: 140,
+  },
+  sectionRecite: {
+    alignSelf: "flex-start",
   },
   section: {
     gap: Spacing.three,

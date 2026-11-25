@@ -57,8 +57,34 @@ export type CompanionEvent =
     }
   /** Spoken but not in the ayah (repetition notes). Summary list only — never a fake glyph. */
   | { type: "extra"; surah: number; ayah: number; engineWord: number }
+  /**
+   * Free recitation only (recite-to-find, D68): the engine is confident this
+   * ayah was recited (`verse_match`). Never emitted for practice sessions.
+   */
+  | { type: "verseMatch"; surah: number; ayah: number; confidence: number }
+  /** Free recitation only: ranked guesses before a lock-in (`verse_candidate`). */
+  | {
+      type: "verseCandidates";
+      candidates: VerseCandidateGuess[];
+      /** The engine considers the top guess settled. */
+      stable: boolean;
+      /** Sent while flushing the end of the take. */
+      final: boolean;
+    }
+  /** Free recitation only: the ordered ayahs heard over the whole take (`final_sequence`). */
+  | { type: "verseSequence"; verses: { surah: number; ayah: number; confidence: number }[] }
   | { type: "completed" }
   | { type: "failed"; code: PracticeErrorCode };
+
+/** One engine guess for free recitation (`verse_candidate` entry). */
+export type VerseCandidateGuess = {
+  surah: number;
+  ayah: number;
+  /** Last ayah when the guess spans several (FastConformer). */
+  ayahEnd?: number;
+  /** 0..1 as reported by the engine. */
+  confidence: number;
+};
 
 /** Stable codes → i18n copy (`error-codes.ts`), also the Sentry `code` tag. */
 export type PracticeErrorCode =
@@ -120,6 +146,12 @@ export type QuranCompanionPrefs = {
    * matters while `revisionReminder` is on.
    */
   tajweedInRevisionReminder: boolean;
+  /**
+   * D68: ayahs recited in a finished session count toward today's Qur'an
+   * reading log and the personal khatm (`reading-credit.ts`). On by default;
+   * Settings › Qur'an › Practice turns it off.
+   */
+  logToReadingLog: boolean;
   /** Last companion passage. Independent of the reader's last-read. */
   lastPassage?: LastPassage;
 };
@@ -157,6 +189,17 @@ export type PracticeSummary = {
       state: "clear" | "listen-again" | "not-sure";
     }>;
   };
+  /**
+   * D68: ayahs of a live session heard well enough to count as read
+   * (`reading-credit.ts` rule). Pronunciation rows derive theirs from `words`.
+   */
+  heardAyahs?: number[];
+  /**
+   * D68: ayahs this session actually added to that day's reading log (set when
+   * it is saved). Later sessions the same day skip them, so an ayah is logged
+   * once per day.
+   */
+  loggedAyahs?: number[];
 };
 
 /** Stored value of `quranPracticeSessions`. An object so a clear survives sync. */

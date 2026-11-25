@@ -1,4 +1,4 @@
-import { type Href, useRouter } from "expo-router";
+import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,6 +12,7 @@ import {
   View,
 } from "react-native";
 import { JannahCallout } from "@/components/jannah/primitives";
+import { ReciteToFindPanel } from "@/components/quran/recite-to-find-panel";
 import {
   ReadingTypographyBar,
   ReadingTypographyProvider,
@@ -32,6 +33,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
+import { useReciteToFindAvailability } from "@/hooks/use-recite-to-find";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -46,6 +48,7 @@ import {
   type VerseDetectorLang,
 } from "@/lib/quran-verse-detector";
 import { arabicReadingLayout, resolveArabicFontFamily } from "@/lib/reading-typography";
+import { RECITE_MODE_PARAM } from "@/lib/recite-to-find/links";
 import { useChevronForward } from "@/lib/rtl";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { clearAyahIndex } from "@/lib/search";
@@ -723,6 +726,53 @@ function DetectorBody({ twoPane }: { twoPane: boolean }) {
   );
 }
 
+type DetectorMode = "type" | "recite";
+
+/**
+ * Type / Recite switch (D68). Recite uses the on-device Qur'an listener; Type
+ * keeps text search plus the phone's generic dictation for translation-language
+ * queries. `?mode=recite` (universal search shortcut) opens Recite. The switch
+ * is hidden where the listener cannot run (TV, unsupported browsers).
+ */
+function DetectorModes({ twoPane }: { twoPane: boolean }) {
+  const { t } = useTranslation();
+  const params = useLocalSearchParams<{ mode?: string }>();
+  const { available } = useReciteToFindAvailability();
+  const modeParam = Array.isArray(params.mode) ? params.mode[0] : params.mode;
+  const [mode, setMode] = useState<DetectorMode>(
+    modeParam === RECITE_MODE_PARAM ? "recite" : "type",
+  );
+  // A link to an already-open detector (quick action, search shortcut) changes
+  // only the param: follow it. Without a param the user's own choice stays.
+  useEffect(() => {
+    if (modeParam === RECITE_MODE_PARAM) setMode("recite");
+    else if (modeParam === "type") setMode("type");
+  }, [modeParam]);
+  const effective: DetectorMode = available ? mode : "type";
+  const modeOptions = useMemo(
+    () => [
+      { id: "type" as const, label: t("reciteToFind.mode.type") },
+      { id: "recite" as const, label: t("reciteToFind.mode.recite") },
+    ],
+    [t],
+  );
+
+  return (
+    <>
+      {available ? (
+        <View style={[styles.modeRow, twoPane && styles.modeRowWide]}>
+          <SegmentedControl options={modeOptions} value={effective} onChange={setMode} />
+        </View>
+      ) : null}
+      {effective === "recite" ? (
+        <ReciteToFindPanel twoPane={twoPane} />
+      ) : (
+        <DetectorBody twoPane={twoPane} />
+      )}
+    </>
+  );
+}
+
 export default function QuranVerseDetectorScreen() {
   const router = useRouter();
   const { t } = useTranslation();
@@ -762,13 +812,15 @@ export default function QuranVerseDetectorScreen() {
     >
       <Seo path="/verse-detector" />
       <ReadingTypographyProvider surface="quran">
-        <DetectorBody twoPane={twoPane} />
+        <DetectorModes twoPane={twoPane} />
       </ReadingTypographyProvider>
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  modeRow: { marginBottom: Spacing.three },
+  modeRowWide: { maxWidth: 440 },
   split: {
     flexDirection: "row",
     alignItems: "flex-start",

@@ -1,3 +1,5 @@
+import { ZIKR_ITEMS } from "@munib-tracker/shared/content/zikr";
+
 import {
   pushZikrDetail,
   zikrQuranDestination,
@@ -53,6 +55,39 @@ describe("zikrQuranRanges", () => {
       { surah: 113, ayahFrom: 1, ayahTo: 5 },
       { surah: 114, ayahFrom: 1, ayahTo: 6 },
     ]);
+  });
+
+  it("maps the after-Salah Qur'anic recitations to their ayahs", () => {
+    expect(zikrQuranRanges("after_prayer-ayat-al-kursi")).toEqual([
+      { surah: 2, ayahFrom: 255, ayahTo: 255 },
+    ]);
+    expect(zikrQuranRanges("after_prayer-al-ikhlas")).toEqual([
+      { surah: 112, ayahFrom: 1, ayahTo: 4 },
+    ]);
+    expect(zikrQuranRanges("after_prayer-al-falaq")).toEqual([
+      { surah: 113, ayahFrom: 1, ayahTo: 5 },
+    ]);
+    expect(zikrQuranRanges("after_prayer-an-nas")).toEqual([
+      { surah: 114, ayahFrom: 1, ayahTo: 6 },
+    ]);
+    // They stay on zikr detail (counter + per-salah log), never redirect to the reader.
+    expect(zikrQuranHref("after_prayer-ayat-al-kursi")).toBeNull();
+  });
+
+  it("every mapped id exists in the bundled adhkar", () => {
+    const ids = new Set(ZIKR_ITEMS.map((z) => z.id));
+    for (const id of [
+      "before_sleep-ayat-kursi",
+      "before_sleep-baqarah-end",
+      "before_sleep-ikhlas",
+      "after_prayer-ayat-al-kursi",
+      "after_prayer-al-ikhlas",
+      "after_prayer-al-falaq",
+      "after_prayer-an-nas",
+    ]) {
+      expect(ids.has(id)).toBe(true);
+      expect(zikrQuranRanges(id)).not.toBeNull();
+    }
   });
 
   it("returns null for full-surah redirects and ordinary zikr", () => {

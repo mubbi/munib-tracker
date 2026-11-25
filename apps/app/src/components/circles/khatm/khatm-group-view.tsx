@@ -6,6 +6,8 @@ import { StyleSheet, View, type ViewInstance } from "react-native";
 import { InvitePanel } from "@/components/circles/invite-panel";
 import { MyMembershipCard } from "@/components/circles/my-membership-card";
 import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
+import { useReciteAlongLauncher } from "@/components/quran/quran-recite-launcher";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -42,6 +44,7 @@ import {
 import { useKhatmDealMutation, useKhatmPartMutation } from "@/lib/circles/khatm-hooks";
 import { isTV } from "@/lib/platform/is-tv";
 import { JUZ_STARTS } from "@/lib/quran-meta";
+import { partPassage } from "@/lib/quran-ref-parse";
 import { shareViewSnapshot } from "@/lib/share/shareViewSnapshot";
 import { useToast } from "@/providers/toast-provider";
 
@@ -80,6 +83,7 @@ export function KhatmGroupView({
   const members = circle.data?.members ?? NO_MEMBERS;
   const dealer = useKhatmDealMutation(circleId, khatmId ?? "", members);
   const [selected, setSelected] = useState<number | null>(null);
+  const recite = useReciteAlongLauncher();
   const shareRef = useRef<ViewInstance | null>(null);
   const today = getLocalDateString();
 
@@ -120,6 +124,22 @@ export function KhatmGroupView({
       pathname: "/quran/[surah]",
       params: { surah: String(start.surah), ayah: String(start.ayah) },
     } as Href);
+  };
+
+  // Recite along with MY part (D68): its first surah share, Follow by default. Reciting
+  // never marks the part done — the member still taps "Mark complete".
+  const recitePassage = (part: KhatmPart) => {
+    if (!detail) return null;
+    return partPassage(
+      partStartAyah(detail.unit, part.partNo, JUZ_STARTS),
+      partStartAyah(detail.unit, part.partNo + 1, JUZ_STARTS),
+    );
+  };
+
+  const reciteFromSheet = (part: KhatmPart) => {
+    const passage = recitePassage(part);
+    setSelected(null);
+    if (passage) recite.launch(passage);
   };
 
   const runAction = async (
@@ -293,32 +313,38 @@ export function KhatmGroupView({
       {detail && mine.length > 0 && !tv ? (
         <Card padding="three" style={styles.gap}>
           <SectionHeader title={t("khatmGroups.myParts.title")} />
-          {mine.map((part) => (
-            <View key={part.partNo} style={styles.myPart} testID={`khatm-my-part-${part.partNo}`}>
-              <ThemedText type="smallBold">
-                {khatmPartTitle(detail.unit, part.partNo, t)} · {khatmStatusLabel(part.status, t)}
-              </ThemedText>
-              {part.stale ? (
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("khatmGroups.sheet.staleMine")}
+          {mine.map((part) => {
+            const passage = recitePassage(part);
+            return (
+              <View key={part.partNo} style={styles.myPart} testID={`khatm-my-part-${part.partNo}`}>
+                <ThemedText type="smallBold">
+                  {khatmPartTitle(detail.unit, part.partNo, t)} · {khatmStatusLabel(part.status, t)}
                 </ThemedText>
-              ) : null}
-              <View style={styles.row}>
-                <Button
-                  size="sm"
-                  label={t("khatmGroups.action.read")}
-                  onPress={() => openReader(part)}
-                />
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  label={t("khatmGroups.action.complete")}
-                  disabled={parts.isPending}
-                  onPress={() => void runAction(part, "complete")}
-                />
+                {part.stale ? (
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("khatmGroups.sheet.staleMine")}
+                  </ThemedText>
+                ) : null}
+                <View style={styles.row}>
+                  <Button
+                    size="sm"
+                    label={t("khatmGroups.action.read")}
+                    onPress={() => openReader(part)}
+                  />
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    label={t("khatmGroups.action.complete")}
+                    disabled={parts.isPending}
+                    onPress={() => void runAction(part, "complete")}
+                  />
+                  {passage ? (
+                    <ReciteAlongButton passage={passage} size="sm" variant="secondary" />
+                  ) : null}
+                </View>
               </View>
-            </View>
-          ))}
+            );
+          })}
         </Card>
       ) : null}
 
@@ -412,8 +438,10 @@ export function KhatmGroupView({
           onClose={() => setSelected(null)}
           onAction={(part, action) => void runAction(part, action)}
           onAssign={(part, memberId) => void assign(part, memberId)}
+          onReciteAlong={recite.available && !tv ? reciteFromSheet : undefined}
         />
       ) : null}
+      {recite.sheet}
     </View>
   );
 }

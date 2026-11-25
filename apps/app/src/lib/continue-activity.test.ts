@@ -8,6 +8,7 @@ import {
   buildHadithActivity,
   buildHadithCollectionActivity,
   buildNamesActivity,
+  buildPracticeActivity,
   buildQuranActivity,
   buildZikrActivity,
   isContinueContentHref,
@@ -296,5 +297,33 @@ describe("continue-activity edge cases", () => {
     const push = jest.fn();
     navigateToContinue({ push }, activity("/names-of-allah"));
     expect(push).toHaveBeenCalledWith("/names-of-allah");
+  });
+});
+
+describe("buildPracticeActivity (D68)", () => {
+  it("resumes the same passage and mode", () => {
+    const activity = buildPracticeActivity({ surah: 67, ayahStart: 1, ayahEnd: 10 }, "follow");
+    expect(activity.kind).toBe("practice");
+    expect(activity.href).toBe("/quran/practice/session?surah=67&from=1&to=10&mode=follow");
+    expect(activity.subtitle).toContain("67:1–10");
+    expect(isContinueContentHref(activity.href)).toBe(true);
+  });
+
+  it("resumes the revision queue for a revision sitting", () => {
+    const activity = buildPracticeActivity({ surah: 2, ayahStart: 255, ayahEnd: 255 }, "revision");
+    expect(activity.href).toBe("/quran/revision");
+    expect(activity.subtitle).toContain("2:255");
+  });
+
+  it("navigates straight to the practice route", () => {
+    const push = jest.fn();
+    navigateToContinue(
+      { push },
+      {
+        ...buildPracticeActivity({ surah: 112, ayahStart: 1, ayahEnd: 4 }, "check"),
+        updatedAt: "2026-11-25T00:00:00.000Z",
+      },
+    );
+    expect(push).toHaveBeenCalledWith("/quran/practice/session?surah=112&from=1&to=4&mode=check");
   });
 });

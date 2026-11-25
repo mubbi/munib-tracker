@@ -2,6 +2,7 @@ import { SymbolView } from "expo-symbols";
 import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -9,6 +10,7 @@ import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahByNumber } from "@/lib/quran";
+import { wholeSurah } from "@/lib/recite-along/passages";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { TOTAL_SURAHS } from "./constants";
 import { readerControlStyles } from "./reader-control-styles";
@@ -42,6 +44,7 @@ export function SurahNavCard({
   const [invalid, setInvalid] = useState(false);
   const prev = surahNumber > 1 ? getSurahByNumber(surahNumber - 1) : undefined;
   const next = surahNumber < TOTAL_SURAHS ? getSurahByNumber(surahNumber + 1) : undefined;
+  const recitePassage = wholeSurah(surahNumber);
 
   const submit = () => {
     const n = Number.parseInt(ayahInput, 10);
@@ -163,6 +166,8 @@ export function SurahNavCard({
           {playLabel}
         </ThemedText>
       </PressableScale>
+      {/* Recite along with the whole surah (D68); long surahs ask whole or ten ayahs. */}
+      {recitePassage ? <ReciteAlongButton passage={recitePassage} fullWidth /> : null}
     </Card>
   );
 }

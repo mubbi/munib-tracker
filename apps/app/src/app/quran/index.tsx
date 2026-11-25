@@ -38,6 +38,8 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { getPageForAyah, getSurahByNumber, getSurahMeta } from "@/lib/quran-meta";
+import { isReciteToFindAvailable } from "@/lib/recite-to-find/availability";
+import { reciteToFindHref } from "@/lib/recite-to-find/links";
 import { useChevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -573,6 +575,7 @@ export default function QuranHomeScreen() {
   const preferredLayout = quranPrefs.readerLayout ?? "ayah";
   // Qur'an practice: the due count is always on here (never a setting).
   const practiceAvailable = isPracticeAvailable();
+  const reciteToFindAvailable = isReciteToFindAvailable();
   useEnsureHifzLoaded();
   useEnsureCompanionPrefsLoaded();
   useEnsureMemorizationLoaded();
@@ -646,8 +649,20 @@ export default function QuranHomeScreen() {
             } satisfies QuickActionItem,
           ]
         : []),
+      // D68: recite a few words and the on-device listener finds the ayah.
+      ...(reciteToFindAvailable
+        ? [
+            {
+              id: "recite-to-find",
+              label: t("reciteToFind.shortcut.title"),
+              icon: { ios: "waveform", android: "graphic_eq", web: "graphic_eq" },
+              tint: tokens.status.info.color,
+              onPress: () => router.push(reciteToFindHref()),
+            } satisfies QuickActionItem,
+          ]
+        : []),
     ],
-    [t, router, colors.accent, tokens, practiceAvailable, dueCount],
+    [t, router, colors.accent, tokens, practiceAvailable, reciteToFindAvailable, dueCount],
   );
 
   // Phone / web: bookmarks is one more destination, so it joins the shortcut

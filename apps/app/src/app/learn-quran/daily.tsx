@@ -10,6 +10,7 @@ import {
 } from "@/components/jannah/primitives";
 import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { QuranAyahPlayButton } from "@/components/quran-guide/ayah-play-button";
 import { QuranGuideTopicAside } from "@/components/quran-guide/quran-guide-aside";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -30,6 +31,7 @@ import {
   getQuranGuideDailyLessonForDate,
   isQuranGuideContentReady,
 } from "@/lib/quran-guide";
+import { passageFromRef } from "@/lib/recite-along/passages";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LearnQuranDailyScreen() {
@@ -41,6 +43,7 @@ export default function LearnQuranDailyScreen() {
     isQuranGuideContentReady,
   );
   const lesson = getQuranGuideDailyLessonForDate();
+  const recitePassage = lesson ? passageFromRef(lesson) : null;
 
   return (
     <ScreenLayout
@@ -123,6 +126,8 @@ export default function LearnQuranDailyScreen() {
                   })
                 }
               />
+              {/* D68: recite today's ayahs with the on-device listener (hidden on TV). */}
+              {recitePassage ? <ReciteAlongButton passage={recitePassage} fullWidth /> : null}
             </LearnReadingChrome>
 
             <JannahDisclaimer textKey="learnQuran.disclaimer" />
