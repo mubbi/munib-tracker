@@ -156,6 +156,23 @@ node apps/app/scripts/i18n/apply-seo-translations.mjs all
 
 ---
 
+## Marketing site (`apps/marketing-web`)
+
+The landing site is a separate Next.js app with its own catalogs (it does not share `apps/app/src/i18n/*.json`), built on **next-intl**. Published locales: **`en`**, **`ar`** and **`ur`**, every URL locale-prefixed (`/en/…`, `/ar/…`, `/ur/…`; ar/ur RTL); unprefixed URLs 308-redirect to `/en/…`. Scripture on the site follows the rule below: Arabic pages show the verbatim Arabic only; Urdu pages use Jalandhry (Qur'an) and the fawazahmed0 `urd-*` editions (hadith), falling back to the English meaning when no open-source Urdu text exists. Full conventions: [`apps/marketing-web/src/i18n/README.md`](../apps/marketing-web/src/i18n/README.md).
+
+| Piece             | Path (`apps/marketing-web/src/…`)                                                      |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| Locales + routing | `i18n/config.ts` (`LOCALES`) + `i18n/routing.ts` (`localePrefix: "always"`)            |
+| Locale metadata   | `i18n/locales.ts` (`LOCALE_META`: native name, `dir`, `og:locale`, hreflang)           |
+| UI catalogs       | `messages/{locale}/*.json` (one file per namespace) + `messages/{locale}/index.ts`     |
+| Long-form pages   | `content/**` typed data; translations registered per locale via `content/localized.ts` |
+| Routes            | `app/[locale]/…`; locale read with `next/root-params` (pages stay static)              |
+| Language picker   | `components/locale-switcher.tsx` (header, mobile drawer, footer)                       |
+
+To publish a marketing locale: add it to `LOCALES` + `LOCALE_META`, add `messages/<locale>/` (missing keys fall back to English) and its loader in `messages/index.ts`, then optionally translate content pages. Islamic terminology and the scripture rule below apply unchanged: Arabic text and citations in articles are copied verbatim, never translated by AI.
+
+---
+
 ## Adding a new locale (checklist)
 
 1. Add entry to `packages/shared/src/i18n/locale-registry.ts` and `app-locale.ts`.

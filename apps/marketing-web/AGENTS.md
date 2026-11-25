@@ -12,6 +12,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Next.js 16.4 landing site (port **3000**; `cacheComponents` + `partialPrefetching` on). Full setup notes: [`README.md`](./README.md). Animations: framer-motion via `src/components/ui/motion.tsx` — use `delayChildren: stagger()`, not the deprecated `staggerChildren`. Sections, the hero and the footer are **server components**: keep client code to small islands (`ui/motion.tsx`, `hero-motion.tsx`, `TrackedLink` / `TrackedButton` for click analytics) so page copy never ships in the client bundle. Images: `preload` (not the deprecated `priority`) only on the above-the-fold LCP image.
 
+## i18n (next-intl)
+
+Pages live under `app/[locale]/` — every URL carries its locale (`/en/features`, `/ar/features`, `/ur/features`; Arabic and Urdu are RTL). Any URL without a locale (including `/`) 308-redirects to `/en/…` (`next.config.ts`; no language detection, no locale cookie). Store badges and web-app links use `storeUrls(locale)` / `productAppUrl(locale)` from `lib/site.ts`. Every English string change needs its `ar` + `ur` counterpart — the catalog parity tests fail otherwise; translated content pages mirror the English structure (`content/translations.test.ts`, rules in `src/content/i18n/README.md`). **No raw user-visible text in components or pages** — visible text, `alt`, `aria-label`, metadata, OG text and JSON-LD prose come from `src/messages/<locale>/<namespace>.json` via `useTranslations` / `getTranslations`. Use `Link` / `usePathname` from `@/i18n/navigation`, never `next/link`. Client components only get the namespaces in `CLIENT_NAMESPACES` (`src/messages/index.ts`). Long-form content stays typed data in `src/content/` and is read through the locale-aware getters (`getFeature(slug, locale)` …). Tests render with `renderWithIntl` (`src/test-support/intl.tsx`). Full guide: [`src/i18n/README.md`](./src/i18n/README.md).
+
 ## Content architecture (pages are data)
 
 Long-form pages are typed data in `src/content/` rendered by shared templates in `src/components/templates/`. Add a page by adding one entry — never a bespoke page component.
@@ -34,7 +38,7 @@ Long-form pages are typed data in `src/content/` rendered by shared templates in
 
 ## SEO
 
-- `lib/seo.ts` `pageMetadata()` for every page: self-canonical, `en` + `x-default` hreflang (site is English-only), OG/Twitter (route `opengraph-image` files override the default card; `lib/og.tsx` renders them).
+- `lib/seo.ts` `pageMetadata({ locale, … })` for every page: self-canonical in the page's locale, hreflang for every published locale + `x-default` (English), OG/Twitter (route `opengraph-image` files override the default card; `lib/og.tsx` renders them).
 - `lib/structured-data.ts`: Organization + WebSite sitewide (`components/json-ld.tsx`), SoftwareApplication on `/` and `/features`, BreadcrumbList via `<Breadcrumbs>`, Article on guides, ItemList on hubs, FAQPage **only** on `/faq`. Never add ratings/reviews.
 - `app/sitemap.ts` is generated from the registries with each entry's `updated` date; redirects for alternate URLs live in `next.config.ts`.
 - FAQs render with the zero-JS `<FaqList>` (`<details>`) so answers are in the HTML.
