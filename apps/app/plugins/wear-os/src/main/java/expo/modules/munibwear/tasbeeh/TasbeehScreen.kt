@@ -14,6 +14,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -227,6 +228,9 @@ private fun CounterScreen(
   val success = Color(WearColors.SUCCESS)
   val stepPx = with(LocalDensity.current) { ROTARY_STEP.toPx() }
   val rotary = remember { RotaryCounter() }
+  // The indicator animates from a lambda it keeps across recompositions, so the lambda must
+  // read State: `{ view.progress }` captured the first `view` and the ring never left 0.
+  val progress by rememberUpdatedState(view.progress)
 
   val title = when {
     view.sequence && !view.reached -> stepTitle.ifEmpty { strings.afterSalah }
@@ -272,7 +276,7 @@ private fun CounterScreen(
       )
       Box(modifier = Modifier.fillMaxSize().clearAndSetSemantics {}) {
         CircularProgressIndicator(
-          progress = { view.progress },
+          progress = { progress },
           modifier = Modifier.fillMaxSize().padding(2.dp),
           startAngle = ARC_START_DEGREES,
           endAngle = ARC_END_DEGREES,
