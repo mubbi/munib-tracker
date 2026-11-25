@@ -120,3 +120,40 @@ export function ensureContrastAgainst(accent: string, background: string, minRat
 
   return relativeLuminance(background) > 0.5 ? "#475569" : "#CBD5E1";
 }
+
+/**
+ * Composites `foreground` at `alpha` over an opaque `background` (straight
+ * alpha, sRGB) and returns the resulting opaque hex. Use it to measure the real
+ * contrast of text placed on a translucent tint (`withAlpha(accent, 0.14)` on a
+ * card), which `contrastRatio` alone cannot do.
+ */
+export function compositeOver(foreground: string, alpha: number, background: string): string {
+  const fg = hexToRgb(foreground);
+  const bg = hexToRgb(background);
+  if (!fg || !bg) return background;
+  const a = Math.min(1, Math.max(0, alpha));
+  return rgbToHex(fg.r * a + bg.r * (1 - a), fg.g * a + bg.g * (1 - a), fg.b * a + bg.b * (1 - a));
+}
+
+export interface ContrastPair {
+  /** Human-readable label used in test failure messages. */
+  label: string;
+  foreground: string;
+  background: string;
+  /** Minimum ratio (4.5 text, 3 large text / non-text / focus). */
+  min: number;
+}
+
+export interface ContrastFailure extends ContrastPair {
+  ratio: number;
+}
+
+/** Returns every pair below its minimum — an empty array means the matrix passes. */
+export function contrastMatrix(pairs: readonly ContrastPair[]): ContrastFailure[] {
+  const failures: ContrastFailure[] = [];
+  for (const pair of pairs) {
+    const ratio = contrastRatio(pair.foreground, pair.background);
+    if (ratio < pair.min) failures.push({ ...pair, ratio: Math.round(ratio * 100) / 100 });
+  }
+  return failures;
+}

@@ -3,6 +3,8 @@ import { accentColorIds } from "./accents";
 import {
   accentOnSurface,
   bestForeground,
+  compositeOver,
+  contrastMatrix,
   contrastRatio,
   ensureContrastAgainst,
   hexToRgb,
@@ -160,5 +162,33 @@ describe("ensureContrastAgainst fallbacks", () => {
 
     expect(out).not.toBe("#101010");
     expect(contrastRatio(out, DARK_BG)).toBeGreaterThanOrEqual(UI);
+  });
+});
+
+describe("compositeOver", () => {
+  it("blends 50% black over white to mid grey", () => {
+    const rgb = hexToRgb(compositeOver("#000000", 0.5, "#FFFFFF"));
+    expect(rgb?.r).toBeGreaterThanOrEqual(127);
+    expect(rgb?.r).toBeLessThanOrEqual(129);
+  });
+
+  it("returns the background at alpha 0 and the foreground at alpha 1", () => {
+    expect(compositeOver("#123456", 0, "#ABCDEF")).toBe("#abcdef");
+    expect(compositeOver("#123456", 1, "#ABCDEF")).toBe("#123456");
+  });
+
+  it("falls back to the background for invalid input", () => {
+    expect(compositeOver("nope", 0.5, "#FFFFFF")).toBe("#FFFFFF");
+  });
+});
+
+describe("contrastMatrix", () => {
+  it("returns only the pairs below their minimum", () => {
+    const failures = contrastMatrix([
+      { label: "black on white", foreground: "#000000", background: "#FFFFFF", min: 4.5 },
+      { label: "grey on white", foreground: "#BBBBBB", background: "#FFFFFF", min: 4.5 },
+    ]);
+    expect(failures.map((f) => f.label)).toEqual(["grey on white"]);
+    expect(failures[0]?.ratio).toBeLessThan(4.5);
   });
 });

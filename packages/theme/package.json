@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./tokens": "./src/tokens.ts",
     "./accents": "./src/accents.ts",
     "./resolve": "./src/resolve-theme.ts",
     "./types": "./src/types.ts",
-    "./color": "./src/color.ts"
+    "./color": "./src/color.ts",
+    "./native-tokens": "./src/native-tokens.ts"
   },
   "scripts": {
     "lint": "biome check .",

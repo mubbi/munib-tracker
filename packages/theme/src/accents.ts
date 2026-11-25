@@ -55,8 +55,9 @@ export const accentColors: Record<AccentColorId, AccentDefinition> = {
   },
   amber: {
     id: "amber",
+    // Light shade darkened from #D97706 (D-UX1): it was 2.80:1 on the page, below 3:1 even as a fill.
     label: "Amber",
-    light: "#D97706",
+    light: "#B45309",
     dark: "#FBBF24",
   },
   teal: {
@@ -86,8 +87,9 @@ export const accentColors: Record<AccentColorId, AccentDefinition> = {
   },
   lime: {
     id: "lime",
+    // Light shade darkened from #65A30D (D-UX1): it was 2.72:1 on the page, below 3:1 even as a fill.
     label: "Lime",
-    light: "#65A30D",
+    light: "#4D7C0F",
     dark: "#A3E635",
   },
 };
