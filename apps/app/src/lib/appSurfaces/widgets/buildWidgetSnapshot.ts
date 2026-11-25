@@ -870,7 +870,7 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
   );
   const prayerName = input.t(`prayers.${payload.nextPrayerId}`, payload.nextPrayerId);
   const countdownLabel = input.t("hero.nextIn", "in {{time}}", {
-    time: formatDuration(payload.minutesUntil),
+    time: formatDuration(payload.minutesUntil, input.t),
   });
   const prayerTimeLabel = input.t("widgets.atTime", "at {{time}}", {
     time: payload.nextPrayerTime,
@@ -917,11 +917,11 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
   );
   const ramadanCountdown = beforeSuhoor
     ? input.t("ramadan.countdownSuhoor", "Suhoor ends in {{time}}", {
-        time: formatDuration(ramadanMinutes),
+        time: formatDuration(ramadanMinutes, input.t),
       })
     : beforeIftar
       ? input.t("ramadan.countdownIftar", "Iftar in {{time}}", {
-          time: formatDuration(ramadanMinutes),
+          time: formatDuration(ramadanMinutes, input.t),
         })
       : input.t("ramadan.afterIftar", "Fast complete for today");
   const ramadanDayLabel = ramadan.isRamadan

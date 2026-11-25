@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Taabo Dib u soo rar kore. Haddii fariintan sii muuqato, si xoog leh u cusbooneysii bogga: Ctrl+Shift+R Windows/Linux, ama Cmd+Shift+R macOS."
   },
   "reviews": {
-    "rateTitle": "Ma ku raaxaysaa Munib Tracker?",
-    "rateSubtitle": "Ra'yigaagu wuxuu ka caawiyaa Muslimiinta kale inay helaan app-ka.",
     "starLabel": "{{count}} xiddig",
     "starLabel_other": "{{count}} xiddig",
-    "storeTitle": "Mahadsanid!",
-    "storeBody": "Ma qiimeyn kartaa Munib Tracker dukaanka app-ka? Waxay qaadataa daqiiqad.",
-    "storeCta": "Qiimee dukaanka app-ka",
-    "maybeLater": "Laga yaabee hadhow",
     "feedbackTitle": "Naga caawi inaan hagaajino",
-    "feedbackBody": "Waan ka xunnahay Munib Tracker ma buuxin rajadaada. Maxaan hagaajin karnaa?",
-    "feedbackPlaceholder": "Noo sheeg waxa khaldan ama waxa maqan…",
+    "feedbackBody": "U sheeg kooxda waxa si fiican u shaqeynaya iyo waxa la hagaajin karo. Qoraalkaagu si toos ah ayuu noo soo gaaraa, waligiisna si guud looma daabaco.",
+    "feedbackPlaceholder": "Maxaa si fiican u shaqeynaya, maxaase la hagaajin karaa?",
     "feedbackCta": "Dir ra'yi",
     "feedbackOffline": "Ku xir internetka si aad u dirto ra'yi.",
     "feedbackError": "Ra'yi lama diri karin. Isku day mar kale.",
-    "skip": "Ka bood",
-    "thanksTitle": "Mahadsanid!",
-    "thanksBody": "Taageeradaadu wax badan bay naga dhigan tahay.",
     "feedbackThanksTitle": "Ra'yi waa la helay",
     "feedbackThanksBody": "Waxaan u isticmaali doonnaa qoraalladaada si aan u hagaajino Munib Tracker.",
-    "feedbackLabel": "Fikradaada"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Si fiican ayaad u socotaa",
-    "reviewReactivationBody": "Ma rabtaa inaad la wadaagto khibradaada Munib Tracker?"
+    "feedbackLabel": "Fikradaada",
+    "feedbackRatingLabel": "Sidee buu Munib Tracker kuugu shaqeynayaa?",
+    "storeOpenError": "Dukaanka lama furi karin. Fadlan mar dambe isku day."
   },
   "settings": {
     "eyebrow": "Ku habee",
@@ -951,8 +940,6 @@
     "aboutSub": "Nooca, mahadnaqa iyo siyaasadaha",
     "rateApp": "Qiimee Munib Tracker",
     "rateAppDesc": "La wadaag khibradaada dukaanka app-ka",
-    "reviewReactivationEnabled": "Xusuusin ra'yi app",
-    "reviewReactivationEnabledDesc": "Mararka qaar xusuusin jilicsan si aad ra'yi ugu wadaagto app-ka — ma aha codsi toos ah oo qiimeyn dukaan.",
     "appUpdate": "Cusbooneysi app",
     "updateAvailableTitle": "Cusbooneysi waa diyaar",
     "updateRequiredTitle": "Cusbooneysi waa lagama maarmaan",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "Xulashooyin dheeraad ah oo loogu talagalay {{item}}",
       "moveToTop": "U guuri xagga sare"
-    }
+    },
+    "sendFeedback": "Dir ra'yi",
+    "sendFeedbackDesc": "Soo sheeg dhibaato ama soo jeedi horumarin"
   },
   "import": {
     "title": "Soo geli taariikhda Salaadda",
@@ -7547,7 +7536,6 @@
       "assistants": "Kaaliyeyaasha codka",
       "backup": "Kayd-nuqul iyo soo gelin",
       "duasAdhkar": "Ducooyin iyo adkaar",
-      "feedback": "Jawaab-celinta app-ka",
       "feedbackMotion": "Jawaab-celin iyo dhaqdhaqaaq",
       "getApp": "Hel app-ka",
       "hadith": "Xadiis",
@@ -11739,5 +11727,10 @@
       "dismiss": "Hadda maya",
       "applied": "Astaamaha xilliyeed waa la daaray"
     }
+  },
+  "duration": {
+    "minutes": "{{min}}d",
+    "hours": "{{hours}}s",
+    "hoursMinutes": "{{hours}}s {{min}}d"
   }
 }

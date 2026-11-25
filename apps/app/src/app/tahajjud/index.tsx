@@ -129,11 +129,11 @@ export default function TahajjudScreen() {
     const nowMs = now.getTime();
     if (nowMs < night.lastThird.getTime()) {
       const minutes = Math.round((night.lastThird.getTime() - nowMs) / 60_000);
-      return t("lastThirdNight.willStartIn", { time: formatDuration(minutes) });
+      return t("lastThirdNight.willStartIn", { time: formatDuration(minutes, t) });
     }
     if (nowMs < night.fajrAt.getTime()) {
       const minutes = Math.round((night.fajrAt.getTime() - nowMs) / 60_000);
-      return t("lastThirdNight.timeRemaining", { time: formatDuration(minutes) });
+      return t("lastThirdNight.timeRemaining", { time: formatDuration(minutes, t) });
     }
     return undefined;
   }, [night, now, t]);

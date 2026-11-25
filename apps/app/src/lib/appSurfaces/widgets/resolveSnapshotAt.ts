@@ -177,7 +177,7 @@ export function resolveSnapshotAt(
   const passedSnapshotTarget =
     rolled || !snapshot.nextPrayer.targetTimeMs || nowMs >= snapshot.nextPrayer.targetTimeMs;
   const countdownLabel = t
-    ? t("hero.nextIn", "in {{time}}", { time: formatDuration(minutesUntil) })
+    ? t("hero.nextIn", "in {{time}}", { time: formatDuration(minutesUntil, t) })
     : snapshot.nextPrayer.countdownLabel;
   const prayerTimeLabel = t
     ? t("widgets.atTime", "at {{time}}", { time: nextRow.time })

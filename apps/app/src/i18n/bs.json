@@ -904,32 +904,21 @@
     "webHardRefreshHint": "Dodirnite Ponovo učitaj iznad. Ako se poruka ponavlja, prisilno osvježite stranicu: Ctrl+Shift+R na Windows/Linux, ili Cmd+Shift+R na macOS."
   },
   "reviews": {
-    "rateTitle": "Uživate li u Munib Trackeru?",
-    "rateSubtitle": "Vaše mišljenje pomaže drugim muslimanima da otkriju aplikaciju.",
     "starLabel": "{{count}} zvijezda",
     "starLabel_other": "{{count}} zvijezda",
-    "storeTitle": "Hvala!",
-    "storeBody": "Možete li ocijeniti Munib Tracker u trgovini aplikacija? Traje samo trenutak.",
-    "storeCta": "Ocijeni u trgovini aplikacija",
-    "maybeLater": "Možda kasnije",
     "feedbackTitle": "Pomozite nam da se poboljšamo",
-    "feedbackBody": "Žao nam je što Munib Tracker nije ispunio vaša očekivanja. Šta možemo poboljšati?",
-    "feedbackPlaceholder": "Recite nam šta nije u redu ili šta nedostaje…",
+    "feedbackBody": "Recite timu šta dobro funkcioniše, a šta bi moglo biti bolje. Vaša poruka stiže direktno nama i nikada se ne objavljuje javno.",
+    "feedbackPlaceholder": "Šta dobro funkcioniše, a šta bi moglo biti bolje?",
     "feedbackCta": "Pošalji povratnu informaciju",
     "feedbackOffline": "Povežite se na internet da pošaljete povratnu informaciju.",
     "feedbackError": "Povratna informacija nije poslana. Pokušajte ponovo.",
-    "skip": "Preskoči",
-    "thanksTitle": "Hvala!",
-    "thanksBody": "Vaša podrška nam mnogo znači.",
     "feedbackThanksTitle": "Povratna informacija primljena",
     "feedbackThanksBody": "Koristit ćemo vaše bilješke da poboljšamo Munib Tracker.",
     "feedbackLabel": "Vaše mišljenje",
     "starLabel_few": "{{count}} zvijezde",
-    "starLabel_one": "{{count}} zvijezda"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Odlično vam ide",
-    "reviewReactivationBody": "Želite podijeliti svoje iskustvo s Munib Trackerom?"
+    "starLabel_one": "{{count}} zvijezda",
+    "feedbackRatingLabel": "Kako vam Munib Tracker odgovara?",
+    "storeOpenError": "Trgovina se nije mogla otvoriti. Pokušajte ponovo kasnije."
   },
   "settings": {
     "eyebrow": "Personalizujte",
@@ -963,8 +952,6 @@
     "aboutSub": "Verzija, krediti i pravila",
     "rateApp": "Ocijeni Munib Tracker",
     "rateAppDesc": "Podijelite iskustvo u trgovini aplikacija",
-    "reviewReactivationEnabled": "Podsjetnici za povratne informacije",
-    "reviewReactivationEnabledDesc": "Povremeni nježni podsjetnici za dijeljenje povratne informacije u aplikaciji — nikad izravni zahtjev za ocjenu u trgovini.",
     "appUpdate": "Ažuriranje aplikacije",
     "updateAvailableTitle": "Ažuriranje dostupno",
     "updateRequiredTitle": "Ažuriranje obavezno",
@@ -1042,7 +1029,9 @@
     "reorder": {
       "moreFor": "Više opcija za {{item}}",
       "moveToTop": "Premjesti na vrh"
-    }
+    },
+    "sendFeedback": "Pošalji povratnu informaciju",
+    "sendFeedbackDesc": "Prijavite problem ili predložite poboljšanje"
   },
   "import": {
     "title": "Uvoz historije namaza",
@@ -7583,7 +7572,6 @@
       "assistants": "Glasovni asistenti",
       "backup": "Sigurnosna kopija i uvoz",
       "duasAdhkar": "Dove i ezkar",
-      "feedback": "Povratne informacije aplikacije",
       "feedbackMotion": "Povratne informacije i pokret",
       "getApp": "Preuzmi aplikaciju",
       "hadith": "Hadis",
@@ -11804,5 +11792,10 @@
       "dismiss": "Ne sada",
       "applied": "Sezonske ikone su uključene"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} min",
+    "hours": "{{hours}} h",
+    "hoursMinutes": "{{hours}} h {{min}} min"
   }
 }

@@ -914,33 +914,22 @@
     "webHardRefreshHint": "Нажмите «Перезагрузить» выше. Если сообщение повторяется, принудительно обновите страницу: Ctrl+Shift+R на Windows/Linux или Cmd+Shift+R на macOS."
   },
   "reviews": {
-    "rateTitle": "Вам нравится Munib Tracker?",
-    "rateSubtitle": "Ваш отзыв помогает другим мусульманам узнать о приложении.",
     "starLabel": "{{count}} звезды",
     "starLabel_other": "{{count}} звезды",
-    "storeTitle": "Спасибо!",
-    "storeBody": "Не могли бы вы оценить Munib Tracker в магазине приложений? Это займёт минуту.",
-    "storeCta": "Оценить в магазине",
-    "maybeLater": "Может быть, позже",
     "feedbackTitle": "Помогите нам стать лучше",
-    "feedbackBody": "Жаль, что Munib Tracker не оправдал ваших ожиданий. Что мы можем улучшить?",
-    "feedbackPlaceholder": "Расскажите, что пошло не так или чего не хватает…",
+    "feedbackBody": "Расскажите команде, что работает хорошо, а что можно улучшить. Ваш отзыв приходит напрямую к нам и никогда не публикуется.",
+    "feedbackPlaceholder": "Что работает хорошо, а что можно улучшить?",
     "feedbackCta": "Отправить отзыв",
     "feedbackOffline": "Подключитесь к интернету, чтобы отправить отзыв.",
     "feedbackError": "Не удалось отправить отзыв. Попробуйте снова.",
-    "skip": "Пропустить",
-    "thanksTitle": "Спасибо!",
-    "thanksBody": "Ваша поддержка очень важна для нас.",
     "feedbackThanksTitle": "Отзыв получен",
     "feedbackThanksBody": "Мы учтём ваши замечания, чтобы улучшить Munib Tracker.",
     "starLabel_one": "{{count}} звезда",
     "starLabel_few": "{{count}} звезды",
     "starLabel_many": "{{count}} звёзд",
-    "feedbackLabel": "Ваш отзыв"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "У вас отлично получается",
-    "reviewReactivationBody": "Хотите поделиться опытом использования Munib Tracker?"
+    "feedbackLabel": "Ваш отзыв",
+    "feedbackRatingLabel": "Как вам Munib Tracker?",
+    "storeOpenError": "Не удалось открыть магазин приложений. Попробуйте позже."
   },
   "settings": {
     "eyebrow": "Персонализация",
@@ -974,8 +963,6 @@
     "aboutSub": "Версия, благодарности и политики",
     "rateApp": "Оценить Munib Tracker",
     "rateAppDesc": "Поделитесь опытом в магазине приложений",
-    "reviewReactivationEnabled": "Напоминания об отзывах",
-    "reviewReactivationEnabledDesc": "Изредка — мягкие напоминания поделиться отзывом в приложении, но никогда не прямая просьба оценить в магазине.",
     "appUpdate": "Обновление приложения",
     "updateAvailableTitle": "Доступно обновление",
     "updateRequiredTitle": "Требуется обновление",
@@ -1053,7 +1040,9 @@
     "reorder": {
       "moreFor": "Другие действия для «{{item}}»",
       "moveToTop": "Переместить в начало"
-    }
+    },
+    "sendFeedback": "Отправить отзыв",
+    "sendFeedbackDesc": "Сообщить о проблеме или предложить улучшение"
   },
   "import": {
     "title": "Импорт истории намазов",
@@ -7634,7 +7623,6 @@
       "assistants": "Голосовые ассистенты",
       "backup": "Резервная копия и импорт",
       "duasAdhkar": "Дуа и азкары",
-      "feedback": "Отклик приложения",
       "feedbackMotion": "Отклик и анимация",
       "getApp": "Скачать приложение",
       "hadith": "Хадисы",
@@ -11884,5 +11872,10 @@
       "dismiss": "Не сейчас",
       "applied": "Сезонные значки включены"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} мин",
+    "hours": "{{hours}} ч",
+    "hoursMinutes": "{{hours}} ч {{min}} мин"
   }
 }

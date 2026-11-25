@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Жоғарыдағы Қайта жүктеу түймесін басыңыз. Хабарлама қайталанса, бетті мәжбүрлеп жаңартыңыз: Windows/Linux-та Ctrl+Shift+R немесе macOS-та Cmd+Shift+R."
   },
   "reviews": {
-    "rateTitle": "Munib Tracker ұнай ма?",
-    "rateSubtitle": "Пікіріңіз басқа мұсылмандарға қолданбаны табуға көмектеседі.",
     "starLabel": "{{count}} жұлдыз",
     "starLabel_other": "{{count}} жұлдыз",
-    "storeTitle": "Рақмет!",
-    "storeBody": "Munib Tracker-ге қолданба дүкенінде баға бересіз бе? Бір сәт уақыт алады.",
-    "storeCta": "Қолданба дүкенінде бағалау",
-    "maybeLater": "Кейінірек болуы мүмкін",
     "feedbackTitle": "Жақсартуымызға көмектесіңіз",
-    "feedbackBody": "Кешіріңіз, Munib Tracker сіздің күткеніңізге жауап бермеді. Нені жақсарта аламыз?",
-    "feedbackPlaceholder": "Не дұрыс емес немесе не жетіспейтінін жазыңыз…",
+    "feedbackBody": "Командаға не жақсы жұмыс істейтінін және нені жақсартуға болатынын айтыңыз. Жазбаңыз тікелей бізге келеді және ешқашан жария етілмейді.",
+    "feedbackPlaceholder": "Не жақсы, ал нені жақсартуға болады?",
     "feedbackCta": "Пікір жіберу",
     "feedbackOffline": "Пікір жіберу үшін интернетке қосылыңыз.",
     "feedbackError": "Пікір жіберілмеді. Қайта көріңіз.",
-    "skip": "Өткізу",
-    "thanksTitle": "Рақмет!",
-    "thanksBody": "Қолдауыңыз біз үшін көп маңызды.",
     "feedbackThanksTitle": "Пікір қабылданды",
     "feedbackThanksBody": "Жазбаларыңызды Munib Tracker-ді жақсарту үшін пайдаланамыз.",
-    "feedbackLabel": "Пікіріңіз"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Керемет жетіп жатырсыз",
-    "reviewReactivationBody": "Munib Tracker тәжірибеңізбен бөліскіңіз келе ме?"
+    "feedbackLabel": "Пікіріңіз",
+    "feedbackRatingLabel": "Munib Tracker сізге қалай жұмыс істеп жатыр?",
+    "storeOpenError": "Дүкенді ашу мүмкін болмады. Кейінірек қайталап көріңіз."
   },
   "settings": {
     "eyebrow": "Жекелендіру",
@@ -951,8 +940,6 @@
     "aboutSub": "Нұсқа, несиелер және саясаттар",
     "rateApp": "Munib Tracker-ге баға беру",
     "rateAppDesc": "Тәжірибеңізді қолданба дүкенінде бөлісіңіз",
-    "reviewReactivationEnabled": "Қолданба пікірі еске салулары",
-    "reviewReactivationEnabledDesc": "Кейде жұмсақ еске салулар қолданбада пікір бөлісу үшін — дүкендегі тікелей баға сұрауы емес.",
     "appUpdate": "Қолданба жаңартуы",
     "updateAvailableTitle": "Жаңарту қолжетімді",
     "updateRequiredTitle": "Жаңарту қажет",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "{{item}} үшін қосымша әрекеттер",
       "moveToTop": "Ең жоғарыға жылжыту"
-    }
+    },
+    "sendFeedback": "Пікір жіберу",
+    "sendFeedbackDesc": "Мәселе туралы хабарлау немесе жақсарту ұсыну"
   },
   "import": {
     "title": "Намаз тарихын импорттау",
@@ -7547,7 +7536,6 @@
       "assistants": "Дауыстық көмекшілер",
       "backup": "Сақтық көшірме және импорт",
       "duasAdhkar": "Дұғалар мен зікірлер",
-      "feedback": "Қолданба кері байланысы",
       "feedbackMotion": "Кері байланыс және қозғалыс",
       "getApp": "Қолданбаны алу",
       "hadith": "Хадис",
@@ -11739,5 +11727,10 @@
       "dismiss": "Қазір емес",
       "applied": "Маусымдық белгішелер қосулы"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} мин",
+    "hours": "{{hours}} сағ",
+    "hoursMinutes": "{{hours}} сағ {{min}} мин"
   }
 }

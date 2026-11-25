@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Tap Reload above. If this message keeps appearing, force-refresh the page: Ctrl+Shift+R on Windows/Linux, or Cmd+Shift+R on macOS."
   },
   "reviews": {
-    "rateTitle": "Enjoying Munib Tracker?",
-    "rateSubtitle": "Your feedback helps other Muslims discover the app.",
     "starLabel": "{{count}} star",
     "starLabel_other": "{{count}} stars",
-    "storeTitle": "Thank you!",
-    "storeBody": "Would you mind rating Munib Tracker on the app store? It takes just a moment.",
-    "storeCta": "Rate on the app store",
-    "maybeLater": "Maybe later",
     "feedbackTitle": "Help us improve",
-    "feedbackBody": "We're sorry Munib Tracker hasn't met your expectations. What could we do better?",
-    "feedbackPlaceholder": "Tell us what went wrong or what's missing…",
+    "feedbackBody": "Tell the team what's working and what could be better. Your note comes straight to us and is never posted publicly.",
+    "feedbackRatingLabel": "How is Munib Tracker working for you?",
+    "feedbackPlaceholder": "What's working well, and what could be better?",
     "feedbackCta": "Send feedback",
     "feedbackOffline": "Connect to the internet to send feedback.",
     "feedbackError": "Could not send feedback. Please try again.",
-    "skip": "Skip",
-    "thanksTitle": "Thank you!",
-    "thanksBody": "Your support means a lot.",
     "feedbackThanksTitle": "Feedback received",
     "feedbackThanksBody": "We'll use your notes to improve Munib Tracker.",
-    "feedbackLabel": "Your feedback"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "You're doing great",
-    "reviewReactivationBody": "Want to share your experience with Munib Tracker?"
+    "feedbackLabel": "Your feedback",
+    "storeOpenError": "Couldn't open the store. Please try again later."
   },
   "settings": {
     "eyebrow": "Personalize",
@@ -951,8 +940,8 @@
     "aboutSub": "Version, credits, and policies",
     "rateApp": "Rate Munib Tracker",
     "rateAppDesc": "Share your experience on the app store",
-    "reviewReactivationEnabled": "App feedback reminders",
-    "reviewReactivationEnabledDesc": "Occasional gentle nudges to share feedback in the app — never a direct store rating request.",
+    "sendFeedback": "Send feedback",
+    "sendFeedbackDesc": "Report a problem or suggest an improvement",
     "appUpdate": "App update",
     "updateAvailableTitle": "Update available",
     "updateRequiredTitle": "Update required",
@@ -7599,7 +7588,6 @@
       "assistants": "Voice assistants",
       "backup": "Backup & import",
       "duasAdhkar": "Duas & adhkar",
-      "feedback": "App feedback",
       "feedbackMotion": "Feedback & motion",
       "getApp": "Get the app",
       "hadith": "Hadith",
@@ -11792,5 +11780,10 @@
       "dismiss": "Not now",
       "applied": "Seasonal icons are on"
     }
+  },
+  "duration": {
+    "minutes": "{{min}}m",
+    "hours": "{{hours}}h",
+    "hoursMinutes": "{{hours}}h {{min}}m"
   }
 }

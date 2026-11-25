@@ -195,14 +195,14 @@ export default function RamadanScreen() {
     if (nowMs < suhoorMs) {
       const minutes = Math.max(0, Math.round((suhoorMs - nowMs) / 60000));
       return {
-        label: t("ramadan.countdownSuhoor", { time: formatDuration(minutes) }),
+        label: t("ramadan.countdownSuhoor", { time: formatDuration(minutes, t) }),
         tone: "suhoor" as const,
       };
     }
     if (nowMs < iftarMs) {
       const minutes = Math.max(0, Math.round((iftarMs - nowMs) / 60000));
       return {
-        label: t("ramadan.countdownIftar", { time: formatDuration(minutes) }),
+        label: t("ramadan.countdownIftar", { time: formatDuration(minutes, t) }),
         tone: "iftar" as const,
       };
     }

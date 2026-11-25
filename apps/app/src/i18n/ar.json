@@ -999,8 +999,6 @@
     },
     "rateApp": "قيّم Munib Tracker",
     "rateAppDesc": "شارك تجربتك في متجر التطبيقات",
-    "reviewReactivationEnabled": "تذكيرات ملاحظات التطبيق",
-    "reviewReactivationEnabledDesc": "تنبيهات لطيفة أحياناً لمشاركة ملاحظاتك داخل التطبيق — وليست طلب تقييم مباشر في المتجر.",
     "appUpdate": "تحديث التطبيق",
     "updateAvailableTitle": "يتوفر تحديث",
     "updateRequiredTitle": "التحديث مطلوب",
@@ -1029,7 +1027,9 @@
     "reorder": {
       "moreFor": "مزيد من الخيارات لـ {{item}}",
       "moveToTop": "نقل إلى الأعلى"
-    }
+    },
+    "sendFeedback": "إرسال الملاحظات",
+    "sendFeedbackDesc": "أبلغ عن مشكلة أو اقترح تحسينًا"
   },
   "import": {
     "title": "استيراد سجل الصلوات",
@@ -5798,8 +5798,6 @@
     "webHardRefreshHint": "اضغط «إعادة التحميل» أعلاه. إذا استمر ظهور هذه الرسالة، حدّث الصفحة بالقوة: Ctrl+Shift+R على Windows/Linux، أو Cmd+Shift+R على macOS."
   },
   "reviews": {
-    "rateTitle": "هل تستمتع بـ Munib Tracker؟",
-    "rateSubtitle": "ملاحظاتك تساعد مسلمين آخرين على اكتشاف التطبيق.",
     "starLabel": "{{count}} نجمة",
     "starLabel_zero": "لا نجوم",
     "starLabel_one": "نجمة واحدة",
@@ -5807,26 +5805,17 @@
     "starLabel_few": "{{count}} نجوم",
     "starLabel_many": "{{count}} نجمة",
     "starLabel_other": "{{count}} نجوم",
-    "storeTitle": "شكراً لك!",
-    "storeBody": "هل تود تقييم Munib Tracker في متجر التطبيقات؟ لن يستغرق سوى لحظة.",
-    "storeCta": "قيّم في متجر التطبيقات",
-    "maybeLater": "ربما لاحقاً",
     "feedbackTitle": "ساعدنا على التحسين",
-    "feedbackBody": "نأسف لأن Munib Tracker لم يلبِّ توقعاتك. كيف يمكننا أن نكون أفضل؟",
-    "feedbackPlaceholder": "أخبرنا ما الخطأ أو ما الناقص…",
+    "feedbackBody": "أخبر الفريق بما يعجبك وما يمكن تحسينه. تصلنا ملاحظتك مباشرة ولا تُنشر علنًا أبدًا.",
+    "feedbackPlaceholder": "ما الذي يعجبك، وما الذي يمكن تحسينه؟",
     "feedbackCta": "إرسال الملاحظات",
     "feedbackOffline": "اتصل بالإنترنت لإرسال ملاحظاتك.",
     "feedbackError": "تعذّر إرسال الملاحظات. حاول مرة أخرى.",
-    "skip": "تخطّي",
-    "thanksTitle": "شكراً لك!",
-    "thanksBody": "دعمك يعني لنا الكثير.",
     "feedbackThanksTitle": "وُلِّفت ملاحظاتك",
     "feedbackThanksBody": "سنستخدم ملاحظاتك لتحسين Munib Tracker.",
-    "feedbackLabel": "ملاحظاتك"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "أنت على نحوٍ ممتاز",
-    "reviewReactivationBody": "هل تود مشاركة تجربتك مع Munib Tracker؟"
+    "feedbackLabel": "ملاحظاتك",
+    "feedbackRatingLabel": "كيف تجد تجربتك مع Munib Tracker؟",
+    "storeOpenError": "تعذّر فتح المتجر. يُرجى المحاولة لاحقًا."
   },
   "sahaba": {
     "eyebrow": "تعلم",
@@ -7728,7 +7717,6 @@
       "assistants": "المساعدات الصوتية",
       "backup": "النسخ الاحتياطي والاستيراد",
       "duasAdhkar": "الأدعية والأذكار",
-      "feedback": "استجابة التطبيق",
       "feedbackMotion": "الاستجابة والحركة",
       "getApp": "احصل على التطبيق",
       "hadith": "الحديث",
@@ -12036,5 +12024,10 @@
       "dismiss": "ليس الآن",
       "applied": "تم تفعيل الأيقونات الموسمية"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} د",
+    "hours": "{{hours}} س",
+    "hoursMinutes": "{{hours}} س {{min}} د"
   }
 }

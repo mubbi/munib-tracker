@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Ýokardaky Täzeden ýükle düwmesine basyň. Habar dowam etse, sahypany güýç bilen täzeläň: Windows/Linux-da Ctrl+Shift+R ýa-da macOS-da Cmd+Shift+R."
   },
   "reviews": {
-    "rateTitle": "Munib Tracker hoşuna gelýärmi?",
-    "rateSubtitle": "Pikiriňiz beýleki musulmanlara programmany tapmaga kömek edýär.",
     "starLabel": "{{count}} ýyldyz",
     "starLabel_other": "{{count}} ýyldyz",
-    "storeTitle": "Sag boluň!",
-    "storeBody": "Munib Tracker-e programma dükanynda baha berersiňizmi? Diňe bir pursat alýar.",
-    "storeCta": "Programma dükanynda baha ber",
-    "maybeLater": "Belki soňra",
     "feedbackTitle": "Gowulaşmagymyza kömek ediň",
-    "feedbackBody": "Gynansagam Munib Tracker garaşyklaryňyzy kanagatlandyrmady. Näme gowulap bileris?",
-    "feedbackPlaceholder": "Näme ýalňyşdyr ýa-da näme ýetmezçiligini ýazyň…",
+    "feedbackBody": "Topara näme gowy işleýändigini we nämäni gowulandyryp boljakdygyny aýdyň. Belligiňiz göni bize gelýär we hiç haçan köpçülige çap edilmeýär.",
+    "feedbackPlaceholder": "Näme gowy işleýär, nämäni gowulandyryp bolar?",
     "feedbackCta": "Pikir iber",
     "feedbackOffline": "Pikir ibermek üçin internete birigiň.",
     "feedbackError": "Pikir iberilmedi. Täzeden synanyşyň.",
-    "skip": "Geç",
-    "thanksTitle": "Sag boluň!",
-    "thanksBody": "Goldawyňyz biziň üçin örän möhümdir.",
     "feedbackThanksTitle": "Pikir kabul edildi",
     "feedbackThanksBody": "Bellikleriňizi Munib Tracker-i gowulamak üçin ulanyarys.",
-    "feedbackLabel": "Pikiriňiz"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Gowy gidýärsiňiz",
-    "reviewReactivationBody": "Munib Tracker tejribäňizi paýlaşmak isleýärsiňizmi?"
+    "feedbackLabel": "Pikiriňiz",
+    "feedbackRatingLabel": "Munib Tracker size nähili?",
+    "storeOpenError": "Dükany açyp bolmady. Soňrak täzeden synanyşyň."
   },
   "settings": {
     "eyebrow": "Şahsylaşdyr",
@@ -951,8 +940,6 @@
     "aboutSub": "Wersiýa, minnetdarlyklar we düzgünler",
     "rateApp": "Munib Tracker-e baha beriň",
     "rateAppDesc": "Tejribäňizi programma dükanynda paýlaşyň",
-    "reviewReactivationEnabled": "Programma pikir ýatlatmalary",
-    "reviewReactivationEnabledDesc": "Käwagt ýumşak ýatlatmalar programmada pikir paýlaşmak üçin — dükandaky göni baha soragy däl.",
     "appUpdate": "Programma täzelenmesi",
     "updateAvailableTitle": "Täzelenme elýeterli",
     "updateRequiredTitle": "Täzelenme zerur",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "{{item}} üçin goşmaça saýlawlar",
       "moveToTop": "Iň ýokary geçir"
-    }
+    },
+    "sendFeedback": "Pikir iber",
+    "sendFeedbackDesc": "Mesele barada habar beriň ýa-da gowulandyrmagy teklip ediň"
   },
   "import": {
     "title": "Namaz taryhyny import et",
@@ -7547,7 +7536,6 @@
       "assistants": "Ses kömekçileri",
       "backup": "Ätiýaçlyk we import",
       "duasAdhkar": "Dogalar we zikirler",
-      "feedback": "Programmanyň jogaby",
       "feedbackMotion": "Jogap we hereket",
       "getApp": "Programmany al",
       "hadith": "Hadys",
@@ -11739,5 +11727,10 @@
       "dismiss": "Häzir däl",
       "applied": "Möwsümleýin nyşanlar açyldy"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} min",
+    "hours": "{{hours}} sag",
+    "hoursMinutes": "{{hours}} sag {{min}} min"
   }
 }

@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Appuyez sur Recharger ci-dessus. Si ce message persiste, forcez l'actualisation : Ctrl+Shift+R sur Windows/Linux, ou Cmd+Shift+R sur macOS."
   },
   "reviews": {
-    "rateTitle": "Vous appréciez Munib Tracker ?",
-    "rateSubtitle": "Vos retours aident d'autres musulmans à découvrir l'application.",
     "starLabel": "{{count}} étoile",
     "starLabel_other": "{{count}} étoiles",
-    "storeTitle": "Merci !",
-    "storeBody": "Pourriez-vous noter Munib Tracker sur l'App Store ? Cela ne prend qu'un instant.",
-    "storeCta": "Noter sur l'App Store",
-    "maybeLater": "Peut-être plus tard",
     "feedbackTitle": "Aidez-nous à nous améliorer",
-    "feedbackBody": "Nous sommes désolés que Munib Tracker n'ait pas répondu à vos attentes. Que pourrions-nous faire mieux ?",
-    "feedbackPlaceholder": "Dites-nous ce qui n'a pas fonctionné ou ce qui manque…",
+    "feedbackBody": "Dites à l'équipe ce qui fonctionne bien et ce qui pourrait être amélioré. Votre message nous parvient directement et n'est jamais publié.",
+    "feedbackPlaceholder": "Qu'est-ce qui fonctionne bien, et qu'est-ce qui pourrait être amélioré ?",
     "feedbackCta": "Envoyer un retour",
     "feedbackOffline": "Connectez-vous à Internet pour envoyer votre retour.",
     "feedbackError": "Impossible d'envoyer le retour. Réessayez.",
-    "skip": "Passer",
-    "thanksTitle": "Merci !",
-    "thanksBody": "Votre soutien compte beaucoup.",
     "feedbackThanksTitle": "Retour reçu",
     "feedbackThanksBody": "Nous utiliserons vos notes pour améliorer Munib Tracker.",
-    "feedbackLabel": "Votre avis"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Vous vous en sortez bien",
-    "reviewReactivationBody": "Envie de partager votre expérience avec Munib Tracker ?"
+    "feedbackLabel": "Votre avis",
+    "feedbackRatingLabel": "Que pensez-vous de Munib Tracker ?",
+    "storeOpenError": "Impossible d'ouvrir la boutique d'applications. Réessayez plus tard."
   },
   "settings": {
     "eyebrow": "Personnaliser",
@@ -951,8 +940,6 @@
     "aboutSub": "Version, crédits et politiques",
     "rateApp": "Noter Munib Tracker",
     "rateAppDesc": "Partagez votre expérience sur l'App Store",
-    "reviewReactivationEnabled": "Rappels de retour d'expérience",
-    "reviewReactivationEnabledDesc": "De légers rappels occasionnels pour partager un retour dans l'app — jamais une demande directe de note en magasin.",
     "appUpdate": "Mise à jour de l'app",
     "updateAvailableTitle": "Mise à jour disponible",
     "updateRequiredTitle": "Mise à jour requise",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "Plus d'options pour {{item}}",
       "moveToTop": "Placer en haut"
-    }
+    },
+    "sendFeedback": "Envoyer un retour",
+    "sendFeedbackDesc": "Signaler un problème ou suggérer une amélioration"
   },
   "import": {
     "title": "Importer l'historique de Salah",
@@ -7552,7 +7541,6 @@
       "assistants": "Assistants vocaux",
       "backup": "Sauvegarde et import",
       "duasAdhkar": "Duas et adhkar",
-      "feedback": "Retours de l'app",
       "feedbackMotion": "Retours et animations",
       "getApp": "Obtenir l'app",
       "hadith": "Hadith",
@@ -11755,5 +11743,10 @@
       "dismiss": "Plus tard",
       "applied": "Icônes saisonnières activées"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} min",
+    "hours": "{{hours}} h",
+    "hoursMinutes": "{{hours}} h {{min}} min"
   }
 }

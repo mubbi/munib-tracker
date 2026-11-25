@@ -894,30 +894,19 @@
     "webHardRefreshHint": "«بارگذاری مجدد» بالا را بزنید. اگر این پیام ادامه داشت، صفحه را اجباری تازه کنید: Ctrl+Shift+R در Windows/Linux یا Cmd+Shift+R در macOS."
   },
   "reviews": {
-    "rateTitle": "از Munib Tracker لذت می‌برید؟",
-    "rateSubtitle": "بازخورد شما به مسلمانان دیگر کمک می‌کند این برنامه را بیابند.",
     "starLabel": "{{count}} ستاره",
     "starLabel_other": "{{count}} ستاره",
-    "storeTitle": "متشکریم!",
-    "storeBody": "مایلید Munib Tracker را در فروشگاه برنامه امتیاز دهید؟ فقط یک لحظه طول می‌کشد.",
-    "storeCta": "امتیاز در فروشگاه برنامه",
-    "maybeLater": "شاید بعداً",
     "feedbackTitle": "به بهبود ما کمک کنید",
-    "feedbackBody": "متأسفیم Munib Tracker انتظارات شما را برآورده نکرد. چه کاری بهتر می‌توانیم انجام دهیم؟",
-    "feedbackPlaceholder": "بگویید چه اشتباهی بود یا چه چیزی کم است…",
+    "feedbackBody": "به تیم بگویید چه چیزی خوب کار می‌کند و چه چیزی می‌تواند بهتر شود. یادداشت شما مستقیم به دست ما می‌رسد و هرگز به‌صورت عمومی منتشر نمی‌شود.",
+    "feedbackPlaceholder": "چه چیزی خوب است و چه چیزی می‌تواند بهتر شود؟",
     "feedbackCta": "ارسال بازخورد",
     "feedbackOffline": "برای ارسال بازخورد به اینترنت وصل شوید.",
     "feedbackError": "بازخورد ارسال نشد. دوباره تلاش کنید.",
-    "skip": "رد کردن",
-    "thanksTitle": "متشکریم!",
-    "thanksBody": "حمایت شما برای ما ارزشمند است.",
     "feedbackThanksTitle": "بازخورد دریافت شد",
     "feedbackThanksBody": "از یادداشت‌های شما برای بهبود Munib Tracker استفاده می‌کنیم.",
-    "feedbackLabel": "بازخورد شما"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "عالی پیش می‌روید",
-    "reviewReactivationBody": "می‌خواهید تجربه‌تان با Munib Tracker را به اشتراک بگذارید؟"
+    "feedbackLabel": "بازخورد شما",
+    "feedbackRatingLabel": "Munib Tracker برای شما چطور کار می‌کند؟",
+    "storeOpenError": "باز کردن فروشگاه ممکن نشد. لطفاً بعداً دوباره تلاش کنید."
   },
   "settings": {
     "eyebrow": "شخصی‌سازی",
@@ -951,8 +940,6 @@
     "aboutSub": "نسخه، قدردانی‌ها و سیاست‌ها",
     "rateApp": "امتیاز به Munib Tracker",
     "rateAppDesc": "تجربه‌تان را در فروشگاه برنامه به اشتراک بگذارید",
-    "reviewReactivationEnabled": "یادآور بازخورد برنامه",
-    "reviewReactivationEnabledDesc": "گاهی یادآورهای ملایم برای به‌اشتراک‌گذاری بازخورد در برنامه — نه درخواست مستقیم امتیاز در فروشگاه.",
     "appUpdate": "به‌روزرسانی برنامه",
     "updateAvailableTitle": "به‌روزرسانی موجود است",
     "updateRequiredTitle": "به‌روزرسانی لازم است",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "گزینه‌های بیشتر برای {{item}}",
       "moveToTop": "انتقال به بالا"
-    }
+    },
+    "sendFeedback": "ارسال بازخورد",
+    "sendFeedbackDesc": "گزارش یک مشکل یا پیشنهاد یک بهبود"
   },
   "import": {
     "title": "وارد کردن سابقهٔ نماز",
@@ -7547,7 +7536,6 @@
       "assistants": "دستیارهای صوتی",
       "backup": "پشتیبان‌گیری و وارد کردن",
       "duasAdhkar": "دعاها و اذکار",
-      "feedback": "بازخورد برنامه",
       "feedbackMotion": "بازخورد و حرکت",
       "getApp": "دریافت برنامه",
       "hadith": "حدیث",
@@ -11739,5 +11727,10 @@
       "dismiss": "اکنون نه",
       "applied": "آیکون‌های مناسبتی فعال شد"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} دقیقه",
+    "hours": "{{hours}} ساعت",
+    "hoursMinutes": "{{hours}} ساعت و {{min}} دقیقه"
   }
 }

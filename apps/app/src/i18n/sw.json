@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Gusa Pakia upya hapo juu. Ikiendelea kuonekana, onyesha upya kwa nguvu: Ctrl+Shift+R kwenye Windows/Linux, au Cmd+Shift+R kwenye macOS."
   },
   "reviews": {
-    "rateTitle": "Unafurahia Munib Tracker?",
-    "rateSubtitle": "Maoni yako huwasaidia Waislamu wengine kugundua programu.",
     "starLabel": "Nyota {{count}}",
     "starLabel_other": "Nyota {{count}}",
-    "storeTitle": "Asante!",
-    "storeBody": "Unaweza kukadiria Munib Tracker kwenye duka la programu? Inachukua muda mfupi tu.",
-    "storeCta": "Kadiria kwenye duka la programu",
-    "maybeLater": "Labda baadaye",
     "feedbackTitle": "Tusaidie kuboresha",
-    "feedbackBody": "Samahani Munib Tracker haijakidhi matarajio yako. Tunaweza kuboresha nini?",
-    "feedbackPlaceholder": "Tuambie kilichokosea au kinachokosekana…",
+    "feedbackBody": "Iambie timu kinachofanya kazi vizuri na kinachoweza kuboreshwa. Ujumbe wako unatufikia moja kwa moja na hauchapishwi hadharani kamwe.",
+    "feedbackPlaceholder": "Nini kinafanya kazi vizuri, na nini kinaweza kuboreshwa?",
     "feedbackCta": "Tuma maoni",
     "feedbackOffline": "Unganisha intaneti ili kutuma maoni.",
     "feedbackError": "Haikuwezekana kutuma maoni. Jaribu tena.",
-    "skip": "Ruka",
-    "thanksTitle": "Asante!",
-    "thanksBody": "Msaada wako una maana kubwa kwetu.",
     "feedbackThanksTitle": "Maoni yamepokelewa",
     "feedbackThanksBody": "Tutatumia maelezo yako kuboresha Munib Tracker.",
-    "feedbackLabel": "Maoni yako"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Unafanya vizuri",
-    "reviewReactivationBody": "Ungependa kushiriki uzoefu wako na Munib Tracker?"
+    "feedbackLabel": "Maoni yako",
+    "feedbackRatingLabel": "Munib Tracker inakufaaje?",
+    "storeOpenError": "Imeshindwa kufungua duka la programu. Tafadhali jaribu tena baadaye."
   },
   "settings": {
     "eyebrow": "Binafsisha",
@@ -951,8 +940,6 @@
     "aboutSub": "Toleo, shukrani na sera",
     "rateApp": "Kadiria Munib Tracker",
     "rateAppDesc": "Shiriki uzoefu wako kwenye duka la programu",
-    "reviewReactivationEnabled": "Vikumbusho vya maoni ya programu",
-    "reviewReactivationEnabledDesc": "Vikumbusho vya upole mara kwa mara kushiriki maoni ndani ya programu — si ombi la moja kwa moja la ukadiriaji dukani.",
     "appUpdate": "Sasisho la programu",
     "updateAvailableTitle": "Sasisho linapatikana",
     "updateRequiredTitle": "Sasisho linahitajika",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "Chaguo zaidi za {{item}}",
       "moveToTop": "Hamisha juu kabisa"
-    }
+    },
+    "sendFeedback": "Tuma maoni",
+    "sendFeedbackDesc": "Ripoti tatizo au pendekeza uboreshaji"
   },
   "import": {
     "title": "Leta historia ya Swala",
@@ -7547,7 +7536,6 @@
       "assistants": "Wasaidizi wa sauti",
       "backup": "Nakala rudufu na kuleta",
       "duasAdhkar": "Dua na adhkari",
-      "feedback": "Mrejesho wa programu",
       "feedbackMotion": "Mrejesho na mwendo",
       "getApp": "Pata programu",
       "hadith": "Hadithi",
@@ -11739,5 +11727,10 @@
       "dismiss": "Si sasa",
       "applied": "Aikoni za msimu zimewashwa"
     }
+  },
+  "duration": {
+    "minutes": "dakika {{min}}",
+    "hours": "saa {{hours}}",
+    "hoursMinutes": "saa {{hours}} dakika {{min}}"
   }
 }

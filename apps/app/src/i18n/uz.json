@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Yuqoridagi Qayta yuklash tugmasini bosing. Xabar takrorlansa, sahifani majburan yangilang: Windows/Linux da Ctrl+Shift+R yoki macOS da Cmd+Shift+R."
   },
   "reviews": {
-    "rateTitle": "Munib Tracker yoqayaptimi?",
-    "rateSubtitle": "Fikringiz boshqa musulmonlarga ilovani topishga yordam beradi.",
     "starLabel": "{{count}} yulduz",
     "starLabel_other": "{{count}} yulduz",
-    "storeTitle": "Rahmat!",
-    "storeBody": "Munib Tracker'ni ilovalar do'konida baholaysizmi? Bu bir lahza vaqt oladi.",
-    "storeCta": "Ilova do'konida baholash",
-    "maybeLater": "Balki keyinroq",
     "feedbackTitle": "Yaxshilanishimizga yordam bering",
-    "feedbackBody": "Afsuski, Munib Tracker kutganlaringizga javob bermadi. Nimani yaxshilashimiz mumkin?",
-    "feedbackPlaceholder": "Nima noto'g'ri ketgani yoki nima yetishmasligini yozing…",
+    "feedbackBody": "Jamoaga nima yaxshi ishlayotganini va nimani yaxshilash mumkinligini ayting. Xabaringiz to'g'ridan-to'g'ri bizga keladi va hech qachon ommaga e'lon qilinmaydi.",
+    "feedbackPlaceholder": "Nima yaxshi ishlayapti, nimani yaxshilash mumkin?",
     "feedbackCta": "Fikr yuborish",
     "feedbackOffline": "Fikr yuborish uchun internetga ulaning.",
     "feedbackError": "Fikr yuborilmadi. Qayta urinib ko'ring.",
-    "skip": "O'tkazib yuborish",
-    "thanksTitle": "Rahmat!",
-    "thanksBody": "Qo'llab-quvvatlashingiz biz uchun juda muhim.",
     "feedbackThanksTitle": "Fikr qabul qilindi",
     "feedbackThanksBody": "Eslatmalaringizdan Munib Tracker-ni yaxshilash uchun foydalanamiz.",
-    "feedbackLabel": "Fikringiz"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Juda yaxshi ketayapsiz",
-    "reviewReactivationBody": "Munib Tracker tajribangizni baham ko'rmoqchimisiz?"
+    "feedbackLabel": "Fikringiz",
+    "feedbackRatingLabel": "Munib Tracker sizga qanday?",
+    "storeOpenError": "Do'konni ochib bo'lmadi. Keyinroq qayta urinib ko'ring."
   },
   "settings": {
     "eyebrow": "Shaxsiylashtirish",
@@ -951,8 +940,6 @@
     "aboutSub": "Versiya, minnatdorchilik va siyosatlar",
     "rateApp": "Munib Tracker'ni baholang",
     "rateAppDesc": "Tajribangizni ilova do'konida baham ko'ring",
-    "reviewReactivationEnabled": "Ilova fikri eslatmalari",
-    "reviewReactivationEnabledDesc": "Vaqt-vaqti bilan yumshoq eslatmalar ilovada fikr baham ko'rish uchun — do'konda to'g'ridan-to'g'ri baho so'rovi emas.",
     "appUpdate": "Ilova yangilanishi",
     "updateAvailableTitle": "Yangilanish mavjud",
     "updateRequiredTitle": "Yangilanish talab qilinadi",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "{{item}} uchun qo'shimcha amallar",
       "moveToTop": "Eng yuqoriga ko'chirish"
-    }
+    },
+    "sendFeedback": "Fikr yuborish",
+    "sendFeedbackDesc": "Muammo haqida xabar bering yoki yaxshilashni taklif qiling"
   },
   "import": {
     "title": "Namoz tarixini import qilish",
@@ -7547,7 +7536,6 @@
       "assistants": "Ovozli yordamchilar",
       "backup": "Zaxira va import",
       "duasAdhkar": "Duolar va zikrlar",
-      "feedback": "Javob signallari",
       "feedbackMotion": "Javob signallari va harakat",
       "getApp": "Ilovani yuklab oling",
       "hadith": "Hadis",
@@ -11739,5 +11727,10 @@
       "dismiss": "Hozir emas",
       "applied": "Mavsumiy belgilar yoqildi"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} daqiqa",
+    "hours": "{{hours}} soat",
+    "hoursMinutes": "{{hours}} soat {{min}} daqiqa"
   }
 }

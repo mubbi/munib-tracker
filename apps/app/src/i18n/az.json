@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Yuxarıdakı Yenidən yüklə düyməsinə toxunun. Mesaj davam edirsə, səhifəni məcburi yeniləyin: Windows/Linux-da Ctrl+Shift+R və ya macOS-da Cmd+Shift+R."
   },
   "reviews": {
-    "rateTitle": "Munib Tracker xoşunuza gəlir?",
-    "rateSubtitle": "Rəyiniz digər müsəlmanların tətbiqi kəşf etməsinə kömək edir.",
     "starLabel": "{{count}} ulduz",
     "starLabel_other": "{{count}} ulduz",
-    "storeTitle": "Təşəkkürlər!",
-    "storeBody": "Munib Tracker-ə tətbiq mağazasında qiymət vermək istərdinizmi? Cəmi bir an çəkir.",
-    "storeCta": "Tətbiq mağazasında qiymətləndir",
-    "maybeLater": "Bəlkə sonra",
     "feedbackTitle": "Təkmilləşməyimizə kömək edin",
-    "feedbackBody": "Təəssüf ki, Munib Tracker gözləntilərinizi qarşılamadı. Nəyi daha yaxşı edə bilərik?",
-    "feedbackPlaceholder": "Nəyin səhv getdiyini və ya nəyin çatışmadığını yazın…",
+    "feedbackBody": "Komandaya nəyin yaxşı işlədiyini və nəyin daha yaxşı ola biləcəyini deyin. Qeydiniz birbaşa bizə çatır və heç vaxt açıq paylaşılmır.",
+    "feedbackPlaceholder": "Nə yaxşı işləyir, nə daha yaxşı ola bilər?",
     "feedbackCta": "Rəy göndər",
     "feedbackOffline": "Rəy göndərmək üçün internetə qoşulun.",
     "feedbackError": "Rəy göndərilmədi. Yenidən cəhd edin.",
-    "skip": "Keç",
-    "thanksTitle": "Təşəkkürlər!",
-    "thanksBody": "Dəstəyiniz bizim üçün çox önəmlidir.",
     "feedbackThanksTitle": "Rəy qəbul edildi",
     "feedbackThanksBody": "Qeydlərinizi Munib Tracker-i təkmilləşdirmək üçün istifadə edəcəyik.",
-    "feedbackLabel": "Rəyiniz"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Əla gedirsiniz",
-    "reviewReactivationBody": "Munib Tracker təcrübənizi paylaşmaq istəyirsiniz?"
+    "feedbackLabel": "Rəyiniz",
+    "feedbackRatingLabel": "Munib Tracker sizin üçün necədir?",
+    "storeOpenError": "Mağazanı açmaq mümkün olmadı. Sonra yenidən cəhd edin."
   },
   "settings": {
     "eyebrow": "Fərdiləşdir",
@@ -951,8 +940,6 @@
     "aboutSub": "Versiya, təşəkkürlər və siyasətlər",
     "rateApp": "Munib Tracker-ə qiymət verin",
     "rateAppDesc": "Təcrübənizi tətbiq mağazasında paylaşın",
-    "reviewReactivationEnabled": "Tətbiq rəyi xatırlatmaları",
-    "reviewReactivationEnabledDesc": "Vaxtaşır yumşaq xatırlatmalar tətbiqdə rəy paylaşmaq üçün — mağazada birbaşa qiymətləndirmə istəyi deyil.",
     "appUpdate": "Tətbiq yeniləməsi",
     "updateAvailableTitle": "Yeniləmə mövcuddur",
     "updateRequiredTitle": "Yeniləmə tələb olunur",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "{{item}} üçün əlavə seçimlər",
       "moveToTop": "Ən yuxarıya köçür"
-    }
+    },
+    "sendFeedback": "Rəy göndər",
+    "sendFeedbackDesc": "Problem barədə bildirin və ya təkmilləşdirmə təklif edin"
   },
   "import": {
     "title": "Salah tarixçəsini idxal et",
@@ -7547,7 +7536,6 @@
       "assistants": "Səsli assistentlər",
       "backup": "Ehtiyat nüsxə və idxal",
       "duasAdhkar": "Dualar və zikrlər",
-      "feedback": "Tətbiq əks əlaqəsi",
       "feedbackMotion": "Əks əlaqə və hərəkət",
       "getApp": "Tətbiqi əldə edin",
       "hadith": "Hədis",
@@ -11739,5 +11727,10 @@
       "dismiss": "İndi yox",
       "applied": "Mövsümi ikonlar aktivdir"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} dəq",
+    "hours": "{{hours}} saat",
+    "hoursMinutes": "{{hours}} saat {{min}} dəq"
   }
 }

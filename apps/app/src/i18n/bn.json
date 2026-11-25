@@ -894,31 +894,20 @@
     "webHardRefreshHint": "উপরে “পুনরায় লোড” ট্যাপ করুন। এই বার্তা বারবার দেখালে পেজটি জোর করে রিফ্রেশ করুন: Windows/Linux-এ Ctrl+Shift+R, অথবা macOS-এ Cmd+Shift+R।"
   },
   "reviews": {
-    "rateTitle": "Munib Tracker পছন্দ করছেন?",
-    "rateSubtitle": "আপনার মতামত অন্য মুসলমানদের এই অ্যাপ খুঁজে পেতে সাহায্য করে।",
     "starLabel": "{{count}}টি তারা",
     "starLabel_other": "{{count}}টি তারা",
-    "storeTitle": "ধন্যবাদ!",
-    "storeBody": "অ্যাপ স্টোরে Munib Tracker-কে রেটিং দেবেন? মাত্র এক মুহূর্ত লাগবে।",
-    "storeCta": "অ্যাপ স্টোরে রেটিং দিন",
-    "maybeLater": "হয়তো পরে",
     "feedbackTitle": "আমাদের উন্নতিতে সাহায্য করুন",
-    "feedbackBody": "দুঃখিত, Munib Tracker আপনার প্রত্যাশা পূরণ করতে পারেনি। আমরা কীভাবে ভালো করতে পারি?",
-    "feedbackPlaceholder": "কী ভুল হয়েছে বা কী কম আছে জানান…",
+    "feedbackBody": "দলকে জানান কোনটা ভালো চলছে আর কোনটা আরও ভালো হতে পারে। আপনার বার্তা সরাসরি আমাদের কাছে আসে এবং কখনো প্রকাশ্যে পোস্ট করা হয় না।",
+    "feedbackPlaceholder": "কোনটা ভালো চলছে, আর কোনটা আরও ভালো হতে পারে?",
     "feedbackCta": "মতামত পাঠান",
     "feedbackOffline": "মতামত পাঠাতে ইন্টারনেটে সংযুক্ত হন।",
     "feedbackError": "মতামত পাঠানো যায়নি। আবার চেষ্টা করুন।",
-    "skip": "এড়িয়ে যান",
-    "thanksTitle": "ধন্যবাদ!",
-    "thanksBody": "আপনার সমর্থন আমাদের কাছে অনেক মূল্যবান।",
     "feedbackThanksTitle": "মতামত গ্রহণ হয়েছে",
     "feedbackThanksBody": "আমরা আপনার মতামত দিয়ে Munib Tracker উন্নত করব।",
     "starLabel_one": "{{count}}টি তারা",
-    "feedbackLabel": "আপনার মতামত"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "আপনি দারুণ করছেন",
-    "reviewReactivationBody": "Munib Tracker নিয়ে আপনার অভিজ্ঞতা শেয়ার করতে চান?"
+    "feedbackLabel": "আপনার মতামত",
+    "feedbackRatingLabel": "Munib Tracker আপনার কেমন লাগছে?",
+    "storeOpenError": "স্টোর খোলা যায়নি। অনুগ্রহ করে পরে আবার চেষ্টা করুন।"
   },
   "settings": {
     "eyebrow": "ব্যক্তিগতকরণ",
@@ -952,8 +941,6 @@
     "aboutSub": "সংস্করণ, ক্রেডিট ও নীতিমালা",
     "rateApp": "Munib Tracker রেটিং দিন",
     "rateAppDesc": "অ্যাপ স্টোরে আপনার অভিজ্ঞতা শেয়ার করুন",
-    "reviewReactivationEnabled": "অ্যাপ মতামতের রিমাইন্ডার",
-    "reviewReactivationEnabledDesc": "মাঝে মাঝে অ্যাপের ভেতরে মতামত জানাতে আলতো করে মনে করিয়ে দেওয়া — কখনো সরাসরি স্টোর রেটিংয়ের অনুরোধ নয়।",
     "appUpdate": "অ্যাপ আপডেট",
     "updateAvailableTitle": "আপডেট উপলব্ধ",
     "updateRequiredTitle": "আপডেট প্রয়োজন",
@@ -1031,7 +1018,9 @@
     "reorder": {
       "moreFor": "{{item}}-এর আরও বিকল্প",
       "moveToTop": "সবার উপরে নিন"
-    }
+    },
+    "sendFeedback": "মতামত পাঠান",
+    "sendFeedbackDesc": "কোনো সমস্যা জানান বা উন্নতির পরামর্শ দিন"
   },
   "import": {
     "title": "নামাজের ইতিহাস আমদানি করুন",
@@ -7556,7 +7545,6 @@
       "assistants": "ভয়েস অ্যাসিস্ট্যান্ট",
       "backup": "ব্যাকআপ ও ইমপোর্ট",
       "duasAdhkar": "দোয়া ও আজকার",
-      "feedback": "অ্যাপ নিয়ে মতামত",
       "feedbackMotion": "ফিডব্যাক ও গতি",
       "getApp": "অ্যাপটি নিন",
       "hadith": "হাদিস",
@@ -11748,5 +11736,10 @@
       "dismiss": "এখন না",
       "applied": "মৌসুমি আইকন চালু হয়েছে"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} মিনিট",
+    "hours": "{{hours}} ঘণ্টা",
+    "hoursMinutes": "{{hours}} ঘণ্টা {{min}} মিনিট"
   }
 }

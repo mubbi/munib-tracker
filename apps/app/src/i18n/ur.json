@@ -959,8 +959,6 @@
     },
     "rateApp": "Munib Tracker کو درجہ دیں",
     "rateAppDesc": "ایپ اسٹور پر اپنی رائے شیئر کریں",
-    "reviewReactivationEnabled": "ایپ رائے کی یاد دہانیاں",
-    "reviewReactivationEnabledDesc": "وقتاً فوقتاً نرم یاد دہانیاں ایپ میں رائے شیئر کرنے کے لیے — کبھی براہِ راست اسٹور پر درجہ دینے کی درخواست نہیں۔",
     "appUpdate": "ایپ اپ ڈیٹ",
     "updateAvailableTitle": "اپ ڈیٹ دستیاب ہے",
     "updateRequiredTitle": "اپ ڈیٹ ضروری ہے",
@@ -989,7 +987,9 @@
     "reorder": {
       "moreFor": "{{item}} کے لیے مزید اختیارات",
       "moveToTop": "سب سے اوپر لے جائیں"
-    }
+    },
+    "sendFeedback": "رائے بھیجیں",
+    "sendFeedbackDesc": "کسی مسئلے کی اطلاع دیں یا بہتری کی تجویز دیں"
   },
   "import": {
     "title": "نماز کی تاریخ درآمد کریں",
@@ -5678,30 +5678,19 @@
     "webHardRefreshHint": "اوپر «دوبارہ لوڈ کریں» دبائیں۔ اگر یہ پیغام بار بار آئے تو صفحہ زبردستی ریفریش کریں: Windows/Linux پر Ctrl+Shift+R، یا macOS پر Cmd+Shift+R۔"
   },
   "reviews": {
-    "rateTitle": "کیا آپ Munib Tracker سے لطف اندوز ہیں؟",
-    "rateSubtitle": "آپ کی رائے دوسرے مسلمانوں کو یہ ایپ دریافت کرنے میں مدد دیتی ہے۔",
     "starLabel": "{{count}} ستارہ",
     "starLabel_other": "{{count}} ستارے",
-    "storeTitle": "شکریہ!",
-    "storeBody": "کیا آپ Munib Tracker کو ایپ اسٹور پر درجہ دیں گے؟ صرف ایک لمحہ لگے گا۔",
-    "storeCta": "ایپ اسٹور پر درجہ دیں",
-    "maybeLater": "شاید بعد میں",
     "feedbackTitle": "بہتر بنانے میں مدد کریں",
-    "feedbackBody": "معذرت، Munib Tracker آپ کی توقع پر پورا نہیں اترا۔ ہم کیا بہتر کر سکتے ہیں؟",
-    "feedbackPlaceholder": "بتائیں کیا غلط ہوا یا کیا کمی ہے…",
+    "feedbackBody": "ٹیم کو بتائیں کہ کیا اچھا چل رہا ہے اور کیا بہتر ہو سکتا ہے۔ آپ کی رائے سیدھی ہم تک پہنچتی ہے اور کبھی عوامی طور پر شائع نہیں ہوتی۔",
+    "feedbackPlaceholder": "کیا اچھا لگ رہا ہے، اور کیا بہتر ہو سکتا ہے؟",
     "feedbackCta": "رائے بھیجیں",
     "feedbackOffline": "رائے بھیجنے کے لیے انٹرنیٹ سے جڑیں۔",
     "feedbackError": "رائے نہیں بھیجی جا سکی۔ دوبارہ کوشش کریں۔",
-    "skip": "چھوڑیں",
-    "thanksTitle": "شکریہ!",
-    "thanksBody": "آپ کا ساتھ ہمارے لیے بہت اہم ہے۔",
     "feedbackThanksTitle": "رائے موصول ہوئی",
     "feedbackThanksBody": "ہم آپ کی رائے سے Munib Tracker کو بہتر بنائیں گے۔",
-    "feedbackLabel": "آپ کی رائے"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "آپ بہت اچھا کر رہے ہیں",
-    "reviewReactivationBody": "کیا آپ Munib Tracker کے بارے میں اپنی رائے شیئر کرنا چاہیں گے؟"
+    "feedbackLabel": "آپ کی رائے",
+    "feedbackRatingLabel": "Munib Tracker آپ کے لیے کیسا چل رہا ہے؟",
+    "storeOpenError": "اسٹور نہیں کھل سکا۔ براہِ کرم بعد میں دوبارہ کوشش کریں۔"
   },
   "sahaba": {
     "eyebrow": "سیکھیں۔",
@@ -7547,7 +7536,6 @@
       "assistants": "صوتی معاونین",
       "backup": "بیک اپ اور درآمد",
       "duasAdhkar": "دعائیں اور اذکار",
-      "feedback": "ایپ کا ردعمل",
       "feedbackMotion": "ردعمل اور حرکت",
       "getApp": "ایپ حاصل کریں",
       "hadith": "حدیث",
@@ -11739,5 +11727,10 @@
       "dismiss": "ابھی نہیں",
       "applied": "موسمی آئیکن فعال ہو گئے"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} منٹ",
+    "hours": "{{hours}} گھنٹے",
+    "hoursMinutes": "{{hours}} گھنٹے {{min}} منٹ"
   }
 }

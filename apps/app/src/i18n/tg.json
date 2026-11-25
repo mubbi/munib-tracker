@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Дар боло «Боз бор кардан»-ро пахш кунед. Агар ин паём такрор шавад, саҳифаро маҷбуран нав кунед: Ctrl+Shift+R дар Windows/Linux ё Cmd+Shift+R дар macOS."
   },
   "reviews": {
-    "rateTitle": "Munib Tracker ба шумо писанд меояд?",
-    "rateSubtitle": "Фикри шумо ба мусулмонони дигар кӯмак мекунад, ки барномаро пайдо кунанд.",
     "starLabel": "{{count}} ситора",
     "starLabel_other": "{{count}} ситора",
-    "storeTitle": "Ташаккур!",
-    "storeBody": "Оё Munib Tracker-ро дар мағозаи барномаҳо баҳо медиҳед? Танҳо як лаҳза вақт мегирад.",
-    "storeCta": "Дар мағозаи барномаҳо баҳо диҳед",
-    "maybeLater": "Шояд баъдтар",
     "feedbackTitle": "Ба беҳтар шудани мо кӯмак кунед",
-    "feedbackBody": "Мутаассифона, Munib Tracker интизориҳои шуморо иҷро накард. Чӣ метавонем беҳтар кунем?",
-    "feedbackPlaceholder": "Бигӯед чӣ нодуруст буд ё чӣ кам аст…",
+    "feedbackBody": "Ба даста гӯед, ки чӣ хуб кор мекунад ва чӣ метавонад беҳтар шавад. Ёддошти шумо бевосита ба мо мерасад ва ҳеҷ гоҳ ба таври оммавӣ нашр намешавад.",
+    "feedbackPlaceholder": "Чӣ хуб аст ва чӣ метавонад беҳтар шавад?",
     "feedbackCta": "Фикр фиристед",
     "feedbackOffline": "Барои фиристодани фикр ба интернет пайваст шавед.",
     "feedbackError": "Фикр фиристода нашуд. Боз кӯшиш кунед.",
-    "skip": "Гузаронидан",
-    "thanksTitle": "Ташаккур!",
-    "thanksBody": "Дастгирии шумо барои мо хеле муҳим аст.",
     "feedbackThanksTitle": "Фикр қабул шуд",
     "feedbackThanksBody": "Ёддоштҳои шуморо барои беҳтар кардани Munib Tracker истифода мебарем.",
-    "feedbackLabel": "Фикри шумо"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Хеле хуб пеш меравед",
-    "reviewReactivationBody": "Мехоҳед таҷрибаи худро бо Munib Tracker мубодила кунед?"
+    "feedbackLabel": "Фикри шумо",
+    "feedbackRatingLabel": "Munib Tracker барои шумо чӣ тавр кор мекунад?",
+    "storeOpenError": "Мағозаро кушода натавонистем. Лутфан баъдтар боз кӯшиш кунед."
   },
   "settings": {
     "eyebrow": "Шахсисозӣ",
@@ -951,8 +940,6 @@
     "aboutSub": "Версия, сипосгузорӣ ва сиёсатҳо",
     "rateApp": "Munib Tracker-ро баҳо диҳед",
     "rateAppDesc": "Таҷрибаи худро дар мағозаи барномаҳо мубодила кунед",
-    "reviewReactivationEnabled": "Ёдрасҳои фикри барнома",
-    "reviewReactivationEnabledDesc": "Гоҳ-гоҳ ёдрасҳои нарм барои мубодилаи фикр дар барнома — на дархости мустақими баҳо дар мағоза.",
     "appUpdate": "Навсозии барнома",
     "updateAvailableTitle": "Навсозӣ дастрас аст",
     "updateRequiredTitle": "Навсозӣ зарур аст",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "Имконоти бештар барои {{item}}",
       "moveToTop": "Ба боло гузаронед"
-    }
+    },
+    "sendFeedback": "Фикр фиристед",
+    "sendFeedbackDesc": "Дар бораи мушкил хабар диҳед ё беҳбудӣ пешниҳод кунед"
   },
   "import": {
     "title": "Таърихи намозро ворид кунед",
@@ -7547,7 +7536,6 @@
       "assistants": "Ёрдамчиёни овозӣ",
       "backup": "Нусхаи эҳтиётӣ ва воридот",
       "duasAdhkar": "Дуоҳо ва зикрҳо",
-      "feedback": "Аксуламали барнома",
       "feedbackMotion": "Аксуламал ва ҳаракат",
       "getApp": "Барномаро гиред",
       "hadith": "Ҳадис",
@@ -11739,5 +11727,10 @@
       "dismiss": "Ҳоло не",
       "applied": "Нишонаҳои мавсимӣ фаъол шуданд"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} дақ",
+    "hours": "{{hours}} соат",
+    "hoursMinutes": "{{hours}} соату {{min}} дақ"
   }
 }

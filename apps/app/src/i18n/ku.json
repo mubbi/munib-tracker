@@ -894,30 +894,19 @@
     "webHardRefreshHint": "لەسەرەوە پەنجە بنێ بە «دووبارە بارکردنەوە». ئەگەر ئەم پەیامە هەر دەرکەوت، پەڕەکە بە زۆر نوێ بکەرەوە: Ctrl+Shift+R لە Windows/Linux، یان Cmd+Shift+R لە macOS."
   },
   "reviews": {
-    "rateTitle": "چێژ لە Munib Tracker وەردەگریت؟",
-    "rateSubtitle": "ڕاوبۆچوونەکەت یارمەتی موسڵمانانی تر دەدات ئەپەکە بدۆزنەوە.",
     "starLabel": "{{count}} ئەستێرە",
     "starLabel_other": "{{count}} ئەستێرە",
-    "storeTitle": "سوپاس!",
-    "storeBody": "دەتوانیت لە فرۆشگای ئەپەکان هەڵسەنگاندن بۆ Munib Tracker بکەیت؟ تەنها چرکەیەک دەخایەنێت.",
-    "storeCta": "لە فرۆشگای ئەپەکان هەڵیسەنگێنە",
-    "maybeLater": "لەوانەیە دواتر",
     "feedbackTitle": "یارمەتیمان بدە باشتر بین",
-    "feedbackBody": "داوای لێبوردن دەکەین کە Munib Tracker بە ئاستی چاوەڕوانییەکانت نەگەیشتووە. چی باشتر بکەین؟",
-    "feedbackPlaceholder": "پێمان بڵێ چی هەڵە بوو یان چی کەمە…",
+    "feedbackBody": "بە تیمەکە بڵێ چی باش کار دەکات و چی دەتوانرێت باشتر بێت. تێبینییەکەت ڕاستەوخۆ دەگاتە ئێمە و هەرگیز بە گشتی بڵاو ناکرێتەوە.",
+    "feedbackPlaceholder": "چی باشە، و چی دەتوانرێت باشتر بێت؟",
     "feedbackCta": "ناردنی ڕاوبۆچوون",
     "feedbackOffline": "بۆ ناردنی ڕاوبۆچوون بە ئینتەرنێتەوە بەستە.",
     "feedbackError": "ڕاوبۆچوونەکە نەنێردرا. تکایە دووبارە هەوڵ بدەوە.",
-    "skip": "تێپەڕاندن",
-    "thanksTitle": "سوپاس!",
-    "thanksBody": "پشتگیرییەکەت زۆر بەلامانەوە گرنگە.",
     "feedbackThanksTitle": "ڕاوبۆچوون وەرگیرا",
     "feedbackThanksBody": "تێبینییەکانت بۆ باشترکردنی Munib Tracker بەکاردەهێنین.",
-    "feedbackLabel": "ڕاوبۆچوونەکەت"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "زۆر باش بەردەوامیت",
-    "reviewReactivationBody": "دەتەوێت ئەزموونی خۆت لەگەڵ Munib Tracker هاوبەش بکەیت؟"
+    "feedbackLabel": "ڕاوبۆچوونەکەت",
+    "feedbackRatingLabel": "Munib Tracker چۆن بۆت کار دەکات؟",
+    "storeOpenError": "نەتوانرا فرۆشگاکە بکرێتەوە. تکایە دواتر هەوڵ بدەرەوە."
   },
   "settings": {
     "eyebrow": "تایبەتکردن",
@@ -951,8 +940,6 @@
     "aboutSub": "وەشان، سوپاسنامە و سیاسەتەکان",
     "rateApp": "هەڵسەنگاندنی Munib Tracker",
     "rateAppDesc": "ئەزموونەکەت لە فرۆشگای ئەپەکان هاوبەش بکە",
-    "reviewReactivationEnabled": "بیرخەرەوەی ڕاوبۆچوون دەربارەی ئەپ",
-    "reviewReactivationEnabledDesc": "جاروبار بیرخستنەوەی نەرم بۆ هاوبەشکردنی ڕاوبۆچوون لەناو ئەپدا — هەرگیز داوای ڕاستەوخۆی هەڵسەنگاندن لە فرۆشگا نییە.",
     "appUpdate": "نوێکردنەوەی ئەپ",
     "updateAvailableTitle": "نوێکردنەوە بەردەستە",
     "updateRequiredTitle": "نوێکردنەوە پێویستە",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "هەڵبژاردنی زیاتر بۆ {{item}}",
       "moveToTop": "بیبە بۆ سەرەوە"
-    }
+    },
+    "sendFeedback": "ناردنی ڕاوبۆچوون",
+    "sendFeedbackDesc": "ڕاپۆرتی کێشەیەک بدە یان باشترکردنێک پێشنیار بکە"
   },
   "import": {
     "title": "هاوردەکردنی مێژووی نوێژ",
@@ -7547,7 +7536,6 @@
       "assistants": "یاریدەدەرە دەنگییەکان",
       "backup": "پاشەکەوت و هاوردە",
       "duasAdhkar": "دوعا و ئەزکار",
-      "feedback": "وەڵامدانەوەی ئەپ",
       "feedbackMotion": "وەڵامدانەوە و جووڵە",
       "getApp": "ئەپەکە وەربگرە",
       "hadith": "فەرموودە",
@@ -11739,5 +11727,10 @@
       "dismiss": "ئێستا نا",
       "applied": "ئایکۆنی وەرزی چالاک کرا"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} خولەک",
+    "hours": "{{hours}} کاتژمێر",
+    "hoursMinutes": "{{hours}} کاتژمێر و {{min}} خولەک"
   }
 }

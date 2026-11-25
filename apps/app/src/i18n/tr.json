@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Yukarıdaki Yeniden yükle'ye dokunun. Bu mesaj sürekli görünüyorsa sayfayı zorla yenileyin: Windows/Linux'ta Ctrl+Shift+R veya macOS'ta Cmd+Shift+R."
   },
   "reviews": {
-    "rateTitle": "Munib Tracker'ı beğeniyor musunuz?",
-    "rateSubtitle": "Geri bildiriminiz diğer Müslümanların uygulamayı keşfetmesine yardımcı olur.",
     "starLabel": "{{count}} yıldız",
     "starLabel_other": "{{count}} yıldız",
-    "storeTitle": "Teşekkürler!",
-    "storeBody": "Munib Tracker'ı uygulama mağazasında değerlendirir misiniz? Sadece bir an sürer.",
-    "storeCta": "Uygulama mağazasında değerlendir",
-    "maybeLater": "Belki sonra",
     "feedbackTitle": "Gelişmemize yardım edin",
-    "feedbackBody": "Munib Tracker beklentilerinizi karşılamadıysa üzgünüz. Neyi daha iyi yapabiliriz?",
-    "feedbackPlaceholder": "Neyin yanlış gittiğini veya neyin eksik olduğunu yazın…",
+    "feedbackBody": "Ekibe neyin iyi gittiğini ve neyin daha iyi olabileceğini anlatın. Notunuz doğrudan bize ulaşır ve asla herkese açık paylaşılmaz.",
+    "feedbackPlaceholder": "Neler iyi gidiyor, neler daha iyi olabilir?",
     "feedbackCta": "Geri bildirim gönder",
     "feedbackOffline": "Geri bildirim göndermek için internete bağlanın.",
     "feedbackError": "Geri bildirim gönderilemedi. Tekrar deneyin.",
-    "skip": "Atla",
-    "thanksTitle": "Teşekkürler!",
-    "thanksBody": "Desteğiniz bizim için çok değerli.",
     "feedbackThanksTitle": "Geri bildirim alındı",
     "feedbackThanksBody": "Notlarınızı Munib Tracker'ı geliştirmek için kullanacağız.",
-    "feedbackLabel": "Geri bildiriminiz"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Harika gidiyorsunuz",
-    "reviewReactivationBody": "Munib Tracker deneyiminizi paylaşmak ister misiniz?"
+    "feedbackLabel": "Geri bildiriminiz",
+    "feedbackRatingLabel": "Munib Tracker sizin için nasıl gidiyor?",
+    "storeOpenError": "Mağaza açılamadı. Lütfen daha sonra tekrar deneyin."
   },
   "settings": {
     "eyebrow": "Kişiselleştir",
@@ -951,8 +940,6 @@
     "aboutSub": "Sürüm, katkılar ve politikalar",
     "rateApp": "Munib Tracker'ı değerlendir",
     "rateAppDesc": "Uygulama mağazasında deneyiminizi paylaşın",
-    "reviewReactivationEnabled": "Uygulama geri bildirim hatırlatıcıları",
-    "reviewReactivationEnabledDesc": "Ara sıra uygulama içinde geri bildirim paylaşmak için nazik hatırlatmalar — doğrudan mağaza değerlendirmesi değil.",
     "appUpdate": "Uygulama güncellemesi",
     "updateAvailableTitle": "Güncelleme mevcut",
     "updateRequiredTitle": "Güncelleme gerekli",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "{{item}} için daha fazla seçenek",
       "moveToTop": "En üste taşı"
-    }
+    },
+    "sendFeedback": "Geri bildirim gönder",
+    "sendFeedbackDesc": "Bir sorunu bildirin veya bir iyileştirme önerin"
   },
   "import": {
     "title": "Namaz geçmişini içe aktar",
@@ -7547,7 +7536,6 @@
       "assistants": "Sesli asistanlar",
       "backup": "Yedekleme ve içe aktarma",
       "duasAdhkar": "Dualar ve zikirler",
-      "feedback": "Uygulama geri bildirimi",
       "feedbackMotion": "Geri bildirim ve hareket",
       "getApp": "Uygulamayı edinin",
       "hadith": "Hadis",
@@ -11739,5 +11727,10 @@
       "dismiss": "Şimdi değil",
       "applied": "Mevsimsel simgeler açık"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} dk",
+    "hours": "{{hours}} sa",
+    "hoursMinutes": "{{hours}} sa {{min}} dk"
   }
 }

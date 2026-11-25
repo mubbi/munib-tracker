@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Ketik Muat semula di atas. Jika mesej ini terus muncul, segar semula paksa halaman: Ctrl+Shift+R pada Windows/Linux, atau Cmd+Shift+R pada macOS."
   },
   "reviews": {
-    "rateTitle": "Seronok dengan Munib Tracker?",
-    "rateSubtitle": "Maklum balas anda membantu Muslim lain menemui aplikasi ini.",
     "starLabel": "{{count}} bintang",
     "starLabel_other": "{{count}} bintang",
-    "storeTitle": "Terima kasih!",
-    "storeBody": "Sudikah anda memberi penilaian kepada Munib Tracker di kedai aplikasi? Hanya mengambil masa seketika.",
-    "storeCta": "Nilai di kedai aplikasi",
-    "maybeLater": "Mungkin kemudian",
     "feedbackTitle": "Bantu kami bertambah baik",
-    "feedbackBody": "Maaf Munib Tracker belum memenuhi jangkaan anda. Apa yang boleh kami perbaiki?",
-    "feedbackPlaceholder": "Beritahu apa yang salah atau kurang…",
+    "feedbackBody": "Beritahu pasukan kami apa yang berfungsi dengan baik dan apa yang boleh diperbaik. Catatan anda terus sampai kepada kami dan tidak akan disiarkan secara umum.",
+    "feedbackPlaceholder": "Apa yang baik, dan apa yang boleh diperbaik?",
     "feedbackCta": "Hantar maklum balas",
     "feedbackOffline": "Sambung ke internet untuk menghantar maklum balas.",
     "feedbackError": "Maklum balas tidak dapat dihantar. Sila cuba lagi.",
-    "skip": "Langkau",
-    "thanksTitle": "Terima kasih!",
-    "thanksBody": "Sokongan anda amat bermakna.",
     "feedbackThanksTitle": "Maklum balas diterima",
     "feedbackThanksBody": "Kami akan gunakan nota anda untuk menambah baik Munib Tracker.",
-    "feedbackLabel": "Maklum balas anda"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Usaha anda sangat baik",
-    "reviewReactivationBody": "Mahu kongsi pengalaman anda dengan Munib Tracker?"
+    "feedbackLabel": "Maklum balas anda",
+    "feedbackRatingLabel": "Bagaimana pengalaman anda dengan Munib Tracker?",
+    "storeOpenError": "Tidak dapat membuka gedung aplikasi. Sila cuba lagi nanti."
   },
   "settings": {
     "eyebrow": "Peribadikan",
@@ -951,8 +940,6 @@
     "aboutSub": "Versi, kredit dan dasar",
     "rateApp": "Nilai Munib Tracker",
     "rateAppDesc": "Kongsi pengalaman anda di kedai aplikasi",
-    "reviewReactivationEnabled": "Peringatan maklum balas aplikasi",
-    "reviewReactivationEnabledDesc": "Sesekali peringatan lembut untuk kongsi maklum balas dalam aplikasi — bukan permintaan penilaian terus di kedai.",
     "appUpdate": "Kemas kini aplikasi",
     "updateAvailableTitle": "Kemas kini tersedia",
     "updateRequiredTitle": "Kemas kini diperlukan",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "Pilihan lain untuk {{item}}",
       "moveToTop": "Alih ke paling atas"
-    }
+    },
+    "sendFeedback": "Hantar maklum balas",
+    "sendFeedbackDesc": "Laporkan masalah atau cadangkan penambahbaikan"
   },
   "import": {
     "title": "Import sejarah solat",
@@ -7547,7 +7536,6 @@
       "assistants": "Pembantu suara",
       "backup": "Sandaran & import",
       "duasAdhkar": "Doa & zikir",
-      "feedback": "Maklum balas aplikasi",
       "feedbackMotion": "Maklum balas & gerakan",
       "getApp": "Dapatkan aplikasi",
       "hadith": "Hadis",
@@ -11739,5 +11727,10 @@
       "dismiss": "Bukan sekarang",
       "applied": "Ikon bermusim dihidupkan"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} min",
+    "hours": "{{hours}} j",
+    "hoursMinutes": "{{hours}} j {{min}} min"
   }
 }

@@ -279,7 +279,7 @@ export function useHomeHero(): HomeHeroData {
     const scheduleMinutesUntil = nextEntryAt
       ? Math.max(0, Math.round((nextEntryAt.getTime() - now.getTime()) / 60000))
       : minutesUntil;
-    const nextIn = t("hero.nextIn", { time: formatDuration(scheduleMinutesUntil) });
+    const nextIn = t("hero.nextIn", { time: formatDuration(scheduleMinutesUntil, t) });
 
     const sky = skyPalette(skyPhaseForTime(now, day.markers));
     const moon = moonPhase(now);

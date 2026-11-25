@@ -894,30 +894,19 @@
     "webHardRefreshHint": "Taɓa Sake lodawa a sama. Idan wannan saƙo ya ci gaba da bayyana, tilasta sake loda shafin: Ctrl+Shift+R a Windows/Linux, ko Cmd+Shift+R a macOS."
   },
   "reviews": {
-    "rateTitle": "Kana jin daɗin Munib Tracker?",
-    "rateSubtitle": "Ra'ayinka yana taimaka wa wasu Musulmi su gano manhajar.",
     "starLabel": "Tauraro {{count}}",
     "starLabel_other": "Tauraro {{count}}",
-    "storeTitle": "Na gode!",
-    "storeBody": "Za ka iya ba Munib Tracker ƙima a shagon manhaja? Ɗan lokaci kaɗan ne kawai.",
-    "storeCta": "Ba da ƙima a shagon manhaja",
-    "maybeLater": "Wataƙila daga baya",
     "feedbackTitle": "Taimaka mana mu inganta",
-    "feedbackBody": "Muna neman afuwa da Munib Tracker bai cika tsammaninka ba. Me za mu inganta?",
-    "feedbackPlaceholder": "Faɗa mana abin da ya faru ko abin da ya ɓace…",
+    "feedbackBody": "Faɗa wa ƙungiyar abin da ke aiki da kyau da abin da za a iya inganta. Saƙonka yana zuwa kai tsaye gare mu kuma ba a taɓa wallafa shi a bainar jama'a ba.",
+    "feedbackPlaceholder": "Me ke aiki da kyau, kuma me za a iya inganta?",
     "feedbackCta": "Aika ra'ayi",
     "feedbackOffline": "Haɗa da intanet don aika ra'ayi.",
     "feedbackError": "Ba a iya aika ra'ayi ba. Sake gwadawa.",
-    "skip": "Tsallake",
-    "thanksTitle": "Na gode!",
-    "thanksBody": "Goyon bayanka yana da muhimmanci sosai.",
     "feedbackThanksTitle": "An karɓi ra'ayi",
     "feedbackThanksBody": "Za mu yi amfani da bayananka don inganta Munib Tracker.",
-    "feedbackLabel": "Ra'ayinka"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Kana ƙoƙari sosai",
-    "reviewReactivationBody": "Kana son raba yadda Munib Tracker ya kasance a gare ka?"
+    "feedbackLabel": "Ra'ayinka",
+    "feedbackRatingLabel": "Yaya Munib Tracker ke yi maka?",
+    "storeOpenError": "Ba a iya buɗe shagon ba. Da fatan za a sake gwadawa daga baya."
   },
   "settings": {
     "eyebrow": "Keɓancewa",
@@ -951,8 +940,6 @@
     "aboutSub": "Siga, godiya ga masu gudummawa, da manufofi",
     "rateApp": "Ba da ƙima ga Munib Tracker",
     "rateAppDesc": "Raba ra'ayinka a shagon manhaja",
-    "reviewReactivationEnabled": "Tunatarwar ra'ayi game da manhaja",
-    "reviewReactivationEnabledDesc": "Tunatarwa mai laushi lokaci-lokaci don raba ra'ayi a cikin manhajar — ba buƙatar ƙima kai tsaye a shago ba.",
     "appUpdate": "Sabunta manhaja",
     "updateAvailableTitle": "Akwai sabuntawa",
     "updateRequiredTitle": "Ana buƙatar sabuntawa",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "Ƙarin zaɓuɓɓuka don {{item}}",
       "moveToTop": "Matsar zuwa sama"
-    }
+    },
+    "sendFeedback": "Aika ra'ayi",
+    "sendFeedbackDesc": "Bayar da rahoton matsala ko ba da shawarar ingantawa"
   },
   "import": {
     "title": "Shigo da tarihin Sallah",
@@ -7547,7 +7536,6 @@
       "assistants": "Mataimakan murya",
       "backup": "Madadi da shigowa",
       "duasAdhkar": "Addu'o'i da azkar",
-      "feedback": "Martanin manhaja",
       "feedbackMotion": "Martani da motsi",
       "getApp": "Samu manhajar",
       "hadith": "Hadisi",
@@ -11739,5 +11727,10 @@
       "dismiss": "Ba yanzu ba",
       "applied": "An kunna alamomin lokaci"
     }
+  },
+  "duration": {
+    "minutes": "minti {{min}}",
+    "hours": "sa'a {{hours}}",
+    "hoursMinutes": "sa'a {{hours}} da minti {{min}}"
   }
 }

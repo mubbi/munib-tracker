@@ -111,11 +111,11 @@ export default function LastThirdNightScreen() {
     const nowMs = now.getTime();
     if (nowMs < result.lastThird.getTime()) {
       const minutes = Math.max(0, Math.round((result.lastThird.getTime() - nowMs) / 60_000));
-      return t("lastThirdNight.willStartIn", { time: formatDuration(minutes) });
+      return t("lastThirdNight.willStartIn", { time: formatDuration(minutes, t) });
     }
     if (nowMs < result.fajrAt.getTime()) {
       const minutes = Math.max(0, Math.round((result.fajrAt.getTime() - nowMs) / 60_000));
-      return t("lastThirdNight.timeRemaining", { time: formatDuration(minutes) });
+      return t("lastThirdNight.timeRemaining", { time: formatDuration(minutes, t) });
     }
     return undefined;
   }, [now, result, t]);
@@ -162,7 +162,7 @@ export default function LastThirdNightScreen() {
                 {t("lastThirdNight.nightLengthLabel")}
               </ThemedText>
               <ThemedText type="smallBold">
-                {formatDuration(result.nightDurationMinutes)}
+                {formatDuration(result.nightDurationMinutes, t)}
               </ThemedText>
             </View>
           </View>

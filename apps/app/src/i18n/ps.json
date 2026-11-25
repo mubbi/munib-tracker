@@ -894,30 +894,19 @@
     "webHardRefreshHint": "پورته «بیا پورته کول» ووهئ. که دا پیغام دوام ولري، پاڼه په زور تازه کړئ: په Windows/Linux کې Ctrl+Shift+R، یا په macOS کې Cmd+Shift+R."
   },
   "reviews": {
-    "rateTitle": "ایا تاسو له Munib Tracker خوند اخلئ؟",
-    "rateSubtitle": "ستاسو نظر نورو مسلمانانو سره مرسته کوي چې دا اپ پیدا کړي.",
     "starLabel": "{{count}} ستوری",
     "starLabel_other": "{{count}} ستوري",
-    "storeTitle": "مننه!",
-    "storeBody": "ایا تاسو Munib Tracker په اپ پلورنځي کې درجه ورکوئ؟ یوازې یو شیبه وخت نیسي.",
-    "storeCta": "په اپ پلورنځي کې درجه ورکړئ",
-    "maybeLater": "شاید وروسته",
     "feedbackTitle": "موږ سره د ښه والي کې مرسته وکړئ",
-    "feedbackBody": "بخښنه غواړو Munib Tracker ستاسو توقعات پوره نه کړې. موږ څه ښه کولی شو؟",
-    "feedbackPlaceholder": "وایاست څه غلط شو یا څه کم دی…",
+    "feedbackBody": "ټیم ته ووایاست چې څه ښه کار کوي او څه ښه کېدای شي. ستاسو یادښت مستقیم موږ ته رارسېږي او هېڅکله په عامه توګه نه خپرېږي.",
+    "feedbackPlaceholder": "څه ښه کار کوي، او څه ښه کېدای شي؟",
     "feedbackCta": "نظر واستوئ",
     "feedbackOffline": "د نظر لېږلو لپاره انټرنېټ وصل کړئ.",
     "feedbackError": "نظر ونه لېږل شو. بیا هڅه وکړئ.",
-    "skip": "پریږدئ",
-    "thanksTitle": "مننه!",
-    "thanksBody": "ستاسو ملاتړ موږ ته ډېر ارزښت لري.",
     "feedbackThanksTitle": "نظر ترلاسه شو",
     "feedbackThanksBody": "موږ به ستاسو یادښتونه د Munib Tracker د ښه کولو لپاره وکاروو.",
-    "feedbackLabel": "ستاسو نظر"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "تاسو ښه کار کوئ",
-    "reviewReactivationBody": "ایا غواړئ خپله تجربه له Munib Tracker سره شریکه کړئ؟"
+    "feedbackLabel": "ستاسو نظر",
+    "feedbackRatingLabel": "Munib Tracker ستاسو لپاره څنګه کار کوي؟",
+    "storeOpenError": "پلورنځی پرانیستل نشو. مهرباني وکړئ وروسته بیا هڅه وکړئ."
   },
   "settings": {
     "eyebrow": "شخصي کول",
@@ -951,8 +940,6 @@
     "aboutSub": "نسخه، مننې او پالیسۍ",
     "rateApp": "Munib Tracker درجه ورکړئ",
     "rateAppDesc": "خپله تجربه په اپ پلورنځي کې شریکه کړئ",
-    "reviewReactivationEnabled": "د اپ نظر یادونې",
-    "reviewReactivationEnabledDesc": "کله ناکله نرم یادونې چې په اپ کې نظر شریک کړئ — هیڅکله مستقیم د پلورنځي درجه غوښتنه نه.",
     "appUpdate": "د اپ تازه کول",
     "updateAvailableTitle": "تازه کول شتون لري",
     "updateRequiredTitle": "تازه کول اړین دي",
@@ -1030,7 +1017,9 @@
     "reorder": {
       "moreFor": "د {{item}} لپاره نور انتخابونه",
       "moveToTop": "پورته ته یې یوسئ"
-    }
+    },
+    "sendFeedback": "نظر واستوئ",
+    "sendFeedbackDesc": "د ستونزې راپور ورکړئ یا د ښه والي وړاندیز وکړئ"
   },
   "import": {
     "title": "د لمانځه تاریخ وارد کړئ",
@@ -7547,7 +7536,6 @@
       "assistants": "غږیز مرستیالان",
       "backup": "خوندي کاپي او واردول",
       "duasAdhkar": "دعاګانې او اذکار",
-      "feedback": "د اپلیکیشن غبرګون",
       "feedbackMotion": "غبرګون او حرکت",
       "getApp": "اپلیکیشن ترلاسه کړئ",
       "hadith": "حدیث",
@@ -11739,5 +11727,10 @@
       "dismiss": "اوس نه",
       "applied": "موسمي آیکنونه فعال شول"
     }
+  },
+  "duration": {
+    "minutes": "{{min}} دقیقې",
+    "hours": "{{hours}} ساعته",
+    "hoursMinutes": "{{hours}} ساعته {{min}} دقیقې"
   }
 }
