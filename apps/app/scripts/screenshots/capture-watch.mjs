@@ -140,6 +140,13 @@ async function main() {
     log("Watch companion already installed.");
   }
 
+  // Warm-up: the first launch after an install is slow (dyld + SwiftUI caches) and would
+  // otherwise be the first scene's screenshot.
+  log("Warm-up launch…");
+  launchWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
+  sleep(WATCH.settleMs);
+  forceStopWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
+
   fs.mkdirSync(WORK_DIR, { recursive: true });
   fs.mkdirSync(NATIVE_WATCH_ROOT, { recursive: true });
   fs.mkdirSync(STORE_WATCH_ROOT, { recursive: true });

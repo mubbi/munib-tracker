@@ -47,6 +47,9 @@ export function buildDemoStorageEntries({ locale = "en", theme = "dark" } = {}) 
     defaultCalendar: "hijri",
     bedtime: "22:30",
     hasCompletedOnboarding: true,
+    // A chosen school (Shafi'i matches the Makkah demo location's Asr), so marketing
+    // shots don't show the first-run "Which madhhab do you follow?" card / sheet.
+    madhhab: "shafii",
     hapticsEnabled: false,
     cacheAudioLocally: true,
     cacheQuranEditionsLocally: true,

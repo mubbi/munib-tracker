@@ -87,7 +87,14 @@ function materializeStep(step, { locale, prayers }) {
       return [
         `- waitForAnimationToEnd:`,
         `    timeout: ${Math.max(200, step.ms ?? 200)}`,
-        `- evalScript: \${java.lang.Thread.sleep(${Math.max(0, step.ms ?? 0)})}`,
+        // Fixed delay: wait out the timeout for an element that never exists. (Maestro's
+        // JS engine has no `java.lang`, so `evalScript: Thread.sleep` threw and aborted
+        // the rest of the batch.)
+        `- extendedWaitUntil:`,
+        `    visible:`,
+        `      id: "__maestro_fixed_delay__"`,
+        `    timeout: ${Math.max(0, step.ms ?? 0)}`,
+        `    optional: true`,
       ];
     case "tapPrayerRow":
       return [

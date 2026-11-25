@@ -20,7 +20,8 @@ export const WATCH = {
   phoneDeviceNameEnv: "IOS_SIMULATOR_DEVICE",
   defaultPhoneDeviceName: "iPhone 17 Pro",
   bootMs: 8_000,
-  settleMs: 2_500,
+  // A Release watch app cold-starts in ~10–15s on the simulator (2.5s and 6s caught the spinner).
+  settleMs: Number(process.env.WATCH_SETTLE_MS || 15_000),
 };
 
 function listAvailableDevices() {

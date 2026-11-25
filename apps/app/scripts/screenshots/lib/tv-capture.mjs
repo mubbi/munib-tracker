@@ -9,7 +9,7 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { APP_ID, APP_ROOT, OUTPUT_ROOT, URL_SCHEME } from "./config.mjs";
-import { log, run, warn } from "./shell.mjs";
+import { log, run, sleep, warn } from "./shell.mjs";
 import { TV_STORE_SIZE } from "./tv-scenes.mjs";
 
 export const TV = {
@@ -130,7 +130,17 @@ export function openTvDeepLinkIos(scene, udid) {
   // Warm openurl on tvOS shows a system “Open in …?” sheet that blocks capture.
   // Cold-start (terminate → openurl) delivers the URL as the initial launch link.
   run("xcrun", ["simctl", "terminate", udid, APP_ID.ios], { allowFail: true });
-  run("xcrun", ["simctl", "openurl", udid, link]);
+  // openurl right after terminate races the dying process (LSApplicationWorkspace error 115)
+  // and tvOS then shows the app's stale launch snapshot instead of the scene — settle, retry.
+  sleep(2_000);
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    const result = run("xcrun", ["simctl", "openurl", udid, link], { allowFail: true });
+    if (result.status === 0) return;
+    warn(`openurl ${link} failed (attempt ${attempt}) — retrying`);
+    run("xcrun", ["simctl", "terminate", udid, APP_ID.ios], { allowFail: true });
+    sleep(3_000);
+  }
+  throw new Error(`simctl openurl ${link} failed after 3 attempts`);
 }
 
 export function printTvCapturePlan(platform, scenes) {
