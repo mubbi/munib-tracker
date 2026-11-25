@@ -284,6 +284,14 @@
       "friday": {
         "label": "Jumaat",
         "description": "Kemajuan senarai semak Jumaat atau hari hingga Jumaat"
+      },
+      "adhkar": {
+        "label": "Zikir",
+        "description": "Zikir yang tiba waktunya, dengan kemajuan anda"
+      },
+      "events": {
+        "label": "Hari kebesaran Islam",
+        "description": "Kira detik ke hari kebesaran Islam seterusnya"
       }
     },
     "remaining": "yang tinggal",
@@ -321,7 +329,23 @@
     "fridayCountdown": "Jumaat dalam {{count}} hari",
     "fridayCountdown_one": "Jumaat dalam {{count}} hari",
     "fridayCountdown_other": "Jumaat dalam {{count}} hari",
-    "prepareSalah": "Sedia"
+    "prepareSalah": "Sedia",
+    "watch": {
+      "today": "Hari ini",
+      "overview": "Gambaran keseluruhan",
+      "markConfirm": "Tandakan Salah ini sudah ditunaikan?",
+      "sentToPhone": "Dihantar ke telefon anda",
+      "willSync": "Akan disegerakkan apabila telefon anda berdekatan",
+      "allDone": "Semua Salah hari ini selesai",
+      "notYet": "Belum masuk waktu",
+      "staleData": "Buka apl untuk mengemas kini waktu hari ini",
+      "freeCount": "Kiraan bebas",
+      "tapToCount": "Ketik untuk mengira",
+      "sequenceDone": "Tasbih selesai"
+    },
+    "adhkar": "Zikir",
+    "voiceNextSalah": "Solat seterusnya {{prayer}} pada {{time}}.",
+    "voiceSalahTime": "{{prayer}} hari ini pada {{time}}."
   },
   "ramadan": {
     "eyebrow": "Ramadhan",
@@ -528,7 +552,8 @@
       "zikr": "Zikir",
       "durood": "Selawat",
       "names": "99 Nama",
-      "audio": "Sauti"
+      "audio": "Sauti",
+      "practice": "Latihan al-Quran"
     },
     "continueAction": {
       "quran": "Teruskan membaca",
@@ -538,7 +563,8 @@
       "durood": "Kembali ke durooms",
       "names": "Kembali kepada nama",
       "audio": "Kembali ke audio",
-      "listening": "Teruskan mendengar"
+      "listening": "Teruskan mendengar",
+      "practice": "Teruskan latihan"
     },
     "rozaRemaining": "Puasa untuk bersolek",
     "knowledgeMotivation": {
@@ -1271,7 +1297,12 @@
       "active": "Menjejaki {{prayer}}",
       "activeHint": "Kemas kini langsung akan diketengahkan apabila Salah ini hampir tiba. Ketik Berhenti untuk nyahsemat.",
       "a11yStart": "Mulakan penjejakan Salah seterusnya pada skrin kunci",
-      "a11yStop": "Berhenti menjejaki kemas kini langsung Salah"
+      "a11yStop": "Berhenti menjejaki kemas kini langsung Salah",
+      "chip": {
+        "mark": "Tanda",
+        "adhkar": "Zikir",
+        "done": "Siap"
+      }
     },
     "tvUnavailableBody": "Peringatan setempat dan Live Activities tidak tersedia pada TV. Urus pilihan pemberitahuan pada telefon anda.",
     "preciseAdhan": "Waktu azan yang tepat",
@@ -2444,7 +2475,8 @@
       "qaza": "Qada",
       "roza": "Puasa",
       "zikr": "Zikir",
-      "consistency": "Konsistensi"
+      "consistency": "Konsistensi",
+      "recitation": "Tilawah"
     },
     "milestones": {
       "salah": {
@@ -2580,8 +2612,27 @@
       "roza": "Puasa diganti",
       "zikr": "Zikir",
       "perfectDay": "Hari sempurna",
-      "streakDay": "Hari rentetan"
-    }
+      "streakDay": "Hari rentetan",
+      "recitationSession": "Sesi tilawah",
+      "ayahRecited": "Ayat yang dibaca",
+      "revisionStreakDay": "Hari berturut-turut ulang kaji"
+    },
+    "recitation": {
+      "first": {
+        "title": "Bacaan pertama",
+        "description": "Menamatkan sesi baca bersama pertama"
+      },
+      "revisionWeek": {
+        "title": "Seminggu ulang kaji",
+        "description": "Mengulang kaji ayat {{number}} hari berturut-turut"
+      },
+      "ayahs100": {
+        "title": "100 ayat dibaca",
+        "description": "Membaca {{number}} ayat bersama pendengar"
+      }
+    },
+    "trackComplete": "Semua pencapaian di laluan ini telah diraih",
+    "recitationPersonal": "Peribadi — tidak pernah dibandingkan dengan sesiapa"
   },
   "notifCenter": {
     "eyebrow": "Peringatan",
@@ -2805,7 +2856,11 @@
     "ttsVoice": "Suara",
     "ttsVoiceHint": "Pilih suara teks-ke-ucapan",
     "seekBack": "Undur {{seconds}} saat",
-    "seekForward": "Maju {{seconds}} saat"
+    "seekForward": "Maju {{seconds}} saat",
+    "track": {
+      "audioTranslation": "Terjemahan audio",
+      "namesComplete": "Kesemua 99 nama"
+    }
   },
   "errors": {
     "title": "Sesuatu tidak kena",
@@ -2841,6 +2896,12 @@
     },
     "tasbeehDurood": {
       "description": "Kira durood ini dengan kaunter tasbih sentuh."
+    },
+    "tasbeehDua": {
+      "description": "Kira doa ini dengan pembilang tasbih sentuhan."
+    },
+    "tasbeehCustomAdhkar": {
+      "description": "Kira zikir anda sendiri dengan pembilang tasbih sentuhan."
     }
   },
   "pwa": {
@@ -3260,7 +3321,8 @@
       "family-ties-due": "Silaturahim yang tertunggak",
       "weekly-coach": "Muhasabah mingguan",
       "seasonal-banner": "Sepanduk bermusim",
-      "umrah-mode": "Teruskan Umrah anda"
+      "umrah-mode": "Teruskan Umrah anda",
+      "quran-revision": "Ulang kaji al-Quran yang tiba masanya"
     }
   },
   "schedule": {
@@ -4049,7 +4111,12 @@
       "highly-recommended": "Sangat disyorkan",
       "recommended": "Disyorkan"
     },
-    "playAyahA11y": "Main tilawah {{ref}}"
+    "playAyahA11y": "Main tilawah {{ref}}",
+    "qalqalahDrillHint": "Membuka latihan bunyi qalqalah dengan pendengar pada peranti",
+    "quickPractise": "Latihan bacaan",
+    "quickPractiseHint": "Baca dengan suara yang jelas bersama pendengar pada peranti",
+    "quickCoaching": "Bimbingan tajwid",
+    "quickCoachingHint": "Latih bunyi yang diperlukan oleh bacaan anda"
   },
   "library": {
     "eyebrow": "Perpustakaan",
@@ -5186,6 +5253,18 @@
       "masjids": {
         "title": "Masjid berhampiran anda",
         "body": "Cari masjid berhampiran daripada OpenStreetMap, tetapkan masjid utama anda, dan simpan waktu iqamah anda sendiri, sama ada ditaip atau dibaca daripada foto jadual waktu."
+      },
+      "quranPractice": {
+        "title": "Baca bersama pendengar al-Quran",
+        "body": "Ikut, semak atau ulang kaji mana-mana petikan — perkataan menyala semasa anda membaca, pada peranti anda."
+      },
+      "reciteToFind": {
+        "title": "Baca untuk mencari ayat",
+        "body": "Baca beberapa perkataan dan aplikasi mencari ayatnya. Audio kekal pada peranti anda."
+      },
+      "handsFreeSequence": {
+        "title": "Tasbih selepas solat tanpa sentuh",
+        "body": "33 · 33 · 34 yang mengira setiap zikir yang anda sebut dan beralih sendiri. Ketik untuk membetulkan kiraan yang salah."
       }
     }
   },
@@ -5268,10 +5347,10 @@
     "locked": "Buka  app ke mark Solah",
     "failed": "Tidak dapat menandakan solat",
     "intents": {
-      "openTracker": "Buka checklist",
+      "openTracker": "Buka senarai semak",
       "openQibla": "Buka Qibla",
       "openTasbeeh": "Buka Tasbih",
-      "markCurrent": "Tandai my Solah",
+      "markCurrent": "Tandai solat saya",
       "openRamadan": "Buka Ramadan",
       "openKhatm": "Buka rancangan khatam",
       "openQaza": "Buka Qada",
@@ -5280,7 +5359,18 @@
       "markDhuhr": "Tandai Zohor",
       "markAsr": "Tandai Asar",
       "markMaghrib": "Tandai Maghrib",
-      "markIsha": "Tandai Isyak"
+      "markIsha": "Tandai Isyak",
+      "openAdhkar": "Buka zikir",
+      "openDuas": "Buka doa",
+      "openCalendar": "Buka kalendar Hijrah",
+      "openEvents": "Buka hari kebesaran Islam",
+      "openDailyHadith": "Buka hadis harian",
+      "openStatistics": "Buka statistik",
+      "openFriday": "Buka Jumaat",
+      "nextSalah": "Bilakah solat seterusnya?",
+      "salahTime": "Bilakah waktu solat?",
+      "todayProgress": "Kemajuan solat hari ini",
+      "search": "Cari dalam aplikasi"
     },
     "moreShortcutsTitle": "Lagi pintasan suara",
     "moreShortcutsHint": "Sebut mana-mana ini untuk menandai Salah atau terus ke skrin."
@@ -6040,8 +6130,8 @@
       "setUp": "Sediakan",
       "downloading": "Memuat turun pendengar sebutan…",
       "consentTitle": "Sebelum menyediakan",
-      "consentDownload": "Ini memuat turun pendengar kedua kira-kira 57 MB dari Quran Lab.",
-      "consentActivation": "Aplikasi menghubungi Quran Lab sekali untuk mengaktifkannya, kemudian untuk menyemak kemas kini.",
+      "consentDownload": "Ini memuat turun pendengar kedua kira-kira 56 MB dari Quran Lab. Ia disulitkan untuk peranti ini.",
+      "consentActivation": "Penyediaan pertama memerlukan sambungan. Selepas itu ia berfungsi di luar talian, dan Quran Lab memperbaharui kebenarannya di latar belakang apabila anda dalam talian.",
       "consentOnDevice": "Bacaan anda diproses pada peranti ini.",
       "consentRemotePause": "Quran Lab boleh menjeda pendengar ini untuk semua pengguna. Pelajaran tetap berfungsi.",
       "agree": "Setuju dan muat turun",
@@ -6049,14 +6139,14 @@
       "deleteTitle": "Padam pendengar sebutan?",
       "deleteBody": "Pelajaran tajwid tetap berfungsi. Melatih bunyi perlu dimuat turun semula.",
       "sharingSwitch": "Kongsi bacaan saya dengan Quran Lab",
-      "sharingSub": "Hanya jika anda bersetuju pada helaian Quran Lab. Mematikannya menghentikan muat naik dan memadam baris gilir yang belum dihantar.",
+      "sharingSub": "Hanya jika anda menjawab ya pada helaian Quran Lab. Mematikannya menghentikan muat naik dan memadam baris gilir yang belum dihantar.",
       "deleteShared": "Padam yang saya kongsi",
       "deleteSharedTitle": "Padam yang anda kongsi?",
       "deleteSharedBody": "Setiap rakaman yang anda kongsi dari aplikasi ini dipadam dari pelayan Quran Lab, dan perkongsian dimatikan.",
       "deletedShared": "Rakaman yang dikongsi telah dipadam",
       "sharingFailed": "Tidak berjaya. Sila cuba lagi.",
       "recoveryCode": "Kod pemulihan: {{code}}",
-      "sourcesLine": "TajweedFormer oleh Quran Lab, di bawah lesen NPL-1.2.",
+      "sourcesLine": "TajweedFormer oleh Quran Lab, di bawah lesen NPL-1.3.",
       "practiseSound": "Latih bunyi ini",
       "drillTitle": "Latih bunyi ini",
       "drillIntro": "Dengar contoh, kemudian ketik Baca dan sebut dengan cara yang sama.",
@@ -6070,14 +6160,25 @@
       "verdictTryAgain": "Dengar semula dan cuba sekali lagi.",
       "verdictNotSure": "Pendengar kurang pasti.",
       "error": {
-        "noConnection": "Penyediaan perlukan sambungan sekali.",
+        "noConnection": "Sambung ke internet untuk memuat turun pendengar sebutan.",
         "paused": "Quran Lab telah menjeda pendengar ini. Pelajaran tetap berfungsi.",
         "noSpace": "Ruang tidak mencukupi",
         "notYet": "Pendengar ini belum tersedia. Sila cuba kemudian.",
         "micDenied": "Mikrofon dimatikan untuk Munib Tracker.",
         "unsupported": "Tiada pada peranti ini",
-        "generic": "Tidak berjaya. Sila cuba lagi."
-      }
+        "generic": "Tidak berjaya. Sila cuba lagi.",
+        "needsRenewal": "Sambung ke internet sekali supaya Quran Lab boleh memperbaharui pendengar. Ia sudah ada pada peranti ini.",
+        "busy": "Pelayan Quran Lab sedang sibuk. Sila cuba lagi sebentar nanti.",
+        "deviceRefused": "Quran Lab tidak dapat membuka pendengar pada peranti ini (contohnya telefon dengan pemuat but yang tidak berkunci). Pelajaran tetap berfungsi.",
+        "updateApp": "Kemas kini Munib Tracker untuk terus menggunakan pendengar sebutan.",
+        "inUse": "Pendengar masih ditutup. Sila cuba lagi sebentar lagi."
+      },
+      "consentAnalytics": "SDK Quran Lab sentiasa menghantar kiraan harian tanpa nama (seperti minit latihan dan cara pendengar berjalan) dan laporan ralat. Tidak sekali-kali audio, perkataan, nama atau ID peranti anda.",
+      "consentSharingAsk": "Selepas beberapa sesi latihan, Quran Lab mungkin bertanya — paling banyak tiga kali — sama ada anda ingin berkongsi rakaman untuk membantu pelajar lain. Tiada apa yang dikongsi melainkan anda bersetuju, dan anda boleh memadam apa yang telah dikongsi.",
+      "tryAgain": "Cuba lagi",
+      "feedbackDisclaimer": "Maklum balas tajwid automatik boleh tersilap. Ia tidak menggantikan guru yang bertauliah.",
+      "hearingYou": "Suara anda kedengaran…",
+      "shareDiagnostics": "Kongsi diagnostik"
     },
     "modeHelp": {
       "follow": "Bacalah dengan teks di hadapan anda. Pendengar mengikut perkataan demi perkataan.",
@@ -10354,7 +10455,9 @@
         "wudu": "Wuduk",
         "fivePrayers": "Lima solat",
         "howToPray": "Cara solat"
-      }
+      },
+      "reciteFatihah": "Baca al-Fatihah",
+      "reciteFatihahHint": "Baca al-Fatihah dan lihat perkataannya menyala."
     },
     "prophets": {
       "title": "Kisah para nabi",
@@ -10364,6 +10467,39 @@
     "consentPending": {
       "title": "Menunggu ibu atau bapa kamu",
       "body": "Teruskan mengetik solat kamu seperti biasa. Ketikan kamu disimpan pada peranti ini dan akan dikongsi sebaik sahaja ibu atau bapa kamu membenarkannya."
+    },
+    "recite": {
+      "entry": "Baca bersama pendengar",
+      "entryHint": "Baca surah pendek dan lihat perkataannya menyala.",
+      "title": "Baca bersama pendengar",
+      "subtitle": "Surah pendek, satu ayat pada satu masa",
+      "intro": "Pilih surah. Ketik butang besar dan baca — perkataan menyala semasa kamu membaca.",
+      "privacy": "Pendengar berjalan pada peranti ini. Suaramu tidak pernah dihantar ke mana-mana.",
+      "pickA11y": "Baca {{surah}}",
+      "ayahOf": "Ayat {{n}} daripada {{total}}",
+      "loading": "Menyediakan ayat…",
+      "start": "Mula",
+      "stop": "Berhenti",
+      "startHint": "Mendengar semasa kamu membaca ayat ini",
+      "gettingReady": "Bersedia…",
+      "listening": "Saya sedang mendengar — bacalah ayat itu.",
+      "listenOnly": "Ketik Dengar dan baca bersama — perkataan menyala bersama qari. Minta orang dewasa memasang pendengar supaya kamu boleh membaca sendiri.",
+      "wellDone": "Syabas!",
+      "nextAyah": "Ayat seterusnya",
+      "tryWordsTitle": "Hampir! Mari cuba perkataan ini sekali lagi.",
+      "tryWordsBody": "Ketik perkataan untuk mendengarnya, kemudian cuba ayat itu sekali lagi.",
+      "hearWordA11y": "Dengar {{word}}",
+      "listen": "Dengar",
+      "stopListening": "Berhenti mendengar",
+      "tryAgain": "Cuba lagi",
+      "moveOn": "Pergi ke ayat seterusnya",
+      "finish": "Saya sudah selesai",
+      "previous": "Kembali",
+      "next": "Seterusnya",
+      "doneTitle": "MasyaAllah, syabas!",
+      "doneBody": "Kamu telah membaca Surah {{surah}} hingga habis.",
+      "again": "Baca sekali lagi",
+      "another": "Pilih surah lain"
     }
   },
   "preferredTimeReminder": {
@@ -10907,5 +11043,189 @@
   "scriptureMeaning": {
     "englishLabel": "Maksud dalam bahasa Inggeris",
     "englishLabelA11y": "Maksud dipaparkan dalam bahasa Inggeris: terjemahan daripada sumber yang dipercayai belum tersedia dalam bahasa anda"
+  },
+  "practiceReadingCredit": {
+    "added_one": "{{count}} ayat ditambah ke bacaan hari ini",
+    "added_other": "{{count}} ayat ditambah ke bacaan hari ini",
+    "khatm": "Rancangan khatam {{percent}}% selesai",
+    "openHint": "Membuka rancangan khatam anda",
+    "settings": {
+      "title": "Kira latihan sebagai bacaan Al-Quran",
+      "sub": "Ayat yang anda baca semasa latihan ditambah ke log bacaan hari ini dan rancangan khatam anda.",
+      "keywords": "log bacaan, khatam, bacaan harian, tilawah, kemajuan"
+    },
+    "khatmAlready": "Sudah dikira dalam rancangan khatam — {{percent}}% selesai",
+    "habitDone": "Tandakan amalan selesai",
+    "habitDoneHint": "Menanda {{habit}} untuk hari ini",
+    "habitDoneToast": "{{habit}} ditandakan selesai untuk hari ini"
+  },
+  "reciteAlong": {
+    "button": "Baca bersama pendengar",
+    "buttonHint": "Membuka {{passage}} dengan pendengar pada peranti",
+    "cardTitle": "Baca bersama pendengar",
+    "cardBody": "Bacalah dengan kuat dan perkataan menyala semasa anda membaca. Pendengar berjalan pada peranti ini — suara anda tidak pernah keluar daripadanya.",
+    "topicTitle": "Baca ayat-ayat ini",
+    "sheet": {
+      "title": "Baca {{passage}}",
+      "body": "Ini petikan yang panjang. Ikuti keseluruhannya sambil perkataan menyala, atau ambil sepuluh ayat pada satu masa.",
+      "followWhole": "Ikuti keseluruhan petikan",
+      "sections": "Atau pilih sepuluh ayat",
+      "section": "Ayat {{from}}–{{to}}"
+    },
+    "kahf": {
+      "title": "Baca Surah al-Kahf bersama pendengar",
+      "body": "Ikuti keseluruhan surah sambil perkataan menyala semasa anda membaca, atau baca sepuluh ayat pada satu masa. Pendengar berjalan pada peranti ini."
+    },
+    "ruqyah": {
+      "title": "Baca ayat-ayat ruqyah bersama pendengar",
+      "body": "Bacalah setiap petikan dengan kuat dan perkataan menyala semasa anda membaca. Pendengar berjalan pada peranti ini — suara anda tidak pernah keluar daripadanya."
+    },
+    "fatihah": {
+      "title": "Semak al-Fatihah saya",
+      "body": "Bacalah al-Fatihah dengan kuat dan pendengar pada peranti menunjukkan perkataan yang kedengaran tertinggal atau kurang jelas, dengan qari hanya satu ketikan.",
+      "short": "Bacalah dengan kuat dan lihat perkataan yang kedengaran tertinggal atau kurang jelas.",
+      "cta": "Mulakan semakan",
+      "ctaHint": "Membuka al-Fatihah dengan pendengar pada peranti",
+      "note": "Alat bantu latihan, bukan hukum ke atas Salah anda — pelajari bacaan daripada guru yang bertauliah. Suara anda kekal pada peranti ini."
+    },
+    "khatmToday": "Baca bahagian hari ini bersama pendengar",
+    "checkButton": "Semak bacaan saya",
+    "iconLabel": "Baca",
+    "withPassage": "Baca bersama pendengar: {{passage}}",
+    "afterSalah": {
+      "title": "Baca selepas Solah",
+      "body": "Ayat Kursi serta surah al-Ikhlas, al-Falaq dan an-Nas, dibaca selepas setiap Solah fardu. Baca setiap satu dengan suara yang jelas dan perkataannya menyala semasa anda membaca — pendengar berjalan pada peranti ini."
+    }
+  },
+  "handsFreeZikr": {
+    "steps": {
+      "choose": "Ajar {{phrase}} supaya hanya itu dikira, atau kira setiap jeda (kurang tepat).",
+      "teachThis": "Ajar zikir ini",
+      "next": "Kiraan tanpa sentuh diteruskan dengan zikir seterusnya.",
+      "tapThisOne": "Ketik untuk mengira yang ini. Kiraan tanpa sentuh bersambung pada zikir pendek seterusnya."
+    },
+    "sequence": {
+      "title": "Tasbih selepas solat",
+      "entryBody": "33, 33 dan 34 dalam satu pembilang yang beralih ke bacaan seterusnya dengan sendiri — dengan ketikan atau tanpa sentuh.",
+      "openFromSession": "Kira sebagai satu rangkaian 33 · 33 · 34",
+      "stepSummary": "{{phrase}} ×{{times}}",
+      "endingTahlil": "33 + {{phrase}}",
+      "prayerLabel": "Catat bersama zikir selepas",
+      "endingLabel": "Genapkan seratus dengan",
+      "evidence": {
+        "takbir34": "Selepas setiap solat fardu: 33, 33 dan 34 ({{reference}}).",
+        "tahlil": "33, 33 dan 33 menjadi 99; tahlil menggenapkan seratus ({{reference}})."
+      },
+      "progress": "{{done}} daripada {{total}}",
+      "handsFreeHint": "Hidupkan tanpa sentuh sekali — ia mengikut anda dari bacaan ke bacaan. Ketik untuk membetulkan sebarang kiraan yang salah.",
+      "doneBody": "Tasbih selepas solat dicatat untuk {{prayer}}."
+    }
+  },
+  "reciteToFind": {
+    "mode": {
+      "type": "Taip",
+      "recite": "Baca"
+    },
+    "mic": {
+      "start": "Mula mendengar",
+      "stop": "Henti mendengar",
+      "startHint": "Baca beberapa perkataan daripada mana-mana ayat untuk mencarinya",
+      "stopHint": "Menghentikan pendengaran dan menunjukkan padanan"
+    },
+    "status": {
+      "preparing": "Menyediakan pendengar",
+      "preparingHint": "Ini mengambil sedikit masa kali pertama.",
+      "failed": "Pendengar tidak bermula",
+      "failedHint": "Tinggalkan skrin ini dan buka semula. Menaip masih berfungsi.",
+      "idle": "Baca untuk mencari ayat",
+      "idleHint": "Ketik mikrofon dan baca beberapa perkataan daripada mana-mana ayat. Aplikasi mencari kedudukannya dalam al-Quran.",
+      "listening": "Mendengar…",
+      "nothingYet": "Belum ada. Teruskan bacaan pada kadar biasa.",
+      "narrowing": "Teruskan bacaan untuk lebih pasti, atau ketik henti.",
+      "settling": "Menyelesaikan",
+      "settlingHint": "Menyemak perkataan terakhir yang anda baca.",
+      "found": "Inilah yang kami dengar",
+      "foundHint": "Buka ayat, atau ketik mikrofon untuk membaca semula.",
+      "nothing": "Tidak dapat mengenal pasti bacaan itu",
+      "nothingHint": "Baca sedikit lebih lama, di tempat yang senyap, dekat mikrofon.",
+      "stopped": "Pendengaran berhenti"
+    },
+    "error": {
+      "micDenied": "Akses mikrofon dimatikan. Benarkan dalam Tetapan untuk mencari melalui bacaan.",
+      "openSettings": "Buka Tetapan"
+    },
+    "privacy": "Bacaan anda diproses pada peranti ini. Audio tidak pernah meninggalkannya.",
+    "results": {
+      "live": "Padanan yang mungkin",
+      "title": "Padanan"
+    },
+    "result": {
+      "range": "{{surah}}:{{from}}–{{to}}",
+      "open": "Buka dalam pembaca",
+      "openHint": "Membuka {{name}} {{ref}} dalam pembaca al-Quran",
+      "practise": "Berlatih dari sini",
+      "practiseHint": "Memulakan latihan bacaan di {{name}} {{ref}}"
+    },
+    "strength": {
+      "strong": "Padanan kuat",
+      "likely": "Berkemungkinan",
+      "possible": "Mungkin"
+    },
+    "download": {
+      "title": "Muat turun pendengar al-Quran",
+      "body": "Baca beberapa perkataan daripada mana-mana ayat dan aplikasi mencarinya, walaupun di luar talian. Muat turun sekali untuk menggunakannya.",
+      "size": "Kira-kira {{size}} MB · kekal pada peranti ini",
+      "action": "Muat turun pendengar",
+      "offline": "Sambung ke internet sekali untuk memuat turun pendengar."
+    },
+    "shortcut": {
+      "title": "Baca untuk mencari",
+      "subtitle": "Baca beberapa perkataan untuk mencari ayat, pada peranti ini"
+    }
+  },
+  "handsFreeZikr2": {
+    "reciteInstead": {
+      "title": "Baca bersama",
+      "body": "Ini ialah ayat al-Quran: bacalah bersama pendengar pada peranti dan bukannya mengira. Audio tidak pernah meninggalkan peranti anda."
+    },
+    "sequence": {
+      "reciteKursi": "Baca Ayat al-Kursi bersama"
+    },
+    "dua": {
+      "browse": "Semak imbas doa"
+    },
+    "ramadan": {
+      "countDua": "Kira tanpa sentuh",
+      "reciteQadr": "Baca al-Qadr bersama"
+    },
+    "builder": {
+      "countThis": "Kira ini",
+      "countThisHint": "Membuka pembilang tasbih untuk {{title}}"
+    },
+    "quickActions": {
+      "practiceTitle": "Latihan al-Quran",
+      "practiceSubtitle": "Ulang kaji ayat yang tiba masanya atau baca bersama",
+      "sequenceTitle": "Tasbih selepas solat",
+      "sequenceSubtitle": "33 · 33 · 34, tanpa sentuh",
+      "reciteToFindTitle": "Baca untuk cari",
+      "reciteToFindSubtitle": "Cari ayat dengan membacanya"
+    },
+    "home": {
+      "revisionTitle": "Ulang kaji al-Quran",
+      "revisionBody": "Ulang kaji hari ini supaya kekal kukuh.",
+      "revisionAction": "Mula ulang kaji",
+      "revisionDue_one": "{{count}} ayat untuk diulang kaji",
+      "revisionDue_other": "{{count}} ayat untuk diulang kaji"
+    },
+    "stats": {
+      "title": "Latihan al-Quran",
+      "minutes": "Minit latihan",
+      "ayahsRecited": "Ayat dibaca",
+      "sessions": "Sesi",
+      "revisionStreak": "Rentetan ulang kaji terpanjang (hari)",
+      "milestones": "Pencapaian",
+      "privacy": "Peribadi untuk anda — tidak pernah dibandingkan atau dikongsi.",
+      "open": "Buka latihan"
+    }
   }
 }

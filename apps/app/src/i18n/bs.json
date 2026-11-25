@@ -284,6 +284,14 @@
       "friday": {
         "label": "Džuma",
         "description": "Napredak petkove kontrolne liste ili dani do džume"
+      },
+      "adhkar": {
+        "label": "Zikr",
+        "description": "Zikr za ovo vrijeme, uz vaš napredak"
+      },
+      "events": {
+        "label": "Islamski dani",
+        "description": "Odbrojavanje do sljedećih islamskih dana"
       }
     },
     "remaining": "Preostalo",
@@ -321,7 +329,23 @@
     "fridayCountdown": "Džuma za {{count}} dana",
     "fridayCountdown_one": "Džuma za {{count}} dan",
     "fridayCountdown_other": "Džuma za {{count}} dana",
-    "prepareSalah": "Pripremi"
+    "prepareSalah": "Pripremi",
+    "watch": {
+      "today": "Danas",
+      "overview": "Pregled",
+      "markConfirm": "Označiti ovaj namaz kao klanjan?",
+      "sentToPhone": "Poslano na vaš telefon",
+      "willSync": "Sinhronizovat će se kada telefon bude u blizini",
+      "allDone": "Svi današnji namazi su klanjani",
+      "notYet": "Još nije vrijeme",
+      "staleData": "Otvorite aplikaciju da osvježite današnja vremena",
+      "freeCount": "Slobodno brojanje",
+      "tapToCount": "Dodirnite za brojanje",
+      "sequenceDone": "Tesbih završen"
+    },
+    "adhkar": "Zikr",
+    "voiceNextSalah": "Sljedeći namaz je {{prayer}} u {{time}}.",
+    "voiceSalahTime": "{{prayer}} je danas u {{time}}."
   },
   "ramadan": {
     "eyebrow": "Ramazan",
@@ -528,7 +552,8 @@
       "zikr": "Zikr",
       "durood": "Salavat",
       "names": "99 Imena",
-      "audio": "Audio"
+      "audio": "Audio",
+      "practice": "Vježba Kur'ana"
     },
     "continueAction": {
       "quran": "Nastavi čitanje",
@@ -538,7 +563,8 @@
       "durood": "Povratak na duroods",
       "names": "Vratite se na imena",
       "audio": "Vrati se na audio",
-      "listening": "Nastavite sa slušanjem"
+      "listening": "Nastavite sa slušanjem",
+      "practice": "Nastavi vježbu"
     },
     "rozaRemaining": "Posti za nadoknadu",
     "knowledgeMotivation": {
@@ -1271,7 +1297,12 @@
       "active": "Prati se {{prayer}}",
       "activeHint": "Živa ažuriranja će se istaknuti kada ovaj namaz bude blizu. Dodirnite Zaustavi da otkačite.",
       "a11yStart": "Započni praćenje sljedećeg namaza na zaključanom ekranu",
-      "a11yStop": "Zaustavi praćenje živih ažuriranja namaza"
+      "a11yStop": "Zaustavi praćenje živih ažuriranja namaza",
+      "chip": {
+        "mark": "Označi",
+        "adhkar": "Zikr",
+        "done": "Gotovo"
+      }
     },
     "tvUnavailableBody": "Lokalni podsjetnici i Live Activities nisu dostupni na TV-u. Postavke obavijesti upravljajte na telefonu.",
     "preciseAdhan": "Precizno vrijeme ezana",
@@ -2444,7 +2475,8 @@
       "qaza": "Kaza",
       "roza": "Post",
       "zikr": "Zikr",
-      "consistency": "Redovnost"
+      "consistency": "Redovnost",
+      "recitation": "Učenje"
     },
     "milestones": {
       "salah": {
@@ -2580,8 +2612,27 @@
       "roza": "Naknađeni postovi",
       "zikr": "Zikr",
       "perfectDay": "Savršeni dani",
-      "streakDay": "Dani niza"
-    }
+      "streakDay": "Dani niza",
+      "recitationSession": "Sesije učenja",
+      "ayahRecited": "Proučeni ajeti",
+      "revisionStreakDay": "Dani niza ponavljanja"
+    },
+    "recitation": {
+      "first": {
+        "title": "Prvo učenje",
+        "description": "Završena prva sesija učenja uz slušača"
+      },
+      "revisionWeek": {
+        "title": "Sedmica ponavljanja",
+        "description": "Ponavljali ste ajete {{number}} dana zaredom"
+      },
+      "ayahs100": {
+        "title": "100 proučenih ajeta",
+        "description": "Proučili ste {{number}} ajeta uz slušača"
+      }
+    },
+    "trackComplete": "Sve prekretnice na ovoj stazi su osvojene",
+    "recitationPersonal": "Lično — nikad se ne poredi ni s kim"
   },
   "notifCenter": {
     "eyebrow": "Podsjetnici",
@@ -2805,7 +2856,11 @@
     "ttsVoice": "Glas",
     "ttsVoiceHint": "Odaberite glas za tekst-u-govor",
     "seekBack": "{{seconds}} sekundi nazad",
-    "seekForward": "{{seconds}} sekundi naprijed"
+    "seekForward": "{{seconds}} sekundi naprijed",
+    "track": {
+      "audioTranslation": "Audio prijevod",
+      "namesComplete": "Svih 99 imena"
+    }
   },
   "errors": {
     "title": "Bir şeyler ters gitti",
@@ -2841,6 +2896,12 @@
     },
     "tasbeehDurood": {
       "description": "Brojite ovaj salavat taktilnim brojačem tesbiha."
+    },
+    "tasbeehDua": {
+      "description": "Brojite ovu dovu dodirnim brojačem tesbiha."
+    },
+    "tasbeehCustomAdhkar": {
+      "description": "Brojite svoj zikr dodirnim brojačem tesbiha."
     }
   },
   "pwa": {
@@ -3260,7 +3321,8 @@
       "family-ties-due": "Rodbinske veze na čekanju",
       "weekly-coach": "Sedmično promišljanje",
       "seasonal-banner": "Sezonski baneri",
-      "umrah-mode": "Nastavite svoju umru"
+      "umrah-mode": "Nastavite svoju umru",
+      "quran-revision": "Dospjelo ponavljanje Kur'ana"
     }
   },
   "schedule": {
@@ -4049,7 +4111,12 @@
       "highly-recommended": "Topla preporuka",
       "recommended": "Preporučeno"
     },
-    "playAyahA11y": "Reprodukuj učenje {{ref}}"
+    "playAyahA11y": "Reprodukuj učenje {{ref}}",
+    "qalqalahDrillHint": "Otvara vježbu glasa kalkala sa slušaocem na uređaju",
+    "quickPractise": "Vježbaj učenje",
+    "quickPractiseHint": "Uči naglas uz slušaoca na uređaju",
+    "quickCoaching": "Tedžvid trening",
+    "quickCoachingHint": "Vježbaj glasove koji su potrebni tvom učenju"
   },
   "library": {
     "eyebrow": "Kütüphane",
@@ -5186,6 +5253,18 @@
       "masjids": {
         "title": "Džamije u vašoj blizini",
         "body": "Pronađite obližnje džamije s OpenStreetMapa, postavite matičnu džamiju i vodite vlastita vremena ikameta, unesena ručno ili očitana s fotografije vaktije."
+      },
+      "quranPractice": {
+        "title": "Uči uz slušača Kur'ana",
+        "body": "Pratite, provjerite ili ponovite bilo koji odlomak — riječi zasvijetle dok učite, na vašem uređaju."
+      },
+      "reciteToFind": {
+        "title": "Uči da pronađeš ajet",
+        "body": "Proučite nekoliko riječi i aplikacija pronalazi ajet. Zvuk ostaje na vašem uređaju."
+      },
+      "handsFreeSequence": {
+        "title": "Tesbih nakon namaza bez ruku",
+        "body": "33 · 33 · 34 koji broji svaki izgovoreni zikr i sam ide dalje. Dodirnite da ispravite pogrešno brojanje."
       }
     }
   },
@@ -5268,9 +5347,9 @@
     "locked": "Otključajte aplikaciju da označite namaz",
     "failed": "Nije moguće označiti namaz",
     "intents": {
-      "openTracker": "checklist Aç",
+      "openTracker": "Otvori listu",
       "openQibla": "Otvori kiblu",
-      "openTasbeeh": "Tesbih Aç",
+      "openTasbeeh": "Otvori tesbih",
       "markCurrent": "Označi moj namaz",
       "openRamadan": "Otvori Ramazan",
       "openKhatm": "Otvori plan hatmea",
@@ -5280,7 +5359,18 @@
       "markDhuhr": "Označi podne",
       "markAsr": "Označi ikindiju",
       "markMaghrib": "Označi akšam",
-      "markIsha": "Označi jaciju"
+      "markIsha": "Označi jaciju",
+      "openAdhkar": "Otvori zikr",
+      "openDuas": "Otvori dove",
+      "openCalendar": "Otvori hidžretski kalendar",
+      "openEvents": "Otvori islamske dane",
+      "openDailyHadith": "Otvori hadis dana",
+      "openStatistics": "Otvori statistiku",
+      "openFriday": "Otvori džumu",
+      "nextSalah": "Kada je sljedeći namaz?",
+      "salahTime": "Kada je vrijeme namaza?",
+      "todayProgress": "Današnji namazi",
+      "search": "Pretraži aplikaciju"
     },
     "moreShortcutsTitle": "Više glasovnih prečica",
     "moreShortcutsHint": "Izgovorite bilo koju od ovih fraza da označite namaz ili odmah otvorite ekran."
@@ -6048,8 +6138,8 @@
       "setUp": "Postavi",
       "downloading": "Preuzimanje slušača izgovora…",
       "consentTitle": "Prije postavljanja",
-      "consentDownload": "Ovo preuzima drugi slušač od oko 57 MB od Quran Lab.",
-      "consentActivation": "Aplikacija se jednom javlja Quran Lab radi aktivacije, a zatim radi provjere ažuriranja.",
+      "consentDownload": "Ovo preuzima drugi slušač od oko 56 MB od Quran Lab. Šifriran je za ovaj uređaj.",
+      "consentActivation": "Prvo postavljanje traži vezu. Nakon toga radi bez interneta, a Quran Lab obnavlja svoju dozvolu u pozadini kad ste na mreži.",
       "consentOnDevice": "Vaše učenje se obrađuje na ovom uređaju.",
       "consentRemotePause": "Quran Lab može pauzirati ovaj slušač za sve korisnike. Lekcije tada i dalje rade.",
       "agree": "Prihvati i preuzmi",
@@ -6057,14 +6147,14 @@
       "deleteTitle": "Izbrisati slušač izgovora?",
       "deleteBody": "Lekcije tedžvida i dalje rade. Za vježbu glasa treba ponovo preuzeti.",
       "sharingSwitch": "Dijeli moja učenja s Quran Lab",
-      "sharingSub": "Samo ako ste pristali na listu Quran Lab. Isključivanje zaustavlja slanje i briše neposlani red.",
+      "sharingSub": "Samo ako ste rekli da na listu Quran Lab. Isključivanje zaustavlja slanje i briše neposlani red.",
       "deleteShared": "Izbriši ono što sam podijelio",
       "deleteSharedTitle": "Izbrisati ono što ste podijelili?",
       "deleteSharedBody": "Svaki snimak koji ste podijelili iz ove aplikacije briše se sa servera Quran Lab, a dijeljenje se isključuje.",
       "deletedShared": "Vaši podijeljeni snimci su izbrisani",
       "sharingFailed": "To nije uspjelo. Pokušajte ponovo.",
       "recoveryCode": "Kod za oporavak: {{code}}",
-      "sourcesLine": "TajweedFormer od Quran Lab, pod licencom NPL-1.2.",
+      "sourcesLine": "TajweedFormer od Quran Lab, pod licencom NPL-1.3.",
       "practiseSound": "Vježbaj ovaj glas",
       "drillTitle": "Vježbaj ovaj glas",
       "drillIntro": "Poslušajte primjer, zatim dodirnite Uči i izgovorite isto.",
@@ -6078,14 +6168,25 @@
       "verdictTryAgain": "Poslušajte ponovo i pokušajte još jednom.",
       "verdictNotSure": "Slušač nije bio siguran.",
       "error": {
-        "noConnection": "Postavljanje jednom traži vezu.",
+        "noConnection": "Povežite se na internet da preuzmete slušač izgovora.",
         "paused": "Quran Lab je pauzirao ovaj slušač. Lekcije i dalje rade.",
         "noSpace": "Nema dovoljno prostora",
         "notYet": "Ovaj slušač još nije dostupan. Pokušajte kasnije.",
         "micDenied": "Mikrofon je isključen za Munib Tracker.",
         "unsupported": "Nije dostupno na ovom uređaju",
-        "generic": "To nije uspjelo. Pokušajte ponovo."
-      }
+        "generic": "To nije uspjelo. Pokušajte ponovo.",
+        "needsRenewal": "Povežite se na internet jednom kako bi Quran Lab obnovio slušač. Već je na ovom uređaju.",
+        "busy": "Serveri Quran Lab su zauzeti. Pokušajte ponovo malo kasnije.",
+        "deviceRefused": "Quran Lab ne može otvoriti slušač na ovom uređaju (npr. telefon s otključanim bootloaderom). Lekcije i dalje rade.",
+        "updateApp": "Ažurirajte Munib Tracker da biste nastavili koristiti slušač izgovora.",
+        "inUse": "Slušač se još zatvara. Pokušajte ponovo za trenutak."
+      },
+      "consentAnalytics": "SDK od Quran Lab uvijek šalje anonimne dnevne brojke (npr. minute vježbe i kako je slušač radio) i izvještaje o greškama. Nikad vaš zvuk, riječi, ime ili ID uređaja.",
+      "consentSharingAsk": "Nakon nekoliko vježbi Quran Lab vas može pitati — najviše tri puta — želite li podijeliti snimke da pomognete drugim učenicima. Ništa se ne dijeli ako ne kažete da, a podijeljeno možete obrisati.",
+      "tryAgain": "Pokušaj ponovo",
+      "feedbackDisclaimer": "Automatske povratne informacije o tedžvidu mogu biti pogrešne. Ne zamjenjuju kvalificiranog učitelja.",
+      "hearingYou": "Čujem vas…",
+      "shareDiagnostics": "Podijeli dijagnostiku"
     },
     "modeHelp": {
       "follow": "Učite s tekstom pred sobom. Slušač vas prati riječ po riječ.",
@@ -10376,7 +10477,9 @@
         "wudu": "Abdest",
         "fivePrayers": "Pet namaza",
         "howToPray": "Kako klanjati"
-      }
+      },
+      "reciteFatihah": "Uči Fatihu",
+      "reciteFatihahHint": "Uči Fatihu i gledaj kako se riječi osvjetljavaju."
     },
     "prophets": {
       "title": "Priče o poslanicima",
@@ -10386,6 +10489,39 @@
     "consentPending": {
       "title": "Čeka se roditelj",
       "body": "Nastavite dodirivati svoje namaze kao i obično. Vaši dodiri čuvaju se na ovom uređaju i bit će podijeljeni kad roditelj da saglasnost."
+    },
+    "recite": {
+      "entry": "Uči uz slušaoca",
+      "entryHint": "Prouči kratku suru i gledaj kako se riječi pale.",
+      "title": "Uči uz slušaoca",
+      "subtitle": "Kratke sure, ajet po ajet",
+      "intro": "Izaberi suru. Dodirni veliko dugme i uči — riječi se pale dok učiš.",
+      "privacy": "Slušalac radi na ovom uređaju. Tvoj glas se nikada nikamo ne šalje.",
+      "pickA11y": "Uči {{surah}}",
+      "ayahOf": "Ajet {{n}} od {{total}}",
+      "loading": "Pripremamo ajet…",
+      "start": "Počni",
+      "stop": "Zaustavi",
+      "startHint": "Sluša dok učiš ovaj ajet",
+      "gettingReady": "Pripremamo…",
+      "listening": "Slušam — prouči ajet.",
+      "listenOnly": "Dodirni Slušaj i uči zajedno — riječi se pale s učačem. Zamoli odraslu osobu da preuzme slušaoca kako bi učio sam.",
+      "wellDone": "Bravo!",
+      "nextAyah": "Sljedeći ajet",
+      "tryWordsTitle": "Skoro! Hajde da ponovo probamo ove riječi.",
+      "tryWordsBody": "Dodirni riječ da je čuješ, pa prouči ajet još jednom.",
+      "hearWordA11y": "Slušaj {{word}}",
+      "listen": "Slušaj",
+      "stopListening": "Prestani slušati",
+      "tryAgain": "Pokušaj ponovo",
+      "moveOn": "Idi na sljedeći ajet",
+      "finish": "Završio sam",
+      "previous": "Nazad",
+      "next": "Dalje",
+      "doneTitle": "Mašallah, bravo!",
+      "doneBody": "Proučio si suru {{surah}} do kraja.",
+      "again": "Prouči ponovo",
+      "another": "Izaberi drugu suru"
     }
   },
   "preferredTimeReminder": {
@@ -10935,5 +11071,191 @@
   "scriptureMeaning": {
     "englishLabel": "Značenje na engleskom",
     "englishLabelA11y": "Značenje je prikazano na engleskom: prijevod iz pouzdanog izvora još nije dostupan na vašem jeziku"
+  },
+  "practiceReadingCredit": {
+    "added_one": "Dodan {{count}} ajet današnjem učenju",
+    "added_few": "Dodana {{count}} ajeta današnjem učenju",
+    "added_other": "Dodano {{count}} ajeta današnjem učenju",
+    "khatm": "Plan hatme završen {{percent}}%",
+    "openHint": "Otvara plan hatme",
+    "settings": {
+      "title": "Računaj vježbu kao učenje Kur'ana",
+      "sub": "Ajeti koje proučiš u vježbi dodaju se u današnji dnevnik učenja i plan hatme.",
+      "keywords": "dnevnik učenja, hatma, dnevno učenje, učenje, napredak"
+    },
+    "khatmAlready": "Već uračunato u plan hatme — završeno {{percent}}%",
+    "habitDone": "Označi naviku kao urađenu",
+    "habitDoneHint": "Označava {{habit}} za danas",
+    "habitDoneToast": "{{habit}} označeno kao urađeno za danas"
+  },
+  "reciteAlong": {
+    "button": "Uči uz slušaoca",
+    "buttonHint": "Otvara {{passage}} uz slušaoca na uređaju",
+    "cardTitle": "Uči uz slušaoca",
+    "cardBody": "Učite naglas i riječi se pale dok napredujete. Slušalac radi na ovom uređaju — vaš glas ga nikada ne napušta.",
+    "topicTitle": "Uči ove ajete",
+    "sheet": {
+      "title": "Uči {{passage}}",
+      "body": "Ovo je dug odlomak. Pratite ga cijelog dok se riječi pale ili uzimajte po deset ajeta.",
+      "followWhole": "Prati cijeli odlomak",
+      "sections": "Ili odaberite deset ajeta",
+      "section": "Ajeti {{from}}–{{to}}"
+    },
+    "kahf": {
+      "title": "Uči suru el-Kehf uz slušaoca",
+      "body": "Pratite cijelu suru dok se riječi pale tokom učenja ili je učite po deset ajeta. Slušalac radi na ovom uređaju."
+    },
+    "ruqyah": {
+      "title": "Uči ajete rukje uz slušaoca",
+      "body": "Učite svaki odlomak naglas i riječi se pale dok napredujete. Slušalac radi na ovom uređaju — vaš glas ga nikada ne napušta."
+    },
+    "fatihah": {
+      "title": "Provjeri moju Fatihu",
+      "body": "Učite Fatihu naglas i slušalac na uređaju pokazuje riječi koje su zvučale preskočeno ili nejasno, a učač je na dodir udaljen.",
+      "short": "Učite je naglas i pogledajte riječi koje su zvučale preskočeno ili nejasno.",
+      "cta": "Započni provjeru",
+      "ctaHint": "Otvara Fatihu uz slušaoca na uređaju",
+      "note": "Pomoć pri vježbi, a ne presuda o vašem Salahu — učenje Kur'ana savladajte kod stručnog učitelja. Vaš glas ostaje na ovom uređaju."
+    },
+    "khatmToday": "Uči današnji dio uz slušaoca",
+    "checkButton": "Provjeri moje učenje",
+    "iconLabel": "Uči",
+    "withPassage": "Uči uz slušaoca: {{passage}}",
+    "afterSalah": {
+      "title": "Uči nakon Salaha",
+      "body": "Ajetul-kursija i sure Ihlas, Felek i Nas, koje se uče nakon svakog farz Salaha. Uči svaku naglas i riječi se osvjetljavaju dok učiš — slušalac radi na ovom uređaju."
+    }
+  },
+  "handsFreeZikr": {
+    "steps": {
+      "choose": "Podučite {{phrase}} da se broji samo on, ili brojite svaku pauzu (manje tačno).",
+      "teachThis": "Podučite ovaj zikr",
+      "next": "Brojanje bez ruku nastavlja se sa sljedećim zikrom.",
+      "tapThisOne": "Dodirnite da izbrojite ovaj. Brojanje bez ruku nastavlja se na sljedećem kratkom zikru."
+    },
+    "sequence": {
+      "title": "Tesbih nakon namaza",
+      "entryBody": "33, 33 i 34 u jednom brojaču koji sam prelazi na sljedeću frazu — dodirom ili bez ruku.",
+      "openFromSession": "Broji kao jedan niz 33 · 33 · 34",
+      "stepSummary": "{{phrase}} ×{{times}}",
+      "endingTahlil": "33 + {{phrase}}",
+      "prayerLabel": "Upiši uz zikr nakon namaza",
+      "endingLabel": "Upotpunite stotinu sa",
+      "evidence": {
+        "takbir34": "Nakon svakog farz namaza: 33, 33 i 34 ({{reference}}).",
+        "tahlil": "33, 33 i 33 čine 99; tehlil upotpunjuje stotinu ({{reference}})."
+      },
+      "progress": "{{done}} od {{total}}",
+      "handsFreeHint": "Uključite brojanje bez ruku jednom — prati vas od fraze do fraze. Dodirnite da ispravite pogrešno brojanje.",
+      "doneBody": "Tesbih nakon namaza upisan je za {{prayer}}."
+    }
+  },
+  "reciteToFind": {
+    "mode": {
+      "type": "Upiši",
+      "recite": "Uči"
+    },
+    "mic": {
+      "start": "Počni slušati",
+      "stop": "Zaustavi slušanje",
+      "startHint": "Proučite nekoliko riječi bilo kojeg ajeta da ga pronađete",
+      "stopHint": "Zaustavlja slušanje i prikazuje podudaranja"
+    },
+    "status": {
+      "preparing": "Priprema slušatelja",
+      "preparingHint": "Prvi put to potraje trenutak.",
+      "failed": "Slušatelj nije pokrenut",
+      "failedHint": "Napustite ovaj ekran i otvorite ga ponovo. Pretraga kucanjem i dalje radi.",
+      "idle": "Proučite da pronađete ajet",
+      "idleHint": "Dodirnite mikrofon i proučite nekoliko riječi bilo kojeg ajeta. Aplikacija pronalazi njegovo mjesto u Kur'anu.",
+      "listening": "Slušam…",
+      "nothingYet": "Još ništa. Nastavite učiti normalnim tempom.",
+      "narrowing": "Nastavite učiti radi veće sigurnosti ili dodirnite zaustavi.",
+      "settling": "Završavanje",
+      "settlingHint": "Provjeravamo posljednje riječi koje ste proučili.",
+      "found": "Evo šta smo čuli",
+      "foundHint": "Otvorite ajet ili dodirnite mikrofon da učite ponovo.",
+      "nothing": "Učenje nije prepoznato",
+      "nothingHint": "Učite malo duže, na mirnom mjestu, blizu mikrofona.",
+      "stopped": "Slušanje je zaustavljeno"
+    },
+    "error": {
+      "micDenied": "Pristup mikrofonu je isključen. Dozvolite ga u Postavkama da pronalazite učenjem.",
+      "openSettings": "Otvori postavke"
+    },
+    "privacy": "Vaše učenje se obrađuje na ovom uređaju. Zvuk ga nikad ne napušta.",
+    "results": {
+      "live": "Moguća podudaranja",
+      "title": "Podudaranja"
+    },
+    "result": {
+      "range": "{{surah}}:{{from}}–{{to}}",
+      "open": "Otvori u čitaču",
+      "openHint": "Otvara {{name}} {{ref}} u čitaču Kur'ana",
+      "practise": "Vježbaj odavde",
+      "practiseHint": "Počinje vježbu učenja od {{name}} {{ref}}"
+    },
+    "strength": {
+      "strong": "Snažno podudaranje",
+      "likely": "Vjerovatno",
+      "possible": "Moguće"
+    },
+    "download": {
+      "title": "Preuzmite slušatelja Kur'ana",
+      "body": "Proučite nekoliko riječi bilo kojeg ajeta i aplikacija ga pronalazi, čak i bez interneta. Preuzmite ga jednom da biste ga koristili.",
+      "size": "Oko {{size}} MB · ostaje na ovom uređaju",
+      "action": "Preuzmi slušatelja",
+      "offline": "Povežite se jednom na internet da preuzmete slušatelja."
+    },
+    "shortcut": {
+      "title": "Pronađi učenjem",
+      "subtitle": "Proučite nekoliko riječi da pronađete ajet, na ovom uređaju"
+    }
+  },
+  "handsFreeZikr2": {
+    "reciteInstead": {
+      "title": "Uči uz slušača",
+      "body": "Ovo su ajeti Kur'ana: učite ih uz slušača na uređaju umjesto brojanja. Zvuk nikad ne napušta vaš uređaj."
+    },
+    "sequence": {
+      "reciteKursi": "Uči Ajetul-kursiju uz slušača"
+    },
+    "dua": {
+      "browse": "Pregledaj dove"
+    },
+    "ramadan": {
+      "countDua": "Broji bez ruku",
+      "reciteQadr": "Uči suru El-Kadr uz slušača"
+    },
+    "builder": {
+      "countThis": "Broji ovo",
+      "countThisHint": "Otvara brojač tesbiha za {{title}}"
+    },
+    "quickActions": {
+      "practiceTitle": "Vježbaj Kur'an",
+      "practiceSubtitle": "Ponovi dospjele ajete ili uči uz slušača",
+      "sequenceTitle": "Tesbih nakon namaza",
+      "sequenceSubtitle": "33 · 33 · 34, bez ruku",
+      "reciteToFindTitle": "Uči da pronađeš",
+      "reciteToFindSubtitle": "Pronađi ajet učeći ga"
+    },
+    "home": {
+      "revisionTitle": "Ponavljanje Kur'ana",
+      "revisionBody": "Ponovite ih danas da ostanu čvrsti.",
+      "revisionAction": "Započni ponavljanje",
+      "revisionDue_one": "{{count}} ajet za ponavljanje",
+      "revisionDue_few": "{{count}} ajeta za ponavljanje",
+      "revisionDue_other": "{{count}} ajeta za ponavljanje"
+    },
+    "stats": {
+      "title": "Vježba Kur'ana",
+      "minutes": "Minute vježbe",
+      "ayahsRecited": "Proučeni ajeti",
+      "sessions": "Sesije",
+      "revisionStreak": "Najduži niz ponavljanja (dani)",
+      "milestones": "Prekretnice",
+      "privacy": "Samo za vas — nikad se ne poredi niti dijeli.",
+      "open": "Otvori vježbu"
+    }
   }
 }

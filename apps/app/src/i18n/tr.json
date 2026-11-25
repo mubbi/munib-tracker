@@ -284,6 +284,14 @@
       "friday": {
         "label": "Cuma",
         "description": "Cuma kontrol listesi ilerlemesi veya Cumaya kalan gün"
+      },
+      "adhkar": {
+        "label": "Zikirler",
+        "description": "Şu an okunacak zikirler ve ilerlemeniz"
+      },
+      "events": {
+        "label": "İslami günler",
+        "description": "Sonraki İslami günlere geri sayım"
       }
     },
     "remaining": "Kalan",
@@ -321,7 +329,23 @@
     "fridayCountdown": "{{count}} gün sonra Cuma",
     "fridayCountdown_one": "{{count}} gün sonra Cuma",
     "fridayCountdown_other": "{{count}} gün sonra Cuma",
-    "prepareSalah": "Hazırlan"
+    "prepareSalah": "Hazırlan",
+    "watch": {
+      "today": "Bugün",
+      "overview": "Genel bakış",
+      "markConfirm": "Bu namaz kılındı olarak işaretlensin mi?",
+      "sentToPhone": "Telefonunuza gönderildi",
+      "willSync": "Telefonunuz yakındayken eşitlenecek",
+      "allDone": "Bugünkü tüm namazlar kılındı",
+      "notYet": "Henüz vakti girmedi",
+      "staleData": "Bugünün vakitlerini yenilemek için uygulamayı açın",
+      "freeCount": "Serbest sayım",
+      "tapToCount": "Saymak için dokunun",
+      "sequenceDone": "Tesbih tamamlandı"
+    },
+    "adhkar": "Zikirler",
+    "voiceNextSalah": "Sonraki namaz {{prayer}}, saat {{time}}.",
+    "voiceSalahTime": "{{prayer}} bugün saat {{time}}."
   },
   "ramadan": {
     "eyebrow": "Ramazan",
@@ -528,7 +552,8 @@
       "zikr": "Zikir",
       "durood": "Salavat",
       "names": "99 İsim",
-      "audio": "Ses"
+      "audio": "Ses",
+      "practice": "Kur'an çalışması"
     },
     "continueAction": {
       "quran": "Okumaya devam edin",
@@ -538,7 +563,8 @@
       "durood": "Salavatlara dön",
       "names": "İsimlere dön",
       "audio": "Sese dön",
-      "listening": "Dinlemeye devam edin"
+      "listening": "Dinlemeye devam edin",
+      "practice": "Çalışmayı sürdür"
     },
     "rozaRemaining": "Kaza oruçları",
     "knowledgeMotivation": {
@@ -1271,7 +1297,12 @@
       "active": "{{prayer}} takip ediliyor",
       "activeHint": "Bu namaz yaklaştığında canlı güncellemeler öne çıkar. Sabitlemeyi kaldırmak için Durdur’a dokunun.",
       "a11yStart": "Kilit ekranında sonraki namaz takibini başlat",
-      "a11yStop": "Namaz canlı güncelleme takibini durdur"
+      "a11yStop": "Namaz canlı güncelleme takibini durdur",
+      "chip": {
+        "mark": "Kaydet",
+        "adhkar": "Zikir",
+        "done": "Bitti"
+      }
     },
     "tvUnavailableBody": "Yerel hatırlatıcılar ve Live Activities TV'de kullanılamaz. Bildirim tercihlerinizi telefonunuzdan yönetin.",
     "preciseAdhan": "Ezan için tam zamanlama",
@@ -2444,7 +2475,8 @@
       "qaza": "Kaza",
       "roza": "Oruç",
       "zikr": "Zikir",
-      "consistency": "İstikrar"
+      "consistency": "İstikrar",
+      "recitation": "Tilavet"
     },
     "milestones": {
       "salah": {
@@ -2580,8 +2612,27 @@
       "roza": "Kaza edilen oruç",
       "zikr": "Zikir",
       "perfectDay": "Kusursuz günler",
-      "streakDay": "Seri günleri"
-    }
+      "streakDay": "Seri günleri",
+      "recitationSession": "Tilavet oturumları",
+      "ayahRecited": "Okunan ayetler",
+      "revisionStreakDay": "Tekrar serisi günleri"
+    },
+    "recitation": {
+      "first": {
+        "title": "İlk okuma",
+        "description": "İlk birlikte okuma oturumunu tamamladınız"
+      },
+      "revisionWeek": {
+        "title": "Bir haftalık tekrar",
+        "description": "Ayetleri art arda {{number}} gün tekrarladınız"
+      },
+      "ayahs100": {
+        "title": "100 ayet okundu",
+        "description": "Dinleyiciyle {{number}} ayet okudunuz"
+      }
+    },
+    "trackComplete": "Bu yoldaki tüm kilometre taşları kazanıldı",
+    "recitationPersonal": "Kişisel — asla kimseyle kıyaslanmaz"
   },
   "notifCenter": {
     "eyebrow": "Hatırlatmalar",
@@ -2805,7 +2856,11 @@
     "ttsVoice": "Ses",
     "ttsVoiceHint": "Bir metin okuma sesi seçin",
     "seekBack": "{{seconds}} saniye geri",
-    "seekForward": "{{seconds}} saniye ileri"
+    "seekForward": "{{seconds}} saniye ileri",
+    "track": {
+      "audioTranslation": "Sesli meal",
+      "namesComplete": "99 ismin tamamı"
+    }
   },
   "errors": {
     "title": "Bir şeyler ters gitti",
@@ -2841,6 +2896,12 @@
     },
     "tasbeehDurood": {
       "description": "Bu salavatı dokunmatik tesbih sayacıyla sayın."
+    },
+    "tasbeehDua": {
+      "description": "Bu duayı dokunsal bir tesbih sayacıyla sayın."
+    },
+    "tasbeehCustomAdhkar": {
+      "description": "Kendi zikrinizi dokunsal bir tesbih sayacıyla sayın."
     }
   },
   "pwa": {
@@ -3260,7 +3321,8 @@
       "family-ties-due": "Sıla-i rahim zamanı",
       "weekly-coach": "Haftalık değerlendirme",
       "seasonal-banner": "Mevsimlik afişler",
-      "umrah-mode": "Umrenize devam edin"
+      "umrah-mode": "Umrenize devam edin",
+      "quran-revision": "Vadesi gelen Kur'an tekrarı"
     }
   },
   "schedule": {
@@ -4049,7 +4111,12 @@
       "highly-recommended": "Şiddetle tavsiye edilir",
       "recommended": "Tavsiye edilir"
     },
-    "playAyahA11y": "{{ref}} tilavetini çal"
+    "playAyahA11y": "{{ref}} tilavetini çal",
+    "qalqalahDrillHint": "Kalkale sesi alıştırmasını cihazdaki dinleyiciyle açar",
+    "quickPractise": "Tilavet alıştırması",
+    "quickPractiseHint": "Cihazdaki dinleyiciyle sesli okuyun",
+    "quickCoaching": "Tecvid koçluğu",
+    "quickCoachingHint": "Tilavetinizin ihtiyaç duyduğu sesleri çalışın"
   },
   "library": {
     "eyebrow": "Kütüphane",
@@ -5186,6 +5253,18 @@
       "masjids": {
         "title": "Yakınınızdaki camiler",
         "body": "OpenStreetMap'ten yakındaki camileri bulun, kendi caminizi belirleyin ve kamet vakitlerinizi elle girerek ya da vakit çizelgesinin fotoğrafından okutarak saklayın."
+      },
+      "quranPractice": {
+        "title": "Kur'an dinleyicisiyle oku",
+        "body": "Herhangi bir bölümü takip edin, kontrol edin veya tekrarlayın — okudukça kelimeler cihazınızda yanar."
+      },
+      "reciteToFind": {
+        "title": "Okuyarak ayet bul",
+        "body": "Birkaç kelime okuyun, uygulama ayeti bulsun. Ses cihazınızda kalır."
+      },
+      "handsFreeSequence": {
+        "title": "Elsiz namaz sonrası tesbih",
+        "body": "Her zikri söyledikçe sayan ve kendiliğinden ilerleyen 33 · 33 · 34. Yanlış sayımı düzeltmek için dokunun."
       }
     }
   },
@@ -5268,10 +5347,10 @@
     "locked": "Aç  app  mark Namaz",
     "failed": "Namaz işaretlenemedi",
     "intents": {
-      "openTracker": "checklist Aç",
-      "openQibla": "Kıble Aç",
-      "openTasbeeh": "Tesbih Aç",
-      "markCurrent": "my Namaz İşaretle",
+      "openTracker": "Kontrol listesini aç",
+      "openQibla": "Kıbleyi aç",
+      "openTasbeeh": "Tesbihi aç",
+      "markCurrent": "Namazımı işaretle",
       "openRamadan": "Ramazan'ı aç",
       "openKhatm": "Hatim planını aç",
       "openQaza": "Kazayı aç",
@@ -5280,7 +5359,18 @@
       "markDhuhr": "Öğle namazını işaretle",
       "markAsr": "İkindi namazını işaretle",
       "markMaghrib": "Akşam namazını işaretle",
-      "markIsha": "Yatsı namazını işaretle"
+      "markIsha": "Yatsı namazını işaretle",
+      "openAdhkar": "Zikirleri aç",
+      "openDuas": "Duaları aç",
+      "openCalendar": "Hicri takvimi aç",
+      "openEvents": "İslami günleri aç",
+      "openDailyHadith": "Günün hadisini aç",
+      "openStatistics": "İstatistikleri aç",
+      "openFriday": "Cuma'yı aç",
+      "nextSalah": "Sonraki namaz ne zaman?",
+      "salahTime": "Namaz vakti ne zaman?",
+      "todayProgress": "Bugünkü namaz ilerlemesi",
+      "search": "Uygulamada ara"
     },
     "moreShortcutsTitle": "Daha fazla sesli kısayol",
     "moreShortcutsHint": "Namaz işaretlemek veya doğrudan bir ekrana gitmek için bunlardan birini söyleyin."
@@ -6040,8 +6130,8 @@
       "setUp": "Kur",
       "downloading": "Telaffuz dinleyicisi indiriliyor…",
       "consentTitle": "Kurmadan önce",
-      "consentDownload": "Bu, Quran Lab'den yaklaşık 57 MB'lık ikinci bir dinleyici indirir.",
-      "consentActivation": "Uygulama etkinleştirmek için Quran Lab'e bir kez, güncellemeleri denetlemek için de tekrar bağlanır.",
+      "consentDownload": "Bu, Quran Lab'den yaklaşık 56 MB'lık ikinci bir dinleyici indirir. Bu cihaz için şifrelenir.",
+      "consentActivation": "İlk kurulum bağlantı gerektirir. Sonrasında çevrimdışı çalışır; Quran Lab, siz çevrimiçiyken iznini arka planda yeniler.",
       "consentOnDevice": "Tilavetiniz bu cihazda işlenir.",
       "consentRemotePause": "Quran Lab bu dinleyiciyi tüm kullanıcılar için duraklatabilir. O durumda dersler çalışmaya devam eder.",
       "agree": "Kabul et ve indir",
@@ -6049,14 +6139,14 @@
       "deleteTitle": "Telaffuz dinleyicisi silinsin mi?",
       "deleteBody": "Tecvid dersleri çalışmaya devam eder. Bir sesi çalışmak için yeniden indirmek gerekir.",
       "sharingSwitch": "Tilavetlerimi Quran Lab ile paylaş",
-      "sharingSub": "Yalnızca Quran Lab'in sayfasında kabul ettiyseniz. Kapatmak yüklemeleri durdurur ve gönderilmemiş sırayı siler.",
+      "sharingSub": "Yalnızca Quran Lab'in sayfasında evet dediyseniz. Kapatmak yüklemeleri durdurur ve gönderilmemiş sırayı siler.",
       "deleteShared": "Paylaştıklarımı sil",
       "deleteSharedTitle": "Paylaştıklarınız silinsin mi?",
       "deleteSharedBody": "Bu uygulamadan paylaştığınız her kayıt Quran Lab sunucularından silinir ve paylaşım kapanır.",
       "deletedShared": "Paylaşılan kayıtlarınız silindi",
       "sharingFailed": "Bu gerçekleşmedi. Lütfen yeniden deneyin.",
       "recoveryCode": "Kurtarma kodu: {{code}}",
-      "sourcesLine": "TajweedFormer, Quran Lab tarafından NPL-1.2 lisansıyla paylaşılır.",
+      "sourcesLine": "TajweedFormer, Quran Lab tarafından NPL-1.3 lisansıyla paylaşılır.",
       "practiseSound": "Bu sesi çalış",
       "drillTitle": "Bu sesi çalış",
       "drillIntro": "Örneği dinleyin, sonra Oku'ya dokunun ve aynı şekilde söyleyin.",
@@ -6070,14 +6160,25 @@
       "verdictTryAgain": "Yeniden dinleyin ve bir kez daha deneyin.",
       "verdictNotSure": "Dinleyici emin olamadı.",
       "error": {
-        "noConnection": "Kurulum bir kez bağlantı gerektirir.",
+        "noConnection": "Telaffuz dinleyicisini indirmek için internete bağlanın.",
         "paused": "Quran Lab bu dinleyiciyi duraklattı. Dersler çalışmaya devam eder.",
         "noSpace": "Yeterli alan yok",
         "notYet": "Bu dinleyici henüz kullanılamıyor. Lütfen sonra yeniden deneyin.",
         "micDenied": "Munib Tracker için mikrofon kapalı.",
         "unsupported": "Bu cihazda kullanılamıyor",
-        "generic": "Bu işe yaramadı. Lütfen yeniden deneyin."
-      }
+        "generic": "Bu işe yaramadı. Lütfen yeniden deneyin.",
+        "needsRenewal": "Quran Lab'in dinleyiciyi yenileyebilmesi için bir kez internete bağlanın. Dinleyici zaten bu cihazda.",
+        "busy": "Quran Lab sunucuları meşgul. Lütfen biraz sonra yeniden deneyin.",
+        "deviceRefused": "Quran Lab bu cihazda dinleyiciyi açamıyor (örneğin önyükleyici kilidi açılmış bir telefon). Dersler çalışmaya devam eder.",
+        "updateApp": "Telaffuz dinleyicisini kullanmaya devam etmek için Munib Tracker'ı güncelleyin.",
+        "inUse": "Dinleyici hâlâ kapanıyor. Lütfen birazdan yeniden deneyin."
+      },
+      "consentAnalytics": "Quran Lab'in SDK'sı her zaman anonim günlük sayımlar (pratik dakikaları ve dinleyicinin nasıl çalıştığı gibi) ve hata raporları gönderir. Sesiniz, sözleriniz, adınız veya cihaz kimliğiniz asla gönderilmez.",
+      "consentSharingAsk": "Birkaç pratik oturumundan sonra Quran Lab, diğer öğrenenlere yardım için kayıtlarınızı paylaşmak isteyip istemediğinizi — en fazla üç kez — sorabilir. Siz evet demedikçe hiçbir şey paylaşılmaz ve paylaştıklarınızı silebilirsiniz.",
+      "tryAgain": "Yeniden dene",
+      "feedbackDisclaimer": "Otomatik tecvid geri bildirimi yanılabilir. Yetkin bir öğretmenin yerini tutmaz.",
+      "hearingYou": "Sizi duyuyorum…",
+      "shareDiagnostics": "Tanılama bilgilerini paylaş"
     },
     "modeHelp": {
       "follow": "Metin önünüzdeyken okuyun. Dinleyici sizi kelime kelime takip eder.",
@@ -10354,7 +10455,9 @@
         "wudu": "Abdest",
         "fivePrayers": "Beş vakit namaz",
         "howToPray": "Namaz nasıl kılınır"
-      }
+      },
+      "reciteFatihah": "Fatiha'yı oku",
+      "reciteFatihahHint": "Fatiha'yı oku ve kelimelerin yandığını gör."
     },
     "prophets": {
       "title": "Peygamber kıssaları",
@@ -10364,6 +10467,39 @@
     "consentPending": {
       "title": "Anne veya babanı bekliyoruz",
       "body": "Namazlarına her zamanki gibi dokunmayı sürdür. Dokunuşların bu cihazda saklanır ve anne veya baban onay verince paylaşılır."
+    },
+    "recite": {
+      "entry": "Dinleyiciyle oku",
+      "entryHint": "Kısa bir sure oku, kelimelerin yandığını izle.",
+      "title": "Dinleyiciyle oku",
+      "subtitle": "Kısa sureler, her seferinde bir ayet",
+      "intro": "Bir sure seç. Büyük düğmeye dokun ve oku — kelimeler sen ilerledikçe yanar.",
+      "privacy": "Dinleyici bu cihazda çalışır. Sesin hiçbir yere gönderilmez.",
+      "pickA11y": "{{surah}} oku",
+      "ayahOf": "Ayet {{n}} / {{total}}",
+      "loading": "Ayet hazırlanıyor…",
+      "start": "Başla",
+      "stop": "Dur",
+      "startHint": "Bu ayeti okurken seni dinler",
+      "gettingReady": "Hazırlanıyor…",
+      "listening": "Dinliyorum — ayeti oku.",
+      "listenOnly": "Dinle'ye dokun ve birlikte oku — kelimeler kâriyle birlikte yanar. Kendi başına okuyabilmek için bir büyüğünden dinleyiciyi indirmesini iste.",
+      "wellDone": "Aferin!",
+      "nextAyah": "Sonraki ayet",
+      "tryWordsTitle": "Az kaldı! Bu kelimeleri bir daha deneyelim.",
+      "tryWordsBody": "Duymak için bir kelimeye dokun, sonra ayeti bir kez daha oku.",
+      "hearWordA11y": "{{word}} dinle",
+      "listen": "Dinle",
+      "stopListening": "Dinlemeyi durdur",
+      "tryAgain": "Tekrar dene",
+      "moveOn": "Sonraki ayete geç",
+      "finish": "Bitirdim",
+      "previous": "Geri",
+      "next": "İleri",
+      "doneTitle": "Maşallah, aferin!",
+      "doneBody": "{{surah}} suresini baştan sona okudun.",
+      "again": "Tekrar oku",
+      "another": "Başka bir sure seç"
     }
   },
   "preferredTimeReminder": {
@@ -10907,5 +11043,189 @@
   "scriptureMeaning": {
     "englishLabel": "İngilizce anlamı",
     "englishLabelA11y": "Anlam İngilizce gösteriliyor: dilinizde henüz güvenilir bir kaynaktan çeviri yok"
+  },
+  "practiceReadingCredit": {
+    "added_one": "Bugünkü okumaya {{count}} ayet eklendi",
+    "added_other": "Bugünkü okumaya {{count}} ayet eklendi",
+    "khatm": "Hatim planı %{{percent}} tamamlandı",
+    "openHint": "Hatim planınızı açar",
+    "settings": {
+      "title": "Alıştırmayı Kur'an okuması say",
+      "sub": "Alıştırmada okuduğunuz ayetler bugünkü okuma kaydına ve hatim planınıza eklenir.",
+      "keywords": "okuma kaydı, hatim, günlük okuma, tilavet, ilerleme"
+    },
+    "khatmAlready": "Hatim planında zaten sayıldı — %{{percent}} tamamlandı",
+    "habitDone": "Alışkanlığı yapıldı olarak işaretle",
+    "habitDoneHint": "{{habit}} bugün için işaretlenir",
+    "habitDoneToast": "{{habit}} bugün için yapıldı olarak işaretlendi"
+  },
+  "reciteAlong": {
+    "button": "Dinleyiciyle oku",
+    "buttonHint": "{{passage}} bölümünü cihazdaki dinleyiciyle açar",
+    "cardTitle": "Dinleyiciyle oku",
+    "cardBody": "Sesli okuyun, kelimeler siz ilerledikçe yanar. Dinleyici bu cihazda çalışır — sesiniz cihazdan hiç çıkmaz.",
+    "topicTitle": "Bu ayetleri oku",
+    "sheet": {
+      "title": "{{passage}} oku",
+      "body": "Bu uzun bir bölüm. Kelimeler yanarken tamamını takip edin ya da her seferinde on ayet alın.",
+      "followWhole": "Bölümün tamamını takip et",
+      "sections": "Ya da on ayet seçin",
+      "section": "Ayetler {{from}}–{{to}}"
+    },
+    "kahf": {
+      "title": "Kehf suresini dinleyiciyle oku",
+      "body": "Okudukça kelimeler yanarken surenin tamamını takip edin ya da on ayet on ayet okuyun. Dinleyici bu cihazda çalışır."
+    },
+    "ruqyah": {
+      "title": "Rukye ayetlerini dinleyiciyle oku",
+      "body": "Her bölümü sesli okuyun, kelimeler siz ilerledikçe yanar. Dinleyici bu cihazda çalışır — sesiniz cihazdan hiç çıkmaz."
+    },
+    "fatihah": {
+      "title": "Fatiha'mı kontrol et",
+      "body": "Fatiha'yı sesli okuyun; cihazdaki dinleyici atlanmış ya da net olmayan kelimeleri gösterir, kâri de bir dokunuş uzağınızda.",
+      "short": "Sesli okuyun ve atlanmış ya da net olmayan kelimeleri görün.",
+      "cta": "Kontrole başla",
+      "ctaHint": "Fatiha'yı cihazdaki dinleyiciyle açar",
+      "note": "Bir alıştırma yardımcısıdır, Salah'ınız hakkında bir hüküm değildir — kıraati yetkin bir hocadan öğrenin. Sesiniz bu cihazda kalır."
+    },
+    "khatmToday": "Bugünkü bölümü dinleyiciyle oku",
+    "checkButton": "Tilavetimi kontrol et",
+    "iconLabel": "Oku",
+    "withPassage": "Dinleyiciyle oku: {{passage}}",
+    "afterSalah": {
+      "title": "Namazdan sonra oku",
+      "body": "Ayetü'l-Kürsî ile İhlâs, Felak ve Nâs sureleri; her farz namazdan sonra okunur. Her birini sesli okuyun, kelimeler siz okudukça yansın — dinleyici bu cihazda çalışır."
+    }
+  },
+  "handsFreeZikr": {
+    "steps": {
+      "choose": "Yalnızca o sayılsın diye {{phrase}} öğretin ya da her duraklamayı sayın (daha az doğru).",
+      "teachThis": "Bu zikri öğret",
+      "next": "Eller serbest sayım sonraki zikirle sürer.",
+      "tapThisOne": "Bunu saymak için dokunun. Eller serbest sayım sonraki kısa zikirde yeniden başlar."
+    },
+    "sequence": {
+      "title": "Namaz sonrası tesbih",
+      "entryBody": "33, 33 ve 34 tek bir sayaçta; sayaç kendiliğinden sonraki ifadeye geçer — dokunarak ya da eller serbest.",
+      "openFromSession": "Tek bir 33 · 33 · 34 dizisi olarak say",
+      "stepSummary": "{{phrase}} ×{{times}}",
+      "endingTahlil": "33 + {{phrase}}",
+      "prayerLabel": "Hangi namazın ardından zikirlere kaydedilsin",
+      "endingLabel": "Yüzü tamamla",
+      "evidence": {
+        "takbir34": "Her farz namazdan sonra: 33, 33 ve 34 ({{reference}}).",
+        "tahlil": "33, 33 ve 33 eder 99; tehlil yüzü tamamlar ({{reference}})."
+      },
+      "progress": "{{done}} / {{total}}",
+      "handsFreeHint": "Eller serbesti bir kez açın — sizinle ifadeden ifadeye geçer. Yanlış bir sayımı düzeltmek için dokunun.",
+      "doneBody": "Namaz sonrası tesbih {{prayer}} için kaydedildi."
+    }
+  },
+  "reciteToFind": {
+    "mode": {
+      "type": "Yaz",
+      "recite": "Oku"
+    },
+    "mic": {
+      "start": "Dinlemeyi başlat",
+      "stop": "Dinlemeyi durdur",
+      "startHint": "Bulmak için herhangi bir ayetten birkaç kelime okuyun",
+      "stopHint": "Dinlemeyi durdurur ve eşleşmeleri gösterir"
+    },
+    "status": {
+      "preparing": "Dinleyici hazırlanıyor",
+      "preparingHint": "İlk seferde bu biraz sürer.",
+      "failed": "Dinleyici başlamadı",
+      "failedHint": "Bu ekrandan çıkıp yeniden açın. Yazarak arama çalışmaya devam eder.",
+      "idle": "Okuyarak ayet bul",
+      "idleHint": "Mikrofona dokunun ve herhangi bir ayetten birkaç kelime okuyun. Uygulama, Kur'an'daki yerini bulur.",
+      "listening": "Dinleniyor…",
+      "nothingYet": "Henüz bir şey yok. Normal hızda okumaya devam edin.",
+      "narrowing": "Daha emin olmak için okumaya devam edin ya da durdura dokunun.",
+      "settling": "Tamamlanıyor",
+      "settlingHint": "Okuduğunuz son kelimeler kontrol ediliyor.",
+      "found": "Duyduklarımız",
+      "foundHint": "Bir ayeti açın ya da yeniden okumak için mikrofona dokunun.",
+      "nothing": "Bu okuyuş bulunamadı",
+      "nothingHint": "Sessiz bir yerde, mikrofona yakın biraz daha uzun okuyun.",
+      "stopped": "Dinleme durdu"
+    },
+    "error": {
+      "micDenied": "Mikrofon erişimi kapalı. Okuyarak bulmak için Ayarlar'dan izin verin.",
+      "openSettings": "Ayarlar'ı aç"
+    },
+    "privacy": "Okuyuşunuz bu cihazda işlenir. Ses asla cihazdan çıkmaz.",
+    "results": {
+      "live": "Olası eşleşmeler",
+      "title": "Eşleşmeler"
+    },
+    "result": {
+      "range": "{{surah}}:{{from}}–{{to}}",
+      "open": "Okuyucuda aç",
+      "openHint": "{{name}} {{ref}} ayetini Kur'an okuyucusunda açar",
+      "practise": "Buradan çalış",
+      "practiseHint": "{{name}} {{ref}} ayetinden okuma çalışmasını başlatır"
+    },
+    "strength": {
+      "strong": "Güçlü eşleşme",
+      "likely": "Muhtemel",
+      "possible": "Olası"
+    },
+    "download": {
+      "title": "Kur'an dinleyicisini indir",
+      "body": "Herhangi bir ayetten birkaç kelime okuyun, uygulama çevrimdışı bile bulsun. Kullanmak için bir kez indirin.",
+      "size": "Yaklaşık {{size}} MB · bu cihazda kalır",
+      "action": "Dinleyiciyi indir",
+      "offline": "Dinleyiciyi indirmek için bir kez internete bağlanın."
+    },
+    "shortcut": {
+      "title": "Okuyarak bul",
+      "subtitle": "Ayeti bulmak için birkaç kelime okuyun, bu cihazda"
+    }
+  },
+  "handsFreeZikr2": {
+    "reciteInstead": {
+      "title": "Birlikte oku",
+      "body": "Bunlar Kur'an ayetleridir: saymak yerine cihazdaki dinleyiciyle okuyun. Ses cihazınızdan asla çıkmaz."
+    },
+    "sequence": {
+      "reciteKursi": "Ayetel Kürsî'yi birlikte oku"
+    },
+    "dua": {
+      "browse": "Dualara göz at"
+    },
+    "ramadan": {
+      "countDua": "Elsiz say",
+      "reciteQadr": "Kadir Suresi'ni birlikte oku"
+    },
+    "builder": {
+      "countThis": "Bunu say",
+      "countThisHint": "{{title}} için tesbih sayacını açar"
+    },
+    "quickActions": {
+      "practiceTitle": "Kur'an çalış",
+      "practiceSubtitle": "Vadesi gelen ayetleri tekrarla veya birlikte oku",
+      "sequenceTitle": "Namaz sonrası tesbih",
+      "sequenceSubtitle": "33 · 33 · 34, elsiz",
+      "reciteToFindTitle": "Okuyarak bul",
+      "reciteToFindSubtitle": "Okuyarak ayet bul"
+    },
+    "home": {
+      "revisionTitle": "Kur'an tekrarı",
+      "revisionBody": "Sağlam kalmaları için bugün tekrarlayın.",
+      "revisionAction": "Tekrara başla",
+      "revisionDue_one": "Tekrarlanacak {{count}} ayet",
+      "revisionDue_other": "Tekrarlanacak {{count}} ayet"
+    },
+    "stats": {
+      "title": "Kur'an çalışması",
+      "minutes": "Çalışma dakikası",
+      "ayahsRecited": "Okunan ayetler",
+      "sessions": "Oturumlar",
+      "revisionStreak": "En uzun tekrar serisi (gün)",
+      "milestones": "Kilometre taşları",
+      "privacy": "Size özel — asla karşılaştırılmaz veya paylaşılmaz.",
+      "open": "Çalışmayı aç"
+    }
   }
 }

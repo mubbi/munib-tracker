@@ -284,6 +284,14 @@
       "friday": {
         "label": "Xhuma",
         "description": "Progresi i listës së së premtes ose ditët deri në xhuma"
+      },
+      "adhkar": {
+        "label": "Adhkaret",
+        "description": "Adhkaret e kësaj kohe, me përparimin tuaj"
+      },
+      "events": {
+        "label": "Ditët islame",
+        "description": "Numërim mbrapsht deri te ditët islame të ardhshme"
       }
     },
     "remaining": "E mbetur",
@@ -321,7 +329,23 @@
     "fridayCountdown": "Xhuma pas {{count}} ditësh",
     "fridayCountdown_one": "Xhuma pas {{count}} dite",
     "fridayCountdown_other": "Xhuma pas {{count}} ditësh",
-    "prepareSalah": "Përgatitu"
+    "prepareSalah": "Përgatitu",
+    "watch": {
+      "today": "Sot",
+      "overview": "Përmbledhje",
+      "markConfirm": "Ta shënoj këtë namaz si të falur?",
+      "sentToPhone": "U dërgua në telefonin tuaj",
+      "willSync": "Do të sinkronizohet kur telefoni të jetë afër",
+      "allDone": "Të gjitha namazet e sotme u falën",
+      "notYet": "Ende nuk ka hyrë koha",
+      "staleData": "Hapni aplikacionin për të rifreskuar kohët e sotme",
+      "freeCount": "Numërim i lirë",
+      "tapToCount": "Prekni për të numëruar",
+      "sequenceDone": "Tesbihu përfundoi"
+    },
+    "adhkar": "Adhkaret",
+    "voiceNextSalah": "Namazi i radhës është {{prayer}} në {{time}}.",
+    "voiceSalahTime": "{{prayer}} sot është në {{time}}."
   },
   "ramadan": {
     "eyebrow": "Ramazani",
@@ -528,7 +552,8 @@
       "zikr": "Zikret",
       "durood": "Salavat",
       "names": "99 Emra",
-      "audio": "Audio"
+      "audio": "Audio",
+      "practice": "Ushtrimi i Kuranit"
     },
     "continueAction": {
       "quran": "Vazhdo leximin",
@@ -538,7 +563,8 @@
       "durood": "Kthehu në duroods",
       "names": "Kthehu te emrat",
       "audio": "Kthehu te audio",
-      "listening": "Vazhdoni të dëgjoni"
+      "listening": "Vazhdoni të dëgjoni",
+      "practice": "Vazhdo ushtrimin"
     },
     "rozaRemaining": "Agjëron për të grimuar",
     "knowledgeMotivation": {
@@ -1271,7 +1297,12 @@
       "active": "Po ndiqet {{prayer}}",
       "activeHint": "Përditësimet e gjalla do të nxirren në pah kur ky namaz të jetë i afërt. Trokit Ndalo për ta shkëputur.",
       "a11yStart": "Fillo ndjekjen e namazit të radhës në ekranin e kyçjes",
-      "a11yStop": "Ndalo ndjekjen e përditësimeve të gjalla të namazit"
+      "a11yStop": "Ndalo ndjekjen e përditësimeve të gjalla të namazit",
+      "chip": {
+        "mark": "Shëno",
+        "adhkar": "Zikret",
+        "done": "Kryer"
+      }
     },
     "tvUnavailableBody": "Kujtesat lokale dhe Live Activities nuk disponohen në TV. Menaxho preferencat e njoftimeve në telefonin tënd.",
     "preciseAdhan": "Koha e saktë e ezanit",
@@ -2444,7 +2475,8 @@
       "qaza": "Kaza",
       "roza": "Agjërimi",
       "zikr": "Dhikri",
-      "consistency": "Qëndrueshmëria"
+      "consistency": "Qëndrueshmëria",
+      "recitation": "Recitimi"
     },
     "milestones": {
       "salah": {
@@ -2580,8 +2612,27 @@
       "roza": "Agjërime të shlyera",
       "zikr": "Dhikri",
       "perfectDay": "Ditë të përsosura",
-      "streakDay": "Ditët e serisë"
-    }
+      "streakDay": "Ditët e serisë",
+      "recitationSession": "Seanca recitimi",
+      "ayahRecited": "Ajete të recituara",
+      "revisionStreakDay": "Ditë rradhazi përsëritjeje"
+    },
+    "recitation": {
+      "first": {
+        "title": "Këndimi i parë",
+        "description": "Përfunduat seancën e parë të këndimit së bashku"
+      },
+      "revisionWeek": {
+        "title": "Një javë përsëritje",
+        "description": "Përsëritët ajete {{number}} ditë rresht"
+      },
+      "ayahs100": {
+        "title": "100 ajete të kënduara",
+        "description": "Kënduat {{number}} ajete me dëgjuesin"
+      }
+    },
+    "trackComplete": "Të gjitha arritjet e kësaj rruge janë fituar",
+    "recitationPersonal": "Personale — kurrë e krahasuar me askënd"
   },
   "notifCenter": {
     "eyebrow": "Përkujtues",
@@ -2805,7 +2856,11 @@
     "ttsVoice": "Zëri",
     "ttsVoiceHint": "Zgjidhni një zë për leximin e tekstit",
     "seekBack": "{{seconds}} sekonda prapa",
-    "seekForward": "{{seconds}} sekonda përpara"
+    "seekForward": "{{seconds}} sekonda përpara",
+    "track": {
+      "audioTranslation": "Përkthim audio",
+      "namesComplete": "Të 99 emrat"
+    }
   },
   "errors": {
     "title": "Diçka shkoi keq",
@@ -2841,6 +2896,12 @@
     },
     "tasbeehDurood": {
       "description": "Numëroni këtë salawat me një numërues tasbeeh me prekje."
+    },
+    "tasbeehDua": {
+      "description": "Numëroni këtë lutje me një numërues tesbihu me prekje."
+    },
+    "tasbeehCustomAdhkar": {
+      "description": "Numëroni zikrin tuaj me një numërues tesbihu me prekje."
     }
   },
   "pwa": {
@@ -3260,7 +3321,8 @@
       "family-ties-due": "Lidhjet familjare në pritje",
       "weekly-coach": "Reflektim javor",
       "seasonal-banner": "Banerat sezonalë",
-      "umrah-mode": "Vazhdoni Umren tuaj"
+      "umrah-mode": "Vazhdoni Umren tuaj",
+      "quran-revision": "Përsëritje e Kuranit në afat"
     }
   },
   "schedule": {
@@ -4049,7 +4111,12 @@
       "highly-recommended": "Rekomandohet shumë",
       "recommended": "Rekomanduar"
     },
-    "playAyahA11y": "Luaj tilavetin e {{ref}}"
+    "playAyahA11y": "Luaj tilavetin e {{ref}}",
+    "qalqalahDrillHint": "Hap ushtrimin e tingullit kalkale me dëgjuesin në pajisje",
+    "quickPractise": "Ushtro leximin",
+    "quickPractiseHint": "Këndo me zë me dëgjuesin në pajisje",
+    "quickCoaching": "Trajnim i texhvidit",
+    "quickCoachingHint": "Ushtro tingujt që i duhen leximit tënd"
   },
   "library": {
     "eyebrow": "Biblioteka",
@@ -5186,6 +5253,18 @@
       "masjids": {
         "title": "Xhamitë pranë jush",
         "body": "Gjeni xhamitë aty pranë nga OpenStreetMap, caktoni xhaminë tuaj kryesore dhe mbani kohët tuaja të ikametit, të shtypura ose të lexuara nga një foto e takvimit."
+      },
+      "quranPractice": {
+        "title": "Këndo me dëgjuesin e Kuranit",
+        "body": "Ndiqni, kontrolloni ose përsëritni çdo pjesë — fjalët ndriçojnë ndërsa këndoni, në pajisjen tuaj."
+      },
+      "reciteToFind": {
+        "title": "Këndo për të gjetur ajetin",
+        "body": "Këndoni disa fjalë dhe aplikacioni e gjen ajetin. Zëri mbetet në pajisjen tuaj."
+      },
+      "handsFreeSequence": {
+        "title": "Tesbih pas namazit pa duar",
+        "body": "33 · 33 · 34 që numëron çdo zikër që thoni dhe kalon vetë më tej. Prekni për të korrigjuar një numërim të gabuar."
       }
     }
   },
@@ -5280,7 +5359,18 @@
       "markDhuhr": "Shëno dreken",
       "markAsr": "Shëno ikindinë",
       "markMaghrib": "Shëno akshamin",
-      "markIsha": "Shëno jacijen"
+      "markIsha": "Shëno jacijen",
+      "openAdhkar": "Hap adhkaret",
+      "openDuas": "Hap lutjet",
+      "openCalendar": "Hap kalendarin hixhri",
+      "openEvents": "Hap ditët islame",
+      "openDailyHadith": "Hap hadithin e ditës",
+      "openStatistics": "Hap statistikat",
+      "openFriday": "Hap xhumanë",
+      "nextSalah": "Kur është namazi i radhës?",
+      "salahTime": "Kur është koha e namazit?",
+      "todayProgress": "Përparimi i namazeve të sotme",
+      "search": "Kërko në aplikacion"
     },
     "moreShortcutsTitle": "Më shumë shkurtore zanore",
     "moreShortcutsHint": "Thoni ndonjë nga këto për të shënuar namazin ose për të shkuar drejt e te një ekran."
@@ -6040,8 +6130,8 @@
       "setUp": "Konfiguro",
       "downloading": "Po shkarkohet dëgjuesi i shqiptimit…",
       "consentTitle": "Para konfigurimit",
-      "consentDownload": "Kjo shkarkon një dëgjues të dytë rreth 57 MB nga Quran Lab.",
-      "consentActivation": "Aplikacioni kontakton Quran Lab një herë për ta aktivizuar, pastaj për të kontrolluar përditësimet.",
+      "consentDownload": "Kjo shkarkon një dëgjues të dytë rreth 56 MB nga Quran Lab. Ai është i enkriptuar për këtë pajisje.",
+      "consentActivation": "Konfigurimi i parë kërkon lidhje. Pas kësaj funksionon pa internet, dhe Quran Lab e rinovon lejen e vet në sfond kur jeni në linjë.",
       "consentOnDevice": "Recitimi juaj përpunohet në këtë pajisje.",
       "consentRemotePause": "Quran Lab mund ta ndalojë këtë dëgjues për të gjithë përdoruesit. Mësimet vazhdojnë të funksionojnë.",
       "agree": "Pranoj dhe shkarko",
@@ -6049,14 +6139,14 @@
       "deleteTitle": "Të fshihet dëgjuesi i shqiptimit?",
       "deleteBody": "Mësimet e texhvidit vazhdojnë të funksionojnë. Ushtrimi i një tingulli kërkon shkarkim të ri.",
       "sharingSwitch": "Ndaj recitimet e mia me Quran Lab",
-      "sharingSub": "Vetëm nëse keni pranuar në fletën e Quran Lab. Fikja ndalon ngarkimet dhe fshin radhën e padërguar.",
+      "sharingSub": "Vetëm nëse keni thënë po në fletën e Quran Lab. Fikja ndalon ngarkimet dhe fshin radhën e padërguar.",
       "deleteShared": "Fshi atë që ndava",
       "deleteSharedTitle": "Të fshihet ajo që ndatë?",
       "deleteSharedBody": "Çdo regjistrim që ndatë nga ky aplikacion fshihet nga serverët e Quran Lab dhe ndarja fiket.",
       "deletedShared": "Regjistrimet tuaja të ndara u fshinë",
       "sharingFailed": "Nuk u realizua. Ju lutemi provoni sërish.",
       "recoveryCode": "Kodi i rikuperimit: {{code}}",
-      "sourcesLine": "TajweedFormer nga Quran Lab, me licencën NPL-1.2.",
+      "sourcesLine": "TajweedFormer nga Quran Lab, me licencën NPL-1.3.",
       "practiseSound": "Ushtro këtë tingull",
       "drillTitle": "Ushtro këtë tingull",
       "drillIntro": "Dëgjoni shembullin, pastaj prekni Reciton dhe thuajeni njësoj.",
@@ -6070,14 +6160,25 @@
       "verdictTryAgain": "Dëgjoni sërish dhe provoni edhe një herë.",
       "verdictNotSure": "Dëgjuesi nuk ishte i sigurt.",
       "error": {
-        "noConnection": "Konfigurimi kërkon lidhje një herë.",
+        "noConnection": "Lidhuni me internetin për të shkarkuar dëgjuesin e shqiptimit.",
         "paused": "Quran Lab e ka ndaluar këtë dëgjues. Mësimet vazhdojnë të funksionojnë.",
         "noSpace": "Nuk ka hapësirë të mjaftueshme",
         "notYet": "Ky dëgjues nuk është ende i disponueshëm. Provoni më vonë.",
         "micDenied": "Mikrofoni është i fikur për Munib Tracker.",
         "unsupported": "Nuk është i disponueshëm në këtë pajisje",
-        "generic": "Nuk funksionoi. Ju lutemi provoni sërish."
-      }
+        "generic": "Nuk funksionoi. Ju lutemi provoni sërish.",
+        "needsRenewal": "Lidhuni me internetin një herë që Quran Lab të rinovojë dëgjuesin. Ai është tashmë në këtë pajisje.",
+        "busy": "Serverët e Quran Lab janë të zënë. Ju lutemi provoni sërish pas pak.",
+        "deviceRefused": "Quran Lab nuk mund ta hapë dëgjuesin në këtë pajisje (për shembull, një telefon me bootloader të zhbllokuar). Mësimet vazhdojnë të funksionojnë.",
+        "updateApp": "Përditësoni Munib Tracker për të vazhduar përdorimin e dëgjuesit të shqiptimit.",
+        "inUse": "Dëgjuesi ende po mbyllet. Ju lutemi provoni sërish pas një çasti."
+      },
+      "consentAnalytics": "SDK-ja e Quran Lab dërgon gjithmonë numërime ditore anonime (si minutat e ushtrimit dhe si funksionoi dëgjuesi) dhe raporte gabimesh. Kurrë audion, fjalët, emrin ose ID-në e pajisjes suaj.",
+      "consentSharingAsk": "Pas disa seancave ushtrimi, Quran Lab mund t'ju pyesë — më së shumti tri herë — nëse dëshironi të ndani regjistrime për të ndihmuar nxënës të tjerë. Asgjë nuk ndahet nëse nuk thoni po, dhe mund të fshini atë që keni ndarë.",
+      "tryAgain": "Provo sërish",
+      "feedbackDisclaimer": "Komentet automatike për texhvidin mund të jenë të gabuara. Nuk zëvendësojnë një mësues të kualifikuar.",
+      "hearingYou": "Ju dëgjoj…",
+      "shareDiagnostics": "Ndaj diagnostikimin"
     },
     "modeHelp": {
       "follow": "Lexoni me tekstin para jush. Dëgjuesi ju ndjek fjalë për fjalë.",
@@ -10354,7 +10455,9 @@
         "wudu": "Abdesi",
         "fivePrayers": "Pesë namazet",
         "howToPray": "Si të falesh"
-      }
+      },
+      "reciteFatihah": "Këndo Fatihanë",
+      "reciteFatihahHint": "Këndo Fatihanë dhe shiko si ndriçojnë fjalët."
     },
     "prophets": {
       "title": "Tregime për pejgamberët",
@@ -10364,6 +10467,39 @@
     "consentPending": {
       "title": "Duke pritur prindin tënd",
       "body": "Vazhdo të prekësh namazet si zakonisht. Prekjet ruhen në këtë pajisje dhe do të ndahen sapo prindi yt të japë leje."
+    },
+    "recite": {
+      "entry": "Këndo me dëgjuesin",
+      "entryHint": "Këndo një sure të shkurtër dhe shiko fjalët të ndizen.",
+      "title": "Këndo me dëgjuesin",
+      "subtitle": "Sure të shkurtra, një ajet në një kohë",
+      "intro": "Zgjidh një sure. Shtyp butonin e madh dhe këndo — fjalët ndizen ndërsa këndon.",
+      "privacy": "Dëgjuesi punon në këtë pajisje. Zëri yt nuk dërgohet askund.",
+      "pickA11y": "Këndo {{surah}}",
+      "ayahOf": "Ajeti {{n}} nga {{total}}",
+      "loading": "Po përgatitet ajeti…",
+      "start": "Fillo",
+      "stop": "Ndalo",
+      "startHint": "Dëgjon ndërsa këndon këtë ajet",
+      "gettingReady": "Po përgatitet…",
+      "listening": "Po dëgjoj — këndo ajetin.",
+      "listenOnly": "Shtyp Dëgjo dhe lexo bashkë — fjalët ndizen me lexuesin. Kërkoji një të rrituri ta shkarkojë dëgjuesin që të këndosh vetë.",
+      "wellDone": "Të lumtë!",
+      "nextAyah": "Ajeti tjetër",
+      "tryWordsTitle": "Pothuajse! Le t'i provojmë sërish këto fjalë.",
+      "tryWordsBody": "Prek një fjalë për ta dëgjuar, pastaj këndoje ajetin edhe një herë.",
+      "hearWordA11y": "Dëgjo {{word}}",
+      "listen": "Dëgjo",
+      "stopListening": "Ndalo dëgjimin",
+      "tryAgain": "Provo sërish",
+      "moveOn": "Shko te ajeti tjetër",
+      "finish": "Mbarova",
+      "previous": "Prapa",
+      "next": "Tjetri",
+      "doneTitle": "Mashallah, të lumtë!",
+      "doneBody": "E këndove suren {{surah}} deri në fund.",
+      "again": "Këndoje sërish",
+      "another": "Zgjidh një sure tjetër"
     }
   },
   "preferredTimeReminder": {
@@ -10907,5 +11043,189 @@
   "scriptureMeaning": {
     "englishLabel": "Kuptimi në anglisht",
     "englishLabelA11y": "Kuptimi shfaqet në anglisht: ende nuk ka përkthim nga një burim i besueshëm në gjuhën tuaj"
+  },
+  "practiceReadingCredit": {
+    "added_one": "U shtua {{count}} ajet në leximin e sotëm",
+    "added_other": "U shtuan {{count}} ajete në leximin e sotëm",
+    "khatm": "Plani i hatmes {{percent}}% i përfunduar",
+    "openHint": "Hap planin tënd të hatmes",
+    "settings": {
+      "title": "Llogarite ushtrimin si lexim të Kuranit",
+      "sub": "Ajetet që i recitoni në ushtrim shtohen në regjistrin e leximit të sotëm dhe në planin e hatmes.",
+      "keywords": "regjistri i leximit, hatme, lexim ditor, recitim, përparim"
+    },
+    "khatmAlready": "Tashmë e numëruar në planin e hatmes — {{percent}}% i përfunduar",
+    "habitDone": "Shëno zakonin si të kryer",
+    "habitDoneHint": "Shënon {{habit}} për sot",
+    "habitDoneToast": "{{habit}} u shënua si i kryer për sot"
+  },
+  "reciteAlong": {
+    "button": "Këndo me dëgjuesin",
+    "buttonHint": "Hap {{passage}} me dëgjuesin në pajisje",
+    "cardTitle": "Këndo me dëgjuesin",
+    "cardBody": "Këndoni me zë dhe fjalët ndizen ndërsa lexoni. Dëgjuesi punon në këtë pajisje — zëri juaj nuk largohet kurrë prej saj.",
+    "topicTitle": "Këndo këto ajete",
+    "sheet": {
+      "title": "Këndo {{passage}}",
+      "body": "Kjo është një pjesë e gjatë. Ndiqeni të gjithën ndërsa fjalët ndizen, ose merrni dhjetë ajete njëherësh.",
+      "followWhole": "Ndiq gjithë pjesën",
+      "sections": "Ose zgjidhni dhjetë ajete",
+      "section": "Ajetet {{from}}–{{to}}"
+    },
+    "kahf": {
+      "title": "Këndo suren el-Kehf me dëgjuesin",
+      "body": "Ndiqni gjithë suren ndërsa fjalët ndizen kur këndoni, ose këndojeni nga dhjetë ajete. Dëgjuesi punon në këtë pajisje."
+    },
+    "ruqyah": {
+      "title": "Këndo ajetet e rukjes me dëgjuesin",
+      "body": "Këndoni çdo pjesë me zë dhe fjalët ndizen ndërsa lexoni. Dëgjuesi punon në këtë pajisje — zëri juaj nuk largohet kurrë prej saj."
+    },
+    "fatihah": {
+      "title": "Kontrollo Fatihanë time",
+      "body": "Këndoni Fatihanë me zë dhe dëgjuesi në pajisje tregon fjalët që u dukën të kapërcyera ose të paqarta, me lexuesin vetëm një prekje larg.",
+      "short": "Këndojeni me zë dhe shihni fjalët që u dukën të kapërcyera ose të paqarta.",
+      "cta": "Fillo kontrollin",
+      "ctaHint": "Hap Fatihanë me dëgjuesin në pajisje",
+      "note": "Një ndihmë për ushtrim, jo një vendim për Salahun tuaj — mësojeni leximin te një mësues i aftë. Zëri juaj mbetet në këtë pajisje."
+    },
+    "khatmToday": "Këndo pjesën e sotme me dëgjuesin",
+    "checkButton": "Kontrollo leximin tim",
+    "iconLabel": "Këndo",
+    "withPassage": "Këndo me dëgjuesin: {{passage}}",
+    "afterSalah": {
+      "title": "Këndo pas Salahut",
+      "body": "Ajetul-Kursijja dhe suret el-Ihlas, el-Felek dhe en-Nas, që këndohen pas çdo Salahu farz. Këndo secilën me zë dhe fjalët ndriçojnë ndërsa lexon — dëgjuesi punon në këtë pajisje."
+    }
+  },
+  "handsFreeZikr": {
+    "steps": {
+      "choose": "Mësojeni {{phrase}} që të numërohet vetëm ai, ose numëroni çdo pauzë (më pak e saktë).",
+      "teachThis": "Mësojeni këtë zikër",
+      "next": "Numërimi pa duar vazhdon me zikrin e radhës.",
+      "tapThisOne": "Prekni për ta numëruar këtë. Numërimi pa duar rifillon te zikri i shkurtër i radhës."
+    },
+    "sequence": {
+      "title": "Tesbihu pas namazit",
+      "entryBody": "33, 33 dhe 34 në një numërues që kalon vetë te fraza e radhës — me prekje ose pa duar.",
+      "openFromSession": "Numëro si një varg 33 · 33 · 34",
+      "stepSummary": "{{phrase}} ×{{times}}",
+      "endingTahlil": "33 + {{phrase}}",
+      "prayerLabel": "Regjistro me zikret pas",
+      "endingLabel": "Plotësoni njëqindën me",
+      "evidence": {
+        "takbir34": "Pas çdo namazi farz: 33, 33 dhe 34 ({{reference}}).",
+        "tahlil": "33, 33 dhe 33 bëjnë 99; tehlili plotëson njëqindën ({{reference}})."
+      },
+      "progress": "{{done}} nga {{total}}",
+      "handsFreeHint": "Aktivizoni numërimin pa duar një herë — ju ndjek nga fraza në frazë. Prekni për të korrigjuar çdo numërim të gabuar.",
+      "doneBody": "Tesbihu pas namazit u regjistrua për {{prayer}}."
+    }
+  },
+  "reciteToFind": {
+    "mode": {
+      "type": "Shkruaj",
+      "recite": "Recito"
+    },
+    "mic": {
+      "start": "Fillo dëgjimin",
+      "stop": "Ndalo dëgjimin",
+      "startHint": "Recitoni disa fjalë nga çdo ajet për ta gjetur",
+      "stopHint": "Ndalon dëgjimin dhe shfaq përputhjet"
+    },
+    "status": {
+      "preparing": "Po përgatitet dëgjuesi",
+      "preparingHint": "Herën e parë kjo zgjat pak.",
+      "failed": "Dëgjuesi nuk nisi",
+      "failedHint": "Dilni nga ky ekran dhe hapeni përsëri. Kërkimi me shkrim funksionon ende.",
+      "idle": "Recitoni për të gjetur ajetin",
+      "idleHint": "Prekni mikrofonin dhe recitoni disa fjalë nga çdo ajet. Aplikacioni gjen vendin e tij në Kuran.",
+      "listening": "Po dëgjoj…",
+      "nothingYet": "Ende asgjë. Vazhdoni të recitoni me ritëm normal.",
+      "narrowing": "Vazhdoni të recitoni për më shumë siguri, ose prekni ndalo.",
+      "settling": "Po përfundon",
+      "settlingHint": "Po kontrollohen fjalët e fundit që recituat.",
+      "found": "Ja çfarë dëgjuam",
+      "foundHint": "Hapni një ajet, ose prekni mikrofonin për të recituar përsëri.",
+      "nothing": "Ky recitim nuk u njoh",
+      "nothingHint": "Recitoni pak më gjatë, në një vend të qetë, afër mikrofonit.",
+      "stopped": "Dëgjimi u ndal"
+    },
+    "error": {
+      "micDenied": "Qasja në mikrofon është e fikur. Lejojeni te Cilësimet për të gjetur me recitim.",
+      "openSettings": "Hap Cilësimet"
+    },
+    "privacy": "Recitimi juaj përpunohet në këtë pajisje. Audio nuk largohet kurrë prej saj.",
+    "results": {
+      "live": "Përputhje të mundshme",
+      "title": "Përputhjet"
+    },
+    "result": {
+      "range": "{{surah}}:{{from}}–{{to}}",
+      "open": "Hape në lexues",
+      "openHint": "Hap {{name}} {{ref}} në lexuesin e Kuranit",
+      "practise": "Ushtrohu nga këtu",
+      "practiseHint": "Nis ushtrimin e recitimit te {{name}} {{ref}}"
+    },
+    "strength": {
+      "strong": "Përputhje e fortë",
+      "likely": "Ka gjasa",
+      "possible": "E mundshme"
+    },
+    "download": {
+      "title": "Shkarkoni dëgjuesin e Kuranit",
+      "body": "Recitoni disa fjalë nga çdo ajet dhe aplikacioni e gjen, edhe pa internet. Shkarkojeni një herë për ta përdorur.",
+      "size": "Rreth {{size}} MB · mbetet në këtë pajisje",
+      "action": "Shkarko dëgjuesin",
+      "offline": "Lidhuni një herë me internetin për të shkarkuar dëgjuesin."
+    },
+    "shortcut": {
+      "title": "Gjej me recitim",
+      "subtitle": "Recitoni disa fjalë për të gjetur ajetin, në këtë pajisje"
+    }
+  },
+  "handsFreeZikr2": {
+    "reciteInstead": {
+      "title": "Këndo së bashku",
+      "body": "Këto janë ajete të Kuranit: këndojini me dëgjuesin në pajisje në vend që t'i numëroni. Zëri nuk largohet kurrë nga pajisja juaj."
+    },
+    "sequence": {
+      "reciteKursi": "Këndo Ajetul-Kursijun së bashku"
+    },
+    "dua": {
+      "browse": "Shfleto lutjet"
+    },
+    "ramadan": {
+      "countDua": "Numëro pa duar",
+      "reciteQadr": "Këndo suren El-Kadr së bashku"
+    },
+    "builder": {
+      "countThis": "Numëro këtë",
+      "countThisHint": "Hap numëruesin e tesbihut për {{title}}"
+    },
+    "quickActions": {
+      "practiceTitle": "Ushtro Kuranin",
+      "practiceSubtitle": "Përsërit ajetet në afat ose këndo së bashku",
+      "sequenceTitle": "Tesbih pas namazit",
+      "sequenceSubtitle": "33 · 33 · 34, pa duar",
+      "reciteToFindTitle": "Këndo për të gjetur",
+      "reciteToFindSubtitle": "Gjej një ajet duke e kënduar"
+    },
+    "home": {
+      "revisionTitle": "Përsëritja e Kuranit",
+      "revisionBody": "Përsëritini sot që të mbeten të forta.",
+      "revisionAction": "Fillo përsëritjen",
+      "revisionDue_one": "{{count}} ajet për t'u përsëritur",
+      "revisionDue_other": "{{count}} ajete për t'u përsëritur"
+    },
+    "stats": {
+      "title": "Ushtrimi i Kuranit",
+      "minutes": "Minuta ushtrimi",
+      "ayahsRecited": "Ajete të kënduara",
+      "sessions": "Seanca",
+      "revisionStreak": "Seria më e gjatë e përsëritjes (ditë)",
+      "milestones": "Arritje",
+      "privacy": "Vetëm për ju — kurrë nuk krahasohet as nuk ndahet.",
+      "open": "Hap ushtrimin"
+    }
   }
 }

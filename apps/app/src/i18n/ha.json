@@ -284,6 +284,14 @@
       "friday": {
         "label": "Juma'a",
         "description": "Ci gaban jerin Juma'a ko kwanaki har zuwa Juma'a"
+      },
+      "adhkar": {
+        "label": "Azkar",
+        "description": "Azkar na wannan lokaci, tare da ci gabanka"
+      },
+      "events": {
+        "label": "Ranakun Musulunci",
+        "description": "Ƙidayar kwanaki zuwa ranakun Musulunci masu zuwa"
       }
     },
     "remaining": "Ya rage",
@@ -321,7 +329,23 @@
     "fridayCountdown": "Juma'a cikin kwanaki {{count}}",
     "fridayCountdown_one": "Juma'a cikin kwana {{count}}",
     "fridayCountdown_other": "Juma'a cikin kwanaki {{count}}",
-    "prepareSalah": "Shirya"
+    "prepareSalah": "Shirya",
+    "watch": {
+      "today": "Yau",
+      "overview": "Taƙaitaccen bayani",
+      "markConfirm": "A yi alamar an yi wannan Salah?",
+      "sentToPhone": "An aika zuwa wayarka",
+      "willSync": "Za a daidaita idan wayarka tana kusa",
+      "allDone": "An kammala dukkan Salah na yau",
+      "notYet": "Lokaci bai yi ba tukuna",
+      "staleData": "Bude ƙa'idar don sabunta lokutan yau",
+      "freeCount": "Ƙidaya kyauta",
+      "tapToCount": "Taɓa don ƙirga",
+      "sequenceDone": "An kammala Tasbihi"
+    },
+    "adhkar": "Azkar",
+    "voiceNextSalah": "Sallah ta gaba ita ce {{prayer}} da ƙarfe {{time}}.",
+    "voiceSalahTime": "{{prayer}} yau da ƙarfe {{time}} ne."
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -528,7 +552,8 @@
       "zikr": "Adkar",
       "durood": "Salati",
       "names": "Sunaye 99",
-      "audio": "Sauti"
+      "audio": "Sauti",
+      "practice": "Atisayen Alƙur'ani"
     },
     "continueAction": {
       "quran": "Ci gaba da karatu",
@@ -538,7 +563,8 @@
       "durood": "Koma zuwa duroods",
       "names": "Komawa zuwa sunaye",
       "audio": "Komawa ga sauti",
-      "listening": "Ci gaba da sauraro"
+      "listening": "Ci gaba da sauraro",
+      "practice": "Ci gaba da atisaye"
     },
     "rozaRemaining": "Azumi don gyarawa",
     "knowledgeMotivation": {
@@ -1271,7 +1297,12 @@
       "active": "Ana bin {{prayer}}",
       "activeHint": "Sabuntawa kai tsaye za su bayyana lokacin da wannan Salah ta kusa. Taɓa Dakatar don cire manna.",
       "a11yStart": "Fara bin Salah na gaba a allon makulli",
-      "a11yStop": "Dakatar da bin sabuntawar Salah kai tsaye"
+      "a11yStop": "Dakatar da bin sabuntawar Salah kai tsaye",
+      "chip": {
+        "mark": "Alama",
+        "adhkar": "Zikiri",
+        "done": "Gama"
+      }
     },
     "tvUnavailableBody": "Tunatarwa na cikin gida da Live Activities ba sa samuwa a TV. Sarrafa zaɓuɓɓukan sanarwa a wayarka.",
     "preciseAdhan": "Daidai lokacin adhan",
@@ -2444,7 +2475,8 @@
       "qaza": "Qaza",
       "roza": "Azumi",
       "zikr": "Zikiri",
-      "consistency": "Dagewa"
+      "consistency": "Dagewa",
+      "recitation": "Karatu"
     },
     "milestones": {
       "salah": {
@@ -2580,8 +2612,27 @@
       "roza": "Azumin da aka rama",
       "zikr": "Zikiri",
       "perfectDay": "Cikakkun ranaku",
-      "streakDay": "Ranakun jeri"
-    }
+      "streakDay": "Ranakun jeri",
+      "recitationSession": "Zaman karatu",
+      "ayahRecited": "Ayoyin da aka karanta",
+      "revisionStreakDay": "Kwanakin jerin bita"
+    },
+    "recitation": {
+      "first": {
+        "title": "Karatu na farko",
+        "description": "Ka gama zaman karanta tare na farko"
+      },
+      "revisionWeek": {
+        "title": "Mako na maimaitawa",
+        "description": "Ka maimaita ayoyi kwanaki {{number}} a jere"
+      },
+      "ayahs100": {
+        "title": "An karanta ayoyi 100",
+        "description": "Ka karanta ayoyi {{number}} tare da mai saurare"
+      }
+    },
+    "trackComplete": "An samu duk matakan wannan hanya",
+    "recitationPersonal": "Na kanka — ba a kwatanta ka da kowa"
   },
   "notifCenter": {
     "eyebrow": "Tunatarwa",
@@ -2805,7 +2856,11 @@
     "ttsVoice": "Murya",
     "ttsVoiceHint": "Zaɓi muryar rubutu-zuwa-magana",
     "seekBack": "Koma baya daƙiƙa {{seconds}}",
-    "seekForward": "Gaba daƙiƙa {{seconds}}"
+    "seekForward": "Gaba daƙiƙa {{seconds}}",
+    "track": {
+      "audioTranslation": "Fassarar sauti",
+      "namesComplete": "Dukkan sunaye 99"
+    }
   },
   "errors": {
     "title": "Wani abu bai yi daidai ba",
@@ -2841,6 +2896,12 @@
     },
     "tasbeehDurood": {
       "description": "Ƙidaya wannan durood da ƙugiya mai taɓawa."
+    },
+    "tasbeehDua": {
+      "description": "Ƙirga wannan addu'a da ma'aunin tasbihi na taɓawa."
+    },
+    "tasbeehCustomAdhkar": {
+      "description": "Ƙirga zikirinka da ma'aunin tasbihi na taɓawa."
     }
   },
   "pwa": {
@@ -3260,7 +3321,8 @@
       "family-ties-due": "Sada zumunci da ya kamata",
       "weekly-coach": "Tunani na mako-mako",
       "seasonal-banner": "Tutocin lokuta",
-      "umrah-mode": "Ci gaba da Umararka"
+      "umrah-mode": "Ci gaba da Umararka",
+      "quran-revision": "Maimaita Alƙur'ani da lokacinsa ya yi"
     }
   },
   "schedule": {
@@ -4049,7 +4111,12 @@
       "highly-recommended": "Shawara sosai",
       "recommended": "Nasiha"
     },
-    "playAyahA11y": "Kunna karatun {{ref}}"
+    "playAyahA11y": "Kunna karatun {{ref}}",
+    "qalqalahDrillHint": "Yana buɗe aikin sautin qalqala tare da mai saurare a na'ura",
+    "quickPractise": "Aikin karatu",
+    "quickPractiseHint": "Karanta da babbar murya tare da mai saurare a na'ura",
+    "quickCoaching": "Horon tajwidi",
+    "quickCoachingHint": "Yi aikin sautukan da karatunka ke buƙata"
   },
   "library": {
     "eyebrow": "Laburare",
@@ -5186,6 +5253,18 @@
       "masjids": {
         "title": "Masallatai kusa da kai",
         "body": "Nemo masallatai na kusa daga OpenStreetMap, zaɓi masallacinka, kuma ka adana lokutan iqama naka, ta hanyar rubutawa ko karanta su daga hoton jadawali."
+      },
+      "quranPractice": {
+        "title": "Karanta tare da mai sauraren Alƙur'ani",
+        "body": "Bi, duba ko maimaita kowane sashe — kalmomi suna haske yayin da kake karantawa, a na'urarka."
+      },
+      "reciteToFind": {
+        "title": "Karanta don nemo aya",
+        "body": "Karanta 'yan kalmomi kuma manhajar za ta nemo ayar. Sauti yana zama a na'urarka."
+      },
+      "handsFreeSequence": {
+        "title": "Tasbihi bayan Sallah ba tare da hannu ba",
+        "body": "33 · 33 · 34 da ke ƙirga kowane zikiri da ka faɗa kuma ya ci gaba da kansa. Taɓa don gyara kuskuren ƙirga."
       }
     }
   },
@@ -5269,8 +5348,8 @@
     "failed": "Ba a iya yi wa sallah alama ba",
     "intents": {
       "openTracker": "Buɗe jerin abubuwan dubawa",
-      "openQibla": "Qibla Aç",
-      "openTasbeeh": "Tasbeeh Aç",
+      "openQibla": "Buɗe Alƙibla",
+      "openTasbeeh": "Buɗe Tasbihi",
       "markCurrent": "Yi alamar sallata",
       "openRamadan": "Buɗe Ramadan",
       "openKhatm": "Buɗe shirin khatm",
@@ -5280,7 +5359,18 @@
       "markDhuhr": "Alama Azahar",
       "markAsr": "Alama Asar",
       "markMaghrib": "Alama Magariba",
-      "markIsha": "Alama Isha"
+      "markIsha": "Alama Isha",
+      "openAdhkar": "Buɗe azkar",
+      "openDuas": "Buɗe addu'o'i",
+      "openCalendar": "Buɗe kalandar Hijira",
+      "openEvents": "Buɗe ranakun Musulunci",
+      "openDailyHadith": "Buɗe hadisin yau",
+      "openStatistics": "Buɗe ƙididdiga",
+      "openFriday": "Buɗe Juma'a",
+      "nextSalah": "Yaushe ne sallah ta gaba?",
+      "salahTime": "Yaushe ne lokacin sallah?",
+      "todayProgress": "Ci gaban sallolin yau",
+      "search": "Bincika a manhaja"
     },
     "moreShortcutsTitle": "Ƙarin gajerun murya",
     "moreShortcutsHint": "Faɗi ɗaya daga cikin waɗannan don alamar Salah ko zuwa allon kai tsaye."
@@ -6040,8 +6130,8 @@
       "setUp": "Saita",
       "downloading": "Ana sauke mai sauraron furuci…",
       "consentTitle": "Kafin saitawa",
-      "consentDownload": "Wannan zai sauke mai sauraro na biyu na kusan 57 MB daga Quran Lab.",
-      "consentActivation": "Manhajar tana tuntuɓar Quran Lab sau ɗaya don kunna shi, sannan don duba sabuntawa.",
+      "consentDownload": "Wannan zai sauke mai sauraro na biyu na kusan 56 MB daga Quran Lab. An ɓoye shi don wannan na'ura.",
+      "consentActivation": "Saitawa ta farko tana buƙatar haɗi. Bayan haka yana aiki ba tare da intanet ba, kuma Quran Lab yana sabunta izininsa a baya idan kana kan layi.",
       "consentOnDevice": "Ana sarrafa tilawarka a wannan na'urar.",
       "consentRemotePause": "Quran Lab na iya dakatar da wannan mai sauraro ga dukan masu amfani. Darussan za su ci gaba da aiki.",
       "agree": "Na yarda, sauke",
@@ -6049,14 +6139,14 @@
       "deleteTitle": "A share mai sauraron furuci?",
       "deleteBody": "Darussan tajwidi za su ci gaba da aiki. Atisayen sauti yana buƙatar sake saukewa.",
       "sharingSwitch": "Raba tilawata da Quran Lab",
-      "sharingSub": "Sai idan ka yarda a takardar Quran Lab. Kashewa yana dakatar da lodawa kuma yana share layin da ba a aika ba.",
+      "sharingSub": "Sai idan ka ce eh a takardar Quran Lab. Kashewa yana dakatar da lodawa kuma yana share layin da ba a aika ba.",
       "deleteShared": "Share abin da na raba",
       "deleteSharedTitle": "A share abin da ka raba?",
       "deleteSharedBody": "Kowane rikodin da ka raba daga wannan manhaja ana share shi daga sabobin Quran Lab, kuma raba yana kashewa.",
       "deletedShared": "An share rikodin da ka raba",
       "sharingFailed": "Bai yiwu ba. Da fatan za a sake gwadawa.",
       "recoveryCode": "Lambar dawo da shi: {{code}}",
-      "sourcesLine": "TajweedFormer daga Quran Lab, ƙarƙashin lasisin NPL-1.2.",
+      "sourcesLine": "TajweedFormer daga Quran Lab, ƙarƙashin lasisin NPL-1.3.",
       "practiseSound": "Yi atisayen wannan sauti",
       "drillTitle": "Yi atisayen wannan sauti",
       "drillIntro": "Saurari misalin, sannan taɓa Karanta ka faɗe shi haka.",
@@ -6070,14 +6160,25 @@
       "verdictTryAgain": "Sake saurara ka sake gwadawa.",
       "verdictNotSure": "Mai sauraron bai tabbata ba.",
       "error": {
-        "noConnection": "Saitawa tana buƙatar haɗi sau ɗaya.",
+        "noConnection": "Haɗa da intanet don sauke mai sauraron furuci.",
         "paused": "Quran Lab ya dakatar da wannan mai sauraro. Darussan suna ci gaba da aiki.",
         "noSpace": "Babu isasshen wuri",
         "notYet": "Wannan mai sauraro bai samu ba tukuna. Da fatan za a gwada daga baya.",
         "micDenied": "Makirufo a kashe yake ga Munib Tracker.",
         "unsupported": "Babu a wannan na'urar",
-        "generic": "Bai yi aiki ba. Da fatan za a sake gwadawa."
-      }
+        "generic": "Bai yi aiki ba. Da fatan za a sake gwadawa.",
+        "needsRenewal": "Haɗa da intanet sau ɗaya don Quran Lab ya sabunta mai sauraron. Yana kan wannan na'ura tuni.",
+        "busy": "Sabobin Quran Lab suna da yawan aiki. Da fatan za a sake gwadawa nan ba da jimawa ba.",
+        "deviceRefused": "Quran Lab ba zai iya buɗe mai sauraron a wannan na'ura ba (misali, waya mai buɗaɗɗen bootloader). Darussan suna ci gaba da aiki.",
+        "updateApp": "Sabunta Munib Tracker don ci gaba da amfani da mai sauraron furuci.",
+        "inUse": "Mai sauraron yana rufewa har yanzu. Da fatan za a sake gwadawa nan da ɗan lokaci."
+      },
+      "consentAnalytics": "SDK na Quran Lab koyaushe yana aika ƙididdigar yau da kullum marasa suna (kamar mintunan atisaye da yadda mai sauraron ya yi aiki) da rahotannin kuskure. Ba ya taɓa aika sautinka, kalmominka, sunanka ko ID na na'urarka.",
+      "consentSharingAsk": "Bayan wasu zaman atisaye, Quran Lab na iya tambaya — sau uku a mafi yawa — ko kana son raba rikodin don taimaka wa sauran masu koyo. Ba a raba komai sai ka ce eh, kuma kana iya share abin da ka raba.",
+      "tryAgain": "Sake gwadawa",
+      "feedbackDisclaimer": "Ra'ayin tajwidi na atomatik na iya yin kuskure. Ba ya maye gurbin ƙwararren malami.",
+      "hearingYou": "Ina jin muryarka…",
+      "shareDiagnostics": "Raba bayanan bincike"
     },
     "modeHelp": {
       "follow": "Karanta da rubutun a gabanka. Mai sauraro yana bin ka kalma bayan kalma.",
@@ -10354,7 +10455,9 @@
         "wudu": "Alwala",
         "fivePrayers": "Salloli biyar",
         "howToPray": "Yadda ake sallah"
-      }
+      },
+      "reciteFatihah": "Karanta Fatiha",
+      "reciteFatihahHint": "Karanta Fatiha ka ga kalmomin suna haskakawa."
     },
     "prophets": {
       "title": "Labaran annabawa",
@@ -10364,6 +10467,39 @@
     "consentPending": {
       "title": "Ana jiran mahaifinka",
       "body": "Ci gaba da taɓa Sallarka kamar yadda aka saba. Ana ajiye taɓawarka a wannan na'urar kuma za a raba su da zarar mahaifinka ya amince."
+    },
+    "recite": {
+      "entry": "Karanta tare da mai saurare",
+      "entryHint": "Karanta gajeriyar sura ka ga kalmomin suna haskaka.",
+      "title": "Karanta tare da mai saurare",
+      "subtitle": "Gajerun surori, aya ɗaya a lokaci ɗaya",
+      "intro": "Zaɓi sura. Danna babban maɓalli ka karanta — kalmomi za su haskaka yayin da kake karantawa.",
+      "privacy": "Mai saurare yana aiki a wannan na'urar. Ba a aika muryarka ko'ina.",
+      "pickA11y": "Karanta {{surah}}",
+      "ayahOf": "Aya {{n}} cikin {{total}}",
+      "loading": "Ana shirya ayar…",
+      "start": "Fara",
+      "stop": "Tsaya",
+      "startHint": "Yana saurare yayin da kake karanta wannan ayar",
+      "gettingReady": "Ana shiryawa…",
+      "listening": "Ina saurare — karanta ayar.",
+      "listenOnly": "Danna Saurara ka karanta tare — kalmomi za su haskaka tare da mai karatu. Roƙi babba ya sauke mai saurare don ka karanta da kanka.",
+      "wellDone": "Madalla!",
+      "nextAyah": "Aya ta gaba",
+      "tryWordsTitle": "Kusan! Mu sake gwada waɗannan kalmomi.",
+      "tryWordsBody": "Danna kalma don ka ji ta, sannan ka sake karanta ayar sau ɗaya.",
+      "hearWordA11y": "Saurari {{word}}",
+      "listen": "Saurara",
+      "stopListening": "Daina sauraro",
+      "tryAgain": "Sake gwadawa",
+      "moveOn": "Je zuwa aya ta gaba",
+      "finish": "Na gama",
+      "previous": "Koma baya",
+      "next": "Na gaba",
+      "doneTitle": "Masha Allah, madalla!",
+      "doneBody": "Ka karanta Suratul {{surah}} har ƙarshe.",
+      "again": "Sake karantawa",
+      "another": "Zaɓi wata sura"
     }
   },
   "preferredTimeReminder": {
@@ -10907,5 +11043,189 @@
   "scriptureMeaning": {
     "englishLabel": "Ma'anar Turanci",
     "englishLabelA11y": "An nuna ma'anar da Turanci: babu fassara daga ingantacciyar majiya a harshenka tukuna"
+  },
+  "practiceReadingCredit": {
+    "added_one": "An ƙara aya {{count}} cikin karatun yau",
+    "added_other": "An ƙara ayoyi {{count}} cikin karatun yau",
+    "khatm": "Tsarin Khatm ya kammala {{percent}}%",
+    "openHint": "Yana buɗe tsarin Khatm",
+    "settings": {
+      "title": "Ƙidaya atisaye a matsayin karatun Alkur'ani",
+      "sub": "Ayoyin da ka karanta a atisaye ana ƙara su cikin rajistar karatun yau da tsarin Khatm ɗinka.",
+      "keywords": "rajistar karatu, khatm, karatun yau da kullum, tilawa, ci gaba"
+    },
+    "khatmAlready": "An riga an ƙirga shi a tsarin Khatm — ya kammala {{percent}}%",
+    "habitDone": "Yi alamar an yi ɗabi'ar",
+    "habitDoneHint": "Yana yi wa {{habit}} alama ta yau",
+    "habitDoneToast": "An yi wa {{habit}} alamar an yi na yau"
+  },
+  "reciteAlong": {
+    "button": "Karanta tare da mai saurare",
+    "buttonHint": "Yana buɗe {{passage}} tare da mai saurare a na'urar",
+    "cardTitle": "Karanta tare da mai saurare",
+    "cardBody": "Ku karanta da babbar murya, kalmomin za su haskaka yayin da kuke karantawa. Mai saurare yana aiki a wannan na'urar — muryarku ba ta taɓa fita daga cikinta.",
+    "topicTitle": "Karanta waɗannan ayoyi",
+    "sheet": {
+      "title": "Karanta {{passage}}",
+      "body": "Wannan dogon sashe ne. Ku bi shi gaba ɗaya yayin da kalmomi ke haskaka, ko ku ɗauki ayoyi goma a lokaci ɗaya.",
+      "followWhole": "Bi dukan sashen",
+      "sections": "Ko ku zaɓi ayoyi goma",
+      "section": "Ayoyi {{from}}–{{to}}"
+    },
+    "kahf": {
+      "title": "Karanta Suratul Kahf tare da mai saurare",
+      "body": "Ku bi dukan surar yayin da kalmomi ke haskaka lokacin karatu, ko ku karanta ta ayoyi goma-goma. Mai saurare yana aiki a wannan na'urar."
+    },
+    "ruqyah": {
+      "title": "Karanta ayoyin ruqya tare da mai saurare",
+      "body": "Ku karanta kowane sashe da babbar murya, kalmomin za su haskaka yayin da kuke karantawa. Mai saurare yana aiki a wannan na'urar — muryarku ba ta taɓa fita daga cikinta."
+    },
+    "fatihah": {
+      "title": "Duba Fatiha ta",
+      "body": "Ku karanta Fatiha da babbar murya; mai saurare a na'urar zai nuna kalmomin da suka yi kamar an tsallake su ko ba su fito sarai ba, mai karatu kuma ɗan taɓawa ɗaya ne.",
+      "short": "Ku karanta ta da babbar murya ku ga kalmomin da suka yi kamar an tsallake su ko ba su fito sarai ba.",
+      "cta": "Fara dubawa",
+      "ctaHint": "Yana buɗe Fatiha tare da mai saurare a na'urar",
+      "note": "Kayan taimako ne na atisaye, ba hukunci a kan Sallarku ba — ku koyi karatu wurin malami ƙwararre. Muryarku tana zama a wannan na'urar."
+    },
+    "khatmToday": "Karanta rabon yau tare da mai saurare",
+    "checkButton": "Duba karatuna",
+    "iconLabel": "Karanta",
+    "withPassage": "Karanta tare da mai saurare: {{passage}}",
+    "afterSalah": {
+      "title": "Karanta bayan Salah",
+      "body": "Ayatul Kursiyyu da surorin Ikhlas, Falaq da Nas, waɗanda ake karantawa bayan kowace Salah ta farilla. Karanta kowace da babbar murya, kalmomin za su haskaka yayin da kake karatu — mai saurare yana aiki a kan wannan na'ura."
+    }
+  },
+  "handsFreeZikr": {
+    "steps": {
+      "choose": "Koyar da {{phrase}} don shi kaɗai a ƙirga, ko ƙirga kowane tsayawa (ba daidai sosai ba).",
+      "teachThis": "Koyar da wannan zikiri",
+      "next": "Ƙirga ba tare da taɓawa ba zai ci gaba da zikiri na gaba.",
+      "tapThisOne": "Taɓa don ƙirga wannan. Ƙirga ba tare da taɓawa ba zai sake farawa a gajeren zikiri na gaba."
+    },
+    "sequence": {
+      "title": "Tasbihi bayan sallah",
+      "entryBody": "33, 33 da 34 a cikin ma'auni ɗaya da ke matsawa zuwa jumla ta gaba da kansa — ta taɓawa ko ba tare da taɓawa ba.",
+      "openFromSession": "Ƙirga a matsayin jerin 33 · 33 · 34 ɗaya",
+      "stepSummary": "{{phrase}} ×{{times}}",
+      "endingTahlil": "33 + {{phrase}}",
+      "prayerLabel": "Rubuta tare da adhkar bayan",
+      "endingLabel": "Cika ɗari da",
+      "evidence": {
+        "takbir34": "Bayan kowace sallar farilla: 33, 33 da 34 ({{reference}}).",
+        "tahlil": "33, 33 da 33 sun zama 99; tahlili yana cika ɗari ({{reference}})."
+      },
+      "progress": "{{done}} cikin {{total}}",
+      "handsFreeHint": "Kunna ƙirga ba tare da taɓawa ba sau ɗaya — zai bi ka daga jumla zuwa jumla. Taɓa don gyara kowane kuskuren ƙirga.",
+      "doneBody": "An rubuta tasbihi bayan sallah na {{prayer}}."
+    }
+  },
+  "reciteToFind": {
+    "mode": {
+      "type": "Rubuta",
+      "recite": "Karanta"
+    },
+    "mic": {
+      "start": "Fara saurare",
+      "stop": "Daina saurare",
+      "startHint": "Karanta 'yan kalmomi na kowace aya don a same ta",
+      "stopHint": "Yana daina saurare kuma yana nuna sakamako"
+    },
+    "status": {
+      "preparing": "Ana shirya mai saurare",
+      "preparingHint": "A karon farko yana ɗaukar ɗan lokaci.",
+      "failed": "Mai saurare bai fara ba",
+      "failedHint": "Fita daga wannan allo sannan ka sake buɗe shi. Neman rubutu yana aiki.",
+      "idle": "Karanta don nemo aya",
+      "idleHint": "Taɓa makirufo kuma ka karanta 'yan kalmomi na kowace aya. Manhajar za ta nemo wurinta a cikin Alƙur'ani.",
+      "listening": "Ana saurare…",
+      "nothingYet": "Babu komai tukuna. Ci gaba da karatu a saurin al'ada.",
+      "narrowing": "Ci gaba da karatu don ƙarin tabbaci, ko taɓa tsaya.",
+      "settling": "Ana kammalawa",
+      "settlingHint": "Ana duba kalmomin ƙarshe da ka karanta.",
+      "found": "Ga abin da muka ji",
+      "foundHint": "Buɗe aya, ko taɓa makirufo don sake karantawa.",
+      "nothing": "Ba a gane wannan karatun ba",
+      "nothingHint": "Karanta ɗan tsawon lokaci, a wuri mai shiru, kusa da makirufo.",
+      "stopped": "Saurare ya tsaya"
+    },
+    "error": {
+      "micDenied": "An kashe izinin makirufo. Ba da izini a Saituna don nemo ta karatu.",
+      "openSettings": "Buɗe Saituna"
+    },
+    "privacy": "Ana sarrafa karatunka a wannan na'ura. Sauti ba ya taɓa barin ta.",
+    "results": {
+      "live": "Sakamako mai yiwuwa",
+      "title": "Sakamako"
+    },
+    "result": {
+      "range": "{{surah}}:{{from}}–{{to}}",
+      "open": "Buɗe a mai karatu",
+      "openHint": "Yana buɗe {{name}} {{ref}} a mai karanta Alƙur'ani",
+      "practise": "Yi atisaye daga nan",
+      "practiseHint": "Yana fara atisayen karatu a {{name}} {{ref}}"
+    },
+    "strength": {
+      "strong": "Daidaito mai ƙarfi",
+      "likely": "Mai yiwuwa sosai",
+      "possible": "Mai yiwuwa"
+    },
+    "download": {
+      "title": "Sauke mai sauraren Alƙur'ani",
+      "body": "Karanta 'yan kalmomi na kowace aya kuma manhajar za ta same ta, ko ba tare da intanet ba. Sauke shi sau ɗaya don amfani.",
+      "size": "Kusan {{size}} MB · yana nan a wannan na'ura",
+      "action": "Sauke mai saurare",
+      "offline": "Haɗa da intanet sau ɗaya don sauke mai saurare."
+    },
+    "shortcut": {
+      "title": "Nemo ta karatu",
+      "subtitle": "Karanta 'yan kalmomi don nemo aya, a wannan na'ura"
+    }
+  },
+  "handsFreeZikr2": {
+    "reciteInstead": {
+      "title": "Karanta tare",
+      "body": "Waɗannan ayoyin Alƙur'ani ne: karanta su tare da mai saurare a na'ura maimakon ƙirgawa. Sauti ba ya taɓa barin na'urarka."
+    },
+    "sequence": {
+      "reciteKursi": "Karanta Ayatul Kursiyyu tare"
+    },
+    "dua": {
+      "browse": "Duba addu'o'i"
+    },
+    "ramadan": {
+      "countDua": "Ƙirga ba tare da hannu ba",
+      "reciteQadr": "Karanta suratul Ƙadr tare"
+    },
+    "builder": {
+      "countThis": "Ƙirga wannan",
+      "countThisHint": "Yana buɗe ma'aunin tasbihi don {{title}}"
+    },
+    "quickActions": {
+      "practiceTitle": "Atisayen Alƙur'ani",
+      "practiceSubtitle": "Maimaita ayoyin da lokacinsu ya yi ko karanta tare",
+      "sequenceTitle": "Tasbihi bayan Sallah",
+      "sequenceSubtitle": "33 · 33 · 34, ba tare da hannu ba",
+      "reciteToFindTitle": "Karanta don nemo",
+      "reciteToFindSubtitle": "Nemo aya ta hanyar karanta ta"
+    },
+    "home": {
+      "revisionTitle": "Maimaita Alƙur'ani",
+      "revisionBody": "Maimaita su yau don su daɗa ƙarfi.",
+      "revisionAction": "Fara maimaitawa",
+      "revisionDue_one": "Aya {{count}} don maimaitawa",
+      "revisionDue_other": "Ayoyi {{count}} don maimaitawa"
+    },
+    "stats": {
+      "title": "Atisayen Alƙur'ani",
+      "minutes": "Mintunan atisaye",
+      "ayahsRecited": "Ayoyin da aka karanta",
+      "sessions": "Zama",
+      "revisionStreak": "Mafi tsawon jerin maimaitawa (kwanaki)",
+      "milestones": "Matakai",
+      "privacy": "Naka kaɗai — ba a taɓa kwatantawa ko rabawa ba.",
+      "open": "Buɗe atisaye"
+    }
   }
 }

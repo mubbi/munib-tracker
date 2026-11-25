@@ -284,6 +284,14 @@
       "friday": {
         "label": "Jimce",
         "description": "Horumarka liiska Jimcaha ama maalmaha ilaa Jimce"
+      },
+      "adhkar": {
+        "label": "Adkaarta",
+        "description": "Adkaarta hadda la gaaray iyo horumarkaaga"
+      },
+      "events": {
+        "label": "Maalmaha Islaamka",
+        "description": "Tirinta gadaal ee maalmaha Islaamka ee soo socda"
       }
     },
     "remaining": "Haraaga",
@@ -321,7 +329,23 @@
     "fridayCountdown": "Jimce {{count}} maalmood ka dib",
     "fridayCountdown_one": "Jimce {{count}} maalin ka dib",
     "fridayCountdown_other": "Jimce {{count}} maalmood ka dib",
-    "prepareSalah": "Diyaar"
+    "prepareSalah": "Diyaar",
+    "watch": {
+      "today": "Maanta",
+      "overview": "Guudmar",
+      "markConfirm": "Ma u calaamadeysaa Salaaddan mid la tukaday?",
+      "sentToPhone": "Waxaa loo diray taleefankaaga",
+      "willSync": "Waa la isku-xidhi doonaa marka taleefankaagu dhow yahay",
+      "allDone": "Dhammaan Salaadaha maanta waa la tukaday",
+      "notYet": "Weli waqtigii ma gaadhin",
+      "staleData": "Fur abka si aad u cusboonaysiiso waqtiyada maanta",
+      "freeCount": "Tiris xor ah",
+      "tapToCount": "Taabo si aad u tiriso",
+      "sequenceDone": "Tasbeexdii waa dhammaatay"
+    },
+    "adhkar": "Adkaarta",
+    "voiceNextSalah": "Salaadda xigta waa {{prayer}} saacadda {{time}}.",
+    "voiceSalahTime": "{{prayer}} maanta waa saacadda {{time}}."
   },
   "ramadan": {
     "eyebrow": "Ramadaan",
@@ -528,7 +552,8 @@
       "zikr": "Adkaar",
       "durood": "Salawat",
       "names": "99 Magac",
-      "audio": "mql"
+      "audio": "mql",
+      "practice": "Tababarka Quraanka"
     },
     "continueAction": {
       "quran": "Sii wad akhriska",
@@ -538,7 +563,8 @@
       "durood": "Ku noqo salawaadka",
       "names": "Ku noqo magacyada",
       "audio": "Return u mql",
-      "listening": "Sii wad dhegeysiga"
+      "listening": "Sii wad dhegeysiga",
+      "practice": "Sii wad tababarka"
     },
     "rozaRemaining": "Soonka qadaada ah",
     "knowledgeMotivation": {
@@ -1271,7 +1297,12 @@
       "active": "Waa la socdaa {{prayer}}",
       "activeHint": "Cusboonaysiinta nool ayaa soo bixi doonta marka Salaaddan ay soo dhawaato. Taabo Jooji si aad uga saarto dhejinta.",
       "a11yStart": "Bilow la-socodka Salaadda xigta shaashadda qufulka",
-      "a11yStop": "Jooji la-socodka cusboonaysiinta nool ee Salaadda"
+      "a11yStop": "Jooji la-socodka cusboonaysiinta nool ee Salaadda",
+      "chip": {
+        "mark": "Qor",
+        "adhkar": "Adkaar",
+        "done": "Dhamay"
+      }
     },
     "tvUnavailableBody": "Xusuusiyeyaasha maxalliga ah iyo Live Activities kama shaqeeyaan TV-ga. Doorbidyada ogeysiisyada ka maamul taleefankaaga.",
     "preciseAdhan": "Waqtiga saxda ah ee adhaanka",
@@ -2444,7 +2475,8 @@
       "qaza": "Qaza",
       "roza": "Soon",
       "zikr": "Dikri",
-      "consistency": "Joogtayn"
+      "consistency": "Joogtayn",
+      "recitation": "Akhris"
     },
     "milestones": {
       "salah": {
@@ -2580,8 +2612,27 @@
       "roza": "Soon la gutay",
       "zikr": "Dikri",
       "perfectDay": "Maalmo dhammaystiran",
-      "streakDay": "Maalmaha taxanaha"
-    }
+      "streakDay": "Maalmaha taxanaha",
+      "recitationSession": "Fadhiyada akhriska",
+      "ayahRecited": "Aayadaha la akhriyay",
+      "revisionStreakDay": "Maalmaha xidhiidhka dib-u-eegista"
+    },
+    "recitation": {
+      "first": {
+        "title": "Akhriskii ugu horreeyay",
+        "description": "Waxaad dhammaysay fadhigii ugu horreeyay ee wada akhriska"
+      },
+      "revisionWeek": {
+        "title": "Toddobaad dib u eegis ah",
+        "description": "Aayadaha ayaad ku celisay {{number}} maalmood oo isku xiga"
+      },
+      "ayahs100": {
+        "title": "100 aayadood ayaa la akhriyay",
+        "description": "Waxaad la akhriday dhegeystaha {{number}} aayadood"
+      }
+    },
+    "trackComplete": "Dhammaan heerarka jidkan waa la helay",
+    "recitationPersonal": "Shakhsi — weligaa laguma barbardhigo qof kale"
   },
   "notifCenter": {
     "eyebrow": "xusuusgudhs",
@@ -2805,7 +2856,11 @@
     "ttsVoice": "Cod",
     "ttsVoiceHint": "Dooro cod qoraal-ilaa-hadal",
     "seekBack": "Dib {{seconds}} ilbiriqsi",
-    "seekForward": "Hore {{seconds}} ilbiriqsi"
+    "seekForward": "Hore {{seconds}} ilbiriqsi",
+    "track": {
+      "audioTranslation": "Turjumaad cod ah",
+      "namesComplete": "Dhammaan 99-ka magac"
+    }
   },
   "errors": {
     "title": "Waxbaa khaldamay",
@@ -2841,6 +2896,12 @@
     },
     "tasbeehDurood": {
       "description": "Ku tiri salawatkan adigoo isticmaalaya tirinta tasbeeh taabasho."
+    },
+    "tasbeehDua": {
+      "description": "Ku tiri ducadan tiriye tasbeex oo taabasho leh."
+    },
+    "tasbeehCustomAdhkar": {
+      "description": "Ku tiri dikrigaaga tiriye tasbeex oo taabasho leh."
     }
   },
   "pwa": {
@@ -3260,7 +3321,8 @@
       "family-ties-due": "Xiriirka qaraabada ee la gaaray",
       "weekly-coach": "Milicsiga toddobaadlaha",
       "seasonal-banner": "Calamadaha xilliyeedka",
-      "umrah-mode": "Sii wad Cumradaada"
+      "umrah-mode": "Sii wad Cumradaada",
+      "quran-revision": "Dib u eegista Quraanka ee waqtigeedu yimid"
     }
   },
   "schedule": {
@@ -4049,7 +4111,12 @@
       "highly-recommended": "Si weyn loo taliyay",
       "recommended": "Lagula talinayaa"
     },
-    "playAyahA11y": "Daar akhriska {{ref}}"
+    "playAyahA11y": "Daar akhriska {{ref}}",
+    "qalqalahDrillHint": "Wuxuu furayaa tababarka dhawaaqa qalqalada oo leh dhegeystaha qalabka",
+    "quickPractise": "Ku tababar akhriska",
+    "quickPractiseHint": "Kor u akhri adigoo la socda dhegeystaha qalabka",
+    "quickCoaching": "Tababarka tajwiidka",
+    "quickCoachingHint": "Ku tababar dhawaaqyada akhriskaagu u baahan yahay"
   },
   "library": {
     "eyebrow": "Maktabadda",
@@ -5186,6 +5253,18 @@
       "masjids": {
         "title": "Masaajidda kuu dhow",
         "body": "Ka hel masaajidda kuu dhow OpenStreetMap, dooro masjidkaaga, oo kaydso waqtiyadaada iqaamada, adigoo qoraya ama ka akhrinaya sawirka jadwalka."
+      },
+      "quranPractice": {
+        "title": "La akhri dhegeystaha Quraanka",
+        "body": "Raac, hubi ama ku celi qayb kasta — ereyadu way iftiimaan markaad akhrinayso, qalabkaaga."
+      },
+      "reciteToFind": {
+        "title": "Akhri si aad aayad u hesho",
+        "body": "Akhri dhawr erey, abka ayaa aayadda helaya. Codku wuxuu ku jiraa qalabkaaga."
+      },
+      "handsFreeSequence": {
+        "title": "Tasbeexa Salaadda kadib oo gacan la'aan ah",
+        "body": "33 · 33 · 34 oo tiriya dikri kasta oo aad tiraahdo kuna gudba keligiis. Taabo si aad u saxdo tirin khaldan."
       }
     }
   },
@@ -5268,7 +5347,7 @@
     "locked": "Fur abka si aad u calaamadiso Salah",
     "failed": "Ma calaamadin kari waayay Saalax",
     "intents": {
-      "openTracker": "fur liwk hubgudht",
+      "openTracker": "Fur liiska hubinta",
       "openQibla": "Fur Qiblada",
       "openTasbeeh": "Fur Tasbeeh",
       "markCurrent": "Calaamadee Salaax",
@@ -5280,7 +5359,18 @@
       "markDhuhr": "Calaamadee Duhur",
       "markAsr": "Calaamadee Casar",
       "markMaghrib": "Calaamadee Maghrib",
-      "markIsha": "Calaamadee Cisha"
+      "markIsha": "Calaamadee Cisha",
+      "openAdhkar": "Fur adkaarta",
+      "openDuas": "Fur ducooyinka",
+      "openCalendar": "Fur taariikhda Hijriga",
+      "openEvents": "Fur maalmaha Islaamka",
+      "openDailyHadith": "Fur xadiiska maanta",
+      "openStatistics": "Fur tirakoobka",
+      "openFriday": "Fur Jimcaha",
+      "nextSalah": "Goorma ayay tahay salaadda xigta?",
+      "salahTime": "Goorma ayuu yahay waqtiga salaadda?",
+      "todayProgress": "Horumarka salaadaha maanta",
+      "search": "Ka raadi barnaamijka"
     },
     "moreShortcutsTitle": "Jidka gaaban ee cod dheeraad ah",
     "moreShortcutsHint": "Dhah mid ka mid ah kuwan si aad u calaamadisid Salaadda ama aad toos ugu baxdid shaashad."
@@ -6040,8 +6130,8 @@
       "setUp": "Deji",
       "downloading": "Dhegeystaha dhawaaqa waa la soo dejinayaa…",
       "consentTitle": "Ka hor dejinta",
-      "consentDownload": "Tani waxay ka soo dejinaysaa Quran Lab dhegeyste labaad oo qiyaastii 57 MB ah.",
-      "consentActivation": "Barnaamijku hal mar ayuu la xiriiraa Quran Lab si uu u hawlgeliyo, kadibna si uu u hubiyo cusboonaysiinta.",
+      "consentDownload": "Tani waxay ka soo dejinaysaa Quran Lab dhegeyste labaad oo qiyaastii 56 MB ah. Waxaa loo sir-qariyay qalabkan.",
+      "consentActivation": "Dejinta koowaad waxay u baahan tahay xiriir. Intaas kadib wuxuu shaqeeyaa internet la'aan, Quran Lab-na wuxuu cusboonaysiiyaa oggolaanshihiisa gadaal marka aad khadka ku jirto.",
       "consentOnDevice": "Tilaawadaada waxaa lagu habeeyaa qalabkan.",
       "consentRemotePause": "Quran Lab wuu joojin karaa dhegeystahan dhammaan isticmaalayaasha. Casharradu weli way shaqaynayaan.",
       "agree": "Waan oggolahay, soo deji",
@@ -6049,14 +6139,14 @@
       "deleteTitle": "Ma tirtiraa dhegeystaha dhawaaqa?",
       "deleteBody": "Casharrada tajwiidku way sii shaqaynayaan. Tababarka cod waxay u baahan tahay dib u soo dejin.",
       "sharingSwitch": "La wadaag tilaawooyinkayga Quran Lab",
-      "sharingSub": "Oo keliya haddii aad ku oggolaatay xaashida Quran Lab. Dansiddu waxay joojisaa soo gelinta waxayna tirtirtaa safka aan la dirin.",
+      "sharingSub": "Oo keliya haddii aad haa ku dhahday xaashida Quran Lab. Dansiddu waxay joojisaa soo gelinta waxayna tirtirtaa safka aan la dirin.",
       "deleteShared": "Tirtir waxaan wadaagay",
       "deleteSharedTitle": "Ma tirtiraa waxaad wadaagtay?",
       "deleteSharedBody": "Duubis kasta oo aad ka wadaagtay barnaamijkan waa laga tirtirayaa server-yada Quran Lab, wadaagistuna way damaysaa.",
       "deletedShared": "Duubisyadii aad wadaagtay waa la tirtiray",
       "sharingFailed": "Ma suurtagelin. Fadlan isku day mar kale.",
       "recoveryCode": "Koodka soo celinta: {{code}}",
-      "sourcesLine": "TajweedFormer oo ka timid Quran Lab, shatiga NPL-1.2.",
+      "sourcesLine": "TajweedFormer oo ka timid Quran Lab, shatiga NPL-1.3.",
       "practiseSound": "Ku tababar codkan",
       "drillTitle": "Ku tababar codkan",
       "drillIntro": "Dhegayso tusaalaha, kadibna taabo Akhri oo sidaas oo kale u dhawaaq.",
@@ -6070,14 +6160,25 @@
       "verdictTryAgain": "Dib u dhegayso oo isku day mar kale.",
       "verdictNotSure": "Dhegeystuhu ma hubin.",
       "error": {
-        "noConnection": "Dejintu waxay u baahan tahay xiriir hal mar.",
+        "noConnection": "Ku xiro internetka si aad u soo dejiso dhegeystaha dhawaaqa.",
         "paused": "Quran Lab wuu joojiyay dhegeystahan. Casharradu way sii shaqaynayaan.",
         "noSpace": "Meel ku filan ma jirto",
         "notYet": "Dhegeystahan weli lama heli karo. Fadlan isku day mar dambe.",
         "micDenied": "Makarafoonka waa u xiran yahay Munib Tracker.",
         "unsupported": "Kuma jiro qalabkan",
-        "generic": "Ma shaqayn. Fadlan isku day mar kale."
-      }
+        "generic": "Ma shaqayn. Fadlan isku day mar kale.",
+        "needsRenewal": "Hal mar ku xiro internetka si Quran Lab u cusboonaysiiyo dhegeystaha. Horey ayuu ugu jiraa qalabkan.",
+        "busy": "Server-yada Quran Lab way mashquul yihiin. Fadlan isku day mar kale wax yar kadib.",
+        "deviceRefused": "Quran Lab ma furi karo dhegeystaha qalabkan (tusaale, taleefan bootloader-kiisu furan yahay). Casharradu way sii shaqaynayaan.",
+        "updateApp": "Cusboonaysii Munib Tracker si aad u sii isticmaasho dhegeystaha dhawaaqa.",
+        "inUse": "Dhegeystuhu weli wuu xirmayaa. Fadlan isku day mar kale wax yar kadib."
+      },
+      "consentAnalytics": "SDK-ga Quran Lab had iyo jeer wuxuu diraa tirooyin maalinle ah oo aan magac lahayn (sida daqiiqadaha tababarka iyo sida dhegeystuhu u shaqeeyay) iyo warbixinnada khaladaadka. Weligiis ma diro codkaaga, erayadaada, magacaaga ama aqoonsiga qalabkaaga.",
+      "consentSharingAsk": "Dhowr fadhi oo tababar ah kadib, Quran Lab waxa laga yaabaa inuu ku weydiiyo — ugu badnaan saddex jeer — inaad jeceshahay inaad la wadaagto duubisyo si aad u caawiso bartayaasha kale. Waxba lama wadaago haddii aadan haa dhihin, waxaadna tirtiri kartaa wixii aad wadaagtay.",
+      "tryAgain": "Isku day mar kale",
+      "feedbackDisclaimer": "Jawaab-celinta tajwiidka ee tooska ah way khaldami kartaa. Ma beddesho macallin aqoon leh.",
+      "hearingYou": "Waan ku maqlayaa…",
+      "shareDiagnostics": "La wadaag xogta cilad-baarista"
     },
     "modeHelp": {
       "follow": "Akhri adigoo qoraalka hortaada ku haya. Dhegeystuhu wuu ku raacayaa eray eray.",
@@ -10354,7 +10455,9 @@
         "wudu": "Weyso",
         "fivePrayers": "Shanta Salaadood",
         "howToPray": "Sida loo tukado"
-      }
+      },
+      "reciteFatihah": "Akhri Faatixada",
+      "reciteFatihahHint": "Akhri Faatixada oo daawo ereyada oo iftiimaya."
     },
     "prophets": {
       "title": "Sheekooyinka nebiyada",
@@ -10364,6 +10467,39 @@
     "consentPending": {
       "title": "Waxaa la sugayaa waalidkaa",
       "body": "Sii wad taabashada Salaaddaada sidii caadiga ahayd. Taabashooyinkaaga waxaa lagu hayaa qalabkan waxaana la wadaagi doonaa marka waalidkaa yiraahdo waa hagaag."
+    },
+    "recite": {
+      "entry": "Akhri adigoo la socda dhegeystaha",
+      "entryHint": "Akhri suurad gaaban oo daawo ereyada oo iftiimaya.",
+      "title": "Akhri adigoo la socda dhegeystaha",
+      "subtitle": "Suurado gaagaaban, hal aayad mar kasta",
+      "intro": "Dooro suurad. Taabo badhanka weyn oo akhri — ereyadu way iftiimayaan markaad akhrinayso.",
+      "privacy": "Dhegeystuhu wuxuu ku shaqeeyaa qalabkan. Codkaaga meelna looma diro.",
+      "pickA11y": "Akhri {{surah}}",
+      "ayahOf": "Aayadda {{n}} ee {{total}}",
+      "loading": "Aayadda waa la diyaarinayaa…",
+      "start": "Bilow",
+      "stop": "Jooji",
+      "startHint": "Wuu dhegeystaa markaad akhrinayso aayaddan",
+      "gettingReady": "Diyaar garoobaya…",
+      "listening": "Waan dhegeysanayaa — akhri aayadda.",
+      "listenOnly": "Taabo Dhegeyso oo la akhri — ereyadu waxay la iftiimayaan akhristaha. Weydiiso qof weyn inuu soo dejiyo dhegeystaha si aad keligaa u akhrido.",
+      "wellDone": "Mahadsanid, si fiican!",
+      "nextAyah": "Aayadda xigta",
+      "tryWordsTitle": "Waad ku dhowdahay! Aan mar kale isku dayno ereyadan.",
+      "tryWordsBody": "Taabo eray si aad u maqasho, kadibna mar kale akhri aayadda.",
+      "hearWordA11y": "Dhegeyso {{word}}",
+      "listen": "Dhegeyso",
+      "stopListening": "Jooji dhegeysiga",
+      "tryAgain": "Isku day mar kale",
+      "moveOn": "U gudub aayadda xigta",
+      "finish": "Waan dhammeeyay",
+      "previous": "Dib u noqo",
+      "next": "Xigta",
+      "doneTitle": "Maasha Allaah, si fiican!",
+      "doneBody": "Waxaad akhriday Suuradda {{surah}} ilaa dhammaadka.",
+      "again": "Mar kale akhri",
+      "another": "Dooro suurad kale"
     }
   },
   "preferredTimeReminder": {
@@ -10907,5 +11043,189 @@
   "scriptureMeaning": {
     "englishLabel": "Macnaha Ingiriisiga",
     "englishLabelA11y": "Macnaha waxaa lagu muujiyay Ingiriis: weli ma jiro tarjumad laga soo qaatay il lagu kalsoon yahay oo ku qoran luqaddaada"
+  },
+  "practiceReadingCredit": {
+    "added_one": "{{count}} aayad ayaa lagu daray akhriska maanta",
+    "added_other": "{{count}} aayadood ayaa lagu daray akhriska maanta",
+    "khatm": "Qorshaha khatm wuxuu dhammaaday {{percent}}%",
+    "openHint": "Wuxuu furaa qorshahaaga khatm",
+    "settings": {
+      "title": "U tiri tababarka akhriska Qur'aanka",
+      "sub": "Aayadaha aad ku akhrido tababarka waxaa lagu daraa diiwaanka akhriska maanta iyo qorshahaaga khatm.",
+      "keywords": "diiwaanka akhriska, khatm, akhriska maalinlaha, tilaawo, horumar"
+    },
+    "khatmAlready": "Horay ayaa loogu tiriyay qorshaha khatm — {{percent}}% wuu dhammaaday",
+    "habitDone": "U calaamadee caadada inay dhammaatay",
+    "habitDoneHint": "Wuxuu calaamadeeyaa {{habit}} maanta",
+    "habitDoneToast": "{{habit}} waxaa loo calaamadeeyay inay maanta dhammaatay"
+  },
+  "reciteAlong": {
+    "button": "Akhri adigoo la socda dhegeystaha",
+    "buttonHint": "Wuxuu ku furayaa {{passage}} dhegeystaha qalabka",
+    "cardTitle": "Akhri adigoo la socda dhegeystaha",
+    "cardBody": "Kor u akhri, ereyaduna way iftiimayaan markaad akhrinayso. Dhegeystuhu wuxuu ku shaqeeyaa qalabkan — codkaagu weligiis kama baxo.",
+    "topicTitle": "Akhri aayadahan",
+    "sheet": {
+      "title": "Akhri {{passage}}",
+      "body": "Kani waa qayb dheer. Dhammaanteed raac inta ereyadu iftiimayaan, ama mar kasta qaado toban aayadood.",
+      "followWhole": "Raac qaybta oo dhan",
+      "sections": "Ama dooro toban aayadood",
+      "section": "Aayadaha {{from}}–{{to}}"
+    },
+    "kahf": {
+      "title": "Akhri Suuradda al-Kahf adigoo la socda dhegeystaha",
+      "body": "Raac suuradda oo dhan inta ereyadu iftiimayaan markaad akhrinayso, ama akhri toban toban aayadood. Dhegeystuhu wuxuu ku shaqeeyaa qalabkan."
+    },
+    "ruqyah": {
+      "title": "Akhri aayadaha ruqyada adigoo la socda dhegeystaha",
+      "body": "Qayb kasta kor u akhri, ereyaduna way iftiimayaan markaad akhrinayso. Dhegeystuhu wuxuu ku shaqeeyaa qalabkan — codkaagu weligiis kama baxo."
+    },
+    "fatihah": {
+      "title": "Hubi Faatixadayda",
+      "body": "Kor u akhri Faatixada; dhegeystaha qalabku wuxuu muujinayaa ereyada u muuqday kuwo la booday ama aan caddayn, akhristahana hal taabasho ayuu kaa jiraa.",
+      "short": "Kor u akhri oo arag ereyada u muuqday kuwo la booday ama aan caddayn.",
+      "cta": "Bilow hubinta",
+      "ctaHint": "Wuxuu ku furayaa Faatixada dhegeystaha qalabka",
+      "note": "Waa kaaliye tababar, ma aha xukun ku saabsan Salaaddaada — tilaawada ka baro macallin u qalma. Codkaagu wuxuu ku jiraa qalabkan."
+    },
+    "khatmToday": "Akhri qaybta maanta adigoo la socda dhegeystaha",
+    "checkButton": "Hubi akhriskayga",
+    "iconLabel": "Akhri",
+    "withPassage": "Akhri adigoo la socda dhegeystaha: {{passage}}",
+    "afterSalah": {
+      "title": "Akhri Saalaxda kadib",
+      "body": "Aayadda Kursiga iyo suuradaha Ikhlaas, Falaq iyo Naas, oo la akhriyo Saalax kasta oo fard ah kadib. Mid walba kor u akhri, ereyaduna way iftiimayaan markaad akhrinayso — dhegeystuhu wuxuu ku shaqeeyaa qalabkan."
+    }
+  },
+  "handsFreeZikr": {
+    "steps": {
+      "choose": "Bar {{phrase}} si isaga oo keliya loo tiriyo, ama tiri hakad kasta (sax yar).",
+      "teachThis": "Bar xuskan",
+      "next": "Tirinta gacan la'aanta ah waxay ku sii socotaa xuska xiga.",
+      "tapThisOne": "Taabo si aad kan u tiriso. Tirinta gacan la'aanta ah waxay dib uga bilaabataa xuska gaaban ee xiga."
+    },
+    "sequence": {
+      "title": "Tasbeexa salaadda kadib",
+      "entryBody": "33, 33 iyo 34 hal tiriye oo iskiis ugu gudba weedha xigta — taabasho ama gacan la'aan.",
+      "openFromSession": "U tiri sidii hal taxane 33 · 33 · 34",
+      "stepSummary": "{{phrase}} ×{{times}}",
+      "endingTahlil": "33 + {{phrase}}",
+      "prayerLabel": "Ku diiwaangeli xusyada kadib",
+      "endingLabel": "Ku dhammee boqolka",
+      "evidence": {
+        "takbir34": "Salaad kasta oo waajib ah kadib: 33, 33 iyo 34 ({{reference}}).",
+        "tahlil": "33, 33 iyo 33 waa 99; tahliilku wuxuu dhammeeyaa boqolka ({{reference}})."
+      },
+      "progress": "{{done}} ee {{total}}",
+      "handsFreeHint": "Daar gacan la'aanta hal mar — waxay kula socotaa weedh ilaa weedh. Taabo si aad u saxdo tirin kasta oo khaldan.",
+      "doneBody": "Tasbeexa salaadda kadib waxaa loo diiwaangeliyey {{prayer}}."
+    }
+  },
+  "reciteToFind": {
+    "mode": {
+      "type": "Qor",
+      "recite": "Akhri"
+    },
+    "mic": {
+      "start": "Bilow dhageysiga",
+      "stop": "Jooji dhageysiga",
+      "startHint": "Akhri dhowr eray oo aayad kasta ah si aad u hesho",
+      "stopHint": "Wuxuu joojiyaa dhageysiga oo muujiyaa natiijooyinka"
+    },
+    "status": {
+      "preparing": "Dhageystaha waa la diyaarinayaa",
+      "preparingHint": "Markii ugu horreysay waxay qaadataa wax yar.",
+      "failed": "Dhageystuhu ma bilaaban",
+      "failedHint": "Ka bax shaashaddan oo mar kale fur. Raadinta qoraalku weli way shaqaysaa.",
+      "idle": "Akhri si aad aayad u hesho",
+      "idleHint": "Taabo makarafoonka oo akhri dhowr eray oo aayad kasta ah. Barnaamijku wuxuu helayaa meesheeda Quraanka.",
+      "listening": "Waa la dhageysanayaa…",
+      "nothingYet": "Weli waxba. Sii wad akhriska xawaare caadi ah.",
+      "narrowing": "Sii wad akhriska si aad u hubiso, ama taabo jooji.",
+      "settling": "Waa la dhammaynayaa",
+      "settlingHint": "Waxaa la hubinayaa erayadii ugu dambeeyay ee aad akhriday.",
+      "found": "Tan ayaan maqalnay",
+      "foundHint": "Fur aayad, ama taabo makarafoonka si aad mar kale u akhrido.",
+      "nothing": "Akhriskaas lama aqoonsan",
+      "nothingHint": "Akhri wax yar oo dheer, meel aamusan, una dhow makarafoonka.",
+      "stopped": "Dhageysigu wuu joogsaday"
+    },
+    "error": {
+      "micDenied": "Ogolaanshaha makarafoonku waa dansan yahay. Ka ogolow Dejinta si aad akhris ugu hesho.",
+      "openSettings": "Fur Dejinta"
+    },
+    "privacy": "Akhriskaaga waxaa lagu habeeyaa qalabkan. Codku weligiis kama baxo.",
+    "results": {
+      "live": "Natiijooyin suurtagal ah",
+      "title": "Natiijooyinka"
+    },
+    "result": {
+      "range": "{{surah}}:{{from}}–{{to}}",
+      "open": "Ku fur akhriyaha",
+      "openHint": "Wuxuu ku furaa {{name}} {{ref}} akhriyaha Quraanka",
+      "practise": "Ka tababar halkan",
+      "practiseHint": "Wuxuu bilaabaa tababarka akhriska {{name}} {{ref}}"
+    },
+    "strength": {
+      "strong": "Is-waafaq xooggan",
+      "likely": "Aad u suurtagal",
+      "possible": "Suurtagal"
+    },
+    "download": {
+      "title": "Soo deji dhageystaha Quraanka",
+      "body": "Akhri dhowr eray oo aayad kasta ah, barnaamijkuna wuu helayaa, xitaa internet la'aan. Hal mar soo deji si aad u isticmaasho.",
+      "size": "Qiyaastii {{size}} MB · wuxuu ku jiraa qalabkan",
+      "action": "Soo deji dhageystaha",
+      "offline": "Hal mar ku xirmo internetka si aad u soo dejiso dhageystaha."
+    },
+    "shortcut": {
+      "title": "Ku hel akhris",
+      "subtitle": "Akhri dhowr eray si aad aayadda u hesho, qalabkan dushiisa"
+    }
+  },
+  "handsFreeZikr2": {
+    "reciteInstead": {
+      "title": "Wada akhri",
+      "body": "Kuwani waa aayado Quraan ah: la akhri dhegeystaha qalabka halkii aad tirin lahayd. Codku weligii kama baxo qalabkaaga."
+    },
+    "sequence": {
+      "reciteKursi": "Aayadda Kursiga wada akhri"
+    },
+    "dua": {
+      "browse": "Daalaco ducooyinka"
+    },
+    "ramadan": {
+      "countDua": "Tiri gacan la'aan",
+      "reciteQadr": "Suuradda Qadri wada akhri"
+    },
+    "builder": {
+      "countThis": "Tiri tan",
+      "countThisHint": "Wuxuu furaa tiriyaha tasbeexa ee {{title}}"
+    },
+    "quickActions": {
+      "practiceTitle": "Tababarka Quraanka",
+      "practiceSubtitle": "Ku celi aayadaha waqtigoodu yimid ama wada akhri",
+      "sequenceTitle": "Tasbeexa Salaadda kadib",
+      "sequenceSubtitle": "33 · 33 · 34, gacan la'aan",
+      "reciteToFindTitle": "Akhri si aad u hesho",
+      "reciteToFindSubtitle": "Ku hel aayad adigoo akhrinaya"
+    },
+    "home": {
+      "revisionTitle": "Dib u eegista Quraanka",
+      "revisionBody": "Maanta ku celi si ay u adkaadaan.",
+      "revisionAction": "Bilow dib u eegista",
+      "revisionDue_one": "{{count}} aayad oo dib loo eego",
+      "revisionDue_other": "{{count}} aayadood oo dib loo eego"
+    },
+    "stats": {
+      "title": "Tababarka Quraanka",
+      "minutes": "Daqiiqadaha tababarka",
+      "ayahsRecited": "Aayadaha la akhriyay",
+      "sessions": "Fadhiyada",
+      "revisionStreak": "Taxanaha dib u eegista ugu dheer (maalmo)",
+      "milestones": "Guulaha",
+      "privacy": "Adiga kaliya — weligii lama barbardhigo lamana wadaago.",
+      "open": "Fur tababarka"
+    }
   }
 }

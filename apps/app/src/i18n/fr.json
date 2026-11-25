@@ -284,6 +284,14 @@
       "friday": {
         "label": "Jumu'ah",
         "description": "Progression de la liste du vendredi ou jours jusqu'à Jumu'ah"
+      },
+      "adhkar": {
+        "label": "Adhkar",
+        "description": "Les adhkar du moment, avec votre progression"
+      },
+      "events": {
+        "label": "Événements islamiques",
+        "description": "Compte à rebours jusqu'aux prochaines dates islamiques"
       }
     },
     "remaining": "Restant",
@@ -321,7 +329,23 @@
     "fridayCountdown": "Jumu'ah dans {{count}} jours",
     "fridayCountdown_one": "Jumu'ah dans {{count}} jour",
     "fridayCountdown_other": "Jumu'ah dans {{count}} jours",
-    "prepareSalah": "Préparer"
+    "prepareSalah": "Préparer",
+    "watch": {
+      "today": "Aujourd'hui",
+      "overview": "Aperçu",
+      "markConfirm": "Marquer cette Salah comme accomplie ?",
+      "sentToPhone": "Envoyé à votre téléphone",
+      "willSync": "Se synchronisera quand votre téléphone sera à proximité",
+      "allDone": "Toutes les Salah du jour accomplies",
+      "notYet": "Pas encore l'heure",
+      "staleData": "Ouvrez l'application pour actualiser les horaires du jour",
+      "freeCount": "Compte libre",
+      "tapToCount": "Touchez pour compter",
+      "sequenceDone": "Tasbeeh terminé"
+    },
+    "adhkar": "Adhkar",
+    "voiceNextSalah": "La prochaine Salah est {{prayer}} à {{time}}.",
+    "voiceSalahTime": "{{prayer}} est à {{time}} aujourd'hui."
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -528,7 +552,8 @@
       "zikr": "Adhkar",
       "durood": "Duroud",
       "names": "99 noms",
-      "audio": "Audio"
+      "audio": "Audio",
+      "practice": "Pratique du Coran"
     },
     "continueAction": {
       "quran": "Continuer la lecture",
@@ -538,7 +563,8 @@
       "durood": "Retour aux durods",
       "names": "Retour aux noms",
       "audio": "Revenir à l'audio",
-      "listening": "Continuer à écouter"
+      "listening": "Continuer à écouter",
+      "practice": "Continuer la pratique"
     },
     "rozaRemaining": "Des jeûnes à rattraper",
     "knowledgeMotivation": {
@@ -1271,7 +1297,12 @@
       "active": "Suivi de {{prayer}}",
       "activeHint": "Les mises à jour en direct seront mises en avant lorsque cette Salah sera imminente. Appuyez sur Arrêter pour désépingler.",
       "a11yStart": "Démarrer le suivi de la prochaine Salah sur l’écran de verrouillage",
-      "a11yStop": "Arrêter le suivi des mises à jour en direct de la Salah"
+      "a11yStop": "Arrêter le suivi des mises à jour en direct de la Salah",
+      "chip": {
+        "mark": "Cocher",
+        "adhkar": "Adhkar",
+        "done": "Fini"
+      }
     },
     "tvUnavailableBody": "Les rappels locaux et les Live Activities ne sont pas disponibles sur TV. Gérez vos préférences de notifications sur votre téléphone.",
     "preciseAdhan": "Horaire précis de l'adhan",
@@ -2444,7 +2475,8 @@
       "qaza": "Qada",
       "roza": "Jeûne",
       "zikr": "Dhikr",
-      "consistency": "Régularité"
+      "consistency": "Régularité",
+      "recitation": "Récitation"
     },
     "milestones": {
       "salah": {
@@ -2580,8 +2612,27 @@
       "roza": "Jeûnes rattrapés",
       "zikr": "Dhikr",
       "perfectDay": "Journées parfaites",
-      "streakDay": "Jours de série"
-    }
+      "streakDay": "Jours de série",
+      "recitationSession": "Séances de récitation",
+      "ayahRecited": "Ayahs récitées",
+      "revisionStreakDay": "Jours de série de révision"
+    },
+    "recitation": {
+      "first": {
+        "title": "Première récitation",
+        "description": "Première séance de récitation terminée"
+      },
+      "revisionWeek": {
+        "title": "Une semaine de révision",
+        "description": "Versets révisés {{number}} jours d'affilée"
+      },
+      "ayahs100": {
+        "title": "100 versets récités",
+        "description": "{{number}} versets récités avec l'écoute"
+      }
+    },
+    "trackComplete": "Toutes les étapes de ce parcours sont acquises",
+    "recitationPersonal": "Personnel — jamais comparé à quiconque"
   },
   "notifCenter": {
     "eyebrow": "Rappels",
@@ -2805,7 +2856,11 @@
     "ttsVoice": "Voix",
     "ttsVoiceHint": "Choisir une voix de synthèse vocale",
     "seekBack": "Reculer de {{seconds}} secondes",
-    "seekForward": "Avancer de {{seconds}} secondes"
+    "seekForward": "Avancer de {{seconds}} secondes",
+    "track": {
+      "audioTranslation": "Traduction audio",
+      "namesComplete": "Les 99 noms"
+    }
   },
   "errors": {
     "title": "Une erreur s'est produite",
@@ -2841,6 +2896,12 @@
     },
     "tasbeehDurood": {
       "description": "Comptez ce salawat avec le compteur tactile de tasbeeh."
+    },
+    "tasbeehDua": {
+      "description": "Comptez cette dua avec un compteur de tasbeeh tactile."
+    },
+    "tasbeehCustomAdhkar": {
+      "description": "Comptez votre propre zikr avec un compteur de tasbeeh tactile."
     }
   },
   "pwa": {
@@ -3260,7 +3321,8 @@
       "family-ties-due": "Liens familiaux à entretenir",
       "weekly-coach": "Bilan de la semaine",
       "seasonal-banner": "Bannières saisonnières",
-      "umrah-mode": "Poursuivre votre Omra"
+      "umrah-mode": "Poursuivre votre Omra",
+      "quran-revision": "Révision du Coran à faire"
     }
   },
   "schedule": {
@@ -4049,7 +4111,12 @@
       "highly-recommended": "Fortement recommandé",
       "recommended": "Recommandé"
     },
-    "playAyahA11y": "Lire la récitation de {{ref}}"
+    "playAyahA11y": "Lire la récitation de {{ref}}",
+    "qalqalahDrillHint": "Ouvre l'exercice du son qalqala avec l'écoute sur l'appareil",
+    "quickPractise": "S'exercer à réciter",
+    "quickPractiseHint": "Récitez à voix haute avec l'écoute sur l'appareil",
+    "quickCoaching": "Coaching de tajwid",
+    "quickCoachingHint": "Travaillez les sons dont votre récitation a besoin"
   },
   "library": {
     "eyebrow": "Bibliothèque",
@@ -5186,6 +5253,18 @@
       "masjids": {
         "title": "Mosquées près de chez vous",
         "body": "Trouvez les mosquées proches grâce à OpenStreetMap, choisissez votre masjid habituel et gardez vos propres horaires d'iqamah, saisis à la main ou lus depuis une photo du calendrier."
+      },
+      "quranPractice": {
+        "title": "Réciter avec l'écoute du Coran",
+        "body": "Suivez, vérifiez ou révisez n'importe quel passage — les mots s'allument pendant que vous récitez, sur votre appareil."
+      },
+      "reciteToFind": {
+        "title": "Réciter pour trouver un verset",
+        "body": "Récitez quelques mots et l'application trouve le verset. L'audio reste sur votre appareil."
+      },
+      "handsFreeSequence": {
+        "title": "Tasbeeh après la Salah sans les mains",
+        "body": "33 · 33 · 34 qui compte à chaque zikr prononcé et avance tout seul. Touchez pour corriger une erreur de compte."
       }
     }
   },
@@ -5269,8 +5348,8 @@
     "failed": "Je n'ai pas pu marquer Salah",
     "intents": {
       "openTracker": "Ouvrir la liste de contrôle",
-      "openQibla": "Qibla Aç",
-      "openTasbeeh": "Tasbeeh Aç",
+      "openQibla": "Ouvrir la Qibla",
+      "openTasbeeh": "Ouvrir le Tasbeeh",
       "markCurrent": "Marquer ma Salah",
       "openRamadan": "Ouvrir Ramadan",
       "openKhatm": "Ouvrir le plan de khatm",
@@ -5280,7 +5359,18 @@
       "markDhuhr": "Marquer Dhuhr",
       "markAsr": "Marquer Asr",
       "markMaghrib": "Marquer Maghrib",
-      "markIsha": "Marquer Isha"
+      "markIsha": "Marquer Isha",
+      "openAdhkar": "Ouvrir les adhkar",
+      "openDuas": "Ouvrir les duas",
+      "openCalendar": "Ouvrir le calendrier islamique",
+      "openEvents": "Ouvrir les événements islamiques",
+      "openDailyHadith": "Ouvrir le hadith du jour",
+      "openStatistics": "Ouvrir les statistiques",
+      "openFriday": "Ouvrir Jumu'ah",
+      "nextSalah": "À quelle heure est la prochaine Salah ?",
+      "salahTime": "À quelle heure est une Salah ?",
+      "todayProgress": "Progression des Salah du jour",
+      "search": "Rechercher dans l'app"
     },
     "moreShortcutsTitle": "Plus de raccourcis vocaux",
     "moreShortcutsHint": "Dites l'une de ces phrases pour marquer une Salah ou aller directement à un écran."
@@ -6041,8 +6131,8 @@
       "setUp": "Configurer",
       "downloading": "Téléchargement du module de prononciation…",
       "consentTitle": "Avant de le configurer",
-      "consentDownload": "Cela télécharge un second module d'écoute d'environ 57 Mo depuis Quran Lab.",
-      "consentActivation": "L'application contacte Quran Lab une fois pour l'activer, puis pour vérifier les mises à jour.",
+      "consentDownload": "Cela télécharge un second module d'écoute d'environ 56 Mo depuis Quran Lab. Il est chiffré pour cet appareil.",
+      "consentActivation": "La première configuration demande une connexion. Ensuite, il fonctionne hors ligne, et Quran Lab renouvelle son autorisation en arrière-plan lorsque vous êtes en ligne.",
       "consentOnDevice": "Votre récitation est traitée sur cet appareil.",
       "consentRemotePause": "Quran Lab peut suspendre ce module pour tous les utilisateurs. Les leçons continuent alors de fonctionner.",
       "agree": "Accepter et télécharger",
@@ -6050,14 +6140,14 @@
       "deleteTitle": "Supprimer le module de prononciation ?",
       "deleteBody": "Les leçons de tajwid continuent de fonctionner. S'exercer sur un son demandera un nouveau téléchargement.",
       "sharingSwitch": "Partager mes récitations avec Quran Lab",
-      "sharingSub": "Uniquement si vous avez accepté sur la fenêtre de Quran Lab. Le désactiver arrête les envois et supprime la file non envoyée.",
+      "sharingSub": "Uniquement si vous avez dit oui sur la fenêtre de Quran Lab. Le désactiver arrête les envois et supprime la file non envoyée.",
       "deleteShared": "Supprimer ce que j'ai partagé",
       "deleteSharedTitle": "Supprimer ce que vous avez partagé ?",
       "deleteSharedBody": "Chaque enregistrement partagé depuis cette application est supprimé des serveurs de Quran Lab, et le partage s'arrête.",
       "deletedShared": "Vos enregistrements partagés ont été supprimés",
       "sharingFailed": "Cela n'a pas abouti. Veuillez réessayer.",
       "recoveryCode": "Code de récupération : {{code}}",
-      "sourcesLine": "TajweedFormer de Quran Lab, partagé sous licence NPL-1.2.",
+      "sourcesLine": "TajweedFormer de Quran Lab, partagé sous licence NPL-1.3.",
       "practiseSound": "S'exercer sur ce son",
       "drillTitle": "S'exercer sur ce son",
       "drillIntro": "Écoutez l'exemple, puis touchez Réciter et prononcez-le de la même façon.",
@@ -6071,14 +6161,25 @@
       "verdictTryAgain": "Écoutez encore et réessayez.",
       "verdictNotSure": "Le module d'écoute n'était pas sûr.",
       "error": {
-        "noConnection": "La configuration demande une connexion une seule fois.",
+        "noConnection": "Connectez-vous à Internet pour télécharger le module de prononciation.",
         "paused": "Quran Lab a suspendu ce module. Les leçons continuent de fonctionner.",
         "noSpace": "Espace insuffisant",
         "notYet": "Ce module n'est pas encore disponible. Veuillez réessayer plus tard.",
         "micDenied": "Le micro est désactivé pour Munib Tracker.",
         "unsupported": "Non disponible sur cet appareil",
-        "generic": "Cela n'a pas fonctionné. Veuillez réessayer."
-      }
+        "generic": "Cela n'a pas fonctionné. Veuillez réessayer.",
+        "needsRenewal": "Connectez-vous une fois à Internet pour que Quran Lab renouvelle le module d'écoute. Il est déjà sur cet appareil.",
+        "busy": "Les serveurs de Quran Lab sont occupés. Veuillez réessayer dans un moment.",
+        "deviceRefused": "Quran Lab ne peut pas ouvrir le module d'écoute sur cet appareil (par exemple un téléphone au chargeur d'amorçage déverrouillé). Les leçons continuent de fonctionner.",
+        "updateApp": "Mettez à jour Munib Tracker pour continuer à utiliser le module de prononciation.",
+        "inUse": "Le module d'écoute est encore en cours de fermeture. Veuillez réessayer dans un instant."
+      },
+      "consentAnalytics": "Le SDK de Quran Lab envoie toujours des décomptes quotidiens anonymes (comme les minutes d'exercice et le fonctionnement du module d'écoute) et des rapports d'erreur. Jamais votre audio, vos mots, votre nom ni l'identifiant de votre appareil.",
+      "consentSharingAsk": "Après quelques séances d'exercice, Quran Lab peut vous demander — trois fois au plus — si vous souhaitez partager des enregistrements pour aider d'autres apprenants. Rien n'est partagé sans votre accord, et vous pouvez supprimer ce que vous avez partagé.",
+      "tryAgain": "Réessayer",
+      "feedbackDisclaimer": "Les retours automatiques sur le tajwid peuvent se tromper. Ils ne remplacent pas un enseignant qualifié.",
+      "hearingYou": "Je vous entends…",
+      "shareDiagnostics": "Partager le diagnostic"
     },
     "modeHelp": {
       "follow": "Récitez avec le texte sous les yeux. Le module d'écoute vous suit mot à mot.",
@@ -10367,7 +10468,9 @@
         "wudu": "Wudu",
         "fivePrayers": "Les cinq Salah",
         "howToPray": "Comment prier"
-      }
+      },
+      "reciteFatihah": "Réciter al-Fatiha",
+      "reciteFatihahHint": "Récite al-Fatiha et regarde les mots s'illuminer."
     },
     "prophets": {
       "title": "Histoires des prophètes",
@@ -10377,6 +10480,39 @@
     "consentPending": {
       "title": "En attente de ton parent",
       "body": "Continue de toucher tes prières comme d'habitude. Elles sont gardées sur cet appareil et seront partagées dès que ton parent sera d'accord."
+    },
+    "recite": {
+      "entry": "Réciter avec l'écoute",
+      "entryHint": "Récite une courte sourate et regarde les mots s'allumer.",
+      "title": "Réciter avec l'écoute",
+      "subtitle": "Courtes sourates, un verset à la fois",
+      "intro": "Choisis une sourate. Appuie sur le grand bouton et récite — les mots s'allument au fur et à mesure.",
+      "privacy": "L'écoute fonctionne sur cet appareil. Ta voix n'est jamais envoyée ailleurs.",
+      "pickA11y": "Réciter {{surah}}",
+      "ayahOf": "Verset {{n}} sur {{total}}",
+      "loading": "Préparation du verset…",
+      "start": "Commencer",
+      "stop": "Arrêter",
+      "startHint": "Écoute pendant que tu récites ce verset",
+      "gettingReady": "Préparation…",
+      "listening": "J'écoute — récite le verset.",
+      "listenOnly": "Appuie sur Écouter et lis en même temps — les mots s'allument avec le récitateur. Demande à un adulte d'installer l'écoute pour réciter tout seul.",
+      "wellDone": "Bravo !",
+      "nextAyah": "Verset suivant",
+      "tryWordsTitle": "Presque ! Essayons encore ces mots.",
+      "tryWordsBody": "Touche un mot pour l'entendre, puis récite encore une fois le verset.",
+      "hearWordA11y": "Écouter {{word}}",
+      "listen": "Écouter",
+      "stopListening": "Arrêter l'écoute",
+      "tryAgain": "Réessayer",
+      "moveOn": "Passer au verset suivant",
+      "finish": "J'ai fini",
+      "previous": "Retour",
+      "next": "Suivant",
+      "doneTitle": "Machallah, bravo !",
+      "doneBody": "Tu as récité la sourate {{surah}} jusqu'au bout.",
+      "again": "La réciter encore",
+      "another": "Choisir une autre sourate"
     }
   },
   "preferredTimeReminder": {
@@ -10922,5 +11058,189 @@
   "scriptureMeaning": {
     "englishLabel": "Sens en anglais",
     "englishLabelA11y": "Sens affiché en anglais : aucune traduction issue d'une source fiable n'est encore disponible dans votre langue"
+  },
+  "practiceReadingCredit": {
+    "added_one": "{{count}} ayah ajoutée à la lecture du jour",
+    "added_other": "{{count}} ayahs ajoutées à la lecture du jour",
+    "khatm": "Plan khatm terminé à {{percent}} %",
+    "openHint": "Ouvre votre plan khatm",
+    "settings": {
+      "title": "Compter l'exercice comme lecture du Coran",
+      "sub": "Les ayahs récitées pendant l'exercice s'ajoutent au journal de lecture du jour et à votre plan khatm.",
+      "keywords": "journal de lecture, khatm, lecture quotidienne, réciter, progression"
+    },
+    "khatmAlready": "Déjà compté dans votre plan khatm — terminé à {{percent}} %",
+    "habitDone": "Marquer l'habitude comme faite",
+    "habitDoneHint": "Coche {{habit}} pour aujourd'hui",
+    "habitDoneToast": "{{habit}} marquée comme faite aujourd'hui"
+  },
+  "reciteAlong": {
+    "button": "Réciter avec l'écoute",
+    "buttonHint": "Ouvre {{passage}} avec l'écoute sur l'appareil",
+    "cardTitle": "Réciter avec l'écoute",
+    "cardBody": "Récitez à voix haute et les mots s'allument au fil de votre lecture. L'écoute fonctionne sur cet appareil — votre voix ne le quitte jamais.",
+    "topicTitle": "Réciter ces versets",
+    "sheet": {
+      "title": "Réciter {{passage}}",
+      "body": "C'est un long passage. Suivez-le en entier pendant que les mots s'allument, ou prenez dix versets à la fois.",
+      "followWhole": "Suivre tout le passage",
+      "sections": "Ou choisissez dix versets",
+      "section": "Versets {{from}}–{{to}}"
+    },
+    "kahf": {
+      "title": "Réciter la sourate al-Kahf avec l'écoute",
+      "body": "Suivez toute la sourate pendant que les mots s'allument, ou prenez-la dix versets à la fois. L'écoute fonctionne sur cet appareil."
+    },
+    "ruqyah": {
+      "title": "Réciter les versets de la ruqyah avec l'écoute",
+      "body": "Récitez chaque passage à voix haute et les mots s'allument au fil de votre lecture. L'écoute fonctionne sur cet appareil — votre voix ne le quitte jamais."
+    },
+    "fatihah": {
+      "title": "Vérifier ma Fatiha",
+      "body": "Récitez al-Fatiha à voix haute : l'écoute sur l'appareil indique les mots qui ont semblé omis ou peu clairs, avec le récitateur à portée de main.",
+      "short": "Récitez-la à voix haute et voyez les mots qui ont semblé omis ou peu clairs.",
+      "cta": "Commencer la vérification",
+      "ctaHint": "Ouvre al-Fatiha avec l'écoute sur l'appareil",
+      "note": "Une aide à l'entraînement, pas un jugement sur votre Salah — apprenez la récitation auprès d'un enseignant qualifié. Votre voix reste sur cet appareil."
+    },
+    "khatmToday": "Réciter la portion du jour avec l'écoute",
+    "checkButton": "Vérifier ma récitation",
+    "iconLabel": "Réciter",
+    "withPassage": "Réciter avec l'écoute : {{passage}}",
+    "afterSalah": {
+      "title": "Réciter après la Salah",
+      "body": "Ayat al-Kursi et les trois Qul (al-Ikhlas, al-Falaq, an-Nas), récités après chaque Salah obligatoire. Récitez chacun à voix haute et les mots s'illuminent au fil de la lecture — l'écoute fonctionne sur cet appareil."
+    }
+  },
+  "handsFreeZikr": {
+    "steps": {
+      "choose": "Enseignez {{phrase}} pour que lui seul compte, ou comptez chaque pause (moins précis).",
+      "teachThis": "Enseigner ce zikr",
+      "next": "Le mode mains libres continue avec le zikr suivant.",
+      "tapThisOne": "Touchez pour compter celui-ci. Le mode mains libres reprend au prochain zikr court."
+    },
+    "sequence": {
+      "title": "Tasbih après la salah",
+      "entryBody": "33, 33 et 34 dans un seul compteur qui passe seul à la phrase suivante — au toucher ou mains libres.",
+      "openFromSession": "Compter comme une suite 33 · 33 · 34",
+      "stepSummary": "{{phrase}} ×{{times}}",
+      "endingTahlil": "33 + {{phrase}}",
+      "prayerLabel": "Enregistrer avec les adhkar après",
+      "endingLabel": "Compléter la centaine avec",
+      "evidence": {
+        "takbir34": "Après chaque salah prescrite : 33, 33 et 34 ({{reference}}).",
+        "tahlil": "33, 33 et 33 font 99 ; le tahlil complète la centaine ({{reference}})."
+      },
+      "progress": "{{done}} sur {{total}}",
+      "handsFreeHint": "Activez le mode mains libres une fois : il vous suit de phrase en phrase. Touchez pour corriger toute erreur de comptage.",
+      "doneBody": "Le tasbih après la salah est enregistré pour {{prayer}}."
+    }
+  },
+  "reciteToFind": {
+    "mode": {
+      "type": "Saisir",
+      "recite": "Réciter"
+    },
+    "mic": {
+      "start": "Commencer l'écoute",
+      "stop": "Arrêter l'écoute",
+      "startHint": "Récitez quelques mots de n'importe quel verset pour le trouver",
+      "stopHint": "Arrête l'écoute et affiche les résultats"
+    },
+    "status": {
+      "preparing": "Préparation de l'écoute",
+      "preparingHint": "Cela prend un instant la première fois.",
+      "failed": "L'écoute n'a pas démarré",
+      "failedHint": "Quittez cet écran puis rouvrez-le. La saisie fonctionne toujours.",
+      "idle": "Réciter pour trouver un verset",
+      "idleHint": "Touchez le micro et récitez quelques mots de n'importe quel verset. L'application trouve sa place dans le Coran.",
+      "listening": "Écoute…",
+      "nothingYet": "Rien pour l'instant. Continuez à réciter à un rythme normal.",
+      "narrowing": "Continuez à réciter pour plus de certitude, ou touchez Arrêter.",
+      "settling": "Finalisation",
+      "settlingHint": "Vérification des derniers mots récités.",
+      "found": "Voici ce que nous avons entendu",
+      "foundHint": "Ouvrez un verset, ou touchez le micro pour réciter à nouveau.",
+      "nothing": "Impossible de situer cette récitation",
+      "nothingHint": "Récitez un peu plus longtemps, dans un endroit calme, près du micro.",
+      "stopped": "Écoute arrêtée"
+    },
+    "error": {
+      "micDenied": "L'accès au micro est désactivé. Autorisez-le dans les Réglages pour réciter et trouver.",
+      "openSettings": "Ouvrir les Réglages"
+    },
+    "privacy": "Votre récitation est traitée sur cet appareil. L'audio ne le quitte jamais.",
+    "results": {
+      "live": "Correspondances possibles",
+      "title": "Correspondances"
+    },
+    "result": {
+      "range": "{{surah}}:{{from}}–{{to}}",
+      "open": "Ouvrir dans le lecteur",
+      "openHint": "Ouvre {{name}} {{ref}} dans le lecteur du Coran",
+      "practise": "S'entraîner à partir d'ici",
+      "practiseHint": "Lance l'entraînement à la récitation à {{name}} {{ref}}"
+    },
+    "strength": {
+      "strong": "Forte correspondance",
+      "likely": "Probable",
+      "possible": "Envisageable"
+    },
+    "download": {
+      "title": "Télécharger l'écoute du Coran",
+      "body": "Récitez quelques mots de n'importe quel verset et l'application le trouve, même hors ligne. Téléchargez-la une fois pour l'utiliser.",
+      "size": "Environ {{size}} Mo · reste sur cet appareil",
+      "action": "Télécharger l'écoute",
+      "offline": "Connectez-vous une fois à Internet pour télécharger l'écoute."
+    },
+    "shortcut": {
+      "title": "Réciter pour trouver",
+      "subtitle": "Récitez quelques mots pour trouver le verset, sur cet appareil"
+    }
+  },
+  "handsFreeZikr2": {
+    "reciteInstead": {
+      "title": "Réciter avec l'écoute",
+      "body": "Ce sont des versets du Coran : récitez-les avec l'écoute sur l'appareil au lieu de compter. L'audio ne quitte jamais votre appareil."
+    },
+    "sequence": {
+      "reciteKursi": "Réciter Ayat al-Kursi avec l'écoute"
+    },
+    "dua": {
+      "browse": "Parcourir les duas"
+    },
+    "ramadan": {
+      "countDua": "Compter sans les mains",
+      "reciteQadr": "Réciter al-Qadr avec l'écoute"
+    },
+    "builder": {
+      "countThis": "Compter ceci",
+      "countThisHint": "Ouvre un compteur de tasbeeh pour {{title}}"
+    },
+    "quickActions": {
+      "practiceTitle": "S'exercer au Coran",
+      "practiceSubtitle": "Réviser les versets dus ou réciter avec l'écoute",
+      "sequenceTitle": "Tasbeeh après la Salah",
+      "sequenceSubtitle": "33 · 33 · 34, sans les mains",
+      "reciteToFindTitle": "Réciter pour trouver",
+      "reciteToFindSubtitle": "Trouver un verset en le récitant"
+    },
+    "home": {
+      "revisionTitle": "Révision du Coran",
+      "revisionBody": "Révisez-les aujourd'hui pour bien les retenir.",
+      "revisionAction": "Commencer la révision",
+      "revisionDue_one": "{{count}} verset à réviser",
+      "revisionDue_other": "{{count}} versets à réviser"
+    },
+    "stats": {
+      "title": "Pratique du Coran",
+      "minutes": "Minutes de pratique",
+      "ayahsRecited": "Versets récités",
+      "sessions": "Séances",
+      "revisionStreak": "Plus longue série de révision (jours)",
+      "milestones": "Étapes",
+      "privacy": "Personnel — jamais comparé ni partagé.",
+      "open": "Ouvrir la pratique"
+    }
   }
 }
