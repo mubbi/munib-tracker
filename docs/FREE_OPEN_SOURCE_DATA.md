@@ -242,9 +242,14 @@ Never bundled, never committed: downloaded on request into the device (native do
 | `zipformer_a0w_ep1_a05.int8.onnx`                                                                             | github.com/yazinsai/tilawa `zipformer-a0w-ep1-a0.5` | 69.2 MB           | **NPL-1.2** (non-commercial, share-alike) | Recommended listener                   |
 | `zipformer_quran.json` (phoneme corpus)                                                                       | tilawa `v0.3.0`                                     | 5.5 MB            | **NPL-1.2**                               | Word list + alignment for the listener |
 | `fastconformer_full_mixed.onnx` + `vocab.json`, `quran_ctc_tokens.json`, `quran.json`, `export_metadata.json` | tilawa `v0.2.0`                                     | 88.3 MB + 15.4 MB | NVIDIA CC-BY-4.0 / MIT                    | Alternate listener (follow-along only) |
-| TajweedFormer V4                                                                                              | Quran Lab CDN via its SDK (key required)            | ~56.5 MB          | **NPL-1.2**                               | Optional pronunciation drill           |
+| TajweedFormer V4                                                                                              | Quran Lab via SDK 4 only (key; protected model)     | ~56 MB            | **NPL-1.3**                               | Optional pronunciation drill           |
 
-NPL-1.2 means practice can never be charged for, paywalled, or shown with ads while these models ship.
+NPL-1.2 / NPL-1.3 mean practice can never be charged for, paywalled, or shown with ads while these models ship.
+TajweedFormer SDK 4 (D66): the model is encrypted per install and opens only inside Quran Lab's SDK/Core under a
+lease; nothing is self-hosted. SDK 4 always sends anonymous analytics + error reports and asks learners itself about
+sharing recordings — disclosed on the consent sheet, Credits and the privacy policy. SDK 3.x stops receiving the
+model on 2027-01-15. FastConformer is NVIDIA `stt_ar_fastconformer_hybrid_large_pcd_v1.0` (CC-BY-4.0), modified
+(exported to ONNX by Tilawa) — credit names the model and the change.
 
 ### 9.3 Transliteration audio — **no separate dataset needed**
 

@@ -1,0 +1,299 @@
+# Cross-platform — progress and validation
+
+Per-platform status for [`cross-platform-implementation-plan.md`](./cross-platform-implementation-plan.md). Task-level status for React Native work (`P…` IDs) is authoritative in [`ui-ux-progress.md`](./ui-ux-progress.md); this file tracks **how far each change has been validated on each platform**.
+
+Last updated: 2026-11-25
+
+## Legend and rules
+
+| Column              | Completed when                                                                                                          |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Code done**       | The change is merged in the working tree for this platform (for RN tasks: the task is Completed in the UI progress doc) |
+| **Unit-tested**     | Jest / Vitest / JVM / plugin test named in the task's acceptance criteria is green — reference the run                  |
+| **Verified on web** | Seen in a browser (headless Edge screenshots or a manual pass) — only for changes that render on web; otherwise `n/a`   |
+| **Device-verified** | Checked on an emulator, simulator or physical device for this platform — write which one and the date                   |
+
+| Rule                                                 | Detail                                                                                                                                                                          |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Never mark Completed without validation evidence** | Each Completed cell needs a pointer in "Evidence / notes" (test name, screenshot path, device + OS + date)                                                                      |
+| Cell values                                          | `Pending` · `In progress` · `Completed` · `Blocked` · `Reviewed` · `n/a`                                                                                                        |
+| Mac / device work                                    | From the Windows dev box, anything needing Xcode or hardware is set to `Blocked (needs Mac)` / `Blocked (needs device)` once the code and unit tests are done — never Completed |
+| Platform is "done"                                   | Every row Completed / Reviewed / n/a **and** every QA-checklist row Completed                                                                                                   |
+
+## Documents
+
+| Document                                                                           | Status    | Evidence                                                                                                          |
+| ---------------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------- |
+| [`ui-ux-audit.md`](./ui-ux-audit.md) (platform slice: audit E, 47 findings)        | Completed | Code-based audit; nothing executed on a device                                                                    |
+| [`cross-platform-design-system.md`](./cross-platform-design-system.md)             | Completed | Approved spec                                                                                                     |
+| [`platform-ux-guidelines.md`](./platform-ux-guidelines.md)                         | Completed | Approved spec; guideline numbers flagged "from memory — re-check"                                                 |
+| [`cross-platform-implementation-plan.md`](./cross-platform-implementation-plan.md) | Completed | 26 native tasks; all dependencies resolve; all High platform findings (E-01, E-02, E-25, E-31, E-37, E-38) mapped |
+
+## Platform summary
+
+| Platform                     | Code done | Unit-tested | Verified on web | Device-verified | QA checklist | Blocked on   |
+| ---------------------------- | --------- | ----------- | --------------- | --------------- | ------------ | ------------ |
+| Web (desktop + mobile + PWA) | Pending   | Pending     | Pending         | Pending         | Pending      | —            |
+| iOS phone                    | Pending   | Pending     | n/a             | Pending         | Pending      | Mac + device |
+| iPad                         | Pending   | Pending     | n/a             | Pending         | Pending      | Mac + device |
+| Android phone                | Pending   | Pending     | n/a             | Pending         | Pending      | —            |
+| Android tablet / foldable    | Pending   | Pending     | n/a             | Pending         | Pending      | —            |
+| Android TV / Fire TV         | Pending   | Pending     | n/a             | Pending         | Pending      | —            |
+| Apple TV                     | Pending   | Pending     | n/a             | Pending         | Pending      | Mac          |
+| Apple Watch + complications  | Pending   | n/a         | n/a             | Pending         | Pending      | Mac + device |
+| iOS widgets + Live Activity  | Pending   | n/a         | n/a             | Pending         | Pending      | Mac + device |
+| Android widgets              | Pending   | Pending     | n/a             | Pending         | Pending      | —            |
+| Wear OS app, tiles, counter  | Pending   | Pending     | n/a             | Pending         | Pending      | —            |
+| Native colour codegen        | Pending   | Pending     | n/a             | n/a             | n/a          | —            |
+
+## Working-tree reconciliation (do first)
+
+| Check                                                                                                                  | Status  | Evidence / notes |
+| ---------------------------------------------------------------------------------------------------------------------- | ------- | ---------------- |
+| Wear OS sources in `apps/app/plugins/wear-os/` reviewed against E-37 – E-43 (what is already fixed, what remains)      | Pending | —                |
+| Watch sources (`WatchNowView`, `WatchTodayView`, `WatchOverviewView`, `WatchTasbeehView`) reviewed against E-31 – E-36 | Pending | —                |
+| Owner answer on O-1 (Compose port vs keep the Views counter)                                                           | Pending | —                |
+| Mac / device availability confirmed for tvOS, iPad, watchOS (O-4)                                                      | Pending | —                |
+
+## Native colour codegen
+
+| ID   | Item                           | Code done | Unit-tested | Verified on web | Device-verified               | Evidence / notes                                                                                                                                                                                                                                                                                                                                                                     |
+| ---- | ------------------------------ | --------- | ----------- | --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| N-01 | Native token source            | Completed | Completed   | n/a             | n/a                           | `packages/theme/src/native-tokens.ts` derives from `resolveTheme()` (forest); theme Vitest 149/149 (2026-11-25)                                                                                                                                                                                                                                                                      |
+| N-02 | Generator                      | Completed | Completed   | n/a             | Pending (Mac + Android build) | `pnpm --filter app generate:native-tokens` → Swift `MunibTokens.generated.swift`, widget TS, plugin JSON, Wear `WearTokens.generated.kt`; idempotent. Fixed drift: emerald `#059669`/`#10B981` → forest, stale secondary text/warning/success/card hexes. `{light,dark}` target colours verified against `@bacons/apple-targets` `DynamicColor` type. Swift/Kotlin not compiled here |
+| N-03 | Drift test                     | Completed | Completed   | n/a             | n/a                           | `apps/app/plugins/nativeTokens.test.js` (existing Jest suite) regenerates in memory and diffs committed outputs + consumer wiring; plugins 5 suites/37 tests pass                                                                                                                                                                                                                    |
+| N-04 | Snapshot accent text           | Pending   | Pending     | n/a             | n/a                           | Verify on: Win                                                                                                                                                                                                                                                                                                                                                                       |
+| N-21 | Wear colours                   | Pending   | Pending     | n/a             | Pending                       | Verify on: Win-emu                                                                                                                                                                                                                                                                                                                                                                   |
+| N-30 | Brand colour on Swift surfaces | Pending   | Pending     | n/a             | Pending                       | Verify on: Mac-sim                                                                                                                                                                                                                                                                                                                                                                   |
+
+## Web
+
+| ID     | Item                                  | Code done | Unit-tested | Verified on web | Device-verified | Evidence / notes |
+| ------ | ------------------------------------- | --------- | ----------- | --------------- | --------------- | ---------------- |
+| P1-03  | Derived colour tokens                 | Pending   | Pending     | Pending         | n/a             | —                |
+| P2-01  | First-run colour mode (D-UX2)         | Pending   | Pending     | Pending         | n/a             | —                |
+| P2-02  | Web focus ring + CSS variables        | Pending   | Pending     | Pending         | n/a             | —                |
+| P2-06  | Boot / PWA colours                    | Pending   | Pending     | Pending         | Pending         | —                |
+| P3-01  | `PressableScale`                      | Pending   | Pending     | Pending         | n/a             | —                |
+| P3-02  | `Button`                              | Pending   | Pending     | Pending         | n/a             | —                |
+| P3-10  | `Sheet`                               | Pending   | Pending     | Pending         | n/a             | —                |
+| P3-11  | `ConfirmDialog`                       | Pending   | Pending     | Pending         | n/a             | —                |
+| P3-12  | Toast                                 | Pending   | Pending     | Pending         | n/a             | —                |
+| P3-14  | `TextField` family + `SearchField` v2 | Pending   | Pending     | Pending         | n/a             | —                |
+| P4-01  | Web bottom tab bar                    | Pending   | Pending     | Pending         | n/a             | —                |
+| P4-02  | Web global rail                       | Pending   | Pending     | Pending         | n/a             | —                |
+| P4-07  | `ScreenLayout`                        | Pending   | Pending     | Pending         | n/a             | —                |
+| P5-34  | Hadith hub, collection, daily, saved  | Pending   | Pending     | Pending         | n/a             | —                |
+| P7-01  | `Alert.alert` call sites              | Pending   | Pending     | Pending         | n/a             | —                |
+| P10-01 | PWA manifest                          | Pending   | Pending     | Pending         | Pending         | —                |
+| P10-02 | PWA install affordance                | Pending   | Pending     | Pending         | Pending         | —                |
+| P10-03 | Web keyboard and dialog QA fixes      | Pending   | Pending     | Pending         | n/a             | —                |
+| P11-06 | Web visual + keyboard QA              | Pending   | Pending     | Pending         | n/a             | —                |
+
+**QA checklist — Web** (from [`platform-ux-guidelines.md`](./platform-ux-guidelines.md))
+
+| #   | Check                                                                                                                       | Status  | Environment + date | Evidence |
+| --- | --------------------------------------------------------------------------------------------------------------------------- | ------- | ------------------ | -------- |
+| 1   | Tab from page load: skip link → rail → content; ring visible on every stop, in light and dark, with amber and lime accents. | Pending | —                  | —        |
+| 2   | Toggle a chip / switch / stepper with Space or Enter: focus stays on it.                                                    | Pending | —                  | —        |
+| 3   | Open and close a sheet with the keyboard: focus is trapped, Escape closes, focus returns to the trigger.                    | Pending | —                  | —        |
+| 4   | Middle-click and Ctrl-click a rail item opens a new tab.                                                                    | Pending | —                  | —        |
+| 5   | 320px, 768px, 1024px, 1600px widths: no horizontal scroll, no clipped controls.                                             | Pending | —                  | —        |
+| 6   | 200% browser zoom and 200% text-only zoom: nothing clipped or overlapping.                                                  | Pending | —                  | —        |
+| 7   | Bottom tab targets ≥ 48px; all primary buttons ≥ 44px (measure in devtools).                                                | Pending | —                  | —        |
+| 8   | Screen reader (NVDA + Firefox, VoiceOver + Safari): headings outline, toast announced, inline error announced.              | Pending | —                  | —        |
+| 9   | `prefers-reduced-motion`: no scale/slide; `forced-colors`: rings and borders visible.                                       | Pending | —                  | —        |
+| 10  | Installed PWA: rotates on tablets, correct splash colour, shortcuts present.                                                | Pending | —                  | —        |
+
+## iOS and iPad
+
+| ID     | Item                                       | Code done | Unit-tested | Verified on web | Device-verified               | Evidence / notes                                                                                                                                                                                                                                                                                                                                                                     |
+| ------ | ------------------------------------------ | --------- | ----------- | --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| P1-06  | Type ramp (`ThemedText`)                   | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P3-01  | `PressableScale`                           | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P3-10  | `Sheet`                                    | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P3-12  | Toast                                      | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P4-03  | Native tabs + TV rail density              | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P4-04  | Tablet side rail (D-UX3)                   | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P7-02  | Raw `Modal` → `Sheet variant="fullscreen"` | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P9-01  | Arabic language tagging                    | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P9-04  | Dynamic Type sweep                         | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P10-08 | Native pointer hover                       | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P11-08 | iOS, iPad, tvOS QA (Mac)                   | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| N-02   | Generator                                  | Completed | Completed   | n/a             | Pending (Mac + Android build) | `pnpm --filter app generate:native-tokens` → Swift `MunibTokens.generated.swift`, widget TS, plugin JSON, Wear `WearTokens.generated.kt`; idempotent. Fixed drift: emerald `#059669`/`#10B981` → forest, stale secondary text/warning/success/card hexes. `{light,dark}` target colours verified against `@bacons/apple-targets` `DynamicColor` type. Swift/Kotlin not compiled here |
+| N-30   | Brand colour on Swift surfaces             | Pending   | Pending     | n/a             | Pending                       | Verify on: Mac-sim                                                                                                                                                                                                                                                                                                                                                                   |
+| N-36   | iOS widgets — rendering modes              | Pending   | Pending     | n/a             | Pending                       | Verify on: Mac-sim + Device                                                                                                                                                                                                                                                                                                                                                          |
+| N-37   | Live Activity families                     | Pending   | Pending     | n/a             | Pending                       | Verify on: Device (Watch Smart Stack)                                                                                                                                                                                                                                                                                                                                                |
+
+**QA checklist — iOS / iPad** (from [`platform-ux-guidelines.md`](./platform-ux-guidelines.md))
+
+| #   | Check                                                                                                                         | Status  | Environment + date | Evidence |
+| --- | ----------------------------------------------------------------------------------------------------------------------------- | ------- | ------------------ | -------- |
+| 1   | Largest accessibility text size: no clipped labels in buttons, tabs, chips, badges; body text reflows.                        | Pending | —                  | —        |
+| 2   | VoiceOver through: mark a Salah, count a tasbeeh, open and close a sheet (two-finger scrub closes), hear a toast.             | Pending | —                  | —        |
+| 3   | All tappable elements ≥ 44pt (Accessibility Inspector).                                                                       | Pending | —                  | —        |
+| 4   | Light and dark × forest, amber, lime, rose accents: selected chip, secondary button, tab label, destructive confirm readable. | Pending | —                  | —        |
+| 5   | Reduce Motion on: no scale or slide; Reduce Transparency on: sheets and tab bar still legible.                                | Pending | —                  | —        |
+| 6   | Edge-swipe back works on every pushed screen.                                                                                 | Pending | —                  | —        |
+| 7   | iPad: every Split View / Stage Manager width; navigation chrome persists on pushed screens; trackpad hover visible.           | Pending | —                  | —        |
+| 8   | Widgets in standard, tinted and clear modes; lock-screen widgets; Dynamic Island compact/minimal/expanded.                    | Pending | —                  | —        |
+| 9   | Haptics off in Settings → no haptics anywhere.                                                                                | Pending | —                  | —        |
+
+## Android phone, tablet and foldable (incl. widgets)
+
+| ID     | Item                            | Code done | Unit-tested | Verified on web | Device-verified               | Evidence / notes                                                                                                                                                                                                                                                                                                                                                                     |
+| ------ | ------------------------------- | --------- | ----------- | --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| P3-01  | `PressableScale`                | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P3-02  | `Button`                        | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P3-07  | `SwitchRow` / `ThemedSwitch`    | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P3-10  | `Sheet`                         | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P3-15  | `ContextMenu`                   | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P4-04  | Tablet side rail (D-UX3)        | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P4-09  | Android predictive back         | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P10-07 | Android target sizes and insets | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| P11-07 | Android phone, tablet, TV QA    | Pending   | Pending     | Pending         | Pending                       | —                                                                                                                                                                                                                                                                                                                                                                                    |
+| N-02   | Generator                       | Completed | Completed   | n/a             | Pending (Mac + Android build) | `pnpm --filter app generate:native-tokens` → Swift `MunibTokens.generated.swift`, widget TS, plugin JSON, Wear `WearTokens.generated.kt`; idempotent. Fixed drift: emerald `#059669`/`#10B981` → forest, stale secondary text/warning/success/card hexes. `{light,dark}` target colours verified against `@bacons/apple-targets` `DynamicColor` type. Swift/Kotlin not compiled here |
+| N-10   | Widget palette                  | Pending   | Pending     | n/a             | Pending                       | Verify on: Win-emu                                                                                                                                                                                                                                                                                                                                                                   |
+| N-11   | Widget picker metadata          | Pending   | Pending     | n/a             | Pending                       | Verify on: Win-emu                                                                                                                                                                                                                                                                                                                                                                   |
+| N-12   | Widget previews                 | Pending   | Pending     | n/a             | Pending                       | Verify on: Win-emu                                                                                                                                                                                                                                                                                                                                                                   |
+| N-13   | Widget corner radius            | Pending   | Pending     | n/a             | Pending                       | Verify on: Win-emu, Device                                                                                                                                                                                                                                                                                                                                                           |
+
+**QA checklist — Android** (from [`platform-ux-guidelines.md`](./platform-ux-guidelines.md))
+
+| #   | Check                                                                                                                | Status  | Environment + date | Evidence |
+| --- | -------------------------------------------------------------------------------------------------------------------- | ------- | ------------------ | -------- |
+| 1   | Font scale 200% and display size largest: no clipped chrome; rows grow.                                              | Pending | —                  | —        |
+| 2   | TalkBack through: mark a Salah, change a stepper (value announced), dismiss a sheet with back, hear a toast.         | Pending | —                  | —        |
+| 3   | All targets ≥ 48dp (Accessibility Scanner).                                                                          | Pending | —                  | —        |
+| 4   | Predictive back: preview animates on stack pop and on leaving the app; sheets dismiss.                               | Pending | —                  | —        |
+| 5   | Edge-to-edge: nothing under the status or gesture bar, including inside sheets and with the keyboard open.           | Pending | —                  | —        |
+| 6   | Off switch visible on a light card; ripple clipped to rounded corners.                                               | Pending | —                  | —        |
+| 7   | Tablet / foldable: 600, 840, 1024dp widths; rail persists; fold/unfold keeps state.                                  | Pending | —                  | —        |
+| 8   | Hardware keyboard: Tab reaches everything, focus visible.                                                            | Pending | —                  | —        |
+| 9   | Widget picker in English, Arabic and Urdu, light and dark: correct name, description and preview for all 12 widgets. | Pending | —                  | —        |
+
+## TV — Apple TV, Android TV, Fire TV
+
+| ID     | Item                                                                                              | Code done | Unit-tested | Verified on web | Device-verified | Evidence / notes |
+| ------ | ------------------------------------------------------------------------------------------------- | --------- | ----------- | --------------- | --------------- | ---------------- |
+| P1-04  | Layout / geometry tokens                                                                          | Pending   | Pending     | n/a             | Pending         | —                |
+| P1-07  | TV overscan                                                                                       | Pending   | Pending     | n/a             | Pending         | —                |
+| P3-01  | `PressableScale`                                                                                  | Pending   | Pending     | n/a             | Pending         | —                |
+| P3-02  | `Button`                                                                                          | Pending   | Pending     | n/a             | Pending         | —                |
+| P3-07  | `SwitchRow` / `ThemedSwitch`                                                                      | Pending   | Pending     | n/a             | Pending         | —                |
+| P3-10  | `Sheet`                                                                                           | Pending   | Pending     | n/a             | Pending         | —                |
+| P3-11  | `ConfirmDialog`                                                                                   | Pending   | Pending     | n/a             | Pending         | —                |
+| P3-13  | `Callout`, `ContentState`, `Skeleton`, `RetryCard`, `EmptyState`, `UnavailableOnDevice`, progress | Pending   | Pending     | n/a             | Pending         | —                |
+| P4-03  | Native tabs + TV rail density                                                                     | Pending   | Pending     | n/a             | Pending         | —                |
+| P4-11  | TV feature scope (D-UX5)                                                                          | Pending   | Pending     | n/a             | Pending         | —                |
+| P8-06  | Unavailable-on-device adoption                                                                    | Pending   | Pending     | n/a             | Pending         | —                |
+| P10-04 | TV density sweep                                                                                  | Pending   | Pending     | n/a             | Pending         | —                |
+| P10-05 | TV focus                                                                                          | Pending   | Pending     | n/a             | Pending         | —                |
+| P11-07 | Android phone, tablet, TV QA                                                                      | Pending   | Pending     | n/a             | Pending         | —                |
+| P11-08 | iOS, iPad, tvOS QA (Mac)                                                                          | Pending   | Pending     | n/a             | Pending         | —                |
+
+**QA checklist — TV** (from [`platform-ux-guidelines.md`](./platform-ux-guidelines.md))
+
+| #   | Check                                                                                                                                 | Status  | Environment + date | Evidence |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------------------ | -------- |
+| 1   | tvOS and Android TV side by side: rail, buttons, chips, rows, icons are the same physical size (no half-size or double-size element). | Pending | —                  | —        |
+| 2   | Every screen: something has focus on entry; every control reachable by D-pad; no dead ends.                                           | Pending | —                  | —        |
+| 3   | Focus ring clearly visible in light and dark with amber and lime accents, on cards, muted rows and the hero.                          | Pending | —                  | —        |
+| 4   | Back from every depth follows the ladder and ends at system Home without a prompt.                                                    | Pending | —                  | —        |
+| 5   | Leave a list for its detail and come back: focus returns to the same row.                                                             | Pending | —                  | —        |
+| 6   | Long article: D-pad scrolls paragraph by paragraph (`TvReadableBlock`).                                                               | Pending | —                  | —        |
+| 7   | Nothing important within 5% of any edge; tvOS top/bottom ≥ 60pt.                                                                      | Pending | —                  | —        |
+| 8   | Sheets: no grabber, title visible, Cancel focused on destructive confirms.                                                            | Pending | —                  | —        |
+| 9   | Gated features show the unavailable state with a focusable action.                                                                    | Pending | —                  | —        |
+| 10  | Play/Pause on the remote controls audio from any screen.                                                                              | Pending | —                  | —        |
+
+## Apple Watch, iOS widgets and Live Activity
+
+| ID   | Item                           | Code done | Unit-tested | Verified on web | Device-verified | Evidence / notes                                   |
+| ---- | ------------------------------ | --------- | ----------- | --------------- | --------------- | -------------------------------------------------- |
+| N-30 | Brand colour on Swift surfaces | Pending   | Pending     | n/a             | Pending         | Verify on: Mac-sim                                 |
+| N-31 | Watch — marking a Salah        | Pending   | Pending     | n/a             | Pending         | Verify on: Mac-sim + Device (WatchConnectivity)    |
+| N-32 | Watch — tasbeeh                | Pending   | Pending     | n/a             | Pending         | Verify on: Mac-sim (41 / 49mm), Device             |
+| N-33 | Watch — structure and glance   | Pending   | Pending     | n/a             | Pending         | Verify on: Mac-sim, Device (Always-On, double tap) |
+| N-34 | Complication relevance         | Pending   | Pending     | n/a             | Pending         | Verify on: Device (Smart Stack)                    |
+| N-35 | Watch command queue            | Pending   | Pending     | n/a             | Pending         | Verify on: Mac-sim                                 |
+| N-36 | iOS widgets — rendering modes  | Pending   | Pending     | n/a             | Pending         | Verify on: Mac-sim + Device                        |
+| N-37 | Live Activity families         | Pending   | Pending     | n/a             | Pending         | Verify on: Device (Watch Smart Stack)              |
+| N-38 | Watch store-screenshot palette | Pending   | Pending     | n/a             | n/a             | Verify on: Win                                     |
+
+**QA checklist — Apple Watch** (from [`platform-ux-guidelines.md`](./platform-ux-guidelines.md))
+
+| #   | Check                                                                                                        | Status  | Environment + date | Evidence |
+| --- | ------------------------------------------------------------------------------------------------------------ | ------- | ------------------ | -------- |
+| 1   | Now and Tasbeeh fit without scrolling on 41mm at default and largest text size.                              | Pending | —                  | —        |
+| 2   | Mark the current Salah: haptic, row shows done, phone reflects it; undo works; future rows cannot be marked. | Pending | —                  | —        |
+| 3   | Count 10, lower the wrist for a minute, raise: count is still 10. Force-quit and reopen: still 10.           | Pending | —                  | —        |
+| 4   | Crown counts on Tasbeeh and scrolls on Today; never both on one screen.                                      | Pending | —                  | —        |
+| 5   | Phone out of range: mark is queued and syncs later; stale indicator shows.                                   | Pending | —                  | —        |
+| 6   | Always-On: dimmed, no seconds ticking, private counts redacted.                                              | Pending | —                  | —        |
+| 7   | Complications on Modular, Infograph and a corner face; Smart Stack surfaces next Salah before Adhan.         | Pending | —                  | —        |
+| 8   | Brand tint (not system blue/green) in light and dark appearances; VoiceOver reads every control.             | Pending | —                  | —        |
+| 9   | Arabic and Urdu: strings localised and right-to-left.                                                        | Pending | —                  | —        |
+
+## Wear OS
+
+| ID   | Item                                | Code done | Unit-tested | Verified on web | Device-verified | Evidence / notes                                   |
+| ---- | ----------------------------------- | --------- | ----------- | --------------- | --------------- | -------------------------------------------------- |
+| N-20 | Wear module build check             | Pending   | Pending     | n/a             | Pending         | Verify on: Win-emu                                 |
+| N-21 | Wear colours                        | Pending   | Pending     | n/a             | Pending         | Verify on: Win-emu                                 |
+| N-22 | Mark delivery and feedback          | Pending   | Pending     | n/a             | Pending         | Verify on: Win-emu (paired phone + watch), Device  |
+| N-23 | Next Salah tile layout and action   | Pending   | Pending     | n/a             | Pending         | Verify on: Win-emu (small + large round)           |
+| N-24 | **Compose tasbeeh counter (D-UX4)** | Pending   | Pending     | n/a             | Pending         | Verify on: Win-emu, Device (rotary feel, haptics)  |
+| N-25 | Tasbeeh tile as a glance            | Pending   | Pending     | n/a             | Pending         | Verify on: Win-emu                                 |
+| N-26 | Manifest and store readiness        | Pending   | Pending     | n/a             | Pending         | Verify on: Win-emu; Play pre-launch report (owner) |
+| N-27 | Tile freshness                      | Pending   | Pending     | n/a             | Pending         | Verify on: Win-emu                                 |
+| N-28 | Wear strings coverage               | Pending   | Pending     | n/a             | Pending         | Verify on: Win-emu                                 |
+
+**QA checklist — Wear OS** (from [`platform-ux-guidelines.md`](./platform-ux-guidelines.md))
+
+| #   | Check                                                                                                          | Status  | Environment + date | Evidence |
+| --- | -------------------------------------------------------------------------------------------------------------- | ------- | ------------------ | -------- |
+| 1   | Kotlin compiles from a clean prebuild; tiles appear in the tile picker with real previews and localised names. | Pending | —                  | —        |
+| 2   | Next Salah tile on a small round screen: nothing clipped, longest Salah name fits in English, Arabic and Urdu. | Pending | —                  | —        |
+| 3   | Swiping past the tile never marks a Salah; only the edge button does.                                          | Pending | —                  | —        |
+| 4   | Mark with the phone connected: tile shows "Marked ✓", phone reflects it.                                       | Pending | —                  | —        |
+| 5   | Mark with the phone in airplane mode: tile shows "Will sync"; reconnect → phone reflects it.                   | Pending | —                  | —        |
+| 6   | Tile content is correct at each Salah boundary without opening the app.                                        | Pending | —                  | —        |
+| 7   | TalkBack reads the tile and the button meaningfully.                                                           | Pending | —                  | —        |
+| 8   | Play Console pre-launch report: no Wear quality warnings.                                                      | Pending | —                  | —        |
+
+## Wear OS counter verification (N-24)
+
+Checklist from the plan's "How to verify the counter".
+
+| #   | Check                                                                                                                                       | Status  | Environment + date | Evidence |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------------------ | -------- |
+| 1   | `./gradlew :wear:testDebugUnitTest` — reducer tests: count, undo at 0, target reached, ∞ mode, sequence auto-advance, reset, date rollover. | Pending | —                  | —        |
+| 2   | `:wear:assembleDebug` from a clean `pnpm cleanbuild:app:android`; phone app build is unaffected.                                            | Pending | —                  | —        |
+| 3   | Small round emulator: nothing clipped at default and largest font scale; Options button fully inside the round-safe area.                   | Pending | —                  | —        |
+| 4   | Tap 33 times: haptic each time, stronger pattern and success state at 33.                                                                   | Pending | —                  | —        |
+| 5   | Rotary (emulator rotary input): clockwise counts one per detent, anticlockwise does nothing; on the Options screen rotary scrolls instead.  | Pending | —                  | —        |
+| 6   | Force-stop and relaunch: count, target and mode are unchanged. Reboot the emulator: unchanged.                                              | Pending | —                  | —        |
+| 7   | Count in the app, swipe to the tile: tile shows the same count (`N-25`).                                                                    | Pending | —                  | —        |
+| 8   | Sequence mode with steps sent from the phone: advances 33 → 33 → 34 and ends on "All done".                                                 | Pending | —                  | —        |
+| 9   | Reset asks for confirmation; Undo does not.                                                                                                 | Pending | —                  | —        |
+| 10  | TalkBack: surface announced as "Tasbeeh counter, N of M"; double-tap counts; target reached is announced.                                   | Pending | —                  | —        |
+| 11  | `ar` and `ur`: strings localised, layout mirrored where applicable, numerals readable.                                                      | Pending | —                  | —        |
+| 12  | Device: 5 minutes of counting — no dropped taps, haptics keep up, battery drop noted in the tracker.                                        | Pending | —                  | —        |
+
+## Cross-platform acceptance (run on every platform)
+
+| #   | Check                                                                                                                                  | Web     | iOS / iPad | Android | TV      | Watch   | Wear    | Evidence |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------- | ------- | ------- | ------- | ------- | -------- |
+| 1   | Light and dark, with forest (default), amber, lime and rose accents: no text under 4.5:1, no control boundary or focus ring under 3:1. | Pending | Pending    | Pending | Pending | Pending | Pending | —        |
+| 2   | Brand green before the first sync matches the app's default accent on every native surface (E-44).                                     | Pending | Pending    | Pending | Pending | Pending | Pending | —        |
+| 3   | Glossary terms and sentence case in every visible string; no English fallback in Arabic/Urdu.                                          | Pending | Pending    | Pending | Pending | Pending | Pending | —        |
+| 4   | RTL: layout mirrors, chevrons flip, Arabic scripture stays right-aligned and untruncated.                                              | Pending | Pending    | Pending | Pending | Pending | Pending | —        |
+| 5   | Loading, empty, error and offline states exist for every data screen.                                                                  | Pending | Pending    | Pending | Pending | Pending | Pending | —        |
+| 6   | Reduced motion honoured.                                                                                                               | Pending | Pending    | Pending | Pending | Pending | Pending | —        |
+
+## Device and Mac session log
+
+| Date | Environment (device, OS, build) | Who | Rows covered | Result |
+| ---- | ------------------------------- | --- | ------------ | ------ |
+| —    | —                               | —   | —            | —      |

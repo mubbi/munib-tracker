@@ -9,13 +9,21 @@
 > **Play policy tip:** Avoid ranking-style words in the short description (e.g. `first`, `best`, `#1`) — Google may reject superlative claims.
 >
 > **Android TV / Fire TV:** Same package (`app.munibtracker`) with `EXPO_TV=1` Leanback build. Banner/icon: `apps/app/assets/images/tv/`. Fire TV store banner/icons (`firetv-*`) are Amazon console uploads, not APK. Screenshots: `pnpm screenshots:android-tv` validates; `RUN_CAPTURE=1` writes 1080p PNGs — see [`TV.md`](./TV.md) and [`STORE_ASSETS.md`](./STORE_ASSETS.md#apple-tv--android-tv-assets). Phone short descriptions below apply until a TV-specific listing is created.
+>
+> **Wear OS (quality item WO-G2, review blocker):** the Play full description must name the tiles and complications the watch ships. The full description is shared with [`IOS_APP_COPY.md`](./IOS_APP_COPY.md), which must never mention Wear OS (App Store 2.3.10), so append this paragraph **in Play Console only**, in each listing language (en / ar / ur below; other locales use the English one until translated):
+>
+> - **en:** On Wear OS: a Next Salah tile with a progress ring and one-tap marking, a Today tile with all five Salah, a Tasbeeh tile, Next Salah and daily-progress complications for your watch face, and a full tasbeeh counter with rotating-bezel counting and haptics. Marks sync to the phone app, even if your phone was out of reach.
+> - **ar:** على Wear OS: بلاطة الصلاة القادمة مع حلقة التقدّم والتسجيل بلمسة، وبلاطة اليوم بالصلوات الخمس، وبلاطة التسبيح، ومضاعفات الصلاة القادمة وتقدّم اليوم لواجهة الساعة، وعدّاد تسبيح كامل بالتدوير والاهتزاز. يُرسل التسجيل إلى تطبيق الهاتف حتى لو كان بعيدًا.
+> - **ur:** Wear OS پر: اگلی نماز کی ٹائل (پیش رفت کے دائرے اور ایک تھپتھپاہٹ سے درج کرنے کے ساتھ)، آج کی پانچوں نمازوں کی ٹائل، تسبیح ٹائل، واچ فیس کے لیے اگلی نماز اور آج کی پیش رفت کی کمپلیکیشنز، اور گھومنے والے بیزل اور ارتعاش کے ساتھ مکمل تسبیح کاؤنٹر۔ نماز کا اندراج فون ایپ تک پہنچ جاتا ہے، چاہے فون دور ہو۔
+>
+> Wear screenshots (WO-G5): at least one 1:1 watch screenshot without a device frame, plus a tile — see [`STORE_ASSETS.md`](./STORE_ASSETS.md#store-screenshot-status).
 
 ---
 
 ## Data safety — Qur'an practice
 
 - **Audio (voice or sound recordings):** processed on the device only; not collected, not shared. `RECORD_AUDIO` purpose: Qur'an recitation practice and custom adhkar dictation.
-- **Optional pronunciation drill (Quran Lab SDK):** contacts Quran Lab to download and activate its model; usage statistics are turned off in the app. The SDK may request a Play Integrity verdict when Quran Lab's config asks (fraud prevention, not linked to the user). Recitation audio is shared only if the learner agrees on Quran Lab's own sheet (not offered by the app on Android); the learner can turn it off and delete it in Settings → Qur'an practice.
+- **Optional pronunciation drill (Quran Lab TajweedFormer SDK 4, D66):** after the learner agrees on the consent sheet, contacts Quran Lab to download its encrypted model and renew a per-install lease. The SDK **always** sends Quran Lab anonymous daily usage counts and crash/error reports (app diagnostics: never audio, text, names or device identifiers; not linked to the user, not used for tracking) — declare under Data safety → App info and performance (Crash logs, Diagnostics), collected by a third party, not shared for advertising. Install keys are attested with Android hardware attestation or Play Integrity (fraud prevention, not linked to the user). After a few takes the SDK's own sheet may ask (at most three times) whether to share recordings; audio is uploaded only after the learner says yes — declare Audio → Voice or sound recordings as optional, user-initiated; the learner can turn it off and delete it in Settings → Qur'an practice. Phones with an unlocked bootloader can't open the model. Owner action: add the Play app-signing and upload-key SHA-256 certificates on the Android key's page at sdk.quranlab.ai.
 - Review the merged manifest of the release build: the SDK adds `INTERNET`, `ACCESS_NETWORK_STATE`, and WorkManager's `WAKE_LOCK`, `RECEIVE_BOOT_COMPLETED`, `FOREGROUND_SERVICE`.
 
 ## en-US
