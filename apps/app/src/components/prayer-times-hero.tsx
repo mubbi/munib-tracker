@@ -122,11 +122,11 @@ const INACTIVE_PRAYER_TEXT = withAlpha(Brand.heroText, 0.82);
 /** Text scale at which the prayer strip wraps to rows instead of shrinking names (B-19). */
 const LARGE_TEXT_SCALE = 1.3;
 /**
- * Strip slot (dp at 1× text) below which names can't fit on one row at all — wrap
- * up front. Between this and "fits", the strip also wraps once a name actually
- * lays out on two lines (the iPad home column broke "Maghrib" as "Maghri / b").
+ * Narrowest strip slot (dp at 1× text) that keeps names and times on one line. Below
+ * it the strip wraps like large text does. The dashboard card (iPad / desktop home
+ * column) needs more: its six ~57dp slots broke "Maghrib" and "17:37" mid-word.
  */
-const MIN_PRAYER_SLOT_DP = 56;
+const MIN_PRAYER_SLOT_DP = { banner: 56, card: 64 } as const;
 
 /** Fixed positions for the faint night starfield (left %, top px, size, opacity). */
 const STARS = [
@@ -215,27 +215,12 @@ export function PrayerTimesHero({
   // of shrinking text toward 9pt.
   const largeText = fontScale >= LARGE_TEXT_SCALE;
   const [prayerRowWidth, setPrayerRowWidth] = useState(0);
-  /** Widest strip at which a name was seen breaking onto a second line. */
-  const [nameBrokeAtWidth, setNameBrokeAtWidth] = useState<number | null>(null);
-  /** A name broke before the row reported its width (text layout can arrive first). */
-  const [nameBroke, setNameBroke] = useState(false);
-  useEffect(() => {
-    if (nameBroke && prayerRowWidth > 0) {
-      setNameBrokeAtWidth((prev) => Math.max(prev ?? 0, prayerRowWidth));
-      setNameBroke(false);
-    }
-  }, [nameBroke, prayerRowWidth]);
-  // Too narrow for one row of full-size names (e.g. the iPad home column): wrap too.
-  // Sticky per width (wrapped cells fit, so the names stop breaking) until it widens.
+  // Too narrow for one row of full-size names / times (e.g. the iPad home column).
   const narrowStrip =
     prayerRowWidth > 0 &&
     prayers.length > 0 &&
-    (prayerRowWidth / prayers.length < MIN_PRAYER_SLOT_DP * Math.max(1, fontScale) ||
-      (nameBrokeAtWidth != null && prayerRowWidth <= nameBrokeAtWidth));
+    prayerRowWidth / prayers.length < MIN_PRAYER_SLOT_DP[variant] * Math.max(1, fontScale);
   const wrapPrayers = largeText || narrowStrip;
-  const onPrayerNameLayout = (event: { nativeEvent: { lines: unknown[] } }) => {
-    if (!wrapPrayers && event.nativeEvent.lines.length > 1) setNameBroke(true);
-  };
   const { primary: primaryDate, secondary: secondaryDate } = displayDates;
   const reducedMotion = useReducedMotion();
   const breath = useSharedValue(0);
@@ -615,7 +600,6 @@ export function PrayerTimesHero({
                   <>
                     <ThemedText
                       type="caption"
-                      onTextLayout={onPrayerNameLayout}
                       style={[
                         styles.softShadow,
                         styles.prayerLabel,

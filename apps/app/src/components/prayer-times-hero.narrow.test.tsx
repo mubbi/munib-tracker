@@ -41,59 +41,49 @@ const strip = () =>
 const layoutStrip = (width: number) =>
   act(() => strip().props.onLayout({ nativeEvent: { layout: { width, height: 80 } } }));
 
+const renderHero = (variant: "banner" | "card") =>
+  renderWithTheme(
+    <PrayerTimesHero
+      location="Makkah"
+      displayDates={{ primary: "Thursday 26 November", secondary: "16 Jumada al-Akhira 1448" }}
+      currentTime="09:41"
+      countdown="Dhuhr is 2 hr away"
+      prayers={PRAYERS}
+      activeIndex={1}
+      topInset={20}
+      sky={skyPalette("noon")}
+      now={new Date(2026, 10, 26, 9, 41)}
+      moonLabel="Waxing gibbous"
+      celestial={{ body: "sun", x: 30, y: 30 }}
+      dayProgress={0.4}
+      variant={variant}
+    />,
+  );
+
+const wrapped = () => flattenStyle(strip().props.style).flexWrap === "wrap";
+
 describe("PrayerTimesHero strip width (no mid-word breaks)", () => {
-  beforeEach(async () => {
-    await renderWithTheme(
-      <PrayerTimesHero
-        location="Makkah"
-        displayDates={{ primary: "Thursday 26 November", secondary: "16 Jumada al-Akhira 1448" }}
-        currentTime="09:41"
-        countdown="Dhuhr is 2 hr away"
-        prayers={PRAYERS}
-        activeIndex={1}
-        topInset={20}
-        sky={skyPalette("noon")}
-        now={new Date(2026, 10, 26, 9, 41)}
-        moonLabel="Waxing gibbous"
-        celestial={{ body: "sun", x: 30, y: 30 }}
-        dayProgress={0.4}
-      />,
-    );
+  it("keeps the phone banner on one row when every slot fits", async () => {
+    await renderHero("banner");
+    await layoutStrip(370); // iPhone: ~62dp per slot
+    expect(wrapped()).toBe(false);
   });
 
-  it("keeps one row when every slot fits a full-size name", async () => {
-    await layoutStrip(390); // phone: 65dp per slot
-    expect(flattenStyle(strip().props.style).flexWrap).toBeUndefined();
+  it("wraps the banner when slots are far too narrow", async () => {
+    await renderHero("banner");
+    await layoutStrip(300); // 50dp per slot
+    expect(wrapped()).toBe(true);
   });
 
-  it("wraps once a name actually breaks onto two lines, and stays wrapped", async () => {
-    await layoutStrip(340); // ~57dp per slot: above the up-front threshold
-    expect(flattenStyle(strip().props.style).flexWrap).toBeUndefined();
-
-    const maghrib = screen.getByText("Maghrib");
-    await act(() =>
-      maghrib.props.onTextLayout({ nativeEvent: { lines: [{ text: "Maghri" }, { text: "b" }] } }),
-    );
-    expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");
-
-    // Wrapped cells fit on one line again; the strip must not flip back.
-    await act(() => maghrib.props.onTextLayout({ nativeEvent: { lines: [{ text: "Maghrib" }] } }));
-    expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");
+  it("wraps the dashboard card at widths that break names and times (iPad home column)", async () => {
+    await renderHero("card");
+    await layoutStrip(340); // ~57dp per slot: "Maghri / b", "17:3 / 7"
+    expect(wrapped()).toBe(true);
   });
 
-  it("still wraps when a name breaks before the strip reports its width", async () => {
-    // On device the text lays out before the row's onLayout fires.
-    await act(() =>
-      screen
-        .getByText("Maghrib")
-        .props.onTextLayout({ nativeEvent: { lines: [{ text: "Maghri" }, { text: "b" }] } }),
-    );
-    await layoutStrip(340);
-    expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");
-  });
-
-  it("wraps when slots are too narrow (iPad home column)", async () => {
-    await layoutStrip(300); // 50dp per slot: "Maghrib" would split mid-word
-    expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");
+  it("keeps a roomy dashboard card on one row", async () => {
+    await renderHero("card");
+    await layoutStrip(480); // 80dp per slot
+    expect(wrapped()).toBe(false);
   });
 });
