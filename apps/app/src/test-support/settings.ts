@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { act } from "@testing-library/react-native";
 
+import { PreferencesRepository } from "@/db/repositories/preferences-repository";
 import type { PlatformCtx } from "@/lib/settings/types";
 import { resetDevicePreferencesStore } from "@/stores/device-preferences-store";
 import { hadithStore } from "@/stores/hadith-store";
@@ -44,19 +45,21 @@ export async function resetSettingsStores(): Promise<void> {
   });
 }
 
-/** Sets the app-wide translation / transliteration pair (D13) in memory for reader tests. */
+/**
+ * Sets the app-wide translation / transliteration pair (D13) for reader tests:
+ * in memory right away, and in the stored preferences blob (returned promise) so
+ * a later store refresh — `MunibThemeProvider` hydrating or writing the colour
+ * mode back via `update()` — keeps the pair instead of the stored default.
+ */
 export function setReadingDisplayState(
   pair: Partial<{ showTranslation: boolean; showTransliteration: boolean }>,
-): void {
+): Promise<unknown> {
   const { prefs } = preferencesStore.getState();
-  preferencesStore.setState({
-    prefs: {
-      ...prefs,
-      readingDisplay: {
-        showTranslation: prefs.readingDisplay?.showTranslation !== false,
-        showTransliteration: prefs.readingDisplay?.showTransliteration !== false,
-        ...pair,
-      },
-    },
-  });
+  const readingDisplay = {
+    showTranslation: prefs.readingDisplay?.showTranslation !== false,
+    showTransliteration: prefs.readingDisplay?.showTransliteration !== false,
+    ...pair,
+  };
+  preferencesStore.setState({ prefs: { ...prefs, readingDisplay } });
+  return PreferencesRepository.update({ readingDisplay });
 }

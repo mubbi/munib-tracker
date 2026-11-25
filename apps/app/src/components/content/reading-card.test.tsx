@@ -79,10 +79,10 @@ async function renderCard(overrides: Partial<Props> = {}) {
 }
 
 describe("ReadingCard", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     resetAudioPlayerMock();
     mockRecordContinue.mockClear();
-    setReadingDisplayState({ showTransliteration: true, showTranslation: true });
+    await setReadingDisplayState({ showTransliteration: true, showTranslation: true });
   });
 
   it("shows Arabic, transliteration, meaning and reference", async () => {
@@ -94,7 +94,7 @@ describe("ReadingCard", () => {
   });
 
   it("hides transliteration and meaning when toggled off", async () => {
-    setReadingDisplayState({ showTransliteration: false, showTranslation: false });
+    await setReadingDisplayState({ showTransliteration: false, showTranslation: false });
     await renderCard({ item: { ...baseItem, reference: undefined } });
     expect(screen.queryByText(baseItem.translation)).toBeNull();
     expect(screen.queryByText(baseItem.transliteration ?? "")).toBeNull();
