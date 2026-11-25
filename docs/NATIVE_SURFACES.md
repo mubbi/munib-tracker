@@ -57,6 +57,13 @@ are omitted — see [`TV.md`](./TV.md).
 All Android cells resize down to a 2×1 strip (compact lock-screen layout) and up to a large card
 (`minResize*` / `maxResize*` in `plugins/homeScreenSurfaces.cjs`, widget quality tier WL-2).
 
+**Android widget corners / palette (N-10, N-13):** colours come from `widgetTokens.generated.ts`
+(`plugins/generated/native-tokens.json` in plugins). The widget root is the library's
+`@android:id/background`, so on API 31+ the launcher clips it to `system_app_widget_background_radius`
+and the card draws square corners (`widgetCornerRadius`); below API 31 the fixed 16 / 12dp radius
+applies. Picker previews (`previewLayout`) are per-widget, light + `-night`. Material You dynamic
+colour is intentionally **not** adopted — widgets keep the app's accent and palette.
+
 ### Controls (iOS 18+)
 
 `targets/munib-tracker-widgets/MunibControls.swift` — Control Center, Lock Screen bottom slots and
@@ -361,6 +368,43 @@ phones and a dev / production build (`pnpm prebuild:app:ios|android` — new nat
 | Battery                 | 10 min advertising and 10 min scanning each cost < ~1 % battery on a mid-range phone; no wake locks left after Stop (Android `dumpsys bluetooth_manager` shows no active advertiser / scanner)                                                                                |
 | Accessibility / RTL     | VoiceOver / TalkBack read the digits one by one ("Match code 0 4 7 2"), request rows and buttons; Arabic / Urdu layout mirrors except the digits (always left-to-right); Dynamic Type / font scale up to 200 % keeps buttons usable                                           |
 | Web / TV                | Web, PWA, Apple TV and Android TV show only Code & QR (no Nearby tab, no Join nearby button); TV prebuild contains no Bluetooth permission or usage string                                                                                                                    |
+
+## Seasonal app icons (NF-2.23b)
+
+The launcher icon follows the Islamic calendar: **Ramadan** (1–20 Ramadan), **Last ten nights**
+(21–30), **Eid al-Fitr** (1–3 Shawwal), **Dhul-Hijjah** (1–9, incl. Arafah), **Eid al-Adha**
+(10–13), the **Islamic New Year** (1–8 Muharram) and **Ashura** (9–10 Muharram — a sober icon for
+the Sunnah fast days). Windows are coarser than the home seasonal banners (`lib/seasonal-themes.ts`)
+on purpose: iOS confirms every change with a system alert, so one-day banner seasons (Arafah, the
+27th night) stay inside their surrounding icon season. Mawlid and Isra' have no icon (D75). "Today" is the same Hijri date as the home hero (sighting location / Umm al-Qura +
+manual corrections).
+
+| Piece                      | Where                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Art (generated, committed) | `apps/app/assets/images/app-icons/<id>/` ← `python apps/app/scripts/generate-seasonal-icons.py [--sheet out.png]` — the official mark (`munib-logo.png`) with a seasonal colour grade + vector motifs, built through the same pipeline as the primary icon                                                                                                                                                              |
+| Native module              | `modules/munib-app-icon` (phone only, TV-excluded): iOS `setAlternateIconName`; Android activity-alias swap deferred until the app is in the background                                                                                                                                                                                                                                                                 |
+| Config plugin              | `modules/munib-app-icon/app.plugin.js` — iOS `AppIcon-<id>.appiconset` + `ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES` on the app target only; Android `.AppIconDefault` + `.AppIcon<Id>` launcher aliases (MAIN/LAUNCHER and `android.app.shortcuts` move off `.MainActivity`, deep-link filters stay), adaptive icons with monochrome layer. Registered **first** in `app.config.js` so its manifest pass runs last |
+| JS                         | `src/lib/app-icon/` (seasons, bridge, `syncAppIcon`), `components/app-icon/app-icon-host.tsx` (root; syncs after the stores hydrate and on each foreground), Settings › Appearance › App icon (`appearance.appIcon`, device scope)                                                                                                                                                                                      |
+
+**Defaults (D75):** iOS `seasonal` (automatic). Android `classic`, plus a one-time home card per
+season ("Seasonal app icon: Ramadan" → _Use seasonal icons_ / _Not now_,
+`components/app-icon/app-icon-offer-card.tsx`; answered seasons in `device.appIconOffersSeen` as
+`<icon>:<hijriYear>`). The card never shows once the user picked anything in Settings. Users can
+also keep one seasonal icon all year. Web and TV keep the single brand icon.
+
+To add an icon: add a variant in `generate-seasonal-icons.py` and re-run it, then add the id to
+`ALTERNATE_ICONS` (plugin), `APP_ICON_IDS` / `APP_ICON_SEASONS` (`lib/app-icon/icons.ts`) and
+`APP_ICON_PREVIEWS` (`components/app-icon/app-icon-previews.ts`); `icons.test.ts` checks they agree. New native resources need a prebuild.
+
+### Seasonal app icons — verify on real devices
+
+| Area             | Check                                                                                                                                                                                                                                                                                                                        |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| iOS              | Fresh build lists all six sets in the app's `Info.plist` (`CFBundleAlternateIcons`); picking an icon swaps it with the system alert; Seasonal on a date inside a window switches once (no alert on later launches); outside the window returns to the primary icon; Settings › Notifications and Spotlight show the new icon |
+| Android — update | Upgrading an install from a build without aliases keeps the home-screen icon working on Pixel (Launcher3), Samsung One UI, Xiaomi HyperOS (launcher entry moved from `.MainActivity` to `.AppIconDefault`)                                                                                                                   |
+| Android — offer  | During a season on a fresh install: the home card shows once; _Use seasonal icons_ → toast, icon swaps after Home; _Not now_ hides it until the next season; no card after any Settings choice                                                                                                                               |
+| Android — switch | Pick an icon → nothing changes while the app is open; press Home → icon changes within ~1 s; home-screen shortcut kept (or note which launchers drop it); app shortcuts (long-press) and App Actions still work; deep links / OAuth return / widgets still open the app; themed icons (Android 13+) use the monochrome layer |
+| TV / web         | Apple TV and Android TV builds contain no alternate icons and no aliases; the setting is hidden on web, TV and Expo Go                                                                                                                                                                                                       |
 
 ## iOS scene life cycle (Expo SDK 58)
 

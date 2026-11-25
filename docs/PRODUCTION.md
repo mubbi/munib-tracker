@@ -150,6 +150,7 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
   `trust proxy` the helper falls back to the right-most `X-Forwarded-For` hop, then
   the socket address. Client IPs are rate-limit keys only — never logged.
 - Optional `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` (+ `VAPID_SUBJECT`) for Web Push (admin + API scheduler).
+- **Masjid finder:** `GEOAPIFY_API_KEY` (Production only, **Sensitive**; never `EXPO_PUBLIC_*`) — key restrictions, quota guard and rotation in [`GEOAPIFY.md`](./GEOAPIFY.md). Unset = public Overpass only.
 - **ActivityKit Live Activity push:** `APNS_*`, `LIVE_ACTIVITY_CRON_SECRET` (+ cron), optional `QSTASH_*` / `API_PUBLIC_URL` / `ACTIVITYKIT_TOKEN_ENCRYPTION_KEY` — [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md).
 - **Surface push (Web + Android Expo Push):** `SURFACE_PUSH_CRON_SECRET` — [`WEB_PUSH.md`](./WEB_PUSH.md).
 

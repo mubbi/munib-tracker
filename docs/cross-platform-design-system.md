@@ -1,6 +1,6 @@
 # Cross-platform design system
 
-Status: proposed (Phase 3) — implementation tracked in docs/ui-ux-progress.md
+Status: implemented (Waves 1–6, 2026-11-25) — the source of truth for UI work; per-task status and any deviations in [`ui-ux-progress.md`](./ui-ux-progress.md), reviews in [`ui-ux-final-review.md`](./ui-ux-final-review.md). Native/device verification still pending where marked.
 
 How one design language reaches every Munib Tracker surface: the Expo app (iOS, Android, Web, Apple TV / Android TV) and the native companions (watchOS app, complications, iOS widgets, Live Activities, focus shield, App Intents, Android widgets, Wear OS tiles). Tokens and components are in [`design-system.md`](./design-system.md); per-platform requirements and QA are in [`platform-ux-guidelines.md`](./platform-ux-guidelines.md). Finding IDs (`A-nn`, `E-nn`, `F-nn`) refer to the Phase 1–2 audits.
 

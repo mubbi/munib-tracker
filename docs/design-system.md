@@ -1,6 +1,6 @@
 # Design system (product app)
 
-Status: proposed (Phase 3) — implementation tracked in docs/ui-ux-progress.md
+Status: implemented (Waves 1–6, 2026-11-25) — the source of truth for UI work; per-task status and any deviations in [`ui-ux-progress.md`](./ui-ux-progress.md), reviews in [`ui-ux-final-review.md`](./ui-ux-final-review.md). Native/device verification still pending where marked.
 
 The design language of `apps/app` (iOS, Android, Web, Apple TV / Android TV). It **extends** the system that already ships — existing token names and values stay. Rows marked **NEW** or **FIX** are proposals; each cites the audit finding that justifies it (`A-nn` foundations, `B-`/`C-`/`D-` screens, `E-nn` platforms, `F-nn` copy + a11y). Everything unmarked describes current code.
 

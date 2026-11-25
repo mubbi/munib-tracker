@@ -1,6 +1,6 @@
 # Web Push + Surface Push (Salah phases)
 
-Ops guide for scheduled Salah phase notifications on the Expo web PWA and
+Ops guide for scheduled Salah phase notifications on the Expo web PWA (install + offline: [`PWA.md`](PWA.md)) and
 shared QStash/cron delivery used by Android Expo Push Live Update corrections.
 Product UI / native surfaces: [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md).
 ActivityKit (iOS) remains separate — [`LIVE_ACTIVITY_PUSH.md`](./LIVE_ACTIVITY_PUSH.md).

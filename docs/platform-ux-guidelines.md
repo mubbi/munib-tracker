@@ -1,6 +1,6 @@
 # Platform UX guidelines
 
-Status: proposed (Phase 3) — implementation tracked in docs/ui-ux-progress.md
+Status: implemented (Waves 1–6, 2026-11-25) — the source of truth for UI work; per-task status and any deviations in [`ui-ux-progress.md`](./ui-ux-progress.md), reviews in [`ui-ux-final-review.md`](./ui-ux-final-review.md). Native/device verification still pending where marked.
 
 Concrete requirements per platform for Munib Tracker. The shared language is in [`design-system.md`](./design-system.md); token flow and the shared-vs-platform component table are in [`cross-platform-design-system.md`](./cross-platform-design-system.md). **FIX (E-nn / A-nn / F-nn)** marks a requirement today's code does not meet, with the audit finding.
 

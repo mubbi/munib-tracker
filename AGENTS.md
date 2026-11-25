@@ -138,6 +138,7 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`ADMIN_BROADCASTS.md`](docs/ADMIN_BROADCASTS.md)                                                           | In-app / push broadcasts from admin → product                       |
 | [`DATA_INGESTION.md`](docs/DATA_INGESTION.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) | Content pipeline & OSS sources                                      |
 | [`PROFILING.md`](docs/PROFILING.md)                                                                         | Web/native perf profile + remaining `__common` work                 |
+| [`design-system.md`](docs/design-system.md) · [`ui-ux-progress.md`](docs/ui-ux-progress.md)                 | UI source of truth (tokens, primitives, patterns) + redesign status |
 | [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md)                                                             | Widgets, Live Activities, Siri, Watch, Wear, focus lock, nearby BLE |
 | [`FOCUS_LOCK_FILINGS.md`](docs/FOCUS_LOCK_FILINGS.md)                                                       | Apple / Play filings for Salah focus lock                           |
 | [`LIVE_ACTIVITY_PUSH.md`](docs/LIVE_ACTIVITY_PUSH.md)                                                       | ActivityKit remote push (QStash, cron, future Fly worker)           |
