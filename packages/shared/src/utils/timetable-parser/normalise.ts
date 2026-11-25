@@ -15,21 +15,16 @@ export interface ParsedClock {
   meridiem: Meridiem | null;
 }
 
-const EASTERN_ARABIC_ZERO = 0x0660;
-const PERSIAN_ZERO = 0x06f0;
+/** Zero code points of the digit sets boards print: Eastern Arabic, Persian/Urdu, Devanagari, Bengali. */
+const DIGIT_ZEROS = [0x0660, 0x06f0, 0x0966, 0x09e6] as const;
 
-/** Maps Eastern Arabic and Persian/Urdu digits to ASCII; other characters are kept. */
+/** Maps Eastern Arabic, Persian/Urdu, Devanagari and Bengali digits to ASCII; other characters are kept. */
 export function normaliseDigits(text: string): string {
   let out = "";
   for (const ch of text) {
     const code = ch.codePointAt(0) ?? 0;
-    if (code >= EASTERN_ARABIC_ZERO && code <= EASTERN_ARABIC_ZERO + 9) {
-      out += String(code - EASTERN_ARABIC_ZERO);
-    } else if (code >= PERSIAN_ZERO && code <= PERSIAN_ZERO + 9) {
-      out += String(code - PERSIAN_ZERO);
-    } else {
-      out += ch;
-    }
+    const zero = DIGIT_ZEROS.find((z) => code >= z && code <= z + 9);
+    out += zero === undefined ? ch : String(code - zero);
   }
   return out;
 }
@@ -81,6 +76,54 @@ export function parseClockText(text: string): ParsedClock | null {
   const minute = Number(match[2]);
   if (meridiem && (hour === 0 || hour > 12)) meridiem = null;
   return { hour, minute, meridiem };
+}
+
+/** Common OCR letter-for-digit confusions on LED / dot-matrix glyphs (only inside a numeric token). */
+const OCR_DIGITS: Record<string, string> = {
+  O: "0",
+  o: "0",
+  D: "0",
+  Q: "0",
+  I: "1",
+  l: "1",
+  "|": "1",
+  "!": "1",
+  S: "5",
+  s: "5",
+  Z: "2",
+  z: "2",
+  B: "8",
+};
+const NUMERIC_TEXT = /^[\d:.\-–—;,٫\s]+$/;
+
+/**
+ * Digits-and-separators text of a token with OCR letter confusions fixed
+ * ("S:OO" → "5:00"); null when it is a word, not a number.
+ */
+export function numericText(text: string): string | null {
+  const s = normaliseDigits(text).trim();
+  if (!/\d/.test(s)) return null;
+  const mapped = [...s].map((ch) => OCR_DIGITS[ch] ?? ch).join("");
+  return NUMERIC_TEXT.test(mapped) ? mapped : null;
+}
+
+/**
+ * Lenient clock for text known to be a time (an LED board line, an area the
+ * user marked): a strict time first, else 3–4 bare digits as H:MM / HH:MM —
+ * LED boards often have no colon, and OCR drops or mirrors it ("500", "5 20",
+ * "5-30", ":5 00"). Never use this on free text: "120" is a time only here.
+ */
+export function parseLooseClockText(text: string): (ParsedClock & { loose: boolean }) | null {
+  const strict = parseClockText(text) ?? parseClockText(text.replace(/\s+/g, ""));
+  if (strict) return { ...strict, loose: false };
+  const numeric = numericText(text);
+  if (!numeric) return null;
+  const digits = numeric.replace(/\D/g, "");
+  if (digits.length !== 3 && digits.length !== 4) return null;
+  const hour = Number(digits.slice(0, -2));
+  const minute = Number(digits.slice(-2));
+  if (hour > 23 || minute > 59) return null;
+  return { hour, minute, meridiem: null, loose: true };
 }
 
 /** Plain integer token (day numbers, years). */

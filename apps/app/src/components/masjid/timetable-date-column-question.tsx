@@ -23,7 +23,7 @@ export function TimetableDateColumnQuestion({
 }) {
   const { t } = useTranslation();
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("timetableImport.dateColumnTitle")}
         icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}

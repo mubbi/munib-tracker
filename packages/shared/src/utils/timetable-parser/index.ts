@@ -13,7 +13,9 @@ export {
   formatClock,
   normaliseDigits,
   normaliseLabel,
+  numericText,
   parseClockText,
+  parseLooseClockText,
 } from "./normalise";
 export {
   daysInMonth,

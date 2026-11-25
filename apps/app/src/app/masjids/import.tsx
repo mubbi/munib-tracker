@@ -1,5 +1,9 @@
 import { masjidKey } from "@munib-tracker/shared/masjid";
-import { type OcrResult, parseTimetable } from "@munib-tracker/shared/timetable-parser";
+import {
+  type OcrResult,
+  type ParsedTimetable,
+  parseTimetable,
+} from "@munib-tracker/shared/timetable-parser";
 import * as ImagePicker from "expo-image-picker";
 import { type Href, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
@@ -8,6 +12,7 @@ import { ActivityIndicator, Platform, StyleSheet, View } from "react-native";
 
 import { TimetableImportCapture } from "@/components/masjid/timetable-import-capture";
 import { TimetableImportReview } from "@/components/masjid/timetable-import-review";
+import { TimetableMarkTimes } from "@/components/masjid/timetable-mark-times";
 import { useKeptPhoto } from "@/components/masjid/use-kept-photo";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -27,13 +32,16 @@ import {
   calculatedTimesFor,
   discardPhoto,
   ocrAvailability,
+  recognizeEnhanced,
   recognizeImage,
 } from "@/lib/timetable-ocr";
+import { draftFromMarks, type MarkedTimes, marksFromParsed } from "@/lib/timetable-ocr/regions";
 import {
   draftFromParsed,
   draftToImported,
   type IqamahPrayer,
   overrideKey,
+  type ReviewDraft,
   type ReviewOverrides,
   shiftTimetablePeriod,
   type TimetablePeriod,
@@ -41,7 +49,7 @@ import {
 import { useToast } from "@/providers/toast-provider";
 import { useLocation } from "@/stores/location-store";
 
-type Phase = "capture" | "recognizing" | "review" | "empty" | "error";
+type Phase = "capture" | "recognizing" | "review" | "mark" | "empty" | "error";
 
 const TIMES_HREF = "/masjids/times" as Href;
 
@@ -76,6 +84,8 @@ function ImportFlow() {
   /** The user's answer when the sheet has more than one possible date column. */
   const [dateColumn, setDateColumn] = useState<number | null>(null);
   const [saving, setSaving] = useState(false);
+  /** Times the user marked on the photo (guided mode) — replaces the automatic read. */
+  const [marked, setMarked] = useState<MarkedTimes | null>(null);
 
   const today = getZonedParts(new Date(), location.timeZone);
   const calculated = useMemo(() => calculatedTimesFor(location), [location]);
@@ -91,8 +101,9 @@ function ImportFlow() {
   }, [ocr, period, dateColumn, calculated, today.year, today.month, today.day]);
 
   const draft = useMemo(() => {
-    if (!parsed) return null;
-    const base = draftFromParsed(parsed, overrides);
+    const base = marked
+      ? withOverrides(draftFromMarks(marked), overrides)
+      : parsed && draftFromParsed(parsed, overrides);
     if (base && jumuahEdits) {
       base.jumuah = jumuahEdits.map((text, i) => ({
         text,
@@ -100,7 +111,7 @@ function ImportFlow() {
       }));
     }
     return base;
-  }, [parsed, overrides, jumuahEdits]);
+  }, [marked, parsed, overrides, jumuahEdits]);
 
   if (!home) {
     return (
@@ -134,18 +145,28 @@ function ImportFlow() {
     setJumuahEdits(null);
     setPeriod(null);
     setDateColumn(null);
+    setMarked(null);
     try {
-      const result = await recognizeImage(uri, { arabic });
+      const referenceDate = { year: today.year, month: today.month, day: today.day };
+      let result = await recognizeImage(uri, { arabic });
+      let first = parseTimetable(result, { referenceDate });
+      if (timesFound(first) < WEAK_READ_BELOW) {
+        // LED / dot-matrix boards: a second, enhanced read (web only; null elsewhere).
+        const enhanced = await recognizeEnhanced(uri, { arabic });
+        const second = enhanced && parseTimetable(enhanced, { referenceDate });
+        if (enhanced && second && timesFound(second) > timesFound(first)) {
+          result = enhanced;
+          first = second;
+        }
+      }
       setOcr(result);
-      // A new reading replaces the last one, kept photo included.
-      if (keepPhoto) photo.keep(uri);
+      // A new reading replaces the last one, kept photo included. A weak read
+      // keeps the photo for "mark the times" (deleted when the user leaves).
+      if (keepPhoto || timesFound(first) < WEAK_READ_BELOW) photo.keep(uri);
       else {
         photo.clear();
         discardPhoto(uri);
       }
-      const first = parseTimetable(result, {
-        referenceDate: { year: today.year, month: today.month, day: today.day },
-      });
       if (first.layout === "monthly") {
         setPeriod({
           year: first.monthHint.year ?? today.year,
@@ -184,6 +205,7 @@ function ImportFlow() {
   const reset = () => {
     photo.clear();
     setOcr(null);
+    setMarked(null);
     setPhase("capture");
   };
 
@@ -238,7 +260,31 @@ function ImportFlow() {
     );
   }
 
-  if (phase === "review" && draft && parsed) {
+  const startMarking = () => {
+    if (photo.uri) setPhase("mark");
+  };
+
+  const finishMarking = (marks: MarkedTimes) => {
+    setOverrides({});
+    setJumuahEdits(null);
+    setPeriod(null);
+    setMarked(marks);
+    setPhase("review");
+  };
+
+  if (phase === "mark" && photo.uri) {
+    return (
+      <TimetableMarkTimes
+        photoUri={photo.uri}
+        ocr={ocr}
+        initial={marked ?? marksFromParsed(parsed)}
+        onDone={finishMarking}
+        onCancel={() => setPhase(draft ? "review" : "empty")}
+      />
+    );
+  }
+
+  if (phase === "review" && draft) {
     return (
       <TimetableImportReview
         draft={draft}
@@ -254,6 +300,7 @@ function ImportFlow() {
         onEditJumuah={editJumuah}
         onSave={() => void save()}
         onRetake={reset}
+        onMark={photo.uri ? startMarking : undefined}
       />
     );
   }
@@ -270,8 +317,37 @@ function ImportFlow() {
       onKeepPhotoChange={setKeepPhoto}
       onPick={(source) => void pick(source)}
       onTypeInstead={() => router.replace(TIMES_HREF)}
+      onMark={phase === "empty" && photo.uri ? startMarking : undefined}
     />
   );
+}
+
+/** Fewer times than this: try the enhanced read, and keep the photo for marking. */
+const WEAK_READ_BELOW = 3;
+
+/** Iqamah times + Jumu'ah slots a read found. */
+function timesFound(parsed: ParsedTimetable): number {
+  let count = parsed.jumuah.length;
+  for (const row of parsed.rows) {
+    for (const cell of row.cells) if (cell.kind === "iqamah" && cell.value) count += 1;
+  }
+  return count;
+}
+
+/** Applies the review grid's typed edits to a marked (guided) daily draft. */
+function withOverrides(draft: ReviewDraft, overrides: ReviewOverrides): ReviewDraft {
+  return {
+    ...draft,
+    rows: draft.rows.map((row) => ({
+      ...row,
+      cells: Object.fromEntries(
+        Object.entries(row.cells).map(([prayer, cell]) => {
+          const typed = overrides[overrideKey(row.day, prayer as IqamahPrayer, row.monthOffset)];
+          return [prayer, typed === undefined ? cell : { ...cell, text: typed }];
+        }),
+      ) as ReviewDraft["rows"][number]["cells"],
+    })),
+  };
 }
 
 export default function TimetableImportScreen() {

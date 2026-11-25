@@ -1,6 +1,7 @@
 import { NotFoundException, ServiceUnavailableException } from "@nestjs/common";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { buildFakeRedis, type FakeRedis } from "../test-support/redis";
+import { GEOAPIFY_ATTRIBUTION_LINE, type GeoapifyClient } from "./geoapify.client";
 import { MasjidsService, OSM_ATTRIBUTION_LINES } from "./masjids.service";
 import { FRESH_TTL_MS, masjidCellKey, resetMasjidMemoryCache, STALE_MAX_MS } from "./masjids-cache";
 import {
@@ -38,7 +39,13 @@ const OVERPASS_FIXTURE = {
   ],
 };
 
-function setup(options: { redis?: FakeRedis | null; sources?: TimetableSource[] } = {}) {
+function setup(
+  options: {
+    redis?: FakeRedis | null;
+    sources?: TimetableSource[];
+    geoapify?: Pick<GeoapifyClient, "configured" | "listInBounds" | "element">;
+  } = {},
+) {
   const store = new Map<string, string>();
   const redis =
     options.redis === null
@@ -59,7 +66,11 @@ function setup(options: { redis?: FakeRedis | null; sources?: TimetableSource[] 
         }));
   getRedisClient.mockReturnValue(redis);
   const query = vi.fn().mockResolvedValue(OVERPASS_FIXTURE);
-  const service = new MasjidsService({ query } as unknown as OverpassClient, options.sources ?? []);
+  const service = new MasjidsService(
+    { query } as unknown as OverpassClient,
+    options.sources ?? [],
+    options.geoapify as GeoapifyClient | undefined,
+  );
   return { service, query, store, redis };
 }
 
@@ -315,5 +326,86 @@ describe("MasjidsService", () => {
         stale: false,
       });
     });
+  });
+});
+
+describe("MasjidsService upstream choice (Geoapify → Overpass)", () => {
+  const GEOAPIFY_ONLY = {
+    elements: [
+      {
+        type: "node",
+        id: 9,
+        lat: 24.86,
+        lon: 67.0,
+        tags: { amenity: "place_of_worship", religion: "muslim", name: "Masjid Geo" },
+      },
+    ],
+  };
+
+  function geoapifyStub(overrides: Partial<Record<"listInBounds" | "element", unknown>> = {}) {
+    return {
+      configured: true,
+      listInBounds: vi.fn().mockResolvedValue(GEOAPIFY_ONLY),
+      element: vi.fn().mockResolvedValue(GEOAPIFY_ONLY),
+      ...overrides,
+    } as unknown as Pick<GeoapifyClient, "configured" | "listInBounds" | "element"> & {
+      listInBounds: ReturnType<typeof vi.fn>;
+      element: ReturnType<typeof vi.fn>;
+    };
+  }
+
+  beforeEach(() => {
+    vi.stubEnv("NODE_ENV", "test");
+    vi.stubEnv("REDIS_KEY_PREFIX", "spec");
+    resetMasjidMemoryCache();
+    resetMasjidRateLimits();
+    getRedisClient.mockReset();
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("prefers Geoapify when keyed and credits Geoapify in the attribution", async () => {
+    const geoapify = geoapifyStub();
+    const { service, query } = setup({ geoapify });
+    const list = await service.list("tt3ff");
+    expect(list.masjids.map((m) => m.osmId)).toEqual(["9"]);
+    expect(list.attribution).toEqual([...OSM_ATTRIBUTION_LINES, GEOAPIFY_ATTRIBUTION_LINE]);
+    expect(geoapify.listInBounds).toHaveBeenCalledTimes(1);
+    expect(query).not.toHaveBeenCalled();
+
+    const detail = await service.detail("node", "9");
+    expect(detail.name).toBe("Masjid Geo");
+    expect(geoapify.element).toHaveBeenCalledWith("node", "9");
+  });
+
+  it("falls back to Overpass when Geoapify fails", async () => {
+    const geoapify = geoapifyStub({ listInBounds: vi.fn().mockRejectedValue(new Error("503")) });
+    const { service, query } = setup({ geoapify });
+    const list = await service.list("tt3ff");
+    expect(list.stale).toBe(false);
+    expect(list.masjids.map((m) => m.osmId)).toEqual(["1", "2"]);
+    expect(query).toHaveBeenCalledTimes(1);
+  });
+
+  it("switches to Overpass once today's Geoapify credit budget is spent", async () => {
+    // 15 credits ⇒ room for one worst-case (10-credit) cell per day.
+    vi.stubEnv("GEOAPIFY_DAILY_CREDITS", "15");
+    const geoapify = geoapifyStub();
+    const { service, query } = setup({ redis: null, geoapify });
+    await service.list("tt3ff");
+    await service.list("tt3fg");
+    expect(geoapify.listInBounds).toHaveBeenCalledTimes(1);
+    expect(query).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses Overpass only, with OSM attribution only, when no key is set", async () => {
+    const geoapify = { ...geoapifyStub(), configured: false };
+    const { service, query } = setup({ geoapify });
+    const list = await service.list("tt3ff");
+    expect(list.attribution).toEqual([...OSM_ATTRIBUTION_LINES]);
+    expect(geoapify.listInBounds).not.toHaveBeenCalled();
+    expect(query).toHaveBeenCalledTimes(1);
   });
 });

@@ -71,5 +71,5 @@ export function TahiyyatHint() {
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
-  body: { gap: Spacing.two + 2, marginTop: Spacing.three },
+  body: { gap: Spacing.twoHalf, marginTop: Spacing.three },
 });

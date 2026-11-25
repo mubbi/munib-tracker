@@ -4,6 +4,8 @@ import { Platform } from "react-native";
 
 import { isTV } from "@/lib/platform/is-tv";
 
+import type { FractionRect } from "./regions";
+
 /**
  * NF-3.12 on-device text recognition (D3 — permanently on-device). Native
  * builds use the local Expo module `modules/munib-text-recognition`:
@@ -51,6 +53,28 @@ export function ocrDownloadAccepted(): boolean {
 
 /** Native OCR keeps no downloaded data or consent flag (see `recognize.web.ts`). */
 export async function clearOcrBrowserData(): Promise<void> {}
+
+/**
+ * Web-only second read for LED boards (`recognize.web.ts`). Vision and ML Kit
+ * read bright-on-dark scene text directly, so native has nothing to add.
+ */
+export async function recognizeEnhanced(
+  _uri: string,
+  _options: { arabic?: boolean } = {},
+): Promise<OcrResult | null> {
+  return null;
+}
+
+/**
+ * Re-reading one marked area is web-only (a cropped Tesseract pass). On native
+ * the area is resolved from the full-photo tokens (`timeFromTokens`).
+ */
+export async function readRegion(_uri: string, _rect: FractionRect): Promise<string | null> {
+  return null;
+}
+
+/** Native keeps no marked-area reader alive (see `recognize.web.ts`). */
+export async function releaseRegionReader(): Promise<void> {}
 
 export async function recognizeImage(
   uri: string,

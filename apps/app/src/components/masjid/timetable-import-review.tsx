@@ -7,7 +7,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   hasOutOfMonthRows,
@@ -33,6 +33,7 @@ export function TimetableImportReview({
   onEditJumuah,
   onSave,
   onRetake,
+  onMark,
 }: {
   draft: ReviewDraft;
   period: TimetablePeriod | null;
@@ -45,6 +46,8 @@ export function TimetableImportReview({
   onEditJumuah: (index: number, text: string) => void;
   onSave: () => void;
   onRetake: () => void;
+  /** Kept photo only: mark each time on the photo instead (or to fix a misread). */
+  onMark?: () => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -67,7 +70,7 @@ export function TimetableImportReview({
 
   return (
     <View style={styles.stack}>
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("timetableImport.reviewTitle")}
           subtitle={t("timetableImport.reviewSummary", {
@@ -87,10 +90,21 @@ export function TimetableImportReview({
             accessibilityLabel={t("timetableImport.photoA11y")}
           />
         ) : null}
+        {onMark ? (
+          <View style={[styles.row, styles.gapTop]}>
+            <Button
+              size="sm"
+              variant="secondary"
+              icon={{ ios: "viewfinder", android: "highlight_alt", web: "highlight_alt" }}
+              label={t("timetableImport.mark.fromReview")}
+              onPress={onMark}
+            />
+          </View>
+        ) : null}
       </Card>
 
       {draft.layout === "monthly" && period ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader title={t("timetableImport.monthTitle")} />
           <View style={styles.row}>
             <Button
@@ -124,7 +138,7 @@ export function TimetableImportReview({
         />
       ) : null}
 
-      <Card padding="three">
+      <Card>
         <SectionHeader title={t("timetableImport.iqamahTitle")} />
         <View style={styles.gapTop}>
           <TimetableReviewGrid draft={draft} dayLabel={dayLabel} onEdit={onEdit} />
@@ -132,7 +146,7 @@ export function TimetableImportReview({
       </Card>
 
       {draft.jumuah.length > 0 ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader title={t("masjids.jumuah")} />
           <View style={styles.list}>
             {draft.jumuah.map((slot, index) => (
@@ -202,11 +216,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 220,
     borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   input: {
     width: 96,
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     paddingVertical: Spacing.two,

@@ -5,7 +5,12 @@ import { MasjidDetailParamsDto, MasjidListQueryDto } from "./dto/masjid.dto";
 import { MasjidsController } from "./masjids.controller";
 import type { MasjidsService } from "./masjids.service";
 import { resetMasjidRateLimits } from "./masjids-rate-limit";
-import { OVERPASS_USER_AGENT, OverpassClient } from "./overpass.client";
+import {
+  DEFAULT_OVERPASS_URLS,
+  OVERPASS_USER_AGENT,
+  OverpassClient,
+  overpassUrls,
+} from "./overpass.client";
 import { isConfidentMatch, nameSimilarity } from "./timetable-source";
 
 vi.mock("../redis/redisClient", () => ({ getRedisClient: () => null }));
@@ -111,12 +116,50 @@ describe("OverpassClient", () => {
     expect(String(init.body)).toContain("data=");
   });
 
-  it("throws on non-2xx", async () => {
-    vi.stubGlobal(
-      "fetch",
-      vi.fn(async () => new Response("busy", { status: 429 })),
-    );
+  it("throws on non-2xx once every mirror is busy", async () => {
+    const fetchMock = vi.fn(async () => new Response("busy", { status: 429 }));
+    vi.stubGlobal("fetch", fetchMock);
     await expect(new OverpassClient().query("x")).rejects.toThrow("429");
+    expect(fetchMock).toHaveBeenCalledTimes(DEFAULT_OVERPASS_URLS.length);
+  });
+
+  it("falls through to the next mirror on a transient failure", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(new Response("bad gateway", { status: 502 }))
+      .mockRejectedValueOnce(new TypeError("fetch failed"))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ elements: [] }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await expect(new OverpassClient().query("x")).resolves.toEqual({ elements: [] });
+    expect(fetchMock.mock.calls.map(([url]) => url)).toEqual(DEFAULT_OVERPASS_URLS);
+  });
+
+  it("treats a 200 with a non-JSON body as transient", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(new Response("<html>runtime error</html>", { status: 200 }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ elements: [] }), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await expect(new OverpassClient().query("x")).resolves.toEqual({ elements: [] });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not retry a query error (4xx other than 429)", async () => {
+    const fetchMock = vi.fn(async () => new Response("bad query", { status: 400 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await expect(new OverpassClient().query("x")).rejects.toThrow("400");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("reads a comma-separated OVERPASS_URL, https only", () => {
+    vi.stubEnv(
+      "OVERPASS_URL",
+      " https://a.example/api , http://b.example/api,https://a.example/api",
+    );
+    expect(overpassUrls()).toEqual(["https://a.example/api"]);
+    vi.stubEnv("OVERPASS_URL", "");
+    expect(overpassUrls()).toEqual(DEFAULT_OVERPASS_URLS);
+    vi.unstubAllEnvs();
   });
 });
 

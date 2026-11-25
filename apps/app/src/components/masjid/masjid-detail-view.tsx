@@ -19,6 +19,7 @@ import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Spacing } from "@/constants/theme";
+import { openExternalLink } from "@/lib/open-external-link";
 
 /** One-line address from `addr:*`, or undefined when OSM has none. */
 export function formatMasjidAddress(address: MasjidAddress | undefined): string | undefined {
@@ -40,7 +41,7 @@ function Section({
   testID: string;
 }) {
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.section} testID={testID}>
         <SectionHeader title={title} />
         {children}
@@ -111,7 +112,7 @@ export function MasjidDetailView({
 
   return (
     <View style={styles.stack}>
-      <Card padding="three">
+      <Card>
         <View style={styles.section}>
           <ThemedText type="subtitle" heading={2}>
             {name}
@@ -189,7 +190,7 @@ export function MasjidDetailView({
             <ThemedText
               type="linkPrimary"
               accessibilityRole="link"
-              onPress={() => void Linking.openURL(detail.website as string)}
+              onPress={() => void openExternalLink(detail.website as string)}
             >
               {t("masjids.website")}
             </ThemedText>

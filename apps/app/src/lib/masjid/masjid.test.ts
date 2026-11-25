@@ -11,7 +11,12 @@ import {
   resolveHomeIqamah,
   setHomeMasjid,
 } from "@/lib/masjid/home-masjid";
-import { distanceParts, formatDistance, mapsDirectionsUrl } from "@/lib/masjid/maps-link";
+import {
+  distanceParts,
+  formatDistance,
+  googleMapsAppUrl,
+  mapsDirectionsUrl,
+} from "@/lib/masjid/maps-link";
 import { saveImportedTimetable } from "@/lib/masjid/timetable-import";
 import { homeMasjidTimesActions, homeMasjidTimesStore } from "@/stores/home-masjid-times-store";
 import { preferencesStore } from "@/stores/preferences-store";
@@ -65,6 +70,21 @@ describe("masjid api client (privacy)", () => {
       masjids: [{ osmId: "9" }],
     });
     await expect(fetchMasjidList("gcpvm")).rejects.toBeInstanceOf(MasjidApiError);
+  });
+
+  it("treats an empty stale list as an outage, not as 'no masjids here'", async () => {
+    const outage = { masjids: [], attribution: ["osm"], stale: true };
+    mockFetch(fakeResponse(outage));
+    await expect(fetchMasjidList("tt3ff")).rejects.toMatchObject({ kind: "unavailable" });
+
+    const list = { masjids: [{ osmType: "node", osmId: "7", lat: 1, lon: 1 }], attribution: [] };
+    mockFetch(fakeResponse({ ...list, stale: false }));
+    await fetchMasjidList("tt3ff");
+    mockFetch(fakeResponse(outage));
+    await expect(fetchMasjidList("tt3ff")).resolves.toMatchObject({
+      offline: true,
+      masjids: [{ osmId: "7" }],
+    });
   });
 
   it("reports a failed request as offline only when the device has no connection", async () => {
@@ -140,17 +160,15 @@ describe("home masjid layer", () => {
 });
 
 describe("maps deep links + distance", () => {
-  it("builds OS-specific directions links with the masjid's coordinates only", () => {
+  it("builds a Google Maps directions link with the masjid's coordinates only", () => {
     const target = { lat: 51.5, lon: -0.12, name: "East Masjid" };
-    expect(mapsDirectionsUrl(target, "ios")).toBe(
-      "https://maps.apple.com/?daddr=51.500000,-0.120000&q=East%20Masjid",
-    );
-    expect(mapsDirectionsUrl(target, "android")).toBe(
-      "geo:51.500000,-0.120000?q=51.500000,-0.120000(East%20Masjid)",
-    );
-    expect(mapsDirectionsUrl({ lat: 1, lon: 2 }, "web")).toContain(
-      "openstreetmap.org/directions?to=1.000000%2C2.000000",
-    );
+    const url = "https://www.google.com/maps/dir/?api=1&destination=51.500000%2C-0.120000";
+    expect(mapsDirectionsUrl(target)).toBe(url);
+    // iOS app scheme: same destination, opens the Google Maps app directly.
+    expect(googleMapsAppUrl(target)).toBe("comgooglemaps://?daddr=51.500000%2C-0.120000");
+    // Only the masjid's coordinates — never the user's origin.
+    expect(mapsDirectionsUrl(target)).not.toMatch(/origin=/);
+    expect(googleMapsAppUrl(target)).not.toMatch(/saddr=/);
   });
 
   it("rounds distances", () => {

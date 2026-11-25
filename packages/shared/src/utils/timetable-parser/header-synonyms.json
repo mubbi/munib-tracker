@@ -12,7 +12,8 @@
       "Fadjr",
       "فجر",
       "صبح",
-      "صبح صادق"
+      "صبح صادق",
+      "ফজর"
     ],
     "sunrise": [
       "Sunrise",
@@ -26,7 +27,11 @@
       "شروق",
       "طلوع",
       "طلوع آفتاب",
-      "اشراق"
+      "اشراق",
+      "Tulu",
+      "Tulu-e-Aftab",
+      "Tuloo",
+      "সূর্যোদয়"
     ],
     "dhuhr": [
       "Dhuhr",
@@ -41,11 +46,14 @@
       "Zuhur",
       "Dohr",
       "Zawal Zuhr",
-      "ظهر"
+      "ظهر",
+      "যোহর",
+      "জোহর",
+      "যুহর"
     ],
-    "asr": ["Asr", "Asar", "Aser", "Ashar", "عصر"],
-    "maghrib": ["Maghrib", "Magrib", "Maghreb", "Maghrab", "Magrab", "مغرب"],
-    "isha": ["Isha", "Esha", "Ishaa", "Isya", "Ishaa'", "Icha", "عشاء", "عشا"],
+    "asr": ["Asr", "Asar", "Aser", "Ashar", "عصر", "আছর", "আসর"],
+    "maghrib": ["Maghrib", "Magrib", "Maghreb", "Maghrab", "Magrab", "مغرب", "মাগরিব"],
+    "isha": ["Isha", "Esha", "Ishaa", "Isya", "Ishaa'", "Icha", "عشاء", "عشا", "এশা", "ইশা"],
     "jumuah": [
       "Jumu'ah",
       "Jumuah",
@@ -60,7 +68,10 @@
       "جمعة",
       "جمعه",
       "جمعہ",
-      "نماز جمعہ"
+      "نماز جمعہ",
+      "জুম'আ",
+      "জুমআ",
+      "জুম্মা"
     ]
   },
   "qualifiers": {
@@ -80,7 +91,9 @@
       "اذان",
       "آذان",
       "ابتدا",
-      "ابتداء"
+      "ابتداء",
+      "আযান",
+      "আজান"
     ],
     "iqamah": [
       "Iqamah",
@@ -99,7 +112,10 @@
       "اقامة",
       "اقامت",
       "جماعت",
-      "جماعة"
+      "جماعة",
+      "Jamath",
+      "Jamaath",
+      "জামাত"
     ],
     "khutbah": ["Khutbah", "Khutba", "Khutbah time", "Sermon", "خطبة", "خطبہ", "خطبه"]
   },
@@ -152,7 +168,19 @@
     "صوم",
     "ميلادي",
     "میلادی",
-    "عیسوی"
+    "عیسوی",
+    "Saher",
+    "Sahri",
+    "Sehar",
+    "Ghurub",
+    "Ghuroob",
+    "Sunset",
+    "Temp",
+    "Month",
+    "সূর্যাস্ত",
+    "সেহরী",
+    "ইফতার",
+    "তারিখ"
   ],
   "dateColumns": {
     "$comment": "Headers that say what a column of day numbers counts. A monthly sheet is dated by the Gregorian column; Hijri / Ramadan-day columns are never used as the date.",

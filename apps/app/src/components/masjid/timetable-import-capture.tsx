@@ -30,6 +30,7 @@ export function TimetableImportCapture({
   onKeepPhotoChange,
   onPick,
   onTypeInstead,
+  onMark,
 }: {
   masjidName: string;
   locale: string;
@@ -42,6 +43,8 @@ export function TimetableImportCapture({
   onKeepPhotoChange: (on: boolean) => void;
   onPick: (source: "camera" | "library") => void;
   onTypeInstead: () => void;
+  /** Offered after an empty read while the photo is still here: mark each time on it. */
+  onMark?: () => void;
 }) {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
@@ -51,7 +54,7 @@ export function TimetableImportCapture({
   return (
     <View style={styles.stack}>
       {notice ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={
               notice === "empty" ? t("timetableImport.emptyTitle") : t("timetableImport.errorTitle")
@@ -61,7 +64,20 @@ export function TimetableImportCapture({
           <ThemedText type="small" style={styles.gapTop}>
             {notice === "empty" ? t("timetableImport.emptyBody") : t("timetableImport.errorBody")}
           </ThemedText>
+          {onMark ? (
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.gapTop}>
+              {t("timetableImport.mark.offer")}
+            </ThemedText>
+          ) : null}
           <View style={[styles.row, styles.gapTop]}>
+            {onMark ? (
+              <Button
+                size="sm"
+                icon={{ ios: "viewfinder", android: "highlight_alt", web: "highlight_alt" }}
+                label={t("timetableImport.mark.start")}
+                onPress={onMark}
+              />
+            ) : null}
             <Button
               size="sm"
               variant="secondary"
@@ -72,7 +88,7 @@ export function TimetableImportCapture({
         </Card>
       ) : null}
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("timetableImport.captureTitle")}
           icon={{ ios: "camera.viewfinder", android: "document_scanner", web: "document_scanner" }}
@@ -164,7 +180,7 @@ const styles = StyleSheet.create({
   badge: {
     alignSelf: "flex-start",
     paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
+    paddingVertical: Spacing.half,
     borderRadius: Radius.pill,
   },
 });

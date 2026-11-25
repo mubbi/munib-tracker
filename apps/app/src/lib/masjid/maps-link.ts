@@ -1,26 +1,31 @@
 /**
- * "Open in Maps" OS deep links (NF-3.11 v1 is list-first; no map SDK — D-lock).
- * iOS → Apple Maps, Android → `geo:` intent (any installed maps app), web →
- * OpenStreetMap directions in a new tab. Only the masjid's public coordinates
- * are in the link; the user's own location is never added.
+ * Directions hand-off (NF-3.11): Google Maps links — free, no API key, no
+ * quota; routing happens in Google Maps, so the app never calls a directions
+ * API. Only the masjid's public coordinates are in the link — the user's own
+ * location is never added; Google Maps starts from the device's location.
+ * `openDirections` (components/masjid) picks which link to open per platform.
  */
 
-export type MapsPlatform = "ios" | "android" | "web" | string;
+type MapsTarget = { lat: number; lon: number; name?: string };
 
-export function mapsDirectionsUrl(
-  target: { lat: number; lon: number; name?: string },
-  platform: MapsPlatform,
-): string {
-  const lat = target.lat.toFixed(6);
-  const lon = target.lon.toFixed(6);
-  const label = target.name ? encodeURIComponent(target.name) : "";
-  if (platform === "ios") {
-    return `https://maps.apple.com/?daddr=${lat},${lon}${label ? `&q=${label}` : ""}`;
-  }
-  if (platform === "android") {
-    return `geo:${lat},${lon}?q=${lat},${lon}${label ? `(${label})` : ""}`;
-  }
-  return `https://www.openstreetmap.org/directions?to=${lat}%2C${lon}#map=17/${lat}/${lon}`;
+const destinationOf = (target: MapsTarget): string =>
+  encodeURIComponent(`${target.lat.toFixed(6)},${target.lon.toFixed(6)}`);
+
+/**
+ * "Maps URLs" link (https://developers.google.com/maps/documentation/urls/get-started):
+ * the browser everywhere, and the Google Maps app on Android (app link).
+ */
+export function mapsDirectionsUrl(target: MapsTarget): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${destinationOf(target)}`;
+}
+
+/**
+ * Google Maps for iOS URL scheme
+ * (https://developers.google.com/maps/documentation/urls/ios-urlscheme):
+ * opens the installed app straight to directions.
+ */
+export function googleMapsAppUrl(target: MapsTarget): string {
+  return `comgooglemaps://?daddr=${destinationOf(target)}`;
 }
 
 /** Distance label parts: metres (rounded to 10) under 1 km, else km (1 decimal under 10 km). */

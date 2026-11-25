@@ -8,7 +8,6 @@ import {
   masjidKey,
   osmUrl,
 } from "@munib-tracker/shared/masjid";
-import * as Linking from "expo-linking";
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -31,6 +30,7 @@ import {
   useHomeMasjid,
 } from "@/lib/masjid/home-masjid";
 import { goBackOrReplace } from "@/lib/navigation";
+import { openExternalLink } from "@/lib/open-external-link";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
@@ -188,7 +188,7 @@ function MasjidDetailScreenBody({
             }}
             label={t("masjids.directions")}
             accessibilityHint={t("masjids.directionsHint")}
-            onPress={() => openDirections({ lat: detail.lat, lon: detail.lon, name })}
+            onPress={() => void openDirections({ lat: detail.lat, lon: detail.lon, name })}
           />
           {isHome ? (
             <>
@@ -219,10 +219,10 @@ function MasjidDetailScreenBody({
           size="sm"
           label={t("masjids.reportOnOsm")}
           accessibilityHint={t("masjids.reportOnOsmHint")}
-          onPress={() => void Linking.openURL(osmUrl({ osmType, osmId }))}
+          onPress={() => void openExternalLink(osmUrl({ osmType, osmId }))}
         />
       )}
-      <OsmAttribution />
+      <OsmAttribution attribution={detail.attribution} />
     </View>
   );
 }

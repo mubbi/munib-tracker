@@ -143,6 +143,51 @@ export async function spendUpstreamBudget(
   return null;
 }
 
+/**
+ * Geoapify free plan: 3,000 credits per (UTC) day; Places costs 1 credit per 20
+ * places returned, Place Details 1 credit. `GEOAPIFY_DAILY_CREDITS` raises it
+ * for a paid plan. The key is shared by every environment using it.
+ */
+export const GEOAPIFY_DEFAULT_DAILY_CREDITS = 3_000;
+/** Worst-case credits for one cell (`limit=200` ⇒ ≤ 10 credits). */
+export const GEOAPIFY_CREDITS_PER_CELL = 10;
+
+export function geoapifyDailyCredits(): number {
+  const configured = Number(process.env.GEOAPIFY_DAILY_CREDITS);
+  return Number.isSafeInteger(configured) && configured > 0
+    ? configured
+    : GEOAPIFY_DEFAULT_DAILY_CREDITS;
+}
+
+/** Daily call caps: 70% of credits for cells (at worst case), 25% for details, 5% margin. */
+export function geoapifyDailyCaps(credits = geoapifyDailyCredits()): {
+  cells: number;
+  details: number;
+} {
+  return {
+    cells: Math.floor((credits * 0.7) / GEOAPIFY_CREDITS_PER_CELL),
+    details: Math.floor(credits * 0.25),
+  };
+}
+
+/**
+ * Charges one Geoapify call against today's (UTC calendar day, matching the
+ * provider's quota) credit budget. True = spent: use Overpass instead.
+ */
+export async function isGeoapifyBudgetSpent(
+  call: UpstreamCall,
+  now = new Date(),
+): Promise<boolean> {
+  const day = now.toISOString().slice(0, 10);
+  const caps = geoapifyDailyCaps();
+  const kind = call === "cell" ? "cells" : "details";
+  return isRateLimited({
+    key: `masjids:geoapify:${kind}:${day}`,
+    limit: caps[kind],
+    windowMs: DAY_MS + MINUTE_MS,
+  });
+}
+
 /** True when the global Overpass budget is spent (counts this call when not). */
 export async function isUpstreamBudgetExhausted(): Promise<boolean> {
   return (await spendUpstreamBudget("cell", null)) != null;

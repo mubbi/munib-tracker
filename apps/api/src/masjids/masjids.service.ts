@@ -22,6 +22,7 @@ import {
   Optional,
   ServiceUnavailableException,
 } from "@nestjs/common";
+import { GEOAPIFY_ATTRIBUTION_LINE, GeoapifyClient } from "./geoapify.client";
 import {
   type CachedEntry,
   isFresh,
@@ -35,7 +36,11 @@ import {
   unlock,
   writeEntry,
 } from "./masjids-cache";
-import { spendUpstreamBudget, type UpstreamCall } from "./masjids-rate-limit";
+import {
+  isGeoapifyBudgetSpent,
+  spendUpstreamBudget,
+  type UpstreamCall,
+} from "./masjids-rate-limit";
 import { OverpassClient } from "./overpass.client";
 import {
   TIMETABLE_SOURCES,
@@ -76,15 +81,20 @@ export class MasjidsService {
     @Optional()
     @Inject(TIMETABLE_SOURCES_TOKEN)
     private readonly sources: readonly TimetableSource[] = TIMETABLE_SOURCES,
+    @Optional() private readonly geoapify?: GeoapifyClient,
   ) {}
 
   async list(cell: string, client: string | null = null): Promise<MasjidListResponse> {
-    const cells = geohashWithNeighbours(cell);
+    const bounds = boundsOfCells(geohashWithNeighbours(cell));
     const result = await this.cached<MasjidSummary[]>(
       masjidCellKey(cell),
       async () => {
         const masjids = parseOverpassSummaries(
-          await this.overpass.query(buildOverpassBboxQuery(boundsOfCells(cells))),
+          await this.fromUpstream(
+            "cell",
+            (geoapify) => geoapify.listInBounds(bounds),
+            () => buildOverpassBboxQuery(bounds),
+          ),
         );
         await rememberMasjidRefs(masjids);
         return masjids;
@@ -93,9 +103,46 @@ export class MasjidsService {
     );
     return {
       masjids: result?.value ?? [],
-      attribution: [...OSM_ATTRIBUTION_LINES],
+      attribution: this.attribution(),
       stale: result ? result.stale : true,
     };
+  }
+
+  /**
+   * ODbL attribution always; Geoapify's too while it's configured (its free
+   * plan requires it, and cached cells may have come from it).
+   */
+  private attribution(): string[] {
+    return this.geoapify?.configured
+      ? [...OSM_ATTRIBUTION_LINES, GEOAPIFY_ATTRIBUTION_LINE]
+      : [...OSM_ATTRIBUTION_LINES];
+  }
+
+  /**
+   * Geoapify (keyed, free tier) while it is configured and today's credit
+   * budget lasts; public Overpass otherwise, or when Geoapify fails. Both
+   * answers are Overpass-shaped, so the same parsers apply.
+   */
+  private async fromUpstream(
+    call: UpstreamCall,
+    viaGeoapify: (geoapify: GeoapifyClient) => Promise<unknown>,
+    overpassQl: () => string,
+  ): Promise<unknown> {
+    const geoapify = this.geoapify;
+    if (geoapify?.configured) {
+      if (await isGeoapifyBudgetSpent(call)) {
+        this.logger.warn("Geoapify daily credit budget reached; using Overpass");
+      } else {
+        try {
+          return await viaGeoapify(geoapify);
+        } catch (error) {
+          this.logger.warn(
+            `Geoapify fetch failed (${error instanceof Error ? error.message : "unknown error"}); using Overpass`,
+          );
+        }
+      }
+    }
+    return this.overpass.query(overpassQl());
   }
 
   /**
@@ -112,7 +159,13 @@ export class MasjidsService {
     const result = await this.cached<MasjidDetail | null>(
       masjidElementKey(osmType, osmId),
       async () =>
-        parseOverpassDetail(await this.overpass.query(buildOverpassElementQuery(osmType, osmId))),
+        parseOverpassDetail(
+          await this.fromUpstream(
+            "detail",
+            (geoapify) => geoapify.element(osmType, osmId),
+            () => buildOverpassElementQuery(osmType, osmId),
+          ),
+        ),
       {
         client,
         call: async (previous) =>
@@ -123,7 +176,7 @@ export class MasjidsService {
     if (!result.value) throw new NotFoundException("Masjid not found");
     const detail: MasjidDetailResponse = {
       ...result.value,
-      attribution: [...OSM_ATTRIBUTION_LINES],
+      attribution: this.attribution(),
       stale: result.stale,
     };
     const timetable = await this.publicTimetable(result.value);

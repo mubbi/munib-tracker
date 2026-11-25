@@ -1,11 +1,16 @@
 import { IQAMAH_TIMETABLE_PRAYERS } from "@munib-tracker/shared/timetable-parser";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing } from "@/constants/theme";
+import { Button } from "@/components/ui/button";
+import { PressableScale } from "@/components/ui/pressable-scale";
+import { Sheet } from "@/components/ui/sheet";
+import { WallClockPicker, type WallClockValue } from "@/components/ui/wall-clock-picker";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { formatDisplayHhMm, parseHhMm } from "@/lib/time";
+import { formatDisplayHhMm, formatHhMm, parseHhMm } from "@/lib/time";
 import {
   type DraftCell,
   type DraftRow,
@@ -22,6 +27,10 @@ import {
  * order, missing, unclear column heading) are highlighted, and their rows
  * come first. A typed 12-hour time is read for its Salah (Isha "8:15" →
  * 20:15) and the grid shows how it was read in both 24-hour and AM/PM form.
+ *
+ * Cells are read-only until pressed (up to 150 free-typed inputs was unusable): a
+ * press opens a time picker for that cell, with "use for the rest" to fill a
+ * whole column down in one go.
  */
 
 type Props = {
@@ -64,12 +73,12 @@ function Cell({
   cell,
   prayer,
   label,
-  onChange,
+  onOpen,
 }: {
   cell: DraftCell;
   prayer: IqamahPrayer;
   label: string;
-  onChange: (text: string) => void;
+  onOpen: () => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -87,14 +96,10 @@ function Cell({
       <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
         {label}
       </ThemedText>
-      <TextInput
-        value={cell.text}
-        onChangeText={onChange}
-        placeholder="--:--"
-        placeholderTextColor={colors.mutedForeground}
-        inputMode="numeric"
-        maxLength={5}
-        accessibilityLabel={label}
+      <PressableScale
+        role="button"
+        onPress={onOpen}
+        accessibilityLabel={`${label}, ${cell.text || t("timetableImport.emptyCell")}`}
         accessibilityHint={
           invalid
             ? t("timetableImport.invalidHint")
@@ -106,12 +111,15 @@ function Cell({
           styles.input,
           tokens.inputSurface,
           {
-            color: colors.foreground,
             borderColor,
             backgroundColor: cell.needsReview ? tokens.status.warning.soft : undefined,
           },
         ]}
-      />
+      >
+        <ThemedText style={styles.cellText} themeColor={cell.text ? undefined : "mutedForeground"}>
+          {cell.text || "--:--"}
+        </ThemedText>
+      </PressableScale>
       {interpreted ? (
         <ThemedText
           type="caption"
@@ -126,7 +134,15 @@ function Cell({
   );
 }
 
-function Row({ row, title, onEdit }: { row: DraftRow; title: string; onEdit: Props["onEdit"] }) {
+function Row({
+  row,
+  title,
+  onOpen,
+}: {
+  row: DraftRow;
+  title: string;
+  onOpen: (row: DraftRow, prayer: IqamahPrayer) => void;
+}) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const hints = IQAMAH_TIMETABLE_PRAYERS.map((p) =>
@@ -142,7 +158,7 @@ function Row({ row, title, onEdit }: { row: DraftRow; title: string; onEdit: Pro
             cell={row.cells[prayer]}
             prayer={prayer}
             label={t(`prayers.${prayer}`)}
-            onChange={(text) => onEdit(row.day, prayer, text, row.monthOffset ?? 0)}
+            onOpen={() => onOpen(row, prayer)}
           />
         ))}
       </View>
@@ -155,12 +171,52 @@ function Row({ row, title, onEdit }: { row: DraftRow; title: string; onEdit: Pro
   );
 }
 
+type Editing = { day: number | null; monthOffset: number; prayer: IqamahPrayer; title: string };
+
+const rowKey = (row: Pick<DraftRow, "day" | "monthOffset">) =>
+  `${row.monthOffset ?? 0}-${row.day ?? "d"}`;
+
 export function TimetableReviewGrid({ draft, dayLabel, onEdit }: Props) {
   const { t } = useTranslation();
   const { flagged, rest } = rowsForReview(draft);
+  const [editing, setEditing] = useState<Editing | null>(null);
   const titleOf = (row: DraftRow) =>
     row.day == null ? t("timetableImport.dailyRow") : dayLabel(row.day, row.monthOffset ?? 0);
-  const keyOf = (row: DraftRow) => `${row.monthOffset ?? 0}-${row.day ?? "d"}`;
+  const keyOf = (row: DraftRow) => rowKey(row);
+  const open = (row: DraftRow, prayer: IqamahPrayer) =>
+    setEditing({ day: row.day, monthOffset: row.monthOffset ?? 0, prayer, title: titleOf(row) });
+
+  // The cell being edited, read live from the draft so the picker follows every change.
+  const current = editing
+    ? [...flagged, ...rest].find(
+        (r) => rowKey(r) === rowKey({ day: editing.day, monthOffset: editing.monthOffset }),
+      )
+    : undefined;
+  const currentCell = current && editing ? current.cells[editing.prayer] : undefined;
+  const typed =
+    currentCell && editing ? normaliseTypedTime(currentCell.text, editing.prayer) : null;
+  const pickerValue: WallClockValue = typed ? parseHhMm(typed) : { hour: 12, minute: 0 };
+
+  const apply = (value: WallClockValue) => {
+    if (!editing) return;
+    onEdit(editing.day, editing.prayer, formatHhMm(value.hour, value.minute), editing.monthOffset);
+  };
+
+  // "Use for the rest": the same time in this prayer's column for every later day.
+  const fillDown = () => {
+    if (!editing || !currentCell) return;
+    const ordered = [...draft.rows].sort(
+      (a, b) => (a.monthOffset ?? 0) - (b.monthOffset ?? 0) || (a.day ?? 0) - (b.day ?? 0),
+    );
+    const start = ordered.findIndex(
+      (r) => rowKey(r) === rowKey({ day: editing.day, monthOffset: editing.monthOffset }),
+    );
+    for (const row of ordered.slice(start + 1)) {
+      onEdit(row.day, editing.prayer, currentCell.text, row.monthOffset ?? 0);
+    }
+    setEditing(null);
+  };
+
   return (
     <View style={styles.stack}>
       {draft.beginsOnly ? <Note text={t("timetableImport.beginsOnly")} /> : null}
@@ -169,14 +225,44 @@ export function TimetableReviewGrid({ draft, dayLabel, onEdit }: Props) {
         <ThemedText type="smallBold">{t("timetableImport.checkFirst")}</ThemedText>
       ) : null}
       {flagged.map((row) => (
-        <Row key={`f-${keyOf(row)}`} row={row} title={titleOf(row)} onEdit={onEdit} />
+        <Row key={`f-${keyOf(row)}`} row={row} title={titleOf(row)} onOpen={open} />
       ))}
       {flagged.length > 0 && rest.length > 0 ? (
         <ThemedText type="smallBold">{t("timetableImport.looksRight")}</ThemedText>
       ) : null}
       {rest.map((row) => (
-        <Row key={`r-${keyOf(row)}`} row={row} title={titleOf(row)} onEdit={onEdit} />
+        <Row key={`r-${keyOf(row)}`} row={row} title={titleOf(row)} onOpen={open} />
       ))}
+      <Sheet
+        visible={editing != null}
+        onClose={() => setEditing(null)}
+        variant="bottom"
+        solid
+        title={editing ? `${editing.title} · ${t(`prayers.${editing.prayer}`)}` : undefined}
+      >
+        {editing ? (
+          <View style={styles.sheet}>
+            <WallClockPicker value={pickerValue} onChange={apply} />
+            <Button
+              variant="secondary"
+              label={t("timetableImport.fillDown")}
+              disabled={!currentCell?.text}
+              onPress={fillDown}
+            />
+            <View style={styles.sheetActions}>
+              <Button
+                variant="ghost"
+                label={t("timetableImport.clearCell")}
+                onPress={() => {
+                  onEdit(editing.day, editing.prayer, "", editing.monthOffset);
+                  setEditing(null);
+                }}
+              />
+              <Button label={t("common.done")} onPress={() => setEditing(null)} />
+            </View>
+          </View>
+        ) : null}
+      </Sheet>
     </View>
   );
 }
@@ -198,12 +284,15 @@ const styles = StyleSheet.create({
   row: {
     gap: Spacing.two,
     paddingBottom: Spacing.three,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: BorderWidth.hairline,
   },
   cells: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
-  cell: { flexBasis: "18%", flexGrow: 1, minWidth: 64, gap: 2 },
+  cell: { flexBasis: "18%", flexGrow: 1, minWidth: 64, gap: Spacing.half },
+  sheet: { gap: Spacing.three },
+  sheetActions: { flexDirection: "row", justifyContent: "space-between", gap: Spacing.two },
+  cellText: { fontVariant: ["tabular-nums"], textAlign: "center" },
   input: {
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     paddingVertical: Spacing.two,

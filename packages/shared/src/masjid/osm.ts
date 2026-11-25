@@ -101,6 +101,14 @@ export type MasjidDetailResponse = MasjidDetail & { attribution: string[]; stale
 export const OSM_ATTRIBUTION = "© OpenStreetMap contributors";
 export const OSM_LICENCE = "ODbL 1.0";
 export const OSM_COPYRIGHT_URL = "https://www.openstreetmap.org/copyright";
+/** Geoapify (keyed OSM upstream): its free plan requires this credit next to the data. */
+export const GEOAPIFY_PROVIDER = "Geoapify";
+export const GEOAPIFY_URL = "https://www.geoapify.com/";
+
+/** True when a response's `attribution` lines say Geoapify served (or may have served) the data. */
+export function attributionCreditsGeoapify(lines: readonly string[] | undefined): boolean {
+  return !!lines?.some((line) => typeof line === "string" && line.includes(GEOAPIFY_URL));
+}
 
 // ── Geohash ────────────────────────────────────────────────────────────────
 

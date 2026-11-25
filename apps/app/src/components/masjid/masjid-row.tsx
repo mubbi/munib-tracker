@@ -45,7 +45,7 @@ export const MasjidRow = memo(function MasjidRow({
   const distance = format.distance(masjid.distanceMeters);
 
   return (
-    <Card padding="three" style={styles.stack}>
+    <Card style={styles.stack}>
       <PressableScale
         accessibilityRole="button"
         accessibilityLabel={t("masjids.rowA11y", { name, distance })}

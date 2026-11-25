@@ -10,9 +10,11 @@ import {
 import {
   clockMinutes,
   formatClock,
+  numericText,
   type ParsedClock,
   parseClockText,
   parseIntegerText,
+  parseLooseClockText,
 } from "./normalise";
 import type {
   OcrResult,
@@ -1078,6 +1080,225 @@ function reclassifyAssumed(
   return beginsOnly;
 }
 
+// ── Fallback: an unlabelled stack of times (LED / dot-matrix boards) ────────
+//
+// Masjid LED boards print one prayer per line in dot-matrix glyphs: the labels
+// are usually unreadable to on-device OCR and the colon dots get dropped
+// ("5 20", "500", "5-30", or a mirrored ":5" "00" in Arabic mode). When no
+// labelled layout is found, a vertical, evenly spaced stack of 5–7 single
+// times is read as the board's prayers in order, anchored by any label that
+// was read. Every cell is a guess (`kindAssumed` + `columnUnclear`) and is
+// highlighted for review.
+
+type StackPrayer = TimetablePrayer | "jumuah";
+
+/** Prayer order a board of N lines can list. */
+const STACK_SEQUENCES: Record<number, StackPrayer[][]> = {
+  5: [["fajr", "dhuhr", "asr", "maghrib", "isha"]],
+  6: [
+    ["fajr", "dhuhr", "asr", "maghrib", "isha", "jumuah"],
+    ["fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha"],
+  ],
+  7: [["fajr", "sunrise", "dhuhr", "asr", "maghrib", "isha", "jumuah"]],
+};
+
+/** 12-hour clock hours each prayer can plausibly be read at (any season / latitude). */
+const PLAUSIBLE_HOURS: Record<StackPrayer, readonly number[]> = {
+  fajr: [2, 3, 4, 5, 6, 7],
+  sunrise: [4, 5, 6, 7, 8, 9],
+  dhuhr: [11, 12, 1, 2],
+  asr: [1, 2, 3, 4, 5, 6],
+  maghrib: [3, 4, 5, 6, 7, 8, 9, 10],
+  isha: [5, 6, 7, 8, 9, 10, 11, 12, 1],
+  jumuah: [11, 12, 1, 2, 3],
+};
+
+const STACK_MIN_REAL = 4;
+const STACK_LENIENT_CONF = 0.6;
+const STACK_LAYOUT_CONF = 0.6;
+const STACK_ANCHORED_CONF = 0.75;
+
+interface StackTime {
+  clock: ParsedClock;
+  raw: string;
+  conf: number;
+  cx: number;
+  w: number;
+  h: number;
+}
+
+/**
+ * Times in one line, colon optional: neighbouring numeric tokens (LED digit
+ * gaps are wide) are read together, and 3–4 bare digits as H:MM / HH:MM.
+ */
+function lenientTimes(row: ItemRow): StackTime[] {
+  const numeric = row.items
+    .map((item) => ({
+      item,
+      text: item.kind === "time" ? item.tok.text : numericText(item.tok.text),
+    }))
+    .filter((n): n is { item: Item; text: string } => n.text != null)
+    .sort((a, b) => a.item.tok.cx - b.item.tok.cx);
+  const clusters: Array<typeof numeric> = [];
+  for (const n of numeric) {
+    const last = clusters[clusters.length - 1];
+    const prev = last?.[last.length - 1];
+    const gap = prev
+      ? n.item.tok.cx - n.item.tok.w / 2 - (prev.item.tok.cx + prev.item.tok.w / 2)
+      : Number.POSITIVE_INFINITY;
+    const h = Math.max(n.item.tok.h, prev?.item.tok.h ?? 0);
+    // Two strict times side by side are two cells, never one.
+    const bothTimes = prev?.item.kind === "time" && n.item.kind === "time";
+    if (last && !bothTimes && gap <= 2.5 * h) last.push(n);
+    else clusters.push([n]);
+  }
+  const out: StackTime[] = [];
+  for (const cluster of clusters) {
+    const raw = cluster.map((n) => n.text).join(" ");
+    const single =
+      cluster.length === 1 && cluster[0]?.item.kind === "time" ? cluster[0].item : null;
+    const loose = single ? null : parseLooseClockText(raw);
+    const clock = single?.clock ?? loose;
+    if (!clock) continue;
+    const lenient = loose?.loose ?? false;
+    const toks = cluster.map((n) => n.item.tok);
+    const left = Math.min(...toks.map((t) => t.cx - t.w / 2));
+    const right = Math.max(...toks.map((t) => t.cx + t.w / 2));
+    const conf = Math.min(...toks.map((t) => t.conf));
+    out.push({
+      clock,
+      raw,
+      conf: lenient || cluster.length > 1 ? Math.min(conf, STACK_LENIENT_CONF) : conf,
+      cx: (left + right) / 2,
+      w: right - left,
+      h: Math.max(...toks.map((t) => t.h)),
+    });
+  }
+  return out;
+}
+
+function plausibleFor(prayer: StackPrayer, clock: ParsedClock): boolean {
+  const hour12 = clock.hour % 12 || 12;
+  return PLAUSIBLE_HOURS[prayer].includes(hour12);
+}
+
+interface StackSlot {
+  time: StackTime | null;
+  row: ItemRow | null;
+}
+
+/** Splits aligned time lines into evenly spaced runs; a single skipped line becomes an empty slot. */
+function stackRuns(lines: Array<{ row: ItemRow; time: StackTime }>): StackSlot[][] {
+  if (lines.length < STACK_MIN_REAL) return [];
+  const gaps = lines.slice(1).map((line, i) => line.row.cy - (lines[i] as { row: ItemRow }).row.cy);
+  const pitch = median(gaps);
+  if (pitch <= 0) return [];
+  const runs: StackSlot[][] = [];
+  let run: StackSlot[] = [];
+  lines.forEach((line, i) => {
+    const ratio = i === 0 ? 1 : (gaps[i - 1] ?? 0) / pitch;
+    if (ratio > 2.5 || ratio < 0.5) {
+      runs.push(run);
+      run = [];
+    } else if (ratio > 1.6) {
+      run.push({ time: null, row: null });
+    }
+    run.push({ time: line.time, row: line.row });
+  });
+  runs.push(run);
+  return runs.filter((r) => r.filter((s) => s.time).length >= STACK_MIN_REAL);
+}
+
+interface StackPick {
+  slots: StackSlot[];
+  sequence: StackPrayer[];
+  anchored: Set<number>;
+  score: number;
+}
+
+/** Best window of a run + prayer sequence: plausible hours, agreeing labels, ≤ 1 skipped line. */
+function pickStack(runs: StackSlot[][]): StackPick | null {
+  let best: StackPick | null = null;
+  for (const run of runs) {
+    for (let size = 5; size <= 7; size += 1) {
+      for (let start = 0; start + size <= run.length; start += 1) {
+        const slots = run.slice(start, start + size);
+        const real = slots.filter((s) => s.time).length;
+        if (!slots[0]?.time || !slots[size - 1]?.time || size - real > 1) continue;
+        if (real < STACK_MIN_REAL) continue;
+        for (const sequence of STACK_SEQUENCES[size] ?? []) {
+          let implausible = 0;
+          let rejected = false;
+          const anchored = new Set<number>();
+          slots.forEach((slot, i) => {
+            const prayer = sequence[i] as StackPrayer;
+            if (slot.time && !plausibleFor(prayer, slot.time.clock)) implausible += 1;
+            for (const label of slot.row ? prayerLabels(slot.row) : []) {
+              if (label.label.prayer === prayer) anchored.add(i);
+              else rejected = true;
+            }
+          });
+          if (rejected || implausible > (real > STACK_MIN_REAL ? 1 : 0)) continue;
+          const score = real - 3 * implausible + 2 * anchored.size;
+          if (!best || score > best.score) best = { slots, sequence, anchored, score };
+        }
+      }
+    }
+  }
+  return best;
+}
+
+function parseStackLayout(rows: ItemRow[]): { placed: Placed[]; jumuah: Item[][] } | null {
+  const perRow = rows
+    .map((row) => ({ row, times: lenientTimes(row) }))
+    .filter((r) => r.times.length > 0);
+  // The stack's column: where the lines holding a single time put it.
+  const singles = perRow.filter((r) => r.times.length === 1).map((r) => r.times[0] as StackTime);
+  if (singles.length < STACK_MIN_REAL) return null;
+  const columnX = median(singles.map((t) => t.cx));
+  const reach = Math.max(median(singles.map((t) => t.w)), 2 * median(singles.map((t) => t.h)));
+  const lines: Array<{ row: ItemRow; time: StackTime }> = [];
+  for (const { row, times: found } of perRow) {
+    const nearest = [...found].sort(
+      (a, b) => Math.abs(a.cx - columnX) - Math.abs(b.cx - columnX),
+    )[0] as StackTime;
+    if (Math.abs(nearest.cx - columnX) <= reach) lines.push({ row, time: nearest });
+  }
+  const pick = pickStack(stackRuns(lines));
+  if (!pick) return null;
+  const placed: Placed[] = [];
+  const jumuah: Item[][] = [];
+  pick.slots.forEach((slot, i) => {
+    const prayer = pick.sequence[i] as StackPrayer;
+    const layoutConf = pick.anchored.has(i) ? STACK_ANCHORED_CONF : STACK_LAYOUT_CONF;
+    if (!slot.time) return;
+    const { time } = slot;
+    if (prayer === "jumuah") {
+      const tok: Tok = {
+        text: time.raw,
+        conf: Math.min(time.conf, layoutConf),
+        cx: time.cx,
+        cy: slot.row?.cy ?? 0,
+        w: time.w,
+        h: time.h,
+      };
+      jumuah.push([{ kind: "time", tok, clock: time.clock }]);
+      return;
+    }
+    placed.push({
+      prayer,
+      kind: prayer === "sunrise" ? "adhan" : "iqamah",
+      clock: time.clock,
+      raw: time.raw,
+      tokenConf: time.conf,
+      layoutConf,
+      assumed: prayer !== "sunrise",
+      unclear: !pick.anchored.has(i),
+    });
+  });
+  return placed.length ? { placed, jumuah } : null;
+}
+
 /** Same khutbah / iqamah slot read more than once (a monthly Jumu'ah column) → one slot. */
 function dedupeJumuah(slots: TimetableJumuah[]): TimetableJumuah[] {
   const byKey = new Map<string, TimetableJumuah>();
@@ -1093,6 +1314,16 @@ function dedupeJumuah(slots: TimetableJumuah[]): TimetableJumuah[] {
   return [...byKey.values()];
 }
 
+/** Times a parse found (cells with a value + Jumu'ah slots). */
+function valueCount(parsed: ParsedTimetable): number {
+  let count = parsed.jumuah.length;
+  for (const row of parsed.rows) for (const cell of row.cells) if (cell.value) count += 1;
+  return count;
+}
+
+/** Fewer values than this from the labelled layouts ⇒ try the unlabelled stack (LED boards). */
+const STACK_FALLBACK_BELOW = 2;
+
 /** Parses on-device OCR output into a reviewable timetable. */
 export function parseTimetable(
   ocr: OcrResult,
@@ -1104,6 +1335,35 @@ export function parseTimetable(
     cy: row.cy,
     items: row.tokens.map(classify),
   }));
+  const labelled = parseLabelled(itemRows, skewDegrees, options);
+  if (valueCount(labelled) >= STACK_FALLBACK_BELOW) return labelled;
+  const stack = parseStackLayout(itemRows);
+  if (!stack) return labelled;
+  const reference = options.referenceDate;
+  const dateKey = reference
+    ? timetableDateKey(reference.year, reference.month, reference.day)
+    : null;
+  const rows = [{ day: null, placed: stack.placed }];
+  const beginsOnly = reclassifyAssumed(rows, () => dateKey, options);
+  const hasIqamah = stack.placed.some((p) => p.kind === "iqamah");
+  return {
+    layout: "daily",
+    orientation: "rows",
+    rows: [finishRow(stack.placed, null, dateKey, options, hasIqamah)],
+    jumuah: dedupeJumuah(stack.jumuah.flatMap((items) => jumuahSlots(items, threshold))),
+    monthHint: labelled.monthHint,
+    skewDegrees,
+    ...(beginsOnly && !hasIqamah && { beginsOnly: true }),
+  };
+}
+
+/** The labelled layouts: one prayer per row (daily boards) or per column (strips, monthly grids). */
+function parseLabelled(
+  itemRows: ItemRow[],
+  skewDegrees: number,
+  options: ParseTimetableOptions,
+): ParsedTimetable {
+  const threshold = options.reviewThreshold ?? 0.8;
   const hint = monthHint(itemRows);
   const empty: ParsedTimetable = {
     layout: "none",

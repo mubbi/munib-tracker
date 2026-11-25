@@ -11,6 +11,8 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { MasjidEvidence } from "@/components/masjid/masjid-evidence";
+import { MasjidListSkeleton } from "@/components/masjid/masjid-list-skeleton";
+import { MasjidMap } from "@/components/masjid/masjid-map";
 import { MasjidRow } from "@/components/masjid/masjid-row";
 import { openDirections } from "@/components/masjid/open-directions";
 import { OsmAttribution } from "@/components/masjid/osm-attribution";
@@ -22,14 +24,17 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Spacing } from "@/constants/theme";
+import { getCurrentCoordinates } from "@/lib/location";
 import { cellFor, fetchMasjidList, MasjidApiError, type MasjidListResult } from "@/lib/masjid/api";
 import { setHomeMasjid, useHomeMasjid } from "@/lib/masjid/home-masjid";
+import type { MasjidMapPoint } from "@/lib/masjid/map-html";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
-import { useLocation, useLocationActions, useLocationStatus } from "@/stores/location-store";
+import { useLocation, useLocationStatus } from "@/stores/location-store";
 
 type LoadState =
   | { status: "loading" }
@@ -38,6 +43,8 @@ type LoadState =
 
 /** First page of nearby masjids; "Show more" adds the same again (OSM can return hundreds). */
 export const MASJID_PAGE_SIZE = 15;
+/** Map view height — tall enough to read the neighbourhood, short enough to show the selected card. */
+const MAP_HEIGHT = 360;
 
 function detailHref(m: { osmType: string; osmId: string }): Href {
   return {
@@ -52,10 +59,16 @@ function toHome(m: MasjidSummary, name: string | undefined): HomeMasjid {
   return home;
 }
 
+/** Where the search is centred: `pending` while the first silent fix is in flight. */
+type Fix = { latitude: number; longitude: number } | "pending" | null;
+
 /**
  * Masjid finder (NF-3.11, D5), list-first: nearby masjids from OpenStreetMap
  * sorted by exact distance on-device. Only the ~5 km geohash cell is sent to
- * the API. TV is read-only (no directions / home selection).
+ * the API. Centred on where the device is now (a one-off fix that is never
+ * stored, so a hand-picked Salah-times city is left alone); the saved location
+ * is the fallback when there's no permission or fix. TV is read-only (no
+ * directions / home selection) and has no GPS.
  */
 function MasjidFinder() {
   const { t, i18n } = useTranslation();
@@ -64,14 +77,57 @@ function MasjidFinder() {
   const tv = isTV();
   const location = useLocation();
   const locationStatus = useLocationStatus();
-  const { requestDeviceLocation } = useLocationActions();
   const home = useHomeMasjid();
   const [state, setState] = useState<LoadState>({ status: "loading" });
   const [reloadKey, setReloadKey] = useState(0);
   const [visibleCount, setVisibleCount] = useState(MASJID_PAGE_SIZE);
 
-  const hasLocation = location.source !== "default";
-  const cell = hasLocation ? cellFor(location.latitude, location.longitude) : null;
+  // Silent fix on open (no prompt): only when permission was already granted.
+  const [fix, setFix] = useState<Fix>(tv ? null : "pending");
+  useEffect(() => {
+    if (tv) return;
+    let alive = true;
+    void getCurrentCoordinates(false).then((result) => {
+      if (alive) setFix(result.status === "ok" ? result : null);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [tv]);
+
+  /** "Use my location" — asks for permission on this tap; never changes the saved location. */
+  const locateMe = useCallback(async () => {
+    setFix("pending");
+    const result = await getCurrentCoordinates(true);
+    if (result.status === "ok") {
+      setFix(result);
+      return;
+    }
+    setFix(null);
+    toast.error(
+      result.status === "denied" ? t("masjids.locationDenied") : t("masjids.locationFixFailed"),
+    );
+  }, [t, toast]);
+
+  const here = fix !== null && fix !== "pending" ? fix : null;
+  const nearYou = here !== null;
+  const hasSavedLocation = location.source !== "default";
+  const originLat = here
+    ? here.latitude
+    : fix === null && hasSavedLocation
+      ? location.latitude
+      : null;
+  const originLon = here
+    ? here.longitude
+    : fix === null && hasSavedLocation
+      ? location.longitude
+      : null;
+  // Stable identity: the map document is rebuilt (and reloaded) only when the origin moves.
+  const origin = useMemo(
+    () => (originLat !== null && originLon !== null ? { lat: originLat, lon: originLon } : null),
+    [originLat, originLon],
+  );
+  const cell = origin ? cellFor(origin.lat, origin.lon) : null;
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: reloadKey re-runs the fetch on "Try again".
   useEffect(() => {
@@ -96,9 +152,12 @@ function MasjidFinder() {
   const sorted = useMemo(
     () =>
       state.status === "ready"
-        ? sortByDistance(state.result.masjids, { lat: location.latitude, lon: location.longitude })
+        ? sortByDistance(state.result.masjids, {
+            lat: origin?.lat ?? location.latitude,
+            lon: origin?.lon ?? location.longitude,
+          })
         : [],
-    [state, location.latitude, location.longitude],
+    [state, origin?.lat, origin?.lon, location.latitude, location.longitude],
   );
 
   const homeKey = home ? masjidKey(home) : null;
@@ -116,12 +175,30 @@ function MasjidFinder() {
   const onOpen = useCallback((m: MasjidSummary) => router.push(detailHref(m)), [router]);
   const onDirections = useCallback(
     (m: MasjidSummary) =>
-      openDirections({ lat: m.lat, lon: m.lon, name: masjidDisplayName(m, i18n.language) }),
+      void openDirections({ lat: m.lat, lon: m.lon, name: masjidDisplayName(m, i18n.language) }),
     [i18n.language],
   );
   const visible = useMemo(() => sorted.slice(0, visibleCount), [sorted, visibleCount]);
 
-  if (!hasLocation) {
+  const [view, setView] = useState<"list" | "map">("list");
+  const [selectedKey, setSelectedKey] = useState<string | null>(null);
+  const mapPoints = useMemo<MasjidMapPoint[]>(
+    () =>
+      sorted.map((m) => ({
+        key: masjidKey(m),
+        lat: m.lat,
+        lon: m.lon,
+        name: masjidDisplayName(m, i18n.language) ?? t("masjids.unnamed"),
+        home: masjidKey(m) === homeKey,
+      })),
+    [sorted, i18n.language, t, homeKey],
+  );
+  const selected = selectedKey ? sorted.find((m) => masjidKey(m) === selectedKey) : undefined;
+  // A new search (origin/cell) clears the pin selection.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset on a new search only.
+  useEffect(() => setSelectedKey(null), [cell]);
+
+  if (fix === null && !hasSavedLocation) {
     return (
       <View style={styles.stack}>
         <EmptyState
@@ -135,7 +212,7 @@ function MasjidFinder() {
                 : t("masjids.noLocationBody")
           }
           actionLabel={tv ? undefined : t("masjids.useMyLocation")}
-          onAction={tv ? undefined : () => void requestDeviceLocation()}
+          onAction={tv ? undefined : () => void locateMe()}
         />
         {tv ? null : (
           <Button
@@ -153,7 +230,7 @@ function MasjidFinder() {
     <View style={styles.stack}>
       {home ? (
         // Open target and "Your times" are siblings (no <button> inside a <button> on web).
-        <Card padding="three">
+        <Card>
           <PressableScale
             accessibilityRole="button"
             accessibilityLabel={home.name ?? t("masjids.unnamed")}
@@ -180,17 +257,28 @@ function MasjidFinder() {
         </Card>
       ) : null}
 
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {t("masjids.privacyNote", { place: location.city ?? location.label })}
+      <ThemedText type="caption" themeColor="mutedForeground" testID="masjids-origin-note">
+        {nearYou || fix === "pending"
+          ? t("masjids.privacyNoteNearYou")
+          : t("masjids.privacyNote", { place: location.city ?? location.label })}
       </ThemedText>
+      {tv || nearYou || fix === "pending" ? null : (
+        <View style={styles.actions}>
+          <Button
+            size="sm"
+            variant="secondary"
+            icon={{ ios: "location.fill", android: "my_location", web: "my_location" }}
+            label={t("masjids.useMyLocation")}
+            onPress={() => void locateMe()}
+          />
+        </View>
+      )}
 
-      {state.status === "loading" ? (
-        <ThemedText type="small" themeColor="mutedForeground" testID="masjids-loading">
-          {t("masjids.loading")}
-        </ThemedText>
+      {fix === "pending" || state.status === "loading" ? (
+        <MasjidListSkeleton readOnly={tv} />
       ) : null}
 
-      {state.status === "error" ? (
+      {fix !== "pending" && state.status === "error" ? (
         <EmptyState
           icon={
             state.kind === "offline"
@@ -210,7 +298,7 @@ function MasjidFinder() {
         />
       ) : null}
 
-      {state.status === "ready" ? (
+      {fix !== "pending" && state.status === "ready" ? (
         <>
           {state.result.offline || state.result.stale ? (
             <ThemedText type="caption" themeColor="mutedForeground" testID="masjids-stale">
@@ -226,6 +314,47 @@ function MasjidFinder() {
           ) : (
             <>
               <SectionHeader title={t("masjids.nearbyTitle")} subtitle={t("masjids.nearbySub")} />
+              {tv || !origin ? null : (
+                <SegmentedControl
+                  options={[
+                    { id: "list", label: t("masjids.viewList") },
+                    { id: "map", label: t("masjids.viewMap") },
+                  ]}
+                  value={view}
+                  onChange={setView}
+                />
+              )}
+            </>
+          )}
+          {sorted.length > 0 && view === "map" && !tv && origin ? (
+            <>
+              <ThemedText type="caption" themeColor="mutedForeground" testID="masjids-map-note">
+                {t("masjids.mapPrivacy")}
+              </ThemedText>
+              <MasjidMap
+                me={origin}
+                masjids={mapPoints}
+                onSelect={setSelectedKey}
+                height={MAP_HEIGHT}
+              />
+              {selected ? (
+                <MasjidRow
+                  masjid={selected}
+                  isHome={homeKey === masjidKey(selected)}
+                  readOnly={false}
+                  onOpen={onOpen}
+                  onDirections={onDirections}
+                  onSetHome={onSetHome}
+                />
+              ) : (
+                <ThemedText type="small" themeColor="mutedForeground">
+                  {t("masjids.mapHint")}
+                </ThemedText>
+              )}
+            </>
+          ) : null}
+          {sorted.length > 0 && (view === "list" || tv || !origin) ? (
+            <>
               {visible.map((m) => (
                 <MasjidRow
                   key={masjidKey(m)}
@@ -245,11 +374,13 @@ function MasjidFinder() {
                 />
               ) : null}
             </>
-          )}
+          ) : null}
         </>
       ) : null}
 
-      <OsmAttribution />
+      <OsmAttribution
+        attribution={state.status === "ready" ? state.result.attribution : undefined}
+      />
       <MasjidEvidence />
     </View>
   );

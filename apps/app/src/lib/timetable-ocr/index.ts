@@ -1,10 +1,17 @@
-import type { CalculatedTimesFn, TimetablePrayer } from "@munib-tracker/shared/timetable-parser";
+import type {
+  CalculatedTimesFn,
+  OcrResult,
+  TimetablePrayer,
+} from "@munib-tracker/shared/timetable-parser";
 import { Platform } from "react-native";
 
 import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
 import { deletePath } from "@/lib/native-file-store";
 import { hasValidPrayerTimes } from "@/lib/prayer-times";
 import { getZonedParts } from "@/lib/time";
+
+import { readRegion } from "./recognize";
+import { type FractionRect, timeFromTokens } from "./regions";
 
 /**
  * NF-3.12 timetable OCR glue (app side). Recognition is platform-split in
@@ -16,8 +23,31 @@ export {
   ocrAvailability,
   ocrDownloadAccepted,
   ocrDownloadBytes,
+  recognizeEnhanced,
   recognizeImage,
+  releaseRegionReader,
 } from "./recognize";
+
+/**
+ * The time inside an area the user marked: a fresh read of just that area
+ * where the platform has one (web), else the full-photo tokens inside it.
+ * Null when nothing time-shaped is there — the user types it instead.
+ */
+export async function readMarkedTime(
+  uri: string | null,
+  ocr: OcrResult | null,
+  rect: FractionRect,
+): Promise<string | null> {
+  let read: string | null = null;
+  if (uri) {
+    try {
+      read = await readRegion(uri, rect);
+    } catch {
+      read = null;
+    }
+  }
+  return read ?? timeFromTokens(ocr, rect);
+}
 
 const PRAYER_KEYS: Array<
   [TimetablePrayer, "fajr" | "sunrise" | "dhuhr" | "asr" | "maghrib" | "isha"]

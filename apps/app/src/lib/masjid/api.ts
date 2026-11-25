@@ -20,7 +20,11 @@ import { readJSON, updateJSON } from "@/db/store";
  *  - the exact distance sort happens on-device.
  */
 
-const REQUEST_TIMEOUT_MS = 20_000;
+/**
+ * Longer than the API's worst case (8 s Geoapify + 30 s across Overpass
+ * mirrors), so a slow upstream ends in the server's answer, not a client abort.
+ */
+const REQUEST_TIMEOUT_MS = 45_000;
 /** Last lists kept for offline use (cells), oldest dropped first. */
 const LIST_CACHE_MAX_CELLS = 12;
 
@@ -128,7 +132,10 @@ export async function fetchMasjidList(
       attribution: Array.isArray(response.attribution) ? response.attribution : [],
       stale: response.stale === true,
     };
-    if (clean.masjids.length > 0 || !clean.stale) await cacheMasjidList(cell, clean);
+    // Empty + stale = the server had nothing cached and OpenStreetMap failed:
+    // that's an outage, not "no masjids here" — fall through to the device cache.
+    if (clean.masjids.length === 0 && clean.stale) throw new MasjidApiError("unavailable");
+    await cacheMasjidList(cell, clean);
     return { ...clean, offline: false };
   } catch (error) {
     const cached = await readCachedMasjidList(cell);

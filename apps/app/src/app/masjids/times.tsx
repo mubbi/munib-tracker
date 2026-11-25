@@ -2,6 +2,8 @@ import {
   IQAMAH_PRAYERS,
   type IqamahDaily,
   type JumuahSlot,
+  MASJID_WALK_MINUTES_MAX,
+  MASJID_WALK_MINUTES_MIN,
   masjidKey,
   resolveIqamahTimetable,
 } from "@munib-tracker/shared/masjid";
@@ -21,7 +23,7 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stepper } from "@/components/ui/stepper";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { WallClockPicker, type WallClockValue } from "@/components/ui/wall-clock-picker";
 import { Spacing } from "@/constants/theme";
 import { requestIqamahReschedule, useHomeMasjid } from "@/lib/masjid/home-masjid";
@@ -81,7 +83,13 @@ function fromDraft(draft: DraftDaily): IqamahDaily {
  * own devices, never sent to the masjids API. Also hosts the iqamah reminder
  * toggle + walk minutes, and the NF-3.12 OCR import slot. TV is read-only.
  */
-function YourTimes() {
+function YourTimes({
+  onDirtyChange,
+  onBack,
+}: {
+  onDirtyChange: (dirty: boolean) => void;
+  onBack: () => void;
+}) {
   const { t } = useTranslation();
   const router = useRouter();
   const toast = useToast();
@@ -97,6 +105,10 @@ function YourTimes() {
   const [jumuah, setJumuah] = useState<JumuahDraft[]>([]);
   const [dirty, setDirty] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
+
+  useEffect(() => {
+    onDirtyChange(dirty);
+  }, [dirty, onDirtyChange]);
 
   useEffect(() => {
     if (dirty) return;
@@ -122,18 +134,30 @@ function YourTimes() {
   }
 
   const savedTimetable = resolveIqamahTimetable({ privateTimes: saved });
+  // B-37: the reminder toggle and walk time are registry settings that save on
+  // change, independently of the times form (which writes the private record).
   const walk = walkSetting.value;
 
   if (tv) {
+    // TV is read-only: show the saved times, or say where to add them — never a blank screen.
     return savedTimetable ? (
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={home.name ?? t("masjids.unnamed")}
           subtitle={t("masjids.yourTimes")}
         />
         <TimetableRows timetable={savedTimetable} />
       </Card>
-    ) : null;
+    ) : (
+      <EmptyState
+        icon={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
+        title={t("masjids.times.tvEmptyTitle")}
+        description={t("masjids.times.tvEmptyBody")}
+        actionLabel={t("common.back")}
+        actionPreferredFocus
+        onAction={onBack}
+      />
+    );
   }
 
   const editDaily = (prayer: ObligatoryPrayer, value: WallClockValue | null) => {
@@ -191,7 +215,8 @@ function YourTimes() {
   };
 
   const setWalk = (minutes: number) => {
-    void walkSetting.setValue(minutes);
+    const next = Math.min(MASJID_WALK_MINUTES_MAX, Math.max(MASJID_WALK_MINUTES_MIN, minutes));
+    if (next !== walk) void walkSetting.setValue(next);
   };
 
   return (
@@ -215,7 +240,7 @@ function YourTimes() {
         />
       ) : null}
 
-      <Card padding="three">
+      <Card>
         <SectionHeader title={t("masjids.times.dailyTitle")} />
         <View style={styles.list}>
           {IQAMAH_PRAYERS.map((prayer) => {
@@ -249,7 +274,7 @@ function YourTimes() {
         </View>
       </Card>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader title={t("masjids.jumuah")} subtitle={t("masjids.times.jumuahSub")} />
         <View style={styles.list}>
           {jumuah.map(({ id, value }, index) => (
@@ -281,6 +306,11 @@ function YourTimes() {
 
       <View style={styles.row}>
         <Button label={t("masjids.times.save")} onPress={() => void save()} disabled={!dirty} />
+        {dirty ? (
+          <ThemedText type="caption" themeColor="mutedForeground" accessibilityLiveRegion="polite">
+            {t("masjids.times.unsaved")}
+          </ThemedText>
+        ) : null}
         {saved ? (
           <Button
             variant="ghost"
@@ -303,23 +333,18 @@ function YourTimes() {
         {t("masjids.times.privacy")}
       </ThemedText>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("masjids.reminder.settingTitle")}
           icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
         />
         <View style={styles.list}>
-          <View style={styles.row}>
-            <ThemedText type="small" style={styles.flex}>
-              {t("masjids.reminder.toggle")}
-            </ThemedText>
-            <ThemedSwitch
-              value={reminder.value}
-              disabled={!reminder.enabled}
-              onValueChange={(on) => void reminder.setValue(on)}
-              accessibilityLabel={t("masjids.reminder.toggle")}
-            />
-          </View>
+          <SwitchRow
+            title={t("masjids.reminder.toggle")}
+            value={reminder.value}
+            disabled={!reminder.enabled}
+            onValueChange={(on) => void reminder.setValue(on)}
+          />
           <View style={styles.row}>
             <ThemedText type="small" style={styles.flex}>
               {t("masjids.reminder.walkMinutes", { minutes: walk })}
@@ -327,6 +352,9 @@ function YourTimes() {
             <Stepper
               value={walk}
               label={t("masjids.reminder.walkLabel")}
+              min={MASJID_WALK_MINUTES_MIN}
+              max={MASJID_WALK_MINUTES_MAX}
+              disabled={!walkSetting.enabled}
               onDecrement={() => setWalk(walk - WALK_STEP)}
               onIncrement={() => setWalk(walk + WALK_STEP)}
             />
@@ -347,14 +375,31 @@ function YourTimes() {
 export default function MasjidTimesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const [dirty, setDirty] = useState(false);
+  const [confirmLeave, setConfirmLeave] = useState(false);
+  const leave = () => goBackOrReplace(router, "/masjids" as Href);
   return (
     <ScreenLayout
       eyebrow={t("masjids.eyebrow")}
       title={t("masjids.yourTimes")}
-      onBack={() => goBackOrReplace(router, "/masjids" as Href)}
+      onBack={() => (dirty ? setConfirmLeave(true) : leave())}
     >
       <Seo path="/masjids/times" />
-      <YourTimes />
+      <YourTimes onDirtyChange={setDirty} onBack={leave} />
+      {/* Leaving with edits that were never saved asks first. */}
+      <ConfirmDialog
+        visible={confirmLeave}
+        destructive
+        title={t("common.discardTitle")}
+        message={t("common.discardMessage")}
+        confirmLabel={t("common.discard")}
+        cancelLabel={t("common.keepEditing")}
+        onConfirm={() => {
+          setConfirmLeave(false);
+          leave();
+        }}
+        onClose={() => setConfirmLeave(false)}
+      />
     </ScreenLayout>
   );
 }
