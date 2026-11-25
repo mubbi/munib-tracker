@@ -38,15 +38,22 @@ jest
   .mockReturnValue({ uri: "file:///icon.png", width: 1024, height: 1024, scale: 1 });
 
 describe("buildLockScreenMetadata", () => {
-  it("maps title and subtitle to lock-screen fields", () => {
+  it("maps title and subtitle, with the app name on the album line for one track", () => {
     const meta = buildLockScreenMetadata({
       title: "Evening Adhkar",
       subtitle: "Hisnul Muslim",
     });
     expect(meta.title).toBe("Evening Adhkar");
     expect(meta.artist).toBe("Hisnul Muslim");
-    expect(meta.albumTitle).toBe("Now Playing");
+    expect(meta.albumTitle).toBe("Munib Tracker");
     expect(meta.artworkUrl).toBe("file:///icon.png");
+  });
+
+  it('never repeats the OS "Now Playing" label', () => {
+    const single = buildLockScreenMetadata({ title: "Dua" });
+    const queued = buildLockScreenMetadata({ title: "Dua" }, { queueIndex: 0, queueLength: 2 });
+    expect(single.albumTitle).not.toBe("Now Playing");
+    expect(queued.albumTitle).not.toBe("Now Playing");
   });
 
   it("falls back to app name when subtitle is missing", () => {
@@ -60,6 +67,35 @@ describe("buildLockScreenMetadata", () => {
       { queueIndex: 2, queueLength: 5 },
     );
     expect(meta.albumTitle).toBe("Track 3 of 5");
+  });
+
+  it("uses the playlist name when there is no subtitle", () => {
+    expect(buildLockScreenMetadata({ title: "x", playlistPrimary: " Juz 1 " }).artist).toBe(
+      "Juz 1",
+    );
+  });
+});
+
+describe("buildLockScreenMetadata for reciter tracks", () => {
+  it("shows the reciter as artist and the ayah with its queue position as album", () => {
+    const meta = buildLockScreenMetadata(
+      { title: "Al-Fatihah", subtitle: "Ayah 2", lockScreenArtist: "Mishary Alafasy" },
+      { queueIndex: 1, queueLength: 7 },
+    );
+    expect(meta).toMatchObject({
+      title: "Al-Fatihah",
+      artist: "Mishary Alafasy",
+      albumTitle: "Ayah 2 · Track 2 of 7",
+    });
+  });
+
+  it("shows only the ayah for a single reciter track", () => {
+    const meta = buildLockScreenMetadata({
+      title: "Al-Fatihah",
+      subtitle: "Ayah 2",
+      lockScreenArtist: "Mishary Alafasy",
+    });
+    expect(meta.albumTitle).toBe("Ayah 2");
   });
 });
 
@@ -82,41 +118,6 @@ describe("buildLockScreenOptions", () => {
   });
 });
 
-describe("buildLockScreenMetadata for grouped queues", () => {
-  const queue = { queueIndex: 1, queueLength: 7, queueDuration: 60 };
-
-  it("keeps a non-ayah subtitle as the artist", () => {
-    const meta = buildLockScreenMetadata(
-      { title: "Al-Fatihah", subtitle: "Mishary Alafasy", lockScreenGroupId: "1" },
-      queue,
-    );
-    expect(meta).toMatchObject({ artist: "Mishary Alafasy", albumTitle: "Now Playing" });
-  });
-
-  it("uses the playlist name instead of an `Ayah n` subtitle", () => {
-    const meta = buildLockScreenMetadata(
-      { title: "Al-Fatihah", subtitle: "Ayah 2", playlistPrimary: "Juz 1", lockScreenGroupId: "1" },
-      queue,
-    );
-    expect(meta.artist).toBe("Ayah 2");
-    expect(meta.albumTitle).toBe("Now Playing");
-  });
-
-  it("falls back to the track count when the queue duration is unknown", () => {
-    const meta = buildLockScreenMetadata(
-      { title: "Al-Fatihah", lockScreenGroupId: "1" },
-      { queueIndex: 0, queueLength: 7, queueDuration: 0 },
-    );
-    expect(meta.albumTitle).toBe("Track 1 of 7");
-  });
-
-  it("uses the playlist name when there is no subtitle", () => {
-    expect(buildLockScreenMetadata({ title: "x", playlistPrimary: " Juz 1 " }).artist).toBe(
-      "Juz 1",
-    );
-  });
-});
-
 /** A fake expo-audio player recording lock-screen calls. */
 function buildPlayer(overrides: Partial<Record<string, jest.Mock>> = {}) {
   return {
@@ -133,32 +134,30 @@ const throwing = () =>
   });
 
 describe("lock-screen controls on native", () => {
-  it("activates grouped Qur'an controls with seek buttons for a queue", () => {
+  it("activates Qur'an controls with seek buttons for a queue", () => {
     const player = buildPlayer();
     activateLockScreenControls(
       player,
-      { title: "Al-Baqarah", subtitle: "Ayah 3" },
+      { title: "Al-Baqarah", subtitle: "Ayah 3", lockScreenArtist: "Al-Husary" },
       { queueIndex: 2, queueLength: 5, queueDuration: 100 },
-      "2:3",
     );
     expect(player.setActiveForLockScreen).toHaveBeenCalledWith(
       true,
-      expect.objectContaining({ title: "Al-Baqarah", albumTitle: "Now Playing" }),
+      expect.objectContaining({
+        title: "Al-Baqarah",
+        artist: "Al-Husary",
+        albumTitle: "Ayah 3 · Track 3 of 5",
+      }),
       buildLockScreenOptions(true),
     );
   });
 
   it("activates per-track controls without seek buttons for a single track", () => {
     const player = buildPlayer();
-    activateLockScreenControls(
-      player,
-      { title: "Dua" },
-      { queueIndex: 0, queueLength: 1 },
-      "dua-1",
-    );
+    activateLockScreenControls(player, { title: "Dua" }, { queueIndex: 0, queueLength: 1 });
     expect(player.setActiveForLockScreen).toHaveBeenCalledWith(
       true,
-      expect.objectContaining({ title: "Dua", albumTitle: "Now Playing" }),
+      expect.objectContaining({ title: "Dua", albumTitle: "Munib Tracker" }),
       buildLockScreenOptions(false),
     );
   });
@@ -170,19 +169,15 @@ describe("lock-screen controls on native", () => {
     ).not.toThrow();
   });
 
-  it.each([
-    ["a grouped Qur'an queue", "1:2", "Now Playing"],
-    ["a non-Qur'an queue", "dua-1", "Track 2 of 3"],
-  ])("updates metadata for %s", (_label, trackId, albumTitle) => {
+  it("updates metadata with the new queue position", () => {
     const player = buildPlayer();
     updateLockScreenControls(
       player,
       { title: "t" },
       { queueIndex: 1, queueLength: 3, queueDuration: 10 },
-      trackId,
     );
     expect(player.updateLockScreenMetadata).toHaveBeenCalledWith(
-      expect.objectContaining({ albumTitle }),
+      expect.objectContaining({ albumTitle: "Track 2 of 3" }),
     );
   });
 

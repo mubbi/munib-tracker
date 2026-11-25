@@ -96,8 +96,18 @@ describe("withWearOs generated module", () => {
     expect(manifest).toContain("android.intent.category.LAUNCHER");
     expect(manifest).toContain("android.permission.VIBRATE");
     expect(manifest).toContain('android:path="/munib/widget_snapshot"');
+    // Wear quality WO-V10: previews are real loaded-state captures (400×400 PNG, made with
+    // DebugSnapshotReceiver on the emulator), never placeholder shapes.
     for (const res of ["tile_preview", "tile_preview_today", "tile_preview_tasbeeh"]) {
-      expect(fs.existsSync(path.join(TEMPLATE_DIR, `src/main/res/drawable/${res}.xml`))).toBe(true);
+      expect(manifest).toContain(`android:resource="@drawable/${res}"`);
+      const png = fs.readFileSync(
+        path.join(TEMPLATE_DIR, `src/main/res/drawable-nodpi/${res}.png`),
+      );
+      expect(png.subarray(1, 4).toString("ascii")).toBe("PNG");
+      expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([400, 400]);
+      expect(fs.existsSync(path.join(TEMPLATE_DIR, `src/main/res/drawable/${res}.xml`))).toBe(
+        false,
+      );
     }
   });
 
@@ -117,7 +127,9 @@ describe("withWearOs generated module", () => {
         fs.existsSync(path.join(wearDir, "src/main/java/expo/modules/munibwear/MainActivity.kt")),
       ).toBe(true);
       expect(
-        fs.existsSync(path.join(wearDir, "src/main/res/drawable-xxxhdpi/ic_launcher_foreground.png")),
+        fs.existsSync(
+          path.join(wearDir, "src/main/res/drawable-xxxhdpi/ic_launcher_foreground.png"),
+        ),
       ).toBe(true);
     } finally {
       fs.rmSync(androidRoot, { recursive: true, force: true });

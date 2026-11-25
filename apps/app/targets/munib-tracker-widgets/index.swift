@@ -8,6 +8,9 @@ struct MunibTrackerWidgetsBundle: WidgetBundle {
     MunibDevotionWidgetsBundle().body
     MunibDiscoveryWidgetsBundle().body
     MunibContentWidgetsBundle().body
+    if #available(iOS 18.0, *) {
+      MunibControlsBundle().body
+    }
   }
 }
 
@@ -37,6 +40,8 @@ struct MunibDiscoveryWidgetsBundle: WidgetBundle {
   var body: some Widget {
     TasbeehGlanceWidget()
     JumuahWidget()
+    AdhkarWidget()
+    IslamicEventsWidget()
   }
 }
 

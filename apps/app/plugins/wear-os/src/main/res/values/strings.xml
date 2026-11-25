@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tile / complication picker labels (the system shows these before any phone sync).
+     In-tile and in-app text comes from the phone snapshot's `strings` instead. -->
+<resources>
+  <string name="wear_next_salah">Next Salah</string>
+  <string name="wear_today">Today\'s schedule</string>
+  <string name="wear_tasbeeh">Tasbeeh</string>
+  <string name="wear_progress">Today\'s progress</string>
+  <string name="wear_open_phone">Open Munib Tracker on your phone to sync</string>
+  <string name="wear_connect_phone">Connect your phone to see Salah times</string>
+  <string name="wear_install_phone">Install Munib Tracker on your phone to see Salah times</string>
+  <string name="wear_tasbeeh_standalone">Tasbeeh works on your watch without the phone</string>
+</resources>

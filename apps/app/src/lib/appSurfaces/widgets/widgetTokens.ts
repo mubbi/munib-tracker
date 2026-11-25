@@ -1,3 +1,10 @@
+import {
+  WIDGET_DARK,
+  WIDGET_DEFAULT_ACCENT,
+  WIDGET_LIGHT,
+  WIDGET_STATUS,
+} from "./widgetTokens.generated";
+
 /** Design tokens shared by Android widget renderers — mirrors in-app theme cards. */
 export const WIDGET_DESIGN = {
   radius: 16,
@@ -17,49 +24,35 @@ export type WidgetThemeInput = {
 };
 
 /**
- * Contrast-tuned palettes — mirror `packages/theme/src/resolve-theme.ts`
- * (background / card / foreground / mutedForeground / border). Keep in sync with
- * `targets/_shared/WidgetSnapshotStore.swift` `WidgetPalette`.
+ * Contrast-tuned palettes — generated from `packages/theme/src/native-tokens.ts` into
+ * `widgetTokens.generated.ts` (`pnpm --filter app generate:native-tokens`). Mirrored by
+ * `targets/_shared/MunibTokens.generated.swift` (`WidgetPalette`).
  */
-const LIGHT = {
-  background: "#F5F0E6",
-  cardBackground: "#FFFDF9",
-  textPrimary: "#152921",
-  /** ≥4.5:1 on background, card and muted. */
-  textSecondary: "#4A6157",
-  border: "#D2C7B1",
-};
-
-const DARK = {
-  background: "#152921",
-  cardBackground: "#1E3830",
-  textPrimary: "#EEE4D2",
-  /** ≥4.5:1 on background, card and muted. */
-  textSecondary: "#A2BDB0",
-  border: "#3D5F53",
-};
+const LIGHT = WIDGET_LIGHT;
+const DARK = WIDGET_DARK;
 
 export function resolveWidgetTheme(input: WidgetThemeInput) {
   const palette = input.isDark ? DARK : LIGHT;
+  const defaultAccent = input.isDark ? WIDGET_DEFAULT_ACCENT.dark : WIDGET_DEFAULT_ACCENT.light;
   return {
     isDark: input.isDark,
-    primary: input.primaryColor || "#059669",
+    primary: input.primaryColor || defaultAccent,
     background: palette.background,
     cardBackground: palette.cardBackground,
     textPrimary: palette.textPrimary,
     textSecondary: palette.textSecondary,
     border: palette.border,
-    success: input.primaryColor || "#059669",
-    warning: "#D97706",
+    success: input.primaryColor || defaultAccent,
+    warning: WIDGET_STATUS.warning,
   };
 }
 
 export type ResolvedWidgetTheme = ReturnType<typeof resolveWidgetTheme>;
 
 export const WIDGET_SEMANTIC = {
-  success: "#059669",
-  warning: "#D97706",
-  active: "#059669",
-  completed: "#059669",
-  pending: "#4A6157",
+  success: WIDGET_STATUS.success,
+  warning: WIDGET_STATUS.warning,
+  active: WIDGET_DEFAULT_ACCENT.light,
+  completed: WIDGET_DEFAULT_ACCENT.light,
+  pending: WIDGET_LIGHT.textSecondary,
 } as const;

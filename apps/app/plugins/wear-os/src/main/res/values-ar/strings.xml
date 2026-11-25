@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">الصلاة القادمة</string>
+  <string name="wear_today">جدول اليوم</string>
+  <string name="wear_tasbeeh">التسبيح</string>
+  <string name="wear_progress">تقدّم اليوم</string>
+  <string name="wear_open_phone">افتح Munib Tracker على هاتفك للمزامنة</string>
+  <string name="wear_connect_phone">اربط هاتفك لعرض أوقات الصلاة</string>
+  <string name="wear_install_phone">ثبّت Munib Tracker على هاتفك لعرض أوقات الصلاة</string>
+  <string name="wear_tasbeeh_standalone">يعمل التسبيح على ساعتك دون الهاتف</string>
+</resources>

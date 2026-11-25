@@ -93,6 +93,7 @@ export function FocusLockSettingsForm({
               { id: "iqamah", label: t("focusLock.form.anchor.iqamah") },
             ]}
             value={prefs.start.anchor}
+            disabled={readOnly}
             onChange={(anchor) => !readOnly && set({ start: { ...prefs.start, anchor } })}
           />
           <ThemedText type="caption" themeColor="mutedForeground">
@@ -143,6 +144,7 @@ export function FocusLockSettingsForm({
           label: t(`focusLock.form.mode.${id}`),
         }))}
         value={prefs.unlockMode}
+        disabled={readOnly}
         onChange={(unlockMode) => !readOnly && set({ unlockMode })}
       />
       <ThemedText type="caption" themeColor="mutedForeground">

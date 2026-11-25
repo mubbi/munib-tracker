@@ -27,11 +27,14 @@ import { QUICK_ACTION_REGISTRY } from "@/lib/appSurfaces/quickActions/registry";
 import {
   definitionToAction,
   isLegacyAndroidQuickActionCastError,
+  PRACTICE_QUICK_ACTION_ID,
+  practiceQuickActionHref,
   resolveQuickActionHref,
   resolveQuickActionLimit,
   syncAppQuickActions,
 } from "@/lib/appSurfaces/quickActions/syncQuickActions";
 import { captureAppException } from "@/lib/sentry";
+import { quranMemorizationStore } from "@/stores/quran-memorization-store";
 import { usePlatformSwitch } from "@/test-support/platform";
 
 const t = ((key: string, options?: { defaultValue?: string } | string) => {
@@ -180,5 +183,42 @@ describe("resolveQuickActionHref", () => {
 
   it("returns null for unknown actions", () => {
     expect(resolveQuickActionHref({ title: "?" })).toBeNull();
+  });
+});
+
+describe("Practise Qur'an shortcut (D68)", () => {
+  const record = (nextReviewAt: string) => ({
+    status: "practising" as const,
+    successStreak: 1,
+    intervalDays: 1,
+    nextReviewAt,
+    lastAttemptAt: "2026-11-01T00:00:00.000Z",
+    lapses: 0,
+    updatedAt: "2026-11-01T00:00:00.000Z",
+  });
+
+  beforeEach(() => {
+    quranMemorizationStore.setState({ records: {}, isReady: false });
+  });
+
+  it("opens the practice hub before the revision queue has loaded", () => {
+    expect(practiceQuickActionHref()).toBe("/quran/practice");
+  });
+
+  it("opens revision while ayahs are due, else the hub", () => {
+    quranMemorizationStore.setState({ records: { "2:255": record("2000-01-01") }, isReady: true });
+    expect(resolveQuickActionHref({ id: PRACTICE_QUICK_ACTION_ID, title: "x" })).toBe(
+      "/quran/revision",
+    );
+    quranMemorizationStore.setState({ records: { "2:255": record("2999-01-01") }, isReady: true });
+    expect(resolveQuickActionHref({ id: PRACTICE_QUICK_ACTION_ID, title: "x" })).toBe(
+      "/quran/practice",
+    );
+  });
+
+  it("registers the after-Salah sequence and recite-to-find shortcuts", () => {
+    const hrefs = QUICK_ACTION_REGISTRY.map((d) => d.href);
+    expect(hrefs).toContain("/tasbeeh/sequence");
+    expect(hrefs).toContain("/verse-detector?mode=recite");
   });
 });

@@ -2,8 +2,10 @@ import type { WidgetInfo, WidgetRepresentation } from "react-native-android-widg
 
 import type { AppWidgetName } from "@/lib/appSurfaces/widgets/constants";
 import {
+  renderAdhkarWidget,
   renderDailyHadithWidget,
   renderHijriDateWidget,
+  renderIslamicEventsWidget,
   renderJumuahWidget,
   renderKhatmProgressWidget,
   renderNextPrayerWidget,
@@ -38,6 +40,8 @@ export const APP_WIDGET_REGISTRY: readonly AppWidgetDefinition[] = [
   { name: "QiblaBearingWidget", render: renderQiblaBearingWidget },
   { name: "TasbeehGlanceWidget", render: renderTasbeehGlanceWidget },
   { name: "JumuahWidget", render: renderJumuahWidget },
+  { name: "AdhkarWidget", render: renderAdhkarWidget },
+  { name: "IslamicEventsWidget", render: renderIslamicEventsWidget },
 ] as const;
 
 export function getAppWidgetByName(name: string): AppWidgetDefinition | undefined {

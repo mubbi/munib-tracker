@@ -90,6 +90,40 @@ export const QUICK_ACTION_REGISTRY: QuickActionDefinition[] = [
     androidIcon: QUICK_ACTION_ANDROID_ICONS.quran,
     href: "/quran",
   },
+  // D68 / D69 discoverability. Past the iOS / default Android limit of four, so
+  // they appear on launchers that allow more shortcuts. JS-only: they reuse the
+  // existing Android icons and open app routes (no native intent targets).
+  {
+    id: "quran-practice",
+    titleKey: "handsFreeZikr2.quickActions.practiceTitle",
+    titleFallback: "Practise Qur'an",
+    subtitleKey: "handsFreeZikr2.quickActions.practiceSubtitle",
+    subtitleFallback: "Revise due ayahs or recite along",
+    iosSymbol: "symbol:mic",
+    androidIcon: QUICK_ACTION_ANDROID_ICONS.quran,
+    // Resolved when opened: revision while ayahs are due (`practiceQuickActionHref`).
+    href: "/quran/practice",
+  },
+  {
+    id: "after-salah-tasbeeh",
+    titleKey: "handsFreeZikr2.quickActions.sequenceTitle",
+    titleFallback: "After-Salah tasbeeh",
+    subtitleKey: "handsFreeZikr2.quickActions.sequenceSubtitle",
+    subtitleFallback: "33 · 33 · 34, hands-free",
+    iosSymbol: "symbol:circle.dotted",
+    androidIcon: QUICK_ACTION_ANDROID_ICONS.tasbeeh,
+    href: "/tasbeeh/sequence",
+  },
+  {
+    id: "recite-to-find",
+    titleKey: "handsFreeZikr2.quickActions.reciteToFindTitle",
+    titleFallback: "Recite to find",
+    subtitleKey: "handsFreeZikr2.quickActions.reciteToFindSubtitle",
+    subtitleFallback: "Find an ayah by reciting it",
+    iosSymbol: "symbol:waveform",
+    androidIcon: QUICK_ACTION_ANDROID_ICONS.quran,
+    href: "/verse-detector?mode=recite",
+  },
   {
     id: "ramadan",
     titleKey: "actions.ramadan",

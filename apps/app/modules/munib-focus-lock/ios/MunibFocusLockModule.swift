@@ -32,11 +32,11 @@ struct FocusLabelsRecord: Record {
 }
 
 struct FocusThemeRecord: Record {
-  @Field var accent: String = "#059669"
+  @Field var accent: String = "#2E7D32"
   @Field var accentForeground: String = "#FFFFFF"
   @Field var background: String = "#F5F0E6"
   @Field var foreground: String = "#152921"
-  @Field var muted: String = "#5C7268"
+  @Field var muted: String = "#4A6157"
 }
 
 struct FocusConfigRecord: Record {

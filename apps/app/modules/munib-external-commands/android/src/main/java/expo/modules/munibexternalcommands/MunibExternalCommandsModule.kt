@@ -51,6 +51,22 @@ internal object ExternalCommandQueue {
     context.sendBroadcast(intent)
   }
 
+  /** Read without draining (widgets show queued marks as done before the app applies them). */
+  @Synchronized
+  fun peek(prefs: SharedPreferences): List<String> {
+    val raw = prefs.getString(QUEUE_KEY, "[]") ?: "[]"
+    return try {
+      val array = JSONArray(raw)
+      buildList {
+        for (i in 0 until array.length()) {
+          add(array.getString(i))
+        }
+      }
+    } catch (_: Exception) {
+      emptyList()
+    }
+  }
+
   @Synchronized
   fun drain(prefs: SharedPreferences): List<String> {
     val raw = prefs.getString(QUEUE_KEY, "[]") ?: "[]"
@@ -119,6 +135,20 @@ class MunibExternalCommandsModule : Module() {
         Context.MODE_PRIVATE,
       ) ?: return@AsyncFunction emptyList<String>()
       ExternalCommandQueue.drain(prefs)
+    }
+
+    AsyncFunction("peekCommands") {
+      val prefs = appContext.reactContext?.getSharedPreferences(
+        ExternalCommandQueue.PREFS_NAME,
+        Context.MODE_PRIVATE,
+      ) ?: return@AsyncFunction emptyList<String>()
+      ExternalCommandQueue.peek(prefs)
+    }
+
+    AsyncFunction("scheduleWidgetRefresh") { timesMs: List<Double> ->
+      val context = appContext.reactContext ?: return@AsyncFunction null
+      WidgetRefreshScheduler.schedule(context, timesMs.map { it.toLong() })
+      null
     }
 
     // Widgets cannot fire arbitrary broadcasts from react-native-android-widget's

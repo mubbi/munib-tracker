@@ -28,11 +28,24 @@ struct PrayerActivityRecord: Record {
   @Field var title: String = ""
   @Field var deepLink: String = ""
   @Field var isDark: Bool = false
-  @Field var primary: String = "#059669"
+  @Field var primary: String = "#2E7D32"
   @Field var background: String = "#F5F0E6"
-  @Field var cardBackground: String = "#FFFCF7"
+  @Field var cardBackground: String = "#FFFDF9"
   @Field var textPrimary: String = "#152921"
-  @Field var textSecondary: String = "#5C7268"
+  @Field var textSecondary: String = "#4A6157"
+  @Field var daySalah: [DaySalahRecord]? = nil
+  @Field var staleLabel: String? = nil
+  @Field var confirmationLabel: String? = nil
+  @Field var markedActionLabel: String? = nil
+  @Field var markedActionDeepLink: String? = nil
+  @Field var markedProgressLabel: String? = nil
+  @Field var markedProgressPercent: Double? = nil
+}
+
+/// One obligatory Salah in the Live Activity status row (`daySalah`).
+struct DaySalahRecord: Record {
+  @Field var id: String = ""
+  @Field var done: Bool = false
 }
 
 @available(iOS 16.2, *)
@@ -66,8 +79,43 @@ private extension PrayerActivityAttributes.ContentState {
       background: record.background,
       cardBackground: record.cardBackground,
       textPrimary: record.textPrimary,
-      textSecondary: record.textSecondary
+      textSecondary: record.textSecondary,
+      daySalah: record.daySalah?.map {
+        PrayerActivityAttributes.DaySalah(id: $0.id, done: $0.done)
+      },
+      staleLabel: record.staleLabel,
+      confirmationLabel: record.confirmationLabel,
+      markedActionLabel: record.markedActionLabel,
+      markedActionDeepLink: record.markedActionDeepLink,
+      markedProgressLabel: record.markedProgressLabel,
+      markedProgressPercent: record.markedProgressPercent
     )
+  }
+}
+
+/// Optimistic refresh for the Live Activity's Mark Salah button.
+///
+/// `MarkSalahLiveActivityIntent` (`targets/munib-tracker-widgets/_shared/`) is a
+/// `LiveActivityIntent`, so ActivityKit runs it in the app process — here — even
+/// when the app is suspended or not running. The intent queues the mark for JS,
+/// then calls this to flip the activity to its precomputed after-Salah state at
+/// once (`ContentState.markedState()`), instead of waiting for the app to open.
+/// The next JS sync (`syncLiveActivity`) replaces it with the authoritative state.
+@available(iOS 16.2, *)
+public enum PrayerLiveActivityMarkFeedback {
+  @MainActor
+  public static func applyMarked() async {
+    for running in Activity<PrayerActivityAttributes>.activities {
+      let current = running.content
+      guard let marked = current.state.markedState() else { continue }
+      await running.update(
+        ActivityContent(
+          state: marked,
+          staleDate: current.staleDate,
+          relevanceScore: current.relevanceScore
+        )
+      )
+    }
   }
 }
 

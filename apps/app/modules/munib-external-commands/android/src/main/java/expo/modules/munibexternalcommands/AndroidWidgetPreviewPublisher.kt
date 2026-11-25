@@ -29,6 +29,10 @@ internal object AndroidWidgetPreviewPublisher {
     "DailyHadithWidget" to "dailyHadith",
     "HijriDateWidget" to "hijriDate",
     "QiblaBearingWidget" to "qibla",
+    "TasbeehGlanceWidget" to "tasbeeh",
+    "JumuahWidget" to "friday",
+    "AdhkarWidget" to "adhkar",
+    "IslamicEventsWidget" to "events",
   )
 
   fun publish(context: Context, snapshotJson: String, force: Boolean = false): Boolean {

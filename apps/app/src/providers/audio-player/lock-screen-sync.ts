@@ -38,6 +38,6 @@ export function syncLockScreenForTrack(
   const queueCtx = lockScreenQueueContext(tracks, trackIndex, durations);
   // Prompt only if still undetermined (e.g. user skipped onboarding permissions).
   void ensureAndroidMediaNotificationPermission().then(() => {
-    activateLockScreenControls(targetPlayer, track, queueCtx, track.id);
+    activateLockScreenControls(targetPlayer, track, queueCtx);
   });
 }

@@ -145,14 +145,12 @@ struct WidgetCard<Content: View>: View {
     VStack(alignment: .leading, spacing: stackSpacing) {
       if showsHeader {
         HStack(alignment: .top, spacing: 8) {
-          Circle()
-            .fill(accent.opacity(0.18))
-            .frame(width: 22, height: 22)
-            .overlay(Circle().fill(accent).frame(width: 7, height: 7))
+          WidgetHeaderDot(accent: accent)
           VStack(alignment: .leading, spacing: 2) {
             Text(title)
               .font(.subheadline.weight(.semibold))
               .foregroundStyle(accent)
+              .widgetAccentable()
               .widgetFittingText(maxLines: 1)
             if showsHeaderSummary {
               Text(summary)
@@ -204,11 +202,50 @@ struct WidgetCard<Content: View>: View {
   @available(iOS 17.0, *)
   @ViewBuilder
   private func markButtonLabel(_ text: String) -> some View {
-    Text(text)
+    Label(text, systemImage: "checkmark.circle")
       .font(.caption.weight(.semibold))
+      .lineLimit(1)
+      .minimumScaleFactor(0.7)
       .frame(maxWidth: .infinity, minHeight: 44)
       .foregroundStyle(accent)
-      .background(accent.opacity(0.16), in: RoundedRectangle(cornerRadius: 12))
+      .background(accent.opacity(0.16), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+      .widgetAccentable()
+  }
+}
+
+/// Decorative header dot. Hidden where the system removes the widget background
+/// (StandBy, CarPlay, iOS 26 clear / tinted Liquid Glass) so it doesn't float.
+struct WidgetHeaderDot: View {
+  let accent: Color
+
+  var body: some View {
+    if #available(iOS 17.0, *) {
+      BackgroundAwareDot(accent: accent)
+    } else {
+      dot(accent)
+    }
+  }
+
+  fileprivate static func make(_ accent: Color) -> some View {
+    Circle()
+      .fill(accent.opacity(0.18))
+      .frame(width: 22, height: 22)
+      .overlay(Circle().fill(accent).frame(width: 7, height: 7))
+      .accessibilityHidden(true)
+  }
+
+  private func dot(_ accent: Color) -> some View { Self.make(accent) }
+}
+
+@available(iOS 17.0, *)
+private struct BackgroundAwareDot: View {
+  @Environment(\.showsWidgetContainerBackground) private var showsBackground
+  let accent: Color
+
+  var body: some View {
+    if showsBackground {
+      WidgetHeaderDot.make(accent)
+    }
   }
 }
 
@@ -224,9 +261,12 @@ struct WidgetProgressBar: View {
         Capsule()
           .fill(fill)
           .frame(width: geo.size.width * CGFloat(min(max(percent, 0), 100) / 100))
+          .widgetAccentable()
       }
     }
     .frame(height: 6)
+    .accessibilityElement()
+    .accessibilityValue("\(Int(min(max(percent, 0), 100)))%")
   }
 }
 
@@ -337,35 +377,71 @@ func scheduleStatusColor(_ status: String?, theme: ResolvedWidgetTheme) -> Color
 struct WidgetProviderEntry: TimelineEntry {
   let date: Date
   let snapshot: WidgetSnapshotPayload?
+  /// Phone-only sections (adhkar, events, voice strings) — `WidgetTimeResolver.swift`.
+  var extras: WidgetExtrasPayload? = nil
 }
 
 struct WidgetTimeline {
   static func entries() -> WidgetProviderEntry {
-    WidgetProviderEntry(date: Date(), snapshot: WidgetSnapshotStore.load())
+    let data = WidgetTimeResolver.load(at: Date())
+    return WidgetProviderEntry(date: Date(), snapshot: data.snapshot, extras: data.extras)
   }
 
+  /// One entry per moment the content changes on its own (each Adhan, the run-up
+  /// to the next one, adhkar windows, midnight), each resolved for its own date —
+  /// so "Next Salah" moves on after the Adhan without the app running. Countdowns
+  /// between entries tick via `Text(timerInterval:)`.
   static func timeline() -> Timeline<WidgetProviderEntry> {
-    let snapshot = WidgetSnapshotStore.load()
-    let dates = WidgetReloadSchedule.timelineDates(from: snapshot)
-    let entries = dates.map { WidgetProviderEntry(date: $0, snapshot: snapshot) }
-    let reload = WidgetReloadSchedule.nextReloadDate(from: snapshot)
+    let now = Date()
+    guard let raw = WidgetTimeResolver.rawSnapshot() else {
+      return Timeline(
+        entries: [WidgetProviderEntry(date: now, snapshot: nil)],
+        policy: .after(now.addingTimeInterval(15 * 60))
+      )
+    }
+    let pending = WidgetTimeResolver.pendingCommands()
+    let dates = WidgetTimeResolver.timelineDates(raw, now: now)
+    let entries = dates.map { date -> WidgetProviderEntry in
+      let data = WidgetTimeResolver.decode(WidgetTimeResolver.resolve(raw, at: date, pending: pending))
+      return WidgetProviderEntry(date: date, snapshot: data.snapshot, extras: data.extras)
+    }
+    let reload = dates.last.map { max($0, now.addingTimeInterval(15 * 60)) } ?? now.addingTimeInterval(900)
     return Timeline(entries: entries, policy: .after(reload))
   }
 }
 
 struct BasicWidgetProvider: TimelineProvider {
   func placeholder(in context: Context) -> WidgetProviderEntry {
-    WidgetProviderEntry(date: Date(), snapshot: WidgetSnapshotStore.placeholder())
+    WidgetProviderEntry(
+      date: Date(),
+      snapshot: WidgetSnapshotStore.placeholder(),
+      extras: WidgetExtrasPlaceholder.value
+    )
   }
 
   func getSnapshot(in context: Context, completion: @escaping (WidgetProviderEntry) -> Void) {
-    let snapshot = WidgetSnapshotStore.load() ?? (context.isPreview ? WidgetSnapshotStore.placeholder() : nil)
-    completion(WidgetProviderEntry(date: Date(), snapshot: snapshot))
+    let data = WidgetTimeResolver.load(at: Date())
+    if data.snapshot == nil, context.isPreview {
+      completion(placeholder(in: context))
+      return
+    }
+    completion(WidgetProviderEntry(date: Date(), snapshot: data.snapshot, extras: data.extras))
   }
 
   func getTimeline(in context: Context, completion: @escaping (Timeline<WidgetProviderEntry>) -> Void) {
     completion(WidgetTimeline.timeline())
   }
+}
+
+/// Gallery / first-install sample for the adhkar and events widgets.
+enum WidgetExtrasPlaceholder {
+  static let value: WidgetExtrasPayload? = {
+    let now = Date().timeIntervalSince1970 * 1000
+    let json = """
+    {"date":"","locale":"en","adhkar":{"title":"Adhkar","dueLabel":"Due now","allDoneLabel":"You're all caught up","deepLink":"munib-tracker://zikr","sets":[{"key":"morning","title":"Morning Adhkar","completed":4,"total":12,"progressLabel":"4/12 done","startMs":\(now - 3_600_000),"endMs":\(now + 3_600_000),"nextLabel":"","deepLink":"munib-tracker://zikr/session/morning"}]},"events":{"title":"Islamic events","deepLink":"munib-tracker://events","items":[{"id":"ramadan","name":"First of Ramadan","date":"","dateLabel":"18 February","relativeLabel":"in 12 days","daysUntil":12},{"id":"laylatQadr","name":"Laylat al-Qadr (est.)","date":"","dateLabel":"16 March","relativeLabel":"in 38 days","daysUntil":38},{"id":"eidFitr","name":"Eid al-Fitr","date":"","dateLabel":"20 March","relativeLabel":"in 42 days","daysUntil":42}]}}
+    """
+    return try? JSONDecoder().decode(WidgetExtrasPayload.self, from: Data(json.utf8))
+  }()
 }
 
 /// Widget-side mark intent — writes to the shared App Group command queue.

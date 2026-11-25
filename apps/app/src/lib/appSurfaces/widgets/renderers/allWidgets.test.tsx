@@ -5,8 +5,10 @@ import { buildWidgetTree } from "react-native-android-widget/src/api/build-widge
 import { WIDGET_SNAPSHOT_KEY } from "@/lib/appSurfaces/config";
 import { APP_WIDGET_REGISTRY, getAppWidgetByName } from "@/lib/appSurfaces/widgets/registry";
 import {
+  renderAdhkarWidget,
   renderDailyHadithWidget,
   renderHijriDateWidget,
+  renderIslamicEventsWidget,
   renderJumuahWidget,
   renderKhatmProgressWidget,
   renderNextPrayerWidget,
@@ -35,6 +37,55 @@ function tree(rep: WidgetRepresentation, slot: "light" | "dark" = "light"): stri
   const element =
     "light" in rep ? (rep as { light: React.ReactElement; dark: React.ReactElement })[slot] : rep;
   return JSON.stringify(buildWidgetTree(element as never));
+}
+
+const MIN = 60_000;
+const ago = (minutes: number) => Date.now() - minutes * MIN;
+
+/** Today's rows: Fajr/Dhuhr prayed, Asr's time running and unmarked, Maghrib/Isha ahead. */
+function liveRows() {
+  return [
+    {
+      id: "fajr",
+      name: "Fajr",
+      time: "05:00",
+      status: "completed",
+      statusLabel: "Done",
+      atMs: ago(600),
+    },
+    {
+      id: "dhuhr",
+      name: "Dhuhr",
+      time: "13:00",
+      status: "completed",
+      statusLabel: "Done",
+      atMs: ago(300),
+    },
+    {
+      id: "asr",
+      name: "Asr",
+      time: "16:00",
+      status: "pending",
+      statusLabel: "Later",
+      atMs: ago(10),
+    },
+    {
+      id: "maghrib",
+      name: "Maghrib",
+      time: "19:00",
+      status: "active",
+      statusLabel: "Next",
+      atMs: ago(-120),
+    },
+    {
+      id: "isha",
+      name: "Isha",
+      time: "20:30",
+      status: "pending",
+      statusLabel: "Later",
+      atMs: ago(-240),
+    },
+  ] as const;
 }
 
 beforeEach(async () => {
@@ -69,17 +120,27 @@ describe("renderNextPrayerWidget", () => {
     followingTime: "18:40",
     location: "London",
     markLabel: "Mark Asr",
+    // Still ahead, so the resolver keeps the synced next Salah.
+    targetTimeMs: Date.now() + 3_600_000,
   };
 
   it("shows the following Salah, location and mark control on medium cells", async () => {
-    await seed({ nextPrayer });
+    await seed({ nextPrayer, schedule: { rows: [...liveRows()] } });
     const json = tree(await renderNextPrayerWidget(MEDIUM));
     expect(json).toContain("Asr");
     expect(json).toContain("Maghrib · 18:40");
     expect(json).toContain("London");
-    expect(json).toContain("Mark Asr");
+    expect(json).toContain("Mark Asr · Asr");
     expect(json).toContain("MARK_CURRENT");
     expect(json).toContain("Fri 1 May");
+  });
+
+  it("hides Mark once the running Salah is already prayed", async () => {
+    const rows = liveRows().map((row) =>
+      row.id === "asr" ? { ...row, status: "completed" as const } : row,
+    );
+    await seed({ nextPrayer, schedule: { rows } });
+    expect(tree(await renderNextPrayerWidget(MEDIUM))).not.toContain("MARK_CURRENT");
   });
 
   it("hides chrome, following Salah and location on small cells", async () => {
@@ -104,23 +165,20 @@ describe("renderNextPrayerWidget", () => {
 });
 
 describe("renderPrayerScheduleWidget", () => {
-  const rows = [
-    { id: "fajr", name: "Fajr", time: "05:00", status: "completed", statusLabel: "Done" },
-    { id: "dhuhr", name: "Dhuhr", time: "13:00", status: "completed", statusLabel: "Done" },
-    { id: "asr", name: "Asr", time: "16:00", status: "active", statusLabel: "Next" },
-    { id: "maghrib", name: "Maghrib", time: "19:00", status: "pending", statusLabel: "Later" },
-    { id: "isha", name: "Isha", time: "20:30", status: "pending", statusLabel: "Later" },
-  ] as const;
+  const rows = liveRows();
 
-  it("shows every row, the mark control for the active row and updated-ago on large cells", async () => {
+  it("marks the Salah whose time is running (not the next one) and shows updated-ago", async () => {
     await seed({
       schedule: { rows: [...rows], summary: "2/5", markLabel: "Mark" },
       updatedAt: new Date().toISOString(),
     });
     const json = tree(await renderPrayerScheduleWidget(LARGE));
-    expect(json).toContain("Isha · Later");
+    // Statuses are re-derived for "now": Maghrib is next, Asr stays unmarked.
+    expect(json).toContain("Isha · Pending");
+    expect(json).toContain("Maghrib · Next");
     expect(json).toContain("MARK_PRAYER");
     expect(json).toContain('"prayerId":"asr"');
+    expect(json).not.toContain('"prayerId":"maghrib"');
     expect(json).toMatch(/Updated/i);
   });
 
@@ -135,8 +193,9 @@ describe("renderPrayerScheduleWidget", () => {
   it("caps small cells at the compact row budget without the mark control", async () => {
     await seed({ schedule: { rows: [...rows], markLabel: "Mark" } });
     const json = tree(await renderPrayerScheduleWidget(SMALL));
-    expect(json).toContain("Asr · Next");
-    expect(json).not.toContain("Maghrib");
+    expect(json).toContain("Asr · Pending");
+    // Row budget: only 3 visible rows (the card's TalkBack label still lists all five).
+    expect(json).not.toContain("Maghrib · ");
     expect(json).not.toContain("MARK_PRAYER");
   });
 
@@ -152,14 +211,24 @@ describe("renderPrayerScheduleWidget", () => {
 });
 
 describe("progress, streak and qaza widgets", () => {
-  it("renders progress with a mark URI on medium cells only", async () => {
-    await seed({ progress: { progressLabel: "3/5", progressPercent: 60, markLabel: "Mark now" } });
+  it("marks in the background (no app launch) on medium cells only", async () => {
+    await seed({
+      progress: {
+        progressLabel: "2/5",
+        completed: 2,
+        total: 5,
+        progressPercent: 40,
+        markLabel: "Mark now",
+      },
+      schedule: { rows: [...liveRows()] },
+    });
     const medium = tree(await renderPrayerProgressWidget(MEDIUM));
-    expect(medium).toContain("3/5");
-    expect(medium).toContain("Mark now");
-    expect(medium).toContain("mark-current");
+    expect(medium).toContain("2/5");
+    expect(medium).toContain("Mark now · Asr");
+    expect(medium).toContain("MARK_CURRENT");
+    expect(medium).not.toContain("mark-current");
     const small = tree(await renderPrayerProgressWidget(SMALL));
-    expect(small).toContain("3/5");
+    expect(small).toContain("2/5");
     expect(small).not.toContain("Mark now");
   });
 
@@ -320,12 +389,108 @@ describe("theme slots", () => {
 
 describe("widget registry", () => {
   it("maps every widget name to its renderer", async () => {
-    expect(APP_WIDGET_REGISTRY).toHaveLength(12);
+    expect(APP_WIDGET_REGISTRY).toHaveLength(14);
     expect(getAppWidgetByName("QiblaBearingWidget")?.render).toBe(renderQiblaBearingWidget);
     expect(getAppWidgetByName("Nope")).toBeUndefined();
     for (const widget of APP_WIDGET_REGISTRY) {
       const rep = await widget.render(MEDIUM);
       expect(() => tree(rep)).not.toThrow();
     }
+  });
+});
+
+describe("renderAdhkarWidget", () => {
+  const set = (
+    key: string,
+    title: string,
+    startMin: number,
+    endMin: number,
+    completed: number,
+  ) => ({
+    key,
+    title,
+    completed,
+    total: 4,
+    progressLabel: `${completed}/4 done`,
+    startMs: ago(startMin),
+    endMs: ago(endMin),
+    nextLabel: `Next: ${title} at 17:00`,
+    deepLink: `munib-tracker://zikr/session/${key}`,
+  });
+
+  it("leads with the open set and links straight into its session", async () => {
+    await seed({
+      adhkar: {
+        title: "Adhkar",
+        sets: [
+          set("morning", "Morning Adhkar", 300, 60, 4),
+          set("after_prayer:asr", "After Asr", 10, -60, 1),
+          set("evening", "Evening Adhkar", -30, -200, 0),
+        ],
+      },
+    });
+    const json = tree(await renderAdhkarWidget(MEDIUM));
+    expect(json).toContain("After Asr");
+    expect(json).toContain("1/4 done");
+    expect(json).toContain("zikr/session/after_prayer:asr");
+    expect(json).not.toContain("Morning Adhkar");
+  });
+
+  it("shows the next set when nothing is due", async () => {
+    await seed({
+      adhkar: {
+        title: "Adhkar",
+        sets: [
+          set("morning", "Morning Adhkar", 300, 60, 4),
+          set("evening", "Evening Adhkar", -30, -200, 0),
+        ],
+      },
+    });
+    const json = tree(await renderAdhkarWidget(MEDIUM));
+    expect(json).toContain("Evening Adhkar");
+    expect(json).toContain("Next: Evening Adhkar at 17:00");
+  });
+});
+
+describe("renderIslamicEventsWidget", () => {
+  const day = (offset: number) => {
+    const d = new Date();
+    d.setDate(d.getDate() + offset);
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${d.getFullYear()}-${mm}-${dd}`;
+  };
+  const items = [
+    {
+      id: "arafah",
+      name: "Day of Arafah",
+      date: day(3),
+      dateLabel: "Arafah date",
+      relativeLabel: "in 3 days",
+      daysUntil: 3,
+    },
+    {
+      id: "eidAdha",
+      name: "Eid al-Adha",
+      date: day(4),
+      dateLabel: "Eid date",
+      relativeLabel: "in 4 days",
+      daysUntil: 4,
+    },
+  ];
+
+  it("uses relative labels on the day they were written", async () => {
+    await seed({ date: day(0), events: { title: "Islamic events", items } });
+    const json = tree(await renderIslamicEventsWidget(MEDIUM));
+    expect(json).toContain("Day of Arafah");
+    expect(json).toContain("in 3 days");
+    expect(json).toContain("Eid al-Adha");
+  });
+
+  it("falls back to absolute dates when the snapshot is from an earlier day", async () => {
+    await seed({ date: day(-2), events: { title: "Islamic events", items } });
+    const json = tree(await renderIslamicEventsWidget(MEDIUM));
+    expect(json).toContain("Arafah date");
+    expect(json).not.toContain("in 3 days");
   });
 });

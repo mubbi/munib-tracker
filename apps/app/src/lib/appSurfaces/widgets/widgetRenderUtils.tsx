@@ -4,12 +4,14 @@
 
 import type React from "react";
 import type { WidgetInfo, WidgetRepresentation } from "react-native-android-widget";
-
+import i18n from "@/i18n";
 import {
   AndroidLockScreenInline,
   AndroidLockScreenStrip,
   isCompactWidgetSurface,
 } from "@/lib/appSurfaces/widgets/androidCompact";
+import { recentLocalWidgetMarks } from "@/lib/appSurfaces/widgets/localWidgetMarks";
+import { resolveSnapshotAt } from "@/lib/appSurfaces/widgets/resolveSnapshotAt";
 import { readWidgetSnapshot } from "@/lib/appSurfaces/widgets/snapshotStorage";
 import type {
   WidgetHexColor,
@@ -20,9 +22,19 @@ import {
   type ResolvedWidgetTheme,
   resolveWidgetTheme,
 } from "@/lib/appSurfaces/widgets/widgetTokens";
+import { nativePeekCommands } from "@/lib/external-commands/native-bridge";
 
-export async function readSnapshotForWidget() {
-  return readWidgetSnapshot();
+/**
+ * The stored snapshot re-derived for this moment: next Salah after its Adhan,
+ * live countdown, midnight rollover, due adhkar set and queued marks.
+ */
+export async function readSnapshotForWidget(now: Date = new Date()) {
+  const [snapshot, queued] = await Promise.all([readWidgetSnapshot(), nativePeekCommands()]);
+  const recent = recentLocalWidgetMarks(now.getTime());
+  return resolveSnapshotAt(snapshot, now, {
+    pending: [...queued, ...recent],
+    t: (key, fallback, options) => i18n.t(key, { defaultValue: fallback, ...options }),
+  });
 }
 
 function toWidgetThemeSnapshot(resolved: ResolvedWidgetTheme): WidgetThemeSnapshot {

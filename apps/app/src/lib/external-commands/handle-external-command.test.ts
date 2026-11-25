@@ -20,6 +20,13 @@ jest.mock("@/stores/tracker-store", () => ({
 jest.mock("@/stores/location-store", () => ({
   locationStore: { getState: () => mockLocation.state },
 }));
+const mockComputeTimes = jest.fn((): unknown => {
+  throw new Error("no location");
+});
+jest.mock("@/lib/location", () => ({
+  ...jest.requireActual("@/lib/location"),
+  computeLocationPrayerTimes: () => mockComputeTimes(),
+}));
 jest.mock("./resolve-markable-prayer", () => ({
   ...jest.requireActual("./resolve-markable-prayer"),
   resolveMarkableObligatoryPrayer: (...args: unknown[]) => mockResolveMarkable(...args),
@@ -121,5 +128,45 @@ describe("handleExternalCommand", () => {
       alreadyCompleted: true,
     });
     expect(tracker.setPrayerStatus).not.toHaveBeenCalled();
+  });
+
+  describe("named Salah before its Adhan", () => {
+    const at = (iso: string) => new Date(iso);
+    const times = {
+      fajr: at("2026-07-03T03:00:00Z"),
+      sunrise: at("2026-07-03T04:30:00Z"),
+      dhuhr: at("2026-07-03T11:00:00Z"),
+      asr: at("2026-07-03T14:30:00Z"),
+      maghrib: at("2026-07-03T18:00:00Z"),
+      isha: at("2026-07-03T19:30:00Z"),
+    };
+
+    afterEach(() => {
+      mockComputeTimes.mockReset().mockImplementation(() => {
+        throw new Error("no location");
+      });
+    });
+
+    it("refuses to mark a Salah whose time has not begun", async () => {
+      const tracker = setup();
+      mockComputeTimes.mockReturnValue(times);
+      const now = at("2026-07-03T12:00:00Z");
+      expect(await handleExternalCommand(markPrayer({ prayerId: "asr" }), { now })).toEqual({
+        ok: false,
+        reason: "not_started",
+      });
+      expect(tracker.setPrayerStatus).not.toHaveBeenCalled();
+    });
+
+    it("marks it once the Adhan has passed", async () => {
+      const tracker = setup();
+      mockComputeTimes.mockReturnValue(times);
+      const now = at("2026-07-03T15:00:00Z");
+      expect(await handleExternalCommand(markPrayer({ prayerId: "asr" }), { now })).toEqual({
+        ok: true,
+        prayerId: "asr",
+      });
+      expect(tracker.setPrayerStatus).toHaveBeenCalledWith("asr", "completed");
+    });
   });
 });

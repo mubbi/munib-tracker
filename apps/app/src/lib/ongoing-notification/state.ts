@@ -63,6 +63,14 @@ export interface OngoingNotificationState {
   followingTargetTimeMs: number;
   /** Localized Android notification channel name ("Next Salah countdown"). */
   channelName: string;
+  /** App accent (hex) for ProgressStyle segments and the notification color. */
+  accentColor: string;
+  /**
+   * After-Salah action applied by the in-place Mark button when no after-Salah
+   * boundary is scheduled (ambient mode). Empty outside the mark window.
+   */
+  markedActionLabel: string;
+  markedActionDeepLink: string;
 }
 
 export type BuildOngoingNotificationStateInput = {
@@ -95,6 +103,7 @@ export function buildOngoingNotificationState(
   const phase = resolveSalahPhase(snapshot, now);
   const action = actionForPhase(phase === "ended" ? "afterSalah" : phase, snapshot);
   const showingCurrent = phase !== "upcoming" && phase !== "ended";
+  const afterMark = phase === "markSalah" ? actionForPhase("afterSalah", snapshot) : null;
   const boundary = input.boundaries?.[0];
   // Without a scheduled boundary, derive the same values the boundaries carry.
   const fallback = progressForPhase(phase);
@@ -150,5 +159,8 @@ export function buildOngoingNotificationState(
     followingTime: nextPrayer.followingTime,
     followingTargetTimeMs: targetTimeMs + 2 * 60 * 60_000,
     channelName: i18n.t("notif.channels.prayerOngoing"),
+    accentColor: snapshot.theme.primary,
+    markedActionLabel: afterMark?.actionLabel ?? "",
+    markedActionDeepLink: afterMark?.actionDeepLink ?? "",
   };
 }

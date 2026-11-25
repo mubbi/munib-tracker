@@ -93,7 +93,8 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   newMuslim: "/new-muslim" as Href,
   finance: "/finance" as Href,
   flashCards: "/flash-cards" as Href,
-  verseDetector: "/verse-detector" as Href,
+  // Waveform icon = recite to find (D68); Type stays one tap away on the screen.
+  verseDetector: "/verse-detector?mode=recite" as Href,
   fidyah: "/fidyah" as Href,
   janazah: "/janazah" as Href,
   sadaqah: "/sadaqah" as Href,

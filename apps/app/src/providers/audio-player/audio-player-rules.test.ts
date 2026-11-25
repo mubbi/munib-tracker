@@ -131,12 +131,12 @@ describe("lock-screen sync", () => {
     await act(async () => {
       await Promise.resolve();
     });
-    expect(activateLockScreenControls).toHaveBeenCalledWith(
-      player,
-      queue[2],
-      { queueIndex: 2, queueLength: 3, queuePosition: 10, queueDuration: 15 },
-      "1:3",
-    );
+    expect(activateLockScreenControls).toHaveBeenCalledWith(player, queue[2], {
+      queueIndex: 2,
+      queueLength: 3,
+      queuePosition: 10,
+      queueDuration: 15,
+    });
   });
 });
 

@@ -29,6 +29,11 @@ enum ExternalCommandQueue {
     return array
   }
 
+  /// Read without draining: widgets and Siri show queued marks as done before the app applies them.
+  static func peekAll() -> [String] {
+    readArray() ?? []
+  }
+
   private static func readArray() -> [String]? {
     guard let data = readRaw().data(using: .utf8) else { return nil }
     return (try? JSONSerialization.jsonObject(with: data)) as? [String]

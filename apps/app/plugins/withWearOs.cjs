@@ -30,6 +30,9 @@ function copyTree(from, to) {
 /** Writes the `:wear` module into `<androidRoot>/wear` (exported for tests / local syncs). */
 function writeWearModule(androidRoot, projectRoot) {
   const wearDir = path.join(androidRoot, "wear");
+  // Sources are generated: drop the old copy so renamed / removed files can't linger
+  // (e.g. a drawable XML and PNG with the same name would clash). Keeps build/.
+  fs.rmSync(path.join(wearDir, "src"), { recursive: true, force: true });
   copyTree(TEMPLATE_DIR, wearDir);
   // 432 px layers = 108 dp at xxxhdpi; Android scales them for other densities.
   const iconDir = path.join(wearDir, "src/main/res/drawable-xxxhdpi");

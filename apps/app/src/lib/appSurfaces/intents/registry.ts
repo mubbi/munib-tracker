@@ -7,7 +7,11 @@ export type IntentPlatform = "ios" | "android";
 
 export type IntentDefinition = {
   id: string;
-  type: "navigation" | "background";
+  /**
+   * navigation: opens a screen; background: enqueues a mark without UI;
+   * query: answers from the widget snapshot without opening the app (Siri).
+   */
+  type: "navigation" | "background" | "query";
   titleKey: string;
   titleFallback: string;
   siriPhraseEn: string;
@@ -31,6 +35,61 @@ const NAMED_PRAYER_INTENTS: ReadonlyArray<{ prayerId: ObligatoryPrayer; label: s
   { prayerId: "isha", label: "Isha" },
 ];
 
+/** Screens reachable by voice on both platforms (Siri `MunibFeature` + App Actions inventory). */
+const NAVIGATION_INTENTS: ReadonlyArray<{
+  id: string;
+  label: string;
+  phrase: string;
+  href: string;
+}> = [
+  { id: "open-tracker", label: "openTracker", phrase: "Open checklist", href: "/tracker" },
+  { id: "open-qibla", label: "openQibla", phrase: "Open Qibla", href: "/qibla" },
+  { id: "open-tasbeeh", label: "openTasbeeh", phrase: "Open Tasbeeh", href: "/tasbeeh/free" },
+  { id: "open-ramadan", label: "openRamadan", phrase: "Open Ramadan", href: "/ramadan" },
+  { id: "open-khatm", label: "openKhatm", phrase: "Open Khatm plan", href: "/quran/khatm" },
+  { id: "open-qaza", label: "openQaza", phrase: "Open Qaza", href: "/qaza" },
+  { id: "open-quran", label: "openQuran", phrase: "Open Qur'an", href: "/quran" },
+  { id: "open-adhkar", label: "openAdhkar", phrase: "Open Adhkar", href: "/zikr" },
+  { id: "open-duas", label: "openDuas", phrase: "Open Duas", href: "/dua" },
+  {
+    id: "open-calendar",
+    label: "openCalendar",
+    phrase: "Open Islamic calendar",
+    href: "/calendar",
+  },
+  { id: "open-events", label: "openEvents", phrase: "Open Islamic events", href: "/events" },
+  {
+    id: "open-daily-hadith",
+    label: "openDailyHadith",
+    phrase: "Open daily hadith",
+    href: "/hadith/daily",
+  },
+  {
+    id: "open-statistics",
+    label: "openStatistics",
+    phrase: "Open statistics",
+    href: "/statistics",
+  },
+  { id: "open-friday", label: "openFriday", phrase: "Open Jumu'ah", href: "/friday" },
+];
+
+const FALLBACK_TITLES: Record<string, string> = {
+  openTracker: "Open checklist",
+  openQibla: "Open Qibla",
+  openTasbeeh: "Open Tasbeeh",
+  openRamadan: "Open Ramadan",
+  openKhatm: "Open Khatm plan",
+  openQaza: "Open Qaza",
+  openQuran: "Open Qur'an",
+  openAdhkar: "Open Adhkar",
+  openDuas: "Open Duas",
+  openCalendar: "Open Islamic calendar",
+  openEvents: "Open Islamic events",
+  openDailyHadith: "Open daily hadith",
+  openStatistics: "Open statistics",
+  openFriday: "Open Jumu'ah",
+};
+
 /**
  * Voice / Shortcuts intents (NF-2.15). Navigation intents open the app;
  * background intents enqueue mark commands without UI. Mirrored in
@@ -42,69 +101,17 @@ const NAMED_PRAYER_INTENTS: ReadonlyArray<{ prayerId: ObligatoryPrayer; label: s
  * entity inventory).
  */
 export const INTENT_REGISTRY: IntentDefinition[] = [
-  {
-    id: "open-tracker",
-    type: "navigation",
-    titleKey: "externalCommands.intents.openTracker",
-    titleFallback: "Open checklist",
-    siriPhraseEn: "Open checklist in Munib Tracker",
-    href: "/tracker",
-    platforms: BOTH_PLATFORMS,
-  },
-  {
-    id: "open-qibla",
-    type: "navigation",
-    titleKey: "externalCommands.intents.openQibla",
-    titleFallback: "Open Qibla",
-    siriPhraseEn: "Open Qibla in Munib Tracker",
-    href: "/qibla",
-    platforms: BOTH_PLATFORMS,
-  },
-  {
-    id: "open-tasbeeh",
-    type: "navigation",
-    titleKey: "externalCommands.intents.openTasbeeh",
-    titleFallback: "Open Tasbeeh",
-    siriPhraseEn: "Open Tasbeeh in Munib Tracker",
-    href: "/tasbeeh/free",
-    platforms: BOTH_PLATFORMS,
-  },
-  {
-    id: "open-ramadan",
-    type: "navigation",
-    titleKey: "externalCommands.intents.openRamadan",
-    titleFallback: "Open Ramadan",
-    siriPhraseEn: "Open Ramadan in Munib Tracker",
-    href: "/ramadan",
-    platforms: BOTH_PLATFORMS,
-  },
-  {
-    id: "open-khatm",
-    type: "navigation",
-    titleKey: "externalCommands.intents.openKhatm",
-    titleFallback: "Open Khatm plan",
-    siriPhraseEn: "Open Khatm plan in Munib Tracker",
-    href: "/quran/khatm",
-    platforms: BOTH_PLATFORMS,
-  },
-  {
-    id: "open-qaza",
-    type: "navigation",
-    titleKey: "externalCommands.intents.openQaza",
-    titleFallback: "Open Qaza",
-    siriPhraseEn: "Open Qaza in Munib Tracker",
-    href: "/qaza",
-    platforms: BOTH_PLATFORMS,
-  },
-  {
-    id: "open-quran",
-    type: "navigation",
-    titleKey: "externalCommands.intents.openQuran",
-    titleFallback: "Open Qur'an",
-    siriPhraseEn: "Open Qur'an in Munib Tracker",
-    href: "/quran",
-    platforms: BOTH_PLATFORMS,
-  },
+  ...NAVIGATION_INTENTS.map(
+    ({ id, label, phrase, href }): IntentDefinition => ({
+      id,
+      type: "navigation",
+      titleKey: `externalCommands.intents.${label}`,
+      titleFallback: FALLBACK_TITLES[label] ?? phrase,
+      siriPhraseEn: `${phrase} in Munib Tracker`,
+      href,
+      platforms: BOTH_PLATFORMS,
+    }),
+  ),
   {
     id: "mark-current",
     type: "background",
@@ -126,6 +133,41 @@ export const INTENT_REGISTRY: IntentDefinition[] = [
       platforms: IOS_ONLY,
     }),
   ),
+  // Siri answers from the App Group snapshot without opening the app (iOS only:
+  // Android voice now runs through Gemini, which has no App Actions answers).
+  {
+    id: "next-salah",
+    type: "query",
+    titleKey: "externalCommands.intents.nextSalah",
+    titleFallback: "When is the next Salah?",
+    siriPhraseEn: "When is the next Salah in Munib Tracker",
+    platforms: IOS_ONLY,
+  },
+  {
+    id: "salah-time",
+    type: "query",
+    titleKey: "externalCommands.intents.salahTime",
+    titleFallback: "When is a Salah?",
+    siriPhraseEn: "When is Asr in Munib Tracker",
+    platforms: IOS_ONLY,
+  },
+  {
+    id: "today-progress",
+    type: "query",
+    titleKey: "externalCommands.intents.todayProgress",
+    titleFallback: "Today's Salah progress",
+    siriPhraseEn: "How is my Salah today in Munib Tracker",
+    platforms: IOS_ONLY,
+  },
+  {
+    id: "search",
+    type: "navigation",
+    titleKey: "externalCommands.intents.search",
+    titleFallback: "Search Munib Tracker",
+    siriPhraseEn: "Search for Ayat al-Kursi in Munib Tracker",
+    href: "/search",
+    platforms: ["android"],
+  },
 ];
 
 export function getIntentDeepLink(intent: IntentDefinition): string | undefined {

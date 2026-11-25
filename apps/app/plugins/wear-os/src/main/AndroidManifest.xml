@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copied into android/wear by plugins/withWearOs.cjs (edit this file, not the copy). -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <uses-feature android:name="android.hardware.type.watch" />
+  <!-- Tasbeeh counter haptics (one tick per count, a stronger pattern at the target). -->
+  <uses-permission android:name="android.permission.VIBRATE" />
+
+  <application
+    android:icon="@mipmap/ic_launcher"
+    android:roundIcon="@mipmap/ic_launcher"
+    android:label="Munib Tracker"
+    android:supportsRtl="true"
+    android:theme="@android:style/Theme.DeviceDefault">
+    <!-- Not standalone: Salah times come from the phone app (the tasbeeh works alone). -->
+    <meta-data
+      android:name="com.google.android.wearable.standalone"
+      android:value="false" />
+
+    <activity
+      android:name="expo.modules.munibwear.MainActivity"
+      android:exported="true"
+      android:label="Munib Tracker">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <!-- Exported: tiles open it through a LaunchAction, which the system UI starts. -->
+    <activity
+      android:name="expo.modules.munibwear.TasbeehActivity"
+      android:exported="true"
+      android:label="@string/wear_tasbeeh" />
+
+    <service
+      android:name="expo.modules.munibwear.MunibWearTileService"
+      android:exported="true"
+      android:label="@string/wear_next_salah"
+      android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+      <intent-filter>
+        <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+      </intent-filter>
+      <meta-data
+        android:name="androidx.wear.tiles.PREVIEW"
+        android:resource="@drawable/tile_preview" />
+    </service>
+    <service
+      android:name="expo.modules.munibwear.MunibWearTodayTileService"
+      android:exported="true"
+      android:label="@string/wear_today"
+      android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+      <intent-filter>
+        <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+      </intent-filter>
+      <meta-data
+        android:name="androidx.wear.tiles.PREVIEW"
+        android:resource="@drawable/tile_preview_today" />
+    </service>
+    <service
+      android:name="expo.modules.munibwear.MunibWearTasbeehTileService"
+      android:exported="true"
+      android:label="@string/wear_tasbeeh"
+      android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+      <intent-filter>
+        <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+      </intent-filter>
+      <meta-data
+        android:name="androidx.wear.tiles.PREVIEW"
+        android:resource="@drawable/tile_preview_tasbeeh" />
+    </service>
+
+    <service
+      android:name="expo.modules.munibwear.NextSalahComplicationService"
+      android:exported="true"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/wear_next_salah"
+      android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+      <intent-filter>
+        <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />
+      </intent-filter>
+      <meta-data
+        android:name="android.support.wearable.complications.SUPPORTED_TYPES"
+        android:value="SHORT_TEXT,LONG_TEXT" />
+      <meta-data
+        android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
+        android:value="900" />
+    </service>
+    <service
+      android:name="expo.modules.munibwear.ProgressComplicationService"
+      android:exported="true"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/wear_progress"
+      android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+      <intent-filter>
+        <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />
+      </intent-filter>
+      <meta-data
+        android:name="android.support.wearable.complications.SUPPORTED_TYPES"
+        android:value="RANGED_VALUE,SHORT_TEXT" />
+      <meta-data
+        android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
+        android:value="900" />
+    </service>
+
+    <!-- Phone pushed a new snapshot: refresh tiles + complications right away. -->
+    <service
+      android:name="expo.modules.munibwear.WearSnapshotListenerService"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+        <data
+          android:scheme="wear"
+          android:host="*"
+          android:path="/munib/widget_snapshot" />
+      </intent-filter>
+    </service>
+  </application>
+</manifest>

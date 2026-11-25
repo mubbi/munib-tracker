@@ -68,3 +68,17 @@ describe("applyExternalCommandsManifest", () => {
     expect(twice).toEqual(once);
   });
 });
+
+describe("widget refresh receiver", () => {
+  it("is declared once and never exported", () => {
+    const name = "expo.modules.munibexternalcommands.WidgetRefreshReceiver";
+    const once = applyExternalCommandsManifest(baseManifest());
+    const twice = applyExternalCommandsManifest(once);
+    const matches = application(twice).receiver.filter((r) => r.$["android:name"] === name);
+    expect(matches).toHaveLength(1);
+    expect(matches[0].$["android:exported"]).toBe("false");
+    expect(matches[0]["intent-filter"][0].action[0].$["android:name"]).toBe(
+      "app.munibtracker.action.REFRESH_WIDGETS",
+    );
+  });
+});

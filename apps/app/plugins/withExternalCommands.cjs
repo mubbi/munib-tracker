@@ -13,7 +13,11 @@ const ACTION_MARK_CURRENT = "app.munibtracker.action.MARK_CURRENT";
 const ACTION_MARK_PRAYER = "app.munibtracker.action.MARK_PRAYER";
 const ACTION_STOP_ONGOING = "expo.modules.munibexternalcommands.STOP_ONGOING";
 const ACTION_DELETE_ONGOING = "expo.modules.munibexternalcommands.DELETE_ONGOING";
+/** In-place "Mark Salah" on the Live Update / ongoing notification (no app launch). */
+const ACTION_MARK_ONGOING = "expo.modules.munibexternalcommands.MARK_ONGOING";
 const ACTION_BOUNDARY = "expo.modules.munibexternalcommands.BOUNDARY";
+const WIDGET_REFRESH_RECEIVER_CLASS = "expo.modules.munibexternalcommands.WidgetRefreshReceiver";
+const ACTION_REFRESH_WIDGETS = "app.munibtracker.action.REFRESH_WIDGETS";
 
 /**
  * Pure + idempotent: App Actions / shortcuts meta-data, the mark receiver (not exported),
@@ -102,9 +106,25 @@ function applyExternalCommandsManifest(manifest) {
           action: [
             { $: { "android:name": ACTION_STOP_ONGOING } },
             { $: { "android:name": ACTION_DELETE_ONGOING } },
+            { $: { "android:name": ACTION_MARK_ONGOING } },
           ],
         },
       ],
+    });
+  }
+
+  // Boundary alarms that redraw the home-screen widgets (each Adhan, adhkar
+  // windows, midnight). Only our own AlarmManager PendingIntent targets it.
+  const hasWidgetRefreshReceiver = app.receiver.some(
+    (r) => r.$?.["android:name"] === WIDGET_REFRESH_RECEIVER_CLASS,
+  );
+  if (!hasWidgetRefreshReceiver) {
+    app.receiver.push({
+      $: {
+        "android:name": WIDGET_REFRESH_RECEIVER_CLASS,
+        "android:exported": "false",
+      },
+      "intent-filter": [{ action: [{ $: { "android:name": ACTION_REFRESH_WIDGETS } }] }],
     });
   }
 
@@ -187,6 +207,46 @@ function withExternalCommandsAndroid(config) {
     <item>Qur\\'an</item>
     <item>read Quran</item>
   </string-array>
+  <string-array name="adhkar_synonyms" translatable="false">
+    <item>adhkar</item>
+    <item>morning adhkar</item>
+    <item>evening adhkar</item>
+    <item>zikr</item>
+  </string-array>
+  <string-array name="duas_synonyms" translatable="false">
+    <item>duas</item>
+    <item>dua</item>
+    <item>supplications</item>
+  </string-array>
+  <string-array name="calendar_synonyms" translatable="false">
+    <item>Islamic calendar</item>
+    <item>Hijri calendar</item>
+    <item>Hijri date</item>
+  </string-array>
+  <string-array name="events_synonyms" translatable="false">
+    <item>Islamic events</item>
+    <item>next Eid</item>
+    <item>Islamic holidays</item>
+  </string-array>
+  <string-array name="daily_hadith_synonyms" translatable="false">
+    <item>daily hadith</item>
+    <item>hadith of the day</item>
+  </string-array>
+  <string-array name="statistics_synonyms" translatable="false">
+    <item>statistics</item>
+    <item>Salah stats</item>
+    <item>my streak</item>
+  </string-array>
+  <string-array name="friday_synonyms" translatable="false">
+    <item>Jumu\\'ah</item>
+    <item>Jummah</item>
+    <item>Friday checklist</item>
+  </string-array>
+  <string-array name="names_synonyms" translatable="false">
+    <item>99 names of Allah</item>
+    <item>names of Allah</item>
+    <item>Asma ul Husna</item>
+  </string-array>
 </resources>
 `,
       );
@@ -238,7 +298,46 @@ function withExternalCommandsAndroid(config) {
       name="quran"
       url="munib-tracker://quran"
       alternateName="@array/quran_synonyms"/>
+    <entity
+      name="adhkar"
+      url="munib-tracker://zikr"
+      alternateName="@array/adhkar_synonyms"/>
+    <entity
+      name="duas"
+      url="munib-tracker://dua"
+      alternateName="@array/duas_synonyms"/>
+    <entity
+      name="calendar"
+      url="munib-tracker://calendar"
+      alternateName="@array/calendar_synonyms"/>
+    <entity
+      name="events"
+      url="munib-tracker://events"
+      alternateName="@array/events_synonyms"/>
+    <entity
+      name="daily-hadith"
+      url="munib-tracker://hadith/daily"
+      alternateName="@array/daily_hadith_synonyms"/>
+    <entity
+      name="statistics"
+      url="munib-tracker://statistics"
+      alternateName="@array/statistics_synonyms"/>
+    <entity
+      name="friday"
+      url="munib-tracker://friday"
+      alternateName="@array/friday_synonyms"/>
+    <entity
+      name="names-of-allah"
+      url="munib-tracker://names-of-allah"
+      alternateName="@array/names_synonyms"/>
   </entity-set>
+  <!-- "Search for Ayat al-Kursi in Munib Tracker": universal offline search. -->
+  <action intentName="actions.intent.GET_THING">
+    <fulfillment urlTemplate="munib-tracker://search{?q}">
+      <parameter-mapping intentParameter="thing.name" urlParameter="q"/>
+    </fulfillment>
+    <fulfillment urlTemplate="munib-tracker://search"/>
+  </action>
 </actions>
 `,
       );

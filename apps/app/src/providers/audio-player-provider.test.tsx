@@ -424,7 +424,6 @@ describe("AudioPlayerProvider remote playback", () => {
       A(),
       queue[0],
       expect.objectContaining({ queueIndex: 0, queueLength: 3 }),
-      "r1",
     );
   });
 
@@ -873,7 +872,6 @@ describe("AudioPlayerProvider auto-advance", () => {
       B(),
       queue[1],
       expect.objectContaining({ queueIndex: 1 }),
-      "r2",
     );
   });
 

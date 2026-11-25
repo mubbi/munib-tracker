@@ -1,3 +1,5 @@
+const tokens = require("../../plugins/generated/native-tokens.json");
+
 /** @type {import('@bacons/apple-targets/app.plugin').ConfigFunction} */
 module.exports = (config) => {
   const mainBundleId = config.ios?.bundleIdentifier ?? "app.munibtracker";
@@ -11,8 +13,8 @@ module.exports = (config) => {
     displayName: "Munib Tracker",
     deploymentTarget: "10.0",
     colors: {
-      $widgetBackground: "#FFFDF9",
-      $accent: "#059669",
+      $widgetBackground: { light: tokens.light.card, dark: tokens.dark.card },
+      $accent: { light: tokens.defaultAccent.light, dark: tokens.defaultAccent.dark },
     },
     entitlements: {
       "com.apple.security.application-groups": [

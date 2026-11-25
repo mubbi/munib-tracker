@@ -29,8 +29,20 @@ jest.mock("@/lib/daily-hadith", () => ({ ensureDailyHadithPool: jest.fn(async ()
 jest.mock("@/lib/external-commands/native-bridge", () => ({
   nativePublishAndroidWidgetPreviews: jest.fn(async () => undefined),
   nativePushWearSnapshot: jest.fn(async () => undefined),
+  nativeScheduleWidgetRefresh: jest.fn(async () => undefined),
 }));
+jest.mock("@/hooks/use-adhkar-clock", () => ({
+  useAdhkarClock: () => ({ date: "2026-07-03" }),
+}));
+jest.mock("@/hooks/use-adhkar-day-counts", () => ({
+  useAdhkarDayCounts: () => ({ counts: mockAdhkarCounts }),
+}));
+const mockAdhkarCounts = { "zikr-1": 3 };
 jest.mock("@/lib/live-activity", () => ({ syncLiveActivity: jest.fn(async () => undefined) }));
+const mockSyncTvHome = jest.fn(async () => null);
+jest.mock("@/lib/tv-home/sync", () => ({
+  syncTvHomeSurfaces: (...args: unknown[]) => mockSyncTvHome(...(args as [])),
+}));
 jest.mock("@/lib/ongoing-notification", () => ({
   syncOngoingNotification: jest.fn(async () => undefined),
 }));
@@ -216,11 +228,14 @@ describe("useWidgetSnapshotSync", () => {
     await unmount();
   });
 
-  it("does nothing on TV", async () => {
+  it("feeds the TV home surfaces instead of widgets on TV", async () => {
     restorePlatform = setPlatform({ isTV: true });
     const { unmount } = await setup();
     await flushSync();
-    expect(buildMock).not.toHaveBeenCalled();
+    expect(buildMock).toHaveBeenCalled();
+    expect(mockSyncTvHome).toHaveBeenCalledWith(expect.anything(), expect.any(Function));
+    expect(writeWidgetSnapshot).not.toHaveBeenCalled();
+    expect(syncLiveActivity).not.toHaveBeenCalled();
     await unmount();
   });
 

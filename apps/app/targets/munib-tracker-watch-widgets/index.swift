@@ -10,5 +10,7 @@ struct MunibTrackerWatchWidgetsBundle: WidgetBundle {
     WatchStreakComplication()
     WatchQazaComplication()
     WatchRamadanComplication()
+    WatchHijriDateComplication()
+    WatchTasbeehComplication()
   }
 }

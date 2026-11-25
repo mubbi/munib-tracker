@@ -1,4 +1,5 @@
 import { buildWidgetSnapshot } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
+import { buildLiveActivityPushSchedule } from "@/lib/live-activity/schedule";
 import { buildLiveActivityState } from "@/lib/live-activity/state";
 import { DEFAULT_LOCATION } from "@/lib/location";
 
@@ -150,5 +151,71 @@ describe("buildLiveActivityState", () => {
     expect(state.phase).toBe("upcoming");
     expect(state.prayerId).toBe(snapshot.nextPrayer.prayerId);
     expect(state.actionLabel).toBe("Prepare");
+  });
+
+  describe("Lock Screen status row and in-place Mark Salah", () => {
+    function markPhaseSnapshot() {
+      const snapshot = makeSnapshot();
+      const currentAt = new Date("2026-07-06T09:00:00.000Z").getTime();
+      snapshot.nextPrayer.currentPrayerId = "asr";
+      snapshot.nextPrayer.currentPrayerName = "Asr";
+      snapshot.nextPrayer.currentPrayerAtMs = currentAt;
+      const asr = snapshot.schedule.rows.find((row) => row.id === "asr");
+      if (asr) asr.status = "pending";
+      snapshot.progress.completed = 2;
+      return { snapshot, now: new Date(currentAt + 5 * 60_000) };
+    }
+
+    it("lists today's obligatory Salah with their marked state", () => {
+      const snapshot = makeSnapshot();
+      const state = buildLiveActivityState(snapshot, new Date("2026-07-06T09:00:00.000Z"));
+
+      expect(state.daySalah).toEqual(
+        snapshot.schedule.rows.map((row) => ({ id: row.id, done: row.status === "completed" })),
+      );
+      expect(state.staleLabel).toBe(snapshot.strings.staleData);
+      expect(state.confirmationLabel).toBe(snapshot.strings.done);
+    });
+
+    it("precomputes the after-Mark state during the mark window", () => {
+      const { snapshot, now } = markPhaseSnapshot();
+      const state = buildLiveActivityState(snapshot, now);
+
+      expect(state.phase).toBe("markSalah");
+      expect(state.markedActionLabel).toBe(snapshot.strings.afterSalahAdhkar);
+      expect(state.markedActionDeepLink).toContain("zikr/after_prayer?prayer=asr");
+      expect(state.markedProgressLabel).toBe("3/5");
+      expect(state.markedProgressPercent).toBe(60);
+    });
+
+    it("offers no in-place Mark outside the mark window", () => {
+      const state = buildLiveActivityState(makeSnapshot(), new Date("2026-07-06T09:00:00.000Z"));
+
+      expect(state.phase).toBe("upcoming");
+      expect(state.markedActionLabel).toBe("");
+      expect(state.markedActionDeepLink).toBe("");
+      expect(state.markedProgressLabel).toBe("");
+    });
+
+    it("never pushes past the 5 of 5 total", () => {
+      const { snapshot, now } = markPhaseSnapshot();
+      snapshot.progress.completed = 5;
+
+      expect(buildLiveActivityState(snapshot, now).markedProgressLabel).toBe("5/5");
+    });
+
+    it("keeps every pushed content state under the API's ActivityKit byte cap", () => {
+      // MAX_CONTENT_STATE_BYTES (packages/live-activity-delivery) is 3,500. Double
+      // every string to approximate 2-byte UTF-8 scripts (Arabic, Urdu, Cyrillic).
+      const { snapshot, now } = markPhaseSnapshot();
+      const states = [
+        buildLiveActivityState(snapshot, now),
+        ...buildLiveActivityPushSchedule(snapshot, now).map((u) => u.contentState),
+      ];
+      for (const state of states) {
+        const wide = JSON.stringify(state, (_k, v) => (typeof v === "string" ? v + v : v));
+        expect(Buffer.byteLength(wide)).toBeLessThan(3_500);
+      }
+    });
   });
 });

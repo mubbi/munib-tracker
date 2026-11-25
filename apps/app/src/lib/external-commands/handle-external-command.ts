@@ -1,5 +1,8 @@
 import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
 
+import { computeLocationPrayerTimes, type StoredLocation } from "@/lib/location";
+import { hasValidPrayerTimes } from "@/lib/prayer-times";
+import { prayerDayAnchor } from "@/lib/timezone-anchor";
 import { locationStore } from "@/stores/location-store";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -11,6 +14,22 @@ export type HandleExternalCommandOptions = {
   defer?: boolean;
   now?: Date;
 };
+
+/**
+ * True when `prayerId`'s Adhan today is still ahead of `now`. A named mark from
+ * a widget row, Siri ("Mark Isha") or the watch must not log a Salah before its
+ * time has begun. Unknown times (polar night, bad location) never block.
+ */
+function hasNotStarted(location: StoredLocation, prayerId: ObligatoryPrayer, now: Date): boolean {
+  try {
+    const times = computeLocationPrayerTimes(location, prayerDayAnchor(now, location.timeZone));
+    if (!hasValidPrayerTimes(times)) return false;
+    const at = times[prayerId];
+    return at instanceof Date && now.getTime() < at.getTime();
+  } catch {
+    return false;
+  }
+}
 
 export async function handleExternalCommand(
   command: ExternalCommand,
@@ -52,6 +71,9 @@ export async function handleExternalCommand(
     }
     if (!isObligatoryPrayerId(command.prayerId)) {
       return { ok: false, reason: "invalid_prayer" };
+    }
+    if (hasNotStarted(location, command.prayerId, now)) {
+      return { ok: false, reason: "not_started" };
     }
     prayerId = command.prayerId;
   } else {

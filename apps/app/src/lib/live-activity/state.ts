@@ -55,6 +55,36 @@ export interface LiveActivityState {
   textPrimary: string;
   textSecondary: string;
   updatedAt: string;
+  /** Today's obligatory Salah in order, for the Lock Screen / island dot row. */
+  daySalah: LiveActivityDaySalah[];
+  /** Caption shown while ActivityKit marks the activity stale. */
+  staleLabel: string;
+  /** "Done" badge, shown when the displayed Salah is already marked. */
+  confirmationLabel: string;
+  /**
+   * Precomputed after-Mark content for the in-place **Mark Salah** button
+   * (`MarkSalahLiveActivityIntent`). Empty strings outside the `markSalah` phase,
+   * which also hides the in-place button (native falls back to a deep link).
+   */
+  markedActionLabel: string;
+  markedActionDeepLink: string;
+  markedProgressLabel: string;
+  markedProgressPercent: number;
+}
+
+/** One obligatory Salah in the Live Activity status row. */
+export interface LiveActivityDaySalah {
+  id: string;
+  done: boolean;
+}
+
+/** Today's progress label once one more Salah is marked (matches `progress.progressLabel`). */
+function markedProgress(completed: number, total: number): { label: string; percent: number } {
+  const next = Math.min(total, completed + 1);
+  return {
+    label: `${next}/${total}`,
+    percent: total > 0 ? Math.round((next / total) * 100) : 0,
+  };
 }
 
 /**
@@ -75,6 +105,13 @@ export function buildLiveActivityState(
   const livePhase: LiveActivityPhase = phase === "ended" ? "afterSalah" : phase;
   const showingCurrentPrayer = livePhase !== "upcoming";
   const action = actionForPhase(livePhase, snapshot);
+  const daySalah: LiveActivityDaySalah[] = (snapshot.schedule?.rows ?? []).map((row) => ({
+    id: row.id,
+    done: row.status === "completed",
+  }));
+  const canMark = livePhase === "markSalah";
+  const afterMark = canMark ? actionForPhase("afterSalah", snapshot) : null;
+  const marked = markedProgress(progress.completed, progress.total);
 
   return {
     prayerId: showingCurrentPrayer ? nextPrayer.currentPrayerId : nextPrayer.prayerId,
@@ -108,6 +145,13 @@ export function buildLiveActivityState(
     textPrimary: theme.textPrimary,
     textSecondary: theme.textSecondary,
     updatedAt: snapshot.updatedAt,
+    daySalah,
+    staleLabel: snapshot.strings.staleData,
+    confirmationLabel: snapshot.strings.done,
+    markedActionLabel: afterMark?.actionLabel ?? "",
+    markedActionDeepLink: afterMark?.actionDeepLink ?? "",
+    markedProgressLabel: canMark ? marked.label : "",
+    markedProgressPercent: canMark ? marked.percent : 0,
   };
 }
 
