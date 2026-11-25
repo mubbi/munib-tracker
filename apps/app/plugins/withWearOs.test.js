@@ -11,9 +11,16 @@ const { TEMPLATE_DIR, writeWearModule } = require("./withWearOs.cjs");
  * which silently blanked the tile and dropped every tap-to-mark.
  */
 const KOTLIN_DIR = path.join(TEMPLATE_DIR, "src/main/java/expo/modules/munibwear");
+/** Every file under `dir`, as `/`-separated paths relative to it. */
+function listFiles(dir, prefix = "") {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const rel = prefix ? `${prefix}/${entry.name}` : entry.name;
+    return entry.isDirectory() ? listFiles(path.join(dir, entry.name), rel) : [rel];
+  });
+}
+// Keyed by path relative to KOTLIN_DIR (e.g. "tasbeeh/TasbeehScreen.kt").
 const kotlin = Object.fromEntries(
-  fs
-    .readdirSync(KOTLIN_DIR)
+  listFiles(KOTLIN_DIR)
     .filter((name) => name.endsWith(".kt"))
     .map((name) => [name, fs.readFileSync(path.join(KOTLIN_DIR, name), "utf8")]),
 );
@@ -75,8 +82,116 @@ describe("withWearOs generated module", () => {
   });
 
   it("only marks a Salah whose time has begun", () => {
-    expect(kotlin["MunibWearTileService.kt"]).toContain("if (day.isMarkable(prayerId))");
+    expect(kotlin["MunibWearTileService.kt"]).toContain("if (!day.isMarkable(prayerId))");
     expect(kotlin["WearSnapshot.kt"]).toContain("it.phase == RowPhase.BEGUN_PENDING");
+  });
+
+  it("queues every wrist mark durably and retries it until the phone confirms (E-38)", () => {
+    const dataLayer = kotlin["WearDataLayer.kt"];
+    // Queued (commit, on disk) before the Data Layer write; never removed on a failed write.
+    expect(dataLayer).toMatch(
+      /WearMarks\.enqueue\(context, date, prayerId\)\s+syncMarks\(context\)/,
+    );
+    expect(dataLayer).toContain(".commit()");
+    expect(dataLayer).not.toContain("WearMarks.remove(");
+    // Retries reuse the queued id, so the DataItem path (and the phone's de-dup key) is stable.
+    expect(dataLayer).toMatch(/PutDataMapRequest\.create\("\$MARK_PATH_PREFIX\$\{mark\.id\}"\)/);
+    // Receipts: the phone's delete, or a snapshot showing the Salah completed.
+    expect(dataLayer).toContain("DataClient.FILTER_PREFIX");
+    expect(kotlin["WearSnapshotListenerService.kt"]).toContain("DataEvent.TYPE_DELETED");
+    expect(kotlin["WearSnapshotListenerService.kt"]).toContain("override fun onCapabilityChanged");
+    expect(manifest).toContain('android:pathPrefix="/munib/mark/"');
+    expect(manifest).toContain("com.google.android.gms.wearable.CAPABILITY_CHANGED");
+    expect(manifest).toContain('android:path="/munib_phone_app"');
+    // Queued marks are retried, and stay visible ("Will sync"), on the tiles and home screen.
+    for (const name of [
+      "MunibWearTileService.kt",
+      "MunibWearTodayTileService.kt",
+      "MainActivity.kt",
+    ]) {
+      expect(kotlin[name]).toContain("WearDataLayer.syncMarks(applicationContext)");
+    }
+    expect(phoneListener).toContain("firstDelivery(applicationContext, markId)");
+  });
+
+  it("separates the tile's Mark action from the open-app body and asks to confirm (E-37)", () => {
+    const tile = kotlin["MunibWearTileService.kt"];
+    expect(tile).toContain("CLICK_CONFIRM_PREFIX");
+    expect(tile).toContain("WearMarks.arm(service, prayerId, nowMs)");
+    expect(tile).toContain("WearMarks.consumeClick(service, clickId)");
+    // The body is its own clickable, a sibling of the chip, never its parent.
+    expect(tile).toContain("addContent(openArea(openApp, description, info.build()))");
+    const today = kotlin["MunibWearTodayTileService.kt"];
+    const root = today.slice(today.indexOf("private fun root("));
+    expect(root).not.toContain("setClickable");
+  });
+
+  it("keeps the Tasbeeh tile a glance with exactly one clickable (N-25)", () => {
+    const tile = kotlin["MunibWearTasbeehTileService.kt"];
+    expect(tile.match(/clickable\(/g)).toHaveLength(1);
+    expect(tile).toContain("launchActivity(this, TasbeehActivity::class.java.name)");
+    expect(tile).not.toContain("lastClickableId");
+  });
+
+  it("builds the tasbeeh counter in Compose for Wear OS (D-UX4)", () => {
+    const gradle = fs.readFileSync(path.join(TEMPLATE_DIR, "build.gradle"), "utf8");
+    expect(gradle).toContain("apply plugin: 'org.jetbrains.kotlin.plugin.compose'");
+    expect(gradle).toMatch(/compose\.gradle\.plugin:\$\{rootKotlinVersion\}/);
+    expect(gradle).toMatch(/buildFeatures \{[^}]*compose true/);
+    expect(gradle).toContain("'androidx.wear.compose:compose-material3:1.7.2'");
+    expect(gradle).toContain("'androidx.wear.compose:compose-foundation:1.7.2'");
+    expect(gradle).toContain("'androidx.activity:activity-compose:1.13.0'");
+
+    const activity = kotlin["TasbeehActivity.kt"];
+    expect(activity).toContain("class TasbeehActivity : ComponentActivity()");
+    expect(activity).toContain("WearTasbeehStore.save(this, result.state)");
+    // Battery / AOD: no keep-screen-on, no ambient opt-in.
+    expect(allKotlin).not.toContain("FLAG_KEEP_SCREEN_ON");
+    expect(allKotlin).not.toContain("AmbientLifecycleObserver");
+
+    const screen = kotlin["tasbeeh/TasbeehScreen.kt"];
+    for (const api of [
+      "onRotaryScrollEvent",
+      "requestFocusOnHierarchyActive()",
+      "ScalingLazyColumn(",
+      "AppScaffold",
+      "ScreenScaffold(",
+      "EdgeButton(",
+      "AlertDialog(",
+      "SwipeToDismissBox(",
+      "LiveRegionMode.Polite",
+      "onClickLabel = strings.countOne",
+    ]) {
+      expect(screen).toContain(api);
+    }
+    // Colours only through the generated tokens.
+    expect(screen).not.toMatch(/0x[0-9A-Fa-f]{6,8}/);
+    expect(kotlin["WearShared.kt"]).not.toMatch(/0x[0-9A-Fa-f]{6,8}/);
+    // The reducer stays pure Kotlin (JVM-testable).
+    expect(kotlin["tasbeeh/TasbeehState.kt"]).not.toMatch(/^import android/m);
+  });
+
+  it("defines every Wear string in all 24 app locales", () => {
+    const keysOf = (folder) =>
+      [
+        ...fs
+          .readFileSync(path.join(TEMPLATE_DIR, `src/main/res/${folder}/strings.xml`), "utf8")
+          .matchAll(/<string name="([^"]+)"/g),
+      ]
+        .map((m) => m[1])
+        .sort();
+    const en = keysOf("values");
+    const locales = fs
+      .readdirSync(path.join(__dirname, "../src/i18n"))
+      .filter((f) => /^[a-z]{2}\.json$/.test(f))
+      .map((f) => f.slice(0, 2));
+    expect(locales).toHaveLength(24);
+    // Android still files Indonesian under the legacy `in` code.
+    const folderOf = (loc) => (loc === "en" ? "values" : `values-${loc === "id" ? "in" : loc}`);
+    for (const loc of locales)
+      expect({ loc, keys: keysOf(folderOf(loc)) }).toEqual({ loc, keys: en });
+    const used = new Set([...allKotlin.matchAll(/R\.string\.(\w+)/g)].map((m) => m[1]));
+    for (const key of used) expect(en).toContain(key);
   });
 
   it("registers the app, tiles, complications and snapshot listener", () => {
@@ -123,9 +238,17 @@ describe("withWearOs generated module", () => {
     try {
       const wearDir = writeWearModule(androidRoot, path.join(__dirname, ".."));
       expect(fs.existsSync(path.join(wearDir, "build.gradle"))).toBe(true);
-      expect(
-        fs.existsSync(path.join(wearDir, "src/main/java/expo/modules/munibwear/MainActivity.kt")),
-      ).toBe(true);
+      // Every source file is copied, nested packages included.
+      const copiedKotlin = listFiles(path.join(wearDir, "src/main/java/expo/modules/munibwear"));
+      expect(copiedKotlin.sort()).toEqual(Object.keys(kotlin).sort());
+      expect(Object.keys(kotlin)).toEqual(
+        expect.arrayContaining([
+          "MainActivity.kt",
+          "TasbeehActivity.kt",
+          "tasbeeh/TasbeehScreen.kt",
+          "tasbeeh/TasbeehState.kt",
+        ]),
+      );
       expect(
         fs.existsSync(
           path.join(wearDir, "src/main/res/drawable-xxxhdpi/ic_launcher_foreground.png"),

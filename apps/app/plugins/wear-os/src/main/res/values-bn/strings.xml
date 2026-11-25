@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">পরবর্তী সালাত</string>
+  <string name="wear_today">আজকের সময়সূচি</string>
+  <string name="wear_tasbeeh">তাসবীহ</string>
+  <string name="wear_progress">আজকের অগ্রগতি</string>
+  <string name="wear_open_phone">সিঙ্ক করতে আপনার ফোনে Munib Tracker খুলুন</string>
+  <string name="wear_connect_phone">সালাতের সময় দেখতে আপনার ফোন সংযুক্ত করুন</string>
+  <string name="wear_install_phone">সালাতের সময় দেখতে আপনার ফোনে Munib Tracker ইনস্টল করুন</string>
+  <string name="wear_tasbeeh_standalone">ফোন ছাড়াও আপনার ঘড়িতে তাসবীহ চলে</string>
+  <string name="wear_tasbeeh_of_target">%1$d এর</string>
+  <string name="wear_tasbeeh_unlimited">সীমাহীন</string>
+  <string name="wear_tasbeeh_options">অপশন</string>
+  <string name="wear_tasbeeh_undo">শেষটি পূর্বাবস্থায় ফেরান</string>
+  <string name="wear_tasbeeh_target">লক্ষ্য</string>
+  <string name="wear_tasbeeh_mode">মোড</string>
+  <string name="wear_tasbeeh_free">মুক্ত গণনা</string>
+  <string name="wear_tasbeeh_after_salah">সালাতের পর</string>
+  <string name="wear_tasbeeh_reset">রিসেট</string>
+  <string name="wear_tasbeeh_reset_confirm">গণনা ০-তে রিসেট করবেন?</string>
+  <string name="wear_tasbeeh_start_again">আবার শুরু করুন</string>
+  <string name="wear_tasbeeh_all_done">তাসবীহ সম্পন্ন</string>
+  <string name="wear_tasbeeh_step">ধাপ %1$d / %2$d</string>
+  <string name="wear_tasbeeh_target_reached">লক্ষ্যে পৌঁছেছে</string>
+  <string name="wear_tasbeeh_tap_to_count">গণনা করতে ট্যাপ করুন</string>
+  <string name="wear_tasbeeh_a11y">তাসবীহ কাউন্টার, %2$d এর মধ্যে %1$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">তাসবীহ কাউন্টার, %1$d</string>
+  <string name="wear_tasbeeh_count_one">একটি গণনা করুন</string>
+  <string name="wear_open">খুলুন</string>
+  <string name="wear_open_app">Munib Tracker খুলুন</string>
+  <string name="wear_mark_confirm">এই সালাত আদায় হিসেবে চিহ্নিত করবেন?</string>
+  <string name="wear_confirm">নিশ্চিত</string>
+  <string name="wear_marked">চিহ্নিত ✓</string>
+  <string name="wear_mark_sent">আপনার ফোনে পাঠানো হয়েছে</string>
+  <string name="wear_mark_will_sync">আপনার ফোন কাছে এলে সিঙ্ক হবে</string>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Prochaine Salah</string>
+  <string name="wear_today">Programme du jour</string>
+  <string name="wear_tasbeeh">Tasbeeh</string>
+  <string name="wear_progress">Progression du jour</string>
+  <string name="wear_open_phone">Ouvrez Munib Tracker sur votre téléphone pour synchroniser</string>
+  <string name="wear_connect_phone">Connectez votre téléphone pour voir les horaires de Salah</string>
+  <string name="wear_install_phone">Installez Munib Tracker sur votre téléphone pour voir les horaires de Salah</string>
+  <string name="wear_tasbeeh_standalone">Le Tasbeeh fonctionne sur votre montre sans le téléphone</string>
+  <string name="wear_tasbeeh_of_target">sur %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Illimité</string>
+  <string name="wear_tasbeeh_options">Options</string>
+  <string name="wear_tasbeeh_undo">Défaire le dernier</string>
+  <string name="wear_tasbeeh_target">Objectif</string>
+  <string name="wear_tasbeeh_mode">Mode</string>
+  <string name="wear_tasbeeh_free">Compte libre</string>
+  <string name="wear_tasbeeh_after_salah">Après la Salah</string>
+  <string name="wear_tasbeeh_reset">Réinitialiser</string>
+  <string name="wear_tasbeeh_reset_confirm">Remettre le compteur à 0 ?</string>
+  <string name="wear_tasbeeh_start_again">Recommencer</string>
+  <string name="wear_tasbeeh_all_done">Tasbeeh terminé</string>
+  <string name="wear_tasbeeh_step">Étape %1$d sur %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Objectif atteint</string>
+  <string name="wear_tasbeeh_tap_to_count">Touchez pour compter</string>
+  <string name="wear_tasbeeh_a11y">Compteur de Tasbeeh, %1$d sur %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Compteur de Tasbeeh, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Compter un</string>
+  <string name="wear_open">Ouvrir</string>
+  <string name="wear_open_app">Ouvrir Munib Tracker</string>
+  <string name="wear_mark_confirm">Marquer cette Salah comme accomplie ?</string>
+  <string name="wear_confirm">Confirmer</string>
+  <string name="wear_marked">Marquée ✓</string>
+  <string name="wear_mark_sent">Envoyé à votre téléphone</string>
+  <string name="wear_mark_will_sync">Se synchronisera quand votre téléphone sera à proximité</string>
+</resources>

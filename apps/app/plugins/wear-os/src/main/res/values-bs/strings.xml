@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Sljedeći namaz</string>
+  <string name="wear_today">Današnji raspored</string>
+  <string name="wear_tasbeeh">Tesbih</string>
+  <string name="wear_progress">Današnji napredak</string>
+  <string name="wear_open_phone">Otvorite Munib Tracker na telefonu radi sinhronizacije</string>
+  <string name="wear_connect_phone">Povežite telefon da vidite vremena namaza</string>
+  <string name="wear_install_phone">Instalirajte Munib Tracker na telefon da vidite vremena namaza</string>
+  <string name="wear_tasbeeh_standalone">Tesbih radi na satu i bez telefona</string>
+  <string name="wear_tasbeeh_of_target">od %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Neograničeno</string>
+  <string name="wear_tasbeeh_options">Opcije</string>
+  <string name="wear_tasbeeh_undo">Poništi posljednje</string>
+  <string name="wear_tasbeeh_target">Cilj</string>
+  <string name="wear_tasbeeh_mode">Način</string>
+  <string name="wear_tasbeeh_free">Slobodno brojanje</string>
+  <string name="wear_tasbeeh_after_salah">Poslije namaza</string>
+  <string name="wear_tasbeeh_reset">Resetuj</string>
+  <string name="wear_tasbeeh_reset_confirm">Resetovati brojanje na 0?</string>
+  <string name="wear_tasbeeh_start_again">Počni ponovo</string>
+  <string name="wear_tasbeeh_all_done">Tesbih završen</string>
+  <string name="wear_tasbeeh_step">Korak %1$d od %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Cilj dostignut</string>
+  <string name="wear_tasbeeh_tap_to_count">Dodirnite za brojanje</string>
+  <string name="wear_tasbeeh_a11y">Brojač tesbiha, %1$d od %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Brojač tesbiha, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Brojanje za jedan</string>
+  <string name="wear_open">Otvori</string>
+  <string name="wear_open_app">Otvori Munib Tracker</string>
+  <string name="wear_mark_confirm">Označiti ovaj namaz kao klanjan?</string>
+  <string name="wear_confirm">Potvrdi</string>
+  <string name="wear_marked">Označeno ✓</string>
+  <string name="wear_mark_sent">Poslano na vaš telefon</string>
+  <string name="wear_mark_will_sync">Sinhronizovat će se kada telefon bude u blizini</string>
+</resources>

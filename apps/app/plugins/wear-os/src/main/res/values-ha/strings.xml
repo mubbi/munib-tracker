@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Salah ta gaba</string>
+  <string name="wear_today">Jadawalin yau</string>
+  <string name="wear_tasbeeh">Tasbihi</string>
+  <string name="wear_progress">Ci gaban yau</string>
+  <string name="wear_open_phone">Buɗe Munib Tracker a wayarka don daidaitawa</string>
+  <string name="wear_connect_phone">Haɗa wayarka don ganin lokutan Salah</string>
+  <string name="wear_install_phone">Shigar da Munib Tracker a wayarka don ganin lokutan Salah</string>
+  <string name="wear_tasbeeh_standalone">Tasbihi yana aiki a agogonka ba tare da waya ba</string>
+  <string name="wear_tasbeeh_of_target">na %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Marar iyaka</string>
+  <string name="wear_tasbeeh_options">Zaɓuɓɓuka</string>
+  <string name="wear_tasbeeh_undo">Janye na ƙarshe</string>
+  <string name="wear_tasbeeh_target">Manufa</string>
+  <string name="wear_tasbeeh_mode">Yanayi</string>
+  <string name="wear_tasbeeh_free">Ƙidaya kyauta</string>
+  <string name="wear_tasbeeh_after_salah">Bayan Salah</string>
+  <string name="wear_tasbeeh_reset">Sake saita</string>
+  <string name="wear_tasbeeh_reset_confirm">A sake saita ƙidaya zuwa 0?</string>
+  <string name="wear_tasbeeh_start_again">Sake farawa</string>
+  <string name="wear_tasbeeh_all_done">An kammala Tasbihi</string>
+  <string name="wear_tasbeeh_step">Mataki %1$d na %2$d</string>
+  <string name="wear_tasbeeh_target_reached">An kai manufa</string>
+  <string name="wear_tasbeeh_tap_to_count">Taɓa don ƙirga</string>
+  <string name="wear_tasbeeh_a11y">Na\'urar ƙidayar Tasbihi, %1$d na %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Na\'urar ƙidayar Tasbihi, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Ƙidaya ɗaya</string>
+  <string name="wear_open">Buɗe</string>
+  <string name="wear_open_app">Buɗe Munib Tracker</string>
+  <string name="wear_mark_confirm">A yi alamar an yi wannan Salah?</string>
+  <string name="wear_confirm">Tabbatar</string>
+  <string name="wear_marked">An yi alama ✓</string>
+  <string name="wear_mark_sent">An aika zuwa wayarka</string>
+  <string name="wear_mark_will_sync">Za a daidaita idan wayarka tana kusa</string>
+</resources>

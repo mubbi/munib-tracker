@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Salah ijayo</string>
+  <string name="wear_today">Ratiba ya leo</string>
+  <string name="wear_tasbeeh">Tasbihi</string>
+  <string name="wear_progress">Maendeleo ya leo</string>
+  <string name="wear_open_phone">Fungua Munib Tracker kwenye simu yako ili kusawazisha</string>
+  <string name="wear_connect_phone">Unganisha simu yako uone nyakati za Salah</string>
+  <string name="wear_install_phone">Sakinisha Munib Tracker kwenye simu yako uone nyakati za Salah</string>
+  <string name="wear_tasbeeh_standalone">Tasbihi inafanya kazi kwenye saa yako bila simu</string>
+  <string name="wear_tasbeeh_of_target">kati ya %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Bila kikomo</string>
+  <string name="wear_tasbeeh_options">Chaguo</string>
+  <string name="wear_tasbeeh_undo">Tendua ya mwisho</string>
+  <string name="wear_tasbeeh_target">Lengo</string>
+  <string name="wear_tasbeeh_mode">Hali</string>
+  <string name="wear_tasbeeh_free">Hesabu huru</string>
+  <string name="wear_tasbeeh_after_salah">Baada ya Salah</string>
+  <string name="wear_tasbeeh_reset">Weka upya</string>
+  <string name="wear_tasbeeh_reset_confirm">Weka upya hesabu kuwa 0?</string>
+  <string name="wear_tasbeeh_start_again">Anza tena</string>
+  <string name="wear_tasbeeh_all_done">Tasbihi imekamilika</string>
+  <string name="wear_tasbeeh_step">Hatua %1$d kati ya %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Lengo limefikiwa</string>
+  <string name="wear_tasbeeh_tap_to_count">Gusa ili kuhesabu</string>
+  <string name="wear_tasbeeh_a11y">Kihesabu cha Tasbihi, %1$d kati ya %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Kihesabu cha Tasbihi, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Hesabu moja</string>
+  <string name="wear_open">Fungua</string>
+  <string name="wear_open_app">Fungua Munib Tracker</string>
+  <string name="wear_mark_confirm">Weka alama kuwa Salah hii imeswaliwa?</string>
+  <string name="wear_confirm">Thibitisha</string>
+  <string name="wear_marked">Imewekwa alama ✓</string>
+  <string name="wear_mark_sent">Imetumwa kwenye simu yako</string>
+  <string name="wear_mark_will_sync">Itasawazishwa simu yako ikiwa karibu</string>
+</resources>

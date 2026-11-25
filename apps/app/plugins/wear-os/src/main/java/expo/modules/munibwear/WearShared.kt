@@ -3,9 +3,12 @@ package expo.modules.munibwear
 import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.wear.protolayout.ColorBuilders.argb
 import androidx.wear.tiles.TileService
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
+import expo.modules.munibwear.tasbeeh.TasbeehMode
+import expo.modules.munibwear.tasbeeh.TasbeehState
 
 /**
  * Dark Wear palette — values come from `WearTokens.generated.kt` (theme package). Only the
@@ -19,7 +22,7 @@ internal object WearColors {
   const val TRACK = WearTokens.MUTED
   const val SUCCESS = WearTokens.SUCCESS
   const val WARNING = WearTokens.WARNING
-  const val BACKGROUND = 0xFF000000.toInt()
+  const val BACKGROUND = Color.BLACK
 
   val textProp get() = argb(TEXT)
   val secondaryProp get() = argb(SECONDARY)
@@ -64,8 +67,9 @@ internal object WearRefresh {
 }
 
 /**
- * Watch-local tasbeeh shared by the Tasbeeh tile and [TasbeehActivity]
- * (SharedPreferences `munib_wear_tasbeeh`). Never talks to the phone.
+ * Watch-local tasbeeh shared by the Tasbeeh tile, the home screen and the Compose counter
+ * (SharedPreferences `munib_wear_tasbeeh`). Never talks to the phone. The keys predate the
+ * Compose counter, so counts made with older watch builds carry over.
  */
 internal object WearTasbeehStore {
   private const val PREFS = "munib_wear_tasbeeh"
@@ -74,56 +78,42 @@ internal object WearTasbeehStore {
   private const val KEY_MODE = "mode"
   private const val KEY_SEQ_STEP = "seq_step"
   private const val KEY_SEQ_COUNT = "seq_count"
+  private const val KEY_DATE = "date"
 
-  const val MODE_FREE = "free"
-  const val MODE_SEQUENCE = "sequence"
-  val TARGETS = listOf(33, 99, 100, 0)
+  private const val MODE_FREE = "free"
+  private const val MODE_SEQUENCE = "sequence"
 
-  fun prefs(context: Context): SharedPreferences =
+  private fun prefs(context: Context): SharedPreferences =
     context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
+  /** Free-mode count (home screen entry). */
   fun count(context: Context) = prefs(context).getInt(KEY_COUNT, 0)
-  fun target(context: Context) = prefs(context).getInt(KEY_TARGET, 33)
-  fun mode(context: Context) = prefs(context).getString(KEY_MODE, MODE_FREE) ?: MODE_FREE
-  fun sequenceStep(context: Context) = prefs(context).getInt(KEY_SEQ_STEP, 0)
-  fun sequenceCount(context: Context) = prefs(context).getInt(KEY_SEQ_COUNT, 0)
 
-  /** +1 (capped at the target when one is set). Returns true when this tap reached the target. */
-  @Synchronized
-  fun increment(context: Context): Boolean {
-    val target = target(context)
-    val current = count(context)
-    if (target > 0 && current >= target) return false
-    val next = current + 1
-    prefs(context).edit().putInt(KEY_COUNT, next).apply()
-    return target > 0 && next >= target
+  fun load(context: Context): TasbeehState {
+    val prefs = prefs(context)
+    return TasbeehState(
+      count = prefs.getInt(KEY_COUNT, 0).coerceAtLeast(0),
+      target = prefs.getInt(KEY_TARGET, TasbeehState.DEFAULT_TARGET).coerceAtLeast(0),
+      mode = if (prefs.getString(KEY_MODE, MODE_FREE) == MODE_SEQUENCE) TasbeehMode.SEQUENCE else TasbeehMode.FREE,
+      step = prefs.getInt(KEY_SEQ_STEP, 0).coerceAtLeast(0),
+      stepCount = prefs.getInt(KEY_SEQ_COUNT, 0).coerceAtLeast(0),
+      date = prefs.getString(KEY_DATE, "") ?: "",
+    )
   }
 
-  @Synchronized
-  fun decrement(context: Context) {
-    val current = count(context)
-    if (current > 0) prefs(context).edit().putInt(KEY_COUNT, current - 1).apply()
-  }
-
-  /** Like the phone and Apple Watch: changing the target keeps the count, held at the new target. */
-  @Synchronized
-  fun setTarget(context: Context, target: Int) {
-    val count = count(context)
+  /**
+   * apply(): one write per count must not block the UI thread; Android flushes pending
+   * apply() writes before an activity stops, so a count survives leaving the screen and
+   * process death after it.
+   */
+  fun save(context: Context, state: TasbeehState) {
     prefs(context).edit()
-      .putInt(KEY_TARGET, target)
-      .putInt(KEY_COUNT, if (target > 0) minOf(count, target) else count)
+      .putInt(KEY_COUNT, state.count)
+      .putInt(KEY_TARGET, state.target)
+      .putString(KEY_MODE, if (state.mode == TasbeehMode.SEQUENCE) MODE_SEQUENCE else MODE_FREE)
+      .putInt(KEY_SEQ_STEP, state.step)
+      .putInt(KEY_SEQ_COUNT, state.stepCount)
+      .putString(KEY_DATE, state.date)
       .apply()
-  }
-
-  fun reset(context: Context) {
-    prefs(context).edit().putInt(KEY_COUNT, 0).apply()
-  }
-
-  fun setMode(context: Context, mode: String) {
-    prefs(context).edit().putString(KEY_MODE, mode).apply()
-  }
-
-  fun setSequence(context: Context, step: Int, count: Int) {
-    prefs(context).edit().putInt(KEY_SEQ_STEP, step).putInt(KEY_SEQ_COUNT, count).apply()
   }
 }

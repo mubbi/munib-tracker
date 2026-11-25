@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Намози оянда</string>
+  <string name="wear_today">Ҷадвали имрӯз</string>
+  <string name="wear_tasbeeh">Тасбеҳ</string>
+  <string name="wear_progress">Пешрафти имрӯз</string>
+  <string name="wear_open_phone">Барои ҳамоҳангсозӣ Munib Tracker-ро дар телефони худ кушоед</string>
+  <string name="wear_connect_phone">Барои дидани вақти намоз телефони худро пайваст кунед</string>
+  <string name="wear_install_phone">Барои дидани вақти намоз Munib Tracker-ро дар телефони худ насб кунед</string>
+  <string name="wear_tasbeeh_standalone">Тасбеҳ бе телефон ҳам дар соати шумо кор мекунад</string>
+  <string name="wear_tasbeeh_of_target">аз %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Бемаҳдуд</string>
+  <string name="wear_tasbeeh_options">Танзимот</string>
+  <string name="wear_tasbeeh_undo">Охиринро бозгардонед</string>
+  <string name="wear_tasbeeh_target">Ҳадаф</string>
+  <string name="wear_tasbeeh_mode">Реҷа</string>
+  <string name="wear_tasbeeh_free">Шумориши озод</string>
+  <string name="wear_tasbeeh_after_salah">Баъд аз намоз</string>
+  <string name="wear_tasbeeh_reset">Бозсозӣ</string>
+  <string name="wear_tasbeeh_reset_confirm">Шумориш ба 0 бозгардонида шавад?</string>
+  <string name="wear_tasbeeh_start_again">Аз нав оғоз кунед</string>
+  <string name="wear_tasbeeh_all_done">Тасбеҳ анҷом ёфт</string>
+  <string name="wear_tasbeeh_step">Қадами %1$d аз %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Ба ҳадаф расид</string>
+  <string name="wear_tasbeeh_tap_to_count">Барои шумурдан ламс кунед</string>
+  <string name="wear_tasbeeh_a11y">Ҳисобкунаки тасбеҳ, %1$d аз %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Ҳисобкунаки тасбеҳ, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Якторо шуморед</string>
+  <string name="wear_open">Кушодан</string>
+  <string name="wear_open_app">Munib Tracker-ро кушодан</string>
+  <string name="wear_mark_confirm">Ин намозро хондашуда қайд кунед?</string>
+  <string name="wear_confirm">Тасдиқ кардан</string>
+  <string name="wear_marked">Қайд шуд ✓</string>
+  <string name="wear_mark_sent">Ба телефони шумо фиристода шуд</string>
+  <string name="wear_mark_will_sync">Вақте телефонатон наздик бошад, ҳамоҳанг мешавад</string>
+</resources>

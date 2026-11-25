@@ -44,7 +44,10 @@ class MainActivity : Activity() {
 
   private val dataListener = DataClient.OnDataChangedListener { events ->
     val changed = events.any {
-      it.type == DataEvent.TYPE_CHANGED && it.dataItem.uri.path == WearDataLayer.SNAPSHOT_PATH
+      val path = it.dataItem.uri.path.orEmpty()
+      (it.type == DataEvent.TYPE_CHANGED && path == WearDataLayer.SNAPSHOT_PATH) ||
+        // The phone deletes a mark once applied: the delivery receipt for "Will sync".
+        (it.type == DataEvent.TYPE_DELETED && path.startsWith(WearDataLayer.MARK_PATH_PREFIX))
     }
     if (changed) reload()
   }
@@ -84,6 +87,8 @@ class MainActivity : Activity() {
 
   private fun reload() {
     WearDataLayer.executor.execute {
+      // Retry any queued mark and collect delivery receipts before reading the snapshot.
+      WearDataLayer.syncMarks(applicationContext)
       val next = WearDataLayer.readSnapshot(applicationContext)
       val status = if (next == null) WearDataLayer.phoneStatus(applicationContext) else PhoneStatus.APP_INSTALLED
       handler.post {
@@ -149,7 +154,8 @@ class MainActivity : Activity() {
       else -> hero(snap, day, nowMs)
     }
 
-    val outcome = WearMarks.outcomeLabel(snap, WearMarks.recentOutcome(this, nowMs))
+    // Stays on screen while any mark is unconfirmed ("Will sync…"), so nothing is lost silently.
+    val outcome = WearMarks.outcomeLabel(this, snap, WearMarks.recentOutcome(this, nowMs))
     if (outcome.isNotEmpty()) content.addSpaced(label(outcome, 12f, WearColors.SECONDARY).inset())
 
     if (!snap.locationDenied && !day.stale && day.rows.isNotEmpty()) {

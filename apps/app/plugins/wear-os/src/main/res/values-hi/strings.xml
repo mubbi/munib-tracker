@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">अगली Salah</string>
+  <string name="wear_today">आज का कार्यक्रम</string>
+  <string name="wear_tasbeeh">तस्बीह</string>
+  <string name="wear_progress">आज की प्रगति</string>
+  <string name="wear_open_phone">सिंक करने के लिए अपने फ़ोन पर Munib Tracker खोलें</string>
+  <string name="wear_connect_phone">Salah के समय देखने के लिए अपना फ़ोन जोड़ें</string>
+  <string name="wear_install_phone">Salah के समय देखने के लिए अपने फ़ोन पर Munib Tracker इंस्टॉल करें</string>
+  <string name="wear_tasbeeh_standalone">तस्बीह फ़ोन के बिना भी आपकी घड़ी पर चलती है</string>
+  <string name="wear_tasbeeh_of_target">%1$d में से</string>
+  <string name="wear_tasbeeh_unlimited">असीमित</string>
+  <string name="wear_tasbeeh_options">विकल्प</string>
+  <string name="wear_tasbeeh_undo">आखिरी पूर्ववत करें</string>
+  <string name="wear_tasbeeh_target">लक्ष्य</string>
+  <string name="wear_tasbeeh_mode">मोड</string>
+  <string name="wear_tasbeeh_free">मुक्त गिनती</string>
+  <string name="wear_tasbeeh_after_salah">Salah के बाद</string>
+  <string name="wear_tasbeeh_reset">रीसेट करें</string>
+  <string name="wear_tasbeeh_reset_confirm">गिनती 0 पर रीसेट करें?</string>
+  <string name="wear_tasbeeh_start_again">फिर से शुरू करें</string>
+  <string name="wear_tasbeeh_all_done">तस्बीह पूरी</string>
+  <string name="wear_tasbeeh_step">चरण %1$d / %2$d</string>
+  <string name="wear_tasbeeh_target_reached">लक्ष्य पूरा हुआ</string>
+  <string name="wear_tasbeeh_tap_to_count">गिनने के लिए टैप करें</string>
+  <string name="wear_tasbeeh_a11y">तस्बीह काउंटर, %2$d में से %1$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">तस्बीह काउंटर, %1$d</string>
+  <string name="wear_tasbeeh_count_one">एक गिनें</string>
+  <string name="wear_open">खोलें</string>
+  <string name="wear_open_app">Munib Tracker खोलें</string>
+  <string name="wear_mark_confirm">इस Salah को अदा के रूप में दर्ज करें?</string>
+  <string name="wear_confirm">पुष्टि करें</string>
+  <string name="wear_marked">दर्ज हुई ✓</string>
+  <string name="wear_mark_sent">आपके फ़ोन पर भेजा गया</string>
+  <string name="wear_mark_will_sync">फ़ोन पास होने पर सिंक होगा</string>
+</resources>

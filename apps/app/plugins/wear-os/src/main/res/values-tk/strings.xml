@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Indiki namaz</string>
+  <string name="wear_today">Şu günki tertip</string>
+  <string name="wear_tasbeeh">Tesbih</string>
+  <string name="wear_progress">Şu günki ösüş</string>
+  <string name="wear_open_phone">Sinhronlamak üçin telefonyňyzda Munib Tracker açyň</string>
+  <string name="wear_connect_phone">Namaz wagtlaryny görmek üçin telefonyňyzy birikdiriň</string>
+  <string name="wear_install_phone">Namaz wagtlaryny görmek üçin telefonyňyza Munib Tracker guruň</string>
+  <string name="wear_tasbeeh_standalone">Tesbih telefonsyz hem sagadyňyzda işleýär</string>
+  <string name="wear_tasbeeh_of_target">%1$d içinden</string>
+  <string name="wear_tasbeeh_unlimited">Çäksiz</string>
+  <string name="wear_tasbeeh_options">Saýlawlar</string>
+  <string name="wear_tasbeeh_undo">Soňkusyny yzyna al</string>
+  <string name="wear_tasbeeh_target">Maksat</string>
+  <string name="wear_tasbeeh_mode">Rejim</string>
+  <string name="wear_tasbeeh_free">Erkin sanaw</string>
+  <string name="wear_tasbeeh_after_salah">Namazdan soň</string>
+  <string name="wear_tasbeeh_reset">Täzeden sazla</string>
+  <string name="wear_tasbeeh_reset_confirm">Sanaw 0-a täzeden sazlansynmy?</string>
+  <string name="wear_tasbeeh_start_again">Täzeden başla</string>
+  <string name="wear_tasbeeh_all_done">Tesbih tamamlandy</string>
+  <string name="wear_tasbeeh_step">Ädim %1$d / %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Maksada ýetildi</string>
+  <string name="wear_tasbeeh_tap_to_count">Sanamak üçin basyň</string>
+  <string name="wear_tasbeeh_a11y">Tesbih sanaýjysy, %2$d içinden %1$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Tesbih sanaýjysy, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Birini san</string>
+  <string name="wear_open">Aç</string>
+  <string name="wear_open_app">Munib Tracker aç</string>
+  <string name="wear_mark_confirm">Bu namazy okaldy diýip belläňmi?</string>
+  <string name="wear_confirm">Tassykla</string>
+  <string name="wear_marked">Bellendi ✓</string>
+  <string name="wear_mark_sent">Telefonyňyza iberildi</string>
+  <string name="wear_mark_will_sync">Telefonyňyz golaýda bolanda sinhronlanar</string>
+</resources>

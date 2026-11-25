@@ -8,4 +8,31 @@
   <string name="wear_connect_phone">اربط هاتفك لعرض أوقات الصلاة</string>
   <string name="wear_install_phone">ثبّت Munib Tracker على هاتفك لعرض أوقات الصلاة</string>
   <string name="wear_tasbeeh_standalone">يعمل التسبيح على ساعتك دون الهاتف</string>
+  <!-- Tasbeeh counter (Compose) -->
+  <string name="wear_tasbeeh_of_target">من %1$d</string>
+  <string name="wear_tasbeeh_unlimited">بلا حد</string>
+  <string name="wear_tasbeeh_options">الخيارات</string>
+  <string name="wear_tasbeeh_undo">تراجع عن الأخيرة</string>
+  <string name="wear_tasbeeh_target">الهدف</string>
+  <string name="wear_tasbeeh_mode">الوضع</string>
+  <string name="wear_tasbeeh_free">عدّ حر</string>
+  <string name="wear_tasbeeh_after_salah">بعد الصلاة</string>
+  <string name="wear_tasbeeh_reset">إعادة ضبط</string>
+  <string name="wear_tasbeeh_reset_confirm">إعادة العدّ إلى 0؟</string>
+  <string name="wear_tasbeeh_start_again">ابدأ من جديد</string>
+  <string name="wear_tasbeeh_all_done">اكتمل التسبيح</string>
+  <string name="wear_tasbeeh_step">الخطوة %1$d من %2$d</string>
+  <string name="wear_tasbeeh_target_reached">تم بلوغ الهدف</string>
+  <string name="wear_tasbeeh_tap_to_count">انقر للعدّ</string>
+  <string name="wear_tasbeeh_a11y">عدّاد التسبيح، %1$d من %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">عدّاد التسبيح، %1$d</string>
+  <string name="wear_tasbeeh_count_one">عُدّ واحدة</string>
+  <!-- Tiles: actions and Mark delivery -->
+  <string name="wear_open">فتح</string>
+  <string name="wear_open_app">افتح Munib Tracker</string>
+  <string name="wear_mark_confirm">هل تسجّل هذه الصلاة مؤدّاة؟</string>
+  <string name="wear_confirm">تأكيد</string>
+  <string name="wear_marked">تم التسجيل ✓</string>
+  <string name="wear_mark_sent">أُرسل إلى هاتفك</string>
+  <string name="wear_mark_will_sync">ستتم المزامنة عندما يكون هاتفك قريبًا</string>
 </resources>

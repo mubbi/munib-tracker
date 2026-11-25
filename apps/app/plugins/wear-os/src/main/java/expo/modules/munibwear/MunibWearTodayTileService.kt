@@ -17,9 +17,9 @@ import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.Callable
 
 /**
- * Today tile: the five obligatory Salah with their times and status, and a Mark
- * chip for the current Salah while it is unmarked. A future Salah is never
- * markable; tapping elsewhere opens the app (where any begun row can be marked).
+ * Today tile: the five obligatory Salah with their times and status, and a separate Mark
+ * chip for the current Salah while it is unmarked (two taps: Mark, then Confirm). A future
+ * Salah is never markable; the list itself opens the app (where any begun row can be marked).
  */
 class MunibWearTodayTileService : TileService() {
   override fun onTileRequest(requestParams: RequestBuilders.TileRequest): ListenableFuture<TileBuilders.Tile> =
@@ -27,21 +27,24 @@ class MunibWearTodayTileService : TileService() {
 
   private fun buildTile(requestParams: RequestBuilders.TileRequest): TileBuilders.Tile {
     val nowMs = System.currentTimeMillis()
+    WearDataLayer.syncMarks(applicationContext)
     val snapshot = handleMarkClick(
       this,
       requestParams.currentState.lastClickableId,
       WearDataLayer.readSnapshot(applicationContext),
       nowMs,
     )
+    val armed = WearMarks.armed(this, nowMs)
     val outcome = WearMarks.recentOutcome(this, nowMs)
+    val outcomeUntil = WearMarks.outcomeChangesAt(this, nowMs)
     val device = requestParams.deviceConfiguration
 
     return TileBuilders.Tile.Builder()
       .setResourcesVersion("1")
       .setFreshnessIntervalMillis(FRESHNESS_MS)
       .setTileTimeline(
-        timelineFor(snapshot, nowMs) { at ->
-          layout(snapshot, at, if (at == nowMs) outcome else null, device)
+        timelineFor(snapshot, nowMs, listOfNotNull(armed?.second, outcomeUntil)) { at ->
+          layout(snapshot, at, markUiAt(this, snapshot, at, armed, outcome, outcomeUntil), device, nowMs)
         },
       )
       .build()
@@ -50,8 +53,9 @@ class MunibWearTodayTileService : TileService() {
   private fun layout(
     snapshot: WearSnapshot?,
     nowMs: Long,
-    outcome: MarkOutcome?,
+    mark: MarkUi,
     device: DeviceParameters,
+    renderMs: Long,
   ): LayoutElementBuilders.LayoutElement {
     // Round screens: keep rows inside the inscribed square.
     val side = (device.screenWidthDp * 0.15f).coerceAtLeast(12f)
@@ -74,30 +78,40 @@ class MunibWearTodayTileService : TileService() {
     if (snapshot == null || message != null) {
       column.addContent(tileText(this, title, Typography.TYPOGRAPHY_CAPTION1, WearColors.SECONDARY))
       column.addContent(tileText(this, message ?: "", Typography.TYPOGRAPHY_BODY2, WearColors.TEXT, 3))
-      return root(column.build())
+      return root(openArea(clickable("open", launchMain(this)), "$title, ${message ?: ""}", column.build()))
     }
 
     val today = WearDayResolver.localDate(nowMs)
     val day = WearDayResolver.resolve(snapshot, nowMs, WearMarks.pending(this, today))
-    column.addContent(
-      tileText(this, "$title · ${day.completed}/${day.total}", Typography.TYPOGRAPHY_CAPTION1, WearColors.SECONDARY),
-    )
-    column.addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(4f)).build())
+    val heading = "$title · ${day.completed}/${day.total}"
+    val list = LayoutElementBuilders.Column.Builder()
+      .setWidth(expand())
+      .setHorizontalAlignment(LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER)
+      .addContent(tileText(this, heading, Typography.TYPOGRAPHY_CAPTION1, WearColors.SECONDARY))
+      .addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(4f)).build())
+    val openApp = clickable("open", launchMain(this))
     if (day.stale) {
-      column.addContent(tileText(this, snapshot.str("staleData", "Open the app to refresh today's times"), Typography.TYPOGRAPHY_BODY2, WearColors.TEXT, 3))
+      list.addContent(tileText(this, snapshot.str("staleData", "Open the app to refresh today's times"), Typography.TYPOGRAPHY_BODY2, WearColors.TEXT, 3))
+      column.addContent(openArea(openApp, heading, list.build()))
       return root(column.build())
     }
-    day.rows.forEach { column.addContent(row(it)) }
+    day.rows.forEach { list.addContent(row(it)) }
+    // The list opens the app; the Mark chip is a sibling below it, never nested in it.
+    // One TalkBack stop for the list (it is one clickable): the heading, then every row.
+    val rowsDescription = day.rows.joinToString("; ") { "${it.row.name}, ${it.row.time}, ${it.row.statusLabel}" }
+    column.addContent(openArea(openApp, "$heading; $rowsDescription", list.build()))
     // Rows are too short for 48 dp targets: the current Salah gets a Mark chip and
-    // an earlier unmarked one is marked from the app (tap the tile).
+    // an earlier unmarked one is marked from the app (tap the list).
+    val armed = day.markable != null && mark.armedId == day.markable.row.id
     day.markable?.let {
       column.addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(4f)).build())
-      column.addContent(markChip(this, snapshot, it.row, device))
+      column.addContent(markChip(this, snapshot, it.row, device, armed, renderMs))
     }
-    val footer = WearMarks.outcomeLabel(snapshot, outcome)
+    // While Confirm is up, its question takes the footer line (same height on small screens).
+    val footer = if (armed) snapshot.str("markConfirm", getString(R.string.wear_mark_confirm)) else mark.footer
     if (footer.isNotEmpty()) {
       column.addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(2f)).build())
-      column.addContent(tileText(this, footer, Typography.TYPOGRAPHY_CAPTION2, WearColors.SECONDARY))
+      column.addContent(tileText(this, footer, Typography.TYPOGRAPHY_CAPTION2, if (armed) WearColors.TEXT else WearColors.SECONDARY, 2))
     }
     return root(column.build())
   }
@@ -146,16 +160,12 @@ class MunibWearTodayTileService : TileService() {
       .build()
   }
 
+  /** Not clickable itself: the list opens the app, the Mark chip marks. */
   private fun root(content: LayoutElementBuilders.LayoutElement): LayoutElementBuilders.LayoutElement =
     LayoutElementBuilders.Box.Builder()
       .setWidth(expand())
       .setHeight(expand())
       .setVerticalAlignment(LayoutElementBuilders.VERTICAL_ALIGN_CENTER)
-      .setModifiers(
-        ModifiersBuilders.Modifiers.Builder()
-          .setClickable(clickable("open", launchMain(this)))
-          .build(),
-      )
       .addContent(content)
       .build()
 }

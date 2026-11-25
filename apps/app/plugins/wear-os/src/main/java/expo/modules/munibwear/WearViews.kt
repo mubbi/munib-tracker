@@ -116,7 +116,10 @@ internal fun Activity.roundSafePadding(view: View, bottomExtraDp: Float = 24f) {
   view.setPadding(side, top, side, top + dpi(bottomExtraDp))
 }
 
-/** Short haptic ticks for counting; a stronger pattern when a target is reached. */
+/**
+ * Wrist feedback: a light tick per count, a stronger pattern at a target, a distinct short
+ * double for a sequence step advancing, and the longest pattern when a whole sequence is done.
+ */
 internal class WearHaptics(context: Context) {
   private val vibrator: Vibrator? =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -129,6 +132,8 @@ internal class WearHaptics(context: Context) {
   fun tick() = play(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
 
   fun target() = play(VibrationEffect.createWaveform(longArrayOf(0, 90, 70, 90), -1))
+
+  fun advance() = play(VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK))
 
   fun done() = play(VibrationEffect.createWaveform(longArrayOf(0, 120, 80, 120, 80, 200), -1))
 

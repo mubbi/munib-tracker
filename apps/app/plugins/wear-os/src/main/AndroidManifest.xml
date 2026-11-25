@@ -25,7 +25,8 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <!-- Exported: tiles open it through a LaunchAction, which the system UI starts. -->
+    <!-- Compose tasbeeh counter. Exported: tiles open it through a LaunchAction, which the
+         system UI starts. No keep-screen-on, no ambient: wrist-down shows the watch face. -->
     <activity
       android:name="expo.modules.munibwear.TasbeehActivity"
       android:exported="true"
@@ -101,7 +102,11 @@
         android:value="900" />
     </service>
 
-    <!-- Phone pushed a new snapshot: refresh tiles + complications right away. -->
+    <!--
+      Phone pushed a new snapshot: refresh tiles + complications right away.
+      /munib/mark/<id> deleted by the phone: that mark was applied (delivery receipt).
+      munib_phone_app capability back: retry marks still queued on the watch.
+    -->
     <service
       android:name="expo.modules.munibwear.WearSnapshotListenerService"
       android:exported="true">
@@ -111,6 +116,20 @@
           android:scheme="wear"
           android:host="*"
           android:path="/munib/widget_snapshot" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+        <data
+          android:scheme="wear"
+          android:host="*"
+          android:pathPrefix="/munib/mark/" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="com.google.android.gms.wearable.CAPABILITY_CHANGED" />
+        <data
+          android:scheme="wear"
+          android:host="*"
+          android:path="/munib_phone_app" />
       </intent-filter>
     </service>
   </application>

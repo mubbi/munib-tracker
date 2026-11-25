@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Келесі намаз</string>
+  <string name="wear_today">Бүгінгі кесте</string>
+  <string name="wear_tasbeeh">Тәсбих</string>
+  <string name="wear_progress">Бүгінгі үлгерім</string>
+  <string name="wear_open_phone">Синхрондау үшін телефоныңызда Munib Tracker ашыңыз</string>
+  <string name="wear_connect_phone">Намаз уақытын көру үшін телефоныңызды қосыңыз</string>
+  <string name="wear_install_phone">Намаз уақытын көру үшін телефоныңызға Munib Tracker орнатыңыз</string>
+  <string name="wear_tasbeeh_standalone">Тәсбих сағатта телефонсыз да жұмыс істейді</string>
+  <string name="wear_tasbeeh_of_target">%1$d ішінен</string>
+  <string name="wear_tasbeeh_unlimited">Шексіз</string>
+  <string name="wear_tasbeeh_options">Опциялар</string>
+  <string name="wear_tasbeeh_undo">Соңғысын болдырмау</string>
+  <string name="wear_tasbeeh_target">Мақсат</string>
+  <string name="wear_tasbeeh_mode">Режим</string>
+  <string name="wear_tasbeeh_free">Еркін санау</string>
+  <string name="wear_tasbeeh_after_salah">Намаздан кейін</string>
+  <string name="wear_tasbeeh_reset">Қайта орнату</string>
+  <string name="wear_tasbeeh_reset_confirm">Санауды 0-ге қайта орнату керек пе?</string>
+  <string name="wear_tasbeeh_start_again">Қайта бастау</string>
+  <string name="wear_tasbeeh_all_done">Тәсбих аяқталды</string>
+  <string name="wear_tasbeeh_step">%2$d ішінен %1$d қадам</string>
+  <string name="wear_tasbeeh_target_reached">Мақсатқа жетті</string>
+  <string name="wear_tasbeeh_tap_to_count">Санау үшін түртіңіз</string>
+  <string name="wear_tasbeeh_a11y">Тәсбих санағышы, %2$d ішінен %1$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Тәсбих санағышы, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Бірді санау</string>
+  <string name="wear_open">Ашу</string>
+  <string name="wear_open_app">Munib Tracker ашу</string>
+  <string name="wear_mark_confirm">Бұл намазды оқылды деп белгілейсіз бе?</string>
+  <string name="wear_confirm">Растау</string>
+  <string name="wear_marked">Белгіленді ✓</string>
+  <string name="wear_mark_sent">Телефоныңызға жіберілді</string>
+  <string name="wear_mark_will_sync">Телефоныңыз жақын болғанда синхрондалады</string>
+</resources>

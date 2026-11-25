@@ -21,8 +21,9 @@ class MunibWearModule : Module() {
  * Receives marks from the Wear OS app, tiles and complications via the Data Layer
  * (the manifest filters the paths):
  * - `/munib/mark/<uuid>` DataItems (current watch builds): an explicit Salah + day,
- *   delivered by the Data Layer whenever the watch reconnects. Each one is turned
- *   into the shared `MARK_PRAYER` broadcast and then deleted.
+ *   delivered by the Data Layer whenever the watch reconnects. Each id is turned
+ *   into the shared `MARK_PRAYER` broadcast once, then deleted; the watch takes the
+ *   delete as the delivery receipt and stops showing "Will sync".
  * - `/munib/mark_current` messages from older watch builds.
  */
 class MunibWearListenerService : WearableListenerService() {
@@ -46,7 +47,11 @@ class MunibWearListenerService : WearableListenerService() {
       val map = DataMapItem.fromDataItem(item).dataMap
       val prayerId = map.getString("prayerId").orEmpty()
       val date = map.getString("date").orEmpty()
-      if (map.getString("type") == "mark-prayer" && prayerId.isNotEmpty() && date.isNotEmpty()) {
+      // The watch retries a queued mark under the same id: apply each id once.
+      val markId = path.removePrefix(MARK_PATH_PREFIX)
+      if (map.getString("type") == "mark-prayer" && prayerId.isNotEmpty() && date.isNotEmpty() &&
+        firstDelivery(applicationContext, markId)
+      ) {
         enqueueMarkPrayer(applicationContext, prayerId, date)
       }
       handled.add(item.uri)
@@ -60,6 +65,17 @@ class MunibWearListenerService : WearableListenerService() {
         /* Wearable API unavailable */
       }
     }
+  }
+
+  /** Remembers the last [SEEN_LIMIT] mark ids; false when [markId] was already applied. */
+  @Synchronized
+  private fun firstDelivery(context: Context, markId: String): Boolean {
+    if (markId.isEmpty()) return true
+    val prefs = context.getSharedPreferences(SEEN_PREFS, Context.MODE_PRIVATE)
+    val seen = prefs.getString(SEEN_KEY, "").orEmpty().split(',').filter { it.isNotEmpty() }
+    if (markId in seen) return false
+    prefs.edit().putString(SEEN_KEY, (seen + markId).takeLast(SEEN_LIMIT).joinToString(",")).apply()
+    return true
   }
 
   private fun enqueueMarkPrayer(context: Context, prayerId: String, date: String) {
@@ -83,5 +99,8 @@ class MunibWearListenerService : WearableListenerService() {
     private const val EXTRA_PRAYER_ID = "prayerId"
     private const val EXTRA_DATE = "date"
     private const val SOURCE_WEAR = "wear"
+    private const val SEEN_PREFS = "munib_wear_marks_seen"
+    private const val SEEN_KEY = "ids"
+    private const val SEEN_LIMIT = 64
   }
 }

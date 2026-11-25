@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="wear_next_salah">Namazi i radhës</string>
+  <string name="wear_today">Orari i sotëm</string>
+  <string name="wear_tasbeeh">Tesbih</string>
+  <string name="wear_progress">Progresi i sotëm</string>
+  <string name="wear_open_phone">Hapni Munib Tracker në telefon për sinkronizim</string>
+  <string name="wear_connect_phone">Lidhni telefonin për të parë kohët e namazit</string>
+  <string name="wear_install_phone">Instaloni Munib Tracker në telefon për të parë kohët e namazit</string>
+  <string name="wear_tasbeeh_standalone">Tesbihu funksionon në orë pa telefonin</string>
+  <string name="wear_tasbeeh_of_target">nga %1$d</string>
+  <string name="wear_tasbeeh_unlimited">Pa kufi</string>
+  <string name="wear_tasbeeh_options">Opsione</string>
+  <string name="wear_tasbeeh_undo">Zhbëj të fundit</string>
+  <string name="wear_tasbeeh_target">Synimi</string>
+  <string name="wear_tasbeeh_mode">Mënyra</string>
+  <string name="wear_tasbeeh_free">Numërim i lirë</string>
+  <string name="wear_tasbeeh_after_salah">Pas namazit</string>
+  <string name="wear_tasbeeh_reset">Rivendos</string>
+  <string name="wear_tasbeeh_reset_confirm">Të rivendoset numërimi në 0?</string>
+  <string name="wear_tasbeeh_start_again">Fillo përsëri</string>
+  <string name="wear_tasbeeh_all_done">Tesbihu përfundoi</string>
+  <string name="wear_tasbeeh_step">Hapi %1$d nga %2$d</string>
+  <string name="wear_tasbeeh_target_reached">Synimi u arrit</string>
+  <string name="wear_tasbeeh_tap_to_count">Prekni për të numëruar</string>
+  <string name="wear_tasbeeh_a11y">Numëruesi i tesbihut, %1$d nga %2$d</string>
+  <string name="wear_tasbeeh_a11y_unlimited">Numëruesi i tesbihut, %1$d</string>
+  <string name="wear_tasbeeh_count_one">Numëro një</string>
+  <string name="wear_open">Hap</string>
+  <string name="wear_open_app">Hap Munib Tracker</string>
+  <string name="wear_mark_confirm">Ta shënoj këtë namaz si të falur?</string>
+  <string name="wear_confirm">Konfirmo</string>
+  <string name="wear_marked">Shënuar ✓</string>
+  <string name="wear_mark_sent">U dërgua në telefonin tuaj</string>
+  <string name="wear_mark_will_sync">Do të sinkronizohet kur telefoni të jetë afër</string>
+</resources>
