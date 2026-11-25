@@ -13,8 +13,10 @@ module.exports = (config) => {
     displayName: "Munib Tracker",
     deploymentTarget: "10.0",
     colors: {
-      $widgetBackground: { light: tokens.light.card, dark: tokens.dark.card },
-      $accent: { light: tokens.defaultAccent.light, dark: tokens.defaultAccent.dark },
+      // watchOS is always dark but resolves the universal (light) entry — use the dark
+      // tokens for both, or the Smart Stack got a cream card and a dim forest-green accent.
+      $widgetBackground: { light: tokens.dark.card, dark: tokens.dark.card },
+      $accent: { light: tokens.defaultAccent.dark, dark: tokens.defaultAccent.dark },
     },
     entitlements: {
       "com.apple.security.application-groups": [
