@@ -19,6 +19,7 @@
     "./validators": "./src/validators/index.ts",
     "./validators/hijri-adjustment": "./src/validators/hijri-adjustment.ts",
     "./validators/fiqh-preferences": "./src/validators/fiqh-preferences.ts",
+    "./validators/reading-overrides": "./src/validators/reading-overrides.ts",
     "./validators/private-sync": "./src/validators/private-sync.ts",
     "./utils": "./src/utils/index.ts",
     "./utils/normalize-redis-url": "./src/utils/normalize-redis-url.ts",

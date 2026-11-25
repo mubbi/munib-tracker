@@ -3,6 +3,7 @@ import {
   HIJRI_OFFSET_DAYS,
   sanitizeHijriAdjustment,
 } from "@munib-tracker/shared/validators/hijri-adjustment";
+import { sanitizeReadingOverridesField } from "@munib-tracker/shared/validators/reading-overrides";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsIn, IsISO8601, IsObject, IsOptional, IsString, MaxLength } from "class-validator";
 
@@ -51,12 +52,15 @@ export class HijriAdjustmentDto {
  * - `hijriAdjustment`: malformed blobs are dropped, invalid per-month
  *   corrections are filtered out by the shared validator;
  * - `madhhab` / `madhhabOverrides` / `fiqhCustom` (NF-3.0a): an unknown school
- *   is dropped, overrides and custom values keep only their valid entries.
+ *   is dropped, overrides and custom values keep only their valid entries;
+ * - `fontPrefs.readingOverrides`: only known reading surfaces (incl. `finance`,
+ *   G-72) with finite, in-range deltas survive. Blobs from older clients that
+ *   have no `finance` entry pass through unchanged.
  */
 export function sanitizePreferencesSyncData(
   data: Record<string, unknown>,
 ): Record<string, unknown> {
-  const fiqhClean = sanitizeFiqhPreferenceFields(data);
+  const fiqhClean = sanitizeReadingOverridesField(sanitizeFiqhPreferenceFields(data));
   if (!("hijriAdjustment" in fiqhClean)) return fiqhClean;
   const { hijriAdjustment, ...rest } = fiqhClean;
   const clean = sanitizeHijriAdjustment(hijriAdjustment);

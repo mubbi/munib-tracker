@@ -3,6 +3,7 @@ import type { VoluntaryFastingNotificationPrefs, VoluntaryFastingPrefs } from ".
 import type { FocusLockPrefs } from "./focus-lock";
 import type { HomeMasjid } from "./masjid";
 import type { ExcusedReason, PrayerId, RawatibExtraPrayer } from "./prayer";
+import type { QiblaCompassStyleId } from "./qibla-compass";
 import type { TasbeehAppearance } from "./tasbeeh-appearance";
 import type { WeatherPreferences } from "./weather";
 
@@ -156,7 +157,30 @@ export type ReadingSurface =
   | "aqeedah"
   | "last_day"
   | "learn_dua"
-  | "learn_quran";
+  | "learn_quran"
+  /** Zakat, Islamic finance and fidyah guides (G-72); they used to borrow "jannah". */
+  | "finance";
+
+/**
+ * Every {@link ReadingSurface}, in Settings › Per-screen text sizes order. The
+ * `satisfies` check plus `reading-surfaces.test.ts` keep it exhaustive.
+ */
+export const READING_SURFACE_IDS = [
+  "quran",
+  "hadith",
+  "dua_zikr",
+  "salah_guide",
+  "jannah",
+  "jahannam",
+  "battles",
+  "taharah",
+  "prophets",
+  "aqeedah",
+  "last_day",
+  "learn_dua",
+  "learn_quran",
+  "finance",
+] as const satisfies readonly ReadingSurface[];
 
 /** A per-surface size adjustment applied on top of the global font sizes. */
 export interface ReadingSizeOverride {
@@ -360,6 +384,8 @@ export interface UserPreferences {
   weatherPrefs: WeatherPreferences;
   /** Vibration feedback on taps and meaningful actions (native only). */
   hapticsEnabled: boolean;
+  /** Qibla compass dial design. Unset (or unknown to this client) ⇒ "classic". */
+  qiblaCompassStyle?: QiblaCompassStyleId;
   /** Tasbeeh counter design, sound and haptics (NF-3.19). Unset ⇒ Ring default (D10). */
   tasbeehAppearance?: TasbeehAppearance;
   /**

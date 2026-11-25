@@ -84,6 +84,12 @@ describe("ContentReportsController", () => {
       expect(service.create).not.toHaveBeenCalled();
     });
 
+    it.each(["jahannam", "last_day", "screen"])("accepts the %s content kind", async (kind) => {
+      const { service, create } = setup();
+      await create(payloadWith({ content: { ...VALID_PAYLOAD.content, kind } }));
+      expect(service.create.mock.calls[0]?.[1]).toMatchObject({ content: { kind } });
+    });
+
     it("requires credentials", () => {
       const { create } = setup();
       expect(() => create(JSON.stringify(VALID_PAYLOAD), undefined, "")).toThrow(

@@ -29,6 +29,7 @@ export * from "./prayer";
 export * from "./preferences";
 export * from "./prophets";
 export * from "./qaza";
+export * from "./qibla-compass";
 export * from "./quran";
 export * from "./quran-guide";
 export * from "./quran-notes";

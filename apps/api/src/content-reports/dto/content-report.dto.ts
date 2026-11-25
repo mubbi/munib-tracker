@@ -39,8 +39,10 @@ export const CONTENT_REPORT_KINDS = [
   "hajj",
   "travel",
   "excused",
+  "jahannam",
+  "last_day",
   "screen",
-] as const;
+] as const satisfies readonly ContentReportKind[];
 
 export const CONTENT_REPORT_ISSUE_TYPES = [
   "incorrect_arabic",

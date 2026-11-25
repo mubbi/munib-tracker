@@ -68,6 +68,50 @@ describe("preferences sync data", () => {
     ).toEqual({ locale: "en" });
   });
 
+  it("accepts a finance reading override (G-72)", () => {
+    const data = {
+      locale: "en",
+      fontPrefs: {
+        arabic: { size: 30 },
+        translation: {},
+        readingOverrides: { finance: { arabicDelta: 2, textDelta: 2 }, jannah: { textDelta: -2 } },
+      },
+    };
+    expect(sanitizePreferencesSyncData(data)).toEqual(data);
+  });
+
+  it("keeps an older client's blob without a finance override unchanged", () => {
+    const data = { locale: "ur", fontPrefs: { arabic: {}, translation: {} } };
+    expect(sanitizePreferencesSyncData(data)).toBe(data);
+    const withOverrides = {
+      fontPrefs: { arabic: {}, translation: {}, readingOverrides: { quran: { arabicDelta: 4 } } },
+    };
+    expect(sanitizePreferencesSyncData(withOverrides)).toEqual(withOverrides);
+  });
+
+  it("drops junk reading overrides instead of rejecting the record", () => {
+    expect(
+      sanitizePreferencesSyncData({
+        locale: "en",
+        fontPrefs: {
+          arabic: {},
+          translation: {},
+          readingOverrides: {
+            finance: { arabicDelta: "big", textDelta: 4 },
+            zakat: { arabicDelta: 2 },
+            hadith: { arabicDelta: Number.POSITIVE_INFINITY },
+          },
+        },
+      }),
+    ).toEqual({
+      locale: "en",
+      fontPrefs: { arabic: {}, translation: {}, readingOverrides: { finance: { textDelta: 4 } } },
+    });
+    expect(
+      sanitizePreferencesSyncData({ fontPrefs: { arabic: {}, readingOverrides: [1, 2] } }),
+    ).toEqual({ fontPrefs: { arabic: {} } });
+  });
+
   it("validates the DTO shape", () => {
     const ok = plainToInstance(HijriAdjustmentDto, { offsetDays: -2, updatedAt: UPDATED_AT });
     expect(validateSync(ok)).toHaveLength(0);

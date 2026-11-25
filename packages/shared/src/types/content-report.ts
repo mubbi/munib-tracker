@@ -19,6 +19,9 @@ export type ContentReportKind =
   | "hajj"
   | "travel"
   | "excused"
+  | "jahannam"
+  | "last_day"
+  /** Generic fallback for screens without a dedicated kind; older reports keep it. */
   | "screen";
 
 export const CONTENT_REPORT_KINDS: readonly ContentReportKind[] = [
@@ -41,6 +44,8 @@ export const CONTENT_REPORT_KINDS: readonly ContentReportKind[] = [
   "hajj",
   "travel",
   "excused",
+  "jahannam",
+  "last_day",
   "screen",
 ] as const;
 
