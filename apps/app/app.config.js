@@ -222,6 +222,8 @@ module.exports = ({ config }) => {
         "./modules/munib-tajweedformer/app.plugin.js",
         /** iOS: TajweedFormer's zf_rt shim exports OrtGetApiBase — keep onnxruntime-react-native on the real runtime. */
         "./plugins/withOnnxruntimeSymbolIsolation.cjs",
+        /** iOS: RN privacy aggregation also links the app manifest into the watchOS app (duplicate output). */
+        "./plugins/withWatchPrivacyManifestDedup.cjs",
       ];
 
   const configTvPlugin = [

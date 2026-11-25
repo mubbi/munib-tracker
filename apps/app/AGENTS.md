@@ -15,6 +15,8 @@ Stack: Expo `~58.0.25` on `react-native-tvos@0.88.1-0`, React 19.3, TypeScript 6
 - **Foldables:** `useHingePosture()` (`src/lib/platform/hinge.ts`, `expo-hinge`, stubbed on TV) drives interactions only (e.g. tabletop tasbeeh); layout still follows window size.
 - **Remote JSON / fonts:** fetch CDN scripture via `src/lib/static-json-fetch.ts` — jsDelivr `gh/` URLs auto-retry on `raw.githubusercontent.com` (`qcf-font-cache.ts` uses the same mirror list for Qur'an page fonts); failures report through `report-oss-content-download-failure.ts` (connectivity errors stay out of Sentry). Never add a single-host CDN fetch.
 - **iOS ONNX:** `plugins/withOnnxruntimeSymbolIsolation.cjs` runs `scripts/isolate-onnxruntime-symbol.cjs` after `pod install` so `onnxruntime-react-native` and the TajweedFormer shim don't share `OrtGetApiBase` (pnpm patch `patches/onnxruntime-react-native@1.24.3.patch`). Keep both if you touch ORT versions.
+- **iOS QuranLabCore:** TajweedFormer SDK 4 ships a dynamic `QuranLabCore.xcframework` that React Native's `spm_dependency` links but never embeds — `modules/munib-tajweedformer/app.plugin.js` adds an "Embed Quran Lab Frameworks" phase to the app target. Without it every launch dies in dyld ("Library not loaded: @rpath/QuranLabCore.framework"). Check `MunibTracker.app/Frameworks/` after any SDK bump.
+- **iOS watch privacy manifest:** `plugins/withWatchPrivacyManifestDedup.cjs` stops RN's CocoaPods privacy aggregation from also copying the app's `PrivacyInfo.xcprivacy` into the watchOS app (duplicate-output archive failure).
 
 ### Web (React Native Web) pitfalls
 

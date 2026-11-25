@@ -2,7 +2,9 @@ import AppIntents
 import Foundation
 import WidgetKit
 #if canImport(MunibLiveActivity)
-import MunibLiveActivity
+// `internal` to match Expo's generated ExpoModulesProvider.swift (`internal import`) —
+// Swift 6 rejects mixed implicit/explicit access levels for one module in the app target.
+internal import MunibLiveActivity
 #endif
 
 // Compiled into BOTH the main app and the widget extension
