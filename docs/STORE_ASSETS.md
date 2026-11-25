@@ -37,6 +37,7 @@ End-to-end workflow for Munib Tracker **App Store Connect** and **Google Play Co
 | ------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | Validate capture scripts (CI-safe)                                  | `pnpm screenshots:validate`                                           | —                                                                        |
 | Native full matrix                                                  | `pnpm screenshots:android` / `pnpm screenshots:ios`                   | `captures-native/`                                                       |
+| Native iPad Pro 13-inch (2064×2752)                                 | `pnpm screenshots:ipad`                                               | `captures-native/ipad/` + `captures/ipad/`                               |
 | Apple Watch (Ultra 3)                                               | `pnpm screenshots:watch`                                              | `captures-native/watch/` + `ios/screenshots/watch-ultra-3/`              |
 | iPhone Duo (native, one run per posture)                            | `DUO_SCREEN=inner\|outer pnpm screenshots:duo`                        | `captures-native/ios-duo/` + `ios/screenshots/iphone-duo/<slot>/`        |
 | Apple TV / Android TV (validate)                                    | `pnpm screenshots:tvos` / `screenshots:android-tv` / `screenshots:tv` | No PNGs unless `RUN_CAPTURE=1` → `apple-tv-1080p/` / `android-tv-1080p/` |
@@ -175,20 +176,20 @@ Full detail: [`apps/app/store-assets/README.md`](../apps/app/store-assets/README
 
 What is in `store-assets/` today and what still needs capturing before the next submission. Update this table whenever a set is refreshed.
 
-_Last reviewed: 2026-11-19 (simulators on iOS / tvOS / watchOS 27.2; Android 15 phone + Wear OS 4 emulators)._
+_Last reviewed: 2026-11-26 for App Store slots (simulators on iOS / tvOS / watchOS 27.2); Google Play rows as of 2026-11-19._
 
 **App Store**
 
 | Slot                                 | Size(s)                                       | Source                                  | Status                                                                                  |
 | ------------------------------------ | --------------------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------------- |
-| iPhone 6.9"                          | 1320×2868                                     | Studio ← `captures/ios`                 | ✅ 2026-11-19 — iPhone 17 Pro, iOS 27.2 captures                                        |
-| iPhone 6.5"                          | 1242×2688                                     | Studio ← `captures/ios`                 | ✅ 2026-11-19                                                                           |
-| iPhone 6.3"                          | 1206×2622                                     | Studio ← `captures/ios`                 | ✅ 2026-11-19 — first export                                                            |
+| iPhone 6.9"                          | 1320×2868                                     | Studio ← `captures/ios`                 | ✅ 2026-11-26 — iPhone 17 Pro, iOS 27.2 captures                                        |
+| iPhone 6.5"                          | 1242×2688                                     | Studio ← `captures/ios`                 | ✅ 2026-11-26                                                                           |
+| iPhone 6.3"                          | 1206×2622                                     | Studio ← `captures/ios`                 | ✅ 2026-11-26                                                                           |
 | iPhone Duo (4 slots)                 | 2007×2853 · 2853×2007 · 1398×2034 · 2034×1398 | Native `screenshots:duo`                | ✅ 2026-11-19 — all 4 slots × en/ar/ur, reviewed                                        |
-| iPad 13"                             | 2064×2752                                     | Studio ← `captures/ios` (phone)         | ✅ 2026-11-19 — phone captures in an iPad frame (no native iPad capture yet)            |
-| Apple Watch Ultra 3                  | 422×514                                       | Native `screenshots:watch`              | ✅ 2026-11-18                                                                           |
+| iPad 13"                             | 2064×2752                                     | Studio ← `captures/ipad` (native)       | ✅ 2026-11-26 — native iPad Pro 13-inch captures (`pnpm screenshots:ipad`)              |
+| Apple Watch Ultra 3                  | 422×514                                       | Native `screenshots:watch`              | ✅ 2026-11-26 — redesigned paged UI (watchOS sim keeps the real clock)                  |
 | Apple Watch (studio deck)            | 422×514 · 410×502                             | Studio                                  | ✅ 2026-11-19 — full-bleed, English UI in every locale (watch strings are English-only) |
-| Apple TV 1080p                       | 1920×1080                                     | Native `RUN_CAPTURE=1 screenshots:tvos` | ✅ 2026-11-18                                                                           |
+| Apple TV 1080p                       | 1920×1080                                     | Native `RUN_CAPTURE=1 screenshots:tvos` | ✅ 2026-11-26 — light theme                                                             |
 | Apple TV (studio deck)               | 3840×2160 · 1920×1080                         | Studio                                  | ✅ 2026-11-19 — ar/ur headlines over English TV captures (TV capture is en-only)        |
 | Product page header / search results | 5244×2950 · 3840×1646 · 3840×2560 · 1920×1280 | Studio ← `captures/ios`                 | ✅ 2026-11-19                                                                           |
 
