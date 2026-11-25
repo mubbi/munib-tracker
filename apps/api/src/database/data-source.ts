@@ -58,6 +58,8 @@ export default new DataSource({
     DeletedAccountEntity,
     ...CIRCLE_ENTITIES,
   ],
-  migrations: ["src/database/migrations/*.ts"],
+  // Timestamped files only — colocated `*.spec.ts` tests import Vitest and
+  // crash the CLI if TypeORM tries to load them as migrations.
+  migrations: ["src/database/migrations/[0-9]*-*.ts"],
   synchronize: false,
 });
