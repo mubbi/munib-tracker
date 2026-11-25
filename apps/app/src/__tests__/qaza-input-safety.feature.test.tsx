@@ -89,6 +89,17 @@ describe("Qaza calculator — typed values reach validation (B-03, B-06)", () =>
     fireEvent.changeText(screen.getByLabelText(label), value);
   const apply = () => screen.getByRole("button", { name: "Apply to my counters" });
 
+  it("opens calmly: an empty age shows the prompt, not a field error or warning", async () => {
+    await renderCalculator();
+
+    expect(screen.getByText("Enter your current age above to see an estimate.")).toBeTruthy();
+    expect(screen.queryByText("Enter your current age to estimate missed Salah.")).toBeNull();
+    expect(apply().props.accessibilityState?.disabled).toBe(true);
+
+    await type("Current age", "30");
+    expect(screen.queryByText("Enter your current age above to see an estimate.")).toBeNull();
+  });
+
   it("reports a puberty age above the field limit instead of computing with 30", async () => {
     await renderCalculator();
 

@@ -79,7 +79,15 @@ export default function QazaCalculatorScreen() {
     [currentAge, pubertyAge, yearsPrayed, exemptDays, yearMode],
   );
 
-  const issues = useMemo(() => validateQazaCalculatorInput(input), [input]);
+  // An empty age field is the starting state, not a mistake: show the "enter your age"
+  // prompt instead of a red field error + "check your numbers" warning on first open.
+  const issues = useMemo(
+    () =>
+      validateQazaCalculatorInput(input).filter(
+        (issue) => !(issue.code === "needCurrentAge" && currentAge === undefined),
+      ),
+    [input, currentAge],
+  );
   // NumberField reports out-of-range input as typed (and shows the range error),
   // so the bounds are checked here too — an estimate is never built from them.
   const outOfRange =
