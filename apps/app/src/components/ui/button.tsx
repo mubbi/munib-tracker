@@ -70,8 +70,10 @@ export function Button({
   const isSm = size === "sm";
   const paddingVertical = isSm ? Spacing.one + 2 : Spacing.two;
   const paddingHorizontal = isSm ? Spacing.two + 2 : Spacing.three;
-  const minHeight = tv ? (isSm ? 48 : TvLayout.minFocusTarget) : isSm ? 36 : 40;
-  const iconSize = isSm ? 14 : 16;
+  // TV: `chipMinHeight` / `minFocusTarget` are already tvDp-scaled for Apple TV.
+  const minHeight = tv ? (isSm ? TvLayout.chipMinHeight : TvLayout.minFocusTarget) : isSm ? 36 : 40;
+  // Glyphs stay unscaled dp — SymbolView / AppIcon apply the tvOS density.
+  const iconSize = tv ? (isSm ? 18 : 20) : isSm ? 14 : 16;
   const labelType = isSm ? "caption" : ("smallBold" as const);
   const borderWidth =
     variant === "ghost" ? 1 : variant === "secondary" ? StyleSheet.hairlineWidth : 0;

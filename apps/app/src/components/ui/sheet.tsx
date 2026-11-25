@@ -293,7 +293,9 @@ export function Sheet({
         { pointerEvents: "auto" },
       ]}
     >
-      {dragHandle}
+      {/* TV remotes cannot drag: a grabber implies a gesture that doesn't exist
+          there (Back closes the sheet). Keep the top breathing room instead. */}
+      {tv ? <View style={styles.tvTopInset} /> : dragHandle}
       {cardBody}
     </Animated.View>
   );
@@ -519,5 +521,8 @@ const styles = StyleSheet.create({
     width: tvDp(40),
     height: 4,
     borderRadius: 2,
+  },
+  tvTopInset: {
+    height: Spacing.four,
   },
 });

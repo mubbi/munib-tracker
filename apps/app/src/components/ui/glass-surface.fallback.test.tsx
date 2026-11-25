@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react-native";
-import { Text } from "react-native";
+import { Text, useColorScheme } from "react-native";
 
 import { GlassControl, GlassSurface, OverlayGlassFill } from "@/components/ui/glass-surface";
 import { setMockBlurTarget } from "@/test-support/mocks/blur-target-provider";
@@ -31,6 +31,12 @@ const renderSurface = (props: SurfaceProps = {}) =>
 const blur = () => screen.getByTestId("blur-view");
 
 afterEach(() => setMockBlurTarget(null));
+
+// These expectations are for the dark scheme. Fresh installs follow the OS
+// (D-UX2), so pin the OS to dark for this file.
+const originalColorScheme = jest.mocked(useColorScheme).getMockImplementation();
+beforeEach(() => jest.mocked(useColorScheme).mockImplementation(() => "dark"));
+afterEach(() => jest.mocked(useColorScheme).mockImplementation(originalColorScheme));
 
 describe("GlassSurface without Liquid Glass", () => {
   it("falls back to a dark chrome blur with the default wash", async () => {

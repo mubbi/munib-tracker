@@ -77,6 +77,21 @@ describe("SegmentedControl", () => {
 
     expect(track().children).toHaveLength(before + 1);
   });
+
+  it("shows a read-only value when disabled", async () => {
+    const onChange = jest.fn();
+    await renderWithTheme(
+      <SegmentedControl options={OPTIONS} value="day" onChange={onChange} disabled />,
+    );
+
+    await fireEvent.press(screen.getByText("Week"));
+
+    expect(onChange).not.toHaveBeenCalled();
+    expect(screen.getAllByRole("button")[1].props.accessibilityState).toEqual({
+      selected: false,
+      disabled: true,
+    });
+  });
 });
 
 describe("SegmentedControl on TV", () => {
@@ -86,5 +101,19 @@ describe("SegmentedControl on TV", () => {
     await renderControl("week");
 
     expect(flattenStyle(screen.getByText("Day").props.style).fontSize).toBeGreaterThan(14);
+  });
+
+  it("does not clip the D-pad focus ring", async () => {
+    await renderControl("day");
+
+    expect(flattenStyle(track().props.style).overflow).toBe("visible");
+  });
+
+  it("removes read-only segments from the D-pad focus order", async () => {
+    await renderWithTheme(
+      <SegmentedControl options={OPTIONS} value="day" onChange={jest.fn()} disabled />,
+    );
+
+    expect(screen.getAllByRole("button").every((b) => b.props.focusable === false)).toBe(true);
   });
 });

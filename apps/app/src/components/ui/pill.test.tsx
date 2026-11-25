@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react-native";
+import { useColorScheme } from "react-native";
 
 import { Pill } from "@/components/ui/pill";
 import { renderWithTheme } from "@/test-support/render";
@@ -9,6 +10,12 @@ type Props = Parameters<typeof Pill>[0];
 const renderPill = (props: Partial<Props> = {}) => renderWithTheme(<Pill label="Tag" {...props} />);
 
 const labelColor = () => flattenStyle(screen.getByText("Tag").props.style).color;
+
+// These expectations are for the dark scheme. Fresh installs follow the OS
+// (D-UX2), so pin the OS to dark for this file.
+const originalColorScheme = jest.mocked(useColorScheme).getMockImplementation();
+beforeEach(() => jest.mocked(useColorScheme).mockImplementation(() => "dark"));
+afterEach(() => jest.mocked(useColorScheme).mockImplementation(originalColorScheme));
 
 describe("Pill", () => {
   it("renders the label with an icon on the default soft tint", async () => {

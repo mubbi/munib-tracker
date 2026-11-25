@@ -15,6 +15,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-na
 
 import { Springs } from "@/constants/motion";
 import { Radius, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -22,8 +23,24 @@ import { blurActiveElement } from "@/lib/blur-active-element";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
 
-/** Gentle enlarge when a TV remote focuses a primary control. */
-const TV_FOCUS_SCALE = 1.04;
+/**
+ * TV focus enlarge. Android TV buttons grow ~1.1× on focus; a fixed factor
+ * either under-sells small tiles or pushes wide rows past their gutters, so the
+ * default adapts to the control's width: at most {@link TV_FOCUS_MAX_SCALE},
+ * and never more than {@link TV_FOCUS_MAX_GROW} of total extra width (half per
+ * side — inside the 20dp grid gutter). Callers can still pin `tvFocusScale`.
+ */
+const TV_FOCUS_MAX_SCALE = 1.08;
+const TV_FOCUS_MAX_GROW = tvDp(20);
+/** Before the first layout pass (width unknown). */
+const TV_FOCUS_FALLBACK_SCALE = 1.04;
+
+/** Adaptive TV focus scale for a control `width` layout units wide. */
+export function tvAdaptiveFocusScale(width: number): number {
+  "worklet";
+  if (!(width > 0)) return TV_FOCUS_FALLBACK_SCALE;
+  return 1 + Math.min(TV_FOCUS_MAX_SCALE - 1, TV_FOCUS_MAX_GROW / width);
+}
 
 /**
  * Flex/content layout for the inner animated wrapper (icon + text stacks, gaps).
@@ -203,8 +220,9 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
   /** Target scale while pressed. Lower = more pronounced. */
   scaleTo?: number;
   /**
-   * TV: scale while D-pad focused (default 1.04). Pass `1` for reading blocks /
-   * wide prose so text does not shift under the focus ring.
+   * TV: scale while D-pad focused. Defaults to a width-adaptive value (~1.08 on
+   * tiles and buttons, smaller on full-width rows). Pass `1` for reading blocks
+   * / wide prose so text does not shift under the focus ring.
    */
   tvFocusScale?: number;
   /** Fade slightly on press in addition to scaling. */
@@ -247,7 +265,7 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
   {
     children,
     scaleTo = 0.96,
-    tvFocusScale = TV_FOCUS_SCALE,
+    tvFocusScale,
     dimOnPress = false,
     haptic = false,
     ripple = true,
@@ -261,6 +279,7 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
     onPress,
     onFocus,
     onBlur,
+    onLayout,
     disabled,
     ...rest
   },
@@ -269,6 +288,7 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
   const { tokens, colors } = useThemeTokens();
   const pressed = useSharedValue(0);
   const focused = useSharedValue(0);
+  const layoutWidth = useSharedValue(0);
   const reducedMotion = useHydrationSafeReducedMotion();
   const tv = isTV();
 
@@ -321,7 +341,7 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
     const nextScale = pressed.value
       ? scaleTo
       : tv && !reducedMotion && focused.value
-        ? tvFocusScale
+        ? (tvFocusScale ?? tvAdaptiveFocusScale(layoutWidth.value))
         : 1;
     return {
       transform: [{ scale: withSpring(nextScale, Springs.press) }],
@@ -397,6 +417,14 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
         if (tv) focused.value = 0;
         onBlur?.(event);
       }}
+      onLayout={
+        tv
+          ? (event) => {
+              layoutWidth.value = event.nativeEvent.layout.width;
+              onLayout?.(event);
+            }
+          : onLayout
+      }
       style={(state) => {
         const isFocused = Boolean((state as { focused?: boolean }).focused);
         // Grow the ring outward (negative margin) so labels/footers keep their
@@ -411,6 +439,13 @@ export const PressableScale = forwardRef<ViewInstance, PressableScaleProps>(func
                   typeof flatStyle?.borderRadius === "number" ? flatStyle.borderRadius : Radius.md,
                 margin: ringDelta > 0 ? -ringDelta : undefined,
                 zIndex: 1,
+                // Soft accent glow lifts the focused surface off its neighbours;
+                // the ring alone reads weakly from the couch, especially on
+                // light theme and busy cards (Fire TV 2.11 / tvOS focus).
+                boxShadow: `0px ${tvDp(4)}px ${tvDp(18)}px ${withAlpha(
+                  colors.accent,
+                  tokens.isDark ? 0.5 : 0.35,
+                )}`,
               }
             : null;
         // Desktop web: pointer cursor + a subtle hover tint so cards/rows read

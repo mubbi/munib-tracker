@@ -66,8 +66,8 @@
       "name": "Munib Tracker",
       "shortName": "Munib Tracker",
       "description": "Track Your Journey Back to Allah. A free, offline-first companion for salah, dhikr, qadha, Qur'an, hadith, and daily worship.",
-      "themeColor": "#152921",
-      "backgroundColor": "#152921"
+      "themeColor": "#F5F0E6",
+      "backgroundColor": "#F5F0E6"
     },
     "plugins": [
       [

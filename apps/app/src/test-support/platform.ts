@@ -4,6 +4,11 @@ export type PlatformOverrides = {
   OS?: typeof Platform.OS;
   /** Drives `isTV()` (`src/lib/platform/is-tv.ts`), which reads `Platform.isTV`. */
   isTV?: boolean;
+  /**
+   * Android `Platform.constants` (`Manufacturer`, `Model`, …) — drives
+   * `isFireTV()`. Merged over the real constants.
+   */
+  constants?: Record<string, unknown>;
 };
 
 type PlatformKey = keyof PlatformOverrides | "select";
@@ -34,7 +39,12 @@ function overrideProperty(key: PlatformKey, value: unknown): () => void {
 export function setPlatform(overrides: PlatformOverrides): () => void {
   const restores = (Object.keys(overrides) as (keyof PlatformOverrides)[])
     .filter((key) => overrides[key] !== undefined)
-    .map((key) => overrideProperty(key, overrides[key]));
+    .map((key) =>
+      overrideProperty(
+        key,
+        key === "constants" ? { ...Platform.constants, ...overrides.constants } : overrides[key],
+      ),
+    );
   if (overrides.OS !== undefined)
     restores.push(overrideProperty("select", selectFor(overrides.OS)));
   return () => {

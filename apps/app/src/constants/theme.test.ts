@@ -1,6 +1,19 @@
+import { StyleSheet } from "react-native";
 import { loadOnPlatform, usePlatform } from "@/test-support/platform";
 
-import { createShadow, withAlpha } from "./theme";
+import {
+  BorderWidth,
+  Breakpoints,
+  Control,
+  createShadow,
+  IconSize,
+  Metal,
+  Opacity,
+  Radius,
+  Spacing,
+  withAlpha,
+  ZIndex,
+} from "./theme";
 
 describe("withAlpha", () => {
   it.each([
@@ -57,5 +70,66 @@ describe("platform constants", () => {
     const theme = loadOnPlatform({ OS: os }, () => require("./theme") as typeof import("./theme"));
     expect(theme.BottomTabInset).toBe(inset);
     expect(theme.Fonts?.sans).toBe(sans);
+  });
+});
+
+describe("layout and geometry tokens", () => {
+  it("matches the spacing and radius scale", () => {
+    expect(Spacing).toEqual({
+      half: 2,
+      one: 4,
+      oneHalf: 6,
+      two: 8,
+      twoHalf: 10,
+      three: 16,
+      four: 24,
+      five: 32,
+      six: 64,
+    });
+    expect(Radius).toEqual({ xs: 6, sm: 10, md: 14, lg: 20, xl: 28, pill: 999 });
+  });
+
+  it("matches the border, control, icon, z-index, opacity and breakpoint tables", () => {
+    expect(BorderWidth).toEqual({ hairline: StyleSheet.hairlineWidth, thin: 1, thick: 2 });
+    expect(Control).toEqual({ sm: 36, md: 44, lg: 52, row: 52, field: 50, minTouch: 44 });
+    expect(IconSize).toEqual({ xs: 12, sm: 14, md: 16, lg: 20, xl: 24, hero: 28 });
+    expect(ZIndex).toEqual({
+      base: 0,
+      raised: 1,
+      sticky: 10,
+      header: 20,
+      overlay: 1000,
+      modal: 2000,
+      toast: 3000,
+    });
+    expect(Opacity).toEqual({ disabled: 0.5, pressed: 0.88 });
+    expect(Breakpoints).toEqual({ tablet: 768, listDetail: 900, wide: 1024, xwide: 1600 });
+    expect(Metal).toEqual({ gold: "#D4A017", silver: "#A8B0B8" });
+  });
+
+  it("uses the 48dp touch floor on Android", () => {
+    const theme = loadOnPlatform(
+      { OS: "android" },
+      () => require("./theme") as typeof import("./theme"),
+    );
+    expect(theme.Control.minTouch).toBe(48);
+  });
+
+  it("scales layout tokens on Apple TV but never icon sizes or the touch floor", () => {
+    const theme = loadOnPlatform(
+      { OS: "ios", isTV: true },
+      () => require("./theme") as typeof import("./theme"),
+    );
+    expect(theme.Spacing.oneHalf).toBe(12);
+    expect(theme.Spacing.twoHalf).toBe(20);
+    expect(theme.Radius.xs).toBe(12);
+    expect(theme.Control.md).toBe(88);
+    expect(theme.BorderWidth.thin).toBe(2);
+    expect(theme.BorderWidth.hairline).toBe(StyleSheet.hairlineWidth);
+    // `IconSize` is raw dp: the expo-symbols TV shim applies TV_DENSITY itself.
+    expect(theme.IconSize.md).toBe(16);
+    expect(theme.Control.minTouch).toBe(44);
+    expect(theme.ZIndex.toast).toBe(3000);
+    expect(theme.Breakpoints.tablet).toBe(768);
   });
 });

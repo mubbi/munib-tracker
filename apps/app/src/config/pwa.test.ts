@@ -1,6 +1,17 @@
 import { APP_DESCRIPTION, APP_NAME } from "@munib-tracker/shared/constants";
+import { resolveTheme } from "@munib-tracker/theme/resolve";
 
-import { pwaWebManifest, resolvePwaManifestForLocale } from "./pwa";
+import appJson from "../../app.json";
+import publicManifest from "../../public/manifest.json";
+import {
+  PWA_THEME_COLOR,
+  PWA_THEME_COLOR_DARK,
+  PWA_THEME_COLOR_LIGHT,
+  pwaWebManifest,
+  resolvePwaManifestForLocale,
+} from "./pwa";
+
+const LIGHT_BACKGROUND = resolveTheme("light", "light").background;
 
 /** Loads a fresh copy of the module against a substitute `app.json`. */
 function loadWithAppJson(expo: Record<string, unknown>): typeof import("./pwa") {
@@ -16,19 +27,37 @@ describe("pwaWebManifest", () => {
   it("is built from the app's web config", () => {
     expect(pwaWebManifest).toMatchObject({
       name: "Munib Tracker",
-      theme_color: "#152921",
-      background_color: "#152921",
       display: "standalone",
     });
   });
 
-  it("falls back to the app name, brand colour and shared description", () => {
+  it("takes its colours from the light theme base (no dark first paint)", () => {
+    expect(pwaWebManifest.theme_color).toBe(LIGHT_BACKGROUND);
+    expect(pwaWebManifest.background_color).toBe(LIGHT_BACKGROUND);
+    expect(PWA_THEME_COLOR).toBe(LIGHT_BACKGROUND);
+    expect(PWA_THEME_COLOR_LIGHT).toBe(LIGHT_BACKGROUND);
+    expect(PWA_THEME_COLOR_DARK).toBe(resolveTheme("dark", "dark").background);
+  });
+
+  it("keeps app.json and the committed manifest in step with the theme", () => {
+    // `scripts/sync-pwa-manifest.mjs` writes public/manifest.json from app.json.
+    expect(appJson.expo.web).toMatchObject({
+      themeColor: LIGHT_BACKGROUND,
+      backgroundColor: LIGHT_BACKGROUND,
+    });
+    expect(publicManifest).toMatchObject({
+      theme_color: LIGHT_BACKGROUND,
+      background_color: LIGHT_BACKGROUND,
+    });
+  });
+
+  it("falls back to the app name, theme colour and shared description", () => {
     const { pwaWebManifest: manifest } = loadWithAppJson({ name: "Fallback" });
     expect(manifest).toMatchObject({
       name: "Fallback",
       description: APP_DESCRIPTION,
-      theme_color: "#152921",
-      background_color: "#152921",
+      theme_color: LIGHT_BACKGROUND,
+      background_color: LIGHT_BACKGROUND,
     });
   });
 

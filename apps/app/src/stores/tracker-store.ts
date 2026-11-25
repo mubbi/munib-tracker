@@ -1,4 +1,8 @@
-import type { AchievementStats, DevotionProgress } from "@munib-tracker/shared/achievements";
+import type {
+  AchievementStats,
+  DevotionProgress,
+  RecitationStats,
+} from "@munib-tracker/shared/achievements";
 import {
   computeDevotionProgress,
   summarizeQazaDebt,
@@ -302,16 +306,36 @@ async function ensureContinuingExcusedPeriod(
   }
 }
 
+/** Last recitation stats read, kept when a later read fails (no Noor / badge flapping). */
+let lastRecitation: RecitationStats | null = null;
+
+/**
+ * D71: Qur'an practice totals for the Recitation track. Loaded with `import()`
+ * so the practice reading-credit rules stay out of the home / tracker bundles.
+ * `null` on TV (no practice) — the track is then left out, not shown empty.
+ */
+async function loadRecitation(): Promise<RecitationStats | null> {
+  try {
+    const { loadRecitationStats } = await import("@/lib/achievements-recitation");
+    lastRecitation = await loadRecitationStats();
+  } catch (error) {
+    if (__DEV__) console.warn("Failed to load recitation stats", error);
+  }
+  return lastRecitation;
+}
+
 async function recompute(date: string): Promise<Partial<TrackerState>> {
-  const [allLogs, todayZikr, allZikr, counters, roza, schedule, dailyProgress] = await Promise.all([
-    PrayerRepository.getAll(),
-    ZikrRepository.getByDate(date),
-    ZikrRepository.getAll(),
-    QazaRepository.getCounters(),
-    QazaRepository.getRoza(),
-    QazaRepository.getSchedule(),
-    QazaRepository.getDailyProgress(date),
-  ]);
+  const [allLogs, todayZikr, allZikr, counters, roza, schedule, dailyProgress, recitation] =
+    await Promise.all([
+      PrayerRepository.getAll(),
+      ZikrRepository.getByDate(date),
+      ZikrRepository.getAll(),
+      QazaRepository.getCounters(),
+      QazaRepository.getRoza(),
+      QazaRepository.getSchedule(),
+      QazaRepository.getDailyProgress(date),
+      loadRecitation(),
+    ]);
 
   const prayerStatus: Record<string, PrayerStatus> = {};
   const prayerNotes: Record<string, string | undefined> = {};
@@ -365,6 +389,7 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
     rozaDebt,
     zikrCompleted: allZikr.filter((z) => z.completed).length,
     perfectDays,
+    recitation,
   };
 
   return {

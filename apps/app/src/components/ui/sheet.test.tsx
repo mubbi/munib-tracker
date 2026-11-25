@@ -170,6 +170,13 @@ describe("Sheet on Android", () => {
 describe("Sheet on TV", () => {
   usePlatform({ isTV: true });
 
+  it("drops the drag handle — remotes cannot drag, Back closes", async () => {
+    await renderSheet({ variant: "bottom", solid: true });
+
+    expect(screen.getByText("Sheet body")).toBeTruthy();
+    expect(screen.queryByLabelText("Drag down to close", hidden)).toBeNull();
+  });
+
   it("keeps the scrim out of D-pad focus", async () => {
     await renderSheet({ variant: "bottom", solid: true });
 

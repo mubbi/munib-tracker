@@ -3,7 +3,10 @@ import { addDays, getLocalDateString } from "@munib-tracker/shared/utils";
 import { act, renderHook } from "@testing-library/react-native";
 
 import { PrayerRepository, PreferencesRepository, QazaRepository } from "@/db";
+import { QuranPracticeRepository } from "@/db/repositories/quran-practice-repository";
 import { onTrackingChanged } from "@/lib/sync/tracking-changes";
+import { buildPracticeSummary } from "@/test-support/fixtures/quran-companion";
+import { usePlatform } from "@/test-support/platform";
 import { loadTrackerStore, resetTrackerStore } from "@/test-support/store";
 
 import { preferencesStore } from "./preferences-store";
@@ -161,6 +164,26 @@ describe("trackerStore", () => {
 
     await trackerStore.getState().setZikrCount("zikr-morning", 2, 3);
     expect(trackerStore.getState().achievementStats.zikrCompleted).toBe(0);
+  });
+
+  it("feeds Qur'an practice into the Recitation track and its Noor (D71)", async () => {
+    expect(trackerStore.getState().achievementStats.recitation).toEqual({
+      sessions: 0,
+      bestRevisionStreak: 0,
+      ayahsRecited: 0,
+    });
+    const noorBefore = trackerStore.getState().devotionProgress.noor;
+
+    await QuranPracticeRepository.add(buildPracticeSummary({ id: "s1", heardAyahs: [1, 2, 3] }));
+    await trackerStore.getState().refresh();
+
+    expect(trackerStore.getState().achievementStats.recitation).toEqual({
+      sessions: 1,
+      bestRevisionStreak: 0,
+      ayahsRecited: 3,
+    });
+    // One session (5) + three ayahs (3 × 1).
+    expect(trackerStore.getState().devotionProgress.noor).toBe(noorBefore + 8);
   });
 
   it("persists prayer status across a reload (offline, no network)", async () => {
@@ -491,5 +514,16 @@ describe("tracker hooks", () => {
       await actions.resetRoza();
     });
     expect(result.current.qazaSummary).toEqual({ remaining: 0, completed: 0 });
+  });
+});
+
+describe("trackerStore on TV (no Qur'an practice)", () => {
+  usePlatform({ isTV: true });
+
+  it("leaves the Recitation track out of the achievement stats", async () => {
+    await QuranPracticeRepository.add(buildPracticeSummary({ id: "tv1", heardAyahs: [1, 2] }));
+    await trackerStore.getState().refresh();
+    expect(trackerStore.getState().achievementStats.recitation).toBeNull();
+    expect(trackerStore.getState().devotionProgress.noor).toBe(0);
   });
 });

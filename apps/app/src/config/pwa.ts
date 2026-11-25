@@ -1,5 +1,6 @@
 import { APP_DESCRIPTION, APP_NAME } from "@munib-tracker/shared/constants";
 import { type AppLocale, getLocaleDefinition } from "@munib-tracker/shared/i18n";
+import { resolveTheme } from "@munib-tracker/theme/resolve";
 import appJson from "../../app.json";
 
 /** Static paths under `public/assets/images/` (synced from `assets/images/` before web export). */
@@ -22,17 +23,24 @@ type ExpoWebConfig = {
   name?: string;
   shortName?: string;
   description?: string;
-  themeColor?: string;
-  backgroundColor?: string;
 };
 
 const expo = appJson.expo;
 const web = (expo.web ?? {}) as ExpoWebConfig;
 
-const themeColor = web.themeColor ?? "#152921";
-const themeColorLight = "#F5F0E6";
-const themeColorDark = "#152921";
-const backgroundColor = web.backgroundColor ?? themeColor;
+/**
+ * PWA colours come from the theme, not hand-copied hexes. The manifest takes a
+ * single colour, so it uses the light page background — D-UX2 makes "system"
+ * the default, and a light-OS install must not flash the dark green before a
+ * cream app. Dark stays available through the `prefers-color-scheme`
+ * `theme-color` metas in `+html.tsx`. `app.json` `web.themeColor` /
+ * `backgroundColor` (read by `scripts/sync-pwa-manifest.mjs`) must match —
+ * enforced by `pwa.test.ts`.
+ */
+const themeColorLight = resolveTheme("light", "light").background;
+const themeColorDark = resolveTheme("dark", "dark").background;
+const themeColor = themeColorLight;
+const backgroundColor = themeColorLight;
 const shortName = web.shortName ?? expo.name ?? APP_NAME;
 
 /** Web app manifest fields — keep in sync via `pnpm sync:pwa-manifest`. */

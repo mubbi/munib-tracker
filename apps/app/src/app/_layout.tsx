@@ -6,8 +6,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import "@/global.css";
-// Web-only focus-visible ring (WCAG 2.4.7). Resolves to a no-op on native.
-import "@/styles/focus-visible";
 import { setAppVersionInfo } from "@munib-tracker/api-client";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import { AppStack } from "@/components/app-stack";

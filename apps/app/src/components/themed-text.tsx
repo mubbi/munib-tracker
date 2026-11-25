@@ -23,22 +23,34 @@ import { arabicTextAlign, useIsRTL, useUiTextStyle } from "@/lib/rtl";
 import { useStore } from "@/stores/create-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
+export type ThemedTextType =
+  | "default"
+  | "display"
+  | "title"
+  | "header"
+  | "subtitle"
+  | "bodyLarge"
+  | "button"
+  | "footnote"
+  | "small"
+  | "smallBold"
+  | "caption"
+  | "label"
+  | "linkPrimary"
+  | "code"
+  | "arabic";
+
+export type ThemedTextWeight = "regular" | "medium" | "semibold" | "bold";
+
 export type ThemedTextProps = TextProps & {
-  type?:
-    | "default"
-    | "display"
-    | "title"
-    | "header"
-    | "subtitle"
-    | "small"
-    | "smallBold"
-    | "caption"
-    | "label"
-    | "link"
-    | "linkPrimary"
-    | "code"
-    | "arabic";
+  type?: ThemedTextType;
   themeColor?: ThemeColor;
+  /**
+   * Overrides the variant's default weight (`default` + `weight="bold"` is the
+   * H3 card title). Use instead of inline `fontWeight` literals; an explicit
+   * `style.fontWeight` still wins.
+   */
+  weight?: ThemedTextWeight;
   /**
    * Renders a semantic heading. On web this becomes a real `<h1>`–`<h6>` tag
    * (react-native-web maps `role="heading"` + `aria-level` to `<hN>`), giving
@@ -61,19 +73,47 @@ function headingProps(level?: 1 | 2 | 3 | 4 | 5 | 6): Record<string, unknown> {
  * scale but NOT a fixed `lineHeight`, so at large Dynamic Type the text clips.
  * We multiply these by the live `fontScale` so lines reflow instead.
  */
-const LINE_HEIGHTS: Partial<Record<NonNullable<ThemedTextProps["type"]>, number>> = {
+const LINE_HEIGHTS: Partial<Record<ThemedTextType, number>> = {
   default: 26,
   display: 58,
   title: 48,
   header: 34,
   subtitle: 28,
+  bodyLarge: 28,
+  button: 20,
+  footnote: 18,
   small: 22,
   smallBold: 22,
   caption: 18,
   label: 16,
-  link: 30,
-  linkPrimary: 30,
+  linkPrimary: 22,
+  code: 18,
 };
+
+const FONT_WEIGHTS: Record<ThemedTextWeight, TextStyle["fontWeight"]> = {
+  regular: "400",
+  medium: "500",
+  semibold: "600",
+  bold: "700",
+};
+
+/**
+ * Font-scale caps: oversized headings and chrome labels in fixed-height
+ * controls stop growing past these multipliers (they would clip or wrap
+ * absurdly). Content text — `default`, `bodyLarge`, `small`, `footnote`,
+ * `caption`, `code`, `arabic` — scales without a cap (WCAG 1.4.4).
+ */
+const MAX_FONT_SIZE_MULTIPLIERS: Partial<Record<ThemedTextType, number>> = {
+  display: 1.3,
+  title: 1.3,
+  header: 1.5,
+  subtitle: 1.5,
+  button: 1.3,
+  label: 1.3,
+};
+
+/** Line height for a caller `fontSize` passed without its own `lineHeight`. */
+const DERIVED_LINE_HEIGHT_RATIO = 1.4;
 
 /** TV (10-foot) ramp per type — resolved once; `isTV()` is static per build. */
 const TV_TEXT = isTV();
@@ -116,6 +156,7 @@ export function ThemedText({
   style,
   type = "default",
   themeColor,
+  weight,
   heading,
   children,
   ...rest
@@ -130,7 +171,8 @@ export function ThemedText({
   // textAlign after the user switches to ar/ur/fa/ps/ku (see useUiTextStyle).
   const rtl = useIsRTL();
   const localeTextStyle = useUiTextStyle();
-  const resolvedColor = type === "linkPrimary" ? colors.accent : colors[themeColor ?? "foreground"];
+  const resolvedColor =
+    type === "linkPrimary" ? colors.accentText : colors[themeColor ?? "foreground"];
   const tvRamp = TV_TEXT && type !== "arabic" ? TvType[type as keyof typeof TvType] : undefined;
   const baseLineHeight = tvRamp?.lineHeight ?? LINE_HEIGHTS[type];
   const flatStyle = StyleSheet.flatten(style);
@@ -147,6 +189,12 @@ export function ThemedText({
       : undefined;
   const scaledLineHeight =
     type !== "arabic" && baseLineHeight != null ? { lineHeight: baseLineHeight * fontScale } : null;
+  // An inline `fontSize` without a `lineHeight` would keep the variant's line
+  // height and clip (or float) — derive one from the caller's size instead.
+  const derivedLineHeight =
+    type !== "arabic" && typeof flatStyle?.fontSize === "number" && flatStyle.lineHeight == null
+      ? { lineHeight: Math.round(flatStyle.fontSize * DERIVED_LINE_HEIGHT_RATIO) * fontScale }
+      : null;
   const arabicMetrics =
     type === "arabic" && arabicFontSize != null
       ? { lineHeight: resolveArabicLineHeight(arabicFontSize, arabicFamily) * fontScale }
@@ -162,26 +210,32 @@ export function ThemedText({
     type === "title" && styles.title,
     type === "header" && styles.header,
     type === "subtitle" && styles.subtitle,
+    type === "bodyLarge" && styles.bodyLarge,
+    type === "button" && styles.button,
+    type === "footnote" && styles.footnote,
     type === "small" && styles.small,
     type === "smallBold" && styles.smallBold,
     type === "caption" && styles.caption,
     type === "label" && styles.label,
-    type === "link" && styles.link,
     type === "linkPrimary" && styles.linkPrimary,
     type === "code" && styles.code,
     type === "arabic" && styles.arabic,
     type === "arabic" && { fontFamily: resolveArabicFontFamily(arabicFamily) },
     tvRamp ? { fontSize: tvRamp.fontSize } : null,
+    // Scripture never takes a synthetic weight.
+    weight && type !== "arabic" ? { fontWeight: FONT_WEIGHTS[weight] } : null,
     localeTextAlign,
     arabicAlign,
     scaledLineHeight,
     style,
+    derivedLineHeight,
     arabicMetrics,
   ];
 
   return (
     <Text
       {...headingProps(heading)}
+      maxFontSizeMultiplier={MAX_FONT_SIZE_MULTIPLIERS[type]}
       style={[...textStyles, tvDensityTextStyle(textStyles)]}
       {...rest}
     >
@@ -206,6 +260,21 @@ const styles = StyleSheet.create({
     lineHeight: 26,
     fontWeight: "500",
   },
+  bodyLarge: {
+    fontSize: 18,
+    lineHeight: 28,
+    fontWeight: "400",
+  },
+  button: {
+    fontSize: 15,
+    lineHeight: 20,
+    fontWeight: "600",
+  },
+  footnote: {
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: "500",
+  },
   display: {
     fontSize: 56,
     fontWeight: "800",
@@ -215,7 +284,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: "700",
-    lineHeight: 46,
+    lineHeight: 48,
     letterSpacing: -0.6,
   },
   header: {
@@ -242,18 +311,16 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     textTransform: "uppercase",
   },
-  link: {
-    lineHeight: 30,
-    fontSize: 14,
-  },
   linkPrimary: {
-    lineHeight: 30,
     fontSize: 14,
+    lineHeight: 22,
+    fontWeight: "600",
   },
   code: {
     fontFamily: Fonts.mono,
     fontWeight: Platform.select({ android: "700" }) ?? "500",
     fontSize: 12,
+    lineHeight: 18,
   },
   arabic: {
     fontFamily: Fonts.serif,

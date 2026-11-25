@@ -6,14 +6,21 @@ import * as SystemUI from "expo-system-ui";
 import { Appearance, AppState, useColorScheme } from "react-native";
 
 import { peekStoredColorMode } from "@/lib/boot/cold-start";
+import { getResolvedAccent } from "@/lib/boot/resolved-accent";
 import { MunibThemeProvider, useTheme } from "@/providers/theme-provider";
 import { captureAnimationFrames } from "@/test-support/animation-frames";
 import { captureAppStateListener } from "@/test-support/app-state";
 import { deferred } from "@/test-support/async";
+import { usePlatform } from "@/test-support/platform";
 
 const CUSTOM_ACCENT_KEY = "@munib-tracker/custom-accent";
 
-type MockPrefs = { colorMode?: string; accentColorId?: string; customAccent?: string };
+type MockPrefs = {
+  colorMode?: string;
+  accentColorId?: string;
+  customAccent?: string;
+  hasCompletedOnboarding?: boolean;
+};
 
 const mockPrefsStore = {
   prefs: {} as MockPrefs,
@@ -90,12 +97,11 @@ describe("useTheme", () => {
 });
 
 describe("hydration", () => {
-  it("defaults to dark forest and hides the splash once ready", async () => {
+  it("defaults a fresh install to the system mode with forest and hides the splash", async () => {
     const { result } = await setup();
 
     expect(result.current).toMatchObject({
-      colorMode: "dark",
-      scheme: "dark",
+      colorMode: "system",
       accentColorId: "forest",
       customAccent: null,
     });
@@ -187,6 +193,72 @@ describe("hydration", () => {
 
     expect(SplashScreen.hideAsync).not.toHaveBeenCalled();
     expect(mockPrefsStore.update).not.toHaveBeenCalled();
+  });
+});
+
+describe("first-run colour mode (D-UX2)", () => {
+  it.each([
+    ["dark", "dark"],
+    ["light", "light"],
+  ] as const)("empty storage follows the OS scheme %s", async (os, scheme) => {
+    await jest.mocked(useColorScheme).withImplementation(
+      () => os,
+      async () => {
+        const { result } = await setup();
+        expect(result.current).toMatchObject({ colorMode: "system", scheme });
+      },
+    );
+    expect(Appearance.setColorScheme).toHaveBeenCalledWith("auto");
+    // Nothing to migrate: a fresh device must not stamp the synced blob.
+    expect(mockPrefsStore.update).not.toHaveBeenCalled();
+  });
+
+  it("keeps an onboarded user with no stored mode on dark and writes it back once", async () => {
+    mockPrefsStore.prefs = { hasCompletedOnboarding: true };
+
+    await jest.mocked(useColorScheme).withImplementation(
+      () => "light",
+      async () => {
+        const { result } = await setup();
+        expect(result.current).toMatchObject({ colorMode: "dark", scheme: "dark" });
+      },
+    );
+    expect(AsyncStorage.setItem).toHaveBeenCalledWith(STORAGE_KEYS.colorMode, "dark");
+    expect(mockPrefsStore.update).toHaveBeenCalledWith(
+      expect.objectContaining({ colorMode: "dark" }),
+    );
+  });
+
+  it("treats a stored accent without a mode as an existing install", async () => {
+    await seedStorage({ [STORAGE_KEYS.accent]: "pink" });
+
+    const { result } = await setup();
+
+    expect(result.current).toMatchObject({ colorMode: "dark", accentColorId: "pink" });
+    expect(AsyncStorage.setItem).toHaveBeenCalledWith(STORAGE_KEYS.colorMode, "dark");
+  });
+
+  it.each(["light", "dark", "system"] as const)(
+    "leaves a stored %s mode untouched",
+    async (mode) => {
+      await seedStorage({ [STORAGE_KEYS.colorMode]: mode });
+      mockPrefsStore.prefs = { hasCompletedOnboarding: true };
+
+      const { result } = await setup();
+
+      expect(result.current.colorMode).toBe(mode);
+      expect(AsyncStorage.setItem).toHaveBeenCalledWith(STORAGE_KEYS.colorMode, mode);
+      expect(AsyncStorage.setItem).not.toHaveBeenCalledWith(
+        STORAGE_KEYS.colorMode,
+        expect.not.stringMatching(new RegExp(`^${mode}$`)),
+      );
+    },
+  );
+
+  it("publishes the hydrated accent to the provider-less mirror", async () => {
+    mockPrefsStore.prefs = { accentColorId: "rose", customAccent: "#123456" };
+    await setup();
+    expect(getResolvedAccent()).toEqual({ accentColorId: "rose", customAccent: "#123456" });
   });
 });
 
@@ -339,6 +411,55 @@ describe("system UI background", () => {
     setCurrentState("background");
     await setup();
     expect(SystemUI.setBackgroundColorAsync).not.toHaveBeenCalled();
+  });
+});
+
+describe("web CSS variables", () => {
+  usePlatform({ OS: "web" });
+  const setProperty = jest.fn();
+
+  beforeEach(() => {
+    setProperty.mockClear();
+    (globalThis as { document?: unknown }).document = {
+      documentElement: { style: { setProperty } },
+    };
+  });
+
+  afterEach(() => {
+    delete (globalThis as { document?: unknown }).document;
+  });
+
+  /** The last value the provider wrote for a `:root` custom property. */
+  function lastValue(name: string) {
+    return setProperty.mock.calls.filter(([n]) => n === name).at(-1)?.[1];
+  }
+
+  it("publishes the focus ring, halo, background and foreground on :root", async () => {
+    const { result } = await setup();
+    expect(lastValue("--munib-focus")).toBe(result.current.tokens.focusRing);
+    expect(lastValue("--munib-focus-halo")).toBe(result.current.colors.background);
+    expect(lastValue("--munib-bg")).toBe(result.current.colors.background);
+    expect(lastValue("--munib-fg")).toBe(result.current.colors.foreground);
+  });
+
+  it.each(["amber", "lime"] as const)(
+    "changing the accent to %s updates --munib-focus to tokens.focusRing",
+    async (accent) => {
+      const { result } = await setup();
+      const before = lastValue("--munib-focus");
+
+      await act(async () => result.current.setAccentColor(accent));
+
+      expect(lastValue("--munib-focus")).toBe(result.current.tokens.focusRing);
+      expect(lastValue("--munib-focus")).not.toBe(before);
+    },
+  );
+
+  it("follows a colour-mode switch", async () => {
+    const { result } = await setup();
+    await act(async () => result.current.setColorMode("dark"));
+    expect(lastValue("--munib-focus")).toBe(result.current.tokens.focusRing);
+    expect(lastValue("--munib-bg")).toBe(result.current.colors.background);
   });
 });
 

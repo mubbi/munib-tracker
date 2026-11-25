@@ -10,9 +10,10 @@ import {
   PWA_THEME_COLOR_DARK,
   PWA_THEME_COLOR_LIGHT,
 } from "@/config/pwa";
-import { BOOT_THEME_SCRIPT } from "@/lib/boot/cold-start";
+import { BOOT_THEME_CSS, BOOT_THEME_SCRIPT } from "@/lib/boot/cold-start";
 import { LOCALE_PATH_BOOT_SCRIPT } from "@/lib/locale-path";
 import { siteGraphSchema } from "@/lib/seo/structured-data";
+import { FOCUS_RING_CSS, THEME_CSS_VARIABLES_DEFAULTS } from "@/styles/theme-css-variables";
 
 /**
  * Web document shell rendered around every statically-exported route.
@@ -92,6 +93,13 @@ export default function Root({ children }: PropsWithChildren) {
           dangerouslySetInnerHTML={{ __html: LOCALE_PATH_BOOT_SCRIPT }}
         />
 
+        {/* Boot background before any script: light, or dark when the OS prefers
+            dark (D-UX2 default) — the fallback when storage/script is blocked. */}
+        <style
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: must paint before the app bundle
+          dangerouslySetInnerHTML={{ __html: BOOT_THEME_CSS }}
+        />
+
         {/* Paint boot background from stored color mode before the JS bundle. */}
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: must run before the app bundle
@@ -130,27 +138,6 @@ export default function Root({ children }: PropsWithChildren) {
                 margin: 0;
                 overflow: hidden;
               }
-              /* Keyboard users get a visible ring; mouse clicks do not. */
-              :focus:not(:focus-visible) {
-                outline: none;
-              }
-              /* Screen landmarks are focused programmatically on navigation
-                 (a11y) — never draw a ring around the whole page. */
-              [tabindex="-1"]:focus,
-              [tabindex="-1"]:focus-visible {
-                outline: none;
-              }
-              a:focus-visible,
-              button:focus-visible,
-              [role="button"]:focus-visible,
-              [role="link"]:focus-visible,
-              [role="tab"]:focus-visible,
-              [role="switch"]:focus-visible,
-              [role="checkbox"]:focus-visible,
-              [tabindex="0"]:focus-visible {
-                outline: 2px solid var(--munib-focus, #2e7d32);
-                outline-offset: 2px;
-              }
               /* Slimmer desktop scrollbars that follow the color scheme. */
               @media (hover: hover) and (pointer: fine) {
                 * {
@@ -159,6 +146,13 @@ export default function Root({ children }: PropsWithChildren) {
               }
             `,
           }}
+        />
+        {/* Theme variables (default palette until MunibThemeProvider writes the
+            user's) + the ONE keyboard focus ring: 2px ring, 2px offset,
+            background halo, forced-colors aware, never reshapes the element. */}
+        <style
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: document-level focus ring + theme variables
+          dangerouslySetInnerHTML={{ __html: `${THEME_CSS_VARIABLES_DEFAULTS}${FOCUS_RING_CSS}` }}
         />
         {headNodes}
       </head>

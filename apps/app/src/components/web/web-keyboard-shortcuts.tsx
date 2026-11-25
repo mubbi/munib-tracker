@@ -2,7 +2,6 @@ import { usePathname, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { Platform } from "react-native";
 
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTypingTarget } from "@/lib/web/is-typing-target";
 import { isChromelessRoute } from "@/lib/web/nav-section";
 
@@ -11,20 +10,12 @@ import { isChromelessRoute } from "@/lib/web/nav-section";
  *
  * - `/` or `Ctrl/⌘ + K` opens universal search (not while typing, not on
  *   first-run / auth routes).
- * - Publishes the theme accent as `--munib-focus` so the global
- *   `:focus-visible` ring in `+html.tsx` matches light/dark + accent changes.
  *
  * Renders nothing; no-op on native.
  */
 export function WebKeyboardShortcuts() {
   const router = useRouter();
   const pathname = usePathname();
-  const { colors } = useThemeTokens();
-
-  useEffect(() => {
-    if (Platform.OS !== "web" || typeof document === "undefined") return;
-    document.documentElement.style.setProperty("--munib-focus", colors.accent);
-  }, [colors.accent]);
 
   useEffect(() => {
     if (Platform.OS !== "web" || typeof window === "undefined") return;

@@ -1,7 +1,7 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 import { Text, type ViewStyle } from "react-native";
 
-import { PressableScale } from "@/components/ui/pressable-scale";
+import { PressableScale, tvAdaptiveFocusScale } from "@/components/ui/pressable-scale";
 import { triggerHaptic } from "@/lib/haptics";
 import { pressableProps as pressablePropsOf } from "@/test-support/fiber";
 import { usePlatform } from "@/test-support/platform";
@@ -37,8 +37,10 @@ const target = () => screen.getByLabelText("Target");
 const pressableProps = () => pressablePropsOf<PressableProps>(target());
 
 /** Invokes a handler RN's Pressable would call for a touch / focus event. */
-const trigger = (name: "onPressIn" | "onPressOut" | "onFocus" | "onBlur") =>
-  act(async () => pressableProps()[name]({}));
+const trigger = (
+  name: "onPressIn" | "onPressOut" | "onFocus" | "onBlur" | "onLayout",
+  event: object = {},
+) => act(async () => pressableProps()[name](event));
 
 const styleFor = (state: Partial<PressableState> = {}) =>
   flattenStyle(pressableProps().style({ pressed: false, ...state }));
@@ -326,5 +328,34 @@ describe("PressableScale on TV", () => {
     await renderPressable();
 
     expect(pressableProps().android_ripple).toBeUndefined();
+  });
+
+  it("lifts the focused surface with an accent glow", async () => {
+    await renderPressable();
+
+    expect(styleFor({ focused: true }).boxShadow).toEqual(expect.stringMatching(/px .+px .+px/));
+    expect(styleFor().boxShadow).toBeUndefined();
+  });
+
+  it("adapts the default focus scale to the control's width", async () => {
+    const animated = captureAnimatedStyles();
+    await renderPressable();
+
+    await trigger("onLayout", { nativeEvent: { layout: { width: 900, height: 64 } } });
+    await trigger("onFocus");
+    const [{ scale }] = animated.latest().transform as [{ scale: number }];
+    expect(scale).toBeCloseTo(1 + 20 / 900, 5);
+  });
+});
+
+describe("tvAdaptiveFocusScale", () => {
+  it("caps small tiles at 1.08 and shrinks for wide rows", () => {
+    expect(tvAdaptiveFocusScale(120)).toBeCloseTo(1.08, 5);
+    expect(tvAdaptiveFocusScale(500)).toBeCloseTo(1.04, 5);
+    expect(tvAdaptiveFocusScale(1000)).toBeCloseTo(1.02, 5);
+  });
+
+  it("falls back before the first layout", () => {
+    expect(tvAdaptiveFocusScale(0)).toBe(1.04);
   });
 });

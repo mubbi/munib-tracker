@@ -38,6 +38,11 @@ type SegmentedControlProps<T extends string> = {
   allowReselect?: boolean;
   /** Expose the track as a tab list (`tablist` / `tab`) instead of toggle buttons. */
   tabs?: boolean;
+  /**
+   * Read-only display of the selected value: segments are dimmed, ignore
+   * presses and (on TV) are not D-pad focus stops, so they never look live.
+   */
+  disabled?: boolean;
 };
 
 const PAD = Spacing.half + 2;
@@ -49,6 +54,7 @@ export function SegmentedControl<T extends string>({
   onChange,
   allowReselect = false,
   tabs = false,
+  disabled = false,
 }: SegmentedControlProps<T>) {
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
@@ -87,6 +93,9 @@ export function SegmentedControl<T extends string>({
           chartCoordinateStyle,
           { flexDirection: segmentedTrackDirection() },
           { backgroundColor: colors.muted },
+          // TV: the D-pad focus ring + scale must not be clipped by the track.
+          tv && styles.containerTv,
+          disabled && styles.disabled,
         ]}
         onLayout={onLayout}
       >
@@ -108,11 +117,14 @@ export function SegmentedControl<T extends string>({
               key={option.id}
               accessibilityRole={tabs ? "tab" : "button"}
               accessibilityLabel={option.accessibilityLabel}
-              accessibilityState={{ selected }}
+              accessibilityState={disabled ? { selected, disabled } : { selected }}
+              {...(disabled ? { disabled: true } : null)}
+              {...(tv && disabled ? { focusable: false } : null)}
               haptic={false}
               scaleTo={0.98}
               rippleRadius={Radius.sm}
               onPress={() => {
+                if (disabled) return;
                 if (selected && !allowReselect) return;
                 triggerHaptic("selection");
                 onChange(option.id);
@@ -145,6 +157,12 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     gap: GAP,
     overflow: "hidden",
+  },
+  containerTv: {
+    overflow: "visible",
+  },
+  disabled: {
+    opacity: 0.6,
   },
   thumb: {
     position: "absolute",

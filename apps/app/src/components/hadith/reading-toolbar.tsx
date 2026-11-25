@@ -9,7 +9,6 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { ReadingFontControls } from "@/components/reading-font-controls";
-import { ThemedText } from "@/components/themed-text";
 import { ToggleChip } from "@/components/ui/chip";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
