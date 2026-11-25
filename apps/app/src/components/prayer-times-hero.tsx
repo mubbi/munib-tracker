@@ -121,6 +121,12 @@ const INACTIVE_PRAYER_TEXT = withAlpha(Brand.heroText, 0.82);
 
 /** Text scale at which the prayer strip wraps to rows instead of shrinking names (B-19). */
 const LARGE_TEXT_SCALE = 1.3;
+/**
+ * Narrowest strip slot (dp at 1× text) that fits a full-size name like "Maghrib".
+ * Below it the strip wraps like large text does — the narrow iPad home column
+ * otherwise broke names mid-word ("Maghri / b").
+ */
+const MIN_PRAYER_SLOT_DP = 56;
 
 /** Fixed positions for the faint night starfield (left %, top px, size, opacity). */
 const STARS = [
@@ -208,6 +214,13 @@ export function PrayerTimesHero({
   // Large Dynamic Type: wrap the strip to rows (names keep their size) instead
   // of shrinking text toward 9pt.
   const largeText = fontScale >= LARGE_TEXT_SCALE;
+  const [prayerRowWidth, setPrayerRowWidth] = useState(0);
+  // Too narrow for one row of full-size names (e.g. the iPad home column): wrap too.
+  const narrowStrip =
+    prayerRowWidth > 0 &&
+    prayers.length > 0 &&
+    prayerRowWidth / prayers.length < MIN_PRAYER_SLOT_DP * Math.max(1, fontScale);
+  const wrapPrayers = largeText || narrowStrip;
   const { primary: primaryDate, secondary: secondaryDate } = displayDates;
   const reducedMotion = useReducedMotion();
   const breath = useSharedValue(0);
@@ -565,7 +578,10 @@ export function PrayerTimesHero({
               accent={sky.accent}
               large={tv}
             />
-            <View style={[styles.prayerRow, largeText ? styles.prayerRowWrap : null]}>
+            <View
+              style={[styles.prayerRow, wrapPrayers ? styles.prayerRowWrap : null]}
+              onLayout={(event) => setPrayerRowWidth(event.nativeEvent.layout.width)}
+            >
               {prayers.map((prayer, index) => {
                 const active = index === activeIndex;
                 const markable = index === markIndex && onMarkPress != null;
@@ -574,7 +590,7 @@ export function PrayerTimesHero({
                 const textColor = active ? Brand.heroText : INACTIVE_PRAYER_TEXT;
                 const cellStyle = [
                   styles.prayerItem,
-                  largeText ? styles.prayerItemWrap : null,
+                  wrapPrayers ? styles.prayerItemWrap : null,
                   active && {
                     backgroundColor: HeroSky.activePrayerSurface,
                     borderColor: withAlpha(toHex(sky.accent), 0.7),
