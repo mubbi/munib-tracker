@@ -40,7 +40,11 @@ const {
   logReleaseVersionSummary,
   buildNativeReleaseProcessEnv,
 } = require("./lib/release-app-env.cjs");
-const { applyIosCredentialsEnv, logIosKeysSummary } = require("./lib/ios-keys.cjs");
+const {
+  applyIosCredentialsEnv,
+  buildXcodeAscAuthArgs,
+  logIosKeysSummary,
+} = require("./lib/ios-keys.cjs");
 const { assertIosProjectMode } = require("./lib/tv-native-project.cjs");
 
 const archiveOnly = process.argv.includes("--archive-only");
@@ -104,6 +108,10 @@ function main() {
   ensureIosReactCodegen();
 
   const env = buildNativeReleaseProcessEnv();
+  // ASC API key auth (same as ios-tv-release.js): lets -allowProvisioningUpdates refresh the
+  // App Store profiles (e.g. after a new capability such as Family Controls is approved)
+  // without depending on an Xcode-signed-in Apple ID session.
+  const ascAuthArgs = buildXcodeAscAuthArgs(appRoot);
 
   fs.mkdirSync(buildDir, { recursive: true });
 
@@ -124,6 +132,7 @@ function main() {
       archivePath,
       "archive",
       "-allowProvisioningUpdates",
+      ...ascAuthArgs,
     ],
     { cwd: iosDir, env },
   );
@@ -151,6 +160,7 @@ function main() {
       "-exportOptionsPlist",
       exportOptionsPath,
       "-allowProvisioningUpdates",
+      ...ascAuthArgs,
     ],
     { cwd: iosDir, env },
   );
