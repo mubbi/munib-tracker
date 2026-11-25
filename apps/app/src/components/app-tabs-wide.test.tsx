@@ -1,20 +1,26 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 import type { ViewStyle } from "react-native";
 
-import { WideAppTabs } from "@/components/app-tabs-wide";
+import {
+  TABLET_RAIL_METRICS,
+  TabletRail,
+  TV_RAIL_METRICS,
+  WideAppTabs,
+} from "@/components/app-tabs-wide";
+import { Control, IconSize } from "@/constants/theme";
 import {
   isTvBackAtSystemRoot,
   isTvRailExpanded,
   tryExpandTvRailOnBack,
 } from "@/lib/tv/tv-rail-back";
 import { pressableProps } from "@/test-support/fiber";
-import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
+import { mockRouter, resetExpoRouterMock, setMockPathname } from "@/test-support/mocks/expo-router";
 import {
   mockTabNavigate,
   resetExpoRouterUiMock,
   setMockActiveTab,
 } from "@/test-support/mocks/expo-router-ui";
-import { usePlatform } from "@/test-support/platform";
+import { loadOnPlatform, usePlatform } from "@/test-support/platform";
 import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
@@ -34,64 +40,90 @@ const tabStyle = (label: string, state: { pressed?: boolean; focused?: boolean }
     }),
   );
 
+/** `router.dismissTo` is not in the shared mock; the tablet rail pops back to the tabs with it. */
+const mockDismissTo = jest.fn();
+Object.assign(mockRouter, { dismissTo: mockDismissTo });
+
 beforeEach(() => {
   resetExpoRouterUiMock();
   resetExpoRouterMock();
+  mockDismissTo.mockClear();
 });
 
-describe("WideAppTabs", () => {
-  it("lists every tab with its label", async () => {
+describe("WideAppTabs on native tablets", () => {
+  it("keeps the tab triggers mounted but hidden (the rail lives beside the root stack)", async () => {
     await renderTabs();
 
-    expect(LABELS.map((label) => screen.getByText(label))).toHaveLength(4);
+    expect(screen.queryByRole("tab")).toBeNull();
+    expect(screen.getByLabelText("Library", { includeHiddenElements: true })).toBeTruthy();
+    expect(screen.getByTestId("tab-slot")).toBeTruthy();
   });
 
-  it("marks the active tab as selected", async () => {
-    setMockActiveTab("library");
+  it("registers a trigger for every tab route", async () => {
     await renderTabs();
 
-    expect(tab("Library").props.accessibilityState).toEqual({ selected: true });
-    expect(tab("Home").props.accessibilityState).toEqual({ selected: false });
-  });
-
-  it("navigates when a tab is pressed", async () => {
-    await renderTabs();
-
-    await fireEvent.press(tab("Tracker"));
+    await fireEvent.press(screen.getByLabelText("Tracker", { includeHiddenElements: true }));
 
     expect(mockTabNavigate).toHaveBeenCalledWith("/tracker");
   });
 
-  it("dims a pressed tab", async () => {
+  it("registers no TV back handler", async () => {
     await renderTabs();
 
-    expect(tabStyle("Home", { pressed: true }).opacity).toBe(0.75);
-  });
-
-  it("ignores rail focus changes off TV", async () => {
-    await renderTabs();
-
-    await fireEvent(tab("Home"), "blur");
-
-    expect(screen.getByText("Home")).toBeTruthy();
-  });
-
-  it("keeps Search out of the tablet / web rail (it has its own entry point)", async () => {
-    await renderTabs();
-
-    expect(screen.queryByRole("button", { name: "Search" })).toBeNull();
+    expect(tryExpandTvRailOnBack()).toBe(false);
   });
 });
 
-describe("WideAppTabs on web", () => {
-  usePlatform({ OS: "web" });
+describe("TabletRail", () => {
+  const renderRail = (expanded: boolean, width = expanded ? 232 : 96) =>
+    renderWithTheme(<TabletRail width={width} expanded={expanded} />);
+  const railTab = (label: string) => screen.getByRole("tab", { name: label });
 
-  it("still navigates after releasing DOM focus", async () => {
-    await renderTabs();
+  it("lists the four destinations with visible labels", async () => {
+    await renderRail(true);
 
-    await fireEvent.press(tab("Settings"));
+    expect(LABELS.map((label) => screen.getByText(label))).toHaveLength(4);
+    expect(screen.queryByRole("tab", { name: "Search" })).toBeNull();
+  });
 
-    expect(mockTabNavigate).toHaveBeenCalledWith("/settings");
+  it("keeps labels under the icons in the compact rail", async () => {
+    await renderRail(false);
+
+    expect(LABELS.map((label) => screen.getByText(label))).toHaveLength(4);
+    expect(flattenStyle(screen.getByTestId("tablet-rail").props.style).width).toBe(96);
+  });
+
+  it("highlights the section of a pushed route", async () => {
+    setMockPathname("/quran/1");
+    await renderRail(true);
+
+    expect(railTab("Library").props.accessibilityState).toEqual({ selected: true });
+    expect(railTab("Home").props.accessibilityState).toEqual({ selected: false });
+  });
+
+  it("pops back to the tabs screen instead of stacking a duplicate", async () => {
+    setMockPathname("/settings/fonts");
+    await renderRail(true);
+
+    await fireEvent.press(railTab("Tracker"));
+
+    expect(mockDismissTo).toHaveBeenCalledWith("/tracker");
+    expect(mockRouter.push).not.toHaveBeenCalled();
+  });
+
+  it("pads the start edge for a landscape side inset", async () => {
+    await renderWithTheme(<TabletRail width={96 + 24} expanded={false} startInset={24} />);
+
+    const style = flattenStyle(screen.getByTestId("tablet-rail").props.style);
+    expect(style.width).toBe(120);
+    expect(style.paddingStart).toBeGreaterThan(24);
+    expect(style.paddingLeft).toBeUndefined();
+  });
+
+  it("uses Material rail sizes above the touch floor", () => {
+    expect(TABLET_RAIL_METRICS.compactItemMinHeight).toBeGreaterThanOrEqual(Control.minTouch);
+    expect(TABLET_RAIL_METRICS.rowMinHeight).toBe(Control.row);
+    expect(TABLET_RAIL_METRICS.icon).toBe(IconSize.xl);
   });
 });
 
@@ -196,5 +228,51 @@ describe("WideAppTabs on TV", () => {
     });
 
     expect("nextFocusRight" in pressableProps(tab("Home"))).toBe(true);
+  });
+});
+
+describe("TV rail density (E-25)", () => {
+  it("keeps the glyph inside its well and sizes everything through tokens", () => {
+    expect(TV_RAIL_METRICS.iconWell).toBe(Control.md);
+    // IconSize is raw dp: the SymbolView TV shim applies TV_DENSITY to the glyph.
+    expect(TV_RAIL_METRICS.icon).toBe(IconSize.hero);
+    expect(TV_RAIL_METRICS.icon).toBeLessThan(TV_RAIL_METRICS.iconWell);
+  });
+
+  describe("on tvOS (TV_DENSITY = 2)", () => {
+    const tvOS = () =>
+      loadOnPlatform({ OS: "ios", isTV: true }, () => ({
+        rail: require("./app-tabs-wide") as typeof import("./app-tabs-wide"),
+        density: require("@/constants/tv-density") as typeof import("@/constants/tv-density"),
+        layout: require("@/constants/tv-layout") as typeof import("@/constants/tv-layout"),
+      }));
+
+    it("scales the well, brand row, logo and selected bar like Android TV", () => {
+      const { rail, density } = tvOS();
+      const m = rail.TV_RAIL_METRICS;
+
+      expect(density.TV_DENSITY).toBe(2);
+      expect(m.iconWell).toBe(density.tvDp(44));
+      expect(m.brandRow).toBe(density.tvDp(72));
+      expect(m.logo).toBe(density.tvDp(56));
+      expect(m.logoCollapsed).toBe(density.tvDp(64));
+      expect(m.selectedBar).toBe(density.tvDp(4));
+    });
+
+    it("renders the 28pt glyph at 56pt inside an 88pt well (no overflow)", () => {
+      const { rail, density } = tvOS();
+      const m = rail.TV_RAIL_METRICS;
+
+      expect(m.icon).toBe(IconSize.hero);
+      expect(m.icon * density.TV_DENSITY).toBeLessThan(m.iconWell);
+    });
+
+    it("keeps the rail widths on the tvOS canvas", () => {
+      const { rail, layout } = tvOS();
+
+      expect(rail.TV_RAIL_METRICS.widthExpanded).toBe(layout.TvLayout.sideRailWidthExpanded);
+      expect(rail.TV_RAIL_METRICS.widthCollapsed).toBe(layout.TvLayout.sideRailWidthCollapsed);
+      expect(rail.TV_RAIL_METRICS.widthCollapsed).toBe(192);
+    });
   });
 });

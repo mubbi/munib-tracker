@@ -132,6 +132,8 @@ export const ZIndex = {
   overlay: 1000,
   modal: 2000,
   toast: 3000,
+  /** Blocking gates (PIN lock, forced update) — above toasts. */
+  gate: 4000,
 } as const;
 
 /**
@@ -174,6 +176,36 @@ export const Brand = {
   heroAccent: "#E4CE9E",
   onHeroMutedSurface: "rgba(255, 255, 255, 0.08)",
   onHeroStrongSurface: "rgba(255, 255, 255, 0.14)",
+} as const;
+
+/**
+ * Every raw colour the Home hero paints over its sky, in one place (P5-04 / B-18).
+ * Constant across themes — the hero is always a sky scene. Keep new hero colours
+ * here, never inline in the component.
+ */
+export const HeroSky = {
+  /**
+   * Live prayer card: smoked glass rather than an accent tint. A tint goes muddy
+   * wherever the mosque silhouette shows through it; a neutral dark veil keeps
+   * the card (and its text contrast) consistent on every sky, with the accent
+   * carried by the border and icon.
+   */
+  activePrayerSurface: "rgba(6, 18, 26, 0.34)",
+  /** Date chip: just enough backing to read over the sun and to look tappable. */
+  dateChipSurface: "rgba(6, 18, 26, 0.22)",
+  /** Cool slate laid over the sky under heavy cloud. */
+  overcastTint: "#3C4856",
+  /** Sun disc core — a warm white that stays brighter than every sky glow. */
+  sunCore: "#FFF6DC",
+  star: "#FFFFFF",
+  /** Unfilled part of the day timeline — bright enough to read on the noon sky. */
+  timelineTrack: "rgba(255, 255, 255, 0.26)",
+  timelineTick: "rgba(255, 255, 255, 0.6)",
+  /** Readability scrim: top (location) and bottom (prayer row) darkening. */
+  scrim:
+    "linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.06) 24%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.52) 100%)",
+  textShadow: "rgba(0, 0, 0, 0.45)",
+  clockShadow: "rgba(0, 0, 0, 0.42)",
 } as const;
 
 /**
@@ -223,6 +255,21 @@ export const DangerFillPalette = {
 export const Metal = {
   gold: "#D4A017",
   silver: "#A8B0B8",
+} as const;
+
+/**
+ * Qibla compass instrument art (astrolabe brass, the Kaaba and its gold band).
+ * Scene data like bead materials — deliberately CONSTANT across accents and
+ * schemes, because a brass instrument or the Kaaba never takes the UI accent.
+ * Fills, strokes and the engraving ink on brass only — never body text.
+ */
+export const QiblaInstrument = {
+  brassLight: "#EFD58F",
+  brass: "#C9A24A",
+  brassDeep: "#8A6420",
+  engraving: "#3A2A0C",
+  kaaba: "#17171A",
+  kiswahBand: "#D4AF37",
 } as const;
 
 /**

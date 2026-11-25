@@ -22,9 +22,9 @@ describe("SegmentedControl", () => {
   it("marks the selected segment", async () => {
     await renderControl("day");
 
-    expect(screen.getAllByRole("button").map((b) => b.props.accessibilityState)).toEqual([
-      { selected: true },
-      { selected: false },
+    expect(screen.getAllByRole("radio").map((b) => b.props.accessibilityState)).toEqual([
+      { checked: true },
+      { checked: false },
     ]);
   });
 
@@ -66,7 +66,7 @@ describe("SegmentedControl", () => {
       />,
     );
 
-    expect(screen.getByRole("button", { name: "Daily view" })).toBeSelected();
+    expect(screen.getByRole("radio", { name: "Daily view" })).toBeChecked();
   });
 
   it("adds the sliding thumb once the track is measured", async () => {
@@ -87,8 +87,39 @@ describe("SegmentedControl", () => {
     await fireEvent.press(screen.getByText("Week"));
 
     expect(onChange).not.toHaveBeenCalled();
-    expect(screen.getAllByRole("button")[1].props.accessibilityState).toEqual({
-      selected: false,
+    expect(screen.getAllByRole("radio")[1].props.accessibilityState).toEqual({
+      checked: false,
+      disabled: true,
+    });
+  });
+});
+
+describe("SegmentedControl semantics", () => {
+  it("is a labelled radiogroup", async () => {
+    await renderWithTheme(
+      <SegmentedControl
+        options={OPTIONS}
+        value="day"
+        onChange={jest.fn()}
+        accessibilityLabel="Period"
+      />,
+    );
+    const group = screen.getByLabelText("Period");
+    expect(group.props.accessibilityRole).toBe("radiogroup");
+  });
+
+  it("does not press a disabled option", async () => {
+    const onChange = jest.fn();
+    await renderWithTheme(
+      <SegmentedControl
+        options={[OPTIONS[0], { ...OPTIONS[1], disabled: true }]}
+        value="day"
+        onChange={onChange}
+      />,
+    );
+    await fireEvent.press(screen.getByText("Week"));
+    expect(onChange).not.toHaveBeenCalled();
+    expect(screen.getAllByRole("radio")[1].props.accessibilityState).toMatchObject({
       disabled: true,
     });
   });
@@ -114,6 +145,6 @@ describe("SegmentedControl on TV", () => {
       <SegmentedControl options={OPTIONS} value="day" onChange={jest.fn()} disabled />,
     );
 
-    expect(screen.getAllByRole("button").every((b) => b.props.focusable === false)).toBe(true);
+    expect(screen.getAllByRole("radio").every((b) => b.props.focusable === false)).toBe(true);
   });
 });

@@ -55,7 +55,9 @@ describe("QuickActionGrid", () => {
   it("fits a compact single row when there is room", async () => {
     await renderGrid(3, { singleRow: true });
 
-    expect(labelLines("Item 1")).toBe(1);
+    // Labels wrap rather than shrink, so Dynamic Type still applies (P9-04).
+    expect(labelLines("Item 1")).toBe(2);
+    expect(screen.getByText("Item 1").props.adjustsFontSizeToFit).toBeFalsy();
   });
 
   it("falls back to the wrapping grid when a single row does not fit", async () => {

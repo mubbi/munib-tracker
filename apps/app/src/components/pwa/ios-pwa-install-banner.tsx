@@ -1,16 +1,19 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
+import { Platform } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getIosPwaInstallNeedsSafari, shouldShowIosPwaInstallBanner } from "@/lib/pwa/ios-install";
+import {
+  getIosPwaInstallNeedsSafari,
+  getIosPwaInstallViaBrowserShare,
+  shouldShowIosPwaInstallBanner,
+} from "@/lib/pwa/ios-install";
 import { useToast } from "@/providers/toast-provider";
+import { InstallPromptBanner } from "./install-prompt-banner";
+import { PwaBannerCard } from "./pwa-banner-card";
 
 const DISMISS_KEY = "pwa_ios_install_banner_dismissed_v1";
 
@@ -25,25 +28,35 @@ async function copyPageUrl(): Promise<boolean> {
 }
 
 /**
- * iOS WebKit: all browsers share the same PWA limits — install via Safari Share → Add to Home Screen.
+ * The home screen's install banner. iPhone / iPad (WebKit has no install
+ * prompt): Share → Add to Home Screen steps for Safari / Chrome / Edge / Firefox
+ * (iOS 16.4+), or "open in Safari" for other shells. Everywhere else:
+ * `InstallPromptBanner` — the Chromium `beforeinstallprompt` button, or the
+ * manual steps for Safari on macOS / Firefox on Android.
  */
 export function IosPwaInstallBanner() {
+  return shouldShowIosPwaInstallBanner() ? <IosSafariInstallSteps /> : <InstallPromptBanner />;
+}
+
+/** iOS WebKit: every browser shares the same PWA limits — install via Share → Add to Home Screen. */
+function IosSafariInstallSteps() {
   const { t } = useTranslation();
   const toast = useToast();
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
   const [visible, setVisible] = useState(false);
-  const showBanner = shouldShowIosPwaInstallBanner();
   const needsSafari = getIosPwaInstallNeedsSafari();
+  const viaBrowserShare = !needsSafari && getIosPwaInstallViaBrowserShare();
 
   useEffect(() => {
-    if (Platform.OS !== "web" || !showBanner) {
-      setVisible(false);
-      return;
-    }
+    if (Platform.OS !== "web") return;
+    let active = true;
     void AsyncStorage.getItem(DISMISS_KEY).then((v) => {
-      setVisible(v !== "1");
+      if (active) setVisible(v !== "1");
     });
-  }, [showBanner]);
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const dismiss = useCallback(() => {
     void AsyncStorage.setItem(DISMISS_KEY, "1");
@@ -57,37 +70,16 @@ export function IosPwaInstallBanner() {
     });
   }, [t, toast]);
 
-  if (Platform.OS !== "web" || !showBanner || !visible) return null;
+  if (Platform.OS !== "web" || !visible) return null;
 
-  const stepsKey = needsSafari ? "pwa.installStepsViaSafari" : "notif.iosPwaSteps";
+  const stepsKey = needsSafari
+    ? "pwa.installStepsViaSafari"
+    : viaBrowserShare
+      ? "notif.iosPwaStepsBrowser"
+      : "notif.iosPwaSteps";
 
   return (
-    <Card
-      padding="three"
-      style={[
-        styles.card,
-        {
-          borderColor: tokens.accentBorder,
-          backgroundColor: colors.card,
-        },
-      ]}
-    >
-      <View style={styles.headerRow}>
-        <ThemedText type="smallBold" style={styles.title}>
-          {t("notif.iosPwaTitle")}
-        </ThemedText>
-        <PressableScale
-          onPress={dismiss}
-          accessibilityRole="button"
-          accessibilityLabel={t("pwa.installDismiss")}
-          hitSlop={12}
-          style={styles.dismissBtn}
-        >
-          <ThemedText type="caption" themeColor="mutedForeground">
-            ✕
-          </ThemedText>
-        </PressableScale>
-      </View>
+    <PwaBannerCard title={t("notif.iosPwaTitle")} onDismiss={dismiss}>
       <ThemedText type="small" themeColor="mutedForeground">
         {t("pwa.installBannerMessage")}
       </ThemedText>
@@ -102,24 +94,6 @@ export function IosPwaInstallBanner() {
           style={{ borderColor: tokens.accentBorder }}
         />
       ) : null}
-    </Card>
+    </PwaBannerCard>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    gap: Spacing.two,
-    borderWidth: 1,
-  },
-  headerRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  title: {
-    flex: 1,
-  },
-  dismissBtn: {
-    padding: Spacing.one,
-  },
-});

@@ -5,7 +5,14 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { NewBadge } from "@/components/ui/new-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
-import { MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import {
+  BorderWidth,
+  Breakpoints,
+  MaxContentWidth,
+  Radius,
+  Spacing,
+  withAlpha,
+} from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 import { isTV } from "@/lib/platform/is-tv";
@@ -24,7 +31,7 @@ export type QuickActionItem = {
 
 /** Derive a column count from viewport width so wide web/tablet fills the row. */
 function responsiveColumns(width: number): number {
-  if (width >= 900) return 6;
+  if (width >= Breakpoints.listDetail) return 6;
   if (width >= 600) return 5;
   return 3;
 }
@@ -172,9 +179,9 @@ function QuickAction({
       <ThemedText
         type="caption"
         style={[styles.label, compact && styles.labelCompact, { color: colors.foreground }]}
-        numberOfLines={compact ? 1 : 2}
-        adjustsFontSizeToFit={compact}
-        minimumFontScale={0.75}
+        // Wrap to a second line instead of shrinking the label (P9-04: no
+        // `adjustsFontSizeToFit` on UI text — it defeats Dynamic Type).
+        numberOfLines={2}
       >
         {item.label}
       </ThemedText>
@@ -233,7 +240,7 @@ const styles = StyleSheet.create({
   },
   iconWell: {
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     alignItems: "center",
     justifyContent: "center",
   },

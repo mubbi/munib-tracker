@@ -2,8 +2,15 @@ import { screen } from "@testing-library/react-native";
 import { useColorScheme } from "react-native";
 
 import { Pill } from "@/components/ui/pill";
+import { type ThemeTokens, useThemeTokens } from "@/hooks/use-theme-tokens";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
+
+let seen: ThemeTokens;
+function Probe() {
+  seen = useThemeTokens().tokens;
+  return null;
+}
 
 type Props = Parameters<typeof Pill>[0];
 
@@ -32,5 +39,17 @@ describe("Pill", () => {
     await renderPill({ background, color });
 
     expect(labelColor() === color).toBe(kept);
+  });
+});
+
+describe("Pill tone", () => {
+  it("warning tone uses status.warning.onSoft for the label", async () => {
+    await renderWithTheme(
+      <>
+        <Probe />
+        <Pill label="Tag" tone="warning" />
+      </>,
+    );
+    expect(labelColor()).toBe(seen.status.warning.onSoft);
   });
 });

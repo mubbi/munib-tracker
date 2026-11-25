@@ -26,4 +26,7 @@ export const toastProviderMock = {
   __esModule: true,
   ToastProvider: ({ children }: { children: ReactNode }) => children,
   useToast: () => mockToast,
+  /** `Sheet` hosts toasts while open — no outlet under the mock. */
+  useToastOutlet: () => null,
+  ToastHost: () => null,
 };

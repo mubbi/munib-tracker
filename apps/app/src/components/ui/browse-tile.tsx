@@ -5,7 +5,7 @@ import { AppIcon as AppIconView } from "@/components/ui/app-icon";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -88,6 +88,7 @@ export function BrowseTile({
       {progress && progress.total > 0 ? (
         <ProgressBar
           value={progress.completed / progress.total}
+          accessibilityLabel={label}
           height={tv ? 6 : 4}
           color={done ? tokens.status.success.color : hue.icon}
           style={styles.progress}
@@ -105,13 +106,13 @@ const styles = StyleSheet.create({
     minHeight: tvDp(118),
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   tileTv: {
     minHeight: TvLayout.minFocusTarget * 2,
     padding: Spacing.four,
   },
-  text: { gap: 2 },
+  text: { gap: Spacing.half },
   topRow: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" },
   doneBadge: {
     width: tvDp(24),

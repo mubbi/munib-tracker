@@ -6,26 +6,52 @@
  * web instead of falling back to a back-button-only header. The active item is
  * derived from the URL via {@link resolveNavSection}.
  *
+ * Every destination is a `Pressable` with an `href`, which RN Web renders as a
+ * real `<a href>`: middle-click / Ctrl-click open a new tab and crawlers see
+ * the internal links, while a plain click navigates in-app
+ * (`inAppLinkPress` — see there for why this is not `<Link asChild>`). A
+ * visually hidden "Skip to content" link precedes the rail as the page's first
+ * tab stop.
+ *
  * Two densities (Material navigation rail / drawer pattern):
- * - compact (768–1279px): icon over a short label (88px)
- * - expanded (≥1280px): brand + icon/label rows (248px)
+ * - compact (768–1279px): pill indicator around the icon over a 12px label (88px)
+ * - expanded (≥1280px): logo + wordmark row, then icon/label rows (248px)
  */
 import { Image } from "expo-image";
 import { type Href, usePathname, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View, type ViewStyle } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Divider } from "@/components/ui/divider";
+import {
+  BorderWidth,
+  Control,
+  IconSize,
+  Opacity,
+  Radius,
+  Spacing,
+  withAlpha,
+} from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { type NavSection, resolveNavSection } from "@/lib/web/nav-section";
 import { WEB_RAIL_EXPANDED_BREAKPOINT, webRailWidthFor } from "@/lib/web/web-rail";
+import { SkipToContentLink } from "./skip-to-content-link";
+import { inAppLinkPress } from "./web-link-press";
+
+/** Brand mark sizes — a compact logo, not a hero (`platform-ux-guidelines.md` → Rail: 32–40px). */
+export const RAIL_LOGO_SIZE_EXPANDED = 36;
+export const RAIL_LOGO_SIZE_COMPACT = 40;
+
+/** A route string — rendered verbatim as the anchor's `href`. */
+type RailHref = Extract<Href, string>;
 
 type RailItem = {
   section: NavSection;
-  href: Href;
+  href: RailHref;
   labelKey: string;
   icon: SymbolViewProps["name"];
 };
@@ -73,48 +99,69 @@ const SETTINGS: RailItem = {
   icon: { ios: "gearshape.fill", android: "settings", web: "settings" },
 };
 
-function RailButton({
+/**
+ * In-app anchor props for a rail destination. `router.navigate` returns to an
+ * existing route in the stack (e.g. the tabs screen) instead of stacking
+ * duplicates on every click.
+ */
+function useRailAnchor(href: RailHref) {
+  const router = useRouter();
+  return {
+    // RN Web renders a Pressable with `href` as `<a href>` (not in RN's types).
+    anchorProps: { href } as object,
+    onPress: inAppLinkPress(() => {
+      blurActiveElement();
+      router.navigate(href);
+    }),
+  };
+}
+
+function RailLink({
   item,
   active,
   expanded,
-  onNavigate,
 }: {
   item: RailItem;
   active: boolean;
   expanded: boolean;
-  onNavigate: (href: Href) => void;
 }) {
+  const { anchorProps, onPress } = useRailAnchor(item.href);
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const [hovered, setHovered] = useState(false);
   const label = t(item.labelKey);
-  const tint = active ? colors.accent : colors.mutedForeground;
+  const wash = active ? tokens.accentSoft : hovered ? tokens.hover : "transparent";
+  // Expanded rows tint the whole row, so text sits on `accentSoft` → `accentOnSoft`.
+  // Compact rows tint only the icon pill; the label sits on the rail → `accentText`.
+  const iconTint = active ? tokens.accentOnSoft : colors.mutedForeground;
+  const activeLabel = expanded ? tokens.accentOnSoft : colors.accentText;
+  const labelColor = active ? activeLabel : colors.mutedForeground;
 
   return (
     <Pressable
+      {...anchorProps}
       role="link"
       accessibilityRole="link"
       accessibilityLabel={label}
-      accessibilityState={{ selected: active }}
       aria-current={active ? "page" : undefined}
-      onPress={() => onNavigate(item.href)}
-      style={(state) => {
-        const hovered = Boolean((state as { hovered?: boolean }).hovered);
-        return [
-          expanded ? styles.rowExpanded : styles.rowCompact,
-          active && { backgroundColor: tokens.accentSoft },
-          !active && hovered && { backgroundColor: withAlpha(colors.foreground, 0.06) },
-          state.pressed && styles.pressed,
-        ];
-      }}
+      onPress={onPress}
+      onHoverIn={() => setHovered(true)}
+      onHoverOut={() => setHovered(false)}
+      style={({ pressed }) => [
+        expanded ? styles.rowExpanded : styles.rowCompact,
+        expanded ? { backgroundColor: wash } : null,
+        pressed && styles.pressed,
+      ]}
     >
-      <SymbolView name={item.icon} size={expanded ? 22 : 24} tintColor={tint} />
+      <View style={expanded ? null : [styles.indicator, { backgroundColor: wash }]}>
+        <SymbolView name={item.icon} size={IconSize.xl} tintColor={iconTint} />
+      </View>
       <ThemedText
-        type="small"
+        type={expanded ? "button" : "caption"}
+        weight={active ? "bold" : expanded ? "medium" : "semibold"}
         numberOfLines={1}
-        style={[
-          expanded ? styles.labelExpanded : styles.labelCompact,
-          { color: tint, fontWeight: active ? "700" : "500" },
-        ]}
+        maxFontSizeMultiplier={1.3}
+        style={[expanded ? styles.labelExpanded : styles.labelCompact, { color: labelColor }]}
       >
         {label}
       </ThemedText>
@@ -125,118 +172,122 @@ function RailButton({
 export function WebGlobalRail({ windowWidth }: { windowWidth: number }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
-  const router = useRouter();
   const pathname = usePathname();
   const active = resolveNavSection(pathname);
   const expanded = windowWidth >= WEB_RAIL_EXPANDED_BREAKPOINT;
   const width = webRailWidthFor(windowWidth);
-
-  const onNavigate = (href: Href) => {
-    blurActiveElement();
-    // navigate() returns to an existing route in the stack (e.g. the tabs
-    // screen) instead of stacking duplicates on every rail click.
-    router.navigate(href);
-  };
+  const appName = t("common.appName");
+  const home = useRailAnchor("/");
 
   const renderItems = (items: RailItem[]) =>
     items.map((item) => (
-      <RailButton
+      <RailLink
         key={item.section}
         item={item}
         active={active === item.section}
         expanded={expanded}
-        onNavigate={onNavigate}
       />
     ));
 
   return (
-    <View
-      role="navigation"
-      accessibilityLabel={t("common.appName")}
-      style={[
-        styles.rail,
-        {
-          width,
-          borderEndColor: tokens.hairline,
-          backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.35 : 0.55),
-          paddingHorizontal: expanded ? Spacing.three : Spacing.two,
-        },
-      ]}
-    >
-      <Pressable
-        accessibilityRole="link"
-        accessibilityLabel={t("common.appName")}
-        onPress={() => onNavigate("/")}
-        style={(state) => [
-          expanded ? styles.brandExpanded : styles.brandCompact,
-          state.pressed && styles.pressed,
+    <>
+      <SkipToContentLink />
+      <View
+        role="navigation"
+        accessibilityLabel={t("webShell.primaryNavigation")}
+        style={[
+          styles.rail,
+          {
+            width,
+            borderEndColor: tokens.hairline,
+            backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.35 : 0.55),
+            paddingHorizontal: expanded ? Spacing.three : Spacing.two,
+          },
         ]}
       >
-        <Image
-          source={require("@/assets/images/munib-logo.png")}
-          style={expanded ? styles.logoExpanded : styles.logoCompact}
-          contentFit="contain"
-        />
-        {expanded ? (
-          <ThemedText
-            type="smallBold"
-            numberOfLines={1}
-            style={[styles.brandTitle, { color: colors.accent }]}
-          >
-            {t("common.appName")}
-          </ThemedText>
-        ) : null}
-      </Pressable>
+        <Pressable
+          {...home.anchorProps}
+          role="link"
+          accessibilityRole="link"
+          accessibilityLabel={appName}
+          onPress={home.onPress}
+          style={({ pressed }) => [
+            expanded ? styles.brandExpanded : styles.brandCompact,
+            pressed && styles.pressed,
+          ]}
+        >
+          <Image
+            testID="rail-logo"
+            source={require("@/assets/images/munib-logo.png")}
+            style={expanded ? styles.logoExpanded : styles.logoCompact}
+            contentFit="contain"
+            accessible={false}
+          />
+          {expanded ? (
+            <ThemedText
+              type="subtitle"
+              numberOfLines={1}
+              style={[styles.brandTitle, { color: colors.accentText }]}
+            >
+              {appName}
+            </ThemedText>
+          ) : null}
+        </Pressable>
 
-      <View style={styles.group}>{renderItems(PRIMARY)}</View>
-      <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-      <View style={styles.group}>{renderItems(SECONDARY)}</View>
-      <View style={styles.spacer} />
-      <View style={styles.group}>{renderItems([SETTINGS])}</View>
-    </View>
+        <View style={styles.group}>{renderItems(PRIMARY)}</View>
+        <Divider style={styles.divider} />
+        <View style={styles.group}>{renderItems(SECONDARY)}</View>
+        <View style={styles.spacer} />
+        <View style={styles.group}>{renderItems([SETTINGS])}</View>
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   rail: {
     height: "100%",
-    borderEndWidth: StyleSheet.hairlineWidth,
+    borderEndWidth: BorderWidth.hairline,
     paddingVertical: Spacing.four,
     // Sticky column beside the scrolling stack content.
     flexShrink: 0,
   } as ViewStyle,
-  // Expanded rail (248px): large logo stacked over the app name.
+  // Expanded rail (248px): small logo + wordmark in one row.
   brandExpanded: {
+    flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.three,
-    paddingTop: Spacing.two,
+    gap: Spacing.twoHalf,
+    minHeight: Control.md,
+    paddingHorizontal: Spacing.two,
     marginBottom: Spacing.four,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
   },
   brandCompact: {
     alignItems: "center",
     justifyContent: "center",
+    minHeight: Control.md,
     marginBottom: Spacing.four,
-    minHeight: 44,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
   },
   logoExpanded: {
-    width: 136,
-    height: 136,
-    borderRadius: Radius.xl,
+    width: RAIL_LOGO_SIZE_EXPANDED,
+    height: RAIL_LOGO_SIZE_EXPANDED,
+    borderRadius: Radius.sm,
   },
   logoCompact: {
-    width: 44,
-    height: 44,
-    borderRadius: Radius.md,
+    width: RAIL_LOGO_SIZE_COMPACT,
+    height: RAIL_LOGO_SIZE_COMPACT,
+    borderRadius: Radius.sm,
   },
   brandTitle: {
-    fontSize: 19,
-    textAlign: "center",
+    flexShrink: 1,
   },
   group: {
     gap: Spacing.one,
   },
   divider: {
-    height: StyleSheet.hairlineWidth,
     marginVertical: Spacing.three,
     marginHorizontal: Spacing.two,
   },
@@ -247,30 +298,36 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    minHeight: 44,
+    minHeight: Control.md,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
+  // Compact (Material rail): pill around the icon, label underneath.
   rowCompact: {
     alignItems: "center",
     justifyContent: "center",
     gap: Spacing.one,
-    minHeight: 60,
-    paddingVertical: Spacing.two,
+    minHeight: Control.minTouch,
+    paddingVertical: Spacing.one,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
+  indicator: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: Spacing.half,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+  },
   labelExpanded: {
-    fontSize: 15,
     flexShrink: 1,
   },
   labelCompact: {
-    fontSize: 11,
-    lineHeight: 14,
     textAlign: "center",
   },
   pressed: {
-    opacity: 0.75,
+    opacity: Opacity.pressed,
   },
 });

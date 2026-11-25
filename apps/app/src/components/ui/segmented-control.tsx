@@ -6,8 +6,7 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Springs } from "@/constants/motion";
-import { Radius, Shadows, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
+import { Control, Opacity, Radius, Shadows, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -25,6 +24,8 @@ type SegmentOption<T extends string> = {
   label: string;
   /** Screen-reader label when the visible label needs context (defaults to `label`). */
   accessibilityLabel?: string;
+  /** This segment is dimmed and ignores presses. */
+  disabled?: boolean;
 };
 
 type SegmentedControlProps<T extends string> = {
@@ -36,8 +37,10 @@ type SegmentedControlProps<T extends string> = {
    * open something (e.g. "Custom" re-opens its target picker). Default false.
    */
   allowReselect?: boolean;
-  /** Expose the track as a tab list (`tablist` / `tab`) instead of toggle buttons. */
+  /** Expose the track as a tab list (`tablist` / `tab`) instead of a radio group. */
   tabs?: boolean;
+  /** Names the group for assistive tech (e.g. "Statistics period"). */
+  accessibilityLabel?: string;
   /**
    * Read-only display of the selected value: segments are dimmed, ignore
    * presses and (on TV) are not D-pad focus stops, so they never look live.
@@ -45,7 +48,7 @@ type SegmentedControlProps<T extends string> = {
   disabled?: boolean;
 };
 
-const PAD = Spacing.half + 2;
+const PAD = Spacing.one;
 const GAP = Spacing.half;
 
 export function SegmentedControl<T extends string>({
@@ -54,6 +57,7 @@ export function SegmentedControl<T extends string>({
   onChange,
   allowReselect = false,
   tabs = false,
+  accessibilityLabel,
   disabled = false,
 }: SegmentedControlProps<T>) {
   const { colors, tokens } = useThemeTokens();
@@ -87,7 +91,8 @@ export function SegmentedControl<T extends string>({
     <TvFocusGuide trapFocusLeft trapFocusRight>
       <View
         {...ltrControlViewProps()}
-        {...(tabs ? { accessibilityRole: "tablist" as const } : null)}
+        accessibilityRole={tabs ? "tablist" : "radiogroup"}
+        accessibilityLabel={accessibilityLabel}
         style={[
           styles.container,
           chartCoordinateStyle,
@@ -112,24 +117,37 @@ export function SegmentedControl<T extends string>({
 
         {options.map((option) => {
           const selected = option.id === value;
+          const off = disabled || !!option.disabled;
           return (
             <PressableScale
               key={option.id}
-              accessibilityRole={tabs ? "tab" : "button"}
+              accessibilityRole={tabs ? "tab" : "radio"}
               accessibilityLabel={option.accessibilityLabel}
-              accessibilityState={disabled ? { selected, disabled } : { selected }}
-              {...(disabled ? { disabled: true } : null)}
+              accessibilityState={
+                tabs
+                  ? off
+                    ? { selected, disabled: true }
+                    : { selected }
+                  : off
+                    ? { checked: selected, disabled: true }
+                    : { checked: selected }
+              }
+              {...(off ? { disabled: true } : null)}
               {...(tv && disabled ? { focusable: false } : null)}
               haptic={false}
               scaleTo={0.98}
               rippleRadius={Radius.sm}
               onPress={() => {
-                if (disabled) return;
+                if (off) return;
                 if (selected && !allowReselect) return;
                 triggerHaptic("selection");
                 onChange(option.id);
               }}
-              style={[styles.segment, tv && styles.segmentTv]}
+              style={[
+                styles.segment,
+                tv && styles.segmentTv,
+                !disabled && option.disabled && styles.optionDisabled,
+              ]}
             >
               <ThemedText
                 type="smallBold"
@@ -162,7 +180,10 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
   disabled: {
-    opacity: 0.6,
+    opacity: Opacity.disabled,
+  },
+  optionDisabled: {
+    opacity: Opacity.disabled,
   },
   thumb: {
     position: "absolute",
@@ -174,10 +195,11 @@ const styles = StyleSheet.create({
   },
   segment: {
     flex: 1,
-    minHeight: tvDp(44),
+    // 44pt / 48dp (Android): segments touch, so the size itself is the target.
+    minHeight: Math.max(Control.md, Control.minTouch),
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
   },

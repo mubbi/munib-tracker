@@ -31,7 +31,7 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false,
+      "predictiveBackGestureEnabled": true,
       "blockedPermissions": ["android.permission.ACTIVITY_RECOGNITION"],
       "intentFilters": [
         {
@@ -65,7 +65,7 @@
       "favicon": "./assets/images/favicon.png",
       "name": "Munib Tracker",
       "shortName": "Munib Tracker",
-      "description": "Track Your Journey Back to Allah. A free, offline-first companion for salah, dhikr, qadha, Qur'an, hadith, and daily worship.",
+      "description": "Track Your Journey Back to Allah. A free, offline-first companion for Salah, Zikr, Qaza, Qur'an, hadith, and daily worship.",
       "themeColor": "#F5F0E6",
       "backgroundColor": "#F5F0E6"
     },

@@ -60,6 +60,14 @@ export type ThemedTextProps = TextProps & {
   heading?: 1 | 2 | 3 | 4 | 5 | 6;
 };
 
+/**
+ * Scripture is Arabic whatever the UI locale: tag it so VoiceOver / TalkBack use an
+ * Arabic voice and web screen readers switch language (C-01 / R-08). Callers can
+ * still override via props (spread after this).
+ */
+const ARABIC_LANGUAGE_PROPS: Record<string, unknown> =
+  Platform.OS === "web" ? { lang: "ar" } : { accessibilityLanguage: "ar" };
+
 /** Cross-platform props that turn a Text node into a semantic heading. */
 function headingProps(level?: 1 | 2 | 3 | 4 | 5 | 6): Record<string, unknown> {
   if (!level) return {};
@@ -235,6 +243,7 @@ export function ThemedText({
   return (
     <Text
       {...headingProps(heading)}
+      {...(type === "arabic" ? ARABIC_LANGUAGE_PROPS : null)}
       maxFontSizeMultiplier={MAX_FONT_SIZE_MULTIPLIERS[type]}
       style={[...textStyles, tvDensityTextStyle(textStyles)]}
       {...rest}

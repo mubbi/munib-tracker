@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import ColorPicker, { HueSlider, Panel1, Preview } from "reanimated-color-picker";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { normalizeHexForPicker } from "@/lib/color";
 
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   wrap: {
     borderRadius: Radius.md,
     padding: Spacing.three,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     width: "100%",
     maxWidth: "100%",
     overflow: "hidden",

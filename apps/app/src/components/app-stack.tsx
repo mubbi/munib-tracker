@@ -1,15 +1,68 @@
 import { Redirect, Stack, ThemeProvider } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useMemo } from "react";
+import { type ReactElement, type ReactNode, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 
+import { TabletRail } from "@/components/app-tabs-wide";
 import { ScreenErrorBoundary } from "@/components/navigation/screen-error-boundary";
+import { ScreenLayout } from "@/components/screen-layout";
+import { UnavailableOnDevice } from "@/components/ui/unavailable-on-device";
 import { WebGlobalRail } from "@/components/web/web-global-rail";
-import { useWebGlobalRail } from "@/hooks/use-large-screen-layout";
+import { useNativeTabletRail, useWebGlobalRail } from "@/hooks/use-large-screen-layout";
+import { hiddenFinanceToolForRoute, useDestinationScope } from "@/lib/library-menu";
+import { useTrackCurrentPathname } from "@/lib/navigation";
 import { createNavigationTheme } from "@/lib/navigation-theme";
+import { isTV } from "@/lib/platform/is-tv";
 import { isIndexingBot } from "@/lib/seo/is-indexing-bot";
 import { useTheme } from "@/providers/theme-provider";
 import { usePreferences, usePreferencesReady } from "@/stores/preferences-store";
+
+/**
+ * TV (D-UX5): a deep link or stale shortcut to a hidden finance tool shows the
+ * "not on this device" state instead of the tool, until Settings › Devices ›
+ * "Show finance tools" is on. Re-renders when the setting changes.
+ */
+export function TvFinanceRouteGate({
+  routeName,
+  children,
+}: {
+  routeName: string;
+  children: ReactNode;
+}) {
+  const { t } = useTranslation();
+  const tool = hiddenFinanceToolForRoute(routeName, useDestinationScope());
+  if (!tool) return <>{children}</>;
+  return (
+    <ScreenLayout title={t(tool.labelKey)} scrollable={false}>
+      <UnavailableOnDevice
+        title={t("tvFinance.hiddenTitle")}
+        description={t("tvFinance.hiddenBody")}
+      />
+    </ScreenLayout>
+  );
+}
+
+/** Stack `screenLayout` wrapping every screen in {@link TvFinanceRouteGate} (TV only). */
+function tvScreenLayout({
+  route,
+  children,
+}: {
+  route: { name: string };
+  children: ReactElement;
+}): ReactElement {
+  return <TvFinanceRouteGate routeName={route.name}>{children}</TvFinanceRouteGate>;
+}
+
+/**
+ * Mirrors the focused pathname for `goBackOrReplace(router, "/")`, which then
+ * falls back to the screen's parent hub. A leaf so pathname changes never
+ * re-render the stack.
+ */
+function CurrentPathnameTracker() {
+  useTrackCurrentPathname();
+  return null;
+}
 
 /**
  * Root stack with a React Navigation theme synced to Munib colors.
@@ -29,6 +82,7 @@ export function AppStack() {
   const navigationTheme = useMemo(() => createNavigationTheme(colors, scheme), [colors, scheme]);
   const { width: windowWidth } = useWindowDimensions();
   const webRail = useWebGlobalRail();
+  const tabletRail = useNativeTabletRail();
 
   const screenOptions = useMemo(
     () => ({
@@ -49,13 +103,26 @@ export function AppStack() {
       {/* Follows resolved scheme so icon contrast updates on every light/dark toggle,
           including screens that leave StatusBar unmanaged or hard-code light icons. */}
       <StatusBar style={scheme === "dark" ? "light" : "dark"} />
+      <CurrentPathnameTracker />
       {!showApp ? <Redirect href="/intro" /> : null}
-      {/* Wide web: persistent rail beside the stack so every page keeps primary
-          navigation (not just the four tab roots). */}
-      <View style={styles.webShell}>
+      {/* Wide web and native tablets (D-UX3): a persistent rail beside the stack
+          so every page keeps primary navigation (not just the four tab roots).
+          Each rail keeps its own slot so toggling one never remounts the stack. */}
+      <View style={styles.shell}>
         {webRail.visible && showApp ? <WebGlobalRail windowWidth={windowWidth} /> : null}
+        {tabletRail.visible && showApp ? (
+          <TabletRail
+            width={tabletRail.width}
+            expanded={tabletRail.expanded}
+            startInset={tabletRail.startInset}
+          />
+        ) : null}
         <View style={styles.stackColumn}>
-          <Stack screenOptions={screenOptions} unstable_screenErrorBoundary={ScreenErrorBoundary}>
+          <Stack
+            screenOptions={screenOptions}
+            unstable_screenErrorBoundary={ScreenErrorBoundary}
+            screenLayout={isTV() ? tvScreenLayout : undefined}
+          >
             {/* SDK 58: a failed guard renders a redirect (the route stays registered). */}
             <Stack.Protected guard={showApp} redirectTo="/intro">
               <Stack.Screen name="(tabs)" />
@@ -77,7 +144,7 @@ const styles = StyleSheet.create({
   bootShell: {
     flex: 1,
   },
-  webShell: {
+  shell: {
     flex: 1,
     flexDirection: "row",
   },

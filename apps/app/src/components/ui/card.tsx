@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { type AccessibilityState, type StyleProp, View, type ViewStyle } from "react-native";
 
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Shadows, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Shadows, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type CardVariant = "elevated" | "outline" | "muted" | "plain";
@@ -18,18 +18,21 @@ type CardProps = {
   accessibilityState?: AccessibilityState;
   /** TV: request initial D-pad focus on this card. */
   preferredFocus?: boolean;
+  testID?: string;
 };
 
 export function Card({
   children,
   variant = "elevated",
-  padding = "four",
+  // Spec: card padding is Spacing.three (WP-3A flipped the default from four).
+  padding = "three",
   radius = "lg",
   style,
   onPress,
   accessibilityLabel,
   accessibilityState,
   preferredFocus,
+  testID,
 }: CardProps) {
   const { colors, tokens } = useThemeTokens();
 
@@ -45,16 +48,20 @@ export function Card({
 
   const variantStyle: ViewStyle =
     variant === "outline"
-      ? { backgroundColor: "transparent", borderWidth: 1, borderColor: colors.border }
+      ? {
+          backgroundColor: "transparent",
+          borderWidth: BorderWidth.thin,
+          borderColor: colors.border,
+        }
       : variant === "muted"
         ? { backgroundColor: colors.muted }
         : variant === "plain"
           ? { backgroundColor: colors.card }
           : {
-              // A full 1px outline (not hairlineWidth) — on cream and deep-green
+              // A full thin outline (not hairlineWidth) — on cream and deep-green
               // pages the fill step alone is too subtle to read as a card.
               backgroundColor: colors.card,
-              borderWidth: 1,
+              borderWidth: BorderWidth.thin,
               borderColor: colors.cardBorder,
               ...(tokens.isDark ? Shadows.md : Shadows.sm),
             };
@@ -66,6 +73,7 @@ export function Card({
         accessibilityLabel={accessibilityLabel}
         accessibilityState={accessibilityState}
         onPress={onPress}
+        testID={testID}
         scaleTo={0.985}
         haptic="light"
         {...(preferredFocus ? { hasTVPreferredFocus: true } : {})}
@@ -76,5 +84,9 @@ export function Card({
     );
   }
 
-  return <View style={[baseStyle, variantStyle, style]}>{children}</View>;
+  return (
+    <View testID={testID} style={[baseStyle, variantStyle, style]}>
+      {children}
+    </View>
+  );
 }

@@ -1,8 +1,16 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { Chip, ToggleChip } from "@/components/ui/chip";
+import { type ThemeTokens, useThemeTokens } from "@/hooks/use-theme-tokens";
 import { usePlatformSwitch } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
+import { flattenStyle } from "@/test-support/style";
+
+let seen: ThemeTokens;
+function Probe() {
+  seen = useThemeTokens().tokens;
+  return null;
+}
 
 describe("Chip", () => {
   const setPlatform = usePlatformSwitch();
@@ -72,5 +80,17 @@ describe("ToggleChip", () => {
     expect(chip.props.accessibilityState).toMatchObject({ checked: true });
     await fireEvent.press(chip);
     expect(onPress).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("Chip colours", () => {
+  it("selected soft chip label is accentOnSoft", async () => {
+    await renderWithTheme(
+      <>
+        <Probe />
+        <Chip label="Soft" selected onPress={jest.fn()} />
+      </>,
+    );
+    expect(flattenStyle(screen.getByText("Soft").props.style).color).toBe(seen.accentOnSoft);
   });
 });

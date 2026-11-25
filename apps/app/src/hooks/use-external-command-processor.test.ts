@@ -113,6 +113,87 @@ describe("useExternalCommandProcessor", () => {
     expect(mockToast[kind]).toHaveBeenCalledWith(i18n.t(key));
   });
 
+  it("confirms a mark-current with one toast whose Undo reverts it (P5-07)", async () => {
+    const { trackerStore } =
+      require("@/stores/tracker-store") as typeof import("@/stores/tracker-store");
+    const setPrayerStatus = jest.fn(async () => undefined);
+    const original = trackerStore.getState();
+    trackerStore.setState({
+      isReady: true,
+      prayerStatus: { asr: "pending" },
+      setPrayerStatus,
+    } as never);
+    try {
+      handleMock.mockResolvedValueOnce({ ok: true, prayerId: "asr" });
+      await drainWith([MARK]);
+
+      expect(mockToast.show).toHaveBeenCalledTimes(1);
+      expect(mockToast.success).not.toHaveBeenCalled();
+      const [title, options] = mockToast.show.mock.calls[0];
+      expect(title).toBe("Asr marked as prayed");
+      expect(options.action.label).toBe("Undo");
+      await act(async () => options.action.onPress());
+      expect(setPrayerStatus).toHaveBeenCalledWith("asr", "pending");
+    } finally {
+      trackerStore.setState(original);
+    }
+  });
+
+  describe("Undo after a cold start (B-21)", () => {
+    const { trackerStore } =
+      require("@/stores/tracker-store") as typeof import("@/stores/tracker-store");
+    let original: ReturnType<typeof trackerStore.getState>;
+    beforeEach(() => {
+      original = trackerStore.getState();
+    });
+    afterEach(() => trackerStore.setState(original));
+
+    /** A tracker that is not loaded yet and loads `prayerStatus` on demand. */
+    const coldTracker = (prayerStatus: Record<string, string>) => {
+      const setPrayerStatus = jest.fn(async () => undefined);
+      const load = jest.fn(async () => {
+        trackerStore.setState({ isReady: true, prayerStatus } as never);
+      });
+      trackerStore.setState({ isReady: false, prayerStatus: {}, load, setPrayerStatus } as never);
+      return { load, setPrayerStatus };
+    };
+
+    it.each(["pending", "delayed"])(
+      "loads the tracker first so a %s Salah still gets Undo",
+      async (previous) => {
+        const { load, setPrayerStatus } = coldTracker({ asr: previous });
+        handleMock.mockResolvedValueOnce({ ok: true, prayerId: "asr" });
+        await drainWith([MARK]);
+
+        expect(load).toHaveBeenCalledTimes(1);
+        expect(load.mock.invocationCallOrder[0]).toBeLessThan(
+          handleMock.mock.invocationCallOrder[0],
+        );
+        const [, options] = mockToast.show.mock.calls[0];
+        await act(async () => options.action.onPress());
+        expect(setPrayerStatus).toHaveBeenCalledWith("asr", previous);
+      },
+    );
+
+    it("keeps the plain confirmation when the Salah was Missed", async () => {
+      coldTracker({ asr: "missed" });
+      handleMock.mockResolvedValueOnce({ ok: true, prayerId: "asr" });
+      await drainWith([MARK]);
+
+      expect(mockToast.show).not.toHaveBeenCalled();
+      expect(mockToast.success).toHaveBeenCalledWith(i18n.t("externalCommands.marked"));
+    });
+
+    it("does not load while the PIN lock defers the command", async () => {
+      mockPinLocked.current = true;
+      const { load } = coldTracker({ asr: "pending" });
+      handleMock.mockResolvedValueOnce("deferred");
+      await drainWith([MARK]);
+
+      expect(load).not.toHaveBeenCalled();
+    });
+  });
+
   it("drains again when native commands arrive or the app returns", async () => {
     await setup();
     const onCommands = (subscribeNativeCommands as jest.Mock).mock.calls[0][0] as () => void;

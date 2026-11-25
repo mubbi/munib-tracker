@@ -9,7 +9,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { Durations } from "@/constants/motion";
-import { Radius } from "@/constants/theme";
+import { BorderWidth, Radius } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 const HOLD_MS = 2500;
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   ring: {
     ...StyleSheet.absoluteFill,
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
     borderCurve: "continuous",
   },
 });

@@ -2,7 +2,7 @@ import { act, fireEvent, screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
 import { AppHeader } from "@/components/app-header";
-import { ScreenLayout } from "@/components/screen-layout";
+import { READING_MEASURE, ScreenLayout } from "@/components/screen-layout";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 import { lastProps } from "@/test-support/mock-calls";
@@ -21,7 +21,10 @@ jest.mock(
 );
 jest.mock("expo-status-bar", () => ({ StatusBar: () => null }));
 jest.mock("expo-navigation-bar", () => ({ NavigationBar: () => null }));
-jest.mock("@/hooks/use-content-bottom-inset", () => ({ useContentBottomInset: () => 0 }));
+jest.mock("@/hooks/use-content-bottom-inset", () => ({
+  useContentBottomInset: () => 0,
+  useObstructedBottomInset: () => 34,
+}));
 jest.mock("@/hooks/use-reading-fullscreen", () => ({
   useReadingFullscreen: jest.fn(() => ({ active: false })),
 }));
@@ -141,9 +144,18 @@ describe("ScreenLayout reading progress", () => {
     expect(progressBar()).toHaveLength(0);
   });
 
-  it("appears once a learn page scrolls", async () => {
+  it("stays hidden on learn hubs unless a screen opts in", async () => {
     setMockPathname(LEARN_SECTION_ROUTES[0]);
     await renderLayout();
+
+    await fireEvent.scroll(scrollView(), scrollEvent(100, 3000));
+
+    expect(progressBar()).toHaveLength(0);
+  });
+
+  it("appears once an opted-in article scrolls", async () => {
+    setMockPathname(LEARN_SECTION_ROUTES[0]);
+    await renderLayout({ readingProgress: true });
 
     await fireEvent.scroll(scrollView(), scrollEvent(100, 3000));
 
@@ -195,6 +207,27 @@ describe("ScreenLayout on Android", () => {
 describe("ScreenLayout on web", () => {
   usePlatform({ OS: "web" });
 
+  afterEach(() => {
+    // biome-ignore lint/suspicious/noExplicitAny: test cleanup of the jsdom stub
+    delete (window as any).matchMedia;
+  });
+
+  it("shows the vertical scroll indicator for a fine pointer only", async () => {
+    await renderLayout();
+    expect(scrollView().props.showsVerticalScrollIndicator).toBe(false);
+
+    window.matchMedia = ((query: string) => ({
+      matches: true,
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    })) as never;
+    await renderLayout();
+    expect(
+      queryHostsByType("RCTScrollView").some((n) => n.props.showsVerticalScrollIndicator === true),
+    ).toBe(true);
+  });
+
   it("exposes the body as the main landmark", async () => {
     await renderLayout();
 
@@ -217,4 +250,57 @@ describe("ScreenLayout on TV", () => {
 
     expect(columnWidth()).toBeUndefined();
   });
+});
+
+describe("ScreenLayout footer", () => {
+  /** True when the footer text renders inside the scroll view (inline), not pinned below it. */
+  const footerScrolls = () => {
+    let node: { parent: unknown; type?: unknown } | null = screen.getByText("Next") as never;
+    while (node) {
+      if (node.type === "RCTScrollView") return true;
+      node = node.parent as typeof node;
+    }
+    return false;
+  };
+  const renderWithFooter = (props: Partial<Props> = {}) =>
+    renderLayout({ footer: <Text>Next</Text>, ...props });
+
+  it("pins the footer under the scroller on phones, clear of the home indicator", async () => {
+    await renderWithFooter();
+
+    expect(footerScrolls()).toBe(false);
+    const bar = parentOf(parentOf(screen.getByText("Next")));
+    expect(flattenStyle(bar.props.style).paddingBottom).toBeGreaterThanOrEqual(34);
+    // The pinned bar already clears the bottom chrome.
+    expect(flattenStyle(scrollView().props.contentContainerStyle).paddingBottom).toBeLessThan(34);
+  });
+
+  it("pins the footer on non-scrolling screens too", async () => {
+    await renderWithFooter({ scrollable: false });
+
+    expect(queryHostsByType("RCTScrollView")).toHaveLength(0);
+    const bar = parentOf(parentOf(screen.getByText("Next")));
+    expect(flattenStyle(bar.props.style).paddingBottom).toBeGreaterThanOrEqual(34);
+  });
+
+  it("follows the content inline on wide windows", async () => {
+    setMockWindowSize(1280, 900);
+    await renderWithFooter();
+
+    expect(footerScrolls()).toBe(true);
+  });
+
+  describe("on TV", () => {
+    usePlatform({ isTV: true });
+
+    it("follows the content so D-pad focus flows to it", async () => {
+      await renderWithFooter();
+
+      expect(footerScrolls()).toBe(true);
+    });
+  });
+});
+
+it("exports the single reading measure", () => {
+  expect(READING_MEASURE).toBe(880);
 });

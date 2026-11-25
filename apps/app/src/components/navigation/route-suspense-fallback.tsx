@@ -5,7 +5,7 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useMemo } from "react";
 import { ActivityIndicator, I18nManager, StyleSheet, Text, View } from "react-native";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Fonts, MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
+import { BorderWidth, Fonts, MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import i18n from "@/i18n";
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     padding: Spacing.three,
     borderRadius: Radius.lg,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderCurve: "continuous",
     // Match elevated `Card` so the chip reads as an app surface, not a toast.
     ...Shadows.sm,

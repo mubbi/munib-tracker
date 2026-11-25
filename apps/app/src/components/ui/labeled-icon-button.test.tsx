@@ -1,6 +1,8 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
+import { Control, Opacity } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
@@ -30,14 +32,41 @@ describe("LabeledIconButton", () => {
     expect(flattenStyle(button().props.style).backgroundColor).toBe("#ffeedd");
   });
 
-  it("blocks presses while loading", async () => {
+  it("blocks presses and reports busy while loading, without dimming", async () => {
     const onPress = jest.fn();
     await renderButton({ onPress, loading: true });
 
     await fireEvent.press(button());
 
     expect(onPress).not.toHaveBeenCalled();
-    expect(flattenStyle(button().props.style).opacity).toBe(0.4);
+    expect(button().props.accessibilityState).toEqual({ busy: true });
+    expect(flattenStyle(button().props.style).opacity).toBeUndefined();
+  });
+
+  it("dims to Opacity.disabled and announces disabled", async () => {
+    const onPress = jest.fn();
+    await renderButton({ onPress, disabled: true });
+
+    await fireEvent.press(button());
+
+    expect(onPress).not.toHaveBeenCalled();
+    expect(flattenStyle(button().props.style).opacity).toBe(Opacity.disabled);
+    expect(button().props.accessibilityState).toMatchObject({ disabled: true });
+  });
+
+  it("uses a caption label of at least 12pt (A-24)", async () => {
+    await renderButton();
+
+    expect(flattenStyle(screen.getByText("Play").props.style).fontSize).toBeGreaterThanOrEqual(12);
+  });
+
+  it("keeps a 44pt minimum target", async () => {
+    await renderButton();
+
+    expect(flattenStyle(button().props.style)).toMatchObject({
+      minWidth: Control.md,
+      minHeight: Control.md,
+    });
   });
 
   it.each([
@@ -59,10 +88,15 @@ describe("LabeledIconButton", () => {
 describe("LabeledIconButton on TV", () => {
   usePlatform({ isTV: true });
 
-  it("uses larger captions and requests focus", async () => {
+  it("requests focus and grows the target to the TV focus size", async () => {
     await renderButton({ preferredFocus: true, iconSize: 30 });
 
     expect(button().props.hasTVPreferredFocus).toBe(true);
-    expect(flattenStyle(screen.getByText("Play").props.style).fontSize).toBe(13);
+    expect(flattenStyle(button().props.style).minHeight).toBe(TvLayout.minFocusTarget);
+    // The label is a plain `caption`: ThemedText applies the TV ramp
+    // (TvType.caption) itself, resolved once at import on a TV build.
+    expect(screen.getByText("Play").props.style).not.toContainEqual(
+      expect.objectContaining({ fontSize: 13 }),
+    );
   });
 });

@@ -1,10 +1,21 @@
 import { type BlurTint, BlurView } from "expo-blur";
 import { GlassView } from "expo-glass-effect";
-import { type ReactNode, useEffect, useMemo, useRef } from "react";
+import {
+  type ReactNode,
+  type RefObject,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { useTranslation } from "react-i18next";
 import {
+  AccessibilityInfo,
+  findNodeHandle,
   KeyboardAvoidingView,
   Modal,
+  type ModalProps,
   PanResponder,
   Platform,
   Pressable,
@@ -22,18 +33,37 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { ThemedText } from "@/components/themed-text";
 import { hasLiquidGlass } from "@/components/ui/glass-surface";
+import { IconButton } from "@/components/ui/icon-button";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
+import {
+  captureTvFocusOrigin,
+  restoreTvFocus,
+  type TvFocusHandle,
+} from "@/components/ui/tv-focus-memory";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Durations } from "@/constants/motion";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Durations, Springs } from "@/constants/motion";
+import {
+  BorderWidth,
+  Breakpoints,
+  Control,
+  IconSize,
+  Radius,
+  Spacing,
+  withAlpha,
+  ZIndex,
+} from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAnimatedKeyboardHeight } from "@/hooks/use-animated-keyboard-height";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { getCurrentPathname } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { useBlurTarget } from "@/providers/blur-target-provider";
+import { ToastHost, useToastOutlet } from "@/providers/toast-provider";
 
 /** Drag distance (px) before a bottom sheet dismisses. */
 const DISMISS_DRAG_PX = 72;
@@ -50,11 +80,42 @@ const WEB_BACKDROP_FROST = {
   WebkitBackdropFilter: "blur(40px) saturate(180%)",
 } as ViewStyle;
 
+export type SheetVariant = "center" | "bottom" | "fullscreen";
+
+/** Anything that can take focus back when the sheet closes (a `View` / `PressableScale` ref). */
+type FocusableRef = RefObject<{ focus?: () => void } | null>;
+
 type SheetProps = {
   visible: boolean;
+  /** Scrim tap, Escape (web), Back (Android / TV), the VoiceOver escape gesture and the close button. */
   onClose: () => void;
-  /** "center" for dialogs, "bottom" for action sheets. */
-  variant?: "center" | "bottom";
+  /**
+   * `center` for dialogs, `bottom` for action sheets, `fullscreen` for PIN,
+   * media viewers and night surfaces (opaque, no scrim, always has a close button).
+   */
+  variant?: SheetVariant;
+  /**
+   * Visible sheet title, rendered as a heading. It also names the dialog for
+   * assistive tech (unless `accessibilityLabel` overrides it) and brings a close
+   * button on web, TV and every sheet without a drag grabber.
+   */
+  title?: string;
+  /** Accessible name of the dialog; defaults to `title`. */
+  accessibilityLabel?: string;
+  /**
+   * Force the header close button on (`true`) or off (`false`). Default: shown
+   * with a `title` whenever the grabber is not the close affordance (web, TV,
+   * center and fullscreen variants).
+   */
+  showCloseButton?: boolean;
+  /**
+   * The control that opened the sheet. Focus (web / TV) or screen-reader focus
+   * (iOS / Android) returns to it after the sheet closes. Without it, web
+   * restores the element that had focus when the sheet opened and TV the
+   * control that last had D-pad focus (`tv-focus-memory`) — unless the route
+   * changed or something else took focus meanwhile.
+   */
+  returnFocusRef?: FocusableRef;
   /** Skip frosted glass — use a solid card (better for content-heavy sheets). */
   solid?: boolean;
   /**
@@ -71,6 +132,18 @@ type SheetProps = {
  * swallows taps. Used by the confirm dialog, notes editor, status sheet, and
  * custom-target modal so scrim/stop-propagation logic lives in one place.
  *
+ * Accessibility: the card is `accessibilityViewIsModal` (iOS) / `role="dialog"`
+ * + `aria-modal` (web) and is named by `title`. On web react-native-web's Modal
+ * traps Tab inside the card and closes on Escape; the scrim is not a tab stop.
+ * Focus returns to the trigger on close (see `returnFocusRef`).
+ *
+ * Motion: bottom sheets slide up with `Springs.sheet` (native fades the scrim
+ * with the Modal); under reduced motion they only fade.
+ *
+ * Toasts: while open, the sheet hosts the app's toasts inside its modal layer
+ * (an RN `Modal` is its own window / portal, so the root toast host would sit
+ * underneath it and an **Undo** could not be reached — B-01).
+ *
  * Frosted look is bottom-sheet only (non-`solid`):
  * - iOS 26+ Liquid Glass → real `GlassView` material
  * - older iOS / Android → native `BlurView` (Android captures the root blur target)
@@ -81,6 +154,10 @@ export function Sheet({
   visible,
   onClose,
   variant = "center",
+  title,
+  accessibilityLabel,
+  showCloseButton,
+  returnFocusRef,
   solid = false,
   scrollable = true,
   children,
@@ -92,9 +169,19 @@ export function Sheet({
   const insets = useAppSafeAreaInsets();
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
   const tv = isTV();
+  const web = Platform.OS === "web";
+  const reducedMotion = useHydrationSafeReducedMotion();
+  const toastOutletId = useToastOutlet(visible);
+  const isFullscreen = variant === "fullscreen";
+  const dialogLabel = accessibilityLabel ?? title;
+  // The grabber is the close affordance only on touch-first native bottom sheets.
+  const hasGrabber = variant === "bottom" && !tv && !web;
+  const closeButtonShown =
+    showCloseButton ?? (isFullscreen || (title != null && (web || tv || !hasGrabber)));
+  const hasHeader = title != null || closeButtonShown;
   // Large screens (tablet / desktop web): Material 3 caps bottom sheets at 640dp
   // and centers them instead of spanning a 1,900px window.
-  const wideBottomSheet = !tv && windowWidth >= 768;
+  const wideBottomSheet = !tv && windowWidth >= Breakpoints.tablet;
   const wideSheetInset = wideBottomSheet
     ? Math.max(0, (windowWidth - WIDE_BOTTOM_SHEET_MAX) / 2)
     : 0;
@@ -102,10 +189,12 @@ export function Sheet({
   const useSheetFrost = isBottom && !solid;
   const bottomMaxHeight = windowHeight * 0.88;
   /** Handle zone + horizontal padding — subtracted from maxHeight for the scroll area. */
-  const bottomSheetChrome = 64 + insets.bottom;
+  const bottomSheetChrome = 64 + insets.bottom + (hasHeader ? Control.md + Spacing.two : 0);
   const bottomScrollMaxHeight = bottomMaxHeight - bottomSheetChrome;
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
+  const visibleRef = useRef(visible);
+  visibleRef.current = visible;
   const tvPad = tv
     ? { paddingHorizontal: TvLayout.contentPaddingX, paddingVertical: TvLayout.contentPaddingY }
     : null;
@@ -123,6 +212,8 @@ export function Sheet({
   const renderedChildren = visible ? children : lastVisibleChildren.current;
 
   const dragY = useSharedValue(0);
+  /** Slide-in offset for bottom sheets (0 = docked). Stays 0 under reduced motion. */
+  const enterY = useSharedValue(0);
   /**
    * Cover over the frost layer (1 → 0). Never animate opacity on the frost node
    * itself — CSS `backdrop-filter` (and some native blur paths) cannot sample
@@ -154,6 +245,86 @@ export function Sheet({
     }
   }, [visible, dragY, frostCoverOpacity, useSheetFrost]);
 
+  // Bottom sheets slide up from below the window; reduced motion keeps the
+  // Modal's fade only (no translate). The start offset is read from a ref so a
+  // window resize while open (keyboard, rotation) does not replay the slide.
+  const slideFrom = useRef(bottomMaxHeight);
+  slideFrom.current = bottomMaxHeight;
+  useEffect(() => {
+    if (!isBottom || !visible || reducedMotion) {
+      enterY.value = 0;
+      return;
+    }
+    enterY.value = slideFrom.current;
+    enterY.value = withSpring(0, Springs.sheet);
+  }, [isBottom, visible, reducedMotion, enterY]);
+
+  // Focus restoration. Web: remember the element focused when the sheet opened
+  // (layout effect — before react-native-web's focus trap moves focus inside)
+  // and put focus back once the Modal has unmounted if it would otherwise be
+  // lost to <body>. Native: move screen-reader / TV focus to `returnFocusRef`.
+  // TV: no API reports the focused view, so the opener comes from the focus
+  // memory fed by PressableScale (captured before the sheet's autoFocus moves
+  // D-pad focus inside).
+  const openerRef = useRef<HTMLElement | null>(null);
+  const tvOpenerRef = useRef<{ origin: TvFocusHandle | null; path: string | null } | null>(null);
+  const wasVisible = useRef(visible);
+  useLayoutEffect(() => {
+    if (!visible) return;
+    if (web && typeof document !== "undefined") {
+      const active = document.activeElement;
+      openerRef.current = active instanceof HTMLElement && active !== document.body ? active : null;
+    }
+    if (tv) tvOpenerRef.current = { origin: captureTvFocusOrigin(), path: getCurrentPathname() };
+  }, [visible, web, tv]);
+
+  const restoreFocus = useCallback(() => {
+    const target = returnFocusRef?.current;
+    if (web) {
+      if (typeof document === "undefined") return;
+      const active = document.activeElement;
+      const lost = active == null || active === document.body;
+      if (target?.focus) {
+        target.focus();
+      } else if (lost && openerRef.current && document.contains(openerRef.current)) {
+        openerRef.current.focus();
+      }
+      openerRef.current = null;
+      return;
+    }
+    if (tv) {
+      const opener = tvOpenerRef.current;
+      if (target) target.focus?.();
+      else if (opener) restoreTvFocus(opener.origin, opener.path);
+      return;
+    }
+    if (!target) return;
+    const node = findNodeHandle(target as never);
+    if (node != null) AccessibilityInfo.setAccessibilityFocus(node);
+  }, [returnFocusRef, web, tv]);
+
+  useEffect(() => {
+    if (wasVisible.current && !visible && !web) {
+      // Native: wait for the Modal's exit fade so the trigger is in the
+      // accessibility tree again.
+      const timer = setTimeout(restoreFocus, Durations.base);
+      wasVisible.current = visible;
+      return () => clearTimeout(timer);
+    }
+    wasVisible.current = visible;
+  }, [visible, web, restoreFocus]);
+
+  // Callers that unmount an open sheet (`{open && <Sheet visible …/>}`) never
+  // flip `visible`: restore TV focus from the unmount instead.
+  const restoreFocusRef = useRef(restoreFocus);
+  restoreFocusRef.current = restoreFocus;
+  useEffect(
+    () => () => {
+      if (tv && wasVisible.current) setTimeout(restoreFocusRef.current, Durations.base);
+    },
+    [tv],
+  );
+
   const panResponder = useMemo(
     () =>
       PanResponder.create({
@@ -170,23 +341,56 @@ export function Sheet({
         onPanResponderRelease: (_, gesture) => {
           if (gesture.dy > DISMISS_DRAG_PX || gesture.vy > DISMISS_VELOCITY) {
             onCloseRef.current();
+            // A dirty-form guard ("Keep editing?") can keep the sheet open:
+            // dock the card again instead of leaving it dragged down (B-29).
+            setTimeout(() => {
+              if (visibleRef.current) dragY.value = withSpring(0, Springs.sheet);
+            }, 0);
             return;
           }
-          dragY.value = withSpring(0, { damping: 20, stiffness: 300 });
+          dragY.value = withSpring(0, Springs.sheet);
         },
         onPanResponderTerminate: () => {
-          dragY.value = withSpring(0, { damping: 20, stiffness: 300 });
+          dragY.value = withSpring(0, Springs.sheet);
         },
       }),
     [dragY],
   );
 
   const bottomCardDragStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: dragY.value }],
+    transform: [{ translateY: dragY.value + enterY.value }],
   }));
 
+  const header = hasHeader ? (
+    <View style={[styles.header, !title && styles.headerCloseOnly]}>
+      {title != null ? (
+        <ThemedText type="subtitle" heading={2} style={styles.headerTitle}>
+          {title}
+        </ThemedText>
+      ) : null}
+      {closeButtonShown ? (
+        <IconButton
+          name={{ ios: "xmark", android: "close", web: "close" }}
+          size={IconSize.lg}
+          tintColor={colors.mutedForeground}
+          accessibilityLabel={t("common.close")}
+          onPress={onClose}
+          haptic={false}
+        />
+      ) : null}
+    </View>
+  ) : null;
+
+  /** Names the card as a modal dialog (VoiceOver escape closes it). */
+  const dialogA11y = {
+    accessibilityViewIsModal: true,
+    onAccessibilityEscape: onClose,
+    accessibilityLabel: dialogLabel,
+    ...(web ? { role: "dialog" as const, "aria-modal": true } : null),
+  };
+
   const cardBody = (
-    <TvFocusGuide autoFocus={tv}>
+    <TvFocusGuide autoFocus={tv} style={isFullscreen ? styles.fullscreenBody : undefined}>
       {isBottom ? (
         scrollable ? (
           // minHeight: 0 is required so flex can shrink the scroll view inside a
@@ -274,9 +478,8 @@ export function Sheet({
 
   const bottomCard = (
     <Animated.View
-      accessibilityViewIsModal
       // iOS VoiceOver "escape" (two-finger Z) dismisses, like any modal view.
-      onAccessibilityEscape={onClose}
+      {...dialogA11y}
       collapsable={false}
       style={[
         bottomCardStyle,
@@ -296,6 +499,7 @@ export function Sheet({
       {/* TV remotes cannot drag: a grabber implies a gesture that doesn't exist
           there (Back closes the sheet). Keep the top breathing room instead. */}
       {tv ? <View style={styles.tvTopInset} /> : dragHandle}
+      {header}
       {cardBody}
     </Animated.View>
   );
@@ -306,14 +510,14 @@ export function Sheet({
       keyboardVerticalOffset={insets.top}
       style={styles.centerKeyboard}
     >
+      {header}
       {cardBody}
     </KeyboardAvoidingView>
   );
 
   const centerCard = (
     <View
-      accessibilityViewIsModal
-      onAccessibilityEscape={onClose}
+      {...dialogA11y}
       // collapsable={false}: keeps a real host view on Android so the card (and
       // its buttons) stay hittable when overlapping the scrim.
       collapsable={false}
@@ -335,7 +539,11 @@ export function Sheet({
     accessibilityLabel: t("common.close"),
     // react-native-web renders a real <button> for role="button"; the backdrop
     // is a sibling of the dialog card so nested-button DOM errors do not apply.
-    accessibilityRole: Platform.OS === "web" ? undefined : ("button" as const),
+    accessibilityRole: web ? undefined : ("button" as const),
+    // TV: the scrim is not a D-pad target (no focus ring; remote Back closes).
+    // Web: pointer users click it, but it is never a Tab stop (Escape closes).
+    focusable: !tv && !web,
+    ...(web ? { tabIndex: -1 as const } : null),
   };
 
   /**
@@ -397,6 +605,16 @@ export function Sheet({
     </>
   ) : null;
 
+  // Web: `fade` animates opacity on the Modal root, which kills CSS
+  // `backdrop-filter`, so web uses none + the frost cover. Native fades the
+  // scrim and card together (the bottom card also slides — see `enterY`); a
+  // fullscreen surface slides up unless reduced motion asks for a fade.
+  const modalAnimation: "none" | "fade" | "slide" = web
+    ? "none"
+    : isFullscreen && !reducedMotion
+      ? "slide"
+      : "fade";
+
   // Outer View wrapper: Fabric + Reanimated bug — a Modal that shares a React
   // tree with useAnimatedStyle siblings (e.g. tasbeeh ring / PressableScale)
   // can mount visually but ignore all touches. Wrapping Modal in a plain View
@@ -406,54 +624,91 @@ export function Sheet({
       <Modal
         visible={visible}
         transparent
-        // Web: `fade` animates opacity on the Modal root, which kills CSS
-        // `backdrop-filter`. Native keeps fade; web uses none + frost cover.
-        animationType={Platform.OS === "web" ? "none" : "fade"}
+        animationType={modalAnimation}
         onRequestClose={onClose}
+        // Web only: runs after the Modal (and its focus trap) has unmounted.
+        {...(web ? { onDismiss: restoreFocus } : null)}
         statusBarTranslucent
+        // iOS defaults a Modal to portrait only: an iPad / landscape phone
+        // would rotate under any sheet (B-12, night surface).
+        supportedOrientations={SUPPORTED_ORIENTATIONS}
         // Keep the host screen in the view hierarchy so glass/blur can sample
         // it through the transparent modal (iOS).
         {...(Platform.OS === "ios" ? { presentationStyle: "overFullScreen" as const } : null)}
       >
-        {isBottom ? (
-          <View style={styles.scrimRoot}>
-            {frostedBackdrop}
-            <Pressable
-              collapsable={false}
-              style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
-              onPress={onClose}
-              // TV: the scrim is not a D-pad target (no focus ring; remote Back closes).
-              focusable={!isTV()}
-              {...backdropA11y}
-            />
-            {bottomCard}
-          </View>
-        ) : (
-          <View style={styles.scrimRoot}>
-            <Pressable
-              collapsable={false}
-              style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
-              onPress={onClose}
-              // TV: the scrim is not a D-pad target (no focus ring; remote Back closes).
-              focusable={!isTV()}
-              {...backdropA11y}
-            />
+        {/* The surface sits in its own layer so the toast outlet below is not a
+            sibling of the `accessibilityViewIsModal` view (iOS VoiceOver hides
+            a modal view's siblings). */}
+        <View style={styles.modalLayer} collapsable={false}>
+          {isFullscreen ? (
             <View
-              style={[StyleSheet.absoluteFill, styles.scrimCenter, { pointerEvents: "box-none" }]}
+              {...dialogA11y}
+              collapsable={false}
+              style={[
+                styles.fullscreen,
+                {
+                  backgroundColor: colors.background,
+                  paddingTop: insets.top + Spacing.two,
+                  paddingBottom: insets.bottom + Spacing.two,
+                },
+                tvPad,
+                contentStyle,
+              ]}
             >
-              {centerCard}
+              {header}
+              {cardBody}
             </View>
-          </View>
-        )}
+          ) : isBottom ? (
+            <View style={styles.scrimRoot}>
+              {frostedBackdrop}
+              <Pressable
+                collapsable={false}
+                style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
+                onPress={onClose}
+                {...backdropA11y}
+              />
+              {bottomCard}
+            </View>
+          ) : (
+            <View style={styles.scrimRoot}>
+              <Pressable
+                collapsable={false}
+                style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
+                onPress={onClose}
+                {...backdropA11y}
+              />
+              <View
+                style={[StyleSheet.absoluteFill, styles.scrimCenter, { pointerEvents: "box-none" }]}
+              >
+                {centerCard}
+              </View>
+            </View>
+          )}
+        </View>
+        {toastOutletId ? <ToastHost outletId={toastOutletId} /> : null}
       </Modal>
     </View>
   );
 }
 
+const SUPPORTED_ORIENTATIONS: ModalProps["supportedOrientations"] = [
+  "portrait",
+  "portrait-upside-down",
+  "landscape",
+  "landscape-left",
+  "landscape-right",
+];
+
 /** Material 3 large-screen bottom sheet width cap. */
 const WIDE_BOTTOM_SHEET_MAX = 640;
 
 const styles = StyleSheet.create({
+  /** Fills the Modal root like `scrimRoot` (web's Modal content is a fixed full-viewport box). */
+  modalLayer: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   scrimRoot: {
     flex: 1,
     width: "100%",
@@ -477,14 +732,14 @@ const styles = StyleSheet.create({
   centerCard: {
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     padding: Spacing.four,
     gap: Spacing.two,
     maxWidth: tvDp(520),
     width: "100%",
     alignSelf: "center",
     overflow: "hidden",
-    zIndex: 2,
+    zIndex: ZIndex.raised,
   },
   centerKeyboard: {
     width: "100%",
@@ -495,11 +750,30 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: Radius.xl,
     borderTopRightRadius: Radius.xl,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     paddingHorizontal: Spacing.four,
     paddingBottom: Spacing.four,
     overflow: "hidden",
-    zIndex: 2,
+    zIndex: ZIndex.raised,
+  },
+  fullscreen: {
+    flex: 1,
+    paddingHorizontal: Spacing.four,
+    gap: Spacing.two,
+  },
+  fullscreenBody: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  headerCloseOnly: {
+    justifyContent: "flex-end",
+  },
+  headerTitle: {
+    flex: 1,
   },
   bottomScroll: {
     flexGrow: 0,
@@ -515,7 +789,7 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.two,
     paddingBottom: Spacing.three,
     minHeight: tvDp(44),
-    zIndex: 1,
+    zIndex: ZIndex.raised,
   },
   handle: {
     width: tvDp(40),

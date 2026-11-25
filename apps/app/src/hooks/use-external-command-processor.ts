@@ -15,6 +15,7 @@ import { toInAppPath } from "@/lib/in-app-path";
 import { isTV } from "@/lib/platform/is-tv";
 import { captureAppException } from "@/lib/sentry";
 import { useToast } from "@/providers/toast-provider";
+import { trackerStore } from "@/stores/tracker-store";
 
 function resultMessage(result: Awaited<ReturnType<typeof handleExternalCommand>>): string | null {
   if (result === "deferred") return null;
@@ -55,12 +56,46 @@ export function useExternalCommandProcessor(): void {
         return;
       }
 
+      // Status before the mark, so the confirmation toast can offer Undo (P5-07).
+      // A cold start from a widget / quick action has not loaded the tracker
+      // yet: load it first (the command handler would anyway), or the Undo is
+      // skipped in its main use case (B-21). Not while the PIN lock defers.
+      let tracker = trackerStore.getState();
+      if (!tracker.isReady && !deferActionsUntilPinUnlock) {
+        await tracker.load();
+        tracker = trackerStore.getState();
+      }
+      const before = tracker.isReady ? tracker.prayerStatus : null;
       const result = await handleExternalCommand(command, {
         defer: deferActionsUntilPinUnlock,
       });
       if (result === "deferred") {
         pendingRef.current.push(command);
         return;
+      }
+      if (result.ok && !result.alreadyCompleted && result.prayerId && before) {
+        const previous = before[result.prayerId] ?? "pending";
+        // Only statuses with no Qaza debt attached restore cleanly; a Missed /
+        // Qaza mark keeps the plain confirmation.
+        if (previous === "pending" || previous === "delayed") {
+          const prayerId = result.prayerId;
+          let undone = false;
+          toast.show(
+            i18n.t("externalCommands.markedAsPrayed", { salah: i18n.t(`prayers.${prayerId}`) }),
+            {
+              type: "success",
+              action: {
+                label: i18n.t("uiFeedback.undo"),
+                onPress: () => {
+                  if (undone) return;
+                  undone = true;
+                  void trackerStore.getState().setPrayerStatus(prayerId, previous);
+                },
+              },
+            },
+          );
+          return;
+        }
       }
       const message = resultMessage(result);
       if (message) {

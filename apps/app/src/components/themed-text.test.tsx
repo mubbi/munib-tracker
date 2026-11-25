@@ -334,3 +334,27 @@ describe("ThemedText on Android TV", () => {
     }
   });
 });
+
+describe("ThemedText Arabic language tagging", () => {
+  it("tags arabic text for screen readers", async () => {
+    await renderText({ type: "arabic", testID: "ar", children: "بسم الله" });
+    const node = screen.getByTestId("ar");
+    expect(node.props.accessibilityLanguage ?? node.props.lang).toBe("ar");
+  });
+
+  it("leaves UI text untagged", async () => {
+    await renderText({ testID: "ui", children: "Plain label" });
+    const node = screen.getByTestId("ui");
+    expect(node.props.accessibilityLanguage ?? node.props.lang).toBeUndefined();
+  });
+
+  it("lets callers override the language", async () => {
+    await renderText({
+      type: "arabic",
+      testID: "ur",
+      accessibilityLanguage: "ur",
+      children: "اردو",
+    });
+    expect(screen.getByTestId("ur").props.accessibilityLanguage).toBe("ur");
+  });
+});

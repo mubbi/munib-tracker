@@ -2,15 +2,19 @@ import { act, fireEvent, screen } from "@testing-library/react-native";
 import { Text, type ViewStyle } from "react-native";
 
 import { PressableScale, tvAdaptiveFocusScale } from "@/components/ui/pressable-scale";
+import { Opacity } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { blurActiveElement } from "@/lib/blur-active-element";
 import { triggerHaptic } from "@/lib/haptics";
 import { pressableProps as pressablePropsOf } from "@/test-support/fiber";
 import { usePlatform } from "@/test-support/platform";
 import { parentOf } from "@/test-support/queries";
 import { captureAnimatedStyles } from "@/test-support/reanimated";
-import { renderWithTheme } from "@/test-support/render";
+import { renderHookWithTheme, renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
 jest.mock("@/lib/haptics", () => require("@/test-support/mocks/haptics").hapticsMock);
+jest.mock("@/lib/blur-active-element", () => ({ blurActiveElement: jest.fn() }));
 
 type Props = Parameters<typeof PressableScale>[0];
 type PressableState = { pressed: boolean; hovered?: boolean; focused?: boolean };
@@ -22,6 +26,8 @@ type PressableProps = {
   onPressOut: Handler;
   onFocus: Handler;
   onBlur: Handler;
+  onHoverIn: Handler;
+  onHoverOut: Handler;
 };
 
 const renderPressable = (props: Partial<Props> = {}) =>
@@ -38,7 +44,7 @@ const pressableProps = () => pressablePropsOf<PressableProps>(target());
 
 /** Invokes a handler RN's Pressable would call for a touch / focus event. */
 const trigger = (
-  name: "onPressIn" | "onPressOut" | "onFocus" | "onBlur" | "onLayout",
+  name: "onPressIn" | "onPressOut" | "onFocus" | "onBlur" | "onLayout" | "onHoverIn" | "onHoverOut",
   event: object = {},
 ) => act(async () => pressableProps()[name](event));
 
@@ -54,6 +60,9 @@ const clipWrapper = () => {
 };
 
 const innerStyle = () => flattenStyle(parentOf(screen.getByText("Child")).props.style);
+
+const themeTokens = async () =>
+  (await renderHookWithTheme(() => useThemeTokens())).result.current.tokens;
 
 afterEach(() => jest.mocked(triggerHaptic).mockClear());
 
@@ -140,6 +149,112 @@ describe("PressableScale", () => {
     await renderPressable();
 
     expect(styleFor({ hovered: true }).cursor).toBeUndefined();
+  });
+
+  it("defaults to the button role when it has an onPress", async () => {
+    await renderPressable();
+
+    expect(screen.getByRole("button", { name: "Target" })).toBeTruthy();
+  });
+
+  it("defaults to the button role for long-press-only surfaces", async () => {
+    await renderPressable({ onPress: undefined, onLongPress: jest.fn() });
+
+    expect(screen.getByRole("button", { name: "Target" })).toBeTruthy();
+  });
+
+  it("keeps an explicit role", async () => {
+    await renderPressable({ accessibilityRole: "link" });
+
+    expect(target().props.accessibilityRole).toBe("link");
+    expect(screen.queryByRole("button")).toBeNull();
+  });
+
+  it("keeps an explicit ARIA role", async () => {
+    await renderPressable({ role: "tab" });
+
+    expect(target().props.role).toBe("tab");
+    expect(target().props.accessibilityRole).toBeUndefined();
+  });
+
+  it("adds no role to non-interactive surfaces", async () => {
+    await renderPressable({ onPress: undefined });
+
+    expect(target().props.accessibilityRole).toBeUndefined();
+  });
+
+  it("dims to Opacity.disabled and announces disabled", async () => {
+    const onPress = jest.fn();
+    await renderPressable({ disabled: true, onPress, accessibilityState: { selected: true } });
+
+    await fireEvent.press(target());
+
+    expect(onPress).not.toHaveBeenCalled();
+    expect(styleFor().opacity).toBe(Opacity.disabled);
+    expect(target().props.accessibilityState).toEqual({ selected: true, disabled: true });
+  });
+
+  it("leaves the opacity alone while enabled", async () => {
+    await renderPressable({ accessibilityState: { selected: true } });
+
+    expect(styleFor().opacity).toBeUndefined();
+    expect(target().props.accessibilityState).toEqual({ selected: true });
+  });
+
+  it("reports an explicit disabled={false} as enabled", async () => {
+    await renderPressable({ disabled: false });
+
+    expect(target().props.accessibilityState).toEqual({ disabled: false });
+  });
+
+  it("keeps a caller's soft-disabled state on an enabled pressable (TV bounds)", async () => {
+    await renderPressable({ disabled: false, accessibilityState: { disabled: true } });
+
+    expect(target().props.accessibilityState).toEqual({ disabled: true });
+  });
+
+  it("lets an explicit style opacity win over the disabled dim", async () => {
+    await renderPressable({ disabled: true, style: { opacity: 0.35 } });
+
+    expect(styleFor().opacity).toBe(0.35);
+  });
+
+  it("skips the disabled dim when dimWhenDisabled is false", async () => {
+    await renderPressable({ disabled: true, dimWhenDisabled: false });
+
+    expect(styleFor().opacity).toBeUndefined();
+    expect(target().props.accessibilityState).toEqual({ disabled: true });
+  });
+
+  it("washes unpainted surfaces with tokens.hover under a native pointer", async () => {
+    const tokens = await themeTokens();
+    await renderPressable();
+
+    await trigger("onHoverIn");
+    expect(styleFor().backgroundColor).toBe(tokens.hover);
+
+    await trigger("onHoverOut");
+    expect(styleFor().backgroundColor).toBe("rgba(0,0,0,0.002)");
+  });
+
+  it("forwards hover handlers", async () => {
+    const onHoverIn = jest.fn();
+    const onHoverOut = jest.fn();
+    await renderPressable({ onHoverIn, onHoverOut });
+
+    await trigger("onHoverIn");
+    await trigger("onHoverOut");
+
+    expect(onHoverIn).toHaveBeenCalledTimes(1);
+    expect(onHoverOut).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not hover while disabled", async () => {
+    await renderPressable({ disabled: true });
+
+    await trigger("onHoverIn");
+
+    expect(styleFor().backgroundColor).toBe("rgba(0,0,0,0.002)");
   });
 });
 
@@ -249,13 +364,58 @@ describe("PressableScale on Android", () => {
 describe("PressableScale on web", () => {
   usePlatform({ OS: "web" });
 
-  it("blurs the active element before firing onPress", async () => {
-    const onPress = jest.fn();
-    await renderPressable({ onPress });
+  describe("focus", () => {
+    const g = globalThis as Record<string, unknown>;
+    let restoreDom: () => void = () => {};
+    afterEach(() => restoreDom());
 
-    await fireEvent.press(target());
+    /** Minimal DOM: `element` is focused; its `blur()` would move focus to <body>. */
+    function focusFakeElement() {
+      const body = { blur: jest.fn() };
+      const element = { blur: jest.fn() };
+      const previous = g.document;
+      const doc = { activeElement: element as unknown, body };
+      element.blur.mockImplementation(() => {
+        doc.activeElement = body;
+      });
+      g.document = doc;
+      restoreDom = () => {
+        g.document = previous;
+      };
+      return { doc, element };
+    }
 
-    expect(onPress).toHaveBeenCalled();
+    it("keeps focus on the pressable after an in-place press (E-01 / F-41)", async () => {
+      const onPress = jest.fn();
+      await renderPressable({ onPress });
+      const { doc, element } = focusFakeElement();
+
+      await fireEvent.press(target());
+
+      expect(onPress).toHaveBeenCalled();
+      expect(blurActiveElement).not.toHaveBeenCalled();
+      expect(element.blur).not.toHaveBeenCalled();
+      expect(doc.activeElement).toBe(element);
+    });
+  });
+
+  it("defaults to a real button (role) on web", async () => {
+    await renderPressable();
+
+    expect(target().props.accessibilityRole).toBe("button");
+  });
+
+  it("does not nest a defaulted button inside another web button", async () => {
+    await renderWithTheme(
+      <PressableScale accessibilityLabel="Outer" onPress={jest.fn()}>
+        <PressableScale accessibilityLabel="Inner" onPress={jest.fn()}>
+          <Text>Child</Text>
+        </PressableScale>
+      </PressableScale>,
+    );
+
+    expect(screen.getByLabelText("Outer").props.accessibilityRole).toBe("button");
+    expect(screen.getByLabelText("Inner").props.accessibilityRole).toBeUndefined();
   });
 
   it("shows a pointer cursor on interactive surfaces", async () => {
@@ -299,12 +459,30 @@ describe("PressableScale on TV", () => {
     expect(styleFor().overflow).toBe("visible");
   });
 
-  it("draws an accent focus ring that grows outward", async () => {
+  it("draws a tokens.focusRing ring that grows outward", async () => {
+    const tokens = await themeTokens();
     await renderPressable({ style: { borderRadius: 10 } });
 
     const focused = styleFor({ focused: true });
-    expect(focused).toMatchObject({ borderRadius: 10, zIndex: 1 });
+    expect(focused).toMatchObject({ borderRadius: 10, zIndex: 1, borderColor: tokens.focusRing });
     expect(focused.margin).toBeLessThan(0);
+  });
+
+  it("accepts focusScale as an alias of tvFocusScale", async () => {
+    const animated = captureAnimatedStyles();
+    await renderPressable({ focusScale: 1.06 });
+
+    await trigger("onFocus");
+
+    expect(animated.latest().transform).toEqual([{ scale: 1.06 }]);
+  });
+
+  it("ignores pointer hover on TV", async () => {
+    await renderPressable();
+
+    await trigger("onHoverIn");
+
+    expect(styleFor().backgroundColor).toBe("rgba(0,0,0,0.002)");
   });
 
   it("keeps the margin when the resting border already matches the ring", async () => {

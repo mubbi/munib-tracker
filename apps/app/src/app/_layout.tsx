@@ -8,6 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import "@/global.css";
 import { setAppVersionInfo } from "@munib-tracker/api-client";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
+import { AppIconHost } from "@/components/app-icon/app-icon-host";
 import { AppStack } from "@/components/app-stack";
 import { AppVersionGate } from "@/components/app-update/app-version-gate";
 import { CirclesHost } from "@/components/circles/circles-host";
@@ -17,6 +18,7 @@ import { ExternalCommandProcessor } from "@/components/external-command-processo
 import { FocusLockHost } from "@/components/focus-lock/focus-lock-host";
 import { IdleMount } from "@/components/idle-mount";
 import { LocalePathBootstrap } from "@/components/locale-path-bootstrap";
+import { LockAwareToastHost } from "@/components/lock-aware-toast-host";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { RtlLayoutBootstrap } from "@/components/rtl-layout-bootstrap";
@@ -43,7 +45,7 @@ import { BlurTargetProvider } from "@/providers/blur-target-provider";
 import { InAppNotificationsProvider } from "@/providers/in-app-notifications-provider";
 import { NotificationProvider } from "@/providers/notification-provider";
 import { MunibThemeProvider } from "@/providers/theme-provider";
-import { ToastHost, ToastProvider } from "@/providers/toast-provider";
+import { ToastProvider } from "@/providers/toast-provider";
 import { WebLayoutDirectionBridge } from "@/providers/web-layout-direction";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -196,17 +198,21 @@ function RootLayout() {
                                                 <RtlLayoutBootstrap />
                                                 <WebPwaBootstrap />
                                                 <OnboardingGate />
+                                                {/* Toasts sit BELOW the PIN lock (G-92) and
+                                        unmount while it is up. Outside
+                                        BlurTargetView so Android can capture a
+                                        real backdrop blur (same as mini-player /
+                                        sheets). */}
+                                                <LockAwareToastHost />
                                                 <PinLockGate />
                                                 {/* NF-3.13: focus-lock planner + soft prompt (no-op on TV). */}
                                                 <FocusLockHost />
                                                 {/* NF-3.16: kids-mode guard, fard share, D34 re-consent. */}
                                                 <CirclesHost />
+                                                {/* NF-2.23b: seasonal launcher icon (no-op on web / TV). */}
+                                                <AppIconHost />
                                                 <DeferredMiniPlayer />
                                                 <TvRemoteBridge />
-                                                {/* Outside BlurTargetView so Android can
-                                        capture a real backdrop blur (same as
-                                        mini-player / sheets). */}
-                                                <ToastHost />
                                                 <AnimatedSplashOverlay />
                                               </>
                                             }

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
@@ -13,9 +13,9 @@ type ListIndexBadgeProps = {
 
 /** Compact ordinal badge for scannable lists (duas, adhkar, names, etc.). */
 export function ListIndexBadge({ index, completed }: ListIndexBadgeProps) {
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
   const backgroundColor = completed ? tokens.status.success.soft : tokens.accentSoft;
-  const foreground = completed ? tokens.status.success.color : colors.accentText;
+  const foreground = completed ? tokens.status.success.onSoft : tokens.accentOnSoft;
 
   return (
     <View
@@ -23,7 +23,7 @@ export function ListIndexBadge({ index, completed }: ListIndexBadgeProps) {
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
     >
-      <ThemedText type="caption" style={{ color: foreground }}>
+      <ThemedText type="caption" maxFontSizeMultiplier={1.2} style={{ color: foreground }}>
         {index}
       </ThemedText>
     </View>
@@ -33,8 +33,8 @@ export function ListIndexBadge({ index, completed }: ListIndexBadgeProps) {
 const styles = StyleSheet.create({
   badge: {
     minWidth: tvDp(26),
-    height: tvDp(26),
-    paddingHorizontal: 4,
+    minHeight: tvDp(26),
+    paddingHorizontal: Spacing.one,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",

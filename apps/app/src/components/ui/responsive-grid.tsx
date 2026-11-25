@@ -7,7 +7,7 @@ import {
   type ViewStyle,
 } from "react-native";
 
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 
 /**
  * Column count for card / tile grids by window width (Material window size
@@ -16,7 +16,8 @@ import { Spacing } from "@/constants/theme";
  * Clamped to [min, max].
  */
 export function responsiveColumns(width: number, { min = 1, max = 4 } = {}): number {
-  const cols = width >= 1600 ? 4 : width >= 1200 ? 3 : width >= 768 ? 2 : 1;
+  const cols =
+    width >= Breakpoints.xwide ? 4 : width >= 1200 ? 3 : width >= Breakpoints.tablet ? 2 : 1;
   return Math.max(min, Math.min(max, cols));
 }
 

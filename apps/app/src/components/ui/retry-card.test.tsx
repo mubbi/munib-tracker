@@ -15,4 +15,24 @@ describe("RetryCard", () => {
     await fireEvent.press(screen.getByRole("button", { name: "Try again" }));
     expect(onRetry).toHaveBeenCalledTimes(1);
   });
+
+  it("defaults its copy and marks an offline failure", async () => {
+    const onRetry = jest.fn();
+    await renderWithTheme(<RetryCard onRetry={onRetry} offline showingSavedCopy />);
+
+    expect(
+      screen.getByText("You're offline. Check your connection and try again.").props
+        .accessibilityLiveRegion,
+    ).toBe("polite");
+    expect(screen.getByText("Showing saved copy")).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Try again" }));
+    expect(onRetry).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses a generic load-failure line by default", async () => {
+    await renderWithTheme(<RetryCard onRetry={jest.fn()} />);
+
+    expect(screen.getByText("Couldn't load this. Try again.")).toBeTruthy();
+    expect(screen.queryByText("Showing saved copy")).toBeNull();
+  });
 });

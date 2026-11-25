@@ -32,6 +32,7 @@ import {
   setResolvedAccent,
 } from "@/lib/boot/resolved-accent";
 import { normalizeHex } from "@/lib/color";
+import { syncDocumentThemeColor } from "@/lib/pwa/theme-color";
 import { setResolvedThemeScheme } from "@/lib/resolved-theme-scheme";
 import { CUSTOM_ACCENT_KEY } from "@/lib/theme-storage-keys";
 import { computeThemeTokens, type ThemeTokens } from "@/lib/theme-tokens";
@@ -308,6 +309,8 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     for (const [name, value] of Object.entries(themeCssVariables(colors, tokens))) {
       style.setProperty(name, value);
     }
+    // Browser toolbar / installed-app title bar follow the in-app theme.
+    syncDocumentThemeColor(colors.background);
   }, [colors, tokens]);
 
   // Root window / activity background. Skip while inactive/background so we do

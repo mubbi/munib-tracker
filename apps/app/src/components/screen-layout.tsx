@@ -25,10 +25,11 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { MaxContentWidth, Spacing } from "@/constants/theme";
+import { BorderWidth, Breakpoints, MaxContentWidth, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
-import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useContentBottomInset, useObstructedBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useFinePointerHover } from "@/hooks/use-fine-pointer-hover";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useTheme } from "@/hooks/use-theme";
 import { buildContentReportRef } from "@/lib/content-report-ref";
@@ -36,18 +37,16 @@ import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 import { isTV } from "@/lib/platform/is-tv";
 import { horizontalSafeAreaPadding } from "@/lib/rtl";
 
-/** Breakpoint above which we allow a wider content column (wide web/tablet). */
-const WideBreakpoint = 1024;
 /** Wider cap used on large viewports so content isn't a narrow single column. */
 const WideMaxContentWidth = 1120;
-/** Desktop (≥1600px): grids and list–detail screens can use more of the canvas. */
-const XWideBreakpoint = 1600;
+/** Desktop (>= `Breakpoints.xwide`): grids and list–detail screens can use more of the canvas. */
 const XWideMaxContentWidth = 1320;
 /**
- * Learn prose on wide screens: ~75–85 characters per line at body size. Screens
- * that add a side panel (TOC / related) pass their own `maxContentWidth`.
+ * The one reading measure: Learn / article prose on wide screens, ~75–85
+ * characters per line at body size. Screens that add a side panel (TOC /
+ * related) pass their own `maxContentWidth`; other prose screens use this too.
  */
-const WideProseMaxWidth = 880;
+export const READING_MEASURE = 880;
 
 /** What a screen's chrome offers to content that takes over the whole screen. */
 export interface ScreenChrome {
@@ -73,6 +72,8 @@ type ScreenLayoutProps = {
   notificationCount?: number;
   onNotificationsPress?: () => void;
   onBack?: () => void;
+  /** Header trailing actions (at most two `IconButton`s) — see `AppHeader`. */
+  trailing?: ReactNode;
   scrollable?: boolean;
   children: ReactNode;
   /**
@@ -95,8 +96,8 @@ type ScreenLayoutProps = {
    * Show a thin scroll-progress line beneath the header for long-form reading
    * screens. Only applies to the built-in scroller (`scrollable`) and only once
    * the content actually overflows the viewport. Defaults to on for routes in
-   * the "learn" section (see `LEARN_SECTION_ROUTES`); pass explicitly to force
-   * it on/off elsewhere.
+   * Opt-in: pass `true` from article / long-form templates only — hubs, quizzes
+   * and flash cards do not show it.
    */
   readingProgress?: boolean;
   /**
@@ -105,6 +106,14 @@ type ScreenLayoutProps = {
    * derived from the current route, `title`, and `subtitle`.
    */
   reportKind?: ContentReportKind;
+  /**
+   * Persistent actions for the screen (wizard Back / Next, a form's Save). On
+   * phones and tablets it is pinned to the bottom edge — above the keyboard,
+   * the home indicator, tab bar and mini-player — while the body scrolls. On
+   * wide web (≥ `Breakpoints.wide`) and TV it follows the content inline, where
+   * a pinned bar would sit far from the fields (and D-pad focus flows to it).
+   */
+  footer?: ReactNode;
 };
 
 export function ScreenLayout({
@@ -114,6 +123,7 @@ export function ScreenLayout({
   notificationCount,
   onNotificationsPress,
   onBack,
+  trailing,
   scrollable = true,
   children,
   headerAccessory,
@@ -123,6 +133,7 @@ export function ScreenLayout({
   onScroll,
   readingProgress,
   reportKind,
+  footer,
 }: ScreenLayoutProps) {
   const { colors } = useTheme();
   const { t, i18n } = useTranslation();
@@ -130,6 +141,7 @@ export function ScreenLayout({
   const { width } = useWindowDimensions();
   const insets = useAppSafeAreaInsets();
   const contentBottomInset = useContentBottomInset();
+  const obstructedBottomInset = useObstructedBottomInset();
   const { active: fullscreenActive } = useReadingFullscreen();
   const rootRef = useRef<ViewInstance>(null);
   const contentBlurTargetRef = useRef<ViewInstance>(null);
@@ -152,7 +164,10 @@ export function ScreenLayout({
       LEARN_SECTION_ROUTES.some((route) => pathname === route || pathname.startsWith(`${route}/`)),
     [pathname],
   );
-  const trackProgress = (readingProgress ?? isLearnRoute) && scrollable;
+  const trackProgress = readingProgress === true && scrollable;
+  // Desktop web with a mouse: keep a visible scroll affordance (overlay scrollbars
+  // are not guaranteed, and the page scroller is otherwise invisible).
+  const finePointer = useFinePointerHover();
 
   const handleScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -207,6 +222,10 @@ export function ScreenLayout({
   );
 
   const tv = isTV();
+  const hasFooter = footer != null && footer !== false;
+  /** Pinned footer bar (phones / tablets); inline after the content otherwise. */
+  const footerPinned = hasFooter && !tv && width < Breakpoints.wide;
+  const footerInline = hasFooter && !footerPinned;
   const chrome = useMemo<ScreenChrome>(() => ({ title, onBack }), [title, onBack]);
 
   // Phone/web: cap the column so it doesn't stretch into a sparse strip.
@@ -219,10 +238,10 @@ export function ScreenLayout({
       ? isLearnRoute
         ? TvLayout.proseMaxWidth
         : undefined
-      : width >= WideBreakpoint
+      : width >= Breakpoints.wide
         ? isLearnRoute
-          ? WideProseMaxWidth
-          : width >= XWideBreakpoint
+          ? READING_MEASURE
+          : width >= Breakpoints.xwide
             ? XWideMaxContentWidth
             : WideMaxContentWidth
         : MaxContentWidth);
@@ -230,6 +249,7 @@ export function ScreenLayout({
   const content = (
     <View
       // Web-only landmark: exposes the screen body as <main> for crawlers/AT.
+      // One per screen — the app shell must not add a second `main`.
       {...(Platform.OS === "web" ? { role: "main" as const } : {})}
       // When the screen owns its own scroller (scrollable={false}), it isn't
       // wrapped in the ScrollView that carries the header inset, so pad it here
@@ -258,15 +278,19 @@ export function ScreenLayout({
         {scrollable ? (
           <>
             <ErrorBoundary>{children}</ErrorBoundary>
+            {footerInline ? <View style={styles.footerInline}>{footer}</View> : null}
             {reportRef ? <ContentReportFooterLink contentRef={reportRef} /> : null}
           </>
         ) : (
           // Host FlatLists in an explicit flex fill — TVFocusGuideView / BlurTarget
           // ancestors otherwise leave Card+list children with a zero-height viewport
           // (search chrome visible, rows blank) on Android TV.
-          <View style={styles.scrollerHost}>
-            <ErrorBoundary>{children}</ErrorBoundary>
-          </View>
+          <>
+            <View style={styles.scrollerHost}>
+              <ErrorBoundary>{children}</ErrorBoundary>
+            </View>
+            {footerInline ? <View style={styles.footerInline}>{footer}</View> : null}
+          </>
         )}
       </View>
     </View>
@@ -289,12 +313,16 @@ export function ScreenLayout({
       keyboardDismissMode="on-drag"
       contentContainerStyle={[
         styles.scrollContent,
-        { paddingTop: headerInset, paddingBottom: contentBottomInset },
+        // A pinned footer already clears the bottom chrome.
+        {
+          paddingTop: headerInset,
+          paddingBottom: footerPinned ? Spacing.four : contentBottomInset,
+        },
       ]}
       // The floating glass header already accounts for the top inset; opting
       // out keeps the OS from adding it again and double-padding the content.
       contentInsetAdjustmentBehavior="never"
-      showsVerticalScrollIndicator={false}
+      showsVerticalScrollIndicator={Platform.OS === "web" && finePointer}
     >
       {content}
     </TvScrollView>
@@ -302,22 +330,49 @@ export function ScreenLayout({
     content
   );
 
+  const footerBar = footerPinned ? (
+    <View
+      style={[
+        styles.footerBar,
+        {
+          backgroundColor: colors.background,
+          borderTopColor: colors.border,
+          paddingBottom: Math.max(obstructedBottomInset, Spacing.two) + Spacing.two,
+        },
+      ]}
+    >
+      <View style={[styles.footerColumn, { maxWidth }]}>{footer}</View>
+    </View>
+  ) : null;
+
+  // The pinned footer sits under the scroller in the same keyboard-avoiding
+  // column, so it rides above the on-screen keyboard.
+  const bodyWithFooter = footerBar ? (
+    <View style={styles.root}>
+      {scrollBody}
+      {footerBar}
+    </View>
+  ) : (
+    scrollBody
+  );
+  const avoidKeyboard = scrollable || footerPinned;
+
   const screenBody =
     Platform.OS === "android" && !tv ? (
       <BlurTargetView ref={contentBlurTargetRef} style={styles.blurTarget}>
-        {scrollable ? (
+        {avoidKeyboard ? (
           <KeyboardAvoidingView
             style={styles.root}
             behavior="padding"
             keyboardVerticalOffset={insets.top}
           >
-            {scrollBody}
+            {bodyWithFooter}
           </KeyboardAvoidingView>
         ) : (
-          scrollBody
+          bodyWithFooter
         )}
       </BlurTargetView>
-    ) : scrollable ? (
+    ) : avoidKeyboard ? (
       <KeyboardAvoidingView
         style={styles.root}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -326,10 +381,10 @@ export function ScreenLayout({
         // tab-bar minimize-on-scroll can find it (view flattening breaks it).
         collapsable={false}
       >
-        {scrollBody}
+        {bodyWithFooter}
       </KeyboardAvoidingView>
     ) : (
-      scrollBody
+      bodyWithFooter
     );
 
   return (
@@ -389,6 +444,7 @@ export function ScreenLayout({
               notificationCount={notificationCount}
               onNotificationsPress={onNotificationsPress}
               onBack={onBack}
+              trailing={trailing}
               blurTargetRef={Platform.OS === "android" && !tv ? contentBlurTargetRef : undefined}
               contentMaxWidth={maxWidth}
             />
@@ -454,6 +510,20 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: 0,
     gap: 0,
+  },
+  /** Pinned action bar under the scroller (phones / tablets). */
+  footerBar: {
+    alignItems: "center",
+    borderTopWidth: BorderWidth.hairline,
+    paddingHorizontal: Spacing.four,
+    paddingTop: Spacing.two,
+  },
+  footerColumn: {
+    width: "100%",
+  },
+  footerInline: {
+    width: "100%",
+    paddingTop: Spacing.two,
   },
   /** Bounded host so nested Card + FlatList flex:1 children get a real viewport. */
   scrollerHost: {

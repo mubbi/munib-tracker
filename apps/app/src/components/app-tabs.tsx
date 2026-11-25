@@ -44,7 +44,7 @@ export default function AppTabs() {
       iconColor={{ default: colors.mutedForeground, selected: colors.accent }}
       labelStyle={{
         default: { color: colors.mutedForeground, fontWeight: "500" },
-        selected: { color: colors.accent, fontWeight: "600" },
+        selected: { color: colors.accentText, fontWeight: "600" },
       }}
     >
       {/* disableAutomaticContentInsets: every tab screen already pads for the

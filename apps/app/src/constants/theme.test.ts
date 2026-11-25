@@ -6,6 +6,7 @@ import {
   Breakpoints,
   Control,
   createShadow,
+  HeroSky,
   IconSize,
   Metal,
   Opacity,
@@ -101,6 +102,7 @@ describe("layout and geometry tokens", () => {
       overlay: 1000,
       modal: 2000,
       toast: 3000,
+      gate: 4000,
     });
     expect(Opacity).toEqual({ disabled: 0.5, pressed: 0.88 });
     expect(Breakpoints).toEqual({ tablet: 768, listDetail: 900, wide: 1024, xwide: 1600 });
@@ -131,5 +133,15 @@ describe("layout and geometry tokens", () => {
     expect(theme.Control.minTouch).toBe(44);
     expect(theme.ZIndex.toast).toBe(3000);
     expect(theme.Breakpoints.tablet).toBe(768);
+  });
+});
+
+describe("HeroSky", () => {
+  it("holds every raw hero colour as a constant string", () => {
+    for (const value of Object.values(HeroSky)) {
+      expect(typeof value).toBe("string");
+      expect(value.length).toBeGreaterThan(0);
+    }
+    expect(HeroSky.sunCore).toMatch(/^#/);
   });
 });

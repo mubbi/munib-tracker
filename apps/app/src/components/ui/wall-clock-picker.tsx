@@ -87,7 +87,7 @@ function TimeColumn({
   onUp: () => void;
   onDown: () => void;
 }) {
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
   const { t } = useTranslation();
   const unit = t(`bedtime.${unitKey}`);
 
@@ -99,7 +99,7 @@ function TimeColumn({
         onPress={onUp}
       />
       <View style={[styles.value, { backgroundColor: tokens.accentSoft }]}>
-        <ThemedText type="display" style={{ color: colors.accent }}>
+        <ThemedText type="display" style={{ color: tokens.accentOnSoft }}>
           {value}
         </ThemedText>
       </View>

@@ -44,3 +44,13 @@ describe("SectionHeader", () => {
     expect(screen.getByRole("button", { name: "Edit" })).toBeTruthy();
   });
 });
+
+describe("SectionHeader casing", () => {
+  it("does not rewrite the translator's casing", async () => {
+    const { flattenStyle } = require("@/test-support/style");
+    await renderHeader({ title: "pRayer tIMES" });
+    expect(
+      flattenStyle(screen.getByText("pRayer tIMES").props.style).textTransform,
+    ).toBeUndefined();
+  });
+});

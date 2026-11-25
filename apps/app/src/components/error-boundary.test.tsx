@@ -1,7 +1,10 @@
+import fs from "node:fs";
+import path from "node:path";
+
 import { fireEvent, screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
-import { ErrorBoundary } from "@/components/error-boundary";
+import { ErrorBoundary, ErrorFallback } from "@/components/error-boundary";
 import { recordReviewErrorMarker } from "@/features/reviews/lib/reviewEngagementBridge";
 import { captureAppException } from "@/lib/sentry";
 import { renderWithTheme } from "@/test-support/render";
@@ -73,5 +76,17 @@ describe("ErrorBoundary", () => {
     );
 
     expect(screen.getByText("Custom fallback")).toBeTruthy();
+  });
+});
+
+describe("ErrorFallback", () => {
+  it("has a heading and a Try again button, with no literal font sizes", async () => {
+    await renderWithTheme(<ErrorFallback onReset={() => {}} />);
+
+    expect(screen.getByText("Something went wrong").props.accessibilityRole).toBe("header");
+    expect(screen.getByRole("button", { name: "Try again" })).toBeTruthy();
+    expect(fs.readFileSync(path.join(__dirname, "error-boundary.tsx"), "utf8")).not.toMatch(
+      /fontSize/,
+    );
   });
 });

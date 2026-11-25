@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { Radius, Spacing } from "@/constants/theme";
+import { IconSize, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
@@ -17,11 +17,13 @@ type StatCardProps = {
 export function StatCard({ label, value, icon, tint }: StatCardProps) {
   const { colors, tokens } = useThemeTokens();
   const accent = tint ?? colors.accent;
+  // The well follows `tint`; the default stays the accent soft tint.
+  const well = tint ? withAlpha(tint, tokens.isDark ? 0.24 : 0.18) : tokens.accentSoft;
 
   return (
-    <Card variant="elevated" padding="three" style={styles.card}>
-      <View style={[styles.iconWrap, { backgroundColor: tokens.accentSoft }]}>
-        <SymbolView name={icon} size={18} tintColor={accent} />
+    <Card variant="elevated" style={styles.card}>
+      <View style={[styles.iconWrap, { backgroundColor: well }]}>
+        <SymbolView name={icon} size={IconSize.lg - 2} tintColor={accent} />
       </View>
       <ThemedText type="subtitle" style={{ color: colors.foreground }}>
         {value}

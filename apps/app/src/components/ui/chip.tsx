@@ -1,10 +1,10 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import type { StyleProp, ViewStyle } from "react-native";
-import { StyleSheet, View } from "react-native";
-
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Opacity, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -65,14 +65,15 @@ export function Chip({
 }: ChipProps) {
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
+  const { fontScale } = useWindowDimensions();
+  // Large text: let the label wrap to two lines instead of truncating (F-58).
+  const labelLines = fontScale >= 1.3 ? 2 : 1;
   const solid = variant === "solid" && !tv;
 
   const fg = selected
     ? solid
       ? colors.accentForeground
-      : tv && variant === "solid"
-        ? colors.accentText
-        : colors.accent
+      : tokens.accentOnSoft
     : colors.mutedForeground;
   const backgroundColor = selected ? (solid ? colors.accent : tokens.accentSoft) : colors.muted;
   const borderColor = selected
@@ -100,14 +101,14 @@ export function Chip({
       style={[
         styles.chip,
         tv && styles.chipTv,
-        { backgroundColor, borderColor, opacity: disabled ? 0.5 : 1 },
+        { backgroundColor, borderColor, opacity: disabled ? Opacity.disabled : 1 },
         style,
       ]}
     >
       {icon ? <SymbolView name={icon} size={tv ? 20 : 16} tintColor={fg} /> : null}
       <ThemedText
         type="smallBold"
-        numberOfLines={1}
+        numberOfLines={labelLines}
         style={[styles.label, { color: fg }, tv && { fontSize: TvLayout.bodyFontSize }]}
       >
         {label}
@@ -164,17 +165,17 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     maxWidth: 200,
-    paddingVertical: Spacing.two - 1,
+    paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     borderColor: "transparent",
   },
   chipTv: {
-    maxWidth: 280,
+    maxWidth: tvDp(280),
     minHeight: TvLayout.chipMinHeight,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.four,
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
   label: { flexShrink: 1 },
   count: {
     minWidth: 22,
-    paddingHorizontal: Spacing.one + 2,
+    paddingHorizontal: Spacing.oneHalf,
     borderRadius: Radius.pill,
     alignItems: "center",
   },
