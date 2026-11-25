@@ -122,9 +122,9 @@ const INACTIVE_PRAYER_TEXT = withAlpha(Brand.heroText, 0.82);
 /** Text scale at which the prayer strip wraps to rows instead of shrinking names (B-19). */
 const LARGE_TEXT_SCALE = 1.3;
 /**
- * Narrowest strip slot (dp at 1× text) that fits a full-size name like "Maghrib".
- * Below it the strip wraps like large text does — the narrow iPad home column
- * otherwise broke names mid-word ("Maghri / b").
+ * Strip slot (dp at 1× text) below which names can't fit on one row at all — wrap
+ * up front. Between this and "fits", the strip also wraps once a name actually
+ * lays out on two lines (the iPad home column broke "Maghrib" as "Maghri / b").
  */
 const MIN_PRAYER_SLOT_DP = 56;
 
@@ -215,12 +215,21 @@ export function PrayerTimesHero({
   // of shrinking text toward 9pt.
   const largeText = fontScale >= LARGE_TEXT_SCALE;
   const [prayerRowWidth, setPrayerRowWidth] = useState(0);
+  /** Widest strip at which a name was seen breaking onto a second line. */
+  const [nameBrokeAtWidth, setNameBrokeAtWidth] = useState<number | null>(null);
   // Too narrow for one row of full-size names (e.g. the iPad home column): wrap too.
+  // Sticky per width (wrapped cells fit, so the names stop breaking) until it widens.
   const narrowStrip =
     prayerRowWidth > 0 &&
     prayers.length > 0 &&
-    prayerRowWidth / prayers.length < MIN_PRAYER_SLOT_DP * Math.max(1, fontScale);
+    (prayerRowWidth / prayers.length < MIN_PRAYER_SLOT_DP * Math.max(1, fontScale) ||
+      (nameBrokeAtWidth != null && prayerRowWidth <= nameBrokeAtWidth));
   const wrapPrayers = largeText || narrowStrip;
+  const onPrayerNameLayout = (event: { nativeEvent: { lines: unknown[] } }) => {
+    if (!wrapPrayers && prayerRowWidth > 0 && event.nativeEvent.lines.length > 1) {
+      setNameBrokeAtWidth(prayerRowWidth);
+    }
+  };
   const { primary: primaryDate, secondary: secondaryDate } = displayDates;
   const reducedMotion = useReducedMotion();
   const breath = useSharedValue(0);
@@ -600,6 +609,7 @@ export function PrayerTimesHero({
                   <>
                     <ThemedText
                       type="caption"
+                      onTextLayout={onPrayerNameLayout}
                       style={[
                         styles.softShadow,
                         styles.prayerLabel,

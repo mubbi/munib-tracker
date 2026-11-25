@@ -66,6 +66,21 @@ describe("PrayerTimesHero strip width (no mid-word breaks)", () => {
     expect(flattenStyle(strip().props.style).flexWrap).toBeUndefined();
   });
 
+  it("wraps once a name actually breaks onto two lines, and stays wrapped", async () => {
+    await layoutStrip(340); // ~57dp per slot: above the up-front threshold
+    expect(flattenStyle(strip().props.style).flexWrap).toBeUndefined();
+
+    const maghrib = screen.getByText("Maghrib");
+    await act(() =>
+      maghrib.props.onTextLayout({ nativeEvent: { lines: [{ text: "Maghri" }, { text: "b" }] } }),
+    );
+    expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");
+
+    // Wrapped cells fit on one line again; the strip must not flip back.
+    await act(() => maghrib.props.onTextLayout({ nativeEvent: { lines: [{ text: "Maghrib" }] } }));
+    expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");
+  });
+
   it("wraps when slots are too narrow (iPad home column)", async () => {
     await layoutStrip(300); // 50dp per slot: "Maghrib" would split mid-word
     expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");
