@@ -37,6 +37,7 @@ struct WatchTasbeehView: View {
   @State private var crown: Double = 0
   @State private var restoring = true
   @State private var confirmingReset = false
+  @State private var showingOptions = false
 
   init(snapshot: WidgetSnapshotPayload? = nil) {
     self.snapshot = snapshot
@@ -117,37 +118,19 @@ struct WatchTasbeehView: View {
     .padding(.horizontal, 4)
     .navigationTitle(snapshot?.strings?.tasbeeh ?? "Tasbeeh")
     .toolbar {
-      // Target, mode and reset live in a secondary menu so the count page stays one control.
+      // Target, mode and reset live on a secondary sheet so the count page stays one control.
+      // (SwiftUI `Menu` is unavailable on watchOS.)
       ToolbarItem(placement: .topBarTrailing) {
-        Menu {
-          if !steps.isEmpty {
-            Picker(selection: Binding(get: { mode }, set: { setMode($0) })) {
-              Text(snapshot?.strings?.freeCount ?? "Free count").tag(WatchTasbeehMode.free)
-              Text(snapshot?.strings?.afterSalahAdhkar ?? snapshot?.afterSalahTasbeeh?.title ?? "After Salah")
-                .tag(WatchTasbeehMode.sequence)
-            } label: {
-              Text(snapshot?.strings?.freeCount ?? "Free count")
-            }
-          }
-          if mode == .free {
-            Picker(selection: Binding(get: { target }, set: { selectTarget($0) })) {
-              ForEach(watchTasbeehModes, id: \.target) { option in
-                Text(option.label).tag(option.target)
-              }
-            } label: {
-              Text(snapshot?.strings?.remaining ?? "Remaining")
-            }
-          }
-          Button(role: .destructive) {
-            confirmingReset = true
-          } label: {
-            Label(resetLabel, systemImage: "arrow.counterclockwise")
-          }
-          .disabled(!canReset)
+        Button {
+          showingOptions = true
         } label: {
           Image(systemName: "ellipsis.circle")
         }
+        .accessibilityLabel(snapshot?.strings?.tasbeeh ?? "Tasbeeh")
       }
+    }
+    .sheet(isPresented: $showingOptions) {
+      optionsSheet
     }
     // Same as the phone: reset asks first, so a stray tap never wipes a count.
     .confirmationDialog(resetLabel, isPresented: $confirmingReset, titleVisibility: .hidden) {
@@ -155,6 +138,40 @@ struct WatchTasbeehView: View {
     }
     .onAppear { syncCrown() }
     .onDisappear { reloadComplication() }
+    .environment(\.locale, Locale(identifier: snapshot?.locale ?? "en"))
+    .environment(\.layoutDirection, snapshot?.isRtl == true ? .rightToLeft : .leftToRight)
+  }
+
+  /// Mode, target and reset — a plain List (watchOS renders each Picker as a drill-in row).
+  private var optionsSheet: some View {
+    List {
+      if !steps.isEmpty {
+        Picker(selection: Binding(get: { mode }, set: { setMode($0) })) {
+          Text(snapshot?.strings?.freeCount ?? "Free count").tag(WatchTasbeehMode.free)
+          Text(snapshot?.strings?.afterSalahAdhkar ?? snapshot?.afterSalahTasbeeh?.title ?? "After Salah")
+            .tag(WatchTasbeehMode.sequence)
+        } label: {
+          Text(snapshot?.strings?.tasbeeh ?? "Tasbeeh")
+        }
+      }
+      if mode == .free {
+        Picker(selection: Binding(get: { target }, set: { selectTarget($0) })) {
+          ForEach(watchTasbeehModes, id: \.target) { option in
+            Text(option.label).tag(option.target)
+          }
+        } label: {
+          Text(snapshot?.strings?.remaining ?? "Remaining")
+        }
+      }
+      Button(role: .destructive) {
+        // Close the sheet first; the confirmation is presented from the counter page.
+        showingOptions = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { confirmingReset = true }
+      } label: {
+        Label(resetLabel, systemImage: "arrow.counterclockwise")
+      }
+      .disabled(!canReset)
+    }
     .environment(\.locale, Locale(identifier: snapshot?.locale ?? "en"))
     .environment(\.layoutDirection, snapshot?.isRtl == true ? .rightToLeft : .leftToRight)
   }
