@@ -64,24 +64,30 @@ export default function PrivacyPage() {
       <ContentSection heading="Microphone & Qur&apos;an practice">
         <p className="text-muted">
           The app uses the microphone only when you turn it on: to dictate custom adhkar, in
-          Qur&apos;an practice to follow your recitation, for the Verse Detector, and for hands-free
-          tasbeeh, which listens for the pauses between the phrases you say or, if you teach it a
-          zikr, for repeats of that zikr. Audio is processed on your device. It is not recorded,
-          stored, or uploaded, and practice keeps only counts (for example how many words matched)
-          and ayah numbers — never audio or a transcript. If you teach hands-free tasbeeh a zikr, a
-          short voice pattern (numbers, not a recording) stays on your device only, until you forget
-          it in Settings or reset the app.
+          Qur&apos;an practice and recite-along (including the al-Fatihah check and kids mode) to
+          follow your recitation, for the Verse Detector and recite-to-find, and for hands-free
+          tasbeeh and guided adhkar, which listen for the pauses between the phrases you say or, if
+          you teach a zikr, for repeats of that zikr. Audio is processed on your device. It is not
+          recorded, stored, or uploaded, and practice keeps only counts (for example how many words
+          matched) and ayah numbers — never audio or a transcript. If you teach hands-free tasbeeh a
+          zikr, a short voice pattern (numbers, not a recording) stays on your device only, until
+          you forget it in Settings or reset the app.
         </p>
         <p className="mt-3 text-muted">
           The practice listener is an optional download (about 70 MB). The iOS and Android apps
           fetch it from the Tilawa project&apos;s release host on GitHub; the web app serves an
           unmodified copy of the same files from its own site. The optional pronunciation listener
-          is downloaded from Quran Lab and contacts Quran Lab once to activate; the app turns Quran
-          Lab&apos;s usage statistics off and never asks you to share recordings. On the web, Quran
-          Lab&apos;s own sheet may offer to share recitations to improve its free models — sharing
-          happens only if you agree there, and you can turn it off and delete what you shared from
-          Settings → Qur&apos;an practice. The listeners are practice aids, not a ruling on your
-          recitation.
+          is downloaded from Quran Lab only after you agree on its consent sheet. Its model is
+          encrypted for your device and runs on the device; setting it up needs a connection, and
+          Quran Lab&apos;s SDK renews its permission in the background when you are online. Quran
+          Lab&apos;s SDK always sends Quran Lab anonymous daily counts (for example minutes
+          practised and how the model ran) and error reports — never audio, words, names or device
+          identifiers; the app cannot turn these off. After a few practice sessions Quran Lab&apos;s
+          own sheet may ask, at most three times, whether you would like to share recordings to
+          improve its free models. Nothing is shared unless you say yes there, and you can turn
+          sharing off and delete what you shared from Settings → Qur&apos;an practice. This applies
+          to every profile, including kids mode, so a parent may want to review it with a child. The
+          listeners are practice aids, not a ruling on your recitation.
         </p>
         <p className="mt-3 text-muted">
           The pronunciation check uses a second on-device speech model. On the web its files are

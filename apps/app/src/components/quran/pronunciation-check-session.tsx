@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import { AccessibilityInfo, Platform, StyleSheet, View } from "react-native";
 
 import { ReferenceLine } from "@/components/content/reference-line";
+import { PracticeHabitDoneButton } from "@/components/quran/practice-habit-done";
+import { PracticeReadingCreditLine } from "@/components/quran/practice-session-summary-credit";
 import { PracticeWordRow } from "@/components/quran/practice-word-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -51,7 +53,7 @@ import { usePreferences } from "@/stores/preferences-store";
 import { usePronunciationCalibration } from "@/stores/pronunciation-calibration-store";
 import { useCompanionPrefs } from "@/stores/quran-companion-prefs-store";
 import { quranListenerStore, useListenerState } from "@/stores/quran-listener-store";
-import { quranPracticeStore } from "@/stores/quran-practice-store";
+import { quranPracticeStore, useLastPracticeCredit } from "@/stores/quran-practice-store";
 import { useQuranPrefs } from "@/stores/quran-store";
 
 /**
@@ -65,9 +67,12 @@ import { useQuranPrefs } from "@/stores/quran-store";
 export function PronunciationCheckSession({
   passage,
   source,
+  habitId,
 }: {
   passage: Passage;
   source: string;
+  /** D74: the Sunnah habit this check came from — the summary offers "Mark habit done". */
+  habitId?: string;
 }) {
   const router = useRouter();
   const { t } = useTranslation();
@@ -95,6 +100,8 @@ export function PronunciationCheckSession({
   const row = rows[ayah];
   const [results, setResults] = useState<PronunciationResults>({});
   const [finished, setFinished] = useState<PracticeSummary | null>(null);
+  // D68: ayahs this check added to today's reading (and a personal khatm plan).
+  const readingCredit = useLastPracticeCredit(finished?.id);
   const [calibrating, setCalibrating] = useState(false);
   const [needsCellular, setNeedsCellular] = useState(false);
   const startedAt = useRef(new Date().toISOString());
@@ -342,6 +349,15 @@ export function PronunciationCheckSession({
                 : t("quranPronunciation.summary.feedOff")}
             </ThemedText>
           ) : null}
+          {readingCredit && (readingCredit.ayahs > 0 || (readingCredit.khatm?.added ?? 0) > 0) ? (
+            <View style={styles.gapTop}>
+              <PracticeReadingCreditLine
+                credit={readingCredit}
+                onOpen={() => router.push("/quran/khatm")}
+              />
+            </View>
+          ) : null}
+          <PracticeHabitDoneButton habitId={habitId} summary={finished} />
           {teacherFooter}
           <View style={styles.actions}>
             <Button

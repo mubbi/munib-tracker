@@ -1,9 +1,10 @@
 /**
  * Phase 6 pronunciation judge (§11 Phase 6, §4.2). Quran Lab's SDK scores
- * nothing and, with the model build served today, `model.reference` (the
- * expected units per ayah) is null — so this judge cannot align a take to an
- * ayah. It only asks one question per drill: did the head for this sound fire
- * the way the calibration says it fires for a correct example?
+ * nothing. SDK 4 can give each ayah's expected units (`model.reference`), but the
+ * V4.0 calibration validates too few classes to judge sounds inside a recited
+ * ayah (BACKLOG NF-3.15), so this judge only asks one question per drill: did
+ * the head for this sound fire the way the calibration says it fires for a
+ * correct example?
  *
  * Rules (§4.2, §12 copy review):
  * - A head is scored only when the loaded calibration marks it `validated`.

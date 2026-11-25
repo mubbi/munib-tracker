@@ -88,7 +88,7 @@ patchedDependencies:
   "@react-native-async-storage/async-storage@3.1.1": patches/@react-native-async-storage__async-storage@3.1.1.patch
 
 minimumReleaseAgeExclude:
-  - "@quran-lab/tajweedformer@3.1.6"
+  - "@quran-lab/tajweedformer@4.0.2"
   - expo-device-hub@0.24.0
   - "@rspack/binding-darwin-arm64@2.3.3"
   - "@rspack/binding-darwin-x64@2.3.3"

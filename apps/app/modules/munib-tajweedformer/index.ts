@@ -1,21 +1,25 @@
 import { requireOptionalNativeModule } from "expo";
 
 /**
- * Native bridge to the Quran Lab TajweedFormer SDKs (Phase 6 pronunciation drills).
+ * Native bridge to the Quran Lab TajweedFormer SDKs (pronunciation drills, SDK 4.x — D66).
  *
- * - Android: `ai.quranlab:tajweedformer:3.1.5` (Maven Central), API 26+.
- * - iOS: SwiftPM `Quran-Lab/tajweedformer-apple` from 3.1.4, product `TajweedFormer`, iOS 15+.
- * - Web uses the npm package `@quran-lab/tajweedformer` directly (not this module).
+ * - Android: `ai.quranlab:tajweedformer:4.0.3` (Maven Central), API 26+; phones with an
+ *   unlocked bootloader are refused a lease by Quran Lab (`server_rejected`).
+ * - iOS: SwiftPM `Quran-Lab/tajweedformer-apple` from 4.0.3, product `TajweedFormer`
+ *   (+ the closed `QuranLabCore.xcframework`), iOS 15+, App Attest entitlement.
+ * - Web uses the npm package `@quran-lab/tajweedformer` 4.x (hosted loader) directly.
  * - TV: excluded from autolinking (`plugins/withTvExpoModuleExcludes.cjs`), so this is `null`.
  *
- * The module never offers recitation sharing: it does not call `sharing.ask()` and
- * hosts no SDK sharing sheet. It only exposes the learner's off switch, "Delete what
- * I shared" and the recovery code, in case Quran Lab's config ever offered sharing.
+ * SDK 4 keeps anonymous analytics and error reports always on, and asks every learner
+ * itself (its own sheet, at most three times) whether to share recordings. The module
+ * never calls `sharing.ask()`; `configure` themes that sheet, and the learner's switch,
+ * "Delete what I shared" and the recovery code are exposed for Settings.
  *
  * Every rejection is an Expo `CodedException` whose `code` is the SDK's stable
  * `TajweedError.code` ("needs_connection", "invalid_key", "server_rejected",
  * "microphone_denied", "storage_full", "cancelled", …), or "engine_failed" when
- * the error did not come from the SDK.
+ * the error did not come from the SDK. The message starts with
+ * `[needs=model|lease stage=… reason=…]` when the SDK gave an `errorCause`.
  */
 
 export type TajweedProgressEvent = { done: number; total: number };
@@ -64,9 +68,13 @@ export type TajweedformerEvents = {
 };
 
 export type NativeTajweedformerModule = {
-  configure(key: string): Promise<void>;
+  configure(key: string, theme: Record<string, string> | null): Promise<void>;
   prefetch(): Promise<void>;
   openModel(): Promise<TajweedModelInfo>;
+  /** Warm the engine for these heads before the first take; resolves the backend kind. */
+  prepareTake(heads: string[]): Promise<string>;
+  /** The SDK's `diagnose()` report as text (no audio, text or identifiers); null before configure. */
+  diagnose(): Promise<string | null>;
   startTake(heads: string[], endOnSilenceMs: number): Promise<void>;
   finishTake(): Promise<TajweedTakeResult>;
   cancelTake(): Promise<void>;

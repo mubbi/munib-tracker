@@ -32,7 +32,18 @@ import data from "./recitation-models.json";
  */
 
 export const TILAWA_CORE_VERSION: string = data.tilawaCoreVersion;
+/**
+ * `onnxruntime-web` version the web listener loads. Must equal the installed
+ * package: `scripts/copy-ort-wasm.mjs` refuses to build otherwise and
+ * `recitation-models.test.ts` checks it too.
+ */
 export const ORT_WEB_VERSION: string = data.ortWebVersion;
+
+/**
+ * Same-origin folder of the ORT web runtime, versioned because `/ort/*` is served
+ * as immutable (vercel.json) — a new runtime must never share a URL with the old.
+ */
+export const ORT_WEB_BASE = `/ort/${ORT_WEB_VERSION}/`;
 
 /** The release host the privacy card names for native downloads (§10 Privacy). */
 export const RECITATION_MODEL_HOST = "github.com/yazinsai/tilawa";

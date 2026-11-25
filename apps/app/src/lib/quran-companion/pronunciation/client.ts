@@ -5,9 +5,14 @@ export function createPronunciationClient(): PronunciationClient {
   const unavailable = () => Promise.reject(new QuranLabError("runtime_unsupported"));
   return {
     available: false,
+    setSharingTheme() {},
     configure: unavailable,
     prefetch: unavailable,
     openModel: unavailable,
+    async prepareTake() {},
+    async diagnose() {
+      return null;
+    },
     startTake: unavailable,
     finishTake: unavailable,
     async cancelTake() {},

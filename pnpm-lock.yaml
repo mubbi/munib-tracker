@@ -225,7 +225,7 @@ overrides:
 
 patchedDependencies:
   '@react-native-async-storage/async-storage@3.1.1': 2d2dcdc0d8b9f87df90ffe9461fe527458bbc4ef7093aa4e4c8dba42d745618b
-  '@tilawa/core@0.4.0': 83dced03b099ba39be3622f35af02f6c49fe581d8f5396b09e3ae33078b18554
+  '@tilawa/core@0.4.0': 23a04920f07f8b94da0ac09f383618d02443d65efd419a4c00693d3aecd6da1f
   brace-expansion@5.0.13: 39c99f030f20e77726778cf683c9beaaf92c3f7f4cf7450f2b3eb5d5bcae3521
   expo-file-system@58.0.13: f9d0091f2d7ae80fd90da42190991fbb2d0a7b6cf2bbd63d70b793748c956173
   expo-image-picker@58.0.10: 00e74816969e598b4d1b89cbd275ca5483a4b6b8f8c210c2760d9213cefc1e56
@@ -302,6 +302,9 @@ importers:
       redis:
         specifier: ^6.3.1
         version: 6.3.1
+      server-only:
+        specifier: 0.0.1
+        version: 0.0.1
       tailwind-merge:
         specifier: ^3.7.0
         version: 3.7.0
@@ -521,8 +524,8 @@ importers:
         specifier: 2.4.0
         version: 2.4.0
       '@quran-lab/tajweedformer':
-        specifier: 3.1.6
-        version: 3.1.6
+        specifier: 4.0.2
+        version: 4.0.2
       '@react-native-async-storage/async-storage':
         specifier: 3.1.1
         version: 3.1.1(patch_hash=2d2dcdc0d8b9f87df90ffe9461fe527458bbc4ef7093aa4e4c8dba42d745618b)(react-native-tvos@0.88.1-0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.1(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react-native-tvos@0.88.1-0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1)
@@ -537,7 +540,7 @@ importers:
         version: 5.107.1(@types/react@19.3.0)(react@19.3.1)
       '@tilawa/core':
         specifier: 0.4.0
-        version: 0.4.0(patch_hash=83dced03b099ba39be3622f35af02f6c49fe581d8f5396b09e3ae33078b18554)
+        version: 0.4.0(patch_hash=23a04920f07f8b94da0ac09f383618d02443d65efd419a4c00693d3aecd6da1f)
       adhan:
         specifier: ^4.4.6
         version: 4.4.6
@@ -3516,8 +3519,8 @@ packages:
   '@protobufjs/utf8@1.1.2':
     resolution: {integrity: sha512-b1UQwcEZ4yCnMCD8DAL1VlbvBJE9/IX4FTIp7BG1xYpf29SLazLSrqUkj4w7Y5y7cCVP6E5tcqqcI0xemPkHug==}
 
-  '@quran-lab/tajweedformer@3.1.6':
-    resolution: {integrity: sha512-p+uBhOjXYc26ZlEpj86+G6J93CVi39WKEiGOS4XyJA35lT+6820GOTx2Ezbv7356oPEcifylOr5HhKXi2wdcTQ==}
+  '@quran-lab/tajweedformer@4.0.2':
+    resolution: {integrity: sha512-fht/GVrh7iLzgtSj8QBNU9Vy9ilIus6PXE4fPPLalTJR0H+wRK+uPAaVIcRJo4GHp0uJNmslyHcnSlKI5E8GsQ==}
     engines: {node: '>=20'}
 
   '@radix-ui/primitive@1.1.4':
@@ -14091,7 +14094,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.2': {}
 
-  '@quran-lab/tajweedformer@3.1.6': {}
+  '@quran-lab/tajweedformer@4.0.2': {}
 
   '@radix-ui/primitive@1.1.4': {}
 
@@ -15147,7 +15150,7 @@ snapshots:
       '@types/react': 19.3.0
       '@types/react-dom': 19.3.0(@types/react@19.3.0)
 
-  '@tilawa/core@0.4.0(patch_hash=83dced03b099ba39be3622f35af02f6c49fe581d8f5396b09e3ae33078b18554)': {}
+  '@tilawa/core@0.4.0(patch_hash=23a04920f07f8b94da0ac09f383618d02443d65efd419a4c00693d3aecd6da1f)': {}
 
   '@tokenizer/inflate@0.6.1(supports-color@8.1.1)':
     dependencies:

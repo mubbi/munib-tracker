@@ -1,4 +1,4 @@
-import sdkPackage from "@quran-lab/tajweedformer/package.json";
+import { resolveAppVersion } from "@/lib/app/resolve-app-version";
 
 import type { HeadValues } from "./judge";
 import {
@@ -6,23 +6,28 @@ import {
   QuranLabError,
   quranLabKeyFor,
   type SharingState,
-  toQuranLabCode,
+  toQuranLabError,
 } from "./types";
 
 /**
- * Web: `@quran-lab/tajweedformer` (WebAssembly in a module Worker). Analytics off.
+ * Web: `@quran-lab/tajweedformer` 4.x (D66). The npm package is a thin wrapper
+ * that loads Quran Lab's hosted loader (`web.quranlab.ai/4/loader.js`, with
+ * backup hosts); the engine, the protected model and its lease run in Quran
+ * Lab's hidden frame + Worker, so nothing is self-hosted any more and the
+ * wrapper (no `import.meta`, no imports) bundles as a lazy Metro chunk.
  *
- * The SDK is NOT bundled by Metro. It finds its Worker and wasm with
- * `new URL(..., import.meta.url)`, which Metro does not rewrite, so a bundled copy
- * requests `/_expo/static/js/web/tajweedformer.wasm` and 404s. Instead
- * `scripts/copy-tajweedformer-web.mjs` self-hosts the package's `web/` + `dist/`
- * under {@link SDK_ENTRY}'s folder (before `web` / `build:web`), and the browser
- * imports it natively, so `import.meta.url` points at the real files.
- *
- * Note: on the web the SDK shows its own `<quranlab-consent>` sharing sheet after
- * a finished take when Quran Lab's signed config offers sharing for this app —
- * an app cannot turn that off in code. The settings card therefore always shows
- * the learner's sharing switch and "Delete what I shared" (§20 privacy copy).
+ * SDK 4 rules this client follows:
+ * - No `analytics` / `audience` options: passing either is `invalid_argument`.
+ *   Anonymous analytics + error reports are always on (disclosed on the consent
+ *   sheet and in Credits / the privacy policy).
+ * - The SDK asks every learner itself, on its own `<quranlab-consent>` sheet after
+ *   a good take (at most three times); the app never calls `sharing.ask()`.
+ * - `appVersion` / `appBuild` go on the config request so Quran Lab can serve each
+ *   release the model it was built for.
+ * - CSP: the site sends no `script-src` / `frame-src` / `connect-src`, so the
+ *   README's lines are not needed; add them if `vercel.json` ever restricts those.
+ * - Threads stay off (`threads: 'off'` default): the site is not cross-origin
+ *   isolated (D3 web runtime notes).
  */
 
 type WebSdk = typeof import("@quran-lab/tajweedformer");
@@ -30,16 +35,10 @@ type WebClient = Awaited<ReturnType<WebSdk["TajweedClient"]["create"]>>;
 type WebModel = Awaited<ReturnType<WebClient["model"]>>;
 type WebSession = Awaited<ReturnType<WebModel["listen"]>>;
 
-/** Same-origin, versioned entry written by `scripts/copy-tajweedformer-web.mjs`. */
-export const SDK_ENTRY = `/tajweedformer/${sdkPackage.version}/web/index.js`;
-
-/**
- * A native `import()` Metro cannot see (it rejects or bundles any `import()` it
- * parses). The web app sends no CSP, so `Function` is allowed.
- */
-function importSdk(url: string): Promise<WebSdk> {
-  const nativeImport = new Function("url", "return import(url)") as (u: string) => Promise<WebSdk>;
-  return nativeImport(url);
+/** Build number sent with the version (web has no native build; the version doubles as it). */
+function appBuild(): string {
+  const fromEnv = typeof process !== "undefined" ? process.env?.EXPO_PUBLIC_APP_BUILD : undefined;
+  return fromEnv?.trim() || resolveAppVersion();
 }
 
 export function createPronunciationClient(): PronunciationClient {
@@ -59,11 +58,15 @@ export function createPronunciationClient(): PronunciationClient {
     if (!available || !key) throw new QuranLabError(key ? "runtime_unsupported" : "not_configured");
     if (client) return client;
     try {
-      const sdk = await importSdk(SDK_ENTRY);
-      client = await sdk.TajweedClient.create({ key, analytics: "off" });
+      const sdk = await import("@quran-lab/tajweedformer");
+      client = await sdk.TajweedClient.create({
+        key,
+        appVersion: resolveAppVersion(),
+        appBuild: appBuild(),
+      });
       return client;
     } catch (error) {
-      throw new QuranLabError(toQuranLabCode(error), (error as Error)?.message);
+      throw toQuranLabError(error);
     }
   };
 
@@ -71,13 +74,14 @@ export function createPronunciationClient(): PronunciationClient {
     try {
       return await fn();
     } catch (error) {
-      if (error instanceof QuranLabError) throw error;
-      throw new QuranLabError(toQuranLabCode(error), (error as Error)?.message);
+      throw toQuranLabError(error);
     }
   };
 
   return {
     available,
+    // The web sheet follows its own light/dark design; SDK 4's web API takes wording overrides only.
+    setSharingTheme() {},
     configure: async () => {
       await ensure();
     },
@@ -102,6 +106,25 @@ export function createPronunciationClient(): PronunciationClient {
         };
       }),
 
+    async prepareTake() {
+      if (!available) return;
+      try {
+        const c = await ensure();
+        model ??= await c.model();
+      } catch {
+        // Warm-up only: the take itself reports any real failure.
+      }
+    },
+
+    async diagnose() {
+      if (!client) return null;
+      try {
+        return JSON.stringify(await client.diagnose(), null, 2);
+      } catch {
+        return null;
+      }
+    },
+
     startTake: (heads, onSpeech, onEnded) =>
       wrap(async () => {
         const c = await ensure();
@@ -116,7 +139,8 @@ export function createPronunciationClient(): PronunciationClient {
             onSpeech(chunk.speech);
           },
           onEvent: (event) => {
-            if (event.type === "ended") onEnded(event.reason);
+            if (event.type === "ended")
+              onEnded(event.reason === "hidden" ? "background" : event.reason);
           },
         });
       }),

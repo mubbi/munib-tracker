@@ -9,6 +9,8 @@ import { type DrillHeadId, reliableHeads } from "@/lib/quran-companion/pronuncia
 import {
   type PronunciationModelInfo,
   type QuranLabErrorCode,
+  type QuranLabNeeds,
+  quranLabNeeds,
   type SharingState,
   toQuranLabCode,
 } from "@/lib/quran-companion/pronunciation/types";
@@ -17,9 +19,11 @@ import { createStore, useStore } from "./create-store";
 import { quranCompanionPrefsStore } from "./quran-companion-prefs-store";
 
 /**
- * Phase 6 pronunciation listener (Quran Lab TajweedFormer). Nothing contacts
- * Quran Lab before the person agrees on the consent sheet (`pronunciationConsentAt`).
- * Never runs at the same time as the Tilawa listener.
+ * Phase 6 pronunciation listener (Quran Lab TajweedFormer SDK 4 — D66). Nothing
+ * contacts Quran Lab before the person agrees on the consent sheet
+ * (`pronunciationConsentAt`), which discloses SDK 4's always-on anonymous
+ * analytics + error reports and its own sharing ask. Never runs at the same time
+ * as the Tilawa listener.
  */
 
 export type PronunciationStatus =
@@ -38,6 +42,8 @@ interface PronunciationState {
   bytesDone: number;
   bytesTotal: number;
   error: QuranLabErrorCode | null;
+  /** SDK 4 `errorCause.needs` for `needs_connection`: download the model vs renew its lease. */
+  errorNeeds: QuranLabNeeds | null;
   model: PronunciationModelInfo | null;
   /** Last known validated heads (cached so lessons know before the model opens). */
   cached: CachedModel | null;
@@ -51,9 +57,22 @@ interface PronunciationState {
   refreshSharing: () => Promise<void>;
   setSharingOn: (on: boolean) => Promise<void>;
   deleteShared: () => Promise<boolean>;
+  /** Quran Lab's own support report (`client.diagnose()`), configuring the client if needed. */
+  diagnose: () => Promise<string | null>;
 }
 
 export const pronunciationClient = createPronunciationClient();
+
+/**
+ * D66: SDK 4 sends anonymous analytics + error reports and asks about sharing by
+ * itself. A consent given before the consent sheet said so (3.x terms) is asked
+ * again; ISO timestamps compare correctly as strings.
+ */
+export const SDK4_CONSENT_FROM = "2026-11-25T00:00:00.000Z";
+
+export function hasCurrentPronunciationConsent(consentAt: string | null | undefined): boolean {
+  return !!consentAt && consentAt >= SDK4_CONSENT_FROM;
+}
 
 const NO_SHARING: SharingState = { isAvailable: false, isOn: false, recoveryCode: null };
 
@@ -63,6 +82,7 @@ export const quranPronunciationStore = createStore<PronunciationState>((set, get
   bytesDone: 0,
   bytesTotal: 0,
   error: null,
+  errorNeeds: null,
   model: null,
   cached: null,
   sharing: NO_SHARING,
@@ -73,7 +93,9 @@ export const quranPronunciationStore = createStore<PronunciationState>((set, get
       return;
     }
     const cached = await readJSON<CachedModel | null>(DB_KEYS.quranPronunciationModel, null);
-    const consented = !!quranCompanionPrefsStore.getState().prefs.pronunciationConsentAt;
+    const consented = hasCurrentPronunciationConsent(
+      quranCompanionPrefsStore.getState().prefs.pronunciationConsentAt,
+    );
     if (!consented) {
       set({ status: "needs-consent", cached, isReady: true });
       return;
@@ -92,7 +114,7 @@ export const quranPronunciationStore = createStore<PronunciationState>((set, get
 
   async download() {
     if (get().status === "downloading") return;
-    set({ status: "downloading", error: null, bytesDone: 0, bytesTotal: 0 });
+    set({ status: "downloading", error: null, errorNeeds: null, bytesDone: 0, bytesTotal: 0 });
     try {
       await pronunciationClient.prefetch((done, total) =>
         set({ bytesDone: done, bytesTotal: total }),
@@ -102,14 +124,15 @@ export const quranPronunciationStore = createStore<PronunciationState>((set, get
       void get().refreshSharing();
     } catch (error) {
       const code = toQuranLabCode(error);
-      if (code !== "needs_connection")
+      // Connectivity and "update the app" are user states, not bugs (Quran Lab gets its own report).
+      if (code !== "needs_connection" && code !== "sdk_too_old")
         reportPracticeError(error, "download-failed", "pronunciation-download");
       // A refused key/app removes the model on the SDK side; drop our cache too.
       if (code === "invalid_key" || code === "server_rejected") {
         await removeKey(DB_KEYS.quranPronunciationModel);
         set({ cached: null });
       }
-      set({ status: "failed", error: code });
+      set({ status: "failed", error: code, errorNeeds: quranLabNeeds(error) });
     }
   },
 
@@ -125,9 +148,9 @@ export const quranPronunciationStore = createStore<PronunciationState>((set, get
       const code = toQuranLabCode(error);
       if (code === "invalid_key" || code === "server_rejected") {
         await removeKey(DB_KEYS.quranPronunciationModel);
-        set({ cached: null, model: null, status: "failed", error: code });
+        set({ cached: null, model: null, status: "failed", error: code, errorNeeds: null });
       } else {
-        set({ error: code });
+        set({ error: code, errorNeeds: quranLabNeeds(error) });
       }
       return null;
     }
@@ -160,6 +183,15 @@ export const quranPronunciationStore = createStore<PronunciationState>((set, get
     const ok = await pronunciationClient.deleteShared();
     await get().refreshSharing();
     return ok;
+  },
+
+  async diagnose() {
+    try {
+      await pronunciationClient.configure();
+    } catch {
+      // A client that can't configure still has nothing to report.
+    }
+    return pronunciationClient.diagnose();
   },
 }));
 

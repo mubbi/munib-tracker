@@ -1,7 +1,7 @@
 {
   "$comment": "Pinned on-device listener files (Qur'an practice). Single source of truth for the app (constants/recitation-models.ts) and the web build script (scripts/fetch-recitation-models.mjs). sha256 = GitHub release digest; md5 computed from the same verified downloads. webUrl (D18): browser source for engines the app may not self-host — FastConformer comes from the public CC-BY-4.0 Hugging Face mirror acibZ/tilawa-quran-onnx pinned to commit 0cd79471524bc9cfa1c9296055242a935a1873e4 (CORS *); the same sha256 check applies.",
   "tilawaCoreVersion": "0.4.0",
-  "ortWebVersion": "1.24.3",
+  "ortWebVersion": "1.31.1",
   "engines": {
     "tilawa-zipformer": {
       "version": "0.4.0+zipformer-a0w-ep1-a0.5+corpus-v0.3.0",

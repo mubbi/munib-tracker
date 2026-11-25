@@ -22,8 +22,8 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useIsOnline } from "@/hooks/use-is-online";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
-import { requestReminderReschedule } from "@/lib/quran-companion/reschedule";
 import type {
   DailyRevisionLimit,
   EngineId,
@@ -376,6 +376,14 @@ export default function QuranPracticeSettingsScreen() {
             onValueChange={(value) => void update({ keepAwake: value })}
           />
         ) : null}
+        {/* D68: recited ayahs → today's reading log + personal khatm. */}
+        <ToggleRow
+          icon={{ ios: "book.fill", android: "auto_stories", web: "auto_stories" }}
+          title={t("practiceReadingCredit.settings.title")}
+          subtitle={t("practiceReadingCredit.settings.sub")}
+          value={prefs.logToReadingLog !== false}
+          onValueChange={(value) => void update({ logToReadingLog: value })}
+        />
       </View>
     </Card>
   );

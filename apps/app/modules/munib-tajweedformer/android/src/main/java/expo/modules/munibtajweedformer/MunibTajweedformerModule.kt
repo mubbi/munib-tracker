@@ -1,7 +1,8 @@
 package expo.modules.munibtajweedformer
 
+import ai.quranlab.tajweedformer.SharingTheme
 import ai.quranlab.tajweedformer.TajweedClient
-import ai.quranlab.tajweedformer.TajweedClientOptions
+import ai.quranlab.tajweedformer.TajweedError
 import ai.quranlab.tajweedformer.TajweedEvent
 import ai.quranlab.tajweedformer.TajweedModel
 import ai.quranlab.tajweedformer.TajweedSession
@@ -18,13 +19,15 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 /**
- * Quran Lab TajweedFormer bridge (Phase 6). Four calls: Client, model, listen, read.
+ * Quran Lab TajweedFormer bridge (SDK 4.x). Four calls: Client, model, listen, read.
  *
- * Privacy: this module never offers recitation sharing. It does not call
- * `sharing.ask()` and hosts no `SharingSheetHost` / `SharingSettingsView`, so the
- * SDK has nowhere to show its consent sheet from this app. It only exposes the
- * learner's off switch, "Delete what I shared" and the recovery code. Analytics are
- * off (`Analytics.OFF`).
+ * SDK 4 (D66): anonymous analytics and error reports are always on (the analytics
+ * option no longer exists), and the SDK itself asks every learner — at most three
+ * times, never right after the install — whether to share recordings, on its own
+ * sheet over the activity in front. This module never calls `sharing.ask()`; it
+ * themes that sheet to match the app (`SharingTheme.current`) and exposes the
+ * learner's switch, "Delete what I shared" and the recovery code. The app's
+ * version and build are read by the SDK from the package (`versionName`/code).
  */
 class MunibTajweedformerModule : Module() {
   private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -51,23 +54,20 @@ class MunibTajweedformerModule : Module() {
       scope.cancel()
     }
 
-    AsyncFunction("configure") Coroutine { key: String ->
+    AsyncFunction("configure") Coroutine { key: String, theme: Map<String, String>? ->
       guarded {
         if (client == null) {
           val context = appContext.reactContext?.applicationContext
             ?: throw CodedException("engine_failed", "No React context", null)
-          client = TajweedClient(
-            context,
-            key,
-            TajweedClientOptions(analytics = TajweedClientOptions.Analytics.OFF),
-          )
+          theme?.let { sharingTheme(it) }?.let { SharingTheme.current = it }
+          client = TajweedClient(context, key)
         }
       }
     }
 
     AsyncFunction("prefetch") Coroutine { ->
       guarded {
-        requireClient().prefetch(unmeteredOnly = false) { done, total ->
+        requireClient().prefetch { done, total ->
           sendEvent("onProgress", mapOf("done" to done.toDouble(), "total" to total.toDouble()))
         }
       }
@@ -82,6 +82,26 @@ class MunibTajweedformerModule : Module() {
           "defaultContext" to opened.defaultContext,
           "calibrationJson" to opened.calibration?.json,
         )
+      }
+    }
+
+    // Opens the model ahead of the first take. Android 4.0 runs the Core's CPU engine
+    // only (no NPU program is served yet), so there is nothing more to warm.
+    AsyncFunction("prepareTake") Coroutine { _: List<String> ->
+      guarded {
+        model ?: requireClient().model().also { model = it }
+        "cpu"
+      }
+    }
+
+    // `client.diagnose().toJson()`: the SDK's own support report (no audio, text or identifiers).
+    AsyncFunction("diagnose") Coroutine { ->
+      client?.let { current ->
+        try {
+          current.diagnose().toJson()
+        } catch (_: Throwable) {
+          null
+        }
       }
     }
 
@@ -214,23 +234,45 @@ class MunibTajweedformerModule : Module() {
     } catch (e: CodedException) {
       throw e
     } catch (e: Throwable) {
-      throw CodedException(errorCode(e), e.message ?: e.javaClass.simpleName, e)
+      throw CodedException(errorCode(e), errorMessage(e), e)
     }
   }
 
+  /** The SDK's stable `TajweedError.code`; anything else is "engine_failed". */
+  private fun errorCode(error: Throwable): String =
+    (error as? TajweedError)?.code ?: "engine_failed"
+
   /**
-   * The SDK's `TajweedError.code`, read reflectively so this file does not depend
-   * on whether the property is a String or an enum. Unknown errors → "engine_failed".
+   * SDK 4.0.2's `errorCause` as a `[needs=model|lease stage=… reason=… http=…] `
+   * prefix on the message (tokens only — never a URL or an identifier). The JS
+   * client parses `needs` to tell "connect to download" from "connect to continue".
    */
-  private fun errorCode(error: Throwable): String {
-    if (error.javaClass.simpleName != "TajweedError") return "engine_failed"
-    val raw = try {
-      error.javaClass.getMethod("getCode").invoke(error)
-    } catch (_: Throwable) {
-      null
-    } ?: return "engine_failed"
-    val text = raw.toString()
-    return if (raw is Enum<*>) text.lowercase() else text
+  private fun errorMessage(error: Throwable): String {
+    val base = error.message ?: error.javaClass.simpleName
+    val cause = (error as? TajweedError)?.errorCause ?: return base
+    val parts = mutableListOf("stage=${cause.stage}", "reason=${cause.reason}")
+    cause.needs?.let { parts.add(0, "needs=$it") }
+    cause.httpStatus?.let { parts.add("http=$it") }
+    return "[${parts.joinToString(" ")}] $base"
+  }
+
+  /** The SDK's sharing sheet in the app's colours (`#RRGGBB` from JS). Words never change. */
+  private fun sharingTheme(theme: Map<String, String>): SharingTheme? {
+    val accent = argb(theme["accent"]) ?: return null
+    return SharingTheme(
+      background = argb(theme["background"]),
+      text = argb(theme["text"]),
+      secondaryText = argb(theme["secondaryText"]),
+      accent = accent,
+      dark = theme["dark"]?.let { it == "true" },
+    )
+  }
+
+  private fun argb(hex: String?): Int? {
+    val raw = hex?.trim()?.removePrefix("#") ?: return null
+    if (raw.length != 6) return null
+    val rgb = raw.toLongOrNull(16) ?: return null
+    return (0xFF000000L or rgb).toInt()
   }
 
   /** Sum of model bytes from `client.storage` (`{ models: [{ bytes }] }`); 0 when unknown. */

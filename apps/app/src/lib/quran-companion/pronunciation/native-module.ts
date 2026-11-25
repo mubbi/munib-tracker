@@ -16,7 +16,8 @@ export type NativeHead = {
 type Subscription = { remove: () => void };
 
 export interface NativeTajweedformerModule {
-  configure(key: string): Promise<void>;
+  /** `theme`: `#RRGGBB` colours (+ `dark: "true"|"false"`) for the SDK's own sharing sheet. */
+  configure(key: string, theme: Record<string, string> | null): Promise<void>;
   prefetch(): Promise<void>;
   openModel(): Promise<{
     version: string;
@@ -24,6 +25,8 @@ export interface NativeTajweedformerModule {
     defaultContext: string;
     calibrationJson: string | null;
   }>;
+  prepareTake(heads: string[]): Promise<string>;
+  diagnose(): Promise<string | null>;
   startTake(heads: string[], endOnSilenceMs: number): Promise<void>;
   finishTake(): Promise<{ heads: NativeHead[] }>;
   cancelTake(): Promise<void>;

@@ -4,6 +4,7 @@ import { AppState, StyleSheet } from "react-native";
 
 import { PronunciationConsentSheet } from "@/components/quran/pronunciation-consent-sheet";
 import { pronunciationErrorKey } from "@/components/quran/pronunciation-settings-card";
+import { useQuranLabSharingTheme } from "@/components/quran/use-quran-lab-sharing-theme";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -17,7 +18,7 @@ import {
   type DrillVerdict,
   judgeDrill,
 } from "@/lib/quran-companion/pronunciation/judge";
-import { toQuranLabCode } from "@/lib/quran-companion/pronunciation/types";
+import { quranLabNeeds, toQuranLabCode } from "@/lib/quran-companion/pronunciation/types";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useEnsureCompanionPrefsLoaded } from "@/stores/quran-companion-prefs-store";
 import {
@@ -51,10 +52,13 @@ export function DrillTakeCard({
   useEnsureCompanionPrefsLoaded();
   useEnsurePronunciationLoaded();
   const state = usePronunciationState();
+  useQuranLabSharingTheme();
   const [consentOpen, setConsentOpen] = useState(false);
   const [take, setTake] = useState<TakeState>("idle");
   const [verdict, setVerdict] = useState<DrillVerdict | null>(null);
   const [takeError, setTakeError] = useState<string | null>(null);
+  // Live cue from the SDK's speech flag on each chunk: "Hearing you…" vs "Listening…".
+  const [hearing, setHearing] = useState(false);
   const takeRef = useRef<TakeState>("idle");
   takeRef.current = take;
 
@@ -80,6 +84,15 @@ export function DrillTakeCard({
   const reliable = state.cached?.reliable;
   const known = reliable != null;
   const headReliable = !!reliable?.includes(head);
+  const takeHeads = [DRILL_HEADS[head].head, "log_probs", "timing_log_probs"];
+  const takeHeadsKey = takeHeads.join(",");
+
+  // Warm the engine for this drill's heads before the first take (Quran Lab docs:
+  // otherwise the engine is made when the first take opens — on iOS too late for the
+  // Neural Engine). Best effort; never blocks the Recite button.
+  useEffect(() => {
+    if (state.model && headReliable) void pronunciationClient.prepareTake(takeHeadsKey.split(","));
+  }, [state.model, headReliable, takeHeadsKey]);
 
   const finishTake = async () => {
     if (takeRef.current !== "listening") return;
@@ -98,7 +111,7 @@ export function DrillTakeCard({
       onVerdict?.(next);
     } catch (error) {
       if (toQuranLabCode(error) !== "cancelled")
-        setTakeError(pronunciationErrorKey(toQuranLabCode(error)));
+        setTakeError(pronunciationErrorKey(toQuranLabCode(error), quranLabNeeds(error)));
     } finally {
       setTake("idle");
     }
@@ -107,16 +120,17 @@ export function DrillTakeCard({
   const startTake = async () => {
     setVerdict(null);
     setTakeError(null);
+    setHearing(false);
     audio.stop();
     setTake("listening");
     try {
       await pronunciationClient.startTake(
-        [DRILL_HEADS[head].head, "log_probs", "timing_log_probs"],
-        () => {},
+        takeHeads,
+        (speech) => setHearing(speech),
         () => void finishTake(),
       );
     } catch (error) {
-      setTakeError(pronunciationErrorKey(toQuranLabCode(error)));
+      setTakeError(pronunciationErrorKey(toQuranLabCode(error), quranLabNeeds(error)));
       setTake("idle");
     }
   };
@@ -154,7 +168,7 @@ export function DrillTakeCard({
           <>
             <ThemedText type="small">
               {state.error
-                ? t(pronunciationErrorKey(state.error))
+                ? t(pronunciationErrorKey(state.error, state.errorNeeds))
                 : t("quranCompanion.pronunciation.notOnDevice")}
             </ThemedText>
             {!online ? (
@@ -175,6 +189,20 @@ export function DrillTakeCard({
             {state.bytesTotal > 0 ? (
               <ProgressBar value={state.bytesDone / state.bytesTotal} style={styles.gap} />
             ) : null}
+          </>
+        ) : state.status === "ready" && !state.model && state.error ? (
+          // SDK 4: the model is on the device but could not open (e.g. its lease needs renewing).
+          <>
+            <ThemedText type="small" accessibilityLiveRegion="polite">
+              {t(pronunciationErrorKey(state.error, state.errorNeeds))}
+            </ThemedText>
+            <Button
+              label={t("quranCompanion.pronunciation.tryAgain")}
+              variant="secondary"
+              onPress={() => void quranPronunciationStore.getState().open()}
+              disabled={!online}
+              style={styles.gap}
+            />
           </>
         ) : known && !headReliable ? (
           <ThemedText type="small">
@@ -198,8 +226,15 @@ export function DrillTakeCard({
               }
             />
             {take === "listening" ? (
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.gap}>
-                {t("quranCompanion.pronunciation.listening")}
+              <ThemedText
+                type="caption"
+                themeColor={hearing ? undefined : "mutedForeground"}
+                accessibilityLiveRegion="polite"
+                style={[styles.gap, hearing ? { color: tokens.status.success.color } : null]}
+              >
+                {hearing
+                  ? t("quranCompanion.pronunciation.hearingYou")
+                  : t("quranCompanion.pronunciation.listening")}
               </ThemedText>
             ) : null}
             {verdictLine ? (
@@ -226,6 +261,9 @@ export function DrillTakeCard({
                 {t(takeError)}
               </ThemedText>
             ) : null}
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.gap}>
+              {t("quranCompanion.pronunciation.feedbackDisclaimer")}
+            </ThemedText>
           </>
         )}
       </Card>

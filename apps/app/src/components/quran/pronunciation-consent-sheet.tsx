@@ -28,6 +28,8 @@ export function PronunciationConsentSheet({
         <ThemedText type="small">{t("quranCompanion.pronunciation.consentDownload")}</ThemedText>
         <ThemedText type="small">{t("quranCompanion.pronunciation.consentActivation")}</ThemedText>
         <ThemedText type="small">{t("quranCompanion.pronunciation.consentOnDevice")}</ThemedText>
+        <ThemedText type="small">{t("quranCompanion.pronunciation.consentAnalytics")}</ThemedText>
+        <ThemedText type="small">{t("quranCompanion.pronunciation.consentSharingAsk")}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("quranCompanion.pronunciation.consentRemotePause")}
         </ThemedText>
