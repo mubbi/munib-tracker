@@ -190,7 +190,9 @@ class MunibWearTileService : TileService() {
     }
     if (snapshot == null || message != null) {
       return EdgeContentLayout.Builder(device)
-        .setEdgeContent(progressRing(0f, ""))
+        // Never an empty description: the unpaired fallback with "" failed to inflate on the
+        // Wear OS 4 renderer (tile showed only the app icon). The message doubles as the label.
+        .setEdgeContent(progressRing(0f, message ?: getString(R.string.wear_open_phone)))
         .setContent(openArea(openApp, message ?: "", tileText(this, message ?: "", Typography.TYPOGRAPHY_BODY1, WearColors.SECONDARY, 3)))
         .build()
     }
