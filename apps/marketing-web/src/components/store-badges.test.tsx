@@ -1,17 +1,14 @@
-import {
-  OFFICIAL_ANDROID_PLAY_STORE_URL,
-  OFFICIAL_IOS_APP_STORE_URL,
-} from "@munib-tracker/shared/constants";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { trackDownloadClick, trackWebDemoLaunch } from "@/lib/analytics";
-import { PRODUCT_APP_URL } from "@/lib/site";
+import { productAppUrl, storeUrls } from "@/lib/site";
+import { renderWithIntl } from "@/test-support/intl";
 import { StoreBadges } from "./store-badges";
 
 vi.mock("@/lib/analytics");
 
 function setup(props: Parameters<typeof StoreBadges>[0] = {}) {
-  const { container } = render(<StoreBadges {...props} />);
+  const { container } = renderWithIntl(<StoreBadges {...props} />);
   return container.firstElementChild as HTMLElement;
 }
 
@@ -19,10 +16,10 @@ describe("StoreBadges", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it.each([
-    [/App Store/, OFFICIAL_IOS_APP_STORE_URL],
-    [/Google Play/, OFFICIAL_ANDROID_PLAY_STORE_URL],
-    [/browser/, PRODUCT_APP_URL],
-  ])("links %s to its store URL", (name, href) => {
+    [/App Store/, storeUrls("en").ios],
+    [/Google Play/, storeUrls("en").android],
+    [/browser/, productAppUrl("en")],
+  ])("links %s to its store URL in the page locale", (name, href) => {
     setup();
     expect(screen.getByRole("link", { name })).toHaveAttribute("href", href);
   });

@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "title": "Islamic Learning Library — Aqeedah, Seerah, Fiqh & Qur'an Study",
+    "description": "Inside the app's learning library: cited lessons on aqeedah, the prophets, the seerah, the Hereafter, Qur'an study, and practical fiqh guides with checklists."
+  },
+  "eyebrow": "Learn",
+  "title": "Learn your deen, deeply",
+  "intro": "{appName} is more than a tracker. It's a structured path reviewed for authenticity — creed, history, the Qur'an, and fiqh with progress, quizzes, and citations on every lesson.",
+  "getApp": "Get the app",
+  "seeFeatures": "See all features",
+  "sections": {
+    "creed": {
+      "eyebrow": "Islamic knowledge",
+      "title": "Creed, history & the Hereafter",
+      "description": "Ground your imaan in what you believe, where you come from, and where you're going."
+    },
+    "quran": {
+      "eyebrow": "The Qur'an",
+      "title": "Read, understand, and memorize",
+      "description": "A guided path from the Arabic letters to tajweed, memorization, and reflection."
+    },
+    "worshipGuides": {
+      "eyebrow": "Fiqh & how-to",
+      "title": "Practical worship guides",
+      "description": "Clear, evidence-based guides with checklists, calculators, and trackers for everyday worship."
+    },
+    "lifeGuides": {
+      "eyebrow": "Beyond the basics",
+      "title": "Companions, dua & life guides",
+      "description": "Practical topics for every season — from the sahaba and early history to Laylat al-Qadr, Eid, and everyday finance."
+    },
+    "trust": {
+      "eyebrow": "Built on trust",
+      "title": "Knowledge you can rely on",
+      "description": "The library is designed to teach faithfully — cited, tracked, and always available."
+    }
+  },
+  "areas": {
+    "aqeedah": {
+      "title": "Aqeedah",
+      "meta": "24 topics + glossary",
+      "description": "The six articles of faith, tawheed, and the names and attributes of Allah."
+    },
+    "prophets": {
+      "title": "The Prophets",
+      "meta": "25 prophets, timeline + family tree",
+      "description": "From Adam to Muhammad ﷺ, with the lessons carried by each story."
+    },
+    "seerah": {
+      "title": "Seerah & battles",
+      "meta": "30-event life + 21 battles",
+      "description": "The life of the Prophet ﷺ and the major campaigns, with leadership lessons."
+    },
+    "jannah": {
+      "title": "Jannah",
+      "meta": "45 topics · 8 gates",
+      "description": "The reality of Paradise, its ranks, and the deeds that open its gates."
+    },
+    "jahannam": {
+      "title": "Jahannam",
+      "meta": "16 topics",
+      "description": "A balanced warning — its names, major sins, and the ever-open door of repentance."
+    },
+    "lastDay": {
+      "title": "The Last Day",
+      "meta": "20 lessons + quiz",
+      "description": "The signs, the reckoning, the Scale, and the Bridge — with an interactive quiz."
+    },
+    "readArabic": {
+      "title": "Read the Arabic",
+      "meta": "28 letter cards",
+      "description": "Letters and their forms, pronunciation drills, and a learn-to-read path."
+    },
+    "tajweed": {
+      "title": "Tajweed",
+      "meta": "Core rules + drills",
+      "description": "Noon and meem sakinah, madd, qalqalah, ghunnah, and the rules of stopping."
+    },
+    "memorize": {
+      "title": "Memorize",
+      "meta": "Structured plans",
+      "description": "Hifz plans, revision, and khatm tracking to keep you moving."
+    },
+    "understand": {
+      "title": "Understand & reflect",
+      "meta": "13 themes · stories",
+      "description": "Themes, prophet stories, vocabulary by root, and daily tadabbur prompts."
+    },
+    "salahGuide": {
+      "title": "Salah guide",
+      "meta": "24 lessons",
+      "description": "From why we pray to khushu' and making up missed prayers, step by step."
+    },
+    "taharah": {
+      "title": "Taharah",
+      "meta": "28 topics + checklist",
+      "description": "Wudu, ghusl, and tayammum with a daily purification checklist."
+    },
+    "zakat": {
+      "title": "Zakat",
+      "meta": "Calculator + evidence",
+      "description": "Nisab thresholds, an interactive calculator, and Qur'an and hadith evidence."
+    },
+    "hajj": {
+      "title": "Hajj & Umrah",
+      "meta": "Learn + checklists",
+      "description": "An interactive, offline checklist for every rite with location context."
+    },
+    "concessions": {
+      "title": "Travel, illness & hayd",
+      "meta": "Concessions",
+      "description": "Qasr and jam', worship when ill, and menstruation fiqh — worship at your capacity."
+    },
+    "ramadan": {
+      "title": "Ramadan, Tahajjud & journal",
+      "meta": "Trackers + khushu'",
+      "description": "A fasting tracker with suhoor/iftar times, a night-prayer log, and a khushu' prayer journal."
+    },
+    "friday": {
+      "title": "Friday & Jumu'ah",
+      "meta": "Hub + checklist",
+      "description": "Ghusl, Surah Al-Kahf, salawat and the hour of dua, with a Friday checklist."
+    },
+    "fasts": {
+      "title": "White Days & voluntary fasts",
+      "meta": "Planner + reminders",
+      "description": "The 13th to 15th of each Hijri month, Mondays and Thursdays, Arafah, Ashura and more, with prohibited days flagged."
+    },
+    "janazah": {
+      "title": "Janazah",
+      "meta": "Practical guide",
+      "description": "The funeral prayer, washing and burial, with authentic duas for the deceased."
+    },
+    "sahaba": {
+      "title": "The Sahaba",
+      "meta": "30 companions",
+      "description": "Virtues, lessons, and citations from the noble companions of the Prophet ﷺ."
+    },
+    "history": {
+      "title": "Early Islamic history",
+      "meta": "15 topics",
+      "description": "From the Khulafa Rashidun through the Umayyad period — context for today's ummah."
+    },
+    "learnDua": {
+      "title": "Learn dua",
+      "meta": "46 topics",
+      "description": "When and how to supplicate — with Arabic, transliteration, and evidence for each occasion."
+    },
+    "newMuslim": {
+      "title": "New Muslim guide",
+      "meta": "18 topics",
+      "description": "A gentle on-ramp for converts — Salah, wudu, adhkar, and building a daily rhythm."
+    },
+    "laylatAlQadr": {
+      "title": "Laylat al-Qadr",
+      "meta": "8 topics",
+      "description": "The Night of Decree — its virtue, signs, and how to seek it in the last ten nights."
+    },
+    "eid": {
+      "title": "Eid guide",
+      "meta": "6 topics",
+      "description": "Fitr and Adha — takbir, prayer, Sunnah acts, and the spirit of celebration."
+    },
+    "ruqyah": {
+      "title": "Ruqyah",
+      "meta": "8 topics",
+      "description": "Qur'anic and prophetic healing supplications — with conditions and etiquette."
+    },
+    "finance": {
+      "title": "Islamic finance",
+      "meta": "14 topics",
+      "description": "Riba, halal income, zakat principles, and everyday money matters — educational, not fatwa."
+    },
+    "dailyHadith": {
+      "title": "Daily hadith",
+      "meta": "One a day",
+      "description": "A hadith from Imam al-Nawawi's Forty each morning, with its explanation."
+    },
+    "flashCards": {
+      "title": "Flash cards",
+      "meta": "No scores",
+      "description": "Review the Qur'an, hadith, the Names of Allah and every guide, one card at a time."
+    }
+  },
+  "how": {
+    "referenced": {
+      "title": "Referenced to source",
+      "description": "Every claim is tied to the Qur'an and graded hadith, with collection and number."
+    },
+    "progress": {
+      "title": "Track your progress",
+      "description": "Per-topic completion means you always know exactly where you left off."
+    },
+    "quizzes": {
+      "title": "Quizzes & timelines",
+      "description": "Interactive quizzes and visual timelines make what you learn actually stick."
+    },
+    "offline": {
+      "title": "Fully offline",
+      "description": "The entire library works without a connection — read anywhere, anytime."
+    }
+  }
+}

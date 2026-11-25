@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   trackCtaClick,
@@ -7,6 +7,7 @@ import {
   trackSelectContent,
   trackWebDemoLaunch,
 } from "@/lib/analytics";
+import { renderWithIntl } from "@/test-support/intl";
 import { TrackedLink } from "./tracked-link";
 
 vi.mock("@/lib/analytics");
@@ -17,7 +18,7 @@ type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K>
 type LinkProps = DistributiveOmit<Props, "children">;
 
 function setup(props: LinkProps) {
-  render(<TrackedLink {...({ ...props, children: "Go" } as Props)} />);
+  renderWithIntl(<TrackedLink {...({ ...props, children: "Go" } as Props)} />);
   return screen.getByRole("link", { name: "Go" });
 }
 
@@ -74,7 +75,7 @@ describe("TrackedLink", () => {
 
   it("renders internal links without a target", () => {
     const link = setup({ track: "cta", href: "/features", cta: "get_app", placement: "hero" });
-    expect(link).toHaveAttribute("href", "/features");
+    expect(link).toHaveAttribute("href", "/en/features");
     expect(link).not.toHaveAttribute("target");
   });
 
@@ -125,7 +126,7 @@ describe("TrackedLink", () => {
   });
 
   it("passes an accessible name through to the anchor", () => {
-    render(
+    renderWithIntl(
       <TrackedLink
         track="outbound"
         href="https://example.com"

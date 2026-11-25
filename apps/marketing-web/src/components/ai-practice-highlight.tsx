@@ -9,13 +9,14 @@ import {
   Volume2,
   WifiOff,
 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { Section } from "@/components/section";
 import { TrackedLink } from "@/components/tracked-link";
 import { buttonClass } from "@/components/ui/button";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import type { CtaPlacement } from "@/lib/analytics";
 import { PRACTICE_DEMO_AYAH } from "@/lib/practice-demo-ayah";
-import { PRODUCT_APP_URL } from "@/lib/site";
+import { productAppUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /**
@@ -24,37 +25,17 @@ import { cn } from "@/lib/utils";
  * Wording rule (Qur'an practice, NF-2.38): the listener *follows*
  * your recitation. Never promise "mistake detection", "tajweed correction", or a score.
  */
-const POINTS: { id: string; icon: LucideIcon; title: string; body: string }[] = [
-  {
-    id: "follow",
-    icon: Mic,
-    title: "Follows you word by word",
-    body: "Recite at your own pace. Words light up as the listener hears them, and words to try again are marked gently. No scores.",
-  },
-  {
-    id: "memorize",
-    icon: EyeOff,
-    title: "Built for memorization",
-    body: "Hide words or whole ayahs and recite from memory. Each word appears as you reach it, and you can tap any word to hear it.",
-  },
-  {
-    id: "revise",
-    icon: CalendarClock,
-    title: "Revision that remembers",
-    body: "Passages you practise come back for review after 1, 3, 7, 14, and 30 days, with an optional daily reminder.",
-  },
-  {
-    id: "private",
-    icon: ShieldCheck,
-    title: "Private by design",
-    body: "Your recitation is processed on your device. It is never recorded, stored, or uploaded. Only counts and ayah numbers are kept.",
-  },
-];
+const POINTS = [
+  { id: "follow", icon: Mic },
+  { id: "memorize", icon: EyeOff },
+  { id: "revise", icon: CalendarClock },
+  { id: "private", icon: ShieldCheck },
+] as const;
 
 const CHIPS = [
-  { icon: Sparkles, label: "AI on your device" },
-  { icon: WifiOff, label: "Works offline" },
-  { icon: ShieldCheck, label: "Free, no account" },
+  { id: "onDevice", icon: Sparkles },
+  { id: "offline", icon: WifiOff },
+  { id: "free", icon: ShieldCheck },
 ] as const;
 
 type DemoState = "heard" | "tryAgain" | "next" | "hidden";
@@ -70,12 +51,13 @@ const STATE_CLASS: Record<DemoState, string> = {
 };
 
 export function AiPracticeHighlight() {
+  const t = useTranslations("home.aiPractice");
   return (
     <Section
       id="quran-practice"
-      eyebrow="New · Qur'an practice with AI"
-      title="Recite, and it follows along"
-      description="An AI listener that runs on your phone follows your recitation word by word, so you can memorize and revise the Qur'an on your own, privately and for free."
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      description={t("description")}
     >
       <div className="relative overflow-hidden rounded-[var(--radius-card)] border border-brand/30 bg-card/80 p-6 shadow-[var(--shadow-card)] md:p-10">
         <div
@@ -89,20 +71,20 @@ export function AiPracticeHighlight() {
 
         <div className="relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
-            <ul className="flex flex-wrap gap-2" aria-label="Highlights">
-              {CHIPS.map(({ icon: Icon, label }) => (
+            <ul className="flex flex-wrap gap-2" aria-label={t("chipsLabel")}>
+              {CHIPS.map(({ id, icon: Icon }) => (
                 <li
-                  key={label}
+                  key={id}
                   className="inline-flex items-center gap-1.5 rounded-full border border-brand/25 bg-brand/10 px-3 py-1 text-xs font-semibold text-brand"
                 >
                   <Icon className="size-3.5" aria-hidden />
-                  {label}
+                  {t(`chips.${id}`)}
                 </li>
               ))}
             </ul>
 
             <Stagger className="mt-7 grid gap-5 sm:grid-cols-2">
-              {POINTS.map(({ id, icon: Icon, title, body }) => (
+              {POINTS.map(({ id, icon: Icon }) => (
                 <StaggerItem key={id}>
                   <div className="flex items-start gap-3">
                     <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand ring-1 ring-brand/15">
@@ -110,20 +92,24 @@ export function AiPracticeHighlight() {
                     </span>
                     <div>
                       <h3 className="font-display text-base font-semibold text-foreground">
-                        {title}
+                        {t(`points.${id}.title`)}
                       </h3>
-                      <p className="mt-1 text-sm leading-relaxed text-muted">{body}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-muted">
+                        {t(`points.${id}.body`)}
+                      </p>
                     </div>
                   </div>
                 </StaggerItem>
               ))}
             </Stagger>
 
-            <PracticeCtas className="mt-8" placement="home_ai_practice" />
-            <p className="mt-4 text-xs leading-relaxed text-muted">
-              The listener is a one-time optional download (about 70&nbsp;MB) on iOS, Android, and
-              the web. It helps you practise; it is not a replacement for a teacher.
-            </p>
+            <PracticeCtas
+              className="mt-8"
+              placement="home_ai_practice"
+              tryLabel={t("tryPractice")}
+              howLabel={t("howItWorks")}
+            />
+            <p className="mt-4 text-xs leading-relaxed text-muted">{t("footnote")}</p>
           </div>
 
           <Reveal delay={0.1}>
@@ -135,18 +121,29 @@ export function AiPracticeHighlight() {
   );
 }
 
-function PracticeCtas({ className, placement }: { className?: string; placement: CtaPlacement }) {
+function PracticeCtas({
+  className,
+  placement,
+  tryLabel,
+  howLabel,
+}: {
+  className?: string;
+  placement: CtaPlacement;
+  tryLabel: string;
+  howLabel: string;
+}) {
+  const locale = useLocale();
   return (
     <div className={cn("flex flex-wrap items-center gap-3", className)}>
       <TrackedLink
-        href={`${PRODUCT_APP_URL}/quran/practice`}
+        href={productAppUrl(locale, "/quran/practice")}
         className={buttonClass("primary", "md")}
         track="cta"
         cta="try_quran_practice"
         placement={placement}
       >
         <Mic className="size-4" aria-hidden />
-        Try Qur&apos;an practice
+        {tryLabel}
       </TrackedLink>
       <TrackedLink
         href="/features/quran-practice"
@@ -155,7 +152,7 @@ function PracticeCtas({ className, placement }: { className?: string; placement:
         cta="explore_features"
         placement={placement}
       >
-        How Qur&apos;an practice works
+        {howLabel}
       </TrackedLink>
     </div>
   );
@@ -163,16 +160,19 @@ function PracticeCtas({ className, placement }: { className?: string; placement:
 
 /** A static, illustrative mock of a practice session (not a screenshot). */
 export function PracticePreview() {
+  const t = useTranslations("home.practicePreview");
   return (
     <figure
       className="relative mx-auto w-full max-w-sm rounded-[1.75rem] border border-border/70 bg-background/80 p-5 shadow-[var(--shadow-card)] backdrop-blur"
-      aria-label="Illustration of a Qur'an practice session"
+      aria-label={t("label")}
     >
       <div className="flex items-center justify-between text-xs text-muted">
-        <span className="font-semibold text-foreground">Al-Fatiha · Ayah 2</span>
+        <span className="font-semibold text-foreground">
+          {t("heading", { ayah: PRACTICE_DEMO_AYAH.ayah })}
+        </span>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-2.5 py-1 font-semibold text-brand">
           <span className="size-1.5 animate-pulse rounded-full bg-brand" aria-hidden />
-          Listening
+          {t("listening")}
         </span>
       </div>
 
@@ -195,13 +195,13 @@ export function PracticePreview() {
       </p>
 
       <ul className="mt-5 flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-xs text-muted">
-        <Legend className="bg-brand" label="Heard" />
-        <Legend className="bg-amber-400" label="Try again" />
-        <Legend className="ring-2 ring-brand" label="Up next" />
+        <Legend className="bg-brand" label={t("legend.heard")} />
+        <Legend className="bg-amber-400" label={t("legend.tryAgain")} />
+        <Legend className="ring-2 ring-brand" label={t("legend.upNext")} />
       </ul>
 
       <div className="mt-6 flex items-center justify-center gap-5">
-        <MockControl icon={Volume2} label="Hear" />
+        <MockControl icon={Volume2} label={t("controls.hear")} />
         <div className="relative flex size-16 items-center justify-center">
           <span
             aria-hidden
@@ -211,12 +211,10 @@ export function PracticePreview() {
             <Mic className="size-7" aria-hidden />
           </span>
         </div>
-        <MockControl icon={CircleCheck} label="End" accent />
+        <MockControl icon={CircleCheck} label={t("controls.end")} accent />
       </div>
 
-      <figcaption className="mt-5 text-center text-xs text-muted">
-        Illustration, not a screenshot · Audio stays on your device
-      </figcaption>
+      <figcaption className="mt-5 text-center text-xs text-muted">{t("caption")}</figcaption>
     </figure>
   );
 }

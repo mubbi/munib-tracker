@@ -1,5 +1,6 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
 import { ArrowRight, Info } from "lucide-react";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { DownloadCta } from "@/components/content/download-cta";
 import { FeatureIcon } from "@/components/content/feature-icon";
 import { PageHero } from "@/components/content/page-hero";
@@ -16,20 +17,27 @@ import { audienceHref } from "@/content/audiences";
 import { featureHref, getFeature } from "@/content/features";
 import { articleByHref, articleHref } from "@/content/resources";
 import type { AudiencePage } from "@/content/types";
+import { Link } from "@/i18n/navigation";
 import { graph, webPageSchema } from "@/lib/structured-data";
 
 export function AudienceTemplate({ page }: { page: AudiencePage }) {
+  const t = useTranslations("templates");
+  const locale = useLocale();
   const path = audienceHref(page.slug);
-  const guides = page.guides.map(articleByHref).filter((a) => a !== undefined);
+  const guides = page.guides
+    .map((href) => articleByHref(href, locale))
+    .filter((a) => a !== undefined);
 
   return (
     <>
       <JsonLdScript
-        data={graph(webPageSchema({ path, name: page.title, description: page.seoDescription }))}
+        data={graph(
+          webPageSchema({ locale, path, name: page.title, description: page.seoDescription }),
+        )}
       />
       <PageHero
         crumbs={[
-          { name: "Who it's for", href: "/for" },
+          { name: t("crumbs.audiences"), href: "/for" },
           { name: page.navLabel, href: path },
         ]}
         eyebrow={page.eyebrow}
@@ -49,12 +57,12 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
       <PageSection
         id="how-it-helps"
         tone="band"
-        eyebrow="How Munib Tracker helps"
-        title="Tools that fit where you are"
+        eyebrow={t("audience.helpsEyebrow", { appName: APP_NAME })}
+        title={t("audience.helpsTitle")}
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {page.helps.map((h) => {
-            const feature = h.feature ? getFeature(h.feature) : undefined;
+            const feature = h.feature ? getFeature(h.feature, locale) : undefined;
             const href = feature ? featureHref(feature.slug) : h.href;
             return (
               <div
@@ -75,8 +83,8 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
                     href={href}
                     className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-brand hover:underline"
                   >
-                    {feature ? feature.navLabel : "Open the learning library"}
-                    <ArrowRight aria-hidden className="size-4" />
+                    {feature ? feature.navLabel : t("audience.learningLibrary")}
+                    <ArrowRight aria-hidden className="size-4 rtl:-scale-x-100" />
                   </Link>
                 ) : null}
               </div>
@@ -85,7 +93,7 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
         </div>
       </PageSection>
 
-      <PageSection id="plan" eyebrow="Getting started" title={page.plan.title}>
+      <PageSection id="plan" eyebrow={t("audience.planEyebrow")} title={page.plan.title}>
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {page.plan.steps.map((s) => (
             <li key={s.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
@@ -102,9 +110,9 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
           <div className="mt-8 rounded-2xl border border-sky-300/25 bg-[#0c2233] p-6">
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-sky-200">
               <Info aria-hidden className="size-4" />
-              Good to know
+              {t("audience.goodToKnow")}
             </p>
-            <ul className="mt-3 flex list-disc flex-col gap-2 pl-5 text-[15px] leading-relaxed text-white/78">
+            <ul className="mt-3 flex list-disc flex-col gap-2 ps-5 text-[15px] leading-relaxed text-white/78">
               {page.limits.map((l) => (
                 <li key={l}>{l}</li>
               ))}
@@ -113,10 +121,14 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
         ) : null}
       </PageSection>
 
-      <FaqSection items={page.faqs} tone="band" title="Common questions" />
+      <FaqSection items={page.faqs} tone="band" title={t("audience.faqTitle")} />
 
       {guides.length ? (
-        <PageSection id="guides" eyebrow="Guides" title="Helpful reading">
+        <PageSection
+          id="guides"
+          eyebrow={t("audience.guidesEyebrow")}
+          title={t("audience.guidesTitle")}
+        >
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {guides.map((a) => (
               <LinkCard
@@ -124,7 +136,7 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
                 href={articleHref(a)}
                 title={a.title}
                 description={a.description}
-                meta="Guide"
+                meta={t("cardMeta.guide")}
               />
             ))}
           </div>

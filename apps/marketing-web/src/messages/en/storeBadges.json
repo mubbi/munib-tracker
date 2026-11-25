@@ -1,0 +1,14 @@
+{
+  "appStore": {
+    "ariaLabel": "Download on the {store}: {appName} for iPhone and iPad",
+    "eyebrow": "Download on the"
+  },
+  "googlePlay": {
+    "ariaLabel": "Get it on {store}: {appName} for Android",
+    "eyebrow": "Get it on"
+  },
+  "webApp": {
+    "ariaLabel": "Try web app: {appName} in your browser",
+    "label": "Try web app"
+  }
+}

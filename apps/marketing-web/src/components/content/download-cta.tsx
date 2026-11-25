@@ -1,13 +1,15 @@
 import { BadgeCheck, Ban, UserRound, WifiOff } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { StoreBadges } from "@/components/store-badges";
 import type { DownloadPlacement } from "@/lib/analytics";
 
+/** Proof points; copy is `templates.downloadCta.<id>`. */
 const PROOF = [
-  { icon: Ban, label: "No ads" },
-  { icon: UserRound, label: "No account for personal use" },
-  { icon: WifiOff, label: "Works offline" },
-  { icon: BadgeCheck, label: "No subscriptions" },
-];
+  { id: "noAds", icon: Ban },
+  { id: "noAccount", icon: UserRound },
+  { id: "offline", icon: WifiOff },
+  { id: "noSubscriptions", icon: BadgeCheck },
+] as const;
 
 /** Page-specific closing download CTA (App Store, Google Play, web app). */
 export function DownloadCta({
@@ -19,6 +21,7 @@ export function DownloadCta({
   text: string;
   placement: DownloadPlacement;
 }) {
+  const t = useTranslations("templates.downloadCta");
   return (
     <section aria-labelledby="download-cta-title" className="relative py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
@@ -43,10 +46,10 @@ export function DownloadCta({
             </p>
             <StoreBadges className="mt-9 justify-center" placement={placement} />
             <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-white/70">
-              {PROOF.map(({ icon: Icon, label }) => (
-                <li key={label} className="inline-flex items-center gap-2">
+              {PROOF.map(({ id, icon: Icon }) => (
+                <li key={id} className="inline-flex items-center gap-2">
                   <Icon aria-hidden className="size-4 text-brand" />
-                  {label}
+                  {t(id)}
                 </li>
               ))}
             </ul>

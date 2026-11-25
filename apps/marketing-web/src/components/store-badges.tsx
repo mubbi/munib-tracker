@@ -1,12 +1,10 @@
 "use client";
 
-import {
-  OFFICIAL_ANDROID_PLAY_STORE_URL,
-  OFFICIAL_IOS_APP_STORE_URL,
-} from "@munib-tracker/shared/constants";
+import { APP_NAME } from "@munib-tracker/shared/constants";
 import { Globe } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { type DownloadPlacement, trackDownloadClick, trackWebDemoLaunch } from "@/lib/analytics";
-import { PRODUCT_APP_URL } from "@/lib/site";
+import { productAppUrl, storeUrls } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type StoreBadgesProps = {
@@ -14,6 +12,10 @@ type StoreBadgesProps = {
   layout?: "row" | "column";
   placement?: DownloadPlacement;
 };
+
+/** Store brand names — never translated. */
+const APP_STORE = "App Store";
+const GOOGLE_PLAY = "Google Play";
 
 const badge =
   "inline-flex h-[52px] items-center gap-2.5 rounded-xl border border-white/10 bg-neutral-900 px-4 text-white shadow-sm transition-transform hover:scale-[1.02] active:scale-[0.98]";
@@ -24,59 +26,64 @@ export function StoreBadges({
   layout = "row",
   placement = "hero",
 }: StoreBadgesProps) {
+  const t = useTranslations("storeBadges");
+  const locale = useLocale();
+  const stores = storeUrls(locale);
   const flexClass = layout === "row" ? "flex flex-wrap items-center gap-3" : "flex flex-col gap-3";
 
   return (
     <div className={cn(flexClass, className)}>
       <a
-        href={OFFICIAL_IOS_APP_STORE_URL}
+        href={stores.ios}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Download on the App Store: Munib Tracker for iPhone and iPad"
+        aria-label={t("appStore.ariaLabel", { store: APP_STORE, appName: APP_NAME })}
         className={badge}
         data-analytics-event="download_ios_click"
         onClick={() => trackDownloadClick("ios", placement)}
       >
         <AppleLogo className="size-7 shrink-0" />
         <span className="flex flex-col items-start leading-none">
-          <span className="text-[10px] font-medium text-white/70">Download on the</span>{" "}
+          <span className="text-[10px] font-medium text-white/70 rtl:text-[11px]">
+            {t("appStore.eyebrow")}
+          </span>{" "}
           <span className="mt-1 text-[17px] font-semibold leading-none tracking-tight">
-            App Store
+            {APP_STORE}
           </span>
         </span>
       </a>
 
       <a
-        href={OFFICIAL_ANDROID_PLAY_STORE_URL}
+        href={stores.android}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Get it on Google Play: Munib Tracker for Android"
+        aria-label={t("googlePlay.ariaLabel", { store: GOOGLE_PLAY, appName: APP_NAME })}
         className={badge}
         data-analytics-event="download_android_click"
         onClick={() => trackDownloadClick("android", placement)}
       >
         <GooglePlayLogo className="size-6 shrink-0" />
         <span className="flex flex-col items-start leading-none">
-          <span className="text-[9px] font-medium uppercase tracking-wide text-white/70">
-            Get it on
+          <span className="text-[9px] font-medium uppercase tracking-wide text-white/70 rtl:text-[11px]">
+            {t("googlePlay.eyebrow")}
           </span>{" "}
           <span className="mt-1 text-[17px] font-semibold leading-none tracking-tight">
-            Google Play
+            {GOOGLE_PLAY}
           </span>
         </span>
       </a>
 
       <a
-        href={PRODUCT_APP_URL}
+        href={productAppUrl(locale)}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Try web app: Munib Tracker in your browser"
+        aria-label={t("webApp.ariaLabel", { appName: APP_NAME })}
         className="inline-flex h-[52px] items-center gap-2 rounded-xl border border-border bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:border-brand/50 hover:bg-muted-surface/50"
         data-analytics-event="web_demo_launch"
         onClick={() => trackWebDemoLaunch(placement)}
       >
         <Globe className="size-[18px] text-brand" />
-        Try web app
+        {t("webApp.label")}
       </a>
     </div>
   );

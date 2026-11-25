@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
+import { Link } from "@/i18n/navigation";
 
 /**
  * Renders the tiny inline markup used in `src/content` strings:

@@ -1,10 +1,13 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
 import { Check } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { Blocks } from "@/components/content/blocks";
 import { DownloadCta } from "@/components/content/download-cta";
 import { PageHero } from "@/components/content/page-hero";
 import {
   DateStamp,
   FaqSection,
+  formatIsoDate,
   JsonLdScript,
   LinkCard,
   PageSection,
@@ -18,54 +21,72 @@ import { getFeature } from "@/content/features";
 import { PLANNED_FEATURES, SHIPPED_FEATURE_COUNT } from "@/content/munib-features";
 import { articleByHref } from "@/content/resources";
 import type { ComparePage } from "@/content/types";
+import type { Locale } from "@/i18n/routing";
 import { graph, webPageSchema } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 
+type TemplatesT = ReturnType<typeof useTranslations<"templates">>;
+
 /** Resolves a related href to a card (feature, article, comparison or hub). */
-function relatedCard(href: string) {
+function relatedCard(href: string, locale: Locale, t: TemplatesT) {
   if (href.startsWith("/features/")) {
-    const f = getFeature(href.slice("/features/".length));
-    if (f) return { href, title: f.navLabel, description: f.description, meta: "Feature" };
+    const f = getFeature(href.slice("/features/".length), locale);
+    if (f) {
+      return { href, title: f.navLabel, description: f.description, meta: t("cardMeta.feature") };
+    }
   }
   if (href.startsWith("/compare/")) {
-    const c = getComparison(href.slice("/compare/".length));
-    if (c) return { href, title: c.title, description: c.description, meta: "Comparison" };
+    const c = getComparison(href.slice("/compare/".length), locale);
+    if (c) {
+      return { href, title: c.title, description: c.description, meta: t("cardMeta.comparison") };
+    }
   }
-  const a = articleByHref(href);
-  if (a) return { href, title: a.title, description: a.description, meta: "Guide" };
+  const a = articleByHref(href, locale);
+  if (a) return { href, title: a.title, description: a.description, meta: t("cardMeta.guide") };
   if (href === "/compare") {
     return {
       href,
-      title: "All comparisons",
-      description: "Every app comparison in one place.",
-      meta: "Compare",
+      title: t("compare.allComparisons"),
+      description: t("compare.allComparisonsDescription"),
+      meta: t("cardMeta.compare"),
     };
   }
   return null;
 }
 
 export function CompareTemplate({ page }: { page: ComparePage }) {
+  const t = useTranslations("templates");
+  const locale = useLocale();
   const path = compareHref(page.slug);
-  const related = page.related.map(relatedCard).filter((c) => c !== null);
+  const related = page.related
+    .map((href) => relatedCard(href, locale, t))
+    .filter((c) => c !== null);
   const roundup = page.kind === "roundup";
+  const planned = PLANNED_FEATURES.length;
 
   return (
     <>
       <JsonLdScript
-        data={graph(webPageSchema({ path, name: page.title, description: page.seoDescription }))}
+        data={graph(
+          webPageSchema({ locale, path, name: page.title, description: page.seoDescription }),
+        )}
       />
       <PageHero
         crumbs={[
-          { name: "Compare", href: "/compare" },
+          { name: t("crumbs.compare"), href: "/compare" },
           { name: page.title, href: path },
         ]}
         eyebrow={page.eyebrow}
         title={page.title}
         intro={<RichParagraphs items={page.intro} className="flex flex-col gap-4" />}
-        meta={<DateStamp label="Last verified" iso={page.verifiedOn} />}
+        meta={<DateStamp label="lastVerified" iso={page.verifiedOn} />}
       />
 
-      <PageSection id="verdict" eyebrow="Quick answer" title="Which one should you choose?">
+      <PageSection
+        id="verdict"
+        eyebrow={t("compare.verdictEyebrow")}
+        title={t("compare.verdictTitle")}
+      >
         <div className="grid gap-4 md:grid-cols-2">
           {page.summary.map((s) => (
             <div key={s.title} className="rounded-2xl border border-white/10 bg-[#0c2131]/50 p-6">
@@ -81,27 +102,35 @@ export function CompareTemplate({ page }: { page: ComparePage }) {
       <PageSection
         id="comparison-table"
         tone="band"
-        eyebrow="Side by side"
-        title="Feature comparison"
-        intro={`Checked against official websites and US App Store and Google Play listings. "Not verified" means we couldn't confirm it from an official source, not that the feature is missing.${PLANNED_FEATURES.length ? " “Coming soon” marks Munib Tracker features on our roadmap that are not in the app yet." : ""}`}
+        eyebrow={t("compare.tableEyebrow")}
+        title={t("compare.tableTitle")}
+        intro={
+          planned
+            ? t("compare.tableIntroWithPlanned", { appName: APP_NAME })
+            : t("compare.tableIntro")
+        }
       >
         <ComparisonTable page={page} />
       </PageSection>
 
       <PageSection
         id="everything-in-munib"
-        eyebrow="Complete feature list"
-        title="Everything in Munib Tracker"
+        eyebrow={t("compare.inventoryEyebrow")}
+        title={t("compare.inventoryTitle", { appName: APP_NAME })}
         intro={
-          PLANNED_FEATURES.length
-            ? `${SHIPPED_FEATURE_COUNT} features in the app today, plus ${PLANNED_FEATURES.length} on our roadmap marked "Coming soon". Roadmap features aren't in the app yet, so they never count as available in the table above.`
-            : `All ${SHIPPED_FEATURE_COUNT} features in Munib Tracker, grouped by area. Every one is free, with no ads.`
+          planned
+            ? t("compare.inventoryIntroWithPlanned", { shipped: SHIPPED_FEATURE_COUNT, planned })
+            : t("compare.inventoryIntro", { shipped: SHIPPED_FEATURE_COUNT, appName: APP_NAME })
         }
       >
         <FeatureInventory />
       </PageSection>
 
-      <PageSection id="strengths" eyebrow="Strengths" title="What each app does well">
+      <PageSection
+        id="strengths"
+        eyebrow={t("compare.strengthsEyebrow")}
+        title={t("compare.strengthsTitle")}
+      >
         <div
           className={cn("grid gap-4", roundup ? "sm:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2")}
         >
@@ -116,7 +145,7 @@ export function CompareTemplate({ page }: { page: ComparePage }) {
                 {app.name}
               </h3>
               <p className="mt-1 text-sm text-white/60">
-                <span className="font-semibold text-white/75">Best for: </span>
+                <span className="font-semibold text-white/75">{t("compare.bestFor")} </span>
                 {page.bestFor[app.id]}
               </p>
               <ul className="mt-4 flex flex-col gap-2">
@@ -143,13 +172,14 @@ export function CompareTemplate({ page }: { page: ComparePage }) {
       <PageSection
         id="sources"
         tone="band"
-        eyebrow="Sources"
-        title="Where this information comes from"
+        eyebrow={t("compare.sourcesEyebrow")}
+        title={t("compare.sourcesTitle")}
       >
         <p className="max-w-2xl text-[15px] leading-relaxed text-white/65">
-          Prices are US App Store prices and may differ in your country. Features and prices change;
-          please check the official listings. Last verified{" "}
-          <DateStamp label="" iso={page.verifiedOn} />.
+          {t.rich("compare.sourcesNote", {
+            date: formatIsoDate(page.verifiedOn, locale),
+            time: (chunks) => <time dateTime={page.verifiedOn}>{chunks}</time>,
+          })}
         </p>
         <ul className="mt-6 grid gap-2 sm:grid-cols-2">
           {page.sources.map((s) => (
@@ -167,10 +197,15 @@ export function CompareTemplate({ page }: { page: ComparePage }) {
         </ul>
       </PageSection>
 
-      <FaqSection items={page.faqs} title="Questions people ask" />
+      <FaqSection items={page.faqs} title={t("compare.faqTitle")} />
 
       {related.length ? (
-        <PageSection id="related" tone="band" eyebrow="Keep exploring" title="Related pages">
+        <PageSection
+          id="related"
+          tone="band"
+          eyebrow={t("compare.relatedEyebrow")}
+          title={t("compare.relatedTitle")}
+        >
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((c) => (
               <LinkCard key={c.href} {...c} />
@@ -180,8 +215,8 @@ export function CompareTemplate({ page }: { page: ComparePage }) {
       ) : null}
 
       <DownloadCta
-        title="Try Munib Tracker and decide for yourself"
-        text="It's free with no ads or account, so there's nothing to lose by trying it alongside the app you use now."
+        title={t("compare.ctaTitle", { appName: APP_NAME })}
+        text={t("compare.ctaText")}
         placement="compare_page"
       />
     </>

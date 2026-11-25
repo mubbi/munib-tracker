@@ -1,0 +1,32 @@
+{
+  "dialogLabel": "Cookie consent",
+  "noAds": "<strong>No advertising or marketing tracking — ever.</strong> We never use cookies to build an ad profile, retarget you, or sell your data. Optional analytics, if you enable them, only help us improve {appName}.",
+  "summary": {
+    "title": "Your privacy, your choice",
+    "body": "We use essential cookies to keep the site running and, with your permission, optional analytics to understand how people use it. See our <link>Privacy Policy</link>."
+  },
+  "details": {
+    "title": "Cookie preferences",
+    "body": "Choose which cookies you allow. Essential cookies stay on. Full details are in our <link>Privacy Policy</link>."
+  },
+  "managePreferences": "Manage preferences",
+  "essentialOnly": "Essential only",
+  "acceptAll": "Accept all",
+  "saveChoices": "Save my choices",
+  "close": "Close",
+  "back": "Back",
+  "alwaysOn": "Always on",
+  "state": "{on, select, true {On} other {Off}}",
+  "switchLabel": "{item} {on, select, true {On} other {Off}}",
+  "openPreferences": "Cookie preferences",
+  "items": {
+    "essential": {
+      "title": "Essential",
+      "description": "Required for the site to work — security, session management, and core features. These cannot be turned off."
+    },
+    "analytics": {
+      "title": "Analytics",
+      "description": "Helps us understand which pages people find useful and how the site performs, so we can keep improving it. Never used for advertising."
+    }
+  }
+}

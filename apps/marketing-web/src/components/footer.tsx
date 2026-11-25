@@ -1,12 +1,14 @@
-import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME } from "@munib-tracker/shared/constants";
 import { Globe, Mail, MoonStar } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { CookiePreferencesButton } from "@/components/cookie-preferences-button";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { TrackedLink } from "@/components/tracked-link";
+import { Link } from "@/i18n/navigation";
 import { isGoogleAnalyticsConfigured } from "@/lib/gtag";
-import { FOOTER_GROUPS, PRODUCT_APP_URL, SITE_PATHS } from "@/lib/site";
+import { FOOTER_GROUPS, productAppUrl, SITE_PATHS } from "@/lib/site";
 
 const COPYRIGHT_YEAR = 2026;
 
@@ -14,6 +16,9 @@ const COPYRIGHT_YEAR = 2026;
  *  lattice, and the mosque resting over still water beneath the links.
  *  Server-rendered; click tracking lives in the `TrackedLink` islands. */
 export function Footer() {
+  const t = useTranslations("footer");
+  const tMeta = useTranslations("metadata");
+  const locale = useLocale();
   const showCookiePreferences = isGoogleAnalyticsConfigured();
   return (
     <footer className="relative mt-auto overflow-x-hidden border-t border-white/10 bg-[linear-gradient(180deg,#0a1830_0%,#0b2226_55%,#04101a_100%)] text-white">
@@ -41,7 +46,7 @@ export function Footer() {
           viewBox="0 0 100 100"
           className="absolute bottom-[58%] right-[12%] size-7 rotate-[24deg] drop-shadow-[0_0_16px_rgba(246,214,130,0.85)] sm:size-8"
         >
-          <title>Crescent moon</title>
+          <title>{t("crescentMoon")}</title>
           <path d="M68 54a30 30 0 11-26-32 24 24 0 1026 32z" fill="#f2cd7e" />
         </svg>
       </div>
@@ -63,24 +68,23 @@ export function Footer() {
               <span className="font-display text-xl font-semibold">{APP_NAME}</span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/65">
-              {APP_TAGLINE} A free, offline-first companion for Salah, Zikr, Qaza, the Qur&apos;an
-              and learning your deen. No ads, and no account needed for personal use.
+              {t("description", { tagline: tMeta("tagline") })}
             </p>
             <div className="mt-6">
               <TrackedLink
-                href={PRODUCT_APP_URL}
+                href={productAppUrl(locale)}
                 className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-[linear-gradient(180deg,#f6dfa4,#e0b563)] px-5 text-sm font-semibold text-[#3a2c10] shadow-[0_10px_26px_-10px_rgba(224,181,99,0.55),inset_0_1px_0_rgba(255,255,255,0.5)] transition-all duration-200 hover:brightness-[1.04] active:scale-[0.98]"
                 track="web_demo"
                 placement="footer"
               >
                 <MoonStar className="size-4" />
-                Open the web app
+                {t("openWebApp")}
               </TrackedLink>
             </div>
             <div className="mt-6 flex items-center gap-2">
               <TrackedLink
                 href={APP_AUTHOR_URL}
-                aria-label={`${APP_AUTHOR}'s website`}
+                aria-label={t("authorWebsite", { author: APP_AUTHOR })}
                 className="inline-flex size-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/65 backdrop-blur-sm transition-colors hover:bg-white/10 hover:text-white"
                 track="outbound"
                 linkText={APP_AUTHOR}
@@ -90,7 +94,7 @@ export function Footer() {
               </TrackedLink>
               <Link
                 href={SITE_PATHS.contact}
-                aria-label="Contact us"
+                aria-label={t("contactUs")}
                 className="inline-flex size-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/65 backdrop-blur-sm transition-colors hover:bg-white/10 hover:text-white"
               >
                 <Mail className="size-[18px]" />
@@ -100,36 +104,36 @@ export function Footer() {
 
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 xl:grid-cols-5">
             {FOOTER_GROUPS.map((group) => (
-              <div key={group.heading}>
+              <div key={group.id}>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#ecca7d]">
-                  {group.heading}
+                  {t(`groups.${group.id}`)}
                 </p>
                 <ul className="mt-4 flex flex-col gap-3">
                   {group.links.map((link) => (
-                    <li key={`${group.heading}-${link.label}`}>
-                      {"external" in link && link.external ? (
+                    <li key={link.href}>
+                      {link.external ? (
                         <TrackedLink
                           href={link.href}
                           className="text-sm text-white/65 transition-colors hover:text-white"
                           track="outbound"
-                          linkText={link.label}
+                          linkText={link.brand}
                           placement="footer"
                         >
-                          {link.label}
+                          {link.brand}
                         </TrackedLink>
                       ) : (
                         <Link
                           href={link.href}
                           className="text-sm text-white/65 transition-colors hover:text-white"
                         >
-                          {link.label}
+                          {t(`links.${link.id}`, { appName: APP_NAME })}
                         </Link>
                       )}
                     </li>
                   ))}
-                  {group.heading === "Company" && showCookiePreferences ? (
+                  {group.id === "company" && showCookiePreferences ? (
                     <li>
-                      <CookiePreferencesButton className="block w-full cursor-pointer border-0 bg-transparent p-0 text-left text-sm whitespace-nowrap text-white/65 transition-colors hover:text-white" />
+                      <CookiePreferencesButton className="block w-full cursor-pointer border-0 bg-transparent p-0 text-start text-sm whitespace-nowrap text-white/65 transition-colors hover:text-white" />
                     </li>
                   ) : null}
                 </ul>
@@ -139,10 +143,11 @@ export function Footer() {
         </div>
 
         <div className="relative mt-14 flex flex-col items-center gap-3 pt-8 pb-40 text-sm text-white/60 [text-shadow:0_1px_12px_rgba(4,16,26,0.85)] sm:flex-row sm:justify-between sm:pb-44">
-          <p>
-            © {COPYRIGHT_YEAR} {APP_NAME}. Your worship data stays yours.
-          </p>
-          <p>Free for personal and educational use.</p>
+          <p>{t("copyright", { year: String(COPYRIGHT_YEAR), appName: APP_NAME })}</p>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-5">
+            <p>{t("license")}</p>
+            <LocaleSwitcher direction="up" />
+          </div>
         </div>
       </div>
     </footer>

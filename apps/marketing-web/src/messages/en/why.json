@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "title": "Why Munib Tracker — Private, Ad-Free and Built on Authentic Sources",
+    "description": "The principles behind Munib Tracker: consistency over guilt, privacy by default, no ads, authentic cited sources, offline-first, and free for everyone."
+  },
+  "schemaName": "Why Munib Tracker",
+  "crumb": "Why Munib Tracker",
+  "eyebrow": "Our principles",
+  "title": "A worship companion that's on your side",
+  "intro": "Many Islamic apps are funded by ads or subscriptions, which pulls them towards more screen time and more data. Munib Tracker is built differently: to help you turn back to Allah, then get out of the way.",
+  "heroCaption": "Downloaded content is stored on your device.",
+  "principlesTitle": "What we believe",
+  "principles": {
+    "consistency": {
+      "title": "Consistency, not guilt",
+      "text": "Munib is a Qur'anic word for someone who turns back to Allah. The app is built for coming back: missed Salah are recorded honestly but gently, excused days don't break your streak, and levels never run out."
+    },
+    "privacy": {
+      "title": "Private by default",
+      "text": "No account is needed for personal use. Without signing in, your worship record stays on your device; only the Masjid finder looks up nearby masjids through our server, using a rough area of about 5 km, and family features share just a small signal. Qur'an practice processes your voice on the device and never uploads it."
+    },
+    "noAds": {
+      "title": "No ads, ever",
+      "text": "Worship deserves focus. There are no ads, no advertising SDKs, no subscriptions and no in-app purchases."
+    },
+    "authentic": {
+      "title": "Authentic, cited content",
+      "text": "Qur'an text, translations, hadith, adhkar and duas come from established open datasets, never written by hand or generated. Sources are listed on our [credits page](/credits)."
+    },
+    "offline": {
+      "title": "Offline-first",
+      "text": "Tracking, the Qur'an text, adhkar, duas and the learning library all work without a connection, so the app is there on a flight or in a basement Masjid."
+    },
+    "open": {
+      "title": "Open for anyone to check",
+      "text": "The source code is public on GitHub under a non-commercial licence, so anyone can see how it works. [Learn about our open-source approach](/open-source)."
+    }
+  },
+  "promises": {
+    "eyebrow": "Promises",
+    "title": "What Munib Tracker won't do",
+    "items": {
+      "ads": "Show ads or sell your data",
+      "subscription": "Lock features behind a subscription",
+      "leaderboards": "Rank you against other people on leaderboards",
+      "aiText": "Replace Qur'an, hadith or adhkar text with AI-generated or hand-typed versions",
+      "fatwas": "Issue fatwas: calculators and guides point you to qualified scholars",
+      "donations": "Accept donations or sponsorship"
+    },
+    "caption": "Encouragement without leaderboards."
+  },
+  "more": {
+    "eyebrow": "More than a tracker",
+    "title": "One calm place for your daily worship",
+    "body": "Munib Tracker brings together what usually takes several apps: a [Salah tracker](/features/salah-tracker), a [Qaza planner](/features/qaza-salah-tracker), [adhkar with sources](/features/zikr-tracker), the Qur'an with [recitation practice](/features/quran-practice), and a cited [learning library](/learn). Compare it honestly with other apps on our [comparison pages](/compare).",
+    "cards": {
+      "features": {
+        "title": "All features",
+        "description": "Everything the app can do, feature by feature."
+      },
+      "compare": {
+        "title": "Compare apps",
+        "description": "Sourced comparisons with Muslim Pro, Tarteel and more."
+      },
+      "privacy": {
+        "title": "Privacy policy",
+        "description": "Exactly what is stored, where, and why."
+      }
+    }
+  },
+  "cta": {
+    "title": "Try an Islamic app built around you",
+    "text": "Free, ad-free and private. Download Munib Tracker and see the difference."
+  }
+}

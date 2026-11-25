@@ -1,4 +1,6 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
 import { ArrowRight, Ban, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
 import { PrayerArc } from "@/components/day-arc/prayer-arc";
@@ -8,24 +10,26 @@ import { TrackedLink } from "@/components/tracked-link";
 import { SITE_PATHS } from "@/lib/site";
 
 const TRUST = [
-  { icon: Ban, top: "No ads", bottom: "Ever", color: "#8fd9ae" },
-  { icon: Lock, top: "No account", bottom: "Needed", color: "#e9c675" },
-  { icon: WifiOff, top: "Works", bottom: "Offline", color: "#9ad4a9" },
-];
+  { id: "noAds", icon: Ban, color: "#8fd9ae" },
+  { id: "noAccount", icon: Lock, color: "#e9c675" },
+  { id: "offline", icon: WifiOff, color: "#9ad4a9" },
+] as const;
 
 /** Day Arc hero — fully coded: gradient sky, stars, crescent, mosque skyline,
  *  the color-coded prayer arc, and a steel phone frame with the real screenshot.
  *  Server-rendered; only the entrance animation (`hero-motion.tsx`) is client code. */
 export function Hero() {
+  const t = useTranslations("home.hero");
   return (
     <section
       aria-labelledby="hero-heading"
       className="relative isolate -mt-24 flex min-h-screen items-center overflow-hidden pb-40 pt-32 sm:pb-48"
     >
-      {/* Girih strapwork lattice, strongest at the left edge like the concept */}
+      {/* Girih strapwork lattice, strongest at the copy's edge like the concept
+          (left in LTR; mirrored with the rest of the composition in RTL) */}
       <div
         aria-hidden
-        className="islamic-tiles-soft pointer-events-none absolute inset-0 opacity-[0.22] [mask-image:radial-gradient(90%_80%_at_0%_35%,#000_0%,rgba(0,0,0,0.4)_45%,transparent_75%)]"
+        className="islamic-tiles-soft pointer-events-none absolute inset-0 opacity-[0.22] [mask-image:radial-gradient(90%_80%_at_0%_35%,#000_0%,rgba(0,0,0,0.4)_45%,transparent_75%)] rtl:-scale-x-100"
       />
       {/* Twinkling starlight — two offset layers like a starlit headliner */}
       <div
@@ -36,20 +40,27 @@ export function Hero() {
         aria-hidden
         className="hero-stars-2 pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,#000_0%,rgba(0,0,0,0.55)_60%,rgba(0,0,0,0.25)_95%)]"
       />
-      {/* Warm golden sparkles clustered around the arc + horizon */}
-      <div aria-hidden className="hero-sparkles pointer-events-none absolute inset-0" />
+      {/* Warm golden sparkles clustered around the arc + horizon. The arc, the
+          sparkles and the bloom sit on the phone's side, so RTL mirrors them. */}
+      <div
+        aria-hidden
+        className="hero-sparkles pointer-events-none absolute inset-0 rtl:-scale-x-100"
+      />
       {/* Warm sun bloom behind the phone */}
-      <div aria-hidden className="hero-bloom pointer-events-none absolute inset-0" />
+      <div
+        aria-hidden
+        className="hero-bloom pointer-events-none absolute inset-0 rtl:-scale-x-100"
+      />
 
-      {/* Day arc + color-coded prayer bullets down the right edge */}
+      {/* Day arc + color-coded prayer bullets down the inline-end edge */}
       <PrayerArc />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-6 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pr-24 xl:pr-40">
-        <HeroStagger className="text-center lg:text-left">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-6 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pe-24 xl:pe-40">
+        <HeroStagger className="text-center lg:text-start">
           <HeroItem className="flex justify-center lg:justify-start">
             <TrackedLink
               href="/features/quran-practice"
-              className="group inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.55)] py-1.5 pr-4 pl-1.5 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] hover:border-white/35"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-[rgba(20,26,36,0.55)] py-1.5 ps-1.5 pe-4 text-sm font-medium text-[#8fe0b8] shadow-[0_8px_24px_-8px_rgba(8,12,24,0.6)] transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.4)] hover:border-white/35"
               track="select_content"
               contentType="announcement"
               itemId="quran_practice_ai"
@@ -57,11 +68,11 @@ export function Hero() {
             >
               <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-b from-[#f8e7b2] to-[#dcae5e] px-2.5 py-1 text-xs font-bold text-[#1a1408] [text-shadow:none]">
                 <Sparkles className="size-3.5" aria-hidden />
-                New
+                {t("announcementBadge")}
               </span>
-              Qur&apos;an practice with AI
+              {t("announcement")}
               <ArrowRight
-                className="size-4 transition-transform group-hover:translate-x-0.5"
+                className="size-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
                 aria-hidden
               />
             </TrackedLink>
@@ -72,21 +83,29 @@ export function Hero() {
             id="hero-heading"
             className="hero-text-shadow mt-7 font-sans text-[3rem] font-semibold leading-[1.04] tracking-[-0.015em] text-[#f4f1ea] sm:text-6xl lg:text-[4.35rem]"
           >
-            {/* Explicit spaces keep the accessible name ("Track Your Journey Back
-                to Allah.") intact; they collapse visually between block spans. */}
-            <span className="block whitespace-nowrap">Track Your</span>{" "}
-            <span className="block whitespace-nowrap">Journey</span>{" "}
-            <span className="block whitespace-nowrap bg-gradient-to-r from-[#f8e7b2] via-[#eecd81] to-[#dcae5e] bg-clip-text text-transparent [text-shadow:none] drop-shadow-[0_2px_14px_rgba(30,20,4,0.45)]">
-              Back to Allah.
-            </span>
+            {/* The spaces between the tags in the catalog keep the accessible name
+                ("Track Your Journey Back to Allah.") intact; they collapse
+                visually between the block spans. The English lines are sized to
+                never wrap; the longer Arabic/Urdu lines may wrap (balanced). */}
+            {t.rich("headline", {
+              line: (chunks) => (
+                <span className="block whitespace-nowrap rtl:text-balance rtl:whitespace-normal">
+                  {chunks}
+                </span>
+              ),
+              accent: (chunks) => (
+                <span className="block whitespace-nowrap rtl:text-balance rtl:whitespace-normal bg-gradient-to-r from-[#f8e7b2] via-[#eecd81] to-[#dcae5e] bg-clip-text text-transparent [text-shadow:none] drop-shadow-[0_2px_14px_rgba(30,20,4,0.45)]">
+                  {chunks}
+                </span>
+              ),
+            })}
           </h1>
 
           <HeroItem
             as="p"
             className="hero-text-shadow-soft mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/85 lg:mx-0"
           >
-            Log your Salah, make up missed prayers, keep your daily Zikr, and read and practise the
-            Qur&apos;an. Free, private and without ads.
+            {t("lead")}
           </HeroItem>
 
           <HeroItem className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:items-start lg:justify-start">
@@ -101,7 +120,7 @@ export function Hero() {
                 className="size-[22px] drop-shadow-[0_1px_3px_rgba(0,60,40,0.5)]"
                 strokeWidth={2.2}
               />
-              Get the app
+              {t("getApp")}
             </TrackedLink>
             <TrackedLink
               href={SITE_PATHS.features}
@@ -111,7 +130,7 @@ export function Hero() {
               placement="hero"
             >
               <Sparkle className="size-5 fill-white text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]" />
-              Explore features
+              {t("exploreFeatures")}
             </TrackedLink>
           </HeroItem>
 
@@ -123,19 +142,21 @@ export function Hero() {
             as="ul"
             className="mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 lg:justify-start"
           >
-            {TRUST.map(({ icon: Icon, top, bottom, color }, i) => (
-              <li key={bottom} className="inline-flex items-center gap-2.5">
+            {TRUST.map(({ id, icon: Icon, color }, i) => (
+              <li key={id} className="inline-flex items-center gap-2.5">
                 {i > 0 ? (
-                  <span aria-hidden className="mr-3 hidden h-8 w-px bg-white/20 sm:block" />
+                  <span aria-hidden className="me-3 hidden h-8 w-px bg-white/20 sm:block" />
                 ) : null}
                 <Icon
                   className="size-7 shrink-0 drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)]"
                   style={{ color }}
                   strokeWidth={1.6}
                 />
-                <span className="hero-text-shadow-soft text-left text-[13px] leading-snug text-white/80">
-                  <span className="block">{top}</span>
-                  <span className="block font-semibold text-white/95">{bottom}</span>
+                <span className="hero-text-shadow-soft text-start text-[13px] leading-snug text-white/80">
+                  <span className="block">{t(`trust.${id}.top`)}</span>
+                  <span className="block font-semibold text-white/95">
+                    {t(`trust.${id}.bottom`)}
+                  </span>
                 </span>
               </li>
             ))}
@@ -143,7 +164,7 @@ export function Hero() {
         </HeroStagger>
 
         {/* Real screenshot in a straight steel frame */}
-        <HeroDevice className="relative flex justify-center lg:justify-end lg:pr-4">
+        <HeroDevice className="relative flex justify-center lg:justify-end lg:pe-4">
           <div
             aria-hidden
             className="absolute left-1/2 top-1/2 -z-10 size-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(240,185,104,0.35)_0%,transparent_68%)]"
@@ -151,7 +172,7 @@ export function Hero() {
           <div className="animate-float-slow">
             <DeviceFrame
               src="/app-home-dark.png"
-              alt="Munib Tracker home screen: today's prayer times, the Hijri date, and a daily activity checklist."
+              alt={t("screenshotAlt", { appName: APP_NAME })}
               className="w-[250px] sm:w-[272px] lg:w-[292px]"
               preload
             />
@@ -177,7 +198,7 @@ export function Hero() {
         viewBox="0 0 100 100"
         className="pointer-events-none absolute bottom-[5%] left-[69%] z-[1] size-11 rotate-[24deg] drop-shadow-[0_0_22px_rgba(246,214,130,0.9)] sm:size-12"
       >
-        <title>Crescent moon</title>
+        <title>{t("moonTitle")}</title>
         <path d="M68 54a30 30 0 11-26-32 24 24 0 1026 32z" fill="#f2cd7e" />
       </svg>
     </section>

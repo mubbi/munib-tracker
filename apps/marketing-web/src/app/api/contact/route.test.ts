@@ -8,11 +8,13 @@ vi.mock("@/lib/contact-messages", () => ({
   insertContactMessage: vi.fn(),
 }));
 
+import { CONTACT_ERROR_CODES } from "@/lib/contact-errors";
 import {
   countRecentContactMessagesByEmail,
   countRecentContactMessagesByIp,
   insertContactMessage,
 } from "@/lib/contact-messages";
+import messages from "@/messages/en";
 import { POST } from "./route";
 
 function makeRequest(body: unknown, ip = "203.0.113.1") {
@@ -63,6 +65,7 @@ describe("POST /api/contact", () => {
     const json = await res.json();
     expect(json.ok).toBeUndefined();
     expect(json.error).toBeTruthy();
+    expect(json.code).toBe("not_configured");
     expect(insertMock).not.toHaveBeenCalled();
   });
 
@@ -110,6 +113,7 @@ describe("POST /api/contact", () => {
     countMock.mockResolvedValue(2);
     const res = await POST(makeRequest(validBody));
     expect(res.status).toBe(429);
+    await expect(res.json()).resolves.toMatchObject({ code: "rate_limited_email", limit: 2 });
     expect(insertMock).not.toHaveBeenCalled();
   });
 
@@ -117,6 +121,7 @@ describe("POST /api/contact", () => {
     ipCountMock.mockResolvedValue(5);
     const res = await POST(makeRequest(validBody));
     expect(res.status).toBe(429);
+    await expect(res.json()).resolves.toMatchObject({ code: "rate_limited_ip" });
     expect(ipCountMock).toHaveBeenCalledWith("203.0.113.1");
     expect(insertMock).not.toHaveBeenCalled();
   });
@@ -162,35 +167,58 @@ describe("POST /api/contact", () => {
   });
 
   it.each([
-    ["malformed JSON", "{oops", "Invalid JSON"],
-    ["a JSON null body", "null", "Invalid JSON"],
-    ["a JSON array body", "[]", "Invalid JSON"],
-    ["a non-string name", { ...validBody, name: 42 }, "Invalid field type"],
-    ["an object message", { ...validBody, message: { a: 1 } }, "Invalid field type"],
-    ["a non-string honeypot", { ...validBody, company: ["x"] }, "Invalid field type"],
+    ["malformed JSON", "{oops", "Invalid JSON", "invalid_json"],
+    ["a JSON null body", "null", "Invalid JSON", "invalid_json"],
+    ["a JSON array body", "[]", "Invalid JSON", "invalid_json"],
+    ["a non-string name", { ...validBody, name: 42 }, "Invalid field type", "invalid_field_type"],
+    [
+      "an object message",
+      { ...validBody, message: { a: 1 } },
+      "Invalid field type",
+      "invalid_field_type",
+    ],
+    [
+      "a non-string honeypot",
+      { ...validBody, company: ["x"] },
+      "Invalid field type",
+      "invalid_field_type",
+    ],
     [
       "a name with a line break",
       { ...validBody, name: "Aisha\r\nBcc: x@y.z" },
       "Name contains invalid characters",
+      "name_invalid",
     ],
     [
       "a message with a NUL byte",
       { ...validBody, message: "hi\u0000there" },
       "Message contains invalid characters",
+      "message_invalid",
     ],
-    ["a missing name", { ...validBody, name: "   " }, "Name required"],
-    ["a malformed email", { ...validBody, email: "not-an-email" }, "Valid email required"],
-    ["a missing email", { ...validBody, email: undefined }, "Valid email required"],
+    ["a missing name", { ...validBody, name: "   " }, "Name required", "name_required"],
+    [
+      "a malformed email",
+      { ...validBody, email: "not-an-email" },
+      "Valid email required",
+      "email_invalid",
+    ],
+    [
+      "a missing email",
+      { ...validBody, email: undefined },
+      "Valid email required",
+      "email_invalid",
+    ],
     [
       "an over-length email",
       { ...validBody, email: `${"a".repeat(250)}@x.io` },
       "Valid email required",
+      "email_invalid",
     ],
-    ["a missing message", { ...validBody, message: "" }, "Message required"],
-  ])("rejects %s with 400", async (_label, body, error) => {
+    ["a missing message", { ...validBody, message: "" }, "Message required", "message_required"],
+  ])("rejects %s with 400", async (_label, body, error, code) => {
     const res = await POST(makeRequest(body));
     expect(res.status).toBe(400);
-    await expect(res.json()).resolves.toEqual({ error });
+    await expect(res.json()).resolves.toEqual({ error, code });
     expect(insertMock).not.toHaveBeenCalled();
   });
 
@@ -215,5 +243,14 @@ describe("POST /api/contact", () => {
     expect(insertMock).toHaveBeenCalledWith(
       expect.objectContaining({ ipAddress, userAgent: null }),
     );
+  });
+});
+
+describe("contact error codes", () => {
+  it("has a contactForm catalog message for every code the API can return", () => {
+    const errors: Record<string, string> = messages.contactForm.errors;
+    for (const code of CONTACT_ERROR_CODES) {
+      expect(errors[code], code).toEqual(expect.any(String));
+    }
   });
 });

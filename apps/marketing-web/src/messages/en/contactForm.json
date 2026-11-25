@@ -1,0 +1,38 @@
+{
+  "labels": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "company": "Company"
+  },
+  "messagePlaceholder": "How can we help?",
+  "validation": {
+    "name": "Please enter your name.",
+    "email": "Please enter a valid email address.",
+    "message": "Please enter a message."
+  },
+  "submit": "Send message",
+  "sending": "Sending…",
+  "success": {
+    "title": "Message sent.",
+    "body": "Thank you — we will respond as soon as we can."
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "invalid_content_type": "Content-Type must be application/json",
+    "body_too_large": "Request body too large",
+    "invalid_json": "Invalid JSON",
+    "invalid_field_type": "Invalid field type",
+    "name_required": "Name required",
+    "name_too_long": "Name is too long",
+    "name_invalid": "Name contains invalid characters",
+    "email_invalid": "Valid email required",
+    "message_required": "Message required",
+    "message_too_long": "Message is too long",
+    "message_invalid": "Message contains invalid characters",
+    "not_configured": "Contact form is not configured. Please try again later.",
+    "rate_limited_email": "You have reached the limit of {limit} messages per day for this email. Please try again tomorrow.",
+    "rate_limited_ip": "Too many messages from your network today. Please try again tomorrow.",
+    "unavailable": "Contact service unavailable"
+  }
+}

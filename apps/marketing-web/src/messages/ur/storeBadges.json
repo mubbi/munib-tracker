@@ -1,0 +1,14 @@
+{
+  "appStore": {
+    "ariaLabel": "{store} سے ڈاؤن لوڈ کریں: iPhone اور iPad کے لیے {appName}",
+    "eyebrow": "ڈاؤن لوڈ کریں"
+  },
+  "googlePlay": {
+    "ariaLabel": "{store} پر حاصل کریں: Android کے لیے {appName}",
+    "eyebrow": "حاصل کریں"
+  },
+  "webApp": {
+    "ariaLabel": "ویب ایپ آزمائیں: اپنے براؤزر میں {appName}",
+    "label": "ویب ایپ آزمائیں"
+  }
+}

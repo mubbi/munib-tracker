@@ -13,15 +13,18 @@ describe("sitemap.xml", () => {
     const urls = entries.map((e) => e.url);
     expect(new Set(urls).size).toBe(urls.length);
     for (const url of urls) expect(url.startsWith(SITE_URL)).toBe(true);
-    for (const f of FEATURE_PAGES) expect(urls).toContain(`${SITE_URL}/features/${f.slug}`);
+    for (const f of FEATURE_PAGES) expect(urls).toContain(`${SITE_URL}/en/features/${f.slug}`);
     for (const a of ARTICLES)
-      expect(urls).toContain(`${SITE_URL}/resources/${a.category}/${a.slug}`);
+      expect(urls).toContain(`${SITE_URL}/en/resources/${a.category}/${a.slug}`);
   });
 
   it("gives every entry a date and hreflang alternates", () => {
     for (const e of entries) {
       expect(e.lastModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(e.alternates?.languages).toMatchObject({ en: e.url, "x-default": e.url });
+      const languages = e.alternates?.languages ?? {};
+      expect(Object.values(languages)).toContain(e.url);
+      expect(languages).toHaveProperty("en");
+      expect(languages).toHaveProperty("x-default", languages.en);
     }
   });
 

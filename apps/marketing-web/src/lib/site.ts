@@ -1,3 +1,11 @@
+import {
+  buildLocalizedAndroidPlayStoreUrl,
+  buildLocalizedIosAppStoreUrl,
+} from "@munib-tracker/shared/constants";
+import { DEFAULT_LOCALE, type Locale } from "@/i18n/config";
+import type footerMessages from "@/messages/en/footer.json";
+import type navMessages from "@/messages/en/nav.json";
+
 /**
  * Canonical marketing-site origin. Override per environment with
  * `NEXT_PUBLIC_SITE_URL` (e.g. a preview deployment). No trailing slash.
@@ -12,9 +20,32 @@ export const PRODUCT_APP_URL = (
   process.env.NEXT_PUBLIC_PRODUCT_APP_URL ?? "https://my.munibtracker.app"
 ).replace(/\/$/, "");
 
+/**
+ * Product web app URL in the visitor's language. The app serves English
+ * unprefixed and other languages under `/{locale}` (its boot script switches
+ * the UI language — `apps/app/src/lib/locale-path.ts`).
+ */
+export function productAppUrl(locale: Locale, path = "/"): string {
+  const prefix = locale === DEFAULT_LOCALE ? "" : `/${locale}`;
+  const tail = path === "/" ? "" : path;
+  return `${PRODUCT_APP_URL}${prefix}${tail}` || PRODUCT_APP_URL;
+}
+
 /** Deep link into the product app's Qur'an reader, focused on one ayah. */
-export function appQuranAyahUrl(surah: number, ayah: number): string {
-  return `${PRODUCT_APP_URL}/quran/${surah}?ayah=${ayah}`;
+export function appQuranAyahUrl(surah: number, ayah: number, locale: Locale): string {
+  return `${productAppUrl(locale, `/quran/${surah}`)}?ayah=${ayah}`;
+}
+
+/**
+ * App Store / Google Play listings in the visitor's language — the same
+ * storefront hints the app uses (shared `buildLocalized*StoreUrl`: Arabic →
+ * Saudi storefront / `hl=ar`, Urdu → Pakistan storefront / `hl=ur`).
+ */
+export function storeUrls(locale: Locale): { ios: string; android: string } {
+  return {
+    ios: buildLocalizedIosAppStoreUrl(locale),
+    android: buildLocalizedAndroidPlayStoreUrl(locale),
+  };
 }
 
 export const SITE_PATHS = {
@@ -41,327 +72,215 @@ export const SITE_PATHS = {
 /** Public GitHub repository for contribute CTAs. */
 export const GITHUB_REPO_URL = "https://github.com/mubbi/munib-tracker" as const;
 
-export type NavItem = { href: string; label: string; hint?: string };
-export type NavColumn = { heading: string; items: readonly NavItem[] };
+/*
+ * Header and footer navigation. The structure (ids, hrefs) lives here; the
+ * copy lives in the `nav` (header) and `footer` catalogs, keyed by these ids,
+ * so the client header ships no copy beyond the `nav` namespace.
+ * `content/content.test.ts` keeps these hrefs in sync with the content registries.
+ */
+type NavMessages = typeof navMessages;
+type FooterMessages = typeof footerMessages;
+
+/** Key under `nav.items` (`label` + `hint`). */
+export type NavItemId = keyof NavMessages["items"];
+/** Key under `nav.columns`. */
+export type NavColumnId = keyof NavMessages["columns"];
+/** Key under `nav.menus` (`label` + `viewAll`). */
+export type NavMenuId = keyof NavMessages["menus"];
+/** Key under `nav.featured` (`eyebrow`, `label`, `hint`). */
+export type NavFeaturedId = keyof NavMessages["featured"];
+/** Key under `nav.links`. */
+export type NavLinkId = keyof NavMessages["links"];
+/** Key under `footer.groups`. */
+export type FooterGroupId = keyof FooterMessages["groups"];
+/** Key under `footer.links`. */
+export type FooterLinkId = keyof FooterMessages["links"];
+
+export type NavItem = { id: NavItemId; href: string };
+export type NavColumn = { id: NavColumnId; items: readonly NavItem[] };
 export type NavMenu = {
-  id: string;
-  label: string;
+  id: NavMenuId;
   /** Landing page for the whole menu. */
   href: string;
-  /** Label for the link to `href`. */
-  viewAllLabel: string;
   columns: readonly NavColumn[];
   /** Optional highlighted card in the panel. */
-  feature?: NavItem & { eyebrow: string };
+  feature?: { id: NavFeaturedId; href: string };
 };
 
-/**
- * Header mega-menus. Kept as plain literals (not derived from `src/content`)
- * so the client header doesn't ship page copy; `content/content.test.ts` keeps
- * these hrefs in sync with the content registries.
- */
+/** Header mega-menus. */
 export const NAV_MENUS: readonly NavMenu[] = [
   {
     id: "features",
-    label: "Features",
     href: SITE_PATHS.features,
-    viewAllLabel: "View all features",
     columns: [
       {
-        heading: "Track your worship",
+        id: "trackWorship",
         items: [
-          {
-            href: "/features/salah-tracker",
-            label: "Salah tracker",
-            hint: "Log the five daily Salah",
-          },
-          {
-            href: "/features/qaza-salah-tracker",
-            label: "Qaza tracker",
-            hint: "Make up missed Salah at your pace",
-          },
-          {
-            href: "/features/salah-focus-lock",
-            label: "Salah focus lock",
-            hint: "Block distracting apps at Salah time",
-          },
-          {
-            href: "/features/fasting-tracker",
-            label: "Fasting & Dhul-Hijjah",
-            hint: "Voluntary fasts, Ramadan and the ten days",
-          },
-          {
-            href: "/features/zikr-tracker",
-            label: "Zikr & tasbeeh",
-            hint: "Daily adhkar and a tasbeeh counter",
-          },
-          {
-            href: "/features/daily-islamic-habits",
-            label: "Daily habits",
-            hint: "Today's Goal, reminders and checklists",
-          },
-          {
-            href: "/features/worship-progress",
-            label: "Worship progress",
-            hint: "Statistics, streaks and Noor levels",
-          },
+          { id: "salahTracker", href: "/features/salah-tracker" },
+          { id: "qazaTracker", href: "/features/qaza-salah-tracker" },
+          { id: "salahFocusLock", href: "/features/salah-focus-lock" },
+          { id: "fastingTracker", href: "/features/fasting-tracker" },
+          { id: "zikrTracker", href: "/features/zikr-tracker" },
+          { id: "dailyHabits", href: "/features/daily-islamic-habits" },
+          { id: "worshipProgress", href: "/features/worship-progress" },
         ],
       },
       {
-        heading: "Qur'an and hadith",
+        id: "quranHadith",
         items: [
-          {
-            href: "/features/quran",
-            label: "Qur'an reader",
-            hint: "Read, listen and reflect offline",
-          },
-          {
-            href: "/features/quran-practice",
-            label: "Qur'an practice (AI)",
-            hint: "Recite and it follows along",
-          },
-          {
-            href: "/features/learn-quran",
-            label: "Learn the Qur'an",
-            hint: "From the letters to tajweed",
-          },
-          {
-            href: "/features/hadith",
-            label: "Hadith library",
-            hint: "Collections, grades and explanation",
-          },
-          {
-            href: SITE_PATHS.learn,
-            label: "Learning library",
-            hint: "Aqeedah, seerah and fiqh guides",
-          },
+          { id: "quranReader", href: "/features/quran" },
+          { id: "quranPractice", href: "/features/quran-practice" },
+          { id: "learnQuran", href: "/features/learn-quran" },
+          { id: "hadithLibrary", href: "/features/hadith" },
+          { id: "learningLibrary", href: SITE_PATHS.learn },
         ],
       },
       {
-        heading: "Everyday and family",
+        id: "everydayFamily",
         items: [
-          {
-            href: "/features/prayer-times-qibla",
-            label: "Salah times & Qibla",
-            hint: "Accurate times, Adhan and compass",
-          },
-          {
-            href: "/features/masjid-finder",
-            label: "Masjid finder",
-            hint: "Nearby masjids and your home masjid",
-          },
-          {
-            href: "/features/my-madhhab",
-            label: "My madhhab",
-            hint: "Your school in every guide and calculator",
-          },
-          {
-            href: "/features/umrah-mode",
-            label: "Umrah mode",
-            hint: "A step-by-step companion during Umrah",
-          },
-          {
-            href: "/features/widgets-and-devices",
-            label: "Widgets, watch & TV",
-            hint: "iPhone, Android, web, watch and TV",
-          },
-          {
-            href: "/features/family-and-friends",
-            label: "Family & friends",
-            hint: "Kids mode, partners and group khatm",
-          },
-          {
-            href: "/features/private-reflection",
-            label: "Private reflection",
-            hint: "Muhasabah, weekly coach and family ties",
-          },
-          {
-            href: "/features/islamic-will-and-inheritance",
-            label: "Will & inheritance",
-            hint: "Mirath, wasiyyah and debts",
-          },
+          { id: "prayerTimesQibla", href: "/features/prayer-times-qibla" },
+          { id: "masjidFinder", href: "/features/masjid-finder" },
+          { id: "myMadhhab", href: "/features/my-madhhab" },
+          { id: "umrahMode", href: "/features/umrah-mode" },
+          { id: "widgetsAndDevices", href: "/features/widgets-and-devices" },
+          { id: "familyAndFriends", href: "/features/family-and-friends" },
+          { id: "privateReflection", href: "/features/private-reflection" },
+          { id: "willAndInheritance", href: "/features/islamic-will-and-inheritance" },
         ],
       },
     ],
-    feature: {
-      eyebrow: "New",
-      href: "/features/quran-practice",
-      label: "Qur'an practice with on-device AI",
-      hint: "Recite and a private listener follows you word by word.",
-    },
+    feature: { id: "quranPractice", href: "/features/quran-practice" },
   },
   {
     id: "solutions",
-    label: "Who it's for",
     href: SITE_PATHS.audiences,
-    viewAllLabel: "See everyone it's for",
     columns: [
       {
-        heading: "Who it's for",
+        id: "whoFor",
         items: [
-          {
-            href: "/for/beginners",
-            label: "Returning to Salah",
-            hint: "Rebuild the habit without guilt",
-          },
-          {
-            href: "/for/new-muslims",
-            label: "New Muslims",
-            hint: "Learn Salah and the basics, step by step",
-          },
-          {
-            href: "/for/quran-learners",
-            label: "Qur'an learners",
-            hint: "Read, recite, memorize and revise",
-          },
-          { href: "/for/families", label: "Families", hint: "Learn the Qur'an and Salah at home" },
+          { id: "returningToSalah", href: "/for/beginners" },
+          { id: "newMuslims", href: "/for/new-muslims" },
+          { id: "quranLearners", href: "/for/quran-learners" },
+          { id: "families", href: "/for/families" },
         ],
       },
       {
-        heading: "Get to know the app",
+        id: "getToKnow",
         items: [
-          {
-            href: SITE_PATHS.howItWorks,
-            label: "How it works",
-            hint: "Set up your routine in a minute",
-          },
-          { href: SITE_PATHS.why, label: "Why Munib Tracker", hint: "Private, ad-free, authentic" },
+          { id: "howItWorks", href: SITE_PATHS.howItWorks },
+          { id: "whyApp", href: SITE_PATHS.why },
         ],
       },
     ],
   },
   {
     id: "resources",
-    label: "Resources",
     href: SITE_PATHS.resources,
-    viewAllLabel: "Browse all guides",
     columns: [
       {
-        heading: "Guides",
+        id: "guides",
         items: [
-          {
-            href: "/resources/salah",
-            label: "Salah",
-            hint: "Consistency, Qaza and missed prayers",
-          },
-          {
-            href: "/resources/zikr",
-            label: "Zikr & adhkar",
-            hint: "Daily routine, morning and evening",
-          },
-          {
-            href: "/resources/quran-learning",
-            label: "Qur'an learning",
-            hint: "Read, recite and memorize",
-          },
-          {
-            href: "/resources/islamic-habits",
-            label: "Islamic habits",
-            hint: "Stay consistent in worship",
-          },
+          { id: "salahGuides", href: "/resources/salah" },
+          { id: "zikrGuides", href: "/resources/zikr" },
+          { id: "quranLearningGuides", href: "/resources/quran-learning" },
+          { id: "habitGuides", href: "/resources/islamic-habits" },
         ],
       },
       {
-        heading: "Help",
+        id: "help",
         items: [
-          { href: SITE_PATHS.faq, label: "FAQ", hint: "Privacy, platforms and content" },
-          {
-            href: SITE_PATHS.credits,
-            label: "Content sources",
-            hint: "Where our content comes from",
-          },
-          {
-            href: SITE_PATHS.contact,
-            label: "Contact & support",
-            hint: "Questions, feedback and corrections",
-          },
+          { id: "faq", href: SITE_PATHS.faq },
+          { id: "contentSources", href: SITE_PATHS.credits },
+          { id: "contact", href: SITE_PATHS.contact },
         ],
       },
     ],
-    feature: {
-      eyebrow: "Popular guide",
-      href: "/resources/salah/what-is-qaza-salah",
-      label: "What is Qaza Salah?",
-      hint: "How making up missed Salah works, and where scholars differ.",
-    },
+    feature: { id: "qazaGuide", href: "/resources/salah/what-is-qaza-salah" },
   },
 ];
 
 /** Plain top-level links shown beside the menus. */
-export const NAV_LINKS = [
-  { href: SITE_PATHS.compare, label: "Compare" },
-  { href: SITE_PATHS.about, label: "About" },
-] as const;
+export const NAV_LINKS: readonly { id: NavLinkId; href: string }[] = [
+  { id: "compare", href: SITE_PATHS.compare },
+  { id: "about", href: SITE_PATHS.about },
+];
+
+export type FooterLink =
+  | { id: FooterLinkId; href: string; external?: never }
+  /** Off-site link labelled with a brand name that is never translated. */
+  | { brand: string; href: string; external: true };
+
+export type FooterGroup = { id: FooterGroupId; links: readonly FooterLink[] };
 
 /** Grouped links for the multi-column footer. */
-export const FOOTER_GROUPS = [
+export const FOOTER_GROUPS: readonly FooterGroup[] = [
   {
-    heading: "Features",
+    id: "features",
     links: [
-      { href: "/features/salah-tracker", label: "Salah tracker" },
-      { href: "/features/qaza-salah-tracker", label: "Qaza tracker" },
-      { href: "/features/zikr-tracker", label: "Zikr & tasbeeh" },
-      { href: "/features/quran", label: "Qur'an reader" },
-      { href: "/features/quran-practice", label: "Qur'an practice" },
-      { href: "/features/learn-quran", label: "Learn the Qur'an" },
-      { href: "/features/prayer-times-qibla", label: "Salah times & Qibla" },
-      { href: "/features/masjid-finder", label: "Masjid finder" },
-      { href: "/features/salah-focus-lock", label: "Salah focus lock" },
-      { href: "/features/hadith", label: "Hadith library" },
-      { href: "/features/family-and-friends", label: "Family & friends" },
-      { href: "/features/islamic-will-and-inheritance", label: "Will & inheritance" },
-      { href: "/features/my-madhhab", label: "My madhhab" },
-      { href: "/features/fasting-tracker", label: "Fasting & Dhul-Hijjah" },
-      { href: "/features/umrah-mode", label: "Umrah mode" },
-      { href: "/features/private-reflection", label: "Private reflection" },
-      { href: SITE_PATHS.features, label: "All features" },
+      { id: "salahTracker", href: "/features/salah-tracker" },
+      { id: "qazaTracker", href: "/features/qaza-salah-tracker" },
+      { id: "zikrTracker", href: "/features/zikr-tracker" },
+      { id: "quranReader", href: "/features/quran" },
+      { id: "quranPractice", href: "/features/quran-practice" },
+      { id: "learnQuran", href: "/features/learn-quran" },
+      { id: "prayerTimesQibla", href: "/features/prayer-times-qibla" },
+      { id: "masjidFinder", href: "/features/masjid-finder" },
+      { id: "salahFocusLock", href: "/features/salah-focus-lock" },
+      { id: "hadithLibrary", href: "/features/hadith" },
+      { id: "familyAndFriends", href: "/features/family-and-friends" },
+      { id: "willAndInheritance", href: "/features/islamic-will-and-inheritance" },
+      { id: "myMadhhab", href: "/features/my-madhhab" },
+      { id: "fastingTracker", href: "/features/fasting-tracker" },
+      { id: "umrahMode", href: "/features/umrah-mode" },
+      { id: "privateReflection", href: "/features/private-reflection" },
+      { id: "allFeatures", href: SITE_PATHS.features },
     ],
   },
   {
-    heading: "Who it's for",
+    id: "audiences",
     links: [
-      { href: "/for/beginners", label: "Returning to Salah" },
-      { href: "/for/new-muslims", label: "New Muslims" },
-      { href: "/for/quran-learners", label: "Qur'an learners" },
-      { href: "/for/families", label: "Families" },
-      { href: SITE_PATHS.howItWorks, label: "How it works" },
-      { href: SITE_PATHS.why, label: "Why Munib Tracker" },
+      { id: "returningToSalah", href: "/for/beginners" },
+      { id: "newMuslims", href: "/for/new-muslims" },
+      { id: "quranLearners", href: "/for/quran-learners" },
+      { id: "families", href: "/for/families" },
+      { id: "howItWorks", href: SITE_PATHS.howItWorks },
+      { id: "whyApp", href: SITE_PATHS.why },
     ],
   },
   {
-    heading: "Resources",
+    id: "resources",
     links: [
-      { href: SITE_PATHS.resources, label: "All guides" },
-      { href: "/resources/salah", label: "Salah guides" },
-      { href: "/resources/quran-learning", label: "Qur'an learning" },
-      { href: SITE_PATHS.learn, label: "Learning library" },
-      { href: SITE_PATHS.faq, label: "FAQ" },
-      { href: SITE_PATHS.credits, label: "Content sources" },
+      { id: "allGuides", href: SITE_PATHS.resources },
+      { id: "salahGuides", href: "/resources/salah" },
+      { id: "quranLearning", href: "/resources/quran-learning" },
+      { id: "learningLibrary", href: SITE_PATHS.learn },
+      { id: "faq", href: SITE_PATHS.faq },
+      { id: "contentSources", href: SITE_PATHS.credits },
     ],
   },
   {
-    heading: "Compare",
+    id: "compare",
     links: [
-      { href: "/compare/best-salah-tracker-apps", label: "Salah tracker apps" },
-      { href: "/compare/munib-tracker-vs-muslim-pro", label: "vs Muslim Pro" },
-      { href: "/compare/munib-tracker-vs-islam360", label: "vs Islam360" },
-      { href: "/compare/munib-tracker-vs-tarteel", label: "vs Tarteel" },
-      { href: "/compare/munib-tracker-vs-pillars", label: "vs Pillars" },
-      { href: SITE_PATHS.compare, label: "All comparisons" },
+      { id: "salahTrackerApps", href: "/compare/best-salah-tracker-apps" },
+      { id: "vsMuslimPro", href: "/compare/munib-tracker-vs-muslim-pro" },
+      { id: "vsIslam360", href: "/compare/munib-tracker-vs-islam360" },
+      { id: "vsTarteel", href: "/compare/munib-tracker-vs-tarteel" },
+      { id: "vsPillars", href: "/compare/munib-tracker-vs-pillars" },
+      { id: "allComparisons", href: SITE_PATHS.compare },
     ],
   },
   {
-    heading: "Company",
+    id: "company",
     links: [
-      { href: SITE_PATHS.about, label: "About" },
-      { href: SITE_PATHS.download, label: "Download" },
-      { href: SITE_PATHS.openSource, label: "Open source" },
-      { href: SITE_PATHS.contributors, label: "Contributors" },
-      { href: SITE_PATHS.contact, label: "Contact" },
-      { href: SITE_PATHS.press, label: "Press kit" },
-      { href: SITE_PATHS.privacy, label: "Privacy" },
-      { href: SITE_PATHS.terms, label: "Terms" },
-      { href: GITHUB_REPO_URL, label: "GitHub", external: true },
+      { id: "about", href: SITE_PATHS.about },
+      { id: "download", href: SITE_PATHS.download },
+      { id: "openSource", href: SITE_PATHS.openSource },
+      { id: "contributors", href: SITE_PATHS.contributors },
+      { id: "contact", href: SITE_PATHS.contact },
+      { id: "pressKit", href: SITE_PATHS.press },
+      { id: "privacy", href: SITE_PATHS.privacy },
+      { id: "terms", href: SITE_PATHS.terms },
+      { brand: "GitHub", href: GITHUB_REPO_URL, external: true },
     ],
   },
-] as const;
+];

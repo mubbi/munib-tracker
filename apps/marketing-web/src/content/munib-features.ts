@@ -10,6 +10,10 @@
  */
 
 import { DUA_COUNT } from "@munib-tracker/shared/constants";
+import { TRANSLATIONS as arInventory } from "@/content/i18n/ar/inventory";
+import { TRANSLATIONS as urInventory } from "@/content/i18n/ur/inventory";
+import { type ContentTranslations, localizeEntries } from "@/content/localized";
+import { DEFAULT_LOCALE, type Locale } from "@/i18n/routing";
 
 export type InventoryItem = {
   name: string;
@@ -434,3 +438,11 @@ export const PLANNED_FEATURES = MUNIB_FEATURE_INVENTORY.flatMap((g) =>
 export const SHIPPED_FEATURE_COUNT = MUNIB_FEATURE_INVENTORY.flatMap((g) => g.items).filter(
   (i) => i.status === "shipped",
 ).length;
+
+/** Translated inventory groups per locale (see `content/localized.ts`). */
+const TRANSLATIONS: ContentTranslations<InventoryGroup> = { ar: arInventory, ur: urInventory };
+
+/** The feature inventory in `locale`, English where a group isn't translated yet. */
+export function getFeatureInventory(locale: Locale = DEFAULT_LOCALE): readonly InventoryGroup[] {
+  return localizeEntries(MUNIB_FEATURE_INVENTORY, TRANSLATIONS, locale, (g) => g.id);
+}

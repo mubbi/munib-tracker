@@ -95,9 +95,10 @@ export function DeviceFrame({
               sizes={sizes}
               className="block h-auto w-full"
             />
-            {/* Dynamic Island */}
+            {/* Dynamic Island (hardware art: the camera stays on the right in RTL too) */}
             <span
               aria-hidden
+              dir="ltr"
               className="absolute left-1/2 top-[1.25%] flex h-[3.85%] w-[31%] -translate-x-1/2 items-center justify-end rounded-full bg-black pr-[3.2%]"
             >
               <span className="block aspect-square h-[42%] rounded-full bg-[radial-gradient(circle_at_35%_35%,#2b3a52,#0b0f16_70%)]" />

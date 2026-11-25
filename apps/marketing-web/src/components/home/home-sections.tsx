@@ -1,25 +1,29 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
 import { ArrowRight, Ban, BookCheck, Code2, ShieldCheck, UserRound, WifiOff } from "lucide-react";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { FeatureIcon } from "@/components/content/feature-icon";
 import { LinkCard, PageSection } from "@/components/content/primitives";
 import { TrackedLink } from "@/components/tracked-link";
-import { AUDIENCE_PAGES, audienceHref } from "@/content/audiences";
-import { COMPARE_PAGES, compareHref } from "@/content/compare";
-import { FEATURE_PAGES, featureHref } from "@/content/features";
-import { ARTICLES, articleHref } from "@/content/resources";
+import { audienceHref, getAudiencePages } from "@/content/audiences";
+import { compareHref, getComparePages } from "@/content/compare";
+import { featureHref, getFeaturePages } from "@/content/features";
+import { articleHref, getArticles } from "@/content/resources";
+import { Link } from "@/i18n/navigation";
 
 /** Every feature landing page, one card each. */
 export function FeatureHub() {
+  const t = useTranslations("home.featureHub");
+  const locale = useLocale();
   return (
     <PageSection
       id="all-features"
       tone="band"
-      eyebrow="Features"
-      title="Everything you need to stay consistent"
-      intro="Each feature has its own page with screenshots, examples and answers to common questions."
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      intro={t("intro")}
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {FEATURE_PAGES.map((f) => (
+        {getFeaturePages(locale).map((f) => (
           <LinkCard
             key={f.slug}
             href={featureHref(f.slug)}
@@ -35,14 +39,10 @@ export function FeatureHub() {
           cta="explore_features"
           placement="home_features"
         >
-          <span className="font-display text-lg font-semibold text-white">
-            See the complete list
-          </span>
-          <span className="mt-1 text-sm text-white/60">
-            Hadith, duas, learning library and more
-          </span>
+          <span className="font-display text-lg font-semibold text-white">{t("seeAll")}</span>
+          <span className="mt-1 text-sm text-white/60">{t("seeAllHint")}</span>
           <span className="mt-3 inline-flex items-center justify-center gap-1 text-sm font-semibold text-brand">
-            All features <ArrowRight aria-hidden className="size-4" />
+            {t("allFeatures")} <ArrowRight aria-hidden className="size-4 rtl:-scale-x-100" />
           </span>
         </TrackedLink>
       </div>
@@ -50,34 +50,29 @@ export function FeatureHub() {
   );
 }
 
-const STEPS = [
-  {
-    title: "Download",
-    text: "Install on iPhone or Android, or open the web app. No account needed.",
-  },
-  {
-    title: "Set your location",
-    text: "Salah times appear for your city, with your method and madhab.",
-  },
-  { title: "Log as you go", text: "Tap each Salah and zikr. Your progress builds day by day." },
-];
+const STEPS = ["download", "location", "log"] as const;
 
 export function HowItWorksTeaser() {
+  const t = useTranslations("home.howItWorks");
   return (
     <PageSection
       id="how-it-works"
-      eyebrow="How it works"
-      title="Up and running in a minute"
-      intro="Munib Tracker fits around the five daily Salah, so your routine and the app stay in step."
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      intro={t("intro", { appName: APP_NAME })}
     >
       <ol className="grid gap-4 md:grid-cols-3">
-        {STEPS.map((s, i) => (
-          <li key={s.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+        {STEPS.map((id, i) => (
+          <li key={id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
             <span className="inline-flex size-9 items-center justify-center rounded-full bg-brand/15 font-display font-bold text-brand">
               {i + 1}
             </span>
-            <h3 className="mt-4 font-display text-lg font-semibold text-white">{s.title}</h3>
-            <p className="mt-1.5 text-[15px] leading-relaxed text-white/70">{s.text}</p>
+            <h3 className="mt-4 font-display text-lg font-semibold text-white">
+              {t(`steps.${id}.title`)}
+            </h3>
+            <p className="mt-1.5 text-[15px] leading-relaxed text-white/70">
+              {t(`steps.${id}.text`)}
+            </p>
           </li>
         ))}
       </ol>
@@ -88,56 +83,43 @@ export function HowItWorksTeaser() {
         cta="how_it_works"
         placement="home_how_it_works"
       >
-        See the full walkthrough <ArrowRight aria-hidden className="size-4" />
+        {t("walkthrough")} <ArrowRight aria-hidden className="size-4 rtl:-scale-x-100" />
       </TrackedLink>
     </PageSection>
   );
 }
 
 const PROMISES = [
-  { icon: Ban, title: "No ads", text: "No ads, no subscriptions, no in-app purchases." },
-  {
-    icon: UserRound,
-    title: "No account needed",
-    text: "Every personal feature works as a guest. Sign in to sync or to share with family.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Private by default",
-    text: "Your record stays on your device. Practice audio never leaves it.",
-  },
-  {
-    icon: WifiOff,
-    title: "Works offline",
-    text: "Tracking, the Qur'an text, adhkar and lessons need no signal.",
-  },
-  {
-    icon: BookCheck,
-    title: "Authentic sources",
-    text: "Qur'an, hadith and adhkar from established, credited datasets.",
-  },
-  { icon: Code2, title: "Open to inspect", text: "The source code is public on GitHub." },
-];
+  { id: "noAds", icon: Ban },
+  { id: "noAccount", icon: UserRound },
+  { id: "private", icon: ShieldCheck },
+  { id: "offline", icon: WifiOff },
+  { id: "sources", icon: BookCheck },
+  { id: "openSource", icon: Code2 },
+] as const;
 
 export function PrivacyBand() {
+  const t = useTranslations("home.privacy");
   return (
     <PageSection
       id="why"
       tone="band"
-      eyebrow="Why Munib Tracker"
-      title="Built for your worship, not for screen time"
-      intro="Many Islamic apps are funded by ads or subscriptions. Munib Tracker isn't, so it can stay calm, private and focused on helping you."
+      eyebrow={t("eyebrow", { appName: APP_NAME })}
+      title={t("title")}
+      intro={t("intro", { appName: APP_NAME })}
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {PROMISES.map(({ icon: Icon, title, text }) => (
+        {PROMISES.map(({ id, icon: Icon }) => (
           <div
-            key={title}
+            key={id}
             className="flex gap-4 rounded-2xl border border-white/10 bg-[#0c2131]/45 p-5"
           >
             <Icon aria-hidden className="mt-0.5 size-6 shrink-0 text-brand" />
             <div>
-              <h3 className="font-display font-semibold text-white">{title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-white/65">{text}</p>
+              <h3 className="font-display font-semibold text-white">{t(`promises.${id}.title`)}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-white/65">
+                {t(`promises.${id}.text`, { github: "GitHub" })}
+              </p>
             </div>
           </div>
         ))}
@@ -149,22 +131,19 @@ export function PrivacyBand() {
         cta="our_principles"
         placement="home_privacy"
       >
-        Our principles <ArrowRight aria-hidden className="size-4" />
+        {t("principles")} <ArrowRight aria-hidden className="size-4 rtl:-scale-x-100" />
       </TrackedLink>
     </PageSection>
   );
 }
 
 export function AudienceTeaser() {
+  const t = useTranslations("home.audiences");
+  const locale = useLocale();
   return (
-    <PageSection
-      id="who-its-for"
-      eyebrow="Who it's for"
-      title="Wherever you're starting from"
-      intro="Coming back to Salah, new to Islam, memorizing the Qur'an or teaching your children: see how the app fits."
-    >
+    <PageSection id="who-its-for" eyebrow={t("eyebrow")} title={t("title")} intro={t("intro")}>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {AUDIENCE_PAGES.map((a) => (
+        {getAudiencePages(locale).map((a) => (
           <LinkCard
             key={a.slug}
             href={audienceHref(a.slug)}
@@ -177,25 +156,28 @@ export function AudienceTeaser() {
   );
 }
 
+const GUIDE_SLUGS = [
+  "how-to-build-a-consistent-salah-habit",
+  "what-is-qaza-salah",
+  "how-to-build-a-daily-zikr-routine",
+  "how-to-memorize-the-quran",
+] as const;
+
 export function CompareAndGuides() {
-  const comparisons = COMPARE_PAGES.slice(0, 4);
-  const guides = [
-    "how-to-build-a-consistent-salah-habit",
-    "what-is-qaza-salah",
-    "how-to-build-a-daily-zikr-routine",
-    "how-to-memorize-the-quran",
-  ]
-    .map((slug) => ARTICLES.find((a) => a.slug === slug))
-    .filter((a) => a !== undefined);
+  const t = useTranslations("home.compareGuides");
+  const locale = useLocale();
+  const comparisons = getComparePages(locale).slice(0, 4);
+  const articles = getArticles(locale);
+  const guides = GUIDE_SLUGS.map((slug) => articles.find((a) => a.slug === slug)).filter(
+    (a) => a !== undefined,
+  );
 
   return (
-    <PageSection id="learn-more" tone="band" title="Compare, learn, and decide for yourself">
+    <PageSection id="learn-more" tone="band" title={t("title")}>
       <div className="grid gap-10 lg:grid-cols-2">
         <div>
-          <h3 className="font-display text-xl font-semibold text-white">Honest comparisons</h3>
-          <p className="mt-2 text-[15px] text-white/65">
-            Sourced, dated comparisons with other Islamic apps, including where they do better.
-          </p>
+          <h3 className="font-display text-xl font-semibold text-white">{t("compareTitle")}</h3>
+          <p className="mt-2 text-[15px] text-white/65">{t("compareText")}</p>
           <ul className="mt-5 flex flex-col gap-2">
             {comparisons.map((c) => (
               <li key={c.slug}>
@@ -204,7 +186,7 @@ export function CompareAndGuides() {
                   className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[15px] text-white/85 transition-colors hover:border-brand/40 hover:text-white"
                 >
                   {c.title}
-                  <ArrowRight aria-hidden className="size-4 text-brand" />
+                  <ArrowRight aria-hidden className="size-4 text-brand rtl:-scale-x-100" />
                 </Link>
               </li>
             ))}
@@ -216,15 +198,12 @@ export function CompareAndGuides() {
             cta="compare_apps"
             placement="home_compare"
           >
-            All comparisons
+            {t("allComparisons")}
           </TrackedLink>
         </div>
         <div>
-          <h3 className="font-display text-xl font-semibold text-white">Guides worth reading</h3>
-          <p className="mt-2 text-[15px] text-white/65">
-            Practical, cited guides on Salah, Zikr and the Qur&apos;an, useful with or without the
-            app.
-          </p>
+          <h3 className="font-display text-xl font-semibold text-white">{t("guidesTitle")}</h3>
+          <p className="mt-2 text-[15px] text-white/65">{t("guidesText")}</p>
           <ul className="mt-5 flex flex-col gap-2">
             {guides.map((a) => (
               <li key={a.slug}>
@@ -233,7 +212,7 @@ export function CompareAndGuides() {
                   className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-[15px] text-white/85 transition-colors hover:border-brand/40 hover:text-white"
                 >
                   {a.title}
-                  <ArrowRight aria-hidden className="size-4 shrink-0 text-brand" />
+                  <ArrowRight aria-hidden className="size-4 shrink-0 text-brand rtl:-scale-x-100" />
                 </Link>
               </li>
             ))}
@@ -245,7 +224,7 @@ export function CompareAndGuides() {
             cta="read_guides"
             placement="home_compare"
           >
-            All guides
+            {t("allGuides")}
           </TrackedLink>
         </div>
       </div>

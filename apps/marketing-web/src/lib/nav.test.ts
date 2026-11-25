@@ -3,11 +3,9 @@ import { isActivePath, menuIsActive } from "@/lib/nav";
 import type { NavMenu } from "@/lib/site";
 
 const MENU: NavMenu = {
-  id: "learn",
-  label: "Learn",
+  id: "resources",
   href: "/resources",
-  viewAllLabel: "All guides",
-  columns: [{ heading: "Guides", items: [{ href: "/learn", label: "Library" }] }],
+  columns: [{ id: "guides", items: [{ id: "learningLibrary", href: "/learn" }] }],
 };
 
 describe("isActivePath", () => {

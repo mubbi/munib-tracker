@@ -92,7 +92,15 @@ export type Block =
       type: "evidence";
       kind: "quran" | "hadith";
       arabic?: string;
-      translation: string;
+      /**
+       * Meaning in the page's language, from an open-source translation (never
+       * AI-written). English pages always have one; Arabic pages omit it and
+       * show `arabic` alone; Urdu pages use Jalandhry (Qur'an) / fawazahmed0
+       * `urd-*` (hadith), or keep the English meaning when none exists.
+       */
+      translation?: string;
+      /** BCP 47 language of `translation` when it differs from the page (English fallback). */
+      translationLang?: string;
       /** e.g. "Qur'an 2:286" or "Sahih al-Bukhari 6464; Sahih Muslim 783". */
       reference: string;
       /** Link to the source (quran.com / sunnah.com). */

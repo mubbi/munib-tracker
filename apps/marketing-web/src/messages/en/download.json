@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "Download {appName} — Free on iPhone, Android & Web",
+    "description": "Download {appName} free on the App Store or Google Play, or open the web app. No ads and no account needed. Also on Apple Watch, Wear OS and TV."
+  },
+  "eyebrow": "Download",
+  "title": "Get the app",
+  "intro": "{appName} runs on iPhone, iPad, Android, the web, Apple Watch, Wear OS, Apple TV and Android TV. Install from the stores or start in your browser.",
+  "available": "Available",
+  "platforms": {
+    "web": {
+      "name": "Web",
+      "status": "Available now",
+      "description": "Use {appName} in any modern browser. Works offline as a progressive web app with notification support and the full learning library.",
+      "cta": "Open web app"
+    },
+    "ios": {
+      "name": "iPhone & iPad",
+      "status": "{appStore}",
+      "description": "Native tabs, haptics, compass Qibla, widgets, Live Activities, Siri shortcuts, the Salah focus lock, app lock, and Sign in with Apple.",
+      "cta": "Open {appStore}"
+    },
+    "android": {
+      "name": "Android",
+      "status": "{googlePlay}",
+      "description": "Phones and tablets, with compass Qibla, home-screen widgets, Live Updates, Assistant shortcuts, the Salah focus lock, app lock, and Google sign-in.",
+      "cta": "Open {googlePlay}"
+    },
+    "watch": {
+      "name": "Apple Watch & Wear OS",
+      "status": "With the phone app",
+      "description": "See the next Salah and mark it from your wrist, with complications on Apple Watch and Salah and Tasbeeh tiles on Wear OS. Installs alongside the phone app."
+    },
+    "tv": {
+      "name": "Apple TV & Android TV",
+      "status": "{appStore} and {googlePlay}",
+      "description": "Read the Qur'an, follow adhkar and check your tracker on the big screen, designed for the remote."
+    }
+  },
+  "grabIt": "Grab it your way",
+  "requirements": {
+    "heading": "System requirements",
+    "items": {
+      "web": "Web: Chrome, Safari, Firefox, or Edge (latest two versions)",
+      "ios": "iPhone and iPad: iOS 16.4 or later (widgets and Live Activities need iOS 17)",
+      "android": "Android: Android 7 (API 24) or later",
+      "watch": "Apple Watch: watchOS 10 or later · Wear OS: Android 11 (API 30) or later",
+      "tv": "Apple TV: tvOS 17 or later · Android TV: Android 12 (API 31) or later",
+      "internet": "Internet required only for sign-in, sync, and on-demand content downloads"
+    }
+  },
+  "guest": {
+    "heading": "Guest mode",
+    "body": "No account needed for personal use. Install or open the app and start tracking straight away. Export a local backup anytime, or sign in with Google, Apple or Facebook to sync your Salah, Qaza, Zikr and learning progress across devices, or to use family circles, an accountability partner and group khatm."
+  }
+}

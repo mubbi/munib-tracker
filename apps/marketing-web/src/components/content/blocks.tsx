@@ -1,13 +1,24 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
 import { BookOpen, Info, Scale, Smartphone } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { RichText } from "@/components/content/rich-text";
 import type { Block } from "@/content/types";
 import { cn } from "@/lib/utils";
 
+/**
+ * Heading anchor id. ASCII slug for Latin text; headings with no ASCII
+ * letters (Arabic, Urdu…) keep their own letters so ids are never empty.
+ */
 export function slugify(text: string): string {
-  return text
+  const ascii = text
     .toLowerCase()
     .replace(/['’]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  if (ascii) return ascii;
+  return text
+    .toLocaleLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
     .replace(/^-|-$/g, "");
 }
 
@@ -30,7 +41,7 @@ export function blockText(blocks: readonly Block[]): string[] {
       case "ol":
         return [...b.items];
       case "evidence":
-        return [b.translation];
+        return b.translation ? [b.translation] : [];
       case "note":
         return [b.title ?? "", b.text];
       case "steps":
@@ -43,22 +54,20 @@ export function blockText(blocks: readonly Block[]): string[] {
   });
 }
 
+/** Note tones; the default label is `templates.notes.<tone>`. */
 const NOTE_STYLE = {
   info: {
     icon: Info,
-    label: "Tip",
     ring: "border-sky-300/25 bg-[#0c2233]",
     tint: "text-sky-200",
   },
   scholar: {
     icon: Scale,
-    label: "Ask a scholar",
     ring: "border-gold/30 bg-[#231f14]",
     tint: "text-gold",
   },
   app: {
     icon: Smartphone,
-    label: "In Munib Tracker",
     ring: "border-brand/30 bg-[#0b2a24]",
     tint: "text-brand",
   },
@@ -73,6 +82,7 @@ export function Note({
   title?: string;
   text: string;
 }) {
+  const t = useTranslations("templates");
   const style = NOTE_STYLE[tone];
   const Icon = style.icon;
   return (
@@ -84,7 +94,7 @@ export function Note({
         )}
       >
         <Icon aria-hidden className="size-4" />
-        {title ?? style.label}
+        {title ?? t(`notes.${tone}`, { appName: APP_NAME })}
       </p>
       <p className="mt-2.5 text-[15px] leading-relaxed text-white/78">
         <RichText text={text} />
@@ -95,6 +105,7 @@ export function Note({
 
 /** Renders a long-form body. Server component — no client JS. */
 export function Blocks({ blocks }: { blocks: readonly Block[] }) {
+  const t = useTranslations("templates");
   return (
     <div className="flex flex-col gap-6 text-[17px] leading-[1.75] text-white/80">
       {blocks.map((block, i) => {
@@ -132,12 +143,12 @@ export function Blocks({ blocks }: { blocks: readonly Block[] }) {
               <List
                 key={key}
                 className={cn(
-                  "flex flex-col gap-2.5 pl-6 marker:text-brand",
+                  "flex flex-col gap-2.5 ps-6 marker:text-brand",
                   block.type === "ul" ? "list-disc" : "list-decimal",
                 )}
               >
                 {block.items.map((item) => (
-                  <li key={item} className="pl-1">
+                  <li key={item} className="ps-1">
                     <RichText text={item} />
                   </li>
                 ))}
@@ -152,7 +163,7 @@ export function Blocks({ blocks }: { blocks: readonly Block[] }) {
               >
                 <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
                   <BookOpen aria-hidden className="size-4" />
-                  {block.kind === "quran" ? "Qur'an" : "Hadith"}
+                  {t(`evidence.${block.kind}`)}
                 </p>
                 {block.arabic ? (
                   <p
@@ -163,9 +174,15 @@ export function Blocks({ blocks }: { blocks: readonly Block[] }) {
                     {block.arabic}
                   </p>
                 ) : null}
-                <blockquote className="mt-4 border-l-2 border-gold/50 pl-4 text-[16px] italic leading-relaxed text-white/85">
-                  {block.translation}
-                </blockquote>
+                {block.translation ? (
+                  <blockquote
+                    lang={block.translationLang}
+                    dir={block.translationLang ? "auto" : undefined}
+                    className="mt-4 border-s-2 border-gold/50 ps-4 text-[16px] italic leading-relaxed text-white/85"
+                  >
+                    {block.translation}
+                  </blockquote>
+                ) : null}
                 <figcaption className="mt-4 text-sm text-white/60">
                   {block.href ? (
                     <a
@@ -209,9 +226,9 @@ export function Blocks({ blocks }: { blocks: readonly Block[] }) {
           case "table":
             return (
               <div key={key} className="overflow-x-auto rounded-2xl border border-white/10">
-                <table className="w-full min-w-[30rem] border-collapse text-left text-[15px]">
+                <table className="w-full min-w-[30rem] border-collapse text-start text-[15px]">
                   {block.caption ? (
-                    <caption className="px-4 pt-4 text-left text-sm text-white/60">
+                    <caption className="px-4 pt-4 text-start text-sm text-white/60">
                       {block.caption}
                     </caption>
                   ) : null}

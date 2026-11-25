@@ -1,0 +1,119 @@
+{
+  "crumbs": {
+    "home": "Home",
+    "features": "Features",
+    "compare": "Compare",
+    "audiences": "Who it's for",
+    "resources": "Resources",
+    "guides": "Guides"
+  },
+  "breadcrumbLabel": "Breadcrumb",
+  "faqEyebrow": "FAQ",
+  "learnMore": "Learn more",
+  "loading": "Loading…",
+  "dates": {
+    "updated": "Updated <time>{date}</time>",
+    "lastVerified": "Last verified <time>{date}</time>"
+  },
+  "cardMeta": {
+    "feature": "Feature",
+    "guide": "Guide",
+    "comparison": "Comparison",
+    "compare": "Compare"
+  },
+  "featureGroups": {
+    "track": "Track your worship",
+    "quran": "Qur'an and hadith",
+    "everyday": "Everyday tools",
+    "life": "Family and life"
+  },
+  "notes": {
+    "info": "Tip",
+    "scholar": "Ask a scholar",
+    "app": "In {appName}"
+  },
+  "evidence": {
+    "quran": "Qur'an",
+    "hadith": "Hadith"
+  },
+  "downloadCta": {
+    "noAds": "No ads",
+    "noAccount": "No account for personal use",
+    "offline": "Works offline",
+    "noSubscriptions": "No subscriptions"
+  },
+  "feature": {
+    "howItWorksEyebrow": "Step by step",
+    "benefitsEyebrow": "Benefits",
+    "benefitsTitle": "What you get from it",
+    "screenshotsEyebrow": "In the app",
+    "screenshotsTitle": "See it in {appName}",
+    "examplesEyebrow": "In practice",
+    "faqTitle": "{feature}: common questions",
+    "relatedEyebrow": "Keep exploring",
+    "relatedTitle": "Related features and guides",
+    "summaryFooter": "Free · No ads · In the app"
+  },
+  "compare": {
+    "verdictEyebrow": "Quick answer",
+    "verdictTitle": "Which one should you choose?",
+    "tableEyebrow": "Side by side",
+    "tableTitle": "Feature comparison",
+    "tableIntro": "Checked against official websites and US App Store and Google Play listings. \"Not verified\" means we couldn't confirm it from an official source, not that the feature is missing.",
+    "tableIntroWithPlanned": "Checked against official websites and US App Store and Google Play listings. \"Not verified\" means we couldn't confirm it from an official source, not that the feature is missing. “Coming soon” marks {appName} features on our roadmap that are not in the app yet.",
+    "inventoryEyebrow": "Complete feature list",
+    "inventoryTitle": "Everything in {appName}",
+    "inventoryIntro": "All {shipped} features in {appName}, grouped by area. Every one is free, with no ads.",
+    "inventoryIntroWithPlanned": "{shipped} features in the app today, plus {planned} on our roadmap marked \"Coming soon\". Roadmap features aren't in the app yet, so they never count as available in the table above.",
+    "strengthsEyebrow": "Strengths",
+    "strengthsTitle": "What each app does well",
+    "bestFor": "Best for:",
+    "sourcesEyebrow": "Sources",
+    "sourcesTitle": "Where this information comes from",
+    "sourcesNote": "Prices are US App Store prices and may differ in your country. Features and prices change; please check the official listings. Last verified <time>{date}</time>.",
+    "faqTitle": "Questions people ask",
+    "relatedEyebrow": "Keep exploring",
+    "relatedTitle": "Related pages",
+    "allComparisons": "All comparisons",
+    "allComparisonsDescription": "Every app comparison in one place.",
+    "ctaTitle": "Try {appName} and decide for yourself",
+    "ctaText": "It's free with no ads or account, so there's nothing to lose by trying it alongside the app you use now."
+  },
+  "comparisonTable": {
+    "status": {
+      "yes": "Available",
+      "no": "Not available",
+      "partial": "Partially available",
+      "unverified": "Not verified",
+      "planned": "Coming soon"
+    },
+    "caption": "{title}: feature comparison, last verified {date}",
+    "featureColumn": "Feature",
+    "empty": "—"
+  },
+  "inventory": {
+    "comingSoon": "Coming soon"
+  },
+  "audience": {
+    "helpsEyebrow": "How {appName} helps",
+    "helpsTitle": "Tools that fit where you are",
+    "learningLibrary": "Open the learning library",
+    "planEyebrow": "Getting started",
+    "goodToKnow": "Good to know",
+    "faqTitle": "Common questions",
+    "guidesEyebrow": "Guides",
+    "guidesTitle": "Helpful reading"
+  },
+  "article": {
+    "readingTime": "{minutes, plural, other {# min read}}",
+    "byline": "By <link>{appName}</link>",
+    "takeaways": "Key takeaways",
+    "tieInTitle": "Try it: {feature}",
+    "tieInText": "{text} [Learn about {feature}]({href}).",
+    "faqTitle": "Frequently asked questions",
+    "sourcesTitle": "Sources",
+    "disclaimer": "This guide is educational and was prepared by {appName} from the sources listed above. It is not a fatwa. For questions about your own situation, please ask a qualified scholar. Found an error? <link>Let us know</link>.",
+    "onThisPage": "On this page",
+    "keepReading": "Keep reading"
+  }
+}

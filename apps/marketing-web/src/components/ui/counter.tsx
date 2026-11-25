@@ -10,6 +10,8 @@ type CounterProps = {
   decimals?: number;
   duration?: number;
   className?: string;
+  /** BCP 47 locale for digit grouping (pass the page locale). */
+  locale?: string;
 };
 
 /**
@@ -24,6 +26,7 @@ export function Counter({
   decimals = 0,
   duration = 1.8,
   className,
+  locale = "en-US",
 }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -52,13 +55,15 @@ export function Counter({
     return () => controls.stop();
   }, [inView, armed, reduce, value, duration]);
 
-  const formatted = display.toLocaleString("en-US", {
+  const formatted = display.toLocaleString(locale, {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
 
+  // `dir="ltr"` keeps a prefix/suffix ("350+") on the same side of the number
+  // inside RTL pages.
   return (
-    <span ref={ref} className={className}>
+    <span ref={ref} dir="ltr" className={className}>
       {prefix}
       {formatted}
       {suffix}

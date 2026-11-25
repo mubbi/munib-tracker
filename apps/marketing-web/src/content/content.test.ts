@@ -14,8 +14,13 @@ import {
   isKnownContentPath,
 } from "@/content/routes";
 import type { Block } from "@/content/types";
-import { FAQ_ITEMS } from "@/lib/faq";
 import { FOOTER_GROUPS, NAV_LINKS, NAV_MENUS, SITE_PATHS } from "@/lib/site";
+import compareHubMessages from "@/messages/en/compareHub.json";
+import faqMessages from "@/messages/en/faq.json";
+import howItWorksMessages from "@/messages/en/howItWorks.json";
+import navMessages from "@/messages/en/nav.json";
+import resourcesHubMessages from "@/messages/en/resourcesHub.json";
+import whyMessages from "@/messages/en/why.json";
 
 const ROUTES = new Set<string>([
   ...Object.values(SITE_PATHS),
@@ -43,9 +48,19 @@ const ALL_PAGES = [...FEATURE_PAGES, ...COMPARE_PAGES, ...AUDIENCE_PAGES, ...ART
 describe("content integrity", () => {
   it("every inline internal link points at a real page", () => {
     const broken: string[] = [];
-    for (const page of [...ALL_PAGES, FAQ_ITEMS]) {
+    // Catalogs whose strings use the inline `[label](/path)` markup (FAQ answers, hub/page copy).
+    const catalogs = [
+      faqMessages,
+      howItWorksMessages,
+      whyMessages,
+      compareHubMessages,
+      resourcesHubMessages,
+    ];
+    for (const page of [...ALL_PAGES, ...catalogs]) {
       for (const text of strings(page)) {
         for (const href of internalLinks(text)) {
+          // `({argument})` hrefs are ICU arguments filled in by the page (e.g. an external URL).
+          if (href.startsWith("{")) continue;
           if (!ROUTES.has(stripHash(href))) broken.push(href);
         }
       }
@@ -76,7 +91,8 @@ describe("content integrity", () => {
   it("every feature page is in the Features menu with its own label", () => {
     const items = NAV_MENUS.find((m) => m.id === "features")?.columns.flatMap((c) => c.items) ?? [];
     for (const f of FEATURE_PAGES) {
-      expect(items.find((i) => i.href === featureHref(f.slug))?.label).toBe(f.navLabel);
+      const item = items.find((i) => i.href === featureHref(f.slug));
+      expect(item && navMessages.items[item.id].label, f.slug).toBe(f.navLabel);
     }
   });
 

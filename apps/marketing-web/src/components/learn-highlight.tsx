@@ -1,4 +1,3 @@
-import type { LucideIcon } from "lucide-react";
 import {
   BookOpenCheck,
   Flame,
@@ -11,88 +10,67 @@ import {
   Swords,
   Users,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Section } from "@/components/section";
 import { TrackedLink } from "@/components/tracked-link";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { SITE_PATHS } from "@/lib/site";
 
-const AREAS: { id: string; icon: LucideIcon; title: string; meta: string; href: string }[] = [
+const AREAS = [
   {
     id: "aqeedah",
     href: "/learn#creed",
     icon: BookOpenCheck,
-    title: "Aqeedah",
-    meta: "24 topics on the articles of faith",
   },
   {
     id: "prophets",
     href: "/learn#creed",
     icon: Users,
-    title: "The Prophets",
-    meta: "25 prophets, a timeline and family tree",
   },
   {
     id: "seerah",
     href: "/learn#creed",
     icon: Swords,
-    title: "Seerah & battles",
-    meta: "30-event life + 21 battles",
   },
   {
     id: "jannah",
     href: "/learn#creed",
     icon: Sparkles,
-    title: "Jannah",
-    meta: "45 topics · the eight gates",
   },
   {
     id: "jahannam",
     href: "/learn#creed",
     icon: Flame,
-    title: "Jahannam",
-    meta: "16 topics & repentance",
   },
   {
     id: "last_day",
     href: "/learn#creed",
     icon: Scale,
-    title: "The Last Day",
-    meta: "20 lessons + an interactive quiz",
   },
   {
     id: "learn_quran",
     href: "/features/learn-quran",
     icon: Languages,
-    title: "Learn the Qur'an",
-    meta: "Letters, tajweed & memorization",
   },
   {
     id: "learn_dua",
     href: "/learn#life-guides",
     icon: Hand,
-    title: "Learn dua",
-    meta: "46 topics on when & how to supplicate",
   },
   {
     id: "fiqh_guides",
     href: "/learn#worship-guides",
     icon: ScrollText,
-    title: "Fiqh guides",
-    meta: "Salah, zakat, Hajj & Umrah & purification",
   },
-];
+] as const;
 
 export function LearnHighlight() {
+  const t = useTranslations("home.learn");
   return (
-    <Section
-      id="learn"
-      eyebrow="Learn, don't just track"
-      title="A cited library in your pocket"
-      description="Every lesson is referenced to the Qur'an and authenticated hadith, with per-topic progress so you always know where you are."
-    >
+    <Section id="learn" eyebrow={t("eyebrow")} title={t("title")} description={t("description")}>
       <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {AREAS.map(({ id, icon: Icon, title, meta, href }) => (
+        {AREAS.map(({ id, icon: Icon, href }) => (
           <StaggerItem key={id}>
             <SpotlightCard className="h-full">
               <TrackedLink
@@ -108,9 +86,9 @@ export function LearnHighlight() {
                 </span>
                 <span>
                   <span className="block font-display text-base font-semibold text-foreground">
-                    {title}
+                    {t(`areas.${id}.title`)}
                   </span>
-                  <span className="mt-1 block text-sm text-muted">{meta}</span>
+                  <span className="mt-1 block text-sm text-muted">{t(`areas.${id}.meta`)}</span>
                 </span>
               </TrackedLink>
             </SpotlightCard>
@@ -126,7 +104,7 @@ export function LearnHighlight() {
           placement="home_learn"
         >
           <GraduationCap className="size-4" />
-          Explore the learning library
+          {t("explore")}
         </TrackedLink>
       </div>
     </Section>

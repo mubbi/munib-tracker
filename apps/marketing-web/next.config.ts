@@ -1,4 +1,8 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+import { DEFAULT_LOCALE, LOCALES } from "./src/i18n/config";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 /**
  * Baseline CSP: directives that cannot break Next's inline bootstrap scripts,
@@ -25,6 +29,50 @@ const SECURITY_HEADERS = [
   },
 ] as const;
 
+const LOCALE_PATTERN = LOCALES.join("|");
+
+/**
+ * Alternate URLs people (and the original site plan) use for pages we
+ * consolidated into one canonical page each — avoids thin duplicates. Paths
+ * are locale-less; `redirects()` applies them inside every locale.
+ */
+const LEGACY_REDIRECTS: readonly { source: string; destination: string }[] = [
+  {
+    source: "/features/prayer-tracker",
+    destination: "/features/salah-tracker",
+  },
+  {
+    source: "/features/qaza-tracker",
+    destination: "/features/qaza-salah-tracker",
+  },
+  { source: "/features/dhikr-tracker", destination: "/features/zikr-tracker" },
+  {
+    source: "/features/quran-recitation",
+    destination: "/features/quran-practice",
+  },
+  {
+    source: "/features/ai-recitation-correction",
+    destination: "/features/quran-practice",
+  },
+  { source: "/features/quran-learning", destination: "/features/learn-quran" },
+  { source: "/for-beginners", destination: "/for/beginners" },
+  { source: "/for-new-muslims", destination: "/for/new-muslims" },
+  { source: "/for-quran-learners", destination: "/for/quran-learners" },
+  { source: "/for-families", destination: "/for/families" },
+  { source: "/for-kids", destination: "/for/families" },
+  { source: "/for-muslims", destination: "/for" },
+  { source: "/resources/guides", destination: "/resources" },
+  { source: "/resources/islamic-learning", destination: "/learn" },
+  {
+    source: "/compare/munib-tracker-vs-prayer-tracker-apps",
+    destination: "/compare/best-salah-tracker-apps",
+  },
+  {
+    source: "/compare/munib-tracker-vs-islamic-habit-trackers",
+    destination: "/compare/islamic-habit-tracker-apps",
+  },
+];
+
 const nextConfig: NextConfig = {
   transpilePackages: ["@munib-tracker/shared", "@munib-tracker/theme"],
   poweredByHeader: false,
@@ -35,52 +83,34 @@ const nextConfig: NextConfig = {
   // No `<Link prefetch>` full prefetches or URL-data routes to migrate, so adopt
   // Partial Prefetching (default in the next Next.js major).
   partialPrefetching: true,
-  // Alternate URLs people (and the original site plan) use for pages we
-  // consolidated into one canonical page each — avoids thin duplicates.
+  experimental: {
+    // The root layout lives under `app/[locale]`, so unmatched URLs (and the
+    // proxy's unknown-slug rewrite) render `app/global-not-found.tsx`.
+    globalNotFound: true,
+  },
   async redirects() {
     return [
+      ...LEGACY_REDIRECTS.flatMap(({ source, destination }) => [
+        // Legacy alias inside any locale: /ur/features/prayer-tracker → /ur/features/salah-tracker
+        {
+          source: `/:locale(${LOCALE_PATTERN})${source}`,
+          destination: `/:locale${destination}`,
+          permanent: true,
+        },
+        // Legacy alias without a locale → its English page in one hop.
+        { source, destination: `/${DEFAULT_LOCALE}${destination}`, permanent: true },
+      ]),
+      // Any page URL without a locale (including `/`) → the English page.
+      // Skips API routes, Next internals and files (anything with a dot:
+      // sitemap.xml, robots.txt, images, the web manifest, /.well-known).
+      { source: "/", destination: `/${DEFAULT_LOCALE}`, permanent: true },
       {
-        source: "/features/prayer-tracker",
-        destination: "/features/salah-tracker",
-        permanent: true,
-      },
-      {
-        source: "/features/qaza-tracker",
-        destination: "/features/qaza-salah-tracker",
-        permanent: true,
-      },
-      { source: "/features/dhikr-tracker", destination: "/features/zikr-tracker", permanent: true },
-      {
-        source: "/features/quran-recitation",
-        destination: "/features/quran-practice",
-        permanent: true,
-      },
-      {
-        source: "/features/ai-recitation-correction",
-        destination: "/features/quran-practice",
-        permanent: true,
-      },
-      { source: "/features/quran-learning", destination: "/features/learn-quran", permanent: true },
-      { source: "/for-beginners", destination: "/for/beginners", permanent: true },
-      { source: "/for-new-muslims", destination: "/for/new-muslims", permanent: true },
-      { source: "/for-quran-learners", destination: "/for/quran-learners", permanent: true },
-      { source: "/for-families", destination: "/for/families", permanent: true },
-      { source: "/for-kids", destination: "/for/families", permanent: true },
-      { source: "/for-muslims", destination: "/for", permanent: true },
-      { source: "/resources/guides", destination: "/resources", permanent: true },
-      { source: "/resources/islamic-learning", destination: "/learn", permanent: true },
-      {
-        source: "/compare/munib-tracker-vs-prayer-tracker-apps",
-        destination: "/compare/best-salah-tracker-apps",
-        permanent: true,
-      },
-      {
-        source: "/compare/munib-tracker-vs-islamic-habit-trackers",
-        destination: "/compare/islamic-habit-tracker-apps",
+        source: `/:path((?!(?:${LOCALE_PATTERN})(?:/|$)|api(?:/|$)|_next/|_vercel/|.*[.]).+)`,
+        destination: `/${DEFAULT_LOCALE}/:path`,
         permanent: true,
       },
     ];
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

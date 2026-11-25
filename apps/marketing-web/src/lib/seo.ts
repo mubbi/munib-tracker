@@ -1,13 +1,14 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { LOCALE_META, localizedPath } from "@/i18n/locales";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/site";
 
-/** Content language of the marketing site. English only today (see docs/I18N_GUIDE.md). */
-export const SITE_LOCALE = "en" as const;
-export const OG_LOCALE = "en_US" as const;
-
 export type PageSeo = {
-  /** Path starting with "/" (no origin). */
+  /** Locale the page is rendered in (`await getLocale()` from `next-intl/server`). */
+  locale: Locale;
+  /** Path starting with "/" without the locale prefix (no origin). */
   path: string;
   title: string;
   description: string;
@@ -25,42 +26,63 @@ export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path === "/" ? "" : path}`;
 }
 
+/** Absolute URL of `path` in `locale` (every locale is prefixed: `/en/features`). */
+export function localizedUrl(path: string, locale: Locale): string {
+  return absoluteUrl(localizedPath(path, locale));
+}
+
+/**
+ * hreflang map for `path`: one entry per published locale plus `x-default`
+ * (the English page). Used by `pageMetadata()` and the sitemap.
+ */
+export function languageAlternates(path: string): Record<string, string> {
+  const languages: Record<string, string> = {};
+  for (const locale of LOCALES) {
+    languages[LOCALE_META[locale].hreflang] = localizedUrl(path, locale);
+  }
+  languages["x-default"] = localizedUrl(path, DEFAULT_LOCALE);
+  return languages;
+}
+
 /** Default social card; a route-level `opengraph-image` file takes priority over this. */
-const DEFAULT_OG_IMAGE = {
-  url: "/opengraph-image",
-  width: 1200,
-  height: 630,
-  alt: `${APP_NAME}: Salah tracker, Zikr and Qur'an app`,
-};
+async function defaultOgImage(locale: Locale) {
+  const t = await getTranslations({ locale, namespace: "metadata" });
+  return {
+    url: localizedPath("/opengraph-image", locale),
+    width: 1200,
+    height: 630,
+    alt: t("defaultImageAlt", { appName: APP_NAME }),
+  };
+}
 
 /** Titles longer than this skip the " | Munib Tracker" suffix so they aren't truncated in results. */
 const MAX_TITLE = 65;
 
 /**
- * Builds consistent per-page metadata: unique title, description, canonical,
- * hreflang (en + x-default — the site is English-only today, so both point at
- * the same URL), Open Graph and X/Twitter cards.
+ * Builds consistent per-page metadata: unique title, description, a canonical
+ * URL in the page's own locale, hreflang alternates for every published
+ * locale + x-default, Open Graph and X/Twitter cards.
  *
  * Titles that already contain the brand, or would be too long with it, are
  * emitted as `absolute` so the root template does not append the suffix.
  */
-export function pageMetadata(seo: PageSeo): Metadata {
-  const url = absoluteUrl(seo.path);
+export async function pageMetadata(seo: PageSeo): Promise<Metadata> {
+  const url = localizedUrl(seo.path, seo.locale);
   const suffixed = `${seo.title} | ${APP_NAME}`;
   const absolute = seo.title.includes(APP_NAME) || suffixed.length > MAX_TITLE;
   const fullTitle = absolute ? seo.title : suffixed;
-  const image = seo.image ?? DEFAULT_OG_IMAGE;
+  const image = seo.image ?? (await defaultOgImage(seo.locale));
 
   return {
     title: absolute ? { absolute: seo.title } : seo.title,
     description: seo.description,
     alternates: {
       canonical: url,
-      languages: { [SITE_LOCALE]: url, "x-default": url },
+      languages: languageAlternates(seo.path),
     },
     openGraph: {
       type: seo.type ?? "website",
-      locale: OG_LOCALE,
+      locale: LOCALE_META[seo.locale].ogLocale,
       url,
       siteName: APP_NAME,
       title: fullTitle,

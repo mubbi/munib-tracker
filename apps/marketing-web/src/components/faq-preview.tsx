@@ -1,18 +1,20 @@
+import { useTranslations } from "next-intl";
 import { FaqList } from "@/components/content/primitives";
 import { Section } from "@/components/section";
 import { TrackedLink } from "@/components/tracked-link";
-import { FAQ_ITEMS } from "@/lib/faq";
+import { getFaqItems } from "@/lib/faq";
 import { SITE_PATHS } from "@/lib/site";
 
 export function FaqPreview() {
+  const t = useTranslations("faq");
   return (
     <Section
-      eyebrow="FAQ"
-      title="Common questions"
-      description="Privacy, offline use, platforms, and religious content — answered clearly."
+      eyebrow={t("preview.eyebrow")}
+      title={t("preview.title")}
+      description={t("preview.description")}
     >
       <div className="mx-auto max-w-3xl">
-        <FaqList items={FAQ_ITEMS.slice(0, 5)} />
+        <FaqList items={getFaqItems(t, 5)} />
       </div>
       <p className="mt-10 text-center">
         <TrackedLink
@@ -22,7 +24,7 @@ export function FaqPreview() {
           cta="view_all_faq"
           placement="home_faq"
         >
-          View all questions →
+          {t("preview.viewAll")}
         </TrackedLink>
       </p>
     </Section>

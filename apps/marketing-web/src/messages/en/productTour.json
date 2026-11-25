@@ -1,0 +1,56 @@
+{
+  "eyebrow": "Inside the app",
+  "title": "One app for your daily worship",
+  "intro": "{appName} brings your Salah, Qaza, Zikr and Qur'an together, so you can see your whole day of worship in one place.",
+  "tablistLabel": "App features",
+  "tabs": {
+    "salah": {
+      "label": "Salah",
+      "title": "See your day of Salah at a glance",
+      "text": "Tap each Salah as you pray it. Your progress ring, streak and calendar fill in, without guilt when a day doesn't go to plan.",
+      "points": {
+        "statuses": "Completed, delayed, missed and Qaza",
+        "extras": "Witr, Sunnah and Jama'ah",
+        "progress": "Streaks, calendar and statistics"
+      },
+      "cta": "Explore the Salah tracker",
+      "shotAlt": "Tracker screen: 2 of 5 obligatory Salah logged, a 2-day streak, and rings for Witr, adhkar, Qaza and khatm."
+    },
+    "qaza": {
+      "label": "Qaza",
+      "title": "Turn missed Salah into a plan",
+      "text": "Estimate what you missed, pick a daily pace you can keep, and watch the number fall, with a finish date that updates as you go.",
+      "points": {
+        "calculator": "Lifetime calculator",
+        "pace": "Gentle to intensive pace presets",
+        "fasts": "Missed fasts tracked too"
+      },
+      "cta": "Explore the Qaza tracker",
+      "shotAlt": "Qaza screen: 25 remaining, 62 made up, 71% complete and an estimated finish date."
+    },
+    "zikr": {
+      "label": "Zikr",
+      "title": "Adhkar for every part of your day",
+      "text": "Guided sessions for the morning, evening, after Salah and before sleep, each zikr shown with its source hadith.",
+      "points": {
+        "adhkar": "60 adhkar with sources",
+        "tasbeeh": "Tasbeeh counter with targets",
+        "duas": "{count, plural, one {# dua} other {# duas}} from Hisnul Muslim"
+      },
+      "cta": "Explore Zikr & tasbeeh",
+      "shotAlt": "Zikr screen with favorites, search, My adhkar and categories like Morning and Evening Adhkar."
+    },
+    "quran": {
+      "label": "Qur'an",
+      "title": "Read, listen and practise the Qur'an",
+      "text": "The full Qur'an offline with word-by-word and tajweed colours, a khatm plan, and an on-device listener to practise your recitation.",
+      "points": {
+        "views": "Surah, juz and 604-page mushaf",
+        "translations": "25 translations and tafsir",
+        "practice": "AI recitation practice"
+      },
+      "cta": "Explore the Qur'an reader",
+      "shotAlt": "Qur'an screen with continue reading for Al-Baqarah, shortcuts to search, pages, juz, learn and khatm."
+    }
+  }
+}

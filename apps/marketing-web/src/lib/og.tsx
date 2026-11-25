@@ -2,9 +2,35 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import { ImageResponse } from "next/og";
+import { getTranslations } from "next-intl/server";
+import { isLocale, LOCALE_META, localizedPath } from "@/i18n/locales";
+import { DEFAULT_LOCALE, type Locale } from "@/i18n/routing";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
+
+/**
+ * Locale whose text an `opengraph-image` route renders, from its `[locale]`
+ * param (image routes don't get `next/root-params`).
+ *
+ * `next/og` (Satori) can't shape Arabic script — letters render unjoined — so
+ * RTL locales (ar, ur) render the English card text. Their pages still point
+ * at their own card URL with translated alt text.
+ */
+export function ogLocale(value: unknown): Locale {
+  if (!isLocale(value) || LOCALE_META[value].dir === "rtl") return DEFAULT_LOCALE;
+  return value;
+}
+
+/**
+ * `pageMetadata({ image })` for a page whose route has its own
+ * `opengraph-image` (path without locale prefix). Page metadata that sets
+ * `openGraph.images` wins over the file convention, so pages pass their card
+ * explicitly, with translated alt text (the `og` catalog).
+ */
+export function routeOgImage(path: string, locale: Locale, alt: string) {
+  return { url: localizedPath(`${path}/opengraph-image`, locale), ...OG_SIZE, alt };
+}
 
 let logoCache: string | null = null;
 async function logoDataUri(): Promise<string> {
@@ -16,14 +42,18 @@ async function logoDataUri(): Promise<string> {
 
 /** Branded 1200×630 social card shared by every route's `opengraph-image`. */
 export async function renderOgImage({
+  locale,
   eyebrow,
   title,
-  footer = "Salah · Zikr · Qaza · Qur'an · Learn",
+  footer,
 }: {
+  locale: Locale;
   eyebrow: string;
   title: string;
+  /** Defaults to `og.footer`. */
   footer?: string;
 }) {
+  const t = await getTranslations({ locale, namespace: "og" });
   const logo = await logoDataUri();
   return new ImageResponse(
     <div
@@ -62,7 +92,7 @@ export async function renderOgImage({
           {title}
         </span>
       </div>
-      <span style={{ fontSize: 26, color: "#a9c6bb" }}>{footer}</span>
+      <span style={{ fontSize: 26, color: "#a9c6bb" }}>{footer ?? t("footer")}</span>
     </div>,
     { ...OG_SIZE },
   );

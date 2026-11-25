@@ -1,4 +1,10 @@
+import { TRANSLATIONS as arFeatures1 } from "@/content/i18n/ar/features-1";
+import { TRANSLATIONS as arFeatures2 } from "@/content/i18n/ar/features-2";
+import { TRANSLATIONS as urFeatures1 } from "@/content/i18n/ur/features-1";
+import { TRANSLATIONS as urFeatures2 } from "@/content/i18n/ur/features-2";
+import { type ContentTranslations, localizeEntries } from "@/content/localized";
 import type { FeaturePage, FeatureSlug } from "@/content/types";
+import { DEFAULT_LOCALE, type Locale } from "@/i18n/routing";
 import { dailyIslamicHabits } from "./daily-islamic-habits";
 import { familyAndFriends } from "./family-and-friends";
 import { fastingTracker } from "./fasting-tracker";
@@ -42,19 +48,29 @@ export const FEATURE_PAGES: readonly FeaturePage[] = [
   islamicWillAndInheritance,
 ];
 
-const BY_SLUG = new Map(FEATURE_PAGES.map((f) => [f.slug, f]));
+/** Translated feature pages per locale (see `content/localized.ts`). */
+const TRANSLATIONS: ContentTranslations<FeaturePage> = {
+  ar: [...arFeatures1, ...arFeatures2],
+  ur: [...urFeatures1, ...urFeatures2],
+};
 
-export function getFeature(slug: string): FeaturePage | undefined {
-  return BY_SLUG.get(slug as FeatureSlug);
+/** Feature pages in `locale`, English where a page isn't translated yet. */
+export function getFeaturePages(locale: Locale = DEFAULT_LOCALE): readonly FeaturePage[] {
+  return localizeEntries(FEATURE_PAGES, TRANSLATIONS, locale, (f) => f.slug);
+}
+
+export function getFeature(slug: string, locale: Locale = DEFAULT_LOCALE): FeaturePage | undefined {
+  return getFeaturePages(locale).find((f) => f.slug === (slug as FeatureSlug));
 }
 
 export function featureHref(slug: FeatureSlug): string {
   return `/features/${slug}`;
 }
 
+/** Feature hub groups; titles live in the catalogs (`templates.featureGroups.<id>`). */
 export const FEATURE_GROUPS = [
-  { id: "track", title: "Track your worship" },
-  { id: "quran", title: "Qur'an and hadith" },
-  { id: "everyday", title: "Everyday tools" },
-  { id: "life", title: "Family and life" },
+  { id: "track" },
+  { id: "quran" },
+  { id: "everyday" },
+  { id: "life" },
 ] as const;

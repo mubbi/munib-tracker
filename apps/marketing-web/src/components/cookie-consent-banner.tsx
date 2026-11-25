@@ -2,9 +2,11 @@
 
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { CookieNoAdsNotice } from "@/components/cookie-no-ads-notice";
+import { Link } from "@/i18n/navigation";
 import { trackCookieConsent } from "@/lib/analytics";
 import {
   CONSENT_ITEMS,
@@ -27,7 +29,19 @@ import { cn } from "@/lib/utils";
 
 const DEFAULT_PREFS: ConsentPreferences = { essential: true, analytics: false };
 
+function privacyLink(chunks: ReactNode) {
+  return (
+    <Link
+      href={SITE_PATHS.privacy}
+      className="font-medium text-brand underline decoration-brand/40 underline-offset-[3px] transition hover:decoration-brand"
+    >
+      {chunks}
+    </Link>
+  );
+}
+
 export function CookieConsentBanner() {
+  const t = useTranslations("consent");
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -104,7 +118,7 @@ export function CookieConsentBanner() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="cookie-consent-title"
-          aria-label="Cookie consent"
+          aria-label={t("dialogLabel")}
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
@@ -123,18 +137,10 @@ export function CookieConsentBanner() {
                       id="cookie-consent-title"
                       className="font-display text-base font-semibold tracking-tight text-white"
                     >
-                      Your privacy, your choice
+                      {t("summary.title")}
                     </h2>
                     <p className="max-w-2xl text-sm leading-relaxed text-white/70">
-                      We use essential cookies to keep the site running and, with your permission,
-                      optional analytics to understand how people use it. See our{" "}
-                      <Link
-                        href={SITE_PATHS.privacy}
-                        className="font-medium text-brand underline decoration-brand/40 underline-offset-[3px] transition hover:decoration-brand"
-                      >
-                        Privacy Policy
-                      </Link>
-                      .
+                      {t.rich("summary.body", { link: privacyLink })}
                     </p>
                   </div>
 
@@ -145,7 +151,7 @@ export function CookieConsentBanner() {
                       disabled={loading}
                       className={tertiaryBtnClass}
                     >
-                      Manage preferences
+                      {t("managePreferences")}
                     </button>
                     <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
                       <button
@@ -154,7 +160,7 @@ export function CookieConsentBanner() {
                         disabled={loading}
                         className={secondaryBtnClass}
                       >
-                        Essential only
+                        {t("essentialOnly")}
                       </button>
                       <button
                         type="button"
@@ -162,7 +168,7 @@ export function CookieConsentBanner() {
                         disabled={loading}
                         className={primaryBtnClass}
                       >
-                        Accept all
+                        {t("acceptAll")}
                       </button>
                     </div>
                   </div>
@@ -175,18 +181,10 @@ export function CookieConsentBanner() {
                         id="cookie-consent-title"
                         className="font-display text-base font-semibold tracking-tight text-white"
                       >
-                        Cookie preferences
+                        {t("details.title")}
                       </h2>
                       <p className="text-sm leading-relaxed text-white/70">
-                        Choose which cookies you allow. Essential cookies stay on. Full details are
-                        in our{" "}
-                        <Link
-                          href={SITE_PATHS.privacy}
-                          className="font-medium text-brand underline decoration-brand/40 underline-offset-[3px] transition hover:decoration-brand"
-                        >
-                          Privacy Policy
-                        </Link>
-                        .
+                        {t.rich("details.body", { link: privacyLink })}
                       </p>
                     </div>
                     {voluntaryOpen ? (
@@ -194,18 +192,16 @@ export function CookieConsentBanner() {
                         type="button"
                         onClick={() => setVisible(false)}
                         className={ghostBtnClass}
-                        aria-label="Close"
                       >
-                        Close
+                        {t("close")}
                       </button>
                     ) : (
                       <button
                         type="button"
                         onClick={() => setShowDetails(false)}
                         className={ghostBtnClass}
-                        aria-label="Back"
                       >
-                        Back
+                        {t("back")}
                       </button>
                     )}
                   </div>
@@ -221,31 +217,36 @@ export function CookieConsentBanner() {
                         >
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                              <span className="text-sm font-semibold text-white">{item.title}</span>
+                              <span className="text-sm font-semibold text-white">
+                                {t(`items.${item.id}.title`)}
+                              </span>
                               {item.required ? (
                                 <span className="rounded-full bg-white/8 px-2 py-0.5 text-[11px] font-medium tracking-wide text-white/55 uppercase">
-                                  Always on
+                                  {t("alwaysOn")}
                                 </span>
                               ) : null}
                             </div>
                             <p className="mt-1.5 text-sm leading-relaxed text-white/55">
-                              {item.description}
+                              {t(`items.${item.id}.description`)}
                             </p>
                           </div>
                           <div className="flex shrink-0 items-center gap-2.5 self-end sm:self-center">
                             <span
                               className={cn(
-                                "min-w-7 text-right text-xs font-medium tabular-nums",
+                                "min-w-7 text-end text-xs font-medium tabular-nums",
                                 prefs[prefKey] ? "text-brand" : "text-white/45",
                               )}
                             >
-                              {prefs[prefKey] ? "On" : "Off"}
+                              {t("state", { on: String(prefs[prefKey]) })}
                             </span>
                             <button
                               type="button"
                               role="switch"
                               aria-checked={prefs[prefKey] ? "true" : "false"}
-                              aria-label={`${item.title} ${prefs[prefKey] ? "On" : "Off"}`}
+                              aria-label={t("switchLabel", {
+                                item: t(`items.${item.id}.title`),
+                                on: String(prefs[prefKey]),
+                              })}
                               disabled={item.required}
                               onClick={() => {
                                 if (!item.required) setPref(prefKey, !prefs[prefKey]);
@@ -258,7 +259,9 @@ export function CookieConsentBanner() {
                               <span
                                 className={cn(
                                   "pointer-events-none inline-block size-5 rounded-full bg-white shadow-sm transition-transform",
-                                  prefs[prefKey] ? "translate-x-[1.35rem]" : "translate-x-1",
+                                  prefs[prefKey]
+                                    ? "translate-x-[1.35rem] rtl:-translate-x-[1.35rem]"
+                                    : "translate-x-1 rtl:-translate-x-1",
                                 )}
                               />
                             </button>
@@ -275,7 +278,7 @@ export function CookieConsentBanner() {
                       disabled={loading}
                       className={secondaryBtnClass}
                     >
-                      Essential only
+                      {t("essentialOnly")}
                     </button>
                     <button
                       type="button"
@@ -283,7 +286,7 @@ export function CookieConsentBanner() {
                       disabled={loading}
                       className={cn(secondaryBtnClass, "bg-white/[0.06] hover:bg-white/10")}
                     >
-                      Accept all
+                      {t("acceptAll")}
                     </button>
                     <button
                       type="button"
@@ -291,7 +294,7 @@ export function CookieConsentBanner() {
                       disabled={loading}
                       className={primaryBtnClass}
                     >
-                      Save my choices
+                      {t("saveChoices")}
                     </button>
                   </div>
                 </div>

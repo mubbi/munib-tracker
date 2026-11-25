@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { ContactErrorCode, ContactErrorResponse } from "@/lib/contact-errors";
 import {
   CONTACT_IP_RATE_LIMIT,
   CONTACT_RATE_LIMIT,
@@ -31,6 +32,33 @@ const MAX_BODY_BYTES = 32 * 1024;
 /** `contact_messages.ipAddress` is varchar(64). */
 const MAX_IP = 64;
 
+/**
+ * English description per error code, for logs and API callers. Visitors see
+ * `contactForm.errors.<code>` from the catalog instead (the form maps codes).
+ */
+const ERROR_MESSAGES: Record<ContactErrorCode, string> = {
+  invalid_content_type: "Content-Type must be application/json",
+  body_too_large: "Request body too large",
+  invalid_json: "Invalid JSON",
+  invalid_field_type: "Invalid field type",
+  name_required: "Name required",
+  name_too_long: "Name is too long",
+  name_invalid: "Name contains invalid characters",
+  email_invalid: "Valid email required",
+  message_required: "Message required",
+  message_too_long: "Message is too long",
+  message_invalid: "Message contains invalid characters",
+  not_configured: "Contact form is not configured. Please try again later.",
+  rate_limited_email: `You have reached the limit of ${CONTACT_RATE_LIMIT} messages per day for this email. Please try again tomorrow.`,
+  rate_limited_ip: "Too many messages from your network today. Please try again tomorrow.",
+  unavailable: "Contact service unavailable",
+};
+
+function fail(code: ContactErrorCode, status: number, extra?: Pick<ContactErrorResponse, "limit">) {
+  const body: ContactErrorResponse = { error: ERROR_MESSAGES[code], code, ...extra };
+  return NextResponse.json(body, { status });
+}
+
 function clientIp(request: Request): string {
   // Vercel overwrites these headers with the real client address; elsewhere
   // they are only as trustworthy as the reverse proxy in front of the app.
@@ -50,33 +78,33 @@ export async function POST(request: Request) {
   // needs a CORS preflight this route never grants.
   const contentType = request.headers.get("content-type") ?? "";
   if (!/^application\/json\b/i.test(contentType.trim())) {
-    return NextResponse.json({ error: "Content-Type must be application/json" }, { status: 415 });
+    return fail("invalid_content_type", 415);
   }
 
   const declaredLength = Number(request.headers.get("content-length") ?? 0);
   if (declaredLength > MAX_BODY_BYTES) {
-    return NextResponse.json({ error: "Request body too large" }, { status: 413 });
+    return fail("body_too_large", 413);
   }
 
   let raw: string;
   try {
     raw = await request.text();
   } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    return fail("invalid_json", 400);
   }
   if (raw.length > MAX_BODY_BYTES) {
-    return NextResponse.json({ error: "Request body too large" }, { status: 413 });
+    return fail("body_too_large", 413);
   }
 
   let body: ContactBody;
   try {
     const parsed: unknown = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+      return fail("invalid_json", 400);
     }
     body = parsed as ContactBody;
   } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    return fail("invalid_json", 400);
   }
 
   const rawName = optionalString(body.name);
@@ -84,7 +112,7 @@ export async function POST(request: Request) {
   const rawMessage = optionalString(body.message);
   const rawCompany = optionalString(body.company);
   if (rawName === null || rawEmail === null || rawMessage === null || rawCompany === null) {
-    return NextResponse.json({ error: "Invalid field type" }, { status: 400 });
+    return fail("invalid_field_type", 400);
   }
 
   // Honeypot: bots fill hidden fields. Respond 200 so they cannot detect the
@@ -98,33 +126,30 @@ export async function POST(request: Request) {
   const message = rawMessage?.trim();
 
   if (!name) {
-    return NextResponse.json({ error: "Name required" }, { status: 400 });
+    return fail("name_required", 400);
   }
   if (name.length > MAX_NAME) {
-    return NextResponse.json({ error: "Name is too long" }, { status: 400 });
+    return fail("name_too_long", 400);
   }
   if (NAME_CONTROL_RE.test(name)) {
-    return NextResponse.json({ error: "Name contains invalid characters" }, { status: 400 });
+    return fail("name_invalid", 400);
   }
   if (!email || email.length > MAX_EMAIL || !EMAIL_RE.test(email)) {
-    return NextResponse.json({ error: "Valid email required" }, { status: 400 });
+    return fail("email_invalid", 400);
   }
   if (!message) {
-    return NextResponse.json({ error: "Message required" }, { status: 400 });
+    return fail("message_required", 400);
   }
   if (message.length > MAX_MESSAGE) {
-    return NextResponse.json({ error: "Message is too long" }, { status: 400 });
+    return fail("message_too_long", 400);
   }
   if (MESSAGE_CONTROL_RE.test(message)) {
-    return NextResponse.json({ error: "Message contains invalid characters" }, { status: 400 });
+    return fail("message_invalid", 400);
   }
 
   if (!process.env.DATABASE_URL?.trim()) {
     console.error("DATABASE_URL is not set; cannot store contact message.");
-    return NextResponse.json(
-      { error: "Contact form is not configured. Please try again later." },
-      { status: 503 },
-    );
+    return fail("not_configured", 503);
   }
 
   const ipAddress = clientIp(request);
@@ -132,13 +157,7 @@ export async function POST(request: Request) {
   try {
     const recent = await countRecentContactMessagesByEmail(email);
     if (recent >= CONTACT_RATE_LIMIT) {
-      return NextResponse.json(
-        {
-          error:
-            "You have reached the limit of 2 messages per day for this email. Please try again tomorrow.",
-        },
-        { status: 429 },
-      );
+      return fail("rate_limited_email", 429, { limit: CONTACT_RATE_LIMIT });
     }
 
     // Per-address limit alone is trivially bypassed by rotating emails; also
@@ -146,10 +165,7 @@ export async function POST(request: Request) {
     if (ipAddress !== "unknown") {
       const recentFromIp = await countRecentContactMessagesByIp(ipAddress);
       if (recentFromIp >= CONTACT_IP_RATE_LIMIT) {
-        return NextResponse.json(
-          { error: "Too many messages from your network today. Please try again tomorrow." },
-          { status: 429 },
-        );
+        return fail("rate_limited_ip", 429);
       }
     }
 
@@ -162,7 +178,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Failed to store contact message", error);
-    return NextResponse.json({ error: "Contact service unavailable" }, { status: 503 });
+    return fail("unavailable", 503);
   }
 
   return NextResponse.json({ ok: true, message: "Message received" });

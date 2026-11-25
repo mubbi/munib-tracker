@@ -1,4 +1,8 @@
+import { TRANSLATIONS as arAudiences } from "@/content/i18n/ar/audiences";
+import { TRANSLATIONS as urAudiences } from "@/content/i18n/ur/audiences";
+import { type ContentTranslations, localizeEntries } from "@/content/localized";
 import type { AudiencePage } from "@/content/types";
+import { DEFAULT_LOCALE, type Locale } from "@/i18n/routing";
 
 export const AUDIENCE_PAGES: readonly AudiencePage[] = [
   {
@@ -416,8 +420,19 @@ export const AUDIENCE_PAGES: readonly AudiencePage[] = [
   },
 ];
 
-export function getAudience(slug: string): AudiencePage | undefined {
-  return AUDIENCE_PAGES.find((a) => a.slug === slug);
+/** Translated audience pages per locale (see `content/localized.ts`). */
+const TRANSLATIONS: ContentTranslations<AudiencePage> = { ar: arAudiences, ur: urAudiences };
+
+/** Audience pages in `locale`, English where a page isn't translated yet. */
+export function getAudiencePages(locale: Locale = DEFAULT_LOCALE): readonly AudiencePage[] {
+  return localizeEntries(AUDIENCE_PAGES, TRANSLATIONS, locale, (a) => a.slug);
+}
+
+export function getAudience(
+  slug: string,
+  locale: Locale = DEFAULT_LOCALE,
+): AudiencePage | undefined {
+  return getAudiencePages(locale).find((a) => a.slug === slug);
 }
 
 export function audienceHref(slug: string): string {

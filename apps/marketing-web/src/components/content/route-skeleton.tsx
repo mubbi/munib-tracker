@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { PageAtmosphere } from "@/components/content-page";
 
 /**
@@ -12,9 +13,10 @@ import { PageAtmosphere } from "@/components/content-page";
  * the page's content streams in.
  */
 export function RouteSkeleton() {
+  const t = useTranslations("templates");
   return (
     <div aria-busy="true" aria-live="polite" className="relative overflow-hidden">
-      <span className="sr-only">Loading…</span>
+      <span className="sr-only">{t("loading")}</span>
       <PageAtmosphere />
       <div
         aria-hidden

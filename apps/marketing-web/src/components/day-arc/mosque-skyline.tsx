@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useId } from "react";
 import { cn } from "@/lib/utils";
 
@@ -64,6 +65,7 @@ export function MosqueSkyline({
   className?: string;
   fit?: "slice" | "meet";
 }) {
+  const t = useTranslations("common.dayArc");
   const uid = useId().replace(/:/g, "");
   const id = (name: string) => `ms-${uid}-${name}`;
   const WATER = 196;
@@ -74,7 +76,7 @@ export function MosqueSkyline({
       preserveAspectRatio={fit === "meet" ? "xMidYMax meet" : "xMidYMax slice"}
       className={cn("h-full w-full", className)}
     >
-      <title>Mosque over still water at dusk</title>
+      <title>{t("mosqueSkyline")}</title>
       <defs>
         <linearGradient id={id("mosque")} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#132534" />

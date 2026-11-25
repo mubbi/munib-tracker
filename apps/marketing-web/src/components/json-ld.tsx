@@ -1,3 +1,5 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
+import { useLocale, useTranslations } from "next-intl";
 import { JsonLdScript } from "@/components/content/primitives";
 import type { FaqItem } from "@/content/types";
 import {
@@ -8,26 +10,52 @@ import {
   websiteSchema,
 } from "@/lib/structured-data";
 
-/** Sitewide Organization + WebSite graph (rendered once in the root layout). */
+/**
+ * Sitewide Organization + WebSite graph (rendered once in the root layout).
+ * Reads the locale from next-intl, so callers pass nothing.
+ */
 export function JsonLd() {
-  return <JsonLdScript data={graph(organizationSchema(), websiteSchema())} />;
+  const t = useTranslations("structuredData");
+  const locale = useLocale();
+  return (
+    <JsonLdScript
+      data={graph(
+        organizationSchema(),
+        websiteSchema({ locale, description: t("siteDescription", { appName: APP_NAME }) }),
+      )}
+    />
+  );
 }
 
-/** Feature list for the SoftwareApplication node on the home page. */
-const HOME_FEATURE_LIST = [
-  "Salah tracker with streaks, calendar and statistics",
-  "Qaza (missed Salah) calculator, daily-pace planner and missed-fast tracking",
-  "Zikr tracker with guided adhkar sessions, source hadith and a tasbeeh counter",
-  "Offline Qur'an with word-by-word, tajweed colours, translations, tafsir and audio",
-  "On-device AI Qur'an recitation practice with spaced revision",
-  "Learn the Qur'an: Arabic letters, reading and tajweed lessons",
-  "Salah times, Adhan and Qibla compass",
-  "Widgets, Live Activities, Apple Watch, Wear OS, Apple TV and Android TV",
+/** Feature list for the SoftwareApplication node on the home page (keys of `structuredData.homeFeatures`). */
+const HOME_FEATURE_IDS = [
+  "salah",
+  "qaza",
+  "zikr",
+  "quran",
+  "practice",
+  "learn",
+  "times",
+  "devices",
 ] as const;
 
 /** SoftwareApplication structured data for the home page. */
 export function SoftwareJsonLd() {
-  return <JsonLdScript data={graph(softwareApplicationSchema(HOME_FEATURE_LIST))} />;
+  const t = useTranslations("structuredData");
+  const tMeta = useTranslations("metadata");
+  const locale = useLocale();
+  return (
+    <JsonLdScript
+      data={graph(
+        softwareApplicationSchema({
+          locale,
+          description: t("siteDescription", { appName: APP_NAME }),
+          slogan: tMeta("tagline"),
+          featureList: HOME_FEATURE_IDS.map((id) => t(`homeFeatures.${id}`)),
+        }),
+      )}
+    />
+  );
 }
 
 /** FAQPage structured data — only on the dedicated /faq page. */

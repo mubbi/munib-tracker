@@ -38,10 +38,13 @@ export function PageMasthead({
   actions,
   className,
 }: PageMastheadProps) {
-  const label = crumb ?? eyebrow ?? (typeof title === "string" ? title : "Page");
+  // Callers pass translated text, so the shell has no copy of its own. With no
+  // string label to use (a ReactNode title and no crumb/eyebrow) the trail is
+  // just Home rather than an invented, untranslated name.
+  const label = crumb ?? eyebrow ?? (typeof title === "string" ? title : undefined);
   return (
     <header className={cn("relative pb-12 md:pb-16", className)}>
-      <Breadcrumbs items={[{ name: label, href: path }]} />
+      <Breadcrumbs items={label ? [{ name: label, href: path }] : []} />
       <div>
         {eyebrow ? (
           <p className="mt-10 text-sm font-semibold uppercase tracking-[0.18em] text-brand md:mt-12">

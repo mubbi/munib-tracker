@@ -1,0 +1,16 @@
+{
+  "skipToContent": "انتقل إلى المحتوى الرئيسي",
+  "prayers": {
+    "fajr": "الفجر",
+    "dhuhr": "الظهر",
+    "asr": "العصر",
+    "maghrib": "المغرب",
+    "isha": "العشاء"
+  },
+  "dayArc": {
+    "prayerArc": "مسار الصلوات اليومية",
+    "starFlare": "وهج نجمة",
+    "crescent": "هلال",
+    "mosqueSkyline": "مسجد فوق ماء ساكن عند الغروب"
+  }
+}

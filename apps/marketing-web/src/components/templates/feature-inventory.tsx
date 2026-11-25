@@ -1,15 +1,18 @@
 import { Check, Clock } from "lucide-react";
-import Link from "next/link";
-import { MUNIB_FEATURE_INVENTORY } from "@/content/munib-features";
+import { useLocale, useTranslations } from "next-intl";
+import { getFeatureInventory } from "@/content/munib-features";
+import { Link } from "@/i18n/navigation";
 
 /**
  * "Everything in Munib Tracker": every inventory group with its items. Roadmap
  * items carry a "Coming soon" pill and a clock icon, never a check.
  */
 export function FeatureInventory() {
+  const t = useTranslations("templates.inventory");
+  const inventory = getFeatureInventory(useLocale());
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {MUNIB_FEATURE_INVENTORY.map((group) => (
+      {inventory.map((group) => (
         <div key={group.id} className="rounded-2xl border border-white/10 bg-[#0c2131] p-5">
           <h3 className="font-display text-base font-semibold text-white">{group.title}</h3>
           <ul className="mt-3 flex flex-col gap-2.5">
@@ -31,8 +34,8 @@ export function FeatureInventory() {
                     )}
                   </span>
                   {item.status === "planned" ? (
-                    <span className="ml-2 inline-block rounded-full bg-sky-300/15 px-2 py-0.5 text-[11px] font-semibold text-sky-200">
-                      Coming soon
+                    <span className="ms-2 inline-block rounded-full bg-sky-300/15 px-2 py-0.5 text-[11px] font-semibold text-sky-200">
+                      {t("comingSoon")}
                     </span>
                   ) : null}
                   {item.detail ? (

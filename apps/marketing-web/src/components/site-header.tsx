@@ -3,10 +3,11 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import { ArrowRight, ChevronDown, Menu, Sparkles, X } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { MobileNav } from "@/components/mobile-nav";
+import { Link, usePathname } from "@/i18n/navigation";
 import { trackCtaClick, trackNavClick } from "@/lib/analytics";
 import { isActivePath, menuIsActive } from "@/lib/nav";
 import { NAV_LINKS, NAV_MENUS, type NavMenu, SITE_PATHS } from "@/lib/site";
@@ -25,8 +26,10 @@ function MegaPanel({
   menu: NavMenu;
   id: string;
   pathname: string;
-  onNavigate: (label: string) => void;
+  /** Called with a stable, locale-independent id for analytics. */
+  onNavigate: (navId: string) => void;
 }) {
+  const t = useTranslations("nav");
   return (
     <div
       id={id}
@@ -35,9 +38,9 @@ function MegaPanel({
       <div className="mx-auto grid max-w-7xl gap-8 px-8 py-8 lg:grid-cols-[1fr_18rem]">
         <div className={cn("grid gap-8", menu.columns.length >= 3 ? "grid-cols-3" : "grid-cols-2")}>
           {menu.columns.map((col) => (
-            <div key={col.heading}>
+            <div key={col.id}>
               <p className="px-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-                {col.heading}
+                {t(`columns.${col.id}`)}
               </p>
               <ul className="mt-3 flex flex-col gap-0.5">
                 {col.items.map((item) => (
@@ -46,16 +49,14 @@ function MegaPanel({
                       href={item.href}
                       aria-current={pathname === item.href ? "page" : undefined}
                       className="group block rounded-xl px-3 py-2.5 transition-colors hover:bg-white/[0.06] focus-visible:bg-white/[0.06]"
-                      onClick={() => onNavigate(item.label)}
+                      onClick={() => onNavigate(item.href)}
                     >
                       <span className="block text-[15px] font-medium text-white group-hover:text-brand">
-                        {item.label}
+                        {t(`items.${item.id}.label`, { appName: APP_NAME })}
                       </span>
-                      {item.hint ? (
-                        <span className="mt-0.5 block text-[13px] leading-snug text-white/55">
-                          {item.hint}
-                        </span>
-                      ) : null}
+                      <span className="mt-0.5 block text-[13px] leading-snug text-white/55">
+                        {t(`items.${item.id}.hint`)}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -68,23 +69,23 @@ function MegaPanel({
             <Link
               href={menu.feature.href}
               className="group flex flex-1 flex-col rounded-2xl border border-brand/25 bg-[#0d2a2a] p-5 transition-colors hover:border-brand/50"
-              onClick={() => onNavigate(menu.feature?.label ?? "feature")}
+              onClick={() => onNavigate(`feature_${menu.id}`)}
             >
               <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
                 <Sparkles aria-hidden className="size-3.5" />
-                {menu.feature.eyebrow}
+                {t(`featured.${menu.feature.id}.eyebrow`)}
               </span>
               <span className="mt-2 font-display text-lg font-semibold leading-snug text-white">
-                {menu.feature.label}
+                {t(`featured.${menu.feature.id}.label`)}
               </span>
               <span className="mt-1.5 text-sm leading-relaxed text-white/65">
-                {menu.feature.hint}
+                {t(`featured.${menu.feature.id}.hint`)}
               </span>
               <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-brand">
-                Learn more
+                {t("learnMore")}
                 <ArrowRight
                   aria-hidden
-                  className="size-4 transition-transform group-hover:translate-x-0.5"
+                  className="size-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
                 />
               </span>
             </Link>
@@ -94,8 +95,8 @@ function MegaPanel({
             className="inline-flex items-center gap-1.5 px-1 text-sm font-semibold text-white/80 hover:text-brand"
             onClick={() => onNavigate(`all_${menu.id}`)}
           >
-            {menu.viewAllLabel}
-            <ArrowRight aria-hidden className="size-4" />
+            {t(`menus.${menu.id}.viewAll`)}
+            <ArrowRight aria-hidden className="size-4 rtl:-scale-x-100" />
           </Link>
         </div>
       </div>
@@ -105,6 +106,7 @@ function MegaPanel({
 
 /** Sitewide header: mega-menus on desktop, an accordion drawer on mobile. */
 export function SiteHeader() {
+  const t = useTranslations("nav");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileSection, setMobileSection] = useState<string | null>(null);
@@ -196,8 +198,8 @@ export function SiteHeader() {
     return () => el.removeEventListener("mouseleave", scheduleClose);
   }, [scheduleClose]);
 
-  const onNavigate = (label: string) => {
-    trackNavClick(label.toLowerCase(), pathname);
+  const onNavigate = (navId: string) => {
+    trackNavClick(navId, pathname);
     setOpenMenu(null);
     setMobileOpen(false);
   };
@@ -230,7 +232,7 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          <nav aria-label="Main" className="hidden lg:block">
+          <nav aria-label={t("mainLabel")} className="hidden lg:block">
             <ul className="flex items-center gap-1">
               {NAV_MENUS.map((menu) => {
                 const open = openMenu === menu.id;
@@ -268,7 +270,7 @@ export function SiteHeader() {
                         else setOpenMenu(open ? null : menu.id);
                       }}
                     >
-                      {menu.label}
+                      {t(`menus.${menu.id}.label`)}
                       <ChevronDown
                         aria-hidden
                         className={cn("size-4 transition-transform", open && "rotate-180")}
@@ -296,9 +298,9 @@ export function SiteHeader() {
                         "inline-flex rounded-full px-3.5 py-2 text-sm font-medium transition-colors [text-shadow:0_1px_6px_rgba(0,0,0,0.35)]",
                         active ? "text-white" : "text-white/75 hover:text-white",
                       )}
-                      onClick={() => onNavigate(link.label)}
+                      onClick={() => onNavigate(link.href)}
                     >
-                      {link.label}
+                      {t(`links.${link.id}`)}
                     </Link>
                   </li>
                 );
@@ -307,12 +309,13 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <LocaleSwitcher className="hidden lg:block" />
             <Link
               href={SITE_PATHS.download}
               className={cn(CTA_CLASS, "hidden h-10 px-5 text-sm sm:inline-flex")}
               onClick={() => trackCtaClick("get_app", "header")}
             >
-              Get the app
+              {t("getTheApp")}
             </Link>
             <button
               ref={toggleRef}
@@ -322,7 +325,7 @@ export function SiteHeader() {
               aria-controls={`${baseId}-mobile`}
               onClick={() => setMobileOpen((v) => !v)}
             >
-              <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
+              <span className="sr-only">{mobileOpen ? t("closeMenu") : t("openMenu")}</span>
               {mobileOpen ? (
                 <X aria-hidden className="size-5" />
               ) : (

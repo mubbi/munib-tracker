@@ -1,4 +1,8 @@
+import { TRANSLATIONS as arCategories } from "@/content/i18n/ar/categories";
+import { TRANSLATIONS as urCategories } from "@/content/i18n/ur/categories";
+import { type ContentTranslations, localizeEntries } from "@/content/localized";
 import type { ResourceCategory, ResourceCategorySlug } from "@/content/types";
+import { DEFAULT_LOCALE, type Locale } from "@/i18n/routing";
 
 export const RESOURCE_CATEGORIES: readonly ResourceCategory[] = [
   {
@@ -43,10 +47,22 @@ export const RESOURCE_CATEGORIES: readonly ResourceCategory[] = [
   },
 ];
 
-const BY_SLUG = new Map(RESOURCE_CATEGORIES.map((c) => [c.slug, c]));
+/** Translated categories per locale (see `content/localized.ts`). */
+const TRANSLATIONS: ContentTranslations<ResourceCategory> = {
+  ar: arCategories,
+  ur: urCategories,
+};
 
-export function getCategory(slug: string): ResourceCategory | undefined {
-  return BY_SLUG.get(slug as ResourceCategorySlug);
+/** Resource categories in `locale`, English where one isn't translated yet. */
+export function getCategories(locale: Locale = DEFAULT_LOCALE): readonly ResourceCategory[] {
+  return localizeEntries(RESOURCE_CATEGORIES, TRANSLATIONS, locale, (c) => c.slug);
+}
+
+export function getCategory(
+  slug: string,
+  locale: Locale = DEFAULT_LOCALE,
+): ResourceCategory | undefined {
+  return getCategories(locale).find((c) => c.slug === slug);
 }
 
 export function categoryHref(slug: ResourceCategorySlug): string {

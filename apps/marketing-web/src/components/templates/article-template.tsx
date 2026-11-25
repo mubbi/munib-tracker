@@ -1,5 +1,6 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
 import { ListChecks } from "lucide-react";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { Blocks, blockText, Note, tableOfContents } from "@/components/content/blocks";
 import { DownloadCta } from "@/components/content/download-cta";
 import { PageHero } from "@/components/content/page-hero";
@@ -9,40 +10,52 @@ import { featureHref, getFeature } from "@/content/features";
 import { articleByHref, articleHref } from "@/content/resources";
 import { categoryHref, getCategory } from "@/content/resources/categories";
 import type { Article } from "@/content/types";
+import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
 import { readingMinutes } from "@/lib/seo";
 import { articleSchema, graph } from "@/lib/structured-data";
 
-function relatedCard(href: string) {
-  const a = articleByHref(href);
-  if (a) return { href, title: a.title, description: a.description, meta: "Guide" };
+type TemplatesT = ReturnType<typeof useTranslations<"templates">>;
+
+function relatedCard(href: string, locale: Locale, t: TemplatesT) {
+  const a = articleByHref(href, locale);
+  if (a) return { href, title: a.title, description: a.description, meta: t("cardMeta.guide") };
   if (href.startsWith("/features/")) {
-    const f = getFeature(href.slice("/features/".length));
-    if (f) return { href, title: f.navLabel, description: f.description, meta: "Feature" };
+    const f = getFeature(href.slice("/features/".length), locale);
+    if (f) {
+      return { href, title: f.navLabel, description: f.description, meta: t("cardMeta.feature") };
+    }
   }
   return null;
 }
 
 export function ArticleTemplate({ article }: { article: Article }) {
+  const t = useTranslations("templates");
+  const locale = useLocale();
   const path = articleHref(article);
-  const category = getCategory(article.category);
+  const category = getCategory(article.category, locale);
+  const categoryTitle = category?.title ?? t("crumbs.guides");
   const text = blockText(article.body);
   const words = text.join(" ").split(/\s+/).filter(Boolean).length;
   const minutes = readingMinutes(text);
   const toc = tableOfContents(article.body);
-  const tieIn = getFeature(article.appTieIn.feature);
-  const related = article.related.map(relatedCard).filter((c) => c !== null);
+  const tieIn = getFeature(article.appTieIn.feature, locale);
+  const related = article.related
+    .map((href) => relatedCard(href, locale, t))
+    .filter((c) => c !== null);
 
   return (
     <>
       <JsonLdScript
         data={graph(
           articleSchema({
+            locale,
             path,
             headline: article.title,
             description: article.seoDescription,
             published: article.published,
             modified: article.updated,
-            section: category?.title ?? "Guides",
+            section: categoryTitle,
             keywords: article.keywords,
             wordCount: words,
           }),
@@ -50,8 +63,8 @@ export function ArticleTemplate({ article }: { article: Article }) {
       />
       <PageHero
         crumbs={[
-          { name: "Resources", href: "/resources" },
-          { name: category?.title ?? "Guides", href: categoryHref(article.category) },
+          { name: t("crumbs.resources"), href: "/resources" },
+          { name: categoryTitle, href: categoryHref(article.category) },
           { name: article.title, href: path },
         ]}
         eyebrow={category?.title}
@@ -59,15 +72,19 @@ export function ArticleTemplate({ article }: { article: Article }) {
         intro={<p>{article.description}</p>}
         meta={
           <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <DateStamp label="Updated" iso={article.updated} />
+            <DateStamp label="updated" iso={article.updated} />
             <span aria-hidden>·</span>
-            <span>{minutes} min read</span>
+            <span>{t("article.readingTime", { minutes })}</span>
             <span aria-hidden>·</span>
             <span>
-              By{" "}
-              <Link href="/about" className="underline underline-offset-2 hover:text-brand">
-                Munib Tracker
-              </Link>
+              {t.rich("article.byline", {
+                appName: APP_NAME,
+                link: (chunks) => (
+                  <Link href="/about" className="underline underline-offset-2 hover:text-brand">
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </span>
           </p>
         }
@@ -84,12 +101,12 @@ export function ArticleTemplate({ article }: { article: Article }) {
               className="flex items-center gap-2 font-display text-base font-semibold text-white"
             >
               <ListChecks aria-hidden className="size-5 text-brand" />
-              Key takeaways
+              {t("article.takeaways")}
             </h2>
-            <ul className="mt-3 flex list-disc flex-col gap-2 pl-5 text-[15px] leading-relaxed text-white/80 marker:text-brand">
-              {article.takeaways.map((t) => (
-                <li key={t}>
-                  <RichText text={t} />
+            <ul className="mt-3 flex list-disc flex-col gap-2 ps-5 text-[15px] leading-relaxed text-white/80 marker:text-brand">
+              {article.takeaways.map((takeaway) => (
+                <li key={takeaway}>
+                  <RichText text={takeaway} />
                 </li>
               ))}
             </ul>
@@ -103,8 +120,12 @@ export function ArticleTemplate({ article }: { article: Article }) {
             <div className="mt-10">
               <Note
                 tone="app"
-                title={`Try it: ${tieIn.navLabel}`}
-                text={`${article.appTieIn.text} [Learn about ${tieIn.navLabel.toLowerCase()}](${featureHref(tieIn.slug)}).`}
+                title={t("article.tieInTitle", { feature: tieIn.navLabel })}
+                text={t("article.tieInText", {
+                  text: article.appTieIn.text,
+                  feature: tieIn.navLabel.toLocaleLowerCase(locale),
+                  href: featureHref(tieIn.slug),
+                })}
               />
             </div>
           ) : null}
@@ -112,7 +133,7 @@ export function ArticleTemplate({ article }: { article: Article }) {
           {article.faqs?.length ? (
             <section aria-labelledby="article-faq" className="mt-12">
               <h2 id="article-faq" className="font-display text-2xl font-bold text-white">
-                Frequently asked questions
+                {t("article.faqTitle")}
               </h2>
               <div className="mt-5">
                 <FaqList items={article.faqs} />
@@ -122,7 +143,7 @@ export function ArticleTemplate({ article }: { article: Article }) {
 
           <section aria-labelledby="sources-title" className="mt-12 border-t border-white/10 pt-8">
             <h2 id="sources-title" className="font-display text-xl font-bold text-white">
-              Sources
+              {t("article.sourcesTitle")}
             </h2>
             <ul className="mt-4 flex flex-col gap-2 text-[15px]">
               {article.sources.map((s) => (
@@ -139,22 +160,23 @@ export function ArticleTemplate({ article }: { article: Article }) {
               ))}
             </ul>
             <p className="mt-6 text-sm leading-relaxed text-white/55">
-              This guide is educational and was prepared by Munib Tracker from the sources listed
-              above. It is not a fatwa. For questions about your own situation, please ask a
-              qualified scholar. Found an error?{" "}
-              <Link href="/contact" className="text-brand underline underline-offset-2">
-                Let us know
-              </Link>
-              .
+              {t.rich("article.disclaimer", {
+                appName: APP_NAME,
+                link: (chunks) => (
+                  <Link href="/contact" className="text-brand underline underline-offset-2">
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </p>
           </section>
         </article>
 
         {toc.length > 2 ? (
-          <nav aria-label="On this page" className="hidden lg:block">
+          <nav aria-label={t("article.onThisPage")} className="hidden lg:block">
             <div className="sticky top-28 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-                On this page
+                {t("article.onThisPage")}
               </p>
               <ol className="mt-3 flex flex-col gap-2 text-sm">
                 {toc.map((item) => (
@@ -183,7 +205,7 @@ export function ArticleTemplate({ article }: { article: Article }) {
               id="related-title"
               className="font-display text-2xl font-bold text-white md:text-3xl"
             >
-              Keep reading
+              {t("article.keepReading")}
             </h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((c) => (

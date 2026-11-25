@@ -1,4 +1,6 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
 import { Check } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { PracticePreview } from "@/components/ai-practice-highlight";
 import { Note } from "@/components/content/blocks";
 import { DownloadCta } from "@/components/content/download-cta";
@@ -25,21 +27,32 @@ import { graph, webPageSchema } from "@/lib/structured-data";
  * examples → notes → FAQ → related → download. One H1, H2 per section.
  */
 export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
+  const t = useTranslations("templates");
+  const locale = useLocale();
   const path = featureHref(feature.slug);
   const [firstShot, ...moreShots] = feature.gallery ?? [];
-  const related = feature.related.map(getFeature).filter((f) => f !== undefined);
-  const guides = (feature.guides ?? []).map(articleByHref).filter((a) => a !== undefined);
+  const related = feature.related
+    .map((slug) => getFeature(slug, locale))
+    .filter((f) => f !== undefined);
+  const guides = (feature.guides ?? [])
+    .map((href) => articleByHref(href, locale))
+    .filter((a) => a !== undefined);
 
   return (
     <>
       <JsonLdScript
         data={graph(
-          webPageSchema({ path, name: feature.title, description: feature.seoDescription }),
+          webPageSchema({
+            locale,
+            path,
+            name: feature.title,
+            description: feature.seoDescription,
+          }),
         )}
       />
       <PageHero
         crumbs={[
-          { name: "Features", href: "/features" },
+          { name: t("crumbs.features"), href: "/features" },
           { name: feature.navLabel, href: path },
         ]}
         eyebrow={feature.eyebrow}
@@ -95,7 +108,11 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
         </div>
       </PageSection>
 
-      <PageSection id="how-it-works" eyebrow="Step by step" title={feature.howItWorks.title}>
+      <PageSection
+        id="how-it-works"
+        eyebrow={t("feature.howItWorksEyebrow")}
+        title={feature.howItWorks.title}
+      >
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {feature.howItWorks.steps.map((step, i) => (
             <li
@@ -116,7 +133,12 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
         </ol>
       </PageSection>
 
-      <PageSection id="benefits" tone="band" eyebrow="Benefits" title="What you get from it">
+      <PageSection
+        id="benefits"
+        tone="band"
+        eyebrow={t("feature.benefitsEyebrow")}
+        title={t("feature.benefitsTitle")}
+      >
         <div className="grid gap-4 sm:grid-cols-2">
           {feature.benefits.map((b) => (
             <div
@@ -138,7 +160,11 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
       </PageSection>
 
       {moreShots.length > 0 ? (
-        <PageSection id="screenshots" eyebrow="In the app" title="See it in Munib Tracker">
+        <PageSection
+          id="screenshots"
+          eyebrow={t("feature.screenshotsEyebrow")}
+          title={t("feature.screenshotsTitle", { appName: APP_NAME })}
+        >
           <div className="flex flex-wrap items-start justify-center gap-10">
             {moreShots.map((slot) => (
               <Screenshot key={slot.key} slot={slot} className={frameWidthClass(slot.key)} />
@@ -147,7 +173,11 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
         </PageSection>
       ) : null}
 
-      <PageSection id="examples" eyebrow="In practice" title={feature.examples.title}>
+      <PageSection
+        id="examples"
+        eyebrow={t("feature.examplesEyebrow")}
+        title={feature.examples.title}
+      >
         <div className="grid gap-4 md:grid-cols-3">
           {feature.examples.items.map((ex) => (
             <div key={ex.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
@@ -170,10 +200,14 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
       <FaqSection
         items={feature.faqs}
         tone="band"
-        title={`${feature.navLabel}: common questions`}
+        title={t("feature.faqTitle", { feature: feature.navLabel })}
       />
 
-      <PageSection id="related" eyebrow="Keep exploring" title="Related features and guides">
+      <PageSection
+        id="related"
+        eyebrow={t("feature.relatedEyebrow")}
+        title={t("feature.relatedTitle")}
+      >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((f) => (
             <LinkCard
@@ -182,7 +216,7 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
               title={f.navLabel}
               description={f.description}
               icon={<FeatureIcon icon={f.icon} />}
-              meta="Feature"
+              meta={t("cardMeta.feature")}
             />
           ))}
           {guides.map((a) => (
@@ -191,7 +225,7 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
               href={articleHref(a)}
               title={a.title}
               description={a.description}
-              meta="Guide"
+              meta={t("cardMeta.guide")}
             />
           ))}
         </div>
@@ -204,6 +238,7 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
 
 /** Hero visual for features without a real screenshot: a summary, never a mock UI. */
 function FeatureSummaryCard({ feature }: { feature: FeaturePage }) {
+  const t = useTranslations("templates.feature");
   const highlights = feature.whatItDoes.groups.map((g) => g.title).slice(0, 4);
   return (
     <div className="relative w-full max-w-sm overflow-hidden rounded-[1.75rem] border border-white/12 bg-[linear-gradient(150deg,#0f3a30_0%,#0b2734_60%,#13213a_100%)] p-7 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.9)]">
@@ -226,7 +261,7 @@ function FeatureSummaryCard({ feature }: { feature: FeaturePage }) {
         ))}
       </ul>
       <p className="relative mt-6 text-xs uppercase tracking-[0.16em] text-gold/90">
-        Free · No ads · In the app
+        {t("summaryFooter")}
       </p>
     </div>
   );

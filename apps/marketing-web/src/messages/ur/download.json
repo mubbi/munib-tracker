@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "title": "{appName} ڈاؤن لوڈ کریں — iPhone، Android اور ویب پر مفت",
+    "description": "{appName} App Store یا Google Play سے مفت ڈاؤن لوڈ کریں، یا ویب ایپ کھولیں۔ کوئی اشتہار نہیں اور اکاؤنٹ کی ضرورت نہیں۔ Apple Watch، Wear OS اور TV پر بھی دستیاب۔"
+  },
+  "eyebrow": "ڈاؤن لوڈ",
+  "title": "ایپ حاصل کریں",
+  "intro": "{appName} iPhone، iPad، Android، ویب، Apple Watch، Wear OS، Apple TV اور Android TV پر چلتا ہے۔ اسٹورز سے انسٹال کریں یا اپنے براؤزر میں شروع کریں۔",
+  "available": "دستیاب",
+  "platforms": {
+    "web": {
+      "name": "ویب",
+      "status": "ابھی دستیاب",
+      "description": "{appName} کسی بھی جدید براؤزر میں استعمال کریں۔ اطلاعات کی سپورٹ اور مکمل تعلیمی لائبریری کے ساتھ پروگریسو ویب ایپ کے طور پر آف لائن کام کرتا ہے۔",
+      "cta": "ویب ایپ کھولیں"
+    },
+    "ios": {
+      "name": "iPhone اور iPad",
+      "status": "{appStore}",
+      "description": "نیٹو ٹیبز، ہیپٹکس، قطب نما کے ساتھ قبلہ، ویجیٹس، لائیو سرگرمیاں، Siri شارٹ کٹس، نماز فوکس لاک، ایپ لاک، اور Sign in with Apple۔",
+      "cta": "{appStore} کھولیں"
+    },
+    "android": {
+      "name": "Android",
+      "status": "{googlePlay}",
+      "description": "فونز اور ٹیبلیٹس، قطب نما کے ساتھ قبلہ، ہوم اسکرین ویجیٹس، Live Updates، Assistant شارٹ کٹس، نماز فوکس لاک، ایپ لاک، اور Google سائن اِن کے ساتھ۔",
+      "cta": "{googlePlay} کھولیں"
+    },
+    "watch": {
+      "name": "Apple Watch اور Wear OS",
+      "status": "فون ایپ کے ساتھ",
+      "description": "اگلی نماز دیکھیں اور اپنی کلائی سے اسے نشان زد کریں، Apple Watch پر کمپلیکیشنز اور Wear OS پر نماز اور تسبیح کی ٹائلز کے ساتھ۔ فون ایپ کے ساتھ انسٹال ہوتی ہے۔"
+    },
+    "tv": {
+      "name": "Apple TV اور Android TV",
+      "status": "{appStore} اور {googlePlay}",
+      "description": "بڑی اسکرین پر قرآن پڑھیں، اذکار کریں اور اپنا ٹریکر دیکھیں، ریموٹ کے لیے ڈیزائن کیا گیا۔"
+    }
+  },
+  "grabIt": "جیسے چاہیں حاصل کریں",
+  "requirements": {
+    "heading": "سسٹم کی ضروریات",
+    "items": {
+      "web": "ویب: Chrome، Safari، Firefox یا Edge (تازہ ترین دو ورژن)",
+      "ios": "iPhone اور iPad: iOS 16.4 یا اس سے جدید (ویجیٹس اور لائیو سرگرمیوں کے لیے iOS 17 درکار ہے)",
+      "android": "Android: Android 7 (API 24) یا اس سے جدید",
+      "watch": "Apple Watch: watchOS 10 یا اس سے جدید · Wear OS: Android 11 (API 30) یا اس سے جدید",
+      "tv": "Apple TV: tvOS 17 یا اس سے جدید · Android TV: Android 12 (API 31) یا اس سے جدید",
+      "internet": "انٹرنیٹ صرف سائن اِن، سنک اور ضرورت پر مواد ڈاؤن لوڈ کرنے کے لیے درکار ہے"
+    }
+  },
+  "guest": {
+    "heading": "مہمان موڈ",
+    "body": "ذاتی استعمال کے لیے اکاؤنٹ کی ضرورت نہیں۔ ایپ انسٹال کریں یا کھولیں اور فوراً ٹریکنگ شروع کریں۔ کسی بھی وقت مقامی بیک اپ ایکسپورٹ کریں، یا Google، Apple یا Facebook کے ساتھ سائن اِن کریں تاکہ اپنی نماز، قضا، ذکر اور سیکھنے کی پیش رفت آلات کے درمیان سنک کر سکیں، یا فیملی حلقے، احتساب کا ساتھی اور اجتماعی ختم استعمال کر سکیں۔"
+  }
+}

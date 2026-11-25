@@ -5,16 +5,18 @@ import { FEATURE_PAGES, featureHref } from "@/content/features";
 import { ARTICLES, articleHref } from "@/content/resources";
 import { categoryHref, RESOURCE_CATEGORIES } from "@/content/resources/categories";
 import type { ScreenshotKey, ScreenshotSlot } from "@/content/types";
+import { LOCALES } from "@/i18n/routing";
 import { getScreenshot } from "@/lib/screenshots";
-import { absoluteUrl, SITE_LOCALE } from "@/lib/seo";
+import { absoluteUrl, languageAlternates, localizedUrl } from "@/lib/seo";
 import { SITE_PATHS } from "@/lib/site";
 
 /**
  * `/sitemap.xml` — generated at build time from the content registries, so
  * every new feature, comparison, audience page or guide is listed
- * automatically with its own last-updated date. Each URL carries its
- * hreflang alternates, and pages that show real app screenshots list them as
- * image-sitemap entries for Google Images.
+ * automatically with its own last-updated date. Every page is listed once per
+ * published locale, each URL carrying the full set of hreflang alternates,
+ * and pages that show real app screenshots list them as image-sitemap entries
+ * for Google Images.
  */
 
 /** Last substantive edit of the static (non-registry) pages. Bump when they change. */
@@ -66,35 +68,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: string,
     priority: number,
     imageKeys: readonly ScreenshotKey[] = [],
-  ): MetadataRoute.Sitemap[number] => {
-    const url = absoluteUrl(path);
+  ): MetadataRoute.Sitemap => {
     const imgs = images(imageKeys);
-    return {
-      url,
+    const languages = languageAlternates(path);
+    return LOCALES.map((locale) => ({
+      url: localizedUrl(path, locale),
       lastModified,
       changeFrequency: "monthly",
       priority,
-      alternates: { languages: { [SITE_LOCALE]: url, "x-default": url } },
+      alternates: { languages },
       ...(imgs.length ? { images: imgs } : {}),
-    };
+    }));
   };
 
   return [
-    ...Object.values(SITE_PATHS).map((path) =>
+    ...Object.values(SITE_PATHS).flatMap((path) =>
       entry(path, STATIC_PAGES_UPDATED, STATIC_PRIORITY[path] ?? 0.5, STATIC_IMAGES[path]),
     ),
-    ...FEATURE_PAGES.map((f) =>
+    ...FEATURE_PAGES.flatMap((f) =>
       entry(featureHref(f.slug), f.updated, 0.9, slotKeys(f.hero, ...(f.gallery ?? []))),
     ),
-    ...AUDIENCE_PAGES.map((a) => entry(audienceHref(a.slug), a.updated, 0.7, slotKeys(a.hero))),
-    ...COMPARE_PAGES.map((c) => entry(compareHref(c.slug), c.updated, 0.7)),
-    ...RESOURCE_CATEGORIES.map((c) =>
+    ...AUDIENCE_PAGES.flatMap((a) => entry(audienceHref(a.slug), a.updated, 0.7, slotKeys(a.hero))),
+    ...COMPARE_PAGES.flatMap((c) => entry(compareHref(c.slug), c.updated, 0.7)),
+    ...RESOURCE_CATEGORIES.flatMap((c) =>
       entry(
         categoryHref(c.slug),
         latest(ARTICLES.filter((a) => a.category === c.slug).map((a) => a.updated)),
         0.6,
       ),
     ),
-    ...ARTICLES.map((a) => entry(articleHref(a), a.updated, 0.7)),
+    ...ARTICLES.flatMap((a) => entry(articleHref(a), a.updated, 0.7)),
   ];
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { DayArcBackground } from "@/components/day-arc/day-arc-background";
+import { usePathname } from "@/i18n/navigation";
 
 /**
  * Global site backdrop. The home page rides the scroll-driven day→night

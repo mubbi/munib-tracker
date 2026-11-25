@@ -1,10 +1,12 @@
 import { Info } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type CookieNoAdsNoticeProps = {
   appName: string;
 };
 
 export function CookieNoAdsNotice({ appName }: CookieNoAdsNoticeProps) {
+  const t = useTranslations("consent");
   return (
     <div
       role="note"
@@ -14,11 +16,10 @@ export function CookieNoAdsNotice({ appName }: CookieNoAdsNoticeProps) {
         <Info className="size-4 text-brand" strokeWidth={2.25} aria-hidden />
       </span>
       <p className="min-w-0 text-sm leading-relaxed text-white/70">
-        <span className="font-semibold text-brand">
-          No advertising or marketing tracking — ever.
-        </span>{" "}
-        We never use cookies to build an ad profile, retarget you, or sell your data. Optional
-        analytics, if you enable them, only help us improve {appName}.
+        {t.rich("noAds", {
+          appName,
+          strong: (chunks) => <span className="font-semibold text-brand">{chunks}</span>,
+        })}
       </p>
     </div>
   );

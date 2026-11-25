@@ -1,17 +1,20 @@
 import { Check, CircleHelp, Clock, Minus, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { CompareCell, ComparePage } from "@/content/types";
 import { cn } from "@/lib/utils";
 
+/** Cell statuses; labels are `templates.comparisonTable.status.<status>`. */
 const STATUS = {
-  yes: { icon: Check, label: "Available", className: "text-brand" },
-  no: { icon: X, label: "Not available", className: "text-rose-300" },
-  partial: { icon: Minus, label: "Partially available", className: "text-gold" },
-  unverified: { icon: CircleHelp, label: "Not verified", className: "text-white/60" },
-  planned: { icon: Clock, label: "Coming soon", className: "text-sky-300" },
+  yes: { icon: Check, className: "text-brand" },
+  no: { icon: X, className: "text-rose-300" },
+  partial: { icon: Minus, className: "text-gold" },
+  unverified: { icon: CircleHelp, className: "text-white/60" },
+  planned: { icon: Clock, className: "text-sky-300" },
 } as const;
 
 function Cell({ value }: { value: CompareCell | undefined }) {
-  if (!value) return <span className="text-white/40">—</span>;
+  const t = useTranslations("templates.comparisonTable");
+  if (!value) return <span className="text-white/40">{t("empty")}</span>;
   if ("text" in value) return <span className="text-white/80">{value.text}</span>;
   const s = STATUS[value.status];
   const Icon = s.icon;
@@ -19,7 +22,7 @@ function Cell({ value }: { value: CompareCell | undefined }) {
     <span className="flex items-start gap-2">
       <Icon aria-hidden className={cn("mt-0.5 size-4 shrink-0", s.className)} />
       <span>
-        <span className={cn("font-medium", s.className)}>{s.label}</span>
+        <span className={cn("font-medium", s.className)}>{t(`status.${value.status}`)}</span>
         {value.note ? (
           <span className="block text-[13px] text-white/60 [overflow-wrap:anywhere]">
             {value.note}
@@ -31,6 +34,7 @@ function Cell({ value }: { value: CompareCell | undefined }) {
 }
 
 function Legend({ page }: { page: ComparePage }) {
+  const t = useTranslations("templates.comparisonTable");
   const used = new Set(
     page.table.flatMap((g) =>
       g.rows.flatMap((r) => Object.values(r.cells).map((c) => ("status" in c ? c.status : null))),
@@ -41,11 +45,11 @@ function Legend({ page }: { page: ComparePage }) {
       {(Object.keys(STATUS) as (keyof typeof STATUS)[])
         .filter((k) => used.has(k))
         .map((k) => {
-          const { icon: Icon, label, className } = STATUS[k];
+          const { icon: Icon, className } = STATUS[k];
           return (
-            <li key={label} className="inline-flex items-center gap-1.5">
+            <li key={k} className="inline-flex items-center gap-1.5">
               <Icon aria-hidden className={cn("size-4", className)} />
-              {label}
+              {t(`status.${k}`)}
             </li>
           );
         })}
@@ -58,6 +62,7 @@ function Legend({ page }: { page: ComparePage }) {
  * feature on small screens. A legend lists only the statuses the page uses.
  */
 export function ComparisonTable({ page }: { page: ComparePage }) {
+  const t = useTranslations("templates.comparisonTable");
   const roundup = page.kind === "roundup";
   return (
     <>
@@ -65,20 +70,20 @@ export function ComparisonTable({ page }: { page: ComparePage }) {
       <div className="mt-6 hidden overflow-x-auto rounded-2xl border border-white/10 bg-[#07141f]/60 md:block">
         <table
           className={cn(
-            "w-full border-collapse text-left text-[15px]",
+            "w-full border-collapse text-start text-[15px]",
             roundup ? "min-w-[64rem]" : "min-w-[40rem]",
           )}
         >
           <caption className="sr-only">
-            {page.title}: feature comparison, last verified {page.verifiedOn}
+            {t("caption", { title: page.title, date: page.verifiedOn })}
           </caption>
           <thead>
             <tr className="border-b border-white/10 bg-white/[0.04]">
               <th
                 scope="col"
-                className="sticky left-0 z-10 w-56 bg-[#0b1b28] px-4 py-3 font-semibold text-white"
+                className="sticky start-0 z-10 w-56 bg-[#0b1b28] px-4 py-3 font-semibold text-white"
               >
-                Feature
+                {t("featureColumn")}
               </th>
               {page.apps.map((app) => (
                 <th
@@ -109,7 +114,7 @@ export function ComparisonTable({ page }: { page: ComparePage }) {
                 <tr key={row.feature} className="border-b border-white/[0.06] align-top">
                   <th
                     scope="row"
-                    className="sticky left-0 z-10 bg-[#0b1b28] px-4 py-3 font-medium text-white/90"
+                    className="sticky start-0 z-10 bg-[#0b1b28] px-4 py-3 font-medium text-white/90"
                   >
                     {row.feature}
                   </th>

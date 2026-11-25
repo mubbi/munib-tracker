@@ -1,11 +1,14 @@
 import { ChevronRight, Plus } from "lucide-react";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { AppleWatchFrame, RoundWatchFrame, TvFrame } from "@/components/content/device-frames";
 import { RichText } from "@/components/content/rich-text";
 import { DeviceFrame } from "@/components/day-arc/device-frame";
 import type { FaqItem, ScreenshotSlot } from "@/content/types";
-import { getScreenshot } from "@/lib/screenshots";
+import { LOCALE_META } from "@/i18n/locales";
+import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
+import { getScreenshot, useScreenshot } from "@/lib/screenshots";
 import { breadcrumbSchema, type Crumb, graph } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 
@@ -22,17 +25,21 @@ export function JsonLdScript({ data }: { data: Record<string, unknown> }) {
 
 /** Visible breadcrumb trail + BreadcrumbList structured data. First crumb is Home. */
 export function Breadcrumbs({ items, className }: { items: readonly Crumb[]; className?: string }) {
-  const crumbs: Crumb[] = [{ name: "Home", href: "/" }, ...items];
+  const t = useTranslations("templates");
+  const locale = useLocale();
+  const crumbs: Crumb[] = [{ name: t("crumbs.home"), href: "/" }, ...items];
   return (
     <>
-      <JsonLdScript data={graph(breadcrumbSchema(crumbs))} />
-      <nav aria-label="Breadcrumb" className={cn("text-sm", className)}>
+      <JsonLdScript data={graph(breadcrumbSchema(crumbs, locale))} />
+      <nav aria-label={t("breadcrumbLabel")} className={cn("text-sm", className)}>
         <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-white/55">
           {crumbs.map((crumb, i) => {
             const last = i === crumbs.length - 1;
             return (
               <li key={crumb.href} className="inline-flex items-center gap-1.5">
-                {i > 0 ? <ChevronRight aria-hidden className="size-3.5 text-white/30" /> : null}
+                {i > 0 ? (
+                  <ChevronRight aria-hidden className="size-3.5 text-white/30 rtl:-scale-x-100" />
+                ) : null}
                 {last ? (
                   <span aria-current="page" className="text-white/80">
                     {crumb.name}
@@ -72,7 +79,7 @@ export function Screenshot({
   className?: string;
   showCaption?: boolean;
 }) {
-  const shot = getScreenshot(slot.key);
+  const shot = useScreenshot(slot.key);
   let device: ReactNode;
   if (shot.frame === "phone") {
     device = (
@@ -179,8 +186,9 @@ export function FaqSection({
   title: string;
   tone?: "default" | "band";
 }) {
+  const t = useTranslations("templates");
   return (
-    <PageSection id="faq" tone={tone} eyebrow="FAQ" title={title}>
+    <PageSection id="faq" tone={tone} eyebrow={t("faqEyebrow")} title={title}>
       <div className="max-w-3xl">
         <FaqList items={items} />
       </div>
@@ -258,6 +266,7 @@ export function LinkCard({
   meta?: string;
   className?: string;
 }) {
+  const t = useTranslations("templates");
   return (
     <Link
       href={href}
@@ -281,27 +290,41 @@ export function LinkCard({
       </span>
       <span className="mt-2 text-sm leading-relaxed text-white/62">{description}</span>
       <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-brand">
-        Learn more
+        {t("learnMore")}
         <ChevronRight
           aria-hidden
-          className="size-4 transition-transform group-hover:translate-x-0.5"
+          className="size-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
         />
       </span>
     </Link>
   );
 }
 
-/** Small "Updated …" stamp. */
-export function DateStamp({ label, iso }: { label: string; iso: string }) {
-  const formatted = new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  });
+/** Date-format locale per site locale; English reads day-month-year ("23 November 2026"). */
+const DATE_LOCALE: Partial<Record<Locale, string>> = { en: "en-GB" };
+
+/** Formats an ISO date (`2026-11-23`) as a long date in `locale`. */
+export function formatIsoDate(iso: string, locale: Locale): string {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString(
+    DATE_LOCALE[locale] ?? LOCALE_META[locale].hreflang,
+    { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" },
+  );
+}
+
+/**
+ * A `<time>` for an ISO date in the page locale, optionally inside a label
+ * ("Updated …", "Last verified …" from `templates.dates`).
+ */
+export function DateStamp({ iso, label }: { iso: string; label?: "updated" | "lastVerified" }) {
+  const t = useTranslations("templates");
+  const date = formatIsoDate(iso, useLocale());
+  if (!label) return <time dateTime={iso}>{date}</time>;
   return (
     <span>
-      {label} <time dateTime={iso}>{formatted}</time>
+      {t.rich(`dates.${label}`, {
+        date,
+        time: (chunks) => <time dateTime={iso}>{chunks}</time>,
+      })}
     </span>
   );
 }

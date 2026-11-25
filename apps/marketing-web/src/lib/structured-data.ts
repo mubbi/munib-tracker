@@ -2,14 +2,15 @@ import {
   APP_AUTHOR,
   APP_AUTHOR_URL,
   APP_NAME,
-  APP_TAGLINE,
   OFFICIAL_ANDROID_PLAY_STORE_URL,
   OFFICIAL_IOS_APP_STORE_URL,
 } from "@munib-tracker/shared/constants";
 import type { FaqItem } from "@/content/types";
+import { LOCALE_META } from "@/i18n/locales";
+import type { Locale } from "@/i18n/routing";
 import { PROJECT_LICENSE_URL } from "@/lib/open-source";
-import { absoluteUrl } from "@/lib/seo";
-import { GITHUB_REPO_URL, PRODUCT_APP_URL, SITE_URL } from "@/lib/site";
+import { absoluteUrl, localizedUrl } from "@/lib/seo";
+import { GITHUB_REPO_URL, productAppUrl, SITE_URL, storeUrls } from "@/lib/site";
 
 /**
  * schema.org builders. Rules we follow (Google Search Central):
@@ -18,13 +19,18 @@ import { GITHUB_REPO_URL, PRODUCT_APP_URL, SITE_URL } from "@/lib/site";
  *   never invent ratings.
  * - FAQPage only on the dedicated /faq page (FAQ rich results are limited to
  *   authoritative government/health sites; markup elsewhere adds nothing).
+ *
+ * Builders take the page's `locale`: URLs point at that locale's pages and
+ * `inLanguage` is its BCP 47 tag. Prose (descriptions, names) is passed in
+ * already translated (the `structuredData` catalog or the page's own copy).
  */
 
 type Json = Record<string, unknown>;
 
-/** Site description for schema.org (kept here so the app's shared copy is untouched). */
-const SITE_DESCRIPTION =
-  "Munib Tracker is a free Islamic app with no ads: track your Salah, make up Qaza, keep daily Zikr, read and practise the Qur'an, and learn your deen, on phone, web, watch and TV.";
+/** schema.org `inLanguage` for a page in `locale`. */
+function inLanguage(locale: Locale): string {
+  return LOCALE_META[locale].hreflang;
+}
 
 /** The app's 24 interface locales (packages/shared/src/i18n/locale-registry.ts). */
 const APP_LOCALES = [
@@ -70,36 +76,58 @@ export function organizationSchema(): Json {
   };
 }
 
-export function websiteSchema(): Json {
+export function websiteSchema({
+  locale,
+  description,
+}: {
+  locale: Locale;
+  /** Translated site description (`structuredData.siteDescription`). */
+  description: string;
+}): Json {
   return {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
-    url: SITE_URL,
+    url: localizedUrl("/", locale),
     name: APP_NAME,
-    description: SITE_DESCRIPTION,
-    inLanguage: "en",
+    description,
+    inLanguage: inLanguage(locale),
     publisher: { "@id": ORGANIZATION_ID },
   };
 }
 
-export function softwareApplicationSchema(featureList?: readonly string[]): Json {
+export function softwareApplicationSchema({
+  locale,
+  description,
+  slogan,
+  featureList,
+}: {
+  locale: Locale;
+  /** Translated app description (`structuredData.siteDescription`). */
+  description: string;
+  /** Translated tagline (`metadata.tagline`). */
+  slogan: string;
+  /** Translated feature names. */
+  featureList?: readonly string[];
+}): Json {
   return {
     "@type": "SoftwareApplication",
     "@id": SOFTWARE_ID,
     name: APP_NAME,
-    description: SITE_DESCRIPTION,
-    slogan: APP_TAGLINE,
+    description,
+    slogan,
     applicationCategory: "LifestyleApplication",
     operatingSystem: "iOS, Android, Web, tvOS, Android TV, watchOS, Wear OS",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     isAccessibleForFree: true,
-    url: SITE_URL,
-    downloadUrl: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL],
-    installUrl: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL, PRODUCT_APP_URL],
+    url: localizedUrl("/", locale),
+    // Store listings and the web app in the page's language.
+    downloadUrl: [storeUrls(locale).ios, storeUrls(locale).android],
+    installUrl: [storeUrls(locale).ios, storeUrls(locale).android, productAppUrl(locale)],
     screenshot: absoluteUrl("/screenshots/home.webp"),
     publisher: { "@id": ORGANIZATION_ID },
     codeRepository: GITHUB_REPO_URL,
     license: PROJECT_LICENSE_URL,
+    // The app's own interface languages, not the page's.
     inLanguage: APP_LOCALES,
     ...(featureList?.length ? { featureList: [...featureList] } : {}),
   };
@@ -107,19 +135,22 @@ export function softwareApplicationSchema(featureList?: readonly string[]): Json
 
 export type Crumb = { name: string; href: string };
 
-export function breadcrumbSchema(crumbs: readonly Crumb[]): Json {
+/** `crumbs` hrefs are unprefixed paths; they are emitted as `locale` URLs. */
+export function breadcrumbSchema(crumbs: readonly Crumb[], locale: Locale): Json {
   return {
     "@type": "BreadcrumbList",
     itemListElement: crumbs.map((c, i) => ({
       "@type": "ListItem",
       position: i + 1,
       name: c.name,
-      item: absoluteUrl(c.href),
+      item: localizedUrl(c.href, locale),
     })),
   };
 }
 
 export function articleSchema(a: {
+  locale: Locale;
+  /** Unprefixed path of the article. */
   path: string;
   headline: string;
   description: string;
@@ -129,10 +160,11 @@ export function articleSchema(a: {
   keywords: readonly string[];
   wordCount: number;
 }): Json {
+  const url = localizedUrl(a.path, a.locale);
   return {
     "@type": "Article",
-    "@id": `${absoluteUrl(a.path)}#article`,
-    mainEntityOfPage: absoluteUrl(a.path),
+    "@id": `${url}#article`,
+    mainEntityOfPage: url,
     headline: a.headline,
     description: a.description,
     datePublished: a.published,
@@ -140,35 +172,46 @@ export function articleSchema(a: {
     articleSection: a.section,
     keywords: a.keywords.join(", "),
     wordCount: a.wordCount,
-    inLanguage: "en",
-    image: absoluteUrl(`${a.path}/opengraph-image`),
+    inLanguage: inLanguage(a.locale),
+    image: localizedUrl(`${a.path}/opengraph-image`, a.locale),
     author: { "@id": ORGANIZATION_ID },
     publisher: { "@id": ORGANIZATION_ID },
     isPartOf: { "@id": WEBSITE_ID },
   };
 }
 
-export function webPageSchema(p: { path: string; name: string; description: string }): Json {
+export function webPageSchema(p: {
+  locale: Locale;
+  /** Unprefixed path of the page. */
+  path: string;
+  name: string;
+  description: string;
+}): Json {
+  const url = localizedUrl(p.path, p.locale);
   return {
     "@type": "WebPage",
-    "@id": absoluteUrl(p.path),
-    url: absoluteUrl(p.path),
+    "@id": url,
+    url,
     name: p.name,
     description: p.description,
-    inLanguage: "en",
+    inLanguage: inLanguage(p.locale),
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": SOFTWARE_ID },
   };
 }
 
-export function itemListSchema(items: readonly { name: string; href: string }[]): Json {
+/** `items` hrefs are unprefixed paths; they are emitted as `locale` URLs. */
+export function itemListSchema(
+  items: readonly { name: string; href: string }[],
+  locale: Locale,
+): Json {
   return {
     "@type": "ItemList",
     itemListElement: items.map((item, i) => ({
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      url: absoluteUrl(item.href),
+      url: localizedUrl(item.href, locale),
     })),
   };
 }
