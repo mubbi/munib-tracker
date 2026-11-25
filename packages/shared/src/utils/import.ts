@@ -16,9 +16,25 @@ export interface ImportedPrayerRow {
   status: PrayerStatus;
 }
 
+/**
+ * Why a row (or the whole paste) was rejected. Apps translate these (F-03) —
+ * `message` is an English developer description kept for logs and tests only
+ * and must never be shown to users.
+ */
+export type ImportErrorCode =
+  | "invalid_json"
+  | "invalid_date"
+  | "future_date"
+  | "unknown_prayer"
+  | "unknown_status";
+
 export interface ImportError {
-  /** 1-based index of the offending row (array element or CSV data line). */
+  /** 1-based index of the offending row (array element or CSV data line); 0 = whole input. */
   row: number;
+  code: ImportErrorCode;
+  /** Interpolation values for the translated message (the offending value, as typed). */
+  params?: { value: string };
+  /** English developer description — not user-facing copy. */
   message: string;
   raw?: string;
 }
@@ -33,10 +49,18 @@ export interface ParsedPrayerImport {
   duplicates: number;
 }
 
-/** Prayers accepted for import — the five fard plus Witr (the make-up-relevant set). */
-const IMPORTABLE_PRAYERS = new Set<string>(QAZA_PRAYERS);
 /** Statuses accepted for import — "pending" is excluded (it means "not logged"). */
-const IMPORTABLE_STATUSES = new Set<PrayerStatus>(["completed", "missed", "delayed", "qaza"]);
+export const IMPORT_STATUS_VALUES: readonly PrayerStatus[] = [
+  "completed",
+  "missed",
+  "delayed",
+  "qaza",
+];
+/** Prayer ids accepted for import — the five fard plus Witr (the make-up-relevant set). */
+export const IMPORT_PRAYER_VALUES: readonly QazaPrayer[] = QAZA_PRAYERS;
+
+const IMPORTABLE_PRAYERS = new Set<string>(IMPORT_PRAYER_VALUES);
+const IMPORTABLE_STATUSES = new Set<PrayerStatus>(IMPORT_STATUS_VALUES);
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -68,25 +92,49 @@ function validateRow(
   if (!isValidIsoDate(date)) {
     return {
       ok: false,
-      error: { row: rowNumber, message: `Invalid date "${date}"`, raw: rawText },
+      error: {
+        row: rowNumber,
+        code: "invalid_date",
+        params: { value: date },
+        message: `Invalid date "${date}"`,
+        raw: rawText,
+      },
     };
   }
   if (date > today) {
     return {
       ok: false,
-      error: { row: rowNumber, message: `Future date "${date}" is not allowed`, raw: rawText },
+      error: {
+        row: rowNumber,
+        code: "future_date",
+        params: { value: date },
+        message: `Future date "${date}" is not allowed`,
+        raw: rawText,
+      },
     };
   }
   if (!IMPORTABLE_PRAYERS.has(prayerId)) {
     return {
       ok: false,
-      error: { row: rowNumber, message: `Unknown prayer "${prayerId}"`, raw: rawText },
+      error: {
+        row: rowNumber,
+        code: "unknown_prayer",
+        params: { value: prayerId },
+        message: `Unknown prayer "${prayerId}"`,
+        raw: rawText,
+      },
     };
   }
   if (!IMPORTABLE_STATUSES.has(status as PrayerStatus)) {
     return {
       ok: false,
-      error: { row: rowNumber, message: `Unknown status "${status}"`, raw: rawText },
+      error: {
+        row: rowNumber,
+        code: "unknown_status",
+        params: { value: status },
+        message: `Unknown status "${status}"`,
+        raw: rawText,
+      },
     };
   }
   return {
@@ -142,7 +190,7 @@ export function parsePrayerImport(
     try {
       parsed = JSON.parse(trimmed);
     } catch {
-      return { ...empty, errors: [{ row: 0, message: "Invalid JSON" }] };
+      return { ...empty, errors: [{ row: 0, code: "invalid_json", message: "Invalid JSON" }] };
     }
     const list = Array.isArray(parsed) ? parsed : [parsed];
     rawRows = list as RawRow[];
