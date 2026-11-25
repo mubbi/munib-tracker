@@ -8,6 +8,7 @@ import { Seo } from "@/components/seo/seo";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { TasbeehCounterBar } from "@/components/tasbeeh/tasbeeh-counter-bar";
 import { TasbeehReadingBlock } from "@/components/tasbeeh/tasbeeh-reading-block";
+import { ZikrReciteAlongCard } from "@/components/tasbeeh/zikr-recite-along";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
@@ -21,6 +22,8 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useReadingDisplay } from "@/lib/settings/reading-display";
+import { zikrRecitePassages } from "@/lib/tasbeeh-voice/recite-instead";
+import { isHandsFreeCounter } from "@/lib/tasbeeh-voice/steps";
 import { voiceZikrFromZikr } from "@/lib/tasbeeh-voice/voice-zikr";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrCountKey, zikrTarget } from "@/lib/zikr-count-key";
@@ -141,6 +144,10 @@ export default function ZikrTasbeehScreen() {
     ? Math.max(Spacing.three, dockBarHeight - contentBottomInset + Spacing.two)
     : 0;
 
+  // Hands-free only for short repeated zikr (one breath); long adhkar stay
+  // tap-counted, and Qur'anic ones offer "Recite along" instead (D68 / D69).
+  const quranic = zikrRecitePassages(item.id).length > 0;
+  const handsFree = !quranic && isHandsFreeCounter(item, target);
   const readingBlock = <TasbeehReadingBlock item={item} />;
   const counterCard = (
     <Card variant="plain" padding="five" style={styles.card}>
@@ -150,10 +157,11 @@ export default function ZikrTasbeehScreen() {
         onIncrement={() => persist(count + 1)}
         onDecrement={() => persist(count - 1)}
         onReset={() => persist(0)}
-        voiceZikr={voiceZikrFromZikr(item)}
+        voiceZikr={handsFree ? voiceZikrFromZikr(item) : null}
       />
     </Card>
   );
+  const reciteAlong = <ZikrReciteAlongCard zikrId={item.id} />;
 
   return (
     <View style={styles.root}>
@@ -172,7 +180,10 @@ export default function ZikrTasbeehScreen() {
         />
         {wide ? (
           <View style={styles.wideRow}>
-            <View style={styles.wideReading}>{readingBlock}</View>
+            <View style={styles.wideReading}>
+              {readingBlock}
+              {reciteAlong}
+            </View>
             <View
               ref={counterRef}
               onLayout={onCounterLayout}
@@ -188,6 +199,7 @@ export default function ZikrTasbeehScreen() {
             <View ref={counterRef} onLayout={onCounterLayout} collapsable={false}>
               {counterCard}
             </View>
+            {reciteAlong}
           </>
         )}
       </ScreenLayout>
@@ -208,7 +220,7 @@ export default function ZikrTasbeehScreen() {
 const styles = StyleSheet.create({
   root: { flex: 1 },
   wideRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
-  wideReading: { flex: 1, minWidth: 0 },
+  wideReading: { flex: 1, minWidth: 0, gap: Spacing.three },
   wideCounter: { width: 420, flexShrink: 0 },
   card: {
     alignItems: "stretch",

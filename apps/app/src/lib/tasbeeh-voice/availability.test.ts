@@ -1,7 +1,8 @@
 import { setPlatform } from "@/test-support/platform";
 
 import { isVoiceTasbeehAvailable, isVoiceTasbeehPlatformAvailable } from "./availability";
-import { SOMETHING_ELSE } from "./voice-zikr";
+import { HANDS_FREE_MAX_WORDS } from "./steps";
+import { SOMETHING_ELSE, voiceZikrFromDua, voiceZikrFromZikr } from "./voice-zikr";
 
 const mockState = { usesModel: false, runtime: true, webHosted: true };
 
@@ -76,5 +77,23 @@ describe("hands-free tasbeeh availability (NF-3.20)", () => {
     expect(isVoiceTasbeehAvailable(undefined, true)).toBe(false);
     expect(isVoiceTasbeehAvailable(SOMETHING_ELSE, true)).toBe(true);
     expect(isVoiceTasbeehAvailable(SOMETHING_ELSE, false)).toBe(false);
+  });
+});
+
+describe("long text never pause-counts", () => {
+  it("is unavailable for a zikr longer than one breath, available for a short one", () => {
+    on({ OS: "ios", isTV: false });
+    const long = Array.from({ length: HANDS_FREE_MAX_WORDS + 1 }, () => "اللَّهُ").join(" ");
+    const longZikr = voiceZikrFromZikr({ id: "z", title: "Long", arabic: long, translation: "" });
+    expect(isVoiceTasbeehAvailable(longZikr, true)).toBe(false);
+    const dua = voiceZikrFromDua({
+      id: "sunnah-laylat-qadr-afw",
+      title: "Laylat al-Qadr",
+      arabic: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي",
+      translation: "",
+    });
+    expect(isVoiceTasbeehAvailable(dua, true)).toBe(true);
+    // "Something else" has no text to measure.
+    expect(isVoiceTasbeehAvailable(SOMETHING_ELSE, true)).toBe(true);
   });
 });

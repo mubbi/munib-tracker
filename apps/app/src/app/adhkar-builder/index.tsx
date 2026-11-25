@@ -29,6 +29,7 @@ import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
+import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { resolveArabicLineHeight } from "@/lib/reading-typography";
 import { arabicTextAlign, useIsRTL } from "@/lib/rtl";
 import { createCustomAdhkarSearch } from "@/lib/search";
@@ -519,6 +520,19 @@ export default function AdhkarBuilderScreen() {
                 {item.images?.length ? (
                   <CustomAdhkarImageGallery images={item.images} compact />
                 ) : null}
+                <Button
+                  label={t("handsFreeZikr2.builder.countThis")}
+                  icon={TASBEEH_ICON}
+                  variant="ghost"
+                  size="sm"
+                  accessibilityHint={t("handsFreeZikr2.builder.countThisHint", {
+                    title: item.title,
+                  })}
+                  onPress={() =>
+                    router.push({ pathname: "/tasbeeh/adhkar/[id]", params: { id: item.id } })
+                  }
+                  style={styles.countThis}
+                />
               </Card>
             );
           })}
@@ -589,6 +603,7 @@ export default function AdhkarBuilderScreen() {
 }
 
 const styles = StyleSheet.create({
+  countThis: { alignSelf: "flex-start", marginTop: Spacing.two },
   wideRoot: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
   wideList: { flex: 1, minWidth: 0 },
   wideEditor: { width: 460, flexShrink: 0 },

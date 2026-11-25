@@ -11,6 +11,7 @@ import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
@@ -70,6 +71,22 @@ export default function FreeTasbeehScreen() {
         {t("tasbeeh.freeHint")}
       </ThemedText>
     </View>,
+    // After-Salah 33 / 33 / 34 as one counter that moves on by itself (D69).
+    <Card key="sequence" padding="three" style={styles.sequence}>
+      <NavRow
+        icon={{
+          ios: "circle.dotted",
+          android: "radio_button_checked",
+          web: "radio_button_checked",
+        }}
+        label={t("handsFreeZikr.sequence.title")}
+        badge="33 · 33 · 34"
+        onPress={() => router.push("/tasbeeh/sequence")}
+      />
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {t("handsFreeZikr.sequence.entryBody")}
+      </ThemedText>
+    </Card>,
   ];
 
   const customSection = [
@@ -170,6 +187,9 @@ const styles = StyleSheet.create({
     maxWidth: 300,
   },
   list: {
+    gap: Spacing.two,
+  },
+  sequence: {
     gap: Spacing.two,
   },
 });

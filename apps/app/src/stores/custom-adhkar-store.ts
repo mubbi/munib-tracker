@@ -132,6 +132,17 @@ export function useCustomAdhkarList(): CustomAdhkar[] {
   return useStore(customAdhkarStore, (s) => s.items);
 }
 
+/** One entry by id (the "Count this" counter), `undefined` until loaded or when deleted. */
+export function useCustomAdhkar(id: string | undefined): CustomAdhkar | undefined {
+  return useStore(customAdhkarStore, (s) =>
+    id ? s.items.find((item) => item.id === id) : undefined,
+  );
+}
+
+export function useCustomAdhkarReady(): boolean {
+  return useStore(customAdhkarStore, (s) => s.isReady);
+}
+
 const customAdhkarActions = {
   load: () => customAdhkarStore.getState().load(),
   create: (input: CustomAdhkarInput) => customAdhkarStore.getState().create(input),

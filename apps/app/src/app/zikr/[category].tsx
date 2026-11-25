@@ -22,6 +22,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
+import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   type AdhkarScope,
@@ -39,7 +40,7 @@ import { isTV } from "@/lib/platform/is-tv";
 import { createZikrSearch } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
-import { ensureZikrCorpus, zikrByCategory } from "@/lib/zikr";
+import { ZIKR_CORPUS, zikrByCategory } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 
@@ -77,21 +78,16 @@ export default function ZikrCategoryScreen() {
   const searching = query.trim().length > 0;
   // Cold opens (notification / deep link) never visit /zikr first, so the corpus
   // must be warmed here — zikrByCategory is sync and returns [] until ready.
-  const [corpusReady, setCorpusReady] = useState(false);
-  useEffect(() => {
-    let active = true;
-    void ensureZikrCorpus().then(() => {
-      if (active) setCorpusReady(true);
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  const { ready: corpusReady } = useContentCorpus(ZIKR_CORPUS);
 
   const categoryParam = paramValue(params.category);
   const isKnownCategory = isZikrCategoryId(categoryParam ?? "");
   const categoryId = (isKnownCategory ? categoryParam : "anytime") as ZikrCategoryId;
-  const allItems = corpusReady ? zikrByCategory(categoryId) : [];
+  // Memoized: a fresh array each render rebuilt the search index on every keystroke.
+  const allItems = useMemo(
+    () => (corpusReady ? zikrByCategory(categoryId) : []),
+    [categoryId, corpusReady],
+  );
 
   // After-salah adhkar are always logged per salah (never one shared "All"
   // count), so the list is scoped to one salah — the current one by default.
@@ -313,6 +309,21 @@ export default function ZikrCategoryScreen() {
               />
             ) : null}
           </View>
+          {showPrayerFilter ? (
+            <Button
+              label={t("handsFreeZikr.sequence.openFromSession")}
+              variant="ghost"
+              size="sm"
+              icon={{
+                ios: "circle.dotted",
+                android: "radio_button_checked",
+                web: "radio_button_checked",
+              }}
+              onPress={() =>
+                router.push({ pathname: "/tasbeeh/sequence", params: { prayer: prayerFilter } })
+              }
+            />
+          ) : null}
         </View>
       ) : null}
       <SearchField

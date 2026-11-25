@@ -7,12 +7,32 @@ import { loadZikrItemsSyncForTests } from "@/lib/search-corpora-test-loader";
 import { __setZikrItemsForTests } from "@/lib/zikr";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import { trackerStore } from "@/stores/tracker-store";
-import { resetExpoRouterMock, setMockSearchParams } from "@/test-support/mocks/expo-router";
+import {
+  mockRouter,
+  resetExpoRouterMock,
+  setMockSearchParams,
+} from "@/test-support/mocks/expo-router";
 import { renderWithProviders } from "@/test-support/render";
 import { resetTrackerStore } from "@/test-support/store";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 jest.mock("@/components/reading-typography-context", () => ({ ReadingTypographyBar: () => null }));
+
+/** Hands-free (D69): no microphone path unless a test turns it on. */
+let mockCaptureAvailable = false;
+jest.mock("@/lib/quran-companion/audio/capture", () => ({
+  useRecitationCapture: () => ({
+    available: mockCaptureAvailable,
+    getPermission: jest.fn(() => Promise.resolve("granted")),
+    requestPermission: jest.fn(() => Promise.resolve("granted")),
+    start: jest.fn(),
+    stop: jest.fn(),
+  }),
+}));
+jest.mock("@/lib/tasbeeh-voice/availability", () => ({
+  isVoiceTasbeehPlatformAvailable: (available: boolean) => available,
+  isVoiceTasbeehAvailable: (zikr: unknown, available: boolean) => zikr != null && available,
+}));
 
 /**
  * Pinned adhkar clock: the session logs under the adhkar day (Fajr → Fajr), so a
@@ -48,6 +68,13 @@ const ITEMS: ZikrItem[] = [
   item({ id: "m-thrice", categoryId: "morning", title: "Morning thrice", targetCount: 3 }),
   item({ id: "m-last", categoryId: "morning", title: "Morning last", targetCount: 1 }),
   item({ id: "a-tasbih", categoryId: "after_prayer", title: "SubhanAllah", targetCount: 33 }),
+  item({
+    id: "after_prayer-tahmid",
+    categoryId: "after_prayer",
+    title: "Alhamdulillah",
+    arabic: "الْحَمْدُ لِلَّهِ",
+    targetCount: 33,
+  }),
 ];
 
 const counts = () => trackerStore.getState().zikrCounts;
@@ -58,6 +85,7 @@ afterAll(() => {
 
 beforeEach(async () => {
   mockClock.date = null;
+  mockCaptureAvailable = false;
   __setZikrItemsForTests(ITEMS);
   resetExpoRouterMock();
   await resetTrackerStore();
@@ -112,6 +140,27 @@ describe("Guided adhkar session", () => {
     await waitFor(() => expect(counts()[zikrCountKey("a-tasbih", "asr")]).toBe(1));
     expect(counts()["a-tasbih"]).toBeUndefined();
     expect(counts()[zikrCountKey("a-tasbih", "dhuhr")]).toBeUndefined();
+  });
+
+  it("offers hands-free on a short repeated zikr and the 33 / 33 / 34 sequence (D69)", async () => {
+    mockCaptureAvailable = true;
+    setMockSearchParams({ category: "after_prayer", prayer: "asr", start: "after_prayer-tahmid" });
+    await renderWithProviders(<AdhkarSessionScreen />);
+    expect(await screen.findByText("Alhamdulillah")).toBeTruthy();
+    expect(screen.getAllByRole("button", { name: "Start hands-free counting" }).length).toBe(1);
+
+    await fireEvent.press(screen.getByText("Count as one 33 · 33 · 34 sequence"));
+    expect(mockRouter.push).toHaveBeenCalledWith({
+      pathname: "/tasbeeh/sequence",
+      params: { prayer: "asr" },
+    });
+  });
+
+  it("hides hands-free where there is no microphone path (TV)", async () => {
+    setMockSearchParams({ category: "after_prayer", prayer: "asr" });
+    await renderWithProviders(<AdhkarSessionScreen />);
+    expect(await screen.findByText("SubhanAllah")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Start hands-free counting" })).toBeNull();
   });
 
   it("records a whole set at once with Mark all as done", async () => {

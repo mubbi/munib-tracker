@@ -12,6 +12,8 @@ import { ReadingTypographyBar } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
+import { VoiceStepPanel, VoiceStepToggle } from "@/components/tasbeeh/voice/voice-step-panel";
+import { ZikrReciteAlongButtons } from "@/components/tasbeeh/zikr-recite-along";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -37,6 +39,7 @@ import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useVoiceTasbeehSteps } from "@/hooks/use-voice-tasbeeh-steps";
 import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import {
   type AdhkarScope,
@@ -51,10 +54,17 @@ import {
   sessionItems,
   sessionItemTarget,
 } from "@/lib/adhkar-session";
+import { useIsChildDevice } from "@/lib/circles/child-session";
+import { kidsSessionItems } from "@/lib/circles/kids-content";
+import { triggerHaptic } from "@/lib/haptics";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { isRTL } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { isSequenceZikrId } from "@/lib/tasbeeh/after-salah-sequence";
+import { zikrRecitePassages } from "@/lib/tasbeeh-voice/recite-instead";
+import { isHandsFreeStep } from "@/lib/tasbeeh-voice/steps";
+import { voiceZikrFromZikr } from "@/lib/tasbeeh-voice/voice-zikr";
 import { ensureZikrCorpus } from "@/lib/zikr";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import { zikrQuranHref } from "@/lib/zikr-quran";
@@ -143,8 +153,13 @@ export default function AdhkarSessionScreen() {
   );
   const prayerId = scopePrayerKey(scope);
   const scopeKey = `${categoryId}:${prayerId ?? ""}`;
+  // Kids mode (D27): a child device sees only the curated adhkar of the set.
+  const childDevice = useIsChildDevice();
   // biome-ignore lint/correctness/useExhaustiveDependencies: corpusReady gates the sync corpus read
-  const items = useMemo(() => sessionItems(scope), [scope, corpusReady]);
+  const items = useMemo(() => {
+    const all = sessionItems(scope);
+    return childDevice ? kidsSessionItems(all) : all;
+  }, [scope, corpusReady, childDevice]);
 
   const [advancing, setAdvancing] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
@@ -297,6 +312,27 @@ export default function AdhkarSessionScreen() {
     scheduleAdvance(safeIndex, 350);
   }, [item, safeIndex, scheduleAdvance, target, write]);
 
+  // Hands-free (D69): each short repeated zikr listens for itself; a voice count
+  // takes the same path as a tap (haptic, target, auto-advance), so a tap still
+  // corrects any miscount (D51). The mic closes between steps and when done.
+  const voiceZikr = useMemo(() => (item ? voiceZikrFromZikr(item) : null), [item]);
+  const voiceTapRef = useRef(onTap);
+  voiceTapRef.current = onTap;
+  const voiceCountRef = useRef({ count, target });
+  voiceCountRef.current = { count, target };
+  const handsFree = useVoiceTasbeehSteps({
+    zikr: voiceZikr,
+    eligible: item ? isHandsFreeStep(item, target) : false,
+    count,
+    target,
+    active: !advancing && !(celebrate && allDone),
+    onVoiceCount: () => {
+      const latest = voiceCountRef.current;
+      triggerHaptic(latest.count + 1 >= latest.target ? "success" : "light");
+      voiceTapRef.current();
+    },
+  });
+
   const [confirm, setConfirm] = useState<"reset" | "all" | null>(null);
 
   const markAll = () => {
@@ -360,6 +396,12 @@ export default function AdhkarSessionScreen() {
           ? colors.mutedForeground
           : colors.accent;
   const quranHref = item ? zikrQuranHref(item.id) : null;
+  // After-Salah tasbeeh phrases: count all of them as one 33 / 33 / 34 sequence (D69).
+  const sequenceLink = isAfterSalah && item != null && isSequenceZikrId(item.id);
+  // Qur'anic steps (Ayat al-Kursi, the Quls …): recite along on-device (D68); the
+  // step itself stays tap-counted. The practice session is pushed, so finishing or
+  // going back lands on this same step.
+  const reciteLink = item != null && zikrRecitePassages(item.id).length > 0;
   const isFavorite = item ? favoriteIds.includes(item.id) : false;
 
   const controls: AdhkarCounterControls = {
@@ -375,6 +417,10 @@ export default function AdhkarSessionScreen() {
     canPrev,
     canNext,
     nextLabel,
+    voiceToggle: <VoiceStepToggle steps={handsFree} />,
+    voicePanel: (
+      <VoiceStepPanel steps={handsFree} label={item?.title ?? null} hasNext={nextItem != null} />
+    ),
   };
 
   const chips =
@@ -508,14 +554,32 @@ export default function AdhkarSessionScreen() {
         </>
       }
       footer={
-        quranHref ? (
-          <Button
-            label={t("zikrSession.openQuran")}
-            variant="ghost"
-            size="sm"
-            icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-            onPress={() => router.push(quranHref)}
-          />
+        quranHref || sequenceLink || reciteLink ? (
+          <View style={styles.footerLinks}>
+            {reciteLink && item ? <ZikrReciteAlongButtons zikrId={item.id} /> : null}
+            {quranHref ? (
+              <Button
+                label={t("zikrSession.openQuran")}
+                variant="ghost"
+                size="sm"
+                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                onPress={() => router.push(quranHref)}
+              />
+            ) : null}
+            {sequenceLink ? (
+              <Button
+                label={t("handsFreeZikr.sequence.openFromSession")}
+                variant="ghost"
+                size="sm"
+                icon={{
+                  ios: "circle.dotted",
+                  android: "radio_button_checked",
+                  web: "radio_button_checked",
+                }}
+                onPress={() => router.push({ pathname: "/tasbeeh/sequence", params: { prayer } })}
+              />
+            ) : null}
+          </View>
         ) : null
       }
     />
@@ -665,6 +729,7 @@ export default function AdhkarSessionScreen() {
 }
 
 const styles = StyleSheet.create({
+  footerLinks: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: Spacing.one },
   root: { flex: 1 },
   flex: { flex: 1 },
   center: { textAlign: "center" },

@@ -52,6 +52,8 @@ export function AdhkarSessionDock({
   canPrev,
   canNext,
   nextLabel,
+  voiceToggle,
+  voicePanel,
   onHeightChange,
 }: AdhkarSessionDockProps) {
   const { t } = useTranslation();
@@ -145,6 +147,7 @@ export function AdhkarSessionDock({
             {nextLabel}
           </ThemedText>
         ) : null}
+        {voicePanel}
         <View style={styles.padRow}>
           <IconButton
             name={chevronBack}
@@ -264,6 +267,8 @@ export function AdhkarSessionDock({
               {t("tasbeehUi.undo")}
             </ThemedText>
           </PressableScale>
+
+          {voiceToggle}
 
           {done ? (
             <PressableScale

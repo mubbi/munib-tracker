@@ -44,7 +44,9 @@ import {
 import { materialFor } from "@/lib/tasbeeh/materials";
 import { useTasbeehAppearance } from "@/lib/tasbeeh/use-tasbeeh-appearance";
 import { useTasbeehSound } from "@/lib/tasbeeh/use-tasbeeh-sound";
+import type { SessionCountingMode } from "@/lib/tasbeeh-voice/mode";
 import { effectiveAnnouncements } from "@/lib/tasbeeh-voice/session";
+import { VOICE_RESUME_DELAY_MS } from "@/lib/tasbeeh-voice/steps";
 import { sameVoiceZikr, type VoiceZikr } from "@/lib/tasbeeh-voice/voice-zikr";
 import { AudioContext } from "@/providers/audio-player-context";
 import { usePreferences } from "@/stores/preferences-store";
@@ -90,6 +92,13 @@ type TasbeehCounterProps = {
   voiceZikr?: VoiceZikr | null;
   /** Free counter: the user picks any zikr (or "Something else") in the hands-free sheet. */
   voiceChoosable?: boolean;
+  /**
+   * Step-by-step counters (after-Salah sequence, D69): when a step reaches its
+   * target the microphone closes, and when the next zikr arrives it reopens by
+   * itself — by its taught pattern, or by pauses if that is how the last step
+   * counted; a template run reaching an untaught zikr offers teaching (D50).
+   */
+  voiceContinuous?: boolean;
 };
 
 type PendingConfirm = "decrement" | "reset" | "startAgain";
@@ -111,7 +120,13 @@ export function TasbeehCounter(props: TasbeehCounterProps) {
 }
 
 function VoiceTasbeehCounter(props: TasbeehCounterProps) {
-  const { count, target, voiceZikr = null, voiceChoosable = false } = props;
+  const {
+    count,
+    target,
+    voiceZikr = null,
+    voiceChoosable = false,
+    voiceContinuous = false,
+  } = props;
   const [chosenZikr, setChosenZikr] = useState<VoiceZikr | null>(null);
   // Screens rebuild the zikr object every render: keep one per identity.
   const incoming = voiceZikr ?? (voiceChoosable ? chosenZikr : null);
@@ -119,11 +134,50 @@ function VoiceTasbeehCounter(props: TasbeehCounterProps) {
   if (!sameVoiceZikr(stableZikr.current, incoming)) stableZikr.current = incoming;
   const activeZikr = stableZikr.current;
   const countOnceRef = useRef<() => void>(() => {});
+  const atLimit = target > 0 && count >= target;
+  // Continuous counters: how the step that just reached its target was counting.
+  const resumeModeRef = useRef<SessionCountingMode | null>(null);
+  const lastModeRef = useRef<SessionCountingMode | null>(null);
   const voice = useVoiceTasbeeh({
     zikr: activeZikr,
-    atLimit: target > 0 && count >= target,
+    atLimit,
     onVoiceCount: () => countOnceRef.current(),
+    onAutoStop: (reason) => {
+      resumeModeRef.current = voiceContinuous && reason === "target" ? lastModeRef.current : null;
+    },
   });
+  if (voice.countingMode) lastModeRef.current = voice.countingMode;
+  const voiceRef = useRef(voice);
+  voiceRef.current = voice;
+  const [sheetRequest, setSheetRequest] = useState(0);
+
+  // No microphone behind another screen (a pushed detail page keeps this one mounted).
+  const focused = useIsFocused();
+  const busy = voice.listening || voice.preparing;
+  useEffect(() => {
+    if (!focused && busy) {
+      resumeModeRef.current = null;
+      voiceRef.current.stop("left");
+    }
+  }, [focused, busy]);
+
+  // The next step arrived: reopen the microphone after a short pause.
+  const teaching = voice.teach.status !== "idle";
+  useEffect(() => {
+    const mode = resumeModeRef.current;
+    if (!mode || !voiceContinuous || !focused || atLimit || !activeZikr || busy || teaching) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      resumeModeRef.current = null;
+      const live = voiceRef.current;
+      if (live.taught) void live.start();
+      else if (mode === "pause") void live.start({ skipTeaching: true });
+      else setSheetRequest((n) => n + 1);
+    }, VOICE_RESUME_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [activeZikr, atLimit, busy, focused, teaching, voiceContinuous]);
+
   return (
     <CounterView
       {...props}
@@ -131,6 +185,7 @@ function VoiceTasbeehCounter(props: TasbeehCounterProps) {
       activeZikr={activeZikr}
       onChooseZikr={setChosenZikr}
       countOnceRef={countOnceRef}
+      voiceSheetRequest={sheetRequest}
     />
   );
 }
@@ -141,6 +196,8 @@ type CounterViewProps = TasbeehCounterProps & {
   onChooseZikr?: (zikr: VoiceZikr) => void;
   /** Filled with the shell's countOnce() so a recognised phrase counts like a tap. */
   countOnceRef?: { current: () => void };
+  /** Bumps when the hands-free sheet should open by itself (continuous counters). */
+  voiceSheetRequest?: number;
 };
 
 function CounterView({
@@ -159,6 +216,7 @@ function CounterView({
   activeZikr = null,
   onChooseZikr,
   countOnceRef,
+  voiceSheetRequest = 0,
 }: CounterViewProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -235,6 +293,9 @@ function CounterView({
     muteVoiceRef.current?.(ANNOUNCE_MUTE_MS);
     AccessibilityInfo.announceForAccessibility?.(message);
   }, []);
+  useEffect(() => {
+    if (voiceSheetRequest > 0) setVoiceSheetOpen(true);
+  }, [voiceSheetRequest]);
   const handleVoicePress = async () => {
     if (voice.listening || voice.preparing) {
       voice.stop("user");

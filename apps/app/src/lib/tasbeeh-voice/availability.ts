@@ -5,6 +5,7 @@ import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { FASTCONFORMER_ENGINE, isFastConformerRuntimeSupported } from "@/lib/speech/fastconformer";
 
 import { usesModel } from "./mode";
+import { isShortZikrText } from "./steps";
 import type { VoiceZikr } from "./voice-zikr";
 
 /**
@@ -29,9 +30,21 @@ export function isVoiceTasbeehPlatformAvailable(captureAvailable: boolean): bool
   return isFastConformerRuntimeSupported();
 }
 
+/**
+ * The zikr itself can be counted by voice: its Arabic (when known) is short
+ * enough to say in one breath (`isShortZikrText`). A long dua pause-counts once
+ * per breath, and teaching refuses a sample over 8 s, so it stays tap-counted.
+ */
+export function isVoiceZikrSayable(zikr: VoiceZikr): boolean {
+  const arabic = zikr.entry?.arabic?.trim() ?? "";
+  return arabic === "" || isShortZikrText(arabic);
+}
+
 export function isVoiceTasbeehAvailable(
   zikr: VoiceZikr | null | undefined,
   captureAvailable: boolean,
 ): boolean {
-  return zikr != null && isVoiceTasbeehPlatformAvailable(captureAvailable);
+  return (
+    zikr != null && isVoiceZikrSayable(zikr) && isVoiceTasbeehPlatformAvailable(captureAvailable)
+  );
 }

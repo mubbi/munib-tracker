@@ -443,6 +443,11 @@
     "description": "Stories of the prophets chosen for children from the prophets guide.",
     "index": false
   },
+  "/kids/recite": {
+    "title": "Recite Along for Kids",
+    "description": "Children recite short surahs ayah by ayah while the words light up — the listener runs on the device.",
+    "index": false
+  },
   "/family-ties": {
     "title": "Family Ties (Silat al-Rahim)",
     "description": "Gentle reminders to keep in touch with your parents and relatives — call, message or make dua. Names stay encrypted on your device.",
@@ -1023,6 +1028,11 @@
     "title": "My Purification Learning Progress",
     "description": "Mark taharah topics complete as you study. This dashboard tracks your learning, not spiritual rank.",
     "index": false
+  },
+  "/tasbeeh/sequence": {
+    "title": "After-Salah Tasbeeh — 33 · 33 · 34",
+    "description": "Count SubhanAllah, Alhamdulillah and Allahu Akbar after Salah in one sequence that moves on by itself — by tap or hands-free on your device.",
+    "keywords": ["after salah tasbeeh", "33 33 34", "tasbeeh fatimah", "hands-free tasbeeh"]
   },
   "/tasbeeh/free": {
     "title": "Digital Tasbeeh Counter — Count Any Zikr",

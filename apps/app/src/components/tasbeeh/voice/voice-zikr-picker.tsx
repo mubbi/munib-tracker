@@ -11,6 +11,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { createCustomTasbeehSearch, createZikrSearch } from "@/lib/search";
 import { PHRASE_KEYS, VOICE_PHRASES } from "@/lib/tasbeeh-voice/phrases";
+import { isShortZikrText } from "@/lib/tasbeeh-voice/steps";
 import {
   SOMETHING_ELSE,
   type VoiceZikr,
@@ -111,8 +112,10 @@ export function VoiceZikrPicker({ selected, onSelect }: Props) {
       ];
     }
     // The same zikr appears in several categories (morning and evening): list it once.
+    // Long adhkar (more than one breath) are tap-counted, so they are not offered.
     const seen = new Set<string>();
     return list.filter((option) => {
+      if (option.arabic != null && !isShortZikrText(option.arabic)) return false;
       const keys = [option.id, option.arabic ? `ar:${option.arabic}` : null];
       if (keys.some((k) => k != null && seen.has(k))) return false;
       for (const k of keys) if (k) seen.add(k);

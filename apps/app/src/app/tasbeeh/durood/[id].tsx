@@ -18,6 +18,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useReadingDisplay } from "@/lib/settings/reading-display";
+import { isHandsFreeCounter } from "@/lib/tasbeeh-voice/steps";
 import { voiceZikrFromDurood } from "@/lib/tasbeeh-voice/voice-zikr";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -124,7 +125,8 @@ export default function DuroodTasbeehScreen() {
         onSelectMode={setTarget}
         onCustom={() => setCustomOpen(true)}
         keyboardShortcuts={!customOpen}
-        voiceZikr={item ? voiceZikrFromDurood(item) : null}
+        // Long duroods (Durood Ibrahim) pause-count once per breath: tap only.
+        voiceZikr={isHandsFreeCounter(item, target) ? voiceZikrFromDurood(item) : null}
       />
     </Card>
   );

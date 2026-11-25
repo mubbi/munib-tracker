@@ -38,6 +38,12 @@ type Props = {
   stopReason: VoiceStopReason | null;
   /** Suggest the calm Focus / Night designs (not shown when one is already in use). */
   showFocusTip: boolean;
+  /**
+   * Inline under a step that already shows its text (guided session, sequence):
+   * no Arabic / translation / tip — just the status, the meter and the honest
+   * counting label (D51).
+   */
+  compact?: boolean;
 };
 
 const STOP_COPY: Partial<Record<VoiceStopReason, string>> = {
@@ -65,12 +71,13 @@ export function VoiceListeningPanel({
   flashKey,
   stopReason,
   showFocusTip,
+  compact = false,
 }: Props) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const reduceMotion = useReducedMotion();
   const translation = useScriptureTranslation(zikr.entry ?? { translation: "" });
-  const arabic = zikr.entry?.arabic ?? null;
+  const arabic = compact ? null : (zikr.entry?.arabic ?? null);
 
   const pulse = useSharedValue(1);
   useEffect(() => {
@@ -116,6 +123,7 @@ export function VoiceListeningPanel({
     <View
       style={[
         styles.panel,
+        compact && styles.panelCompact,
         {
           backgroundColor: tokens.accentSoft,
           borderColor: withAlpha(colors.accent, tokens.isDark ? 0.4 : 0.25),
@@ -159,7 +167,7 @@ export function VoiceListeningPanel({
         </Animated.View>
       </View>
 
-      {zikr.label ? (
+      {zikr.label && !compact ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
           {t("tasbeehVoice.listeningFor", { phrase: zikr.label })}
         </ThemedText>
@@ -207,7 +215,7 @@ export function VoiceListeningPanel({
           {t("tasbeehVoice.stuck")}
         </ThemedText>
       ) : null}
-      {showFocusTip ? (
+      {showFocusTip && !compact ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
           {t("tasbeehVoice.focusTip")}
         </ThemedText>
@@ -223,6 +231,10 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
+  },
+  panelCompact: {
+    gap: Spacing.one,
+    paddingVertical: Spacing.two,
   },
   notice: {
     padding: Spacing.three,

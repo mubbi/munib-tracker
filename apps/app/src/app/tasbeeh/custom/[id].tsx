@@ -15,6 +15,7 @@ import { Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { arabicWordCount, isHandsFreeCounter } from "@/lib/tasbeeh-voice/steps";
 import { voiceZikrFromCustom } from "@/lib/tasbeeh-voice/voice-zikr";
 import {
   useCustomTasbeeh,
@@ -80,7 +81,12 @@ export default function CustomTasbeehScreen() {
         onDecrement={() => persist(count - 1)}
         onReset={() => persist(0)}
         keyboardShortcuts={!editOpen && !deleteOpen}
-        voiceZikr={voiceZikrFromCustom(item)}
+        voiceZikr={
+          // An Arabic title is the zikr itself: a long one stays tap-counted.
+          isHandsFreeCounter({ arabic: arabicWordCount(item.title) > 0 ? item.title : "" }, target)
+            ? voiceZikrFromCustom(item)
+            : null
+        }
       />
     </Card>
   );

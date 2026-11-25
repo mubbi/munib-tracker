@@ -7,11 +7,13 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { FastStatusSheet } from "@/components/fast-status-sheet";
 import { HijriAdjustLink } from "@/components/hijri/hijri-adjust-link";
+import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { RamadanFiqhCard } from "@/components/ramadan/ramadan-fiqh-card";
 import { RamadanMakeUpOffer } from "@/components/ramadan/ramadan-make-up-offer";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FocusHighlight } from "@/components/ui/focus-highlight";
 import { IconButton } from "@/components/ui/icon-button";
@@ -33,8 +35,11 @@ import { localeToBcp47 } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { formatDuration, formatPrayerTime } from "@/lib/prayer-times";
+import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { getRamadanInfo, RAMADAN_MONTH } from "@/lib/ramadan";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { SURAH_AL_QADR_PASSAGE } from "@/lib/tasbeeh-voice/recite-instead";
+import { LAYLAT_AL_QADR_DUA_ID } from "@/lib/tasbeeh-voice/voice-zikr";
 import {
   type FastStatus,
   useEnsureFastingLoaded,
@@ -351,6 +356,29 @@ export default function RamadanScreen() {
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.seasonBody}>
           {t("ramadan.laylatQadrBody")}
         </ThemedText>
+        {/* Phones / web: count the dua the Prophet ﷺ taught Aisha (Tirmidhi 3513)
+            and recite Surah al-Qadr along (D68 / D69). */}
+        {tv ? null : (
+          <View style={styles.laylatActions}>
+            <Button
+              label={t("handsFreeZikr2.ramadan.countDua")}
+              icon={TASBEEH_ICON}
+              variant="secondary"
+              size="sm"
+              onPress={() =>
+                router.push({
+                  pathname: "/tasbeeh/dua/[id]",
+                  params: { id: LAYLAT_AL_QADR_DUA_ID },
+                })
+              }
+            />
+            <ReciteAlongButton
+              passage={SURAH_AL_QADR_PASSAGE}
+              label={t("handsFreeZikr2.ramadan.reciteQadr")}
+              size="sm"
+            />
+          </View>
+        )}
       </Card>
     </FocusHighlight>
   ) : null;
@@ -632,6 +660,12 @@ const styles = StyleSheet.create({
   },
   hint: { marginTop: Spacing.three },
   seasonBody: { marginTop: Spacing.two, lineHeight: 20 },
+  laylatActions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.two,
+    marginTop: Spacing.three,
+  },
   logNote: {
     marginTop: Spacing.three,
     paddingVertical: Spacing.two,

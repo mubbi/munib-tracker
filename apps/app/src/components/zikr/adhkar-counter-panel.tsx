@@ -1,5 +1,5 @@
 import { SymbolView } from "expo-symbols";
-import { useEffect, useRef } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import Animated, {
@@ -42,6 +42,10 @@ export type AdhkarCounterControls = {
   canNext: boolean;
   /** "Next: Alhamdulillah ×33" — so the reader can anticipate the next zikr. */
   nextLabel?: string;
+  /** Hands-free on / off (D69); absent where the platform cannot listen. */
+  voiceToggle?: ReactNode;
+  /** Hands-free status, inline teach / re-teach (D69). */
+  voicePanel?: ReactNode;
 };
 
 /**
@@ -62,6 +66,8 @@ export function AdhkarCounterPanel({
   canPrev,
   canNext,
   nextLabel,
+  voiceToggle,
+  voicePanel,
 }: AdhkarCounterControls) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -167,6 +173,9 @@ export function AdhkarCounterPanel({
       <ThemedText type="small" themeColor="mutedForeground" style={styles.hint}>
         {hint}
       </ThemedText>
+
+      {voiceToggle}
+      {voicePanel}
 
       <View style={styles.row}>
         <Button

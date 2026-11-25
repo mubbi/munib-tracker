@@ -21,12 +21,17 @@ jest.mock("@/lib/tasbeeh-voice/mode", () => ({
 
 let mockVoice: VoiceTasbeeh;
 let mockOnVoiceCount: (() => void) | null = null;
+let mockOnAutoStop: ((reason: string, code: string | null) => void) | null = null;
 jest.mock("@/hooks/use-voice-tasbeeh", () => {
   const actual = jest.requireActual("@/hooks/use-voice-tasbeeh");
   return {
     ...actual,
-    useVoiceTasbeeh: (options: { onVoiceCount: () => void }) => {
+    useVoiceTasbeeh: (options: {
+      onVoiceCount: () => void;
+      onAutoStop?: (reason: string, code: string | null) => void;
+    }) => {
       mockOnVoiceCount = options.onVoiceCount;
+      mockOnAutoStop = options.onAutoStop ?? null;
       return mockVoice;
     },
   };
@@ -84,6 +89,7 @@ beforeEach(() => {
   mockUsesModel = true;
   mockVoice = voice();
   mockOnVoiceCount = null;
+  mockOnAutoStop = null;
 });
 
 describe("hands-free tasbeeh in the counter", () => {
@@ -190,18 +196,19 @@ describe("hands-free tasbeeh in the counter", () => {
     expect(mockVoice.start).not.toHaveBeenCalled();
   });
 
-  it("searches the whole adhkar library from the picker", async () => {
+  it("searches the whole adhkar library from the picker, short zikr only", async () => {
     mockVoice = voice({ zikr: null, phrase: null, taught: false });
     await renderCounter({ voiceZikr: null, voiceChoosable: true });
     await openSheet();
     await screen.findByRole("radio", { name: "Alhamdulillah" });
-    await fireEvent.changeText(
-      screen.getByPlaceholderText("Search adhkar or your tasbeehs"),
-      "Kursi",
-    );
-    expect((await screen.findAllByRole("radio", { name: "Ayat al-Kursi" })).length).toBeGreaterThan(
+    const search = screen.getByPlaceholderText("Search adhkar or your tasbeehs");
+    await fireEvent.changeText(search, "Allahu Akbar");
+    expect((await screen.findAllByRole("radio", { name: "Allahu Akbar" })).length).toBeGreaterThan(
       0,
     );
+    // Longer than one breath (Ayat al-Kursi): tap-counted, never offered hands-free.
+    await fireEvent.changeText(search, "Kursi");
+    expect(screen.queryByRole("radio", { name: "Ayat al-Kursi" })).toBeNull();
   });
 
   it("shows the listening panel, the zikr, how it counts, and the gentle stuck hint", async () => {
@@ -231,5 +238,81 @@ describe("hands-free tasbeeh in the counter", () => {
       mockOnVoiceCount?.();
     });
     expect(onIncrement).toHaveBeenCalledTimes(1);
+  });
+});
+
+const ALHAMDULILLAH: VoiceZikr = {
+  key: "zikr:after_prayer-tahmid",
+  label: "Alhamdulillah",
+  entry: null,
+  phrase: "alhamdulillah",
+};
+
+describe("continuous hands-free across steps (after-Salah sequence, D69)", () => {
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
+
+  async function finishStep(countingMode: "template" | "pause") {
+    const props = {
+      count: 33,
+      target: 33,
+      onIncrement: jest.fn(),
+      onDecrement: jest.fn(),
+      onReset: jest.fn(),
+      voiceContinuous: true,
+    };
+    mockVoice = voice({ countingMode });
+    const view = await renderWithTheme(<TasbeehCounter {...props} voiceZikr={SUBHANALLAH} />);
+    await act(async () => mockOnAutoStop?.("target", null));
+    return { props, view };
+  }
+
+  it("reopens the microphone for the next taught phrase by itself", async () => {
+    const { props, view } = await finishStep("template");
+    mockVoice = voice({ zikr: ALHAMDULILLAH, taught: true });
+    await act(async () =>
+      view.rerender(<TasbeehCounter {...props} count={0} voiceZikr={ALHAMDULILLAH} />),
+    );
+    await act(async () => jest.advanceTimersByTime(400));
+    expect(mockVoice.start).toHaveBeenCalledWith();
+  });
+
+  it("keeps pause counting going on the next phrase when that is how the last one counted", async () => {
+    const { props, view } = await finishStep("pause");
+    mockVoice = voice({ zikr: ALHAMDULILLAH, taught: false });
+    await act(async () =>
+      view.rerender(<TasbeehCounter {...props} count={0} voiceZikr={ALHAMDULILLAH} />),
+    );
+    await act(async () => jest.advanceTimersByTime(400));
+    expect(mockVoice.start).toHaveBeenCalledWith({ skipTeaching: true });
+  });
+
+  it("offers teaching when a taught run reaches an untaught phrase (D50)", async () => {
+    mockUsesModel = false;
+    const { props, view } = await finishStep("template");
+    mockVoice = voice({ zikr: ALHAMDULILLAH, taught: false });
+    await act(async () =>
+      view.rerender(<TasbeehCounter {...props} count={0} voiceZikr={ALHAMDULILLAH} />),
+    );
+    await act(async () => jest.advanceTimersByTime(400));
+    expect(mockVoice.start).not.toHaveBeenCalled();
+    expect(screen.getByText("Say it once so only this zikr counts")).toBeTruthy();
+  });
+
+  it("does not reopen the microphone on an ordinary counter", async () => {
+    mockVoice = voice({ countingMode: "template" });
+    const props = { count: 33, target: 33, onIncrement: jest.fn(), onDecrement: jest.fn() };
+    const view = await renderWithTheme(
+      <TasbeehCounter {...props} onReset={jest.fn()} voiceZikr={SUBHANALLAH} />,
+    );
+    await act(async () => mockOnAutoStop?.("target", null));
+    mockVoice = voice({ zikr: ALHAMDULILLAH });
+    await act(async () =>
+      view.rerender(
+        <TasbeehCounter {...props} count={0} onReset={jest.fn()} voiceZikr={ALHAMDULILLAH} />,
+      ),
+    );
+    await act(async () => jest.advanceTimersByTime(400));
+    expect(mockVoice.start).not.toHaveBeenCalled();
   });
 });
