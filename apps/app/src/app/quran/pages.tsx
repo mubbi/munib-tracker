@@ -304,7 +304,9 @@ export default function QuranPagesBrowserScreen() {
     <>
       <Seo path="/quran/pages" />
       <ScreenLayout
-        scrollable={false}
+        // TV: page scroller hosts the list — a flex-bound FlatList collapses to ~1dp on
+        // Leanback (same as dua/zikr categories), leaving only the header visible.
+        scrollable={tv}
         eyebrow={t("quran.eyebrow")}
         title={t("quran.pages")}
         subtitle={t("quran.pagesSubtitle")}

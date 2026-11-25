@@ -156,7 +156,9 @@ export default function DuroodFavoritesScreen() {
       title={t("duroods.favorites")}
       subtitle={t("duroods.favSubtitle")}
       onBack={() => goBackOrReplace(router, "/duroods")}
-      scrollable={!hasItems}
+      // TV: page scroller hosts the list — a flex-bound FlatList collapses to ~1dp on
+      // Leanback (same as dua/zikr categories), leaving only the header visible.
+      scrollable={!hasItems || tv}
       maxContentWidth={hasItems && showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
       headerAccessory={
         hasItems && !showSideFilters ? (

@@ -193,7 +193,9 @@ export default function DuroodsScreen() {
       title={t("duroods.title")}
       subtitle={t("duroods.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
-      scrollable={false}
+      // TV: page scroller hosts the list — a flex-bound FlatList collapses to ~1dp on
+      // Leanback (same as dua/zikr categories), leaving only the header visible.
+      scrollable={tv}
       maxContentWidth={showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
       headerAccessory={
         showSideFilters ? undefined : (
