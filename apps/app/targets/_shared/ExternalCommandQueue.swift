@@ -6,6 +6,9 @@ import Foundation
 enum ExternalCommandQueue {
   static let appGroup = "group.app.munibtracker.widgets"
   static let key = "pending_commands_v1"
+  /// Hard cap on queued commands (oldest dropped). The watch app does not append here:
+  /// its marks go to the phone over WatchConnectivity (`WatchPrayerModel.mark`).
+  static let maxQueued = 32
   /// Darwin (cross-process) notification posted after every queue write so a
   /// running app instance drains immediately (Siri extension, widget buttons,
   /// watch bridge). Observed by `MunibExternalCommandsModule`.
@@ -16,7 +19,7 @@ enum ExternalCommandQueue {
     defer { notifyChanged() }
     var array = readArray() ?? []  // unreadable queue: start over rather than drop this command
     array.append(json)
-    if array.count > 32 { array = Array(array.suffix(32)) }
+    if array.count > maxQueued { array = Array(array.suffix(maxQueued)) }
     if let out = try? JSONSerialization.data(withJSONObject: array),
        let str = String(data: out, encoding: .utf8) {
       writeRaw(str)

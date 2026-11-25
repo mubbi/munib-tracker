@@ -151,31 +151,10 @@ function previewLayoutName(widgetName) {
  * radius (quality tier WS-2). A shared "Next Salah" preview made every widget
  * in the picker look the same.
  */
-function writePreviewLayouts(resRoot) {
-  const layoutDir = path.join(resRoot, "layout");
-  fs.mkdirSync(layoutDir, { recursive: true });
-  const legacy = path.join(layoutDir, "widget_preview_glance.xml");
-
-  for (const [dir, radius] of [
-    ["drawable", "16dp"],
-    ["drawable-v31", "@android:dimen/system_app_widget_background_radius"],
-  ]) {
-    fs.mkdirSync(path.join(resRoot, dir), { recursive: true });
-    fs.writeFileSync(
-      path.join(resRoot, dir, "widget_preview_background.xml"),
-      `<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="${tokens.light.card}" />
-    <corners android:radius="${radius}" />
-</shape>
-`,
-    );
-  }
-
-  for (const widget of ANDROID_HOME_SCREEN_WIDGETS) {
-    const hero = escapeXml(PREVIEW_HERO[widget.name] ?? "");
-    const xml = `<?xml version="1.0" encoding="utf-8"?>
-<!-- Scalable widget picker preview for ${widget.name} (Android 12+ previewLayout). -->
+function previewLayoutXml(widgetName, palette) {
+  const hero = escapeXml(PREVIEW_HERO[widgetName] ?? "");
+  return `<?xml version="1.0" encoding="utf-8"?>
+<!-- Scalable widget picker preview for ${widgetName} (Android 12+ previewLayout). -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/background"
     android:layout_width="match_parent"
@@ -187,17 +166,17 @@ function writePreviewLayouts(resRoot) {
         android:id="@+id/widget_preview_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="${tokens.light.accentText}"
+        android:textColor="${palette.accentText}"
         android:textSize="12sp"
         android:textStyle="bold"
         android:maxLines="1"
-        android:text="@string/${widgetStringName(widget.name, "label")}" />
+        android:text="@string/${widgetStringName(widgetName, "label")}" />
     <TextView
         android:id="@+id/widget_preview_hero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="${tokens.light.text}"
+        android:textColor="${palette.text}"
         android:textSize="22sp"
         android:textStyle="bold"
         android:maxLines="1"
@@ -207,27 +186,69 @@ function writePreviewLayouts(resRoot) {
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:textColor="${tokens.light.textSecondary}"
+        android:textColor="${palette.textSecondary}"
         android:textSize="12sp"
         android:maxLines="2"
         android:ellipsize="end"
-        android:text="@string/${widgetStringName(widget.name, "description")}" />
+        android:text="@string/${widgetStringName(widgetName, "description")}" />
 </LinearLayout>
 `;
-    fs.writeFileSync(path.join(layoutDir, `${previewLayoutName(widget.name)}.xml`), xml);
-  }
+}
 
-  // Android 15 generated previews (AndroidWidgetPreviewPublisher) still inflate
-  // this generic layout and fill its three text views at runtime.
-  fs.writeFileSync(
-    legacy,
-    fs
-      .readFileSync(
-        path.join(layoutDir, `${previewLayoutName(ANDROID_HOME_SCREEN_WIDGETS[0].name)}.xml`),
-        "utf8",
-      )
-      .replace(/android:text="[^"]*"/g, 'android:text=""'),
-  );
+/**
+ * One scalable preview per widget (Android 12+ picker), in a light and a `-night`
+ * variant: its own localized label, a sample hero (numerals only, so no hard-coded
+ * language) and its localized description, on a card using the launcher's widget corner
+ * radius on API 31+. Colours come from the generated native tokens.
+ */
+function writePreviewLayouts(resRoot) {
+  const legacyName = "widget_preview_glance.xml";
+  const variants = [
+    { layoutDir: "layout", drawables: ["drawable", "drawable-v31"], palette: tokens.light },
+    {
+      layoutDir: "layout-night",
+      drawables: ["drawable-night", "drawable-night-v31"],
+      palette: tokens.dark,
+    },
+  ];
+
+  for (const { layoutDir, drawables, palette } of variants) {
+    const layoutPath = path.join(resRoot, layoutDir);
+    fs.mkdirSync(layoutPath, { recursive: true });
+
+    for (const dir of drawables) {
+      const radius = dir.endsWith("-v31")
+        ? "@android:dimen/system_app_widget_background_radius"
+        : "16dp";
+      fs.mkdirSync(path.join(resRoot, dir), { recursive: true });
+      fs.writeFileSync(
+        path.join(resRoot, dir, "widget_preview_background.xml"),
+        `<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="${palette.card}" />
+    <corners android:radius="${radius}" />
+</shape>
+`,
+      );
+    }
+
+    for (const widget of ANDROID_HOME_SCREEN_WIDGETS) {
+      fs.writeFileSync(
+        path.join(layoutPath, `${previewLayoutName(widget.name)}.xml`),
+        previewLayoutXml(widget.name, palette),
+      );
+    }
+
+    // Android 15 generated previews (AndroidWidgetPreviewPublisher) still inflate
+    // this generic layout and fill its three text views at runtime.
+    fs.writeFileSync(
+      path.join(layoutPath, legacyName),
+      previewLayoutXml(ANDROID_HOME_SCREEN_WIDGETS[0].name, palette).replace(
+        /android:text="[^"]*"/g,
+        'android:text=""',
+      ),
+    );
+  }
 }
 
 function patchProviderXml(xmlDir) {
@@ -293,7 +314,9 @@ function withAndroidWidgetGallery(config) {
   ]);
 }
 
-module.exports = createRunOncePlugin(withAndroidWidgetGallery, "withAndroidWidgetGallery", "1.1.0");
+module.exports = createRunOncePlugin(withAndroidWidgetGallery, "withAndroidWidgetGallery", "1.2.0");
 module.exports.GALLERY_KEYS = GALLERY_KEYS;
 module.exports.PREVIEW_HERO = PREVIEW_HERO;
+module.exports.writePreviewLayouts = writePreviewLayouts;
+module.exports.writeLocaleStrings = writeLocaleStrings;
 module.exports.LOCALE_QUALIFIERS = LOCALE_QUALIFIERS;

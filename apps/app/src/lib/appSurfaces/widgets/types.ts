@@ -8,7 +8,10 @@ export type WidgetThemeSnapshot = {
   isDark: boolean;
   /** True when Settings → Appearance is "System" (Android dual light/dark slots). */
   followsSystem: boolean;
+  /** Fill / tint only. Use `primaryText` for accent-coloured text. */
   primary: WidgetHexColor;
+  /** Contrast-safe accent for text (= in-app `colors.accentText`). Optional: older snapshots lack it. */
+  primaryText?: WidgetHexColor;
   background: WidgetHexColor;
   cardBackground: WidgetHexColor;
   textPrimary: WidgetHexColor;
@@ -75,6 +78,9 @@ export type WidgetSurfaceStrings = {
   freeCount: string;
   tapToCount: string;
   sequenceDone: string;
+  /** Watch Undo after a mark, and the hint shown beside it (optional natively: the watch falls back to English). */
+  undo: string;
+  markedUndoHint: string;
   /** Row status labels, so native surfaces can re-derive statuses between syncs. */
   statusCompleted: string;
   statusActive: string;
@@ -305,6 +311,7 @@ const DEFAULT_THEME: WidgetThemeSnapshot = {
   isDark: false,
   followsSystem: true,
   primary: WIDGET_DEFAULT_ACCENT.light,
+  primaryText: WIDGET_DEFAULT_ACCENT.light,
   ...WIDGET_LIGHT,
   success: WIDGET_DEFAULT_ACCENT.light,
   warning: WIDGET_STATUS.warning,
@@ -322,7 +329,9 @@ type WatchStringKey =
   | "staleData"
   | "freeCount"
   | "tapToCount"
-  | "sequenceDone";
+  | "sequenceDone"
+  | "undo"
+  | "markedUndoHint";
 
 /** Watch / Wear companion labels, shared by the empty and the built snapshot. */
 export function watchSurfaceStrings(
@@ -341,6 +350,8 @@ export function watchSurfaceStrings(
     freeCount: t("widgets.watch.freeCount", "Free count"),
     tapToCount: t("widgets.watch.tapToCount", "Tap to count"),
     sequenceDone: t("widgets.watch.sequenceDone", "Tasbeeh complete"),
+    undo: t("widgets.watch.undo", "Undo"),
+    markedUndoHint: t("widgets.watch.markedUndoHint", "Marked — tap Undo to change"),
   };
 }
 

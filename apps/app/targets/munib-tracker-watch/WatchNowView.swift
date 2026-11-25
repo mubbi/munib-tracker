@@ -4,6 +4,8 @@ import SwiftUI
 /// marking of the Salah whose time is running.
 struct WatchNowView: View {
   @EnvironmentObject private var model: WatchPrayerModel
+  /// Always-On: no ticking seconds, no Mark button, dimmed content.
+  @Environment(\.isLuminanceReduced) private var isLuminanceReduced
 
   var body: some View {
     // Re-resolve each minute so the page moves on at every Adhan without a phone push.
@@ -13,7 +15,7 @@ struct WatchNowView: View {
           .padding(.horizontal, 2)
       }
     }
-    .navigationTitle("Munib")
+    .navigationTitle(model.snapshot?.nextPrayer?.title ?? "Munib")
     .containerBackground(model.accent.opacity(0.35).gradient, for: .tabView)
   }
 
@@ -65,7 +67,7 @@ struct WatchNowView: View {
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
             }
-            if let at = next.at, at > now {
+            if let at = next.at, at > now, !isLuminanceReduced {
               Text(at, style: .timer)
                 .font(.caption.monospacedDigit().weight(.semibold))
                 .foregroundStyle(.tint)
@@ -88,7 +90,7 @@ struct WatchNowView: View {
           .multilineTextAlignment(.center)
       }
 
-      if let markable {
+      if let markable, !isLuminanceReduced {
         Button {
           model.mark(markable)
         } label: {
@@ -104,7 +106,9 @@ struct WatchNowView: View {
         .buttonStyle(.borderedProminent)
       }
 
-      if let feedback = model.feedback {
+      if model.undoable != nil {
+        WatchUndoBar()
+      } else if let feedback = model.feedback {
         Text(feedback)
           .font(.caption2)
           .foregroundStyle(.secondary)
@@ -120,6 +124,7 @@ struct WatchNowView: View {
           .foregroundStyle(.secondary)
       }
     }
+    .opacity(isLuminanceReduced ? 0.7 : 1)
     .animation(.easeOut(duration: 0.2), value: model.feedback)
   }
 

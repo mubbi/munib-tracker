@@ -128,6 +128,7 @@ function buildThemeSnapshot(input: BuildWidgetSnapshotInput): WidgetThemeSnapsho
     isDark: resolved.isDark,
     followsSystem: input.theme.followsSystem,
     primary: asHex(resolved.primary),
+    primaryText: asHex(resolved.primaryText),
     background: asHex(resolved.background),
     cardBackground: asHex(resolved.cardBackground),
     textPrimary: asHex(resolved.textPrimary),

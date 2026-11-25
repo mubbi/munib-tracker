@@ -318,7 +318,7 @@ struct SalahStreakWidgetHomeView: View {
     ) {
       VStack(alignment: .leading, spacing: 4) {
         Text(section?.streakLabel ?? "0")
-          .font(.system(size: compact ? 36 : 42, weight: .bold, design: .rounded))
+          .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
           .foregroundStyle(theme.primary)
           .widgetAccentable()
           .widgetFittingText(maxLines: 1)
@@ -385,7 +385,7 @@ struct QazaDebtWidgetHomeView: View {
     ) {
       VStack(alignment: .leading, spacing: 6) {
         Text("\(section?.remaining ?? 0)")
-          .font(.system(size: compact ? 32 : 36, weight: .bold, design: .rounded))
+          .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
           .foregroundStyle(theme.warning)
           .widgetAccentable()
           .widgetFittingText(maxLines: 1)
@@ -754,7 +754,7 @@ struct QiblaBearingWidgetHomeView: View {
     ) {
       VStack(alignment: .leading, spacing: 4) {
         Text(section?.bearingLabel ?? "—")
-          .font(.system(size: compact ? 30 : 34, weight: .bold, design: .rounded))
+          .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
           .foregroundStyle(theme.primary)
           .widgetAccentable()
           .widgetFittingText(maxLines: 1)
@@ -827,7 +827,7 @@ struct TasbeehGlanceWidgetHomeView: View {
     ) {
       VStack(alignment: .leading, spacing: 6) {
         Text(section?.hasActivity == true ? (section?.countLabel ?? "0") : "—")
-          .font(.system(size: compact ? 30 : 34, weight: .bold, design: .rounded))
+          .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
           .foregroundStyle(theme.primary)
           .widgetAccentable()
           .widgetFittingText(maxLines: 1)
@@ -905,7 +905,7 @@ struct JumuahWidgetHomeView: View {
             ? "\(section?.completed ?? 0)/\(section?.total ?? 0)"
             : "\(section?.daysUntil ?? 0)"
         )
-        .font(.system(size: compact ? 30 : 34, weight: .bold, design: .rounded))
+        .font(.system(compact ? .title : .largeTitle, design: .rounded).weight(.bold))
         .foregroundStyle(theme.primary)
         .widgetAccentable()
         .widgetFittingText(maxLines: 1)

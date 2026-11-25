@@ -83,19 +83,14 @@ struct WatchTasbeehView: View {
   // MARK: Body
 
   var body: some View {
-    ScrollView {
-      VStack(spacing: 8) {
-        if !steps.isEmpty {
-          modePicker
-        }
-
-        if mode == .free {
-          targetPicker
-        } else {
+    // Not a ScrollView: the Digital Crown belongs to the counter, and the page fits 41mm.
+    GeometryReader { proxy in
+      VStack(spacing: 4) {
+        if mode == .sequence {
           phraseHeader
         }
 
-        counterDial
+        counterDial(diameter: max(min(proxy.size.width - 16, proxy.size.height - 44), 80))
           .focusable()
           .digitalCrownRotation(
             $crown,
@@ -114,68 +109,60 @@ struct WatchTasbeehView: View {
           .font(.caption2)
           .foregroundStyle(.secondary)
           .multilineTextAlignment(.center)
-
-        // Same as the phone: reset asks first, so a stray tap never wipes a count.
-        Button(role: .destructive) {
-          confirmingReset = true
+          .lineLimit(1)
+          .minimumScaleFactor(0.7)
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    .padding(.horizontal, 4)
+    .navigationTitle(snapshot?.strings?.tasbeeh ?? "Tasbeeh")
+    .toolbar {
+      // Target, mode and reset live in a secondary menu so the count page stays one control.
+      ToolbarItem(placement: .topBarTrailing) {
+        Menu {
+          if !steps.isEmpty {
+            Picker(selection: Binding(get: { mode }, set: { setMode($0) })) {
+              Text(snapshot?.strings?.freeCount ?? "Free count").tag(WatchTasbeehMode.free)
+              Text(snapshot?.strings?.afterSalahAdhkar ?? snapshot?.afterSalahTasbeeh?.title ?? "After Salah")
+                .tag(WatchTasbeehMode.sequence)
+            } label: {
+              Text(snapshot?.strings?.freeCount ?? "Free count")
+            }
+          }
+          if mode == .free {
+            Picker(selection: Binding(get: { target }, set: { selectTarget($0) })) {
+              ForEach(watchTasbeehModes, id: \.target) { option in
+                Text(option.label).tag(option.target)
+              }
+            } label: {
+              Text(snapshot?.strings?.remaining ?? "Remaining")
+            }
+          }
+          Button(role: .destructive) {
+            confirmingReset = true
+          } label: {
+            Label(resetLabel, systemImage: "arrow.counterclockwise")
+          }
+          .disabled(!canReset)
         } label: {
-          Label(resetLabel, systemImage: "arrow.counterclockwise")
-        }
-        .font(.caption2)
-        .disabled(!canReset)
-        .confirmationDialog(resetLabel, isPresented: $confirmingReset, titleVisibility: .hidden) {
-          Button(resetLabel, role: .destructive) { reset() }
+          Image(systemName: "ellipsis.circle")
         }
       }
-      .padding(.horizontal, 4)
     }
-    .navigationTitle(snapshot?.strings?.tasbeeh ?? "Tasbeeh")
+    // Same as the phone: reset asks first, so a stray tap never wipes a count.
+    .confirmationDialog(resetLabel, isPresented: $confirmingReset, titleVisibility: .hidden) {
+      Button(resetLabel, role: .destructive) { reset() }
+    }
     .onAppear { syncCrown() }
     .onDisappear { reloadComplication() }
     .environment(\.locale, Locale(identifier: snapshot?.locale ?? "en"))
     .environment(\.layoutDirection, snapshot?.isRtl == true ? .rightToLeft : .leftToRight)
   }
 
-  private var modePicker: some View {
-    HStack(spacing: 4) {
-      modeButton(.free, label: snapshot?.strings?.freeCount ?? "Free count")
-      modeButton(
-        .sequence,
-        label: snapshot?.strings?.afterSalahAdhkar ?? snapshot?.afterSalahTasbeeh?.title ?? "After Salah"
-      )
-    }
-  }
-
-  private func modeButton(_ value: WatchTasbeehMode, label: String) -> some View {
-    Button {
-      guard mode != value else { return }
-      modeRaw = value.rawValue
-      syncCrown()
-    } label: {
-      Text(label)
-        .font(.caption2.weight(mode == value ? .semibold : .regular))
-        .lineLimit(1)
-        .minimumScaleFactor(0.6)
-        .frame(maxWidth: .infinity)
-    }
-    .buttonStyle(.bordered)
-    .tint(mode == value ? accent : .secondary)
-  }
-
-  private var targetPicker: some View {
-    HStack(spacing: 4) {
-      ForEach(watchTasbeehModes, id: \.target) { option in
-        Button {
-          selectTarget(option.target)
-        } label: {
-          Text(option.label)
-            .font(.caption2.weight(target == option.target ? .semibold : .regular))
-            .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(.bordered)
-        .tint(target == option.target ? accent : .secondary)
-      }
-    }
+  private func setMode(_ value: WatchTasbeehMode) {
+    guard mode != value else { return }
+    modeRaw = value.rawValue
+    syncCrown()
   }
 
   @ViewBuilder
@@ -207,13 +194,13 @@ struct WatchTasbeehView: View {
     }
   }
 
-  private var counterDial: some View {
+  private func counterDial(diameter: CGFloat) -> some View {
     let (count, goal, complete) = dialValues
     // A Button (not a tap gesture) so Double Tap (watchOS 11+) counts hands-free.
     return Button {
       tap()
     } label: {
-      dialFace(count: count, goal: goal, complete: complete)
+      dialFace(count: count, goal: goal, complete: complete, diameter: diameter)
     }
     .buttonStyle(.plain)
     .watchPrimaryDoubleTap()
@@ -221,7 +208,7 @@ struct WatchTasbeehView: View {
     .accessibilityHint(snapshot?.strings?.tapToCount ?? "Tap to count")
   }
 
-  private func dialFace(count: Int, goal: Int, complete: Bool) -> some View {
+  private func dialFace(count: Int, goal: Int, complete: Bool, diameter: CGFloat) -> some View {
     ZStack {
       Circle()
         .stroke(Color.secondary.opacity(0.25), lineWidth: 8)
@@ -242,7 +229,7 @@ struct WatchTasbeehView: View {
             .foregroundStyle(.green)
         } else {
           Text("\(count)")
-            .font(.system(size: 34, weight: .bold, design: .rounded))
+            .font(.system(.largeTitle, design: .rounded).weight(.bold))
             .minimumScaleFactor(0.6)
             .lineLimit(1)
           if goal > 0 {
@@ -253,7 +240,7 @@ struct WatchTasbeehView: View {
         }
       }
     }
-    .frame(width: 124, height: 124)
+    .frame(width: diameter, height: diameter)
     .contentShape(Circle())
   }
 

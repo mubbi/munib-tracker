@@ -42,6 +42,7 @@ function toWidgetThemeSnapshot(resolved: ResolvedWidgetTheme): WidgetThemeSnapsh
     isDark: resolved.isDark,
     followsSystem: true,
     primary: resolved.primary as WidgetHexColor,
+    primaryText: resolved.primaryText as WidgetHexColor,
     background: resolved.background as WidgetHexColor,
     cardBackground: resolved.cardBackground as WidgetHexColor,
     textPrimary: resolved.textPrimary as WidgetHexColor,

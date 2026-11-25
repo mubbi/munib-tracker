@@ -70,7 +70,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alama Salah"
+            "value": "Yi alamar Sallah"
           }
         },
         "hi": {
@@ -136,7 +136,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Weka alama Salah"
+            "value": "Weka alama kwenye Swala"
           }
         },
         "tg": {
@@ -244,7 +244,7 @@
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zikr za ovo vrijeme, uz vaš napredak"
+            "value": "Ezkar za ovo vrijeme, uz vaš napredak"
           }
         },
         "fa": {
@@ -392,7 +392,7 @@
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zikr"
+            "value": "Ezkar"
           }
         },
         "fa": {
@@ -920,7 +920,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hesabu ya kuelekea siku zijazo za Kiislamu"
+            "value": "Muda uliosalia hadi siku zijazo za Kiislamu"
           }
         },
         "tg": {
@@ -932,7 +932,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Indiki yslam günlerine çenli ters sanaw"
+            "value": "Indiki yslam senelerine çenli galan wagt"
           }
         },
         "tr": {
@@ -1216,7 +1216,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Maendeleo ya orodha ya Ijumaa au siku hadi Ijumaa"
+            "value": "Maendeleo ya orodha ya ukaguzi ya Ijumaa au siku zilizobaki hadi Ijumaa"
           }
         },
         "tg": {
@@ -1228,7 +1228,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Anna sanawynyň ösüşi ýa-da Annaya çenli günler"
+            "value": "Anna sanawynyň ösüşi ýa-da Anna çenli galan günler"
           }
         },
         "tr": {
@@ -1246,7 +1246,7 @@
         "uz": {
           "stringUnit": {
             "state": "translated",
-            "value": "Juma ro‘yxati taraqqiyoti yoki Jumagacha kunlar"
+            "value": "Juma ro'yxati taraqqiyoti yoki Jumagacha kunlar"
           }
         }
       }
@@ -1446,7 +1446,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kwanan Hijira da Gregorian"
+            "value": "Kwanan watan Hijira da na Miladiyya"
           }
         },
         "hi": {
@@ -1500,7 +1500,7 @@
         "so": {
           "stringUnit": {
             "state": "translated",
-            "value": "Taariikhda Hijriga iyo Gregorian"
+            "value": "Taariikhda Hijriga iyo Miilaadi"
           }
         },
         "sq": {
@@ -1512,7 +1512,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tarehe ya Hijria na Gregorian"
+            "value": "Tarehe ya Hijria na Miladia"
           }
         },
         "tg": {
@@ -1712,7 +1712,7 @@
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Qur'an xətm planının irəliləyişi"
+            "value": "Quran xətm planının irəliləyişi"
           }
         },
         "bn": {
@@ -1724,7 +1724,7 @@
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Napredak plana hatmea Kur'ana"
+            "value": "Napredak plana hatme Kur'ana"
           }
         },
         "fa": {
@@ -1742,7 +1742,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ci gaban shirin khatm na Alkur'ani"
+            "value": "Ci gaban tsarin saukar Alƙur'ani"
           }
         },
         "hi": {
@@ -1808,7 +1808,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Maendeleo ya mpango wa khatm wa Qur'ani"
+            "value": "Maendeleo ya mpango wa khitma ya Qur'ani"
           }
         },
         "tg": {
@@ -1820,7 +1820,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gurhan hatym meýilnamasynyň ösüşi"
+            "value": "Kuran hatym meýilnamasynyň ösüşi"
           }
         },
         "tr": {
@@ -1838,7 +1838,7 @@
         "uz": {
           "stringUnit": {
             "state": "translated",
-            "value": "Qur’on xatm rejasi taraqqiyoti"
+            "value": "Qur'on xatm rejasi taraqqiyoti"
           }
         }
       }
@@ -1872,7 +1872,7 @@
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hatme"
+            "value": "Hatma"
           }
         },
         "fa": {
@@ -1890,7 +1890,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Khatm"
+            "value": "Sauka"
           }
         },
         "hi": {
@@ -1944,7 +1944,7 @@
         "so": {
           "stringUnit": {
             "state": "translated",
-            "value": "Khatm"
+            "value": "Khatmi"
           }
         },
         "sq": {
@@ -1956,7 +1956,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Khatm"
+            "value": "Khitma"
           }
         },
         "tg": {
@@ -2020,7 +2020,7 @@
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ime sljedeće molitve, vrijeme i odbrojavanje na početnom ili zaključanom ekranu"
+            "value": "Naziv sljedećeg namaza, vrijeme i odbrojavanje na početnom ili zaključanom ekranu"
           }
         },
         "fa": {
@@ -2038,7 +2038,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sunan addu'a na gaba, lokaci, da ƙidaya akan allon gida ko kullewa"
+            "value": "Sunan sallah ta gaba, lokacinta, da ƙirgar lokaci a allon gida ko allon kulle"
           }
         },
         "hi": {
@@ -2092,7 +2092,7 @@
         "so": {
           "stringUnit": {
             "state": "translated",
-            "value": "Magaca salaadada xiga, wakhtiga, iyo tirinta shaashadda guriga ama qufulka"
+            "value": "Magaca salaadda xiga, wakhtiga, iyo tirinta shaashadda guriga ama qufulka"
           }
         },
         "sq": {
@@ -2104,7 +2104,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jina la maombi linalofuata, saa na siku zijazo kwenye skrini ya nyumbani au iliyofungwa"
+            "value": "Jina la Swala inayofuata, saa yake na muda uliosalia kwenye skrini ya nyumbani au Skrini Iliyofungwa"
           }
         },
         "tg": {
@@ -2116,7 +2116,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ana ekran veya kilit ekranynda sonraki namaz ady, vakti ve geri sayym"
+            "value": "Baş ekranda ýa-da gulp ekranynda indiki namazyň ady, wagty we galan wagt"
           }
         },
         "tr": {
@@ -2168,25 +2168,25 @@
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Sljedeća molitva"
+            "value": "Munib Tracker · Sljedeći namaz"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "ردیاب منیب · دعای بعدی"
+            "value": "نماز بعدی"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Prochaine prière"
+            "value": "Munib Tracker · Prochaine Salah"
           }
         },
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Addu'a ta gaba"
+            "value": "Sallah ta gaba"
           }
         },
         "hi": {
@@ -2252,7 +2252,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Sala inayofuata"
+            "value": "Munib Tracker · Swala inayofuata"
           }
         },
         "tg": {
@@ -2316,7 +2316,7 @@
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Današnji obavezni molitveni napredak"
+            "value": "Današnji napredak farz namaza"
           }
         },
         "fa": {
@@ -2334,7 +2334,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sallar farilla yau taci gaba"
+            "value": "Ci gaban sallolin farilla na yau"
           }
         },
         "hi": {
@@ -2388,7 +2388,7 @@
         "so": {
           "stringUnit": {
             "state": "translated",
-            "value": "salaadada Waajibka ah ee maanta horumaray"
+            "value": "Horumarka salaadaha waajibka ah ee maanta"
           }
         },
         "sq": {
@@ -2400,7 +2400,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Maendeleo ya maombi ya faradhi ya leo"
+            "value": "Maendeleo ya Swala za faradhi za leo"
           }
         },
         "tg": {
@@ -2412,7 +2412,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Şu günkü farz namaz ilerlemesi"
+            "value": "Şu günki parz namaz ösüşi"
           }
         },
         "tr": {
@@ -2470,19 +2470,19 @@
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "ردیاب منیب · پیشرفت"
+            "value": "پیشرفت"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Progrès"
+            "value": "Munib Tracker · Progression"
           }
         },
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Ci gaba"
+            "value": "Ci gaba"
           }
         },
         "hi": {
@@ -2560,7 +2560,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Ylerleme"
+            "value": "Munib Tracker · Ösüş"
           }
         },
         "tr": {
@@ -2588,7 +2588,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Remaining qaza and today's make-up progress"
+            "value": "Remaining Qaza and today's make-up progress"
           }
         },
         "ar": {
@@ -2630,7 +2630,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Qaza da ya rage da ci gaban biyan yau"
+            "value": "Sallolin Qaza da suka rage da ci gaban ramawa na yau"
           }
         },
         "hi": {
@@ -2696,7 +2696,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Qaza zilizobaki na maendeleo ya kulipa leo"
+            "value": "Kadha zilizobaki na maendeleo ya kadha ya leo"
           }
         },
         "tg": {
@@ -2926,7 +2926,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kusurwar compass zuwa Ka'aba"
+            "value": "Kusurwar kamfas zuwa Ka'aba"
           }
         },
         "hi": {
@@ -2992,7 +2992,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Azimuth ya dira kuelekea Kaaba"
+            "value": "Mwelekeo wa dira kuelekea Kaaba"
           }
         },
         "tg": {
@@ -3004,7 +3004,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Käbä kompasyň burçy"
+            "value": "Kagba tarap kompas ugry"
           }
         },
         "tr": {
@@ -3022,7 +3022,7 @@
         "uz": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ka’baga kompas burchagi"
+            "value": "Ka'baga kompas burchagi"
           }
         }
       }
@@ -3140,7 +3140,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kibla"
+            "value": "Qibla"
           }
         },
         "tg": {
@@ -3204,7 +3204,7 @@
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vremena sehure i iftara s odbrojavanjem"
+            "value": "Vremena sehura i iftara s odbrojavanjem"
           }
         },
         "fa": {
@@ -3222,7 +3222,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lokutan sahur da iftar tare da ƙidayar baya"
+            "value": "Lokutan sahur da buɗa baki tare da ƙirgar lokaci"
           }
         },
         "hi": {
@@ -3288,7 +3288,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nyakati za suhoor na iftar na countdown"
+            "value": "Nyakati za daku na futari pamoja na muda uliosalia"
           }
         },
         "tg": {
@@ -3300,7 +3300,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sahur we iftar wagtlary yzyna sanaw bilen"
+            "value": "Sahur we iftar wagtlary galan wagt bilen"
           }
         },
         "tr": {
@@ -3448,7 +3448,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ramazan"
+            "value": "Remezan"
           }
         },
         "tr": {
@@ -3500,7 +3500,7 @@
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ukratko o današnjoj obaveznoj molitvi"
+            "value": "Današnja vremena farz namaza na prvi pogled"
           }
         },
         "fa": {
@@ -3518,7 +3518,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lokutan sallar farilla na yau a kallo"
+            "value": "Lokutan sallolin farilla na yau a taƙaice"
           }
         },
         "hi": {
@@ -3584,19 +3584,19 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nyakati za sala za faradhi za leo kwa mtazamo"
+            "value": "Nyakati za Swala za faradhi za leo kwa haraka"
           }
         },
         "tg": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вакти намози фарз ба як назар"
+            "value": "Вақти намозҳои фарз дар як назар"
           }
         },
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Şu günkü farz namaz vakitlerine hyzly bakyş"
+            "value": "Şu günki parz namaz wagtlaryna gysgaça syn"
           }
         },
         "tr": {
@@ -3654,19 +3654,19 @@
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "ردیاب Munib · جدول زمانی"
+            "value": "برنامهٔ زمانی"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Calendrier"
+            "value": "Munib Tracker · Horaires"
           }
         },
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Jadawalin"
+            "value": "Jadawali"
           }
         },
         "hi": {
@@ -3814,7 +3814,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jerin Salah ta wajibi na yanzu"
+            "value": "Kwanakin sallolin farilla a jere na yanzu"
           }
         },
         "hi": {
@@ -3880,7 +3880,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mfululizo wa sasa wa Salah za faradhi"
+            "value": "Mfululizo wa sasa wa Swala za faradhi"
           }
         },
         "tg": {
@@ -3892,7 +3892,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Häzirki farz namaz seriýasy"
+            "value": "Häzirki parz namaz seriýasy"
           }
         },
         "tr": {
@@ -3962,7 +3962,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jeri"
+            "value": "Kwanaki a jere"
           }
         },
         "hi": {
@@ -4040,7 +4040,7 @@
         "tk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Seriýa"
+            "value": "Tapgyr"
           }
         },
         "tr": {
@@ -4080,7 +4080,7 @@
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bugünkü xüsusi təsbih sayğacı irəliləyişi"
+            "value": "Bugünkü xüsusi təsbeh sayğacı irəliləyişi"
           }
         },
         "bn": {
@@ -4110,7 +4110,7 @@
         "ha": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ci gaban ma'aunin tasbeeh na musamman na yau"
+            "value": "Ci gaban ƙirgar tasbihi na musamman na yau"
           }
         },
         "hi": {
@@ -4164,7 +4164,7 @@
         "so": {
           "stringUnit": {
             "state": "translated",
-            "value": "Horumarka tiriyaha tasbeeh gaarka ah ee maanta"
+            "value": "Horumarka tiriyaha tasbiix gaarka ah ee maanta"
           }
         },
         "sq": {
@@ -4176,7 +4176,7 @@
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Maendeleo ya kihesabu cha tasbeeh maalum cha leo"
+            "value": "Maendeleo ya leo ya kihesabu chako cha Tasbihi"
           }
         },
         "tg": {
@@ -4228,7 +4228,7 @@
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Təsbih"
+            "value": "Təsbeh"
           }
         },
         "bn": {
@@ -4312,7 +4312,7 @@
         "so": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tasbeex"
+            "value": "Tasbiix"
           }
         },
         "sq": {

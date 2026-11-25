@@ -56,7 +56,10 @@ struct WatchTodayView: View {
           .accessibilityLabel(accessibility(for: row))
           .accessibilityHint(row.state == .due ? model.text(\.markSalah, "Mark Salah") : "")
         }
-        if let feedback = model.feedback {
+        if model.undoable != nil {
+          WatchUndoBar()
+            .listRowBackground(Color.clear)
+        } else if let feedback = model.feedback {
           Text(feedback)
             .font(.caption2)
             .foregroundStyle(.secondary)

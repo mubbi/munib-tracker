@@ -7,12 +7,13 @@ import type React from "react";
 import { FlexWidget, TextWidget } from "react-native-android-widget";
 import type { WidgetMarkClickAction } from "@/lib/appSurfaces/widgets/constants";
 import type { WidgetHexColor, WidgetThemeSnapshot } from "@/lib/appSurfaces/widgets/types";
-import { WIDGET_DESIGN } from "@/lib/appSurfaces/widgets/widgetTokens";
+import { WIDGET_DESIGN, widgetCornerRadius } from "@/lib/appSurfaces/widgets/widgetTokens";
+import { WIDGET_LIGHT } from "@/lib/appSurfaces/widgets/widgetTokens.generated";
 
 export type { WidgetHexColor } from "@/lib/appSurfaces/widgets/types";
 
 export const WIDGET_COLORS = {
-  textSecondary: "#4A5F56" as WidgetHexColor,
+  textSecondary: WIDGET_LIGHT.textSecondary as WidgetHexColor,
 };
 
 export function hexWithAlpha(
@@ -190,7 +191,7 @@ export function AndroidSurfaceCard({
         height: "match_parent",
         width: "match_parent",
         backgroundColor: colors.card,
-        borderRadius: compact ? WIDGET_DESIGN.radiusCompact : WIDGET_DESIGN.radius,
+        borderRadius: widgetCornerRadius(compact),
         padding: compact ? WIDGET_DESIGN.paddingCompact : WIDGET_DESIGN.padding,
         flexDirection: "column",
         flexGap: compact ? 6 : WIDGET_DESIGN.rowGap,

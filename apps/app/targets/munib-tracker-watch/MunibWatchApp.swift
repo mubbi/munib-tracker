@@ -43,6 +43,8 @@ final class WatchPrayerModel: ObservableObject {
   /// Salah marked on the watch that the phone hasn't echoed back yet (id → epoch s).
   @Published private(set) var localMarks: [String: Double] = [:]
   @Published var feedback: String?
+  /// The Salah marked in the last few seconds, still revertible with Undo.
+  @Published private(set) var undoable: WatchSalahRow?
   @Published var page: WatchPage = .now
   @Published var path: [WatchRoute] = []
 
@@ -51,6 +53,9 @@ final class WatchPrayerModel: ObservableObject {
   private var outbox: [[String: Any]] = []
   private var marksDay = ""
   private var feedbackClear: DispatchWorkItem?
+  private var pendingMark: (id: String, message: [String: Any])?
+  private var commitWork: DispatchWorkItem?
+  private static let undoWindowSeconds: Double = 4
 
   private static let marksKey = "munib.watch.localMarks.v1"
   /// A snapshot written this long after a watch mark that still shows the Salah
@@ -72,9 +77,9 @@ final class WatchPrayerModel: ObservableObject {
 
   var localMarkIds: Set<String> { Set(localMarks.keys) }
 
-  /// Snapshot accent (the app's theme colour) with the brand green as fallback.
+  /// Snapshot accent (the app's theme colour); the generated brand accent before the first snapshot.
   var accent: Color {
-    WidgetPalette.color(snapshot?.theme?.primary, fallback: Color(red: 0.020, green: 0.588, blue: 0.412))
+    WidgetPalette.color(snapshot?.theme?.primary, fallback: MunibTokens.darkAccent)
   }
 
   /// Snapshot label with an English fallback (the watch has no catalogs of its own).
@@ -88,21 +93,51 @@ final class WatchPrayerModel: ObservableObject {
     pruneMarks()
   }
 
-  /// Marks one Salah on the phone. Always an explicit `mark-prayer` with the
-  /// snapshot's day: a queued `transferUserInfo` can be delivered much later, when a
-  /// "mark current" would resolve to a different Salah (and the phone drops a
-  /// `mark-prayer` whose date is no longer today).
+  /// Marks one Salah. The tick and haptic are immediate, but the phone command is held for
+  /// `undoWindowSeconds` so Undo reverts cleanly on watch and phone (nothing was sent).
+  /// Sent as an explicit `mark-prayer` with the snapshot's day: a queued `transferUserInfo`
+  /// can be delivered much later, when a "mark current" would resolve to a different Salah
+  /// (and the phone drops a `mark-prayer` whose date is no longer today).
+  /// Callers only offer rows the resolver reports as `.due`; this guards again anyway.
   func mark(_ row: WatchSalahRow) {
+    guard row.state == .due, localMarks[row.id] == nil else { return }
+    commitPendingMark()  // a second mark inside the window sends the first one now
     let message: [String: Any] = [
       "command": "mark-prayer",
       "prayerId": row.id,
       "date": WatchSalahResolver.markDate(snapshot),
     ]
-    let live = sendToPhone(message)
     marksDay = WatchSalahResolver.markDate(snapshot)
     localMarks[row.id] = Date().timeIntervalSince1970
     persistMarks()
     WKInterfaceDevice.current().play(.success)
+    pendingMark = (row.id, message)
+    undoable = row
+    let work = DispatchWorkItem { [weak self] in self?.commitPendingMark() }
+    commitWork = work
+    DispatchQueue.main.asyncAfter(deadline: .now() + Self.undoWindowSeconds, execute: work)
+  }
+
+  /// Reverts the last mark if it hasn't been sent yet.
+  func undoMark() {
+    guard let pending = pendingMark else { return }
+    commitWork?.cancel()
+    commitWork = nil
+    pendingMark = nil
+    undoable = nil
+    localMarks[pending.id] = nil
+    persistMarks()
+    WKInterfaceDevice.current().play(.click)
+  }
+
+  /// Sends the held mark (window elapsed, another mark, or the app leaving the foreground).
+  func commitPendingMark() {
+    commitWork?.cancel()
+    commitWork = nil
+    guard let pending = pendingMark else { return }
+    pendingMark = nil
+    undoable = nil
+    let live = sendToPhone(pending.message)
     showFeedback(
       live
         ? text(\.sentToPhone, "Sent to your phone")
@@ -252,7 +287,7 @@ struct WatchRootView: View {
     .tint(model.accent)
     .onOpenURL { model.route(to: $0) }
     .onChange(of: scenePhase) { _, phase in
-      if phase == .active { model.reload() }
+      if phase == .active { model.reload() } else { model.commitPendingMark() }
     }
     .environment(\.locale, Locale(identifier: model.snapshot?.locale ?? "en"))
     .environment(
@@ -272,5 +307,27 @@ struct WatchHint: View {
       .foregroundStyle(.secondary)
       .multilineTextAlignment(.center)
       .frame(maxWidth: .infinity)
+  }
+}
+
+/// Shown for a few seconds after a mark: the Salah and a one-tap Undo (nothing has been
+/// sent to the phone yet, so Undo reverts watch and phone together).
+struct WatchUndoBar: View {
+  @EnvironmentObject private var model: WatchPrayerModel
+
+  var body: some View {
+    if let row = model.undoable {
+      HStack(spacing: 6) {
+        Label(row.name, systemImage: "checkmark.circle.fill")
+          .font(.caption2)
+          .foregroundStyle(.secondary)
+          .lineLimit(1)
+        Spacer(minLength: 4)
+        Button(model.text(\.undo, "Undo")) { model.undoMark() }
+          .font(.caption2.weight(.semibold))
+          .buttonStyle(.bordered)
+      }
+      .sensoryFeedback(.success, trigger: row.id)
+    }
   }
 }

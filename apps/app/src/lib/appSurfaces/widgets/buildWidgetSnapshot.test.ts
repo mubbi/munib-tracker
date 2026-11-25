@@ -1,3 +1,4 @@
+import { resolveTheme } from "@munib-tracker/theme/resolve";
 import {
   afterSalahTasbeehSteps,
   buildWidgetSnapshot,
@@ -110,6 +111,18 @@ describe("buildWidgetSnapshot", () => {
     expect(snapshot.khatm.hasPlan).toBe(true);
     expect(snapshot.khatm.progressPercent).toBeGreaterThan(0);
     expect(snapshot.theme.primary).toBe("#2563EB");
+  });
+
+  it("emits a contrast-safe primaryText equal to the in-app accentText", () => {
+    for (const isDark of [false, true]) {
+      const colors = resolveTheme(isDark ? "dark" : "light", null, "ocean");
+      const snapshot = buildWidgetSnapshot({
+        ...baseInput,
+        theme: { isDark, primaryColor: colors.accent, followsSystem: true },
+      });
+      expect(snapshot.theme.primary).toBe(colors.accent);
+      expect(snapshot.theme.primaryText).toBe(colors.accentText);
+    }
   });
 
   it("builds tasbeeh and Jumu'ah sections", () => {
@@ -274,6 +287,9 @@ describe("watch / Wear companion contract", () => {
     expect(snapshot.strings.markConfirm).toBe("Mark as prayed?");
     expect(snapshot.strings.willSync.length).toBeGreaterThan(0);
     expect(snapshot.strings.cancel).toBe("Cancel");
+    // Optional on the watch (English fallback), but the phone always sends them.
+    expect(snapshot.strings.undo).toBe("Undo");
+    expect(snapshot.strings.markedUndoHint).toBe("Marked — tap Undo to change");
   });
 
   it("carries the after-Salah tasbeeh only when every phrase resolves", () => {
