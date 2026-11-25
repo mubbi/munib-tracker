@@ -163,7 +163,7 @@ export const SETTINGS_GROUPS: readonly SettingsGroupMeta[] = [
         titleKey: "settingsSubgroups.other.title",
         subtitleKey: "settingsSubgroups.other.subtitle",
         icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
-        sections: ["notif.groupContent", "settingsPanel.section.feedback"],
+        sections: ["notif.groupContent"],
       },
     ],
   },

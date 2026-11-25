@@ -32,7 +32,7 @@ describe("AppFeedbackController", () => {
 describe("SubmitAppFeedbackDto", () => {
   const VALID = {
     rating: 2,
-    source: "in_app_review",
+    source: "settings",
     triggerId: "perfect_day",
     appVersion: "1.0.0",
     platform: "ios",
@@ -40,7 +40,8 @@ describe("SubmitAppFeedbackDto", () => {
 
   it.each([
     ["a valid payload", {}, []],
-    ["a rating above 3", { rating: 5 }, ["rating"]],
+    ["a top rating", { rating: 5 }, []],
+    ["a rating above 5", { rating: 6 }, ["rating"]],
     ["a rating below 1", { rating: 0 }, ["rating"]],
     ["an unknown trigger", { triggerId: "nope" }, ["triggerId"]],
   ])("validates %s", (_label, overrides, properties) => {

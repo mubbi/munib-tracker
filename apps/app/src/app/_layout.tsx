@@ -27,7 +27,6 @@ import { WebKeyboardShortcuts } from "@/components/web/web-keyboard-shortcuts";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { PinLockGate, PinLockProvider } from "@/features/pin-lock";
 import { ReviewDeepLinkBridge } from "@/features/reviews/components/ReviewDeepLinkBridge";
-import { ReviewEngagementProvider } from "@/features/reviews/context/ReviewEngagementProvider";
 import { ReviewPromptProvider } from "@/features/reviews/context/ReviewPromptContext";
 import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
 import { resolveAppPlatform } from "@/lib/app/resolve-app-platform";
@@ -172,61 +171,59 @@ function RootLayout() {
                       <PinLockProvider>
                         <ToastProvider>
                           <ExternalCommandProcessor />
-                          <ReviewEngagementProvider>
-                            <ReviewPromptProvider>
-                              <ReviewDeepLinkBridge />
-                              <ContentReportProvider>
-                                <InAppNotificationsProvider>
-                                  <NotificationProvider>
-                                    <AudioPlayerProvider>
-                                      {Platform.OS === "web" ? (
-                                        <IdleMount>
-                                          <Suspense fallback={null}>
-                                            <WebReminderAdhanBridge />
-                                            <ShareQrWarmup />
-                                          </Suspense>
-                                        </IdleMount>
-                                      ) : null}
-                                      <MiniPlayerInsetProvider>
-                                        <AppVersionGate>
-                                          <BlurTargetProvider
-                                            overlays={
-                                              <>
-                                                <WebNavigationFocusManager />
-                                                <WebKeyboardShortcuts />
-                                                <LocalePathBootstrap />
-                                                <RtlLayoutBootstrap />
-                                                <WebPwaBootstrap />
-                                                <OnboardingGate />
-                                                {/* Toasts sit BELOW the PIN lock (G-92) and
+                          <ReviewPromptProvider>
+                            <ReviewDeepLinkBridge />
+                            <ContentReportProvider>
+                              <InAppNotificationsProvider>
+                                <NotificationProvider>
+                                  <AudioPlayerProvider>
+                                    {Platform.OS === "web" ? (
+                                      <IdleMount>
+                                        <Suspense fallback={null}>
+                                          <WebReminderAdhanBridge />
+                                          <ShareQrWarmup />
+                                        </Suspense>
+                                      </IdleMount>
+                                    ) : null}
+                                    <MiniPlayerInsetProvider>
+                                      <AppVersionGate>
+                                        <BlurTargetProvider
+                                          overlays={
+                                            <>
+                                              <WebNavigationFocusManager />
+                                              <WebKeyboardShortcuts />
+                                              <LocalePathBootstrap />
+                                              <RtlLayoutBootstrap />
+                                              <WebPwaBootstrap />
+                                              <OnboardingGate />
+                                              {/* Toasts sit BELOW the PIN lock (G-92) and
                                         unmount while it is up. Outside
                                         BlurTargetView so Android can capture a
                                         real backdrop blur (same as mini-player /
                                         sheets). */}
-                                                <LockAwareToastHost />
-                                                <PinLockGate />
-                                                {/* NF-3.13: focus-lock planner + soft prompt (no-op on TV). */}
-                                                <FocusLockHost />
-                                                {/* NF-3.16: kids-mode guard, fard share, D34 re-consent. */}
-                                                <CirclesHost />
-                                                {/* NF-2.23b: seasonal launcher icon (no-op on web / TV). */}
-                                                <AppIconHost />
-                                                <DeferredMiniPlayer />
-                                                <TvRemoteBridge />
-                                                <AnimatedSplashOverlay />
-                                              </>
-                                            }
-                                          >
-                                            <AppStack />
-                                          </BlurTargetProvider>
-                                        </AppVersionGate>
-                                      </MiniPlayerInsetProvider>
-                                    </AudioPlayerProvider>
-                                  </NotificationProvider>
-                                </InAppNotificationsProvider>
-                              </ContentReportProvider>
-                            </ReviewPromptProvider>
-                          </ReviewEngagementProvider>
+                                              <LockAwareToastHost />
+                                              <PinLockGate />
+                                              {/* NF-3.13: focus-lock planner + soft prompt (no-op on TV). */}
+                                              <FocusLockHost />
+                                              {/* NF-3.16: kids-mode guard, fard share, D34 re-consent. */}
+                                              <CirclesHost />
+                                              {/* NF-2.23b: seasonal launcher icon (no-op on web / TV). */}
+                                              <AppIconHost />
+                                              <DeferredMiniPlayer />
+                                              <TvRemoteBridge />
+                                              <AnimatedSplashOverlay />
+                                            </>
+                                          }
+                                        >
+                                          <AppStack />
+                                        </BlurTargetProvider>
+                                      </AppVersionGate>
+                                    </MiniPlayerInsetProvider>
+                                  </AudioPlayerProvider>
+                                </NotificationProvider>
+                              </InAppNotificationsProvider>
+                            </ContentReportProvider>
+                          </ReviewPromptProvider>
                         </ToastProvider>
                       </PinLockProvider>
                     </AppVersionProvider>

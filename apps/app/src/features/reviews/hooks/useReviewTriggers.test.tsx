@@ -5,28 +5,25 @@ import { useReviewPerfectDayTrigger } from "@/features/reviews/hooks/useReviewPe
 import { useReviewQazaClearedTrigger } from "@/features/reviews/hooks/useReviewQazaClearedTrigger";
 import { useReviewRouteTrigger } from "@/features/reviews/hooks/useReviewRouteTrigger";
 import { useReviewStreakTrigger } from "@/features/reviews/hooks/useReviewStreakTrigger";
-import { registerReviewEngagement } from "@/features/reviews/lib/reviewEngagementBridge";
-import {
-  clearPendingReviewTrigger,
-  emitReviewTrigger,
-  registerReviewTriggerFlush,
-} from "@/features/reviews/lib/reviewTriggerBus";
 
 const mockEmit = jest.fn();
-const mockDeliver = jest.fn(async (..._args: unknown[]) => false);
+const mockFlush = jest.fn();
+const mockTrack = jest.fn();
+const mockTracker = { ready: true };
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 
-jest.mock("@/features/reviews/context/ReviewPromptContext", () => ({
-  useReviewPrompt: () => ({
-    emitReviewTrigger: mockEmit,
-    maybePromptReview: jest.fn(),
-    canRateApp: false,
-  }),
+jest.mock("@/features/reviews/lib/reviewTriggerBus", () => ({
+  emitReviewTrigger: (...args: unknown[]) => mockEmit(...args),
+  flushReviewTriggerForRoute: (...args: unknown[]) => mockFlush(...args),
 }));
 
-jest.mock("@/features/reviews/lib/maybeDeliverReviewReactivation", () => ({
-  maybeDeliverReviewReactivation: (...args: unknown[]) => mockDeliver(...args),
+jest.mock("@/features/reviews/lib/reviewEngagementBridge", () => ({
+  trackReviewInteraction: (...args: unknown[]) => mockTrack(...args),
+}));
+
+jest.mock("@/stores/tracker-store", () => ({
+  useTrackerReady: () => mockTracker.ready,
 }));
 
 /** Renders `hook` with the first props, then re-renders with each following one. */
@@ -38,7 +35,9 @@ async function renderWithSequence<P>(hook: (props: P) => void, [first, ...rest]:
 
 beforeEach(() => {
   mockEmit.mockClear();
-  mockDeliver.mockClear();
+  mockFlush.mockClear();
+  mockTrack.mockClear();
+  mockTracker.ready = true;
 });
 
 describe("useReviewPerfectDayTrigger", () => {
@@ -52,22 +51,22 @@ describe("useReviewPerfectDayTrigger", () => {
     });
   });
 
-  it("requests a reactivation nudge when the ring completes", async () => {
-    await run([false, true]);
-    expect(mockDeliver).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.perfect_day);
-  });
-
   it.each([
-    ["already complete on mount", [true]],
+    ["already complete on load", [true]],
     ["still incomplete", [false, false]],
   ])("does not emit when %s", async (_label, sequence) => {
     await run(sequence);
     expect(mockEmit).not.toHaveBeenCalled();
   });
 
-  it("emits only once per mount", async () => {
-    await run([false, true, false, true]);
-    expect(mockEmit).toHaveBeenCalledTimes(1);
+  it("ignores changes before the tracker has loaded", async () => {
+    mockTracker.ready = false;
+    const utils = await renderHook((done: boolean) => useReviewPerfectDayTrigger(done), {
+      initialProps: false,
+    });
+    mockTracker.ready = true;
+    await utils.rerender(true);
+    expect(mockEmit).not.toHaveBeenCalled();
   });
 });
 
@@ -81,6 +80,14 @@ describe("useReviewQazaClearedTrigger", () => {
   it.each<[string, [number, number][]]>([
     ["the target is zero", [[0, 0]]],
     ["the target is not yet met", [[1, 3]]],
+    ["the target was already met on load", [[3, 3]]],
+    [
+      "more is logged after the target was met",
+      [
+        [3, 3],
+        [4, 3],
+      ],
+    ],
   ])("does not emit when %s", async (_label, sequence) => {
     await run(sequence);
     expect(mockEmit).not.toHaveBeenCalled();
@@ -95,14 +102,6 @@ describe("useReviewQazaClearedTrigger", () => {
       deferRoute: "tracker",
     });
   });
-
-  it("emits only once per mount", async () => {
-    await run([
-      [3, 3],
-      [4, 3],
-    ]);
-    expect(mockEmit).toHaveBeenCalledTimes(1);
-  });
 });
 
 describe("useReviewStreakTrigger", () => {
@@ -110,17 +109,19 @@ describe("useReviewStreakTrigger", () => {
     renderWithSequence((days: number) => useReviewStreakTrigger(days), sequence);
 
   it.each([
-    ["below the first milestone", [1], 0],
-    ["the first milestone", [1, 3], 1],
-    ["a repeated milestone", [3, 3], 1],
-    ["each newly reached milestone", [1, 3, 8], 2],
-  ])("emits once per milestone for %s", async (_label, sequence, count) => {
+    ["below the first milestone", [1, 2], 0],
+    ["stepping onto a milestone", [2, 3], 1],
+    ["a streak already past a milestone on load", [8], 0],
+    ["the load jump from 0 to a milestone", [0, 7], 0],
+    ["a repeated value", [3, 3], 0],
+    ["each milestone stepped onto", [2, 3, 4, 5, 6, 7], 2],
+  ])("handles %s", async (_label, sequence, count) => {
     await run(sequence);
     expect(mockEmit).toHaveBeenCalledTimes(count);
   });
 
-  it("defers streak milestones to home", async () => {
-    await run([3]);
+  it("defers to Home", async () => {
+    await run([6, 7]);
     expect(mockEmit).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.streak_milestone, {
       deferRoute: "home",
     });
@@ -128,43 +129,16 @@ describe("useReviewStreakTrigger", () => {
 });
 
 describe("useReviewDailyTrackingInteraction", () => {
-  const trackInteraction = jest.fn();
-
-  beforeEach(() => {
-    trackInteraction.mockClear();
-    registerReviewEngagement({
-      trackInteraction,
-      recordError: jest.fn(),
-      getRuntime: jest.fn(),
-    } as never);
-  });
-
-  afterEach(() => {
-    registerReviewEngagement(null);
-  });
-
-  it.each([
-    ["nothing is logged", [0], 0],
-    ["the first obligatory Salah is logged", [0, 1], 1],
-    ["more Salah follow", [0, 1, 2], 1],
-  ])("tracks daily_tracking once when %s", async (_label, sequence, count) => {
-    await renderWithSequence((n: number) => useReviewDailyTrackingInteraction(n), sequence);
-    expect(trackInteraction).toHaveBeenCalledTimes(count);
+  it("tracks daily_tracking when the first obligatory Salah is logged", async () => {
+    await renderWithSequence((n: number) => useReviewDailyTrackingInteraction(n), [0, 1, 2]);
+    expect(mockTrack).toHaveBeenCalledTimes(1);
+    expect(mockTrack).toHaveBeenCalledWith("daily_tracking");
   });
 });
 
 describe("useReviewRouteTrigger", () => {
-  afterEach(() => {
-    registerReviewTriggerFlush(null);
-    clearPendingReviewTrigger();
-  });
-
-  it("flushes a pending trigger deferred to the focused route", async () => {
-    const flush = jest.fn();
-    registerReviewTriggerFlush(flush);
-    emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.weekly_report, { deferRoute: "home" });
-
+  it("flushes pending triggers for its route on focus", async () => {
     await renderHook(() => useReviewRouteTrigger("home"));
-    expect(flush).toHaveBeenCalledWith(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
+    expect(mockFlush).toHaveBeenCalledWith("home");
   });
 });

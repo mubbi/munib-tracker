@@ -2,8 +2,6 @@ import { buildWeeklyReport, shouldDeliverWeeklyReport } from "@munib-tracker/sha
 import { act, renderHook } from "@testing-library/react-native";
 
 import { readJSON, writeJSON } from "@/db/store";
-import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
-import { scheduleReviewTriggerFromWake } from "@/features/reviews/lib/reviewPendingTrigger";
 import i18n from "@/i18n";
 import { deferred } from "@/test-support/async";
 
@@ -23,12 +21,6 @@ jest.mock("@/db", () => ({
 jest.mock("@/db/store", () => ({
   readJSON: jest.fn(async () => undefined),
   writeJSON: jest.fn(async () => undefined),
-}));
-jest.mock("@/features/reviews/lib/maybeDeliverReviewReactivation", () => ({
-  maybeDeliverReviewReactivation: jest.fn(async () => undefined),
-}));
-jest.mock("@/features/reviews/lib/reviewPendingTrigger", () => ({
-  scheduleReviewTriggerFromWake: jest.fn(async () => undefined),
 }));
 jest.mock("@/providers/in-app-notifications-provider", () => ({
   useInAppNotifications: () => ({ deliver: mockDeliver }),
@@ -67,8 +59,6 @@ describe("useWeeklyReport", () => {
       body: i18n.t("weeklyReport.body", { prayers: 20, perfect: 2, qaza: 3, zikr: 4 }),
       route: "/coach",
     });
-    expect(scheduleReviewTriggerFromWake).toHaveBeenCalled();
-    expect(maybeDeliverReviewReactivation).toHaveBeenCalled();
   });
 
   it("skips when the last report is recent", async () => {

@@ -40,7 +40,7 @@ appLink.hadithCollection("riyad", { q: "Muslim 591" });
 appLink.duaDetail("morning-1");
 appLink.zikrCategory("after_prayer");
 appLink.markCurrent(); // special action bridge
-appLink.openReview("manual"); // review funnel bridge
+appLink.openReview(); // store write-review page (D76)
 ```
 
 Prefer `appLink.*` / `resolveAppLink` over hand-rolled strings so scheme and HTTPS stay aligned.
@@ -98,10 +98,10 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 
 ### Special action bridges
 
-| Path                       | Behavior                                                                  |
-| -------------------------- | ------------------------------------------------------------------------- |
-| `/mark-current`            | Enqueues mark-current obligatory, then opens tracker (`mark-current.tsx`) |
-| `/open-review?triggerId=…` | Opens review funnel (`ReviewDeepLinkBridge`) — not an Expo route file     |
+| Path            | Behavior                                                                           |
+| --------------- | ---------------------------------------------------------------------------------- |
+| `/mark-current` | Enqueues mark-current obligatory, then opens tracker (`mark-current.tsx`)          |
+| `/open-review`  | Opens the store write-review page (`ReviewDeepLinkBridge`, D76) — not a route file |
 
 In-app content modules also use Expo Router paths (`/quran`, `/hadith`, …). `apps/app/src/lib/reference-link.ts` parses Qur'an `reference` strings into router targets.
 

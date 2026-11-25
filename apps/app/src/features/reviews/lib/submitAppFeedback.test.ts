@@ -51,7 +51,7 @@ describe("submitReviewFeedback", () => {
       {
         rating: 3,
         message: undefined,
-        source: "in_app_review",
+        source: "settings_feedback",
         triggerId: "perfect_day",
         appVersion: "9.9.9",
         platform,

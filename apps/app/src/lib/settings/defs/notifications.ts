@@ -406,17 +406,6 @@ export const NOTIFICATION_SETTINGS: AnySettingDef[] = [
   // ── Fasting / Sunnah / Seasonal / Personal (NF-3.1–3.9) ──────────────────
   ...WORSHIP_REMINDER_SETTINGS,
 
-  // ── App feedback ──────────────────────────────────────────────────────────
-  notificationToggle({
-    id: "notifications.feedback.reviewReminders",
-    section: "settingsPanel.section.feedback",
-    titleKey: "settings.reviewReactivationEnabled",
-    subtitleKey: "settings.reviewReactivationEnabledDesc",
-    key: "reviewReactivationEnabled",
-    fallback: true,
-    sideEffects: [],
-  }),
-
   // ── Upcoming preview ──────────────────────────────────────────────────────
   defineSetting<null>({
     ...NO_VALUE,

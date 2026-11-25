@@ -16,7 +16,7 @@ vi.mock("./app-feedback-rate-limit", () => ({
 function buildFeedbackDto(overrides: Partial<SubmitAppFeedbackDto> = {}): SubmitAppFeedbackDto {
   return {
     rating: 3,
-    source: "in_app_review",
+    source: "settings_feedback",
     appVersion: "1.0.0",
     platform: "android",
     ...overrides,
@@ -36,10 +36,10 @@ describe("AppFeedbackService (unit)", () => {
     isAppFeedbackRateLimited.mockReset().mockResolvedValue(false);
   });
 
-  it.each([0, 4, 2.5])("rejects rating %s before resolving the user", async (rating) => {
+  it.each([0, 6, 2.5])("rejects rating %s before resolving the user", async (rating) => {
     const { auth, service } = setup();
     await expect(service.submit("tok", buildFeedbackDto({ rating }))).rejects.toThrow(
-      "Rating must be an integer between 1 and 3.",
+      "Rating must be an integer between 1 and 5.",
     );
     expect(auth.getCurrentUser).not.toHaveBeenCalled();
   });

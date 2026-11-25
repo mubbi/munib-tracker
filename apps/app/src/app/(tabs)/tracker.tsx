@@ -43,12 +43,11 @@ import { Stagger } from "@/components/ui/stagger";
 import { Breakpoints, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
-import { useReviewPrompt } from "@/features/reviews/context/ReviewPromptContext";
 import { useReviewDailyTrackingInteraction } from "@/features/reviews/hooks/useReviewDailyTrackingInteraction";
 import { useReviewPerfectDayTrigger } from "@/features/reviews/hooks/useReviewPerfectDayTrigger";
 import { useReviewQazaClearedTrigger } from "@/features/reviews/hooks/useReviewQazaClearedTrigger";
 import { useReviewRouteTrigger } from "@/features/reviews/hooks/useReviewRouteTrigger";
-import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
+import { emitReviewTrigger } from "@/features/reviews/lib/reviewTriggerBus";
 import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
@@ -181,7 +180,6 @@ export default function TrackerScreen() {
   const progress = summary.salahTotal ? summary.salahCompleted / summary.salahTotal : 0;
   const isComplete = progress >= 1;
 
-  const { emitReviewTrigger } = useReviewPrompt();
   useReviewRouteTrigger("tracker");
   useReviewPerfectDayTrigger(isComplete);
   useReviewQazaClearedTrigger(summary.qazaCompletedToday, summary.qazaTargetToday);
@@ -337,10 +335,9 @@ export default function TrackerScreen() {
       if (milestone) {
         showAchievementCelebration(milestone, first);
         emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.achievement_unlock, { deferRoute: "tracker" });
-        void maybeDeliverReviewReactivation(APP_FEEDBACK_TRIGGER_IDS.achievement_unlock);
       }
     }
-  }, [achievementsSeeded, stats, showAchievementCelebration, emitReviewTrigger]);
+  }, [achievementsSeeded, stats, showAchievementCelebration]);
 
   const shortcuts: QuickActionItem[] = [
     {

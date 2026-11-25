@@ -95,7 +95,6 @@ const USER_PREFERENCE_KEYS = {
 const NOTIFICATION_KEYS = {
   ...DEFAULT_NOTIFICATION_PREFERENCES,
   preciseAdhan: false,
-  reviewReactivationEnabled: true,
   // Optional (unset ⇒ on), so absent from the defaults.
   debts: true,
   wasiyyahReview: true,

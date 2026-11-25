@@ -45,6 +45,9 @@ export {
   QURAN_TOTAL_PAGES,
 } from "./quran";
 export {
+  ANDROID_PLAY_STORE_MARKET_URL,
+  buildAndroidWriteReviewUrl,
+  buildIosWriteReviewUrl,
   buildLocalizedAndroidPlayStoreUrl,
   buildLocalizedIosAppStoreUrl,
   buildMarketingSiteUrl,
@@ -269,7 +272,6 @@ export const DEFAULT_NOTIFICATION_PREFERENCES: NotificationPreferences = {
   circleDuaReceived: true,
   // D40: weekly family digest push to parents on.
   circleFamilyDigest: true,
-  reviewReactivationEnabled: true,
 };
 
 export const DEFAULT_USER_PREFERENCES: UserPreferences = {

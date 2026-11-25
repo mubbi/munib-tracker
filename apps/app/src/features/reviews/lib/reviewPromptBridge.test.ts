@@ -1,46 +1,33 @@
 import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
 import {
   deferRouteForTrigger,
-  invokeOpenReviewFunnel,
-  parseReviewReactivationTriggerId,
-  registerReviewPromptOpener,
+  invokeOpenWriteReview,
+  registerWriteReviewOpener,
 } from "@/features/reviews/lib/reviewPromptBridge";
 
-const ids = APP_FEEDBACK_TRIGGER_IDS;
-
-describe("reviewPromptBridge", () => {
-  afterEach(() => {
-    registerReviewPromptOpener(null);
-  });
-
-  it("does nothing without a registered opener", () => {
-    expect(() => invokeOpenReviewFunnel(ids.manual)).not.toThrow();
-  });
-
-  it("invokes the registered opener with the trigger", () => {
-    const opener = jest.fn();
-    registerReviewPromptOpener(opener);
-    invokeOpenReviewFunnel(ids.perfect_day);
-    expect(opener).toHaveBeenCalledWith(ids.perfect_day);
-  });
-
+describe("deferRouteForTrigger", () => {
   it.each([
-    [ids.weekly_report, ids.weekly_report],
-    ["nope", null],
-    [42, null],
-    [undefined, null],
-  ])("parses %p as %p", (value, expected) => {
-    expect(parseReviewReactivationTriggerId(value)).toBe(expected);
-  });
-
-  it.each([
-    [ids.perfect_day, "tracker"],
-    [ids.achievement_unlock, "tracker"],
-    [ids.qaza_cleared, "tracker"],
-    [ids.weekly_report, "home"],
-    [ids.streak_milestone, "home"],
-    [ids.manual, "none"],
-  ] as const)("defers %s to %s", (triggerId, route) => {
+    [APP_FEEDBACK_TRIGGER_IDS.perfect_day, "tracker"],
+    [APP_FEEDBACK_TRIGGER_IDS.achievement_unlock, "tracker"],
+    [APP_FEEDBACK_TRIGGER_IDS.qaza_cleared, "tracker"],
+    [APP_FEEDBACK_TRIGGER_IDS.weekly_report, "home"],
+    [APP_FEEDBACK_TRIGGER_IDS.streak_milestone, "home"],
+  ] as const)("%s → %s", (triggerId, route) => {
     expect(deferRouteForTrigger(triggerId)).toBe(route);
+  });
+});
+
+describe("write-review opener", () => {
+  afterEach(() => registerWriteReviewOpener(null));
+
+  it("reports false when no provider is mounted", () => {
+    expect(invokeOpenWriteReview()).toBe(false);
+  });
+
+  it("calls the registered opener", () => {
+    const opener = jest.fn();
+    registerWriteReviewOpener(opener);
+    expect(invokeOpenWriteReview()).toBe(true);
+    expect(opener).toHaveBeenCalledTimes(1);
   });
 });

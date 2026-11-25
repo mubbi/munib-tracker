@@ -251,8 +251,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       lastSuccessfulSyncAt.current = Date.now();
       return "ok";
     } catch {
-      // Offline or server error — try again on the next foreground.
-      recordReviewErrorMarker();
+      // Offline or server error — try again on the next foreground. Holds off a
+      // review request for this session only (a lost connection isn't a crash).
+      recordReviewErrorMarker("session");
       return "error";
     } finally {
       syncing.current = false;

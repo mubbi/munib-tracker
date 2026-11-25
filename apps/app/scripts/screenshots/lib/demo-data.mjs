@@ -67,7 +67,6 @@ export function buildDemoStorageEntries({ locale = "en", theme = "dark" } = {}) 
       playAdhanOnPrayer: false,
       dailyContent: true,
       friday: true,
-      reviewReactivationEnabled: false,
     },
     prayerAlerts: {
       fajr: true,

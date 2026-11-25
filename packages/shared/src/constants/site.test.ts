@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  ANDROID_PLAY_STORE_MARKET_URL,
+  buildAndroidWriteReviewUrl,
+  buildIosWriteReviewUrl,
   buildLocalizedAndroidPlayStoreUrl,
   buildLocalizedIosAppStoreUrl,
   buildMarketingSiteUrl,
@@ -27,6 +30,24 @@ describe("store listing URLs", () => {
     expect(buildLocalizedIosAppStoreUrl("ur")).toBe("https://apps.apple.com/pk/app/id6787222180");
     expect(buildLocalizedAndroidPlayStoreUrl("ar")).toContain("hl=ar");
     expect(buildLocalizedAndroidPlayStoreUrl("ur")).toContain("hl=ur");
+  });
+});
+
+describe("write-review URLs", () => {
+  it("opens the App Store review sheet with action=write-review", () => {
+    expect(buildIosWriteReviewUrl("en")).toBe(
+      "https://apps.apple.com/app/id6787222180?action=write-review",
+    );
+    expect(buildIosWriteReviewUrl("ar")).toBe(
+      "https://apps.apple.com/sa/app/id6787222180?action=write-review",
+    );
+  });
+
+  it("deep-links the Play Store app, with a web fallback on the reviews section", () => {
+    expect(ANDROID_PLAY_STORE_MARKET_URL).toBe("market://details?id=app.munibtracker");
+    expect(buildAndroidWriteReviewUrl("ur")).toBe(
+      "https://play.google.com/store/apps/details?id=app.munibtracker&hl=ur&showAllReviews=true",
+    );
   });
 });
 

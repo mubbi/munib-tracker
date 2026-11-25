@@ -1,27 +1,9 @@
-import { APP_FEEDBACK_TRIGGER_IDS, type AppFeedbackTriggerId } from "@munib-tracker/shared/reviews";
+import { APP_FEEDBACK_TRIGGER_IDS, type ReviewValueMomentId } from "@munib-tracker/shared/reviews";
 
-export type ReviewFunnelTriggerId = AppFeedbackTriggerId;
+/** Screen where a value-moment trigger may surface the OS review sheet ("none" = any). */
+export type ReviewDeferRoute = "home" | "tracker" | "none";
 
-export type OpenReviewFunnelFn = (triggerId: ReviewFunnelTriggerId) => void;
-
-let openReviewFunnel: OpenReviewFunnelFn | null = null;
-
-export function registerReviewPromptOpener(fn: OpenReviewFunnelFn | null): void {
-  openReviewFunnel = fn;
-}
-
-export function invokeOpenReviewFunnel(triggerId: ReviewFunnelTriggerId): void {
-  openReviewFunnel?.(triggerId);
-}
-
-const REVIEW_REACTIVATION_TRIGGER_IDS = new Set<string>(Object.values(APP_FEEDBACK_TRIGGER_IDS));
-
-export function parseReviewReactivationTriggerId(value: unknown): ReviewFunnelTriggerId | null {
-  if (typeof value !== "string") return null;
-  return REVIEW_REACTIVATION_TRIGGER_IDS.has(value) ? (value as ReviewFunnelTriggerId) : null;
-}
-
-export function deferRouteForTrigger(triggerId: ReviewFunnelTriggerId): ReviewDeferRoute {
+export function deferRouteForTrigger(triggerId: ReviewValueMomentId): ReviewDeferRoute {
   switch (triggerId) {
     case APP_FEEDBACK_TRIGGER_IDS.perfect_day:
     case APP_FEEDBACK_TRIGGER_IDS.achievement_unlock:
@@ -35,4 +17,15 @@ export function deferRouteForTrigger(triggerId: ReviewFunnelTriggerId): ReviewDe
   }
 }
 
-export type ReviewDeferRoute = "home" | "tracker" | "none";
+/** Lets non-React code (deep links) reach the provider's user-initiated "write a review". */
+let openWriteReview: (() => void) | null = null;
+
+export function registerWriteReviewOpener(fn: (() => void) | null): void {
+  openWriteReview = fn;
+}
+
+export function invokeOpenWriteReview(): boolean {
+  if (!openWriteReview) return false;
+  openWriteReview();
+  return true;
+}

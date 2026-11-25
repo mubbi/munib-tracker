@@ -100,8 +100,10 @@ export const DB_KEYS = {
   customTasbeehUpdatedAt: `${PREFIX}/custom_tasbeeh_updated_at`,
   // Queued content reports awaiting upload when back online.
   contentReportQueue: `${PREFIX}/content_report_queue`,
-  // In-app review funnel gating state (device-local).
+  // Ratings & reviews gating state (D76, device-local).
   reviewGating: `${PREFIX}/review_gating_v1`,
+  // LEGACY pre-D76 review funnel (persisted wake trigger, local nudge dedupe): no longer
+  // read or written; kept so a data reset still clears what older builds left behind.
   reviewPendingTrigger: `${PREFIX}/review_pending_trigger_v1`,
   reviewReactivationDedupe: `${PREFIX}/review_reactivation_dedupe_v1`,
   // Per-entity content-hash + last-synced timestamp for blob-synced userData

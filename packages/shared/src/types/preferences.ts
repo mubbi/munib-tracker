@@ -119,11 +119,6 @@ export interface NotificationPreferences {
    * Friday 18:00 UTC; the inbox row is written either way. Unset ⇒ on.
    */
   circleFamilyDigest?: boolean;
-  /**
-   * Gentle OS push reminders to share app feedback via the in-app review funnel
-   * (default true). Never a direct store rating request.
-   */
-  reviewReactivationEnabled?: boolean;
 }
 
 /** Daily rawatib target: 12 (4 before Dhuhr) or 10 (2 before Dhuhr) — D8. */

@@ -83,7 +83,6 @@ describe("appLink builders", () => {
   it("builds special action bridges", () => {
     expect(appLink.markCurrent().path).toBe("/mark-current");
     expect(appLink.openReview().path).toBe("/open-review");
-    expect(appLink.openReview("manual").path).toBe("/open-review?triggerId=manual");
   });
 });
 

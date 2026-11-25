@@ -1,5 +1,9 @@
 import { randomUUID } from "node:crypto";
 import {
+  APP_FEEDBACK_MAX_RATING,
+  APP_FEEDBACK_MIN_RATING,
+} from "@munib-tracker/shared/reviews/triggers.js";
+import {
   BadRequestException,
   HttpException,
   HttpStatus,
@@ -22,8 +26,14 @@ export class AppFeedbackService {
   ) {}
 
   async submit(accessToken: string, dto: SubmitAppFeedbackDto): Promise<void> {
-    if (!Number.isInteger(dto.rating) || dto.rating < 1 || dto.rating > 3) {
-      throw new BadRequestException("Rating must be an integer between 1 and 3.");
+    if (
+      !Number.isInteger(dto.rating) ||
+      dto.rating < APP_FEEDBACK_MIN_RATING ||
+      dto.rating > APP_FEEDBACK_MAX_RATING
+    ) {
+      throw new BadRequestException(
+        `Rating must be an integer between ${APP_FEEDBACK_MIN_RATING} and ${APP_FEEDBACK_MAX_RATING}.`,
+      );
     }
 
     if (!accessToken) {

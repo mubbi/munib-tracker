@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import { openBrowserAsync } from "expo-web-browser";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { BrandQrCode } from "@/components/share/brand-qr-code";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -32,9 +32,8 @@ const TERMS_URL = `${SITE_URL}/terms`;
 export function AboutPanel() {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
-  const { maybePromptReview, canRateApp } = useReviewPrompt();
+  const { canWriteReview, openWriteReview, openFeedback } = useReviewPrompt();
   const version = resolveAppVersion();
-  const isWeb = Platform.OS === "web";
   const tv = isTV();
   /** TV has no in-app browser — show the link as a QR to open on a phone instead. */
   const [qrLink, setQrLink] = useState<{ url: string; title: string } | null>(null);
@@ -107,13 +106,23 @@ export function AboutPanel() {
   const linksCard = (
     <Card>
       <View style={styles.links}>
-        {/* Store review prompts are a no-op on TV. */}
-        {!isWeb && !tv && canRateApp ? (
+        {/* Always available on store builds: opens the store's write-review page
+            (never the OS review sheet, which may silently not show — D76). */}
+        {canWriteReview ? (
           <SettingsRow
             icon={{ ios: "star.fill", android: "star", web: "star" }}
             title={t("settings.rateApp")}
             subtitle={t("settings.rateAppDesc")}
-            onPress={maybePromptReview}
+            onPress={() => void openWriteReview()}
+          />
+        ) : null}
+        {/* Private note to the team — needs a keyboard, so not on TV. */}
+        {!tv ? (
+          <SettingsRow
+            icon={{ ios: "envelope.fill", android: "mail", web: "mail" }}
+            title={t("settings.sendFeedback")}
+            subtitle={t("settings.sendFeedbackDesc")}
+            onPress={openFeedback}
           />
         ) : null}
         <SettingsRow

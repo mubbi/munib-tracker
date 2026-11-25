@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { type ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { AppState, Platform } from "react-native";
-import { maybeOpenReviewFunnelFromNotificationData } from "@/features/reviews/lib/reviewNotificationTap";
+import { isLegacyReviewNotification } from "@/features/reviews/lib/reviewNotificationTap";
 import i18next from "@/i18n";
 import { markColdStartReady } from "@/lib/boot/cold-start";
 import { circleEventHref, parseCircleRouteData } from "@/lib/circles/inbox";
@@ -247,7 +247,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
         const data = response.notification.request.content.data as
           | { route?: string; type?: string; triggerId?: string }
           | undefined;
-        if (maybeOpenReviewFunnelFromNotificationData(data ?? undefined)) {
+        // Pre-D76 "share your experience" nudge still in the tray: just open the app.
+        if (isLegacyReviewNotification(data ?? undefined)) {
           markColdStartReady();
           clearLastResponse();
           return;

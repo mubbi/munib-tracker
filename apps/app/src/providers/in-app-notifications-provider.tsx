@@ -11,7 +11,7 @@ import {
 } from "react";
 import { Linking } from "react-native";
 
-import { maybeOpenReviewFunnelFromInAppNotification } from "@/features/reviews/lib/reviewNotificationTap";
+import { noteWeeklyReportOpened } from "@/features/reviews/lib/reviewNotificationTap";
 import {
   appendInAppNotification,
   clearAllInAppNotifications,
@@ -152,10 +152,9 @@ export function InAppNotificationsProvider({ children }: { children: ReactNode }
           // Engage is best-effort.
         }
       }
-      if (item && maybeOpenReviewFunnelFromInAppNotification(item.kind, item.id, item.createdAt)) {
-        return;
-      }
       if (!item) return;
+      // A fresh weekly report is a review value moment (surfaces back on Home).
+      noteWeeklyReportOpened(item.kind, item.id, item.createdAt);
       const target = resolveInAppOpenTarget(item);
       if (target.type === "external" && target.value) {
         if (isAuthenticated && session?.accessToken && item.serverId != null) {

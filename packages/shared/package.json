@@ -39,7 +39,8 @@
     "./masjid/osm": "./src/masjid/osm.ts",
     "./timetable-parser": "./src/utils/timetable-parser/index.ts",
     "./reviews": "./src/reviews/index.ts",
-    "./reviews/dedupe.js": "./src/reviews/dedupe.ts"
+    "./reviews/dedupe.js": "./src/reviews/dedupe.ts",
+    "./reviews/triggers.js": "./src/reviews/triggers.ts"
   },
   "scripts": {
     "lint": "biome check .",

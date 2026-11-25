@@ -61,6 +61,27 @@ export function buildLocalizedAndroidPlayStoreUrl(rawLocale?: string): string {
   return `${OFFICIAL_ANDROID_PLAY_STORE_URL}${separator}hl=${encodeURIComponent(hl)}`;
 }
 
+/**
+ * App Store "write a review" deep link (Apple: append `action=write-review` to the
+ * product URL). Opens the App Store straight on the review sheet; used by the
+ * user-initiated "Rate Munib Tracker" row — never the StoreKit prompt (D76).
+ */
+export function buildIosWriteReviewUrl(rawLocale?: string): string {
+  return `${buildLocalizedIosAppStoreUrl(rawLocale)}?action=write-review`;
+}
+
+/** Google Play app deep link (`market://`) — opens the Play Store app on the listing. */
+export const ANDROID_PLAY_STORE_MARKET_URL =
+  `market://details?id=${OFFICIAL_ANDROID_PACKAGE}` as const;
+
+/**
+ * Play listing scrolled to ratings & reviews (`showAllReviews=true`) — the web
+ * fallback when the Play Store app can't take the `market://` link.
+ */
+export function buildAndroidWriteReviewUrl(rawLocale?: string): string {
+  return `${buildLocalizedAndroidPlayStoreUrl(rawLocale)}&showAllReviews=true`;
+}
+
 /** Absolute marketing site URL (no trailing slash). */
 export function buildMarketingSiteUrl(_rawLocale?: string): string {
   return OFFICIAL_SITE_ORIGIN;

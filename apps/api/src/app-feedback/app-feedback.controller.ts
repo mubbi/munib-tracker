@@ -13,7 +13,9 @@ export class AppFeedbackController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: "Submit low-star in-app review feedback (1–3 stars)" })
+  @ApiOperation({
+    summary: "Submit user-initiated app feedback (1–5 star rating + optional message)",
+  })
   @ApiCreatedResponse({ description: "Feedback accepted" })
   submit(
     @Headers("authorization") authorization: string | undefined,

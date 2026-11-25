@@ -330,6 +330,6 @@ export const appLink = {
   /** App Actions / assistant: enqueue mark-current then open tracker. */
   markCurrent: () => link("/mark-current"),
 
-  /** Opens the in-app review funnel (`ReviewDeepLinkBridge`). */
-  openReview: (triggerId?: string) => link(withQuery("/open-review", { triggerId })),
+  /** Opens the store's write-review page (`ReviewDeepLinkBridge`, D76). */
+  openReview: () => link("/open-review"),
 } as const;

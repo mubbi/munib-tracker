@@ -2,7 +2,7 @@ import { act, renderHook, waitFor } from "@testing-library/react-native";
 import type { ReactNode } from "react";
 import { Linking } from "react-native";
 
-import { maybeOpenReviewFunnelFromInAppNotification } from "@/features/reviews/lib/reviewNotificationTap";
+import { noteWeeklyReportOpened } from "@/features/reviews/lib/reviewNotificationTap";
 import {
   appendInAppNotification,
   clearAllInAppNotifications,
@@ -50,7 +50,7 @@ jest.mock("@/lib/notifications-api", () => ({
   resolveInAppOpenTarget: jest.fn(() => ({ type: "none" })),
 }));
 jest.mock("@/features/reviews/lib/reviewNotificationTap", () => ({
-  maybeOpenReviewFunnelFromInAppNotification: jest.fn(() => false),
+  noteWeeklyReportOpened: jest.fn(() => false),
 }));
 
 const SERVER_ITEM = buildInAppNotification({ id: "s1", serverId: 7, title: "From server" });
@@ -236,15 +236,20 @@ describe("open", () => {
     expect(mockRouter.push).toHaveBeenCalledWith("/late");
   });
 
-  it("hands weekly reports to the review funnel instead of navigating", async () => {
-    jest.mocked(maybeOpenReviewFunnelFromInAppNotification).mockReturnValueOnce(true);
-    const item = buildInAppNotification({ route: "/stats" });
+  it("notes a weekly report as a review moment and still opens its screen", async () => {
+    jest.mocked(noteWeeklyReportOpened).mockReturnValueOnce(true);
+    jest.mocked(resolveInAppOpenTarget).mockReturnValue({ type: "route", value: "/coach" });
+    const item = buildInAppNotification({ kind: "system", id: "weekly-2026-11-18" });
     const { run } = await setup([item]);
 
     await run((api) => api.open(item.id));
 
-    expect(resolveInAppOpenTarget).not.toHaveBeenCalled();
-    expect(mockRouter.push).not.toHaveBeenCalled();
+    expect(noteWeeklyReportOpened).toHaveBeenCalledWith(
+      "system",
+      "weekly-2026-11-18",
+      item.createdAt,
+    );
+    expect(mockRouter.push).toHaveBeenCalledWith("/coach");
   });
 
   it("pushes the route target", async () => {

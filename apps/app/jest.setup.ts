@@ -309,20 +309,12 @@ jest.mock("@/providers/auth-provider", () => ({
   }),
 }));
 
-jest.mock("@/features/reviews/context/ReviewEngagementProvider", () => ({
-  ReviewEngagementProvider: ({ children }: { children: ReactNode }) => children,
-  useReviewEngagement: () => ({
-    trackInteraction: jest.fn(),
-    recordError: jest.fn(),
-  }),
-}));
-
 jest.mock("@/features/reviews/context/ReviewPromptContext", () => ({
   ReviewPromptProvider: ({ children }: { children: ReactNode }) => children,
   useReviewPrompt: () => ({
-    emitReviewTrigger: jest.fn(),
-    maybePromptReview: jest.fn(),
-    canRateApp: false,
+    canWriteReview: false,
+    openWriteReview: jest.fn(async () => undefined),
+    openFeedback: jest.fn(),
   }),
 }));
 

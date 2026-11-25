@@ -69,7 +69,7 @@ export const ABOUT_SETTINGS: AnySettingDef[] = [
     subtitleKey: "settings.aboutSub",
     keywordsKey: "settingsPanel.kw.about",
     scope: "account",
-    // Version, credits, rate the app, privacy policy and terms.
+    // Version, credits, rate the app, send feedback, privacy policy and terms.
     control: { kind: "custom", Component: AboutPanel },
   }),
 ];

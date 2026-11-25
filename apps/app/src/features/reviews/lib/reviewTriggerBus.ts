@@ -1,58 +1,66 @@
-import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
-import type {
-  ReviewDeferRoute,
-  ReviewFunnelTriggerId,
-} from "@/features/reviews/lib/reviewPromptBridge";
+import {
+  REVIEW_TRIGGER_MAX_AGE_MINUTES,
+  type ReviewValueMomentId,
+} from "@munib-tracker/shared/reviews";
+import type { ReviewDeferRoute } from "@/features/reviews/lib/reviewPromptBridge";
 import { TRIGGER_PRIORITY } from "@/features/reviews/lib/reviewTriggerPriority";
 
+/**
+ * Holds the best pending value moment until the screen it belongs to is in
+ * focus (so the OS sheet never lands mid-navigation). A moment that isn't
+ * surfaced within REVIEW_TRIGGER_MAX_AGE_MINUTES is dropped — asking later,
+ * detached from the moment, is the interruption the HIG warns about.
+ */
+
 type PendingTrigger = {
-  triggerId: ReviewFunnelTriggerId;
+  triggerId: ReviewValueMomentId;
   deferRoute: ReviewDeferRoute;
+  emittedAt: number;
 };
 
+const MAX_AGE_MS = REVIEW_TRIGGER_MAX_AGE_MINUTES * 60 * 1000;
+
 let pending: PendingTrigger | null = null;
-let flushHandler: ((triggerId: ReviewFunnelTriggerId) => void) | null = null;
+let flushHandler: ((triggerId: ReviewValueMomentId) => void) | null = null;
 
 export function registerReviewTriggerFlush(
-  fn: ((triggerId: ReviewFunnelTriggerId) => void) | null,
+  fn: ((triggerId: ReviewValueMomentId) => void) | null,
 ): void {
   flushHandler = fn;
 }
 
-function shouldReplacePending(current: PendingTrigger, incoming: ReviewFunnelTriggerId): boolean {
-  return TRIGGER_PRIORITY[incoming] < TRIGGER_PRIORITY[current.triggerId];
+function isExpired(trigger: PendingTrigger, now: number): boolean {
+  return now - trigger.emittedAt > MAX_AGE_MS;
 }
 
 export function emitReviewTrigger(
-  triggerId: ReviewFunnelTriggerId,
-  options?: { deferRoute?: ReviewDeferRoute },
+  triggerId: ReviewValueMomentId,
+  options?: { deferRoute?: ReviewDeferRoute; now?: number },
 ): void {
-  const deferRoute = options?.deferRoute ?? "none";
-  if (triggerId === APP_FEEDBACK_TRIGGER_IDS.manual) {
-    pending = { triggerId, deferRoute };
-    return;
-  }
-  if (!pending) {
-    pending = { triggerId, deferRoute };
-    return;
-  }
-  if (shouldReplacePending(pending, triggerId)) {
-    pending = { triggerId, deferRoute };
+  const now = options?.now ?? Date.now();
+  const incoming: PendingTrigger = {
+    triggerId,
+    deferRoute: options?.deferRoute ?? "none",
+    emittedAt: now,
+  };
+  if (
+    !pending ||
+    isExpired(pending, now) ||
+    TRIGGER_PRIORITY[triggerId] < TRIGGER_PRIORITY[pending.triggerId]
+  ) {
+    pending = incoming;
   }
 }
 
-export function flushReviewTriggerForRoute(route: ReviewDeferRoute): void {
+/** Called when `route` gains focus: hands a matching, fresh trigger to the provider. */
+export function flushReviewTriggerForRoute(route: ReviewDeferRoute, now = Date.now()): void {
   if (!pending || !flushHandler) return;
+  if (isExpired(pending, now)) {
+    pending = null;
+    return;
+  }
   if (pending.deferRoute !== "none" && pending.deferRoute !== route) return;
   const { triggerId } = pending;
-  pending = null;
-  flushHandler(triggerId);
-}
-
-export function flushReviewTriggerImmediate(): void {
-  if (!pending || !flushHandler) return;
-  const { triggerId, deferRoute } = pending;
-  if (deferRoute !== "none") return;
   pending = null;
   flushHandler(triggerId);
 }
