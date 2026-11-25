@@ -16,9 +16,11 @@
  *   LOCALES=all THEMES=all  # default: every AppLocale × light/dark
  *   VALIDATE_ONLY=1 pnpm screenshots:ios
  *   SKIP_SIMULATOR=1 SKIP_BUILD=1 pnpm screenshots:ios
+ *   pnpm screenshots:ipad   # --ipad: iPad Pro 13-inch (M5), 2064×2752 native iPad set
  *
  * Output:
  *   apps/app/store-assets/captures-native/ios/<locale>/<theme>/<scene>.png
+ *   apps/app/store-assets/captures-native/ipad/<locale>/<theme>/<scene>.png  (--ipad)
  *
  * Navigation / batching matches capture-android.mjs (deep links + SCENE_BATCH).
  */
@@ -74,8 +76,13 @@ async function main() {
   log(`App locales available: ${LOCALES.join(", ")}`);
 
   const bundleId = APP_ID.ios;
-  const deviceName = process.env[IOS.deviceNameEnv] || IOS.defaultDeviceName;
+  const wantsIpad = process.argv.includes("--ipad");
+  const deviceName =
+    process.env[IOS.deviceNameEnv] || (wantsIpad ? IOS.ipadDeviceName : IOS.defaultDeviceName);
+  // iPad runs land in their own folder so they never overwrite the iPhone set.
+  const captureFolder = wantsIpad || /\biPad\b/.test(deviceName) ? IOS.ipadCaptureFolder : "ios";
   const udid = process.env.IOS_UDID || resolveSimulatorUdid(deviceName);
+  log(`Device: ${deviceName} → captures-native/${captureFolder}/`);
 
   if (process.env.SKIP_SIMULATOR !== "1") {
     log(`Booting simulator: ${deviceName} (${udid})`);
@@ -118,6 +125,25 @@ async function main() {
     );
   }
 
+  // Store-clean status bar (9:41, full signal / battery) — same as capture-duo.mjs. Without
+  // it the iPad set showed the real clock and date ("11:54 PM Wed 25 Nov").
+  run("xcrun", [
+    "simctl",
+    "status_bar",
+    udid,
+    "override",
+    "--time",
+    "9:41",
+    "--batteryState",
+    "charged",
+    "--batteryLevel",
+    "100",
+    "--wifiBars",
+    "3",
+    "--cellularBars",
+    "4",
+  ]);
+
   fs.mkdirSync(WORK_DIR, { recursive: true });
 
   const useMaestro = maestroAvailable();
@@ -142,7 +168,14 @@ async function main() {
       sleep(TIMING.appBootMs + localeBootExtraMs(locale));
 
       if (useMaestro) {
-        const outDir = path.join(APP_ROOT, "store-assets", "captures-native", "ios", locale, theme);
+        const outDir = path.join(
+          APP_ROOT,
+          "store-assets",
+          "captures-native",
+          captureFolder,
+          locale,
+          theme,
+        );
         const result = runMaestroSceneBatches({
           platform: "ios",
           locale,
@@ -158,13 +191,13 @@ async function main() {
         warn("Skipping automated navigation — install Maestro to capture all scenes.");
       }
 
-      const aliases = syncStudioAliases("ios", locale, theme);
+      const aliases = syncStudioAliases(captureFolder, locale, theme);
       if (aliases.length) log(`Synced ${aliases.length} screenshot-studio alias(es).`);
     }
   }
 
   log(
-    `\nDone. Planned ${plannedOutputPaths("ios", locales, themes, scenes).length} files under store-assets/captures-native/ios/`,
+    `\nDone. Planned ${plannedOutputPaths(captureFolder, locales, themes, scenes).length} files under store-assets/captures-native/${captureFolder}/`,
   );
   log(`Captured via Maestro: ${captured} scene slot(s). Failed batches: ${failed}.`);
   if (failed > 0) {

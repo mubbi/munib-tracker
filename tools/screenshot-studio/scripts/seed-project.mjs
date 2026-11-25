@@ -119,7 +119,8 @@ const SHOT = (platform, name) => `/screenshots/app/${platform}/{locale}/${name}.
 const DEVICE_CAPTURE_PLATFORM = {
   iphone: "ios",
   "iphone-duo": "ios",
-  ipad: "ios",
+  // Native iPad Pro 13" captures (`pnpm screenshots:ipad`) — 3:4 fills the iPad frame.
+  ipad: "ipad",
   "ios-header": "ios",
   "ios-header-wide": "ios",
   "ios-search": "ios",

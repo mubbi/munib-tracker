@@ -99,6 +99,7 @@
     "screenshots:validate": "node apps/app/scripts/screenshots/validate.mjs",
     "screenshots:android": "node apps/app/scripts/screenshots/capture-android.mjs",
     "screenshots:ios": "node apps/app/scripts/screenshots/capture-ios.mjs",
+    "screenshots:ipad": "node apps/app/scripts/screenshots/capture-ios.mjs --ipad",
     "screenshots:duo": "node apps/app/scripts/screenshots/capture-duo.mjs",
     "screenshots:watch": "node apps/app/scripts/screenshots/capture-watch.mjs",
     "screenshots:tvos": "node apps/app/scripts/screenshots/capture-tvos.mjs",

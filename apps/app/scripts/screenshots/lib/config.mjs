@@ -51,9 +51,12 @@ export const STUDIO_THEME = (process.env.STUDIO_THEME || "light").trim() || "lig
 /** Native PNG output (full matrix). */
 export const OUTPUT_ROOT = path.join(APP_ROOT, "store-assets", "captures-native");
 
-/** Flat JPEG aliases for screenshot-studio — per platform so iOS/Android do not overwrite each other. */
+/**
+ * Flat JPEG aliases for screenshot-studio — per capture folder so iPhone, iPad and
+ * Android never overwrite each other (`ipad` = native iPad captures from capture-ios.mjs --ipad).
+ */
 export const STUDIO_CAPTURE_ROOT = path.join(APP_ROOT, "store-assets", "captures");
-export const STUDIO_PLATFORMS = ["android", "ios"];
+export const STUDIO_PLATFORMS = ["android", "ios", "ipad"];
 
 /** Maestro + temp flow workspace (gitignored). */
 export const WORK_DIR = path.join(APP_ROOT, ".screenshots-work");
@@ -91,6 +94,13 @@ export const IOS = {
   defaultDeviceName: "iPhone 17 Pro",
   /** Portrait phone — store marketing frames crop from this. */
   screenshotScale: 3,
+  /**
+   * `capture-ios.mjs --ipad` (or an iPad IOS_SIMULATOR_DEVICE): native 13" iPad set.
+   * iPad Pro 13-inch captures at 2064×2752 — the exact App Store Connect iPad 13" size.
+   */
+  ipadDeviceName: "iPad Pro 13-inch (M5)",
+  /** captures-native/<folder>/ + captures/<folder>/ for iPad runs. */
+  ipadCaptureFolder: "ipad",
 };
 
 /**
