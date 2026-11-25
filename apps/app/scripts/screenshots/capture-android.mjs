@@ -16,9 +16,10 @@
  *   GROUPS=tabs,track pnpm screenshots:android
  *   VALIDATE_ONLY=1 pnpm screenshots:android
  *   SKIP_EMULATOR=1 SKIP_BUILD=1 pnpm screenshots:android
+ *   CAPTURE_TARGET=android-tablet ANDROID_SERIAL=emulator-5558 SKIP_EMULATOR=1 pnpm screenshots:android
  *
  * Output:
- *   apps/app/store-assets/captures-native/android/<locale>/<theme>/<scene>.png
+ *   apps/app/store-assets/captures-native/<android|android-tablet>/<locale>/<theme>/<scene>.png
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -39,6 +40,16 @@ import {
   syncStudioAliases,
   validateStructure,
 } from "./lib/validate-core.mjs";
+
+/**
+ * Output folder under captures-native/: `android` (phone, default — also feeds the studio
+ * aliases) or `android-tablet` (native tablet captures, e.g. the Tablet_API_35 AVD).
+ */
+const CAPTURE_TARGET = (process.env.CAPTURE_TARGET || "android").trim();
+if (!["android", "android-tablet"].includes(CAPTURE_TARGET)) {
+  console.error(`CAPTURE_TARGET must be "android" or "android-tablet", got "${CAPTURE_TARGET}"`);
+  process.exit(1);
+}
 
 async function main() {
   const validation = validateStructure();
@@ -108,7 +119,7 @@ async function main() {
             APP_ROOT,
             "store-assets",
             "captures-native",
-            "android",
+            CAPTURE_TARGET,
             locale,
             theme,
           );
@@ -127,8 +138,11 @@ async function main() {
           warn("Skipping automated navigation — install Maestro to capture all scenes.");
         }
 
-        const aliases = syncStudioAliases("android", locale, theme);
-        if (aliases.length) log(`Synced ${aliases.length} screenshot-studio alias(es).`);
+        // Studio decks are fed from phone captures only; tablet captures stay native.
+        if (CAPTURE_TARGET === "android") {
+          const aliases = syncStudioAliases("android", locale, theme);
+          if (aliases.length) log(`Synced ${aliases.length} screenshot-studio alias(es).`);
+        }
       }
     }
   } finally {
@@ -136,7 +150,7 @@ async function main() {
   }
 
   log(
-    `\nDone. Planned ${plannedOutputPaths("android", locales, themes, scenes).length} files under store-assets/captures-native/android/`,
+    `\nDone. Planned ${plannedOutputPaths("android", locales, themes, scenes).length} files under store-assets/captures-native/${CAPTURE_TARGET}/`,
   );
   log(`Captured via Maestro: ${captured} scene slot(s). Failed batches: ${failed}.`);
   if (failed > 0) {
