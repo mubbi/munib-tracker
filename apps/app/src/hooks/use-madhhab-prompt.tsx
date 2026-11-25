@@ -1,3 +1,4 @@
+import { useIsFocused } from "expo-router";
 import { type ReactNode, useCallback, useEffect, useState } from "react";
 
 import { MadhhabPromptSheet } from "@/components/fiqh/madhhab-prompt-sheet";
@@ -35,6 +36,10 @@ export function useMadhhabPrompt({ auto = true }: { auto?: boolean } = {}): Madh
   const ready = usePreferencesReady();
   const { isUnset } = useMadhhab();
   const [visible, setVisible] = useState(false);
+  // The sheet is a modal window, so it would float over any screen pushed on top of the
+  // fiqh screen (deep link, notification tap, in-app link) while that screen stays mounted
+  // underneath. Hide it while blurred; it comes back when the user returns.
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     if (!auto || !ready || !isUnset || promptedThisSession) return;
@@ -46,7 +51,7 @@ export function useMadhhabPrompt({ auto = true }: { auto?: boolean } = {}): Madh
   const onDone = useCallback(() => setVisible(false), []);
 
   return {
-    sheet: <MadhhabPromptSheet visible={visible} onDone={onDone} reason="screen" />,
+    sheet: <MadhhabPromptSheet visible={visible && isFocused} onDone={onDone} reason="screen" />,
     open,
     isUnset,
   };

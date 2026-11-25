@@ -1,4 +1,4 @@
-import { act, fireEvent, screen } from "@testing-library/react-native";
+import { act, fireEvent, renderHook, screen } from "@testing-library/react-native";
 
 import { MadhhabPromptCard, useShowMadhhabPromptCard } from "@/components/fiqh/madhhab-prompt-card";
 import { ThemedText } from "@/components/themed-text";
@@ -103,10 +103,28 @@ describe("lazy sheet (§4.1.1 item 4)", () => {
 
   it("does not open again in the same session", async () => {
     const first = await renderWithTheme(<FiqhScreen />);
-    first.unmount();
+    await first.unmount();
     await act(async () => preferencesStore.getState().update({ madhhab: undefined }));
     await renderWithTheme(<FiqhScreen />);
     expect(screen.queryByText("Which madhhab do you follow?")).toBeNull();
+  });
+
+  it("hides while another screen is pushed on top, and returns when refocused", async () => {
+    const router = require("expo-router") as { useIsFocused: () => boolean };
+    const focus = jest.spyOn(router, "useIsFocused").mockReturnValue(false);
+    const sheetVisible = (sheet: unknown) =>
+      (sheet as { props: { visible: boolean } }).props.visible;
+    try {
+      const { result, rerender } = await renderHook(() => useMadhhabPrompt());
+      // The prompt fired (unset, first fiqh screen) but stays hidden while blurred.
+      expect(result.current.isUnset).toBe(true);
+      expect(sheetVisible(result.current.sheet)).toBe(false);
+      focus.mockReturnValue(true);
+      await rerender({});
+      expect(sheetVisible(result.current.sheet)).toBe(true);
+    } finally {
+      focus.mockRestore();
+    }
   });
 
   it("does not open for users who already answered", async () => {
