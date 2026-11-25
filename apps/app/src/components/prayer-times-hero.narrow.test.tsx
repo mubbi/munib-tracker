@@ -81,6 +81,17 @@ describe("PrayerTimesHero strip width (no mid-word breaks)", () => {
     expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");
   });
 
+  it("still wraps when a name breaks before the strip reports its width", async () => {
+    // On device the text lays out before the row's onLayout fires.
+    await act(() =>
+      screen
+        .getByText("Maghrib")
+        .props.onTextLayout({ nativeEvent: { lines: [{ text: "Maghri" }, { text: "b" }] } }),
+    );
+    await layoutStrip(340);
+    expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");
+  });
+
   it("wraps when slots are too narrow (iPad home column)", async () => {
     await layoutStrip(300); // 50dp per slot: "Maghrib" would split mid-word
     expect(flattenStyle(strip().props.style).flexWrap).toBe("wrap");

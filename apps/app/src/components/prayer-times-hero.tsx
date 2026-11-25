@@ -217,6 +217,14 @@ export function PrayerTimesHero({
   const [prayerRowWidth, setPrayerRowWidth] = useState(0);
   /** Widest strip at which a name was seen breaking onto a second line. */
   const [nameBrokeAtWidth, setNameBrokeAtWidth] = useState<number | null>(null);
+  /** A name broke before the row reported its width (text layout can arrive first). */
+  const [nameBroke, setNameBroke] = useState(false);
+  useEffect(() => {
+    if (nameBroke && prayerRowWidth > 0) {
+      setNameBrokeAtWidth((prev) => Math.max(prev ?? 0, prayerRowWidth));
+      setNameBroke(false);
+    }
+  }, [nameBroke, prayerRowWidth]);
   // Too narrow for one row of full-size names (e.g. the iPad home column): wrap too.
   // Sticky per width (wrapped cells fit, so the names stop breaking) until it widens.
   const narrowStrip =
@@ -226,9 +234,7 @@ export function PrayerTimesHero({
       (nameBrokeAtWidth != null && prayerRowWidth <= nameBrokeAtWidth));
   const wrapPrayers = largeText || narrowStrip;
   const onPrayerNameLayout = (event: { nativeEvent: { lines: unknown[] } }) => {
-    if (!wrapPrayers && prayerRowWidth > 0 && event.nativeEvent.lines.length > 1) {
-      setNameBrokeAtWidth(prayerRowWidth);
-    }
+    if (!wrapPrayers && event.nativeEvent.lines.length > 1) setNameBroke(true);
   };
   const { primary: primaryDate, secondary: secondaryDate } = displayDates;
   const reducedMotion = useReducedMotion();
