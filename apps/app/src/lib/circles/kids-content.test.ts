@@ -11,9 +11,12 @@ import {
   KIDS_PROPHET_IDS,
   KIDS_PROPHETS_EXCLUDED,
   KIDS_SALAH_TOPIC_IDS,
+  KIDS_SESSION_CATEGORIES,
   KIDS_SURAHS,
   kidsProphetView,
+  kidsRedirectFor,
   kidsSalahTopicView,
+  kidsSessionItems,
   pickKidsDuaList,
 } from "./kids-content";
 
@@ -101,6 +104,13 @@ describe("isKidsAllowedPath", () => {
     "/quran/112",
     "/dua/detail/hisn-1",
     "/zikr/detail/before_sleep-name",
+    // Counting the curated adhkar (D69): session, counter, after-Salah sequence.
+    "/zikr/session/before_sleep",
+    "/zikr/session/anytime",
+    "/tasbeeh/before_sleep-tasbih-fatimah",
+    "/tasbeeh/anytime-istighfar",
+    "/tasbeeh/sequence",
+    "/tasbeeh/sequence?prayer=fajr",
   ])("allows %s", (path) => {
     expect(isKidsAllowedPath(path)).toBe(true);
   });
@@ -121,6 +131,13 @@ describe("isKidsAllowedPath", () => {
     "/salah-guide/wudu",
     "/prophets",
     "/prophets/lut",
+    // Not curated: other sessions, other counters, the free counter (adult picker).
+    "/zikr/session/morning",
+    "/tasbeeh/after_prayer-ayat-al-kursi",
+    "/tasbeeh/free",
+    "/tasbeeh/custom/abc",
+    "/tasbeeh/dua/sunnah-laylat-qadr-afw",
+    "/quran/practice/session",
   ])("blocks %s", (path) => {
     expect(isKidsAllowedPath(path)).toBe(false);
   });
@@ -137,5 +154,36 @@ describe("pickKidsDuaList", () => {
 
   it("skips ids missing from the loaded data", () => {
     expect(pickKidsDuaList([], [])).toEqual([]);
+  });
+});
+
+describe("kids guided sessions and redirects (D27, D68)", () => {
+  it("opens sessions only for the categories of the curated adhkar", () => {
+    const byId = new Map(ZIKR_ITEMS.map((z) => [z.id, z]));
+    for (const id of KIDS_ADHKAR_IDS) {
+      expect(KIDS_SESSION_CATEGORIES).toContain(byId.get(id)?.categoryId);
+    }
+    expect(KIDS_SESSION_CATEGORIES).not.toContain("morning");
+  });
+
+  it("keeps only the curated adhkar of a set", () => {
+    const set = ZIKR_ITEMS.filter((z) => z.categoryId === "before_sleep");
+    const kids = kidsSessionItems(set);
+    expect(kids.length).toBeGreaterThan(0);
+    expect(kids.length).toBeLessThan(set.length);
+    expect(kids.every((z) => (KIDS_ADHKAR_IDS as readonly string[]).includes(z.id))).toBe(true);
+  });
+
+  it("sends the reader's Practise on a curated surah to kids recite-along", () => {
+    expect(kidsRedirectFor("/quran/practice/session", { surah: "112" })).toBe(
+      "/kids/recite?surah=112",
+    );
+    expect(kidsRedirectFor("/quran/practice/session", { surah: ["1"] })).toBe(
+      "/kids/recite?surah=1",
+    );
+    // Not curated: the kids picker, never the adult surah.
+    expect(kidsRedirectFor("/quran/practice/session", { surah: "2" })).toBe("/kids/recite");
+    expect(kidsRedirectFor("/quran/practice")).toBe("/kids/recite");
+    expect(kidsRedirectFor("/settings")).toBe("/kids");
   });
 });

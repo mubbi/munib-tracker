@@ -21,6 +21,7 @@ export const TRACK_LABEL_KEYS: Record<MilestoneTrackId, string> = {
   roza: "achievements.tracks.roza",
   zikr: "achievements.tracks.zikr",
   consistency: "achievements.tracks.consistency",
+  recitation: "achievements.tracks.recitation",
   devotion: "achievements.devotion",
 };
 
@@ -46,6 +47,10 @@ export const TRACK_VISUALS: Record<
     tone: "info",
   },
   roza: { icon: { ios: "moon.stars.fill", android: "bedtime", web: "bedtime" }, tone: "success" },
+  recitation: {
+    icon: { ios: "book.fill", android: "menu_book", web: "menu_book" },
+    tone: "info",
+  },
   devotion: {
     icon: { ios: "trophy.fill", android: "emoji_events", web: "emoji_events" },
     tone: "warning",
@@ -64,6 +69,12 @@ type TrackCardProps = {
   closest?: boolean;
   /** Extra line under the title (e.g. best vs current streak). */
   note?: string;
+  /**
+   * A finite ladder whose milestones can be reached out of order (the Recitation
+   * track, D71): one pip per milestone, `earned` of them filled. Without it the
+   * pips follow `goal.level` (earned levels + the next one).
+   */
+  ladder?: { earned: number; total: number };
   formatCount: (value: number) => string;
   style?: StyleProp<ViewStyle>;
 };
@@ -72,16 +83,27 @@ type TrackCardProps = {
  * One progression track: what has been earned so far (level, title, a pip per
  * level) and the next milestone with how far is left to go.
  */
-export function TrackCard({ goal, current, closest, note, formatCount, style }: TrackCardProps) {
+export function TrackCard({
+  goal,
+  current,
+  closest,
+  note,
+  ladder,
+  formatCount,
+  style,
+}: TrackCardProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const visual = TRACK_VISUALS[goal.trackId];
   const tone = tokens.status[visual.tone];
   const isDebt = goal.trackId === "qaza" || goal.trackId === "roza";
-  const earnedLevels = isDebt ? 0 : goal.level - 1;
+  const earnedLevels = isDebt ? 0 : (ladder?.earned ?? goal.level - 1);
+  // Only a finite ladder runs out: its goal is then its last, already earned milestone.
+  const complete = !isDebt && goal.unlocked;
   const remaining = Math.max(0, goal.threshold - goal.value);
-  const pipCount = Math.min(earnedLevels + 1, MAX_PIPS);
-  const overflow = earnedLevels + 1 - pipCount;
+  const pipSlots = ladder ? ladder.total : earnedLevels + 1;
+  const pipCount = Math.min(pipSlots, MAX_PIPS);
+  const overflow = pipSlots - pipCount;
   const label = t(TRACK_LABEL_KEYS[goal.trackId]);
   const nextTitle = milestoneTitle(goal);
 
@@ -148,7 +170,9 @@ export function TrackCard({ goal, current, closest, note, formatCount, style }: 
               <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
                 {isDebt
                   ? milestoneDescription(goal)
-                  : t("achievements.nextUp", { title: nextTitle })}
+                  : complete
+                    ? t("achievements.trackComplete")
+                    : t("achievements.nextUp", { title: nextTitle })}
               </ThemedText>
               {closest ? (
                 <View style={[styles.closest, { backgroundColor: tone.soft }]}>
@@ -158,20 +182,22 @@ export function TrackCard({ goal, current, closest, note, formatCount, style }: 
                 </View>
               ) : null}
             </View>
-            {!isDebt ? (
+            {!isDebt && !complete ? (
               <ThemedText type="caption" themeColor="mutedForeground">
                 {milestoneDescription(goal)}
               </ThemedText>
             ) : null}
-            <ProgressBar value={goal.progress} color={tone.color} />
-            <View style={styles.nextFooter}>
-              <ThemedText type="smallBold" style={{ color: tone.text }}>
-                {`${formatCount(goal.value)} / ${formatCount(goal.threshold)}`}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("achievements.toGo", { value: formatCount(remaining) })}
-              </ThemedText>
-            </View>
+            <ProgressBar value={complete ? 1 : goal.progress} color={tone.color} />
+            {!complete ? (
+              <View style={styles.nextFooter}>
+                <ThemedText type="smallBold" style={{ color: tone.text }}>
+                  {`${formatCount(goal.value)} / ${formatCount(goal.threshold)}`}
+                </ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("achievements.toGo", { value: formatCount(remaining) })}
+                </ThemedText>
+              </View>
+            ) : null}
           </View>
         </View>
       </TvReadableBlock>

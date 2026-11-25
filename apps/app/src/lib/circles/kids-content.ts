@@ -170,9 +170,46 @@ const DUA_SET = new Set<string>(KIDS_DUA_IDS);
 const ZIKR_SET = new Set<string>(KIDS_ADHKAR_IDS);
 
 /**
+ * Adhkar sets a child can open as a guided session: the categories of the
+ * curated adhkar (bundled ids are `<category>-<slug>`; `kids-content.test.ts`
+ * checks each against the corpus). The session itself shows only the curated
+ * items of the set ({@link kidsSessionItems}), never the whole adult set.
+ */
+export const KIDS_SESSION_CATEGORIES: readonly string[] = [
+  ...new Set(KIDS_ADHKAR_IDS.map((id) => id.slice(0, id.indexOf("-")))),
+];
+const SESSION_CATEGORY_SET = new Set<string>(KIDS_SESSION_CATEGORIES);
+
+/** A guided adhkar session in kids mode: only the curated adhkar of the set (D27). */
+export function kidsSessionItems<T extends { id: string }>(items: readonly T[]): T[] {
+  return items.filter((item) => ZIKR_SET.has(item.id));
+}
+
+/**
+ * Where a bounced kids-mode path lands instead of `/kids`. The reader's
+ * "Practise" (and any practice link) on a curated short surah opens the kids
+ * recite-along for it (D68); the practice hub opens the kids surah picker.
+ * Anything else goes home to `/kids`.
+ */
+export function kidsRedirectFor(
+  rawPath: string,
+  params: Record<string, string | string[] | undefined> = {},
+): string {
+  const path = (rawPath.split("?")[0] ?? "").replace(/\/+$/, "") || "/";
+  if (path === "/quran/practice/session") {
+    const raw = params.surah;
+    const surah = Number(Array.isArray(raw) ? raw[0] : raw);
+    return SURAH_SET.has(surah) ? `/kids/recite?surah=${surah}` : "/kids/recite";
+  }
+  if (path === "/quran/practice") return "/kids/recite";
+  return "/kids";
+}
+
+/**
  * While a child session is active, navigation is limited to the kids shell
  * (which hosts the curated salah path and prophets screens) and the curated
- * content above (D7 "read kids content"). The adult `/salah-guide` and
+ * content above (D7 "read kids content"), including counting the curated
+ * adhkar (guided session, counter, after-Salah sequence). The adult `/salah-guide` and
  * `/prophets` hubs are NOT reachable — they carry hayd/nifas/janabah and other
  * adult material (A2). Anything else bounces back to `/kids`.
  */
@@ -188,6 +225,14 @@ export function isKidsAllowedPath(rawPath: string): boolean {
   if (dua) return DUA_SET.has(decodeURIComponent(dua[1] as string));
   const zikr = path.match(/^\/zikr\/detail\/([^/]+)$/);
   if (zikr) return ZIKR_SET.has(decodeURIComponent(zikr[1] as string));
+  // Counting the curated adhkar: a guided session (filtered to the curated items),
+  // a single counter, and the after-Salah 33 / 33 / 34 sequence — the same
+  // phrases as the curated Tasbih Fatimah (Bukhari 3705, Muslim 2727).
+  const session = path.match(/^\/zikr\/session\/([^/]+)$/);
+  if (session) return SESSION_CATEGORY_SET.has(decodeURIComponent(session[1] as string));
+  if (path === "/tasbeeh/sequence") return true;
+  const counter = path.match(/^\/tasbeeh\/([^/]+)$/);
+  if (counter) return ZIKR_SET.has(decodeURIComponent(counter[1] as string));
   return false;
 }
 

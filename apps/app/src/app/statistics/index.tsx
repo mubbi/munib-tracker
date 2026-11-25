@@ -1,3 +1,4 @@
+import { evaluateRecitationMilestones } from "@munib-tracker/shared/achievements";
 import { OBLIGATORY_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type {
   PrayerId,
@@ -8,7 +9,7 @@ import type {
   ZikrProgress,
 } from "@munib-tracker/shared/types";
 import { getLocalDateString, parseLocalDateString } from "@munib-tracker/shared/utils";
-import { useFocusEffect, useRouter } from "expo-router";
+import { type Href, useFocusEffect, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -53,6 +54,7 @@ import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementB
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { milestoneDescription, milestoneTitle } from "@/lib/achievements-i18n";
 import {
   adhkarSetHistory,
   adhkarSetKey,
@@ -80,8 +82,10 @@ import {
   summarizeQuranReading,
   sumQazaMadeUp,
 } from "@/lib/statistics";
+import { practiceTotals, withLifetimeTotals } from "@/lib/statistics-practice";
 import { ZIKR_CORPUS } from "@/lib/zikr";
 import { useEnsureFastingLoaded, useFastingDays } from "@/stores/fasting-store";
+import { useEnsurePracticeLoaded, usePracticeHistory } from "@/stores/quran-practice-store";
 import {
   useAchievementStats,
   useDailySummary,
@@ -360,13 +364,31 @@ export default function StatisticsScreen() {
     () => summarizeQuranReading(data?.quranProgress ?? {}, getSurahMeta()),
     [data?.quranProgress],
   );
+  // D68: Qur'an practice — minutes and ayahs recited, personal milestones only.
+  useEnsurePracticeLoaded();
+  const practiceHistory = usePracticeHistory();
+  // D71: counts never drop below the lifetime Recitation totals (the history keeps 30 rows).
+  const recitationLifetime = achievementStats.recitation;
+  const practice = useMemo(
+    () => withLifetimeTotals(practiceTotals(practiceHistory), recitationLifetime),
+    [practiceHistory, recitationLifetime],
+  );
+  const recitationBadges = useMemo(
+    () => evaluateRecitationMilestones(practice).filter((m) => m.unlocked),
+    [practice],
+  );
   const quranBookmarks = data?.quranBookmarks ?? 0;
   const hadithBookmarks = data?.hadithBookmarks ?? 0;
   const hasReadingData = reading.surahsStarted > 0 || quranBookmarks > 0 || hadithBookmarks > 0;
 
   const loaded = data != null;
   const isEmpty =
-    loaded && logs.length === 0 && zikr.length === 0 && qazaTotal === 0 && !hasReadingData;
+    loaded &&
+    logs.length === 0 &&
+    zikr.length === 0 &&
+    qazaTotal === 0 &&
+    !hasReadingData &&
+    practice.sessions === 0;
 
   const insights: Insight[] = [];
   if (extremes.strongest?.onTimeRate != null) {
@@ -1110,6 +1132,65 @@ export default function StatisticsScreen() {
                   <LinkRow
                     label={t("statistics.openQuran")}
                     onPress={() => router.push("/quran")}
+                  />
+                </Card>
+              ) : null}
+
+              {practice.sessions > 0 ? (
+                <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                  <ThemedText type="subtitle">{t("handsFreeZikr2.stats.title")}</ThemedText>
+                  <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                    <MetricGrid
+                      columns={2}
+                      metrics={[
+                        {
+                          value: formatCount(practice.minutes),
+                          label: t("handsFreeZikr2.stats.minutes"),
+                          color: colors.accentText,
+                        },
+                        {
+                          value: formatCount(practice.ayahsRecited),
+                          label: t("handsFreeZikr2.stats.ayahsRecited"),
+                          color: tokens.status.success.text,
+                        },
+                        {
+                          value: formatCount(practice.sessions),
+                          label: t("handsFreeZikr2.stats.sessions"),
+                          color: tokens.status.info.text,
+                        },
+                        {
+                          value: formatCount(practice.bestRevisionStreak),
+                          label: t("handsFreeZikr2.stats.revisionStreak"),
+                          color: tokens.status.warning.text,
+                        },
+                      ]}
+                    />
+                  </ReadableView>
+                  {recitationBadges.length > 0 ? (
+                    <ReadableView style={styles.block}>
+                      <BlockTitle title={t("handsFreeZikr2.stats.milestones")} />
+                      {recitationBadges.map((milestone) => (
+                        <View key={milestone.id}>
+                          <ThemedText
+                            type="smallBold"
+                            style={{ color: tokens.status.success.text }}
+                          >
+                            {milestoneTitle(milestone)}
+                          </ThemedText>
+                          <ThemedText type="caption" themeColor="mutedForeground">
+                            {milestoneDescription(milestone)}
+                          </ThemedText>
+                        </View>
+                      ))}
+                    </ReadableView>
+                  ) : null}
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("handsFreeZikr2.stats.privacy")}
+                  </ThemedText>
+                  <View style={styles.spacer} />
+                  <LinkRow
+                    label={t("handsFreeZikr2.stats.open")}
+                    onPress={() => router.push("/quran/practice" as Href)}
                   />
                 </Card>
               ) : null}

@@ -5,6 +5,7 @@ import {
   type MilestoneProgress,
   NOOR_WEIGHTS,
   type NoorSource,
+  RECITATION_MILESTONES,
 } from "@munib-tracker/shared/achievements";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -47,6 +48,9 @@ const NOOR_SOURCE_KEYS: Record<NoorSource, string> = {
   zikr: "achievements.noorSource.zikr",
   perfectDay: "achievements.noorSource.perfectDay",
   streakDay: "achievements.noorSource.streakDay",
+  recitationSession: "achievements.noorSource.recitationSession",
+  ayahRecited: "achievements.noorSource.ayahRecited",
+  revisionStreakDay: "achievements.noorSource.revisionStreakDay",
 };
 
 export default function AchievementsScreen() {
@@ -119,15 +123,28 @@ export default function AchievementsScreen() {
     }
     return best?.id ?? null;
   }, [trackGoals]);
+  // D71: the Recitation ladder is finite and can be climbed out of order, so its
+  // card counts earned milestones and shows the highest one as "current".
+  const recitationEarned = useMemo(
+    () => unlocked.filter((m) => m.trackId === "recitation").sort((a, b) => b.level - a.level),
+    [unlocked],
+  );
   const currentByTrack = useMemo(() => {
     const map = new Map<string, MilestoneProgress>();
+    if (recitationEarned[0]) map.set("recitation", recitationEarned[0]);
     for (const goal of trackGoals) {
-      if (goal.trackId === "qaza" || goal.trackId === "roza" || goal.level <= 1) continue;
+      if (
+        goal.trackId === "qaza" ||
+        goal.trackId === "roza" ||
+        goal.trackId === "recitation" ||
+        goal.level <= 1
+      )
+        continue;
       const current = getMilestoneById(`${goal.trackId}:${goal.level - 1}`, stats);
       if (current) map.set(goal.trackId, current);
     }
     return map;
-  }, [trackGoals, stats]);
+  }, [trackGoals, stats, recitationEarned]);
 
   const canCollapse = groupMilestones(unlocked).some((g) => g.items.length > COLLAPSED_PER_TRACK);
   const isNewUser =
@@ -350,6 +367,13 @@ export default function AchievementsScreen() {
                             best: formatCount(stats.bestStreak),
                             current: formatCount(stats.streak),
                           })
+                        : goal.trackId === "recitation"
+                          ? t("achievements.recitationPersonal")
+                          : undefined
+                    }
+                    ladder={
+                      goal.trackId === "recitation"
+                        ? { earned: recitationEarned.length, total: RECITATION_MILESTONES.length }
                         : undefined
                     }
                     style={trackBasis}

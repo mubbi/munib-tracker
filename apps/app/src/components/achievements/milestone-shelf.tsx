@@ -19,6 +19,7 @@ const TRACK_ORDER: MilestoneTrackId[] = [
   "streak",
   "consistency",
   "zikr",
+  "recitation",
   "qaza",
   "roza",
 ];

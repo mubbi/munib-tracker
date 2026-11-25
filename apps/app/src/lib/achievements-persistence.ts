@@ -15,7 +15,8 @@ export async function readPersistedAchievementIds(): Promise<string[]> {
 }
 
 /**
- * Persists achievement ids that match current stats; drops lapsed unlocks.
+ * Persists achievement ids that match current stats; drops lapsed unlocks —
+ * except recitation milestones (D71), which `syncAchievementIds` never prunes.
  *
  * Achievements are intentionally NOT a sync entity: they are a pure function of
  * the tracked stats (prayer logs, qaza, zikr), which already sync. Recomputing
