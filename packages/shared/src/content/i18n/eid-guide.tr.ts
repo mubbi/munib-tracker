@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_TR: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Tekbir sayacı" }],
   },
   {
     title: "Bayram namazı nasıl kılınır",

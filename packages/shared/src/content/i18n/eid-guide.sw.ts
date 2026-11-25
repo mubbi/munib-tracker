@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_SW: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Kihesabu cha takbiri" }],
   },
   {
     title: "Jinsi ya kusali Sala ya Eid",

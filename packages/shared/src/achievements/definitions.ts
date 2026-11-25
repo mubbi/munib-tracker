@@ -4,6 +4,13 @@ import {
   getDebtMilestoneById,
 } from "./debt-goals";
 import {
+  evaluateRecitationMilestones,
+  getRecitationMilestoneById,
+  isRecitationMilestoneId,
+  type RecitationMilestoneProgress,
+  recitationTrackGoal,
+} from "./recitation";
+import {
   completedLevelForValue,
   descriptionKeyForTrack,
   descriptionParamsForTrack,
@@ -33,6 +40,7 @@ export type {
   MilestoneTrackId,
   ProgressionState,
   ProgressionTrackId,
+  RecitationTrackId,
 } from "./types";
 
 export function totalNoorForDevotionLevel(level: number): number {
@@ -45,6 +53,11 @@ function bestStreakOf(stats: AchievementStats): number {
   return Math.max(stats.bestStreak ?? 0, stats.streak);
 }
 
+/** Non-negative whole count (guards NaN / negative practice totals). */
+function countOf(value: number | null | undefined): number {
+  return typeof value === "number" && Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
+}
+
 /** Noor per unit of each source — shown as the Noor breakdown on achievements. */
 export const NOOR_WEIGHTS = {
   salah: 10,
@@ -53,6 +66,15 @@ export const NOOR_WEIGHTS = {
   zikr: 5,
   perfectDay: 50,
   streakDay: 3,
+  // D71 Recitation track. No Qur'an-reading source earns Noor today, so these
+  // mirror the nearest existing units: a finished practice session is worth a
+  // completed zikr (5); each ayah recited earns 1 (a ten-ayah session ≈ one
+  // Salah's 10); each day of the best revision streak is a streak day (3) and,
+  // like `streakDay`, follows the best run so a broken streak keeps its Noor.
+  // Salah stays the main source: a day of five Salah alone earns 50.
+  recitationSession: 5,
+  ayahRecited: 1,
+  revisionStreakDay: 3,
 } as const;
 
 export type NoorSource = keyof typeof NOOR_WEIGHTS;
@@ -73,6 +95,9 @@ export function computeNoorBreakdown(stats: AchievementStats): NoorBreakdownEntr
     zikr: stats.zikrCompleted,
     perfectDay: stats.perfectDays,
     streakDay: bestStreakOf(stats),
+    recitationSession: countOf(stats.recitation?.sessions),
+    ayahRecited: countOf(stats.recitation?.ayahsRecited),
+    revisionStreakDay: countOf(stats.recitation?.bestRevisionStreak),
   };
   return (Object.keys(NOOR_WEIGHTS) as NoorSource[])
     .map((source) => ({
@@ -202,8 +227,15 @@ function devotionDescriptionParamsForLevel(level: number): Record<string, number
   return { level, noor: totalNoorForDevotionLevel(level) };
 }
 
+/** D71: the recitation ladder, or none when practice stats are unavailable (TV / not loaded). */
+function recitationMilestonesOf(stats: AchievementStats): RecitationMilestoneProgress[] {
+  return stats.recitation ? evaluateRecitationMilestones(stats.recitation) : [];
+}
+
 export function evaluateProgression(stats: AchievementStats): ProgressionState {
   const devotion = computeDevotionProgress(stats);
+  const recitation = recitationMilestonesOf(stats);
+  const recitationGoal = recitationTrackGoal(recitation);
   const knownLevels = new Map<ProgressionTrackId, number>();
 
   const trackGoals = PROGRESSION_TRACKS.map((track) => {
@@ -219,7 +251,7 @@ export function evaluateProgression(stats: AchievementStats): ProgressionState {
     roza: stats.rozaDebt,
   });
 
-  const activeGoals = [...trackGoals, ...debtGoals];
+  const activeGoals = [...trackGoals, ...(recitationGoal ? [recitationGoal] : []), ...debtGoals];
 
   const unlockedMilestones: MilestoneProgress[] = [];
 
@@ -229,6 +261,8 @@ export function evaluateProgression(stats: AchievementStats): ProgressionState {
       unlockedMilestones.push(buildTrackMilestone(track, level, stats, true));
     }
   }
+
+  unlockedMilestones.push(...recitation.filter((m) => m.unlocked));
 
   unlockedMilestones.push(
     ...buildClearedDebtMilestones({
@@ -271,7 +305,13 @@ export function syncAchievementIds(
   stats: AchievementStats,
   known: string[],
 ): { synced: string[]; newlyUnlocked: string[] } {
-  const synced = earnedAchievementIds(stats);
+  const earned = earnedAchievementIds(stats);
+  const earnedSet = new Set(earned);
+  // D71: an earned recitation milestone is never pruned — its stats are lifetime
+  // totals, and a deleted practice history or a TV / not-yet-loaded read (no
+  // recitation stats) must not take a badge back. Reset wipes the list itself.
+  const kept = known.filter((id) => isRecitationMilestoneId(id) && !earnedSet.has(id));
+  const synced = kept.length > 0 ? [...earned, ...new Set(kept)] : earned;
   const knownSet = new Set(known);
   const newlyUnlocked = synced.filter((id) => !knownSet.has(id));
   return { synced, newlyUnlocked };
@@ -292,6 +332,10 @@ export function getMilestoneById(
     roza: resolved.rozaDebt,
   });
   if (debt) return debt;
+
+  if (id.startsWith("recitation:")) {
+    return getRecitationMilestoneById(id, resolved.recitation);
+  }
 
   const devotionMatch = /^devotion:(\d+)$/.exec(id);
   if (devotionMatch) {
@@ -321,6 +365,7 @@ function emptyStats(): AchievementStats {
     perfectDays: 0,
     qazaDebt: null,
     rozaDebt: null,
+    recitation: null,
   };
 }
 

@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_SO: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Tiriyaha takbiirka" }],
   },
   {
     title: "Sida loo tukado salaadda Ciidda",

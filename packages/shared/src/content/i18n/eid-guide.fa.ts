@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_FA: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "شمارندهٔ تکبیر" }],
   },
   {
     title: "چگونگی برگزاری نماز عید",

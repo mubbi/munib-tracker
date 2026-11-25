@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_KY: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Такбир эсептегичи" }],
   },
   {
     title: "Айт намазы кантип окулат",

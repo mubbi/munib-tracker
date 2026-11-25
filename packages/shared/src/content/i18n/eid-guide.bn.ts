@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_BN: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "তাকবির কাউন্টার" }],
   },
   {
     title: "ঈদের নামাজ কীভাবে পড়তে হয়",

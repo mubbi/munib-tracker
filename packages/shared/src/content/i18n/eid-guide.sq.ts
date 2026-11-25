@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_SQ: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Numëruesi i tekbirit" }],
   },
   {
     title: "Si të falet namazi i bajramit",

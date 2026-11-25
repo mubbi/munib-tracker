@@ -11,7 +11,7 @@ import type { LearnGuideTopic } from "../types/learn-guide";
  * skips cultural food-tourism content, which has no place in a worship guide.
  * Bump the version when content changes so any cache/test notices.
  */
-export const EID_GUIDE_CONTENT_VERSION = 1;
+export const EID_GUIDE_CONTENT_VERSION = 2;
 
 export const EID_GUIDE_SECTION_ORDER = [
   "fitr",
@@ -80,6 +80,9 @@ export const EID_GUIDE_TOPICS: LearnGuideTopic[] = [
           "These are two days on which the Messenger of Allah ﷺ forbade fasting: the day you break your fast (of Ramadan), and the day on which you eat from your sacrifice.",
       },
     ],
+    // The ten days' takbir counter (Dhul-Hijjah mode, NF-3.3) — the day of Eid is
+    // the tenth; "remember Allah during [the] appointed days" (Qur'an 2:203).
+    appLinks: [{ label: "Takbir counter", route: "/tasbeeh/dhul_hijjah-takbir" }],
   },
   {
     id: "eid-prayer-how-to",

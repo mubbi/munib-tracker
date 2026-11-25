@@ -1575,7 +1575,8 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
     ],
     appLinks: [
       { label: "Post-salah adhkar", route: "/zikr" },
-      { label: "Tasbeeh counter", route: "/tasbeeh/free" },
+      // The guided 33 / 33 / 34 after-salah sequence (not the free counter).
+      { label: "Tasbeeh counter", route: "/tasbeeh/sequence" },
     ],
   },
 ];

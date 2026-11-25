@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_BS: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Brojač tekbira" }],
   },
   {
     title: "Kako se klanja bajram-namaz",

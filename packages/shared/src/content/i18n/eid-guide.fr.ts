@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_FR: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Compteur de takbir" }],
   },
   {
     title: "Comment accomplir la prière de l'Aïd",

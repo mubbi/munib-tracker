@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_ID: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Penghitung takbir" }],
   },
   {
     title: "Cara melaksanakan salat Id",

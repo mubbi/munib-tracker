@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_TK: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Tekbir sanaýjysy" }],
   },
   {
     title: "Baýram namazy nähili okalýar",

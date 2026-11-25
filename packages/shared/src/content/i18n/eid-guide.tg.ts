@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_TG: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Ҳисобкунаки такбир" }],
   },
   {
     title: "Намози ид чӣ тавр гузошта мешавад",

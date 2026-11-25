@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_UZ: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Takbir hisoblagichi" }],
   },
   {
     title: "Hayit namozi qanday o'qiladi",

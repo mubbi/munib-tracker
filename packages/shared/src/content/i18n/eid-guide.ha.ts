@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_HA: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Ma'aunin kabbara" }],
   },
   {
     title: "Yadda za a yi sallar Sallah",

@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_AR: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "عدّاد التكبير" }],
   },
   {
     title: "كيف تُصلّى صلاة العيد",

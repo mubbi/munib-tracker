@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_HI: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "तकबीर काउंटर" }],
   },
   {
     title: "Eid की नमाज़ कैसे पढ़ें",

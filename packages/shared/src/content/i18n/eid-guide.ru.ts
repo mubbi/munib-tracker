@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_RU: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Счётчик такбира" }],
   },
   {
     title: "Как совершать праздничную молитву",

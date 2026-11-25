@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_MS: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "Pembilang takbir" }],
   },
   {
     title: "Cara menunaikan solat Aidilfitri/Aidiladha",

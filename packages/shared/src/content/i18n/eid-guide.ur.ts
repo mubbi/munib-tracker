@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_UR: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "تکبیر کاؤنٹر" }],
   },
   {
     title: "عید کی نماز کیسے پڑھی جائے",

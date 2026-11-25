@@ -25,6 +25,7 @@ export const EID_GUIDE_TOPICS_PS: DeepPartial<LearnGuideTopic>[] = [
     ],
     quran: [{}],
     hadith: [{}],
+    appLinks: [{ label: "د تکبیر شمېرونکی" }],
   },
   {
     title: "د اختر لمونځ څنګه ادا کړو",
