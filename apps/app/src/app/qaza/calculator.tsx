@@ -56,6 +56,8 @@ export default function QazaCalculatorScreen() {
   const [applying, setApplying] = useState(false);
 
   const [currentAge, setCurrentAge] = useState<number | undefined>(undefined);
+  /** The age field was edited (NumberField reports a typed 0 as `undefined`, too). */
+  const [ageTouched, setAgeTouched] = useState(false);
   const [pubertyAge, setPubertyAge] = useState<number | undefined>(undefined);
   const [yearsPrayed, setYearsPrayed] = useState<number | undefined>(undefined);
   const [exemptDays, setExemptDays] = useState<number | undefined>(undefined);
@@ -79,14 +81,15 @@ export default function QazaCalculatorScreen() {
     [currentAge, pubertyAge, yearsPrayed, exemptDays, yearMode],
   );
 
-  // An empty age field is the starting state, not a mistake: show the "enter your age"
-  // prompt instead of a red field error + "check your numbers" warning on first open.
+  // An untouched age field is not an error — the result shows the "enter your age"
+  // prompt instead. (Validating `undefined` as 0 opened the screen with a red field
+  // and a "Check your numbers" callout before anything was typed.) Typing 0 still errors.
   const issues = useMemo(
     () =>
       validateQazaCalculatorInput(input).filter(
-        (issue) => !(issue.code === "needCurrentAge" && currentAge === undefined),
+        (issue) => !(issue.code === "needCurrentAge" && !ageTouched),
       ),
-    [input, currentAge],
+    [input, ageTouched],
   );
   // NumberField reports out-of-range input as typed (and shows the range error),
   // so the bounds are checked here too — an estimate is never built from them.
@@ -155,7 +158,10 @@ export default function QazaCalculatorScreen() {
           style={fieldStyle}
           onSubmitEditing={submitFromKeyboard}
           value={currentAge}
-          onChangeValue={setCurrentAge}
+          onChangeValue={(next) => {
+            setAgeTouched(true);
+            setCurrentAge(next);
+          }}
           maxFractionDigits={0}
           placeholder="30"
           error={fieldError("currentAge")}
