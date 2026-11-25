@@ -88,15 +88,23 @@ internal fun timelineFor(
   val bounds = (adhan + extra.filter { it > nowMs }).distinct().sorted()
   val starts = listOf(nowMs) + bounds
   starts.forEachIndexed { index, entryStart ->
-    // The first entry is valid from the start of time so it shows immediately.
-    val validity = TimelineBuilders.TimeInterval.Builder().setStartMillis(if (index == 0) 0L else entryStart)
-    starts.getOrNull(index + 1)?.let { validity.setEndMillis(it) }
-    timeline.addTimelineEntry(
-      TimelineBuilders.TimelineEntry.Builder()
-        .setValidity(validity.build())
-        .setLayout(LayoutElementBuilders.Layout.Builder().setRoot(layoutAt(entryStart)).build())
-        .build(),
-    )
+    val entry = TimelineBuilders.TimelineEntry.Builder()
+      .setLayout(LayoutElementBuilders.Layout.Builder().setRoot(layoutAt(entryStart)).build())
+    val next = starts.getOrNull(index + 1)
+    // Every entry but the last gets an explicit [start, end) window (the first from the start
+    // of time, so it shows immediately). The last one carries NO validity: it is the default
+    // entry. An interval without an end means "ends at 0" to the tile renderer, so a lone
+    // open-ended entry (unpaired / no Adhan boundaries) was never valid — the watch showed
+    // only the app icon ("inflateLayout called but no valid timelineEntry").
+    if (next != null) {
+      entry.setValidity(
+        TimelineBuilders.TimeInterval.Builder()
+          .setStartMillis(if (index == 0) 0L else entryStart)
+          .setEndMillis(next)
+          .build(),
+      )
+    }
+    timeline.addTimelineEntry(entry.build())
   }
   return timeline.build()
 }
@@ -189,11 +197,10 @@ class MunibWearTileService : TileService() {
       else -> null
     }
     if (snapshot == null || message != null) {
+      val text = message ?: getString(R.string.wear_open_phone)
       return EdgeContentLayout.Builder(device)
-        // Never an empty description: the unpaired fallback with "" failed to inflate on the
-        // Wear OS 4 renderer (tile showed only the app icon). The message doubles as the label.
-        .setEdgeContent(progressRing(0f, message ?: getString(R.string.wear_open_phone)))
-        .setContent(openArea(openApp, message ?: "", tileText(this, message ?: "", Typography.TYPOGRAPHY_BODY1, WearColors.SECONDARY, 3)))
+        .setEdgeContent(progressRing(0f, text))
+        .setContent(fallbackContent(text, device))
         .build()
     }
 
@@ -205,7 +212,7 @@ class MunibWearTileService : TileService() {
       val stale = snapshot.str("staleData", "Open the app to refresh today's times")
       return EdgeContentLayout.Builder(device)
         .setEdgeContent(ring)
-        .setContent(openArea(openApp, stale, tileText(this, stale, Typography.TYPOGRAPHY_BODY1, WearColors.SECONDARY, 3)))
+        .setContent(fallbackContent(stale, device))
         .build()
     }
 
@@ -259,6 +266,23 @@ class MunibWearTileService : TileService() {
     }
     return builder.build()
   }
+
+  /**
+   * Unpaired / location / stale-day body: a short message and an Open chip (the tile's only
+   * clickable), built from the same pieces as the Tasbeeh tile. The earlier clickable box with a
+   * 3-line BODY1 text rendered blank on the Wear OS 4 renderer ("Unknown child type").
+   */
+  private fun fallbackContent(text: String, device: DeviceParameters): LayoutElementBuilders.LayoutElement =
+    LayoutElementBuilders.Column.Builder()
+      .setHorizontalAlignment(LayoutElementBuilders.HORIZONTAL_ALIGN_CENTER)
+      .addContent(tileText(this, text, Typography.TYPOGRAPHY_CAPTION1, WearColors.SECONDARY, 2))
+      .addContent(LayoutElementBuilders.Spacer.Builder().setHeight(dp(6f)).build())
+      .addContent(
+        CompactChip.Builder(this, getString(R.string.wear_open), clickable("open", launchMain(this)), device)
+          .setChipColors(ChipColors(WearColors.ACCENT, WearColors.BACKGROUND))
+          .build(),
+      )
+      .build()
 
   private fun progressRing(progress: Float, description: String): LayoutElementBuilders.LayoutElement =
     CircularProgressIndicator.Builder()
