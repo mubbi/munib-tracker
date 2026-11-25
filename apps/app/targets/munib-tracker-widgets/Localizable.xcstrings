@@ -46,7 +46,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "সালাত চিহ্নিত করুন"
+            "value": "নামাজ চিহ্নিত করুন"
           }
         },
         "bs": {
@@ -76,13 +76,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Salah दर्ज करें"
+            "value": "नमाज़ दर्ज करें"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tandai Salah"
+            "value": "Tandai salat"
           }
         },
         "kk": {
@@ -106,7 +106,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tandai Salah"
+            "value": "Tandakan solat"
           }
         },
         "ps": {
@@ -238,7 +238,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "এখনকার আযকার ও আপনার অগ্রগতি"
+            "value": "এখনকার আজকার ও আপনার অগ্রগতি"
           }
         },
         "bs": {
@@ -274,7 +274,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zikir yang sedang waktunya, dengan progres Anda"
+            "value": "Zikir yang waktunya sekarang, dengan progres Anda"
           }
         },
         "kk": {
@@ -292,13 +292,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Азыркы зикирлер жана сиздин жыйынтык"
+            "value": "Азыр окула турган зикирлер жана жүрүшүңүз"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zikir yang tiba waktunya, dengan kemajuan anda"
+            "value": "Zikir yang perlu dibaca sekarang, dengan kemajuan anda"
           }
         },
         "ps": {
@@ -322,7 +322,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Adhkaret e kësaj kohe, me përparimin tuaj"
+            "value": "Ezkaret e kësaj kohe, me përparimin tuaj"
           }
         },
         "sw": {
@@ -386,7 +386,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "আযকার"
+            "value": "আজকার"
           }
         },
         "bs": {
@@ -470,7 +470,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Adhkaret"
+            "value": "Ezkaret"
           }
         },
         "sw": {
@@ -564,7 +564,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Imam al-Nawawi की चालीस में से आज की hadith"
+            "value": "इमाम नववी की चालीस हदीसों में से आज की हदीस"
           }
         },
         "id": {
@@ -594,7 +594,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hadis hari ini daripada Empat Puluh Imam al-Nawawi"
+            "value": "Hadis hari ini daripada Hadis 40 Imam al-Nawawi"
           }
         },
         "ps": {
@@ -712,7 +712,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "आज की hadith"
+            "value": "आज की हदीस"
           }
         },
         "id": {
@@ -1126,7 +1126,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "শুক্রবারের চেকলিস্ট অগ্রগতি বা জুমআ পর্যন্ত দিন"
+            "value": "শুক্রবারের চেকলিস্টের অগ্রগতি বা জুমা পর্যন্ত বাকি দিন"
           }
         },
         "bs": {
@@ -1156,13 +1156,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुक्रवार चेकलिस्ट प्रगति या Jumu'ah तक दिन"
+            "value": "जुमा की चेकलिस्ट की प्रगति या जुमा तक बचे दिन"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Progres daftar Jumat atau hari hingga Jumat"
+            "value": "Progres daftar Jumat atau hari menuju Jumat"
           }
         },
         "kk": {
@@ -1180,13 +1180,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жума тизмесинин прогресси же Жумага чейинки күндөр"
+            "value": "Жума тизмесинин жүрүшү же Жумага чейинки күндөр"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kemajuan senarai semak Jumaat atau hari hingga Jumaat"
+            "value": "Kemajuan senarai semak Jumaat atau bilangan hari menjelang solat Jumaat"
           }
         },
         "ps": {
@@ -1198,7 +1198,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Прогресс пятничного чек-листа или дни до джума"
+            "value": "Прогресс пятничного чек-листа или сколько дней до джумы"
           }
         },
         "so": {
@@ -1210,7 +1210,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Progresi i listës së së premtes ose ditët deri në xhuma"
+            "value": "Përparimi i listës së xhumasë ose ditët deri në xhuma"
           }
         },
         "sw": {
@@ -1274,7 +1274,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "জুমআ"
+            "value": "জুমা"
           }
         },
         "bs": {
@@ -1422,7 +1422,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "হিজরি ও গ্রেগরিয়ান তারিখ"
+            "value": "হিজরি ও খ্রিস্টীয় তারিখ"
           }
         },
         "bs": {
@@ -1494,7 +1494,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Хиджрийская и григорианская дата"
+            "value": "Дата по хиджре и григорианская дата"
           }
         },
         "so": {
@@ -1748,7 +1748,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Qur'an Khatm योजना प्रगति"
+            "value": "क़ुरआन ख़त्म योजना की प्रगति"
           }
         },
         "id": {
@@ -1772,13 +1772,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Куран хатым планынын прогресси"
+            "value": "Куран хатм планынын жүрүшү"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kemajuan rancangan khatam al-Qur'an"
+            "value": "Kemajuan rancangan khatam al-Quran"
           }
         },
         "ps": {
@@ -1802,7 +1802,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Progresi i planit të hatmes së Kur'anit"
+            "value": "Përparimi i planit të hatmes së Kur'anit"
           }
         },
         "sw": {
@@ -1896,7 +1896,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "ख़तम"
+            "value": "ख़त्म"
           }
         },
         "id": {
@@ -1920,7 +1920,7 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Хатым"
+            "value": "Хатм"
           }
         },
         "ms": {
@@ -2044,13 +2044,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "होम या लॉक स्क्रीन पर अगली Salah का नाम, समय और उलटी गिनती"
+            "value": "होम या लॉक स्क्रीन पर अगली नमाज़ का नाम, समय और उलटी गिनती"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nama doa berikutnya, waktu, dan hitung mundur di layar beranda atau kunci"
+            "value": "Nama, waktu, dan hitungan mundur salat berikutnya di layar beranda atau layar kunci"
           }
         },
         "kk": {
@@ -2068,13 +2068,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Үйдө же кулпу экранында кийинки намаздын аты, убактысы жана артка эсептөө"
+            "value": "Башкы же кулпу экранында кийинки намаздын аты, убактысы жана тескери эсеби"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nama doa, masa dan kira detik seterusnya pada skrin utama atau kunci"
+            "value": "Nama, waktu dan kira detik solat seterusnya pada skrin utama atau skrin kunci"
           }
         },
         "ps": {
@@ -2098,7 +2098,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Emri tjetër i lutjes, koha dhe numërimi mbrapsht në ekranin bazë ose të kyçjes"
+            "value": "Emri i namazit të radhës, koha dhe numërimi mbrapsht në ekranin bazë ose të kyçjes"
           }
         },
         "sw": {
@@ -2162,7 +2162,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · পরবর্তী নামাজ"
+            "value": "পরবর্তী নামাজ"
           }
         },
         "bs": {
@@ -2192,13 +2192,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "अगली Salah"
+            "value": "अगली नमाज़"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pelacak Munib · Doa berikutnya"
+            "value": "Salat berikutnya"
           }
         },
         "kk": {
@@ -2216,13 +2216,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Кийинки намаз"
+            "value": "Кийинки намаз"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Doa seterusnya"
+            "value": "Solat seterusnya"
           }
         },
         "ps": {
@@ -2246,7 +2246,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Lutja e radhës"
+            "value": "Namazi i radhës"
           }
         },
         "sw": {
@@ -2346,7 +2346,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kemajuan shalat wajib hari ini"
+            "value": "Progres salat wajib hari ini"
           }
         },
         "kk": {
@@ -2370,7 +2370,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kemajuan solat fardhu hari ini"
+            "value": "Kemajuan solat fardu hari ini"
           }
         },
         "ps": {
@@ -2394,7 +2394,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vazhdon lutja e detyrueshme e sotme"
+            "value": "Përparimi i sotëm i namazeve farz"
           }
         },
         "sw": {
@@ -2458,7 +2458,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · অগ্রগতি"
+            "value": "অগ্রগতি"
           }
         },
         "bs": {
@@ -2494,7 +2494,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pelacak Munib · Kemajuan"
+            "value": "Progres"
           }
         },
         "kk": {
@@ -2518,7 +2518,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Penjejak Munib · Kemajuan"
+            "value": "Kemajuan"
           }
         },
         "ps": {
@@ -2542,7 +2542,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Progresi"
+            "value": "Përparimi"
           }
         },
         "sw": {
@@ -2636,13 +2636,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "शेष Qaza और आज की अदायगी प्रगति"
+            "value": "बाक़ी क़ज़ा और आज की अदायगी की प्रगति"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Qaza tersisa dan progres qaza hari ini"
+            "value": "Sisa qada dan progres qada hari ini"
           }
         },
         "kk": {
@@ -2660,13 +2660,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Калган каза жана бүгүнкү казанын прогресси"
+            "value": "Калган каза жана бүгүн толукталганы"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Qada berbaki dan kemajuan qada hari ini"
+            "value": "Baki qada dan kemajuan qada hari ini"
           }
         },
         "ps": {
@@ -2678,7 +2678,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Оставшаяся каза и прогресс восполнения сегодня"
+            "value": "Оставшиеся каза-намазы и прогресс восполнения за сегодня"
           }
         },
         "so": {
@@ -2690,7 +2690,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kaza e mbetur dhe progresi i plotësimit të sotëm"
+            "value": "Namazet kaza të mbetura dhe përparimi i sotëm i plotësimit"
           }
         },
         "sw": {
@@ -2902,7 +2902,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "কাবার দিকে কম্পাস কোণ"
+            "value": "কম্পাসে কাবার দিক"
           }
         },
         "bs": {
@@ -2932,7 +2932,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kaaba की ओर कम्पास दिशा"
+            "value": "काबा की ओर कम्पास दिशा"
           }
         },
         "id": {
@@ -2956,7 +2956,7 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Каабага компас бурчу"
+            "value": "Каабага карай компас багыты"
           }
         },
         "ms": {
@@ -2974,7 +2974,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Компасный азимут к Каабе"
+            "value": "Направление по компасу на Каабу"
           }
         },
         "so": {
@@ -3080,7 +3080,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "किबला"
+            "value": "क़िबला"
           }
         },
         "id": {
@@ -3110,7 +3110,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Qiblat"
+            "value": "Kiblat"
           }
         },
         "ps": {
@@ -3198,7 +3198,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "সাহরি ও ইফতারের সময় কাউন্টডাউনসহ"
+            "value": "সেহরি ও ইফতারের সময় কাউন্টডাউনসহ"
           }
         },
         "bs": {
@@ -3228,13 +3228,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Suhoor और iftar समय उलटी गिनती के साथ"
+            "value": "सहरी और इफ़्तार के समय, उलटी गिनती के साथ"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Waktu sahur dan iftar dengan hitungan mundur"
+            "value": "Waktu sahur dan berbuka dengan hitungan mundur"
           }
         },
         "kk": {
@@ -3252,13 +3252,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Оозу ачуу жана ифтар убакыттары тескери эсеп менен"
+            "value": "Ооз бекитүү жана ооз ачуу убакыттары, тескери эсеби менен"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Waktu sahur dan iftar dengan kiraan undur"
+            "value": "Waktu sahur dan berbuka puasa dengan kira detik"
           }
         },
         "ps": {
@@ -3530,7 +3530,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sekilas waktu sholat wajib hari ini"
+            "value": "Sekilas waktu salat wajib hari ini"
           }
         },
         "kk": {
@@ -3548,13 +3548,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бүгүнкү парз намаз убакыттары бир карап"
+            "value": "Бүгүнкү парз намаз убакыттары бир караганда"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sekilas pandang waktu solat fardhu hari ini"
+            "value": "Sekilas pandang waktu solat fardu hari ini"
           }
         },
         "ps": {
@@ -3566,7 +3566,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обязательные времена намаза на сегодня одним взглядом"
+            "value": "Время обязательных намазов на сегодня — с первого взгляда"
           }
         },
         "so": {
@@ -3578,7 +3578,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kohët e detyrueshme të namazit të sotëm me një shikim"
+            "value": "Kohët e namazeve farz të sotme me një shikim"
           }
         },
         "sw": {
@@ -3642,7 +3642,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · সময়সূচি"
+            "value": "সময়সূচি"
           }
         },
         "bs": {
@@ -3678,7 +3678,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pelacak Munib · Jadwal"
+            "value": "Jadwal"
           }
         },
         "kk": {
@@ -3696,13 +3696,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · График"
+            "value": "Күн тартиби"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Jadual"
+            "value": "Jadual"
           }
         },
         "ps": {
@@ -3726,7 +3726,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Munib Tracker · Orari"
+            "value": "Orari"
           }
         },
         "sw": {
@@ -3790,7 +3790,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "বর্তমান ফরজ সালাতের ধারা"
+            "value": "ফরজ নামাজের বর্তমান ধারাবাহিকতা"
           }
         },
         "bs": {
@@ -3826,7 +3826,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rentetan Salah wajib saat ini"
+            "value": "Rentetan salat wajib saat ini"
           }
         },
         "kk": {
@@ -3844,13 +3844,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Учурдагы парз намаз сериясы"
+            "value": "Парз намаздардын учурдагы катары"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rentetan Salah wajib semasa"
+            "value": "Rentetan solat fardu semasa"
           }
         },
         "ps": {
@@ -3938,7 +3938,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "ধারা"
+            "value": "ধারাবাহিকতা"
           }
         },
         "bs": {
@@ -3968,7 +3968,7 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "लकीर"
+            "value": "सिलसिला"
           }
         },
         "id": {
@@ -3992,7 +3992,7 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Серия"
+            "value": "Катар"
           }
         },
         "ms": {
@@ -4022,7 +4022,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Seri"
+            "value": "Seria"
           }
         },
         "sw": {
@@ -4086,7 +4086,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "আজকের কাস্টম তাসবীহ কাউন্টারের অগ্রগতি"
+            "value": "আজকের কাস্টম তাসবিহ কাউন্টারের অগ্রগতি"
           }
         },
         "bs": {
@@ -4116,13 +4116,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "आज के अनुकूल tasbeeh काउंटर की प्रगति"
+            "value": "आज के अपने तस्बीह काउंटर की प्रगति"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Progres penghitung tasbeeh khusus hari ini"
+            "value": "Progres penghitung tasbih khusus hari ini"
           }
         },
         "kk": {
@@ -4140,13 +4140,13 @@
         "ky": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бүгүнкү ыңгайлаштырылган тасбих эсептегичинин прогресси"
+            "value": "Бүгүнкү жеке тасбих эсептегичинин жүрүшү"
           }
         },
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kemajuan kaunter tasbeeh tersuai hari ini"
+            "value": "Kemajuan pembilang tasbih tersuai hari ini"
           }
         },
         "ps": {
@@ -4158,7 +4158,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Прогресс пользовательского счётчика тасбиха за сегодня"
+            "value": "Прогресс вашего счётчика тасбиха за сегодня"
           }
         },
         "so": {
@@ -4170,7 +4170,7 @@
         "sq": {
           "stringUnit": {
             "state": "translated",
-            "value": "Progresi i numëruesit të personalizuar të tesbihut për sot"
+            "value": "Përparimi i sotëm i numëruesit të personalizuar të tesbihut"
           }
         },
         "sw": {
@@ -4234,7 +4234,7 @@
         "bn": {
           "stringUnit": {
             "state": "translated",
-            "value": "তাসবীহ"
+            "value": "তাসবিহ"
           }
         },
         "bs": {
