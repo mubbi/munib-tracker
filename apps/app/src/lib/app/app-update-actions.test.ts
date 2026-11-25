@@ -57,6 +57,38 @@ describe("resolveStoreUrl", () => {
       expect(resolveStoreUrl(buildAppVersionMeta())).toBeNull();
     });
   });
+
+  describe("on Android TV", () => {
+    usePlatform({ OS: "android", isTV: true, constants: { Manufacturer: "Google", Model: "G" } });
+
+    it("opens the Play Store app instead of a web listing", () => {
+      mockExpoConstants.expoConfig = { android: { package: "app.munib" } };
+      const storeUrl = "https://play.google.com/store/apps/details?id=app.munib";
+      expect(resolveStoreUrl(buildAppVersionMeta({ storeUrl }))).toBe(
+        "market://details?id=app.munib",
+      );
+    });
+
+    it("returns null without a package", () => {
+      expect(resolveStoreUrl(buildAppVersionMeta())).toBeNull();
+    });
+  });
+
+  describe("on Fire TV", () => {
+    usePlatform({
+      OS: "android",
+      isTV: true,
+      constants: { Manufacturer: "Amazon", Model: "AFTKA" },
+    });
+
+    it("links to the Amazon Appstore (Fire TV has no Play Store)", () => {
+      mockExpoConstants.expoConfig = { android: { package: "app.munib" } };
+      const storeUrl = "https://play.google.com/store/apps/details?id=app.munib";
+      expect(resolveStoreUrl(buildAppVersionMeta({ storeUrl }))).toBe(
+        "amzn://apps/android?p=app.munib",
+      );
+    });
+  });
 });
 
 describe("performAppUpdate", () => {

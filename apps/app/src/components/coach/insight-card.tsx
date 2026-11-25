@@ -10,6 +10,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -54,9 +55,12 @@ export function CoachInsightCard({
   const href = isCoachActionAvailable(insight, tv) ? coachActionHref(insight) : null;
   const evidence = insight.evidenceRef ? coachEvidenceRef(insight.evidenceRef) : null;
   const tint = insight.kind === "celebrate" ? colors.accent : tokens.status.info.color;
+  // TV: an insight with no link / action would have no D-pad stop, so the
+  // scroller could skip it. Make the copy a reading stop in that case only.
+  const readOnlyOnTv = tv && !evidence && !(href && insight.action);
 
-  return (
-    <Card padding="three" accessibilityLabel={`${title}. ${body}`}>
+  const copy = (
+    <>
       <View style={styles.row}>
         <IconWell icon={KIND_ICON[insight.kind]} tint={tint} background={tokens.accentSoft} />
         <View style={styles.copy}>
@@ -69,6 +73,16 @@ export function CoachInsightCard({
       <ThemedText type="small" style={styles.body}>
         {body}
       </ThemedText>
+    </>
+  );
+
+  return (
+    <Card padding="three" accessibilityLabel={`${title}. ${body}`}>
+      {readOnlyOnTv ? (
+        <TvReadableBlock accessibilityLabel={`${title}. ${body}`}>{copy}</TvReadableBlock>
+      ) : (
+        copy
+      )}
       {evidence ? (
         <ContentInlineLink
           label={t(evidence.labelKey)}

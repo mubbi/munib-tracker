@@ -1,6 +1,7 @@
 /**
  * When EXPO_TV=1, pass `exclude:` to `use_expo_modules!` so phone-only Expo
- * modules are not linked into the tvOS Podfile.
+ * modules are not linked into the tvOS Podfile. On phone builds the same patch
+ * excludes the TV-only modules (TV_ONLY_PACKAGES, e.g. munib-tv-home).
  *
  * Needed because some packages (notably expo-quick-actions) declare `:tvos` in
  * their podspec even though their APIs are unavailable on tvOS — Expo's
@@ -19,16 +20,13 @@ const {
   withDangerousMod,
   withSettingsGradle,
 } = require("@expo/config-plugins");
-const {
-  TV_EXCLUDED_PACKAGES: TV_EXPO_MODULE_EXCLUDES,
-  isTvEnv,
-} = require("./tvExcludedPackages.cjs");
+const { autolinkingExcludes } = require("./tvExcludedPackages.cjs");
 
-function withTvAndroidExpoModuleExcludes(config) {
+function withTvAndroidExpoModuleExcludes(config, excludes) {
   return withSettingsGradle(config, (cfg) => {
     const marker = "expoAutolinking.exclude =";
     if (cfg.modResults.contents.includes(marker)) return cfg;
-    const list = TV_EXPO_MODULE_EXCLUDES.map((name) => `'${name}'`).join(", ");
+    const list = excludes.map((name) => `'${name}'`).join(", ");
     if (!cfg.modResults.contents.includes("expoAutolinking.useExpoModules()")) {
       throw new Error(
         "withTvExpoModuleExcludes: settings.gradle has no expoAutolinking.useExpoModules()",
@@ -44,9 +42,10 @@ expoAutolinking.useExpoModules()`,
 }
 
 function withTvExpoModuleExcludes(config) {
-  if (!isTvEnv()) return config;
+  const excludes = autolinkingExcludes();
+  if (excludes.length === 0) return config;
 
-  config = withTvAndroidExpoModuleExcludes(config);
+  config = withTvAndroidExpoModuleExcludes(config, excludes);
 
   return withDangerousMod(config, [
     "ios",
@@ -60,7 +59,7 @@ function withTvExpoModuleExcludes(config) {
         return cfg;
       }
 
-      const excludeList = TV_EXPO_MODULE_EXCLUDES.map((name) => `'${name}'`).join(", ");
+      const excludeList = excludes.map((name) => `'${name}'`).join(", ");
       if (!contents.includes("use_expo_modules!")) {
         throw new Error("withTvExpoModuleExcludes: Podfile has no use_expo_modules! to patch");
       }

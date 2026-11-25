@@ -1,6 +1,8 @@
 import type { Href } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
 
+import { isTV } from "@/lib/platform/is-tv";
+
 /**
  * In-app feature tours (NF-2.24) — a step-through guide to the app's main areas,
  * beyond the one-time onboarding intro. Each step is data only; titles/bodies are
@@ -12,6 +14,11 @@ export interface FeatureTourStep {
   icon: SymbolViewProps["name"];
   /** Optional deep-link the "Go there" action opens. */
   route?: Href;
+  /**
+   * Needs the on-device microphone listener (practice, recite-to-find,
+   * hands-free tasbeeh): left out on TV, which has no microphone path.
+   */
+  phoneOnly?: boolean;
 }
 
 export interface FeatureTour {
@@ -88,6 +95,27 @@ export const EXPLORE_TOUR: FeatureTour = {
       id: "quranRoots",
       icon: { ios: "character.book.closed.fill", android: "translate", web: "translate" },
       route: "/quran/search?mode=root" as Href,
+    },
+    {
+      // D68: recite with the on-device listener — follow, check, revise due ayahs.
+      id: "quranPractice",
+      icon: { ios: "mic.fill", android: "mic", web: "mic" },
+      route: "/quran/practice" as Href,
+      phoneOnly: true,
+    },
+    {
+      // D68: recite a few words to find the ayah (verse detector, Recite mode).
+      id: "reciteToFind",
+      icon: { ios: "waveform", android: "graphic_eq", web: "graphic_eq" },
+      route: "/verse-detector?mode=recite" as Href,
+      phoneOnly: true,
+    },
+    {
+      // D69: after-Salah 33 · 33 · 34 that counts hands-free and moves on by itself.
+      id: "handsFreeSequence",
+      icon: { ios: "circle.dotted", android: "radio_button_checked", web: "radio_button_checked" },
+      route: "/tasbeeh/sequence" as Href,
+      phoneOnly: true,
     },
     {
       // NF-3.2: voluntary fasting — Mon/Thu, Arafah, Ashura, Shawwal six + days not to fast.
@@ -182,6 +210,13 @@ export const JANNAH_TOUR: FeatureTour = {
 
 export const FEATURE_TOURS: FeatureTour[] = [EXPLORE_TOUR, JANNAH_TOUR];
 
+/** The tour as this device shows it: TV drops the `phoneOnly` (microphone) stops. */
+export function tourForDevice(tour: FeatureTour, tv: boolean = isTV()): FeatureTour {
+  if (!tv || !tour.steps.some((step) => step.phoneOnly)) return tour;
+  return { ...tour, steps: tour.steps.filter((step) => !step.phoneOnly) };
+}
+
 export function getFeatureTour(id: string): FeatureTour | undefined {
-  return FEATURE_TOURS.find((tour) => tour.id === id);
+  const tour = FEATURE_TOURS.find((t) => t.id === id);
+  return tour ? tourForDevice(tour) : undefined;
 }

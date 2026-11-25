@@ -52,9 +52,24 @@ const TV_EXCLUDED_PACKAGES = [
   "munib-nearby",
 ];
 
+/**
+ * The reverse: native modules that exist only for Apple TV / Android TV and must not
+ * link into phone builds (their JS bridge uses `requireOptionalNativeModule`).
+ */
+const TV_ONLY_PACKAGES = [
+  // Android TV launcher channel + RecognizerIntent voice prompt; tvOS Top Shelf bridge.
+  // Its WRITE_EPG_DATA / BOOT_COMPLETED permissions and tvprovider dependency are TV-only.
+  "munib-tv-home",
+];
+
 function isTvEnv() {
   const v = process.env.EXPO_TV?.trim();
   return v === "1" || v === "true" || v === "True";
 }
 
-module.exports = { TV_EXCLUDED_PACKAGES, isTvEnv };
+/** Packages to keep out of the current build's autolinking (TV or phone). */
+function autolinkingExcludes(tv = isTvEnv()) {
+  return tv ? TV_EXCLUDED_PACKAGES : TV_ONLY_PACKAGES;
+}
+
+module.exports = { TV_EXCLUDED_PACKAGES, TV_ONLY_PACKAGES, autolinkingExcludes, isTvEnv };

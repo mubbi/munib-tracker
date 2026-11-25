@@ -2,8 +2,13 @@ import { act, fireEvent, screen } from "@testing-library/react-native";
 import type { ViewStyle } from "react-native";
 
 import { WideAppTabs } from "@/components/app-tabs-wide";
-import { isTvRailExpanded, tryExpandTvRailOnBack } from "@/lib/tv/tv-rail-back";
+import {
+  isTvBackAtSystemRoot,
+  isTvRailExpanded,
+  tryExpandTvRailOnBack,
+} from "@/lib/tv/tv-rail-back";
 import { pressableProps } from "@/test-support/fiber";
+import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import {
   mockTabNavigate,
   resetExpoRouterUiMock,
@@ -15,6 +20,7 @@ import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
 jest.mock("expo-router/ui", () => require("@/test-support/mocks/expo-router-ui").expoRouterUiMock);
+jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 
 const LABELS = ["Home", "Tracker", "Library", "Settings"];
 
@@ -28,7 +34,10 @@ const tabStyle = (label: string, state: { pressed?: boolean; focused?: boolean }
     }),
   );
 
-beforeEach(resetExpoRouterUiMock);
+beforeEach(() => {
+  resetExpoRouterUiMock();
+  resetExpoRouterMock();
+});
 
 describe("WideAppTabs", () => {
   it("lists every tab with its label", async () => {
@@ -65,6 +74,12 @@ describe("WideAppTabs", () => {
     await fireEvent(tab("Home"), "blur");
 
     expect(screen.getByText("Home")).toBeTruthy();
+  });
+
+  it("keeps Search out of the tablet / web rail (it has its own entry point)", async () => {
+    await renderTabs();
+
+    expect(screen.queryByRole("button", { name: "Search" })).toBeNull();
   });
 });
 
@@ -134,11 +149,36 @@ describe("WideAppTabs on TV", () => {
     expect(tab("Home").props.hasTVPreferredFocus).toBe(true);
   });
 
-  it("lets Back fall through to the system once the rail is open", async () => {
+  it("lets Back fall through to the system once the rail is open on Home", async () => {
     await renderTabs();
     await fireEvent(tab("Home"), "focus");
 
+    expect(isTvBackAtSystemRoot()).toBe(true);
     expect(tryExpandTvRailOnBack()).toBe(false);
+  });
+
+  it("returns to the Home tab before exiting from another tab", async () => {
+    setMockActiveTab("library");
+    await renderTabs();
+    await fireEvent(tab("Library"), "focus");
+
+    expect(isTvBackAtSystemRoot()).toBe(false);
+    let handled = false;
+    await act(async () => {
+      handled = tryExpandTvRailOnBack();
+    });
+
+    expect(handled).toBe(true);
+    expect(mockRouter.navigate).toHaveBeenCalledWith("/");
+  });
+
+  it("offers Search as the first rail entry", async () => {
+    await renderTabs();
+    const search = screen.getByRole("button", { name: "Search" });
+
+    await fireEvent.press(search);
+
+    expect(mockRouter.push).toHaveBeenCalledWith("/search");
   });
 
   it("draws an accent focus ring on the D-pad focused tab", async () => {

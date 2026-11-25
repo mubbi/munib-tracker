@@ -23,6 +23,7 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useCoachReport } from "@/hooks/use-coach-report";
 import { coachCopyParams, coachDateLabel, coachGoalLabel } from "@/lib/coach/coach-ui";
@@ -120,49 +121,56 @@ function CoachContent() {
 
   return (
     <View style={styles.stack}>
+      {/* TV: read-only cards are D-pad reading stops (TV scrollers aren't focusable). */}
       {report.mode === "quiet" ? (
-        <EmptyState
-          icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-          title={t("coach.quiet.title")}
-          description={t("coach.quiet.body")}
-        />
+        <TvReadableBlock>
+          <EmptyState
+            icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+            title={t("coach.quiet.title")}
+            description={t("coach.quiet.body")}
+          />
+        </TvReadableBlock>
       ) : null}
 
       {report.mode === "normal" ? (
-        <Card padding="three">
-          <SectionHeader
-            title={t("coach.summary.title")}
-            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-          />
-          <View style={styles.list}>
-            <GlanceRow
-              label={t("coach.summary.salah")}
-              value={t("coach.summary.ofTotal", { done: totals.onTime, total: totals.days })}
+        <TvReadableBlock>
+          <Card padding="three">
+            <SectionHeader
+              title={t("coach.summary.title")}
+              icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
             />
-            <GlanceRow label={t("coach.summary.perfect")} value={week.perfectDays} />
-            <GlanceRow label={t("coach.summary.quran")} value={week.quranDays} />
-            <GlanceRow label={t("coach.summary.adhkar")} value={week.adhkarDays} />
-            {context.qaza ? (
-              <GlanceRow label={t("coach.summary.qaza")} value={context.qaza.madeUpThisWeek} />
-            ) : null}
-          </View>
-        </Card>
+            <View style={styles.list}>
+              <GlanceRow
+                label={t("coach.summary.salah")}
+                value={t("coach.summary.ofTotal", { done: totals.onTime, total: totals.days })}
+              />
+              <GlanceRow label={t("coach.summary.perfect")} value={week.perfectDays} />
+              <GlanceRow label={t("coach.summary.quran")} value={week.quranDays} />
+              <GlanceRow label={t("coach.summary.adhkar")} value={week.adhkarDays} />
+              {context.qaza ? (
+                <GlanceRow label={t("coach.summary.qaza")} value={context.qaza.madeUpThisWeek} />
+              ) : null}
+            </View>
+          </Card>
+        </TvReadableBlock>
       ) : null}
 
       {report.lastGoal ? (
-        <Card padding="three">
-          <SectionHeader
-            title={t("coach.goal.last.title")}
-            subtitle={coachGoalLabel(report.lastGoal.goal, t)}
-            icon={{ ios: "flag.fill", android: "flag", web: "flag" }}
-          />
-          <ThemedText type="small" style={styles.list}>
-            {t(report.lastGoal.met ? "coach.goal.last.met" : "coach.goal.last.progress", {
-              value: report.lastGoal.value,
-              target: report.lastGoal.goal.target,
-            })}
-          </ThemedText>
-        </Card>
+        <TvReadableBlock>
+          <Card padding="three">
+            <SectionHeader
+              title={t("coach.goal.last.title")}
+              subtitle={coachGoalLabel(report.lastGoal.goal, t)}
+              icon={{ ios: "flag.fill", android: "flag", web: "flag" }}
+            />
+            <ThemedText type="small" style={styles.list}>
+              {t(report.lastGoal.met ? "coach.goal.last.met" : "coach.goal.last.progress", {
+                value: report.lastGoal.value,
+                target: report.lastGoal.goal.target,
+              })}
+            </ThemedText>
+          </Card>
+        </TvReadableBlock>
       ) : null}
 
       {report.insights.map((insight) => (
@@ -177,34 +185,39 @@ function CoachContent() {
         />
       ))}
 
+      {/* Off TV this is a fragment (the Accept button stays reachable); TV hides the button. */}
       {report.microGoal ? (
-        <Card padding="three">
-          <SectionHeader
-            title={t("coach.goal.title")}
-            subtitle={coachGoalLabel(report.microGoal, t)}
-            icon={{ ios: "target", android: "track_changes", web: "track_changes" }}
-          />
-          {acceptedForNext ? (
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.list}>
-              {t("coach.goal.accepted", { date: nextDate })}
-            </ThemedText>
-          ) : tv ? null : (
-            <View style={styles.list}>
-              <Button
-                label={t("coach.goal.accept")}
-                onPress={() => {
-                  const goal = report.microGoal;
-                  if (goal) apply((h) => acceptCoachGoal(h, goal, window.reportDate, nowIso()));
-                }}
-              />
-            </View>
-          )}
-        </Card>
+        <TvReadableBlock>
+          <Card padding="three">
+            <SectionHeader
+              title={t("coach.goal.title")}
+              subtitle={coachGoalLabel(report.microGoal, t)}
+              icon={{ ios: "target", android: "track_changes", web: "track_changes" }}
+            />
+            {acceptedForNext ? (
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.list}>
+                {t("coach.goal.accepted", { date: nextDate })}
+              </ThemedText>
+            ) : tv ? null : (
+              <View style={styles.list}>
+                <Button
+                  label={t("coach.goal.accept")}
+                  onPress={() => {
+                    const goal = report.microGoal;
+                    if (goal) apply((h) => acceptCoachGoal(h, goal, window.reportDate, nowIso()));
+                  }}
+                />
+              </View>
+            )}
+          </Card>
+        </TvReadableBlock>
       ) : null}
 
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {t("coach.next", { date: nextDate })}
-      </ThemedText>
+      <TvReadableBlock>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("coach.next", { date: nextDate })}
+        </ThemedText>
+      </TvReadableBlock>
 
       {!tv && history.dismissedRules.length > 0 ? (
         <Button
@@ -216,12 +229,14 @@ function CoachContent() {
 
       {tv ? null : <CoachSettingsCard />}
 
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {t("coach.privacy")}
-      </ThemedText>
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {t("coach.disclaimer")}
-      </ThemedText>
+      <TvReadableBlock style={styles.footnotes}>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("coach.privacy")}
+        </ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("coach.disclaimer")}
+        </ThemedText>
+      </TvReadableBlock>
     </View>
   );
 }
@@ -249,6 +264,8 @@ export default function CoachScreen() {
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
+  /** TV only — off TV the reading block is a fragment and `stack` spaces these. */
+  footnotes: { gap: Spacing.three },
   list: { gap: Spacing.two, marginTop: Spacing.two },
   glanceRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },

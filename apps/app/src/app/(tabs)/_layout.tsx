@@ -7,14 +7,15 @@ import { isTV } from "@/lib/platform/is-tv";
 /**
  * Home-screen app-icon quick actions (NF-1.30) and widget snapshot sync (NF-1.18).
  * Quick-action routing lives here (sub-layout) so cold-start shortcuts navigate correctly.
- * Skipped on TV — no home-screen widgets / icon shortcuts on Apple TV / Android TV.
+ * Quick actions are skipped on TV; the snapshot sync runs there too and feeds the
+ * Android TV launcher row / Apple TV Top Shelf instead of widgets.
  */
 export default function TabsLayout() {
   const tv = isTV();
   // Any tab (incl. /tracker from prayer notifications) counts as first paint.
   useMarkColdStartReady();
   useAppQuickActions(!tv);
-  useWidgetSnapshotSync(!tv);
+  useWidgetSnapshotSync();
 
   return <AppTabs />;
 }

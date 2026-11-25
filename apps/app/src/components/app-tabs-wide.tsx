@@ -5,6 +5,7 @@
  * strong D-pad focus states.
  */
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import {
   TabList,
   type TabListProps,
@@ -14,7 +15,7 @@ import {
   type TabTriggerSlotProps,
 } from "expo-router/ui";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { type Ref, useCallback, useEffect, useRef, useState } from "react";
+import { type ReactNode, type Ref, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   findNodeHandle,
@@ -28,13 +29,18 @@ import {
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { SIDE_RAIL_WIDTH } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { isTV } from "@/lib/platform/is-tv";
-import { registerTvRailBackHandler, setTvRailExpanded } from "@/lib/tv/tv-rail-back";
+import {
+  registerTvRailBackHandler,
+  setTvOnHomeTab,
+  setTvRailExpanded,
+} from "@/lib/tv/tv-rail-back";
 import { ThemedText } from "./themed-text";
 
 type TabConfig = {
@@ -71,6 +77,17 @@ const tabs: TabConfig[] = [
   },
 ];
 
+/**
+ * TV-only rail entry that opens universal search. Android TV's navigation drawer
+ * and the tvOS tab bar both keep Search as a top-level destination; on TV the
+ * home top-bar search button is otherwise a long D-pad trip away.
+ */
+const TV_SEARCH_ICON: SymbolViewProps["name"] = {
+  ios: "magnifyingglass",
+  android: "search",
+  web: "search",
+};
+
 const RAIL_COLLAPSE_MS = 160;
 const RAIL_BLUR_COLLAPSE_MS = 180;
 
@@ -89,6 +106,10 @@ type WideTabButtonProps = Omit<TabTriggerSlotProps, "ref"> & {
   preferRailFocus?: boolean;
   /** TV: D-pad right leaves the rail into the main content guide. */
   nextFocusRightTarget?: ViewInstance | null;
+  /** Called while this tab is the selected one (TV back ladder bookkeeping). */
+  onSelected?: () => void;
+  /** Non-tab rail actions (TV Search) render as a plain button. */
+  role?: "tab" | "button";
 };
 
 function WideTabButton({
@@ -100,12 +121,18 @@ function WideTabButton({
   onRailFocusChange,
   preferRailFocus,
   nextFocusRightTarget,
+  onSelected,
+  role = "tab",
   ref,
   ...props
 }: WideTabButtonProps) {
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
   const selectedTint = isFocused ? colors.accent : colors.mutedForeground;
+
+  useEffect(() => {
+    if (isFocused) onSelected?.();
+  }, [isFocused, onSelected]);
 
   const handlePress: TabTriggerSlotProps["onPress"] = (event) => {
     if (Platform.OS === "web") blurActiveElement();
@@ -116,8 +143,8 @@ function WideTabButton({
     <Pressable
       {...props}
       ref={ref}
-      accessibilityRole="tab"
-      accessibilityState={{ selected: isFocused }}
+      accessibilityRole={role}
+      {...(role === "tab" ? { accessibilityState: { selected: Boolean(isFocused) } } : null)}
       accessibilityLabel={label}
       onPress={handlePress}
       {...(tv && preferRailFocus && isFocused ? { hasTVPreferredFocus: true } : {})}
@@ -156,7 +183,7 @@ function WideTabButton({
           isFocused && { backgroundColor: tokens.accentSoft },
           isFocused &&
             tv && {
-              borderStartWidth: 4,
+              borderStartWidth: tvDp(4),
               borderStartColor: colors.accent,
             },
         ]}
@@ -191,9 +218,11 @@ function WideTabButton({
 
 type SideRailProps = TabListProps & {
   expanded: boolean;
+  /** TV: extra rail entries above the tab triggers (Search). */
+  leading?: ReactNode;
 };
 
-function SideRail({ expanded, style, children, ...props }: SideRailProps) {
+function SideRail({ expanded, leading, style, children, ...props }: SideRailProps) {
   const insets = useAppSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -257,7 +286,12 @@ function SideRail({ expanded, style, children, ...props }: SideRailProps) {
     </View>
   );
 
-  const list = <View style={[styles.railList, tv && styles.railListTv]}>{children}</View>;
+  const list = (
+    <View style={[styles.railList, tv && styles.railListTv]}>
+      {leading}
+      {children}
+    </View>
+  );
 
   if (tv) {
     // Compose-for-TV "modal navigation drawer": the rail always reserves only its
@@ -314,10 +348,13 @@ function SideRail({ expanded, style, children, ...props }: SideRailProps) {
 export function WideAppTabs() {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const router = useRouter();
   const tv = isTV();
   // TV starts collapsed: initial focus lands in content (Continue card / hero),
   // and the first Back press reveals the rail (Leanback pattern).
   const [railExpanded, setRailExpanded] = useState(!tv);
+  const [activeTab, setActiveTab] = useState("index");
+  const onHomeTab = activeTab === "index";
   const [preferRailFocus, setPreferRailFocus] = useState(false);
   const collapseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const contentGuideRef = useRef<ViewInstance>(null);
@@ -355,6 +392,17 @@ export function WideAppTabs() {
     if (tv) setTvRailExpanded(railExpanded);
   }, [tv, railExpanded]);
 
+  useEffect(() => {
+    if (!tv) return;
+    setTvOnHomeTab(onHomeTab);
+  }, [tv, onHomeTab]);
+
+  // Unmounted rail (onboarding, sign-in) must not block Back from reaching the system.
+  useEffect(() => {
+    if (!tv) return;
+    return () => setTvOnHomeTab(true);
+  }, [tv]);
+
   // Scrim over content while the drawer is open (opacity only — no layout work).
   const scrim = useSharedValue(0);
   useEffect(() => {
@@ -370,19 +418,44 @@ export function WideAppTabs() {
     }
 
     registerTvRailBackHandler(() => {
-      if (railExpanded) return false;
-      setPreferRailFocus(true);
-      setRailExpanded(true);
-      return true;
+      if (!railExpanded) {
+        setPreferRailFocus(true);
+        setRailExpanded(true);
+        return true;
+      }
+      // Rail open on Tracker / Library / Settings → Home first, so Home is the
+      // last screen before the launcher (Android TV) / the parent (tvOS HIG).
+      if (!onHomeTab) {
+        router.navigate("/");
+        setPreferRailFocus(true);
+        return true;
+      }
+      return false;
     });
 
     return () => registerTvRailBackHandler(null);
-  }, [tv, railExpanded]);
+  }, [tv, railExpanded, onHomeTab, router]);
 
   return (
     <Tabs style={[styles.wideRoot, { backgroundColor: colors.background }]}>
       <TabList asChild>
-        <SideRail expanded={!tv || railExpanded}>
+        <SideRail
+          expanded={!tv || railExpanded}
+          leading={
+            tv ? (
+              <WideTabButton
+                role="button"
+                icon={TV_SEARCH_ICON}
+                label={t("common.search")}
+                isFocused={false}
+                onPress={() => router.push("/search")}
+                expanded={railExpanded}
+                onRailFocusChange={onRailFocusChange}
+                nextFocusRightTarget={contentFocusTarget}
+              />
+            ) : null
+          }
+        >
           {tabs.map((tab) => (
             <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
               <WideTabButton
@@ -392,6 +465,7 @@ export function WideAppTabs() {
                 onRailFocusChange={onRailFocusChange}
                 preferRailFocus={preferRailFocus}
                 nextFocusRightTarget={contentFocusTarget}
+                onSelected={tv ? () => setActiveTab(tab.name) : undefined}
               />
             </TabTrigger>
           ))}
@@ -473,7 +547,7 @@ const styles = StyleSheet.create({
     minHeight: 52,
   },
   brandRowTv: {
-    minHeight: 72,
+    minHeight: tvDp(72),
     marginBottom: Spacing.five,
   },
   brandRowCollapsed: {
@@ -486,13 +560,13 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
   },
   brandLogoTv: {
-    width: 56,
-    height: 56,
+    width: tvDp(56),
+    height: tvDp(56),
     borderRadius: Radius.lg,
   },
   brandLogoTvCollapsed: {
-    width: 64,
-    height: 64,
+    width: tvDp(64),
+    height: tvDp(64),
   },
   brandCopy: {
     flex: 1,
@@ -534,8 +608,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   railIconWellTv: {
-    width: 44,
-    height: 44,
+    width: tvDp(44),
+    height: tvDp(44),
     borderRadius: Radius.md,
     alignItems: "center",
     justifyContent: "center",

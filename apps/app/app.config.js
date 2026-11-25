@@ -14,6 +14,7 @@ const {
   FOCUS_LOCK_TARGET_GLOB,
   isHardIosEnabled: isFocusLockHardIosEnabled,
 } = require("./modules/munib-focus-lock/app.plugin.js");
+const { isTopShelfEnabled } = require("./plugins/withTvTopShelf.cjs");
 
 loadAppEnv(__dirname);
 
@@ -112,6 +113,17 @@ const TV_BLOCKED_ANDROID_PERMISSIONS = [
   "android.permission.BLUETOOTH_CONNECT",
   // Precise Adhan timing (exact alarms) is a phone-only setting.
   "android.permission.SCHEDULE_EXACT_ALARM",
+  // Amazon Fire TV test criteria, group 1: TV apps must not request phone / SMS /
+  // wallpaper capabilities. None are used; block them in case a library adds one.
+  "android.permission.READ_PHONE_STATE",
+  "android.permission.CALL_PHONE",
+  "android.permission.CALL_PRIVILEGED",
+  "android.permission.MODIFY_PHONE_STATE",
+  "android.permission.READ_SMS",
+  "android.permission.RECEIVE_SMS",
+  "android.permission.SEND_SMS",
+  "android.permission.WRITE_SMS",
+  "android.permission.SET_WALLPAPER",
 ];
 
 /**
@@ -234,10 +246,25 @@ module.exports = ({ config }) => {
     },
   ];
 
-  /** Patch Podfile `use_expo_modules!(exclude: …)` — see plugins/withTvExpoModuleExcludes.cjs. */
-  const tvExpoModuleExcludesPlugin = tvPrebuild ? ["./plugins/withTvExpoModuleExcludes.cjs"] : [];
+  /**
+   * Patch Podfile `use_expo_modules!(exclude: …)` + settings.gradle — phone-only modules
+   * on TV builds, TV-only modules (munib-tv-home) on phone builds.
+   * See plugins/withTvExpoModuleExcludes.cjs.
+   */
+  const tvExpoModuleExcludesPlugin = ["./plugins/withTvExpoModuleExcludes.cjs"];
   /** Nil-safe Fabric third-party registry — see plugins/withTvNilSafeFabricComponents.cjs. */
   const tvNilSafeFabricPlugin = tvPrebuild ? ["./plugins/withTvNilSafeFabricComponents.cjs"] : [];
+  /** Leanback MainActivity configChanges + TV-absent hardware → optional. */
+  const tvAndroidManifestPlugin = tvPrebuild ? ["./plugins/withTvAndroidManifest.cjs"] : [];
+  /**
+   * Apple TV dynamic Top Shelf extension — opt-in (EXPO_TVOS_TOP_SHELF=1) because it
+   * needs its own App ID + tvOS provisioning profile with the App Group (docs/TV.md).
+   * Without it the static Top Shelf image from config-tv is shown.
+   */
+  const tvTopShelfPlugin =
+    tvPrebuild && isTopShelfEnabled()
+      ? [["./plugins/withTvTopShelf.cjs", { appGroup: WIDGET_APP_GROUP }]]
+      : [];
 
   const iosConfig = withIosUrlSchemes({
     ...config.ios,
@@ -296,6 +323,8 @@ module.exports = ({ config }) => {
       configTvPlugin,
       ...tvExpoModuleExcludesPlugin,
       ...tvNilSafeFabricPlugin,
+      ...tvAndroidManifestPlugin,
+      ...tvTopShelfPlugin,
       ...phoneOnlyPlugins,
       /** Implied hardware (wifi, camera, mic, location) → required="false" so Play doesn't filter devices. */
       "./plugins/withAndroidOptionalHardware.cjs",
