@@ -57,7 +57,8 @@ describe("Hadith (P5-34)", () => {
 
   it("marks bundled collections as available offline on the hub", async () => {
     await renderWithProviders(<HadithHomeScreen />);
-    expect((await screen.findAllByText("Available offline")).length).toBeGreaterThan(0);
+    // Part of the row subtitle ("42 hadith · Available offline"), not a trailing badge.
+    expect((await screen.findAllByText(/Available offline/)).length).toBeGreaterThan(0);
   });
 
   it("filters hub collections and offers a clear action when nothing matches", async () => {

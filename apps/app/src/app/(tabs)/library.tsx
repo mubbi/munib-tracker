@@ -17,6 +17,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
 import { Breakpoints, type CategoryHueKey, Spacing } from "@/constants/theme";
+import { useNativeTabletRail } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import {
@@ -93,7 +94,11 @@ export default function LibraryScreen() {
   const { colors } = useThemeTokens();
   const tv = isTV();
   const { width } = useWindowDimensions();
-  const columns = tv ? TV_GRID_COLUMNS : libraryGridColumns(width);
+  // Native tablets: the side rail (232dp on iPad) eats into the window, so size the
+  // grid on the content width — a 1032dp iPad got 3 columns and squeezed labels
+  // mid-word ("Qur'an practic / e"). The web thresholds already allow for its rail.
+  const tabletRail = useNativeTabletRail();
+  const columns = tv ? TV_GRID_COLUMNS : libraryGridColumns(width - tabletRail.width);
   const useGrid = columns > 1;
   const [query, setQuery] = useState("");
   const [expandedGroups, setExpandedGroups] = useState<ReadonlySet<string>>(() => new Set());

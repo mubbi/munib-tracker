@@ -542,7 +542,16 @@ const NameRow = memo(function NameRow({
             {number}
           </ThemedText>
         </View>
-        <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.arabic}>
+        {/* One line, scaled down if the column is narrow (iPad list + detail): wrapping
+            split a single name mid-word ("القدّو / س"). */}
+        <ThemedText
+          type="arabic"
+          accessibilityLanguage="ar"
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.6}
+          style={styles.arabic}
+        >
           {name.arabic}
         </ThemedText>
       </View>

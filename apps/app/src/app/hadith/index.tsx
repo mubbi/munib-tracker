@@ -128,8 +128,14 @@ export default function HadithHomeScreen() {
               key={collection.id}
               icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
               label={collectionName(collection)}
-              subtitle={loaded ? t("hadith.hadithCount", { count: loaded }) : undefined}
-              badge={t("hadith.availableOffline")}
+              // "Available offline" is a phrase, not a count — as a trailing badge it
+              // squeezed the collection name to one word per line on phones.
+              subtitle={[
+                loaded ? t("hadith.hadithCount", { count: loaded }) : null,
+                t("hadith.availableOffline"),
+              ]
+                .filter(Boolean)
+                .join(" · ")}
               onPress={() => open(collection.id)}
             />
           );

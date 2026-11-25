@@ -861,11 +861,14 @@ function ControlButton({
         size={20}
         tintColor={disabled ? colors.mutedForeground : colors.foreground}
       />
-      {/* Up to four actions share the bar: long translations shrink instead of wrapping. */}
+      {/* Up to four actions share the bar: long translations shrink instead of wrapping
+          (two lines broke words mid-way — "Hand / s-fr…"). */}
       <ThemedText
         type="smallBold"
         themeColor={disabled ? "mutedForeground" : "foreground"}
-        numberOfLines={2}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.7}
         style={styles.controlLabel}
       >
         {label}
@@ -974,12 +977,13 @@ const styles = StyleSheet.create({
   },
   controlButton: {
     flex: 1,
-    flexDirection: "row",
+    // Icon above label: each label gets the full quarter-width of the bar.
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one,
+    gap: Spacing.half,
     minHeight: 48,
-    paddingVertical: Spacing.three,
+    paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.one,
   },
   controlColumnTv: {
@@ -987,6 +991,9 @@ const styles = StyleSheet.create({
   },
   controlPillTv: {
     flex: 0,
+    // Full-width TV pills keep the icon beside the label.
+    flexDirection: "row",
+    gap: Spacing.one,
     minHeight: TvLayout.minFocusTarget,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
