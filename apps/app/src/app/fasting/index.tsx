@@ -317,29 +317,35 @@ export default function VoluntaryFastingScreen() {
                 )}
                 {tv ? null : (
                   <View style={styles.todayActions}>
-                    <Button
-                      label={t("voluntaryFasting.action.fasted")}
-                      icon={STATUS_ICON.fasted}
-                      variant={todayEntry?.status === "fasted" ? "primary" : "secondary"}
-                      disabled={todayDay.classification.blocking}
-                      onPress={() => void logFast(today, "fasted")}
-                      style={styles.todayAction}
-                    />
-                    <Button
-                      label={t("voluntaryFasting.action.broken")}
-                      icon={STATUS_ICON.broken}
-                      variant={todayEntry?.status === "broken" ? "primary" : "secondary"}
-                      onPress={() => void logFast(today, "broken")}
-                      style={styles.todayAction}
-                    />
-                    <Button
-                      label={t("voluntaryFasting.action.intendToFast")}
-                      icon={STATUS_ICON.intended}
-                      variant={todayEntry?.status === "intended" ? "primary" : "secondary"}
-                      disabled={todayDay.classification.blocking}
-                      onPress={() => void logFast(today, "intended")}
-                      style={styles.todayAction}
-                    />
+                    <View style={styles.todayAction}>
+                      <Button
+                        label={t("voluntaryFasting.action.fasted")}
+                        icon={STATUS_ICON.fasted}
+                        variant={todayEntry?.status === "fasted" ? "primary" : "secondary"}
+                        disabled={todayDay.classification.blocking}
+                        onPress={() => void logFast(today, "fasted")}
+                        fullWidth
+                      />
+                    </View>
+                    <View style={styles.todayAction}>
+                      <Button
+                        label={t("voluntaryFasting.action.broken")}
+                        icon={STATUS_ICON.broken}
+                        variant={todayEntry?.status === "broken" ? "primary" : "secondary"}
+                        onPress={() => void logFast(today, "broken")}
+                        fullWidth
+                      />
+                    </View>
+                    <View style={styles.todayAction}>
+                      <Button
+                        label={t("voluntaryFasting.action.intendToFast")}
+                        icon={STATUS_ICON.intended}
+                        variant={todayEntry?.status === "intended" ? "primary" : "secondary"}
+                        disabled={todayDay.classification.blocking}
+                        onPress={() => void logFast(today, "intended")}
+                        fullWidth
+                      />
+                    </View>
                   </View>
                 )}
                 {todayEntry && !tv ? (
@@ -773,6 +779,8 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     marginTop: Spacing.three,
   },
+  // Grow the wrapper, not the Button: PressableScale copies flexGrow onto its inner
+  // view, which then grew without bound (empty full-height pills on Android).
   todayAction: { flexGrow: 1 },
   todayClear: { alignSelf: "flex-start", marginTop: Spacing.two },
   legend: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.three, marginTop: Spacing.two },
