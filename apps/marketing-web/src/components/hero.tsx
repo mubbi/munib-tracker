@@ -81,7 +81,7 @@ export function Hero() {
           {/* Not animated: the H1 is the LCP element and must paint immediately. */}
           <h1
             id="hero-heading"
-            className="hero-text-shadow mt-7 font-sans text-[3rem] font-semibold leading-[1.04] tracking-[-0.015em] text-[#f4f1ea] sm:text-6xl lg:text-[4.35rem]"
+            className="hero-text-shadow mt-7 font-sans text-[3rem] font-semibold max-[359px]:text-[2.5rem] leading-[1.04] tracking-[-0.015em] text-[#f4f1ea] sm:text-6xl lg:text-[3.75rem] xl:text-[4.35rem]"
           >
             {/* The spaces between the tags in the catalog keep the accessible name
                 ("Track Your Journey Back to Allah.") intact; they collapse
@@ -111,7 +111,7 @@ export function Hero() {
           <HeroItem className="mt-9 flex flex-col items-center gap-4 sm:flex-row lg:items-start lg:justify-start">
             <TrackedLink
               href={SITE_PATHS.download}
-              className="group hidden h-[3.75rem] items-center justify-center gap-3 rounded-full bg-[linear-gradient(160deg,#43d69d_0%,#1db884_45%,#0f9268_100%)] px-10 text-[17px] font-semibold text-white shadow-[0_22px_44px_-14px_rgba(4,34,24,0.7),0_6px_16px_-6px_rgba(4,34,24,0.5),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all duration-200 [text-shadow:0_1px_4px_rgba(0,60,40,0.45)] hover:brightness-[1.06] active:scale-[0.98] sm:inline-flex"
+              className="group hidden h-[3.75rem] items-center justify-center gap-3 rounded-full bg-[linear-gradient(160deg,#43d69d_0%,#1db884_45%,#0f9268_100%)] whitespace-nowrap px-8 text-[17px] font-semibold lg:px-7 xl:px-10 text-white shadow-[0_22px_44px_-14px_rgba(4,34,24,0.7),0_6px_16px_-6px_rgba(4,34,24,0.5),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all duration-200 [text-shadow:0_1px_4px_rgba(0,60,40,0.45)] hover:brightness-[1.06] active:scale-[0.98] sm:inline-flex"
               track="cta"
               cta="get_app"
               placement="hero"
@@ -124,7 +124,7 @@ export function Hero() {
             </TrackedLink>
             <TrackedLink
               href={SITE_PATHS.features}
-              className="group inline-flex h-[3.75rem] items-center justify-center gap-3 rounded-full border border-white/35 bg-[rgba(58,46,44,0.55)] px-10 text-[17px] font-semibold text-white shadow-[0_18px_38px_-14px_rgba(12,10,20,0.6),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-200 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)] hover:bg-[rgba(70,58,56,0.65)] active:scale-[0.98]"
+              className="group inline-flex h-[3.75rem] items-center justify-center gap-3 rounded-full border border-white/35 bg-[rgba(58,46,44,0.55)] whitespace-nowrap px-8 text-[17px] font-semibold lg:px-7 xl:px-10 text-white shadow-[0_18px_38px_-14px_rgba(12,10,20,0.6),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-200 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)] hover:bg-[rgba(70,58,56,0.65)] active:scale-[0.98]"
               track="cta"
               cta="explore_features"
               placement="hero"

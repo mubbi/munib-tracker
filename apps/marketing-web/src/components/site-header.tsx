@@ -13,8 +13,10 @@ import { isActivePath, menuIsActive } from "@/lib/nav";
 import { NAV_LINKS, NAV_MENUS, type NavMenu, SITE_PATHS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+/** Header CTA look. No display utility here: `cn` doesn't de-duplicate, and an
+ * `inline-flex` would beat the caller's `hidden` (Tailwind sorts display rules). */
 const CTA_CLASS =
-  "inline-flex items-center justify-center rounded-full bg-[linear-gradient(160deg,#43d69d_0%,#1db884_45%,#0f9268_100%)] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(4,34,24,0.8),inset_0_1px_0_rgba(255,255,255,0.25)] transition-all duration-200 [text-shadow:0_1px_3px_rgba(0,60,40,0.45)] hover:brightness-[1.06] active:scale-[0.98]";
+  "items-center justify-center rounded-full bg-[linear-gradient(160deg,#43d69d_0%,#1db884_45%,#0f9268_100%)] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(4,34,24,0.8),inset_0_1px_0_rgba(255,255,255,0.25)] transition-all duration-200 [text-shadow:0_1px_3px_rgba(0,60,40,0.45)] hover:brightness-[1.06] active:scale-[0.98]";
 
 /** Desktop mega-menu panel. */
 function MegaPanel({
@@ -312,7 +314,7 @@ export function SiteHeader() {
             <LocaleSwitcher className="hidden lg:block" />
             <Link
               href={SITE_PATHS.download}
-              className={cn(CTA_CLASS, "hidden h-10 px-5 text-sm sm:inline-flex")}
+              className={cn(CTA_CLASS, "hidden h-10 whitespace-nowrap px-5 text-sm sm:inline-flex")}
               onClick={() => trackCtaClick("get_app", "header")}
             >
               {t("getTheApp")}

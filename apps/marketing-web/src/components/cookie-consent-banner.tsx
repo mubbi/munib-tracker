@@ -127,7 +127,7 @@ export function CookieConsentBanner() {
           style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
         >
           <div className="pointer-events-auto mx-auto w-full min-w-0 max-w-3xl overflow-hidden rounded-2xl border border-white/12 bg-[#0a1626]/96 shadow-[0_24px_64px_-20px_rgba(0,0,0,0.75),0_0_0_1px_rgba(255,255,255,0.04)] backdrop-blur-xl">
-            <div className="flex flex-col gap-5 p-5 sm:gap-6 sm:p-6">
+            <div className="flex flex-col gap-4 p-4 sm:gap-6 sm:p-6">
               <CookieNoAdsNotice appName={APP_NAME} />
 
               {!showDetails ? (
@@ -139,12 +139,12 @@ export function CookieConsentBanner() {
                     >
                       {t("summary.title")}
                     </h2>
-                    <p className="max-w-2xl text-sm leading-relaxed text-white/70">
+                    <p className="max-w-2xl text-[13px] leading-relaxed text-white/70 sm:text-sm">
                       {t.rich("summary.body", { link: privacyLink })}
                     </p>
                   </div>
 
-                  <div className="flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                  <div className="flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:pt-5">
                     <button
                       type="button"
                       onClick={() => setShowDetails(true)}
@@ -153,7 +153,7 @@ export function CookieConsentBanner() {
                     >
                       {t("managePreferences")}
                     </button>
-                    <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
+                    <div className="flex w-full flex-row gap-2.5 sm:w-auto sm:items-center sm:gap-3">
                       <button
                         type="button"
                         onClick={essentialOnly}
@@ -317,12 +317,12 @@ const tertiaryBtnClass = cn(
 
 const secondaryBtnClass = cn(
   btnBase,
-  "w-full border border-white/20 bg-white/[0.04] text-white/85 hover:border-white/30 hover:bg-white/[0.08] hover:text-white sm:w-auto",
+  "min-w-0 flex-1 border border-white/20 bg-white/[0.04] px-4 text-white/85 hover:border-white/30 hover:bg-white/[0.08] hover:text-white sm:flex-none sm:px-5",
 );
 
 const primaryBtnClass = cn(
   btnBase,
-  "w-full bg-gradient-to-b from-brand to-brand-strong text-white shadow-[0_12px_28px_-12px_color-mix(in_srgb,var(--color-brand)_75%,transparent),inset_0_1px_0_rgba(255,255,255,0.22)] hover:brightness-[1.05] sm:w-auto sm:min-w-[8.5rem]",
+  "min-w-0 flex-1 bg-gradient-to-b from-brand to-brand-strong px-4 text-white shadow-[0_12px_28px_-12px_color-mix(in_srgb,var(--color-brand)_75%,transparent),inset_0_1px_0_rgba(255,255,255,0.22)] hover:brightness-[1.05] sm:min-w-[8.5rem] sm:flex-none sm:px-5",
 );
 
 const ghostBtnClass =
