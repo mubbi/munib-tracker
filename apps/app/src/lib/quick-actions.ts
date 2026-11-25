@@ -246,9 +246,11 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
   },
   {
     id: "bookmarks",
-    labelKey: "actions.bookmarks",
+    // One name for the saved concept everywhere (P5-36 "Saved"; C-09/C-10 —
+    // saved state is the accent, not the warning hue).
+    labelKey: "bookmarks.title",
     icon: { ios: "bookmark.fill", android: "bookmark", web: "bookmark" },
-    tone: "warning",
+    tone: "accent",
   },
   {
     id: "duas",

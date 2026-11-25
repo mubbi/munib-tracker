@@ -12,6 +12,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { VaultLockGate } from "@/components/vault";
@@ -54,7 +55,16 @@ function HistoryContent() {
   if (status === "locked" || status === "error") {
     return <VaultStateNotice status={status} error={error} />;
   }
-  if (status !== "ready") return null;
+  if (status !== "ready") {
+    return (
+      <ContentState
+        status="loading"
+        skeleton="card"
+        skeletonCount={3}
+        loadingLabel={t("uiFeedback.loading")}
+      />
+    );
+  }
   if (entries.length === 0) {
     return (
       <EmptyState
@@ -67,7 +77,7 @@ function HistoryContent() {
 
   return (
     <View style={styles.stack}>
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("muhasabah.history.trendsTitle", { days: MUHASABAH_TREND_DAYS })}
           subtitle={t("muhasabah.history.trendsSub")}
@@ -103,7 +113,7 @@ function HistoryContent() {
       </Card>
 
       {entries.map((entry) => (
-        <Card key={entry.date} padding="three">
+        <Card key={entry.date}>
           <View style={styles.entry}>
             <ThemedText type="smallBold">{formatIso(entry.date)}</ThemedText>
             {Object.entries(entry.answers).map(([id, answer]) => (

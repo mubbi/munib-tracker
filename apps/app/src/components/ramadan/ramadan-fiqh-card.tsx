@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useMadhhab } from "@/hooks/use-madhhab";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { fitrMeasureFor, forgetfulEatingOutcome, schoolsToShow } from "@/lib/fasting-fiqh";
@@ -90,7 +90,7 @@ export function RamadanFiqhCard() {
   const { school, customKeys } = resolve("fasting");
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader title={t("ramadan.fiqh.title")} icon={ICONS.header} />
       <View style={styles.badgeRow}>
         <MadhhabBadge school={school} custom={customKeys.length > 0} />
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   stack: { gap: Spacing.two, marginTop: Spacing.two },
   section: { gap: Spacing.two, marginTop: Spacing.two },
   answer: { gap: Spacing.two, padding: Spacing.three, borderRadius: Radius.md },
-  schoolRow: { gap: Spacing.half, paddingStart: Spacing.two, borderStartWidth: 2 },
+  schoolRow: { gap: Spacing.half, paddingStart: Spacing.two, borderStartWidth: BorderWidth.thick },
   button: { alignSelf: "flex-start" },
   disclaimer: { marginTop: Spacing.three },
 });

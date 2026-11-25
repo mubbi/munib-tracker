@@ -481,7 +481,7 @@ describe.each([
     expect(audioFn("stop")).toHaveBeenCalledTimes(1);
   });
 
-  it("keeps playing when closing is cancelled", async () => {
+  it("keeps playing when closing is canceled", async () => {
     await renderLayout();
     await fireEvent.press(screen.getByLabelText("Close player"));
     await fireEvent.press(screen.getByText("Cancel"));
@@ -566,7 +566,7 @@ describe("MiniPlayer — volume popover", () => {
     expect(audioFn("setVolume")).toHaveBeenLastCalledWith(1);
   });
 
-  it("previews the dragged level until the gesture is cancelled", async () => {
+  it("previews the dragged level until the gesture is canceled", async () => {
     await renderMiniPlayer({ audio: { volume: 0.2 } });
     await fireEvent.press(volumeButton() as HostNode);
     await fireEvent(volumeSlider(), "responderGrant", touch(0, 22, 1));
@@ -629,26 +629,26 @@ describe("MiniPlayer — volume popover", () => {
 describe("MiniPlayer — expanded", () => {
   it("opens from the compact bar and releases the inset", async () => {
     await renderExpanded();
-    expect(screen.getByText("Now Playing")).toBeTruthy();
+    expect(screen.getByText("Now playing")).toBeTruthy();
     expect(mockSetInset).toHaveBeenLastCalledWith(0);
   });
 
   it("minimizes back to the compact bar", async () => {
     await renderExpanded();
     await fireEvent.press(screen.getByLabelText("Minimize"));
-    expect(screen.queryByText("Now Playing")).toBeNull();
+    expect(screen.queryByText("Now playing")).toBeNull();
   });
 
   it("minimizes on Escape", async () => {
     await renderExpanded();
     expect(await pressWebKey("Escape")).toBe(true);
-    expect(screen.queryByText("Now Playing")).toBeNull();
+    expect(screen.queryByText("Now playing")).toBeNull();
   });
 
   it("ignores other keys", async () => {
     await renderExpanded();
     expect(await pressWebKey("a")).toBeUndefined();
-    expect(screen.getByText("Now Playing")).toBeTruthy();
+    expect(screen.getByText("Now playing")).toBeTruthy();
   });
 
   it("notes when audio is streamed without caching", async () => {
@@ -671,7 +671,7 @@ describe("MiniPlayer — expanded", () => {
     await renderExpanded({ audio: { sourceHref: "/quran/1" } });
     await fireEvent.press(screen.getByLabelText("Go to reading view"));
     expect(mockRouter.push).toHaveBeenCalledWith("/quran/1");
-    expect(screen.queryByText("Now Playing")).toBeNull();
+    expect(screen.queryByText("Now playing")).toBeNull();
   });
 
   it("centres the content column on desktop", async () => {
@@ -718,7 +718,7 @@ describe("MiniPlayer — expanded seek bar", () => {
     expect(audioFn("seekTo")).toHaveBeenCalledWith(30);
   });
 
-  it("snaps back to playback when the drag is cancelled", async () => {
+  it("snaps back to playback when the drag is canceled", async () => {
     await renderExpanded({ progress: { position: 30 } });
     await measureSeekBar();
     await fireEvent(seekBar(), "responderGrant", touch(10, 0, 1));
@@ -872,7 +872,7 @@ describe("MiniPlayer — TV", () => {
       handled = backPress?.();
     });
     expect(handled).toBe(true);
-    expect(screen.queryByText("Now Playing")).toBeNull();
+    expect(screen.queryByText("Now playing")).toBeNull();
   });
 
   it("stops listening for Back once collapsed", async () => {

@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -9,7 +8,6 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   StyleSheet,
-  TextInput,
   View,
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
@@ -25,16 +23,19 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
+import { SearchField } from "@/components/ui/search-field";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Radius, Spacing } from "@/constants/theme";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
+import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { DUROOD_CORPUS, type loadDuroodItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -56,14 +57,32 @@ export default function DuroodsScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const locale = i18n.language?.split("-")[0] ?? "en";
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const { isListDetail } = useLargeScreenLayout();
   const tv = isTV();
   const showSideFilters = isListDetail && !tv;
   useEnsureDuroodFavoritesLoaded();
   const favoriteIds = useFavoriteDuroodIds();
-  const { toggle } = useDuroodFavoritesActions();
+  const { toggle, restore } = useDuroodFavoritesActions();
+  const undoToast = useUndoToast();
+  // Saving is a plain toggle; un-saving offers Undo (never silent).
+  const toggleSaved = useCallback(
+    (id: string, saved: boolean) => {
+      if (!saved) {
+        toggle(id);
+        return;
+      }
+      // Undo restores the saved position (B-30), not the end of the list.
+      const position = favoriteIds.indexOf(id);
+      void undoToast.run({
+        do: () => toggle(id),
+        undo: () => restore(id, position),
+        messageKey: "duroods.removedToast",
+      });
+    },
+    [favoriteIds, restore, toggle, undoToast],
+  );
   const visibility = useReadingDisplay();
 
   const [query, setQuery] = useState("");
@@ -111,7 +130,7 @@ export default function DuroodsScreen() {
           item={item}
           sourceHref="/duroods"
           isFavorite={favoriteSet.has(item.id)}
-          onToggleFavorite={() => toggle(item.id)}
+          onToggleFavorite={() => toggleSaved(item.id, favoriteSet.has(item.id))}
           contentRef={buildContentReportRef("durood", item.id, "/duroods", locale, {
             snapshot: {
               title: item.title,
@@ -125,7 +144,7 @@ export default function DuroodsScreen() {
         <Button
           label={t("duroods.openInTasbeeh")}
           icon={TASBEEH_ICON}
-          fullWidth
+          variant="secondary"
           onPress={() =>
             router.push({
               pathname: "/tasbeeh/durood/[id]",
@@ -135,7 +154,7 @@ export default function DuroodsScreen() {
         />
       </View>
     ),
-    [favoriteSet, locale, router, t, toggle],
+    [favoriteSet, locale, router, t, toggleSaved],
   );
 
   const savedCard = useMemo(
@@ -144,8 +163,8 @@ export default function DuroodsScreen() {
         title={t("duroods.favorites")}
         viewLabel={t("duroods.favorites")}
         count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
-        headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
-        rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+        headerIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+        rowIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
         onPress={() => router.push("/duroods/favorites")}
       />
     ),
@@ -157,38 +176,15 @@ export default function DuroodsScreen() {
       <View style={styles.listHeader} onLayout={onHeaderCardLayout}>
         {/* Wide web / tablets: saved duroods live in the aside instead. */}
         {showSideFilters ? null : savedCard}
-        <Card padding="three">
-          <View style={[styles.searchBox, tokens.inputSurface]}>
-            <SymbolView
-              name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-              size={17}
-              tintColor={colors.mutedForeground}
-            />
-            <TextInput
-              value={query}
-              onChangeText={setQuery}
-              placeholder={t("duroods.searchPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("duroods.searchPlaceholder")}
-              autoCorrect={false}
-              returnKeyType="search"
-              style={[styles.input, { color: colors.foreground }]}
-            />
-          </View>
-        </Card>
+        <SearchField
+          value={query}
+          onChangeText={setQuery}
+          placeholder={t("duroods.searchPlaceholder")}
+        />
         {!showSideFilters ? <ScriptureReadingFilters /> : null}
       </View>
     ),
-    [
-      colors.foreground,
-      colors.mutedForeground,
-      savedCard,
-      showSideFilters,
-      onHeaderCardLayout,
-      query,
-      t,
-      tokens.inputSurface,
-    ],
+    [savedCard, showSideFilters, onHeaderCardLayout, query, t],
   );
 
   return (
@@ -209,6 +205,8 @@ export default function DuroodsScreen() {
         )
       }
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       <Seo
         path="/duroods"
         breadcrumbs={[
@@ -262,7 +260,13 @@ export default function DuroodsScreen() {
                 icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
                 title={t("duroods.noResults")}
               />
-            ) : undefined
+            ) : (
+              <SkeletonPlaceholder
+                preset="card"
+                count={2}
+                accessibilityLabel={t("duroods.loading")}
+              />
+            )
           }
         />
         {showSideFilters ? (
@@ -304,19 +308,6 @@ const styles = StyleSheet.create({
   item: { gap: Spacing.two },
   title: { marginStart: Spacing.one },
   separator: { height: Spacing.four },
-  searchBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  input: {
-    flex: 1,
-    paddingVertical: Spacing.three,
-    fontSize: 15,
-  },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

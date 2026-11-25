@@ -39,7 +39,7 @@ export function UmrahHomeCard() {
         ? t("umrahMode.home.sai", { number: session.saiLaps })
         : null;
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader title={t("umrahMode.home.title")} icon={UMRAH_MODE_ICON} />
       <View style={styles.body}>
         <ThemedText type="smallBold">

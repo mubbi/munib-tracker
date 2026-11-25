@@ -16,13 +16,33 @@ import { LinkRow, MetricGrid, ReadableView } from "@/components/statistics/metri
 import { SalahRateList } from "@/components/statistics/salah-rate-list";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useRawatibConfig } from "@/hooks/use-rawatib";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { RAWATIB_EVIDENCE, RAWATIB_ROUTE } from "@/lib/rawatib";
 import { type PrayerDayIndex, rawatibBreakdown } from "@/lib/statistics";
 
 const GRID_DAYS = 30;
+
+type CellKind = "complete" | "partial" | "none" | "excused";
+const LEGEND_KINDS: CellKind[] = ["complete", "partial", "none", "excused"];
+
+function cellKind(cell: {
+  excused: boolean;
+  beforeStart: boolean;
+  done: number;
+  complete: boolean;
+}): CellKind {
+  if (cell.excused) return "excused";
+  if (cell.beforeStart || cell.done === 0) return "none";
+  return cell.complete ? "complete" : "partial";
+}
+
+function cellBackground(kind: CellKind, tokens: ReturnType<typeof useThemeTokens>["tokens"]) {
+  if (kind === "excused") return tokens.status.info.soft;
+  if (kind === "none") return tokens.track;
+  return kind === "complete" ? tokens.status.success.color : tokens.status.success.soft;
+}
 
 type RawatibStatsCardProps = {
   logs: PrayerLog[];
@@ -74,6 +94,7 @@ export function RawatibStatsCard({
       ),
     [logs, today, config.preset],
   );
+  const completeInGrid = gridCells.filter((cell) => cell.complete).length;
   const hasAny = periodCells.some((cell) => !cell.beforeStart) || todayRakahs > 0;
 
   if (!config.enabled && !hasAny) return null;
@@ -111,7 +132,7 @@ export function RawatibStatsCard({
 
       <ReadableView
         accessibilityLabel={t("rawatib.stats.gridA11y", {
-          complete: gridCells.filter((cell) => cell.complete).length,
+          complete: completeInGrid,
           days: GRID_DAYS,
         })}
       >
@@ -121,13 +142,8 @@ export function RawatibStatsCard({
         <View style={styles.grid} testID="rawatib-grid">
           {gridCells.map((cell) => {
             const ratio = cell.total > 0 ? cell.done / cell.total : 0;
-            const background = cell.excused
-              ? tokens.status.info.soft
-              : cell.beforeStart || cell.done === 0
-                ? tokens.track
-                : cell.complete
-                  ? tokens.status.success.color
-                  : tokens.status.success.soft;
+            const kind = cellKind(cell);
+            const background = cellBackground(kind, tokens);
             return (
               <View
                 key={cell.date}
@@ -142,11 +158,53 @@ export function RawatibStatsCard({
                         : 1,
                     borderColor: cell.isToday ? colors.accent : "transparent",
                   },
+                  // Shape, not just colour: partial = outlined, excused = dashed.
+                  kind === "partial"
+                    ? { borderColor: tokens.status.success.color, borderWidth: BorderWidth.thin }
+                    : null,
+                  kind === "excused"
+                    ? {
+                        borderColor: tokens.status.info.color,
+                        borderWidth: BorderWidth.thin,
+                        borderStyle: "dashed",
+                      }
+                    : null,
                 ]}
               />
             );
           })}
         </View>
+        <View style={styles.legend}>
+          {LEGEND_KINDS.map((kind) => (
+            <View key={kind} style={styles.legendKey}>
+              <View
+                style={[
+                  styles.legendSwatch,
+                  { backgroundColor: cellBackground(kind, tokens) },
+                  kind === "partial"
+                    ? { borderColor: tokens.status.success.color, borderWidth: BorderWidth.thin }
+                    : null,
+                  kind === "excused"
+                    ? {
+                        borderColor: tokens.status.info.color,
+                        borderWidth: BorderWidth.thin,
+                        borderStyle: "dashed",
+                      }
+                    : null,
+                ]}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t(`rawatib.stats.legend.${kind}`)}
+              </ThemedText>
+            </View>
+          ))}
+        </View>
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.gridCount}>
+          {t("rawatib.stats.gridCount", {
+            complete: formatCount(completeInGrid),
+            days: formatCount(GRID_DAYS),
+          })}
+        </ThemedText>
       </ReadableView>
 
       {rows.some((row) => row.days > 0) ? (
@@ -178,7 +236,7 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
   },
   header: {
-    gap: 2,
+    gap: Spacing.half,
   },
   shell: {
     borderRadius: Radius.md,
@@ -191,12 +249,32 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 4,
+    gap: Spacing.one,
+  },
+  legend: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    columnGap: Spacing.three,
+    rowGap: Spacing.one,
+    marginTop: Spacing.two,
+  },
+  legendKey: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+  },
+  legendSwatch: {
+    width: 12,
+    height: 12,
+    borderRadius: Radius.xs,
+  },
+  gridCount: {
+    marginTop: Spacing.one,
   },
   cell: {
     width: 16,
     height: 16,
-    borderRadius: 4,
-    borderWidth: 1.5,
+    borderRadius: Radius.xs,
+    borderWidth: BorderWidth.thick,
   },
 });

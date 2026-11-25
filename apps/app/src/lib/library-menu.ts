@@ -1,10 +1,18 @@
 import type { Href } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
 
+import { isTV } from "@/lib/platform/is-tv";
 import { createFuzzyIndex, type FuzzyIndex } from "@/lib/search";
+import { useStore } from "@/stores/create-store";
+import { devicePreferencesStore } from "@/stores/device-preferences-store";
 
 import type { AppIcon } from "./names-of-allah-ui";
-import { assertLibraryMenuParity, QUICK_ACTION_META, QUICK_ACTION_ROUTES } from "./quick-actions";
+import {
+  assertLibraryMenuParity,
+  QUICK_ACTION_META,
+  QUICK_ACTION_ROUTES,
+  TV_HIDDEN_QUICK_ACTION_IDS,
+} from "./quick-actions";
 
 export type LibrarySectionId = "track" | "read" | "supplicate" | "learn" | "more";
 
@@ -119,6 +127,85 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
 assertLibraryMenuParity(LIBRARY_MENU_META.map((entry) => entry.id));
 
 /**
+ * D-UX5: finance tools — private figures and D-pad numeric entry — are hidden
+ * on TV by default. The TV-only setting "Show finance tools"
+ * (`devices.tv.financeTools`, device-scoped) brings them back. Debts and the
+ * wasiyyah stay hidden regardless (`TV_HIDDEN_QUICK_ACTION_IDS`).
+ */
+export const TV_FINANCE_TOOL_IDS: ReadonlySet<string> = new Set([
+  "zakat",
+  "sadaqah",
+  "fidyah",
+  "finance",
+  "mirath",
+]);
+
+/** What the current device may show (TV lean-back scope, D-UX5). */
+export interface DestinationScope {
+  tv: boolean;
+  /** TV: the "Show finance tools" setting. Ignored off TV. */
+  showFinanceTools: boolean;
+}
+
+/** True when a Library / Explore destination id is hidden on this device. */
+export function isDestinationHidden(id: string, scope: DestinationScope): boolean {
+  if (!scope.tv) return false;
+  if (TV_HIDDEN_QUICK_ACTION_IDS.has(id)) return true;
+  return !scope.showFinanceTools && TV_FINANCE_TOOL_IDS.has(id);
+}
+
+/** Drops the destinations this device hides (Library menu, Explore grid, order editors). */
+export function filterDestinationsForDevice<T extends { id: string }>(
+  items: readonly T[],
+  scope: DestinationScope,
+): T[] {
+  return scope.tv ? items.filter((item) => !isDestinationHidden(item.id, scope)) : [...items];
+}
+
+/** Library entries visible on this device (the Library menu and its search). */
+export function libraryMenuForDevice(scope: DestinationScope): LibraryMenuDef[] {
+  return filterDestinationsForDevice(LIBRARY_MENU_META, scope);
+}
+
+/** Root route of each TV-gated finance tool (`/zakat` …). */
+const TV_FINANCE_TOOL_PATHS: ReadonlyMap<string, LibraryMenuDef> = new Map(
+  LIBRARY_MENU_META.filter((entry) => TV_FINANCE_TOOL_IDS.has(entry.id)).map((entry) => [
+    String(entry.route),
+    entry,
+  ]),
+);
+
+/**
+ * The hidden finance tool a route opens on this device (a deep link or a stale
+ * shortcut to `/zakat` while the setting is off), else `null`. Accepts a
+ * pathname (`/zakat`) or a stack route name (`zakat/index`). Only the tool
+ * screens are gated: guide topics (`/zakat/[topic]`) are learning content and
+ * stay reachable from search.
+ */
+export function hiddenFinanceToolForRoute(
+  route: string,
+  scope: DestinationScope,
+): LibraryMenuDef | null {
+  if (!scope.tv || scope.showFinanceTools) return null;
+  const trimmed = route
+    .replace(/^\/+/, "")
+    .replace(/(^|\/)index$/, "")
+    .replace(/\/+$/, "");
+  return TV_FINANCE_TOOL_PATHS.get(`/${trimmed}`) ?? null;
+}
+
+/** Reactive TV "Show finance tools" value (device preference; default off). */
+export function useShowTvFinanceTools(): boolean {
+  return useStore(devicePreferencesStore, (s) => s.prefs.tvShowFinanceTools === true);
+}
+
+/** Reactive {@link DestinationScope} for the running device. */
+export function useDestinationScope(): DestinationScope {
+  const showFinanceTools = useShowTvFinanceTools();
+  return { tv: isTV(), showFinanceTools };
+}
+
+/**
  * Route prefixes for the "learn" section — long-form educational content where a
  * reading-progress indicator is useful. Derived from the canonical menu so it
  * stays in sync as sections change. `ScreenLayout` uses this to auto-enable the
@@ -167,6 +254,106 @@ export const LIBRARY_SECTIONS: {
     icon: { ios: "square.grid.2x2.fill", android: "apps", web: "apps" },
   },
 ];
+
+/** The six primary destinations shown as tiles above the section lists (P5-32). */
+export const LIBRARY_PRIMARY_IDS = [
+  "quran",
+  "hadith",
+  "duas",
+  "zikr",
+  "names",
+  "bookmarks",
+] as const;
+
+/** Learn is shown in five themed sub-groups instead of one flat list of 28. */
+export interface LearnSubgroup {
+  id: string;
+  titleKey: string;
+  descriptionKey: string;
+  ids: readonly string[];
+}
+
+export const LEARN_SUBGROUPS: readonly LearnSubgroup[] = [
+  {
+    id: "worship",
+    titleKey: "library.learnGroup.worship",
+    descriptionKey: "library.learnGroup.worshipDesc",
+    ids: ["salahGuide", "taharah", "hayd", "sick", "travel", "janazah"],
+  },
+  {
+    id: "quranDua",
+    titleKey: "library.learnGroup.quranDua",
+    descriptionKey: "library.learnGroup.quranDuaDesc",
+    ids: ["learnQuran", "learnDua", "ruqyah", "flashCards"],
+  },
+  {
+    id: "faith",
+    titleKey: "library.learnGroup.faith",
+    descriptionKey: "library.learnGroup.faithDesc",
+    ids: [
+      "aqeedah",
+      "goodCharacter",
+      "newMuslim",
+      "lastDay",
+      "heavyOnTheScale",
+      "jannah",
+      "jahannam",
+    ],
+  },
+  {
+    id: "history",
+    titleKey: "library.learnGroup.history",
+    descriptionKey: "library.learnGroup.historyDesc",
+    ids: ["seerah", "prophets", "sahaba", "battles", "history", "events"],
+  },
+  {
+    id: "times",
+    titleKey: "library.learnGroup.times",
+    descriptionKey: "library.learnGroup.timesDesc",
+    ids: ["hajj", "laylatAlQadr", "eid", "friday", "whiteDays"],
+  },
+];
+
+/** Rows a Learn sub-group shows before "See all". */
+export const LEARN_SUBGROUP_PREVIEW = 4;
+
+/**
+ * Splits the Learn entries into their sub-groups (menu order kept inside a
+ * group). Entries no sub-group claims land in a trailing group so a destination
+ * added later is never unreachable.
+ */
+export function groupLearnEntries<T extends { id: string }>(
+  entries: readonly T[],
+): { group: LearnSubgroup; entries: T[] }[] {
+  const byId = new Map(entries.map((entry) => [entry.id, entry]));
+  const claimed = new Set<string>();
+  const out: { group: LearnSubgroup; entries: T[] }[] = [];
+  for (const group of LEARN_SUBGROUPS) {
+    const rows = group.ids.flatMap((id) => {
+      const entry = byId.get(id);
+      if (!entry) return [];
+      claimed.add(id);
+      return [entry];
+    });
+    if (rows.length > 0) out.push({ group, entries: rows });
+  }
+  const rest = entries.filter((entry) => !claimed.has(entry.id));
+  if (rest.length > 0) {
+    out.push({
+      group: {
+        id: "other",
+        titleKey: "library.learnGroup.other",
+        descriptionKey: "library.learnGroup.otherDesc",
+        ids: rest.map((entry) => entry.id),
+      },
+      entries: rest,
+    });
+  }
+  return out;
+}
+
+/** Sections that start collapsed on the Library tab (Track and Tools). */
+export const LIBRARY_COLLAPSED_SECTIONS: ReadonlySet<LibrarySectionId> = new Set(["track", "more"]);
 
 /**
  * Library tab section order (D13, `UserPreferences.libraryMenuOrder`): the

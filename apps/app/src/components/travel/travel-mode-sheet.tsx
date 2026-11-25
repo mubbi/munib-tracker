@@ -46,7 +46,13 @@ export function TravelModeSheet({ visible, onClose, onConfirm }: TravelModeSheet
   }, [answers, travelRules]);
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet
+      accessibilityLabel={t("travel.qasrCalc.sheetTitle")}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+    >
       <ThemedText type="subtitle">{t("travel.qasrCalc.sheetTitle")}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("travel.qasrCalc.sheetHint")}

@@ -8,7 +8,7 @@ import { KidsSurahPicker } from "@/components/kids/kids-surah-picker";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
+import { UnavailableOnDevice } from "@/components/ui/unavailable-on-device";
 import { Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
@@ -60,11 +60,7 @@ export default function KidsReciteScreen() {
     >
       <Seo path="/kids/recite" index={false} />
       {!available ? (
-        <Card padding="three">
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("kids.tvUnavailable")}
-          </ThemedText>
-        </Card>
+        <UnavailableOnDevice description={t("kids.tvUnavailable")} fallbackHref="/kids" />
       ) : passage && prefsReady ? (
         <KidsReciteSession
           key={`${passage.surah}:${round}`}

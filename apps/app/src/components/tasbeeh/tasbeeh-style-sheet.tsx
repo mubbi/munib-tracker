@@ -14,7 +14,13 @@ import { Spacing } from "@/constants/theme";
 export function TasbeehStyleSheet({ visible, onClose }: { visible: boolean; onClose: () => void }) {
   const { t } = useTranslation();
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet
+      accessibilityLabel={t("tasbeehDesigns.sheetTitle")}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+    >
       {visible ? (
         <View style={styles.body}>
           <View style={styles.header}>

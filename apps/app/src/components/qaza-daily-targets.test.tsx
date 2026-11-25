@@ -33,7 +33,7 @@ describe("QazaDailyTargets", () => {
     await renderWithTheme(<QazaDailyTargets />);
 
     expect(screen.getByText("Daily schedule")).toBeTruthy();
-    expect(screen.getByText("3 qaza / day")).toBeTruthy();
+    expect(screen.getByText("3 Qaza / day")).toBeTruthy();
   });
 
   it("shows today's progress for prayers with a target", async () => {

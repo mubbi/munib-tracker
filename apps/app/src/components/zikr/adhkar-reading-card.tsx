@@ -7,7 +7,7 @@ import { ReferenceLine } from "@/components/content/reference-line";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -64,13 +64,13 @@ export function AdhkarReadingCard({
       padding="four"
       style={[
         styles.card,
-        done && { borderColor: withAlpha(success.color, 0.55), borderWidth: 1.5 },
+        done && { borderColor: withAlpha(success.color, 0.55), borderWidth: BorderWidth.thick },
       ]}
     >
       <View style={styles.header}>
         <View style={styles.meta}>
           <View style={[styles.position, { backgroundColor: colors.card }]}>
-            <ThemedText type="caption" style={styles.positionText}>
+            <ThemedText weight="bold" type="caption" style={styles.positionText}>
               {t("zikrSession.position", { current: position, total })}
             </ThemedText>
           </View>
@@ -140,7 +140,7 @@ export function AdhkarReadingCard({
 
       {optional ? (
         <View style={[styles.note, { backgroundColor: tokens.status.warning.soft }]}>
-          <ThemedText type="caption" style={{ color: tokens.status.warning.color }}>
+          <ThemedText type="caption" style={{ color: tokens.status.warning.onSoft }}>
             {t("zikrSession.optionalNote")}
           </ThemedText>
         </View>
@@ -155,7 +155,7 @@ export function AdhkarReadingCard({
 }
 
 const styles = StyleSheet.create({
-  card: { gap: Spacing.three, borderWidth: 1, borderColor: "transparent" },
+  card: { gap: Spacing.three, borderWidth: BorderWidth.thin, borderColor: "transparent" },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -166,16 +166,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     flex: 1,
   },
   actions: { flexDirection: "row", alignItems: "center", gap: Spacing.one },
   position: {
     paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
+    paddingVertical: Spacing.half,
     borderRadius: Radius.sm,
   },
-  positionText: { fontWeight: "700", fontVariant: ["tabular-nums"] },
+  positionText: { fontVariant: ["tabular-nums"] },
   title: { textAlign: "center" },
   arabic: { textAlign: "center", writingDirection: "rtl", paddingVertical: Spacing.one },
   translit: { textAlign: "center", fontStyle: "italic", alignSelf: "center", maxWidth: 560 },

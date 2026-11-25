@@ -22,7 +22,7 @@ export function MyNotesSection() {
   const { live } = useQuranNotesIndex();
   if (live.length === 0) return null;
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader title={t("quranNotes.title")} icon={NOTE_ICON} />
       <View style={styles.list}>
         {live.slice(0, LATEST).map((note) => (

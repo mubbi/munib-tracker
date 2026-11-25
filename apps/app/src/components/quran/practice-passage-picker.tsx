@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SearchField } from "@/components/ui/search-field";
 import { Sheet } from "@/components/ui/sheet";
 import { Stepper } from "@/components/ui/stepper";
-import { Radius, Spacing } from "@/constants/theme";
+import { Control, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { Passage } from "@/lib/quran-companion/types";
 import { getSurahByNumber } from "@/lib/quran-meta";
@@ -70,20 +71,21 @@ export function PracticePassagePicker({
       : t("quranCompanion.passage.range", { surah: name, from, to });
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+      title={t("quranCompanion.picker.title")}
+    >
       <View style={styles.body}>
-        <ThemedText type="subtitle">{t("quranCompanion.picker.title")}</ThemedText>
-
         {step === "surah" ? (
           <>
-            <TextInput
+            <SearchField
               value={query}
               onChangeText={setQuery}
               placeholder={t("quranCompanion.picker.searchSurah")}
-              placeholderTextColor={colors.mutedForeground}
               accessibilityLabel={t("quranCompanion.picker.searchSurah")}
-              autoCorrect={false}
-              style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
             />
             <View style={styles.list}>
               {surahs.map((s) => {
@@ -114,7 +116,7 @@ export function PracticePassagePicker({
                         {t("quranCompanion.picker.ayahCount", { count: s.ayahCount })}
                       </ThemedText>
                     </View>
-                    <ThemedText type="arabic" style={styles.arabicName}>
+                    <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.arabicName}>
                       {s.nameArabic}
                     </ThemedText>
                   </PressableScale>
@@ -142,7 +144,7 @@ export function PracticePassagePicker({
                   {t("quranCompanion.picker.changeSurah")}
                 </ThemedText>
               </View>
-              <ThemedText type="arabic" style={styles.arabicName}>
+              <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.arabicName}>
                 {meta?.nameArabic ?? ""}
               </ThemedText>
             </PressableScale>
@@ -229,13 +231,6 @@ export function PracticePassagePicker({
 
 const styles = StyleSheet.create({
   body: { gap: Spacing.three, padding: Spacing.three },
-  input: {
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    fontSize: 15,
-  },
   list: { gap: Spacing.one },
   surahRow: {
     flexDirection: "row",
@@ -256,8 +251,8 @@ const styles = StyleSheet.create({
   arabicName: { fontSize: 18, writingDirection: "rtl" },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.one },
   ayahCell: {
-    width: 44,
-    height: 40,
+    minWidth: Control.minTouch,
+    minHeight: Control.minTouch,
     borderRadius: Radius.sm,
     alignItems: "center",
     justifyContent: "center",

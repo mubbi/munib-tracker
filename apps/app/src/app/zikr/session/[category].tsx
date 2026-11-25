@@ -5,13 +5,20 @@ import { isAfterSalahPrayer, isZikrCategoryId } from "@munib-tracker/shared/vali
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { type ScrollViewInstance, StyleSheet, useWindowDimensions, View } from "react-native";
+import {
+  AccessibilityInfo,
+  type ScrollViewInstance,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ReadingTypographyBar } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
+import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
 import { VoiceStepPanel, VoiceStepToggle } from "@/components/tasbeeh/voice/voice-step-panel";
 import { ZikrReciteAlongButtons } from "@/components/tasbeeh/zikr-recite-along";
 import { ThemedText } from "@/components/themed-text";
@@ -19,9 +26,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import {
   type AdhkarCounterControls,
   AdhkarCounterPanel,
@@ -32,13 +39,14 @@ import { AdhkarStepList } from "@/components/zikr/adhkar-step-list";
 import { type AdhkarStep, AdhkarStepStrip } from "@/components/zikr/adhkar-step-strip";
 import { AfterSalahPrayerChips } from "@/components/zikr/after-salah-prayer-chips";
 import { ZikrHadithContext } from "@/components/zikr/zikr-hadith-context";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { useVoiceTasbeehSteps } from "@/hooks/use-voice-tasbeeh-steps";
 import { isWebInteractiveTarget, useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import {
@@ -123,18 +131,31 @@ export default function AdhkarSessionScreen() {
   const scrollRef = useRef<ScrollViewInstance>(null);
 
   const [corpusReady, setCorpusReady] = useState(false);
+  const [corpusFailed, setCorpusFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     let active = true;
-    void ensureZikrCorpus().then(() => {
-      if (active) setCorpusReady(true);
-    });
+    void attempt; // a retry re-runs the load
+    setCorpusFailed(false);
+    ensureZikrCorpus().then(
+      () => {
+        if (active) setCorpusReady(true);
+      },
+      () => {
+        if (active) setCorpusFailed(true);
+      },
+    );
     return () => {
       active = false;
     };
-  }, []);
+  }, [attempt]);
+  const undoToast = useUndoToast();
 
   const categoryParam = paramValue(params.category) ?? "";
-  const categoryId: ZikrCategoryId = isZikrCategoryId(categoryParam) ? categoryParam : "morning";
+  // An unknown category renders a not-found state below (B-55) — it must never
+  // silently become Morning adhkar and log against it.
+  const knownCategory = isZikrCategoryId(categoryParam);
+  const categoryId: ZikrCategoryId = knownCategory ? categoryParam : "morning";
   const isAfterSalah = categoryId === "after_prayer";
   const prayerParam = paramValue(params.prayer);
   const linkedPrayer = prayerParam && isAfterSalahPrayer(prayerParam) ? prayerParam : null;
@@ -273,13 +294,20 @@ export default function AdhkarSessionScreen() {
         if (next < 0) {
           setCelebrate(true);
           setBurst((key) => key + 1);
+          AccessibilityInfo.announceForAccessibility?.(t("zikrSession.announceAllDone"));
         } else {
           setIndex(next);
+          const upNext = items[next];
+          if (upNext) {
+            AccessibilityInfo.announceForAccessibility?.(
+              t("zikrSession.announceRecitedNext", { title: upNext.title }),
+            );
+          }
         }
         scrollToTop();
       }, delay);
     },
-    [items, scope, scrollToTop],
+    [items, scope, scrollToTop, t],
   );
 
   const write = useCallback(
@@ -333,7 +361,7 @@ export default function AdhkarSessionScreen() {
     },
   });
 
-  const [confirm, setConfirm] = useState<"reset" | "all" | null>(null);
+  const [confirm, setConfirm] = useState<"all" | null>(null);
 
   const markAll = () => {
     void day.setCounts(completeAllEntries(items, scope));
@@ -343,6 +371,18 @@ export default function AdhkarSessionScreen() {
     setCelebrate(true);
     setBurst((key) => key + 1);
     scrollToTop();
+  };
+
+  // Clearing a zikr is reversible: clear now, offer Undo (no confirm dialog).
+  const markNotDone = () => {
+    if (!item) return;
+    const previous = count;
+    if (previous <= 0) return;
+    void undoToast.run({
+      do: () => write(0),
+      undo: () => write(previous),
+      messageKey: "zikr.markedNotDone",
+    });
   };
 
   const canPrev = safeIndex > 0;
@@ -368,7 +408,7 @@ export default function AdhkarSessionScreen() {
       }
       return undefined;
     },
-    !tv && confirm === null,
+    !tv && knownCategory && confirm === null,
   );
 
   const [dockHeight, setDockHeight] = useState(DOCK_FALLBACK);
@@ -384,7 +424,36 @@ export default function AdhkarSessionScreen() {
     isAfterSalah ? `/zikr/after_prayer?prayer=${prayer}` : `/zikr/${categoryId}`
   ) as Href;
 
-  if (!corpusReady) return null;
+  if (!knownCategory) {
+    return (
+      <ScreenLayout title={t("zikr.title")} onBack={() => goBackOrReplace(router, "/zikr" as Href)}>
+        <Seo
+          path={`/zikr/session/${categoryParam}`}
+          title={t("zikr.unknownCategoryTitle")}
+          description={t("zikr.unknownCategoryDesc")}
+          index={false}
+        />
+        <EmptyState
+          icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
+          title={t("zikr.unknownCategoryTitle")}
+          description={t("zikr.unknownCategoryDesc")}
+          actionLabel={t("zikr.browseAdhkar")}
+          onAction={() => router.replace("/zikr")}
+        />
+      </ScreenLayout>
+    );
+  }
+
+  if (!corpusReady) {
+    return (
+      <TasbeehLoadingScreen
+        title={setName}
+        onBack={() => goBackOrReplace(router, backHref)}
+        failed={corpusFailed}
+        onRetry={() => setAttempt((n) => n + 1)}
+      />
+    );
+  }
 
   const statusLabel = t(`zikrSession.status.${state.status}`);
   const statusColor =
@@ -411,7 +480,7 @@ export default function AdhkarSessionScreen() {
     onTap,
     onUndo: () => write(count - 1),
     onComplete,
-    onReset: () => setConfirm("reset"),
+    onReset: markNotDone,
     onPrev: () => canPrev && goTo(safeIndex - 1),
     onNext: () => canNext && goTo(safeIndex + 1),
     canPrev,
@@ -444,21 +513,13 @@ export default function AdhkarSessionScreen() {
           {t("zikrSession.progressShort", { completed: state.completed, total: state.total })}
         </ThemedText>
         {!allDone ? (
-          <PressableScale
-            haptic="selection"
-            accessibilityRole="button"
+          <Button
+            label={t("zikrSession.markAll")}
+            variant="secondary"
+            size="sm"
             accessibilityHint={t("zikrSession.markAllHint")}
             onPress={() => setConfirm("all")}
-            style={[
-              styles.linkButton,
-              tv && styles.linkButtonTv,
-              { backgroundColor: colors.muted },
-            ]}
-          >
-            <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "600" }}>
-              {t("zikrSession.markAll")}
-            </ThemedText>
-          </PressableScale>
+          />
         ) : null}
       </View>
       {!day.isToday ? (
@@ -475,6 +536,7 @@ export default function AdhkarSessionScreen() {
       {wide ? (
         <ProgressBar
           value={state.total > 0 ? state.completed / state.total : 0}
+          accessibilityLabel={t("a11yProgress.adhkarSession")}
           height={5}
           color={allDone ? tokens.status.success.color : undefined}
         />
@@ -527,12 +589,12 @@ export default function AdhkarSessionScreen() {
           <IconButton
             name={
               isFavorite
-                ? { ios: "star.fill", android: "star", web: "star" }
-                : { ios: "star", android: "star_border", web: "star_border" }
+                ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+                : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
             }
             size={18}
             hitTarget={tv ? TvLayout.minFocusTargetDp : 40}
-            tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+            tintColor={isFavorite ? colors.accent : colors.mutedForeground}
             accessibilityLabel={isFavorite ? t("zikr.removeFavorite") : t("zikr.favorite")}
             accessibilityState={{ selected: isFavorite }}
             haptic="selection"
@@ -599,7 +661,7 @@ export default function AdhkarSessionScreen() {
 
   const empty = (
     <EmptyState
-      icon={{ ios: "heart", android: "favorite_border", web: "favorite_border" }}
+      icon={{ ios: "text.book.closed", android: "menu_book", web: "menu_book" }}
       title={t("zikr.emptyTitle")}
       description={t("zikr.emptyDesc")}
     />
@@ -622,20 +684,10 @@ export default function AdhkarSessionScreen() {
   const dialog = (
     <ConfirmDialog
       visible={confirm !== null}
-      title={
-        confirm === "all" ? t("zikrSession.confirmAllTitle") : t("zikrSession.confirmResetTitle")
-      }
-      message={
-        confirm === "all"
-          ? t("zikrSession.confirmAllMessage", { set: setName })
-          : t("zikrSession.confirmResetMessage")
-      }
-      confirmLabel={confirm === "all" ? t("zikrSession.markAll") : t("zikrSession.markNotDone")}
-      destructive={confirm === "reset"}
-      onConfirm={() => {
-        if (confirm === "all") markAll();
-        else write(0);
-      }}
+      title={t("zikrSession.confirmAllTitle")}
+      message={t("zikrSession.confirmAllMessage", { set: setName })}
+      confirmLabel={t("zikrSession.markAll")}
+      onConfirm={markAll}
       onClose={() => setConfirm(null)}
     />
   );
@@ -680,8 +732,15 @@ export default function AdhkarSessionScreen() {
                 >
                   {summary}
                   {item ? <AdhkarCounterPanel {...controls} /> : null}
+                  {/* TV: toasts take no focus — Undo of "not done" lives here (B-04). */}
+                  <TvUndoButton
+                    controller={undoToast}
+                    preferredFocus
+                    accessibilityHint={t("zikr.markedNotDone")}
+                  />
                   <View style={[styles.outline, { borderTopColor: tokens.hairline }]}>
                     <ThemedText
+                      weight="semibold"
                       type="caption"
                       themeColor="mutedForeground"
                       style={styles.outlineTitle}
@@ -743,14 +802,6 @@ const styles = StyleSheet.create({
   summary: { gap: Spacing.two },
   summaryRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   statusDot: { width: 8, height: 8, borderRadius: 4 },
-  linkButton: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one + 2,
-    borderRadius: 999,
-    minHeight: 32,
-    justifyContent: "center",
-  },
-  linkButtonTv: { minHeight: TvLayout.minFocusTarget, paddingHorizontal: Spacing.four },
   wideChips: { marginBottom: Spacing.three },
   wideRow: { flex: 1, minHeight: 0, flexDirection: "row", gap: Spacing.four },
   wideReading: { flex: 1, minWidth: 0 },
@@ -758,19 +809,18 @@ const styles = StyleSheet.create({
   panel: {
     width: PANEL_WIDTH,
     flexShrink: 0,
-    borderStartWidth: StyleSheet.hairlineWidth,
+    borderStartWidth: BorderWidth.hairline,
   },
   panelTv: { width: TvLayout.detailPaneMinWidth },
   panelContent: { paddingStart: Spacing.four, gap: Spacing.four },
   outline: {
     gap: Spacing.two,
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   outlineTitle: {
     textTransform: "uppercase",
     letterSpacing: 0.6,
-    fontWeight: "600",
     paddingHorizontal: Spacing.two,
   },
 });

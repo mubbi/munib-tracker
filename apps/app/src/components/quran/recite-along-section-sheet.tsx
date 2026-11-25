@@ -32,7 +32,13 @@ export function ReciteAlongSectionSheet({
   const sections = splitPassage(passage);
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet
+      accessibilityLabel={t("reciteAlong.sheet.title", { passage: passageLabel(passage) })}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+    >
       <View style={styles.stack}>
         <ThemedText type="subtitle" accessibilityRole="header">
           {t("reciteAlong.sheet.title", { passage: passageLabel(passage) })}

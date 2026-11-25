@@ -20,7 +20,7 @@ function MuhasabahReminderOffer({ config }: { config: MuhasabahConfig }) {
   if (!shouldOfferMuhasabahReminder(config, Boolean(nightlyReminder.value))) return null;
 
   return (
-    <Card>
+    <Card padding="four">
       <View style={styles.gap}>
         <ThemedText type="smallBold">{t("muhasabah.offerTitle")}</ThemedText>
         <ThemedText type="small" themeColor="mutedForeground">
@@ -58,7 +58,7 @@ export function MuhasabahDone({
   const { t } = useTranslation();
   return (
     <View style={styles.stack}>
-      <Card>
+      <Card padding="four">
         <View style={styles.gap}>
           <ThemedText type="subtitle">{t("muhasabah.doneTitle")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">

@@ -20,8 +20,8 @@ import {
   type ViewStyle,
 } from "react-native";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
-import { MaxContentWidth, Radius, Spacing } from "@/constants/theme";
-import { useWebGlobalRail } from "@/hooks/use-large-screen-layout";
+import { Breakpoints, MaxContentWidth, Radius, Spacing } from "@/constants/theme";
+import { useGlobalRail } from "@/hooks/use-large-screen-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 
@@ -61,10 +61,10 @@ export type LearnHubLayout = {
  */
 export function useLearnHubLayout(asideWidth: number = HUB_ASIDE_WIDTH): LearnHubLayout {
   const { width } = useWindowDimensions();
-  const rail = useWebGlobalRail();
+  const rail = useGlobalRail();
   const tv = isTV();
   return useMemo(() => {
-    if (tv || width < 768) {
+    if (tv || width < Breakpoints.tablet) {
       // Phones and TV: zero widths so every derived column count / threshold
       // falls back to the original single-column layout.
       return {

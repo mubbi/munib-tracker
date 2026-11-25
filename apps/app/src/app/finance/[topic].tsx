@@ -7,7 +7,7 @@ export function generateStaticParams() {
 }
 
 export default function FinanceTopicScreen() {
-  return <LearnGuideTopicScreen config={islamicFinanceGuideConfig} />;
+  return <LearnGuideTopicScreen config={islamicFinanceGuideConfig} surface="finance" />;
 }
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

@@ -1,16 +1,18 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, Share, StyleSheet, TextInput } from "react-native";
+import { Platform, Share, StyleSheet, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { TextField } from "@/components/ui/text-field";
+import { Spacing } from "@/constants/theme";
 import {
   applyBackup,
   type BackupFile,
@@ -21,18 +23,36 @@ import {
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { backupFileName, pickBackupFileText, saveBackupFile } from "@/lib/settings/backup-file";
+import { type BackupSummary, summarizeBackup } from "@/lib/settings/backup-summary";
+import { formatDisplayDate } from "@/lib/time";
 import { useToast } from "@/providers/toast-provider";
 import { reloadAllStores } from "@/stores/reload-all-stores";
 
+type Pending = { file: BackupFile; summary: BackupSummary };
+
+/**
+ * Backup & restore (P5-46, D-03). Backups are files: "Save backup file" shares
+ * (native) or downloads (web) a dated `.json`; "Copy as text" keeps the old
+ * text path. Restore picks a file (or pasted text), shows what it contains, and
+ * only then asks for the destructive confirm, which stays busy while the
+ * restore runs and reports failures inline. The backup format and
+ * `applyBackup` are unchanged.
+ */
 export default function BackupScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { t, i18n } = useTranslation();
   const toast = useToast();
 
-  const [exported, setExported] = useState("");
-  const [importText, setImportText] = useState("");
-  const [pending, setPending] = useState<BackupFile | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [copying, setCopying] = useState(false);
+  const [exportError, setExportError] = useState<string | null>(null);
+  // Web clipboard can fail (insecure context, denied permission): show the text to copy by hand (B-33).
+  const [copyFallback, setCopyFallback] = useState<string | null>(null);
+  const [picking, setPicking] = useState(false);
+  const [pasteText, setPasteText] = useState("");
+  const [restoreError, setRestoreError] = useState<string | null>(null);
+  const [pending, setPending] = useState<Pending | null>(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   // No route-level empty state on TV (§4.5.10): bounce to the group.
@@ -47,49 +67,96 @@ export default function BackupScreen() {
     );
   }
 
-  const onExport = async () => {
-    const text = await exportBackup();
-    setExported(text);
-    if (Platform.OS === "web") {
-      try {
-        await navigator?.clipboard?.writeText(text);
-        toast.success(t("backup.copied"));
-      } catch {
-        // fall through — the text is shown for manual copy
-      }
-      return;
-    }
+  const web = Platform.OS === "web";
+
+  const onSaveFile = async () => {
+    if (saving) return;
+    setSaving(true);
+    setExportError(null);
     try {
-      await Share.share({ message: text });
+      const nowIso = new Date().toISOString();
+      const text = await exportBackup(nowIso);
+      const result = await saveBackupFile(
+        text,
+        backupFileName(nowIso),
+        t("backup.saveDialogTitle"),
+      );
+      if (result === "unavailable") setExportError(t("backup.saveUnavailable"));
+      else if (web) toast.success(t("backup.downloaded"));
     } catch {
-      // cancelled — the text remains visible for manual copy
+      setExportError(t("backup.exportFailed"));
+    } finally {
+      setSaving(false);
     }
   };
 
-  const onPreview = () => {
-    const result = parseBackup(importText);
+  const onCopyText = async () => {
+    if (copying) return;
+    setCopying(true);
+    setExportError(null);
+    setCopyFallback(null);
+    let text: string | null = null;
+    try {
+      text = await exportBackup();
+      if (web) {
+        await navigator.clipboard.writeText(text);
+        toast.success(t("backup.copied"));
+      } else {
+        await Share.share({ message: text });
+      }
+    } catch {
+      if (web && text != null) {
+        setCopyFallback(text);
+        return;
+      }
+      setExportError(t("backup.exportFailed"));
+    } finally {
+      setCopying(false);
+    }
+  };
+
+  /** Validates text from a file or the paste field and shows its contents. */
+  const preview = (text: string) => {
+    const result = parseBackup(text);
     if (!result.ok) {
-      toast.error(t(`backup.error.${result.error}`));
       setPending(null);
+      setRestoreError(t(`backup.error.${result.error}`));
       return;
     }
-    setPending(result.file);
-    setConfirmOpen(true);
+    setRestoreError(null);
+    setPending({ file: result.file, summary: summarizeBackup(result.file, result.entries) });
+  };
+
+  const onChooseFile = async () => {
+    if (picking) return;
+    setPicking(true);
+    setRestoreError(null);
+    try {
+      const text = await pickBackupFileText();
+      if (text != null) preview(text);
+    } catch {
+      setRestoreError(t("backup.pickFailed"));
+    } finally {
+      setPicking(false);
+    }
   };
 
   const onRestore = async () => {
     if (!pending) return;
-    await applyBackup(pending);
+    await applyBackup(pending.file);
     // Restored data replaced everything on disk — invalidate the sync cursors so
     // the next cloud sync re-uploads it instead of the delta filter skipping it.
     await invalidateSyncStateAfterRestore();
     await reloadAllStores();
-    setConfirmOpen(false);
     setPending(null);
-    setImportText("");
+    setPasteText("");
     toast.success(t("backup.restored"));
     goBackOrReplace(router, "/settings/data");
   };
+
+  const savedOn = pending?.summary.exportedAt
+    ? formatDisplayDate(new Date(pending.summary.exportedAt), i18n.language)
+    : null;
 
   return (
     <SettingsDetailScreen
@@ -99,58 +166,138 @@ export default function BackupScreen() {
       subtitle={t("backup.subtitle")}
     >
       <Stagger>
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("backup.exportTitle")}
             icon={{ ios: "square.and.arrow.up", android: "ios_share", web: "ios_share" }}
           />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+          <ThemedText type="small" themeColor="mutedForeground" style={styles.hint}>
             {t("backup.exportHint")}
           </ThemedText>
-          <Button
-            label={t("backup.exportAction")}
-            variant="secondary"
-            fullWidth
-            onPress={() => void onExport()}
-            style={styles.action}
-          />
-          {exported ? (
-            <TextInput
-              value={exported}
-              editable={false}
-              multiline
-              selectTextOnFocus
-              style={[styles.output, tokens.inputSurface, { color: colors.mutedForeground }]}
+          <View style={styles.actions}>
+            <Button
+              label={t("backup.saveFile")}
+              fullWidth
+              loading={saving}
+              onPress={() => void onSaveFile()}
             />
+            <Button
+              label={web ? t("backup.copyText") : t("backup.shareText")}
+              variant="secondary"
+              fullWidth
+              loading={copying}
+              onPress={() => void onCopyText()}
+            />
+          </View>
+          {exportError ? (
+            <Callout tone="danger" style={styles.callout}>
+              {exportError}
+            </Callout>
+          ) : null}
+          {copyFallback != null ? (
+            <View style={styles.callout}>
+              <Callout tone="warning">{t("backup.copyFallbackHint")}</Callout>
+              <TextField
+                label={t("backup.copyFallbackLabel")}
+                value={copyFallback}
+                // Read-only in effect: the text stays the backup, but remains selectable.
+                onChangeText={() => undefined}
+                multiline
+                selectTextOnFocus
+                autoCapitalize="none"
+                autoCorrect={false}
+                spellCheck={false}
+              />
+            </View>
           ) : null}
         </Card>
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("backup.importTitle")}
             icon={{ ios: "square.and.arrow.down", android: "download", web: "download" }}
           />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("backup.importHint")}
+          <ThemedText type="small" themeColor="mutedForeground" style={styles.hint}>
+            {t("backup.restoreHint")}
           </ThemedText>
-          <TextInput
-            value={importText}
-            onChangeText={setImportText}
-            placeholder={t("backup.importPlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            multiline
-            autoCapitalize="none"
-            autoCorrect={false}
-            style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
-          />
-          <Button
-            label={t("backup.importAction")}
-            fullWidth
-            disabled={importText.trim().length === 0}
-            onPress={onPreview}
-            style={styles.action}
-          />
+          <View style={styles.actions}>
+            <Button
+              label={t("backup.chooseFile")}
+              variant="secondary"
+              fullWidth
+              loading={picking}
+              onPress={() => void onChooseFile()}
+            />
+          </View>
+          <View style={styles.paste}>
+            <CollapsibleSection title={t("backup.pasteInstead")}>
+              <TextField
+                label={t("backup.pasteLabel")}
+                value={pasteText}
+                onChangeText={setPasteText}
+                placeholder={t("backup.importPlaceholder")}
+                multiline
+                autoCapitalize="none"
+                autoCorrect={false}
+                spellCheck={false}
+              />
+              <Button
+                label={t("backup.checkPasted")}
+                variant="secondary"
+                fullWidth
+                disabled={pasteText.trim().length === 0}
+                onPress={() => preview(pasteText)}
+                style={styles.action}
+              />
+            </CollapsibleSection>
+          </View>
+          {restoreError ? (
+            <Callout tone="danger" style={styles.callout}>
+              {restoreError}
+            </Callout>
+          ) : null}
         </Card>
+
+        {pending ? (
+          <Card>
+            <SectionHeader
+              title={t("backup.previewTitle")}
+              icon={{ ios: "list.bullet.rectangle", android: "fact_check", web: "fact_check" }}
+            />
+            <View style={styles.summary}>
+              {savedOn ? (
+                <ThemedText type="small">
+                  {t("backup.summary.savedOn", { date: savedOn })}
+                </ThemedText>
+              ) : null}
+              {pending.summary.areas.map((area) => (
+                <ThemedText key={area.id} type="small">
+                  {t("backup.summary.row", {
+                    label: t(`backup.summary.area.${area.id}`),
+                    count: area.count,
+                  })}
+                </ThemedText>
+              ))}
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("backup.summary.sections", { count: pending.summary.sections })}
+              </ThemedText>
+            </View>
+            <View style={styles.actions}>
+              <Button
+                label={t("backup.restoreAction")}
+                variant="destructive"
+                fullWidth
+                onPress={() => setConfirmOpen(true)}
+              />
+              <Button
+                label={t("backup.chooseAnother")}
+                variant="ghost"
+                fullWidth
+                onPress={() => setPending(null)}
+              />
+            </View>
+          </Card>
+        ) : null}
       </Stagger>
 
       <ConfirmDialog
@@ -159,7 +306,8 @@ export default function BackupScreen() {
         message={t("backup.confirmMessage")}
         confirmLabel={t("backup.confirmAction")}
         destructive
-        onConfirm={() => void onRestore()}
+        onConfirm={onRestore}
+        errorMessage={t("backup.restoreFailed")}
         onClose={() => setConfirmOpen(false)}
       />
     </SettingsDetailScreen>
@@ -168,28 +316,11 @@ export default function BackupScreen() {
 
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.two },
+  actions: { marginTop: Spacing.three, gap: Spacing.two },
   action: { marginTop: Spacing.three },
-  output: {
-    marginTop: Spacing.three,
-    minHeight: 100,
-    maxHeight: 160,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    padding: Spacing.three,
-    fontSize: 11,
-    textAlignVertical: "top",
-  },
-  input: {
-    marginTop: Spacing.three,
-    minHeight: 120,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    padding: Spacing.three,
-    fontSize: 12,
-    textAlignVertical: "top",
-  },
+  paste: { marginTop: Spacing.two },
+  callout: { marginTop: Spacing.three },
+  summary: { marginTop: Spacing.three, gap: Spacing.half },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

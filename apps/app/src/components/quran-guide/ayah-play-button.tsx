@@ -39,7 +39,7 @@ function PlayTracksButton({ tracks, sourceHref, accessibilityLabel }: PlayButton
       label={t("common.play")}
       onPress={onPress}
       tintColor={colors.accent}
-      labelColor={colors.accent}
+      labelColor={colors.accentText}
       background={tokens.accentSoft}
       accessibilityLabel={label}
     />

@@ -12,7 +12,7 @@ import Animated, {
 import { ThemedText } from "@/components/themed-text";
 import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { Springs } from "@/constants/motion";
-import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle, progressRingKnobStyle } from "@/lib/chart-rtl";
@@ -244,7 +244,7 @@ function CounterRing({
                   size={16}
                   tintColor={tokens.status.success.color}
                 />
-                <ThemedText type="smallBold" style={{ color: tokens.status.success.color }}>
+                <ThemedText type="smallBold" style={{ color: tokens.status.success.onSoft }}>
                   {t("tasbeehUi.complete")}
                 </ThemedText>
               </View>
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
   },
   knob: {
     position: "absolute",
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
     ...Shadows.sm,
   },
   ringCenter: {
@@ -294,14 +294,14 @@ const styles = StyleSheet.create({
   targetSuffix: {
     fontVariant: ["tabular-nums"],
     opacity: 0.55,
-    marginBottom: 6,
+    marginBottom: Spacing.oneHalf,
   },
   completeBadge: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one,
     paddingHorizontal: Spacing.two,
-    paddingVertical: Spacing.half + 2,
+    paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
   },

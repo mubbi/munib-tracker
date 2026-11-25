@@ -67,7 +67,7 @@ export default function LearnQuranRevelationScreen() {
       }
       style={twoColumn ? styles.timelineCardPressable : styles.cardPressable}
     >
-      <Card padding="three" style={twoColumn ? undefined : styles.card}>
+      <Card style={twoColumn ? undefined : styles.card}>
         <View style={styles.badges}>
           <Pill
             label={t("seerah.ceBadge", { year: event.year })}
@@ -102,7 +102,7 @@ export default function LearnQuranRevelationScreen() {
         <LearnProseText themeColor="mutedForeground">{event.body}</LearnProseText>
         {event.topicId ? (
           <View style={styles.linkRow}>
-            <ThemedText type="caption" style={{ color: colors.accent }}>
+            <ThemedText type="caption" style={{ color: colors.accentText }}>
               {t("learnQuran.readArticle")}
             </ThemedText>
             <SymbolView name={chevronForwardIcon} size={12} tintColor={colors.accent} />
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     marginBottom: Spacing.two,
   },
-  location: { flexDirection: "row", alignItems: "center", gap: 2 },
+  location: { flexDirection: "row", alignItems: "center", gap: Spacing.half },
   title: { marginBottom: Spacing.one },
   linkRow: { flexDirection: "row", alignItems: "center", gap: Spacing.one, marginTop: Spacing.two },
 });

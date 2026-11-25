@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 /**
@@ -30,7 +30,7 @@ export function ConsistencyDots({ dots, label }: { dots: readonly boolean[]; lab
               : {
                   backgroundColor: colors.muted,
                   borderColor: tokens.hairline,
-                  borderWidth: StyleSheet.hairlineWidth,
+                  borderWidth: BorderWidth.hairline,
                 },
           ]}
         />
@@ -40,6 +40,6 @@ export function ConsistencyDots({ dots, label }: { dots: readonly boolean[]; lab
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: "row", flexWrap: "wrap", gap: 3, marginTop: 4 },
+  row: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.one, marginTop: Spacing.one },
   dot: { width: 7, height: 7, borderRadius: 4 },
 });

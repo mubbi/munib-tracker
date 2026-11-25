@@ -1,14 +1,15 @@
 import { type ReactNode, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
 import { ProgressBar } from "@/components/ui/progress-bar";
-import { Sheet } from "@/components/ui/sheet";
+import { Skeleton, SkeletonGroup } from "@/components/ui/skeleton";
 import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { QAC_DOWNLOAD_MB, QAC_SITE } from "@/lib/quran-morphology/source";
 import {
   useCompanionPrefs,
@@ -25,7 +26,6 @@ import { quranRootsStore, useEnsureRootIndex, useRootDataStatus } from "@/stores
  */
 export function RootDataGate({ children }: { children: ReactNode }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   useEnsureRootIndex();
   useEnsureCompanionPrefsLoaded();
   const prefs = useCompanionPrefs();
@@ -49,16 +49,14 @@ export function RootDataGate({ children }: { children: ReactNode }) {
   const busy = status === "downloading" || status === "verifying" || status === "building";
 
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.body}>
         <ThemedText type="smallBold">{t("quranRoots.data.title")}</ThemedText>
         {status === "idle" || status === "checking" ? (
-          <View style={styles.row}>
-            <ActivityIndicator size="small" color={colors.accent} />
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("quranRoots.data.checking")}
-            </ThemedText>
-          </View>
+          <SkeletonGroup accessibilityLabel={t("quranRoots.data.checking")} style={styles.body}>
+            <Skeleton width="80%" height={12} />
+            <Skeleton width="55%" height={12} />
+          </SkeletonGroup>
         ) : busy ? (
           <>
             <ThemedText type="small" themeColor="mutedForeground" accessibilityLiveRegion="polite">
@@ -68,7 +66,10 @@ export function RootDataGate({ children }: { children: ReactNode }) {
                   ? t("quranRoots.data.verifying")
                   : t("quranRoots.data.building", { percent })}
             </ThemedText>
-            <ProgressBar value={status === "verifying" ? 1 : progress} />
+            <ProgressBar
+              value={status === "verifying" ? 1 : progress}
+              accessibilityLabel={t("quranRoots.data.title")}
+            />
             {status === "building" ? (
               <ThemedText type="caption" themeColor="mutedForeground">
                 {t("quranRoots.data.buildingHint")}
@@ -88,15 +89,7 @@ export function RootDataGate({ children }: { children: ReactNode }) {
             <ThemedText type="small" themeColor="mutedForeground">
               {t("quranRoots.data.body")}
             </ThemedText>
-            {error ? (
-              <ThemedText
-                type="small"
-                style={{ color: tokens.status.danger.text }}
-                accessibilityRole="alert"
-              >
-                {t(`quranRoots.data.error.${error}`)}
-              </ThemedText>
-            ) : null}
+            {error ? <Callout tone="danger">{t(`quranRoots.data.error.${error}`)}</Callout> : null}
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("quranRoots.data.source", { site: QAC_SITE })}
             </ThemedText>
@@ -118,25 +111,20 @@ export function RootDataGate({ children }: { children: ReactNode }) {
           </>
         )}
       </View>
-      <Sheet visible={cellularConfirm} onClose={() => setCellularConfirm(false)} variant="center">
-        <View style={styles.body}>
-          <ThemedText type="smallBold">{t("quranRoots.data.cellularTitle")}</ThemedText>
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("quranRoots.data.cellularBody", { size: QAC_DOWNLOAD_MB })}
-          </ThemedText>
-          <Button label={t("quranRoots.data.cellularConfirm")} onPress={() => void start(true)} />
-          <Button
-            label={t("quranRoots.data.cancel")}
-            variant="ghost"
-            onPress={() => setCellularConfirm(false)}
-          />
-        </View>
-      </Sheet>
+      <ConfirmDialog
+        visible={cellularConfirm}
+        title={t("quranRoots.data.cellularTitle")}
+        message={t("quranRoots.data.cellularBody", { size: QAC_DOWNLOAD_MB })}
+        confirmLabel={t("quranRoots.data.cellularConfirm")}
+        cancelLabel={t("quranRoots.data.cancel")}
+        onConfirm={() => void start(true)}
+        onCancel={() => setCellularConfirm(false)}
+        onClose={() => setCellularConfirm(false)}
+      />
     </Card>
   );
 }
 
 const styles = StyleSheet.create({
   body: { gap: Spacing.two },
-  row: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
 });

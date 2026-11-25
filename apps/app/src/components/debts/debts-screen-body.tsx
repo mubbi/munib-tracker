@@ -12,8 +12,10 @@ import { VaultStateNotice } from "@/components/self-review/vault-state-notice";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { Spacing } from "@/constants/theme";
 import { useRecordFormat } from "@/hooks/use-record-format";
 import { DEBT_TABS, type DebtTab, debtsForTab, outstandingByCurrency } from "@/lib/debts/debts";
@@ -75,13 +77,23 @@ export function DebtsScreenBody({
     return <VaultStateNotice status={status} error={error} />;
   }
   // Don't flash "nothing recorded" totals while the encrypted record opens.
-  if (status !== "ready") return null;
+  if (status !== "ready") return <SkeletonPlaceholder preset="rows" count={3} />;
+
+  const addRecord = () => {
+    const direction: DebtDirection = tab === "trusts" ? "trust_held" : tab;
+    if (onAddRecord) onAddRecord(direction);
+    else
+      router.push({
+        pathname: "/debts/[id]",
+        params: { id: "new", direction },
+      } as Href);
+  };
 
   return (
     <View style={styles.stack}>
       <JannahCallout tone="info">{t("debts.intro")}</JannahCallout>
 
-      <Card padding="three">
+      <Card>
         <View style={styles.totals}>
           <View style={styles.total}>
             <ThemedText type="caption" themeColor="mutedForeground">
@@ -102,9 +114,12 @@ export function DebtsScreenBody({
 
       <View style={styles.list}>
         {rows.length === 0 ? (
-          <ThemedText type="small" themeColor="mutedForeground" style={styles.empty}>
-            {t(`debts.empty.${tab}`)}
-          </ThemedText>
+          <EmptyState
+            icon={{ ios: "doc.text", android: "description", web: "description" }}
+            title={t(`debts.empty.${tab}`)}
+            actionLabel={t("debts.add")}
+            onAction={addRecord}
+          />
         ) : (
           rows.map((record) => (
             <DebtRow
@@ -120,24 +135,18 @@ export function DebtsScreenBody({
             />
           ))
         )}
-        <Button
-          label={t("debts.add")}
-          icon={{ ios: "plus", android: "add", web: "add" }}
-          onPress={() => {
-            const direction: DebtDirection = tab === "trusts" ? "trust_held" : tab;
-            if (onAddRecord) onAddRecord(direction);
-            else
-              router.push({
-                pathname: "/debts/[id]",
-                params: { id: "new", direction },
-              } as Href);
-          }}
-        />
+        {rows.length > 0 ? (
+          <Button
+            label={t("debts.add")}
+            icon={{ ios: "plus", android: "add", web: "add" }}
+            onPress={addRecord}
+          />
+        ) : null}
       </View>
 
       <ObligationsCard obligations={obligations} vows={vows} />
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("debts.more")}
           icon={{ ios: "doc.text.fill", android: "description", web: "description" }}
@@ -152,7 +161,7 @@ export function DebtsScreenBody({
           <JannahNavRow
             icon={{ ios: "square.and.arrow.up", android: "ios_share", web: "ios_share" }}
             title={t("debts.export")}
-            subtitle={exportFeedback.busy ? t("privateUx.export.preparing") : t("debts.exportHint")}
+            subtitle={exportFeedback.busy ? t("common.export.preparing") : t("debts.exportHint")}
             onPress={exportStatement}
           />
         </View>
@@ -167,8 +176,7 @@ export function DebtsScreenBody({
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
   totals: { flexDirection: "row", gap: Spacing.three, flexWrap: "wrap" },
-  total: { flex: 1, minWidth: 140, gap: 2 },
+  total: { flex: 1, minWidth: 140, gap: Spacing.half },
   list: { gap: Spacing.two },
-  empty: { paddingVertical: Spacing.two },
   rows: { gap: Spacing.two, marginTop: Spacing.two },
 });

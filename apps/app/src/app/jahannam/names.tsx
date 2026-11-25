@@ -21,7 +21,8 @@ import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJahannamContent, getJahannamNames, isJahannamContentReady } from "@/lib/jahannam";
@@ -40,6 +41,7 @@ function NameRow({
 }) {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
+  const rose = useCategoryHue("rose");
   const tileStyle = useLearnTileStyle();
 
   return (
@@ -50,7 +52,7 @@ function NameRow({
           ? tileStyle
           : !isLast && {
               borderBottomColor: tokens.hairline,
-              borderBottomWidth: StyleSheet.hairlineWidth,
+              borderBottomWidth: BorderWidth.hairline,
             },
       ]}
     >
@@ -62,7 +64,8 @@ function NameRow({
               android: "local_fire_department",
               web: "local_fire_department",
             }}
-            tint={tokens.status.warning.color}
+            tint={rose.icon}
+            background={rose.soft}
             well={44}
             size={20}
           />
@@ -90,7 +93,7 @@ function NameRow({
       <TvReadableBlock style={styles.notesTv}>
         <LearnProseText>{entry.context}</LearnProseText>
         <LearnProseText proseRole="caption" themeColor="mutedForeground" style={styles.tafsir}>
-          {t("jahannam.tafsirNote")}: {entry.tafsirNote}
+          {t("learnKit.tafsirNote", { text: entry.tafsirNote })}
         </LearnProseText>
         {entry.scholarlyNote ? (
           <LearnProseText proseRole="caption" themeColor="mutedForeground">
@@ -105,7 +108,11 @@ function NameRow({
 export default function JahannamNamesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const names = getJahannamNames();
   const wide = useLearnHubLayout();
   const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 360, max: 3 });
@@ -119,11 +126,11 @@ export default function JahannamNamesScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/names" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <LearnReadingChrome surface="jahannam">
-            <JannahCallout tone="warning">{t("jahannam.namesLead")}</JannahCallout>
-            <Card padding="three">
+            <JannahCallout tone="info">{t("jahannam.namesLead")}</JannahCallout>
+            <Card>
               <SectionHeader
                 title={t("jahannam.namesListTitle")}
                 icon={{

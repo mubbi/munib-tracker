@@ -12,7 +12,7 @@ import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glas
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
@@ -205,7 +205,7 @@ export function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
               size={18}
               tintColor={colors.accent}
             />
-            <ThemedText type="smallBold" style={{ color: colors.accent }}>
+            <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
               {t("player.minimize")}
             </ThemedText>
           </PressableScale>
@@ -333,7 +333,11 @@ export function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             glass={!loopActive}
             background={loopActive ? tokens.accentSoft : undefined}
             wellRadius={24}
-            style={loopActive ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
+            style={
+              loopActive
+                ? { borderWidth: BorderWidth.thick, borderColor: colors.accent }
+                : undefined
+            }
           />
           <QuranPlaybackSettingsControl size={22} wellRadius={24} />
           <TtsVoiceControl size={22} wellRadius={24} />
@@ -525,11 +529,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one,
-    paddingVertical: Spacing.two - 2,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   artwork: {
     alignSelf: "center",
@@ -561,7 +565,7 @@ const styles = StyleSheet.create({
   speed: {
     minWidth: 44,
     minHeight: 44,
-    paddingHorizontal: 8,
+    paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",
@@ -575,7 +579,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     marginBottom: Spacing.three,
   },
 });

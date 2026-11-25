@@ -6,7 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Pill } from "@/components/ui/pill";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { NearbyRequest } from "@/lib/circles/api";
 import { nearbyDecisionErrorKey, useNearbyHost } from "@/lib/nearby/use-nearby-host";
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
     paddingVertical: Spacing.two,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   rowActions: { flexDirection: "row", gap: Spacing.one },
 });

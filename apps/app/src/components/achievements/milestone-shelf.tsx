@@ -3,11 +3,15 @@ import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
-import { TRACK_LABEL_KEYS, TRACK_VISUALS } from "@/components/achievements/track-card";
+import {
+  TRACK_LABEL_KEYS,
+  TRACK_VISUALS,
+  useTrackTones,
+} from "@/components/achievements/track-card";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { milestoneTitle } from "@/lib/achievements-i18n";
 import { tTv } from "@/lib/i18n/t-tv";
@@ -69,12 +73,13 @@ export function MilestoneShelf({
   const { colors, tokens } = useThemeTokens();
   const tv = isTV();
   const groups = groupMilestones(milestones);
+  const tones = useTrackTones();
 
   return (
     <View style={styles.root}>
       {groups.map(({ trackId, items }) => {
         const visual = TRACK_VISUALS[trackId];
-        const tone = tokens.status[visual.tone];
+        const tone = tones[trackId];
         const shown = expanded ? items : items.slice(0, COLLAPSED_PER_TRACK);
         const hidden = items.length - shown.length;
         return (
@@ -177,7 +182,7 @@ const styles = StyleSheet.create({
   groupHeader: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   flex: {
     flex: 1,
@@ -190,16 +195,16 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
-    paddingStart: Spacing.one + 2,
-    paddingEnd: Spacing.two + 2,
+    gap: Spacing.oneHalf,
+    paddingStart: Spacing.oneHalf,
+    paddingEnd: Spacing.twoHalf,
     minHeight: 36,
     borderRadius: Radius.pill,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     maxWidth: 260,
   },
   moreChip: {
-    paddingStart: Spacing.two + 2,
+    paddingStart: Spacing.twoHalf,
   },
   chipBadge: {
     width: 24,

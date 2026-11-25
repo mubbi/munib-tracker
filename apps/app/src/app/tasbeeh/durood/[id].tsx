@@ -2,15 +2,18 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { ConfirmDialog } from "@/components/confirm-dialog";
+import { useLeaveGuard } from "@/components/muhasabah/use-leave-guard";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { CustomTargetModal } from "@/components/tasbeeh/custom-target-modal";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { TasbeehCounterBar } from "@/components/tasbeeh/tasbeeh-counter-bar";
 import { TasbeehReadingBlock } from "@/components/tasbeeh/tasbeeh-reading-block";
+import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useTasbeehCounterDock } from "@/hooks/use-tasbeeh-counter-dock";
 import { getDuroodByIdFrom, loadDuroodItems } from "@/lib/content-loaders";
@@ -44,7 +47,7 @@ export default function DuroodTasbeehScreen() {
   const contentBottomInset = useContentBottomInset();
   const { width: windowWidth } = useWindowDimensions();
   // Wide web / tablets: the counter sits beside the zikr text (TV keeps its layout).
-  const wide = !isTV() && windowWidth >= 1024;
+  const wide = !isTV() && windowWidth >= Breakpoints.wide;
   const dock = useTasbeehCounterDock();
   const { counterRef, onScroll, onCounterLayout, recompute } = dock;
   // TV: the landscape counter fits the viewport and keeps preferred focus — a
@@ -54,12 +57,19 @@ export default function DuroodTasbeehScreen() {
   const { fontPrefs } = usePreferences();
   const [dockBarHeight, setDockBarHeight] = useState(DOCK_BAR_FALLBACK);
   const [corpusReady, setCorpusReady] = useState(false);
+  const [corpusFailed, setCorpusFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const [item, setItem] = useState<
     Awaited<ReturnType<typeof loadDuroodItems>>[number] | undefined
   >();
   const [count, setCount] = useState(0);
   const [target, setTarget] = useState(33);
   const [customOpen, setCustomOpen] = useState(false);
+  const [leaveOpen, setLeaveOpen] = useState(false);
+  // Confirmed on-screen leave: lets the guard step aside before navigating.
+  const [leaving, setLeaving] = useState(false);
+  // Hardware / swipe / link back also asks first while a count would be lost.
+  const guard = useLeaveGuard(count > 0 && !leaving);
 
   useEffect(() => {
     // Visibility / size changes move the counter in the window — re-measure dock need.
@@ -74,20 +84,41 @@ export default function DuroodTasbeehScreen() {
 
   useEffect(() => {
     let active = true;
-    void loadDuroodItems().then((items) => {
-      if (!active) return;
-      setCorpusReady(true);
-      setItem(duroodId ? getDuroodByIdFrom(items, duroodId) : undefined);
-    });
+    void attempt; // a retry re-runs the load
+    setCorpusFailed(false);
+    loadDuroodItems().then(
+      (items) => {
+        if (!active) return;
+        setCorpusReady(true);
+        setItem(duroodId ? getDuroodByIdFrom(items, duroodId) : undefined);
+      },
+      () => {
+        if (active) setCorpusFailed(true);
+      },
+    );
     return () => {
       active = false;
     };
-  }, [duroodId]);
+  }, [duroodId, attempt]);
 
   const goBack = () => goBackOrReplace(router, "/duroods");
+  useEffect(() => {
+    if (leaving) goBackOrReplace(router, "/duroods");
+  }, [leaving, router]);
+  // The durood count lives on this screen only — leaving with progress asks first.
+  const requestLeave = () => {
+    if (count > 0) setLeaveOpen(true);
+    else goBack();
+  };
 
   if (!corpusReady) {
-    return null;
+    return (
+      <TasbeehLoadingScreen
+        onBack={goBack}
+        failed={corpusFailed}
+        onRetry={() => setAttempt((n) => n + 1)}
+      />
+    );
   }
 
   if (!item) {
@@ -136,7 +167,7 @@ export default function DuroodTasbeehScreen() {
       <ScreenLayout
         eyebrow={t("tasbeeh.eyebrow")}
         title={item.title}
-        onBack={goBack}
+        onBack={requestLeave}
         scrollable
         onScroll={onScroll}
         contentStyle={dockClearance > 0 ? { paddingBottom: dockClearance } : undefined}
@@ -166,6 +197,24 @@ export default function DuroodTasbeehScreen() {
             </View>
           </>
         )}
+
+        <ConfirmDialog
+          visible={leaveOpen || guard.visible}
+          title={t("tasbeeh.leaveCountTitle")}
+          message={t("tasbeeh.leaveCountMessage", { number: count })}
+          confirmLabel={t("tasbeeh.leaveCountConfirm")}
+          cancelLabel={t("tasbeeh.leaveCountStay")}
+          destructive
+          onConfirm={() => {
+            if (guard.visible) guard.confirm();
+            else setLeaving(true);
+            setLeaveOpen(false);
+          }}
+          onClose={() => {
+            setLeaveOpen(false);
+            guard.cancel();
+          }}
+        />
 
         <CustomTargetModal
           visible={customOpen}

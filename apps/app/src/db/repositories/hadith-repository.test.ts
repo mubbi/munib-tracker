@@ -93,6 +93,22 @@ describe("HadithRepository prefs and bookmarks", () => {
     await expect(HadithRepository.isBookmarked(item.id)).resolves.toBe(false);
   });
 
+  it("removes a bookmark and restores the exact record on Undo", async () => {
+    const item = collection.items[0] as (typeof collection.items)[number];
+    await HadithRepository.toggleBookmark(item);
+    const [original] = await HadithRepository.getBookmarks();
+    const removed = await HadithRepository.removeBookmark(item.id);
+    expect(removed).toEqual(original);
+    await expect(HadithRepository.isBookmarked(item.id)).resolves.toBe(false);
+    await expect(HadithRepository.removeBookmark(item.id)).resolves.toBeNull();
+    if (!removed) throw new Error("expected the removed record");
+
+    await expect(HadithRepository.restoreBookmark(removed)).resolves.toBe(true);
+    await expect(HadithRepository.getBookmarks()).resolves.toEqual([original]);
+    // Saved again in the meantime: Undo leaves the newer record alone.
+    await expect(HadithRepository.restoreBookmark(removed)).resolves.toBe(false);
+  });
+
   it("resolves bookmarks from cached remote books and drops unavailable ones", async () => {
     await HadithRepository.setCachedBook("bukhari", collection);
     await HadithRepository.toggleBookmark({ id: "bukhari:1", collection: "bukhari", number: "1" });

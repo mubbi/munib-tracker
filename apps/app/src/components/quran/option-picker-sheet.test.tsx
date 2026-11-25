@@ -71,9 +71,9 @@ describe("OptionPickerSheet", () => {
     expect(screen.queryByText("Reciter")).toBeNull();
   });
 
-  it("shows the title and option subtitles", async () => {
+  it("names the choice group by the title and shows option subtitles", async () => {
     await renderSheet();
-    expect(screen.getByText("Reciter")).toBeTruthy();
+    expect(screen.getByLabelText("Reciter").props.accessibilityRole).toBe("radiogroup");
     expect(screen.getByText("Murattal")).toBeTruthy();
   });
 
@@ -82,7 +82,7 @@ describe("OptionPickerSheet", () => {
     ["Mahmoud Husary", false],
   ])("marks %p selected=%p", async (name, selected) => {
     await renderSheet();
-    expect(screen.getByRole("button", { name, selected })).toBeTruthy();
+    expect(screen.getByRole("radio", { name, checked: selected })).toBeTruthy();
   });
 
   it("selects an option and closes", async () => {

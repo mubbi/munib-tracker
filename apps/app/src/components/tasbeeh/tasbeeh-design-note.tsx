@@ -25,7 +25,7 @@ export function TasbeehDesignNote({ design }: { design: TasbeehDesignId }) {
   const note = designNoteFor(design);
   if (!note) return null;
   return (
-    <Card variant="muted" padding="three" style={styles.card}>
+    <Card variant="muted" style={styles.card}>
       <View style={styles.header} accessibilityRole="header">
         <AppIcon
           icon={{ ios: "info.circle", android: "info", web: "info" }}

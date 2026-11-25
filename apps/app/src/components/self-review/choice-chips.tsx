@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 export interface ChoiceOption<T extends string> {
@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
   chip: {
     minHeight: 44,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     borderRadius: Radius.pill,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     alignItems: "center",
     justifyContent: "center",
   },

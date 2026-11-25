@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isLiveActivitySupported } from "@/lib/live-activity";
 import { useSetting } from "@/lib/settings/use-setting";
@@ -43,10 +43,7 @@ export function LiveActivityDiscoveryBanner() {
   };
 
   return (
-    <Card
-      padding="three"
-      style={[styles.card, { backgroundColor: tokens.accentSoft, borderColor: colors.accent }]}
-    >
+    <Card style={[styles.card, { backgroundColor: tokens.accentSoft, borderColor: colors.accent }]}>
       <View style={styles.header}>
         <IconWell
           icon={{
@@ -73,7 +70,6 @@ export function LiveActivityDiscoveryBanner() {
           onPress={dismiss}
           size={16}
           tintColor={colors.mutedForeground}
-          hitTarget={36}
           haptic="light"
         />
       </View>
@@ -85,7 +81,7 @@ export function LiveActivityDiscoveryBanner() {
 const styles = StyleSheet.create({
   card: {
     gap: Spacing.three,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   header: {
     flexDirection: "row",
@@ -94,7 +90,7 @@ const styles = StyleSheet.create({
   },
   headerCopy: {
     flex: 1,
-    gap: 2,
-    paddingTop: 2,
+    gap: Spacing.half,
+    paddingTop: Spacing.half,
   },
 });

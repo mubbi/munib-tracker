@@ -22,7 +22,12 @@ export function PronunciationConsentSheet({
 }) {
   const { t } = useTranslation();
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
+    <Sheet
+      accessibilityLabel={t("quranCompanion.pronunciation.consentTitle")}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+    >
       <View style={styles.body}>
         <ThemedText type="subtitle">{t("quranCompanion.pronunciation.consentTitle")}</ThemedText>
         <ThemedText type="small">{t("quranCompanion.pronunciation.consentDownload")}</ThemedText>

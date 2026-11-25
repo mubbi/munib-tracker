@@ -102,7 +102,7 @@ export default function LearnQuranThemeDetailScreen() {
             <LearnReadingChrome surface="learn_quran">
               <JannahTakeaway text={theme.summary} />
               <TvReadableBlock>
-                <Card padding="three">
+                <Card>
                   <SectionHeader
                     title={t("learnQuran.lessonsTitle")}
                     icon={{ ios: "lightbulb.fill", android: "lightbulb", web: "lightbulb" }}

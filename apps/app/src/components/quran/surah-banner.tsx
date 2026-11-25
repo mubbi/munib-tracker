@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type SurahBannerProps = {
@@ -45,7 +45,11 @@ export function SurahBanner({
         <View style={styles.nameRow}>
           <View style={[styles.rule, { backgroundColor: mushaf.bandBorder }]} />
           <View style={[styles.ornament, { backgroundColor: mushaf.ink }]} />
-          <ThemedText type="arabic" style={[styles.name, { color: mushaf.ink }]}>
+          <ThemedText
+            type="arabic"
+            accessibilityLanguage="ar"
+            style={[styles.name, { color: mushaf.ink }]}
+          >
             {nameArabic}
           </ThemedText>
           <View style={[styles.ornament, { backgroundColor: mushaf.ink }]} />
@@ -66,13 +70,13 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     padding: Spacing.one,
   },
   keyline: {
     borderRadius: Radius.sm,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.three,
     gap: Spacing.one,

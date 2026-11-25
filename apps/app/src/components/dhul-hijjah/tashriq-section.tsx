@@ -5,15 +5,13 @@ import { TakbirWording } from "@/components/dhul-hijjah/takbir-wording";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { Chip } from "@/components/ui/chip";
 import { Pill } from "@/components/ui/pill";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import type { DhulHijjahSeason } from "@/hooks/use-dhul-hijjah-season";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tashriqKey, tashriqProgress } from "@/lib/dhul-hijjah";
-import { isTV } from "@/lib/platform/is-tv";
 import { useDhulHijjahActions, useDhulHijjahYear } from "@/stores/dhul-hijjah-store";
 
 /**
@@ -23,7 +21,6 @@ import { useDhulHijjahActions, useDhulHijjahYear } from "@/stores/dhul-hijjah-st
  */
 export function TashriqSection({ season }: { season: DhulHijjahSeason }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   const state = useDhulHijjahYear(season.year);
   const { toggleTashriq } = useDhulHijjahActions();
   const progress = tashriqProgress(state, season.slots);
@@ -34,7 +31,7 @@ export function TashriqSection({ season }: { season: DhulHijjahSeason }) {
     : "dhulHijjah.tashriq.status.allViews";
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("dhulHijjah.tashriq.title")}
         subtitle={t(statusKey)}
@@ -60,31 +57,15 @@ export function TashriqSection({ season }: { season: DhulHijjahSeason }) {
                 const future = slot.date > season.today;
                 const label = t(`prayers.${slot.prayer}`);
                 return (
-                  <PressableScale
+                  <Chip
                     key={slot.prayer}
-                    accessibilityRole="checkbox"
-                    accessibilityState={{ checked: said, disabled: future }}
+                    role="checkbox"
+                    label={said ? `✓ ${label}` : label}
                     accessibilityLabel={t("dhulHijjah.tashriq.after", { prayer: label })}
+                    selected={said}
                     disabled={future}
                     onPress={() => void toggleTashriq(season.year, slot.date, slot.prayer)}
-                    haptic="selection"
-                    style={[
-                      styles.chip,
-                      isTV() ? styles.chipTv : null,
-                      {
-                        borderColor: said ? tokens.status.success.color : tokens.hairline,
-                        backgroundColor: said ? tokens.status.success.soft : colors.card,
-                        opacity: future ? 0.5 : 1,
-                      },
-                    ]}
-                  >
-                    <ThemedText
-                      type="caption"
-                      style={{ color: said ? tokens.status.success.text : colors.foreground }}
-                    >
-                      {said ? `✓ ${label}` : label}
-                    </ThemedText>
-                  </PressableScale>
+                  />
                 );
               })}
             </View>
@@ -101,9 +82,9 @@ const styles = StyleSheet.create({
   chips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
   chip: {
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     borderRadius: Radius.pill,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   chipTv: { minHeight: TvLayout.chipMinHeight, justifyContent: "center" },
 });

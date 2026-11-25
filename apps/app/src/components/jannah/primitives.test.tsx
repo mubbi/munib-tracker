@@ -1,7 +1,9 @@
 import { fireEvent, screen, within } from "@testing-library/react-native";
-import { Text } from "react-native";
+import { Pressable, Text } from "react-native";
 
 import {
+  HadithEvidence,
+  HadithQuote,
   JannahActionRow,
   JannahActionSteps,
   JannahBody,
@@ -13,6 +15,8 @@ import {
   JannahQuickLinkGrid,
   JannahQuranEvidence,
   JannahTakeaway,
+  LearnActionRow,
+  QuranEvidence,
 } from "@/components/jannah/primitives";
 import { ReciteAlongInlineScope } from "@/components/quran/recite-along-inline";
 import i18n from "@/i18n";
@@ -22,6 +26,7 @@ import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-route
 import { setMockAyahRange } from "@/test-support/mocks/use-quran-ayah-range";
 import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
+import { flattenStyle } from "@/test-support/style";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 jest.mock(
@@ -281,5 +286,76 @@ describe("JannahDuaBlock", () => {
     await renderWithTheme(<JannahDuaBlock arabic="اللَّهُمَّ" translation="O Allah" />);
     expect(screen.getByText("O Allah")).toBeTruthy();
     expect(screen.queryByText("Abu Dawud 792")).toBeNull();
+  });
+
+  it("offers a Share action on lesson duas (G-51)", async () => {
+    await renderWithTheme(<JannahDuaBlock arabic="اللَّهُمَّ" translation="O Allah" />);
+    expect(screen.getByLabelText(i18n.t("common.share"))).toBeTruthy();
+  });
+});
+
+describe("Learn kit evidence (P5-39)", () => {
+  it("draws the Qur'an quote bar with logical colour + width only (C-04, RTL-safe)", async () => {
+    await renderWithTheme(<QuranEvidence refs={[buildJannahQuranRef()]} />);
+    const quote = flattenStyle(screen.getByTestId("learn-quran-quote").props.style);
+    expect(quote.borderStartWidth).toBeGreaterThan(0);
+    expect(typeof quote.borderStartColor).toBe("string");
+    for (const physical of [
+      "borderLeftColor",
+      "borderRightColor",
+      "borderLeftWidth",
+      "borderRightWidth",
+    ]) {
+      expect(quote[physical]).toBeUndefined();
+    }
+  });
+
+  it("renders one shared hadith quote per ref with catalog quote marks (G-30, G-47)", async () => {
+    await renderWithTheme(
+      <HadithEvidence refs={[buildJannahHadithRef(), buildJannahHadithRef({ citation: "1" })]} />,
+    );
+    expect(screen.getAllByTestId("learn-hadith-quote")).toHaveLength(2);
+    const [quoted] = screen.getAllByText(/what no eye has seen/);
+    const text = String(quoted?.props.children);
+    expect(text.startsWith("“")).toBe(true);
+    expect(text).not.toMatch(/^"/);
+  });
+
+  it("drops the card header in the plain variant (no card-in-card, G-49)", async () => {
+    await renderWithTheme(<HadithEvidence plain refs={[buildJannahHadithRef()]} />);
+    expect(screen.queryByText(i18n.t("jannah.hadithTitle"))).toBeNull();
+    expect(screen.getAllByTestId("learn-hadith-quote")).toHaveLength(1);
+
+    await renderWithTheme(<QuranEvidence plain refs={[buildJannahQuranRef()]} />);
+    expect(screen.queryByText(i18n.t("jannah.quranTitle"))).toBeNull();
+  });
+
+  it("offers both quote surfaces from the one component", async () => {
+    await renderWithTheme(<HadithQuote hadith={buildJannahHadithRef()} surface="accent" />);
+    const accent = flattenStyle(screen.getByTestId("learn-hadith-quote").props.style);
+    await renderWithTheme(<HadithQuote hadith={buildJannahHadithRef()} />);
+    const muted = flattenStyle(screen.getByTestId("learn-hadith-quote").props.style);
+    expect(accent.backgroundColor).not.toEqual(muted.backgroundColor);
+  });
+
+  describe("on web", () => {
+    usePlatform({ OS: "web" });
+
+    it("never nests the save action inside the row pressable (G-28)", async () => {
+      await renderWithTheme(
+        <LearnActionRow
+          onPress={jest.fn()}
+          accessibilityLabel="Verse row"
+          actions={
+            <Pressable accessibilityRole="button" accessibilityLabel="Save" onPress={jest.fn()} />
+          }
+        >
+          <Text>body</Text>
+        </LearnActionRow>,
+      );
+      const row = screen.getByLabelText("Verse row");
+      expect(within(row).queryAllByRole("button")).toHaveLength(0);
+      expect(screen.getByRole("button", { name: "Save" })).toBeTruthy();
+    });
   });
 });

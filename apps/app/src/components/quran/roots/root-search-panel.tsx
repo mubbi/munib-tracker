@@ -2,17 +2,16 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SearchField } from "@/components/ui/search-field";
 import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -44,7 +43,6 @@ export function RootSearchPanel({
   onSearchText: (query: string) => void;
 }) {
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
   const tv = isTV();
   const [query, setQuery] = useState(initialQuery);
   const [debounced, setDebounced] = useState(initialQuery.trim());
@@ -58,43 +56,20 @@ export function RootSearchPanel({
 
   return (
     <View style={styles.stack}>
-      <Card padding="three">
+      <Card>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("quranRoots.guardrail")}
         </ThemedText>
       </Card>
       <RootDataGate>
-        <Card padding="three">
-          <View style={styles.inputRow}>
-            <TextInput
-              value={query}
-              onChangeText={setQuery}
-              placeholder={t("quranRoots.search.placeholder")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("quranRoots.search.placeholder")}
-              autoFocus={!tv}
-              autoCorrect={false}
-              autoCapitalize="none"
-              style={[
-                styles.input,
-                tv && styles.inputTv,
-                {
-                  color: colors.foreground,
-                  backgroundColor: colors.input,
-                  borderColor: colors.inputBorder,
-                },
-              ]}
-            />
-            {query ? (
-              <IconButton
-                accessibilityLabel={t("search.clear")}
-                onPress={() => setQuery("")}
-                name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
-                size={18}
-                tintColor={colors.mutedForeground}
-              />
-            ) : null}
-          </View>
+        <Card>
+          <SearchField
+            value={query}
+            onChangeText={setQuery}
+            placeholder={t("quranRoots.search.placeholder")}
+            accessibilityLabel={t("quranRoots.search.placeholder")}
+            autoFocus={!tv}
+          />
           <View style={styles.hintRow}>
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
               {t("quranRoots.search.hint")}
@@ -163,7 +138,7 @@ function RootResults({
 
   if (lookup.kind === "rootless") {
     return (
-      <Card padding="three">
+      <Card>
         <ThemedText type="small">{t("quranRoots.search.rootless")}</ThemedText>
       </Card>
     );
@@ -171,7 +146,7 @@ function RootResults({
 
   if (lookup.kind === "none") {
     return (
-      <Card padding="three">
+      <Card>
         <EmptyState
           icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
           title={t("quranRoots.search.noRoot")}
@@ -193,7 +168,7 @@ function RootResults({
                   onPress={() => onPickSuggestion(rootToArabic(root))}
                   style={[styles.chip, { backgroundColor: tokens.accentSoft }]}
                 >
-                  <ThemedText type="arabic" style={styles.chipText}>
+                  <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.chipText}>
                     {rootToArabic(root)}
                   </ThemedText>
                 </PressableScale>
@@ -230,7 +205,7 @@ function RootResults({
           onPress={() => openRoot(root)}
           style={[styles.result, { backgroundColor: colors.muted }]}
         >
-          <ThemedText type="arabic" style={styles.resultRoot}>
+          <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.resultRoot}>
             {rootToArabic(root)}
           </ThemedText>
           <View style={styles.resultMeta}>
@@ -260,16 +235,6 @@ function RootResults({
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
-  inputRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: Radius.md,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    fontSize: 18,
-  },
-  inputTv: { minHeight: TvLayout.minFocusTarget, fontSize: tvDp(TvLayout.bodyFontSize) },
   hintRow: {
     flexDirection: "row",
     alignItems: "center",

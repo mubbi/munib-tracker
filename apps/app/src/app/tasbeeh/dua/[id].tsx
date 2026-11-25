@@ -8,9 +8,10 @@ import { CustomTargetModal } from "@/components/tasbeeh/custom-target-modal";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { TasbeehCounterBar } from "@/components/tasbeeh/tasbeeh-counter-bar";
 import { TasbeehReadingBlock } from "@/components/tasbeeh/tasbeeh-reading-block";
+import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useTasbeehCounterDock } from "@/hooks/use-tasbeeh-counter-dock";
 import { getDuaByIdFrom, loadDuaItems } from "@/lib/content-loaders";
@@ -44,7 +45,7 @@ export default function DuaTasbeehScreen() {
   const contentBottomInset = useContentBottomInset();
   const { width: windowWidth } = useWindowDimensions();
   // Wide web / tablets: the counter sits beside the zikr text (TV keeps its layout).
-  const wide = !isTV() && windowWidth >= 1024;
+  const wide = !isTV() && windowWidth >= Breakpoints.wide;
   const dock = useTasbeehCounterDock();
   const { counterRef, onScroll, onCounterLayout, recompute } = dock;
   // TV: the landscape counter fits the viewport and keeps preferred focus — a
@@ -54,6 +55,8 @@ export default function DuaTasbeehScreen() {
   const { fontPrefs } = usePreferences();
   const [dockBarHeight, setDockBarHeight] = useState(DOCK_BAR_FALLBACK);
   const [corpusReady, setCorpusReady] = useState(false);
+  const [corpusFailed, setCorpusFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const [item, setItem] = useState<Awaited<ReturnType<typeof loadDuaItems>>[number] | undefined>();
   const [count, setCount] = useState(0);
   const [target, setTarget] = useState(33);
@@ -72,20 +75,33 @@ export default function DuaTasbeehScreen() {
 
   useEffect(() => {
     let active = true;
-    void loadDuaItems().then((items) => {
-      if (!active) return;
-      setCorpusReady(true);
-      setItem(duaId ? getDuaByIdFrom(items, duaId) : undefined);
-    });
+    void attempt; // a retry re-runs the load
+    setCorpusFailed(false);
+    loadDuaItems().then(
+      (items) => {
+        if (!active) return;
+        setCorpusReady(true);
+        setItem(duaId ? getDuaByIdFrom(items, duaId) : undefined);
+      },
+      () => {
+        if (active) setCorpusFailed(true);
+      },
+    );
     return () => {
       active = false;
     };
-  }, [duaId]);
+  }, [duaId, attempt]);
 
   const goBack = () => goBackOrReplace(router, "/dua");
 
   if (!corpusReady) {
-    return null;
+    return (
+      <TasbeehLoadingScreen
+        onBack={goBack}
+        failed={corpusFailed}
+        onRetry={() => setAttempt((n) => n + 1)}
+      />
+    );
   }
 
   if (!item) {

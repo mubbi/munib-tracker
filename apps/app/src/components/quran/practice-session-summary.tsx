@@ -6,7 +6,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { PracticeSummary } from "@/lib/quran-companion/types";
 
@@ -122,7 +122,7 @@ export function PracticeSessionSummary({
   const weak = !o.listened && multiAyah ? summary.weakAyahs : [];
 
   return (
-    <Card padding="four" style={{ borderColor: tone.border, borderWidth: 1 }}>
+    <Card padding="four" style={{ borderColor: tone.border, borderWidth: BorderWidth.thin }}>
       <View style={styles.head}>
         <View style={[styles.badge, { backgroundColor: tone.soft }]}>
           <SymbolView name={icon} size={24} tintColor={tone.color} />
@@ -296,7 +296,7 @@ function Stat({
 const styles = StyleSheet.create({
   flex: { flex: 1, minWidth: 0 },
   head: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  headline: { fontSize: 20, lineHeight: 26 },
+  headline: { lineHeight: 26 },
   badge: {
     width: 48,
     height: 48,
@@ -309,31 +309,31 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 4,
     overflow: "hidden",
-    gap: 2,
+    gap: Spacing.half,
     marginTop: Spacing.four,
   },
   stats: { flexDirection: "row", gap: Spacing.two, marginTop: Spacing.three },
-  stat: { flex: 1, alignItems: "center", gap: 2 },
-  statZero: { opacity: 0.45 },
-  statLabel: { flexDirection: "row", alignItems: "center", gap: 4, maxWidth: "100%" },
+  stat: { flex: 1, alignItems: "center", gap: Spacing.half },
+  statZero: { opacity: 0.75 },
+  statLabel: { flexDirection: "row", alignItems: "center", gap: Spacing.one, maxWidth: "100%" },
   dot: { width: 6, height: 6, borderRadius: 3 },
   group: {
     marginTop: Spacing.three,
     gap: Spacing.two,
     padding: Spacing.three,
     borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   groupTitle: { fontWeight: "600" },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
+    gap: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.one,
     borderRadius: Radius.sm,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   progress: { marginTop: Spacing.three, gap: Spacing.one },
   progressHead: { flexDirection: "row", justifyContent: "space-between" },

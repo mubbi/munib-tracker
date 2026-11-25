@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { FOLLOWABLE_FAST_KINDS } from "@/lib/voluntary-fasting/prefs";
 
@@ -64,6 +64,6 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.one,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
 });

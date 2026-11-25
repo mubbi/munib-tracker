@@ -3,6 +3,11 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import {
+  GlossaryNoMatches,
+  GlossarySearchField,
+  useGlossaryFilter,
+} from "@/components/learn-guide/glossary-search";
 import { LearnGrid, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -21,8 +26,13 @@ export default function AqeedahGlossaryScreen() {
   const router = useRouter();
   const { maxContentWidth } = useLearnWideLayout();
   const { t } = useTranslation();
-  const { ready: contentReady } = useEnsureContent(ensureAqeedahContent, isAqeedahContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureAqeedahContent, isAqeedahContentReady);
   const terms = getAqeedahGlossary();
+  const { query, setQuery, visible, filtering } = useGlossaryFilter(terms);
 
   return (
     <ScreenLayout
@@ -33,34 +43,39 @@ export default function AqeedahGlossaryScreen() {
       maxContentWidth={maxContentWidth}
     >
       <Seo path="/aqeedah/glossary" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <JannahCallout tone="info">{t("aqeedah.glossaryIntro")}</JannahCallout>
 
           <LearnReadingChrome surface="aqeedah">
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("aqeedah.glossaryListTitle")}
                 icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
               />
-              <LearnGrid style={styles.list} maxColumns={3} gap={Spacing.four}>
-                {terms.map((term) => (
-                  // TV: prose-only list — each term is a D-pad stop so it can scroll.
-                  <TvReadableBlock key={term.id}>
-                    <View style={styles.term}>
-                      <LearnProseText proseRole="title">{term.term}</LearnProseText>
-                      {term.transliteration ? (
-                        <LearnProseText proseRole="caption" themeColor="mutedForeground">
-                          {term.transliteration}
+              <GlossarySearchField value={query} onChangeText={setQuery} />
+              {filtering && visible.length === 0 ? (
+                <GlossaryNoMatches onClear={() => setQuery("")} />
+              ) : (
+                <LearnGrid style={styles.list} maxColumns={3} gap={Spacing.four}>
+                  {visible.map((term) => (
+                    // TV: prose-only list — each term is a D-pad stop so it can scroll.
+                    <TvReadableBlock key={term.id}>
+                      <View style={styles.term}>
+                        <LearnProseText proseRole="title">{term.term}</LearnProseText>
+                        {term.transliteration ? (
+                          <LearnProseText proseRole="caption" themeColor="mutedForeground">
+                            {term.transliteration}
+                          </LearnProseText>
+                        ) : null}
+                        <LearnProseText themeColor="mutedForeground">
+                          {term.definition}
                         </LearnProseText>
-                      ) : null}
-                      <LearnProseText themeColor="mutedForeground">
-                        {term.definition}
-                      </LearnProseText>
-                    </View>
-                  </TvReadableBlock>
-                ))}
-              </LearnGrid>
+                      </View>
+                    </TvReadableBlock>
+                  ))}
+                </LearnGrid>
+              )}
             </Card>
           </LearnReadingChrome>
 

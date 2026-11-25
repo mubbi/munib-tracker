@@ -1,9 +1,12 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
+import type { ScrollViewInstance } from "react-native";
 
 import { MirathCalculator } from "@/components/mirath/mirath-calculator";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { useWizardFooterSlot } from "@/components/wizard/wizard-shell";
 import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
 import { goBackOrReplace } from "@/lib/navigation";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -20,16 +23,23 @@ export default function MirathScreen() {
   const { t } = useTranslation();
   const { from } = useLocalSearchParams<{ from?: string }>();
   const fromWasiyyah = from === "wasiyyah";
+  const scrollRef = useRef<ScrollViewInstance>(null);
+  // The step Back / Next row pins above the keyboard and tab bar on phones.
+  const footerSlot = useWizardFooterSlot();
   return (
     <ScreenLayout
       eyebrow={t("mirath.eyebrow")}
       title={t("mirath.title")}
       subtitle={t("mirath.subtitle")}
       onBack={() => goBackOrReplace(router, fromWasiyyah ? "/wasiyyah/edit" : "/library")}
+      scrollRef={scrollRef}
+      footer={footerSlot.footer}
     >
       <Seo path="/mirath" />
       {madhhabPrompt.sheet}
-      <MirathCalculator fromWasiyyah={fromWasiyyah} />
+      <footerSlot.Provider>
+        <MirathCalculator fromWasiyyah={fromWasiyyah} scrollRef={scrollRef} />
+      </footerSlot.Provider>
     </ScreenLayout>
   );
 }

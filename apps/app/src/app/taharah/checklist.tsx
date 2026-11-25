@@ -46,7 +46,7 @@ export default function TaharahChecklistScreen() {
           <JannahCallout tone="info">{t("taharah.checklistIntro")}</JannahCallout>
 
           <LearnReadingChrome surface="taharah">
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("taharah.checklistListTitle")}
                 icon={{ ios: "checklist", android: "checklist", web: "checklist" }}

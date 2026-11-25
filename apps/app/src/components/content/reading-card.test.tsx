@@ -5,6 +5,7 @@ import {
   ReadingCard,
   type ReadingItem,
 } from "@/components/content/reading-card";
+import { ContentReportContext } from "@/components/content-report/content-report-context";
 import { mockAudioPlayer, resetAudioPlayerMock } from "@/test-support/mocks/audio-player-provider";
 import { mockRouter, resetExpoRouterMock } from "@/test-support/mocks/expo-router";
 import { usePlatform } from "@/test-support/platform";
@@ -145,13 +146,54 @@ describe("ReadingCard", () => {
   });
 
   it.each([
-    [false, "Save dua"],
-    [true, "Remove from saved"],
-  ])("toggles the favorite (isFavorite=%s)", async (isFavorite, label) => {
+    [false, "Save"],
+    [true, "Saved"],
+  ])("toggles Save with the bookmark (isFavorite=%s, D-UX9)", async (isFavorite, label) => {
     const onToggleFavorite = jest.fn();
     await renderCard({ isFavorite, onToggleFavorite });
-    await fireEvent.press(screen.getByLabelText(label));
+    const button = screen.getByLabelText(label);
+    expect(button.props.accessibilityState).toEqual(
+      expect.objectContaining({ selected: isFavorite }),
+    );
+    await fireEvent.press(button);
     expect(onToggleFavorite).toHaveBeenCalled();
+  });
+
+  it("orders actions Play, Save, Share (P5-37)", async () => {
+    await renderCard({
+      item: { ...baseItem, audioUri: "https://x/a.mp3" },
+      onToggleFavorite: jest.fn(),
+      enableContextMenu: false,
+    });
+    const labels = screen
+      .getAllByRole("button")
+      .map((node) => node.props.accessibilityLabel)
+      .filter(Boolean);
+    expect(labels.slice(0, 3)).toEqual(["Play", "Save", "Share"]);
+  });
+
+  it("shows Pause while its own track plays (shared PlayButton state)", async () => {
+    mockAudioPlayer.current = { id: "sleep-bismika" };
+    mockAudioPlayer.isPlaying = true;
+    await renderCard({ item: { ...baseItem, audioUri: "https://x/a.mp3" } });
+    await fireEvent.press(screen.getByLabelText("Pause"));
+    expect(mockAudioPlayer.toggle).toHaveBeenCalledTimes(1);
+    expect(mockAudioPlayer.play).not.toHaveBeenCalled();
+  });
+
+  it("puts Report under More when a report provider is present", async () => {
+    const openReport = jest.fn();
+    const contentRef = { kind: "dua", id: "sleep-bismika" } as never;
+    const shareCard = fakeShareCard();
+    await renderWithTheme(
+      <ContentReportContext.Provider value={{ openReport }}>
+        <ReadingCard item={baseItem} shareCard={shareCard} contentRef={contentRef} />
+      </ContentReportContext.Provider>,
+    );
+    // Long-press menu and the More row both offer it.
+    await fireEvent.press(screen.getAllByLabelText("menu:report")[0]);
+    expect(openReport).toHaveBeenCalledWith(contentRef);
+    expect(screen.getByLabelText("More actions")).toBeTruthy();
   });
 
   it("shares the reading", async () => {

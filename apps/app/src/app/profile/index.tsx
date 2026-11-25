@@ -1,11 +1,11 @@
 import type { AuthUserResponseDtoProvider } from "@munib-tracker/api-client";
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
+import { Linking, StyleSheet, View } from "react-native";
 import { DeleteAccountModal } from "@/components/auth/delete-account-modal";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ConfirmDialog } from "@/components/confirm-dialog";
@@ -16,11 +16,13 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
+import { NavRow } from "@/components/ui/nav-row";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
+import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { TextField } from "@/components/ui/text-field";
+import { BorderWidth, Control, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { usePinLock } from "@/features/pin-lock";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { DeleteAccountRequestBody } from "@/lib/auth/account-closure-reasons";
@@ -28,6 +30,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { formatRelativeWhen } from "@/lib/relative-time";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { settingHref } from "@/lib/settings/routes";
 import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
 import { useAuth } from "@/providers/auth-provider";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
@@ -55,6 +58,9 @@ function friendlyEntity(entity: string, t: (key: string) => string): string {
   const translated = t(key);
   return translated === key ? titleCaseEntity(entity) : translated;
 }
+
+/** Longest display name the inline editor accepts. */
+const DISPLAY_NAME_MAX = 40;
 
 function providerLabelKey(provider: AuthUserResponseDtoProvider): string {
   if (provider === "google") return "profile.providerGoogle";
@@ -98,6 +104,7 @@ export default function ProfileScreen() {
   const [confirmSignOut, setConfirmSignOut] = useState(false);
   const [syncMeta, setSyncMeta] = useState<SyncMetadata | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [avatarMenuOpen, setAvatarMenuOpen] = useState(false);
   const locale = i18n.language?.split("-")[0];
   const tv = isTV();
   // Wide web / tablets: two-column account layout instead of one long stack.
@@ -124,20 +131,48 @@ export default function ProfileScreen() {
   };
 
   const pickAvatar = async () => {
+    setAvatarMenuOpen(false);
     if (tv) {
       toast.info(t("common.tvUnavailableBody"));
       return;
     }
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permission.granted) return;
+    if (!permission.granted) {
+      // D-29: a denied photo permission is explained, with a way to fix it.
+      toast.show(t("profile.photoPermissionDenied"), {
+        type: "warning",
+        action: {
+          label: t("profile.openSettings"),
+          onPress: () => void Linking.openSettings().catch(() => undefined),
+        },
+      });
+      return;
+    }
     const result = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true, quality: 0.7 });
     if (!result.canceled && result.assets[0]) {
       void update({ avatarUri: result.assets[0].uri });
     }
   };
 
+  const onAvatarPress = () => {
+    // With a photo set, offer choose / remove; otherwise go straight to the picker.
+    if (prefs.avatarUri) setAvatarMenuOpen(true);
+    else void pickAvatar();
+  };
+
+  const removeAvatar = () => {
+    setAvatarMenuOpen(false);
+    void update({ avatarUri: undefined });
+    toast.success(t("profile.photoRemoved"));
+  };
+
   const saveName = () => {
     void update({ displayName: nameDraft.trim() || undefined });
+    setEditing(false);
+  };
+
+  const cancelNameEdit = () => {
+    setNameDraft(displayName);
     setEditing(false);
   };
 
@@ -169,19 +204,22 @@ export default function ProfileScreen() {
   }, [provider]);
 
   const heroCard = (
-    <Card padding="three" style={styles.hero}>
+    <Card style={styles.hero}>
       <View style={styles.identityRow}>
         <PressableScale
           haptic="light"
-          onPress={pickAvatar}
+          onPress={onAvatarPress}
           disabled={tv}
-          accessibilityLabel={t("profile.changeAvatar")}
+          accessibilityRole="button"
+          accessibilityLabel={t(prefs.avatarUri ? "profile.changeAvatar" : "profile.addAvatar")}
         >
           <View style={styles.avatarWrap}>
             {prefs.avatarUri ? (
               <Image
                 source={{ uri: prefs.avatarUri }}
                 style={[styles.avatar, { borderColor: tokens.hairline }]}
+                // The button around it is named; the photo itself is decorative.
+                accessible={false}
               />
             ) : (
               <View
@@ -194,7 +232,7 @@ export default function ProfileScreen() {
                   },
                 ]}
               >
-                <ThemedText type="header" style={{ color: colors.accent }}>
+                <ThemedText type="header" style={{ color: tokens.accentOnSoft }}>
                   {displayName.slice(0, 1).toUpperCase()}
                 </ThemedText>
               </View>
@@ -223,14 +261,26 @@ export default function ProfileScreen() {
         <View style={styles.identityBody}>
           {editing ? (
             <View style={styles.nameEdit}>
-              <TextInput
+              <TextField
+                label={t("profile.displayNameLabel")}
                 value={nameDraft}
                 onChangeText={setNameDraft}
                 autoFocus
-                accessibilityLabel={t("profile.editName")}
-                style={[styles.nameInput, tokens.inputSurface, { color: colors.foreground }]}
+                // B-36: the cap applies to new names; a longer saved name is never truncated.
+                maxLength={Math.max(DISPLAY_NAME_MAX, prefs.displayName?.length ?? 0)}
+                returnKeyType="done"
+                onSubmitEditing={saveName}
+                autoCapitalize="words"
               />
-              <Button label={t("common.save")} size="sm" onPress={saveName} />
+              <View style={styles.nameActions}>
+                <Button
+                  label={t("common.cancel")}
+                  variant="ghost"
+                  size="sm"
+                  onPress={cancelNameEdit}
+                />
+                <Button label={t("common.save")} size="sm" onPress={saveName} />
+              </View>
             </View>
           ) : (
             <PressableScale
@@ -271,7 +321,12 @@ export default function ProfileScreen() {
             ]}
           >
             {providerLogo && !isGuest ? (
-              <Image source={providerLogo} style={styles.providerLogo} contentFit="contain" />
+              <Image
+                source={providerLogo}
+                style={styles.providerLogo}
+                contentFit="contain"
+                accessible={false}
+              />
             ) : (
               <SymbolView
                 name={{
@@ -303,7 +358,7 @@ export default function ProfileScreen() {
   );
 
   const signInCard = isGuest ? (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("profile.signInToSync")}
         icon={{
@@ -333,7 +388,7 @@ export default function ProfileScreen() {
   ) : null;
 
   const syncCard = isAuthenticated ? (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("sync.title")}
         icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
@@ -403,24 +458,20 @@ export default function ProfileScreen() {
         ) : null}
       </View>
 
+      {/* One sync indicator (D-29): the button's own loading state. */}
       <Button
         label={isSyncing ? t("sync.syncing") : t("sync.now")}
         icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
         fullWidth
-        disabled={isSyncing}
+        loading={isSyncing}
         onPress={() => void onSyncNow()}
         style={styles.syncButton}
       />
-      {isSyncing ? (
-        <View style={styles.syncSpinner}>
-          <ActivityIndicator size="small" color={colors.accent} />
-        </View>
-      ) : null}
     </Card>
   ) : null;
 
   const sessionCard = isAuthenticated ? (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("profile.sessionTitle")}
         icon={{
@@ -447,40 +498,33 @@ export default function ProfileScreen() {
     </Card>
   ) : null;
 
-  // D13: "Reset app data" moved to Settings › Data & storage; Account keeps Delete account.
-  const dangerCard = isAuthenticated ? (
-    <Card padding="three" variant="muted">
+  // D13: "Reset app data" lives in Settings › Data & storage — the row here
+  // opens it (so guests can erase their data from Account too); signed-in
+  // users also get Delete account.
+  const dangerCard = (
+    <Card variant="muted">
       <SectionHeader title={t("profile.dangerTitle")} />
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.dangerHint}>
-        {t("settingsPanel.accountDangerHint")}
+        {t(isAuthenticated ? "profile.dangerHint" : "settingsPanel.resetAppDataSub")}
       </ThemedText>
       <View style={styles.dangerActions}>
-        <PressableScale
-          haptic="medium"
-          accessibilityRole="button"
-          accessibilityLabel={t("profile.deleteAccount")}
-          onPress={() => setConfirmDeleteAccount(true)}
-          style={[
-            styles.dangerButton,
-            tv && styles.dangerButtonTv,
-            {
-              backgroundColor: tokens.status.danger.soft,
-              borderColor: tokens.status.danger.border,
-            },
-          ]}
-        >
-          <SymbolView
-            name={{ ios: "trash", android: "delete", web: "delete" }}
-            size={16}
-            tintColor={tokens.status.danger.color}
+        <NavRow
+          tone="danger"
+          icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+          label={t("profile.resetData")}
+          onPress={() => router.push(settingHref("data.resetAppData") as Href)}
+        />
+        {isAuthenticated ? (
+          <NavRow
+            tone="danger"
+            icon={{ ios: "trash", android: "delete", web: "delete" }}
+            label={t("profile.deleteAccount")}
+            onPress={() => setConfirmDeleteAccount(true)}
           />
-          <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
-            {t("profile.deleteAccount")}
-          </ThemedText>
-        </PressableScale>
+        ) : null}
       </View>
     </Card>
-  ) : null;
+  );
 
   return (
     <ScreenLayout
@@ -523,7 +567,30 @@ export default function ProfileScreen() {
         onClose={() => setConfirmSignOut(false)}
       />
 
+      <Sheet
+        visible={avatarMenuOpen}
+        onClose={() => setAvatarMenuOpen(false)}
+        title={t("profile.photoTitle")}
+      >
+        <View style={styles.avatarMenu}>
+          <Button
+            label={t("profile.choosePhoto")}
+            icon={{ ios: "photo.on.rectangle", android: "photo_library", web: "photo_library" }}
+            fullWidth
+            onPress={() => void pickAvatar()}
+          />
+          <Button
+            label={t("profile.removePhoto")}
+            variant="ghost"
+            icon={{ ios: "trash", android: "delete", web: "delete" }}
+            fullWidth
+            onPress={removeAvatar}
+          />
+        </View>
+      </Sheet>
+
       <DeleteAccountModal
+        guest={isGuest}
         visible={confirmDeleteAccount}
         onClose={() => setConfirmDeleteAccount(false)}
         onDeleted={() => toast.success(t("profile.deleteAccountSuccess"))}
@@ -555,7 +622,7 @@ const styles = StyleSheet.create({
   identityBody: {
     flex: 1,
     minWidth: 0,
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   avatar: {
     width: 80,
@@ -583,9 +650,10 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
   },
   nameRow: {
+    minHeight: Control.md,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
@@ -604,28 +672,23 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   nameEdit: {
-    flexDirection: "row",
-    alignItems: "center",
     gap: Spacing.two,
   },
-  nameInput: {
-    flex: 1,
-    minWidth: 0,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    fontSize: 16,
-    fontWeight: "700",
+  nameActions: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: Spacing.two,
+  },
+  avatarMenu: {
+    gap: Spacing.two,
   },
   providerChip: {
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-    gap: Spacing.one + 2,
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.one + 2,
+    gap: Spacing.oneHalf,
+    paddingHorizontal: Spacing.twoHalf,
+    paddingVertical: Spacing.oneHalf,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     marginTop: Spacing.half,
@@ -656,12 +719,12 @@ const styles = StyleSheet.create({
   syncMetaText: {
     flex: 1,
     minWidth: 0,
-    gap: 2,
+    gap: Spacing.half,
   },
   syncDetail: {
     gap: Spacing.one,
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   conflictRow: {
     flexDirection: "row",
@@ -670,10 +733,6 @@ const styles = StyleSheet.create({
   },
   syncButton: {
     marginTop: Spacing.three,
-  },
-  syncSpinner: {
-    marginTop: Spacing.two,
-    alignItems: "center",
   },
   sessionHint: {
     marginTop: Spacing.two,
@@ -687,21 +746,6 @@ const styles = StyleSheet.create({
   dangerActions: {
     marginTop: Spacing.three,
     gap: Spacing.two,
-  },
-  dangerButtonTv: {
-    minHeight: TvLayout.minFocusTarget,
-  },
-  dangerButton: {
-    minHeight: 48,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
   },
 });
 

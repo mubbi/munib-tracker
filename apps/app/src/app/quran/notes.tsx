@@ -20,6 +20,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SearchField } from "@/components/ui/search-field";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -98,7 +99,9 @@ export default function QuranNotesScreen() {
       onBack={() => goBackOrReplace(router, "/quran")}
     >
       <Seo path="/quran/notes" />
-      {!ready ? null : all.length === 0 ? (
+      {!ready ? (
+        <SkeletonPlaceholder preset="card" count={3} accessibilityLabel={t("quranNotes.title")} />
+      ) : all.length === 0 ? (
         <EmptyState
           icon={NOTE_ICON}
           title={t("quranNotes.emptyTitle")}
@@ -196,7 +199,7 @@ export default function QuranNotesScreen() {
           </View>
 
           {groups.map((group, groupIndex) => (
-            <Card key={group.notes[0]?.id ?? group.surah} padding="three">
+            <Card key={group.notes[0]?.id ?? group.surah}>
               <ThemedText type="subtitle" style={styles.groupTitle}>
                 {group.surah}. {getSurahByNumber(group.surah)?.nameTransliteration ?? ""}
               </ThemedText>
@@ -204,7 +207,6 @@ export default function QuranNotesScreen() {
                 {group.notes.map((note, i) => (
                   <View key={note.id} style={styles.noteRow}>
                     <PressableScale
-                      haptic="light"
                       accessibilityRole="button"
                       accessibilityLabel={t("quranNotes.goToAyah", {
                         ref: `${note.surah}:${note.ayah}`,
@@ -298,9 +300,14 @@ function ExportSheet({
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet
+      title={t("quranNotes.export.open")}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+    >
       <View style={styles.sheetBody}>
-        <ThemedText type="subtitle">{t("quranNotes.export.open")}</ThemedText>
         <SegmentedControl
           options={[
             { id: "all", label: t("quranNotes.export.scopeAll") },
@@ -375,7 +382,7 @@ const styles = StyleSheet.create({
     minHeight: 32,
     justifyContent: "center",
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.half + 1,
+    paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
   },
   countRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two, minHeight: 32 },
@@ -388,7 +395,7 @@ const styles = StyleSheet.create({
   noMatch: { textAlign: "center" },
   sheetBody: { gap: Spacing.three },
   switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  switchText: { flex: 1, gap: 2 },
+  switchText: { flex: 1, gap: Spacing.half },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

@@ -22,7 +22,7 @@ export default function ZakatEvidenceScreen() {
     >
       <Seo path="/zakat/evidence" />
       <Stagger>
-        <LearnReadingChrome surface="jannah">
+        <LearnReadingChrome surface="finance">
           <ZakatEvidenceContent />
         </LearnReadingChrome>
         <JannahDisclaimer textKey="zakat.disclaimer" />

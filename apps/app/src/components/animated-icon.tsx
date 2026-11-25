@@ -2,6 +2,7 @@ import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
 import Animated, { Easing, Keyframe } from "react-native-reanimated";
 
+import { ZIndex } from "@/constants/theme";
 import { useSplashDismissal } from "@/hooks/use-splash-dismissal";
 import { useTheme } from "@/providers/theme-provider";
 
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 1000,
+    zIndex: ZIndex.overlay,
   },
   splashImage: {
     width: 280,

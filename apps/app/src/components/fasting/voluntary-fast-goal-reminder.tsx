@@ -1,19 +1,15 @@
 import { getLocalDateString, matchesEnabledKinds } from "@munib-tracker/shared/utils";
 import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
 
 import { FASTING_ICON } from "@/components/fasting/fasting-ui";
-import { ThemedText } from "@/components/themed-text";
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import {
+  GoalReminderBanner,
+  type GoalReminderModel,
+} from "@/components/tracker/goal-reminder-banner";
 import { useHijriAdjustment } from "@/hooks/use-hijri-adjustment";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { isTV } from "@/lib/platform/is-tv";
-import { useArrowForward } from "@/lib/rtl";
 import {
   classifyDate,
   fastingCalendarContext,
@@ -31,15 +27,13 @@ import {
 export const VOLUNTARY_FASTING_HOME_MODULE = "voluntary-fasting";
 
 /**
- * Today's Goal banner on a recommended fast day the user follows (NF-3.2) —
- * the `white-days-goal-reminder.tsx` pattern. Hidden during an excused period,
- * on White Days (their own banner covers them) and once today is logged.
+ * Today's Goal reminder on a recommended fast day the user follows (NF-3.2) —
+ * a model for the shared `GoalReminderStack` on Home. Hidden during an excused
+ * period, on White Days (their own reminder covers them) and once today is logged.
  */
-export function VoluntaryFastGoalReminder() {
+export function useVoluntaryFastGoalReminder(): GoalReminderModel | null {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const arrowForward = useArrowForward();
   const prefs = usePreferences();
   const hijriAdjustment = useHijriAdjustment();
   useEnsureVoluntaryFastingLoaded();
@@ -60,47 +54,22 @@ export function VoluntaryFastGoalReminder() {
   const kind = headlineKind(day.kinds);
   if (!kind || kind === "white_day") return null;
 
-  return (
-    <PressableScale
-      accessibilityRole="button"
-      accessibilityLabel={t("voluntaryFasting.goal.a11y", {
-        day: t(`voluntaryFasting.kind.${kind}`),
-      })}
-      onPress={() => router.push(voluntaryFastingHref(today) as Href)}
-      haptic="light"
-      scaleTo={0.98}
-      style={[
-        styles.banner,
-        {
-          backgroundColor: tokens.accentSoft,
-          borderColor: isTV() ? tokens.accentBorder : colors.accent,
-        },
-      ]}
-    >
-      <SymbolView name={FASTING_ICON} size={22} tintColor={colors.accent} />
-      <View style={styles.copy}>
-        <ThemedText type="smallBold" style={{ color: colors.accent }}>
-          {t("voluntaryFasting.goal.title", { day: t(`voluntaryFasting.kind.${kind}`) })}
-        </ThemedText>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("voluntaryFasting.goal.body")}
-        </ThemedText>
-      </View>
-      <SymbolView name={arrowForward} size={16} tintColor={colors.accent} />
-    </PressableScale>
-  );
+  const dayLabel = t(`voluntaryFasting.kind.${kind}`);
+  return {
+    id: "voluntary-fast",
+    icon: FASTING_ICON,
+    title: t("voluntaryFasting.goal.title", { day: dayLabel }),
+    body: t("voluntaryFasting.goal.body"),
+    tone: "accent",
+    accessibilityLabel: t("voluntaryFasting.goal.a11y", { day: dayLabel }),
+    onPress: () => router.push(voluntaryFastingHref(today) as Href),
+  };
 }
 
-const styles = StyleSheet.create({
-  banner: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: Spacing.three,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-    marginBottom: Spacing.three,
-  },
-  copy: { flex: 1, gap: Spacing.half },
-});
+/** Standalone banner (Home stacks reminders via `GoalReminderStack`). */
+export function VoluntaryFastGoalReminder() {
+  const reminder = useVoluntaryFastGoalReminder();
+  if (!reminder) return null;
+  const { id: _id, ...props } = reminder;
+  return <GoalReminderBanner {...props} />;
+}

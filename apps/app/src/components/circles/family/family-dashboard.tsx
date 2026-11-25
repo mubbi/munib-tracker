@@ -12,8 +12,9 @@ import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { Spacing } from "@/constants/theme";
 import {
   type CircleMember,
@@ -76,7 +77,7 @@ export function FamilyDashboard({ circleId }: { circleId: string }) {
         <>
           <SectionHeader title={t("family.adultsTitle")} />
           {sharingAdults.map((m) => (
-            <Card key={m.memberId} padding="three" style={styles.gap}>
+            <Card key={m.memberId} style={styles.gap}>
               <ThemedText type="smallBold">{m.displayName ?? t("family.familyMember")}</ThemedText>
               <FardDots value={index.get(m.memberId)?.get(today)?.fard ?? null} />
             </Card>
@@ -123,7 +124,7 @@ function FamilyChildrenSection({
     <>
       <SectionHeader title={t("family.childrenTitle")} />
       {list.length === 0 ? (
-        <Card padding="three">
+        <Card>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("family.noChildren")}
           </ThemedText>
@@ -183,18 +184,13 @@ function ShareMineCard({ circleId, me }: { circleId: string; me: CircleMember })
   };
 
   return (
-    <Card padding="three" style={styles.gap}>
-      <View style={styles.switchRow}>
-        <ThemedText type="small" style={styles.flex}>
-          {t("family.shareMine")}
-        </ThemedText>
-        <ThemedSwitch
-          value={me.shareFardStatus}
-          disabled={isTV() || share.isPending}
-          onValueChange={(on) => void onShare(on)}
-          accessibilityLabel={t("family.shareMine")}
-        />
-      </View>
+    <Card style={styles.gap}>
+      <SwitchRow
+        title={t("family.shareMine")}
+        value={me.shareFardStatus}
+        disabled={isTV() || share.isPending}
+        onValueChange={(on) => void onShare(on)}
+      />
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("family.shareMineHint")}
       </ThemedText>
@@ -206,28 +202,29 @@ function ShareMineCard({ circleId, me }: { circleId: string; me: CircleMember })
 function LeaveFamilyButton({ circleId, role }: { circleId: string; role: CircleRole }) {
   const { t } = useTranslation();
   const router = useRouter();
-  const toast = useToast();
   const [confirm, setConfirm] = useState(false);
   const owner = role === "owner";
   const leave = useCircleAction((token) => leaveCircle(token, circleId));
   const remove = useCircleAction((token) => deleteCircle(token, circleId));
 
+  // Async: the dialog stays open with a busy button and shows the failure inline.
   const onConfirm = async () => {
+    if (owner) await remove.mutateAsync();
+    else await leave.mutateAsync();
     setConfirm(false);
-    try {
-      if (owner) await remove.mutateAsync();
-      else await leave.mutateAsync();
-      goBackOrReplace(router, "/circles");
-    } catch {
-      toast.error(t("circles.common.offline"));
-    }
+    goBackOrReplace(router, "/circles");
   };
 
   return (
     <>
-      <Button
+      <NavRow
+        tone="danger"
+        icon={{
+          ios: owner ? "trash" : "rectangle.portrait.and.arrow.right",
+          android: owner ? "delete" : "logout",
+          web: owner ? "delete" : "logout",
+        }}
         label={owner ? t("family.delete") : t("family.leave")}
-        variant="ghost"
         onPress={() => setConfirm(true)}
       />
       <ConfirmDialog
@@ -236,7 +233,8 @@ function LeaveFamilyButton({ circleId, role }: { circleId: string; role: CircleR
         message={owner ? t("family.deleteConfirmBody") : t("family.leaveConfirmBody")}
         confirmLabel={owner ? t("family.delete") : t("family.leave")}
         destructive
-        onConfirm={() => void onConfirm()}
+        errorMessage={t("circles.common.offline")}
+        onConfirm={onConfirm}
         onClose={() => setConfirm(false)}
       />
     </>
@@ -247,6 +245,4 @@ const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
   gap: { gap: Spacing.two },
   row: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
-  switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  flex: { flex: 1 },
 });

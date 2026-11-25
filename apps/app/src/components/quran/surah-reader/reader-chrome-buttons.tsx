@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 /**
@@ -41,7 +41,7 @@ export function ReaderChromeButtons({
             size={16}
             tintColor={colors.accent}
           />
-          <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "600" }}>
+          <ThemedText weight="semibold" type="caption" style={{ color: colors.accentText }}>
             {t("quran.backToTop")}
           </ThemedText>
         </PressableScale>
@@ -59,7 +59,7 @@ export function ReaderChromeButtons({
             {
               backgroundColor: fullscreen.active ? tokens.accentSoft : colors.muted,
               borderColor: fullscreen.active ? colors.accent : "transparent",
-              borderWidth: 1,
+              borderWidth: BorderWidth.thin,
             },
           ]}
         >
@@ -81,10 +81,10 @@ export function ReaderChromeButtons({
             tintColor={fullscreen.active ? colors.accent : colors.mutedForeground}
           />
           <ThemedText
+            weight="semibold"
             type="caption"
             style={{
               color: fullscreen.active ? colors.accentText : colors.mutedForeground,
-              fontWeight: "600",
             }}
           >
             {fullscreenLabel}
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one + 2,
-    paddingVertical: Spacing.one + 2,
+    gap: Spacing.oneHalf,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",

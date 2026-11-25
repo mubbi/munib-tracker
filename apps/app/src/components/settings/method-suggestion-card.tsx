@@ -27,7 +27,7 @@ export function MethodSuggestionCard() {
   const method = t(`location.methods.${suggested}`);
 
   return (
-    <Card variant="muted" padding="three" style={styles.card}>
+    <Card variant="muted" style={styles.card}>
       <ThemedText type="smallBold">
         {t("prayerMethodSuggestion.title", { country: location.country ?? countryCode })}
       </ThemedText>

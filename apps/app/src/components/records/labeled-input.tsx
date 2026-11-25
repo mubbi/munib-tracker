@@ -1,43 +1,17 @@
-import { StyleSheet, TextInput, type TextInputProps, View } from "react-native";
+import type { TextInputProps } from "react-native";
 
-import { ThemedText } from "@/components/themed-text";
-import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { TextField } from "@/components/ui/text-field";
 
 /**
- * A labelled text field for the private records screens (debts, wasiyyah).
- * The label doubles as the accessibility label.
+ * A labelled text field for the private records screens (debts, wasiyyah) —
+ * the shared `TextField` (label above, helper, inline error) under the name the
+ * records forms already use. `hint` is the helper line.
  */
 export function LabeledInput({
   label,
   hint,
-  style,
+  error,
   ...props
-}: TextInputProps & { label: string; hint?: string }) {
-  const { colors, tokens } = useThemeTokens();
-  return (
-    <View style={styles.block}>
-      <ThemedText type="smallBold">{label}</ThemedText>
-      <View style={[styles.row, tokens.inputSurface]}>
-        <TextInput
-          accessibilityLabel={label}
-          accessibilityHint={hint}
-          placeholderTextColor={colors.mutedForeground}
-          {...props}
-          style={[styles.input, { color: colors.foreground }, style]}
-        />
-      </View>
-      {hint ? (
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {hint}
-        </ThemedText>
-      ) : null}
-    </View>
-  );
+}: Omit<TextInputProps, "style"> & { label: string; hint?: string; error?: string }) {
+  return <TextField label={label} helperText={hint} error={error} {...props} />;
 }
-
-const styles = StyleSheet.create({
-  block: { gap: Spacing.one },
-  row: { borderRadius: 12, paddingHorizontal: Spacing.three, paddingVertical: Spacing.one },
-  input: { fontSize: 16, paddingVertical: Spacing.two },
-});

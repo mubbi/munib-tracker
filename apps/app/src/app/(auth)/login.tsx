@@ -1,9 +1,11 @@
 import type { AuthSessionResponseDto } from "@munib-tracker/api-client";
 import { Image } from "expo-image";
-import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback } from "react";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BackHandler, StyleSheet, useWindowDimensions, View } from "react-native";
+import { LegalLinks } from "@/components/auth/legal-links";
+import { oauthReturnErrorKey } from "@/components/auth/social-auth-errors";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { TvQrLoginPanel } from "@/components/auth/tv-qr-login-panel";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
@@ -11,8 +13,9 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Stagger } from "@/components/ui/stagger";
-import { Brand, Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Brand, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { gradientBackground } from "@/lib/gradient";
@@ -39,6 +42,9 @@ export default function LoginScreen() {
   const prefs = usePreferences();
   const tv = isTV();
   const { width } = useWindowDimensions();
+  // D-32: an OAuth return route that failed lands here with `?error=`.
+  const params = useLocalSearchParams<{ error?: string | string[] }>();
+  const [returnError, setReturnError] = useState(() => oauthReturnErrorKey(params.error));
   // Wide (non-TV) windows: split screen — hero art on the start side, sign-in
   // panel on the end side — instead of a phone column floating in the canvas.
   const wide = !tv && width >= WIDE_SPLIT_MIN_WIDTH;
@@ -146,7 +152,8 @@ export default function LoginScreen() {
         />
       ) : (
         <>
-          <SocialLoginButtons onSuccess={onContinue} />
+          {returnError ? <Callout tone="danger">{t(returnError)}</Callout> : null}
+          <SocialLoginButtons onSuccess={onContinue} onAttempt={() => setReturnError(null)} />
 
           <View style={styles.orRow} accessibilityRole="text" accessibilityLabel={t("login.or")}>
             <View style={[styles.orLine, { backgroundColor: tokens.hairline }]} />
@@ -166,6 +173,8 @@ export default function LoginScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.guestHint}>
             {t("login.guestHint")}
           </ThemedText>
+
+          <LegalLinks />
         </>
       )}
     </View>
@@ -235,7 +244,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     borderRadius: Radius.xl,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     overflow: "hidden",
   },
   /** Wide split: the hero fills the art column top to bottom. */

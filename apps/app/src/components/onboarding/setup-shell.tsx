@@ -9,7 +9,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
@@ -88,7 +88,7 @@ export function SetupShell({
             <ThemedText type="caption" themeColor="mutedForeground">
               {stepLabel}
             </ThemedText>
-            <ProgressBar value={progress} height={6} />
+            <ProgressBar value={progress} accessibilityLabel={t("a11yProgress.setup")} height={6} />
           </View>
         </View>
       </View>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   body: { gap: Spacing.two },
   content: { gap: Spacing.three, marginTop: Spacing.two },
   footer: {
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
     paddingHorizontal: Spacing.four,
     paddingTop: Spacing.three,
   },

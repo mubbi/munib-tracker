@@ -103,7 +103,7 @@ export function LanguageStep({ chrome, onNext }: SetupStepProps) {
       body={t("setupFlow.language.body")}
       primary={{ label: t("common.next"), onPress: onNext }}
     >
-      <Card padding="three" style={styles.card}>
+      <Card style={styles.card}>
         <ThemedText type="small">{label}</ThemedText>
         <LanguageSelectRow
           locale={locale}
@@ -176,7 +176,7 @@ export function LocationStep({ chrome, onNext }: SetupStepProps) {
         <Highlights
           lines={[t("onboarding.locationHighlight1"), t("onboarding.locationHighlight2")]}
         />
-        <Card variant="muted" padding="three" style={styles.card}>
+        <Card variant="muted" style={styles.card}>
           <ThemedText type="smallBold">{t("onboarding.locationPrivacyTitle")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("setupFlow.location.privacy")}
@@ -195,7 +195,7 @@ export function LocationStep({ chrome, onNext }: SetupStepProps) {
       primary={{ label: t("common.next"), onPress: onNext }}
       primaryFocus={false}
     >
-      <Card padding="three" style={styles.card}>
+      <Card style={styles.card}>
         {status === "denied" ? (
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("location.permissionDenied")}
@@ -208,7 +208,7 @@ export function LocationStep({ chrome, onNext }: SetupStepProps) {
           </ThemedText>
         ) : null}
       </Card>
-      <Card padding="three" style={styles.card}>
+      <Card style={styles.card}>
         <SectionHeader title={t("location.calculationTitle")} />
         <RegisteredSetting id="prayer-times.method" />
         <RegisteredSetting id="prayer-times.methodSuggestion" />
@@ -288,7 +288,7 @@ export function RemindersStep({ chrome, onNext }: SetupStepProps) {
         body={t("setupFlow.reminders.onBody")}
         primary={{ label: t("common.next"), onPress: onNext }}
       >
-        <Card padding="three" style={styles.card}>
+        <Card style={styles.card}>
           <RegisteredSetting id="notifications.salah.playAdhan" />
           <RegisteredSetting id="notifications.zikr.morning" />
           <RegisteredSetting id="notifications.zikr.evening" />
@@ -333,8 +333,16 @@ export function RemindersStep({ chrome, onNext }: SetupStepProps) {
   );
 }
 
-/** Step 5 — optional extras (theme, Qur'an translation, home cards, tasbeeh design). */
-export function PersonaliseStep({ chrome, onNext }: SetupStepProps) {
+/**
+ * Step 5 — optional extras (theme, Qur'an translation, home cards, tasbeeh
+ * design). The core steps are done by now, so first run offers "Finish later"
+ * (D-31): straight into the app, everything here stays in Settings.
+ */
+export function PersonaliseStep({
+  chrome,
+  onNext,
+  onFinishLater,
+}: SetupStepProps & { onFinishLater?: () => void }) {
   const { t } = useTranslation();
   return (
     <SetupShell
@@ -343,13 +351,16 @@ export function PersonaliseStep({ chrome, onNext }: SetupStepProps) {
       title={t("setupFlow.personalise.title")}
       body={t("setupFlow.personalise.body")}
       primary={{ label: t("common.next"), onPress: onNext }}
+      secondary={
+        onFinishLater ? { label: t("onboarding.finishLater"), onPress: onFinishLater } : undefined
+      }
     >
-      <Card padding="three" style={styles.card}>
+      <Card style={styles.card}>
         <RegisteredSetting id="appearance.theme" />
         <RegisteredSetting id="quran.reader.translation" />
         <RegisteredSetting id="appearance.homeCards" />
       </Card>
-      <Card padding="three" style={styles.card}>
+      <Card style={styles.card}>
         <SectionHeader title={t("tasbeehDesigns.settingsTitle")} />
         <RegisteredSetting id="content.tasbeeh.appearance" />
       </Card>
@@ -411,7 +422,7 @@ export function DoneStep({
         dismissible={false}
         hintKey="settingsGaps.onboarding.setupHint"
       />
-      <Card padding="three" style={styles.card}>
+      <Card style={styles.card}>
         <SectionHeader title={t("setupFlow.done.recap")} />
         <SettingsRow
           title={t("language.appLanguage")}

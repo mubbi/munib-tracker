@@ -21,7 +21,7 @@ import {
   cloudPlacementsFor,
   generateCumulusCloud,
 } from "@/components/weather/cloud-shape";
-import { createShadow } from "@/constants/theme";
+import { createShadow, Radius } from "@/constants/theme";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { gradientBackground } from "@/lib/gradient";
 import { runWhenIdle } from "@/lib/run-when-idle";
@@ -655,14 +655,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 0,
     height: 2,
-    borderRadius: 999,
+    borderRadius: Radius.pill,
     backgroundColor: "rgba(255, 255, 255, 0.32)",
   },
   rainDrop: {
     position: "absolute",
     top: -32,
     width: 2,
-    borderRadius: 999,
+    borderRadius: Radius.pill,
     backgroundColor: "rgba(186, 220, 255, 0.5)",
   },
   snowFlake: {

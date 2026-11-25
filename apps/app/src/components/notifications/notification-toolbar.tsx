@@ -1,15 +1,16 @@
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { Control, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 
-const CHIP_HIT_SLOP = { top: 6, bottom: 6, left: 4, right: 4 } as const;
+/** 36pt chip + 4pt above and below reaches the 44pt floor on native (P6-07). */
+const CHIP_HIT_SLOP = { top: 4, bottom: 4, left: 4, right: 4 } as const;
 
 type NotificationToolbarProps = {
   unreadCount: number;
@@ -53,16 +54,17 @@ export function NotificationToolbar({
             { backgroundColor: tokens.accentSoft, opacity: markingAllRead ? 0.85 : 1 },
           ]}
         >
-          {markingAllRead ? (
-            <ActivityIndicator size="small" color={colors.accent} />
-          ) : (
-            <SymbolView
-              name={{ ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }}
-              size={14}
-              tintColor={colors.accent}
-            />
-          )}
-          <ThemedText type={labelType} style={{ color: colors.accent }}>
+          {/* Busy is announced via `accessibilityState.busy` + the label change. */}
+          <SymbolView
+            name={
+              markingAllRead
+                ? { ios: "hourglass", android: "hourglass_top", web: "hourglass_top" }
+                : { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
+            }
+            size={14}
+            tintColor={colors.accent}
+          />
+          <ThemedText type={labelType} style={{ color: tokens.accentOnSoft }}>
             {markingAllRead ? t("notifCenter.markingAllRead") : t("notifCenter.markAllRead")}
           </ThemedText>
           {!markingAllRead ? (
@@ -138,6 +140,8 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
+    // Web ignores hitSlop, so the chip carries the full 44px there.
+    minHeight: Platform.OS === "web" ? Control.minTouch : Control.sm,
     gap: Spacing.one,
     paddingHorizontal: Spacing.two,
     paddingVertical: Spacing.one,

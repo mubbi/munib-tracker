@@ -53,11 +53,11 @@ function DebtsMasterDetail() {
             />
           </>
         ) : (
-          <Card padding="three" variant="muted">
+          <Card variant="muted">
             <EmptyState
               icon={{ ios: "doc.text", android: "description", web: "description" }}
-              title={t("privateUx.debts.selectTitle")}
-              description={t("privateUx.debts.selectBody")}
+              title={t("debts.selectTitle")}
+              description={t("debts.selectBody")}
             />
           </Card>
         )}

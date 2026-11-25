@@ -41,9 +41,17 @@ export function NightTimeline({
     { key: "last", flex: 2, label: t("lastThirdNight.lastThirdLabel"), at: lastThird },
   ] as const;
 
+  const summary = [
+    ...segments.map((segment) => `${segment.label} ${format(segment.at)}`),
+    `${t("lastThirdNight.fajrLabel")} ${format(fajrAt)}`,
+  ].join(", ");
+
   return (
-    <View style={styles.timeline}>
-      <View style={[styles.track, { backgroundColor: colors.muted }]}>
+    <View style={styles.timeline} accessible accessibilityRole="text" accessibilityLabel={summary}>
+      <View
+        importantForAccessibility="no-hide-descendants"
+        style={[styles.track, { backgroundColor: colors.muted }]}
+      >
         <View style={styles.trackRow}>
           <View style={{ flex: 3 }} />
           <View style={[styles.trackDivider, { backgroundColor: colors.border }]} />
@@ -121,7 +129,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   timelineLabel: {
-    gap: 2,
+    gap: Spacing.half,
     minWidth: 0,
     paddingEnd: Spacing.one,
   },

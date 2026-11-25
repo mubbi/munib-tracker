@@ -8,11 +8,10 @@ import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { BorderWidth, type CategoryHueKey, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { milestoneDescription, milestoneTitle } from "@/lib/achievements-i18n";
-
-type Tone = "success" | "warning" | "danger" | "info";
 
 export const TRACK_LABEL_KEYS: Record<MilestoneTrackId, string> = {
   salah: "achievements.tracks.salah",
@@ -27,35 +26,64 @@ export const TRACK_LABEL_KEYS: Record<MilestoneTrackId, string> = {
 
 export const TRACK_VISUALS: Record<
   MilestoneTrackId,
-  { icon: SymbolViewProps["name"]; tone: Tone }
+  { icon: SymbolViewProps["name"]; hue: CategoryHueKey }
 > = {
   salah: {
     icon: { ios: "checkmark.seal.fill", android: "verified", web: "verified" },
-    tone: "success",
+    hue: "sage",
   },
   streak: {
     icon: { ios: "flame.fill", android: "local_fire_department", web: "local_fire_department" },
-    tone: "warning",
+    hue: "dawn",
   },
-  zikr: { icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }, tone: "danger" },
+  zikr: { icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }, hue: "rose" },
   consistency: {
     icon: { ios: "calendar.badge.checkmark", android: "event_available", web: "event_available" },
-    tone: "info",
+    hue: "accent",
   },
   qaza: {
     icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
-    tone: "info",
+    hue: "violet",
   },
-  roza: { icon: { ios: "moon.stars.fill", android: "bedtime", web: "bedtime" }, tone: "success" },
+  roza: { icon: { ios: "moon.stars.fill", android: "bedtime", web: "bedtime" }, hue: "accent" },
   recitation: {
     icon: { ios: "book.fill", android: "menu_book", web: "menu_book" },
-    tone: "info",
+    hue: "sky",
   },
   devotion: {
     icon: { ios: "trophy.fill", android: "emoji_events", web: "emoji_events" },
-    tone: "warning",
+    hue: "dawn",
   },
 };
+
+export type TrackTone = { color: string; soft: string; text: string };
+
+/**
+ * One categorical tone per track (hues are categories, not statuses — success /
+ * warning / danger stay reserved for status). A fixed number of hook calls, so a
+ * list can resolve every track in one go.
+ */
+export function useTrackTones(): Record<MilestoneTrackId, TrackTone> {
+  const accent = useCategoryHue("accent");
+  const dawn = useCategoryHue("dawn");
+  const rose = useCategoryHue("rose");
+  const sage = useCategoryHue("sage");
+  const violet = useCategoryHue("violet");
+  const sky = useCategoryHue("sky");
+  const byHue: Record<CategoryHueKey, TrackTone> = {
+    accent: { color: accent.icon, soft: accent.soft, text: accent.text },
+    dawn: { color: dawn.icon, soft: dawn.soft, text: dawn.text },
+    rose: { color: rose.icon, soft: rose.soft, text: rose.text },
+    sage: { color: sage.icon, soft: sage.soft, text: sage.text },
+    violet: { color: violet.icon, soft: violet.soft, text: violet.text },
+    sky: { color: sky.icon, soft: sky.soft, text: sky.text },
+  };
+  const out = {} as Record<MilestoneTrackId, TrackTone>;
+  for (const id of Object.keys(TRACK_VISUALS) as MilestoneTrackId[]) {
+    out[id] = byHue[TRACK_VISUALS[id].hue];
+  }
+  return out;
+}
 
 /** Most pips drawn for a ladder before collapsing the rest into "+N". */
 const MAX_PIPS = 12;
@@ -93,9 +121,9 @@ export function TrackCard({
   style,
 }: TrackCardProps) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const visual = TRACK_VISUALS[goal.trackId];
-  const tone = tokens.status[visual.tone];
+  const tone = useTrackTones()[goal.trackId];
   const isDebt = goal.trackId === "qaza" || goal.trackId === "roza";
   const earnedLevels = isDebt ? 0 : (ladder?.earned ?? goal.level - 1);
   // Only a finite ladder runs out: its goal is then its last, already earned milestone.
@@ -108,7 +136,7 @@ export function TrackCard({
   const nextTitle = milestoneTitle(goal);
 
   return (
-    <Card padding="three" style={[styles.card, style]}>
+    <Card style={[styles.card, style]}>
       <TvReadableBlock>
         <View style={styles.body}>
           <View style={styles.header}>
@@ -152,7 +180,7 @@ export function TrackCard({
                       styles.pip,
                       earned
                         ? { backgroundColor: tone.color }
-                        : { borderColor: tone.color, borderWidth: 1.5 },
+                        : { borderColor: tone.color, borderWidth: BorderWidth.thick },
                     ]}
                   />
                 );
@@ -187,7 +215,11 @@ export function TrackCard({
                 {milestoneDescription(goal)}
               </ThemedText>
             ) : null}
-            <ProgressBar value={complete ? 1 : goal.progress} color={tone.color} />
+            <ProgressBar
+              value={complete ? 1 : goal.progress}
+              accessibilityLabel={label}
+              color={tone.color}
+            />
             {!complete ? (
               <View style={styles.nextFooter}>
                 <ThemedText type="smallBold" style={{ color: tone.text }}>
@@ -220,7 +252,7 @@ const styles = StyleSheet.create({
   },
   headerCopy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
   levelPill: {
     paddingHorizontal: Spacing.two,
@@ -231,7 +263,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
-    gap: 5,
+    gap: Spacing.oneHalf,
   },
   pip: {
     width: 10,
@@ -241,8 +273,8 @@ const styles = StyleSheet.create({
   next: {
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    padding: Spacing.two + 2,
-    gap: Spacing.one + 2,
+    padding: Spacing.twoHalf,
+    gap: Spacing.oneHalf,
   },
   nextHeader: {
     flexDirection: "row",
@@ -254,7 +286,7 @@ const styles = StyleSheet.create({
   },
   closest: {
     paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
+    paddingVertical: Spacing.half,
     borderRadius: Radius.pill,
   },
   nextFooter: {

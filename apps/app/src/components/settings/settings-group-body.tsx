@@ -124,7 +124,7 @@ function SubgroupLinks({
   const { t } = useTranslation();
   const router = useRouter();
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.rows}>
         {subgroups.map((sub) => (
           <SettingsRow

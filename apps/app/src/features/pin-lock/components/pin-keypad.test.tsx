@@ -45,6 +45,15 @@ describe("PinKeypad", () => {
     expect(onBackspace).not.toHaveBeenCalled();
   });
 
+  it("gives every key a role and a spoken name (backspace is an icon, not a glyph)", async () => {
+    await renderKeypad();
+    for (const digit of "0123456789") {
+      expect(screen.getByLabelText(digit).props.accessibilityRole).toBe("keyboardkey");
+    }
+    expect(screen.getByLabelText("Backspace").props.accessibilityRole).toBe("keyboardkey");
+    expect(screen.queryByText("⌫")).toBeNull();
+  });
+
   it("swaps the keys for a spinner while loading", async () => {
     await renderKeypad({ loading: true });
     expect(screen.queryByLabelText("1")).toBeNull();

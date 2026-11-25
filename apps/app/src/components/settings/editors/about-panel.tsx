@@ -48,7 +48,7 @@ export function AboutPanel() {
   };
 
   const heroCard = (
-    <Card style={styles.hero}>
+    <Card padding="four" style={styles.hero}>
       <Image
         style={styles.logo}
         source={require("@/assets/images/munib-logo.png")}
@@ -65,7 +65,7 @@ export function AboutPanel() {
   );
 
   const creditsCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("about.credits")}
         icon={{ ios: "person.2.fill", android: "group", web: "group" }}
@@ -76,7 +76,7 @@ export function AboutPanel() {
           label={t("about.authorWebsiteLabel")}
           value={APP_AUTHOR_URL.replace(/^https?:\/\//, "")}
           onPress={() => openLink(APP_AUTHOR_URL, t("about.authorWebsiteLabel"))}
-          linkColor={colors.accent}
+          linkColor={colors.accentText}
         />
         <Credit label={t("about.collaboratorsLabel")} value={t("about.collaboratorsValue")} />
       </View>
@@ -84,7 +84,7 @@ export function AboutPanel() {
   );
 
   const duaCard = (
-    <Card variant="muted" padding="three">
+    <Card variant="muted">
       <ThemedText type="smallBold">{t("about.duaTitle")}</ThemedText>
       <ThemedText type="small" themeColor="mutedForeground" style={styles.dua}>
         {t("about.duaBody")}
@@ -93,7 +93,7 @@ export function AboutPanel() {
   );
 
   const authenticityCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("about.authenticityTitle")}
         icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
@@ -105,7 +105,7 @@ export function AboutPanel() {
   );
 
   const linksCard = (
-    <Card padding="three">
+    <Card>
       <View style={styles.links}>
         {/* Store review prompts are a no-op on TV. */}
         {!isWeb && !tv && canRateApp ? (
@@ -139,7 +139,11 @@ export function AboutPanel() {
       {authenticityCard}
       {duaCard}
       {tv ? (
-        <Sheet visible={qrLink != null} onClose={() => setQrLink(null)}>
+        <Sheet
+          accessibilityLabel={qrLink?.title ?? ""}
+          visible={qrLink != null}
+          onClose={() => setQrLink(null)}
+        >
           {qrLink ? (
             <View style={styles.qrSheet}>
               <ThemedText type="subtitle">{qrLink.title}</ThemedText>
@@ -216,7 +220,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 96,
     height: 96,
-    borderRadius: 22,
+    borderRadius: Radius.lg,
     marginBottom: Spacing.one,
   },
   tagline: {
@@ -228,7 +232,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
   },
   credit: {
-    gap: 2,
+    gap: Spacing.half,
   },
   dua: {
     marginTop: Spacing.two,

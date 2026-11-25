@@ -160,6 +160,11 @@ export function useEnsureCustomTasbeehLoaded(): void {
   }, []);
 }
 
+/** `false` until the first `load()` resolves — gate "not found" / empty states on it. */
+export function useCustomTasbeehReady(): boolean {
+  return useStore(customTasbeehStore, (s) => s.isReady);
+}
+
 export function useCustomTasbeehList(): CustomTasbeeh[] {
   return useStore(customTasbeehStore, (s) => s.items);
 }

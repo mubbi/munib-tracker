@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useTajweedDrillAvailable } from "@/hooks/use-recite-along-available";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
@@ -124,10 +124,11 @@ export default function LearnQuranLettersScreen() {
                       style={[styles.tileWrap, tv && styles.tileWrapTv, wideTile]}
                     >
                       <Card
-                        padding="three"
                         style={[
                           styles.tile,
-                          isActive ? { borderColor: colors.accent, borderWidth: 2 } : null,
+                          isActive
+                            ? { borderColor: colors.accent, borderWidth: BorderWidth.thick }
+                            : null,
                         ]}
                       >
                         <View style={styles.tileHeader}>
@@ -175,7 +176,7 @@ export default function LearnQuranLettersScreen() {
                               key={ex}
                               type="caption"
                               style={{
-                                color: colors.accent,
+                                color: tokens.accentOnSoft,
                                 fontSize: metaSize,
                                 lineHeight: metaSize * 1.45,
                                 textAlign: "right",

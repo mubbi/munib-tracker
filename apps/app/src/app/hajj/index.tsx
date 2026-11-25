@@ -1,28 +1,17 @@
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
-import {
-  LearnColumnsGrid,
-  LearnTwoPane,
-  learnColumnsFor,
-  useLearnHubLayout,
-} from "@/components/jannah/hub-layout";
-import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
-import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { Card } from "@/components/ui/card";
+import { JannahNavRow } from "@/components/jannah/primitives";
+import { LearnGrid, LearnHubScreen, type LearnHubSection } from "@/components/learn-guide";
 import { FocusHighlight } from "@/components/ui/focus-highlight";
-import { SectionHeader } from "@/components/ui/section-header";
-import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import { getHajjGuideSectionOrder, getHajjGuideTopicsBySection } from "@/lib/hajj-guide";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
-import { goBackOrReplace } from "@/lib/navigation";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+
+const TOPIC_ICON: AppIcon = { ios: "text.book.closed", android: "article", web: "article" };
 
 const SECTION_ICONS: Record<string, AppIcon> = {
   virtues: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
@@ -36,143 +25,85 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 };
 
 export default function HajjScreen() {
-  const router = useRouter();
   const { t, i18n } = useTranslation();
+  const router = useRouter();
+  // `?focus=<topicId>` deep links scroll to and highlight that topic.
   const { scrollRef, register, onScroll, isFocused } = useScreenFocus();
-  const wide = useLearnHubLayout();
-  // Columns inside cards: main column (card padding × 2 subtracted); asides stack.
-  const navCols = learnColumnsFor(wide.mainWidth - Spacing.three * 2, { minCell: 280, max: 2 });
-  const asideCols = wide.twoPane ? 1 : navCols;
   const overlayVersion = getContentOverlaysReadyVersion();
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
   const topicsBySection = useMemo(
     () => getHajjGuideTopicsBySection(),
     [i18n.language, overlayVersion],
   );
-  const sectionOrder = getHajjGuideSectionOrder();
 
-  const intro = <JannahCallout tone="info">{t("hajj.intro")}</JannahCallout>;
-
-  const quizRow = (
-    <LearnQuizNavRow
-      quizPath={"/hajj/quiz" as Href}
-      titleKey="common.learnQuiz.title"
-      subtitleKey="common.learnQuiz.hint"
-    />
+  const sections = useMemo<LearnHubSection[]>(
+    () =>
+      getHajjGuideSectionOrder().flatMap((section): LearnHubSection[] => {
+        const topics = topicsBySection[section];
+        if (!topics?.length) return [];
+        return [
+          {
+            id: String(section),
+            title: t(`hajj.section.${section}`),
+            icon: SECTION_ICONS[section],
+            children: (
+              <LearnGrid maxColumns={2} gap={Spacing.two} passthrough>
+                {topics.map((topic) => (
+                  <FocusHighlight
+                    key={topic.id}
+                    ref={register(topic.id)}
+                    active={isFocused(topic.id)}
+                  >
+                    <JannahNavRow
+                      icon={TOPIC_ICON}
+                      title={topic.title}
+                      subtitle={topic.summary}
+                      // TV: land the D-pad on the deep-linked topic.
+                      preferredFocus={isFocused(topic.id)}
+                      onPress={() =>
+                        router.push({
+                          pathname: "/hajj/[topic]",
+                          params: { topic: topic.id },
+                        } as unknown as Href)
+                      }
+                    />
+                  </FocusHighlight>
+                ))}
+              </LearnGrid>
+            ),
+          },
+        ];
+      }),
+    [topicsBySection, t, router, register, isFocused],
   );
-
-  const checklistsCard = (
-    <Card padding="three">
-      <SectionHeader
-        title={t("hajj.checklistsTitle")}
-        icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
-      />
-      <LearnColumnsGrid columns={asideCols} style={styles.gridTop}>
-        <JannahNavRow
-          icon={{ ios: "map.fill", android: "map", web: "map" }}
-          title={t("hajj.hajjChecklistTitle")}
-          subtitle={t("hajj.hajjChecklistHint")}
-          onPress={() => router.push("/hajj/checklist" as Href)}
-        />
-        <JannahNavRow
-          icon={{
-            ios: "arrow.triangle.2.circlepath",
-            android: "sync",
-            web: "sync",
-          }}
-          title={t("hajj.umrahChecklistTitle")}
-          subtitle={t("hajj.umrahChecklistHint")}
-          onPress={() => router.push("/umrah/checklist" as Href)}
-        />
-      </LearnColumnsGrid>
-    </Card>
-  );
-
-  const sectionCards = sectionOrder.map((section) => {
-    const topics = topicsBySection[section];
-    if (!topics?.length) return null;
-    return (
-      <Card key={section} padding="three">
-        <SectionHeader
-          title={t(`hajj.section.${section}`)}
-          icon={
-            SECTION_ICONS[section] ?? {
-              ios: "book.fill",
-              android: "menu_book",
-              web: "menu_book",
-            }
-          }
-        />
-        <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
-          {topics.map((topic) => (
-            <FocusHighlight key={topic.id} ref={register(topic.id)} active={isFocused(topic.id)}>
-              <JannahNavRow
-                icon={{
-                  ios: "text.book.closed",
-                  android: "article",
-                  web: "article",
-                }}
-                title={topic.title}
-                subtitle={topic.summary}
-                // TV: land the D-pad on the deep-linked topic.
-                preferredFocus={isFocused(topic.id)}
-                onPress={() =>
-                  router.push({
-                    pathname: "/hajj/[topic]",
-                    params: { topic: topic.id },
-                  } as unknown as Href)
-                }
-              />
-            </FocusHighlight>
-          ))}
-        </LearnColumnsGrid>
-      </Card>
-    );
-  });
-
-  const disclaimer = <JannahDisclaimer textKey="hajj.disclaimer" />;
 
   return (
-    <ScreenLayout
-      eyebrow={t("hajj.eyebrow")}
-      title={t("hajj.title")}
-      subtitle={t("hajj.subtitle")}
-      onBack={() => goBackOrReplace(router, "/")}
+    <LearnHubScreen
+      ns="hajj"
+      basePath="/hajj"
+      sections={sections}
+      tools={[
+        {
+          id: "hajj-checklist",
+          icon: { ios: "map.fill", android: "map", web: "map" },
+          title: t("hajj.hajjChecklistTitle"),
+          subtitle: t("hajj.hajjChecklistHint"),
+          href: "/hajj/checklist" as Href,
+        },
+        {
+          id: "umrah-checklist",
+          icon: { ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" },
+          title: t("hajj.umrahChecklistTitle"),
+          subtitle: t("hajj.umrahChecklistHint"),
+          href: "/umrah/checklist" as Href,
+        },
+      ]}
+      quiz
       scrollRef={scrollRef}
       onScroll={onScroll}
-      maxContentWidth={wide.maxContentWidth}
-    >
-      <Seo path="/hajj" />
-      {wide.twoPane ? (
-        <Stagger>
-          {intro}
-          <LearnTwoPane
-            main={sectionCards}
-            aside={
-              <>
-                {quizRow}
-                {checklistsCard}
-              </>
-            }
-          />
-          {disclaimer}
-        </Stagger>
-      ) : (
-        <Stagger>
-          {intro}
-          {quizRow}
-          {checklistsCard}
-          {sectionCards}
-          {disclaimer}
-        </Stagger>
-      )}
-    </ScreenLayout>
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  gridTop: { marginTop: Spacing.three },
-});
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
 export const generateMetadata = routeMetadata("/hajj");

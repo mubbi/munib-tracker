@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 /**
@@ -91,5 +91,5 @@ const styles = StyleSheet.create({
   cell: { alignItems: "center", gap: Spacing.half },
   // 44pt minimum touch target (HIG / Material) around the 32pt dot.
   pressable: { borderRadius: Radius.md, minWidth: 44, minHeight: 44, alignItems: "center" },
-  dot: { alignItems: "center", justifyContent: "center", borderWidth: 1.5 },
+  dot: { alignItems: "center", justifyContent: "center", borderWidth: BorderWidth.thick },
 });

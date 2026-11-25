@@ -19,7 +19,7 @@ export function generateStaticParams(): Array<{ topic: string }> {
 
 export default function ProphetsTopicScreen() {
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready } = useEnsureContent(ensureProphetsContent, isProphetsContentReady);
+  const { ready, error, retry } = useEnsureContent(ensureProphetsContent, isProphetsContentReady);
   const topic = getProphetsTopic(topicId);
   const reportRef = useGuideContentReportRef("prophets", topic, "/prophets");
   useEnsureProphetsProgressLoaded();
@@ -30,6 +30,8 @@ export default function ProphetsTopicScreen() {
       basePath="/prophets"
       topic={topic}
       ready={ready}
+      error={error}
+      onRetry={retry}
       surface="prophets"
       contentRef={reportRef}
       aside={(current) => <ProphetsTopicAside currentId={current.id} />}

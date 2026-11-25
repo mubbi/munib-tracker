@@ -10,10 +10,9 @@ import {
 } from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer, JannahDuaBlock } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -51,25 +50,22 @@ function JahannamDuaEntryBlock({
   const isFavorite = useIsFavoriteDua(dua.id);
   const { toggle } = useDuaFavoritesActions();
 
+  // One card per dua (G-43): number + context above the reading body, not two cards.
   return (
-    <View style={styles.block}>
-      <Card padding="three">
-        <SectionHeader
-          title={t("jahannam.duaNumber", { number: index + 1 })}
-          icon={{
-            ios: "hands.and.sparkles.fill",
-            android: "volunteer_activism",
-            web: "volunteer_activism",
-          }}
-        />
-        <TvReadableBlock>
-          <View style={[styles.context, { backgroundColor: tokens.accentSoft }]}>
-            <ThemedText type="small" style={{ color: colors.foreground, lineHeight: 22 }}>
-              {entry.context}
-            </ThemedText>
-          </View>
-        </TvReadableBlock>
-      </Card>
+    <Card>
+      <SectionHeader
+        title={t("jahannam.duaNumber", { number: index + 1 })}
+        icon={{
+          ios: "hands.and.sparkles.fill",
+          android: "volunteer_activism",
+          web: "volunteer_activism",
+        }}
+      />
+      <TvReadableBlock>
+        <View style={[styles.context, { backgroundColor: tokens.accentSoft }]}>
+          <LearnProseText style={{ color: colors.foreground }}>{entry.context}</LearnProseText>
+        </View>
+      </TvReadableBlock>
       <ReadingCard
         item={{
           id: dua.id,
@@ -82,17 +78,22 @@ function JahannamDuaEntryBlock({
         }}
         sourceHref="/jahannam/duas"
         surface="jahannam"
+        framed={false}
         isFavorite={isFavorite}
         onToggleFavorite={() => toggle(dua.id)}
       />
-    </View>
+    </Card>
   );
 }
 
 export default function JahannamDuasScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const entries = getJahannamDuas();
   const refugeDua = getJahannamRefugeDua();
   // Settles even if the catalog fails (missing entries skip their rows below).
@@ -119,10 +120,10 @@ export default function JahannamDuasScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/duas" />
-      <LearnContentGate ready={ready}>
+      <LearnContentGate ready={ready} error={contentError} onRetry={retryContent}>
         <Stagger>
           <LearnReadingChrome surface="jahannam">
-            <JannahCallout tone="success">{t("jahannam.duasLead")}</JannahCallout>
+            <JannahCallout tone="info">{t("jahannam.duasLead")}</JannahCallout>
 
             {refugeDua ? (
               <JannahDuaBlock
@@ -150,7 +151,6 @@ export default function JahannamDuasScreen() {
 }
 
 const styles = StyleSheet.create({
-  block: { gap: Spacing.two },
   context: {
     marginTop: Spacing.three,
     padding: Spacing.three,

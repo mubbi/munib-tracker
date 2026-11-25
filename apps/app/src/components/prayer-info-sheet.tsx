@@ -132,7 +132,12 @@ export function PrayerInfoSheet({ visible, prayerId, onClose }: PrayerInfoSheetP
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
+    <Sheet
+      accessibilityLabel={t(`prayers.${prayerId}`)}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+    >
       {/* The Sheet supplies its own scroll view, drag handle, and backdrop for the
           bottom variant — don't nest another ScrollView here or the two same-axis
           scrollers deadlock (content gets clipped and the drag gesture is eaten). */}
@@ -219,7 +224,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.one,
   },
   section: {
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   refs: {
     gap: Spacing.two,

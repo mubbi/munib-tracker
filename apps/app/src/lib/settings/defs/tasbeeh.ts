@@ -481,6 +481,7 @@ export const TASBEEH_SETTINGS: AnySettingDef[] = [
       run: () => tasbeehVoiceTemplatesStore.getState().forget(),
       destructive: true,
       confirmKey: "tasbeehVoice.settings.forgetTaughtConfirm",
+      doneKey: "settings.done.forgetTaught",
     },
     available: notOnTv,
   }),

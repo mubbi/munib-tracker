@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ANNOTATION_COLOR_IDS, annotationSwatch } from "@/lib/quran-notes/annotation-colors";
 
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: Radius.pill,
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     minHeight: 36,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     alignItems: "center",
     justifyContent: "center",
   },

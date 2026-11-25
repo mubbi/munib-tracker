@@ -1,19 +1,16 @@
 import type { ObligatoryPrayer, PrayerStatus } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
-import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { Chip } from "@/components/ui/chip";
 import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useMadhhab } from "@/hooks/use-madhhab";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   DHUL_HIJJAH_MONTH,
   hijriForDateString,
@@ -23,7 +20,6 @@ import {
   tashriqSlotsAllViews,
   tashriqSlotsOn,
 } from "@/lib/dhul-hijjah";
-import { isTV } from "@/lib/platform/is-tv";
 import {
   useDhulHijjahActions,
   useDhulHijjahYear,
@@ -51,7 +47,6 @@ type Props = {
 export function TakbirTashriqTrackerSection({ date, status, hidden = false }: Props) {
   const { t } = useTranslation();
   const router = useRouter();
-  const { colors, tokens } = useThemeTokens();
   const { rules } = useMadhhab();
   useEnsureDhulHijjahLoaded();
   // `date` is already the location's day key — re-zoning it would shift the Hijri day.
@@ -71,7 +66,7 @@ export function TakbirTashriqTrackerSection({ date, status, hidden = false }: Pr
     : "dhulHijjah.tashriq.status.allViews";
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("dhulHijjah.tashriq.title")}
         subtitle={t(statusKey)}
@@ -91,39 +86,16 @@ export function TakbirTashriqTrackerSection({ date, status, hidden = false }: Pr
             ? t("dhulHijjah.tashriq.saidAfter", { prayer: t(`prayers.${prayer}`) })
             : t("dhulHijjah.tashriq.after", { prayer: t(`prayers.${prayer}`) });
           return (
-            <PressableScale
+            <Chip
               key={prayer}
-              accessibilityRole="checkbox"
-              accessibilityState={{ checked: said, disabled: !prayed && !said }}
+              role="checkbox"
+              label={label}
               accessibilityLabel={label}
-              accessibilityHint={prayed ? undefined : t("dhulHijjah.tashriq.lockedHint")}
+              selected={said}
               disabled={!prayed && !said}
+              icon={said ? { ios: "checkmark", android: "check", web: "check" } : undefined}
               onPress={() => void toggleTashriq(year, date, prayer)}
-              haptic="selection"
-              style={[
-                styles.chip,
-                isTV() ? styles.chipTv : null,
-                {
-                  borderColor: said ? tokens.status.success.color : tokens.hairline,
-                  backgroundColor: said ? tokens.status.success.soft : colors.card,
-                  opacity: prayed || said ? 1 : 0.55,
-                },
-              ]}
-            >
-              {said ? (
-                <SymbolView
-                  name={{ ios: "checkmark", android: "check", web: "check" }}
-                  size={14}
-                  tintColor={tokens.status.success.color}
-                />
-              ) : null}
-              <ThemedText
-                type="caption"
-                style={{ color: said ? tokens.status.success.text : colors.foreground }}
-              >
-                {label}
-              </ThemedText>
-            </PressableScale>
+            />
           );
         })}
       </View>
@@ -147,7 +119,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
     borderRadius: Radius.pill,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   chipTv: { minHeight: TvLayout.chipMinHeight },
   link: { marginTop: Spacing.three },

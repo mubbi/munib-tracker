@@ -4,9 +4,7 @@ import { Platform, StyleSheet, View } from "react-native";
 
 import { LiveActivityDiscoveryBanner } from "@/components/notifications/live-activity-discovery-banner";
 import { NotificationPermissionBanner } from "@/components/notifications/permission-banner";
-import { ThemedText } from "@/components/themed-text";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Callout } from "@/components/ui/callout";
 import { Spacing } from "@/constants/theme";
 import { isTV } from "@/lib/platform/is-tv";
 import { settingHref } from "@/lib/settings/routes";
@@ -22,17 +20,17 @@ export function NotificationsGroupHeader() {
     <View style={styles.stack}>
       <NotificationPermissionBanner />
       {location.source === "default" ? (
-        <Card padding="three" style={styles.card}>
-          <ThemedText type="smallBold">{t("notif.defaultLocationTitle")}</ThemedText>
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("notif.defaultLocationMessage")}
-          </ThemedText>
-          <Button
-            label={t("location.setLocation")}
-            variant="secondary"
-            onPress={() => router.push(settingHref("prayer-times.location") as Href)}
-          />
-        </Card>
+        // Same notice pattern as the permission banner above: title, body, one action.
+        <Callout
+          tone="warning"
+          title={t("notif.defaultLocationTitle")}
+          action={{
+            label: t("location.setLocation"),
+            onPress: () => router.push(settingHref("prayer-times.location") as Href),
+          }}
+        >
+          {t("notif.defaultLocationMessage")}
+        </Callout>
       ) : null}
       {native ? <LiveActivityDiscoveryBanner /> : null}
     </View>
@@ -41,5 +39,4 @@ export function NotificationsGroupHeader() {
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.four },
-  card: { gap: Spacing.three },
 });

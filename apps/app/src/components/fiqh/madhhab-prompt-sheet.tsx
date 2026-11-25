@@ -44,7 +44,13 @@ export function MadhhabPromptSheet({ visible, onDone, reason = "home" }: Madhhab
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet
+      accessibilityLabel={t("fiqhRetrofit.prompt.sheetTitle")}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+    >
       {chooser.offer ? (
         <AsrOfferCard
           offer={chooser.offer}

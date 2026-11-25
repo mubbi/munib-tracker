@@ -32,9 +32,14 @@ import {
   rootToArabic,
   studyWordIndexes,
 } from "@/lib/quran-roots";
+import { ARABIC_SIZE_BOUNDS, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences } from "@/stores/preferences-store";
 import { useRootIndex } from "@/stores/quran-roots-store";
+
+/** Occurrence snippets sit one notch under the reader's Arabic size (22 at the default 28). */
+const SNIPPET_SIZE_STEP_DOWN = 6;
+const SNIPPET_LINE_HEIGHT_RATIO = 1.7;
 
 const PAGE = 10;
 const CHART_PREVIEW = 12;
@@ -60,7 +65,7 @@ export default function QuranRootScreen() {
         index={false}
       />
       <View style={styles.stack}>
-        <Card padding="three">
+        <Card>
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("quranRoots.guardrail")}
           </ThemedText>
@@ -88,9 +93,14 @@ function RootBody({ root }: { root: string }) {
   }
   return (
     <View style={styles.stack}>
-      <Card padding="three">
+      <Card>
         <View style={styles.summary}>
-          <ThemedText type="arabic" style={styles.bigRoot} accessibilityLabel={data.arabic}>
+          <ThemedText
+            type="arabic"
+            style={styles.bigRoot}
+            accessibilityLabel={data.arabic}
+            accessibilityLanguage="ar"
+          >
             {data.arabic}
           </ThemedText>
           <ThemedText type="smallBold">
@@ -123,7 +133,7 @@ function Distribution({ distribution }: { distribution: { surah: number; count: 
     ? distribution
     : [...distribution].sort((a, b) => b.count - a.count).slice(0, CHART_PREVIEW);
   return (
-    <Card padding="three">
+    <Card>
       <ThemedText type="smallBold">{t("quranRoots.page.distribution")}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground">
         {all ? t("quranRoots.page.distributionAll") : t("quranRoots.page.distributionTop")}
@@ -147,6 +157,7 @@ function Distribution({ distribution }: { distribution: { surah: number; count: 
               {/* ProgressBar fills from the reading edge (chart-rtl.ts). */}
               <ProgressBar
                 value={d.count / max}
+                accessibilityLabel={t("a11yProgress.rootOccurrences")}
                 color={colors.accent}
                 trackColor={tokens.accentSoft}
                 style={styles.bar}
@@ -182,7 +193,7 @@ const LemmaCard = memo(function LemmaCard({
   const [open, setOpen] = useState(initiallyOpen);
   const [shown, setShown] = useState(PAGE);
   return (
-    <Card padding="three">
+    <Card>
       <PressableScale
         accessibilityRole="button"
         accessibilityState={{ expanded: open }}
@@ -193,12 +204,12 @@ const LemmaCard = memo(function LemmaCard({
         onPress={() => setOpen((v) => !v)}
         style={styles.lemmaHeader}
       >
-        <ThemedText type="arabic" style={styles.lemma}>
+        <ThemedText type="arabic" style={styles.lemma} accessibilityLanguage="ar">
           {lemma.arabic || t("quranRoots.page.noLemma")}
         </ThemedText>
         <Pill
           label={t("quranRoots.occurrences", { count: lemma.count })}
-          color={colors.accent}
+          color={colors.accentText}
           background={tokens.accentSoft}
         />
       </PressableScale>
@@ -261,6 +272,12 @@ function OccurrenceRow({ loc }: { loc: WordLocation }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const arabicFont = useArabicFontFamily();
+  const { fontPrefs } = usePreferences();
+  // A secondary Qur'an surface: follow the reader's size, a step smaller (C-21).
+  const snippetSize = Math.max(
+    ARABIC_SIZE_BOUNDS.min,
+    resolveReadingFontSizes("quran", fontPrefs).arabic - SNIPPET_SIZE_STEP_DOWN,
+  );
   const index = useRootIndex();
   const tv = isTV();
   const { snippet, study } = useMemo(() => {
@@ -283,7 +300,6 @@ function OccurrenceRow({ loc }: { loc: WordLocation }) {
     });
   return (
     <PressableScale
-      haptic="light"
       accessibilityRole="button"
       accessibilityLabel={t("quranRoots.page.openAyah", {
         surah: meta?.nameTransliteration ?? String(loc.surah),
@@ -296,12 +312,19 @@ function OccurrenceRow({ loc }: { loc: WordLocation }) {
         <ThemedText type="caption" numberOfLines={1} style={styles.occurrenceName}>
           {meta?.nameTransliteration ?? ""}
         </ThemedText>
-        <Pill label={ref} color={colors.accent} background={tokens.accentSoft} compact />
+        <Pill label={ref} color={colors.accentText} background={tokens.accentSoft} compact />
       </View>
       <Text
+        accessibilityLanguage="ar"
         style={[
           styles.snippet,
-          { color: colors.foreground, fontFamily: arabicFont, writingDirection: "rtl" },
+          {
+            color: colors.foreground,
+            fontFamily: arabicFont,
+            writingDirection: "rtl",
+            fontSize: snippetSize,
+            lineHeight: Math.round(snippetSize * SNIPPET_LINE_HEIGHT_RATIO),
+          },
         ]}
       >
         {snippet.clippedStart ? "… " : ""}
@@ -340,7 +363,7 @@ const styles = StyleSheet.create({
   occurrenceTv: { minHeight: TvLayout.minFocusTarget },
   occurrenceHeader: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   occurrenceName: { flex: 1 },
-  snippet: { fontSize: 22, lineHeight: 38, textAlign: "right" },
+  snippet: { textAlign: "right" },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

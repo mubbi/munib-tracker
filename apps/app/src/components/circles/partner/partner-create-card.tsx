@@ -35,7 +35,7 @@ export function PartnerCreateCard({ onCreated }: { onCreated: (circle: CircleDet
   };
 
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <SectionHeader
         title={t("partnerCircle.create.title")}
         icon={{ ios: "person.2.fill", android: "group", web: "group" }}

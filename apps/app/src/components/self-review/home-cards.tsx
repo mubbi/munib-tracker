@@ -112,7 +112,7 @@ function HomeCard({
   const { colors, tokens } = useThemeTokens();
   const chevronForward = useChevronForward();
   return (
-    <Card padding="three" onPress={onPress} accessibilityLabel={a11y}>
+    <Card onPress={onPress} accessibilityLabel={a11y}>
       <View style={styles.row}>
         <IconWell icon={icon} tint={colors.accent} background={tokens.accentSoft} />
         <View style={styles.copy}>
@@ -170,5 +170,5 @@ export function FamilyTiesHomeCard({ count }: { count: number }) {
 
 const styles = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  copy: { flex: 1, gap: 2 },
+  copy: { flex: 1, gap: Spacing.half },
 });

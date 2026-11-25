@@ -90,7 +90,7 @@ export default function TajweedCoachItemScreen() {
     >
       <Seo path={`/learn-quran/tajweed/coach/${category}`} index={false} />
 
-      <Card padding="three">
+      <Card>
         <ThemedText type="smallBold">{t("tajweedCoaching.coach.wordsTitle")}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.gap}>
           {words.length
@@ -108,7 +108,7 @@ export default function TajweedCoachItemScreen() {
       ) : null}
 
       {canPractise && !isDrillHead(category) ? (
-        <Card padding="three">
+        <Card>
           <ThemedText type="small">{t("tajweedCoaching.coach.listenIntro")}</ThemedText>
           <Button
             label={t("tajweedCoaching.coach.listened")}
@@ -126,7 +126,7 @@ export default function TajweedCoachItemScreen() {
       ) : null}
 
       {/* Practice leads (the screen's one job); the rule explanation is there on demand. */}
-      <Card padding="three">
+      <Card>
         <CollapsibleSection
           title={t("tajweedCoaching.card.aboutRule", { rule })}
           // Read-only (TV): the explanation is the content, so start open.

@@ -12,11 +12,9 @@ import { StyleSheet, View } from "react-native";
 
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { useExportFeedback } from "@/components/records/use-export-feedback";
-import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { SegmentedProgress } from "@/components/ui/progress-bar";
-import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
+import { Callout } from "@/components/ui/callout";
+import { WizardShell } from "@/components/wizard/wizard-shell";
 import { Spacing } from "@/constants/theme";
 import { useMadhhabFor } from "@/hooks/use-madhhab";
 import { deviceCurrency } from "@/hooks/use-record-format";
@@ -93,7 +91,6 @@ export function WasiyyahWizard({
   const exportDoc = useWasiyyahExport();
   const [data, setData] = useState<WasiyyahData>(initialData);
   const [stepIndex, setStepIndex] = useState(0);
-  const [currencyOpen, setCurrencyOpen] = useState(false);
   const [heirPickerFor, setHeirPickerFor] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   // Guardians are edited as free text; the list is derived, so typing ", " isn't reformatted.
@@ -181,7 +178,7 @@ export function WasiyyahWizard({
       goBackOrReplace(router, "/wasiyyah");
     } catch {
       savedVersion.current = false;
-      toast.error(t("privateUx.saveFailed"));
+      toast.error(t("common.saveFailed"));
     } finally {
       setSaving(false);
     }
@@ -216,7 +213,6 @@ export function WasiyyahWizard({
           {...stepProps}
           computation={computation}
           onUpdateBequest={updateBequest}
-          onPickCurrency={() => setCurrencyOpen(true)}
           onPickHeir={setHeirPickerFor}
         />
       );
@@ -251,13 +247,14 @@ export function WasiyyahWizard({
             onChange={(sideBySideEnglish) => update({ sideBySideEnglish })}
           />
           <Button
-            label={saving ? t("privateUx.saving") : t("wasiyyah.review.save")}
-            disabled={!canSave || saving}
+            label={saving ? t("common.saving") : t("wasiyyah.review.save")}
+            disabled={!canSave}
+            loading={saving}
             onPress={() => void save()}
           />
           <Button
             label={
-              exportFeedback.busy ? t("privateUx.export.preparing") : t("wasiyyah.review.preview")
+              exportFeedback.busy ? t("common.export.preparing") : t("wasiyyah.review.preview")
             }
             variant="secondary"
             icon={{ ios: "printer.fill", android: "print", web: "print" }}
@@ -265,14 +262,10 @@ export function WasiyyahWizard({
             onPress={() => void exportFeedback.run(() => exportDoc(data, { mode: "print" }))}
           />
           {testatorDay == null ? (
-            <ThemedText type="caption" themeColor="mutedForeground" accessibilityRole="alert">
-              {t("privateUx.wasiyyah.dateBlocked")}
-            </ThemedText>
+            <Callout tone="warning">{t("wasiyyah.dateBlocked")}</Callout>
           ) : null}
           {!canSaveWasiyyah(computation) ? (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("wasiyyah.review.blocked")}
-            </ThemedText>
+            <Callout tone="warning">{t("wasiyyah.review.blocked")}</Callout>
           ) : null}
           <JannahDisclaimer textKey="wasiyyah.disclaimer" />
         </>
@@ -282,54 +275,27 @@ export function WasiyyahWizard({
 
   const nameMissing = step === "testator" && !data.testator.name.trim();
 
+  const optional = step !== "testator" && step !== "distribution" && step !== "review";
+
   return (
     <View style={styles.stack}>
-      <View style={styles.progress}>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("wasiyyah.wizard.stepOf", { current: stepIndex + 1, total: WASIYYAH_STEPS.length })}
-        </ThemedText>
-        <SegmentedProgress total={WASIYYAH_STEPS.length} completed={stepIndex + 1} />
-      </View>
-      <ThemedText type="subtitle" heading={2}>
-        {t(`wasiyyah.step.${step}`)}
-      </ThemedText>
-      {step !== "testator" && step !== "distribution" && step !== "review" ? (
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("wasiyyah.wizard.optional")}
-        </ThemedText>
-      ) : null}
-      <Card padding="three">
+      <WizardShell
+        title={t(`wasiyyah.step.${step}`)}
+        subtitle={optional ? t("wasiyyah.wizard.optional") : undefined}
+        stepIndex={stepIndex}
+        total={WASIYYAH_STEPS.length}
+        stepLabel={t("wasiyyah.wizard.stepOf", {
+          current: stepIndex + 1,
+          total: WASIYYAH_STEPS.length,
+        })}
+        progressLabel={t("a11yProgress.wasiyyahSteps")}
+        onBack={() => goToStep(stepIndex - 1)}
+        onNext={stepIndex < WASIYYAH_STEPS.length - 1 ? () => goToStep(stepIndex + 1) : undefined}
+        nextDisabled={nameMissing}
+        nextHint={nameMissing ? t("wasiyyah.nameRequired") : undefined}
+      >
         <View style={styles.stack}>{body}</View>
-      </Card>
-      {nameMissing ? (
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("privateUx.wasiyyah.nameRequired")}
-        </ThemedText>
-      ) : null}
-      <View style={styles.nav}>
-        <Button
-          label={t("common.back")}
-          variant="ghost"
-          disabled={stepIndex === 0}
-          onPress={() => goToStep(stepIndex - 1)}
-        />
-        {stepIndex < WASIYYAH_STEPS.length - 1 ? (
-          <Button
-            label={t("common.next")}
-            disabled={nameMissing}
-            onPress={() => goToStep(stepIndex + 1)}
-          />
-        ) : null}
-      </View>
-      <CurrencyPickerSheet
-        visible={currencyOpen}
-        selectedCode={data.currency}
-        onSelect={(currency) => {
-          update({ currency });
-          setCurrencyOpen(false);
-        }}
-        onClose={() => setCurrencyOpen(false)}
-      />
+      </WizardShell>
       <HeirPickerSheet
         visible={heirPickerFor != null}
         selected={data.bequests.find((b) => b.id === heirPickerFor)?.heirType}
@@ -353,6 +319,4 @@ export function initialWasiyyahData(
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
-  progress: { gap: Spacing.two },
-  nav: { flexDirection: "row", justifyContent: "space-between", gap: Spacing.two },
 });

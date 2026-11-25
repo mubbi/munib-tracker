@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 import { HijriMonthStartSheet } from "@/components/hijri/hijri-month-start-sheet";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Spacing } from "@/constants/theme";
+import { Control, Spacing } from "@/constants/theme";
 import { hijriMonthLabel } from "@/lib/hijri";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { isTV } from "@/lib/platform/is-tv";
@@ -56,5 +56,7 @@ export function HijriAdjustLink({ year, month, align = "start" }: HijriAdjustLin
 const styles = StyleSheet.create({
   link: {
     paddingVertical: Spacing.one,
+    minHeight: Control.minTouch,
+    justifyContent: "center",
   },
 });

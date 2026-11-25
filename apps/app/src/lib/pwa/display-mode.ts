@@ -5,8 +5,8 @@ export function isWebPushStandalonePwa(): boolean {
   if (Platform.OS !== "web" || typeof window === "undefined") return false;
   const nav = navigator as Navigator & { standalone?: boolean };
   return (
-    window.matchMedia("(display-mode: standalone)").matches ||
-    window.matchMedia("(display-mode: fullscreen)").matches ||
+    window.matchMedia?.("(display-mode: standalone)")?.matches === true ||
+    window.matchMedia?.("(display-mode: fullscreen)")?.matches === true ||
     nav.standalone === true
   );
 }

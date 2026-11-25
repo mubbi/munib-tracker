@@ -12,6 +12,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { VaultLockGate } from "@/components/vault";
 import { Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
@@ -30,7 +31,12 @@ function HistoryContent() {
   if (status === "locked" || status === "error") {
     return <VaultStateNotice status={status} error={error} />;
   }
-  if (status !== "ready") return null;
+  // Vault doc still loading: a skeleton, never a blank body (P8-02).
+  if (status !== "ready") {
+    return (
+      <SkeletonPlaceholder preset="rows" count={4} accessibilityLabel={t("common.loadingRoute")} />
+    );
+  }
   if (logs.length === 0) {
     return (
       <EmptyState
@@ -44,7 +50,7 @@ function HistoryContent() {
   return (
     <View style={styles.stack}>
       {logs.map((log) => (
-        <Card key={log.id} padding="three">
+        <Card key={log.id}>
           <View style={styles.row}>
             <View style={styles.flex}>
               <ThemedText type="smallBold">

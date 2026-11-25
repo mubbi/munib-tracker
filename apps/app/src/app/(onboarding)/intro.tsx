@@ -25,10 +25,11 @@ import {
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
@@ -39,7 +40,7 @@ import { APP_LOCALES } from "@/lib/locale-display";
 import { isNearbySlide, logicalForOffset, pageIndexForLogical } from "@/lib/onboarding/intro-pager";
 import { chooseSetupLanguage, readSetupProgress } from "@/lib/onboarding/setup-flow";
 import { isTV } from "@/lib/platform/is-tv";
-import { useArrowForward, useIsRTL } from "@/lib/rtl";
+import { useArrowForward, useChevronBack, useIsRTL } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -56,6 +57,7 @@ export default function OnboardingIntroScreen() {
   const { t } = useTranslation();
   const insets = useAppSafeAreaInsets();
   const arrowForward = useArrowForward();
+  const chevronBack = useChevronBack();
   const isRtl = useIsRTL();
   const { width } = useWindowDimensions();
   const tv = isTV();
@@ -83,7 +85,12 @@ export default function OnboardingIntroScreen() {
 
   const slide = SLIDES[index];
   const isLast = index === PAGE_COUNT - 1;
+  // G-97: phones page by swipe only — give switch-access / screen-reader users
+  // a visible Back from the second page on (wide web has one in the footer).
+  const phoneBack = layout === "phone" && index > 0;
+  // G-97: on the last page "Skip" would do exactly what "Continue as guest" does.
   const isBrand = slide.kind === "brand";
+  const showSkip = !isBrand && !isLast;
   const localeName =
     APP_LOCALES.find((entry) => entry.code === prefs.locale)?.name ?? APP_LOCALES[0].name;
 
@@ -221,34 +228,45 @@ export default function OnboardingIntroScreen() {
           },
         ]}
       >
-        <PressableScale
-          accessibilityRole="button"
-          accessibilityLabel={t("onboarding.chooseLanguage")}
-          accessibilityHint={t("onboarding.chooseLanguageHint")}
-          hitSlop={8}
-          style={[styles.languageChip, tv ? styles.languageChipTv : null]}
-          onPress={() => {
-            triggerHaptic("light");
-            setLanguagePickerOpen(true);
-          }}
-        >
-          <LocaleFlag
-            locale={prefs.locale}
-            size="sm"
-            backgroundColor={Brand.onHeroMutedSurface}
-            borderColor={withAlpha(Brand.heroText, 0.2)}
-          />
-          <ThemedText type="smallBold" style={styles.languageChipLabel} numberOfLines={1}>
-            {localeName}
-          </ThemedText>
-          <SymbolView
-            name={{ ios: "chevron.down", android: "arrow_drop_down", web: "arrow_drop_down" }}
-            size={14}
-            tintColor={Brand.heroSubtext}
-          />
-        </PressableScale>
+        <View style={styles.topBarStart}>
+          {phoneBack ? (
+            <IconButton
+              name={chevronBack}
+              accessibilityLabel={t("common.back")}
+              tintColor={Brand.heroText}
+              background={Brand.onHeroMutedSurface}
+              onPress={goPrev}
+            />
+          ) : null}
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityLabel={t("onboarding.chooseLanguage")}
+            accessibilityHint={t("onboarding.chooseLanguageHint")}
+            hitSlop={8}
+            style={[styles.languageChip, tv ? styles.languageChipTv : null]}
+            onPress={() => {
+              triggerHaptic("light");
+              setLanguagePickerOpen(true);
+            }}
+          >
+            <LocaleFlag
+              locale={prefs.locale}
+              size="sm"
+              backgroundColor={Brand.onHeroMutedSurface}
+              borderColor={withAlpha(Brand.heroText, 0.2)}
+            />
+            <ThemedText type="smallBold" style={styles.languageChipLabel} numberOfLines={1}>
+              {localeName}
+            </ThemedText>
+            <SymbolView
+              name={{ ios: "chevron.down", android: "arrow_drop_down", web: "arrow_drop_down" }}
+              size={14}
+              tintColor={Brand.heroSubtext}
+            />
+          </PressableScale>
+        </View>
 
-        {!isBrand ? (
+        {showSkip ? (
           <PressableScale
             accessibilityRole="button"
             accessibilityLabel={t("common.skip")}
@@ -335,13 +353,21 @@ export default function OnboardingIntroScreen() {
 
       <View
         style={[styles.dots, tv ? styles.dotsTv : null]}
+        // Dots are decorative; the page position is the progress value (F-50).
         accessibilityRole="progressbar"
         accessibilityLabel={t("onboarding.pageOf", { page: index + 1, total: PAGE_COUNT })}
+        accessibilityValue={{ min: 1, max: PAGE_COUNT, now: index + 1 }}
       >
         {SLIDES.map((item, i) => {
           const active = i === index;
           return (
-            <View key={item.key} style={styles.dotSlot} accessibilityElementsHidden>
+            <View
+              key={item.key}
+              style={styles.dotSlot}
+              accessible={false}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
+            >
               <View
                 style={[
                   styles.dot,
@@ -460,18 +486,24 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     minHeight: 44,
   },
+  topBarStart: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    flexShrink: 1,
+  },
   languageChip: {
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     minHeight: 44,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     backgroundColor: Brand.onHeroMutedSurface,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderColor: withAlpha(Brand.heroText, 0.22),
   },
   languageChipLabel: {
@@ -499,7 +531,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     backgroundColor: Brand.onHeroMutedSurface,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderColor: withAlpha(Brand.heroText, 0.22),
   },
   slidePager: {
@@ -527,7 +559,7 @@ const styles = StyleSheet.create({
   dotsTv: {
     paddingTop: Spacing.two,
     paddingBottom: Spacing.three,
-    minHeight: 28,
+    minHeight: tvDp(28),
   },
   /** Fixed-width slot so active pill ↔ idle circle never shifts neighbors. */
   dotSlot: {

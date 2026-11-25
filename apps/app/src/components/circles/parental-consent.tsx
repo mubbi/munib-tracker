@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
-import { Radius, Spacing } from "@/constants/theme";
+import { SwitchRow } from "@/components/ui/switch-row";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { CHILD_CONSENT_POLICY_VERSION, PRIVACY_POLICY_URL } from "@/lib/circles/consent";
 import { isTV } from "@/lib/platform/is-tv";
@@ -42,16 +42,7 @@ export function ParentalConsent({
           {t("family.consent.policyLink", { version: CHILD_CONSENT_POLICY_VERSION })}
         </ThemedText>
       ) : null}
-      <View style={styles.row}>
-        <ThemedText type="small" style={styles.label}>
-          {t("family.consent.confirm")}
-        </ThemedText>
-        <ThemedSwitch
-          value={value}
-          onValueChange={onChange}
-          accessibilityLabel={t("family.consent.confirm")}
-        />
-      </View>
+      <SwitchRow title={t("family.consent.confirm")} value={value} onValueChange={onChange} />
     </View>
   );
 }
@@ -61,8 +52,6 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     padding: Spacing.three,
     borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
-  row: { flexDirection: "row", alignItems: "center", gap: Spacing.two, marginTop: Spacing.one },
-  label: { flex: 1 },
 });

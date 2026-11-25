@@ -91,11 +91,11 @@ export function RamadanMakeUpOffer({
 
   if (justAdded) {
     return (
-      <Card padding="three">
+      <Card>
         <ThemedText
           type="small"
           accessibilityLiveRegion="polite"
-          style={{ color: tokens.status.success.color }}
+          style={{ color: tokens.status.success.text }}
         >
           {t("ramadan.fiqh.makeUp.added")}
         </ThemedText>
@@ -119,7 +119,7 @@ export function RamadanMakeUpOffer({
   };
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("ramadan.fiqh.makeUp.title")}
         icon={{ ios: "calendar.badge.plus", android: "event_available", web: "event_available" }}

@@ -12,7 +12,7 @@ import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
@@ -110,9 +110,8 @@ export function AyahActionSheet({
   const highlighted = (ayahNotes ?? []).some((note) => note.color);
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
+    <Sheet visible={visible} onClose={onClose} variant="bottom" title={title}>
       <View style={styles.header}>
-        <ThemedText type="subtitle">{title}</ThemedText>
         {metaParts.length > 0 ? (
           <ThemedText type="caption" themeColor="mutedForeground">
             {metaParts.join(" · ")}
@@ -123,7 +122,11 @@ export function AyahActionSheet({
       {hasBody ? (
         <View style={[styles.body, { borderTopColor: tokens.hairline }]}>
           {arabic ? (
-            <ThemedText type="arabic" style={arabicReadingLayout(arabicSize)}>
+            <ThemedText
+              type="arabic"
+              accessibilityLanguage="ar"
+              style={arabicReadingLayout(arabicSize)}
+            >
               {arabic}
             </ThemedText>
           ) : null}
@@ -195,36 +198,16 @@ export function AyahActionSheet({
       ) : null}
 
       <View style={styles.actions}>
+        {/* Same order as the reader's inline row (Play · Save · Share), then the rest (C-11). */}
         <LabeledIconButton
           name={isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
           label={isPlaying ? t("quran.actionPause") : t("quran.actionPlay")}
           tintColor={colors.accent}
-          labelColor={colors.accent}
+          labelColor={colors.accentText}
           background={tokens.accentSoft}
           accessibilityLabel={isPlaying ? t("quran.pauseAyah") : t("quran.playAyah", { n: ayah })}
           onPress={onPlay}
         />
-        {onHifz ? <HifzActionButton status={hifzStatus} onPress={onHifz} /> : null}
-        {onPractise ? (
-          <LabeledIconButton
-            name={{ ios: "mic", android: "mic_none", web: "mic_none" }}
-            label={t("quranCompanion.entry.practise")}
-            tintColor={colors.mutedForeground}
-            labelColor={colors.mutedForeground}
-            accessibilityLabel={t("quranCompanion.entry.practiseAyah", { n: ayah })}
-            onPress={onPractise}
-          />
-        ) : null}
-        {onCheckRecitation ? (
-          <LabeledIconButton
-            name={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
-            label={t("quranPronunciation.entry.check")}
-            tintColor={colors.mutedForeground}
-            labelColor={colors.mutedForeground}
-            accessibilityLabel={t("quranPronunciation.entry.checkAyah", { n: ayah })}
-            onPress={onCheckRecitation}
-          />
-        ) : null}
         <LabeledIconButton
           name={
             isBookmarked
@@ -232,12 +215,38 @@ export function AyahActionSheet({
               : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
           }
           label={isBookmarked ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
-          tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
-          labelColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+          tintColor={isBookmarked ? colors.accentText : colors.mutedForeground}
+          labelColor={isBookmarked ? colors.accentText : colors.mutedForeground}
           accessibilityLabel={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
           accessibilityState={{ selected: isBookmarked }}
           onPress={onBookmark}
         />
+        {/* No system share sheet on TV (phone-only capability). */}
+        {!isTV() ? (
+          <LabeledIconButton
+            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+            label={
+              isGesturePending
+                ? tTv(t, "share.tapToShare", "share.selectToShare")
+                : t("quran.actionShare")
+            }
+            tintColor={colors.mutedForeground}
+            accessibilityLabel={t("quran.shareAyah")}
+            loading={isSharing}
+            loadingLabel={t("share.preparing")}
+            onPress={onShare}
+          />
+        ) : null}
+        {onTafsir ? (
+          <LabeledIconButton
+            name={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+            label={t("quran.actionTafsir")}
+            tintColor={colors.mutedForeground}
+            labelColor={colors.mutedForeground}
+            accessibilityLabel={t("quran.openTafsir")}
+            onPress={onTafsir}
+          />
+        ) : null}
         {onNote ? (
           <LabeledIconButton
             name={NOTE_ICON}
@@ -260,30 +269,25 @@ export function AyahActionSheet({
             onPress={onHighlight}
           />
         ) : null}
-        {onTafsir ? (
+        {onHifz ? <HifzActionButton status={hifzStatus} onPress={onHifz} /> : null}
+        {onPractise ? (
           <LabeledIconButton
-            name={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
-            label={t("quran.actionTafsir")}
+            name={{ ios: "mic", android: "mic_none", web: "mic_none" }}
+            label={t("quranCompanion.entry.practise")}
             tintColor={colors.mutedForeground}
             labelColor={colors.mutedForeground}
-            accessibilityLabel={t("quran.openTafsir")}
-            onPress={onTafsir}
+            accessibilityLabel={t("quranCompanion.entry.practiseAyah", { n: ayah })}
+            onPress={onPractise}
           />
         ) : null}
-        {/* No system share sheet on TV (phone-only capability). */}
-        {!isTV() ? (
+        {onCheckRecitation ? (
           <LabeledIconButton
-            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-            label={
-              isGesturePending
-                ? tTv(t, "share.tapToShare", "share.selectToShare")
-                : t("quran.actionShare")
-            }
+            name={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+            label={t("quranPronunciation.entry.check")}
             tintColor={colors.mutedForeground}
-            accessibilityLabel={t("quran.shareAyah")}
-            loading={isSharing}
-            loadingLabel={t("share.preparing")}
-            onPress={onShare}
+            labelColor={colors.mutedForeground}
+            accessibilityLabel={t("quranPronunciation.entry.checkAyah", { n: ayah })}
+            onPress={onCheckRecitation}
           />
         ) : null}
         {reportRef ? <ContentReportButton contentRef={reportRef} /> : null}
@@ -300,7 +304,7 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     marginTop: Spacing.four,
     paddingTop: Spacing.four,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   translit: {
     lineHeight: 22,
@@ -310,7 +314,7 @@ const styles = StyleSheet.create({
   },
   secondTranslation: {
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   rtl: {
     writingDirection: "rtl",
@@ -320,7 +324,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     marginTop: Spacing.four,
     paddingTop: Spacing.four,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   actions: {
     flexDirection: "row",

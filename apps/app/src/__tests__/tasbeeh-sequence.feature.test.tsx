@@ -49,7 +49,7 @@ beforeEach(async () => {
 });
 
 async function tap(times: number) {
-  const pad = screen.getAllByLabelText("Count")[0];
+  const pad = screen.getAllByLabelText("Tasbeeh counter")[0];
   await act(async () => {
     for (let i = 0; i < times; i += 1) fireEvent.press(pad);
   });
@@ -90,5 +90,15 @@ describe("After-Salah tasbeeh sequence (D69)", () => {
     expect(await screen.findByText("After-Salah tasbeeh")).toBeTruthy();
     expect(screen.getByText(/the tahlil completes the hundred \(Sahih Muslim 597\)/)).toBeTruthy();
     expect(screen.getByText(/Allahu Akbar ×33 · La ilaha illallah ×1/)).toBeTruthy();
+  });
+
+  it("keeps the salah / ending choices in a sheet and an always-on counting dock", async () => {
+    await renderWithProviders(<TasbeehSequenceScreen />);
+    expect(await screen.findByText("After-Salah tasbeeh")).toBeTruthy();
+    // The dock counts the current phrase without scrolling to the counter.
+    expect(screen.getByText("Count")).toBeTruthy();
+    expect(screen.queryByText("Log with the adhkar after")).toBeNull();
+    await fireEvent.press(screen.getByText("Sequence settings"));
+    expect(await screen.findByText("Log with the adhkar after")).toBeTruthy();
   });
 });

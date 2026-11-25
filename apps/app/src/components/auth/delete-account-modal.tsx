@@ -5,10 +5,10 @@ import { DeleteAccountConfirmStep } from "@/components/auth/delete-account-confi
 import { DeleteAccountReasonStep } from "@/components/auth/delete-account-reason-step";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Sheet } from "@/components/ui/sheet";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   type AccountClosureReasonCode,
   buildDeleteAccountRequest,
@@ -21,6 +21,11 @@ type DeleteAccountModalProps = {
   onClose: () => void;
   onDeleted: () => void;
   deleteAccount: (body: DeleteAccountRequestBody) => Promise<void>;
+  /**
+   * Guest copy (F-22): a guest has no account, so the flow reads "Erase all
+   * data on this device?" / "Erase data". The steps and the typed word stay.
+   */
+  guest?: boolean;
 };
 
 export function DeleteAccountModal({
@@ -28,9 +33,9 @@ export function DeleteAccountModal({
   onClose,
   onDeleted,
   deleteAccount,
+  guest = false,
 }: DeleteAccountModalProps) {
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [primaryReason, setPrimaryReason] = useState<AccountClosureReasonCode | null>(null);
   const [details, setDetails] = useState("");
@@ -81,20 +86,25 @@ export function DeleteAccountModal({
       onDeleted();
       onClose();
     } catch {
-      setError(t("profile.deleteFailed"));
+      setError(t(guest ? "profile.eraseFailed" : "profile.deleteFailed"));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Sheet visible={visible} onClose={loading ? () => {} : onClose} solid scrollable={false}>
-      <View style={styles.header}>
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.eyebrow}>
-          {t("profile.deleteAccountModalEyebrow")}
-        </ThemedText>
-        <ThemedText type="subtitle">{t("profile.deleteTitle")}</ThemedText>
-      </View>
+    <Sheet
+      visible={visible}
+      // Busy: the scrim, Back and the close button cannot interrupt the deletion.
+      onClose={loading ? () => {} : onClose}
+      title={t(guest ? "profile.eraseTitle" : "profile.deleteTitle")}
+      showCloseButton={!loading}
+      solid
+      scrollable={false}
+    >
+      <ThemedText type="caption" themeColor="mutedForeground" style={styles.eyebrow}>
+        {t("profile.deleteAccountStepOf", { step, total: 3 })}
+      </ThemedText>
 
       <TvScrollView
         style={styles.scroll}
@@ -104,11 +114,11 @@ export function DeleteAccountModal({
       >
         {step === 1 ? (
           <>
-            <ThemedText type="small" style={styles.blockTitle}>
+            <ThemedText type="smallBold" heading={3}>
               {t("profile.deleteAccountStep1Title")}
             </ThemedText>
             <ThemedText type="small" themeColor="mutedForeground">
-              {t("profile.deleteAccountStep1Body")}
+              {t(guest ? "profile.deleteMsg" : "profile.deleteAccountStep1Body")}
             </ThemedText>
           </>
         ) : null}
@@ -142,17 +152,11 @@ export function DeleteAccountModal({
               setError(null);
             }}
             disabled={loading}
+            guest={guest}
           />
         ) : null}
 
-        {error ? (
-          <ThemedText
-            type="caption"
-            style={{ color: tokens.status.danger.color, marginTop: Spacing.two }}
-          >
-            {error}
-          </ThemedText>
-        ) : null}
+        {error ? <Callout tone="danger">{error}</Callout> : null}
       </TvScrollView>
 
       <View style={styles.actions}>
@@ -184,10 +188,12 @@ export function DeleteAccountModal({
               style={styles.actionHalf}
             />
             <Button
-              label={t("profile.deleteConfirm")}
-              disabled={!canConfirm || loading}
+              label={t(guest ? "profile.eraseConfirm" : "profile.deleteAccount")}
+              variant="destructive"
+              disabled={!canConfirm}
+              loading={loading}
               onPress={() => void handleDelete()}
-              style={[styles.actionHalf, { backgroundColor: tokens.status.danger.color }]}
+              style={styles.actionHalf}
             />
           </>
         ) : null}
@@ -197,13 +203,8 @@ export function DeleteAccountModal({
 }
 
 const styles = StyleSheet.create({
-  header: {
-    gap: Spacing.one,
-    marginBottom: Spacing.two,
-  },
   eyebrow: {
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
+    marginBottom: Spacing.two,
   },
   scroll: {
     maxHeight: 420,
@@ -211,9 +212,6 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: Spacing.two,
     gap: Spacing.two,
-  },
-  blockTitle: {
-    fontWeight: "700",
   },
   actions: {
     flexDirection: "row",

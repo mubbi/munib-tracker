@@ -8,7 +8,7 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import type { CategoryHue } from "@/components/ui/use-category-hue";
-import { Radius, Shadows, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Shadows, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -61,7 +61,11 @@ export function DuaOfTheDayCard({
             size={13}
             tintColor={hero.heroAccent}
           />
-          <ThemedText type="caption" style={[styles.heroEyebrow, { color: hero.heroAccent }]}>
+          <ThemedText
+            weight="bold"
+            type="caption"
+            style={[styles.heroEyebrow, { color: hero.heroAccent }]}
+          >
             {t("dua.ofTheDay")}
           </ThemedText>
         </View>
@@ -69,6 +73,7 @@ export function DuaOfTheDayCard({
       </View>
       <ThemedText
         type="arabic"
+        accessibilityLanguage="ar"
         numberOfLines={2}
         style={[styles.heroArabic, { color: hero.heroText }]}
       >
@@ -127,7 +132,11 @@ export function DuaMomentCard({
         size={tv ? 26 : 22}
       />
       <View style={styles.momentText}>
-        <ThemedText type="caption" style={[styles.momentEyebrow, { color: hue.text }]}>
+        <ThemedText
+          weight="bold"
+          type="caption"
+          style={[styles.momentEyebrow, { color: hue.text }]}
+        >
           {eyebrow}
         </ThemedText>
         <ThemedText type="smallBold" numberOfLines={2}>
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
     padding: Spacing.four,
     borderRadius: Radius.xl,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     overflow: "hidden",
   },
   heroTv: { padding: Spacing.five, minHeight: tvDp(200) },
@@ -157,12 +166,12 @@ const styles = StyleSheet.create({
   heroBadge: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: 4,
+    gap: Spacing.oneHalf,
+    paddingHorizontal: Spacing.twoHalf,
+    paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
   },
-  heroEyebrow: { fontWeight: "700", letterSpacing: 0.4, textTransform: "uppercase" },
+  heroEyebrow: { letterSpacing: 0.4, textTransform: "uppercase" },
   // Arabic skips ThemedText's TV ramp — scale it here for 10-ft viewing.
   heroArabic: {
     fontSize: isTV() ? tvDp(32) : 24,
@@ -178,9 +187,9 @@ const styles = StyleSheet.create({
     minHeight: tvDp(84),
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   momentTv: { minHeight: TvLayout.minFocusTarget + tvDp(24), padding: Spacing.four },
-  momentText: { flex: 1, minWidth: 0, gap: 2 },
-  momentEyebrow: { fontWeight: "700", letterSpacing: 0.4, textTransform: "uppercase" },
+  momentText: { flex: 1, minWidth: 0, gap: Spacing.half },
+  momentEyebrow: { letterSpacing: 0.4, textTransform: "uppercase" },
 });

@@ -7,6 +7,7 @@ import { requestNotificationPermission } from "@/lib/notifications/permissions";
 import { devicePreferencesStore, setDevicePreferences } from "@/stores/device-preferences-store";
 import { locationStore } from "@/stores/location-store";
 import { preferencesStore } from "@/stores/preferences-store";
+import { defined } from "@/test-support/assert";
 import { mockFetch } from "@/test-support/fetch";
 import {
   mockRouter,
@@ -16,8 +17,10 @@ import {
 } from "@/test-support/mocks/expo-router";
 import { mockToast, resetToastMock } from "@/test-support/mocks/toast-provider";
 import { usePlatformSwitch } from "@/test-support/platform";
+import { queryHostsByRole } from "@/test-support/queries";
 import { renderWithProviders } from "@/test-support/render";
 import { resetSettingsStores } from "@/test-support/settings";
+import { flattenStyle } from "@/test-support/style";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 jest.mock("expo-audio", () => require("@/test-support/mocks/expo-audio").expoAudioMock);
@@ -73,7 +76,7 @@ describe("first-run setup wizard", () => {
     await press("Continue");
     await waitFor(() => expect(screen.getByText("Salah times & location")).toBeTruthy());
     expect(locationStore.getState().location.source).toBe("device");
-    expect(screen.getByText("Prayer calculation")).toBeTruthy();
+    expect(screen.getByText("Salah time calculation")).toBeTruthy();
     await press("Next");
     expect(devicePreferencesStore.getState().prefs.methodReviewedAt).toEqual(expect.any(String));
     expect(devicePreferencesStore.getState().prefs.languageConfirmedAt).toEqual(expect.any(String));
@@ -251,5 +254,116 @@ describe("welcome screen", () => {
     expect(mockRouter.replace).not.toHaveBeenCalled();
     await press("Continue as guest");
     expect(mockRouter.replace).toHaveBeenCalledWith({ pathname: "/setup", params: {} });
+  });
+});
+
+/** Pressable hosts whose own box is drawn under the 24pt WCAG 2.5.8 minimum. */
+function undersizedPressables(): string[] {
+  const roles = ["button", "radio", "switch", "link", "checkbox"];
+  return roles.flatMap((role) =>
+    queryHostsByRole(role)
+      .filter((node) => {
+        const style = flattenStyle(node.props.style);
+        const height = style.height ?? style.minHeight;
+        const width = style.width ?? style.minWidth;
+        return (
+          (typeof height === "number" && height < 24) || (typeof width === "number" && width < 24)
+        );
+      })
+      .map((node) => `${role}: ${String(node.props.accessibilityLabel ?? "?")}`),
+  );
+}
+
+describe("shorter, reversible first run (P5-50)", () => {
+  it("a language changed on the welcome screen is not asked again in setup", async () => {
+    const intro = await renderWithProviders(<OnboardingIntroScreen />);
+    await press("Choose language");
+    await fireEvent.press(screen.getByText("Français"));
+    await waitFor(() =>
+      expect(devicePreferencesStore.getState().prefs.languageConfirmedAt).toEqual(
+        expect.any(String),
+      ),
+    );
+    await intro.unmount();
+
+    await renderWithProviders(<SetupScreen />);
+    // Location is the first step; four counted steps instead of five.
+    expect(screen.getByText(/1.*4/)).toBeTruthy();
+    expect(screen.queryByText("Choisissez votre langue")).toBeNull();
+    expect(screen.queryByText("Choose your language")).toBeNull();
+  });
+
+  it("keeps the language step when nothing was picked on the welcome screen", async () => {
+    await renderWithProviders(<SetupScreen />);
+    expect(screen.getByText("Choose your language")).toBeTruthy();
+    expect(screen.getByText("Step 1 of 5")).toBeTruthy();
+  });
+
+  it("'Run setup again' still reviews the language", async () => {
+    await act(async () => {
+      await preferencesStore.getState().update({ hasCompletedOnboarding: true });
+      await setDevicePreferences({ languageConfirmedAt: "2026-01-01T00:00:00.000Z" });
+    });
+    await renderWithProviders(<SetupScreen />);
+    expect(screen.getByText("Choose your language")).toBeTruthy();
+  });
+
+  it("offers 'Finish later' once the core steps are done", async () => {
+    setMockSearchParams({ step: "personalise" });
+    await renderWithProviders(<SetupScreen />);
+    expect(screen.getByText("Make it yours")).toBeTruthy();
+    await press("Finish later");
+    await waitFor(() => expect(mockRouter.replace).toHaveBeenCalledWith("/"));
+    expect(preferencesStore.getState().prefs.hasCompletedOnboarding).toBe(true);
+  });
+
+  it("'Finish later' goes to sign-in when the welcome screen chose it", async () => {
+    setMockSearchParams({ step: "personalise", next: "/login" });
+    await renderWithProviders(<SetupScreen />);
+    await press("Finish later");
+    await waitFor(() => expect(mockRouter.replace).toHaveBeenCalledWith("/login"));
+  });
+
+  it("iOS keeps no 'later' on the permission steps", async () => {
+    setMockSearchParams({ step: "reminders" });
+    await renderWithProviders(<SetupScreen />);
+    expect(screen.getByText("Never miss a Salah")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Set up later" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Finish later" })).toBeNull();
+  });
+
+  it("has no pressable under 24pt on the setup steps", async () => {
+    await renderWithProviders(<SetupScreen />);
+    expect(undersizedPressables()).toEqual([]);
+  });
+});
+
+describe("welcome screen paging (G-97)", () => {
+  it("phones get a visible Back from the second page and no Skip on the last", async () => {
+    await renderWithProviders(<OnboardingIntroScreen />);
+    expect(screen.queryByRole("button", { name: "Back" })).toBeNull();
+    await press("Begin");
+    expect(screen.getByRole("button", { name: "Back" })).toBeTruthy();
+    await press("Back");
+    expect(screen.queryByRole("button", { name: "Back" })).toBeNull();
+    expect(screen.getByRole("button", { name: "Begin" })).toBeTruthy();
+  });
+
+  it("drops Skip on the last page, where 'Continue as guest' does the same", async () => {
+    setMockSearchParams({ at: "end" });
+    await renderWithProviders(<OnboardingIntroScreen />);
+    expect(screen.getByRole("button", { name: "Continue as guest" })).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Skip" })).toBeNull();
+  });
+
+  it("reports the page as a progress value with decorative dots", async () => {
+    await renderWithProviders(<OnboardingIntroScreen />);
+    const [progress] = queryHostsByRole("progressbar").filter(
+      (node) => node.props.accessibilityValue?.max != null,
+    );
+    expect(defined(progress, "the page progress").props.accessibilityValue).toEqual(
+      expect.objectContaining({ min: 1, now: 1 }),
+    );
+    expect(undersizedPressables()).toEqual([]);
   });
 });

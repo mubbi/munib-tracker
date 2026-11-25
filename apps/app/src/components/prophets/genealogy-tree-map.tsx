@@ -24,7 +24,8 @@ import { scheduleOnRN } from "react-native-worklets";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { getProphetsGenealogyBranchOrder } from "@/lib/prophets-genealogy";
@@ -50,6 +51,18 @@ type GenealogyTreeMapProps = {
   onSelect: (node: ProphetsGenealogyNode) => void;
   height: number;
 };
+
+/**
+ * Web wheel policy (G-32): the map zooms on Ctrl / ⌘ + wheel (trackpad pinch
+ * arrives as a ctrl-wheel) or once the reader has pressed inside the map;
+ * every other wheel event is left to scroll the page.
+ */
+export function shouldMapCaptureWheel(
+  event: Pick<WheelEvent, "ctrlKey" | "metaKey">,
+  engaged: boolean,
+): boolean {
+  return event.ctrlKey || event.metaKey || engaged;
+}
 
 function certaintyTone(
   certainty: ProphetsGenealogyNode["certainty"],
@@ -77,6 +90,8 @@ export function GenealogyTreeMap({
   const tv = isTV();
   const [viewportW, setViewportW] = useState(Math.min(windowW, 1120));
   const [viewportH, setViewportH] = useState(height);
+  // Web touch: until engaged, the canvas leaves one-finger vertical drags to the page.
+  const [touchEngaged, setTouchEngaged] = useState(false);
 
   const layout = useMemo(() => layoutProphetsGenealogy(nodes, branchOrder), [nodes, branchOrder]);
 
@@ -88,6 +103,8 @@ export function GenealogyTreeMap({
   );
 
   const scale = useSharedValue(1);
+  // Reduced motion: zoom / fit / recentre snap instead of animating.
+  const motion = useHydrationSafeReducedMotion() ? 0 : 1;
   const savedScale = useSharedValue(1);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
@@ -105,13 +122,14 @@ export function GenealogyTreeMap({
     const next = Math.min(Math.max(Math.min(sx, sy), MIN_SCALE), 1.05);
     const offsetX = (viewportW - layout.width * next) / 2;
     const offsetY = Math.max(20, (viewportH - layout.height * next) / 2);
-    scale.value = withTiming(next, { duration: 280 });
+    scale.value = withTiming(next, { duration: 280 * motion });
     savedScale.value = next;
-    translateX.value = withTiming(offsetX, { duration: 280 });
-    translateY.value = withTiming(offsetY, { duration: 280 });
+    translateX.value = withTiming(offsetX, { duration: 280 * motion });
+    translateY.value = withTiming(offsetY, { duration: 280 * motion });
     savedTranslateX.value = offsetX;
     savedTranslateY.value = offsetY;
   }, [
+    motion,
     layout.height,
     layout.width,
     scale,
@@ -132,14 +150,14 @@ export function GenealogyTreeMap({
       const worldY = (cy - savedTranslateY.value) / savedScale.value;
       const offsetX = cx - worldX * next;
       const offsetY = cy - worldY * next;
-      scale.value = withTiming(next, { duration });
+      scale.value = withTiming(next, { duration: duration * motion });
       savedScale.value = next;
-      translateX.value = withTiming(offsetX, { duration });
-      translateY.value = withTiming(offsetY, { duration });
+      translateX.value = withTiming(offsetX, { duration: duration * motion });
+      translateY.value = withTiming(offsetY, { duration: duration * motion });
       savedTranslateX.value = offsetX;
       savedTranslateY.value = offsetY;
     },
-    [scale, savedScale, translateX, translateY, savedTranslateX, savedTranslateY],
+    [motion, scale, savedScale, translateX, translateY, savedTranslateX, savedTranslateY],
   );
 
   const zoomBy = useCallback(
@@ -147,9 +165,12 @@ export function GenealogyTreeMap({
     [zoomAt, viewportH, viewportW],
   );
 
-  // Web: wheel / trackpad-pinch zooms about the cursor. Registered natively as a
-  // non-passive listener — React's onWheel is passive, so preventDefault there
-  // can't stop the page from scrolling underneath the map.
+  // Web: Ctrl / ⌘ + wheel and trackpad pinch (which browsers report as a
+  // ctrl-wheel) zoom about the cursor; a plain wheel zooms only once the reader
+  // has engaged the map (pointer pressed inside it, until the pointer leaves).
+  // Otherwise the wheel scrolls the page — the map never traps page scroll
+  // (G-32). Registered natively as a non-passive listener — React's onWheel is
+  // passive, so preventDefault there can't stop the page from scrolling.
   const viewportRef = useRef<ViewInstance>(null);
   const zoomAtRef = useRef(zoomAt);
   zoomAtRef.current = zoomAt;
@@ -157,7 +178,32 @@ export function GenealogyTreeMap({
     if (Platform.OS !== "web" || tv) return;
     const node = viewportRef.current as unknown as HTMLElement | null;
     if (!node?.addEventListener) return;
+    let engaged = false;
+    // Touch: a one-finger drag scrolls the page until the reader taps the map
+    // (engages it); a tap outside releases it. Mouse / pen never need this.
+    let touchStart: { x: number; y: number; t: number } | null = null;
+    const onPointerDown = (event: PointerEvent) => {
+      engaged = true;
+      if (event.pointerType === "touch") {
+        touchStart = { x: event.clientX, y: event.clientY, t: Date.now() };
+      }
+    };
+    const onPointerUp = (event: PointerEvent) => {
+      if (event.pointerType !== "touch" || !touchStart) return;
+      const moved = Math.hypot(event.clientX - touchStart.x, event.clientY - touchStart.y);
+      if (moved < 10 && Date.now() - touchStart.t < 400) setTouchEngaged(true);
+      touchStart = null;
+    };
+    const onDocPointerDown = (event: PointerEvent) => {
+      if (event.pointerType === "touch" && !node.contains(event.target as Node)) {
+        setTouchEngaged(false);
+      }
+    };
+    const onPointerLeave = () => {
+      engaged = false;
+    };
     const onWheel = (event: WheelEvent) => {
+      if (!shouldMapCaptureWheel(event, engaged)) return;
       event.preventDefault();
       // Line/page delta modes (some mice) → approximate pixels.
       const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? 400 : 1;
@@ -167,8 +213,18 @@ export function GenealogyTreeMap({
       const rect = node.getBoundingClientRect();
       zoomAtRef.current(factor, event.clientX - rect.left, event.clientY - rect.top, 60);
     };
+    node.addEventListener("pointerdown", onPointerDown);
+    node.addEventListener("pointerup", onPointerUp);
+    document.addEventListener("pointerdown", onDocPointerDown);
+    node.addEventListener("pointerleave", onPointerLeave);
     node.addEventListener("wheel", onWheel, { passive: false });
-    return () => node.removeEventListener("wheel", onWheel);
+    return () => {
+      node.removeEventListener("pointerdown", onPointerDown);
+      node.removeEventListener("pointerup", onPointerUp);
+      document.removeEventListener("pointerdown", onDocPointerDown);
+      node.removeEventListener("pointerleave", onPointerLeave);
+      node.removeEventListener("wheel", onWheel);
+    };
   }, [tv]);
 
   useEffect(() => {
@@ -182,13 +238,14 @@ export function GenealogyTreeMap({
     const s = Math.min(Math.max(savedScale.value, 0.9), 1.4);
     const targetX = viewportW / 2 - (pos.x + pos.width / 2) * s;
     const targetY = viewportH / 2 - (pos.y + pos.height / 2) * s;
-    scale.value = withTiming(s, { duration: 320 });
+    scale.value = withTiming(s, { duration: 320 * motion });
     savedScale.value = s;
-    translateX.value = withTiming(targetX, { duration: 320 });
-    translateY.value = withTiming(targetY, { duration: 320 });
+    translateX.value = withTiming(targetX, { duration: 320 * motion });
+    translateY.value = withTiming(targetY, { duration: 320 * motion });
     savedTranslateX.value = targetX;
     savedTranslateY.value = targetY;
   }, [
+    motion,
     focusId,
     layout.byId,
     scale,
@@ -273,7 +330,13 @@ export function GenealogyTreeMap({
       ]}
       ref={viewportRef}
       accessibilityLabel={t("prophets.tree.mapA11y")}
-      accessibilityHint={tv ? undefined : t("prophets.tree.panHint")}
+      accessibilityHint={
+        tv
+          ? undefined
+          : Platform.OS === "web"
+            ? t("prophets.tree.panHintWeb")
+            : t("prophets.tree.panHint")
+      }
       onLayout={(e) => {
         const w = e.nativeEvent.layout.width;
         if (w > 0) setViewportW(w);
@@ -308,7 +371,7 @@ export function GenealogyTreeMap({
             accessibilityLabel={t("prophets.tree.zoomOut")}
             onPress={() => zoomBy(1 / ZOOM_STEP)}
             tintColor={colors.foreground}
-            hitTarget={40}
+            hitTarget={44}
             size={18}
           />
           <View style={[styles.toolbarDivider, { backgroundColor: colors.border }]} />
@@ -317,7 +380,7 @@ export function GenealogyTreeMap({
             accessibilityLabel={t("prophets.tree.zoomIn")}
             onPress={() => zoomBy(ZOOM_STEP)}
             tintColor={colors.foreground}
-            hitTarget={40}
+            hitTarget={44}
             size={18}
           />
           <View style={[styles.toolbarDivider, { backgroundColor: colors.border }]} />
@@ -330,13 +393,16 @@ export function GenealogyTreeMap({
             accessibilityLabel={t("prophets.tree.fitView")}
             onPress={fitToView}
             tintColor={colors.foreground}
-            hitTarget={40}
+            hitTarget={44}
             size={18}
           />
         </View>
       </View>
 
-      <MaybeGestureDetector gesture={tv ? null : composed}>
+      <MaybeGestureDetector
+        gesture={tv ? null : composed}
+        touchAction={Platform.OS === "web" && !touchEngaged ? "pan-y" : undefined}
+      >
         <Animated.View
           style={[styles.canvas, { width: layout.width, height: layout.height }, animatedStyle]}
         >
@@ -444,7 +510,7 @@ export function GenealogyTreeMap({
                   <Text style={styles.monogramText}>{genealogyMonogram(node.name)}</Text>
                 </View>
                 <View style={styles.nodeCopy}>
-                  <ThemedText type="smallBold" style={styles.nodeName}>
+                  <ThemedText type="footnote" weight="bold" style={styles.nodeName}>
                     {node.name}
                   </ThemedText>
                   <ThemedText
@@ -507,13 +573,19 @@ const webGrabCursor = { cursor: "grab" } as unknown as ViewStyle;
 /** Gesture handling only where touch exists (skipped on TV). */
 function MaybeGestureDetector({
   gesture,
+  touchAction,
   children,
 }: {
   gesture: ReturnType<typeof useCompetingGestures> | null;
+  touchAction?: "pan-y";
   children: ReactElement;
 }) {
   if (!gesture) return children;
-  return <GestureDetector gesture={gesture}>{children}</GestureDetector>;
+  return (
+    <GestureDetector gesture={gesture} touchAction={touchAction}>
+      {children}
+    </GestureDetector>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -525,8 +597,8 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     position: "absolute",
-    top: Spacing.two + 2,
-    end: Spacing.two + 2,
+    top: Spacing.twoHalf,
+    end: Spacing.twoHalf,
     zIndex: 3,
   },
   toolbarCluster: {
@@ -535,7 +607,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth * 2,
-    paddingHorizontal: 2,
+    paddingHorizontal: Spacing.half,
     ...Platform.select({
       ios: {
         shadowColor: "#000",
@@ -559,8 +631,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.two + 2,
+    paddingHorizontal: Spacing.twoHalf,
+    paddingVertical: Spacing.twoHalf,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
@@ -582,18 +654,17 @@ const styles = StyleSheet.create({
   nodeCopy: {
     flex: 1,
     minWidth: 0,
-    gap: 2,
+    gap: Spacing.half,
     paddingEnd: Spacing.two,
     justifyContent: "center",
   },
   nodeName: {
-    fontSize: 13,
     lineHeight: 17,
     flexShrink: 1,
   },
   nodeMeta: {
-    fontSize: 10,
-    lineHeight: 13,
+    fontSize: 12,
+    lineHeight: 16,
   },
   certaintyDot: {
     position: "absolute",
@@ -605,11 +676,11 @@ const styles = StyleSheet.create({
   },
   legend: {
     position: "absolute",
-    bottom: Spacing.two + 2,
-    start: Spacing.two + 2,
-    gap: Spacing.one + 2,
+    bottom: Spacing.twoHalf,
+    start: Spacing.twoHalf,
+    gap: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth * 2,
@@ -637,19 +708,19 @@ const styles = StyleSheet.create({
   },
   legendLineDashed: {
     width: 20,
-    borderTopWidth: 2,
+    borderTopWidth: BorderWidth.thick,
     borderStyle: "dashed",
   },
   legendCertainty: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: Spacing.two,
-    marginTop: 2,
+    marginTop: Spacing.half,
   },
   legendCertaintyItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: Spacing.one,
   },
   legendDot: {
     width: 7,

@@ -44,7 +44,7 @@ describe("PrayerCombinePicker", () => {
     expect(screen.getByText("Combined with Dhuhr (jam')")).toBeTruthy();
     expect(
       screen.getByText(
-        "Your school allows combining when travelling and for rain. Conditions apply; see the travel guide.",
+        "Your school allows combining when traveling and for rain. Conditions apply; see the travel guide.",
       ),
     ).toBeTruthy();
     await fireEvent.press(screen.getByRole("radio", { name: "Taqdim: both at Dhuhr time" }));
@@ -55,7 +55,7 @@ describe("PrayerCombinePicker", () => {
     await renderPicker({ madhhab: "hanbali" });
     expect(
       screen.getByText(
-        "Your school allows combining when travelling. Conditions apply; see the travel guide.",
+        "Your school allows combining when traveling. Conditions apply; see the travel guide.",
       ),
     ).toBeTruthy();
   });

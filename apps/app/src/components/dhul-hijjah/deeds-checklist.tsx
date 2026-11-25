@@ -12,9 +12,10 @@ import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Control, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { dailyCheckKey, deedsForDay, excusedStopsFasting } from "@/lib/dhul-hijjah";
 import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
@@ -31,6 +32,12 @@ import {
   useEnsureVoluntaryFastingLoaded,
   useVoluntaryFastEntry,
 } from "@/stores/voluntary-fasting-store";
+
+class BlockedFast extends Error {
+  constructor(readonly reason: string) {
+    super(reason);
+  }
+}
 
 const CHECKED = {
   ios: "checkmark.circle.fill",
@@ -70,6 +77,7 @@ export function DhulHijjahDeedsChecklist({ year, date, hijriDay, excusedReason }
   const counts = useZikrCounts();
   const { voluntaryFasting } = usePreferences();
   const pilgrim = isPilgrimForHijriYear(voluntaryFasting, year);
+  const undoToast = useUndoToast();
   const [blockedMessage, setBlockedMessage] = useState<string | null>(null);
   const deeds = deedsForDay(hijriDay, {
     fastingExcused: excusedStopsFasting(excusedReason),
@@ -87,13 +95,34 @@ export function DhulHijjahDeedsChecklist({ year, date, hijriDay, excusedReason }
   const onPress = (deed: DhulHijjahDeedId) => {
     if (deed === "fast") {
       setBlockedMessage(null);
-      if (isDone("fast")) {
-        void clearFast(date);
-        return;
-      }
-      void markFast(date, "fasted").then((result) => {
-        if (!result.ok) setBlockedMessage(t(`voluntaryFasting.blocked.${result.reason}`));
-      });
+      // Logging / un-logging the fast is reversible: toast with Undo, not a silent flip.
+      const wasDone = isDone("fast");
+      const prior = fastEntry;
+      const restore = () =>
+        prior ? markFast(date, prior.status, { asQaza: prior.asQaza }) : clearFast(date);
+      void undoToast
+        .run({
+          do: async () => {
+            if (wasDone) {
+              await clearFast(date);
+              return;
+            }
+            const result = await markFast(date, "fasted");
+            if (!result.ok) throw new BlockedFast(result.reason);
+          },
+          undo: async () => {
+            await restore();
+          },
+          messageKey: wasDone ? "voluntaryFasting.toast.cleared" : "voluntaryFasting.toast.fasted",
+          type: wasDone ? "info" : "success",
+        })
+        .catch((error) => {
+          if (error instanceof BlockedFast) {
+            setBlockedMessage(t(`voluntaryFasting.blocked.${error.reason}`));
+            return;
+          }
+          throw error;
+        });
       return;
     }
     if (deed === "zikr") return;
@@ -108,7 +137,7 @@ export function DhulHijjahDeedsChecklist({ year, date, hijriDay, excusedReason }
   };
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("dhulHijjah.deeds.title")}
         icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
@@ -227,14 +256,26 @@ const styles = StyleSheet.create({
   rows: { gap: Spacing.two, marginTop: Spacing.three },
   deed: { gap: Spacing.two },
   row: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  main: { flex: 1, flexDirection: "row", alignItems: "center", gap: Spacing.two, minWidth: 0 },
+  main: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    minWidth: 0,
+    minHeight: Control.md,
+  },
   mainTv: {
     minHeight: TvLayout.minFocusTarget,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
   },
-  text: { flex: 1, minWidth: 0, gap: 2 },
-  open: { padding: Spacing.one },
+  text: { flex: 1, minWidth: 0, gap: Spacing.half },
+  open: {
+    minWidth: Control.md,
+    minHeight: Control.md,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   counters: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -242,12 +283,14 @@ const styles = StyleSheet.create({
     paddingStart: Spacing.five,
   },
   counter: {
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderRadius: Radius.md,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
+    minHeight: Control.md,
+    justifyContent: "center",
     alignItems: "center",
-    gap: 2,
+    gap: Spacing.half,
   },
   note: { marginTop: Spacing.two },
 });

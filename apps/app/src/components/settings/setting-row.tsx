@@ -1,13 +1,13 @@
 import { type Href, useRouter } from "expo-router";
 import { memo, Suspense, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Sheet } from "@/components/ui/sheet";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AnySettingDef, ChoiceOption } from "@/lib/settings/types";
 import { useSetting } from "@/lib/settings/use-setting";
 import { useToast } from "@/providers/toast-provider";
@@ -136,11 +136,8 @@ export const SettingRow = memo(function SettingRow({ def }: { def: AnySettingDef
         />
       );
     case "action": {
-      const run = () =>
-        void control.run().then(
-          () => toast.success(t("settingsPanel.done")),
-          () => toast.error(t("settingsPanel.failed")),
-        );
+      const done = () => toast.success(t(control.doneKey ?? "settingsPanel.done"));
+      const run = () => void control.run().then(done, () => toast.error(t("settingsPanel.failed")));
       if (control.destructive || control.confirmKey) {
         return (
           <DangerRow
@@ -149,7 +146,13 @@ export const SettingRow = memo(function SettingRow({ def }: { def: AnySettingDef
             subtitle={subtitle}
             confirmMessage={control.confirmKey ? t(control.confirmKey) : undefined}
             destructive={control.destructive === true}
-            onConfirm={run}
+            // Async: the confirm stays busy until the action lands; a failure
+            // shows inline in the dialog (retryable) instead of a toast.
+            onConfirm={async () => {
+              await control.run();
+              done();
+            }}
+            errorMessage={t("settingsPanel.failed")}
             disabled={!enabled}
           />
         );
@@ -175,13 +178,9 @@ export const SettingRow = memo(function SettingRow({ def }: { def: AnySettingDef
   }
 });
 
+/** P8-04: a lazy editor loads behind a skeleton row, not a bare spinner. */
 function EditorFallback() {
-  const { colors } = useThemeTokens();
-  return (
-    <View style={styles.fallback}>
-      <ActivityIndicator color={colors.accent} />
-    </View>
-  );
+  return <SkeletonPlaceholder preset="rows" count={1} style={styles.fallback} />;
 }
 
 function ChoiceSheetRow({
@@ -217,10 +216,7 @@ function ChoiceSheetRow({
         disabled={disabled}
         onPress={() => setOpen(true)}
       />
-      <Sheet visible={open} onClose={() => setOpen(false)} variant="bottom">
-        <ThemedText type="subtitle" style={styles.sheetTitle}>
-          {title}
-        </ThemedText>
+      <Sheet visible={open} onClose={() => setOpen(false)} variant="bottom" title={title}>
         <TvScrollView
           style={styles.sheetScroll}
           contentContainerStyle={styles.sheetList}
@@ -242,8 +238,7 @@ function ChoiceSheetRow({
 
 const styles = StyleSheet.create({
   listBlock: { gap: Spacing.two },
-  fallback: { padding: Spacing.three, alignItems: "center" },
-  sheetTitle: { marginBottom: Spacing.two },
+  fallback: { paddingVertical: Spacing.two },
   sheetScroll: { alignSelf: "stretch" },
   sheetList: { gap: Spacing.two, paddingBottom: Spacing.two },
 });

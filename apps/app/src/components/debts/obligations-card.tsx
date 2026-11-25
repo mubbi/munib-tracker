@@ -2,12 +2,14 @@ import { type Href, useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { JannahNavRow } from "@/components/jannah/primitives";
 import { LabeledInput } from "@/components/records/labeled-input";
 import { useRecordAction } from "@/components/records/use-record-action";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Spacing } from "@/constants/theme";
@@ -38,6 +40,7 @@ export function ObligationsCard({
   const router = useRouter();
   const format = useRecordFormat();
   const [vowText, setVowText] = useState("");
+  const [removingVow, setRemovingVow] = useState<VowEntry | null>(null);
 
   const valueFor = (o: ObligationLine) => {
     if (o.amount == null || !o.currency)
@@ -57,7 +60,7 @@ export function ObligationsCard({
   };
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("debts.obligations.title")}
         subtitle={t("debts.obligations.subtitle")}
@@ -105,15 +108,11 @@ export function ObligationsCard({
                 {`${vow.fulfilled ? "☑" : "☐"} ${vow.text}`}
               </ThemedText>
             </PressableScale>
-            <PressableScale
-              accessibilityRole="button"
+            <IconButton
+              name={{ ios: "trash", android: "delete", web: "delete" }}
               accessibilityLabel={t("debts.vows.delete")}
-              onPress={() => void run(debtsActions.deleteVow(vow.id))}
-            >
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("common.remove")}
-              </ThemedText>
-            </PressableScale>
+              onPress={() => setRemovingVow(vow)}
+            />
           </View>
         ))}
         <LabeledInput
@@ -125,6 +124,19 @@ export function ObligationsCard({
         />
         <Button label={t("common.add")} size="sm" variant="secondary" onPress={addVow} />
       </View>
+      <ConfirmDialog
+        visible={removingVow != null}
+        destructive
+        title={t("debts.vows.removeTitle")}
+        message={t("debts.vows.removeBody")}
+        confirmLabel={t("common.remove")}
+        onConfirm={() => {
+          const vow = removingVow;
+          setRemovingVow(null);
+          if (vow) void run(debtsActions.deleteVow(vow.id));
+        }}
+        onClose={() => setRemovingVow(null)}
+      />
     </Card>
   );
 }

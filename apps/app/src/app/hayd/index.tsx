@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ExcusedGuideContent } from "@/components/excused/excused-guide-content";
 import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
+import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
@@ -22,19 +23,22 @@ export default function HaydGuideScreen() {
       eyebrow={t("hayd.eyebrow")}
       title={t("hayd.title")}
       subtitle={t("hayd.subtitle")}
+      readingProgress
       onBack={() => goBackOrReplace(router, "/")}
       maxContentWidth={wide.twoPane ? wide.maxContentWidth : undefined}
     >
       <Seo path="/hayd" />
       {madhhabPrompt.sheet}
-      <Stagger>
-        <LearnQuizNavRow
-          quizPath={"/hayd/quiz" as Href}
-          titleKey="common.learnQuiz.title"
-          subtitleKey="common.learnQuiz.hint"
-        />
-        <ExcusedGuideContent reason="hayd" />
-      </Stagger>
+      <LearnReadingChrome surface="jannah">
+        <Stagger>
+          <LearnQuizNavRow
+            quizPath={"/hayd/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
+          />
+          <ExcusedGuideContent reason="hayd" />
+        </Stagger>
+      </LearnReadingChrome>
     </ScreenLayout>
   );
 }

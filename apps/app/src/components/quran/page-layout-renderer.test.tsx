@@ -42,6 +42,8 @@ async function renderPage(props: Partial<RendererProps> = {}) {
   return { onAyahPress };
 }
 
+/** Ayah blocks are labelled "ref, Arabic[, translation]" (G-01) — match by the leading ref. */
+const byRef = (ref: string) => screen.getByLabelText(new RegExp(`^${ref},`));
 const iosText = (arabic: string, ayah: number) => `${arabic}${iosInlineAyahMarker(ayah)}`;
 const preferredFocus = () =>
   screen.getAllByRole("button").filter((node) => node.props.hasTVPreferredFocus);
@@ -83,14 +85,13 @@ describe("PageLayoutRenderer", () => {
 
     it("opens the tapped ayah", async () => {
       const { onAyahPress } = await renderPage();
-      await fireEvent.press(screen.getByLabelText("3:2"));
+      await fireEvent.press(byRef("3:2"));
       expect(onAyahPress).toHaveBeenCalledWith(3, 2);
     });
 
     it("highlights the playing ayah", async () => {
       await renderPage({ highlightAyah: { surah: 3, ayah: 2 } });
-      const background = (label: string) =>
-        flattenStyle(screen.getByLabelText(label).props.style).backgroundColor;
+      const background = (label: string) => flattenStyle(byRef(label).props.style).backgroundColor;
       expect(background("3:2")).toEqual(expect.any(String));
       expect(background("3:1")).toBeUndefined();
     });
@@ -131,7 +132,7 @@ describe("PageLayoutRenderer", () => {
 
     it("opens the tapped ayah block", async () => {
       const { onAyahPress } = await renderPage({ showTranslation: true, translation });
-      await fireEvent.press(screen.getByLabelText("3:1"));
+      await fireEvent.press(byRef("3:1"));
       expect(onAyahPress).toHaveBeenCalledWith(3, 1);
     });
 
@@ -141,9 +142,28 @@ describe("PageLayoutRenderer", () => {
         translation,
         highlightAyah: { surah: 3, ayah: 1 },
       });
-      const background = (label: string) =>
-        flattenStyle(screen.getByLabelText(label).props.style).backgroundColor;
+      const background = (label: string) => flattenStyle(byRef(label).props.style).backgroundColor;
       expect(background("3:1")).not.toEqual(background("3:2"));
+    });
+  });
+
+  describe("screen-reader labels (G-01)", () => {
+    it("reads the Unicode Arabic and, when shown, the translation; the hint stays separate", async () => {
+      await renderPage({
+        showTranslation: true,
+        translation: { "3:1": "Alif, Lam, Meem." },
+      });
+      const block = byRef("3:1");
+      expect(block.props.accessibilityLabel).toBe("3:1, imran-1, Alif, Lam, Meem.");
+      expect(block.props.accessibilityHint).toBe("Opens actions");
+    });
+
+    it("reads the Arabic of each ayah in the flowing mushaf paragraph", async () => {
+      await renderPage();
+      const span = byRef("3:2");
+      expect(span.props.accessibilityLabel).toBe("3:2, imran-2");
+      expect(span.props.accessibilityLanguage).toBe("ar");
+      expect(span.props.accessibilityHint).toBe("Opens actions");
     });
   });
 
@@ -153,20 +173,20 @@ describe("PageLayoutRenderer", () => {
     it("makes each surah's paragraph one focus stop", async () => {
       await renderPage();
       expect(screen.getAllByRole("button").map((node) => node.props.accessibilityLabel)).toEqual([
-        "2:286",
-        "3:1",
+        "2:286, baqarah-286",
+        "3:1, imran-1, imran-2",
       ]);
     });
 
     it("opens the highlighted ayah of the focused paragraph", async () => {
       const { onAyahPress } = await renderPage({ highlightAyah: { surah: 3, ayah: 2 } });
-      await fireEvent.press(screen.getByLabelText("3:1"));
+      await fireEvent.press(byRef("3:1"));
       expect(onAyahPress).toHaveBeenCalledWith(3, 2);
     });
 
     it("opens the paragraph's first ayah when none is highlighted", async () => {
       const { onAyahPress } = await renderPage();
-      await fireEvent.press(screen.getByLabelText("3:1"));
+      await fireEvent.press(byRef("3:1"));
       expect(onAyahPress).toHaveBeenCalledWith(3, 1);
     });
 
@@ -177,7 +197,7 @@ describe("PageLayoutRenderer", () => {
       ["the first block for an off-page ayah", { surah: 9, ayah: 1 }, true, "2:286"],
     ])("focuses %s", async (_name, tvFocusTarget, showTranslation, label) => {
       await renderPage({ tvFocusTarget, showTranslation });
-      expect(preferredFocus()).toEqual([screen.getByLabelText(label)]);
+      expect(preferredFocus()).toEqual([byRef(label)]);
     });
 
     it("requests no focus on an empty page", async () => {

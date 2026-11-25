@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -11,18 +11,23 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Chip } from "@/components/ui/chip";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
+import { NavRow } from "@/components/ui/nav-row";
+import { NumberField } from "@/components/ui/number-field";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
-import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
+import { triggerHaptic } from "@/lib/haptics";
 import {
   ayahsRemaining,
   dailyAyahTarget,
@@ -69,21 +74,8 @@ const PLAN_PRESETS = [
 /** TV custom-plan stepper starting value (between the 30 / 60 day presets). */
 const TV_CUSTOM_DAYS_SEED = 45;
 
-/**
- * Selected chip fill. Phone: solid accent. TV: soft fill + muted hairline so a
- * selected chip never looks like the solid D-pad focus ring.
- */
-function selectedChipStyle(
-  active: boolean,
-  tv: boolean,
-  colors: ReturnType<typeof useThemeTokens>["colors"],
-  tokens: ReturnType<typeof useThemeTokens>["tokens"],
-) {
-  if (!active) return { backgroundColor: colors.background, borderColor: colors.border };
-  if (tv)
-    return { backgroundColor: tokens.accentSoft, borderColor: withAlpha(colors.accent, 0.35) };
-  return { backgroundColor: colors.accent, borderColor: colors.accent };
-}
+/** NumberField reports numbers; the khatm parsers validate the typed text. */
+const numberText = (value: number | undefined) => (value == null ? "" : String(value));
 
 const PACE_ICON: Record<KhatmPace, SymbolViewProps["name"]> = {
   done: { ios: "checkmark.seal.fill", android: "verified", web: "verified" },
@@ -128,11 +120,10 @@ function KhatmMotivationCard({ seed, onShuffle }: { seed: number; onShuffle: () 
 
   return (
     <Card
-      padding="three"
       style={{
         backgroundColor: tokens.status.info.soft,
         borderColor: withAlpha(tokens.status.info.color, tokens.isDark ? 0.45 : 0.28),
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: BorderWidth.hairline,
       }}
     >
       <View style={styles.motivationHeader}>
@@ -167,6 +158,7 @@ function KhatmMotivationCard({ seed, onShuffle }: { seed: number; onShuffle: () 
       {motivation.arabic ? (
         <ThemedText
           type="arabic"
+          accessibilityLanguage="ar"
           style={[styles.motivationArabic, { color: tokens.status.info.text }]}
         >
           {motivation.arabic}
@@ -276,11 +268,10 @@ function CustomPlanCard({
 
   return (
     <Card
-      padding="three"
       style={{
         backgroundColor: colors.card,
         borderColor: tokens.hairline,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: BorderWidth.hairline,
         gap: Spacing.three,
       }}
     >
@@ -321,44 +312,32 @@ function CustomPlanCard({
               />
             </View>
           ) : (
-            <TextInput
-              value={daysInput}
-              onChangeText={(text) =>
-                setDaysInput(
-                  text.replace(/[^0-9]/g, "").slice(0, String(KHATM_MAX_PLAN_DAYS).length),
-                )
-              }
-              keyboardType="number-pad"
+            <NumberField
+              label={t("khatm.customDaysA11y")}
+              value={daysInput.trim() ? Number(daysInput) : undefined}
+              onChangeValue={(value) => setDaysInput(numberText(value))}
+              maxFractionDigits={0}
+              allowZero
               placeholder={t("khatm.customDaysPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("khatm.customDaysA11y")}
-              style={[
-                styles.customInput,
-                {
-                  color: colors.foreground,
-                  backgroundColor: colors.input,
-                  borderColor: showInvalid ? tokens.status.warning.color : colors.inputBorder,
-                  borderWidth: 1,
-                },
-              ]}
+              helperText={
+                customDays && dailyTargetLabel
+                  ? dailyTargetLabel
+                  : t("khatm.customHint", { min: KHATM_MIN_PLAN_DAYS, max: KHATM_MAX_PLAN_DAYS })
+              }
+              error={
+                showInvalid
+                  ? t("khatm.customInvalid", { min: KHATM_MIN_PLAN_DAYS, max: KHATM_MAX_PLAN_DAYS })
+                  : undefined
+              }
             />
           )}
-          {customDays && dailyTargetLabel ? (
+          {tv ? (
             <ThemedText type="caption" themeColor="mutedForeground">
-              {dailyTargetLabel}
+              {customDays && dailyTargetLabel
+                ? dailyTargetLabel
+                : t("khatm.customHint", { min: KHATM_MIN_PLAN_DAYS, max: KHATM_MAX_PLAN_DAYS })}
             </ThemedText>
-          ) : showInvalid ? (
-            <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-              {t("khatm.customInvalid", {
-                min: KHATM_MIN_PLAN_DAYS,
-                max: KHATM_MAX_PLAN_DAYS,
-              })}
-            </ThemedText>
-          ) : (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("khatm.customHint", { min: KHATM_MIN_PLAN_DAYS, max: KHATM_MAX_PLAN_DAYS })}
-            </ThemedText>
-          )}
+          ) : null}
         </View>
         <Pill
           label={t("khatm.preset.custom")}
@@ -379,49 +358,8 @@ function CustomPlanCard({
   );
 }
 
+/** Quick amounts set (not add) the amount to log, so they read "10 / 25 / 50" (G-25). */
 const LOG_QUICK_AMOUNTS = [10, 25, 50] as const;
-
-function LogAmountChip({
-  label,
-  active,
-  onPress,
-}: {
-  label: string;
-  active?: boolean;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-  return (
-    <PressableScale
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityState={{ selected: !!active }}
-      accessibilityLabel={label}
-      onPress={onPress}
-      scaleTo={0.95}
-      style={[
-        styles.logChip,
-        tv && styles.chipTv,
-        selectedChipStyle(Boolean(active), tv, colors, tokens),
-      ]}
-    >
-      <ThemedText
-        type="smallBold"
-        style={{
-          color: active
-            ? tv
-              ? colors.accentText
-              : colors.accentForeground
-            : colors.mutedForeground,
-          fontSize: tv ? TvLayout.bodyFontSize : undefined,
-        }}
-      >
-        {label}
-      </ThemedText>
-    </PressableScale>
-  );
-}
 
 function UnitToggle({
   unit,
@@ -431,43 +369,17 @@ function UnitToggle({
   onChange: (unit: "ayah" | "page") => void;
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const tv = isTV();
-
   return (
     <View style={styles.unitToggle}>
-      {(["ayah", "page"] as const).map((value) => {
-        const active = unit === value;
-        return (
-          <PressableScale
-            key={value}
-            haptic="light"
-            accessibilityRole="button"
-            accessibilityState={{ selected: active }}
-            accessibilityLabel={value === "page" ? t("khatm.unitPage") : t("khatm.unitAyah")}
-            onPress={() => onChange(value)}
-            style={[
-              styles.unitChip,
-              tv && styles.chipTv,
-              selectedChipStyle(active, tv, colors, tokens),
-            ]}
-          >
-            <ThemedText
-              type="smallBold"
-              style={{
-                color: active
-                  ? tv
-                    ? colors.accentText
-                    : colors.accentForeground
-                  : colors.mutedForeground,
-                fontSize: tv ? TvLayout.bodyFontSize : undefined,
-              }}
-            >
-              {value === "page" ? t("khatm.unitPage") : t("khatm.unitAyah")}
-            </ThemedText>
-          </PressableScale>
-        );
-      })}
+      <SegmentedControl
+        accessibilityLabel={t("quran.study.khatmUnit")}
+        value={unit}
+        onChange={onChange}
+        options={[
+          { id: "ayah", label: t("khatm.unitAyah") },
+          { id: "page", label: t("khatm.unitPage") },
+        ]}
+      />
     </View>
   );
 }
@@ -519,6 +431,7 @@ function KhatmActivePlanCard({
   const [showCorrectTotal, setShowCorrectTotal] = useState(false);
   const totalUnits = khatmTotalForUnit(unit);
   const isPageUnit = unit === "page";
+  const tv = isTV();
 
   useEffect(() => {
     setLogAmountInput(String(target));
@@ -585,13 +498,12 @@ function KhatmActivePlanCard({
 
   return (
     <Card
-      padding="three"
       style={[
         styles.activeCard,
         {
           backgroundColor: tokens.accentSoft,
           borderColor: withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28),
-          borderWidth: 1,
+          borderWidth: BorderWidth.thin,
           overflow: "hidden",
         },
       ]}
@@ -629,7 +541,12 @@ function KhatmActivePlanCard({
         </ThemedText>
       </View>
 
-      <ProgressBar value={progress} height={12} color={tone.color} />
+      <ProgressBar
+        value={progress}
+        accessibilityLabel={t("a11yProgress.khatm")}
+        height={12}
+        color={tone.color}
+      />
 
       <View style={[styles.statsRow, { backgroundColor: colors.background }]}>
         <View style={styles.stat}>
@@ -708,74 +625,71 @@ function KhatmActivePlanCard({
             {logSectionHint}
           </ThemedText>
 
-          <View style={[styles.logInputRow, { backgroundColor: colors.background }]}>
-            <IconButton
-              name={{ ios: "minus", android: "remove", web: "remove" }}
-              size={18}
-              tintColor={colors.foreground}
-              background={colors.muted}
-              accessibilityLabel={lessA11y}
-              onPress={() => bumpLogAmount(isPageUnit ? -1 : -10)}
-              hitTarget={isTV() ? TvLayout.minFocusTargetDp : 44}
-              haptic="light"
-            />
-            <TextInput
-              value={logAmountInput}
-              onChangeText={(text) =>
-                setLogAmountInput(text.replace(/[^0-9]/g, "").slice(0, String(maxLog).length))
-              }
-              keyboardType="number-pad"
-              placeholder={logPlaceholder}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={logA11y}
-              style={[
-                styles.logInput,
-                {
-                  color: colors.foreground,
-                  backgroundColor: colors.input,
-                  borderColor: logInvalid ? tokens.status.warning.color : colors.inputBorder,
-                  borderWidth: 1,
-                },
-              ]}
-            />
-            <IconButton
-              name={{ ios: "plus", android: "add", web: "add" }}
-              size={18}
-              tintColor={colors.foreground}
-              background={colors.muted}
-              accessibilityLabel={moreA11y}
-              onPress={() => bumpLogAmount(isPageUnit ? 1 : 10)}
-              hitTarget={isTV() ? TvLayout.minFocusTargetDp : 44}
-              haptic="light"
-            />
-          </View>
+          <NumberField
+            label={logA11y}
+            value={logAmountInput.trim() ? Number(logAmountInput) : undefined}
+            onChangeValue={(value) => setLogAmountInput(numberText(value))}
+            maxFractionDigits={0}
+            allowZero
+            step={isPageUnit ? 1 : 10}
+            placeholder={logPlaceholder}
+            error={logInvalid ? logInvalidMsg : undefined}
+            inputStyle={styles.logInput}
+            // Phone / web: −/+ around the digits. TV: NumberField brings its own stepper.
+            leading={
+              tv ? undefined : (
+                <IconButton
+                  name={{ ios: "minus", android: "remove", web: "remove" }}
+                  size={18}
+                  tintColor={colors.foreground}
+                  background={colors.muted}
+                  accessibilityLabel={lessA11y}
+                  onPress={() => bumpLogAmount(isPageUnit ? -1 : -10)}
+                  haptic="selection"
+                />
+              )
+            }
+            trailing={
+              tv ? undefined : (
+                <IconButton
+                  name={{ ios: "plus", android: "add", web: "add" }}
+                  size={18}
+                  tintColor={colors.foreground}
+                  background={colors.muted}
+                  accessibilityLabel={moreA11y}
+                  onPress={() => bumpLogAmount(isPageUnit ? 1 : 10)}
+                  haptic="selection"
+                />
+              )
+            }
+          />
 
-          {logInvalid ? (
-            <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-              {logInvalidMsg}
-            </ThemedText>
-          ) : null}
-
-          <TvScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={styles.logChipRow}
+          <View
+            accessibilityRole="radiogroup"
+            accessibilityLabel={t("quran.study.khatmQuickAmounts")}
+            style={styles.logChipRow}
           >
-            <LogAmountChip
+            <Chip
+              role="radio"
               label={t("khatm.logQuickDaily", { count: target })}
-              active={logAmount === target}
+              selected={logAmount === target}
               onPress={() => setLogAmountInput(String(target))}
             />
             {LOG_QUICK_AMOUNTS.map((amount) => (
-              <LogAmountChip
+              <Chip
                 key={amount}
-                label={`+${amount}`}
-                active={logAmount === amount}
+                role="radio"
+                label={format(amount)}
+                accessibilityLabel={
+                  isPageUnit
+                    ? t("quran.study.pagesAmount", { count: amount })
+                    : t("quran.study.ayahsAmount", { count: amount })
+                }
+                selected={logAmount === amount && amount !== target}
                 onPress={() => setLogAmountInput(String(Math.min(maxLog, amount)))}
               />
             ))}
-          </TvScrollView>
+          </View>
 
           <Button
             label={logAddLabel}
@@ -793,41 +707,24 @@ function KhatmActivePlanCard({
               <ThemedText type="caption" themeColor="mutedForeground">
                 {correctTotalHint}
               </ThemedText>
-              <View style={styles.correctRow}>
-                <TextInput
-                  value={totalInput}
-                  onChangeText={(text) =>
-                    setTotalInput(text.replace(/[^0-9]/g, "").slice(0, String(totalUnits).length))
-                  }
-                  keyboardType="number-pad"
-                  placeholder={correctTotalA11y}
-                  placeholderTextColor={colors.mutedForeground}
-                  accessibilityLabel={correctTotalA11y}
-                  style={[
-                    styles.correctInput,
-                    {
-                      color: colors.foreground,
-                      backgroundColor: colors.input,
-                      borderColor: totalInvalid ? tokens.status.warning.color : colors.inputBorder,
-                      borderWidth: 1,
-                    },
-                  ]}
-                />
-                <Button
-                  label={t("khatm.correctTotalApply")}
-                  variant="secondary"
-                  size="sm"
-                  disabled={totalAmount == null || totalAmount === ayahsRead}
-                  onPress={() => {
-                    if (totalAmount != null) onSetTotal(totalAmount);
-                  }}
-                />
-              </View>
-              {totalInvalid ? (
-                <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-                  {correctTotalInvalidMsg}
-                </ThemedText>
-              ) : null}
+              <NumberField
+                label={correctTotalA11y}
+                value={totalInput.trim() ? Number(totalInput) : undefined}
+                onChangeValue={(value) => setTotalInput(numberText(value))}
+                maxFractionDigits={0}
+                allowZero
+                step={isPageUnit ? 1 : 10}
+                placeholder={correctTotalA11y}
+                error={totalInvalid ? correctTotalInvalidMsg : undefined}
+              />
+              <Button
+                label={t("khatm.correctTotalApply")}
+                variant="secondary"
+                disabled={totalAmount == null || totalAmount === ayahsRead}
+                onPress={() => {
+                  if (totalAmount != null) onSetTotal(totalAmount);
+                }}
+              />
             </View>
           ) : (
             <PressableScale
@@ -855,22 +752,13 @@ function KhatmActivePlanCard({
 
       {pace !== "done" ? (
         <View style={[styles.cardFooter, { borderTopColor: withAlpha(colors.accent, 0.22) }]}>
-          <PressableScale
-            haptic="light"
-            accessibilityRole="button"
-            accessibilityLabel={t("khatm.reset")}
+          {/* Destructive trigger: danger row; the dialog it opens repeats the verb. */}
+          <NavRow
+            tone="danger"
+            icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+            label={t("khatm.reset")}
             onPress={onReset}
-            style={styles.resetRow}
-          >
-            <SymbolView
-              name={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
-              size={14}
-              tintColor={tokens.status.warning.color}
-            />
-            <ThemedText type="smallBold" style={{ color: tokens.status.warning.text }}>
-              {t("khatm.reset")}
-            </ThemedText>
-          </PressableScale>
+          />
         </View>
       ) : null}
     </Card>
@@ -893,7 +781,6 @@ function PressableCard({
   const { colors, tokens } = useThemeTokens();
   return (
     <Card
-      padding="three"
       onPress={onPress}
       accessibilityLabel={accessibilityLabel}
       preferredFocus={Boolean(preferredFocus && isTV())}
@@ -901,7 +788,7 @@ function PressableCard({
         {
           backgroundColor: colors.card,
           borderColor: tokens.hairline,
-          borderWidth: StyleSheet.hairlineWidth,
+          borderWidth: BorderWidth.hairline,
         },
         style,
       ]}
@@ -923,8 +810,7 @@ export default function KhatmScreen() {
   const [motivationSeed, setMotivationSeed] = useState(() => dayMotivationSeed(today));
   const [resetOpen, setResetOpen] = useState(false);
   const [pendingStartDays, setPendingStartDays] = useState<number | null>(null);
-  const [pendingLogAmount, setPendingLogAmount] = useState<number | null>(null);
-  const [pendingTotalAmount, setPendingTotalAmount] = useState<number | null>(null);
+  const undoToast = useUndoToast();
   const [startUnit, setStartUnit] = useState<"ayah" | "page">("ayah");
   const { width: windowWidth } = useWindowDimensions();
   const tv = isTV();
@@ -965,25 +851,30 @@ export default function KhatmScreen() {
             count: pendingStartTarget,
           })
       : undefined;
-  const pendingLogConfirmMsg =
-    pendingLogAmount != null
-      ? activeUnit === "page"
-        ? t("khatm.logConfirmMsgPages", { count: pendingLogAmount })
-        : t("khatm.logConfirmMsg", { count: pendingLogAmount })
-      : undefined;
-  const pendingLogConfirmLabel =
-    pendingLogAmount != null
-      ? activeUnit === "page"
-        ? t("khatm.logAddPages", { count: pendingLogAmount })
-        : t("khatm.logAdd", { count: pendingLogAmount })
-      : t("khatm.logConfirmAction");
-  const pendingTotalConfirmMsg =
-    pendingTotalAmount != null
-      ? activeUnit === "page"
-        ? t("khatm.correctTotalConfirmMsgPages", { count: pendingTotalAmount })
-        : t("khatm.correctTotalConfirmMsg", { count: pendingTotalAmount })
-      : undefined;
+  // G-06: logging and correcting the total are the screen's everyday, reversible
+  // actions — write at once and offer Undo. Only Start and Reset confirm.
+  const writeTotal = (next: number, messageKey: string) => {
+    const previous = ayahsRead;
+    triggerHaptic("success");
+    void undoToast.run({
+      do: () => setAyahsRead(next),
+      undo: () => setAyahsRead(previous),
+      messageKey,
+    });
+  };
+  const logReading = (amount: number) => writeTotal(ayahsRead + amount, "quran.study.khatmLogged");
+  const correctTotal = (total: number) => writeTotal(total, "quran.study.khatmTotalUpdated");
 
+  // TV toasts take no focus: the Undo window is an in-page button instead.
+  const tvUndo =
+    tv && undoToast.undoAvailable ? (
+      <Button
+        label={t("uiFeedback.undo")}
+        variant="secondary"
+        onPress={() => undoToast.undo()}
+        icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
+      />
+    ) : null;
   const motivation = (
     <KhatmMotivationCard
       seed={motivationSeed}
@@ -991,7 +882,7 @@ export default function KhatmScreen() {
     />
   );
   const main = !plan ? (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("khatm.startTitle")}
         icon={{ ios: "flag.checkered", android: "flag", web: "flag" }}
@@ -1032,8 +923,8 @@ export default function KhatmScreen() {
       gap={gap}
       dayNumber={dayNumber}
       format={format}
-      onLog={setPendingLogAmount}
-      onSetTotal={setPendingTotalAmount}
+      onLog={logReading}
+      onSetTotal={correctTotal}
       onReset={() => setResetOpen(true)}
       onContinue={
         activeUnit === "page"
@@ -1060,7 +951,10 @@ export default function KhatmScreen() {
       {wideAside ? (
         <View style={styles.wideRow}>
           <View style={styles.wideMain}>
-            <Stagger>{main}</Stagger>
+            <Stagger>
+              {main}
+              {tvUndo}
+            </Stagger>
           </View>
           <View style={styles.wideAside}>
             <Stagger>{motivation}</Stagger>
@@ -1068,8 +962,9 @@ export default function KhatmScreen() {
         </View>
       ) : (
         <Stagger>
-          {motivation}
           {main}
+          {tvUndo}
+          {motivation}
         </Stagger>
       )}
 
@@ -1085,34 +980,6 @@ export default function KhatmScreen() {
         }}
         onCancel={() => setPendingStartDays(null)}
         onClose={() => setPendingStartDays(null)}
-      />
-
-      <ConfirmDialog
-        visible={pendingLogAmount != null}
-        title={t("khatm.logConfirmTitle")}
-        message={pendingLogConfirmMsg}
-        confirmLabel={pendingLogConfirmLabel}
-        cancelLabel={t("common.cancel")}
-        onConfirm={() => {
-          if (pendingLogAmount != null) void setAyahsRead(ayahsRead + pendingLogAmount);
-          setPendingLogAmount(null);
-        }}
-        onCancel={() => setPendingLogAmount(null)}
-        onClose={() => setPendingLogAmount(null)}
-      />
-
-      <ConfirmDialog
-        visible={pendingTotalAmount != null}
-        title={t("khatm.correctTotalConfirmTitle")}
-        message={pendingTotalConfirmMsg}
-        confirmLabel={t("khatm.correctTotalConfirmAction")}
-        cancelLabel={t("common.cancel")}
-        onConfirm={() => {
-          if (pendingTotalAmount != null) void setAyahsRead(pendingTotalAmount);
-          setPendingTotalAmount(null);
-        }}
-        onCancel={() => setPendingTotalAmount(null)}
-        onClose={() => setPendingTotalAmount(null)}
       />
 
       <ConfirmDialog
@@ -1142,28 +1009,13 @@ const styles = StyleSheet.create({
   wideAside: { width: 340, flexShrink: 0 },
   hint: { marginTop: Spacing.two, marginBottom: Spacing.three },
   presetList: { gap: Spacing.two },
-  unitToggle: { flexDirection: "row", gap: Spacing.two, marginBottom: Spacing.three },
-  unitChip: {
-    flex: 1,
-    alignItems: "center",
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.three,
-  },
+  unitToggle: { marginBottom: Spacing.three },
   presetRow: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
   },
-  presetCopy: { flex: 1, gap: 2 },
-  chipTv: {
-    minHeight: TvLayout.chipMinHeight,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.four,
-    justifyContent: "center",
-  },
+  presetCopy: { flex: 1, gap: Spacing.half },
   tvDaysRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -1175,18 +1027,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: TvLayout.bodyFontSize,
   },
-  customInput: {
-    marginTop: Spacing.one,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
-    fontSize: 15,
-  },
   activeCard: { gap: Spacing.three },
   headerRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.three },
-  headerCopy: { flex: 1, gap: 2, paddingTop: 2 },
+  headerCopy: { flex: 1, gap: Spacing.half, paddingTop: Spacing.half },
   paceBadge: { flexDirection: "row", alignItems: "center", gap: Spacing.one },
   percentRow: { gap: Spacing.one },
   statsRow: {
@@ -1196,7 +1039,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     overflow: "hidden",
   },
-  stat: { flex: 1, alignItems: "center", gap: 2, paddingVertical: Spacing.two },
+  stat: { flex: 1, alignItems: "center", gap: Spacing.half, paddingVertical: Spacing.two },
   statDivider: { width: StyleSheet.hairlineWidth, alignSelf: "stretch" },
   gapBanner: {
     flexDirection: "row",
@@ -1210,51 +1053,14 @@ const styles = StyleSheet.create({
   logSection: {
     gap: Spacing.three,
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
-  },
-  logInputRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    padding: Spacing.two,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
+    borderTopWidth: BorderWidth.hairline,
   },
   logInput: {
-    flex: 1,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
-    fontSize: 18,
     fontVariant: ["tabular-nums"],
     textAlign: "center",
   },
-  logChipRow: { gap: Spacing.two },
-  logChip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: 1,
-  },
+  logChipRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
   correctSection: { gap: Spacing.two },
-  correctRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  correctInput: {
-    flex: 1,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
-    fontSize: 15,
-    fontVariant: ["tabular-nums"],
-  },
   correctToggle: {
     alignSelf: "center",
     paddingVertical: Spacing.one,
@@ -1262,15 +1068,7 @@ const styles = StyleSheet.create({
   cardFooter: {
     marginTop: Spacing.one,
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    alignItems: "center",
-  },
-  resetRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.three,
+    borderTopWidth: BorderWidth.hairline,
   },
   motivationHeader: {
     flexDirection: "row",
@@ -1278,7 +1076,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     marginBottom: Spacing.two,
   },
-  motivationHeaderCopy: { flex: 1, gap: Spacing.one, paddingTop: 2 },
+  motivationHeaderCopy: { flex: 1, gap: Spacing.one, paddingTop: Spacing.half },
   motivationArabic: {
     writingDirection: "rtl",
     marginBottom: Spacing.two,

@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ZakatCalculatorState } from "@/hooks/use-zakat-calculator";
 
@@ -65,17 +65,18 @@ export function ZakatResultHero({
   const { colors, tokens } = useThemeTokens();
   const success = tokens.status.success;
   const hasDue = hasInput && result.totalDue > 0;
-  const palette = hasDue ? success : { color: colors.mutedForeground, soft: colors.muted };
+  const palette = hasDue
+    ? success
+    : { color: colors.mutedForeground, soft: colors.muted, onSoft: colors.mutedForeground };
   const separatePools = result.assessment?.combine === "separate" ? result.assessment.pools : [];
   const basisMetal = result.assessment?.basisMetal ?? "silver";
 
   return (
     <Card
-      padding="three"
       style={{
         backgroundColor: palette.soft,
         borderColor: hasDue ? withAlpha(success.color, 0.35) : tokens.hairline,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: BorderWidth.hairline,
       }}
     >
       <View style={styles.topRow}>
@@ -95,11 +96,11 @@ export function ZakatResultHero({
             {t("zakat.heroEmpty")}
           </ThemedText>
           {hasInput ? (
-            <MoneyText style={[styles.dueAmount, { color: palette.color }]}>
+            <MoneyText style={[styles.dueAmount, { color: palette.onSoft }]}>
               {money(result.totalDue)}
             </MoneyText>
           ) : (
-            <ThemedText type="header" style={{ color: palette.color }}>
+            <ThemedText type="header" style={{ color: palette.onSoft }}>
               —
             </ThemedText>
           )}
@@ -204,7 +205,7 @@ export function ZakatResultHero({
               ]}
             >
               <View style={styles.basisRowTop}>
-                <ThemedText type="caption" style={styles.basisLabel}>
+                <ThemedText weight="semibold" type="caption" style={styles.basisLabel}>
                   {t(`zakat.fiqh.basis.${row.basis}`)}
                 </ThemedText>
                 {row.selected ? <Pill label={t("zakat.fiqh.yourBasis")} compact /> : null}
@@ -300,7 +301,7 @@ const styles = StyleSheet.create({
   statTile: {
     flex: 1,
     gap: Spacing.half,
-    padding: Spacing.two + 2,
+    padding: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
@@ -314,14 +315,14 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
     paddingTop: Spacing.three,
     gap: Spacing.two,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   basisRow: {
     gap: Spacing.half,
-    padding: Spacing.two + 2,
+    padding: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
   basisRowTop: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  basisLabel: { flex: 1, fontWeight: "600" },
+  basisLabel: { flex: 1 },
 });

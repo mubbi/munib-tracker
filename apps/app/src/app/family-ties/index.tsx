@@ -19,7 +19,8 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Sheet } from "@/components/ui/sheet";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { WallClockPicker } from "@/components/ui/wall-clock-picker";
 import { VaultLockGate } from "@/components/vault";
 import { Spacing } from "@/constants/theme";
@@ -72,7 +73,12 @@ function FamilyTiesContent() {
   if (status === "locked" || status === "error") {
     return <VaultStateNotice status={status} error={error} />;
   }
-  if (status !== "ready") return null;
+  // Vault doc still loading: a skeleton, never a blank body (P8-02).
+  if (status !== "ready") {
+    return (
+      <SkeletonPlaceholder preset="rows" count={3} accessibilityLabel={t("common.loadingRoute")} />
+    );
+  }
 
   const edit = (id?: string) =>
     router.push(
@@ -159,7 +165,7 @@ function FamilyTiesContent() {
       ) : null}
 
       {remembered.length > 0 ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("familyTies.rememberTitle")}
             subtitle={t("familyTies.rememberSub")}
@@ -197,22 +203,17 @@ function FamilyTiesContent() {
         </Card>
       ) : null}
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("familyTies.digestTitle")}
           icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
         />
         <View style={styles.list}>
-          <View style={styles.switchRow}>
-            <ThemedText type="small" style={styles.flex}>
-              {t("familyTies.digestToggle")}
-            </ThemedText>
-            <ThemedSwitch
-              value={digestReminder.value}
-              onValueChange={(on) => void digestReminder.setValue(on)}
-              accessibilityLabel={t("familyTies.digestToggle")}
-            />
-          </View>
+          <SwitchRow
+            title={t("familyTies.digestToggle")}
+            value={digestReminder.value}
+            onValueChange={(on) => void digestReminder.setValue(on)}
+          />
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("familyTies.digestPrivacy")}
           </ThemedText>
@@ -241,7 +242,7 @@ function FamilyTiesContent() {
                     label:
                       settings.digestWeekday === FRIDAY
                         ? t("familyTies.digestAfterJumuah")
-                        : t("privateUx.familyTies.digestAfterDhuhr"),
+                        : t("familyTies.digestAfterDhuhr"),
                   },
                   { id: "custom", label: t("familyTies.digestCustom") },
                 ]}
@@ -279,7 +280,12 @@ function FamilyTiesContent() {
 
       <EvidenceLinks titleKey="familyTies.evidence.title" refs={FAMILY_TIES_EVIDENCE} />
 
-      <Sheet visible={logFor != null} onClose={() => setLogFor(null)} variant="bottom">
+      <Sheet
+        accessibilityLabel={t("familyTies.logTitle")}
+        visible={logFor != null}
+        onClose={() => setLogFor(null)}
+        variant="bottom"
+      >
         <ThemedText type="subtitle">{t("familyTies.logTitle")}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("familyTies.logBody")}

@@ -15,8 +15,9 @@ import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { AdhkarCountBeads, showsBeads } from "@/components/zikr/adhkar-count-beads";
+import { CountNumeral } from "@/components/zikr/count-numeral";
 import { Springs } from "@/constants/motion";
-import { Spacing, withAlpha } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle } from "@/lib/chart-rtl";
@@ -119,7 +120,12 @@ export function AdhkarCounterPanel({
         onPress={handleTap}
         accessibilityRole="button"
         accessibilityLabel={single ? t("zikrSession.tapWhenRecited") : t("common.count")}
-        accessibilityValue={{ now: shown, min: 0, max: target }}
+        accessibilityValue={{
+          now: shown,
+          min: 0,
+          max: target,
+          text: t("zikr.countOfTarget", { current: shown, target }),
+        }}
         accessibilityState={{ disabled: done }}
         {...(tv ? { hasTVPreferredFocus: true } : {})}
         style={[styles.ringButton, { width: ring, height: ring, borderRadius: ring / 2 }]}
@@ -154,9 +160,7 @@ export function AdhkarCounterPanel({
               </>
             ) : (
               <>
-                <ThemedText style={[styles.count, { color: colors.foreground }]}>
-                  {shown}
-                </ThemedText>
+                <CountNumeral value={shown} size="hero" color={colors.foreground} />
                 <ThemedText type="caption" themeColor="mutedForeground" style={styles.of}>
                   {t("tasbeehUi.ofTarget", { target })}
                 </ThemedText>
@@ -181,7 +185,6 @@ export function AdhkarCounterPanel({
         <Button
           label={t("zikrSession.previous")}
           variant="ghost"
-          size="sm"
           icon={chevronBack}
           disabled={!canPrev}
           onPress={onPrev}
@@ -190,7 +193,6 @@ export function AdhkarCounterPanel({
         <Button
           label={t("zikrSession.next")}
           variant="ghost"
-          size="sm"
           icon={chevronForward}
           disabled={!canNext}
           onPress={onNext}
@@ -202,7 +204,6 @@ export function AdhkarCounterPanel({
         <Button
           label={t("tasbeehUi.undo")}
           variant="secondary"
-          size="sm"
           icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
           disabled={shown <= 0}
           onPress={onUndo}
@@ -212,7 +213,6 @@ export function AdhkarCounterPanel({
           <Button
             label={t("zikrSession.markNotDone")}
             variant="secondary"
-            size="sm"
             icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
             accessibilityHint={t("zikrSession.resetHint")}
             onPress={onReset}
@@ -221,7 +221,7 @@ export function AdhkarCounterPanel({
         ) : (
           <Button
             label={t("zikrSession.markComplete")}
-            size="sm"
+            haptic="success"
             icon={{ ios: "checkmark", android: "check", web: "check" }}
             accessibilityHint={t("zikrSession.markCompleteHint")}
             onPress={onComplete}
@@ -246,7 +246,6 @@ const styles = StyleSheet.create({
   ringButton: { alignItems: "center", justifyContent: "center" },
   ring: { alignItems: "center", justifyContent: "center" },
   center: { ...StyleSheet.absoluteFill, alignItems: "center", justifyContent: "center" },
-  count: { fontSize: 56, lineHeight: 64, fontWeight: "700", fontVariant: ["tabular-nums"] },
   of: { fontVariant: ["tabular-nums"] },
   hint: { textAlign: "center" },
   row: { flexDirection: "row", gap: Spacing.two, alignSelf: "stretch" },
@@ -255,6 +254,6 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
-    borderRadius: 999,
+    borderRadius: Radius.pill,
   },
 });

@@ -46,5 +46,5 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  copy: { flex: 1, gap: 2 },
+  copy: { flex: 1, gap: Spacing.half },
 });

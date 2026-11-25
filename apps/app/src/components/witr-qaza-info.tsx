@@ -8,7 +8,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useWitrQaza } from "@/hooks/use-rawatib";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -33,11 +33,10 @@ export function WitrQazaInfo() {
 
   return (
     <Card
-      padding="three"
       style={{
         backgroundColor: info.soft,
         borderColor: info.border,
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: BorderWidth.hairline,
       }}
     >
       <CollapsibleSection
@@ -100,7 +99,7 @@ export function WitrQazaInfo() {
 
 const styles = StyleSheet.create({
   body: {
-    gap: Spacing.two + 2,
+    gap: Spacing.twoHalf,
     marginTop: Spacing.two,
   },
   toggleRow: {
@@ -110,14 +109,14 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   toggleCopy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
   footer: {
     paddingTop: Spacing.two,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
 });

@@ -40,6 +40,8 @@ jest.mock("@/hooks/use-theme-tokens", () => {
   };
 });
 
+/** The page chip speaks its action and where the reader is. */
+const JUMP = "Jump to page, Page 3 of 604";
 const isRTLMock = isRTL as jest.MockedFunction<typeof isRTL>;
 const WIDE = 800;
 const COMPACT = 360;
@@ -79,7 +81,7 @@ describe("PageReaderFooter", () => {
   it.each([
     ["Next page", "onNext"],
     ["Previous page", "onPrev"],
-    ["Jump to page", "onOpenPage"],
+    [JUMP, "onOpenPage"],
     ["Play page", "onPlay"],
   ] as const)("%p fires %s", async (label, handler) => {
     const props = await renderFooter();
@@ -105,10 +107,10 @@ describe("PageReaderFooter", () => {
   });
 
   it.each([
-    [WIDE, false, ["Next page", "Jump to page", "Play page", "Previous page"]],
-    [WIDE, true, ["Previous page", "Jump to page", "Play page", "Next page"]],
-    [COMPACT, false, ["Jump to page", "Play page", "Next page", "Previous page"]],
-    [COMPACT, true, ["Jump to page", "Play page", "Previous page", "Next page"]],
+    [WIDE, false, ["Next page", JUMP, "Play page", "Previous page"]],
+    [WIDE, true, ["Previous page", JUMP, "Play page", "Next page"]],
+    [COMPACT, false, [JUMP, "Play page", "Next page", "Previous page"]],
+    [COMPACT, true, [JUMP, "Play page", "Previous page", "Next page"]],
   ])("orders controls at width %p with rtl=%p", async (width, rtl, order) => {
     setMockWindowSize(width);
     isRTLMock.mockReturnValue(rtl);
@@ -133,7 +135,7 @@ describe("PageReaderFooter", () => {
 
     it("keeps every control", async () => {
       await renderFooter();
-      expect(buttonOrder()).toEqual(["Next page", "Jump to page", "Play page", "Previous page"]);
+      expect(buttonOrder()).toEqual(["Next page", JUMP, "Play page", "Previous page"]);
     });
   });
 

@@ -8,7 +8,7 @@ import { MadhhabBadge } from "@/components/fiqh/madhhab-badge";
 import { RulingCompare } from "@/components/fiqh/ruling-compare";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useMadhhab } from "@/hooks/use-madhhab";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { otherPositions } from "@/lib/fiqh/position-groups";
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   header: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: Spacing.two },
   title: { flexShrink: 1, flexGrow: 1 },
@@ -145,5 +145,5 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.one,
   },
   others: { gap: Spacing.two },
-  otherRow: { gap: Spacing.half, paddingStart: Spacing.three, borderStartWidth: 2 },
+  otherRow: { gap: Spacing.half, paddingStart: Spacing.three, borderStartWidth: BorderWidth.thick },
 });

@@ -20,7 +20,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -129,10 +129,11 @@ export default function LearnQuranPronunciationScreen() {
                   return (
                     <View key={pair.id} ref={register(pair.id)}>
                       <Card
-                        padding="three"
                         style={[
                           styles.card,
-                          cardActive ? { borderColor: colors.accent, borderWidth: 2 } : null,
+                          cardActive
+                            ? { borderColor: colors.accent, borderWidth: BorderWidth.thick }
+                            : null,
                         ]}
                       >
                         <View style={styles.lettersRow}>

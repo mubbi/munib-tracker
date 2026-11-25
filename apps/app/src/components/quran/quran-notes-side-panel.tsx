@@ -10,7 +10,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   useEnsureQuranNotesLoaded,
@@ -59,7 +59,7 @@ export function QuranNotesSidePanel({
   const shown = panelWindow(notes, firstActive, MAX_IN_PANEL);
 
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.header}>
         <ThemedText type="subtitle" style={styles.title}>
           {t("quranNotes.title")}
@@ -97,7 +97,11 @@ export function QuranNotesSidePanel({
                 testID={`notes-panel-item-${note.id}`}
               >
                 {active ? (
-                  <ThemedText type="caption" style={[styles.inView, { color: colors.accentText }]}>
+                  <ThemedText
+                    weight="semibold"
+                    type="caption"
+                    style={[styles.inView, { color: colors.accentText }]}
+                  >
                     {t("quranNotes.hint.inView")}
                   </ThemedText>
                 ) : null}
@@ -126,6 +130,6 @@ const styles = StyleSheet.create({
   },
   title: { flex: 1 },
   list: { gap: Spacing.two, marginBottom: Spacing.two },
-  item: { borderWidth: 1.5, borderRadius: Radius.md + 2, padding: 2 },
-  inView: { paddingHorizontal: Spacing.two, paddingTop: Spacing.half, fontWeight: "600" },
+  item: { borderWidth: BorderWidth.thick, borderRadius: Radius.md + 2, padding: Spacing.half },
+  inView: { paddingHorizontal: Spacing.two, paddingTop: Spacing.half },
 });

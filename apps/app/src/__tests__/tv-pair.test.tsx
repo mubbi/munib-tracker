@@ -46,4 +46,31 @@ describe("TV pairing claim (phone)", () => {
     expect(screen.queryByRole("button", { name: "Sign in on TV" })).toBeNull();
     expect(claim).not.toHaveBeenCalled();
   });
+
+  it("says the missing code once and offers a way home (D-35)", async () => {
+    setMockSearchParams({});
+    await renderWithTheme(<TvPairScreen />);
+    expect(screen.getAllByText("This link has no pairing code")).toHaveLength(1);
+    expect(
+      screen.getByText("Scan the code on your TV again with this phone's camera."),
+    ).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Go home" })).toBeTruthy();
+  });
+
+  it("shows a retry after a failed claim for a linked account", async () => {
+    setMockAuth({ session: { accessToken: "tok" }, isAuthenticated: true, isGuest: false });
+    claim.mockRejectedValueOnce(new Error("nope"));
+    await renderWithTheme(<TvPairScreen />);
+    await fireEvent.press(screen.getByRole("button", { name: "Sign in on TV" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Try again" })).toBeTruthy());
+    await fireEvent.press(screen.getByRole("button", { name: "Try again" }));
+    await waitFor(() => expect(claim).toHaveBeenCalledTimes(2));
+  });
+
+  it("gives guests one message and no doomed Retry", async () => {
+    setMockAuth({ session: { accessToken: "guest" }, isAuthenticated: true, isGuest: true });
+    await renderWithTheme(<TvPairScreen />);
+    expect(screen.getAllByText(/guest accounts can't link a TV/)).toHaveLength(1);
+    expect(screen.queryByRole("button", { name: "Try again" })).toBeNull();
+  });
 });

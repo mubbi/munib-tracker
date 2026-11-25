@@ -13,9 +13,11 @@ import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SelectField } from "@/components/ui/select-field";
 import { Stagger } from "@/components/ui/stagger";
 import { engineDownloadMb, RECITATION_MODEL_HOST } from "@/constants/recitation-models";
 import { Radius, Spacing } from "@/constants/theme";
@@ -123,6 +125,8 @@ export default function QuranPracticeSettingsScreen() {
   const userPrefs = usePreferences();
   const notifications = useNotificationPermissions();
   const [pending, setPending] = useState<Pending>(null);
+  // G-86: the reminder stays off when notification permission is refused.
+  const [reminderBlocked, setReminderBlocked] = useState(false);
 
   useEffect(() => {
     if (!isPracticeAvailable()) router.replace("/settings");
@@ -138,29 +142,28 @@ export default function QuranPracticeSettingsScreen() {
     if (result === "needs-cellular-confirm") setPending({ kind: "cellular" });
   };
 
-  const onConfirm = () => {
+  // Async: the dialog stays busy until the action settles and shows an inline error on failure.
+  // Downloads only start here — their progress lives in the listener strip.
+  const onConfirm = async () => {
     const p = pending;
-    setPending(null);
     if (!p) return;
     switch (p.kind) {
       case "delete":
-        void quranListenerStore.getState().remove();
+        await quranListenerStore.getState().remove();
         break;
       case "cellular":
         void startDownload(true);
         break;
       case "switchEngine":
-        void (async () => {
-          await quranListenerStore.getState().remove();
-          await update({ engineChoice: p.engine });
-          await quranListenerStore.getState().load(p.engine);
-        })();
+        await quranListenerStore.getState().remove();
+        await update({ engineChoice: p.engine });
+        await quranListenerStore.getState().load(p.engine);
         break;
       case "update":
         void startDownload();
         break;
       case "deleteHistory":
-        void quranPracticeStore.getState().clearHistory();
+        await quranPracticeStore.getState().clearHistory();
         break;
     }
   };
@@ -175,12 +178,17 @@ export default function QuranPracticeSettingsScreen() {
   };
 
   const toggleReminder = async (value: boolean) => {
+    let denied = false;
     if (value && !notifications.granted) {
       const result = await notifications.requestPermission();
       if (!result || (typeof result === "object" && "granted" in result && !result.granted)) {
         await notifications.refresh();
+        denied = true;
       }
     }
+    // The preference is saved either way (so it takes effect once the user allows
+    // notifications); the callout below is only a hint on how to fix delivery.
+    setReminderBlocked(denied);
     await update({ revisionReminder: value });
     requestReminderReschedule();
   };
@@ -206,9 +214,10 @@ export default function QuranPracticeSettingsScreen() {
     { value: "hide-words", label: t("quranCompanion.mode.hideWords") },
     { value: "hide-ayahs", label: t("quranCompanion.mode.hideAyahs") },
   ];
-  const limitOptions: { value: DailyRevisionLimit; label: string }[] = (
+  // SelectField values are strings; the stored limit stays a number.
+  const limitOptions: { value: `${DailyRevisionLimit}`; label: string }[] = (
     [5, 10, 20] as DailyRevisionLimit[]
-  ).map((n) => ({ value: n, label: String(n) }));
+  ).map((n) => ({ value: `${n}` as `${DailyRevisionLimit}`, label: String(n) }));
 
   const masterOff = !userPrefs.notificationPrefs.masterEnabled;
   const usable = listener.status === "ready" || listener.status === "update-available";
@@ -218,7 +227,7 @@ export default function QuranPracticeSettingsScreen() {
 
   // Card 1 — Listener: one status strip with the action that moves it forward.
   const listenerCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("quranCompanion.listener.title")}
         icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
@@ -232,8 +241,9 @@ export default function QuranPracticeSettingsScreen() {
           onCancel={() => quranListenerStore.getState().cancel()}
         />
         {usable ? (
+          // G-87: text on top, actions wrap underneath — no truncation on narrow phones.
           <View style={[styles.detailRow, { backgroundColor: colors.muted }]}>
-            <View style={styles.flex}>
+            <View style={styles.detailText}>
               <ThemedText type="small">
                 {t("quranCompanion.listener.detailsLine", {
                   size: onDeviceMb,
@@ -243,7 +253,7 @@ export default function QuranPracticeSettingsScreen() {
                       : t("quranCompanion.listener.alternate"),
                 })}
               </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+              <ThemedText type="caption" themeColor="mutedForeground">
                 {listener.status === "update-available"
                   ? t("quranCompanion.listener.updateSize", { size: sizeMb })
                   : t("quranCompanion.listener.version", {
@@ -251,20 +261,22 @@ export default function QuranPracticeSettingsScreen() {
                     })}
               </ThemedText>
             </View>
-            {listener.status === "update-available" ? (
+            <View style={styles.detailActions}>
+              {listener.status === "update-available" ? (
+                <Button
+                  label={t("quranCompanion.listener.downloadUpdate")}
+                  size="sm"
+                  onPress={() => setPending({ kind: "update" })}
+                />
+              ) : null}
               <Button
-                label={t("quranCompanion.listener.downloadUpdate")}
+                label={t("quranCompanion.listener.delete")}
+                variant="ghost"
                 size="sm"
-                onPress={() => setPending({ kind: "update" })}
+                onPress={() => setPending({ kind: "delete" })}
+                labelColor={tokens.status.danger.text}
               />
-            ) : null}
-            <Button
-              label={t("quranCompanion.listener.delete")}
-              variant="ghost"
-              size="sm"
-              onPress={() => setPending({ kind: "delete" })}
-              labelColor={tokens.status.danger.color}
-            />
+            </View>
           </View>
         ) : null}
 
@@ -315,7 +327,7 @@ export default function QuranPracticeSettingsScreen() {
 
   // Card 2 — During a session
   const sessionCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("quranCompanion.settings.sessionTitle")}
         icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
@@ -330,36 +342,33 @@ export default function QuranPracticeSettingsScreen() {
           onChange={(mode) => void update({ defaultMode: mode })}
         />
       </SettingBlock>
-      <SettingBlock
-        title={t("quranCompanion.settings.feedbackTiming")}
-        help={t(TIMING_HELP_KEY[prefs.feedbackTiming])}
-      >
-        <ChoiceList
-          items={timingOptions}
+      <View style={styles.block}>
+        <SelectField
+          label={t("quranCompanion.settings.feedbackTiming")}
+          helperText={t(TIMING_HELP_KEY[prefs.feedbackTiming])}
+          options={timingOptions}
           value={prefs.feedbackTiming}
           onChange={(id) => void update({ feedbackTiming: id })}
         />
-      </SettingBlock>
-      <SettingBlock
-        title={t("quranCompanion.settings.hearBeforeRecite")}
-        help={t(HEAR_HELP_KEY[prefs.hearBeforeRecite])}
-      >
-        <ChoiceList
-          items={hearOptions}
+      </View>
+      <View style={styles.block}>
+        <SelectField
+          label={t("quranCompanion.settings.hearBeforeRecite")}
+          helperText={t(HEAR_HELP_KEY[prefs.hearBeforeRecite])}
+          options={hearOptions}
           value={prefs.hearBeforeRecite}
           onChange={(id) => void update({ hearBeforeRecite: id })}
         />
-      </SettingBlock>
-      <SettingBlock
-        title={t("quranCompanion.settings.startFromTitle")}
-        help={t(START_HELP_KEY[prefs.startFrom])}
-      >
-        <ChoiceList
-          items={startOptions}
+      </View>
+      <View style={styles.block}>
+        <SelectField
+          label={t("quranCompanion.settings.startFromTitle")}
+          helperText={t(START_HELP_KEY[prefs.startFrom])}
+          options={startOptions}
           value={prefs.startFrom}
           onChange={(id) => void update({ startFrom: id })}
         />
-      </SettingBlock>
+      </View>
       <View style={styles.rows}>
         <ToggleRow
           icon={{ ios: "forward.fill", android: "fast_forward", web: "fast_forward" }}
@@ -390,7 +399,7 @@ export default function QuranPracticeSettingsScreen() {
 
   // Card 3 — On screen
   const screenCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("quranCompanion.settings.displayTitle")}
         icon={{ ios: "textformat", android: "text_fields", web: "text_fields" }}
@@ -423,21 +432,24 @@ export default function QuranPracticeSettingsScreen() {
 
   // Card 4 — Revision
   const revisionCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("quranCompanion.settings.revisionTitle")}
         icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
       />
-      <SettingBlock
-        title={t("quranCompanion.settings.dailyLimit")}
-        help={t("quranCompanion.settings.dailyLimitHelp", { count: prefs.dailyRevisionLimit })}
-      >
-        <ChoiceList
-          items={limitOptions}
-          value={prefs.dailyRevisionLimit}
-          onChange={(limit) => void update({ dailyRevisionLimit: limit })}
+      <View style={styles.block}>
+        <SelectField
+          label={t("quranCompanion.settings.dailyLimit")}
+          helperText={t("quranCompanion.settings.dailyLimitHelp", {
+            count: prefs.dailyRevisionLimit,
+          })}
+          options={limitOptions}
+          value={`${prefs.dailyRevisionLimit}`}
+          onChange={(limit) =>
+            void update({ dailyRevisionLimit: Number(limit) as DailyRevisionLimit })
+          }
         />
-      </SettingBlock>
+      </View>
       <View style={styles.rows}>
         <ToggleRow
           icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
@@ -461,6 +473,17 @@ export default function QuranPracticeSettingsScreen() {
             onValueChange={(value) => void toggleReminder(value)}
           />
         ) : null}
+        {reminderBlocked && prefs.revisionReminder ? (
+          <Callout
+            tone="warning"
+            action={{
+              label: t("notif.openSettings"),
+              onPress: () => notifications.openSettings(),
+            }}
+          >
+            {t("quranCompanion.settings.reminderBlocked")}
+          </Callout>
+        ) : null}
         {masterOff && prefs.revisionReminder ? (
           <SettingsRow
             icon={{
@@ -481,7 +504,7 @@ export default function QuranPracticeSettingsScreen() {
 
   // Card 5 — Privacy and sources
   const privacyCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("quranCompanion.privacy.title")}
         icon={{ ios: "lock.shield.fill", android: "shield", web: "shield" }}
@@ -502,7 +525,7 @@ export default function QuranPracticeSettingsScreen() {
           label={t("quranCompanion.privacy.deleteHistory")}
           variant="ghost"
           icon={{ ios: "trash", android: "delete", web: "delete" }}
-          labelColor={tokens.status.danger.color}
+          labelColor={tokens.status.danger.text}
           onPress={() => setPending({ kind: "deleteHistory" })}
         />
         <ThemedText type="caption" themeColor="mutedForeground">
@@ -525,6 +548,44 @@ export default function QuranPracticeSettingsScreen() {
       </View>
     </Card>
   );
+
+  // G-85: one entry per action — each confirm has its own title, body and verb.
+  const confirmCopy = pending
+    ? {
+        delete: {
+          title: t("quranCompanion.listener.deleteTitle"),
+          message: t("quranCompanion.listener.deleteBody"),
+          confirmLabel: t("quranCompanion.listener.delete"),
+          destructive: true,
+        },
+        cellular: {
+          title: t("quranCompanion.listener.cellularTitle"),
+          message: t("quranCompanion.listener.cellularBody", { size: sizeMb }),
+          confirmLabel: t("quranCompanion.listener.useMobileData"),
+          destructive: false,
+        },
+        switchEngine: {
+          title: t("quranCompanion.listener.switchTitle"),
+          message: t("quranCompanion.listener.switchBody", {
+            size: pending.kind === "switchEngine" ? engineDownloadMb(pending.engine) : sizeMb,
+          }),
+          confirmLabel: t("quranCompanion.listener.switchConfirm"),
+          destructive: true,
+        },
+        update: {
+          title: t("quranCompanion.listener.updateTitle"),
+          message: t("quranCompanion.listener.updateBody", { size: sizeMb }),
+          confirmLabel: t("quranCompanion.listener.downloadUpdate"),
+          destructive: false,
+        },
+        deleteHistory: {
+          title: t("quranCompanion.privacy.deleteHistoryTitle"),
+          message: t("quranCompanion.privacy.deleteHistoryBody"),
+          confirmLabel: t("common.delete"),
+          destructive: true,
+        },
+      }[pending.kind]
+    : null;
 
   // Wide web / tablets: two card columns instead of one long stretched stack.
   const twoColumn = useSettingsTwoColumn();
@@ -569,32 +630,10 @@ export default function QuranPracticeSettingsScreen() {
 
       <ConfirmDialog
         visible={pending != null}
-        title={
-          pending?.kind === "cellular"
-            ? t("quranCompanion.listener.cellularTitle")
-            : pending?.kind === "deleteHistory"
-              ? t("quranCompanion.privacy.deleteHistoryTitle")
-              : pending?.kind === "switchEngine"
-                ? t("quranCompanion.listener.switchTitle")
-                : pending?.kind === "update"
-                  ? t("quranCompanion.listener.updateTitle")
-                  : t("quranCompanion.listener.deleteTitle")
-        }
-        message={
-          pending?.kind === "cellular"
-            ? t("quranCompanion.listener.cellularBody", { size: sizeMb })
-            : pending?.kind === "deleteHistory"
-              ? t("quranCompanion.privacy.deleteHistoryBody")
-              : t("quranCompanion.listener.deleteBody")
-        }
-        confirmLabel={
-          pending?.kind === "cellular"
-            ? t("quranCompanion.listener.useMobileData")
-            : pending?.kind === "update"
-              ? t("quranCompanion.listener.downloadUpdate")
-              : t("quranCompanion.listener.confirmRemove")
-        }
-        destructive={pending?.kind !== "cellular" && pending?.kind !== "update"}
+        title={confirmCopy?.title ?? ""}
+        message={confirmCopy?.message}
+        confirmLabel={confirmCopy?.confirmLabel}
+        destructive={confirmCopy?.destructive}
         onConfirm={onConfirm}
         onClose={() => setPending(null)}
       />
@@ -607,13 +646,13 @@ const styles = StyleSheet.create({
   rows: { gap: Spacing.two, marginTop: Spacing.two },
   block: { gap: Spacing.two, marginTop: Spacing.three },
   detailRow: {
-    flexDirection: "row",
-    alignItems: "center",
     gap: Spacing.two,
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
+  detailText: { gap: Spacing.half },
+  detailActions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
   privacyNote: {
     flexDirection: "row",
     alignItems: "center",

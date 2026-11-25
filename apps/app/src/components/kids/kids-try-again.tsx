@@ -5,7 +5,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { arabicWordRowStyle } from "@/lib/quran-companion/arabic-row";
 import { useIsRTL } from "@/lib/rtl";
@@ -40,7 +40,7 @@ export function KidsAyahFeedback({
 
   if (!tryAgain.length) {
     return (
-      <Card padding="three" style={styles.card}>
+      <Card style={styles.card}>
         <ThemedText type="subtitle" style={styles.center}>
           {t("kids.recite.wellDone")}
         </ThemedText>
@@ -53,10 +53,9 @@ export function KidsAyahFeedback({
 
   return (
     <Card
-      padding="three"
       style={[
         styles.card,
-        { borderColor: tokens.status.warning.border, borderWidth: StyleSheet.hairlineWidth },
+        { borderColor: tokens.status.warning.border, borderWidth: BorderWidth.hairline },
       ]}
     >
       <ThemedText type="subtitle" style={styles.center}>

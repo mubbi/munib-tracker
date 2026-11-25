@@ -15,8 +15,9 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { SectionHeader } from "@/components/ui/section-header";
+import { Callout } from "@/components/ui/callout";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
+import { useWizardFooterSlot, WizardShell } from "@/components/wizard/wizard-shell";
 import { Spacing } from "@/constants/theme";
 import { useFocusPlan } from "@/hooks/use-focus-lock";
 import { useForegroundInterval } from "@/hooks/use-foreground-interval";
@@ -48,6 +49,14 @@ import { focusLockStore, useFocusLockDevice } from "@/stores/focus-lock-store";
 const STEPS = ["explain", "permissions", "apps", "timing", "test"] as const;
 type Step = (typeof STEPS)[number];
 
+const STEP_TITLE_KEYS: Record<Step, string> = {
+  explain: "focusLock.setup.explain.title",
+  permissions: "focusLock.setup.perm.title",
+  apps: "focusLock.setup.apps.title",
+  timing: "focusLock.setup.timing.title",
+  test: "focusLock.setup.test.title",
+};
+
 /**
  * NF-3.13 onboarding: 1 explain → 2 permissions (step by step, re-checked on
  * return from Settings) → 3 pick apps → 4 Salah, timing and mode → 5 test with
@@ -71,8 +80,25 @@ export default function FocusLockSetupScreen() {
   const device = useFocusLockDevice();
   const confirmAlert = useSetting<boolean>("notifications.salah.focusLockConfirm");
   const [test, setTest] = useState<FocusWindow | null>(null);
+  // Hard-blocking needs the OS permissions: tracked here so the wizard can warn
+  // on the permissions step and again before "Finish" (it never silently succeeds).
+  const [auth, setAuth] = useState<FocusAuthStatus>("notDetermined");
+  const [perms, setPerms] = useState<AndroidFocusPermissions | null>(null);
+  const checkPermissions = useCallback(async () => {
+    if (!hard) return;
+    if (platform === "ios") setAuth(await authorizationStatus());
+    else if (platform === "android") setPerms(await androidPermissions());
+  }, [hard, platform]);
+  useForegroundCheck(checkPermissions);
+  const permissionsGranted = !hard
+    ? true
+    : platform === "ios"
+      ? auth === "granted"
+      : perms == null || (perms.usageAccess === true && perms.overlay === true);
 
   const theme = useNativeFocusTheme();
+  // The step Back / Next row pins above the keyboard and tab bar on phones.
+  const footerSlot = useWizardFooterSlot();
 
   const finish = async () => {
     await focusLockStore.getState().patch({ setupDone: true });
@@ -92,109 +118,110 @@ export default function FocusLockSetupScreen() {
 
   return (
     <ScreenLayout
-      eyebrow={t("focusLock.setup.step", { current: index + 1, total: steps.length })}
       title={t("focusLock.setup.title")}
       onBack={() =>
         index > 0 ? setIndex(index - 1) : goBackOrReplace(router, "/focus-lock" as Href)
       }
+      footer={footerSlot.footer}
     >
       <Seo path="/focus-lock/setup" />
-      <Card padding="four">
-        {step === "explain" ? (
-          <View style={styles.stack}>
-            <SectionHeader
-              title={t("focusLock.setup.explain.title")}
-              icon={{
-                ios: "moon.circle.fill",
-                android: "do_not_disturb_on",
-                web: "do_not_disturb_on",
-              }}
-            />
-            <ThemedText type="small">{t("focusLock.setup.explain.body1")}</ThemedText>
-            <ThemedText type="small">{t("focusLock.setup.explain.body2")}</ThemedText>
-            <ThemedText type="small">{t("focusLock.setup.explain.body3")}</ThemedText>
-            {!hard ? (
-              <ThemedText type="small" themeColor="mutedForeground">
-                {t("focusLock.setup.softSkip")}
-              </ThemedText>
-            ) : null}
-          </View>
-        ) : null}
-
-        {step === "permissions" && platform === "ios" ? <IosPermissions /> : null}
-        {step === "permissions" && platform === "android" ? <AndroidPermissions /> : null}
-
-        {step === "apps" ? (
-          <View style={styles.stack}>
-            <SectionHeader
-              title={t("focusLock.setup.apps.title")}
-              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
-            />
-            <ThemedText type="small">{t("focusLock.setup.apps.body")}</ThemedText>
-            {platform === "android" ? (
-              <AndroidAppPicker />
-            ) : (
-              <>
-                <Button
-                  label={t("focusLock.setup.apps.pick")}
-                  onPress={async () => {
-                    const { count } = await pickApps();
-                    await focusLockStore.getState().patch({ appsCount: count });
-                  }}
-                />
-                <ThemedText type="smallBold">
-                  {t("focusLock.setup.apps.count", { count: device.appsCount })}
+      <footerSlot.Provider>
+        <WizardShell
+          title={t(STEP_TITLE_KEYS[step])}
+          stepIndex={index}
+          total={steps.length}
+          stepLabel={t("focusLock.setup.step", { current: index + 1, total: steps.length })}
+          progressLabel={t("focusLock.setup.progressLabel")}
+          backDisabled={false}
+          onBack={() =>
+            index > 0 ? setIndex(index - 1) : goBackOrReplace(router, "/focus-lock" as Href)
+          }
+          nextLabel={
+            index < steps.length - 1 ? t("focusLock.setup.next") : t("focusLock.setup.finish")
+          }
+          onNext={() => (index < steps.length - 1 ? setIndex(index + 1) : void finish())}
+        >
+          {step === "explain" ? (
+            <View style={styles.stack}>
+              <ThemedText type="small">{t("focusLock.setup.explain.body1")}</ThemedText>
+              <ThemedText type="small">{t("focusLock.setup.explain.body2")}</ThemedText>
+              <ThemedText type="small">{t("focusLock.setup.explain.body3")}</ThemedText>
+              {!hard ? (
+                <ThemedText type="small" themeColor="mutedForeground">
+                  {t("focusLock.setup.softSkip")}
                 </ThemedText>
-              </>
-            )}
-          </View>
-        ) : null}
+              ) : null}
+            </View>
+          ) : null}
 
-        {step === "timing" ? (
-          <View style={styles.stack}>
-            <SectionHeader
-              title={t("focusLock.setup.timing.title")}
-              icon={{ ios: "slider.horizontal.3", android: "tune", web: "tune" }}
-            />
-            <FocusLockSettingsForm iqamahAvailable={plan.iqamahAvailable} />
-          </View>
-        ) : null}
+          {step === "permissions" && platform === "ios" ? (
+            <IosPermissions auth={auth} onCheck={checkPermissions} />
+          ) : null}
+          {step === "permissions" && platform === "android" ? (
+            <AndroidPermissions perms={perms} onCheck={checkPermissions} />
+          ) : null}
+          {(step === "permissions" || step === "test") && !permissionsGranted ? (
+            <Callout tone="warning" style={styles.warning}>
+              {t(
+                step === "test"
+                  ? "focusLock.setup.perm.finishWarning"
+                  : "focusLock.setup.perm.noneWarning",
+              )}
+            </Callout>
+          ) : null}
 
-        {step === "test" ? (
-          <View style={styles.stack}>
-            <SectionHeader
-              title={t("focusLock.setup.test.title")}
-              icon={{ ios: "timer", android: "timer", web: "timer" }}
-            />
-            <ThemedText type="small">{t("focusLock.setup.test.body")}</ThemedText>
-            <Button
-              variant="secondary"
-              label={t("focusLock.setup.test.start")}
-              disabled={test != null}
-              onPress={() => void startTest()}
-            />
-            {test && hard ? (
-              <ThemedText type="smallBold" accessibilityLiveRegion="polite">
-                {t("focusLock.setup.test.running")}
-              </ThemedText>
-            ) : null}
-            <ToggleRow
-              label={t("focusLock.setup.confirmAlert")}
-              hint={t("focusLock.setup.confirmAlertHint")}
-              value={confirmAlert.value}
-              onChange={(on) => void confirmAlert.setValue(on)}
-            />
-          </View>
-        ) : null}
-      </Card>
+          {step === "apps" ? (
+            <View style={styles.stack}>
+              <ThemedText type="small">{t("focusLock.setup.apps.body")}</ThemedText>
+              {platform === "android" ? (
+                <AndroidAppPicker />
+              ) : (
+                <>
+                  <Button
+                    label={t("focusLock.setup.apps.pick")}
+                    onPress={async () => {
+                      const { count } = await pickApps();
+                      await focusLockStore.getState().patch({ appsCount: count });
+                    }}
+                  />
+                  <ThemedText type="smallBold">
+                    {t("focusLock.setup.apps.count", { count: device.appsCount })}
+                  </ThemedText>
+                </>
+              )}
+            </View>
+          ) : null}
 
-      <View style={styles.nav}>
-        {index < steps.length - 1 ? (
-          <Button label={t("focusLock.setup.next")} onPress={() => setIndex(index + 1)} fullWidth />
-        ) : (
-          <Button label={t("focusLock.setup.finish")} onPress={() => void finish()} fullWidth />
-        )}
-      </View>
+          {step === "timing" ? (
+            <View style={styles.stack}>
+              <FocusLockSettingsForm iqamahAvailable={plan.iqamahAvailable} />
+            </View>
+          ) : null}
+
+          {step === "test" ? (
+            <View style={styles.stack}>
+              <ThemedText type="small">{t("focusLock.setup.test.body")}</ThemedText>
+              <Button
+                variant="secondary"
+                label={t("focusLock.setup.test.start")}
+                disabled={test != null}
+                onPress={() => void startTest()}
+              />
+              {test && hard ? (
+                <ThemedText type="smallBold" accessibilityLiveRegion="polite">
+                  {t("focusLock.setup.test.running")}
+                </ThemedText>
+              ) : null}
+              <ToggleRow
+                label={t("focusLock.setup.confirmAlert")}
+                hint={t("focusLock.setup.confirmAlertHint")}
+                value={confirmAlert.value}
+                onChange={(on) => void confirmAlert.setValue(on)}
+              />
+            </View>
+          ) : null}
+        </WizardShell>
+      </footerSlot.Provider>
 
       {step === "explain" ? <FocusLockEvidence /> : null}
 
@@ -253,17 +280,16 @@ function PermissionRow({
   );
 }
 
-function IosPermissions() {
+function IosPermissions({
+  auth,
+  onCheck: check,
+}: {
+  auth: FocusAuthStatus;
+  onCheck: () => Promise<void>;
+}) {
   const { t } = useTranslation();
-  const [auth, setAuth] = useState<FocusAuthStatus>("notDetermined");
-  const check = useCallback(async () => setAuth(await authorizationStatus()), []);
-  useForegroundCheck(check);
   return (
     <View style={styles.stack}>
-      <SectionHeader
-        title={t("focusLock.setup.perm.title")}
-        icon={{ ios: "lock.shield.fill", android: "security", web: "security" }}
-      />
       <PermissionRow
         label={t("focusLock.setup.perm.screenTime")}
         hint={t("focusLock.setup.perm.screenTimeHint")}
@@ -277,18 +303,17 @@ function IosPermissions() {
   );
 }
 
-function AndroidPermissions() {
+function AndroidPermissions({
+  perms,
+  onCheck: check,
+}: {
+  perms: AndroidFocusPermissions | null;
+  onCheck: () => Promise<void>;
+}) {
   const { t } = useTranslation();
-  const [perms, setPerms] = useState<AndroidFocusPermissions | null>(null);
-  const check = useCallback(async () => setPerms(await androidPermissions()), []);
-  useForegroundCheck(check);
   const open = (page: AndroidFocusSettingsPage) => () => void openAndroidSettings(page);
   return (
     <View style={styles.stack}>
-      <SectionHeader
-        title={t("focusLock.setup.perm.title")}
-        icon={{ ios: "lock.shield.fill", android: "security", web: "security" }}
-      />
       <PermissionRow
         label={t("focusLock.setup.perm.usage")}
         hint={t("focusLock.setup.perm.usageHint")}
@@ -354,7 +379,12 @@ function AndroidAppPicker() {
     };
   }, [i18n.language]);
 
-  if (!apps) return null;
+  // Loading the launchable apps: a row skeleton, never a blank step (R-19).
+  if (!apps) {
+    return (
+      <SkeletonPlaceholder preset="rows" count={4} accessibilityLabel={t("common.loadingRoute")} />
+    );
+  }
   if (apps.length === 0) {
     return (
       <ThemedText type="small" themeColor="mutedForeground">
@@ -388,7 +418,7 @@ function AndroidAppPicker() {
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
-  nav: { marginVertical: Spacing.four },
+  warning: { marginTop: Spacing.three },
   permission: { alignItems: "center", flexDirection: "row", gap: Spacing.three },
   flex: { flex: 1, gap: Spacing.half },
 });

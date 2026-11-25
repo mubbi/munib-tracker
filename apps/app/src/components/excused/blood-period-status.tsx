@@ -8,7 +8,7 @@ import { MadhhabBadge } from "@/components/fiqh/madhhab-badge";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { PrayerRepository } from "@/db";
 import { useMadhhab } from "@/hooks/use-madhhab";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -87,7 +87,7 @@ export function BloodPeriodStatus() {
       <ThemedText
         type="caption"
         accessibilityLiveRegion="polite"
-        style={{ color: tokens.status.success.color }}
+        style={{ color: tokens.status.success.text }}
       >
         {t("excusedFiqh.short.added")}
       </ThemedText>
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   actions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
 });

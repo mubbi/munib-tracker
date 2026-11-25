@@ -30,7 +30,7 @@ export function WordCoachingCard({
   const rule = card.categories.map((c) => t(categoryNameKey(c))).join(", ");
   const first = card.categories[0];
   return (
-    <Card padding="three">
+    <Card>
       <ExampleWords refs={[card]} />
       <ThemedText type="small" style={styles.gap}>
         {t(COACHING_COPY.wordCard, { rule })}

@@ -5,7 +5,7 @@ import { Platform, StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AttachmentPickSource } from "@/lib/attachments/attachment-file-manager";
 import { useChevronForward } from "@/lib/rtl";
@@ -112,17 +112,19 @@ export function AttachmentSourceSheet({ visible, onClose, onSelect, embedded = f
   }
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
-      <ThemedText type="subtitle" style={styles.title}>
-        {t("customAdhkar.attachments.sourceTitle")}
-      </ThemedText>
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+      title={t("customAdhkar.attachments.sourceTitle")}
+    >
       <SourceOptionsList onSelect={onSelect} />
     </Sheet>
   );
 }
 
 const styles = StyleSheet.create({
-  title: { marginBottom: Spacing.three },
   embedded: {
     gap: Spacing.two,
     marginBottom: Spacing.two,
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   iconWrap: {
     width: 40,
@@ -152,5 +154,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  rowText: { flex: 1, gap: 2 },
+  rowText: { flex: 1, gap: Spacing.half },
 });

@@ -131,3 +131,20 @@ export const SEARCH_CATEGORY_ORDER: SearchCategory[] = [
   "notes",
   "settings",
 ];
+
+/**
+ * Library destinations (screens, not content) — a result category of its own on
+ * the search screen (P5-33). Its hits come from the Library tab index
+ * (`createLibraryMenuSearch` in `lib/library-menu.ts`), not from `searchAll`, so
+ * it is kept out of {@link SearchCategory} (whose groups the content engine fills).
+ */
+export const LIBRARY_SEARCH_CATEGORY = "library" as const;
+
+/** Every category a search screen can group and filter by. */
+export type SearchFilterCategory = SearchCategory | typeof LIBRARY_SEARCH_CATEGORY;
+
+/** Group / filter-chip order on the search screen: content first, then Library destinations. */
+export const SEARCH_FILTER_ORDER: SearchFilterCategory[] = [
+  ...SEARCH_CATEGORY_ORDER,
+  LIBRARY_SEARCH_CATEGORY,
+];

@@ -33,7 +33,7 @@ export const ABOUT_SETTINGS: AnySettingDef[] = [
     subtitleKey: "settingsPanel.resetTourHintsSub",
     keywordsKey: "settingsPanel.kw.tour",
     scope: "account",
-    control: { kind: "action", run: resetTourHints },
+    control: { kind: "action", run: resetTourHints, doneKey: "settings.done.tourHints" },
   }),
   // Re-opens onboarding with the current values (language, location…); nothing
   // is reset — finishing it just returns home.

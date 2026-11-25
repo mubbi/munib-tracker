@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { Chip } from "@/components/ui/chip";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { isTV } from "@/lib/platform/is-tv";
 
@@ -28,7 +28,7 @@ type DuaOccasionChipsProps = {
 export function DuaOccasionChips({ chips, selected, onSelect, totalCount }: DuaOccasionChipsProps) {
   const { t } = useTranslation();
   const { width } = useWindowDimensions();
-  const wrap = isTV() || width >= 768;
+  const wrap = isTV() || width >= Breakpoints.tablet;
   // Wrapping layout: the full label fits, so no width cap / ellipsis.
   const chipStyle = wrap ? styles.chipWrapped : styles.chipStrip;
   const content = (
@@ -76,7 +76,7 @@ export function DuaOccasionChips({ chips, selected, onSelect, totalCount }: DuaO
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: "row", gap: Spacing.two, paddingVertical: 2 },
+  row: { flexDirection: "row", gap: Spacing.two, paddingVertical: Spacing.half },
   wrap: { flexWrap: "wrap" },
   chipStrip: { maxWidth: tvDp(260) },
   chipWrapped: { maxWidth: "100%" },

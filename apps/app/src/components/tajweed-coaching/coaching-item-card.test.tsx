@@ -48,10 +48,10 @@ describe("CoachingItemCard", () => {
     );
     expect(
       screen.getByText(
-        "These ayahs include qalqalah — let's practise it with words from your recitation.",
+        "These ayahs include qalqalah — let's practice it with words from your recitation.",
       ),
     ).toBeTruthy();
-    expect(screen.getByText("Ready to practise today")).toBeTruthy();
+    expect(screen.getByText("Ready to practice today")).toBeTruthy();
     expect(await screen.findByText(bundledAyahWords(112, 3)[1])).toBeTruthy();
     expect(screen.queryByText(/mistake|%|score/i)).toBeNull();
   });
@@ -65,7 +65,7 @@ describe("CoachingItemCard", () => {
       [expect.objectContaining({ uri: "https://audio.example/112/3/1.mp3" })],
       0,
     );
-    await fireEvent.press(screen.getByText("Practise this sound"));
+    await fireEvent.press(screen.getByText("Practice this sound"));
     expect(mockRouter.push).toHaveBeenCalledWith({
       pathname: "/learn-quran/tajweed/coach/[item]",
       params: { item: "qalqalah" },
@@ -84,7 +84,7 @@ describe("CoachingItemCard", () => {
     expect(screen.queryByText("Listen and repeat", { exact: true })).toBeNull();
   });
 
-  it("shows spacing, never a score, once a head was practised", async () => {
+  it("shows spacing, never a score, once a head was practiced", async () => {
     const state = coachingState({
       heads: {
         qalqalah: {

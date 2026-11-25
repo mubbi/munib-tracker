@@ -9,7 +9,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -32,7 +32,7 @@ type DuaListRowProps = {
   index?: number;
   /** Trailing context pill, e.g. the category in cross-category results. */
   meta?: string;
-  /** Omit both to render a row without the save star. */
+  /** Omit both to render a row without the Save bookmark. */
   isFavorite?: boolean;
   onToggleFavorite?: (id: string) => void;
   onOpen: (id: string) => void;
@@ -78,7 +78,7 @@ export const DuaListRow = memo(function DuaListRow({
   return (
     // The favorite toggle is a sibling overlay, not nested inside the row's
     // Pressable — a <button> inside a <button> is invalid HTML on web.
-    // TV: the star sits *beside* the row (flex sibling), so D-pad "right" reaches it.
+    // TV: the bookmark sits *beside* the row (flex sibling), so D-pad "right" reaches it.
     <View style={[styles.rowWrap, tv ? styles.rowWrapTv : styles.fill]}>
       <PressableScale
         haptic="light"
@@ -97,6 +97,7 @@ export const DuaListRow = memo(function DuaListRow({
           {variant === "passage" ? (
             <ThemedText
               type="arabic"
+              accessibilityLanguage="ar"
               // Two lines: short duas show in full; a one-line cut put "…" on
               // complete duas and read as truncated content.
               numberOfLines={2}
@@ -140,11 +141,11 @@ export const DuaListRow = memo(function DuaListRow({
         <IconButton
           name={
             isFavorite
-              ? { ios: "star.fill", android: "star", web: "star" }
-              : { ios: "star", android: "star_border", web: "star_border" }
+              ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+              : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
           }
           size={FAVORITE_SIZE}
-          tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+          tintColor={isFavorite ? colors.accentText : colors.mutedForeground}
           accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
           accessibilityState={{ selected: Boolean(isFavorite) }}
           haptic="selection"
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   rowTv: {
     flex: 1,
@@ -179,9 +180,9 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.four,
     borderRadius: Radius.lg,
   },
-  body: { flex: 1, minWidth: 0, gap: 4 },
+  body: { flex: 1, minWidth: 0, gap: Spacing.one },
   arabicPreview: { fontSize: PREVIEW_ARABIC_SIZE, writingDirection: "rtl" },
-  meta: { alignSelf: "flex-start", marginTop: 2 },
+  meta: { alignSelf: "flex-start", marginTop: Spacing.half },
   favoriteSlot: { width: FAVORITE_SIZE, height: FAVORITE_SIZE },
   favoriteButton: {
     position: "absolute",

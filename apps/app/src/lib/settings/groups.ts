@@ -231,21 +231,22 @@ export const SETTINGS_GROUPS: readonly SettingsGroupMeta[] = [
     summaryIds: ["accessibility.haptics"],
   },
   {
-    // NF-3.16–3.18 (§4.5.8): family & kids, accountability partner, group khatm.
-    id: "circles",
-    cluster: "personalise",
-    titleKey: "circles.settings.groupTitle",
-    subtitleKey: "circles.settings.groupSub",
-    icon: { ios: "person.3.fill", android: "groups", web: "groups" },
-    tv: false,
-    summaryIds: [],
-  },
-  {
     id: "privacy",
     cluster: "privacy",
     titleKey: "settingsPanel.group.privacy",
     subtitleKey: "settingsPanel.group.privacySub",
     icon: { ios: "lock.fill", android: "lock", web: "lock" },
+    tv: false,
+    summaryIds: [],
+  },
+  {
+    // NF-3.16–3.18 (§4.5.8): family & kids, accountability partner, group khatm.
+    // D-34: sits next to Privacy — circles are about who sees your data.
+    id: "circles",
+    cluster: "privacy",
+    titleKey: "circles.settings.groupTitle",
+    subtitleKey: "circles.settings.groupSub",
+    icon: { ios: "person.3.fill", android: "groups", web: "groups" },
     tv: false,
     summaryIds: [],
   },

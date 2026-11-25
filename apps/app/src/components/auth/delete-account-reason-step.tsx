@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { TextField } from "@/components/ui/text-field";
+import { BorderWidth, Control, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   ACCOUNT_CLOSURE_DETAILS_MAX,
@@ -35,70 +36,81 @@ export function DeleteAccountReasonStep({
 
   return (
     <>
-      <ThemedText type="small" style={styles.blockTitle}>
+      <ThemedText type="smallBold" heading={3}>
         {t("profile.deleteAccountSurveyTitle")}
       </ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.surveyIntro}>
         {t("profile.deleteAccountSurveyIntro")}
       </ThemedText>
-      {ACCOUNT_CLOSURE_REASONS.map((reason) => {
-        const selected = primaryReason === reason;
-        return (
-          <PressableScale
-            key={reason}
-            accessibilityRole="radio"
-            accessibilityState={{ selected }}
-            haptic="selection"
-            onPress={() => onReasonChange(reason)}
-            style={[
-              styles.reasonRow,
-              {
-                borderColor: selected ? selectedBorder : colors.border,
-                backgroundColor: selected ? tokens.accentSoft : "transparent",
-              },
-            ]}
-          >
-            <View
-              style={[styles.radioOuter, { borderColor: selected ? colors.accent : colors.border }]}
+      <View
+        accessibilityRole="radiogroup"
+        accessibilityLabel={t("profile.deleteAccountSurveyTitle")}
+        style={styles.reasons}
+      >
+        {ACCOUNT_CLOSURE_REASONS.map((reason) => {
+          const selected = primaryReason === reason;
+          return (
+            <PressableScale
+              key={reason}
+              accessibilityRole="radio"
+              accessibilityLabel={t(`profile.deleteAccountReasons.${reason}`)}
+              accessibilityState={{ checked: selected, selected, disabled }}
+              disabled={disabled}
+              haptic="selection"
+              onPress={() => onReasonChange(reason)}
+              style={[
+                styles.reasonRow,
+                {
+                  borderColor: selected ? selectedBorder : colors.border,
+                  backgroundColor: selected ? tokens.accentSoft : "transparent",
+                },
+              ]}
             >
-              {selected ? (
-                <View style={[styles.radioInner, { backgroundColor: colors.accent }]} />
-              ) : null}
-            </View>
-            <ThemedText type="small" style={styles.reasonLabel}>
-              {t(`profile.deleteAccountReasons.${reason}`)}
-            </ThemedText>
-          </PressableScale>
-        );
-      })}
-      <ThemedText type="caption" themeColor="mutedForeground" style={styles.detailsLabel}>
-        {t("profile.deleteAccountDetailsOptional")}
-      </ThemedText>
-      <TextInput
+              <View
+                style={[
+                  styles.radioOuter,
+                  { borderColor: selected ? colors.accent : colors.border },
+                ]}
+              >
+                {selected ? (
+                  <View style={[styles.radioInner, { backgroundColor: colors.accent }]} />
+                ) : null}
+              </View>
+              <ThemedText type="small" style={styles.reasonLabel}>
+                {t(`profile.deleteAccountReasons.${reason}`)}
+              </ThemedText>
+            </PressableScale>
+          );
+        })}
+      </View>
+      <TextField
+        label={t("profile.deleteAccountDetailsOptional")}
         value={details}
         onChangeText={(value) => onDetailsChange(value.slice(0, ACCOUNT_CLOSURE_DETAILS_MAX))}
         placeholder={t("profile.deleteAccountDetailsPlaceholder")}
-        placeholderTextColor={colors.mutedForeground}
         multiline
-        editable={!disabled}
-        style={[styles.detailsInput, tokens.inputSurface, { color: colors.foreground }]}
+        minLines={3}
+        maxLength={ACCOUNT_CLOSURE_DETAILS_MAX}
+        disabled={disabled}
+        style={styles.details}
       />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  blockTitle: {
-    fontWeight: "700",
-  },
   surveyIntro: {
     marginBottom: Spacing.one,
   },
+  reasons: {
+    gap: Spacing.two,
+  },
   reasonRow: {
+    minHeight: Control.md,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     paddingVertical: Spacing.two,
@@ -108,7 +120,7 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderRadius: 11,
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -120,16 +132,7 @@ const styles = StyleSheet.create({
   reasonLabel: {
     flex: 1,
   },
-  detailsLabel: {
+  details: {
     marginTop: Spacing.one,
-  },
-  detailsInput: {
-    minHeight: 72,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    textAlignVertical: "top",
   },
 });

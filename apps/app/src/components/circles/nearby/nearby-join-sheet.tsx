@@ -12,7 +12,7 @@ import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { canUseCircleType, circleHomeHref } from "@/lib/circles/family";
 import { useCircleAuth } from "@/lib/circles/hooks";
@@ -229,7 +229,12 @@ export function NearbyJoinSheet({
   };
 
   return (
-    <Sheet visible={visible} onClose={dismiss} variant="bottom">
+    <Sheet
+      accessibilityLabel={t(child ? "nearby.join.childTitle" : "nearby.join.title")}
+      visible={visible}
+      onClose={dismiss}
+      variant="bottom"
+    >
       <View style={styles.sheet}>
         {/* One way back per step: "They don't match" returns to the list while confirming. */}
         <ThemedText type="subtitle" accessibilityRole="header">
@@ -332,6 +337,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
 });

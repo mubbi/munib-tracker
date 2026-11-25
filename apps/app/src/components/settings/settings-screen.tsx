@@ -22,7 +22,8 @@ import {
 } from "@/lib/settings/routes";
 
 import { SettingsGroupBody } from "./settings-group-body";
-import { useSettingsFormMaxWidth } from "./settings-layout";
+import { useSettingsFormMaxWidth, useSettingsMasterDetail } from "./settings-layout";
+import { SettingsListDetail } from "./settings-list-detail";
 
 /**
  * A settings group route (§4.5.5): ScreenLayout + form max width + Back to the
@@ -32,12 +33,17 @@ import { useSettingsFormMaxWidth } from "./settings-layout";
  * With `subgroup` it is one sub-screen of a split group (Back → the group).
  * A group screen asked to focus a row that lives on a sub-screen forwards the
  * focus there, so every `settingHref(id)` keeps landing on the right row.
+ *
+ * Tablets / wide web (D-UX11) render the route as list–detail: the hub list
+ * with this group selected beside its body. The route, `?focus=` and Back are
+ * the phone's; the hub header stays so switching groups doesn't jump the page.
  */
 export function SettingsScreen({ group, subgroup }: { group: SettingsGroupId; subgroup?: string }) {
   const router = useRouter();
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ focus?: string }>();
   const formMaxWidth = useSettingsFormMaxWidth();
+  const masterDetail = useSettingsMasterDetail();
   const meta = getSettingsGroup(group);
   const sub = subgroup ? getSettingsSubgroup(group, subgroup) : null;
   const ctx = useMemo(getPlatformCtx, []);
@@ -58,17 +64,42 @@ export function SettingsScreen({ group, subgroup }: { group: SettingsGroupId; su
     return <Redirect href={target as Href} />;
   }
 
+  const onBack = () => goBackOrReplace(router, (sub ? groupPath : "/settings") as Href);
+  const seoPath = sub ? settingsSubgroupPath(group, sub.id) : groupPath;
+
+  if (masterDetail) {
+    return (
+      <ScreenLayout
+        eyebrow={t("settings.eyebrow")}
+        title={t("settings.title")}
+        subtitle={t("settings.subtitle")}
+        onBack={onBack}
+        scrollRef={scrollRef}
+        onScroll={onScroll}
+      >
+        <Seo path={seoPath} />
+        <SettingsListDetail
+          from="group"
+          group={group}
+          subgroup={sub?.id ?? null}
+          focusId={focusId}
+          register={register}
+        />
+      </ScreenLayout>
+    );
+  }
+
   return (
     <ScreenLayout
       maxContentWidth={formMaxWidth}
       eyebrow={sub ? t(meta.titleKey) : t("settings.title")}
       title={t(sub?.titleKey ?? meta.titleKey)}
       subtitle={t(sub?.subtitleKey ?? meta.subtitleKey)}
-      onBack={() => goBackOrReplace(router, (sub ? groupPath : "/settings") as Href)}
+      onBack={onBack}
       scrollRef={scrollRef}
       onScroll={onScroll}
     >
-      <Seo path={sub ? settingsSubgroupPath(group, sub.id) : groupPath} />
+      <Seo path={seoPath} />
       <SettingsGroupBody
         group={group}
         subgroup={sub?.id ?? null}

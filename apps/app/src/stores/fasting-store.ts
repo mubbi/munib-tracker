@@ -19,6 +19,8 @@ const STORAGE_KEY = DB_KEYS.fasting;
 interface FastingState {
   days: FastingMap;
   isReady: boolean;
+  /** Set when `load()` failed; cleared on the next attempt. */
+  loadError: unknown | null;
   load: () => Promise<void>;
   /** Cycles a day fasted → missed → exempt → cleared, or sets it explicitly. */
   setStatus: (date: string, status: FastStatus | null) => Promise<void>;
@@ -27,10 +29,16 @@ interface FastingState {
 export const fastingStore = createStore<FastingState>((set, get) => ({
   days: {},
   isReady: false,
+  loadError: null,
 
   async load() {
-    const days = await readJSON<FastingMap>(STORAGE_KEY, {});
-    set({ days, isReady: true });
+    set({ loadError: null });
+    try {
+      const days = await readJSON<FastingMap>(STORAGE_KEY, {});
+      set({ days, isReady: true });
+    } catch (error) {
+      set({ loadError: error ?? new Error("fasting load failed") });
+    }
   },
 
   async setStatus(date, status) {
@@ -46,6 +54,14 @@ export function useEnsureFastingLoaded(): void {
   useEffect(() => {
     if (!fastingStore.getState().isReady) void fastingStore.getState().load();
   }, []);
+}
+
+export function useFastingReady(): boolean {
+  return useStore(fastingStore, (s) => s.isReady);
+}
+
+export function useFastingLoadError(): unknown | null {
+  return useStore(fastingStore, (s) => s.loadError);
 }
 
 export function useFastingDays(): FastingMap {

@@ -87,7 +87,8 @@ describe("VaultSyncSheet", () => {
 
   it("warns plainly that losing both secrets loses the cloud copy, then sets up sync", async () => {
     const onEnabled = jest.fn();
-    await renderWithTheme(<VaultSyncSheet visible onClose={jest.fn()} onEnabled={onEnabled} />);
+    const onClose = jest.fn();
+    await renderWithTheme(<VaultSyncSheet visible onClose={onClose} onEnabled={onEnabled} />);
     await waitFor(() => expect(screen.getByText("Sync private journals")).toBeTruthy());
     expect(screen.getByText(/lose both your passphrase and your recovery code/)).toBeTruthy();
 
@@ -100,6 +101,15 @@ describe("VaultSyncSheet", () => {
       timeout: 10_000,
     });
     expect(await readJSON(DB_KEYS.vaultKeyring, null)).not.toBeNull();
+
+    // S-01: scrim / swipe / Back can't discard the one-time code before it is saved.
+    await fireEvent.press(screen.getByTestId("sheet-close"));
+    expect(onClose).not.toHaveBeenCalled();
+    expect(screen.getByText("Your recovery code")).toBeTruthy();
+    expect(
+      screen.getByText("Save your recovery code first, then check the box and tap Done."),
+    ).toBeTruthy();
+
     await fireEvent.press(screen.getByRole("checkbox"));
     await fireEvent.press(screen.getByText("Done"));
     expect(onEnabled).toHaveBeenCalled();

@@ -10,17 +10,21 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
+import { TasbeehCounterBar } from "@/components/tasbeeh/tasbeeh-counter-bar";
 import { TasbeehReadingBlock } from "@/components/tasbeeh/tasbeeh-reading-block";
+import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { Sheet } from "@/components/ui/sheet";
 import { type AdhkarStep, AdhkarStepStrip } from "@/components/zikr/adhkar-step-strip";
 import { ZikrHadithContext } from "@/components/zikr/zikr-hadith-context";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -45,6 +49,9 @@ import { isHandsFreeStep } from "@/lib/tasbeeh-voice/steps";
 import { voiceZikrFromZikr } from "@/lib/tasbeeh-voice/voice-zikr";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrCountKey, zikrTarget } from "@/lib/zikr-count-key";
+
+/** Fallback dock height before onLayout (excludes the safe area ScreenLayout already adds). */
+const DOCK_BAR_FALLBACK = 72;
 
 /** Pause after a phrase reaches its target before the next one (lets the haptic land). */
 const ADVANCE_DELAY_MS = 650;
@@ -87,20 +94,32 @@ export default function TasbeehSequenceScreen() {
   const params = useLocalSearchParams<{ prayer?: string; ending?: string }>();
   const { width } = useWindowDimensions();
   const tv = isTV();
-  const wide = !tv && width >= 1024;
+  const wide = !tv && width >= Breakpoints.wide;
   const clock = useAdhkarClock();
   const day = useAdhkarDayCounts(clock.date);
+  const contentBottomInset = useContentBottomInset();
+  const [dockBarHeight, setDockBarHeight] = useState(DOCK_BAR_FALLBACK);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const [corpusReady, setCorpusReady] = useState(false);
+  const [corpusFailed, setCorpusFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     let active = true;
-    void ensureZikrCorpus().then(() => {
-      if (active) setCorpusReady(true);
-    });
+    void attempt; // a retry re-runs the load
+    setCorpusFailed(false);
+    ensureZikrCorpus().then(
+      () => {
+        if (active) setCorpusReady(true);
+      },
+      () => {
+        if (active) setCorpusFailed(true);
+      },
+    );
     return () => {
       active = false;
     };
-  }, []);
+  }, [attempt]);
 
   const prayerParam = paramValue(params.prayer);
   const [prayer, setPrayer] = useState<ObligatoryPrayer>(() =>
@@ -261,7 +280,15 @@ export default function TasbeehSequenceScreen() {
 
   const back = () => goBackOrReplace(router, "/tasbeeh/free");
 
-  if (!corpusReady) return null;
+  if (!corpusReady) {
+    return (
+      <TasbeehLoadingScreen
+        onBack={back}
+        failed={corpusFailed}
+        onRetry={() => setAttempt((n) => n + 1)}
+      />
+    );
+  }
 
   const safeIndex = Math.min(index, steps.length - 1);
   const step = steps[safeIndex];
@@ -280,6 +307,7 @@ export default function TasbeehSequenceScreen() {
   }));
 
   const evidence = SEQUENCE_EVIDENCE[ending];
+  // Which salah / ending changes rarely: it lives in a Sheet, not above the counter (B-71).
   const settings = (
     <View style={styles.settings}>
       <ThemedText type="caption" themeColor="mutedForeground">
@@ -309,10 +337,13 @@ export default function TasbeehSequenceScreen() {
         value={ending}
         onChange={changeEnding}
       />
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {t(`handsFreeZikr.sequence.evidence.${ending}`, { reference: evidence.reference })}
-      </ThemedText>
     </View>
+  );
+  // The source stays on the page (not only in the settings sheet): the ending is cited.
+  const evidenceNote = (
+    <ThemedText type="caption" themeColor="mutedForeground">
+      {t(`handsFreeZikr.sequence.evidence.${ending}`, { reference: evidence.reference })}
+    </ThemedText>
   );
 
   const doneCard = finished ? (
@@ -367,6 +398,7 @@ export default function TasbeehSequenceScreen() {
         // Short repeated phrases listen; the single closing tahlil is tapped once recited.
         voiceZikr={item && isHandsFreeStep(item, step.target) ? voiceZikrFromZikr(item) : null}
         voiceContinuous
+        hideCompletion
       />
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
         {t("handsFreeZikr.sequence.handsFreeHint")}
@@ -374,45 +406,88 @@ export default function TasbeehSequenceScreen() {
     </Card>
   );
 
+  // Always-present dock (phones / web / tablets): counting never leaves the thumb, even
+  // with the reading expanded. TV keeps the landscape counter and its D-pad focus.
+  const dockVisible = !tv && !finished;
+  const dockClearance = dockVisible
+    ? Math.max(Spacing.three, dockBarHeight - contentBottomInset + Spacing.two)
+    : 0;
+
+  const settingsButton = (
+    <Button
+      label={t("handsFreeZikr.sequence.settings")}
+      variant="ghost"
+      icon={{ ios: "slider.horizontal.3", android: "tune", web: "tune" }}
+      onPress={() => setSettingsOpen(true)}
+      accessibilityHint={`${t(`prayers.${prayer}`)} · ${summary}`}
+      style={styles.settingsButton}
+    />
+  );
+
   const reading = item ? (
     <>
-      <TasbeehReadingBlock item={item} />
+      <TasbeehReadingBlock item={item} collapsible />
       <ZikrHadithContext item={getZikrById(evidence.zikrId) ?? item} />
     </>
   ) : null;
 
   return (
-    <ScreenLayout
-      eyebrow={t("tasbeeh.eyebrow")}
-      title={t("handsFreeZikr.sequence.title")}
-      subtitle={summary}
-      onBack={back}
-      scrollable
-    >
-      {seo}
-      {doneCard}
-      {settings}
-      <AdhkarStepStrip steps={stripSteps} activeIndex={safeIndex} onSelect={goTo} />
-      {wide ? (
-        <View style={styles.wideRow}>
-          <View style={styles.wideReading}>{reading}</View>
-          <View style={styles.wideCounter}>{counterCard}</View>
-        </View>
-      ) : (
-        <>
-          {item ? <TasbeehReadingBlock item={item} /> : null}
-          {counterCard}
-          {item ? <ZikrHadithContext item={getZikrById(evidence.zikrId) ?? item} /> : null}
-        </>
-      )}
-    </ScreenLayout>
+    <View style={styles.root}>
+      <ScreenLayout
+        eyebrow={t("tasbeeh.eyebrow")}
+        title={t("handsFreeZikr.sequence.title")}
+        subtitle={summary}
+        onBack={back}
+        scrollable
+        contentStyle={dockClearance > 0 ? { paddingBottom: dockClearance } : undefined}
+      >
+        {seo}
+        {doneCard}
+        {settingsButton}
+        {evidenceNote}
+        <AdhkarStepStrip steps={stripSteps} activeIndex={safeIndex} onSelect={goTo} />
+        {wide ? (
+          <View style={styles.wideRow}>
+            <View style={styles.wideReading}>{reading}</View>
+            <View style={styles.wideCounter}>{counterCard}</View>
+          </View>
+        ) : (
+          <>
+            {item ? <TasbeehReadingBlock item={item} collapsible defaultCollapsed /> : null}
+            {counterCard}
+            {item ? <ZikrHadithContext item={getZikrById(evidence.zikrId) ?? item} /> : null}
+          </>
+        )}
+        <Sheet
+          visible={settingsOpen}
+          onClose={() => setSettingsOpen(false)}
+          variant="bottom"
+          title={t("handsFreeZikr.sequence.settings")}
+        >
+          {settings}
+        </Sheet>
+      </ScreenLayout>
+      {dockVisible ? (
+        <TasbeehCounterBar
+          count={count}
+          target={step.target}
+          onIncrement={() => setStepCount(safeIndex, (countsRef.current[safeIndex] ?? 0) + 1, "up")}
+          onDecrement={() =>
+            setStepCount(safeIndex, (countsRef.current[safeIndex] ?? 0) - 1, "down")
+          }
+          onHeightChange={setDockBarHeight}
+        />
+      ) : null}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1 },
   flex: { flex: 1 },
   center: { textAlign: "center" },
   settings: { gap: Spacing.two },
+  settingsButton: { alignSelf: "flex-start" },
   card: { alignItems: "stretch", gap: Spacing.three },
   doneCard: { alignItems: "center", gap: Spacing.two, overflow: "visible" },
   doneActions: {

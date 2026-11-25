@@ -78,7 +78,8 @@ describe("TtsVoiceControl", () => {
     await renderControl(speechTrack());
     await openVoiceSheet();
     expect(screen.getByRole("radio", { name: /Voice X/ }).props.accessibilityState).toEqual(
-      expect.objectContaining({ selected: true }),
+      // Radio rows report `checked` (P6-06 single-choice convention).
+      expect.objectContaining({ checked: true }),
     );
   });
 

@@ -1,7 +1,9 @@
 import type { WasiyyahBequest } from "@munib-tracker/shared/types";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { JannahCallout, JannahNavRow } from "@/components/jannah/primitives";
 import { AmountInput } from "@/components/records/amount-input";
 import { LabeledInput } from "@/components/records/labeled-input";
@@ -21,15 +23,18 @@ export function WasiyyahBequestCard({
   onChange,
   onRemove,
   onPickHeir,
+  currency,
 }: {
   bequest: WasiyyahBequest;
   onChange: (patch: Partial<WasiyyahBequest>) => void;
   onRemove: () => void;
   onPickHeir: () => void;
+  currency?: string;
 }) {
   const { t } = useTranslation();
+  const [confirmRemove, setConfirmRemove] = useState(false);
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.stack}>
         <LabeledInput
           label={t("wasiyyah.bequests.beneficiary")}
@@ -71,6 +76,7 @@ export function WasiyyahBequestCard({
           <AmountInput
             label={t("wasiyyah.bequests.amount")}
             value={b.amount}
+            currency={currency}
             onChange={(amount) => onChange({ amount })}
           />
         )}
@@ -106,9 +112,21 @@ export function WasiyyahBequestCard({
           label={t("wasiyyah.bequests.remove")}
           variant="ghost"
           size="sm"
-          onPress={onRemove}
+          onPress={() => setConfirmRemove(true)}
         />
       </View>
+      <ConfirmDialog
+        visible={confirmRemove}
+        destructive
+        title={t("wasiyyah.bequests.removeTitle")}
+        message={t("wasiyyah.bequests.removeBody")}
+        confirmLabel={t("wasiyyah.bequests.remove")}
+        onConfirm={() => {
+          setConfirmRemove(false);
+          onRemove();
+        }}
+        onClose={() => setConfirmRemove(false)}
+      />
     </Card>
   );
 }

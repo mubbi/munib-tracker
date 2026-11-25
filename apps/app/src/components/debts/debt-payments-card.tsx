@@ -4,19 +4,22 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
-import { JannahCallout, JannahNavRow } from "@/components/jannah/primitives";
+import { JannahNavRow } from "@/components/jannah/primitives";
+import { useMoneyNumberFormat } from "@/components/money/use-number-format";
+import { amountToText } from "@/components/records/amount-text";
 import { DayInput } from "@/components/records/day-input";
 import { LabeledInput } from "@/components/records/labeled-input";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
+import { IconButton } from "@/components/ui/icon-button";
+import { NumberField } from "@/components/ui/number-field";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Spacing } from "@/constants/theme";
 import { useRecordFormat } from "@/hooks/use-record-format";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { repaymentFromForm } from "@/lib/debts/debt-form";
 import { type DebtEntry, ribaExcess } from "@/lib/debts/debts";
-import { DEFAULT_NUMBER_FORMAT, formatNumberInput, parseNumberInput } from "@/lib/format-currency";
 
 /**
  * Repayments of a loan (NF-3.8): the list, and — while the record is open —
@@ -37,27 +40,27 @@ export function DebtPaymentsCard({
   const { t } = useTranslation();
   const router = useRouter();
   const format = useRecordFormat();
-  const { tokens } = useThemeTokens();
-  const [amount, setAmount] = useState("");
+  const numberFormat = useMoneyNumberFormat();
+  const [amount, setAmount] = useState<number | undefined>(undefined);
   const [date, setDate] = useState(getLocalDateString());
   const [note, setNote] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const excess = ribaExcess(record, parseNumberInput(amount, DEFAULT_NUMBER_FORMAT));
+  const excess = ribaExcess(record, amount ?? 0);
 
   const add = () => {
-    const result = repaymentFromForm(amount, date, note);
+    const result = repaymentFromForm(amountToText(amount), date, note);
     if (!result.ok) return setError(t(result.error));
     setError(null);
     void onAdd(result.payment).then((stored) => {
       if (!stored) return;
-      setAmount("");
+      setAmount(undefined);
       setNote("");
     });
   };
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("debts.payments.title")}
         icon={{ ios: "list.bullet", android: "list", web: "list" }}
@@ -77,11 +80,9 @@ export function DebtPaymentsCard({
                   {p.note ? ` · ${p.note}` : ""}
                 </ThemedText>
               </View>
-              <Button
-                label={t("common.remove")}
-                variant="ghost"
-                size="sm"
-                accessibilityHint={t("debts.payments.remove")}
+              <IconButton
+                name={{ ios: "trash", android: "delete", web: "delete" }}
+                accessibilityLabel={t("debts.payments.remove")}
                 onPress={() => onRemove(p.id)}
               />
             </View>
@@ -89,20 +90,26 @@ export function DebtPaymentsCard({
         )}
         {record.status === "open" ? (
           <>
-            <LabeledInput
+            <NumberField
               label={t("debts.payments.amount")}
               value={amount}
-              onChangeText={(v) => setAmount(formatNumberInput(v, 2, DEFAULT_NUMBER_FORMAT))}
-              keyboardType="decimal-pad"
-              placeholder="0"
+              onChangeValue={(next) => {
+                setAmount(next);
+                // B-38: a new amount clears the previous attempt's error.
+                setError(null);
+              }}
+              numberFormat={numberFormat}
+              maxFractionDigits={2}
+              suffix={currency}
+              error={error && amount == null ? error : undefined}
             />
             <DayInput label={t("debts.payments.date")} value={date} onChangeText={setDate} />
             <LabeledInput label={t("debts.payments.note")} value={note} onChangeText={setNote} />
             {excess > 0 ? (
               <View style={styles.riba}>
-                <JannahCallout tone="warning">
+                <Callout tone="warning">
                   {t("debts.riba.body", { excess: format.money(excess, currency) })}
-                </JannahCallout>
+                </Callout>
                 <JannahNavRow
                   icon={{ ios: "text.book.closed", android: "article", web: "article" }}
                   title={t("debts.riba.link")}
@@ -115,15 +122,7 @@ export function DebtPaymentsCard({
                 />
               </View>
             ) : null}
-            {error ? (
-              <ThemedText
-                type="small"
-                style={{ color: tokens.status.danger.text }}
-                accessibilityRole="alert"
-              >
-                {error}
-              </ThemedText>
-            ) : null}
+            {error && amount != null ? <Callout tone="danger">{error}</Callout> : null}
             <Button label={t("debts.payments.add")} onPress={add} />
           </>
         ) : null}
@@ -135,6 +134,6 @@ export function DebtPaymentsCard({
 const styles = StyleSheet.create({
   form: { gap: Spacing.three, marginTop: Spacing.two },
   payment: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  paymentText: { flex: 1, gap: 2 },
+  paymentText: { flex: 1, gap: Spacing.half },
   riba: { gap: Spacing.two },
 });

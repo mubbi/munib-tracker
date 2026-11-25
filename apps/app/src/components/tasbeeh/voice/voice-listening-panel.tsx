@@ -13,7 +13,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { SessionCountingMode } from "@/lib/tasbeeh-voice/mode";
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   panelCompact: {
     gap: Spacing.one,
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   chipRow: {
     flexDirection: "row",

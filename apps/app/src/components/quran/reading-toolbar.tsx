@@ -17,7 +17,8 @@ import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
@@ -443,17 +444,17 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     maxWidth: 200,
-    paddingVertical: Spacing.two - 1,
+    paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     borderColor: "transparent",
   },
   chipTv: {
-    maxWidth: 280,
+    maxWidth: tvDp(280),
     minHeight: TvLayout.chipMinHeight,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.four,
@@ -468,7 +469,7 @@ const styles = StyleSheet.create({
   fontChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingStart: Spacing.three,
     paddingEnd: Spacing.half,
     borderRadius: Radius.pill,

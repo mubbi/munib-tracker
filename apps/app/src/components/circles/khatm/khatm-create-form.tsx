@@ -14,7 +14,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SegmentedControl } from "@/components/ui/segmented-control";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { Spacing } from "@/constants/theme";
 import {
   type CircleDetail,
@@ -95,7 +95,7 @@ export function KhatmCreateForm({
 
   return (
     <View style={styles.stack}>
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         {!circleId ? (
           <>
             <LabeledInput
@@ -131,7 +131,7 @@ export function KhatmCreateForm({
         />
       </Card>
 
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         <ThemedText type="smallBold">{t("khatmGroups.create.unit")}</ThemedText>
         <SegmentedControl<KhatmUnit>
           options={[
@@ -167,25 +167,18 @@ export function KhatmCreateForm({
           onChange={setDeadline}
         />
         {!circleId && home ? (
-          <View style={styles.switchRow}>
-            <View style={styles.switchText}>
-              <ThemedText type="smallBold">{t("khatmGroups.create.tagMasjid")}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("khatmGroups.create.tagMasjidHint", {
-                  name: home.name ?? t("khatmGroups.create.homeMasjid"),
-                })}
-              </ThemedText>
-            </View>
-            <ThemedSwitch
-              value={tagMasjid}
-              onValueChange={setTagMasjid}
-              accessibilityLabel={t("khatmGroups.create.tagMasjid")}
-            />
-          </View>
+          <SwitchRow
+            title={t("khatmGroups.create.tagMasjid")}
+            subtitle={t("khatmGroups.create.tagMasjidHint", {
+              name: home.name ?? t("khatmGroups.create.homeMasjid"),
+            })}
+            value={tagMasjid}
+            onValueChange={setTagMasjid}
+          />
         ) : null}
       </Card>
 
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         <ThemedText type="small" themeColor="mutedForeground">
           {t("khatmGroups.intentionNote.body")}
         </ThemedText>
@@ -203,6 +196,4 @@ export function KhatmCreateForm({
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
   gap: { gap: Spacing.two },
-  switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  switchText: { flex: 1, gap: Spacing.half },
 });

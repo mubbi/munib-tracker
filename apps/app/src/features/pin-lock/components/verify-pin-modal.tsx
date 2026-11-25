@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Modal } from "react-native";
 import { PinKeypad } from "@/features/pin-lock/components/pin-keypad";
+import { PinSheet } from "@/features/pin-lock/components/pin-sheet";
 import { PinShell } from "@/features/pin-lock/components/pin-shell";
 import { PIN_LENGTH } from "@/features/pin-lock/lib/pin-crypto";
 import { triggerHaptic } from "@/lib/haptics";
@@ -75,16 +75,12 @@ export function VerifyPinModal({
 
   if (!visible) return null;
 
+  const displayTitle = title ?? t("pinLock.enterPin");
+
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={handleClose}
-      statusBarTranslucent
-    >
+    <PinSheet visible={visible} onClose={handleClose} accessibilityLabel={displayTitle}>
       <PinShell
-        title={title ?? t("pinLock.enterPin")}
+        title={displayTitle}
         subtitle={
           isVerifying ? t("pinLock.verifyingPin") : (subtitle ?? t("pinLock.enterPinSubtitle"))
         }
@@ -104,6 +100,6 @@ export function VerifyPinModal({
           />
         }
       />
-    </Modal>
+    </PinSheet>
   );
 }

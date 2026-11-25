@@ -92,6 +92,27 @@ describe("trackerStore", () => {
     expect(counter.completed).toBe(1);
   });
 
+  it("removeQazaProgress credits back at most what the counter holds as completed", async () => {
+    const date = getLocalDateString();
+    await trackerStore.getState().adjustQaza("isha", 5, 2);
+    await trackerStore.getState().removeQazaProgress("isha", date, 4);
+    const counter = await QazaRepository.getCounter("isha");
+    expect(counter.remaining).toBe(7);
+    expect(counter.completed).toBe(0);
+  });
+
+  it("load failure sets loadError, keeps isReady false, and a retry clears it", async () => {
+    trackerStore.setState({ isReady: false, loadError: null });
+    const spy = jest.spyOn(QazaRepository, "getCounters").mockRejectedValueOnce(new Error("boom"));
+    await trackerStore.getState().load();
+    expect(trackerStore.getState().isReady).toBe(false);
+    expect(trackerStore.getState().loadError).toBeTruthy();
+    spy.mockRestore();
+    await trackerStore.getState().load();
+    expect(trackerStore.getState().isReady).toBe(true);
+    expect(trackerStore.getState().loadError).toBeNull();
+  });
+
   it("applies calculator counters in one shot and updates the store immediately", async () => {
     const applyPromise = trackerStore.getState().setQazaCounters({
       fajr: { remaining: 100, completed: 1 },

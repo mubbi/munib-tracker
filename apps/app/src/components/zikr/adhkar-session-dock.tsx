@@ -12,13 +12,22 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { AdhkarCountBeads, showsBeads } from "@/components/zikr/adhkar-count-beads";
 import type { AdhkarCounterControls } from "@/components/zikr/adhkar-counter-panel";
+import { CountNumeral } from "@/components/zikr/count-numeral";
 import { Springs } from "@/constants/motion";
-import { MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import {
+  BorderWidth,
+  Breakpoints,
+  MaxContentWidth,
+  Radius,
+  Spacing,
+  withAlpha,
+} from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -64,7 +73,7 @@ export function AdhkarSessionDock({
   const chevronForward = useChevronForward();
   const tv = isTV();
   const { width } = useWindowDimensions();
-  const padHeight = width >= 768 ? PAD_HEIGHT_TABLET : PAD_HEIGHT;
+  const padHeight = width >= Breakpoints.tablet ? PAD_HEIGHT_TABLET : PAD_HEIGHT;
   const shown = Math.min(count, target);
   const done = shown >= target;
   const single = target <= 1;
@@ -167,7 +176,12 @@ export function AdhkarSessionDock({
             onLayout={(event: LayoutChangeEvent) => setPadWidth(event.nativeEvent.layout.width)}
             accessibilityRole="button"
             accessibilityLabel={single ? t("zikrSession.tapWhenRecited") : t("common.count")}
-            accessibilityValue={{ now: shown, min: 0, max: target }}
+            accessibilityValue={{
+              now: shown,
+              min: 0,
+              max: target,
+              text: t("zikr.countOfTarget", { current: shown, target }),
+            }}
             accessibilityState={{ disabled: done }}
             {...(tv ? { hasTVPreferredFocus: true } : {})}
             style={[
@@ -207,7 +221,7 @@ export function AdhkarSessionDock({
                     tintColor={accent}
                   />
                 ) : (
-                  <ThemedText style={[styles.count, { color: accent }]}>{shown}</ThemedText>
+                  <CountNumeral value={shown} color={accent} />
                 )}
                 {!single && !done ? (
                   <ThemedText type="caption" themeColor="mutedForeground" style={styles.of}>
@@ -250,60 +264,33 @@ export function AdhkarSessionDock({
         </View>
 
         <View style={styles.actions}>
-          <PressableScale
-            haptic="light"
+          <Button
+            label={t("tasbeehUi.undo")}
+            variant="ghost"
+            icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
             disabled={shown <= 0}
-            accessibilityRole="button"
-            accessibilityLabel={t("tasbeehUi.undo")}
             onPress={onUndo}
-            style={[styles.action, { opacity: shown > 0 ? 1 : 0.45 }]}
-          >
-            <SymbolView
-              name={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
-              size={14}
-              tintColor={colors.mutedForeground}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("tasbeehUi.undo")}
-            </ThemedText>
-          </PressableScale>
+          />
 
           {voiceToggle}
 
           {done ? (
-            <PressableScale
-              haptic="light"
-              accessibilityRole="button"
+            <Button
+              label={t("zikrSession.markNotDone")}
+              variant="ghost"
+              icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
               accessibilityHint={t("zikrSession.resetHint")}
               onPress={onReset}
-              style={styles.action}
-            >
-              <SymbolView
-                name={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
-                size={14}
-                tintColor={colors.mutedForeground}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("zikrSession.markNotDone")}
-              </ThemedText>
-            </PressableScale>
+            />
           ) : (
-            <PressableScale
+            <Button
+              label={t("zikrSession.markComplete")}
+              variant="secondary"
               haptic="success"
-              accessibilityRole="button"
+              icon={{ ios: "checkmark", android: "check", web: "check" }}
               accessibilityHint={t("zikrSession.markCompleteHint")}
               onPress={onComplete}
-              style={[styles.action, styles.completeAction, { backgroundColor: tokens.accentSoft }]}
-            >
-              <SymbolView
-                name={{ ios: "checkmark", android: "check", web: "check" }}
-                size={13}
-                tintColor={colors.accentText}
-              />
-              <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-                {t("zikrSession.markComplete")}
-              </ThemedText>
-            </PressableScale>
+            />
           )}
         </View>
       </View>
@@ -318,7 +305,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 12,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
     paddingTop: Spacing.three,
     paddingHorizontal: Spacing.three,
   },
@@ -334,7 +321,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     overflow: "hidden",
     justifyContent: "center",
   },
@@ -345,13 +332,7 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     paddingHorizontal: Spacing.four,
   },
-  countBlock: { flexDirection: "row", alignItems: "baseline", gap: 2, minWidth: 56 },
-  count: {
-    fontSize: 32,
-    lineHeight: 38,
-    fontWeight: "700",
-    fontVariant: ["tabular-nums"],
-  },
+  countBlock: { flexDirection: "row", alignItems: "baseline", gap: Spacing.half, minWidth: 56 },
   of: { fontVariant: ["tabular-nums"] },
   padCopy: { flex: 1, minWidth: 0, gap: 1 },
   actions: {
@@ -360,14 +341,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: Spacing.one,
   },
-  action: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one,
-    paddingHorizontal: Spacing.two,
-    paddingVertical: Spacing.one + 2,
-    minHeight: 36,
-    borderRadius: 999,
-  },
-  completeAction: { paddingHorizontal: Spacing.three },
 });

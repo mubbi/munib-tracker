@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { arabicReadingLayout } from "@/lib/reading-typography";
@@ -75,10 +75,7 @@ export function HadithSharhBlock({
         </ThemedText>
         {!expanded ? (
           <View style={[styles.showPill, { backgroundColor: colors.accent }]}>
-            <ThemedText
-              type="caption"
-              style={{ color: colors.accentForeground, fontWeight: "600" }}
-            >
+            <ThemedText weight="semibold" type="caption" style={{ color: colors.accentForeground }}>
               {t("common.show")}
             </ThemedText>
             <SymbolView
@@ -125,7 +122,11 @@ export function HadithSharhBlock({
             // leaves it once the end is reached.
             focusable={isTV() ? true : undefined}
           >
-            <ThemedText type="arabic" style={arabicReadingLayout(arabicSize)}>
+            <ThemedText
+              type="arabic"
+              accessibilityLanguage="ar"
+              style={arabicReadingLayout(arabicSize)}
+            >
               {body}
             </ThemedText>
           </TvScrollView>
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   iconWrap: {
     width: 28,
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
   showPill: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 2,
+    gap: Spacing.half,
     paddingHorizontal: Spacing.two,
     paddingVertical: Spacing.half,
     borderRadius: Radius.sm,
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
   body: {
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     paddingHorizontal: Spacing.three,
     paddingTop: Spacing.two,
     paddingBottom: Spacing.three,

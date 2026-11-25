@@ -15,7 +15,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid, responsiveColumns } from "@/components/ui/responsive-grid";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Breakpoints, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { isTV } from "@/lib/platform/is-tv";
@@ -59,7 +59,7 @@ export type LearnWideLayout = {
 export function useLearnWideLayout(): LearnWideLayout {
   const { width, height } = useWindowDimensions();
   const tv = isTV();
-  const wide = !tv && width >= 768;
+  const wide = !tv && width >= Breakpoints.tablet;
   const split = !tv && width >= LEARN_ASIDE_BREAKPOINT;
   return {
     wide,
@@ -173,6 +173,10 @@ export type LearnTopicGridItem = {
   subtitle?: string;
   badge?: string;
   tint?: string;
+  /** Not available yet (coming soon): muted, announced as disabled, never pressable. */
+  disabled?: boolean;
+  /** TV: request initial D-pad focus on this row. */
+  preferredFocus?: boolean;
   onPress: () => void;
 };
 
@@ -184,36 +188,84 @@ export type LearnTopicGridItem = {
 export function LearnTopicGrid({
   items,
   maxColumns = 2,
+  tvColumns = 1,
   style,
 }: {
   items: LearnTopicGridItem[];
   maxColumns?: number;
+  /** TV: columns used on the landscape canvas (default 1; D-pad moves row by row). */
+  tvColumns?: number;
   style?: StyleProp<ViewStyle>;
 }) {
-  const cols = useLearnColumns({ max: maxColumns });
-  if (cols <= 1) {
+  const tv = isTV();
+  const gridCols = useLearnColumns({ max: maxColumns });
+  const cols = tv ? tvColumns : gridCols;
+  if (cols <= 1 || tv) {
+    const rows = items.map((item) =>
+      item.disabled ? (
+        <LearnDisabledRow key={item.id} item={item} />
+      ) : (
+        <JannahNavRow
+          key={item.id}
+          icon={item.icon}
+          title={item.title}
+          subtitle={item.subtitle}
+          badge={item.badge}
+          tint={item.tint}
+          preferredFocus={item.preferredFocus}
+          onPress={item.onPress}
+        />
+      ),
+    );
+    if (cols <= 1) return <View style={style}>{rows}</View>;
+    // TV: landscape canvas — wrap rows into columns; D-pad still moves row by row.
     return (
-      <View style={style}>
-        {items.map((item) => (
-          <JannahNavRow
-            key={item.id}
-            icon={item.icon}
-            title={item.title}
-            subtitle={item.subtitle}
-            badge={item.badge}
-            tint={item.tint}
-            onPress={item.onPress}
-          />
+      <View style={[style, styles.tvWrap]}>
+        {rows.map((row) => (
+          <View key={row.key} style={styles.tvCell}>
+            {row}
+          </View>
         ))}
       </View>
     );
   }
   return (
     <ResponsiveGrid columns={cols} gap={Spacing.two} style={gridStyle(cols, style)}>
-      {items.map((item) => (
-        <LearnTopicTile key={item.id} item={item} />
-      ))}
+      {items.map((item) =>
+        item.disabled ? (
+          <LearnDisabledRow key={item.id} item={item} />
+        ) : (
+          <LearnTopicTile key={item.id} item={item} />
+        ),
+      )}
     </ResponsiveGrid>
+  );
+}
+
+/** Unavailable topic (G-60): visibly muted, announced as disabled, never pressable. */
+function LearnDisabledRow({ item }: { item: LearnTopicGridItem }) {
+  const { colors } = useThemeTokens();
+  return (
+    <View
+      testID={`learn-disabled-${item.id}`}
+      accessible
+      accessibilityRole="text"
+      accessibilityState={{ disabled: true }}
+      accessibilityLabel={[item.title, item.subtitle, item.badge].filter(Boolean).join(". ")}
+      style={[styles.disabledRow, { backgroundColor: colors.muted }]}
+    >
+      <ThemedText type="smallBold" themeColor="mutedForeground">
+        {item.title}
+      </ThemedText>
+      {item.subtitle ? (
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {item.subtitle}
+        </ThemedText>
+      ) : null}
+      {item.badge ? (
+        <Pill label={item.badge} compact color={colors.mutedForeground} background={colors.card} />
+      ) : null}
+    </View>
   );
 }
 
@@ -256,6 +308,8 @@ function LearnTopicTile({ item }: { item: LearnTopicGridItem }) {
 }
 
 const styles = StyleSheet.create({
+  tvWrap: { flexDirection: "row", flexWrap: "wrap" },
+  tvCell: { flexBasis: "48%", flexGrow: 1 },
   noColumnGap: { columnGap: 0 },
   split: {
     flexDirection: "row",
@@ -277,11 +331,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    paddingVertical: Spacing.two + 4,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     minHeight: 56,
+  },
+  disabledRow: {
+    flex: 1,
+    gap: Spacing.one,
+    alignItems: "flex-start",
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
   },
   tileCopy: { flex: 1, gap: Spacing.half, minWidth: 0 },
   tileBadge: { alignSelf: "flex-start", marginTop: Spacing.half },

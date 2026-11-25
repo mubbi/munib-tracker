@@ -1,14 +1,12 @@
-import { isValidInviteCode, normalizeInviteCode } from "@munib-tracker/shared/circles";
 import { type Href, useRouter } from "expo-router";
-import { useState } from "react";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, type TextInputInstance, View } from "react-native";
 
-import { CircleAccountGate } from "@/components/circles/account-gate";
+import { CircleCodeEntry } from "@/components/circles/code-entry";
 import { JoinNearbyButton } from "@/components/circles/nearby/nearby-join-sheet";
 import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
 import { ScreenLayout } from "@/components/screen-layout";
-import { TextField } from "@/components/self-review/text-field";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -17,6 +15,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Spacing } from "@/constants/theme";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { circleHomeHref } from "@/lib/circles/family";
 import { useCircleAuth, useCircles } from "@/lib/circles/hooks";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -43,17 +42,21 @@ export default function CirclesHubScreen() {
   const router = useRouter();
   const auth = useCircleAuth();
   const circles = useCircles();
-  const [code, setCode] = useState("");
   const tv = isTV();
-  const codeValid = isValidInviteCode(code);
+  const scrollRef = useRef<ScrollViewInstance>(null);
+  const codeRef = useRef<TextInputInstance>(null);
+  const sections = useRef({ start: 0, join: 0 });
+  const reduceMotion = useHydrationSafeReducedMotion();
 
-  const join = () => {
-    if (!codeValid) return;
-    router.push({
-      pathname: "/circle/join/[code]",
-      params: { code: normalizeInviteCode(code) },
+  const scrollTo = (key: "start" | "join") =>
+    scrollRef.current?.scrollTo({
+      y: Math.max(0, sections.current[key] - 8),
+      animated: !reduceMotion,
     });
-  };
+
+  const join = (code: string) => router.push({ pathname: "/circle/join/[code]", params: { code } });
+
+  const hasCircles = (circles.data ?? []).length > 0;
 
   return (
     <ScreenLayout
@@ -61,6 +64,7 @@ export default function CirclesHubScreen() {
       title={t("circles.hub.title")}
       subtitle={t("circles.hub.subtitle")}
       onBack={() => goBackOrReplace(router, "/library")}
+      scrollRef={scrollRef}
     >
       <Seo path="/circles" index={false} />
       <View style={styles.stack}>
@@ -68,12 +72,26 @@ export default function CirclesHubScreen() {
           <CircleLoading />
         ) : circles.isError ? (
           <CircleRetryCard onRetry={() => void circles.refetch()} />
-        ) : (circles.data ?? []).length === 0 ? (
-          <EmptyState
-            icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}
-            title={t("circles.hub.emptyTitle")}
-            description={t("circles.hub.emptyBody")}
-          />
+        ) : !hasCircles ? (
+          <>
+            <EmptyState
+              icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}
+              title={t("circles.hub.emptyTitle")}
+              description={t("circles.hub.emptyBody")}
+              actionLabel={t("circles.hub.startTitle")}
+              onAction={() => scrollTo("start")}
+            />
+            {!tv ? (
+              <Button
+                variant="secondary"
+                label={t("circles.hub.joinTitle")}
+                onPress={() => {
+                  scrollTo("join");
+                  codeRef.current?.focus();
+                }}
+              />
+            ) : null}
+          </>
         ) : (
           <Card padding="two" style={styles.gap}>
             {(circles.data ?? []).map((circle) => (
@@ -88,54 +106,52 @@ export default function CirclesHubScreen() {
           </Card>
         )}
 
-        <SectionHeader title={t("circles.hub.familyTitle")} />
-        {auth.isAccount ? (
-          <Card padding="three" style={styles.gap}>
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("circles.hub.familyBody")}
-            </ThemedText>
-            <Button label={t("circles.hub.openFamily")} onPress={() => router.push("/family")} />
-          </Card>
-        ) : (
-          <CircleAccountGate />
-        )}
-
-        {/* NF-3.17 / NF-3.18 — their own screens handle creation. */}
-        <Card padding="two" style={styles.gap}>
-          <NavRow
-            icon={TYPE_ICON.partner}
-            label={t("partnerCircle.title")}
-            onPress={() => router.push("/partner" as Href)}
-          />
-          <NavRow
-            icon={TYPE_ICON.khatm_group}
-            label={t("khatmGroups.title")}
-            onPress={() => router.push("/khatm-groups" as Href)}
-          />
-        </Card>
-
+        {/* Invited people join first: a code (or a nearby host) is the shortest path in. */}
         {!tv ? (
-          <>
+          <View
+            onLayout={(e) => (sections.current.join = e.nativeEvent.layout.y)}
+            style={styles.stack}
+          >
             <SectionHeader title={t("circles.hub.joinTitle")} />
-            <Card padding="three" style={styles.gap}>
-              <TextField
-                label={t("circles.hub.codeLabel")}
-                hint={t("circles.hub.codeHint")}
-                value={code}
-                onChangeText={setCode}
-                autoCapitalize="characters"
-                autoCorrect={false}
-                maxLength={16}
-                onSubmitEditing={join}
-              />
-              <Button label={t("circles.hub.join")} disabled={!codeValid} onPress={join} />
+            <Card style={styles.gap}>
+              <CircleCodeEntry ref={codeRef} onSubmit={join} />
               {/* NF-3.25: phones next to each other, host-approved (hidden on web / TV). */}
               <JoinNearbyButton />
             </Card>
-          </>
+          </View>
         ) : null}
 
-        <Card padding="three" style={styles.gap}>
+        {/* Three ways to start, one look: each opens its own screen (NF-3.16 – 3.18). */}
+        <View
+          onLayout={(e) => (sections.current.start = e.nativeEvent.layout.y)}
+          style={styles.stack}
+        >
+          <SectionHeader title={t("circles.hub.startTitle")} />
+          <Card padding="two" style={styles.gap}>
+            <NavRow
+              icon={TYPE_ICON.family}
+              label={t("circles.hub.familyTitle")}
+              subtitle={
+                auth.isAccount ? t("circles.hub.familyShort") : t("circles.hub.familyNeedsAccount")
+              }
+              onPress={() => router.push("/family")}
+            />
+            <NavRow
+              icon={TYPE_ICON.partner}
+              label={t("partnerCircle.title")}
+              subtitle={t("partnerCircle.subtitle")}
+              onPress={() => router.push("/partner" as Href)}
+            />
+            <NavRow
+              icon={TYPE_ICON.khatm_group}
+              label={t("khatmGroups.title")}
+              subtitle={t("khatmGroups.subtitle")}
+              onPress={() => router.push("/khatm-groups" as Href)}
+            />
+          </Card>
+        </View>
+
+        <Card style={styles.gap}>
           <ThemedText type="smallBold">{t("circles.privacy.title")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("circles.privacy.body")}

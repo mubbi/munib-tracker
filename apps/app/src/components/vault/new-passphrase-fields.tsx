@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
 
-import { ThemedText } from "@/components/themed-text";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { assessPassphrase } from "@/lib/vault/passphrase-strength";
 
 import { PassphraseField } from "./passphrase-field";
@@ -41,7 +39,6 @@ export function NewPassphraseFields({
   onSubmitEditing,
 }: NewPassphraseFieldsProps) {
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
   const mismatch = confirm.length > 0 && confirm !== value;
   return (
     <>
@@ -59,16 +56,8 @@ export function NewPassphraseFields({
         onChangeText={onChangeConfirm}
         purpose="newPassword"
         onSubmitEditing={onSubmitEditing}
+        error={mismatch ? t("vault.passphrase.mismatch") : undefined}
       />
-      {mismatch ? (
-        <ThemedText
-          type="caption"
-          accessibilityLiveRegion="polite"
-          style={{ color: tokens.status.danger.text }}
-        >
-          {t("vault.passphrase.mismatch")}
-        </ThemedText>
-      ) : null}
     </>
   );
 }

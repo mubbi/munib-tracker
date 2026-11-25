@@ -133,7 +133,7 @@ export default function DhulHijjahScreen() {
         {focus !== "arafah" ? arafah : null}
         {focus !== "tashriq" ? tashriq : null}
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("dhulHijjah.udhiyah.title")}
             icon={{ ios: "leaf.fill", android: "eco", web: "eco" }}
@@ -159,7 +159,7 @@ export default function DhulHijjahScreen() {
           </View>
         </Card>
 
-        <Card padding="three">
+        <Card>
           <SectionHeader title={t("dhulHijjah.eid.title")} icon={DHUL_HIJJAH_ICON} />
           <View style={styles.body}>
             <ThemedText type="caption" themeColor="mutedForeground">
@@ -174,7 +174,7 @@ export default function DhulHijjahScreen() {
           </View>
         </Card>
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("dhulHijjah.reminders.title")}
             icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}

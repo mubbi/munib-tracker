@@ -45,7 +45,7 @@ function PrayPanel({
   const learning = child.ageBand === "learning";
   return (
     <View style={styles.stack}>
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         <ThemedText type="small" themeColor="mutedForeground">
           {learning ? t("kids.pray.learningHint") : t("kids.pray.hint")}
         </ThemedText>
@@ -55,7 +55,7 @@ function PrayPanel({
         </ThemedText>
       </Card>
       {child.reward && reward ? (
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="smallBold">
             {reward.reached
               ? t("family.reward.reached", { title: child.reward.title })
@@ -65,7 +65,7 @@ function PrayPanel({
                   target: reward.target,
                 })}
           </ThemedText>
-          <ProgressBar value={reward.ratio} />
+          <ProgressBar value={reward.ratio} accessibilityLabel={t("a11yProgress.reward")} />
         </Card>
       ) : null}
     </View>
@@ -103,7 +103,7 @@ export function DevicePrayTab({ child }: { child: ChildProfile }) {
     <View style={styles.stack}>
       {child.consentPending ? (
         // D34: calm, never punishing — taps are kept on this device meanwhile.
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="smallBold">{t("kids.consentPending.title")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("kids.consentPending.body")}

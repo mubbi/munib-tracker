@@ -2,11 +2,12 @@ import type { ReadingSurface } from "@munib-tracker/shared/types";
 import type { ContentReportReference } from "@munib-tracker/shared/types/content-report";
 import { type Href, useRouter } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
-import type { ReactNode } from "react";
+import type { ReactNode, RefObject } from "react";
 import { useTranslation } from "react-i18next";
+import type { NativeScrollEvent, NativeSyntheticEvent, ScrollViewInstance } from "react-native";
 
 import { JannahDisclaimer } from "@/components/jannah/primitives";
-import { LearnContentLoading } from "@/components/learn-content-loading";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -43,19 +44,32 @@ export function learnTopicBreadcrumbs(
  * not-found states, the ≥1200 split layout with an "in this module" aside, the
  * reading-typography surface and the module disclaimer (with its content-report
  * reference). Routes now supply only the topic, aside and body.
+ *
+ * Body states go through `LearnContentGate`: skeleton while `ready` is false,
+ * `RetryCard` when `error` is set (pass `useEnsureContent().error` / `.retry`),
+ * `EmptyState` back to the hub when the topic id is unknown. Audio-follow
+ * screens pass `scrollRef` / `onScroll`; `headerTrailing` adds up to two header
+ * `IconButton`s (save, share) — see `AppHeader`.
  */
 export function LearnTopicArticle<T extends ArticleTopic>({
   ns,
   basePath,
   topic,
   ready = true,
+  error,
+  onRetry,
   surface,
   aside,
   children,
   afterContent,
   disclaimerKey = `${ns}.disclaimer`,
   contentRef,
-  readingProgress,
+  // Articles opt in to the reading-progress bar (P4-07 made it opt-in so hubs,
+  // quizzes and flash cards no longer get one).
+  readingProgress = true,
+  scrollRef,
+  onScroll,
+  headerTrailing,
 }: {
   /** i18n namespace owning `.title`, `.eyebrow`, `.notFound`, `.disclaimer`. */
   ns: string;
@@ -64,6 +78,10 @@ export function LearnTopicArticle<T extends ArticleTopic>({
   topic: T | undefined;
   /** False while a lazily loaded corpus is still arriving (shows the loading state). */
   ready?: boolean;
+  /** Load failure from `useEnsureContent().error` — renders "Try again" instead of a loader. */
+  error?: unknown;
+  /** Retry for `error` (`useEnsureContent().retry`). */
+  onRetry?: () => void;
   surface: ReadingSurface;
   aside: (topic: T) => ReactNode;
   /** Article body, inside the reading-typography surface. */
@@ -74,6 +92,11 @@ export function LearnTopicArticle<T extends ArticleTopic>({
   contentRef?: ContentReportReference;
   /** Forwarded to `ScreenLayout` (top reading-progress bar). */
   readingProgress?: boolean;
+  /** Forwarded to `ScreenLayout` — e.g. audio follow scrolling to the playing step. */
+  scrollRef?: RefObject<ScrollViewInstance | null>;
+  onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  /** Header trailing actions (at most two `IconButton`s). */
+  headerTrailing?: ReactNode;
 }) {
   const router = useRouter();
   const { t } = useTranslation();
@@ -98,6 +121,9 @@ export function LearnTopicArticle<T extends ArticleTopic>({
       subtitle={topic?.summary ?? ""}
       onBack={() => goBackOrReplace(router, basePath as Href)}
       maxContentWidth={maxContentWidth}
+      scrollRef={scrollRef}
+      onScroll={onScroll}
+      trailing={headerTrailing}
     >
       <Seo
         path={detailPath}
@@ -119,24 +145,24 @@ export function LearnTopicArticle<T extends ArticleTopic>({
             : undefined
         }
       />
-      {!ready ? (
-        <LearnContentLoading />
-      ) : !topic ? (
-        <EmptyState
-          icon={NOT_FOUND_ICON}
-          title={t(`${ns}.notFound`)}
-          actionLabel={moduleTitle}
-          onAction={() => router.replace(basePath as Href)}
-        />
-      ) : (
-        <LearnSplitLayout aside={aside(topic)}>
-          <Stagger>
-            <LearnReadingChrome surface={surface}>{children(topic)}</LearnReadingChrome>
-            {afterContent?.(topic)}
-            <JannahDisclaimer textKey={disclaimerKey} contentRef={contentRef} />
-          </Stagger>
-        </LearnSplitLayout>
-      )}
+      <LearnContentGate ready={ready} error={error} onRetry={onRetry}>
+        {!topic ? (
+          <EmptyState
+            icon={NOT_FOUND_ICON}
+            title={t(`${ns}.notFound`)}
+            actionLabel={moduleTitle}
+            onAction={() => router.replace(basePath as Href)}
+          />
+        ) : (
+          <LearnSplitLayout aside={aside(topic)}>
+            <Stagger>
+              <LearnReadingChrome surface={surface}>{children(topic)}</LearnReadingChrome>
+              {afterContent?.(topic)}
+              <JannahDisclaimer textKey={disclaimerKey} contentRef={contentRef} />
+            </Stagger>
+          </LearnSplitLayout>
+        )}
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

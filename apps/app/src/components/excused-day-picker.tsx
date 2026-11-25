@@ -9,7 +9,7 @@ import { ThemedText } from "@/components/themed-text";
 import { TravelModeSheet } from "@/components/travel/travel-mode-sheet";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
@@ -77,7 +77,8 @@ export function ExcusedDayPicker({
     <View style={styles.row}>
       {EXCUSED_REASONS.map((reason) => {
         const active = excusedReason === reason;
-        const tint = active ? tokens.status.info.color : colors.mutedForeground;
+        // Text / glyph on the soft fill use the AA `onSoft` tone, not the raw hue.
+        const tint = active ? tokens.status.info.onSoft : colors.mutedForeground;
         return (
           <PressableScale
             key={reason}
@@ -97,7 +98,7 @@ export function ExcusedDayPicker({
                     ? tokens.hairline
                     : tokens.status.info.color
                   : "transparent",
-                ...(isTV() ? { borderWidth: StyleSheet.hairlineWidth } : null),
+                ...(isTV() ? { borderWidth: BorderWidth.hairline } : null),
               },
             ]}
           >
@@ -117,6 +118,7 @@ export function ExcusedDayPicker({
             <View style={styles.chipContent}>
               <SymbolView name={EXCUSED_REASON_ICONS[reason]} size={18} tintColor={tint} />
               <ThemedText
+                weight="bold"
                 type="caption"
                 style={[styles.chipLabel, { color: tint }]}
                 numberOfLines={1}
@@ -157,6 +159,8 @@ export function ExcusedDayPicker({
         <ThemedText type="smallBold">{t("tracker.excusedTitle")}</ThemedText>
         {hint}
         {chips}
+        {/* Hayd / nifas day counter + prompts — only for today's tracker (uncontrolled). */}
+        {controlled ? null : <BloodPeriodStatus />}
         {travelSheet}
       </View>
     );
@@ -182,7 +186,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     marginTop: Spacing.three,
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   sectionHint: {
     marginTop: Spacing.two,
@@ -198,11 +202,11 @@ const styles = StyleSheet.create({
     minWidth: 0,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.one,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
     minHeight: 64,
   },
   chipCheck: {
@@ -217,7 +221,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   chipLabel: {
-    fontWeight: "700",
     textAlign: "center",
   },
 });

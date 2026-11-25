@@ -7,17 +7,20 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { Stagger } from "@/components/ui/stagger";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import type { BookmarkedHadith } from "@/db/repositories/hadith-repository";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { arabicReadingLayout } from "@/lib/reading-typography";
@@ -46,23 +49,54 @@ export default function HadithBookmarksScreen() {
   const tv = isTV();
 
   const [entries, setEntries] = useState<BookmarkedHadith[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [attempt, setAttempt] = useState(0);
+  const undoToast = useUndoToast();
 
+  // A failed load shows Try again instead of a skeleton that never resolves (B-26).
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `attempt` re-runs the load on retry
   useEffect(() => {
     let active = true;
-    void HadithRepository.getBookmarkedHadiths().then((list) => {
-      if (!active) return;
-      setEntries(list);
-      setLoaded(true);
-    });
+    setStatus("loading");
+    HadithRepository.getBookmarkedHadiths().then(
+      (list) => {
+        if (!active) return;
+        setEntries(list);
+        setStatus("ready");
+      },
+      () => {
+        if (active) setStatus("error");
+      },
+    );
     return () => {
       active = false;
     };
-  }, []);
+  }, [attempt]);
 
-  const remove = async (entry: BookmarkedHadith) => {
-    await HadithRepository.toggleBookmark(entry.item);
-    setEntries((prev) => prev.filter((e) => e.bookmark.hadithId !== entry.bookmark.hadithId));
+  // Un-save is instant with Undo; Undo puts back the exact record and its place.
+  const remove = (entry: BookmarkedHadith) => {
+    const hadithId = entry.bookmark.hadithId;
+    let removed: BookmarkedHadith["bookmark"] | null = null;
+    let index = -1;
+    void undoToast.run({
+      do: async () => {
+        removed = await HadithRepository.removeBookmark(hadithId);
+        setEntries((prev) => {
+          index = prev.findIndex((e) => e.bookmark.hadithId === hadithId);
+          return prev.filter((e) => e.bookmark.hadithId !== hadithId);
+        });
+      },
+      undo: async () => {
+        if (!removed || !(await HadithRepository.restoreBookmark(removed))) return;
+        setEntries((prev) => {
+          if (prev.some((e) => e.bookmark.hadithId === hadithId)) return prev;
+          const next = [...prev];
+          next.splice(index < 0 ? next.length : Math.min(index, next.length), 0, entry);
+          return next;
+        });
+      },
+      messageKey: "hadith.removedFromSaved",
+    });
   };
 
   const shareEntry = useCallback(
@@ -83,7 +117,7 @@ export default function HadithBookmarksScreen() {
   const open = (entry: BookmarkedHadith) =>
     router.push({
       pathname: "/hadith/[collection]",
-      params: { collection: entry.item.collection },
+      params: { collection: entry.item.collection, q: entry.item.reference },
     });
 
   return (
@@ -95,7 +129,12 @@ export default function HadithBookmarksScreen() {
     >
       {SnapshotHost}
       <Seo path="/hadith/bookmarks" />
-      {loaded && entries.length === 0 ? (
+      <TvUndoButton controller={undoToast} preferredFocus />
+      {status === "loading" ? (
+        <ContentState status="loading" skeleton="rows" />
+      ) : status === "error" ? (
+        <ContentState status="error" onRetry={() => setAttempt((n) => n + 1)} />
+      ) : entries.length === 0 ? (
         <EmptyState
           icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
           title={t("hadith.bookmarksEmpty")}
@@ -103,7 +142,7 @@ export default function HadithBookmarksScreen() {
           onAction={() => router.push("/hadith")}
         />
       ) : (
-        <Card padding="three">
+        <Card>
           <Stagger>
             {/* Wide web / tablets: saved hadith in two columns (TV keeps one). */}
             <ResponsiveGrid columns={tv ? 1 : undefined} maxColumns={2} gap={Spacing.two}>
@@ -119,12 +158,17 @@ export default function HadithBookmarksScreen() {
                     onPress={() => open(entry)}
                     style={styles.rowContent}
                   >
-                    <ThemedText type="smallBold" style={{ color: colors.accent }} numberOfLines={1}>
+                    <ThemedText
+                      type="smallBold"
+                      style={{ color: tokens.accentOnSoft }}
+                      numberOfLines={1}
+                    >
                       {entry.item.reference}
                     </ThemedText>
                     {entry.item.arabic ? (
                       <ThemedText
                         type="arabic"
+                        accessibilityLanguage="ar"
                         numberOfLines={2}
                         style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
                       >
@@ -155,8 +199,8 @@ export default function HadithBookmarksScreen() {
                       name={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
                       label={t("quran.actionBookmarked")}
                       iconSize={18}
-                      tintColor={tokens.status.warning.color}
-                      labelColor={tokens.status.warning.color}
+                      tintColor={colors.accentText}
+                      labelColor={colors.accentText}
                       accessibilityLabel={t("hadith.bookmarkRemove")}
                       accessibilityState={{ selected: true }}
                       onPress={() => remove(entry)}

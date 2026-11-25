@@ -21,7 +21,7 @@ export const rowStyles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.three,
   },
-  copy: { flex: 1, gap: 2, minWidth: "40%" },
+  copy: { flex: 1, gap: Spacing.half, minWidth: "40%" },
   titleLine: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: Spacing.two },
   minTv: { minHeight: TvLayout.minFocusTarget },
 });

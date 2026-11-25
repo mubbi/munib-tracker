@@ -1,13 +1,14 @@
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { LocaleFlag } from "@/components/locale-flag";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SearchField } from "@/components/ui/search-field";
 import { Sheet } from "@/components/ui/sheet";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { localeSecondaryLabel } from "@/lib/locale-display";
 import type { EditionLanguageGroup } from "@/lib/quran-edition-groups";
@@ -231,7 +232,13 @@ export function EditionPickerSheet<E extends PickerEdition>({
   );
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false}>
+    <Sheet
+      title={headerTitle}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      scrollable={false}
+    >
       <View style={styles.header}>
         {step === "editions" ? (
           <PressableScale
@@ -247,39 +254,12 @@ export function EditionPickerSheet<E extends PickerEdition>({
             </ThemedText>
           </PressableScale>
         ) : null}
-        <ThemedText type="subtitle">{headerTitle}</ThemedText>
-        <View style={[styles.searchRow, tokens.inputSurface]}>
-          <SymbolView
-            name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            size={16}
-            tintColor={colors.mutedForeground}
-          />
-          <TextInput
-            value={search}
-            onChangeText={setSearch}
-            placeholder={searchPlaceholder}
-            placeholderTextColor={colors.mutedForeground}
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="search"
-            style={[styles.searchInput, { color: colors.foreground }]}
-          />
-          {search.length > 0 ? (
-            <PressableScale
-              haptic="light"
-              hitSlop={8}
-              accessibilityRole="button"
-              accessibilityLabel={t("search.clear")}
-              onPress={() => setSearch("")}
-            >
-              <SymbolView
-                name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
-                size={16}
-                tintColor={colors.mutedForeground}
-              />
-            </PressableScale>
-          ) : null}
-        </View>
+        <SearchField
+          value={search}
+          onChangeText={setSearch}
+          placeholder={searchPlaceholder}
+          accessibilityLabel={searchPlaceholder}
+        />
       </View>
 
       {step === "languages" ? (
@@ -343,20 +323,6 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     paddingVertical: Spacing.one,
   },
-  searchRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Platform.OS === "web" ? Spacing.two : Spacing.one,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: Platform.OS === "web" ? 16 : 15,
-    paddingVertical: Spacing.two,
-  },
   list: {
     flexGrow: 0,
     flexShrink: 1,
@@ -370,7 +336,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     minHeight: 52,
   },
   noneRow: {
@@ -379,7 +345,7 @@ const styles = StyleSheet.create({
   rowText: {
     flex: 1,
     minWidth: 0,
-    gap: 2,
+    gap: Spacing.half,
   },
   flagFallback: {
     width: 28,

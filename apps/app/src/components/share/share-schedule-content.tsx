@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Pill } from "@/components/ui/pill";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ScheduleKind } from "@/lib/prayer-times";
 import type { ScheduleEntryStatus } from "@/lib/schedule-ui";
@@ -140,7 +140,7 @@ export function ShareScheduleContent({
                       ) : null}
                     </View>
                     {isNext && nextIn ? (
-                      <ThemedText type="caption" style={{ color: colors.accent }}>
+                      <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
                         {nextIn}
                       </ThemedText>
                     ) : null}
@@ -168,7 +168,7 @@ export function ShareScheduleContent({
 const styles = StyleSheet.create({
   card: {
     borderRadius: Radius.lg,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     padding: Spacing.three,
     gap: Spacing.three,
   },
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   legendItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   legendDot: {
     width: 8,
@@ -204,12 +204,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     paddingEnd: Spacing.two,
     paddingStart: Spacing.one,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   kindBar: {
     width: 3,
@@ -219,18 +219,18 @@ const styles = StyleSheet.create({
   },
   rowBody: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
     minWidth: 0,
   },
   nameRow: {
     flexDirection: "row",
     alignItems: "center",
     flexWrap: "wrap",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   statePill: {
     paddingVertical: Spacing.half,
-    paddingHorizontal: Spacing.one + 2,
+    paddingHorizontal: Spacing.oneHalf,
   },
   time: {
     fontVariant: ["tabular-nums"],

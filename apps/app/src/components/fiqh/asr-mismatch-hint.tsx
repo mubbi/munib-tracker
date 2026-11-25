@@ -28,7 +28,7 @@ export function AsrMismatchHint() {
   const targetLabel = asrCalculationLabel(target, t);
 
   return (
-    <Card variant="muted" padding="three" style={styles.card}>
+    <Card variant="muted" style={styles.card}>
       <ThemedText type="small" themeColor="mutedForeground">
         {t("fiqhRetrofit.asr.mismatchHint", {
           school: t(`fiqh.school.${madhhab}`),

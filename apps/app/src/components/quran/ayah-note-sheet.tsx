@@ -9,7 +9,7 @@ import {
 } from "@munib-tracker/shared/utils";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { AnnotationSwatches } from "@/components/quran/annotation-swatches";
@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Stepper } from "@/components/ui/stepper";
+import { TextField } from "@/components/ui/text-field";
 import { Radius, Spacing } from "@/constants/theme";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -210,12 +211,15 @@ export function AyahNoteSheet({
 
   return (
     <>
-      <Sheet visible={visible && !confirmDelete} onClose={onClose} variant="bottom" solid>
+      <Sheet
+        title={t("quranNotes.myNote")}
+        visible={visible && !confirmDelete}
+        onClose={onClose}
+        variant="bottom"
+        solid
+      >
         <View style={styles.header}>
-          <ThemedText type="caption" style={{ color: colors.accentText }}>
-            {t("quranNotes.myNote")}
-          </ThemedText>
-          <ThemedText type="subtitle">
+          <ThemedText type="bodyLarge" weight="semibold">
             {getSurahByNumber(surah)?.nameTransliteration ?? ""} · {ref}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
@@ -223,56 +227,63 @@ export function AyahNoteSheet({
           </ThemedText>
         </View>
 
-        <View style={styles.field}>
-          <TextInput
-            value={draft.body}
-            onChangeText={(body) => {
-              if (stt.listening) stt.abort();
-              setDraft((d) => ({ ...d, body }));
-            }}
-            placeholder={t("quranNotes.bodyPlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("quranNotes.bodyLabel")}
-            multiline
-            maxLength={QURAN_NOTE_BODY_MAX}
-            textAlignVertical="top"
-            style={[
-              styles.body,
-              tokens.inputSurface,
-              stt.listening ? { borderColor: colors.accent } : null,
-              {
-                color: colors.foreground,
-                writingDirection: bodyDir,
-                textAlign: bodyDir === "rtl" ? "right" : "left",
-                paddingEnd: stt.available && !tv ? Spacing.three + 44 : Spacing.three,
-              },
-            ]}
-            testID="ayah-note-body"
-          />
-          {stt.available && !tv ? (
-            <View style={styles.mic}>
-              <VoiceInputButton
-                size="sm"
-                listening={stt.listening}
-                level={stt.level}
-                accessibilityLabel={
-                  stt.listening ? t("journal.stt.stopDictate") : t("journal.stt.dictate")
-                }
-                accessibilityHint={stt.listening ? t("journal.stt.listening") : undefined}
-                onPress={() => {
-                  if (stt.listening) stt.stop();
-                  else void stt.start("note", draft.body, "other");
-                }}
-              />
-            </View>
-          ) : null}
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.counter}>
-            {t("quranNotes.charCount", { count: draft.body.length, max: QURAN_NOTE_BODY_MAX })}
-          </ThemedText>
-        </View>
+        <TextField
+          label={t("quranNotes.bodyLabel")}
+          value={draft.body}
+          onChangeText={(body) => {
+            if (stt.listening) stt.abort();
+            setDraft((d) => ({ ...d, body }));
+          }}
+          placeholder={t("quranNotes.bodyPlaceholder")}
+          multiline
+          minLines={5}
+          maxLength={QURAN_NOTE_BODY_MAX}
+          style={styles.field}
+          inputStyle={[
+            styles.bodyInput,
+            // The note follows its own script (Urdu / Arabic notes read RTL in any UI).
+            { writingDirection: bodyDir, textAlign: bodyDir === "rtl" ? "right" : "left" },
+          ]}
+          trailing={
+            stt.available && !tv ? (
+              <View style={styles.mic}>
+                <VoiceInputButton
+                  size="sm"
+                  listening={stt.listening}
+                  level={stt.level}
+                  accessibilityLabel={
+                    stt.listening ? t("journal.stt.stopDictate") : t("journal.stt.dictate")
+                  }
+                  accessibilityHint={stt.listening ? t("journal.stt.listening") : undefined}
+                  onPress={() => {
+                    if (stt.listening) stt.stop();
+                    else void stt.start("note", draft.body, "other");
+                  }}
+                />
+              </View>
+            ) : undefined
+          }
+          testID="ayah-note-body"
+        />
 
         <View style={styles.section}>
-          <ThemedText type="small">{t("quranNotes.tags")}</ThemedText>
+          {draft.tags.length < QURAN_NOTE_TAGS_MAX ? (
+            <TextField
+              label={t("quranNotes.tags")}
+              value={draft.tagDraft}
+              onChangeText={(tagDraft) => {
+                if (/[,\n]$/.test(tagDraft)) addTag(tagDraft.slice(0, -1));
+                else setDraft((d) => ({ ...d, tagDraft }));
+              }}
+              onSubmitEditing={() => addTag(draft.tagDraft)}
+              placeholder={t("quranNotes.tagPlaceholder")}
+              autoCapitalize="none"
+              returnKeyType="done"
+              testID="ayah-note-tag-input"
+            />
+          ) : (
+            <ThemedText type="small">{t("quranNotes.tags")}</ThemedText>
+          )}
           <View style={styles.chips}>
             {draft.tags.map((tag) => (
               <PressableScale
@@ -289,23 +300,6 @@ export function AyahNoteSheet({
               </PressableScale>
             ))}
           </View>
-          {draft.tags.length < QURAN_NOTE_TAGS_MAX ? (
-            <TextInput
-              value={draft.tagDraft}
-              onChangeText={(tagDraft) => {
-                if (/[,\n]$/.test(tagDraft)) addTag(tagDraft.slice(0, -1));
-                else setDraft((d) => ({ ...d, tagDraft }));
-              }}
-              onSubmitEditing={() => addTag(draft.tagDraft)}
-              placeholder={t("quranNotes.tagPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("quranNotes.tagPlaceholder")}
-              autoCapitalize="none"
-              returnKeyType="done"
-              style={[styles.tagInput, tokens.inputSurface, { color: colors.foreground }]}
-              testID="ayah-note-tag-input"
-            />
-          ) : null}
           {suggestions.length ? (
             <View style={styles.chips}>
               {suggestions.map((tag) => (
@@ -401,7 +395,11 @@ export function AyahNoteSheet({
                         ]}
                         testID={`ayah-note-word-${index}`}
                       >
-                        <ThemedText type="arabic" style={styles.wordText}>
+                        <ThemedText
+                          type="arabic"
+                          accessibilityLanguage="ar"
+                          style={styles.wordText}
+                        >
                           {word}
                         </ThemedText>
                       </PressableScale>
@@ -461,30 +459,15 @@ export function AyahNoteSheet({
 
 const styles = StyleSheet.create({
   header: { gap: Spacing.half },
-  field: { marginTop: Spacing.three, gap: Spacing.one },
-  body: {
-    minHeight: 120,
-    maxHeight: 260,
-    borderRadius: Radius.md,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  mic: { position: "absolute", top: Spacing.one, end: Spacing.one },
-  counter: { alignSelf: "flex-end" },
+  field: { marginTop: Spacing.three },
+  bodyInput: { maxHeight: 260 },
+  mic: { alignSelf: "flex-start" },
   section: { marginTop: Spacing.three, gap: Spacing.two },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.one },
   chip: {
     paddingHorizontal: Spacing.two,
-    paddingVertical: Spacing.half + 1,
+    paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
-  },
-  tagInput: {
-    borderRadius: Radius.md,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    fontSize: 15,
   },
   word: {
     paddingHorizontal: Spacing.two,

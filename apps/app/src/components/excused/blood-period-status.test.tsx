@@ -84,16 +84,16 @@ describe("BloodPeriodStatus", () => {
     await setup({ madhhab: "hanafi", today: "2026-11-11", active: "hayd" });
     expect(await screen.findByText(/is istihada in your school/)).toBeTruthy();
     expect(setDayExcused).not.toHaveBeenCalled();
-    await fireEvent.press(screen.getByText("Resume salah"));
+    await fireEvent.press(screen.getByText("Resume Salah"));
     expect(setDayExcused).toHaveBeenCalledWith(null);
   });
 
-  it("Hanafi short period: 'Add 10 to qaza' adds per salah only on tap", async () => {
+  it("Hanafi short period: 'Add 10 to qaza' adds per Salah only on tap", async () => {
     await seedPeriod("2026-11-01", 2, "hayd");
     await setup({ madhhab: "hanafi", today: "2026-11-05", active: null });
     expect(await screen.findByText(/may not count as hayd/)).toBeTruthy();
     expect(setQazaCounters).not.toHaveBeenCalled();
-    await fireEvent.press(screen.getByText("Add 10 to qaza"));
+    await fireEvent.press(screen.getByText("Add 10 to Qaza"));
     expect(setQazaCounters).toHaveBeenCalledWith({
       fajr: { remaining: 5, completed: 1 },
       dhuhr: { remaining: 2, completed: 0 },

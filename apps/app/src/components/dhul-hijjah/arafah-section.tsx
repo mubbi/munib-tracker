@@ -61,7 +61,7 @@ export function ArafahSection({ year, isToday }: { year: number; isToday: boolea
   const realTimes = location.source !== "default";
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("dhulHijjah.arafah.title")}
         icon={ARAFAH_ICON}

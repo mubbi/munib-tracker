@@ -279,16 +279,15 @@ export class LocationTimeoutError extends Error {
  * resolve within {@link LOCATION_TIMEOUT_MS} (common indoors / with weak GPS),
  * fall back to the last known position so the "loading" state always resolves.
  */
-async function getPositionWithTimeout(): Promise<Location.LocationObject> {
+async function getPositionWithTimeout(
+  accuracy: Location.Accuracy = Location.Accuracy.Low,
+): Promise<Location.LocationObject> {
   let timer: ReturnType<typeof setTimeout> | undefined;
   const timeout = new Promise<null>((resolve) => {
     timer = setTimeout(() => resolve(null), LOCATION_TIMEOUT_MS);
   });
   try {
-    const result = await Promise.race([
-      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Low }),
-      timeout,
-    ]);
+    const result = await Promise.race([Location.getCurrentPositionAsync({ accuracy }), timeout]);
     if (result) return result;
     const last = await Location.getLastKnownPositionAsync();
     if (last) return last;
@@ -380,6 +379,41 @@ export async function getDeviceLocation(
     if (isExpectedFixFailure(error)) return { status: "error", reason: "timeout" };
     if (__DEV__) console.warn("[location] device location failed:", error);
     return { status: "error" };
+  }
+}
+
+export type CurrentCoordinatesResult =
+  | { status: "ok"; latitude: number; longitude: number }
+  | { status: "denied" }
+  /** No fix in time (indoors, desktop without Wi-Fi location) or TV (no GPS). */
+  | { status: "unavailable" };
+
+/**
+ * A one-off fix of where the device is right now, for "near me" lookups (the
+ * masjid finder). Unlike {@link getDeviceLocation} it is never stored, never
+ * reverse-geocoded, and never replaces the saved Salah-times location (which
+ * may be a city picked by hand). Prompts for permission only when `prompt` is
+ * true (a user tap); otherwise it only reads the current permission.
+ */
+export async function getCurrentCoordinates(prompt: boolean): Promise<CurrentCoordinatesResult> {
+  if (isTV()) return { status: "unavailable" };
+  try {
+    const permission = prompt
+      ? await Location.requestForegroundPermissionsAsync()
+      : await Location.getForegroundPermissionsAsync();
+    if (permission.status !== "granted") return { status: "denied" };
+    // Balanced (~100 m) — Low can be kilometres off, too coarse to rank nearby masjids.
+    const position = await getPositionWithTimeout(Location.Accuracy.Balanced);
+    return {
+      status: "ok",
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    };
+  } catch (error) {
+    if (__DEV__ && !isExpectedFixFailure(error)) {
+      console.warn("[location] current position failed:", error);
+    }
+    return { status: "unavailable" };
   }
 }
 

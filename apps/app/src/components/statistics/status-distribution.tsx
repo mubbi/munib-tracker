@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     height: 12,
     borderRadius: Radius.pill,
     overflow: "hidden",
-    gap: 2,
+    gap: Spacing.half,
   },
   legend: {
     gap: Spacing.one,

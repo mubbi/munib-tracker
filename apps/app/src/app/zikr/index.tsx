@@ -16,7 +16,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
 import { ZikrCaughtUpCard, ZikrDueCard } from "@/components/zikr/zikr-due-card";
 import { ZikrRow } from "@/components/zikr/zikr-row";
-import { type CategoryHueKey, Spacing } from "@/constants/theme";
+import { Breakpoints, type CategoryHueKey, Spacing } from "@/constants/theme";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
@@ -34,6 +34,9 @@ import { zikrCategoryTodayProgress, zikrListRowProgress } from "@/lib/zikr-list-
 import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useLocation } from "@/stores/location-store";
 import { useFavoriteZikrIds } from "@/stores/preferences-store";
+
+/** Below this width the two shortcut rows stack — a half-width NavRow leaves the label narrower than one word. */
+const SHORTCUT_TWO_COLUMN_MIN_WIDTH = 480;
 
 /** Due-now cards shown at once (the rest are a tap away in their category). */
 const MAX_DUE = 3;
@@ -67,7 +70,7 @@ export default function ZikrHomeScreen() {
   const { t } = useTranslation();
   const tv = isTV();
   const { width } = useWindowDimensions();
-  const tileColumns = tv ? 3 : width >= 1200 ? 4 : width >= 768 ? 3 : 2;
+  const tileColumns = tv ? 3 : width >= 1200 ? 4 : width >= Breakpoints.tablet ? 3 : 2;
   const favoriteIds = useFavoriteZikrIds();
   const timeFormat = useTimeFormat();
   const location = useLocation();
@@ -162,9 +165,13 @@ export default function ZikrHomeScreen() {
   // Compact shortcuts — the old titled cards repeated their labels ("Favorites
   // → See all") and stacked three boxes above the content.
   const shortcuts = (
-    <ResponsiveGrid key="shortcuts" columns={2} gap={Spacing.two}>
+    <ResponsiveGrid
+      key="shortcuts"
+      columns={width >= SHORTCUT_TWO_COLUMN_MIN_WIDTH ? 2 : 1}
+      gap={Spacing.two}
+    >
       <NavRow
-        icon={{ ios: "star.fill", android: "star", web: "star" }}
+        icon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
         label={t("zikr.favorites")}
         count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
         onPress={() => router.push("/zikr/favorites")}

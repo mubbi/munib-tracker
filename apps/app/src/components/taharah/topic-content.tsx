@@ -27,22 +27,12 @@ import {
   useTaharahTopicCompleted,
 } from "@/stores/taharah-progress-store";
 
-const IMPORTANCE_TONE: Record<
-  NonNullable<TaharahTopic["importance"]>,
-  "success" | "warning" | "info" | "danger"
-> = {
-  foundational: "danger",
-  obligatory: "success",
-  "highly-recommended": "info",
-  recommended: "warning",
-};
-
 function TaharahSteps({ steps }: { steps: NonNullable<TaharahTopic["steps"]> }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("taharah.stepsTitle")}
         icon={{ ios: "list.number", android: "format_list_numbered", web: "format_list_numbered" }}
@@ -52,7 +42,7 @@ function TaharahSteps({ steps }: { steps: NonNullable<TaharahTopic["steps"]> }) 
           <TvReadableBlock key={step.title}>
             <View style={styles.stepRow}>
               <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
-                <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
                   {index + 1}
                 </ThemedText>
               </View>
@@ -67,7 +57,7 @@ function TaharahSteps({ steps }: { steps: NonNullable<TaharahTopic["steps"]> }) 
                   />
                 ) : null}
                 {step.tip ? (
-                  <View style={[styles.tip, { backgroundColor: tokens.status.warning.soft }]}>
+                  <View style={[styles.tip, { backgroundColor: tokens.accentSoft }]}>
                     <LearnProseText proseRole="caption" style={{ color: colors.foreground }}>
                       {step.tip}
                     </LearnProseText>
@@ -85,7 +75,7 @@ function TaharahSteps({ steps }: { steps: NonNullable<TaharahTopic["steps"]> }) 
 export function TaharahTopicContent({ topic }: { topic: TaharahTopic }) {
   const { t } = useTranslation();
   const router = useRouter();
-  const { tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const completed = useTaharahTopicCompleted(topic.id);
   const { toggleTopic } = useTaharahProgressActions();
 
@@ -95,8 +85,8 @@ export function TaharahTopicContent({ topic }: { topic: TaharahTopic }) {
         <Pill
           label={t(`taharah.importance.${topic.importance}`)}
           compact
-          color={tokens.status[IMPORTANCE_TONE[topic.importance]].color}
-          background={tokens.status[IMPORTANCE_TONE[topic.importance]].soft}
+          color={colors.mutedForeground}
+          background={colors.muted}
         />
       ) : null}
 
@@ -110,7 +100,7 @@ export function TaharahTopicContent({ topic }: { topic: TaharahTopic }) {
       <GuideMadhhabNotes ids={topic.differenceIds} />
 
       {topic.appLinks?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("taharah.continueInApp")}
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
@@ -168,5 +158,5 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   links: { gap: Spacing.two, marginTop: Spacing.three },
-  topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
+  topicDisclaimer: { paddingHorizontal: Spacing.one },
 });

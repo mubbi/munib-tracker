@@ -18,7 +18,8 @@ import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Spacing } from "@/constants/theme";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJahannamContent, getJahannamGates, isJahannamContentReady } from "@/lib/jahannam";
@@ -27,6 +28,7 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 
 function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean }) {
   const { tokens } = useThemeTokens();
+  const rose = useCategoryHue("rose");
 
   return (
     <View
@@ -34,7 +36,7 @@ function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean })
         styles.row,
         !isLast && {
           borderBottomColor: tokens.hairline,
-          borderBottomWidth: StyleSheet.hairlineWidth,
+          borderBottomWidth: BorderWidth.hairline,
         },
       ]}
     >
@@ -42,7 +44,8 @@ function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean })
         <View style={styles.head}>
           <IconWell
             icon={{ ios: "door.left.hand.open", android: "door_front", web: "door_front" }}
-            tint={tokens.status.warning.color}
+            tint={rose.icon}
+            background={rose.soft}
             well={44}
             size={20}
           />
@@ -68,7 +71,11 @@ function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean })
 export default function JahannamGatesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const wide = useLearnHubLayout();
   // Wide web / tablets: gate cards flow into 2–3 columns.
   const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 340, max: 3 });
@@ -83,11 +90,11 @@ export default function JahannamGatesScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/gates" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <LearnReadingChrome surface="jahannam">
-            <JannahCallout tone="warning">{t("jahannam.gatesLead")}</JannahCallout>
-            <Card padding="three">
+            <JannahCallout tone="info">{t("jahannam.gatesLead")}</JannahCallout>
+            <Card>
               <SectionHeader
                 title={t("jahannam.gatesListTitle")}
                 icon={{ ios: "door.left.hand.open", android: "door_front", web: "door_front" }}

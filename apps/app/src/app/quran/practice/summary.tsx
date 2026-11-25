@@ -14,6 +14,8 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { CoachingPlanCard } from "@/components/tajweed-coaching/coaching-plan-card";
 import { Button } from "@/components/ui/button";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
+import { UnavailableOnDevice } from "@/components/ui/unavailable-on-device";
 import { Spacing } from "@/constants/theme";
 import { requestReminderReschedule } from "@/lib/notifications/reschedule";
 import { singleAyahTrack } from "@/lib/quran-audio";
@@ -90,8 +92,23 @@ export default function PracticeSummaryScreen() {
     return null;
   }, [hifz, records, summary]);
 
-  // TV (no microphone) redirects to /quran above — render nothing meanwhile.
-  if (!summary || !isPracticeAvailable()) return null;
+  // TV (no microphone) redirects to /quran above; a cold open redirects to the
+  // hub. Keep the chrome mounted meanwhile — never a blank route (P8-01).
+  if (!summary || !isPracticeAvailable()) {
+    return (
+      <ScreenLayout
+        eyebrow={t("quranCompanion.hub.title")}
+        title={t("quranCompanion.summary.subtitle")}
+        onBack={() => router.replace("/quran/practice" as Href)}
+      >
+        {isPracticeAvailable() ? (
+          <SkeletonPlaceholder preset="card" />
+        ) : (
+          <UnavailableOnDevice fallbackHref="/quran" />
+        )}
+      </ScreenLayout>
+    );
+  }
 
   const surahName = getSurahByNumber(summary.surah)?.nameTransliteration ?? String(summary.surah);
   const outcome = summaryOutcome(summary);

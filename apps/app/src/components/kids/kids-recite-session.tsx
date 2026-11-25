@@ -13,7 +13,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { engineDownloadMb } from "@/constants/recitation-models";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useIsOnline } from "@/hooks/use-is-online";
 import { usePracticeSession } from "@/hooks/use-practice-session";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -164,7 +164,7 @@ export function KidsReciteSession({
         padding="four"
         style={
           s.mic === "listening" && !listenOnly
-            ? { borderColor: tokens.status.danger.border, borderWidth: 1.5 }
+            ? { borderColor: tokens.status.danger.border, borderWidth: BorderWidth.thick }
             : undefined
         }
       >
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
   center: { textAlign: "center" },
   centerBlock: { alignItems: "center", gap: Spacing.one },
-  translation: { marginTop: Spacing.three, lineHeight: 24 },
+  translation: { marginTop: Spacing.three },
   dots: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: Spacing.two },
   dot: { width: 12, height: 12, borderRadius: 6 },
   row: {

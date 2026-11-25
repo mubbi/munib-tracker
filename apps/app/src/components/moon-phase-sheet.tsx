@@ -72,7 +72,12 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
         : t("moonSheet.nextMonthValue", { days: daysRemaining, month: nextMonthName });
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
+    <Sheet
+      accessibilityLabel={t(`moon.${name}`)}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+    >
       <View style={styles.header}>
         <View
           style={[
@@ -115,7 +120,7 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
       </View>
 
       <View style={[styles.note, { backgroundColor: tokens.accentSoft }]}>
-        <ThemedText type="smallBold" style={{ color: colors.accent }}>
+        <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
           {t(`moonSheet.note.${note}Title`)}
         </ThemedText>
         <ThemedText type="small" themeColor="mutedForeground">
@@ -133,7 +138,7 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
             scaleTo={0.98}
             style={[styles.noteCta, isTV() ? styles.noteCtaTv : null]}
           >
-            <ThemedText type="smallBold" style={{ color: colors.accent }}>
+            <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
               {t("moonSheet.note.whiteDaysCta")}
             </ThemedText>
             <SymbolView name={arrowForward} size={14} tintColor={colors.accent} />
@@ -202,7 +207,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: Spacing.three,
-    paddingVertical: Spacing.three - 2,
+    paddingVertical: Spacing.three,
   },
   rowLabel: {
     flexShrink: 0,

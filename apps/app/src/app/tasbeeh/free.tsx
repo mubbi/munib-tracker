@@ -13,8 +13,9 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
@@ -24,6 +25,7 @@ import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   useCustomTasbeehActions,
   useCustomTasbeehList,
+  useCustomTasbeehReady,
   useEnsureCustomTasbeehLoaded,
 } from "@/stores/custom-tasbeeh-store";
 
@@ -32,10 +34,11 @@ export default function FreeTasbeehScreen() {
   const { t } = useTranslation();
   useEnsureCustomTasbeehLoaded();
   const customItems = useCustomTasbeehList();
+  const customReady = useCustomTasbeehReady();
   const { create } = useCustomTasbeehActions();
   const { width } = useWindowDimensions();
   // Wide web / tablets: quick counter beside "Your counters" (TV keeps one column).
-  const wide = !isTV() && width >= 1024;
+  const wide = !isTV() && width >= Breakpoints.wide;
 
   const [count, setCount] = useState(0);
   const [target, setTarget] = useState(33);
@@ -72,7 +75,7 @@ export default function FreeTasbeehScreen() {
       </ThemedText>
     </View>,
     // After-Salah 33 / 33 / 34 as one counter that moves on by itself (D69).
-    <Card key="sequence" padding="three" style={styles.sequence}>
+    <Card key="sequence" style={styles.sequence}>
       <NavRow
         icon={{
           ios: "circle.dotted",
@@ -97,7 +100,14 @@ export default function FreeTasbeehScreen() {
       actionLabel={t("tasbeeh.customCreateAction")}
       onActionPress={() => setCreateOpen(true)}
     />,
-    customItems.length === 0 ? (
+    !customReady ? (
+      <SkeletonPlaceholder
+        key="custom-loading"
+        preset="rows"
+        count={2}
+        accessibilityLabel={t("tasbeeh.loading")}
+      />
+    ) : customItems.length === 0 ? (
       <EmptyState
         key="custom-empty"
         icon={{ ios: "plus.circle.fill", android: "add_circle", web: "add_circle" }}
@@ -107,7 +117,7 @@ export default function FreeTasbeehScreen() {
         onAction={() => setCreateOpen(true)}
       />
     ) : (
-      <Card key="custom-list" padding="three">
+      <Card key="custom-list">
         <View style={styles.list}>
           {customItems.map((item) => (
             <CustomTasbeehRow key={item.id} item={item} onPress={() => openCustom(item.id)} />

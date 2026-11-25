@@ -38,7 +38,7 @@ export function ReciteAlongCard({
   const single = passages.length === 1;
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader title={title ?? t("reciteAlong.cardTitle")} icon={RECITE_ALONG_ICON} />
       <ThemedText type="small" themeColor="mutedForeground" style={styles.body}>
         {body ?? t("reciteAlong.cardBody")}

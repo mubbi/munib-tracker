@@ -4,10 +4,15 @@ import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { EmptyState } from "@/components/ui/empty-state";
 import { FavoritesOrderRow } from "@/components/ui/favorites-order-row";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { Spacing } from "@/constants/theme";
+import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -16,14 +21,16 @@ import { getZikrById, ZIKR_CORPUS } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
 import { pushZikrDetail } from "@/lib/zikr-quran";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
-import { useZikrCounts } from "@/stores/tracker-store";
 
 export default function ZikrFavoritesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const order = useFavoriteZikrIds();
   const { setFavoriteOrder, toggleFavorite } = usePreferencesActions();
-  const zikrCounts = useZikrCounts();
+  // The same count source as the category lists (the adhkar day, Fajr → Fajr).
+  const clock = useAdhkarClock();
+  const zikrCounts = useAdhkarDayCounts(clock.date).counts;
+  const undoToast = useUndoToast();
   const { ready: corpusReady } = useContentCorpus(ZIKR_CORPUS);
 
   const items = order.map((id) => getZikrById(id)).filter((item) => item != null);
@@ -36,6 +43,16 @@ export default function ZikrFavoritesScreen() {
     void setFavoriteOrder(next);
   };
 
+  // Removal is cheap and reversible: remove now, offer Undo (restores the old order).
+  const removeFavorite = (id: string) => {
+    const previous = [...order];
+    void undoToast.run({
+      do: () => toggleFavorite(id),
+      undo: () => setFavoriteOrder(previous),
+      messageKey: "zikr.favoriteRemoved",
+    });
+  };
+
   return (
     <ScreenLayout
       eyebrow={t("zikr.detailEyebrow")}
@@ -43,18 +60,22 @@ export default function ZikrFavoritesScreen() {
       subtitle={t("zikr.favSubtitle")}
       onBack={() => goBackOrReplace(router, "/")}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} preferredFocus />
       <Seo path="/zikr/favorites" />
       {order.length === 0 ? (
         <EmptyState
-          icon={{ ios: "star", android: "star_border", web: "star_border" }}
+          icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
           title={t("zikr.favEmptyTitle")}
           description={tTv(t, "zikr.favEmptyDesc", "zikr.favEmptyDescTv")}
           actionLabel={t("zikr.browseZikr")}
           onAction={() => router.replace("/zikr")}
         />
-      ) : !corpusReady ? null : items.length === 0 ? (
+      ) : !corpusReady ? (
+        <ContentState status="loading" skeleton="rows" loadingLabel={t("zikr.loadingAdhkar")} />
+      ) : items.length === 0 ? (
         <EmptyState
-          icon={{ ios: "star", android: "star_border", web: "star_border" }}
+          icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
           title={t("zikr.favEmptyTitle")}
           description={tTv(t, "zikr.favEmptyDesc", "zikr.favEmptyDescTv")}
           actionLabel={t("zikr.browseZikr")}
@@ -63,7 +84,7 @@ export default function ZikrFavoritesScreen() {
       ) : (
         // Wide web / tablets: a reorderable list reads best as one capped column
         // (move up / down keeps a linear order). TV keeps the full width.
-        <Card padding="three" style={isTV() ? undefined : styles.listCard}>
+        <Card style={isTV() ? undefined : styles.listCard}>
           <View style={styles.list}>
             {items.map((item, index) => {
               const { completed, progressLabel } = zikrListRowProgress(item, zikrCounts);
@@ -76,7 +97,7 @@ export default function ZikrFavoritesScreen() {
                   subtitle={item.transliteration}
                   onPress={() => pushZikrDetail(router, item.id)}
                   onMove={(direction) => move(index, direction)}
-                  onRemove={() => toggleFavorite(item.id)}
+                  onRemove={() => removeFavorite(item.id)}
                   removeAccessibilityLabel={t("zikr.removeFavorite")}
                   completed={completed}
                   progressLabel={progressLabel}

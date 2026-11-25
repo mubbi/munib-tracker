@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 /** Picks the beneficiary's heir relationship (the NF-3.10 heir list). */
@@ -23,7 +23,13 @@ export function HeirPickerSheet({
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet
+      accessibilityLabel={t("wasiyyah.bequests.heirPick")}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+    >
       <ThemedText type="subtitle" style={styles.title}>
         {t("wasiyyah.bequests.heirPick")}
       </ThemedText>
@@ -46,6 +52,6 @@ export function HeirPickerSheet({
 
 const styles = StyleSheet.create({
   title: { marginBottom: Spacing.two },
-  list: { gap: 2 },
-  row: { paddingVertical: Spacing.two, paddingHorizontal: Spacing.three, borderRadius: 10 },
+  list: { gap: Spacing.half },
+  row: { paddingVertical: Spacing.two, paddingHorizontal: Spacing.three, borderRadius: Radius.sm },
 });

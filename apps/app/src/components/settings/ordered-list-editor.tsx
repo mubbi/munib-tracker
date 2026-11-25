@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
+import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Sheet } from "@/components/ui/sheet";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
@@ -62,8 +65,11 @@ export type OrderedListEditorProps = {
 
 /**
  * Up/down list editor shared by the home quick actions and the Library order
- * (D13), generalised from the quick-actions editor. Each move is one tap or one
- * D-pad Select, so it works the same with touch, keyboard and TV remotes.
+ * (D13), generalised from the quick-actions editor. TV keeps one Up / Down
+ * button per row (one D-pad Select per move). Phones and web (G-95) show one
+ * "More options" button per row that opens a sheet with Move up / Move down /
+ * Move to top / Remove, so rows are not crowded with 32pt icon buttons and the
+ * label can wrap.
  */
 export function OrderedListEditor({
   order,
@@ -78,6 +84,13 @@ export function OrderedListEditor({
   const { colors, tokens } = useThemeTokens();
   const hiddenItems = removable ? allIds.filter((id) => !order.includes(id)) : [];
   const tv = isTV();
+  const [menuFor, setMenuFor] = useState<string | null>(null);
+  const menuIndex = menuFor ? order.indexOf(menuFor) : -1;
+  const menuLabel = menuFor ? labelFor(menuFor) : "";
+  const act = (next: string[]) => {
+    setMenuFor(null);
+    onChange(next);
+  };
   /**
    * TV: never disable the focused Up/Down control at the list edge — a disabled
    * Pressable drops D-pad focus and the engine jumps elsewhere. Dim it instead;
@@ -103,42 +116,57 @@ export function OrderedListEditor({
               style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
             >
               {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
-              <ThemedText type="small" style={styles.rowLabel} numberOfLines={1}>
+              <ThemedText type="small" style={styles.rowLabel} numberOfLines={tv ? 1 : undefined}>
                 {label}
               </ThemedText>
-              <IconButton
-                name={{ ios: "chevron.up", android: "keyboard_arrow_up", web: "keyboard_arrow_up" }}
-                size={18}
-                tintColor={colors.foreground}
-                accessibilityLabel={`${t("zikr.moveUp")}: ${label}`}
-                {...edgeProps(index === 0)}
-                onPress={() => onChange(moveItem(order, index, -1))}
-              />
-              <IconButton
-                name={{
-                  ios: "chevron.down",
-                  android: "keyboard_arrow_down",
-                  web: "keyboard_arrow_down",
-                }}
-                size={18}
-                tintColor={colors.foreground}
-                accessibilityLabel={`${t("zikr.moveDown")}: ${label}`}
-                {...edgeProps(index === order.length - 1)}
-                onPress={() => onChange(moveItem(order, index, 1))}
-              />
-              {removable ? (
+              {tv ? (
+                <>
+                  <IconButton
+                    name={{
+                      ios: "chevron.up",
+                      android: "keyboard_arrow_up",
+                      web: "keyboard_arrow_up",
+                    }}
+                    size={18}
+                    tintColor={colors.foreground}
+                    accessibilityLabel={`${t("zikr.moveUp")}: ${label}`}
+                    {...edgeProps(index === 0)}
+                    onPress={() => onChange(moveItem(order, index, -1))}
+                  />
+                  <IconButton
+                    name={{
+                      ios: "chevron.down",
+                      android: "keyboard_arrow_down",
+                      web: "keyboard_arrow_down",
+                    }}
+                    size={18}
+                    tintColor={colors.foreground}
+                    accessibilityLabel={`${t("zikr.moveDown")}: ${label}`}
+                    {...edgeProps(index === order.length - 1)}
+                    onPress={() => onChange(moveItem(order, index, 1))}
+                  />
+                  {removable ? (
+                    <IconButton
+                      name={{
+                        ios: "minus.circle.fill",
+                        android: "remove_circle",
+                        web: "remove_circle",
+                      }}
+                      size={18}
+                      tintColor={tokens.status.danger.color}
+                      accessibilityLabel={`${t("homeCustomize.remove")}: ${label}`}
+                      onPress={() => onChange(toggleItem(order, id, false))}
+                    />
+                  ) : null}
+                </>
+              ) : (
                 <IconButton
-                  name={{
-                    ios: "minus.circle.fill",
-                    android: "remove_circle",
-                    web: "remove_circle",
-                  }}
-                  size={18}
-                  tintColor={tokens.status.danger.color}
-                  accessibilityLabel={`${t("homeCustomize.remove")}: ${label}`}
-                  onPress={() => onChange(toggleItem(order, id, false))}
+                  name={{ ios: "ellipsis.circle", android: "more_vert", web: "more_vert" }}
+                  tintColor={colors.foreground}
+                  accessibilityLabel={t("settings.reorder.moreFor", { item: label })}
+                  onPress={() => setMenuFor(id)}
                 />
-              ) : null}
+              )}
             </View>
           );
         })}
@@ -180,6 +208,48 @@ export function OrderedListEditor({
           </View>
         </>
       ) : null}
+
+      <Sheet
+        visible={menuFor != null}
+        onClose={() => setMenuFor(null)}
+        variant="bottom"
+        title={menuLabel}
+      >
+        <View style={styles.menu}>
+          <Button
+            label={t("settings.reorder.moveToTop")}
+            variant="secondary"
+            fullWidth
+            disabled={menuIndex <= 0}
+            onPress={() => {
+              if (!menuFor) return;
+              act([menuFor, ...order.filter((x) => x !== menuFor)]);
+            }}
+          />
+          <Button
+            label={t("zikr.moveUp")}
+            variant="secondary"
+            fullWidth
+            disabled={menuIndex <= 0}
+            onPress={() => act(moveItem(order, menuIndex, -1))}
+          />
+          <Button
+            label={t("zikr.moveDown")}
+            variant="secondary"
+            fullWidth
+            disabled={menuIndex < 0 || menuIndex >= order.length - 1}
+            onPress={() => act(moveItem(order, menuIndex, 1))}
+          />
+          {removable && menuFor ? (
+            <Button
+              label={t("homeCustomize.remove")}
+              variant="destructive"
+              fullWidth
+              onPress={() => act(toggleItem(order, menuFor, false))}
+            />
+          ) : null}
+        </View>
+      </Sheet>
     </View>
   );
 }
@@ -191,12 +261,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one,
-    padding: Spacing.two + 2,
+    padding: Spacing.twoHalf,
     paddingStart: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
   rowLabel: { flex: 1 },
+  menu: { gap: Spacing.two },
   rowTv: { minHeight: TvLayout.minFocusTarget, gap: Spacing.two },
   edgeDimmedTv: { opacity: 0.35 },
   iconWell: {
@@ -204,7 +275,7 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
+  HadithEvidence,
   JannahActionSteps,
   JannahBody,
-  JannahHadithEvidence,
-  JannahQuranEvidence,
   JannahTakeaway,
+  QuranEvidence,
 } from "@/components/jannah/primitives";
 import { VirtueMosaicBlock } from "@/components/learn-mizan";
 import { ThemedText } from "@/components/themed-text";
@@ -18,32 +18,16 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
-
-const IMPORTANCE_TONE: Record<
-  NonNullable<JannahTopic["importance"]>,
-  "success" | "warning" | "info" | "danger"
-> = {
-  foundational: "danger",
-  obligatory: "success",
-  "highly-recommended": "info",
-  recommended: "warning",
-};
 
 export function JannahTopicContent({ topic }: { topic: JannahTopic }) {
   const { t } = useTranslation();
   const router = useRouter();
-  const { tokens } = useThemeTokens();
 
   return (
     <View style={styles.stack}>
+      {/* Importance is a label, not a status — one neutral tone for every level (G-29). */}
       {topic.importance ? (
-        <Pill
-          label={t(`jannah.importance.${topic.importance}`)}
-          compact
-          color={tokens.status[IMPORTANCE_TONE[topic.importance]].color}
-          background={tokens.status[IMPORTANCE_TONE[topic.importance]].soft}
-        />
+        <Pill label={t(`jannah.importance.${topic.importance}`)} compact tone="neutral" />
       ) : null}
 
       <JannahTakeaway text={topic.summary} />
@@ -57,12 +41,12 @@ export function JannahTopicContent({ topic }: { topic: JannahTopic }) {
         />
       ) : null}
 
-      {topic.quran?.length ? <JannahQuranEvidence refs={topic.quran} /> : null}
-      {topic.hadith?.length ? <JannahHadithEvidence refs={topic.hadith} /> : null}
+      {topic.quran?.length ? <QuranEvidence refs={topic.quran} /> : null}
+      {topic.hadith?.length ? <HadithEvidence refs={topic.hadith} /> : null}
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
 
       {topic.appLinks?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("jannah.continueInApp")}
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
@@ -102,5 +86,5 @@ export function JannahTopicContent({ topic }: { topic: JannahTopic }) {
 const styles = StyleSheet.create({
   stack: { gap: Spacing.four },
   links: { gap: Spacing.two, marginTop: Spacing.three },
-  topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
+  topicDisclaimer: { paddingHorizontal: Spacing.one },
 });

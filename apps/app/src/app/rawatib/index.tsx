@@ -1,4 +1,8 @@
-import { RAWATIB_EXTRA_PRAYERS, RAWATIB_PRAYERS } from "@munib-tracker/shared/constants";
+import {
+  OBLIGATORY_PRAYERS,
+  RAWATIB_EXTRA_PRAYERS,
+  RAWATIB_PRAYERS,
+} from "@munib-tracker/shared/constants";
 import type { RawatibId } from "@munib-tracker/shared/types";
 import { defaultRakahs } from "@munib-tracker/shared/utils";
 import { type Href, useRouter } from "expo-router";
@@ -8,6 +12,7 @@ import { StyleSheet, View } from "react-native";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { HadithExcerptCard } from "@/components/hadith/hadith-excerpt-card";
 import { TahiyyatHint } from "@/components/masjid/tahiyyat-hint";
+import { useRawatibDay } from "@/components/rawatib/use-rawatib-day";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -18,7 +23,7 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
@@ -35,6 +40,7 @@ import {
 } from "@/lib/rawatib";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useSetting } from "@/lib/settings/use-setting";
+import { useDayExcused, useTodayPrayers, useTrackerDate } from "@/stores/tracker-store";
 
 const CORE_EVIDENCE = [
   RAWATIB_EVIDENCE.twelve,
@@ -62,6 +68,21 @@ export default function RawatibScreen() {
   const config = useRawatibConfig();
   const nudge = useSetting<boolean>("notifications.sunnah.rawatibNudge");
   const { done, target } = useTodayRawatibProgress();
+  // P5-08: log today's rawatib right here (the same chips + 2 | 4 sheet as the tracker).
+  const trackerDate = useTrackerDate();
+  const { status: todayStatus } = useTodayPrayers();
+  const excused = useDayExcused();
+  const rawatibDay = useRawatibDay({
+    date: trackerDate,
+    isToday: true,
+    status: todayStatus,
+    excusedReason: excused,
+  });
+  const chipGroups = rawatibDay.active
+    ? OBLIGATORY_PRAYERS.map((fard) => ({ fard, chips: rawatibDay.chipsFor(fard) })).filter(
+        (group) => group.chips != null,
+      )
+    : [];
   const schoolName = config.school ? t(`fiqh.school.${config.school}`) : null;
   const presetHint =
     config.presetSource === "school" && schoolName
@@ -96,10 +117,24 @@ export default function RawatibScreen() {
               <ThemedText type="subtitle">
                 {t("rawatib.card.progress", { done, total: target })}
               </ThemedText>
-              <ProgressBar value={Math.min(1, done / target)} color={tokens.status.success.color} />
+              <ProgressBar
+                value={Math.min(1, done / target)}
+                accessibilityLabel={t("rawatib.card.title")}
+                color={tokens.status.success.color}
+              />
               <ThemedText type="caption" themeColor="mutedForeground">
                 {t("rawatib.hub.todayHint")}
               </ThemedText>
+              {chipGroups.length > 0 ? (
+                <View style={styles.logGroups} testID="rawatib-hub-log">
+                  {chipGroups.map(({ fard, chips }) => (
+                    <View key={fard} style={styles.logGroup}>
+                      <ThemedText type="smallBold">{t(`prayers.${fard}`)}</ThemedText>
+                      {chips}
+                    </View>
+                  ))}
+                </View>
+              ) : null}
             </View>
           ) : (
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.stack}>
@@ -126,11 +161,11 @@ export default function RawatibScreen() {
             icon={{ ios: "slider.horizontal.3", android: "tune", web: "tune" }}
           />
           <View style={styles.stack}>
-            <SettingRow
-              label={t("rawatib.hub.enabled")}
+            <SwitchRow
+              title={t("rawatib.hub.enabled")}
               value={config.enabled}
               readOnly={tv}
-              onChange={(next) =>
+              onValueChange={(next) =>
                 void (next && config.needsChoice
                   ? startRawatib(config.preset)
                   : updateRawatibPreferences(config, { enabled: next }))
@@ -182,21 +217,21 @@ export default function RawatibScreen() {
                   {t("rawatib.hub.extrasHint")}
                 </ThemedText>
                 {RAWATIB_EXTRA_PRAYERS.map((id) => (
-                  <SettingRow
+                  <SwitchRow
                     key={id}
-                    label={rowLabel(id)}
+                    title={rowLabel(id)}
                     value={config.extras.includes(id)}
                     readOnly={tv}
-                    onChange={(on) => void updateRawatibPreferences(config, { extra: id, on })}
+                    onValueChange={(on) => void updateRawatibPreferences(config, { extra: id, on })}
                   />
                 ))}
 
-                <SettingRow
-                  label={t("rawatib.hub.nudge")}
-                  hint={t("rawatib.hub.nudgeHint")}
+                <SwitchRow
+                  title={t("rawatib.hub.nudge")}
+                  subtitle={t("rawatib.hub.nudgeHint")}
                   value={nudge.value}
                   readOnly={tv}
-                  onChange={(next) => void nudge.setValue(next)}
+                  onValueChange={(next) => void nudge.setValue(next)}
                 />
               </>
             ) : null}
@@ -234,49 +269,14 @@ export default function RawatibScreen() {
           </View>
         </Card>
       </Stagger>
+      {rawatibDay.sheet}
     </ScreenLayout>
-  );
-}
-
-function SettingRow({
-  label,
-  hint,
-  value,
-  readOnly,
-  onChange,
-}: {
-  label: string;
-  hint?: string;
-  value: boolean;
-  readOnly: boolean;
-  onChange: (next: boolean) => void;
-}) {
-  const { t } = useTranslation();
-  const { colors } = useThemeTokens();
-  return (
-    <View style={[styles.settingRow, { borderColor: colors.border }]}>
-      <View style={styles.settingCopy}>
-        <ThemedText type="small">{label}</ThemedText>
-        {hint ? (
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {hint}
-          </ThemedText>
-        ) : null}
-      </View>
-      {readOnly ? (
-        <ThemedText type="smallBold">
-          {value ? t("rawatib.witr.on") : t("rawatib.witr.off")}
-        </ThemedText>
-      ) : (
-        <ThemedSwitch value={value} onValueChange={onChange} accessibilityLabel={label} />
-      )}
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
   stack: {
-    gap: Spacing.two + 2,
+    gap: Spacing.twoHalf,
     marginTop: Spacing.three,
   },
   rows: {
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
   },
   list: {
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
@@ -292,16 +292,11 @@ const styles = StyleSheet.create({
   notes: {
     gap: Spacing.three,
   },
-  settingRow: {
-    flexDirection: "row",
-    alignItems: "center",
+  logGroups: {
     gap: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  settingCopy: {
-    flex: 1,
-    gap: 2,
+  logGroup: {
+    gap: Spacing.two,
   },
 });
 

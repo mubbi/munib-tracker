@@ -3,22 +3,23 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import type { TFunction } from "i18next";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, I18nManager, StyleSheet, TextInput, View } from "react-native";
+import { ActivityIndicator, I18nManager, StyleSheet, View } from "react-native";
 
 import { MadhhabBadge } from "@/components/fiqh/madhhab-badge";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { CurrencyGlyph } from "@/components/money/currency-glyph";
 import { MoneyText } from "@/components/money/money-text";
-import { TvStepButtons, useTvInputFocus } from "@/components/money/tv-number-input";
 import { ThemedText } from "@/components/themed-text";
+import { Chip } from "@/components/ui/chip";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
+import { NumberField } from "@/components/ui/number-field";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
 import { NumberFormatPickerSheet } from "@/components/zakat/number-format-picker-sheet";
 import { ZakatFormSection } from "@/components/zakat/zakat-form-section";
 import { ZakatSectionInfoSheet } from "@/components/zakat/zakat-section-info-sheet";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Metal, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -26,7 +27,6 @@ import type { ZakatCalculatorState } from "@/hooks/use-zakat-calculator";
 import { PERSONAL_JEWELLERY_FIELD, ZAKAT_ASSET_GROUPS } from "@/hooks/use-zakat-calculator";
 import {
   formatNumberForInput,
-  formatNumberInput,
   NUMBER_FORMAT_OPTIONS,
   type NumberFormatStyle,
   parseNumberInput,
@@ -81,10 +81,10 @@ const FIELD_ICONS: Record<string, SymbolViewProps["name"]> = {
 };
 
 const FIELD_ICON_TINT: Record<string, string | undefined> = {
-  gold: "#D4A017",
-  silver: "#A8B0B8",
-  nisabGoldPrice: "#D4A017",
-  nisabSilverPrice: "#A8B0B8",
+  gold: Metal.gold,
+  silver: Metal.silver,
+  nisabGoldPrice: Metal.gold,
+  nisabSilverPrice: Metal.silver,
 };
 
 const GROUP_ICONS = {
@@ -104,42 +104,40 @@ function ChipSelect<T extends string | number>({
   onChange: (next: T) => void;
   labelFor: (option: T) => string;
 }) {
-  const { colors, tokens } = useThemeTokens();
-
   return (
-    <View style={styles.chipRow}>
-      {options.map((option) => {
-        const selected = option === value;
-        return (
-          <PressableScale
-            key={String(option)}
-            haptic="selection"
-            accessibilityRole="button"
-            accessibilityState={{ selected }}
-            onPress={() => onChange(option)}
-            style={[
-              styles.chip,
-              isTV() && styles.chipTv,
-              {
-                backgroundColor: selected ? tokens.accentSoft : colors.muted,
-                borderColor: selected ? withAlpha(colors.accent, 0.35) : "transparent",
-              },
-            ]}
-          >
-            <ThemedText
-              type="caption"
-              style={{
-                color: selected ? colors.accent : colors.mutedForeground,
-                fontWeight: "700",
-              }}
-            >
-              {labelFor(option)}
-            </ThemedText>
-          </PressableScale>
-        );
-      })}
+    <View accessibilityRole="radiogroup" role="radiogroup" style={styles.chipRow}>
+      {options.map((option) => (
+        <Chip
+          key={String(option)}
+          role="radio"
+          label={labelFor(option)}
+          selected={option === value}
+          onPress={() => onChange(option)}
+        />
+      ))}
     </View>
   );
+}
+
+/**
+ * Every NumberField below is keyed by the number format: the field only re-seeds
+ * its text when the numeric value changes, so a format switch (the hook rewrites
+ * the stored draft strings, the numbers are unchanged) must remount it to show
+ * the new grouping/decimal marks instead of keeping stale old-format text.
+ */
+
+/** Zakat drafts keep their text in the calculator's own number format; the field edits the number. */
+function numberFromDraft(text: string, style: NumberFormatStyle): number | undefined {
+  const n = parseNumberInput(text, style);
+  return n > 0 ? n : undefined;
+}
+
+function draftFromNumber(
+  value: number | undefined,
+  maxFractionDigits: number,
+  style: NumberFormatStyle,
+): string {
+  return value == null ? "" : formatNumberForInput(value, maxFractionDigits, style);
 }
 
 function MoneyField({
@@ -165,19 +163,12 @@ function MoneyField({
   maxFractionDigits?: number;
   numberFormat: NumberFormatStyle;
 }) {
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const tint = iconTint ?? colors.accent;
-  const tvFocus = useTvInputFocus();
-
-  return (
-    <View style={styles.fieldBlock}>
+  const lead =
+    icon || currencyGlyph || currencySymbol ? (
       <View style={styles.fieldLabelRow}>
         {icon ? <SymbolView name={icon} size={14} tintColor={tint} /> : null}
-        <ThemedText type="smallBold" style={styles.fieldLabel}>
-          {label}
-        </ThemedText>
-      </View>
-      <View style={[styles.inputRow, tokens.inputSurface, tvFocus.containerStyle]}>
         {currencyGlyph ? (
           <CurrencyGlyph glyph={currencyGlyph} size={16} color={colors.mutedForeground} />
         ) : currencySymbol ? (
@@ -185,24 +176,21 @@ function MoneyField({
             {currencySymbol}
           </ThemedText>
         ) : null}
-        <TextInput
-          {...tvFocus.focusProps}
-          value={value}
-          onChangeText={(text) =>
-            onChange(formatNumberInput(text, maxFractionDigits, numberFormat))
-          }
-          keyboardType="decimal-pad"
-          placeholder="0"
-          placeholderTextColor={colors.mutedForeground}
-          accessibilityLabel={label}
-          style={[styles.input, { color: colors.foreground }]}
-        />
       </View>
-      {hint ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldHint}>
-          {hint}
-        </ThemedText>
-      ) : null}
+    ) : undefined;
+
+  return (
+    <View style={styles.fieldBlock}>
+      <NumberField
+        key={numberFormat}
+        label={label}
+        helperText={hint}
+        leading={lead}
+        value={numberFromDraft(value, numberFormat)}
+        onChangeValue={(n) => onChange(draftFromNumber(n, maxFractionDigits, numberFormat))}
+        numberFormat={numberFormat}
+        maxFractionDigits={maxFractionDigits}
+      />
     </View>
   );
 }
@@ -220,44 +208,17 @@ function CountField({
   onChange: (v: string) => void;
   numberFormat: NumberFormatStyle;
 }) {
-  const { colors, tokens } = useThemeTokens();
-  const tvFocus = useTvInputFocus();
-  const tv = isTV();
   return (
     <View style={styles.fieldBlock}>
-      <ThemedText type="smallBold">{label}</ThemedText>
-      <View style={tv ? styles.tvLine : undefined}>
-        <View
-          style={[
-            styles.inputRow,
-            tv && styles.tvLineInput,
-            tokens.inputSurface,
-            tvFocus.containerStyle,
-          ]}
-        >
-          <TextInput
-            {...tvFocus.focusProps}
-            value={value}
-            onChangeText={(text) => onChange(formatNumberInput(text, 0, numberFormat))}
-            keyboardType="number-pad"
-            placeholder="0"
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={label}
-            style={[styles.input, { color: colors.foreground }]}
-          />
-        </View>
-        <TvStepButtons
-          value={value}
-          onChange={onChange}
-          label={label}
-          numberFormat={numberFormat}
-        />
-      </View>
-      {hint ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldHint}>
-          {hint}
-        </ThemedText>
-      ) : null}
+      <NumberField
+        key={numberFormat}
+        label={label}
+        helperText={hint}
+        value={numberFromDraft(value, numberFormat)}
+        onChangeValue={(n) => onChange(draftFromNumber(n, 0, numberFormat))}
+        numberFormat={numberFormat}
+        maxFractionDigits={0}
+      />
     </View>
   );
 }
@@ -296,10 +257,8 @@ function WeightCalculator({
   numberFormat: NumberFormatStyle;
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const weightFocus = useTvInputFocus();
-  const priceFocus = useTvInputFocus();
-  const tint = metal === "gold" ? "#D4A017" : "#A8B0B8";
+  const { colors } = useThemeTokens();
+  const tint = Metal[metal];
   const weightNum = parseNumberInput(weight, numberFormat);
   const pureGrams =
     metal === "gold" && goldKarat
@@ -321,7 +280,7 @@ function WeightCalculator({
         </View>
         {livePrefill ? (
           <View style={[styles.livePill, { backgroundColor: withAlpha(colors.accent, 0.12) }]}>
-            <ThemedText type="caption" style={{ color: colors.accent }}>
+            <ThemedText type="caption" style={{ color: colors.accentText }}>
               {t("zakat.market.livePrice")}
             </ThemedText>
           </View>
@@ -368,49 +327,27 @@ function WeightCalculator({
 
       <View style={styles.weightRow}>
         <View style={styles.weightField}>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t(`zakat.weight.${metal}.amount`)}
-          </ThemedText>
-          <TextInput
-            {...weightFocus.focusProps}
-            value={weight}
-            onChangeText={(text) => setWeight(formatNumberInput(text, 4, numberFormat))}
-            keyboardType="decimal-pad"
-            placeholder="0"
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t(`zakat.weight.${metal}.amount`)}
-            style={[
-              styles.bareInput,
-              tokens.inputSurface,
-              { color: colors.foreground },
-              weightFocus.containerStyle,
-            ]}
+          <NumberField
+            key={numberFormat}
+            label={t(`zakat.weight.${metal}.amount`)}
+            value={numberFromDraft(weight, numberFormat)}
+            onChangeValue={(n) => setWeight(draftFromNumber(n, 4, numberFormat))}
+            numberFormat={numberFormat}
+            maxFractionDigits={4}
           />
         </View>
         <View style={styles.weightField}>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {metal === "gold"
-              ? t("zakat.weight.gold.pricePerGram24k")
-              : t("zakat.weight.silver.pricePerGramFine")}
-          </ThemedText>
-          <TextInput
-            {...priceFocus.focusProps}
-            value={price}
-            onChangeText={(text) => setPrice(formatNumberInput(text, 4, numberFormat))}
-            keyboardType="decimal-pad"
-            placeholder="0"
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={
+          <NumberField
+            key={numberFormat}
+            label={
               metal === "gold"
                 ? t("zakat.weight.gold.pricePerGram24k")
                 : t("zakat.weight.silver.pricePerGramFine")
             }
-            style={[
-              styles.bareInput,
-              tokens.inputSurface,
-              { color: colors.foreground },
-              priceFocus.containerStyle,
-            ]}
+            value={numberFromDraft(price, numberFormat)}
+            onChangeValue={(n) => setPrice(draftFromNumber(n, 4, numberFormat))}
+            numberFormat={numberFormat}
+            maxFractionDigits={4}
           />
         </View>
       </View>
@@ -421,7 +358,7 @@ function WeightCalculator({
         </ThemedText>
       ) : null}
       {computed > 0 ? (
-        <MoneyText style={[styles.computed, { color: colors.accent }]}>
+        <MoneyText style={[styles.computed, { color: colors.accentText }]}>
           {t("zakat.weight.computed", { value: money(computed) })}
         </MoneyText>
       ) : null}
@@ -583,7 +520,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
             {glyph ? (
               <CurrencyGlyph glyph={glyph} size={18} color={colors.accent} />
             ) : (
-              <ThemedText type="smallBold" style={{ color: colors.accent }}>
+              <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
                 {symbol ?? props.currencyCode}
               </ThemedText>
             )}
@@ -670,7 +607,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
                   <SymbolView
                     name={{ ios: "circle.fill", android: "circle", web: "circle" }}
                     size={10}
-                    tintColor="#D4A017"
+                    tintColor={Metal.gold}
                   />
                   <ThemedText type="caption" themeColor="mutedForeground">
                     {t("zakat.market.goldPerGram")}
@@ -685,7 +622,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
                   <SymbolView
                     name={{ ios: "circle.fill", android: "circle", web: "circle" }}
                     size={10}
-                    tintColor="#A8B0B8"
+                    tintColor={Metal.silver}
                   />
                   <ThemedText type="caption" themeColor="mutedForeground">
                     {t("zakat.market.silverPerGram")}
@@ -713,12 +650,16 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
                     { backgroundColor: tokens.accentSoft },
                   ]}
                 >
-                  <ThemedText type="caption" style={{ color: colors.accent, fontWeight: "600" }}>
+                  <ThemedText
+                    weight="semibold"
+                    type="caption"
+                    style={{ color: tokens.accentOnSoft }}
+                  >
                     {t("zakat.market.useLive")}
                   </ThemedText>
                 </PressableScale>
               ) : (
-                <ThemedText type="caption" style={{ color: colors.accent }}>
+                <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
                   {t("zakat.market.prefilled")}
                 </ThemedText>
               )}
@@ -843,7 +784,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
                 </ThemedText>
               ))}
               {props.result.livestockCashEstimate > 0 ? (
-                <MoneyText style={{ color: colors.accent, fontSize: 13, fontWeight: "700" }}>
+                <MoneyText style={{ color: colors.accentText, fontSize: 13, fontWeight: "700" }}>
                   {t("zakat.livestock.cashEstimate", {
                     value: props.money(props.result.livestockCashEstimate),
                   })}
@@ -920,7 +861,9 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
         columns={formColumns}
         footer={
           props.result.agricultureDue > 0 ? (
-            <MoneyText style={[styles.computed, { color: colors.accent, marginTop: Spacing.two }]}>
+            <MoneyText
+              style={[styles.computed, { color: colors.accentText, marginTop: Spacing.two }]}
+            >
               {t("zakat.agriculture.due", { value: props.money(props.result.agricultureDue) })}
             </MoneyText>
           ) : null
@@ -1028,7 +971,7 @@ export function ZakatCalculator(props: ZakatCalculatorProps) {
               </MoneyText>
             ) : null}
             {props.suggestedNisab > 0 && !props.nisabManual ? (
-              <MoneyText style={{ color: colors.accent, fontSize: 13, fontWeight: "700" }}>
+              <MoneyText style={{ color: colors.accentText, fontSize: 13, fontWeight: "700" }}>
                 {t("zakat.fiqh.usingBasis", {
                   basis: t(`zakat.fiqh.basis.${props.nisabBasis}`),
                   value: props.money(props.suggestedNisab),
@@ -1094,8 +1037,8 @@ const styles = StyleSheet.create({
   group: { marginTop: Spacing.three, gap: Spacing.two },
   groupLabel: { fontWeight: "600", letterSpacing: 0.3, textTransform: "uppercase" },
   groupFields: { gap: Spacing.three },
-  fieldBlock: { gap: Spacing.one + 2 },
-  fieldLabelRow: { flexDirection: "row", alignItems: "center", gap: Spacing.one + 2 },
+  fieldBlock: { gap: Spacing.oneHalf },
+  fieldLabelRow: { flexDirection: "row", alignItems: "center", gap: Spacing.oneHalf },
   fieldLabel: { flex: 1 },
   fieldHint: { lineHeight: 18 },
   inputRow: {
@@ -1109,14 +1052,14 @@ const styles = StyleSheet.create({
   affix: { fontWeight: "600" },
   input: {
     flex: 1,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     fontSize: 16,
     fontVariant: ["tabular-nums"],
     textAlign: I18nManager.isRTL ? "left" : "right",
   },
   bareInput: {
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     fontSize: 16,
@@ -1132,19 +1075,19 @@ const styles = StyleSheet.create({
   },
   livePill: {
     paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
+    paddingVertical: Spacing.half,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
   },
   weightRow: { flexDirection: "row", gap: Spacing.two },
   weightField: { flex: 1, gap: Spacing.one },
-  chipRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.one + 2 },
+  chipRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.oneHalf },
   chip: {
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.one + 2,
+    paddingHorizontal: Spacing.twoHalf,
+    paddingVertical: Spacing.oneHalf,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   // TV: 10-foot chip height; selection stays the soft fill, focus is the ring.
   chipTv: { minHeight: TvLayout.chipMinHeight, justifyContent: "center" },
@@ -1164,7 +1107,7 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     marginTop: Spacing.three,
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   currencyTrigger: {
     marginTop: Spacing.three,
@@ -1172,7 +1115,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.three,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
@@ -1184,14 +1127,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  currencyMeta: { flex: 1, gap: 2, minWidth: 0 },
+  currencyMeta: { flex: 1, gap: Spacing.half, minWidth: 0 },
   marketCard: {
     marginTop: Spacing.three,
     gap: Spacing.two,
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   marketTop: {
     flexDirection: "row",
@@ -1209,7 +1152,7 @@ const styles = StyleSheet.create({
   useLiveBtn: {
     alignSelf: "flex-start",
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
   },

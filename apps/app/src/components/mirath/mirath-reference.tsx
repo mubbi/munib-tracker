@@ -39,7 +39,7 @@ export function MirathReference() {
   return (
     <>
       {/* Advanced fiqh detail: collapsed so the calculator stays the focus. */}
-      <Card padding="three">
+      <Card>
         <CollapsibleSection
           title={t("mirath.differences.title")}
           icon={{ ios: "book.closed", android: "menu_book", web: "menu_book" }}
@@ -52,7 +52,7 @@ export function MirathReference() {
         </CollapsibleSection>
       </Card>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("mirath.outOfScope.title")}
           icon={{

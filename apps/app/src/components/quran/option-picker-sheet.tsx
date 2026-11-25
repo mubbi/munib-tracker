@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -48,7 +48,7 @@ export function SelectTrigger({
         {
           backgroundColor: active ? tokens.accentSoft : colors.muted,
           borderColor: active ? colors.accent : "transparent",
-          borderWidth: 1,
+          borderWidth: BorderWidth.thin,
         },
       ]}
     >
@@ -104,17 +104,17 @@ export function OptionPickerSheet({
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
-      <ThemedText type="subtitle">{title}</ThemedText>
-      <View style={styles.list}>
+    <Sheet visible={visible} onClose={onClose} variant="bottom" title={title}>
+      {/* P6-06: a single choice — radio rows; the sheet closes on select. */}
+      <View style={styles.list} accessibilityRole="radiogroup" accessibilityLabel={title}>
         {options.map((option) => {
           const selected = option.id === selectedId;
           return (
             <PressableScale
               key={option.id}
               haptic="selection"
-              accessibilityRole="button"
-              accessibilityState={{ selected }}
+              accessibilityRole="radio"
+              accessibilityState={{ checked: selected, selected }}
               accessibilityLabel={option.label}
               onPress={() => handleSelect(option.id)}
               // TV: open on the current choice instead of the first row.
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   },
   rowBody: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
     paddingEnd: Spacing.two,
   },
 });

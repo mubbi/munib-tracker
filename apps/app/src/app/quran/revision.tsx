@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Sheet } from "@/components/ui/sheet";
+import { UnavailableOnDevice } from "@/components/ui/unavailable-on-device";
 import { Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
 import { requestReminderReschedule } from "@/lib/notifications/reschedule";
@@ -80,8 +81,19 @@ export default function RevisionScreen() {
   // full-width stacked button.
   const wideHeader = windowWidth >= WIDE_HEADER_MIN_WIDTH;
 
-  // TV (no microphone): redirected to /quran above — render nothing meanwhile.
-  if (!isPracticeAvailable()) return null;
+  // TV (no microphone): redirected to /quran above — chrome + one focusable
+  // action meanwhile, never a blank route (P8-01 / P8-06).
+  if (!isPracticeAvailable()) {
+    return (
+      <ScreenLayout
+        eyebrow={t("quran.eyebrow")}
+        title={t("quranCompanion.revision.title")}
+        onBack={() => goBackOrReplace(router, "/quran")}
+      >
+        <UnavailableOnDevice fallbackHref="/quran" />
+      </ScreenLayout>
+    );
+  }
 
   return (
     <ScreenLayout
@@ -96,10 +108,12 @@ export default function RevisionScreen() {
           icon={{ ios: "checkmark.seal", android: "task_alt", web: "task_alt" }}
           title={t("quranCompanion.revision.emptyTitle")}
           description={t("quranCompanion.revision.emptyDesc")}
+          actionLabel={t("quran.study.openHifz")}
+          onAction={() => router.push("/quran/hifz")}
         />
       ) : (
         <View style={styles.stack}>
-          <Card padding="three" style={wideHeader ? styles.headerWide : undefined}>
+          <Card style={wideHeader ? styles.headerWide : undefined}>
             <View style={wideHeader ? styles.headerCopyWide : undefined}>
               <ThemedText type="subtitle">
                 {t("quranCompanion.hub.reviseTitle", { count: queue.length })}
@@ -138,9 +152,13 @@ export default function RevisionScreen() {
         </View>
       )}
 
-      <Sheet visible={statusFor != null} onClose={() => setStatusFor(null)} variant="bottom">
+      <Sheet
+        visible={statusFor != null}
+        onClose={() => setStatusFor(null)}
+        variant="bottom"
+        title={t("quranCompanion.revision.setStatus")}
+      >
         <View style={styles.sheet}>
-          <ThemedText type="subtitle">{t("quranCompanion.revision.setStatus")}</ThemedText>
           {statusOptions.map((option) => (
             <Button
               key={option.id}

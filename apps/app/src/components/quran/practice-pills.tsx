@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 export type PracticePillOption<T extends string> = {
@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
     minHeight: 40,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 6,
+    gap: Spacing.oneHalf,
   },
-  pillWithIcon: { paddingStart: Spacing.two + 4 },
+  pillWithIcon: { paddingStart: Spacing.twoHalf },
 });

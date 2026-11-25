@@ -46,7 +46,7 @@ export function SunnahHabitsSection({ date, variant = "tracker" }: SunnahHabitsS
   const shown = variant === "home" ? habits.slice(0, HOME_MAX_ROWS) : habits;
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("sunnahHabits.title")}
         icon={SUNNAH_HABITS_ICON}

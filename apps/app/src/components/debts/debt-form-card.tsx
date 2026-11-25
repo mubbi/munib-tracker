@@ -1,23 +1,24 @@
 import type { DebtDirection } from "@munib-tracker/shared/types";
 import { DEBT_DIRECTIONS } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
-import { JannahNavRow } from "@/components/jannah/primitives";
+import { CurrencyField } from "@/components/money/currency-field";
+import { useMoneyNumberFormat } from "@/components/money/use-number-format";
+import { amountFromText, amountToText } from "@/components/records/amount-text";
 import { DayInput } from "@/components/records/day-input";
 import { LabeledInput } from "@/components/records/labeled-input";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
+import { NumberField } from "@/components/ui/number-field";
 import { SegmentedControl } from "@/components/ui/segmented-control";
-import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
 import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { DebtFormState } from "@/lib/debts/debt-form";
 import { isLoan } from "@/lib/debts/debts";
-import { DEFAULT_NUMBER_FORMAT, formatNumberInput } from "@/lib/format-currency";
 import { dueDayPresets, normalizeDayInput } from "@/lib/records/day";
 
 /** The create / edit form of a debts & trusts record (NF-3.8). */
@@ -37,8 +38,7 @@ export function DebtFormCard({
   onCancel: () => void;
 }) {
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
-  const [currencyOpen, setCurrencyOpen] = useState(false);
+  const numberFormat = useMoneyNumberFormat();
   const directionOptions = useMemo(
     () => DEBT_DIRECTIONS.map((d) => ({ id: d, label: t(`debts.direction.${d}`) })),
     [t],
@@ -46,7 +46,7 @@ export function DebtFormCard({
   const loan = isLoan(form.direction);
 
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.form}>
         <ThemedText type="smallBold">{t("debts.form.direction")}</ThemedText>
         <SegmentedControl<DebtDirection>
@@ -60,18 +60,18 @@ export function DebtFormCard({
           onChangeText={(v) => onChange("counterparty", v)}
           autoCapitalize="words"
         />
-        <LabeledInput
+        <NumberField
           label={t(loan ? "debts.form.amount" : "debts.form.amountOptional")}
-          value={form.amount}
-          onChangeText={(v) => onChange("amount", formatNumberInput(v, 2, DEFAULT_NUMBER_FORMAT))}
-          keyboardType="decimal-pad"
-          placeholder="0"
+          value={amountFromText(form.amount)}
+          onChangeValue={(n) => onChange("amount", amountToText(n))}
+          numberFormat={numberFormat}
+          maxFractionDigits={2}
+          suffix={form.currency}
         />
-        <JannahNavRow
-          icon={{ ios: "coloncurrencysign.circle", android: "payments", web: "payments" }}
-          title={t("debts.form.currency")}
-          subtitle={form.currency}
-          onPress={() => setCurrencyOpen(true)}
+        <CurrencyField
+          label={t("debts.form.currency")}
+          value={form.currency}
+          onChange={(code) => onChange("currency", code)}
         />
         {!loan ? (
           <LabeledInput
@@ -106,33 +106,16 @@ export function DebtFormCard({
           onChangeText={(v) => onChange("notes", v)}
           multiline
         />
-        {error ? (
-          <ThemedText
-            type="small"
-            style={{ color: tokens.status.danger.text }}
-            accessibilityRole="alert"
-          >
-            {error}
-          </ThemedText>
-        ) : null}
+        {error ? <Callout tone="danger">{error}</Callout> : null}
         <View style={styles.actions}>
           <Button
-            label={saving ? t("privateUx.saving") : t("common.save")}
-            disabled={saving}
+            label={saving ? t("common.saving") : t("common.save")}
+            loading={saving}
             onPress={onSave}
           />
           <Button label={t("common.cancel")} variant="ghost" onPress={onCancel} />
         </View>
       </View>
-      <CurrencyPickerSheet
-        visible={currencyOpen}
-        selectedCode={form.currency}
-        onSelect={(code) => {
-          onChange("currency", code);
-          setCurrencyOpen(false);
-        }}
-        onClose={() => setCurrencyOpen(false)}
-      />
     </Card>
   );
 }

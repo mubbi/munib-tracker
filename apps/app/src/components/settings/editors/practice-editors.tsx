@@ -71,11 +71,18 @@ export function MicrophoneStatusRow() {
       : mic === "denied"
         ? t("quranCompanion.privacy.micBlocked")
         : t("quranCompanion.privacy.micNotAsked");
+  // Dot keeps the hue; the label uses the AA text token (the words carry the meaning).
   const tone =
     mic === "granted"
       ? tokens.status.success.color
       : mic === "denied"
         ? tokens.status.danger.color
+        : colors.mutedForeground;
+  const toneText =
+    mic === "granted"
+      ? tokens.status.success.text
+      : mic === "denied"
+        ? tokens.status.danger.text
         : colors.mutedForeground;
 
   return (
@@ -97,8 +104,12 @@ export function MicrophoneStatusRow() {
       <ThemedText type="small" style={styles.flex}>
         {t("quranCompanion.privacy.microphone")}
       </ThemedText>
-      <View style={[styles.dot, { backgroundColor: tone }]} />
-      <ThemedText type="caption" style={{ color: tone }}>
+      <View
+        accessible={false}
+        importantForAccessibility="no"
+        style={[styles.dot, { backgroundColor: tone }]}
+      />
+      <ThemedText type="caption" style={{ color: toneText }}>
         {label}
       </ThemedText>
     </PressableScale>

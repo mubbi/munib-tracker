@@ -26,7 +26,7 @@ export default function TaharahTopicScreen() {
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
   const completedIds = useStore(taharahProgressStore, (s) => s.completedTopicIds);
-  const { ready } = useEnsureContent(ensureTaharahContent, isTaharahContentReady);
+  const { ready, error, retry } = useEnsureContent(ensureTaharahContent, isTaharahContentReady);
   const topic = getTaharahTopic(topicId);
   const reportRef = useGuideContentReportRef("taharah", topic, "/taharah");
   useEnsureTaharahProgressLoaded();
@@ -37,6 +37,8 @@ export default function TaharahTopicScreen() {
       basePath="/taharah"
       topic={topic}
       ready={ready}
+      error={error}
+      onRetry={retry}
       surface="taharah"
       contentRef={reportRef}
       aside={(current) => (

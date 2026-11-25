@@ -108,6 +108,27 @@ describe("remove", () => {
   });
 });
 
+describe("restore (Undo after delete)", () => {
+  it("brings the entry back under the same id, attachments included", async () => {
+    const original = buildCustomAdhkar({ images: [image({ mediaId: "m1" })] });
+    await seed(original);
+    const removed = await state().remove(original.id);
+    expect(state().items).toEqual([]);
+
+    const restored = await state().restore(removed as CustomAdhkar);
+    expect(restored.id).toBe(original.id);
+    expect(restored.images).toEqual([expect.objectContaining({ mediaId: "m1" })]);
+    expect(state().items.map((i) => i.id)).toEqual([original.id]);
+    expect(Object.keys(await readJSON(DB_KEYS.customAdhkar, {}))).toEqual([original.id]);
+  });
+
+  it("is idempotent when the id is already present", async () => {
+    await seed(buildCustomAdhkar());
+    await state().restore(buildCustomAdhkar());
+    expect(state().items).toHaveLength(1);
+  });
+});
+
 describe("hooks", () => {
   function setup() {
     return renderHook(() => {

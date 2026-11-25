@@ -1,8 +1,9 @@
-import type { MushafLine, MushafPageLayout } from "@munib-tracker/shared/types";
-import { type ReactNode, useState } from "react";
+import type { Ayah, MushafLine, MushafPageLayout } from "@munib-tracker/shared/types";
+import { type ReactNode, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 
+import { BISMILLAH } from "@/components/quran/basmala";
 import { useMushafAnnotations } from "@/components/quran/mushaf-annotations";
 import { MushafFontError, MushafFontLoading } from "@/components/quran/mushaf-font-loading";
 import { MushafPageFrame } from "@/components/quran/mushaf-page-frame";
@@ -47,7 +48,35 @@ type MushafLineRendererProps = {
    * pages that don't map word-exactly). Off for practice, which owns the glyphs.
    */
   showAnnotations?: boolean;
+  /**
+   * The page's ayahs in Unicode Arabic (G-01). QCF page glyphs are private-use
+   * code points a screen reader cannot read, so each line's label carries the
+   * Unicode text of the ayahs that start on it (each ayah is read once).
+   */
+  ayahs?: Ayah[];
 };
+
+/** Line index → Unicode Arabic of the ayahs whose first glyph line it is. */
+function readableTextByLine(lines: MushafLine[], ayahs: Ayah[] | undefined): Map<number, string[]> {
+  const out = new Map<number, string[]>();
+  if (!ayahs?.length) return out;
+  const arabicByRef = new Map(ayahs.map((a) => [`${a.surah}:${a.ayah}`, a.arabic]));
+  const seen = new Set<string>();
+  lines.forEach((line, index) => {
+    if (line.type !== "text") return;
+    for (const ref of parseVerseRange(line.verseRange)) {
+      const key = `${ref.surah}:${ref.ayah}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const arabic = arabicByRef.get(key);
+      if (!arabic) continue;
+      const list = out.get(index) ?? [];
+      list.push(arabic);
+      out.set(index, list);
+    }
+  });
+  return out;
+}
 
 /**
  * Base glyph metrics tuned for the QCF V2 page font at the default reading size.
@@ -108,8 +137,13 @@ export function MushafLineRenderer({
   onItemBlur,
   renderLineGlyphs,
   showAnnotations = false,
+  ayahs,
 }: MushafLineRendererProps) {
   const { t } = useTranslation();
+  const readableByLine = useMemo(
+    () => readableTextByLine(layout.lines, ayahs),
+    [ayahs, layout.lines],
+  );
   const { colors, tokens } = useThemeTokens();
 
   const scale = (arabicSize ?? DEFAULT_ARABIC_SIZE) / DEFAULT_ARABIC_SIZE;
@@ -178,6 +212,9 @@ export function MushafLineRenderer({
             return (
               <Text
                 key={lineKey}
+                // Glyph codes are unreadable; speak the Unicode basmala instead.
+                accessibilityLabel={BISMILLAH}
+                accessibilityLanguage="ar"
                 style={[
                   styles.basmala,
                   basmalaStyle,
@@ -213,7 +250,16 @@ export function MushafLineRenderer({
               haptic="light"
               scaleTo={0.997}
               accessibilityRole="button"
-              accessibilityLabel={lineNote ? `${baseLabel}, ${t("quranNotes.hasNote")}` : baseLabel}
+              accessibilityLabel={[
+                baseLabel,
+                ...(readableByLine.get(lineIndex) ?? []),
+                lineNote ? t("quranNotes.hasNote") : null,
+              ]
+                .filter(Boolean)
+                .join(", ")}
+              accessibilityHint={
+                primary && onAyahPress ? t("quran.reader.opensActions") : undefined
+              }
               onPress={() => primary && onAyahPress?.(primary.surah, primary.ayah)}
               onFocus={() => {
                 onItemFocus?.();

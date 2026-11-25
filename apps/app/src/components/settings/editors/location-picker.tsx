@@ -1,19 +1,22 @@
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SearchField } from "@/components/ui/search-field";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { type LocationSearchResult, searchLocations } from "@/lib/location";
 import { isTV } from "@/lib/platform/is-tv";
+import { canOpenAppSettings, openAppSettings } from "@/lib/quran-companion/open-app-settings";
 import { useChevronForward } from "@/lib/rtl";
 import { runSideEffects } from "@/lib/settings/side-effects";
 import {
@@ -126,21 +129,30 @@ export function LocationPicker() {
           icon={{ ios: "location.circle.fill", android: "my_location", web: "my_location" }}
           variant="secondary"
           fullWidth
-          disabled={locating}
+          loading={locating}
           onPress={() => void onUseCurrent()}
         />
       ) : null}
-      {!tv && locating ? (
-        <View style={styles.status}>
-          <ActivityIndicator size="small" color={colors.accent} />
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("location.locating")}
-          </ThemedText>
-        </View>
-      ) : !tv && gpsError ? (
-        <ThemedText type="caption" style={{ color: tokens.status.danger.color }}>
-          {gpsError === "denied" ? t("location.permissionDenied") : t("location.deviceError")}
-        </ThemedText>
+      {!tv && !locating && gpsError === "denied" ? (
+        // D-20: same recovery as the notification banner — one tap to the OS settings.
+        <Callout
+          tone="warning"
+          title={t("location.permissionDeniedTitle")}
+          action={
+            canOpenAppSettings()
+              ? { label: t("location.openSettings"), onPress: () => void openAppSettings() }
+              : undefined
+          }
+        >
+          {t("location.permissionDeniedBody")}
+        </Callout>
+      ) : !tv && !locating && gpsError === "error" ? (
+        <Callout
+          tone="danger"
+          action={{ label: t("common.tryAgain"), onPress: () => void onUseCurrent() }}
+        >
+          {t("location.deviceErrorBody")}
+        </Callout>
       ) : null}
 
       <SearchField
@@ -148,7 +160,7 @@ export function LocationPicker() {
         onChangeText={setQuery}
         placeholder={t("location.searchPlaceholder")}
       />
-      {searching ? <ActivityIndicator size="small" color={colors.accent} /> : null}
+      {searching ? <SkeletonPlaceholder preset="rows" count={2} /> : null}
       {showEmpty ? (
         <View style={styles.empty}>
           <ThemedText type="smallBold">{t("location.noResultsTitle")}</ThemedText>
@@ -229,9 +241,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  currentText: { flex: 1, gap: 2 },
-  status: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  empty: { gap: 2 },
+  currentText: { flex: 1, gap: Spacing.half },
+  empty: { gap: Spacing.half },
   list: { gap: Spacing.two },
   row: {
     flexDirection: "row",
@@ -241,5 +252,5 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  rowText: { flex: 1, gap: 2 },
+  rowText: { flex: 1, gap: Spacing.half },
 });

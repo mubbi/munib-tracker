@@ -23,12 +23,26 @@ interface FavoritesState {
   load: () => Promise<void>;
   toggle: (id: string) => Promise<void>;
   setOrder: (order: string[]) => Promise<void>;
+  restore: (id: string, index: number) => Promise<void>;
 }
 
 export interface FavoritesActions {
   load: () => Promise<void>;
   toggle: (id: string) => Promise<void>;
   setOrder: (order: string[]) => Promise<void>;
+  /**
+   * Undo of an un-save: put `id` back at its old position (B-30) instead of
+   * appending it, so user-ordered lists keep their order. No-op when present.
+   */
+  restore: (id: string, index: number) => Promise<void>;
+}
+
+/** `order` with `id` re-inserted at `index` (clamped); unchanged when already present. */
+export function reinsertFavorite(order: readonly string[], id: string, index: number): string[] {
+  if (order.includes(id)) return [...order];
+  const next = [...order];
+  next.splice(Math.max(0, Math.min(index, next.length)), 0, id);
+  return next;
 }
 
 export interface FavoritesStoreApi {
@@ -75,6 +89,12 @@ export function createFavoritesStore(storageKey: string, updatedAtKey: string): 
       set({ order, updatedAt });
       await Promise.all([writeJSON(storageKey, order), writeJSON(updatedAtKey, updatedAt)]);
     },
+
+    async restore(id, index) {
+      const current = get().order;
+      if (current.includes(id)) return;
+      await get().setOrder(reinsertFavorite(current, id, index));
+    },
   }));
 
   async function applyRemote(order: string[], updatedAt?: string): Promise<void> {
@@ -111,6 +131,7 @@ export function createFavoritesStore(storageKey: string, updatedAtKey: string): 
     load: () => store.getState().load(),
     toggle: (id) => store.getState().toggle(id),
     setOrder: (order) => store.getState().setOrder(order),
+    restore: (id, index) => store.getState().restore(id, index),
   };
 
   return {

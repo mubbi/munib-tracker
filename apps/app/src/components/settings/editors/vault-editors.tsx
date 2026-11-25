@@ -4,6 +4,7 @@ import { Platform, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Sheet } from "@/components/ui/sheet";
 import {
   canSubmitNewPassphrase,
@@ -15,7 +16,6 @@ import { VaultSyncSheet } from "@/components/vault/vault-sync-sheet";
 import { VaultUnlockSheet } from "@/components/vault/vault-unlock-sheet";
 import { Spacing } from "@/constants/theme";
 import { usePinLock } from "@/features/pin-lock";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { vaultErrorI18nKey } from "@/lib/vault/errors";
 import {
@@ -106,9 +106,13 @@ export function VaultSyncRow() {
       {rows}
       <VaultSyncSheet visible={sheet === "sync"} onClose={() => setSheet(null)} />
       <VaultUnlockSheet visible={sheet === "unlock"} onClose={() => setSheet(null)} />
-      <Sheet visible={sheet === "off"} onClose={() => setSheet(null)} variant="bottom">
+      <Sheet
+        visible={sheet === "off"}
+        onClose={() => setSheet(null)}
+        variant="bottom"
+        title={t("vault.settings.sync")}
+      >
         <View style={styles.block}>
-          <ThemedText type="subtitle">{t("vault.settings.sync")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("settingsStep4.vault.turnOffBody")}
           </ThemedText>
@@ -119,7 +123,7 @@ export function VaultSyncRow() {
             onPress={() => {
               setSheet(null);
               void disableVaultSync().then(
-                () => toast.success(t("settingsPanel.done")),
+                () => toast.success(t("vault.settings.syncTurnedOff")),
                 (e: unknown) => toast.error(t(vaultErrorI18nKey(e))),
               );
             }}
@@ -145,7 +149,6 @@ type CredentialSheet = "passphrase" | "recovery" | null;
  */
 export function VaultCredentialsRows() {
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
   const toast = useToast();
   const status = useVaultStatus();
   const [sheet, setSheet] = useState<CredentialSheet>(null);
@@ -155,6 +158,7 @@ export function VaultCredentialsRows() {
   const [words, setWords] = useState<string[] | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [dismissBlocked, setDismissBlocked] = useState(false);
 
   if (isTV() || !status?.hasKeyring || status.state !== "ready") return null;
 
@@ -166,6 +170,19 @@ export function VaultCredentialsRows() {
     setWords(null);
     setError(null);
     setBusy(false);
+    setDismissBlocked(false);
+  };
+
+  // S-01: a freshly generated recovery code is shown exactly once, and closing
+  // discards it — so while it is on screen only "Done" (after ticking "I've
+  // saved it") may close the sheet. Scrim, swipe, Back and Escape just remind.
+  const requestClose = () => {
+    if (busy) return;
+    if (words) {
+      setDismissBlocked(true);
+      return;
+    }
+    close();
   };
 
   const run = async (task: () => Promise<void>) => {
@@ -210,10 +227,22 @@ export function VaultCredentialsRows() {
         subtitle={t("vault.settings.newRecoveryCodeHint")}
         onPress={() => setSheet("recovery")}
       />
-      <Sheet visible={sheet != null} onClose={busy ? () => {} : close} variant="bottom" solid>
+      <Sheet
+        visible={sheet != null}
+        onClose={requestClose}
+        variant="bottom"
+        solid
+        title={
+          sheet === "passphrase"
+            ? t("vault.settings.changePassphrase")
+            : words
+              ? undefined
+              : t("vault.settings.newRecoveryCode")
+        }
+        showCloseButton={words ? false : undefined}
+      >
         {sheet === "passphrase" ? (
           <View style={styles.block}>
-            <ThemedText type="subtitle">{t("vault.settings.changePassphrase")}</ThemedText>
             <PassphraseField
               label={t("vault.passphrase.label")}
               value={current}
@@ -227,45 +256,33 @@ export function VaultCredentialsRows() {
               confirm={confirm}
               onChangeConfirm={setConfirm}
             />
-            {error ? (
-              <ThemedText
-                type="caption"
-                accessibilityRole="alert"
-                style={{ color: tokens.status.danger.text }}
-              >
-                {error}
-              </ThemedText>
-            ) : null}
+            {error ? <Callout tone="danger">{error}</Callout> : null}
             <Button
               label={t("vault.unlock.savePassphrase")}
               fullWidth
-              disabled={busy || current.length === 0 || !canSubmitNewPassphrase(next, confirm)}
+              loading={busy}
+              disabled={current.length === 0 || !canSubmitNewPassphrase(next, confirm)}
               onPress={() => void changePassphrase()}
             />
           </View>
         ) : sheet === "recovery" ? (
           <View style={styles.block}>
-            <ThemedText type="subtitle">{t("vault.settings.newRecoveryCode")}</ThemedText>
             {words ? (
-              <RecoveryCodeDisplay words={words} onConfirmed={close} />
+              <RecoveryCodeDisplay
+                words={words}
+                dismissBlocked={dismissBlocked}
+                onConfirmed={close}
+              />
             ) : (
               <>
                 <ThemedText type="small" themeColor="mutedForeground">
                   {t("vault.settings.newRecoveryCodeHint")}
                 </ThemedText>
-                {error ? (
-                  <ThemedText
-                    type="caption"
-                    accessibilityRole="alert"
-                    style={{ color: tokens.status.danger.text }}
-                  >
-                    {error}
-                  </ThemedText>
-                ) : null}
+                {error ? <Callout tone="danger">{error}</Callout> : null}
                 <Button
                   label={t("vault.sync.continue")}
                   fullWidth
-                  disabled={busy}
+                  loading={busy}
                   onPress={() => void newRecoveryCode()}
                 />
               </>

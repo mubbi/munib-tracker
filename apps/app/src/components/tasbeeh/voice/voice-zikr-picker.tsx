@@ -7,7 +7,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SearchField } from "@/components/ui/search-field";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { createCustomTasbeehSearch, createZikrSearch } from "@/lib/search";
 import { PHRASE_KEYS, VOICE_PHRASES } from "@/lib/tasbeeh-voice/phrases";
@@ -215,7 +215,7 @@ function PickerRow({
       </View>
       {taught ? (
         <View style={[styles.badge, { backgroundColor: tokens.status.success.soft }]}>
-          <ThemedText type="caption" style={{ color: tokens.status.success.color }}>
+          <ThemedText type="caption" style={{ color: tokens.status.success.onSoft }}>
             {t("tasbeehVoice.picker.taught")}
           </ThemedText>
         </View>
@@ -241,11 +241,11 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   rowText: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
   arabic: {
     writingDirection: "rtl",
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   },
   badge: {
     paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
+    paddingVertical: Spacing.half,
     borderRadius: Radius.pill,
   },
 });

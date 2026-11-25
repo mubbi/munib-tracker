@@ -8,7 +8,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Sheet } from "@/components/ui/sheet";
 import { engineDownloadMb } from "@/constants/recitation-models";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { VoiceTasbeeh } from "@/hooks/use-voice-tasbeeh";
 import { canOpenAppSettings, openAppSettings } from "@/lib/quran-companion/open-app-settings";
@@ -108,7 +108,13 @@ export function VoiceTasbeehSheet({
   const label = zikr?.label ?? null;
 
   return (
-    <Sheet visible={visible} onClose={close} variant="bottom" solid>
+    <Sheet
+      accessibilityLabel={t("tasbeehVoice.sheet.title")}
+      visible={visible}
+      onClose={close}
+      variant="bottom"
+      solid
+    >
       <View style={styles.body}>
         <ThemedText type="subtitle" role="heading">
           {t("tasbeehVoice.sheet.title")}
@@ -190,7 +196,7 @@ export function VoiceTasbeehSheet({
             />
           ) : voice.taught ? (
             <View style={styles.section}>
-              <ThemedText type="small" style={{ color: tokens.status.success.color }}>
+              <ThemedText type="small" style={{ color: tokens.status.success.text }}>
                 {t("tasbeehVoice.teach.taughtReady")}
               </ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground">
@@ -257,7 +263,7 @@ export function VoiceTasbeehSheet({
               onPress={() => void run(() => voice.start({ skipTeaching: true }))}
               disabled={!micReady || busy}
             />
-            <ThemedText type="caption" style={{ color: tokens.status.warning.color }}>
+            <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
               {t("tasbeehVoice.sheet.pauseMode")}
             </ThemedText>
             <Button label={t("tasbeehVoice.sheet.close")} variant="ghost" onPress={close} />
@@ -325,7 +331,7 @@ function ModelSection({
     return (
       <View style={styles.section}>
         <ThemedText type="small">{t("tasbeehVoice.sheet.downloading", { percent })}</ThemedText>
-        <ProgressBar value={fraction} />
+        <ProgressBar value={fraction} accessibilityLabel={t("a11yProgress.modelDownload")} />
         <Button
           label={t("tasbeehVoice.sheet.cancelDownload")}
           variant="ghost"
@@ -343,7 +349,7 @@ function ModelSection({
         </ThemedText>
       ) : null}
       {model === "failed" ? (
-        <ThemedText type="small" style={{ color: tokens.status.warning.color }}>
+        <ThemedText type="small" style={{ color: tokens.status.warning.text }}>
           {t("tasbeehVoice.sheet.downloadFailed")}
         </ThemedText>
       ) : null}
@@ -384,11 +390,11 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   chosenText: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
   actions: {
     flexDirection: "row",

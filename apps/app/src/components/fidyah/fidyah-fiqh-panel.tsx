@@ -6,7 +6,7 @@ import { FoodMeasureRulingView } from "@/components/fidyah/food-measure-ruling";
 import { MadhhabBadge } from "@/components/fiqh/madhhab-badge";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { ThemedText } from "@/components/themed-text";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useMadhhab } from "@/hooks/use-madhhab";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { fidyahMeasureFor, kaffarahTriggerKey, schoolsToShow } from "@/lib/fasting-fiqh";
@@ -95,11 +95,11 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     marginTop: Spacing.three,
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   header: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: Spacing.two },
   title: { flexShrink: 1, flexGrow: 1 },
   section: { gap: Spacing.two, marginTop: Spacing.two },
   triggers: { gap: Spacing.two },
-  schoolRow: { gap: Spacing.half, paddingStart: Spacing.two, borderStartWidth: 2 },
+  schoolRow: { gap: Spacing.half, paddingStart: Spacing.two, borderStartWidth: BorderWidth.thick },
 });

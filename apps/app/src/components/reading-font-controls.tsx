@@ -1,10 +1,10 @@
 import type { ReadingSurface } from "@munib-tracker/shared/types";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -70,8 +70,9 @@ export function ReadingFontControls({
         style={[styles.button, tv && styles.buttonTv, { backgroundColor: colors.card }]}
       >
         <ThemedText
-          type="smallBold"
-          style={[styles.minus, tv && { fontSize: TvLayout.bodyFontSize }]}
+          type="footnote"
+          weight="bold"
+          style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}
         >
           A−
         </ThemedText>
@@ -104,8 +105,9 @@ export function ReadingFontControls({
         style={[styles.button, tv && styles.buttonTv, { backgroundColor: colors.card }]}
       >
         <ThemedText
-          type="smallBold"
-          style={[styles.plus, { color: colors.accent }, tv && { fontSize: TvLayout.bodyFontSize }]}
+          type="bodyLarge"
+          weight="bold"
+          style={[{ color: colors.accentText }, tv && { fontSize: TvLayout.bodyFontSize }]}
         >
           A+
         </ThemedText>
@@ -135,8 +137,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   button: {
-    minWidth: 40,
-    minHeight: 36,
+    minWidth: 44,
+    minHeight: 44,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: Radius.pill,
@@ -151,15 +153,13 @@ const styles = StyleSheet.create({
   },
   label: {
     minWidth: 44,
-    minHeight: 36,
+    minHeight: 44,
     alignItems: "center",
     justifyContent: "center",
   },
   labelTv: {
-    minWidth: 56,
+    minWidth: tvDp(56),
     minHeight: TvLayout.minFocusTarget,
     paddingHorizontal: Spacing.three,
   },
-  minus: { fontSize: 13 },
-  plus: { fontSize: 17 },
 });

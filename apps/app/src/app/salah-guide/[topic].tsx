@@ -1,23 +1,15 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { ScrollViewInstance } from "react-native";
-import { JannahDisclaimer } from "@/components/jannah/primitives";
-import { LearnContentLoading } from "@/components/learn-content-loading";
-import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { LearnTopicArticle } from "@/components/learn-guide";
 import { ReciteAlongCard } from "@/components/quran/recite-along-card";
 import { FatihahCheckCard } from "@/components/quran/recite-along-fatihah-card";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { SalahGuideTopicAside } from "@/components/salah-guide/salah-guide-aside";
 import { SalahGuideTopicContent } from "@/components/salah-guide/topic-content";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { EmptyState } from "@/components/ui/empty-state";
-import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
-import { goBackOrReplace } from "@/lib/navigation";
 import { AFTER_SALAH_TOPIC_ID, afterSalahPassages } from "@/lib/recite-along/guides";
 import {
   ensureSalahGuideContent,
@@ -32,7 +24,6 @@ import {
   isHowToPrayTrack,
 } from "@/lib/salah-how-to-pray-audio";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { articleSchema } from "@/lib/seo/structured-data";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranPrefs } from "@/stores/quran-store";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
@@ -48,17 +39,16 @@ export function generateStaticParams(): Array<{ topic: string }> {
 }
 
 export default function SalahGuideTopicScreen() {
-  const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(
-    ensureSalahGuideContent,
-    isSalahGuideContentReady,
-  );
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureSalahGuideContent, isSalahGuideContentReady);
   const topic = getSalahGuideTopic(topicId);
   const reportRef = useGuideContentReportRef("salah_guide", topic, "/salah-guide");
   useEnsureSalahGuideProgressLoaded();
-  const { maxContentWidth } = useLearnWideLayout();
   const audio = useAudioPlayerContext();
   const prefs = useQuranPrefs();
 
@@ -143,75 +133,36 @@ export default function SalahGuideTopicScreen() {
         }
       : undefined;
 
-  const detailPath = topic ? `/salah-guide/${topic.id}` : "/salah-guide";
-  const crumbs = topic
-    ? [
-        { name: t("tabs.home"), path: "/" },
-        { name: t("salahGuide.title"), path: "/salah-guide" },
-        { name: topic.title, path: detailPath },
-      ]
-    : undefined;
-
   return (
-    <ScreenLayout
-      eyebrow={t("salahGuide.eyebrow")}
-      title={topic?.title ?? t("salahGuide.title")}
-      subtitle={topic?.summary ?? ""}
-      onBack={() => goBackOrReplace(router, "/salah-guide")}
-      maxContentWidth={maxContentWidth}
+    <LearnTopicArticle
+      ns="salahGuide"
+      basePath="/salah-guide"
+      topic={topic}
+      ready={contentReady}
+      error={contentError}
+      onRetry={retryContent}
+      surface="salah_guide"
+      contentRef={reportRef}
       scrollRef={isHowToPray ? scrollRef : undefined}
       onScroll={isHowToPray ? onScroll : undefined}
+      aside={(tpc) => <SalahGuideTopicAside currentId={tpc.id} />}
+      // An array (not a fragment) so `Stagger` spaces the cards apart.
+      afterContent={(tpc) => [
+        // D68: on-device al-Fatihah check beside the how-to-pray steps (hidden on TV).
+        isHowToPray ? <FatihahCheckCard key="fatihah" compact /> : null,
+        // D68: Ayat al-Kursi and the three Quls, recited after each fard Salah.
+        tpc.id === AFTER_SALAH_TOPIC_ID ? (
+          <ReciteAlongCard
+            key="recite"
+            passages={afterSalahPassages()}
+            title={t("reciteAlong.afterSalah.title")}
+            body={t("reciteAlong.afterSalah.body")}
+          />
+        ) : null,
+      ]}
     >
-      <Seo
-        path={detailPath}
-        title={topic?.title}
-        description={topic?.summary}
-        type={topic ? "article" : undefined}
-        index={!!topic}
-        breadcrumbs={crumbs}
-        jsonLd={
-          topic
-            ? [
-                articleSchema({
-                  path: detailPath,
-                  headline: topic.title,
-                  description: topic.summary ?? "",
-                  breadcrumbs: crumbs,
-                }),
-              ]
-            : undefined
-        }
-      />
-      {!contentReady ? (
-        <LearnContentLoading />
-      ) : !topic ? (
-        <EmptyState
-          icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
-          title={t("salahGuide.notFound")}
-          actionLabel={t("salahGuide.title")}
-          onAction={() => router.replace("/salah-guide")}
-        />
-      ) : (
-        <LearnSplitLayout aside={<SalahGuideTopicAside currentId={topic.id} />}>
-          <Stagger>
-            <LearnReadingChrome surface="salah_guide">
-              <SalahGuideTopicContent topic={topic} stepsAudio={stepsAudio} />
-            </LearnReadingChrome>
-            {/* D68: on-device al-Fatihah check beside the how-to-pray steps (hidden on TV). */}
-            {isHowToPray ? <FatihahCheckCard compact /> : null}
-            {/* D68: Ayat al-Kursi and the three Quls, recited after each fard Salah. */}
-            {topic.id === AFTER_SALAH_TOPIC_ID ? (
-              <ReciteAlongCard
-                passages={afterSalahPassages()}
-                title={t("reciteAlong.afterSalah.title")}
-                body={t("reciteAlong.afterSalah.body")}
-              />
-            ) : null}
-            <JannahDisclaimer textKey="salahGuide.disclaimer" contentRef={reportRef} />
-          </Stagger>
-        </LearnSplitLayout>
-      )}
-    </ScreenLayout>
+      {(tpc) => <SalahGuideTopicContent topic={tpc} stepsAudio={stepsAudio} />}
+    </LearnTopicArticle>
   );
 }
 

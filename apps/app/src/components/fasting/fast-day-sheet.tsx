@@ -18,11 +18,12 @@ import {
 } from "@/components/fasting/fasting-ui";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
-import { Radius, Spacing } from "@/constants/theme";
+import { SwitchRow } from "@/components/ui/switch-row";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatDualCalendarDate } from "@/lib/calendar-format";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
@@ -52,7 +53,8 @@ export type FastDaySheetProps = {
   error?: string | null;
   /** Read-only (TV): show the ruling and status, no logging controls. */
   readOnly?: boolean;
-  onSelect: (status: VoluntaryFastStatus | null) => void;
+  /** Resolves `false` when the write was refused (the sheet then stays open to show why). */
+  onSelect: (status: VoluntaryFastStatus | null) => unknown;
   onToggleQaza: (asQaza: boolean) => void;
   onClose: () => void;
 };
@@ -86,14 +88,15 @@ export function FastDaySheet({
   const blockedFasted = classification.blocking || noFastExcuse;
   const showQaza = !classification.blocking && (rozaRemaining > 0 || entry?.asQaza === true);
 
-  const choose = (status: VoluntaryFastStatus | null) => {
+  // Single-choice sheet: pick -> close (toast confirms). With the qaza toggle it stays open (Done).
+  const choose = async (status: VoluntaryFastStatus | null) => {
     triggerHaptic(statusHaptic(status));
-    onSelect(status);
+    const result = await onSelect(status);
+    if (result !== false && !showQaza) onClose();
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
-      <ThemedText type="subtitle">{dates.primary}</ThemedText>
+    <Sheet visible={visible} onClose={onClose} variant="bottom" title={dates.primary}>
       <ThemedText type="caption" themeColor="mutedForeground">
         {dates.secondary}
       </ThemedText>
@@ -180,7 +183,7 @@ export function FastDaySheet({
         ) : null
       ) : (
         <>
-          <View style={styles.options}>
+          <View style={styles.options} accessibilityRole="radiogroup">
             {STATUSES.map((status) => {
               const active = entry?.status === status;
               const disabled =
@@ -192,16 +195,15 @@ export function FastDaySheet({
                   key={status}
                   haptic={false}
                   disabled={disabled}
-                  accessibilityRole="button"
+                  accessibilityRole="radio"
                   accessibilityLabel={t(`voluntaryFasting.action.${status}`)}
-                  accessibilityState={{ selected: active, disabled }}
-                  onPress={() => choose(status)}
+                  accessibilityState={{ checked: active, disabled }}
+                  onPress={() => void choose(status)}
                   style={[
                     styles.option,
                     {
                       backgroundColor: active ? statusTone.soft : colors.muted,
                       borderColor: active ? statusTone.color : "transparent",
-                      opacity: disabled ? 0.45 : 1,
                     },
                   ]}
                 >
@@ -217,7 +219,7 @@ export function FastDaySheet({
                 haptic={false}
                 accessibilityRole="button"
                 accessibilityLabel={t("voluntaryFasting.action.clear")}
-                onPress={() => choose(null)}
+                onPress={() => void choose(null)}
                 style={[
                   styles.option,
                   { backgroundColor: colors.muted, borderColor: "transparent" },
@@ -240,21 +242,19 @@ export function FastDaySheet({
           </View>
 
           {showQaza ? (
-            <View style={styles.qazaRow}>
-              <View style={styles.qazaCopy}>
-                <ThemedText type="smallBold">{t("voluntaryFasting.qaza.toggle")}</ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {entry?.qazaCounted
+            <>
+              <SwitchRow
+                title={t("voluntaryFasting.qaza.toggle")}
+                hint={
+                  entry?.qazaCounted
                     ? t("voluntaryFasting.qaza.counted")
-                    : t("voluntaryFasting.qaza.hint", { days: rozaRemaining })}
-                </ThemedText>
-              </View>
-              <ThemedSwitch
-                accessibilityLabel={t("voluntaryFasting.qaza.toggle")}
+                    : t("voluntaryFasting.qaza.hint", { days: rozaRemaining })
+                }
                 value={entry?.asQaza === true}
                 onValueChange={onToggleQaza}
               />
-            </View>
+              <Button label={t("common.done")} onPress={onClose} fullWidth />
+            </>
           ) : null}
         </>
       )}
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
   },
   qazaRow: {
     flexDirection: "row",

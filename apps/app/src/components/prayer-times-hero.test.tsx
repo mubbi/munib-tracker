@@ -100,11 +100,13 @@ describe("PrayerTimesHero", () => {
     await renderHero({ onSearchPress, onNotificationsPress, notificationCount: 12 });
 
     await fireEvent.press(screen.getByLabelText("Search"));
-    await fireEvent.press(screen.getByLabelText("Notifications"));
+    await fireEvent.press(screen.getByLabelText(/^Notifications/));
 
     expect(onSearchPress).toHaveBeenCalled();
     expect(onNotificationsPress).toHaveBeenCalled();
-    expect(screen.getByText("9+")).toBeTruthy();
+    // The badge is decorative (hidden from assistive tech); its count is in the name.
+    expect(screen.getByText("9+", { includeHiddenElements: true })).toBeTruthy();
+    expect(screen.getByLabelText(/^Notifications, 12/)).toBeTruthy();
   });
 
   it("opens and closes the moon phase sheet from the date row", async () => {
@@ -150,6 +152,34 @@ describe("PrayerTimesHero", () => {
     await renderHero();
 
     expect(withRepeat).not.toHaveBeenCalled();
+  });
+
+  it("marks today's Salah from its cell (P5-04)", async () => {
+    const onMarkPress = jest.fn();
+    await renderHero({ markIndex: 1, markStatusLabel: "Pending", onMarkPress });
+
+    const cell = screen.getByRole("button", { name: "Dhuhr, 08:00, Pending" });
+    await fireEvent.press(cell);
+
+    expect(onMarkPress).toHaveBeenCalledTimes(1);
+    // Other cells stay plain text.
+    expect(screen.getByLabelText("Asr at 11:00")).toBeTruthy();
+  });
+
+  it("keeps cells as text without a mark handler", async () => {
+    await renderHero({ markIndex: 1 });
+
+    expect(screen.queryByTestId("hero-mark-cell")).toBeNull();
+    expect(screen.getByLabelText("Dhuhr at 08:00, current prayer")).toBeTruthy();
+  });
+
+  it("never shrinks Salah names to fit and keeps chrome targets at 44pt", async () => {
+    await renderHero({ onSearchPress: jest.fn() });
+
+    const shrinking = screen.container.queryAll((node) => node.props.adjustsFontSizeToFit === true);
+    expect(shrinking).toHaveLength(0);
+    const search = flattenStyle(screen.getByLabelText("Search").props.style);
+    expect(search.minWidth ?? search.width).toBeGreaterThanOrEqual(44);
   });
 
   it("uses Liquid Glass hero buttons when available", async () => {

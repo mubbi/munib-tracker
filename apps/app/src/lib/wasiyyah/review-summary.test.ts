@@ -1,7 +1,7 @@
 import { wasiyyahSummaryLine } from "./review-summary";
 import { emptyWasiyyahData } from "./wasiyyah";
 
-const K = "privateUx.wasiyyah.summary";
+const K = "wasiyyah.reviewSummary";
 const base = emptyWasiyyahData("2026-11-23", "USD");
 
 describe("wasiyyahSummaryLine", () => {

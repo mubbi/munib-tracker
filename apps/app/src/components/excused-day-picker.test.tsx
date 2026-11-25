@@ -76,7 +76,7 @@ describe("ExcusedDayPicker (controlled)", () => {
     await fireEvent.press(chip("Travel"));
 
     expect(onExcusedChange).not.toHaveBeenCalled();
-    expect(screen.getByText("Are you a traveller?")).toBeTruthy();
+    expect(screen.getByText("Are you a traveler?")).toBeTruthy();
     await fireEvent.press(screen.getByText("Turn on travel mode"));
 
     expect(onExcusedChange).toHaveBeenCalledWith("travel");
@@ -90,7 +90,7 @@ describe("ExcusedDayPicker (controlled)", () => {
     await fireEvent.press(chip("Travel"));
 
     expect(onExcusedChange).toHaveBeenCalledWith(null);
-    expect(screen.queryByText("Are you a traveller?")).toBeNull();
+    expect(screen.queryByText("Are you a traveler?")).toBeNull();
   });
 
   it("treats a missing reason as none", async () => {

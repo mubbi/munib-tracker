@@ -24,20 +24,10 @@ import {
   useQuranGuideTopicCompleted,
 } from "@/stores/quran-guide-progress-store";
 
-const IMPORTANCE_TONE: Record<
-  NonNullable<QuranGuideTopic["importance"]>,
-  "success" | "warning" | "info" | "danger"
-> = {
-  foundational: "danger",
-  obligatory: "success",
-  "highly-recommended": "info",
-  recommended: "warning",
-};
-
 export function QuranGuideTopicContent({ topic }: { topic: QuranGuideTopic }) {
   const { t } = useTranslation();
   const router = useRouter();
-  const { tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const completed = useQuranGuideTopicCompleted(topic.id);
   const { toggleTopic } = useQuranGuideProgressActions();
 
@@ -47,8 +37,8 @@ export function QuranGuideTopicContent({ topic }: { topic: QuranGuideTopic }) {
         <Pill
           label={t("learnQuran.comingSoon")}
           compact
-          color={tokens.status.warning.color}
-          background={tokens.status.warning.soft}
+          color={colors.mutedForeground}
+          background={colors.muted}
         />
       ) : null}
 
@@ -56,8 +46,8 @@ export function QuranGuideTopicContent({ topic }: { topic: QuranGuideTopic }) {
         <Pill
           label={t(`learnQuran.importance.${topic.importance}`)}
           compact
-          color={tokens.status[IMPORTANCE_TONE[topic.importance]].color}
-          background={tokens.status[IMPORTANCE_TONE[topic.importance]].soft}
+          color={colors.mutedForeground}
+          background={colors.muted}
         />
       ) : null}
 
@@ -69,7 +59,7 @@ export function QuranGuideTopicContent({ topic }: { topic: QuranGuideTopic }) {
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
 
       {topic.sources?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("learnQuran.sourcesTitle")}
             icon={{ ios: "books.vertical.fill", android: "library_books", web: "library_books" }}
@@ -85,7 +75,7 @@ export function QuranGuideTopicContent({ topic }: { topic: QuranGuideTopic }) {
       ) : null}
 
       {topic.appLinks?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("learnQuran.continueInApp")}
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
@@ -130,5 +120,5 @@ const styles = StyleSheet.create({
   stack: { gap: Spacing.four },
   sources: { gap: Spacing.one, marginTop: Spacing.three },
   links: { gap: Spacing.two, marginTop: Spacing.three },
-  topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
+  topicDisclaimer: { paddingHorizontal: Spacing.one },
 });

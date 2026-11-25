@@ -10,6 +10,10 @@ import { resetPreferences, setPreferences } from "@/test-support/preferences";
 import { renderWithTheme } from "@/test-support/render";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
+jest.mock(
+  "@/providers/toast-provider",
+  () => require("@/test-support/mocks/toast-provider").toastProviderMock,
+);
 
 const FAST = i18n.t("dhulHijjah.deeds.fast.title");
 const fastBox = () => screen.getByRole("checkbox", { name: FAST });

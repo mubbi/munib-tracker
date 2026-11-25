@@ -1,12 +1,13 @@
 import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type { ExcusedReason, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import { sumQazaScheduleTargets } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
-import { Fragment, type RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { type RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type ScrollViewInstance, StyleSheet, View, type ViewInstance } from "react-native";
 
 import { TakbirTashriqTrackerSection } from "@/components/dhul-hijjah/takbir-tracker-section";
+import { BloodPeriodStatus } from "@/components/excused/blood-period-status";
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { FridayTrackerSection } from "@/components/friday-tracker-section";
 import { KhatmDailyChecklist } from "@/components/khatm-daily-checklist";
@@ -17,7 +18,9 @@ import { useWitrStatusLabel } from "@/components/rawatib/witr-status";
 import { SunnahHabitsSection } from "@/components/sunnah-habits/sunnah-habits-section";
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { FocusHighlight } from "@/components/ui/focus-highlight";
 import { IconWell } from "@/components/ui/icon-well";
 import { NavRow } from "@/components/ui/nav-row";
@@ -25,15 +28,13 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { WhiteDaysTrackerSection } from "@/components/white-days-tracker-section";
-import { Radius, Spacing } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { BorderWidth, Control, IconSize, Radius, Spacing } from "@/constants/theme";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { afterSalahProgressForPrayer } from "@/lib/after-salah-adhkar-progress";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { FRIDAY_CHECKLIST_FOCUS, isFridayDateString } from "@/lib/friday";
-import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
 import type { PrayerCombined } from "@/lib/prayer-combining";
 import { RAWATIB_TRACKER_FOCUS } from "@/lib/rawatib";
@@ -41,7 +42,8 @@ import { useChevronForward } from "@/lib/rtl";
 import { isWhiteDayDateString, WHITE_DAYS_CHECKLIST_FOCUS } from "@/lib/white-days";
 import { ZIKR_CORPUS, zikrCategories } from "@/lib/zikr";
 import { zikrCategoryBadge } from "@/lib/zikr-list-progress";
-import { useDayExcused } from "@/stores/tracker-store";
+import { useKhatm } from "@/stores/khatm-store";
+import { useDayExcused, useQazaSchedule } from "@/stores/tracker-store";
 
 function salahAdhkarCategories() {
   const byId = new Map(zikrCategories().map((category) => [category.id, category]));
@@ -69,6 +71,8 @@ const WHITE_DAYS_ICON = {
   web: "brightness_3",
 } as const;
 
+const EXCUSED_ICON = { ios: "pause.circle", android: "pause_circle", web: "pause_circle" } as const;
+
 export type TrackerDayChecklistProps = {
   date: string;
   isToday: boolean;
@@ -85,6 +89,11 @@ export type TrackerDayChecklistProps = {
   excusedReason?: ExcusedReason | null;
   prayerTimes: Record<PrayerId, string>;
   onPrayerPress: (prayerId: PrayerId) => void;
+  /**
+   * One-tap mark from a row's status toggle (P5-02). Omit to keep rows
+   * sheet-only (calendar days).
+   */
+  onPrayerQuickSelect?: (prayerId: PrayerId, status: PrayerStatus) => void;
   /** When omitted, excused chips use the tracker store and guide flow (today tab). */
   onExcusedChange?: (reason: ExcusedReason | null) => void;
   /** Parent ScreenLayout scroll — used to jump to the Jumu'ah checklist. */
@@ -98,6 +107,13 @@ export type TrackerDayChecklistProps = {
   preferredFocusFirstPrayer?: boolean;
 };
 
+/**
+ * The day's checklist (P5-01): the Obligatory card leads (Excused day folds
+ * into its footer), with a single Jumu'ah / White Days banner above it. Day-only
+ * sections (rawatib, Friday, White Days, Takbir) and Witr follow, then three
+ * collapsible groups — Remembrance, Make-up & reading, Voluntary — each
+ * collapsed once complete. Calendar day views reuse it unchanged.
+ */
 export function TrackerDayChecklist({
   date,
   isToday,
@@ -111,6 +127,7 @@ export function TrackerDayChecklist({
   excusedReason,
   prayerTimes,
   onPrayerPress,
+  onPrayerQuickSelect,
   onExcusedChange,
   scrollRef,
   getScrollY,
@@ -132,12 +149,12 @@ export function TrackerDayChecklist({
   const [whiteDaysHighlight, setWhiteDaysHighlight] = useState(false);
   const showWhiteDays = isWhiteDayDateString(date);
   const tv = isTV();
-  const cardTip = tTv(t, "tracker.cardTip", "tracker.cardTipTv");
 
   const obligatoryDone = useMemo(() => countCompleted(OBLIGATORY_PRAYERS, status), [status]);
   // NF-3.1 rawatib chips + header card. Today's excused reason lives in the store;
   // calendar days pass theirs explicitly.
   const storeExcused = useDayExcused();
+  const dayExcused = onExcusedChange ? (excusedReason ?? null) : (excusedReason ?? storeExcused);
   const rawatib = useRawatibDay({
     date,
     isToday,
@@ -151,6 +168,23 @@ export function TrackerDayChecklist({
   );
   const witrDone = status[WITR_PRAYER] === "completed" ? 1 : 0;
   const sunnahDone = useMemo(() => countCompleted(SUNNAH_PRAYERS, status), [status]);
+  // Excused day lives behind the Obligatory card's footer toggle; an active
+  // excuse keeps it open so the state (and how to clear it) stays visible.
+  const [excusedOpen, setExcusedOpen] = useState(false);
+  const excusedVisible = excusedOpen || dayExcused != null;
+
+  // Make-up & reading only groups when today has a Qaza target or a khatm plan
+  // (both cards hide themselves otherwise; past days keep the plain stack).
+  const qazaSchedule = useQazaSchedule();
+  const { plan: khatmPlan } = useKhatm();
+  const makeUpGroup = isToday && (sumQazaScheduleTargets(qazaSchedule) > 0 || khatmPlan != null);
+
+  const adhkarCategories = salahAdhkarCategories();
+  const adhkarBadges = adhkarCategories.map((category) =>
+    zikrCategoryBadge(category.id, zikrCounts, t("zikr.done")),
+  );
+  const adhkarComplete =
+    adhkarBadges.length > 0 && adhkarBadges.every((badge) => badge?.completed !== false);
 
   useEffect(() => {
     if (!fridayFocused) return;
@@ -203,131 +237,149 @@ export function TrackerDayChecklist({
     setTimeout(() => setWhiteDaysHighlight(false), 2800);
   }, [getScrollY, scrollRef]);
 
+  const quickSelectFor = (prayerId: PrayerId) =>
+    onPrayerQuickSelect ? (next: PrayerStatus) => onPrayerQuickSelect(prayerId, next) : undefined;
+
+  // TV: the Jumu'ah / White Days sections are the next D-pad stops below — a
+  // scroll-jump shortcut would strand focus off-screen.
+  const dayLinks = tv
+    ? []
+    : [
+        showFriday
+          ? {
+              key: "friday",
+              icon: FRIDAY_ICON,
+              title: t("tracker.friday.jumpTitle"),
+              hint: t("tracker.friday.jumpHint"),
+              a11y: t("tracker.friday.jumpA11y"),
+              onPress: jumpToFridayChecklist,
+            }
+          : null,
+        showWhiteDays
+          ? {
+              key: "white-days",
+              icon: WHITE_DAYS_ICON,
+              title: t("tracker.whiteDays.jumpTitle"),
+              hint: t("tracker.whiteDays.jumpHint"),
+              a11y: t("tracker.whiteDays.jumpA11y"),
+              onPress: jumpToWhiteDaysChecklist,
+            }
+          : null,
+      ].filter((link) => link != null);
+
+  const qazaAndKhatm = (
+    <>
+      <QazaDailyChecklist date={date} />
+      <KhatmDailyChecklist />
+    </>
+  );
+
   return (
     <View style={styles.stack}>
-      <Card padding="three">
-        <ExcusedDayPicker
-          {...(onExcusedChange ? { excusedReason: excusedReason ?? null, onExcusedChange } : {})}
-        />
-      </Card>
-
-      <View
-        style={[
-          styles.tipBanner,
-          { backgroundColor: tokens.accentSoft, borderColor: colors.border },
-        ]}
-        accessibilityRole="text"
-        accessibilityLabel={cardTip}
-      >
-        <SymbolView
-          name={{ ios: "lightbulb.fill", android: "lightbulb", web: "lightbulb" }}
-          size={14}
-          tintColor={colors.accent}
-        />
-        <ThemedText
-          type="caption"
-          style={[styles.tipText, tv ? styles.tipTextTv : null, { color: colors.accent }]}
+      {dayLinks.length > 0 ? (
+        <View
+          testID="tracker-day-banner"
+          style={[
+            styles.dayBanner,
+            { backgroundColor: tokens.accentSoft, borderColor: colors.border },
+          ]}
         >
-          {cardTip}
-        </ThemedText>
-      </View>
-
-      <Card padding="three">
-        <SectionHeader
-          title={t("tracker.obligatory")}
-          subtitle={t("tracker.obligatorySubtitle")}
-          icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
-          badge={
-            <Pill
-              label={t("tracker.sectionProgress", {
-                completed: obligatoryDone,
-                total: OBLIGATORY_PRAYERS.length,
-              })}
-              compact
-            />
-          }
-        />
-        <View style={styles.rows}>
-          {OBLIGATORY_PRAYERS.map((prayerId, prayerIndex) => {
-            const afterSalahProgress = afterSalahProgressForPrayer(prayerId, zikrCounts);
-            return (
-              <Fragment key={prayerId}>
-                <PrayerTrackerRow
-                  prayerId={prayerId}
-                  status={status[prayerId] ?? "pending"}
-                  time={prayerTimes[prayerId]}
-                  hasNotes={!!notes[prayerId]}
-                  isJama={jama[prayerId] ?? false}
-                  atMasjid={atMasjid?.[prayerId] ?? false}
-                  combinedWith={combined?.[prayerId]?.with}
-                  preferredHint={preferredHints?.[prayerId]}
-                  afterSalahProgress={afterSalahProgress}
-                  onPressAfterSalah={
-                    isToday && afterSalahProgress.total > 0
-                      ? () => openAfterSalah(prayerId)
-                      : undefined
-                  }
-                  onPress={() => onPrayerPress(prayerId)}
-                  preferredFocus={tv && preferredFocusFirstPrayer && prayerIndex === 0}
-                />
-                {rawatib.chipsFor(prayerId)}
-                {/* TV: the Jumu'ah / White Days sections are the next D-pad stops
-                  below — a scroll-jump shortcut would strand focus off-screen. */}
-                {prayerId === "fajr" && showFriday && !tv ? (
-                  <PressableScale
-                    accessibilityRole="button"
-                    accessibilityLabel={t("tracker.friday.jumpA11y")}
-                    onPress={jumpToFridayChecklist}
-                    haptic="selection"
-                    scaleTo={0.98}
-                    style={[
-                      styles.fridayJump,
-                      {
-                        backgroundColor: tokens.accentSoft,
-                        borderColor: colors.border,
-                      },
-                    ]}
-                  >
-                    <IconWell icon={FRIDAY_ICON} size={16} well={32} radius={Radius.sm} />
-                    <View style={styles.fridayJumpCopy}>
-                      <ThemedText type="smallBold">{t("tracker.friday.jumpTitle")}</ThemedText>
-                      <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                        {t("tracker.friday.jumpHint")}
-                      </ThemedText>
-                    </View>
-                    <AppIcon icon={chevronForward} size={16} tintColor={colors.accent} />
-                  </PressableScale>
-                ) : null}
-                {prayerId === "fajr" && showWhiteDays && !tv ? (
-                  <PressableScale
-                    accessibilityRole="button"
-                    accessibilityLabel={t("tracker.whiteDays.jumpA11y")}
-                    onPress={jumpToWhiteDaysChecklist}
-                    haptic="selection"
-                    scaleTo={0.98}
-                    style={[
-                      styles.fridayJump,
-                      {
-                        backgroundColor: tokens.accentSoft,
-                        borderColor: colors.border,
-                      },
-                    ]}
-                  >
-                    <IconWell icon={WHITE_DAYS_ICON} size={16} well={32} radius={Radius.sm} />
-                    <View style={styles.fridayJumpCopy}>
-                      <ThemedText type="smallBold">{t("tracker.whiteDays.jumpTitle")}</ThemedText>
-                      <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                        {t("tracker.whiteDays.jumpHint")}
-                      </ThemedText>
-                    </View>
-                    <AppIcon icon={chevronForward} size={16} tintColor={colors.accent} />
-                  </PressableScale>
-                ) : null}
-              </Fragment>
-            );
-          })}
+          {dayLinks.map((link) => (
+            <PressableScale
+              key={link.key}
+              accessibilityRole="button"
+              accessibilityLabel={link.a11y}
+              onPress={link.onPress}
+              haptic="selection"
+              scaleTo={0.98}
+              style={styles.dayLink}
+            >
+              <IconWell icon={link.icon} size={IconSize.md} well={32} radius={Radius.sm} />
+              <View style={styles.dayLinkCopy}>
+                <ThemedText type="smallBold">{link.title}</ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {link.hint}
+                </ThemedText>
+              </View>
+              <AppIcon icon={chevronForward} size={IconSize.md} tintColor={tokens.accentOnSoft} />
+            </PressableScale>
+          ))}
         </View>
-      </Card>
+      ) : null}
+
+      <View testID="tracker-obligatory">
+        <Card>
+          <SectionHeader
+            title={t("tracker.obligatory")}
+            icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
+            badge={
+              <Pill
+                label={t("tracker.sectionProgress", {
+                  completed: obligatoryDone,
+                  total: OBLIGATORY_PRAYERS.length,
+                })}
+                compact
+              />
+            }
+          />
+          <View style={styles.rows}>
+            {OBLIGATORY_PRAYERS.map((prayerId, prayerIndex) => {
+              const afterSalahProgress = afterSalahProgressForPrayer(prayerId, zikrCounts);
+              return (
+                <View key={prayerId} style={styles.rowGroup}>
+                  <PrayerTrackerRow
+                    prayerId={prayerId}
+                    status={status[prayerId] ?? "pending"}
+                    time={prayerTimes[prayerId]}
+                    hasNotes={!!notes[prayerId]}
+                    isJama={jama[prayerId] ?? false}
+                    atMasjid={atMasjid?.[prayerId] ?? false}
+                    combinedWith={combined?.[prayerId]?.with}
+                    preferredHint={preferredHints?.[prayerId]}
+                    afterSalahProgress={afterSalahProgress}
+                    onPressAfterSalah={
+                      isToday && afterSalahProgress.total > 0
+                        ? () => openAfterSalah(prayerId)
+                        : undefined
+                    }
+                    onPress={() => onPrayerPress(prayerId)}
+                    onSelect={quickSelectFor(prayerId)}
+                    preferredFocus={tv && preferredFocusFirstPrayer && prayerIndex === 0}
+                  />
+                  {rawatib.chipsFor(prayerId)}
+                </View>
+              );
+            })}
+          </View>
+
+          {dayExcused == null ? (
+            <Button
+              variant="ghost"
+              size="md"
+              icon={EXCUSED_ICON}
+              trailingIcon={
+                excusedOpen
+                  ? { ios: "chevron.up", android: "expand_less", web: "expand_less" }
+                  : { ios: "chevron.down", android: "expand_more", web: "expand_more" }
+              }
+              label={t("tracker.excusedTitle")}
+              accessibilityHint={t("tracker.excusedHint")}
+              onPress={() => setExcusedOpen((open) => !open)}
+              style={styles.excusedToggle}
+            />
+          ) : null}
+          {/* B-20: post-period prompts stay visible while the picker is collapsed. */}
+          {!excusedVisible && isToday && !onExcusedChange ? <BloodPeriodStatus /> : null}
+          {excusedVisible ? (
+            <ExcusedDayPicker
+              variant="inline"
+              {...(onExcusedChange
+                ? { excusedReason: excusedReason ?? null, onExcusedChange }
+                : {})}
+            />
+          ) : null}
+        </Card>
+      </View>
 
       {rawatib.headerCard ? (
         <View ref={setRawatibRef} testID="rawatib-card">
@@ -353,7 +405,7 @@ export function TrackerDayChecklist({
       {/* NF-3.3: Takbir al-Tashriq chips (only inside the window; none during hayd). */}
       <TakbirTashriqTrackerSection date={date} status={status} hidden={excusedReason === "hayd"} />
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("tracker.witr")}
           subtitle={witrSubtitle}
@@ -377,95 +429,119 @@ export function TrackerDayChecklist({
             afterSalahProgress={afterSalahProgressForPrayer(WITR_PRAYER, zikrCounts)}
             onPressAfterSalah={isToday ? () => openAfterSalah(WITR_PRAYER) : undefined}
             onPress={() => onPrayerPress(WITR_PRAYER)}
+            onSelect={quickSelectFor(WITR_PRAYER)}
           />
         </View>
       </Card>
 
-      <Card padding="three">
-        <SectionHeader
-          title={t("tracker.salahAdhkar")}
-          icon={{
-            ios: "hands.and.sparkles.fill",
-            android: "volunteer_activism",
-            web: "volunteer_activism",
-          }}
-        />
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-          {t("tracker.salahAdhkarSubtitle")}
-        </ThemedText>
-        <View style={styles.rows}>
-          {salahAdhkarCategories().map((category) => {
-            const progress = zikrCategoryBadge(category.id, zikrCounts, t("zikr.done"));
-            return (
-              <NavRow
-                key={category.id}
-                icon={category.icon}
-                label={t(`zikrCat.${category.id}`)}
-                badge={progress?.label}
-                completed={progress?.completed}
-                count={progress ? undefined : category.count}
-                onPress={() =>
-                  router.push({ pathname: "/zikr/[category]", params: { category: category.id } })
-                }
-              />
-            );
-          })}
-        </View>
-      </Card>
-
-      {/* NF-3.5: Sunnah habits under the zikr section. */}
-      <SunnahHabitsSection date={date} />
-
-      <QazaDailyChecklist date={date} />
-      <KhatmDailyChecklist />
-
-      <Card padding="three">
-        <SectionHeader
-          title={t("tracker.sunnahOptional")}
-          subtitle={t("tracker.sunnahSubtitle")}
-          icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
-          badge={
-            <Pill
-              label={t("tracker.sectionProgress", {
-                completed: sunnahDone,
-                total: SUNNAH_PRAYERS.length,
+      <CollapsibleSection
+        title={t("tracker.groupRemembrance")}
+        icon={{
+          ios: "hands.and.sparkles.fill",
+          android: "volunteer_activism",
+          web: "volunteer_activism",
+        }}
+        defaultOpen={!adhkarComplete}
+      >
+        <View style={styles.group}>
+          <Card>
+            <SectionHeader
+              title={t("tracker.salahAdhkar")}
+              subtitle={t("tracker.salahAdhkarSubtitle")}
+            />
+            <View style={styles.rows}>
+              {adhkarCategories.map((category, index) => {
+                const progress = adhkarBadges[index];
+                return (
+                  <NavRow
+                    key={category.id}
+                    icon={category.icon}
+                    label={t(`zikrCat.${category.id}`)}
+                    badge={progress?.label}
+                    completed={progress?.completed}
+                    count={progress ? undefined : category.count}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/zikr/[category]",
+                        params: { category: category.id },
+                      })
+                    }
+                  />
+                );
               })}
-              compact
-            />
-          }
-        />
-        <View style={styles.rows}>
-          {SUNNAH_PRAYERS.map((prayerId) => (
-            <PrayerTrackerRow
-              key={prayerId}
-              prayerId={prayerId}
-              status={status[prayerId] ?? "pending"}
-              time={prayerTimes[prayerId]}
-              hasNotes={!!notes[prayerId]}
-              onPress={() => onPrayerPress(prayerId)}
-            />
-          ))}
-          <NavRow
-            icon={{ ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" }}
-            label={t("tahajjud.streakRow")}
-            onPress={() => router.push("/tahajjud")}
-          />
+            </View>
+          </Card>
+          {/* NF-3.5: Sunnah habits under the zikr section. */}
+          <SunnahHabitsSection date={date} />
         </View>
-      </Card>
+      </CollapsibleSection>
 
-      <Card padding="three">
-        <SectionHeader
-          title={t("journal.title")}
-          icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
-        />
-        <View style={styles.rows}>
-          <NavRow
-            icon={{ ios: "square.and.pencil", android: "edit", web: "edit" }}
-            label={t("journal.navRow")}
-            onPress={() => router.push("/journal")}
-          />
+      {makeUpGroup ? (
+        <CollapsibleSection
+          title={t("tracker.groupMakeUp")}
+          icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
+          defaultOpen
+        >
+          <View style={styles.group}>{qazaAndKhatm}</View>
+        </CollapsibleSection>
+      ) : (
+        qazaAndKhatm
+      )}
+
+      <CollapsibleSection
+        title={t("tracker.groupVoluntary")}
+        icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
+        defaultOpen={sunnahDone < SUNNAH_PRAYERS.length}
+      >
+        <View style={styles.group}>
+          <Card>
+            <SectionHeader
+              title={t("tracker.sunnahOptional")}
+              subtitle={t("tracker.sunnahSubtitle")}
+              badge={
+                <Pill
+                  label={t("tracker.sectionProgress", {
+                    completed: sunnahDone,
+                    total: SUNNAH_PRAYERS.length,
+                  })}
+                  compact
+                />
+              }
+            />
+            <View style={styles.rows}>
+              {SUNNAH_PRAYERS.map((prayerId) => (
+                <PrayerTrackerRow
+                  key={prayerId}
+                  prayerId={prayerId}
+                  status={status[prayerId] ?? "pending"}
+                  time={prayerTimes[prayerId]}
+                  hasNotes={!!notes[prayerId]}
+                  onPress={() => onPrayerPress(prayerId)}
+                  onSelect={quickSelectFor(prayerId)}
+                />
+              ))}
+              <NavRow
+                icon={{ ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" }}
+                label={t("tahajjud.streakRow")}
+                onPress={() => router.push("/tahajjud")}
+              />
+            </View>
+          </Card>
+          <Card>
+            <SectionHeader
+              title={t("journal.title")}
+              icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
+            />
+            <View style={styles.rows}>
+              <NavRow
+                icon={{ ios: "square.and.pencil", android: "edit", web: "edit" }}
+                label={t("journal.navRow")}
+                onPress={() => router.push("/journal")}
+              />
+            </View>
+          </Card>
         </View>
-      </Card>
+      </CollapsibleSection>
       {rawatib.sheet}
     </View>
   );
@@ -477,44 +553,38 @@ const styles = StyleSheet.create({
     width: "100%",
     gap: Spacing.four,
   },
-  tipBanner: {
+  group: {
+    gap: Spacing.four,
+    marginTop: Spacing.three,
+  },
+  dayBanner: {
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: BorderWidth.hairline,
+    paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.one,
+  },
+  dayLink: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    minHeight: Control.md,
+    paddingVertical: Spacing.one,
   },
-  tipText: {
+  dayLinkCopy: {
     flex: 1,
     minWidth: 0,
-  },
-  tipTextTv: {
-    fontSize: TvLayout.bodyFontSize - 2,
-    lineHeight: TvLayout.bodyFontSize + 4,
+    gap: Spacing.half,
   },
   rows: {
     gap: Spacing.two,
     marginTop: Spacing.three,
   },
-  hint: {
-    marginTop: Spacing.two,
-  },
-  fridayJump: {
-    flexDirection: "row",
-    alignItems: "center",
+  rowGroup: {
     gap: Spacing.two,
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.two,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
   },
-  fridayJumpCopy: {
-    flex: 1,
-    minWidth: 0,
-    gap: 1,
+  excusedToggle: {
+    alignSelf: "flex-start",
+    marginTop: Spacing.two,
   },
 });

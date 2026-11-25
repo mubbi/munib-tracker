@@ -39,7 +39,7 @@ export function ChildDeviceCard({ circleId, child }: { circleId: string; child: 
   return (
     <>
       <SectionHeader title={t("family.device.title")} />
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         <ThemedText type="small" themeColor="mutedForeground">
           {child.linkedDeviceAt ? t("family.device.linked") : t("family.device.body")}
         </ThemedText>

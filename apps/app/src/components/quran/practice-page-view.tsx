@@ -119,6 +119,7 @@ function TextPageView(props: PracticePageViewProps) {
               />
             ) : null}
             <Text
+              accessibilityLanguage="ar"
               style={[
                 styles.paragraph,
                 {

@@ -1,15 +1,17 @@
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useWindowDimensions } from "react-native";
-import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
+import { PrayerScheduleCard, ScheduleContextHeader } from "@/components/prayer-schedule-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { Breakpoints } from "@/constants/theme";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { formatScheduleShare } from "@/lib/share";
+import { useLocation } from "@/stores/location-store";
 
 const SHARE_KEY = "today-schedule";
 
@@ -17,10 +19,11 @@ export default function ScheduleScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const hero = useHomeHero();
+  const location = useLocation();
   const { width } = useWindowDimensions();
   // Wide web / tablets (never TV): fixed + flexible timings side by side in a
   // moderate column rather than one list stretched across the canvas.
-  const wide = !isTV() && width >= 1024;
+  const wide = !isTV() && width >= Breakpoints.wide;
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
   const onShare = async () => {
@@ -67,6 +70,14 @@ export default function ScheduleScreen() {
     >
       {SnapshotHost}
       <Seo path="/schedule" />
+      {/* P5-06: which date and place these times are for (and a way to change it). */}
+      <ScheduleContextHeader
+        dateLabel={hero.displayDates.primary}
+        secondaryDateLabel={hero.displayDates.secondary ?? undefined}
+        locationLabel={hero.location}
+        isDefaultLocation={location.source === "default"}
+        onChangeLocation={() => router.push("/location")}
+      />
       <PrayerScheduleCard
         schedule={hero.schedule}
         nextIn={hero.nextIn}

@@ -7,9 +7,10 @@ import { Seo } from "@/components/seo/seo";
 import { CustomTargetModal } from "@/components/tasbeeh/custom-target-modal";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { TasbeehReadingBlock } from "@/components/tasbeeh/tasbeeh-reading-block";
+import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -39,7 +40,7 @@ export default function CustomAdhkarTasbeehScreen() {
   const ready = useCustomAdhkarReady();
   const item = useCustomAdhkar(paramId(params.id));
   const { width: windowWidth } = useWindowDimensions();
-  const wide = !isTV() && windowWidth >= 1024;
+  const wide = !isTV() && windowWidth >= Breakpoints.wide;
   const [count, setCount] = useState(0);
   const [target, setTarget] = useState(33);
   const [customOpen, setCustomOpen] = useState(false);
@@ -53,7 +54,7 @@ export default function CustomAdhkarTasbeehScreen() {
     />
   );
 
-  if (!ready) return null;
+  if (!ready) return <TasbeehLoadingScreen onBack={goBack} />;
 
   if (!item) {
     return (

@@ -45,7 +45,7 @@ export function SettingsSection({
 }) {
   const open = disclosure?.open ?? true;
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.header}>
         <View style={styles.headerTitle}>
           {disclosure ? (

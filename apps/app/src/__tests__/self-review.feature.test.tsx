@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react-native";
+import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import FamilyTiesEditScreen from "@/app/family-ties/edit";
 import FamilyTiesScreen from "@/app/family-ties/index";
@@ -114,6 +114,25 @@ describe("Nightly muhasabah", () => {
       timeout: 15_000,
     });
     expect(screen.queryByText("Your Salah today")).toBeNull();
+  });
+
+  it("offers Undo when a custom question is removed", async () => {
+    await renderWithProviders(<MuhasabahSettingsScreen />);
+    await waitFor(() => expect(screen.getByText("Add your own question")).toBeTruthy(), {
+      timeout: 15_000,
+    });
+    await fireEvent.changeText(screen.getByLabelText("Add your own question"), "Did I smile?");
+    await fireEvent.press(screen.getByText("Add question"));
+    await waitFor(() => expect(screen.getByText("Did I smile?")).toBeTruthy());
+
+    await fireEvent.press(screen.getByText("Remove"));
+    await waitFor(() => expect(screen.queryByText("Did I smile?")).toBeNull());
+    const options = mockToast.show.mock.calls.at(-1)?.[1];
+    expect(options?.action?.label).toBe("Undo");
+    await act(async () => {
+      options?.action?.onPress();
+    });
+    await waitFor(() => expect(screen.getByText("Did I smile?")).toBeTruthy());
   });
 
   it("confirms before a shorter retention deletes older reviews", async () => {

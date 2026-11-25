@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
+import { TextField } from "@/components/ui/text-field";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -38,7 +40,7 @@ export function ReviewPromptSheet({
   feedbackError = null,
 }: Props) {
   const { t, i18n } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const [step, setStep] = useState<Step>("stars");
   const [stars, setStars] = useState(0);
   const [feedback, setFeedback] = useState("");
@@ -103,17 +105,35 @@ export function ReviewPromptSheet({
   };
 
   return (
-    <Sheet visible={visible} onClose={handleClose} variant="bottom" scrollable={false}>
+    <Sheet
+      visible={visible}
+      onClose={handleClose}
+      variant="bottom"
+      scrollable={false}
+      // The centred prompt heading below is the visible title; this names the dialog.
+      accessibilityLabel={
+        step === "stars"
+          ? t("reviews.rateTitle")
+          : step === "store"
+            ? t("reviews.storeTitle")
+            : t("reviews.feedbackTitle")
+      }
+    >
       <View style={styles.body}>
         {step === "stars" ? (
           <>
-            <ThemedText type="subtitle" style={styles.title}>
+            <ThemedText type="subtitle" heading={2} style={styles.title}>
               {t("reviews.rateTitle")}
             </ThemedText>
             <ThemedText type="small" themeColor="mutedForeground" style={styles.subtitle}>
               {t("reviews.rateSubtitle")}
             </ThemedText>
-            <View style={styles.starRow}>
+            {/* A rating is a single choice: radiogroup of five radios (P6-06). */}
+            <View
+              style={styles.starRow}
+              accessibilityRole="radiogroup"
+              accessibilityLabel={t("reviews.rateTitle")}
+            >
               {[1, 2, 3, 4, 5].map((value) => (
                 <PressableScale
                   key={value}
@@ -121,7 +141,8 @@ export function ReviewPromptSheet({
                   haptic="selection"
                   scaleTo={0.92}
                   style={styles.starButton}
-                  accessibilityRole="button"
+                  accessibilityRole="radio"
+                  accessibilityState={{ checked: stars === value }}
                   accessibilityLabel={t("reviews.starLabel", { count: value })}
                 >
                   <AppIcon
@@ -141,7 +162,7 @@ export function ReviewPromptSheet({
 
         {step === "store" ? (
           <>
-            <ThemedText type="subtitle" style={styles.title}>
+            <ThemedText type="subtitle" heading={2} style={styles.title}>
               {t("reviews.storeTitle")}
             </ThemedText>
             <ThemedText type="small" themeColor="mutedForeground" style={styles.subtitle}>
@@ -180,36 +201,31 @@ export function ReviewPromptSheet({
 
         {step === "feedback" ? (
           <>
-            <ThemedText type="subtitle" style={styles.title}>
+            <ThemedText type="subtitle" heading={2} style={styles.title}>
               {t("reviews.feedbackTitle")}
             </ThemedText>
             <ThemedText type="small" themeColor="mutedForeground" style={styles.subtitle}>
               {t("reviews.feedbackBody")}
             </ThemedText>
-            <TextInput
+            <TextField
+              label={t("reviews.feedbackLabel")}
               value={feedback}
               onChangeText={setFeedback}
               placeholder={t("reviews.feedbackPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
               multiline
               maxLength={2000}
-              style={[styles.feedbackInput, tokens.inputSurface, { color: colors.foreground }]}
+              optional
+              error={feedbackError ?? undefined}
             />
             {feedbackOffline ? (
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("reviews.feedbackOffline")}
-              </ThemedText>
-            ) : null}
-            {feedbackError ? (
-              <ThemedText type="caption" style={{ color: tokens.status.danger.color }}>
-                {feedbackError}
-              </ThemedText>
+              <Callout tone="warning">{t("reviews.feedbackOffline")}</Callout>
             ) : null}
             <Button
               label={t("reviews.feedbackCta")}
               onPress={() => void handleSendFeedback()}
               fullWidth
-              disabled={feedbackOffline || submitting}
+              loading={submitting}
+              disabled={feedbackOffline}
               style={styles.cta}
             />
             <Button label={t("reviews.skip")} onPress={handleClose} variant="secondary" fullWidth />
@@ -244,13 +260,6 @@ const styles = StyleSheet.create({
     minHeight: 44,
     alignItems: "center",
     justifyContent: "center",
-  },
-  feedbackInput: {
-    minHeight: 120,
-    borderWidth: 1,
-    borderRadius: 12,
-    padding: Spacing.three,
-    textAlignVertical: "top",
   },
   cta: {
     marginTop: Spacing.one,

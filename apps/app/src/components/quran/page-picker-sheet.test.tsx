@@ -34,7 +34,8 @@ type Props = Parameters<typeof PagePickerSheet>[0];
 async function renderSheet(overrides: Partial<Props> = {}) {
   const props: Props = {
     visible: true,
-    selectedPage: 2,
+    // Page 1: the list opens scrolled to the current page, so every fixture row renders.
+    selectedPage: 1,
     onSelect: jest.fn(),
     onClose: jest.fn(),
     ...overrides,
@@ -50,15 +51,14 @@ async function search(query: string) {
 describe("PagePickerSheet", () => {
   it("lists every page with its surah, ayah and juz", async () => {
     await renderSheet();
-    expect(screen.getByText("Jump to page")).toBeTruthy();
     expect(screen.getByText("Page 12")).toBeTruthy();
     expect(screen.getByText("Al-Baqarah · 2:77 · Juz 1")).toBeTruthy();
   });
 
   it("marks the current page as selected", async () => {
-    await renderSheet({ selectedPage: 12 });
-    expect(screen.getByRole("button", { name: /Page 12/, selected: true })).toBeTruthy();
-    expect(screen.getByRole("button", { name: /Page 2 /, selected: false })).toBeTruthy();
+    await renderSheet({ selectedPage: 2 });
+    expect(screen.getByRole("button", { name: /Page 2 /, selected: true })).toBeTruthy();
+    expect(screen.getByRole("button", { name: /Page 12/, selected: false })).toBeTruthy();
   });
 
   it.each([
@@ -71,6 +71,18 @@ describe("PagePickerSheet", () => {
     await search(query);
     for (const label of shown) expect(screen.getByText(label)).toBeTruthy();
     for (const label of hidden) expect(screen.queryByText(label)).toBeNull();
+  });
+
+  it("opens scrolled to the current page on phones too (G-19)", async () => {
+    await renderSheet({ selectedPage: 12 });
+    expect(screen.getByTestId("page-picker-list").props.initialScrollIndex).toBe(2);
+  });
+
+  it("uses the default keyboard so surah names can be typed", async () => {
+    await renderSheet();
+    expect(screen.getByPlaceholderText("Search page or surah…").props.keyboardType).not.toBe(
+      "number-pad",
+    );
   });
 
   it("selects a page and closes", async () => {

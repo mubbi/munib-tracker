@@ -1,8 +1,9 @@
 import { BlurView } from "expo-blur";
 import { SymbolView } from "expo-symbols";
-import { type ReactNode, useCallback, useEffect } from "react";
+import { type ReactNode, useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  AccessibilityInfo,
   KeyboardAvoidingView,
   Platform,
   type StyleProp,
@@ -20,6 +21,7 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { PinDotsRow } from "@/features/pin-lock/components/pin-keypad";
+import { PIN_LENGTH } from "@/features/pin-lock/lib/pin-crypto";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
@@ -79,6 +81,18 @@ export function PinShell({
     if (shakeTrigger) triggerShake();
   }, [shakeTrigger, triggerShake]);
 
+  // "3 of 6 digits entered": the dots are decorative, so progress is spoken.
+  // Android / web read the live region below; iOS needs an explicit announce.
+  const digitsLabel = t("pinLock.digitsEntered", { count: filledCount, total: PIN_LENGTH });
+  const lastAnnounced = useRef(filledCount);
+  useEffect(() => {
+    if (lastAnnounced.current === filledCount) return;
+    lastAnnounced.current = filledCount;
+    if (Platform.OS === "ios" && filledCount > 0) {
+      AccessibilityInfo.announceForAccessibility(digitsLabel);
+    }
+  }, [filledCount, digitsLabel]);
+
   const topPadding = insets.top + (presentation === "lock" ? Spacing.six : Spacing.four);
 
   return (
@@ -126,7 +140,9 @@ export function PinShell({
 
           {successBody ? (
             <View style={styles.successBody}>
-              <ThemedText type="title">{title}</ThemedText>
+              <ThemedText type="title" heading={1} accessibilityLiveRegion="polite">
+                {title}
+              </ThemedText>
               {successBody}
             </View>
           ) : (
@@ -139,7 +155,7 @@ export function PinShell({
                     tintColor={colors.accent}
                   />
                 </View>
-                <ThemedText type="title" style={styles.title}>
+                <ThemedText type="title" heading={1} style={styles.title}>
                   {title}
                 </ThemedText>
                 {subtitle ? (
@@ -149,16 +165,23 @@ export function PinShell({
                 ) : null}
 
                 <Animated.View style={[styles.pinBlock, shakeStyle]}>
-                  <PinDotsRow
-                    filledCount={filledCount}
-                    isLoading={dotsLoading}
-                    hasError={dotsError}
-                  />
+                  <View
+                    accessible
+                    accessibilityLabel={digitsLabel}
+                    accessibilityLiveRegion="polite"
+                    testID="pin-digits-entered"
+                  >
+                    <PinDotsRow
+                      filledCount={filledCount}
+                      isLoading={dotsLoading}
+                      hasError={dotsError}
+                    />
+                  </View>
                   <View style={styles.errorSlot}>
                     {errorMessage ? (
                       <ThemedText
                         type="caption"
-                        style={{ color: tokens.status.danger.color, textAlign: "center" }}
+                        style={{ color: tokens.status.danger.text, textAlign: "center" }}
                         accessibilityLiveRegion="polite"
                       >
                         {errorMessage}

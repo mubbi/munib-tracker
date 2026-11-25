@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { vaultErrorI18nKey } from "@/lib/vault/errors";
 import { VAULT_MIN_PASSPHRASE_LENGTH } from "@/lib/vault/keyring";
@@ -35,7 +33,6 @@ type VaultSyncSheetProps = {
  */
 export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetProps) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   const status = useVaultStatus();
   const [step, setStep] = useState<Step>("intro");
   const [passphrase, setPassphrase] = useState("");
@@ -43,6 +40,7 @@ export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetPr
   const [words, setWords] = useState<string[] | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [dismissBlocked, setDismissBlocked] = useState(false);
 
   useEffect(() => {
     if (!visible) {
@@ -52,6 +50,7 @@ export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetPr
       setWords(null);
       setError(null);
       setBusy(false);
+      setDismissBlocked(false);
     }
   }, [visible]);
 
@@ -90,13 +89,26 @@ export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetPr
   };
 
   const close = () => {
+    if (busy) return;
+    // S-01: the one-time recovery code is on screen — closing would discard it
+    // before it is saved. Only "Done" (after ticking "I've saved it") closes.
+    if (step === "recovery" && words) {
+      setDismissBlocked(true);
+      return;
+    }
     // Closing on the recovery step means the code was shown; sync is already on.
     if (step === "recovery") onEnabled?.();
     onClose();
   };
 
   return (
-    <Sheet visible={visible} onClose={busy ? () => {} : close} variant="bottom" solid>
+    <Sheet
+      accessibilityLabel={t("vault.sync.title")}
+      visible={visible}
+      onClose={close}
+      variant="bottom"
+      solid
+    >
       {step === "intro" ? (
         <>
           <ThemedText type="subtitle" heading={2}>
@@ -108,37 +120,15 @@ export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetPr
           <ThemedText type="small" themeColor="mutedForeground">
             {t("vault.sync.howItWorks")}
           </ThemedText>
-          <View
-            style={[
-              styles.warning,
-              {
-                backgroundColor: tokens.status.warning.soft,
-                borderColor: tokens.status.warning.border,
-              },
-            ]}
-            accessibilityRole="alert"
-          >
-            <ThemedText type="smallBold" style={{ color: tokens.status.warning.text }}>
-              {t("vault.sync.warningTitle")}
-            </ThemedText>
-            <ThemedText type="small" style={{ color: colors.foreground }}>
-              {t("vault.sync.warningBody")}
-            </ThemedText>
-          </View>
-          {error ? (
-            <ThemedText
-              type="small"
-              accessibilityRole="alert"
-              style={{ color: tokens.status.danger.text }}
-            >
-              {error}
-            </ThemedText>
-          ) : null}
+          <Callout tone="warning" title={t("vault.sync.warningTitle")}>
+            {t("vault.sync.warningBody")}
+          </Callout>
+          {error ? <Callout tone="danger">{error}</Callout> : null}
           {canResume ? (
             <Button
               label={t("vault.sync.resume")}
               fullWidth
-              disabled={busy}
+              loading={busy}
               onPress={() =>
                 void run(async () => {
                   await resumeVaultSync();
@@ -172,27 +162,21 @@ export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetPr
             autoFocus
             onSubmitEditing={submit}
           />
-          {error ? (
-            <ThemedText
-              type="small"
-              accessibilityRole="alert"
-              style={{ color: tokens.status.danger.text }}
-            >
-              {error}
-            </ThemedText>
-          ) : null}
+          {error ? <Callout tone="danger">{error}</Callout> : null}
           {busy ? (
-            <View style={styles.busy} accessibilityLiveRegion="polite">
-              <ActivityIndicator />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("vault.passphrase.working")}
-              </ThemedText>
-            </View>
+            <ThemedText
+              type="caption"
+              themeColor="mutedForeground"
+              accessibilityLiveRegion="polite"
+            >
+              {t("vault.passphrase.working")}
+            </ThemedText>
           ) : null}
           <Button
             label={t("vault.passphrase.submit")}
             fullWidth
-            disabled={!canSubmit}
+            loading={busy}
+            disabled={!canSubmitNewPassphrase(passphrase, confirm)}
             onPress={submit}
           />
           <Button
@@ -206,6 +190,7 @@ export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetPr
       ) : words ? (
         <RecoveryCodeDisplay
           words={words}
+          dismissBlocked={dismissBlocked}
           onConfirmed={() => {
             setWords(null);
             onEnabled?.();
@@ -216,14 +201,3 @@ export function VaultSyncSheet({ visible, onClose, onEnabled }: VaultSyncSheetPr
     </Sheet>
   );
 }
-
-const styles = StyleSheet.create({
-  warning: {
-    gap: Spacing.one,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-  },
-  busy: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-});

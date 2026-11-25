@@ -102,6 +102,6 @@ const styles = StyleSheet.create({
   },
   copy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
 });

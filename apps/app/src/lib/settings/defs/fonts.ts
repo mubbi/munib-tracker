@@ -48,11 +48,16 @@ function patchFonts(patch: (current: FontPreferences) => Partial<FontPreferences
   return updatePrefs({ fontPrefs: { ...current, ...patch(current) } });
 }
 
-/** Surfaces whose A−/A+ delta differs from the global size. */
+/**
+ * Surfaces whose A−/A+ delta differs from the global size. Only known surfaces
+ * count, so a key synced from a newer build can't inflate the summary.
+ */
 export function customSurfaceCount(fontPrefs: FontPreferences): number {
-  return Object.values(fontPrefs.readingOverrides ?? {}).filter(
-    (o) => !!o && ((o.arabicDelta ?? 0) !== 0 || (o.textDelta ?? 0) !== 0),
-  ).length;
+  const overrides = fontPrefs.readingOverrides ?? {};
+  return READING_SURFACES.filter((surface) => {
+    const o = overrides[surface];
+    return !!o && ((o.arabicDelta ?? 0) !== 0 || (o.textDelta ?? 0) !== 0);
+  }).length;
 }
 
 export function clearAllReadingOverrides(): Promise<void> {
@@ -95,9 +100,10 @@ export const READING_SURFACE_TITLE_KEYS: Record<ReadingSurface, string> = {
   last_day: "lastDay.title",
   learn_dua: "learnDua.title",
   learn_quran: "learnQuran.title",
+  finance: "settingsPanel.surfaceFinance",
 };
 
-/** Every reading surface with an in-context A−/A+ (13 today). */
+/** Every reading surface with an in-context A−/A+ (14 today). */
 export const READING_SURFACES = Object.keys(READING_SURFACE_TITLE_KEYS) as ReadingSurface[];
 
 /** Every reader whose toolbar chip is a shortcut to the app-wide pair (D13). */
@@ -231,6 +237,7 @@ export const FONT_SETTINGS: AnySettingDef[] = [
       kind: "action",
       run: clearAllReadingOverrides,
       confirmKey: "settingsPanel.resetAllSizesConfirm",
+      doneKey: "settings.done.textSizes",
     },
   }),
 ];

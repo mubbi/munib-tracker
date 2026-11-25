@@ -1,37 +1,59 @@
 import { type Href, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
-import { useLearnHubLayout } from "@/components/jannah/hub-layout";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
+import {
+  LearnTimeline,
+  type LearnTimelineEvent,
+  useLearnTimelineTwoColumn,
+} from "@/components/learn-guide/learn-timeline";
+import { useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
+import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
-import { Pill } from "@/components/ui/pill";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureLastDayContent, getLastDayTimeline, isLastDayContentReady } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
-import { isTV } from "@/lib/platform/is-tv";
-import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
 export default function LastDayTimelineScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const chevronForwardIcon = useChevronForward();
-  const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
-  const events = getLastDayTimeline();
-  const wide = useLearnHubLayout();
-  // Wide web / tablets: steps alternate either side of a centred rail.
-  const zigzag = wide.contentWidth >= 760;
+  const { t, i18n } = useTranslation();
+  const {
+    version: contentVersion,
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
+  const { maxContentWidth } = useLearnWideLayout();
+  const twoColumn = useLearnTimelineTwoColumn();
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or corpus is ready
+  const events = useMemo<LearnTimelineEvent[]>(
+    () =>
+      getLastDayTimeline().map((event) => ({
+        id: event.id,
+        badges: [
+          t("lastDay.timelineStep", { step: event.order }),
+          ...(event.signType ? [t(`lastDay.signType.${event.signType}`)] : []),
+        ],
+        title: event.title,
+        body: event.body,
+        link: event.topicId
+          ? {
+              label: t("lastDay.readTopic"),
+              onPress: () =>
+                router.push({
+                  pathname: "/last-day/[topic]",
+                  params: { topic: event.topicId ?? "" },
+                }),
+            }
+          : undefined,
+      })),
+    [router, t, i18n.language, contentVersion],
+  );
 
   return (
     <ScreenLayout
@@ -39,122 +61,21 @@ export default function LastDayTimelineScreen() {
       title={t("lastDay.timelineTitle")}
       subtitle={t("lastDay.timelineSubtitle")}
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
-      maxContentWidth={wide.maxContentWidth}
+      maxContentWidth={twoColumn ? maxContentWidth : undefined}
     >
       <Seo path="/last-day/timeline" />
-      <LearnContentGate ready={contentReady}>
-        <Stagger>
-          <JannahCallout tone="info">{t("lastDay.timelineIntro")}</JannahCallout>
-
-          {events.map((event, index) => {
-            const card = (
-              <PressableScale
-                haptic="light"
-                // TV: keep link-less steps focusable so the D-pad can step
-                // through (and scroll) the whole timeline.
-                disabled={!event.topicId && !isTV()}
-                accessibilityRole={event.topicId ? "button" : "text"}
-                onPress={
-                  event.topicId
-                    ? () =>
-                        router.push({
-                          pathname: "/last-day/[topic]",
-                          params: { topic: event.topicId ?? "" },
-                        })
-                    : undefined
-                }
-                style={styles.cardPressable}
-              >
-                <Card padding="three" style={styles.card}>
-                  <View style={styles.badges}>
-                    <Pill
-                      label={t("lastDay.timelineStep", { step: event.order })}
-                      compact
-                      color={colors.accentText}
-                      background={tokens.accentSoft}
-                    />
-                    {event.signType ? (
-                      <Pill
-                        label={t(`lastDay.signType.${event.signType}`)}
-                        compact
-                        color={tokens.status.warning.color}
-                        background={tokens.status.warning.soft}
-                      />
-                    ) : null}
-                  </View>
-                  <ThemedText type="smallBold" style={styles.title}>
-                    {event.title}
-                  </ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {event.body}
-                  </ThemedText>
-                  {event.topicId ? (
-                    <View style={styles.linkRow}>
-                      <ThemedText type="caption" style={{ color: colors.accent }}>
-                        {t("lastDay.readTopic")}
-                      </ThemedText>
-                      <SymbolView name={chevronForwardIcon} size={12} tintColor={colors.accent} />
-                    </View>
-                  ) : null}
-                </Card>
-              </PressableScale>
-            );
-            const rail = (
-              <View style={styles.railColumn}>
-                <View style={[styles.dot, { backgroundColor: colors.accent }]} />
-                {index < events.length - 1 ? (
-                  <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
-                ) : null}
-              </View>
-            );
-            if (!zigzag) {
-              return (
-                <View key={event.id} style={styles.row}>
-                  {rail}
-                  {card}
-                </View>
-              );
-            }
-            const startSide = index % 2 === 0;
-            return (
-              <View key={event.id} style={styles.row}>
-                <View style={styles.side}>{startSide ? card : null}</View>
-                {rail}
-                <View style={styles.side}>{startSide ? null : card}</View>
-              </View>
-            );
-          })}
-
-          <JannahDisclaimer textKey="lastDay.disclaimer" />
-        </Stagger>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
+        <LearnReadingChrome surface="last_day">
+          <Stagger>
+            <JannahCallout tone="info">{t("lastDay.timelineIntro")}</JannahCallout>
+            <LearnTimeline events={events} />
+            <JannahDisclaimer textKey="lastDay.disclaimer" />
+          </Stagger>
+        </LearnReadingChrome>
       </LearnContentGate>
     </ScreenLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  row: { flexDirection: "row", gap: Spacing.three },
-  side: { flex: 1, minWidth: 0 },
-  railColumn: { alignItems: "center", width: tvDp(16), paddingTop: Spacing.three },
-  dot: { width: tvDp(12), height: tvDp(12), borderRadius: Radius.pill },
-  rail: { width: tvDp(2), flex: 1, marginTop: Spacing.one },
-  cardPressable: {
-    flex: 1,
-    marginBottom: Spacing.three,
-    borderRadius: Radius.lg,
-    borderCurve: "continuous",
-  },
-  card: { flex: 1 },
-  badges: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    flexWrap: "wrap",
-    marginBottom: Spacing.two,
-  },
-  title: { marginBottom: Spacing.one },
-  linkRow: { flexDirection: "row", alignItems: "center", gap: Spacing.one, marginTop: Spacing.two },
-});
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
 export const generateMetadata = routeMetadata("/last-day/timeline");

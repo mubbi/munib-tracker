@@ -30,11 +30,11 @@ describe("SettingsGroupBody — folded sections (progressive disclosure)", () =>
     expect(sunriseStepper()).toBeTruthy();
   });
 
-  it("says how many folded settings are customised", async () => {
+  it("says how many folded settings are customized", async () => {
     await act(() => locationStore.getState().setPrayerAdjustment("fajr", 4));
     await renderWithTheme(<SettingsGroupBody group="prayer-times" />);
-    expect(screen.getByText("1 customised")).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Masjid offsets, 1 customised" })).toBeTruthy();
+    expect(screen.getByText("1 customized")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Masjid offsets, 1 customized" })).toBeTruthy();
   });
 
   it("opens a folded section when a deep link / search result targets one of its rows", async () => {
@@ -46,7 +46,7 @@ describe("SettingsGroupBody — folded sections (progressive disclosure)", () =>
 
   it("leaves other sections open", async () => {
     await renderWithTheme(<SettingsGroupBody group="prayer-times" />);
-    expect(screen.queryByRole("button", { name: "Prayer calculation" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Salah time calculation" })).toBeNull();
     expect(screen.getByText("Calculation method")).toBeTruthy();
   });
 });

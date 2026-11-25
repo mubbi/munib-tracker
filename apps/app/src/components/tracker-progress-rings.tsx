@@ -5,7 +5,7 @@ import { type LayoutChangeEvent, StyleSheet, useWindowDimensions, View } from "r
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressRing } from "@/components/ui/progress-ring";
-import { MaxContentWidth, Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, MaxContentWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -84,6 +84,7 @@ function RingCell({
     <>
       <ProgressRing
         progress={item.progress}
+        accessibilityLabel={item.label}
         size={ringSize}
         stroke={stroke}
         color={item.color}
@@ -194,12 +195,12 @@ const styles = StyleSheet.create({
   cell: {
     alignItems: "center",
     gap: Spacing.one,
-    paddingTop: Spacing.two + 2,
+    paddingTop: Spacing.twoHalf,
     paddingBottom: Spacing.two,
-    paddingHorizontal: Spacing.one + 2,
+    paddingHorizontal: Spacing.oneHalf,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   label: {
     textAlign: "center",

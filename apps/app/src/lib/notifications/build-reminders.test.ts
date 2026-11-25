@@ -179,7 +179,7 @@ describe("buildReminders", () => {
     expect(reminders.every((r) => r.fireAt.getTime() > future.getTime() - 60_000)).toBe(true);
   });
 
-  it("attaches the adhan sound only to obligatory prayers when the option is on", () => {
+  it("attaches the Adhan sound only to obligatory prayers when the option is on", () => {
     const withAdhan: UserPreferences = {
       ...basePrefs,
       notificationPrefs: { ...basePrefs.notificationPrefs, playAdhanOnPrayer: true },
@@ -200,7 +200,7 @@ describe("buildReminders", () => {
   });
 
   it.each(ADHAN_STYLES.map((style) => style.id))(
-    "uses adhan style %p's registered sound and channel (B2)",
+    "uses Adhan style %p's registered sound and channel (B2)",
     (styleId) => {
       const prefs: UserPreferences = {
         ...basePrefs,
@@ -227,7 +227,7 @@ describe("buildReminders", () => {
     expect(fard?.androidChannelId).toBe("adhan-default");
   });
 
-  it("keeps obligatory prayers silent when the adhan option is off", () => {
+  it("keeps obligatory prayers silent when the Adhan option is off", () => {
     const reminders = buildReminders(basePrefs, SET_LOCATION);
     const fard = reminders.find((r) => r.id.startsWith("prayer:fajr:"));
     expect(fard?.sound).toBeUndefined();
@@ -469,7 +469,7 @@ describe("buildReminders", () => {
     expect(buildReminders(allOn, SET_LOCATION).length).toBeLessThanOrEqual(MAX_PENDING_REMINDERS);
   });
 
-  it("uses a single DAILY slot for fixed-clock zikr reminders", () => {
+  it("uses a single DAILY slot for fixed-clock Zikr reminders", () => {
     const reminders = buildReminders(basePrefs, SET_LOCATION);
     const morning = reminders.filter(
       (r) => r.id === "morningZikr" || r.id.startsWith("morningZikr:"),
@@ -553,7 +553,7 @@ describe("Qur'an revision reminder (§10)", () => {
     });
     const rows = reminders.filter((r) => r.id.startsWith("quran-revision:"));
     expect(rows).toHaveLength(1);
-    expect(rows[0].body).toBe("2 ayahs to revise today, and a tajweed sound to practise");
+    expect(rows[0].body).toBe("2 ayahs to revise today, and a tajweed sound to practice");
   });
 
   it("NF-3.15: drops the tajweed line during an excused period", () => {

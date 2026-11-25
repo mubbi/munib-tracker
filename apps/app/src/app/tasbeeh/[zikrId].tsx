@@ -8,10 +8,11 @@ import { Seo } from "@/components/seo/seo";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { TasbeehCounterBar } from "@/components/tasbeeh/tasbeeh-counter-bar";
 import { TasbeehReadingBlock } from "@/components/tasbeeh/tasbeeh-reading-block";
+import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
 import { ZikrReciteAlongCard } from "@/components/tasbeeh/zikr-recite-along";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
@@ -46,7 +47,7 @@ export default function ZikrTasbeehScreen() {
   const contentBottomInset = useContentBottomInset();
   const { width: windowWidth } = useWindowDimensions();
   // Wide web / tablets: the counter sits beside the zikr text (TV keeps its layout).
-  const wide = !isTV() && windowWidth >= 1024;
+  const wide = !isTV() && windowWidth >= Breakpoints.wide;
   const dock = useTasbeehCounterDock();
   const { counterRef, onScroll, onCounterLayout, recompute } = dock;
   // TV: the landscape counter fits the viewport and keeps preferred focus — a
@@ -56,6 +57,8 @@ export default function ZikrTasbeehScreen() {
   const { fontPrefs } = usePreferences();
   const [dockBarHeight, setDockBarHeight] = useState(DOCK_BAR_FALLBACK);
   const [corpusReady, setCorpusReady] = useState(false);
+  const [corpusFailed, setCorpusFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     // Visibility / size changes move the counter in the window — re-measure dock need.
@@ -70,13 +73,20 @@ export default function ZikrTasbeehScreen() {
 
   useEffect(() => {
     let active = true;
-    void ensureZikrCorpus().then(() => {
-      if (active) setCorpusReady(true);
-    });
+    void attempt; // a retry re-runs the load
+    setCorpusFailed(false);
+    ensureZikrCorpus().then(
+      () => {
+        if (active) setCorpusReady(true);
+      },
+      () => {
+        if (active) setCorpusFailed(true);
+      },
+    );
     return () => {
       active = false;
     };
-  }, []);
+  }, [attempt]);
 
   const item = corpusReady && zikrId ? getZikrById(zikrId) : undefined;
   const { currentAfterSalah, date: adhkarDate } = useAdhkarClock();
@@ -110,7 +120,13 @@ export default function ZikrTasbeehScreen() {
   }, [afterSalahPrayer, day.date, dayCounts, dayReady, item, target, writeCount]);
 
   if (!corpusReady) {
-    return null;
+    return (
+      <TasbeehLoadingScreen
+        onBack={() => goBackOrReplace(router, "/")}
+        failed={corpusFailed}
+        onRetry={() => setAttempt((n) => n + 1)}
+      />
+    );
   }
 
   if (!item) {

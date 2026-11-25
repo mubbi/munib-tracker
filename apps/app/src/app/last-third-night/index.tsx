@@ -15,7 +15,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
 import { WallClockPicker, type WallClockValue } from "@/components/ui/wall-clock-picker";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Breakpoints, Control, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useNow } from "@/hooks/use-now";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -68,7 +68,7 @@ export default function LastThirdNightScreen() {
   const now = useNow();
   const { width } = useWindowDimensions();
   /** Desktop / wide web: night timeline + hadith as main column, time controls aside. */
-  const twoPane = !isTV() && width >= 1024;
+  const twoPane = !isTV() && width >= Breakpoints.wide;
 
   const [seed] = useState(() => detectTimes(location));
   const [maghrib, setMaghrib] = useState<WallClockValue>(seed.maghrib);
@@ -131,7 +131,7 @@ export default function LastThirdNightScreen() {
       style={{
         backgroundColor: tokens.status.info.soft,
         borderColor: withAlpha(tokens.status.info.color, tokens.isDark ? 0.45 : 0.28),
-        borderWidth: StyleSheet.hairlineWidth,
+        borderWidth: BorderWidth.hairline,
       }}
     >
       {result ? (
@@ -176,7 +176,7 @@ export default function LastThirdNightScreen() {
   );
 
   const timesCard = (
-    <Card padding="three">
+    <Card>
       <View style={styles.timesHeader}>
         <ThemedText type="smallBold">{t("lastThirdNight.basedOn")}</ThemedText>
         <PressableScale
@@ -191,7 +191,7 @@ export default function LastThirdNightScreen() {
             size={14}
             tintColor={colors.accent}
           />
-          <ThemedText type="caption" style={{ color: colors.accent }}>
+          <ThemedText type="caption" style={{ color: colors.accentText }}>
             {t("lastThirdNight.autoDetect")}
           </ThemedText>
         </PressableScale>
@@ -223,7 +223,7 @@ export default function LastThirdNightScreen() {
   );
 
   const hadithCard = (
-    <Card padding="three">
+    <Card>
       <View style={styles.hadithHeader}>
         <SymbolView
           name={{ ios: "quote.opening", android: "format_quote", web: "format_quote" }}
@@ -251,7 +251,7 @@ export default function LastThirdNightScreen() {
             <View style={styles.primary}>
               {heroCard}
               {result ? (
-                <Card padding="three">
+                <Card>
                   <NightTimeline
                     maghribAt={result.maghribAt}
                     midNight={result.midNight}
@@ -272,7 +272,15 @@ export default function LastThirdNightScreen() {
         {twoPane ? null : hadithCard}
       </Stagger>
 
-      <Sheet visible={editField != null} onClose={() => setEditField(null)} variant="bottom" solid>
+      <Sheet
+        accessibilityLabel={
+          editField === "fajr" ? t("lastThirdNight.fajrLabel") : t("lastThirdNight.maghribLabel")
+        }
+        visible={editField != null}
+        onClose={() => setEditField(null)}
+        variant="bottom"
+        solid
+      >
         <View style={styles.sheetBody}>
           <ThemedText type="subtitle">
             {editField === "fajr"
@@ -341,7 +349,7 @@ function TimeChip({
         numberOfLines={1}
         adjustsFontSizeToFit
         minimumFontScale={0.55}
-        style={{ color: colors.accent }}
+        style={{ color: tokens.accentOnSoft }}
       >
         {value}
       </ThemedText>
@@ -387,7 +395,7 @@ const styles = StyleSheet.create({
   },
   metaItem: {
     alignItems: "center",
-    gap: 2,
+    gap: Spacing.half,
     flex: 1,
   },
   metaDivider: {
@@ -410,6 +418,7 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     paddingVertical: Spacing.one,
     paddingHorizontal: Spacing.two,
+    minHeight: Control.minTouch,
   },
   refreshRowTv: {
     minHeight: TvLayout.chipMinHeight,

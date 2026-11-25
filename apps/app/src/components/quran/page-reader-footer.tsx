@@ -5,7 +5,7 @@ import { ThemedText } from "@/components/themed-text";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Control, IconSize, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -80,7 +80,11 @@ export function PageReaderFooter({
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={t("quran.pagePickerTitle")}
+      // Speak where the reader is, not only what the chip does.
+      accessibilityLabel={`${t("quran.pagePickerTitle")}, ${t("quran.pageOf", {
+        page: currentPage,
+        total: totalPages,
+      })}`}
       onPress={onOpenPage}
       style={[
         styles.pageChip,
@@ -91,7 +95,7 @@ export function PageReaderFooter({
     >
       <SymbolView
         name={{ ios: "book.pages", android: "menu_book", web: "menu_book" }}
-        size={16}
+        size={IconSize.md}
         tintColor={colors.accent}
       />
       <ThemedText type="smallBold" numberOfLines={1} style={styles.pageLabel}>
@@ -240,11 +244,8 @@ function PageNavButton({
         styles.navBtn,
         expanded ? styles.navBtnExpanded : styles.navBtnCompact,
         tv && styles.navBtnTv,
-        {
-          backgroundColor: tokens.accentSoft,
-          opacity: disabled ? 0.45 : 1,
-          flexDirection: contentDirection,
-        },
+        // Disabled dimming comes from PressableScale (Opacity.disabled) — no second fade.
+        { backgroundColor: tokens.accentSoft, flexDirection: contentDirection },
       ]}
     >
       {iconFirst ? (
@@ -273,7 +274,7 @@ function PageNavButton({
 const styles = StyleSheet.create({
   shell: {
     overflow: "hidden",
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   row: {
     flexDirection: "row",
@@ -301,13 +302,13 @@ const styles = StyleSheet.create({
   navBtn: {
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one + 2,
-    minHeight: 44,
+    gap: Spacing.oneHalf,
+    minHeight: Control.md,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
   },
   navBtnCompact: {
-    minWidth: 44,
+    minWidth: Control.md,
     paddingHorizontal: Spacing.two,
     flexShrink: 0,
   },

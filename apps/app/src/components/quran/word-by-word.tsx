@@ -14,13 +14,13 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-
 import {
   useRootDataNeedsDownload,
   useSurahWordRoots,
 } from "@/components/quran/roots/use-word-roots";
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -38,9 +38,18 @@ type ActiveWordValue = { ayah: number | null; index: number | null };
 
 const QuranActiveWordContext = createContext<ActiveWordValue>({ ayah: null, index: null });
 
-type PlaybackValue = { ayah: number | null; isPlaying: boolean };
+/**
+ * Recitation state for ayah chrome — the same three states as the shared
+ * `PlayButton` (play · pause · buffering), without subscribing every row to
+ * the audio context ticks.
+ */
+type PlaybackValue = { ayah: number | null; isPlaying: boolean; isBuffering: boolean };
 
-const QuranPlaybackContext = createContext<PlaybackValue>({ ayah: null, isPlaying: false });
+const QuranPlaybackContext = createContext<PlaybackValue>({
+  ayah: null,
+  isPlaying: false,
+  isBuffering: false,
+});
 
 /** Current recitation track — subscribe from ayah chrome only, never FlatList extraData. */
 export function useQuranPlayback(): PlaybackValue {
@@ -103,6 +112,7 @@ export function QuranWordStudyProviders({
   wordAudioEnabled,
   playingAyah,
   audioIsPlaying = false,
+  audioIsBuffering = false,
   activeWordIndex,
   wordsByAyah,
   surah = null,
@@ -116,6 +126,8 @@ export function QuranWordStudyProviders({
   wordAudioEnabled: boolean;
   playingAyah: number | null;
   audioIsPlaying?: boolean;
+  /** The playing ayah is loading (shows the spinner, like `PlayButton`). */
+  audioIsBuffering?: boolean;
   activeWordIndex: number | null;
   wordsByAyah?: Record<string, QuranWord[]>;
   children: ReactNode;
@@ -125,8 +137,8 @@ export function QuranWordStudyProviders({
     [playingAyah, activeWordIndex],
   );
   const playback = useMemo<PlaybackValue>(
-    () => ({ ayah: playingAyah, isPlaying: audioIsPlaying }),
-    [playingAyah, audioIsPlaying],
+    () => ({ ayah: playingAyah, isPlaying: audioIsPlaying, isBuffering: audioIsBuffering }),
+    [playingAyah, audioIsPlaying, audioIsBuffering],
   );
   const focus = useMemo<WordFocusValue>(() => ({ surah, focus: focusWord }), [surah, focusWord]);
   const tree = (
@@ -155,6 +167,8 @@ type WordByWordProps = {
 
 type WordCardTheme = {
   accent: string;
+  accentText: string;
+  accentOnSoft: string;
   foreground: string;
   muted: string;
   mutedForeground: string;
@@ -235,7 +249,7 @@ const WordCard = memo(function WordCard({
             styles.arabic,
             arabicReadingLayout(wordArabicSize, "center"),
             {
-              color: isActive ? theme.accent : theme.foreground,
+              color: isActive ? theme.accentText : theme.foreground,
               fontFamily: theme.arabicFontFamily,
             },
           ]}
@@ -243,7 +257,7 @@ const WordCard = memo(function WordCard({
           {sanitizeArabicText(word.arabic)}
         </Text>
         {word.translit ? (
-          <Text style={[styles.meta, { color: theme.accent, fontSize: wordTranslitSize }]}>
+          <Text style={[styles.meta, { color: theme.accentText, fontSize: wordTranslitSize }]}>
             {word.translit}
           </Text>
         ) : null}
@@ -276,9 +290,11 @@ const WordCard = memo(function WordCard({
               accessibilityRole="link"
               accessibilityLabel={theme.rootLabel(rootToArabic(root))}
               onPress={() => onOpenRoot?.(root)}
+              // Compact chip, 44pt touch target (P6-07).
+              hitSlop={10}
               style={[styles.rootChip, { backgroundColor: theme.accentSoft }]}
             >
-              <Text style={[styles.rootChipText, { color: theme.accent }]}>
+              <Text style={[styles.rootChipText, { color: theme.accentOnSoft }]}>
                 {theme.rootLabel(rootToArabic(root))}
               </Text>
             </Pressable>
@@ -331,6 +347,9 @@ export const WordByWord = memo(function WordByWord({
   const theme = useMemo<WordCardTheme>(
     () => ({
       accent: colors.accent,
+      // Text never uses the raw accent (A-02): accentText on cards, accentOnSoft on tints.
+      accentText: colors.accentText,
+      accentOnSoft: tokens.accentOnSoft,
       foreground: colors.foreground,
       muted: colors.muted,
       mutedForeground: colors.mutedForeground,
@@ -345,10 +364,12 @@ export const WordByWord = memo(function WordByWord({
     [
       arabicFontFamily,
       colors.accent,
+      colors.accentText,
       colors.foreground,
       colors.muted,
       colors.mutedForeground,
       t,
+      tokens.accentOnSoft,
       tokens.accentSoft,
       tokens.isDark,
     ],
@@ -430,7 +451,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: Spacing.one,
     paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
+    paddingVertical: Spacing.half,
     borderRadius: Radius.pill,
   },
   rootChipText: { fontSize: 12, textAlign: "center" },
@@ -476,17 +497,17 @@ const styles = StyleSheet.create({
   },
   wordCardShellTv: {
     width: "22%",
-    maxWidth: 220,
+    maxWidth: tvDp(220),
   },
   wordCard: {
     width: "100%",
     alignItems: "center",
     gap: Spacing.one,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   wordCardTv: {
     minHeight: TvLayout.chipMinHeight,
@@ -513,9 +534,9 @@ const styles = StyleSheet.create({
   },
   playIconWellTv: {
     marginTop: Spacing.one,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: tvDp(36),
+    height: tvDp(36),
+    borderRadius: tvDp(18),
   },
   playGlyph: {
     fontSize: 12,
@@ -523,7 +544,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   playGlyphTv: {
-    fontSize: 14,
-    lineHeight: 16,
+    fontSize: tvDp(14),
+    lineHeight: tvDp(16),
   },
 });

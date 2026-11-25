@@ -44,7 +44,7 @@ export function EvidenceLinks({
   const { t } = useTranslation();
   const router = useRouter();
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t(titleKey)}
         icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}

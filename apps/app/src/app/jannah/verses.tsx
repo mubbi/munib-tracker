@@ -12,18 +12,17 @@ import {
   useLearnHubLayout,
   useLearnTileStyle,
 } from "@/components/jannah/hub-layout";
-import { JannahActionRow, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { JannahCallout, JannahDisclaimer, LearnActionRow } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { ReciteAlongButton } from "@/components/quran/recite-along-button";
-import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
@@ -70,7 +69,6 @@ function JannahVersesList({
   const tileStyle = useLearnTileStyle();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
   const chevronForwardIcon = useChevronForward();
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const verses = useMemo(() => getJannahVerses(), [contentVersion]);
@@ -96,7 +94,7 @@ function JannahVersesList({
         const items = grouped.get(theme) ?? [];
         if (items.length === 0) return null;
         return (
-          <Card key={theme} padding="three">
+          <Card key={theme}>
             <SectionHeader title={t(`jannah.verseTheme.${theme}`)} icon={THEME_ICONS[theme]} />
             <LearnColumnsGrid
               columns={columns}
@@ -105,10 +103,9 @@ function JannahVersesList({
               style={styles.list}
             >
               {items.map((verse, index) => (
-                <JannahActionRow
+                <LearnActionRow
                   key={verse.id}
                   accessibilityRole="link"
-                  accessibilityLabel={`${verse.label}. ${verse.excerpt}`}
                   onPress={() =>
                     router.push({
                       pathname: "/quran/[surah]",
@@ -121,7 +118,7 @@ function JannahVersesList({
                       ? tileStyle
                       : index > 0 && {
                           borderTopColor: tokens.hairline,
-                          borderTopWidth: StyleSheet.hairlineWidth,
+                          borderTopWidth: BorderWidth.hairline,
                         },
                   ]}
                   actions={<VerseActions verse={verse} />}
@@ -143,20 +140,11 @@ function JannahVersesList({
                     <ReferenceLine reference={verse.label} />
                     <ScriptureMeaning english={verse.excerpt} quranRef={verse}>
                       {(text) => (
-                        <ThemedText
-                          type="small"
-                          themeColor="mutedForeground"
-                          style={[
-                            styles.excerpt,
-                            { fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 },
-                          ]}
-                        >
-                          {text}
-                        </ThemedText>
+                        <LearnProseText themeColor="mutedForeground">{text}</LearnProseText>
                       )}
                     </ScriptureMeaning>
                   </View>
-                </JannahActionRow>
+                </LearnActionRow>
               ))}
             </LearnColumnsGrid>
           </Card>
@@ -169,10 +157,12 @@ function JannahVersesList({
 export default function JannahVersesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(
-    ensureJannahContent,
-    isJannahContentReady,
-  );
+  const {
+    version: contentVersion,
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureJannahContent, isJannahContentReady);
   const wide = useLearnHubLayout();
   const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 3 });
 
@@ -185,7 +175,7 @@ export default function JannahVersesScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jannah/verses" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <LearnReadingChrome surface="jannah">
             <JannahVersesList contentVersion={contentVersion} columns={columns} />
@@ -207,7 +197,6 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
   },
   rowCopy: { flex: 1, gap: Spacing.one },
-  excerpt: { lineHeight: 20 },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

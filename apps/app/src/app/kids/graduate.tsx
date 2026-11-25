@@ -5,12 +5,14 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { CircleAccountGate } from "@/components/circles/account-gate";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { TextField } from "@/components/self-review/text-field";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Spacing } from "@/constants/theme";
 import { type GraduateChildInput, graduateChild } from "@/lib/circles/api";
@@ -35,24 +37,22 @@ export default function KidsGraduateScreen() {
   const session = useChildSession();
   const [displayName, setDisplayName] = useState(session.meta?.child.nickname ?? "");
   const [share, setShare] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const graduate = useCircleMutation((token, input: GraduateChildInput) =>
     graduateChild(token, input),
   );
 
+  // Throws on failure so the confirm dialog stays open with its inline error + retry.
   const onGraduate = async () => {
     if (!session.token) return;
-    try {
-      const circle = await graduate.mutateAsync({
-        childToken: session.token,
-        displayName: displayName.trim() || undefined,
-        shareFardStatus: share,
-      });
-      await clearChildSession();
-      toast.success(t("kids.graduate.done"));
-      router.replace(circleHomeHref(circle) as Href);
-    } catch {
-      toast.error(t("circles.common.offline"));
-    }
+    const circle = await graduate.mutateAsync({
+      childToken: session.token,
+      displayName: displayName.trim() || undefined,
+      shareFardStatus: share,
+    });
+    await clearChildSession();
+    toast.success(t("kids.graduate.done"));
+    router.replace(circleHomeHref(circle) as Href);
   };
 
   return (
@@ -65,15 +65,17 @@ export default function KidsGraduateScreen() {
       <Seo path="/kids/graduate" index={false} />
       <View style={styles.stack}>
         {!session.token || !session.meta?.child.graduationAvailable ? (
-          <Card padding="three">
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("kids.graduate.notYet")}
-            </ThemedText>
-          </Card>
+          <EmptyState
+            icon={{ ios: "graduationcap", android: "school", web: "school" }}
+            title={t("kids.graduate.notYetTitle")}
+            description={t("kids.graduate.notYet")}
+            actionLabel={t("common.goBack")}
+            onAction={() => goBackOrReplace(router, "/kids")}
+          />
         ) : !auth.isAccount ? (
           <CircleAccountGate message={t("kids.graduate.signIn")} />
         ) : (
-          <Card padding="three" style={styles.gap}>
+          <Card style={styles.gap}>
             <TextField
               label={t("circles.join.displayName")}
               hint={t("circles.join.displayNameHint")}
@@ -95,13 +97,25 @@ export default function KidsGraduateScreen() {
               {t("kids.graduate.privacy")}
             </ThemedText>
             <Button
-              label={graduate.isPending ? t("circles.common.working") : t("kids.graduate.confirm")}
-              disabled={graduate.isPending}
-              onPress={() => void onGraduate()}
+              label={t("kids.graduate.confirm")}
+              loading={graduate.isPending}
+              onPress={() => setConfirmOpen(true)}
             />
           </Card>
         )}
       </View>
+      <ConfirmDialog
+        visible={confirmOpen}
+        destructive
+        busy={graduate.isPending}
+        title={t("kids.graduate.confirmTitle")}
+        message={t("kids.graduate.confirmMessage", {
+          share: share ? t("kids.graduate.shareOn") : t("kids.graduate.shareOff"),
+        })}
+        confirmLabel={t("kids.graduate.confirm")}
+        onConfirm={onGraduate}
+        onClose={() => setConfirmOpen(false)}
+      />
     </ScreenLayout>
   );
 }

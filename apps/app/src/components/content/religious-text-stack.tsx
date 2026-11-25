@@ -42,7 +42,11 @@ export function ReligiousTextStack({
   return (
     <View style={[styles.stack, compact ? styles.stackCompact : null]}>
       {arabic ? (
-        <ThemedText type="arabic" style={arabicReadingLayout(sizes.arabic)}>
+        <ThemedText
+          type="arabic"
+          accessibilityLanguage="ar"
+          style={arabicReadingLayout(sizes.arabic)}
+        >
           {arabic}
         </ThemedText>
       ) : null}
@@ -72,7 +76,7 @@ export function ReligiousTextStack({
 }
 
 const styles = StyleSheet.create({
-  stack: { gap: Spacing.one + 2, marginTop: Spacing.two },
+  stack: { gap: Spacing.oneHalf, marginTop: Spacing.two },
   stackCompact: { marginTop: 0 },
   translit: { fontStyle: "italic" },
 });

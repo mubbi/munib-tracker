@@ -2,6 +2,7 @@ import {
   detectWebPwaBrowserMatrix,
   detectWebPwaBrowserMatrixFromUserAgent,
   detectWebRuntimeFeatures,
+  getWebPwaInstallMethod,
   getWebPwaTier,
   isIosThirdPartyBrowserShell,
   isIosWebKitBrowserTab,
@@ -14,6 +15,31 @@ import { usePlatform } from "@/test-support/platform";
 
 const IOS_CHROME_UA =
   "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/120.0.6099.119 Mobile/15E148 Safari/604.1";
+
+/** iOS 16.3 — before third-party browsers could Add to Home Screen. */
+const IOS_16_3_CHROME_UA =
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 16_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/110.0.5481.83 Mobile/15E148 Safari/604.1";
+
+const IOS_EDGE_UA =
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 EdgiOS/120.0.2210.84 Mobile/15E148 Safari/605.1.15";
+
+const IOS_FIREFOX_UA =
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/121.0 Mobile/15E148 Safari/605.1.15";
+
+/** Facebook in-app browser — can't Add to Home Screen. */
+const IOS_FACEBOOK_UA =
+  "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [FBAN/FBIOS;FBAV/440.0.0.0;FBBV/1]";
+
+const MAC_SAFARI_17_UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15";
+
+const MAC_SAFARI_16_UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15";
+
+const ANDROID_FIREFOX_UA = "Mozilla/5.0 (Android 14; Mobile; rv:121.0) Gecko/121.0 Firefox/121.0";
+
+const ANDROID_SAMSUNG_UA =
+  "Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/23.0 Chrome/115.0.0.0 Mobile Safari/537.36";
 
 const IOS_SAFARI_UA =
   "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1";
@@ -50,8 +76,30 @@ describe("browser-capabilities (Bowser tiers)", () => {
     const safari = detectWebPwaBrowserMatrixFromUserAgent(IOS_SAFARI_UA);
     expect(chrome.tier).toBe("ios_webkit_tab");
     expect(safari.tier).toBe("ios_webkit_tab");
-    expect(chrome.needsSafariForInstall).toBe(true);
+    // iOS 16.4+: Chrome adds to the Home Screen from its own Share menu.
+    expect(chrome.needsSafariForInstall).toBe(false);
     expect(safari.needsSafariForInstall).toBe(false);
+  });
+
+  it.each([
+    ["desktop Chrome", DESKTOP_CHROME_WINDOWS_UA, "prompt"],
+    ["desktop Edge", DESKTOP_EDGE_WINDOWS_UA, "prompt"],
+    ["Android Chrome", ANDROID_CHROME_UA, "prompt"],
+    ["Samsung Internet", ANDROID_SAMSUNG_UA, "prompt"],
+    ["iPhone Safari", IOS_SAFARI_UA, "ios_safari_share"],
+    ["iPhone Chrome (iOS 17)", IOS_CHROME_UA, "ios_browser_share"],
+    ["iPhone Edge (iOS 17)", IOS_EDGE_UA, "ios_browser_share"],
+    ["iPhone Firefox (iOS 17)", IOS_FIREFOX_UA, "ios_browser_share"],
+    ["iPhone Chrome (iOS 16.3)", IOS_16_3_CHROME_UA, "ios_open_in_safari"],
+    ["an iPhone in-app browser", IOS_FACEBOOK_UA, "ios_open_in_safari"],
+    ["Safari 17 on macOS", MAC_SAFARI_17_UA, "mac_add_to_dock"],
+    ["Safari 16 on macOS", MAC_SAFARI_16_UA, "none"],
+    ["Firefox on Android", ANDROID_FIREFOX_UA, "browser_menu"],
+    ["desktop Firefox", DESKTOP_FIREFOX_UA, "none"],
+  ])("installs %s via %s", (_label, userAgent, method) => {
+    const matrix = detectWebPwaBrowserMatrixFromUserAgent(userAgent);
+    expect(matrix.installMethod).toBe(method);
+    expect(matrix.needsSafariForInstall).toBe(method === "ios_open_in_safari");
   });
 
   it("classifies desktop Firefox as chromium_full (Web Push capable)", () => {
@@ -158,11 +206,31 @@ describe("browser-capabilities in a browser", () => {
     }
   });
 
-  it("flags iPhone Chrome tabs as needing Safari for install", () => {
+  it("lets iPhone Chrome tabs install from their own Share menu (iOS 16.4+)", () => {
     const restore = installBrowser({ userAgent: IOS_CHROME_UA });
+    try {
+      expect(isIosThirdPartyBrowserShell()).toBe(false);
+      expect(getWebPwaInstallMethod()).toBe("ios_browser_share");
+      expect(isIosWebKitBrowserTab()).toBe(true);
+    } finally {
+      restore();
+    }
+  });
+
+  it("flags older iPhone Chrome tabs as needing Safari for install", () => {
+    const restore = installBrowser({ userAgent: IOS_16_3_CHROME_UA });
     try {
       expect(isIosThirdPartyBrowserShell()).toBe(true);
       expect(isIosWebKitBrowserTab()).toBe(true);
+    } finally {
+      restore();
+    }
+  });
+
+  it("has no install method once installed", () => {
+    const restore = installBrowser({ userAgent: DESKTOP_CHROME_WINDOWS_UA, standalone: true });
+    try {
+      expect(getWebPwaInstallMethod()).toBe("none");
     } finally {
       restore();
     }

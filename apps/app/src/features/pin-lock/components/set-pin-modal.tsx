@@ -1,9 +1,10 @@
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Modal, StyleSheet, View } from "react-native";
-import { Radius } from "@/constants/theme";
+import { StyleSheet, View } from "react-native";
+import { BorderWidth, Radius } from "@/constants/theme";
 import { PinKeypad } from "@/features/pin-lock/components/pin-keypad";
+import { PinSheet } from "@/features/pin-lock/components/pin-sheet";
 import { PinShell } from "@/features/pin-lock/components/pin-shell";
 import { PIN_LENGTH } from "@/features/pin-lock/lib/pin-crypto";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -197,15 +198,9 @@ export function SetPinModal({
   }
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={handleClose}
-      statusBarTranslucent
-    >
+    <PinSheet visible={visible} onClose={handleClose} accessibilityLabel={displayTitle}>
       {shell}
-    </Modal>
+    </PinSheet>
   );
 }
 
@@ -218,7 +213,7 @@ const styles = StyleSheet.create({
     height: 96,
     borderRadius: Radius.xl,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     alignItems: "center",
     justifyContent: "center",
   },

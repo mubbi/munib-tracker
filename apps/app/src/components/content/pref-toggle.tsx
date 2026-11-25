@@ -1,11 +1,11 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -94,10 +94,10 @@ export function PrefToggle({
           ]}
         >
           <ThemedText
+            weight="bold"
             type="caption"
             style={{
               color: enabled ? colors.accentForeground : colors.mutedForeground,
-              fontWeight: "700",
             }}
           >
             {enabled ? t("common.on") : t("common.off")}
@@ -145,14 +145,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   prefToggleStateTv: {
-    paddingHorizontal: Spacing.two + 2,
+    paddingHorizontal: Spacing.twoHalf,
     paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    minWidth: 44,
+    minWidth: tvDp(44),
     alignItems: "center",
   },
 });

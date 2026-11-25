@@ -142,7 +142,7 @@ describe("CustomTasbeehFormModal", () => {
   });
 
   it.each([
-    { tv: false, minHeight: 40 },
+    { tv: false, minHeight: 44 },
     { tv: true, minHeight: TvLayout.chipMinHeight },
   ])("sizes preset segments for focus (tv=$tv)", async ({ tv, minHeight }) => {
     const restore = setPlatform({ isTV: tv });

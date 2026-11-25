@@ -59,7 +59,7 @@ export function DhulHijjahHomeCard() {
   const hairNails = hairNailsWindowActive(state, new Date(), location.timeZone);
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("dhulHijjah.title")}
         icon={DHUL_HIJJAH_ICON}

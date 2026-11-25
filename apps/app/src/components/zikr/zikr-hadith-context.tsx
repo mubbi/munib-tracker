@@ -10,7 +10,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadZikrHadith } from "@/lib/content-loaders";
 import {
@@ -178,7 +178,7 @@ function GradePill({ grade }: { grade: string }) {
       accessibilityLabel={`${t(`zikrSession.grade.${kind}`)} — ${grade}`}
       style={[styles.gradePill, { backgroundColor: tone.soft }]}
     >
-      <ThemedText type="caption" style={{ color: tone.color }} numberOfLines={1}>
+      <ThemedText type="caption" style={{ color: tone.onSoft }} numberOfLines={1}>
         {t(`zikrSession.grade.${kind}`)}
       </ThemedText>
     </View>
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   source: {
     gap: Spacing.two,
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   citationRow: {
     flexDirection: "row",
@@ -213,8 +213,8 @@ const styles = StyleSheet.create({
   citation: { fontWeight: "600" },
   gradePill: {
     paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
-    borderRadius: 999,
+    paddingVertical: Spacing.half,
+    borderRadius: Radius.pill,
     maxWidth: 220,
   },
   toggle: {
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: Spacing.one,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },

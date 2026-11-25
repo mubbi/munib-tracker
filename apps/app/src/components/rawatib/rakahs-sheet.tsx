@@ -6,7 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Control, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type RakahsSheetProps = {
@@ -24,12 +24,20 @@ export function RakahsSheet({ id, current, onSelect, onClose }: RakahsSheetProps
   const options = id ? [...RAWATIB_RAKAH_OPTIONS[id]].sort((a, b) => a - b) : [];
 
   return (
-    <Sheet visible={id != null} onClose={onClose} variant="bottom">
-      <ThemedText type="subtitle">{id ? t(`prayers.${id}`) : ""}</ThemedText>
+    <Sheet
+      visible={id != null}
+      onClose={onClose}
+      variant="bottom"
+      title={id ? t(`prayers.${id}`) : undefined}
+    >
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("rawatib.rakahsSheet.prompt")}
       </ThemedText>
-      <View style={styles.options} accessibilityRole="radiogroup">
+      <View
+        style={styles.options}
+        accessibilityRole="radiogroup"
+        accessibilityLabel={t("rawatib.rakahsSheet.prompt")}
+      >
         {options.map((count) => {
           const active = count === current;
           return (
@@ -38,6 +46,7 @@ export function RakahsSheet({ id, current, onSelect, onClose }: RakahsSheetProps
               haptic="selection"
               accessibilityRole="radio"
               accessibilityState={{ checked: active }}
+              aria-checked={active}
               accessibilityLabel={t("rawatib.rakahsSheet.option", { count })}
               onPress={() => {
                 if (id) onSelect(id, count);
@@ -47,13 +56,13 @@ export function RakahsSheet({ id, current, onSelect, onClose }: RakahsSheetProps
                 styles.option,
                 {
                   backgroundColor: active ? tokens.accentSoft : colors.muted,
-                  borderColor: active ? colors.accent : "transparent",
+                  borderColor: active ? tokens.accentBorder : "transparent",
                 },
               ]}
             >
               <ThemedText
                 type="smallBold"
-                style={{ color: active ? colors.accent : colors.foreground }}
+                style={{ color: active ? tokens.accentOnSoft : colors.foreground }}
               >
                 {t("rawatib.rakahsSheet.option", { count })}
               </ThemedText>
@@ -75,10 +84,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    minHeight: 48,
+    minHeight: Control.md,
     paddingVertical: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
   },
 });

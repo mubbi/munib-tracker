@@ -14,7 +14,7 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
-import { BarChart, type BarDatum } from "@/components/charts/bar-chart";
+import { BarChart, type BarDatum, DENSE_BAR_COUNT } from "@/components/charts/bar-chart";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import {
@@ -34,13 +34,17 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconWell } from "@/components/ui/icon-well";
+import { Pill } from "@/components/ui/pill";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
+import { RetryCard } from "@/components/ui/retry-card";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { TvScrollView } from "@/components/ui/tv-scroll-view";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { BorderWidth, Breakpoints, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import {
   HadithRepository,
@@ -52,6 +56,7 @@ import {
 import type { QuranReadingProgress } from "@/db/repositories/quran-repository";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { milestoneDescription, milestoneTitle } from "@/lib/achievements-i18n";
@@ -145,13 +150,21 @@ export default function StatisticsScreen() {
   useEnsureFastingLoaded();
   const fastingDays = useFastingDays();
   const tv = isTV();
+  const contentBottomInset = useContentBottomInset();
   const { date: adhkarDate } = useAdhkarClock();
   const { width } = useWindowDimensions();
   // Wide web / tablets (never TV): cards side by side, blocks in grids.
-  const wide = !tv && width >= 1024;
+  const wide = !tv && width >= Breakpoints.wide;
   const [period, setPeriod] = useState<StatsPeriod>("week");
   const [selectedBar, setSelectedBar] = useState<number | null>(null);
   const [data, setData] = useState<LoadedData | null>(null);
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
+  // Categorical hues for non-status data (zikr, bookmarks, qaza); status hues
+  // stay reserved for status (on time / delayed / missed).
+  const rose = useCategoryHue("rose");
+  const sky = useCategoryHue("sky");
+  const dawn = useCategoryHue("dawn");
   // The corpus maps stored zikr ids to their set — memos below must recompute
   // once it lands, or a cold open shows every adhkar set as empty.
   const { ready: corpusReady } = useContentCorpus(ZIKR_CORPUS);
@@ -170,6 +183,9 @@ export default function StatisticsScreen() {
   useFocusEffect(
     useCallback(() => {
       let active = true;
+      // reloadKey is read so Retry re-runs this focus effect.
+      void reloadKey;
+      setLoadFailed(false);
       void Promise.all([
         refresh(),
         PrayerRepository.getAll(),
@@ -180,23 +196,28 @@ export default function StatisticsScreen() {
         QuranRepository.getReadingProgress(),
         QuranRepository.getBookmarks(),
         HadithRepository.getBookmarks(),
-      ]).then(([_, logs, zikr, counters, roza, qazaDaily, quranProgress, qB, hB]) => {
-        if (!active) return;
-        setData({
-          logs,
-          zikr,
-          counters,
-          roza,
-          qazaDaily,
-          quranProgress,
-          quranBookmarks: qB.length,
-          hadithBookmarks: hB.length,
+      ])
+        .then(([_, logs, zikr, counters, roza, qazaDaily, quranProgress, qB, hB]) => {
+          if (!active) return;
+          setData({
+            logs,
+            zikr,
+            counters,
+            roza,
+            qazaDaily,
+            quranProgress,
+            quranBookmarks: qB.length,
+            hadithBookmarks: hB.length,
+          });
+        })
+        .catch(() => {
+          // A rejected repository must never leave the skeleton up forever (B-76).
+          if (active) setLoadFailed(true);
         });
-      });
       return () => {
         active = false;
       };
-    }, [refresh]),
+    }, [refresh, reloadKey]),
   );
 
   const today = getLocalDateString();
@@ -440,6 +461,7 @@ export default function StatisticsScreen() {
     });
   }
 
+  const denseChart = chart.length > DENSE_BAR_COUNT;
   const selectedDetail = selectedBar != null ? chart[selectedBar]?.accessibilityLabel : null;
 
   const lifetimeMetrics: Metric[] = [
@@ -478,13 +500,13 @@ export default function StatisticsScreen() {
     {
       value: todaySets ? `${todaySets.done}/${todaySets.total}` : "—",
       label: t("statistics.todayAdhkarSets"),
-      color: tokens.status.danger.text,
+      color: rose.text,
     },
-    { value: qazaTodayValue, label: t("statistics.todayQaza"), color: tokens.status.info.text },
+    { value: qazaTodayValue, label: t("statistics.todayQaza"), color: sky.text },
   ];
 
   const toneColors = (tone: Insight["tone"]) => ({
-    color: tokens.status[tone].text,
+    color: tokens.status[tone].onSoft,
     background: tokens.status[tone].soft,
   });
 
@@ -505,7 +527,7 @@ export default function StatisticsScreen() {
 
   const statusBlock = (
     <ReadableView style={styles.block}>
-      <BlockTitle title={t("statistics.statusMix")} />
+      <BlockTitle title={t("statistics.statusMix")} tag={t("statistics.tagPeriod")} />
       <View style={[styles.blockShell, { backgroundColor: colors.muted }]}>
         <StatusDistribution
           formatValue={formatCount}
@@ -551,13 +573,19 @@ export default function StatisticsScreen() {
   );
   const perSalahBlock = (
     <View style={styles.block}>
-      <BlockTitle title={t("statistics.perSalah")} hint={t("statistics.perSalahHint")} />
+      <BlockTitle
+        title={t("statistics.perSalah")}
+        hint={t("statistics.perSalahHint")}
+        tag={t("statistics.tagPeriod")}
+      />
       <SalahRateList rows={rateRows} formatCount={formatCount} />
     </View>
   );
   const consistencyBlock = (
     <StatsGroup
       title={t("statistics.consistency")}
+      tag={t("statistics.tagPeriod")}
+      collapsible={!wide}
       columns={2}
       metrics={[
         {
@@ -586,29 +614,32 @@ export default function StatisticsScreen() {
   const zikrQazaBlock = (
     <StatsGroup
       title={t("statistics.zikrAndQaza")}
+      tag={t("statistics.tagPeriod")}
+      collapsible={!wide}
+      defaultExpanded={false}
       columns={2}
       metrics={[
         {
           value: formatCount(zikrInPeriod),
           label: t("statistics.zikrThisPeriod"),
-          color: tokens.status.danger.text,
+          color: rose.text,
         },
         {
           value: formatCount(achievementStats.zikrCompleted),
           label: t("statistics.zikrAllTime"),
-          color: tokens.status.danger.text,
+          color: rose.text,
         },
         {
           value: formatCount(qazaInPeriod),
           label: t("statistics.qazaThisPeriod"),
-          color: tokens.status.info.text,
+          color: sky.text,
         },
         {
           value: (qazaInPeriod / Math.max(1, elapsedDays)).toLocaleString(locale, {
             maximumFractionDigits: 1,
           }),
           label: t("statistics.qazaPerDay"),
-          color: tokens.status.info.text,
+          color: sky.text,
         },
       ]}
     />
@@ -617,6 +648,9 @@ export default function StatisticsScreen() {
     sunnahCounts.counts.size > 0 ? (
       <StatsGroup
         title={t("statistics.sunnah")}
+        tag={t("statistics.tagPeriod")}
+        collapsible={!wide}
+        defaultExpanded={false}
         columns={sunnahCounts.counts.size >= 3 ? 3 : 2}
         metrics={SUNNAH_STAT_PRAYERS.filter((p) => sunnahCounts.counts.has(p)).map((p) => ({
           value: formatCount(sunnahCounts.counts.get(p) ?? 0),
@@ -634,6 +668,9 @@ export default function StatisticsScreen() {
     masjidStats.count > 0 ? (
       <StatsGroup
         title={t("masjidLog.statsTitle")}
+        tag={t("statistics.tagPeriod")}
+        collapsible={!wide}
+        defaultExpanded={false}
         columns={2}
         metrics={[
           {
@@ -651,7 +688,11 @@ export default function StatisticsScreen() {
     ) : null;
   const adhkarBlock = hasAdhkarHistory ? (
     <View style={styles.block}>
-      <BlockTitle title={t("statistics.adhkarBySet")} hint={t("statistics.adhkarBySetHint")} />
+      <BlockTitle
+        title={t("statistics.adhkarBySet")}
+        hint={t("statistics.adhkarBySetHint")}
+        tag={t("statistics.tagPeriod")}
+      />
       <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
         {adhkarHistory.map((row, i) => (
           <TvReadableBlock key={adhkarSetKey(row.scope)}>
@@ -679,525 +720,599 @@ export default function StatisticsScreen() {
     </View>
   ) : null;
 
+  // Pinned under the header while the page scrolls: one control for every "This period" block.
+  const periodBar = (
+    <View style={[styles.periodStick, { backgroundColor: colors.background }]}>
+      <View style={styles.periodBar}>
+        <SegmentedControl<StatsPeriod>
+          options={[
+            { id: "week", label: t("statistics.week") },
+            { id: "month", label: t("statistics.month") },
+            { id: "year", label: t("statistics.year") },
+          ]}
+          value={period}
+          onChange={setPeriod}
+          accessibilityLabel={t("statistics.periodLabel")}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.periodRange}>
+          {rangeLabel}
+        </ThemedText>
+      </View>
+    </View>
+  );
+  const showPeriodBar = loaded && !loadFailed && !isEmpty;
+
   return (
     <ScreenLayout
       eyebrow={t("statistics.eyebrow")}
       title={t("statistics.title")}
       subtitle={t("statistics.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
+      scrollable={false}
     >
       <Seo path="/statistics" />
-      {!loaded ? (
-        <StatisticsSkeleton />
-      ) : isEmpty ? (
-        <Card padding="four">
-          <EmptyState
-            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-            title={t("statistics.emptyTitle")}
-            description={t("statistics.emptyDesc")}
-            actionLabel={t("statistics.openTracker")}
-            onAction={() => router.push("/tracker")}
+      <TvScrollView
+        style={styles.scroller}
+        stickyHeaderIndices={showPeriodBar ? [0] : undefined}
+        contentContainerStyle={{ paddingBottom: contentBottomInset }}
+        keyboardShouldPersistTaps="handled"
+        contentInsetAdjustmentBehavior="never"
+        showsVerticalScrollIndicator={false}
+      >
+        {showPeriodBar ? periodBar : null}
+        {loadFailed && !loaded ? (
+          <RetryCard
+            message={t("statistics.loadFailed")}
+            onRetry={() => setReloadKey((key) => key + 1)}
           />
-        </Card>
-      ) : (
-        <Stagger>
-          <View style={styles.stack}>
-            {/* ── Journey + today ─────────────────────────────────────────── */}
-            <ResponsiveGrid columns={wide ? 2 : 1} gap={Spacing.four}>
-              <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
-                <ReadableView style={styles.heroRow}>
-                  <View
-                    style={[
-                      styles.devotionBadge,
-                      tv ? { width: tvDp(64), height: tvDp(64) } : null,
-                      { backgroundColor: tokens.status.warning.soft },
-                    ]}
-                  >
-                    <ThemedText type="title" style={{ color: tokens.status.warning.text }}>
-                      {devotion.level}
-                    </ThemedText>
-                  </View>
-                  <View style={styles.heroCopy}>
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {t("achievements.devotion")}
-                    </ThemedText>
-                    <ThemedText type="subtitle">
-                      {t("achievements.devotionLevel", { level: devotion.level })}
-                    </ThemedText>
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {t("achievements.devotionNoor", {
-                        current: formatCount(devotion.noor - devotion.noorForCurrentLevel),
-                        next: formatCount(devotion.noorForNextLevel - devotion.noorForCurrentLevel),
-                      })}
-                    </ThemedText>
-                  </View>
-                </ReadableView>
-                <ProgressBar value={devotion.progress} color={tokens.status.warning.color} />
-                <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-                  <MetricGrid metrics={lifetimeMetrics} columns={2} />
-                </ReadableView>
-                <LinkRow
-                  label={t("statistics.viewAchievements")}
-                  onPress={() => router.push("/achievements")}
-                />
-              </Card>
+        ) : !loaded ? (
+          <StatisticsSkeleton />
+        ) : isEmpty ? (
+          <Card padding="four">
+            <EmptyState
+              icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
+              title={t("statistics.emptyTitle")}
+              description={t("statistics.emptyDesc")}
+              actionLabel={t("statistics.openTracker")}
+              onAction={() => router.push("/tracker")}
+            />
+          </Card>
+        ) : (
+          <Stagger>
+            <View style={styles.stack}>
+              {/* ── Journey + today ─────────────────────────────────────────── */}
+              <ResponsiveGrid columns={wide ? 2 : 1} gap={Spacing.four}>
+                <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                  <ReadableView style={styles.heroRow}>
+                    <View
+                      style={[
+                        styles.devotionBadge,
+                        tv ? { width: tvDp(64), height: tvDp(64) } : null,
+                        { backgroundColor: tokens.status.warning.soft },
+                      ]}
+                    >
+                      <ThemedText type="title" style={{ color: tokens.status.warning.text }}>
+                        {devotion.level}
+                      </ThemedText>
+                    </View>
+                    <View style={styles.heroCopy}>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("achievements.devotion")}
+                      </ThemedText>
+                      <ThemedText type="subtitle">
+                        {t("achievements.devotionLevel", { level: devotion.level })}
+                      </ThemedText>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("achievements.devotionNoor", {
+                          current: formatCount(devotion.noor - devotion.noorForCurrentLevel),
+                          next: formatCount(
+                            devotion.noorForNextLevel - devotion.noorForCurrentLevel,
+                          ),
+                        })}
+                      </ThemedText>
+                    </View>
+                  </ReadableView>
+                  <ProgressBar
+                    value={devotion.progress}
+                    accessibilityLabel={t("a11yProgress.devotionLevel")}
+                    color={tokens.status.warning.color}
+                  />
+                  <Pill
+                    label={t("statistics.tagLifetime")}
+                    tone="neutral"
+                    compact
+                    style={styles.tagStart}
+                  />
+                  <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                    <MetricGrid metrics={lifetimeMetrics} columns={2} />
+                  </ReadableView>
+                  <LinkRow
+                    label={t("statistics.viewAchievements")}
+                    onPress={() => router.push("/achievements")}
+                  />
+                </Card>
 
-              <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                  <View style={styles.cardHeader}>
+                    <View style={styles.cardHeaderCopy}>
+                      <ThemedText type="subtitle">{t("statistics.today")}</ThemedText>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {parseLocalDateString(today).toLocaleDateString(locale, {
+                          weekday: "long",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </ThemedText>
+                    </View>
+                    {excusedToday ? (
+                      <View style={[styles.pill, { backgroundColor: tokens.status.info.soft }]}>
+                        <ThemedText type="smallBold" style={{ color: tokens.status.info.text }}>
+                          {t("statistics.todayExcused")}
+                        </ThemedText>
+                      </View>
+                    ) : null}
+                  </View>
+                  <TvReadableBlock>
+                    <TodaySalahStrip prayers={TODAY_STRIP_PRAYERS} statuses={todayPrayers.status} />
+                  </TvReadableBlock>
+                  <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                    <MetricGrid metrics={todayMetrics} columns={3} />
+                  </ReadableView>
+                  <View style={styles.spacer} />
+                  <LinkRow
+                    label={t("statistics.openTracker")}
+                    onPress={() => router.push("/tracker")}
+                  />
+                </Card>
+              </ResponsiveGrid>
+
+              {/* ── Trends ──────────────────────────────────────────────────── */}
+              <Card padding="four" style={styles.trendsCard}>
                 <View style={styles.cardHeader}>
                   <View style={styles.cardHeaderCopy}>
-                    <ThemedText type="subtitle">{t("statistics.today")}</ThemedText>
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {parseLocalDateString(today).toLocaleDateString(locale, {
-                        weekday: "long",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </ThemedText>
+                    <ThemedText type="subtitle">{t("statistics.trends")}</ThemedText>
                   </View>
-                  {excusedToday ? (
-                    <View style={[styles.pill, { backgroundColor: tokens.status.info.soft }]}>
-                      <ThemedText type="smallBold" style={{ color: tokens.status.info.text }}>
-                        {t("statistics.todayExcused")}
+                  <View style={styles.pillColumn}>
+                    {average != null ? (
+                      <View style={[styles.pill, { backgroundColor: tokens.status.success.soft }]}>
+                        <ThemedText type="smallBold" style={{ color: tokens.status.success.text }}>
+                          {t("statistics.avgOnTime", { percent: Math.round(average * 100) })}
+                        </ThemedText>
+                      </View>
+                    ) : null}
+                    {delta != null ? (
+                      <ThemedText
+                        type="caption"
+                        style={{
+                          color:
+                            delta > 0
+                              ? tokens.status.success.text
+                              : delta < 0
+                                ? tokens.status.danger.text
+                                : colors.mutedForeground,
+                        }}
+                      >
+                        {t(COMPARE_KEYS[period], {
+                          delta: `${delta > 0 ? "▲" : delta < 0 ? "▼" : "•"} ${Math.abs(delta)}%`,
+                        })}
                       </ThemedText>
-                    </View>
-                  ) : null}
+                    ) : null}
+                  </View>
                 </View>
-                <TvReadableBlock>
-                  <TodaySalahStrip prayers={TODAY_STRIP_PRAYERS} statuses={todayPrayers.status} />
-                </TvReadableBlock>
-                <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-                  <MetricGrid metrics={todayMetrics} columns={3} />
-                </ReadableView>
-                <View style={styles.spacer} />
-                <LinkRow
-                  label={t("statistics.openTracker")}
-                  onPress={() => router.push("/tracker")}
+
+                <BarChart
+                  data={chart}
+                  color={tokens.status.success.color}
+                  height={period === "week" ? 132 : 120}
+                  emptyLabel={t("statistics.chartEmpty")}
+                  average={average}
+                  selectedIndex={selectedBar}
+                  onSelect={(i) => setSelectedBar((current) => (current === i ? null : i))}
+                  summaryLabel={t("statistics.chartSummary", {
+                    range: rangeLabel,
+                    percent: average != null ? Math.round(average * 100) : 0,
+                  })}
                 />
-              </Card>
-            </ResponsiveGrid>
 
-            {/* ── Trends ──────────────────────────────────────────────────── */}
-            <Card padding="four" style={styles.trendsCard}>
-              <View style={styles.cardHeader}>
-                <View style={styles.cardHeaderCopy}>
-                  <ThemedText type="subtitle">{t("statistics.trends")}</ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {rangeLabel}
-                  </ThemedText>
-                </View>
-                <View style={styles.pillColumn}>
-                  {average != null ? (
-                    <View style={[styles.pill, { backgroundColor: tokens.status.success.soft }]}>
-                      <ThemedText type="smallBold" style={{ color: tokens.status.success.text }}>
-                        {t("statistics.avgOnTime", { percent: Math.round(average * 100) })}
-                      </ThemedText>
-                    </View>
-                  ) : null}
-                  {delta != null ? (
-                    <ThemedText
-                      type="caption"
-                      style={{
-                        color:
-                          delta > 0
-                            ? tokens.status.success.text
-                            : delta < 0
-                              ? tokens.status.danger.text
-                              : colors.mutedForeground,
-                      }}
-                    >
-                      {t(COMPARE_KEYS[period], {
-                        delta: `${delta > 0 ? "▲" : delta < 0 ? "▼" : "•"} ${Math.abs(delta)}%`,
-                      })}
+                <View style={styles.chartFooter}>
+                  {selectedDetail && !denseChart ? (
+                    <ThemedText type="smallBold" style={styles.chartDetail}>
+                      {selectedDetail}
                     </ThemedText>
-                  ) : null}
-                </View>
-              </View>
-
-              <SegmentedControl<StatsPeriod>
-                options={[
-                  { id: "week", label: t("statistics.week") },
-                  { id: "month", label: t("statistics.month") },
-                  { id: "year", label: t("statistics.year") },
-                ]}
-                value={period}
-                onChange={setPeriod}
-              />
-
-              <BarChart
-                data={chart}
-                color={tokens.status.success.color}
-                height={period === "week" ? 132 : 120}
-                emptyLabel={t("statistics.chartEmpty")}
-                average={average}
-                selectedIndex={selectedBar}
-                onSelect={(i) => setSelectedBar((current) => (current === i ? null : i))}
-              />
-
-              <View style={styles.chartFooter}>
-                {selectedDetail ? (
-                  <ThemedText type="smallBold" style={styles.chartDetail}>
-                    {selectedDetail}
-                  </ThemedText>
-                ) : (
-                  <View style={styles.legendRow}>
-                    <LegendKey
-                      swatch={
-                        <View
-                          style={[
-                            styles.legendSwatch,
-                            styles.legendToday,
-                            { borderColor: tokens.status.success.color },
-                          ]}
-                        />
-                      }
-                      label={
-                        period === "year"
-                          ? t("statistics.legendThisMonth")
-                          : t("statistics.legendToday")
-                      }
-                    />
-                    {period !== "year" ? (
+                  ) : (
+                    <View style={styles.legendRow}>
                       <LegendKey
                         swatch={
                           <View
                             style={[
                               styles.legendSwatch,
-                              styles.legendExcused,
-                              { borderColor: colors.mutedForeground },
+                              styles.legendToday,
+                              { borderColor: tokens.status.success.color },
                             ]}
                           />
                         }
-                        label={t("statistics.legendExcused")}
+                        label={
+                          period === "year"
+                            ? t("statistics.legendThisMonth")
+                            : t("statistics.legendToday")
+                        }
                       />
-                    ) : null}
-                    <LegendKey
-                      swatch={
-                        <View
-                          style={[styles.legendLine, { borderColor: tokens.status.success.color }]}
+                      {period !== "year" ? (
+                        <LegendKey
+                          swatch={
+                            <View
+                              style={[
+                                styles.legendSwatch,
+                                styles.legendExcused,
+                                { borderColor: colors.mutedForeground },
+                              ]}
+                            />
+                          }
+                          label={t("statistics.legendExcused")}
                         />
-                      }
-                      label={t("statistics.legendAverage")}
-                    />
-                    {!tv ? (
-                      <ThemedText type="caption" themeColor="mutedForeground">
-                        {period === "year"
-                          ? t("statistics.tapMonthHint")
-                          : t("statistics.tapBarHint")}
-                      </ThemedText>
-                    ) : null}
-                  </View>
-                )}
-              </View>
-
-              {insights.length > 0 ? (
-                <View style={styles.insights}>
-                  {insights.map((insight) => {
-                    const tone = toneColors(insight.tone);
-                    return (
-                      <View
-                        key={insight.key}
-                        style={[styles.insight, { backgroundColor: tone.background }]}
-                      >
-                        <SymbolView name={insight.icon} size={14} tintColor={tone.color} />
-                        <ThemedText type="caption" style={{ color: tone.color }}>
-                          {insight.text}
+                      ) : null}
+                      <LegendKey
+                        swatch={
+                          <View
+                            style={[
+                              styles.legendLine,
+                              { borderColor: tokens.status.success.color },
+                            ]}
+                          />
+                        }
+                        label={t("statistics.legendAverage")}
+                      />
+                      {!tv && !denseChart ? (
+                        <ThemedText type="caption" themeColor="mutedForeground">
+                          {period === "year"
+                            ? t("statistics.tapMonthHint")
+                            : t("statistics.tapBarHint")}
                         </ThemedText>
-                      </View>
-                    );
-                  })}
+                      ) : null}
+                    </View>
+                  )}
                 </View>
-              ) : null}
 
-              <CardDivider />
+                {insights.length > 0 ? (
+                  <View style={styles.insights}>
+                    {insights.map((insight) => {
+                      const tone = toneColors(insight.tone);
+                      return (
+                        <View
+                          key={insight.key}
+                          style={[styles.insight, { backgroundColor: tone.background }]}
+                        >
+                          <SymbolView name={insight.icon} size={14} tintColor={tone.color} />
+                          <ThemedText type="caption" style={{ color: tone.color }}>
+                            {insight.text}
+                          </ThemedText>
+                        </View>
+                      );
+                    })}
+                  </View>
+                ) : null}
 
-              {wide ? (
-                <View style={styles.columns}>
+                <CardDivider />
+
+                {wide ? (
+                  <View style={styles.columns}>
+                    <View style={styles.column}>
+                      {statusBlock}
+                      {consistencyBlock}
+                      {zikrQazaBlock}
+                      {sunnahBlock}
+                      {masjidBlock}
+                    </View>
+                    <View style={styles.column}>
+                      {perSalahBlock}
+                      {adhkarBlock}
+                    </View>
+                  </View>
+                ) : (
                   <View style={styles.column}>
                     {statusBlock}
+                    {perSalahBlock}
                     {consistencyBlock}
                     {zikrQazaBlock}
                     {sunnahBlock}
                     {masjidBlock}
-                  </View>
-                  <View style={styles.column}>
-                    {perSalahBlock}
                     {adhkarBlock}
                   </View>
-                </View>
-              ) : (
-                <View style={styles.column}>
-                  {statusBlock}
-                  {perSalahBlock}
-                  {consistencyBlock}
-                  {zikrQazaBlock}
-                  {sunnahBlock}
-                  {masjidBlock}
-                  {adhkarBlock}
-                </View>
-              )}
-              <LinkRow
-                label={t("statistics.openCalendar")}
-                onPress={() => router.push("/calendar")}
+                )}
+                <LinkRow
+                  label={t("statistics.openCalendar")}
+                  onPress={() => router.push("/calendar")}
+                />
+              </Card>
+
+              {/* ── Sunnah rawatib (NF-3.1) — separate from the fard rates above ── */}
+              <RawatibStatsCard
+                logs={logs}
+                index={index}
+                from={range.from}
+                to={range.to}
+                today={today}
+                formatCount={formatCount}
               />
-            </Card>
 
-            {/* ── Sunnah rawatib (NF-3.1) — separate from the fard rates above ── */}
-            <RawatibStatsCard
-              logs={logs}
-              index={index}
-              from={range.from}
-              to={range.to}
-              today={today}
-              formatCount={formatCount}
-            />
+              {/* ── Lifetime make-up (qaza + fasting) and reading ───────────── */}
+              <ResponsiveGrid
+                columns={wide && hasDebt && hasReadingData ? 2 : 1}
+                gap={Spacing.four}
+              >
+                {hasDebt ? (
+                  <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                    <View style={styles.headerStack}>
+                      <View style={styles.blockTitleRow}>
+                        <ThemedText type="subtitle" style={styles.flex}>
+                          {t("statistics.debtTitle")}
+                        </ThemedText>
+                        <Pill label={t("statistics.tagLifetime")} tone="neutral" compact />
+                      </View>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("statistics.debtHint")}
+                      </ThemedText>
+                    </View>
 
-            {/* ── Lifetime make-up (qaza + fasting) and reading ───────────── */}
-            <ResponsiveGrid columns={wide && hasDebt && hasReadingData ? 2 : 1} gap={Spacing.four}>
-              {hasDebt ? (
-                <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
-                  <View style={styles.headerStack}>
-                    <ThemedText type="subtitle">{t("statistics.debtTitle")}</ThemedText>
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {t("statistics.debtHint")}
-                    </ThemedText>
-                  </View>
+                    {qazaTotal > 0 ? (
+                      <ReadableView style={styles.block}>
+                        <BlockTitle title={t("statistics.qaza")} />
+                        <View style={styles.progressHeader}>
+                          <ThemedText type="header" style={{ color: tokens.status.info.text }}>
+                            {formatPercent(qazaCompleted / qazaTotal)}
+                          </ThemedText>
+                          <ThemedText
+                            type="caption"
+                            themeColor="mutedForeground"
+                            style={styles.flex}
+                          >
+                            {t("statistics.madeUpOf", {
+                              done: formatCount(qazaCompleted),
+                              total: formatCount(qazaTotal),
+                            })}
+                          </ThemedText>
+                        </View>
+                        <ProgressBar
+                          value={qazaCompleted / qazaTotal}
+                          accessibilityLabel={t("a11yProgress.qazaMadeUp")}
+                          color={tokens.status.info.color}
+                        />
+                        <ThemedText type="caption" themeColor="mutedForeground">
+                          {qazaRemaining === 0
+                            ? t("statistics.qazaCleared")
+                            : projection
+                              ? t(
+                                  projection.basis === "pace"
+                                    ? "statistics.projectionPace"
+                                    : "statistics.projectionPlan",
+                                  {
+                                    perDay: projection.perDay.toLocaleString(locale, {
+                                      maximumFractionDigits: 1,
+                                    }),
+                                    date: parseLocalDateString(
+                                      projection.finishDate,
+                                    ).toLocaleDateString(locale, {
+                                      month: "long",
+                                      year: "numeric",
+                                    }),
+                                  },
+                                )
+                              : t("statistics.projectionNone")}
+                        </ThemedText>
+                      </ReadableView>
+                    ) : null}
 
-                  {qazaTotal > 0 ? (
+                    {perPrayerQaza.length > 0 ? (
+                      <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
+                        {perPrayerQaza.map((counter, i) => {
+                          const total = counter.remaining + counter.completed;
+                          return (
+                            <TvReadableBlock key={counter.prayerId}>
+                              {i > 0 ? (
+                                <View
+                                  style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                                />
+                              ) : null}
+                              <View style={styles.qazaRow}>
+                                <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
+                                <View style={styles.qazaCopy}>
+                                  <ThemedText type="small">
+                                    {t(`prayers.${counter.prayerId}`)}
+                                  </ThemedText>
+                                  <ProgressBar
+                                    value={total > 0 ? counter.completed / total : 0}
+                                    accessibilityLabel={t(`prayers.${counter.prayerId}`)}
+                                    height={4}
+                                    color={tokens.status.info.color}
+                                  />
+                                  <ThemedText type="caption" themeColor="mutedForeground">
+                                    {t("qaza.rowMeta", {
+                                      remaining: formatCount(counter.remaining),
+                                      completed: formatCount(counter.completed),
+                                    })}
+                                  </ThemedText>
+                                </View>
+                              </View>
+                            </TvReadableBlock>
+                          );
+                        })}
+                      </View>
+                    ) : null}
+
+                    {rozaTotal > 0 || ramadanFasts > 0 ? (
+                      <ReadableView style={styles.block}>
+                        <BlockTitle title={t("statistics.roza")} />
+                        {rozaTotal > 0 ? (
+                          <>
+                            <View style={styles.progressHeader}>
+                              <ThemedText
+                                type="header"
+                                style={{ color: tokens.status.success.text }}
+                              >
+                                {formatPercent(roza.completed / rozaTotal)}
+                              </ThemedText>
+                              <ThemedText
+                                type="caption"
+                                themeColor="mutedForeground"
+                                style={styles.flex}
+                              >
+                                {t("statistics.fastsMadeUpOf", {
+                                  done: formatCount(roza.completed),
+                                  total: formatCount(rozaTotal),
+                                })}
+                              </ThemedText>
+                            </View>
+                            <ProgressBar
+                              value={roza.completed / rozaTotal}
+                              accessibilityLabel={t("a11yProgress.qazaFasts")}
+                              color={tokens.status.success.color}
+                            />
+                          </>
+                        ) : null}
+                        {ramadanFasts > 0 ? (
+                          <StatLine
+                            label={t("statistics.ramadanFasts")}
+                            value={formatCount(ramadanFasts)}
+                            color={tokens.status.success.text}
+                          />
+                        ) : null}
+                      </ReadableView>
+                    ) : null}
+                    <View style={styles.spacer} />
+                    <LinkRow
+                      label={t("statistics.openQaza")}
+                      onPress={() => router.push("/qaza")}
+                    />
+                  </Card>
+                ) : null}
+
+                {hasReadingData ? (
+                  <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                    <View style={styles.blockTitleRow}>
+                      <ThemedText type="subtitle" style={styles.flex}>
+                        {t("statistics.reading")}
+                      </ThemedText>
+                      <Pill label={t("statistics.tagLifetime")} tone="neutral" compact />
+                    </View>
                     <ReadableView style={styles.block}>
-                      <BlockTitle title={t("statistics.qaza")} />
                       <View style={styles.progressHeader}>
-                        <ThemedText type="header" style={{ color: tokens.status.info.text }}>
-                          {formatPercent(qazaCompleted / qazaTotal)}
+                        <ThemedText type="header" style={{ color: colors.accentText }}>
+                          {(reading.ayahsRead / reading.totalAyahs).toLocaleString(locale, {
+                            style: "percent",
+                            maximumFractionDigits: 1,
+                          })}
                         </ThemedText>
                         <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
-                          {t("statistics.madeUpOf", {
-                            done: formatCount(qazaCompleted),
-                            total: formatCount(qazaTotal),
+                          {t("statistics.ayahsReadOf", {
+                            read: formatCount(reading.ayahsRead),
+                            total: formatCount(reading.totalAyahs),
                           })}
                         </ThemedText>
                       </View>
                       <ProgressBar
-                        value={qazaCompleted / qazaTotal}
-                        color={tokens.status.info.color}
+                        value={reading.ayahsRead / reading.totalAyahs}
+                        accessibilityLabel={t("a11yProgress.quranRead")}
+                        color={colors.accent}
                       />
-                      <ThemedText type="caption" themeColor="mutedForeground">
-                        {qazaRemaining === 0
-                          ? t("statistics.qazaCleared")
-                          : projection
-                            ? t(
-                                projection.basis === "pace"
-                                  ? "statistics.projectionPace"
-                                  : "statistics.projectionPlan",
-                                {
-                                  perDay: projection.perDay.toLocaleString(locale, {
-                                    maximumFractionDigits: 1,
-                                  }),
-                                  date: parseLocalDateString(
-                                    projection.finishDate,
-                                  ).toLocaleDateString(locale, { month: "long", year: "numeric" }),
-                                },
-                              )
-                            : t("statistics.projectionNone")}
-                      </ThemedText>
                     </ReadableView>
-                  ) : null}
+                    <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                      <MetricGrid
+                        columns={2}
+                        metrics={[
+                          {
+                            value: `${formatCount(reading.surahsCompleted)}/${formatCount(114)}`,
+                            label: t("statistics.surahsCompleted"),
+                            color: tokens.status.success.text,
+                          },
+                          {
+                            value: formatCount(reading.surahsStarted),
+                            label: t("statistics.quranSurahs"),
+                            color: colors.accentText,
+                          },
+                          {
+                            value: formatCount(quranBookmarks),
+                            label: t("statistics.quranBookmarks"),
+                            color: sky.text,
+                          },
+                          {
+                            value: formatCount(hadithBookmarks),
+                            label: t("statistics.hadithBookmarks"),
+                            color: dawn.text,
+                          },
+                        ]}
+                      />
+                    </ReadableView>
+                    <View style={styles.spacer} />
+                    <LinkRow
+                      label={t("statistics.openQuran")}
+                      onPress={() => router.push("/quran")}
+                    />
+                  </Card>
+                ) : null}
 
-                  {perPrayerQaza.length > 0 ? (
-                    <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
-                      {perPrayerQaza.map((counter, i) => {
-                        const total = counter.remaining + counter.completed;
-                        return (
-                          <TvReadableBlock key={counter.prayerId}>
-                            {i > 0 ? (
-                              <View
-                                style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
-                              />
-                            ) : null}
-                            <View style={styles.qazaRow}>
-                              <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
-                              <View style={styles.qazaCopy}>
-                                <ThemedText type="small">
-                                  {t(`prayers.${counter.prayerId}`)}
-                                </ThemedText>
-                                <ProgressBar
-                                  value={total > 0 ? counter.completed / total : 0}
-                                  height={4}
-                                  color={tokens.status.info.color}
-                                />
-                                <ThemedText type="caption" themeColor="mutedForeground">
-                                  {t("qaza.rowMeta", {
-                                    remaining: formatCount(counter.remaining),
-                                    completed: formatCount(counter.completed),
-                                  })}
-                                </ThemedText>
-                              </View>
-                            </View>
-                          </TvReadableBlock>
-                        );
-                      })}
-                    </View>
-                  ) : null}
-
-                  {rozaTotal > 0 || ramadanFasts > 0 ? (
-                    <ReadableView style={styles.block}>
-                      <BlockTitle title={t("statistics.roza")} />
-                      {rozaTotal > 0 ? (
-                        <>
-                          <View style={styles.progressHeader}>
-                            <ThemedText type="header" style={{ color: tokens.status.success.text }}>
-                              {formatPercent(roza.completed / rozaTotal)}
-                            </ThemedText>
+                {practice.sessions > 0 ? (
+                  <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
+                    <ThemedText type="subtitle">{t("handsFreeZikr2.stats.title")}</ThemedText>
+                    <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                      <MetricGrid
+                        columns={2}
+                        metrics={[
+                          {
+                            value: formatCount(practice.minutes),
+                            label: t("handsFreeZikr2.stats.minutes"),
+                            color: colors.accentText,
+                          },
+                          {
+                            value: formatCount(practice.ayahsRecited),
+                            label: t("handsFreeZikr2.stats.ayahsRecited"),
+                            color: tokens.status.success.text,
+                          },
+                          {
+                            value: formatCount(practice.sessions),
+                            label: t("handsFreeZikr2.stats.sessions"),
+                            color: tokens.status.info.text,
+                          },
+                          {
+                            value: formatCount(practice.bestRevisionStreak),
+                            label: t("handsFreeZikr2.stats.revisionStreak"),
+                            color: tokens.status.warning.text,
+                          },
+                        ]}
+                      />
+                    </ReadableView>
+                    {recitationBadges.length > 0 ? (
+                      <ReadableView style={styles.block}>
+                        <BlockTitle title={t("handsFreeZikr2.stats.milestones")} />
+                        {recitationBadges.map((milestone) => (
+                          <View key={milestone.id}>
                             <ThemedText
-                              type="caption"
-                              themeColor="mutedForeground"
-                              style={styles.flex}
+                              type="smallBold"
+                              style={{ color: tokens.status.success.text }}
                             >
-                              {t("statistics.fastsMadeUpOf", {
-                                done: formatCount(roza.completed),
-                                total: formatCount(rozaTotal),
-                              })}
+                              {milestoneTitle(milestone)}
+                            </ThemedText>
+                            <ThemedText type="caption" themeColor="mutedForeground">
+                              {milestoneDescription(milestone)}
                             </ThemedText>
                           </View>
-                          <ProgressBar
-                            value={roza.completed / rozaTotal}
-                            color={tokens.status.success.color}
-                          />
-                        </>
-                      ) : null}
-                      {ramadanFasts > 0 ? (
-                        <StatLine
-                          label={t("statistics.ramadanFasts")}
-                          value={formatCount(ramadanFasts)}
-                          color={tokens.status.success.text}
-                        />
-                      ) : null}
-                    </ReadableView>
-                  ) : null}
-                  <View style={styles.spacer} />
-                  <LinkRow label={t("statistics.openQaza")} onPress={() => router.push("/qaza")} />
-                </Card>
-              ) : null}
-
-              {hasReadingData ? (
-                <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
-                  <ThemedText type="subtitle">{t("statistics.reading")}</ThemedText>
-                  <ReadableView style={styles.block}>
-                    <View style={styles.progressHeader}>
-                      <ThemedText type="header" style={{ color: colors.accentText }}>
-                        {(reading.ayahsRead / reading.totalAyahs).toLocaleString(locale, {
-                          style: "percent",
-                          maximumFractionDigits: 1,
-                        })}
-                      </ThemedText>
-                      <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
-                        {t("statistics.ayahsReadOf", {
-                          read: formatCount(reading.ayahsRead),
-                          total: formatCount(reading.totalAyahs),
-                        })}
-                      </ThemedText>
-                    </View>
-                    <ProgressBar
-                      value={reading.ayahsRead / reading.totalAyahs}
-                      color={colors.accent}
+                        ))}
+                      </ReadableView>
+                    ) : null}
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {t("handsFreeZikr2.stats.privacy")}
+                    </ThemedText>
+                    <View style={styles.spacer} />
+                    <LinkRow
+                      label={t("handsFreeZikr2.stats.open")}
+                      onPress={() => router.push("/quran/practice" as Href)}
                     />
-                  </ReadableView>
-                  <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-                    <MetricGrid
-                      columns={2}
-                      metrics={[
-                        {
-                          value: `${formatCount(reading.surahsCompleted)}/${formatCount(114)}`,
-                          label: t("statistics.surahsCompleted"),
-                          color: tokens.status.success.text,
-                        },
-                        {
-                          value: formatCount(reading.surahsStarted),
-                          label: t("statistics.quranSurahs"),
-                          color: colors.accentText,
-                        },
-                        {
-                          value: formatCount(quranBookmarks),
-                          label: t("statistics.quranBookmarks"),
-                          color: tokens.status.info.text,
-                        },
-                        {
-                          value: formatCount(hadithBookmarks),
-                          label: t("statistics.hadithBookmarks"),
-                          color: tokens.status.warning.text,
-                        },
-                      ]}
-                    />
-                  </ReadableView>
-                  <View style={styles.spacer} />
-                  <LinkRow
-                    label={t("statistics.openQuran")}
-                    onPress={() => router.push("/quran")}
-                  />
-                </Card>
-              ) : null}
-
-              {practice.sessions > 0 ? (
-                <Card padding="four" style={[styles.journeyCard, wide ? styles.fill : null]}>
-                  <ThemedText type="subtitle">{t("handsFreeZikr2.stats.title")}</ThemedText>
-                  <ReadableView style={[styles.metricShell, { backgroundColor: colors.muted }]}>
-                    <MetricGrid
-                      columns={2}
-                      metrics={[
-                        {
-                          value: formatCount(practice.minutes),
-                          label: t("handsFreeZikr2.stats.minutes"),
-                          color: colors.accentText,
-                        },
-                        {
-                          value: formatCount(practice.ayahsRecited),
-                          label: t("handsFreeZikr2.stats.ayahsRecited"),
-                          color: tokens.status.success.text,
-                        },
-                        {
-                          value: formatCount(practice.sessions),
-                          label: t("handsFreeZikr2.stats.sessions"),
-                          color: tokens.status.info.text,
-                        },
-                        {
-                          value: formatCount(practice.bestRevisionStreak),
-                          label: t("handsFreeZikr2.stats.revisionStreak"),
-                          color: tokens.status.warning.text,
-                        },
-                      ]}
-                    />
-                  </ReadableView>
-                  {recitationBadges.length > 0 ? (
-                    <ReadableView style={styles.block}>
-                      <BlockTitle title={t("handsFreeZikr2.stats.milestones")} />
-                      {recitationBadges.map((milestone) => (
-                        <View key={milestone.id}>
-                          <ThemedText
-                            type="smallBold"
-                            style={{ color: tokens.status.success.text }}
-                          >
-                            {milestoneTitle(milestone)}
-                          </ThemedText>
-                          <ThemedText type="caption" themeColor="mutedForeground">
-                            {milestoneDescription(milestone)}
-                          </ThemedText>
-                        </View>
-                      ))}
-                    </ReadableView>
-                  ) : null}
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("handsFreeZikr2.stats.privacy")}
-                  </ThemedText>
-                  <View style={styles.spacer} />
-                  <LinkRow
-                    label={t("handsFreeZikr2.stats.open")}
-                    onPress={() => router.push("/quran/practice" as Href)}
-                  />
-                </Card>
-              ) : null}
-            </ResponsiveGrid>
-          </View>
-        </Stagger>
-      )}
+                  </Card>
+                ) : null}
+              </ResponsiveGrid>
+            </View>
+          </Stagger>
+        )}
+      </TvScrollView>
     </ScreenLayout>
   );
 }
@@ -1217,12 +1332,15 @@ function dayDate(date: string, locale: string | undefined): string {
 }
 const EMPTY_ZIKR: ZikrProgress[] = [];
 
-function BlockTitle({ title, hint }: { title: string; hint?: string }) {
+function BlockTitle({ title, hint, tag }: { title: string; hint?: string; tag?: string }) {
   return (
     <View style={styles.blockTitle}>
-      <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.blockLabel}>
-        {title}
-      </ThemedText>
+      <View style={styles.blockTitleRow}>
+        <ThemedText type="label" themeColor="mutedForeground" style={styles.flex}>
+          {title}
+        </ThemedText>
+        {tag ? <Pill label={tag} tone="neutral" compact /> : null}
+      </View>
       {hint ? (
         <ThemedText type="caption" themeColor="mutedForeground">
           {hint}
@@ -1299,11 +1417,11 @@ const styles = StyleSheet.create({
   },
   cardHeaderCopy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
   /** Title + hint stacked in a column card (no flex: it would collapse there). */
   headerStack: {
-    gap: 2,
+    gap: Spacing.half,
   },
   pillColumn: {
     alignItems: "flex-end",
@@ -1311,9 +1429,18 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   pill: {
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.one + 2,
+    paddingHorizontal: Spacing.twoHalf,
+    paddingVertical: Spacing.oneHalf,
     borderRadius: Radius.pill,
+  },
+  scroller: { flex: 1 },
+  // Sticky wrapper: opaque so scrolled content never shows through the switcher.
+  periodStick: { paddingTop: Spacing.one, paddingBottom: Spacing.two },
+  periodBar: {
+    gap: Spacing.one,
+  },
+  periodRange: {
+    textAlign: "center",
   },
   trendsCard: {
     gap: Spacing.three,
@@ -1352,15 +1479,15 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   legendToday: {
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
   },
   legendExcused: {
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     borderStyle: "dashed",
   },
   legendLine: {
     width: 14,
-    borderTopWidth: 1,
+    borderTopWidth: BorderWidth.thin,
     borderStyle: "dashed",
   },
   insights: {
@@ -1371,14 +1498,17 @@ const styles = StyleSheet.create({
   insight: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.one + 2,
+    gap: Spacing.oneHalf,
+    paddingHorizontal: Spacing.twoHalf,
+    paddingVertical: Spacing.oneHalf,
     borderRadius: Radius.pill,
   },
   /** Wide grid cell: stretch the card to the row height. */
   fill: {
     flexGrow: 1,
+  },
+  tagStart: {
+    alignSelf: "flex-start",
   },
   spacer: {
     flexGrow: 1,
@@ -1390,12 +1520,12 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   blockTitle: {
-    gap: 2,
+    gap: Spacing.half,
   },
-  blockLabel: {
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
-    fontSize: 11,
+  blockTitleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
   },
   blockShell: {
     borderRadius: Radius.md,

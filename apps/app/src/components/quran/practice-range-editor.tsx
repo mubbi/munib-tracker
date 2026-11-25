@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ayahCount } from "@/lib/quran-companion/passage";
 import type { Passage } from "@/lib/quran-companion/types";
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     padding: Spacing.two,
     borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   stepRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
   stepBtn: {

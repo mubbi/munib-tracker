@@ -12,7 +12,7 @@ import {
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -208,11 +208,11 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     height: PLAYLIST_ROW_BODY,
     marginBottom: Spacing.two,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
     borderColor: "transparent",
     overflow: "hidden",
   },
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  plBody: { flex: 1, gap: 2, minWidth: 0 },
+  plBody: { flex: 1, gap: Spacing.half, minWidth: 0 },
   plArabic: {
     fontSize: 22,
     writingDirection: "rtl",

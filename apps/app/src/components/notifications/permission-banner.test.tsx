@@ -19,7 +19,7 @@ type PermState = {
   openSettings: jest.Mock;
   canEnableLocalReminders: boolean;
   isExpoGo: boolean;
-  webGuidance: { tier: string; needsSafariForInstall?: boolean };
+  webGuidance: { tier: string; needsSafariForInstall?: boolean; installMethod?: string };
 };
 
 let mockPerm: PermState;
@@ -133,10 +133,29 @@ describe("NotificationPermissionBanner", () => {
       expect(screen.queryByText(ENABLE)).toBeNull();
     });
 
-    it("explains Expo Go cannot schedule reminders", async () => {
+    it("explains a preview build cannot schedule reminders (dev only)", async () => {
       await renderBanner({ isExpoGo: true });
-      expect(screen.getByText("Development build required")).toBeTruthy();
+      expect(screen.getByText("Reminders unavailable in this version")).toBeTruthy();
       expect(screen.queryByText(ENABLE)).toBeNull();
+    });
+
+    it("hides the Expo Go notice outside development builds", async () => {
+      const g = globalThis as { __DEV__?: boolean };
+      const dev = g.__DEV__;
+      g.__DEV__ = false;
+      try {
+        await renderBanner({ isExpoGo: true });
+        expect(screen.queryByText("Reminders unavailable in this version")).toBeNull();
+      } finally {
+        g.__DEV__ = dev;
+      }
+    });
+
+    it("offers exactly one action: Open Settings when blocked", async () => {
+      const perm = await renderBanner({ denied: true });
+      expect(screen.getAllByRole("button")).toHaveLength(1);
+      await fireEvent.press(screen.getByRole("button", { name: "Open Settings" }));
+      expect(perm.openSettings).toHaveBeenCalled();
     });
   });
 
@@ -203,5 +222,12 @@ describe("NotificationPermissionBanner", () => {
         expect(screen.queryByText(ENABLE)).toBeNull();
       },
     );
+
+    it("guides iOS Chrome / Edge / Firefox to their own Share menu", async () => {
+      await renderBanner({
+        webGuidance: { tier: "ios_webkit_tab", installMethod: "ios_browser_share" },
+      });
+      expect(screen.getByText(/In this browser: Share/)).toBeTruthy();
+    });
   });
 });

@@ -12,7 +12,7 @@ import { ChoiceChips } from "@/components/self-review/choice-chips";
 import { TextField } from "@/components/self-review/text-field";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow as DsSwitchRow } from "@/components/ui/switch-row";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { hasUnloggedFard, type MuhasabahStep } from "@/lib/muhasabah/flow";
@@ -54,26 +54,6 @@ function SalahRecap({ recap }: { recap: MuhasabahSalahRecap }) {
           {t("muhasabah.salah.gentle")}
         </ThemedText>
       ) : null}
-    </View>
-  );
-}
-
-/** A switch row with its label (the label doubles as the switch's accessibility label). */
-function SwitchRow({
-  label,
-  value,
-  onValueChange,
-}: {
-  label: string;
-  value: boolean;
-  onValueChange: (value: boolean) => void;
-}) {
-  return (
-    <View style={styles.switchRow}>
-      <ThemedText type="small" style={styles.flex}>
-        {label}
-      </ThemedText>
-      <ThemedSwitch value={value} onValueChange={onValueChange} accessibilityLabel={label} />
     </View>
   );
 }
@@ -155,8 +135,8 @@ export function MuhasabahStepBody({
     case "repent":
       return (
         <View style={styles.gap}>
-          <SwitchRow
-            label={t("muhasabah.repentToggle")}
+          <DsSwitchRow
+            title={t("muhasabah.repentToggle")}
             value={draft.repented}
             onValueChange={(repented) => update({ repented })}
           />
@@ -176,8 +156,8 @@ export function MuhasabahStepBody({
             </ThemedText>
           ) : null}
           {istighfar ? <ReadingCard item={istighfar} enableContextMenu={false} /> : null}
-          <SwitchRow
-            label={t("muhasabah.readIstighfar")}
+          <DsSwitchRow
+            title={t("muhasabah.readIstighfar")}
             value={draft.readIstighfar}
             onValueChange={(readIstighfar) => update({ readIstighfar })}
           />

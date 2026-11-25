@@ -79,7 +79,7 @@ export function FontPreview() {
   const arabicSize = prefs.fontPrefs.arabic.size ?? 28;
   const translationSize = prefs.fontPrefs.translation.size ?? 16;
   return (
-    <Card variant="muted" style={styles.preview}>
+    <Card padding="four" variant="muted" style={styles.preview}>
       <ThemedText type="label" themeColor="mutedForeground">
         {t("fonts.preview")}
       </ThemedText>

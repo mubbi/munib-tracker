@@ -217,8 +217,8 @@ describe("QuranAyahRangeCards", () => {
   });
 
   it.each([
-    [[], "Bookmark verse", "Save"],
-    [[{ id: "2:255", surah: 2, ayah: 255, createdAt: "2026-01-01" }], "Remove bookmark", "Saved"],
+    [[], "Save ayah", "Save"],
+    [[{ id: "2:255", surah: 2, ayah: 255, createdAt: "2026-01-01" }], "Remove from saved", "Saved"],
   ])("toggles a bookmark (existing: %j)", async (bookmarks, label, text) => {
     mockBookmarks = bookmarks;
     await renderCards();

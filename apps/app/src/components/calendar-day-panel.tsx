@@ -226,7 +226,7 @@ export function CalendarDayPanel({
 
   return (
     <View style={styles.root}>
-      <Card padding="three" style={styles.header}>
+      <Card style={styles.header}>
         <ThemedText type="caption" themeColor="mutedForeground">
           {isToday ? t("calDay.today") : t("calDay.history")}
         </ThemedText>

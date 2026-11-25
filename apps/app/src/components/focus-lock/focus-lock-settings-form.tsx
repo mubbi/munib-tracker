@@ -14,7 +14,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stepper } from "@/components/ui/stepper";
 import { SwitchRow } from "@/components/ui/switch-row";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { focusLockCapability, focusLockPlatform } from "@/lib/focus-lock/native";
 import {
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
   row: {
     alignItems: "center",
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: BorderWidth.hairline,
     flexDirection: "row",
     gap: Spacing.three,
     paddingVertical: Spacing.two,
@@ -397,6 +397,6 @@ const styles = StyleSheet.create({
   chips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
   /** Short weekday names: keep a 44pt-wide target and centre the label. */
   chip: { minWidth: 44, justifyContent: "center" },
-  divider: { borderBottomWidth: StyleSheet.hairlineWidth },
+  divider: { borderBottomWidth: BorderWidth.hairline },
   reset: { alignSelf: "flex-start", paddingVertical: Spacing.one },
 });

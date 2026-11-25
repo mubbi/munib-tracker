@@ -59,7 +59,12 @@ export function SalahRateList({ rows, formatCount }: SalahRateListProps) {
                     {percent}
                   </ThemedText>
                 </View>
-                <ProgressBar value={row.onTimeRate ?? 0} height={4} color={color} />
+                <ProgressBar
+                  value={row.onTimeRate ?? 0}
+                  accessibilityLabel={name}
+                  height={4}
+                  color={color}
+                />
                 <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
                   {meta}
                 </ThemedText>

@@ -1,7 +1,8 @@
 import * as Linking from "expo-linking";
 import { type Href, Redirect, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { OAuthReturnPending } from "@/components/auth/oauth-return-pending";
+import { OAUTH_RETURN_ERROR } from "@/components/auth/social-auth-errors";
 import { useSocialAuth } from "@/hooks/use-social-auth";
 import { APP_SCHEME, GOOGLE_OAUTH_REDIRECT_PATH } from "@/lib/auth/oauth-config";
 import { loadGoogleOAuthPendingSession } from "@/lib/oauth/oauth-pending";
@@ -46,17 +47,16 @@ export default function OAuth2RedirectRoute() {
         outcome = await resumeGoogleFromUrl(returnUrl);
       }
 
-      setHref(outcome === "failed" ? "/(auth)/login" : returnTo);
+      // D-32: a failed exchange tells the login screen why it is back there.
+      setHref(
+        outcome === "failed"
+          ? { pathname: "/(auth)/login", params: { error: OAUTH_RETURN_ERROR } }
+          : returnTo,
+      );
     })();
   }, [params.code, params.state, resumeGoogleFromUrl]);
 
-  if (!href) {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <ActivityIndicator />
-      </View>
-    );
-  }
+  if (!href) return <OAuthReturnPending />;
   return <Redirect href={href} />;
 }
 

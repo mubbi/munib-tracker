@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Sheet } from "@/components/ui/sheet";
-import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { vaultErrorI18nKey } from "@/lib/vault/errors";
 import { isRecoveryCodeWellFormed } from "@/lib/vault/keyring";
 import {
@@ -45,7 +43,6 @@ export function VaultUnlockSheet({
   onUnlocked,
 }: VaultUnlockSheetProps) {
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
   const status = useVaultStatus();
   const [mode, setMode] = useState<Mode>("passphrase");
   const [passphrase, setPassphrase] = useState("");
@@ -111,15 +108,23 @@ export function VaultUnlockSheet({
     }
   };
 
+  // Busy is shown by the button's spinner (it ignores presses while loading).
   const submitDisabled =
-    busy ||
     (mode === "passphrase" && passphrase.length === 0) ||
     (mode === "recovery" && !isRecoveryCodeWellFormed(code)) ||
     (mode === "newPassphrase" && !canSubmitNewPassphrase(newPassphrase, newConfirm));
 
   return (
     <>
-      <Sheet visible={visible} onClose={busy ? () => {} : onClose} variant="bottom" solid>
+      <Sheet
+        accessibilityLabel={
+          mode === "newPassphrase" ? t("vault.unlock.newPassphraseTitle") : t("vault.unlock.title")
+        }
+        visible={visible}
+        onClose={busy ? () => {} : onClose}
+        variant="bottom"
+        solid
+      >
         <ThemedText type="subtitle" heading={2}>
           {mode === "newPassphrase"
             ? t("vault.unlock.newPassphraseTitle")
@@ -183,23 +188,15 @@ export function VaultUnlockSheet({
               />
             )}
 
-            {error ? (
-              <ThemedText
-                type="small"
-                accessibilityLiveRegion="assertive"
-                accessibilityRole="alert"
-                style={{ color: tokens.status.danger.text }}
-              >
-                {error}
-              </ThemedText>
-            ) : null}
+            {error ? <Callout tone="danger">{error}</Callout> : null}
             {busy ? (
-              <View style={styles.busy} accessibilityLiveRegion="polite">
-                <ActivityIndicator />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("vault.unlock.working")}
-                </ThemedText>
-              </View>
+              <ThemedText
+                type="caption"
+                themeColor="mutedForeground"
+                accessibilityLiveRegion="polite"
+              >
+                {t("vault.unlock.working")}
+              </ThemedText>
             ) : null}
 
             <Button
@@ -209,6 +206,7 @@ export function VaultUnlockSheet({
                   : t("vault.unlock.unlock")
               }
               fullWidth
+              loading={busy}
               disabled={submitDisabled}
               onPress={submit}
             />
@@ -266,7 +264,3 @@ export function VaultUnlockSheet({
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  busy: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-});

@@ -8,6 +8,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
 import { useCircle, useCircleAuth } from "@/lib/circles/hooks";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -38,12 +39,21 @@ export default function FamilyInviteScreen() {
       <Seo path="/family/invite" index={false} />
       {!auth.isAccount ? (
         <CircleAccountGate />
-      ) : isTV() || !circleId ? (
-        <Card padding="three">
+      ) : isTV() ? (
+        <Card>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("family.tvSetup")}
           </ThemedText>
         </Card>
+      ) : !circleId ? (
+        // Opened without a family: say what to do, not "set up on your phone".
+        <EmptyState
+          icon={{ ios: "person.2.fill", android: "group", web: "group" }}
+          title={t("family.invite.noFamilyTitle")}
+          description={t("family.invite.noFamilyBody")}
+          actionLabel={t("family.invite.noFamilyAction")}
+          onAction={() => router.replace("/family")}
+        />
       ) : (
         <View style={styles.stack}>
           {canInviteParent ? (

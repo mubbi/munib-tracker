@@ -1,6 +1,6 @@
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { BackHandler, Platform } from "react-native";
 
@@ -34,6 +34,7 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 import { getPlatformCtx } from "@/lib/settings/platform";
 import { ensureSettingsStoresLoaded } from "@/lib/settings/snapshot";
 import { useStore } from "@/stores/create-store";
+import { devicePreferencesStore } from "@/stores/device-preferences-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
 /**
@@ -50,11 +51,24 @@ export default function SetupScreen() {
   const { t } = useTranslation();
   const { scheme } = useThemeTokens();
   const params = useLocalSearchParams<{ step?: string; next?: string }>();
-  const steps = useMemo(() => setupStepsFor(getPlatformCtx()), []);
   const onboarded = useStore(preferencesStore, (s) => s.prefs.hasCompletedOnboarding);
   // Captured once: started after onboarding = "Run setup again".
   const [rerun] = useState(onboarded);
   const [saved] = useState(() => (rerun ? null : readSetupProgress()));
+  // D-31: a language picked on the welcome screen (it records the confirmation)
+  // is not asked again. Kept when this first run is resuming on the language
+  // step itself (an RTL switch from that step reloads the app), and always on
+  // "Run setup again", which reviews everything.
+  const [languageConfirmed] = useState(
+    () => devicePreferencesStore.getState().prefs.languageConfirmedAt != null,
+  );
+  // The step list is fixed for this visit.
+  const [steps] = useState<SetupStepId[]>(() => {
+    const all = setupStepsFor(getPlatformCtx());
+    const requested = params.step ?? saved?.step;
+    const skipLanguage = !rerun && languageConfirmed && requested !== "language";
+    return skipLanguage ? all.filter((s) => s !== "language") : all;
+  });
   const [destination] = useState(() => setupDestination(params.next ?? saved?.next));
   const [step, setStep] = useState<SetupStepId>(() =>
     resolveSetupStep(params.step ?? saved?.step, steps),
@@ -126,6 +140,12 @@ export default function SetupScreen() {
     chrome: { position, total, done: step === "done", onBack: goBack },
     onNext: () => void advance(),
   };
+  // D-31: once the core steps are done the rest is optional — leave now
+  // (onboarding already counts as complete) instead of paging to the summary.
+  const finishLater =
+    !rerun && !returnToSummary && isCoreSetupDoneAt(step, steps) && step !== "done"
+      ? () => void finish()
+      : undefined;
 
   return (
     <>
@@ -140,7 +160,7 @@ export default function SetupScreen() {
       ) : step === "reminders" ? (
         <RemindersStep key={step} {...props} />
       ) : step === "personalise" ? (
-        <PersonaliseStep key={step} {...props} />
+        <PersonaliseStep key={step} {...props} onFinishLater={finishLater} />
       ) : (
         <DoneStep
           key={step}

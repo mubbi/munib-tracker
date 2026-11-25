@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, useWindowDimensions } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SearchField } from "@/components/ui/search-field";
 import { Sheet } from "@/components/ui/sheet";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing } from "@/constants/theme";
@@ -20,12 +21,12 @@ type PagePickerSheetProps = {
 
 const PAGE_LIST = getPageList();
 /**
- * TV: fixed row height so the list can open scrolled to the current page
- * (`initialScrollIndex` needs `getItemLayout`) and land D-pad focus on it —
- * otherwise the remote starts at page 1 of 604.
+ * Fixed row height so the list opens scrolled to the current page on every
+ * platform (`initialScrollIndex` needs `getItemLayout`) — G-19: it used to open
+ * at page 1 of 604 off TV. Scaled by the text size so large text never clips.
  */
+const ROW_HEIGHT = 64;
 const TV_ROW_HEIGHT = tvDp(72);
-const TV_ROW_STRIDE = TV_ROW_HEIGHT + Spacing.two;
 
 export function PagePickerSheet({
   visible,
@@ -35,10 +36,13 @@ export function PagePickerSheet({
 }: PagePickerSheetProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { fontScale } = useWindowDimensions();
   const [query, setQuery] = useState("");
   const tv = isTV();
-  const tvStartIndex =
-    tv && query.trim() === "" ? Math.max(0, Math.min(PAGE_LIST.length - 1, selectedPage - 1)) : 0;
+  const rowHeight = Math.ceil((tv ? TV_ROW_HEIGHT : ROW_HEIGHT) * Math.max(1, fontScale));
+  const rowStride = rowHeight + Spacing.two;
+  const selectedIndex = PAGE_LIST.findIndex((p) => p.page === selectedPage);
+  const startIndex = query.trim() === "" ? Math.max(0, selectedIndex) : 0;
 
   const filtered = useMemo(() => {
     const q = query.trim();
@@ -53,36 +57,35 @@ export function PagePickerSheet({
   }, [query]);
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false}>
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      scrollable={false}
+      title={t("quran.pagePickerTitle")}
+    >
+      {/* Default keyboard: the field also finds surahs by name (G-19). */}
+      <SearchField
+        value={query}
+        onChangeText={setQuery}
+        placeholder={t("quran.pagePickerSearch")}
+        style={styles.search}
+      />
       <TvFlatList
+        testID="page-picker-list"
+        // Remount per query so the start index applies to the list it belongs to.
+        key={query.trim() === "" ? "all" : "filtered"}
         data={filtered}
         keyExtractor={(item) => String(item.page)}
         style={styles.list}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        {...(tv
-          ? {
-              getItemLayout: (_: unknown, index: number) => ({
-                length: TV_ROW_STRIDE,
-                offset: TV_ROW_STRIDE * index,
-                index,
-              }),
-              initialScrollIndex: tvStartIndex,
-            }
-          : {})}
-        ListHeaderComponent={
-          <View style={styles.header}>
-            <ThemedText type="subtitle">{t("quran.pagePickerTitle")}</ThemedText>
-            <TextInput
-              value={query}
-              onChangeText={setQuery}
-              placeholder={t("quran.pagePickerSearch")}
-              placeholderTextColor={colors.mutedForeground}
-              keyboardType="number-pad"
-              style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
-            />
-          </View>
-        }
+        getItemLayout={(_: unknown, index: number) => ({
+          length: rowStride,
+          offset: rowStride * index,
+          index,
+        })}
+        initialScrollIndex={startIndex}
         renderItem={({ item }) => {
           const selected = item.page === selectedPage;
           return (
@@ -97,7 +100,7 @@ export function PagePickerSheet({
               {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
               style={[
                 styles.row,
-                tv && styles.rowTv,
+                { height: rowHeight },
                 {
                   backgroundColor: selected ? tokens.accentSoft : colors.muted,
                 },
@@ -105,7 +108,8 @@ export function PagePickerSheet({
             >
               <ThemedText
                 type="smallBold"
-                style={{ color: selected ? colors.accent : colors.foreground }}
+                numberOfLines={1}
+                style={{ color: selected ? colors.accentText : colors.foreground }}
               >
                 {t("quran.pageN", { n: item.page })}
               </ThemedText>
@@ -127,22 +131,9 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     minHeight: 0,
   },
-  header: {
-    gap: Spacing.two,
-    marginBottom: Spacing.one,
-  },
-  input: {
-    marginTop: Spacing.one,
-    borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-  },
-  rowTv: {
-    height: TV_ROW_HEIGHT,
-    justifyContent: "center",
-  },
+  search: { marginBottom: Spacing.two },
   row: {
+    justifyContent: "center",
     borderRadius: Radius.md,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,

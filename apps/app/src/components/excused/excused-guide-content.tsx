@@ -1,6 +1,6 @@
 import { EXCUSED_GUIDES } from "@munib-tracker/shared/content/excused-guide";
 import type { ExcusedReason, JannahHadithRef } from "@munib-tracker/shared/types";
-import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import type { SymbolViewProps } from "expo-symbols";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -11,7 +11,7 @@ import { BloodPeriodStatus } from "@/components/excused/blood-period-status";
 import { GuideMadhhabNotes } from "@/components/fiqh/guide-madhhab-notes";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import { LearnTwoPane, useLearnHubLayout } from "@/components/jannah/hub-layout";
-import { JannahBody } from "@/components/jannah/primitives";
+import { JannahBody, JannahDisclaimer } from "@/components/jannah/primitives";
 import { useRegisterLearnListenText } from "@/components/learn-tts-context";
 import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
@@ -23,6 +23,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildContentReportRef } from "@/lib/content-report-ref";
 import { SCREEN_DIFFERENCES } from "@/lib/fiqh/screen-differences";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
 
@@ -45,7 +46,7 @@ const EXTRA_SECTION_ICONS: Record<string, SymbolViewProps["name"]> = {
 };
 
 export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const config = EXCUSED_GUIDES[reason];
   const ns = config.namespace;
@@ -115,7 +116,7 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
   );
 
   const hadithCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t(`${ns}.hadithTitle`)}
         icon={{ ios: "text.book.closed.fill", android: "auto_stories", web: "auto_stories" }}
@@ -129,7 +130,7 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
             <View style={styles.hadithMeta}>
               <ThemedText
                 type="caption"
-                style={{ color: colors.accent, flex: 1, flexShrink: 1, minWidth: 0 }}
+                style={{ color: tokens.accentOnSoft, flex: 1, flexShrink: 1, minWidth: 0 }}
               >
                 {t(`${ns}.hadith.${index}.reference`)}
               </ThemedText>
@@ -159,7 +160,7 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
   );
 
   const obligationsCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t(`${ns}.obligationsTitle`)}
         icon={{
@@ -174,7 +175,7 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
           <TvReadableBlock key={step}>
             <View style={styles.stepRow}>
               <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
-                <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
                   {index + 1}
                 </ThemedText>
               </View>
@@ -189,7 +190,7 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
   );
 
   const extraSections = config.extraSections?.map((sectionKey) => (
-    <Card key={sectionKey} padding="three">
+    <Card key={sectionKey}>
       <SectionHeader
         title={t(`${ns}.${sectionKey}.title`)}
         icon={
@@ -214,19 +215,18 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
     <GuideMadhhabNotes ids={SCREEN_DIFFERENCES["/hayd"]} />
   ) : null;
 
+  // G-74: the shared Learn disclaimer, with its "Report a problem" link.
   const disclaimer = (
-    <TvReadableBlock>
-      <View style={[styles.disclaimer, { backgroundColor: tokens.status.info.soft }]}>
-        <SymbolView
-          name={{ ios: "info.circle.fill", android: "info", web: "info" }}
-          size={16}
-          tintColor={tokens.status.info.color}
-        />
-        <ThemedText type="caption" style={[styles.disclaimerText, { color: colors.foreground }]}>
-          {t(`${ns}.disclaimer`)}
-        </ThemedText>
-      </View>
-    </TvReadableBlock>
+    <JannahDisclaimer
+      textKey={`${ns}.disclaimer`}
+      contentRef={buildContentReportRef(
+        "excused",
+        reason,
+        `/${reason}`,
+        i18n.language?.split("-")[0] ?? "en",
+        { snapshot: { title: t(`${ns}.title`) } },
+      )}
+    />
   );
 
   return (
@@ -307,13 +307,4 @@ const styles = StyleSheet.create({
   },
   stepText: { flex: 1, minWidth: 0 },
   sectionBody: { marginTop: Spacing.two, width: "100%", alignSelf: "stretch" },
-  disclaimer: {
-    flexDirection: "row",
-    gap: Spacing.two,
-    alignItems: "flex-start",
-    padding: Spacing.three,
-    borderRadius: 14,
-    borderCurve: "continuous",
-  },
-  disclaimerText: { flex: 1, lineHeight: 18 },
 });

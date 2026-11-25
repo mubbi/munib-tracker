@@ -52,7 +52,11 @@ export function MoreInSettingsLink({ settingId, onNavigate, style }: MoreInSetti
       />
       <ThemedText
         type="small"
-        style={[styles.label, { color: colors.accent }, tv && { fontSize: TvLayout.bodyFontSize }]}
+        style={[
+          styles.label,
+          { color: colors.accentText },
+          tv && { fontSize: TvLayout.bodyFontSize },
+        ]}
       >
         {label}
       </ThemedText>
@@ -71,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "flex-start",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingVertical: Spacing.two,
     minHeight: 44,
   },

@@ -55,7 +55,7 @@ export function ChildCard({
   const learning = child.ageBand === "learning";
 
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <View style={styles.header}>
         <ThemedText type="subtitle" style={styles.flex} numberOfLines={1}>
           {child.nickname}
@@ -109,7 +109,7 @@ export function ChildCard({
                   target: reward.target,
                 })}
           </ThemedText>
-          <ProgressBar value={reward.ratio} />
+          <ProgressBar value={reward.ratio} accessibilityLabel={t("a11yProgress.reward")} />
         </View>
       ) : null}
 

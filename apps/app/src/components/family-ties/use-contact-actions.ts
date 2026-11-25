@@ -39,7 +39,7 @@ export function useContactActions() {
       toast.show(t("familyTies.loggedToast", { kind: t(`familyTies.contact.${kind}`) }), {
         type: "success",
         action: {
-          label: t("privateUx.undo"),
+          label: t("common.undo"),
           onPress: () => void run(familyTiesActions.removeLog(logId)),
         },
       });

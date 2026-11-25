@@ -47,19 +47,28 @@ export function ResetSettingsRow() {
       confirmMessage={describe()}
       confirmLabel={t("common.reset")}
       destructive={false}
-      onConfirm={() => {
-        void resetAllSettings().then(
-          () => toast.success(t("settingsPanel.resetDone")),
-          () => toast.error(t("settingsPanel.failed")),
-        );
+      // Async: the dialog stays busy until the reset lands and shows an inline
+      // error (and stays open for a retry) if it fails.
+      onConfirm={async () => {
+        await resetAllSettings();
+        toast.success(t("settingsPanel.resetDone"));
       }}
+      errorMessage={t("settings.resetSettingsFailed")}
     />
   );
 }
 
+/** Thrown when the cloud copy could not be erased — nothing on the device was touched. */
+class CloudResetError extends Error {}
+
 /**
  * "Reset app data" (D13: moved here from Profile, which keeps Delete account).
- * Wipes the server copy when signed in, then this device.
+ * D-02: the confirm says what is erased where (device / cloud), needs an
+ * "I understand" tick, and stays open and busy while the wipe runs. A failure
+ * shows inline (with the dialog still open for a retry); Home is opened only
+ * after every step succeeded. The sequence is unchanged: `resetAppData`
+ * (cloud, signed in only) → `wipeLocalDeviceData` → `factoryResetPinLock` →
+ * `clearAll`. Each step is idempotent, so a retry after a partial failure is safe.
  */
 export function ResetAppDataRow() {
   const { t } = useTranslation();
@@ -68,25 +77,33 @@ export function ResetAppDataRow() {
   const { isAuthenticated, resetAppData } = useAuth();
   const { factoryResetPinLock } = usePinLock();
   const { clearAll } = useInAppNotifications();
-  const [busy, setBusy] = useState(false);
+  const [errorKey, setErrorKey] = useState<string>("settings.resetAppData.failedDevice");
 
   const run = async () => {
-    if (busy) return;
-    setBusy(true);
     try {
       if (isAuthenticated && (await resetAppData()) === "error") {
-        toast.error(t("profile.resetDataFailed"));
-        return;
+        throw new CloudResetError();
       }
       await wipeLocalDeviceData();
       await factoryResetPinLock();
       await clearAll();
-      router.replace("/");
-      toast.success(t("profile.resetDataSuccess"));
-    } finally {
-      setBusy(false);
+    } catch (error) {
+      setErrorKey(
+        error instanceof CloudResetError
+          ? "profile.resetDataFailed"
+          : "settings.resetAppData.failedDevice",
+      );
+      throw error;
     }
+    router.replace("/");
+    toast.success(t("profile.resetDataSuccess"));
   };
+
+  const message = [
+    t("settings.resetAppData.deviceLine"),
+    isAuthenticated ? t("settings.resetAppData.cloudLine") : t("settings.resetAppData.guestLine"),
+    t("settings.resetAppData.cannotUndo"),
+  ].join("\n\n");
 
   return (
     <DangerRow
@@ -94,10 +111,11 @@ export function ResetAppDataRow() {
       title={t("profile.resetData")}
       subtitle={t("settingsPanel.resetAppDataSub")}
       confirmTitle={t("profile.resetDataTitle")}
-      confirmMessage={t(isAuthenticated ? "profile.resetDataMsgAccount" : "profile.resetDataMsg")}
+      confirmMessage={message}
       confirmLabel={t("profile.resetDataConfirm")}
-      disabled={busy}
-      onConfirm={() => void run()}
+      acknowledgeLabel={t("settings.resetAppData.acknowledge")}
+      errorMessage={t(errorKey)}
+      onConfirm={run}
     />
   );
 }

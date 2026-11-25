@@ -119,7 +119,7 @@ export default function LearnQuranVocabularyScreen() {
             <JannahCallout tone="info">{t("learnQuran.vocabIntro")}</JannahCallout>
 
             <LearnReadingChrome surface="learn_quran" listenText={listenText}>
-              <Card padding="three">
+              <Card>
                 <SectionHeader
                   title={t("learnQuran.vocabListTitle")}
                   icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}

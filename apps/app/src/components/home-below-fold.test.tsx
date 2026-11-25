@@ -1,9 +1,16 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
-import { useAcceptanceHourActive } from "@/components/acceptance-hour-goal-reminder";
+import {
+  useAcceptanceHourActive,
+  useAcceptanceHourGoalReminder,
+} from "@/components/acceptance-hour-goal-reminder";
+import { useFridayGoalReminder } from "@/components/friday-goal-reminder";
 import { HomeBelowFold, type HomeBelowFoldProps } from "@/components/home-below-fold";
+import { useKhatmGoalReminder } from "@/components/khatm-goal-reminder";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
+import type { GoalReminderModel } from "@/components/tracker/goal-reminder-banner";
+import { useWhiteDaysGoalReminder } from "@/components/white-days-goal-reminder";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { isFriday } from "@/lib/friday";
 import { getRamadanInfo } from "@/lib/ramadan";
@@ -36,7 +43,7 @@ jest.mock(
   () => require("@/test-support/mocks/use-window-dimensions").useWindowDimensionsMock,
 );
 jest.mock("@/components/acceptance-hour-goal-reminder", () => ({
-  AcceptanceHourGoalReminder: () => null,
+  useAcceptanceHourGoalReminder: jest.fn(() => null),
   useAcceptanceHourActive: jest.fn(() => false),
 }));
 jest.mock("@/components/continue-card", () => ({
@@ -51,9 +58,18 @@ jest.mock("@/components/devotion-achievement-summary", () => ({
   DevotionAchievementSummary: () => null,
 }));
 jest.mock("@/components/excused-day-picker", () => ({ ExcusedDayPicker: () => null }));
-jest.mock("@/components/friday-goal-reminder", () => ({ FridayGoalReminder: () => null }));
-jest.mock("@/components/white-days-goal-reminder", () => ({ WhiteDaysGoalReminder: () => null }));
-jest.mock("@/components/khatm-goal-reminder", () => ({ KhatmGoalReminder: () => null }));
+jest.mock("@/components/friday-goal-reminder", () => ({
+  useFridayGoalReminder: jest.fn(() => null),
+}));
+jest.mock("@/components/white-days-goal-reminder", () => ({
+  useWhiteDaysGoalReminder: jest.fn(() => null),
+}));
+jest.mock("@/components/khatm-goal-reminder", () => ({
+  useKhatmGoalReminder: jest.fn(() => null),
+}));
+jest.mock("@/components/fasting/voluntary-fast-goal-reminder", () => ({
+  useVoluntaryFastGoalReminder: () => null,
+}));
 jest.mock("@/components/khatm-card", () => ({
   KhatmCard: require("@/test-support/mocks/stub-component").stubComponent("khatm-card"),
 }));
@@ -156,6 +172,14 @@ beforeEach(async () => {
 });
 afterEach(async () => {
   jest.mocked(useAcceptanceHourActive).mockReturnValue(false);
+  for (const hook of [
+    useAcceptanceHourGoalReminder,
+    useFridayGoalReminder,
+    useWhiteDaysGoalReminder,
+    useKhatmGoalReminder,
+  ]) {
+    jest.mocked(hook).mockReturnValue(null);
+  }
   jest.mocked(isFriday).mockReturnValue(false);
   jest.mocked(isWhiteDay).mockReturnValue(false);
   jest.mocked(getRamadanInfo).mockReturnValue({ isRamadan: false } as never);
@@ -207,7 +231,7 @@ describe("HomeBelowFold daily goal", () => {
 
     expect(screen.getByText("Tracking paused for Travel — your streak is held.")).toBeTruthy();
     expect(screen.getAllByText("Paused").length).toBeGreaterThan(0);
-    expect(screen.getByText("Go to Checklist")).toBeTruthy();
+    expect(screen.getByText("Go to checklist")).toBeTruthy();
   });
 
   it.each([
@@ -233,6 +257,59 @@ describe("HomeBelowFold daily goal", () => {
 
     expect(mockRouter.push).toHaveBeenCalledWith("/tracker");
     expect(mockRouter.push).toHaveBeenCalledWith("/achievements");
+  });
+});
+
+const reminder = (id: string): GoalReminderModel => ({
+  id,
+  icon: "sun.max",
+  title: `${id} title`,
+  body: `${id} body`,
+  accessibilityLabel: `Open ${id}`,
+  onPress: jest.fn(),
+});
+
+describe("HomeBelowFold goal card (P5-05)", () => {
+  it("puts the primary action right under the progress row, before the chips", async () => {
+    await summary({ salahCompleted: 2 });
+    await renderFold();
+
+    const labels = screen.container
+      .queryAll((node) => typeof node.props.children === "string")
+      .map((node) => node.props.children as string);
+    const button = labels.indexOf("Go to checklist");
+    const chip = labels.indexOf("2/5");
+    expect(button).toBeGreaterThan(labels.indexOf("2 of 8 tasks"));
+    expect(button).toBeLessThan(chip);
+  });
+
+  it("marks the due Salah in one tap", async () => {
+    const onMarkPrayer = jest.fn();
+    await summary({ salahCompleted: 1 });
+    await renderFold({ markPrayer: "asr", onMarkPrayer });
+
+    await fireEvent.press(screen.getByText("Mark Asr"));
+
+    expect(onMarkPrayer).toHaveBeenCalledTimes(1);
+    await fireEvent.press(screen.getByText("Go to checklist"));
+    expect(mockRouter.push).toHaveBeenCalledWith("/tracker");
+  });
+
+  it("stacks four reminders as one banner plus +3 more", async () => {
+    jest.mocked(useAcceptanceHourGoalReminder).mockReturnValue(reminder("hour"));
+    jest.mocked(useFridayGoalReminder).mockReturnValue(reminder("friday"));
+    jest.mocked(useWhiteDaysGoalReminder).mockReturnValue(reminder("white"));
+    jest.mocked(useKhatmGoalReminder).mockReturnValue(reminder("khatm"));
+    await renderFold();
+
+    expect(screen.getByText("hour title")).toBeTruthy();
+    expect(screen.queryByText("friday title")).toBeNull();
+    await fireEvent.press(screen.getByText("+3 more"));
+
+    for (const id of ["friday", "white", "khatm"]) {
+      expect(screen.getByText(`${id} title`)).toBeTruthy();
+    }
+    expect(screen.queryByText("+3 more")).toBeNull();
   });
 });
 

@@ -34,7 +34,7 @@ export function PartnerDots({
   const { colors, tokens } = useThemeTokens();
 
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <SectionHeader
         title={t("partnerCircle.dots.title")}
         subtitle={t("partnerCircle.dots.subtitle")}
@@ -82,7 +82,10 @@ export function PartnerDots({
                       ]}
                     >
                       {done ? (
-                        <ThemedText type="smallBold" style={{ color: tokens.status.success.color }}>
+                        <ThemedText
+                          type="smallBold"
+                          style={{ color: tokens.status.success.onSoft }}
+                        >
                           ✓
                         </ThemedText>
                       ) : null}

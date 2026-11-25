@@ -1,16 +1,16 @@
 import { FRIDAY_CHECKLIST } from "@munib-tracker/shared/content/friday-checklist";
 import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { ChecklistDetailsChip, ChecklistRow } from "@/components/tracker/checklist-row";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Radius, Spacing } from "@/constants/theme";
+import { Control, IconSize, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isFridayDateString } from "@/lib/friday";
@@ -30,13 +30,13 @@ type FridayTrackerSectionProps = {
  * Friday-only Jumu'ah checklist on the Tracker day view. Renders nothing when
  * `date` is not a Friday.
  *
- * Row = toggle pressable (SymbolView, not IconButton) + optional sibling details
- * chip — avoids nested `<button>` on web and makes related content obvious.
+ * Rows are the shared `ChecklistRow` (whole row toggles) + an optional sibling
+ * details chip — never a nested `<button>` on web.
  */
 export function FridayTrackerSection({ date }: FridayTrackerSectionProps) {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const chevronForward = useChevronForward();
   useEnsureFridayChecklistLoaded();
   const done = useFridayChecklistForDate(date);
@@ -48,7 +48,7 @@ export function FridayTrackerSection({ date }: FridayTrackerSectionProps) {
   const total = FRIDAY_CHECKLIST.length;
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("tracker.friday.title")}
         icon={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
@@ -58,68 +58,25 @@ export function FridayTrackerSection({ date }: FridayTrackerSectionProps) {
       </ThemedText>
       <View style={styles.rows}>
         {FRIDAY_CHECKLIST.map((item) => {
-          const checked = !!done[item.id];
+          const title = t(`tracker.friday.items.${item.id}.title`);
+          const hint = t(`tracker.friday.items.${item.id}.hint`);
           return (
-            <View key={item.id} style={styles.row}>
-              <PressableScale
-                accessibilityRole="checkbox"
-                accessibilityState={{ checked }}
-                accessibilityLabel={t(`tracker.friday.items.${item.id}.title`)}
-                onPress={() => void toggle(item.id, date)}
-                scaleTo={0.98}
-                haptic="selection"
-                style={[styles.rowMain, isTV() ? styles.rowMainTv : null]}
-              >
-                <SymbolView
-                  name={
-                    checked
-                      ? {
-                          ios: "checkmark.circle.fill",
-                          android: "check_circle",
-                          web: "check_circle",
-                        }
-                      : {
-                          ios: "circle",
-                          android: "radio_button_unchecked",
-                          web: "radio_button_unchecked",
-                        }
-                  }
-                  size={24}
-                  tintColor={checked ? tokens.status.success.color : colors.mutedForeground}
-                />
-                <View style={styles.rowText}>
-                  <ThemedText type="smallBold">
-                    {t(`tracker.friday.items.${item.id}.title`)}
-                  </ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t(`tracker.friday.items.${item.id}.hint`)}
-                    {item.reference ? ` · ${item.reference}` : ""}
-                  </ThemedText>
-                </View>
-              </PressableScale>
-              {item.route ? (
-                <PressableScale
-                  accessibilityRole="button"
-                  accessibilityLabel={t("tracker.friday.openRelated")}
-                  onPress={() => router.push(item.route as Href)}
-                  haptic="selection"
-                  scaleTo={0.96}
-                  style={[
-                    styles.detailsChip,
-                    isTV() ? styles.detailsChipTv : null,
-                    {
-                      backgroundColor: tokens.accentSoft,
-                      borderColor: colors.border,
-                    },
-                  ]}
-                >
-                  <ThemedText type="caption" style={{ color: colors.accent }}>
-                    {t("tracker.friday.details")}
-                  </ThemedText>
-                  <AppIcon icon={chevronForward} size={14} tintColor={colors.accent} />
-                </PressableScale>
-              ) : null}
-            </View>
+            <ChecklistRow
+              key={item.id}
+              checked={!!done[item.id]}
+              onToggle={() => void toggle(item.id, date)}
+              title={title}
+              subtitle={item.reference ? `${hint} · ${item.reference}` : hint}
+              trailing={
+                item.route ? (
+                  <ChecklistDetailsChip
+                    label={t("tracker.friday.details")}
+                    accessibilityLabel={t("tracker.friday.detailsFor", { title })}
+                    onPress={() => router.push(item.route as Href)}
+                  />
+                ) : null
+              }
+            />
           );
         })}
       </View>
@@ -129,10 +86,10 @@ export function FridayTrackerSection({ date }: FridayTrackerSectionProps) {
         scaleTo={0.98}
         style={[styles.learnLink, isTV() ? styles.learnLinkTv : null]}
       >
-        <ThemedText type="smallBold" style={{ color: colors.accent }}>
+        <ThemedText type="smallBold" style={{ color: colors.accentText }}>
           {t("tracker.friday.learnMore")}
         </ThemedText>
-        <AppIcon icon={chevronForward} size={14} tintColor={colors.accent} />
+        <AppIcon icon={chevronForward} size={IconSize.sm} tintColor={colors.accentText} />
       </PressableScale>
     </Card>
   );
@@ -141,45 +98,13 @@ export function FridayTrackerSection({ date }: FridayTrackerSectionProps) {
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.two, marginBottom: Spacing.two },
   rows: { gap: Spacing.two },
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  rowMain: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingVertical: Spacing.one,
-    minWidth: 0,
-  },
-  /** TV: a full-row Select target with room for the focus ring. */
-  rowMainTv: {
-    minHeight: TvLayout.minFocusTarget,
-    paddingHorizontal: Spacing.two,
-    borderRadius: Radius.md,
-  },
-  rowText: { flex: 1, gap: 2, minWidth: 0 },
-  detailsChip: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    paddingVertical: Spacing.one + 2,
-    paddingHorizontal: Spacing.two,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-  },
-  detailsChipTv: {
-    minHeight: TvLayout.chipMinHeight,
-    paddingHorizontal: Spacing.three,
-  },
   learnLink: {
     flexDirection: "row",
     alignItems: "center",
+    alignSelf: "flex-start",
     gap: Spacing.one,
-    marginTop: Spacing.three,
+    minHeight: Control.md,
+    marginTop: Spacing.two,
   },
   learnLinkTv: {
     alignSelf: "flex-start",

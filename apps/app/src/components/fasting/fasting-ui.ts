@@ -36,3 +36,21 @@ export const FASTING_ICON: SymbolViewProps["name"] = {
   android: "nights_stay",
   web: "nights_stay",
 };
+
+/** Calendar day markers: glyph + tone, drawn on the month grid and in its legend (tones follow the ruling palette above). */
+export type MonthGridMarker = "missed" | "recommended" | "prohibited";
+
+export const MARKER_GLYPH: Record<
+  MonthGridMarker,
+  { icon: SymbolViewProps["name"]; tone: StatusKey }
+> = {
+  missed: { icon: { ios: "circle.fill", android: "circle", web: "circle" }, tone: "danger" },
+  recommended: {
+    icon: { ios: "star.fill", android: "star", web: "star" },
+    tone: RULING_TONE.recommended === "muted" ? "success" : RULING_TONE.recommended,
+  },
+  prohibited: {
+    icon: { ios: "nosign", android: "block", web: "block" },
+    tone: RULING_TONE.prohibited === "muted" ? "danger" : RULING_TONE.prohibited,
+  },
+};

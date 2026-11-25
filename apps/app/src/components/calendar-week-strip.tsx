@@ -1,13 +1,13 @@
 import type { AppLocale, CalendarMode } from "@munib-tracker/shared/types";
 import { addDays, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
-import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import { MarkerGlyph } from "@/components/hijri/month-grid";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildWeekContainingDate, localizedWeekdayInitials } from "@/lib/calendar";
@@ -63,12 +63,14 @@ export function CalendarWeekStrip({
   };
 
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.header}>
-        <NavButton
-          icon={chevronBackward}
-          label={t("calDay.prevWeek")}
+        <IconButton
+          name={chevronBackward}
+          accessibilityLabel={t("calDay.prevWeek")}
           onPress={() => shiftWeek(-1)}
+          tintColor={colors.accent}
+          background={tokens.accentSoft}
         />
         <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.headerLabel}>
           {t("calDay.weekOf", {
@@ -84,10 +86,12 @@ export function CalendarWeekStrip({
             ),
           })}
         </ThemedText>
-        <NavButton
-          icon={chevronForward}
-          label={t("calDay.nextWeek")}
+        <IconButton
+          name={chevronForward}
+          accessibilityLabel={t("calDay.nextWeek")}
           onPress={() => shiftWeek(1)}
+          tintColor={colors.accent}
+          background={tokens.accentSoft}
         />
       </View>
 
@@ -131,7 +135,10 @@ export function CalendarWeekStrip({
                         styles.dayCircle,
                         styles.dayCircleTv,
                         { backgroundColor: fill },
-                        day.isToday && { borderColor: colors.foreground, borderWidth: 2 },
+                        day.isToday && {
+                          borderColor: colors.foreground,
+                          borderWidth: BorderWidth.thick,
+                        },
                         isSelected && {
                           backgroundColor: withAlpha(
                             colors.accent,
@@ -144,13 +151,16 @@ export function CalendarWeekStrip({
                     : [
                         styles.dayCircle,
                         { backgroundColor: fill },
-                        day.isToday && { borderColor: colors.accent, borderWidth: 2 },
+                        day.isToday && {
+                          borderColor: colors.accent,
+                          borderWidth: BorderWidth.thick,
+                        },
                         isSelected && {
                           backgroundColor: isSelected
                             ? withAlpha(colors.accent, fill === "transparent" ? 0.18 : 0.35)
                             : fill,
                           borderColor: colors.accent,
-                          borderWidth: 2,
+                          borderWidth: BorderWidth.thick,
                         },
                       ]
                 }
@@ -166,7 +176,9 @@ export function CalendarWeekStrip({
                 </ThemedText>
               </PressableScale>
               {hasMiss ? (
-                <View style={[styles.dot, { backgroundColor: tokens.status.danger.color }]} />
+                <View style={styles.dot}>
+                  <MarkerGlyph kind="missed" />
+                </View>
               ) : (
                 <View style={styles.dot} />
               )}
@@ -175,33 +187,6 @@ export function CalendarWeekStrip({
         })}
       </View>
     </Card>
-  );
-}
-
-function NavButton({
-  icon,
-  label,
-  onPress,
-}: {
-  icon: Parameters<typeof SymbolView>[0]["name"];
-  label: string;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  return (
-    <PressableScale
-      haptic="light"
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      onPress={onPress}
-      style={[
-        styles.navButton,
-        isTV() ? styles.navButtonTv : null,
-        { backgroundColor: tokens.accentSoft },
-      ]}
-    >
-      <SymbolView name={icon} size={18} tintColor={colors.accent} />
-    </PressableScale>
   );
 }
 
@@ -217,18 +202,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingHorizontal: Spacing.two,
   },
-  navButton: {
-    width: 44,
-    height: 44,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  navButtonTv: {
-    width: TvLayout.chipMinHeight,
-    height: TvLayout.chipMinHeight,
-  },
   weekRow: {
     flexDirection: "row",
   },
@@ -239,9 +212,9 @@ const styles = StyleSheet.create({
     minHeight: 44,
   },
   dayCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -251,9 +224,9 @@ const styles = StyleSheet.create({
     borderRadius: TvLayout.minFocusTarget / 2,
   },
   dot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    marginTop: 3,
+    height: 8,
+    marginTop: Spacing.half,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

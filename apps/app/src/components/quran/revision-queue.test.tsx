@@ -35,7 +35,7 @@ describe("RevisionQueue", () => {
 
   it.each<[MemorizationRecord["status"] | undefined, string]>([
     ["needs_revision", "Needs revision"],
-    ["practising", "Practising"],
+    ["practising", "Practicing"],
     ["learning", "Learning"],
     [undefined, "Review"],
   ])("shows the %p status pill", async (status, pill) => {
@@ -60,7 +60,7 @@ describe("RevisionQueue", () => {
   it("opens a row for practice", async () => {
     const item = buildDueItem({ ayah: 2 });
     const props = await renderQueue({ items: [item] });
-    await fireEvent.press(screen.getByLabelText("Practise Al-Fatihah 2"));
+    await fireEvent.press(screen.getByLabelText("Practice Al-Fatihah 2"));
     expect(props.onOpen).toHaveBeenCalledWith(item);
   });
 

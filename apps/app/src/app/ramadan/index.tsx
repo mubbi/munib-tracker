@@ -1,7 +1,7 @@
 import type { AppLocale } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
@@ -15,6 +15,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { FocusHighlight } from "@/components/ui/focus-highlight";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
@@ -22,13 +23,16 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useHijriAdjustment } from "@/hooks/use-hijri-adjustment";
 import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { formatCompactGridDateFromIso } from "@/lib/calendar-format";
+import { triggerHaptic } from "@/lib/haptics";
 import { hijriToGregorian } from "@/lib/hijri";
 import { tTv } from "@/lib/i18n/t-tv";
 import { localeToBcp47 } from "@/lib/locale-bcp47";
@@ -42,9 +46,12 @@ import { SURAH_AL_QADR_PASSAGE } from "@/lib/tasbeeh-voice/recite-instead";
 import { LAYLAT_AL_QADR_DUA_ID } from "@/lib/tasbeeh-voice/voice-zikr";
 import {
   type FastStatus,
+  fastingStore,
   useEnsureFastingLoaded,
   useFastingActions,
   useFastingDays,
+  useFastingLoadError,
+  useFastingReady,
   useFastStatus,
 } from "@/stores/fasting-store";
 import { useLocation } from "@/stores/location-store";
@@ -97,9 +104,25 @@ export default function RamadanScreen() {
   const now = useMinuteClock();
   useEnsureFastingLoaded();
   const days = useFastingDays();
+  const fastingReady = useFastingReady();
+  const fastingLoadError = useFastingLoadError();
   const { setStatus } = useFastingActions();
+  const undoToast = useUndoToast();
   const today = getLocalDateString();
   const todayStatus = useFastStatus(today);
+
+  /** Logs (or clears) one day and offers Undo; the feedback is a toast + haptic, never silent. */
+  const logDay = (date: string, status: FastStatus | null) => {
+    const before = days[date] ?? null;
+    if (before === status) return;
+    triggerHaptic(status === "fasted" ? "success" : "selection");
+    void undoToast.run({
+      do: () => setStatus(date, status),
+      undo: () => setStatus(date, before),
+      messageKey: status === null ? "ramadan.toastCleared" : `ramadan.toast.${status}`,
+      type: status === null ? "info" : "success",
+    });
+  };
   const [sheetDay, setSheetDay] = useState<{ day: number; date: string } | null>(null);
   const tv = isTV();
   const { width } = useWindowDimensions();
@@ -202,10 +225,13 @@ export default function RamadanScreen() {
 
   const todayCard = info.isRamadan ? (
     <Card
-      padding="three"
       style={[
         styles.todayCard,
-        { backgroundColor: tokens.accentSoft, borderColor: colors.accent, borderWidth: 1 },
+        {
+          backgroundColor: tokens.accentSoft,
+          borderColor: colors.accent,
+          borderWidth: BorderWidth.thin,
+        },
       ]}
     >
       <View style={styles.todayRow}>
@@ -236,8 +262,8 @@ export default function RamadanScreen() {
           tintColor={todayStatus === "fasted" ? success.color : colors.mutedForeground}
           accessibilityLabel={t("ramadan.fastedToday")}
           accessibilityState={{ selected: todayStatus === "fasted" }}
-          haptic="selection"
-          onPress={() => setStatus(today, todayStatus === "fasted" ? null : "fasted")}
+          haptic={false}
+          onPress={() => logDay(today, todayStatus === "fasted" ? null : "fasted")}
         />
       </View>
     </Card>
@@ -245,7 +271,7 @@ export default function RamadanScreen() {
 
   const timesCard = (
     <FocusHighlight ref={register("ramadan-times")} active={isFocused("ramadan-times")}>
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("ramadan.timesTitle")}
           icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
@@ -297,7 +323,7 @@ export default function RamadanScreen() {
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("ramadan.suhoor")}
             </ThemedText>
-            <ThemedText type="header" style={{ color: colors.accent }}>
+            <ThemedText type="header" style={{ color: tokens.accentOnSoft }}>
               {formatPrayerTime(info.suhoorEnds, prefs.timeFormat, location.timeZone)}
             </ThemedText>
           </View>
@@ -320,7 +346,7 @@ export default function RamadanScreen() {
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("ramadan.iftar")}
             </ThemedText>
-            <ThemedText type="header" style={{ color: tokens.status.warning.color }}>
+            <ThemedText type="header" style={{ color: tokens.status.warning.onSoft }}>
               {formatPrayerTime(info.iftar, prefs.timeFormat, location.timeZone)}
             </ThemedText>
           </View>
@@ -334,7 +360,7 @@ export default function RamadanScreen() {
 
   const lastTenCard = showLastTenCard ? (
     <FocusHighlight ref={register("ramadan-lastTen")} active={isFocused("ramadan-lastTen")}>
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("ramadan.lastTenTitle")}
           icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
@@ -348,7 +374,7 @@ export default function RamadanScreen() {
 
   const laylatCard = showLaylatCard ? (
     <FocusHighlight ref={register("ramadan-laylatQadr")} active={isFocused("ramadan-laylatQadr")}>
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("ramadan.laylatQadrTitle")}
           icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
@@ -384,7 +410,7 @@ export default function RamadanScreen() {
   ) : null;
 
   const fastingCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("ramadan.fastingTitle")}
         icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
@@ -398,7 +424,7 @@ export default function RamadanScreen() {
             { backgroundColor: tokens.accentSoft, borderColor: withAlpha(colors.accent, 0.2) },
           ]}
         >
-          <ThemedText type="caption" style={{ color: colors.accent }}>
+          <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
             {tTv(t, "ramadan.fastingLogBackfillNote", "ramadan.fastingLogBackfillNoteTv", {
               year: info.fastingLogHijriYear,
               gregorian: fastingLogGregorianRange,
@@ -451,7 +477,12 @@ export default function RamadanScreen() {
           {t("ramadan.fastedCount", { count: fastedCount, total: info.fastingLogTotalDays })}
           {progressPct > 0 ? ` · ${progressPct}%` : ""}
         </ThemedText>
-        <ProgressBar value={progress} height={6} color={success.color} />
+        <ProgressBar
+          value={progress}
+          accessibilityLabel={t("a11yProgress.ramadanFasts")}
+          height={6}
+          color={success.color}
+        />
       </View>
 
       <View style={styles.grid}>
@@ -504,12 +535,21 @@ export default function RamadanScreen() {
                       },
                     ]}
                   >
-                    <ThemedText
-                      type="smallBold"
-                      style={{ color: palette ? palette.color : colors.mutedForeground }}
-                    >
-                      {formatCount(day, locale)}
-                    </ThemedText>
+                    <View style={styles.cellContent}>
+                      <ThemedText
+                        type="smallBold"
+                        style={{ color: palette ? palette.text : colors.mutedForeground }}
+                      >
+                        {formatCount(day, locale)}
+                      </ThemedText>
+                      {palette && status ? (
+                        <SymbolView
+                          name={STATUS_GLYPH[status]}
+                          size={10}
+                          tintColor={palette.color}
+                        />
+                      ) : null}
+                    </View>
                   </PressableScale>
                 </View>
               );
@@ -519,9 +559,21 @@ export default function RamadanScreen() {
       </View>
 
       <View style={styles.legend}>
-        <LegendSwatch color={success.color} label={t("ramadan.statusFasted")} />
-        <LegendSwatch color={danger.color} label={t("ramadan.statusMissed")} />
-        <LegendSwatch color={infoTone.color} label={t("ramadan.statusExempt")} />
+        <LegendSwatch
+          color={success.color}
+          glyph={STATUS_GLYPH.fasted}
+          label={t("ramadan.statusFasted")}
+        />
+        <LegendSwatch
+          color={danger.color}
+          glyph={STATUS_GLYPH.missed}
+          label={t("ramadan.statusMissed")}
+        />
+        <LegendSwatch
+          color={infoTone.color}
+          glyph={STATUS_GLYPH.exempt}
+          label={t("ramadan.statusExempt")}
+        />
       </View>
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
         {tTv(t, "ramadan.gridHint", "ramadan.gridHintTv")}
@@ -553,6 +605,19 @@ export default function RamadanScreen() {
     </View>
   );
 
+  // Before the log hydrates, a skeleton stands in for the grid (never an all-empty month).
+  const fastingBody = (
+    <ContentState
+      status={fastingReady ? "ready" : fastingLoadError ? "error" : "loading"}
+      onRetry={() => void fastingStore.getState().load()}
+      skeleton="card"
+      skeletonCount={1}
+      loadingLabel={t("uiFeedback.loading")}
+    >
+      {fastingCard}
+    </ContentState>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("ramadan.eyebrow")}
@@ -566,6 +631,8 @@ export default function RamadanScreen() {
       scrollRef={scrollRef}
       onScroll={onScroll}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       <Seo path="/ramadan" />
       {madhhabPrompt.sheet}
       {wide ? (
@@ -574,7 +641,7 @@ export default function RamadanScreen() {
         <View style={styles.wideRoot}>
           <View style={styles.wideMain}>
             <Stagger>
-              {fastingCard}
+              {fastingBody}
               {makeUpOffer}
               {disclaimer}
             </Stagger>
@@ -595,7 +662,7 @@ export default function RamadanScreen() {
           {timesCard}
           {lastTenCard}
           {laylatCard}
-          {fastingCard}
+          {fastingBody}
           {makeUpOffer}
           {fiqhCard}
           {disclaimer}
@@ -614,7 +681,7 @@ export default function RamadanScreen() {
         }
         currentStatus={sheetDay ? days[sheetDay.date] : undefined}
         onSelect={(status) => {
-          if (sheetDay) setStatus(sheetDay.date, status);
+          if (sheetDay) logDay(sheetDay.date, status);
         }}
         onClose={() => setSheetDay(null)}
       />
@@ -622,10 +689,25 @@ export default function RamadanScreen() {
   );
 }
 
-function LegendSwatch({ color, label }: { color: string; label: string }) {
+/** State glyphs for the 30-day grid — fasted / missed / exempt read without colour. */
+const STATUS_GLYPH: Record<FastStatus, SymbolViewProps["name"]> = {
+  fasted: { ios: "checkmark", android: "check", web: "check" },
+  missed: { ios: "xmark", android: "close", web: "close" },
+  exempt: { ios: "minus", android: "remove", web: "remove" },
+};
+
+function LegendSwatch({
+  color,
+  glyph,
+  label,
+}: {
+  color: string;
+  glyph: SymbolViewProps["name"];
+  label: string;
+}) {
   return (
     <View style={styles.legendItem}>
-      <View style={[styles.legendSwatch, { backgroundColor: color }]} />
+      <SymbolView name={glyph} size={12} tintColor={color} />
       <ThemedText type="caption" themeColor="mutedForeground">
         {label}
       </ThemedText>
@@ -639,7 +721,7 @@ const styles = StyleSheet.create({
   wideMain: { flex: 1, minWidth: 0 },
   wideAside: { flexShrink: 0 },
   todayRow: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  todayCopy: { flex: 1, gap: 2 },
+  todayCopy: { flex: 1, gap: Spacing.half },
   countdownBanner: {
     marginTop: Spacing.three,
     paddingVertical: Spacing.two,
@@ -655,7 +737,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     alignItems: "flex-start",
   },
   hint: { marginTop: Spacing.three },
@@ -672,7 +754,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   logNoteInline: { marginTop: Spacing.three },
   statsRow: { flexDirection: "row", gap: Spacing.two, marginTop: Spacing.three },
@@ -680,11 +762,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     gap: Spacing.one,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.one,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   statValue: { lineHeight: 28 },
   progressBlock: { gap: Spacing.two, marginTop: Spacing.three, marginBottom: Spacing.three },
@@ -711,8 +793,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: Spacing.three,
   },
-  legendItem: { flexDirection: "row", alignItems: "center", gap: Spacing.one + 2 },
-  legendSwatch: { width: 12, height: 12, borderRadius: 6 },
+  legendItem: { flexDirection: "row", alignItems: "center", gap: Spacing.oneHalf },
+  cellContent: { alignItems: "center", justifyContent: "center", gap: 1 },
   legendHint: { marginTop: Spacing.two, textAlign: "center" },
   disclaimerRow: { flexDirection: "row", gap: Spacing.two, alignItems: "flex-start" },
   disclaimer: { flex: 1 },

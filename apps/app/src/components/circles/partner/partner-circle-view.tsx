@@ -168,7 +168,7 @@ export function PartnerCircleView({ circleId, onLeft }: { circleId: string; onLe
       />
 
       {others.length === 0 ? (
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("partnerCircle.waitingForPartner")}
           </ThemedText>
@@ -191,7 +191,7 @@ export function PartnerCircleView({ circleId, onLeft }: { circleId: string; onLe
         />
       ) : null}
 
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         <ThemedText type="smallBold">{t("partnerCircle.privacy.title")}</ThemedText>
         <ThemedText type="small" themeColor="mutedForeground">
           {t("partnerCircle.privacy.body")}

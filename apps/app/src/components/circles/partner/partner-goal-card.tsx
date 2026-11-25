@@ -83,7 +83,7 @@ export function PartnerGoalCard({
   };
 
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <SectionHeader
         title={t("partnerCircle.goal.title")}
         subtitle={t("partnerCircle.goal.private")}

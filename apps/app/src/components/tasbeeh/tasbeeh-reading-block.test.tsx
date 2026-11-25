@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
 import { Text } from "react-native";
 
 import { TasbeehReadingBlock } from "@/components/tasbeeh/tasbeeh-reading-block";
@@ -59,6 +59,21 @@ describe("TasbeehReadingBlock", () => {
     mockVisibility[flag] = false;
     await renderBlock();
     expect(screen.queryByText(text)).toBeNull();
+  });
+
+  it("folds to one Arabic line and back when collapsible", async () => {
+    await renderWithTheme(<TasbeehReadingBlock item={buildItem()} collapsible defaultCollapsed />);
+    expect(screen.queryByText("Glory be to Allah")).toBeNull();
+    await fireEvent.press(screen.getByText("Show more"));
+    expect(screen.getByText("Glory be to Allah")).toBeTruthy();
+    await fireEvent.press(screen.getByText("Show less"));
+    expect(screen.queryByText("Glory be to Allah")).toBeNull();
+  });
+
+  it("is always expanded without the collapsible flag", async () => {
+    await renderBlock();
+    expect(screen.queryByText("Show less")).toBeNull();
+    expect(screen.getByText("Glory be to Allah")).toBeTruthy();
   });
 
   it("skips blank transliteration, translation and a missing reference", async () => {

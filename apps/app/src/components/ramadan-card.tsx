@@ -8,7 +8,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatPrayerTime } from "@/lib/prayer-times";
 import { getRamadanInfo } from "@/lib/ramadan";
@@ -39,7 +39,6 @@ export function RamadanCard() {
 
   return (
     <Card
-      padding="three"
       style={[styles.card, { borderColor: colors.accent }]}
       onPress={() => router.push("/ramadan")}
       accessibilityLabel={t("ramadan.title")}
@@ -92,16 +91,16 @@ export function RamadanCard() {
 }
 
 const styles = StyleSheet.create({
-  card: { borderWidth: 1, gap: Spacing.three },
+  card: { borderWidth: BorderWidth.thin, gap: Spacing.three },
   header: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
   iconWell: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
   },
-  headerText: { flex: 1, gap: 2 },
+  headerText: { flex: 1, gap: Spacing.half },
   times: { flexDirection: "row", justifyContent: "space-between" },
 });

@@ -25,7 +25,7 @@ export function CreateFamilyCard() {
 
   if (isTV()) {
     return (
-      <Card padding="three">
+      <Card>
         <ThemedText type="small" themeColor="mutedForeground">
           {t("family.tvSetup")}
         </ThemedText>
@@ -46,7 +46,7 @@ export function CreateFamilyCard() {
   };
 
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <ThemedText type="subtitle">{t("family.create.title")}</ThemedText>
       <ThemedText type="small" themeColor="mutedForeground">
         {t("family.create.body")}

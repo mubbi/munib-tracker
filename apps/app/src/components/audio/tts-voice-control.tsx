@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { IconButton } from "@/components/ui/icon-button";
+import { BorderWidth } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { setTtsVoice, useTtsVoices } from "@/lib/settings/tts-voice";
@@ -51,7 +52,11 @@ export function TtsVoiceControl({ size = 18, wellRadius = 20 }: TtsVoiceControlP
         glass={!selectedVoiceId}
         background={selectedVoiceId ? tokens.accentSoft : undefined}
         wellRadius={wellRadius}
-        style={selectedVoiceId ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
+        style={
+          selectedVoiceId
+            ? { borderWidth: BorderWidth.thick, borderColor: colors.accent }
+            : undefined
+        }
       />
       <TtsVoiceSheet
         visible={open}

@@ -84,7 +84,7 @@ export default function LearnQuranTajweedScreen() {
               <>
                 <JannahCallout tone="info">{t("learnQuran.tajweedIntro")}</JannahCallout>
 
-                <Card padding="three">
+                <Card>
                   <SectionHeader
                     title={t("learnQuran.tajweedListTitle")}
                     icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}

@@ -1,5 +1,5 @@
 import { SymbolView } from "expo-symbols";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { type LayoutChangeEvent, StyleSheet, View } from "react-native";
 import Animated, {
@@ -9,19 +9,21 @@ import Animated, {
   withSequence,
   withSpring,
 } from "react-native-reanimated";
-import { ConfirmDialog } from "@/components/confirm-dialog";
+import { useTasbeehFeedback } from "@/components/tasbeeh/use-tasbeeh-feedback";
 import { ThemedText } from "@/components/themed-text";
 import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { CountNumeral } from "@/components/zikr/count-numeral";
 import { Springs } from "@/constants/motion";
-import { MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle } from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
 import { ltrControlViewProps } from "@/lib/rtl";
+import { countEventForAppearance } from "@/lib/tasbeeh/feedback";
 
 const RING_SIZE = 64;
 const RING_STROKE = 5;
@@ -49,7 +51,7 @@ export function TasbeehCounterBar({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const insets = useAppSafeAreaInsets();
-  const [confirmUndo, setConfirmUndo] = useState(false);
+  const { dispatch, appearance } = useTasbeehFeedback();
   const displayCount = target > 0 ? Math.min(count, target) : count;
   const atLimit = target > 0 && count >= target;
   const complete = atLimit;
@@ -60,123 +62,115 @@ export function TasbeehCounterBar({
     onHeightChange?.(event.nativeEvent.layout.height);
   };
 
+  // Same feedback as the main counter: the user's haptic level and sound pack.
   const handleTap = () => {
     if (atLimit) {
-      triggerHaptic("light");
+      dispatch("limit");
       return;
     }
-    triggerHaptic("light");
+    const next = displayCount + 1;
+    // The count that reaches the target gets its completion cue from the main
+    // counter (always mounted) — dispatching it here too doubled haptic + sound (B-11).
+    if (target <= 0 || next < target) dispatch(countEventForAppearance(appearance, next, target));
     onIncrement();
   };
 
   return (
-    <Fragment>
+    <View
+      onLayout={onLayout}
+      accessibilityRole="text"
+      style={[
+        styles.shell,
+        {
+          borderTopColor: tokens.hairline,
+          paddingBottom: Math.max(insets.bottom, Spacing.two),
+        },
+      ]}
+    >
+      {/* No `backdropCapture`: bar lives inside the root BlurTargetView — same
+            as zakat-summary-bar / page-reader-footer. */}
+      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
+        <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+      </View>
       <View
-        onLayout={onLayout}
-        accessibilityRole="text"
         style={[
-          styles.shell,
+          StyleSheet.absoluteFill,
           {
-            borderTopColor: tokens.hairline,
-            paddingBottom: Math.max(insets.bottom, Spacing.two),
+            pointerEvents: "none",
+            backgroundColor: withAlpha(
+              colors.card,
+              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.55 : 0.7,
+            ),
           },
         ]}
-      >
-        {/* No `backdropCapture`: bar lives inside the root BlurTargetView — same
-            as zakat-summary-bar / page-reader-footer. */}
-        <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-          <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
-        </View>
-        <View
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              pointerEvents: "none",
-              backgroundColor: withAlpha(
-                colors.card,
-                hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.55 : 0.7,
-              ),
-            },
-          ]}
-        />
+      />
 
-        <View style={styles.inner}>
-          <View style={[styles.iconWell, { backgroundColor: withAlpha(accent, 0.14) }]}>
-            <SymbolView
-              name={{
-                ios: complete ? "checkmark.seal.fill" : "hand.tap.fill",
-                android: complete ? "verified" : "touch_app",
-                web: complete ? "verified" : "touch_app",
-              }}
-              size={18}
-              tintColor={accent}
-            />
-          </View>
-
-          <View style={styles.copy}>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("tasbeehUi.dockLabel")}
-            </ThemedText>
-            <View style={[styles.countRow, ltrControlViewProps().style]}>
-              <ThemedText type="smallBold" style={[styles.countText, { color: accent }]}>
-                {displayCount}
-              </ThemedText>
-              {target > 0 ? (
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.targetSuffix}>
-                  / {target}
-                </ThemedText>
-              ) : null}
-            </View>
-            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-              {complete
-                ? t("tasbeehUi.targetReached")
-                : target > 0
-                  ? t("tasbeehUi.remaining", { count: remaining })
-                  : t("tasbeehUi.unlimited")}
-            </ThemedText>
-          </View>
-
-          <IconButton
+      <View style={styles.inner}>
+        <View style={[styles.iconWell, { backgroundColor: withAlpha(accent, 0.14) }]}>
+          <SymbolView
             name={{
-              ios: "minus",
-              android: "remove",
-              web: "remove",
+              ios: complete ? "checkmark.seal.fill" : "hand.tap.fill",
+              android: complete ? "verified" : "touch_app",
+              web: complete ? "verified" : "touch_app",
             }}
             size={18}
-            hitTarget={44}
-            tintColor={displayCount > 0 ? colors.foreground : colors.mutedForeground}
-            background={
-              displayCount > 0
-                ? withAlpha(colors.foreground, 0.08)
-                : withAlpha(colors.mutedForeground, 0.08)
-            }
-            disabled={displayCount <= 0}
-            accessibilityLabel={t("tasbeehUi.undo")}
-            onPress={() => setConfirmUndo(true)}
-          />
-
-          <MiniCounterRing
-            count={displayCount}
-            target={target}
-            complete={complete}
-            atLimit={atLimit}
-            onPress={handleTap}
+            tintColor={accent}
           />
         </View>
-      </View>
 
-      <ConfirmDialog
-        visible={confirmUndo}
-        title={t("tasbeehUi.confirmUndoTitle")}
-        message={t("tasbeehUi.confirmUndoMessage")}
-        confirmLabel={t("tasbeehUi.undo")}
-        onConfirm={() => {
-          triggerHaptic("light");
-          onDecrement();
-        }}
-        onClose={() => setConfirmUndo(false)}
-      />
-    </Fragment>
+        <View style={styles.copy}>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("tasbeehUi.dockLabel")}
+          </ThemedText>
+          <View style={[styles.countRow, ltrControlViewProps().style]}>
+            <CountNumeral value={displayCount} color={accent} />
+            {target > 0 ? (
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.targetSuffix}>
+                / {target}
+              </ThemedText>
+            ) : null}
+          </View>
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            {complete
+              ? t("tasbeehUi.targetReached")
+              : target > 0
+                ? t("tasbeehUi.remaining", { count: remaining })
+                : t("tasbeehUi.unlimited")}
+          </ThemedText>
+        </View>
+
+        <IconButton
+          name={{
+            ios: "minus",
+            android: "remove",
+            web: "remove",
+          }}
+          size={18}
+          hitTarget={44}
+          tintColor={displayCount > 0 ? colors.foreground : colors.mutedForeground}
+          background={
+            displayCount > 0
+              ? withAlpha(colors.foreground, 0.08)
+              : withAlpha(colors.mutedForeground, 0.08)
+          }
+          disabled={displayCount <= 0}
+          accessibilityLabel={t("tasbeehUi.undo")}
+          onPress={() => {
+            // Undo is instant (one miscount is cheap to redo).
+            triggerHaptic("light");
+            onDecrement();
+          }}
+        />
+
+        <MiniCounterRing
+          count={displayCount}
+          target={target}
+          complete={complete}
+          atLimit={atLimit}
+          onPress={handleTap}
+        />
+      </View>
+    </View>
   );
 }
 
@@ -222,7 +216,12 @@ function MiniCounterRing({
       accessibilityRole="button"
       accessibilityLabel={t("common.count")}
       accessibilityState={{ disabled: atLimit }}
-      accessibilityValue={{ now: count, min: 0, max: target > 0 ? target : undefined }}
+      accessibilityValue={{
+        now: count,
+        min: 0,
+        max: target > 0 ? target : undefined,
+        text: target > 0 ? `${count} ${t("tasbeehUi.ofTarget", { target })}` : String(count),
+      }}
       style={[styles.miniTap, { opacity: atLimit && !complete ? 0.7 : 1 }]}
     >
       <View
@@ -259,7 +258,11 @@ function MiniCounterRing({
             />
           ) : (
             <Animated.View style={countAnimStyle}>
-              <ThemedText type="smallBold" style={[styles.miniCount, { color: colors.foreground }]}>
+              <ThemedText
+                type="default"
+                weight="bold"
+                style={[styles.miniCount, { color: colors.foreground }]}
+              >
                 {count}
               </ThemedText>
             </Animated.View>
@@ -277,8 +280,8 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 12,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    paddingTop: Spacing.two + 2,
+    borderTopWidth: BorderWidth.hairline,
+    paddingTop: Spacing.twoHalf,
     paddingHorizontal: Spacing.four,
   },
   inner: {
@@ -287,7 +290,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two + 2,
+    gap: Spacing.twoHalf,
   },
   iconWell: {
     width: 40,
@@ -303,15 +306,8 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
     gap: Spacing.one,
   },
-  countText: {
-    fontVariant: ["tabular-nums"],
-    fontSize: 22,
-    fontWeight: "700",
-    lineHeight: 28,
-  },
   targetSuffix: {
     fontVariant: ["tabular-nums"],
-    opacity: 0.6,
   },
   miniTap: {
     width: RING_SIZE,
@@ -332,7 +328,6 @@ const styles = StyleSheet.create({
   },
   miniCount: {
     fontVariant: ["tabular-nums"],
-    fontSize: 16,
     lineHeight: 20,
   },
 });

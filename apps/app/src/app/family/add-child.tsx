@@ -69,14 +69,14 @@ export default function AddChildScreen() {
       {!auth.isAccount ? (
         <CircleAccountGate />
       ) : isTV() || !circleId ? (
-        <Card padding="three">
+        <Card>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("family.tvSetup")}
           </ThemedText>
         </Card>
       ) : (
         <View style={styles.stack}>
-          <Card padding="three" style={styles.gap}>
+          <Card style={styles.gap}>
             <TextField
               label={t("family.add.nickname")}
               hint={t("family.add.nicknameHint")}

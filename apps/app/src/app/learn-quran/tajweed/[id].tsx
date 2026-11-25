@@ -130,7 +130,7 @@ export default function LearnQuranTajweedDetailScreen() {
             <LearnReadingChrome surface="learn_quran">
               <JannahTakeaway text={lesson.summary} />
               <JannahBody paragraphs={lesson.explanation} />
-              <Card padding="three">
+              <Card>
                 <SectionHeader
                   title={t("learnQuran.examplesTitle")}
                   icon={{ ios: "textformat.abc", android: "abc", web: "abc" }}
@@ -150,7 +150,7 @@ export default function LearnQuranTajweedDetailScreen() {
                 </View>
               </Card>
               {lesson.practice ? (
-                <Card padding="three">
+                <Card>
                   <SectionHeader
                     title={t("learnQuran.practiceTitle")}
                     icon={{

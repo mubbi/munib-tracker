@@ -2,7 +2,7 @@ import type { TasbeehBeadShape } from "@munib-tracker/shared/types";
 import { memo } from "react";
 import { StyleSheet, View } from "react-native";
 import Svg, { Defs, Line, Polygon, RadialGradient, Stop } from "react-native-svg";
-
+import { BorderWidth } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 import { beadGradient, type MaterialRecipe } from "@/lib/tasbeeh/materials";
 
@@ -119,12 +119,12 @@ function FacetedBead({
 
 const styles = StyleSheet.create({
   bead: {
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     overflow: "hidden",
   },
   grain: {
     ...StyleSheet.absoluteFill,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     transform: [{ scaleX: 0.55 }],
   },
 });

@@ -2,14 +2,14 @@ import { type Dispatch, type SetStateAction, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
-import { JannahNavRow } from "@/components/jannah/primitives";
+import { CurrencyField } from "@/components/money/currency-field";
 import { AmountInput } from "@/components/records/amount-input";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { useRequireVaultUnlock } from "@/components/vault";
-import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
 import { Spacing } from "@/constants/theme";
 import { readOpenDebtsTotal } from "@/lib/mirath/debts-prefill";
 import type { MirathEstateDraft } from "@/lib/mirath/estate";
@@ -34,7 +34,6 @@ export function MirathEstateCard({
 }: MirathEstateCardProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [currencyOpen, setCurrencyOpen] = useState(false);
   const [debtsNote, setDebtsNote] = useState<string | null>(null);
   // Bumped after a prefill so the (uncontrolled-text) amount inputs remount with the new value.
   const [inputsKey, setInputsKey] = useState(0);
@@ -59,7 +58,7 @@ export function MirathEstateCard({
 
   return (
     <>
-      <Card padding="three">
+      <Card>
         <CollapsibleSection
           title={t("mirath.estate.title")}
           icon={{ ios: "banknote.fill", android: "payments", web: "payments" }}
@@ -69,23 +68,28 @@ export function MirathEstateCard({
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
             {t("mirath.estate.hint")}
           </ThemedText>
-          <JannahNavRow
-            icon={{ ios: "coloncurrencysign.circle", android: "payments", web: "payments" }}
-            title={t("mirath.estate.currency")}
-            subtitle={currency}
-            onPress={() => setCurrencyOpen(true)}
-          />
           <View key={inputsKey} style={styles.gap}>
-            <AmountInput label={t("mirath.estate.gross")} {...field("gross")} />
-            <AmountInput label={t("mirath.estate.funeral")} {...field("funeral")} />
+            <CurrencyField
+              label={t("mirath.estate.currency")}
+              value={currency}
+              onChange={onCurrencyChange}
+            />
+            <AmountInput label={t("mirath.estate.gross")} currency={currency} {...field("gross")} />
+            <AmountInput
+              label={t("mirath.estate.funeral")}
+              currency={currency}
+              {...field("funeral")}
+            />
             <AmountInput
               label={t("mirath.estate.debts")}
               hint={t("mirath.estate.debtsHint")}
+              currency={currency}
               {...field("debts")}
             />
             <AmountInput
               label={t("mirath.estate.bequests")}
               hint={t("mirath.estate.bequestsHint")}
+              currency={currency}
               {...field("bequests")}
             />
           </View>
@@ -97,22 +101,9 @@ export function MirathEstateCard({
               onPress={() => void prefillDebts()}
             />
           </View>
-          {debtsNote ? (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {debtsNote}
-            </ThemedText>
-          ) : null}
+          {debtsNote ? <Callout tone="info">{debtsNote}</Callout> : null}
         </CollapsibleSection>
       </Card>
-      <CurrencyPickerSheet
-        visible={currencyOpen}
-        selectedCode={currency}
-        onSelect={(code) => {
-          onCurrencyChange(code);
-          setCurrencyOpen(false);
-        }}
-        onClose={() => setCurrencyOpen(false)}
-      />
       {unlockPrompt}
     </>
   );

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SelectTrigger } from "@/components/quran/option-picker-sheet";
 import type { ReaderEditionSheet } from "@/components/quran/reader-edition-sheets";
 import { ReciteAlongButton } from "@/components/quran/recite-along-button";
@@ -7,9 +7,10 @@ import { ReadingFontControls } from "@/components/reading-font-controls";
 import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { RetryCard } from "@/components/ui/retry-card";
+import { Skeleton, SkeletonGroup } from "@/components/ui/skeleton";
 import { Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { wholeSurah } from "@/lib/recite-along/passages";
 import { updateQuranPrefs } from "@/lib/settings/quran-shortcuts";
@@ -44,6 +45,7 @@ export function ReaderFiltersCard({
   onOpenPlayback,
   onPlaySurah,
   reciteSurah,
+  onRetryTranslation,
 }: {
   reciterName: string;
   translationName: string;
@@ -69,13 +71,14 @@ export function ReaderFiltersCard({
   onPlaySurah?: () => void;
   /** Surah to offer "Recite along" for (whole surah; long ones are sectioned). Omit to hide. */
   reciteSurah?: number;
+  /** Re-download the remote translation after a failure (C-02 inline retry). */
+  onRetryTranslation?: () => void;
 }) {
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
   const tv = isTV();
   const recitePassage = reciteSurah != null ? wholeSurah(reciteSurah) : null;
   return (
-    <Card padding="three">
+    <Card>
       <View style={readerControlStyles.controlRow}>
         <ControlLabel icon={CONTROL_ICONS.layout} label={t("quran.readerLayout")} />
         <SelectTrigger
@@ -121,16 +124,22 @@ export function ReaderFiltersCard({
         />
       </View>
       {translationLoading ? (
-        <View style={styles.loadingRow}>
-          <ActivityIndicator size="small" color={colors.accent} />
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("quran.loadingTranslation")}
-          </ThemedText>
-        </View>
+        <SkeletonGroup accessibilityLabel={t("quran.loadingTranslation")} style={styles.loadingRow}>
+          <Skeleton width="55%" height={12} />
+        </SkeletonGroup>
       ) : usingFallback ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.offlineNote}>
-          {t("quran.offlineTranslation")}
-        </ThemedText>
+        onRetryTranslation ? (
+          <RetryCard
+            message={t("quran.offlineTranslation")}
+            offline
+            onRetry={onRetryTranslation}
+            style={styles.offlineNote}
+          />
+        ) : (
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.offlineNote}>
+            {t("quran.offlineTranslation")}
+          </ThemedText>
+        )
       ) : null}
 
       <PrefToggle
@@ -158,16 +167,18 @@ export function ReaderFiltersCard({
         onToggle={() => updateQuranPrefs({ showTajweed: !showTajweed })}
       />
       {studyExtrasLoading ? (
-        <View style={styles.loadingRow}>
-          <ActivityIndicator size="small" color={colors.accent} />
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {showWordByWord && showTajweed
+        <SkeletonGroup
+          accessibilityLabel={
+            showWordByWord && showTajweed
               ? `${t("quran.wordByWord.loading")} / ${t("quran.tajweed.loading")}`
               : showTajweed
                 ? t("quran.tajweed.loading")
-                : t("quran.wordByWord.loading")}
-          </ThemedText>
-        </View>
+                : t("quran.wordByWord.loading")
+          }
+          style={styles.loadingRow}
+        >
+          <Skeleton width="55%" height={12} />
+        </SkeletonGroup>
       ) : null}
 
       <View style={[readerControlStyles.controlRow, styles.translationRow]}>

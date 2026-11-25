@@ -1,27 +1,14 @@
-import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import type { ReadingSurface } from "@munib-tracker/shared/types";
+import { type Href, useLocalSearchParams } from "expo-router";
 import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
 
-import {
-  LearnColumnsGrid,
-  learnColumnsFor,
-  useLearnHubLayout,
-} from "@/components/jannah/hub-layout";
 import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
-import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { LearnGuideTopicContent } from "@/components/learn-guide/learn-guide-topic-content";
+import { LearnHubScreen, type LearnHubSection } from "@/components/learn-guide/learn-hub-screen";
 import { LearnTopicArticle } from "@/components/learn-guide/learn-topic-article";
-import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { Card } from "@/components/ui/card";
-import { SectionHeader } from "@/components/ui/section-header";
-import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
 import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { LearnGuideConfig } from "@/lib/sectioned-guide";
 
 /**
@@ -45,86 +32,54 @@ export function LearnGuideHubScreen<S extends string>({
 }: {
   config: LearnGuideConfig<S>;
   sectionIcons: Partial<Record<S, AppIcon>>;
-  /** Adds the "Test yourself" row linking to `${basePath}/quiz`. */
+  /** Adds "Review quiz" to the hub's Tools (after the lessons it tests). */
   showQuiz?: boolean;
-  /** Guide-specific rows between the intro / quiz row and the topic sections. */
+  /** Guide-specific rows between the intro and the topic sections. */
   children?: ReactNode;
 }) {
   const { ns, basePath, guide } = config;
-  const router = useRouter();
   const { t, i18n } = useTranslation();
-  const wide = useLearnHubLayout();
-  // Wide web / tablets: topic rows flow into 2–3 columns inside each section card.
-  const navCols = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 280, max: 3 });
   // Topic list is sync; the overlay version re-localizes titles when a locale pack lands.
   const overlayVersion = getContentOverlaysReadyVersion();
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
-  const topicsBySection = useMemo(
-    () => guide.getTopicsBySection(),
-    [guide, i18n.language, overlayVersion],
-  );
+  const sections = useMemo<LearnHubSection[]>(() => {
+    const topicsBySection = guide.getTopicsBySection();
+    return guide.getSectionOrder().map((section) => ({
+      id: String(section),
+      title: t(`${ns}.section.${String(section)}` as string),
+      icon: sectionIcons[section] ?? FALLBACK_SECTION_ICON,
+      maxColumns: 3,
+      items: (topicsBySection[section] ?? []).map((topic) => ({
+        id: topic.id,
+        icon: TOPIC_ICON,
+        title: topic.title,
+        subtitle: topic.summary,
+        href: { pathname: `${basePath}/[topic]`, params: { topic: topic.id } } as Href,
+      })),
+    }));
+  }, [guide, i18n.language, overlayVersion, ns, basePath, sectionIcons, t]);
 
   return (
-    <ScreenLayout
-      eyebrow={t(`${ns}.eyebrow`)}
-      title={t(`${ns}.title`)}
-      subtitle={t(`${ns}.subtitle`)}
-      onBack={() => goBackOrReplace(router, "/")}
-      maxContentWidth={wide.maxContentWidth}
-    >
-      <Seo path={basePath} />
-      <Stagger>
-        <JannahCallout tone="info">{t(`${ns}.intro`)}</JannahCallout>
-
-        {showQuiz ? (
-          <LearnQuizNavRow
-            quizPath={`${basePath}/quiz` as Href}
-            titleKey="common.learnQuiz.title"
-            subtitleKey="common.learnQuiz.hint"
-          />
-        ) : null}
-
-        {children}
-
-        {guide.getSectionOrder().map((section) => {
-          const topics = topicsBySection[section];
-          if (!topics?.length) return null;
-          return (
-            <Card key={section} padding="three">
-              <SectionHeader
-                title={t(`${ns}.section.${String(section)}` as string)}
-                icon={sectionIcons[section] ?? FALLBACK_SECTION_ICON}
-              />
-              <LearnColumnsGrid columns={navCols} style={styles.gridTop}>
-                {topics.map((topic) => (
-                  <JannahNavRow
-                    key={topic.id}
-                    icon={TOPIC_ICON}
-                    title={topic.title}
-                    subtitle={topic.summary}
-                    onPress={() =>
-                      router.push({
-                        pathname: `${basePath}/[topic]`,
-                        params: { topic: topic.id },
-                      } as Href)
-                    }
-                  />
-                ))}
-              </LearnColumnsGrid>
-            </Card>
-          );
-        })}
-
-        <JannahDisclaimer textKey={`${ns}.disclaimer`} />
-      </Stagger>
-    </ScreenLayout>
+    <LearnHubScreen
+      ns={ns}
+      basePath={basePath}
+      sections={sections}
+      quiz={showQuiz}
+      continueSlot={children}
+    />
   );
 }
 
 export function LearnGuideTopicScreen<S extends string>({
   config,
+  surface = "jannah",
 }: {
   config: LearnGuideConfig<S>;
+  /**
+   * Reading surface for the A−/A+ size (Settings › Per-screen text sizes).
+   * Defaults to the shared Learn surface; zakat / finance / fidyah pass "finance" (G-72).
+   */
+  surface?: ReadingSurface;
 }) {
   const { ns, basePath, guide } = config;
   const { t, i18n } = useTranslation();
@@ -140,7 +95,7 @@ export function LearnGuideTopicScreen<S extends string>({
       ns={ns}
       basePath={basePath}
       topic={topic}
-      surface="jannah"
+      surface={surface}
       aside={(current) => (
         <ModuleTopicAside
           title={sectionTitle}
@@ -154,7 +109,3 @@ export function LearnGuideTopicScreen<S extends string>({
     </LearnTopicArticle>
   );
 }
-
-const styles = StyleSheet.create({
-  gridTop: { marginTop: Spacing.three },
-});

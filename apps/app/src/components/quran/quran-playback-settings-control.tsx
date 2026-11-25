@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { PlaybackSettingsSheet } from "@/components/quran/playback-settings-sheet";
 import { IconButton } from "@/components/ui/icon-button";
+import { BorderWidth } from "@/constants/theme";
 import { usePlaybackSummaryLabel } from "@/hooks/use-playback-summary-label";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahByNumber } from "@/lib/quran-meta";
@@ -70,7 +71,7 @@ export function QuranPlaybackSettingsControl({
         glass={!active}
         background={active ? tokens.accentSoft : undefined}
         wellRadius={wellRadius}
-        style={active ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
+        style={active ? { borderWidth: BorderWidth.thick, borderColor: colors.accent } : undefined}
       />
       <PlaybackSettingsSheet
         visible={open}

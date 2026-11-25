@@ -3,12 +3,12 @@ import { StyleSheet, View } from "react-native";
 import Animated, {
   type SharedValue,
   useAnimatedStyle,
-  useReducedMotion,
   useSharedValue,
 } from "react-native-reanimated";
 
 import { IconButton } from "@/components/ui/icon-button";
 import { Radius, withAlpha } from "@/constants/theme";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 
@@ -131,7 +131,7 @@ export function VoiceInputButton({
   size = "md",
 }: VoiceInputButtonProps) {
   const { colors } = useThemeTokens();
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useHydrationSafeReducedMotion();
   const amplitude = reducedMotion ? 0.45 : 1;
   const active = useSharedValue(listening ? 1 : 0);
   const preset = SIZE_PRESETS[size];
@@ -238,8 +238,8 @@ const styles = StyleSheet.create({
   barCenter: {
     position: "absolute",
     top: 0,
-    left: 0,
-    right: 0,
+    start: 0,
+    end: 0,
     bottom: 0,
     alignItems: "center",
     justifyContent: "center",

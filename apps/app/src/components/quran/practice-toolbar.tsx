@@ -7,7 +7,7 @@ import { SelectChip, ToggleChip } from "@/components/quran/reading-toolbar";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { GlassSurface } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { RECITERS } from "@/lib/quran-audio";
@@ -211,7 +211,7 @@ export function PracticeToolbar({
 }
 
 const styles = StyleSheet.create({
-  bar: { overflow: "hidden", borderBottomWidth: StyleSheet.hairlineWidth },
+  bar: { overflow: "hidden", borderBottomWidth: BorderWidth.hairline },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   fontChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingStart: Spacing.three,
     paddingEnd: Spacing.half,
     borderRadius: Radius.pill,

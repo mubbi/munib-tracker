@@ -19,7 +19,22 @@ import { usePlatform } from "@/test-support/platform";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
-jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
+// Shared sheet mock + the visible `title` heading the real Sheet draws.
+jest.mock("@/components/ui/sheet", () => {
+  const { createElement } = require("react");
+  const { Text } = require("react-native");
+  const { sheetMock } = require("@/test-support/mocks/sheet");
+  return {
+    __esModule: true,
+    Sheet: ({ title, children, ...props }: { title?: string; children?: unknown }) =>
+      createElement(
+        sheetMock.Sheet,
+        props,
+        title ? createElement(Text, null, title) : null,
+        children,
+      ),
+  };
+});
 jest.mock(
   "@/providers/toast-provider",
   () => require("@/test-support/mocks/toast-provider").toastProviderMock,

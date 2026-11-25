@@ -19,7 +19,7 @@ export function generateStaticParams(): Array<{ topic: string }> {
 
 export default function LearnDuaTopicScreen() {
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready } = useEnsureContent(ensureLearnDuaContent, isLearnDuaContentReady);
+  const { ready, error, retry } = useEnsureContent(ensureLearnDuaContent, isLearnDuaContentReady);
   const topic = getLearnDuaTopic(topicId);
   const reportRef = useGuideContentReportRef("learn_dua", topic, "/learn-dua");
   useEnsureLearnDuaProgressLoaded();
@@ -30,6 +30,8 @@ export default function LearnDuaTopicScreen() {
       basePath="/learn-dua"
       topic={topic}
       ready={ready}
+      error={error}
+      onRetry={retry}
       surface="learn_dua"
       contentRef={reportRef}
       readingProgress

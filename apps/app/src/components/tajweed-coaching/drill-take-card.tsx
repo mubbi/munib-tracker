@@ -146,7 +146,7 @@ export function DrillTakeCard({
 
   return (
     <>
-      <Card padding="three">
+      <Card>
         {state.status === "unavailable" ? (
           <ThemedText type="small">{t("tajweedCoaching.drill.unavailable")}</ThemedText>
         ) : state.status === "needs-consent" ? (
@@ -187,7 +187,11 @@ export function DrillTakeCard({
           <>
             <ThemedText type="small">{t("quranCompanion.pronunciation.downloading")}</ThemedText>
             {state.bytesTotal > 0 ? (
-              <ProgressBar value={state.bytesDone / state.bytesTotal} style={styles.gap} />
+              <ProgressBar
+                value={state.bytesDone / state.bytesTotal}
+                accessibilityLabel={t("a11yProgress.modelDownload")}
+                style={styles.gap}
+              />
             ) : null}
           </>
         ) : state.status === "ready" && !state.model && state.error ? (
@@ -230,7 +234,7 @@ export function DrillTakeCard({
                 type="caption"
                 themeColor={hearing ? undefined : "mutedForeground"}
                 accessibilityLiveRegion="polite"
-                style={[styles.gap, hearing ? { color: tokens.status.success.color } : null]}
+                style={[styles.gap, hearing ? { color: tokens.status.success.text } : null]}
               >
                 {hearing
                   ? t("quranCompanion.pronunciation.hearingYou")

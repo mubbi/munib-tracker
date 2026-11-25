@@ -57,7 +57,7 @@ export function CoachingItemCard({
   const rule = t(categoryNameKey(category));
 
   return (
-    <Card padding="three">
+    <Card>
       <ThemedText type="subtitle" heading={3}>
         {entry.title}
       </ThemedText>

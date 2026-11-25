@@ -6,8 +6,10 @@ import type { ScrollViewInstance } from "react-native";
 import { PrivateRecordsTvUnavailable } from "@/components/records/tv-unavailable";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { VaultLockGate } from "@/components/vault";
 import { initialWasiyyahData, WasiyyahWizard } from "@/components/wasiyyah/wasiyyah-wizard";
+import { useWizardFooterSlot } from "@/components/wizard/wizard-shell";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -15,8 +17,12 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useWasiyyah } from "@/lib/wasiyyah/wasiyyah-store";
 
 function WizardLoader({ onStepChange }: { onStepChange: () => void }) {
+  const { t } = useTranslation();
   const { versions, draft, isReady } = useWasiyyah();
-  if (!isReady) return null;
+  // Chrome stays mounted; the body shows a skeleton until the vault doc loads (R-19).
+  if (!isReady) {
+    return <SkeletonPlaceholder preset="card" accessibilityLabel={t("common.loadingRoute")} />;
+  }
   return (
     <WasiyyahWizard
       initialData={initialWasiyyahData(draft, versions[0]?.data)}
@@ -36,19 +42,24 @@ export default function WasiyyahEditScreen() {
     () => scrollRef.current?.scrollTo({ y: 0, animated: !reduceMotion }),
     [reduceMotion],
   );
+  // The step Back / Next row pins above the keyboard and tab bar on phones.
+  const footerSlot = useWizardFooterSlot();
   return (
     <ScreenLayout
       eyebrow={t("wasiyyah.title")}
       title={t("wasiyyah.wizard.title")}
       onBack={() => goBackOrReplace(router, "/wasiyyah")}
       scrollRef={scrollRef}
+      footer={footerSlot.footer}
     >
       <Seo path="/wasiyyah/edit" />
       {isTV() ? (
         <PrivateRecordsTvUnavailable bodyKey="wasiyyah.tvBody" />
       ) : (
         <VaultLockGate>
-          <WizardLoader onStepChange={scrollToTop} />
+          <footerSlot.Provider>
+            <WizardLoader onStepChange={scrollToTop} />
+          </footerSlot.Provider>
         </VaultLockGate>
       )}
     </ScreenLayout>

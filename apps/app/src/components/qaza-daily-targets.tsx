@@ -9,7 +9,7 @@ import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stepper } from "@/components/ui/stepper";
-import { Radius, Spacing } from "@/constants/theme";
+import { Breakpoints, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
@@ -32,7 +32,7 @@ export function QazaDailyTargets({ showProgress = true, framed = true }: QazaDai
   const tv = isTV();
   const { width } = useWindowDimensions();
   /** TV + tablet/desktop: 2-column grid so wide screens aren't one stretched list. */
-  const grid = tv || width >= 768;
+  const grid = tv || width >= Breakpoints.tablet;
 
   const setTarget = (prayerId: QazaPrayer, target: number) => {
     void setQazaSchedule({
@@ -82,7 +82,7 @@ export function QazaDailyTargets({ showProgress = true, framed = true }: QazaDai
   if (!framed) return rows;
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("qaza.dailySchedule")}
         icon={{ ios: "target", android: "track_changes", web: "track_changes" }}
@@ -117,14 +117,14 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two + 2,
-    padding: Spacing.two + 2,
+    gap: Spacing.twoHalf,
+    padding: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
   rowBody: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
   hint: {
     marginTop: Spacing.three,

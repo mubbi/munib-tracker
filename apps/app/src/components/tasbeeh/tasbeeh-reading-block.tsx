@@ -1,9 +1,11 @@
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
 import { ReferenceLine } from "@/components/content/reference-line";
 import { ReadingTypographyBar } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Spacing } from "@/constants/theme";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
@@ -27,10 +29,20 @@ type TasbeehReadingItem = {
 export function TasbeehReadingBlock({
   item,
   footer,
+  collapsible = false,
+  defaultCollapsed = false,
 }: {
   item: TasbeehReadingItem;
   footer?: ReactNode;
+  /**
+   * Long readings can be folded to a single Arabic line so the counter stays in
+   * view (B-71). Off by default — the reading is the screen's content.
+   */
+  collapsible?: boolean;
+  defaultCollapsed?: boolean;
 }) {
+  const { t } = useTranslation();
+  const [collapsed, setCollapsed] = useState(collapsible && defaultCollapsed);
   const { fontPrefs, translationLocale } = usePreferences();
   const { showTransliteration, showTranslation } = useReadingDisplay();
   const displayTranslation = useScriptureTranslation(item);
@@ -44,11 +56,12 @@ export function TasbeehReadingBlock({
       <Card variant="muted" padding="four" style={styles.reading}>
         <ThemedText
           type="arabic"
+          numberOfLines={collapsed ? 1 : undefined}
           style={[styles.arabic, arabicReadingLayout(readingSizes.arabic, "center")]}
         >
           {item.arabic}
         </ThemedText>
-        {showTransliteration && transliteration ? (
+        {!collapsed && showTransliteration && transliteration ? (
           <ThemedText
             type="caption"
             themeColor="mutedForeground"
@@ -63,7 +76,7 @@ export function TasbeehReadingBlock({
             {transliteration}
           </ThemedText>
         ) : null}
-        {showTranslation && translationText ? (
+        {!collapsed && showTranslation && translationText ? (
           <ThemedText
             type="default"
             style={[
@@ -75,10 +88,17 @@ export function TasbeehReadingBlock({
             {translationText}
           </ThemedText>
         ) : null}
-        {item.reference ? (
+        {!collapsed && item.reference ? (
           <ReferenceLine reference={item.reference} style={styles.reference} />
         ) : null}
-        {footer}
+        {collapsed ? null : footer}
+        {collapsible ? (
+          <Button
+            label={collapsed ? t("reading.showMore") : t("reading.showLess")}
+            variant="ghost"
+            onPress={() => setCollapsed((value) => !value)}
+          />
+        ) : null}
       </Card>
     </>
   );

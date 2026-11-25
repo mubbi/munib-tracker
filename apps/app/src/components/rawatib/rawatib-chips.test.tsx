@@ -57,8 +57,9 @@ describe("RawatibChipRow", () => {
     await fireEvent(screen.getByTestId("rawatib-chip-dhuhr_before"), "longPress");
     expect(onChooseRakahs).toHaveBeenCalledWith("dhuhr_before");
     expect(screen.getByTestId("rawatib-chip-fajr_before").props.onLongPress).toBeUndefined();
-    // No visible extra button on touch phones — long-press keeps the row compact.
-    expect(screen.queryByTestId("rawatib-rakahs-dhuhr_before")).toBeNull();
+    // P5-08: the 2 / 4 choice is also a visible button on touch phones.
+    expect(screen.getByTestId("rawatib-rakahs-dhuhr_before")).toBeTruthy();
+    expect(screen.queryByTestId("rawatib-rakahs-fajr_before")).toBeNull();
   });
 
   it("exposes the 2 / 4 choice as a screen-reader action", async () => {

@@ -18,7 +18,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { engineDownloadMb } from "@/constants/recitation-models";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useIsOnline } from "@/hooks/use-is-online";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -301,7 +301,7 @@ export default function PracticeHubScreen() {
   );
   const reviseCard =
     sitting.items.length > 0 ? (
-      <Card padding="three">
+      <Card>
         <View style={styles.reviseHeader}>
           <IconWell
             icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
@@ -343,7 +343,7 @@ export default function PracticeHubScreen() {
       </Card>
     ) : null;
   const passageCard = (
-    <Card padding="three">
+    <Card>
       <View style={styles.eyebrowRow}>
         <SymbolView
           name={
@@ -359,7 +359,6 @@ export default function PracticeHubScreen() {
         </ThemedText>
       </View>
       <PressableScale
-        haptic="light"
         accessibilityRole="button"
         accessibilityLabel={`${passageLabel}. ${t("quranCompanion.hub.change")}`}
         accessibilityHint={t("quranCompanion.picker.title")}
@@ -491,7 +490,7 @@ export default function PracticeHubScreen() {
   );
   const recentCard =
     recent.length > 0 ? (
-      <Card padding="three">
+      <Card>
         <SectionLabel
           first
           icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
@@ -513,7 +512,6 @@ export default function PracticeHubScreen() {
             return (
               <PressableScale
                 key={r.key}
-                haptic="light"
                 accessibilityRole="button"
                 accessibilityLabel={`${label}, ${modeLabel}`}
                 accessibilityHint={t("quranCompanion.hub.recentHint")}
@@ -636,7 +634,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.two,
   },
   sectionGap: { marginTop: Spacing.four },
-  eyebrowRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  eyebrowRow: { flexDirection: "row", alignItems: "center", gap: Spacing.oneHalf },
   modeHelp: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -664,7 +662,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   passageBadge: {
     width: 44,
@@ -676,8 +674,8 @@ const styles = StyleSheet.create({
   changeLink: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
-    paddingVertical: 6,
+    gap: Spacing.oneHalf,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.pill,
   },
@@ -685,18 +683,18 @@ const styles = StyleSheet.create({
   recentIcon: {
     width: 28,
     height: 28,
-    borderRadius: 14,
+    borderRadius: Radius.pill,
     alignItems: "center",
     justifyContent: "center",
   },
   modeChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
-    paddingVertical: 2,
+    gap: Spacing.one,
+    paddingVertical: Spacing.half,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.pill,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     flexShrink: 1,
   },
   recentRow: {
@@ -715,7 +713,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
     padding: Spacing.two,
     borderRadius: Radius.sm,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   startButton: { marginTop: Spacing.four },
 });

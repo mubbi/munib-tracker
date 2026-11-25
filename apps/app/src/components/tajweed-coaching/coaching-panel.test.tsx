@@ -48,7 +48,7 @@ describe("CoachingPanel", () => {
     await settle();
     expect(
       screen.getByText(
-        "Practise a few ayahs in Qur'an practice and your coaching plan will appear here.",
+        "Practice a few ayahs in Qur'an practice and your coaching plan will appear here.",
       ),
     ).toBeTruthy();
     await fireEvent.press(screen.getByText("Open Qur'an practice"));
@@ -75,7 +75,7 @@ describe("CoachingPanel", () => {
     expect(rebuild).toHaveBeenCalledTimes(1);
     expect(await screen.findAllByText("Qalqalah (echo)")).toHaveLength(2); // card + progress row
     expect(screen.getByText("Your practice")).toBeTruthy();
-    expect(screen.getByText(/^Practised 1 time · /)).toBeTruthy();
+    expect(screen.getByText(/^Practiced 1 time · /)).toBeTruthy();
   });
 
   it("is read-only on TV: no rebuild, no practice buttons", async () => {
@@ -88,7 +88,7 @@ describe("CoachingPanel", () => {
     await settle();
     expect(screen.getByText(/Practice needs a microphone/)).toBeTruthy();
     expect(screen.getByText("Ghunnah (nasal sound)")).toBeTruthy();
-    expect(screen.queryByText("Practise this sound")).toBeNull();
+    expect(screen.queryByText("Practice this sound")).toBeNull();
     expect(screen.queryByText("Update my plan")).toBeNull();
     expect(rebuild).not.toHaveBeenCalled();
   });

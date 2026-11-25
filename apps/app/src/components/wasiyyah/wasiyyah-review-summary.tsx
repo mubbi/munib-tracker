@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type WasiyyahSummaryStep, wasiyyahSummaryLine } from "@/lib/wasiyyah/review-summary";
 
@@ -26,7 +26,7 @@ export function WasiyyahReviewSummary({
   return (
     <View style={styles.list}>
       <ThemedText type="smallBold" heading={3}>
-        {t("privateUx.wasiyyah.reviewTitle")}
+        {t("wasiyyah.reviewTitle")}
       </ThemedText>
       {steps.map((step) => {
         const line = wasiyyahSummaryLine(step, data);
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
     paddingVertical: Spacing.two,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: BorderWidth.hairline,
   },
-  text: { flex: 1, minWidth: 0, gap: 2 },
+  text: { flex: 1, minWidth: 0, gap: Spacing.half },
 });

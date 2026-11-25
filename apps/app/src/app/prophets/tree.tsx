@@ -2,25 +2,21 @@ import type { ProphetsGenealogyNode } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
 import { type ReactNode, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Platform,
-  StyleSheet,
-  TextInput,
-  useWindowDimensions,
-  View,
-  type ViewStyle,
-} from "react-native";
+import { Platform, StyleSheet, useWindowDimensions, View, type ViewStyle } from "react-native";
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { GenealogyTreeMap } from "@/components/prophets/genealogy-tree-map";
-import { GenealogyTvNodeList } from "@/components/prophets/genealogy-tv-node-list";
+import { GenealogyNodeList } from "@/components/prophets/genealogy-tv-node-list";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SearchField } from "@/components/ui/search-field";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -109,6 +105,9 @@ export default function ProphetsTreeScreen() {
   const [selectedId, setSelectedId] = useState<string | null>("ibrahim");
   const [focusId, setFocusId] = useState<string | null>("ibrahim");
   const [activeBranch, setActiveBranch] = useState<string | null>(null);
+  // Phone / tablet / web: the map or the accessible list of people (G-33). TV
+  // always shows both (list beside the map).
+  const [view, setView] = useState<"map" | "list">("map");
   const overlayVersion = getContentOverlaysReadyVersion();
   const tv = isTV();
 
@@ -118,6 +117,7 @@ export default function ProphetsTreeScreen() {
 
   const filtered = useMemo(() => searchProphetsGenealogy(query, 40, allNodes), [query, allNodes]);
   const searching = query.trim().length >= 2;
+  const noMatches = searching && filtered.length === 0;
 
   const selected = useMemo(
     () => allNodes.find((n) => n.id === selectedId) ?? null,
@@ -157,7 +157,7 @@ export default function ProphetsTreeScreen() {
 
   const detail =
     selected && selectedTone ? (
-      <Card padding="three">
+      <Card>
         <View style={styles.detailBody}>
           <View style={[styles.detailAccent, { backgroundColor: selectedTone.color }]} />
           <View style={styles.detailHeader}>
@@ -197,9 +197,31 @@ export default function ProphetsTreeScreen() {
             t("prophets.tree.listHintTv", {
               defaultValue: tTv(t, "prophets.tree.tapHint", "prophets.tree.tapHintTv"),
             })
-          : t("prophets.tree.tapHint")}
+          : view === "list"
+            ? t("prophets.tree.listHint")
+            : t("prophets.tree.tapHint")}
       </JannahCallout>
     );
+
+  const map = (
+    <GenealogyTreeMap
+      nodes={allNodes}
+      selectedId={selectedId}
+      highlightIds={highlightIds}
+      focusId={focusId}
+      onSelect={onSelect}
+      height={mapHeight}
+    />
+  );
+  const list = (
+    <GenealogyNodeList
+      nodes={allNodes}
+      branchOrder={branchOrder}
+      selectedId={selectedId}
+      highlightIds={highlightIds}
+      onSelect={onSelect}
+    />
+  );
 
   return (
     <ScreenLayout
@@ -211,32 +233,25 @@ export default function ProphetsTreeScreen() {
     >
       <Seo path="/prophets/tree" />
       <View style={styles.stack}>
-        <ThemedText type="small" themeColor="mutedForeground" style={styles.intro}>
+        <ThemedText type="small" themeColor="mutedForeground">
           {t("prophets.tree.intro")}
         </ThemedText>
 
         <View style={styles.controls}>
-          <View style={[styles.searchRow, tokens.inputSurface]}>
-            <TextInput
-              value={query}
-              onChangeText={(text) => {
-                setQuery(text);
-                if (text.trim().length >= 2) {
-                  const hits = searchProphetsGenealogy(text, 1, allNodes);
-                  if (hits[0]) {
-                    setSelectedId(hits[0].id);
-                    setFocusId(hits[0].id);
-                  }
+          <SearchField
+            value={query}
+            onChangeText={(text) => {
+              setQuery(text);
+              if (text.trim().length >= 2) {
+                const hits = searchProphetsGenealogy(text, 1, allNodes);
+                if (hits[0]) {
+                  setSelectedId(hits[0].id);
+                  setFocusId(hits[0].id);
                 }
-              }}
-              placeholder={t("prophets.tree.searchPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("prophets.tree.searchPlaceholder")}
-              style={[styles.searchInput, { color: colors.foreground }]}
-              returnKeyType="search"
-              clearButtonMode="while-editing"
-            />
-          </View>
+              }
+            }}
+            placeholder={t("prophets.tree.searchPlaceholder")}
+          />
 
           <HorizontalChipRow accessibilityLabel={t("prophets.tree.allBranches")}>
             <Chip
@@ -259,7 +274,7 @@ export default function ProphetsTreeScreen() {
             })}
           </HorizontalChipRow>
 
-          {searching ? (
+          {searching && !noMatches && (tv || view === "map") ? (
             <View
               style={[
                 styles.hitsPanel,
@@ -293,11 +308,32 @@ export default function ProphetsTreeScreen() {
           ) : null}
         </View>
 
-        {tv ? (
+        {tv ? null : (
+          <SegmentedControl
+            accessibilityLabel={t("prophets.tree.viewLabel")}
+            options={[
+              { id: "map", label: t("prophets.tree.viewMap") },
+              { id: "list", label: t("prophets.tree.viewList") },
+            ]}
+            value={view}
+            onChange={setView}
+          />
+        )}
+
+        {noMatches ? (
+          // One no-results pattern (P8-05) instead of "0 matches" over an empty chip row (G-34).
+          <EmptyState
+            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+            title={t("search.noResultsTitle")}
+            description={t("search.noResultsDesc")}
+            actionLabel={t("common.clearSearch")}
+            onAction={() => setQuery("")}
+          />
+        ) : tv ? (
           // TV: list–detail — D-pad node list (start) + overview map & sourced note (end).
           <View style={styles.tvSplit}>
             <View style={styles.tvListColumn}>
-              <GenealogyTvNodeList
+              <GenealogyNodeList
                 nodes={allNodes}
                 branchOrder={branchOrder}
                 selectedId={selectedId}
@@ -307,43 +343,25 @@ export default function ProphetsTreeScreen() {
               />
             </View>
             <View style={styles.tvDetailColumn}>
-              <GenealogyTreeMap
-                nodes={allNodes}
-                selectedId={selectedId}
-                highlightIds={highlightIds}
-                focusId={focusId}
-                onSelect={onSelect}
-                height={mapHeight}
-              />
+              {map}
               {detail}
             </View>
           </View>
         ) : split ? (
-          // Desktop: map + selected-node detail side by side (no scrolling to read).
+          // Desktop: map (or list) + selected-node detail side by side.
           <View style={styles.wideSplit}>
-            <View style={styles.wideMapColumn}>
-              <GenealogyTreeMap
-                nodes={allNodes}
-                selectedId={selectedId}
-                highlightIds={highlightIds}
-                focusId={focusId}
-                onSelect={onSelect}
-                height={mapHeight}
-              />
-            </View>
+            <View style={styles.wideMapColumn}>{view === "map" ? map : list}</View>
             <View style={styles.wideDetailColumn}>{detail}</View>
           </View>
+        ) : view === "map" ? (
+          <>
+            {map}
+            {detail}
+          </>
         ) : (
           <>
-            <GenealogyTreeMap
-              nodes={allNodes}
-              selectedId={selectedId}
-              highlightIds={highlightIds}
-              focusId={focusId}
-              onSelect={onSelect}
-              height={mapHeight}
-            />
             {detail}
+            {list}
           </>
         )}
 
@@ -372,16 +390,7 @@ const webChipScrollStyle = {
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three, minWidth: 0, width: "100%" },
-  intro: { lineHeight: 20 },
   controls: { gap: Spacing.two, minWidth: 0, width: "100%" },
-  searchRow: {
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth * 2,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-  },
-  searchInput: { fontSize: 16, paddingVertical: Spacing.one },
   chipScrollNative: {
     flexGrow: 0,
     width: "100%",
@@ -438,7 +447,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     minWidth: 0,
   },
-  searchTitle: { marginBottom: 2 },
+  searchTitle: { marginBottom: Spacing.half },
   hit: {
     borderRadius: Radius.sm,
     borderCurve: "continuous",
@@ -463,11 +472,11 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     flexWrap: "wrap",
     marginBottom: Spacing.two,
-    paddingStart: Spacing.two + 2,
+    paddingStart: Spacing.twoHalf,
   },
-  detailTitles: { flex: 1, minWidth: 140, gap: 2 },
-  note: { lineHeight: 21, marginBottom: Spacing.two, paddingStart: Spacing.two + 2 },
-  sources: { lineHeight: 18, marginBottom: Spacing.two, paddingStart: Spacing.two + 2 },
+  detailTitles: { flex: 1, minWidth: 140, gap: Spacing.half },
+  note: { marginBottom: Spacing.two, paddingStart: Spacing.twoHalf },
+  sources: { marginBottom: Spacing.two, paddingStart: Spacing.twoHalf },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

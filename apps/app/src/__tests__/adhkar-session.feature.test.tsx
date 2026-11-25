@@ -1,5 +1,6 @@
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
+import { AccessibilityInfo } from "react-native";
 
 import AdhkarSessionScreen from "@/app/zikr/session/[category]";
 import { ZikrRepository } from "@/db";
@@ -12,6 +13,7 @@ import {
   resetExpoRouterMock,
   setMockSearchParams,
 } from "@/test-support/mocks/expo-router";
+import { usePlatform } from "@/test-support/platform";
 import { renderWithProviders } from "@/test-support/render";
 import { resetTrackerStore } from "@/test-support/store";
 
@@ -198,5 +200,60 @@ describe("Guided adhkar session", () => {
     // Today's Isha has not happened yet — nothing logged against it.
     expect(await ZikrRepository.getProgress("a-tasbih", today, "isha")).toBeUndefined();
     expect(counts()[zikrCountKey("a-tasbih", "isha")]).toBeUndefined();
+  });
+
+  it("shows a not-found state for an unknown category and logs nothing (B-55)", async () => {
+    setMockSearchParams({ category: "not-a-category" });
+    await renderWithProviders(<AdhkarSessionScreen />);
+
+    expect(await screen.findByText("Adhkar set not found")).toBeTruthy();
+    expect(screen.queryByText("Morning once")).toBeNull();
+    expect(screen.queryByLabelText("Count")).toBeNull();
+    expect(counts()).toEqual({});
+  });
+
+  it("announces the next zikr when a target is reached (B-62)", async () => {
+    const announce = jest
+      .spyOn(AccessibilityInfo, "announceForAccessibility")
+      .mockImplementation(() => {});
+    setMockSearchParams({ category: "morning" });
+    await renderWithProviders(<AdhkarSessionScreen />);
+    expect(await screen.findByText("Morning once")).toBeTruthy();
+
+    fireEvent.press(screen.getByLabelText("Tap once you have recited it"));
+    await waitFor(() => expect(announce).toHaveBeenCalledWith("Recited. Next: Morning thrice"), {
+      timeout: 3000,
+    });
+    announce.mockRestore();
+  });
+
+  it("clears a finished zikr instantly with Undo instead of a dialog (B-72)", async () => {
+    await trackerStore.getState().setZikrCount("m-once", 1, 1);
+    setMockSearchParams({ category: "morning", start: "m-once" });
+    await renderWithProviders(<AdhkarSessionScreen />);
+    expect(await screen.findByText("Morning once")).toBeTruthy();
+
+    fireEvent.press(await screen.findByRole("button", { name: "Mark not done" }));
+    await waitFor(() => expect(counts()["m-once"] ?? 0).toBe(0));
+    expect(screen.queryByText("Mark not done?")).toBeNull();
+  });
+});
+
+describe("Guided adhkar session on TV", () => {
+  usePlatform({ isTV: true });
+
+  it("offers an on-page Undo after Mark not done — TV toasts take no focus (B-04)", async () => {
+    await trackerStore.getState().setZikrCount("m-once", 1, 1);
+    setMockSearchParams({ category: "morning", start: "m-once" });
+    await renderWithProviders(<AdhkarSessionScreen />);
+    expect((await screen.findAllByText("Morning once")).length).toBeGreaterThan(0);
+    // The counter's own "Undo" (last tap) is a different control.
+    expect(screen.queryByHintText("Marked not done")).toBeNull();
+
+    fireEvent.press(await screen.findByRole("button", { name: "Mark not done" }));
+    await waitFor(() => expect(counts()["m-once"] ?? 0).toBe(0));
+
+    fireEvent.press(await screen.findByHintText("Marked not done"));
+    await waitFor(() => expect(counts()["m-once"]).toBe(1));
   });
 });

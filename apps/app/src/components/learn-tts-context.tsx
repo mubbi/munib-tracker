@@ -11,13 +11,13 @@ import {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert } from "react-native";
 
 import { localeToBcp47 } from "@/lib/locale-bcp47";
 import { setTtsVoice, useTtsVoice } from "@/lib/settings/tts-voice";
 import { isTtsAvailable, resolveTtsVoice } from "@/lib/tts";
 import { buildReadingTtsQueue } from "@/lib/tts-audio-tracks";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import { useToast } from "@/providers/toast-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
 type SegmentEntry = { order: number; text: string };
@@ -62,6 +62,7 @@ export function LearnTtsProvider({
   children: ReactNode;
 }) {
   const { t } = useTranslation();
+  const toast = useToast();
   const pathname = usePathname();
   const prefs = usePreferences();
   const audio = useAudioPlayerContext();
@@ -133,7 +134,7 @@ export function LearnTtsProvider({
 
         const available = await isTtsAvailable();
         if (!available) {
-          Alert.alert(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
+          toast.info(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
           return;
         }
 
@@ -157,7 +158,7 @@ export function LearnTtsProvider({
         audio.play(queue, 0, sourceHref ? { sourceHref } : undefined);
       })();
     },
-    [audio, lang, pathname, queueId, resolvedText, t],
+    [audio, lang, pathname, queueId, resolvedText, t, toast],
   );
 
   const value = useMemo(

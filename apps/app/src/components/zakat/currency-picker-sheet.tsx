@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { I18nManager, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { CurrencyGlyph } from "@/components/money/currency-glyph";
-import { useTvInputFocus } from "@/components/money/tv-number-input";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SearchField } from "@/components/ui/search-field";
 import { Sheet } from "@/components/ui/sheet";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { type CurrencyDef, getCurrencyInfo, SUPPORTED_CURRENCIES } from "@/constants/currencies";
@@ -46,7 +46,6 @@ export function CurrencyPickerSheet({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const [search, setSearch] = useState("");
-  const searchFocus = useTvInputFocus();
   const tv = isTV();
 
   useEffect(() => {
@@ -76,30 +75,24 @@ export function CurrencyPickerSheet({
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid scrollable={false}>
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+      scrollable={false}
+      accessibilityLabel={t("zakat.currency.pickerTitle")}
+    >
       <ThemedText type="subtitle">{t("zakat.currency.pickerTitle")}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
         {t("zakat.currency.pickerHint", { count: SUPPORTED_CURRENCIES.length })}
       </ThemedText>
 
-      <TextInput
-        {...searchFocus.focusProps}
+      <SearchField
         value={search}
         onChangeText={setSearch}
         placeholder={t("zakat.currency.searchPlaceholder")}
-        placeholderTextColor={colors.mutedForeground}
-        accessibilityLabel={t("zakat.currency.searchPlaceholder")}
-        autoCorrect={false}
-        autoCapitalize="characters"
-        style={[
-          styles.search,
-          tokens.inputSurface,
-          {
-            color: colors.foreground,
-            textAlign: I18nManager.isRTL ? "right" : "left",
-          },
-          searchFocus.containerStyle,
-        ]}
+        style={styles.search}
       />
 
       <TvFlatList
@@ -135,7 +128,7 @@ export function CurrencyPickerSheet({
                 {item.glyph ? (
                   <CurrencyGlyph glyph={item.glyph} size={18} color={colors.accent} />
                 ) : (
-                  <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                  <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
                     {item.symbol}
                   </ThemedText>
                 )}
@@ -156,14 +149,7 @@ export function CurrencyPickerSheet({
 
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.one, marginBottom: Spacing.three, lineHeight: 18 },
-  search: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    fontSize: 16,
-    marginBottom: Spacing.three,
-  },
+  search: { marginBottom: Spacing.three },
   list: { maxHeight: 420 },
   listTv: { maxHeight: tvDp(300) },
   rowTv: { minHeight: TvLayout.minFocusTarget },
@@ -173,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.three,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
@@ -185,6 +171,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  meta: { flex: 1, gap: 2 },
+  meta: { flex: 1, gap: Spacing.half },
   empty: { textAlign: "center", paddingVertical: Spacing.four },
 });

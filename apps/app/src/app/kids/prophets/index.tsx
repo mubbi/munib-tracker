@@ -50,7 +50,6 @@ export default function KidsProphetsScreen() {
           items.map((item) => (
             <Card
               key={item.id}
-              padding="three"
               style={styles.gap}
               accessibilityLabel={item.title}
               onPress={() =>

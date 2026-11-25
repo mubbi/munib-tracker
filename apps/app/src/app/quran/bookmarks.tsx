@@ -1,30 +1,49 @@
 import { useRouter } from "expo-router";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { isRemoteEdition } from "@/api/quran-remote";
 import { RECITE_ALONG_ICON } from "@/components/quran/recite-along-button";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
+import { ContentState } from "@/components/ui/content-state";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
+import type { QuranBookmark } from "@/db/repositories/quran-repository";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
-import { getBundledEdition, getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
+import {
+  getBundledEdition,
+  getEditionById,
+  getPageForAyah,
+  getSurahAyahs,
+  getSurahByNumber,
+} from "@/lib/quran";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
-import { arabicReadingLayout, DEFAULT_ARABIC_SIZE } from "@/lib/reading-typography";
+import { resolvePrimaryEditionId } from "@/lib/quran-surah-reader";
+import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { buildAyahSharePayload } from "@/lib/share";
+import { resolveQuranEditionId } from "@/lib/translation-locale";
 import { usePreferences } from "@/stores/preferences-store";
-import { useQuranActions, useQuranBookmarks } from "@/stores/quran-store";
+import {
+  useQuranActions,
+  useQuranBookmarks,
+  useQuranPrefs,
+  useQuranReady,
+} from "@/stores/quran-store";
 
 const FALLBACK_TRANSLATION = "en-pickthall";
 
@@ -40,14 +59,36 @@ export default function QuranBookmarksScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { fontPrefs } = usePreferences();
-  const arabicSize = fontPrefs.arabic.size ?? DEFAULT_ARABIC_SIZE;
+  const { fontPrefs, translationLocale, locale } = usePreferences();
+  const readingSizes = resolveReadingFontSizes("quran", fontPrefs);
+  const prefs = useQuranPrefs();
+  const ready = useQuranReady();
   const bookmarks = useQuranBookmarks();
-  const { toggleBookmark } = useQuranActions();
+  const { load, removeBookmark: removeStoredBookmark, restoreBookmark } = useQuranActions();
+  // B-26: the store loads at start-up; if that load failed, the list would sit on
+  // its skeleton forever. Load here too and offer Try again on failure.
+  const [loadFailed, setLoadFailed] = useState(false);
+  const retryLoad = useCallback(() => {
+    setLoadFailed(false);
+    load().catch(() => setLoadFailed(true));
+  }, [load]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: load once when the store is not ready on mount
+  useEffect(() => {
+    if (!ready) retryLoad();
+  }, []);
+  const undoToast = useUndoToast();
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const tv = isTV();
   // One-ayah practice session from a bookmark (D68); back returns to the reader.
   const practiceAvailable = isPracticeAvailable();
+  // The reader's translation when it ships in the app; remote editions fall back
+  // to the bundled English so the list never waits on the network.
+  const preferredEdition = resolvePrimaryEditionId(
+    prefs.preferredTranslationIds[0],
+    resolveQuranEditionId({ translationLocale, locale }),
+  );
+  const editionId = isRemoteEdition(preferredEdition) ? FALLBACK_TRANSLATION : preferredEdition;
+  const editionDir = getEditionById(editionId)?.direction ?? "ltr";
 
   const shareAyah = useCallback(
     (arabic: string, translation: string, surah: number, ayah: number) => {
@@ -63,6 +104,16 @@ export default function QuranBookmarksScreen() {
     [share, t],
   );
 
+  // Removal is instant and reversible: remove now, offer Undo (G-14).
+  // Undo restores the exact record (same id + createdAt), not a fresh toggle.
+  const removeBookmark = (bookmark: QuranBookmark) => {
+    void undoToast.run({
+      do: () => removeStoredBookmark(bookmark.surah, bookmark.ayah),
+      undo: () => restoreBookmark(bookmark),
+      messageKey: "quran.study.bookmarkRemoved",
+    });
+  };
+
   return (
     <ScreenLayout
       eyebrow={t("quran.title")}
@@ -72,7 +123,23 @@ export default function QuranBookmarksScreen() {
     >
       {SnapshotHost}
       <Seo path="/quran/bookmarks" />
-      {bookmarks.length === 0 ? (
+      {tv && undoToast.undoAvailable ? (
+        <Button
+          label={t("uiFeedback.undo")}
+          variant="secondary"
+          onPress={() => undoToast.undo()}
+          icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
+        />
+      ) : null}
+      {!ready && loadFailed ? (
+        <ContentState status="error" onRetry={retryLoad} />
+      ) : !ready ? (
+        <SkeletonPlaceholder
+          preset="card"
+          count={3}
+          accessibilityLabel={t("quran.study.loadingBookmarks")}
+        />
+      ) : bookmarks.length === 0 ? (
         <EmptyState
           icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
           title={t("quran.bookmarkEmptyTitle")}
@@ -87,93 +154,87 @@ export default function QuranBookmarksScreen() {
             {bookmarks.map((bm, index) => {
               const surah = getSurahByNumber(bm.surah);
               const arabic = getSurahAyahs(bm.surah)[bm.ayah - 1]?.arabic ?? "";
-              const translation =
-                getBundledEdition(FALLBACK_TRANSLATION, bm.surah)[String(bm.ayah)] ?? "";
+              const translation = getBundledEdition(editionId, bm.surah)[String(bm.ayah)] ?? "";
               const page = getPageForAyah(bm.surah, bm.ayah);
-              const shareKey = `${bm.surah}:${bm.ayah}`;
-              const sharePending = isGesturePending(shareKey);
+              const reference = `${bm.surah}:${bm.ayah}`;
+              const sharePending = isGesturePending(reference);
               const openAyah = () =>
                 router.push({
                   pathname: "/quran/[surah]",
                   params: { surah: String(bm.surah), ayah: String(bm.ayah) },
                 });
-
-              // TV: one focus stop per bookmark (the card opens the ayah) plus a
-              // large Remove button; no share (no system share sheet on TV).
-              if (tv) {
-                return (
-                  <View key={bm.id} style={styles.cardRowTv}>
-                    <PressableScale
-                      accessibilityRole="button"
-                      accessibilityLabel={`${surah?.nameTransliteration} ${bm.ayah}`}
-                      onPress={openAyah}
-                      {...(index === 0 ? { hasTVPreferredFocus: true } : {})}
-                      style={[styles.card, styles.cardTv, { backgroundColor: colors.muted }]}
-                    >
-                      <View style={styles.meta}>
-                        <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
-                          <ThemedText type="caption" style={{ color: colors.accentText }}>
-                            {bm.surah}:{bm.ayah} · {t("quran.pageN", { n: page })}
-                          </ThemedText>
-                        </View>
-                        <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                          {surah?.nameTransliteration}
-                        </ThemedText>
-                      </View>
-                      <ThemedText
-                        type="arabic"
-                        numberOfLines={3}
-                        style={arabicReadingLayout(arabicSize)}
-                      >
-                        {arabic}
-                      </ThemedText>
-                    </PressableScale>
-                    <IconButton
-                      name={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
-                      size={22}
-                      tintColor={tokens.status.warning.color}
-                      accessibilityLabel={t("quran.bookmarkRemove")}
-                      accessibilityState={{ selected: true }}
-                      background={colors.muted}
-                      hitTarget={TvLayout.minFocusTargetDp}
-                      onPress={() => toggleBookmark(bm.surah, bm.ayah)}
-                    />
-                  </View>
-                );
-              }
+              // One accessible element per bookmark (G-16): name, reference, page and
+              // the translation. The Arabic stays visible (tagged `ar`) inside it.
+              const label = [
+                t("quran.study.bookmarkA11y", {
+                  surah: surah?.nameTransliteration ?? "",
+                  ref: reference,
+                  page,
+                }),
+                translation,
+              ]
+                .filter(Boolean)
+                .join(". ");
 
               return (
-                <View key={bm.id} style={[styles.card, { backgroundColor: colors.muted }]}>
-                  <View style={styles.header}>
-                    <PressableScale
-                      haptic="light"
-                      accessibilityRole="button"
-                      accessibilityLabel={`${surah?.nameTransliteration} ${bm.ayah}`}
-                      onPress={openAyah}
-                      style={styles.meta}
-                    >
+                <View key={bm.id} style={[styles.card, tv && styles.cardRowTv]}>
+                  <PressableScale
+                    accessibilityRole="button"
+                    accessibilityLabel={label}
+                    accessibilityHint={t("quran.study.bookmarkOpenHint")}
+                    onPress={openAyah}
+                    {...(tv && index === 0 ? { hasTVPreferredFocus: true } : {})}
+                    scaleTo={0.99}
+                    style={[styles.body, tv && styles.cardTv, { backgroundColor: colors.muted }]}
+                  >
+                    <View style={styles.meta}>
                       <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
                         <ThemedText type="caption" style={{ color: colors.accentText }}>
-                          {bm.surah}:{bm.ayah} · {t("quran.pageN", { n: page })}
+                          {reference} · {t("quran.pageN", { n: page })}
                         </ThemedText>
                       </View>
                       <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
                         {surah?.nameTransliteration}
                       </ThemedText>
-                    </PressableScale>
-                    <View style={styles.actions}>
-                      {practiceAvailable ? (
-                        <IconButton
-                          name={RECITE_ALONG_ICON}
-                          size={18}
-                          tintColor={colors.mutedForeground}
-                          accessibilityLabel={t("quranCompanion.entry.practiseAyah", {
-                            n: shareKey,
-                          })}
-                          haptic="light"
-                          onPress={() => router.push(practiseBookmarkHref(bm.surah, bm.ayah))}
-                        />
-                      ) : null}
+                    </View>
+                    <ThemedText
+                      type="arabic"
+                      accessibilityLanguage="ar"
+                      numberOfLines={tv ? 3 : 4}
+                      style={arabicReadingLayout(readingSizes.arabic)}
+                    >
+                      {arabic}
+                    </ThemedText>
+                    {translation ? (
+                      <ThemedText
+                        type="small"
+                        themeColor="mutedForeground"
+                        numberOfLines={2}
+                        style={[
+                          { fontSize: readingSizes.translation },
+                          editionDir === "rtl" ? styles.rtl : null,
+                        ]}
+                      >
+                        {translation}
+                      </ThemedText>
+                    ) : null}
+                  </PressableScale>
+                  {/* Actions are siblings of the card body — never nested pressables. */}
+                  <View style={[styles.actions, tv && styles.actionsTv]}>
+                    {practiceAvailable && !tv ? (
+                      <IconButton
+                        name={RECITE_ALONG_ICON}
+                        size={18}
+                        tintColor={colors.mutedForeground}
+                        accessibilityLabel={t("quranCompanion.entry.practiseAyah", {
+                          n: reference,
+                        })}
+                        haptic={false}
+                        onPress={() => router.push(practiseBookmarkHref(bm.surah, bm.ayah))}
+                      />
+                    ) : null}
+                    {/* No system share sheet on TV. */}
+                    {tv ? null : (
                       <IconButton
                         name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
                         size={18}
@@ -183,35 +244,20 @@ export default function QuranBookmarksScreen() {
                             ? tTv(t, "share.tapToShare", "share.selectToShare")
                             : t("quran.shareAyah")
                         }
-                        haptic="light"
-                        loading={isSharing(shareKey)}
+                        loading={isSharing(reference)}
                         onPress={() => shareAyah(arabic, translation, bm.surah, bm.ayah)}
                       />
-                      <IconButton
-                        name={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
-                        size={18}
-                        tintColor={tokens.status.warning.color}
-                        accessibilityLabel={t("quran.bookmarkRemove")}
-                        accessibilityState={{ selected: true }}
-                        haptic="light"
-                        onPress={() => toggleBookmark(bm.surah, bm.ayah)}
-                      />
-                    </View>
+                    )}
+                    <IconButton
+                      name={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+                      size={tv ? 22 : 18}
+                      tintColor={colors.accentText}
+                      accessibilityLabel={t("quran.study.bookmarkRemoveA11y", { ref: reference })}
+                      background={tv ? colors.muted : undefined}
+                      hitTarget={tv ? TvLayout.minFocusTargetDp : undefined}
+                      onPress={() => removeBookmark(bm)}
+                    />
                   </View>
-                  <PressableScale
-                    haptic="light"
-                    accessibilityRole="button"
-                    accessibilityLabel={`${surah?.nameTransliteration} ${bm.ayah}`}
-                    onPress={openAyah}
-                  >
-                    <ThemedText
-                      type="arabic"
-                      numberOfLines={4}
-                      style={arabicReadingLayout(arabicSize)}
-                    >
-                      {arabic}
-                    </ThemedText>
-                  </PressableScale>
                 </View>
               );
             })}
@@ -225,6 +271,9 @@ export default function QuranBookmarksScreen() {
 const styles = StyleSheet.create({
   card: {
     flexGrow: 1,
+    gap: Spacing.one,
+  },
+  body: {
     gap: Spacing.two,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.three,
@@ -241,11 +290,6 @@ const styles = StyleSheet.create({
     minWidth: 0,
     minHeight: TvLayout.minFocusTarget,
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: Spacing.two,
-  },
   meta: {
     flex: 1,
     gap: Spacing.half,
@@ -261,8 +305,11 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "flex-end",
     gap: Spacing.half,
   },
+  actionsTv: { justifyContent: "flex-start" },
+  rtl: { writingDirection: "rtl", textAlign: "right" },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

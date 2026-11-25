@@ -6,6 +6,7 @@ import { StyleSheet, View, type ViewInstance } from "react-native";
 import { InvitePanel } from "@/components/circles/invite-panel";
 import { MyMembershipCard } from "@/components/circles/my-membership-card";
 import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { useReciteAlongLauncher } from "@/components/quran/quran-recite-launcher";
 import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ThemedText } from "@/components/themed-text";
@@ -48,7 +49,7 @@ import { partPassage } from "@/lib/quran-ref-parse";
 import { shareViewSnapshot } from "@/lib/share/shareViewSnapshot";
 import { useToast } from "@/providers/toast-provider";
 
-import { KhatmGrid } from "./khatm-grid";
+import { KhatmGrid, KhatmLegend } from "./khatm-grid";
 import { khatmPartTitle, khatmStatusLabel } from "./khatm-labels";
 import { KhatmPartSheet } from "./khatm-part-sheet";
 
@@ -83,6 +84,8 @@ export function KhatmGroupView({
   const members = circle.data?.members ?? NO_MEMBERS;
   const dealer = useKhatmDealMutation(circleId, khatmId ?? "", members);
   const [selected, setSelected] = useState<number | null>(null);
+  // Group-wide actions affect every member: each asks first.
+  const [confirming, setConfirming] = useState<"nextRound" | "openRemaining" | "deal" | null>(null);
   const recite = useReciteAlongLauncher();
   const shareRef = useRef<ViewInstance | null>(null);
   const today = getLocalDateString();
@@ -99,7 +102,9 @@ export function KhatmGroupView({
   if (circle.isLoading || khatms.isLoading || (khatmId && khatm.isLoading)) {
     return <CircleLoading label={t("khatmGroups.loading")} />;
   }
-  if (circle.isError || !circle.data) {
+  // A failed request is never "No khatm yet": that would invite a manager to start a second
+  // khatm. Any of the three queries failing shows Retry, which refetches all of them.
+  if (circle.isError || !circle.data || khatms.isError || (khatmId && khatm.isError)) {
     return (
       <CircleRetryCard
         message={t("khatmGroups.loadError")}
@@ -107,6 +112,7 @@ export function KhatmGroupView({
         onRetry={() => {
           void circle.refetch();
           void khatms.refetch();
+          if (khatmId) void khatm.refetch();
         }}
       />
     );
@@ -153,7 +159,7 @@ export function KhatmGroupView({
     setSelected(null);
     const result = await parts.run({ partNo: part.partNo, action });
     if (!result.ok) {
-      toast.info(t(khatmErrorKey(result.error)));
+      toast.error(t(khatmErrorKey(result.error)));
       return;
     }
     if (action === "complete") toast.success(t("khatmGroups.toast.completed"));
@@ -163,7 +169,7 @@ export function KhatmGroupView({
   const assign = async (part: KhatmPart, memberId: string | null) => {
     setSelected(null);
     const result = await parts.run({ partNo: part.partNo, action: { assign: memberId } });
-    if (!result.ok) toast.info(t(khatmErrorKey(result.error)));
+    if (!result.ok) toast.error(t(khatmErrorKey(result.error)));
   };
 
   const extend = async () => {
@@ -209,7 +215,7 @@ export function KhatmGroupView({
   const dealParts = async () => {
     const result = await dealer.run();
     if (result.ok) toast.success(t("khatmGroups.deal.done"));
-    else toast.info(t(khatmErrorKey(result.error)));
+    else toast.error(t(khatmErrorKey(result.error)));
   };
 
   const deadline = detail ? deadlineState(detail.deadline, today) : { kind: "none" as const };
@@ -222,7 +228,7 @@ export function KhatmGroupView({
     <View style={styles.stack}>
       {detail && progress ? (
         <View ref={shareRef} collapsable={false}>
-          <Card padding="three" style={styles.gap}>
+          <Card style={styles.gap}>
             <SectionHeader
               title={detail.title}
               subtitle={circle.data.name}
@@ -233,7 +239,7 @@ export function KhatmGroupView({
                 {t("khatmGroups.intentionLine", { intention: detail.intention })}
               </ThemedText>
             ) : null}
-            <ProgressBar value={progress.fraction} />
+            <ProgressBar value={progress.fraction} accessibilityLabel={t("a11yProgress.khatm")} />
             <ThemedText type="small" testID="khatm-progress">
               {t("khatmGroups.progress", { done: progress.done, total: progress.total })}
             </ThemedText>
@@ -257,11 +263,7 @@ export function KhatmGroupView({
       ) : null}
 
       {detail?.status === "completed" ? (
-        <Card
-          padding="three"
-          style={styles.gap}
-          accessibilityLabel={t("khatmGroups.complete.title")}
-        >
+        <Card style={styles.gap} accessibilityLabel={t("khatmGroups.complete.title")}>
           <SectionHeader
             title={t("khatmGroups.complete.title")}
             icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
@@ -282,15 +284,15 @@ export function KhatmGroupView({
           {manager && !tv ? (
             <Button
               label={t("khatmGroups.complete.nextRound")}
-              disabled={nextRound.isPending}
-              onPress={() => void startRound()}
+              loading={nextRound.isPending}
+              onPress={() => setConfirming("nextRound")}
             />
           ) : null}
         </Card>
       ) : null}
 
       {detail && manager && !tv && needsDeadlineDecision(detail) ? (
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="smallBold">{t("khatmGroups.deadline.decisionTitle")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("khatmGroups.deadline.decisionBody")}
@@ -305,13 +307,13 @@ export function KhatmGroupView({
             variant="ghost"
             label={t("khatmGroups.deadline.openRemaining")}
             disabled={patch.isPending}
-            onPress={() => void openRemaining()}
+            onPress={() => setConfirming("openRemaining")}
           />
         </Card>
       ) : null}
 
       {detail && mine.length > 0 && !tv ? (
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <SectionHeader title={t("khatmGroups.myParts.title")} />
           {mine.map((part) => {
             const passage = recitePassage(part);
@@ -349,7 +351,7 @@ export function KhatmGroupView({
       ) : null}
 
       {deal.kind === "ready" || deal.kind === "waiting" ? (
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="small" themeColor="mutedForeground">
             {t(deal.kind === "ready" ? "khatmGroups.deal.body" : "khatmGroups.deal.waiting")}
           </ThemedText>
@@ -357,15 +359,15 @@ export function KhatmGroupView({
             <Button
               variant="secondary"
               label={t("khatmGroups.deal.button")}
-              disabled={dealer.isPending}
-              onPress={() => void dealParts()}
+              loading={dealer.isPending}
+              onPress={() => setConfirming("deal")}
             />
           ) : null}
         </Card>
       ) : null}
 
       {detail ? (
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <SectionHeader
             title={t("khatmGroups.grid.title")}
             subtitle={t(assignmentModeHintKey(detail.assignmentMode))}
@@ -377,12 +379,10 @@ export function KhatmGroupView({
             myMemberId={myMemberId}
             onPressPart={tv ? undefined : (part) => setSelected(part.partNo)}
           />
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("khatmGroups.grid.legend")}
-          </ThemedText>
+          <KhatmLegend />
         </Card>
       ) : (
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("khatmGroups.noKhatm")}
           </ThemedText>
@@ -415,7 +415,7 @@ export function KhatmGroupView({
         />
       ) : null}
 
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         <ThemedText type="smallBold">{t("khatmGroups.intentionNote.title")}</ThemedText>
         <ThemedText type="small" themeColor="mutedForeground">
           {t("khatmGroups.intentionNote.body")}
@@ -442,6 +442,25 @@ export function KhatmGroupView({
         />
       ) : null}
       {recite.sheet}
+      <ConfirmDialog
+        visible={confirming != null}
+        title={confirming ? t(`khatmGroups.confirm.${confirming}.title`) : ""}
+        message={confirming ? t(`khatmGroups.confirm.${confirming}.body`) : undefined}
+        confirmLabel={
+          confirming === "nextRound"
+            ? t("khatmGroups.complete.nextRound")
+            : confirming === "openRemaining"
+              ? t("khatmGroups.deadline.openRemaining")
+              : t("khatmGroups.deal.button")
+        }
+        onConfirm={async () => {
+          if (confirming === "nextRound") await startRound();
+          else if (confirming === "openRemaining") await openRemaining();
+          else if (confirming === "deal") await dealParts();
+          setConfirming(null);
+        }}
+        onClose={() => setConfirming(null)}
+      />
     </View>
   );
 }

@@ -12,6 +12,7 @@ import {
 import { QuranAyahRangeCards } from "@/components/quran/quran-ayah-range-cards";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -19,6 +20,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ProgressBar, SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { ZikrHadithContext } from "@/components/zikr/zikr-hadith-context";
 import { Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
@@ -28,6 +30,7 @@ import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { resolveAfterSalahPrayer } from "@/lib/adhkar-session";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildZikrActivity } from "@/lib/continue-activity";
@@ -71,16 +74,25 @@ export default function ZikrDetailScreen() {
   // Short ayah spans stay here with Qur'an cards + recitation audio.
   const quranRanges = zikrQuranRanges(zikrId);
   const [corpusReady, setCorpusReady] = useState(false);
+  const [corpusFailed, setCorpusFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     if (quranHref) return;
     let active = true;
-    void ensureZikrCorpus().then(() => {
-      if (active) setCorpusReady(true);
-    });
+    void attempt; // a retry re-runs the load
+    setCorpusFailed(false);
+    ensureZikrCorpus().then(
+      () => {
+        if (active) setCorpusReady(true);
+      },
+      () => {
+        if (active) setCorpusFailed(true);
+      },
+    );
     return () => {
       active = false;
     };
-  }, [quranHref]);
+  }, [quranHref, attempt]);
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
   const item = !quranHref && corpusReady && zikrId ? getZikrById(zikrId) : undefined;
@@ -98,6 +110,7 @@ export default function ZikrDetailScreen() {
       : undefined;
   const count = item ? getZikrCountFromMap(day.counts, item.id, afterSalahPrayer) : 0;
   const shareCard = useShareContentCard();
+  const undoToast = useUndoToast();
 
   useEffect(() => {
     if (item) recordContinueActivity(buildZikrActivity(item));
@@ -108,7 +121,14 @@ export default function ZikrDetailScreen() {
   }
 
   if (!corpusReady) {
-    return null;
+    return (
+      <TasbeehLoadingScreen
+        title={t("zikr.title")}
+        onBack={() => goBackOrReplace(router, "/")}
+        failed={corpusFailed}
+        onRetry={() => setAttempt((n) => n + 1)}
+      />
+    );
   }
 
   if (!item) {
@@ -158,7 +178,7 @@ export default function ZikrDetailScreen() {
 
   const progressCard =
     target > 1 ? (
-      <Card key="progress" padding="three">
+      <Card key="progress">
         <View style={styles.progressHeader}>
           <ThemedText type="smallBold">
             {afterSalahPrayer
@@ -170,9 +190,17 @@ export default function ZikrDetailScreen() {
           </ThemedText>
         </View>
         {target <= 40 ? (
-          <SegmentedProgress total={target} completed={Math.min(count, target)} />
+          <SegmentedProgress
+            accessibilityLabel={t("a11yProgress.zikrToday")}
+            total={target}
+            completed={Math.min(count, target)}
+          />
         ) : (
-          <ProgressBar value={Math.min(count, target) / target} height={6} />
+          <ProgressBar
+            value={Math.min(count, target) / target}
+            accessibilityLabel={t("a11yProgress.zikrToday")}
+            height={6}
+          />
         )}
       </Card>
     ) : null;
@@ -186,6 +214,20 @@ export default function ZikrDetailScreen() {
         ...(afterSalahPrayer ? { prayer: afterSalahPrayer } : {}),
       },
     });
+
+  // Clearing a finished count is reversible: clear now, offer Undo (same as the session).
+  const writeDayCount = (next: number) => {
+    const previous = count;
+    if (next === 0 && previous > 0) {
+      void undoToast.run({
+        do: () => day.setCount(item.id, 0, target, afterSalahPrayer),
+        undo: () => day.setCount(item.id, previous, target, afterSalahPrayer),
+        messageKey: "zikr.markedNotDone",
+      });
+      return;
+    }
+    void day.setCount(item.id, next, target, afterSalahPrayer);
+  };
 
   const actionButtons = (
     <View key="actions" style={styles.actions}>
@@ -203,8 +245,7 @@ export default function ZikrDetailScreen() {
             isDone ? tTv(t, "zikr.undoDoneHint", "zikr.undoDoneHintTv") : undefined
           }
           onPress={() => {
-            const next = isDone ? 0 : 1;
-            void day.setCount(item.id, next, target, afterSalahPrayer);
+            writeDayCount(isDone ? 0 : 1);
             if (!isDone) trackReviewInteraction("mark_zikr");
           }}
         />
@@ -227,7 +268,7 @@ export default function ZikrDetailScreen() {
             fullWidth
             accessibilityHint={isDone ? undefined : t("zikrSession.markCompleteHint")}
             onPress={() => {
-              void day.setCount(item.id, isDone ? 0 : target, target, afterSalahPrayer);
+              writeDayCount(isDone ? 0 : target);
               if (!isDone) trackReviewInteraction("mark_zikr");
             }}
           />
@@ -239,8 +280,8 @@ export default function ZikrDetailScreen() {
           variant="secondary"
           icon={
             isFavorite
-              ? { ios: "star.fill", android: "star", web: "star" }
-              : { ios: "star", android: "star_border", web: "star_border" }
+              ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+              : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
           }
           onPress={() => toggleFavorite(item.id)}
           style={styles.flex}
@@ -274,7 +315,7 @@ export default function ZikrDetailScreen() {
         <>
           <QuranAyahRangeCards ranges={quranRanges} sourceHref={sourceHref} shareCard={shareCard} />
           {item.virtues ? (
-            <Card padding="three">
+            <Card>
               <ThemedText type="small" themeColor="mutedForeground">
                 {item.virtues}
               </ThemedText>
@@ -319,6 +360,8 @@ export default function ZikrDetailScreen() {
       onBack={() => goBackOrReplace(router, "/")}
       maxContentWidth={showSideFilters ? SCRIPTURE_LIST_DETAIL_MAX_WIDTH : undefined}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       {shareCard.SnapshotHost}
       <Seo
         path={`/zikr/detail/${item.id}`}

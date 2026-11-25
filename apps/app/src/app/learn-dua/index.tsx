@@ -1,31 +1,14 @@
-import { type Href, useRouter } from "expo-router";
+import { type Href, usePathname } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { JannahDuaBlock } from "@/components/jannah/primitives";
 import {
-  JannahCallout,
-  JannahDisclaimer,
-  JannahDuaBlock,
-  JannahNavRow,
-  JannahQuickLinkGrid,
-} from "@/components/jannah/primitives";
-import { LearnContentGate } from "@/components/learn-content-loading";
-import {
-  LearnSplitLayout,
-  LearnTopicGrid,
-  useLearnWideLayout,
-} from "@/components/learn-guide/learn-wide-layout";
-import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
-import { Pill } from "@/components/ui/pill";
-import { SectionHeader } from "@/components/ui/section-header";
-import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+  type LearnHubItem,
+  LearnHubScreen,
+  type LearnHubSection,
+} from "@/components/learn-guide/learn-hub-screen";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildContentReportRef } from "@/lib/content-report-ref";
 import {
   ensureLearnDuaContent,
   getLearnDuaLessonCount,
@@ -34,13 +17,13 @@ import {
   isLearnDuaContentReady,
 } from "@/lib/learn-dua";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
-import { goBackOrReplace } from "@/lib/navigation";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useEnsureLearnDuaProgressLoaded,
   useLearnDuaCompletedCount,
 } from "@/stores/learn-dua-progress-store";
 
+const TOPIC_ICON: AppIcon = { ios: "text.book.closed", android: "article", web: "article" };
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
   "morning-evening": { ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" },
@@ -49,262 +32,132 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
     android: "volunteer_activism",
     web: "volunteer_activism",
   },
-  occasions: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
   "quranic-duas": { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
 };
 
+/**
+ * Learn Dua hub on the Learn kit (P5-40): intro → progress → topic sections →
+ * Tools (duas by occasion, quiz) → featured dua + related → disclaimer. The
+ * quick links / "Explore" card that repeated occasions, progress and two topics
+ * (C-16) and the "V1" pill (C-15) are gone.
+ */
 export default function LearnDuaScreen() {
-  const router = useRouter();
+  const pathname = usePathname();
   const { t, i18n } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   useEnsureLearnDuaProgressLoaded();
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(
-    ensureLearnDuaContent,
-    isLearnDuaContentReady,
-  );
+  const content = useEnsureContent(ensureLearnDuaContent, isLearnDuaContentReady);
+  const contentVersion = content.version;
   const completedCount = useLearnDuaCompletedCount();
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const lessonTotal = useMemo(() => getLearnDuaLessonCount(), [contentVersion]);
 
   // Recompute per locale so translated topic titles/summaries render on switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
-  const TOPICS_BY_SECTION = useMemo(
-    () => getLearnDuaTopicsBySection(),
-    [i18n.language, contentVersion],
-  );
-  const SECTION_ORDER = useMemo(
-    () => Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>,
-    [TOPICS_BY_SECTION],
-  );
+  const sections = useMemo<LearnHubSection[]>(() => {
+    const bySection = getLearnDuaTopicsBySection();
+    return (Object.keys(bySection) as Array<keyof typeof bySection>).map((section) => ({
+      id: String(section),
+      title: t(`learnDua.section.${section}`),
+      hint: t(`learnDua.section.${section}Hint`),
+      items: (bySection[section] ?? []).map((topic) => ({
+        id: topic.id,
+        icon: TOPIC_ICONS[topic.id] ?? TOPIC_ICON,
+        title: topic.title,
+        subtitle: topic.summary,
+        badge: topic.importance ? t(`learnDua.importance.${topic.importance}`) : undefined,
+        href: { pathname: "/learn-dua/[topic]", params: { topic: topic.id } } as Href,
+      })),
+    }));
+  }, [i18n.language, contentVersion, t]);
+
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
-  const FEATURED_TOPIC = useMemo(
+  const featuredTopic = useMemo(
     () => getLearnDuaTopics().find((topic) => topic.phrases?.length),
     [i18n.language, contentVersion],
   );
-  const FEATURED_PHRASE = FEATURED_TOPIC?.phrases?.[0];
+  const featuredPhrase = featuredTopic?.phrases?.[0];
 
-  const { split, maxContentWidth } = useLearnWideLayout();
-
-  const quickLinks = useMemo(
+  const tools = useMemo<LearnHubItem[]>(
     () => [
       {
-        id: "morning-evening",
-        icon: { ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" } as AppIcon,
-        title: t("learnDua.quickMorningEvening"),
-        subtitle: t("learnDua.quickMorningEveningHint"),
-        tint: colors.accent,
-        onPress: () =>
-          router.push({
-            pathname: "/learn-dua/[topic]",
-            params: { topic: "morning-evening" },
-          }),
-      },
-      {
-        id: "dua-etiquette",
-        icon: {
-          ios: "hands.sparkles.fill",
-          android: "volunteer_activism",
-          web: "volunteer_activism",
-        } as AppIcon,
-        title: t("learnDua.quickEtiquette"),
-        subtitle: t("learnDua.quickEtiquetteHint"),
-        tint: tokens.status.info.color,
-        onPress: () =>
-          router.push({
-            pathname: "/learn-dua/[topic]",
-            params: { topic: "dua-etiquette" },
-          }),
-      },
-      {
         id: "occasions",
-        icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" } as AppIcon,
-        title: t("learnDua.quickOccasions"),
-        subtitle: t("learnDua.quickOccasionsHint"),
-        tint: tokens.status.success.color,
-        onPress: () => router.push("/learn-dua/occasions" as Href),
-      },
-      {
-        id: "progress",
-        icon: {
-          ios: "chart.line.uptrend.xyaxis",
-          android: "trending_up",
-          web: "trending_up",
-        } as AppIcon,
-        title: t("learnDua.quickProgress"),
-        subtitle: t("learnDua.quickProgressHint"),
-        tint: tokens.status.warning.color,
-        onPress: () => router.push("/learn-dua/progress" as Href),
+        icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
+        title: t("learnDua.occasionsTitle"),
+        subtitle: t("learnDua.occasionsHint"),
+        href: "/learn-dua/occasions" as Href,
+        hue: "dawn",
       },
     ],
-    [router, t, colors.accent, tokens],
+    [t],
   );
 
-  const quizRow = (
-    <LearnQuizNavRow
-      quizPath={"/learn-dua/quiz" as Href}
-      titleKey="common.learnQuiz.title"
-      subtitleKey="common.learnQuiz.hint"
-    />
+  // The hub keeps its "report an issue" link (it used ScreenLayout `reportKind`).
+  const contentRef = useMemo(
+    () =>
+      buildContentReportRef(
+        "learn_dua",
+        pathname || "/learn-dua",
+        pathname || "/learn-dua",
+        i18n.language?.split("-")[0] ?? "en",
+        { snapshot: { title: t("learnDua.title"), translation: t("learnDua.subtitle") } },
+      ),
+    [pathname, i18n.language, t],
   );
-  const quickLinksCard = (
-    <Card padding="three">
-      <SectionHeader
-        title={t("learnDua.quickLinksTitle")}
-        icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
-      />
-      <JannahQuickLinkGrid items={quickLinks} />
-    </Card>
-  );
-  const progressRow = (
-    <JannahNavRow
-      icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-      title={t("learnDua.progressCardTitle")}
-      subtitle={t("learnDua.progressCardHint", {
-        completed: completedCount,
-        total: lessonTotal,
-      })}
-      badge={`${completedCount}/${lessonTotal}`}
-      tint={colors.accent}
-      onPress={() => router.push("/learn-dua/progress" as Href)}
-    />
-  );
-  const exploreCard = (
-    <Card padding="three">
-      <SectionHeader
-        title={t("learnDua.exploreTitle")}
-        icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-      />
-      <View style={styles.rows}>
-        <JannahNavRow
-          icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
-          title={t("learnDua.occasionsTitle")}
-          subtitle={t("learnDua.occasionsHint")}
-          onPress={() => router.push("/learn-dua/occasions" as Href)}
+
+  const footer = (
+    <>
+      {featuredPhrase ? (
+        <JannahDuaBlock
+          title={
+            featuredTopic
+              ? t("learnDua.featuredPhraseTitleWithTopic", { topic: featuredTopic.title })
+              : t("learnDua.featuredPhraseTitle")
+          }
+          arabic={featuredPhrase.arabic}
+          transliteration={featuredPhrase.transliteration}
+          translation={featuredPhrase.translation}
+          reference={featuredPhrase.reference}
         />
-        <JannahNavRow
-          icon={{
-            ios: "hands.sparkles.fill",
-            android: "volunteer_activism",
-            web: "volunteer_activism",
-          }}
-          title={t("dua.title")}
-          subtitle={t("learnDua.duaLibraryPointer")}
-          onPress={() => router.push("/dua")}
-        />
-      </View>
-    </Card>
+      ) : null}
+    </>
   );
 
   return (
-    <ScreenLayout
-      readingProgress
-      reportKind="learn_dua"
-      eyebrow={t("learnDua.eyebrow")}
-      title={t("learnDua.title")}
-      subtitle={t("learnDua.subtitle")}
-      onBack={() => goBackOrReplace(router, "/")}
-      maxContentWidth={maxContentWidth}
-    >
-      <Seo path="/learn-dua" />
-      <LearnContentGate ready={contentReady}>
-        <LearnSplitLayout
-          aside={
-            <>
-              {progressRow}
-              {quizRow}
-              {quickLinksCard}
-              {exploreCard}
-            </>
-          }
-        >
-          <Stagger>
-            <JannahCallout tone="info">{t("learnDua.intro")}</JannahCallout>
-
-            {split ? null : quizRow}
-
-            {split ? null : quickLinksCard}
-
-            {split ? null : progressRow}
-
-            {SECTION_ORDER.map((section) => {
-              const topics = TOPICS_BY_SECTION[section];
-              if (!topics?.length) return null;
-              return (
-                <Card key={section} padding="three">
-                  <SectionHeader
-                    title={t(`learnDua.section.${section}`)}
-                    icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-                  />
-                  <ThemedText
-                    type="caption"
-                    themeColor="mutedForeground"
-                    style={styles.sectionHint}
-                  >
-                    {t(`learnDua.section.${section}Hint`)}
-                  </ThemedText>
-                  <LearnTopicGrid
-                    style={styles.rows}
-                    items={topics.map((topic) => ({
-                      id: topic.id,
-                      icon: TOPIC_ICONS[topic.id] ?? {
-                        ios: "text.book.closed",
-                        android: "article",
-                        web: "article",
-                      },
-                      title: topic.title,
-                      subtitle: topic.summary,
-                      badge: topic.importance
-                        ? t(`learnDua.importance.${topic.importance}`)
-                        : undefined,
-                      onPress: () =>
-                        router.push({
-                          pathname: "/learn-dua/[topic]",
-                          params: { topic: topic.id },
-                        }),
-                    }))}
-                  />
-                </Card>
-              );
-            })}
-
-            {FEATURED_PHRASE ? (
-              <JannahDuaBlock
-                title={
-                  FEATURED_TOPIC
-                    ? t("learnDua.featuredPhraseTitleWithTopic", { topic: FEATURED_TOPIC.title })
-                    : t("learnDua.featuredPhraseTitle")
-                }
-                arabic={FEATURED_PHRASE.arabic}
-                transliteration={FEATURED_PHRASE.transliteration}
-                translation={FEATURED_PHRASE.translation}
-                reference={FEATURED_PHRASE.reference}
-              />
-            ) : null}
-
-            {split ? null : exploreCard}
-
-            <View style={styles.pillRow}>
-              <Pill
-                label={t("learnDua.phaseV1")}
-                compact
-                color={colors.mutedForeground}
-                background={colors.muted}
-              />
-            </View>
-
-            <JannahDisclaimer textKey="learnDua.disclaimer" />
-          </Stagger>
-        </LearnSplitLayout>
-      </LearnContentGate>
-    </ScreenLayout>
+    <LearnHubScreen
+      ns="learnDua"
+      basePath="/learn-dua"
+      content={content}
+      contentRef={contentRef}
+      progress={{
+        title: t("learnDua.progressCardTitle"),
+        completed: completedCount,
+        total: lessonTotal,
+        hint: t("learnDua.lessonsHint"),
+        href: "/learn-dua/progress" as Href,
+      }}
+      sections={sections}
+      tools={tools}
+      quiz
+      related={{
+        title: t("learnDua.relatedTitle"),
+        items: [
+          {
+            id: "dua-library",
+            icon: {
+              ios: "hands.sparkles.fill",
+              android: "volunteer_activism",
+              web: "volunteer_activism",
+            },
+            title: t("dua.title"),
+            subtitle: t("learnDua.duaLibraryPointer"),
+            href: "/dua",
+          },
+        ],
+      }}
+      footer={footer}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
-  sectionHint: { marginTop: Spacing.one, lineHeight: 20 },
-  pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, justifyContent: "center" },
-});
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
 export const generateMetadata = routeMetadata("/learn-dua");

@@ -10,14 +10,14 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
-import { useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   useBattlesProgressActions,
@@ -40,8 +40,7 @@ function BattlesBattleDetailsCard({
   details: NonNullable<BattlesTopic["battleDetails"]>;
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const { sizes } = useReadingTypography();
+  const { tokens } = useThemeTokens();
 
   const rows: { label: string; value: string }[] = [
     { label: t("battles.detail.location"), value: details.location },
@@ -69,7 +68,7 @@ function BattlesBattleDetailsCard({
   ];
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("battles.detailTitle")}
         icon={{ ios: "map.fill", android: "map", web: "map" }}
@@ -81,9 +80,7 @@ function BattlesBattleDetailsCard({
               <ThemedText type="caption" themeColor="mutedForeground">
                 {row.label}
               </ThemedText>
-              <ThemedText type="small" style={{ fontSize: sizes.translation }}>
-                {row.value}
-              </ThemedText>
+              <LearnProseText>{row.value}</LearnProseText>
             </View>
           ))}
         </View>
@@ -94,14 +91,9 @@ function BattlesBattleDetailsCard({
           <View style={styles.subsection}>
             <ThemedText type="smallBold">{t("battles.detail.keyEvents")}</ThemedText>
             {details.keyEvents.map((event) => (
-              <ThemedText
-                key={event}
-                type="small"
-                themeColor="mutedForeground"
-                style={{ fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 }}
-              >
+              <LearnProseText key={event} themeColor="mutedForeground">
                 • {event}
-              </ThemedText>
+              </LearnProseText>
             ))}
           </View>
         </TvReadableBlock>
@@ -109,17 +101,17 @@ function BattlesBattleDetailsCard({
 
       <TvReadableBlock>
         <View style={[styles.lessonBox, { backgroundColor: tokens.accentSoft }]}>
-          <ThemedText type="caption" style={{ color: colors.accent }}>
+          <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
             {t("battles.detail.leadership")}
           </ThemedText>
-          <ThemedText type="small">{details.leadershipLesson}</ThemedText>
+          <LearnProseText>{details.leadershipLesson}</LearnProseText>
         </View>
 
         <View style={[styles.lessonBox, { backgroundColor: tokens.status.success.soft }]}>
-          <ThemedText type="caption" style={{ color: tokens.status.success.color }}>
+          <ThemedText type="caption" style={{ color: tokens.status.success.onSoft }}>
             {t("battles.detail.spiritual")}
           </ThemedText>
-          <ThemedText type="small">{details.spiritualLesson}</ThemedText>
+          <LearnProseText>{details.spiritualLesson}</LearnProseText>
         </View>
       </TvReadableBlock>
 
@@ -167,7 +159,7 @@ export function BattlesTopicContent({ topic }: { topic: BattlesTopic }) {
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
 
       {topic.appLinks?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("battles.continueInApp")}
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
@@ -211,7 +203,7 @@ const styles = StyleSheet.create({
   detailRow: {
     gap: Spacing.half,
     paddingTop: Spacing.two,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   subsection: { marginTop: Spacing.three, gap: Spacing.one },
   lessonBox: {
@@ -222,5 +214,5 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
   },
   links: { gap: Spacing.two, marginTop: Spacing.three },
-  topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
+  topicDisclaimer: { paddingHorizontal: Spacing.one },
 });

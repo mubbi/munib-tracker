@@ -74,11 +74,12 @@ describe("settings hub", () => {
     for (const cluster of [
       "Daily worship",
       "Reading & listening",
-      "Personalise",
+      "Personalize",
       "Privacy & data",
       "Help",
     ]) {
-      expect(screen.getByText(cluster)).toBeTruthy();
+      // "Personalize" is also the hub eyebrow, so allow more than one match.
+      expect(screen.getAllByText(cluster).length).toBeGreaterThan(0);
     }
     expect(screen.getByText("Reminders & notifications")).toBeTruthy();
     // Group rows carry a value summary, e.g. the calculation method.
@@ -99,25 +100,61 @@ describe("settings hub", () => {
   });
 
   it("searches settings and toggles a switch straight from a result", async () => {
+    // The Friday reminder is gated on the notifications master switch; a disabled
+    // row no longer toggles (the whole row is the switch now — D-15).
+    await act(async () => {
+      const { prefs } = preferencesStore.getState();
+      preferencesStore.setState({
+        prefs: {
+          ...prefs,
+          notificationPrefs: { ...prefs.notificationPrefs, masterEnabled: true },
+        },
+      });
+    });
     await renderWithProviders(<SettingsHub />);
     await fireEvent.changeText(screen.getByLabelText("Search settings"), "Friday reminder");
     await waitFor(() => expect(screen.getByText("Friday reminder")).toBeTruthy());
     expect(preferencesStore.getState().prefs.notificationPrefs.friday).toBe(false);
     await act(async () => {
-      fireEvent(screen.getByRole("switch", { name: "Friday reminder" }), "valueChange", true);
+      // D-15: the whole row is the switch — pressing it (label included) toggles.
+      fireEvent.press(screen.getByRole("switch", { name: "Friday reminder" }));
     });
     await waitFor(() =>
       expect(preferencesStore.getState().prefs.notificationPrefs.friday).toBe(true),
     );
   });
 
-  it("is master–detail on wide windows: picking a group fills the detail pane", async () => {
+  it("is list–detail on wide windows (D-UX11): the hub shows the first group, picking one opens its route", async () => {
     setMockWindowSize(1280);
     await renderWithProviders(<SettingsHub />);
+    // Detail pane: the first group (Salah times) beside the list.
+    expect(screen.getAllByText("Salah times & location").length).toBeGreaterThan(1);
     await fireEvent.press(screen.getByText("Language & region"));
+    // The selection is the route — exactly the phone's push.
+    expect(mockRouter.push).toHaveBeenCalledWith("/settings/language");
+  });
+
+  it("a group route on a wide window keeps the list beside the selected group", async () => {
+    setMockWindowSize(1280);
+    const LanguageSettings = require("@/app/settings/language").default as ComponentType;
+    await renderWithProviders(<LanguageSettings />);
+    // List pane (every group) + detail pane (Language & region's sections).
+    expect(screen.getByText("Appearance & home")).toBeTruthy();
+    expect(screen.getByText("Region & format")).toBeTruthy();
+    const row = screen.getByRole("button", { name: /^Language & region/ });
+    expect(row.props.accessibilityState).toEqual(expect.objectContaining({ selected: true }));
+    // Another group swaps the route in place, so Back still leaves Settings as on a phone.
+    await fireEvent.press(screen.getByText("Appearance & home"));
+    expect(mockRouter.replace).toHaveBeenCalledWith("/settings/appearance");
     expect(mockRouter.push).not.toHaveBeenCalled();
-    await waitFor(() => expect(screen.getByText("Region & format")).toBeTruthy());
-    expect(screen.getAllByText("Time format").length).toBeGreaterThan(0);
+  });
+
+  it("a wide-window ?focus= deep link lands on the row in the detail pane", async () => {
+    setMockWindowSize(1280);
+    setMockSearchParams({ focus: "quran.recitation.reciter" });
+    await renderWithProviders(<QuranSettingsScreen />);
+    expect(screen.getByText("Reciter")).toBeTruthy();
+    expect(screen.getByText("Appearance & home")).toBeTruthy();
   });
 });
 

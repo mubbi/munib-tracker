@@ -162,6 +162,20 @@ describe("ZakatCalculator", () => {
     expect(onNumberFormatPickerOpenChange).toHaveBeenCalledWith(true);
   });
 
+  it("re-displays typed values in the new format after a number-format switch", async () => {
+    const state = buildZakatCalculatorState({
+      values: { cash: "1,234.5" },
+    } as Partial<ZakatCalculatorState>);
+    const { rerender } = await renderWithTheme(<ZakatCalculator {...state} />);
+    expect(screen.getByDisplayValue("1,234.5")).toBeTruthy();
+    // The hook rewrites the stored draft string; the number itself is unchanged.
+    await rerender(
+      <ZakatCalculator {...state} numberFormat="dot_comma" values={{ cash: "1.234,5" }} />,
+    );
+    expect(screen.getByDisplayValue("1.234,5")).toBeTruthy();
+    expect(screen.queryByDisplayValue("1,234.5")).toBeNull();
+  });
+
   describe("with manual prices and dues", () => {
     const overrides = {
       pricesManual: true,
@@ -210,16 +224,16 @@ describe("ZakatCalculator", () => {
     });
 
     it.each([
-      [{}, "Counted: in your school, women's personal jewellery is zakatable."],
+      [{}, "Counted: in your school, women's personal jewelry is zakatable."],
       [
         { zakatSchool: "shafii", personalJewelleryCounted: false, combineMethod: "separate" },
-        "Not counted: in your school, permissible jewellery in normal use is not zakatable.",
+        "Not counted: in your school, permissible jewelry in normal use is not zakatable.",
       ],
       [
         { zakatSchool: null },
-        "The Hanafi school counts personal jewellery; the other three schools do not. The amount above counts it, and each row below also shows the amount without it.",
+        "The Hanafi school counts personal jewelry; the other three schools do not. The amount above counts it, and each row below also shows the amount without it.",
       ],
-    ] as const)("explains the jewellery ruling %#", async (overrides, text) => {
+    ] as const)("explains the jewelry ruling %#", async (overrides, text) => {
       await renderCalc(overrides as Partial<Props>);
       expect(screen.getByText(text)).toBeTruthy();
     });

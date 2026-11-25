@@ -22,9 +22,9 @@ export function useExportFeedback() {
       running.current = true;
       setBusy(true);
       try {
-        if ((await task()) === "unavailable") toast.info(t("privateUx.export.unavailable"));
+        if ((await task()) === "unavailable") toast.info(t("common.export.unavailable"));
       } catch {
-        toast.error(t("privateUx.export.failed"));
+        toast.error(t("common.export.failed"));
       } finally {
         running.current = false;
         setBusy(false);

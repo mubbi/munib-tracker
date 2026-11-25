@@ -3,10 +3,8 @@ import { SymbolView } from "expo-symbols";
 import { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
-  ActivityIndicator,
   Platform,
   StyleSheet,
-  TextInput,
   type TextInputInstance,
   useWindowDimensions,
   View,
@@ -21,18 +19,26 @@ import { Chip } from "@/components/ui/chip";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
+import { NavRow } from "@/components/ui/nav-row";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
+import { SearchField } from "@/components/ui/search-field";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Radius, Spacing } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
+import { BorderWidth, Breakpoints, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useTvVoiceSearch } from "@/hooks/use-tv-voice-search";
+import {
+  createLibraryMenuSearch,
+  type LibrarySearchEntry,
+  libraryMenuForDevice,
+  useDestinationScope,
+} from "@/lib/library-menu";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -53,12 +59,17 @@ import {
   tokenize,
 } from "@/lib/search";
 import { clearRecentSearches, loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
+import {
+  LIBRARY_SEARCH_CATEGORY,
+  SEARCH_FILTER_ORDER,
+  type SearchFilterCategory,
+} from "@/lib/search-types";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { settingHref, settingsGroupPath } from "@/lib/settings/routes";
 import type { SttErrorKind } from "@/lib/stt";
 import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { zikrListRowProgress } from "@/lib/zikr-list-progress";
-import { pushZikrDetail } from "@/lib/zikr-quran";
+import { pushZikrDetail, zikrQuranHref } from "@/lib/zikr-quran";
 import { useToast } from "@/providers/toast-provider";
 import { useZikrCounts } from "@/stores/tracker-store";
 
@@ -80,8 +91,8 @@ const PREVIEW_LIMIT = 4;
  * side filter list at ≥1024, multi-column results.
  */
 function searchColumnMaxWidth(width: number): number {
-  if (width >= 1600) return 1320;
-  if (width >= 1024) return 1120;
+  if (width >= Breakpoints.xwide) return 1320;
+  if (width >= Breakpoints.wide) return 1120;
   return 880;
 }
 
@@ -105,7 +116,8 @@ type CategoryVisual = {
   soft: string;
 };
 
-type FilterKey = SearchCategory | "all";
+/** "all" or one result category — incl. `library` (Library destinations, P5-33). */
+type FilterKey = SearchFilterCategory | "all";
 
 export default function SearchScreen() {
   const router = useRouter();
@@ -134,8 +146,8 @@ export default function SearchScreen() {
   const tv = isTV();
   const { width } = useWindowDimensions();
   // Tablet / desktop (window width): centred column; ≥1024 adds the side filter list.
-  const wideColumn = !tv && width >= 768;
-  const sideFilters = !tv && width >= 1024;
+  const wideColumn = !tv && width >= Breakpoints.tablet;
+  const sideFilters = !tv && width >= Breakpoints.wide;
   const columnStyle = wideColumn
     ? {
         width: "100%" as const,
@@ -193,8 +205,13 @@ export default function SearchScreen() {
   };
   const setQueryFromInputRef = useRef(setQueryFromInput);
   setQueryFromInputRef.current = setQueryFromInput;
-  const categoryVisual = useMemo<Record<SearchCategory, CategoryVisual>>(
+  const categoryVisual = useMemo<Record<SearchFilterCategory, CategoryVisual>>(
     () => ({
+      library: {
+        icon: { ios: "books.vertical.fill", android: "library_books", web: "library_books" },
+        tint: colors.accent,
+        soft: tokens.accentSoft,
+      },
       quran: {
         icon: { ios: "book.fill", android: "menu_book", web: "menu_book" },
         tint: colors.accent,
@@ -405,6 +422,22 @@ export default function SearchScreen() {
     [contentGroups, notesGroup, rootsGroup, settingsGroup],
   );
 
+  // Library destinations (P5-33): the same index + aliases as the Library tab.
+  const destinationScope = useDestinationScope();
+  const libraryIndex = useMemo(
+    () =>
+      createLibraryMenuSearch(
+        libraryMenuForDevice(destinationScope).map(
+          (entry): LibrarySearchEntry => ({ ...entry, label: t(entry.labelKey) }),
+        ),
+      ),
+    [destinationScope, t],
+  );
+  const libraryHits = useMemo(
+    () => (hasQuery ? libraryIndex.search(debounced) : []),
+    [debounced, hasQuery, libraryIndex],
+  );
+
   const presentCategories = useMemo<SearchCategory[]>(
     () =>
       SEARCH_CATEGORY_ORDER.filter((c) => {
@@ -419,10 +452,27 @@ export default function SearchScreen() {
     [groups, ayahLoading],
   );
 
-  const totalCount = useMemo(() => groups.reduce((sum, g) => sum + g.total, 0), [groups]);
+  // One chip list in SEARCH_FILTER_ORDER: content categories, then Library.
+  const presentFilters = useMemo<SearchFilterCategory[]>(
+    () =>
+      SEARCH_FILTER_ORDER.filter((c) =>
+        c === LIBRARY_SEARCH_CATEGORY ? libraryHits.length > 0 : presentCategories.includes(c),
+      ),
+    [libraryHits.length, presentCategories],
+  );
+
+  const totalCount = useMemo(
+    () => groups.reduce((sum, g) => sum + g.total, 0) + libraryHits.length,
+    [groups, libraryHits.length],
+  );
 
   const visibleGroups = useMemo(
-    () => (filter === "all" ? groups : groups.filter((g) => g.category === filter)),
+    () =>
+      filter === "all"
+        ? groups
+        : filter === LIBRARY_SEARCH_CATEGORY
+          ? []
+          : groups.filter((g) => g.category === filter),
     [groups, filter],
   );
 
@@ -456,9 +506,21 @@ export default function SearchScreen() {
         case "/dua/detail/[id]":
           router.push({ pathname: result.href, params: { id: result.params?.id ?? "" } });
           break;
-        case "/zikr/detail/[id]":
-          pushZikrDetail(router, result.params?.id ?? "");
+        case "/zikr/detail/[id]": {
+          // B-68: a zikr row opens in the guided session at that zikr; Qur'an-backed
+          // zikr and rows whose corpus has not loaded keep the detail route.
+          const zikrId = result.params?.id ?? "";
+          const zikrItem = zikrQuranHref(zikrId) ? undefined : getZikrById(zikrId);
+          if (zikrItem) {
+            router.push({
+              pathname: "/zikr/session/[category]",
+              params: { category: zikrItem.categoryId, start: zikrItem.id },
+            });
+          } else {
+            pushZikrDetail(router, zikrId);
+          }
           break;
+        }
         case "/jannah/[topic]":
           router.push({
             pathname: result.href,
@@ -597,16 +659,19 @@ export default function SearchScreen() {
 
   const busy = pending || lightSearching || ayahLoading;
   const showIdle = !rawHasQuery;
-  const showLoading = rawHasQuery && busy && visibleGroups.length === 0;
-  const showEmpty = hasQuery && !busy && visibleGroups.length === 0;
-  const showFilters = hasQuery && presentCategories.length > 0;
+  const showLibraryHits = libraryHits.length > 0;
+  const showLoading = rawHasQuery && busy && visibleGroups.length === 0 && !showLibraryHits;
+  const showLibraryGroup =
+    libraryHits.length > 0 && (filter === "all" || filter === LIBRARY_SEARCH_CATEGORY);
+  const showEmpty = hasQuery && !busy && visibleGroups.length === 0 && libraryHits.length === 0;
+  const showFilters = hasQuery && presentFilters.length > 0;
   // "All" on wide screens: category groups side by side. A single category:
   // its rows in a grid. TV keeps its two-column row grid.
   const groupColumns = sideFilters && filter === "all" && width >= 1200 ? 2 : 1;
   const rowColumns = tv
     ? 2
     : sideFilters && filter !== "all"
-      ? width >= 1600
+      ? width >= Breakpoints.xwide
         ? 3
         : 2
       : wideColumn && filter !== "all"
@@ -623,20 +688,21 @@ export default function SearchScreen() {
       style={sideFilters ? styles.chipVertical : undefined}
       onPress={() => setFilter("all")}
     />,
-    ...presentCategories.map((category) => {
-      const group = groups.find((g) => g.category === category);
-      return (
-        <Chip
-          key={category}
-          variant="solid"
-          label={t(`search.cat.${category}`)}
-          count={group?.total ?? 0}
-          selected={filter === category}
-          style={sideFilters ? styles.chipVertical : undefined}
-          onPress={() => setFilter(category)}
-        />
-      );
-    }),
+    ...presentFilters.map((category) => (
+      <Chip
+        key={category}
+        variant="solid"
+        label={t(`search.cat.${category}`)}
+        count={
+          category === LIBRARY_SEARCH_CATEGORY
+            ? libraryHits.length
+            : (groups.find((g) => g.category === category)?.total ?? 0)
+        }
+        selected={filter === category}
+        style={sideFilters ? styles.chipVertical : undefined}
+        onPress={() => setFilter(category)}
+      />
+    )),
   ];
 
   const resultsBody = (
@@ -661,7 +727,7 @@ export default function SearchScreen() {
                 isReciteToFindAvailable() ? () => router.push(reciteToFindHref()) : undefined
               }
             />
-          ) : visibleGroups.length > 0 ? (
+          ) : visibleGroups.length > 0 || showLibraryGroup ? (
             <ResponsiveGrid columns={groupColumns} gap={Spacing.four}>
               {visibleGroups.map((group) => {
                 const preview =
@@ -720,12 +786,11 @@ export default function SearchScreen() {
                     </View>
 
                     {showInlineQuranLoader ? (
-                      <View style={styles.searchingRow}>
-                        <ActivityIndicator size="small" color={colors.accent} />
-                        <ThemedText type="caption" themeColor="mutedForeground">
-                          {t("search.searchingQuran")}
-                        </ThemedText>
-                      </View>
+                      <SkeletonPlaceholder
+                        preset="rows"
+                        count={2}
+                        accessibilityLabel={t("search.searchingQuran")}
+                      />
                     ) : null}
 
                     {canSeeAll ? (
@@ -749,6 +814,53 @@ export default function SearchScreen() {
                 );
               })}
 
+              {showLibraryGroup ? (
+                <View key={LIBRARY_SEARCH_CATEGORY} style={styles.group}>
+                  <View style={styles.groupHeader}>
+                    <IconWell
+                      icon={categoryVisual.library.icon}
+                      size={15}
+                      well={30}
+                      tint={categoryVisual.library.tint}
+                      background={categoryVisual.library.soft}
+                    />
+                    <ThemedText type="subtitle" style={styles.groupTitle}>
+                      {t("search.cat.library")}
+                    </ThemedText>
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {t("search.resultsCount", { count: libraryHits.length })}
+                    </ThemedText>
+                  </View>
+                  <View style={styles.rows}>
+                    {(filter === "all" ? libraryHits.slice(0, PREVIEW_LIMIT) : libraryHits).map(
+                      (entry) => (
+                        <NavRow
+                          key={entry.id}
+                          icon={entry.icon}
+                          label={entry.label}
+                          onPress={() => {
+                            remember(query.trim() || entry.label);
+                            router.push(entry.route);
+                          }}
+                        />
+                      ),
+                    )}
+                  </View>
+                  {filter === "all" && libraryHits.length > PREVIEW_LIMIT ? (
+                    <PressableScale
+                      haptic="light"
+                      accessibilityRole="button"
+                      onPress={() => setFilter(LIBRARY_SEARCH_CATEGORY)}
+                      style={[styles.seeAll, tv ? styles.seeAllTv : null]}
+                    >
+                      <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+                        {t("search.seeAllCount", { count: libraryHits.length })}
+                      </ThemedText>
+                    </PressableScale>
+                  ) : null}
+                </View>
+              ) : null}
+
               {ayahLoading &&
               (filter === "all" || filter === "quran") &&
               !visibleGroups.some((g) => g.category === "quran") ? (
@@ -764,13 +876,15 @@ export default function SearchScreen() {
                     <ThemedText type="subtitle" style={styles.groupTitle}>
                       {t("search.cat.quran")}
                     </ThemedText>
-                  </View>
-                  <View style={styles.searchingRow}>
-                    <ActivityIndicator size="small" color={colors.accent} />
                     <ThemedText type="caption" themeColor="mutedForeground">
                       {t("search.searchingQuran")}
                     </ThemedText>
                   </View>
+                  <SkeletonPlaceholder
+                    preset="rows"
+                    count={2}
+                    accessibilityLabel={t("search.searchingQuran")}
+                  />
                 </View>
               ) : null}
             </ResponsiveGrid>
@@ -781,6 +895,11 @@ export default function SearchScreen() {
               icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
               title={t("search.noResultsTitle")}
               description={t("search.noResultsDesc")}
+              actionLabel={t("search.findAnAyah")}
+              onAction={() => router.push("/quran/search")}
+              actionPreferredFocus={tv}
+              secondaryActionLabel={t("search.browseLibrary")}
+              onSecondaryAction={() => router.push("/library")}
             />
           ) : null}
         </View>
@@ -813,70 +932,44 @@ export default function SearchScreen() {
           />
         )}
 
-        <View
-          style={[
-            styles.field,
-            tv ? styles.fieldTv : null,
-            {
-              backgroundColor: colors.input,
-              borderWidth: stt.listening ? 1.5 : 1,
-              borderColor: stt.listening ? colors.accent : colors.inputBorder,
-            },
-          ]}
-        >
-          <SymbolView
-            name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            size={18}
-            tintColor={colors.mutedForeground}
-          />
-          <TextInput
-            value={query}
-            onChangeText={setQueryFromInput}
-            ref={inputRef}
-            onSubmitEditing={submitQuery}
-            placeholder={t("search.placeholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("search.placeholder")}
-            autoFocus={!tv}
-            autoCorrect={false}
-            returnKeyType="search"
-            style={[styles.input, tv ? styles.inputTv : null, { color: colors.foreground }]}
-          />
-          {/* TV: the in-app recognizer is phone-only; Android TV uses the system
-              speech prompt instead (Apple TV keyboards have Siri dictation). */}
-          {tv && tvVoice.available ? (
-            <IconButton
-              accessibilityLabel={t("search.stt.dictate")}
-              onPress={() => void tvVoice.start(t("search.stt.dictate"))}
-              disabled={tvVoice.listening}
-              name={{ ios: "mic.fill", android: "mic", web: "mic" }}
-              size={18}
-              tintColor={colors.accent}
-              background={tokens.accentSoft}
-            />
-          ) : null}
-          {stt.available && !tv ? (
-            <VoiceInputButton
-              size="sm"
-              listening={stt.listening}
-              level={stt.level}
-              accessibilityLabel={
-                stt.listening ? t("search.stt.stopDictate") : t("search.stt.dictate")
-              }
-              accessibilityHint={stt.listening ? t("search.stt.listening") : undefined}
-              onPress={toggleVoiceSearch}
-            />
-          ) : null}
-          {query.length > 0 ? (
-            <IconButton
-              accessibilityLabel={t("search.clear")}
-              onPress={() => setQueryFromInput("")}
-              name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
-              size={18}
-              tintColor={colors.mutedForeground}
-            />
-          ) : null}
-        </View>
+        <SearchField
+          ref={inputRef}
+          value={query}
+          onChangeText={setQueryFromInput}
+          onSubmit={submitQuery}
+          placeholder={t("search.placeholder")}
+          autoFocus={!tv}
+          style={styles.field}
+          trailing={
+            <>
+              {/* TV: the in-app recognizer is phone-only; Android TV uses the system
+                speech prompt instead (Apple TV keyboards have Siri dictation). */}
+              {tv && tvVoice.available ? (
+                <IconButton
+                  accessibilityLabel={t("search.stt.dictate")}
+                  onPress={() => void tvVoice.start(t("search.stt.dictate"))}
+                  disabled={tvVoice.listening}
+                  name={{ ios: "mic.fill", android: "mic", web: "mic" }}
+                  size={18}
+                  tintColor={colors.accent}
+                  background={tokens.accentSoft}
+                />
+              ) : null}
+              {stt.available && !tv ? (
+                <VoiceInputButton
+                  size="sm"
+                  listening={stt.listening}
+                  level={stt.level}
+                  accessibilityLabel={
+                    stt.listening ? t("search.stt.stopDictate") : t("search.stt.dictate")
+                  }
+                  accessibilityHint={stt.listening ? t("search.stt.listening") : undefined}
+                  onPress={toggleVoiceSearch}
+                />
+              ) : null}
+            </>
+          }
+        />
       </View>
 
       {/* Filter chips — horizontal strip on phones / TV; side list on wide screens. */}
@@ -914,15 +1007,7 @@ export default function SearchScreen() {
 
 function SearchLoading() {
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
-  return (
-    <View style={styles.loading}>
-      <ActivityIndicator size="small" color={colors.accent} />
-      <ThemedText type="small" themeColor="mutedForeground">
-        {t("search.searching")}
-      </ThemedText>
-    </View>
-  );
+  return <SkeletonPlaceholder preset="rows" count={5} accessibilityLabel={t("search.searching")} />;
 }
 
 function ResultRow({
@@ -999,7 +1084,7 @@ function ResultRow({
                 type="caption"
                 themeColor={badgeCompleted ? undefined : "mutedForeground"}
                 numberOfLines={1}
-                style={badgeCompleted ? { color: tokens.status.success.color } : undefined}
+                style={badgeCompleted ? { color: tokens.status.success.onSoft } : undefined}
               >
                 {badgeLabel}
               </ThemedText>
@@ -1009,6 +1094,7 @@ function ResultRow({
         {result.arabic ? (
           <ThemedText
             type="arabic"
+            accessibilityLanguage="ar"
             themeColor="mutedForeground"
             numberOfLines={1}
             style={styles.rowArabic}
@@ -1208,7 +1294,7 @@ function Highlight({
       {segments.map((part, i) =>
         part.match ? (
           // biome-ignore lint/suspicious/noArrayIndexKey: static split, index is stable
-          <ThemedText key={i} style={{ color: colors.accentText, fontWeight: "700" }}>
+          <ThemedText weight="bold" key={i} style={{ color: colors.accentText }}>
             {part.text}
           </ThemedText>
         ) : (
@@ -1239,23 +1325,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  field: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    minHeight: 44,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    overflow: "visible",
-  },
-  fieldTv: {
-    minHeight: TvLayout.minFocusTarget,
-    paddingHorizontal: Spacing.four,
-  },
-  input: { flex: 1, fontSize: 15, paddingVertical: 0 },
-  inputTv: { fontSize: tvDp(TvLayout.bodyFontSize) },
+  field: { flex: 1 },
   filterWrap: { paddingBottom: Spacing.two },
   filterRow: {
     flexDirection: "row",
@@ -1320,7 +1390,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  rowBody: { flex: 1, gap: 2 },
+  rowBody: { flex: 1, gap: Spacing.half },
   rowTitleLine: {
     flexDirection: "row",
     alignItems: "center",
@@ -1364,12 +1434,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     paddingTop: Spacing.six,
   },
-  searchingRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingVertical: Spacing.two,
-  },
   idle: { gap: Spacing.five, paddingTop: Spacing.two },
   idleSection: { gap: Spacing.three },
   idleHeader: {
@@ -1385,15 +1449,15 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
-  reciteShortcutText: { flex: 1, minWidth: 0, gap: 2 },
+  reciteShortcutText: { flex: 1, minWidth: 0, gap: Spacing.half },
   termChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
   },

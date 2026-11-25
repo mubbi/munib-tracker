@@ -1,20 +1,14 @@
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
-import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnDuaTopicAside } from "@/components/learn-dua/learn-dua-aside";
+import { LearnProgressSummary } from "@/components/learn-guide/learn-hub-screen";
 import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
-import { ProgressBar } from "@/components/ui/progress-bar";
-import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import {
   ensureLearnDuaContent,
@@ -29,6 +23,11 @@ import {
   useLearnDuaCompletedCount,
 } from "@/stores/learn-dua-progress-store";
 
+/**
+ * Lesson progress for the module. The summary is the same `LearnProgressSummary`
+ * the hub shows as its progress row (P5-40, G-37); reassurance copy uses the
+ * neutral tone (G-38). The old "Explore" links repeated the hub and are gone.
+ */
 export default function LearnDuaProgressScreen() {
   const router = useRouter();
   const { maxContentWidth } = useLearnWideLayout();
@@ -36,10 +35,8 @@ export default function LearnDuaProgressScreen() {
   useEnsureLearnDuaProgressLoaded();
   const completedCount = useLearnDuaCompletedCount();
 
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(
-    ensureLearnDuaContent,
-    isLearnDuaContentReady,
-  );
+  const content = useEnsureContent(ensureLearnDuaContent, isLearnDuaContentReady);
+  const contentVersion = content.version;
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
@@ -52,7 +49,6 @@ export default function LearnDuaProgressScreen() {
 
   return (
     <ScreenLayout
-      readingProgress
       reportKind="learn_dua"
       eyebrow={t("learnDua.eyebrow")}
       title={t("learnDua.progressTitle")}
@@ -61,65 +57,16 @@ export default function LearnDuaProgressScreen() {
       maxContentWidth={maxContentWidth}
     >
       <Seo path="/learn-dua/progress" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={content.ready} error={content.error} onRetry={content.retry}>
         <LearnSplitLayout aside={<LearnDuaTopicAside />}>
           <Stagger>
-            <JannahCallout tone="warning">{t("learnDua.progressIntro")}</JannahCallout>
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("learnDua.lessonsTitle")}
-                icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-                {t("learnDua.lessonsHint")}
-              </ThemedText>
-              <View style={styles.lessonRow}>
-                <ThemedText type="title">
-                  {t("learnDua.lessonsCount", {
-                    completed: snapshot.lessonsCompleted,
-                    total: snapshot.lessonsTotal,
-                  })}
-                </ThemedText>
-                <ProgressBar value={snapshot.lessonProgress} />
-              </View>
-            </Card>
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("learnDua.exploreTitle")}
-                icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-                {t("learnDua.progressExploreHint")}
-              </ThemedText>
-              <ContentLinkList
-                style={styles.links}
-                links={[
-                  {
-                    label: t("learnDua.morningEveningTitle"),
-                    onPress: () =>
-                      router.push({
-                        pathname: "/learn-dua/[topic]",
-                        params: { topic: "morning-evening" },
-                      }),
-                  },
-                  {
-                    label: t("learnDua.duaEtiquetteTitle"),
-                    onPress: () =>
-                      router.push({
-                        pathname: "/learn-dua/[topic]",
-                        params: { topic: "dua-etiquette" },
-                      }),
-                  },
-                  {
-                    label: t("learnDua.occasionsTitle"),
-                    onPress: () => router.push("/learn-dua/occasions" as Href),
-                  },
-                ]}
-              />
-            </Card>
-
+            <JannahCallout tone="info">{t("learnDua.progressIntro")}</JannahCallout>
+            <LearnProgressSummary
+              title={t("learnDua.lessonsTitle")}
+              completed={snapshot.lessonsCompleted}
+              total={snapshot.lessonsTotal}
+              hint={t("learnDua.lessonsHint")}
+            />
             <JannahDisclaimer textKey="learnDua.disclaimer" />
           </Stagger>
         </LearnSplitLayout>
@@ -127,12 +74,6 @@ export default function LearnDuaProgressScreen() {
     </ScreenLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  hint: { marginTop: Spacing.one, lineHeight: 20 },
-  lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
-  links: { marginTop: Spacing.three },
-});
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
 export const generateMetadata = routeMetadata("/learn-dua/progress");

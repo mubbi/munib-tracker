@@ -15,7 +15,7 @@ import { SearchField } from "@/components/ui/search-field";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useNow } from "@/hooks/use-now";
 import { DUA_CORPUS } from "@/lib/content-loaders";
@@ -51,7 +51,7 @@ export default function DuaHomeScreen() {
   const tv = isTV();
   const { width } = useWindowDimensions();
   // Wide web / tablets: spotlight + shortcuts side by side, denser tile grid.
-  const wide = !tv && width >= 768;
+  const wide = !tv && width >= Breakpoints.tablet;
   const tileColumns = tv ? 3 : width >= 1200 ? 4 : wide ? 3 : 2;
   const prefs = usePreferences();
   const now = useNow();
@@ -117,7 +117,7 @@ export default function DuaHomeScreen() {
   const savedCard = (
     <NavRow
       key="saved"
-      icon={{ ios: "star.fill", android: "star", web: "star" }}
+      icon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
       label={t("dua.favorites")}
       count={favoriteCount > 0 ? favoriteCount : undefined}
       onPress={() => router.push("/dua/favorites")}

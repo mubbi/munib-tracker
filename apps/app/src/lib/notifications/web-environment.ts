@@ -3,6 +3,7 @@ import {
   getWebPwaTier,
   isIosWebKitBrowserTab,
   isStandalonePwa,
+  type WebPwaInstallMethod,
   type WebPwaTier,
 } from "@/lib/notifications/browser-capabilities";
 import { isWeb } from "@/lib/notifications/platform";
@@ -56,6 +57,8 @@ export type WebNotificationGuidance = {
   isIos: boolean;
   isInstalledPwa: boolean;
   needsSafariForInstall: boolean;
+  /** How this browser installs the PWA (iOS steps differ for Safari vs Chrome/Edge/Firefox). */
+  installMethod?: WebPwaInstallMethod;
   blockingReason: NotificationFailureReason | null;
 };
 
@@ -66,6 +69,7 @@ export function getWebNotificationGuidance(): WebNotificationGuidance {
     isIos: matrix?.isIosWebKit ?? false,
     isInstalledPwa: matrix?.isInstalledPwa ?? isStandalonePwa(),
     needsSafariForInstall: matrix?.needsSafariForInstall ?? false,
+    installMethod: matrix?.installMethod ?? "none",
     blockingReason: getWebNotificationBlockingReason(),
   };
 }

@@ -25,6 +25,17 @@ import { renderWithTheme } from "@/test-support/render";
  * really shows up as a `<MadhhabNote>`. Notes are stubbed to a marker and
  * collapsible sections are rendered open so the check doesn't depend on taps.
  */
+// G-74: the guide disclaimer carries the shared "Report a problem" link; the sheet provider is app-level.
+jest.mock("@/components/content-report/content-report-footer-link", () => {
+  const { Text: MockText } = require("react-native");
+  return {
+    ContentReportFooterLink: ({
+      contentRef,
+    }: {
+      contentRef: { kind: string; contentId: string };
+    }) => <MockText>{`report:${contentRef.kind}:${contentRef.contentId}`}</MockText>,
+  };
+});
 jest.mock("@/components/fiqh/madhhab-note", () => {
   const { Text } = require("react-native");
   return {

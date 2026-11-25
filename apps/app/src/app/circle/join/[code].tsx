@@ -10,12 +10,14 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { CircleAccountGate } from "@/components/circles/account-gate";
+import { CircleCodeEntry } from "@/components/circles/code-entry";
 import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
 import { ScreenLayout } from "@/components/screen-layout";
 import { TextField } from "@/components/self-review/text-field";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
 import { Spacing } from "@/constants/theme";
 import { circleErrorStatus, joinCircle } from "@/lib/circles/api";
@@ -26,8 +28,13 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
 
+/** The invite doesn't exist (404) or is no longer usable (410). */
+function isGone(status: number): boolean {
+  return status === 404 || status === 410;
+}
+
 function errorKey(status: number): string {
-  if (status === 404 || status === 410) return "circles.join.invalid";
+  if (isGone(status)) return "circles.join.invalid";
   if (status === 429) return "circles.join.rateLimited";
   if (status === 409) return "circles.join.full";
   if (status === 403) return "circles.join.forbidden";
@@ -81,11 +88,17 @@ export default function CircleJoinScreen() {
     >
       <Seo path="/circle/join" index={false} />
       <View style={styles.stack}>
-        {!valid ? (
-          <Card padding="three">
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("circles.join.badCode")}
-            </ThemedText>
+        {!valid || (preview.isError && isGone(circleErrorStatus(preview.error))) ? (
+          // A bad, expired or used code is not a dead end: say so and offer the code field.
+          <Card style={styles.gap}>
+            <Callout tone="warning">
+              {t(valid ? "circles.join.invalid" : "circles.join.badCode")}
+            </Callout>
+            <CircleCodeEntry
+              onSubmit={(next) =>
+                router.replace({ pathname: "/circle/join/[code]", params: { code: next } })
+              }
+            />
           </Card>
         ) : !isReady || preview.isLoading ? (
           <CircleLoading />
@@ -95,7 +108,7 @@ export default function CircleJoinScreen() {
             onRetry={() => void preview.refetch()}
           />
         ) : (
-          <Card padding="three" style={styles.gap}>
+          <Card style={styles.gap}>
             <ThemedText type="caption" themeColor="mutedForeground">
               {t(`circles.type.${data.circleType}`)}
             </ThemedText>
@@ -123,8 +136,9 @@ export default function CircleJoinScreen() {
                   maxLength={CIRCLE_LIMITS.displayNameMaxLength}
                 />
                 <Button
-                  label={join.isPending ? t("circles.common.working") : t("circles.join.confirm")}
-                  disabled={join.isPending || !auth.hasSession}
+                  label={t("circles.join.confirm")}
+                  loading={join.isPending}
+                  disabled={!auth.hasSession}
                   onPress={() => void onJoin()}
                 />
               </>

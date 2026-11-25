@@ -58,7 +58,7 @@ describe("RamadanMakeUpOffer", () => {
     );
     expect(mockSetRoza).not.toHaveBeenCalled();
 
-    await fireEvent.press(screen.getByRole("button", { name: "Add 3 to fasting qaza" }));
+    await fireEvent.press(screen.getByRole("button", { name: "Add 3 to fasting Qaza" }));
     await waitFor(() =>
       expect(mockSetRoza).toHaveBeenCalledWith({
         remaining: 5,
@@ -68,10 +68,10 @@ describe("RamadanMakeUpOffer", () => {
     );
     expect(QazaRepository.getRoza).toHaveBeenCalled();
     expect(toursStore.getState().seen).toContain(rozaOfferSeenId(1447, 3));
-    expect(screen.getByText("Added to your fasting qaza.")).toBeTruthy();
+    expect(screen.getByText("Added to your fasting Qaza.")).toBeTruthy();
   });
 
-  it("dismissing records the answer without touching qaza", async () => {
+  it("dismissing records the answer without touching Qaza", async () => {
     await renderOffer({ "2026-02-18": "exempt" });
     await fireEvent.press(screen.getByRole("button", { name: "No thanks" }));
     await waitFor(() => expect(toursStore.getState().seen).toContain(rozaOfferSeenId(1447, 1)));

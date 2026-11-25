@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -78,7 +78,7 @@ function PagerButton({
     >
       {isNext ? null : <SymbolView name={backward} size={14} tintColor={colors.accentText} />}
       <View style={[styles.buttonText, isNext && styles.buttonTextNext]}>
-        <ThemedText type="caption" style={[styles.buttonLabel, { color: colors.accentText }]}>
+        <ThemedText type="caption" weight="bold" style={{ color: colors.accentText }}>
           {label}
         </ThemedText>
         <ThemedText
@@ -111,11 +111,10 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   buttonTv: { minHeight: TvLayout.minFocusTarget, paddingHorizontal: Spacing.four },
   buttonNext: { justifyContent: "flex-end" },
   buttonText: { flex: 1, minWidth: 0, gap: 1 },
   buttonTextNext: { alignItems: "flex-end" },
-  buttonLabel: { fontWeight: "700" },
 });

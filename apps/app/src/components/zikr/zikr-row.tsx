@@ -8,7 +8,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -18,7 +18,7 @@ import { zikrTarget } from "@/lib/zikr-count-key";
 const CHEVRON_SIZE = 14;
 const FAVORITE_SIZE = 18;
 const FAVORITE_HIT = 44;
-const ROW_GAP = Spacing.two + 2;
+const ROW_GAP = Spacing.twoHalf;
 
 type ZikrRowProps = {
   item: ZikrItem;
@@ -28,6 +28,8 @@ type ZikrRowProps = {
   /** Stable id-taking handlers so memoized rows keep their prop identity. */
   onPress: (id: string) => void;
   onToggleFavorite?: (id: string) => void;
+  /** Opens the zikr detail (info icon); the row itself opens the guided session. */
+  onInfo?: (id: string) => void;
   /** Optional category pill shown in cross-category search results. */
   categoryLabel?: string;
   /** Today's completion for the active prayer scope. */
@@ -48,6 +50,7 @@ export const ZikrRow = memo(function ZikrRow({
   isFavorite,
   onPress,
   onToggleFavorite,
+  onInfo,
   categoryLabel,
   completed,
   progressLabel,
@@ -65,6 +68,10 @@ export const ZikrRow = memo(function ZikrRow({
     () => onToggleFavorite?.(item.id),
     [item.id, onToggleFavorite],
   );
+
+  const handleInfo = useCallback(() => onInfo?.(item.id), [item.id, onInfo]);
+  // Phone / web: trailing controls overlay the row (one 44pt slot each, end-most first).
+  const trailing = tv ? 0 : (onToggleFavorite ? 1 : 0) + (onInfo ? 1 : 0);
 
   const target = targetOverride ?? zikrTarget(item);
   const statusLabel = completed
@@ -160,27 +167,45 @@ export const ZikrRow = memo(function ZikrRow({
           ) : null}
         </View>
 
-        {onToggleFavorite && !tv ? <View style={styles.favoriteSlot} /> : null}
+        {trailing > 0 ? <View style={{ width: trailing * FAVORITE_HIT }} /> : null}
 
         <SymbolView name={chevronForward} size={CHEVRON_SIZE} tintColor={colors.mutedForeground} />
       </PressableScale>
+
+      {onInfo ? (
+        <IconButton
+          name={{ ios: "info.circle", android: "info", web: "info" }}
+          size={FAVORITE_SIZE}
+          tintColor={colors.mutedForeground}
+          accessibilityLabel={`${t("zikrSession.details")}: ${item.title}`}
+          haptic="selection"
+          onPress={handleInfo}
+          hitTarget={tv ? TvLayout.minFocusTargetDp : FAVORITE_HIT}
+          background={tv ? colors.muted : undefined}
+          style={tv ? undefined : [styles.trailingButton, styles.infoButton]}
+        />
+      ) : null}
 
       {onToggleFavorite ? (
         <IconButton
           name={
             isFavorite
-              ? { ios: "star.fill", android: "star", web: "star" }
-              : { ios: "star", android: "star_border", web: "star_border" }
+              ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+              : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
           }
           size={FAVORITE_SIZE}
-          tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+          tintColor={isFavorite ? colors.accent : colors.mutedForeground}
           accessibilityLabel={isFavorite ? t("zikr.removeFavorite") : t("zikr.favorite")}
           accessibilityState={{ selected: isFavorite }}
           haptic="selection"
           onPress={handleToggleFavorite}
           hitTarget={tv ? TvLayout.minFocusTargetDp : FAVORITE_HIT}
           background={tv ? colors.muted : undefined}
-          style={tv ? undefined : styles.favoriteButton}
+          style={
+            tv
+              ? undefined
+              : [styles.trailingButton, onInfo ? styles.favoriteWithInfo : styles.infoButton]
+          }
         />
       ) : null}
     </View>
@@ -205,7 +230,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   // Horizontal padding stays put — the favorite button's absolute `end` offset
   // below is computed against it. Only height/vertical padding grow for TV.
@@ -219,7 +244,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     minWidth: 0,
-    gap: 2,
+    gap: Spacing.half,
   },
   badges: {
     flexDirection: "row",
@@ -231,18 +256,14 @@ const styles = StyleSheet.create({
   badge: {
     alignSelf: "flex-start",
   },
-  favoriteSlot: {
-    width: FAVORITE_SIZE,
-    height: FAVORITE_SIZE,
-  },
-  favoriteButton: {
+  trailingButton: {
     position: "absolute",
     // Center over the row: PressableScale keeps the glyph on an inner view that
     // does not stretch when top/bottom are set, so pin to mid-height instead.
     top: "50%",
     marginTop: -(FAVORITE_HIT / 2),
-    // Center the 44pt target over the reserved slot (slot sits just start-ward of the
-    // chevron): slot end edge + half the slot, minus half the tap target.
-    end: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_SIZE / 2 - FAVORITE_HIT / 2,
   },
+  // The end-most 44pt slot sits just start-ward of the chevron; a second one stacks beside it.
+  infoButton: { end: Spacing.three + CHEVRON_SIZE + ROW_GAP },
+  favoriteWithInfo: { end: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_HIT },
 });

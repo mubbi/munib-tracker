@@ -6,13 +6,12 @@ import { type ScrollViewInstance, StyleSheet } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Control, Spacing, withAlpha } from "@/constants/theme";
 import { useScrollToActiveHorizontal } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
-const STEP = 36;
-/** Pads each 36pt stop to a 44pt touch target without widening the strip. */
-const STEP_HIT = { top: 4, bottom: 4, left: 2, right: 2 };
+/** Each stop is a full 44pt touch target. */
+const STEP = Control.md;
 
 export type AdhkarStep = {
   id: string;
@@ -87,7 +86,6 @@ export function AdhkarStepStrip({
             accessibilityRole="button"
             accessibilityState={{ selected: active }}
             accessibilityLabel={`${index + 1}. ${step.title}, ${status}`}
-            hitSlop={STEP_HIT}
             style={[
               styles.step,
               {
@@ -104,7 +102,7 @@ export function AdhkarStepStrip({
                 tintColor={fg}
               />
             ) : (
-              <ThemedText type="caption" style={[styles.label, { color: fg }]}>
+              <ThemedText weight="bold" type="caption" style={[styles.label, { color: fg }]}>
                 {index + 1}
               </ThemedText>
             )}
@@ -117,14 +115,14 @@ export function AdhkarStepStrip({
 
 const styles = StyleSheet.create({
   scroller: { flexGrow: 0 },
-  row: { gap: Spacing.one + 2, paddingVertical: 2, paddingEnd: Spacing.one },
+  row: { gap: Spacing.oneHalf, paddingVertical: Spacing.half, paddingEnd: Spacing.one },
   step: {
     width: STEP,
     height: STEP,
     borderRadius: STEP / 2,
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
     alignItems: "center",
     justifyContent: "center",
   },
-  label: { fontWeight: "700", fontVariant: ["tabular-nums"] },
+  label: { fontVariant: ["tabular-nums"] },
 });

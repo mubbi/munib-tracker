@@ -3,25 +3,32 @@ import type { PrayerCombineMode, PrayerId, PrayerStatus } from "@munib-tracker/s
 import { isObligatoryPrayer, isQazaPrayer, isWitrPrayer } from "@munib-tracker/shared/validators";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useEffect, useState } from "react";
+import { type RefObject, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { PrayerCombinePicker } from "@/components/prayer-combine-picker";
+import { PrayerInfoButton } from "@/components/prayer-info-button";
 import { PrayerNotesModal } from "@/components/prayer-notes-modal";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
+import { NavRow } from "@/components/ui/nav-row";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { SwitchRow } from "@/components/ui/switch-row";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
+import { BorderWidth, Control, IconSize, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useWitrQaza } from "@/hooks/use-rawatib";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { UndoToastController } from "@/hooks/use-undo-toast";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 import { useHomeMasjid } from "@/lib/masjid/home-masjid";
 import { isTV } from "@/lib/platform/is-tv";
 import type { PrayerCombined } from "@/lib/prayer-combining";
+import type { PrayerInfoId } from "@/lib/prayer-info";
 import {
   PRAYER_MASJID_ICON,
   PRAYER_STATUS_META,
@@ -70,8 +77,23 @@ type PrayerStatusSheetProps = {
   onSelect: (status: PrayerStatus, options?: PrayerStatusSelectionOptions) => void;
   onSaveNotes: (notes: string) => void;
   onClose: () => void;
+  /** The control that opened the sheet — focus returns to it on close. */
+  returnFocusRef?: RefObject<{ focus?: () => void } | null>;
+  /**
+   * The caller's Missed / Qaza undo (`useUndoToast`). TV toasts take no focus,
+   * so the sheet shows its Undo in the sheet while the window is open (B-04);
+   * phone / web reach it from the toast, which the open sheet hosts (B-01).
+   */
+  undo?: Pick<UndoToastController, "undoAvailable" | "undo">;
 };
 
+/**
+ * Status sheet for one Salah (P5-03). Choosing a status records it and keeps
+ * the sheet open so congregation / masjid / combine / notes can follow; **Done**
+ * closes it. Statuses are a radio group; "Clear status" resets to not marked.
+ * Undo for Missed / Qaza is offered by the caller's toast (`usePrayerStatusController`),
+ * drawn above this sheet while it is open (and in the sheet on TV — `undo`).
+ */
 export function PrayerStatusSheet({
   visible,
   prayerId,
@@ -87,6 +109,8 @@ export function PrayerStatusSheet({
   onSelect,
   onSaveNotes,
   onClose,
+  returnFocusRef,
+  undo,
 }: PrayerStatusSheetProps) {
   const homeMasjid = useHomeMasjid();
   const { colors, tokens } = useThemeTokens();
@@ -102,6 +126,7 @@ export function PrayerStatusSheet({
   // TV: open on the current status, or on "completed" when still pending, so
   // Select → Select marks the prayer prayed without hunting for the option.
   const preferredStatus = statusOptions.includes(currentStatus) ? currentStatus : statusOptions[0];
+  const obligatory = isObligatoryPrayer(prayerId);
 
   useEffect(() => {
     if (!visible) {
@@ -117,47 +142,68 @@ export function PrayerStatusSheet({
     }
     setPendingStatus(null);
     setQazaPromptOpen(false);
-    onClose();
   };
 
   const handleStatusPress = (status: PrayerStatus) => {
-    const active = currentStatus === status;
-    const next = active ? "pending" : status;
-    triggerHaptic(outcomeHaptic(next));
+    // A radio never un-checks itself — "Clear status" is the explicit reset.
+    if (currentStatus === status) return;
+    triggerHaptic(outcomeHaptic(status));
 
     // Witr qaza accrual follows the school default (on only for Hanafi) or the
     // user's explicit choice (§4.1.4 retrofit); with it off, Witr is just marked.
     const offersQaza = isQazaPrayer(prayerId) && (!isWitrPrayer(prayerId) || witrQaza.enabled);
-    if ((status === "missed" || status === "qaza") && !active && offersQaza) {
+    const fromDebt = currentStatus === "missed" || currentStatus === "qaza";
+    if ((status === "missed" || status === "qaza") && !fromDebt && offersQaza) {
       setPendingStatus(status);
       setQazaPromptOpen(true);
       return;
     }
 
-    onSelect(next);
-    onClose();
+    onSelect(status);
+  };
+
+  const clearStatus = () => {
+    triggerHaptic(outcomeHaptic("pending"));
+    onSelect("pending");
   };
 
   return (
     <>
-      <Sheet visible={visible && !qazaPromptOpen && !notesOpen} onClose={onClose} variant="bottom">
-        <ThemedText type="subtitle">{prayerLabel}</ThemedText>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("statusSheet.prompt")}
-        </ThemedText>
+      <Sheet
+        visible={visible && !qazaPromptOpen && !notesOpen}
+        onClose={onClose}
+        variant="bottom"
+        title={prayerLabel}
+        returnFocusRef={returnFocusRef}
+      >
+        <View style={styles.promptRow}>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.prompt}>
+            {t("statusSheet.prompt")}
+          </ThemedText>
+          {PRAYER_STATUS_INFO_IDS[prayerId] ? (
+            <PrayerInfoButton prayerId={prayerId as PrayerInfoId} />
+          ) : null}
+        </View>
 
-        <View style={styles.options}>
+        <View
+          accessibilityRole="radiogroup"
+          accessibilityLabel={t("statusSheet.statusGroupA11y", { prayer: prayerLabel })}
+          style={styles.options}
+        >
           {statusOptions.map((status) => {
             const meta = PRAYER_STATUS_META[status];
             const active = currentStatus === status;
             const toneColor = statusToneColor(meta.tone, colors, tokens);
+            const toneText =
+              meta.tone === "muted" ? colors.foreground : tokens.status[meta.tone].onSoft;
             return (
               <PressableScale
                 key={status}
                 haptic={false}
-                accessibilityRole="button"
+                accessibilityRole="radio"
                 accessibilityLabel={t(`prayerStatus.${status}`)}
-                accessibilityState={{ selected: active }}
+                accessibilityState={{ checked: active }}
+                aria-checked={active}
                 onPress={() => handleStatusPress(status)}
                 {...(tv && status === preferredStatus ? { hasTVPreferredFocus: true } : {})}
                 style={[
@@ -172,168 +218,99 @@ export function PrayerStatusSheet({
                   },
                 ]}
               >
-                <SymbolView name={meta.icon} size={22} tintColor={toneColor} />
-                <ThemedText type="smallBold" style={{ color: toneColor }}>
+                <SymbolView name={meta.icon} size={IconSize.lg} tintColor={toneColor} />
+                <ThemedText type="smallBold" style={[styles.optionLabel, { color: toneText }]}>
                   {t(`prayerStatus.${status}`)}
                 </ThemedText>
+                {active ? (
+                  <SymbolView
+                    name={{ ios: "checkmark", android: "check", web: "check" }}
+                    size={IconSize.md}
+                    tintColor={toneText}
+                  />
+                ) : null}
               </PressableScale>
             );
           })}
         </View>
 
-        {onToggleJama && isObligatoryPrayer(prayerId) ? (
-          <PressableScale
-            haptic="selection"
-            accessibilityRole="switch"
-            accessibilityLabel={t("statusSheet.jama")}
-            accessibilityState={{ checked: !!isJama }}
-            onPress={() => onToggleJama(!isJama)}
-            style={[
-              styles.jamaRow,
-              tv ? styles.optionTv : null,
-              {
-                backgroundColor: isJama ? tokens.status.success.soft : colors.muted,
-                borderColor: isJama
-                  ? tv
-                    ? tokens.hairline
-                    : tokens.status.success.color
-                  : "transparent",
-              },
-            ]}
-          >
-            <SymbolView
-              name={
-                isJama
-                  ? { ios: "person.3.fill", android: "groups", web: "groups" }
-                  : { ios: "person.3", android: "groups", web: "groups" }
+        {currentStatus !== "pending" ? (
+          <Button
+            variant="ghost"
+            size="md"
+            icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
+            label={t("statusSheet.clearStatus")}
+            onPress={clearStatus}
+            style={styles.clear}
+          />
+        ) : null}
+        {undo ? <TvUndoButton controller={undo} size="md" style={styles.clear} /> : null}
+
+        <View style={styles.toggles}>
+          {onToggleJama && obligatory ? (
+            <SwitchRow
+              surface="filled"
+              icon={{ ios: "person.3", android: "groups", web: "groups" }}
+              title={t("statusSheet.jama")}
+              value={!!isJama}
+              onValueChange={(next) => onToggleJama(next)}
+            />
+          ) : null}
+
+          {onToggleAtMasjid && obligatory && (homeMasjid || atMasjid) ? (
+            <SwitchRow
+              surface="filled"
+              icon={PRAYER_MASJID_ICON}
+              title={t("masjidLog.toggle")}
+              subtitle={homeMasjid?.name ?? undefined}
+              value={!!atMasjid}
+              onValueChange={() =>
+                onToggleAtMasjid(atMasjid || !homeMasjid ? null : masjidKey(homeMasjid))
               }
-              size={20}
-              tintColor={isJama ? tokens.status.success.color : colors.mutedForeground}
             />
-            <ThemedText
-              type="small"
-              style={{ color: isJama ? tokens.status.success.color : colors.foreground }}
-            >
-              {t("statusSheet.jama")}
-            </ThemedText>
-            {isJama ? (
-              <SymbolView
-                name={{ ios: "checkmark", android: "check", web: "check" }}
-                size={16}
-                tintColor={tokens.status.success.color}
-              />
-            ) : null}
-          </PressableScale>
-        ) : null}
+          ) : null}
 
-        {onToggleAtMasjid && isObligatoryPrayer(prayerId) && (homeMasjid || atMasjid) ? (
-          <PressableScale
-            haptic="selection"
-            accessibilityRole="switch"
-            accessibilityLabel={t("masjidLog.toggle")}
-            accessibilityHint={homeMasjid?.name ?? undefined}
-            accessibilityState={{ checked: !!atMasjid }}
-            onPress={() => onToggleAtMasjid(atMasjid || !homeMasjid ? null : masjidKey(homeMasjid))}
-            style={[
-              styles.jamaRow,
-              tv ? styles.optionTv : null,
-              {
-                backgroundColor: atMasjid ? tokens.status.success.soft : colors.muted,
-                borderColor: atMasjid
-                  ? tv
-                    ? tokens.hairline
-                    : tokens.status.success.color
-                  : "transparent",
-              },
-            ]}
-          >
-            <SymbolView
-              name={PRAYER_MASJID_ICON}
-              size={20}
-              tintColor={atMasjid ? tokens.status.success.color : colors.mutedForeground}
+          {onSetCombined && obligatory ? (
+            <PrayerCombinePicker
+              prayerId={prayerId}
+              combined={combined ?? null}
+              onChange={onSetCombined}
             />
-            <ThemedText
-              type="small"
-              style={{ flex: 1, color: atMasjid ? tokens.status.success.color : colors.foreground }}
-            >
-              {t("masjidLog.toggle")}
-            </ThemedText>
-            {atMasjid ? (
-              <SymbolView
-                name={{ ios: "checkmark", android: "check", web: "check" }}
-                size={16}
-                tintColor={tokens.status.success.color}
-              />
-            ) : null}
-          </PressableScale>
-        ) : null}
+          ) : null}
+        </View>
 
-        {onSetCombined && isObligatoryPrayer(prayerId) ? (
-          <PrayerCombinePicker
-            prayerId={prayerId}
-            combined={combined ?? null}
-            onChange={onSetCombined}
+        <View style={styles.links}>
+          <NavRow
+            icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
+            label={currentNotes ? t("statusSheet.editNote") : t("statusSheet.addNote")}
+            subtitle={currentNotes ? `“${currentNotes}”` : undefined}
+            onPress={() => setNotesOpen(true)}
           />
-        ) : null}
 
-        <PressableScale
-          haptic="light"
-          accessibilityRole="button"
-          onPress={() => setNotesOpen(true)}
-          style={[
-            styles.notesRow,
-            tv ? styles.rowTv : null,
-            { backgroundColor: colors.muted, borderColor: colors.border },
-          ]}
-        >
-          <SymbolView
-            name={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
-            size={18}
-            tintColor={colors.accent}
-          />
-          <ThemedText type="small" style={{ color: colors.accent }}>
-            {currentNotes ? t("statusSheet.editNote") : t("statusSheet.addNote")}
-          </ThemedText>
-        </PressableScale>
-
-        {currentNotes ? (
-          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
-            “{currentNotes}”
-          </ThemedText>
-        ) : null}
-
-        {isObligatoryPrayer(prayerId) ? (
-          <PressableScale
-            haptic="light"
-            accessibilityRole="button"
-            onPress={() => {
-              router.push(afterSalahAdhkarRoute(prayerId));
-              onClose();
-            }}
-            style={[
-              styles.adhkarRow,
-              tv ? styles.rowTv : null,
-              {
-                backgroundColor: colors.muted,
-                borderColor: withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.3),
-                borderWidth: StyleSheet.hairlineWidth,
-              },
-            ]}
-          >
-            <SymbolView
-              name={{
+          {obligatory ? (
+            <NavRow
+              icon={{
                 ios: "hands.and.sparkles.fill",
                 android: "volunteer_activism",
                 web: "volunteer_activism",
               }}
-              size={18}
-              tintColor={colors.accent}
+              label={t("statusSheet.afterSalahAdhkar")}
+              onPress={() => {
+                router.push(afterSalahAdhkarRoute(prayerId));
+                onClose();
+              }}
             />
-            <ThemedText type="smallBold" style={{ color: colors.accent }}>
-              {t("statusSheet.afterSalahAdhkar")}
-            </ThemedText>
-          </PressableScale>
-        ) : null}
+          ) : null}
+        </View>
+
+        <Button
+          variant="primary"
+          size="lg"
+          fullWidth
+          label={t("common.done")}
+          onPress={onClose}
+          style={styles.done}
+        />
       </Sheet>
 
       <ConfirmDialog
@@ -361,7 +338,31 @@ export function PrayerStatusSheet({
   );
 }
 
+/** Salah with a prayer-info entry (every tracked id except the rawatib chips). */
+const PRAYER_STATUS_INFO_IDS: Partial<Record<PrayerId, true>> = {
+  fajr: true,
+  dhuhr: true,
+  asr: true,
+  maghrib: true,
+  isha: true,
+  witr: true,
+  tahajjud: true,
+  ishraq: true,
+  duha: true,
+  tahiyyatul_masjid: true,
+  hajat_istikhara: true,
+};
+
 const styles = StyleSheet.create({
+  promptRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  prompt: {
+    flex: 1,
+  },
   options: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -371,6 +372,7 @@ const styles = StyleSheet.create({
   option: {
     flexGrow: 1,
     flexBasis: "47%",
+    minHeight: Control.md,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
@@ -378,47 +380,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
+  },
+  optionLabel: {
+    flex: 1,
   },
   /** TV: hairline at rest so selection never mimics the D-pad focus ring. */
   optionTv: {
     minHeight: TvLayout.minFocusTarget,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
-  rowTv: {
-    minHeight: TvLayout.minFocusTarget,
-  },
-  notesRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+  clear: {
+    alignSelf: "flex-start",
     marginTop: Spacing.two,
   },
-  jamaRow: {
-    flexDirection: "row",
-    alignItems: "center",
+  toggles: {
     gap: Spacing.two,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1.5,
-    marginTop: Spacing.two,
+    marginTop: Spacing.three,
   },
-  adhkarRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+  links: {
     gap: Spacing.two,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    marginTop: Spacing.two,
+    marginTop: Spacing.three,
+  },
+  done: {
+    marginTop: Spacing.four,
   },
 });

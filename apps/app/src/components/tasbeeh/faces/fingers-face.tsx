@@ -5,7 +5,7 @@ import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Svg, { Circle, G, Line, Path, Rect } from "react-native-svg";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle } from "@/lib/chart-rtl";
 import {
@@ -287,6 +287,6 @@ const styles = StyleSheet.create({
   },
   pulse: {
     position: "absolute",
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
   },
 });

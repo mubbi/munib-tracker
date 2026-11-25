@@ -5,7 +5,7 @@ import { WebView } from "react-native-webview";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import {
   buildPdfJsViewerHtml,
   isPdfViewerNavigationAllowed,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     overflow: "hidden",
-    borderRadius: 12,
+    borderRadius: Radius.sm,
   },
   webview: {
     flex: 1,

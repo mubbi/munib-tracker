@@ -81,7 +81,7 @@ export function AsrOfferCard({ offer, currentAsr, onAccept, onDecline }: AsrOffe
   const school = t(`fiqh.school.${offer.school}`);
   const target = asrCalculationLabel(offer.asr, t);
   return (
-    <Card variant="muted" padding="three" style={styles.card}>
+    <Card variant="muted" style={styles.card}>
       <ThemedText type="smallBold" heading={3}>
         {t("fiqhRetrofit.asr.offerTitle", { school })}
       </ThemedText>

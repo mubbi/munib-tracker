@@ -373,7 +373,8 @@ describe("mushaf + page hints", () => {
         showAnnotations
       />,
     );
-    const noted = screen.getByLabelText("1:2, Has my note");
+    // The label carries the ayah's Arabic between the reference and the note (G-01).
+    const noted = screen.getByLabelText(/^1:2, .*, Has my note$/);
     expect(flattenStyle(noted.props.style).textDecorationLine).toBe("underline");
   });
 });

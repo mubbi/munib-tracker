@@ -41,13 +41,21 @@ describe("ZikrRow", () => {
   });
 
   it.each([
-    [false, "Favorite"],
-    [true, "Remove favorite"],
+    [false, "Save"],
+    [true, "Remove from saved"],
   ])("toggles favorite (isFavorite=%s)", async (isFavorite, label) => {
     const onToggleFavorite = jest.fn();
     await renderRow({ isFavorite, onToggleFavorite });
     await fireEvent.press(screen.getByLabelText(label));
     expect(onToggleFavorite).toHaveBeenCalledWith("morning-bismillah");
+  });
+
+  it("opens the detail from the info icon while the row itself opens the session", async () => {
+    const onInfo = jest.fn();
+    const onPress = await renderRow({ onInfo });
+    await fireEvent.press(screen.getByLabelText("Zikr details: Bismillah"));
+    expect(onInfo).toHaveBeenCalledWith("morning-bismillah");
+    expect(onPress).not.toHaveBeenCalled();
   });
 
   describe("on TV", () => {
@@ -56,7 +64,7 @@ describe("ZikrRow", () => {
     it("puts the favorite beside the row", async () => {
       const onToggleFavorite = jest.fn();
       await renderRow({ onToggleFavorite, preferredFocus: true });
-      await fireEvent.press(screen.getByLabelText("Favorite"));
+      await fireEvent.press(screen.getByLabelText("Save"));
       expect(onToggleFavorite).toHaveBeenCalled();
     });
   });

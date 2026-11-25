@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stepper } from "@/components/ui/stepper";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { Spacing } from "@/constants/theme";
 import type { ChildProfile, UpdateChildInput } from "@/lib/circles/api";
 
@@ -35,7 +35,7 @@ export function ChildRewardCard({ child, onSave }: { child: ChildProfile; onSave
   return (
     <>
       <SectionHeader title={t("family.reward.title")} />
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         <ThemedText type="small" themeColor="mutedForeground">
           {t("family.reward.body")}
         </ThemedText>
@@ -90,7 +90,7 @@ export function ChildProfileCard({ child, onSave }: { child: ChildProfile; onSav
   return (
     <>
       <SectionHeader title={t("family.child.profileTitle")} />
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         <TextField
           label={t("family.add.nickname")}
           value={nickname}
@@ -122,20 +122,15 @@ export function ChildGraduationCard({ child, onSave }: { child: ChildProfile; on
   return (
     <>
       <SectionHeader title={t("family.graduation.title")} />
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         <ThemedText type="small" themeColor="mutedForeground">
           {t("family.graduation.body")}
         </ThemedText>
-        <View style={styles.switchRow}>
-          <ThemedText type="small" style={styles.flex}>
-            {t("family.graduation.early")}
-          </ThemedText>
-          <ThemedSwitch
-            value={child.graduationUnlocked}
-            onValueChange={(on) => onSave({ graduationUnlocked: on })}
-            accessibilityLabel={t("family.graduation.early")}
-          />
-        </View>
+        <SwitchRow
+          title={t("family.graduation.early")}
+          value={child.graduationUnlocked}
+          onValueChange={(on) => onSave({ graduationUnlocked: on })}
+        />
       </Card>
     </>
   );
@@ -144,6 +139,4 @@ export function ChildGraduationCard({ child, onSave }: { child: ChildProfile; on
 const styles = StyleSheet.create({
   gap: { gap: Spacing.two },
   row: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
-  switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  flex: { flex: 1 },
 });

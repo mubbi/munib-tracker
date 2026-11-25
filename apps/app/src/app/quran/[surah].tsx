@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { AyahSeparator, ayahKeyExtractor, SurahAyahList } from "@/components/quran/ayah-reader";
+import { BISMILLAH } from "@/components/quran/basmala";
 import { OptionPickerSheet } from "@/components/quran/option-picker-sheet";
 import { PlaybackSettingsSheet } from "@/components/quran/playback-settings-sheet";
 import { QuranNotesSheetHost } from "@/components/quran/quran-notes-sheet-host";
@@ -47,10 +48,11 @@ import { TajweedLegend, TajweedStickyLegendBar } from "@/components/quran/tajwee
 import { QuranWordStudyProviders } from "@/components/quran/word-by-word";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { ThemedText } from "@/components/themed-text";
 import { EmptyState } from "@/components/ui/empty-state";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Breakpoints, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
@@ -130,6 +132,8 @@ export default function SurahReaderScreen() {
   // Subscribe to primitives only — never close list callbacks over the whole
   // context value (it is a new object on duration/buffering ticks).
   const audioIsPlaying = audio.isPlaying;
+  // Same buffering rule as the shared PlayButton (C-12): spinner until loaded.
+  const audioIsBuffering = audio.isBuffering && !audio.isLoaded;
   const currentAudioId = audio.current?.id;
   const audioActiveKey = surahAudioKey(currentAudioId, surahNumber);
   const playingAyahNumber = ayahNumberFromKey(audioActiveKey);
@@ -200,6 +204,8 @@ export default function SurahReaderScreen() {
     tafsirMap,
     tafsirLoading,
     tafsirOffline,
+    retryTranslation,
+    retryTafsir,
   } = useSurahEditions({ surahNumber, hasSurah, prefs, translationLocale, appLocale });
 
   const { tajweedByAyah, wordByWordByAyah, studyExtrasLoading } = useSurahStudyLayers({
@@ -378,9 +384,11 @@ export default function SurahReaderScreen() {
         onPlaySurah={showSideFilters ? undefined : () => playFrom(0)}
         // Recite along with the whole surah rides beside "Play surah" (D68).
         reciteSurah={showSideFilters ? undefined : surahNumber}
+        onRetryTranslation={retryTranslation}
       />
     ),
     [
+      retryTranslation,
       surahNumber,
       playFrom,
       showSideFilters,
@@ -420,9 +428,10 @@ export default function SurahReaderScreen() {
         {surah.bismillahPre ? (
           <ThemedText
             type="arabic"
+            accessibilityLanguage="ar"
             style={[styles.bismillah, arabicReadingLayout(readingSizes.arabic - 2, "center")]}
           >
-            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+            {BISMILLAH}
           </ThemedText>
         ) : null}
       </View>
@@ -460,7 +469,6 @@ export default function SurahReaderScreen() {
       tajweedByAyah,
       bookmarkedSet,
       hifzMap,
-      locale,
       activeShareKey,
       gesturePendingKey,
     }),
@@ -470,7 +478,6 @@ export default function SurahReaderScreen() {
       focusHighlightAyah,
       gesturePendingKey,
       hifzMap,
-      locale,
       showTransliteration,
       showTranslation,
       readingSizes.arabic,
@@ -511,12 +518,10 @@ export default function SurahReaderScreen() {
           ayah={ayah}
           index={index}
           surahNumber={surahNumber}
-          locale={extras.locale}
           arabicSize={extras.arabicSize}
           translitSize={extras.translitSize}
           translationSize={extras.translationSize}
           hifzStatus={extras.hifzMap[hifzKey(surahNumber, ayah.ayah)]}
-          onHifzAyah={requestHifz}
           secondTranslation={
             extras.showTranslation && extras.secondTranslation
               ? extras.secondTranslation[ayahKey]
@@ -533,27 +538,37 @@ export default function SurahReaderScreen() {
           onPlayAtIndex={playOrToggleAyah}
           onBookmarkAyah={handleBookmarkAyah}
           onShareAyah={shareAyah}
-          onOpenTafsir={openTafsirForAyah}
           isSharing={extras.activeShareKey === ayahShareKey}
           isGesturePending={extras.gesturePendingKey === ayahShareKey}
-          onOpenActions={tv || !showSideFilters ? openAyahActions : undefined}
-          compactActions={!tv && !showSideFilters}
+          // Every layout: "More" (TV: Select on the card) opens the ayah action sheet.
+          onOpenActions={openAyahActions}
           tvPreferredFocus={index === tvInitialFocusIndex}
         />
       );
     },
     [
       handleBookmarkAyah,
-      requestHifz,
       openAyahActions,
-      openTafsirForAyah,
       playOrToggleAyah,
       shareAyah,
-      showSideFilters,
       surahNumber,
-      tv,
       tvInitialFocusIndex,
     ],
+  );
+
+  // G-02: phones, narrow web and TV end the surah with previous / next surah
+  // (the list–detail side pane already carries the full navigation card).
+  const listFooter = useMemo(
+    () =>
+      showSideFilters ? null : (
+        <SurahNavCard
+          variant="footer"
+          surahNumber={surahNumber}
+          ayahCount={ayahs.length}
+          onGoToSurah={goToSurah}
+        />
+      ),
+    [ayahs.length, goToSurah, showSideFilters, surahNumber],
   );
 
   const renderItem = useCallback(
@@ -618,7 +633,7 @@ export default function SurahReaderScreen() {
         onBack={() => goBackOrReplace(router, "/")}
         maxContentWidth={
           showSideFilters
-            ? windowWidth >= 1600
+            ? windowWidth >= Breakpoints.xwide
               ? LIST_DETAIL_MAX_WIDTH_XL
               : LIST_DETAIL_MAX_WIDTH
             : undefined
@@ -662,6 +677,7 @@ export default function SurahReaderScreen() {
             wordAudioEnabled={showWordByWord}
             playingAyah={playingAyahNumber}
             audioIsPlaying={audioIsPlaying}
+            audioIsBuffering={audioIsBuffering}
             activeWordIndex={activeWordIndex}
             wordsByAyah={wordByWordByAyah}
             surah={surahNumber}
@@ -679,6 +695,7 @@ export default function SurahReaderScreen() {
                     {renderAyahCard(ayah, index)}
                   </View>
                 ))}
+                {listFooter}
               </View>
             ) : (
               <View style={showSideFilters ? styles.listDetailRoot : styles.readerRoot}>
@@ -690,6 +707,7 @@ export default function SurahReaderScreen() {
                   keyExtractor={ayahKeyExtractor}
                   renderItem={renderItem}
                   ListHeaderComponent={listHeader ?? undefined}
+                  ListFooterComponent={listFooter ?? undefined}
                   ItemSeparatorComponent={AyahSeparator}
                   onScroll={onListScroll}
                   onScrollBeginDrag={markUserMoved}
@@ -754,6 +772,13 @@ export default function SurahReaderScreen() {
         selectedId="ayah"
         onSelect={handleLayoutSelect}
         onClose={() => setLayoutPickerOpen(false)}
+        // G-26: same footer as the page reader's layout picker (§4.5.6 shortcuts).
+        footer={
+          <MoreInSettingsLink
+            settingId="quran.reader.layout"
+            onNavigate={() => setLayoutPickerOpen(false)}
+          />
+        }
       />
       <OptionPickerSheet
         visible={reciterPickerOpen}
@@ -781,6 +806,7 @@ export default function SurahReaderScreen() {
         direction={tafsirEdition?.direction ?? "ltr"}
         loading={tafsirLoading}
         offline={tafsirOffline}
+        onRetry={retryTafsir}
       />
       <PlaybackSettingsSheet
         visible={playbackSheetOpen}
@@ -796,49 +822,47 @@ export default function SurahReaderScreen() {
         onTranslationAudioChange={(mode) => updatePrefs({ translationAudio: mode })}
         onTtsVoiceChange={(voiceId) => void setTtsVoice(ttsLang, voiceId)}
       />
-      {/* TV: Select on an ayah card. Phones / narrow web: the row's "More" button. */}
-      {tv || !showSideFilters ? (
-        <AyahMoreActions
-          ayah={actionAyah}
-          surahNumber={surahNumber}
-          surahName={surah.nameTransliteration}
-          surahNameEnglish={surah.nameEnglish}
-          locale={locale}
-          translation={translation}
-          isBookmarked={actionKey != null && bookmarkedSet.has(actionKey)}
-          isPlaying={actionKey != null && audioIsPlaying && currentAudioId === actionKey}
-          hifzStatus={actionAyah ? hifzMap[hifzKey(surahNumber, actionAyah.ayah)] : undefined}
-          onClose={closeAyahActions}
-          onPlay={() => {
-            if (tvActionIndex == null) return;
-            const index = tvActionIndex;
-            // Close first so the reader sees the follow-along highlight.
-            setTvActionIndex(null);
-            playOrToggleAyah(index);
-          }}
-          onBookmark={(ayahNum) => void toggleBookmark(surahNumber, ayahNum)}
-          onHifz={ayahSheetActions.onHifz}
-          onTafsir={ayahSheetActions.onTafsir}
-          {...(tv
-            ? {}
-            : {
-                isSharing: actionKey != null && activeShareKey === actionKey,
-                isGesturePending: actionKey != null && gesturePendingKey === actionKey,
-                onShare: (target: Ayah) =>
-                  shareAyah(
-                    target.arabic,
-                    showTranslation ? (translation[String(target.ayah)] ?? "") : "",
-                    surahNumber,
-                    target.ayah,
-                    showTransliteration ? transliteration[String(target.ayah)] : undefined,
-                  ),
-                onPractise: ayahSheetActions.onPractise,
-                onCheckRecitation: ayahSheetActions.onCheckRecitation,
-                onNote: ayahSheetActions.onNote,
-                onHighlight: ayahSheetActions.onHighlight,
-              })}
-        />
-      ) : null}
+      {/* TV: Select on an ayah card. Every other layout: the row's "More" button. */}
+      <AyahMoreActions
+        ayah={actionAyah}
+        surahNumber={surahNumber}
+        surahName={surah.nameTransliteration}
+        surahNameEnglish={surah.nameEnglish}
+        locale={locale}
+        translation={translation}
+        isBookmarked={actionKey != null && bookmarkedSet.has(actionKey)}
+        isPlaying={actionKey != null && audioIsPlaying && currentAudioId === actionKey}
+        hifzStatus={actionAyah ? hifzMap[hifzKey(surahNumber, actionAyah.ayah)] : undefined}
+        onClose={closeAyahActions}
+        onPlay={() => {
+          if (tvActionIndex == null) return;
+          const index = tvActionIndex;
+          // Close first so the reader sees the follow-along highlight.
+          setTvActionIndex(null);
+          playOrToggleAyah(index);
+        }}
+        onBookmark={(ayahNum) => void toggleBookmark(surahNumber, ayahNum)}
+        onHifz={ayahSheetActions.onHifz}
+        onTafsir={ayahSheetActions.onTafsir}
+        {...(tv
+          ? {}
+          : {
+              isSharing: actionKey != null && activeShareKey === actionKey,
+              isGesturePending: actionKey != null && gesturePendingKey === actionKey,
+              onShare: (target: Ayah) =>
+                shareAyah(
+                  target.arabic,
+                  showTranslation ? (translation[String(target.ayah)] ?? "") : "",
+                  surahNumber,
+                  target.ayah,
+                  showTransliteration ? transliteration[String(target.ayah)] : undefined,
+                ),
+              onPractise: ayahSheetActions.onPractise,
+              onCheckRecitation: ayahSheetActions.onCheckRecitation,
+              onNote: ayahSheetActions.onNote,
+              onHighlight: ayahSheetActions.onHighlight,
+            })}
+      />
       <ConfirmDialog
         visible={hifzDialog.visible}
         title={t("hifz.confirmTitle")}
@@ -877,7 +901,7 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 280,
     maxWidth: 400,
-    borderStartWidth: StyleSheet.hairlineWidth,
+    borderStartWidth: BorderWidth.hairline,
     gap: Spacing.three,
   },
   listDetailSecondaryTv: {

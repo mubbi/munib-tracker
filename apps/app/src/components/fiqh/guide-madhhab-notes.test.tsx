@@ -23,7 +23,7 @@ jest.mock("@/components/learn-guide/linked-dua-card", () => ({ LinkedDuaCard: ()
 
 afterEach(resetPreferences);
 
-const JANAZAH_TITLE = "Al-Fatihah in the janazah salah";
+const JANAZAH_TITLE = "Al-Fatihah in the janazah Salah";
 
 describe("GuideMadhhabNotes", () => {
   it("renders nothing without linked differences", async () => {

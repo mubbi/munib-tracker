@@ -22,8 +22,11 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
-import { Spacing } from "@/constants/theme";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
+import { UnavailableOnDevice } from "@/components/ui/unavailable-on-device";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset, useObstructedBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { usePracticeSession } from "@/hooks/use-practice-session";
@@ -71,6 +74,7 @@ import {
  */
 export default function PracticeSessionRoute() {
   const router = useRouter();
+  const { t } = useTranslation();
   const params = useLocalSearchParams<{
     surah?: string;
     from?: string;
@@ -106,7 +110,30 @@ export default function PracticeSessionRoute() {
     recordContinueActivity(buildPracticeActivity(passage, continueMode));
   }, [continueMode, passage, prefsReady]);
 
-  if (!passage || !prefsReady || !isPracticeAvailable()) return null;
+  // Never a blank route (P8-01): TV gets the one-action "not on this device"
+  // state while it redirects; a cold open shows the chrome over a skeleton.
+  if (!isPracticeAvailable()) {
+    return (
+      <ScreenLayout
+        eyebrow={t("quranCompanion.hub.title")}
+        title={t("quranCompanion.hub.title")}
+        onBack={() => goBackOrReplace(router, "/quran")}
+      >
+        <UnavailableOnDevice fallbackHref="/quran" />
+      </ScreenLayout>
+    );
+  }
+  if (!passage || !prefsReady) {
+    return (
+      <ScreenLayout
+        eyebrow={t("quran.eyebrow")}
+        title={t("quranCompanion.hub.title")}
+        onBack={() => goBackOrReplace(router, "/quran/practice")}
+      >
+        <SkeletonPlaceholder preset="card" />
+      </ScreenLayout>
+    );
+  }
   // NF-3.24 "Check pronunciation" — its own flow, not a memorisation session.
   if (params.mode === PRONUNCIATION_MODE) {
     return (
@@ -384,7 +411,7 @@ function PracticeSessionScreen({
           padding="four"
           style={
             s.mic === "listening" && !listenOnly
-              ? { borderColor: tokens.status.danger.border, borderWidth: 1.5 }
+              ? { borderColor: tokens.status.danger.border, borderWidth: BorderWidth.thick }
               : undefined
           }
         >
@@ -455,7 +482,11 @@ function PracticeSessionScreen({
             />
           ) : (
             <View
-              style={[styles.placeholder, { minHeight: sizes.arabic * 2 }]}
+              style={[
+                styles.placeholder,
+                // Arabic lines start at the physical right whatever the UI direction (G-21).
+                { minHeight: sizes.arabic * 2, alignItems: uiRtl ? "flex-start" : "flex-end" },
+              ]}
               accessible
               accessibilityLabel={t("quranCompanion.session.loading")}
             >
@@ -518,26 +549,28 @@ function PracticeSessionScreen({
           />
         ) : null}
 
+        {/* Failures are callouts, never grey captions that read like hints (G-05). */}
         {errorCaption ? (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
+          <Callout tone="danger" style={styles.callout}>
             {errorCaption}
-          </ThemedText>
+          </Callout>
         ) : null}
 
         {micDenied ? (
-          <View style={styles.centerBlock}>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
-              {t("quranCompanion.session.micOff")}
-            </ThemedText>
-            {canOpenAppSettings() ? (
-              <Button
-                label={t("quranCompanion.session.openSettings")}
-                variant="ghost"
-                size="sm"
-                onPress={() => void openAppSettings()}
-              />
-            ) : null}
-          </View>
+          <Callout
+            tone="warning"
+            style={styles.callout}
+            action={
+              canOpenAppSettings()
+                ? {
+                    label: t("quranCompanion.session.openSettings"),
+                    onPress: () => void openAppSettings(),
+                  }
+                : undefined
+            }
+          >
+            {t("quranCompanion.session.micOff")}
+          </Callout>
         ) : null}
 
         {listenOnly && !errorCaption ? (
@@ -674,7 +707,7 @@ const styles = StyleSheet.create({
     minWidth: 32,
     height: 32,
     paddingHorizontal: Spacing.one,
-    borderRadius: 16,
+    borderRadius: Radius.pill,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -683,8 +716,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
     padding: Spacing.three,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderRadius: Radius.sm,
+    borderWidth: BorderWidth.thin,
   },
   liveDot: { width: 10, height: 10, borderRadius: 5 },
   flexText: { flex: 1 },
@@ -696,10 +729,10 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
   },
   center: { textAlign: "center", marginTop: Spacing.two },
-  centerBlock: { alignItems: "center", gap: Spacing.one },
+  callout: { marginTop: Spacing.two },
   dockWrap: { position: "absolute", start: Spacing.three, end: Spacing.three },
-  placeholder: { alignItems: "flex-end", justifyContent: "center", gap: Spacing.two },
-  placeholderLine: { borderRadius: 8, opacity: 0.6 },
+  placeholder: { justifyContent: "center", gap: Spacing.two },
+  placeholderLine: { borderRadius: Radius.xs, opacity: 0.6 },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

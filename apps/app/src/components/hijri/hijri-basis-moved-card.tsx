@@ -42,7 +42,7 @@ export function HijriBasisMovedCard() {
   };
 
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <ThemedText type="smallBold">{t("hijriAdjust.movedTitle", { place })}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("hijriAdjust.movedBody")}

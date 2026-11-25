@@ -4,11 +4,11 @@ import {
   SUNNAH_HABITS,
   SUNNAH_HABITS_PRINCIPLE_REF,
 } from "@munib-tracker/shared/content/sunnah-habits";
-import { SUNNAH_HABITS_MAX_SELECTED } from "@munib-tracker/shared/types";
+import { SUNNAH_HABITS_MAX_SELECTED, type SunnahHabitsState } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -25,9 +25,12 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Stepper } from "@/components/ui/stepper";
+import { TextField } from "@/components/ui/text-field";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { Radius, Spacing } from "@/constants/theme";
 import { useHabitContext } from "@/hooks/use-habit-context";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -43,6 +46,7 @@ import {
 } from "@/lib/sunnah-habits";
 import { habitIcon, SUNNAH_HABITS_ICON } from "@/lib/sunnah-habits-ui";
 import {
+  sunnahHabitsStore,
   useEnsureSunnahHabitsLoaded,
   useSunnahHabits,
   useSunnahHabitsActions,
@@ -59,6 +63,29 @@ const REMOVE = {
 } as const;
 const ADD = { ios: "plus.circle.fill", android: "add_circle", web: "add_circle" } as const;
 
+/**
+ * Undo for a removed habit (P5-08 / B-85): puts it back at its old position and
+ * re-adds a custom habit's definition (its day checks were never removed).
+ */
+function restoreHabit(snapshot: SunnahHabitsState, id: string) {
+  return (data: SunnahHabitsState): SunnahHabitsState => {
+    if (data.selected.includes(id)) return data;
+    const selected = [...data.selected];
+    const index = Math.max(0, snapshot.selected.indexOf(id));
+    selected.splice(Math.min(index, selected.length), 0, id);
+    const custom = snapshot.custom.find((entry) => entry.id === id);
+    return {
+      ...data,
+      selected,
+      custom:
+        custom && !data.custom.some((entry) => entry.id === id)
+          ? [...data.custom, custom]
+          : data.custom,
+      listUpdatedAt: new Date().toISOString(),
+    };
+  };
+}
+
 export default function SunnahHabitsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
@@ -73,7 +100,20 @@ export default function SunnahHabitsScreen() {
   const habitsReminder = useSetting<boolean>("notifications.sunnah.habits");
   const [editing, setEditing] = useState(false);
   const [customTitle, setCustomTitle] = useState("");
+  const undoToast = useUndoToast();
   const tv = isTV();
+
+  /** Single-item removal: act now, offer Undo (no confirm dialog). */
+  const removeHabit = (id: string, title: string) => {
+    const snapshot = sunnahHabitsStore.getState().data;
+    void undoToast.run({
+      do: () => actions.remove(id),
+      undo: () => sunnahHabitsStore.getState().apply(restoreHabit(snapshot, id)),
+      messageKey: "sunnahHabits.habitRemoved",
+      messageOptions: { title },
+      type: "info",
+    });
+  };
 
   const habits = selectedHabits(state);
   const summary = dayProgressSummary(state, date, ctx);
@@ -104,13 +144,15 @@ export default function SunnahHabitsScreen() {
       subtitle={t("sunnahHabits.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} preferredFocus />
       <Seo path="/habits" />
       <Stagger>
         <JannahCallout tone="accent">{t("sunnahHabits.principle")}</JannahCallout>
         <EvidenceLine refs={[SUNNAH_HABITS_PRINCIPLE_REF]} />
 
         {isNew ? (
-          <Card padding="three">
+          <Card>
             <SectionHeader title={t("sunnahHabits.startTitle")} icon={SUNNAH_HABITS_ICON} />
             <ThemedText type="small" themeColor="mutedForeground" style={styles.gapTop}>
               {t("sunnahHabits.startBody")}
@@ -128,7 +170,7 @@ export default function SunnahHabitsScreen() {
         ) : null}
 
         {habits.length > 0 ? (
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("sunnahHabits.today")}
               icon={SUNNAH_HABITS_ICON}
@@ -175,7 +217,7 @@ export default function SunnahHabitsScreen() {
         ) : null}
 
         {spotlight ? (
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("sunnahHabits.spotlightTitle")}
               icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
@@ -204,7 +246,7 @@ export default function SunnahHabitsScreen() {
           </Card>
         ) : null}
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("sunnahHabits.manageTitle")}
             subtitle={t("sunnahHabits.manageSubtitle", { max: SUNNAH_HABITS_MAX_SELECTED })}
@@ -247,7 +289,7 @@ export default function SunnahHabitsScreen() {
                     name={REMOVE}
                     tintColor={tokens.status.danger.color}
                     accessibilityLabel={t("sunnahHabits.remove", { title: habitTitle(t, habit) })}
-                    onPress={() => void actions.remove(habit.id)}
+                    onPress={() => removeHabit(habit.id, habitTitle(t, habit))}
                   />
                 </View>
               ))}
@@ -275,19 +317,16 @@ export default function SunnahHabitsScreen() {
               ))}
               {/* TV: no free-text entry (D-pad keyboards); catalog habits only. */}
               {!tv ? (
-                <View style={[styles.editRow, styles.gapTop]}>
-                  <TextInput
+                <View style={[styles.editRow, styles.customRow, styles.gapTop]}>
+                  <TextField
+                    label={t("sunnahHabits.customLabel")}
                     value={customTitle}
                     onChangeText={setCustomTitle}
                     maxLength={CUSTOM_TITLE_MAX}
                     placeholder={t("sunnahHabits.customPlaceholder")}
-                    placeholderTextColor={colors.mutedForeground}
-                    accessibilityLabel={t("sunnahHabits.customLabel")}
                     onSubmitEditing={addCustom}
-                    style={[
-                      styles.input,
-                      { color: colors.foreground, borderColor: tokens.hairline },
-                    ]}
+                    returnKeyType="done"
+                    style={styles.input}
                   />
                   <Button
                     label={t("sunnahHabits.customAdd")}
@@ -304,7 +343,7 @@ export default function SunnahHabitsScreen() {
           ) : null}
         </Card>
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("sunnahHabits.reminderSection")}
             icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
@@ -331,13 +370,10 @@ const styles = StyleSheet.create({
   spotlight: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   flex: { flex: 1, minWidth: 0 },
   editRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  customRow: { alignItems: "flex-end" },
   input: {
     flex: 1,
     minWidth: 0,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: Radius.md,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
   },
 });
 

@@ -101,6 +101,19 @@ export const QuranRepository = {
     await this.touchBookmarks();
   },
 
+  /**
+   * Undo of a removal: re-insert the exact prior record (same id, createdAt).
+   * Stamps the blob watermark so the restore wins last-write-wins sync over the
+   * earlier removal. A no-op when the ayah was re-bookmarked in the meantime.
+   */
+  async restoreBookmark(bookmark: QuranBookmark): Promise<boolean> {
+    const key = bookmarkKey(bookmark.surah, bookmark.ayah);
+    if (await bookmarks.get(key)) return false;
+    await bookmarks.upsert(key, { ...bookmark });
+    await this.touchBookmarks();
+    return true;
+  },
+
   // ── Bookmark sync (blob last-write-wins) ───────────────
   /** Stamps the blob-level watermark used for last-write-wins over the set. */
   async touchBookmarks(): Promise<void> {

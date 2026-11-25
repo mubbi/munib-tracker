@@ -46,7 +46,7 @@ export function QuranRevisionHomeCard({ due }: { due: number }) {
   const arrowForward = useArrowForward();
   if (due <= 0) return null;
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader title={t("handsFreeZikr2.home.revisionTitle")} icon={ICON} />
       <View style={styles.body}>
         <ThemedText type="smallBold">

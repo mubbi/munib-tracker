@@ -66,7 +66,12 @@ export function KhatmPartSheet({
 
   if (!part)
     return (
-      <Sheet visible={false} onClose={onClose} variant="bottom">
+      <Sheet
+        accessibilityLabel={t("khatmGroups.title")}
+        visible={false}
+        onClose={onClose}
+        variant="bottom"
+      >
         <View />
       </Sheet>
     );
@@ -80,7 +85,13 @@ export function KhatmPartSheet({
     (part.status === "assigned" || part.status === "reading");
 
   return (
-    <Sheet visible onClose={onClose} variant="bottom" solid>
+    <Sheet
+      accessibilityLabel={khatmPartTitle(unit, part.partNo, t)}
+      visible
+      onClose={onClose}
+      variant="bottom"
+      solid
+    >
       <View style={styles.body}>
         <ThemedText type="subtitle">{khatmPartTitle(unit, part.partNo, t)}</ThemedText>
         <ThemedText type="small" themeColor="mutedForeground">

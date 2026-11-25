@@ -63,7 +63,7 @@ async function renderCounter(
   return { props, view };
 }
 
-const stage = () => screen.getAllByRole("button", { name: "Count" })[0];
+const stage = () => screen.getAllByRole("button", { name: "Tasbeeh counter" })[0];
 const pan = () => mockGestures.pan as PanConfig;
 
 describe("TasbeehCounter designs", () => {
@@ -108,7 +108,12 @@ describe("TasbeehCounter designs", () => {
 
     it("exposes the same accessible counter with an increment action", async () => {
       const { props } = await renderCounter(design, { count: 5 });
-      expect(stage().props.accessibilityValue).toEqual({ now: 5, min: 0, max: 33 });
+      expect(stage().props.accessibilityValue).toEqual({
+        now: 5,
+        min: 0,
+        max: 33,
+        text: "5 of 33",
+      });
       await fireEvent(stage(), "accessibilityAction", { nativeEvent: { actionName: "increment" } });
       expect(props.onIncrement).toHaveBeenCalledTimes(1);
     });
@@ -207,7 +212,12 @@ describe("TasbeehCounter designs", () => {
     it("takes the whole screen, and the whole surface counts", async () => {
       const { props } = await renderCounter("minimal", { count: 4 });
       expect(screen.getByTestId("tasbeeh-night-surface")).toBeTruthy();
-      expect(stage().props.accessibilityValue).toEqual({ now: 4, min: 0, max: 33 });
+      expect(stage().props.accessibilityValue).toEqual({
+        now: 4,
+        min: 0,
+        max: 33,
+        text: "4 of 33",
+      });
       await fireEvent.press(stage());
       expect(props.onIncrement).toHaveBeenCalledTimes(1);
       // The dim control strip keeps undo / style / reset.
@@ -230,14 +240,14 @@ describe("TasbeehCounter designs", () => {
         </ScreenLayout>,
       );
       await act(async () => {});
-      const backs = screen.getAllByRole("button", { name: "Back" });
-      await fireEvent.press(backs[backs.length - 1]);
+      // The night surface is a fullscreen Sheet: its close control goes back.
+      await fireEvent.press(screen.getByTestId("sheet-close"));
       expect(onBack).toHaveBeenCalledTimes(1);
     }, 60_000);
 
     it("falls back to the router outside a ScreenLayout", async () => {
       await renderCounter("minimal", { count: 1 });
-      await fireEvent.press(screen.getByRole("button", { name: "Back" }));
+      await fireEvent.press(screen.getByTestId("sheet-close"));
       expect(mockRouter.replace).toHaveBeenCalledWith("/");
     });
 
@@ -462,7 +472,8 @@ describe("TasbeehCounter designs", () => {
       jest.mocked(triggerHaptic).mockClear();
       await fireEvent.press(screen.getByRole("button", { name: "Tap the preview to try it" }));
       expect(triggerHaptic).toHaveBeenCalledWith("light");
-      await fireEvent.press(screen.getByRole("button", { name: "Rich" }));
+      // Haptic levels are a SegmentedControl, which exposes options as radios.
+      await fireEvent.press(screen.getByRole("radio", { name: "Rich" }));
       await act(async () => {});
       jest.mocked(triggerHaptic).mockClear();
       await fireEvent.press(screen.getByRole("button", { name: "Tap the preview to try it" }));

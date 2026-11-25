@@ -26,7 +26,12 @@ export function ContentReportAuthGate({
   const router = useRouter();
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="center">
+    <Sheet
+      accessibilityLabel={t("contentReport.signInRequiredTitle")}
+      visible={visible}
+      onClose={onClose}
+      variant="center"
+    >
       <View style={styles.header}>
         <IconWell icon={ACCOUNT_ICON} size={30} well={64} radius={Radius.lg} />
         <ThemedText type="subtitle" style={styles.title}>

@@ -14,7 +14,7 @@ import { isTV } from "@/lib/platform/is-tv";
 export function CircleAccountGate({ message }: { message?: string }) {
   const { t } = useTranslation();
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <ThemedText type="subtitle">{t("circles.gate.title")}</ThemedText>
       <ThemedText type="small" themeColor="mutedForeground">
         {message ?? t("circles.gate.body")}

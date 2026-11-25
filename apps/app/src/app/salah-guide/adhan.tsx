@@ -1,22 +1,15 @@
-import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { type ScrollViewInstance, StyleSheet, View } from "react-native";
-import { JannahDisclaimer } from "@/components/jannah/primitives";
-import { LearnContentGate } from "@/components/learn-content-loading";
-import { LearnSplitLayout, useLearnWideLayout } from "@/components/learn-guide/learn-wide-layout";
-import { LearnReadingChrome } from "@/components/reading-typography-context";
+import { LearnTopicArticle } from "@/components/learn-guide";
 import { SalahGuideTopicAside } from "@/components/salah-guide/salah-guide-aside";
 import { SalahGuideTopicContent } from "@/components/salah-guide/topic-content";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Stagger } from "@/components/ui/stagger";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -38,7 +31,6 @@ import {
 } from "@/lib/adhan-phrase-cues";
 import { prefetchAudioUri } from "@/lib/audio-cache";
 import { tTv } from "@/lib/i18n/t-tv";
-import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import {
   ensureSalahGuideContent,
@@ -120,7 +112,7 @@ function AdhanStyleRow({
           {credit}
         </ThemedText>
         {followAlong ? (
-          <ThemedText type="caption" style={{ color: colors.accent }}>
+          <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
             {t("salahGuide.adhan.followAlongNote")}
           </ThemedText>
         ) : null}
@@ -137,16 +129,16 @@ function AdhanStyleRow({
 }
 
 export default function SalahGuideAdhanScreen() {
-  const router = useRouter();
-  const { maxContentWidth } = useLearnWideLayout();
   const { t, i18n } = useTranslation();
   const { tokens } = useThemeTokens();
   const audio = useAudioPlayerContext();
   useEnsureSalahGuideProgressLoaded();
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(
-    ensureSalahGuideContent,
-    isSalahGuideContentReady,
-  );
+  const {
+    version: contentVersion,
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureSalahGuideContent, isSalahGuideContentReady);
   // Recompute per locale so the translated topic renders on language switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
   const TOPIC = useMemo(() => getSalahGuideTopic("adhan"), [i18n.language, contentVersion]);
@@ -232,76 +224,67 @@ export default function SalahGuideAdhanScreen() {
     [audio, followAlongActive, phraseTracks, phrasesActive],
   );
 
-  if (!TOPIC) {
-    return null;
-  }
-
   return (
-    <ScreenLayout
-      eyebrow={t("salahGuide.eyebrow")}
-      title={TOPIC.title}
-      subtitle={TOPIC.summary}
-      onBack={() => goBackOrReplace(router, "/salah-guide")}
-      maxContentWidth={maxContentWidth}
+    <LearnTopicArticle
+      ns="salahGuide"
+      basePath="/salah-guide"
+      topic={TOPIC}
+      ready={contentReady}
+      error={contentError}
+      onRetry={retryContent}
+      surface="salah_guide"
       scrollRef={scrollRef}
       onScroll={onScroll}
+      aside={() => <SalahGuideTopicAside currentId="adhan" />}
     >
-      <Seo path="/salah-guide/adhan" />
-      <LearnContentGate ready={contentReady}>
-        <LearnSplitLayout aside={<SalahGuideTopicAside currentId="adhan" />}>
-          <Stagger>
-            <LearnReadingChrome surface="salah_guide">
-              <Card padding="three">
-                <SectionHeader
-                  title={t("salahGuide.adhan.listenTitle")}
-                  icon={{ ios: "speaker.wave.3.fill", android: "campaign", web: "campaign" }}
+      {(topic) => (
+        <>
+          <Card>
+            <SectionHeader
+              title={t("salahGuide.adhan.listenTitle")}
+              icon={{ ios: "speaker.wave.3.fill", android: "campaign", web: "campaign" }}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.listenHint}>
+              {tTv(t, "salahGuide.adhan.listenHint", "salahGuide.adhan.listenHintTv")}
+            </ThemedText>
+            <View style={styles.styles}>
+              {ADHAN_LEARN_STYLES.map((style, index) => (
+                <AdhanStyleRow
+                  key={style.id}
+                  styleId={style.id}
+                  name={t(`settings.adhanStyles.${style.id}.name`)}
+                  location={t(`settings.adhanStyles.${style.id}.location`)}
+                  credit={style.credit}
+                  uri={style.uri}
+                  followAlong={style.id === ADHAN_FOLLOW_ALONG_STYLE_ID}
+                  preferredFocus={index === 0}
                 />
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.listenHint}>
-                  {tTv(t, "salahGuide.adhan.listenHint", "salahGuide.adhan.listenHintTv")}
-                </ThemedText>
-                <View style={styles.styles}>
-                  {ADHAN_LEARN_STYLES.map((style, index) => (
-                    <AdhanStyleRow
-                      key={style.id}
-                      styleId={style.id}
-                      name={t(`settings.adhanStyles.${style.id}.name`)}
-                      location={t(`settings.adhanStyles.${style.id}.location`)}
-                      credit={style.credit}
-                      uri={style.uri}
-                      followAlong={style.id === ADHAN_FOLLOW_ALONG_STYLE_ID}
-                      preferredFocus={index === 0}
-                    />
-                  ))}
-                </View>
-                <View style={[styles.sourceNote, { backgroundColor: tokens.status.info.soft }]}>
-                  <ThemedText type="caption" style={styles.sourceText}>
-                    {t("salahGuide.adhan.sourceNote")}
-                  </ThemedText>
-                </View>
-              </Card>
+              ))}
+            </View>
+            <View style={[styles.sourceNote, { backgroundColor: tokens.status.info.soft }]}>
+              <ThemedText type="caption">{t("salahGuide.adhan.sourceNote")}</ThemedText>
+            </View>
+          </Card>
 
-              <SalahGuideTopicContent
-                topic={TOPIC}
-                stepsAudio={{
-                  activeStepIndex,
-                  isPlaying: audio.isPlaying && (phrasesActive || followAlongActive),
-                  onPressStep,
-                  onPressPlayAll,
-                  phrasesActive,
-                  registerStep,
-                }}
-              />
-            </LearnReadingChrome>
-            <JannahDisclaimer textKey="salahGuide.disclaimer" />
-          </Stagger>
-        </LearnSplitLayout>
-      </LearnContentGate>
-    </ScreenLayout>
+          <SalahGuideTopicContent
+            topic={topic}
+            stepsAudio={{
+              activeStepIndex,
+              isPlaying: audio.isPlaying && (phrasesActive || followAlongActive),
+              onPressStep,
+              onPressPlayAll,
+              phrasesActive,
+              registerStep,
+            }}
+          />
+        </>
+      )}
+    </LearnTopicArticle>
   );
 }
 
 const styles = StyleSheet.create({
-  listenHint: { marginTop: Spacing.one, lineHeight: 20 },
+  listenHint: { marginTop: Spacing.one },
   styles: { gap: Spacing.two, marginTop: Spacing.three },
   styleRow: {
     flexDirection: "row",
@@ -312,15 +295,14 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   styleRowTv: { minHeight: TvLayout.minFocusTarget },
-  styleCopy: { flex: 1, gap: 2 },
-  credit: { fontStyle: "italic", lineHeight: 16 },
+  styleCopy: { flex: 1, gap: Spacing.half },
+  credit: { fontStyle: "italic" },
   sourceNote: {
     marginTop: Spacing.three,
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  sourceText: { lineHeight: 18 },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

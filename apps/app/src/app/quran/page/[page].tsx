@@ -32,6 +32,8 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { MoreInSettingsLink } from "@/components/settings/more-in-settings-link";
 import { IconButton } from "@/components/ui/icon-button";
+import { RetryCard } from "@/components/ui/retry-card";
+import { Skeleton, SkeletonGroup } from "@/components/ui/skeleton";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Spacing } from "@/constants/theme";
@@ -331,6 +333,14 @@ export default function QuranPageReaderScreen() {
     ? (remoteSecondTranslation ?? bundledSecond)
     : undefined;
   const translationLoading = remoteActive && remoteQueries.some((query) => query.isPending);
+  // G-04 / C-02: a loading or failed remote translation is shown, never silently hidden.
+  const translationFailed =
+    remoteActive && !translationLoading && remoteQueries.some((query) => query.isError);
+  const retryTranslation = () => {
+    for (const query of remoteQueries) {
+      if (query.isError) void query.refetch();
+    }
+  };
   const translationDir = selectedEdition.direction;
   const secondaryDir = secondaryEdition?.direction ?? "ltr";
 
@@ -700,6 +710,8 @@ export default function QuranPageReaderScreen() {
             arabicSize={readingSizes.arabic}
             highlightAyah={pageHighlight}
             showAnnotations
+            // Unicode Arabic for the screen-reader label of each glyph line (G-01).
+            ayahs={ayahs}
             onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
             tvFocusTarget={tvFocusTarget}
             onItemFocus={tv ? onPageItemFocus : undefined}
@@ -773,38 +785,69 @@ export default function QuranPageReaderScreen() {
             onToggleTranslation={() => void toggleTranslation()}
           />
 
-          <TvPageTurnTrap>
-            <PagerView
-              key={spread ? "spread" : "single"}
-              ref={pagerRef}
-              style={styles.pager}
-              initialPage={pagerIndexForPage(currentPage)}
-              offscreenPageLimit={1}
-              onPageSelected={(e) => onPageSelected(e.nativeEvent.position)}
+          {layout === "page" && showTranslation && translationLoading ? (
+            <SkeletonGroup
+              accessibilityLabel={t("quran.loadingTranslation")}
+              style={styles.translationStatus}
             >
-              {Array.from({ length: pagerItemCount }, (_, index) => {
-                const firstPage = index * pagesPerItem + 1;
-                const mounted =
-                  Math.abs(firstPage - spreadStart(currentPage)) <= pageMountWindow * pagesPerItem;
-                if (!mounted) {
-                  return <View key={firstPage} style={styles.pagePlaceholder} />;
-                }
-                if (!spread) return renderReaderPage(firstPage);
-                const facing = firstPage + 1;
-                return (
-                  // Physical right-to-left regardless of UI direction: odd page right.
-                  <View key={`spread-${firstPage}`} style={styles.spread}>
-                    {renderReaderPage(firstPage)}
-                    {facing <= getPageCount() ? (
-                      renderReaderPage(facing)
-                    ) : (
-                      <View style={styles.pagePlaceholder} />
-                    )}
-                  </View>
-                );
-              })}
-            </PagerView>
-          </TvPageTurnTrap>
+              <Skeleton width="45%" height={12} />
+            </SkeletonGroup>
+          ) : layout === "page" && showTranslation && translationFailed ? (
+            <RetryCard
+              message={t("quran.reader.translationFailed")}
+              offline
+              onRetry={retryTranslation}
+              style={styles.translationStatus}
+            />
+          ) : null}
+
+          {/* The font shield covers only the page text (G-27): toolbar, side
+              turns and footer stay usable while a mushaf page font loads. */}
+          <View style={styles.pagerArea}>
+            <TvPageTurnTrap>
+              <PagerView
+                key={spread ? "spread" : "single"}
+                ref={pagerRef}
+                style={styles.pager}
+                initialPage={pagerIndexForPage(currentPage)}
+                offscreenPageLimit={1}
+                onPageSelected={(e) => onPageSelected(e.nativeEvent.position)}
+              >
+                {Array.from({ length: pagerItemCount }, (_, index) => {
+                  const firstPage = index * pagesPerItem + 1;
+                  const mounted =
+                    Math.abs(firstPage - spreadStart(currentPage)) <=
+                    pageMountWindow * pagesPerItem;
+                  if (!mounted) {
+                    return <View key={firstPage} style={styles.pagePlaceholder} />;
+                  }
+                  if (!spread) return renderReaderPage(firstPage);
+                  const facing = firstPage + 1;
+                  return (
+                    // Physical right-to-left regardless of UI direction: odd page right.
+                    <View key={`spread-${firstPage}`} style={styles.spread}>
+                      {renderReaderPage(firstPage)}
+                      {facing <= getPageCount() ? (
+                        renderReaderPage(facing)
+                      ) : (
+                        <View style={styles.pagePlaceholder} />
+                      )}
+                    </View>
+                  );
+                })}
+              </PagerView>
+            </TvPageTurnTrap>
+            {showMushafLoading ? (
+              <View
+                style={[
+                  styles.loadingShield,
+                  { backgroundColor: colors.background, pointerEvents: "auto" },
+                ]}
+              >
+                <MushafFontLoading />
+              </View>
+            ) : null}
+          </View>
 
           {showSideTurns ? (
             <>
@@ -853,17 +896,6 @@ export default function QuranPageReaderScreen() {
             playing={pageAudioPlaying}
             onOpenPage={() => setPagePickerOpen(true)}
           />
-
-          {showMushafLoading ? (
-            <View
-              style={[
-                styles.loadingShield,
-                { backgroundColor: colors.background, pointerEvents: "auto" },
-              ]}
-            >
-              <MushafFontLoading />
-            </View>
-          ) : null}
         </View>
       </ScreenLayout>
 
@@ -1041,6 +1073,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   pager: { flex: 1, minHeight: 0 },
+  // Own stacking context so the font shield never rises above the side turns.
+  pagerArea: { flex: 1, minHeight: 0, position: "relative", zIndex: 0 },
+  translationStatus: { marginHorizontal: Spacing.three, marginTop: Spacing.two },
   pagePlaceholder: { flex: 1 },
   // Two facing pages: odd (first) page on the physical right in every UI language.
   // RN Web rejects the Yoga `direction` prop; it maps `writingDirection` to CSS `direction`.

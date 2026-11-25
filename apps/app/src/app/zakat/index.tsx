@@ -151,7 +151,7 @@ export default function ZakatScreen() {
   );
 
   const quickLinksCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("zakat.quickLinksTitle")}
         icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
@@ -161,7 +161,7 @@ export default function ZakatScreen() {
   );
 
   const relatedCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("zakat.relatedTitle")}
         icon={{
@@ -192,7 +192,7 @@ export default function ZakatScreen() {
   );
 
   const learnCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("zakat.learnTitle")}
         icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}

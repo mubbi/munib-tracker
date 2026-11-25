@@ -42,7 +42,7 @@ export function TakbirWording({ rules }: { rules: MadhhabRules | null }) {
     : t("dhulHijjah.tashriq.openingAllViews");
 
   return (
-    <Card variant="muted" padding="three" style={styles.card}>
+    <Card variant="muted" style={styles.card}>
       {item ? (
         <View style={styles.line}>
           <ThemedText

@@ -1,7 +1,6 @@
 import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import SetupScreen from "@/app/(onboarding)/setup";
-import SettingsHub from "@/app/(tabs)/settings";
 import PrayerTimesSettingsScreen from "@/app/settings/prayer-times";
 import { SettingsScreen } from "@/components/settings/settings-screen";
 import { getSettingsGroup, subgroupOfSetting } from "@/lib/settings/groups";
@@ -115,24 +114,28 @@ describe("Reminders & notifications sub-screens", () => {
     expect(subgroupOfSetting("quran.reader.layout")).toBeNull();
   });
 
-  it("master–detail opens sub-screens in place, and search lands inside one", async () => {
+  it("list–detail opens sub-screens and search results by route (D-UX11)", async () => {
     setMockWindowSize(1280);
-    await renderWithProviders(<SettingsHub />);
-    await fireEvent.press(screen.getByText("Reminders & notifications"));
+    await renderWithProviders(<SettingsScreen group="notifications" />);
+    // The group route on a wide window: list pane + this group's body.
+    expect(screen.getByText("Appearance & home")).toBeTruthy();
     await fireEvent.press(await screen.findByText("Salah & Adhan"));
-    expect(mockRouter.push).not.toHaveBeenCalled();
-    await waitFor(() => expect(screen.getByText("Play adhan at prayer time")).toBeTruthy());
-    // Back to the group inside the detail pane.
-    const groupButtons = screen.getAllByRole("button", { name: "Reminders & notifications" });
-    // The last one is the detail pane's back link (the first is the group row).
-    await fireEvent.press(groupButtons[groupButtons.length - 1]);
-    await waitFor(() => expect(screen.queryByText("Play adhan at prayer time")).toBeNull());
+    expect(mockRouter.push).toHaveBeenCalledWith("/settings/notifications/salah");
 
     await fireEvent.changeText(screen.getByLabelText("Search settings"), "Bedtime");
     const results = await screen.findAllByText("Bedtime");
     await fireEvent.press(results[0]);
-    await waitFor(() => expect(screen.getByText("Morning adhkar")).toBeTruthy());
-    expect(mockRouter.push).not.toHaveBeenCalled();
+    expect(mockRouter.replace).toHaveBeenCalledWith(settingHref("notifications.zikr.bedtime"));
+  });
+
+  it("a sub-screen route on a wide window goes back to its group from the detail pane", async () => {
+    setMockWindowSize(1280);
+    await renderWithProviders(<SettingsScreen group="notifications" subgroup="salah" />);
+    await waitFor(() => expect(screen.getByText("Play Adhan at prayer time")).toBeTruthy());
+    const back = screen.getAllByRole("button", { name: "Reminders & notifications" });
+    // The last one is the detail pane's back link (the first is the group row).
+    await fireEvent.press(back[back.length - 1]);
+    expect(mockRouter.replace).toHaveBeenCalledWith("/settings/notifications");
   });
 });
 

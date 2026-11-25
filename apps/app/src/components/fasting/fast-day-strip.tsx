@@ -9,7 +9,12 @@ import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
 
-import { RULING_TONE, STATUS_ICON, STATUS_TONE } from "@/components/fasting/fasting-ui";
+import {
+  RULING_ICON,
+  RULING_TONE,
+  STATUS_ICON,
+  STATUS_TONE,
+} from "@/components/fasting/fasting-ui";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
@@ -90,6 +95,13 @@ export function FastDayStrip({
               {dateLabel}
             </ThemedText>
             <View style={styles.marks}>
+              {tone === "muted" ? null : (
+                <SymbolView
+                  name={RULING_ICON[classification.ruling]}
+                  size={12}
+                  tintColor={tokens.status[tone].color}
+                />
+              )}
               {followed ? (
                 <SymbolView
                   name={{ ios: "star.fill", android: "star", web: "star" }}
@@ -116,6 +128,7 @@ const styles = StyleSheet.create({
   row: { gap: Spacing.two, paddingVertical: Spacing.one },
   chip: {
     minWidth: 64,
+    minHeight: 64,
     alignItems: "center",
     gap: Spacing.half,
     paddingVertical: Spacing.two,

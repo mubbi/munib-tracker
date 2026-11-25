@@ -23,7 +23,9 @@ export function ActionRow(props: ActionRowProps) {
 
 /**
  * Destructive / irreversible action with a confirm dialog (§4.5.5) — replaces
- * the hand-rolled app-lock and profile danger rows.
+ * the hand-rolled app-lock and profile danger rows. When `onConfirm` returns a
+ * promise the dialog stays open and busy until it settles, and shows
+ * `errorMessage` inline on rejection (ConfirmDialog async contract).
  */
 export function DangerRow({
   icon,
@@ -35,6 +37,9 @@ export function DangerRow({
   destructive = true,
   onConfirm,
   disabled,
+  acknowledgeLabel,
+  confirmWord,
+  errorMessage,
 }: {
   icon?: AppIcon;
   title: string;
@@ -43,8 +48,14 @@ export function DangerRow({
   confirmMessage?: string;
   confirmLabel?: string;
   destructive?: boolean;
-  onConfirm: () => void;
+  onConfirm: () => unknown;
   disabled?: boolean;
+  /** "I understand…" check box required before confirming (whole-device actions). */
+  acknowledgeLabel?: string;
+  /** Typed confirmation word (account deletion keeps typed "DELETE" — D-UX6). */
+  confirmWord?: string;
+  /** Inline error when an async `onConfirm` rejects. */
+  errorMessage?: string;
 }) {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
@@ -68,6 +79,9 @@ export function DangerRow({
         destructive={destructive}
         onConfirm={onConfirm}
         onClose={() => setOpen(false)}
+        acknowledgeLabel={acknowledgeLabel}
+        confirmWord={confirmWord}
+        errorMessage={errorMessage}
       />
     </>
   );

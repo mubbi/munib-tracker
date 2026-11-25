@@ -1,7 +1,8 @@
 import type { MadhhabId } from "@munib-tracker/shared/fiqh";
 import { type HeirType, type MirathResult, toFractionString } from "@munib-tracker/shared/mirath";
+import type { Ref } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View, type ViewInstance } from "react-native";
 
 import { MadhhabBadge } from "@/components/fiqh/madhhab-badge";
 import { JannahCallout } from "@/components/jannah/primitives";
@@ -24,12 +25,15 @@ export function MirathResultView({
   school,
   currency,
   highlight = [],
+  headingRef,
 }: {
   result: MirathResult;
   /** The school shown in the badge (`null` = all-views mode, browsing one school). */
   school: MadhhabId | null;
   currency?: string;
   highlight?: readonly HeirType[];
+  /** Focus / scroll target for "Show shares" (the results heading). */
+  headingRef?: Ref<ViewInstance>;
 }) {
   const { t } = useTranslation();
   const { money } = useRecordFormat();
@@ -41,17 +45,25 @@ export function MirathResultView({
   const rowCurrency = debtsExceed ? undefined : currency;
 
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.headerRow}>
-        <SectionHeader
-          title={t("mirath.result.title", { school: t(`fiqh.school.${result.school}`) })}
-          icon={{ ios: "chart.pie.fill", android: "pie_chart", web: "pie_chart" }}
-        />
+        <View
+          ref={headingRef}
+          accessible
+          focusable
+          style={styles.headingTarget}
+          {...(Platform.OS === "web" ? ({ tabIndex: -1 } as object) : null)}
+        >
+          <SectionHeader
+            title={t("mirath.result.title", { school: t(`fiqh.school.${result.school}`) })}
+            icon={{ ios: "chart.pie.fill", android: "pie_chart", web: "pie_chart" }}
+          />
+        </View>
         <MadhhabBadge school={school ?? result.school} />
       </View>
       {highlight.some((heir) => result.heirs.some((h) => h.heir === heir)) ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.meta}>
-          {t("privateUx.mirath.highlightHint")}
+          {t("mirath.highlightHint")}
         </ThemedText>
       ) : null}
 
@@ -149,6 +161,7 @@ export function MirathResultView({
 
 const styles = StyleSheet.create({
   headerRow: { gap: Spacing.two },
+  headingTarget: { alignSelf: "stretch" },
   meta: { marginTop: Spacing.two, gap: Spacing.half },
   rows: { marginTop: Spacing.three, gap: Spacing.two },
   excludedTitle: { marginTop: Spacing.two },

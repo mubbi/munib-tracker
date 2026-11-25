@@ -44,7 +44,7 @@ export function CoachHomeCard({ report }: { report: CoachReport }) {
   const title = t("coach.home.title");
   const body = t(report.mode === "excused" ? "coach.home.bodyExcused" : "coach.home.body");
   return (
-    <Card padding="three">
+    <Card>
       <PressableScale
         haptic="light"
         accessibilityRole="button"
@@ -85,6 +85,6 @@ export function CoachHomeCard({ report }: { report: CoachReport }) {
 
 const styles = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  copy: { flex: 1, gap: 2 },
+  copy: { flex: 1, gap: Spacing.half },
   actions: { flexDirection: "row", justifyContent: "flex-end", marginTop: Spacing.two },
 });

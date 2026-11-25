@@ -16,10 +16,12 @@ import { routeMetadata } from "@/lib/seo/route-metadata";
 export default function LastDayQuizScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(
-    ensureLastDayContent,
-    isLastDayContentReady,
-  );
+  const {
+    version: contentVersion,
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
   const questions = useMemo(() => getLastDayQuiz(), [i18n.language, contentVersion]);
 
@@ -31,11 +33,11 @@ export default function LastDayQuizScreen() {
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
     >
       <Seo path="/last-day/quiz" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <QuizPlayer
             questions={questions}
-            intro={<JannahCallout tone="warning">{t("lastDay.quizIntro")}</JannahCallout>}
+            intro={<JannahCallout tone="info">{t("lastDay.quizIntro")}</JannahCallout>}
             completeActions={
               <Button
                 label={t("lastDay.timelineTitle")}

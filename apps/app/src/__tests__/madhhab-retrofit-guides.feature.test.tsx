@@ -36,7 +36,7 @@ describe("/fiqh/[id] difference detail (NF-3.0a search target)", () => {
     setMockSearchParams({ id: "janazah-fatiha" });
     await renderWithProviders(<FiqhDifferenceScreen />);
     await setPreferences({ madhhab: null });
-    expect(screen.getAllByText("Al-Fatihah in the janazah salah").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Al-Fatihah in the janazah Salah").length).toBeGreaterThan(0);
     expect(screen.getByTestId(/ruling-compare-.*shafii/)).toBeTruthy();
     expect(screen.getByText("Evidence and sources")).toBeTruthy();
     expect(screen.getAllByText("Sahih al-Bukhari 1335").length).toBeGreaterThan(0);

@@ -43,7 +43,7 @@ describe("TtsVoiceSheet", () => {
     await renderSheet();
     await screen.findByText("Maged");
 
-    expect(radios().map((radio) => radio.props.accessibilityState.selected)).toEqual([
+    expect(radios().map((radio) => radio.props.accessibilityState.checked)).toEqual([
       true,
       false,
       false,
@@ -54,7 +54,7 @@ describe("TtsVoiceSheet", () => {
     await renderSheet({ selectedVoiceId: "ar-2" });
     await screen.findByText("Laila");
 
-    expect(radios().map((radio) => radio.props.accessibilityState.selected)).toEqual([
+    expect(radios().map((radio) => radio.props.accessibilityState.checked)).toEqual([
       false,
       false,
       true,

@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useRecordFormat } from "@/hooks/use-record-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { explainHeir, heirCountLabel } from "@/lib/mirath/explain";
@@ -127,7 +127,12 @@ export function MirathHeirRow({
 }
 
 const styles = StyleSheet.create({
-  row: { borderWidth: 1, borderRadius: Radius.md, padding: Spacing.two, gap: Spacing.one },
+  row: {
+    borderWidth: BorderWidth.thin,
+    borderRadius: Radius.md,
+    padding: Spacing.two,
+    gap: Spacing.one,
+  },
   rowHead: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.two },
   rowLabel: { flex: 1, minWidth: 0, gap: Spacing.half },
   rowValue: { alignItems: "flex-end", gap: Spacing.half },

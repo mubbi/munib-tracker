@@ -2,11 +2,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Callout, type CalloutTone } from "@/components/ui/callout";
 import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWeb } from "@/lib/notifications/platform";
 import {
   beginWebNotificationPermissionRequest,
@@ -26,7 +24,6 @@ export function NotificationPermissionBanner({
   const { t } = useTranslation();
   const toast = useToast();
   const { session } = useAuth();
-  const { tokens } = useThemeTokens();
   const {
     permission,
     granted,
@@ -40,6 +37,8 @@ export function NotificationPermissionBanner({
 
   if (!showWhenGranted && granted) return null;
   if (!canEnableLocalReminders && !isWeb) return null;
+  // F-06: the Expo Go notice is developer tooling — never shown in a release build.
+  if (isExpoGo && !__DEV__) return null;
 
   // Permission already granted by this banner's own flow — the shared action sets
   // the master switch, reschedules and registers the push token.
@@ -80,8 +79,9 @@ export function NotificationPermissionBanner({
   let showAllow = !granted && !denied && canRequestPermission && !isExpoGo;
   const showOpenSettings = !isWeb && (denied || granted);
 
+  let tone: CalloutTone = denied ? "warning" : "info";
   if (isExpoGo) {
-    // Expo Go can't schedule OS notifications — needs a dev/production build.
+    // Expo Go (dev only, see above) can't schedule OS notifications.
     title = t("notif.expoGoTitle");
     message = t("notif.expoGoMessage");
     showAllow = false;
@@ -91,9 +91,13 @@ export function NotificationPermissionBanner({
       case "ios_webkit_tab":
         title = t("notif.iosPwaTitle");
         message = t("notif.iosPwaMessage");
+        // iOS 16.4+ Chrome / Edge / Firefox add to the Home Screen from their own
+        // Share menu; other shells must hand off to Safari.
         steps = webGuidance.needsSafariForInstall
           ? t("notif.iosPwaStepsSafari")
-          : t("notif.iosPwaSteps");
+          : webGuidance.installMethod === "ios_browser_share"
+            ? t("notif.iosPwaStepsBrowser")
+            : t("notif.iosPwaSteps");
         showAllow = false;
         break;
       case "ios_webkit_installed":
@@ -134,41 +138,31 @@ export function NotificationPermissionBanner({
     message = t("notif.openSettingsHint");
   }
 
-  const hasAnyAction = showAllow || showOpenSettings;
+  if (granted) tone = "success";
+
+  // One banner, one action (they are mutually exclusive): Allow, or Open Settings.
+  const action = showAllow
+    ? { label: t("notifCenter.enable"), onPress: handleAllow }
+    : showOpenSettings
+      ? { label: t("notif.openSettings"), onPress: openSettings }
+      : undefined;
 
   return (
-    <Card
-      padding="three"
-      style={[styles.card, { borderColor: `${tokens.status.warning.color}55` }]}
-    >
-      <ThemedText type="smallBold">{title}</ThemedText>
-      <ThemedText type="small" themeColor="mutedForeground">
-        {message}
-      </ThemedText>
-      {steps ? (
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {steps}
+    <Callout tone={tone} title={title} action={action}>
+      <View style={styles.body}>
+        <ThemedText type="small" themeColor="mutedForeground">
+          {message}
         </ThemedText>
-      ) : null}
-      {hasAnyAction ? (
-        <View style={styles.actions}>
-          {showAllow ? <Button label={t("notifCenter.enable")} onPress={handleAllow} /> : null}
-          {showOpenSettings ? (
-            <Button label={t("notif.openSettings")} variant="secondary" onPress={openSettings} />
-          ) : null}
-        </View>
-      ) : null}
-    </Card>
+        {steps ? (
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {steps}
+          </ThemedText>
+        ) : null}
+      </View>
+    </Callout>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    gap: Spacing.two,
-    borderWidth: 1,
-  },
-  actions: {
-    gap: Spacing.two,
-    marginTop: Spacing.one,
-  },
+  body: { gap: Spacing.one },
 });

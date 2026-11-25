@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
@@ -58,6 +58,7 @@ export function HadithIsnadChain({ isnad, preferArabic }: HadithIsnadChainProps)
               <ThemedText
                 type={isProphet ? "smallBold" : "caption"}
                 themeColor={isProphet ? "foreground" : "mutedForeground"}
+                accessibilityLanguage={useArabic && link.nameArabic ? "ar" : undefined}
                 style={[styles.name, useArabic && link.nameArabic ? arabicReadingLayout(15) : null]}
               >
                 {label}
@@ -87,14 +88,14 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: Radius.pill,
-    marginTop: 3,
-    borderWidth: StyleSheet.hairlineWidth,
+    marginTop: Spacing.one,
+    borderWidth: BorderWidth.hairline,
   },
   line: {
     width: 2,
     flex: 1,
     minHeight: 14,
-    marginTop: 2,
+    marginTop: Spacing.half,
   },
   name: { flex: 1, paddingBottom: Spacing.two },
 });

@@ -26,7 +26,7 @@ export function FatihahCheckCard({ compact = false }: { compact?: boolean }) {
   if (!available) return null;
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader title={t("reciteAlong.fatihah.title")} icon={RECITE_ALONG_ICON} />
       <ThemedText type="small" themeColor="mutedForeground" style={styles.body}>
         {compact ? t("reciteAlong.fatihah.short") : t("reciteAlong.fatihah.body")}

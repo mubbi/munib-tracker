@@ -23,13 +23,13 @@ import { Seo } from "@/components/seo/seo";
 import { LinkRow, ReadableView } from "@/components/statistics/metrics";
 import { StatusDistribution } from "@/components/statistics/status-distribution";
 import { ThemedText } from "@/components/themed-text";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Pill } from "@/components/ui/pill";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Breakpoints, CategoryHues, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -39,6 +39,7 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { formatAchievementShare } from "@/lib/share";
+import { useToast } from "@/providers/toast-provider";
 import { useAchievementStats, useTrackerActions } from "@/stores/tracker-store";
 
 const NOOR_SOURCE_KEYS: Record<NoorSource, string> = {
@@ -60,6 +61,7 @@ export default function AchievementsScreen() {
   const { refresh } = useTrackerActions();
   const stats = useAchievementStats();
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
+  const toast = useToast();
   const [refreshed, setRefreshed] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const tv = isTV();
@@ -75,6 +77,8 @@ export default function AchievementsScreen() {
       void refresh()
         .catch((error: unknown) => {
           if (__DEV__) console.error("Failed to refresh achievements", error);
+          // Never swallow it: the screen still shows the last known progress.
+          if (active) toast.error(t("achievements.refreshFailed"));
         })
         .finally(() => {
           if (active) setRefreshed(true);
@@ -82,7 +86,7 @@ export default function AchievementsScreen() {
       return () => {
         active = false;
       };
-    }, [refresh]),
+    }, [refresh, toast, t]),
   );
 
   const state = useMemo(() => evaluateProgression(stats), [stats]);
@@ -98,12 +102,16 @@ export default function AchievementsScreen() {
   const devotion = state.devotion;
   const unlocked = state.unlockedMilestones;
   const noor = useMemo(() => computeNoorBreakdown(stats), [stats]);
+  // Noor sources are categories, not statuses: categorical hues only.
   const noorPalette = [
-    tokens.status.success.color,
-    tokens.status.warning.color,
-    tokens.status.danger.color,
-    tokens.status.info.color,
-    withAlpha(tokens.status.info.color, 0.45),
+    colors.accent,
+    CategoryHues.dawn,
+    CategoryHues.rose,
+    CategoryHues.sky,
+    CategoryHues.violet,
+    CategoryHues.sage,
+    withAlpha(CategoryHues.sky, 0.45),
+    withAlpha(CategoryHues.dawn, 0.45),
     colors.mutedForeground,
   ];
   // Levels 1–10 have a named rank ("Steady Soul"); beyond that the title would
@@ -155,9 +163,9 @@ export default function AchievementsScreen() {
   // per row (four on very wide screens); TV: three.
   const trackBasis = tv
     ? styles.basisThird
-    : width >= 1600
+    : width >= Breakpoints.xwide
       ? styles.basisQuarter
-      : width >= 1024
+      : width >= Breakpoints.wide
         ? styles.basisThird
         : width < 600
           ? styles.basisFull
@@ -204,148 +212,153 @@ export default function AchievementsScreen() {
       ) : (
         <Stagger>
           <View style={styles.stack}>
-            {/* ── Devotion hero ─────────────────────────────────────────── */}
-            <Card padding="four" style={styles.hero}>
-              <ReadableView style={styles.heroBody}>
-                <View style={styles.heroRow}>
-                  <View
-                    style={[
-                      styles.devotionBadge,
-                      tv ? { width: tvDp(72), height: tvDp(72) } : null,
-                      { backgroundColor: tokens.status.warning.soft },
-                    ]}
-                  >
-                    <ThemedText
-                      type="caption"
-                      style={[styles.devotionBadgeLabel, { color: tokens.status.warning.text }]}
-                    >
-                      {t("achievements.levelShort")}
-                    </ThemedText>
-                    <ThemedText
-                      type="header"
-                      style={[styles.devotionBadgeLevel, { color: tokens.status.warning.text }]}
-                    >
-                      {devotion.level}
-                    </ThemedText>
-                  </View>
-                  <View style={styles.heroCopy}>
-                    <View style={styles.heroTitleRow}>
-                      <SymbolView
-                        name={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
-                        size={16}
-                        tintColor={tokens.status.warning.color}
-                      />
-                      <ThemedText type="caption" themeColor="mutedForeground">
-                        {t("achievements.devotion")}
-                      </ThemedText>
-                    </View>
-                    <ThemedText type="subtitle">
-                      {devotionTitle
-                        ? `${t("achievements.devotionLevel", { level: devotion.level })} · ${devotionTitle}`
-                        : t("achievements.devotionLevel", { level: devotion.level })}
-                    </ThemedText>
-                    <View style={styles.heroPills}>
-                      <Pill
-                        icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-                        label={t("achievements.noorPill", { noor: formatCount(devotion.noor) })}
-                        color={tokens.status.warning.text}
-                        background={tokens.status.warning.soft}
-                      />
-                      <Pill
-                        icon={{
-                          ios: "rosette",
-                          android: "workspace_premium",
-                          web: "workspace_premium",
-                        }}
-                        label={t("achievements.milestonePill", { count: unlocked.length })}
-                        color={colors.mutedForeground}
-                        background={colors.muted}
-                      />
-                      {stats.bestStreak > 0 ? (
-                        <Pill
-                          icon={{
-                            ios: "flame.fill",
-                            android: "local_fire_department",
-                            web: "local_fire_department",
-                          }}
-                          label={t("achievements.bestStreakPill", {
-                            value: formatCount(stats.bestStreak),
-                          })}
-                          color={colors.mutedForeground}
-                          background={colors.muted}
-                        />
-                      ) : null}
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.heroProgress}>
-                  <ProgressBar
-                    value={devotion.progress}
-                    height={8}
-                    color={tokens.status.warning.color}
-                  />
-                  <View style={styles.heroProgressRow}>
-                    <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
-                      {t("achievements.devotionNoor", {
-                        current: formatCount(devotion.noor - devotion.noorForCurrentLevel),
-                        next: formatCount(devotion.noorForNextLevel - devotion.noorForCurrentLevel),
-                      })}
-                    </ThemedText>
-                    <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-                      {t("achievements.toNextLevel", {
-                        value: formatCount(devotion.noorForNextLevel - devotion.noor),
-                        level: devotion.level + 1,
-                      })}
-                    </ThemedText>
-                  </View>
-                </View>
-              </ReadableView>
-
-              {noor.length > 0 ? (
-                <ReadableView style={styles.noorBlock}>
-                  <ThemedText
-                    type="smallBold"
-                    themeColor="mutedForeground"
-                    style={styles.blockLabel}
-                  >
-                    {t("achievements.noorBreakdown")}
-                  </ThemedText>
-                  <StatusDistribution
-                    formatValue={formatCount}
-                    segments={noor.map((entry, i) => ({
-                      key: entry.source,
-                      label: `${t(NOOR_SOURCE_KEYS[entry.source])} · ${formatCount(entry.count)} × ${NOOR_WEIGHTS[entry.source]}`,
-                      amount: entry.noor,
-                      color: noorPalette[i % noorPalette.length] ?? tokens.status.warning.color,
-                    }))}
-                  />
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("achievements.devotionHint")}
-                  </ThemedText>
-                </ReadableView>
-              ) : (
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("achievements.devotionHint")}
-                </ThemedText>
-              )}
-              <LinkRow
-                label={t("achievements.statsLink")}
-                onPress={() => router.push("/statistics")}
-              />
-            </Card>
-
+            {/* First run: the honest intro leads; no zeroed hero before there is progress. */}
             {isNewUser ? (
-              <Card padding="four" style={styles.intro}>
-                <ThemedText type="subtitle">{t("achievements.emptyTitle")}</ThemedText>
-                <ThemedText type="small" themeColor="mutedForeground">
-                  {t("achievements.emptyDesc")}
-                </ThemedText>
-                <Button
-                  label={t("statistics.openTracker")}
-                  onPress={() => router.push("/tracker")}
+              <Card padding="four">
+                <EmptyState
+                  icon={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
+                  title={t("achievements.emptyTitle")}
+                  description={t("achievements.emptyDesc")}
+                  actionLabel={t("statistics.openTracker")}
+                  onAction={() => router.push("/tracker")}
                 />
               </Card>
             ) : null}
+
+            {/* ── Devotion hero ─────────────────────────────────────────── */}
+            {isNewUser ? null : (
+              <Card padding="four" style={styles.hero}>
+                <ReadableView style={styles.heroBody}>
+                  <View style={styles.heroRow}>
+                    <View
+                      style={[
+                        styles.devotionBadge,
+                        tv ? { width: tvDp(72), height: tvDp(72) } : null,
+                        { backgroundColor: tokens.status.warning.soft },
+                      ]}
+                    >
+                      <ThemedText
+                        type="caption"
+                        style={[styles.devotionBadgeLabel, { color: tokens.status.warning.text }]}
+                      >
+                        {t("achievements.levelShort")}
+                      </ThemedText>
+                      <ThemedText
+                        type="header"
+                        style={[styles.devotionBadgeLevel, { color: tokens.status.warning.text }]}
+                      >
+                        {devotion.level}
+                      </ThemedText>
+                    </View>
+                    <View style={styles.heroCopy}>
+                      <View style={styles.heroTitleRow}>
+                        <SymbolView
+                          name={{
+                            ios: "trophy.fill",
+                            android: "emoji_events",
+                            web: "emoji_events",
+                          }}
+                          size={16}
+                          tintColor={tokens.status.warning.color}
+                        />
+                        <ThemedText type="caption" themeColor="mutedForeground">
+                          {t("achievements.devotion")}
+                        </ThemedText>
+                      </View>
+                      <ThemedText type="subtitle">
+                        {devotionTitle
+                          ? `${t("achievements.devotionLevel", { level: devotion.level })} · ${devotionTitle}`
+                          : t("achievements.devotionLevel", { level: devotion.level })}
+                      </ThemedText>
+                      <View style={styles.heroPills}>
+                        <Pill
+                          icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+                          label={t("achievements.noorPill", { noor: formatCount(devotion.noor) })}
+                          color={tokens.status.warning.text}
+                          background={tokens.status.warning.soft}
+                        />
+                        <Pill
+                          icon={{
+                            ios: "rosette",
+                            android: "workspace_premium",
+                            web: "workspace_premium",
+                          }}
+                          label={t("achievements.milestonePill", { count: unlocked.length })}
+                          color={colors.mutedForeground}
+                          background={colors.muted}
+                        />
+                        {stats.bestStreak > 0 ? (
+                          <Pill
+                            icon={{
+                              ios: "flame.fill",
+                              android: "local_fire_department",
+                              web: "local_fire_department",
+                            }}
+                            label={t("achievements.bestStreakPill", {
+                              value: formatCount(stats.bestStreak),
+                            })}
+                            color={colors.mutedForeground}
+                            background={colors.muted}
+                          />
+                        ) : null}
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.heroProgress}>
+                    <ProgressBar
+                      value={devotion.progress}
+                      accessibilityLabel={t("a11yProgress.devotionLevel")}
+                      height={8}
+                      color={tokens.status.warning.color}
+                    />
+                    <View style={styles.heroProgressRow}>
+                      <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
+                        {t("achievements.devotionNoor", {
+                          current: formatCount(devotion.noor - devotion.noorForCurrentLevel),
+                          next: formatCount(
+                            devotion.noorForNextLevel - devotion.noorForCurrentLevel,
+                          ),
+                        })}
+                      </ThemedText>
+                      <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
+                        {t("achievements.toNextLevel", {
+                          value: formatCount(devotion.noorForNextLevel - devotion.noor),
+                          level: devotion.level + 1,
+                        })}
+                      </ThemedText>
+                    </View>
+                  </View>
+                </ReadableView>
+
+                {noor.length > 0 ? (
+                  <ReadableView style={styles.noorBlock}>
+                    <ThemedText type="label" themeColor="mutedForeground">
+                      {t("achievements.noorBreakdown")}
+                    </ThemedText>
+                    <StatusDistribution
+                      formatValue={formatCount}
+                      segments={noor.map((entry, i) => ({
+                        key: entry.source,
+                        label: `${t(NOOR_SOURCE_KEYS[entry.source])} · ${formatCount(entry.count)} × ${NOOR_WEIGHTS[entry.source]}`,
+                        amount: entry.noor,
+                        color: noorPalette[i % noorPalette.length] ?? tokens.status.warning.color,
+                      }))}
+                    />
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {t("achievements.devotionHint")}
+                    </ThemedText>
+                  </ReadableView>
+                ) : (
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("achievements.devotionHint")}
+                  </ThemedText>
+                )}
+                <LinkRow
+                  label={t("achievements.statsLink")}
+                  onPress={() => router.push("/statistics")}
+                />
+              </Card>
+            )}
 
             {/* ── Tracks ────────────────────────────────────────────────── */}
             <View style={styles.section}>
@@ -436,7 +449,7 @@ function AchievementsSkeleton() {
       </Card>
       <View style={styles.grid}>
         {[0, 1, 2, 3].map((i) => (
-          <Card key={i} padding="three" style={styles.skeletonTile}>
+          <Card key={i} style={styles.skeletonTile}>
             <Skeleton width="60%" height={16} />
             <Skeleton height={70} radius={Radius.md} />
           </Card>
@@ -470,9 +483,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   devotionBadgeLabel: {
-    fontSize: 9,
-    letterSpacing: 0.8,
-    lineHeight: 12,
+    letterSpacing: 0.6,
+    lineHeight: 14,
     textTransform: "uppercase",
   },
   devotionBadgeLevel: {
@@ -487,16 +499,16 @@ const styles = StyleSheet.create({
   heroTitleRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   heroPills: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     marginTop: Spacing.half,
   },
   heroProgress: {
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   heroProgressRow: {
     flexDirection: "row",
@@ -508,14 +520,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noorBlock: {
-    gap: Spacing.two,
-  },
-  blockLabel: {
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
-    fontSize: 11,
-  },
-  intro: {
     gap: Spacing.two,
   },
   section: {

@@ -8,7 +8,7 @@ import { useCircleRun } from "@/components/circles/use-circle-run";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { Spacing } from "@/constants/theme";
 import { clearSignal, putRestDay } from "@/lib/circles/api";
 import { indexSignals, lastNDates, signalWindow } from "@/lib/circles/family";
@@ -46,26 +46,19 @@ export function ChildWeekCard({
   return (
     <>
       <SectionHeader title={t("family.child.weekTitle")} />
-      <Card padding="three" style={styles.gap}>
+      <Card style={styles.gap}>
         {lastNDates(today, WEEK_DAYS)
           .reverse()
           .map((date) => {
             const day = days?.get(date);
             return (
               <View key={date} style={styles.day}>
-                <View style={styles.switchRow}>
-                  <ThemedText type="smallBold" style={styles.flex}>
-                    {date === today ? t("family.today") : formatShortDate(date)}
-                  </ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("family.restDay")}
-                  </ThemedText>
-                  <ThemedSwitch
-                    value={day?.rest === true}
-                    onValueChange={(on) => void run(() => rest.mutateAsync({ date, on }))}
-                    accessibilityLabel={t("family.restDay")}
-                  />
-                </View>
+                <SwitchRow
+                  title={date === today ? t("family.today") : formatShortDate(date)}
+                  subtitle={t("family.restDay")}
+                  value={day?.rest === true}
+                  onValueChange={(on) => void run(() => rest.mutateAsync({ date, on }))}
+                />
                 <FardDots
                   value={day?.fard ?? null}
                   showLabels={date === today}
@@ -85,6 +78,4 @@ export function ChildWeekCard({
 const styles = StyleSheet.create({
   gap: { gap: Spacing.two },
   day: { gap: Spacing.one, paddingVertical: Spacing.one },
-  switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  flex: { flex: 1 },
 });

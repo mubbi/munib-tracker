@@ -42,6 +42,20 @@ describe("SunnahHabitsSection", () => {
     expect(screen.getByText("1/2")).toBeTruthy();
   });
 
+  it("toggles a yes/no habit from anywhere on its row (P5-08)", async () => {
+    await seed(["miswak"]);
+    await renderWithTheme(<SunnahHabitsSection date={DAY} />);
+
+    // The hint line is part of the one checkbox, so a press on it ticks the habit.
+    await act(async () => {
+      fireEvent.press(screen.getByText(i18n.t("sunnahHabits.items.miswak.hint")));
+    });
+
+    const box = screen.getByRole("checkbox", { name: i18n.t("sunnahHabits.items.miswak.title") });
+    expect(box.props.accessibilityState).toMatchObject({ checked: true });
+    expect(sunnahHabitsStore.getState().data.checks[habitCheckKey("miswak", DAY)]).toBe(1);
+  });
+
   it("recites Ayat al-Kursi along from its habit row until it is ticked (D68, D74)", async () => {
     await seed(["ayat_kursi_sleep"]);
     await renderWithTheme(<SunnahHabitsSection date={DAY} />);

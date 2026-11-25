@@ -8,7 +8,8 @@ import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -96,7 +97,7 @@ function getPalette(
       color: colors.accent,
       soft: tokens.accentSoft,
       border: colors.accent,
-      text: colors.accent,
+      text: colors.accentText,
     };
   }
   const status = tokens.status[key];
@@ -147,7 +148,6 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
   // to intrinsic (icon) width and clips the preview against the card edge.
   return (
     <Card
-      padding="three"
       style={[
         styles.card,
         {
@@ -288,7 +288,7 @@ export function ContinueCard() {
 
 const styles = StyleSheet.create({
   card: {
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     gap: Spacing.three,
   },
   cardTv: {
@@ -302,13 +302,13 @@ const styles = StyleSheet.create({
   },
   headerCopy: {
     flex: 1,
-    gap: 2,
-    paddingTop: 2,
+    gap: Spacing.half,
+    paddingTop: Spacing.half,
   },
   preview: {
     width: "100%",
     alignSelf: "stretch",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     overflow: "hidden",
@@ -344,9 +344,9 @@ const styles = StyleSheet.create({
   audioBadge: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: Spacing.one,
     paddingHorizontal: Spacing.two,
-    paddingVertical: 4,
+    paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
   },
@@ -359,8 +359,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   quranBadgeTv: {
-    width: 56,
-    height: 56,
+    width: tvDp(56),
+    height: tvDp(56),
   },
   arabic: {},
   footer: {
@@ -368,8 +368,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two + 2,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingVertical: Spacing.twoHalf,
+    borderTopWidth: BorderWidth.hairline,
   },
   footerTv: {
     minHeight: TvLayout.minFocusTarget,

@@ -101,7 +101,7 @@ describe("ZakatResultHero — madhhab (NF-3.0a)", () => {
     expect(screen.getByText("Hanafi")).toBeTruthy();
   });
 
-  it("all views: lists one row per basis, with and without jewellery", async () => {
+  it("all views: lists one row per basis, with and without jewelry", async () => {
     await renderHero({
       zakatSchool: null,
       nisabBasis: "lower",
@@ -128,11 +128,11 @@ describe("ZakatResultHero — madhhab (NF-3.0a)", () => {
     expect(screen.getByText("By nisab basis")).toBeTruthy();
     expect(screen.getByText("Lower of gold and silver")).toBeTruthy();
     expect(screen.getByText("Below nisab")).toBeTruthy();
-    expect(screen.getByText("Without personal jewellery: $300")).toBeTruthy();
+    expect(screen.getByText("Without personal jewelry: $300")).toBeTruthy();
     expect(screen.getByText("Your choice")).toBeTruthy();
   });
 
-  it("separate metals: shows each pool and an excluded-jewellery note", async () => {
+  it("separate metals: shows each pool and an excluded-jewelry note", async () => {
     await renderHero({
       zakatSchool: "shafii",
       personalJewelleryValue: 900,
@@ -157,8 +157,6 @@ describe("ZakatResultHero — madhhab (NF-3.0a)", () => {
     });
     expect(screen.getByText("Cash, trade goods and gold: $200")).toBeTruthy();
     expect(screen.getByText("Other metal (silver): below nisab")).toBeTruthy();
-    expect(
-      screen.getByText("Personal jewellery ($900) is not counted in your school."),
-    ).toBeTruthy();
+    expect(screen.getByText("Personal jewelry ($900) is not counted in your school.")).toBeTruthy();
   });
 });

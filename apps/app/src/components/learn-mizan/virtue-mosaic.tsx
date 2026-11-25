@@ -10,7 +10,8 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
@@ -54,12 +55,13 @@ export function VirtueMosaicBlock({
   const { colors, tokens } = useThemeTokens();
   const chevronForward = useChevronForward();
   const danger = tokens.status.danger;
+  const sage = useCategoryHue("sage");
 
   return (
     <View style={styles.stack}>
       <JannahCallout tone="accent">{t("jannah.mizan.weightCallout")}</JannahCallout>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("jannah.mizan.traitsTitle")}
           subtitle={t("jannah.mizan.buildsHint")}
@@ -67,8 +69,9 @@ export function VirtueMosaicBlock({
         />
         <View style={styles.mosaic}>
           {traits.map((trait, index) => {
-            const tint = index % 2 === 0 ? colors.accent : tokens.status.success.color;
-            const soft = index % 2 === 0 ? tokens.accentSoft : tokens.status.success.soft;
+            // Alternating browse hues — decoration, not a success state (C-09).
+            const tint = index % 2 === 0 ? colors.accent : sage.icon;
+            const soft = index % 2 === 0 ? tokens.accentSoft : sage.soft;
             const ref = traitReference(trait);
             return (
               <View
@@ -99,7 +102,7 @@ export function VirtueMosaicBlock({
         </View>
       </Card>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("jannah.mizan.destroysTitle")}
           subtitle={tTv(t, "jannah.mizan.destroysHint", "jannah.mizan.destroysHintTv")}
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
     minWidth: 148,
     padding: Spacing.three,
     borderRadius: Radius.sm,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderCurve: "continuous",
     gap: Spacing.two,
   },
@@ -200,7 +203,7 @@ const styles = StyleSheet.create({
     paddingInlineEnd: Spacing.two,
     paddingInlineStart: 0,
     borderRadius: Radius.sm,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderCurve: "continuous",
     overflow: "hidden",
     minHeight: 48,

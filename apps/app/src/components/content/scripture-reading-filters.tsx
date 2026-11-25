@@ -19,7 +19,7 @@ import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
@@ -47,7 +47,7 @@ export const scriptureListDetailStyles = StyleSheet.create({
     flex: 1,
     minWidth: 280,
     maxWidth: 400,
-    borderStartWidth: StyleSheet.hairlineWidth,
+    borderStartWidth: BorderWidth.hairline,
     gap: Spacing.three,
   },
   listDetailSecondaryTv: {
@@ -88,7 +88,7 @@ export function ScriptureReadingFilters() {
     useReadingDisplayToggles();
 
   return (
-    <Card padding="three" style={[styles.filtersCard, tv && styles.filtersCardTv]}>
+    <Card style={[styles.filtersCard, tv && styles.filtersCardTv]}>
       <View
         style={[
           styles.controlRow,
@@ -304,7 +304,7 @@ export function ScriptureReaderChrome({
             size={16}
             tintColor={colors.accent}
           />
-          <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "600" }}>
+          <ThemedText weight="semibold" type="caption" style={{ color: colors.accentText }}>
             {t("reading.backToTop")}
           </ThemedText>
         </PressableScale>
@@ -324,7 +324,7 @@ export function ScriptureReaderChrome({
             {
               backgroundColor: fullscreen.active ? tokens.accentSoft : colors.muted,
               borderColor: fullscreen.active ? colors.accent : "transparent",
-              borderWidth: 1,
+              borderWidth: BorderWidth.thin,
             },
           ]}
         >
@@ -334,10 +334,10 @@ export function ScriptureReaderChrome({
             tintColor={fullscreen.active ? colors.accent : colors.mutedForeground}
           />
           <ThemedText
+            weight="semibold"
             type="caption"
             style={{
               color: fullscreen.active ? colors.accentText : colors.mutedForeground,
-              fontWeight: "600",
             }}
           >
             {fullscreen.active ? t("reading.exitFullscreen") : t("reading.enterFullscreen")}
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
   fontChip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingStart: Spacing.three,
     paddingEnd: Spacing.half,
     borderRadius: Radius.pill,
@@ -430,8 +430,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one + 2,
-    paddingVertical: Spacing.one + 2,
+    gap: Spacing.oneHalf,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",

@@ -64,7 +64,7 @@ export default function HomeCustomizeScreen() {
   };
 
   const modulesCard = (
-    <Card padding="three" style={twoColumn ? styles.tvColumn : undefined}>
+    <Card style={twoColumn ? styles.tvColumn : undefined}>
       <SectionHeader
         title={t("homeCustomize.modulesTitle")}
         icon={{ ios: "square.grid.2x2.fill", android: "dashboard", web: "dashboard" }}
@@ -83,7 +83,7 @@ export default function HomeCustomizeScreen() {
   );
 
   const actionsCard = (
-    <Card padding="three" style={twoColumn ? styles.tvColumn : undefined}>
+    <Card style={twoColumn ? styles.tvColumn : undefined}>
       <SectionHeader
         title={t("homeCustomize.actionsTitle")}
         icon={{ ios: "square.grid.3x3.fill", android: "apps", web: "apps" }}

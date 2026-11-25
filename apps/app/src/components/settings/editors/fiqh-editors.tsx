@@ -176,7 +176,12 @@ export function FiqhAdvancedEditor() {
           }
         />
       </View>
-      <Sheet visible={domainSheet != null} onClose={() => setDomainSheet(null)} variant="bottom">
+      <Sheet
+        accessibilityLabel={domainSheet ? t(`fiqh.domain.${domainSheet}`) : ""}
+        visible={domainSheet != null}
+        onClose={() => setDomainSheet(null)}
+        variant="bottom"
+      >
         {domainSheet ? (
           <View style={styles.block}>
             <ThemedText type="subtitle">{t(`fiqh.domain.${domainSheet}`)}</ThemedText>

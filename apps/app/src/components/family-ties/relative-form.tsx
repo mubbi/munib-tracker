@@ -12,10 +12,11 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { NavRow } from "@/components/ui/nav-row";
 import { Stepper } from "@/components/ui/stepper";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
+import { TextField as FieldWithError } from "@/components/ui/text-field";
 import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   familyTiesActions,
   type RelativeInput,
@@ -44,12 +45,21 @@ const EMPTY: RelativeInput = {
 };
 
 /** Add / edit form for one relative (route: `/family-ties/edit?id=`). */
-export function RelativeForm({ id }: { id: string | undefined }) {
+export function RelativeForm({
+  id,
+  onDirtyChange,
+  onCancel,
+}: {
+  id: string | undefined;
+  /** Lets the screen guard its back button while there are unsaved edits. */
+  onDirtyChange?: (dirty: boolean) => void;
+  /** Cancel button (the screen asks before discarding edits). Defaults to leaving. */
+  onCancel?: () => void;
+}) {
   const { t } = useTranslation();
   const router = useRouter();
   const toast = useToast();
   const run = useRecordAction();
-  const { tokens } = useThemeTokens();
   const { status, error } = useFamilyTies();
   const existing = useRelative(id);
   const [form, setForm] = useState<RelativeInput>(EMPTY);
@@ -68,6 +78,13 @@ export function RelativeForm({ id }: { id: string | undefined }) {
     }
   }, [existing, loadedId]);
 
+  // Unsaved edits: compared with what the form started from (the record, or a blank add form).
+  const baseline = JSON.stringify(existing ? relativeToInput(existing) : EMPTY);
+  const dirty = JSON.stringify(form) !== baseline && (!id || loadedId === id);
+  useEffect(() => {
+    onDirtyChange?.(dirty);
+  }, [dirty, onDirtyChange]);
+
   if (status === "locked" || status === "error") {
     return <VaultStateNotice status={status} error={error} />;
   }
@@ -82,7 +99,7 @@ export function RelativeForm({ id }: { id: string | undefined }) {
           android: "person_off",
           web: "person_off",
         }}
-        title={t("privateUx.familyTies.notFound")}
+        title={t("familyTies.notFound")}
         actionLabel={t("familyTies.form.cancel")}
         onAction={() => goBackOrReplace(router, "/family-ties")}
       />
@@ -112,13 +129,13 @@ export function RelativeForm({ id }: { id: string | undefined }) {
       // Only a failed save unlocks the form; a saved one is on its way out.
       savingRef.current = false;
       setSaving(false);
-      toast.error(t("privateUx.saveFailed"));
+      toast.error(t("common.saveFailed"));
     }
   };
 
   return (
     <View style={styles.stack}>
-      <Card padding="three">
+      <Card>
         <View style={styles.list}>
           <TextField
             label={t("familyTies.form.name")}
@@ -134,19 +151,16 @@ export function RelativeForm({ id }: { id: string | undefined }) {
             onChange={setKinship}
             accessibilityLabel={t("familyTies.form.kinship")}
           />
-          <TextField
+          <FieldWithError
             label={t("familyTies.form.phone")}
-            hint={phoneInvalid ? undefined : t("familyTies.form.phoneHint")}
+            helperText={t("familyTies.form.phoneHint")}
+            error={phoneInvalid ? t("familyTies.phoneInvalid") : undefined}
+            optional
             value={form.phone ?? ""}
             onChangeText={(phone) => update({ phone })}
             keyboardType="phone-pad"
             autoComplete="tel"
           />
-          {phoneInvalid ? (
-            <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-              {t("privateUx.familyTies.phoneInvalid")}
-            </ThemedText>
-          ) : null}
           {form.deceased ? null : (
             <View style={styles.cadence}>
               <View style={styles.switchRow}>
@@ -184,27 +198,17 @@ export function RelativeForm({ id }: { id: string | undefined }) {
             multiline
           />
           {form.deceased ? null : (
-            <View style={styles.switchRow}>
-              <ThemedText type="small" style={styles.flex}>
-                {t("familyTies.form.paused")}
-              </ThemedText>
-              <ThemedSwitch
-                value={Boolean(form.paused)}
-                onValueChange={(paused) => update({ paused })}
-                accessibilityLabel={t("familyTies.form.paused")}
-              />
-            </View>
-          )}
-          <View style={styles.switchRow}>
-            <ThemedText type="small" style={styles.flex}>
-              {t("familyTies.form.deceased")}
-            </ThemedText>
-            <ThemedSwitch
-              value={Boolean(form.deceased)}
-              onValueChange={(deceased) => update({ deceased })}
-              accessibilityLabel={t("familyTies.form.deceased")}
+            <SwitchRow
+              title={t("familyTies.form.paused")}
+              value={Boolean(form.paused)}
+              onValueChange={(paused) => update({ paused })}
             />
-          </View>
+          )}
+          <SwitchRow
+            title={t("familyTies.form.deceased")}
+            value={Boolean(form.deceased)}
+            onValueChange={(deceased) => update({ deceased })}
+          />
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("familyTies.form.privacy")}
           </ThemedText>
@@ -213,17 +217,19 @@ export function RelativeForm({ id }: { id: string | undefined }) {
 
       <View style={styles.row}>
         <Button
-          label={saving ? t("privateUx.saving") : t("familyTies.form.save")}
-          disabled={!form.name.trim() || saving}
+          label={saving ? t("common.saving") : t("familyTies.form.save")}
+          disabled={!form.name.trim()}
+          loading={saving}
           onPress={() => void save()}
         />
-        <Button label={t("familyTies.form.cancel")} variant="ghost" onPress={done} />
+        <Button label={t("familyTies.form.cancel")} variant="ghost" onPress={onCancel ?? done} />
       </View>
       {/* Destructive action apart from Save / Cancel. */}
       {existing ? (
-        <Button
+        <NavRow
+          tone="danger"
+          icon={{ ios: "trash", android: "delete", web: "delete" }}
           label={t("familyTies.form.delete")}
-          variant="ghost"
           onPress={() => setConfirmDelete(true)}
         />
       ) : null}

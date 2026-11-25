@@ -63,7 +63,7 @@ export function EvidenceLine({ refs }: { refs: readonly EvidenceRef[] }) {
                   } as Href)
                 }
               >
-                <ThemedText type="caption" style={{ color: colors.accent }}>
+                <ThemedText type="caption" style={{ color: colors.accentText }}>
                   {label}
                 </ThemedText>
               </PressableScale>

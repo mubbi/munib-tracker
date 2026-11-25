@@ -25,6 +25,7 @@ describe("DefaultLocationBanner", () => {
     locationStore.setState({ location: buildStoredLocation({ source: "default" }) });
     await renderWithTheme(<DefaultLocationBanner />);
 
+    expect(screen.getByText("Salah times are for a default city")).toBeTruthy();
     await fireEvent.press(screen.getByText("Set location"));
 
     expect(mockRouter.push).toHaveBeenCalledWith("/location");

@@ -36,7 +36,6 @@ export function RawatibHomeCard() {
 
   return (
     <Card
-      padding="three"
       accessibilityLabel={`${t("rawatib.card.title")}, ${label}`}
       onPress={() => router.push(TRACKER_HREF)}
     >
@@ -52,7 +51,11 @@ export function RawatibHomeCard() {
         >
           {label}
         </ThemedText>
-        <ProgressBar value={Math.min(1, done / target)} color={tokens.status.success.color} />
+        <ProgressBar
+          value={Math.min(1, done / target)}
+          accessibilityLabel={t("rawatib.card.title")}
+          color={tokens.status.success.color}
+        />
         <ThemedText type="caption" themeColor="mutedForeground">
           {tTv(t, "rawatib.home.hint", "rawatib.card.hintTv")}
         </ThemedText>

@@ -21,7 +21,7 @@ export function GuideMadhhabNotes({ ids }: { ids: readonly FiqhDifferenceId[] | 
   const { t } = useTranslation();
   if (!ids?.length) return null;
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader title={t("fiqhRetrofit.guideNotes.title")} icon={SCHOOLS_DIFFER_ICON} />
       <View style={styles.notes} testID="guide-madhhab-notes">
         {ids.map((id) => (

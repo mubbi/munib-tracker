@@ -5,7 +5,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { ProgressBar } from "@/components/ui/progress-bar";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useChevronForward } from "@/lib/rtl";
 
@@ -44,7 +44,6 @@ export function QazaSummaryCard({
 
   return (
     <Card
-      padding="three"
       onPress={onPress}
       accessibilityLabel={t("home.qazaA11y", {
         remaining,
@@ -56,7 +55,7 @@ export function QazaSummaryCard({
         {
           backgroundColor: warning.soft,
           borderColor: warning.border,
-          borderWidth: 1,
+          borderWidth: BorderWidth.thin,
         },
       ]}
     >
@@ -111,7 +110,12 @@ export function QazaSummaryCard({
                 {t("home.qazaProgress", { pct: progressPct })}
               </ThemedText>
             </View>
-            <ProgressBar value={progress} height={6} color={success.color} />
+            <ProgressBar
+              value={progress}
+              accessibilityLabel={t("a11yProgress.qazaMadeUp")}
+              height={6}
+              color={success.color}
+            />
           </View>
         </>
       ) : null}
@@ -146,7 +150,7 @@ const styles = StyleSheet.create({
   },
   headerCopy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
   statsRow: {
     flexDirection: "row",
@@ -160,13 +164,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   statValue: {
     fontVariant: ["tabular-nums"],
   },
   progressBlock: {
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   progressLabels: {
     flexDirection: "row",
@@ -178,7 +182,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
     paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   rozaLabel: { flex: 1 },
 });

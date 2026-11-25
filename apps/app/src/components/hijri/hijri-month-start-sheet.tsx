@@ -8,7 +8,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useHijriAdjustment } from "@/hooks/use-hijri-adjustment";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { hijriBaseCalendar, hijriMonthLabel, hijriPredictionSource } from "@/lib/hijri";
@@ -71,7 +71,12 @@ export function HijriMonthStartSheet({ visible, year, month, onClose }: HijriMon
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
+    <Sheet
+      accessibilityLabel={t("hijriAdjust.sheetTitle", { month: monthLabel })}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+    >
       <ThemedText type="subtitle">{t("hijriAdjust.sheetTitle", { month: monthLabel })}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("hijriAdjust.sheetIntro")}
@@ -186,7 +191,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
   },
   choiceLabel: {
     flex: 1,

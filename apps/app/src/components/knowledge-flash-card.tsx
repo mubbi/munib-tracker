@@ -9,7 +9,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useKnowledgeCard } from "@/hooks/use-knowledge-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
@@ -27,7 +27,7 @@ function getPalette(
       color: colors.accent,
       soft: tokens.accentSoft,
       border: colors.accent,
-      text: colors.accent,
+      text: tokens.accentOnSoft,
     };
   }
   const status = tokens.status[key];
@@ -35,7 +35,7 @@ function getPalette(
     color: status.color,
     soft: status.soft,
     border: status.border,
-    text: status.text,
+    text: status.onSoft,
   };
 }
 
@@ -113,7 +113,7 @@ function KnowledgeCardBody({
   );
 
   return (
-    <Card padding="three" style={cardStyle}>
+    <Card style={cardStyle}>
       <View style={styles.topRow}>
         <Pill
           label={t(card.titleKey)}
@@ -154,7 +154,7 @@ export function KnowledgeFlashCard() {
 
 const styles = StyleSheet.create({
   card: {
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     gap: Spacing.two,
   },
   topRow: {
@@ -173,19 +173,19 @@ const styles = StyleSheet.create({
   },
   copy: {
     flex: 1,
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   arabic: {},
   body: {
     lineHeight: 22,
   },
   reference: {
-    marginTop: 2,
+    marginTop: Spacing.half,
   },
   actionRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: Spacing.one,
     marginTop: Spacing.one,
   },
 });

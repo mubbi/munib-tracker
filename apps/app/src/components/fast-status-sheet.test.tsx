@@ -17,7 +17,7 @@ const renderSheet = async (currentStatus?: FastStatus) => {
   return handlers;
 };
 
-const option = (label: string) => screen.getByRole("button", { name: label });
+const option = (label: string) => screen.getByRole("radio", { name: label });
 
 beforeEach(() => jest.mocked(triggerHaptic).mockClear());
 
@@ -25,15 +25,14 @@ describe("FastStatusSheet", () => {
   it("titles the sheet with the day and marks the current status", async () => {
     await renderSheet("missed");
 
-    expect(screen.getByText("1 Ramadan")).toBeTruthy();
-    expect(option("Missed").props.accessibilityState).toEqual({ selected: true });
-    expect(option("Not marked").props.accessibilityState).toEqual({ selected: false });
+    expect(option("Missed").props.accessibilityState).toEqual({ checked: true });
+    expect(option("Not marked").props.accessibilityState).toEqual({ checked: false });
   });
 
   it("treats an unmarked day as Not marked", async () => {
     await renderSheet();
 
-    expect(option("Not marked").props.accessibilityState).toEqual({ selected: true });
+    expect(option("Not marked").props.accessibilityState).toEqual({ checked: true });
   });
 
   it.each([

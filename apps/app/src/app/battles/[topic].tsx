@@ -26,7 +26,7 @@ export default function BattlesTopicScreen() {
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
   const completedIds = useStore(battlesProgressStore, (s) => s.completedTopicIds);
-  const { ready } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
+  const { ready, error, retry } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const topic = getBattlesTopic(topicId);
   const reportRef = useGuideContentReportRef("battles", topic, "/battles");
   useEnsureBattlesProgressLoaded();
@@ -37,6 +37,8 @@ export default function BattlesTopicScreen() {
       basePath="/battles"
       topic={topic}
       ready={ready}
+      error={error}
+      onRetry={retry}
       surface="battles"
       contentRef={reportRef}
       aside={(current) => (

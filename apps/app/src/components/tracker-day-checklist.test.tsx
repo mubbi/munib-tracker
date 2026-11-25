@@ -165,20 +165,52 @@ describe("TrackerDayChecklist", () => {
     expect(mockRouter.push).toHaveBeenCalledWith(href);
   });
 
-  it("lets the tracker store own excused days by default", async () => {
+  it("folds Excused day into the Obligatory card; the store owns it by default", async () => {
     await renderChecklist();
+    expect(ExcusedDayPicker).not.toHaveBeenCalled();
 
-    expect(lastProps(ExcusedDayPicker)).toEqual({});
+    await fireEvent.press(screen.getByRole("button", { name: "Excused day" }));
+
+    expect(lastProps(ExcusedDayPicker)).toEqual({ variant: "inline" });
   });
 
-  it("hands excused state to the picker when the caller owns it", async () => {
+  it("keeps an active excuse open and hands its state to the picker", async () => {
     const onExcusedChange = jest.fn();
     await renderChecklist({ excusedReason: "travel", onExcusedChange });
 
     expect(lastProps(ExcusedDayPicker)).toEqual({
+      variant: "inline",
       excusedReason: "travel",
       onExcusedChange,
     });
+  });
+
+  it("forwards the one-tap mark from a row", async () => {
+    const onPrayerQuickSelect = jest.fn();
+    await renderChecklist({ onPrayerQuickSelect });
+
+    await act(async () => {
+      rowProps("isha").onSelect?.("completed");
+    });
+
+    expect(onPrayerQuickSelect).toHaveBeenCalledWith("isha", "completed");
+  });
+
+  it("leaves rows sheet-only without a quick-select handler (calendar)", async () => {
+    await renderChecklist({ isToday: false });
+
+    expect(rowProps("fajr").onSelect).toBeUndefined();
+  });
+
+  it("leads with the Obligatory card and groups the rest", async () => {
+    await renderChecklist();
+
+    expect(screen.queryByTestId("tracker-day-banner")).toBeNull();
+    expect(screen.getByTestId("tracker-obligatory")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Remembrance" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Voluntary" })).toBeTruthy();
+    // No Qaza target / khatm plan today → no empty make-up group.
+    expect(screen.queryByRole("button", { name: "Make-up & reading" })).toBeNull();
   });
 
   it("hides Friday and White Days sections on ordinary days", async () => {

@@ -6,10 +6,12 @@ import type {
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { VaultStateNotice } from "@/components/self-review/vault-state-notice";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { Spacing } from "@/constants/theme";
 import { adjacentMuhasabahStep, MUHASABAH_STEPS, type MuhasabahStep } from "@/lib/muhasabah/flow";
@@ -25,6 +27,7 @@ import { usePreferences } from "@/stores/preferences-store";
 
 import { MuhasabahDone } from "./muhasabah-done";
 import { MuhasabahStepBody } from "./muhasabah-steps";
+import { useLeaveGuard } from "./use-leave-guard";
 import { useMuhasabahDay } from "./use-muhasabah-day";
 
 // Public import path — the id now lives with the flow helpers.
@@ -48,6 +51,8 @@ export function MuhasabahFlow({ now = new Date() }: { now?: Date }) {
   const [draft, setDraft] = useState<MuhasabahDraft>(() => draftFromEntry(existing));
   const [thanked, setThanked] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [justSaved, setJustSaved] = useState(false);
+  const [askCancel, setAskCancel] = useState(false);
   const startedAt = useRef(Date.now());
   const { recap, istighfar } = useMuhasabahDay(date, prefs.activeExcusedReason);
 
@@ -56,10 +61,27 @@ export function MuhasabahFlow({ now = new Date() }: { now?: Date }) {
     if (status === "ready") void muhasabahActions.runRetention().catch(() => {});
   }, [status]);
 
+  // The five-step draft is private and lives only in memory: ask before a stray
+  // back / swipe throws it away.
+  const showingForm = status === "ready" && !(existing && !editing);
+  const dirty =
+    showingForm && !justSaved && JSON.stringify(draft) !== JSON.stringify(draftFromEntry(existing));
+  const leaveGuard = useLeaveGuard(dirty);
+
   if (status === "locked" || status === "error") {
     return <VaultStateNotice status={status} error={error} />;
   }
-  if (status !== "ready") return null;
+  if (status !== "ready") {
+    // The chrome is already on screen — never a blank page while the vault opens.
+    return (
+      <ContentState
+        status="loading"
+        skeleton="card"
+        skeletonCount={2}
+        loadingLabel={t("uiFeedback.loading")}
+      />
+    );
+  }
 
   if (existing && !editing) {
     return (
@@ -69,6 +91,7 @@ export function MuhasabahFlow({ now = new Date() }: { now?: Date }) {
         onEdit={() => {
           setDraft(draftFromEntry(existing));
           startedAt.current = Date.now();
+          setJustSaved(false);
           setEditing(true);
         }}
       />
@@ -97,6 +120,7 @@ export function MuhasabahFlow({ now = new Date() }: { now?: Date }) {
         durationMs: Date.now() - startedAt.current + (existing?.durationMs ?? 0),
       });
       await muhasabahActions.saveEntry(entry);
+      setJustSaved(true);
       setEditing(false);
       setStep("salah");
       toast.success(t("muhasabah.saved"), t("muhasabah.savedSub"));
@@ -113,10 +137,14 @@ export function MuhasabahFlow({ now = new Date() }: { now?: Date }) {
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("muhasabah.stepOf", { current: index + 1, total: MUHASABAH_STEPS.length })}
         </ThemedText>
-        <SegmentedProgress total={MUHASABAH_STEPS.length} completed={index + 1} />
+        <SegmentedProgress
+          accessibilityLabel={t("muhasabah.title")}
+          total={MUHASABAH_STEPS.length}
+          completed={index + 1}
+        />
       </View>
 
-      <Card>
+      <Card padding="four">
         <View style={styles.gap}>
           <ThemedText type="subtitle" heading={2}>
             {t(`muhasabah.steps.${step}.title`)}
@@ -147,7 +175,11 @@ export function MuhasabahFlow({ now = new Date() }: { now?: Date }) {
           />
         ) : existing && editing ? (
           // Editing tonight's saved review: leave without changing it.
-          <Button label={t("common.cancel")} variant="ghost" onPress={cancelEdit} />
+          <Button
+            label={t("common.cancel")}
+            variant="ghost"
+            onPress={() => (dirty ? setAskCancel(true) : cancelEdit())}
+          />
         ) : null}
         <View style={styles.flex} />
         {isLast ? (
@@ -163,6 +195,25 @@ export function MuhasabahFlow({ now = new Date() }: { now?: Date }) {
           />
         )}
       </View>
+      <ConfirmDialog
+        visible={leaveGuard.visible || askCancel}
+        title={t("muhasabah.discardTitle")}
+        message={t("muhasabah.discardBody")}
+        confirmLabel={t("muhasabah.discardConfirm")}
+        cancelLabel={t("muhasabah.discardKeep")}
+        destructive
+        onConfirm={() => {
+          if (askCancel) {
+            setAskCancel(false);
+            setDraft(draftFromEntry(existing));
+            cancelEdit();
+          } else leaveGuard.confirm();
+        }}
+        onClose={() => {
+          setAskCancel(false);
+          leaveGuard.cancel();
+        }}
+      />
     </View>
   );
 }

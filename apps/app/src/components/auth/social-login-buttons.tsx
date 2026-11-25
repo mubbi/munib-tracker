@@ -6,10 +6,13 @@ import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import type { OAuthProvider } from "@/api/endpoints";
 import { ThemedText } from "@/components/themed-text";
+import { Callout } from "@/components/ui/callout";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
-import { OAUTH_CANCELLED, useSocialAuth } from "@/hooks/use-social-auth";
+import { BorderWidth, Control, Opacity, Radius, Spacing } from "@/constants/theme";
+import { useSocialAuth } from "@/hooks/use-social-auth";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+
+import { type SocialAuthErrorKey, socialAuthErrorKey } from "./social-auth-errors";
 
 /**
  * Brand-locked styling for each sign-in button, following the official
@@ -65,12 +68,23 @@ function appleBrand(scheme: "light" | "dark"): ProviderBrand {
 
 const PROVIDER_ORDER: OAuthProvider[] = ["google", "apple", "facebook"];
 
-export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
+export function SocialLoginButtons({
+  onSuccess,
+  onAttempt,
+}: {
+  onSuccess?: () => void;
+  /** Runs when a provider is pressed (the login screen clears its return error). */
+  onAttempt?: () => void;
+}) {
   const { t } = useTranslation();
   const pathname = usePathname();
   const { tokens, scheme } = useThemeTokens();
   const { signIn, busy, googleConfigured, appleConfigured, facebookConfigured } = useSocialAuth();
-  const [error, setError] = useState<string | null>(null);
+  /** Translated failure + the provider to retry (never the raw `Error.message` — D-01). */
+  const [failure, setFailure] = useState<{
+    key: SocialAuthErrorKey;
+    provider: OAuthProvider;
+  } | null>(null);
 
   const configured: Record<OAuthProvider, boolean> = {
     google: googleConfigured,
@@ -89,16 +103,17 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
   const visibleProviders = PROVIDER_ORDER.filter((id) => configured[id]);
 
   const connect = async (provider: OAuthProvider) => {
-    setError(null);
+    setFailure(null);
+    onAttempt?.();
     try {
       // Persist current route so Android Custom Tab / App Link resume can return
       // here instead of always dumping onto the guest login modal.
       await signIn(provider, { returnTo: pathname || undefined });
       onSuccess?.();
     } catch (e) {
-      // A user-dismissed sheet isn't an error worth surfacing.
-      if (e instanceof Error && e.message === OAUTH_CANCELLED) return;
-      setError(e instanceof Error && e.message ? e.message : t("login.error"));
+      // A user-dismissed sheet maps to null — not an error worth surfacing.
+      const key = socialAuthErrorKey(e);
+      if (key) setFailure({ key, provider });
     }
   };
 
@@ -125,6 +140,9 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
     <View style={styles.root}>
       {visibleProviders.map((id) => {
         const brand = brands[id];
+        const connecting = busy === id;
+        // D-22: while one provider connects, the others are dimmed and disabled.
+        const blocked = busy !== null && !connecting;
         return (
           <PressableScale
             key={id}
@@ -133,12 +151,14 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
             onPress={() => connect(id)}
             accessibilityRole="button"
             accessibilityLabel={t(`login.${id}`)}
+            accessibilityState={{ disabled: busy !== null, busy: connecting }}
             style={[
               styles.providerButton,
               { backgroundColor: brand.background, borderColor: brand.border },
+              blocked && { opacity: Opacity.disabled },
             ]}
           >
-            {busy === id ? (
+            {connecting ? (
               <ActivityIndicator color={brand.spinner} />
             ) : (
               <View style={styles.providerContent}>
@@ -157,13 +177,17 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
         );
       })}
 
-      {error ? (
-        <ThemedText
-          type="caption"
-          style={{ color: tokens.status.danger.text, textAlign: "center" }}
+      {failure ? (
+        <Callout
+          tone="danger"
+          action={
+            busy === null
+              ? { label: t("common.tryAgain"), onPress: () => void connect(failure.provider) }
+              : undefined
+          }
         >
-          {error}
-        </ThemedText>
+          {t(failure.key)}
+        </Callout>
       ) : null}
     </View>
   );
@@ -178,17 +202,17 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   providerButton: {
-    minHeight: 48,
+    minHeight: Control.lg,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   providerContent: {
     flexDirection: "row",

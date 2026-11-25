@@ -14,7 +14,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar, SegmentedProgress } from "@/components/ui/progress-bar";
 import { ProgressRing } from "@/components/ui/progress-ring";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Breakpoints, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -99,8 +99,8 @@ export function QuizPlayer({
   const { width } = useWindowDimensions();
   // Tablet / desktop (non-TV): answers in two columns so short options don't
   // stretch across the whole card.
-  const twoColumnOptions = !tv && width >= 768;
-  const keyboardHints = Platform.OS === "web" && !tv && width >= 768;
+  const twoColumnOptions = !tv && width >= Breakpoints.tablet;
+  const keyboardHints = Platform.OS === "web" && !tv && width >= Breakpoints.tablet;
   const reviewColumns = useLearnColumns({ max: 2 });
 
   const scored = useMemo(() => questions.filter(isScoredQuestion), [questions]);
@@ -221,11 +221,12 @@ export function QuizPlayer({
     return (
       <View style={styles.stack}>
         {intro}
-        <ProgressBar value={1} color={ringColor} />
-        <Card padding="three">
+        <ProgressBar value={1} accessibilityLabel={t("a11yProgress.quiz")} color={ringColor} />
+        <Card>
           <View style={styles.resultsHero}>
             <ProgressRing
               progress={scored.length > 0 ? ratio : 1}
+              accessibilityLabel={t("common.quiz.scoreCaption")}
               size={128}
               stroke={10}
               color={ringColor}
@@ -393,13 +394,17 @@ export function QuizPlayer({
           </ThemedText>
         </View>
         {questions.length <= 10 ? (
-          <SegmentedProgress total={questions.length} completed={answeredCount} />
+          <SegmentedProgress
+            accessibilityLabel={t("a11yProgress.quiz")}
+            total={questions.length}
+            completed={answeredCount}
+          />
         ) : (
-          <ProgressBar value={progress} />
+          <ProgressBar value={progress} accessibilityLabel={t("a11yProgress.quiz")} />
         )}
       </View>
 
-      <Card padding="three">
+      <Card>
         <View style={styles.metaRow}>
           {category ? (
             <Pill
@@ -670,17 +675,16 @@ const styles = StyleSheet.create({
   prompt: {
     marginTop: Spacing.three,
     marginBottom: Spacing.three,
-    lineHeight: 26,
   },
   option: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
     marginBottom: Spacing.two,
     minHeight: 52,
   },
@@ -712,7 +716,6 @@ const styles = StyleSheet.create({
   },
   optionLabel: {
     flex: 1,
-    lineHeight: 20,
   },
   optionLabelTv: {
     lineHeight: 26,
@@ -724,7 +727,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     marginTop: Spacing.one,
     marginBottom: Spacing.two,
   },
@@ -732,12 +735,9 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: Spacing.one,
   },
-  explanationText: {
-    lineHeight: 20,
-  },
+  explanationText: {},
   hint: {
     marginBottom: Spacing.two,
-    lineHeight: 18,
   },
   reflectionBlock: {
     marginBottom: Spacing.two,
@@ -756,7 +756,6 @@ const styles = StyleSheet.create({
   },
   encouragement: {
     marginTop: Spacing.one,
-    lineHeight: 20,
   },
   resultsHero: {
     alignItems: "center",
@@ -777,7 +776,7 @@ const styles = StyleSheet.create({
     padding: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   reviewRowFill: {
     flexGrow: 1,
@@ -788,7 +787,7 @@ const styles = StyleSheet.create({
   },
   reviewCopy: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
   },
   actions: {
     gap: Spacing.two,

@@ -6,7 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { AttachmentThumb } from "@/components/attachments/attachment-thumb";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ReportAttachmentInput } from "@/lib/content-report-api";
 import { isTV } from "@/lib/platform/is-tv";
@@ -135,7 +135,8 @@ export function ContentReportAttachments({
               <PressableScale
                 accessibilityRole="button"
                 accessibilityLabel={t("contentReport.removeProof")}
-                hitSlop={8}
+                // 22pt badge + 11pt each side = the 44pt minimum target (P6-07).
+                hitSlop={11}
                 haptic="light"
                 scaleTo={0.9}
                 onPress={() => removeAt(index)}
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     overflow: "hidden",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   removeBadge: {
     position: "absolute",

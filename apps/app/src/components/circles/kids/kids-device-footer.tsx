@@ -30,7 +30,7 @@ export function KidsDeviceFooter({ child }: { child: ChildProfile }) {
   return (
     <View style={styles.gap}>
       {showGraduation ? (
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="small">
             {stage === "reprompt" ? t("kids.graduate.reprompt") : t("kids.graduate.offer")}
           </ThemedText>

@@ -12,7 +12,7 @@ import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useMadhhab } from "@/hooks/use-madhhab";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { SCREEN_DIFFERENCES } from "@/lib/fiqh/screen-differences";
@@ -292,7 +292,7 @@ export function QasrCalculatorCard() {
   const fullDaysHint = useFullDaysHint();
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("travel.qasrCalc.title")}
         icon={{ ios: "function", android: "calculate", web: "calculate" }}
@@ -320,7 +320,7 @@ export function QasrCalculatorCard() {
 }
 
 const styles = StyleSheet.create({
-  hint: { marginTop: Spacing.two, lineHeight: 18 },
+  hint: { marginTop: Spacing.two },
   questions: { gap: Spacing.three, marginTop: Spacing.three },
   field: { gap: Spacing.two },
   inputRow: {
@@ -340,9 +340,13 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   rows: { gap: Spacing.two },
-  schoolRow: { gap: Spacing.half, paddingStart: Spacing.three, borderStartWidth: 2 },
+  schoolRow: {
+    gap: Spacing.half,
+    paddingStart: Spacing.three,
+    borderStartWidth: BorderWidth.thick,
+  },
   notes: { gap: Spacing.two, marginTop: Spacing.two },
 });

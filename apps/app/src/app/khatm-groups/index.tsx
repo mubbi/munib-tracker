@@ -117,7 +117,7 @@ export default function KhatmGroupsScreen() {
           </>
         ) : null}
 
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="smallBold">{t("khatmGroups.privacy.title")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("khatmGroups.privacy.body")}

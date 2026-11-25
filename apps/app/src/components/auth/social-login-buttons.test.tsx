@@ -77,18 +77,55 @@ describe("SocialLoginButtons", () => {
     expect(screen.queryByText("oauth_cancelled")).toBeNull();
   });
 
-  it("shows the provider error message", async () => {
+  it("never renders the raw error message (D-01)", async () => {
     mockSocial.signIn.mockRejectedValue(new Error("Account disabled"));
     await renderButtons();
     await pressProvider("Continue with Apple");
-    expect(screen.getByText("Account disabled")).toBeTruthy();
+    expect(screen.queryByText("Account disabled")).toBeNull();
+    expect(screen.getByText(i18n.t("login.error"))).toBeTruthy();
+    expect(screen.queryByText(/API server/)).toBeNull();
   });
 
-  it("falls back to a generic error", async () => {
-    mockSocial.signIn.mockRejectedValue("nope");
+  it("maps a not-configured provider to the catalog string", async () => {
+    mockSocial.signIn.mockRejectedValue(new Error("Google sign-in is not configured yet."));
+    await renderButtons();
+    await pressProvider("Continue with Google");
+    expect(screen.queryByText("Google sign-in is not configured yet.")).toBeNull();
+    expect(screen.getByText(i18n.t("login.errorProviderUnavailable"))).toBeTruthy();
+  });
+
+  it.each([
+    ["Sign-in is not ready yet; try again.", "login.errorNotReady"],
+    ["Network request failed", "login.errorOffline"],
+  ])("maps %s to %s", async (message, key) => {
+    mockSocial.signIn.mockRejectedValue(new Error(message));
     await renderButtons();
     await pressProvider("Continue with Facebook");
-    expect(screen.getByText(/Couldn't sign in/)).toBeTruthy();
+    expect(screen.getByText(i18n.t(key))).toBeTruthy();
+  });
+
+  it("falls back to a generic error and retries the same provider", async () => {
+    mockSocial.signIn.mockRejectedValueOnce("nope");
+    await renderButtons();
+    await pressProvider("Continue with Facebook");
+    expect(screen.getByText(i18n.t("login.error"))).toBeTruthy();
+    await fireEvent.press(screen.getByText(i18n.t("common.tryAgain")));
+    await act(async () => {
+      await Promise.resolve();
+    });
+    expect(mockSocial.signIn).toHaveBeenLastCalledWith("facebook", { returnTo: "/profile" });
+    expect(screen.queryByText(i18n.t("login.error"))).toBeNull();
+  });
+
+  it("dims and disables the other providers while one connects (D-22)", async () => {
+    mockSocial.busy = "google";
+    await renderButtons();
+    expect(screen.getByLabelText("Continue with Apple").props.accessibilityState).toEqual(
+      expect.objectContaining({ disabled: true, busy: false }),
+    );
+    expect(screen.getByLabelText("Continue with Google").props.accessibilityState).toEqual(
+      expect.objectContaining({ disabled: true, busy: true }),
+    );
   });
 
   it("disables buttons and shows a spinner while busy", async () => {

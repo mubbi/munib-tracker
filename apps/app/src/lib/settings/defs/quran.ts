@@ -413,6 +413,7 @@ export const QURAN_SETTINGS: AnySettingDef[] = [
       kind: "action",
       run: () => pronunciationCalibrationStore.getState().clear(),
       confirmKey: "quranPronunciation.settings.calibrationResetConfirm",
+      doneKey: "settings.done.calibration",
     },
     available: (ctx) => !ctx.tv,
   }),

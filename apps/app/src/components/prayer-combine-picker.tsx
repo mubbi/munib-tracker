@@ -7,7 +7,7 @@ import { StyleSheet, View } from "react-native";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useMadhhab } from "@/hooks/use-madhhab";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -113,10 +113,10 @@ export function PrayerCombinePicker({ prayerId, combined, onChange }: PrayerComb
               ]}
             >
               <ThemedText
+                weight="semibold"
                 type="caption"
                 style={{
                   color: selected ? colors.accentText : colors.foreground,
-                  fontWeight: "600",
                 }}
               >
                 {option.label}
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   header: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   title: { flex: 1 },
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
   },
   optionTv: { minHeight: TvLayout.minFocusTarget, justifyContent: "center" },
   compareToggle: { alignSelf: "flex-start", paddingVertical: Spacing.one },

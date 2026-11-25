@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stepper } from "@/components/ui/stepper";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { Spacing } from "@/constants/theme";
 import { heirLabelKey } from "@/lib/mirath/explain";
 import {
@@ -64,16 +64,11 @@ export function MirathStepBody({
             {`• ${t(`mirath.confirm.${k}`)}`}
           </ThemedText>
         ))}
-        <View style={styles.row}>
-          <ThemedText type="smallBold" style={styles.flex}>
-            {t("mirath.confirm.toggle")}
-          </ThemedText>
-          <ThemedSwitch
-            value={confirmed}
-            onValueChange={onConfirmedChange}
-            accessibilityLabel={t("mirath.confirm.toggle")}
-          />
-        </View>
+        <SwitchRow
+          title={t("mirath.confirm.toggle")}
+          value={confirmed}
+          onValueChange={onConfirmedChange}
+        />
         {totalHeads(heirs) === 0 ? (
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("mirath.confirm.noHeirs")}

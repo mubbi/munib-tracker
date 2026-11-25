@@ -10,7 +10,6 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   StyleSheet,
-  TextInput,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -19,12 +18,12 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
+import { NumberField } from "@/components/ui/number-field";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { responsiveColumns } from "@/components/ui/responsive-grid";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -38,8 +37,6 @@ import { useLastRead } from "@/stores/quran-store";
 
 const PAGE_LIST = getPageList();
 const PAGE_COUNT = QURAN_TOTAL_PAGES;
-/** Shared height for the go-to-page input + Go button so the row stays flush. */
-const GO_CONTROL_HEIGHT = 40;
 /** Approximate row height for scroll-to-continue (padding + badge + caption). */
 const PAGE_ROW_ESTIMATE = 72;
 /** Show back-to-top once the list is scrolled past a couple of rows. */
@@ -76,11 +73,16 @@ const PageRow = memo(function PageRow({
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={
-        isContinue
-          ? `${t("quran.pageN", { n: entry.page })}, ${t("quran.continueReading")}`
-          : t("quran.pageN", { n: entry.page })
-      }
+      // Full spoken row (G-18): page, where it starts, juz, resume state.
+      accessibilityLabel={[
+        t("quran.pageN", { n: entry.page }),
+        entry.surahNameTransliteration,
+        t("quran.ayahRef", { surah: entry.surah, ayah: entry.ayah }),
+        t("quran.juzN", { n: entry.juz }),
+        isContinue ? t("quran.continueReading") : null,
+      ]
+        .filter(Boolean)
+        .join(", ")}
       onPress={() => onPress(entry.page)}
       {...(preferredFocus ? { hasTVPreferredFocus: true } : {})}
       style={[
@@ -270,46 +272,32 @@ export default function QuranPagesBrowserScreen() {
 
   const listHeader = useMemo(
     () => (
-      <View style={styles.goHeader}>
-        <View style={[styles.goRow, !tv && styles.goRowWide]}>
-          <TextInput
-            value={pageQuery}
-            onChangeText={onPageQueryChange}
-            onSubmitEditing={goToPage}
-            keyboardType="number-pad"
-            returnKeyType="go"
-            placeholder={t("quran.goToPagePlaceholder", { max: PAGE_COUNT })}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("quran.goToPageA11y")}
-            accessibilityHint={t("quran.goToPageHint", { max: PAGE_COUNT })}
-            style={[
-              styles.goInput,
-              tv && styles.goInputTv,
-              {
-                backgroundColor: colors.input,
-                color: colors.foreground,
-                borderColor: goError ? tokens.status.warning.color : colors.inputBorder,
-                borderWidth: 1,
-              },
-            ]}
-          />
-          <Button
-            label={t("quran.goToPageAction")}
-            size="sm"
-            disabled={pageQuery.trim().length === 0}
-            onPress={goToPage}
-            accessibilityHint={t("quran.goToPageHint", { max: PAGE_COUNT })}
-            style={[styles.goButton, tv && styles.goButtonTv]}
-          />
-        </View>
-        {goError ? (
-          <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-            {t("quran.goToPageInvalid", { max: PAGE_COUNT })}
-          </ThemedText>
-        ) : null}
+      <View style={[styles.goHeader, !tv && styles.goRowWide]}>
+        {/* The shared number field (P6-01): label, helper and an announced
+            inline error instead of a warning-tinted border + loose caption. */}
+        <NumberField
+          label={t("quran.goToPageA11y")}
+          helperText={goError ? undefined : t("quran.goToPageHint", { max: PAGE_COUNT })}
+          error={goError ? t("quran.goToPageInvalid", { max: PAGE_COUNT }) : undefined}
+          value={pageQuery ? Number(pageQuery) : undefined}
+          onChangeValue={(value) => onPageQueryChange(value == null ? "" : String(value))}
+          onSubmitEditing={goToPage}
+          returnKeyType="go"
+          placeholder={t("quran.goToPagePlaceholder", { max: PAGE_COUNT })}
+          trailing={
+            <Button
+              label={t("quran.goToPageAction")}
+              size="sm"
+              disabled={pageQuery.trim().length === 0}
+              onPress={goToPage}
+              accessibilityHint={t("quran.goToPageHint", { max: PAGE_COUNT })}
+              style={styles.goButton}
+            />
+          }
+        />
       </View>
     ),
-    [colors, goError, goToPage, onPageQueryChange, pageQuery, t, tokens, tv],
+    [goError, goToPage, onPageQueryChange, pageQuery, t, tv],
   );
 
   return (
@@ -383,30 +371,7 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     marginBottom: Spacing.two,
   },
-  goRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  goInput: {
-    flex: 1,
-    height: GO_CONTROL_HEIGHT,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: 0,
-    fontSize: 15,
-    lineHeight: 20,
-    textAlignVertical: "center",
-  },
-  goButton: {
-    flexShrink: 0,
-    height: GO_CONTROL_HEIGHT,
-    minHeight: GO_CONTROL_HEIGHT,
-    paddingVertical: 0,
-    justifyContent: "center",
-  },
+  goButton: { flexShrink: 0 },
   backToTop: {
     position: "absolute",
     end: Spacing.three,
@@ -439,15 +404,6 @@ const styles = StyleSheet.create({
   gridRowTv: { gap: Spacing.three },
   gridRowWide: { gap: GRID_GAP },
   goRowWide: { maxWidth: GO_ROW_MAX_WIDTH, width: "100%" },
-  goInputTv: {
-    height: TvLayout.minFocusTarget,
-    fontSize: tvDp(TvLayout.bodyFontSize), // TextInput: no ThemedText tvOS scaling
-    lineHeight: TvLayout.bodyFontSize + 6,
-  },
-  goButtonTv: {
-    height: TvLayout.minFocusTarget,
-    minHeight: TvLayout.minFocusTarget,
-  },
   rowBody: { flex: 1, gap: 2, minWidth: 0 },
   rowTitle: {
     flexDirection: "row",

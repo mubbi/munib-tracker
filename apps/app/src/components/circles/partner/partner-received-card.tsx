@@ -21,11 +21,7 @@ export function PartnerReceivedCard({
   const { t } = useTranslation();
   if (!nudges.duas.length && !nudges.reminder) return null;
   return (
-    <Card
-      padding="three"
-      style={styles.card}
-      accessibilityLabel={t("partnerCircle.received.title")}
-    >
+    <Card style={styles.card} accessibilityLabel={t("partnerCircle.received.title")}>
       <SectionHeader
         title={t("partnerCircle.received.title")}
         icon={{ ios: "heart.fill", android: "favorite", web: "favorite" }}

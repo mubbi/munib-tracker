@@ -57,7 +57,7 @@ export function MadhhabPromptCard() {
   return (
     <>
       {isUnset ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader title={t("fiqhRetrofit.prompt.cardTitle")} icon={SCHOOLS_DIFFER_ICON} />
           <View style={styles.body}>
             <ThemedText type="small" themeColor="mutedForeground">

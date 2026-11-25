@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert } from "react-native";
 
 import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
@@ -16,6 +15,7 @@ import {
 } from "@/lib/tts";
 import { buildReadingTtsQueue } from "@/lib/tts-audio-tracks";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import { useToast } from "@/providers/toast-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
 type ReadingTtsButtonProps = {
@@ -43,6 +43,7 @@ export function ReadingTtsButton({
   translation,
 }: ReadingTtsButtonProps) {
   const { t } = useTranslation();
+  const toast = useToast();
   const { colors, tokens } = useThemeTokens();
   const { locale } = usePreferences();
   const audio = useAudioPlayerContext();
@@ -90,7 +91,7 @@ export function ReadingTtsButton({
     void (async () => {
       const available = await isTtsAvailable();
       if (!available) {
-        Alert.alert(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
+        toast.info(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
         return;
       }
 

@@ -62,7 +62,7 @@ export function PronunciationSettingsCard() {
   })();
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("quranCompanion.pronunciation.title")}
         icon={{ ios: "waveform.badge.mic", android: "record_voice_over", web: "record_voice_over" }}
@@ -70,7 +70,10 @@ export function PronunciationSettingsCard() {
       <View style={styles.rows}>
         <ThemedText type="small">{statusLine}</ThemedText>
         {state.status === "downloading" && state.bytesTotal > 0 ? (
-          <ProgressBar value={state.bytesDone / state.bytesTotal} />
+          <ProgressBar
+            value={state.bytesDone / state.bytesTotal}
+            accessibilityLabel={t("a11yProgress.modelDownload")}
+          />
         ) : null}
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("quranCompanion.pronunciation.explainer")}

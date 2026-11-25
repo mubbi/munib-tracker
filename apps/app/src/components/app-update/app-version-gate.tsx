@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 
 import { UpdateRequiredModal } from "@/components/app-update/update-required-modal";
+import { ZIndex } from "@/constants/theme";
 import { usePinLock } from "@/features/pin-lock";
 import { useHardUpdateWebLock } from "@/hooks/use-hard-update-web-lock";
 import { useAppVersion } from "@/providers/app-version-provider";
@@ -55,7 +56,7 @@ export function AppVersionGate({ children }: { children: React.ReactNode }) {
 const styles = StyleSheet.create({
   softOverlay: {
     ...StyleSheet.absoluteFill,
-    zIndex: 9000,
+    zIndex: ZIndex.gate,
     pointerEvents: "box-none",
   },
 });

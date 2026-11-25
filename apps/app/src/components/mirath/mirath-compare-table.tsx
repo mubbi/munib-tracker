@@ -6,7 +6,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { heirCountLabel } from "@/lib/mirath/explain";
 import { compareCell, compareRowCount, compareTableHeirs } from "@/lib/mirath/results-view";
@@ -23,7 +23,7 @@ export function MirathCompareTable({
   const { colors, tokens } = useThemeTokens();
   const differ = differingHeirs(results);
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("mirath.compare.title")}
         icon={{ ios: "square.grid.2x2", android: "grid_view", web: "grid_view" }}
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   tr: {
     flexDirection: "row",
     alignItems: "center",
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: BorderWidth.hairline,
     paddingVertical: Spacing.two,
   },
   thHeir: { width: 180, paddingHorizontal: Spacing.one },

@@ -37,7 +37,13 @@ export function RootLetterPicker({
   const full = value.length >= MAX_LETTERS;
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet
+      accessibilityLabel={t("quranRoots.picker.title")}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      solid
+    >
       <View style={styles.body}>
         <ThemedText type="smallBold">{t("quranRoots.picker.title")}</ThemedText>
         <View
@@ -46,7 +52,7 @@ export function RootLetterPicker({
             letters: value ? rootToArabic(value) : "—",
           })}
         >
-          <ThemedText type="arabic" style={styles.previewText}>
+          <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.previewText}>
             {value ? rootToArabic(value) : " "}
           </ThemedText>
         </View>
@@ -69,7 +75,7 @@ export function RootLetterPicker({
                   { backgroundColor: tokens.accentSoft, opacity: full ? 0.5 : 1 },
                 ]}
               >
-                <ThemedText type="arabic" style={styles.keyText}>
+                <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.keyText}>
                   {letter}
                 </ThemedText>
               </PressableScale>

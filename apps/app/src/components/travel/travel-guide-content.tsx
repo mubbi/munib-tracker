@@ -30,7 +30,7 @@ import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { screenDifferences } from "@/lib/fiqh/screen-differences";
@@ -111,7 +111,7 @@ export function TravelGuideContent() {
   const takeaway = <JannahTakeaway text={t("travel.takeaway")} />;
 
   const sectionCards = TRAVEL_SECTIONS.map((sectionKey) => (
-    <Card key={sectionKey} padding="three">
+    <Card key={sectionKey}>
       <SectionHeader title={t(`travel.${sectionKey}.title`)} icon={SECTION_ICONS[sectionKey]} />
       <TvReadableBlock>
         <LearnProseText themeColor="mutedForeground" style={styles.body}>
@@ -126,7 +126,7 @@ export function TravelGuideContent() {
   ));
 
   const rakatsCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("travel.rakatsTitle")}
         icon={{
@@ -159,7 +159,7 @@ export function TravelGuideContent() {
               type="small"
               style={[
                 styles.colNum,
-                row.travel < row.resident ? { color: colors.accent } : undefined,
+                row.travel < row.resident ? { color: colors.accentText } : undefined,
               ]}
             >
               {row.travel}
@@ -174,7 +174,7 @@ export function TravelGuideContent() {
   );
 
   const obligationsCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("travel.obligationsTitle")}
         icon={{
@@ -188,7 +188,7 @@ export function TravelGuideContent() {
           <TvReadableBlock key={step}>
             <View style={styles.stepRow}>
               <View style={[styles.stepBadge, { backgroundColor: tokens.accentSoft }]}>
-                <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }}>
                   {index + 1}
                 </ThemedText>
               </View>
@@ -203,7 +203,7 @@ export function TravelGuideContent() {
   );
 
   const duasLinkCard = (
-    <Card padding="three">
+    <Card>
       <NavRow
         icon={{
           ios: "hands.sparkles.fill",
@@ -288,8 +288,8 @@ const styles = StyleSheet.create({
   tableRow: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: Spacing.two + 2,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingVertical: Spacing.twoHalf,
+    borderTopWidth: BorderWidth.hairline,
   },
   colName: { flex: 1 },
   colNum: { width: tvDp(72), textAlign: "center" },
@@ -312,5 +312,5 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  disclaimerText: { flex: 1, lineHeight: 18 },
+  disclaimerText: { flex: 1 },
 });

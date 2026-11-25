@@ -100,7 +100,7 @@ export function LearnDuaTopicContent({ topic }: { topic: LearnDuaTopic }) {
       {topic.actions?.length ? <JannahActionSteps steps={topic.actions} /> : null}
 
       {topic.appLinks?.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("learnDua.continueInApp")}
             icon={{ ios: "arrow.up.forward.app.fill", android: "open_in_new", web: "open_in_new" }}
@@ -145,5 +145,5 @@ const styles = StyleSheet.create({
   phraseStack: { gap: Spacing.three },
   recite: { alignSelf: "flex-start" },
   links: { gap: Spacing.two, marginTop: Spacing.three },
-  topicDisclaimer: { lineHeight: 18, paddingHorizontal: Spacing.one },
+  topicDisclaimer: { paddingHorizontal: Spacing.one },
 });

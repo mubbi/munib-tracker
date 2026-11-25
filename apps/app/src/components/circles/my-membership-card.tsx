@@ -1,15 +1,15 @@
 import { CIRCLE_LIMITS } from "@munib-tracker/shared/circles";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { LabeledInput } from "@/components/records/labeled-input";
-import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { Spacing } from "@/constants/theme";
 import { type CircleMember, leaveCircle, updateMyMembership } from "@/lib/circles/api";
 import { useCircleAction, useCircleMutation } from "@/lib/circles/hooks";
@@ -64,17 +64,13 @@ export function MyMembershipCard({
   };
 
   const doLeave = async () => {
+    await leave.mutateAsync();
     setConfirmLeave(false);
-    try {
-      await leave.mutateAsync();
-      onLeft();
-    } catch {
-      toast.error(t("circleMembership.error"));
-    }
+    onLeft();
   };
 
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <SectionHeader
         title={t("circleMembership.title")}
         icon={{ ios: "person.crop.circle", android: "account_circle", web: "account_circle" }}
@@ -95,27 +91,19 @@ export function MyMembershipCard({
         onPress={() => void saveName()}
       />
       {showPause ? (
-        <View style={styles.switchRow}>
-          <View style={styles.switchText}>
-            <ThemedText type="smallBold">{t("circleMembership.pauseLabel")}</ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("circleMembership.pauseHint")}
-            </ThemedText>
-          </View>
-          <ThemedSwitch
-            value={me?.paused ?? false}
-            onValueChange={(value) => void togglePause(value)}
-            disabled={update.isPending}
-            accessibilityLabel={t("circleMembership.pauseLabel")}
-          />
-        </View>
+        <SwitchRow
+          title={t("circleMembership.pauseLabel")}
+          subtitle={t("circleMembership.pauseHint")}
+          value={me?.paused ?? false}
+          onValueChange={(value) => void togglePause(value)}
+          disabled={update.isPending}
+        />
       ) : null}
-      <Button
-        size="sm"
-        variant="ghost"
+      <NavRow
+        tone="danger"
+        icon={{ ios: "rectangle.portrait.and.arrow.right", android: "logout", web: "logout" }}
         label={t("circleMembership.leave")}
         onPress={() => setConfirmLeave(true)}
-        disabled={leave.isPending}
       />
       <ConfirmDialog
         visible={confirmLeave}
@@ -124,7 +112,8 @@ export function MyMembershipCard({
         confirmLabel={t("circleMembership.leave")}
         cancelLabel={t("common.cancel")}
         destructive
-        onConfirm={() => void doLeave()}
+        errorMessage={t("circleMembership.error")}
+        onConfirm={doLeave}
         onClose={() => setConfirmLeave(false)}
       />
     </Card>
@@ -133,6 +122,4 @@ export function MyMembershipCard({
 
 const styles = StyleSheet.create({
   card: { gap: Spacing.two },
-  switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  switchText: { flex: 1, gap: Spacing.half },
 });

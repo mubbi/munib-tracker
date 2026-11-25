@@ -132,7 +132,7 @@ function ApplyChallengeCards({
   return (
     <>
       <TvReadableBlock>
-        <Card padding="three" style={styles.card}>
+        <Card style={styles.card}>
           <ThemedText type="caption" themeColor="mutedForeground">
             {verseLabel}
           </ThemedText>
@@ -152,12 +152,13 @@ function ApplyChallengeCards({
       </TvReadableBlock>
 
       <TvReadableBlock>
-        <Card padding="three" style={styles.card}>
+        <Card style={styles.card}>
           <SectionHeader
             title={challengeTitle}
             icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
           />
           <ThemedText
+            weight="bold"
             type="default"
             style={[
               styles.challenge,
@@ -200,7 +201,6 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   challenge: {
-    fontWeight: "700",
     flexShrink: 1,
     alignSelf: "stretch",
   },

@@ -60,7 +60,13 @@ export function ReconsentSheet({
   };
 
   return (
-    <Sheet visible onClose={() => {}} variant="center" scrollable>
+    <Sheet
+      accessibilityLabel={t("family.reconsent.title")}
+      visible
+      onClose={() => {}}
+      variant="center"
+      scrollable
+    >
       <View style={styles.body} accessibilityViewIsModal>
         <ThemedText type="subtitle">{t("family.reconsent.title")}</ThemedText>
         <ThemedText type="small" themeColor="mutedForeground">

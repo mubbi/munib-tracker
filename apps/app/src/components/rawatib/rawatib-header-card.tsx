@@ -59,7 +59,7 @@ export function RawatibHeaderCard({
 
   if (config.needsChoice) {
     return (
-      <Card padding="three">
+      <Card>
         <SectionHeader title={t("rawatib.card.title")} icon={ICON} />
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
           {t("rawatib.card.askBody")}
@@ -99,7 +99,7 @@ export function RawatibHeaderCard({
           : t("rawatib.card.hint");
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("rawatib.card.title")}
         subtitle={t("rawatib.card.evidence", { count: target })}

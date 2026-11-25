@@ -2,12 +2,13 @@ import type { FocusLockPrefs } from "@munib-tracker/shared/types";
 import type { Href } from "expo-router";
 
 import { DEFAULT_FOCUS_LOCK_PREFS, resolveFocusLockPrefs } from "@/lib/focus-lock/prefs";
+import { setDevicePreferences } from "@/stores/device-preferences-store";
 
 import { editor } from "../editors";
 import { nativeOnly, notOnTv, webOnly } from "../platform";
 import { settingHref } from "../routes";
 import { type AnySettingDef, defineSetting } from "../types";
-import { NO_VALUE, updatePrefs } from "./helpers";
+import { NO_VALUE, onOff, updatePrefs } from "./helpers";
 
 const InfoNote = editor("InfoNote");
 const VoiceShortcutsRow = editor("VoiceShortcutsRow");
@@ -69,6 +70,30 @@ export const DEVICE_SETTINGS: AnySettingDef[] = [
     icon: { ios: "tv", android: "tv", web: "tv" },
     scope: "account",
     control: { kind: "link", href: "/tv-pair" },
+  }),
+  /**
+   * D-UX5 / O-2: finance tools (zakat, sadaqah, fidyah, finance, mirath) are
+   * hidden on TV by default — private figures on a shared screen. This TV-only
+   * switch brings them back to Library, Explore and their deep links
+   * (`isDestinationHidden` / `hiddenFinanceToolForRoute` in `lib/library-menu.ts`).
+   * Device-scoped: one household TV opting in never changes another device.
+   */
+  defineSetting<boolean>({
+    id: "devices.tv.financeTools",
+    group: G,
+    section: TV,
+    titleKey: "settingsPanel.tvFinanceTools",
+    subtitleKey: "settingsPanel.tvFinanceToolsSub",
+    keywordsKey: "settingsPanel.kw.tvFinanceTools",
+    icon: { ios: "banknote.fill", android: "payments", web: "payments" },
+    scope: "device",
+    control: { kind: "toggle" },
+    read: (s) => s.device.tvShowFinanceTools === true,
+    write: (v) => setDevicePreferences({ tvShowFinanceTools: v }),
+    defaultValue: false,
+    summary: onOff,
+    available: (ctx) => ctx.tv,
+    fields: ["device.tvShowFinanceTools"],
   }),
   defineSetting<null>({
     ...NO_VALUE,

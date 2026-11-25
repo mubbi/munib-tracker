@@ -157,7 +157,7 @@ describe("coaching copy (step 8)", () => {
     expect(planItemCopyKey("qalqalah")).toBe(COACHING_COPY.planDrill);
     expect(planItemCopyKey("madd")).toBe(COACHING_COPY.planListen);
     expect(en_(COACHING_COPY.planDrill)).toBe(
-      "These ayahs include {{rule}} — let's practise it with words from your recitation.",
+      "These ayahs include {{rule}} — let's practice it with words from your recitation.",
     );
     expect(en_(COACHING_COPY.wordCard)).toMatch(/^This word has \{\{rule\}\}/);
   });

@@ -87,7 +87,9 @@ function BrandSlide({ layout }: { layout: SlideLayout }) {
       </ThemedText>
 
       <View style={[styles.logoWrap, tv ? styles.logoWrapTv : null]}>
+        {/* Decorative: the app name is the heading right below (P9-06). */}
         <Image
+          accessible={false}
           style={[styles.logoGlow, tv ? styles.logoGlowTv : null]}
           source={require("@/assets/images/logo-glow.png")}
           contentFit="contain"
@@ -96,6 +98,7 @@ function BrandSlide({ layout }: { layout: SlideLayout }) {
           priority="low"
         />
         <Image
+          accessible={false}
           style={[styles.logo, tv ? styles.logoTv : null]}
           source={require("@/assets/images/munib-logo.png")}
           contentFit="contain"
@@ -331,7 +334,7 @@ function CtaSlide({ icon, layout }: { icon?: SymbolViewProps["name"]; layout: Sl
       <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
         {t("onboarding.ctaPrivacyTitle")}
       </ThemedText>
-      <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
+      <ThemedText type="small" style={{ color: Brand.heroSubtext }}>
         {t("onboarding.ctaPrivacyBody")}
       </ThemedText>
     </View>
@@ -447,8 +450,8 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     paddingHorizontal: Spacing.three,
     paddingTop: Spacing.three,
-    paddingBottom: Spacing.three + 2,
-    gap: Spacing.one + 2,
+    paddingBottom: Spacing.three,
+    gap: Spacing.oneHalf,
     marginTop: Spacing.one,
   },
   duaLabel: {
@@ -462,14 +465,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 32,
   },
+  // No fixed line heights on prose: they clip at large text sizes (P9-04).
   duaTranslit: {
     textAlign: "center",
     fontStyle: "italic",
-    lineHeight: 18,
   },
   duaTranslation: {
     textAlign: "center",
-    lineHeight: 20,
   },
   featureSlide: {
     alignItems: "center",
@@ -580,10 +582,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     padding: Spacing.three,
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     marginTop: Spacing.three,
-  },
-  privacyBody: {
-    lineHeight: 20,
   },
 });

@@ -1,6 +1,5 @@
 import { act, renderHook, waitFor } from "@testing-library/react-native";
 import type { ReactNode } from "react";
-import { Alert } from "react-native";
 
 import {
   LearnTtsProvider,
@@ -16,8 +15,13 @@ import {
   resetAudioPlayerMock,
 } from "@/test-support/mocks/audio-player-provider";
 import { resetExpoRouterMock, setMockPathname } from "@/test-support/mocks/expo-router";
+import { mockToast } from "@/test-support/mocks/toast-provider";
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
+jest.mock(
+  "@/providers/toast-provider",
+  () => require("@/test-support/mocks/toast-provider").toastProviderMock,
+);
 jest.mock("@/lib/tts", () => ({
   ...jest.requireActual("@/lib/tts"),
   isTtsAvailable: jest.fn(async () => true),
@@ -223,16 +227,14 @@ describe("LearnTtsProvider startWithVoice", () => {
     expect(mockAudio.play).not.toHaveBeenCalled();
   });
 
-  it("alerts when text-to-speech is unavailable", async () => {
+  it("shows a toast when text-to-speech is unavailable", async () => {
     jest.mocked(isTtsAvailable).mockResolvedValue(false);
-    const alert = jest.spyOn(Alert, "alert").mockImplementation(() => {});
     const { result } = await renderLearnTts({ first: "Intro" });
 
     await act(async () => result.current.startWithVoice("v"));
 
-    await waitFor(() => expect(alert).toHaveBeenCalled());
+    await waitFor(() => expect(mockToast.info).toHaveBeenCalled());
     expect(mockAudio.play).not.toHaveBeenCalled();
-    alert.mockRestore();
   });
 });
 

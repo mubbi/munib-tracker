@@ -1,30 +1,12 @@
-import { type Href, useRouter } from "expo-router";
+import type { Href } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
 import {
-  JannahCallout,
-  JannahDisclaimer,
-  JannahNavRow,
-  JannahQuickLinkGrid,
-} from "@/components/jannah/primitives";
-import { LearnContentGate } from "@/components/learn-content-loading";
-import {
-  LearnSplitLayout,
-  LearnTopicGrid,
-  useLearnWideLayout,
-} from "@/components/learn-guide/learn-wide-layout";
-import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
-import { Pill } from "@/components/ui/pill";
-import { SectionHeader } from "@/components/ui/section-header";
-import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+  type LearnHubItem,
+  LearnHubScreen,
+  type LearnHubSection,
+} from "@/components/learn-guide/learn-hub-screen";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   ensureAqeedahContent,
   getAqeedahLessonCount,
@@ -32,13 +14,13 @@ import {
   isAqeedahContentReady,
 } from "@/lib/aqeedah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
-import { goBackOrReplace } from "@/lib/navigation";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import {
   useAqeedahCompletedCount,
   useEnsureAqeedahProgressLoaded,
 } from "@/stores/aqeedah-progress-store";
 
+const TOPIC_ICON: AppIcon = { ios: "text.book.closed", android: "article", web: "article" };
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
   "six-articles": { ios: "star.circle.fill", android: "stars", web: "stars" },
@@ -50,240 +32,72 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
   },
 };
 
+/**
+ * Aqeedah hub on the Learn kit (P5-40): intro → progress → topic sections →
+ * Tools (glossary, quiz) → disclaimer. Each destination appears once — the old
+ * quick-link grid and "Explore" card repeated the six articles / Tawheed /
+ * glossary rows (C-16), and the "V1 — Foundations" pill is gone (C-15).
+ */
 export default function AqeedahScreen() {
-  const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   useEnsureAqeedahProgressLoaded();
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(
-    ensureAqeedahContent,
-    isAqeedahContentReady,
-  );
+  const content = useEnsureContent(ensureAqeedahContent, isAqeedahContentReady);
+  const contentVersion = content.version;
   const completedCount = useAqeedahCompletedCount();
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const lessonTotal = useMemo(() => getAqeedahLessonCount(), [contentVersion]);
+
   // Recompute per locale so translated topic titles/summaries render on switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
-  const TOPICS_BY_SECTION = useMemo(
-    () => getAqeedahTopicsBySection(),
-    [i18n.language, contentVersion],
-  );
-  const SECTION_ORDER = useMemo(
-    () => Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>,
-    [TOPICS_BY_SECTION],
-  );
+  const sections = useMemo<LearnHubSection[]>(() => {
+    const bySection = getAqeedahTopicsBySection();
+    return (Object.keys(bySection) as Array<keyof typeof bySection>).map((section) => ({
+      id: String(section),
+      title: t(`aqeedah.section.${section}`),
+      hint: t(`aqeedah.section.${section}Hint`),
+      items: (bySection[section] ?? []).map((topic) => ({
+        id: topic.id,
+        icon: TOPIC_ICONS[topic.id] ?? TOPIC_ICON,
+        title: topic.title,
+        subtitle: topic.summary,
+        badge: topic.importance ? t(`aqeedah.importance.${topic.importance}`) : undefined,
+        href: { pathname: "/aqeedah/[topic]", params: { topic: topic.id } } as Href,
+      })),
+    }));
+  }, [i18n.language, contentVersion, t]);
 
-  const { split, maxContentWidth } = useLearnWideLayout();
-
-  const quickLinks = useMemo(
+  const tools = useMemo<LearnHubItem[]>(
     () => [
       {
-        id: "six-articles",
-        icon: { ios: "star.circle.fill", android: "stars", web: "stars" } as AppIcon,
-        title: t("aqeedah.quickSixArticles"),
-        subtitle: t("aqeedah.quickSixArticlesHint"),
-        tint: colors.accent,
-        onPress: () =>
-          router.push({
-            pathname: "/aqeedah/[topic]",
-            params: { topic: "six-articles" },
-          }),
-      },
-      {
-        id: "tawheed-explained",
-        icon: { ios: "circle.hexagongrid.fill", android: "hub", web: "hub" } as AppIcon,
-        title: t("aqeedah.quickTawheed"),
-        subtitle: t("aqeedah.quickTawheedHint"),
-        tint: tokens.status.info.color,
-        onPress: () =>
-          router.push({
-            pathname: "/aqeedah/[topic]",
-            params: { topic: "tawheed-explained" },
-          }),
-      },
-      {
         id: "glossary",
-        icon: { ios: "character.book.closed", android: "translate", web: "translate" } as AppIcon,
-        title: t("aqeedah.quickGlossary"),
-        subtitle: t("aqeedah.quickGlossaryHint"),
-        tint: tokens.status.success.color,
-        onPress: () => router.push("/aqeedah/glossary" as Href),
-      },
-      {
-        id: "progress",
-        icon: {
-          ios: "chart.line.uptrend.xyaxis",
-          android: "trending_up",
-          web: "trending_up",
-        } as AppIcon,
-        title: t("aqeedah.quickProgress"),
-        subtitle: t("aqeedah.quickProgressHint"),
-        tint: tokens.status.warning.color,
-        onPress: () => router.push("/aqeedah/progress" as Href),
+        icon: { ios: "character.book.closed", android: "translate", web: "translate" },
+        title: t("aqeedah.glossaryTitle"),
+        subtitle: t("aqeedah.glossaryHint"),
+        href: "/aqeedah/glossary" as Href,
+        hue: "sage",
       },
     ],
-    [router, t, colors.accent, tokens],
-  );
-
-  const quizRow = (
-    <LearnQuizNavRow
-      quizPath={"/aqeedah/quiz" as Href}
-      titleKey="common.learnQuiz.title"
-      subtitleKey="common.learnQuiz.hint"
-    />
-  );
-  const quickLinksCard = (
-    <Card padding="three">
-      <SectionHeader
-        title={t("aqeedah.quickLinksTitle")}
-        icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
-      />
-      <JannahQuickLinkGrid items={quickLinks} />
-    </Card>
-  );
-  const progressRow = (
-    <JannahNavRow
-      icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-      title={t("aqeedah.progressCardTitle")}
-      subtitle={t("aqeedah.progressCardHint", {
-        completed: completedCount,
-        total: lessonTotal,
-      })}
-      badge={`${completedCount}/${lessonTotal}`}
-      tint={colors.accent}
-      onPress={() => router.push("/aqeedah/progress" as Href)}
-    />
-  );
-  const exploreCard = (
-    <Card padding="three">
-      <SectionHeader
-        title={t("aqeedah.exploreTitle")}
-        icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-      />
-      <View style={styles.rows}>
-        <JannahNavRow
-          icon={{ ios: "star.circle.fill", android: "stars", web: "stars" }}
-          title={t("aqeedah.sixArticlesTitle")}
-          subtitle={t("aqeedah.sixArticlesHint")}
-          onPress={() =>
-            router.push({
-              pathname: "/aqeedah/[topic]",
-              params: { topic: "six-articles" },
-            })
-          }
-        />
-        <JannahNavRow
-          icon={{ ios: "circle.hexagongrid.fill", android: "hub", web: "hub" }}
-          title={t("aqeedah.tawheedTitle")}
-          subtitle={t("aqeedah.tawheedHint")}
-          onPress={() =>
-            router.push({
-              pathname: "/aqeedah/[topic]",
-              params: { topic: "tawheed-explained" },
-            })
-          }
-        />
-        <JannahNavRow
-          icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
-          title={t("aqeedah.glossaryTitle")}
-          subtitle={t("aqeedah.glossaryHint")}
-          onPress={() => router.push("/aqeedah/glossary" as Href)}
-        />
-      </View>
-    </Card>
+    [t],
   );
 
   return (
-    <ScreenLayout
-      eyebrow={t("aqeedah.eyebrow")}
-      title={t("aqeedah.title")}
-      subtitle={t("aqeedah.subtitle")}
-      onBack={() => goBackOrReplace(router, "/")}
-      maxContentWidth={maxContentWidth}
-    >
-      <Seo path="/aqeedah" />
-      <LearnContentGate ready={contentReady}>
-        <LearnSplitLayout
-          aside={
-            <>
-              {progressRow}
-              {quizRow}
-              {quickLinksCard}
-              {exploreCard}
-            </>
-          }
-        >
-          <Stagger>
-            <JannahCallout tone="info">{t("aqeedah.intro")}</JannahCallout>
-
-            {split ? null : quizRow}
-
-            {split ? null : quickLinksCard}
-
-            {split ? null : progressRow}
-
-            {SECTION_ORDER.map((section) => {
-              const topics = TOPICS_BY_SECTION[section];
-              if (!topics?.length) return null;
-              return (
-                <Card key={section} padding="three">
-                  <SectionHeader
-                    title={t(`aqeedah.section.${section}`)}
-                    icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-                  />
-                  <ThemedText
-                    type="caption"
-                    themeColor="mutedForeground"
-                    style={styles.sectionHint}
-                  >
-                    {t(`aqeedah.section.${section}Hint`)}
-                  </ThemedText>
-                  <LearnTopicGrid
-                    style={styles.rows}
-                    items={topics.map((topic) => ({
-                      id: topic.id,
-                      icon: TOPIC_ICONS[topic.id] ?? {
-                        ios: "text.book.closed",
-                        android: "article",
-                        web: "article",
-                      },
-                      title: topic.title,
-                      subtitle: topic.summary,
-                      badge: topic.importance
-                        ? t(`aqeedah.importance.${topic.importance}`)
-                        : undefined,
-                      onPress: () =>
-                        router.push({ pathname: "/aqeedah/[topic]", params: { topic: topic.id } }),
-                    }))}
-                  />
-                </Card>
-              );
-            })}
-
-            {split ? null : exploreCard}
-
-            <View style={styles.pillRow}>
-              <Pill
-                label={t("aqeedah.phaseV1")}
-                compact
-                color={colors.mutedForeground}
-                background={colors.muted}
-              />
-            </View>
-
-            <JannahDisclaimer textKey="aqeedah.disclaimer" />
-          </Stagger>
-        </LearnSplitLayout>
-      </LearnContentGate>
-    </ScreenLayout>
+    <LearnHubScreen
+      ns="aqeedah"
+      basePath="/aqeedah"
+      content={content}
+      progress={{
+        title: t("aqeedah.progressCardTitle"),
+        completed: completedCount,
+        total: lessonTotal,
+        hint: t("aqeedah.lessonsHint"),
+        href: "/aqeedah/progress" as Href,
+      }}
+      sections={sections}
+      tools={tools}
+      quiz
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
-  sectionHint: { marginTop: Spacing.one, lineHeight: 20 },
-  pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, justifyContent: "center" },
-});
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
 export const generateMetadata = routeMetadata("/aqeedah");

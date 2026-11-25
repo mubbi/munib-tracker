@@ -11,7 +11,8 @@ import {
 } from "react-native";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
-import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { Sheet } from "@/components/ui/sheet";
+import { BorderWidth, Radius, Shadows, Spacing, withAlpha, ZIndex } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { ltrControlViewProps } from "@/lib/rtl";
@@ -214,9 +215,11 @@ export function VolumePopover({
     />
   );
 
+  // Touch + TV: the slider lives in a bottom `Sheet` (shared scrim, escape, focus
+  // and z-order — P7-02). Web keeps the hover popover anchored over the icon.
   const body = (
     <>
-      {open ? (
+      {open && isWeb ? (
         // Floating frosted-glass popover — real Liquid Glass on iOS 26, a native
         // blur elsewhere. Absolutely positioned so it hovers above the control
         // instead of reflowing the player bar. The wash keeps the blur fallback
@@ -251,10 +254,15 @@ export function VolumePopover({
         accessibilityLabel={t("player.volume")}
         accessibilityState={{ selected: open }}
         onPress={onIconPress}
-        hitTarget={34}
+        hitTarget={44}
         glass
         wellRadius={17}
       />
+      {!isWeb ? (
+        <Sheet visible={open} onClose={closePopup} variant="bottom" title={t("player.volume")}>
+          <View style={styles.volumeSheetBody}>{sliderBar}</View>
+        </Sheet>
+      ) : null}
     </>
   );
 
@@ -288,7 +296,7 @@ export function VolumePopover({
 const styles = StyleSheet.create({
   volumePopoverAnchor: {
     position: "relative",
-    zIndex: 2,
+    zIndex: ZIndex.raised,
   },
   volumePopoverAnchorNative: {
     alignItems: "center",
@@ -298,10 +306,11 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     ...Shadows.sm,
-    zIndex: 10,
+    zIndex: ZIndex.sticky,
   },
+  volumeSheetBody: { alignItems: "center", paddingVertical: Spacing.two },
   volumePopupFloating: {
     position: "absolute",
     bottom: "100%",

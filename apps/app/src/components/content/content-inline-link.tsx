@@ -44,7 +44,7 @@ export function ContentInlineLink({
     >
       <ThemedText
         type={resolvedTextType}
-        style={{ color: colors.accent, textDecorationLine: "underline" }}
+        style={{ color: colors.accentText, textDecorationLine: "underline" }}
       >
         {label}
       </ThemedText>
@@ -81,7 +81,7 @@ export function ContentLinkList({
 const styles = StyleSheet.create({
   inline: {
     justifyContent: "center",
-    paddingVertical: Platform.OS === "web" ? 0 : Spacing.one + 2,
+    paddingVertical: Platform.OS === "web" ? 0 : Spacing.oneHalf,
     paddingHorizontal: Platform.OS === "web" ? 0 : Spacing.two,
     minHeight: Platform.OS === "web" ? undefined : NATIVE_MIN_TOUCH,
     borderRadius: Radius.sm,

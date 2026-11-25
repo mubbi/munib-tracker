@@ -107,7 +107,7 @@ export default function LearnQuranStoryDetailScreen() {
               <JannahTakeaway text={story.summary} />
               <JannahBody paragraphs={story.body} />
               <TvReadableBlock>
-                <Card padding="three">
+                <Card>
                   <SectionHeader
                     title={t("learnQuran.lessonsTitle")}
                     icon={{ ios: "lightbulb.fill", android: "lightbulb", web: "lightbulb" }}

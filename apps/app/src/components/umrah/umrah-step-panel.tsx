@@ -60,7 +60,7 @@ export function UmrahStepPanel({ session, excusedReason, readOnly = false }: Umr
 
   const counter =
     (step === "tawaf" || step === "sai") && !lock ? (
-      <Card padding="three">
+      <Card>
         <View style={styles.body}>
           {step === "tawaf" ? (
             <JannahCallout tone="accent">{t("umrahMode.tawaf.startHint")}</JannahCallout>
@@ -91,7 +91,7 @@ export function UmrahStepPanel({ session, excusedReason, readOnly = false }: Umr
 
   return (
     <View style={styles.root}>
-      <Card padding="three">
+      <Card>
         <SectionHeader title={t(`umrahMode.step.${step}.title`)} icon={UMRAH_STEP_ICONS[step]} />
         <View style={styles.body}>
           <ThemedText type="small">{t(`umrahMode.step.${step}.body`)}</ThemedText>
@@ -155,7 +155,7 @@ export function UmrahStepPanel({ session, excusedReason, readOnly = false }: Umr
       {counter}
 
       {step === "tawaf" ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader title={t("umrahMode.tawaf.duasTitle")} icon={DUA_ICON} />
           <View style={styles.body}>
             <ThemedText type="small">{t("umrahMode.tawaf.noFixedDua")}</ThemedText>
@@ -171,7 +171,7 @@ export function UmrahStepPanel({ session, excusedReason, readOnly = false }: Umr
       <DuaByRef ids={content.duaIds} />
 
       {step === "tawaf" ? (
-        <Card padding="three" variant="muted">
+        <Card variant="muted">
           <SectionHeader title={t("umrahMode.tawaf.doubtTitle")} icon={DOUBT_ICON} />
           <View style={styles.body}>
             <ThemedText type="small">{t("umrahMode.tawaf.doubtBody")}</ThemedText>
@@ -188,7 +188,7 @@ export function UmrahStepPanel({ session, excusedReason, readOnly = false }: Umr
       ) : null}
 
       {step === "complete" ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader title={t("umrahMode.complete.duaTitle")} icon={DUA_ICON} />
           <View style={styles.body}>
             <ThemedText type="small">{t("umrahMode.complete.duaBody")}</ThemedText>

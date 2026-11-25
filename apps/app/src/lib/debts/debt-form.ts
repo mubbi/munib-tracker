@@ -90,7 +90,7 @@ export function debtInputFromForm(
 
 export type RepaymentResult =
   | { ok: true; payment: { amount: number; date: string; note?: string } }
-  | { ok: false; error: "privateUx.payments.errorAmount" | "debts.form.errorDate" };
+  | { ok: false; error: "debts.payments.errorAmount" | "debts.form.errorDate" };
 
 /** Validates a typed repayment (amount > 0, readable day; a blank note is dropped). */
 export function repaymentFromForm(
@@ -100,7 +100,7 @@ export function repaymentFromForm(
 ): RepaymentResult {
   const amount = parseNumberInput(amountText, DEFAULT_NUMBER_FORMAT);
   const date = normalizeDayInput(dateText);
-  if (!(amount > 0)) return { ok: false, error: "privateUx.payments.errorAmount" };
+  if (!(amount > 0)) return { ok: false, error: "debts.payments.errorAmount" };
   if (!date) return { ok: false, error: "debts.form.errorDate" };
   return { ok: true, payment: { amount, date, ...(note.trim() ? { note } : {}) } };
 }

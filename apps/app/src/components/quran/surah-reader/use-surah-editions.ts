@@ -1,6 +1,6 @@
 import { getTafsirEdition } from "@munib-tracker/shared/i18n";
 import type { UserPreferences } from "@munib-tracker/shared/types";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { hasEditionAyahs, isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import type { QuranPrefs } from "@/db/repositories/quran-repository";
 import { useRemoteEditionSurah, useTafsirSurah } from "@/hooks/use-quran";
@@ -112,6 +112,16 @@ export function useSurahEditions({
   const tafsirOffline =
     Boolean(activeTafsirId) && !tafsirLoading && tafsirQuery.isError && !tafsirMap;
 
+  // C-02: a failed remote edition / tafsir gets an inline "Try again", not a grey sentence.
+  const refetchTranslation = remoteQuery.refetch;
+  const retryTranslation = useCallback(() => {
+    void refetchTranslation();
+  }, [refetchTranslation]);
+  const refetchTafsir = tafsirQuery.refetch;
+  const retryTafsir = useCallback(() => {
+    void refetchTafsir();
+  }, [refetchTafsir]);
+
   return {
     /** Primary translation edition id actually shown (preferred, else locale default). */
     knownEdition,
@@ -130,5 +140,7 @@ export function useSurahEditions({
     tafsirMap,
     tafsirLoading,
     tafsirOffline,
+    retryTranslation,
+    retryTafsir,
   } as const;
 }

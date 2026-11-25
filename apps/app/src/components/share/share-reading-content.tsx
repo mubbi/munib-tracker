@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import type { ShareableReading } from "@/lib/share";
@@ -62,7 +62,7 @@ export function ShareReadingContent({ item, arabicSize = 28, textSize = 16 }: Re
 const styles = StyleSheet.create({
   card: {
     borderRadius: Radius.lg,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     padding: Spacing.three,
     gap: Spacing.two,
   },

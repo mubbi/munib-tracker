@@ -47,7 +47,7 @@ export function SetupChecklistCard({
   );
   if (items.length === 0) return null;
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <ThemedText type="smallBold" accessibilityRole="header">
         {t("settingsPanel.setup.title")}
       </ThemedText>

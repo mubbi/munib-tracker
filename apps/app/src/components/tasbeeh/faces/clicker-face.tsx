@@ -10,7 +10,7 @@ import Animated, {
 import Svg, { G, Polygon } from "react-native-svg";
 
 import { ThemedText } from "@/components/themed-text";
-import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle } from "@/lib/chart-rtl";
 import { gradientBackground } from "@/lib/gradient";
@@ -146,16 +146,16 @@ export default function ClickerFace({
 const styles = StyleSheet.create({
   body: {
     alignItems: "center",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     ...Shadows.sm,
   },
   lcd: {
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
   },
   button: {
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     ...Shadows.sm,
   },
 });

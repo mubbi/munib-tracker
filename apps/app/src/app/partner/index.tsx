@@ -77,7 +77,7 @@ export default function PartnerScreen() {
             </Card>
           </>
         ) : null}
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("partnerCircle.intro")}
           </ThemedText>

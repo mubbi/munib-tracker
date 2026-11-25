@@ -1,126 +1,190 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { TvNumberStepper } from "@/components/tv-number-stepper";
 import { Button } from "@/components/ui/button";
+import { isNumberInRange, NumberField } from "@/components/ui/number-field";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { Stepper } from "@/components/ui/stepper";
+import { Spacing } from "@/constants/theme";
+import { useFormatCount } from "@/hooks/use-format-count";
 import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
 
-/** Upper bound shared by the phone input (5 digits) and the TV stepper. */
+/** Upper bound shared by the phone field (5 digits) and the TV stepper. */
 const MAX_COUNT = 99_999;
 
 type QazaCountEditModalProps = {
   visible: boolean;
+  /** Current remaining count (the stored value). */
   initialValue: number;
+  /**
+   * Instant step (no dialog); the parent writes the absolute value through the
+   * store. Steps accumulate on a local value, so quick repeated taps each count
+   * even before the store has caught up (B-07).
+   */
+  onStep: (next: number) => void;
+  /** Exact value typed into the field and saved. */
   onSubmit: (remaining: number) => void;
+  /** Destructive reset of this counter; the parent confirms it. */
+  onReset?: () => void;
   onClose: () => void;
   /** Prayer-specific copy — used when custom `title` is not provided. */
   prayerLabel?: string;
   title?: string;
   hint?: string;
-  placeholder?: string;
   accessibilityLabel?: string;
+  /** Label of the reset button (omit `onReset` to hide it). */
+  resetLabel?: string;
+  /** Disables the reset button when there is nothing to clear. */
+  canReset?: boolean;
 };
 
-/** Manual remaining-qaza editor opened from a stepper value or stat. */
+/**
+ * The one Qaza counter editor (prayers and fasts): an instant stepper for small
+ * corrections, a number field for an exact value, and a confirmed reset.
+ */
 export function QazaCountEditModal({
   visible,
   prayerLabel,
   title,
   hint,
-  placeholder,
   accessibilityLabel,
   initialValue,
+  onStep,
   onSubmit,
+  onReset,
   onClose,
+  resetLabel,
+  canReset = true,
 }: QazaCountEditModalProps) {
-  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const formatCount = useFormatCount();
   const tv = isTV();
-  const [value, setValue] = useState(String(initialValue));
+  const [draft, setDraft] = useState<number | undefined>(undefined);
+  /**
+   * Value after the steps taken in this sheet that the store has not reflected
+   * yet (`null` = in sync). Each step applies its delta to this, not to the
+   * stored value, so two taps before a re-render (or a slow write) are +2.
+   */
+  const [stepped, setStepped] = useState<number | null>(null);
+  const steppedRef = useRef<number | null>(null);
+  const shown = stepped ?? initialValue;
 
   useEffect(() => {
-    if (visible) setValue(String(initialValue));
-  }, [visible, initialValue]);
+    if (visible) setDraft(undefined);
+    steppedRef.current = null;
+    setStepped(null);
+  }, [visible]);
 
-  const submit = () => {
-    const parsed = Number.parseInt(value, 10);
-    if (!Number.isFinite(parsed) || parsed < 0) return;
-    onSubmit(parsed);
+  // The store caught up with the last step: follow the stored value again.
+  useEffect(() => {
+    if (steppedRef.current != null && steppedRef.current === initialValue) {
+      steppedRef.current = null;
+      setStepped(null);
+    }
+  }, [initialValue]);
+
+  /** Stepper / TV stepper report `shown ± step`; apply that delta to the latest value. */
+  const step = (next: number) => {
+    const delta = next - shown;
+    if (delta === 0) return;
+    const base = steppedRef.current ?? initialValue;
+    const value = Math.min(MAX_COUNT, Math.max(0, base + delta));
+    if (value === base) return;
+    steppedRef.current = value;
+    setStepped(value);
+    onStep(value);
   };
 
-  const parsed = Number.parseInt(value, 10);
-  const canSubmit = Number.isFinite(parsed) && parsed >= 0;
   const resolvedTitle = title ?? t("qaza.editCountTitle", { prayer: prayerLabel ?? "" });
-  // TV has no typing: callers pass a TV-worded hint, or we use the stepper copy.
   const resolvedHint = hint ?? tTv(t, "qaza.editCountHint", "qaza.editCountHintTv");
-  const resolvedPlaceholder = placeholder ?? t("qaza.editCountPlaceholder");
   const resolvedA11y = accessibilityLabel ?? t("qaza.editCountA11y", { prayer: prayerLabel ?? "" });
+  // An out-of-range exact value stays as typed with its error; it is never saved (B-03).
+  const draftValid = isNumberInRange(draft, 0, MAX_COUNT);
+  const canSave = draft != null && draftValid && draft !== shown;
+
+  const save = () => {
+    if (!canSave) return;
+    onSubmit(draft);
+    setDraft(undefined);
+  };
 
   return (
-    <Sheet visible={visible} onClose={onClose}>
-      <ThemedText type="subtitle">{resolvedTitle}</ThemedText>
+    <Sheet visible={visible} onClose={onClose} title={resolvedTitle}>
       <ThemedText type="caption" themeColor="mutedForeground">
         {resolvedHint}
       </ThemedText>
-      {tv ? (
-        <View style={styles.tvStepper}>
+      <View style={styles.stepperWrap}>
+        {tv ? (
           <TvNumberStepper
-            value={canSubmit ? parsed : 0}
-            onChange={(next) => setValue(String(next))}
+            value={shown}
+            onChange={step}
             label={resolvedA11y}
             max={MAX_COUNT}
             steps={[1, 10, 100, 1000]}
             preferredFocus
           />
-        </View>
-      ) : (
-        <TextInput
-          value={value}
-          onChangeText={(text) => setValue(text.replace(/[^0-9]/g, "").slice(0, 5))}
-          keyboardType="number-pad"
-          // Desktop web: type straight away and press Enter to save.
-          autoFocus={Platform.OS === "web"}
-          selectTextOnFocus={Platform.OS === "web"}
-          onSubmitEditing={Platform.OS === "web" ? submit : undefined}
-          placeholder={resolvedPlaceholder}
-          placeholderTextColor={colors.mutedForeground}
-          accessibilityLabel={resolvedA11y}
-          style={[styles.input, tokens.inputSurface, { color: colors.foreground }]}
+        ) : (
+          <Stepper
+            value={shown}
+            onChange={step}
+            label={resolvedTitle}
+            max={MAX_COUNT}
+            formatValue={formatCount}
+            valueMinWidth={72}
+          />
+        )}
+      </View>
+      {tv ? null : (
+        <NumberField
+          label={t("qaza.setExactLabel")}
+          value={draft}
+          onChangeValue={setDraft}
+          maxFractionDigits={0}
+          allowZero
+          min={0}
+          max={MAX_COUNT}
+          placeholder={formatCount(shown)}
+          returnKeyType="done"
+          onSubmitEditing={save}
         />
       )}
       <View style={styles.actions}>
-        <Button label={t("common.cancel")} variant="ghost" onPress={onClose} />
-        <Button label={t("common.save")} disabled={!canSubmit} onPress={submit} />
+        {onReset ? (
+          <Button
+            label={resetLabel ?? t("common.reset")}
+            variant="destructive"
+            icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+            disabled={!canReset}
+            onPress={onReset}
+          />
+        ) : null}
+        <View style={styles.spacer} />
+        {tv ? null : (
+          <Button label={t("common.save")} variant="secondary" disabled={!canSave} onPress={save} />
+        )}
+        <Button label={t("common.done")} onPress={onClose} />
       </View>
     </Sheet>
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
-    marginTop: Spacing.two,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    fontSize: 20,
-    fontWeight: "700",
-    textAlign: "center",
-    fontVariant: ["tabular-nums"],
-  },
-  tvStepper: {
-    marginTop: Spacing.three,
+  stepperWrap: {
+    alignSelf: "center",
+    marginVertical: Spacing.two,
   },
   actions: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    alignItems: "center",
+    flexWrap: "wrap",
     gap: Spacing.two,
     marginTop: Spacing.two,
+  },
+  spacer: {
+    flex: 1,
   },
 });

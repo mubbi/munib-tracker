@@ -1,6 +1,8 @@
 import { fireEvent, screen } from "@testing-library/react-native";
 
 import { UpdateRequiredModal } from "@/components/app-update/update-required-modal";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { pressableProps } from "@/test-support/fiber";
 import { buildAppVersionMeta } from "@/test-support/fixtures/app-version";
 import {
   mockAppUpdateActions,
@@ -8,7 +10,8 @@ import {
 } from "@/test-support/mocks/app-update-actions";
 import { mockAppVersion, resetAppVersionMock } from "@/test-support/mocks/app-version-provider";
 import { usePlatform } from "@/test-support/platform";
-import { renderWithTheme } from "@/test-support/render";
+import { renderHookWithTheme, renderWithTheme } from "@/test-support/render";
+import { flattenStyle } from "@/test-support/style";
 
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 jest.mock(
@@ -56,12 +59,27 @@ describe("UpdateRequiredModal", () => {
     );
   });
 
-  it.each(["Remind me in Settings", "Close"])("dismisses via %s", async (label) => {
+  it("dismisses via Remind me in Settings", async () => {
     await renderModal();
-    await fireEvent.press(
-      label === "Close" ? screen.getByLabelText(label) : screen.getByText(label),
-    );
+    await fireEvent.press(screen.getByText("Remind me in Settings"));
     expect(mockAppVersion.dismissUpdatePrompt).toHaveBeenCalled();
+  });
+
+  it("has no invisible close target (the sheet's close button dismisses)", async () => {
+    await renderModal();
+    expect(screen.queryByLabelText("Close")).toBeNull();
+  });
+
+  it("uses the destructive button for a required update (no fill override)", async () => {
+    const { tokens } = (await renderHookWithTheme(() => useThemeTokens())).result.current;
+    await renderModal({ isHard: true });
+    const button = screen.getByRole("button", { name: "Update now" });
+    const style = flattenStyle(
+      pressableProps<{ style: (state: { pressed: boolean }) => object }>(button).style({
+        pressed: false,
+      }),
+    );
+    expect(style.backgroundColor).toBe(tokens.status.danger.fill);
   });
 
   it("dismisses when the sheet closes", async () => {

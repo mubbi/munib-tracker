@@ -1,20 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
 
-import { ChoiceChips } from "@/components/self-review/choice-chips";
-import { ThemedText } from "@/components/themed-text";
-import { Spacing } from "@/constants/theme";
-import { useRecordFormat } from "@/hooks/use-record-format";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { DateField } from "@/components/ui/date-field";
 import { type DayPresetId, normalizeDayInput } from "@/lib/records/day";
 
-import { LabeledInput } from "./labeled-input";
-
 /**
- * A calendar-day field for the private records (`YYYY-MM-DD` stored). Typing
- * stays free-form, but the line under the field confirms the day it read in
- * the person's own date format (or says it can't read it), so a typo is caught
- * before saving. Optional quick presets (e.g. "In 1 month") fill it in one tap.
+ * A calendar-day field for the private records (`YYYY-MM-DD` stored): the shared
+ * `DateField` — a calendar sheet with the locale's week start, typed entry on web
+ * and quick presets (e.g. "In 1 month"). `onChangeText` keeps reporting the same
+ * ISO string ("" when cleared), so stored values are unchanged.
  */
 export function DayInput({
   label,
@@ -22,59 +15,35 @@ export function DayInput({
   onChangeText,
   hint,
   presets,
+  optional,
+  error,
 }: {
   label: string;
   value: string;
   onChangeText: (value: string) => void;
-  /** Shown while the field is empty. */
+  /** Shown under the field. */
   hint?: string;
   presets?: ReadonlyArray<{ id: DayPresetId; day: string }>;
+  optional?: boolean;
+  error?: string;
 }) {
   const { t } = useTranslation();
-  const { formatDate } = useRecordFormat();
-  const { tokens } = useThemeTokens();
-  const day = value.trim() ? normalizeDayInput(value) : null;
-  const invalid = value.trim() !== "" && day == null;
-  const selectedPreset = presets?.find((p) => p.day === day)?.id;
-
+  // Legacy free-typed values (2026/1/5) are normalised so the field can show them; text that is
+  // not a real day shows empty (the form's own error says what is wrong).
+  const day = value.trim() ? (normalizeDayInput(value) ?? "") : "";
   return (
-    <View style={styles.block}>
-      <LabeledInput
-        label={label}
-        value={value}
-        onChangeText={onChangeText}
-        placeholder={t("debts.form.datePlaceholder")}
-        keyboardType="numbers-and-punctuation"
-        autoCorrect={false}
-        accessibilityHint={hint}
-      />
-      {presets?.length ? (
-        <ChoiceChips<DayPresetId>
-          options={presets.map((p) => ({ id: p.id, label: t(`privateUx.date.preset.${p.id}`) }))}
-          value={selectedPreset}
-          onChange={(id) => {
-            const preset = presets.find((p) => p.id === id);
-            if (preset) onChangeText(preset.day);
-          }}
-          accessibilityLabel={label}
-        />
-      ) : null}
-      <ThemedText
-        type="caption"
-        accessibilityLiveRegion="polite"
-        themeColor={invalid ? undefined : "mutedForeground"}
-        style={invalid ? { color: tokens.status.danger.text } : undefined}
-      >
-        {invalid
-          ? t("privateUx.date.invalid")
-          : day
-            ? t("privateUx.date.reads", { date: formatDate(day) })
-            : (hint ?? t("debts.form.dateHint"))}
-      </ThemedText>
-    </View>
+    <DateField
+      label={label}
+      value={day}
+      onChange={onChangeText}
+      helperText={hint}
+      error={error}
+      optional={optional}
+      presets={presets?.map((p) => ({
+        id: p.id,
+        label: t(`common.dateInput.preset.${p.id}`),
+        day: p.day,
+      }))}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  block: { gap: Spacing.two },
-});

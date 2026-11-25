@@ -11,11 +11,13 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { useResponsiveColumns } from "@/components/ui/responsive-grid";
 import { SearchField } from "@/components/ui/search-field";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { AfterSalahPrayerChips } from "@/components/zikr/after-salah-prayer-chips";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
@@ -24,6 +26,7 @@ import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import {
   type AdhkarScope,
   adhkarScopeState,
@@ -68,7 +71,24 @@ export default function ZikrCategoryScreen() {
     prayer?: string | string[];
   }>();
   const favoriteIds = useFavoriteZikrIds();
-  const { toggleFavorite } = usePreferencesActions();
+  const { toggleFavorite, setFavoriteOrder } = usePreferencesActions();
+  const undoToast = useUndoToast();
+  // Un-starring is reversible: remove now and offer Undo (adding stays instant).
+  const onToggleFavorite = useCallback(
+    (id: string) => {
+      if (!favoriteIds.includes(id)) {
+        void toggleFavorite(id);
+        return;
+      }
+      const previous = [...favoriteIds];
+      void undoToast.run({
+        do: () => toggleFavorite(id),
+        undo: () => setFavoriteOrder(previous),
+        messageKey: "zikr.favoriteRemoved",
+      });
+    },
+    [favoriteIds, setFavoriteOrder, toggleFavorite, undoToast],
+  );
   const clock = useAdhkarClock();
   // Counts for the adhkar day (Fajr → Fajr), the same day the session logs to.
   const day = useAdhkarDayCounts(clock.date);
@@ -160,6 +180,14 @@ export default function ZikrCategoryScreen() {
     [categoryId, items, prayerFilter, router, scope, showPrayerFilter, zikrCounts],
   );
   const onOpen = useCallback((id: string) => openSession(id), [openSession]);
+  const onInfo = useCallback(
+    (id: string) =>
+      router.push({
+        pathname: "/zikr/detail/[id]",
+        params: showPrayerFilter ? { id, prayer: prayerFilter } : { id },
+      }),
+    [prayerFilter, router, showPrayerFilter],
+  );
 
   const keyExtractor = useCallback((item: ZikrItem) => item.id, []);
 
@@ -178,8 +206,9 @@ export default function ZikrCategoryScreen() {
           optional={isSessionItemOptional(item, scope)}
           index={indexById.get(item.id)}
           isFavorite={favoriteIds.includes(item.id)}
-          onToggleFavorite={toggleFavorite}
+          onToggleFavorite={onToggleFavorite}
           onPress={onOpen}
+          onInfo={onInfo}
           completed={completed}
           progressLabel={progressLabel}
           preferredFocus={item.id === tvFirstFocusId.current}
@@ -192,8 +221,9 @@ export default function ZikrCategoryScreen() {
       onOpen,
       prayerFilter,
       scope,
+      onToggleFavorite,
+      onInfo,
       showPrayerFilter,
-      toggleFavorite,
       zikrCounts,
     ],
   );
@@ -271,6 +301,7 @@ export default function ZikrCategoryScreen() {
           </View>
           <ProgressBar
             value={scopeState.completed / scopeState.total}
+            accessibilityLabel={t("a11yProgress.adhkarSession")}
             height={4}
             color={allDone ? tokens.status.success.color : undefined}
           />
@@ -338,9 +369,9 @@ export default function ZikrCategoryScreen() {
   return (
     <ScreenLayout
       eyebrow={t("zikr.categoryEyebrow")}
-      title={t(`zikrCat.${categoryId}`)}
+      title={isKnownCategory ? t(`zikrCat.${categoryId}`) : t("zikr.title")}
       subtitle={
-        !corpusReady
+        !isKnownCategory || !corpusReady
           ? undefined
           : searching
             ? t("zikr.searchResultCount", { count: filtered.length })
@@ -351,6 +382,8 @@ export default function ZikrCategoryScreen() {
       // still collapse to zero height on Leanback even with minHeight:0 chains.
       scrollable={tv}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       <Seo
         path={`/zikr/${categoryId}`}
         title={categoryName}
@@ -366,14 +399,26 @@ export default function ZikrCategoryScreen() {
           }),
         ]}
       />
-      {!corpusReady ? null : allItems.length === 0 ? (
+      {!isKnownCategory ? (
+        // An unknown category never silently becomes "anytime" (B-55): nothing
+        // is shown, counted or logged against a set the user did not open.
         <EmptyState
-          icon={{ ios: "heart", android: "favorite_border", web: "favorite_border" }}
+          icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
+          title={t("zikr.unknownCategoryTitle")}
+          description={t("zikr.unknownCategoryDesc")}
+          actionLabel={t("zikr.browseAdhkar")}
+          onAction={() => router.replace("/zikr")}
+        />
+      ) : !corpusReady ? (
+        <ContentState status="loading" skeleton="rows" loadingLabel={t("zikr.loadingAdhkar")} />
+      ) : allItems.length === 0 ? (
+        <EmptyState
+          icon={{ ios: "text.book.closed", android: "menu_book", web: "menu_book" }}
           title={t("zikr.emptyTitle")}
           description={t("zikr.emptyDesc")}
         />
       ) : (
-        <Card padding="three" style={tv ? undefined : styles.listCard}>
+        <Card style={tv ? undefined : styles.listCard}>
           {listChrome}
           {tv ? (
             <View style={styles.tvList}>
@@ -442,7 +487,7 @@ const styles = StyleSheet.create({
   chipsRow: { marginBottom: Spacing.three },
   sessionCard: {
     marginBottom: Spacing.three,
-    gap: Spacing.two + 2,
+    gap: Spacing.twoHalf,
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",

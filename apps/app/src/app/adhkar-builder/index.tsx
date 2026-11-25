@@ -1,8 +1,7 @@
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
+import { StyleSheet, type TextInputInstance, useWindowDimensions, View } from "react-native";
 import { apiAuthHeaders } from "@/api/auth-options";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -19,14 +18,18 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
+import { SearchField } from "@/components/ui/search-field";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
+import { TextField } from "@/components/ui/text-field";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Radius, Spacing } from "@/constants/theme";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
+import { Breakpoints, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
@@ -44,7 +47,7 @@ import {
   userMediaContentUrl,
 } from "@/lib/user-media-api";
 import { useAuth } from "@/providers/auth-provider";
-import { useToast } from "@/providers/toast-provider";
+import { TOAST_ACTION_DURATION_MS, useToast } from "@/providers/toast-provider";
 import {
   type CustomAdhkar,
   type CustomAdhkarImage,
@@ -61,10 +64,27 @@ type DictatableField = "arabic" | "transliteration" | "translation";
 
 const DICTATABLE_FIELDS = new Set<string>(["arabic", "transliteration", "translation"]);
 
+type FieldKey = keyof Omit<CustomAdhkarInput, "images">;
+/** Single-line fields chain with the return key: title → reference → save. */
+const FIELD_ORDER: FieldKey[] = ["title", "arabic", "transliteration", "translation", "reference"];
+
+/** Stable fingerprint of the editable form — equal fingerprints mean "nothing to lose". */
+function formFingerprint(draft: CustomAdhkarInput, attachments: DraftAdhkarAttachment[]): string {
+  return JSON.stringify([
+    draft.title,
+    draft.arabic ?? "",
+    draft.transliteration ?? "",
+    draft.translation ?? "",
+    draft.reference ?? "",
+    attachments.map((item) => item.mediaId ?? item.uri),
+  ]);
+}
+
 export default function AdhkarBuilderScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const undoToast = useUndoToast();
   const { fontPrefs } = usePreferences();
   const arabicFontFamily = useArabicFontFamily();
   const arabicInputLineHeight = resolveArabicLineHeight(20, fontPrefs.arabic.family);
@@ -72,17 +92,27 @@ export default function AdhkarBuilderScreen() {
   const tv = isTV();
   const { width: windowWidth } = useWindowDimensions();
   // Wide web / tablets: list beside an inline editor + live preview (no sheet).
-  const wide = !tv && windowWidth >= 1024;
+  const wide = !tv && windowWidth >= Breakpoints.wide;
   const { isAuthenticated, session } = useAuth();
   const toast = useToast();
   useEnsureCustomAdhkarLoaded();
   const items = useCustomAdhkarList();
-  const { create, update, remove } = useCustomAdhkarActions();
+  const { create, update, remove, restore } = useCustomAdhkarActions();
 
   const [query, setQuery] = useState("");
   const [formOpen, setFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [pendingDelete, setPendingDelete] = useState<CustomAdhkar | null>(null);
+  // Unsaved edits (dictated Arabic, attachments) are never dropped silently (B-56).
+  const [baseline, setBaseline] = useState(() => formFingerprint(EMPTY, []));
+  const [discardAction, setDiscardAction] = useState<(() => void) | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const fieldRefs = useRef<Partial<Record<FieldKey, TextInputInstance | null>>>({});
+  // Attachment purges wait out the Undo window so "Deleted" can really be undone.
+  const purgeTimers = useRef(
+    new Map<string, { timer: ReturnType<typeof setTimeout>; run: () => void }>(),
+  );
+  // Entries whose server attachments were already purged (Undo can no longer bring them back).
+  const purgedIds = useRef(new Set<string>());
   const [draft, setDraft] = useState<CustomAdhkarInput>(EMPTY);
   const [draftAttachments, setDraftAttachments] = useState<DraftAdhkarAttachment[]>([]);
   const [saving, setSaving] = useState(false);
@@ -97,7 +127,10 @@ export default function AdhkarBuilderScreen() {
     [items],
   );
 
-  const canSave = draft.title.trim().length > 0 && !saving;
+  const dirty = formFingerprint(draft, draftAttachments) !== baseline;
+  const titleError =
+    submitted && draft.title.trim().length === 0 ? t("customAdhkar.titleRequired") : undefined;
+  const canSave = !saving;
   const isEditing = editingId !== null;
 
   const handleSttError = useCallback(
@@ -144,52 +177,78 @@ export default function AdhkarBuilderScreen() {
     setDraft(EMPTY);
     setDraftAttachments([]);
     setEditingId(null);
+    setSubmitted(false);
+    setBaseline(formFingerprint(EMPTY, []));
+  };
+
+  /** Runs the action now, or after the user confirms discarding unsaved edits. */
+  const guardDiscard = (action: () => void) => {
+    if (dirty && !saving) setDiscardAction(() => action);
+    else action();
+  };
+
+  const closeForm = () => {
+    setFormOpen(false);
+    resetForm();
   };
 
   const openCreate = () => {
-    resetForm();
-    setFormOpen(true);
+    guardDiscard(() => {
+      resetForm();
+      setFormOpen(true);
+    });
   };
 
   const openEdit = (item: CustomAdhkar) => {
+    guardDiscard(() => startEdit(item));
+  };
+
+  const startEdit = (item: CustomAdhkar) => {
     stt.abort();
     setEditingId(item.id);
-    setDraft({
+    setSubmitted(false);
+    const nextDraft: CustomAdhkarInput = {
       title: item.title,
       arabic: item.arabic,
       transliteration: item.transliteration ?? "",
       translation: item.translation ?? "",
       reference: item.reference ?? "",
-    });
+    };
+    setDraft(nextDraft);
     const authHeaders = apiAuthHeaders(session?.accessToken);
-    setDraftAttachments(
-      (item.images ?? [])
-        .map((image, index): DraftAdhkarAttachment | null => {
-          if (image.mediaId) {
-            return {
-              uri: userMediaContentUrl(image.mediaId),
-              mimeType: image.mimeType || "image/jpeg",
-              filename: image.filename ?? `attachment-${index + 1}`,
-              mediaId: image.mediaId,
-              headers: authHeaders,
-            };
-          }
-          if (image.localUri) {
-            return {
-              uri: image.localUri,
-              mimeType: image.mimeType || "image/jpeg",
-              filename: image.filename ?? `attachment-${index + 1}`,
-            };
-          }
-          return null;
-        })
-        .filter((row): row is DraftAdhkarAttachment => row !== null),
-    );
+    const nextAttachments = (item.images ?? [])
+      .map((image, index): DraftAdhkarAttachment | null => {
+        if (image.mediaId) {
+          return {
+            uri: userMediaContentUrl(image.mediaId),
+            mimeType: image.mimeType || "image/jpeg",
+            filename: image.filename ?? `attachment-${index + 1}`,
+            mediaId: image.mediaId,
+            headers: authHeaders,
+          };
+        }
+        if (image.localUri) {
+          return {
+            uri: image.localUri,
+            mimeType: image.mimeType || "image/jpeg",
+            filename: image.filename ?? `attachment-${index + 1}`,
+          };
+        }
+        return null;
+      })
+      .filter((row): row is DraftAdhkarAttachment => row !== null);
+    setDraftAttachments(nextAttachments);
+    setBaseline(formFingerprint(nextDraft, nextAttachments));
     setFormOpen(true);
   };
 
   const save = async () => {
     if (!canSave) return;
+    setSubmitted(true);
+    if (draft.title.trim().length === 0) {
+      fieldRefs.current.title?.focus();
+      return;
+    }
     setSaving(true);
 
     const existingKept = draftAttachments.filter((item) => Boolean(item.mediaId));
@@ -245,8 +304,7 @@ export default function AdhkarBuilderScreen() {
         throw error;
       }
 
-      resetForm();
-      setFormOpen(false);
+      closeForm();
     } catch (error) {
       if (isGuestUserMediaError(error)) {
         toast.warning(t("customAdhkar.attachments.signInRequired"));
@@ -260,12 +318,54 @@ export default function AdhkarBuilderScreen() {
     }
   };
 
-  const handleRemove = async (item: CustomAdhkar) => {
-    // Purge Cloudinary / user-media first so orphans are not left if the local
-    // row disappears before the network call finishes.
-    await purgeCustomAdhkarAttachments(session?.accessToken, item.images);
-    await remove(item.id);
+  const schedulePurge = (item: CustomAdhkar) => {
+    const accessToken = session?.accessToken;
+    const run = () => {
+      purgeTimers.current.delete(item.id);
+      purgedIds.current.add(item.id);
+      // Background purge: a failure must not resurrect the row — tell the user instead.
+      purgeCustomAdhkarAttachments(accessToken, item.images).catch(() => {
+        toast.error(t("customAdhkar.purgeFailed"));
+      });
+    };
+    const timer = setTimeout(run, TOAST_ACTION_DURATION_MS + 500);
+    purgeTimers.current.set(item.id, { timer, run });
   };
+
+  // Optimistic delete: the row goes at once, "Deleted" offers Undo, and the
+  // attachment purge runs in the background once the Undo window has closed.
+  const handleRemove = (item: CustomAdhkar) => {
+    if (editingId === item.id) closeForm();
+    void undoToast.run({
+      do: async () => {
+        await remove(item.id);
+        schedulePurge(item);
+      },
+      undo: async () => {
+        const pending = purgeTimers.current.get(item.id);
+        if (pending) clearTimeout(pending.timer);
+        purgeTimers.current.delete(item.id);
+        // Same id back; attachments only if their server copies were not purged yet.
+        const purged = purgedIds.current.delete(item.id);
+        await restore(
+          purged ? { ...item, images: item.images?.filter((image) => !image.mediaId) } : item,
+        );
+      },
+      messageKey: "customAdhkar.deletedToast",
+      messageOptions: { title: item.title },
+    });
+  };
+
+  // Leaving the screen: finish any purge still waiting out its Undo window.
+  useEffect(() => {
+    const timers = purgeTimers.current;
+    return () => {
+      for (const pending of [...timers.values()]) {
+        clearTimeout(pending.timer);
+        pending.run();
+      }
+    };
+  }, []);
 
   const toggleDictate = (key: DictatableField) => {
     if (stt.listening && stt.activeField === key) {
@@ -276,75 +376,79 @@ export default function AdhkarBuilderScreen() {
     void stt.start(key, draft[key] ?? "", key === "arabic" ? "arabic" : "other");
   };
 
+  const focusNext = (key: FieldKey) => {
+    const next = FIELD_ORDER[FIELD_ORDER.indexOf(key) + 1];
+    if (next) fieldRefs.current[next]?.focus();
+    else void save();
+  };
+
   const input = (
-    key: keyof Omit<CustomAdhkarInput, "images">,
+    key: FieldKey,
     labelKey: string,
-    opts?: { multiline?: boolean; rtl?: boolean },
+    opts?: { multiline?: boolean; rtl?: boolean; required?: boolean },
   ) => {
     const dictatable = DICTATABLE_FIELDS.has(key);
     const listeningHere = stt.listening && stt.activeField === key;
 
     return (
-      <View style={styles.field}>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t(labelKey)}
-        </ThemedText>
-        <View style={styles.inputWrap}>
-          <TextInput
-            value={draft[key] ?? ""}
-            onChangeText={(v) => {
-              if (stt.listening && stt.activeField === key) stt.abort();
-              setDraft((prev) => ({ ...prev, [key]: v }));
-            }}
-            placeholder={t(labelKey)}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t(labelKey)}
-            multiline={opts?.multiline}
-            style={[
-              styles.input,
-              opts?.multiline ? styles.inputMultiline : null,
-              dictatable && stt.available ? styles.inputWithVoice : null,
-              opts?.rtl
-                ? [
-                    styles.inputRtl,
-                    {
-                      fontFamily: arabicFontFamily,
-                      lineHeight: arabicInputLineHeight,
-                      textAlign: arabicTextAlign(rtl),
-                    },
-                  ]
-                : null,
-              {
-                backgroundColor: colors.input,
-                color: colors.foreground,
-                borderWidth: listeningHere ? 1.5 : 1,
-                borderColor: listeningHere ? colors.accent : colors.inputBorder,
-              },
-            ]}
-          />
-          {dictatable && stt.available ? (
-            <View style={styles.voiceButton}>
-              <VoiceInputButton
-                listening={!!listeningHere}
-                level={stt.level}
-                accessibilityLabel={
-                  listeningHere ? t("customAdhkar.stt.stopDictate") : t("customAdhkar.stt.dictate")
-                }
-                accessibilityHint={listeningHere ? t("customAdhkar.stt.listening") : undefined}
-                disabled={saving}
-                onPress={() => toggleDictate(key as DictatableField)}
-                size="sm"
-              />
-            </View>
-          ) : null}
-        </View>
-      </View>
+      <TextField
+        ref={(node) => {
+          fieldRefs.current[key] = node;
+        }}
+        label={t(labelKey)}
+        required={opts?.required}
+        optional={!opts?.required}
+        error={key === "title" ? titleError : undefined}
+        value={draft[key] ?? ""}
+        onChangeText={(v) => {
+          if (stt.listening && stt.activeField === key) stt.abort();
+          setDraft((prev) => ({ ...prev, [key]: v }));
+        }}
+        multiline={opts?.multiline}
+        returnKeyType={
+          opts?.multiline
+            ? "default"
+            : FIELD_ORDER.indexOf(key) === FIELD_ORDER.length - 1
+              ? "done"
+              : "next"
+        }
+        onSubmitEditing={opts?.multiline ? undefined : () => focusNext(key)}
+        blurOnSubmit={!opts?.multiline && FIELD_ORDER.indexOf(key) === FIELD_ORDER.length - 1}
+        style={styles.field}
+        inputStyle={
+          opts?.rtl
+            ? [
+                styles.inputRtl,
+                {
+                  fontFamily: arabicFontFamily,
+                  lineHeight: arabicInputLineHeight,
+                  textAlign: arabicTextAlign(rtl),
+                },
+              ]
+            : undefined
+        }
+        trailing={
+          dictatable && stt.available ? (
+            <VoiceInputButton
+              listening={!!listeningHere}
+              level={stt.level}
+              accessibilityLabel={
+                listeningHere ? t("customAdhkar.stt.stopDictate") : t("customAdhkar.stt.dictate")
+              }
+              accessibilityHint={listeningHere ? t("customAdhkar.stt.listening") : undefined}
+              disabled={saving}
+              onPress={() => toggleDictate(key as DictatableField)}
+              size="sm"
+            />
+          ) : undefined
+        }
+      />
     );
   };
 
   const formFields = (
     <>
-      {input("title", "customAdhkar.field.title")}
+      {input("title", "customAdhkar.field.title", { required: true })}
       {input("arabic", "customAdhkar.field.arabic", { multiline: true, rtl: true })}
       {input("transliteration", "customAdhkar.field.transliteration", { multiline: true })}
       {input("translation", "customAdhkar.field.translation", { multiline: true })}
@@ -383,13 +487,13 @@ export default function AdhkarBuilderScreen() {
         </ThemedText>
         {formFields}
         {saveButton}
-        {isEditing ? (
+        {isEditing || dirty ? (
           <Button
             label={t("common.cancel")}
             variant="ghost"
             fullWidth
             disabled={saving}
-            onPress={resetForm}
+            onPress={() => guardDiscard(resetForm)}
             style={styles.saveButton}
           />
         ) : null}
@@ -420,27 +524,16 @@ export default function AdhkarBuilderScreen() {
         onPress={openCreate}
         style={styles.addButton}
       />
+      {/* TV: toasts take no focus — Undo of a delete lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} preferredFocus style={styles.addButton} />
 
       {items.length > 0 ? (
-        <Card padding="three" style={styles.searchCard}>
-          <View style={[styles.searchBox, tokens.inputSurface]}>
-            <SymbolView
-              name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-              size={17}
-              tintColor={colors.mutedForeground}
-            />
-            <TextInput
-              value={query}
-              onChangeText={setQuery}
-              placeholder={t("customAdhkar.searchPlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("customAdhkar.searchPlaceholder")}
-              autoCorrect={false}
-              returnKeyType="search"
-              style={[styles.searchInput, { color: colors.foreground }]}
-            />
-          </View>
-        </Card>
+        <SearchField
+          value={query}
+          onChangeText={setQuery}
+          placeholder={t("customAdhkar.searchPlaceholder")}
+          style={styles.searchCard}
+        />
       ) : null}
 
       {items.length === 0 ? (
@@ -498,7 +591,7 @@ export default function AdhkarBuilderScreen() {
                       background={tokens.status.danger.soft}
                       accessibilityLabel={t("customAdhkar.delete")}
                       haptic="warning"
-                      onPress={() => setPendingDelete(item)}
+                      onPress={() => handleRemove(item)}
                       hitTarget={tv ? TvLayout.minFocusTargetDp : undefined}
                     />
                   </View>
@@ -562,17 +655,14 @@ export default function AdhkarBuilderScreen() {
         visible={formOpen && !wide}
         onClose={() => {
           if (saving) return;
-          setFormOpen(false);
-          resetForm();
+          guardDiscard(closeForm);
         }}
         variant="bottom"
+        title={isEditing ? t("customAdhkar.editTitle") : t("customAdhkar.newTitle")}
         // Own scroller below — nested Sheet scroll fights Android touch / Save.
         scrollable={false}
         solid
       >
-        <ThemedText type="subtitle" style={styles.sheetTitle}>
-          {isEditing ? t("customAdhkar.editTitle") : t("customAdhkar.newTitle")}
-        </ThemedText>
         <TvScrollView
           style={styles.form}
           showsVerticalScrollIndicator={false}
@@ -581,22 +671,28 @@ export default function AdhkarBuilderScreen() {
           {formFields}
         </TvScrollView>
         {saveButton}
+        <Button
+          label={t("common.cancel")}
+          variant="ghost"
+          fullWidth
+          disabled={saving}
+          onPress={() => guardDiscard(closeForm)}
+        />
       </Sheet>
 
       <ConfirmDialog
-        visible={pendingDelete !== null}
-        title={t("customAdhkar.confirmDeleteTitle")}
-        message={
-          pendingDelete
-            ? t("customAdhkar.confirmDeleteMsg", { title: pendingDelete.title })
-            : undefined
-        }
-        confirmLabel={t("common.delete")}
+        visible={discardAction !== null}
+        title={t("common.discardTitle")}
+        message={t("common.discardMessage")}
+        confirmLabel={t("common.discard")}
+        cancelLabel={t("common.keepEditing")}
         destructive
         onConfirm={() => {
-          if (pendingDelete) void handleRemove(pendingDelete);
+          const action = discardAction;
+          setDiscardAction(null);
+          action?.();
         }}
-        onClose={() => setPendingDelete(null)}
+        onClose={() => setDiscardAction(null)}
       />
     </ScreenLayout>
   );
@@ -611,19 +707,6 @@ const styles = StyleSheet.create({
   previewTitle: { marginBottom: Spacing.two },
   addButton: { marginBottom: Spacing.three },
   searchCard: { marginBottom: Spacing.three },
-  searchBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  searchInput: {
-    flex: 1,
-    paddingVertical: Spacing.two + 2,
-    fontSize: 15,
-  },
   itemCard: {
     gap: Spacing.three,
   },
@@ -650,22 +733,7 @@ const styles = StyleSheet.create({
   itemDivider: { height: StyleSheet.hairlineWidth },
   sheetTitle: { marginBottom: Spacing.two },
   form: { alignSelf: "stretch", maxHeight: 420 },
-  field: { gap: Spacing.one, marginBottom: Spacing.three },
-  inputWrap: { position: "relative" },
-  input: {
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-    fontSize: 15,
-  },
-  inputMultiline: { minHeight: 72, textAlignVertical: "top" },
-  inputWithVoice: { paddingEnd: 64 },
-  voiceButton: {
-    position: "absolute",
-    top: 5,
-    end: 5,
-  },
+  field: { marginBottom: Spacing.three },
   inputRtl: { writingDirection: "rtl", fontSize: 20 },
   saveButton: { marginTop: Spacing.two },
 });

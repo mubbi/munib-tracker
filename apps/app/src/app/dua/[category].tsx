@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { type ListRenderItem, StyleSheet, View } from "react-native";
 import { DuaListRow } from "@/components/dua/dua-list-row";
 import { type DuaOccasionChip, DuaOccasionChips } from "@/components/dua/dua-occasion-chips";
+import { useDuaSaveToggle } from "@/components/dua/use-dua-save-toggle";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -14,8 +15,9 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ResponsiveGrid, useResponsiveColumns } from "@/components/ui/responsive-grid";
 import { SearchField } from "@/components/ui/search-field";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
+import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { DUA_CORPUS } from "@/lib/content-loaders";
@@ -35,11 +37,7 @@ import { createDuaSearch } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { resolveTranslationField } from "@/lib/translation-locale";
-import {
-  useDuaFavoritesActions,
-  useEnsureDuaFavoritesLoaded,
-  useFavoriteDuaIds,
-} from "@/stores/dua-favorites-store";
+import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
 import { usePreferences } from "@/stores/preferences-store";
 
 /** Expo Router may pass dynamic segments as `string | string[]` on deep links. */
@@ -64,7 +62,8 @@ export default function DuaCategoryScreen() {
   useEnsureDuaFavoritesLoaded();
   const favoriteIds = useFavoriteDuaIds();
   const favoriteSet = useMemo(() => new Set(favoriteIds), [favoriteIds]);
-  const { toggle } = useDuaFavoritesActions();
+  // Un-save offers Undo and restores the saved position (P8-07, B-30).
+  const { toggleSaved: toggle, undoToast } = useDuaSaveToggle();
   const params = useLocalSearchParams<{ category: string | string[]; topic?: string | string[] }>();
   const categoryParam = paramValue(params.category);
   const isKnownCategory = isDuaCategoryId(categoryParam);
@@ -219,6 +218,8 @@ export default function DuaCategoryScreen() {
       // still collapse to zero height on Leanback even with minHeight:0 chains.
       scrollable={tv}
     >
+      {/* TV: toasts take no focus — the Undo lives on the page (B-04). */}
+      <TvUndoButton controller={undoToast} />
       <Seo
         path={`/dua/${categoryId}`}
         title={categoryName}
@@ -236,7 +237,7 @@ export default function DuaCategoryScreen() {
       />
       {/* The Card supplies the list chrome. No Stagger wrapper: its item view has
           no flex, which would break the FlatList's height chain on phone. */}
-      <Card padding="three" style={tv ? undefined : styles.listCard}>
+      <Card style={tv ? undefined : styles.listCard}>
         {controls}
         {tv ? (
           <View style={styles.tvList}>
@@ -359,7 +360,7 @@ const styles = StyleSheet.create({
   group: {
     padding: Spacing.two,
     paddingTop: Spacing.three,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     borderStartWidth: 4,
     borderRadius: Radius.lg,
     borderCurve: "continuous",

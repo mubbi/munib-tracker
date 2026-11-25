@@ -18,7 +18,7 @@ import { TajweedText } from "@/components/quran/tajweed-text";
 import { ContextMenu } from "@/components/ui/context-menu";
 import { IconButton } from "@/components/ui/icon-button";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
-import { Radius } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useFinePointerHover } from "@/hooks/use-fine-pointer-hover";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -226,6 +226,7 @@ export const AnnotatedAyahText = memo(function AnnotatedAyahText({
     return (
       <Text
         testID="annotated-ayah-spans"
+        accessibilityLanguage="ar"
         style={[
           styles.arabic,
           arabicReadingLayout(fontSize),
@@ -290,7 +291,11 @@ export const AnnotatedAyahText = memo(function AnnotatedAyahText({
 
 const styles = StyleSheet.create({
   arabic: { writingDirection: "rtl", textAlign: "right", width: "100%" },
-  tint: { borderRadius: Radius.md, paddingHorizontal: 6, paddingVertical: 2 },
+  tint: {
+    borderRadius: Radius.md,
+    paddingHorizontal: Spacing.oneHalf,
+    paddingVertical: Spacing.half,
+  },
   menu: { alignSelf: "auto", width: "auto" },
   webNoted: {
     cursor: "pointer",

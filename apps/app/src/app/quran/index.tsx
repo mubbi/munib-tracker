@@ -1,34 +1,30 @@
 import type { QuranReaderLayout, Surah } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import type { TFunction } from "i18next";
 import { memo, type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  type LayoutChangeEvent,
-  type ListRenderItem,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { type LayoutChangeEvent, type ListRenderItem, StyleSheet, View } from "react-native";
+import { QuranHubTools } from "@/components/quran/hub/quran-hub-tools";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { EmptyState } from "@/components/ui/empty-state";
-import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
-import { SavedNavCard } from "@/components/ui/saved-nav-card";
+import { SearchField } from "@/components/ui/search-field";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { BorderWidth, Breakpoints, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
@@ -39,7 +35,6 @@ import { isTV } from "@/lib/platform/is-tv";
 import { isPracticeAvailable } from "@/lib/quran-companion/availability";
 import { getPageForAyah, getSurahByNumber, getSurahMeta } from "@/lib/quran-meta";
 import { isReciteToFindAvailable } from "@/lib/recite-to-find/availability";
-import { reciteToFindHref } from "@/lib/recite-to-find/links";
 import { useChevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
 import { routeMetadata } from "@/lib/seo/route-metadata";
@@ -90,11 +85,26 @@ const SURAH_ITEMS = getSurahMeta().map((s) => ({
 
 const REVELATION_FILTERS: SurahRevelationFilter[] = ["all", "makkah", "madinah"];
 
-function revelationTone(
-  place: Surah["revelationPlace"],
-  tokens: ReturnType<typeof useThemeTokens>["tokens"],
-) {
-  return place === "makkah" ? tokens.status.info : tokens.status.warning;
+/**
+ * Makki / Madani is a category, not a status (C-09): tint it with the browse
+ * hues (sky / dawn), never the info / warning status colours.
+ */
+function useRevelationHue(place: Surah["revelationPlace"]) {
+  return useCategoryHue(place === "makkah" ? "sky" : "dawn");
+}
+
+/** Spoken row name (G-18): number, name, meaning, ayah count, revelation. */
+function surahRowA11yLabel(surah: Surah, t: TFunction, isContinue: boolean): string {
+  return [
+    t("quran.surahNumber", { number: surah.number }),
+    surah.nameTransliteration,
+    surah.nameEnglish,
+    t("quran.ayahCount", { count: surah.ayahCount }),
+    surah.revelationPlace === "makkah" ? t("quran.makki") : t("quran.madani"),
+    isContinue ? t("quran.continueReading") : null,
+  ]
+    .filter(Boolean)
+    .join(", ");
 }
 
 /**
@@ -118,7 +128,7 @@ const SurahRow = memo(function SurahRow({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
-  const revelation = revelationTone(surah.revelationPlace, tokens);
+  const revelation = useRevelationHue(surah.revelationPlace);
   const makki = surah.revelationPlace === "makkah";
   const highlighted = isSelected || isContinue;
   const tv = isTV();
@@ -128,11 +138,7 @@ const SurahRow = memo(function SurahRow({
       haptic="light"
       accessibilityRole="button"
       accessibilityState={{ selected: isSelected }}
-      accessibilityLabel={
-        isContinue
-          ? `${surah.nameEnglish}, ${t("quran.continueReading")}`
-          : `${surah.nameEnglish}, ${makki ? t("quran.makki") : t("quran.madani")}`
-      }
+      accessibilityLabel={surahRowA11yLabel(surah, t, isContinue)}
       onPress={() => onPress(surah.number)}
       style={[
         styles.row,
@@ -172,7 +178,11 @@ const SurahRow = memo(function SurahRow({
         ) : null}
       </View>
       <View style={[styles.rowMeta, tv ? styles.rowMetaTv : styles.rowMetaCompact]}>
-        <ThemedText type="arabic" style={[styles.rowArabic, tv && styles.rowArabicTv]}>
+        <ThemedText
+          type="arabic"
+          accessibilityLanguage="ar"
+          style={[styles.rowArabic, tv && styles.rowArabicTv]}
+        >
           {surah.nameArabic}
         </ThemedText>
         {tv ? (
@@ -207,9 +217,7 @@ const SurahRow = memo(function SurahRow({
  */
 function SearchShell({ children }: { children: ReactNode }) {
   return isTV() ? (
-    <Card padding="three" style={styles.searchCard}>
-      {children}
-    </Card>
+    <Card style={styles.searchCard}>{children}</Card>
   ) : (
     <View style={styles.searchPlain}>{children}</View>
   );
@@ -234,6 +242,36 @@ function ReaderLayoutActions({
   const tv = isTV();
   // TV stacks full-width rows for D-pad travel; touch / pointer gets a 3-up row.
   const stacked = tv;
+  const segmentOptions = useMemo(
+    () =>
+      LAYOUT_OPTIONS.map((option) => ({
+        id: option.id,
+        label: t(option.labelKey),
+        accessibilityLabel: t("quran.hub.openIn", { layout: t(option.labelKey) }),
+      })),
+    [t],
+  );
+
+  if (!tv) {
+    // Touch / pointer (G-08): the shared segmented control. Every segment opens
+    // the reader in that layout — re-pressing the saved one opens it too.
+    return (
+      <View style={styles.layoutActions}>
+        {heading ? (
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.layoutHeading}>
+            {heading}
+          </ThemedText>
+        ) : null}
+        <SegmentedControl
+          options={segmentOptions}
+          value={preferredLayout}
+          onChange={onSelect}
+          allowReselect
+          accessibilityLabel={t("quran.readerLayout")}
+        />
+      </View>
+    );
+  }
 
   return (
     <TvFocusGuide
@@ -280,14 +318,14 @@ function ReaderLayoutActions({
                           // with the D-pad focus ring (looked like dual focus).
                           backgroundColor: colors.muted,
                           borderColor: withAlpha(colors.accent, tokens.isDark ? 0.5 : 0.35),
-                          borderWidth: 1.5,
+                          borderWidth: BorderWidth.thick,
                         }
                       : { backgroundColor: colors.accent, borderColor: colors.accent }
                     : tv
                       ? {
                           backgroundColor: colors.card,
                           borderColor: tokens.hairline,
-                          borderWidth: StyleSheet.hairlineWidth,
+                          borderWidth: BorderWidth.hairline,
                         }
                       : {
                           backgroundColor: tokens.accentSoft,
@@ -310,6 +348,7 @@ function ReaderLayoutActions({
                     }
                   />
                   <ThemedText
+                    weight="semibold"
                     type={tv ? "smallBold" : "caption"}
                     numberOfLines={1}
                     style={{
@@ -321,7 +360,6 @@ function ReaderLayoutActions({
                           ? colors.mutedForeground
                           : colors.accentText,
                       textAlign: "center",
-                      fontWeight: "600",
                       flexShrink: 1,
                       fontSize: tv ? TvLayout.bodyFontSize : undefined,
                     }}
@@ -365,7 +403,6 @@ function ContinueReadingCard({
 
   return (
     <Card
-      padding="three"
       onPress={showLayoutOptions ? undefined : onPress}
       accessibilityLabel={t("quran.continueReading")}
       preferredFocus={preferredFocus ?? (tv && !showLayoutOptions)}
@@ -375,7 +412,7 @@ function ContinueReadingCard({
         {
           backgroundColor: tokens.accentSoft,
           borderColor: tv ? tokens.hairline : withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28),
-          borderWidth: 1,
+          borderWidth: BorderWidth.thin,
         },
       ]}
     >
@@ -407,6 +444,7 @@ function ContinueReadingCard({
           {surah ? (
             <ThemedText
               type="arabic"
+              accessibilityLanguage="ar"
               style={[
                 styles.continueArabic,
                 tv && styles.continueArabicTv,
@@ -478,8 +516,8 @@ function SurahDetailPane({
   onPreferredFocusConsumed?: () => void;
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const revelation = revelationTone(surah.revelationPlace, tokens);
+  const { colors } = useThemeTokens();
+  const revelation = useRevelationHue(surah.revelationPlace);
   const makki = surah.revelationPlace === "makkah";
   const tv = isTV();
 
@@ -519,6 +557,7 @@ function SurahDetailPane({
         </View>
         <ThemedText
           type="arabic"
+          accessibilityLanguage="ar"
           style={[styles.detailArabic, tv && styles.detailArabicTv, { color: colors.accentText }]}
         >
           {surah.nameArabic}
@@ -548,7 +587,7 @@ function SurahDetailPane({
 export default function QuranHomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const { isListDetail, width: windowWidth } = useLargeScreenLayout();
   const tv = isTV();
@@ -587,99 +626,6 @@ export default function QuranHomeScreen() {
   );
 
   const isFiltering = query.trim().length > 0 || revelationFilter !== "all";
-
-  const shortcuts = useMemo<QuickActionItem[]>(
-    () => [
-      {
-        id: "search",
-        // Ayah full-text search — named for its scope so it isn't confused with
-        // the surah filter field just below it.
-        label: t("quran.searchAyahs"),
-        icon: { ios: "magnifyingglass", android: "search", web: "search" },
-        tint: tokens.status.info.color,
-        onPress: () => router.push("/quran/search"),
-      },
-      {
-        id: "pages",
-        label: t("quran.pages"),
-        icon: { ios: "book.pages.fill", android: "menu_book", web: "menu_book" },
-        tint: tokens.status.info.color,
-        onPress: () => router.push("/quran/pages"),
-      },
-      {
-        id: "juz",
-        label: t("quran.juz"),
-        icon: { ios: "square.grid.3x3.fill", android: "grid_view", web: "grid_view" },
-        tint: colors.accent,
-        onPress: () => router.push("/quran/juz"),
-      },
-      {
-        id: "learn",
-        label: t("quran.learn"),
-        icon: { ios: "book.closed.fill", android: "auto_stories", web: "auto_stories" },
-        tint: tokens.status.warning.color,
-        onPress: () => router.push("/learn-quran"),
-      },
-      {
-        id: "khatm",
-        label: t("khatm.short"),
-        icon: { ios: "chart.line.uptrend.xyaxis", android: "trending_up", web: "trending_up" },
-        tint: tokens.status.success.color,
-        onPress: () => router.push("/quran/khatm"),
-      },
-      {
-        id: "hifz",
-        label: t("hifz.short"),
-        icon: { ios: "brain.head.profile", android: "psychology", web: "psychology" },
-        tint: tokens.status.danger.color,
-        onPress: () => router.push("/quran/hifz"),
-      },
-      ...(practiceAvailable
-        ? [
-            {
-              id: "practice",
-              label:
-                dueCount > 0
-                  ? t("quranCompanion.entry.toRevise", { count: dueCount })
-                  : t("quranCompanion.entry.practise"),
-              icon: { ios: "mic.fill", android: "mic", web: "mic" },
-              tint: colors.accent,
-              onPress: () =>
-                router.push((dueCount > 0 ? "/quran/revision" : "/quran/practice") as Href),
-            } satisfies QuickActionItem,
-          ]
-        : []),
-      // D68: recite a few words and the on-device listener finds the ayah.
-      ...(reciteToFindAvailable
-        ? [
-            {
-              id: "recite-to-find",
-              label: t("reciteToFind.shortcut.title"),
-              icon: { ios: "waveform", android: "graphic_eq", web: "graphic_eq" },
-              tint: tokens.status.info.color,
-              onPress: () => router.push(reciteToFindHref()),
-            } satisfies QuickActionItem,
-          ]
-        : []),
-    ],
-    [t, router, colors.accent, tokens, practiceAvailable, reciteToFindAvailable, dueCount],
-  );
-
-  // Phone / web: bookmarks is one more destination, so it joins the shortcut
-  // tiles instead of spending a whole card on a single link. TV keeps the card.
-  const touchShortcuts = useMemo<QuickActionItem[]>(
-    () => [
-      ...shortcuts,
-      {
-        id: "bookmarks",
-        label: t("quran.bookmarks"),
-        icon: { ios: "bookmark.fill", android: "bookmark", web: "bookmark" },
-        tint: tokens.status.warning.color,
-        onPress: () => router.push("/quran/bookmarks"),
-      },
-    ],
-    [shortcuts, t, tokens, router],
-  );
 
   const revelationFilterLabel = useCallback(
     (filter: SurahRevelationFilter) => {
@@ -721,13 +667,22 @@ export default function QuranHomeScreen() {
         if (tv) setMoveFocusToDetail(true);
         return;
       }
-      if (lastRead && lastRead.surah === n) {
-        openSurahAt(n, lastRead.ayah);
+      const resume = lastRead && lastRead.surah === n ? lastRead : null;
+      // The list honours the saved reader layout (G-03): page / mushaf readers
+      // open at the surah's page, the ayah reader at the surah.
+      if (preferredLayout === "page" || preferredLayout === "mushaf") {
+        const ayah = resume?.ayah ?? 1;
+        const page = resume?.page ?? getPageForAyah(n, ayah);
+        router.push(`/quran/page/${page}?surah=${n}&ayah=${ayah}`);
+        return;
+      }
+      if (resume) {
+        openSurahAt(n, resume.ayah);
         return;
       }
       router.push({ pathname: "/quran/[surah]", params: { surah: String(n) } });
     },
-    [isListDetail, tv, lastRead, openSurahAt, router],
+    [isListDetail, tv, lastRead, openSurahAt, preferredLayout, router],
   );
 
   const selectedSurah = selectedSurahNumber != null ? getSurahByNumber(selectedSurahNumber) : null;
@@ -786,41 +741,18 @@ export default function QuranHomeScreen() {
     [continueSurah, isListDetail, openSurah, selectedSurahNumber, surahCellWidth, tv],
   );
 
-  const bookmarksCard = (
-    <SavedNavCard
-      title={t("quran.bookmarks")}
-      viewLabel={t("quran.viewBookmarks")}
-      count={quranBookmarks.length > 0 ? quranBookmarks.length : undefined}
-      headerIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
-      rowIcon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
-      onPress={() => router.push("/quran/bookmarks")}
+  // Every destination, no sideways scroll (C-23). Touch: below the search on
+  // phones (hidden while filtering so results sit under the field), in the
+  // side pane on list–detail. TV keeps it first (focus order) or in the pane.
+  const hubTools = (
+    <QuranHubTools
+      practiceAvailable={practiceAvailable}
+      reciteToFindAvailable={reciteToFindAvailable}
+      dueCount={dueCount}
+      bookmarkCount={quranBookmarks.length}
     />
   );
-
-  const bookmarksAndShortcuts = !tv ? (
-    isListDetail ? (
-      <Card padding="three">
-        <QuickActionGrid items={touchShortcuts} columns={4} />
-      </Card>
-    ) : (
-      // Phone: one swipeable row, no card — keeps the surah list above the fold.
-      <QuickActionGrid items={touchShortcuts} singleRow overflow="scroll" />
-    )
-  ) : (
-    <View style={styles.chromeStack}>
-      {bookmarksCard}
-      {/* Search / Pages / Juz / Khatm / Hifz have no other TV entry point — keep
-          the grid in the detail pane (below the layout actions) so they stay
-          reachable by D-pad. */}
-      <Card padding="three">
-        <QuickActionGrid
-          items={shortcuts}
-          singleRow={!isListDetail}
-          columns={isListDetail ? 3 : undefined}
-        />
-      </Card>
-    </View>
-  );
+  const showInlineTools = !isListDetail && !(isFiltering && !tv);
 
   // TV list–detail: continue is a single resume CTA; layout pickers live only in
   // the detail pane so Page/Mushaf/Ayah aren't duplicated across columns.
@@ -834,7 +766,7 @@ export default function QuranHomeScreen() {
     <View style={[styles.header, tv ? styles.headerTv : styles.headerTouch]}>
       <Stagger>
         {/* TV keeps shortcuts first (its focus order); touch leads with resume. */}
-        {!isListDetail && tv ? bookmarksAndShortcuts : null}
+        {showInlineTools && tv ? hubTools : null}
 
         {lastRead ? (
           <ContinueReadingCard
@@ -851,35 +783,26 @@ export default function QuranHomeScreen() {
           />
         ) : null}
 
-        {!isListDetail && !tv ? bookmarksAndShortcuts : null}
+        {/* Due revision rides with resume — a sibling, never inside the pressable card. */}
+        {practiceAvailable && dueCount > 0 ? (
+          <View style={styles.dueRow}>
+            <Chip
+              label={t("quranCompanion.entry.toRevise", { count: dueCount })}
+              icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
+              selected={false}
+              onPress={() => router.push("/quran/revision" as Href)}
+            />
+          </View>
+        ) : null}
 
         <SearchShell>
-          <View style={[styles.searchField, tv && styles.searchFieldTv, tokens.inputSurface]}>
-            <SymbolView
-              name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-              size={tv ? 20 : 18}
-              tintColor={colors.mutedForeground}
-            />
-            <TextInput
-              value={query}
-              onChangeText={setQuery}
-              placeholder={tv ? t("quran.findSurah") : t("quran.searchSurah")}
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("quran.searchSurah")}
-              style={[styles.searchInput, tv && styles.searchInputTv, { color: colors.foreground }]}
-            />
-            {query.length > 0 ? (
-              <IconButton
-                name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
-                accessibilityLabel={t("search.clear")}
-                onPress={() => setQuery("")}
-                size={18}
-                tintColor={colors.mutedForeground}
-                hitTarget={tv ? TvLayout.minFocusTargetDp : 36}
-                haptic="light"
-              />
-            ) : null}
-          </View>
+          <SearchField
+            value={query}
+            onChangeText={setQuery}
+            placeholder={tv ? t("quran.findSurah") : t("quran.searchSurah")}
+            accessibilityLabel={t("quran.searchSurah")}
+            style={styles.searchField}
+          />
 
           {/* Horizontal chips: trap sideways only — an Up/Down trap left the
               surah list unreachable from the filters on TV. */}
@@ -904,6 +827,8 @@ export default function QuranHomeScreen() {
             </TvScrollView>
           </TvFocusGuide>
         </SearchShell>
+
+        {showInlineTools && !tv ? hubTools : null}
 
         <SectionHeader
           title={t("quran.surahList")}
@@ -950,7 +875,7 @@ export default function QuranHomeScreen() {
           tv
             ? undefined
             : isListDetail
-              ? windowWidth >= 1600
+              ? windowWidth >= Breakpoints.xwide
                 ? LIST_DETAIL_MAX_WIDTH_XL
                 : LIST_DETAIL_MAX_WIDTH
               : undefined
@@ -994,7 +919,8 @@ export default function QuranHomeScreen() {
             keyboardShouldPersistTaps="handled"
             initialNumToRender={8}
             maxToRenderPerBatch={4}
-            windowSize={3}
+            // 3 blanked rows on a fast fling (C-31).
+            windowSize={7}
             updateCellsBatchingPeriod={50}
             removeClippedSubviews={!tv}
           />
@@ -1033,7 +959,7 @@ export default function QuranHomeScreen() {
                     title={t("quran.selectSurah")}
                   />
                 )}
-                {bookmarksAndShortcuts}
+                {hubTools}
               </TvScrollView>
             </View>
           ) : null}
@@ -1053,7 +979,6 @@ const styles = StyleSheet.create({
   headerTv: { gap: Spacing.five },
   headerTouch: { gap: Spacing.three, paddingBottom: Spacing.one },
   searchPlain: { width: "100%" },
-  chromeStack: { gap: Spacing.four, width: "100%" },
   searchCard: { gap: 0 },
   continueCard: { gap: 0, overflow: "hidden" },
   continueCardTv: {
@@ -1077,8 +1002,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   continueBadgeTv: {
-    width: 56,
-    height: 56,
+    width: tvDp(56),
+    height: tvDp(56),
   },
   continueCopy: { flex: 1, gap: Spacing.one, minWidth: 0 },
   continueAside: {
@@ -1094,8 +1019,8 @@ const styles = StyleSheet.create({
   },
   continueFooter: {
     marginTop: Spacing.three,
-    paddingTop: Spacing.two + 2,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingTop: Spacing.twoHalf,
+    borderTopWidth: BorderWidth.hairline,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -1112,7 +1037,7 @@ const styles = StyleSheet.create({
   },
   layoutActions: {
     width: "100%",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   layoutActionsTv: {
     width: "100%",
@@ -1126,29 +1051,29 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   layoutStack: {
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   layoutChipRow: {
     flex: 1,
     minWidth: 0,
     // Icon-over-label tile: comfortably above the 44pt touch minimum.
     minHeight: 52,
-    paddingVertical: Spacing.one + 2,
-    paddingHorizontal: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
+    paddingHorizontal: Spacing.oneHalf,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     alignItems: "center",
     justifyContent: "center",
   },
   layoutChipStack: {
     width: "100%",
     minHeight: 36,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -1170,36 +1095,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: Spacing.two,
   },
-  searchField: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    gap: Spacing.two,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    paddingHorizontal: Spacing.three,
-    marginBottom: Spacing.three,
-  },
-  searchFieldTv: {
-    minHeight: TvLayout.minFocusTarget,
-    marginBottom: Spacing.four,
-    width: "100%",
-  },
-  searchInput: {
-    flex: 1,
-    minWidth: 0,
-    width: "100%",
-    paddingVertical: Spacing.three,
-    fontSize: 15,
-  },
-  searchInputTv: {
-    // TextInput bypasses ThemedText's tvOS density scaling — apply it here.
-    fontSize: tvDp(TvLayout.bodyFontSize),
-    paddingVertical: Spacing.three,
-    minWidth: 0,
-    flexGrow: 1,
-  },
+  searchField: { marginBottom: Spacing.three },
   filterRow: {
     flexDirection: "row",
     gap: Spacing.two,
@@ -1232,12 +1128,13 @@ const styles = StyleSheet.create({
   },
   rowCompact: {
     minHeight: 60,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
   },
-  rowBody: { flex: 1, gap: 2, minWidth: 0 },
+  rowBody: { flex: 1, gap: Spacing.half, minWidth: 0 },
   rowName: { flexShrink: 1, minWidth: 0 },
   rowNameTv: { fontSize: TvLayout.bodyFontSize + 2 },
-  rowContinue: { flexDirection: "row", marginTop: 2 },
+  rowContinue: { flexDirection: "row", marginTop: Spacing.half },
+  dueRow: { flexDirection: "row", flexWrap: "wrap" },
   rowMeta: { alignItems: "flex-end", gap: Spacing.one, maxWidth: "34%" },
   rowMetaCompact: { maxWidth: "55%", gap: 0 },
   rowMetaTv: { maxWidth: "38%", gap: Spacing.two },
@@ -1268,7 +1165,7 @@ const styles = StyleSheet.create({
   listDetailSecondary: {
     flex: 1,
     minWidth: 280,
-    borderStartWidth: StyleSheet.hairlineWidth,
+    borderStartWidth: BorderWidth.hairline,
     minHeight: 0,
   },
   listDetailSecondaryPhone: {

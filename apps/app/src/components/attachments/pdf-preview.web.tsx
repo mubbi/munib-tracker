@@ -4,7 +4,7 @@ import { ActivityIndicator, type StyleProp, StyleSheet, View, type ViewStyle } f
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { buildPdfJsViewerHtml, readAttachmentAsBase64 } from "@/lib/attachments/pdf-preview-source";
 
 type PdfPreviewProps = {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     overflow: "hidden",
-    borderRadius: 12,
+    borderRadius: Radius.sm,
   },
   center: {
     flex: 1,

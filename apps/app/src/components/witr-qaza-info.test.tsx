@@ -17,7 +17,7 @@ async function seed(patch: Partial<UserPreferences>) {
   await setPreferences(patch);
 }
 
-const header = () => screen.getByRole("button", { name: "Is Witr qaza required?" });
+const header = () => screen.getByRole("button", { name: "Is Witr Qaza required?" });
 
 describe("WitrQazaInfo (madhhab retrofit)", () => {
   afterEach(resetPreferences);
@@ -26,15 +26,15 @@ describe("WitrQazaInfo (madhhab retrofit)", () => {
     await seed({ madhhab: "hanafi", witrQaza: undefined });
     await renderWithTheme(<WitrQazaInfo />);
     expect(header().props.accessibilityState).toMatchObject({ expanded: false });
-    expect(screen.queryByText("Count a missed Witr toward qaza")).toBeNull();
+    expect(screen.queryByText("Count a missed Witr toward Qaza")).toBeNull();
   });
 
-  it("defaults Witr qaza on for Hanafi and lets the user turn it off", async () => {
+  it("defaults Witr Qaza on for Hanafi and lets the user turn it off", async () => {
     await seed({ madhhab: "hanafi", witrQaza: undefined });
     await renderWithTheme(<WitrQazaInfo />);
     await fireEvent.press(header());
     expect(screen.getByText("On by default in your school. You can turn it off.")).toBeTruthy();
-    const toggle = screen.getByLabelText("Count a missed Witr toward qaza");
+    const toggle = screen.getByLabelText("Count a missed Witr toward Qaza");
     expect(toggle.props.value).toBe(true);
     await fireEvent(toggle, "valueChange", false);
     await waitFor(() => expect(preferencesStore.getState().prefs.witrQaza).toBe(false));
@@ -45,7 +45,7 @@ describe("WitrQazaInfo (madhhab retrofit)", () => {
     await renderWithTheme(<WitrQazaInfo />);
     await fireEvent.press(header());
     expect(screen.getByText("Off by default in your school. You can turn it on.")).toBeTruthy();
-    const toggle = screen.getByLabelText("Count a missed Witr toward qaza");
+    const toggle = screen.getByLabelText("Count a missed Witr toward Qaza");
     expect(toggle.props.value).toBe(false);
     await fireEvent(toggle, "valueChange", true);
     await waitFor(() => expect(preferencesStore.getState().prefs.witrQaza).toBe(true));

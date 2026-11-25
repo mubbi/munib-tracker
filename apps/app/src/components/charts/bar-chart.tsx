@@ -1,9 +1,13 @@
-import { Pressable, StyleSheet, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { IconButton } from "@/components/ui/icon-button";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
+import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 
 export type BarDatum = {
   label: string;
@@ -31,9 +35,18 @@ type BarChartProps = {
   average?: number | null;
   /** Selected bar (draws a ring around it); pair with `onSelect`. */
   selectedIndex?: number | null;
-  /** Makes bars pressable (phone / web — not on TV, where 30 stops would trap D-pad). */
+  /**
+   * Makes bars pressable (phone / web — not on TV, where 30 stops would trap D-pad).
+   * Dense charts (> 14 bars, ~10pt each) step through the bars with previous /
+   * next buttons instead of per-bar taps.
+   */
   onSelect?: (index: number) => void;
+  /** Localized one-line description of the whole chart (read as a single group when dense). */
+  summaryLabel?: string;
 };
+
+/** Bars above this count are too narrow to tap — they get a stepper instead. */
+export const DENSE_BAR_COUNT = 14;
 
 const MIN_FILL_PCT = 8;
 
@@ -46,11 +59,25 @@ export function BarChart({
   average,
   selectedIndex,
   onSelect,
+  summaryLabel,
 }: BarChartProps) {
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronBackward = useChevronBackward();
+  const chevronForward = useChevronForward();
   const barColor = color ?? colors.accent;
-  const pressable = onSelect != null && !isTV();
-  const dense = data.length > 14;
+  const dense = data.length > DENSE_BAR_COUNT;
+  const interactive = onSelect != null && !isTV();
+  // Wide bars are tappable; dense bars are stepped (never ~10pt targets).
+  const pressable = interactive && !dense;
+  const stepper = interactive && dense;
+  const grouped = dense && summaryLabel != null;
+  const lastIndex = data.length - 1;
+  const selectedDetail = selectedIndex != null ? data[selectedIndex]?.accessibilityLabel : null;
+  const step = (direction: -1 | 1) => {
+    if (selectedIndex == null) onSelect?.(direction === 1 ? 0 : lastIndex);
+    else onSelect?.(Math.max(0, Math.min(lastIndex, selectedIndex + direction)));
+  };
   const gap = dense ? 2 : Spacing.one;
   const barWidth = dense ? "100%" : "72%";
   const allEmpty = data.length > 0 && data.every((d) => d.value <= 0);
@@ -79,7 +106,11 @@ export function BarChart({
           </View>
         ) : null}
 
-        <View style={[styles.plot, { gap }]}>
+        <View
+          style={[styles.plot, { gap }]}
+          accessible={grouped ? true : undefined}
+          accessibilityLabel={grouped ? summaryLabel : undefined}
+        >
           {average != null && average > 0 && !allEmpty ? (
             <View
               style={[
@@ -107,8 +138,8 @@ export function BarChart({
               <View
                 // biome-ignore lint/suspicious/noArrayIndexKey: chart labels are not unique
                 key={`track-${index}`}
-                accessibilityRole={pressable ? undefined : "image"}
-                accessibilityLabel={pressable ? undefined : label}
+                accessibilityRole={pressable || grouped ? undefined : "image"}
+                accessibilityLabel={pressable || grouped ? undefined : label}
                 style={[
                   styles.track,
                   {
@@ -140,7 +171,7 @@ export function BarChart({
               </View>
             );
             return pressable ? (
-              <Pressable
+              <PressableScale
                 // biome-ignore lint/suspicious/noArrayIndexKey: chart labels are not unique (repeated weekday/month initials)
                 key={`${datum.label}-${index}`}
                 style={styles.barColumn}
@@ -148,10 +179,9 @@ export function BarChart({
                 accessibilityRole="button"
                 accessibilityLabel={label}
                 accessibilityState={{ selected }}
-                hitSlop={{ top: 8, bottom: 8 }}
               >
                 {track}
-              </Pressable>
+              </PressableScale>
             ) : (
               // biome-ignore lint/suspicious/noArrayIndexKey: chart labels are not unique (repeated weekday/month initials)
               <View key={`${datum.label}-${index}`} style={styles.barColumn}>
@@ -161,6 +191,33 @@ export function BarChart({
           })}
         </View>
       </View>
+
+      {stepper ? (
+        <View style={styles.stepper}>
+          <IconButton
+            name={chevronBackward}
+            accessibilityLabel={t("statistics.chartPrevious")}
+            onPress={() => step(-1)}
+            disabled={selectedIndex != null && selectedIndex <= 0}
+            haptic="selection"
+          />
+          <ThemedText
+            type="smallBold"
+            style={styles.stepperDetail}
+            accessibilityLiveRegion="polite"
+            numberOfLines={2}
+          >
+            {selectedDetail ?? t("statistics.chartStepHint")}
+          </ThemedText>
+          <IconButton
+            name={chevronForward}
+            accessibilityLabel={t("statistics.chartNext")}
+            onPress={() => step(1)}
+            disabled={selectedIndex != null && selectedIndex >= lastIndex}
+            haptic="selection"
+          />
+        </View>
+      ) : null}
 
       {dense ? (
         <View style={styles.axisRow}>
@@ -205,7 +262,7 @@ export function BarChart({
 
 const styles = StyleSheet.create({
   root: {
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   plotShell: {
     position: "relative",
@@ -277,7 +334,6 @@ const styles = StyleSheet.create({
   },
   label: {
     textAlign: "center",
-    fontSize: 11,
   },
   axisRow: {
     flexDirection: "row",
@@ -287,9 +343,18 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     minHeight: 16,
   },
+  stepper: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  stepperDetail: {
+    flex: 1,
+    textAlign: "center",
+  },
   axisLabel: {
     flexShrink: 1,
-    fontSize: 11,
     fontVariant: ["tabular-nums"],
   },
 });

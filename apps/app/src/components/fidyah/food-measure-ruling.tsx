@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Pill } from "@/components/ui/pill";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type FoodMeasureRuling, formatKgRange, schoolsToShow } from "@/lib/fasting-fiqh";
 
@@ -91,7 +91,7 @@ export function FoodMeasureRulingView({ school, rulingFor, noteFor }: FoodMeasur
           key={s}
           style={[
             styles.row,
-            school == null && { borderStartWidth: 2, borderColor: colors.border },
+            school == null && { borderStartWidth: BorderWidth.thick, borderColor: colors.border },
           ]}
         >
           <MeasureBlock ruling={rulingFor(s)} note={noteFor?.(s) ?? null} showSchool={!school} />

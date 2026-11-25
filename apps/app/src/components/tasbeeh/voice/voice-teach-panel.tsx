@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { VoiceTeachState } from "@/hooks/use-voice-tasbeeh";
 
@@ -109,7 +109,7 @@ export function VoiceTeachPanel({ teach, label, level, speaking, onDone, onCance
         <ThemedText
           type="caption"
           accessibilityLiveRegion="polite"
-          style={{ color: tokens.status.warning.color }}
+          style={{ color: tokens.status.warning.onSoft }}
         >
           {issue}
         </ThemedText>
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   row: {
     flexDirection: "row",
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
   },
   actions: {
     flexDirection: "row",

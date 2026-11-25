@@ -6,8 +6,7 @@ import { ThemedText } from "@/components/themed-text";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
-import { TvSwitchTrack } from "@/components/ui/switch-row";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -62,6 +61,7 @@ export function SettingsRow({
   disabled,
   titleColor,
   leading,
+  selected,
 }: {
   icon?: AppIcon;
   /** Custom leading visual (e.g. the account avatar) in place of the icon well. */
@@ -79,6 +79,8 @@ export function SettingsRow({
   disabled?: boolean;
   /** Destructive rows tint the title. */
   titleColor?: string;
+  /** List–detail: the row whose content the detail pane shows (spoken as selected). */
+  selected?: boolean;
 }) {
   const { colors } = useThemeTokens();
   const rtl = useIsRTL();
@@ -91,7 +93,11 @@ export function SettingsRow({
       accessibilityRole="button"
       // Screen readers hear the current value with the title ("Time format, 24-hour").
       accessibilityLabel={value ? `${title}, ${value}` : title}
-      accessibilityState={disabled ? { disabled: true } : undefined}
+      accessibilityState={
+        disabled || selected
+          ? { ...(disabled ? { disabled: true } : {}), ...(selected ? { selected: true } : {}) }
+          : undefined
+      }
       disabled={disabled}
       onPress={onPress}
       {...(preferredFocus && tv ? { hasTVPreferredFocus: true } : {})}
@@ -147,6 +153,13 @@ export function SettingsRow({
   );
 }
 
+/**
+ * Settings on/off row — renders the one `ui/SwitchRow` (D-15/D-16): the whole
+ * row is a single pressable with role `switch`, so tapping the label toggles
+ * it and web has one tab stop (no native `<input role=switch>` nested inside a
+ * focusable row). Keeps the settings card look (muted fill) and the two-up
+ * grid cell stretch.
+ */
 export const ToggleRow = memo(
   function ToggleRow({
     icon,
@@ -166,74 +179,25 @@ export const ToggleRow = memo(
     /** Small trailing-title adornment (e.g. the "This device" badge). */
     accessory?: ReactNode;
   }) {
-    const { colors } = useThemeTokens();
-    const tv = isTV();
     const fill = useContext(FillCellContext);
-
-    if (tv) {
-      // 10-foot: the whole row is the D-pad target and Select toggles it. A small
-      // native Switch is a poor focus target (and UISwitch doesn't exist on tvOS),
-      // so draw a non-focusable track/knob instead.
-      return (
-        <PressableScale
-          accessibilityRole="switch"
-          accessibilityLabel={title}
-          accessibilityState={{ checked: value, disabled: !!disabled }}
-          disabled={disabled}
-          onPress={() => onValueChange(!value)}
-          style={[
-            styles.row,
-            styles.rowTv,
-            { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 },
-          ]}
-        >
-          {icon ? <IconWell icon={icon} well={TV_WELL} size={22} /> : null}
-          <View style={styles.body}>
-            <View style={styles.titleLine}>
-              <ThemedText type="small" style={{ fontSize: TvLayout.bodyFontSize }}>
-                {title}
-              </ThemedText>
-              {accessory}
-            </View>
-            {subtitle ? (
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {subtitle}
-              </ThemedText>
-            ) : null}
-          </View>
-          <TvSwitchTrack value={value} />
-        </PressableScale>
-      );
-    }
-
-    return (
-      <View
-        style={[
-          styles.row,
-          fill && styles.rowFill,
-          { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 },
-        ]}
-      >
-        {icon ? <IconWell icon={icon} /> : null}
-        <View style={styles.body}>
-          <View style={styles.titleLine}>
-            <ThemedText type="small">{title}</ThemedText>
-            {accessory}
-          </View>
-          {subtitle ? (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {subtitle}
-            </ThemedText>
-          ) : null}
-        </View>
-        <ThemedSwitch
-          value={value}
-          disabled={disabled}
-          onValueChange={onValueChange}
-          accessibilityLabel={title}
-        />
-      </View>
+    const tv = isTV();
+    // Same icon well as `SettingsRow`, so toggles and navigation rows line up.
+    const leading = icon ? (
+      <IconWell icon={icon} well={tv ? TV_WELL : undefined} size={tv ? 22 : undefined} />
+    ) : undefined;
+    const row = (
+      <SwitchRow
+        leading={leading}
+        title={title}
+        subtitle={subtitle}
+        value={value}
+        disabled={disabled}
+        onValueChange={onValueChange}
+        accessory={accessory}
+        surface="filled"
+      />
     );
+    return fill ? <View style={styles.rowFill}>{row}</View> : row;
   },
   (prev, next) =>
     prev.value === next.value &&
@@ -267,7 +231,7 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    gap: 2,
+    gap: Spacing.half,
     // Keep room for the title's longest word: a long trailing value (e.g. a
     // calculation-method name) otherwise squeezed it to ~80dp and Android broke
     // "Calculation" mid-word.

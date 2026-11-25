@@ -152,7 +152,7 @@ describe("ReciteToFindPanel", () => {
       pathname: "/quran/[surah]",
       params: { surah: "2", ayah: "255" },
     });
-    await fireEvent.press(screen.getByText("Practise from here"));
+    await fireEvent.press(screen.getByText("Practice from here"));
     expect(mockRouter.push).toHaveBeenLastCalledWith({
       pathname: "/quran/practice/session",
       params: { surah: "2", from: "255", to: "259", source: "hub" },

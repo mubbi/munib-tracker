@@ -9,16 +9,26 @@ import Reanimated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
+
 const BUFFER_SWEEP_MS = 1200;
 
-/** Continuous dual-band shimmer while audio is loading — runs on the UI thread. */
+/**
+ * Continuous dual-band shimmer while audio is loading — runs on the UI thread.
+ * Reduced motion: a static soft band across the track (no `withRepeat`).
+ */
 export function BufferingBand({ color, active }: { color: string; active: boolean }) {
   const trackWidth = useSharedValue(0);
   const phase = useSharedValue(0);
   const fade = useSharedValue(0);
+  const reduceMotion = useHydrationSafeReducedMotion();
 
   // Keep the sweep running even when hidden so re-showing never restarts cold.
   useEffect(() => {
+    if (reduceMotion) {
+      phase.value = 0;
+      return;
+    }
     phase.value = 0;
     phase.value = withRepeat(
       withTiming(1, { duration: BUFFER_SWEEP_MS, easing: Easing.linear }),
@@ -26,7 +36,7 @@ export function BufferingBand({ color, active }: { color: string; active: boolea
       false,
     );
     return () => cancelAnimation(phase);
-  }, [phase]);
+  }, [phase, reduceMotion]);
 
   useEffect(() => {
     fade.value = withTiming(active ? 1 : 0, {
@@ -73,6 +83,16 @@ export function BufferingBand({ color, active }: { color: string; active: boolea
     };
   });
 
+  const staticStyle = useAnimatedStyle(() => ({
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: color,
+    opacity: fade.value * 0.3,
+  }));
+
   const onLayout = (event: LayoutChangeEvent) => {
     trackWidth.value = event.nativeEvent.layout.width;
   };
@@ -82,8 +102,14 @@ export function BufferingBand({ color, active }: { color: string; active: boolea
       style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}
       onLayout={onLayout}
     >
-      <Reanimated.View style={band1Style} />
-      <Reanimated.View style={band2Style} />
+      {reduceMotion ? (
+        <Reanimated.View style={staticStyle} />
+      ) : (
+        <>
+          <Reanimated.View style={band1Style} />
+          <Reanimated.View style={band2Style} />
+        </>
+      )}
     </Reanimated.View>
   );
 }

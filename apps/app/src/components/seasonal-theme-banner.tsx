@@ -2,13 +2,13 @@ import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { SeasonalArt } from "@/components/seasonal/seasonal-art";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { gradientBackground } from "@/lib/gradient";
 import { isTV } from "@/lib/platform/is-tv";
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   },
   clipTv: {
     flexGrow: 1,
-    minHeight: 132,
+    minHeight: tvDp(132),
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     overflow: "hidden",
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   eyebrowRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     marginBottom: 2,
   },
   iconWell: {

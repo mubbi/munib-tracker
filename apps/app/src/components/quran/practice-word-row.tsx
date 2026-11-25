@@ -222,6 +222,7 @@ function WordCell({
       ) : (
         <ThemedText
           type="arabic"
+          accessibilityLanguage="ar"
           style={{
             fontSize,
             lineHeight: fontSize * 1.9,
@@ -229,7 +230,7 @@ function WordCell({
             ...(fontFamily ? { fontFamily } : null),
             color: state === "upcoming" ? colors.mutedForeground : colors.foreground,
             // Tajweed-coloured words dim (not grey out) while still upcoming.
-            ...(runs && state === "upcoming" ? { opacity: 0.6 } : null),
+            ...(runs && state === "upcoming" ? { opacity: 0.75 } : null),
           }}
         >
           {runs ? <TajweedRuns runs={runs} isDark={tokens.isDark} /> : word}
@@ -279,8 +280,8 @@ const styles = StyleSheet.create({
     columnGap: Spacing.two,
     rowGap: Spacing.one,
   },
-  word: { alignItems: "center", paddingHorizontal: 2 },
+  word: { alignItems: "center", paddingHorizontal: Spacing.half },
   hidden: { borderRadius: Radius.sm, borderCurve: "continuous" },
   underline: { alignSelf: "stretch", borderRadius: 2, marginTop: -4 },
-  dot: { width: 6, height: 6, borderRadius: 3, marginTop: 3 },
+  dot: { width: 6, height: 6, borderRadius: 3, marginTop: Spacing.one },
 });

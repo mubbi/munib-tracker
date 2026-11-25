@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { JannahCallout, JannahNavRow } from "@/components/jannah/primitives";
+import { CurrencyField } from "@/components/money/currency-field";
 import { AmountInput } from "@/components/records/amount-input";
 import { DayInput } from "@/components/records/day-input";
 import { LabeledInput } from "@/components/records/labeled-input";
@@ -13,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { createId } from "@/db/id";
 import { useRecordFormat } from "@/hooks/use-record-format";
+import { normalizeDayInput } from "@/lib/records/day";
 import type { ShahadahText } from "@/lib/wasiyyah/document";
 import type { WasiyyahComputation } from "@/lib/wasiyyah/wasiyyah";
 
@@ -54,6 +56,13 @@ export function TestatorStep({
       />
       <DayInput
         label={t("wasiyyah.testator.date")}
+        error={
+          data.testator.date.trim() && normalizeDayInput(data.testator.date) == null
+            ? // The picker can't display an unreadable legacy value — keep the
+              // user's saved text visible next to the error so nothing is lost.
+              `${t("common.dateInput.invalid")} (${data.testator.date.trim()})`
+            : undefined
+        }
         value={data.testator.date}
         onChangeText={(date) => update({ testator: { ...data.testator, date } })}
       />
@@ -196,12 +205,10 @@ export function BequestsStep({
   update,
   computation,
   onUpdateBequest,
-  onPickCurrency,
   onPickHeir,
 }: WasiyyahStepProps & {
   computation: WasiyyahComputation;
   onUpdateBequest: (id: string, patch: Partial<WasiyyahBequest>) => void;
-  onPickCurrency: () => void;
   onPickHeir: (bequestId: string) => void;
 }) {
   const { t } = useTranslation();
@@ -211,25 +218,26 @@ export function BequestsStep({
       <ThemedText type="small" themeColor="mutedForeground">
         {t("wasiyyah.bequests.hint")}
       </ThemedText>
-      <JannahNavRow
-        icon={{ ios: "coloncurrencysign.circle", android: "payments", web: "payments" }}
-        title={t("debts.form.currency")}
-        subtitle={data.currency}
-        onPress={onPickCurrency}
+      <CurrencyField
+        label={t("debts.form.currency")}
+        value={data.currency}
+        onChange={(currency) => update({ currency })}
       />
       <AmountInput
         label={t("wasiyyah.bequests.estate")}
         hint={t("wasiyyah.bequests.estateHint")}
         value={data.estimatedEstate}
+        currency={data.currency}
         onChange={(estimatedEstate) => update({ estimatedEstate })}
       />
       <AmountInput
         label={t("wasiyyah.bequests.funeralCost")}
         value={data.funeralCost}
+        currency={data.currency}
         onChange={(funeralCost) => update({ funeralCost })}
       />
       {computation.limitView ? (
-        <Card padding="three" variant="muted">
+        <Card variant="muted">
           <ThemedText type="small">
             {t("wasiyyah.bequests.limit", {
               net: format.money(computation.limitView.netAfterDebts, data.currency),
@@ -251,6 +259,7 @@ export function BequestsStep({
           onChange={(patch) => onUpdateBequest(b.id, patch)}
           onRemove={() => update({ bequests: data.bequests.filter((x) => x.id !== b.id) })}
           onPickHeir={() => onPickHeir(b.id)}
+          currency={data.currency}
         />
       ))}
       <Button

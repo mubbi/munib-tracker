@@ -11,10 +11,9 @@ import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state
 import { KidsReciteEntry } from "@/components/kids/kids-recite-entry";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { UnavailableOnDevice } from "@/components/ui/unavailable-on-device";
 import { Spacing } from "@/constants/theme";
 import type { ChildProfile } from "@/lib/circles/api";
 import {
@@ -61,11 +60,7 @@ export default function KidsScreen() {
   if (isTV()) {
     return (
       <ScreenLayout title={t("kids.title")} onBack={() => goBackOrReplace(router, "/")}>
-        <Card padding="three">
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("kids.tvUnavailable")}
-          </ThemedText>
-        </Card>
+        <UnavailableOnDevice description={t("kids.tvUnavailable")} fallbackHref="/" />
       </ScreenLayout>
     );
   }
@@ -78,12 +73,13 @@ export default function KidsScreen() {
         onBack={() => goBackOrReplace(router, "/")}
       >
         <Seo path="/kids" index={false} />
-        <Card padding="three" style={styles.gap}>
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("kids.notLinked")}
-          </ThemedText>
-          <Button label={t("kids.linkCta")} onPress={() => router.push("/kids/link")} />
-        </Card>
+        <EmptyState
+          icon={{ ios: "link", android: "link", web: "link" }}
+          title={t("kids.notLinkedTitle")}
+          description={t("kids.notLinked")}
+          actionLabel={t("kids.linkCta")}
+          onAction={() => router.push("/kids/link")}
+        />
       </ScreenLayout>
     );
   }
@@ -143,7 +139,6 @@ export default function KidsScreen() {
 
 const styles = StyleSheet.create({
   stack: { gap: Spacing.three },
-  gap: { gap: Spacing.two },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

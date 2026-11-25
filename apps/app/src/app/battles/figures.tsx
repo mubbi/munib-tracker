@@ -20,7 +20,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -37,7 +37,11 @@ export default function BattlesFiguresScreen() {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const { focus } = useLocalSearchParams<{ focus?: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const figures = getBattlesFigures();
   const wide = useLearnHubLayout();
   // Wide web / tablets: figure profiles flow into 2–3 columns.
@@ -48,8 +52,9 @@ export default function BattlesFiguresScreen() {
     return (
       <Card
         key={figure.id}
-        padding="three"
-        style={isFocused ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
+        style={
+          isFocused ? { borderColor: colors.accent, borderWidth: BorderWidth.thin } : undefined
+        }
       >
         <TvReadableBlock preferredFocus={isFocused}>
           <SectionHeader
@@ -108,7 +113,7 @@ export default function BattlesFiguresScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/battles/figures" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <JannahCallout tone="info">{t("battles.figuresIntro")}</JannahCallout>
 

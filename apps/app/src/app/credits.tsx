@@ -18,9 +18,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
+import { SectionHeader } from "@/components/ui/section-header";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -108,7 +109,7 @@ export default function CreditsScreen() {
         <ThemedText type="caption" themeColor="mutedForeground">
           {row.attribution}
         </ThemedText>
-        <ThemedText type="caption" style={{ color: colors.accent }}>
+        <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
           {row.license}
         </ThemedText>
         {row.note ? (
@@ -173,9 +174,18 @@ export default function CreditsScreen() {
         ]}
       />
       <Stagger>
-        <Card padding="three">{renderList(bundledRows)}</Card>
-        <Card padding="three">{renderList(RUNTIME_SOURCES)}</Card>
-        <Card padding="three">{renderList(SERVICE_SOURCES)}</Card>
+        <Card>
+          <SectionHeader title={t("credits.bundledTitle")} subtitle={t("credits.bundledDesc")} />
+          <View style={styles.sectionBody}>{renderList(bundledRows)}</View>
+        </Card>
+        <Card>
+          <SectionHeader title={t("credits.runtimeTitle")} subtitle={t("credits.runtimeDesc")} />
+          <View style={styles.sectionBody}>{renderList(RUNTIME_SOURCES)}</View>
+        </Card>
+        <Card>
+          <SectionHeader title={t("credits.servicesTitle")} subtitle={t("credits.servicesDesc")} />
+          <View style={styles.sectionBody}>{renderList(SERVICE_SOURCES)}</View>
+        </Card>
         <View style={[styles.footer, { borderColor: tokens.hairline }]}>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.footerText}>
             {t("credits.openSource")}
@@ -184,7 +194,11 @@ export default function CreditsScreen() {
       </Stagger>
 
       {tv ? (
-        <Sheet visible={qrRow != null} onClose={() => setQrRow(null)}>
+        <Sheet
+          accessibilityLabel={qrRow?.name ?? ""}
+          visible={qrRow != null}
+          onClose={() => setQrRow(null)}
+        >
           {qrRow ? (
             <View style={styles.qrSheet}>
               <ThemedText type="subtitle">{qrRow.name}</ThemedText>
@@ -214,6 +228,7 @@ export default function CreditsScreen() {
 }
 
 const styles = StyleSheet.create({
+  sectionBody: { marginTop: Spacing.three },
   list: { gap: Spacing.two },
   row: {
     flexDirection: "row",
@@ -223,7 +238,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  rowBody: { flex: 1, gap: 2 },
+  rowBody: { flex: 1, gap: Spacing.half },
   /** Grid cells stretch per row — fill so neighbouring tiles align. */
   rowFill: { flexGrow: 1 },
   /** TV: two-column grid so the long source list uses the landscape width. */
@@ -232,9 +247,9 @@ const styles = StyleSheet.create({
   qrSheet: { alignItems: "center", gap: Spacing.three },
   qrHint: { textAlign: "center" },
   note: { fontStyle: "italic" },
-  notice: { fontSize: 11, lineHeight: 15, writingDirection: "ltr" },
+  notice: { lineHeight: 15, writingDirection: "ltr" },
   footer: {
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
     paddingTop: Spacing.three,
     alignItems: "center",
   },

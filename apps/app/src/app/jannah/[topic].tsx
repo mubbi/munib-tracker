@@ -23,10 +23,12 @@ export async function generateStaticParams(): Promise<Array<{ topic: string }>> 
 
 export default function JannahTopicScreen() {
   const { t, i18n } = useTranslation();
-  const { version: contentVersion, ready } = useEnsureContent(
-    ensureJannahContent,
-    isJannahContentReady,
-  );
+  const {
+    version: contentVersion,
+    ready,
+    error,
+    retry,
+  } = useEnsureContent(ensureJannahContent, isJannahContentReady);
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
   const topic = getJannahTopic(topicId);
   const reportRef = useGuideContentReportRef("jannah", topic, "/jannah");
@@ -40,6 +42,8 @@ export default function JannahTopicScreen() {
       basePath="/jannah"
       topic={topic}
       ready={ready}
+      error={error}
+      onRetry={retry}
       surface="jannah"
       contentRef={reportRef}
       aside={(current) => (

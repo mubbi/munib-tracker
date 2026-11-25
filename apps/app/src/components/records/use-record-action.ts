@@ -20,7 +20,7 @@ export function useRecordAction(): (task: Promise<unknown>) => Promise<boolean> 
       task.then(
         () => true,
         () => {
-          toast.error(t("privateUx.saveFailed"));
+          toast.error(t("common.saveFailed"));
           return false;
         },
       ),

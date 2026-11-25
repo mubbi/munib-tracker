@@ -9,7 +9,7 @@ import { ThemedText } from "@/components/themed-text";
 import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
@@ -147,7 +147,7 @@ export function CompactPlayer({
         size={13}
         tintColor={tokens.status.danger.text}
       />
-      <ThemedText type="caption" style={{ color: tokens.status.danger.text, fontWeight: "700" }}>
+      <ThemedText weight="bold" type="caption" style={{ color: tokens.status.danger.text }}>
         {t("player.closeLabel")}
       </ThemedText>
     </PressableScale>
@@ -254,7 +254,11 @@ export function CompactPlayer({
               glass={!loopActive}
               background={loopActive ? tokens.accentSoft : undefined}
               wellRadius={20}
-              style={loopActive ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
+              style={
+                loopActive
+                  ? { borderWidth: BorderWidth.thick, borderColor: colors.accent }
+                  : undefined
+              }
             />
             <QuranPlaybackSettingsControl size={18} wellRadius={20} />
             <TtsVoiceControl size={18} wellRadius={20} />
@@ -342,7 +346,7 @@ export function CompactPlayer({
                   !hasLiquidGlass && { backgroundColor: colors.muted },
                 ]}
               >
-                <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "700" }}>
+                <ThemedText weight="bold" type="caption" style={{ color: colors.accentText }}>
                   {rate}×
                 </ThemedText>
               </PressableScale>
@@ -370,16 +374,16 @@ const styles = StyleSheet.create({
     start: 0,
     end: 0,
     zIndex: 40,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
     overflow: "visible",
   },
   progress: { height: 3, width: "100%", overflow: "hidden" },
   progressFill: { height: "100%" },
   compactBody: {
     gap: Spacing.two,
-    paddingHorizontal: Spacing.two + 2,
+    paddingHorizontal: Spacing.twoHalf,
     paddingTop: Spacing.two,
-    paddingBottom: Spacing.two + 2,
+    paddingBottom: Spacing.twoHalf,
   },
   compactTopRow: {
     flexDirection: "row",
@@ -416,47 +420,47 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one,
-    paddingVertical: Spacing.one + 1,
-    paddingHorizontal: Spacing.two + 2,
+    paddingVertical: Spacing.oneHalf,
+    paddingHorizontal: Spacing.twoHalf,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     flexShrink: 0,
   },
   infoRow: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two + 2,
+    gap: Spacing.twoHalf,
     minWidth: 0,
   },
   icon: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
   },
-  meta: { flex: 1, gap: 2, minWidth: 0 },
+  meta: { flex: 1, gap: Spacing.half, minWidth: 0 },
   compactControlsRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   playButton: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignItems: "center",
     justifyContent: "center",
   },
   compactSpeed: {
-    minWidth: 34,
-    minHeight: 34,
-    paddingHorizontal: 6,
+    minWidth: 44,
+    minHeight: 44,
+    paddingHorizontal: Spacing.oneHalf,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",

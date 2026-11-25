@@ -17,7 +17,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Shadows, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Shadows, Spacing, ZIndex } from "@/constants/theme";
 import { useFinePointerHover } from "@/hooks/use-fine-pointer-hover";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
@@ -281,6 +281,10 @@ function NoteHoverCard({ target }: { target: QuranNotePeekTarget }) {
     height: 0,
   };
   const place = size ? placePopover(anchor, size, viewport, rtl) : null;
+  // `placePopover` works in viewport (physical) coordinates; the card is placed
+  // with a logical `start` inset, so in RTL measure it from the right edge.
+  const start =
+    place && size ? (rtl ? viewport.width - place.left - size.width : place.left) : null;
   const onLayout = (event: LayoutChangeEvent) => {
     const { width: w, height: h } = event.nativeEvent.layout;
     setSize((prev) =>
@@ -304,7 +308,7 @@ function NoteHoverCard({ target }: { target: QuranNotePeekTarget }) {
           backgroundColor: colors.card,
           borderColor: tokens.hairline,
           // Measure off-screen first, then place.
-          left: place?.left ?? -10_000,
+          start: start ?? -10_000,
           top: place?.top ?? 0,
           opacity: place ? 1 : 0,
         },
@@ -339,13 +343,11 @@ function NoteHoverCard({ target }: { target: QuranNotePeekTarget }) {
   );
 }
 
-function PeekHeader({ surah, ayah }: { surah: number; ayah: number }) {
+/** Under the sheet title (surah · ref): notes are personal, not tafsir. */
+function PeekHeader() {
   const { t } = useTranslation();
   return (
     <View style={styles.header}>
-      <ThemedText type="subtitle">
-        {getSurahByNumber(surah)?.nameTransliteration ?? ""} · {surah}:{ayah}
-      </ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("quranNotes.notTafsir")}
       </ThemedText>
@@ -370,8 +372,13 @@ function NotePeekSheet({ target }: { target: QuranNotePeekTarget }) {
   const close = () => closeQuranNotePeek();
   const first = previews[0];
   return (
-    <Sheet visible onClose={close} variant="bottom">
-      <PeekHeader surah={target.surah} ayah={target.ayah} />
+    <Sheet
+      title={`${getSurahByNumber(target.surah)?.nameTransliteration ?? ""} · ${target.surah}:${target.ayah}`}
+      visible
+      onClose={close}
+      variant="bottom"
+    >
+      <PeekHeader />
       <View style={styles.body} testID="note-peek-sheet">
         {previews.slice(0, PEEK_MAX_NOTES).map((preview) => (
           <PressableScale
@@ -476,7 +483,12 @@ function NoteActionsSheet({ target }: { target: QuranNotePeekTarget }) {
   if (!note) return null;
   return (
     <>
-      <Sheet visible={!confirming} onClose={close} variant="bottom">
+      <Sheet
+        accessibilityLabel={t("quranNotes.myNote")}
+        visible={!confirming}
+        onClose={close}
+        variant="bottom"
+      >
         <View style={styles.body} testID="note-actions-sheet">
           <NotePreviewCard preview={note} surface={colors.muted} />
           <View>
@@ -557,11 +569,11 @@ export function noteUnderlineStyle(color: string): {
 
 const styles = StyleSheet.create({
   hoverCard: {
-    zIndex: 1000,
+    zIndex: ZIndex.overlay,
     gap: Spacing.two,
     padding: Spacing.two,
     borderRadius: Radius.lg,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     ...Shadows.lg,
   },
   header: { gap: Spacing.half },
@@ -573,7 +585,7 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     minHeight: 48,
     paddingHorizontal: Spacing.one,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
   tvPreview: { marginTop: Spacing.two },
 });

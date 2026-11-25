@@ -109,6 +109,8 @@ export type ZikrProgressOptions = {
 export interface TrackerState {
   date: string;
   isReady: boolean;
+  /** Set when `load()` failed (storage unavailable); cleared on the next attempt. */
+  loadError: unknown | null;
   prayerStatus: Record<string, PrayerStatus>;
   prayerNotes: Record<string, string | undefined>;
   /** Per-prayer congregation flag for the active day (NF-1.5). */
@@ -202,6 +204,11 @@ export interface TrackerState {
     options?: ZikrProgressOptions,
   ) => Promise<void>;
   adjustQaza: (prayerId: QazaPrayer, remaining: number, completed: number) => Promise<void>;
+  /**
+   * Reverses one day's logged make-up for a Salah (history removal): reads the counter and
+   * credits back at most what it still holds as completed, inside the mutation queue.
+   */
+  removeQazaProgress: (prayerId: QazaPrayer, date: string, count: number) => Promise<void>;
   /** Atomically set remaining/completed for many prayers (calculator apply). */
   setQazaCounters: (
     updates: Partial<Record<QazaPrayer, { remaining: number; completed: number }>>,
@@ -436,6 +443,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
   return {
     date: today,
     isReady: false,
+    loadError: null,
     prayerStatus: {},
     prayerNotes: {},
     prayerJama: {},
@@ -454,14 +462,20 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     devotionProgress: computeDevotionProgress(emptyStats()),
 
     async load() {
-      return enqueue(async () => {
-        await initDatabase();
-        const date = getLocalDateString();
-        await ensureContinuingExcusedPeriod(date);
-        const next = await recompute(date);
-        set({ ...next, date, isReady: true });
-        await persistAchievementSync(next.achievementStats ?? emptyStats());
-      });
+      set({ loadError: null });
+      try {
+        await enqueue(async () => {
+          await initDatabase();
+          const date = getLocalDateString();
+          await ensureContinuingExcusedPeriod(date);
+          const next = await recompute(date);
+          set({ ...next, date, isReady: true, loadError: null });
+          await persistAchievementSync(next.achievementStats ?? emptyStats());
+        });
+      } catch (error) {
+        // isReady stays false; screens show a RetryCard that calls load() again.
+        set({ loadError: error ?? new Error("tracker load failed") });
+      }
     },
 
     async refresh() {
@@ -656,6 +670,21 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       });
     },
 
+    removeQazaProgress(prayerId, date, count) {
+      return enqueue(async () => {
+        if (count <= 0) return;
+        const counter = await QazaRepository.getCounter(prayerId);
+        const credit = Math.min(count, counter.completed);
+        await QazaRepository.setCounter(
+          prayerId,
+          counter.remaining + credit,
+          counter.completed - credit,
+        );
+        await QazaRepository.decrementDailyProgress(prayerId, date, count);
+        await refreshUnlocked();
+      });
+    },
+
     setQazaCounters(updates) {
       return enqueue(async () => {
         const { qazaCounters } = get();
@@ -755,6 +784,11 @@ export function useTrackerDate(): string {
 
 export function useTrackerReady(): boolean {
   return useStore(trackerStore, (s) => s.isReady);
+}
+
+/** The error from the last failed `load()` (null while loading / ready). */
+export function useTrackerLoadError(): unknown | null {
+  return useStore(trackerStore, (s) => s.loadError);
 }
 
 export function useDailySummary(): DailySummary {
@@ -881,6 +915,8 @@ const trackerActions = {
     trackerStore.getState().incrementZikr(...args),
   adjustQaza: (...args: Parameters<TrackerState["adjustQaza"]>) =>
     trackerStore.getState().adjustQaza(...args),
+  removeQazaProgress: (...args: Parameters<TrackerState["removeQazaProgress"]>) =>
+    trackerStore.getState().removeQazaProgress(...args),
   setQazaCounters: (...args: Parameters<TrackerState["setQazaCounters"]>) =>
     trackerStore.getState().setQazaCounters(...args),
   performQaza: (...args: Parameters<TrackerState["performQaza"]>) =>

@@ -4,6 +4,7 @@ import { JahannamTopicContent } from "@/components/jahannam/topic-content";
 import { ModuleTopicAside } from "@/components/jannah/module-topic-aside";
 import { LearnTopicArticle } from "@/components/learn-guide/learn-topic-article";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import {
   ensureJahannamContent,
   getJahannamTopic,
@@ -19,8 +20,9 @@ export function generateStaticParams(): Array<{ topic: string }> {
 export default function JahannamTopicScreen() {
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
+  const { ready, error, retry } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const topic = getJahannamTopic(topicId);
+  const reportRef = useGuideContentReportRef("jahannam", topic, "/jahannam");
 
   return (
     <LearnTopicArticle
@@ -28,6 +30,9 @@ export default function JahannamTopicScreen() {
       basePath="/jahannam"
       topic={topic}
       ready={ready}
+      error={error}
+      onRetry={retry}
+      contentRef={reportRef}
       surface="jahannam"
       aside={(current) => (
         <ModuleTopicAside

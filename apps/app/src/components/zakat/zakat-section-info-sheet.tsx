@@ -87,7 +87,12 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      accessibilityLabel={t(`zakat.sectionInfo.${sectionId}.title`)}
+    >
       <ThemedText type="subtitle">{t(`zakat.sectionInfo.${sectionId}.title`)}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.lede}>
         {t("zakat.sectionInfo.educational")}
@@ -107,10 +112,10 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
               <View
                 style={[
                   styles.quote,
-                  { backgroundColor: tokens.accentSoft, borderLeftColor: colors.accent },
+                  { backgroundColor: tokens.accentSoft, borderStartColor: colors.accent },
                 ]}
               >
-                <ThemedText type="caption" style={{ color: colors.accent, fontWeight: "700" }}>
+                <ThemedText weight="bold" type="caption" style={{ color: tokens.accentOnSoft }}>
                   {item.label}
                 </ThemedText>
                 <ScriptureMeaning english={item.excerpt} quranRef={item.quranRef}>
@@ -133,7 +138,7 @@ export function ZakatSectionInfoSheet({ sectionId, visible, onClose }: ZakatSect
             <TvReadableBlock key={item.label}>
               <View style={[styles.quoteMuted, { backgroundColor: colors.muted }]}>
                 <View style={styles.hadithTop}>
-                  <ThemedText type="caption" style={{ color: colors.accent, flex: 1 }}>
+                  <ThemedText type="caption" style={{ color: tokens.accentOnSoft, flex: 1 }}>
                     {item.label}
                   </ThemedText>
                   {item.grade ? (

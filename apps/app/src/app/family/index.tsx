@@ -60,7 +60,7 @@ export default function FamilyScreen() {
           <CreateFamilyCard />
         )}
         <EvidenceLinks titleKey="family.evidence.title" refs={FAMILY_EVIDENCE} />
-        <Card padding="three" style={styles.gap}>
+        <Card style={styles.gap}>
           <ThemedText type="smallBold">{t("family.privacy.title")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("family.privacy.body")}

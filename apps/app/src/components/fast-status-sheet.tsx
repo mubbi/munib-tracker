@@ -6,7 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
@@ -88,13 +88,12 @@ export function FastStatusSheet({
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
-      <ThemedText type="subtitle">{dayLabel}</ThemedText>
+    <Sheet visible={visible} onClose={onClose} variant="bottom" title={dayLabel}>
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("fastStatusSheet.prompt")}
       </ThemedText>
 
-      <View style={styles.options}>
+      <View style={styles.options} accessibilityRole="radiogroup">
         {FAST_OPTIONS.map((option) => {
           const active = (currentStatus ?? null) === option.value;
           const color = toneColor(option.tone);
@@ -102,9 +101,9 @@ export function FastStatusSheet({
             <PressableScale
               key={option.key}
               haptic={false}
-              accessibilityRole="button"
+              accessibilityRole="radio"
               accessibilityLabel={t(`fastStatusSheet.${option.key}`)}
-              accessibilityState={{ selected: active }}
+              accessibilityState={{ checked: active }}
               onPress={() => handlePress(option.value)}
               {...(tv && option.key === preferredKey ? { hasTVPreferredFocus: true } : {})}
               style={[
@@ -146,10 +145,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1.5,
+    borderWidth: BorderWidth.thick,
   },
   optionTv: {
     minHeight: TvLayout.minFocusTarget,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
 });

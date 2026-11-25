@@ -16,7 +16,7 @@ import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -35,7 +35,7 @@ function LevelCard({ level }: { level: QuranGuideReadingLevel }) {
   const topicSize = Math.max(12, sizes.transliteration);
 
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <View style={styles.cardHeader}>
         <Pill
           compact
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     marginTop: Spacing.one,
     paddingTop: Spacing.two,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
   },
 });
 

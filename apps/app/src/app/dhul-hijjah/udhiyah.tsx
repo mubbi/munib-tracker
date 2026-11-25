@@ -4,10 +4,9 @@ import {
 } from "@munib-tracker/shared/content/dhul-hijjah";
 import type { UdhiyahAnimal, UdhiyahPlan, UdhiyahStatus } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
@@ -16,16 +15,16 @@ import { ToggleRow } from "@/components/seasonal/toggle-row";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Chip } from "@/components/ui/chip";
 import { NavRow } from "@/components/ui/nav-row";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Stepper } from "@/components/ui/stepper";
-import { Radius, Spacing } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { TextField } from "@/components/ui/text-field";
+import { Spacing } from "@/constants/theme";
 import { useDhulHijjahSeason } from "@/hooks/use-dhul-hijjah-season";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isShareAnimal, UDHIYAH_STATUS_ORDER, udhiyahWindow } from "@/lib/dhul-hijjah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -56,7 +55,6 @@ const PROGRESS_STATUSES = UDHIYAH_STATUS_ORDER.filter((s) => s !== "planned");
 export default function UdhiyahPlannerScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   const season = useDhulHijjahSeason();
   useEnsureDhulHijjahLoaded();
   const state = useDhulHijjahYear(season.year);
@@ -108,7 +106,7 @@ export default function UdhiyahPlannerScreen() {
     >
       <Seo path="/dhul-hijjah/udhiyah" />
       <Stagger>
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("dhulHijjah.udhiyah.eligibilityTitle")}
             icon={{ ios: "info.circle.fill", android: "info", web: "info" }}
@@ -131,41 +129,29 @@ export default function UdhiyahPlannerScreen() {
           </View>
         </Card>
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("dhulHijjah.udhiyah.planTitle")}
             icon={{ ios: "list.bullet.clipboard", android: "assignment", web: "assignment" }}
           />
           <View style={styles.body}>
             <ThemedText type="smallBold">{t("dhulHijjah.udhiyah.animalLabel")}</ThemedText>
-            <View style={styles.chips}>
+            <View style={styles.chips} accessibilityRole="radiogroup">
               {ANIMALS.map((animal) => {
                 const selected = plan?.animal === animal;
                 return (
-                  <PressableScale
+                  <Chip
                     key={animal}
-                    accessibilityRole="radio"
-                    accessibilityState={{ selected }}
+                    role="radio"
+                    label={t(`dhulHijjah.udhiyah.animal.${animal}`)}
+                    selected={selected}
                     onPress={() =>
                       save({
                         animal,
                         shares: isShareAnimal(animal) ? (plan?.shares ?? 1) : undefined,
                       })
                     }
-                    haptic="selection"
-                    style={[
-                      styles.chip,
-                      tv ? styles.chipTv : null,
-                      {
-                        borderColor: selected ? colors.accent : tokens.hairline,
-                        backgroundColor: selected ? tokens.accentSoft : colors.card,
-                      },
-                    ]}
-                  >
-                    <ThemedText type="caption">
-                      {t(`dhulHijjah.udhiyah.animal.${animal}`)}
-                    </ThemedText>
-                  </PressableScale>
+                  />
                 );
               })}
             </View>
@@ -197,25 +183,20 @@ export default function UdhiyahPlannerScreen() {
             />
             {/* TV: no free-text names (D-pad keyboards) — the rest of the planner works. */}
             {!tv ? (
-              <>
-                <ThemedText type="smallBold">{t("dhulHijjah.udhiyah.behalfLabel")}</ThemedText>
-                <TextInput
-                  value={names}
-                  onChangeText={setNames}
-                  onBlur={saveNames}
-                  onSubmitEditing={saveNames}
-                  maxLength={300}
-                  placeholder={t("dhulHijjah.udhiyah.behalfPlaceholder")}
-                  placeholderTextColor={colors.mutedForeground}
-                  accessibilityLabel={t("dhulHijjah.udhiyah.behalfLabel")}
-                  style={[styles.input, { color: colors.foreground, borderColor: tokens.hairline }]}
-                />
-              </>
+              <TextField
+                label={t("dhulHijjah.udhiyah.behalfLabel")}
+                value={names}
+                onChangeText={setNames}
+                onBlur={saveNames}
+                onSubmitEditing={saveNames}
+                maxLength={300}
+                placeholder={t("dhulHijjah.udhiyah.behalfPlaceholder")}
+              />
             ) : null}
           </View>
         </Card>
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("dhulHijjah.udhiyah.statusTitle")}
             icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
@@ -224,40 +205,18 @@ export default function UdhiyahPlannerScreen() {
             {PROGRESS_STATUSES.map((status) => {
               const done = statusIndex >= UDHIYAH_STATUS_ORDER.indexOf(status);
               return (
-                <PressableScale
+                <Checkbox
                   key={status}
-                  accessibilityRole="checkbox"
-                  accessibilityState={{ checked: done }}
-                  accessibilityLabel={t(`dhulHijjah.udhiyah.status.${status}`)}
-                  onPress={() => setStatus(status)}
-                  haptic="selection"
-                  style={[styles.inline, tv ? styles.chipTv : null]}
-                >
-                  <SymbolView
-                    name={
-                      done
-                        ? {
-                            ios: "checkmark.circle.fill",
-                            android: "check_circle",
-                            web: "check_circle",
-                          }
-                        : {
-                            ios: "circle",
-                            android: "radio_button_unchecked",
-                            web: "radio_button_unchecked",
-                          }
-                    }
-                    size={24}
-                    tintColor={done ? tokens.status.success.color : colors.mutedForeground}
-                  />
-                  <ThemedText type="small">{t(`dhulHijjah.udhiyah.status.${status}`)}</ThemedText>
-                </PressableScale>
+                  checked={done}
+                  label={t(`dhulHijjah.udhiyah.status.${status}`)}
+                  onChange={() => setStatus(status)}
+                />
               );
             })}
           </View>
         </Card>
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("dhulHijjah.udhiyah.windowTitle")}
             icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
@@ -274,7 +233,7 @@ export default function UdhiyahPlannerScreen() {
           </View>
         </Card>
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("dhulHijjah.udhiyah.ageTitle")}
             icon={{ ios: "info.circle.fill", android: "info", web: "info" }}
@@ -293,7 +252,7 @@ export default function UdhiyahPlannerScreen() {
           </View>
         </Card>
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("dhulHijjah.udhiyah.distributionTitle")}
             icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}
@@ -312,21 +271,8 @@ export default function UdhiyahPlannerScreen() {
 const styles = StyleSheet.create({
   body: { gap: Spacing.two, marginTop: Spacing.two },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
-  chip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.pill,
-    borderWidth: 1,
-  },
-  chipTv: { minHeight: TvLayout.chipMinHeight, justifyContent: "center" },
   inline: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   flex: { flex: 1, minWidth: 0 },
-  input: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: Radius.md,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-  },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

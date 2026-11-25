@@ -25,7 +25,7 @@ export function VaultStateNotice({
   const [unlockOpen, setUnlockOpen] = useState(false);
   if (status !== "locked" && status !== "error") return null;
   return (
-    <Card>
+    <Card padding="four">
       <View style={styles.body}>
         <ThemedText type="smallBold">{t("selfReview.vaultLockedTitle")}</ThemedText>
         <ThemedText type="small" themeColor="mutedForeground">

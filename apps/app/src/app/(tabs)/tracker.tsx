@@ -5,7 +5,6 @@ import {
 } from "@munib-tracker/shared/achievements";
 import { SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
-import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -20,11 +19,11 @@ import {
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
 import { FocusActiveChip } from "@/components/focus-lock/focus-active-chip";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
-import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { ThemedText } from "@/components/themed-text";
+import { usePrayerStatusController } from "@/components/tracker/use-prayer-status-controller";
 import { useSalahTrackingSession } from "@/components/tracker/use-salah-tracking-session";
 import { TrackerDayChecklist } from "@/components/tracker-day-checklist";
 import {
@@ -37,9 +36,11 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
+import { RetryCard } from "@/components/ui/retry-card";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+import { Breakpoints, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useReviewPrompt } from "@/features/reviews/context/ReviewPromptContext";
@@ -48,8 +49,6 @@ import { useReviewPerfectDayTrigger } from "@/features/reviews/hooks/useReviewPe
 import { useReviewQazaClearedTrigger } from "@/features/reviews/hooks/useReviewQazaClearedTrigger";
 import { useReviewRouteTrigger } from "@/features/reviews/hooks/useReviewRouteTrigger";
 import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
-import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
-import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
@@ -79,7 +78,7 @@ import { useEnsureKhatmLoaded, useKhatm } from "@/stores/khatm-store";
 import { useLocationStatus } from "@/stores/location-store";
 import { preferencesStore, usePreferences } from "@/stores/preferences-store";
 import {
-  type SetPrayerStatusOptions,
+  trackerStore,
   useAchievementStats,
   useDailySummary,
   useDevotionProgress,
@@ -88,7 +87,7 @@ import {
   usePrayerJamaMap,
   useStreak,
   useTodayPrayers,
-  useTrackerActions,
+  useTrackerLoadError,
   useTrackerReady,
   useZikrCounts,
 } from "@/stores/tracker-store";
@@ -130,6 +129,7 @@ export default function TrackerScreen() {
   const devotion = useDevotionProgress();
   const stats = useAchievementStats();
   const trackerReady = useTrackerReady();
+  const trackerLoadError = useTrackerLoadError();
   const { status, notes } = useTodayPrayers();
   const zikrCounts = useZikrCounts();
   const jamaMap = usePrayerJamaMap();
@@ -141,13 +141,8 @@ export default function TrackerScreen() {
   // Desktop / wide tablet (never TV): checklist + summary in the main column,
   // schedule, devotion and secondary cards in a side column.
   const dashboard = !isTV() && width >= TRACKER_DASHBOARD_BREAKPOINT;
-  const {
-    setPrayerStatus,
-    setPrayerNotes,
-    setPrayerJama,
-    setPrayerCombinedOnDate,
-    setPrayerAtMasjidOnDate,
-  } = useTrackerActions();
+  // Status sheet, one-tap mark and Missed / Qaza undo — shared with Home.
+  const prayerStatus = usePrayerStatusController();
   // Preferred-time hints (NF-3.0a) come pre-localized on the home schedule items.
   const preferredHints = useMemo(() => {
     const hints: Record<string, string> = {};
@@ -157,8 +152,6 @@ export default function TrackerScreen() {
   useEnsureKhatmLoaded();
   const { plan: khatmPlan, ayahsRead: khatmRead } = useKhatm();
   const khatmToday = khatmPlan ? khatmTodayProgress(khatmPlan, khatmRead) : null;
-  const remindAfterSalahAdhkar = useAfterSalahAdhkarReminder();
-  const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
   const [zikrReady, setZikrReady] = useState(false);
   const { scrollRef, register, onScroll, isFocused } = useScreenFocus();
   const scrollYRef = useRef(0);
@@ -179,24 +172,6 @@ export default function TrackerScreen() {
       active = false;
     };
   }, []);
-  // Keep the sheet mounted with a valid prayer id after it first opens so it can
-  // play its close animation with stable content instead of unmounting instantly.
-  const lastActivePrayer = useRef<PrayerId | null>(activePrayer);
-  if (activePrayer) lastActivePrayer.current = activePrayer;
-  const sheetPrayer = activePrayer ?? lastActivePrayer.current;
-
-  const markPrayerStatus = useCallback(
-    async (prayerId: PrayerId, next: PrayerStatus, options?: SetPrayerStatusOptions) => {
-      const previous = status[prayerId] ?? "pending";
-      await setPrayerStatus(prayerId, next, options);
-      if (next !== "pending" && next !== previous) {
-        trackReviewInteraction("mark_prayer");
-      }
-      remindAfterSalahAdhkar(prayerId, previous, next);
-    },
-    [remindAfterSalahAdhkar, setPrayerStatus, status],
-  );
-
   const {
     active: trackingActive,
     start: startTrackingSalah,
@@ -402,63 +377,78 @@ export default function TrackerScreen() {
   const summaryRing = (
     <ProgressRing
       progress={progress}
-      size={tv ? tvDp(120) : 100}
-      stroke={tv ? tvDp(12) : 11}
+      accessibilityLabel={t("a11yProgress.todaySalah")}
+      size={tv ? tvDp(96) : 64}
+      stroke={tv ? tvDp(10) : 7}
       color={isComplete ? tokens.status.success.color : undefined}
-      caption={t("tracker.salahCaption")}
     />
   );
 
   const summaryCopy = (
     <View style={styles.summaryCopy}>
-      <ThemedText type="subtitle">{t(encouragementKey(progress))}</ThemedText>
-      <ThemedText type="small" themeColor="mutedForeground">
+      <ThemedText type="smallBold">{t(encouragementKey(progress))}</ThemedText>
+      <ThemedText type="caption" themeColor="mutedForeground">
         {t("tracker.summaryLogged", {
           completed: summary.salahCompleted,
           total: summary.salahTotal,
         })}
       </ThemedText>
-      <View
-        accessible
-        accessibilityLabel={t("tracker.streakLabel", { count: streak })}
-        style={styles.streakChip}
-      >
-        <Pill
-          icon={{
-            ios: "flame.fill",
-            android: "local_fire_department",
-            web: "local_fire_department",
-          }}
-          label={t("tracker.streakLabel", { count: streak })}
-          color={tokens.status.warning.text}
-          background={tokens.status.warning.soft}
-        />
-      </View>
     </View>
   );
 
+  // P5-01: a compact strip (ring · encouragement · streak) so the Obligatory
+  // card — the screen's task — starts in the first viewport.
   const summaryCard = (
-    <View>
-      <Card>
+    <View testID="tracker-summary">
+      <Card padding="three">
         <View style={styles.summaryRow}>
           {/* Yoga flips row order under RTL — keep a single LTR child order. */}
           {summaryRing}
           {summaryCopy}
-        </View>
-
-        {glanceItems.length > 0 ? (
-          <View style={styles.glanceSection}>
-            <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.glanceHeader}>
-              {t("tracker.glanceTitle")}
-            </ThemedText>
-            <TrackerProgressRings items={glanceItems} />
+          <View accessible accessibilityLabel={t("tracker.streakLabel", { count: streak })}>
+            <Pill
+              icon={{
+                ios: "flame.fill",
+                android: "local_fire_department",
+                web: "local_fire_department",
+              }}
+              label={formatCount(streak)}
+              color={tokens.status.warning.onSoft}
+              background={tokens.status.warning.soft}
+            />
           </View>
-        ) : null}
+        </View>
       </Card>
 
       {/* Confetti overlays the summary card on a completion / unlock edge. */}
       <PartyPopper burstKey={celebrationKey} colors={tokens.celebration} />
+    </View>
+  );
+
+  // The rest of the day at a glance — part of the tail, after the checklist.
+  const glanceCard =
+    glanceItems.length > 0 ? (
+      <Card>
+        <SectionHeader
+          title={t("tracker.glanceTitle")}
+          icon={{ ios: "chart.pie.fill", android: "donut_large", web: "donut_large" }}
+        />
+        <View style={styles.glanceSection}>
+          <TrackerProgressRings items={glanceItems} />
+        </View>
+      </Card>
+    ) : null;
+
+  // Before the tracker store hydrates, rows would flash "0/5" and Pending (B-09).
+  const loadingCard = trackerLoadError ? (
+    <View testID="tracker-load-error">
+      <RetryCard onRetry={() => void trackerStore.getState().load()} />
+    </View>
+  ) : (
+    <View testID="tracker-loading">
+      <Card>
+        <SkeletonPlaceholder preset="rows" count={5} />
+      </Card>
     </View>
   );
 
@@ -475,7 +465,7 @@ export default function TrackerScreen() {
         next: devotionLevelSpan,
       })}
     >
-      <Card padding="three" style={styles.achievementCard}>
+      <Card style={styles.achievementCard}>
         <DevotionAchievementSummary milestonePillBackground={colors.muted} />
       </Card>
     </PressableScale>
@@ -493,7 +483,8 @@ export default function TrackerScreen() {
       preferredHints={preferredHints}
       zikrCounts={zikrCounts}
       prayerTimes={prayerTimes}
-      onPrayerPress={setActivePrayer}
+      onPrayerPress={(prayerId) => prayerStatus.open(prayerId)}
+      onPrayerQuickSelect={(prayerId, next) => void prayerStatus.quickSelect(prayerId, next)}
       scrollRef={scrollRef}
       getScrollY={() => scrollYRef.current}
       registerFocus={register}
@@ -506,7 +497,7 @@ export default function TrackerScreen() {
 
   const trackSalahCard =
     !tv && (Platform.OS === "android" || Platform.OS === "web") && locationStatus !== "denied" ? (
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("notif.trackSalah.title")}
           icon={{
@@ -543,7 +534,7 @@ export default function TrackerScreen() {
     ) : null;
 
   const journeyCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("jannah.journeyTitle")}
         icon={{
@@ -566,13 +557,16 @@ export default function TrackerScreen() {
   );
 
   const keepGoingCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("tracker.keepGoing")}
         icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
       />
       <View style={styles.shortcuts}>
-        <QuickActionGrid items={shortcuts} columns={dashboard ? (width >= 1600 ? 6 : 5) : 4} />
+        <QuickActionGrid
+          items={shortcuts}
+          columns={dashboard ? (width >= Breakpoints.xwide ? 6 : 5) : 4}
+        />
       </View>
     </Card>
   );
@@ -600,13 +594,14 @@ export default function TrackerScreen() {
           <View style={styles.listDetailPrimary}>
             <Stagger>
               {summaryCard}
-              {checklist}
+              {trackerReady ? checklist : loadingCard}
               {keepGoingCard}
             </Stagger>
           </View>
           <View style={[styles.dashboardAside, { width: width >= 1440 ? 400 : 360 }]}>
             <Stagger entranceKey="tracker-aside">
               {scheduleCard}
+              {glanceCard}
               {achievementCard}
               {trackSalahCard}
               {journeyCard}
@@ -618,8 +613,9 @@ export default function TrackerScreen() {
           <View style={isListDetail ? styles.listDetailPrimary : undefined}>
             <Stagger>
               {summaryCard}
+              {trackerReady ? checklist : loadingCard}
+              {glanceCard}
               {achievementCard}
-              {checklist}
               {trackSalahCard}
               {journeyCard}
               {keepGoingCard}
@@ -634,26 +630,7 @@ export default function TrackerScreen() {
         </View>
       )}
 
-      {sheetPrayer ? (
-        <PrayerStatusSheet
-          visible={activePrayer != null}
-          prayerId={sheetPrayer}
-          prayerLabel={t(`prayers.${sheetPrayer}`)}
-          currentStatus={status[sheetPrayer] ?? "pending"}
-          currentNotes={notes[sheetPrayer]}
-          isJama={jamaMap[sheetPrayer] ?? false}
-          onToggleJama={(next) => setPrayerJama(sheetPrayer, next)}
-          combined={combinedMap[sheetPrayer] ?? null}
-          onSetCombined={(mode) => setPrayerCombinedOnDate(getLocalDateString(), sheetPrayer, mode)}
-          atMasjid={atMasjidMap[sheetPrayer] ?? false}
-          onToggleAtMasjid={(masjidId) =>
-            setPrayerAtMasjidOnDate(getLocalDateString(), sheetPrayer, masjidId)
-          }
-          onSelect={(next, options) => markPrayerStatus(sheetPrayer, next, options)}
-          onSaveNotes={(text) => setPrayerNotes(sheetPrayer, text)}
-          onClose={() => setActivePrayer(null)}
-        />
-      ) : null}
+      {prayerStatus.sheet}
     </ScreenLayout>
   );
 }
@@ -662,27 +639,15 @@ const styles = StyleSheet.create({
   summaryRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.four,
+    gap: Spacing.three,
   },
   summaryCopy: {
     flex: 1,
-    gap: Spacing.one + 2,
-  },
-  streakChip: {
-    marginTop: Spacing.one,
-    alignItems: "flex-start",
+    minWidth: 0,
+    gap: Spacing.half,
   },
   glanceSection: {
-    marginTop: Spacing.four,
-    gap: Spacing.three,
-  },
-  divider: {
-    height: StyleSheet.hairlineWidth,
-    alignSelf: "stretch",
-  },
-  glanceHeader: {
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
+    marginTop: Spacing.three,
   },
   rows: {
     gap: Spacing.two,

@@ -39,6 +39,12 @@ async function renderSaving(pin = "123456") {
 }
 
 describe("SetPinModal", () => {
+  it("is a modal surface (fullscreen Sheet)", async () => {
+    await renderModal();
+    const modal = screen.getByLabelText("Set PIN", { exact: true });
+    expect(modal.props.accessibilityViewIsModal).toBe(true);
+  });
+
   afterEach(() => {
     jest.useRealTimers();
   });

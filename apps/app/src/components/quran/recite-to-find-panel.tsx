@@ -8,7 +8,6 @@ import Animated, {
   cancelAnimation,
   type SharedValue,
   useAnimatedStyle,
-  useReducedMotion,
   useSharedValue,
   withRepeat,
   withTiming,
@@ -17,12 +16,14 @@ import Animated, {
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { engineDownloadMb } from "@/constants/recitation-models";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useIsOnline } from "@/hooks/use-is-online";
 import { useReciteToFind, useReciteToFindAvailability } from "@/hooks/use-recite-to-find";
 import { useReciteCandidateArabic } from "@/hooks/use-recite-to-find-text";
@@ -69,7 +70,7 @@ export function ReciteToFindPanel({
 
 function ReciteListening({ twoPane }: { twoPane: boolean }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const recite = useReciteToFind();
   const { state, mic, engineStatus, engineError, micPermission, level, toggle } = recite;
   const texts = useReciteCandidateArabic(state.candidates);
@@ -104,27 +105,21 @@ function ReciteListening({ twoPane }: { twoPane: boolean }) {
         </ThemedText>
       </View>
       {error && state.status === "error" ? (
-        <View
-          style={[
-            styles.errorBox,
-            {
-              backgroundColor: tokens.status.warning.soft,
-              borderColor: tokens.status.warning.border,
-            },
-          ]}
+        // A failure is a warning notice with its fix, never a grey caption (G-05).
+        <Callout
+          tone="warning"
+          style={styles.errorBox}
+          action={
+            micDenied && canOpenAppSettings()
+              ? {
+                  label: t("reciteToFind.error.openSettings"),
+                  onPress: () => void openAppSettings(),
+                }
+              : undefined
+          }
         >
-          <ThemedText type="small" style={{ color: tokens.status.warning.color }}>
-            {micDenied ? t("reciteToFind.error.micDenied") : t(PRACTICE_ERROR_COPY[error])}
-          </ThemedText>
-          {micDenied && canOpenAppSettings() ? (
-            <Button
-              label={t("reciteToFind.error.openSettings")}
-              variant="secondary"
-              size="sm"
-              onPress={() => void openAppSettings()}
-            />
-          ) : null}
-        </View>
+          {micDenied ? t("reciteToFind.error.micDenied") : t(PRACTICE_ERROR_COPY[error])}
+        </Callout>
       ) : null}
       <PrivacyLine />
     </Card>
@@ -241,7 +236,7 @@ function ReciteMicButton({
   hint: string;
 }) {
   const { colors } = useThemeTokens();
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useHydrationSafeReducedMotion();
   const pulse = useSharedValue(0);
 
   useEffect(() => {
@@ -355,7 +350,12 @@ function CandidateCard({
             {surahName}
           </ThemedText>
           {meta?.nameArabic ? (
-            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            <ThemedText
+              type="caption"
+              themeColor="mutedForeground"
+              numberOfLines={1}
+              accessibilityLanguage="ar"
+            >
               {meta.nameArabic}
             </ThemedText>
           ) : null}
@@ -371,7 +371,12 @@ function CandidateCard({
         </View>
       </View>
       {arabic ? (
-        <ThemedText type="arabic" numberOfLines={featured ? 4 : 2} style={styles.arabic}>
+        <ThemedText
+          type="arabic"
+          numberOfLines={featured ? 4 : 2}
+          style={styles.arabic}
+          accessibilityLanguage="ar"
+        >
           {arabic}
         </ThemedText>
       ) : null}
@@ -440,7 +445,11 @@ function ListenerDownloadCard({
                 total: formatBytes(listener.bytesTotal),
               })}
         </ThemedText>
-        <ProgressBar value={downloadPercent(listener) / 100} color={colors.accent} />
+        <ProgressBar
+          value={downloadPercent(listener) / 100}
+          accessibilityLabel={t("a11yProgress.modelDownload")}
+          color={colors.accent}
+        />
         <Button
           label={t("quranCompanion.listener.cancel")}
           variant="ghost"
@@ -453,9 +462,7 @@ function ListenerDownloadCard({
     body = (
       <View style={styles.downloadBody}>
         {failed ? (
-          <ThemedText type="small" style={{ color: tokens.status.warning.color }}>
-            {t(PRACTICE_ERROR_COPY[listener.error ?? "unknown"])}
-          </ThemedText>
+          <Callout tone="warning">{t(PRACTICE_ERROR_COPY[listener.error ?? "unknown"])}</Callout>
         ) : null}
         {online ? (
           <Button
@@ -520,7 +527,7 @@ const styles = StyleSheet.create({
   micCard: {
     alignItems: "center",
     gap: Spacing.three,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   micWrap: {
     width: MIC_SIZE * 1.8,
@@ -541,18 +548,11 @@ const styles = StyleSheet.create({
     borderRadius: MIC_SIZE / 2,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
   },
   statusBlock: { gap: Spacing.one, alignItems: "center", maxWidth: 420 },
   centerText: { textAlign: "center" },
-  errorBox: {
-    alignSelf: "stretch",
-    gap: Spacing.two,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-  },
+  errorBox: { alignSelf: "stretch" },
   privacy: {
     flexDirection: "row",
     alignItems: "center",
@@ -566,9 +566,9 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
-  candidateFeatured: { borderWidth: 1.5 },
+  candidateFeatured: { borderWidth: BorderWidth.thick },
   candidateHeader: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -591,7 +591,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: Spacing.two,
   },
-  downloadCard: { gap: Spacing.three, borderWidth: 1 },
+  downloadCard: { gap: Spacing.three, borderWidth: BorderWidth.thin },
   downloadHeader: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.three },
   downloadIcon: {
     width: 44,

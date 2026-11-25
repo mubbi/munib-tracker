@@ -1,32 +1,39 @@
 import { type Href, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
-import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { ConfirmDialog } from "@/components/confirm-dialog";
+import { JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
+import { CurrencyField } from "@/components/money/currency-field";
+import { useMoneyNumberFormat } from "@/components/money/use-number-format";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { TvNumberStepper } from "@/components/tv-number-stepper";
+import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
-import { PressableScale } from "@/components/ui/pressable-scale";
+import { EmptyState } from "@/components/ui/empty-state";
+import { IconButton } from "@/components/ui/icon-button";
+import { NumberField } from "@/components/ui/number-field";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
-import { CurrencyPickerSheet } from "@/components/zakat/currency-picker-sheet";
-import { Spacing } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import {
-  DEFAULT_NUMBER_FORMAT,
-  formatMoneyAmount,
-  formatNumberInput,
-  parseNumberInput,
-} from "@/lib/format-currency";
+import { TextField } from "@/components/ui/text-field";
+import { Breakpoints, Spacing } from "@/constants/theme";
+import { useUndoToast } from "@/hooks/use-undo-toast";
+import { formatMoneyAmount } from "@/lib/format-currency";
 import { defaultCurrencyCode } from "@/lib/money-defaults";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { formatDisplayDateTime } from "@/lib/time";
+import { useToast } from "@/providers/toast-provider";
+import { useLocation } from "@/stores/location-store";
+import { usePreferences } from "@/stores/preferences-store";
 import {
+  type SadaqahLogEntry,
   type SadaqahPeriod,
   sumSadaqahInPeriod,
   useEnsureSadaqahLoaded,
@@ -40,28 +47,33 @@ function defaultCurrency(): string {
   return defaultCurrencyCode();
 }
 
+const LOG_PAGE = 20;
+
 export default function SadaqahScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const toast = useToast();
+  const undoToast = useUndoToast();
+  const numberFormat = useMoneyNumberFormat();
+  const prefs = usePreferences();
+  const location = useLocation();
   useEnsureSadaqahLoaded();
   const goal = useSadaqahGoal();
   const log = useSadaqahLog();
   const actions = useSadaqahActions();
 
   const [period, setPeriod] = useState<SadaqahPeriod>(goal?.period ?? "daily");
-  const [targetInput, setTargetInput] = useState(goal ? String(goal.amount) : "");
+  const [target, setTarget] = useState<number | undefined>(goal?.amount);
   const [currencyCode, setCurrencyCode] = useState(goal?.currencyCode ?? defaultCurrency());
-  const [currencyOpen, setCurrencyOpen] = useState(false);
-  const [logAmount, setLogAmount] = useState("");
+  const [logAmount, setLogAmount] = useState<number | undefined>(undefined);
   const [logNote, setLogNote] = useState("");
+  const [shown, setShown] = useState(LOG_PAGE);
+  const [confirmClear, setConfirmClear] = useState(false);
   const tv = isTV();
   const { width } = useWindowDimensions();
   /** Desktop / wide web: intention + log form on the start side, giving history aside. */
-  const twoPane = !tv && width >= 1024;
-  /** TV amounts are whole units stepped with the D-pad (no decimal keyboard). */
-  const tvAmount = (input: string) =>
-    Math.max(0, Math.round(parseNumberInput(input, DEFAULT_NUMBER_FORMAT)) || 0);
+  const twoPane = !tv && width >= Breakpoints.wide;
+  const visibleCount = twoPane ? Math.max(50, shown) : shown;
 
   const periodOptions = useMemo(
     () => [
@@ -73,31 +85,75 @@ export default function SadaqahScreen() {
 
   const progressAmount = goal ? sumSadaqahInPeriod(log, goal.period) : 0;
   const progressRatio = goal && goal.amount > 0 ? Math.min(1, progressAmount / goal.amount) : 0;
+  const periodTotal = sumSadaqahInPeriod(log, period);
 
-  const money = (n: number, code = currencyCode) =>
-    formatMoneyAmount(n, code, DEFAULT_NUMBER_FORMAT);
+  const money = (n: number, code = currencyCode) => formatMoneyAmount(n, code, numberFormat);
 
   const saveGoal = () => {
-    const amount = parseNumberInput(targetInput, DEFAULT_NUMBER_FORMAT);
-    if (amount <= 0) return;
-    void actions.setGoal({
-      period,
-      amount,
-      currencyCode,
-      startDate: new Date().toISOString().slice(0, 10),
-    });
+    if (target == null || target <= 0) return;
+    void actions
+      .setGoal({
+        period,
+        amount: target,
+        currencyCode,
+        startDate: new Date().toISOString().slice(0, 10),
+      })
+      .then(
+        () => toast.success(t("sadaqah.goalSaved")),
+        () => toast.error(t("common.saveFailed")),
+      );
   };
 
   const addLog = () => {
-    const amount = parseNumberInput(logAmount, DEFAULT_NUMBER_FORMAT);
-    if (amount <= 0) return;
-    void actions.addEntry(amount, logNote);
-    setLogAmount("");
+    if (logAmount == null || logAmount <= 0) return;
+    const note = logNote;
+    void actions.addEntry(logAmount, note).then(
+      () => toast.success(t("sadaqah.entryAdded")),
+      () => toast.error(t("common.saveFailed")),
+    );
+    setLogAmount(undefined);
     setLogNote("");
   };
 
+  const removeEntry = (entry: SadaqahLogEntry) =>
+    void undoToast.run({
+      do: () => actions.removeEntry(entry.id),
+      undo: () => actions.restoreEntry(entry),
+      messageKey: "sadaqah.entryRemoved",
+    });
+
+  const amountField = (
+    label: string,
+    value: number | undefined,
+    onChange: (n: number | undefined) => void,
+    onSubmit: () => void,
+  ) =>
+    tv ? (
+      <View style={styles.tvField}>
+        <ThemedText type="smallBold">{label}</ThemedText>
+        <TvNumberStepper
+          value={value ?? 0}
+          onChange={(next) => onChange(next > 0 ? next : undefined)}
+          label={label}
+          max={9_999_999}
+          steps={[1, 10, 100, 1000]}
+        />
+      </View>
+    ) : (
+      <NumberField
+        label={label}
+        value={value}
+        onChangeValue={onChange}
+        numberFormat={numberFormat}
+        maxFractionDigits={2}
+        suffix={currencyCode}
+        returnKeyType="done"
+        onSubmitEditing={onSubmit}
+      />
+    );
+
   const intentionCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("sadaqah.intentionTitle")}
         icon={{
@@ -118,53 +174,19 @@ export default function SadaqahScreen() {
         />
       </View>
 
-      <JannahNavRow
-        icon={{ ios: "coloncurrencysign.circle", android: "payments", web: "payments" }}
-        title={t("sadaqah.currency")}
-        subtitle={currencyCode}
-        onPress={() => setCurrencyOpen(true)}
-      />
-
       <View style={styles.fieldBlock}>
-        <ThemedText type="smallBold">{t("sadaqah.targetLabel")}</ThemedText>
-        {tv ? (
-          <View style={[styles.inputRow, { backgroundColor: colors.muted }]}>
-            <TvNumberStepper
-              value={tvAmount(targetInput)}
-              onChange={(next) => setTargetInput(next > 0 ? String(next) : "")}
-              label={t("sadaqah.targetLabel")}
-              max={9_999_999}
-              steps={[1, 10, 100, 1000]}
-            />
-          </View>
-        ) : (
-          <View style={[styles.inputRow, tokens.inputSurface]}>
-            <TextInput
-              value={targetInput}
-              onChangeText={(text) =>
-                setTargetInput(formatNumberInput(text, 2, DEFAULT_NUMBER_FORMAT))
-              }
-              keyboardType="decimal-pad"
-              placeholder="0"
-              placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("sadaqah.targetLabel")}
-              onSubmitEditing={Platform.OS === "web" ? saveGoal : undefined}
-              style={[styles.input, { color: colors.foreground }]}
-            />
-          </View>
-        )}
+        <CurrencyField
+          label={t("sadaqah.currency")}
+          value={currencyCode}
+          onChange={setCurrencyCode}
+        />
+        {amountField(t("sadaqah.targetLabel"), target, setTarget, saveGoal)}
+        <Button
+          label={t("sadaqah.saveGoal")}
+          disabled={target == null || target <= 0}
+          onPress={saveGoal}
+        />
       </View>
-
-      <PressableScale
-        onPress={saveGoal}
-        style={[styles.primaryBtn, tv && styles.primaryBtnTv, { backgroundColor: colors.accent }]}
-        accessibilityRole="button"
-        accessibilityLabel={t("sadaqah.saveGoal")}
-      >
-        <ThemedText type="smallBold" style={{ color: colors.accentForeground }}>
-          {t("sadaqah.saveGoal")}
-        </ThemedText>
-      </PressableScale>
 
       {goal ? (
         <View style={styles.progressBlock}>
@@ -176,27 +198,13 @@ export default function SadaqahScreen() {
           <ThemedText type="subtitle">
             {money(progressAmount, goal.currencyCode)} / {money(goal.amount, goal.currencyCode)}
           </ThemedText>
-          <View style={[styles.track, { backgroundColor: colors.muted }]}>
-            <View
-              style={[
-                styles.fill,
-                {
-                  width: `${Math.round(progressRatio * 100)}%`,
-                  backgroundColor: tokens.status.success.color,
-                },
-              ]}
-            />
-          </View>
-          <PressableScale
-            onPress={() => void actions.clearGoal()}
-            accessibilityRole="button"
-            accessibilityLabel={t("sadaqah.clearGoal")}
-            style={tv ? [styles.textActionTv, styles.clearGoalTv] : undefined}
-          >
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("sadaqah.clearGoal")}
-            </ThemedText>
-          </PressableScale>
+          <ProgressBar value={progressRatio} accessibilityLabel={t("sadaqah.progressA11y")} />
+          <Button
+            variant="ghost"
+            size="sm"
+            label={t("sadaqah.clearGoal")}
+            onPress={() => setConfirmClear(true)}
+          />
         </View>
       ) : null}
     </Card>
@@ -210,102 +218,87 @@ export default function SadaqahScreen() {
   );
 
   const logForm = (
-    <>
-      <View style={styles.fieldBlock}>
-        <ThemedText type="smallBold">{t("sadaqah.logAmount")}</ThemedText>
-        {tv ? (
-          <View style={[styles.inputRow, { backgroundColor: colors.muted }]}>
-            <TvNumberStepper
-              value={tvAmount(logAmount)}
-              onChange={(next) => setLogAmount(next > 0 ? String(next) : "")}
-              label={t("sadaqah.logAmount")}
-              max={9_999_999}
-              steps={[1, 10, 100, 1000]}
-            />
-          </View>
-        ) : (
-          <View style={[styles.inputRow, tokens.inputSurface]}>
-            <TextInput
-              value={logAmount}
-              onChangeText={(text) =>
-                setLogAmount(formatNumberInput(text, 2, DEFAULT_NUMBER_FORMAT))
-              }
-              keyboardType="decimal-pad"
-              onSubmitEditing={Platform.OS === "web" ? addLog : undefined}
-              accessibilityLabel={t("sadaqah.logAmount")}
-              placeholder="0"
-              placeholderTextColor={colors.mutedForeground}
-              style={[styles.input, { color: colors.foreground }]}
-            />
-          </View>
-        )}
-      </View>
+    <View style={styles.fieldBlock}>
+      {amountField(t("sadaqah.logAmount"), logAmount, setLogAmount, addLog)}
       {/* The note is optional free text — skipped on TV to avoid keyboard entry. */}
       {tv ? null : (
-        <View style={styles.fieldBlock}>
-          <ThemedText type="smallBold">{t("sadaqah.logNote")}</ThemedText>
-          <View style={[styles.inputRow, tokens.inputSurface]}>
-            <TextInput
-              value={logNote}
-              onChangeText={setLogNote}
-              onSubmitEditing={Platform.OS === "web" ? addLog : undefined}
-              accessibilityLabel={t("sadaqah.logNote")}
-              placeholder={t("sadaqah.logNotePlaceholder")}
-              placeholderTextColor={colors.mutedForeground}
-              style={[styles.input, { color: colors.foreground }]}
-            />
-          </View>
-        </View>
+        <TextField
+          label={t("sadaqah.logNote")}
+          optional
+          value={logNote}
+          onChangeText={setLogNote}
+          onSubmitEditing={addLog}
+          placeholder={t("sadaqah.logNotePlaceholder")}
+        />
       )}
-      <PressableScale
+      <Button
+        label={t("sadaqah.addEntry")}
+        disabled={logAmount == null || logAmount <= 0}
         onPress={addLog}
-        style={[styles.primaryBtn, tv && styles.primaryBtnTv, { backgroundColor: colors.accent }]}
-        accessibilityRole="button"
-        accessibilityLabel={t("sadaqah.addEntry")}
-      >
-        <ThemedText type="smallBold" style={{ color: colors.accentForeground }}>
-          {t("sadaqah.addEntry")}
-        </ThemedText>
-      </PressableScale>
-    </>
+      />
+    </View>
   );
 
   const logList = (
     <View style={styles.logList}>
       {log.length === 0 ? (
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("sadaqah.logEmpty")}
-        </ThemedText>
+        <EmptyState
+          icon={{ ios: "heart.fill", android: "favorite", web: "favorite" }}
+          title={t("sadaqah.logEmpty")}
+        />
       ) : (
-        log.slice(0, twoPane ? 50 : 20).map((entry) => (
-          <View key={entry.id} style={styles.logRow}>
-            <View style={styles.logText}>
-              <ThemedText type="smallBold">
-                {money(entry.amount, goal?.currencyCode ?? currencyCode)}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {new Date(entry.at).toLocaleString()}
-                {entry.note ? ` · ${entry.note}` : ""}
-              </ThemedText>
+        <>
+          <ThemedText type="smallBold">
+            {t("sadaqah.periodTotal", {
+              period: t(`sadaqah.period.${period}`),
+              amount: money(periodTotal),
+            })}
+          </ThemedText>
+          {log.slice(0, visibleCount).map((entry) => (
+            <View key={entry.id} style={styles.logRow}>
+              <View style={styles.logText}>
+                <ThemedText type="smallBold">
+                  {money(entry.amount, goal?.currencyCode ?? currencyCode)}
+                </ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {formatDisplayDateTime(
+                    new Date(entry.at),
+                    prefs.timeFormat,
+                    prefs.locale,
+                    location.timeZone,
+                    prefs.defaultCalendar,
+                  )}
+                  {entry.note ? ` · ${entry.note}` : ""}
+                </ThemedText>
+              </View>
+              <IconButton
+                name={{ ios: "trash", android: "delete", web: "delete" }}
+                accessibilityLabel={t("sadaqah.removeEntry")}
+                onPress={() => removeEntry(entry)}
+              />
             </View>
-            <PressableScale
-              onPress={() => void actions.removeEntry(entry.id)}
-              accessibilityRole="button"
-              accessibilityLabel={t("common.remove")}
-              style={tv ? styles.textActionTv : undefined}
-            >
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("common.remove")}
-              </ThemedText>
-            </PressableScale>
-          </View>
-        ))
+          ))}
+          {log.length > visibleCount ? (
+            <Button
+              variant="secondary"
+              label={t("sadaqah.loadMore")}
+              onPress={() => setShown((n) => n + LOG_PAGE)}
+            />
+          ) : null}
+          {tv && undoToast.undoAvailable ? (
+            <Button
+              variant="secondary"
+              label={t("uiFeedback.undo")}
+              onPress={() => undoToast.undo()}
+            />
+          ) : null}
+        </>
       )}
     </View>
   );
 
   const learnCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("sadaqah.learnMoreTitle")}
         icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
@@ -342,19 +335,19 @@ export default function SadaqahScreen() {
     >
       <Seo path="/sadaqah" />
       <Stagger>
-        <JannahCallout tone="info">{t("sadaqah.intro")}</JannahCallout>
+        <Callout tone="info">{t("sadaqah.intro")}</Callout>
 
         {twoPane ? (
           <View style={styles.split}>
             <View style={styles.pane}>
               {intentionCard}
-              <Card padding="three">
+              <Card>
                 {logHeader}
                 {logForm}
               </Card>
             </View>
             <View style={styles.pane}>
-              <Card padding="three">
+              <Card>
                 <SectionHeader
                   title={t("calDay.history")}
                   icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
@@ -368,7 +361,7 @@ export default function SadaqahScreen() {
         ) : null}
         {twoPane ? null : intentionCard}
         {twoPane ? null : (
-          <Card padding="three">
+          <Card>
             {logHeader}
             {logForm}
             {logList}
@@ -378,14 +371,18 @@ export default function SadaqahScreen() {
         {twoPane ? null : <JannahDisclaimer textKey="sadaqah.disclaimer" />}
       </Stagger>
 
-      <CurrencyPickerSheet
-        visible={currencyOpen}
-        selectedCode={currencyCode}
-        onSelect={(code) => {
-          setCurrencyCode(code);
-          setCurrencyOpen(false);
+      <ConfirmDialog
+        visible={confirmClear}
+        destructive
+        title={t("sadaqah.clearGoalTitle")}
+        message={t("sadaqah.clearGoalBody")}
+        confirmLabel={t("sadaqah.clearGoal")}
+        onConfirm={async () => {
+          await actions.clearGoal();
+          setConfirmClear(false);
+          toast.success(t("sadaqah.goalCleared"));
         }}
-        onClose={() => setCurrencyOpen(false)}
+        onClose={() => setConfirmClear(false)}
       />
     </ScreenLayout>
   );
@@ -396,30 +393,9 @@ const styles = StyleSheet.create({
   pane: { flex: 1, minWidth: 0, gap: Spacing.three },
   hint: { marginTop: Spacing.two, lineHeight: 20 },
   block: { marginTop: Spacing.three },
-  fieldBlock: { marginTop: Spacing.three, gap: Spacing.two },
-  inputRow: {
-    borderRadius: 12,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-  },
-  input: { fontSize: 16, paddingVertical: Spacing.one },
-  primaryBtn: {
-    marginTop: Spacing.three,
-    borderRadius: 12,
-    paddingVertical: Spacing.three,
-    alignItems: "center",
-  },
-  primaryBtnTv: { minHeight: TvLayout.minFocusTarget, justifyContent: "center" },
-  /** TV: text-only actions need a real focus target, not a caption-sized hit box. */
-  textActionTv: {
-    minHeight: TvLayout.chipMinHeight,
-    justifyContent: "center",
-    paddingHorizontal: Spacing.three,
-  },
-  clearGoalTv: { alignSelf: "flex-start" },
+  fieldBlock: { marginTop: Spacing.three, gap: Spacing.three },
+  tvField: { gap: Spacing.two },
   progressBlock: { marginTop: Spacing.three, gap: Spacing.two },
-  track: { height: 8, borderRadius: 999, overflow: "hidden" },
-  fill: { height: "100%", borderRadius: 999 },
   logList: { marginTop: Spacing.three, gap: Spacing.two },
   logRow: {
     flexDirection: "row",
@@ -427,7 +403,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: Spacing.two,
   },
-  logText: { flex: 1, gap: 2 },
+  logText: { flex: 1, gap: Spacing.half },
   rows: { gap: Spacing.two, marginTop: Spacing.three },
 });
 

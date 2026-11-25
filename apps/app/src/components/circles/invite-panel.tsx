@@ -20,6 +20,18 @@ import { useToast } from "@/providers/toast-provider";
 import { useLocation } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 
+/** Writes `text` to the clipboard where the platform offers one (web, browsers); false otherwise. */
+async function copyText(text: string): Promise<boolean> {
+  try {
+    const clipboard = typeof navigator === "undefined" ? undefined : navigator.clipboard;
+    if (!clipboard?.writeText) return false;
+    await clipboard.writeText(text);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /** HTTPS join link (D36): opens the app via App Links, or the web join screen. */
 export function inviteJoinUrl(code: string): string {
   return buildHttpsAppUrl(`/${circleJoinPath(code)}`);
@@ -48,6 +60,7 @@ export function InvitePanel({
   const prefs = usePreferences();
   const location = useLocation();
   const [invite, setInvite] = useState<InviteCreated | null>(null);
+  const canCopy = typeof navigator !== "undefined" && Boolean(navigator.clipboard?.writeText);
   const create = useCircleAction((token) => createInvite(token, circleId, { role: inviteRole }));
 
   const onCreate = async () => {
@@ -66,12 +79,20 @@ export function InvitePanel({
         message: t("circles.invite.shareMessage", { code: formatInviteCode(invite.code), url }),
       });
     } catch {
-      // Share sheet unavailable (some web browsers) — the link is shown below.
+      // Share sheet unavailable (some web browsers): copy the link instead, and say so.
+      if (await copyText(url)) toast.success(t("common.copied"));
+      else toast.error(t("circles.invite.shareFailed"));
     }
   };
 
+  const onCopyCode = async () => {
+    if (!invite) return;
+    if (await copyText(formatInviteCode(invite.code))) toast.success(t("common.copied"));
+    else toast.error(t("circles.invite.shareFailed"));
+  };
+
   return (
-    <Card padding="three" style={styles.card}>
+    <Card style={styles.card}>
       <ThemedText type="subtitle">{title}</ThemedText>
       <ThemedText type="small" themeColor="mutedForeground">
         {hint}
@@ -116,6 +137,14 @@ export function InvitePanel({
             </ThemedText>
             <View style={[styles.actions, { borderColor: colors.border }]}>
               <Button label={t("circles.invite.share")} onPress={() => void onShare()} />
+              {canCopy ? (
+                <Button
+                  label={t("circles.invite.copyCode")}
+                  variant="secondary"
+                  icon={{ ios: "doc.on.doc", android: "content_copy", web: "content_copy" }}
+                  onPress={() => void onCopyCode()}
+                />
+              ) : null}
               <Button
                 label={t("circles.invite.another")}
                 variant="secondary"
@@ -125,8 +154,8 @@ export function InvitePanel({
           </View>
         ) : (
           <Button
-            label={create.isPending ? t("circles.common.working") : t("circles.invite.create")}
-            disabled={create.isPending}
+            label={t("circles.invite.create")}
+            loading={create.isPending}
             onPress={() => void onCreate()}
           />
         )}

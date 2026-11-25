@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import type { AdhkarStep } from "@/components/zikr/adhkar-step-strip";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -85,6 +85,7 @@ export function AdhkarStepList({
                 />
               ) : (
                 <ThemedText
+                  weight="bold"
                   type="caption"
                   style={[styles.markText, { color: colors.mutedForeground }]}
                 >
@@ -128,21 +129,21 @@ export function AdhkarStepList({
 }
 
 const styles = StyleSheet.create({
-  list: { gap: 2 },
+  list: { gap: Spacing.half },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two + 2,
-    paddingHorizontal: Spacing.two + 2,
+    gap: Spacing.twoHalf,
+    paddingHorizontal: Spacing.twoHalf,
     paddingVertical: Spacing.two,
     minHeight: 44,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   rowTv: { minHeight: TvLayout.minFocusTarget, paddingHorizontal: Spacing.three },
-  mark: { borderWidth: 1.5, alignItems: "center", justifyContent: "center" },
-  markText: { fontWeight: "700", fontVariant: ["tabular-nums"] },
+  mark: { borderWidth: BorderWidth.thick, alignItems: "center", justifyContent: "center" },
+  markText: { fontVariant: ["tabular-nums"] },
   title: { flex: 1, minWidth: 0 },
   status: { fontVariant: ["tabular-nums"] },
 });

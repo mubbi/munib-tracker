@@ -42,7 +42,7 @@ export function KidsDuasTab() {
         return (
           // The open target and "Listen" are siblings: RN Web renders every
           // pressable as a <button>, and a button inside a button breaks clicks.
-          <Card key={`${kind}:${item.id}`} padding="three" style={styles.gap}>
+          <Card key={`${kind}:${item.id}`} style={styles.gap}>
             <PressableScale
               accessibilityRole="button"
               accessibilityLabel={item.title}

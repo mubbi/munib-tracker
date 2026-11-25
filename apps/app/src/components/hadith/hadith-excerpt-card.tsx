@@ -2,10 +2,11 @@ import type { HadithItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { Radius, Spacing } from "@/constants/theme";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -21,6 +22,7 @@ type HadithExcerptCardProps = {
 
 export function HadithExcerptCard({ hadithId, maxExcerpt = 220 }: HadithExcerptCardProps) {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const { translationLocale } = usePreferences();
   const [hadith, setHadith] = useState<HadithItem | null | undefined>(undefined);
@@ -41,7 +43,7 @@ export function HadithExcerptCard({ hadithId, maxExcerpt = 220 }: HadithExcerptC
   if (hadith === undefined) {
     return (
       <View style={[styles.card, { backgroundColor: colors.muted }]}>
-        <ActivityIndicator color={colors.accent} />
+        <SkeletonPlaceholder preset="rows" count={3} accessibilityLabel={t("hadith.loading")} />
       </View>
     );
   }
@@ -78,7 +80,11 @@ function HadithExcerptCardContent({
   return (
     <View style={[styles.card, { backgroundColor: colors.muted }]}>
       {hadith.arabic ? (
-        <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(22)]}>
+        <ThemedText
+          type="arabic"
+          accessibilityLanguage="ar"
+          style={[styles.arabic, arabicReadingLayout(22)]}
+        >
           {hadith.arabic}
         </ThemedText>
       ) : null}
@@ -105,7 +111,7 @@ function HadithExcerptCardContent({
 
       {isTV() ? (
         // TV: one focus stop per card — the button below opens the same hadith.
-        <ThemedText type="caption" style={{ color: colors.accent }}>
+        <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
           {t("reading.reference", { ref: hadith.reference })}
         </ThemedText>
       ) : (
@@ -117,7 +123,7 @@ function HadithExcerptCardContent({
           haptic="light"
           style={styles.referenceHit}
         >
-          <ThemedText type="caption" style={{ color: colors.accent }}>
+          <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
             {t("reading.reference", { ref: hadith.reference })}
           </ThemedText>
         </PressableScale>

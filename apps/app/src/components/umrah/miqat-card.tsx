@@ -202,7 +202,7 @@ function FlightTimer({
         <Button label={t("umrahMode.miqat.flightSet")} icon={TIMER_ICON} onPress={save} />
       </View>
       {invalid ? (
-        <ThemedText type="caption" style={{ color: tokens.status.danger.color }}>
+        <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
           {t("umrahMode.miqat.flightInvalid")}
         </ThemedText>
       ) : null}

@@ -102,7 +102,7 @@ describe("repaymentFromForm", () => {
   it("validates the amount and day and drops a blank note", () => {
     expect(repaymentFromForm("", "2026-11-25", "")).toEqual({
       ok: false,
-      error: "privateUx.payments.errorAmount",
+      error: "debts.payments.errorAmount",
     });
     expect(repaymentFromForm("10", "nope", "")).toEqual({
       ok: false,

@@ -6,7 +6,7 @@ import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { VoiceSteps } from "@/hooks/use-voice-tasbeeh-steps";
 import { isTV } from "@/lib/platform/is-tv";
@@ -56,7 +56,7 @@ export function VoiceStepToggle({
       ]}
     >
       <SymbolView name={on ? MIC_OFF : MIC} size={14} tintColor={colors.accentText} />
-      <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "600" }}>
+      <ThemedText weight="semibold" type="caption" style={{ color: colors.accentText }}>
         {on ? t("tasbeehVoice.toggle.stop") : t("tasbeehVoice.toggle.start")}
       </ThemedText>
     </PressableScale>
@@ -122,7 +122,7 @@ export function VoiceStepPanel({
             onPress={steps.teach}
             style={styles.link}
           >
-            <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "600" }}>
+            <ThemedText weight="semibold" type="caption" style={{ color: colors.accentText }}>
               {voice.taught ? t("tasbeehVoice.teach.reteach") : t("handsFreeZikr.steps.teachThis")}
             </ThemedText>
           </PressableScale>
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.one,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one + 2,
+    paddingVertical: Spacing.oneHalf,
     minHeight: 36,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     alignSelf: "stretch",
   },
   row: { flexDirection: "row", gap: Spacing.two },

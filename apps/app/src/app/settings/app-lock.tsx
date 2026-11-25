@@ -3,11 +3,15 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 import { BiometricUnlockRow } from "@/components/settings/editors/link-rows";
+import { SettingsRow, SettingsRowGroup } from "@/components/settings/settings-rows";
 import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
-import { PressableScale } from "@/components/ui/pressable-scale";
+import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { SetPinModal } from "@/features/pin-lock/components/set-pin-modal";
@@ -17,15 +21,20 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { isExpoGo } from "@/lib/notifications/platform";
 import { isTV } from "@/lib/platform/is-tv";
-import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useToast } from "@/providers/toast-provider";
+
+/** Short segment labels; the full phrase stays the accessible name. */
+const TIMEOUT_SHORT_LABEL: Record<number, string> = {
+  0: "pinLock.immediately",
+  60000: "pinLock.after1MinShort",
+  300000: "pinLock.after5MinShort",
+};
 
 export default function AppLockScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const toast = useToast();
-  const chevronForward = useChevronForward();
   const {
     isPinEnabled,
     enablePin,
@@ -63,6 +72,18 @@ export default function AppLockScreen() {
     setShowSetPinModal(true);
   };
 
+  const openVerify = (purpose: "disable" | "change") => {
+    if (purpose === "change") setPendingChangePin(null);
+    setVerifyPinPurpose(purpose);
+    setShowVerifyPinModal(true);
+  };
+
+  const timeoutOptions = LOCK_TIMEOUT_OPTIONS.map((opt) => ({
+    id: String(opt.value),
+    label: t(TIMEOUT_SHORT_LABEL[opt.value] ?? opt.labelKey),
+    accessibilityLabel: t(opt.labelKey),
+  }));
+
   return (
     <SettingsDetailScreen
       parent="privacy"
@@ -72,15 +93,12 @@ export default function AppLockScreen() {
     >
       <Stagger>
         {expoGo ? (
-          <Card padding="three">
-            <ThemedText type="small">{t("pinLock.expoGoTitle")}</ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.expoGoHint}>
-              {t("pinLock.expoGoHint")}
-            </ThemedText>
-          </Card>
+          <Callout tone="info" title={t("pinLock.expoGoTitle")}>
+            {t("pinLock.expoGoHint")}
+          </Callout>
         ) : null}
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("pinLock.title")}
             icon={{ ios: "lock.fill", android: "lock", web: "lock" }}
@@ -88,7 +106,11 @@ export default function AppLockScreen() {
 
           {!isPinEnabled ? (
             <View style={styles.hero}>
-              <View style={[styles.heroIcon, { backgroundColor: tokens.accentSoft }]}>
+              <View
+                style={[styles.heroIcon, { backgroundColor: tokens.accentSoft }]}
+                accessible={false}
+                importantForAccessibility="no-hide-descendants"
+              >
                 <SymbolView
                   name={{ ios: "lock.shield.fill", android: "shield", web: "shield" }}
                   size={28}
@@ -102,116 +124,61 @@ export default function AppLockScreen() {
                 {t("pinLock.enablePinDesc")}
               </ThemedText>
               <View style={styles.featureChips}>
-                <FeatureChip label={t("pinLock.heroFeaturePin")} />
+                <Pill tone="accent" label={t("pinLock.heroFeaturePin")} />
                 {biometricsAvailable ? (
-                  <FeatureChip label={t("pinLock.heroFeatureBiometric")} />
+                  <Pill tone="accent" label={t("pinLock.heroFeatureBiometric")} />
                 ) : null}
-                <FeatureChip label={t("pinLock.heroFeatureAutoLock")} />
+                <Pill tone="accent" label={t("pinLock.heroFeatureAutoLock")} />
               </View>
               {!expoGo ? (
-                <PressableScale
-                  haptic="light"
+                <Button
+                  label={t("pinLock.enablePin")}
+                  icon={{ ios: "lock.fill", android: "lock", web: "lock" }}
+                  fullWidth
                   onPress={openEnablePinModal}
-                  style={[styles.enableBtn, { backgroundColor: colors.accent }]}
-                >
-                  <ThemedText type="small" style={{ color: colors.accentForeground }}>
-                    {t("pinLock.enablePin")}
-                  </ThemedText>
-                </PressableScale>
+                />
               ) : null}
             </View>
           ) : (
             <View style={styles.enabledSection}>
-              <View style={[styles.statusBadge, { backgroundColor: tokens.status.success.soft }]}>
-                <SymbolView
-                  name={{
-                    ios: "checkmark.shield.fill",
-                    android: "verified_user",
-                    web: "verified_user",
-                  }}
-                  size={18}
-                  tintColor={tokens.status.success.color}
-                />
-                <ThemedText type="caption" style={{ color: tokens.status.success.text }}>
-                  {t("pinLock.statusProtected")}
-                </ThemedText>
-              </View>
-
-              <PressableScale
-                haptic="light"
-                onPress={() => {
-                  triggerHaptic("selection");
-                  setPendingChangePin(null);
-                  setVerifyPinPurpose("change");
-                  setShowVerifyPinModal(true);
+              <Pill
+                tone="success"
+                icon={{
+                  ios: "checkmark.shield.fill",
+                  android: "verified_user",
+                  web: "verified_user",
                 }}
-                style={[styles.actionRow, { backgroundColor: colors.muted }]}
-              >
-                <SymbolView
-                  name={{ ios: "key.fill", android: "vpn_key", web: "vpn_key" }}
-                  size={18}
-                  tintColor={colors.accent}
-                />
-                <ThemedText type="small" style={styles.actionLabel}>
-                  {t("pinLock.changePin")}
-                </ThemedText>
-                <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
-              </PressableScale>
+                label={t("pinLock.statusProtected")}
+                style={styles.status}
+              />
 
-              <BiometricUnlockRow />
+              <SettingsRowGroup>
+                <SettingsRow
+                  icon={{ ios: "key.fill", android: "vpn_key", web: "vpn_key" }}
+                  title={t("pinLock.changePin")}
+                  onPress={() => openVerify("change")}
+                />
+                <BiometricUnlockRow />
+              </SettingsRowGroup>
 
               <View style={styles.timeoutSection}>
                 <ThemedText type="small">{t("pinLock.lockTimeout")}</ThemedText>
-                <View style={styles.timeoutBtns}>
-                  {LOCK_TIMEOUT_OPTIONS.map((opt) => {
-                    const selected = lockTimeoutMs === opt.value;
-                    return (
-                      <PressableScale
-                        key={opt.value}
-                        haptic="selection"
-                        onPress={() => setLockTimeoutMs(opt.value)}
-                        style={[
-                          styles.timeoutBtn,
-                          {
-                            backgroundColor: selected ? tokens.accentSoft : colors.muted,
-                            borderColor: selected ? colors.accent : colors.border,
-                          },
-                        ]}
-                      >
-                        <ThemedText
-                          type="caption"
-                          style={{ color: selected ? colors.accent : colors.mutedForeground }}
-                          numberOfLines={2}
-                        >
-                          {t(opt.labelKey)}
-                        </ThemedText>
-                      </PressableScale>
-                    );
-                  })}
-                </View>
+                <SegmentedControl
+                  accessibilityLabel={t("pinLock.lockTimeout")}
+                  options={timeoutOptions}
+                  value={String(lockTimeoutMs)}
+                  onChange={(id) => setLockTimeoutMs(Number(id))}
+                />
               </View>
 
-              <PressableScale
-                haptic="light"
-                onPress={() => {
-                  triggerHaptic("selection");
-                  setVerifyPinPurpose("disable");
-                  setShowVerifyPinModal(true);
-                }}
-                style={[styles.actionRow, { backgroundColor: tokens.status.danger.soft }]}
-              >
-                <SymbolView
-                  name={{ ios: "lock.open.fill", android: "lock_open", web: "lock_open" }}
-                  size={18}
-                  tintColor={tokens.status.danger.color}
-                />
-                <ThemedText
-                  type="small"
-                  style={[styles.actionLabel, { color: tokens.status.danger.text }]}
-                >
-                  {t("pinLock.disablePin")}
-                </ThemedText>
-              </PressableScale>
+              <SettingsRow
+                icon={{ ios: "lock.open.fill", android: "lock_open", web: "lock_open" }}
+                title={t("pinLock.turnOff")}
+                subtitle={t("pinLock.turnOffHint")}
+                showChevron={false}
+                titleColor={tokens.status.danger.text}
+                onPress={() => openVerify("disable")}
+              />
             </View>
           )}
         </Card>
@@ -234,7 +201,7 @@ export default function AppLockScreen() {
               if (ok) {
                 setShowSetPinModal(false);
                 setPendingChangePin(null);
-                toast.success(t("pinLock.changePin"), t("pinLock.pinSaved"));
+                toast.success(t("pinLock.toastChanged"));
               }
               return ok;
             }
@@ -242,7 +209,7 @@ export default function AppLockScreen() {
             if (ok) {
               setShowSetPinModal(false);
               setPendingChangePin(null);
-              toast.success(t("pinLock.enablePin"), t("pinLock.pinSaved"));
+              toast.success(t("pinLock.toastEnabled"));
             }
             return ok;
           } catch {
@@ -257,8 +224,12 @@ export default function AppLockScreen() {
           setShowVerifyPinModal(false);
           setVerifyPinPurpose(null);
         }}
-        title={verifyPinPurpose === "disable" ? t("pinLock.disablePin") : t("pinLock.enterPin")}
-        subtitle={t("pinLock.enterPinSubtitle")}
+        title={verifyPinPurpose === "disable" ? t("pinLock.turnOff") : t("pinLock.enterPin")}
+        subtitle={
+          verifyPinPurpose === "change"
+            ? t("pinLock.changePinVerifySubtitle")
+            : t("pinLock.enterPinSubtitle")
+        }
         onVerify={async (pin) => {
           if (verifyPinPurpose === "disable") {
             const ok = await disablePin(pin);
@@ -266,7 +237,7 @@ export default function AppLockScreen() {
               setShowVerifyPinModal(false);
               setVerifyPinPurpose(null);
               setPendingChangePin(null);
-              toast.success(t("pinLock.disablePin"));
+              toast.success(t("pinLock.toastDisabled"));
             }
             return ok;
           }
@@ -283,22 +254,6 @@ export default function AppLockScreen() {
         }}
       />
     </SettingsDetailScreen>
-  );
-}
-
-function FeatureChip({ label }: { label: string }) {
-  const { colors, tokens } = useThemeTokens();
-  return (
-    <View
-      style={[
-        styles.chip,
-        { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
-      ]}
-    >
-      <ThemedText type="caption" style={{ color: colors.accent }}>
-        {label}
-      </ThemedText>
-    </View>
   );
 }
 
@@ -331,65 +286,15 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
     marginBottom: Spacing.three,
   },
-  chip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.one,
-    borderRadius: Radius.pill,
-    borderWidth: 1,
-  },
-  enableBtn: {
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    minWidth: 200,
-    alignItems: "center",
-  },
   enabledSection: {
-    gap: Spacing.two,
+    gap: Spacing.three,
     marginTop: Spacing.three,
   },
-  statusBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
+  status: {
     alignSelf: "flex-start",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.pill,
-  },
-  actionRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    minHeight: 52,
-  },
-  actionLabel: {
-    flex: 1,
   },
   timeoutSection: {
     gap: Spacing.two,
-    padding: Spacing.three,
-  },
-  timeoutBtns: {
-    flexDirection: "row",
-    gap: Spacing.two,
-  },
-  timeoutBtn: {
-    flex: 1,
-    padding: Spacing.two,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-    alignItems: "center",
-    minHeight: 52,
-    justifyContent: "center",
-  },
-  expoGoHint: {
-    marginTop: Spacing.two,
   },
   footer: {
     textAlign: "center",

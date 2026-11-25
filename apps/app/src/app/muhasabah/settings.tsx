@@ -16,12 +16,14 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { SectionHeader } from "@/components/ui/section-header";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { WallClockPicker } from "@/components/ui/wall-clock-picker";
 import { VaultLockGate } from "@/components/vault";
 import { Spacing } from "@/constants/theme";
 import { createId } from "@/db/id";
+import { useUndoToast } from "@/hooks/use-undo-toast";
 import { expiredEntryDates } from "@/lib/muhasabah/logic";
 import {
   customPromptKey,
@@ -50,6 +52,7 @@ function timeModeOf(time: string): TimeMode {
 function SettingsContent() {
   const { t } = useTranslation();
   const toast = useToast();
+  const undoToast = useUndoToast();
   const run = useRecordAction();
   const nightlyReminder = useSetting<boolean>("notifications.personal.muhasabah");
   const { config, entries, status, error } = useMuhasabah();
@@ -64,7 +67,16 @@ function SettingsContent() {
   if (status === "locked" || status === "error") {
     return <VaultStateNotice status={status} error={error} />;
   }
-  if (status !== "ready") return null;
+  if (status !== "ready") {
+    return (
+      <ContentState
+        status="loading"
+        skeleton="card"
+        skeletonCount={3}
+        loadingLabel={t("uiFeedback.loading")}
+      />
+    );
+  }
 
   const save = (next: MuhasabahConfig) => void run(muhasabahActions.saveConfig(next));
   const mode = timeModeOf(config.prefs.time);
@@ -97,7 +109,7 @@ function SettingsContent() {
     save({ ...config, customPrompts: [...config.customPrompts, prompt], prompts });
     setCustomText("");
     if (!selectable) {
-      toast.info(t("privateUx.muhasabah.customAddedOff", { max: MUHASABAH_MAX_PROMPTS }));
+      toast.info(t("muhasabah.customAddedOff", { max: MUHASABAH_MAX_PROMPTS }));
     }
   };
 
@@ -112,11 +124,20 @@ function SettingsContent() {
 
   const removeCustom = (id: string) => {
     const key = `custom:${id}`;
-    save({
+    const previous = config;
+    const next: MuhasabahConfig = {
       ...config,
       customPrompts: config.customPrompts.filter((p) => p.id !== id),
       prompts: config.prompts.filter((p) => p !== key),
-    });
+    };
+    // Removing a prompt is cheap to reverse: do it now, offer Undo (no dialog).
+    void undoToast
+      .run({
+        do: () => muhasabahActions.saveConfig(next),
+        undo: () => muhasabahActions.saveConfig(previous),
+        messageKey: "muhasabah.settings.customRemoved",
+      })
+      .catch(() => toast.error(t("common.saveFailed")));
   };
 
   const clock = parseHhMm(mode === "custom" ? config.prefs.time : "22:00", {
@@ -126,7 +147,7 @@ function SettingsContent() {
 
   return (
     <View style={styles.stack}>
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("muhasabah.settings.promptsTitle")}
           subtitle={t("muhasabah.settings.promptsSub", {
@@ -141,9 +162,13 @@ function SettingsContent() {
             const custom = id.startsWith("custom:");
             return (
               <View key={id} style={styles.switchRow}>
-                <ThemedText type="small" style={styles.flex}>
-                  {label}
-                </ThemedText>
+                <View style={styles.flex}>
+                  <SwitchRow
+                    title={label}
+                    value={config.prompts.includes(id)}
+                    onValueChange={() => toggle(id)}
+                  />
+                </View>
                 {custom ? (
                   <Button
                     label={t("muhasabah.settings.removeCustom")}
@@ -152,11 +177,6 @@ function SettingsContent() {
                     onPress={() => removeCustom(id.slice("custom:".length))}
                   />
                 ) : null}
-                <ThemedSwitch
-                  value={config.prompts.includes(id)}
-                  onValueChange={() => toggle(id)}
-                  accessibilityLabel={label}
-                />
               </View>
             );
           })}
@@ -177,25 +197,18 @@ function SettingsContent() {
         </View>
       </Card>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("muhasabah.settings.reminderTitle")}
           icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
         />
         <View style={styles.list}>
-          <View style={styles.switchRow}>
-            <ThemedText type="small" style={styles.flex}>
-              {t("muhasabah.settings.reminderToggle")}
-            </ThemedText>
-            <ThemedSwitch
-              value={nightlyReminder.value}
-              onValueChange={(on) => void nightlyReminder.setValue(on)}
-              accessibilityLabel={t("muhasabah.settings.reminderToggle")}
-            />
-          </View>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("muhasabah.settings.reminderPrivacy")}
-          </ThemedText>
+          <SwitchRow
+            title={t("muhasabah.settings.reminderToggle")}
+            subtitle={t("muhasabah.settings.reminderPrivacy")}
+            value={nightlyReminder.value}
+            onValueChange={(on) => void nightlyReminder.setValue(on)}
+          />
           {/* The time only matters once the reminder is on (progressive disclosure). */}
           {nightlyReminder.value ? (
             <ChoiceChips<TimeMode>
@@ -231,30 +244,23 @@ function SettingsContent() {
         </View>
       </Card>
 
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("muhasabah.settings.privacyTitle")}
           icon={{ ios: "lock.fill", android: "lock", web: "lock" }}
         />
         <View style={styles.list}>
-          <View style={styles.switchRow}>
-            <ThemedText type="small" style={styles.flex}>
-              {t("muhasabah.settings.saveRepentText")}
-            </ThemedText>
-            <ThemedSwitch
-              value={config.prefs.saveRepentText}
-              onValueChange={(saveRepentText) => {
-                save({ ...config, prefs: { ...config.prefs, saveRepentText } });
-                // Turning it off only stops new text; offer to clear what's already saved.
-                const saved = entriesWithRepentText(entries).length;
-                if (!saveRepentText && saved > 0) setClearNotes(saved);
-              }}
-              accessibilityLabel={t("muhasabah.settings.saveRepentText")}
-            />
-          </View>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("muhasabah.settings.saveRepentTextSub")}
-          </ThemedText>
+          <SwitchRow
+            title={t("muhasabah.settings.saveRepentText")}
+            subtitle={t("muhasabah.settings.saveRepentTextSub")}
+            value={config.prefs.saveRepentText}
+            onValueChange={(saveRepentText) => {
+              save({ ...config, prefs: { ...config.prefs, saveRepentText } });
+              // Turning it off only stops new text; offer to clear what's already saved.
+              const saved = entriesWithRepentText(entries).length;
+              if (!saveRepentText && saved > 0) setClearNotes(saved);
+            }}
+          />
           <ThemedText type="smallBold">{t("muhasabah.settings.retentionTitle")}</ThemedText>
           <ChoiceChips<`${MuhasabahRetentionDays}`>
             options={MUHASABAH_RETENTION_OPTIONS.map((days) => ({
@@ -275,25 +281,25 @@ function SettingsContent() {
       </Card>
       <ConfirmDialog
         visible={clearNotes != null}
-        title={t("privateUx.muhasabah.clearNotesTitle")}
-        message={t("privateUx.muhasabah.clearNotesBody", { count: clearNotes ?? 0 })}
-        confirmLabel={t("privateUx.muhasabah.clearNotesConfirm")}
-        cancelLabel={t("privateUx.muhasabah.clearNotesKeep")}
+        title={t("muhasabah.clearNotesTitle")}
+        message={t("muhasabah.clearNotesBody", { count: clearNotes ?? 0 })}
+        confirmLabel={t("muhasabah.clearNotesConfirm")}
+        cancelLabel={t("muhasabah.clearNotesKeep")}
         destructive
         onConfirm={() => {
           setClearNotes(null);
           void muhasabahActions.clearRepentNotes().then(
-            () => toast.success(t("privateUx.muhasabah.clearNotesDone")),
-            () => toast.error(t("privateUx.saveFailed")),
+            () => toast.success(t("muhasabah.clearNotesDone")),
+            () => toast.error(t("common.saveFailed")),
           );
         }}
         onClose={() => setClearNotes(null)}
       />
       <ConfirmDialog
         visible={pendingRetention != null}
-        title={t("privateUx.muhasabah.retentionTitle")}
-        message={t("privateUx.muhasabah.retentionBody", { count: pendingRetention?.deletes ?? 0 })}
-        confirmLabel={t("privateUx.muhasabah.retentionConfirm")}
+        title={t("muhasabah.retentionTitle")}
+        message={t("muhasabah.retentionBody", { count: pendingRetention?.deletes ?? 0 })}
+        confirmLabel={t("muhasabah.retentionConfirm")}
         destructive
         onConfirm={() => {
           const next = pendingRetention;

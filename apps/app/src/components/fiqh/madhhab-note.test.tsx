@@ -17,8 +17,8 @@ async function renderNote(
 }
 afterEach(resetPreferences);
 
-const HANAFI_WITR = "Wajib (necessary): below fard, above sunnah.";
-const MAJORITY_WITR = "Sunnah mu'akkadah (a strongly emphasised sunnah).";
+const HANAFI_WITR = "Wajib (necessary): below fard, above Sunnah.";
+const MAJORITY_WITR = "Sunnah mu'akkadah (a strongly emphasized Sunnah).";
 
 describe("MadhhabNote", () => {
   it("shows the selected school's position with its badge and keeps other views collapsed", async () => {
@@ -62,6 +62,6 @@ describe("MadhhabNote", () => {
       madhhabOverrides: { zakat: "maliki" },
     });
     expect(screen.getByText("Maliki")).toBeTruthy();
-    expect(screen.getByText("No zakat on permissible jewellery in normal use.")).toBeTruthy();
+    expect(screen.getByText("No zakat on permissible jewelry in normal use.")).toBeTruthy();
   });
 });

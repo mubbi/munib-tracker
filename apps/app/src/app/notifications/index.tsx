@@ -12,24 +12,19 @@ import { NotificationToolbar } from "@/components/notifications/notification-too
 import { NotificationPermissionBanner } from "@/components/notifications/permission-banner";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
-import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { localizeCircleInboxItem } from "@/lib/circles/inbox";
 import { goBackOrReplace } from "@/lib/navigation";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
-import { isLocalNotificationSupported, isWeb } from "@/lib/notifications/platform";
-import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
+import { isWeb } from "@/lib/notifications/platform";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
-import { enableNotifications } from "@/lib/settings/actions";
 import { formatDisplayDateTime } from "@/lib/time";
-import { useAuth } from "@/providers/auth-provider";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
 import { useLocation } from "@/stores/location-store";
@@ -65,9 +60,7 @@ export default function NotificationCenterScreen() {
   const prefs = usePreferences();
   const location = useLocation();
   const toast = useToast();
-  const { session, isAuthenticated } = useAuth();
   const { items, unreadCount, open, markAllRead, clearAll } = useInAppNotifications();
-  const { refresh: refreshPermission, granted } = useNotificationPermissions();
   const { isWide, isTv } = useLargeScreenLayout();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [confirmClear, setConfirmClear] = useState(false);
@@ -87,23 +80,6 @@ export default function NotificationCenterScreen() {
     await clearAll();
     setVisibleCount(PAGE_SIZE);
     toast.success(t("notifCenter.cleared"));
-  };
-
-  const enable = async () => {
-    if (isTV() || !isLocalNotificationSupported()) {
-      toast.info(t("common.tvUnavailableTitle"), t("notif.tvUnavailableBody"));
-      return;
-    }
-    const webGesture = isWeb ? beginWebNotificationPermissionRequest() : null;
-    // Shared path: permission → master switch → reschedule → push token.
-    const result = await enableNotifications({
-      webPermissionRequest: webGesture,
-      accessToken: isAuthenticated ? session?.accessToken : undefined,
-    });
-    await refreshPermission();
-    if (!result.granted && result.reason === "permission_denied") {
-      toast.warning(t("notif.permissionDenied"), t("notif.openSettingsHint"));
-    }
   };
 
   const delivered = useMemo(() => mapInboxItems(items, t), [items, t]);
@@ -127,25 +103,10 @@ export default function NotificationCenterScreen() {
     >
       <Seo path="/notifications" />
       <Stagger>
+        {/* D-21: the banner is the only permission ask (allow / Open Settings). */}
         {!isTV() ? <NotificationPermissionBanner showWhenGranted={isWeb} /> : null}
 
-        {!isTV() && !isWeb && !granted ? (
-          <Card padding="three" style={styles.permission}>
-            <ThemedText type="small" themeColor="mutedForeground" style={styles.permissionText}>
-              {t("notifCenter.permissionText")}
-            </ThemedText>
-            <ThemedText
-              type="smallBold"
-              themeColor="accent"
-              onPress={() => void enable()}
-              accessibilityRole="button"
-            >
-              {t("notifCenter.enable")}
-            </ThemedText>
-          </Card>
-        ) : null}
-
-        <Card padding="three">
+        <Card>
           <NotificationToolbar
             unreadCount={unreadCount}
             markingAllRead={markingAllRead}
@@ -192,7 +153,7 @@ export default function NotificationCenterScreen() {
         message={t("notifCenter.confirmClearAllMessage")}
         confirmLabel={t("notifCenter.clearAll")}
         destructive
-        onConfirm={() => void handleClearAll()}
+        onConfirm={handleClearAll}
         onClose={() => setConfirmClear(false)}
       />
     </ScreenLayout>
@@ -200,13 +161,6 @@ export default function NotificationCenterScreen() {
 }
 
 const styles = StyleSheet.create({
-  permission: {
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  permissionText: {
-    textAlign: "center",
-  },
   list: {
     gap: Spacing.two,
   },

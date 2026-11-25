@@ -127,7 +127,10 @@ export function VoiceCalibrationPanel({
           <ThemedText type="small" accessibilityLiveRegion="polite">
             {t("tasbeehVoice.calibrate.progress", { heard, total: CALIBRATION_REPS })}
           </ThemedText>
-          <ProgressBar value={heard / CALIBRATION_REPS} />
+          <ProgressBar
+            value={heard / CALIBRATION_REPS}
+            accessibilityLabel={t("a11yProgress.calibration")}
+          />
         </>
       ) : null}
       {phase === "saved" ? (

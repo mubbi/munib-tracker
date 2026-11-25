@@ -112,7 +112,7 @@ export default function UmrahModeScreen() {
       >
         <Seo path="/umrah" />
         <Stagger>
-          <Card padding="three">
+          <Card>
             <SectionHeader title={t("umrahMode.intro.title")} icon={UMRAH_MODE_ICON} />
             <View style={styles.body}>
               <ThemedText type="small">{t("umrahMode.intro.body")}</ThemedText>
@@ -181,6 +181,7 @@ export default function UmrahModeScreen() {
       <Seo path="/umrah" />
       <Stagger>
         <SegmentedProgress
+          accessibilityLabel={t("a11yProgress.umrahSteps")}
           total={UMRAH_STEP_COUNT}
           completed={complete ? UMRAH_STEP_COUNT : umrahStepNumber(step) - 1}
         />

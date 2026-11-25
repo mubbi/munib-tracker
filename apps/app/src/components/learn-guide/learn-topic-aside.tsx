@@ -62,7 +62,7 @@ export function LearnTopicAside({
 
   return (
     <>
-      <Card padding="three">
+      <Card>
         <PressableScale
           haptic="light"
           accessibilityRole="link"
@@ -82,6 +82,7 @@ export function LearnTopicAside({
         {completed ? (
           <ProgressBar
             value={topics.length > 0 ? doneCount / topics.length : 0}
+            accessibilityLabel={t("a11yProgress.topicsCompleted")}
             height={6}
             style={styles.progress}
           />
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingVertical: Spacing.two - 2,
+    paddingVertical: Spacing.oneHalf,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",

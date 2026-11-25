@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -11,25 +12,25 @@ import {
   useLearnHubLayout,
   useLearnTileStyle,
 } from "@/components/jannah/hub-layout";
-import { JannahActionRow, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { JannahCallout, JannahDisclaimer, LearnActionRow } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { ReciteAlongButton } from "@/components/quran/recite-along-button";
-import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
-import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { tTv } from "@/lib/i18n/t-tv";
 import { ensureLastDayContent, getLastDayVerses, isLastDayContentReady } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
 import { passageFromRef } from "@/lib/recite-along/passages";
+import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
 /** Bookmark + recite along (D68) for one verse row; recite hides where practice is unavailable. */
@@ -47,10 +48,14 @@ export default function LastDayVersesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
-  const { sizes } = useReadingTypography();
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry,
+  } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const verses = getLastDayVerses();
   const tileStyle = useLearnTileStyle();
+  const chevronForwardIcon = useChevronForward();
   const wide = useLearnHubLayout();
   // Wide web / tablets: verse cards flow into 2–3 columns per theme.
   const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 3 });
@@ -76,7 +81,7 @@ export default function LastDayVersesScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/last-day/verses" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retry}>
         <Stagger>
           <JannahCallout tone="info">
             {tTv(t, "lastDay.versesIntro", "lastDay.versesIntroTv")}
@@ -86,7 +91,7 @@ export default function LastDayVersesScreen() {
             {themes.map((theme) => {
               const items = grouped.get(theme) ?? [];
               return (
-                <Card key={theme} padding="three">
+                <Card key={theme}>
                   <SectionHeader
                     title={t(`lastDay.verseTheme.${theme}`)}
                     icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
@@ -98,7 +103,7 @@ export default function LastDayVersesScreen() {
                     style={styles.list}
                   >
                     {items.map((verse, index) => (
-                      <JannahActionRow
+                      <LearnActionRow
                         key={verse.id}
                         accessibilityRole="link"
                         onPress={() =>
@@ -113,10 +118,17 @@ export default function LastDayVersesScreen() {
                             ? tileStyle
                             : index > 0 && {
                                 borderTopColor: tokens.hairline,
-                                borderTopWidth: StyleSheet.hairlineWidth,
+                                borderTopWidth: BorderWidth.hairline,
                               },
                         ]}
                         actions={<VerseActions verse={verse} />}
+                        trailing={
+                          <SymbolView
+                            name={chevronForwardIcon}
+                            size={14}
+                            tintColor={colors.mutedForeground}
+                          />
+                        }
                       >
                         <IconWell
                           icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
@@ -127,31 +139,18 @@ export default function LastDayVersesScreen() {
                         <View style={styles.copy}>
                           <ReferenceLine reference={verse.label} />
                           <ScriptureMeaning english={verse.excerpt} quranRef={verse}>
-                            {(text) => (
-                              <ThemedText
-                                type="small"
-                                style={{
-                                  fontSize: sizes.translation,
-                                  lineHeight: sizes.translation * 1.45,
-                                }}
-                              >
-                                {text}
-                              </ThemedText>
-                            )}
+                            {(text) => <LearnProseText>{text}</LearnProseText>}
                           </ScriptureMeaning>
                           <ThemedText type="caption" themeColor="mutedForeground">
                             {verse.context}
                           </ThemedText>
                           {verse.tafsirSummary ? (
-                            <Pill
-                              label={verse.tafsirSummary}
-                              compact
-                              color={colors.mutedForeground}
-                              background={colors.muted}
-                            />
+                            <ThemedText type="caption" themeColor="mutedForeground">
+                              {t("learnKit.tafsirNote", { text: verse.tafsirSummary })}
+                            </ThemedText>
                           ) : null}
                         </View>
-                      </JannahActionRow>
+                      </LearnActionRow>
                     ))}
                   </LearnColumnsGrid>
                 </Card>

@@ -52,11 +52,11 @@ describe("PinLockGate", () => {
   });
 
   it.each([
-    ["a plain error", { unlockError: "pinLock.wrongPin" }, "Wrong PIN — please try again."],
+    ["a plain error", { unlockError: "pinLock.wrongPin" }, "Wrong PIN. Try again."],
     [
       "an interpolated error",
       { unlockError: "pinLock.wrongPinAttemptsRemaining", unlockErrorParams: { count: 3 } },
-      "Wrong PIN. 3 attempt(s) remaining before lockout.",
+      "Wrong PIN. 3 attempts left before lockout.",
     ],
   ])("translates %s", async (_case, overrides, text) => {
     await renderGate(overrides);

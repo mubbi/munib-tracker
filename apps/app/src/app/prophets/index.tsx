@@ -1,32 +1,14 @@
-import { type Href, useRouter } from "expo-router";
+import type { Href } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
 import {
-  JannahCallout,
-  JannahDisclaimer,
-  JannahNavRow,
-  JannahQuickLinkGrid,
-} from "@/components/jannah/primitives";
-import { LearnContentGate } from "@/components/learn-content-loading";
-import {
-  LearnSplitLayout,
-  LearnTopicGrid,
-  useLearnWideLayout,
-} from "@/components/learn-guide/learn-wide-layout";
-import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
-import { ScreenLayout } from "@/components/screen-layout";
-import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
-import { Pill } from "@/components/ui/pill";
-import { SectionHeader } from "@/components/ui/section-header";
-import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+  type LearnHubItem,
+  type LearnHubRelated,
+  LearnHubScreen,
+  type LearnHubSection,
+} from "@/components/learn-guide/learn-hub-screen";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
-import { goBackOrReplace } from "@/lib/navigation";
 import {
   ensureProphetsContent,
   getProphetsLessonCount,
@@ -39,6 +21,7 @@ import {
   useProphetsCompletedCount,
 } from "@/stores/prophets-progress-store";
 
+const TOPIC_ICON: AppIcon = { ios: "text.book.closed", android: "article", web: "article" };
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
   adam: { ios: "person.crop.circle.fill", android: "account_circle", web: "account_circle" },
@@ -48,254 +31,101 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
   muhammad: { ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" },
 };
 
+/**
+ * Prophets hub on the Learn kit (P5-40): intro → progress → topic sections →
+ * Tools (timeline, family tree, quiz) → related guides → disclaimer. The quick
+ * links / "Explore" card that repeated Muhammad ﷺ, the timeline and progress
+ * (C-16) and the "V1" pill (C-15) are gone.
+ */
 export default function ProphetsScreen() {
-  const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   useEnsureProphetsProgressLoaded();
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(
-    ensureProphetsContent,
-    isProphetsContentReady,
-  );
+  const content = useEnsureContent(ensureProphetsContent, isProphetsContentReady);
+  const contentVersion = content.version;
   const completedCount = useProphetsCompletedCount();
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const lessonTotal = useMemo(() => getProphetsLessonCount(), [contentVersion]);
+
   // Recompute per locale so translated topic titles/summaries render on switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
-  const TOPICS_BY_SECTION = useMemo(
-    () => getProphetsTopicsBySection(),
-    [i18n.language, contentVersion],
-  );
-  const SECTION_ORDER = useMemo(
-    () => Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>,
-    [TOPICS_BY_SECTION],
-  );
+  const sections = useMemo<LearnHubSection[]>(() => {
+    const bySection = getProphetsTopicsBySection();
+    return (Object.keys(bySection) as Array<keyof typeof bySection>).map((section) => ({
+      id: String(section),
+      title: t(`prophets.section.${section}`),
+      hint: t(`prophets.section.${section}Hint`),
+      items: (bySection[section] ?? []).map((topic) => ({
+        id: topic.id,
+        icon: TOPIC_ICONS[topic.id] ?? TOPIC_ICON,
+        title: topic.title,
+        subtitle: topic.summary,
+        badge: topic.importance ? t(`prophets.importance.${topic.importance}`) : undefined,
+        href: { pathname: "/prophets/[topic]", params: { topic: topic.id } } as Href,
+      })),
+    }));
+  }, [i18n.language, contentVersion, t]);
 
-  const { split, maxContentWidth } = useLearnWideLayout();
-
-  const quickLinks = useMemo(
+  const tools = useMemo<LearnHubItem[]>(
     () => [
       {
         id: "timeline",
-        icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" } as AppIcon,
-        title: t("prophets.quickTimeline"),
-        subtitle: t("prophets.quickTimelineHint"),
-        tint: colors.accent,
-        onPress: () => router.push("/prophets/timeline" as Href),
+        icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
+        title: t("prophets.timelineTitle"),
+        subtitle: t("prophets.timelineHint"),
+        href: "/prophets/timeline" as Href,
+        hue: "dawn",
       },
       {
         id: "tree",
-        icon: {
-          ios: "arrow.triangle.branch",
-          android: "account_tree",
-          web: "account_tree",
-        } as AppIcon,
+        icon: { ios: "arrow.triangle.branch", android: "account_tree", web: "account_tree" },
         title: t("prophets.quickTree"),
         subtitle: t("prophets.quickTreeHint"),
-        tint: tokens.status.info.color,
-        onPress: () => router.push("/prophets/tree" as Href),
-      },
-      {
-        id: "muhammad",
-        icon: { ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" } as AppIcon,
-        title: t("prophets.quickMuhammad"),
-        subtitle: t("prophets.quickMuhammadHint"),
-        tint: tokens.status.success.color,
-        onPress: () =>
-          router.push({
-            pathname: "/prophets/[topic]",
-            params: { topic: "muhammad" },
-          }),
-      },
-      {
-        id: "progress",
-        icon: {
-          ios: "chart.line.uptrend.xyaxis",
-          android: "trending_up",
-          web: "trending_up",
-        } as AppIcon,
-        title: t("prophets.quickProgress"),
-        subtitle: t("prophets.quickProgressHint"),
-        tint: tokens.status.warning.color,
-        onPress: () => router.push("/prophets/progress" as Href),
+        href: "/prophets/tree" as Href,
+        hue: "sky",
       },
     ],
-    [router, t, colors.accent, tokens],
+    [t],
   );
 
-  const quizRow = (
-    <LearnQuizNavRow
-      quizPath={"/prophets/quiz" as Href}
-      titleKey="common.learnQuiz.title"
-      subtitleKey="common.learnQuiz.hint"
-    />
-  );
-  const quickLinksCard = (
-    <Card padding="three">
-      <SectionHeader
-        title={t("prophets.quickLinksTitle")}
-        icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
-      />
-      <JannahQuickLinkGrid items={quickLinks} />
-    </Card>
-  );
-  const progressRow = (
-    <JannahNavRow
-      icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-      title={t("prophets.progressCardTitle")}
-      subtitle={t("prophets.progressCardHint", {
-        completed: completedCount,
-        total: lessonTotal,
-      })}
-      badge={`${completedCount}/${lessonTotal}`}
-      tint={colors.accent}
-      onPress={() => router.push("/prophets/progress" as Href)}
-    />
-  );
-  const exploreCard = (
-    <Card padding="three">
-      <SectionHeader
-        title={t("prophets.exploreTitle")}
-        icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-      />
-      <View style={styles.rows}>
-        <JannahNavRow
-          icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
-          title={t("prophets.timelineTitle")}
-          subtitle={t("prophets.timelineHint")}
-          onPress={() => router.push("/prophets/timeline" as Href)}
-        />
-        <JannahNavRow
-          icon={{ ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" }}
-          title={t("prophets.muhammadTitle")}
-          subtitle={t("prophets.muhammadHint")}
-          onPress={() =>
-            router.push({
-              pathname: "/prophets/[topic]",
-              params: { topic: "muhammad" },
-            })
-          }
-        />
-      </View>
-    </Card>
-  );
-  const relatedCard = (
-    <Card padding="three">
-      <SectionHeader
-        title={t("prophets.relatedTitle")}
-        icon={{ ios: "link", android: "link", web: "link" }}
-      />
-      <View style={styles.rows}>
-        <JannahNavRow
-          icon={{ ios: "book.pages.fill", android: "history_edu", web: "history_edu" }}
-          title={t("seerah.title")}
-          subtitle={t("prophets.seerahPointer")}
-          onPress={() => router.push("/seerah")}
-        />
-        <JannahNavRow
-          icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
-          title={t("quran.title")}
-          subtitle={t("prophets.quranPointer")}
-          onPress={() => router.push("/quran")}
-        />
-      </View>
-    </Card>
-  );
+  const related: LearnHubRelated = {
+    title: t("prophets.relatedTitle"),
+    items: [
+      {
+        id: "seerah",
+        icon: { ios: "book.pages.fill", android: "history_edu", web: "history_edu" },
+        title: t("seerah.title"),
+        subtitle: t("prophets.seerahPointer"),
+        href: "/seerah",
+      },
+      {
+        id: "quran",
+        icon: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
+        title: t("quran.title"),
+        subtitle: t("prophets.quranPointer"),
+        href: "/quran",
+      },
+    ],
+  };
 
   return (
-    <ScreenLayout
-      eyebrow={t("prophets.eyebrow")}
-      title={t("prophets.title")}
-      subtitle={t("prophets.subtitle")}
-      onBack={() => goBackOrReplace(router, "/")}
-      maxContentWidth={maxContentWidth}
-    >
-      <Seo path="/prophets" />
-      <LearnContentGate ready={contentReady}>
-        <LearnSplitLayout
-          aside={
-            <>
-              {progressRow}
-              {quizRow}
-              {quickLinksCard}
-              {exploreCard}
-              {relatedCard}
-            </>
-          }
-        >
-          <Stagger>
-            <JannahCallout tone="info">{t("prophets.intro")}</JannahCallout>
-
-            {split ? null : quizRow}
-
-            {split ? null : quickLinksCard}
-
-            {split ? null : progressRow}
-
-            {SECTION_ORDER.map((section) => {
-              const topics = TOPICS_BY_SECTION[section];
-              if (!topics?.length) return null;
-              return (
-                <Card key={section} padding="three">
-                  <SectionHeader
-                    title={t(`prophets.section.${section}`)}
-                    icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-                  />
-                  <ThemedText
-                    type="caption"
-                    themeColor="mutedForeground"
-                    style={styles.sectionHint}
-                  >
-                    {t(`prophets.section.${section}Hint`)}
-                  </ThemedText>
-                  <LearnTopicGrid
-                    style={styles.rows}
-                    items={topics.map((topic) => ({
-                      id: topic.id,
-                      icon: TOPIC_ICONS[topic.id] ?? {
-                        ios: "text.book.closed",
-                        android: "article",
-                        web: "article",
-                      },
-                      title: topic.title,
-                      subtitle: topic.summary,
-                      badge: topic.importance
-                        ? t(`prophets.importance.${topic.importance}`)
-                        : undefined,
-                      onPress: () =>
-                        router.push({ pathname: "/prophets/[topic]", params: { topic: topic.id } }),
-                    }))}
-                  />
-                </Card>
-              );
-            })}
-
-            {split ? null : exploreCard}
-
-            {split ? null : relatedCard}
-
-            <View style={styles.pillRow}>
-              <Pill
-                label={t("prophets.phaseV1")}
-                compact
-                color={colors.mutedForeground}
-                background={colors.muted}
-              />
-            </View>
-
-            <JannahDisclaimer textKey="prophets.disclaimer" />
-          </Stagger>
-        </LearnSplitLayout>
-      </LearnContentGate>
-    </ScreenLayout>
+    <LearnHubScreen
+      ns="prophets"
+      basePath="/prophets"
+      content={content}
+      progress={{
+        title: t("prophets.progressCardTitle"),
+        completed: completedCount,
+        total: lessonTotal,
+        hint: t("prophets.lessonsHint"),
+        href: "/prophets/progress" as Href,
+      }}
+      sections={sections}
+      tools={tools}
+      quiz
+      related={related}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
-  sectionHint: { marginTop: Spacing.one, lineHeight: 20 },
-  pillRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, justifyContent: "center" },
-});
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */
 export const generateMetadata = routeMetadata("/prophets");

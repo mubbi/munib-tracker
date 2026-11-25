@@ -87,11 +87,13 @@ export function AyahHighlightSheet({
     onClose();
   };
   return (
-    <Sheet visible onClose={onClose} variant="bottom">
+    <Sheet
+      title={t("quranNotes.highlightTitle", { ref: `${surah}:${ayah}` })}
+      visible
+      onClose={onClose}
+      variant="bottom"
+    >
       <View style={styles.header}>
-        <ThemedText type="subtitle">
-          {t("quranNotes.highlightTitle", { ref: `${surah}:${ayah}` })}
-        </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("quranNotes.highlightHint")}
         </ThemedText>
@@ -115,11 +117,13 @@ function AyahNotesViewSheet({
   const { t } = useTranslation();
   const notes = useNotesForAyah(surah, ayah) ?? [];
   return (
-    <Sheet visible onClose={onClose} variant="bottom">
+    <Sheet
+      title={`${getSurahByNumber(surah)?.nameTransliteration ?? ""} · ${surah}:${ayah}`}
+      visible
+      onClose={onClose}
+      variant="bottom"
+    >
       <View style={styles.header}>
-        <ThemedText type="subtitle">
-          {getSurahByNumber(surah)?.nameTransliteration ?? ""} · {surah}:{ayah}
-        </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("quranNotes.notTafsir")}
         </ThemedText>

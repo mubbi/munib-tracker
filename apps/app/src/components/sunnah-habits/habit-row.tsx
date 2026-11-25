@@ -9,14 +9,12 @@ import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { EvidenceLine } from "@/components/seasonal/evidence-line";
 import { ConsistencyDots } from "@/components/sunnah-habits/consistency-dots";
 import { ThemedText } from "@/components/themed-text";
-import { AppIcon } from "@/components/ui/app-icon";
+import { ChecklistRow } from "@/components/tracker/checklist-row";
+import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stepper } from "@/components/ui/stepper";
-import { Radius, Spacing } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { BorderWidth, IconSize, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { isTV } from "@/lib/platform/is-tv";
 import { useChevronForward } from "@/lib/rtl";
 import {
   consistencyDots,
@@ -82,7 +80,6 @@ export function HabitRow({
   const { colors, tokens } = useThemeTokens();
   const chevronForward = useChevronForward();
   const actions = useSunnahHabitsActions();
-  const tv = isTV();
   const progress = habitProgress(state, habit, date, ctx);
   const title = habitTitle(t, habit);
   const def = habit.def;
@@ -106,77 +103,71 @@ export function HabitRow({
 
   const toggle = () => void actions.toggle(habit.id, date);
   const open = link ? () => router.push(habitLinkHref(link)) : undefined;
+  const subtitle = subtitleParts.length ? subtitleParts.join(" · ") : undefined;
+  const openButton = open ? (
+    <IconButton
+      name={chevronForward}
+      size={IconSize.md}
+      tintColor={tokens.accentOnSoft}
+      accessibilityLabel={t("sunnahHabits.openA11y", { title })}
+      onPress={open}
+      haptic="light"
+    />
+  ) : null;
 
   return (
     <View
       style={[
         styles.card,
         {
-          borderColor: highlight ? colors.accent : tokens.hairline,
+          borderColor: highlight ? tokens.accentBorder : tokens.hairline,
           backgroundColor: highlight ? tokens.accentSoft : colors.card,
         },
       ]}
     >
-      <View style={styles.row}>
-        {isLinkedOnly || habit.isCount ? (
-          <IconWell icon={habitIcon(habit.id)} size={16} well={32} radius={Radius.sm} />
-        ) : (
-          <PressableScale
-            accessibilityRole="checkbox"
-            accessibilityState={{ checked: progress.done }}
-            accessibilityLabel={title}
-            onPress={toggle}
-            haptic="selection"
-            scaleTo={0.94}
-            style={tv ? styles.checkTv : null}
-          >
+      {isLinkedOnly || habit.isCount ? (
+        <View style={styles.row}>
+          <IconWell icon={habitIcon(habit.id)} size={IconSize.md} well={32} radius={Radius.sm} />
+          <View style={styles.text}>
+            <ThemedText type="smallBold">{title}</ThemedText>
+            {subtitle ? (
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {subtitle}
+              </ThemedText>
+            ) : null}
+          </View>
+          {habit.isCount && !isLinkedOnly ? (
+            <Stepper
+              value={progress.value}
+              label={title}
+              size="sm"
+              onIncrement={() => void actions.setValue(habit.id, date, progress.value + 1)}
+              onDecrement={() =>
+                void actions.setValue(habit.id, date, Math.max(0, progress.value - 1))
+              }
+            />
+          ) : (
             <SymbolView
               name={progress.done ? CHECKED : UNCHECKED}
-              size={26}
+              size={IconSize.lg + 2}
               tintColor={progress.done ? tokens.status.success.color : colors.mutedForeground}
+              accessibilityLabel={
+                progress.done ? t("sunnahHabits.doneA11y") : t("sunnahHabits.notYetA11y")
+              }
             />
-          </PressableScale>
-        )}
-        <View style={styles.text}>
-          <ThemedText type="smallBold">{title}</ThemedText>
-          {subtitleParts.length ? (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {subtitleParts.join(" · ")}
-            </ThemedText>
-          ) : null}
+          )}
+          {openButton}
         </View>
-        {habit.isCount && !isLinkedOnly ? (
-          <Stepper
-            value={progress.value}
-            label={title}
-            size="sm"
-            onIncrement={() => void actions.setValue(habit.id, date, progress.value + 1)}
-            onDecrement={() =>
-              void actions.setValue(habit.id, date, Math.max(0, progress.value - 1))
-            }
-          />
-        ) : isLinkedOnly ? (
-          <SymbolView
-            name={progress.done ? CHECKED : UNCHECKED}
-            size={22}
-            tintColor={progress.done ? tokens.status.success.color : colors.mutedForeground}
-            accessibilityLabel={
-              progress.done ? t("sunnahHabits.doneA11y") : t("sunnahHabits.notYetA11y")
-            }
-          />
-        ) : null}
-        {open ? (
-          <PressableScale
-            accessibilityRole="link"
-            accessibilityLabel={t("sunnahHabits.openA11y", { title })}
-            onPress={open}
-            haptic="light"
-            style={[styles.open, tv ? styles.openTv : null]}
-          >
-            <AppIcon icon={chevronForward} size={16} tintColor={colors.accent} />
-          </PressableScale>
-        ) : null}
-      </View>
+      ) : (
+        // P5-08: the whole row toggles a yes/no habit (one `checkbox`, B-79).
+        <ChecklistRow
+          checked={progress.done}
+          onToggle={toggle}
+          title={title}
+          subtitle={subtitle}
+          trailing={openButton}
+        />
+      )}
       {recitePassage ? (
         <ReciteAlongButton
           passage={recitePassage}
@@ -197,16 +188,13 @@ export function HabitRow({
 
 const styles = StyleSheet.create({
   card: {
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     padding: Spacing.two,
     gap: Spacing.one,
   },
   row: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  text: { flex: 1, minWidth: 0, gap: 2 },
-  open: { padding: Spacing.one },
+  text: { flex: 1, minWidth: 0, gap: Spacing.half },
   recite: { alignSelf: "flex-start" },
-  openTv: { minHeight: TvLayout.minFocusTarget, justifyContent: "center" },
-  checkTv: { minHeight: TvLayout.minFocusTarget, justifyContent: "center" },
 });

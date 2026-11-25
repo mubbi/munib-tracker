@@ -16,6 +16,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -94,7 +95,7 @@ export default function FiqhDifferenceScreen() {
       eyebrow={t("fiqhRetrofit.detail.eyebrow")}
       title={title}
       subtitle={t("fiqhRetrofit.detail.subtitle")}
-      onBack={() => goBackOrReplace(router, "/search" as Href)}
+      onBack={() => goBackOrReplace(router, "/library" as Href)}
       maxContentWidth={maxContentWidth}
     >
       <Seo
@@ -107,14 +108,14 @@ export default function FiqhDifferenceScreen() {
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("fiqhRetrofit.detail.notFound")}
-          actionLabel={t("tabs.home")}
-          onAction={() => router.replace("/")}
+          actionLabel={t("fiqhRetrofit.detail.backToLibrary")}
+          onAction={() => router.replace("/library")}
         />
       ) : (
         <Stagger>
           <MadhhabNote id={id} defaultExpanded />
 
-          <Card padding="three">
+          <Card>
             <SectionHeader title={t("fiqhRetrofit.detail.evidence")} icon={SCHOOLS_DIFFER_ICON} />
             <View style={styles.evidence}>
               {evidence.shared.length ? <RefList refs={evidence.shared} /> : null}
@@ -128,7 +129,7 @@ export default function FiqhDifferenceScreen() {
           </Card>
 
           {guideLinks.length ? (
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("fiqhRetrofit.detail.readInGuide")}
                 icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
@@ -147,9 +148,11 @@ export default function FiqhDifferenceScreen() {
             </Card>
           ) : null}
 
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("fiqh.disclaimer")}
-          </ThemedText>
+          <TvReadableBlock>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("fiqh.disclaimer")}
+            </ThemedText>
+          </TvReadableBlock>
         </Stagger>
       )}
     </ScreenLayout>

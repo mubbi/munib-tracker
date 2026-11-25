@@ -10,6 +10,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { UnavailableOnDevice } from "@/components/ui/unavailable-on-device";
 import { Spacing } from "@/constants/theme";
 import { circleErrorStatus, redeemChildLink } from "@/lib/circles/api";
 import { saveChildSession, useChildSession } from "@/lib/circles/child-session";
@@ -72,18 +73,14 @@ export default function KidsLinkScreen() {
       <Seo path="/kids/link" index={false} />
       <View style={styles.stack}>
         {isTV() ? (
-          <Card padding="three">
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("kids.tvUnavailable")}
-            </ThemedText>
-          </Card>
+          <UnavailableOnDevice description={t("kids.tvUnavailable")} fallbackHref="/kids" />
         ) : session.token ? (
-          <Card padding="three" style={styles.gap}>
+          <Card style={styles.gap}>
             <ThemedText type="small">{t("kids.link.already")}</ThemedText>
             <Button label={t("kids.link.open")} onPress={() => router.replace("/kids")} />
           </Card>
         ) : (
-          <Card padding="three" style={styles.gap}>
+          <Card style={styles.gap}>
             <ThemedText type="small" themeColor="mutedForeground">
               {t("kids.link.howTo")}
             </ThemedText>

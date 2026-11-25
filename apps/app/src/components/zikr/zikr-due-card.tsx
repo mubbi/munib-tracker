@@ -7,7 +7,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import type { CategoryHue } from "@/components/ui/use-category-hue";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -63,7 +63,7 @@ export function ZikrDueCard({ set, title, icon, hue, onPress, preferredFocus }: 
           size={tv ? 26 : 22}
         />
         <View style={styles.headerText}>
-          <ThemedText type="caption" style={[styles.eyebrow, { color: hue.text }]}>
+          <ThemedText weight="bold" type="caption" style={[styles.eyebrow, { color: hue.text }]}>
             {t(`zikrSession.status.${status}`)}
           </ThemedText>
           <ThemedText type="smallBold" numberOfLines={2}>
@@ -75,6 +75,7 @@ export function ZikrDueCard({ set, title, icon, hue, onPress, preferredFocus }: 
       <View style={styles.progressRow}>
         <ProgressBar
           value={total > 0 ? completed / total : 0}
+          accessibilityLabel={title}
           height={tv ? 8 : 6}
           color={hue.icon}
           style={styles.bar}
@@ -139,12 +140,12 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   cardTv: { padding: Spacing.four },
   header: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  headerText: { flex: 1, minWidth: 0, gap: 2 },
-  eyebrow: { fontWeight: "700", letterSpacing: 0.4, textTransform: "uppercase" },
+  headerText: { flex: 1, minWidth: 0, gap: Spacing.half },
+  eyebrow: { letterSpacing: 0.4, textTransform: "uppercase" },
   progressRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   bar: { flex: 1 },
   count: { fontVariant: ["tabular-nums"] },
@@ -166,6 +167,6 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
 });

@@ -1,7 +1,6 @@
-import type { KhatmUnit } from "@munib-tracker/shared/circles";
+import type { KhatmPartStatus, KhatmUnit } from "@munib-tracker/shared/circles";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
@@ -9,7 +8,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { CircleMember, KhatmPart } from "@/lib/circles/api";
 import { memberById, memberInitials } from "@/lib/circles/khatm";
 
-import { partAccessibilityLabel } from "./khatm-labels";
+import { khatmStatusLabel, partAccessibilityLabel } from "./khatm-labels";
 
 const CELL = 52;
 
@@ -102,7 +101,62 @@ export function KhatmGrid({
   );
 }
 
+const LEGEND_STATUSES: readonly KhatmPartStatus[] = ["open", "assigned", "reading", "done"];
+
+/**
+ * Key to the grid: one swatch per status (dashed = open, ✓ = done, tinted = reading,
+ * grey = claimed) plus the idle marker — shape and glyph, never colour alone.
+ */
+export function KhatmLegend() {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const swatch = (status: KhatmPartStatus) => ({
+    backgroundColor:
+      status === "done"
+        ? tokens.status.success.soft
+        : status === "reading"
+          ? tokens.accentSoft
+          : status === "assigned"
+            ? colors.muted
+            : "transparent",
+    borderColor: status === "done" ? tokens.status.success.color : colors.border,
+    borderStyle: status === "open" ? ("dashed" as const) : ("solid" as const),
+  });
+  return (
+    <View style={styles.legend} testID="khatm-legend">
+      {LEGEND_STATUSES.map((status) => (
+        <View key={status} style={styles.legendItem}>
+          <View style={[styles.swatch, swatch(status)]}>
+            {status === "done" ? <ThemedText type="caption">✓</ThemedText> : null}
+          </View>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {khatmStatusLabel(status, t)}
+          </ThemedText>
+        </View>
+      ))}
+      <View style={styles.legendItem}>
+        <View style={[styles.swatch, { borderColor: colors.border }]}>
+          <View style={[styles.staleDot, { backgroundColor: tokens.status.warning.color }]} />
+        </View>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t("khatmGroups.staleShort")}
+        </ThemedText>
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  legend: { flexDirection: "row", flexWrap: "wrap", columnGap: Spacing.three, rowGap: Spacing.one },
+  legendItem: { flexDirection: "row", alignItems: "center", gap: Spacing.one },
+  swatch: {
+    width: 22,
+    height: 22,
+    borderRadius: Radius.sm,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
   cell: {
     width: CELL,
@@ -115,8 +169,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 4,
     end: 4,
-    width: 6,
-    height: 6,
-    borderRadius: 3,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
   },
 });

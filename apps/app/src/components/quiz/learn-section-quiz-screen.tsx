@@ -1,12 +1,14 @@
-import { useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { type Href, useRouter } from "expo-router";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { QuizPlayer } from "@/components/quiz/quiz-player";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useMadhhab } from "@/hooks/use-madhhab";
 import {
   ensureSectionQuizContent,
@@ -16,6 +18,8 @@ import {
   toQuizPlayerQuestions,
 } from "@/lib/flash-cards";
 import { goBackOrReplace } from "@/lib/navigation";
+
+const EMPTY_ICON = { ios: "questionmark.circle", android: "quiz", web: "quiz" } as const;
 
 type LearnSectionQuizScreenProps = {
   sectionId: LearnQuizSectionId;
@@ -29,17 +33,11 @@ export function LearnSectionQuizScreen({ sectionId }: LearnSectionQuizScreenProp
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const def = getLearnSectionDef(sectionId);
-  const [ready, setReady] = useState(() => def?.isReady() ?? false);
-  const [version, setVersion] = useState(0);
-
-  useEffect(() => {
-    // Do not cancel on unmount — Strict Mode / brief remounts would leave the
-    // quiz empty on first visit while ensure settles.
-    void ensureSectionQuizContent(sectionId).then(() => {
-      setReady(true);
-      setVersion((v) => v + 1);
-    });
-  }, [sectionId]);
+  // `useEnsureContent` never cancels on unmount (Strict Mode / brief remounts)
+  // and reports a cold failure as `error` so the gate offers "Try again" (G-35).
+  const ensure = useCallback(() => ensureSectionQuizContent(sectionId), [sectionId]);
+  const isCached = useCallback(() => def?.isReady() ?? false, [def]);
+  const { ready, version, error, retry } = useEnsureContent(ensure, isCached);
 
   // School-dependent questions follow "My madhhab" (NF-3.0a).
   const { schoolFor } = useMadhhab();
@@ -50,7 +48,21 @@ export function LearnSectionQuizScreen({ sectionId }: LearnSectionQuizScreenProp
   );
 
   if (!def) {
-    return null;
+    // Never a blank route (P8-01): chrome + a way back to Learn.
+    return (
+      <ScreenLayout
+        title={t("common.learnQuiz.title")}
+        onBack={() => goBackOrReplace(router, "/library" as Href)}
+      >
+        <EmptyState
+          icon={EMPTY_ICON}
+          title={t("learnKit.quizEmptyTitle")}
+          description={t("learnKit.quizEmptyBody")}
+          actionLabel={t("learnKit.backToGuide")}
+          onAction={() => goBackOrReplace(router, "/library" as Href)}
+        />
+      </ScreenLayout>
+    );
   }
 
   const ns = def.i18nNamespace;
@@ -72,10 +84,17 @@ export function LearnSectionQuizScreen({ sectionId }: LearnSectionQuizScreenProp
       onBack={() => goBackOrReplace(router, def.route)}
     >
       <Seo path={String(def.quizPath ?? `${String(def.route)}/quiz`)} />
-      <LearnContentGate ready={ready || questions.length > 0}>
+      <LearnContentGate ready={ready || questions.length > 0} error={error} onRetry={retry}>
         <Stagger>
           {questions.length === 0 ? (
-            <JannahCallout tone="warning">{t("common.learnQuiz.empty")}</JannahCallout>
+            // Nothing is loading here — say plainly there is no quiz yet (G-36).
+            <EmptyState
+              icon={EMPTY_ICON}
+              title={t("learnKit.quizEmptyTitle")}
+              description={t("learnKit.quizEmptyBody")}
+              actionLabel={t("learnKit.backToGuide")}
+              onAction={() => goBackOrReplace(router, def.route)}
+            />
           ) : (
             <QuizPlayer
               questions={questions}

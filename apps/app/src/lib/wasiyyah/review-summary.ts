@@ -26,7 +26,7 @@ export interface WasiyyahSummaryLine {
   missing?: boolean;
 }
 
-const K = "privateUx.wasiyyah.summary";
+const K = "wasiyyah.reviewSummary";
 
 function confirmedLine(
   step: WasiyyahSummaryStep,

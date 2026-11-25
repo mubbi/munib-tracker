@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
+import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
@@ -128,7 +129,12 @@ export function CalendarMonthPicker({
   };
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
+    <Sheet
+      accessibilityLabel={t("calendar.pickMonthYear")}
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+    >
       {view === "months" ? (
         <>
           <ThemedText type="subtitle">{t("calendar.pickMonthYear")}</ThemedText>
@@ -190,9 +196,7 @@ export function CalendarMonthPicker({
                     >
                       <ThemedText
                         type="smallBold"
-                        numberOfLines={1}
-                        adjustsFontSizeToFit
-                        minimumFontScale={0.75}
+                        numberOfLines={2}
                         style={{
                           color: selected ? colors.accent : colors.foreground,
                           textAlign: "center",
@@ -210,19 +214,13 @@ export function CalendarMonthPicker({
       ) : (
         <>
           <View style={styles.yearHeader}>
-            <PressableScale
-              haptic="light"
-              accessibilityRole="button"
+            <IconButton
+              name={chevronBackward}
               accessibilityLabel={t("common.back")}
               onPress={() => setView("months")}
-              style={[
-                styles.backButton,
-                tv && styles.tvIconTarget,
-                { backgroundColor: tokens.accentSoft },
-              ]}
-            >
-              <SymbolView name={chevronBackward} size={16} tintColor={colors.accent} />
-            </PressableScale>
+              tintColor={colors.accent}
+              background={tokens.accentSoft}
+            />
             <ThemedText type="subtitle" style={styles.yearTitle}>
               {t("calendar.selectYear")}
             </ThemedText>
@@ -277,21 +275,14 @@ function NavIconButton({
 }) {
   const { colors, tokens } = useThemeTokens();
   return (
-    <PressableScale
-      haptic="light"
-      disabled={disabled}
-      accessibilityRole="button"
+    <IconButton
+      name={icon}
       accessibilityLabel={label}
-      accessibilityState={{ disabled }}
+      disabled={disabled}
       onPress={onPress}
-      style={[
-        styles.navIcon,
-        isTV() && styles.tvIconTarget,
-        { backgroundColor: tokens.accentSoft, opacity: disabled ? 0.35 : 1 },
-      ]}
-    >
-      <SymbolView name={icon} size={18} tintColor={colors.accent} />
-    </PressableScale>
+      tintColor={colors.accent}
+      background={tokens.accentSoft}
+    />
   );
 }
 
@@ -325,14 +316,6 @@ const styles = StyleSheet.create({
     minHeight: 44,
     minWidth: 0,
   },
-  navIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   monthGrid: {
     gap: Spacing.two,
     marginTop: Spacing.three,
@@ -360,16 +343,8 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: "center",
   },
-  backButton: {
-    width: 36,
-    height: 36,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   backButtonSpacer: {
-    width: 36,
+    width: 44,
   },
   yearGrid: {
     gap: Spacing.two,

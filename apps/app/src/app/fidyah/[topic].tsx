@@ -7,7 +7,7 @@ export async function generateStaticParams(): Promise<Array<{ topic: string }>> 
 }
 
 export default function FidyahTopicScreen() {
-  return <LearnGuideTopicScreen config={fidyahGuideConfig} />;
+  return <LearnGuideTopicScreen config={fidyahGuideConfig} surface="finance" />;
 }
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

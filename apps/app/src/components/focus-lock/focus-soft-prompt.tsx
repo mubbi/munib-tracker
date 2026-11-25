@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { asTranslate, windowPrayerLabel } from "@/lib/focus-lock/payload";
 import type { FocusWindow } from "@/lib/focus-lock/plan";
@@ -52,7 +52,12 @@ export function FocusSoftPrompt({
   };
 
   return (
-    <Sheet visible variant="center" onClose={onDismiss}>
+    <Sheet
+      accessibilityLabel={t("focusLock.shield.title", { prayer: name })}
+      visible
+      variant="center"
+      onClose={onDismiss}
+    >
       <View style={styles.body} accessibilityRole="alert">
         <ThemedText type="subtitle">{t("focusLock.shield.title", { prayer: name })}</ThemedText>
         <ThemedText type="small" themeColor="mutedForeground">
@@ -138,7 +143,10 @@ function HoldToUnlock({ onUnlock }: { onUnlock: () => void }) {
       </ThemedText>
       {startedAt != null ? (
         <View style={styles.holdBar} testID="focus-hold-progress">
-          <ProgressBar value={holdProgress(startedAt, now)} />
+          <ProgressBar
+            value={holdProgress(startedAt, now)}
+            accessibilityLabel={t("a11yProgress.holdToUnlock")}
+          />
         </View>
       ) : null}
     </PressableScale>
@@ -151,7 +159,7 @@ const styles = StyleSheet.create({
   hold: {
     alignItems: "center",
     borderRadius: Radius.lg,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     gap: Spacing.one,
     padding: Spacing.three,
   },

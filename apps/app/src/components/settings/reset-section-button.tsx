@@ -34,9 +34,13 @@ export function ResetSectionButton({
         title={t("settingsPanel.resetSectionTitle", { section: sectionTitle })}
         message={t("settingsPanel.resetSectionMsg")}
         confirmLabel={t("common.reset")}
-        onConfirm={() => {
-          void onReset().then(() => toast.success(t("settingsPanel.resetDone")));
+        // Async: busy until the section reset lands; a failure stays in the
+        // dialog as an inline error instead of an unhandled rejection.
+        onConfirm={async () => {
+          await onReset();
+          toast.success(t("settingsPanel.resetDone"));
         }}
+        errorMessage={t("settings.resetSettingsFailed")}
         onClose={() => setConfirming(false)}
       />
     </>

@@ -4,13 +4,14 @@ import type { AccentColorId } from "@munib-tracker/theme/types";
 import { SymbolView } from "expo-symbols";
 import { type ComponentType, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { COLOR_PALETTE } from "@/constants/color-palette";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Control, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { normalizeHex, relativeLuminance } from "@/lib/color";
@@ -80,9 +81,8 @@ export function AccentEditor() {
       </ThemedText>
       <Suspense
         fallback={
-          <View style={styles.pickerFallback}>
-            <ActivityIndicator color={colors.accent} />
-          </View>
+          // P8-04: the lazy colour picker loads behind a skeleton, not a spinner.
+          <SkeletonPlaceholder preset="card" count={1} style={styles.pickerFallback} />
         }
       >
         <InlineCustomColorPicker value={pickerValue} onChange={(hex) => setCustomAccent(hex)} />
@@ -255,7 +255,7 @@ export function AccentEditor() {
   );
 
   const previewCard = (
-    <Card variant="muted">
+    <Card padding="four" variant="muted">
       <ThemedText type="label" themeColor="mutedForeground">
         {t("appearance.preview")}
       </ThemedText>
@@ -285,11 +285,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    paddingVertical: Spacing.two + 2,
+    paddingVertical: Spacing.twoHalf,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     marginBottom: Spacing.one,
   },
   selectedSwatch: {
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   selectedMeta: {
     flex: 1,
@@ -311,8 +311,6 @@ const styles = StyleSheet.create({
   },
   pickerFallback: {
     minHeight: 160,
-    alignItems: "center",
-    justifyContent: "center",
   },
   presetGrid: {
     flexDirection: "row",
@@ -328,14 +326,14 @@ const styles = StyleSheet.create({
   presetPressable: {
     alignSelf: "stretch",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   swatchRing: {
     width: 52,
     height: 52,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -344,7 +342,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -360,13 +358,13 @@ const styles = StyleSheet.create({
   paletteGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: Spacing.two + 2,
+    gap: Spacing.twoHalf,
     justifyContent: "flex-start",
   },
   // Fixed-size chips — reliable under PressableScale (no % width / aspectRatio).
   palettePressable: {
-    width: 40,
-    height: 40,
+    width: Control.minTouch,
+    height: Control.minTouch,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -385,7 +383,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: 2,
+    borderWidth: BorderWidth.thick,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -394,7 +392,7 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     alignItems: "center",
     justifyContent: "center",
   },

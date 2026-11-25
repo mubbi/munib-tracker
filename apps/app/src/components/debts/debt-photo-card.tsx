@@ -88,7 +88,7 @@ export function DebtPhotoCard({
   const hasPhoto = !!documentUri;
 
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("debts.photo.title")}
         subtitle={t("debts.photo.privacy")}

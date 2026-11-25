@@ -52,7 +52,7 @@ export default function TaharahProgressScreen() {
   );
 
   const lessonsCard = (
-    <Card key="lessons" padding="three">
+    <Card key="lessons">
       <SectionHeader
         title={t("taharah.lessonsTitle")}
         icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
@@ -67,13 +67,16 @@ export default function TaharahProgressScreen() {
             total: snapshot.lessonsTotal,
           })}
         </ThemedText>
-        <ProgressBar value={snapshot.lessonProgress} />
+        <ProgressBar
+          value={snapshot.lessonProgress}
+          accessibilityLabel={t("taharah.lessonsTitle")}
+        />
       </View>
     </Card>
   );
 
   const exploreCard = (
-    <Card key="explore" padding="three">
+    <Card key="explore">
       <SectionHeader
         title={t("taharah.exploreTitle")}
         icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
@@ -119,7 +122,7 @@ export default function TaharahProgressScreen() {
       <Seo path="/taharah/progress" />
       <LearnContentGate ready={contentReady}>
         <Stagger>
-          <JannahCallout tone="warning">{t("taharah.progressIntro")}</JannahCallout>
+          <JannahCallout tone="info">{t("taharah.progressIntro")}</JannahCallout>
 
           {columns > 1 ? (
             <LearnColumnsGrid columns={columns} gap={Spacing.four}>
@@ -138,7 +141,7 @@ export default function TaharahProgressScreen() {
 }
 
 const styles = StyleSheet.create({
-  hint: { marginTop: Spacing.one, lineHeight: 20 },
+  hint: { marginTop: Spacing.one },
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
   links: { marginTop: Spacing.three },
 });

@@ -25,6 +25,8 @@ interface VoluntaryFastingState {
   /** Every row including tombstones (use the selectors for live entries). */
   entries: VoluntaryFastingMap;
   isReady: boolean;
+  /** Set when `load()` failed; cleared on the next attempt. */
+  loadError: unknown | null;
   load: () => Promise<void>;
   /**
    * Writes (or tombstones, with `null`) one day. `patch` is merged onto the
@@ -43,12 +45,18 @@ function nowIso(): string {
 export const voluntaryFastingStore = createStore<VoluntaryFastingState>((set) => ({
   entries: {},
   isReady: false,
+  loadError: null,
 
   async load() {
-    // One record of a fast: fold legacy White Days checklist ticks in first (idempotent).
-    await migrateLegacyWhiteDaysChecklist();
-    const raw = await readJSON<unknown>(STORAGE_KEY, {});
-    set({ entries: asVoluntaryFastingMap(raw), isReady: true });
+    set({ loadError: null });
+    try {
+      // One record of a fast: fold legacy White Days checklist ticks in first (idempotent).
+      await migrateLegacyWhiteDaysChecklist();
+      const raw = await readJSON<unknown>(STORAGE_KEY, {});
+      set({ entries: asVoluntaryFastingMap(raw), isReady: true });
+    } catch (error) {
+      set({ loadError: error ?? new Error("voluntary fasting load failed") });
+    }
   },
 
   async writeEntry(date, patch) {
@@ -102,6 +110,10 @@ export function useVoluntaryFastEntry(date: string): VoluntaryFastEntry | undefi
     const entry = s.entries[date];
     return isLiveFastEntry(entry) ? entry : undefined;
   });
+}
+
+export function useVoluntaryFastingLoadError(): unknown | null {
+  return useStore(voluntaryFastingStore, (s) => s.loadError);
 }
 
 export function useVoluntaryFastingReady(): boolean {

@@ -77,7 +77,7 @@ export function CoachInsightCard({
   );
 
   return (
-    <Card padding="three" accessibilityLabel={`${title}. ${body}`}>
+    <Card accessibilityLabel={`${title}. ${body}`}>
       {readOnlyOnTv ? (
         <TvReadableBlock accessibilityLabel={`${title}. ${body}`}>{copy}</TvReadableBlock>
       ) : (
@@ -111,7 +111,7 @@ export function CoachInsightCard({
 
 const styles = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  copy: { flex: 1, gap: 2 },
+  copy: { flex: 1, gap: Spacing.half },
   body: { marginTop: Spacing.two },
   actions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, marginTop: Spacing.two },
 });

@@ -242,3 +242,35 @@ describe("enabledWhen and summary", () => {
     expect(resolveDefault(def, getSettingsSnapshot())).toBe("en");
   });
 });
+
+describe("TV: Show finance tools (D-UX5 / O-2)", () => {
+  beforeEach(resetSettingsStores);
+
+  const def = () => {
+    const found = getSetting("devices.tv.financeTools");
+    if (!found) throw new Error("missing devices.tv.financeTools");
+    return found;
+  };
+
+  it("is a TV-only, device-scoped toggle under Devices › TV", () => {
+    expect(isSettingAvailable(def(), TV)).toBe(true);
+    for (const ctx of [PHONE_IOS, PHONE_ANDROID, WEB]) {
+      expect(isSettingAvailable(def(), ctx)).toBe(false);
+    }
+    expect(def()).toMatchObject({ scope: "device", section: "settingsPanel.section.tv" });
+    expect(sectionsForGroup("devices", TV).flatMap((s) => s.defs.map((d) => d.id))).toContain(
+      "devices.tv.financeTools",
+    );
+  });
+
+  it("defaults off and round-trips through the device store", async () => {
+    expect(def().read(getSettingsSnapshot())).toBe(false);
+    expect(isAtDefault(def(), getSettingsSnapshot())).toBe(true);
+
+    await act(async () => def().write(true));
+
+    expect(def().read(getSettingsSnapshot())).toBe(true);
+    const { devicePreferencesStore } = await import("@/stores/device-preferences-store");
+    expect(devicePreferencesStore.getState().prefs.tvShowFinanceTools).toBe(true);
+  });
+});

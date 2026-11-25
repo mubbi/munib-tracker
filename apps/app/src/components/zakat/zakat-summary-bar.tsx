@@ -7,7 +7,7 @@ import { MoneyText } from "@/components/money/money-text";
 import { ThemedText } from "@/components/themed-text";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
-import { MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, MaxContentWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
@@ -180,8 +180,8 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: 12,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    paddingTop: Spacing.two + 2,
+    borderTopWidth: BorderWidth.hairline,
+    paddingTop: Spacing.twoHalf,
     paddingHorizontal: Spacing.four,
   },
   shellTv: { paddingHorizontal: TvLayout.contentPaddingX },
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  copy: { flex: 1, minWidth: 0, gap: 2 },
+  copy: { flex: 1, minWidth: 0, gap: Spacing.half },
   dueRow: {
     flexDirection: "row",
     alignItems: "center",

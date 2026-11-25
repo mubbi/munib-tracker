@@ -23,8 +23,8 @@ describe("QuranAyahBookmarkButton", () => {
   });
 
   it.each([
-    [false, "Bookmark verse"],
-    [true, "Remove bookmark"],
+    [false, "Save ayah"],
+    [true, "Remove from saved"],
   ])("toggles the ayah bookmark (bookmarked=%s)", async (bookmarked, label) => {
     mockAyah.bookmarked = bookmarked;
     await renderWithTheme(<QuranAyahBookmarkButton surah={2} ayah={255} />);
@@ -47,14 +47,14 @@ describe("HadithCitationBookmarkButton", () => {
     expect(mockUseHadithCitationBookmark).toHaveBeenCalledWith(
       expect.objectContaining({ number: "3244" }),
     );
-    await fireEvent.press(screen.getByLabelText("Bookmark"));
+    await fireEvent.press(screen.getByLabelText("Save"));
     expect(mockHadith.toggle).toHaveBeenCalled();
   });
 
   it("shows the remove label when bookmarked", async () => {
     mockHadith.bookmarked = true;
     await renderWithTheme(<HadithCitationBookmarkButton collection="Muslim" citation="1" />);
-    expect(screen.getByLabelText("Remove bookmark").props.accessibilityState).toEqual(
+    expect(screen.getByLabelText("Remove from saved").props.accessibilityState).toEqual(
       expect.objectContaining({ selected: true }),
     );
   });
@@ -62,7 +62,7 @@ describe("HadithCitationBookmarkButton", () => {
   it("renders nothing when the citation cannot be bookmarked", async () => {
     mockHadith.canBookmark = false;
     await renderWithTheme(<HadithCitationBookmarkButton collection="Unknown" citation="?" />);
-    expect(screen.queryByLabelText("Bookmark")).toBeNull();
+    expect(screen.queryByLabelText("Save")).toBeNull();
   });
 });
 

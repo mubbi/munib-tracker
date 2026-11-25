@@ -12,11 +12,12 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { engineDownloadMb } from "@/constants/recitation-models";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { createId } from "@/db/id";
 import { usePracticeAyahText } from "@/hooks/use-practice-ayah-text";
 import { type CheckTarget, usePronunciationCheck } from "@/hooks/use-pronunciation-check";
@@ -274,7 +275,7 @@ export function PronunciationCheckSession({
           onPress={() => void hearWord(v.index)}
           style={[styles.chip, { backgroundColor: soft, borderColor: color }]}
         >
-          <ThemedText type="arabic" style={styles.chipText}>
+          <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.chipText}>
             {row?.words[v.index] ?? ""}
           </ThemedText>
           <SymbolView
@@ -332,7 +333,7 @@ export function PronunciationCheckSession({
                     },
                   ]}
                 >
-                  <ThemedText type="arabic" style={styles.chipText}>
+                  <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.chipText}>
                     {rows[w.ayah]?.words[w.word] ?? ""}
                   </ThemedText>
                   <ThemedText type="caption" themeColor="mutedForeground">
@@ -395,7 +396,9 @@ export function PronunciationCheckSession({
       <Card
         padding="four"
         style={
-          listening ? { borderColor: tokens.status.warning.border, borderWidth: 1.5 } : undefined
+          listening
+            ? { borderColor: tokens.status.warning.border, borderWidth: BorderWidth.thick }
+            : undefined
         }
       >
         {row ? (
@@ -443,11 +446,11 @@ export function PronunciationCheckSession({
 
       {/* Model / permission / mic */}
       {!check.available ? (
-        <Card padding="three">
+        <Card>
           <ThemedText type="small">{t("quranPronunciation.unavailable")}</ThemedText>
         </Card>
       ) : model !== "ready" ? (
-        <Card padding="three" style={styles.stack}>
+        <Card style={styles.stack}>
           <ThemedText type="smallBold">{t("quranPronunciation.model.title")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground">
             {model === "other-engine"
@@ -461,7 +464,10 @@ export function PronunciationCheckSession({
                   percent: Math.round(downloadFraction(listener) * 100),
                 })}
               </ThemedText>
-              <ProgressBar value={downloadFraction(listener)} />
+              <ProgressBar
+                value={downloadFraction(listener)}
+                accessibilityLabel={t("a11yProgress.modelDownload")}
+              />
             </>
           ) : model === "unsupported" ? null : (
             <>
@@ -481,18 +487,22 @@ export function PronunciationCheckSession({
           )}
         </Card>
       ) : permission === "denied" ? (
-        <Card padding="three" style={styles.stack}>
-          <ThemedText type="small">{t("quranPronunciation.micDenied")}</ThemedText>
-          {canOpenAppSettings() ? (
-            <Button
-              label={t("quranPronunciation.openSettings")}
-              variant="secondary"
-              onPress={() => void openAppSettings()}
-            />
-          ) : null}
-        </Card>
+        // Mic denied is a blocker, not a hint: warning callout + Open Settings (G-05).
+        <Callout
+          tone="warning"
+          action={
+            canOpenAppSettings()
+              ? {
+                  label: t("quranPronunciation.openSettings"),
+                  onPress: () => void openAppSettings(),
+                }
+              : undefined
+          }
+        >
+          {t("quranPronunciation.micDenied")}
+        </Callout>
       ) : (
-        <Card padding="three" style={styles.stack}>
+        <Card style={styles.stack}>
           {status === "assessing" ? (
             <ThemedText type="small" accessibilityLiveRegion="polite">
               {t("quranPronunciation.assessing")}
@@ -502,14 +512,19 @@ export function PronunciationCheckSession({
               <ThemedText type="small" accessibilityLiveRegion="polite">
                 {t("quranPronunciation.listening")}
               </ThemedText>
-              <ProgressBar value={check.level} color={tokens.status.warning.color} height={6} />
+              <ProgressBar
+                value={check.level}
+                accessibilityLabel={t("a11yProgress.micLevel")}
+                color={tokens.status.warning.color}
+                height={6}
+              />
             </>
           ) : status === "no-fit" ? (
             <ThemedText type="small">
               {t(`quranPronunciation.noFit.${check.state.noFit ?? "different-passage"}`)}
             </ThemedText>
           ) : status === "error" && check.state.error ? (
-            <ThemedText type="small">{t(PRACTICE_ERROR_COPY[check.state.error])}</ThemedText>
+            <Callout tone="danger">{t(PRACTICE_ERROR_COPY[check.state.error])}</Callout>
           ) : null}
 
           {calibrating && check.calibration ? (
@@ -631,18 +646,18 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     marginTop: Spacing.three,
   },
-  legendItem: { flexDirection: "row", alignItems: "center", gap: 4 },
+  legendItem: { flexDirection: "row", alignItems: "center", gap: Spacing.one },
   dot: { width: 8, height: 8, borderRadius: 4 },
   chips: { flexWrap: "wrap", gap: Spacing.one, marginTop: Spacing.two },
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: Spacing.one,
     paddingHorizontal: Spacing.two,
-    paddingVertical: 2,
+    paddingVertical: Spacing.half,
     minHeight: 44,
     borderRadius: Radius.sm,
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   chipText: { fontSize: 20, lineHeight: 34, writingDirection: "rtl" },
   actions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, marginTop: Spacing.two },
@@ -652,7 +667,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: Spacing.one,
     paddingHorizontal: Spacing.two,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
-  footer: { gap: 4, marginTop: Spacing.three },
+  footer: { gap: Spacing.one, marginTop: Spacing.three },
 });

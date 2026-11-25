@@ -1,12 +1,17 @@
 import { diffInDays, getLocalDateString } from "@munib-tracker/shared/utils";
 import { SymbolView } from "expo-symbols";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { IconButton } from "@/components/ui/icon-button";
+import { NavRow } from "@/components/ui/nav-row";
+import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { Sheet } from "@/components/ui/sheet";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { RelativeRecord } from "@/lib/family-ties/family-ties-store";
@@ -41,7 +46,8 @@ export function RelativeCard({
   today?: string;
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
+  const [moreOpen, setMoreOpen] = useState(false);
   const chevronForward = useChevronForward();
   const hasPhone = normalizePhone(relative.phone) != null;
   const daysSince = relative.lastContact ? diffInDays(today, relative.lastContact.date) : null;
@@ -56,7 +62,7 @@ export function RelativeCard({
         : t("familyTies.status.daysAgo", { count: daysSince });
 
   return (
-    <Card padding="three">
+    <Card>
       <View style={styles.body}>
         <PressableScale
           accessibilityRole="button"
@@ -71,43 +77,32 @@ export function RelativeCard({
               {t(`familyTies.kinship.${relative.kinship}`)}
             </ThemedText>
           </View>
-          {due ? (
-            <ThemedText type="caption" style={{ color: tokens.status.info.text }}>
-              {t("familyTies.status.goodDay")}
-            </ThemedText>
-          ) : null}
+          {due ? <Pill tone="info" compact label={t("familyTies.status.goodDay")} /> : null}
           <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
         </PressableScale>
         <ThemedText type="caption" themeColor="mutedForeground">
           {statusLine}
         </ThemedText>
         {relative.deceased ? null : (
+          // Two primary actions; the rest live behind "More" so the card stays calm.
           <View style={styles.actions}>
             {hasPhone ? (
-              <>
-                <Button
-                  label={t("familyTies.actions.call")}
-                  size="sm"
-                  variant="secondary"
-                  accessibilityHint={relative.name}
-                  onPress={() => onContact("call")}
-                />
-                <Button
-                  label={t("familyTies.actions.message")}
-                  size="sm"
-                  variant="secondary"
-                  accessibilityHint={relative.name}
-                  onPress={() => onContact("sms")}
-                />
-                <Button
-                  label={t("familyTies.actions.whatsapp")}
-                  size="sm"
-                  variant="secondary"
-                  accessibilityHint={relative.name}
-                  onPress={() => onContact("whatsapp")}
-                />
-              </>
-            ) : null}
+              <Button
+                label={t("familyTies.actions.call")}
+                size="sm"
+                variant="secondary"
+                accessibilityHint={relative.name}
+                onPress={() => onContact("call")}
+              />
+            ) : (
+              <Button
+                label={t("familyTies.actions.dua")}
+                size="sm"
+                variant="secondary"
+                accessibilityHint={relative.name}
+                onPress={onDua}
+              />
+            )}
             <Button
               label={t("familyTies.actions.log")}
               size="sm"
@@ -115,16 +110,62 @@ export function RelativeCard({
               accessibilityHint={relative.name}
               onPress={onLog}
             />
-            <Button
-              label={t("familyTies.actions.dua")}
-              size="sm"
-              variant="ghost"
-              accessibilityHint={relative.name}
-              onPress={onDua}
-            />
+            {hasPhone ? (
+              <IconButton
+                name={{ ios: "ellipsis", android: "more_horiz", web: "more_horiz" }}
+                accessibilityLabel={t("familyTies.actions.more", { name: relative.name })}
+                onPress={() => setMoreOpen(true)}
+              />
+            ) : null}
           </View>
         )}
       </View>
+      <Sheet
+        visible={moreOpen}
+        onClose={() => setMoreOpen(false)}
+        variant="bottom"
+        solid
+        title={relative.name}
+      >
+        <View style={styles.sheet}>
+          {(
+            [
+              [
+                "sms",
+                "familyTies.actions.message",
+                { ios: "message.fill", android: "sms", web: "sms" },
+              ],
+              [
+                "whatsapp",
+                "familyTies.actions.whatsapp",
+                { ios: "bubble.left.fill", android: "chat", web: "chat" },
+              ],
+            ] as const
+          ).map(([channel, labelKey, icon]) => (
+            <NavRow
+              key={channel}
+              icon={icon}
+              label={t(labelKey)}
+              onPress={() => {
+                setMoreOpen(false);
+                onContact(channel);
+              }}
+            />
+          ))}
+          <NavRow
+            icon={{
+              ios: "hands.sparkles.fill",
+              android: "volunteer_activism",
+              web: "volunteer_activism",
+            }}
+            label={t("familyTies.actions.dua")}
+            onPress={() => {
+              setMoreOpen(false);
+              onDua();
+            }}
+          />
+        </View>
+      </Sheet>
     </Card>
   );
 }
@@ -133,5 +174,12 @@ const styles = StyleSheet.create({
   body: { gap: Spacing.one },
   header: { flexDirection: "row", alignItems: "center", gap: Spacing.two, minHeight: 44 },
   flex: { flex: 1 },
-  actions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two, marginTop: Spacing.two },
+  actions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: Spacing.two,
+    marginTop: Spacing.two,
+  },
+  sheet: { gap: Spacing.two },
 });

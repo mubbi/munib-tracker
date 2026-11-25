@@ -3,13 +3,15 @@ import type { AppLocale } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, TextInput, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { LocaleFlag } from "@/components/locale-flag";
 import { ThemedText } from "@/components/themed-text";
+import { EmptyState } from "@/components/ui/empty-state";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SearchField } from "@/components/ui/search-field";
 import { Sheet } from "@/components/ui/sheet";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { APP_LOCALES, localeSecondaryLabel, matchesLocaleSearch } from "@/lib/locale-display";
@@ -101,18 +103,20 @@ export function LanguagePickerSheet({
     onClose();
   };
 
-  const title = search
-    ? t("languagePicker.selectLanguageWithCount", {
-        filtered: filtered.length,
-        total: APP_LOCALES.length,
-      })
-    : t("languagePicker.selectLanguageWithCount", {
-        filtered: APP_LOCALES.length,
-        total: APP_LOCALES.length,
-      });
+  const countLabel = t("languagePicker.matchCount", {
+    filtered: filtered.length,
+    total: APP_LOCALES.length,
+  });
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false} solid>
+    <Sheet
+      visible={visible}
+      onClose={onClose}
+      variant="bottom"
+      scrollable={false}
+      solid
+      title={t("languagePicker.selectLanguage")}
+    >
       <TvFlatList
         // numColumns can't change on a mounted FlatList — remount per column count.
         key={columns}
@@ -128,53 +132,34 @@ export function LanguagePickerSheet({
         }
         ListHeaderComponent={
           <View style={styles.header}>
-            <ThemedText type="subtitle">{title}</ThemedText>
+            {/* Live count so screen readers hear the filter result (P9-05). */}
+            <ThemedText
+              type="caption"
+              themeColor="mutedForeground"
+              accessibilityLiveRegion="polite"
+              aria-live="polite"
+            >
+              {countLabel}
+            </ThemedText>
             {/* TV: browse the grid with the D-pad instead of typing on the remote. */}
             {tv ? null : (
-              <View style={[styles.searchRow, tokens.inputSurface]}>
-                <SymbolView
-                  name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-                  size={16}
-                  tintColor={colors.mutedForeground}
-                />
-                <TextInput
-                  value={search}
-                  onChangeText={setSearch}
-                  placeholder={t("languagePicker.searchLanguages")}
-                  placeholderTextColor={colors.mutedForeground}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  returnKeyType="search"
-                  style={[styles.searchInput, { color: colors.foreground }]}
-                />
-                {search.length > 0 ? (
-                  <PressableScale
-                    haptic="light"
-                    hitSlop={8}
-                    accessibilityRole="button"
-                    accessibilityLabel={t("search.clear")}
-                    onPress={() => setSearch("")}
-                  >
-                    <SymbolView
-                      name={{
-                        ios: "xmark.circle.fill",
-                        android: "cancel",
-                        web: "cancel",
-                      }}
-                      size={16}
-                      tintColor={colors.mutedForeground}
-                    />
-                  </PressableScale>
-                ) : null}
-              </View>
+              <SearchField
+                value={search}
+                onChangeText={setSearch}
+                placeholder={t("languagePicker.searchLanguages")}
+              />
             )}
           </View>
         }
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.empty}>
-            {t("languagePicker.noResults")}
-          </ThemedText>
+          <EmptyState
+            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+            title={t("languagePicker.noResults")}
+            actionLabel={t("search.clear")}
+            onAction={() => setSearch("")}
+            style={styles.empty}
+          />
         }
         renderItem={({ item }) => {
           const { code, name, english } = item;
@@ -190,8 +175,9 @@ export function LanguagePickerSheet({
             <PressableScale
               haptic="selection"
               scaleTo={0.98}
-              accessibilityRole="button"
-              accessibilityState={{ selected }}
+              // Single choice (P6-06): announced as a radio with its checked state.
+              accessibilityRole="radio"
+              accessibilityState={{ checked: selected }}
               onPress={() => handleSelect(code)}
               {...(tv && selected ? { hasTVPreferredFocus: true } : {})}
               style={[
@@ -214,7 +200,7 @@ export function LanguagePickerSheet({
               <View style={styles.rowText}>
                 <ThemedText
                   type="small"
-                  style={{ color: selected ? colors.accent : colors.foreground }}
+                  style={{ color: selected ? colors.accentText : colors.foreground }}
                   numberOfLines={1}
                 >
                   {name}
@@ -273,20 +259,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     marginBottom: Spacing.two,
   },
-  searchRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Platform.OS === "web" ? Spacing.two : Spacing.one,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: Platform.OS === "web" ? 16 : 15,
-    paddingVertical: Spacing.two,
-  },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -295,14 +267,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     minHeight: 52,
   },
   rowTv: {
     flex: 1,
     minHeight: TvLayout.minFocusTarget,
     // Selected = soft fill + hairline; the D-pad ring is drawn by PressableScale.
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   columnWrapTv: {
     gap: Spacing.three,
@@ -318,7 +290,7 @@ const styles = StyleSheet.create({
   rowText: {
     flex: 1,
     minWidth: 0,
-    gap: 2,
+    gap: Spacing.half,
   },
   checkSpacer: {
     width: 20,
@@ -327,7 +299,6 @@ const styles = StyleSheet.create({
     height: 6,
   },
   empty: {
-    textAlign: "center",
     paddingVertical: Spacing.four,
   },
 });

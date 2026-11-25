@@ -1,5 +1,5 @@
-import { screen } from "@testing-library/react-native";
-import { Text } from "react-native";
+import { fireEvent, screen } from "@testing-library/react-native";
+import { Pressable, Text } from "react-native";
 
 import {
   LearnTopicArticle,
@@ -49,6 +49,23 @@ describe("LearnTopicArticle", () => {
 
     expect(screen.queryByText("body:gates")).toBeNull();
     expect(screen.queryByText(i18n.t("jannah.notFound"))).toBeNull();
+  });
+
+  it("offers Try again when the corpus failed to load (G-35)", async () => {
+    const onRetry = jest.fn();
+    await renderArticle({ ready: false, error: new Error("chunk"), onRetry });
+
+    expect(screen.queryByText("body:gates")).toBeNull();
+    await fireEvent.press(screen.getByRole("button", { name: i18n.t("common.tryAgain") }));
+    expect(onRetry).toHaveBeenCalledTimes(1);
+  });
+
+  it("renders header trailing actions", async () => {
+    await renderArticle({
+      headerTrailing: <Pressable accessibilityRole="button" accessibilityLabel="Save topic" />,
+    });
+
+    expect(screen.getByRole("button", { name: "Save topic" })).toBeTruthy();
   });
 
   it("shows the not-found state without a topic", async () => {

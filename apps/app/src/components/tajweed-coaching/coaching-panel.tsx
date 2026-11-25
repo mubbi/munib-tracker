@@ -75,7 +75,7 @@ export function CoachingPanel() {
 
   return (
     <View style={styles.stack}>
-      <Card padding="three">
+      <Card>
         <SectionHeader
           title={t("tajweedCoaching.title")}
           icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
@@ -98,7 +98,7 @@ export function CoachingPanel() {
           <CoachingItemCard key={item.head} item={item} state={state} canPractise={canPractise} />
         ))
       ) : (
-        <Card padding="three">
+        <Card>
           <ThemedText type="small">
             {building
               ? t("tajweedCoaching.empty.building")
@@ -213,7 +213,7 @@ export function CoachingProgress({ state }: { state: TajweedCoachingState }) {
   ];
   if (!rows.length) return null;
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("tajweedCoaching.progress.title")}
         icon={{ ios: "calendar", android: "event", web: "event" }}

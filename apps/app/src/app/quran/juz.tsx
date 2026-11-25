@@ -12,7 +12,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ResponsiveGrid } from "@/components/ui/responsive-grid";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useReciteAlongAvailable } from "@/hooks/use-recite-along-available";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -106,7 +106,12 @@ export default function JuzBrowserScreen() {
                       {entry.surahNameTransliteration} · {entry.surah}:{entry.ayah}
                     </ThemedText>
                   </View>
-                  <ThemedText type="arabic" style={styles.rowArabic} numberOfLines={1}>
+                  <ThemedText
+                    type="arabic"
+                    accessibilityLanguage="ar"
+                    style={styles.rowArabic}
+                    numberOfLines={1}
+                  >
                     {entry.surahNameArabic}
                   </ThemedText>
                   {!tv ? (
@@ -181,7 +186,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   rowShell: {
     flexDirection: "row",
@@ -189,7 +194,7 @@ const styles = StyleSheet.create({
     paddingEnd: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
   },
   rowContent: {
     flexDirection: "row",
@@ -206,7 +211,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  rowBody: { flex: 1, gap: 2, minWidth: 0 },
+  rowBody: { flex: 1, gap: Spacing.half, minWidth: 0 },
   rowTitle: {
     flexDirection: "row",
     alignItems: "center",

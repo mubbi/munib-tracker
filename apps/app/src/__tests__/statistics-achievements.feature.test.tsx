@@ -35,7 +35,7 @@ describe("Statistics screen", () => {
     });
   });
 
-  it("summarises tracked salah per period and per salah", async () => {
+  it("summarises tracked Salah per period and per Salah", async () => {
     const today = getLocalDateString();
     for (const prayer of FARD) await PrayerRepository.setStatus(prayer, today, "completed");
     await PrayerRepository.setStatus("fajr", today, "missed");
@@ -43,7 +43,7 @@ describe("Statistics screen", () => {
 
     await renderWithProviders(<StatisticsScreen />);
 
-    await waitFor(() => expect(screen.getByText("By salah")).toBeTruthy(), { timeout: 15_000 });
+    await waitFor(() => expect(screen.getByText("By Salah")).toBeTruthy(), { timeout: 15_000 });
     // Today: 4 of 5 on time → the period average and the status breakdown.
     expect(screen.getByText("Avg 80% on time")).toBeTruthy();
     expect(screen.getByText("Status breakdown")).toBeTruthy();
@@ -51,7 +51,7 @@ describe("Statistics screen", () => {
     expect(screen.getByText("0 on time · 0 late · 1 missed")).toBeTruthy();
     expect(screen.getAllByText("1 on time · 0 late · 0 missed")).toHaveLength(4);
     // Lifetime qaza card.
-    expect(screen.getByText("Qaza & fasting debt")).toBeTruthy();
+    expect(screen.getByText("Qaza and fasts to make up")).toBeTruthy();
     expect(screen.getByText("5 of 15 made up")).toBeTruthy();
 
     // The year view swaps the chart to months.

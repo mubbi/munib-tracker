@@ -93,7 +93,7 @@ beforeEach(() => {
 });
 
 describe("hands-free tasbeeh in the counter", () => {
-  it("offers no voice toggle on a counter that has no zikr and no picker", async () => {
+  it("offers no voice toggle on a counter that has no Zikr and no picker", async () => {
     await renderCounter({ voiceZikr: null });
     expect(screen.queryByRole("button", { name: "Start hands-free counting" })).toBeNull();
   });
@@ -104,19 +104,19 @@ describe("hands-free tasbeeh in the counter", () => {
     expect(screen.queryByRole("button", { name: "Start hands-free counting" })).toBeNull();
   });
 
-  it("starts a taught zikr straight from the mic toggle (D50)", async () => {
+  it("starts a taught Zikr straight from the mic toggle (D50)", async () => {
     await renderCounter();
     await openSheet();
     expect(mockVoice.start).toHaveBeenCalledTimes(1);
   });
 
-  it("offers teaching first for a zikr not taught yet, or skipping to pause counting (D50)", async () => {
+  it("offers teaching first for a Zikr not taught yet, or skipping to pause counting (D50)", async () => {
     mockUsesModel = false;
     mockVoice = voice({ taught: false });
     await renderCounter();
     await openSheet();
     expect(mockVoice.start).not.toHaveBeenCalled();
-    expect(screen.getByText("Say it once so only this zikr counts")).toBeTruthy();
+    expect(screen.getByText("Say it once so only this Zikr counts")).toBeTruthy();
     expect(screen.getByText(/No audio is recorded or sent/)).toBeTruthy();
     expect(screen.getAllByText(/a short voice pattern \(not a recording\)/).length).toBeGreaterThan(
       0,
@@ -145,7 +145,7 @@ describe("hands-free tasbeeh in the counter", () => {
     expect(mockVoice.finishTeaching).toHaveBeenCalledTimes(1);
   });
 
-  it("offers re-teaching for a taught zikr", async () => {
+  it("offers re-teaching for a taught Zikr", async () => {
     mockVoice = voice({ start: jest.fn(async () => "needs-permission" as const) });
     await renderCounter();
     await openSheet();
@@ -182,21 +182,21 @@ describe("hands-free tasbeeh in the counter", () => {
     expect(screen.getByRole("button", { name: "Allow microphone" })).toBeTruthy();
   });
 
-  it("lets the free counter pick any zikr, or something else (D49)", async () => {
+  it("lets the free counter pick any Zikr, or something else (D49)", async () => {
     mockVoice = voice({ zikr: null, phrase: null, taught: false });
     await renderCounter({ voiceZikr: null, voiceChoosable: true });
     await openSheet();
-    expect(screen.getByText("Which zikr are you saying?")).toBeTruthy();
+    expect(screen.getByText("Which Zikr are you saying?")).toBeTruthy();
     expect(screen.getByPlaceholderText("Search adhkar or your tasbeehs")).toBeTruthy();
     expect(await screen.findByRole("radio", { name: "Alhamdulillah" })).toBeTruthy();
     await fireEvent.press(screen.getByRole("radio", { name: "Something else" }));
     expect(
-      screen.getByRole("button", { name: "Counting Something else. Change the zikr" }),
+      screen.getByRole("button", { name: "Counting Something else. Change the Zikr" }),
     ).toBeTruthy();
     expect(mockVoice.start).not.toHaveBeenCalled();
   });
 
-  it("searches the whole adhkar library from the picker, short zikr only", async () => {
+  it("searches the whole adhkar library from the picker, short Zikr only", async () => {
     mockVoice = voice({ zikr: null, phrase: null, taught: false });
     await renderCounter({ voiceZikr: null, voiceChoosable: true });
     await openSheet();
@@ -211,13 +211,13 @@ describe("hands-free tasbeeh in the counter", () => {
     expect(screen.queryByRole("radio", { name: "Ayat al-Kursi" })).toBeNull();
   });
 
-  it("shows the listening panel, the zikr, how it counts, and the gentle stuck hint", async () => {
+  it("shows the listening panel, the Zikr, how it counts, and the gentle stuck hint", async () => {
     mockVoice = voice({ listening: true, stuck: true, level: 0.4, countingMode: "template" });
     await renderCounter();
     expect(screen.getByText("Listening")).toBeTruthy();
     expect(screen.getByText("Listening for SubhanAllah")).toBeTruthy();
     expect(
-      screen.getByText("Counts only the zikr you taught — tap to correct any miscount."),
+      screen.getByText("Counts only the Zikr you taught — tap to correct any miscount."),
     ).toBeTruthy();
     expect(screen.getByText("Say the phrase clearly, or tap to count")).toBeTruthy();
     await fireEvent.press(screen.getByRole("button", { name: "Stop hands-free counting" }));
@@ -232,7 +232,7 @@ describe("hands-free tasbeeh in the counter", () => {
     expect(screen.getByText(/Listening paused after a quiet spell/)).toBeTruthy();
   });
 
-  it("counts a recognised phrase through the same path as a tap", async () => {
+  it("counts a recognized phrase through the same path as a tap", async () => {
     const { onIncrement } = await renderCounter();
     await act(async () => {
       mockOnVoiceCount?.();
@@ -296,7 +296,7 @@ describe("continuous hands-free across steps (after-Salah sequence, D69)", () =>
     );
     await act(async () => jest.advanceTimersByTime(400));
     expect(mockVoice.start).not.toHaveBeenCalled();
-    expect(screen.getByText("Say it once so only this zikr counts")).toBeTruthy();
+    expect(screen.getByText("Say it once so only this Zikr counts")).toBeTruthy();
   });
 
   it("does not reopen the microphone on an ordinary counter", async () => {

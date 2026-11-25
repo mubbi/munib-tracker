@@ -12,6 +12,8 @@ import { useRecordAction } from "@/components/records/use-record-action";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 import { Spacing } from "@/constants/theme";
 import { deviceCurrency, useRecordFormat } from "@/hooks/use-record-format";
 import { type DebtFormState, debtFormFrom, debtInputFromForm } from "@/lib/debts/debt-form";
@@ -94,7 +96,7 @@ export function DebtDetailBody({
       }
       setEditing(false);
     } catch {
-      toast.error(t("privateUx.saveFailed"));
+      toast.error(t("common.saveFailed"));
     } finally {
       savingRef.current = false;
       setSaving(false);
@@ -102,13 +104,16 @@ export function DebtDetailBody({
   };
 
   // The encrypted record may still be opening: don't flash "no longer exists".
-  if (status !== "ready" && !isNew) return null;
+  if (status !== "ready" && !isNew) return <SkeletonPlaceholder preset="card" />;
 
   if (!isNew && !record) {
     return (
-      <ThemedText type="small" themeColor="mutedForeground">
-        {t("debts.notFound")}
-      </ThemedText>
+      <EmptyState
+        icon={{ ios: "doc.text", android: "description", web: "description" }}
+        title={t("debts.notFound")}
+        actionLabel={t("debts.detail.backToList")}
+        onAction={close}
+      />
     );
   }
 
@@ -132,7 +137,7 @@ export function DebtDetailBody({
 
   return (
     <View style={styles.stack}>
-      <Card padding="three">
+      <Card>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t(`debts.direction.${record.direction}`)} · {t(`debts.status.${record.status}`)}
         </ThemedText>
@@ -227,8 +232,8 @@ export function DebtDetailBody({
       />
       <ConfirmDialog
         visible={removePaymentId != null}
-        title={t("privateUx.payments.removeTitle")}
-        message={t("privateUx.payments.removeBody")}
+        title={t("debts.payments.removeTitle")}
+        message={t("debts.payments.removeBody")}
         confirmLabel={t("common.remove")}
         destructive
         onConfirm={() => {

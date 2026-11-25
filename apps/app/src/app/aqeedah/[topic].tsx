@@ -19,7 +19,7 @@ export function generateStaticParams(): Array<{ topic: string }> {
 
 export default function AqeedahTopicScreen() {
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready } = useEnsureContent(ensureAqeedahContent, isAqeedahContentReady);
+  const { ready, error, retry } = useEnsureContent(ensureAqeedahContent, isAqeedahContentReady);
   const topic = getAqeedahTopic(topicId);
   const reportRef = useGuideContentReportRef("aqeedah", topic, "/aqeedah");
   useEnsureAqeedahProgressLoaded();
@@ -30,6 +30,8 @@ export default function AqeedahTopicScreen() {
       basePath="/aqeedah"
       topic={topic}
       ready={ready}
+      error={error}
+      onRetry={retry}
       surface="aqeedah"
       contentRef={reportRef}
       aside={(current) => <AqeedahTopicAside currentId={current.id} />}

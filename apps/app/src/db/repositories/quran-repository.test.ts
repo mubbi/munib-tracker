@@ -26,6 +26,32 @@ describe("QuranRepository bookmarks", () => {
     await expect(QuranRepository.getBookmarksUpdatedAt()).resolves.toEqual(expect.any(String));
   });
 
+  it("restoreBookmark re-inserts the exact record and re-stamps the watermark", async () => {
+    const original = { id: "qbm_old", surah: 2, ayah: 255, createdAt: "2026-01-01T00:00:00.000Z" };
+    await QuranRepository.applyRemoteBookmarks([original]);
+    await QuranRepository.removeBookmark(2, 255);
+    const removedAt = await QuranRepository.getBookmarksUpdatedAt();
+    await new Promise((r) => setTimeout(r, 5));
+    await expect(QuranRepository.restoreBookmark(original)).resolves.toBe(true);
+    await expect(QuranRepository.getBookmarks()).resolves.toEqual([original]);
+    const restoredAt = await QuranRepository.getBookmarksUpdatedAt();
+    expect((restoredAt ?? "") > (removedAt ?? "")).toBe(true);
+  });
+
+  it("restoreBookmark never overwrites an ayah re-bookmarked meanwhile", async () => {
+    await QuranRepository.toggleBookmark(2, 255);
+    const [current] = await QuranRepository.getBookmarks();
+    await expect(
+      QuranRepository.restoreBookmark({
+        id: "qbm_old",
+        surah: 2,
+        ayah: 255,
+        createdAt: "2026-01-01T00:00:00.000Z",
+      }),
+    ).resolves.toBe(false);
+    await expect(QuranRepository.getBookmarks()).resolves.toEqual([current]);
+  });
+
   it("applyRemoteBookmarks without a watermark merges items only", async () => {
     await QuranRepository.applyRemoteBookmarks([
       { id: "r", surah: 3, ayah: 4, createdAt: "2026-01-01T00:00:00.000Z" },

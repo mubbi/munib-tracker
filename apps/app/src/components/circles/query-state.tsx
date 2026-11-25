@@ -1,19 +1,22 @@
 import { useTranslation } from "react-i18next";
 
-import { ThemedText } from "@/components/themed-text";
 import { RetryCard } from "@/components/ui/retry-card";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
 
 /**
  * Loading / failed states shared by every circles screen (family, partner,
  * khatm groups, kids, join). Each feature passes its own copy; the defaults are
  * the generic `circles.common.*` strings.
  */
-export function CircleLoading({ label }: { label?: string }) {
+export function CircleLoading({ label, count = 3 }: { label?: string; count?: number }) {
   const { t } = useTranslation();
+  // Skeleton rows keep the layout from jumping; the label is what a screen reader hears.
   return (
-    <ThemedText type="small" themeColor="mutedForeground">
-      {label ?? t("circles.common.loading")}
-    </ThemedText>
+    <SkeletonPlaceholder
+      preset="rows"
+      count={count}
+      accessibilityLabel={label ?? t("circles.common.loading")}
+    />
   );
 }
 

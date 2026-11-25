@@ -127,6 +127,27 @@ export const HadithRepository = {
     return true;
   },
 
+  /** Removes a saved hadith and returns the removed record (for an exact Undo). */
+  async removeBookmark(hadithId: string): Promise<HadithBookmark | null> {
+    const existing = await bookmarks.get(hadithId);
+    if (!existing) return null;
+    await bookmarks.remove(hadithId);
+    await this.touchBookmarks();
+    return existing;
+  },
+
+  /**
+   * Undo of a removal: puts back the exact record (same id + createdAt) so the
+   * saved order and sync identity are unchanged (B-13 pattern). No-op if the
+   * hadith was saved again in the meantime.
+   */
+  async restoreBookmark(bookmark: HadithBookmark): Promise<boolean> {
+    if (await bookmarks.get(bookmark.hadithId)) return false;
+    await bookmarks.upsert(bookmark.hadithId, { ...bookmark });
+    await this.touchBookmarks();
+    return true;
+  },
+
   // ── Bookmark sync (blob last-write-wins) ───────────────
   /** Stamps the blob-level watermark used for last-write-wins over the set. */
   async touchBookmarks(): Promise<void> {

@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ReadingCreditResult } from "@/lib/quran-companion/reading-credit";
 import { useChevronForward } from "@/lib/rtl";
@@ -86,7 +86,7 @@ export function PracticeReadingCreditLine({
 }
 
 const styles = StyleSheet.create({
-  flex: { flex: 1, minWidth: 0, gap: 2 },
+  flex: { flex: 1, minWidth: 0, gap: Spacing.half },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -95,6 +95,6 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
 });

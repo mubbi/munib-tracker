@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
+import { Linking, Platform, StyleSheet, View } from "react-native";
 import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -11,8 +12,17 @@ import { getIntentsForPlatform } from "@/lib/appSurfaces/intents/registry";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
+/** iOS Shortcuts app — where App Shortcuts can be run, edited and added to Siri. */
+const SHORTCUTS_APP_URL = "shortcuts://";
+
 export default function VoiceShortcutsScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // Siri / Assistant phrases are registered in English by the native targets; say so
+  // instead of printing an English sentence as if it were the user's language (G-94).
+  const phraseKey =
+    (i18n.language ?? "en").split("-")[0] === "en"
+      ? "externalCommands.sayPhrase"
+      : "externalCommands.sayPhraseEnglish";
   const isAndroid = Platform.OS === "android";
   const isIos = Platform.OS === "ios";
   const title = t(isAndroid ? "externalCommands.titleAndroid" : "externalCommands.titleIos");
@@ -45,14 +55,14 @@ export default function VoiceShortcutsScreen() {
       subtitle={subtitle}
     >
       <Stagger>
-        <Card padding="three">
+        <Card>
           <ThemedText type="small" themeColor="mutedForeground">
             {intro}
           </ThemedText>
         </Card>
 
         {isIos ? (
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("externalCommands.siriTitle")}
               icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
@@ -60,10 +70,17 @@ export default function VoiceShortcutsScreen() {
             <ThemedText type="small" themeColor="mutedForeground" style={styles.hint}>
               {t("externalCommands.siriHint")}
             </ThemedText>
+            <Button
+              label={t("externalCommands.openShortcuts")}
+              variant="secondary"
+              icon={{ ios: "square.stack.3d.up.fill", android: "apps", web: "apps" }}
+              onPress={() => void Linking.openURL(SHORTCUTS_APP_URL).catch(() => undefined)}
+              style={styles.action}
+            />
           </Card>
         ) : null}
         {isIos ? (
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("externalCommands.watchTitle")}
               icon={{ ios: "applewatch", android: "watch", web: "watch" }}
@@ -75,7 +92,7 @@ export default function VoiceShortcutsScreen() {
         ) : null}
 
         {isAndroid ? (
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("externalCommands.assistantTitle")}
               icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
@@ -86,7 +103,7 @@ export default function VoiceShortcutsScreen() {
           </Card>
         ) : null}
         {isAndroid ? (
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("externalCommands.wearTitle")}
               icon={{ ios: "applewatch", android: "watch", web: "watch" }}
@@ -97,7 +114,7 @@ export default function VoiceShortcutsScreen() {
           </Card>
         ) : null}
 
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("externalCommands.forceQuitTitle")}
             icon={{ ios: "bolt.slash.fill", android: "phonelink_off", web: "phonelink_off" }}
@@ -108,7 +125,7 @@ export default function VoiceShortcutsScreen() {
         </Card>
 
         {(isIos || isAndroid) && availableIntents.length > 0 ? (
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("externalCommands.moreShortcutsTitle")}
               icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
@@ -121,7 +138,7 @@ export default function VoiceShortcutsScreen() {
                 <View key={intent.id} style={styles.shortcutRow}>
                   <ThemedText type="small">{t(intent.titleKey, intent.titleFallback)}</ThemedText>
                   <ThemedText type="caption" themeColor="mutedForeground">
-                    {intent.siriPhraseEn}
+                    {t(phraseKey, { phrase: intent.siriPhraseEn })}
                   </ThemedText>
                 </View>
               ))}
@@ -137,12 +154,15 @@ const styles = StyleSheet.create({
   hint: {
     marginTop: Spacing.two,
   },
+  action: {
+    marginTop: Spacing.three,
+  },
   shortcutList: {
     marginTop: Spacing.three,
     gap: Spacing.two,
   },
   shortcutRow: {
-    gap: 2,
+    gap: Spacing.half,
   },
 });
 

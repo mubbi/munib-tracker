@@ -73,7 +73,7 @@ export function WasiyyahOverview() {
     <View style={styles.stack}>
       <JannahCallout tone="info">{t("wasiyyah.intro")}</JannahCallout>
 
-      <Card padding="three">
+      <Card>
         <View style={styles.stack}>
           {latest ? (
             <>
@@ -96,7 +96,7 @@ export function WasiyyahOverview() {
           )}
           {draft ? (
             <ThemedText type="caption" themeColor="mutedForeground">
-              {t("privateUx.wasiyyah.draftNote")}
+              {t("wasiyyah.draftNote")}
             </ThemedText>
           ) : null}
           <View style={styles.actions}>
@@ -113,9 +113,7 @@ export function WasiyyahOverview() {
             {latest ? (
               <Button
                 label={
-                  exportFeedback.busy
-                    ? t("privateUx.export.preparing")
-                    : t("wasiyyah.actions.print")
+                  exportFeedback.busy ? t("common.export.preparing") : t("wasiyyah.actions.print")
                 }
                 variant="secondary"
                 icon={{ ios: "printer.fill", android: "print", web: "print" }}
@@ -143,7 +141,7 @@ export function WasiyyahOverview() {
       </Card>
 
       {latest ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("wasiyyah.reviewInterval.title")}
             subtitle={t("wasiyyah.reviewInterval.hint")}
@@ -160,7 +158,7 @@ export function WasiyyahOverview() {
       ) : null}
 
       {versions.length ? (
-        <Card padding="three">
+        <Card>
           <SectionHeader
             title={t("wasiyyah.versions.title")}
             icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
@@ -197,7 +195,7 @@ export function WasiyyahOverview() {
         </Card>
       ) : null}
 
-      <Card padding="three">
+      <Card>
         <JannahNavRow
           icon={{ ios: "list.bullet.rectangle", android: "receipt_long", web: "receipt_long" }}
           title={t("wasiyyah.debtsLink")}
@@ -211,8 +209,8 @@ export function WasiyyahOverview() {
 
       <ConfirmDialog
         visible={confirmDiscard}
-        title={t("privateUx.wasiyyah.discardTitle")}
-        message={t("privateUx.wasiyyah.discardBody")}
+        title={t("wasiyyah.discardDraftTitle")}
+        message={t("wasiyyah.discardDraftBody")}
         confirmLabel={t("wasiyyah.actions.discardDraft")}
         destructive
         onConfirm={() => {

@@ -11,7 +11,7 @@ import {
   ChildRewardCard,
 } from "@/components/circles/child/child-settings-cards";
 import { ChildWeekCard } from "@/components/circles/child/child-week-card";
-import { CircleLoading } from "@/components/circles/query-state";
+import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
 import { useCircleRun } from "@/components/circles/use-circle-run";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -19,18 +19,22 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { NavRow } from "@/components/ui/nav-row";
 import { Spacing } from "@/constants/theme";
 import { deleteChild, type UpdateChildInput, updateChild } from "@/lib/circles/api";
 import { useChildProfiles, useCircleAction, useCircleMutation } from "@/lib/circles/hooks";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
+import { useToast } from "@/providers/toast-provider";
 
 /** Parent tools for one child profile: week log, device link, reward, graduation, delete. */
 export default function ChildProfileScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const run = useCircleRun();
+  const toast = useToast();
   const { childId, circleId } = useLocalSearchParams<{ childId: string; circleId?: string }>();
   const back = () => goBackOrReplace(router, "/family");
   const children = useChildProfiles(circleId);
@@ -48,7 +52,7 @@ export default function ChildProfileScreen() {
   if (isTV() || !circleId) {
     return (
       <ScreenLayout title={t("family.title")} onBack={back}>
-        <Card padding="three">
+        <Card>
           <ThemedText type="small" themeColor="mutedForeground">
             {t("family.tvSetup")}
           </ThemedText>
@@ -66,7 +70,22 @@ export default function ChildProfileScreen() {
     >
       <Seo path="/family/child" index={false} />
       {!child ? (
-        <CircleLoading label={children.isLoading ? undefined : t("family.child.notFound")} />
+        children.isLoading ? (
+          <CircleLoading />
+        ) : children.isError ? (
+          <CircleRetryCard onRetry={() => void children.refetch()} />
+        ) : (
+          <EmptyState
+            icon={{
+              ios: "person.crop.circle.badge.questionmark",
+              android: "person_off",
+              web: "person_off",
+            }}
+            title={t("family.child.notFound")}
+            actionLabel={t("family.child.backToFamily")}
+            onAction={back}
+          />
+        )
       ) : (
         <View style={styles.stack}>
           <Button
@@ -78,9 +97,10 @@ export default function ChildProfileScreen() {
           <ChildRewardCard child={child} onSave={save} />
           <ChildProfileCard child={child} onSave={save} />
           <ChildGraduationCard child={child} onSave={save} />
-          <Button
+          <NavRow
+            tone="danger"
+            icon={{ ios: "trash", android: "delete", web: "delete" }}
             label={t("family.child.delete")}
-            variant="ghost"
             onPress={() => setConfirmDelete(true)}
           />
         </View>
@@ -91,12 +111,12 @@ export default function ChildProfileScreen() {
         message={t("family.child.deleteBody")}
         confirmLabel={t("family.child.delete")}
         destructive
-        onConfirm={() => {
+        errorMessage={t("circles.common.offline")}
+        onConfirm={async () => {
+          await remove.mutateAsync();
           setConfirmDelete(false);
-          void run(async () => {
-            await remove.mutateAsync();
-            back();
-          }, "family.child.deleted");
+          toast.success(t("family.child.deleted"));
+          back();
         }}
         onClose={() => setConfirmDelete(false)}
       />

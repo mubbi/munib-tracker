@@ -4,6 +4,7 @@ import {
   CardDivider,
   LinkRow,
   MetricGrid,
+  ReadableView,
   StatLine,
   StatsGroup,
 } from "@/components/statistics/metrics";
@@ -28,6 +29,23 @@ describe("MetricGrid / StatsGroup", () => {
   it("uses two columns by default", async () => {
     await renderWithTheme(<MetricGrid metrics={metrics.slice(0, 1)} />);
     expect(screen.getByText("Streak")).toBeTruthy();
+  });
+});
+
+describe("MetricGrid / ReadableView a11y", () => {
+  it("groups each metric's value and label into one announcement", async () => {
+    await renderWithTheme(<MetricGrid metrics={metrics} />);
+    expect(screen.getByLabelText("Streak: 12")).toBeTruthy();
+  });
+
+  it("puts the summary label on a real accessible View on phone / web", async () => {
+    await renderWithTheme(
+      <ReadableView accessibilityLabel="All rawatib prayed on 4 of the last 30 days">
+        <MetricGrid metrics={metrics.slice(0, 1)} />
+      </ReadableView>,
+    );
+    const node = screen.getByLabelText("All rawatib prayed on 4 of the last 30 days");
+    expect(node.props.accessible).toBe(true);
   });
 });
 

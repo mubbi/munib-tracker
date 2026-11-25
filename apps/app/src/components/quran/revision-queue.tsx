@@ -42,24 +42,24 @@ export function RevisionQueue({
           status === "needs_revision"
             ? {
                 label: t("quranCompanion.revision.status.needsRevision"),
-                color: tokens.status.danger.color,
+                color: tokens.status.danger.onSoft,
                 bg: tokens.status.danger.soft,
               }
             : status === "practising"
               ? {
                   label: t("quranCompanion.revision.status.practising"),
-                  color: tokens.status.success.color,
+                  color: tokens.status.success.onSoft,
                   bg: tokens.status.success.soft,
                 }
               : status === "learning"
                 ? {
                     label: t("quranCompanion.revision.status.learning"),
-                    color: tokens.status.info.color,
+                    color: tokens.status.info.onSoft,
                     bg: tokens.status.info.soft,
                   }
                 : {
                     label: t("quran.actionReview"),
-                    color: tokens.status.warning.color,
+                    color: tokens.status.warning.onSoft,
                     bg: tokens.status.warning.soft,
                   };
         return (
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     gap: Spacing.one,
   },
-  rowMain: { gap: 2 },
+  rowMain: { gap: Spacing.half },
   rowTitle: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   flex: { flex: 1, minWidth: 0 },
   actions: { flexDirection: "row", justifyContent: "flex-end", gap: Spacing.one },

@@ -82,7 +82,7 @@ export function ReciteAlongButton({
           name={RECITE_ALONG_ICON}
           label={t("reciteAlong.iconLabel")}
           tintColor={colors.accent}
-          labelColor={colors.accent}
+          labelColor={colors.accentText}
           background={tokens.accentSoft}
           accessibilityLabel={t("reciteAlong.withPassage", { passage: passageLabel(passage) })}
           accessibilityHint={hint}

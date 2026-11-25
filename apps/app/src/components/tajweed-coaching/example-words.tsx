@@ -5,7 +5,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahByNumber } from "@/lib/quran-meta";
 import { useIsRTL } from "@/lib/rtl";
@@ -77,7 +77,7 @@ export function ExampleWords({ refs }: { refs: readonly TajweedWordRef[] }) {
               { backgroundColor: tokens.accentSoft, borderColor: colors.border },
             ]}
           >
-            <ThemedText type="arabic" style={styles.arabic}>
+            <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.arabic}>
               {word.arabic}
             </ThemedText>
             <View style={styles.meta}>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   chip: {
     alignItems: "center",
     borderRadius: Radius.md,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
     minHeight: 44,

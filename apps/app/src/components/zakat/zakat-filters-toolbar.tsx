@@ -11,7 +11,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { Durations } from "@/constants/motion";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Metal, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { ZakatCalculatorState } from "@/hooks/use-zakat-calculator";
@@ -127,7 +127,7 @@ export function ZakatFiltersToolbar({
                 tintColor={colors.accent}
               />
             )}
-            <ThemedText type="smallBold" style={{ color: colors.accent }} numberOfLines={1}>
+            <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }} numberOfLines={1}>
               {currencyCode}
             </ThemedText>
           </PressableScale>
@@ -158,7 +158,7 @@ export function ZakatFiltersToolbar({
                 <SymbolView
                   name={{ ios: "circle.fill", android: "circle", web: "circle" }}
                   size={10}
-                  tintColor="#D4A017"
+                  tintColor={Metal.gold}
                 />
                 <ThemedText type="caption" themeColor="mutedForeground">
                   {t("zakat.toolbar.gold")}
@@ -174,7 +174,7 @@ export function ZakatFiltersToolbar({
                 <SymbolView
                   name={{ ios: "circle.fill", android: "circle", web: "circle" }}
                   size={10}
-                  tintColor="#A8B0B8"
+                  tintColor={Metal.silver}
                 />
                 <ThemedText type="caption" themeColor="mutedForeground">
                   {t("zakat.toolbar.silver")}
@@ -265,7 +265,7 @@ export function ZakatFiltersToolbar({
                 tintColor={colors.accent}
               />
             )}
-            <ThemedText type="smallBold" style={{ color: colors.accent }} numberOfLines={1}>
+            <ThemedText type="smallBold" style={{ color: tokens.accentOnSoft }} numberOfLines={1}>
               {pricesManual ? t("zakat.market.useLive") : t("zakat.market.livePrice")}
             </ThemedText>
           </PressableScale>
@@ -277,7 +277,7 @@ export function ZakatFiltersToolbar({
 
 const styles = StyleSheet.create({
   bar: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: BorderWidth.hairline,
     paddingVertical: Spacing.two,
   },
   row: {
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
     borderRadius: Radius.pill,

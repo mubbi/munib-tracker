@@ -1,13 +1,15 @@
 import { SymbolView } from "expo-symbols";
 import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { NumberField } from "@/components/ui/number-field";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Radius, Spacing } from "@/constants/theme";
+import { Control, IconSize, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahByNumber } from "@/lib/quran";
 import { wholeSurah } from "@/lib/recite-along/passages";
@@ -16,45 +18,52 @@ import { TOTAL_SURAHS } from "./constants";
 import { readerControlStyles } from "./reader-control-styles";
 
 /**
- * Desktop / wide-tablet side pane: previous / next surah, jump to an ayah, and
- * a play–pause control for this surah (keyboard: ←/→ and Space on web).
+ * Previous / next surah navigation.
+ *
+ * - `pane` (default): the desktop / wide-tablet side pane: previous / next
+ *   surah, jump to an ayah, and a play–pause control (web keys: ←/→, Space).
+ * - `footer`: the end of the ayah list on phones, narrow web and TV (G-02), so
+ *   a reader who finishes a surah can continue straight to the next one.
  */
 export function SurahNavCard({
   surahNumber,
   ayahCount,
-  audioActive,
-  audioPlaying,
+  audioActive = false,
+  audioPlaying = false,
   onGoToSurah,
   onJumpToAyah,
   onPlayPause,
+  variant = "pane",
 }: {
   surahNumber: number;
   ayahCount: number;
-  audioActive: boolean;
-  audioPlaying: boolean;
+  audioActive?: boolean;
+  audioPlaying?: boolean;
   onGoToSurah: (n: number) => void;
-  onJumpToAyah: (ayah: number) => void;
-  onPlayPause: () => void;
+  onJumpToAyah?: (ayah: number) => void;
+  onPlayPause?: () => void;
+  variant?: "pane" | "footer";
 }) {
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const backwardIcon = useChevronBackward();
   const forwardIcon = useChevronForward();
-  const [ayahInput, setAyahInput] = useState("");
+  const [ayahValue, setAyahValue] = useState<number | undefined>(undefined);
   const [invalid, setInvalid] = useState(false);
   const prev = surahNumber > 1 ? getSurahByNumber(surahNumber - 1) : undefined;
   const next = surahNumber < TOTAL_SURAHS ? getSurahByNumber(surahNumber + 1) : undefined;
   const recitePassage = wholeSurah(surahNumber);
+  const footer = variant === "footer";
 
   const submit = () => {
-    const n = Number.parseInt(ayahInput, 10);
-    if (!Number.isFinite(n) || n < 1 || n > ayahCount) {
+    const n = ayahValue;
+    if (n == null || !Number.isFinite(n) || n < 1 || n > ayahCount) {
       setInvalid(true);
       return;
     }
     setInvalid(false);
-    setAyahInput("");
-    onJumpToAyah(n);
+    setAyahValue(undefined);
+    onJumpToAyah?.(n);
   };
 
   const playLabel = audioActive
@@ -66,11 +75,21 @@ export function SurahNavCard({
   const stepButton = (target: typeof prev, direction: "prev" | "next"): ReactNode => {
     const label = direction === "prev" ? t("common.previous") : t("common.next");
     const disabled = !target;
+    // The footer drops the missing side (Al-Fatihah has no previous surah, An-Nas no next).
+    if (footer && disabled) return null;
     return (
       <PressableScale
         haptic="light"
         accessibilityRole="button"
-        accessibilityLabel={target ? `${label}: ${target.nameTransliteration}` : label}
+        accessibilityLabel={
+          target
+            ? t("quran.reader.surahNavA11y", {
+                direction: label,
+                name: target.nameTransliteration,
+                number: target.number,
+              })
+            : label
+        }
         accessibilityState={{ disabled }}
         disabled={disabled}
         onPress={() => target && onGoToSurah(target.number)}
@@ -82,7 +101,7 @@ export function SurahNavCard({
         ]}
       >
         {direction === "prev" ? (
-          <SymbolView name={backwardIcon} size={14} tintColor={colors.mutedForeground} />
+          <SymbolView name={backwardIcon} size={IconSize.sm} tintColor={colors.mutedForeground} />
         ) : null}
         <View style={[styles.navStepCopy, direction === "next" && styles.navStepCopyNext]}>
           <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
@@ -93,79 +112,83 @@ export function SurahNavCard({
           </ThemedText>
         </View>
         {direction === "next" ? (
-          <SymbolView name={forwardIcon} size={14} tintColor={colors.mutedForeground} />
+          <SymbolView name={forwardIcon} size={IconSize.sm} tintColor={colors.mutedForeground} />
         ) : null}
       </PressableScale>
     );
   };
 
+  if (footer) {
+    return (
+      <View
+        testID="surah-nav-footer"
+        accessibilityRole="toolbar"
+        accessibilityLabel={t("quran.reader.surahNavTitle")}
+        style={styles.footer}
+      >
+        <View style={styles.navStepsRow}>
+          {stepButton(prev, "prev")}
+          {stepButton(next, "next")}
+        </View>
+      </View>
+    );
+  }
+
   return (
-    <Card padding="three" style={styles.navCard}>
+    <Card style={styles.navCard}>
       <View style={styles.navStepsRow}>
         {stepButton(prev, "prev")}
         {stepButton(next, "next")}
       </View>
 
-      <View style={styles.navJumpRow}>
-        <TextInput
-          value={ayahInput}
-          onChangeText={(text) => {
-            setAyahInput(text.replace(/[^0-9]/g, ""));
-            if (invalid) setInvalid(false);
-          }}
-          onSubmitEditing={submit}
-          keyboardType="number-pad"
-          inputMode="numeric"
-          returnKeyType="go"
-          maxLength={3}
-          placeholder={t("quran.goToAyahPlaceholder", { max: ayahCount })}
-          placeholderTextColor={colors.mutedForeground}
-          accessibilityLabel={t("quran.goToAyahA11y")}
-          style={[
-            styles.navJumpInput,
-            {
-              color: colors.foreground,
-              backgroundColor: colors.input,
-              borderColor: invalid ? tokens.status.danger.color : colors.inputBorder,
-              borderWidth: 1,
-            },
-          ]}
-        />
+      {onJumpToAyah ? (
+        <View style={styles.navJumpRow}>
+          <NumberField
+            label={t("quran.goToAyahA11y")}
+            value={ayahValue}
+            onChangeValue={(value) => {
+              setAyahValue(value);
+              if (invalid) setInvalid(false);
+            }}
+            onSubmitEditing={submit}
+            returnKeyType="go"
+            maxFractionDigits={0}
+            placeholder={t("quran.goToAyahPlaceholder", { max: ayahCount })}
+            error={invalid ? t("quran.goToAyahInvalid", { max: ayahCount }) : undefined}
+            style={styles.navJumpInput}
+          />
+          <Button
+            label={t("quran.goToPageAction")}
+            variant="secondary"
+            onPress={submit}
+            style={styles.navJumpGo}
+          />
+        </View>
+      ) : null}
+
+      {onPlayPause ? (
         <PressableScale
           haptic="light"
           accessibilityRole="button"
-          accessibilityLabel={t("quran.goToAyahA11y")}
-          onPress={submit}
-          scaleTo={0.97}
-          style={[styles.navJumpGo, { backgroundColor: tokens.accentSoft }]}
+          accessibilityLabel={playLabel}
+          accessibilityState={{ selected: audioPlaying }}
+          onPress={onPlayPause}
+          style={[
+            readerControlStyles.playSurah,
+            styles.navPlay,
+            { backgroundColor: colors.accent },
+          ]}
         >
-          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-            {t("quran.goToPageAction")}
+          <SymbolView
+            name={audioPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
+            size={IconSize.md}
+            tintColor={colors.accentForeground}
+          />
+          <ThemedText type="smallBold" style={{ color: colors.accentForeground }}>
+            {playLabel}
           </ThemedText>
         </PressableScale>
-      </View>
-      {invalid ? (
-        <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
-          {t("quran.goToAyahInvalid", { max: ayahCount })}
-        </ThemedText>
       ) : null}
-
-      <PressableScale
-        haptic="light"
-        accessibilityRole="button"
-        accessibilityLabel={playLabel}
-        onPress={onPlayPause}
-        style={[readerControlStyles.playSurah, styles.navPlay, { backgroundColor: colors.accent }]}
-      >
-        <SymbolView
-          name={audioPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
-          size={20}
-          tintColor={colors.accentForeground}
-        />
-        <ThemedText type="smallBold" style={{ color: colors.accentForeground }}>
-          {playLabel}
-        </ThemedText>
-      </PressableScale>
       {/* Recite along with the whole surah (D68); long surahs ask whole or ten ayahs. */}
       {recitePassage ? <ReciteAlongButton passage={recitePassage} fullWidth /> : null}
     </Card>
@@ -175,38 +198,24 @@ export function SurahNavCard({
 const styles = StyleSheet.create({
   navCard: { gap: Spacing.three },
   navStepsRow: { flexDirection: "row", gap: Spacing.two },
+  footer: { marginTop: Spacing.four },
   navStep: {
     flex: 1,
     minWidth: 0,
+    minHeight: Control.md,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
     paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.two + 2,
+    paddingHorizontal: Spacing.twoHalf,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
   },
   navStepNext: { justifyContent: "flex-end" },
-  navStepCopy: { flex: 1, minWidth: 0, gap: 2 },
+  navStepCopy: { flex: 1, minWidth: 0, gap: Spacing.half },
   navStepCopyNext: { alignItems: "flex-end" },
-  navJumpRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  navJumpInput: {
-    flex: 1,
-    minWidth: 0,
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    fontSize: 15,
-  },
-  navJumpGo: {
-    minHeight: 38,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  navJumpRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.two },
+  navJumpInput: { flex: 1, minWidth: 0 },
+  navJumpGo: { marginTop: Spacing.six },
   navPlay: { marginTop: 0 },
 });

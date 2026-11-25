@@ -6,9 +6,9 @@ import {
   type MirathHeirCounts,
 } from "@munib-tracker/shared/mirath";
 import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
+import { type RefObject, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { type ScrollViewInstance, StyleSheet, View } from "react-native";
 
 import { JannahCallout } from "@/components/jannah/primitives";
 import { MirathCompareTable } from "@/components/mirath/mirath-compare-table";
@@ -19,8 +19,9 @@ import { MirathStepBody } from "@/components/mirath/mirath-step-body";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
+import { useRevealOnShow } from "@/components/wizard/use-reveal-on-show";
+import { WizardShell } from "@/components/wizard/wizard-shell";
 import { Spacing } from "@/constants/theme";
 import { useMadhhab } from "@/hooks/use-madhhab";
 import { estateInputFrom, type MirathEstateDraft } from "@/lib/mirath/estate";
@@ -40,7 +41,14 @@ import { isTV } from "@/lib/platform/is-tv";
 export { MIRATH_EVIDENCE } from "@/components/mirath/mirath-reference";
 
 /** NF-3.10 inheritance calculator: wizard → estate → results (+ four-school comparison). */
-export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: boolean }) {
+export function MirathCalculator({
+  fromWasiyyah = false,
+  scrollRef,
+}: {
+  fromWasiyyah?: boolean;
+  /** The screen's scroll view, so "Show shares" can bring the results into view. */
+  scrollRef?: RefObject<ScrollViewInstance | null>;
+}) {
   const { t } = useTranslation();
   const router = useRouter();
   const tv = isTV();
@@ -57,6 +65,7 @@ export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: bool
   const [browse, setBrowse] = useState<MadhhabId>(school ?? "hanafi");
   const [showCompare, setShowCompare] = useState(school == null);
 
+  const { targetRef: resultsRef, reveal } = useRevealOnShow(scrollRef);
   const steps = visibleSteps(counts);
   const index = Math.max(0, steps.indexOf(stepId));
   const current = steps[index] ?? "deceased";
@@ -80,6 +89,11 @@ export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: bool
     [done, gender, heirs, estateInput],
   );
 
+  // "Show shares" computes below the fold: scroll to the results and move focus there.
+  useEffect(() => {
+    if (done) reveal();
+  }, [done, reveal]);
+
   const setCount = (heir: HeirType, value: number) => {
     setCounts((c) => withHeirCount(c, heir, value));
     setDone(false);
@@ -97,53 +111,33 @@ export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: bool
     <View style={styles.gap}>
       <JannahCallout tone="warning">{t("mirath.disclaimer")}</JannahCallout>
 
-      <Card padding="three">
-        <SectionHeader
-          title={t(`mirath.step.${current}.title`)}
-          icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}
+      <WizardShell
+        title={t(`mirath.step.${current}.title`)}
+        subtitle={t(`mirath.step.${current}.hint`)}
+        stepIndex={index}
+        total={steps.length}
+        stepLabel={t("mirath.step.progress", { current: index + 1, total: steps.length })}
+        progressLabel={t("mirath.step.progressLabel")}
+        backLabel={t("mirath.nav.back")}
+        onBack={() => go(-1)}
+        nextLabel={current === "confirm" ? t("mirath.nav.results") : t("mirath.nav.next")}
+        onNext={current === "confirm" ? () => setDone(true) : () => go(1)}
+        nextDisabled={current === "confirm" && !confirmed}
+      >
+        <MirathStepBody
+          step={current}
+          gender={gender}
+          onGenderChange={(g) => {
+            setGender(g);
+            setDone(false);
+          }}
+          counts={counts}
+          heirs={heirs}
+          onCountChange={setCount}
+          confirmed={confirmed}
+          onConfirmedChange={setConfirmed}
         />
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-          {t("mirath.step.progress", { current: index + 1, total: steps.length })}
-          {" · "}
-          {t(`mirath.step.${current}.hint`)}
-        </ThemedText>
-        <View style={styles.block}>
-          <MirathStepBody
-            step={current}
-            gender={gender}
-            onGenderChange={(g) => {
-              setGender(g);
-              setDone(false);
-            }}
-            counts={counts}
-            heirs={heirs}
-            onCountChange={setCount}
-            confirmed={confirmed}
-            onConfirmedChange={setConfirmed}
-          />
-        </View>
-        <View style={styles.nav}>
-          {index > 0 ? (
-            <Button
-              label={t("mirath.nav.back")}
-              variant="secondary"
-              size="sm"
-              onPress={() => go(-1)}
-            />
-          ) : null}
-          <View style={styles.flex} />
-          {current === "confirm" ? (
-            <Button
-              label={t("mirath.nav.results")}
-              size="sm"
-              disabled={!confirmed}
-              onPress={() => setDone(true)}
-            />
-          ) : (
-            <Button label={t("mirath.nav.next")} size="sm" onPress={() => go(1)} />
-          )}
-        </View>
-      </Card>
+      </WizardShell>
 
       {!tv ? (
         <MirathEstateCard
@@ -157,7 +151,7 @@ export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: bool
       {results && shown ? (
         <>
           {school == null ? (
-            <Card padding="three">
+            <Card>
               <ThemedText type="small" themeColor="mutedForeground">
                 {t("mirath.compare.allViewsIntro")}
               </ThemedText>
@@ -174,6 +168,7 @@ export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: bool
             <MirathCompareTable results={results} selected={shownSchool} />
           ) : null}
           <MirathResultView
+            headingRef={resultsRef}
             result={shown}
             school={school}
             currency={estateInput ? currency : undefined}
@@ -211,8 +206,5 @@ export function MirathCalculator({ fromWasiyyah = false }: { fromWasiyyah?: bool
 
 const styles = StyleSheet.create({
   gap: { gap: Spacing.three },
-  flex: { flex: 1, minWidth: 0 },
-  hint: { marginTop: Spacing.one, lineHeight: 20 },
   block: { marginTop: Spacing.three },
-  nav: { flexDirection: "row", alignItems: "center", gap: Spacing.two, marginTop: Spacing.three },
 });

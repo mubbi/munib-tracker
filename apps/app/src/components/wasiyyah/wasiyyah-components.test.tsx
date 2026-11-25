@@ -102,6 +102,8 @@ describe("WasiyyahWizard", () => {
       />,
     );
     expect(screen.getByText(/Couldn't read this date/)).toBeTruthy();
+    // The unreadable saved value stays visible so the user doesn't lose it.
+    expect(screen.getByText(/2026-13-40/)).toBeTruthy();
     await goToReview();
     expect(screen.getByText("Fix the date in “About you” before saving.")).toBeTruthy();
     await fireEvent.press(screen.getByText("Save this version"));

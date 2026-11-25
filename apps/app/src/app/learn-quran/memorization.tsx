@@ -69,7 +69,7 @@ export default function LearnQuranMemorizationScreen() {
                     ? wholeSurah(plan.surahNumbers[0])
                     : null;
                   return (
-                    <Card key={plan.id} padding="three" style={styles.card}>
+                    <Card key={plan.id} style={styles.card}>
                       <View style={styles.planHeader}>
                         <ThemedText type="title" style={styles.planTitle}>
                           {plan.title}
@@ -100,7 +100,7 @@ export default function LearnQuranMemorizationScreen() {
                         ))}
                       </View>
                       <View style={[styles.tipBox, { backgroundColor: tokens.status.info.soft }]}>
-                        <ThemedText type="caption" style={{ color: tokens.status.info.color }}>
+                        <ThemedText type="caption" style={{ color: tokens.status.info.onSoft }}>
                           {plan.tip}
                         </ThemedText>
                       </View>

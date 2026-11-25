@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -11,10 +12,10 @@ import {
   useLearnHubLayout,
   useLearnTileStyle,
 } from "@/components/jannah/hub-layout";
-import { JannahActionRow, JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { JannahCallout, JannahDisclaimer, LearnActionRow } from "@/components/jannah/primitives";
 import { LearnContentGate } from "@/components/learn-content-loading";
 import { ReciteAlongButton } from "@/components/quran/recite-along-button";
-import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
+import { LearnProseText, LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -22,7 +23,7 @@ import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -34,6 +35,7 @@ import {
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { passageFromRef } from "@/lib/recite-along/passages";
+import { useChevronForward } from "@/lib/rtl";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 
 /** Bookmark + recite along (D68) for one verse row; recite hides where practice is unavailable. */
@@ -51,10 +53,14 @@ export default function BattlesVersesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
-  const { sizes } = useReadingTypography();
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const verses = getBattlesVerses();
   const tileStyle = useLearnTileStyle();
+  const chevronForwardIcon = useChevronForward();
   const wide = useLearnHubLayout();
   // Wide web / tablets: verse cards flow into 2–3 columns per battle.
   const columns = learnColumnsFor(wide.contentWidth - Spacing.three * 2, { minCell: 320, max: 3 });
@@ -76,11 +82,12 @@ export default function BattlesVersesScreen() {
       eyebrow={t("battles.eyebrow")}
       title={t("battles.versesTitle")}
       subtitle={t("battles.versesSubtitle")}
+      readingProgress
       onBack={() => goBackOrReplace(router, "/battles" as Href)}
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/battles/verses" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <JannahCallout tone="info">
             {tTv(t, "battles.versesIntro", "battles.versesIntroTv")}
@@ -92,7 +99,7 @@ export default function BattlesVersesScreen() {
               const battle = getBattlesTopic(battleId);
               const title = battle?.title ?? battleId;
               return (
-                <Card key={battleId} padding="three">
+                <Card key={battleId}>
                   <SectionHeader
                     title={title}
                     icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
@@ -104,7 +111,7 @@ export default function BattlesVersesScreen() {
                     style={styles.list}
                   >
                     {items.map((verse, index) => (
-                      <JannahActionRow
+                      <LearnActionRow
                         key={verse.id}
                         accessibilityRole="link"
                         onPress={() =>
@@ -119,10 +126,17 @@ export default function BattlesVersesScreen() {
                             ? tileStyle
                             : index > 0 && {
                                 borderTopColor: tokens.hairline,
-                                borderTopWidth: StyleSheet.hairlineWidth,
+                                borderTopWidth: BorderWidth.hairline,
                               },
                         ]}
                         actions={<VerseActions verse={verse} />}
+                        trailing={
+                          <SymbolView
+                            name={chevronForwardIcon}
+                            size={14}
+                            tintColor={colors.mutedForeground}
+                          />
+                        }
                       >
                         <IconWell
                           icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
@@ -133,23 +147,13 @@ export default function BattlesVersesScreen() {
                         <View style={styles.copy}>
                           <ReferenceLine reference={verse.label} />
                           <ScriptureMeaning english={verse.excerpt} quranRef={verse}>
-                            {(text) => (
-                              <ThemedText
-                                type="small"
-                                style={{
-                                  fontSize: sizes.translation,
-                                  lineHeight: sizes.translation * 1.45,
-                                }}
-                              >
-                                {text}
-                              </ThemedText>
-                            )}
+                            {(text) => <LearnProseText>{text}</LearnProseText>}
                           </ScriptureMeaning>
                           <ThemedText type="caption" themeColor="mutedForeground">
                             {verse.context}
                           </ThemedText>
                         </View>
-                      </JannahActionRow>
+                      </LearnActionRow>
                     ))}
                   </LearnColumnsGrid>
                 </Card>

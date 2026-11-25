@@ -31,6 +31,10 @@ export interface QuranState {
     options?: { isAudio?: boolean; page?: number },
   ) => Promise<void>;
   toggleBookmark: (surah: number, ayah: number) => Promise<boolean>;
+  /** Remove (never re-add) a bookmark; idempotent. */
+  removeBookmark: (surah: number, ayah: number) => Promise<void>;
+  /** Undo of a removal: re-insert the exact prior record (id + createdAt kept). */
+  restoreBookmark: (bookmark: QuranBookmark) => Promise<boolean>;
   recordProgress: (surah: number, ayah: number) => Promise<void>;
 }
 
@@ -79,6 +83,17 @@ export const quranStore = createStore<QuranState>((set, get) => ({
     return added;
   },
 
+  async removeBookmark(surah, ayah) {
+    await QuranRepository.removeBookmark(surah, ayah);
+    set({ bookmarks: await QuranRepository.getBookmarks() });
+  },
+
+  async restoreBookmark(bookmark) {
+    const restored = await QuranRepository.restoreBookmark(bookmark);
+    set({ bookmarks: await QuranRepository.getBookmarks() });
+    return restored;
+  },
+
   async recordProgress(surah, ayah) {
     await QuranRepository.recordProgress(surah, ayah);
     await get().setLastRead(surah, ayah);
@@ -113,6 +128,10 @@ const quranActions = {
     quranStore.getState().setLastRead(...args),
   toggleBookmark: (...args: Parameters<QuranState["toggleBookmark"]>) =>
     quranStore.getState().toggleBookmark(...args),
+  removeBookmark: (...args: Parameters<QuranState["removeBookmark"]>) =>
+    quranStore.getState().removeBookmark(...args),
+  restoreBookmark: (...args: Parameters<QuranState["restoreBookmark"]>) =>
+    quranStore.getState().restoreBookmark(...args),
   recordProgress: (...args: Parameters<QuranState["recordProgress"]>) =>
     quranStore.getState().recordProgress(...args),
 } as const;

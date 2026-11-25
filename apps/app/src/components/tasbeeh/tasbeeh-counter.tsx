@@ -1,6 +1,6 @@
 import { useIsFocused } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { Fragment, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type AccessibilityActionEvent,
@@ -19,12 +19,13 @@ import { NightSurface } from "@/components/tasbeeh/night-surface";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { TasbeehDesignNote } from "@/components/tasbeeh/tasbeeh-design-note";
 import { TasbeehStyleSheet } from "@/components/tasbeeh/tasbeeh-style-sheet";
+import { useTasbeehFeedback } from "@/components/tasbeeh/use-tasbeeh-feedback";
 import { VoiceListeningPanel } from "@/components/tasbeeh/voice/voice-listening-panel";
 import { VoiceTasbeehSheet } from "@/components/tasbeeh/voice/voice-tasbeeh-sheet";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { BorderWidth, Breakpoints, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -34,21 +35,13 @@ import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
 import { useHingePosture } from "@/lib/platform/hinge";
 import { isTV } from "@/lib/platform/is-tv";
-import { getDesign, resolveSoundPack } from "@/lib/tasbeeh/designs";
-import {
-  countEventForAppearance,
-  feedbackFor,
-  playHapticPattern,
-  type TasbeehFeedbackEvent,
-} from "@/lib/tasbeeh/feedback";
-import { materialFor } from "@/lib/tasbeeh/materials";
+import { getDesign } from "@/lib/tasbeeh/designs";
+import { countEventForAppearance } from "@/lib/tasbeeh/feedback";
 import { useTasbeehAppearance } from "@/lib/tasbeeh/use-tasbeeh-appearance";
-import { useTasbeehSound } from "@/lib/tasbeeh/use-tasbeeh-sound";
 import type { SessionCountingMode } from "@/lib/tasbeeh-voice/mode";
 import { effectiveAnnouncements } from "@/lib/tasbeeh-voice/session";
 import { VOICE_RESUME_DELAY_MS } from "@/lib/tasbeeh-voice/steps";
 import { sameVoiceZikr, type VoiceZikr } from "@/lib/tasbeeh-voice/voice-zikr";
-import { AudioContext } from "@/providers/audio-player-context";
 import { usePreferences } from "@/stores/preferences-store";
 
 export type TasbeehMode = { label: string; target: number };
@@ -99,9 +92,14 @@ type TasbeehCounterProps = {
    * counted; a template run reaching an untaught zikr offers teaching (D50).
    */
   voiceContinuous?: boolean;
+  /**
+   * Step flows (after-Salah sequence) own their own "all done" card with one
+   * Start again — suppress the counter's banner + button.
+   */
+  hideCompletion?: boolean;
 };
 
-type PendingConfirm = "decrement" | "reset" | "startAgain";
+type PendingConfirm = "reset" | "startAgain";
 
 /**
  * The tasbeeh counter shell (NF-3.19): everything that is not visual — mode
@@ -217,6 +215,7 @@ function CounterView({
   onChooseZikr,
   countOnceRef,
   voiceSheetRequest = 0,
+  hideCompletion = false,
 }: CounterViewProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -257,29 +256,10 @@ function CounterView({
   );
 
   // Feedback: one table for every design (lib/tasbeeh/feedback.ts).
-  const sharedPlaying = useContext(AudioContext)?.isPlaying ?? false;
-  const playSound = useTasbeehSound({
-    enabled: appearance.sound.enabled,
-    pack: resolveSoundPack(
-      appearance,
-      materialFor(appearance.misbaha.material, colors.accent).sound,
-    ),
-    volume: appearance.sound.volume,
-    sharedPlaying,
-  });
   // Counter sounds are muted while hands-free listening (the mic would hear
   // them); haptics stay on.
   const voiceListeningRef = useRef(false);
-  const dispatch = useCallback(
-    (event: TasbeehFeedbackEvent) => {
-      const feedback = feedbackFor(design.id, event, appearance.haptics);
-      playHapticPattern(feedback.haptics);
-      if (feedback.sound && appearance.sound.enabled && !voiceListeningRef.current) {
-        playSound(feedback.sound);
-      }
-    },
-    [design.id, appearance.haptics, appearance.sound.enabled, playSound],
-  );
+  const { dispatch } = useTasbeehFeedback(voiceListeningRef);
 
   // Hands-free counting (NF-3.20): recognised phrases go through countOnce() too.
   const { tasbeehAnnouncements } = usePreferences();
@@ -369,7 +349,7 @@ function CounterView({
   // Desktop web: Space / Enter count. A focused button / chip keeps its own
   // Space / Enter (so nothing fires twice); held keys don't auto-repeat counts.
   const { width: windowWidth } = useWindowDimensions();
-  const keyboardHint = Platform.OS === "web" && !tv && windowWidth >= 768;
+  const keyboardHint = Platform.OS === "web" && !tv && windowWidth >= Breakpoints.tablet;
   useWebScreenKeyHandler(
     (event) => {
       if (event.key !== " " && event.key !== "Enter") return undefined;
@@ -382,13 +362,6 @@ function CounterView({
 
   const confirmCopy = useMemo(() => {
     switch (pending) {
-      case "decrement":
-        return {
-          title: t("tasbeehUi.confirmUndoTitle"),
-          message: t("tasbeehUi.confirmUndoMessage"),
-          confirmLabel: t("tasbeehUi.undo"),
-          destructive: false,
-        };
       case "reset":
         return {
           title: t("tasbeehUi.confirmResetTitle"),
@@ -409,11 +382,6 @@ function CounterView({
   }, [pending, displayCount, t]);
 
   const executePending = () => {
-    if (pending === "decrement") {
-      triggerHaptic("light");
-      onDecrement();
-      return;
-    }
     if (pending === "reset" || pending === "startAgain") {
       triggerHaptic("medium");
       onReset();
@@ -446,7 +414,9 @@ function CounterView({
   }
 
   const status = complete ? (
-    <CompletionBanner onStartAgain={() => setPending("startAgain")} />
+    hideCompletion ? null : (
+      <CompletionBanner onStartAgain={() => setPending("startAgain")} />
+    )
   ) : (
     <View style={[styles.hintRow, tv && styles.hintRowTv]}>
       {target > 0 ? (
@@ -469,7 +439,11 @@ function CounterView({
   const controls = (
     <ControlBar
       count={displayCount}
-      onDecrement={() => setPending("decrement")}
+      onDecrement={() => {
+        // One miscount is cheap to redo — undo is instant, with a light haptic.
+        triggerHaptic("light");
+        onDecrement();
+      }}
       onReset={() => setPending("reset")}
       onStyle={() => setStyleOpen(true)}
       voice={
@@ -504,9 +478,17 @@ function CounterView({
   // The accessible counter every stage exposes (also the Focus / Night surface).
   const stageA11y = {
     accessibilityRole: "button" as const,
-    accessibilityLabel: t("common.count"),
-    accessibilityValue: { now: displayCount, min: 0, max: target > 0 ? target : undefined },
-    accessibilityActions: [{ name: "increment", label: t("common.count") }],
+    accessibilityLabel: t("tasbeehUi.counterLabel"),
+    accessibilityValue: {
+      now: displayCount,
+      min: 0,
+      max: target > 0 ? target : undefined,
+      text:
+        target > 0
+          ? `${displayCount} ${t("tasbeehUi.ofTarget", { target })}`
+          : String(displayCount),
+    },
+    accessibilityActions: [{ name: "increment", label: t("tasbeehUi.countOne") }],
     onAccessibilityAction: handleAccessibilityAction,
   };
 
@@ -544,6 +526,8 @@ function CounterView({
     return (
       <NightSurface
         onTap={handleTap}
+        arabic={activeZikr?.entry?.arabic}
+        targetLabel={target > 0 ? t("tasbeehUi.ofTarget", { target }) : null}
         stageA11y={{ ...stageA11y, accessibilityHint: hint }}
         face={(size) => (
           <TasbeehFace
@@ -629,7 +613,7 @@ function CounterView({
                 onPress={handleTap}
                 scaleTo={0.98}
                 accessibilityRole="button"
-                accessibilityLabel={t("common.count")}
+                accessibilityLabel={t("tasbeehUi.countOne")}
                 style={[
                   styles.tabletopPad,
                   {
@@ -716,7 +700,7 @@ function CompletionBanner({ onStartAgain }: { onStartAgain: () => void }) {
           size={18}
           tintColor={tokens.status.success.color}
         />
-        <ThemedText type="smallBold" style={{ color: tokens.status.success.color, flex: 1 }}>
+        <ThemedText type="smallBold" style={{ color: tokens.status.success.onSoft, flex: 1 }}>
           {t("tasbeehUi.targetReached")}
         </ThemedText>
       </View>
@@ -881,9 +865,7 @@ function ControlButton({
       <ThemedText
         type="smallBold"
         themeColor={disabled ? "mutedForeground" : "foreground"}
-        numberOfLines={1}
-        adjustsFontSizeToFit
-        minimumFontScale={0.8}
+        numberOfLines={2}
         style={styles.controlLabel}
       >
         {label}
@@ -899,7 +881,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: 1,
+    borderWidth: BorderWidth.thin,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -977,7 +959,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   startAgainTv: {
     minHeight: TvLayout.minFocusTarget,
@@ -987,7 +969,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
     overflow: "hidden",
   },
   controlButton: {
@@ -1008,7 +990,7 @@ const styles = StyleSheet.create({
     minHeight: TvLayout.minFocusTarget,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   controlLabel: {
     flexShrink: 1,

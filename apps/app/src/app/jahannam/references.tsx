@@ -17,7 +17,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
@@ -32,7 +32,11 @@ export default function JahannamReferencesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
+  const {
+    ready: contentReady,
+    error: contentError,
+    retry: retryContent,
+  } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const references = getJahannamReferences();
   const wide = useLearnHubLayout();
   const tileStyle = useLearnTileStyle();
@@ -48,11 +52,11 @@ export default function JahannamReferencesScreen() {
       maxContentWidth={wide.maxContentWidth}
     >
       <Seo path="/jahannam/references" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={contentReady} error={contentError} onRetry={retryContent}>
         <Stagger>
           <LearnReadingChrome surface="jahannam">
             <JannahCallout tone="info">{t("jahannam.referencesLead")}</JannahCallout>
-            <Card padding="three">
+            <Card>
               <SectionHeader
                 title={t("jahannam.referencesListTitle")}
                 icon={{ ios: "doc.text.fill", android: "description", web: "description" }}
@@ -72,7 +76,7 @@ export default function JahannamReferencesScreen() {
                           ? tileStyle
                           : index > 0 && {
                               borderTopColor: tokens.hairline,
-                              borderTopWidth: StyleSheet.hairlineWidth,
+                              borderTopWidth: BorderWidth.hairline,
                             },
                       ]}
                     >

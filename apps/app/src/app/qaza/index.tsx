@@ -16,18 +16,20 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ContentState } from "@/components/ui/content-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Stepper } from "@/components/ui/stepper";
 import { WitrQazaInfo } from "@/components/witr-qaza-info";
-import { Radius, Spacing } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
+import { BorderWidth, Breakpoints, Radius, Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
+import { useFormatCount } from "@/hooks/use-format-count";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useUndoToast } from "@/hooks/use-undo-toast";
+import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -36,50 +38,40 @@ import { getRouteFaq } from "@/lib/seo/faq-content";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
+  trackerStore,
   useQazaCounters,
   useQazaDailyProgress,
   useQazaSchedule,
   useQazaSummary,
   useTrackerActions,
+  useTrackerLoadError,
+  useTrackerReady,
 } from "@/stores/tracker-store";
 
-type QazaConfirmAction =
-  | {
-      kind: "decrement" | "increment" | "setRemaining";
-      prayerId: QazaPrayer;
-      nextRemaining: number;
-      completed: number;
-    }
-  | { kind: "perform"; prayerId: QazaPrayer }
-  | { kind: "resetPrayer"; prayerId: QazaPrayer }
-  | { kind: "resetAll" };
-
-type QazaEditTarget = {
-  prayerId: QazaPrayer;
-  remaining: number;
-  completed: number;
-};
+type QazaConfirmAction = { kind: "resetPrayer"; prayerId: QazaPrayer } | { kind: "resetAll" };
 
 export default function QazaHomeScreen() {
   const router = useRouter();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const ready = useTrackerReady();
+  const loadError = useTrackerLoadError();
   const counters = useQazaCounters();
   const schedule = useQazaSchedule();
   const dailyProgress = useQazaDailyProgress();
   const summary = useQazaSummary();
-  const { adjustQaza, performQaza, resetQazaCounter, resetAllQazaCounters, refresh } =
+  const { adjustQaza, performQaza, undoQaza, resetQazaCounter, resetAllQazaCounters, refresh } =
     useTrackerActions();
+  const undoToast = useUndoToast();
+  const formatCount = useFormatCount();
   const [pending, setPending] = useState<QazaConfirmAction | null>(null);
-  const [editTarget, setEditTarget] = useState<QazaEditTarget | null>(null);
+  const [editPrayer, setEditPrayer] = useState<QazaPrayer | null>(null);
   const tv = isTV();
   const { width } = useWindowDimensions();
   /** Desktop / wide web: counters on the start side, summary + tools in an aside. */
   const twoPane = !tv && width >= 1200;
   /** Tablet + desktop: per-prayer rows in a 2-column grid (TV keeps its own grid). */
-  const rowsGrid = !tv && width >= 768;
-  /** TV: 10-foot focus targets for the per-row reset / mark icons. */
-  const tvIconTarget = tv ? TvLayout.minFocusTarget : undefined;
+  const rowsGrid = !tv && width >= Breakpoints.tablet;
 
   // Re-read persistence when this screen is focused so calculator / planner /
   // external-command updates are visible immediately on return.
@@ -93,11 +85,6 @@ export default function QazaHomeScreen() {
   const totalTracked = summary.remaining + summary.completed;
   const progress = totalTracked > 0 ? summary.completed / totalTracked : 0;
   const progressPct = Math.round(progress * 100);
-  const locale = i18n.language?.split("-")[0];
-  const formatCount = (value: number) => {
-    const n = Number(value);
-    return (Number.isFinite(n) ? n : 0).toLocaleString(locale);
-  };
   const info = tokens.status.info;
   const success = tokens.status.success;
   const dailyTotal = useMemo(() => sumQazaScheduleTargets(schedule), [schedule]);
@@ -105,90 +92,62 @@ export default function QazaHomeScreen() {
     () => computeQazaEta(summary.remaining, dailyTotal, getLocalDateString()),
     [dailyTotal, summary.remaining],
   );
+  const editCounter = editPrayer ? counters.find((c) => c.prayerId === editPrayer) : undefined;
+
+  /** One tap: log a make-up, success haptic, toast with Undo (which also restores today's progress). */
+  const madeUp = (prayerId: QazaPrayer) => {
+    triggerHaptic("success");
+    trackReviewInteraction("mark_qaza");
+    void undoToast.run({
+      do: () => performQaza(prayerId),
+      undo: () => undoQaza(prayerId),
+      messageKey: "qaza.toastMadeUp",
+      messageOptions: { prayer: t(`prayers.${prayerId}`) },
+    });
+  };
+
+  /** Exact value from the edit sheet: applied at once, reversible from the toast. */
+  const setExact = (prayerId: QazaPrayer, nextRemaining: number) => {
+    const before = counters.find((c) => c.prayerId === prayerId);
+    if (!before || before.remaining === nextRemaining) return;
+    void undoToast.run({
+      do: () => adjustQaza(prayerId, nextRemaining, before.completed),
+      undo: () => adjustQaza(prayerId, before.remaining, before.completed),
+      messageKey: "qaza.toastSet",
+      messageOptions: { prayer: t(`prayers.${prayerId}`), value: formatCount(nextRemaining) },
+    });
+  };
 
   const confirmCopy = useMemo(() => {
     if (!pending) return null;
-    const prayerName = (prayerId: QazaPrayer) => t(`prayers.${prayerId}`);
-
-    switch (pending.kind) {
-      case "decrement":
-        return {
-          title: t("qaza.confirmDecrementTitle"),
-          message: t("qaza.confirmDecrementMsg", {
-            prayer: prayerName(pending.prayerId),
-            remaining: pending.nextRemaining,
-          }),
-        };
-      case "increment":
-        return {
-          title: t("qaza.confirmIncrementTitle"),
-          message: t("qaza.confirmIncrementMsg", {
-            prayer: prayerName(pending.prayerId),
-            remaining: pending.nextRemaining,
-          }),
-        };
-      case "setRemaining":
-        return {
-          title: t("qaza.confirmSetRemainingTitle"),
-          message: t("qaza.confirmSetRemainingMsg", {
-            prayer: prayerName(pending.prayerId),
-            remaining: pending.nextRemaining,
-          }),
-        };
-      case "perform":
-        return {
-          title: t("qaza.confirmPerformTitle"),
-          message: t("qaza.confirmPerformMsg", { prayer: prayerName(pending.prayerId) }),
-        };
-      case "resetPrayer":
-        return {
-          title: t("qaza.confirmResetPrayerTitle"),
-          message: t("qaza.confirmResetPrayerMsg", { prayer: prayerName(pending.prayerId) }),
-        };
-      case "resetAll":
-        return {
-          title: t("qaza.confirmResetAllTitle"),
-          message: t("qaza.confirmResetAllMsg", {
-            remaining: summary.remaining,
-            completed: summary.completed,
-          }),
-        };
-      default:
-        return null;
+    if (pending.kind === "resetPrayer") {
+      return {
+        title: t("qaza.confirmResetPrayerTitle"),
+        message: t("qaza.confirmResetPrayerMsg", { prayer: t(`prayers.${pending.prayerId}`) }),
+      };
     }
+    return {
+      title: t("qaza.confirmResetAllTitle"),
+      message: t("qaza.confirmResetAllMsg", {
+        remaining: summary.remaining,
+        completed: summary.completed,
+      }),
+    };
   }, [pending, summary.completed, summary.remaining, t]);
 
   const handleConfirm = useCallback(() => {
     if (!pending) return;
-    switch (pending.kind) {
-      case "decrement":
-      case "increment":
-      case "setRemaining":
-        void adjustQaza(pending.prayerId, pending.nextRemaining, pending.completed);
-        break;
-      case "perform":
-        void performQaza(pending.prayerId);
-        trackReviewInteraction("mark_qaza");
-        break;
-      case "resetPrayer":
-        void resetQazaCounter(pending.prayerId);
-        break;
-      case "resetAll":
-        void resetAllQazaCounters();
-        break;
-    }
-  }, [adjustQaza, pending, performQaza, resetAllQazaCounters, resetQazaCounter]);
+    triggerHaptic("warning");
+    if (pending.kind === "resetPrayer") void resetQazaCounter(pending.prayerId);
+    else void resetAllQazaCounters();
+  }, [pending, resetAllQazaCounters, resetQazaCounter]);
 
   const toolActions = useMemo<QuickActionItem[]>(
     () => [
       {
         id: "calculator",
         label: t("qaza.calculator"),
-        icon: {
-          ios: "plus.forwardslash.minus",
-          android: "calculate",
-          web: "calculate",
-        },
+        icon: { ios: "plus.forwardslash.minus", android: "calculate", web: "calculate" },
         tint: colors.accent,
         onPress: () => router.push("/qaza/calculator"),
       },
@@ -231,7 +190,6 @@ export default function QazaHomeScreen() {
 
   const summaryCard = (
     <Card
-      padding="three"
       style={styles.summaryCard}
       accessibilityLabel={t("home.qazaA11y", {
         remaining: summary.remaining,
@@ -265,7 +223,12 @@ export default function QazaHomeScreen() {
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("home.qazaProgress", { pct: progressPct })}
           </ThemedText>
-          <ProgressBar value={progress} height={6} color={success.color} />
+          <ProgressBar
+            value={progress}
+            accessibilityLabel={t("a11yProgress.qazaMadeUp")}
+            height={6}
+            color={success.color}
+          />
         </View>
       ) : null}
 
@@ -277,15 +240,11 @@ export default function QazaHomeScreen() {
           })}
         </ThemedText>
       ) : null}
-
-      {/* TV: the destructive reset moves below the counters so it is never the
-        first D-pad stop on this screen. */}
-      {tv ? null : resetAllButton}
     </Card>
   );
 
   const perPrayerCard = (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("qaza.perPrayer")}
         icon={{ ios: "list.bullet", android: "list", web: "list" }}
@@ -296,7 +255,7 @@ export default function QazaHomeScreen() {
         {counters.map((counter) => {
           const target = schedule.targets[counter.prayerId] ?? 0;
           const doneToday = dailyProgress.completed[counter.prayerId] ?? 0;
-          const hasCounts = counter.remaining > 0 || counter.completed > 0;
+          const prayer = t(`prayers.${counter.prayerId}`);
 
           return (
             <View
@@ -307,105 +266,73 @@ export default function QazaHomeScreen() {
                 { backgroundColor: colors.muted },
               ]}
             >
-              <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
-              <View style={styles.rowBody}>
-                <View style={styles.rowTitle}>
-                  <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
-                    {t(`prayers.${counter.prayerId}`)}
-                  </ThemedText>
-                  <ThemedText
-                    type="header"
-                    style={[styles.rowRemaining, { color: info.text }]}
-                    numberOfLines={1}
-                  >
-                    {formatCount(counter.remaining)}
+              <View style={styles.rowTop}>
+                <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
+                <View style={styles.rowBody}>
+                  <ThemedText type="smallBold">{prayer}</ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {target > 0
+                      ? t("qaza.rowDoneWithDaily", {
+                          completed: formatCount(counter.completed),
+                          done: doneToday,
+                          target,
+                        })
+                      : t("qaza.rowDone", { completed: formatCount(counter.completed) })}
                   </ThemedText>
                 </View>
-                <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
-                  {target > 0
-                    ? t("qaza.rowDoneWithDaily", {
-                        completed: formatCount(counter.completed),
-                        done: doneToday,
-                        target,
-                      })
-                    : t("qaza.rowDone", {
-                        completed: formatCount(counter.completed),
-                      })}
+                <ThemedText
+                  type="header"
+                  style={[styles.rowRemaining, { color: info.text }]}
+                  accessibilityLabel={t("qaza.rowRemainingA11y", {
+                    prayer,
+                    value: formatCount(counter.remaining),
+                  })}
+                >
+                  {formatCount(counter.remaining)}
                 </ThemedText>
-                <View style={styles.rowActions}>
-                  <IconButton
-                    accessibilityLabel={t("qaza.resetPrayer", {
-                      prayer: t(`prayers.${counter.prayerId}`),
-                    })}
-                    disabled={!hasCounts}
-                    onPress={() => setPending({ kind: "resetPrayer", prayerId: counter.prayerId })}
-                    name={{
-                      ios: "arrow.counterclockwise",
-                      android: "restart_alt",
-                      web: "restart_alt",
-                    }}
-                    size={20}
-                    hitTarget={tvIconTarget}
-                    tintColor={colors.mutedForeground}
-                  />
-
-                  <Stepper
-                    value={counter.remaining}
-                    label={t(`prayers.${counter.prayerId}`)}
-                    valueAccessibilityLabel={t("qaza.editCountA11y", {
-                      prayer: t(`prayers.${counter.prayerId}`),
-                    })}
-                    onValuePress={() =>
-                      setEditTarget({
-                        prayerId: counter.prayerId,
-                        remaining: counter.remaining,
-                        completed: counter.completed,
-                      })
-                    }
-                    onDecrement={() =>
-                      setPending({
-                        kind: "decrement",
-                        prayerId: counter.prayerId,
-                        nextRemaining: counter.remaining - 1,
-                        completed: counter.completed,
-                      })
-                    }
-                    onIncrement={() =>
-                      setPending({
-                        kind: "increment",
-                        prayerId: counter.prayerId,
-                        nextRemaining: counter.remaining + 1,
-                        completed: counter.completed,
-                      })
-                    }
-                  />
-
-                  <IconButton
-                    accessibilityLabel={t("qaza.markPerformed", {
-                      prayer: t(`prayers.${counter.prayerId}`),
-                    })}
-                    disabled={counter.remaining === 0}
-                    onPress={() => setPending({ kind: "perform", prayerId: counter.prayerId })}
-                    name={{
-                      ios: "checkmark.circle.fill",
-                      android: "check_circle",
-                      web: "check_circle",
-                    }}
-                    size={26}
-                    hitTarget={tvIconTarget}
-                    tintColor={success.color}
-                  />
-                </View>
+              </View>
+              <View style={styles.rowActions}>
+                <Button
+                  label={t("qaza.madeUpButton")}
+                  accessibilityHint={t("qaza.markPerformed", { prayer })}
+                  variant="secondary"
+                  icon={{
+                    ios: "checkmark.circle.fill",
+                    android: "check_circle",
+                    web: "check_circle",
+                  }}
+                  disabled={counter.remaining === 0}
+                  onPress={() => madeUp(counter.prayerId)}
+                  style={styles.madeUp}
+                />
+                <IconButton
+                  accessibilityLabel={t("qaza.editCountA11y", { prayer })}
+                  onPress={() => setEditPrayer(counter.prayerId)}
+                  name={{ ios: "pencil", android: "edit", web: "edit" }}
+                  size={20}
+                  tintColor={colors.mutedForeground}
+                />
               </View>
             </View>
           );
         })}
       </View>
+      {tv && undoToast.undoAvailable ? (
+        <Button
+          label={t("uiFeedback.undo")}
+          variant="secondary"
+          size="sm"
+          onPress={() => undoToast.undo()}
+          style={styles.resetAll}
+        />
+      ) : null}
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
         {tTv(t, "qaza.hint", "qaza.hintTv")}
       </ThemedText>
     </Card>
   );
+
+  const tools = <QuickActionGrid items={toolActions} columns={twoPane ? 2 : 4} />;
 
   return (
     <ScreenLayout
@@ -434,51 +361,69 @@ export default function QazaHomeScreen() {
           faqSchema(getRouteFaq("/qaza") ?? []),
         ]}
       />
-      <Stagger>
-        {twoPane ? (
-          <View style={styles.split}>
-            <View style={styles.primary}>{perPrayerCard}</View>
-            <View style={styles.aside}>
-              {summaryCard}
-              <QuickActionGrid items={toolActions} columns={2} />
-              <WitrQazaInfo />
+      <ContentState
+        status={ready ? "ready" : loadError ? "error" : "loading"}
+        onRetry={() => void trackerStore.getState().load()}
+        skeleton="card"
+        skeletonCount={2}
+        loadingLabel={t("uiFeedback.loading")}
+      >
+        <Stagger>
+          {twoPane ? (
+            <View style={styles.split}>
+              <View style={styles.primary}>
+                {summaryCard}
+                {perPrayerCard}
+              </View>
+              <View style={styles.aside}>
+                {tools}
+                <WitrQazaInfo />
+                {resetAllButton}
+              </View>
             </View>
-          </View>
-        ) : null}
-        {twoPane ? null : summaryCard}
-        {twoPane ? null : <QuickActionGrid items={toolActions} columns={4} />}
-        {twoPane ? null : <WitrQazaInfo />}
-        {twoPane ? null : perPrayerCard}
-
-        {tv ? resetAllButton : null}
-      </Stagger>
+          ) : (
+            <>
+              {summaryCard}
+              {perPrayerCard}
+              {tools}
+              <WitrQazaInfo />
+              {resetAllButton}
+            </>
+          )}
+        </Stagger>
+      </ContentState>
 
       <ConfirmDialog
         visible={pending != null}
         title={confirmCopy?.title ?? ""}
         message={confirmCopy?.message}
-        confirmLabel={t("common.confirm")}
-        destructive={pending?.kind === "resetPrayer" || pending?.kind === "resetAll"}
+        confirmLabel={pending?.kind === "resetAll" ? t("qaza.resetAll") : t("common.reset")}
+        destructive
         onConfirm={handleConfirm}
         onClose={() => setPending(null)}
       />
 
       <QazaCountEditModal
-        visible={editTarget != null}
-        prayerLabel={editTarget ? t(`prayers.${editTarget.prayerId}`) : ""}
-        initialValue={editTarget?.remaining ?? 0}
-        onSubmit={(nextRemaining) => {
-          const target = editTarget;
-          setEditTarget(null);
-          if (!target || nextRemaining === target.remaining) return;
-          setPending({
-            kind: "setRemaining",
-            prayerId: target.prayerId,
-            nextRemaining,
-            completed: target.completed,
-          });
+        visible={editPrayer != null}
+        prayerLabel={editPrayer ? t(`prayers.${editPrayer}`) : ""}
+        initialValue={editCounter?.remaining ?? 0}
+        onStep={(next) => {
+          if (editCounter) void adjustQaza(editCounter.prayerId, next, editCounter.completed);
         }}
-        onClose={() => setEditTarget(null)}
+        onSubmit={(next) => {
+          if (editPrayer) setExact(editPrayer, next);
+        }}
+        resetLabel={t("qaza.resetPrayer", {
+          prayer: editPrayer ? t(`prayers.${editPrayer}`) : "",
+        })}
+        canReset={(editCounter?.remaining ?? 0) > 0 || (editCounter?.completed ?? 0) > 0}
+        onReset={() => {
+          if (!editPrayer) return;
+          const prayerId = editPrayer;
+          setEditPrayer(null);
+          setPending({ kind: "resetPrayer", prayerId });
+        }}
+        onClose={() => setEditPrayer(null)}
       />
     </ScreenLayout>
   );
@@ -493,6 +438,7 @@ const styles = StyleSheet.create({
   primary: {
     flex: 1,
     minWidth: 0,
+    gap: Spacing.three,
   },
   aside: {
     width: 380,
@@ -514,10 +460,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: BorderWidth.hairline,
   },
   progressBlock: {
-    gap: Spacing.one + 2,
+    gap: Spacing.oneHalf,
   },
   etaCaption: {
     textAlign: "center",
@@ -541,26 +487,20 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   row: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: Spacing.two + 2,
+    gap: Spacing.two,
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  rowTop: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.twoHalf,
   },
   rowBody: {
     flex: 1,
     minWidth: 0,
     gap: Spacing.half,
-  },
-  rowTitle: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    gap: Spacing.two,
-  },
-  rowName: {
-    flex: 1,
-    minWidth: 0,
   },
   rowRemaining: {
     fontVariant: ["tabular-nums"],
@@ -568,9 +508,11 @@ const styles = StyleSheet.create({
   rowActions: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one,
-    marginTop: Spacing.one,
-    flexWrap: "wrap",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  madeUp: {
+    flexShrink: 1,
   },
   hint: {
     marginTop: Spacing.three,

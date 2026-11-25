@@ -12,7 +12,7 @@ import { Card } from "@/components/ui/card";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
@@ -380,7 +380,10 @@ function RangeAyahCard({
   );
 
   return (
-    <Card padding="four" style={isActive ? { borderColor: accent, borderWidth: 1 } : undefined}>
+    <Card
+      padding="four"
+      style={isActive ? { borderColor: accent, borderWidth: BorderWidth.thin } : undefined}
+    >
       <View style={styles.ayahHeader}>
         <View style={[styles.ayahBadge, { backgroundColor: accentSoft }]}>
           <ThemedText
@@ -432,7 +435,11 @@ function RangeAyahCard({
       </View>
 
       {ayah.arabic ? (
-        <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(arabicSize)]}>
+        <ThemedText
+          type="arabic"
+          accessibilityLanguage="ar"
+          style={[styles.arabic, arabicReadingLayout(arabicSize)]}
+        >
           {ayah.arabic}
         </ThemedText>
       ) : null}
@@ -490,7 +497,7 @@ const styles = StyleSheet.create({
   ayahBadge: {
     minWidth: 36,
     minHeight: 28,
-    borderRadius: 14,
+    borderRadius: Radius.md,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: Spacing.two,

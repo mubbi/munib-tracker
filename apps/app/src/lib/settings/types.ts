@@ -73,7 +73,14 @@ export type SettingControl<V> =
   | { kind: "time" }
   /** Rich editor on its own screen. */
   | { kind: "link"; href: Href }
-  | { kind: "action"; run: () => Promise<void>; destructive?: boolean; confirmKey?: string }
+  | {
+      kind: "action";
+      run: () => Promise<void>;
+      destructive?: boolean;
+      confirmKey?: string;
+      /** Past-tense result toast (D-38); defaults to the generic "Done". */
+      doneKey?: string;
+    }
   /** Accent picker, location picker, adhan style… rendered full-width in the section. */
   | { kind: "custom"; Component: ComponentType<{ settingId: SettingId }> };
 

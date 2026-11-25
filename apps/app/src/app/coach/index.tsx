@@ -22,7 +22,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
-import { ThemedSwitch } from "@/components/ui/themed-switch";
+import { SkeletonPlaceholder } from "@/components/ui/skeleton";
+import { SwitchRow } from "@/components/ui/switch-row";
 import { TvReadableBlock } from "@/components/ui/tv-readable-block";
 import { Spacing } from "@/constants/theme";
 import { useCoachReport } from "@/hooks/use-coach-report";
@@ -38,11 +39,12 @@ import { usePreferences } from "@/stores/preferences-store";
 import { useSunnahHabits } from "@/stores/sunnah-habits-store";
 
 const WEEKDAYS = ["0", "1", "2", "3", "4", "5", "6"] as const;
+const WEEK_DAYS = WEEKDAYS.length;
 const nowIso = () => new Date().toISOString();
 
 function GlanceRow({ label, value }: { label: string; value: string | number }) {
   return (
-    <View style={styles.glanceRow}>
+    <View style={styles.glanceRow} accessible accessibilityLabel={`${label}: ${value}`}>
       <ThemedText type="small" themeColor="mutedForeground" style={styles.flex}>
         {label}
       </ThemedText>
@@ -56,25 +58,18 @@ function CoachSettingsCard() {
   const notif = useSetting<boolean>("notifications.personal.coach");
   const day = useSetting<number>("notifications.personal.coachWeekday");
   return (
-    <Card padding="three">
+    <Card>
       <SectionHeader
         title={t("coach.settings.title")}
         icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
       />
       <View style={styles.list}>
-        <View style={styles.switchRow}>
-          <ThemedText type="small" style={styles.flex}>
-            {t("coach.settings.notifToggle")}
-          </ThemedText>
-          <ThemedSwitch
-            value={notif.value}
-            onValueChange={(on) => void notif.setValue(on)}
-            accessibilityLabel={t("coach.settings.notifToggle")}
-          />
-        </View>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("coach.settings.notifHint")}
-        </ThemedText>
+        <SwitchRow
+          title={t("coach.settings.notifToggle")}
+          subtitle={t("coach.settings.notifHint")}
+          value={notif.value}
+          onValueChange={(on) => void notif.setValue(on)}
+        />
         <ThemedText type="small">{t("coach.settings.day")}</ThemedText>
         <ChoiceChips
           options={WEEKDAYS.map((id) => ({ id, label: t(`coach.weekday.${id}`) }))}
@@ -100,11 +95,7 @@ function CoachContent() {
   const locale = i18n.language;
 
   if (!report || !context) {
-    return (
-      <ThemedText type="small" themeColor="mutedForeground">
-        {t("coach.loading")}
-      </ThemedText>
-    );
+    return <SkeletonPlaceholder preset="card" count={3} accessibilityLabel={t("coach.loading")} />;
   }
 
   const titleOfHabit = (id: string) => {
@@ -134,7 +125,7 @@ function CoachContent() {
 
       {report.mode === "normal" ? (
         <TvReadableBlock>
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("coach.summary.title")}
               icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
@@ -144,9 +135,18 @@ function CoachContent() {
                 label={t("coach.summary.salah")}
                 value={t("coach.summary.ofTotal", { done: totals.onTime, total: totals.days })}
               />
-              <GlanceRow label={t("coach.summary.perfect")} value={week.perfectDays} />
-              <GlanceRow label={t("coach.summary.quran")} value={week.quranDays} />
-              <GlanceRow label={t("coach.summary.adhkar")} value={week.adhkarDays} />
+              <GlanceRow
+                label={t("coach.summary.perfect")}
+                value={t("coach.summary.ofTotal", { done: week.perfectDays, total: WEEK_DAYS })}
+              />
+              <GlanceRow
+                label={t("coach.summary.quran")}
+                value={t("coach.summary.ofTotal", { done: week.quranDays, total: WEEK_DAYS })}
+              />
+              <GlanceRow
+                label={t("coach.summary.adhkar")}
+                value={t("coach.summary.ofTotal", { done: week.adhkarDays, total: WEEK_DAYS })}
+              />
               {context.qaza ? (
                 <GlanceRow label={t("coach.summary.qaza")} value={context.qaza.madeUpThisWeek} />
               ) : null}
@@ -157,7 +157,7 @@ function CoachContent() {
 
       {report.lastGoal ? (
         <TvReadableBlock>
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("coach.goal.last.title")}
               subtitle={coachGoalLabel(report.lastGoal.goal, t)}
@@ -188,7 +188,7 @@ function CoachContent() {
       {/* Off TV this is a fragment (the Accept button stays reachable); TV hides the button. */}
       {report.microGoal ? (
         <TvReadableBlock>
-          <Card padding="three">
+          <Card>
             <SectionHeader
               title={t("coach.goal.title")}
               subtitle={coachGoalLabel(report.microGoal, t)}
@@ -268,7 +268,6 @@ const styles = StyleSheet.create({
   footnotes: { gap: Spacing.three },
   list: { gap: Spacing.two, marginTop: Spacing.two },
   glanceRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  switchRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   flex: { flex: 1 },
 });
 

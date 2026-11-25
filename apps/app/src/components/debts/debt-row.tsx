@@ -4,22 +4,21 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { Pill } from "@/components/ui/pill";
+import { Pill, type PillTone } from "@/components/ui/pill";
 import { Spacing } from "@/constants/theme";
 import { useRecordFormat } from "@/hooks/use-record-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type DebtEntry, isOverdue, outstanding } from "@/lib/debts/debts";
 
-export function useDebtStatusTone() {
-  const { tokens } = useThemeTokens();
-  return (status: DebtStatus, overdue = false) =>
-    status === "settled"
-      ? tokens.status.success
-      : status === "forgiven"
-        ? tokens.status.info
-        : overdue
-          ? tokens.status.danger
-          : tokens.status.warning;
+/** Status to pill tone (words carry the meaning; the tone only reinforces it). */
+export function debtStatusTone(status: DebtStatus, overdue = false): PillTone {
+  return status === "settled"
+    ? "success"
+    : status === "forgiven"
+      ? "info"
+      : overdue
+        ? "danger"
+        : "warning";
 }
 
 export function DebtRow({
@@ -37,9 +36,8 @@ export function DebtRow({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const format = useRecordFormat();
-  const toneFor = useDebtStatusTone();
   const overdue = isOverdue(record, today);
-  const tone = toneFor(record.status, overdue);
+  const tone = debtStatusTone(record.status, overdue);
   const left = outstanding(record);
   const amountText =
     left != null && record.currency
@@ -82,7 +80,7 @@ export function DebtRow({
             </ThemedText>
           ) : null}
         </View>
-        <Pill label={statusLabel} color={tone.color} background={tone.soft} compact />
+        <Pill label={statusLabel} tone={tone} compact />
       </View>
     </Card>
   );

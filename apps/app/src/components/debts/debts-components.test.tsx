@@ -67,7 +67,7 @@ describe("DebtDetailBody", () => {
     await fireEvent.press(screen.getByText("Save"));
     expect(screen.getByText("Add who this record is with.")).toBeTruthy();
 
-    await fireEvent.changeText(screen.getByLabelText("Person or organisation"), "Bilal");
+    await fireEvent.changeText(screen.getByLabelText("Person or organization"), "Bilal");
     await fireEvent.changeText(screen.getByLabelText("Amount"), "250");
     await fireEvent.press(screen.getByText("Save"));
     await waitFor(() => expect(debtsVault.store.getState().items).toHaveLength(1));
@@ -97,27 +97,28 @@ describe("DebtDetailBody", () => {
     expect(screen.getByText(/An increase agreed on a loan is riba/)).toBeTruthy();
   });
 
-  it("creates one record on a double tap and reads a forgiving date", async () => {
+  it("creates one record on a double tap and stores the day picked from the calendar", async () => {
     await renderWithTheme(<DebtDetailBody id="new" initialDirection="i_owe" />);
-    await fireEvent.changeText(screen.getByLabelText("Person or organisation"), "Bilal");
+    await fireEvent.changeText(screen.getByLabelText("Person or organization"), "Bilal");
     await fireEvent.changeText(screen.getByLabelText("Amount"), "250");
-    await fireEvent.changeText(screen.getByLabelText("Date"), "2026/1/5");
-    expect(screen.getByText(/^Reads as /)).toBeTruthy();
+    // The date is chosen from the calendar sheet (no typed YYYY-MM-DD) and stored as the same ISO day.
+    await fireEvent.press(screen.getByLabelText(/^Date,/));
+    await fireEvent.press(screen.getByLabelText(/ 15, \d{4}/));
     await fireEvent.press(screen.getByText("Save"));
     await fireEvent.press(screen.getByText("Save"));
     await waitFor(() => expect(debtsVault.store.getState().items).toHaveLength(1));
-    expect(debtsVault.store.getState().items[0]).toMatchObject({ createdOn: "2026-01-05" });
+    expect(debtsVault.store.getState().items[0]?.createdOn).toMatch(/^\d{4}-\d{2}-15$/);
   });
 
-  it("flags an unreadable due date instead of saving", async () => {
+  it("picks a due date from the quick presets and stores it as an ISO day", async () => {
     await renderWithTheme(<DebtDetailBody id="new" initialDirection="i_owe" />);
-    await fireEvent.changeText(screen.getByLabelText("Person or organisation"), "Bilal");
+    await fireEvent.changeText(screen.getByLabelText("Person or organization"), "Bilal");
     await fireEvent.changeText(screen.getByLabelText("Amount"), "250");
-    await fireEvent.changeText(screen.getByLabelText("Due date (optional)"), "2026-02-30");
-    expect(screen.getByText(/Couldn't read this date/)).toBeTruthy();
+    await fireEvent.press(screen.getByLabelText(/^Due date \(optional\),/));
+    await fireEvent.press(screen.getByText("In 1 week"));
     await fireEvent.press(screen.getByText("Save"));
-    expect(screen.getByText("Use a valid date in the form YYYY-MM-DD.")).toBeTruthy();
-    expect(debtsVault.store.getState().items).toHaveLength(0);
+    await waitFor(() => expect(debtsVault.store.getState().items).toHaveLength(1));
+    expect(debtsVault.store.getState().items[0]?.dueOn).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 
   it("explains a missing repayment amount and confirms before removing a repayment", async () => {
@@ -136,7 +137,7 @@ describe("DebtDetailBody", () => {
     await fireEvent.press(screen.getByText("Add repayment"));
     expect(screen.getByText("Enter the amount repaid.")).toBeTruthy();
 
-    await fireEvent.press(screen.getByText("Remove"));
+    await fireEvent.press(screen.getByLabelText("Remove repayment"));
     expect(screen.getByText("Remove this repayment?")).toBeTruthy();
     // Nothing is removed until the person confirms.
     expect(debtsVault.store.getState().items[0]).toMatchObject({ payments: [{ id: "p1" }] });

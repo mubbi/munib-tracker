@@ -1,18 +1,18 @@
 import type { ReadingSurface } from "@munib-tracker/shared/types";
 import type { ContentReportReference } from "@munib-tracker/shared/types/content-report";
 import { SymbolView } from "expo-symbols";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ContentActions } from "@/components/content/content-actions";
 import { ReadingTtsButton } from "@/components/content/reading-tts-button";
 import { ReferenceLine } from "@/components/content/reference-line";
-import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { ContentReportContext } from "@/components/content-report/content-report-context";
 import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
-import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
-import { PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -62,8 +62,9 @@ export function isDuaReadingSource(sourceHref: string | undefined): boolean {
 /**
  * Shared reading view for religious text (zikr, dua, durood, names).
  *
- * `onToggleFavorite`/`isFavorite` render an inline favorite toggle in the header
- * (parity across zikr/dua/durood). Sharing is handled inline: native uses the
+ * Actions use the shared `ContentActions` row (Play · Save · Share · More, D-UX9:
+ * `onToggleFavorite`/`isFavorite` drive the bookmark "Save" toggle — stored data
+ * keeps its favorites names). Sharing is handled inline: native uses the
  * OS share sheet, web falls back to `navigator.share` or a clipboard copy so web
  * users are never left without a way to share.
  */
@@ -118,6 +119,8 @@ export function ReadingCard({
   const { showTransliteration, showTranslation } = useReadingDisplay();
   const displayTranslation = useScriptureTranslation(item);
   const audio = useAudioPlayerContext();
+  // Optional: cards rendered outside the report provider (tests, embeds) skip "Report".
+  const contentReport = useContext(ContentReportContext);
   const internalShare = useShareContentCard();
   const { share, isSharing, isGesturePending, SnapshotHost } = shareCardProp ?? internalShare;
   const shareKey = item.id ?? item.reference ?? sourceHref ?? "reading";
@@ -130,12 +133,13 @@ export function ReadingCard({
   // TV: no speech synthesis (expo-speech is stubbed) — never offer TTS there.
   const showTts = !tv && ttsEnabled && Boolean(ttsArabic || ttsTransliteration || ttsTranslation);
 
+  const trackId = item.id ?? "reading";
   const playAudio = () => {
     if (!item.audioUri) return;
     audio.play(
       [
         {
-          id: item.id ?? "reading",
+          id: trackId,
           title: item.title ?? "",
           subtitle: item.reference,
           uri: item.audioUri,
@@ -161,12 +165,18 @@ export function ReadingCard({
     });
   };
 
+  // "More" holds what isn't Play · Save · Share (today: report a mistake).
+  const moreActions: ContextMenuAction[] = [];
+  if (contentRef && contentReport) {
+    moreActions.push({ id: "report", title: t("contentReport.reportIssue"), systemIcon: "flag" });
+  }
+
   const menuActions: ContextMenuAction[] = [];
   if (onToggleFavorite) {
     menuActions.push({
       id: "favorite",
-      title: isFavorite ? t("dua.unfavorite") : t("dua.favorite"),
-      systemIcon: isFavorite ? "star.slash" : "star",
+      title: isFavorite ? t("dua.unfavorite") : t("common.save"),
+      systemIcon: isFavorite ? "bookmark.slash" : "bookmark",
     });
   }
   if (item.audioUri) {
@@ -179,11 +189,13 @@ export function ReadingCard({
   if (!tv) {
     menuActions.push({ id: "share", title: t("reading.share"), systemIcon: "square.and.arrow.up" });
   }
+  menuActions.push(...moreActions);
 
   const onMenuAction = (id: string) => {
     if (id === "favorite") onToggleFavorite?.();
     else if (id === "play") playAudio();
     else if (id === "share") void onShare();
+    else if (id === "report" && contentRef) contentReport?.openReport(contentRef);
   };
 
   const transliteration = item.transliteration?.trim() ?? "";
@@ -197,19 +209,9 @@ export function ReadingCard({
 
   const body = (
     <>
+      {/* One action row for scripture items: Play · Save · Share · More (P5-37). */}
       <View style={[styles.header, tv && styles.headerTv]}>
-        {item.audioUri ? (
-          <LabeledIconButton
-            name={PLAY_CIRCLE_ICON}
-            label={t("common.play")}
-            iconSize={tv ? 22 : 18}
-            tintColor={colors.accent}
-            labelColor={colors.accent}
-            background={tokens.accentSoft}
-            accessibilityLabel={t("common.play")}
-            onPress={playAudio}
-          />
-        ) : showTts ? (
+        {!item.audioUri && showTts ? (
           <ReadingTtsButton
             id={item.id ?? "reading"}
             title={item.title ?? item.reference ?? ""}
@@ -219,51 +221,38 @@ export function ReadingCard({
             transliteration={ttsTransliteration}
             translation={ttsTranslation}
           />
-        ) : (
-          <View />
-        )}
-        <View style={[styles.headerActions, tv && styles.headerActionsTv]}>
-          {onToggleFavorite ? (
-            <LabeledIconButton
-              name={
-                isFavorite
-                  ? { ios: "star.fill", android: "star", web: "star" }
-                  : { ios: "star", android: "star_border", web: "star_border" }
-              }
-              label={isFavorite ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
-              iconSize={tv ? 20 : 16}
-              tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
-              labelColor={isFavorite ? tokens.status.warning.color : undefined}
-              accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
-              accessibilityState={{ selected: !!isFavorite }}
-              haptic="selection"
-              onPress={onToggleFavorite}
-            />
-          ) : null}
-          {/* No system share sheet on TV (phone-only capability). */}
-          {!tv ? (
-            <LabeledIconButton
-              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              label={
-                isGesturePending(shareKey)
-                  ? tTv(t, "share.tapToShare", "share.selectToShare")
-                  : t("common.share")
-              }
-              iconSize={16}
-              tintColor={colors.mutedForeground}
-              accessibilityLabel={t("reading.share")}
-              loading={isSharing(shareKey)}
-              loadingLabel={t("share.preparing")}
-              onPress={onShare}
-            />
-          ) : null}
-          {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}
-        </View>
+        ) : null}
+        <ContentActions
+          labelled
+          play={item.audioUri ? { trackId, onPlay: playAudio } : undefined}
+          save={
+            onToggleFavorite
+              ? { saved: Boolean(isFavorite), onToggle: onToggleFavorite }
+              : undefined
+          }
+          share={
+            tv
+              ? undefined
+              : {
+                  onShare: () => void onShare(),
+                  loading: isSharing(shareKey),
+                  loadingLabel: t("share.preparing"),
+                  accessibilityLabel: t("reading.share"),
+                  label: isGesturePending(shareKey)
+                    ? tTv(t, "share.tapToShare", "share.selectToShare")
+                    : undefined,
+                }
+          }
+          more={
+            moreActions.length > 0 ? { actions: moreActions, onAction: onMenuAction } : undefined
+          }
+        />
       </View>
 
       {arabicText ? (
         <ThemedText
           type="arabic"
+          accessibilityLanguage="ar"
           style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
         >
           {arabicText}
@@ -339,6 +328,7 @@ export function ReadingCard({
                 {variantArabic ? (
                   <ThemedText
                     type="arabic"
+                    accessibilityLanguage="ar"
                     style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
                   >
                     {variantArabic}
@@ -405,23 +395,13 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "flex-start",
-    justifyContent: "space-between",
+    flexWrap: "wrap",
     marginBottom: Spacing.two,
     gap: Spacing.two,
   },
   headerTv: {
     marginBottom: Spacing.four,
     gap: Spacing.three,
-  },
-  headerActions: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    flexWrap: "wrap",
-    justifyContent: "flex-end",
-    gap: Spacing.one,
-  },
-  headerActionsTv: {
-    gap: Spacing.two,
   },
   arabic: {},
   divider: { height: StyleSheet.hairlineWidth, marginVertical: Spacing.three },
@@ -431,7 +411,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: Spacing.two,
     padding: Spacing.three,
-    borderRadius: 14,
+    borderRadius: Radius.md,
     borderCurve: "continuous",
     marginTop: Spacing.three,
   },
@@ -441,7 +421,7 @@ const styles = StyleSheet.create({
   variantBlock: {
     marginTop: Spacing.four,
     paddingTop: Spacing.four,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: BorderWidth.hairline,
     gap: Spacing.two,
   },
   variantLabel: { marginBottom: Spacing.one },
