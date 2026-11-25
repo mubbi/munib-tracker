@@ -127,6 +127,23 @@ const LARGE_TEXT_SCALE = 1.3;
  * column) needs more: its six ~57dp slots broke "Maghrib" and "17:37" mid-word.
  */
 const MIN_PRAYER_SLOT_DP = { banner: 56, card: 64 } as const;
+const PRAYER_ROW_GAP = Spacing.one;
+const PRAYERS_PER_WRAPPED_ROW = 3;
+
+/**
+ * Strip cell indices per row: one row, or rows of three when wrapped. Explicit rows
+ * instead of `flexWrap` + a percentage basis, which resolved as `auto` in the hero
+ * and squeezed every cell onto one line.
+ */
+export function prayerRowIndices(count: number, wrap: boolean): number[][] {
+  const indices = Array.from({ length: count }, (_, i) => i);
+  if (!wrap) return count > 0 ? [indices] : [];
+  const rows: number[][] = [];
+  for (let i = 0; i < count; i += PRAYERS_PER_WRAPPED_ROW) {
+    rows.push(indices.slice(i, i + PRAYERS_PER_WRAPPED_ROW));
+  }
+  return rows;
+}
 
 /** Fixed positions for the faint night starfield (left %, top px, size, opacity). */
 const STARS = [
@@ -285,6 +302,110 @@ export function PrayerTimesHero({
       { translateY: interpolate(drift.value, [0, 1], [-12, 12]) },
     ],
   }));
+
+  const renderPrayerCell = (prayer: PrayerTime, index: number) => {
+    const active = index === activeIndex;
+    const markable = index === markIndex && onMarkPress != null;
+    // Inactive names/times use a high-alpha cream (not the low-contrast
+    // subtext) so they still clear ~4.5:1 on the brightest daytime skies.
+    const textColor = active ? Brand.heroText : INACTIVE_PRAYER_TEXT;
+    const cellStyle = [
+      styles.prayerItem,
+      active && {
+        backgroundColor: HeroSky.activePrayerSurface,
+        borderColor: withAlpha(toHex(sky.accent), 0.7),
+      },
+    ];
+    const content = (
+      <>
+        <ThemedText
+          type="caption"
+          style={[
+            styles.softShadow,
+            styles.prayerLabel,
+            tv ? styles.prayerLabelTv : null,
+            { color: textColor },
+          ]}
+        >
+          {prayer.name}
+        </ThemedText>
+        <SymbolView
+          name={prayer.icon}
+          size={tv ? 26 : 19}
+          tintColor={active ? sky.accent : INACTIVE_PRAYER_TEXT}
+        />
+        <ThemedText
+          type="caption"
+          weight="bold"
+          style={[
+            styles.softShadow,
+            styles.prayerTime,
+            tv ? styles.prayerTimeTv : null,
+            // The upcoming prayer's time picks up the accent, tying it to
+            // the countdown line above without competing with the live card.
+            { color: index === nextIndex ? sky.accent : textColor },
+          ]}
+        >
+          {prayer.time}
+        </ThemedText>
+        {markable ? (
+          // Status glyph: says the cell is the place to log this Salah.
+          <SymbolView
+            name={
+              markCompleted
+                ? {
+                    ios: "checkmark.circle.fill",
+                    android: "check_circle",
+                    web: "check_circle",
+                  }
+                : {
+                    ios: "circle",
+                    android: "radio_button_unchecked",
+                    web: "radio_button_unchecked",
+                  }
+            }
+            size={tv ? IconSize.lg : IconSize.md}
+            tintColor={markCompleted ? sky.accent : Brand.heroText}
+          />
+        ) : null}
+      </>
+    );
+    if (markable) {
+      return (
+        <PressableScale
+          key={prayer.name}
+          onPress={onMarkPress}
+          haptic="light"
+          scaleTo={0.96}
+          accessibilityRole="button"
+          accessibilityLabel={t("hero.markA11y", {
+            name: prayer.name,
+            time: prayer.time,
+            status: markStatusLabel ?? "",
+          })}
+          accessibilityHint={t("hero.markHint")}
+          testID="hero-mark-cell"
+          style={[cellStyle, !active && { borderColor: Brand.onHeroStrongSurface }]}
+        >
+          {content}
+        </PressableScale>
+      );
+    }
+    return (
+      <View
+        key={prayer.name}
+        accessible
+        accessibilityRole="text"
+        accessibilityLabel={t(active ? "hero.prayerItemActive" : "hero.prayerItem", {
+          name: prayer.name,
+          time: prayer.time,
+        })}
+        style={cellStyle}
+      >
+        {content}
+      </View>
+    );
+  };
 
   return (
     <>
@@ -579,113 +700,21 @@ export function PrayerTimesHero({
               large={tv}
             />
             <View
-              style={[styles.prayerRow, wrapPrayers ? styles.prayerRowWrap : null]}
+              style={styles.prayerRows}
               onLayout={(event) => setPrayerRowWidth(event.nativeEvent.layout.width)}
             >
-              {prayers.map((prayer, index) => {
-                const active = index === activeIndex;
-                const markable = index === markIndex && onMarkPress != null;
-                // Inactive names/times use a high-alpha cream (not the low-contrast
-                // subtext) so they still clear ~4.5:1 on the brightest daytime skies.
-                const textColor = active ? Brand.heroText : INACTIVE_PRAYER_TEXT;
-                const cellStyle = [
-                  styles.prayerItem,
-                  wrapPrayers ? styles.prayerItemWrap : null,
-                  active && {
-                    backgroundColor: HeroSky.activePrayerSurface,
-                    borderColor: withAlpha(toHex(sky.accent), 0.7),
-                  },
-                ];
-                const content = (
-                  <>
-                    <ThemedText
-                      type="caption"
-                      style={[
-                        styles.softShadow,
-                        styles.prayerLabel,
-                        tv ? styles.prayerLabelTv : null,
-                        { color: textColor },
-                      ]}
-                    >
-                      {prayer.name}
-                    </ThemedText>
-                    <SymbolView
-                      name={prayer.icon}
-                      size={tv ? 26 : 19}
-                      tintColor={active ? sky.accent : INACTIVE_PRAYER_TEXT}
-                    />
-                    <ThemedText
-                      type="caption"
-                      weight="bold"
-                      style={[
-                        styles.softShadow,
-                        styles.prayerTime,
-                        tv ? styles.prayerTimeTv : null,
-                        // The upcoming prayer's time picks up the accent, tying it to
-                        // the countdown line above without competing with the live card.
-                        { color: index === nextIndex ? sky.accent : textColor },
-                      ]}
-                    >
-                      {prayer.time}
-                    </ThemedText>
-                    {markable ? (
-                      // Status glyph: says the cell is the place to log this Salah.
-                      <SymbolView
-                        name={
-                          markCompleted
-                            ? {
-                                ios: "checkmark.circle.fill",
-                                android: "check_circle",
-                                web: "check_circle",
-                              }
-                            : {
-                                ios: "circle",
-                                android: "radio_button_unchecked",
-                                web: "radio_button_unchecked",
-                              }
-                        }
-                        size={tv ? IconSize.lg : IconSize.md}
-                        tintColor={markCompleted ? sky.accent : Brand.heroText}
-                      />
-                    ) : null}
-                  </>
-                );
-                if (markable) {
-                  return (
-                    <PressableScale
-                      key={prayer.name}
-                      onPress={onMarkPress}
-                      haptic="light"
-                      scaleTo={0.96}
-                      accessibilityRole="button"
-                      accessibilityLabel={t("hero.markA11y", {
-                        name: prayer.name,
-                        time: prayer.time,
-                        status: markStatusLabel ?? "",
-                      })}
-                      accessibilityHint={t("hero.markHint")}
-                      testID="hero-mark-cell"
-                      style={[cellStyle, !active && { borderColor: Brand.onHeroStrongSurface }]}
-                    >
-                      {content}
-                    </PressableScale>
-                  );
-                }
-                return (
-                  <View
-                    key={prayer.name}
-                    accessible
-                    accessibilityRole="text"
-                    accessibilityLabel={t(active ? "hero.prayerItemActive" : "hero.prayerItem", {
-                      name: prayer.name,
-                      time: prayer.time,
-                    })}
-                    style={cellStyle}
-                  >
-                    {content}
-                  </View>
-                );
-              })}
+              {prayerRowIndices(prayers.length, wrapPrayers).map((indices) => (
+                <View key={indices[0]} style={styles.prayerRow}>
+                  {indices.map((index) => renderPrayerCell(prayers[index], index))}
+                  {/* Keep a short last row's cells the same width as the rows above. */}
+                  {wrapPrayers
+                    ? Array.from(
+                        { length: PRAYERS_PER_WRAPPED_ROW - indices.length },
+                        (_, slot) => `spacer-${indices.length + slot}`,
+                      ).map((id) => <View key={id} style={styles.prayerItemSpacer} />)
+                    : null}
+                </View>
+              ))}
             </View>
           </View>
         </View>
@@ -992,19 +1021,15 @@ const styles = StyleSheet.create({
   prayerRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    gap: Spacing.one,
+    gap: PRAYER_ROW_GAP,
   },
-  /** Large text: three cells per row so names keep their size (B-19). */
-  prayerRowWrap: {
-    flexWrap: "wrap",
-    rowGap: Spacing.two,
+  /** Wrapped strip (large text B-19, narrow dashboard card): rows of three. */
+  prayerRows: {
+    gap: Spacing.two,
   },
-  prayerItemWrap: {
-    flexGrow: 1,
-    // `flex: 1` on the cell also sets flexShrink 1, which squeezed all six cells
-    // onto one row (names and times broke mid-word) instead of wrapping three per row.
-    flexShrink: 0,
-    flexBasis: "30%",
+  /** Fills a short last wrapped row so its cells match the rows above. */
+  prayerItemSpacer: {
+    flex: 1,
   },
   prayerItem: {
     flex: 1,

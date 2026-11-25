@@ -1,6 +1,6 @@
 import { act, screen } from "@testing-library/react-native";
 
-import { type PrayerTime, PrayerTimesHero } from "@/components/prayer-times-hero";
+import { type PrayerTime, PrayerTimesHero, prayerRowIndices } from "@/components/prayer-times-hero";
 import { skyPalette } from "@/lib/sky";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
@@ -29,14 +29,26 @@ const PRAYERS: PrayerTime[] = ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Is
   }),
 );
 
-/** The strip row: the only `space-between` row that measures itself. */
+type Node = { props: { style?: unknown; onLayout?: unknown }; parent: Node | null };
+
+const ancestor = (node: Node, match: (n: Node) => boolean) => {
+  let current: Node | null = node;
+  while (current && !match(current)) current = current.parent;
+  return current;
+};
+
+/** The measured strip container (its rows sit inside). */
 const strip = () =>
-  screen.container.queryAll(
-    (node) =>
-      typeof node.props.onLayout === "function" &&
-      node.props.style != null &&
-      flattenStyle(node.props.style).justifyContent === "space-between",
-  )[0];
+  ancestor(
+    screen.getByText("Fajr") as unknown as Node,
+    (n) => typeof n.props.onLayout === "function",
+  ) as Node & { props: { onLayout: (e: unknown) => void } };
+
+const rowOf = (name: string) =>
+  ancestor(screen.getByText(name) as unknown as Node, (n) => {
+    const style = n.props.style ? flattenStyle(n.props.style as never) : {};
+    return style.flexDirection === "row" && style.justifyContent === "space-between";
+  });
 
 const layoutStrip = (width: number) =>
   act(() => strip().props.onLayout({ nativeEvent: { layout: { width, height: 80 } } }));
@@ -60,7 +72,8 @@ const renderHero = (variant: "banner" | "card") =>
     />,
   );
 
-const wrapped = () => flattenStyle(strip().props.style).flexWrap === "wrap";
+/** Wrapped = Fajr (first row) and Maghrib (second row) sit in different rows. */
+const wrapped = () => rowOf("Fajr") !== rowOf("Maghrib");
 
 describe("PrayerTimesHero strip width (no mid-word breaks)", () => {
   it("keeps the phone banner on one row when every slot fits", async () => {
@@ -80,16 +93,29 @@ describe("PrayerTimesHero strip width (no mid-word breaks)", () => {
     await layoutStrip(340); // ~57dp per slot: "Maghri / b", "17:3 / 7"
     expect(wrapped()).toBe(true);
     // Cells must not shrink back onto one row (flex: 1 implies flexShrink 1).
-    const cells = screen.container.queryAll(
-      (node) => node.props.style != null && flattenStyle(node.props.style).flexBasis === "30%",
-    );
-    expect(cells.length).toBeGreaterThanOrEqual(PRAYERS.length);
-    for (const cell of cells) expect(flattenStyle(cell.props.style).flexShrink).toBe(0);
   });
 
   it("keeps a roomy dashboard card on one row", async () => {
     await renderHero("card");
     await layoutStrip(480); // 80dp per slot
     expect(wrapped()).toBe(false);
+  });
+});
+
+describe("prayerRowIndices", () => {
+  it("keeps every cell in one row unless wrapping", () => {
+    expect(prayerRowIndices(6, false)).toEqual([[0, 1, 2, 3, 4, 5]]);
+    expect(prayerRowIndices(0, false)).toEqual([]);
+  });
+
+  it("groups cells three per row when wrapping", () => {
+    expect(prayerRowIndices(6, true)).toEqual([
+      [0, 1, 2],
+      [3, 4, 5],
+    ]);
+    expect(prayerRowIndices(5, true)).toEqual([
+      [0, 1, 2],
+      [3, 4],
+    ]);
   });
 });
