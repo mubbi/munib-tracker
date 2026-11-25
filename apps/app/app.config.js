@@ -318,6 +318,13 @@ module.exports = ({ config }) => {
       intentFilters: [...baseAndroidFilters, ...googleAndroidOAuthIntentFilter()],
     },
     plugins: [
+      /**
+       * NF-2.23b seasonal app icons — phone only, and FIRST on purpose: Expo runs mods
+       * last-registered-first, so its manifest pass (moving the launcher filter and
+       * `android.app.shortcuts` onto the icon aliases) runs after every other plugin
+       * has finished editing MainActivity.
+       */
+      ...(tvPrebuild ? [] : ["./modules/munib-app-icon/app.plugin.js"]),
       ...pluginsWithoutQuickActions,
       /** No-op unless EXPO_TV=1 / isTV — keeps phone prebuild unchanged. */
       configTvPlugin,

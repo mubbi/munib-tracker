@@ -65,6 +65,7 @@ const USER_PREFERENCE_KEYS = {
   tasbeehAppearance: 1,
   tasbeehVoice: 1,
   tasbeehAnnouncements: 1,
+  qiblaCompassStyle: 1,
   madhhab: 1,
   madhhabOverrides: 1,
   fiqhCustom: 1,
@@ -150,6 +151,9 @@ const DEVICE_KEYS = {
   methodReviewedAt: 1,
   setupProgress: 1,
   methodSuggestionDismissed: 1,
+  tvShowFinanceTools: 1,
+  appIcon: 1,
+  appIconOffersSeen: 1,
 } satisfies Record<keyof DevicePreferences, unknown>;
 
 function allPreferenceFields(): string[] {

@@ -1,6 +1,23 @@
 import { DEFAULT_WEATHER_PREFERENCES } from "@munib-tracker/shared/constants";
-import type { PreferenceAccentColorId, PreferenceColorMode } from "@munib-tracker/shared/types";
+import type {
+  PreferenceAccentColorId,
+  PreferenceColorMode,
+  QiblaCompassStyleId,
+} from "@munib-tracker/shared/types";
 import { defaultAccentColorId } from "@munib-tracker/theme/accents";
+import {
+  type AppIconPreference,
+  appIconPreferenceLabelKey,
+  defaultAppIconPreference,
+  isAppIconModuleAvailable,
+  resolveAppIconPreference,
+} from "@/lib/app-icon";
+import {
+  DEFAULT_QIBLA_COMPASS_STYLE,
+  qiblaCompassStyleKeys,
+  resolveQiblaCompassStyle,
+} from "@/lib/qibla-compass-styles";
+import { setDevicePreferences } from "@/stores/device-preferences-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
 import { editor } from "../editors";
@@ -8,11 +25,14 @@ import { type AnySettingDef, defineSetting } from "../types";
 import { onOff, updatePrefs } from "./helpers";
 
 const AccentEditor = editor("AccentEditor");
+const AppIconEditor = editor("AppIconEditor");
 const LibraryOrderEditor = editor("LibraryOrderEditor");
+const QiblaCompassStyleEditor = editor("QiblaCompassStyleEditor");
 
 const G = "appearance" as const;
 const THEME = "settingsPanel.section.theme";
 const HOME = "settingsPanel.section.home";
+const QIBLA = "settingsPanel.section.qibla";
 
 /** Matches the theme provider's first-run default. */
 const DEFAULT_COLOR_MODE: PreferenceColorMode = "dark";
@@ -67,6 +87,25 @@ export const APPEARANCE_SETTINGS: AnySettingDef[] = [
     defaultValue: defaultAccentColorId,
     summary: (v) => (v.startsWith("#") ? v.toUpperCase() : v),
     fields: ["prefs.accentColorId", "prefs.customAccent"],
+  }),
+  // NF-2.23b: seasonal launcher icon (Ramadan, Eid, Dhul-Hijjah, …). Per device, and
+  // only where this binary carries the icon module (hidden on web, TV, older builds).
+  defineSetting<AppIconPreference>({
+    id: "appearance.appIcon",
+    group: G,
+    section: THEME,
+    titleKey: "appIcon.title",
+    subtitleKey: "appIcon.subtitle",
+    keywordsKey: "appIcon.keywords",
+    icon: { ios: "app.badge.fill", android: "app_badging", web: "app_badging" },
+    scope: "device",
+    control: { kind: "custom", Component: AppIconEditor },
+    read: (s) => resolveAppIconPreference(s.device.appIcon),
+    write: (v) => setDevicePreferences({ appIcon: v }),
+    defaultValue: defaultAppIconPreference(),
+    available: (ctx) => ctx.native && isAppIconModuleAvailable(),
+    summary: (v, t) => t(appIconPreferenceLabelKey(v)),
+    fields: ["device.appIcon"],
   }),
   defineSetting<string[]>({
     id: "appearance.homeCards",
@@ -126,6 +165,23 @@ export const APPEARANCE_SETTINGS: AnySettingDef[] = [
         : t("settingsStep4.libraryOrder.custom"),
     shortcuts: ["/(tabs)/library"],
     fields: ["prefs.libraryMenuOrder"],
+  }),
+  defineSetting<QiblaCompassStyleId>({
+    id: "appearance.qiblaCompass",
+    group: G,
+    section: QIBLA,
+    titleKey: "qiblaStyles.sheetTitle",
+    subtitleKey: "qiblaStyles.settingSubtitle",
+    keywordsKey: "qiblaStyles.keywords",
+    icon: { ios: "location.north.circle.fill", android: "explore", web: "explore" },
+    scope: "account",
+    control: { kind: "custom", Component: QiblaCompassStyleEditor },
+    read: (s) => resolveQiblaCompassStyle(s.prefs.qiblaCompassStyle),
+    write: (v) => updatePrefs({ qiblaCompassStyle: v }),
+    defaultValue: DEFAULT_QIBLA_COMPASS_STYLE,
+    summary: (v, t) => t(qiblaCompassStyleKeys(v).name),
+    shortcuts: ["/qibla"],
+    fields: ["prefs.qiblaCompassStyle"],
   }),
   defineSetting<boolean>({
     id: "appearance.weatherEffects",

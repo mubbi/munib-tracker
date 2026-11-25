@@ -3,6 +3,7 @@ import type { NotificationPreferences, UserPreferences } from "@munib-tracker/sh
 import { DB_KEYS } from "@/db/keys";
 import type { QuranPrefs } from "@/db/repositories/quran-repository";
 import { readJSON, writeJSON } from "@/db/store";
+import type { AppIconPreference } from "@/lib/app-icon/icons";
 
 import { createStore, useStore } from "./create-store";
 
@@ -42,6 +43,23 @@ export interface DevicePreferences {
   setupProgress?: { step: string; next?: "/login" };
   /** "Keep current" on the suggested calculation method (`"PK:Karachi"`). */
   methodSuggestionDismissed?: string;
+  /**
+   * TV only (D-UX5): show zakat, sadaqah, fidyah, finance and mirath on this TV.
+   * Unset ⇒ hidden — private figures stay off a shared living-room screen.
+   */
+  tvShowFinanceTools?: boolean;
+  /**
+   * NF-2.23b launcher icon: `"seasonal"` (follow the Islamic calendar), `"classic"`
+   * or one seasonal icon kept all year. Unset ⇒ the platform default
+   * (`defaultAppIconPreference()` in `lib/app-icon/preference.ts`). Per device: the
+   * icon is a property of this install, like the launcher it lives on.
+   */
+  appIcon?: AppIconPreference;
+  /**
+   * Seasonal icon offers already answered on this device (`<icon>:<hijriYear>`,
+   * e.g. `ramadan:1448`) — the Android home card shows once per season (D75).
+   */
+  appIconOffersSeen?: string[];
 }
 
 export const DEFAULT_DEVICE_PREFERENCES: DevicePreferences = {
@@ -140,6 +158,9 @@ export function resolveDevicePreferences(
     methodReviewedAt: device.methodReviewedAt,
     setupProgress: device.setupProgress,
     methodSuggestionDismissed: device.methodSuggestionDismissed,
+    tvShowFinanceTools: device.tvShowFinanceTools,
+    appIcon: device.appIcon,
+    appIconOffersSeen: device.appIconOffersSeen,
   };
 }
 

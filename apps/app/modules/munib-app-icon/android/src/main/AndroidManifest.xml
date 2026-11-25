@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!--
+    NF-2.23b: the launcher activity-aliases (.AppIconDefault + one .AppIcon<Id> per
+    seasonal icon) and their adaptive-icon resources are added to the app by the
+    module's config plugin (app.plugin.js), so they are unit-tested and never reach
+    the TV build (module + plugin are phone-only).
+  -->
+</manifest>

@@ -50,6 +50,9 @@ const TV_EXCLUDED_PACKAGES = [
   "munib-text-recognition",
   // NF-3.25 nearby join (BLE advertise / scan): web and TV keep QR / code only (D41).
   "munib-nearby",
+  // NF-2.23b seasonal launcher icons: tvOS icons are layered stacks and Android TV
+  // launches from a banner, so TV keeps its one brand icon.
+  "munib-app-icon",
 ];
 
 /**
