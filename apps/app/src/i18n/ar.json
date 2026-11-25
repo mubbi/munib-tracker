@@ -91,7 +91,37 @@
     "newBadge": "جديد",
     "decreaseByTv": "إنقاص {{label}} بمقدار {{step}}",
     "increaseByTv": "زيادة {{label}} بمقدار {{step}}",
-    "clearSearch": "مسح البحث"
+    "clearSearch": "مسح البحث",
+    "badgeA11y": "{{label}}، الجديد: {{count}}",
+    "badgeA11y_zero": "{{label}}، الجديد: {{count}}",
+    "badgeA11y_one": "{{label}}، الجديد: {{count}}",
+    "badgeA11y_two": "{{label}}، الجديد: {{count}}",
+    "badgeA11y_few": "{{label}}، الجديد: {{count}}",
+    "badgeA11y_many": "{{label}}، الجديد: {{count}}",
+    "badgeA11y_other": "{{label}}، الجديد: {{count}}",
+    "moreActions": "المزيد من الإجراءات",
+    "discardTitle": "تجاهل التغييرات؟",
+    "discardMessage": "ستفقد تعديلاتك غير المحفوظة.",
+    "discard": "تجاهل",
+    "keepEditing": "متابعة التعديل",
+    "saveFailed": "تعذّر الحفظ. حاول مرة أخرى.",
+    "saving": "جارٍ الحفظ…",
+    "undo": "تراجع",
+    "export": {
+      "unavailable": "الطباعة والمشاركة غير متاحتين على هذا الجهاز.",
+      "failed": "تعذّر إنشاء المستند. حاول مرة أخرى.",
+      "preparing": "جارٍ تجهيز المستند…"
+    },
+    "dateInput": {
+      "invalid": "تعذّرت قراءة هذا التاريخ. اكتبه بصيغة سنة-شهر-يوم، مثل 2026-11-23.",
+      "preset": {
+        "week": "بعد أسبوع",
+        "month": "بعد شهر",
+        "threeMonths": "بعد ثلاثة أشهر"
+      }
+    },
+    "copied": "تم النسخ إلى الحافظة",
+    "more": "المزيد"
   },
   "search": {
     "placeholder": "ابحث في القرآن والحديث والأدعية والتعلّم…",
@@ -115,7 +145,8 @@
       "durood": "الصلوات",
       "learn": "التعلّم",
       "notes": "ملاحظاتي",
-      "roots": "الجذور"
+      "roots": "الجذور",
+      "library": "المكتبة"
     },
     "suggestion": {
       "kursi": "آية الكرسي",
@@ -137,7 +168,9 @@
       "unavailable": "التعرف على الكلام غير متوفر على هذا الجهاز.",
       "couldNotHear": "تعذر سماع ذلك — حاول مرة أخرى أو اكتب.",
       "errorGeneric": "فشل البحث الصوتي. حاول مرة أخرى أو اكتب."
-    }
+    },
+    "findAnAyah": "ابحث عن آية",
+    "browseLibrary": "تصفّح المكتبة"
   },
   "tabs": {
     "home": "الرئيسية",
@@ -159,7 +192,6 @@
     "calendar": "التقويم",
     "stats": "الإحصاءات",
     "qibla": "القبلة",
-    "bookmarks": "الإشارات المرجعية",
     "ramadan": "رمضان",
     "salahGuide": "تعلّم الصلاة",
     "jannah": "الطريق إلى الجنة",
@@ -220,7 +252,7 @@
     "checklistSubtitle": "سجّل صلوات اليوم",
     "qiblaSubtitle": "اعثر على اتجاه القبلة",
     "tasbeehSubtitle": "افتح عدّاد التسبيح",
-    "qazaSubtitle": "أدر الصلوات الفائتة",
+    "qazaSubtitle": "اقضِ الصلوات الفائتة",
     "quranSubtitle": "اقرأ القرآن",
     "ramadanSubtitle": "السحور والإفطار وسجل الصيام"
   },
@@ -349,7 +381,9 @@
       "staleData": "افتح التطبيق لتحديث مواقيت اليوم",
       "freeCount": "عدّ حر",
       "tapToCount": "انقر للعدّ",
-      "sequenceDone": "اكتمل التسبيح"
+      "sequenceDone": "اكتمل التسبيح",
+      "undo": "تراجع",
+      "markedUndoHint": "تم التسجيل — اضغط تراجع للتعديل"
     },
     "adhkar": "الأذكار",
     "voiceNextSalah": "الصلاة القادمة {{prayer}} الساعة {{time}}.",
@@ -416,7 +450,13 @@
         "dismiss": "لا، شكرًا",
         "added": "أُضيفت إلى قضاء الصيام."
       }
-    }
+    },
+    "toast": {
+      "fasted": "تم التسجيل: صمت",
+      "missed": "تم التسجيل: فاتني الصيام",
+      "exempt": "تم التسجيل: معذور"
+    },
+    "toastCleared": "تم مسح السجل"
   },
   "fastStatusSheet": {
     "prompt": "اختر حالة صيامك",
@@ -427,7 +467,7 @@
   },
   "bookmarks": {
     "eyebrow": "المكتبة",
-    "title": "الإشارات المرجعية",
+    "title": "المحفوظ",
     "subtitle": "كل ما حفظته من قراءاتك في مكان واحد",
     "subtitleCount": "{{count}} عنصر محفوظ",
     "reading": "القراءة",
@@ -435,12 +475,12 @@
     "quran": "آيات القرآن",
     "hadith": "الأحاديث",
     "duas": "الأدعية المحفوظة",
-    "zikr": "الأذكار المفضلة",
+    "zikr": "الأذكار المحفوظة",
     "duroods": "الصلوات المحفوظة",
     "names": "الأسماء المحفوظة",
     "emptyTitle": "لا شيء محفوظ بعد",
     "emptySubtitle": "استكشف أدناه واحفظ أثناء القراءة",
-    "emptyDesc": "ستجمع هنا آياتك وأحاديثك وأدعيتك وأذكارك المحفوظة.",
+    "emptyDesc": "ستجتمع هنا آياتك وأحاديثك وأدعيتك وأذكارك المحفوظة.",
     "exploreReading": "ابدأ القراءة",
     "exploreSaved": "ابدأ الحفظ",
     "exploreQuran": "تصفّح القرآن",
@@ -448,19 +488,31 @@
     "exploreHadith": "تصفّح الأحاديث",
     "exploreHadithHint": "احفظ من أي مجموعة حديث",
     "exploreDuas": "تصفّح الأدعية",
-    "exploreDuasHint": "اضغط النجمة لحفظ دعاء",
+    "exploreDuasHint": "اضغط أيقونة الإشارة لحفظ دعاء",
     "exploreZikr": "تصفّح الأذكار",
-    "exploreZikrHint": "اضغط القلب لإضافة ذكر للمفضلة",
+    "exploreZikrHint": "اضغط أيقونة الإشارة لحفظ الأذكار",
     "exploreDuroods": "تصفّح الصلوات",
-    "exploreDuroodsHint": "اضغط النجمة لحفظ صلاة",
+    "exploreDuroodsHint": "اضغط أيقونة الإشارة لحفظ صيغة صلاة على النبي",
     "exploreNames": "تصفّح الأسماء الحسنى",
-    "exploreNamesHint": "اضغط النجمة لحفظ اسم",
+    "exploreNamesHint": "اضغط أيقونة الإشارة لحفظ اسم",
     "exploreQuranHintTv": "اضغط اختيار على أيقونة الإشارة المرجعية على أي آية",
-    "exploreDuasHintTv": "اضغط اختيار على النجمة لحفظ دعاء",
-    "exploreZikrHintTv": "اضغط اختيار على القلب لإضافة ذكر للمفضلة",
-    "exploreDuroodsHintTv": "اضغط اختيار على النجمة لحفظ صلاة",
-    "exploreNamesHintTv": "اضغط اختيار على النجمة لحفظ اسم",
-    "exploreHadithHintTv": "اضغط اختيار لفتح مجموعة حديث"
+    "exploreDuasHintTv": "اختر أيقونة الإشارة لحفظ دعاء",
+    "exploreZikrHintTv": "اختر أيقونة الإشارة لحفظ الأذكار",
+    "exploreDuroodsHintTv": "اختر أيقونة الإشارة لحفظ صيغة صلاة على النبي",
+    "exploreNamesHintTv": "اختر أيقونة الإشارة لحفظ اسم",
+    "exploreHadithHintTv": "اضغط اختيار لفتح مجموعة حديث",
+    "recent": "المحفوظ حديثًا",
+    "filter": {
+      "all": "الكل",
+      "quran": "القرآن",
+      "hadith": "الحديث",
+      "duas": "الأدعية",
+      "names": "أسماء الله الحسنى",
+      "notes": "ملاحظاتي"
+    },
+    "filterEmpty": "لا شيء محفوظ في هذه المجموعة بعد.",
+    "byType": "تصفّح حسب النوع",
+    "showAll": "عرض الكل ({{total}})"
   },
   "home": {
     "todaysGoal": "هدف اليوم",
@@ -687,10 +739,10 @@
     "scheduleShowPastHintTv": "اضغط اختيار لعرض الجدول كاملًا",
     "scheduleShowLaterHintTv": "اضغط اختيار لعرض باقي اليوم",
     "exploreQuranHintTv": "اضغط اختيار على أيقونة الإشارة المرجعية على أي آية",
-    "exploreDuasHintTv": "اضغط اختيار على النجمة لحفظ دعاء",
-    "exploreZikrHintTv": "اضغط اختيار على القلب لإضافة ذكر للمفضلة",
-    "exploreDuroodsHintTv": "اضغط اختيار على النجمة لحفظ صلاة",
-    "exploreNamesHintTv": "اضغط اختيار على النجمة لحفظ اسم",
+    "exploreDuasHintTv": "اختر أيقونة الإشارة لحفظ دعاء",
+    "exploreZikrHintTv": "اختر أيقونة الإشارة لحفظ الأذكار",
+    "exploreDuroodsHintTv": "اختر أيقونة الإشارة لحفظ صيغة صلاة على النبي",
+    "exploreNamesHintTv": "اختر أيقونة الإشارة لحفظ اسم",
     "exploreHintTv": "يظهر {{shown}} من {{total}} اختصارًا — اضغط اختيار على إدارة للإضافة أو إعادة الترتيب.",
     "whiteDaysCard": {
       "badge": "الأيام البِيض",
@@ -700,7 +752,15 @@
       "allDone": "تم تسجيل صيام الأيام البِيض الثلاثة — تقبّل الله صيامك.",
       "openChecklist": "فتح قائمة الأيام البِيض",
       "allDoneMonth": "سُجّلت الأيام البيض كلها هذا الشهر — تقبّل الله صيامك."
-    }
+    },
+    "markSalah": "سجّل {{salah}}",
+    "moreForToday": "المزيد لليوم ({{count}})",
+    "moreForToday_zero": "المزيد لليوم ({{count}})",
+    "moreForToday_one": "المزيد لليوم ({{count}})",
+    "moreForToday_two": "المزيد لليوم ({{count}})",
+    "moreForToday_few": "المزيد لليوم ({{count}})",
+    "moreForToday_many": "المزيد لليوم ({{count}})",
+    "moreForToday_other": "المزيد لليوم ({{count}})"
   },
   "tracker": {
     "eyebrow": "سجّل وتابِع",
@@ -788,7 +848,8 @@
           "title": "اطلب ساعة الدعاء",
           "hint": "خاصة في آخر ساعة بعد العصر"
         }
-      }
+      },
+      "detailsFor": "تفاصيل: {{title}}"
     },
     "khatm": {
       "title": "خطة الختم",
@@ -840,7 +901,22 @@
       "recordedHint": "سُجّل سابقًا. يمكنك مسحه من هنا.",
       "compareViews": "قارن الآراء",
       "hideViews": "إخفاء الآراء"
-    }
+    },
+    "markA11y": "تمت صلاة {{prayer}}",
+    "markHint": "يسجّل هذه الصلاة كمؤدّاة",
+    "markUndoHint": "يعيد الحالة السابقة",
+    "statusMarkedToast": "تم تسجيل {{salah}}: {{status}}",
+    "groupRemembrance": "الأذكار",
+    "groupMakeUp": "القضاء والقراءة",
+    "groupVoluntary": "النوافل",
+    "moreRemindersHint": "يعرض بقية تذكيرات اليوم",
+    "moreReminders": "+{{count}} أخرى",
+    "moreReminders_zero": "+{{count}} أخرى",
+    "moreReminders_one": "+{{count}} آخر",
+    "moreReminders_two": "+{{count}} آخران",
+    "moreReminders_few": "+{{count}} أخرى",
+    "moreReminders_many": "+{{count}} أخرى",
+    "moreReminders_other": "+{{count}} أخرى"
   },
   "settings": {
     "eyebrow": "خصّص",
@@ -882,7 +958,7 @@
     "homeCustomize": "تخصيص الرئيسية",
     "homeCustomizeSub": "أعِد ترتيب الاختصارات وأخفِ بطاقات الصفحة الرئيسية",
     "offlineData": "البيانات دون اتصال",
-    "offlineDataSub": "إدارة المحتوى المُنزَّل ومسح المخبأ",
+    "offlineDataSub": "إدارة المحتوى المُنزَّل وتوفير المساحة",
     "cacheAudioLocally": "حفظ الصوت محليًا",
     "cacheAudioLocallySub": "تنزيل التلاوة للتشغيل دون اتصال وبسلاسة أكبر",
     "cacheQuranEditionsLocally": "حفظ ترجمات القرآن محليًا",
@@ -933,7 +1009,27 @@
     "updateNow": "حدّث الآن",
     "viewUpdateDetails": "عرض التفاصيل",
     "remindInSettings": "ذكّرني في الإعدادات",
-    "tvSubtitle": "تصفّح بجهاز التحكم — بعض الأدوات تحتاج هاتفًا"
+    "tvSubtitle": "تصفّح بجهاز التحكم — بعض الأدوات تحتاج هاتفًا",
+    "resetSettingsFailed": "تعذّرت إعادة ضبط إعداداتك. حاول مرة أخرى.",
+    "resetAppData": {
+      "deviceLine": "على هذا الجهاز: تُمحى كل سجلاتك وعدّادات القضاء والإشارات المرجعية والملاحظات والإعدادات والتقدّم.",
+      "cloudLine": "في السحابة: تُمحى نسختك المتزامنة أيضًا. يبقى حسابك مفتوحًا ومسجّل الدخول.",
+      "guestLine": "لا شيء محفوظ في السحابة. تبقى جلسة الضيف نشطة.",
+      "cannotUndo": "لا يمكن التراجع عن هذا.",
+      "acknowledge": "أفهم أن بياناتي ستُمحى نهائيًا",
+      "failedDevice": "تعذّر إكمال مسح هذا الجهاز. حاول مرة أخرى."
+    },
+    "done": {
+      "tourHints": "ستظهر تلميحات الجولة مرة أخرى",
+      "textSizes": "أُعيد ضبط أحجام النص",
+      "history": "تم مسح السجل",
+      "calibration": "أُعيدت معايرة الصوت",
+      "forgetTaught": "تم نسيان الأذكار المُعلَّمة"
+    },
+    "reorder": {
+      "moreFor": "مزيد من الخيارات لـ {{item}}",
+      "moveToTop": "نقل إلى الأعلى"
+    }
   },
   "import": {
     "title": "استيراد سجل الصلوات",
@@ -952,9 +1048,20 @@
     "alsoQaza": "أضِف أيضًا الصلوات الفائتة إلى القضاء",
     "alsoQazaHint": "زِد عدّادات القضاء بكل صلاة فائتة مستوردة.",
     "commit": "استيراد {{count}} سجلات",
-    "importing": "جارٍ الاستيراد…",
     "done": "تم استيراد {{count}} سجل صلاة",
-    "failed": "فشل الاستيراد. حاول مرة أخرى."
+    "failed": "فشل الاستيراد. حاول مرة أخرى.",
+    "hint": "انسخ الصفوف من جدول بيانات أو تطبيق آخر والصقها هنا. اكتب صلاة واحدة في كل سطر: التاريخ، وأي صلاة، وحالتها.",
+    "formatDetails": "تفاصيل الصيغة",
+    "formatSample": "مثال:",
+    "fieldLabel": "الصفوف المراد استيرادها",
+    "error": {
+      "invalid_json": "تعذّرت قراءة هذا النص. تحقّق من الأقواس وعلامات الاقتباس، أو الصق صفوفًا مفصولة بفواصل بدلًا من ذلك.",
+      "invalid_date": "«{{value}}» ليس تاريخًا. اكتبه بصيغة سنة-شهر-يوم، مثل 2026-06-01.",
+      "future_date": "{{value}} تاريخ في المستقبل. لا يمكن استيراد إلا الأيام الماضية.",
+      "unknown_prayer": "«{{value}}» ليس اسم صلاة. استخدم أحد هذه: {{allowed}}.",
+      "unknown_status": "«{{value}}» ليست حالة. استخدم أحد هذه: {{allowed}}.",
+      "empty": "هناك شيء ناقص. يحتاج كل سطر إلى تاريخ وصلاة وحالة."
+    }
   },
   "login": {
     "eyebrowGuest": "احفظ تقدّمك",
@@ -972,10 +1079,19 @@
     "continueSignedIn": "متابعة",
     "or": "أو",
     "guestHint": "يمكنك ربط حسابك في أي وقت من الملف الشخصي.",
-    "error": "تعذّر تسجيل الدخول. تأكّد من تشغيل خادم API وأن هذا المزوّد مُهيّأ.",
-    "providersUnavailableTitle": "تسجيل الدخول غير متاح بعد",
-    "providersUnavailableBody": "مزوّدو المزامنة السحابية غير مهيأين في هذا الإصدار. تابع كضيف — يبقى تقدّمك على هذا الجهاز.",
-    "guestHintTv": "امسح رمز QR لتسجيل الدخول من هاتفك. أو تابع كضيف — يمكنك ربط حساب في أي وقت من الملف الشخصي على هاتفك."
+    "error": "تعذّر تسجيل دخولك. تحقّق من اتصالك وحاول مرة أخرى.",
+    "providersUnavailableTitle": "تسجيل الدخول غير متاح الآن",
+    "providersUnavailableBody": "يمكنك متابعة استخدام Munib Tracker كضيف. يبقى تقدّمك على هذا الجهاز.",
+    "guestHintTv": "امسح رمز QR لتسجيل الدخول من هاتفك. أو تابع كضيف — يمكنك ربط حساب في أي وقت من الملف الشخصي على هاتفك.",
+    "errorNotReady": "لم يكن تسجيل الدخول جاهزاً بعد. انتظر لحظة وحاول مرة أخرى.",
+    "errorProviderUnavailable": "خيار تسجيل الدخول هذا غير متاح الآن. جرّب خياراً آخر أو تابع كضيف.",
+    "errorOffline": "أنت غير متصل. اتصل بالإنترنت وحاول مرة أخرى.",
+    "errorOAuthReturn": "لم يكتمل تسجيل الدخول. حاول مرة أخرى أو اختر خياراً آخر.",
+    "legalNote": "بالمتابعة، فإنك توافق على الشروط وسياسة الخصوصية.",
+    "errorRateLimited": "محاولات تسجيل دخول كثيرة جدًا. انتظر دقيقة ثم حاول مرة أخرى.",
+    "errorRejected": "تعذّر تأكيد تسجيل دخولك. حاول مرة أخرى، أو اختر طريقة أخرى.",
+    "errorAccountClosed": "تم إغلاق هذا الحساب. سجّل الدخول بحساب آخر، أو تابع كضيف.",
+    "errorServer": "تسجيل الدخول غير متاح الآن. حاول مرة أخرى بعد بضع دقائق."
   },
   "onboarding": {
     "begin": "ابدأ",
@@ -997,7 +1113,7 @@
     "slide3Eyebrow": "الذكر",
     "slide3Title": "اذكر الله يومياً",
     "slide3Body": "أذكار الصباح والمساء والمناسبات مع عدّاد تسبيح ملموس.",
-    "slide3Highlight1": "سبع فئات أذكار مع المفضّلة",
+    "slide3Highlight1": "سبع فئات للأذكار مع أذكارك المحفوظة",
     "slide3Highlight2": "تسبيح حر مع أهداف مخصّصة",
     "slide3Highlight3": "تذكيرات قبل النوم",
     "slide4Eyebrow": "الهداية",
@@ -1032,7 +1148,8 @@
     "locationHighlight2Tv": "اتجاه القبلة من موضعك",
     "locationHighlight3Tv": "التذكيرات تعمل بشكل أفضل على الهاتف",
     "locationHighlight4Tv": "غيّر المدينة في أي وقت من الإعدادات",
-    "ctaBodyTv": "ابدأ كضيف، أو سجّل الدخول بمسح رمز QR بهاتفك. كل شيء يعمل دون اتصال على هذا التلفاز."
+    "ctaBodyTv": "ابدأ كضيف، أو سجّل الدخول بمسح رمز QR بهاتفك. كل شيء يعمل دون اتصال على هذا التلفاز.",
+    "finishLater": "أكمل لاحقًا"
   },
   "appearance": {
     "eyebrow": "الإعدادات",
@@ -1139,8 +1256,8 @@
     "openSettings": "فتح الإعدادات",
     "webUseAllowButton": "اضغط زر السماح أدناه لتفعيل إشعارات المتصفّح.",
     "unsupportedTitle": "التذكيرات تحتاج تطبيق الهاتف",
-    "expoGoTitle": "يلزم نسخة تطوير",
-    "expoGoMessage": "التذكيرات المحلية تحتاج نسخة تطوير أو إنتاج. Expo Go لا يجدول إشعارات النظام.",
+    "expoGoTitle": "التذكيرات غير متاحة في هذا الإصدار",
+    "expoGoMessage": "التذكيرات غير متاحة في هذا الإصدار التجريبي من التطبيق.",
     "iosPwaTitle": "ثبّت تطبيق الويب أولاً",
     "iosPwaMessage": "على iPhone، إشعارات المتصفّح تعمل فقط عند إضافة منيب تراكر إلى الشاشة الرئيسية.",
     "iosPwaSteps": "في Safari: مشاركة ← إضافة إلى الشاشة الرئيسية، ثم افتح التطبيق من الشاشة الرئيسية واسمح بالإشعارات.",
@@ -1294,7 +1411,8 @@
         "done": "تم"
       }
     },
-    "tvUnavailableBody": "التذكيرات المحلية والأنشطة المباشرة غير متوفرة على التلفاز. أدر تفضيلات الإشعارات من هاتفك."
+    "tvUnavailableBody": "التذكيرات المحلية والأنشطة المباشرة غير متوفرة على التلفاز. أدر تفضيلات الإشعارات من هاتفك.",
+    "iosPwaStepsBrowser": "في هذا المتصفّح: مشاركة ← إضافة إلى الشاشة الرئيسية، ثم افتح التطبيق من الشاشة الرئيسية واسمح بالإشعارات."
   },
   "fonts": {
     "eyebrow": "الإعدادات",
@@ -1321,7 +1439,7 @@
     "eyebrow": "الذكر",
     "title": "الأذكار",
     "subtitle": "أذكار لكل جزء من يومك",
-    "favorites": "المفضّلة",
+    "favorites": "المحفوظ",
     "seeAll": "عرض الكل",
     "categories": "الفئات",
     "categoryEyebrow": "الأذكار",
@@ -1337,24 +1455,24 @@
     "openInTasbeeh": "افتح في التسبيح",
     "markAsDone": "وضع علامة كمكتمل",
     "undoDoneHint": "اضغط للتراجع وإلغاء الإكمال",
-    "favorite": "أضِف للمفضّلة",
-    "favorited": "في المفضّلة",
+    "favorite": "حفظ",
+    "favorited": "محفوظ",
     "share": "مشاركة",
     "notFoundTitle": "الذكر غير موجود",
     "notFoundDesc": "قد يكون هذا العنصر قد حُذف.",
-    "favTitle": "المفضّلة",
-    "favSubtitle": "أعد ترتيب أذكارك المحفوظة أو احذفها",
-    "favEmptyTitle": "لا مفضّلة بعد",
-    "favEmptyDesc": "اضغط النجمة على أي ذكر لحفظه هنا للوصول السريع.",
+    "favTitle": "الأذكار المحفوظة",
+    "favSubtitle": "رتّب أذكارك المحفوظة أو أزلها",
+    "favEmptyTitle": "لا أذكار محفوظة بعد",
+    "favEmptyDesc": "اضغط أيقونة الإشارة على أي ذكر لإبقائه هنا للوصول السريع.",
     "browseZikr": "تصفّح الأذكار",
     "moveUp": "تحريك لأعلى",
     "moveDown": "تحريك لأسفل",
-    "removeFavorite": "إزالة من المفضّلة",
+    "removeFavorite": "إزالة من المحفوظات",
     "searchPlaceholder": "ابحث في الأذكار بالعنوان أو الموضوع أو النص…",
     "searchInCategory": "ابحث في هذه الفئة…",
     "searchResultCount": "{{count}} نتيجة",
     "noResults": "لم يطابق أي ذكر بحثك.",
-    "favEmptyDescTv": "اضغط اختيار على النجمة على أي ذكر لحفظه هنا للوصول السريع.",
+    "favEmptyDescTv": "اختر أيقونة الإشارة على أي ذكر لإبقائه هنا للوصول السريع.",
     "undoDoneHintTv": "اضغط اختيار للتراجع وإلغاء الإكمال",
     "alternateWording": "صيغة أصيلة أخرى",
     "dueNow": "حان وقتها الآن",
@@ -1364,7 +1482,14 @@
     "group": {
       "daily": "إيقاع اليوم",
       "salah": "حول الصلاة"
-    }
+    },
+    "loadingAdhkar": "جارٍ تحميل الأذكار…",
+    "unknownCategoryTitle": "مجموعة الأذكار غير موجودة",
+    "unknownCategoryDesc": "هذه المجموعة من الأذكار غير موجودة. تصفّح المجموعات المتاحة بدلًا من ذلك.",
+    "browseAdhkar": "تصفّح الأذكار",
+    "favoriteRemoved": "أُزيل من المحفوظات",
+    "markedNotDone": "وُضعت علامة غير مكتمل",
+    "countOfTarget": "{{current}} من {{target}}"
   },
   "zikrCat": {
     "morning": "أذكار الصباح",
@@ -1381,7 +1506,6 @@
     "share": "مشاركة",
     "showMore": "عرض المزيد",
     "showLess": "عرض أقل",
-    "copied": "تم النسخ إلى الحافظة",
     "textSize": "حجم النص",
     "decrease": "تصغير حجم النص",
     "increase": "تكبير حجم النص",
@@ -1454,7 +1578,7 @@
     "searchInCategory": "ابحث في هذه الفئة…",
     "searchResultCount": "{{count}} نتيجة",
     "noResults": "لم تطابق أي دعاء بحثك.",
-    "favSubtitle": "أعد ترتيب أدعيتك المحفوظة أو احذفها",
+    "favSubtitle": "رتّب أدعيتك المحفوظة أو أزلها",
     "suggestedNow": "مقترح الآن",
     "moment": {
       "morning": "أذكار الصباح",
@@ -1482,7 +1606,10 @@
       "deceased": "أدعية للمتوفّى",
       "showing": "مختارات من {{category}}",
       "showAll": "عرض الكل"
-    }
+    },
+    "browseAll": "تصفح جميع الأدعية",
+    "loading": "جارٍ تحميل الدعاء…",
+    "removedToast": "أُزيل من المحفوظات"
   },
   "duaCat": {
     "morning_evening": "الصباح والمساء",
@@ -1509,11 +1636,13 @@
     "searchPlaceholder": "ابحث في الصلوات…",
     "noResults": "لا توجد صلوات تطابق بحثك",
     "openInTasbeeh": "افتح في التسبيح",
-    "favorites": "الصلوات المفضلة",
-    "favSubtitle": "الصلوات التي حفظتها",
-    "favEmptyTitle": "لا توجد صلوات مفضلة بعد",
-    "favEmptyDesc": "اضغط النجمة على أي صلاة لحفظها هنا.",
-    "favEmptyDescTv": "اضغط اختيار على النجمة على أي صلاة لحفظها هنا."
+    "favorites": "الصلوات المحفوظة",
+    "favSubtitle": "صيغ الصلاة التي حفظتها",
+    "favEmptyTitle": "لا صلوات محفوظة بعد",
+    "favEmptyDesc": "اضغط أيقونة الإشارة على أي صيغة صلاة لحفظها هنا.",
+    "favEmptyDescTv": "اختر أيقونة الإشارة على أي صيغة صلاة لحفظها هنا.",
+    "removedToast": "أُزيل من المحفوظات",
+    "loading": "جارٍ تحميل الصلوات الإبراهيمية…"
   },
   "names": {
     "eyebrow": "الأسماء الحسنى",
@@ -1525,13 +1654,19 @@
     "play": "تشغيل التلاوة",
     "pause": "إيقاف التلاوة",
     "searchPlaceholder": "ابحث بالاسم أو المعنى…",
-    "favorite": "إضافة إلى المفضلة",
-    "unfavorite": "إزالة من المفضلة",
-    "favorites": "الأسماء المفضلة",
+    "favorite": "حفظ الاسم",
+    "unfavorite": "إزالة من المحفوظات",
+    "favorites": "الأسماء المحفوظة",
     "favSubtitle": "الأسماء التي حفظتها",
-    "favEmptyTitle": "لا توجد أسماء مفضلة بعد",
-    "favEmptyDesc": "اضغط النجمة على أي اسم لحفظه هنا.",
-    "favEmptyDescTv": "اضغط اختيار على النجمة على أي اسم لحفظه هنا."
+    "favEmptyTitle": "لا أسماء محفوظة بعد",
+    "favEmptyDesc": "اضغط أيقونة الإشارة على أي اسم لحفظه هنا.",
+    "favEmptyDescTv": "اختر أيقونة الإشارة على أي اسم لحفظه هنا.",
+    "removedToast": "أُزيل من المحفوظات",
+    "noResults": "لا توجد أسماء مطابقة لبحثك",
+    "noResultsDesc": "جرّب كلمة أو تهجئة مختلفة.",
+    "clearSearch": "مسح البحث",
+    "loading": "جارٍ تحميل أسماء الله الحسنى…",
+    "openHint": "يفتح هذا الاسم في القائمة"
   },
   "quran": {
     "eyebrow": "القرآن الكريم",
@@ -1561,14 +1696,14 @@
     "playSurah": "تشغيل السورة",
     "playPage": "تشغيل الصفحة",
     "playAyah": "تشغيل الآية {{n}}",
-    "bookmark": "إشارة مرجعية",
-    "bookmarks": "الإشارات المرجعية",
-    "viewBookmarks": "عرض الإشارات",
-    "bookmarksTitle": "الإشارات المرجعية",
+    "bookmark": "حفظ",
+    "bookmarks": "المحفوظ",
+    "viewBookmarks": "عرض الآيات المحفوظة",
+    "bookmarksTitle": "الآيات المحفوظة",
     "bookmarksSubtitle": "آياتك المحفوظة",
-    "bookmarkEmptyTitle": "لا توجد إشارات بعد",
-    "bookmarkEmptyDesc": "اضغط على أيقونة الإشارة في أي آية لحفظها هنا.",
-    "removeBookmark": "إزالة الإشارة",
+    "bookmarkEmptyTitle": "لا آيات محفوظة بعد",
+    "bookmarkEmptyDesc": "اضغط «حفظ» على أي آية لتجدها هنا.",
+    "removeBookmark": "إزالة من المحفوظات",
     "juz": "الجزء",
     "learn": "تعلّم",
     "juzSubtitle": "اقرأ القرآن في أجزائه الثلاثين",
@@ -1612,7 +1747,7 @@
     "tafsirOffline": "اتصل لتحميل هذا التفسير. تظل الإصدارات المفتوحة متاحة بلا إنترنت.",
     "tafsirEmpty": "لا يوجد تفسير لهذه الآية في الطبعة المختارة.",
     "bookmarkAdd": "حفظ الآية",
-    "bookmarkRemove": "إزالة الإشارة",
+    "bookmarkRemove": "إزالة من المحفوظات",
     "loadingTranslation": "جارٍ تحميل الترجمة…",
     "searching": "جارٍ البحث…",
     "secondTranslation": "ترجمة ثانية",
@@ -1754,9 +1889,10 @@
       "stopDictate": "إيقاف الاستماع",
       "bestMatch": "أفضل تطابق",
       "otherMatches": "تطابقات أخرى",
-      "tvUnavailableBody": "يحتاج التعرّف على الآيات إلى ميكروفون، وهو غير متوفر في التلفاز. ابحث في القرآن بالكلمات بدلًا من ذلك، أو استخدم التطبيق على هاتفك."
+      "tvUnavailableBody": "يحتاج التعرّف على الآيات إلى ميكروفون، وهو غير متوفر في التلفاز. ابحث في القرآن بالكلمات بدلًا من ذلك، أو استخدم التطبيق على هاتفك.",
+      "textLabel": "نص الآية"
     },
-    "bookmarkEmptyDescTv": "اضغط اختيار على أيقونة الإشارة في أي آية لحفظها هنا.",
+    "bookmarkEmptyDescTv": "اختر «حفظ» على أي آية لتجدها هنا.",
     "goToAyahPlaceholder": "الآية 1–{{max}}",
     "goToAyahA11y": "الانتقال إلى رقم الآية",
     "goToAyahInvalid": "أدخل رقم آية بين 1 و{{max}}",
@@ -1766,7 +1902,57 @@
     "actionMore": "المزيد",
     "moreActionsA11y": "مزيد من الإجراءات للآية {{n}}",
     "mushafFontFailedTitle": "تعذّر تحميل هذه الصفحة",
-    "mushafFontFailedBody": "لم يُنزَّل خط المصحف لهذه الصفحة. تحقّق من اتصالك ثم أعد المحاولة."
+    "mushafFontFailedBody": "لم يُنزَّل خط المصحف لهذه الصفحة. تحقّق من اتصالك ثم أعد المحاولة.",
+    "reader": {
+      "sajdaAyah": "آية سجدة",
+      "ayahBadge": "الآية {{n}}",
+      "hifzMemorized": "محفوظة",
+      "hifzReview": "تحتاج إلى مراجعة",
+      "opensActions": "يفتح الإجراءات",
+      "surahNavA11y": "{{direction}}: {{name}}، سورة {{number}}",
+      "surahNavTitle": "التنقل بين السور",
+      "translationFailed": "تعذّر تحميل هذه الترجمة."
+    },
+    "find": {
+      "title": "ابحث عن آية",
+      "subtitle": "اكتب كلمات أو الصقها أو أملِها أو اتلُها لتجد السورة والآية",
+      "openHint": "يفتح الآية في القارئ",
+      "noResultsTitle": "لا توجد آيات مطابقة",
+      "noResultsBody": "جرّب كلمة أو تهجئة مختلفة، أو بدّل اللغة، أو اقتبس جزءًا أطول من الآية.",
+      "searchEverywhere": "ابحث في كل الأقسام"
+    },
+    "hub": {
+      "studyTools": "أدوات الدراسة",
+      "saved": "المحفوظات",
+      "savedCount": "المحفوظات · {{n}}",
+      "openIn": "افتح في {{layout}}"
+    },
+    "study": {
+      "khatmUnit": "تتبّع التقدّم حسب",
+      "khatmQuickAmounts": "كميات سريعة",
+      "khatmLogged": "سُجّلت القراءة",
+      "khatmTotalUpdated": "حُدّث المجموع",
+      "bookmarkRemoved": "أُزيل من المحفوظات",
+      "loadingBookmarks": "جارٍ تحميل الآيات المحفوظة",
+      "bookmarkA11y": "{{surah}} {{ref}}، الصفحة {{page}}",
+      "bookmarkOpenHint": "يفتح الآية في القارئ",
+      "bookmarkRemoveA11y": "إزالة {{ref}} من المحفوظات",
+      "hifzRowA11y": "{{surah}} {{ref}}، الصفحة {{page}}، {{status}}",
+      "hifzStatusA11y": "تغيير حالة الحفظ لـ {{ref}}",
+      "openHifz": "فتح متتبّع الحفظ",
+      "ayahsAmount_zero": "لا آيات",
+      "ayahsAmount_one": "آية واحدة",
+      "ayahsAmount_two": "آيتان",
+      "ayahsAmount_few": "{{count}} آيات",
+      "ayahsAmount_many": "{{count}} آية",
+      "ayahsAmount_other": "{{count}} آية",
+      "pagesAmount_zero": "لا صفحات",
+      "pagesAmount_one": "صفحة واحدة",
+      "pagesAmount_two": "صفحتان",
+      "pagesAmount_few": "{{count}} صفحات",
+      "pagesAmount_many": "{{count}} صفحة",
+      "pagesAmount_other": "{{count}} صفحة"
+    }
   },
   "hadith": {
     "eyebrow": "السنة النبوية",
@@ -1779,24 +1965,24 @@
     "ungraded": "غير مصنّف",
     "grade": "الدرجة: {{grade}}",
     "narrator": "روى {{narrator}}",
-    "bookmark": "إشارة مرجعية",
+    "bookmark": "حفظ",
     "searchPlaceholder": "ابحث في هذه المجموعة…",
     "emptyTitle": "لا شيء هنا بعد",
     "emptyDesc": "تعذّر تحميل هذه المجموعة.",
     "offlineTitle": "اتصل بالإنترنت لتحميل هذه المجموعة",
-    "offlineDesc": "يتم تنزيل المجموعات الكاملة عند الطلب وتخزينها للقراءة دون اتصال لاحقًا.",
+    "offlineDesc": "تُنزَّل المجموعات الكاملة عند فتحها أول مرة، وتبقى متاحة دون اتصال بعد ذلك.",
     "loading": "جارٍ التحميل…",
     "notFoundTitle": "غير موجود",
     "notFoundDesc": "قد يكون هذا العنصر قد أُزيل.",
     "bookCount": "{{count}} كتاب",
     "loadMore": "تحميل المزيد",
     "share": "مشاركة الحديث",
-    "bookmarkAdd": "إشارة مرجعية",
-    "bookmarkRemove": "إزالة الإشارة",
-    "bookmarks": "الإشارات المرجعية",
+    "bookmarkAdd": "حفظ",
+    "bookmarkRemove": "إزالة من المحفوظات",
+    "bookmarks": "الأحاديث المحفوظة",
     "bookmarksSubtitle": "أحاديثك المحفوظة",
     "bookmarksEmpty": "لا أحاديث محفوظة بعد",
-    "viewBookmarks": "عرض الإشارات",
+    "viewBookmarks": "عرض الأحاديث المحفوظة",
     "arabic": "العربية",
     "translation": "الترجمة",
     "narratorLabel": "الراوي",
@@ -1813,7 +1999,24 @@
     "backToTop": "العودة إلى الأعلى",
     "readingProgress": "تقدم القراءة",
     "enterFullscreen": "ملء الشاشة",
-    "exitFullscreen": "إنهاء ملء الشاشة"
+    "exitFullscreen": "إنهاء ملء الشاشة",
+    "availableOffline": "متاح دون اتصال",
+    "filterCollections": "ابحث في المجموعات…",
+    "loadingCollection": "جارٍ تحميل {{name}}…",
+    "collection": {
+      "bukhari": "صحيح البخاري",
+      "muslim": "صحيح مسلم",
+      "abudawud": "سنن أبي داود",
+      "tirmidhi": "جامع الترمذي",
+      "nasai": "سنن النسائي",
+      "ibnmajah": "سنن ابن ماجه",
+      "nawawi40": "الأربعون النووية",
+      "riyad_assalihin": "رياض الصالحين"
+    },
+    "removedFromSaved": "أُزيل من المحفوظات",
+    "chooseBookTitle": "اختر كتابًا",
+    "chooseBookDesc": "اختر كتابًا من القائمة لقراءة أحاديثه.",
+    "continueReading": "مواصلة القراءة"
   },
   "credits": {
     "eyebrow": "الإسناد",
@@ -1822,7 +2025,13 @@
     "settingsLabel": "الشكر ومصادر البيانات",
     "settingsSub": "التراخيص والإسناد",
     "openSource": "مفتوح المصدر",
-    "viewSource": "عرض المصدر"
+    "viewSource": "عرض المصدر",
+    "bundledTitle": "مضمّنة مع التطبيق",
+    "bundledDesc": "مجموعات بيانات متاحة دون اتصال",
+    "runtimeTitle": "تُنزَّل عند الحاجة",
+    "runtimeDesc": "يُنزَّل عند الحاجة ويُحفظ للاستخدام دون اتصال",
+    "servicesTitle": "الخدمات والأدوات",
+    "servicesDesc": "خدمات من جهات خارجية يعتمد عليها التطبيق"
   },
   "tasbeeh": {
     "eyebrow": "التسبيح",
@@ -1848,7 +2057,13 @@
     "customDeleteMessage": "سيُحذف \"{{title}}\" وعدّه المحفوظ نهائياً.",
     "customBackToCounters": "العودة إلى العدّادات",
     "notFoundTitle": "الذكر غير موجود",
-    "notFoundDesc": "قد يكون هذا العنصر قد حُذف."
+    "notFoundDesc": "قد يكون هذا العنصر قد حُذف.",
+    "loading": "جارٍ التحميل…",
+    "loadFailed": "تعذّر تحميل هذا العدّاد.",
+    "leaveCountTitle": "مغادرة هذا العدّاد؟",
+    "leaveCountMessage": "عدّك البالغ {{number}} غير محفوظ وسيُفقد.",
+    "leaveCountConfirm": "مغادرة",
+    "leaveCountStay": "البقاء"
   },
   "prayers": {
     "fajr": "الفجر",
@@ -1961,7 +2176,7 @@
   "qaza": {
     "eyebrow": "قضاء العبادات",
     "title": "القضاء",
-    "subtitle": "تابِع الصلوات الفائتة واقضِها",
+    "subtitle": "اقضِ الصلوات الفائتة على مهلك",
     "calculator": "الحاسبة",
     "planner": "المخطّط",
     "roza": "الصيام",
@@ -1993,9 +2208,9 @@
     "confirmUndoPerformMsg": "إزالة قضاء واحد لصلاة {{prayer}} من اليوم وإعادته إلى المتبقّي؟",
     "undoPerformed": "تراجع عن قضاء واحد لصلاة {{prayer}} أُدّي اليوم",
     "confirmResetPrayerTitle": "إعادة ضبط هذا العداد؟",
-    "confirmResetPrayerMsg": "مسح العدد المتبقّي والمقضيّ لصلاة {{prayer}}؟ لا يمكن التراجع.",
+    "confirmResetPrayerMsg": "سيعود العدد المتبقّي والمقضيّ لصلاة {{prayer}} إلى الصفر. لا يمكن التراجع عن ذلك.",
     "confirmResetAllTitle": "إعادة ضبط كل العدادات؟",
-    "confirmResetAllMsg": "مسح كل أعداد القضاء ({{remaining}} متبقّية، {{completed}} مقضيّة)؟ لا يمكن التراجع.",
+    "confirmResetAllMsg": "ستعود كل أعداد القضاء إلى الصفر ({{remaining}} متبقّية، {{completed}} مقضيّة). لا يمكن التراجع عن ذلك.",
     "hint": "اضغط علامة الصح لتسجيل صلاة مقضيّة. تفويت صلاة في المتابعة يزيد هذه الأعداد تلقائياً.",
     "witrNote": {
       "title": "هل قضاء الوتر واجب؟",
@@ -2019,12 +2234,18 @@
     "rowDone": "{{completed}} مقضيّة",
     "rowDoneWithDaily": "{{completed}} مقضيّة · اليوم {{done}}/{{target}}",
     "hintTv": "اضغط اختيار على علامة الصح لتسجيل صلاة مقضيّة. تفويت صلاة في المتابعة يزيد هذه الأعداد تلقائياً.",
-    "editCountHintTv": "استخدم − و+ لتحديد عدد ما بقي عليك قضاؤه من هذه الصلاة."
+    "editCountHintTv": "استخدم − و+ لتحديد عدد ما بقي عليك قضاؤه من هذه الصلاة.",
+    "toastMadeUp": "تم قضاء {{prayer}}",
+    "toastTakenBack": "تمت إعادة {{prayer}} إلى المتبقي",
+    "toastSet": "المتبقي من {{prayer}}: {{value}}",
+    "setExactLabel": "تعيين المتبقي إلى",
+    "rowRemainingA11y": "{{prayer}}، المتبقي {{value}}",
+    "madeUpButton": "تم القضاء"
   },
   "qazaCalc": {
     "eyebrow": "القضاء",
     "title": "الحاسبة",
-    "subtitle": "قدّر صلوات العمر الفائتة",
+    "subtitle": "تقدير لطيف للصلوات التي عليك قضاؤها",
     "currentAge": "العمر الحالي",
     "pubertyAge": "عمر البلوغ",
     "yearsPrayed": "سنوات الصلاة المنتظمة",
@@ -2052,7 +2273,9 @@
       "yearsPrayedExceed": "سنوات الصلاة ({{entered}}) لا يمكن أن تتجاوز السنوات منذ البلوغ ({{obligatedYears}}).",
       "exemptExceedsYear": "الأيام المعفاة ({{entered}}) لا يمكن أن تتجاوز طول السنة الذي اخترته ({{maxDays}})."
     },
-    "enterAgePromptTv": "حدّد عمرك الحالي أعلاه لعرض التقدير."
+    "enterAgePromptTv": "حدّد عمرك الحالي أعلاه لعرض التقدير.",
+    "confirmTotalsMsg": "سيستبدل هذا العدد المتبقّي لكل صلاة فرض وللوتر بالتقدير أعلاه. سيتغير المتبقي من القضاء من {{from}} إلى {{to}}. وتبقى أعداد المقضيّ كما هي.",
+    "toastApplied": "تم تحديث العدادات"
   },
   "qazaPlan": {
     "eyebrow": "القضاء",
@@ -2131,7 +2354,11 @@
     "dailyTimeHours_zero": "≈ {{count}} س",
     "durationYears_zero": "{{count}} سنة",
     "durationMonths_zero": "{{count}} شهر",
-    "durationDays_zero": "{{count}} يوم"
+    "durationDays_zero": "{{count}} يوم",
+    "toastPresetApplied": "تم تحديث الخطة",
+    "confirmPresetTitle": "هل تريد استبدال خطتك المخصصة؟",
+    "confirmPresetMsg": "سيضبط هذا كل هدف يومي على {{perPrayer}} لكل صلاة.",
+    "confirmPresetAction": "استبدال الخطة"
   },
   "qazaRoza": {
     "eyebrow": "القضاء",
@@ -2163,9 +2390,14 @@
     "confirmAddEstimateTitle": "إضافة أيام صيام مقدّرة؟",
     "confirmAddEstimateMsg": "إضافة {{count}} يوم صيام إلى المتبقّي (المجموع الجديد: {{total}})؟",
     "confirmResetTitle": "إعادة ضبط العداد؟",
-    "confirmResetMsg": "مسح جميع أعداد الصيام ({{remaining}} متبقّية، {{completed}} مكتملة)؟ لا يمكن التراجع عن ذلك.",
+    "confirmResetMsg": "ستعود كل أعداد الصيام إلى الصفر ({{remaining}} متبقّية، {{completed}} مقضيّة). لا يمكن التراجع عن ذلك.",
     "adjustHintTv": "اضغط اختيار على العدد أو استخدم −/+ للتعديل",
-    "editCountHintTv": "استخدم − و+ لتحديد عدد أيام الصيام التي بقي عليك قضاؤها."
+    "editCountHintTv": "استخدم − و+ لتحديد عدد أيام الصيام التي بقي عليك قضاؤها.",
+    "toastMadeUp": "تم تسجيل صيام قضاء",
+    "toastSet": "الأيام المتبقية: {{value}}",
+    "toastAdded": "تمت إضافة {{value}} من الأيام",
+    "logMakeUp": "تسجيل صيام قضاء",
+    "yearsLabel": "عدد سنوات رمضان الفائتة"
   },
   "calendar": {
     "eyebrow": "السجل",
@@ -2252,7 +2484,7 @@
     "dayExcused": "{{date}}: يوم عذر",
     "dayNotLogged": "{{date}}: لم يُسجَّل شيء",
     "dayNotTracked": "{{date}}: قبل بدء التتبّع",
-    "debtTitle": "ديون القضاء والصيام",
+    "debtTitle": "قضاء الصلوات والصيام",
     "debtHint": "تقدّمك في قضاء ما فاتك من صلاة وصيام.",
     "emptyTitle": "لا توجد إحصاءات بعد",
     "emptyDesc": "سجّل صلواتك في المتتبّع وستظهر هنا اتجاهاتك وتتابعك وملاحظاتك.",
@@ -2298,7 +2530,15 @@
     "todayExcused": "اليوم يوم عذر",
     "zikrAllTime": "الأذكار منذ البداية",
     "zikrAndQaza": "الذكر والقضاء",
-    "zikrThisPeriod": "أذكار هذه الفترة"
+    "zikrThisPeriod": "أذكار هذه الفترة",
+    "tagPeriod": "هذه الفترة",
+    "tagLifetime": "طوال الرحلة",
+    "loadFailed": "تعذّر تحميل إحصاءاتك. حاول مرة أخرى.",
+    "periodLabel": "فترة الإحصاءات",
+    "chartPrevious": "اليوم السابق",
+    "chartNext": "اليوم التالي",
+    "chartStepHint": "استخدم الأسهم للتنقل بين الأيام",
+    "chartSummary": "{{range}}. المتوسط {{percent}}٪ في الوقت."
   },
   "prayerStatus": {
     "pending": "معلّقة",
@@ -2319,7 +2559,9 @@
     "qazaPromptMessage": "إضافة واحدة إلى عدد القضاء لصلاة {{prayer}}؟",
     "qazaPromptConfirm": "نعم، أضف إلى القضاء",
     "qazaPromptDecline": "لا، تخطَّ",
-    "jama": "صُلّيت في جماعة"
+    "jama": "صُلّيت في جماعة",
+    "statusGroupA11y": "حالة {{prayer}}",
+    "clearStatus": "مسح الحالة"
   },
   "notesModal": {
     "hint": "اختياري — ملاحظة خاصة لهذا اليوم.",
@@ -2348,7 +2590,9 @@
     "confirmStartAgainMessage": "سيُمسح العدّ المكتمل لتبدأ جولة جديدة.",
     "dockLabel": "العدّ",
     "tapToCountTv": "اضغط اختيار للعدّ",
-    "tapToCountKeyboard": "انقر على الدائرة أو اضغط مفتاح المسافة للعدّ"
+    "tapToCountKeyboard": "انقر على الدائرة أو اضغط مفتاح المسافة للعدّ",
+    "counterLabel": "عدّاد التسبيح",
+    "countOne": "عدّ واحدة"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} بعد {{min}} دقيقة فقط",
@@ -2364,7 +2608,9 @@
     "weatherA11y": "{{temp}}، {{condition}}",
     "locationWeatherA11y": "{{location}}، {{weather}}. تغيير الموقع",
     "dateRowA11y": "{{phase}}. {{dates}}. اضغط لتفاصيل القمر",
-    "dateRowA11yTv": "{{phase}}. {{dates}}. اضغط اختيار لتفاصيل القمر"
+    "dateRowA11yTv": "{{phase}}. {{dates}}. اضغط اختيار لتفاصيل القمر",
+    "markA11y": "{{name}}، {{time}}، {{status}}",
+    "markHint": "يفتح نافذة الحالة لتسجيل هذه الصلاة"
   },
   "location": {
     "eyebrow": "الموقع",
@@ -2425,7 +2671,15 @@
     "setLocation": "تعيين الموقع",
     "searchAutoFocusOff": "ابحث عن مدينة",
     "subtitleTv": "تُحسب أوقات الصلاة لهذا المكان. ابحث عن مدينتك باستخدام جهاز التحكم.",
-    "hintTv": "اختر حقل البحث، ثم اكتب حرفين على الأقل من اسم مدينتك."
+    "hintTv": "اختر حقل البحث، ثم اكتب حرفين على الأقل من اسم مدينتك.",
+    "permissionDeniedTitle": "الوصول إلى الموقع مُعطَّل",
+    "permissionDeniedBody": "فعّله من الإعدادات، أو ابحث عن مدينتك بدلًا من ذلك.",
+    "deviceErrorBody": "تعذّر تحديد موقعك الحالي. حاول مرة أخرى، أو ابحث عن مدينتك بدلًا من ذلك.",
+    "openSettings": "فتح الإعدادات",
+    "defaultCityTitle": "أوقات الصلاة محسوبة لمدينة افتراضية",
+    "defaultCityPill": "مدينة افتراضية",
+    "changeLocation": "تغيير",
+    "changeLocationHint": "اختر المدينة التي تُحسب لها هذه الأوقات"
   },
   "moon": {
     "aria": "طور القمر: {{phase}}",
@@ -2477,7 +2731,7 @@
     "noorPill": "{{noor}} نور",
     "milestonePill": "{{count}} إنجاز",
     "activeGoals": "الأهداف التالية",
-    "activeGoalsHint": "دائماً هدف تالٍ — بالإضافة إلى القضاء والصيام عند تتبّع الدَّين.",
+    "activeGoalsHint": "دائماً هدف تالٍ — بالإضافة إلى قضاء الصلوات والصيام عندما تتابعهما.",
     "milestonesReached": "المحطات المفتوحة",
     "milestonesReachedHint": "{{count}} محطة حتى الآن — والعدد يزداد.",
     "level": "م {{level}}",
@@ -2605,8 +2859,8 @@
     },
     "debt": {
       "qaza": {
-        "activeTitle": "سدّاد دين القضاء",
-        "clearedTitle": "تم سداد دين القضاء",
+        "activeTitle": "اقضِ صلواتك الفائتة",
+        "clearedTitle": "اكتمل قضاء الصلوات",
         "activeDescription": "قضِ {{count}} صلوات",
         "activeDescription_one": "قضِ {{count}} صلاة",
         "clearedDescription": "قُضيت كل {{count}} صلاة مسجّلة",
@@ -2623,8 +2877,8 @@
         "clearedDescription_other": "قُضيت كل {{count}} صلاة مسجّلة"
       },
       "roza": {
-        "activeTitle": "سدّاد دين الصيام",
-        "clearedTitle": "تم سداد دين الصيام",
+        "activeTitle": "اقضِ أيام صيامك",
+        "clearedTitle": "اكتمل قضاء الصيام",
         "activeDescription": "قضِ {{count}} أيام صيام فائتة",
         "activeDescription_one": "قضِ {{count}} يوم صيام فائت",
         "clearedDescription": "قُضيت كل {{count}} يوم صيام مسجّل",
@@ -2684,7 +2938,8 @@
       }
     },
     "trackComplete": "نلت كل إنجازات هذا المسار",
-    "recitationPersonal": "شخصي — لا يُقارَن بأحد أبدًا"
+    "recitationPersonal": "شخصي — لا يُقارَن بأحد أبدًا",
+    "refreshFailed": "تعذّر تحديث تقدّمك. نعرض ما لدينا."
   },
   "notifCenter": {
     "eyebrow": "التذكيرات",
@@ -2716,7 +2971,8 @@
     "categoryMilestone": "إنجاز",
     "categorySystem": "نظام",
     "categoryAnnouncement": "إعلان",
-    "categoryCircle": "الحلقات"
+    "categoryCircle": "الحلقات",
+    "unreadRowA11y": "غير مقروء: {{title}}"
   },
   "notifications": {
     "adminAnnouncement": "إعلان"
@@ -2752,7 +3008,15 @@
     "cardinalW": "غرب",
     "defaultLocationHint": "يُستخدم الموقع الافتراضي (مكة). حدّد مدينتك للحصول على اتجاه قبلة دقيق حيث أنت.",
     "setLocation": "تعيين الموقع",
-    "tvHint": "البوصلة الحية غير متوفرة على التلفاز. يُظهر السهم اتجاه القبلة من الشمال لمدينتك — استخدم الهاتف للمحاذاة الحية."
+    "tvHint": "البوصلة الحية غير متوفرة على التلفاز. يُظهر السهم اتجاه القبلة من الشمال لمدينتك — استخدم الهاتف للمحاذاة الحية.",
+    "accuracyLine": "دقة البوصلة: {{level}}",
+    "approximateBadge": "تقريبي",
+    "accuracy": {
+      "high": "عالية",
+      "medium": "متوسطة",
+      "low": "منخفضة",
+      "unreliable": "غير موثوقة"
+    }
   },
   "profile": {
     "eyebrow": "الحساب",
@@ -2785,9 +3049,7 @@
     "deleteMsg": "سيمحو هذا نهائياً كل بيانات المتابعة على هذا الجهاز. لا يمكن التراجع عن ذلك.",
     "deleteMsgAccount": "سيحذف هذا نهائياً حسابك وكل بياناتك المتزامنة من خوادمنا، ويمسح هذا الجهاز. لا يمكن التراجع عن ذلك.",
     "deleteFailed": "تعذّر حذف حسابك. تحقّق من اتصالك وحاول مرة أخرى.",
-    "deleteConfirm": "حذف كل شيء",
     "deleteAccountSuccess": "تم حذف حسابك وبياناتك",
-    "deleteAccountModalEyebrow": "إغلاق الحساب",
     "deleteAccountStep1Title": "قبل المغادرة",
     "deleteAccountStep1Body": "يؤدي حذف حسابك إلى إزالة كل بيانات الصلاة والذكر والقضاء المتزامنة من خوادمنا ومسح هذا الجهاز. سيُحرَّر بريد تسجيل الدخول لإنشاء حساب جديد لاحقاً، لكن لا يمكن التراجع عن هذا الإجراء.",
     "deleteAccountSurveyTitle": "لماذا تغادر؟",
@@ -2810,7 +3072,23 @@
       "technical_issues": "مشاكل تقنية أو أخطاء",
       "other": "أخرى"
     },
-    "tvAvatarHint": "صورة الملف الشخصي وربط الحساب يعملان بشكل أفضل على هاتفك."
+    "tvAvatarHint": "صورة الملف الشخصي وربط الحساب يعملان بشكل أفضل على هاتفك.",
+    "addAvatar": "إضافة صورة الملف الشخصي",
+    "photoTitle": "صورة الملف الشخصي",
+    "choosePhoto": "اختيار صورة",
+    "removePhoto": "إزالة الصورة",
+    "photoRemoved": "أُزيلت الصورة",
+    "photoPermissionDenied": "الوصول إلى الصور مُعطّل. اسمح به من الإعدادات لاختيار صورة.",
+    "openSettings": "فتح الإعدادات",
+    "displayNameLabel": "الاسم الظاهر",
+    "deleteAccountTypeLabel": "اكتب {{word}} للتأكيد",
+    "deleteAccountStepOf": "الخطوة {{step}} من {{total}}",
+    "eraseTitle": "مسح كل البيانات على هذا الجهاز؟",
+    "eraseConfirm": "مسح البيانات",
+    "eraseFailed": "تعذّر مسح بياناتك. حاول مرة أخرى.",
+    "eraseStep3Title": "تأكيد المسح",
+    "eraseStep3Body": "اكتب DELETE أدناه لتأكيد أنك تريد مسح كل البيانات على هذا الجهاز نهائياً.",
+    "eraseAcknowledge": "أفهم أن هذا يمسح كل البيانات على هذا الجهاز نهائياً."
   },
   "sync": {
     "title": "المزامنة السحابية",
@@ -2829,10 +3107,10 @@
       "zikr_progress": "تقدم الذكر",
       "qaza_entries": "سجلات القضاء",
       "preferences": "التفضيلات",
-      "favorites": "مفضلات الذكر",
-      "dua_favorites": "مفضلات الدعاء",
-      "durood_favorites": "مفضلات الصلاة على النبي",
-      "name_favorites": "مفضلات الأسماء",
+      "favorites": "الأذكار المحفوظة",
+      "dua_favorites": "الأدعية المحفوظة",
+      "durood_favorites": "الصلوات المحفوظة",
+      "name_favorites": "الأسماء المحفوظة",
       "quran_bookmarks": "علامات القرآن",
       "quran_last_read": "آخر قراءة للقرآن",
       "hadith_bookmarks": "علامات الحديث",
@@ -2855,9 +3133,9 @@
   },
   "languagePicker": {
     "selectLanguage": "اختر لغة",
-    "selectLanguageWithCount": "اختر لغة ({{filtered}} من {{total}})",
     "searchLanguages": "ابحث عن لغة…",
-    "noResults": "لا توجد لغات تطابق بحثك."
+    "noResults": "لا توجد لغات تطابق بحثك.",
+    "matchCount": "{{filtered}} من {{total}} لغة"
   },
   "about": {
     "eyebrow": "الإعدادات",
@@ -2923,7 +3201,12 @@
     "installCopyLink": "نسخ الرابط لـ Safari",
     "installLinkCopied": "تم نسخ الرابط — الصقه في شريط عنوان Safari للمتابعة.",
     "installLinkCopyFailed": "تعذّر نسخ الرابط. افتح هذه الصفحة في Safari يدوياً.",
-    "installDismiss": "إغلاق"
+    "installDismiss": "إغلاق",
+    "installPromptTitle": "ثبّت التطبيق",
+    "installPromptMessage": "أضفه إلى الشاشة الرئيسية أو سطح المكتب لتفتحه بنقرة واحدة في نافذة مستقلة.",
+    "installPromptAction": "تثبيت",
+    "installStepsMacSafari": "في Safari اختر ملف ← إضافة إلى شريط التطبيقات، فيُفتح التطبيق في نافذته الخاصة من الشريط.",
+    "installStepsBrowserMenu": "افتح قائمة المتصفّح (⋮) واختر تثبيت أو إضافة إلى الشاشة الرئيسية."
   },
   "errors": {
     "title": "حدث خطأ ما",
@@ -2931,7 +3214,8 @@
   },
   "notFound": {
     "title": "الصفحة غير موجودة",
-    "action": "الذهاب إلى الرئيسية"
+    "action": "الذهاب إلى الرئيسية",
+    "description": "ربما نُقلت هذه الصفحة، أو أن الرابط غير مكتمل."
   },
   "qazaHistory": {
     "title": "سجل القضاء",
@@ -2941,7 +3225,12 @@
     "count": "{{count}} قُضيت",
     "legendHint": "اضغط على يوم مميّز لعرض الصلوات التي قضيتها.",
     "dayA11y": "{{date}}، {{count}} قُضيت",
-    "legendHintTv": "اضغط اختيار على يوم مميّز لعرض الصلوات التي قضيتها."
+    "legendHintTv": "اضغط اختيار على يوم مميّز لعرض الصلوات التي قضيتها.",
+    "emptyAction": "فتح القضاء",
+    "removeEntry": "إزالة سجل {{prayer}}",
+    "confirmRemoveTitle": "هل تريد إزالة هذا السجل؟",
+    "confirmRemoveMsg": "سيعود {{value}} من {{prayer}} بتاريخ {{date}} إلى العدد المتبقي.",
+    "confirmRemoveAction": "إزالة السجل"
   },
   "weeklyReport": {
     "title": "أسبوعك في العبادة",
@@ -2967,7 +3256,38 @@
       "invalid_json": "لا يبدو هذا ملف نسخة احتياطية صالحًا.",
       "wrong_format": "هذا الملف ليس نسخة احتياطية لتطبيق منيب تراكر.",
       "unsupported_version": "أُنشئت هذه النسخة بإصدار أحدث من التطبيق."
-    }
+    },
+    "saveFile": "حفظ ملف النسخة الاحتياطية",
+    "saveDialogTitle": "احفظ نسختك الاحتياطية",
+    "downloaded": "تم تنزيل النسخة الاحتياطية",
+    "copyText": "نسخ كنص",
+    "shareText": "مشاركة كنص",
+    "exportFailed": "تعذّر إنشاء النسخة الاحتياطية. حاول مرة أخرى.",
+    "saveUnavailable": "لا يمكن لهذا الجهاز حفظ الملفات هنا. شارك النسخة الاحتياطية كنص بدلًا من ذلك.",
+    "restoreHint": "اختر ملف نسخة احتياطية حفظته من قبل. سترى محتواه قبل أن يتغيّر أي شيء.",
+    "chooseFile": "اختيار ملف النسخة الاحتياطية",
+    "pickFailed": "تعذّر فتح هذا الملف. حاول مرة أخرى، أو الصق النص بدلًا من ذلك.",
+    "pasteInstead": "لصق النص بدلًا من ذلك",
+    "pasteLabel": "نص النسخة الاحتياطية",
+    "checkPasted": "فحص النسخة الاحتياطية",
+    "previewTitle": "جاهزة للاستعادة",
+    "summary": {
+      "savedOn": "حُفظت في {{date}}",
+      "row": "{{label}}: {{count}}",
+      "sections": "أقسام البيانات: {{count}}",
+      "area": {
+        "salahLogs": "سجلات الصلاة",
+        "fasting": "أيام الصيام",
+        "quranBookmarks": "إشارات القرآن المرجعية",
+        "hadithBookmarks": "إشارات الحديث المرجعية",
+        "customTasbeeh": "عدّادات التسبيح المخصّصة"
+      }
+    },
+    "restoreAction": "استعادة هذه النسخة الاحتياطية",
+    "chooseAnother": "اختيار ملف آخر",
+    "restoreFailed": "تعذّرت استعادة النسخة الاحتياطية. حاول مرة أخرى.",
+    "copyFallbackHint": "تعذّر النسخ إلى الحافظة. حدّد النص أدناه وانسخه بنفسك.",
+    "copyFallbackLabel": "نص النسخة الاحتياطية"
   },
   "reminderOffsets": {
     "title": "توقيت التذكير",
@@ -3330,7 +3650,6 @@
     "module": {
       "continue": "متابعة القراءة",
       "knowledge": "بطاقة المعرفة اليومية",
-      "quickActions": "الإجراءات السريعة",
       "qaza": "ملخص القضاء",
       "schedule": "جدول اليوم",
       "khatm": "خطة الختم",
@@ -3343,7 +3662,8 @@
       "weekly-coach": "المراجعة الأسبوعية",
       "seasonal-banner": "لافتات المواسم",
       "umrah-mode": "تابع عمرتك",
-      "quran-revision": "مراجعة القرآن المستحقة"
+      "quran-revision": "مراجعة القرآن المستحقة",
+      "quickActions": "الإجراءات السريعة"
     }
   },
   "schedule": {
@@ -3357,11 +3677,6 @@
     "title": "تعلّم الصلاة",
     "subtitle": "من أول صلاة إلى عبادة ثابتة — خطوة بخطوة",
     "intro": "رحلة التعلّم: لماذا نصلي ← الاستعداد ← التعلّم ← الممارسة ← الإتقان ← الثبات. كل درس مستند إلى القرآن أو السنة الصحيحة ويرتبط بمتتبعات منيب.",
-    "quickLinksTitle": "ابدأ هنا",
-    "quickHowToPray": "الصلاة خطوة بخطوة",
-    "quickHowToPrayHint": "اللبّ — كل وضعية وتلاوة",
-    "quickWudu": "دليل الوضوء",
-    "quickWuduHint": "الطهارة قبل كل صلاة",
     "quickPhrases": "الألفاظ والمعاني",
     "quickPhrasesHint": "ما تقوله وماذا يعلّمك",
     "quickProgress": "تقدّمي",
@@ -3406,8 +3721,6 @@
     "lessonsHint": "ميّز المواضيع كمكتملة عند الانتهاء من دراستها",
     "lessonsCount": "{{completed}} / {{total}}",
     "practiceTitle": "الممارسة اليومية",
-    "phaseV1": "الأساسيات",
-    "phaseV2": "الإتقان",
     "journey": {
       "why": "لماذا نصلي؟",
       "whyHint": "الغرض والأهمية ومن يجب عليه الصلاة",
@@ -3457,18 +3770,10 @@
     "title": "معارك الإسلام",
     "subtitle": "تاريخٌ موثّق وسياقٌ وعِبَرٌ ونتائجُ المعارك الكبرى في صدر الإسلام",
     "intro": "السياق ← المعارك ← الأخلاق ← العِبَر. كل مقال يستشهد بالقرآن أو الحديث الصحيح حيث أمكن، ويُبيّن اختلاف المؤرخين، ويميّز بين عهد النبوة والتاريخ اللاحق.",
-    "quickLinksTitle": "ابدأ هنا",
-    "quickTimeline": "الخط الزمني",
-    "quickTimelineHint": "من الوحي إلى حجة الوداع",
-    "quickBadr": "غزوة بدر",
-    "quickBadrHint": "أول انتصار كبير — السياق والقوات والآيات",
     "quickLessons": "بطاقات العِبَر",
     "quickLessonsHint": "دروس القيادة والروحانية من كل معركة",
-    "quickProgress": "تعلّمي",
-    "quickProgressHint": "موضوعات القراءة ودراسة التقدم",
     "progressCardTitle": "تقدّم التعلّم",
     "progressCardHint": "{{completed}} من {{total}} موضوعًا مكتملًا",
-    "exploreTitle": "استكشف",
     "relatedTitle": "أدلة ذات صلة",
     "seerahPointer": "الخط الزمني الكامل للسيرة",
     "jannahPointer": "الجنة والأعمال والحث على السعي",
@@ -3477,7 +3782,6 @@
     "continueInApp": "تابع في مُنِيب",
     "markComplete": "تعليم الموضوع مكتملًا",
     "markIncomplete": "تعليمه غير مكتمل",
-    "phaseV1": "الإصدار ١ — الأساسيات",
     "timelineTitle": "الخط الزمني",
     "timelineSubtitle": "من الوحي إلى حجة الوداع",
     "timelineHint": "تسلسل زمني تفاعلي مع روابط للمعارك",
@@ -3552,20 +3856,12 @@
     "title": "يوم القيامة",
     "subtitle": "من الموت إلى الحياة الأبدية — وفق القرآن والسنة الصحيحة",
     "intro": "استعد اليوم ليوم تقف فيه كل نفس بين يدي الله. يتبع هذا الدليل رحلة الآخرة بالأدلة والحذر العلمي وربط العبادة في منيب.",
-    "quickLinksTitle": "ابدأ هنا",
-    "quickTimeline": "الخط الزمني",
-    "quickTimelineHint": "الحياة → الموت → البعث → الأبدية",
     "quickPreparation": "استعدادي",
     "quickPreparationHint": "عادات صحية — ليست درجة حساب",
-    "quickVerses": "آيات قرآنية",
-    "quickVersesHint": "البعث والحساب والرحمة والأمل",
-    "quickProgress": "تقدّم التعلّم",
-    "quickProgressHint": "المواضيع التي قرأتها",
     "timelineCardTitle": "خط زمني للآخرة",
     "timelineCardHint": "القلب — اضغط على كل مرحلة للدرس الكامل",
     "progressCardTitle": "تقدّم التعلّم",
     "progressCardHint": "{{completed}} من {{total}} مواضيع مكتملة",
-    "exploreTitle": "استكشف",
     "relatedTitle": "أدلة ذات صلة",
     "jannahPointer": "الجنة — الأعمال والحث على السعي",
     "aqeedahPointer": "العقيدة الأساسية بما فيها أركان الإيمان",
@@ -3576,7 +3872,6 @@
     "markComplete": "علّم الموضوع مكتملًا",
     "markIncomplete": "علّم كغير مكتمل",
     "misconceptionsTitle": "مفاهيم خاطئة شائعة",
-    "phaseV1": "الإصدار ١ — الأساسيات",
     "timelineTitle": "خط زمني للآخرة",
     "timelineSubtitle": "من الحياة الدنيا إلى الأبدية",
     "timelineHint": "رحلة تفاعلية — اضغط على مرحلة للمقال الكامل",
@@ -3698,7 +3993,11 @@
         "equal-reward": "أجر عظيم مُشبَّه"
       }
     },
-    "timelineCardHintTv": "محور الدرس — اختر كل مرحلة لعرض الدرس كاملًا"
+    "timelineCardHintTv": "محور الدرس — اختر كل مرحلة لعرض الدرس كاملًا",
+    "preparationTrackersHint": "اضغط على عادة لفتح متتبّعها",
+    "preparationTrackersHintTv": "اختر عادة لفتح متتبّعها",
+    "preparationIntentionsTitle": "نوايا اليوم",
+    "preparationIntentionsHint": "تذكيرات خاصة — ضع علامة عليها بعد أن تعمل بها اليوم."
   },
   "library": {
     "eyebrow": "المكتبة",
@@ -3712,28 +4011,48 @@
     "more": "أدوات والمزيد",
     "tvSubtitle": "القرآن والأدعية والذكر والتعلّم — تنقّل باختيار",
     "searchPlaceholder": "ابحث في المكتبة…",
-    "noResults": "لا توجد عناصر في المكتبة تطابق بحثك."
+    "noResults": "لا توجد عناصر في المكتبة تطابق بحثك.",
+    "learnGroup": {
+      "worship": "العبادة والطهارة",
+      "worshipDesc": "الصلاة والوضوء والسفر وأحكامها",
+      "quranDua": "القرآن والدعاء",
+      "quranDuaDesc": "تعلّم التلاوة والدعاء والرقية",
+      "faith": "الإيمان والأخلاق",
+      "faithDesc": "العقيدة والأخلاق والآخرة",
+      "history": "التاريخ والأعلام",
+      "historyDesc": "السيرة والأنبياء والصحابة والغزوات",
+      "times": "أوقات مباركة",
+      "timesDesc": "الحج والعيد والجمعة والليالي المباركة",
+      "other": "المزيد للتعلّم",
+      "otherDesc": "أدلّة أخرى"
+    },
+    "seeAll": "عرض الكل ({{total}}) في {{group}}",
+    "showFewer": "عرض أقل في {{group}}",
+    "searchEverything": "ابحث في كل شيء عن «{{query}}»",
+    "searchEverythingHint": "القرآن والحديث والأدعية والأذكار وغيرها"
   },
   "offlineData": {
     "title": "البيانات دون اتصال",
     "subtitle": "المحتوى المُنزَّل المخزَّن على هذا الجهاز",
-    "cachesTitle": "المحتوى المخبأ",
-    "quran": "إصدارات القرآن وذاكرة الدراسة",
+    "cachesTitle": "المحتوى المُنزَّل",
+    "quran": "إصدارات القرآن وملاحظات الدراسة",
     "mushafFonts": "خطوط صفحات المصحف (QCF)",
     "hadith": "مجموعات الحديث",
     "audio": "التلاوات الصوتية",
     "location": "عمليات الطقس والموقع",
     "total": "الإجمالي: {{size}}",
-    "clearAll": "مسح كل المخبأ",
-    "clearOne": "مسح {{name}}",
-    "confirmClearOneTitle": "مسح {{name}}؟",
-    "confirmClearOneMessage": "سيُزال {{name}} المُنزَّل من هذا الجهاز. يُعاد تنزيل المحتوى عند فتحه لاحقًا عبر الإنترنت.",
-    "confirmClearAllTitle": "مسح كل المخبأ؟",
-    "confirmClearAllMessage": "سيُزال كل المحتوى المُنزَّل من هذا الجهاز. لا تتأثر سجلاتك وإشاراتك ومفضلاتك.",
-    "confirmClearAction": "مسح",
-    "cleared": "تم مسح المخبأ",
-    "note": "مسح المخبأ يزيل النسخ المُنزَّلة فقط — لا تتأثر سجلاتك وإشاراتك ومفضلاتك. يُعاد تنزيل المحتوى عند فتحه لاحقًا عبر الإنترنت.",
-    "quranRoots": "جذور كلمات القرآن"
+    "clearAll": "إزالة كل التنزيلات",
+    "clearOne": "إزالة {{name}}",
+    "confirmClearOneTitle": "إزالة {{name}}؟",
+    "confirmClearOneMessage": "سيؤدي هذا إلى إزالة {{name}} المُنزَّل من هذا الجهاز. يُنزَّل مجددًا عند فتحه لاحقًا عبر الإنترنت.",
+    "confirmClearAllTitle": "إزالة كل التنزيلات؟",
+    "confirmClearAllMessage": "سيؤدي هذا إلى إزالة كل ما حُفظ للقراءة دون اتصال من هذا الجهاز. لا تتأثر سجلاتك وإشاراتك وعناصرك المحفوظة.",
+    "confirmClearAction": "إزالة",
+    "cleared": "أُزيلت التنزيلات",
+    "note": "إزالة التنزيلات تحذف النسخ المحفوظة للقراءة دون اتصال فقط — لا تتأثر سجلاتك وإشاراتك وعناصرك المحفوظة أبدًا. يُنزَّل المحتوى مجددًا عند فتحه لاحقًا عبر الإنترنت.",
+    "quranRoots": "جذور كلمات القرآن",
+    "measuring": "جارٍ قياس المحتوى المُنزَّل…",
+    "measureFailed": "تعذّر قياس المحتوى المُنزَّل. حاول مرة أخرى."
   },
   "events": {
     "eyebrow": "التقويم الإسلامي",
@@ -3779,7 +4098,7 @@
     "quickHawlHint": "متى يحين موعد الزكاة",
     "quickBasics": "ما هي الزكاة؟",
     "quickBasicsHint": "الركن والنسبة والغاية",
-    "quickChecklist": "قائمة قبل الدفع",
+    "quickChecklist": "قبل أن تدفع",
     "quickChecklistHint": "ست خطوات للمراجعة",
     "quickEvidence": "القرآن والسنة",
     "quickEvidenceHint": "النصوص الأصلية في الزكاة",
@@ -3800,7 +4119,7 @@
     },
     "checklistTitle": "قبل الدفع",
     "checklistSubtitle": "مراجعة خطوة بخطوة قبل إخراج الزكاة",
-    "checklistIntro": "هذه القائمة للمراجعة الشائعة — لا تغني عن فتوى عالم في حالتك.",
+    "checklistIntro": "تساعدك هذه الخطوات على مراجعة الشروط الشائعة — ولا تغني عن فتوى عالم في مالك تحديدًا.",
     "evidenceTitle": "القرآن والسنة في الزكاة",
     "evidenceSubtitle": "النصوص التي أوجبت الزكاة",
     "evidenceIntro": "الزكاة ثابتة في القرآن والسنة — فرض على المال لا صدقة تطوعية.",
@@ -4280,7 +4599,10 @@
       "unavailable": "التعرف على الكلام غير متوفر على هذا الجهاز.",
       "couldNotHear": "تعذر سماع ذلك — حاول مرة أخرى أو اكتب.",
       "errorGeneric": "فشل الإملاء. حاول مرة أخرى أو اكتب."
-    }
+    },
+    "titleRequired": "أدخل عنوانًا للحفظ.",
+    "purgeFailed": "تعذّرت إزالة المرفقات. قد تبقى في حسابك.",
+    "deletedToast": "تم حذف «{{title}}»"
   },
   "tahajjud": {
     "eyebrow": "قيام الليل",
@@ -4305,7 +4627,9 @@
     "calendarHint": "اضغط على ليلة سابقة لتسجيلها أو إلغائها.",
     "calendarHintTv": "اختر ليلة سابقة لتسجيلها أو إلغائها.",
     "legendPrayed": "صلّيت",
-    "inWindow": "أفضل وقت الآن"
+    "inWindow": "أفضل وقت الآن",
+    "toastLogged": "تم تسجيل التهجد لهذه الليلة",
+    "toastCleared": "تم مسح سجل التهجد"
   },
   "seasonalTheme": {
     "dateDisclaimer": "التواريخ تقديرية محسوبة — قد يختلف يوم الرؤية المحلي.",
@@ -4374,8 +4698,6 @@
     "delete": "حذف التأمل",
     "editA11y": "تعديل تأمل {{prayer}}",
     "discard": "تجاهل",
-    "confirmDeleteTitle": "حذف هذا التأمل؟",
-    "confirmDeleteMsg": "ستُزال ملاحظتك لـ {{prayer}} في {{date}} نهائيًا.",
     "confirmDiscardTitle": "تجاهل التغييرات؟",
     "confirmDiscardMsg": "سيُفقد كل ما كتبته.",
     "confirmOverwriteTitle": "استبدال التأمل الحالي؟",
@@ -4394,7 +4716,14 @@
       "couldNotHear": "تعذر سماع ذلك — حاول مرة أخرى أو اكتب.",
       "errorGeneric": "فشل الإملاء. حاول مرة أخرى أو اكتب."
     },
-    "ratingHintTv": "اضغط اختيار على نجمة لتقييم حضورك في الصلاة."
+    "ratingHintTv": "اضغط اختيار على نجمة لتقييم حضورك في الصلاة.",
+    "saved": "تم حفظ التأمل",
+    "deleted": "تم حذف التأمل",
+    "reflectToday": "تأمّل في اليوم",
+    "reflectOn": "تأمّل في {{prayer}}",
+    "openTracker": "فتح المتتبّع",
+    "ratingA11y": "{{rating}} من {{max}}، {{level}}",
+    "ratingNone": "اختر مدى حضورك"
   },
   "prayerTuning": {
     "title": "ضبط أوقات الصلاة",
@@ -4462,7 +4791,8 @@
     "cardTitle": "حديث اليوم",
     "seeArchive": "عرض الأرشيف",
     "emptyTitle": "لا يوجد حديث",
-    "emptyDesc": "سلسلة الحديث اليومي غير متاحة حاليًا."
+    "emptyDesc": "سلسلة الحديث اليومي غير متاحة حاليًا.",
+    "openInCollection": "افتح في المجموعة"
   },
   "seerah": {
     "eyebrow": "السيرة النبوية",
@@ -4478,7 +4808,6 @@
     "subtitle": "الجنة ودرجاتها والأعمال التي ترفع العبد.",
     "intro": "الإسلام لا يقدّم قائمة مرقّمة بدرجات الجنة. هنا ما علّمه القرآن والسنة الصحيحة — مع روابط لمتابعة عبادتك اليومية.",
     "learnTitle": "عن الجنة",
-    "quickLinksTitle": "استكشف",
     "continueInApp": "تابع في منيب",
     "gatesListTitle": "وردت في الحديث",
     "duaNumber": "دعاء {{number}}",
@@ -4578,11 +4907,9 @@
     "title": "فهم جهنم",
     "subtitle": "اعرف التحذير. اختر طريق الرحمة.",
     "intro": "يخبرنا الله عن جهنم ليستيقظ القلب ويعود إليه — لا لييأس. كل تحذير مقترن بالرجاء والتوبة والعمل.",
-    "quickLinksTitle": "استكشف",
     "relatedLessons": "دروس ذات صلة",
     "jannahPairTitle": "الطريق إلى الجنة",
     "jannahPairHint": "مسار الأمل والأجر والأعمال الصالحة",
-    "exploreTitle": "مجموعات",
     "tafsirNote": "التفسير",
     "namesTitle": "أسماء النار",
     "namesSummary": "أسماء قرآنية ومعانيها",
@@ -4855,24 +5182,17 @@
     "title": "تعلّم الطهارة",
     "subtitle": "الطهارة والوضوء والغسل والتيمم وإزالة النجاسة — خطوة بخطوة",
     "intro": "الطهارة أساس العبادة. كل درس يستدل بالقرآن أو الحديث الصحيح، ويشير إلى مواضع اختلاف العلماء، ويربط بالصلاة والدعاء في منيب.",
-    "quickLinksTitle": "ابدأ من هنا",
-    "quickWudu": "دليل الوضوء",
-    "quickWuduHint": "الوضوء خطوة بخطوة قبل الصلاة",
-    "quickGhusl": "دليل الغسل",
-    "quickGhuslHint": "الغسل الكامل عند الحدث الأكبر",
-    "quickChecklist": "قائمة يومية",
-    "quickChecklistHint": "عادات تجعلك مستعداً للصلاة",
     "quickProgress": "تعلّمي",
     "quickProgressHint": "موضوعات القراءة ودراسة التقدم",
     "progressCardTitle": "تقدّم التعلّم",
     "progressCardHint": "{{completed}} من {{total}} موضوعاً مكتملاً",
     "exploreTitle": "استكشف",
     "relatedTitle": "أدلة ذات صلة",
-    "checklistTitle": "قائمة يومية",
+    "checklistTitle": "خطوات الطهارة اليومية",
     "checklistSubtitle": "راجِع عادات الطهارة هذه كل يوم",
     "checklistIntro": "قائمة تذكير عملية — لا تُغني عن تعلّم فقه الطهارة.",
-    "checklistListTitle": "القائمة",
-    "checklistHint": "اضغط على العناصر أثناء مراجعة عادات طهارتك اليومية",
+    "checklistListTitle": "الخطوات",
+    "checklistHint": "عادات طهارة تراجعها كل يوم",
     "wuduTitle": "الوضوء",
     "wuduHint": "الشروط والخطوات والأدعية والنواقض",
     "ghuslTitle": "الغسل",
@@ -4886,7 +5206,6 @@
     "stepsTitle": "خطوة بخطوة",
     "markComplete": "وضع علامة اكتمال الموضوع",
     "markIncomplete": "وضع علامة غير مكتمل بعد",
-    "phaseV1": "المرحلة الأولى — الأساسيات",
     "progressTitle": "تقدّم تعلّمي",
     "progressSubtitle": "تابِع الدروس — لا مقامك الروحي عند الله",
     "progressIntro": "ضع علامة اكتمال للمواضيع أثناء دراستك. إكمال الدروس لا يقيس منزلتك عند الله — الإخلاص هو الذي يقيسها.",
@@ -4918,25 +5237,15 @@
       "highly-recommended": "مستحب جداً",
       "recommended": "مستحب"
     },
-    "checklistHintTv": "اضغط اختيار على العناصر أثناء مراجعة عادات طهارتك اليومية"
+    "checklistHintTv": "عادات طهارة تراجعها كل يوم"
   },
   "prophets": {
     "eyebrow": "تعلّم",
     "title": "تعرّف على الأنبياء",
     "subtitle": "حياة الأنبياء المذكورين في القرآن ورسالاتهم ودروسهم",
     "intro": "كل نبي دعا إلى التوحيد والعمل الصالح. القصص مقتبسة من القرآن والسنة الصحيحة — للاعتبار لا للتسلية.",
-    "quickLinksTitle": "ابدأ من هنا",
-    "quickTimeline": "التسلسل الزمني",
-    "quickTimelineHint": "من آدم إلى محمد ﷺ — الحقب الرئيسة",
-    "quickMuhammad": "محمد ﷺ",
-    "quickMuhammadHint": "خاتم الأنبياء",
-    "quickLessons": "الدروس",
-    "quickLessonsHint": "عِبَر أخلاقية وروحية",
-    "quickProgress": "تعلّمي",
-    "quickProgressHint": "موضوعات القراءة ودراسة التقدم",
     "progressCardTitle": "تقدّم التعلّم",
     "progressCardHint": "{{completed}} من {{total}} موضوعاً مكتملاً",
-    "exploreTitle": "استكشف",
     "relatedTitle": "أدلة ذات صلة",
     "timelineTitle": "التسلسل الزمني",
     "timelineSubtitle": "الأنبياء عبر التاريخ",
@@ -4953,7 +5262,6 @@
     "continueInApp": "تابع في منيب",
     "markComplete": "وضع علامة اكتمال الموضوع",
     "markIncomplete": "وضع علامة غير مكتمل بعد",
-    "phaseV1": "المرحلة الأولى — الأساسيات",
     "profileTitle": "الملف",
     "progressTitle": "تقدّم تعلّمي",
     "progressSubtitle": "تابِع الدروس — لا مقامك الروحي عند الله",
@@ -5025,7 +5333,12 @@
       "allBranches": "كل الفروع",
       "tapHint": "اضغط اسمًا على الخريطة لقراءة الملاحظة الموثقة.",
       "tapHintTv": "اضغط اختيار على اسم على الخريطة لقراءة الملاحظة الموثقة.",
-      "listHintTv": "اختر اسمًا من القائمة لقراءة الملاحظة الموثّقة."
+      "listHintTv": "اختر اسمًا من القائمة لقراءة الملاحظة الموثّقة.",
+      "viewLabel": "عرض الشجرة",
+      "viewMap": "الخريطة",
+      "viewList": "القائمة",
+      "panHintWeb": "اسحب للتحريك. للتكبير اضغط مفتاح التحكم أو ⌘ مع التمرير، أو استخدم الأزرار.",
+      "listHint": "اختر اسمًا من القائمة لقراءة الملاحظة الموثّقة."
     }
   },
   "aqeedah": {
@@ -5033,18 +5346,8 @@
     "title": "تعلّم العقيدة",
     "subtitle": "المعتقدات الأساسية للإسلام من القرآن والسنة الصحيحة",
     "intro": "يُعرض اتفاق أهل السنة العام بوضوح، ويُشار إلى مواضع اختلاف العلماء باحترام. العقيدة تُتعلّم مع المعلّمين، لا تُجادَل عبر الإنترنت.",
-    "quickLinksTitle": "ابدأ من هنا",
-    "quickSixArticles": "أركان الإيمان الستة",
-    "quickSixArticlesHint": "أركان الإيمان",
-    "quickTawheed": "شرح التوحيد",
-    "quickTawheedHint": "توحيد الله في العبادة والربوبية",
-    "quickGlossary": "المصطلحات",
-    "quickGlossaryHint": "تعريف مصطلحات العقيدة الأساسية",
-    "quickProgress": "تعلّمي",
-    "quickProgressHint": "موضوعات القراءة ودراسة التقدم",
     "progressCardTitle": "تقدّم التعلّم",
     "progressCardHint": "{{completed}} من {{total}} موضوعاً مكتملاً",
-    "exploreTitle": "استكشف",
     "sixArticlesTitle": "أركان الإيمان الستة",
     "sixArticlesHint": "الله، الملائكة، الكتب، الرسل، اليوم الآخر، القدر",
     "tawheedTitle": "التوحيد والشرك",
@@ -5060,7 +5363,6 @@
     "misconceptionsTitle": "مفاهيم خاطئة شائعة",
     "markComplete": "وضع علامة اكتمال الموضوع",
     "markIncomplete": "وضع علامة غير مكتمل بعد",
-    "phaseV1": "المرحلة الأولى — الأساسيات",
     "progressTitle": "تقدّم تعلّمي",
     "progressSubtitle": "تابِع الدروس — لا مقامك الروحي عند الله",
     "progressIntro": "دراسة العقيدة بإخلاص ومصادر موثوقة تقوّي الإيمان.",
@@ -5094,18 +5396,8 @@
     "title": "تعلّم الدعاء",
     "subtitle": "أدعية صحيحة — معانيها وفضائلها وأوقات قراءتها",
     "intro": "الدعاء عبادة. تعلّم الآداب وأفضل الأوقات وألفاظ القرآن والسنة — ثم تدرّب من مكتبة أدعية منيب.",
-    "quickLinksTitle": "ابدأ من هنا",
-    "quickMorningEvening": "الصباح والمساء",
-    "quickMorningEveningHint": "أذكار تفتتح يومك وتختمه",
-    "quickEtiquette": "آداب الدعاء",
-    "quickEtiquetteHint": "كيف تسأل الله كما ينبغي",
-    "quickOccasions": "حسب المناسبة",
-    "quickOccasionsHint": "تصفّح أدعية كل لحظة",
-    "quickProgress": "تعلّمي",
-    "quickProgressHint": "موضوعات القراءة ودراسة التقدم",
     "progressCardTitle": "تقدّم التعلّم",
     "progressCardHint": "{{completed}} من {{total}} موضوعاً مكتملاً",
-    "exploreTitle": "استكشف",
     "occasionsTitle": "أدعية حسب المناسبة",
     "occasionsSubtitle": "اعثر على الدعاء المناسب لحالك",
     "occasionsHint": "أدعية يومية وحسب الحال وقرآنية",
@@ -5120,7 +5412,6 @@
     "continueInApp": "تابع في منيب",
     "markComplete": "وضع علامة اكتمال الموضوع",
     "markIncomplete": "وضع علامة غير مكتمل بعد",
-    "phaseV1": "المرحلة الأولى — الأساسيات",
     "progressTitle": "تقدّم تعلّمي",
     "progressSubtitle": "تابِع الدروس — لا قبول الله لدعائك",
     "progressIntro": "الله يسمع كل نداء صادق. تتابع هذه الشاشة دراستك لا استجابته.",
@@ -5146,20 +5437,16 @@
       "highly-recommended": "مستحب جداً",
       "recommended": "مستحب"
     },
-    "occasionsIntroTv": "اضغط اختيار على مناسبة لفتح الدرس أو تصفّح مكتبة الأدعية كاملة."
+    "occasionsIntroTv": "اضغط اختيار على مناسبة لفتح الدرس أو تصفّح مكتبة الأدعية كاملة.",
+    "relatedTitle": "أدلة ذات صلة"
   },
   "learnQuran": {
     "eyebrow": "تعلّم",
     "title": "تعلّم القرآن",
     "subtitle": "اقرأ ← افهم ← تدبّر ← احفظ ← تدرّب ← عِش",
     "intro": "رحلة تعلّم كاملة — لا مجرد قارئ. كل درس يستدل بالقرآن أو الحديث الصحيح حيثما أمكن، ويسمّي مصادر التفسير، ويربط بمتتبّعات منيب.",
-    "quickLinksTitle": "ابدأ من هنا",
-    "quickDaily": "الدرس اليومي",
-    "quickDailyHint": "آية وتأمّل وعمل واحد لليوم",
     "quickRead": "اقرأ القرآن",
     "quickReadHint": "افتح المصحف كاملاً بالصوت والعلامات",
-    "quickVocab": "المفردات",
-    "quickVocabHint": "كلمات متكرّرة تفتح لك المعنى",
     "quickProgress": "تعلّمي",
     "quickProgressHint": "الدروس المكتملة — لا المقام الروحي",
     "progressCardTitle": "تقدّم التعلّم",
@@ -5175,9 +5462,6 @@
     "markIncomplete": "وضع علامة غير مكتمل بعد",
     "comingSoon": "قريباً",
     "sourcesTitle": "المصادر",
-    "phaseV1": "اقرأ وافهم",
-    "phaseV2": "تدبّر واحفظ",
-    "phaseV3": "طبّق وعِش",
     "revelationTitle": "كيف نزل القرآن",
     "revelationSubtitle": "من غار حراء إلى الحفظ",
     "revelationIntro": "التواريخ تتبع التسلسل المشهور للسيرة. يختلف العلماء في بعض تفاصيل ما قبل الهجرة.",
@@ -5285,9 +5569,7 @@
     "playAyahA11y": "تشغيل تلاوة {{ref}}",
     "qalqalahDrillHint": "يفتح تمرين صوت القلقلة مع المستمع على الجهاز",
     "quickPractise": "تدرّب على التلاوة",
-    "quickPractiseHint": "اقرأ بصوت مسموع مع المستمع على الجهاز",
-    "quickCoaching": "تدريب التجويد",
-    "quickCoachingHint": "تدرّب على الأصوات التي تحتاجها تلاوتك"
+    "quickPractiseHint": "اقرأ بصوت مسموع مع المستمع على الجهاز"
   },
   "contentReport": {
     "short": "إبلاغ",
@@ -5342,7 +5624,9 @@
       "completed": "مكتمل",
       "cancelled": "ملغى",
       "spam": "مزعج"
-    }
+    },
+    "cardA11y": "{{title}}، {{status}}. يفتح البلاغ كاملًا.",
+    "resolvedOn": "عولج في {{date}}"
   },
   "externalCommands": {
     "titleIos": "Siri والاختصارات الصوتية",
@@ -5394,7 +5678,12 @@
       "search": "البحث في التطبيق"
     },
     "moreShortcutsTitle": "اختصارات صوتية إضافية",
-    "moreShortcutsHint": "قل أيًا من هذه العبارات لتسجيل الصلاة أو الانتقال مباشرة إلى شاشة."
+    "moreShortcutsHint": "قل أيًا من هذه العبارات لتسجيل الصلاة أو الانتقال مباشرة إلى شاشة.",
+    "sayPhrase": "قل: «{{phrase}}»",
+    "sayPhraseEnglish": "قل بالإنجليزية: «{{phrase}}»",
+    "openShortcuts": "فتح تطبيق الاختصارات",
+    "markedAsPrayed": "تم تسجيل {{salah}} كمؤدّاة",
+    "marking": "جارٍ تسجيل صلاتك…"
   },
   "pinLock": {
     "title": "قفل التطبيق",
@@ -5420,7 +5709,6 @@
     "unlockingApp": "جارٍ الفتح…",
     "setPinFailed": "تعذّر حفظ PIN. حاول مرة أخرى.",
     "wrongPin": "رمز PIN خاطئ — حاول مرة أخرى.",
-    "wrongPinAttemptsRemaining": "رمز PIN خاطئ. {{count}} محاولة(ات) متبقية قبل القفل.",
     "lockedOut": "محاولات خاطئة كثيرة. انتظر قليلاً قبل المحاولة مرة أخرى.",
     "usePinToUnlock": "أدخل PIN لفتح التطبيق.",
     "tryAgainIn": "حاول مرة أخرى بعد {{time}}",
@@ -5430,14 +5718,35 @@
     "heroFeatureBiometric": "البصمة",
     "heroFeatureAutoLock": "قفل تلقائي",
     "statusProtected": "محمي",
-    "disablePin": "إيقاف قفل التطبيق",
     "changePin": "تغيير PIN",
     "lockTimeout": "القفل عند الانتقال للخلفية",
     "immediately": "فوراً",
     "after1Min": "بعد دقيقة",
     "after5Min": "بعد 5 دقائق",
     "footer": "يُخزَّن PIN بأمان على هذا الجهاز ولا يغادره أبداً.",
-    "backspace": "مسح"
+    "backspace": "مسح",
+    "after1MinShort": "دقيقة",
+    "after5MinShort": "5 دقائق",
+    "turnOff": "إيقاف قفل التطبيق",
+    "turnOffHint": "ستُدخل رمز PIN أولًا",
+    "changePinVerifySubtitle": "أدخل رمز PIN الحالي للمتابعة",
+    "toastEnabled": "تم تشغيل قفل التطبيق",
+    "toastChanged": "تم تغيير رمز PIN",
+    "toastDisabled": "تم إيقاف قفل التطبيق",
+    "lockoutMinSec": "{{min}} د {{sec}} ث",
+    "lockoutSec": "{{sec}} ث",
+    "digitsEntered_zero": "أُدخل {{count}} من {{total}} أرقام",
+    "digitsEntered_one": "أُدخل رقم واحد ({{count}}) من {{total}}",
+    "digitsEntered_two": "أُدخل رقمان ({{count}}) من {{total}}",
+    "digitsEntered_few": "أُدخلت {{count}} أرقام من {{total}}",
+    "digitsEntered_many": "أُدخل {{count}} رقمًا من {{total}}",
+    "digitsEntered_other": "أُدخل {{count}} رقم من {{total}}",
+    "wrongPinAttemptsRemaining_zero": "رمز PIN خاطئ. لم تتبقَّ محاولات قبل القفل.",
+    "wrongPinAttemptsRemaining_one": "رمز PIN خاطئ. تبقّت محاولة واحدة قبل القفل.",
+    "wrongPinAttemptsRemaining_two": "رمز PIN خاطئ. تبقّت محاولتان قبل القفل.",
+    "wrongPinAttemptsRemaining_few": "رمز PIN خاطئ. تبقّت {{count}} محاولات قبل القفل.",
+    "wrongPinAttemptsRemaining_many": "رمز PIN خاطئ. تبقّت {{count}} محاولةً قبل القفل.",
+    "wrongPinAttemptsRemaining_other": "رمز PIN خاطئ. تبقّت {{count}} محاولة قبل القفل."
   },
   "seo": {
     "intro": {
@@ -5512,7 +5821,8 @@
     "thanksTitle": "شكراً لك!",
     "thanksBody": "دعمك يعني لنا الكثير.",
     "feedbackThanksTitle": "وُلِّفت ملاحظاتك",
-    "feedbackThanksBody": "سنستخدم ملاحظاتك لتحسين Munib Tracker."
+    "feedbackThanksBody": "سنستخدم ملاحظاتك لتحسين Munib Tracker.",
+    "feedbackLabel": "ملاحظاتك"
   },
   "localNotifications": {
     "reviewReactivationTitle": "أنت على نحوٍ ممتاز",
@@ -5534,12 +5844,6 @@
     "noResults": "لا يوجد رفاق في هذه الفئة حتى الآن",
     "readMore": "انقر لقراءة الملف الشخصي الكامل",
     "disclaimer": "تتبع الحقائق السردية السيرة الكلاسيكية والأعمال التاريخية؛ وكل دعوى مرتبطة برواية معينة تشير إلى جمع أحاديثها ورقمها. هذا محتوى تعليمي عام، وليس تصنيفًا علميًا.",
-    "quickLinksTitle": "استكشاف",
-    "quickCaliphsHint": "ابدأ بأبي بكر الخليفة الأول",
-    "quickAsharaHint": "العشرة المبشرون بالجنة",
-    "quickWomenHint": "خديجة وأمهات المؤمنين",
-    "quickBattles": "الرفاق في المعركة",
-    "quickBattlesHint": "ملفات تعريف الحملة من دليل المعارك",
     "countCardTitle": "الدليل المرافق",
     "countCardHint": "{{count}} تم التحقق من الملفات الشخصية التعليمية",
     "categoryHint": {
@@ -5549,7 +5853,6 @@
       "women": "نساء بارزات في المجتمع المبكر",
       "notable": "رفاق آخرون معروفون على نطاق واسع"
     },
-    "exploreTitle": "مواصلة التعلم",
     "exploreBattles": "أرقام المعارك",
     "exploreBattlesHint": "الصحابة الذين يظهرون في الحملات العسكرية",
     "exploreSeerah": "سيرة الجدول الزمني",
@@ -5562,7 +5865,8 @@
     "linkSeerah": "افتح الجدول الزمني لسيره",
     "linkHistory": "فتح التاريخ الإسلامي المبكر",
     "openProfileHint": "افتح الملف التعريفي الكامل للرفيق",
-    "notFound": "لم يتم العثور على رفيق"
+    "notFound": "لم يتم العثور على رفيق",
+    "jumpToDirectory": "الانتقال إلى الدليل"
   },
   "history": {
     "eyebrow": "تعلم",
@@ -5687,11 +5991,12 @@
     "quickRamadanHint": "أوقات الصيام وسجل الصيام الخاص بك",
     "quickHistory": "التاريخ المبكر",
     "quickHistoryHint": "الجدول الزمني الراشدون مع السنوات الهجرية",
-    "exploreTitle": "مواصلة التعلم",
     "exploreCalendar": "افتح التقويم",
     "exploreCalendarHint": "انظر تاريخ العبادة يوما بعد يوم",
     "exploreEvents": "فتح المناسبات الإسلامية",
-    "exploreEventsHint": "المعالم والاحتفالات المقبلة"
+    "exploreEventsHint": "المعالم والاحتفالات المقبلة",
+    "errorDay": "أدخل يومًا من 1 إلى {{max}}",
+    "errorYear": "أدخل سنة صحيحة"
   },
   "flashCards": {
     "eyebrow": "تعلّم",
@@ -5882,7 +6187,17 @@
     "linkFinance": "الصدقة في التمويل الإسلامي",
     "linkFinanceHint": "شرح العطاء التطوعي",
     "disclaimer": "متتبع شخصي فقط — ليس فتوى ولا بديلاً عن حساب الزكاة عند وجوبها.",
-    "continueInApp": "تابع في منيب"
+    "continueInApp": "تابع في منيب",
+    "clearGoalTitle": "مسح نيتك؟",
+    "clearGoalBody": "سيُزال هدفك. يبقى سجل صدقاتك.",
+    "entryAdded": "أُضيفت الصدقة",
+    "entryRemoved": "أُزيلت الصدقة",
+    "goalCleared": "تم مسح النية",
+    "goalSaved": "تم حفظ النية",
+    "loadMore": "عرض الصدقات الأقدم",
+    "periodTotal": "الإجمالي ({{period}}): {{amount}}",
+    "progressA11y": "تقدّم العطاء",
+    "removeEntry": "إزالة هذه الصدقة"
   },
   "adhan": {
     "listenHintTv": "اضغط اختيار على تسجيل للتشغيل. يُميّز أسلوب المدينة كل جملة أثناء النداء. استخدم «تعلّم الكلمات» أدناه لجمل واضحة واحدةً تلو الأخرى."
@@ -5909,7 +6224,9 @@
     "qrClaiming": "جارٍ ربط تلفازك…",
     "qrClaimSuccess": "تم تسجيل دخول تلفازك. يمكنك العودة إلى غرفة المعيشة.",
     "qrClaimError": "تعذر ربط التلفاز. أنشئ رمزًا جديدًا على التلفاز وحاول مرة أخرى.",
-    "qrPhoneOnly": "افتح هذا الرابط على هاتفك لإكمال تسجيل الدخول على التلفاز."
+    "qrPhoneOnly": "افتح هذا الرابط على هاتفك لإكمال تسجيل الدخول على التلفاز.",
+    "qrMissingCodeTitle": "هذا الرابط بلا رمز اقتران",
+    "qrScanAgain": "امسح الرمز الظاهر على التلفاز مرة أخرى بكاميرا هذا الهاتف."
   },
   "whiteDays": {
     "eyebrow": "تعلّم",
@@ -6165,7 +6482,8 @@
       "dailyLimitHelp_two": "حتى {{count}} آيتين يوميًا؛ والباقي ينتظر الأيام التالية.",
       "dailyLimitHelp_few": "حتى {{count}} آيات يوميًا؛ والباقي ينتظر الأيام التالية.",
       "dailyLimitHelp_many": "حتى {{count}} آية يوميًا؛ والباقي ينتظر الأيام التالية.",
-      "dailyLimitHelp_other": "حتى {{count}} آية يوميًا؛ والباقي ينتظر الأيام التالية."
+      "dailyLimitHelp_other": "حتى {{count}} آية يوميًا؛ والباقي ينتظر الأيام التالية.",
+      "reminderBlocked": "الإشعارات محظورة، لذا لا يستطيع تذكير المراجعة تنبيهك بعد. تم حفظ اختيارك. فعّل الإشعارات من الإعدادات."
     },
     "listener": {
       "title": "أداة الاستماع على الجهاز",
@@ -6204,7 +6522,10 @@
       "unsupported": "أداة الاستماع غير متاحة على هذا الجهاز.",
       "webUnsupported": "هذا المتصفح لا يدعم أداة الاستماع.",
       "knownLimits": "تعمل على أفضل وجه في مكان هادئ، بصوت واحد، وبسرعة تلاوة معتادة. وقد تكون أقل دقة مع أصوات الأطفال.",
-      "detailsLine": "{{size}} ميغابايت على هذا الجهاز · {{engine}}"
+      "detailsLine": "{{size}} ميغابايت على هذا الجهاز · {{engine}}",
+      "switchBody": "ستُحذف أداة الاستماع الحالية وتُنزَّل الأخرى (نحو {{size}} ميغابايت). يمكن للتدريب تشغيل التلاوات في أثناء ذلك.",
+      "switchConfirm": "تبديل",
+      "updateBody": "يُنزّل نحو {{size}} ميغابايت ويستبدل أداة الاستماع الحالية. تظل الحالية تعمل حتى يكتمل التحديث."
     },
     "privacy": {
       "title": "الخصوصية والمصادر",
@@ -6439,7 +6760,9 @@
     "outline": "هذه المجموعة · {{total}}",
     "padOnce": "اضغط بعد القراءة",
     "padCount": "اضغط للعدّ",
-    "loggingPreviousDay": "يُسجَّل ليوم {{date}} — الليلة تمتد حتى الفجر."
+    "loggingPreviousDay": "يُسجَّل ليوم {{date}} — الليلة تمتد حتى الفجر.",
+    "announceAllDone": "تم الانتهاء. اكتملت هذه المجموعة من الأذكار.",
+    "announceRecitedNext": "تمّت القراءة. التالي: {{title}}"
   },
   "hijriAdjust": {
     "adjust": "تعديل",
@@ -6720,7 +7043,9 @@
       "a11yList": "رمز الاسترداد، {{total}} كلمة: {{words}}",
       "onlyOnce": "يُعرض هذا الرمز مرة واحدة فقط. لا يمكننا عرضه مجددًا أو استرداده لك.",
       "confirmSaved": "كتبتُ جميع الكلمات",
-      "done": "تم"
+      "done": "تم",
+      "saveFirst": "احفظ رمز الاسترداد أولًا، ثم حدّد المربع واضغط «تم».",
+      "doneHint": "حدّد المربع بعد حفظ الرمز"
     },
     "recoveryEntry": {
       "label": "رمز الاسترداد",
@@ -6790,7 +7115,8 @@
       "sync": "المزامنة المشفّرة",
       "changePassphrase": "تغيير عبارة المرور",
       "newRecoveryCode": "رمز استرداد جديد",
-      "newRecoveryCodeHint": "سيتوقف رمز الاسترداد القديم عن العمل"
+      "newRecoveryCodeHint": "سيتوقف رمز الاسترداد القديم عن العمل",
+      "syncTurnedOff": "تم إيقاف المزامنة المشفّرة"
     }
   },
   "fiqh": {
@@ -7267,8 +7593,8 @@
     "allDefault": "افتراضي",
     "allShown": "الكل ظاهر",
     "clearHistory": "مسح الأدعية وعمليات البحث الأخيرة",
-    "clearHistoryConfirm": "سيتم مسح الأدعية التي فتحتها مؤخرًا وعمليات بحثك الأخيرة على هذا الجهاز. تبقى المفضلة محفوظة.",
-    "clearHistorySub": "سجل الجهاز فقط؛ تبقى المفضلة محفوظة",
+    "clearHistoryConfirm": "سيتم مسح الأدعية التي فتحتها مؤخرًا وعمليات بحثك الأخيرة على هذا الجهاز. تبقى العناصر المحفوظة.",
+    "clearHistorySub": "سجل الجهاز فقط؛ تبقى العناصر المحفوظة",
     "cluster": {
       "help": "المساعدة",
       "personalise": "التخصيص",
@@ -7362,7 +7688,8 @@
       "widgets": "أدوات, ودجات, ويدجت, ساعة, ساعة ذكية, Watch, Wear",
       "wordByWord": "كلمة بكلمة, معاني المفردات, ترجمة حرفية",
       "readingDisplay": "ترجمة، نقحرة، معنى، إخفاء الترجمة",
-      "masjidFinder": "مسجد, جامع, المسجد الأساسي, إقامة, جماعة, صلاة الجماعة, الجمعة, قريب, الاتجاهات, وقت المشي, انطلق الآن"
+      "masjidFinder": "مسجد, جامع, المسجد الأساسي, إقامة, جماعة, صلاة الجماعة, الجمعة, قريب, الاتجاهات, وقت المشي, انطلق الآن",
+      "tvFinanceTools": "زكاة, صدقة, فدية, ميراث, مواريث, تمويل, مال, حاسبة"
     },
     "listenerModelsSub": "نماذج الاستماع للتلاوة التي تم تنزيلها",
     "liveActivitySub": "عدّ تنازلي للصلاة القادمة على شاشة القفل",
@@ -7434,7 +7761,8 @@
       "typeface": "الخط",
       "voice": "الصوت",
       "readingDisplay": "الترجمة والنقحرة",
-      "focusLock": "التركيز للصلاة"
+      "focusLock": "التركيز للصلاة",
+      "qibla": "بوصلة القبلة"
     },
     "setup": {
       "dismiss": "ليس الآن",
@@ -7455,7 +7783,10 @@
     "widgetsInfoSub": "أضف أدوات Munib Tracker من شاشتك الرئيسية؛ وتتبع تطبيقات Watch وWear إعدادات هاتفك.",
     "readingDisplaySub": "ينطبق على كل ما تقرؤه: القرآن والتدريب والحديث والأدعية والأذكار والصلوات على النبي والتسبيح",
     "moreInSettings": "المزيد في الإعدادات",
-    "moreInSettingsHint": "يفتح هذه الخيارات في الإعدادات"
+    "moreInSettingsHint": "يفتح هذه الخيارات في الإعدادات",
+    "tvFinanceTools": "إظهار الأدوات المالية",
+    "tvFinanceToolsSub": "الزكاة والصدقة والفدية والميراث والتمويل الإسلامي على هذا التلفاز. متوقفة افتراضيًا للحفاظ على خصوصية المبالغ.",
+    "surfaceFinance": "أدلة الزكاة والتمويل"
   },
   "prayerWindow": {
     "preferred": {
@@ -7498,7 +7829,8 @@
       "evidence": "الأدلة والمصادر",
       "quranRef": "القرآن {{surah}}:{{ayah}}",
       "gradeDisputed": "اختلف نقّاد الحديث في درجته.",
-      "readInGuide": "اقرأ المزيد في الشروحات"
+      "readInGuide": "اقرأ المزيد في الشروحات",
+      "backToLibrary": "العودة إلى المكتبة"
     },
     "search": {
       "summary": "قارن بين المذاهب الأربعة",
@@ -7567,7 +7899,8 @@
       "intended": "أنوي",
       "fasted": "صُمتُ",
       "broken": "أفطرتُ",
-      "clear": "مسح"
+      "clear": "مسح",
+      "intendToFast": "أنوي الصيام"
     },
     "tonight": {
       "title": "الليلة",
@@ -7606,7 +7939,9 @@
     "history": {
       "title": "السجل",
       "empty": "لم يُسجَّل أي صيام تطوع بعد.",
-      "qaza": "قضاء"
+      "qaza": "قضاء",
+      "viewAll": "عرض الكل",
+      "showLess": "عرض أقل"
     },
     "qaza": {
       "toggle": "احتسبه صيام قضاء",
@@ -7674,6 +8009,12 @@
     "calendar": {
       "recommended": "صيام مستحب",
       "prohibited": "لا صيام"
+    },
+    "toast": {
+      "fasted": "تم التسجيل: صمت",
+      "broken": "تم التسجيل: أفطرت",
+      "intended": "تم التسجيل: نويت",
+      "cleared": "تم مسح السجل"
     }
   },
   "quranNotes": {
@@ -7943,8 +8284,32 @@
       "retentionDays_many": "{{count}} يومًا",
       "retentionDays_other": "{{count}} يوم",
       "retentionForever": "دائمًا",
-      "retentionSub": "تُحذف المراجعات الأقدم تلقائيًا عند فتح التطبيق."
-    }
+      "retentionSub": "تُحذف المراجعات الأقدم تلقائيًا عند فتح التطبيق.",
+      "customRemoved": "تمت إزالة السؤال"
+    },
+    "discardTitle": "تجاهل هذه المحاسبة؟",
+    "discardBody": "لم تُحفظ إجابات الليلة وستضيع.",
+    "discardConfirm": "تجاهل",
+    "discardKeep": "تابع الكتابة",
+    "customAddedOff": "أُضيف السؤال. لديك {{max}} أسئلة مفعّلة بالفعل، فأوقف أحدها لاستخدامه.",
+    "retentionTitle": "حذف المراجعات الأقدم؟",
+    "retentionBody_zero": "{{count}} مراجعة محفوظة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
+    "retentionBody_one": "مراجعة محفوظة واحدة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
+    "retentionBody_two": "مراجعتان محفوظتان أقدم من هذه المدة وستُحذفان الآن. لا يمكن التراجع عن ذلك.",
+    "retentionBody_few": "{{count}} مراجعات محفوظة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
+    "retentionBody_many": "{{count}} مراجعةً محفوظة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
+    "retentionBody_other": "{{count}} مراجعة محفوظة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
+    "retentionConfirm": "احذف وغيّر",
+    "clearNotesTitle": "حذف الملاحظات المحفوظة أيضًا؟",
+    "clearNotesBody_zero": "{{count}} مراجعة محفوظة ما زالت تحتوي على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
+    "clearNotesBody_one": "مراجعة محفوظة واحدة ما زالت تحتوي على ملاحظة توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
+    "clearNotesBody_two": "مراجعتان محفوظتان ما زالتا تحتويان على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
+    "clearNotesBody_few": "{{count}} مراجعات محفوظة ما زالت تحتوي على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
+    "clearNotesBody_many": "{{count}} مراجعةً محفوظة ما زالت تحتوي على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
+    "clearNotesBody_other": "{{count}} مراجعة محفوظة ما زالت تحتوي على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
+    "clearNotesConfirm": "احذف الملاحظات",
+    "clearNotesKeep": "أبقِها",
+    "clearNotesDone": "حُذفت ملاحظات التوبة"
   },
   "familyTies": {
     "eyebrow": "صلة الرحم · خاص",
@@ -7985,7 +8350,8 @@
       "message": "رسالة",
       "whatsapp": "WhatsApp",
       "log": "تسجيل تواصل",
-      "dua": "ادعُ له"
+      "dua": "ادعُ له",
+      "more": "إجراءات أخرى لـ {{name}}"
     },
     "contact": {
       "call": "اتصال",
@@ -8080,7 +8446,10 @@
       "b5986": "صحيح البخاري ٥٩٨٦ · صلة الرحم والبركة في الرزق والعمر",
       "b5984": "صحيح البخاري ٥٩٨٤ · قاطع الرحم",
       "b5971": "صحيح البخاري ٥٩٧١ · أحقّ الناس بحسن الصحبة: أمك ثلاثًا، ثم أبوك"
-    }
+    },
+    "digestAfterDhuhr": "بعد صلاة الظهر",
+    "notFound": "هذا القريب لم يعد في قائمتك.",
+    "phoneInvalid": "يبدو هذا الرقم قصيرًا جدًا للاتصال أو المراسلة."
   },
   "rawatib": {
     "chip": {
@@ -8167,7 +8536,14 @@
       "perRow": "كل سنة",
       "note": "اليوم الكامل يعني تسجيل السنن المؤكدة الـ {{count}} كلها. أيام العذر مستثناة.",
       "openHub": "الأدلة والإعدادات",
-      "evidenceTitle": "الدليل"
+      "evidenceTitle": "الدليل",
+      "legend": {
+        "complete": "يوم كامل",
+        "partial": "جزئيًا",
+        "none": "لا شيء",
+        "excused": "عذر"
+      },
+      "gridCount": "{{complete}} من {{days}} يومًا مكتملة"
     },
     "home": {
       "hint": "اضغط لتسجيل السنة قبل كل صلاة وبعدها."
@@ -8333,7 +8709,8 @@
       "reopen": "إعادة فتح",
       "delete": "حذف هذا السجل",
       "deleteTitle": "حذف هذا السجل؟",
-      "deleteBody": "سيُحذف من هذا الجهاز ومن أجهزتك الأخرى إن كانت المزامنة الخاصة مفعّلة."
+      "deleteBody": "سيُحذف من هذا الجهاز ومن أجهزتك الأخرى إن كانت المزامنة الخاصة مفعّلة.",
+      "backToList": "العودة إلى الديون"
     },
     "notFound": "هذا السجل لم يعد موجودًا.",
     "payments": {
@@ -8343,7 +8720,10 @@
       "date": "تاريخ الدفعة",
       "note": "ملاحظة (اختياري)",
       "add": "إضافة دفعة",
-      "remove": "حذف الدفعة"
+      "remove": "حذف الدفعة",
+      "errorAmount": "أدخل المبلغ المُسدَّد.",
+      "removeTitle": "حذف هذه الدفعة؟",
+      "removeBody": "سيرتفع المبلغ المتبقي للسداد مجددًا. لا يمكن التراجع عن ذلك."
     },
     "riba": {
       "body": "بهذا يكون السداد أكثر مما أُقرض بمقدار {{excess}}. الزيادة المشروطة في القرض ربا. أما الهدية الطوعية غير المشروطة عند السداد فأمر مختلف — وإن لم تكن متأكدًا فاسأل عالمًا.",
@@ -8368,7 +8748,9 @@
       "hint": "ضع علامة على النذر بعد الوفاء به.",
       "add": "إضافة نذر",
       "placeholder": "بماذا نذرت؟",
-      "delete": "حذف النذر"
+      "delete": "حذف النذر",
+      "removeTitle": "إزالة هذا النذر؟",
+      "removeBody": "ستُزال من قائمتك. لا يمكن التراجع عن ذلك."
     },
     "more": "المزيد",
     "wasiyyahLink": "وصيتك",
@@ -8418,7 +8800,9 @@
         "permission": "الوصول إلى الصور مغلق. يمكنك تفعيله من إعدادات جهازك.",
         "save-failed": "تعذّر حفظ الصورة. حاول مرة أخرى."
       }
-    }
+    },
+    "selectTitle": "اختر سجلًا",
+    "selectBody": "اختر سجلًا من القائمة لعرض تفاصيله، أو أضف سجلًا جديدًا."
   },
   "heirs": {
     "husband": "زوج",
@@ -8539,7 +8923,9 @@
       "heirWarning": "لا وصية لوارث — فلا تصح إلا إذا أجازها باقي الورثة بعد الوفاة (رأي الجمهور).",
       "heirAcknowledge": "فهمت؛ أبقِها معلّقة على إجازة الورثة",
       "add": "إضافة وصية",
-      "remove": "حذف هذه الوصية"
+      "remove": "حذف هذه الوصية",
+      "removeTitle": "إزالة هذه الوصية؟",
+      "removeBody": "ستُزال قيمتها وتفاصيلها من مسودتك."
     },
     "people": {
       "guardians": "الولي أو الأولياء على الأولاد القُصَّر",
@@ -8635,7 +9021,24 @@
       "noHeir": "لا وصية لوارث — سنن أبي داود ٢٨٧٠؛ جامع الترمذي ٢١٢٠",
       "debtFirst": "الأنصبة تأتي بعد الوصية والدَّين؛ والدَّين يُقضى أولًا — القرآن ٤:١١–١٢",
       "witnesses": "شاهدان عند الوصية — القرآن ٥:١٠٦"
-    }
+    },
+    "nameRequired": "أضف اسمك للمتابعة.",
+    "reviewTitle": "راجِع كل قسم",
+    "reviewSummary": {
+      "nameMissing": "اسمك غير مكتوب",
+      "selected": "تم اختيار {{done}} من {{total}}",
+      "confirmed": "تم تأكيد {{done}} من {{total}}",
+      "none": "لم يُضَف شيء",
+      "added": "المُضاف: {{total}}",
+      "snapshot": "حساب المواريث مرفق (للتوضيح)",
+      "noSnapshot": "لا يوجد حساب مرفق (اختياري)",
+      "named": "تمت تسمية {{done}} من {{total}}",
+      "dateInvalid": "تعذّرت قراءة التاريخ"
+    },
+    "draftNote": "لديك مسودة غير مكتملة. تابع من حيث توقفت.",
+    "discardDraftTitle": "حذف المسودة؟",
+    "discardDraftBody": "ستُحذف التغييرات التي لم تحفظها كنسخة. وصيتك المحفوظة تبقى كما هي.",
+    "dateBlocked": "صحّح التاريخ في «عنك» قبل الحفظ."
   },
   "excusedFiqh": {
     "markNifas": "بدء فترة العذر (النفاس)",
@@ -8960,7 +9363,8 @@
         "title": "أذكار المساء",
         "hint": "تُحتسب من أذكارك"
       }
-    }
+    },
+    "habitRemoved": "تمت إزالة {{title}}"
   },
   "quranRoots": {
     "title": "البحث بالجذر العربي",
@@ -9092,7 +9496,8 @@
       "confirm": {
         "title": "قبل النتائج",
         "hint": "لا تحسب إلا الأقارب الذين يحق لهم الإرث."
-      }
+      },
+      "progressLabel": "خطوات الحاسبة"
     },
     "confirm": {
       "muslim": "كل وارث مسلم: لا توارث بين مسلم وغير مسلم (صحيح البخاري 6764).",
@@ -9252,7 +9657,8 @@
     "chart": {
       "unallocated": "الباقي غير الموزَّع",
       "a11y": "مخطط الأنصبة: {{shares}}"
-    }
+    },
+    "highlightHint": "الورثة المميَّزون يأخذون نصيبًا مختلفًا في مذهب آخر."
   },
   "umrahMode": {
     "eyebrow": "الحج والعمرة",
@@ -9684,7 +10090,10 @@
       "importHint": "تُقرأ الأوقات على هاتفك. لا تُرفع الصورة أبدًا.",
       "clearConfirmTitle": "حذف أوقاتك؟",
       "clearConfirmBody": "ستُحذف أوقاتك اليومية وأوقات الجمعة والأوقات الشهرية المستوردة لهذا المسجد من جميع أجهزتك.",
-      "saveError": "تعذّر حفظ أوقاتك. يُرجى المحاولة مرة أخرى."
+      "saveError": "تعذّر حفظ أوقاتك. يُرجى المحاولة مرة أخرى.",
+      "tvEmptyTitle": "لا توجد أوقات محفوظة بعد",
+      "tvEmptyBody": "أضف أوقات مسجدك من هاتفك أو من الويب، وستظهر هنا.",
+      "unsaved": "تغييرات غير محفوظة"
     },
     "reminder": {
       "settingTitle": "تذكير الإقامة",
@@ -9707,7 +10116,18 @@
       "iqamahSub": "تذكير بالانطلاق إلى مسجدك الأساسي قبل الإقامة، وفق أوقاتك"
     },
     "showMore": "عرض مزيد من المساجد",
-    "unavailableBody": "تعذّر الوصول إلى خدمة البحث عن المساجد الآن. يُرجى المحاولة لاحقًا."
+    "unavailableBody": "تعذّر الوصول إلى خدمة البحث عن المساجد الآن. يُرجى المحاولة لاحقًا.",
+    "loadingSlow": "ما زلنا نبحث — خوادم OpenStreetMap مشغولة، لذا قد يستغرق ذلك وقتًا أطول قليلًا…",
+    "poweredBy": "بدعم من {{provider}}",
+    "privacyNoteNearYou": "بالقرب منك. تُرسَل منطقة تقارب ٥ كم حولك فقط للبحث عن المساجد، وتُحسب المسافات على جهازك.",
+    "locationFixFailed": "تعذّر تحديد موقعك الحالي. نعرض المساجد القريبة من موقعك المحفوظ بدلًا من ذلك.",
+    "viewList": "قائمة",
+    "viewMap": "خريطة",
+    "mapPrivacy": "تُحمَّل مربعات الخريطة من OpenFreeMap، ويمكنه رؤية المنطقة المعروضة على الخريطة.",
+    "mapHint": "اضغط على علامة لعرض المسجد والحصول على الاتجاهات.",
+    "mapYou": "موقعك",
+    "mapA11y": "خريطة المساجد القريبة",
+    "mapUnavailable": "تعذّر تحميل الخريطة. القائمة ما زالت تعمل."
   },
   "focusLock": {
     "title": "قفل التركيز للصلاة",
@@ -9818,7 +10238,9 @@
         "batteryHint": "بعض الهواتف (شاومي وسامسونج وهواوي وغيرها) توقف التطبيقات في الخلفية. اسمح باستخدام البطارية دون قيود لتبدأ المدد في وقتها.",
         "grant": "السماح",
         "granted": "مسموح",
-        "check": "تحقّق مجددًا"
+        "check": "تحقّق مجددًا",
+        "noneWarning": "لا يمكن حظر أي شيء حتى تسمح بذلك. يمكنك المتابعة لكن القفل لن يبدأ.",
+        "finishWarning": "الأذونات ناقصة، لذا لن تُحظر التطبيقات بعد. يمكنك الإنهاء الآن والسماح لاحقًا من الإعدادات."
       },
       "apps": {
         "title": "اختر التطبيقات",
@@ -9838,7 +10260,8 @@
         "running": "التجربة جارية: افتح أحد التطبيقات المختارة."
       },
       "confirmAlert": "تنبيه «اضغط للتأكيد»",
-      "confirmAlertHint": "بعد الضغط على «صلّيت» في شاشة الحظر، يفتح إشعار Munib Tracker لتسجيل صلاتك."
+      "confirmAlertHint": "بعد الضغط على «صلّيت» في شاشة الحظر، يفتح إشعار Munib Tracker لتسجيل صلاتك.",
+      "progressLabel": "تقدّم الإعداد"
     },
     "evidence": {
       "title": "الدليل",
@@ -9887,14 +10310,17 @@
       "title": "حلقاتك",
       "subtitle": "العائلة ورفيق المتابعة والختمة الجماعية",
       "emptyTitle": "لا توجد حلقات بعد",
-      "emptyBody": "ابدأ حلقة عائلية، أو انضم إلى حلقة برمز دعوة.",
+      "emptyBody": "انضم برمز دعوة، أو ابدأ دائرة عائلية أو دائرة شريك أو دائرة ختمة.",
       "familyTitle": "العائلة",
       "familyBody": "أضف أطفالك باسم مستعار وسنة الميلاد فقط، وساعدهم على بناء عادة الصلاة بالنجوم والملصقات.",
       "openFamily": "فتح العائلة",
       "joinTitle": "الانضمام برمز",
       "codeLabel": "رمز الدعوة",
       "codeHint": "10 أحرف وأرقام، مثل ABCDE-FGH23",
-      "join": "متابعة"
+      "join": "انضم إلى الدائرة",
+      "familyNeedsAccount": "يتطلب حسابًا",
+      "familyShort": "لأطفالك، بالنجوم والملصقات",
+      "startTitle": "ابدأ دائرة"
     },
     "privacy": {
       "title": "خصوصية في التصميم",
@@ -9909,7 +10335,9 @@
       "error": "تعذّر إنشاء دعوة. حاول مرة أخرى.",
       "codeA11y": "رمز الدعوة {{code}}",
       "qrA11y": "رمز QR لرابط الدعوة",
-      "expiresShared": "صالح حتى {{when}} · يمكن لأي فرد في مجموعتك استخدامه"
+      "expiresShared": "صالح حتى {{when}} · يمكن لأي فرد في مجموعتك استخدامه",
+      "copyCode": "نسخ الرمز",
+      "shareFailed": "تعذّرت مشاركة الدعوة أو نسخها. حاول مرة أخرى."
     },
     "join": {
       "eyebrow": "دعوة",
@@ -10254,6 +10682,20 @@
       "waiting": "تبقى الأجزاء متاحة حتى ينضم شخص آخر — ثم تُوزَّع بالتناوب. ادعُ أشخاصًا أدناه.",
       "button": "توزيع الأجزاء المتبقية",
       "done": "وُزّعت الأجزاء"
+    },
+    "confirm": {
+      "nextRound": {
+        "title": "بدء الجولة التالية؟",
+        "body": "تبدأ جولة جديدة للمجموعة كلها."
+      },
+      "openRemaining": {
+        "title": "فتح الأجزاء المتبقية؟",
+        "body": "تصبح الأجزاء غير المحجوزة متاحة لكل أعضاء المجموعة."
+      },
+      "deal": {
+        "title": "توزيع الأجزاء المتبقية؟",
+        "body": "تُسند الأجزاء المتبقية إلى الأعضاء الآن."
+      }
     }
   },
   "coach": {
@@ -10568,7 +11010,8 @@
       "delete": "حذف ملف الطفل",
       "deleteTitle": "حذف ملف هذا الطفل؟",
       "deleteBody": "يُحذف الملف وحالاته وملصقاته والجهاز المرتبط به فورًا. لا يمكن التراجع عن ذلك.",
-      "deleted": "حُذف ملف الطفل"
+      "deleted": "حُذف ملف الطفل",
+      "backToFamily": "العودة إلى العائلة"
     },
     "device": {
       "title": "جهاز الطفل",
@@ -10612,7 +11055,10 @@
       "parentTitle": "الوالد الآخر",
       "parentHint": "سيتمكن من إدارة ملفات الأطفال معك.",
       "memberTitle": "شاب أو شابة في الثالثة عشرة فأكثر",
-      "memberHint": "ينضم بحسابه الخاص ولا يشارك شيئًا إلا إذا اختار ذلك."
+      "memberHint": "ينضم بحسابه الخاص ولا يشارك شيئًا إلا إذا اختار ذلك.",
+      "noFamilyTitle": "افتح دعوة من عائلتك",
+      "noFamilyBody": "تُنشأ الدعوات من دائرة العائلة. افتح عائلتك أولًا ثم اختر دعوة.",
+      "noFamilyAction": "فتح العائلة"
     }
   },
   "kids": {
@@ -10663,7 +11109,12 @@
       "confirm": "الانتقال إلى حسابي",
       "done": "مرحبًا بك في حسابك الخاص",
       "reprompt": "يمكنك الانتقال إلى حسابك الخاص متى ما كنت مستعدًا. تختلف المذاهب في سن البلوغ؛ وعلاماته هي المعيار الحقيقي.",
-      "notNow": "ليس الآن"
+      "notNow": "ليس الآن",
+      "notYetTitle": "غير متاح بعد",
+      "confirmTitle": "الانتقال إلى حسابك الخاص؟",
+      "confirmMessage": "يصبح ملف الطفل حسابك الخاص داخل دائرة العائلة. لا يمكن التراجع عن ذلك. {{share}}",
+      "shareOn": "سيرى والداك حالة صلواتك المفروضة.",
+      "shareOff": "لن يرى والداك صلاتك بعد الآن."
     },
     "link": {
       "title": "الربط بملف طفل",
@@ -10729,7 +11180,8 @@
       "doneBody": "قرأت سورة {{surah}} كاملة.",
       "again": "اقرأها مرة أخرى",
       "another": "اختر سورة أخرى"
-    }
+    },
+    "notLinkedTitle": "غير مرتبط بعد"
   },
   "preferredTimeReminder": {
     "title": "الوقت المستحب لصلاة {{prayer}}",
@@ -10806,7 +11258,26 @@
     "dateColumnBody": "في هذه الورقة أكثر من عمود لأرقام الأيام. اختر عمود يوم الشهر — لا يوم رمضان ولا اليوم الهجري.",
     "dateColumnOption": "الأيام من {{first}} إلى {{last}}",
     "dateColumnDate": "التاريخ",
-    "dateColumnHijri": "هجري"
+    "dateColumnHijri": "هجري",
+    "clearCell": "مسح الوقت",
+    "emptyCell": "لم يُحدَّد وقت",
+    "fillDown": "استخدم هذا الوقت لبقية الأيام",
+    "mark": {
+      "title": "حدِّد الأوقات على الصورة",
+      "subtitle": "ارسم مربعًا حول وقت إقامة كل صلاة. لا يُقرأ إلا ذلك الجزء من الصورة.",
+      "instruction": "اسحب مربعًا حول وقت {{prayer}}",
+      "dragHint": "اسحب على الصورة لتحديد وقت",
+      "selectSlot": "تحديد {{prayer}}",
+      "reading": "جارٍ القراءة…",
+      "notFound": "تعذّرت قراءة وقت هناك. اكتبه، أو ارسم المربع من جديد.",
+      "notMarked": "لم يُحدَّد بعد",
+      "typeHint": "طابِق كل وقت مع الصورة المكبّرة بجانبه. اكتب الأوقات كما تظهر على اللوحة (8:15 تصلح للعشاء).",
+      "continue": "راجِع الأوقات",
+      "back": "رجوع",
+      "offer": "قد يصعب قراءة لوحات LED والتصاميم غير المعتادة تلقائيًا. حدِّد كل وقت على الصورة بدلًا من ذلك.",
+      "start": "حدِّد الأوقات على الصورة",
+      "fromReview": "حدِّد الأوقات على الصورة بدلًا من ذلك"
+    }
   },
   "masjidLog": {
     "toggle": "صلّيت في المسجد",
@@ -11067,82 +11538,6 @@
       "recap": "إعداداتك"
     }
   },
-  "privateUx": {
-    "saveFailed": "تعذّر الحفظ. حاول مرة أخرى.",
-    "saving": "جارٍ الحفظ…",
-    "export": {
-      "unavailable": "الطباعة والمشاركة غير متاحتين على هذا الجهاز.",
-      "failed": "تعذّر إنشاء المستند. حاول مرة أخرى.",
-      "preparing": "جارٍ تجهيز المستند…"
-    },
-    "date": {
-      "invalid": "تعذّرت قراءة هذا التاريخ. اكتبه بصيغة سنة-شهر-يوم، مثل 2026-11-23.",
-      "reads": "يُقرأ: {{date}}",
-      "preset": {
-        "week": "بعد أسبوع",
-        "month": "بعد شهر",
-        "threeMonths": "بعد ثلاثة أشهر"
-      }
-    },
-    "payments": {
-      "errorAmount": "أدخل المبلغ المُسدَّد.",
-      "removeTitle": "حذف هذه الدفعة؟",
-      "removeBody": "سيرتفع المبلغ المتبقي للسداد مجددًا. لا يمكن التراجع عن ذلك."
-    },
-    "wasiyyah": {
-      "nameRequired": "أضف اسمك للمتابعة.",
-      "reviewTitle": "راجِع كل قسم",
-      "summary": {
-        "nameMissing": "اسمك غير مكتوب",
-        "selected": "تم اختيار {{done}} من {{total}}",
-        "confirmed": "تم تأكيد {{done}} من {{total}}",
-        "none": "لم يُضَف شيء",
-        "added": "المُضاف: {{total}}",
-        "snapshot": "حساب المواريث مرفق (للتوضيح)",
-        "noSnapshot": "لا يوجد حساب مرفق (اختياري)",
-        "named": "تمت تسمية {{done}} من {{total}}",
-        "dateInvalid": "تعذّرت قراءة التاريخ"
-      },
-      "draftNote": "لديك مسودة غير مكتملة. تابع من حيث توقفت.",
-      "discardTitle": "حذف المسودة؟",
-      "discardBody": "ستُحذف التغييرات التي لم تحفظها كنسخة. وصيتك المحفوظة تبقى كما هي.",
-      "dateBlocked": "صحّح التاريخ في «عنك» قبل الحفظ."
-    },
-    "muhasabah": {
-      "customAddedOff": "أُضيف السؤال. لديك {{max}} أسئلة مفعّلة بالفعل، فأوقف أحدها لاستخدامه.",
-      "retentionTitle": "حذف المراجعات الأقدم؟",
-      "retentionBody_zero": "{{count}} مراجعة محفوظة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
-      "retentionBody_one": "مراجعة محفوظة واحدة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
-      "retentionBody_two": "مراجعتان محفوظتان أقدم من هذه المدة وستُحذفان الآن. لا يمكن التراجع عن ذلك.",
-      "retentionBody_few": "{{count}} مراجعات محفوظة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
-      "retentionBody_many": "{{count}} مراجعةً محفوظة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
-      "retentionBody_other": "{{count}} مراجعة محفوظة أقدم من هذه المدة وستُحذف الآن. لا يمكن التراجع عن ذلك.",
-      "retentionConfirm": "احذف وغيّر",
-      "clearNotesTitle": "حذف الملاحظات المحفوظة أيضًا؟",
-      "clearNotesBody_one": "مراجعة محفوظة واحدة ما زالت تحتوي على ملاحظة توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
-      "clearNotesBody_other": "{{count}} مراجعة محفوظة ما زالت تحتوي على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
-      "clearNotesConfirm": "احذف الملاحظات",
-      "clearNotesKeep": "أبقِها",
-      "clearNotesDone": "حُذفت ملاحظات التوبة",
-      "clearNotesBody_zero": "{{count}} مراجعة محفوظة ما زالت تحتوي على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
-      "clearNotesBody_two": "مراجعتان محفوظتان ما زالتا تحتويان على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
-      "clearNotesBody_few": "{{count}} مراجعات محفوظة ما زالت تحتوي على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت.",
-      "clearNotesBody_many": "{{count}} مراجعةً محفوظة ما زالت تحتوي على ملاحظات توبة. هل تحذف الكلمات الآن؟ يبقى ما يدل على أنك تبت."
-    },
-    "familyTies": {
-      "digestAfterDhuhr": "بعد صلاة الظهر",
-      "notFound": "هذا القريب لم يعد في قائمتك.",
-      "phoneInvalid": "يبدو هذا الرقم قصيرًا جدًا للاتصال أو المراسلة."
-    },
-    "mirath": {
-      "highlightHint": "الورثة المميَّزون يأخذون نصيبًا مختلفًا في مذهب آخر."
-    },
-    "undo": "تراجع",
-    "debts": {
-      "selectTitle": "اختر سجلًا",
-      "selectBody": "اختر سجلًا من القائمة لعرض تفاصيله، أو أضف سجلًا جديدًا."
-    }
-  },
   "settingsSubgroups": {
     "salah": {
       "title": "الصلاة والأذان",
@@ -11383,7 +11778,8 @@
       },
       "progress": "{{done}} من {{total}}",
       "handsFreeHint": "شغِّل العدّ بدون لمس مرة واحدة — ينتقل معك من ذكر إلى ذكر. اضغط لتصحيح أي خطأ في العدّ.",
-      "doneBody": "سُجِّل تسبيح دبر الصلاة لصلاة {{prayer}}."
+      "doneBody": "سُجِّل تسبيح دبر الصلاة لصلاة {{prayer}}.",
+      "settings": "إعدادات التسلسل"
     }
   },
   "reciteToFind": {
@@ -11495,6 +11891,150 @@
       "milestones": "الإنجازات",
       "privacy": "خاصة بك — لا تُقارَن ولا تُشارَك أبدًا.",
       "open": "افتح التدرّب"
+    }
+  },
+  "uiField": {
+    "errorPrefix": "خطأ",
+    "optional": "اختياري",
+    "choose": "اختر",
+    "chooseDate": "اختر تاريخًا",
+    "clearDate": "مسح التاريخ",
+    "counter": "{{current}} من {{max}} حرفًا",
+    "dateInvalid": "أدخل تاريخًا صالحًا، مثل {{example}}.",
+    "dateBefore": "اختر {{date}} أو بعده.",
+    "dateAfter": "اختر {{date}} أو قبله.",
+    "typeDateHint": "اكتب تاريخًا مثل {{example}} أو افتح التقويم."
+  },
+  "uiFeedback": {
+    "undo": "تراجع",
+    "loading": "جارٍ التحميل…",
+    "progress": "التقدّم",
+    "offline": "أنت غير متصل. تحقّق من اتصالك وحاول مرة أخرى.",
+    "loadFailed": "تعذّر التحميل. حاول مرة أخرى.",
+    "showingSavedCopy": "يتم عرض النسخة المحفوظة",
+    "actionFailed": "لم ينجح ذلك. حاول مرة أخرى.",
+    "typeToConfirm": "اكتب {{word}} للتأكيد",
+    "availableOnPhone": "متاح على هاتفك",
+    "availableOnPhoneBody": "افتح منيب تراكر على هاتفك أو جهازك اللوحي لاستخدام هذه الميزة.",
+    "availableInApp": "متاح في تطبيق الجوال",
+    "availableInAppBody": "ثبّت منيب تراكر على هاتفك أو جهازك اللوحي لاستخدام هذه الميزة.",
+    "numberBetween": "أدخل رقمًا من {{min}} إلى {{max}}",
+    "numberAtMost": "أدخل {{max}} أو أقل",
+    "numberAtLeast": "أدخل {{min}} أو أكثر"
+  },
+  "a11yProgress": {
+    "todaySalah": "صلاة اليوم",
+    "devotionLevel": "التقدّم في مستوى التفاني",
+    "qazaMadeUp": "الصلوات المقضية",
+    "qazaFasts": "أيام الصيام المقضية",
+    "khatm": "تقدّم الختمة",
+    "khatmToday": "ورد الختمة اليوم",
+    "rootOccurrences": "مواضع هذا الجذر",
+    "ramadanFasts": "صيام رمضان",
+    "quranRead": "آيات القرآن المقروءة",
+    "tour": "تقدّم الجولة",
+    "umrahSteps": "خطوات العمرة",
+    "zikrToday": "عدد الذكر اليوم",
+    "adhkarSession": "تقدّم جلسة الأذكار",
+    "reward": "تقدّم المكافأة",
+    "holdToUnlock": "اضغط مطولًا لإلغاء القفل",
+    "rites": "المناسك المكتملة",
+    "dailyTasks": "مهام اليوم",
+    "setup": "تقدّم الإعداد",
+    "quiz": "تقدّم الاختبار",
+    "modelDownload": "تنزيل النموذج",
+    "micLevel": "مستوى الميكروفون",
+    "calibration": "معايرة الصوت",
+    "wasiyyahSteps": "خطوات الوصية",
+    "topicsCompleted": "المواضيع المكتملة"
+  },
+  "webShell": {
+    "skipToContent": "تخطَّ إلى المحتوى",
+    "primaryNavigation": "القائمة الرئيسية"
+  },
+  "tvFinance": {
+    "hiddenTitle": "الأدوات المالية متوقفة على هذا التلفاز",
+    "hiddenBody": "تبقى المبالغ خاصة على الشاشة المشتركة. لاستخدام هذه الأداة هنا، فعّل الإعدادات › الأجهزة والتكاملات › إظهار الأدوات المالية."
+  },
+  "learnKit": {
+    "toolsTitle": "أدوات",
+    "progressCount": "{{completed}} من {{total}}",
+    "loadFailed": "تعذّر تحميل هذا الدرس. تحقّق من اتصالك وحاول مرة أخرى.",
+    "quizEmptyTitle": "لا يوجد اختبار لهذا الدليل بعد",
+    "quizEmptyBody": "اقرأ دروس هذا الدليل — سيظهر اختبار المراجعة هنا عند إضافته.",
+    "backToGuide": "العودة إلى الدليل",
+    "quoted": "«{{text}}»",
+    "tafsirNote": "التفسير: {{text}}",
+    "glossarySearchPlaceholder": "ابحث في المصطلحات",
+    "glossaryClearSearch": "مسح البحث"
+  },
+  "oauth": {
+    "signingIn": "جارٍ تسجيل دخولك…"
+  },
+  "qiblaStyles": {
+    "sheetTitle": "نمط البوصلة",
+    "sheetSubtitle": "اختر مظهر بوصلة القبلة. الاتجاه واحد في كل الأنماط.",
+    "settingSubtitle": "اختر شكل بوصلة القبلة",
+    "openButton": "تغيير نمط البوصلة",
+    "keywords": "قبلة, بوصلة, كعبة, اتجاه, قرص, تصميم, نمط, مظهر",
+    "designs": {
+      "classic": {
+        "name": "كلاسيكي",
+        "desc": "القرص الأصلي بحلقات ناعمة والاتجاهات الأصلية والكعبة على الحافة."
+      },
+      "minimal": {
+        "name": "بسيط",
+        "desc": "حلقة رفيعة ورقم كبير: زاوية القبلة، أو الدرجات المتبقية للالتفات."
+      },
+      "mariner": {
+        "name": "بحّار",
+        "desc": "وردة رياح بحرية بستة عشر رأسًا ومسار متقطع إلى الكعبة."
+      },
+      "precision": {
+        "name": "دقيق",
+        "desc": "مقياس درجات دقيق مرقّم كل ٣٠°، مع علامة تقاطع وخط اتجاه ثابت."
+      },
+      "astrolabe": {
+        "name": "أسطرلاب",
+        "desc": "حلقات نحاسية ومؤشرات نجوم مستوحاة من الأسطرلابات الإسلامية الكلاسيكية."
+      },
+      "mihrab": {
+        "name": "محراب",
+        "desc": "نجمة ثمانية في إطار مزخرف، وقوس محراب يحدد القبلة."
+      },
+      "radar": {
+        "name": "رادار",
+        "desc": "حلقات مدى وشعاع دوّار، والكعبة هي الهدف المرصود."
+      },
+      "night": {
+        "name": "سماء الليل",
+        "desc": "سماء مرصعة بالنجوم تتلألأ فيها الكعبة كألمع نجم."
+      },
+      "arrow": {
+        "name": "سهم عريض",
+        "desc": "سهم واحد كبير على قرص عالي التباين — الأسهل قراءةً بنظرة واحدة."
+      }
+    }
+  },
+  "appIcon": {
+    "title": "أيقونة التطبيق",
+    "subtitle": "غيّر أيقونة الشاشة الرئيسية مع المواسم الإسلامية",
+    "keywords": "أيقونة التطبيق, أيقونة, الشاشة الرئيسية, موسمية, رمضان, عيد, حج",
+    "mode": {
+      "seasonal": "موسمية",
+      "seasonalHint": "تتغير مع رمضان والعيدين وذي الحجة ورأس السنة الهجرية",
+      "classic": "الكلاسيكية"
+    },
+    "showingNow": "المعروضة الآن: {{name}}",
+    "next": "التالية: {{name}} ابتداءً من {{date}}",
+    "noteIos": "يعرض iOS رسالة قصيرة كلما تغيّرت الأيقونة.",
+    "noteAndroid": "تظهر الأيقونة الجديدة بعد مغادرة التطبيق. إذا اختفت من الشاشة الرئيسية فأضفها مجددًا من قائمة التطبيقات.",
+    "offer": {
+      "title": "أيقونة موسمية: {{name}}",
+      "body": "يمكن أن تتغير أيقونة الشاشة الرئيسية مع المواسم الإسلامية، ويمكنك الرجوع عن ذلك في أي وقت من الإعدادات.",
+      "accept": "استخدم الأيقونات الموسمية",
+      "dismiss": "ليس الآن",
+      "applied": "تم تفعيل الأيقونات الموسمية"
     }
   }
 }

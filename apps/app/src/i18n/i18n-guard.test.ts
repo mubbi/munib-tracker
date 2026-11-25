@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { LOCALE_REGISTRY } from "@munib-tracker/shared/i18n";
+import { isScriptureMeaningCatalogKey, LOCALE_REGISTRY } from "@munib-tracker/shared/i18n";
 import en from "./en.json";
 
 /**
@@ -59,6 +59,86 @@ const BANNED_TERMS: Array<{ re: RegExp; use: string }> = [
   { re: /\btaraweeh\b/i, use: "tarawih" },
 ];
 
+// D-UX8: British spellings that must not appear in en.json (American English UI).
+// Whole words only; stems cover the inflected forms (colours, practised, organising…).
+const BRITISH_SPELLING = new RegExp(
+  `\\b(${[
+    "(?:dis)?colour\\w*",
+    "favour\\w*",
+    "honour\\w*",
+    "behaviour\\w*",
+    "neighbour\\w*",
+    "labour\\w*",
+    "humour\\w*",
+    "flavour\\w*",
+    "endeavour\\w*",
+    "rumour\\w*",
+    "armour\\w*",
+    "centre[sd]?",
+    "(?:kilo|centi|milli)?metres?",
+    "litres?",
+    "theatres?",
+    "fibres?",
+    "licences?",
+    "defence",
+    "offence",
+    "programmes?",
+    "practis(?:e|es|ed|ing)",
+    "organis\\w*",
+    "recognis\\w*",
+    "realis(?:e|es|ed|ing|ation)",
+    "apologis\\w*",
+    "prioritis\\w*",
+    "personalis\\w*",
+    "customis\\w*",
+    "categoris\\w*",
+    "memoris\\w*",
+    "summaris\\w*",
+    "minimis\\w*",
+    "maximis\\w*",
+    "optimis(?:e|es|ed|ing|ation)",
+    "synchronis\\w*",
+    "finalis\\w*",
+    "emphasis(?:e|es|ed|ing)",
+    "analys(?:e|es|ed|ing)",
+    "paralys(?:e|es|ed|ing)",
+    "catalogue\\w*",
+    "dialogues?",
+    "analogue",
+    "grey\\w*",
+    "cancell(?:ed|ing)",
+    "travell(?:ed|ing|ers?)",
+    "modell(?:ed|ing)",
+    "labell(?:ed|ing)",
+    "levell(?:ed|ing)",
+    "fuell(?:ed|ing)",
+    "signall(?:ed|ing)",
+    "counsell\\w*",
+    "judgement\\w*",
+    "acknowledgement\\w*",
+    "instalments?",
+    "fulfils",
+    "fulfilment",
+    "enrolment",
+    "skilful\\w*",
+    "whilst",
+    "amongst",
+    "learnt",
+    "spelt",
+    "cheques?",
+    "jewellery",
+    "tyres?",
+    "ageing",
+    "cosy",
+    "sceptic\\w*",
+    "manoeuvr\\w*",
+    "aluminium",
+    "enquir\\w*",
+    "towards",
+  ].join("|")})\\b`,
+  "gi",
+);
+
 describe("i18n terminology (English source)", () => {
   it("uses standardized Islamic transliterations", () => {
     const offenders: string[] = [];
@@ -73,6 +153,30 @@ describe("i18n terminology (English source)", () => {
         if (re.test(value)) offenders.push(`${path}: use "${use}" — "${value.slice(0, 70)}"`);
       }
     }
+    expect(offenders).toEqual([]);
+  });
+
+  // D-UX8: the English UI uses American spelling. Scripture meaning text (D45) and the
+  // settings-search synonyms (people type "colour") are exempt.
+  it("uses American spelling (D-UX8)", () => {
+    const offenders: string[] = [];
+    for (const [path, value] of enLeaves) {
+      if (isScriptureMeaningCatalogKey(path) || path.startsWith("settingsPanel.kw.")) continue;
+      const hits = value.match(BRITISH_SPELLING);
+      if (hits) offenders.push(`${path}: ${hits.join(", ")} — "${value.slice(0, 70)}"`);
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  // D-UX9: one word for the saved concept — "Save" / "Saved" (bookmark icon), never
+  // "favorite", and no "tap the star/heart" hints for saving.
+  it('uses "Save / Saved" for the saved concept (D-UX9)', () => {
+    const offenders = enLeaves
+      .filter(([path]) => !path.startsWith("settingsPanel.kw."))
+      .filter(
+        ([, value]) => /\bfavou?rit/i.test(value) || /\bthe (star|heart) (to|on)\b/i.test(value),
+      )
+      .map(([path, value]) => `${path}: "${value.slice(0, 70)}"`);
     expect(offenders).toEqual([]);
   });
 
@@ -138,10 +242,11 @@ const LATIN_OK_KEYS =
 // Quran Tilawa Tanzil TajweedFormer: project/model names credited in Qur'an practice
 // (Quran Lab, the Tilawa project, Tanzil text, Quran.com, the TajweedFormer model).
 // OpenStreetMap: the masjid finder's data source, named in its ODbL attribution (NF-3.11).
+// OpenFreeMap: the masjid map's tile server, named in the map privacy note (it sees the area shown).
 // FastConformer: the pronunciation-check speech model; jsDelivr: the public CDN named in the
 // timetable-import web download disclosure (privacy: users see which third party serves data).
 const LATIN_OK_WORDS = new Set(
-  "OpenStreetMap FastConformer jsDelivr Quran Tilawa Tanzil TajweedFormer Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV JPEG WebP ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet Siri Shortcuts Assistant Watch Wear TestFlight Store Salah EAS Qur'an Jumu'ah Bukhari Muslim Pickthall DELETE Fidyah Kaffarah Janazah Sadaqah Hisnul Maryam Imran Negus".split(
+  "OpenStreetMap OpenFreeMap FastConformer jsDelivr Quran Tilawa Tanzil TajweedFormer Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV JPEG WebP ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet Siri Shortcuts Assistant Watch Wear TestFlight Store Salah EAS Qur'an Jumu'ah Bukhari Muslim Pickthall DELETE Fidyah Kaffarah Janazah Sadaqah Hisnul Maryam Imran Negus".split(
     " ",
   ),
 );
