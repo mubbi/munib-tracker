@@ -145,7 +145,7 @@ async function main() {
   // otherwise be the first scene's screenshot.
   log("Warm-up launch…");
   launchWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
-  waitForWatchScreenToSettle({ udid: watchUdid });
+  waitForWatchScreenToSettle({ udid: watchUdid, timeoutMs: 25_000 });
   forceStopWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
 
   fs.mkdirSync(WORK_DIR, { recursive: true });
@@ -169,8 +169,10 @@ async function main() {
       log("Launching watch app…");
       forceStopWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
       launchWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
-      if (!waitForWatchScreenToSettle({ udid: watchUdid })) {
-        throw new Error("watch screen never settled (still on the launch spinner?)");
+      // Scenes with a live countdown never hold two identical frames, so a timeout is
+      // not fatal — the cap (~25s) is well past a cold start. Review the PNGs.
+      if (!waitForWatchScreenToSettle({ udid: watchUdid, timeoutMs: 25_000 })) {
+        warn(`${scene.id}: screen still changing after 25s (live countdown?) — capturing anyway`);
       }
 
       const nativeOut = path.join(NATIVE_WATCH_ROOT, `${scene.id}.png`);

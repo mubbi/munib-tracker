@@ -222,9 +222,9 @@ export function forceStopWatchApp({ udid, bundleId }) {
 }
 
 /**
- * Wait until the watch screen stops changing: the launch spinner animates frame to
- * frame, a loaded page is static (apart from the minute clock). A fixed wait either
- * wasted time or, with 2.5–15s cold starts, captured the spinner.
+ * Wait until the watch screen stops changing (or `timeoutMs`): the launch spinner
+ * animates frame to frame, most loaded pages are static. A fixed 2.5s wait captured
+ * the spinner on 6–15s cold starts. Returns false on timeout (e.g. a live countdown).
  */
 export function waitForWatchScreenToSettle({ udid, timeoutMs = 60_000, intervalMs = 1_500 }) {
   const probe = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "watch-settle-")), "probe.png");
