@@ -79,6 +79,12 @@ describe("PrayerTimesHero strip width (no mid-word breaks)", () => {
     await renderHero("card");
     await layoutStrip(340); // ~57dp per slot: "Maghri / b", "17:3 / 7"
     expect(wrapped()).toBe(true);
+    // Cells must not shrink back onto one row (flex: 1 implies flexShrink 1).
+    const cells = screen.container.queryAll(
+      (node) => node.props.style != null && flattenStyle(node.props.style).flexBasis === "30%",
+    );
+    expect(cells.length).toBeGreaterThanOrEqual(PRAYERS.length);
+    for (const cell of cells) expect(flattenStyle(cell.props.style).flexShrink).toBe(0);
   });
 
   it("keeps a roomy dashboard card on one row", async () => {

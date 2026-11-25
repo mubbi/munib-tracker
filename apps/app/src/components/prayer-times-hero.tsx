@@ -1001,6 +1001,9 @@ const styles = StyleSheet.create({
   },
   prayerItemWrap: {
     flexGrow: 1,
+    // `flex: 1` on the cell also sets flexShrink 1, which squeezed all six cells
+    // onto one row (names and times broke mid-word) instead of wrapping three per row.
+    flexShrink: 0,
     flexBasis: "30%",
   },
   prayerItem: {
