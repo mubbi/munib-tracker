@@ -1,0 +1,29 @@
+diff --git a/build/platforms/apple/moduleScanner.js b/build/platforms/apple/moduleScanner.js
+index 093a8f5a3bf5c7b0578b64ea112e9606d201779b..97191d46f99c56f77ea22d323ac732b0069ba5ed 100644
+--- a/build/platforms/apple/moduleScanner.js
++++ b/build/platforms/apple/moduleScanner.js
+@@ -136,8 +136,10 @@ async function scanExpoModulesAsync(scanner, packageRoots) {
+     }
+     let output;
+     try {
++        // Munib patch: 5s was too short for this monorepo on a busy machine and failed the
++        // build ("scan-modules timed out after 5000 ms"). Override: EXPO_MODULE_SCAN_TIMEOUT_MS.
+         output = await scanner.scanModules(roots, {
+-            timeout: 5000
++            timeout: Number(process.env.EXPO_MODULE_SCAN_TIMEOUT_MS) || 30000
+         });
+     } catch (error) {
+         console.warn(`warning: Scanning for Expo modules failed, only modules declared in expo-module.config.json will be linked: ${error.message ?? error}`);
+diff --git a/src/platforms/apple/moduleScanner.ts b/src/platforms/apple/moduleScanner.ts
+index ede2607f0bff9a96a98ccaecacb6047467d947d0..f75faa9b9d00a149c5014cad71c303a74b7647fa 100644
+--- a/src/platforms/apple/moduleScanner.ts
++++ b/src/platforms/apple/moduleScanner.ts
+@@ -150,7 +150,7 @@ export async function scanExpoModulesAsync(
+ 
+   let output: ScanModulesOutput;
+   try {
+-    output = await scanner.scanModules(roots, { timeout: 5000 });
++    output = await scanner.scanModules(roots, { timeout: Number(process.env.EXPO_MODULE_SCAN_TIMEOUT_MS) || 30000 });
+   } catch (error: any) {
+     console.warn(
+       `warning: Scanning for Expo modules failed, only modules declared in expo-module.config.json will be linked: ${error.message ?? error}`
