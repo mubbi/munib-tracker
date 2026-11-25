@@ -42,6 +42,7 @@ import {
   resolveWatchSimulatorUdid,
   WATCH,
   WATCH_BUNDLE_ID,
+  waitForWatchScreenToSettle,
   writeWatchSnapshot,
 } from "./lib/inject-watch-snapshot.mjs";
 import { log, run, sleep, warn } from "./lib/shell.mjs";
@@ -144,7 +145,7 @@ async function main() {
   // otherwise be the first scene's screenshot.
   log("Warm-up launch…");
   launchWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
-  sleep(WATCH.settleMs);
+  waitForWatchScreenToSettle({ udid: watchUdid });
   forceStopWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
 
   fs.mkdirSync(WORK_DIR, { recursive: true });
@@ -168,6 +169,9 @@ async function main() {
       log("Launching watch app…");
       forceStopWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
       launchWatchApp({ udid: watchUdid, bundleId: WATCH_BUNDLE_ID });
+      if (!waitForWatchScreenToSettle({ udid: watchUdid })) {
+        throw new Error("watch screen never settled (still on the launch spinner?)");
+      }
 
       const nativeOut = path.join(NATIVE_WATCH_ROOT, `${scene.id}.png`);
       log(`Capturing → ${nativeOut}`);
