@@ -2,7 +2,7 @@
 
 Read the exact versioned docs at https://docs.expo.dev/versions/v58.0.0/ before writing any code.
 
-Stack: Expo `~58.0.26` on `react-native-tvos@0.88.1-0`, React 19.3, TypeScript 6 (`@typescript/typescript6`), Jest 30 + `@testing-library/react-native` 14 (`await render(...)` / `await act(...)`). Node `>=24.15` (`.nvmrc` 24), pnpm 12.
+Stack: Expo `~58.1.0` on `react-native-tvos@0.88.1-0`, React 19.3, TypeScript 6 (`@typescript/typescript6`), Jest 30 + `@testing-library/react-native` 14 (`await render(...)` / `await act(...)`). Node `>=24.15` (`.nvmrc` 24), pnpm 12.
 
 ## SDK 58 / RN 0.88 conventions
 
