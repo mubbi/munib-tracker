@@ -1,15 +1,15 @@
 {
   "meta": {
     "title": "Terms of Service",
-    "description": "The terms for using the Munib Tracker app and website, including the non-commercial licence, the religious content disclaimer and your responsibilities."
+    "description": "The terms for using the Munib Tracker app and website: the non-commercial licence, religious and practical disclaimers, circles, the private vault and your responsibilities."
   },
   "eyebrow": "Legal",
   "title": "Terms of Service",
   "intro": "By using {appName}, you agree to these terms.",
-  "effectiveDate": "Effective date: 10 July 2026",
+  "effectiveDate": "Effective date: 26 November 2026",
   "service": {
     "heading": "The service",
-    "body": "{appName} is a free worship companion for personal and educational use on iOS, Android, and web. It is provided by {author}. Features include Salah and Qaza tracking, Zikr, Qur'an and hadith libraries, learning content, prayer times, reminders, optional cloud sync, and related tools described on our <features>Features</features> page."
+    "body": "{appName} is a free worship companion for personal and educational use on iPhone, iPad, Android, the web, Apple Watch, Wear OS, Apple TV and Android TV. It is provided by {author}. Features include Salah and Qaza tracking, Zikr, Qur'an and hadith libraries, Qur'an practice, learning content, prayer times, reminders, family and group circles, a private vault, optional cloud sync, and related tools described on our <features>Features</features> page."
   },
   "use": {
     "heading": "Personal & educational use",
@@ -19,9 +19,21 @@
     "heading": "Accounts",
     "body": "Guest mode requires no account. If you sign in with Google, Apple or Facebook, you are responsible for keeping access to that provider account secure. You must not impersonate others or attempt to access another user's synced data. We may suspend or terminate accounts that abuse the service, attempt unauthorized access, or submit malicious content reports."
   },
+  "circles": {
+    "heading": "Circles, partners & kids mode",
+    "body": "When you use family circles, accountability partners or a group khatm, choose display names and nudges that are respectful, and invite only people who agree to join. Don't use circles to pressure, monitor or embarrass anyone: they share only the small signals described in the Privacy Policy. A parent or guardian who sets up kids mode confirms they may give consent for the child and is responsible for supervising the child's use, the devices they link, and unlinking them when needed. We may remove circles, names or invites that abuse these features."
+  },
+  "vault": {
+    "heading": "Your private vault & backups",
+    "body": "Vault sync is end-to-end encrypted, so only you hold the key. Keep your passphrase and 24-word recovery code safe: if you lose both, nobody — including us — can recover the synced vault, and we can't reset it for you. You are also responsible for backups you export and for sharing, printing or deleting documents you create, such as a will or debts statement."
+  },
   "disclaimer": {
     "heading": "Religious content disclaimer",
     "body": "Calculators and estimates (such as lifetime Qaza and missed-fast estimates), fiqh guides, and learning lessons are aids for education — not fatwas. For rulings specific to your situation, consult a qualified scholar. We strive for accuracy and cite open sources (see <credits>Credits</credits>), but the app is not a substitute for scholarly guidance. Scripture text and translations remain subject to their original licenses and attributions."
+  },
+  "practical": {
+    "heading": "Wills, calculators & practical tools",
+    "body": "The wasiyyah (will) builder helps you write down your wishes; it is not a legal document by itself and is not legal advice. To make a will effective, have it executed, witnessed and, where needed, registered under the law where you live, and ask a qualified scholar or lawyer about your situation. The inheritance, zakat and fidyah calculators, Qaza and fasting estimates and the debts and trusts record are aids, not legal, tax, financial or religious rulings. Masjid locations come from OpenStreetMap and Geoapify and may be incomplete or out of date; iqamah times and scanned timetables are entered or checked by you. The Salah focus lock pauses apps only because you choose to — keep its emergency unlock in mind, and don't rely on it, reminders or Live Activities where missing an alert could cause harm."
   },
   "ip": {
     "heading": "Intellectual property",
@@ -30,6 +42,10 @@
   "privacy": {
     "heading": "Privacy",
     "body": "How we handle personal data is described in our <privacy>Privacy Policy</privacy>, which forms part of these terms."
+  },
+  "thirdParty": {
+    "heading": "Third-party services & app stores",
+    "body": "Some optional features rely on other services — for example sign-in with Google, Apple or Facebook, Quran Lab's pronunciation listener, maps, weather and push delivery — and their own terms and policies also apply when you use them. If you install the app from the App Store or Google Play, their terms apply to your download and device, and Apple or Google are not responsible for the app or its support. On iOS, Apple's standard licensed application end user licence agreement applies alongside these terms."
   },
   "warranty": {
     "heading": "No warranty",

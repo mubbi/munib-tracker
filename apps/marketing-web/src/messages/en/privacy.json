@@ -1,19 +1,19 @@
 {
   "meta": {
     "title": "Privacy Policy",
-    "description": "How Munib Tracker handles your data: guest data stays on your device, optional sync, the encrypted vault, family circles, location, Qur'an practice audio and analytics."
+    "description": "How Munib Tracker handles your data: guest data stays on your device, optional sync, the encrypted vault, circles, location, widgets and watches, Qur'an practice audio, analytics and your rights."
   },
   "eyebrow": "Legal",
   "title": "Privacy Policy",
   "intro": "{appName} is built to protect your privacy. Your worship data belongs to you.",
-  "effectiveDate": "Effective date: 24 November 2026",
+  "effectiveDate": "Effective date: 26 November 2026",
   "whoWeAre": {
     "heading": "Who we are",
-    "body": "{appName} is provided by {author}. This policy covers the mobile and web product app and this marketing website ( <nowrap>munibtracker.app</nowrap>). Questions: use our <contact>contact form</contact>."
+    "body": "{appName} is provided by {author}. This policy covers the mobile and web product app and this marketing website (<nowrap>munibtracker.app</nowrap>). Questions: use our <contact>contact form</contact>."
   },
   "device": {
     "heading": "Data stored on your device",
-    "body": "By default, all of your tracking and learning data stays on your device. That includes Salah logs, Zikr and tasbeeh counts, Qaza and fasting records, Qur'an and hadith bookmarks, ayah notes and highlights, reading progress, favorites, custom adhkar, khushu' journal entries, preferences (theme, language, fonts, notifications, home layout, madhhab, Hijri adjustment), and optional PIN lock settings. Guest mode works fully without an account. The weekly coach works out its suggestions on your device from these records with simple rules; nothing is sent to a server or to an AI service to do it."
+    "body": "By default, all of your tracking and learning data stays on your device. That includes Salah logs, Zikr and tasbeeh counts, Qaza and fasting records, Qur'an and hadith bookmarks, ayah notes and highlights, reading progress, favorites, custom adhkar, khushu' journal entries, preferences (theme, language, fonts, notifications, home layout, madhhab, Hijri adjustment), and optional PIN lock settings. Guest mode works fully without an account. The weekly coach works out its suggestions on your device from these records with simple rules; nothing is sent to a server or to an AI service to do it. On the web app, the same records are kept in your browser's storage for this site."
   },
   "location": {
     "heading": "Location",
@@ -34,6 +34,11 @@
     "heading": "Salah focus lock",
     "body": "The Salah focus lock is optional. If you turn it on, the apps you choose to pause stay on your device. On iPhone they are kept by Apple's Screen Time framework as private tokens we cannot read. On Android the app checks which app is open (using usage access) only while one of your prayer windows is running, and never stores or sends that information. Your focus-lock settings (which prayers, timing and mode) sync with your account like other preferences; your app choices and emergency-unlock history do not."
   },
+  "surfaces": {
+    "heading": "Widgets, watches, Siri & Live Activities",
+    "body": "Home-screen and lock-screen widgets, Siri and Google Assistant shortcuts, and the Apple Watch and Wear OS companions show a small snapshot — such as today's Salah times, which Salah are logged and simple counts. The app shares it with the system on your device and, for a watch, sends it from your phone to your paired watch through Apple's or Google's watch connection, not through our server. Marking a Salah from a widget, a shortcut or your watch updates the app on your phone.",
+    "live": "Live Activities on iPhone and Live Updates on Android can be kept current by our server through Apple's or Google's push service. For that we store the activity's push token (encrypted on iPhone) and schedule updates that carry only the Salah names and times already shown on your screen. They stop when the activity ends or expires."
+  },
   "vault": {
     "heading": "Private vault: muhasabah, family ties, debts & will",
     "body": "Your nightly muhasabah, family-ties list (including the names and phone numbers of relatives you add), debts and trusts record, and Islamic will are kept in an encrypted vault on your device (AES-256-GCM, with the key held in your device's secure storage, or as a browser key that can't be exported on the web). They are not synced unless you turn on vault sync.",
@@ -44,7 +49,8 @@
   "circles": {
     "heading": "Family circles, partners & group khatm",
     "body": "Family circles and accountability partners need a free account, because members see shared progress through our server. A group khatm can also be joined as a guest on the web. Each circle stores only a small, fixed signal: a child's five fard Salah statuses (done or not) and generic rest days, for their parents; a daily \"done\" for an accountability partner (never your goal or what you missed); and which khatm part each member is reading and when it is done. The server rejects any other field, so your notes, Qaza, journals and goals can't be shared through a circle. A parent's own Salah is never shared, and adults in a family share nothing unless they turn sharing on.",
-    "members": "Members see the display name you choose for each circle, never your account name or email. A partner's dua or reminder nudge is anonymous. Daily signals are deleted after 90 days and nudges after 30 days. When you leave a circle, you are hidden at once and your signals and membership are deleted after 30 days. Deleting your account removes your circle data; circles you own pass to another member or are dissolved."
+    "members": "Members see the display name you choose for each circle, never your account name or email. A partner's dua or reminder nudge is anonymous. Daily signals are deleted after 90 days and nudges after 30 days. When you leave a circle, you are hidden at once and your signals and membership are deleted after 30 days. Deleting your account removes your circle data; circles you own pass to another member or are dissolved.",
+    "nearby": "To join a circle in person, the host's phone can briefly advertise an invite over Bluetooth while the join screen is open. Your phone needs Bluetooth permission to find it, you confirm a 4-digit code, and the host approves each request. Nothing personal is advertised: only a random session ID that expires within 10 minutes. You can also join by scanning a QR code with the camera (read on your device, never stored) or by typing a code."
   },
   "notifications": {
     "heading": "Notifications",
@@ -53,7 +59,8 @@
   },
   "account": {
     "heading": "Optional account & cloud sync",
-    "body": "If you sign in with Google, Apple or Facebook, we store the minimum needed to sync across devices: an account identifier, email and display name from the provider (when provided), and the worship and learning records you choose to sync (for example prayer logs, zikr progress, Qaza, preferences, favorites, bookmarks, ayah notes and highlights, khatm/hifz, custom adhkar, and learning progress). Vault records, your excused periods and your khushu' journal sync only end-to-end encrypted, as described above. We do not sell your data or use it for advertising."
+    "body": "If you sign in with Google, Apple or Facebook, we store the minimum needed to sync across devices: an account identifier, email and display name from the provider (when provided), and the worship and learning records you choose to sync (for example prayer logs, zikr progress, Qaza, preferences, favorites, bookmarks, ayah notes and highlights, khatm/hifz, custom adhkar, and learning progress). Vault records, your excused periods and your khushu' journal sync only end-to-end encrypted, as described above. We do not sell your data or use it for advertising.",
+    "guest": "When you first open the app it creates a random installation ID (not your name, email or a hardware identifier) and registers it with our server as a guest session, so it can receive service announcements and, if you allow them, notifications. Guests never sync worship data: our server refuses sync from guest sessions. Signing out keeps your local data on the device and starts a new guest session."
   },
   "appLock": {
     "heading": "App lock (PIN & biometrics)",
@@ -64,12 +71,14 @@
     "body": "You can export a local JSON backup and restore it later, import Salah history from CSV or JSON, and download optional Qur'an editions, mushaf fonts, hadith collections, or audio for offline use. Exports you share leave your device under your control. Cached downloads stay on-device until you clear them."
   },
   "reports": {
-    "heading": "Content reports",
-    "body": "If you report a content error from the app, we receive the details you submit (and any optional attachments) so we can investigate and correct the material. Use reports only for genuine accuracy issues."
+    "heading": "Feedback, content reports & diagnostics",
+    "body": "If you report a content error from the app, we receive the details you submit (and any optional attachments) so we can investigate and correct the material. Use reports only for genuine accuracy issues.",
+    "feedback": "If you send feedback from the app (a 1–5 rating and an optional message), we store it with the app version and your installation ID so we can improve the app. The rating prompt itself is shown by Apple or Google, and any store review you write goes to them, not to us.",
+    "diagnostics": "If an optional download (for example a Qur'an translation or a hadith collection) fails, the app reports which file and source failed and the error, so we can fix broken sources. These reports never include your worship data."
   },
   "thirdParty": {
     "heading": "Third-party services",
-    "body": "Depending on features you use, the app or site may contact: our API host for auth and sync; Google, Apple or Facebook for sign-in; Sentry for crash reports (without your worship data); open CDNs for optional Qur'an/hadith/audio content, a public GitHub copy of the Quranic Arabic Corpus for root-word search, a public Hugging Face mirror for speech-model files on the web, and a public CDN for the in-browser timetable reader (see <credits>Credits</credits>); OpenStreetMap, through our server, for the Masjid finder; and weather providers when overlays are enabled. The product app does not embed third-party advertising or behavioural-tracking SDKs."
+    "body": "Depending on the features you use, the app or this site may contact: our hosting providers — Vercel for the API and websites, a managed PostgreSQL database and a managed Redis cache for rate limits; Google, Apple or Facebook for sign-in; Sentry for crash reports (without your worship data); Cloudinary, which stores images you attach to custom adhkar or content reports; Apple's and Google's push services (through Expo's push service on Android), your browser's push service, and Upstash QStash, which schedules Live Activity and push updates; Geoapify and OpenStreetMap, through our server, for the Masjid finder; OpenFreeMap, which serves the map images when you open the optional map (it sees your IP address and the area shown); Google Maps, only when you choose to open directions there; BigDataCloud, Open-Meteo and MET Norway for place names, city search and weather; Quran Lab for the optional pronunciation listener; and open CDNs for optional Qur'an, hadith and audio content, a public GitHub copy of the Quranic Arabic Corpus for root-word search, a public Hugging Face mirror for speech-model files on the web, and a public CDN for the in-browser timetable reader (see <credits>Credits</credits>). The product app does not embed third-party advertising or behavioural-tracking SDKs."
   },
   "website": {
     "heading": "This marketing website",
@@ -82,7 +91,11 @@
   },
   "retention": {
     "heading": "Retention & deletion",
-    "body": "Local data remains until you clear app storage, restore a backup, or uninstall. Synced server records are retained while your account exists. You can delete synced data or your account from the app profile; deletion removes your synced records from our servers. Local copies on other devices may remain until you clear them."
+    "body": "Local data stays on your device until you reset the app, clear its storage or uninstall it; signing out keeps it. In Settings → Data & storage, Reset app data erases your synced records (on our server, and on your other devices at their next sync), your uploaded attachments and your server inbox, while keeping your account. Deleting your account (from your profile) deletes your synced records, sessions, push registrations, attachments, feedback, content reports and circle data. Your email, name, sign-in provider and device details are erased; we keep only an anonymous closed-account marker (a random ID with no personal data) so the closed account can't be signed in to again, and, separately, the reason you give for leaving if you choose to (with up to 500 characters of optional detail). Copies may remain in our database provider's backups until those backups expire. Otherwise synced records are kept while your account exists, and circle data follows the retention periods above."
+  },
+  "rights": {
+    "heading": "Your rights & choices",
+    "body": "You can see and export your data at any time with the app's JSON backup, correct it in the app, and delete it with Reset app data or by deleting your account. You can withdraw a permission (location, microphone, camera, Bluetooth, notifications) in your device settings, turn off sync or vault sync, and change cookie preferences for this site from the footer. We do not sell or share your personal information for advertising. Depending on where you live, you may have further rights (for example to object to processing or to complain to your data-protection authority); contact us through the <contact>contact form</contact> to exercise them."
   },
   "transfers": {
     "heading": "International transfers",

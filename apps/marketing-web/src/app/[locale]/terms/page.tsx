@@ -66,10 +66,22 @@ export default function TermsPage() {
         <p className="text-muted">{t("accounts.body")}</p>
       </ContentSection>
 
+      <ContentSection heading={t("circles.heading")}>
+        <p className="text-muted">{t("circles.body")}</p>
+      </ContentSection>
+
+      <ContentSection heading={t("vault.heading")}>
+        <p className="text-muted">{t("vault.body")}</p>
+      </ContentSection>
+
       <ContentSection heading={t("disclaimer.heading")}>
         <p className="text-muted">
           {t.rich("disclaimer.body", { credits: linkTo(SITE_PATHS.credits) })}
         </p>
+      </ContentSection>
+
+      <ContentSection heading={t("practical.heading")}>
+        <p className="text-muted">{t("practical.body")}</p>
       </ContentSection>
 
       <ContentSection heading={t("ip.heading")}>
@@ -82,6 +94,10 @@ export default function TermsPage() {
         <p className="text-muted">
           {t.rich("privacy.body", { privacy: linkTo(SITE_PATHS.privacy) })}
         </p>
+      </ContentSection>
+
+      <ContentSection heading={t("thirdParty.heading")}>
+        <p className="text-muted">{t("thirdParty.body")}</p>
       </ContentSection>
 
       <ContentSection heading={t("warranty.heading")}>

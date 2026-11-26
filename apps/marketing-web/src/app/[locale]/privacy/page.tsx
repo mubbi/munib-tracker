@@ -76,6 +76,11 @@ export default function PrivacyPage() {
         <p className="text-muted">{t("focusLock.body")}</p>
       </ContentSection>
 
+      <ContentSection heading={t("surfaces.heading")}>
+        <p className="text-muted">{t("surfaces.body")}</p>
+        <p className="mt-3 text-muted">{t("surfaces.live")}</p>
+      </ContentSection>
+
       <ContentSection heading={t("vault.heading")}>
         <p className="text-muted">{t("vault.body")}</p>
         <p className="mt-3 text-muted">{t("vault.excused")}</p>
@@ -86,6 +91,7 @@ export default function PrivacyPage() {
       <ContentSection heading={t("circles.heading")}>
         <p className="text-muted">{t("circles.body")}</p>
         <p className="mt-3 text-muted">{t("circles.members")}</p>
+        <p className="mt-3 text-muted">{t("circles.nearby")}</p>
       </ContentSection>
 
       <ContentSection heading={t("notifications.heading")}>
@@ -95,6 +101,7 @@ export default function PrivacyPage() {
 
       <ContentSection heading={t("account.heading")}>
         <p className="text-muted">{t("account.body")}</p>
+        <p className="mt-3 text-muted">{t("account.guest")}</p>
       </ContentSection>
 
       <ContentSection heading={t("appLock.heading")}>
@@ -107,6 +114,8 @@ export default function PrivacyPage() {
 
       <ContentSection heading={t("reports.heading")}>
         <p className="text-muted">{t("reports.body")}</p>
+        <p className="mt-3 text-muted">{t("reports.feedback")}</p>
+        <p className="mt-3 text-muted">{t("reports.diagnostics")}</p>
       </ContentSection>
 
       <ContentSection heading={t("thirdParty.heading")}>
@@ -124,6 +133,10 @@ export default function PrivacyPage() {
 
       <ContentSection heading={t("retention.heading")}>
         <p className="text-muted">{t("retention.body")}</p>
+      </ContentSection>
+
+      <ContentSection heading={t("rights.heading")}>
+        <p className="text-muted">{t.rich("rights.body", { contact })}</p>
       </ContentSection>
 
       <ContentSection heading={t("transfers.heading")}>
