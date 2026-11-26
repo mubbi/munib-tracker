@@ -266,7 +266,7 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/home.jpg",
+        "screenshot": "/screenshots/app/ipad/{locale}/home.jpg",
         "textElements": [
           {
             "id": "hero-badge",
@@ -302,7 +302,7 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/ipad/{locale}/tracker.jpg"
       },
       {
         "id": "mt-ipad-03",
@@ -317,7 +317,7 @@
           "ar": "أنجِ **القضاء**\nبوضوح",
           "ur": "**قضا** واضح\nطریقے سے"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/qaza.jpg",
+        "screenshot": "/screenshots/app/ipad/{locale}/qaza.jpg",
         "inverted": true
       },
       {
@@ -333,8 +333,8 @@
           "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
+        "screenshot": "/screenshots/app/ipad/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/ipad/{locale}/quran.jpg"
       },
       {
         "id": "mt-ipad-05",
@@ -349,7 +349,7 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/ipad/{locale}/qibla.jpg"
       },
       {
         "id": "mt-ipad-06",
@@ -364,7 +364,7 @@
           "ar": "الأسماء الحسنى\nمع **الصوت**",
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/names-of-allah.jpg",
+        "screenshot": "/screenshots/app/ipad/{locale}/names-of-allah.jpg",
         "inverted": true
       },
       {
@@ -380,7 +380,7 @@
           "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
           "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
+        "screenshot": "/screenshots/app/ipad/{locale}/tasbeeh.jpg",
         "inverted": true
       }
     ],
