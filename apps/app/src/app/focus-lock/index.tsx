@@ -130,7 +130,11 @@ export default function FocusLockScreen() {
             {!tv && hard && device.setupDone ? (
               <View style={styles.row}>
                 <ThemedText type="small" style={styles.flex}>
-                  {t("focusLock.setup.apps.count", { count: device.appsCount })}
+                  {device.appsCount <= 0
+                    ? t("focusLock.setup.apps.noneYet")
+                    : platform === "ios"
+                      ? t("focusLock.setup.apps.selectedItems", { count: device.appsCount })
+                      : t("focusLock.setup.apps.selectedApps", { count: device.appsCount })}
                 </ThemedText>
                 <Button
                   variant="ghost"

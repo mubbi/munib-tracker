@@ -1,4 +1,5 @@
 import { type MenuAction, MenuView } from "@expo/ui/community/menu";
+import type { SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -26,6 +27,14 @@ export type ContextMenuAction = {
   title: string;
   /** SF Symbol name shown beside the label on iOS (ignored off iOS). */
   systemIcon?: MenuAction["image"];
+  /**
+   * Cross-platform glyph (`{ ios, android, web }`) for when the action is drawn
+   * as a button rather than a menu row — e.g. `ContentActions` shows a lone
+   * extra action directly instead of behind "More". The iOS menu keeps `systemIcon`.
+   */
+  icon?: SymbolViewProps["name"];
+  /** Short caption for that button form (e.g. "Report"); defaults to `title`. */
+  shortTitle?: string;
   /** Renders the action in a destructive (red) style. */
   destructive?: boolean;
   disabled?: boolean;

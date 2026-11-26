@@ -26,13 +26,14 @@ import { onOff, updatePrefs } from "./helpers";
 
 const AccentEditor = editor("AccentEditor");
 const AppIconEditor = editor("AppIconEditor");
-const LibraryOrderEditor = editor("LibraryOrderEditor");
 const QiblaCompassStyleEditor = editor("QiblaCompassStyleEditor");
+const ThemeModeEditor = editor("ThemeModeEditor");
 
 const G = "appearance" as const;
 const THEME = "settingsPanel.section.theme";
 const HOME = "settingsPanel.section.home";
-const QIBLA = "settingsPanel.section.qibla";
+/** Hero weather effects + the Qibla compass style: the two decorative extras, grouped. */
+const EXTRAS = "settingsPanel.section.extras";
 
 /** Matches the theme provider's first-run default. */
 const DEFAULT_COLOR_MODE: PreferenceColorMode = "dark";
@@ -46,15 +47,8 @@ export const APPEARANCE_SETTINGS: AnySettingDef[] = [
     subtitleKey: "appearance.themeHint",
     keywordsKey: "settingsPanel.kw.theme",
     scope: "account",
-    control: {
-      kind: "choice",
-      presentation: "segmented",
-      options: [
-        { value: "light", labelKey: "appearance.modeLight" },
-        { value: "dark", labelKey: "appearance.modeDark" },
-        { value: "system", labelKey: "appearance.modeSystem" },
-      ],
-    },
+    // Light / Dark / System as three preview tiles (one radio group).
+    control: { kind: "custom", Component: ThemeModeEditor },
     read: (s) => s.prefs.colorMode ?? DEFAULT_COLOR_MODE,
     // The theme provider mirrors `prefs.colorMode` (same path cloud sync uses).
     write: (v) => updatePrefs({ colorMode: v }),
@@ -155,7 +149,8 @@ export const APPEARANCE_SETTINGS: AnySettingDef[] = [
     keywordsKey: "settingsStep4.kw.libraryOrder",
     icon: { ios: "books.vertical.fill", android: "library_books", web: "library_books" },
     scope: "account",
-    control: { kind: "custom", Component: LibraryOrderEditor },
+    // Edited on Customize home beside Home cards and Explore (one place to reorder).
+    control: { kind: "link", href: "/settings/home" },
     read: (s) => s.prefs.libraryMenuOrder,
     write: (v) => updatePrefs({ libraryMenuOrder: v }),
     defaultValue: undefined,
@@ -166,10 +161,26 @@ export const APPEARANCE_SETTINGS: AnySettingDef[] = [
     shortcuts: ["/(tabs)/library"],
     fields: ["prefs.libraryMenuOrder"],
   }),
+  defineSetting<boolean>({
+    id: "appearance.weatherEffects",
+    group: G,
+    section: EXTRAS,
+    titleKey: "weather.effectsToggle",
+    subtitleKey: "weather.effectsToggleSub",
+    keywordsKey: "settingsPanel.kw.weather",
+    icon: { ios: "cloud.sun.fill", android: "partly_cloudy_day", web: "partly_cloudy_day" },
+    scope: "account",
+    control: { kind: "toggle" },
+    read: (s) => s.prefs.weatherPrefs.effectsEnabled,
+    write: (v) => preferencesStore.getState().setWeatherPrefs({ effectsEnabled: v }),
+    defaultValue: DEFAULT_WEATHER_PREFERENCES.effectsEnabled,
+    summary: onOff,
+    fields: ["prefs.weatherPrefs.effectsEnabled"],
+  }),
   defineSetting<QiblaCompassStyleId>({
     id: "appearance.qiblaCompass",
     group: G,
-    section: QIBLA,
+    section: EXTRAS,
     titleKey: "qiblaStyles.sheetTitle",
     subtitleKey: "qiblaStyles.settingSubtitle",
     keywordsKey: "qiblaStyles.keywords",
@@ -182,21 +193,5 @@ export const APPEARANCE_SETTINGS: AnySettingDef[] = [
     summary: (v, t) => t(qiblaCompassStyleKeys(v).name),
     shortcuts: ["/qibla"],
     fields: ["prefs.qiblaCompassStyle"],
-  }),
-  defineSetting<boolean>({
-    id: "appearance.weatherEffects",
-    group: G,
-    section: HOME,
-    titleKey: "weather.effectsToggle",
-    subtitleKey: "weather.effectsToggleSub",
-    keywordsKey: "settingsPanel.kw.weather",
-    icon: { ios: "cloud.sun.fill", android: "partly_cloudy_day", web: "partly_cloudy_day" },
-    scope: "account",
-    control: { kind: "toggle" },
-    read: (s) => s.prefs.weatherPrefs.effectsEnabled,
-    write: (v) => preferencesStore.getState().setWeatherPrefs({ effectsEnabled: v }),
-    defaultValue: DEFAULT_WEATHER_PREFERENCES.effectsEnabled,
-    summary: onOff,
-    fields: ["prefs.weatherPrefs.effectsEnabled"],
   }),
 ];

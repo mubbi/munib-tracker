@@ -34,9 +34,9 @@ import { ReaderChromeButtons } from "@/components/quran/surah-reader/reader-chro
 import { ReaderFiltersCard } from "@/components/quran/surah-reader/reader-filters-card";
 import { SurahNavCard } from "@/components/quran/surah-reader/surah-nav-card";
 import { useAudioFollowAlong } from "@/components/quran/surah-reader/use-audio-follow-along";
+import { useAyahActions } from "@/components/quran/surah-reader/use-ayah-actions";
 import { useAyahFocusHighlight } from "@/components/quran/surah-reader/use-ayah-focus-highlight";
 import { useAyahSheetActions } from "@/components/quran/surah-reader/use-ayah-sheet-actions";
-import { useHifzConfirm } from "@/components/quran/surah-reader/use-hifz-confirm";
 import { useReaderChromeVisibility } from "@/components/quran/surah-reader/use-reader-chrome-visibility";
 import { useSurahEditions } from "@/components/quran/surah-reader/use-surah-editions";
 import { useSurahListNavigation } from "@/components/quran/surah-reader/use-surah-list-navigation";
@@ -308,13 +308,19 @@ export default function SurahReaderScreen() {
     [toggleBookmark],
   );
 
+  // Per-ayah actions shared with the passage screen and the Adhkar Qur'an cards:
+  // the inline "More" row (one ayah open at a time) and the TV action sheet.
   const {
-    hifzPending,
-    requestHifz,
-    cancelHifz,
-    confirmHifz,
-    dialog: hifzDialog,
-  } = useHifzConfirm({ surahName: surah?.nameTransliteration, hifzMap });
+    handlers: ayahActionHandlers,
+    expandedAyah,
+    toggleExpanded: toggleAyahExpanded,
+    hifz: { hifzPending, cancelHifz, confirmHifz, dialog: hifzDialog },
+  } = useAyahActions({
+    surahNumber,
+    surahName: surah?.nameTransliteration,
+    hifzMap,
+    openTafsir: openTafsirForAyah,
+  });
 
   const shareAyah = useCallback(
     (
@@ -471,10 +477,12 @@ export default function SurahReaderScreen() {
       hifzMap,
       activeShareKey,
       gesturePendingKey,
+      expandedAyah,
     }),
     [
       activeShareKey,
       bookmarkedSet,
+      expandedAyah,
       focusHighlightAyah,
       gesturePendingKey,
       hifzMap,
@@ -502,10 +510,8 @@ export default function SurahReaderScreen() {
   const openAyahActions = useCallback((index: number) => setTvActionIndex(index), []);
   const closeAyahActions = useCallback(() => setTvActionIndex(null), []);
   const ayahSheetActions = useAyahSheetActions({
-    surahNumber,
+    handlers: ayahActionHandlers,
     closeSheet: closeAyahActions,
-    requestHifz,
-    openTafsir: openTafsirForAyah,
   });
 
   const renderAyahCard = useCallback(
@@ -540,15 +546,21 @@ export default function SurahReaderScreen() {
           onShareAyah={shareAyah}
           isSharing={extras.activeShareKey === ayahShareKey}
           isGesturePending={extras.gesturePendingKey === ayahShareKey}
-          // Every layout: "More" (TV: Select on the card) opens the ayah action sheet.
+          // TV: Select on the card opens the ayah action sheet. Elsewhere "More"
+          // expands the rest of the actions inline (one ayah at a time).
           onOpenActions={openAyahActions}
+          expanded={ayah.ayah === extras.expandedAyah}
+          onToggleExpanded={toggleAyahExpanded}
+          actionHandlers={ayahActionHandlers}
           tvPreferredFocus={index === tvInitialFocusIndex}
         />
       );
     },
     [
+      ayahActionHandlers,
       handleBookmarkAyah,
       openAyahActions,
+      toggleAyahExpanded,
       playOrToggleAyah,
       shareAyah,
       surahNumber,
@@ -822,7 +834,7 @@ export default function SurahReaderScreen() {
         onTranslationAudioChange={(mode) => updatePrefs({ translationAudio: mode })}
         onTtsVoiceChange={(voiceId) => void setTtsVoice(ttsLang, voiceId)}
       />
-      {/* TV: Select on an ayah card. Every other layout: the row's "More" button. */}
+      {/* TV: Select on an ayah card (phones / web expand "More" inline instead). */}
       <AyahMoreActions
         ayah={actionAyah}
         surahNumber={surahNumber}

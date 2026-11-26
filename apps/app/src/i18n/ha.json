@@ -433,10 +433,17 @@
       "makeUp": {
         "title": "Kwanakin ramuwa",
         "body": "Kwanakin da za a rama daga wannan Ramadan: {{days}}. Kwanakin da aka rasa da na uzuri, da kwanakin haila ko jinin biki, ana rama su bayan Ramadan.",
-        "question": "Ka ƙara su cikin azumin Qaza naka? Ka tsallake idan ka riga ka ƙara su, ko idan za ka bayar da fidiya maimakon haka.",
         "add": "Ƙara {{days}} cikin azumin Qaza",
-        "dismiss": "A'a, na gode",
-        "added": "An ƙara su cikin azumin Qaza naka."
+        "added": "An ƙara su cikin azumin Qaza naka.",
+        "settle": "Yaya za ku biya waɗannan kwanaki?",
+        "optionQaza": "Ku rama su (Qaza)",
+        "optionFidyah": "Ku biya fidya a maimakon haka",
+        "optionKaffarah": "Kaffara don azumin da aka karya da gangan",
+        "openFidyah": "Buɗe mataimakin fidya",
+        "openKaffarah": "Buɗe mataimakin kaffara",
+        "alreadyHandled": "An riga an kammala",
+        "sadaqahLink": "Ba da sadaka ta son rai a matsayin ƙarin aikin alheri",
+        "sadaqahHint": "Sadaka ƙarin lada ce. Ba ta maye gurbin ramuwar azumi ko fidya ba."
       }
     },
     "toast": {
@@ -724,7 +731,11 @@
     "markSalah": "Yi wa {{salah}} alama",
     "moreForToday": "Ƙari na yau ({{count}})",
     "moreForToday_one": "Ƙari na yau ({{count}})",
-    "moreForToday_other": "Ƙari na yau ({{count}})"
+    "moreForToday_other": "Ƙari na yau ({{count}})",
+    "exploreDoneA11y": "Gama gyaran gajerun hanyoyi",
+    "exploreEditHint": "Ja don sake tsarawa. Taɓa − don ɓoye gajeriyar hanya.",
+    "exploreAddBack": "Mayar da shi",
+    "exploreHideTile": "Ɓoye {{item}}"
   },
   "tracker": {
     "eyebrow": "Bibiya da rubutu",
@@ -1016,7 +1027,9 @@
     },
     "reorder": {
       "moreFor": "Ƙarin zaɓuɓɓuka don {{item}}",
-      "moveToTop": "Matsar zuwa sama"
+      "moveToTop": "Matsar zuwa sama",
+      "removed": "An cire {{item}}",
+      "hidden": "Ɓoyayyu"
     },
     "sendFeedback": "Aika ra'ayi",
     "sendFeedbackDesc": "Bayar da rahoton matsala ko ba da shawarar ingantawa"
@@ -1157,7 +1170,12 @@
     "preview": "Dubawa",
     "sampleAction": "Misalin aiki",
     "secondary": "Na biyu",
-    "previewMeta": "Yanayin yanzu: {{mode}} · babban launi: {{accent}}"
+    "previewMeta": "Yanayin yanzu: {{mode}} · babban launi: {{accent}}",
+    "moreColors": "Ƙarin launuka",
+    "moreColorsHint": "Yana buɗe cikakken jerin launuka da mai zaɓen launi na musamman",
+    "accentAdjusted": "An gyara shi don sauƙin karatu a wannan jigon. An adana launinka kamar yadda ka zaɓa.",
+    "hexLabel": "Lambar hex",
+    "hexInvalid": "Shigar da lambar hex mai haruffa 6, kamar #1E6B4F"
   },
   "bedtime": {
     "eyebrow": "Saituna",
@@ -1479,7 +1497,10 @@
     "browseAdhkar": "Duba azkar",
     "favoriteRemoved": "An cire daga abubuwan da aka ajiye",
     "markedNotDone": "An yi alamar ba a gama ba",
-    "countOfTarget": "{{current}} cikin {{target}}"
+    "countOfTarget": "{{current}} cikin {{target}}",
+    "playRecitation": "Kunna karatu: {{title}}",
+    "pauseRecitation": "Dakatar da karatu: {{title}}",
+    "closeSearch": "Rufe bincike"
   },
   "zikrCat": {
     "morning": "Azkar na safe",
@@ -1632,7 +1653,25 @@
     "openInTasbeeh": "Buɗe a tasbihi",
     "favEmptyDescTv": "Zaɓi alamar ajiye a kan kowane salati don ajiye shi a nan.",
     "removedToast": "An cire daga abubuwan da aka ajiye",
-    "loading": "Ana loda salati…"
+    "loading": "Ana loda salati…",
+    "grade": {
+      "sahih": "Sahih",
+      "hasan": "Hasan"
+    },
+    "readHadith": "Karanta cikakken hadisi",
+    "hideHadith": "Ɓoye hadisi",
+    "position": "{{current}} cikin {{total}}",
+    "unsave": "Cire daga abubuwan da aka ajiye",
+    "notFoundDesc": "Wataƙila an cire wannan abu.",
+    "sectionSalawat": "Salatin da Annabi ﷺ ya koyar",
+    "sectionVirtues": "Falalar yin salati ga Annabi",
+    "play": "Kunna {{title}}",
+    "pause": "Dakatar da {{title}}",
+    "sourceInfo": "Tushe da daraja: {{title}}",
+    "sourceTitle": "Hadisin tushe",
+    "detailEyebrow": "Salati",
+    "notFoundTitle": "Ba a sami salatin ba",
+    "browseAll": "Duba duk salatai"
   },
   "names": {
     "eyebrow": "Asma'ul-Husna",
@@ -1926,6 +1965,16 @@
       "ayahsAmount_other": "ayoyi {{count}}",
       "pagesAmount_one": "shafi {{count}}",
       "pagesAmount_other": "shafuka {{count}}"
+    },
+    "actionLess": "Ƙasa",
+    "lessActionsA11y": "Rage zaɓuɓɓuka don aya ta {{n}}",
+    "passage": {
+      "ayah": "Aya ta {{n}}",
+      "range": "Ayoyi {{from}}–{{to}}",
+      "play": "Kunna wannan sashe",
+      "playHint": "Yana kunna {{ref}} kawai",
+      "openFullSurah": "Buɗe cikakkiyar sura",
+      "openFullSurahHint": "Yana buɗe {{name}} a aya ta {{n}} a shafin karatu"
     }
   },
   "hadith": {
@@ -2214,7 +2263,9 @@
     "toastSet": "Saura na {{prayer}}: {{value}}",
     "setExactLabel": "Saita saura zuwa",
     "rowRemainingA11y": "{{prayer}}, saura {{value}}",
-    "madeUpButton": "An rama"
+    "madeUpButton": "An rama",
+    "madeUpOneA11y": "An rama {{prayer}} ɗaya",
+    "allMadeUp": "An rama duka"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -4372,7 +4423,9 @@
     "seeAll": "Duba duka {{total}} a cikin {{group}}",
     "showFewer": "Nuna kaɗan a cikin {{group}}",
     "searchEverything": "Bincika “{{query}}” a ko'ina",
-    "searchEverythingHint": "Alƙur'ani, hadisi, addu'o'i, azkar da ƙari"
+    "searchEverythingHint": "Alƙur'ani, hadisi, addu'o'i, azkar da ƙari",
+    "seeAllShort": "Duba duka ({{total}})",
+    "showFewerShort": "Nuna kaɗan"
   },
   "offlineData": {
     "title": "Bayanan da aka sauke",
@@ -6578,7 +6631,15 @@
     "padCount": "Taɓa don ƙirga",
     "loggingPreviousDay": "Ana rubutawa don {{date}} — dare yana ci gaba har zuwa Asuba.",
     "announceAllDone": "An gama. Wannan rukunin azkar ya cika.",
-    "announceRecitedNext": "An karanta. Na gaba: {{title}}"
+    "announceRecitedNext": "An karanta. Na gaba: {{title}}",
+    "dock": {
+      "playA11y": "Kunna karatun",
+      "pauseA11y": "Dakatar da karatun",
+      "reset": "Sake saiti",
+      "done": "An gama",
+      "listening": "Yana saurare",
+      "handsFreeOn": "Ƙirga da murya a kunne"
+    }
   },
   "hijriAdjust": {
     "adjust": "Gyara",
@@ -6784,8 +6845,9 @@
     },
     "hint": {
       "tap": "Taɓa ko'ina a kan ma'auni don ƙirga",
-      "misbaha": "Taɓa, ko ja ƙwaya ta gaba a kan zare",
-      "keyboard": "Danna ma'auni ko danna Space don ƙirga"
+      "keyboard": "Danna ma'auni ko danna Space don ƙirga",
+      "misbahaUndo": "Taɓa, ko ja ƙwaya ta gaba — mayar da ita don sokewa",
+      "pebbles": "Taɓa, ko ja tsakuwa zuwa ɗaya gefen — ja baya don sokewa"
     },
     "a11y": {
       "milestone": "An ƙirga {{number}}"
@@ -7569,7 +7631,8 @@
       "voice": "Murya",
       "readingDisplay": "Fassara da rubutun lafazi",
       "focusLock": "Mayar da hankali ga Sallah",
-      "qibla": "Kamfas na alƙibla"
+      "qibla": "Kamfas na alƙibla",
+      "extras": "Yanayi da Alƙibla"
     },
     "setup": {
       "dismiss": "Ba yanzu ba",
@@ -7593,7 +7656,9 @@
     "moreInSettingsHint": "Yana buɗe waɗannan zaɓuɓɓuka a Saituna",
     "tvFinanceTools": "Nuna kayan aikin kuɗi",
     "tvFinanceToolsSub": "Zakka, sadaka, fidya, gado da kuɗin Musulunci a wannan talabijin. A kashe yake a asali don a ɓoye adadin kuɗi.",
-    "surfaceFinance": "Jagororin zakka da kuɗi"
+    "surfaceFinance": "Jagororin zakka da kuɗi",
+    "voiceDefaultShort": "Na asali",
+    "clearAction": "Share"
   },
   "prayerWindow": {
     "preferred": {
@@ -8216,7 +8281,11 @@
       "extra": "Ƙari",
       "late": "An rama a makare",
       "chooseRakahs": "2 ko 4",
-      "chooseRakahsA11y": "Zaɓi raka'o'i 2 ko 4 don {{name}}"
+      "chooseRakahsA11y": "Zaɓi raka'o'i 2 ko 4 don {{name}}",
+      "rowLabel": "Sunnah",
+      "optional": "Na zaɓi",
+      "optionalWhileUnwell": "Na zaɓi lokacin rashin lafiya",
+      "notYetHint": "Lokacinta bai yi ba tukuna — har yanzu za ka iya rubutawa"
     },
     "rakahsSheet": {
       "prompt": "Raka'o'i nawa ka yi?",
@@ -8226,13 +8295,10 @@
       "title": "Sunnonin rawatib",
       "evidence": "Sahih Muslim 728 · raka'o'i {{count}} a rana",
       "progress": "{{done}} / {{total}} raka'o'i",
-      "hint": "Taɓa maɓalli ƙarƙashin kowace sallah don rubuta ta. Danna ka riƙe maɓallin 2 / 4 don canza raka'o'i.",
       "hintTv": "Zaɓi maɓalli ƙarƙashin kowace sallah don rubuta ta.",
       "sickHint": "Lokacin rashin lafiya ba a buƙatar komai — rubuta abin da ka iya yi.",
       "travelHint": "A tafiya ana kiyaye sunnar kafin Asuba; sauran na zaɓi ne.",
       "optionalWhileTravelling": "Na zaɓi lokacin tafiya",
-      "showAll": "Nuna duk rawatib na yau",
-      "showDue": "Nuna na yanzu kaɗai",
       "openHub": "Dalilai da saituna",
       "askBody": "Ka bibiyi sunnoni masu ƙarfi kafin da bayan farilla? Zaɓi raka'o'i 12 (4 kafin Azahar) ko 10 (2 kafin Azahar). Za ka iya canzawa kowane lokaci.",
       "askTwelve": "Raka'o'i 12",
@@ -8254,7 +8320,7 @@
       "title": "Sunnonin rawatib",
       "subtitle": "Sunnoni masu ƙarfi kafin da bayan farilla",
       "todayTitle": "Yau",
-      "todayHint": "Rubuta su daga maɓallan da ke ƙarƙashin kowace sallah a mai bibiya.",
+      "todayHint": "Rubuta su a nan, ko a layin Sunnah na katin kowace sallah a mai bibiya.",
       "off": "Bibiyar rawatib a kashe take. Kunna ta a ƙasa.",
       "openTracker": "Buɗe mai bibiya",
       "openStats": "Duba ƙididdiga",
@@ -9088,7 +9154,7 @@
       },
       "salawat": {
         "title": "Salati ga Annabi ﷺ",
-        "hint": "Adadinka na yau da kullum"
+        "hint": "Ana ƙirgawa a tasbeeh, ko ka yi alama da kanka"
       },
       "salam_home": {
         "title": "Sallama yayin shiga gida",
@@ -9119,7 +9185,31 @@
         "hint": "Ana duba shi daga azkar ɗinka"
       }
     },
-    "habitRemoved": "An cire {{title}}"
+    "habitRemoved": "An cire {{title}}",
+    "todayCount": "Yau · {{done}} cikin {{total}}",
+    "todayRingA11y": "Halayen Sunnah na yau",
+    "editList": "Gyara jeri",
+    "myHabits": "Halayena ({{number}}/{{max}})",
+    "addMore": "Ƙara wasu",
+    "groups": {
+      "morningEvening": "Safe da yamma",
+      "day": "Cikin yini",
+      "bedtime": "Kafin barci"
+    },
+    "principleShort": "Ayyukan da Allah ya fi so su ne masu ɗorewa, ko da kaɗan ne.",
+    "evidenceLink": "Hujja",
+    "spotlightLine": "Gwada yau: {{title}}",
+    "week": {
+      "title": "Wannan makon",
+      "dayA11y": "{{day}}: {{done}} cikin {{total}}"
+    },
+    "detail": {
+      "history": "Kwanaki 30 na ƙarshe",
+      "target": "Burin kowace rana",
+      "open": "Buɗe",
+      "remove": "Cire daga halayena"
+    },
+    "detailA11y": "{{title}}, cikakkun bayanai"
   },
   "quranRoots": {
     "title": "Binciken tushen kalmar Larabci",
@@ -9714,8 +9804,9 @@
       "calibrateSub": "Faɗi jimla sau 5 domin ƙirga ya dace da muryarka. Ana adana shi a wannan na'urar kawai.",
       "modelStorageSub": "Ana raba mai sauraro na na'ura da atisayen karatun Alƙur'ani",
       "forgetTaught": "Manta da muryoyin zikirin da aka koyar",
-      "forgetTaughtSub": "Ba a ɗaukar sauti, ba a aika shi. Idan ka koyar da zikiri, ɗan gajeren tsarin murya (ba rikodi ba) yana zama a wannan na'urar. Wannan yana share su duka.",
-      "forgetTaughtConfirm": "Manta da duk tsarin muryar zikirin da aka koyar a wannan na'urar? Za ka iya sake koyar da su a kowane lokaci."
+      "forgetTaughtShort": "Yana goge samfuran muryar zikiri da aka koyar a wannan na'ura",
+      "forgetTaughtConfirmPrivacy": "A manta da duk samfuran muryar zikiri da aka koyar a wannan na'ura? Ba a taɓa naɗar sauti ko aika shi ba — kowane samfuri gajeren jerin lambobi ne, ba naɗi ba. Kuna iya sake koyar da su a kowane lokaci.",
+      "forgetAction": "Manta"
     },
     "announce": {
       "title": "Sanarwar ƙirgar tasbihi",
@@ -9736,8 +9827,8 @@
     },
     "teach": {
       "title": "Faɗe shi sau ɗaya don wannan zikirin kaɗai ya ƙirgu",
-      "explain": "Faɗi {{phrase}} har sau 3, kana tsayawa tsakani. Ɗan gajeren tsarin murya (ba rikodi ba) yana zama a wannan na'urar don wannan zikirin kaɗai ya ƙirgu.",
-      "explainOther": "Faɗi zikirinka har sau 3, kana tsayawa tsakani. A wannan zama, maimaitarsa kaɗai za a ƙirga.",
+      "explain": "Faɗi {{phrase}} sau 3, kana tsayawa tsakani. Ɗan gajeren tsarin murya (ba rikodi ba) yana zama a wannan na'urar don wannan zikirin kaɗai ya ƙirgu.",
+      "explainOther": "Faɗi zikirinka sau 3, kana tsayawa tsakani. A wannan zama, maimaitarsa kaɗai za a ƙirga.",
       "start": "Koyar ta hanyar faɗarsa",
       "skip": "Tsallake — ƙirga kowane tsayawa",
       "sayNow": "Faɗi {{phrase}} yanzu",
@@ -9748,12 +9839,14 @@
       "issueShort": "Wannan ya yi gajarta sosai. Faɗi zikirin gaba ɗaya.",
       "issueLong": "Wannan ya yi tsawo sosai. Faɗi zikirin sau ɗaya, sannan ka tsaya.",
       "issueDifferent": "Wannan ya ji dabam. Sake faɗin zikirin dai.",
-      "done": "An gama — fara ƙirga",
       "cancel": "Soke",
       "reteach": "Sake koyarwa",
       "taughtReady": "An koyar a wannan na'urar.",
       "countsTaught": "Yana ƙirga zikirin da ka koyar kaɗai — taɓa don gyara kuskuren ƙirga.",
-      "countsPauses": "Yana ƙirga kowane tsayawa — ba shi da daidaito sosai. Taɓa don gyara kuskuren ƙirga."
+      "countsPauses": "Yana ƙirga kowane tsayawa — ba shi da daidaito sosai. Taɓa don gyara kuskuren ƙirga.",
+      "doneShort": "An gama",
+      "nudge": "An gyara wasu ƙirge-ƙirge. Sake koyarwa don ƙarin daidaito?",
+      "nudgeDismiss": "Ba yanzu ba"
     }
   },
   "masjids": {
@@ -10001,9 +10094,27 @@
         "title": "Zaɓi manhajoji",
         "body": "Zaɓi manhajojin da suka fi shagaltar da kai.",
         "pick": "Zaɓi manhajoji",
-        "count": "Manhajojin da aka zaɓa: {{count}}",
         "empty": "Ba a sami manhajoji ba.",
-        "save": "Ajiye zaɓi"
+        "save": "Ajiye zaɓi",
+        "noneYet": "Ba a zaɓi wata manhaja ba tukuna.",
+        "selectedItemsHint": "Manhajoji, rukunai da gidajen yanar gizo da kuka zaɓa. Cikakken rukuni ana ƙirga shi ɗaya.",
+        "edit": "Gyara",
+        "editHint": "Canza manhajojin da ake dakatarwa",
+        "always": {
+          "title": "Koyaushe akwai",
+          "phone": "Waya",
+          "phoneHint": "Kira koyaushe yana shigowa.",
+          "messages": "Saƙonni",
+          "messagesHint": "Saƙonni suna ci gaba da zuwa.",
+          "emergency": "Kiran gaggawa",
+          "emergencyHint": "Kiran gaggawa koyaushe yana aiki.",
+          "munib": "Munib Tracker",
+          "munibHint": "Don ku iya yiwa Sallarku alama."
+        },
+        "selectedItems_one": "An zaɓi abu {{count}}",
+        "selectedItems_other": "An zaɓi abubuwa {{count}}",
+        "selectedApps_one": "An zaɓi manhaja {{count}}",
+        "selectedApps_other": "An zaɓi manhajoji {{count}}"
       },
       "timing": {
         "title": "Sallah, lokaci da yanayi"
@@ -10012,11 +10123,20 @@
         "title": "Gwada shi",
         "body": "Fara lokacin gwaji na minti 1 don ganin abin da zai faru.",
         "start": "Fara gwajin minti 1",
-        "running": "Gwaji yana gudana: buɗe ɗaya daga cikin manhajojin da ka zaɓa."
+        "running": "Gwaji yana gudana: buɗe ɗaya daga cikin manhajojin da ka zaɓa.",
+        "callsNote": "Kira da saƙonni suna ci gaba da shigowa yayin gwajin, da kuma a kowane lokacin Sallah."
       },
       "confirmAlert": "Faɗakarwar “Taɓa don tabbatarwa”",
       "confirmAlertHint": "Bayan ka taɓa “Na yi Sallah” a allon toshewa, sanarwa tana buɗe Munib Tracker don yi wa Sallarka alama.",
-      "progressLabel": "Ci gaban saitawa"
+      "progressLabel": "Ci gaban saitawa",
+      "stepNamed": "Mataki {{current}} cikin {{total}} · {{name}}",
+      "stepName": {
+        "explain": "Gabatarwa",
+        "permissions": "Izini",
+        "apps": "Manhajoji",
+        "timing": "Lokaci",
+        "test": "Gwaji"
+      }
     },
     "evidence": {
       "title": "Hujja",
@@ -10138,6 +10258,17 @@
       "kwKids": "yanayin yara, na'urar yaro, haɗa, qr, kids mode",
       "familyDigest": "Taƙaitaccen bayanin iyali na mako-mako",
       "familyDigestSub": "Sau ɗaya a mako, ranar Juma'a: Sallah nawa yaranka suka rubuta. Adadi kawai, babu sunaye."
+    },
+    "session": {
+      "title": "Wannan yana buƙatar haɗi",
+      "body": "Da'irori suna raba ci gaba da mutanen da kuka gayyata, don haka ana buƙatar ɗan haɗi da sabar. Ba a buƙatar asusu don saukar rukuni.",
+      "connecting": "Ana haɗawa…",
+      "error": {
+        "offline": "Ba ku kan layi. Ku haɗa da intanet, sannan ku sake gwadawa.",
+        "network": "Ba a iya isa ga sabar ba. Ku duba haɗinku ku sake gwadawa.",
+        "server": "Sabar ba ta iya fara zamanku yanzu ba. Ku sake gwadawa nan ba da jimawa ba.",
+        "rateLimited": "An yi ƙoƙari da yawa daga wannan na'ura. Ku jira 'yan mintuna, sannan ku sake gwadawa."
+      }
     }
   },
   "circleMembership": {
@@ -10264,7 +10395,6 @@
     "loading": "Ana lodawa…",
     "loadError": "Ba a iya loda wannan rukunin ba. Ka duba haɗinka ka sake gwadawa.",
     "retry": "Sake gwadawa",
-    "noSession": "Buɗe manhajar sau ɗaya yayin da kake kan layi don fara ko shiga saukar rukuni.",
     "startGroup": "Fara saukar rukuni",
     "haveInvite": "Kana da lambar gayyata? Shiga rukuni",
     "list": {
@@ -10431,6 +10561,10 @@
         "title": "A raba sassan da suka rage?",
         "body": "Yanzu za a ba membobi sassan da suka rage."
       }
+    },
+    "session": {
+      "title": "Saukar rukuni tana buƙatar haɗi",
+      "body": "Saukar rukuni tana raba jadawalin izifi ɗaya da kowa a rukunin, don haka tana buƙatar ɗan haɗi da sabar. Ba ku buƙatar asusu ko shiga ba."
     }
   },
   "coach": {
@@ -11537,6 +11671,13 @@
     "shortcut": {
       "title": "Nemo ta karatu",
       "subtitle": "Karanta 'yan kalmomi don nemo aya, a wannan na'ura"
+    },
+    "live": {
+      "hearing": "Muna jin ka…",
+      "hearingHint": "Ci gaba da karatu. Ayar za ta bayyana a nan da zarar an gane ta.",
+      "bestMatch": "Mafi kusancin dacewa zuwa yanzu",
+      "level": "Matakin makirufo",
+      "ref": "{{name}} · Aya ta {{ayah}}"
     }
   },
   "handsFreeZikr2": {
@@ -11705,7 +11846,8 @@
         "name": "Babbar kibiya",
         "desc": "Kibiya ɗaya babba a kan fuska mai bambanci sosai — mafi sauƙin karantawa a kallo ɗaya."
       }
-    }
+    },
+    "styleButton": "Salo"
   },
   "appIcon": {
     "title": "Alamar manhaja",
@@ -11732,5 +11874,12 @@
     "minutes": "minti {{min}}",
     "hours": "sa'a {{hours}}",
     "hoursMinutes": "sa'a {{hours}} da minti {{min}}"
+  },
+  "sortable": {
+    "movedTo": "An matsar da {{item}} zuwa matsayi na {{position}} cikin {{total}}",
+    "moveEarlier": "Matsa gaba",
+    "moveLater": "Matsa baya",
+    "handleLabel": "Sake tsara {{item}}",
+    "handleHint": "Ja don matsarwa, ko danna maɓallan kibiya na sama da ƙasa"
   }
 }

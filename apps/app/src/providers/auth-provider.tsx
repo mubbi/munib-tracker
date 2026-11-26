@@ -73,6 +73,49 @@ const TRACKING_SYNC_DEBOUNCE_MS = 4000;
 /** Give up re-queuing after this many back-to-back "another sync is running" skips. */
 const TRACKING_SYNC_MAX_SKIPS = 5;
 
+/**
+ * Why the last guest sign-in failed, for the screens that need a session
+ * (group khatm, joining a circle): `offline` — no connection; `network` — the
+ * connection is up but the server couldn't be reached; `rateLimited` — the API
+ * answered 429 (`apps/api` caps guest sessions per device / IP); `server` —
+ * any other server answer.
+ */
+export type GuestSessionError = "offline" | "network" | "rateLimited" | "server";
+
+/**
+ * `idle` — a session exists or nothing has been tried yet; `connecting` — a
+ * guest sign-in is in flight; `error` — the last attempt failed (see
+ * {@link GuestSessionError}).
+ */
+export type SessionStatus = "idle" | "connecting" | "error";
+
+/** Automatic (foreground / reconnect) retry delays after consecutive failures. */
+export const GUEST_RETRY_BACKOFF_MS = [15_000, 60_000, 5 * 60_000, 15 * 60_000] as const;
+/** After a 429 even a manual "Try again" waits this long — retrying only extends the window. */
+export const GUEST_RATE_LIMIT_COOLDOWN_MS = 10 * 60_000;
+
+/** Delay before the next automatic guest retry after `failures` consecutive failures. */
+export function guestRetryDelayMs(failures: number, error: GuestSessionError | null): number {
+  if (failures <= 0) return 0;
+  const backoff =
+    GUEST_RETRY_BACKOFF_MS[Math.min(failures, GUEST_RETRY_BACKOFF_MS.length) - 1] ?? 0;
+  return error === "rateLimited" ? Math.max(backoff, GUEST_RATE_LIMIT_COOLDOWN_MS) : backoff;
+}
+
+/** Maps a failed guest sign-in onto a reason the UI can explain. */
+export function classifyGuestSessionError(error: unknown, online: boolean): GuestSessionError {
+  if (error instanceof ApiError) return error.status === 429 ? "rateLimited" : "server";
+  return online ? "network" : "offline";
+}
+
+export type EnsureSessionOptions = {
+  /**
+   * Manual "Try again" (and boot / reconnect): skip the automatic backoff —
+   * a 429 cooldown still applies. Foreground retries leave it off.
+   */
+  force?: boolean;
+};
+
 interface AuthContextValue {
   session: StoredSession | null;
   user: AuthUserResponseDto | null;
@@ -80,6 +123,16 @@ interface AuthContextValue {
   isGuest: boolean;
   isAuthenticated: boolean;
   signInAsGuest: () => Promise<void>;
+  /**
+   * Makes sure a session (guest or account) exists, creating a guest one when
+   * missing. Single-flight; resolves `true` once a session exists. Also retried
+   * automatically on foreground and when connectivity returns.
+   */
+  ensureSession: (options?: EnsureSessionOptions) => Promise<boolean>;
+  /** Progress of the guest sign-in that {@link ensureSession} drives. */
+  sessionStatus: SessionStatus;
+  /** Reason for the last failure while `sessionStatus` is `"error"`. */
+  sessionError: GuestSessionError | null;
   signInWithProvider: (provider: OAuthProvider, payload?: OAuthPayload) => Promise<void>;
   linkProvider: (provider: OAuthProvider, payload?: OAuthPayload) => Promise<void>;
   /** Persist a session DTO from dedicated Google/Apple auth routes. */
@@ -130,6 +183,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const refreshInFlight = useRef<Promise<StoredSession | null> | null>(null);
   const lastSuccessfulSyncAt = useRef(0);
   const invalidatingSession = useRef(false);
+  const [sessionStatus, setSessionStatus] = useState<SessionStatus>("idle");
+  const [sessionError, setSessionError] = useState<GuestSessionError | null>(null);
+  const ensureInFlight = useRef<Promise<boolean> | null>(null);
+  const guestFailures = useRef(0);
+  const lastGuestFailureAt = useRef(0);
+  const lastGuestError = useRef<GuestSessionError | null>(null);
+  const online = useIsOnline();
+  const onlineRef = useRef(online);
+  onlineRef.current = online;
 
   const clearSessionState = useCallback(async () => {
     await SessionStore.clear();
@@ -145,6 +207,56 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSession(stored);
     setUser(null);
   }, []);
+
+  const ensureSession = useCallback(
+    (options: EnsureSessionOptions = {}): Promise<boolean> => {
+      if (ensureInFlight.current) return ensureInFlight.current;
+      const run = (async (): Promise<boolean> => {
+        const stored = await SessionStore.get();
+        if (stored) {
+          setSession(stored);
+          setSessionStatus("idle");
+          setSessionError(null);
+          return true;
+        }
+        const sinceFailure = Date.now() - lastGuestFailureAt.current;
+        const rateLimited = lastGuestError.current === "rateLimited";
+        const wait = options.force
+          ? rateLimited
+            ? GUEST_RATE_LIMIT_COOLDOWN_MS
+            : 0
+          : guestRetryDelayMs(guestFailures.current, lastGuestError.current);
+        if (guestFailures.current > 0 && sinceFailure < wait) {
+          // Still backing off — keep showing the last failure.
+          setSessionStatus("error");
+          return false;
+        }
+        setSessionStatus("connecting");
+        setSessionError(null);
+        try {
+          await signInAsGuest();
+          guestFailures.current = 0;
+          lastGuestError.current = null;
+          setSessionStatus("idle");
+          return true;
+        } catch (error) {
+          const reason = classifyGuestSessionError(error, onlineRef.current);
+          guestFailures.current += 1;
+          lastGuestFailureAt.current = Date.now();
+          lastGuestError.current = reason;
+          setSessionError(reason);
+          setSessionStatus("error");
+          return false;
+        }
+      })();
+      ensureInFlight.current = run;
+      void run.finally(() => {
+        ensureInFlight.current = null;
+      });
+      return run;
+    },
+    [signInAsGuest],
+  );
 
   /** Drop a revoked session and return to guest so the UI never stays "signed in". */
   const invalidateAuthSession = useCallback(async () => {
@@ -177,15 +289,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // The account's server inbox (announcements, circle events) must not stay
       // visible to whoever uses this device next.
       await removeServerInAppNotifications().catch(() => {});
-      try {
-        await signInAsGuest();
-      } catch {
-        // offline — stay signed out locally; guest boots on next launch
-      }
+      // Offline — stay signed out locally; retried on foreground / reconnect.
+      await ensureSession({ force: true });
     } finally {
       invalidatingSession.current = false;
     }
-  }, [clearSessionState, signInAsGuest]);
+  }, [clearSessionState, ensureSession]);
 
   // Access tokens are short-lived JWTs; rotate them (and the single-use refresh
   // token) using the stored refresh token. Guests must refresh too — Google /
@@ -473,13 +582,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 setSession(remaining);
                 setUser(null);
               }
-              if (!remaining) {
-                try {
-                  await signInAsGuest();
-                } catch {
-                  // offline — local-only mode
-                }
-              }
+              // Offline — local-only mode; retried on foreground / reconnect.
+              if (!remaining) await ensureSession({ force: true });
             } else if (
               error instanceof ApiError &&
               (error.status === 401 || error.status === 403)
@@ -493,18 +597,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (stillUser) void syncNow();
         }
       } else {
-        try {
-          await signInAsGuest();
-        } catch {
-          // offline — local-only mode
-        }
+        // Offline — local-only mode; retried on foreground / reconnect.
+        await ensureSession({ force: true });
       }
       if (mounted) setIsReady(true);
     })();
     return () => {
       mounted = false;
     };
-  }, [signInAsGuest, syncNow, invalidateAuthSession]);
+  }, [ensureSession, syncNow, invalidateAuthSession]);
 
   // Flush OSS CDN failure reports that queued before a guest/user token existed.
   useEffect(() => {
@@ -559,22 +660,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [isUserSession, syncNow]);
 
-  // Sync when returning to the foreground.
+  // Sync when returning to the foreground, and retry a guest session the boot
+  // pass could not create (offline launch, server hiccup) within the backoff.
+  const hasSession = session != null;
   useEffect(() => {
     const onChange = (status: AppStateStatus) => {
-      if (status === "active") syncAfterForeground();
+      if (status !== "active") return;
+      if (isReady && !hasSession) void ensureSession();
+      syncAfterForeground();
     };
     const subscription = AppState.addEventListener("change", onChange);
     return () => subscription.remove();
-  }, [syncAfterForeground]);
+  }, [syncAfterForeground, ensureSession, isReady, hasSession]);
 
-  // Sync when connectivity returns (native NetInfo / web online event).
-  const online = useIsOnline();
+  // Sync (or create the missing guest session) when connectivity returns
+  // (native NetInfo / web online event).
   const wasOnline = useRef(true);
   useEffect(() => {
-    if (online && !wasOnline.current) void syncNow();
+    if (online && !wasOnline.current) {
+      // Back online is new evidence, so skip the offline backoff.
+      if (isReady && !hasSession) void ensureSession({ force: true });
+      else void syncNow();
+    }
     wasOnline.current = online;
-  }, [online, syncNow]);
+  }, [online, syncNow, ensureSession, isReady, hasSession]);
 
   const value = useMemo<AuthContextValue>(
     () => ({
@@ -584,6 +693,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isGuest: session?.accountType === "guest",
       isAuthenticated: session?.accountType === "user",
       signInAsGuest,
+      ensureSession,
+      sessionStatus: session != null ? "idle" : sessionStatus,
+      sessionError: session != null ? null : sessionError,
       signInWithProvider,
       linkProvider,
       applySessionDto,
@@ -599,6 +711,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user,
       isReady,
       signInAsGuest,
+      ensureSession,
+      sessionStatus,
+      sessionError,
       signInWithProvider,
       linkProvider,
       applySessionDto,

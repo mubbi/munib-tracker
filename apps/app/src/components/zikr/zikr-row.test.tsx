@@ -58,6 +58,25 @@ describe("ZikrRow", () => {
     expect(onPress).not.toHaveBeenCalled();
   });
 
+  it("offers Play only when given and keeps it a sibling of the row (no nested buttons)", async () => {
+    const onPlay = jest.fn();
+    const onPress = await renderRow({ onPlay });
+    await fireEvent.press(screen.getByLabelText("Play recitation: Bismillah"));
+    expect(onPlay).toHaveBeenCalledWith("morning-bismillah");
+    expect(onPress).not.toHaveBeenCalled();
+  });
+
+  it("shows Pause while the row's recitation plays", async () => {
+    await renderRow({ onPlay: jest.fn(), playing: true });
+    expect(screen.getByLabelText("Pause recitation: Bismillah")).toBeTruthy();
+  });
+
+  it("puts Done at the trailing edge instead of the badge row", async () => {
+    await renderRow({ completed: true });
+    expect(screen.getByText("Done")).toBeTruthy();
+    expect(screen.queryByText("×3")).toBeNull();
+  });
+
   describe("on TV", () => {
     usePlatform({ isTV: true });
 

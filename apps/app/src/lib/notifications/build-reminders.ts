@@ -29,6 +29,7 @@ import {
 } from "@/lib/notifications/rawatib-reminders";
 import { normalizedBudgetPriority, priorityForKind } from "@/lib/notifications/reminder-budget";
 import { isPastFireTime, nextDailyFireAt } from "@/lib/notifications/reminder-clock";
+import { dedupeCollidingReminders } from "@/lib/notifications/reminder-dedupe";
 import {
   beforeSleepBodyWithHabits,
   pushSunnahHabitsReminders,
@@ -357,7 +358,8 @@ export function buildReminders(
 
   // Drop reminders whose fire time has already passed (DATE only; daily uses next slot).
   const upcoming = reminders.filter((reminder) => !isPastFireTime(reminder.fireAt, now));
-  return trimRemindersToBudget(upcoming);
+  // Two alerts for the same Salah in the same minute read as a duplicate — keep one.
+  return trimRemindersToBudget(dedupeCollidingReminders(upcoming));
 }
 
 export type ScheduledReminderRow = {

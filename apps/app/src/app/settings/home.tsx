@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { OrderedListEditor } from "@/components/settings/ordered-list-editor";
+import { LibraryOrderEditor } from "@/components/settings/editors/region-editors";
+import { mergeVisibleOrder, OrderedListEditor } from "@/components/settings/ordered-list-editor";
 import { ToggleRow } from "@/components/settings/settings-rows";
 import { SettingsDetailScreen } from "@/components/settings/settings-screen";
 import { ThemedText } from "@/components/themed-text";
@@ -83,7 +84,7 @@ export default function HomeCustomizeScreen() {
   );
 
   const actionsCard = (
-    <Card style={twoColumn ? styles.tvColumn : undefined}>
+    <Card>
       <SectionHeader
         title={t("homeCustomize.actionsTitle")}
         icon={{ ios: "square.grid.3x3.fill", android: "apps", web: "apps" }}
@@ -97,8 +98,24 @@ export default function HomeCustomizeScreen() {
         labelFor={labelForAction}
         iconFor={iconForAction}
         removable
-        onChange={(next) => void quickActions.setValue(next)}
+        onChange={(next) =>
+          // Keep ids this device can't show (TV-hidden tiles) in the stored order.
+          void quickActions.setValue(
+            mergeVisibleOrder(quickActions.value ?? DEFAULT_QUICK_ACTION_ORDER, next, allActionIds),
+          )
+        }
       />
+    </Card>
+  );
+
+  // Library order lives here too (Appearance › Home links to this one screen).
+  const libraryCard = (
+    <Card>
+      <SectionHeader
+        title={t("settingsStep4.libraryOrder.title")}
+        icon={{ ios: "books.vertical.fill", android: "library_books", web: "library_books" }}
+      />
+      <LibraryOrderEditor settingId="appearance.libraryOrder" hideTitle />
     </Card>
   );
 
@@ -116,12 +133,16 @@ export default function HomeCustomizeScreen() {
         // Wide web / tablets reuse the same two columns.
         <View style={styles.tvColumns}>
           {modulesCard}
-          {actionsCard}
+          <View style={[styles.tvColumn, styles.columnStack]}>
+            {actionsCard}
+            {libraryCard}
+          </View>
         </View>
       ) : (
         <Stagger>
           {modulesCard}
           {actionsCard}
+          {libraryCard}
         </Stagger>
       )}
     </SettingsDetailScreen>
@@ -133,6 +154,7 @@ const styles = StyleSheet.create({
   hint: { marginTop: Spacing.two },
   tvColumns: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.four },
   tvColumn: { flex: 1, minWidth: 0 },
+  columnStack: { gap: Spacing.four },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

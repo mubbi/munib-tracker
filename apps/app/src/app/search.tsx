@@ -504,6 +504,7 @@ export default function SearchScreen() {
           });
           break;
         case "/dua/detail/[id]":
+        case "/duroods/[id]":
           router.push({ pathname: result.href, params: { id: result.params?.id ?? "" } });
           break;
         case "/zikr/detail/[id]": {

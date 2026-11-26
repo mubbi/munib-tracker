@@ -54,11 +54,13 @@ describe("Adhkar builder on TV (B-04)", () => {
     });
   });
 
-  it("deletes with one Select press but keeps an on-page Undo that restores the item", async () => {
+  it("deletes after the confirm but keeps an on-page Undo that restores the item", async () => {
     await renderWithProviders(<AdhkarBuilderScreen />);
     expect(await screen.findByText("My evening dua")).toBeTruthy();
 
     await fireEvent.press(screen.getByRole("button", { name: "Delete" }));
+    expect(await screen.findByText("Delete this adhkar?")).toBeTruthy();
+    await fireEvent.press(screen.getAllByRole("button", { name: "Delete" }).at(-1) as never);
     await waitFor(() => expect(customAdhkarStore.getState().items).toHaveLength(0));
 
     await fireEvent.press(await screen.findByRole("button", { name: "Undo" }));

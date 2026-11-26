@@ -829,3 +829,104 @@ describe("resetAppData", () => {
     expect(api.resetAppData).not.toHaveBeenCalled();
   });
 });
+
+describe("ensureSession (guest retry)", () => {
+  async function foreground() {
+    await act(async () => appState.emit("active"));
+    await flush();
+  }
+
+  it("reports a network error when the boot guest request fails while online", async () => {
+    const { result } = await setup({ guestFails: true });
+    expect(result.current).toMatchObject({ sessionStatus: "error", sessionError: "network" });
+  });
+
+  it("reports offline when the boot guest request fails without a connection", async () => {
+    mockState.online = false;
+    const { result } = await setup({ guestFails: true });
+    expect(result.current.sessionError).toBe("offline");
+  });
+
+  it("reports a server error for an API failure", async () => {
+    api.requestGuestSession.mockRejectedValueOnce(new ApiError("boom", 503));
+    const { result } = await setup();
+    expect(result.current.sessionError).toBe("server");
+  });
+
+  it("retries on foreground once the backoff has elapsed", async () => {
+    const now = jest.spyOn(Date, "now").mockReturnValue(1_000_000);
+    const { result } = await setup({ guestFails: true });
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(1);
+
+    // Inside the first backoff step: no request.
+    now.mockReturnValue(1_000_000 + 5_000);
+    await foreground();
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(1);
+    expect(result.current.sessionStatus).toBe("error");
+
+    now.mockReturnValue(1_000_000 + 20_000);
+    await foreground();
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(2);
+    expect(result.current).toMatchObject({
+      isGuest: true,
+      sessionStatus: "idle",
+      sessionError: null,
+    });
+  });
+
+  it("retries when connectivity returns", async () => {
+    mockState.online = false;
+    const { result, rerender } = await setup({ guestFails: true });
+    mockState.online = true;
+    await rerender({});
+    await flush();
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(2);
+    expect(result.current.isGuest).toBe(true);
+  });
+
+  it("Try again (force) skips the backoff and creates the session", async () => {
+    jest.spyOn(Date, "now").mockReturnValue(1_000_000);
+    const { result } = await setup({ guestFails: true });
+    const ok = await perform(() => result.current.ensureSession({ force: true }));
+    expect(ok).toBe(true);
+    expect(result.current.isGuest).toBe(true);
+  });
+
+  it("is single-flight", async () => {
+    const { result } = await setup({ guestFails: true });
+    const pending = deferred<ReturnType<typeof guestDto>>();
+    api.requestGuestSession.mockReturnValueOnce(pending.promise);
+    let first!: Promise<boolean>;
+    let second!: Promise<boolean>;
+    await act(async () => {
+      first = result.current.ensureSession({ force: true });
+      second = result.current.ensureSession({ force: true });
+    });
+    expect(result.current.sessionStatus).toBe("connecting");
+    await act(async () => pending.resolve(guestDto("access-guest")));
+    await expect(first).resolves.toBe(true);
+    await expect(second).resolves.toBe(true);
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(2); // boot + one retry
+  });
+
+  it("respects a 429 even for Try again until the cooldown passes", async () => {
+    const now = jest.spyOn(Date, "now").mockReturnValue(1_000_000);
+    api.requestGuestSession.mockRejectedValueOnce(new ApiError("Too many", 429));
+    const { result } = await setup();
+    expect(result.current.sessionError).toBe("rateLimited");
+
+    now.mockReturnValue(1_000_000 + 60_000);
+    expect(await perform(() => result.current.ensureSession({ force: true }))).toBe(false);
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(1);
+
+    now.mockReturnValue(1_000_000 + 11 * 60_000);
+    expect(await perform(() => result.current.ensureSession({ force: true }))).toBe(true);
+    expect(api.requestGuestSession).toHaveBeenCalledTimes(2);
+  });
+
+  it("resolves true without a request when a session already exists", async () => {
+    const { result } = await setup({ stored: guest });
+    expect(await perform(() => result.current.ensureSession())).toBe(true);
+    expect(api.requestGuestSession).not.toHaveBeenCalled();
+  });
+});

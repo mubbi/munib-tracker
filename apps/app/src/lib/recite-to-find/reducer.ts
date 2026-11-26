@@ -10,6 +10,11 @@ import type { CompanionEvent, PracticeErrorCode } from "@/lib/quran-companion/ty
  *   words (score grows with the share heard);
  * - `verseMatch` / `verseSequence` — the engine confirmed the ayah.
  *
+ * Each take has an id (`take`): events the hook tags with an older take — the
+ * tail a slow `engine.stop()` flushes after the next take began — are dropped.
+ * `live` is the tracker's latest position (ayah + engine words heard), which
+ * the panel shows as live feedback while listening.
+ *
  * Neighbouring ayahs of one surah that were both heard well merge into one
  * passage candidate ("Al-Baqarah 255–256"). Ranking is by strength band first,
  * then by when the ayah was first heard, so the list does not reshuffle on every
@@ -43,8 +48,20 @@ type Evidence = {
   firstSeen: number;
 };
 
+/** The tracker's latest position in this take: the ayah and the engine words heard in it. */
+export type ReciteLive = {
+  surah: number;
+  ayah: number;
+  /** Engine word indexes heard (sorted, unique). */
+  matched: number[];
+  totalWords: number;
+};
+
 export type ReciteState = {
   status: ReciteStatus;
+  /** Id of the current (or last) take; events tagged with another take are ignored. */
+  take: number;
+  live: ReciteLive | null;
   evidence: Record<string, Evidence>;
   /** Next `firstSeen` value. */
   seq: number;
@@ -53,8 +70,10 @@ export type ReciteState = {
 };
 
 export type ReciteAction =
-  | { type: "start" }
-  | { type: "event"; event: CompanionEvent }
+  /** A new take; `take` defaults to the previous id + 1. */
+  | { type: "start"; take?: number }
+  /** `take` (when given) must be the current take, or the event is stale and dropped. */
+  | { type: "event"; event: CompanionEvent; take?: number }
   /** The take ended (user stop, auto stop, or the engine's `completed`). */
   | { type: "finish" }
   | { type: "fail"; code: PracticeErrorCode }
@@ -78,7 +97,7 @@ const CANDIDATE_WEIGHT = 0.8;
 const STABLE_TOP_WEIGHT = 0.9;
 
 export function createReciteState(): ReciteState {
-  return { status: "idle", evidence: {}, seq: 0, error: null, candidates: [] };
+  return { status: "idle", take: 0, live: null, evidence: {}, seq: 0, error: null, candidates: [] };
 }
 
 const ayahKey = (surah: number, ayah: number) => `${surah}:${ayah}`;
@@ -228,9 +247,9 @@ export function rankCandidates(evidence: Record<string, Evidence>): ReciteCandid
 export function reciteReducer(state: ReciteState, action: ReciteAction): ReciteState {
   switch (action.type) {
     case "start":
-      return { ...createReciteState(), status: "listening" };
+      return { ...createReciteState(), status: "listening", take: action.take ?? state.take + 1 };
     case "reset":
-      return createReciteState();
+      return { ...createReciteState(), take: state.take };
     case "fail":
       return { ...state, status: "error", error: action.code };
     case "finish":
@@ -238,15 +257,42 @@ export function reciteReducer(state: ReciteState, action: ReciteAction): ReciteS
       return { ...state, status: state.candidates.length ? "found" : "nothing" };
     case "event": {
       const { event } = action;
+      // A previous take's tail (flushed after this take began) never leaks in.
+      if (action.take != null && action.take !== state.take) return state;
       if (event.type === "failed") return { ...state, status: "error", error: event.code };
       if (event.type === "completed") return reciteReducer(state, { type: "finish" });
       // Late events after the take ended (or before it began) are ignored.
       if (state.status !== "listening") return state;
-      return observe(state, observationsOf(event));
+      const next = observe(state, observationsOf(event));
+      return event.type === "position" ? withLive(next, event) : next;
     }
     default:
       return state;
   }
+}
+
+/** Track the latest heard position (a cursor with no word heard says nothing). */
+function withLive(
+  state: ReciteState,
+  event: Extract<CompanionEvent, { type: "position" }>,
+): ReciteState {
+  const matched = [...new Set(event.matched)].filter((i) => i >= 0).sort((a, b) => a - b);
+  if (matched.length === 0) return state;
+  const prev = state.live;
+  if (
+    prev &&
+    prev.surah === event.surah &&
+    prev.ayah === event.ayah &&
+    prev.totalWords === event.totalWords &&
+    prev.matched.length === matched.length &&
+    prev.matched.every((v, i) => v === matched[i])
+  ) {
+    return state;
+  }
+  return {
+    ...state,
+    live: { surah: event.surah, ayah: event.ayah, matched, totalWords: event.totalWords },
+  };
 }
 
 /** True once the engine has confirmed an ayah (used to end a take on a pause). */

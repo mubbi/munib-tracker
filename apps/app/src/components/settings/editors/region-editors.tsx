@@ -49,7 +49,14 @@ export function DefaultCurrencyEditor({ settingId }: { settingId: string }) {
  * Appearance & home › Library order (D13): reorders the Library tab's sections
  * with the shared up/down editor (D-pad friendly on TV).
  */
-export function LibraryOrderEditor({ settingId }: { settingId: string }) {
+export function LibraryOrderEditor({
+  settingId,
+  hideTitle = false,
+}: {
+  settingId: string;
+  /** Inside a card that already shows the title (Customize home). */
+  hideTitle?: boolean;
+}) {
   const { t } = useTranslation();
   const { value, setValue, def } = useSetting<string[] | undefined>(settingId);
   const order = orderLibrarySections(LIBRARY_SECTIONS, value).map((section) => section.id);
@@ -59,7 +66,7 @@ export function LibraryOrderEditor({ settingId }: { settingId: string }) {
   };
   return (
     <View style={styles.block}>
-      <ThemedText type="small">{t(def.titleKey)}</ThemedText>
+      {hideTitle ? null : <ThemedText type="small">{t(def.titleKey)}</ThemedText>}
       {def.subtitleKey ? (
         <ThemedText type="caption" themeColor="mutedForeground">
           {t(def.subtitleKey)}

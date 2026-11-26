@@ -2,7 +2,9 @@ import {
   concatPcm,
   hush,
   seededNoise,
+  syllable,
   syntheticPhrase,
+  VOWELS,
   withPauses,
 } from "@/test-support/tasbeeh-voice";
 
@@ -12,7 +14,14 @@ import {
   buildPattern,
   checkSample,
   DEFAULT_TUNING,
+  LEARN_MIN_DISTANCE,
+  learnFromMatch,
+  MAX_LEARNED_TEMPLATES,
   matchUtterance,
+  NOISE_RELAX_MAX,
+  NOISE_TIGHTEN_MAX,
+  noiseAdjustedThreshold,
+  patternTemplates,
   sampleFeatures,
   thresholdForTemplates,
 } from "./matcher";
@@ -136,5 +145,79 @@ describe("teach-a-zikr matcher", () => {
         strict,
       ),
     ).toBe("ok");
+  });
+});
+
+describe("adaptive templates (learnFromMatch)", () => {
+  const uneven = () =>
+    sampleFeatures(
+      withPauses([
+        concatPcm(
+          syllable(VOWELS.a, 280),
+          syllable(VOWELS.i, 90),
+          syllable(VOWELS.u, 240),
+          syllable(VOWELS.e, 100),
+        ),
+      ]),
+    );
+
+  it("adds a confident, new-sounding repeat and matches with it", () => {
+    const pattern = taughtPattern();
+    const candidate = uneven();
+    const next = learnFromMatch(pattern, candidate, 0.2);
+    expect(next?.learned).toHaveLength(1);
+    expect(next?.templates).toBe(pattern.templates);
+    expect(next?.threshold).toBe(pattern.threshold);
+    expect(patternTemplates(next ?? pattern)).toHaveLength(pattern.templates.length + 1);
+  });
+
+  it("refuses matches that are not confident, near-copies, or far from every taught sample", () => {
+    const pattern = taughtPattern();
+    expect(learnFromMatch(pattern, uneven(), pattern.threshold * 0.9)).toBeNull();
+    // A near-copy of a taught take adds nothing.
+    const copy = sampleFeatures(withPauses([syntheticPhrase(TAUGHT, { pitch: 138 })]));
+    expect(dtwDistance(pattern.templates[0], copy as NonNullable<typeof copy>)).toBeLessThan(
+      LEARN_MIN_DISTANCE,
+    );
+    expect(learnFromMatch(pattern, copy, 0.05)).toBeNull();
+    // Another phrase never becomes a template, however low its claimed cost.
+    const other = sampleFeatures(withPauses([syntheticPhrase(OTHER)]));
+    expect(learnFromMatch(pattern, other, 0.05)).toBeNull();
+    expect(learnFromMatch(pattern, null, 0.05)).toBeNull();
+  });
+
+  it(`keeps at most ${MAX_LEARNED_TEMPLATES} learned templates, dropping the oldest`, () => {
+    const base = taughtPattern();
+    const rand = seededNoise(7);
+    const filler = () => {
+      const data = new Float32Array(40 * FEATURE_DIM);
+      for (let i = 0; i < data.length; i++) data[i] = rand() * 4;
+      return { frames: 40, dim: FEATURE_DIM, data };
+    };
+    const full = { ...base, learned: Array.from({ length: MAX_LEARNED_TEMPLATES }, filler) };
+    const oldest = full.learned[0];
+    const next = learnFromMatch(full, uneven(), 0.2);
+    expect(next?.learned).toHaveLength(MAX_LEARNED_TEMPLATES);
+    expect(next?.learned).not.toContain(oldest);
+    expect(next?.learned?.[0]).toBe(full.learned[1]);
+  });
+});
+
+describe("noise-adaptive threshold", () => {
+  it("is exactly the base threshold in a quiet room", () => {
+    expect(noiseAdjustedThreshold(0.6, -70, -20)).toBe(0.6);
+  });
+
+  it("relaxes a little, within bounds, for a clear voice over a noisy floor", () => {
+    const t = noiseAdjustedThreshold(0.6, -38, -10);
+    expect(t).toBeGreaterThan(0.6);
+    expect(t).toBeLessThanOrEqual(0.6 + NOISE_RELAX_MAX + 1e-9);
+  });
+
+  it("tightens when the voice barely clears the noise (over-counting is the worse error)", () => {
+    const t = noiseAdjustedThreshold(0.6, -40, -34);
+    expect(t).toBeLessThan(0.6);
+    expect(t).toBeGreaterThanOrEqual(0.6 - NOISE_TIGHTEN_MAX - 1e-9);
+    expect(noiseAdjustedThreshold(0.6, Number.NaN, -10)).toBe(0.6);
   });
 });

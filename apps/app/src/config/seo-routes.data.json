@@ -819,6 +819,11 @@
     "description": "Browse the Qur'an by classic mushaf page (1–604) and open any page in the reader.",
     "keywords": ["mushaf pages", "Quran page view", "604 pages", "Madinah mushaf"]
   },
+  "/quran/passage": {
+    "title": "Qur'an Passage",
+    "description": "Read and listen to a short passage of the Qur'an, such as Ayat al-Kursi, with translation, notes and recite-along.",
+    "index": false
+  },
   "/quran/search": {
     "title": "Search the Qur'an",
     "description": "Search the Qur'an by Arabic text, English translation, transliteration, verse name, or reference like 2:255 — with optional voice input. Works fully offline.",

@@ -329,13 +329,29 @@ function CounterView({
     onIncrement();
   };
   if (countOnceRef) countOnceRef.current = countOnce;
+  // A count or undo by hand while listening corrects the voice count: several
+  // of them offer "Re-teach for better accuracy?" (taught-pattern sessions).
+  const noteManual = () => {
+    if (voice.listening) voice.noteCorrection();
+  };
   const handleTap = () => {
     if (gestureActive.current || Date.now() < tapGuardUntil.current) return;
+    noteManual();
     countOnce();
   };
   const handleFaceCount = () => {
     tapGuardUntil.current = Date.now() + GESTURE_TAP_GUARD_MS;
+    noteManual();
     countOnce();
+  };
+  // A face's reverse swipe: the Undo button's path (never below 0), with the
+  // light undo haptic and the bead click (muted while hands-free listening).
+  const handleFaceUndo = () => {
+    tapGuardUntil.current = Date.now() + GESTURE_TAP_GUARD_MS;
+    if (displayCount <= 0) return;
+    noteManual();
+    dispatch("undo");
+    onDecrement();
   };
   const handleGestureActive = (active: boolean) => {
     gestureActive.current = active;
@@ -343,7 +359,10 @@ function CounterView({
   };
   const handleAccessibilityAction = (event: AccessibilityActionEvent) => {
     const action = event.nativeEvent.actionName;
-    if (action === "increment" || action === "activate") countOnce();
+    if (action === "increment" || action === "activate") {
+      noteManual();
+      countOnce();
+    }
   };
 
   // Desktop web: Space / Enter count. A focused button / chip keeps its own
@@ -354,7 +373,10 @@ function CounterView({
     (event) => {
       if (event.key !== " " && event.key !== "Enter") return undefined;
       if (isWebInteractiveTarget(event.target)) return undefined;
-      if (!event.repeat) countOnce();
+      if (!event.repeat) {
+        noteManual();
+        countOnce();
+      }
       return true;
     },
     !tv && keyboardShortcuts && pending === null && !styleOpen,
@@ -410,7 +432,11 @@ function CounterView({
     hint = t("tasbeehUi.tapToCountTv");
   } else {
     hint =
-      design.id === "misbaha" ? t("tasbeehDesigns.hint.misbaha") : t("tasbeehDesigns.hint.tap");
+      design.id === "misbaha"
+        ? t("tasbeehDesigns.hint.misbahaUndo")
+        : design.id === "pebbles"
+          ? t("tasbeehDesigns.hint.pebbles")
+          : t("tasbeehDesigns.hint.tap");
   }
 
   const status = complete ? (
@@ -442,6 +468,7 @@ function CounterView({
       onDecrement={() => {
         // One miscount is cheap to redo — undo is instant, with a light haptic.
         triggerHaptic("light");
+        noteManual();
         onDecrement();
       }}
       onReset={() => setPending("reset")}
@@ -466,6 +493,13 @@ function CounterView({
         flashKey={voice.flashKey}
         stopReason={voice.session.stopReason}
         showFocusTip={design.id !== "minimal"}
+        suggestReteach={voice.suggestReteach}
+        onReteach={() => {
+          // Teaching shows in the hands-free sheet; counting resumes after it.
+          setVoiceSheetOpen(true);
+          void voice.startTeaching();
+        }}
+        onDismissReteach={voice.dismissReteach}
       />
     ) : null;
 
@@ -539,6 +573,7 @@ function CounterView({
             reduceMotion={reduceMotion}
             appearance={appearance}
             onCount={handleFaceCount}
+            onUndo={handleFaceUndo}
           />
         )}
         footer={
@@ -589,6 +624,7 @@ function CounterView({
               reduceMotion={reduceMotion}
               appearance={appearance}
               onCount={handleFaceCount}
+              onUndo={handleFaceUndo}
               onGestureActive={handleGestureActive}
               tabletop={tabletop}
             />

@@ -50,15 +50,20 @@ import {
 const KEEP_AWAKE_TAG = "tasbeeh-voice";
 const TICK_MS = 1000;
 
+/** Manual corrections (taps / undos while counting by the taught pattern) before "Re-teach?" is offered. */
+export const RETEACH_NUDGE_AFTER = 3;
+
 export type VoiceStartResult =
   | "started"
   | "needs-model"
   | "needs-permission"
   | "denied"
   | "unavailable"
+  /** Teaching is in progress: counting waits until it is done or cancelled. */
+  | "busy"
   | "error";
 
-/** Teaching a zikr (D50): 1–3 samples, then counting starts. */
+/** Teaching a zikr (D50): 3 samples asked for (Done keeps ≥ 1), then counting starts. */
 export type VoiceTeachState = {
   status: "idle" | "recording";
   /** Samples kept so far. */
@@ -109,11 +114,22 @@ export type VoiceTasbeeh = {
   /** The shell is about to speak to a screen reader: ignore that audio. */
   muteFor: (durationMs: number) => void;
   teach: VoiceTeachState;
-  /** Listen for teaching samples ("Say it once so only this zikr counts"). */
+  /**
+   * Listen for teaching samples ("Say it once so only this zikr counts"). While
+   * counting (Re-teach), counting pauses at once and resumes after Done (new
+   * pattern) or Cancel (the pattern it had).
+   */
   startTeaching: () => Promise<VoiceStartResult>;
   /** Keep the samples heard so far (≥ 1) and start counting. */
   finishTeaching: () => Promise<VoiceStartResult>;
-  cancelTeaching: () => void;
+  /** Drop teaching. `resume`: the person pressed Cancel — counting picks up again if it was on. */
+  cancelTeaching: (options?: { resume?: boolean }) => void;
+  /** Several counts needed correcting by hand: offer "Re-teach for better accuracy?". */
+  suggestReteach: boolean;
+  /** The shell counted or undid by hand while listening by the taught pattern. */
+  noteCorrection: () => void;
+  /** "Not now" on the re-teach nudge (until the zikr changes or is re-taught). */
+  dismissReteach: () => void;
 };
 
 /** A counter without hands-free counting (no microphone plumbing mounted). */
@@ -141,6 +157,9 @@ export const NO_VOICE: VoiceTasbeeh = {
   startTeaching: async () => "unavailable",
   finishTeaching: async () => "unavailable",
   cancelTeaching: () => {},
+  suggestReteach: false,
+  noteCorrection: () => {},
+  dismissReteach: () => {},
 };
 
 type Options = {
@@ -222,11 +241,24 @@ export function useVoiceTasbeeh({
   const [now, setNow] = useState(() => Date.now());
   const [countingMode, setCountingMode] = useState<SessionCountingMode | null>(null);
   const [teach, setTeach] = useState<VoiceTeachState>(IDLE_TEACH);
+  const [suggestReteach, setSuggestReteach] = useState(false);
 
   const pipelineRef = useRef<VoicePipeline | null>(null);
   const teachPipelineRef = useRef<VoicePipeline | null>(null);
   const teachSamplesRef = useRef<Matrix[]>([]);
+  /**
+   * Teaching owns the microphone. Set synchronously the moment teaching starts
+   * (before counting is stopped), so neither `start()` nor a step flow's resume
+   * can grab the microphone back in between; cleared only when teaching ends.
+   */
   const teachingRef = useRef(false);
+  /** `start()` is in flight (permission / pipeline): a second call is a no-op. */
+  const startingRef = useRef(false);
+  /** Counting was on when Re-teach began: Cancel resumes it. */
+  const resumeAfterTeachRef = useRef(false);
+  const countingModeRef = useRef<SessionCountingMode | null>(null);
+  const correctionsRef = useRef(0);
+  const nudgeDismissedRef = useRef(false);
   const sessionRef = useRef(session);
   /**
    * The ref is the source of truth for event handlers (mic callbacks arrive
@@ -266,34 +298,43 @@ export function useVoiceTasbeeh({
     void capture.getPermission().then(setPermission);
   }, [platformAvailable, capture]);
 
+  /** Releases the teaching microphone (the teaching flag is the caller's to clear). */
   const stopTeachPipeline = useCallback(async () => {
     const pipeline = teachPipelineRef.current;
     teachPipelineRef.current = null;
-    teachingRef.current = false;
     await pipeline?.stop();
   }, []);
 
-  const teardown = useCallback(async () => {
+  /** Releases the counting microphone only — teaching (if any) is left alone. */
+  const teardownCounting = useCallback(async () => {
     const pipeline = pipelineRef.current;
     pipelineRef.current = null;
-    setLevel(0);
-    setSpeaking(false);
+    if (!teachingRef.current) {
+      setLevel(0);
+      setSpeaking(false);
+    }
     await setTaggedKeepAwake(KEEP_AWAKE_TAG, false);
     await pipeline?.stop();
+  }, []);
+
+  /** Everything (screen left). */
+  const teardown = useCallback(async () => {
+    teachingRef.current = false;
+    await teardownCounting();
     await stopTeachPipeline();
-  }, [stopTeachPipeline]);
+  }, [stopTeachPipeline, teardownCounting]);
 
   const stop = useCallback(
     (reason: VoiceStopReason = "user", errorCode?: string) => {
       const wasActive =
         sessionRef.current.status === "listening" || sessionRef.current.status === "preparing";
       send({ type: "stop", at: Date.now(), reason, errorCode });
-      void teardown();
+      void teardownCounting();
       if (wasActive && reason !== "user" && reason !== "left") {
         autoStopRef.current?.(reason, errorCode ?? null);
       }
     },
-    [send, teardown],
+    [send, teardownCounting],
   );
 
   const requestPermission = useCallback(async () => {
@@ -316,90 +357,115 @@ export function useVoiceTasbeeh({
     async (options?: { skipTeaching?: boolean }): Promise<VoiceStartResult> => {
       const current = zikrRef.current;
       if (!available || !current) return "unavailable";
-      if (sessionRef.current.status === "listening" || sessionRef.current.status === "preparing") {
-        return "started";
-      }
-      const pattern =
-        taughtPatternFor(current.key) ??
-        (sessionPatternRef.current?.identity === zikrIdentity(current)
-          ? sessionPatternRef.current.pattern
-          : null);
-      const mode = sessionCountingMode({
-        taught: pattern != null,
-        skipTeaching: options?.skipTeaching,
-        hasCatalogPhrase: current.phrase != null,
-        spotterOn: usesModel(),
-      });
+      // Teaching holds the microphone: a delayed resume must never take it back.
+      if (teachingRef.current) return "busy";
       if (
-        mode === "spotter" &&
-        voiceModelStatus(quranListenerStore.getState().listener) !== "ready"
+        startingRef.current ||
+        sessionRef.current.status === "listening" ||
+        sessionRef.current.status === "preparing"
       ) {
-        return "needs-model";
-      }
-      const blocked = await checkPermission();
-      if (blocked) return blocked;
-
-      await stopTeachPipeline();
-      setTeach(IDLE_TEACH);
-      setCountingMode(mode);
-      send({ type: "prepare", at: Date.now() });
-      // Recitation through the speaker would be counted: pause the app's player.
-      if (audio?.isPlaying) audio.toggle();
-      void setTaggedKeepAwake(KEEP_AWAKE_TAG, true);
-      try {
-        // Loaded on first use: the pipeline and its DSP / ORT loaders stay out of
-        // the counter screens' startup graph.
-        const { startVoicePipeline } = await import("@/lib/tasbeeh-voice/pipeline");
-        const spotterPhrase = current.phrase;
-        pipelineRef.current = await startVoicePipeline({
-          capture,
-          mode,
-          phrase: spotterPhrase,
-          pattern,
-          threshold: () =>
-            spotterPhrase
-              ? thresholdFor(
-                  sensitivityRef.current,
-                  tasbeehVoiceCalibrationStore.getState().calibration[spotterPhrase],
-                )
-              : 0,
-          onHit: () => {
-            if (atLimitRef.current) {
-              stop("target");
-              return;
-            }
-            const { count } = send({ type: "hit", at: Date.now(), atLimit: false });
-            if (count) countRef.current();
-          },
-          onSpeech: (active) => {
-            setSpeaking(active);
-            if (active) send({ type: "speech", at: Date.now() });
-          },
-          onLevel: (db) => setLevel(Math.max(0, Math.min(1, (db + 60) / 50))),
-          onFailure: (code) => {
-            reportPracticeError(new Error(code), code, "tasbeeh-voice-runtime");
-            stop("error", code);
-          },
-          onInterrupted: () => stop("interrupted"),
-        });
-        // Re-read: stop() may have run while the pipeline was starting.
-        if (readStatus(sessionRef) !== "preparing") {
-          await teardown();
-          return "error";
-        }
-        send({ type: "listening", at: Date.now() });
         return "started";
-      } catch (error) {
-        const code = toPracticeErrorCode(error, "engine-init-failed");
-        reportPracticeError(error, code, "tasbeeh-voice-start");
-        stop("error", code);
-        return code === "mic-denied" ? "denied" : "error";
+      }
+      startingRef.current = true;
+      try {
+        const pattern =
+          taughtPatternFor(current.key) ??
+          (sessionPatternRef.current?.identity === zikrIdentity(current)
+            ? sessionPatternRef.current.pattern
+            : null);
+        const mode = sessionCountingMode({
+          taught: pattern != null,
+          skipTeaching: options?.skipTeaching,
+          hasCatalogPhrase: current.phrase != null,
+          spotterOn: usesModel(),
+        });
+        if (
+          mode === "spotter" &&
+          voiceModelStatus(quranListenerStore.getState().listener) !== "ready"
+        ) {
+          return "needs-model";
+        }
+        const blocked = await checkPermission();
+        if (blocked) return blocked;
+        // Re-teach began while the permission check was pending.
+        if (teachingRef.current) return "busy";
+
+        setCountingMode(mode);
+        countingModeRef.current = mode;
+        send({ type: "prepare", at: Date.now() });
+        // Recitation through the speaker would be counted: pause the app's player.
+        if (audio?.isPlaying) audio.toggle();
+        void setTaggedKeepAwake(KEEP_AWAKE_TAG, true);
+        try {
+          // Loaded on first use: the pipeline and its DSP / ORT loaders stay out of
+          // the counter screens' startup graph.
+          const { startVoicePipeline } = await import("@/lib/tasbeeh-voice/pipeline");
+          const spotterPhrase = current.phrase;
+          pipelineRef.current = await startVoicePipeline({
+            capture,
+            mode,
+            phrase: spotterPhrase,
+            pattern,
+            // Adaptive templates (features only): kept with the taught pattern.
+            onPatternLearned: (learned) => {
+              if (teachingRef.current) return;
+              if (current.key) {
+                void tasbeehVoiceTemplatesStore.getState().save(current.key, learned);
+              } else if (sessionPatternRef.current?.identity === zikrIdentity(current)) {
+                const next = { identity: zikrIdentity(current), pattern: learned };
+                sessionPatternRef.current = next;
+                setSessionPattern(next);
+              }
+            },
+            threshold: () =>
+              spotterPhrase
+                ? thresholdFor(
+                    sensitivityRef.current,
+                    tasbeehVoiceCalibrationStore.getState().calibration[spotterPhrase],
+                  )
+                : 0,
+            onHit: () => {
+              if (atLimitRef.current) {
+                stop("target");
+                return;
+              }
+              const { count } = send({ type: "hit", at: Date.now(), atLimit: false });
+              if (count) countRef.current();
+            },
+            onSpeech: (active) => {
+              setSpeaking(active);
+              if (active) send({ type: "speech", at: Date.now() });
+            },
+            onLevel: (db) => setLevel(Math.max(0, Math.min(1, (db + 60) / 50))),
+            onFailure: (code) => {
+              reportPracticeError(new Error(code), code, "tasbeeh-voice-runtime");
+              stop("error", code);
+            },
+            onInterrupted: () => stop("interrupted"),
+          });
+          // Re-read: stop() may have run while the pipeline was starting.
+          if (readStatus(sessionRef) !== "preparing") {
+            await teardownCounting();
+            return "error";
+          }
+          send({ type: "listening", at: Date.now() });
+          return "started";
+        } catch (error) {
+          const code = toPracticeErrorCode(error, "engine-init-failed");
+          reportPracticeError(error, code, "tasbeeh-voice-start");
+          stop("error", code);
+          return code === "mic-denied" ? "denied" : "error";
+        }
+      } finally {
+        startingRef.current = false;
       }
     },
-    [audio, available, capture, checkPermission, send, stop, stopTeachPipeline, teardown],
+    [audio, available, capture, checkPermission, send, stop, teardownCounting],
   );
 
-  const cancelTeaching = useCallback(() => {
+  /** Ends teaching (no microphone left open by it). */
+  const endTeaching = useCallback(() => {
+    teachingRef.current = false;
     teachSamplesRef.current = [];
     setTeach(IDLE_TEACH);
     setLevel(0);
@@ -407,15 +473,29 @@ export function useVoiceTasbeeh({
     void stopTeachPipeline();
   }, [stopTeachPipeline]);
 
+  const cancelTeaching = useCallback(
+    (options?: { resume?: boolean }) => {
+      const resume = options?.resume === true && resumeAfterTeachRef.current;
+      resumeAfterTeachRef.current = false;
+      endTeaching();
+      // Cancel on a Re-teach: back to counting with the pattern it already had.
+      if (resume) {
+        void start(countingModeRef.current === "pause" ? { skipTeaching: true } : undefined);
+      }
+    },
+    [endTeaching, start],
+  );
+
   const finishTeaching = useCallback(async (): Promise<VoiceStartResult> => {
     const current = zikrRef.current;
     const samples = teachSamplesRef.current;
     teachSamplesRef.current = [];
+    // Still "teaching" until the new pattern is saved, so nothing resumes with the old one.
     await stopTeachPipeline();
-    setTeach(IDLE_TEACH);
-    setLevel(0);
-    setSpeaking(false);
-    if (!current || samples.length === 0) return "error";
+    if (!current || samples.length === 0) {
+      endTeaching();
+      return "error";
+    }
     const pattern = buildPattern(samples);
     if (current.key) {
       await tasbeehVoiceTemplatesStore.getState().save(current.key, pattern);
@@ -424,8 +504,13 @@ export function useVoiceTasbeeh({
       sessionPatternRef.current = next;
       setSessionPattern(next);
     }
+    resumeAfterTeachRef.current = false;
+    correctionsRef.current = 0;
+    nudgeDismissedRef.current = false;
+    endTeaching();
+    // Counting resumes once, with the new pattern.
     return start();
-  }, [start, stopTeachPipeline]);
+  }, [endTeaching, start, stopTeachPipeline]);
 
   const finishRef = useRef(finishTeaching);
   finishRef.current = finishTeaching;
@@ -433,15 +518,29 @@ export function useVoiceTasbeeh({
   const startTeaching = useCallback(async (): Promise<VoiceStartResult> => {
     if (!available || !zikrRef.current) return "unavailable";
     if (teachingRef.current) return "started";
-    const blocked = await checkPermission();
-    if (blocked) return blocked;
-    if (sessionRef.current.status === "listening" || sessionRef.current.status === "preparing") {
-      stop("user");
-    }
-    await teardown();
-    teachSamplesRef.current = [];
+    // Mark teaching first, synchronously: from here no resume / start() may reopen
+    // counting, and the panel switches to teaching at once.
+    const wasCounting =
+      startingRef.current ||
+      sessionRef.current.status === "listening" ||
+      sessionRef.current.status === "preparing";
     teachingRef.current = true;
+    resumeAfterTeachRef.current = wasCounting;
+    teachSamplesRef.current = [];
+    setSuggestReteach(false);
     setTeach({ ...IDLE_TEACH, status: "recording" });
+    const blocked = await checkPermission();
+    if (blocked) {
+      resumeAfterTeachRef.current = false;
+      endTeaching();
+      return blocked;
+    }
+    if (!teachingRef.current) return "error";
+    if (sessionRef.current.status === "listening" || sessionRef.current.status === "preparing") {
+      send({ type: "stop", at: Date.now(), reason: "user" });
+    }
+    await teardownCounting();
+    if (!teachingRef.current) return "error";
     if (audio?.isPlaying) audio.toggle();
     try {
       const { startVoicePipeline } = await import("@/lib/tasbeeh-voice/pipeline");
@@ -450,7 +549,7 @@ export function useVoiceTasbeeh({
         mode: "teach",
         onHit: () => {},
         onSample: (pcm) => {
-          if (!teachingRef.current) return;
+          if (!teachingRef.current || !teachPipelineRef.current) return;
           const features = sampleFeatures(pcm);
           const verdict = checkSample(features, teachSamplesRef.current);
           if (verdict !== "ok" || !features) {
@@ -489,20 +588,37 @@ export function useVoiceTasbeeh({
     capture,
     checkPermission,
     cancelTeaching,
-    stop,
+    endTeaching,
+    send,
     stopTeachPipeline,
-    teardown,
+    teardownCounting,
   ]);
+
+  const noteCorrection = useCallback(() => {
+    if (sessionRef.current.status !== "listening") return;
+    if (countingModeRef.current !== "template" || nudgeDismissedRef.current) return;
+    correctionsRef.current += 1;
+    if (correctionsRef.current >= RETEACH_NUDGE_AFTER) setSuggestReteach(true);
+  }, []);
+
+  const dismissReteach = useCallback(() => {
+    nudgeDismissedRef.current = true;
+    setSuggestReteach(false);
+  }, []);
 
   const listening = session.status === "listening";
   const preparing = session.status === "preparing";
   const active = listening || preparing;
   const teaching = teach.status === "recording";
 
-  // A different zikr: drop teaching in progress (a session-only pattern is keyed by identity).
+  // A different zikr: drop teaching in progress (a session-only pattern is keyed by
+  // identity) and start the correction count afresh.
   // biome-ignore lint/correctness/useExhaustiveDependencies: runs only when the identity changes.
   useEffect(() => {
     if (teachingRef.current) cancelTeaching();
+    correctionsRef.current = 0;
+    nudgeDismissedRef.current = false;
+    setSuggestReteach(false);
   }, [identity]);
 
   // Silence auto-stop + stuck hint clock.
@@ -578,6 +694,9 @@ export function useVoiceTasbeeh({
       startTeaching,
       finishTeaching,
       cancelTeaching,
+      suggestReteach: suggestReteach && listening && countingMode === "template",
+      noteCorrection,
+      dismissReteach,
     }),
     [
       platformAvailable,
@@ -603,6 +722,9 @@ export function useVoiceTasbeeh({
       startTeaching,
       finishTeaching,
       cancelTeaching,
+      suggestReteach,
+      noteCorrection,
+      dismissReteach,
     ],
   );
 }

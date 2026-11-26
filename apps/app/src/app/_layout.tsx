@@ -11,6 +11,7 @@ import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import { AppIconHost } from "@/components/app-icon/app-icon-host";
 import { AppStack } from "@/components/app-stack";
 import { AppVersionGate } from "@/components/app-update/app-version-gate";
+import { MiniPlayerErrorBoundary } from "@/components/audio/mini-player-error-boundary";
 import { CirclesHost } from "@/components/circles/circles-host";
 import { ContentReportProvider } from "@/components/content-report/content-report-provider";
 import { ErrorFallback } from "@/components/error-boundary";
@@ -67,7 +68,7 @@ const WebReminderAdhanBridge = lazy(() =>
  */
 function DeferredMiniPlayer() {
   const tv = isTV();
-  const { current } = useAudioPlayerContext();
+  const { current, stop } = useAudioPlayerContext();
   const [armed, setArmed] = useState(!tv);
 
   useEffect(() => {
@@ -79,9 +80,12 @@ function DeferredMiniPlayer() {
 
   return (
     <IdleMount>
-      <Suspense fallback={null}>
-        <MiniPlayer />
-      </Suspense>
+      {/* A player crash hides the player (and stops playback) — never the whole app. */}
+      <MiniPlayerErrorBoundary resetKey={current?.id ?? null} onError={stop}>
+        <Suspense fallback={null}>
+          <MiniPlayer />
+        </Suspense>
+      </MiniPlayerErrorBoundary>
     </IdleMount>
   );
 }

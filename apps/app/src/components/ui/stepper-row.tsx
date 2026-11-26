@@ -57,7 +57,9 @@ export function StepperRow({
       <View style={styles.line}>
         <View style={[styles.copy, disabled && styles.dimmed]}>
           <View style={styles.titleLine}>
-            <ThemedText type="small">{title}</ThemedText>
+            <ThemedText type="small" style={styles.title}>
+              {title}
+            </ThemedText>
             {accessory}
           </View>
           {subtitle ? (
@@ -66,17 +68,19 @@ export function StepperRow({
             </ThemedText>
           ) : null}
         </View>
-        <Stepper
-          value={value}
-          label={title}
-          min={min}
-          max={max}
-          step={step}
-          formatValue={format}
-          onChange={onChange}
-          disabled={disabled}
-          valueMinWidth={tv ? styles.valueTv.minWidth : styles.value.minWidth}
-        />
+        <View style={styles.control}>
+          <Stepper
+            value={value}
+            label={title}
+            min={min}
+            max={max}
+            step={step}
+            formatValue={format}
+            onChange={onChange}
+            disabled={disabled}
+            valueMinWidth={tv ? styles.valueTv.minWidth : styles.value.minWidth}
+          />
+        </View>
       </View>
     </View>
   );
@@ -94,14 +98,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     borderRadius: Radius.lg,
   },
+  /**
+   * Wraps on narrow rows: when the copy (≥ 55% so the title + badge stay on one
+   * line) and the stepper can't share a line, the stepper drops below and stays
+   * on the trailing edge instead of squeezing the title or clipping its value.
+   */
   line: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.three,
+    flexWrap: "wrap",
+    columnGap: Spacing.three,
+    rowGap: Spacing.two,
   },
-  copy: { flex: 1, gap: Spacing.half, minWidth: "40%" },
+  copy: { flexGrow: 1, flexShrink: 1, flexBasis: 0, gap: Spacing.half, minWidth: "55%" },
   titleLine: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: Spacing.two },
-  value: { minWidth: tvDp(96) },
+  title: { flexShrink: 1 },
+  control: { flexShrink: 0, marginStart: "auto" },
+  value: { minWidth: tvDp(72) },
   valueTv: { minWidth: tvDp(140) },
   dimmed: { opacity: Opacity.disabled },
   // A disabled row ignores touches entirely (the stepper dims itself).

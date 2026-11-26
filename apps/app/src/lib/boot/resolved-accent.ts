@@ -1,5 +1,5 @@
 import { defaultAccentColorId, resolveAccentColorId } from "@munib-tracker/theme/accents";
-import { accentOnSurface, bestForeground, ensureContrastAgainst } from "@munib-tracker/theme/color";
+import { accentOnSurface, bestForeground, ensureReadableAccent } from "@munib-tracker/theme/color";
 import type { AccentColorId, ThemeColors } from "@munib-tracker/theme/types";
 import { STORAGE_KEYS } from "@munib-tracker/theme/types";
 import { useSyncExternalStore } from "react";
@@ -24,7 +24,10 @@ export function resolveCustomAccentTheme(
   let cached = customAccentThemeCache.get(key);
   if (!cached) {
     const textSurface = scheme === "dark" ? base.card : base.background;
-    const accent = ensureContrastAgainst(customAccent, base.background, 3);
+    // Lightness-only rescue (same hue + saturation) against page and card, so a
+    // deep custom accent stays recognisable instead of greying out. The stored
+    // hex is untouched; the accent editor notes the adjustment.
+    const accent = ensureReadableAccent(customAccent, [base.background, base.card], 3);
     cached = {
       ...base,
       accent,

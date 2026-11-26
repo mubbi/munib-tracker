@@ -33,6 +33,7 @@ jest.mock("expo-notifications", () => ({
   cancelAllScheduledNotificationsAsync: jest.fn().mockResolvedValue(undefined),
   scheduleNotificationAsync: jest.fn().mockResolvedValue("id"),
   getAllScheduledNotificationsAsync: jest.fn().mockResolvedValue([]),
+  getPresentedNotificationsAsync: jest.fn().mockResolvedValue([]),
 }));
 
 jest.mock("@/lib/notifications/platform", () => ({
@@ -71,6 +72,7 @@ import {
   markFromNotification,
   osTriggerForReminder,
   rescheduleAll,
+  shouldArmReminder,
   snoozeNotification,
   syncAdhanChannel,
 } from "./scheduler";
@@ -83,6 +85,9 @@ const mockSchedule = Notifications.scheduleNotificationAsync as jest.MockedFunct
 >;
 const mockGetAll = Notifications.getAllScheduledNotificationsAsync as jest.MockedFunction<
   typeof Notifications.getAllScheduledNotificationsAsync
+>;
+const mockGetPresented = Notifications.getPresentedNotificationsAsync as jest.MockedFunction<
+  typeof Notifications.getPresentedNotificationsAsync
 >;
 const mockPermission = readNotificationPermissionUiState as jest.MockedFunction<
   typeof readNotificationPermissionUiState
@@ -105,6 +110,8 @@ beforeEach(() => {
   mockSchedule.mockResolvedValue("id");
   mockGetAll.mockReset();
   mockGetAll.mockResolvedValue([]);
+  mockGetPresented.mockReset();
+  mockGetPresented.mockResolvedValue([]);
   mockSupported.mockReturnValue(true);
   mockPermission.mockResolvedValue("granted");
 });
@@ -334,6 +341,133 @@ function dateReminder(over: Partial<BuiltReminder> = {}): BuiltReminder {
     ...over,
   };
 }
+
+describe("rescheduleAll around a reminder that just fired", () => {
+  const prefs = makePrefs({ afterAzan: true });
+  // Only fake the clock — the serialized reschedule queue still needs real timers.
+  const fakeClock = (now: Date) =>
+    jest.useFakeTimers({
+      now,
+      doNotFake: [
+        "nextTick",
+        "setImmediate",
+        "clearImmediate",
+        "setTimeout",
+        "clearTimeout",
+        "setInterval",
+        "clearInterval",
+        "queueMicrotask",
+        "hrtime",
+        "performance",
+      ],
+    });
+
+  /** The After-Isha-Adhan reminder of the day built at `base`. */
+  function afterIshaAdhan(base: Date): BuiltReminder {
+    const found = buildReminders(prefs, SET_LOCATION, base).find((r) =>
+      r.id.startsWith("afterAzan:isha:"),
+    );
+    if (!found) throw new Error("no after-Isha-Adhan reminder");
+    return found;
+  }
+
+  const scheduledIds = () =>
+    mockSchedule.mock.calls.map(([arg]) => (arg as { identifier: string }).identifier);
+
+  afterEach(() => jest.useRealTimers());
+
+  it("tap → foreground reschedule inside the window does not schedule it a second time", async () => {
+    const target = afterIshaAdhan(new Date("2026-07-03T00:30:00.000Z"));
+
+    // Pass 1: five minutes before — armed once as a DATE trigger.
+    fakeClock(new Date(target.fireAt.getTime() - 5 * 60_000));
+    await rescheduleAll(prefs, SET_LOCATION);
+    expect(scheduledIds().filter((id) => id === target.id)).toHaveLength(1);
+    const pendingAfterPass1 = mockSchedule.mock.calls.map(([arg]) => ({
+      identifier: (arg as { identifier: string }).identifier,
+      content: { title: "", body: "", data: {} },
+      trigger: { type: "date", value: target.fireAt.getTime() },
+    }));
+
+    // It fires; the user taps it 20 s later → the app foregrounds and reschedules.
+    // The OS no longer has it pending and shows it in the tray.
+    mockSchedule.mockClear();
+    fakeClock(new Date(target.fireAt.getTime() + 20_000));
+    mockGetAll.mockResolvedValue(
+      pendingAfterPass1.filter((item) => item.identifier !== target.id) as never,
+    );
+    mockGetPresented.mockResolvedValue([{ request: { identifier: target.id } }] as never);
+    await rescheduleAll(prefs, SET_LOCATION);
+
+    expect(scheduledIds()).not.toContain(target.id);
+  });
+
+  it("does not re-arm a just-fired reminder the OS already delivered (no longer pending)", async () => {
+    const target = afterIshaAdhan(new Date("2026-07-03T00:30:00.000Z"));
+    fakeClock(new Date(target.fireAt.getTime() + 15_000));
+    await rescheduleAll(prefs, SET_LOCATION);
+    expect(scheduledIds()).not.toContain(target.id);
+  });
+
+  it("does not re-arm a just-fired reminder that is already in the tray", async () => {
+    const target = afterIshaAdhan(new Date("2026-07-03T00:30:00.000Z"));
+    fakeClock(new Date(target.fireAt.getTime() + 15_000));
+    mockGetAll.mockResolvedValue([
+      { identifier: target.id, content: { title: "", body: "", data: {} }, trigger: null },
+    ] as never);
+    mockGetPresented.mockResolvedValue([{ request: { identifier: target.id } }] as never);
+    await rescheduleAll(prefs, SET_LOCATION);
+    expect(scheduledIds()).not.toContain(target.id);
+  });
+
+  it("re-arms a due reminder the OS still had pending (not delivered yet)", async () => {
+    const target = afterIshaAdhan(new Date("2026-07-03T00:30:00.000Z"));
+    fakeClock(new Date(target.fireAt.getTime() + 15_000));
+    mockGetAll.mockResolvedValue([
+      { identifier: target.id, content: { title: "", body: "", data: {} }, trigger: null },
+    ] as never);
+    await rescheduleAll(prefs, SET_LOCATION);
+    const call = mockSchedule.mock.calls
+      .map(([arg]) => arg as { identifier: string; trigger: { type: string; seconds?: number } })
+      .find((arg) => arg.identifier === target.id);
+    expect(call?.trigger).toMatchObject({ type: TRIGGER.TIME_INTERVAL, seconds: 1 });
+  });
+
+  it("still schedules when reading presented notifications fails", async () => {
+    mockGetPresented.mockRejectedValue(new Error("unsupported"));
+    await expect(rescheduleAll(prefs, SET_LOCATION)).resolves.toBeUndefined();
+    expect(mockSchedule).toHaveBeenCalled();
+  });
+});
+
+describe("shouldArmReminder", () => {
+  const empty = { pendingIds: new Set<string>(), deliveredIds: new Set<string>() };
+  const now = Date.parse("2026-07-03T12:00:00.000Z");
+  const base: BuiltReminder = {
+    id: "prayer:asr:2026-07-03",
+    fireAt: new Date(now - 10_000),
+    title: "Asr",
+    body: "",
+    channelId: "prayer",
+    repeat: "date",
+    route: "/tracker",
+    priority: 110,
+  };
+
+  it("arms future and daily reminders unconditionally", () => {
+    expect(shouldArmReminder({ ...base, fireAt: new Date(now + 1_000) }, empty, now)).toBe(true);
+    expect(shouldArmReminder({ ...base, repeat: "daily" }, empty, now)).toBe(true);
+  });
+
+  it("arms a due one-off only while still pending and not shown", () => {
+    expect(shouldArmReminder(base, empty, now)).toBe(false);
+    const pending = { pendingIds: new Set([base.id]), deliveredIds: new Set<string>() };
+    expect(shouldArmReminder(base, pending, now)).toBe(true);
+    expect(shouldArmReminder(base, { ...pending, deliveredIds: new Set([base.id]) }, now)).toBe(
+      false,
+    );
+  });
+});
 
 describe("osTriggerForReminder", () => {
   const nowMs = Date.parse("2026-09-03T11:02:05.000Z");

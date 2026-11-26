@@ -181,7 +181,7 @@ describe("ReadingCard", () => {
     expect(mockAudioPlayer.play).not.toHaveBeenCalled();
   });
 
-  it("puts Report under More when a report provider is present", async () => {
+  it("shows Report as its own action (not behind More) when a report provider is present", async () => {
     const openReport = jest.fn();
     const contentRef = { kind: "dua", id: "sleep-bismika" } as never;
     const shareCard = fakeShareCard();
@@ -190,10 +190,14 @@ describe("ReadingCard", () => {
         <ReadingCard item={baseItem} shareCard={shareCard} contentRef={contentRef} />
       </ContentReportContext.Provider>,
     );
-    // Long-press menu and the More row both offer it.
+    // Long-press menu and the action row both offer it.
     await fireEvent.press(screen.getAllByLabelText("menu:report")[0]);
     expect(openReport).toHaveBeenCalledWith(contentRef);
-    expect(screen.getByLabelText("More actions")).toBeTruthy();
+    // A lone extra action is drawn directly — no one-item "More" sheet.
+    expect(screen.queryByLabelText("More actions")).toBeNull();
+    await fireEvent.press(screen.getByLabelText("Report an issue"));
+    expect(openReport).toHaveBeenCalledTimes(2);
+    expect(screen.getByText("Report")).toBeTruthy();
   });
 
   it("shares the reading", async () => {

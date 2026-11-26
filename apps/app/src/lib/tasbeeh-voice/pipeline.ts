@@ -35,6 +35,8 @@ export type VoicePipelineOptions = {
   phrase?: PhraseKey | null;
   /** Template only. */
   pattern?: TaughtPattern | null;
+  /** Template only: a confident match was learned (adaptive templates, features only). */
+  onPatternLearned?: (pattern: TaughtPattern) => void;
   threshold?: () => number;
   onHit: (hit: TimedHit) => void;
   /** Teach only: one spoken burst (16 kHz PCM, in memory only). */
@@ -100,7 +102,13 @@ export async function startVoicePipeline(options: VoicePipelineOptions): Promise
           onLevel,
         });
       } else if (options.mode === "template" && options.pattern) {
-        modelFree = createTemplateCounter({ pattern: options.pattern, onHit, onSpeech, onLevel });
+        modelFree = createTemplateCounter({
+          pattern: options.pattern,
+          onHit,
+          onSpeech,
+          onLevel,
+          onPatternLearned: options.onPatternLearned,
+        });
       } else {
         modelFree = createPauseCounter({ onHit, onSpeech, onLevel });
       }

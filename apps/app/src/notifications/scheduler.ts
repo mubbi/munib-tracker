@@ -160,8 +160,9 @@ function snoozeRequest(
 }
 
 /** Pending snoozes, captured before a reschedule pass cancels everything. */
-async function collectPendingSnoozes(): Promise<Notifications.NotificationRequestInput[]> {
-  const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+function collectPendingSnoozes(
+  scheduled: Notifications.NotificationRequest[],
+): Notifications.NotificationRequestInput[] {
   const now = Date.now();
   const out: Notifications.NotificationRequestInput[] = [];
   for (const item of scheduled) {
@@ -172,6 +173,48 @@ async function collectPendingSnoozes(): Promise<Notifications.NotificationReques
     out.push(snoozeRequest(item.identifier, item.content, seconds));
   }
   return out;
+}
+
+/** What the OS holds right before a reschedule pass cancels everything. */
+type PendingOsState = {
+  snoozes: Notifications.NotificationRequestInput[];
+  /** Identifiers still waiting to fire (not delivered yet). */
+  pendingIds: ReadonlySet<string>;
+  /** Identifiers already shown in the tray / notification centre. */
+  deliveredIds: ReadonlySet<string>;
+};
+
+async function readPendingOsState(): Promise<PendingOsState> {
+  const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+  let presented: Notifications.Notification[] = [];
+  try {
+    presented = (await Notifications.getPresentedNotificationsAsync()) ?? [];
+  } catch (error) {
+    // Best effort — the pending set alone already stops the re-fire.
+    captureAppException(error, { tags: { area: "notifications", phase: "read-presented" } });
+  }
+  return {
+    snoozes: collectPendingSnoozes(scheduled),
+    pendingIds: new Set(scheduled.map((item) => item.identifier)),
+    deliveredIds: new Set(presented.map((item) => item.request.identifier)),
+  };
+}
+
+/**
+ * Whether a reschedule pass may (re-)arm `reminder`. A one-off reminder whose
+ * fire time has already arrived (it sits in the just-missed window) is only
+ * re-armed when the OS still had it pending and has not shown it — otherwise
+ * the pass right after it fires (tapping it foregrounds the app, which
+ * reschedules) would turn it into a 1-second trigger and deliver it twice.
+ */
+export function shouldArmReminder(
+  reminder: BuiltReminder,
+  state: Pick<PendingOsState, "pendingIds" | "deliveredIds">,
+  nowMs = Date.now(),
+): boolean {
+  if (reminder.repeat !== "date") return true;
+  if (reminder.fireAt.getTime() > nowMs) return true;
+  return state.pendingIds.has(reminder.id) && !state.deliveredIds.has(reminder.id);
 }
 
 async function restoreSnoozes(snoozes: Notifications.NotificationRequestInput[]): Promise<void> {
@@ -362,7 +405,7 @@ export async function rescheduleAll(
     });
     // Preserve snoozes across cancel/rebuild so a foreground reschedule doesn't
     // erase an intentional deferral.
-    const snoozes = await collectPendingSnoozes();
+    const pending = await readPendingOsState();
     const now = new Date();
     const nextReminders =
       prefs.notificationPrefs.masterEnabled && (await getPermissionStatus()) === "granted"
@@ -372,9 +415,12 @@ export async function rescheduleAll(
 
     // Cancel only after we know what to arm. Schedule each reminder independently —
     // one iOS DATE reject must not leave the user with an empty pending set.
-    // (`buildReminders` already dropped anything past the just-missed window.)
+    // (`buildReminders` already dropped anything past the just-missed window;
+    // `shouldArmReminder` skips the ones that window holds but the OS already showed.)
     await cancelAll();
+    const nowMs = Date.now();
     for (const reminder of nextReminders) {
+      if (!shouldArmReminder(reminder, pending, nowMs)) continue;
       try {
         await scheduleReminder(reminder, { preciseAdhan });
       } catch (error) {
@@ -384,7 +430,7 @@ export async function rescheduleAll(
         });
       }
     }
-    await restoreSnoozes(snoozes);
+    await restoreSnoozes(pending.snoozes);
   });
 }
 

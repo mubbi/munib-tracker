@@ -1,4 +1,4 @@
-import { type Href, useRouter } from "expo-router";
+import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -23,7 +23,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
-import { useFidyahCalculator } from "@/hooks/use-fidyah-calculator";
+import { parseFidyahRouteParams, useFidyahCalculator } from "@/hooks/use-fidyah-calculator";
 import { useMadhhabPrompt } from "@/hooks/use-madhhab-prompt";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
@@ -47,7 +47,9 @@ export default function FidyahScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors } = useThemeTokens();
-  const calc = useFidyahCalculator();
+  // `/fidyah?scenario=fidyah&days=3` (Ramadan "Days to make up") prefills the helper.
+  const params = useLocalSearchParams<{ scenario?: string; days?: string }>();
+  const calc = useFidyahCalculator(parseFidyahRouteParams(params));
   const numberFormat = useMoneyNumberFormat();
   const wide = useLearnHubLayout();
   // Desktop calculator: inputs side by side, live estimate in a sticky aside.

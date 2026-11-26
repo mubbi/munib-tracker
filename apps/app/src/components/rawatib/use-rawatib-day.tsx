@@ -5,18 +5,26 @@ import type {
   RawatibId,
   RawatibPreset,
 } from "@munib-tracker/shared/types";
-import { rakahsForLog, rawatibRowState, splitRawatibForExcuse } from "@munib-tracker/shared/utils";
+import {
+  rakahsForLog,
+  rawatibRowState,
+  rawatibWindow,
+  splitRawatibForExcuse,
+} from "@munib-tracker/shared/utils";
 import { isRawatibPrayer } from "@munib-tracker/shared/validators";
+import { useRouter } from "expo-router";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { RakahsSheet } from "@/components/rawatib/rakahs-sheet";
-import { RawatibChipRow } from "@/components/rawatib/rawatib-chips";
-import { RawatibHeaderCard } from "@/components/rawatib/rawatib-header-card";
+import { RawatibChipRow, type RawatibChipRowProps } from "@/components/rawatib/rawatib-chips";
+import { RawatibFirstRunPrompt, RawatibSummaryRow } from "@/components/rawatib/rawatib-summary";
 import { PrayerRepository } from "@/db";
 import { useNow } from "@/hooks/use-now";
 import { useRawatibConfig } from "@/hooks/use-rawatib";
 import {
+  RAWATIB_ROUTE,
   rawatibDayTimes,
   rawatibRakahsDone,
   startRawatib,
@@ -29,20 +37,27 @@ import { trackerStore, usePrayerRakahsMap } from "@/stores/tracker-store";
 const FARD_ORDER: readonly ObligatoryPrayer[] = ["fajr", "dhuhr", "asr", "maghrib", "isha"];
 
 export type RawatibDay = {
-  /** Rawatib are on and not hidden by hayd/nifas — render chips + card. */
+  /** Rawatib are on and not hidden by hayd/nifas — render the Sunnah rows + summary. */
   active: boolean;
-  /** Chip row for one fard (null when nothing to show). */
-  chipsFor: (parent: ObligatoryPrayer) => ReactNode;
-  /** Header card (also the first-run question). `null` while hidden. */
-  headerCard: ReactNode;
+  /**
+   * The Sunnah sub-row for one fard — every row of the day in prayer order, the
+   * not-yet-due ones muted (null when that fard has none). `label: false` drops
+   * the leading "Sunnah" label (the hub groups rows under the Salah name).
+   */
+  chipsFor: (parent: ObligatoryPrayer, options?: { label?: boolean }) => ReactNode;
+  /**
+   * Slim progress footer for the Obligatory card, or the one-time first-run
+   * question when no madhhab is chosen. `null` while off or hidden.
+   */
+  summary: ReactNode;
   /** The 2 | 4 sheet (mount once). */
   sheet: ReactNode;
 };
 
 /**
  * Everything the tracker checklist needs for the rawatib (NF-3.1) on one day:
- * the resolved preset, excused filtering, today's visibility windows, the
- * optimistic toggle and the 2 | 4 sheet. Writes go through
+ * the resolved preset, excused filtering, today's windows (future rows muted),
+ * the optimistic toggle and the 2 | 4 sheet. Writes go through
  * `trackerStore.setRawatibOnDate`, which never touches qaza or the streak.
  */
 export function useRawatibDay({
@@ -56,6 +71,8 @@ export function useRawatibDay({
   status: Record<string, PrayerStatus | undefined>;
   excusedReason: string | null | undefined;
 }): RawatibDay {
+  const { t } = useTranslation();
+  const router = useRouter();
   const config = useRawatibConfig();
   const location = useLocation();
   const now = useNow();
@@ -63,7 +80,6 @@ export function useRawatibDay({
   const [dayRakahs, setDayRakahs] = useState<Record<string, number>>({});
   const [lateMap, setLateMap] = useState<Record<string, boolean>>({});
   const [overrides, setOverrides] = useState<Record<string, PrayerStatus>>({});
-  const [showAll, setShowAll] = useState(false);
   const [sheetId, setSheetId] = useState<RawatibId | null>(null);
 
   // Optimistic chip state until the parent's status map catches up (calendar views reload async).
@@ -151,6 +167,24 @@ export function useRawatibDay({
     [config.ids, states],
   );
 
+  // Today's rows whose window hasn't opened yet — shown (the whole day at a glance) but muted.
+  const futureIds = useMemo(() => {
+    const ids = new Set<RawatibId>();
+    if (!isToday || !times) return ids;
+    for (const id of config.ids) {
+      if (effective[id] === "completed") continue;
+      const window = rawatibWindow(id, times);
+      if (window && now.getTime() < window.start.getTime()) ids.add(id);
+    }
+    return ids;
+  }, [config.ids, effective, isToday, now, times]);
+
+  const optional = useMemo<RawatibChipRowProps["optional"]>(() => {
+    if (excusedReason === "travel") return { ids: new Set(split.optional), reason: "travel" };
+    if (excusedReason === "sick") return { ids: new Set(split.shown), reason: "sick" };
+    return undefined;
+  }, [excusedReason, split]);
+
   const write = useCallback(
     (id: RawatibId, completed: boolean, count?: number) => {
       const rakahCount = count ?? rakahsForLog({ rakahs: rakahs[id] }, id, config.preset);
@@ -176,14 +210,10 @@ export function useRawatibDay({
   );
   const onChooseRakahs = useCallback((id: RawatibId) => setSheetId(id), []);
 
-  const visible = useCallback(
-    (id: RawatibId) => !isToday || showAll || (states.get(id)?.visible ?? true),
-    [isToday, showAll, states],
-  );
-
-  const chipsFor = (parent: ObligatoryPrayer): ReactNode => {
+  const chipsFor = (parent: ObligatoryPrayer, options?: { label?: boolean }): ReactNode => {
     if (!active) return null;
-    const ids = split.shown.filter((id) => RAWATIB_PARENT[id] === parent && visible(id));
+    // Every row of the day, in prayer order; travel's optional rows stay inline (labelled).
+    const ids = config.ids.filter((id) => RAWATIB_PARENT[id] === parent);
     if (ids.length === 0) return null;
     const row = (
       <RawatibChipRow
@@ -193,7 +223,10 @@ export function useRawatibDay({
         rakahs={rakahs}
         preset={config.preset}
         beforeFardIds={beforeFardIds}
+        futureIds={futureIds}
         late={lateMap}
+        optional={optional}
+        label={options?.label === false ? undefined : t("rawatib.chip.rowLabel")}
         onToggle={onToggle}
         onChooseRakahs={onChooseRakahs}
       />
@@ -225,30 +258,14 @@ export function useRawatibDay({
     [config],
   );
 
-  const optionalIds = split.optional.filter(visible);
-  const showCard = split.hidden ? false : config.enabled || config.needsChoice;
-  const headerCard = showCard ? (
-    <RawatibHeaderCard
-      config={config}
-      excusedReason={excusedReason}
+  const summary = split.hidden ? null : config.needsChoice ? (
+    <RawatibFirstRunPrompt onChoose={onChoose} />
+  ) : config.enabled ? (
+    <RawatibSummaryRow
       rakahsDone={rakahsDone}
-      isToday={isToday}
-      showAll={showAll}
-      onToggleShowAll={isToday ? () => setShowAll((value) => !value) : undefined}
-      onChoose={onChoose}
-      optionalContent={
-        active && optionalIds.length > 0 ? (
-          <RawatibChipRow
-            testID="rawatib-chips-optional"
-            ids={optionalIds}
-            status={effective}
-            rakahs={rakahs}
-            preset={config.preset}
-            onToggle={onToggle}
-            onChooseRakahs={onChooseRakahs}
-          />
-        ) : null
-      }
+      target={config.preset}
+      excusedReason={excusedReason}
+      onOpenHub={() => router.push(RAWATIB_ROUTE)}
     />
   ) : null;
 
@@ -261,5 +278,5 @@ export function useRawatibDay({
     />
   );
 
-  return { active, chipsFor, headerCard, sheet };
+  return { active, chipsFor, summary, sheet };
 }

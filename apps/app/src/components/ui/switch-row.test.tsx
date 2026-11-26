@@ -4,7 +4,9 @@ import { Text } from "react-native";
 
 import { SwitchRow } from "@/components/ui/switch-row";
 import { usePlatform } from "@/test-support/platform";
+import { parentOf } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
+import { flattenStyle } from "@/test-support/style";
 
 const renderRow = async (props: Partial<Parameters<typeof SwitchRow>[0]> = {}) => {
   const onValueChange = jest.fn();
@@ -84,5 +86,21 @@ describe("SwitchRow", () => {
       await fireEvent.press(screen.getByRole("switch", { name: "Daily reminder" }));
       expect(onValueChange).not.toHaveBeenCalled();
     });
+  });
+});
+
+describe("SwitchRow accessory", () => {
+  it("sits on the title line (wrapping) instead of between the text and the switch", async () => {
+    await renderRow({ accessory: <Text>badge</Text> });
+
+    const titleLine = parentOf(screen.getByText("Daily reminder"));
+    expect(parentOf(screen.getByText("badge"))).toBe(titleLine);
+    expect(flattenStyle(titleLine.props.style)).toEqual(
+      expect.objectContaining({ flexDirection: "row", flexWrap: "wrap" }),
+    );
+    // The text column still holds title line + subtitle at full width.
+    const textColumn = parentOf(titleLine);
+    expect(flattenStyle(textColumn.props.style).flex).toBe(1);
+    expect(parentOf(screen.getByText("After Fajr"))).toBe(textColumn);
   });
 });

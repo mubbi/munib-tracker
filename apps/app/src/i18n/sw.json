@@ -433,10 +433,17 @@
       "makeUp": {
         "title": "Siku za kadha",
         "body": "Siku za kadha kutoka Ramadhani hii: {{days}}. Siku ulizokosa na za udhuru, pamoja na siku za hedhi au nifasi, hufanyiwa kadha baada ya Ramadhani.",
-        "question": "Uziongeze kwenye funga zako za kadha? Ruka hili kama umeshaziongeza, au kama unatoa fidia badala yake.",
         "add": "Ongeza {{days}} kwenye funga za kadha",
-        "dismiss": "Hapana, asante",
-        "added": "Zimeongezwa kwenye funga zako za kadha."
+        "added": "Zimeongezwa kwenye funga zako za kadha.",
+        "settle": "Utazilipaje siku hizi?",
+        "optionQaza": "Zilipe kwa kufunga (Kadha)",
+        "optionFidyah": "Toa fidia badala yake",
+        "optionKaffarah": "Kafara kwa funga iliyovunjwa kwa makusudi",
+        "openFidyah": "Fungua msaidizi wa fidia",
+        "openKaffarah": "Fungua msaidizi wa kafara",
+        "alreadyHandled": "Tayari imeshughulikiwa",
+        "sadaqahLink": "Toa sadaka ya hiari kama tendo jema la ziada",
+        "sadaqahHint": "Sadaka ni thawabu ya ziada. Haichukui nafasi ya kulipa saumu wala fidia."
       }
     },
     "toast": {
@@ -724,7 +731,11 @@
     "markSalah": "Weka alama kwenye {{salah}}",
     "moreForToday": "Zaidi kwa leo ({{count}})",
     "moreForToday_one": "Zaidi kwa leo ({{count}})",
-    "moreForToday_other": "Zaidi kwa leo ({{count}})"
+    "moreForToday_other": "Zaidi kwa leo ({{count}})",
+    "exploreDoneA11y": "Maliza kuhariri njia za mkato",
+    "exploreEditHint": "Buruta ili kupanga upya. Gusa − kuficha njia ya mkato.",
+    "exploreAddBack": "Rudisha",
+    "exploreHideTile": "Ficha {{item}}"
   },
   "tracker": {
     "eyebrow": "Fuatilia na rekodi",
@@ -1016,7 +1027,9 @@
     },
     "reorder": {
       "moreFor": "Chaguo zaidi za {{item}}",
-      "moveToTop": "Hamisha juu kabisa"
+      "moveToTop": "Hamisha juu kabisa",
+      "removed": "{{item}} imeondolewa",
+      "hidden": "Zilizofichwa"
     },
     "sendFeedback": "Tuma maoni",
     "sendFeedbackDesc": "Ripoti tatizo au pendekeza uboreshaji"
@@ -1157,7 +1170,12 @@
     "preview": "Onyesho",
     "sampleAction": "Kitendo cha mfano",
     "secondary": "Ya pili",
-    "previewMeta": "Hali ya sasa: {{mode}} · msisitizo: {{accent}}"
+    "previewMeta": "Hali ya sasa: {{mode}} · msisitizo: {{accent}}",
+    "moreColors": "Rangi zaidi",
+    "moreColorsHint": "Hufungua rangi zote na kichagua rangi maalum",
+    "accentAdjusted": "Imerekebishwa ili isomeke vizuri katika mandhari hii. Rangi yako imehifadhiwa kama ulivyochagua.",
+    "hexLabel": "Msimbo wa hex",
+    "hexInvalid": "Weka msimbo wa hex wa tarakimu 6, kama #1E6B4F"
   },
   "bedtime": {
     "eyebrow": "Mipangilio",
@@ -1479,7 +1497,10 @@
     "browseAdhkar": "Vinjari adhkari",
     "favoriteRemoved": "Imeondolewa kwenye vilivyohifadhiwa",
     "markedNotDone": "Imewekwa alama: haijakamilika",
-    "countOfTarget": "{{current}} kati ya {{target}}"
+    "countOfTarget": "{{current}} kati ya {{target}}",
+    "playRecitation": "Cheza kisomo: {{title}}",
+    "pauseRecitation": "Sitisha kisomo: {{title}}",
+    "closeSearch": "Funga utafutaji"
   },
   "zikrCat": {
     "morning": "Adhkari za asubuhi",
@@ -1632,7 +1653,25 @@
     "openInTasbeeh": "Fungua katika Tasbihi",
     "favEmptyDescTv": "Chagua aikoni ya alamisho kwenye swalawat yoyote ili kuihifadhi hapa.",
     "removedToast": "Imeondolewa kwenye vilivyohifadhiwa",
-    "loading": "Inapakia swalawat…"
+    "loading": "Inapakia swalawat…",
+    "grade": {
+      "sahih": "Sahihi",
+      "hasan": "Hasan"
+    },
+    "readHadith": "Soma hadithi kamili",
+    "hideHadith": "Ficha hadithi",
+    "position": "{{current}} kati ya {{total}}",
+    "unsave": "Ondoa kwenye vilivyohifadhiwa",
+    "notFoundDesc": "Huenda kipengee hiki kimeondolewa.",
+    "sectionSalawat": "Swalawat alizofundisha Mtume ﷺ",
+    "sectionVirtues": "Fadhila za kumswalia Mtume",
+    "play": "Cheza {{title}}",
+    "pause": "Sitisha {{title}}",
+    "sourceInfo": "Chanzo na daraja: {{title}}",
+    "sourceTitle": "Hadithi ya chanzo",
+    "detailEyebrow": "Swalawat",
+    "notFoundTitle": "Swalawat haijapatikana",
+    "browseAll": "Vinjari swalawat zote"
   },
   "names": {
     "eyebrow": "Asma-ul-Husna",
@@ -1926,6 +1965,16 @@
       "ayahsAmount_other": "aya {{count}}",
       "pagesAmount_one": "ukurasa {{count}}",
       "pagesAmount_other": "kurasa {{count}}"
+    },
+    "actionLess": "Kidogo",
+    "lessActionsA11y": "Vitendo vichache vya aya {{n}}",
+    "passage": {
+      "ayah": "Aya {{n}}",
+      "range": "Aya {{from}}–{{to}}",
+      "play": "Cheza sehemu hii",
+      "playHint": "Inacheza {{ref}} pekee",
+      "openFullSurah": "Fungua sura nzima",
+      "openFullSurahHint": "Inafungua {{name}} kwenye aya {{n}} katika kisomaji"
     }
   },
   "hadith": {
@@ -2214,7 +2263,9 @@
     "toastSet": "{{prayer}} iliyobaki: {{value}}",
     "setExactLabel": "Weka kilichobaki kuwa",
     "rowRemainingA11y": "{{prayer}}, imebaki {{value}}",
-    "madeUpButton": "Imetimizwa"
+    "madeUpButton": "Imetimizwa",
+    "madeUpOneA11y": "{{prayer}} moja imelipwa",
+    "allMadeUp": "Zote zimelipwa"
   },
   "qazaCalc": {
     "eyebrow": "Kadha",
@@ -4372,7 +4423,9 @@
     "seeAll": "Tazama yote {{total}} katika {{group}}",
     "showFewer": "Onyesha machache katika {{group}}",
     "searchEverything": "Tafuta “{{query}}” kila mahali",
-    "searchEverythingHint": "Qur'ani, hadithi, dua, adhkari na zaidi"
+    "searchEverythingHint": "Qur'ani, hadithi, dua, adhkari na zaidi",
+    "seeAllShort": "Tazama zote ({{total}})",
+    "showFewerShort": "Onyesha machache"
   },
   "offlineData": {
     "title": "Data ya nje ya mtandao",
@@ -6578,7 +6631,15 @@
     "padCount": "Gusa kuhesabu",
     "loggingPreviousDay": "Inarekodiwa kwa {{date}} — usiku unaendelea hadi Alfajiri.",
     "announceAllDone": "Imekamilika. Seti hii ya adhkari imekamilika.",
-    "announceRecitedNext": "Imesomwa. Inayofuata: {{title}}"
+    "announceRecitedNext": "Imesomwa. Inayofuata: {{title}}",
+    "dock": {
+      "playA11y": "Cheza kisomo",
+      "pauseA11y": "Sitisha kisomo",
+      "reset": "Weka upya",
+      "done": "Imekamilika",
+      "listening": "Inasikiliza",
+      "handsFreeOn": "Kuhesabu kwa sauti kumewashwa"
+    }
   },
   "hijriAdjust": {
     "adjust": "Rekebisha",
@@ -6784,8 +6845,9 @@
     },
     "hint": {
       "tap": "Gusa popote kwenye kihesabu ili kuhesabu",
-      "misbaha": "Gusa, au vuta shanga inayofuata kwenye uzi",
-      "keyboard": "Bofya kihesabu au bonyeza Space ili kuhesabu"
+      "keyboard": "Bofya kihesabu au bonyeza Space ili kuhesabu",
+      "misbahaUndo": "Gusa, au vuta shanga inayofuata — irudishe ili kutendua",
+      "pebbles": "Gusa, au telezesha kokoto upande mwingine — telezesha nyuma ili kutendua"
     },
     "a11y": {
       "milestone": "{{number}} zimehesabiwa"
@@ -7569,7 +7631,8 @@
       "voice": "Sauti",
       "readingDisplay": "Tafsiri na unukuzi",
       "focusLock": "Umakini wa Swala",
-      "qibla": "Dira ya Qibla"
+      "qibla": "Dira ya Qibla",
+      "extras": "Hali ya hewa na Qibla"
     },
     "setup": {
       "dismiss": "Si sasa",
@@ -7593,7 +7656,9 @@
     "moreInSettingsHint": "Hufungua chaguo hizi katika Mipangilio",
     "tvFinanceTools": "Onyesha zana za fedha",
     "tvFinanceToolsSub": "Zaka, sadaka, fidia, mirathi na fedha za Kiislamu kwenye TV hii. Imezimwa kwa chaguo-msingi ili kiasi kibaki faragha.",
-    "surfaceFinance": "Miongozo ya Zaka na fedha"
+    "surfaceFinance": "Miongozo ya Zaka na fedha",
+    "voiceDefaultShort": "Chaguo-msingi",
+    "clearAction": "Futa"
   },
   "prayerWindow": {
     "preferred": {
@@ -8216,7 +8281,11 @@
       "extra": "Ziada",
       "late": "Imeswaliwa kwa kuchelewa",
       "chooseRakahs": "2 au 4",
-      "chooseRakahsA11y": "Chagua rakaa 2 au 4 kwa {{name}}"
+      "chooseRakahsA11y": "Chagua rakaa 2 au 4 kwa {{name}}",
+      "rowLabel": "Sunna",
+      "optional": "Hiari",
+      "optionalWhileUnwell": "Hiari ukiwa mgonjwa",
+      "notYetHint": "Wakati wake bado haujafika — bado unaweza kuirekodi"
     },
     "rakahsSheet": {
       "prompt": "Uliswali rakaa ngapi?",
@@ -8226,13 +8295,10 @@
       "title": "Sunna za rawatib",
       "evidence": "Sahih Muslim 728 · rakaa {{count}} kwa siku",
       "progress": "{{done}} / {{total}} rakaa",
-      "hint": "Gusa kibonye chini ya kila Swala kurekodi. Bonyeza kwa muda kibonye cha 2 / 4 kubadilisha rakaa.",
       "hintTv": "Chagua kibonye chini ya kila Swala kurekodi.",
       "sickHint": "Ukiwa mgonjwa hakuna kinachotarajiwa — rekodi unachoweza kuswali.",
       "travelHint": "Safarini sunna ya Alfajiri hudumishwa; nyingine ni hiari.",
       "optionalWhileTravelling": "Hiari safarini",
-      "showAll": "Onyesha rawatib zote za leo",
-      "showDue": "Onyesha za sasa tu",
       "openHub": "Dalili na mipangilio",
       "askBody": "Fuatilia sunna zilizosisitizwa kabla na baada ya faradhi? Chagua rakaa 12 (4 kabla ya Adhuhuri) au 10 (2 kabla ya Adhuhuri). Unaweza kubadilisha wakati wowote.",
       "askTwelve": "Rakaa 12",
@@ -8254,7 +8320,7 @@
       "title": "Sunna za rawatib",
       "subtitle": "Sunna zilizosisitizwa kabla na baada ya faradhi",
       "todayTitle": "Leo",
-      "todayHint": "Zirekodi kwa vibonye chini ya kila Swala kwenye kifuatiliaji.",
+      "todayHint": "Zirekodi hapa, au kwenye safu ya Sunna katika kadi ya kila Swala kwenye kifuatiliaji.",
       "off": "Ufuatiliaji wa rawatib umezimwa. Uwashe hapa chini.",
       "openTracker": "Fungua kifuatiliaji",
       "openStats": "Tazama takwimu",
@@ -9088,7 +9154,7 @@
       },
       "salawat": {
         "title": "Kumswalia Mtume ﷺ",
-        "hint": "Idadi yako ya kila siku"
+        "hint": "Huhesabiwa kwenye tasbeeh, au weka alama mwenyewe"
       },
       "salam_home": {
         "title": "Salamu unapoingia nyumbani",
@@ -9119,7 +9185,31 @@
         "hint": "Inawekwa alama kutoka adhkari zako"
       }
     },
-    "habitRemoved": "{{title}} imeondolewa"
+    "habitRemoved": "{{title}} imeondolewa",
+    "todayCount": "Leo · {{done}} kati ya {{total}}",
+    "todayRingA11y": "Mazoea ya Sunnah ya leo",
+    "editList": "Hariri orodha",
+    "myHabits": "Mazoea yangu ({{number}}/{{max}})",
+    "addMore": "Ongeza zaidi",
+    "groups": {
+      "morningEvening": "Asubuhi na jioni",
+      "day": "Mchana kutwa",
+      "bedtime": "Kabla ya kulala"
+    },
+    "principleShort": "Matendo anayoyapenda zaidi Allah ni yale ya kudumu, hata yakiwa machache.",
+    "evidenceLink": "Dalili",
+    "spotlightLine": "Jaribu leo: {{title}}",
+    "week": {
+      "title": "Wiki hii",
+      "dayA11y": "{{day}}: {{done}} kati ya {{total}}"
+    },
+    "detail": {
+      "history": "Siku 30 zilizopita",
+      "target": "Lengo la kila siku",
+      "open": "Fungua",
+      "remove": "Ondoa kwenye mazoea yangu"
+    },
+    "detailA11y": "{{title}}, maelezo"
   },
   "quranRoots": {
     "title": "Utafutaji kwa mzizi wa Kiarabu",
@@ -9714,8 +9804,9 @@
       "calibrateSub": "Sema kifungu mara 5 ili kuhesabu kuendane na sauti yako. Huhifadhiwa kwenye kifaa hiki tu.",
       "modelStorageSub": "Msikilizaji wa kwenye kifaa anashirikiwa na mazoezi ya Qur'ani",
       "forgetTaught": "Sahau sauti za dhikri zilizofundishwa",
-      "forgetTaughtSub": "Hakuna sauti inayorekodiwa wala kutumwa. Ukifundisha dhikri, mfumo mfupi wa sauti (si rekodi) hubaki kwenye kifaa hiki. Hii huziondoa zote.",
-      "forgetTaughtConfirm": "Sahau kila mfumo wa sauti wa dhikri uliofundishwa kwenye kifaa hiki? Unaweza kuzifundisha tena wakati wowote."
+      "forgetTaughtShort": "Huondoa mifumo ya sauti ya dhikri iliyofundishwa kwenye kifaa hiki",
+      "forgetTaughtConfirmPrivacy": "Usahau mifumo yote ya sauti ya dhikri iliyofundishwa kwenye kifaa hiki? Hakuna sauti inayorekodiwa wala kutumwa kamwe — kila mfumo ni kundi fupi la namba, si rekodi. Unaweza kuifundisha tena wakati wowote.",
+      "forgetAction": "Sahau"
     },
     "announce": {
       "title": "Matangazo ya hesabu ya tasbihi",
@@ -9736,8 +9827,8 @@
     },
     "teach": {
       "title": "Itamke mara moja ili dhikri hii pekee ihesabiwe",
-      "explain": "Sema {{phrase}} hadi mara 3, ukisita kati yake. Mfumo mfupi wa sauti (si rekodi) hubaki kwenye kifaa hiki ili dhikri hii pekee ihesabiwe.",
-      "explainOther": "Sema dhikri yako hadi mara 3, ukisita kati yake. Kwa kipindi hiki, marudio yake pekee ndiyo yatahesabiwa.",
+      "explain": "Sema {{phrase}} mara 3, ukisita kati yake. Mfumo mfupi wa sauti (si rekodi) hubaki kwenye kifaa hiki ili dhikri hii pekee ihesabiwe.",
+      "explainOther": "Sema dhikri yako mara 3, ukisita kati yake. Kwa kipindi hiki, marudio yake pekee ndiyo yatahesabiwa.",
       "start": "Fundisha kwa kuitamka",
       "skip": "Ruka — hesabu kila unaposita",
       "sayNow": "Sema {{phrase}} sasa",
@@ -9748,12 +9839,14 @@
       "issueShort": "Hiyo ilikuwa fupi mno. Sema dhikri nzima.",
       "issueLong": "Hiyo ilikuwa ndefu mno. Sema dhikri mara moja, kisha usite.",
       "issueDifferent": "Hiyo ilisikika tofauti. Sema dhikri ileile tena.",
-      "done": "Imekamilika — anza kuhesabu",
       "cancel": "Ghairi",
       "reteach": "Fundisha upya",
       "taughtReady": "Imefundishwa kwenye kifaa hiki.",
       "countsTaught": "Huhesabu dhikri uliyofundisha pekee — gusa kurekebisha hesabu yoyote isiyo sahihi.",
-      "countsPauses": "Huhesabu kila unaposita — si sahihi sana. Gusa ili kurekebisha hesabu yoyote isiyo sahihi."
+      "countsPauses": "Huhesabu kila unaposita — si sahihi sana. Gusa ili kurekebisha hesabu yoyote isiyo sahihi.",
+      "doneShort": "Tayari",
+      "nudge": "Hesabu chache zilihitaji kusahihishwa. Ufundishe upya kwa usahihi zaidi?",
+      "nudgeDismiss": "Si sasa"
     }
   },
   "masjids": {
@@ -10001,9 +10094,27 @@
         "title": "Chagua programu",
         "body": "Chagua programu zinazokusumbua zaidi.",
         "pick": "Chagua programu",
-        "count": "Programu zilizochaguliwa: {{count}}",
         "empty": "Hakuna programu zilizopatikana.",
-        "save": "Hifadhi uteuzi"
+        "save": "Hifadhi uteuzi",
+        "noneYet": "Bado hujachagua programu yoyote.",
+        "selectedItemsHint": "Programu, kategoria na tovuti ulizochagua. Kategoria nzima huhesabiwa kama moja.",
+        "edit": "Hariri",
+        "editHint": "Badilisha programu zinazositishwa",
+        "always": {
+          "title": "Zinapatikana kila wakati",
+          "phone": "Simu",
+          "phoneHint": "Simu huingia kila wakati.",
+          "messages": "Ujumbe",
+          "messagesHint": "Ujumbe bado huwasili.",
+          "emergency": "Simu za dharura",
+          "emergencyHint": "Simu ya dharura hufanya kazi kila wakati.",
+          "munib": "Munib Tracker",
+          "munibHint": "Ili uweze kuweka alama Swala yako."
+        },
+        "selectedItems_one": "Kipengee {{count}} kimechaguliwa",
+        "selectedItems_other": "Vipengee {{count}} vimechaguliwa",
+        "selectedApps_one": "Programu {{count}} imechaguliwa",
+        "selectedApps_other": "Programu {{count}} zimechaguliwa"
       },
       "timing": {
         "title": "Swala, muda na hali"
@@ -10012,11 +10123,20 @@
         "title": "Ijaribu",
         "body": "Anzisha kipindi cha majaribio cha dakika 1 kuona kinachotokea.",
         "start": "Anzisha jaribio la dakika 1",
-        "running": "Jaribio linaendelea: fungua mojawapo ya programu ulizochagua."
+        "running": "Jaribio linaendelea: fungua mojawapo ya programu ulizochagua.",
+        "callsNote": "Simu na ujumbe bado huingia wakati wa jaribio, na katika kila kipindi cha Swala."
       },
       "confirmAlert": "Arifa ya “Gusa kuthibitisha”",
       "confirmAlertHint": "Baada ya kugusa “Nimeswali” kwenye ngao, arifa hufungua Munib Tracker kuiwekea alama Swala yako.",
-      "progressLabel": "Maendeleo ya usanidi"
+      "progressLabel": "Maendeleo ya usanidi",
+      "stepNamed": "Hatua {{current}} kati ya {{total}} · {{name}}",
+      "stepName": {
+        "explain": "Utangulizi",
+        "permissions": "Ruhusa",
+        "apps": "Programu",
+        "timing": "Muda",
+        "test": "Jaribio"
+      }
     },
     "evidence": {
       "title": "Kwa nini",
@@ -10138,6 +10258,17 @@
       "kwKids": "hali ya watoto, kifaa cha mtoto, unganisha, qr, kids mode",
       "familyDigest": "Muhtasari wa familia wa kila wiki",
       "familyDigestSub": "Mara moja kwa wiki, siku ya Ijumaa: Swala ngapi watoto wako wamerekodi. Idadi tu, hakuna majina."
+    },
+    "session": {
+      "title": "Hii inahitaji muunganisho",
+      "body": "Miduara hushiriki maendeleo na watu unaowaalika, kwa hivyo inahitaji muunganisho mfupi na seva. Khitma ya kikundi haihitaji akaunti.",
+      "connecting": "Inaunganisha…",
+      "error": {
+        "offline": "Uko nje ya mtandao. Unganisha intaneti, kisha ujaribu tena.",
+        "network": "Imeshindwa kufikia seva. Angalia muunganisho wako na ujaribu tena.",
+        "server": "Seva imeshindwa kuanzisha kipindi chako sasa hivi. Tafadhali jaribu tena baada ya muda mfupi.",
+        "rateLimited": "Majaribio mengi mno kutoka kifaa hiki. Subiri dakika chache, kisha ujaribu tena."
+      }
     }
   },
   "circleMembership": {
@@ -10264,7 +10395,6 @@
     "loading": "Inapakia…",
     "loadError": "Imeshindwa kupakia kikundi hiki. Angalia muunganisho wako ujaribu tena.",
     "retry": "Jaribu tena",
-    "noSession": "Fungua programu mara moja ukiwa mtandaoni ili kuanzisha au kujiunga na khitma ya kikundi.",
     "startGroup": "Anzisha khitma ya kikundi",
     "haveInvite": "Una msimbo wa mwaliko? Jiunge na kikundi",
     "list": {
@@ -10431,6 +10561,10 @@
         "title": "Gawa sehemu zilizobaki?",
         "body": "Sehemu zilizobaki sasa zinapewa wanachama."
       }
+    },
+    "session": {
+      "title": "Khitma ya kikundi inahitaji muunganisho",
+      "body": "Khitma ya kikundi hushiriki gridi moja ya juzuu na kila mtu kwenye kikundi, kwa hivyo inahitaji muunganisho mfupi na seva. Huhitaji akaunti wala kuingia."
     }
   },
   "coach": {
@@ -11537,6 +11671,13 @@
     "shortcut": {
       "title": "Tafuta kwa kusoma",
       "subtitle": "Soma maneno machache kupata aya, kwenye kifaa hiki"
+    },
+    "live": {
+      "hearing": "Tunakusikia…",
+      "hearingHint": "Endelea kusoma. Aya itaonekana hapa mara tu itakapotambuliwa.",
+      "bestMatch": "Inayolingana zaidi hadi sasa",
+      "level": "Kiwango cha maikrofoni",
+      "ref": "{{name}} · Aya {{ayah}}"
     }
   },
   "handsFreeZikr2": {
@@ -11705,7 +11846,8 @@
         "name": "Mshale mkubwa",
         "desc": "Mshale mmoja mkubwa juu ya duara lenye rangi zinazotofautiana sana — rahisi zaidi kusoma kwa mtazamo mmoja."
       }
-    }
+    },
+    "styleButton": "Mtindo"
   },
   "appIcon": {
     "title": "Aikoni ya programu",
@@ -11732,5 +11874,12 @@
     "minutes": "dakika {{min}}",
     "hours": "saa {{hours}}",
     "hoursMinutes": "saa {{hours}} dakika {{min}}"
+  },
+  "sortable": {
+    "movedTo": "{{item}} imehamishwa hadi nafasi ya {{position}} kati ya {{total}}",
+    "moveEarlier": "Hamisha mbele",
+    "moveLater": "Hamisha nyuma",
+    "handleLabel": "Panga upya {{item}}",
+    "handleHint": "Buruta ili kuhamisha, au bonyeza vitufe vya mshale juu na chini"
   }
 }

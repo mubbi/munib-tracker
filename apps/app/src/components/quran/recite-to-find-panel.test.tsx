@@ -49,6 +49,7 @@ let mockRecite: {
   micPermission: string | null;
   level: { value: number };
   canListen: boolean;
+  engineWords: jest.Mock;
   toggle: jest.Mock;
   stop: jest.Mock;
   reset: jest.Mock;
@@ -88,6 +89,7 @@ beforeEach(() => {
     micPermission: "granted",
     level: { value: 0 },
     canListen: true,
+    engineWords: jest.fn(() => []),
     toggle: jest.fn(async () => undefined),
     stop: jest.fn(async () => undefined),
     reset: jest.fn(),
@@ -157,6 +159,51 @@ describe("ReciteToFindPanel", () => {
       pathname: "/quran/practice/session",
       params: { surah: "2", from: "255", to: "259", source: "hub" },
     });
+  });
+
+  it("while listening with no candidate, shows a live level bar and Hearing you", async () => {
+    mockRecite.mic = "listening";
+    mockRecite.state = { ...createReciteState(), status: "listening" };
+    await renderWithTheme(<ReciteToFindPanel />);
+    expect(screen.getByText("Hearing you…")).toBeTruthy();
+    expect(screen.getByTestId("recite-live-level").props.accessibilityLabel).toBe(
+      "Microphone level",
+    );
+    expect(screen.queryByTestId("recite-live-card")).toBeNull();
+  });
+
+  it("while listening, shows the best guess with the words heard so far lit up", async () => {
+    mockRecite.mic = "listening";
+    mockRecite.engineWords.mockReturnValue(["ٱللَّهُ", "لَآ", "إِلَٰهَ", "إِلَّا", "هُوَ"]);
+    mockRecite.state = {
+      ...found(),
+      status: "listening",
+      candidates: [{ ...found().candidates[0], strength: "likely", confirmed: false }],
+      live: { surah: 2, ayah: 255, matched: [0, 1], totalWords: 5 },
+    };
+    await renderWithTheme(<ReciteToFindPanel />);
+    const card = screen.getByTestId("recite-live-card");
+    expect(card).toBeTruthy();
+    expect(screen.getByText("Al-Baqarah · Ayah 255")).toBeTruthy();
+    expect(screen.getAllByText("Likely").length).toBeGreaterThan(0);
+    const words = screen.getByTestId("recite-live-words").props.children as {
+      props: { style?: unknown };
+    }[];
+    expect(words).toHaveLength(5);
+    expect(words[0]?.props.style).toBeTruthy();
+    expect(words[1]?.props.style).toBeTruthy();
+    expect(words[2]?.props.style).toBeUndefined();
+    expect(mockRecite.engineWords).toHaveBeenCalledWith(2, 255);
+  });
+
+  it("keeps the mic tappable while finishing up (no dead taps)", async () => {
+    mockRecite.mic = "settling";
+    mockRecite.state = { ...createReciteState(), status: "listening" };
+    await renderWithTheme(<ReciteToFindPanel />);
+    const mic = screen.getByLabelText("Start listening");
+    expect(mic.props.accessibilityState).toMatchObject({ disabled: false });
+    await fireEvent.press(mic);
+    expect(mockRecite.toggle).toHaveBeenCalled();
   });
 
   it("explains a refused microphone", async () => {

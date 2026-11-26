@@ -1,3 +1,4 @@
+import { contrastRatio } from "@munib-tracker/theme/color";
 import { resolveTheme } from "@munib-tracker/theme/resolve";
 import { STORAGE_KEYS } from "@munib-tracker/theme/types";
 import { act, renderHook } from "@testing-library/react-native";
@@ -73,5 +74,16 @@ describe("resolveCustomAccentTheme", () => {
     expect(themed.background).toBe(base.background);
     expect(themed.accent).not.toBe(base.accent);
     expect(resolveCustomAccentTheme(base, "dark", "#3366cc")).toBe(themed);
+  });
+
+  it("lifts a too-dark custom accent to a readable shade of the same hue", () => {
+    const base = resolveTheme("dark", "dark");
+    const themed = resolveCustomAccentTheme(base, "dark", "#0c390f");
+    expect(themed.accent).not.toBe("#0c390f");
+    expect(contrastRatio(themed.accent, base.background)).toBeGreaterThanOrEqual(3);
+    expect(contrastRatio(themed.accent, base.card)).toBeGreaterThanOrEqual(3);
+    // Still green: the green channel dominates.
+    const g = Number.parseInt(themed.accent.slice(3, 5), 16);
+    expect(g).toBeGreaterThan(Number.parseInt(themed.accent.slice(1, 3), 16));
   });
 });

@@ -4,6 +4,8 @@ import {
   chunkLevel,
   RECITE_MAX_LISTEN_MS,
   RECITE_SETTLE_MS,
+  RECITE_SILENCE_STOP_MS,
+  RECITE_STOP_FLUSH_MS,
   type ReciteEngineFactory,
   useReciteToFind,
 } from "@/hooks/use-recite-to-find";
@@ -107,6 +109,19 @@ async function flush() {
   await act(async () => {
     await Promise.resolve();
   });
+}
+
+const LOUD = new Float32Array(480).fill(0.3);
+const QUIET = new Float32Array(480).fill(0.0001);
+
+/** Advance fake time in 200 ms steps, feeding a loud (voiced) chunk at each step. */
+async function advanceWithVoice(ms: number, chunk: Float32Array = LOUD) {
+  for (let elapsed = 0; elapsed < ms; elapsed += 200) {
+    await act(async () => {
+      mockCapture.onChunk?.(chunk);
+      jest.advanceTimersByTime(Math.min(200, ms - elapsed));
+    });
+  }
 }
 
 async function setup(options: { enabled?: boolean } = {}) {
@@ -276,13 +291,10 @@ describe("useReciteToFind — ending a take on its own", () => {
     const hook = await setup();
     await toggle(hook);
     await act(async () => engine.emit(MATCH));
-    await act(async () => {
-      jest.advanceTimersByTime(RECITE_SETTLE_MS - 100);
-    });
+    // The voice keeps going (no silence), but nothing new is heard.
+    await advanceWithVoice(RECITE_SETTLE_MS - 100);
     expect(hook.result.current.mic).toBe("listening");
-    await act(async () => {
-      jest.advanceTimersByTime(200);
-    });
+    await advanceWithVoice(200);
     await flush();
     expect(engine.stop).toHaveBeenCalled();
     expect(hook.result.current.state.status).toBe("found");
@@ -344,6 +356,266 @@ describe("useReciteToFind — ending a take on its own", () => {
     expect(restorePlaybackMode).toHaveBeenCalled();
     expect(engine.dispose).toHaveBeenCalled();
     expect(microphoneOwner()).toBeNull();
+  });
+});
+
+describe("useReciteToFind — silence and live feedback", () => {
+  it("stops after silence once something was heard", async () => {
+    jest.useFakeTimers();
+    const hook = await setup();
+    await toggle(hook);
+    await act(async () => {
+      mockCapture.onChunk?.(LOUD);
+      engine.emit({
+        type: "verseCandidates",
+        candidates: [{ surah: 112, ayah: 1, confidence: 0.7 }],
+        stable: false,
+        final: false,
+      });
+    });
+    expect(hook.result.current.state.candidates).toHaveLength(1);
+    // Quiet room noise is still silence.
+    await advanceWithVoice(RECITE_SILENCE_STOP_MS - 300, QUIET);
+    expect(hook.result.current.mic).toBe("listening");
+    await advanceWithVoice(600, QUIET);
+    await flush();
+    expect(engine.stop).toHaveBeenCalled();
+    expect(hook.result.current.mic).toBe("idle");
+    expect(hook.result.current.state.status).toBe("found");
+    await hook.unmount();
+  });
+
+  it("never stops on silence before any candidate", async () => {
+    jest.useFakeTimers();
+    engine = makeEngine();
+    const hook = await setup();
+    await toggle(hook);
+    await advanceWithVoice(RECITE_SILENCE_STOP_MS * 3, QUIET);
+    expect(hook.result.current.mic).toBe("listening");
+    expect(engine.stop).not.toHaveBeenCalled();
+    await toggle(hook);
+    await hook.unmount();
+  });
+
+  it("keeps listening while the reciter keeps going", async () => {
+    jest.useFakeTimers();
+    const hook = await setup();
+    await toggle(hook);
+    await act(async () => {
+      engine.emit({
+        type: "verseCandidates",
+        candidates: [{ surah: 112, ayah: 1, confidence: 0.5 }],
+        stable: false,
+        final: false,
+      });
+    });
+    await advanceWithVoice(RECITE_SILENCE_STOP_MS * 2);
+    expect(hook.result.current.mic).toBe("listening");
+    await toggle(hook);
+    await hook.unmount();
+  });
+
+  it("tracks the heard words of the current ayah and exposes the engine words", async () => {
+    engine.engineWords = (surah, ayah) =>
+      surah === 112 && ayah === 1 ? ["قل", "هو", "الله", "احد"] : [];
+    const hook = await setup();
+    await toggle(hook);
+    await act(async () => {
+      engine.emit({
+        type: "position",
+        surah: 112,
+        ayah: 1,
+        engineWord: 1,
+        totalWords: 4,
+        matched: [1, 0, 1],
+      });
+    });
+    expect(hook.result.current.state.live).toEqual({
+      surah: 112,
+      ayah: 1,
+      matched: [0, 1],
+      totalWords: 4,
+    });
+    expect(hook.result.current.engineWords(112, 1)).toHaveLength(4);
+    await toggle(hook);
+    await hook.unmount();
+  });
+});
+
+describe("useReciteToFind — back-to-back takes", () => {
+  it("survives five stop / start cycles and ends each one idle", async () => {
+    const hook = await setup();
+    for (let take = 1; take <= 5; take++) {
+      await toggle(hook);
+      expect(hook.result.current.mic).toBe("listening");
+      await act(async () => engine.emit(MATCH));
+      await toggle(hook);
+      expect(hook.result.current.mic).toBe("idle");
+      expect(hook.result.current.state.status).toBe("found");
+    }
+    expect(engine.start).toHaveBeenCalledTimes(5);
+    expect(engine.stop).toHaveBeenCalledTimes(5);
+    expect(mockCapture.start).toHaveBeenCalledTimes(5);
+    expect(enterRecordMode).toHaveBeenCalledTimes(5);
+    expect(restorePlaybackMode).toHaveBeenCalledTimes(5);
+    expect(microphoneOwner()).toBeNull();
+    await hook.unmount();
+  });
+
+  it("forces idle when the engine's flush hangs, and the next tap still starts", async () => {
+    jest.useFakeTimers();
+    let releaseFlush: () => void = () => {};
+    engine.stop.mockImplementationOnce(
+      () =>
+        new Promise<void>((resolve) => {
+          releaseFlush = resolve;
+        }),
+    );
+    const hook = await setup();
+    await toggle(hook);
+    let stopped = false;
+    await act(async () => {
+      void hook.result.current.toggle().then(() => {
+        stopped = true;
+      });
+    });
+    expect(hook.result.current.mic).toBe("settling");
+    await act(async () => {
+      jest.advanceTimersByTime(RECITE_STOP_FLUSH_MS + 50);
+    });
+    await flush();
+    expect(stopped).toBe(true);
+    expect(hook.result.current.mic).toBe("idle");
+    // The next take waits (bounded) for the stuck flush, then starts.
+    let started = false;
+    await act(async () => {
+      void hook.result.current.toggle().then(() => {
+        started = true;
+      });
+    });
+    await act(async () => {
+      jest.advanceTimersByTime(RECITE_STOP_FLUSH_MS + 50);
+    });
+    await flush();
+    await flush();
+    expect(started).toBe(true);
+    expect(hook.result.current.mic).toBe("listening");
+    releaseFlush();
+    await toggle(hook);
+    await hook.unmount();
+  });
+
+  it("a tap while finishing up starts the next take once the stop is done", async () => {
+    let releaseFlush: () => void = () => {};
+    engine.stop.mockImplementationOnce(
+      () =>
+        new Promise<void>((resolve) => {
+          releaseFlush = () => {
+            engine.emit({ type: "completed" });
+            resolve();
+          };
+        }),
+    );
+    const hook = await setup();
+    await toggle(hook);
+    await act(async () => {
+      void hook.result.current.toggle();
+    });
+    expect(hook.result.current.mic).toBe("settling");
+    let restarted = false;
+    await act(async () => {
+      void hook.result.current.toggle().then(() => {
+        restarted = true;
+      });
+    });
+    // Not yet: the new take never overlaps the old teardown.
+    expect(engine.start).toHaveBeenCalledTimes(1);
+    await act(async () => releaseFlush());
+    await flush();
+    await flush();
+    expect(restarted).toBe(true);
+    expect(engine.start).toHaveBeenCalledTimes(2);
+    expect(hook.result.current.mic).toBe("listening");
+    await toggle(hook);
+    await hook.unmount();
+  });
+
+  it("drops a previous take's late tail events", async () => {
+    jest.useFakeTimers();
+    let lateTail: () => void = () => {};
+    engine.stop.mockImplementationOnce(
+      () =>
+        new Promise<void>((resolve) => {
+          lateTail = () => {
+            engine.emit({ type: "verseMatch", surah: 36, ayah: 1, confidence: 1 });
+            engine.emit({ type: "completed" });
+            resolve();
+          };
+        }),
+    );
+    const hook = await setup();
+    await toggle(hook);
+    await act(async () => {
+      void hook.result.current.toggle();
+    });
+    await act(async () => {
+      jest.advanceTimersByTime(RECITE_STOP_FLUSH_MS + 50);
+    });
+    await flush();
+    expect(hook.result.current.mic).toBe("idle");
+    await act(async () => {
+      void hook.result.current.toggle();
+    });
+    await act(async () => {
+      jest.advanceTimersByTime(RECITE_STOP_FLUSH_MS + 50);
+    });
+    await flush();
+    await flush();
+    expect(hook.result.current.mic).toBe("listening");
+    // Take 1's flush finally lands, inside take 2: none of it may count.
+    await act(async () => lateTail());
+    expect(hook.result.current.state.status).toBe("listening");
+    expect(hook.result.current.state.candidates).toEqual([]);
+    await act(async () => engine.emit(MATCH));
+    expect(hook.result.current.state.candidates.map((c) => c.surah)).toEqual([2]);
+    await toggle(hook);
+    await hook.unmount();
+  });
+
+  it("a stop during start backs the start out without leaving record mode on", async () => {
+    let releaseStart: () => void = () => {};
+    engine.start.mockImplementationOnce(
+      () =>
+        new Promise<void>((resolve) => {
+          releaseStart = resolve;
+        }),
+    );
+    const hook = await setup();
+    let startDone = false;
+    await act(async () => {
+      void hook.result.current.toggle().then(() => {
+        startDone = true;
+      });
+    });
+    expect(hook.result.current.mic).toBe("starting");
+    let stopDone = false;
+    await act(async () => {
+      void hook.result.current.toggle().then(() => {
+        stopDone = true;
+      });
+    });
+    expect(hook.result.current.mic).toBe("settling");
+    await act(async () => releaseStart());
+    await flush();
+    await flush();
+    expect(startDone).toBe(true);
+    expect(stopDone).toBe(true);
+    // Capture never started after the stop, and the audio mode was restored last.
+    expect(mockCapture.start).not.toHaveBeenCalled();
+    expect(restorePlaybackMode).toHaveBeenCalled();
+    expect(hook.result.current.mic).toBe("idle");
+    expect(microphoneOwner()).toBeNull();
+    await hook.unmount();
   });
 });
 

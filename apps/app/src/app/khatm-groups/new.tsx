@@ -2,6 +2,7 @@ import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 
 import { KhatmCreateForm } from "@/components/circles/khatm/khatm-create-form";
+import { CircleSessionGate } from "@/components/circles/session-gate";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -25,10 +26,15 @@ export default function NewKhatmGroupScreen() {
       onBack={() => goBackOrReplace(router, "/khatm-groups")}
     >
       <Seo path="/khatm-groups/new" index={false} />
-      {isTV() || !auth.hasSession ? (
+      {isTV() ? (
         <ThemedText type="small" themeColor="mutedForeground">
-          {isTV() ? t("khatmGroups.create.tv") : t("khatmGroups.noSession")}
+          {t("khatmGroups.create.tv")}
         </ThemedText>
+      ) : !auth.hasSession ? (
+        <CircleSessionGate
+          title={t("khatmGroups.session.title")}
+          body={t("khatmGroups.session.body")}
+        />
       ) : (
         <KhatmCreateForm
           circleId={params.circleId}

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
+import { CircleSessionGate } from "@/components/circles/session-gate";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -73,9 +74,10 @@ export default function KhatmGroupsScreen() {
       <Seo path="/khatm-groups" index={false} />
       <View style={styles.stack}>
         {!auth.hasSession ? (
-          <ThemedText type="small" themeColor="mutedForeground">
-            {t("khatmGroups.noSession")}
-          </ThemedText>
+          <CircleSessionGate
+            title={t("khatmGroups.session.title")}
+            body={t("khatmGroups.session.body")}
+          />
         ) : circles.isLoading ? (
           <CircleLoading label={t("khatmGroups.loading")} />
         ) : circles.isError ? (

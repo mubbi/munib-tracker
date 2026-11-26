@@ -6,8 +6,13 @@ import {
   hiddenFinanceToolForRoute,
   isDestinationHidden,
   LIBRARY_MENU_META,
+  LIBRARY_PRIMARY_IDS,
   LIBRARY_SEARCH_ALIASES,
+  LIBRARY_SECTION_PREVIEW,
   libraryMenuForDevice,
+  libraryPreviewLimit,
+  librarySectionColumns,
+  libraryTileColumns,
   TV_FINANCE_TOOL_IDS,
   useDestinationScope,
 } from "@/lib/library-menu";
@@ -161,5 +166,30 @@ describe("TV lean-back scope (D-UX5)", () => {
       );
       expect(result.current).toEqual(TV_FINANCE_ON);
     });
+  });
+});
+
+describe("Library tab layout helpers", () => {
+  it("lays section rows in 1 / 2 / 3 columns by content width (TV: 3)", () => {
+    expect(librarySectionColumns(390)).toBe(1);
+    expect(librarySectionColumns(767)).toBe(1);
+    expect(librarySectionColumns(768)).toBe(2);
+    expect(librarySectionColumns(1199)).toBe(2);
+    expect(librarySectionColumns(1200)).toBe(3);
+    expect(librarySectionColumns(1920)).toBe(3);
+    expect(librarySectionColumns(390, true)).toBe(3);
+  });
+
+  it("shows the primary tiles as 3×2 on phones and one row when it fits", () => {
+    expect(libraryTileColumns(390)).toBe(3);
+    expect(libraryTileColumns(599)).toBe(3);
+    expect(libraryTileColumns(600)).toBe(LIBRARY_PRIMARY_IDS.length);
+    expect(libraryTileColumns(390, true)).toBe(LIBRARY_PRIMARY_IDS.length);
+  });
+
+  it("previews five rows in one column, three grid rows otherwise", () => {
+    expect(libraryPreviewLimit(1)).toBe(LIBRARY_SECTION_PREVIEW);
+    expect(libraryPreviewLimit(2)).toBe(6);
+    expect(libraryPreviewLimit(3)).toBe(9);
   });
 });

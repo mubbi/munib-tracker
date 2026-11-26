@@ -79,9 +79,10 @@ export default function RawatibScreen() {
     excusedReason: excused,
   });
   const chipGroups = rawatibDay.active
-    ? OBLIGATORY_PRAYERS.map((fard) => ({ fard, chips: rawatibDay.chipsFor(fard) })).filter(
-        (group) => group.chips != null,
-      )
+    ? OBLIGATORY_PRAYERS.map((fard) => ({
+        fard,
+        chips: rawatibDay.chipsFor(fard, { label: false }),
+      })).filter((group) => group.chips != null)
     : [];
   const schoolName = config.school ? t(`fiqh.school.${config.school}`) : null;
   const presetHint =

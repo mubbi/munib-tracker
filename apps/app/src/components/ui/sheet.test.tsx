@@ -11,7 +11,6 @@ import * as Reanimated from "react-native-reanimated";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { resetTvFocusMemory } from "@/components/ui/tv-focus-memory";
-import { Springs } from "@/constants/motion";
 import { setCurrentPathname } from "@/lib/navigation";
 import { setMockBlurTarget } from "@/test-support/mocks/blur-target-provider";
 import { setMockLiquidGlass } from "@/test-support/mocks/glass-surface";
@@ -102,12 +101,24 @@ describe("Sheet (bottom sheet frost)", () => {
     expect(screen.getByTestId("glass-view", hidden)).toBeTruthy();
   });
 
-  it("skips frost for solid, non-scrolling sheets centred on wide windows", async () => {
+  it("keeps the frosted backdrop for solid sheets (solid only makes the card opaque)", async () => {
     setMockWindowSize(1400, 900);
     await renderSheet({ variant: "bottom", solid: true, scrollable: false });
 
-    expect(screen.queryByTestId("blur-view", hidden)).toBeNull();
+    expect(screen.getByTestId("blur-view", hidden)).toBeTruthy();
     expect(screen.getByText("Sheet body")).toBeTruthy();
+  });
+
+  it("frosts the backdrop behind centered dialogs too", async () => {
+    await renderSheet({ variant: "center" });
+
+    expect(screen.getByTestId("blur-view", hidden)).toBeTruthy();
+  });
+
+  it("never frosts a fullscreen surface", async () => {
+    await renderSheet({ variant: "fullscreen" });
+
+    expect(screen.queryByTestId("blur-view", hidden)).toBeNull();
   });
 });
 
@@ -474,10 +485,11 @@ describe("Sheet drag release while the caller keeps it open (B-29)", () => {
     jest.useRealTimers();
   });
 
-  it("springs the card back when onClose does not hide the sheet", async () => {
+  it("eases the card back (no spring bounce) when onClose does not hide the sheet", async () => {
     jest.useFakeTimers();
     const { onClose } = await renderSheet({ variant: "bottom" });
     const spring = jest.spyOn(Reanimated, "withSpring");
+    const timing = jest.spyOn(Reanimated, "withTiming");
 
     await act(async () => {
       config.onPanResponderRelease?.({} as never, { dx: 0, dy: 120, vy: 0 } as never);
@@ -485,7 +497,11 @@ describe("Sheet drag release while the caller keeps it open (B-29)", () => {
     });
 
     expect(onClose).toHaveBeenCalledTimes(1);
-    expect(spring).toHaveBeenCalledWith(0, Springs.sheet);
+    expect(spring).not.toHaveBeenCalled();
+    expect(timing).toHaveBeenCalledWith(
+      0,
+      expect.objectContaining({ duration: expect.any(Number) }),
+    );
   });
 });
 
@@ -507,12 +523,12 @@ describe("Sheet motion", () => {
     await rerender({ visible: true, variant: "bottom" });
   };
 
-  it("slides a bottom sheet up with Springs.sheet", async () => {
+  it("fades a bottom sheet in — no slide, no spring bounce", async () => {
     const spring = jest.spyOn(Reanimated, "withSpring");
 
     await openBottom();
 
-    expect(spring).toHaveBeenCalledWith(0, Springs.sheet);
+    expect(spring).not.toHaveBeenCalled();
     expect(queryHostsByType("Modal")[0]?.props.animationType).toBe("fade");
   });
 
@@ -522,7 +538,7 @@ describe("Sheet motion", () => {
 
     await openBottom();
 
-    expect(spring).not.toHaveBeenCalledWith(0, Springs.sheet);
+    expect(spring).not.toHaveBeenCalled();
     expect(queryHostsByType("Modal")[0]?.props.animationType).toBe("fade");
   });
 

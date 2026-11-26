@@ -6,6 +6,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { BorderWidth } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
+import { captureAppException } from "@/lib/sentry";
 import { setTtsVoice, useTtsVoices } from "@/lib/settings/tts-voice";
 import { isTtsPlaybackTrack } from "@/lib/tts-audio-tracks";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
@@ -64,8 +65,16 @@ export function TtsVoiceControl({ size = 18, wellRadius = 20 }: TtsVoiceControlP
         lang={lang}
         selectedVoiceId={selectedVoiceId}
         onSelectVoice={(voiceId) => {
-          void setTtsVoice(lang, voiceId);
-          audio.setTtsVoice(voiceId);
+          // A storage / player failure must never escape as an unhandled
+          // rejection — the root boundary would replace the whole app.
+          setTtsVoice(lang, voiceId).catch((error: unknown) => {
+            captureAppException(error, { tags: { area: "audio", phase: "tts-voice-save" } });
+          });
+          try {
+            audio.setTtsVoice(voiceId);
+          } catch (error) {
+            captureAppException(error, { tags: { area: "audio", phase: "tts-voice-apply" } });
+          }
         }}
       />
     </>

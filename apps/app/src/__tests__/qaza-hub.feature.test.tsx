@@ -46,6 +46,47 @@ beforeEach(() => {
 afterEach(restoreTrackerStore);
 
 describe("Qaza hub", () => {
+  it("puts the tools and the Witr hint above the per-prayer list, Reset all last", async () => {
+    await seed();
+    await renderHub();
+
+    const order = ["Calculator", "Is Witr Qaza required?", "Per prayer", "Reset all counters"];
+    const tree = JSON.stringify(screen.toJSON());
+    const positions = order.map((text) => tree.indexOf(text));
+    expect(positions.every((index) => index >= 0)).toBe(true);
+    expect([...positions].sort((a, b) => a - b)).toEqual(positions);
+  });
+
+  it("shows each prayer as one compact row with a theme-coloured count", async () => {
+    await seed();
+    await renderHub();
+
+    expect(screen.getByLabelText("Fajr, 8 remaining")).toBeTruthy();
+    expect(screen.getByText("3 made up")).toBeTruthy();
+    // No separate pencil: the row itself is the (named) edit action.
+    expect(screen.queryByLabelText("Edit Fajr remaining Qaza count")).toBeNull();
+    expect(screen.getByHintText("Edit Fajr remaining Qaza count")).toBeTruthy();
+  });
+
+  it("shows a soft All made up state once a prayer is cleared", async () => {
+    await seedTrackerStore({
+      isReady: true,
+      qazaSchedule: buildQazaSchedule({ targets: {} }),
+      qazaCounters: [buildQazaCounter({ prayerId: "asr", remaining: 0, completed: 5 })],
+      performQaza,
+      undoQaza,
+      adjustQaza,
+      resetQazaCounter,
+      refresh,
+    });
+    await renderHub();
+
+    expect(screen.getByText("All made up")).toBeTruthy();
+    expect(
+      screen.getByRole("button", { name: "Made up one Asr" }).props.accessibilityState,
+    ).toMatchObject({ disabled: true });
+  });
+
   it("shows a skeleton, not zero counts, until the tracker is ready", async () => {
     await seed(false);
     await renderHub();
@@ -58,7 +99,7 @@ describe("Qaza hub", () => {
     await seed();
     await renderHub();
 
-    await fireEvent.press(screen.getAllByText("Made up")[0] as never);
+    await fireEvent.press(screen.getByRole("button", { name: "Made up one Fajr" }));
 
     await waitFor(() => expect(performQaza).toHaveBeenCalledTimes(1));
     expect(performQaza).toHaveBeenCalledWith("fajr");
@@ -72,15 +113,19 @@ describe("Qaza hub", () => {
     await seed();
     await renderHub();
 
-    const buttons = screen.getAllByRole("button", { name: /Made up/ });
-    expect(buttons.some((b) => b.props.accessibilityState?.disabled)).toBe(true);
+    expect(
+      screen.getByRole("button", { name: "Made up one Dhuhr" }).props.accessibilityState,
+    ).toMatchObject({ disabled: true });
+    expect(
+      screen.getByRole("button", { name: "Made up one Fajr" }).props.accessibilityState?.disabled,
+    ).toBeFalsy();
   });
 
   it("steps the count from the edit sheet with no dialog", async () => {
     await seed();
     await renderHub();
 
-    await fireEvent.press(screen.getByLabelText("Edit Fajr remaining Qaza count"));
+    await fireEvent.press(screen.getByHintText("Edit Fajr remaining Qaza count"));
     await fireEvent.press(screen.getByLabelText("Decrease Fajr remaining"));
 
     expect(adjustQaza).toHaveBeenCalledWith("fajr", 7, 3);
@@ -91,7 +136,7 @@ describe("Qaza hub", () => {
     await seed();
     await renderHub();
 
-    await fireEvent.press(screen.getByLabelText("Edit Fajr remaining Qaza count"));
+    await fireEvent(screen.getByHintText("Edit Fajr remaining Qaza count"), "longPress");
     await fireEvent.press(screen.getByText("Reset Fajr Qaza counter"));
 
     expect(screen.getByText("Reset this counter?")).toBeTruthy();

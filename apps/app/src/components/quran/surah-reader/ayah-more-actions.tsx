@@ -5,10 +5,10 @@ import { buildContentReportRef } from "@/lib/content-report-ref";
 import type { HifzStatus } from "@/stores/hifz-store";
 
 /**
- * The ayah action sheet for the surah reader: TV opens it with Select on a card
- * (read-only notes, no share); phones / narrow web open it from the row's
- * "More" button, so the rarer actions (practise, check, highlight, share,
- * report) live here instead of crowding every ayah card.
+ * The ayah action sheet for ayah cards on TV: Select on a card opens it
+ * (read-only notes, no share). Phones / web expand the same actions inline
+ * under the card instead (`AyahInlineActions`); the sheet still accepts the
+ * phone-only handlers for any surface that prefers it.
  */
 export function AyahMoreActions({
   ayah,

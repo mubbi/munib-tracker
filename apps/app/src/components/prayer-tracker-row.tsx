@@ -6,7 +6,7 @@ import type {
 } from "@munib-tracker/shared/types";
 import { bestForeground } from "@munib-tracker/theme/color";
 import { SymbolView } from "expo-symbols";
-import { useEffect, useRef } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
@@ -50,7 +50,7 @@ const ADHKAR_SEGMENT_IDS = [
 ] as const;
 
 type PrayerTrackerRowProps = {
-  /** Rawatib (NF-3.1) render as compact chips under their fard, never as a full row. */
+  /** Rawatib (NF-3.1) render as compact chips in their fard's card, never as a full row. */
   prayerId: Exclude<PrayerId, RawatibId>;
   status: PrayerStatus;
   /** Computed or flexible display time for this prayer. */
@@ -75,6 +75,12 @@ type PrayerTrackerRowProps = {
   /** After-salah adhkar completion for this fard prayer today. */
   afterSalahProgress?: { completed: number; total: number };
   onPressAfterSalah?: () => void;
+  /**
+   * Sunnah sub-row inside this card (NF-3.1 rawatib chips), drawn under the fard
+   * line and above the Adhkar line, aligned with the Salah name. Its controls are
+   * siblings of the row's pressables (never nested) and come next in D-pad order.
+   */
+  sunnah?: ReactNode;
   /** TV: request initial D-pad focus on this row's primary (mark) target. */
   preferredFocus?: boolean;
 };
@@ -171,6 +177,7 @@ export function PrayerTrackerRow({
   onSelect,
   afterSalahProgress,
   onPressAfterSalah,
+  sunnah,
   preferredFocus = false,
 }: PrayerTrackerRowProps) {
   const { colors, tokens } = useThemeTokens();
@@ -377,6 +384,15 @@ export function PrayerTrackerRow({
         ) : null}
       </View>
 
+      {sunnah ? (
+        <View
+          style={[styles.subRow, tv ? styles.subRowTv : null]}
+          testID={`prayer-sunnah-${prayerId}`}
+        >
+          {sunnah}
+        </View>
+      ) : null}
+
       {showAdhkar ? (
         adhkarPressable ? (
           <PressableScale
@@ -481,6 +497,16 @@ const styles = StyleSheet.create({
   adhkarWrapTv: {
     minHeight: TvLayout.chipMinHeight,
     paddingHorizontal: Spacing.two,
+  },
+  /** Sub-rows start under the Salah name (past the icon well), like the Adhkar line. */
+  subRow: {
+    gap: Spacing.two,
+    paddingStart: ICON_WELL + Spacing.twoHalf,
+    paddingEnd: Spacing.two,
+    paddingBottom: Spacing.one,
+  },
+  subRowTv: {
+    paddingStart: ICON_WELL + Spacing.twoHalf + Spacing.two,
   },
   adhkarLine: {
     flexDirection: "row",

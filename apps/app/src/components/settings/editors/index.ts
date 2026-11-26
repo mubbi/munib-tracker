@@ -27,5 +27,6 @@ export { ResetAppDataRow, ResetSettingsRow } from "./reset-rows";
 export { SyncNowButton, SyncStatusCard, useManualSync } from "./sync-status-card";
 export { TasbeehAppearanceSettingsEditor } from "./tasbeeh-editor";
 export { TasbeehVoiceCalibrationEditor } from "./tasbeeh-voice-calibration-editor";
+export { ThemeModeEditor } from "./theme-mode-editor";
 export { UpcomingRemindersPreview } from "./upcoming-reminders";
 export { VaultCredentialsRows, VaultLockJournalsRow, VaultSyncRow } from "./vault-editors";

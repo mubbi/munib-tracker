@@ -42,7 +42,7 @@ jest.mock("@/components/rawatib/use-rawatib-day", () => {
               onChooseRakahs: jest.fn(),
             })
           : null,
-      headerCard: null,
+      summary: null,
       sheet: React.createElement(Text, null, "rakahs-sheet"),
     }),
   };

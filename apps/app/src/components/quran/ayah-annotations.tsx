@@ -1,11 +1,12 @@
 import type { TajweedSegment } from "@munib-tracker/shared/types";
 import { noteAyahKey } from "@munib-tracker/shared/utils";
 import { SymbolView } from "expo-symbols";
-import { memo, useMemo } from "react";
+import { memo, type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, Text, type TextStyle, View } from "react-native";
 
 import {
+  NOTE_WORD_TINT_ALPHA,
   noteHintHandlers,
   noteUnderlineStyle,
   runNoteAction,
@@ -18,7 +19,7 @@ import { TajweedText } from "@/components/quran/tajweed-text";
 import { ContextMenu } from "@/components/ui/context-menu";
 import { IconButton } from "@/components/ui/icon-button";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
-import { Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useFinePointerHover } from "@/hooks/use-fine-pointer-hover";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -32,6 +33,7 @@ import {
   segmentAyahForSpans,
 } from "@/lib/quran-notes/reader-annotations";
 import { arabicReadingLayout, resolveArabicLineHeight } from "@/lib/reading-typography";
+import { useIsRTL } from "@/lib/rtl";
 import { useStore } from "@/stores/create-store";
 import { preferencesStore } from "@/stores/preferences-store";
 import {
@@ -198,10 +200,12 @@ type AnnotatedAyahTextProps = {
 /**
  * The ayah-mode Arabic with its highlight: a whole-ayah tint, or inline word
  * span tints (each word its own text run, so the band follows the glyphs at any
- * size and in RTL). Words with a written note also get a dotted underline in the
- * note's colour and the note hint (hover / tap / long-press). With tajweed
- * colouring on, spans show as an ayah tint so the tajweed runs stay intact (the
- * marker by the ayah number still carries the hint).
+ * size and in RTL). Words with a written note also get an underline in the
+ * note's colour (dotted on web, solid + a faint wash on native — see
+ * `noteUnderlineStyle`) and the note hint (hover / tap / long-press). A written
+ * note on the whole ayah draws a slim bar in the note's colour on the side the
+ * Arabic begins (the right edge). With tajweed colouring on, spans show as an
+ * ayah tint so the tajweed runs stay intact (and a word note shows as the bar).
  */
 export const AnnotatedAyahText = memo(function AnnotatedAyahText({
   surah,
@@ -215,15 +219,39 @@ export const AnnotatedAyahText = memo(function AnnotatedAyahText({
   const { colors, tokens } = useThemeTokens();
   const fontFamily = useArabicFontFamily();
   const fineHover = useFinePointerHover();
+  const uiRtl = useIsRTL();
   const arabicFamilyId = useStore(preferencesStore, (s) => s.prefs.fontPrefs.arabic.family);
   const annotation = useAyahAnnotation(surah, ayah, text);
   const spans = annotation.wordSpans;
-  const wholeColor = tajweedSegments?.length ? ayahTintColor(annotation) : annotation.color;
+  const tajweedOn = Boolean(tajweedSegments?.length);
+  const wholeColor = tajweedOn ? ayahTintColor(annotation) : annotation.color;
+  // Whole-ayah written note (or, with tajweed on, a word note that can't be underlined).
+  const ayahNoted =
+    annotation.ayahNoteIds.length > 0 || (tajweedOn && spans.some((span) => span.hasNote));
+  const noteBarColor = annotation.color
+    ? annotationSwatch(annotation.color, colors.card)
+    : colors.accentText;
+  const withNoteBar = (node: ReactNode) =>
+    ayahNoted ? (
+      <View
+        testID="annotated-ayah-note"
+        style={[
+          styles.noteBar,
+          // Arabic starts on the right in every UI direction: the bar hugs that edge.
+          uiRtl ? styles.noteBarStart : styles.noteBarEnd,
+          { borderColor: noteBarColor },
+        ]}
+      >
+        {node}
+      </View>
+    ) : (
+      node
+    );
 
-  if (spans.length && !tajweedSegments?.length) {
+  if (spans.length && !tajweedOn) {
     const lineHeight = resolveArabicLineHeight(fontSize, arabicFamilyId);
     const tv = isTV();
-    return (
+    return withNoteBar(
       <Text
         testID="annotated-ayah-spans"
         accessibilityLanguage="ar"
@@ -250,9 +278,16 @@ export const AnnotatedAyahText = memo(function AnnotatedAyahText({
             );
           }
           const handlers = noteHintHandlers({ surah, ayah, noteId: segment.noteId }, fineHover);
-          const underline = noteUnderlineStyle(
-            segment.color ? annotationSwatch(segment.color, colors.card) : colors.accentText,
-          );
+          const markColor = segment.color
+            ? annotationSwatch(segment.color, colors.card)
+            : colors.accentText;
+          const underline = noteUnderlineStyle(markColor);
+          // Native underlines are hairline-thin under Arabic: a faint wash keeps
+          // un-highlighted noted words findable at a glance.
+          const wash =
+            !tint && Platform.OS !== "web"
+              ? { backgroundColor: withAlpha(markColor, NOTE_WORD_TINT_ALPHA) }
+              : null;
           return (
             <Text
               key={key}
@@ -265,27 +300,27 @@ export const AnnotatedAyahText = memo(function AnnotatedAyahText({
               onPress={handlers.onPress}
               onLongPress={handlers.onLongPress}
               {...webHintProps(handlers, { keyboard: true })}
-              style={[tint, underline, Platform.OS === "web" ? styles.webNoted : null]}
+              style={[tint, wash, underline, Platform.OS === "web" ? styles.webNoted : null]}
             >
               {segment.text}
             </Text>
           );
         })}
-      </Text>
+      </Text>,
     );
   }
 
   const body = (
     <TajweedText segments={tajweedSegments} fallback={text} fontSize={fontSize} style={style} />
   );
-  if (!wholeColor) return body;
-  return (
+  if (!wholeColor) return withNoteBar(body);
+  return withNoteBar(
     <View
       testID="annotated-ayah-tint"
       style={[styles.tint, { backgroundColor: annotationTint(wholeColor, tokens.isDark) }]}
     >
       {body}
-    </View>
+    </View>,
   );
 });
 
@@ -297,6 +332,10 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.half,
   },
   menu: { alignSelf: "auto", width: "auto" },
+  noteBar: { paddingVertical: Spacing.half },
+  // Physical right in both UI directions (logical end in LTR, start in RTL).
+  noteBarEnd: { borderEndWidth: BorderWidth.thick, paddingEnd: Spacing.two },
+  noteBarStart: { borderStartWidth: BorderWidth.thick, paddingStart: Spacing.two },
   webNoted: {
     cursor: "pointer",
     // Keep the run inline so Arabic letters stay joined across it.

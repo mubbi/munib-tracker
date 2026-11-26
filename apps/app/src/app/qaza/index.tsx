@@ -6,27 +6,40 @@ import {
   sumQazaScheduleTargets,
 } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSequence,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QazaCountEditModal } from "@/components/qaza-count-edit-modal";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ContentState } from "@/components/ui/content-state";
-import { IconButton } from "@/components/ui/icon-button";
+import { Divider } from "@/components/ui/divider";
 import { IconWell } from "@/components/ui/icon-well";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { WitrQazaInfo } from "@/components/witr-qaza-info";
-import { BorderWidth, Breakpoints, Radius, Spacing } from "@/constants/theme";
+import { Durations, Springs } from "@/constants/motion";
+import { BorderWidth, Breakpoints, Control, IconSize, Radius, Spacing } from "@/constants/theme";
+import { tvDp } from "@/constants/tv-density";
+import { TvLayout } from "@/constants/tv-layout";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useFormatCount } from "@/hooks/use-format-count";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useUndoToast } from "@/hooks/use-undo-toast";
 import { triggerHaptic } from "@/lib/haptics";
@@ -49,6 +62,175 @@ import {
 } from "@/stores/tracker-store";
 
 type QazaConfirmAction = { kind: "resetPrayer"; prayerId: QazaPrayer } | { kind: "resetAll" };
+
+/** The remaining count, with a small spring "tick" whenever it changes (skipped under Reduce Motion). */
+function TickingCount({ value, label, color }: { value: number; label: string; color: string }) {
+  const formatCount = useFormatCount();
+  const reducedMotion = useHydrationSafeReducedMotion();
+  const scale = useSharedValue(1);
+  const previous = useRef(value);
+  useEffect(() => {
+    if (previous.current === value) return;
+    previous.current = value;
+    if (reducedMotion) return;
+    scale.value = withSequence(
+      withTiming(1.18, { duration: Durations.fast }),
+      withSpring(1, Springs.pop),
+    );
+  }, [reducedMotion, scale, value]);
+  const animated = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  return (
+    <Animated.View style={animated}>
+      <ThemedText
+        type="subtitle"
+        accessibilityLabel={label}
+        style={[styles.rowRemaining, { color }]}
+      >
+        {formatCount(value)}
+      </ThemedText>
+    </Animated.View>
+  );
+}
+
+type QazaPrayerRowProps = {
+  prayerId: QazaPrayer;
+  remaining: number;
+  completed: number;
+  doneToday: number;
+  target: number;
+  onMadeUp: () => void;
+  onEdit: () => void;
+};
+
+/**
+ * One compact prayer row: icon, name, "N made up · today x/y", the remaining
+ * count in the theme colour, and a round check on the trailing edge that logs
+ * one make-up. Tapping (or long-pressing) the row opens the exact-count editor;
+ * a thin line under it shows this prayer's progress. The check is a sibling of
+ * the row's pressable — never nested (web `<button>` rule) — so a D-pad reaches
+ * both.
+ */
+function QazaPrayerRow({
+  prayerId,
+  remaining,
+  completed,
+  doneToday,
+  target,
+  onMadeUp,
+  onEdit,
+}: QazaPrayerRowProps) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const formatCount = useFormatCount();
+  const tv = isTV();
+  const prayer = t(`prayers.${prayerId}`);
+  const allMadeUp = remaining === 0 && completed > 0;
+  const tracked = remaining + completed;
+  const progress = tracked > 0 ? completed / tracked : 0;
+  const detail =
+    target > 0
+      ? t("qaza.rowDoneWithDaily", { completed: formatCount(completed), done: doneToday, target })
+      : t("qaza.rowDone", { completed: formatCount(completed) });
+  const remainingLabel = t("qaza.rowRemainingA11y", { prayer, value: formatCount(remaining) });
+  const editLabel = t("qaza.editCountA11y", { prayer });
+
+  return (
+    <View style={styles.prayer}>
+      <View style={styles.prayerTop}>
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={[remainingLabel, detail, allMadeUp ? t("qaza.allMadeUp") : undefined]
+            .filter(Boolean)
+            .join(", ")}
+          accessibilityHint={editLabel}
+          accessibilityActions={[{ name: "activate", label: editLabel }]}
+          onAccessibilityAction={(event) => {
+            if (event.nativeEvent.actionName === "activate") onEdit();
+          }}
+          onPress={onEdit}
+          onLongPress={onEdit}
+          style={[styles.prayerMain, tv && styles.prayerMainTv]}
+        >
+          <IconWell
+            icon={PRAYER_ICONS[prayerId]}
+            well={tv ? 44 : 36}
+            size={tv ? IconSize.lg : IconSize.md}
+            radius={Radius.sm}
+            tint={tokens.accentOnSoft}
+          />
+          <View style={styles.rowBody}>
+            <ThemedText type="smallBold">{prayer}</ThemedText>
+            {allMadeUp ? (
+              <View style={styles.allDone}>
+                <AppIcon
+                  icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
+                  size={IconSize.xs}
+                  tintColor={tokens.status.success.text}
+                />
+                <ThemedText type="caption" style={{ color: tokens.status.success.text }}>
+                  {t("qaza.allMadeUp")}
+                </ThemedText>
+              </View>
+            ) : (
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {detail}
+              </ThemedText>
+            )}
+          </View>
+          {allMadeUp ? null : (
+            <TickingCount
+              value={remaining}
+              label={remainingLabel}
+              color={remaining > 0 ? colors.accentText : colors.mutedForeground}
+            />
+          )}
+        </PressableScale>
+        <PressableScale
+          haptic={false}
+          accessibilityRole="button"
+          accessibilityLabel={t("qaza.madeUpOneA11y", { prayer })}
+          accessibilityHint={t("qaza.markPerformed", { prayer })}
+          disabled={remaining === 0}
+          onPress={onMadeUp}
+          rippleBorderless
+          scaleTo={0.9}
+          hitSlop={tv ? undefined : 4}
+          style={[
+            styles.check,
+            tv && styles.checkTv,
+            remaining > 0
+              ? { backgroundColor: colors.accent, borderColor: colors.accent }
+              : { backgroundColor: tokens.status.success.soft, borderColor: tokens.hairline },
+          ]}
+        >
+          <AppIcon
+            icon={{ ios: "checkmark", android: "check", web: "check" }}
+            size={tv ? IconSize.xl : IconSize.lg}
+            tintColor={remaining > 0 ? colors.accentForeground : tokens.status.success.onSoft}
+          />
+        </PressableScale>
+      </View>
+      {tracked > 0 ? (
+        <View
+          accessible={false}
+          importantForAccessibility="no-hide-descendants"
+          style={[styles.progressTrack, { backgroundColor: tokens.track }]}
+        >
+          <View
+            style={[
+              styles.progressFill,
+              {
+                width: `${Math.round(progress * 100)}%`,
+                backgroundColor: allMadeUp ? tokens.status.success.color : colors.accent,
+              },
+            ]}
+          />
+        </View>
+      ) : null}
+    </View>
+  );
+}
 
 export default function QazaHomeScreen() {
   const router = useRouter();
@@ -85,7 +267,6 @@ export default function QazaHomeScreen() {
   const totalTracked = summary.remaining + summary.completed;
   const progress = totalTracked > 0 ? summary.completed / totalTracked : 0;
   const progressPct = Math.round(progress * 100);
-  const info = tokens.status.info;
   const success = tokens.status.success;
   const dailyTotal = useMemo(() => sumQazaScheduleTargets(schedule), [schedule]);
   const eta = useMemo(
@@ -198,8 +379,13 @@ export default function QazaHomeScreen() {
       })}
     >
       <View style={styles.statsRow}>
-        <View style={[styles.statBox, { backgroundColor: info.soft, borderColor: info.border }]}>
-          <ThemedText type="header" style={[styles.statValue, { color: info.text }]}>
+        <View
+          style={[
+            styles.statBox,
+            { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
+          ]}
+        >
+          <ThemedText type="header" style={[styles.statValue, { color: tokens.accentOnSoft }]}>
             {formatCount(summary.remaining)}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
@@ -249,70 +435,29 @@ export default function QazaHomeScreen() {
         title={t("qaza.perPrayer")}
         icon={{ ios: "list.bullet", android: "list", web: "list" }}
       />
-      {/* TV: 2-column grid uses the landscape width; D-pad moves within a row's
-        controls horizontally and between prayers vertically. */}
-      <View style={[styles.rows, (tv || rowsGrid) && styles.rowsTv]}>
-        {counters.map((counter) => {
+      {/* Tablet / desktop / TV: a 2-column grid; D-pad moves between a row's
+        edit target and its check horizontally, and between prayers vertically. */}
+      <View style={[styles.rows, (tv || rowsGrid) && styles.rowsGrid]}>
+        {counters.map((counter, index) => {
           const target = schedule.targets[counter.prayerId] ?? 0;
           const doneToday = dailyProgress.completed[counter.prayerId] ?? 0;
-          const prayer = t(`prayers.${counter.prayerId}`);
-
           return (
             <View
               key={counter.prayerId}
-              style={[
-                styles.row,
-                (tv || rowsGrid) && styles.rowTv,
-                { backgroundColor: colors.muted },
-              ]}
+              style={
+                tv || rowsGrid ? [styles.rowCellGrid, { borderColor: tokens.hairline }] : undefined
+              }
             >
-              <View style={styles.rowTop}>
-                <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
-                <View style={styles.rowBody}>
-                  <ThemedText type="smallBold">{prayer}</ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {target > 0
-                      ? t("qaza.rowDoneWithDaily", {
-                          completed: formatCount(counter.completed),
-                          done: doneToday,
-                          target,
-                        })
-                      : t("qaza.rowDone", { completed: formatCount(counter.completed) })}
-                  </ThemedText>
-                </View>
-                <ThemedText
-                  type="header"
-                  style={[styles.rowRemaining, { color: info.text }]}
-                  accessibilityLabel={t("qaza.rowRemainingA11y", {
-                    prayer,
-                    value: formatCount(counter.remaining),
-                  })}
-                >
-                  {formatCount(counter.remaining)}
-                </ThemedText>
-              </View>
-              <View style={styles.rowActions}>
-                <Button
-                  label={t("qaza.madeUpButton")}
-                  accessibilityHint={t("qaza.markPerformed", { prayer })}
-                  variant="secondary"
-                  icon={{
-                    ios: "checkmark.circle.fill",
-                    android: "check_circle",
-                    web: "check_circle",
-                  }}
-                  disabled={counter.remaining === 0}
-                  onPress={() => madeUp(counter.prayerId)}
-                  style={styles.madeUp}
-                />
-                <IconButton
-                  accessibilityLabel={t("qaza.editCountA11y", { prayer })}
-                  onPress={() => setEditPrayer(counter.prayerId)}
-                  name={{ ios: "pencil", android: "edit", web: "edit" }}
-                  size={20}
-                  tintColor={colors.mutedForeground}
-                />
-              </View>
+              {index > 0 && !(tv || rowsGrid) ? <Divider /> : null}
+              <QazaPrayerRow
+                prayerId={counter.prayerId}
+                remaining={counter.remaining}
+                completed={counter.completed}
+                doneToday={doneToday}
+                target={target}
+                onMadeUp={() => madeUp(counter.prayerId)}
+                onEdit={() => setEditPrayer(counter.prayerId)}
+              />
             </View>
           );
         })}
@@ -332,7 +477,12 @@ export default function QazaHomeScreen() {
     </Card>
   );
 
-  const tools = <QuickActionGrid items={toolActions} columns={twoPane ? 2 : 4} />;
+  // Compact 4-up row of the Qaza tools (calculator, planner, fasting, history).
+  const tools = (
+    <Card padding="two">
+      <QuickActionGrid items={toolActions} columns={4} singleRow />
+    </Card>
+  );
 
   return (
     <ScreenLayout
@@ -372,21 +522,21 @@ export default function QazaHomeScreen() {
           {twoPane ? (
             <View style={styles.split}>
               <View style={styles.primary}>
-                {summaryCard}
                 {perPrayerCard}
+                {resetAllButton}
               </View>
               <View style={styles.aside}>
+                {summaryCard}
                 {tools}
                 <WitrQazaInfo />
-                {resetAllButton}
               </View>
             </View>
           ) : (
             <>
               {summaryCard}
-              {perPrayerCard}
               {tools}
               <WitrQazaInfo />
+              {perPrayerCard}
               {resetAllButton}
             </>
           )}
@@ -475,27 +625,23 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   rows: {
-    gap: Spacing.two,
-    marginTop: Spacing.three,
+    marginTop: Spacing.two,
   },
-  rowsTv: {
+  rowsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
+    gap: Spacing.two,
   },
-  rowTv: {
+  rowCellGrid: {
     flexBasis: "45%",
     flexGrow: 1,
-  },
-  row: {
-    gap: Spacing.two,
-    padding: Spacing.three,
+    paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    borderWidth: BorderWidth.hairline,
   },
-  rowTop: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.twoHalf,
+  hint: {
+    marginTop: Spacing.three,
   },
   rowBody: {
     flex: 1,
@@ -505,17 +651,55 @@ const styles = StyleSheet.create({
   rowRemaining: {
     fontVariant: ["tabular-nums"],
   },
-  rowActions: {
+  prayer: {
+    paddingVertical: Spacing.two,
+    gap: Spacing.oneHalf,
+  },
+  prayerTop: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     gap: Spacing.two,
   },
-  madeUp: {
-    flexShrink: 1,
+  prayerMain: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.twoHalf,
+    minHeight: Control.md,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
   },
-  hint: {
-    marginTop: Spacing.three,
+  prayerMainTv: {
+    minHeight: TvLayout.minFocusTarget,
+    paddingHorizontal: Spacing.two,
+  },
+  allDone: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+  },
+  check: {
+    width: Control.md,
+    height: Control.md,
+    borderRadius: Radius.pill,
+    borderWidth: BorderWidth.thin,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  checkTv: {
+    width: TvLayout.minFocusTarget,
+    height: TvLayout.minFocusTarget,
+  },
+  progressTrack: {
+    height: tvDp(3),
+    borderRadius: Radius.pill,
+    overflow: "hidden",
+    marginStart: tvDp(36) + Spacing.twoHalf,
+  },
+  progressFill: {
+    height: "100%",
+    borderRadius: Radius.pill,
   },
 });
 

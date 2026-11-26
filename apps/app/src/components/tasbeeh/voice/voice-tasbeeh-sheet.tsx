@@ -81,7 +81,8 @@ export function VoiceTasbeehSheet({
   }, [visible, zikr]);
 
   const close = () => {
-    if (teaching) voice.cancelTeaching();
+    // Closing on a Re-teach goes back to counting with the pattern it had.
+    if (teaching) voice.cancelTeaching({ resume: true });
     onClose();
   };
 
@@ -192,7 +193,7 @@ export function VoiceTasbeehSheet({
               level={voice.level}
               speaking={voice.speaking}
               onDone={() => void run(voice.finishTeaching)}
-              onCancel={voice.cancelTeaching}
+              onCancel={() => voice.cancelTeaching({ resume: true })}
             />
           ) : voice.taught ? (
             <View style={styles.section}>

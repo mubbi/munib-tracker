@@ -26,7 +26,10 @@ export type SwitchRowProps = {
    * only — hidden from assistive tech and never pressable on its own.
    */
   leading?: ReactNode;
-  /** Non-interactive trailing content between the text and the switch (a badge, a value). */
+  /**
+   * Non-interactive adornment drawn on the title line (e.g. the "This device"
+   * badge); it wraps under a long title instead of squeezing the text column.
+   */
   accessory?: ReactNode;
   /** `filled`: muted card-like row (default on TV). `plain`: bare row (default elsewhere). */
   surface?: "filled" | "plain";
@@ -58,7 +61,7 @@ export function TvSwitchTrack({ value }: { value: boolean }) {
 }
 
 /**
- * The one on/off row (icon + title + hint + accessory + switch). The whole row
+ * The one on/off row (icon + title/accessory + hint + switch). The whole row
  * is a single pressable with role `switch` on every platform; the drawn switch
  * is hidden from assistive tech and never takes the press itself.
  */
@@ -100,16 +103,27 @@ export function SwitchRow({
         />
       ) : null}
       <View style={styles.text}>
-        <ThemedText type="small" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
-          {title}
-        </ThemedText>
+        {accessory != null ? (
+          <View style={styles.titleLine}>
+            <ThemedText
+              type="small"
+              style={[styles.title, tv ? { fontSize: TvLayout.bodyFontSize } : undefined]}
+            >
+              {title}
+            </ThemedText>
+            {accessory}
+          </View>
+        ) : (
+          <ThemedText type="small" style={tv ? { fontSize: TvLayout.bodyFontSize } : undefined}>
+            {title}
+          </ThemedText>
+        )}
         {description ? (
           <ThemedText type="caption" themeColor="mutedForeground">
             {description}
           </ThemedText>
         ) : null}
       </View>
-      {accessory}
       <View
         accessible={false}
         accessibilityElementsHidden
@@ -182,6 +196,9 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   text: { flex: 1, minWidth: 0, gap: Spacing.half },
+  titleLine: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: Spacing.two },
+  /** Keeps whole words: the badge wraps to the next line before the title breaks. */
+  title: { flexShrink: 1 },
   track: {
     width: tvDp(56),
     height: tvDp(32),

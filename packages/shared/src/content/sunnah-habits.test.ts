@@ -66,6 +66,16 @@ describe.concurrent("SUNNAH_HABITS", () => {
     }
   });
 
+  it("counts salawat on the tasbeeh with a user target, still tickable by hand", () => {
+    expect(getSunnahHabit("salawat")).toMatchObject({
+      kind: "linked",
+      userTarget: true,
+      manualTick: true,
+      link: { kind: "tasbeeh", zikrId: "after_azan-salawat" },
+      source: "zikr:after_azan-salawat",
+    });
+  });
+
   it("starts with valid default habits", () => {
     for (const id of DEFAULT_SUNNAH_HABIT_SELECTION) expect(isSunnahHabitId(id)).toBe(true);
     expect(isSunnahHabitId("custom:x")).toBe(false);

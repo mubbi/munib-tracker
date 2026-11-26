@@ -2,12 +2,19 @@ import {
   concatPcm,
   feedInChunks,
   hush,
+  syllable,
   syntheticPhrase,
+  VOWELS,
   withPauses,
 } from "@/test-support/tasbeeh-voice";
 
-import { buildPattern, sampleFeatures } from "./matcher";
-import { createTeachRecorder, createTemplateCounter } from "./template-count";
+import { buildPattern, MAX_LEARNED_TEMPLATES, sampleFeatures, type TaughtPattern } from "./matcher";
+import {
+  createTeachRecorder,
+  createTemplateCounter,
+  OPEN_BURST_HOP_MS,
+  SETTLE_MS,
+} from "./template-count";
 
 const TAUGHT = ["a", "i", "u", "e"] as const;
 const OTHER = ["o", "e", "a", "a"] as const;
@@ -75,6 +82,115 @@ describe("template counter (streaming)", () => {
     expect(onSpeech).toHaveBeenCalledWith(true);
     expect(onSpeech).toHaveBeenCalledWith(false);
     expect(onLevel).toHaveBeenCalled();
+  });
+});
+
+/** Feeds in 20 ms chunks and records the audio time (ms) at which each hit landed. */
+function feedTimed(
+  counter: ReturnType<typeof createTemplateCounter>,
+  pcm: Float32Array,
+  hits: number[],
+) {
+  for (let i = 0; i < pcm.length; i += 320) {
+    const before = hits.length;
+    counter.feed(pcm.subarray(i, i + 320));
+    if (hits.length > before) {
+      for (let k = before; k < hits.length; k++) hits[k] = counter.audioMs;
+    }
+  }
+}
+
+describe("template counter timing (synthetic features)", () => {
+  it("searches the open burst every ~250 ms with a short settle", () => {
+    expect(OPEN_BURST_HOP_MS).toBeLessThanOrEqual(250);
+    expect(SETTLE_MS).toBeLessThanOrEqual(300);
+  });
+
+  it("lands each back-to-back count ~0.3–0.55 s after that repeat ends", async () => {
+    const hits: number[] = [];
+    const counter = createTemplateCounter({
+      pattern: pattern(),
+      onHit: () => hits.push(-1),
+    });
+    const fast = syntheticPhrase(TAUGHT, { stretch: 0.85 });
+    const repeatMs = (fast.length / 16_000) * 1000;
+    feedTimed(counter, concatPcm(hush(500), fast, fast, fast, fast, hush(900)), hits);
+    await counter.finish();
+    expect(hits).toHaveLength(4);
+    hits.forEach((at, i) => {
+      const end = 500 + repeatMs * (i + 1);
+      const latency = at - end;
+      expect(latency).toBeGreaterThanOrEqual(0);
+      expect(latency).toBeLessThanOrEqual(SETTLE_MS + OPEN_BURST_HOP_MS + 40);
+    });
+  });
+
+  it("lands a count about the VAD hangover after a paused repeat", async () => {
+    const hits: number[] = [];
+    const counter = createTemplateCounter({ pattern: pattern(), onHit: () => hits.push(-1) });
+    const phrase = syntheticPhrase(TAUGHT);
+    const phraseMs = (phrase.length / 16_000) * 1000;
+    feedTimed(counter, withPauses([phrase, phrase]), hits);
+    await counter.finish();
+    expect(hits).toHaveLength(2);
+    const firstEnd = 500 + phraseMs;
+    expect(hits[0] - firstEnd).toBeLessThanOrEqual(560);
+    const secondEnd = 500 + phraseMs + 600 + phraseMs;
+    expect(hits[1] - secondEnd).toBeLessThanOrEqual(560);
+  });
+});
+
+/** The taught zikr with an uneven syllable rhythm (long-short-long-short). */
+function unevenRepeat() {
+  return concatPcm(
+    syllable(VOWELS.a, 280),
+    syllable(VOWELS.i, 90),
+    syllable(VOWELS.u, 240),
+    syllable(VOWELS.e, 100),
+  );
+}
+
+describe("adaptive templates", () => {
+  it("learns a confident repeat as an extra feature template, capped", async () => {
+    const learned: TaughtPattern[] = [];
+    const onHit = jest.fn();
+    const counter = createTemplateCounter({
+      pattern: pattern(),
+      onHit,
+      onPatternLearned: (next) => learned.push(next),
+    });
+    // Said with a different rhythm than any taught take: a confident match
+    // (well under the threshold) that is still not a near-copy of a template.
+    const repeat = unevenRepeat();
+    feedInChunks(counter, withPauses(new Array(6).fill(repeat)));
+    await counter.finish();
+    expect(onHit).toHaveBeenCalledTimes(6);
+    expect(learned.length).toBeGreaterThanOrEqual(1);
+    const last = learned[learned.length - 1];
+    expect(last.templates).toHaveLength(3);
+    expect(last.learned?.length).toBeGreaterThanOrEqual(1);
+    expect(last.learned?.length).toBeLessThanOrEqual(MAX_LEARNED_TEMPLATES);
+    // Features only: plain numeric matrices, never PCM.
+    expect(last.learned?.[0].dim).toBe(last.templates[0].dim);
+  });
+
+  it("still ignores a different zikr after learning", async () => {
+    let current = pattern();
+    const first = createTemplateCounter({
+      pattern: current,
+      onHit: () => {},
+      onPatternLearned: (next) => {
+        current = next;
+      },
+    });
+    feedInChunks(first, withPauses(new Array(4).fill(unevenRepeat())));
+    await first.finish();
+    expect(current.learned?.length).toBeGreaterThanOrEqual(1);
+    const onHit = jest.fn();
+    const counter = createTemplateCounter({ pattern: current, onHit });
+    feedInChunks(counter, withPauses([syntheticPhrase(OTHER), syntheticPhrase(OTHER)]));
+    await counter.finish();
+    expect(onHit).not.toHaveBeenCalled();
   });
 });
 

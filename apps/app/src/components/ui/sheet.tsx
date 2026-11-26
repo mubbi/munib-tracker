@@ -30,7 +30,6 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
 import { ThemedText } from "@/components/themed-text";
@@ -43,7 +42,7 @@ import {
   type TvFocusHandle,
 } from "@/components/ui/tv-focus-memory";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Durations, Springs } from "@/constants/motion";
+import { Durations } from "@/constants/motion";
 import {
   BorderWidth,
   Breakpoints,
@@ -73,6 +72,8 @@ const DISMISS_VELOCITY = 0.75;
 const FROST_FADE_DELAY_MS = 48;
 /** Soft reveal — a solid cover fades out (never animate opacity on the frost node). */
 const FROST_FADE_MS = Durations.base;
+/** A released drag that doesn't dismiss eases back to the dock — no spring bounce. */
+const DOCK_TIMING = { duration: Durations.fast, easing: Easing.out(Easing.cubic) } as const;
 
 /** CSS frost — applied as a plain style object so web gets both prefixes. */
 const WEB_BACKDROP_FROST = {
@@ -116,7 +117,7 @@ type SheetProps = {
    * changed or something else took focus meanwhile.
    */
   returnFocusRef?: FocusableRef;
-  /** Skip frosted glass — use a solid card (better for content-heavy sheets). */
+  /** Opaque card instead of the translucent glass card (content-heavy sheets). The frosted backdrop stays. */
   solid?: boolean;
   /**
    * Bottom sheets scroll their body by default. Pass `false` when children bring
@@ -137,18 +138,19 @@ type SheetProps = {
  * traps Tab inside the card and closes on Escape; the scrim is not a tab stop.
  * Focus returns to the trigger on close (see `returnFocusRef`).
  *
- * Motion: bottom sheets slide up with `Springs.sheet` (native fades the scrim
- * with the Modal); under reduced motion they only fade.
+ * Motion: every sheet simply fades in (native: the Modal fade; web: the card
+ * fades) — no slide or spring bounce. A released drag eases back to the dock.
+ * Reduced motion: no animation.
  *
  * Toasts: while open, the sheet hosts the app's toasts inside its modal layer
  * (an RN `Modal` is its own window / portal, so the root toast host would sit
  * underneath it and an **Undo** could not be reached — B-01).
  *
- * Frosted look is bottom-sheet only (non-`solid`):
+ * Frosted backdrop on every bottom sheet and centered dialog (one look app-wide):
  * - iOS 26+ Liquid Glass → real `GlassView` material
  * - older iOS / Android → native `BlurView` (Android captures the root blur target)
  * - web → CSS `backdrop-filter`
- * A translucent card sits on top. Center dialogs stay opaque.
+ * A translucent card sits on top (`solid` → opaque card on the same frost).
  */
 export function Sheet({
   visible,
@@ -186,7 +188,10 @@ export function Sheet({
     ? Math.max(0, (windowWidth - WIDE_BOTTOM_SHEET_MAX) / 2)
     : 0;
   const isBottom = variant === "bottom";
-  const useSheetFrost = isBottom && !solid;
+  // One look everywhere: every bottom sheet and centered dialog sits on the same
+  // frosted-glass backdrop. `solid` only makes the CARD opaque (content-heavy
+  // sheets read better on a solid card); it never drops the frost.
+  const useSheetFrost = !isFullscreen;
   const bottomMaxHeight = windowHeight * 0.88;
   /** Handle zone + horizontal padding — subtracted from maxHeight for the scroll area. */
   const bottomSheetChrome = 64 + insets.bottom + (hasHeader ? Control.md + Spacing.two : 0);
@@ -212,8 +217,9 @@ export function Sheet({
   const renderedChildren = visible ? children : lastVisibleChildren.current;
 
   const dragY = useSharedValue(0);
-  /** Slide-in offset for bottom sheets (0 = docked). Stays 0 under reduced motion. */
-  const enterY = useSharedValue(0);
+  /** Web-only card fade-in (native fades through the Modal). Never applied to the frost node. */
+  const cardOpacity = useSharedValue(1);
+  const cardFadeStyle = useAnimatedStyle(() => ({ opacity: cardOpacity.value }));
   /**
    * Cover over the frost layer (1 → 0). Never animate opacity on the frost node
    * itself — CSS `backdrop-filter` (and some native blur paths) cannot sample
@@ -245,19 +251,25 @@ export function Sheet({
     }
   }, [visible, dragY, frostCoverOpacity, useSheetFrost]);
 
-  // Bottom sheets slide up from below the window; reduced motion keeps the
-  // Modal's fade only (no translate). The start offset is read from a ref so a
-  // window resize while open (keyboard, rotation) does not replay the slide.
-  const slideFrom = useRef(bottomMaxHeight);
-  slideFrom.current = bottomMaxHeight;
+  // Sheets simply fade in — no slide, no spring overshoot, so the content is
+  // still and readable from the first frame. Native gets the fade from the
+  // Modal (`animationType="fade"`); web's Modal can't fade without killing CSS
+  // `backdrop-filter`, so the card fades itself there. Reduced motion: instant.
   useEffect(() => {
-    if (!isBottom || !visible || reducedMotion) {
-      enterY.value = 0;
+    if (!visible) {
+      cardOpacity.value = web && !reducedMotion ? 0 : 1;
       return;
     }
-    enterY.value = slideFrom.current;
-    enterY.value = withSpring(0, Springs.sheet);
-  }, [isBottom, visible, reducedMotion, enterY]);
+    if (!web || reducedMotion) {
+      cardOpacity.value = 1;
+      return;
+    }
+    cardOpacity.value = 0;
+    cardOpacity.value = withTiming(1, {
+      duration: Durations.base,
+      easing: Easing.out(Easing.cubic),
+    });
+  }, [visible, web, reducedMotion, cardOpacity]);
 
   // Focus restoration. Web: remember the element focused when the sheet opened
   // (layout effect — before react-native-web's focus trap moves focus inside)
@@ -344,21 +356,21 @@ export function Sheet({
             // A dirty-form guard ("Keep editing?") can keep the sheet open:
             // dock the card again instead of leaving it dragged down (B-29).
             setTimeout(() => {
-              if (visibleRef.current) dragY.value = withSpring(0, Springs.sheet);
+              if (visibleRef.current) dragY.value = withTiming(0, DOCK_TIMING);
             }, 0);
             return;
           }
-          dragY.value = withSpring(0, Springs.sheet);
+          dragY.value = withTiming(0, DOCK_TIMING);
         },
         onPanResponderTerminate: () => {
-          dragY.value = withSpring(0, Springs.sheet);
+          dragY.value = withTiming(0, DOCK_TIMING);
         },
       }),
     [dragY],
   );
 
   const bottomCardDragStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: dragY.value + enterY.value }],
+    transform: [{ translateY: dragY.value }],
   }));
 
   const header = hasHeader ? (
@@ -433,9 +445,8 @@ export function Sheet({
     colors.card,
     hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.38) : tokens.isDark ? 0.48 : 0.58,
   );
-  const cardChrome = useSheetFrost
-    ? { backgroundColor: glassCardWash }
-    : { backgroundColor: colors.card };
+  const cardChrome =
+    useSheetFrost && !solid ? { backgroundColor: glassCardWash } : { backgroundColor: colors.card };
 
   const bottomCardStyle = [
     styles.bottomCard,
@@ -492,6 +503,7 @@ export function Sheet({
           width: "auto",
         },
         bottomCardDragStyle,
+        cardFadeStyle,
         keyboardInsetStyle,
         { pointerEvents: "auto" },
       ]}
@@ -516,7 +528,7 @@ export function Sheet({
   );
 
   const centerCard = (
-    <View
+    <Animated.View
       {...dialogA11y}
       // collapsable={false}: keeps a real host view on Android so the card (and
       // its buttons) stay hittable when overlapping the scrim.
@@ -527,10 +539,11 @@ export function Sheet({
         cardChrome,
         tvPad,
         contentStyle,
+        cardFadeStyle,
       ]}
     >
       {centerCardBody}
-    </View>
+    </Animated.View>
   );
 
   // Scrim color lives on the Pressable so Android Fabric always builds a real
@@ -607,7 +620,7 @@ export function Sheet({
 
   // Web: `fade` animates opacity on the Modal root, which kills CSS
   // `backdrop-filter`, so web uses none + the frost cover. Native fades the
-  // scrim and card together (the bottom card also slides — see `enterY`); a
+  // scrim and card together (no slide — see the fade effect above); a
   // fullscreen surface slides up unless reduced motion asks for a fade.
   const modalAnimation: "none" | "fade" | "slide" = web
     ? "none"
@@ -671,6 +684,7 @@ export function Sheet({
             </View>
           ) : (
             <View style={styles.scrimRoot}>
+              {frostedBackdrop}
               <Pressable
                 collapsable={false}
                 style={[styles.backdrop, { backgroundColor: tokens.scrim }]}

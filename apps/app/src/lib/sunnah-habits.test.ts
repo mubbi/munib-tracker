@@ -79,10 +79,40 @@ describe("sunnah habits — daily progress", () => {
     expect(state.checks).toEqual({});
   });
 
-  it("counts salawat towards its target", () => {
-    const state = setHabitValue(buildSunnahHabitsState(), "salawat", DAY, 7);
+  it("derives salawat from the tasbeeh count against the user's own target", () => {
+    const state = setHabitTarget(buildSunnahHabitsState(), "salawat", 100);
+    const ctx = buildHabitContext({ zikrCountsFor: () => ({ "after_azan-salawat": 27 }) });
+    expect(habitProgress(state, habit(state, "salawat"), DAY, ctx)).toMatchObject({
+      value: 27,
+      target: 100,
+      done: false,
+      derivedFrom: "zikr:after_azan-salawat",
+    });
+    const full = buildHabitContext({ zikrCountsFor: () => ({ "after_azan-salawat": 100 }) });
+    expect(habitProgress(state, habit(state, "salawat"), DAY, full).done).toBe(true);
+  });
+
+  it("lets salawat be ticked by hand (said away from the tasbeeh) and unticked", () => {
+    let state = setHabitTarget(buildSunnahHabitsState(), "salawat", 33);
+    state = toggleHabit(state, "salawat", DAY);
+    expect(state.checks[habitCheckKey("salawat", DAY)]).toBe(33);
     const progress = habitProgress(state, habit(state, "salawat"), DAY, buildHabitContext());
-    expect(progress).toMatchObject({ value: 7, target: 10, done: false });
+    expect(progress).toMatchObject({ value: 0, target: 33, done: true, ticked: true });
+    state = toggleHabit(state, "salawat", DAY);
+    expect(state.checks).toEqual({});
+    expect(habitProgress(state, habit(state, "salawat"), DAY, buildHabitContext()).done).toBe(
+      false,
+    );
+  });
+
+  it("keeps old salawat stepper days: done when the stored count reached the target", () => {
+    const past = "2026-11-20";
+    const state = buildSunnahHabitsState({
+      checks: { [habitCheckKey("salawat", past)]: 12, [habitCheckKey("salawat", DAY)]: 7 },
+    });
+    const ctx = buildHabitContext();
+    expect(habitProgress(state, habit(state, "salawat"), past, ctx).done).toBe(true);
+    expect(habitProgress(state, habit(state, "salawat"), DAY, ctx).done).toBe(false);
   });
 
   it("derives istighfar from the tasbeeh count and never stores it", () => {

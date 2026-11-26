@@ -26,7 +26,6 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Callout } from "@/components/ui/callout";
 import { Card } from "@/components/ui/card";
-import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { BorderWidth, Breakpoints, Radius, Spacing, withAlpha } from "@/constants/theme";
@@ -434,7 +433,11 @@ export default function QiblaScreen() {
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("qibla.distanceLabel")}
         </ThemedText>
-        <ThemedText type="header">{distanceText}</ThemedText>
+        {/* A full phrase ("2,807 km to the Kaaba") — one size down and centred so it
+            reads in one or two lines instead of three huge ones beside the bearing. */}
+        <ThemedText type="subtitle" style={styles.statText}>
+          {distanceText}
+        </ThemedText>
       </View>
     </View>
   );
@@ -566,9 +569,15 @@ export default function QiblaScreen() {
       subtitle={t("qibla.subtitle")}
       onBack={() => goBackOrReplace(router, "/")}
       trailing={
-        <IconButton
-          name={{ ios: "paintpalette", android: "palette", web: "palette" }}
-          accessibilityLabel={t("qiblaStyles.openButton")}
+        // A labelled "Style" pill with a compass glyph reads as "change how the
+        // compass looks" (a lone palette in system blue did not), and matches the
+        // header's accent-tinted back button.
+        <Button
+          variant="secondary"
+          size="sm"
+          icon={{ ios: "safari.fill", android: "explore", web: "explore" }}
+          label={t("qiblaStyles.styleButton")}
+          accessibilityHint={t("qiblaStyles.openButton")}
           onPress={() => setStyleOpen(true)}
         />
       }
@@ -728,7 +737,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     gap: Spacing.half,
     alignItems: "center",
+    justifyContent: "center",
   },
+  statText: { textAlign: "center" },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

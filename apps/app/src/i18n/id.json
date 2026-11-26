@@ -433,10 +433,17 @@
       "makeUp": {
         "title": "Hari yang perlu diqada",
         "body": "Hari yang perlu diqada dari Ramadan ini: {{days}}. Hari yang terlewat, hari berhalangan, serta hari haid atau nifas diqada setelah Ramadan.",
-        "question": "Tambahkan ke qada puasa Anda? Lewati jika sudah ditambahkan, atau jika Anda membayar fidyah sebagai gantinya.",
         "add": "Tambah {{days}} ke qada puasa",
-        "dismiss": "Tidak, terima kasih",
-        "added": "Ditambahkan ke qada puasa Anda."
+        "added": "Ditambahkan ke qada puasa Anda.",
+        "settle": "Bagaimana Anda akan menunaikan hari-hari ini?",
+        "optionQaza": "Mengqadanya dengan berpuasa",
+        "optionFidyah": "Membayar fidyah sebagai gantinya",
+        "optionKaffarah": "Kafarat untuk puasa yang sengaja dibatalkan",
+        "openFidyah": "Buka alat bantu fidyah",
+        "openKaffarah": "Buka alat bantu kafarat",
+        "alreadyHandled": "Sudah ditunaikan",
+        "sadaqahLink": "Bersedekah sunah sebagai amal kebaikan tambahan",
+        "sadaqahHint": "Sedekah adalah pahala tambahan. Sedekah tidak menggantikan qada puasa atau fidyah."
       }
     },
     "toast": {
@@ -724,7 +731,11 @@
     "markSalah": "Tandai {{salah}}",
     "moreForToday": "Lainnya untuk hari ini ({{count}})",
     "moreForToday_one": "Lainnya untuk hari ini ({{count}})",
-    "moreForToday_other": "Lainnya untuk hari ini ({{count}})"
+    "moreForToday_other": "Lainnya untuk hari ini ({{count}})",
+    "exploreDoneA11y": "Selesai mengedit pintasan",
+    "exploreEditHint": "Seret untuk mengurutkan. Ketuk − untuk menyembunyikan pintasan.",
+    "exploreAddBack": "Tambahkan lagi",
+    "exploreHideTile": "Sembunyikan {{item}}"
   },
   "tracker": {
     "eyebrow": "Lacak & catat",
@@ -1016,7 +1027,9 @@
     },
     "reorder": {
       "moreFor": "Opsi lain untuk {{item}}",
-      "moveToTop": "Pindahkan ke atas"
+      "moveToTop": "Pindahkan ke atas",
+      "removed": "{{item}} dihapus",
+      "hidden": "Tersembunyi"
     },
     "sendFeedback": "Kirim masukan",
     "sendFeedbackDesc": "Laporkan masalah atau sarankan perbaikan"
@@ -1157,7 +1170,12 @@
     "preview": "Pratinjau",
     "sampleAction": "Contoh aksi",
     "secondary": "Sekunder",
-    "previewMeta": "Mode saat ini: {{mode}} · aksen: {{accent}}"
+    "previewMeta": "Mode saat ini: {{mode}} · aksen: {{accent}}",
+    "moreColors": "Warna lainnya",
+    "moreColorsHint": "Membuka palet lengkap dan pemilih warna kustom",
+    "accentAdjusted": "Disesuaikan agar mudah dibaca di tema ini. Warna Anda tetap tersimpan sesuai pilihan.",
+    "hexLabel": "Kode heksa",
+    "hexInvalid": "Masukkan kode heksa 6 digit, seperti #1E6B4F"
   },
   "bedtime": {
     "eyebrow": "Pengaturan",
@@ -1479,7 +1497,10 @@
     "browseAdhkar": "Jelajahi zikir",
     "favoriteRemoved": "Dihapus dari tersimpan",
     "markedNotDone": "Ditandai belum selesai",
-    "countOfTarget": "{{current}} dari {{target}}"
+    "countOfTarget": "{{current}} dari {{target}}",
+    "playRecitation": "Putar bacaan: {{title}}",
+    "pauseRecitation": "Jeda bacaan: {{title}}",
+    "closeSearch": "Tutup pencarian"
   },
   "zikrCat": {
     "morning": "Zikir pagi",
@@ -1632,7 +1653,25 @@
     "openInTasbeeh": "Buka di Tasbih",
     "favEmptyDescTv": "Pilih ikon simpan pada selawat mana pun untuk menyimpannya di sini.",
     "removedToast": "Dihapus dari tersimpan",
-    "loading": "Memuat selawat…"
+    "loading": "Memuat selawat…",
+    "grade": {
+      "sahih": "Sahih",
+      "hasan": "Hasan"
+    },
+    "readHadith": "Baca hadis lengkap",
+    "hideHadith": "Sembunyikan hadis",
+    "position": "{{current}} dari {{total}}",
+    "unsave": "Hapus dari tersimpan",
+    "notFoundDesc": "Item ini mungkin telah dihapus.",
+    "sectionSalawat": "Selawat yang diajarkan Nabi ﷺ",
+    "sectionVirtues": "Keutamaan berselawat",
+    "play": "Putar {{title}}",
+    "pause": "Jeda {{title}}",
+    "sourceInfo": "Sumber dan derajat: {{title}}",
+    "sourceTitle": "Hadis sumber",
+    "detailEyebrow": "Selawat",
+    "notFoundTitle": "Selawat tidak ditemukan",
+    "browseAll": "Telusuri semua selawat"
   },
   "names": {
     "eyebrow": "Asmaul Husna",
@@ -1926,6 +1965,16 @@
       "ayahsAmount_other": "{{count}} ayat",
       "pagesAmount_one": "{{count}} halaman",
       "pagesAmount_other": "{{count}} halaman"
+    },
+    "actionLess": "Lebih sedikit",
+    "lessActionsA11y": "Sembunyikan tindakan lain untuk ayat {{n}}",
+    "passage": {
+      "ayah": "Ayat {{n}}",
+      "range": "Ayat {{from}}–{{to}}",
+      "play": "Putar bagian ini",
+      "playHint": "Hanya memutar {{ref}}",
+      "openFullSurah": "Buka surah lengkap",
+      "openFullSurahHint": "Membuka {{name}} di ayat {{n}} pada pembaca"
     }
   },
   "hadith": {
@@ -2214,7 +2263,9 @@
     "toastSet": "Sisa {{prayer}}: {{value}}",
     "setExactLabel": "Atur sisa menjadi",
     "rowRemainingA11y": "{{prayer}}, sisa {{value}}",
-    "madeUpButton": "Sudah diqada"
+    "madeUpButton": "Sudah diqada",
+    "madeUpOneA11y": "Satu {{prayer}} telah diqada",
+    "allMadeUp": "Semua sudah diqada"
   },
   "qazaCalc": {
     "eyebrow": "Qada",
@@ -4372,7 +4423,9 @@
     "seeAll": "Lihat semua {{total}} di {{group}}",
     "showFewer": "Tampilkan lebih sedikit di {{group}}",
     "searchEverything": "Cari “{{query}}” di semua",
-    "searchEverythingHint": "Al-Qur'an, hadis, doa, zikir, dan lainnya"
+    "searchEverythingHint": "Al-Qur'an, hadis, doa, zikir, dan lainnya",
+    "seeAllShort": "Lihat semua ({{total}})",
+    "showFewerShort": "Tampilkan lebih sedikit"
   },
   "offlineData": {
     "title": "Data offline",
@@ -6578,7 +6631,15 @@
     "padCount": "Ketuk untuk menghitung",
     "loggingPreviousDay": "Dicatat untuk {{date}} — malam berlangsung hingga Subuh.",
     "announceAllDone": "Selesai. Set zikir ini lengkap.",
-    "announceRecitedNext": "Telah dibaca. Berikutnya: {{title}}"
+    "announceRecitedNext": "Telah dibaca. Berikutnya: {{title}}",
+    "dock": {
+      "playA11y": "Putar bacaan",
+      "pauseA11y": "Jeda bacaan",
+      "reset": "Atur ulang",
+      "done": "Selesai",
+      "listening": "Mendengarkan",
+      "handsFreeOn": "Tanpa tangan aktif"
+    }
   },
   "hijriAdjust": {
     "adjust": "Sesuaikan",
@@ -6784,8 +6845,9 @@
     },
     "hint": {
       "tap": "Ketuk di mana saja pada penghitung untuk menghitung",
-      "misbaha": "Ketuk, atau tarik butir berikutnya di sepanjang benang",
-      "keyboard": "Klik penghitung atau tekan Spasi untuk menghitung"
+      "keyboard": "Klik penghitung atau tekan Spasi untuk menghitung",
+      "misbahaUndo": "Ketuk, atau tarik butir berikutnya — tarik kembali untuk membatalkan",
+      "pebbles": "Ketuk, atau geser kerikil ke seberang — geser kembali untuk membatalkan"
     },
     "a11y": {
       "milestone": "{{number}} terhitung"
@@ -7569,7 +7631,8 @@
       "voice": "Suara",
       "readingDisplay": "Terjemahan & transliterasi",
       "focusLock": "Fokus salat",
-      "qibla": "Kompas kiblat"
+      "qibla": "Kompas kiblat",
+      "extras": "Cuaca & kiblat"
     },
     "setup": {
       "dismiss": "Nanti saja",
@@ -7593,7 +7656,9 @@
     "moreInSettingsHint": "Membuka opsi ini di Pengaturan",
     "tvFinanceTools": "Tampilkan alat keuangan",
     "tvFinanceToolsSub": "Zakat, sedekah, fidyah, warisan, dan keuangan Islam di TV ini. Nonaktif secara bawaan agar jumlah uang tetap privat.",
-    "surfaceFinance": "Panduan zakat & keuangan"
+    "surfaceFinance": "Panduan zakat & keuangan",
+    "voiceDefaultShort": "Bawaan",
+    "clearAction": "Hapus"
   },
   "prayerWindow": {
     "preferred": {
@@ -8216,7 +8281,11 @@
       "extra": "Tambahan",
       "late": "Diganti terlambat",
       "chooseRakahs": "2 atau 4",
-      "chooseRakahsA11y": "Pilih 2 atau 4 rakaat untuk {{name}}"
+      "chooseRakahsA11y": "Pilih 2 atau 4 rakaat untuk {{name}}",
+      "rowLabel": "Sunah",
+      "optional": "Opsional",
+      "optionalWhileUnwell": "Opsional saat sakit",
+      "notYetHint": "Belum masuk waktunya — tetap bisa dicatat"
     },
     "rakahsSheet": {
       "prompt": "Berapa rakaat yang Anda kerjakan?",
@@ -8226,13 +8295,10 @@
       "title": "Sunah rawatib",
       "evidence": "Sahih Muslim 728 · {{count}} rakaat sehari",
       "progress": "{{done}} / {{total}} rakaat",
-      "hint": "Ketuk chip di bawah setiap salat untuk mencatatnya. Tekan lama chip 2 / 4 untuk mengubah rakaat.",
       "hintTv": "Pilih chip di bawah setiap salat untuk mencatatnya.",
       "sickHint": "Saat sakit tidak ada yang dituntut — catat yang mampu Anda kerjakan.",
       "travelHint": "Saat bepergian, sunah sebelum Subuh tetap dijaga; yang lain opsional.",
       "optionalWhileTravelling": "Opsional saat bepergian",
-      "showAll": "Tampilkan semua rawatib hari ini",
-      "showDue": "Tampilkan yang tiba waktunya saja",
       "openHub": "Dalil & pengaturan",
       "askBody": "Catat salat sunah muakkad sebelum dan sesudah fardu? Pilih 12 rakaat (4 sebelum Zuhur) atau 10 (2 sebelum Zuhur). Bisa diubah kapan saja.",
       "askTwelve": "12 rakaat",
@@ -8254,7 +8320,7 @@
       "title": "Sunah rawatib",
       "subtitle": "Salat sunah muakkad sebelum dan sesudah fardu",
       "todayTitle": "Hari ini",
-      "todayHint": "Catat lewat chip di bawah setiap salat di pelacak.",
+      "todayHint": "Catat di sini, atau di baris Sunah pada kartu setiap salat di pelacak.",
       "off": "Pencatatan rawatib nonaktif. Aktifkan di bawah.",
       "openTracker": "Buka pelacak",
       "openStats": "Lihat statistik",
@@ -9088,7 +9154,7 @@
       },
       "salawat": {
         "title": "Selawat kepada Nabi ﷺ",
-        "hint": "Jumlah harian Anda"
+        "hint": "Dihitung di tasbeeh, atau centang sendiri"
       },
       "salam_home": {
         "title": "Salam saat masuk rumah",
@@ -9119,7 +9185,31 @@
         "hint": "Dicentang dari zikir Anda"
       }
     },
-    "habitRemoved": "{{title}} dihapus"
+    "habitRemoved": "{{title}} dihapus",
+    "todayCount": "Hari ini · {{done}} dari {{total}}",
+    "todayRingA11y": "Kebiasaan Sunnah hari ini",
+    "editList": "Ubah daftar",
+    "myHabits": "Kebiasaan saya ({{number}}/{{max}})",
+    "addMore": "Tambah lagi",
+    "groups": {
+      "morningEvening": "Pagi & petang",
+      "day": "Sepanjang hari",
+      "bedtime": "Sebelum tidur"
+    },
+    "principleShort": "Amalan yang paling dicintai Allah adalah yang paling rutin, meski sedikit.",
+    "evidenceLink": "Dalil",
+    "spotlightLine": "Coba hari ini: {{title}}",
+    "week": {
+      "title": "Minggu ini",
+      "dayA11y": "{{day}}: {{done}} dari {{total}}"
+    },
+    "detail": {
+      "history": "30 hari terakhir",
+      "target": "Target harian",
+      "open": "Buka",
+      "remove": "Hapus dari kebiasaan saya"
+    },
+    "detailA11y": "{{title}}, detail"
   },
   "quranRoots": {
     "title": "Pencarian akar kata Arab",
@@ -9714,8 +9804,9 @@
       "calibrateSub": "Ucapkan satu frasa 5 kali agar penghitungan sesuai dengan suara Anda. Hanya disimpan di perangkat ini.",
       "modelStorageSub": "Pendengar di perangkat digunakan bersama dengan latihan Al-Qur'an",
       "forgetTaught": "Lupakan suara zikir yang diajarkan",
-      "forgetTaughtSub": "Tidak ada audio yang direkam atau dikirim. Jika Anda mengajarkan zikir, pola suara singkat (bukan rekaman) disimpan di perangkat ini. Ini menghapus semuanya.",
-      "forgetTaughtConfirm": "Lupakan semua pola suara zikir yang diajarkan di perangkat ini? Anda dapat mengajarkannya lagi kapan saja."
+      "forgetTaughtShort": "Menghapus pola suara zikir yang diajarkan di perangkat ini",
+      "forgetTaughtConfirmPrivacy": "Lupakan semua pola suara zikir yang diajarkan di perangkat ini? Tidak ada audio yang pernah direkam atau dikirim — setiap pola hanyalah sekumpulan kecil angka, bukan rekaman. Anda bisa mengajarkannya lagi kapan saja.",
+      "forgetAction": "Lupakan"
     },
     "announce": {
       "title": "Pengumuman hitungan tasbih",
@@ -9736,8 +9827,8 @@
     },
     "teach": {
       "title": "Ucapkan sekali agar hanya zikir ini yang dihitung",
-      "explain": "Ucapkan {{phrase}} hingga 3 kali, dengan jeda di antaranya. Pola suara singkat (bukan rekaman) disimpan di perangkat ini agar hanya zikir ini yang dihitung.",
-      "explainOther": "Ucapkan zikir Anda hingga 3 kali, dengan jeda di antaranya. Selama sesi ini, hanya pengulangannya yang akan dihitung.",
+      "explain": "Ucapkan {{phrase}} 3 kali, dengan jeda di antaranya. Pola suara singkat (bukan rekaman) disimpan di perangkat ini agar hanya zikir ini yang dihitung.",
+      "explainOther": "Ucapkan zikir Anda 3 kali, dengan jeda di antaranya. Selama sesi ini, hanya pengulangannya yang akan dihitung.",
       "start": "Ajarkan dengan mengucapkannya",
       "skip": "Lewati — hitung setiap jeda",
       "sayNow": "Ucapkan {{phrase}} sekarang",
@@ -9748,12 +9839,14 @@
       "issueShort": "Itu terlalu singkat. Ucapkan zikir secara lengkap.",
       "issueLong": "Itu terlalu panjang. Ucapkan zikir sekali, lalu jeda.",
       "issueDifferent": "Itu terdengar berbeda. Ucapkan zikir yang sama lagi.",
-      "done": "Selesai — mulai menghitung",
       "cancel": "Batal",
       "reteach": "Ajarkan ulang",
       "taughtReady": "Sudah diajarkan di perangkat ini.",
       "countsTaught": "Hanya menghitung zikir yang Anda ajarkan — ketuk untuk mengoreksi salah hitung.",
-      "countsPauses": "Menghitung setiap jeda — kurang akurat. Ketuk untuk mengoreksi salah hitung."
+      "countsPauses": "Menghitung setiap jeda — kurang akurat. Ketuk untuk mengoreksi salah hitung.",
+      "doneShort": "Selesai",
+      "nudge": "Beberapa hitungan perlu dikoreksi. Ajarkan ulang agar lebih akurat?",
+      "nudgeDismiss": "Nanti saja"
     }
   },
   "masjids": {
@@ -10001,9 +10094,27 @@
         "title": "Pilih aplikasi",
         "body": "Pilih aplikasi yang paling mengganggu Anda.",
         "pick": "Pilih aplikasi",
-        "count": "Aplikasi dipilih: {{count}}",
         "empty": "Tidak ada aplikasi.",
-        "save": "Simpan pilihan"
+        "save": "Simpan pilihan",
+        "noneYet": "Belum ada aplikasi yang dipilih.",
+        "selectedItemsHint": "Aplikasi, kategori, dan situs web yang Anda pilih. Satu kategori utuh dihitung satu.",
+        "edit": "Ubah",
+        "editHint": "Ubah aplikasi yang dijeda",
+        "always": {
+          "title": "Selalu tersedia",
+          "phone": "Telepon",
+          "phoneHint": "Panggilan selalu masuk.",
+          "messages": "Pesan",
+          "messagesHint": "SMS tetap masuk.",
+          "emergency": "Panggilan darurat",
+          "emergencyHint": "Panggilan darurat selalu berfungsi.",
+          "munib": "Munib Tracker",
+          "munibHint": "Agar Anda bisa menandai salat."
+        },
+        "selectedItems_one": "{{count}} item dipilih",
+        "selectedItems_other": "{{count}} item dipilih",
+        "selectedApps_one": "{{count}} aplikasi dipilih",
+        "selectedApps_other": "{{count}} aplikasi dipilih"
       },
       "timing": {
         "title": "Salat, waktu, dan mode"
@@ -10012,11 +10123,20 @@
         "title": "Coba",
         "body": "Mulai jendela uji 1 menit untuk melihat apa yang terjadi.",
         "start": "Mulai uji 1 menit",
-        "running": "Uji berjalan: buka salah satu aplikasi pilihan Anda."
+        "running": "Uji berjalan: buka salah satu aplikasi pilihan Anda.",
+        "callsNote": "Panggilan dan SMS tetap masuk selama uji coba, dan selama setiap jendela salat."
       },
       "confirmAlert": "Pemberitahuan “Ketuk untuk konfirmasi”",
       "confirmAlertHint": "Setelah Anda mengetuk “Saya sudah salat” di layar blokir, notifikasi membuka Munib Tracker untuk mencatat salat Anda.",
-      "progressLabel": "Kemajuan pengaturan"
+      "progressLabel": "Kemajuan pengaturan",
+      "stepNamed": "Langkah {{current}} dari {{total}} · {{name}}",
+      "stepName": {
+        "explain": "Pengantar",
+        "permissions": "Izin",
+        "apps": "Aplikasi",
+        "timing": "Waktu",
+        "test": "Uji coba"
+      }
     },
     "evidence": {
       "title": "Dalil",
@@ -10138,6 +10258,17 @@
       "kwKids": "mode anak, perangkat anak, hubungkan, qr",
       "familyDigest": "Ringkasan keluarga mingguan",
       "familyDigestSub": "Seminggu sekali, pada hari Jumat: berapa salat yang dicatat anak-anak Anda. Hanya jumlah, tanpa nama."
+    },
+    "session": {
+      "title": "Ini memerlukan koneksi",
+      "body": "Lingkaran berbagi kemajuan dengan orang yang Anda undang, jadi perlu koneksi singkat ke server. Khatam bersama tidak memerlukan akun.",
+      "connecting": "Menghubungkan…",
+      "error": {
+        "offline": "Anda sedang offline. Sambungkan ke internet, lalu coba lagi.",
+        "network": "Server tidak dapat dijangkau. Periksa koneksi Anda dan coba lagi.",
+        "server": "Server belum bisa memulai sesi Anda. Silakan coba lagi sebentar lagi.",
+        "rateLimited": "Terlalu banyak percobaan dari perangkat ini. Tunggu beberapa menit, lalu coba lagi."
+      }
     }
   },
   "circleMembership": {
@@ -10264,7 +10395,6 @@
     "loading": "Memuat…",
     "loadError": "Tidak dapat memuat grup ini. Periksa koneksi Anda dan coba lagi.",
     "retry": "Coba lagi",
-    "noSession": "Buka aplikasi sekali saat online untuk memulai atau bergabung dengan khatam bersama.",
     "startGroup": "Mulai khatam bersama",
     "haveInvite": "Punya kode undangan? Bergabung dengan grup",
     "list": {
@@ -10431,6 +10561,10 @@
         "title": "Bagikan bagian yang tersisa?",
         "body": "Bagian yang tersisa kini ditugaskan kepada anggota."
       }
+    },
+    "session": {
+      "title": "Khatam bersama memerlukan koneksi",
+      "body": "Khatam bersama membagikan satu kisi juz kepada semua anggota grup, jadi perlu koneksi singkat ke server. Anda tidak perlu akun atau masuk."
     }
   },
   "coach": {
@@ -11537,6 +11671,13 @@
     "shortcut": {
       "title": "Lantunkan untuk menemukan",
       "subtitle": "Lantunkan beberapa kata untuk menemukan ayat, di perangkat ini"
+    },
+    "live": {
+      "hearing": "Kami mendengar Anda…",
+      "hearingHint": "Lanjutkan membaca. Ayatnya muncul di sini begitu dikenali.",
+      "bestMatch": "Kecocokan terdekat sejauh ini",
+      "level": "Level mikrofon",
+      "ref": "{{name}} · Ayat {{ayah}}"
     }
   },
   "handsFreeZikr2": {
@@ -11705,7 +11846,8 @@
         "name": "Panah besar",
         "desc": "Satu panah besar di atas cakram kontras tinggi — paling mudah dibaca sekilas."
       }
-    }
+    },
+    "styleButton": "Gaya"
   },
   "appIcon": {
     "title": "Ikon aplikasi",
@@ -11732,5 +11874,12 @@
     "minutes": "{{min}} menit",
     "hours": "{{hours}} jam",
     "hoursMinutes": "{{hours}} jam {{min}} menit"
+  },
+  "sortable": {
+    "movedTo": "{{item}} dipindahkan ke posisi {{position}} dari {{total}}",
+    "moveEarlier": "Pindah lebih awal",
+    "moveLater": "Pindah lebih akhir",
+    "handleLabel": "Urutkan ulang {{item}}",
+    "handleHint": "Seret untuk memindahkan, atau tekan tombol panah atas dan bawah"
   }
 }

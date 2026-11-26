@@ -1,7 +1,7 @@
 import { SUNNAH_HABITS } from "@munib-tracker/shared/content/sunnah-habits";
 
 import { EMPTY_SUNNAH_HABITS, habitCheckKey } from "./sunnah-habits";
-import { canOfferHabitDone, habitRecitePassage } from "./sunnah-habits-ui";
+import { canOfferHabitDone, habitLinkHref, habitRecitePassage } from "./sunnah-habits-ui";
 
 const def = (id: string) => SUNNAH_HABITS.find((h) => h.id === id);
 
@@ -26,6 +26,29 @@ describe("habitRecitePassage", () => {
     expect(habitRecitePassage(def("miswak"))).toBeNull();
     expect(habitRecitePassage(def("salam_home"))).toBeNull();
     expect(habitRecitePassage(undefined)).toBeNull();
+  });
+});
+
+describe("habitLinkHref", () => {
+  it("opens a single-ayah habit (Ayat al-Kursi) as just that passage", () => {
+    expect(habitLinkHref({ kind: "quran", surah: 2, ayah: 255 })).toEqual({
+      pathname: "/quran/passage",
+      params: { surah: "2", from: "255", to: "255" },
+    });
+  });
+
+  it("keeps whole-surah habits (al-Mulk) on the surah reader", () => {
+    expect(habitLinkHref({ kind: "quran", surah: 67 })).toEqual({
+      pathname: "/quran/[surah]",
+      params: { surah: "67" },
+    });
+  });
+
+  it("opens the tasbeeh for a tasbeeh-linked habit", () => {
+    expect(habitLinkHref({ kind: "tasbeeh", zikrId: "after_azan-salawat" })).toEqual({
+      pathname: "/tasbeeh/[zikrId]",
+      params: { zikrId: "after_azan-salawat" },
+    });
   });
 });
 

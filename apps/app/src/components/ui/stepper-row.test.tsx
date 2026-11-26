@@ -4,7 +4,7 @@ import { StepperRow as LegacyStepperRow } from "@/components/settings/stepper-ro
 import { StepperRow } from "@/components/ui/stepper-row";
 import { Opacity } from "@/constants/theme";
 import { usePlatform } from "@/test-support/platform";
-import { queryHostsByRole } from "@/test-support/queries";
+import { parentOf, queryHostsByRole } from "@/test-support/queries";
 import { renderWithTheme } from "@/test-support/render";
 import { flattenStyle } from "@/test-support/style";
 
@@ -109,5 +109,26 @@ describe("StepperRow on TV", () => {
       disabled: true,
     });
     expect(screen.getByLabelText("Fajr offset, 30 min")).toBeTruthy();
+  });
+});
+
+describe("StepperRow layout", () => {
+  it("keeps the badge on the title line and lets the stepper wrap under the copy", async () => {
+    const { Text } = require("react-native");
+    await renderRow({ accessory: <Text>badge</Text> });
+
+    const titleLine = parentOf(screen.getByText("Fajr offset"));
+    expect(parentOf(screen.getByText("badge"))).toBe(titleLine);
+    const control = parentOf(adjustable());
+    const line = parentOf(control);
+    expect(flattenStyle(line.props.style)).toEqual(
+      expect.objectContaining({ flexDirection: "row", flexWrap: "wrap" }),
+    );
+    // Copy keeps ≥ 55% so "Volume + This device" stays on one line; the stepper
+    // drops to its own line on the trailing edge instead of clipping "100%".
+    expect(flattenStyle(parentOf(titleLine).props.style).minWidth).toBe("55%");
+    expect(flattenStyle(control.props.style)).toEqual(
+      expect.objectContaining({ flexShrink: 0, marginStart: "auto" }),
+    );
   });
 });

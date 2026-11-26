@@ -433,10 +433,17 @@
       "makeUp": {
         "title": "Jours à rattraper",
         "body": "Jours à rattraper de ce Ramadan : {{days}}. Les jours manqués ou exemptés, et les jours de règles (hayd) ou de lochies (nifas), se rattrapent après Ramadan.",
-        "question": "Les ajouter à votre qaza de jeûne ? Ignorez si vous les avez déjà ajoutés, ou si vous versez la fidyah à la place.",
         "add": "Ajouter {{days}} au qaza de jeûne",
-        "dismiss": "Non merci",
-        "added": "Ajoutés à votre qaza de jeûne."
+        "added": "Ajoutés à votre qaza de jeûne.",
+        "settle": "Comment allez-vous régler ces jours ?",
+        "optionQaza": "Les rattraper (Qaza)",
+        "optionFidyah": "Verser la fidyah à la place",
+        "optionKaffarah": "Kaffarah pour un jeûne rompu délibérément",
+        "openFidyah": "Ouvrir l'aide au calcul de la fidyah",
+        "openKaffarah": "Ouvrir l'aide au calcul de la kaffarah",
+        "alreadyHandled": "Déjà réglé",
+        "sadaqahLink": "Donner une sadaqah volontaire en bonne action supplémentaire",
+        "sadaqahHint": "La sadaqah est une récompense en plus. Elle ne remplace ni le rattrapage des jeûnes ni la fidyah."
       }
     },
     "toast": {
@@ -724,7 +731,11 @@
     "markSalah": "Marquer {{salah}}",
     "moreForToday": "Plus pour aujourd'hui ({{count}})",
     "moreForToday_one": "Plus pour aujourd'hui ({{count}})",
-    "moreForToday_other": "Plus pour aujourd'hui ({{count}})"
+    "moreForToday_other": "Plus pour aujourd'hui ({{count}})",
+    "exploreDoneA11y": "Terminer la modification des raccourcis",
+    "exploreEditHint": "Faites glisser pour réorganiser. Touchez − pour masquer un raccourci.",
+    "exploreAddBack": "Rajouter",
+    "exploreHideTile": "Masquer {{item}}"
   },
   "tracker": {
     "eyebrow": "Suivi et journal",
@@ -1016,7 +1027,9 @@
     },
     "reorder": {
       "moreFor": "Plus d'options pour {{item}}",
-      "moveToTop": "Placer en haut"
+      "moveToTop": "Placer en haut",
+      "removed": "{{item}} retiré",
+      "hidden": "Masqués"
     },
     "sendFeedback": "Envoyer un retour",
     "sendFeedbackDesc": "Signaler un problème ou suggérer une amélioration"
@@ -1157,7 +1170,12 @@
     "preview": "Aperçu",
     "sampleAction": "Exemple d'action",
     "secondary": "Secondaire",
-    "previewMeta": "Mode actuel : {{mode}} · accent : {{accent}}"
+    "previewMeta": "Mode actuel : {{mode}} · accent : {{accent}}",
+    "moreColors": "Plus de couleurs",
+    "moreColorsHint": "Ouvre la palette complète et un sélecteur de couleur personnalisée",
+    "accentAdjusted": "Ajustée pour la lisibilité dans ce thème. Votre couleur est enregistrée telle que choisie.",
+    "hexLabel": "Code hexadécimal",
+    "hexInvalid": "Saisissez un code hexadécimal à 6 chiffres, comme #1E6B4F"
   },
   "bedtime": {
     "eyebrow": "Paramètres",
@@ -1479,7 +1497,10 @@
     "browseAdhkar": "Parcourir les adhkar",
     "favoriteRemoved": "Retiré des enregistrés",
     "markedNotDone": "Marqué comme non fait",
-    "countOfTarget": "{{current}} sur {{target}}"
+    "countOfTarget": "{{current}} sur {{target}}",
+    "playRecitation": "Écouter la récitation : {{title}}",
+    "pauseRecitation": "Mettre en pause : {{title}}",
+    "closeSearch": "Fermer la recherche"
   },
   "zikrCat": {
     "morning": "Adhkar du matin",
@@ -1632,7 +1653,25 @@
     "openInTasbeeh": "Ouvrir dans Tasbeeh",
     "favEmptyDescTv": "Sélectionnez l'icône de signet d'un durood pour l'enregistrer ici.",
     "removedToast": "Retiré des enregistrés",
-    "loading": "Chargement des salawat…"
+    "loading": "Chargement des salawat…",
+    "grade": {
+      "sahih": "Sahih",
+      "hasan": "Hasan"
+    },
+    "readHadith": "Lire le hadith complet",
+    "hideHadith": "Masquer le hadith",
+    "position": "{{current}} sur {{total}}",
+    "unsave": "Retirer des enregistrés",
+    "notFoundDesc": "Cet élément a peut-être été supprimé.",
+    "sectionSalawat": "Salawat enseignées par le Prophète ﷺ",
+    "sectionVirtues": "Mérites de la prière sur le Prophète",
+    "play": "Lire {{title}}",
+    "pause": "Mettre en pause {{title}}",
+    "sourceInfo": "Source et degré : {{title}}",
+    "sourceTitle": "Hadith source",
+    "detailEyebrow": "Salawat",
+    "notFoundTitle": "Salawat introuvable",
+    "browseAll": "Parcourir toutes les salawat"
   },
   "names": {
     "eyebrow": "Asma-ul-Husna",
@@ -1926,6 +1965,16 @@
       "ayahsAmount_other": "{{count}} versets",
       "pagesAmount_one": "{{count}} page",
       "pagesAmount_other": "{{count}} pages"
+    },
+    "actionLess": "Moins",
+    "lessActionsA11y": "Moins d'actions pour le verset {{n}}",
+    "passage": {
+      "ayah": "Verset {{n}}",
+      "range": "Versets {{from}}–{{to}}",
+      "play": "Écouter le passage",
+      "playHint": "Lit uniquement {{ref}}",
+      "openFullSurah": "Ouvrir la sourate entière",
+      "openFullSurahHint": "Ouvre {{name}} au verset {{n}} dans le lecteur"
     }
   },
   "hadith": {
@@ -2214,7 +2263,9 @@
     "toastSet": "{{prayer}} — qaza restantes : {{value}}",
     "setExactLabel": "Fixer le nombre restant à",
     "rowRemainingA11y": "{{prayer}}, {{value}} restantes",
-    "madeUpButton": "Rattrapée"
+    "madeUpButton": "Rattrapée",
+    "madeUpOneA11y": "Un {{prayer}} rattrapé",
+    "allMadeUp": "Tout est rattrapé"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -4372,7 +4423,9 @@
     "seeAll": "Voir les {{total}} dans {{group}}",
     "showFewer": "Afficher moins dans {{group}}",
     "searchEverything": "Tout rechercher pour « {{query}} »",
-    "searchEverythingHint": "Coran, hadiths, duas, adhkar et plus"
+    "searchEverythingHint": "Coran, hadiths, duas, adhkar et plus",
+    "seeAllShort": "Tout voir ({{total}})",
+    "showFewerShort": "Afficher moins"
   },
   "offlineData": {
     "title": "Données hors ligne",
@@ -6583,7 +6636,15 @@
     "padCount": "Touchez pour compter",
     "loggingPreviousDay": "Enregistré pour {{date}} — la nuit dure jusqu'à Fajr.",
     "announceAllDone": "Terminé. Cette série d'adhkar est complète.",
-    "announceRecitedNext": "Récité. Suivant : {{title}}"
+    "announceRecitedNext": "Récité. Suivant : {{title}}",
+    "dock": {
+      "playA11y": "Écouter la récitation",
+      "pauseA11y": "Mettre la récitation en pause",
+      "reset": "Réinitialiser",
+      "done": "Fait",
+      "listening": "À l’écoute",
+      "handsFreeOn": "Mains libres activé"
+    }
   },
   "hijriAdjust": {
     "adjust": "Ajuster",
@@ -6789,8 +6850,9 @@
     },
     "hint": {
       "tap": "Touchez n'importe où sur le compteur pour compter",
-      "misbaha": "Touchez, ou tirez la perle suivante le long du fil",
-      "keyboard": "Cliquez sur le compteur ou appuyez sur Espace pour compter"
+      "keyboard": "Cliquez sur le compteur ou appuyez sur Espace pour compter",
+      "misbahaUndo": "Touchez, ou tirez la perle suivante — ramenez-la pour annuler",
+      "pebbles": "Touchez, ou faites glisser un caillou de l'autre côté — glissez en arrière pour annuler"
     },
     "a11y": {
       "milestone": "{{number}} comptés"
@@ -7574,7 +7636,8 @@
       "voice": "Voix",
       "readingDisplay": "Traduction et translittération",
       "focusLock": "Concentration Salah",
-      "qibla": "Boussole de la qibla"
+      "qibla": "Boussole de la qibla",
+      "extras": "Météo et qibla"
     },
     "setup": {
       "dismiss": "Plus tard",
@@ -7598,7 +7661,9 @@
     "moreInSettingsHint": "Ouvre ces options dans les Paramètres",
     "tvFinanceTools": "Afficher les outils financiers",
     "tvFinanceToolsSub": "Zakat, sadaqah, fidyah, héritage et finance islamique sur cette TV. Désactivé par défaut pour garder les montants privés.",
-    "surfaceFinance": "Guides zakat et finance"
+    "surfaceFinance": "Guides zakat et finance",
+    "voiceDefaultShort": "Par défaut",
+    "clearAction": "Effacer"
   },
   "prayerWindow": {
     "preferred": {
@@ -8232,7 +8297,11 @@
       "extra": "Supplémentaire",
       "late": "Rattrapée en retard",
       "chooseRakahs": "2 ou 4",
-      "chooseRakahsA11y": "Choisir 2 ou 4 rakahs pour {{name}}"
+      "chooseRakahsA11y": "Choisir 2 ou 4 rakahs pour {{name}}",
+      "rowLabel": "Sunnah",
+      "optional": "Facultative",
+      "optionalWhileUnwell": "Facultative en cas de maladie",
+      "notYetHint": "Pas encore l'heure — vous pouvez quand même la noter"
     },
     "rakahsSheet": {
       "prompt": "Combien de rakahs avez-vous priées ?",
@@ -8242,13 +8311,10 @@
       "title": "Sunnah rawatib",
       "evidence": "Sahih Muslim 728 · {{count}} rakahs par jour",
       "progress": "{{done}} / {{total}} rakahs",
-      "hint": "Touchez une puce sous chaque Salah pour la noter. Appui long sur une puce 2 / 4 pour changer les rakahs.",
       "hintTv": "Sélectionnez une puce sous chaque Salah pour la noter.",
       "sickHint": "En cas de maladie, rien n'est attendu — notez ce que vous pouvez prier.",
       "travelHint": "En voyage, la Sunnah avant le Fajr est maintenue ; les autres sont facultatives.",
       "optionalWhileTravelling": "Facultatives en voyage",
-      "showAll": "Afficher toutes les rawatib du jour",
-      "showDue": "Afficher seulement celles du moment",
       "openHub": "Preuves et réglages",
       "askBody": "Suivre les prières sunnah confirmées avant et après les prières obligatoires ? Choisissez 12 rakahs (4 avant le Dhuhr) ou 10 (2 avant le Dhuhr). Modifiable à tout moment.",
       "askTwelve": "12 rakahs",
@@ -8270,7 +8336,7 @@
       "title": "Sunnah rawatib",
       "subtitle": "Les prières sunnah confirmées avant et après les prières obligatoires",
       "todayTitle": "Aujourd'hui",
-      "todayHint": "Notez-les avec les puces sous chaque Salah dans le suivi.",
+      "todayHint": "Notez-les ici, ou dans la ligne Sunnah de chaque carte de Salah du suivi.",
       "off": "Le suivi des rawatib est désactivé. Activez-le ci-dessous.",
       "openTracker": "Ouvrir le suivi",
       "openStats": "Voir les statistiques",
@@ -9104,7 +9170,7 @@
       },
       "salawat": {
         "title": "Salawat sur le Prophète ﷺ",
-        "hint": "Votre nombre quotidien"
+        "hint": "Compté sur le tasbeeh, ou cochez-le vous-même"
       },
       "salam_home": {
         "title": "Le salam en entrant chez soi",
@@ -9135,7 +9201,31 @@
         "hint": "Coché depuis vos adhkar"
       }
     },
-    "habitRemoved": "Habitude retirée : {{title}}"
+    "habitRemoved": "Habitude retirée : {{title}}",
+    "todayCount": "Aujourd’hui · {{done}} sur {{total}}",
+    "todayRingA11y": "Habitudes de Sunnah du jour",
+    "editList": "Modifier la liste",
+    "myHabits": "Mes habitudes ({{number}}/{{max}})",
+    "addMore": "Ajouter d’autres",
+    "groups": {
+      "morningEvening": "Matin et soir",
+      "day": "Au fil de la journée",
+      "bedtime": "Avant de dormir"
+    },
+    "principleShort": "Les œuvres les plus aimées d’Allah sont les plus régulières, même modestes.",
+    "evidenceLink": "Preuve",
+    "spotlightLine": "À essayer aujourd’hui : {{title}}",
+    "week": {
+      "title": "Cette semaine",
+      "dayA11y": "{{day}} : {{done}} sur {{total}}"
+    },
+    "detail": {
+      "history": "30 derniers jours",
+      "target": "Objectif quotidien",
+      "open": "Ouvrir",
+      "remove": "Retirer de mes habitudes"
+    },
+    "detailA11y": "{{title}}, détails"
   },
   "quranRoots": {
     "title": "Recherche par racine arabe",
@@ -9730,8 +9820,9 @@
       "calibrateSub": "Dites une phrase 5 fois pour adapter le comptage à votre voix. Conservé uniquement sur cet appareil.",
       "modelStorageSub": "Le module d'écoute sur l'appareil est partagé avec l'exercice du Coran",
       "forgetTaught": "Oublier les voix de zikr enseignées",
-      "forgetTaughtSub": "Aucun son n'est enregistré ni envoyé. Si vous enseignez un zikr, un court motif vocal (pas un enregistrement) reste sur cet appareil. Ceci les supprime tous.",
-      "forgetTaughtConfirm": "Oublier tous les motifs vocaux de zikr enseignés sur cet appareil ? Vous pourrez les réenseigner à tout moment."
+      "forgetTaughtShort": "Supprime les modèles vocaux de Zikr appris sur cet appareil",
+      "forgetTaughtConfirmPrivacy": "Oublier tous les modèles vocaux de Zikr appris sur cet appareil ? Aucun son n’est jamais enregistré ni envoyé — chaque modèle est une courte série de nombres, pas un enregistrement. Vous pourrez les réapprendre à tout moment.",
+      "forgetAction": "Oublier"
     },
     "announce": {
       "title": "Annonces du compte de tasbeeh",
@@ -9752,8 +9843,8 @@
     },
     "teach": {
       "title": "Dites-le une fois pour que seul ce zikr compte",
-      "explain": "Dites {{phrase}} jusqu'à 3 fois, en marquant une pause entre chaque. Un court motif vocal (pas un enregistrement) reste sur cet appareil pour que seul ce zikr soit compté.",
-      "explainOther": "Dites votre zikr jusqu'à 3 fois, en marquant une pause entre chaque. Pendant cette session, seules ses répétitions seront comptées.",
+      "explain": "Dites {{phrase}} 3 fois, en marquant une pause entre chaque. Un court motif vocal (pas un enregistrement) reste sur cet appareil pour que seul ce zikr soit compté.",
+      "explainOther": "Dites votre zikr 3 fois, en marquant une pause entre chaque. Pendant cette session, seules ses répétitions seront comptées.",
       "start": "L'enseigner en le disant",
       "skip": "Passer — compter chaque pause",
       "sayNow": "Dites {{phrase}} maintenant",
@@ -9764,12 +9855,14 @@
       "issueShort": "C'était trop court. Dites le zikr en entier.",
       "issueLong": "C'était trop long. Dites le zikr une fois, puis faites une pause.",
       "issueDifferent": "Cela semblait différent. Redites le même zikr.",
-      "done": "Terminé — commencer à compter",
       "cancel": "Annuler",
       "reteach": "Réenseigner",
       "taughtReady": "Appris sur cet appareil.",
       "countsTaught": "Compte uniquement le zikr enseigné — touchez pour corriger toute erreur de compte.",
-      "countsPauses": "Compte chaque pause — moins précis. Touchez pour corriger toute erreur de compte."
+      "countsPauses": "Compte chaque pause — moins précis. Touchez pour corriger toute erreur de compte.",
+      "doneShort": "Terminé",
+      "nudge": "Quelques comptes ont dû être corrigés. Réenseigner pour plus de précision ?",
+      "nudgeDismiss": "Plus tard"
     }
   },
   "masjids": {
@@ -10017,9 +10110,27 @@
         "title": "Choisir les applis",
         "body": "Choisissez les applis qui vous distraient le plus.",
         "pick": "Choisir les applis",
-        "count": "Applis choisies : {{count}}",
         "empty": "Aucune appli trouvée.",
-        "save": "Enregistrer la sélection"
+        "save": "Enregistrer la sélection",
+        "noneYet": "Aucune appli choisie pour l'instant.",
+        "selectedItemsHint": "Applis, catégories et sites que vous avez choisis. Une catégorie entière compte pour un.",
+        "edit": "Modifier",
+        "editHint": "Changer les applis mises en pause",
+        "always": {
+          "title": "Toujours disponible",
+          "phone": "Téléphone",
+          "phoneHint": "Les appels sonnent toujours.",
+          "messages": "Messages",
+          "messagesHint": "Les SMS arrivent toujours.",
+          "emergency": "Appels d'urgence",
+          "emergencyHint": "Les appels d'urgence fonctionnent toujours.",
+          "munib": "Munib Tracker",
+          "munibHint": "Pour que vous puissiez noter votre Salah."
+        },
+        "selectedItems_one": "{{count}} élément choisi",
+        "selectedItems_other": "{{count}} éléments choisis",
+        "selectedApps_one": "{{count}} appli choisie",
+        "selectedApps_other": "{{count}} applis choisies"
       },
       "timing": {
         "title": "Salah, horaire et mode"
@@ -10028,11 +10139,20 @@
         "title": "Essayer",
         "body": "Lancez un créneau de test d'une minute pour voir ce qui se passe.",
         "start": "Lancer un test d'une minute",
-        "running": "Test en cours : ouvrez l'une des applis choisies."
+        "running": "Test en cours : ouvrez l'une des applis choisies.",
+        "callsNote": "Les appels et les SMS passent toujours pendant l'essai, et pendant chaque fenêtre de Salah."
       },
       "confirmAlert": "Alerte « Touchez pour confirmer »",
       "confirmAlertHint": "Après avoir touché « J'ai prié » sur l'écran de blocage, une notification ouvre Munib Tracker pour enregistrer votre Salah.",
-      "progressLabel": "Progression de la configuration"
+      "progressLabel": "Progression de la configuration",
+      "stepNamed": "Étape {{current}} sur {{total}} · {{name}}",
+      "stepName": {
+        "explain": "Introduction",
+        "permissions": "Autorisations",
+        "apps": "Applis",
+        "timing": "Horaires",
+        "test": "Essai"
+      }
     },
     "evidence": {
       "title": "Pourquoi",
@@ -10154,6 +10274,17 @@
       "kwKids": "mode enfants, appareil enfant, associer, lien, qr",
       "familyDigest": "Résumé familial hebdomadaire",
       "familyDigestSub": "Une fois par semaine, le vendredi : combien de Salah vos enfants ont enregistrées. Seulement des totaux, aucun nom."
+    },
+    "session": {
+      "title": "Une connexion est nécessaire",
+      "body": "Les cercles partagent la progression avec les personnes que vous invitez : une courte connexion au serveur est donc nécessaire. Aucun compte n'est requis pour un khatm collectif.",
+      "connecting": "Connexion…",
+      "error": {
+        "offline": "Vous êtes hors ligne. Connectez-vous à Internet, puis réessayez.",
+        "network": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
+        "server": "Le serveur n'a pas pu ouvrir votre session pour le moment. Réessayez dans un instant.",
+        "rateLimited": "Trop de tentatives depuis cet appareil. Patientez quelques minutes, puis réessayez."
+      }
     }
   },
   "circleMembership": {
@@ -10280,7 +10411,6 @@
     "loading": "Chargement…",
     "loadError": "Impossible de charger ce groupe. Vérifiez votre connexion et réessayez.",
     "retry": "Réessayer",
-    "noSession": "Ouvrez l'app une fois en ligne pour lancer ou rejoindre un khatm collectif.",
     "startGroup": "Lancer un khatm collectif",
     "haveInvite": "Vous avez un code d'invitation ? Rejoignez un groupe",
     "list": {
@@ -10447,6 +10577,10 @@
         "title": "Distribuer les parties restantes ?",
         "body": "Les parties restantes sont maintenant attribuées aux membres."
       }
+    },
+    "session": {
+      "title": "Le khatm collectif nécessite une connexion",
+      "body": "Un khatm collectif partage une seule grille de parties avec tout le groupe : il lui faut donc une courte connexion au serveur. Aucun compte ni connexion n'est requis."
     }
   },
   "coach": {
@@ -11553,6 +11687,13 @@
     "shortcut": {
       "title": "Réciter pour trouver",
       "subtitle": "Récitez quelques mots pour trouver le verset, sur cet appareil"
+    },
+    "live": {
+      "hearing": "Nous vous entendons…",
+      "hearingHint": "Continuez à réciter. Le verset s'affiche ici dès qu'il est reconnu.",
+      "bestMatch": "Meilleure correspondance pour l'instant",
+      "level": "Niveau du micro",
+      "ref": "{{name}} · Verset {{ayah}}"
     }
   },
   "handsFreeZikr2": {
@@ -11721,7 +11862,8 @@
         "name": "Grande flèche",
         "desc": "Une seule grande flèche sur un disque très contrasté — la plus lisible d'un coup d'œil."
       }
-    }
+    },
+    "styleButton": "Style"
   },
   "appIcon": {
     "title": "Icône de l'app",
@@ -11748,5 +11890,12 @@
     "minutes": "{{min}} min",
     "hours": "{{hours}} h",
     "hoursMinutes": "{{hours}} h {{min}} min"
+  },
+  "sortable": {
+    "movedTo": "{{item}} déplacé en position {{position}} sur {{total}}",
+    "moveEarlier": "Déplacer avant",
+    "moveLater": "Déplacer après",
+    "handleLabel": "Réorganiser {{item}}",
+    "handleHint": "Faites glisser pour déplacer, ou utilisez les flèches haut et bas"
   }
 }

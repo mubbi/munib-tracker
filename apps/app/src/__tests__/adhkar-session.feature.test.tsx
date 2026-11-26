@@ -129,7 +129,7 @@ describe("Guided adhkar session", () => {
     await renderWithProviders(<AdhkarSessionScreen />);
     expect(await screen.findByText("Morning thrice")).toBeTruthy();
 
-    fireEvent.press(screen.getByText("Mark complete"));
+    fireEvent.press(screen.getByRole("button", { name: "Mark complete" }));
     await waitFor(() => expect(counts()["m-thrice"]).toBe(3));
   });
 

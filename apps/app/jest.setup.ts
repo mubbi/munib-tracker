@@ -75,6 +75,15 @@ jest.mock("react-native-worklets", () => ({
   scheduleOnUI: (fn: (...args: unknown[]) => unknown, ...args: unknown[]) => fn(...args),
 }));
 
+// Gesture Handler's native module (installUIRuntimeBindings) isn't available
+// under Jest. Shared UI primitives (ui/sortable → settings lists, Explore grid)
+// import it, so stub it globally with the shared hook mock; suites that drive
+// gestures still `jest.mock` it themselves.
+jest.mock(
+  "react-native-gesture-handler",
+  () => require("@/test-support/mocks/gesture-handler").gestureHandlerMock,
+);
+
 jest.mock("@/components/ui/stagger", () => {
   const React = require("react");
   return {

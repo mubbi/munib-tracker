@@ -73,8 +73,41 @@ describe("reciteReducer — states", () => {
     expect(feed(empty, [pos(1, 3, [], 2)])).toBe(empty);
     const found = reciteReducer(feed(listening(), [pos(1, 1, [0, 1], 4)]), { type: "finish" });
     expect(feed(found, [pos(2, 255, [0], 50)])).toBe(found);
-    expect(reciteReducer(found, { type: "reset" })).toEqual(createReciteState());
+    // Reset keeps the take counter, so a late event of the cleared take still drops.
+    expect(reciteReducer(found, { type: "reset" })).toEqual({
+      ...createReciteState(),
+      take: found.take,
+    });
     expect(reciteReducer(found, { type: "start" }).candidates).toEqual([]);
+  });
+
+  it("numbers takes and drops events tagged with another take", () => {
+    const first = listening();
+    expect(first.take).toBe(1);
+    const second = reciteReducer(reciteReducer(first, { type: "finish" }), { type: "start" });
+    expect(second.take).toBe(2);
+    const stale = reciteReducer(second, { type: "event", event: pos(1, 1, [0, 1], 4), take: 1 });
+    expect(stale).toBe(second);
+    const staleDone = reciteReducer(second, {
+      type: "event",
+      event: { type: "completed" },
+      take: 1,
+    });
+    expect(staleDone.status).toBe("listening");
+    const current = reciteReducer(second, { type: "event", event: pos(1, 1, [0, 1], 4), take: 2 });
+    expect(current.candidates).toHaveLength(1);
+    expect(reciteReducer(second, { type: "start", take: 9 }).take).toBe(9);
+  });
+
+  it("tracks the latest heard position for live feedback", () => {
+    let s = feed(listening(), [pos(2, 255, [2, 0, 2], 50)]);
+    expect(s.live).toEqual({ surah: 2, ayah: 255, matched: [0, 2], totalWords: 50 });
+    // A cursor with nothing heard keeps the last heard position.
+    s = feed(s, [pos(2, 256, [], 20)]);
+    expect(s.live?.ayah).toBe(255);
+    s = feed(s, [pos(2, 256, [0], 20)]);
+    expect(s.live).toEqual({ surah: 2, ayah: 256, matched: [0], totalWords: 20 });
+    expect(reciteReducer(s, { type: "start" }).live).toBeNull();
   });
 
   it("returns the same state when an event adds nothing new", () => {

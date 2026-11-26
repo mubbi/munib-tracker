@@ -13,6 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 import { localeToBcp47 } from "@/lib/locale-bcp47";
+import { captureAppException } from "@/lib/sentry";
 import { setTtsVoice, useTtsVoice } from "@/lib/settings/tts-voice";
 import { isTtsAvailable, resolveTtsVoice } from "@/lib/tts";
 import { buildReadingTtsQueue } from "@/lib/tts-audio-tracks";
@@ -138,7 +139,9 @@ export function LearnTtsProvider({
           return;
         }
 
-        void setTtsVoice(lang, voiceId);
+        setTtsVoice(lang, voiceId).catch((error: unknown) => {
+          captureAppException(error, { tags: { area: "audio", phase: "tts-voice-save" } });
+        });
 
         const voice = await resolveTtsVoice(lang, voiceId);
         const queue = buildReadingTtsQueue({
@@ -156,7 +159,11 @@ export function LearnTtsProvider({
             ? `/${pathname}`
             : undefined;
         audio.play(queue, 0, sourceHref ? { sourceHref } : undefined);
-      })();
+      })().catch((error: unknown) => {
+        // An escaped rejection reaches the root boundary ("Something went wrong").
+        captureAppException(error, { tags: { area: "audio", phase: "learn-tts-start" } });
+        toast.info(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
+      });
     },
     [audio, lang, pathname, queueId, resolvedText, t, toast],
   );

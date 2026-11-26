@@ -4,10 +4,10 @@ import { PLAYBACK_AUDIO_MODE } from "@/lib/audio-session-mode";
 
 import {
   applyTasbeehAudioMode,
+  CLICK_SPACING_MS,
   createTasbeehSoundEngine,
-  MIN_SOUND_GAP_MS,
+  MAX_QUEUED_CLICKS,
   POOL_SIZES,
-  shouldPlaySound,
   TASBEEH_AUDIO_MODE,
   type TasbeehAudioDeps,
 } from "./sound";
@@ -47,16 +47,15 @@ function fakeDeps() {
 }
 
 describe("tasbeeh sound engine", () => {
-  it("skips clicks under 40 ms apart (the count is never skipped)", () => {
-    expect(shouldPlaySound(1000, null)).toBe(true);
-    expect(shouldPlaySound(1000 + MIN_SOUND_GAP_MS - 1, 1000)).toBe(false);
-    expect(shouldPlaySound(1000 + MIN_SOUND_GAP_MS, 1000)).toBe(true);
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
-  it("preloads a round-robin pool and plays from position 0", () => {
+  it("preloads a round-robin pool; a fresh player plays at once from position 0", () => {
     const { deps, players } = fakeDeps();
     const engine = createTasbeehSoundEngine(deps, "stone", 0.5);
     const total = POOL_SIZES.bead + POOL_SIZES.spacer + POOL_SIZES.complete;
+    expect(POOL_SIZES.bead).toBeGreaterThanOrEqual(6);
     expect(players).toHaveLength(total);
     expect(players.every((p) => p.volume === 0.5)).toBe(true);
 
@@ -65,8 +64,82 @@ describe("tasbeeh sound engine", () => {
     const beads = players.filter((p) => p.source === deps.files.stone.bead);
     expect(beads[0].play).toHaveBeenCalledTimes(1);
     expect(beads[1].play).toHaveBeenCalledTimes(1);
+    // Never played yet: no seek needed before the first click.
+    expect(beads[0].seekTo).not.toHaveBeenCalled();
+  });
+
+  it("replays a used player only after its seek to 0 has resolved", async () => {
+    const { deps, players } = fakeDeps();
+    const engine = createTasbeehSoundEngine(deps, "stone", 0.5);
+    const beads = players.filter((p) => p.source === deps.files.stone.bead);
+    let resolveSeek: () => void = () => {};
+    beads[0].seekTo.mockImplementation(
+      () =>
+        new Promise<void>((resolve) => {
+          resolveSeek = resolve;
+        }),
+    );
+    // Wrap the pool: the next bead click reuses player 0.
+    for (let i = 0; i < POOL_SIZES.bead; i++) engine.play("bead", i * 100);
+    expect(beads[0].play).toHaveBeenCalledTimes(1);
+    expect(engine.play("bead", 10_000)).toBe(true);
     expect(beads[0].seekTo).toHaveBeenCalledWith(0);
-    expect(engine.play("bead", 120)).toBe(false);
+    expect(beads[0].play).toHaveBeenCalledTimes(1);
+    await act(async () => resolveSeek());
+    expect(beads[0].play).toHaveBeenCalledTimes(2);
+  });
+
+  it("re-arms a player when its click finishes, so the next use starts at once", async () => {
+    const { deps, players } = fakeDeps();
+    const listeners = new Map<object, (status: { didJustFinish?: boolean }) => void>();
+    const create = deps.createAudioPlayer;
+    deps.createAudioPlayer = (source) => {
+      const player = create(source);
+      player.addListener = (_event, listener) => {
+        listeners.set(player, listener);
+        return { remove: jest.fn() };
+      };
+      return player;
+    };
+    const engine = createTasbeehSoundEngine(deps, "stone", 0.5);
+    const beads = players.filter((p) => p.source === deps.files.stone.bead);
+    for (let i = 0; i < POOL_SIZES.bead; i++) engine.play("bead", i * 100);
+    await act(async () => listeners.get(beads[0])?.({ didJustFinish: true }));
+    expect(beads[0].seekTo).toHaveBeenCalledWith(0);
+    engine.play("bead", 10_000);
+    // Already rewound: plays synchronously.
+    expect(beads[0].play).toHaveBeenCalledTimes(2);
+  });
+
+  it("never drops a click for a real count: same-instant counts are spaced", () => {
+    jest.useFakeTimers();
+    const { deps, players } = fakeDeps();
+    const engine = createTasbeehSoundEngine(deps, "stone", 0.5);
+    const beads = players.filter((p) => p.source === deps.files.stone.bead);
+    const played = () => beads.reduce((n, p) => n + p.play.mock.calls.length, 0);
+    // A fast swipe: four counts in the same millisecond.
+    for (let i = 0; i < 4; i++) expect(engine.play("bead", 1000)).toBe(true);
+    expect(played()).toBe(1);
+    jest.advanceTimersByTime(CLICK_SPACING_MS);
+    expect(played()).toBe(2);
+    jest.advanceTimersByTime(CLICK_SPACING_MS * 2);
+    expect(played()).toBe(4);
+    // Ordinary fast taps (well over the spacing apart) play straight away.
+    expect(engine.play("bead", 5000)).toBe(true);
+    expect(engine.play("bead", 5060)).toBe(true);
+    expect(played()).toBe(6);
+  });
+
+  it("trims only a runaway backlog, and release cancels pending clicks", () => {
+    jest.useFakeTimers();
+    const { deps, players } = fakeDeps();
+    const engine = createTasbeehSoundEngine(deps, "stone", 0.5);
+    const beads = players.filter((p) => p.source === deps.files.stone.bead);
+    const results = Array.from({ length: MAX_QUEUED_CLICKS + 3 }, () => engine.play("bead", 0));
+    expect(results.filter(Boolean)).toHaveLength(MAX_QUEUED_CLICKS + 1);
+    engine.release();
+    jest.runAllTimers();
+    expect(beads.reduce((n, p) => n + p.play.mock.calls.length, 0)).toBe(1);
   });
 
   it("never skips the completion cue, even right after the final click", () => {

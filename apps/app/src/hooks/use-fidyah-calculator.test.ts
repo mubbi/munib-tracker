@@ -7,7 +7,7 @@ import {
   setMockDeviceLocales,
 } from "@/test-support/mocks/expo-localization";
 
-import { useFidyahCalculator } from "./use-fidyah-calculator";
+import { parseFidyahRouteParams, useFidyahCalculator } from "./use-fidyah-calculator";
 
 jest.mock("@/db/repositories/fidyah-calculator-repository", () => ({
   FidyahCalculatorRepository: {
@@ -127,5 +127,48 @@ describe("useFidyahCalculator", () => {
     expect(result.current.days).toBe("");
     expect(result.current.currencyCode).toBe("EUR");
     expect(repo.clear).toHaveBeenCalled();
+  });
+});
+
+describe("parseFidyahRouteParams", () => {
+  it.each([
+    [
+      { scenario: "fidyah", days: "3" },
+      { scenario: "fidyah", days: "3" },
+    ],
+    [{ scenario: "kaffarah" }, { scenario: "kaffarah" }],
+    [{ days: ["12", "4"] }, { days: "12" }],
+    [{ scenario: "zakat", days: "abc" }, undefined],
+    [{ days: "0" }, undefined],
+    [{ days: "-2" }, undefined],
+    [{ days: "2.5" }, undefined],
+    [{ days: "100000" }, undefined],
+    [{}, undefined],
+  ])("%j → %j", (params, expected) => {
+    expect(parseFidyahRouteParams(params)).toEqual(expected);
+  });
+});
+
+describe("useFidyahCalculator prefill (route params)", () => {
+  it("overrides the saved draft's scenario and days once, and saves them", async () => {
+    repo.load.mockResolvedValue(SAVED);
+    const hook = await renderHook(() => useFidyahCalculator({ scenario: "fidyah", days: "4" }));
+    await act(async () => {
+      await Promise.resolve();
+    });
+    expect(hook.result.current.scenario).toBe("fidyah");
+    expect(hook.result.current.days).toBe("4");
+    // The rest of the draft (currency, meal cost) is kept.
+    expect(hook.result.current.currencyCode).toBe("EUR");
+    expect(hook.result.current.mealCost).toBe("5");
+    expect(repo.save).toHaveBeenCalledWith({ ...SAVED, scenario: "fidyah", days: "4" });
+  });
+
+  it("keeps the draft when no prefill is given", async () => {
+    repo.load.mockResolvedValue(SAVED);
+    const { result } = await setup();
+    expect(result.current.scenario).toBe("kaffarah");
+    expect(result.current.days).toBe("2");
+    expect(repo.save).not.toHaveBeenCalled();
   });
 });

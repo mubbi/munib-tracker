@@ -433,10 +433,17 @@
       "makeUp": {
         "title": "Kaza edilecek günler",
         "body": "Bu Ramazan'dan kaza edilecek günler: {{days}}. Kaçırılan ve muaf olunan günler ile hayız veya nifas günleri Ramazan'dan sonra kaza edilir.",
-        "question": "Oruç kazanıza eklensin mi? Daha önce eklediyseniz veya bunun yerine fidye verecekseniz atlayın.",
         "add": "Oruç kazasına {{days}} ekle",
-        "dismiss": "Hayır, teşekkürler",
-        "added": "Oruç kazanıza eklendi."
+        "added": "Oruç kazanıza eklendi.",
+        "settle": "Bu günleri nasıl telafi edeceksiniz?",
+        "optionQaza": "Oruç tutarak kaza edin",
+        "optionFidyah": "Bunun yerine fidye verin",
+        "optionKaffarah": "Kasten bozulan oruç için kefaret",
+        "openFidyah": "Fidye yardımcısını aç",
+        "openKaffarah": "Kefaret yardımcısını aç",
+        "alreadyHandled": "Zaten halledildi",
+        "sadaqahLink": "Ek bir iyilik olarak gönüllü sadaka verin",
+        "sadaqahHint": "Sadaka ek sevaptır. Orucun kazasının veya fidyenin yerini tutmaz."
       }
     },
     "toast": {
@@ -724,7 +731,11 @@
     "markSalah": "{{salah}} işaretle",
     "moreForToday": "Bugün için daha fazlası ({{count}})",
     "moreForToday_one": "Bugün için daha fazlası ({{count}})",
-    "moreForToday_other": "Bugün için daha fazlası ({{count}})"
+    "moreForToday_other": "Bugün için daha fazlası ({{count}})",
+    "exploreDoneA11y": "Kısayol düzenlemeyi bitir",
+    "exploreEditHint": "Sıralamak için sürükleyin. Kısayolu gizlemek için − simgesine dokunun.",
+    "exploreAddBack": "Geri ekle",
+    "exploreHideTile": "{{item}} gizle"
   },
   "tracker": {
     "eyebrow": "Takip et ve kaydet",
@@ -1016,7 +1027,9 @@
     },
     "reorder": {
       "moreFor": "{{item}} için daha fazla seçenek",
-      "moveToTop": "En üste taşı"
+      "moveToTop": "En üste taşı",
+      "removed": "{{item}} kaldırıldı",
+      "hidden": "Gizlenenler"
     },
     "sendFeedback": "Geri bildirim gönder",
     "sendFeedbackDesc": "Bir sorunu bildirin veya bir iyileştirme önerin"
@@ -1157,7 +1170,12 @@
     "preview": "Önizleme",
     "sampleAction": "Örnek eylem",
     "secondary": "İkincil",
-    "previewMeta": "Geçerli mod: {{mode}} · vurgu: {{accent}}"
+    "previewMeta": "Geçerli mod: {{mode}} · vurgu: {{accent}}",
+    "moreColors": "Diğer renkler",
+    "moreColorsHint": "Tam paleti ve özel renk seçiciyi açar",
+    "accentAdjusted": "Bu temada okunabilirlik için ayarlandı. Renginiz seçtiğiniz gibi kaydedildi.",
+    "hexLabel": "Hex kodu",
+    "hexInvalid": "6 haneli bir hex kodu girin, örneğin #1E6B4F"
   },
   "bedtime": {
     "eyebrow": "Ayarlar",
@@ -1479,7 +1497,10 @@
     "browseAdhkar": "Zikirlere göz at",
     "favoriteRemoved": "Kaydedilenlerden kaldırıldı",
     "markedNotDone": "Yapılmadı olarak işaretlendi",
-    "countOfTarget": "{{current}} / {{target}}"
+    "countOfTarget": "{{current}} / {{target}}",
+    "playRecitation": "Kıraati oynat: {{title}}",
+    "pauseRecitation": "Kıraati duraklat: {{title}}",
+    "closeSearch": "Aramayı kapat"
   },
   "zikrCat": {
     "morning": "Sabah zikirleri",
@@ -1632,7 +1653,25 @@
     "openInTasbeeh": "Tesbih'te aç",
     "favEmptyDescTv": "Buraya kaydetmek için herhangi bir salavatta kaydet simgesini seçin.",
     "removedToast": "Kaydedilenlerden kaldırıldı",
-    "loading": "Salavatlar yükleniyor…"
+    "loading": "Salavatlar yükleniyor…",
+    "grade": {
+      "sahih": "Sahih",
+      "hasan": "Hasen"
+    },
+    "readHadith": "Hadisin tamamını oku",
+    "hideHadith": "Hadisi gizle",
+    "position": "{{current}} / {{total}}",
+    "unsave": "Kaydedilenlerden kaldır",
+    "notFoundDesc": "Bu öğe kaldırılmış olabilir.",
+    "sectionSalawat": "Peygamber'in ﷺ öğrettiği salavatlar",
+    "sectionVirtues": "Salavat getirmenin faziletleri",
+    "play": "{{title}} oynat",
+    "pause": "{{title}} duraklat",
+    "sourceInfo": "Kaynak ve derece: {{title}}",
+    "sourceTitle": "Kaynak hadis",
+    "detailEyebrow": "Salavat",
+    "notFoundTitle": "Salavat bulunamadı",
+    "browseAll": "Tüm salavatlara göz at"
   },
   "names": {
     "eyebrow": "Esmaü'l-Hüsna",
@@ -1926,6 +1965,16 @@
       "ayahsAmount_other": "{{count}} ayet",
       "pagesAmount_one": "{{count}} sayfa",
       "pagesAmount_other": "{{count}} sayfa"
+    },
+    "actionLess": "Daha az",
+    "lessActionsA11y": "{{n}}. ayet için daha az işlem",
+    "passage": {
+      "ayah": "{{n}}. ayet",
+      "range": "{{from}}–{{to}}. ayetler",
+      "play": "Bölümü çal",
+      "playHint": "Yalnızca {{ref}} çalınır",
+      "openFullSurah": "Surenin tamamında aç",
+      "openFullSurahHint": "{{name}} suresini okuyucuda {{n}}. ayetten açar"
     }
   },
   "hadith": {
@@ -2214,7 +2263,9 @@
     "toastSet": "{{prayer}} kalan: {{value}}",
     "setExactLabel": "Kalanı şuna ayarla",
     "rowRemainingA11y": "{{prayer}}, {{value}} kaldı",
-    "madeUpButton": "Kaza edildi"
+    "madeUpButton": "Kaza edildi",
+    "madeUpOneA11y": "Bir {{prayer}} kazası kılındı",
+    "allMadeUp": "Hepsi kaza edildi"
   },
   "qazaCalc": {
     "eyebrow": "Kaza",
@@ -4372,7 +4423,9 @@
     "seeAll": "{{group}} içinde {{total}} sonucun tümünü gör",
     "showFewer": "{{group}} içinde daha az göster",
     "searchEverything": "Her yerde “{{query}}” ara",
-    "searchEverythingHint": "Kur'an, hadis, dua, zikir ve daha fazlası"
+    "searchEverythingHint": "Kur'an, hadis, dua, zikir ve daha fazlası",
+    "seeAllShort": "Tümünü gör ({{total}})",
+    "showFewerShort": "Daha az göster"
   },
   "offlineData": {
     "title": "Çevrimdışı veri",
@@ -6578,7 +6631,15 @@
     "padCount": "Saymak için dokunun",
     "loggingPreviousDay": "{{date}} için kaydediliyor — gece sabah namazına kadar sürer.",
     "announceAllDone": "Tamamlandı. Bu zikir seti bitti.",
-    "announceRecitedNext": "Okundu. Sıradaki: {{title}}"
+    "announceRecitedNext": "Okundu. Sıradaki: {{title}}",
+    "dock": {
+      "playA11y": "Kıraati oynat",
+      "pauseA11y": "Kıraati duraklat",
+      "reset": "Sıfırla",
+      "done": "Tamam",
+      "listening": "Dinliyor",
+      "handsFreeOn": "Sesle sayma açık"
+    }
   },
   "hijriAdjust": {
     "adjust": "Düzelt",
@@ -6784,8 +6845,9 @@
     },
     "hint": {
       "tap": "Saymak için sayacın herhangi bir yerine dokunun",
-      "misbaha": "Dokunun veya sonraki taneyi ip boyunca çekin",
-      "keyboard": "Saymak için sayaca tıklayın veya Boşluk tuşuna basın"
+      "keyboard": "Saymak için sayaca tıklayın veya Boşluk tuşuna basın",
+      "misbahaUndo": "Dokunun veya sonraki taneyi çekin — geri almak için geri çekin",
+      "pebbles": "Dokunun veya bir çakıl taşını karşıya kaydırın — geri almak için geri kaydırın"
     },
     "a11y": {
       "milestone": "{{number}} sayıldı"
@@ -7569,7 +7631,8 @@
       "voice": "Ses",
       "readingDisplay": "Meal ve okunuş",
       "focusLock": "Namaz odağı",
-      "qibla": "Kıble pusulası"
+      "qibla": "Kıble pusulası",
+      "extras": "Hava durumu ve kıble"
     },
     "setup": {
       "dismiss": "Şimdi değil",
@@ -7593,7 +7656,9 @@
     "moreInSettingsHint": "Bu seçenekleri Ayarlar'da açar",
     "tvFinanceTools": "Finans araçlarını göster",
     "tvFinanceToolsSub": "Bu TV'de zekât, sadaka, fidye, miras ve İslami finans. Tutarlar gizli kalsın diye varsayılan olarak kapalı.",
-    "surfaceFinance": "Zekât ve finans rehberleri"
+    "surfaceFinance": "Zekât ve finans rehberleri",
+    "voiceDefaultShort": "Varsayılan",
+    "clearAction": "Temizle"
   },
   "prayerWindow": {
     "preferred": {
@@ -8216,7 +8281,11 @@
       "extra": "Ek",
       "late": "Sonradan kaza edildi",
       "chooseRakahs": "2 veya 4",
-      "chooseRakahsA11y": "{{name}} için 2 veya 4 rekât seçin"
+      "chooseRakahsA11y": "{{name}} için 2 veya 4 rekât seçin",
+      "rowLabel": "Sünnet",
+      "optional": "İsteğe bağlı",
+      "optionalWhileUnwell": "Hastalıkta isteğe bağlı",
+      "notYetHint": "Vakti henüz girmedi — yine de kaydedebilirsiniz"
     },
     "rakahsSheet": {
       "prompt": "Kaç rekât kıldınız?",
@@ -8226,13 +8295,10 @@
       "title": "Revatib sünnetler",
       "evidence": "Sahih-i Müslim 728 · günde {{count}} rekât",
       "progress": "{{done}} / {{total}} rekât",
-      "hint": "Kaydetmek için her namazın altındaki düğmeye dokunun. Rekâtı değiştirmek için 2 / 4 düğmesine uzun basın.",
       "hintTv": "Kaydetmek için her namazın altındaki düğmeyi seçin.",
       "sickHint": "Hastayken hiçbir şey beklenmez — kılabildiğinizi kaydedin.",
       "travelHint": "Yolculukta sabahın sünneti korunur; diğerleri isteğe bağlıdır.",
       "optionalWhileTravelling": "Yolculukta isteğe bağlı",
-      "showAll": "Bugünün tüm revatibini göster",
-      "showDue": "Yalnızca vakti gelenleri göster",
       "openHub": "Deliller ve ayarlar",
       "askBody": "Farzlardan önce ve sonraki müekked sünnetleri takip etmek ister misiniz? 12 rekât (öğleden önce 4) veya 10 (öğleden önce 2) seçin. İstediğiniz zaman değiştirebilirsiniz.",
       "askTwelve": "12 rekât",
@@ -8254,7 +8320,7 @@
       "title": "Revatib sünnetler",
       "subtitle": "Farzlardan önce ve sonra kılınan müekked sünnetler",
       "todayTitle": "Bugün",
-      "todayHint": "Takip ekranında her namazın altındaki düğmelerden kaydedin.",
+      "todayHint": "Burada ya da takip ekranında her namaz kartındaki Sünnet satırından kaydedin.",
       "off": "Revatib takibi kapalı. Aşağıdan açın.",
       "openTracker": "Takibi aç",
       "openStats": "İstatistiklere bak",
@@ -9088,7 +9154,7 @@
       },
       "salawat": {
         "title": "Peygamber'e ﷺ salavat",
-        "hint": "Günlük sayınız"
+        "hint": "Tesbihte sayılır ya da kendiniz işaretleyin"
       },
       "salam_home": {
         "title": "Eve girerken selam",
@@ -9119,7 +9185,31 @@
         "hint": "Zikirlerinizden işaretlenir"
       }
     },
-    "habitRemoved": "{{title}} kaldırıldı"
+    "habitRemoved": "{{title}} kaldırıldı",
+    "todayCount": "Bugün · {{total}} alışkanlıktan {{done}}",
+    "todayRingA11y": "Bugünün sünnet alışkanlıkları",
+    "editList": "Listeyi düzenle",
+    "myHabits": "Alışkanlıklarım ({{number}}/{{max}})",
+    "addMore": "Daha fazla ekle",
+    "groups": {
+      "morningEvening": "Sabah ve akşam",
+      "day": "Gün içinde",
+      "bedtime": "Uykudan önce"
+    },
+    "principleShort": "Allah’a en sevimli ameller, az da olsa devamlı olanlardır.",
+    "evidenceLink": "Delil",
+    "spotlightLine": "Bugün deneyin: {{title}}",
+    "week": {
+      "title": "Bu hafta",
+      "dayA11y": "{{day}}: {{total}} alışkanlıktan {{done}}"
+    },
+    "detail": {
+      "history": "Son 30 gün",
+      "target": "Günlük hedef",
+      "open": "Aç",
+      "remove": "Alışkanlıklarımdan çıkar"
+    },
+    "detailA11y": "{{title}}, ayrıntılar"
   },
   "quranRoots": {
     "title": "Arapça kök araması",
@@ -9714,8 +9804,9 @@
       "calibrateSub": "Saymanın sesinize uyması için bir ifadeyi 5 kez söyleyin. Yalnızca bu cihazda saklanır.",
       "modelStorageSub": "Cihazdaki dinleyici Kur'an alıştırmasıyla ortak kullanılır",
       "forgetTaught": "Öğretilen zikir seslerini unut",
-      "forgetTaughtSub": "Hiçbir ses kaydedilmez veya gönderilmez. Bir zikir öğretirseniz kısa bir ses deseni (kayıt değil) bu cihazda kalır. Bu, hepsini kaldırır.",
-      "forgetTaughtConfirm": "Bu cihazda öğretilen tüm zikir ses desenleri unutulsun mu? Onları istediğiniz zaman yeniden öğretebilirsiniz."
+      "forgetTaughtShort": "Bu cihazda öğretilen zikir ses kalıplarını kaldırır",
+      "forgetTaughtConfirmPrivacy": "Bu cihazda öğretilen tüm zikir ses kalıpları unutulsun mu? Hiçbir zaman ses kaydedilmez veya gönderilmez — her kalıp bir kayıt değil, kısa bir sayı dizisidir. Onları istediğiniz zaman yeniden öğretebilirsiniz.",
+      "forgetAction": "Unut"
     },
     "announce": {
       "title": "Tesbih sayısı duyuruları",
@@ -9736,8 +9827,8 @@
     },
     "teach": {
       "title": "Yalnızca bu zikir sayılsın diye bir kez söyleyin",
-      "explain": "Aralarda duraklayarak en fazla 3 kez {{phrase}} deyin. Yalnızca bu zikrin sayılması için kısa bir ses deseni (kayıt değil) bu cihazda kalır.",
-      "explainOther": "Aralarda duraklayarak zikrinizi en fazla 3 kez söyleyin. Bu oturumda yalnızca onun tekrarları sayılır.",
+      "explain": "Aralarda duraklayarak 3 kez {{phrase}} deyin. Yalnızca bu zikrin sayılması için kısa bir ses deseni (kayıt değil) bu cihazda kalır.",
+      "explainOther": "Aralarda duraklayarak zikrinizi 3 kez söyleyin. Bu oturumda yalnızca onun tekrarları sayılır.",
       "start": "Söyleyerek öğret",
       "skip": "Atla — her duraklamayı say",
       "sayNow": "Şimdi {{phrase}} deyin",
@@ -9748,12 +9839,14 @@
       "issueShort": "Bu çok kısaydı. Zikrin tamamını söyleyin.",
       "issueLong": "Bu çok uzun sürdü. Zikri bir kez söyleyin, sonra durun.",
       "issueDifferent": "Bu farklı geldi. Aynı zikri tekrar söyleyin.",
-      "done": "Tamam — saymaya başla",
       "cancel": "İptal",
       "reteach": "Yeniden öğret",
       "taughtReady": "Bu cihazda öğretildi.",
       "countsTaught": "Yalnızca öğrettiğiniz zikri sayar — yanlış sayımı düzeltmek için dokunun.",
-      "countsPauses": "Her duraklamayı sayar — daha az isabetli. Yanlış sayımı düzeltmek için dokunun."
+      "countsPauses": "Her duraklamayı sayar — daha az isabetli. Yanlış sayımı düzeltmek için dokunun.",
+      "doneShort": "Tamam",
+      "nudge": "Birkaç sayımın düzeltilmesi gerekti. Daha doğru sayım için yeniden öğretilsin mi?",
+      "nudgeDismiss": "Şimdi değil"
     }
   },
   "masjids": {
@@ -10001,9 +10094,27 @@
         "title": "Uygulama seç",
         "body": "Dikkatinizi en çok dağıtan uygulamaları seçin.",
         "pick": "Uygulama seç",
-        "count": "Seçilen uygulamalar: {{count}}",
         "empty": "Uygulama bulunamadı.",
-        "save": "Seçimi kaydet"
+        "save": "Seçimi kaydet",
+        "noneYet": "Henüz uygulama seçilmedi.",
+        "selectedItemsHint": "Seçtiğiniz uygulamalar, kategoriler ve web siteleri. Bütün bir kategori bir sayılır.",
+        "edit": "Düzenle",
+        "editHint": "Hangi uygulamaların duraklatılacağını değiştirin",
+        "always": {
+          "title": "Her zaman kullanılabilir",
+          "phone": "Telefon",
+          "phoneHint": "Aramalar her zaman gelir.",
+          "messages": "Mesajlar",
+          "messagesHint": "Mesajlar gelmeye devam eder.",
+          "emergency": "Acil aramalar",
+          "emergencyHint": "Acil arama her zaman çalışır.",
+          "munib": "Munib Tracker",
+          "munibHint": "Namazınızı işaretleyebilmeniz için."
+        },
+        "selectedItems_one": "{{count}} öğe seçildi",
+        "selectedItems_other": "{{count}} öğe seçildi",
+        "selectedApps_one": "{{count}} uygulama seçildi",
+        "selectedApps_other": "{{count}} uygulama seçildi"
       },
       "timing": {
         "title": "Namaz, zamanlama ve mod"
@@ -10012,11 +10123,20 @@
         "title": "Deneyin",
         "body": "Ne olduğunu görmek için 1 dakikalık bir deneme süresi başlatın.",
         "start": "1 dakikalık deneme başlat",
-        "running": "Deneme sürüyor: seçtiğiniz uygulamalardan birini açın."
+        "running": "Deneme sürüyor: seçtiğiniz uygulamalardan birini açın.",
+        "callsNote": "Deneme sırasında ve her namaz aralığında aramalar ve mesajlar gelmeye devam eder."
       },
       "confirmAlert": "“Onaylamak için dokunun” uyarısı",
       "confirmAlertHint": "Engel ekranında “Namazımı kıldım”a dokunduktan sonra bir bildirim, namazınızı işaretlemeniz için Munib Tracker'ı açar.",
-      "progressLabel": "Kurulum ilerlemesi"
+      "progressLabel": "Kurulum ilerlemesi",
+      "stepNamed": "Adım {{current}} / {{total}} · {{name}}",
+      "stepName": {
+        "explain": "Giriş",
+        "permissions": "İzinler",
+        "apps": "Uygulamalar",
+        "timing": "Zamanlama",
+        "test": "Deneme"
+      }
     },
     "evidence": {
       "title": "Delil",
@@ -10138,6 +10258,17 @@
       "kwKids": "çocuk modu, çocuk cihazı, bağla, qr",
       "familyDigest": "Haftalık aile özeti",
       "familyDigestSub": "Haftada bir, cuma günü: çocuklarınızın kaç namaz kaydettiği. Yalnızca sayılar, isim yok."
+    },
+    "session": {
+      "title": "Bunun için bağlantı gerekiyor",
+      "body": "Halkalar ilerlemeyi davet ettiğiniz kişilerle paylaşır; bu yüzden sunucuya kısa bir bağlantı gerekir. Grup hatmi için hesap gerekmez.",
+      "connecting": "Bağlanıyor…",
+      "error": {
+        "offline": "Çevrimdışısınız. İnternete bağlanın, sonra tekrar deneyin.",
+        "network": "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.",
+        "server": "Sunucu şu anda oturumunuzu başlatamadı. Lütfen biraz sonra tekrar deneyin.",
+        "rateLimited": "Bu cihazdan çok fazla deneme yapıldı. Birkaç dakika bekleyip tekrar deneyin."
+      }
     }
   },
   "circleMembership": {
@@ -10264,7 +10395,6 @@
     "loading": "Yükleniyor…",
     "loadError": "Bu grup yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.",
     "retry": "Tekrar dene",
-    "noSession": "Bir grup hatmi başlatmak veya katılmak için uygulamayı bir kez çevrimiçiyken açın.",
     "startGroup": "Bir grup hatmi başlatın",
     "haveInvite": "Davet kodunuz mu var? Bir gruba katılın",
     "list": {
@@ -10431,6 +10561,10 @@
         "title": "Kalan bölümler dağıtılsın mı?",
         "body": "Kalan bölümler şimdi üyelere atanır."
       }
+    },
+    "session": {
+      "title": "Grup hatmi için bağlantı gerekiyor",
+      "body": "Grup hatmi tek bir cüz tablosunu gruptaki herkesle paylaşır; bu yüzden sunucuya kısa bir bağlantı gerekir. Hesap ya da giriş gerekmez."
     }
   },
   "coach": {
@@ -11537,6 +11671,13 @@
     "shortcut": {
       "title": "Okuyarak bul",
       "subtitle": "Ayeti bulmak için birkaç kelime okuyun, bu cihazda"
+    },
+    "live": {
+      "hearing": "Sizi duyuyoruz…",
+      "hearingHint": "Okumaya devam edin. Ayet tanınır tanınmaz burada görünür.",
+      "bestMatch": "Şu ana kadarki en yakın eşleşme",
+      "level": "Mikrofon seviyesi",
+      "ref": "{{name}} · {{ayah}}. ayet"
     }
   },
   "handsFreeZikr2": {
@@ -11705,7 +11846,8 @@
         "name": "Büyük ok",
         "desc": "Yüksek kontrastlı bir diskte tek büyük ok — bir bakışta okunması en kolay olanı."
       }
-    }
+    },
+    "styleButton": "Stil"
   },
   "appIcon": {
     "title": "Uygulama simgesi",
@@ -11732,5 +11874,12 @@
     "minutes": "{{min}} dk",
     "hours": "{{hours}} sa",
     "hoursMinutes": "{{hours}} sa {{min}} dk"
+  },
+  "sortable": {
+    "movedTo": "{{item}}, {{total}} içinde {{position}}. sıraya taşındı",
+    "moveEarlier": "Öne taşı",
+    "moveLater": "Sona taşı",
+    "handleLabel": "{{item}} sırasını değiştir",
+    "handleHint": "Taşımak için sürükleyin veya yukarı ve aşağı ok tuşlarına basın"
   }
 }

@@ -1,9 +1,9 @@
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import type { TFunction } from "i18next";
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import Animated, {
   cancelAnimation,
   type SharedValue,
@@ -23,6 +23,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { engineDownloadMb } from "@/constants/recitation-models";
 import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useIsOnline } from "@/hooks/use-is-online";
 import { useReciteToFind, useReciteToFindAvailability } from "@/hooks/use-recite-to-find";
@@ -38,14 +39,18 @@ import {
 import { canOpenAppSettings, openAppSettings } from "@/lib/quran-companion/open-app-settings";
 import type { EngineId } from "@/lib/quran-companion/types";
 import { getSurahByNumber } from "@/lib/quran-meta";
+import { DEFAULT_ARABIC_SIZE } from "@/lib/reading-typography";
 import { practiceFromHereHref, readerHref } from "@/lib/recite-to-find/links";
-import type { CandidateStrength, ReciteCandidate } from "@/lib/recite-to-find/reducer";
+import { liveAyahWords } from "@/lib/recite-to-find/live-words";
+import type { CandidateStrength, ReciteCandidate, ReciteLive } from "@/lib/recite-to-find/reducer";
 import { useChevronForward } from "@/lib/rtl";
 import { quranListenerStore } from "@/stores/quran-listener-store";
 
 /**
  * Recite to find (D68): a big mic, a live listening state, and the ayahs the
  * on-device listener heard — shown with the bundled Arabic text and surah name.
+ * While listening, a live card shows the best guess so far with the words heard
+ * lit up (before any guess: a level bar and "Hearing you…").
  * Tap opens the ayah in the reader; "Practise from here" starts practice there.
  * Without the listener, the download card takes the mic's place. Renders
  * nothing where recite-to-find is unavailable (TV, unsupported browsers).
@@ -72,8 +77,15 @@ function ReciteListening({ twoPane }: { twoPane: boolean }) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const recite = useReciteToFind();
-  const { state, mic, engineStatus, engineError, micPermission, level, toggle } = recite;
-  const texts = useReciteCandidateArabic(state.candidates);
+  const { state, mic, engineStatus, engineError, micPermission, level, toggle, engineWords } =
+    recite;
+  const live = state.live ?? null;
+  // Bundled text for every candidate, plus the ayah the tracker is on now.
+  const textTargets = useMemo(
+    () => (live ? [...state.candidates, { surah: live.surah, ayah: live.ayah }] : state.candidates),
+    [live, state.candidates],
+  );
+  const texts = useReciteCandidateArabic(textTargets);
   const listening = mic === "listening" || mic === "starting";
   const ready = engineStatus === "ready";
 
@@ -90,7 +102,8 @@ function ReciteListening({ twoPane }: { twoPane: boolean }) {
     <Card padding="four" style={[styles.micCard, { borderColor: colors.border }]}>
       <ReciteMicButton
         listening={listening}
-        disabled={!ready || mic === "settling"}
+        // Finishing up stays tappable: the tap starts the next take right after.
+        disabled={!ready}
         level={level}
         onPress={() => void toggle()}
         label={listening ? t("reciteToFind.mic.stop") : t("reciteToFind.mic.start")}
@@ -125,6 +138,16 @@ function ReciteListening({ twoPane }: { twoPane: boolean }) {
     </Card>
   );
 
+  const liveCard = listening ? (
+    <ReciteLiveCard
+      best={state.candidates[0]}
+      live={live}
+      texts={texts}
+      level={level}
+      engineWords={engineWords}
+    />
+  ) : null;
+
   const results = state.candidates.length ? (
     <View style={styles.results}>
       <ThemedText type="smallBold" themeColor="mutedForeground" accessibilityRole="header">
@@ -144,7 +167,10 @@ function ReciteListening({ twoPane }: { twoPane: boolean }) {
   if (twoPane) {
     return (
       <View style={styles.split}>
-        <View style={styles.splitStart}>{micCard}</View>
+        <View style={[styles.splitStart, styles.stack]}>
+          {micCard}
+          {liveCard}
+        </View>
         <View style={styles.splitEnd}>{results}</View>
       </View>
     );
@@ -152,6 +178,7 @@ function ReciteListening({ twoPane }: { twoPane: boolean }) {
   return (
     <View style={styles.stack}>
       {micCard}
+      {liveCard}
       {results}
     </View>
   );
@@ -293,6 +320,128 @@ function ReciteMicButton({
         />
       </PressableScale>
     </View>
+  );
+}
+
+/**
+ * Live feedback while listening (the engine gives no transcript): the current
+ * best candidate's Arabic with the words heard so far lit up, "Surah · Ayah N"
+ * and a confidence chip. Before any candidate: a live mic level bar and
+ * "Hearing you…".
+ */
+function ReciteLiveCard({
+  best,
+  live,
+  texts,
+  level,
+  engineWords,
+}: {
+  best: ReciteCandidate | undefined;
+  live: ReciteLive | null;
+  texts: Record<string, string>;
+  level: SharedValue<number>;
+  engineWords?: (surah: number, ayah: number) => string[];
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const fontFamily = useArabicFontFamily();
+  const levelBar = useAnimatedStyle(() => ({
+    width: `${Math.round(Math.max(0.04, Math.min(1, level.value)) * 100)}%`,
+  }));
+
+  if (!best) {
+    return (
+      <Card padding="four" style={[styles.liveCard, { borderColor: colors.border }]}>
+        <View accessibilityLiveRegion="polite" style={styles.liveHeader}>
+          <ThemedText type="smallBold">{t("reciteToFind.live.hearing")}</ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("reciteToFind.live.hearingHint")}
+          </ThemedText>
+        </View>
+        <View
+          testID="recite-live-level"
+          accessible
+          accessibilityRole="progressbar"
+          accessibilityLabel={t("reciteToFind.live.level")}
+          style={[styles.levelTrack, { backgroundColor: colors.muted }]}
+        >
+          <Animated.View style={[styles.levelFill, { backgroundColor: colors.accent }, levelBar]} />
+        </View>
+      </Card>
+    );
+  }
+
+  const meta = getSurahByNumber(best.surah);
+  const surahName = meta?.nameTransliteration ?? String(best.surah);
+  // Follow the tracker inside a merged passage; otherwise show the guess's first ayah.
+  const onBest =
+    live != null &&
+    live.surah === best.surah &&
+    live.ayah >= best.ayah &&
+    live.ayah <= best.ayahEnd;
+  const focusAyah = onBest && live ? live.ayah : best.ayah;
+  const arabic = texts[`${best.surah}:${focusAyah}`] ?? "";
+  const { words, heard } =
+    onBest && live
+      ? liveAyahWords(
+          arabic,
+          engineWords?.(live.surah, live.ayah) ?? [],
+          live.matched,
+          live.totalWords,
+        )
+      : liveAyahWords(arabic, [], [], 0);
+  const tone =
+    best.strength === "strong"
+      ? tokens.status.success
+      : best.strength === "likely"
+        ? tokens.status.info
+        : tokens.status.warning;
+
+  return (
+    <Card
+      padding="four"
+      testID="recite-live-card"
+      style={[styles.liveCard, { borderColor: colors.accent, backgroundColor: tokens.accentSoft }]}
+    >
+      <View style={styles.candidateHeader} accessibilityLiveRegion="polite">
+        <View style={styles.flex}>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("reciteToFind.live.bestMatch")}
+          </ThemedText>
+          <ThemedText type="smallBold" numberOfLines={1}>
+            {t("reciteToFind.live.ref", { name: surahName, ayah: focusAyah })}
+          </ThemedText>
+        </View>
+        <Pill
+          label={t(STRENGTH_KEY[best.strength])}
+          color={tone.color}
+          background={tone.soft}
+          compact
+        />
+      </View>
+      {words.length ? (
+        <Text
+          testID="recite-live-words"
+          accessibilityLanguage="ar"
+          style={[styles.liveArabic, { color: colors.mutedForeground, fontFamily }]}
+        >
+          {words.map((word, index) => (
+            <Text
+              // biome-ignore lint/suspicious/noArrayIndexKey: words of one fixed ayah text
+              key={index}
+              style={
+                heard.has(index)
+                  ? { color: colors.accentText, backgroundColor: withAlpha(colors.accent, 0.18) }
+                  : undefined
+              }
+            >
+              {index > 0 ? " " : ""}
+              {word}
+            </Text>
+          ))}
+        </Text>
+      ) : null}
+    </Card>
   );
 }
 
@@ -561,6 +710,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   results: { gap: Spacing.two },
+  liveCard: { gap: Spacing.two, borderWidth: BorderWidth.thin },
+  liveHeader: { gap: Spacing.half },
+  levelTrack: {
+    height: 8,
+    borderRadius: Radius.xs,
+    overflow: "hidden",
+    width: "100%",
+  },
+  levelFill: { height: "100%", borderRadius: Radius.xs },
+  liveArabic: {
+    writingDirection: "rtl",
+    textAlign: "right",
+    // The reading default Arabic size token (no ad-hoc literal — design-system guard).
+    fontSize: DEFAULT_ARABIC_SIZE,
+    lineHeight: Platform.OS === "web" ? 44 : 48,
+  },
   candidate: {
     gap: Spacing.two,
     padding: Spacing.three,

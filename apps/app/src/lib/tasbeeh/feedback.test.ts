@@ -1,7 +1,15 @@
 import { buildStrand, resolveStrand } from "./bead-layout";
 import { countEventFor, feedbackFor, type TasbeehFeedbackEvent } from "./feedback";
 
-const EVENTS: TasbeehFeedbackEvent[] = ["bead", "spacer", "lap", "milestone", "complete", "limit"];
+const EVENTS: TasbeehFeedbackEvent[] = [
+  "bead",
+  "spacer",
+  "lap",
+  "milestone",
+  "complete",
+  "limit",
+  "undo",
+];
 
 describe("feedbackFor", () => {
   it.each([
@@ -11,6 +19,7 @@ describe("feedbackFor", () => {
     ["milestone", ["medium", "medium"], "spacer"],
     ["complete", ["success"], "complete"],
     ["limit", ["light"], null],
+    ["undo", ["light"], "bead"],
   ] as const)("subtle: %s → %j + %s", (event, haptics, sound) => {
     expect(feedbackFor("misbaha", event, "subtle")).toEqual({ haptics, sound });
   });

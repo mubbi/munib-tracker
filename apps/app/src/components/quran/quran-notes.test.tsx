@@ -93,6 +93,27 @@ describe("reader annotations (ayah mode)", () => {
     expect(screen.queryByTestId("annotated-ayah-tint")).toBeNull();
   });
 
+  it("marks a whole-ayah written note with a bar on the Arabic's starting edge", async () => {
+    await renderWithTheme(<AnnotatedAyahText surah={1} ayah={2} text={AYAH_TEXT} fontSize={26} />);
+    expect(screen.queryByTestId("annotated-ayah-note")).toBeNull();
+    await save("A whole-ayah reflection");
+    const bar = flattenStyle(screen.getByTestId("annotated-ayah-note").props.style);
+    // LTR UI: the logical end is the right edge, where the Arabic begins.
+    expect(bar.borderEndWidth).toBeGreaterThan(0);
+    expect(bar.borderStartWidth).toBeUndefined();
+    expect(String(bar.borderColor)).toMatch(/^#/);
+  });
+
+  it("does not draw the ayah bar for a word-span note (the words carry the mark)", async () => {
+    await save("On these words", {
+      words: { start: 1, end: 2 },
+      textHash: hashAyahText(AYAH_TEXT),
+    });
+    await renderWithTheme(<AnnotatedAyahText surah={1} ayah={2} text={AYAH_TEXT} fontSize={26} />);
+    expect(screen.getByTestId("annotated-ayah-spans")).toBeTruthy();
+    expect(screen.queryByTestId("annotated-ayah-note")).toBeNull();
+  });
+
   it("falls back to an ayah tint when the span's text hash is stale", async () => {
     await save("", { color: "rose", words: { start: 1, end: 2 }, textHash: hashAyahText("old") });
     await renderWithTheme(<AnnotatedAyahText surah={1} ayah={2} text={AYAH_TEXT} fontSize={26} />);

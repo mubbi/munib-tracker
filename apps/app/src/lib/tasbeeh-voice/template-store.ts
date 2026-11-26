@@ -7,13 +7,21 @@
  * - 1–3 templates: the normalised feature matrix of each sample (`features.ts`),
  *   quantised to one signed byte per number and base64-encoded — a few KB, and
  *   never audio;
+ * - up to 5 learned templates (`learned`, adaptive templates): the same kind of
+ *   feature matrix, from confident matches while counting — never audio;
  * - the acceptance threshold the samples implied, and when it was taught.
+ *
+ * Format: `learned` is an optional field added beside the taught `templates`, so
+ * data written before it (no `learned`) reads unchanged, and an older app that
+ * meets it simply ignores it (its taught templates still validate). A malformed
+ * `learned` list is dropped on its own, never the taught pattern. The file
+ * version stays `FEATURE_VERSION` (the feature recipe has not changed).
  *
  * Capped at `MAX_TAUGHT_ZIKRS` (the oldest taught zikr is dropped first).
  */
 import type { Matrix } from "./dtw";
 import { FEATURE_DIM, FEATURE_VERSION } from "./features";
-import { MAX_TEMPLATES, type TaughtPattern } from "./matcher";
+import { MAX_LEARNED_TEMPLATES, MAX_TEMPLATES, type TaughtPattern } from "./matcher";
 
 export const MAX_TAUGHT_ZIKRS = 20;
 /** One quantisation step: normalised features mostly sit within ±4. */
@@ -22,7 +30,13 @@ const SCALE = 16;
 const MAX_FRAMES = 1000;
 
 export type StoredTemplate = { frames: number; q: string };
-export type StoredPattern = { templates: StoredTemplate[]; threshold: number; at: string };
+export type StoredPattern = {
+  templates: StoredTemplate[];
+  threshold: number;
+  at: string;
+  /** Learned while counting (optional; absent in data written before adaptive templates). */
+  learned?: StoredTemplate[];
+};
 export type StoredPatterns = Record<string, StoredPattern>;
 export type StoredTemplatesFile = { fv: number; zikrs: StoredPatterns };
 
@@ -91,18 +105,33 @@ export function decodeTemplate(stored: StoredTemplate): Matrix | null {
 }
 
 export function encodePattern(pattern: TaughtPattern, at: string): StoredPattern {
-  return {
+  const stored: StoredPattern = {
     templates: pattern.templates.slice(0, MAX_TEMPLATES).map(encodeTemplate),
     threshold: pattern.threshold,
     at,
   };
+  const learned = (pattern.learned ?? []).slice(-MAX_LEARNED_TEMPLATES);
+  if (learned.length > 0) stored.learned = learned.map(encodeTemplate);
+  return stored;
 }
 
 export function decodePattern(stored: StoredPattern | undefined): TaughtPattern | null {
   if (!stored) return null;
   const templates = stored.templates.map(decodeTemplate).filter((t): t is Matrix => t != null);
   if (templates.length === 0) return null;
-  return { templates, threshold: stored.threshold };
+  const learned = (stored.learned ?? []).map(decodeTemplate).filter((t): t is Matrix => t != null);
+  return learned.length > 0
+    ? { templates, threshold: stored.threshold, learned }
+    : { templates, threshold: stored.threshold };
+}
+
+function isStoredTemplate(t: unknown): t is StoredTemplate {
+  return (
+    t != null &&
+    typeof t === "object" &&
+    typeof (t as StoredTemplate).frames === "number" &&
+    typeof (t as StoredTemplate).q === "string"
+  );
 }
 
 function isStoredPattern(value: unknown): value is StoredPattern {
@@ -112,17 +141,20 @@ function isStoredPattern(value: unknown): value is StoredPattern {
     Array.isArray(v.templates) &&
     v.templates.length > 0 &&
     v.templates.length <= MAX_TEMPLATES &&
-    v.templates.every(
-      (t) =>
-        t != null &&
-        typeof t === "object" &&
-        typeof (t as StoredTemplate).frames === "number" &&
-        typeof (t as StoredTemplate).q === "string",
-    ) &&
+    v.templates.every(isStoredTemplate) &&
     typeof v.threshold === "number" &&
     Number.isFinite(v.threshold) &&
     typeof v.at === "string"
   );
+}
+
+/** A valid stored pattern with a malformed `learned` list keeps its taught templates. */
+function withValidLearned(value: StoredPattern): StoredPattern {
+  if (value.learned === undefined) return value;
+  const { learned, ...taught } = value;
+  if (!Array.isArray(learned) || !learned.every(isStoredTemplate)) return taught;
+  const kept = learned.slice(-MAX_LEARNED_TEMPLATES);
+  return kept.length > 0 ? { ...taught, learned: kept } : taught;
 }
 
 /** Parse what is on disk; patterns from another feature recipe are dropped (re-teach). */
@@ -132,7 +164,7 @@ export function sanitizeStoredPatterns(raw: unknown): StoredPatterns {
   if (file.fv !== FEATURE_VERSION || !file.zikrs || typeof file.zikrs !== "object") return {};
   const out: StoredPatterns = {};
   for (const [key, value] of Object.entries(file.zikrs)) {
-    if (isStoredPattern(value)) out[key] = value;
+    if (isStoredPattern(value)) out[key] = withValidLearned(value);
   }
   return capPatterns(out);
 }

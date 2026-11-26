@@ -39,15 +39,49 @@ import {
  * Lifecycle: the engine loads while the Recite panel is mounted and the
  * listener is installed; a take claims the mic (`mic-owner`), enters the record
  * audio mode, and streams 16 kHz PCM into the engine. The take ends on a tap, a
- * pause after a confirmed match, a hard time cap, backgrounding, another mic
- * owner, or unmount — and every path releases the mic, the stream and the
- * audio mode. Unmount also disposes the engine.
+ * pause after a confirmed match, silence once anything was heard, a hard time
+ * cap, backgrounding, another mic owner, or unmount — and every path releases
+ * the mic, the stream and the audio mode. Unmount also disposes the engine.
+ *
+ * Takes never overlap: each has an id, so events a slow engine flush sends
+ * after its take ended are dropped; a start waits for the previous stop; each
+ * teardown step is time-bounded so a stuck flush can't wedge the mic.
  */
 
 /** Ends a take this long after the last new evidence once an ayah is confirmed. */
 export const RECITE_SETTLE_MS = 3500;
 /** Hard cap for one take (battery, and a forgotten open mic). */
 export const RECITE_MAX_LISTEN_MS = 30_000;
+/** Once any ayah is a candidate, this much silence (mic level) ends the take. */
+export const RECITE_SILENCE_STOP_MS = 2500;
+/** Chunk level (see {@link chunkLevel}) at or above which the mic counts as hearing a voice. */
+export const RECITE_SILENCE_LEVEL = 0.2;
+const RECITE_SILENCE_POLL_MS = 250;
+/**
+ * Bound for each teardown step (capture stop, audio mode, the engine's tail
+ * flush): past it the take is forced idle so the next tap always works.
+ */
+export const RECITE_STOP_FLUSH_MS = 2000;
+
+/** Resolves `true` when `promise` settled within `ms`, `false` on timeout (never rejects). */
+async function settleWithin(promise: Promise<unknown> | null, ms: number): Promise<boolean> {
+  if (!promise) return true;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<false>((resolve) => {
+    timer = setTimeout(() => resolve(false), ms);
+  });
+  try {
+    return await Promise.race([
+      promise.then(
+        () => true,
+        () => true,
+      ),
+      timeout,
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
 
 export type ReciteEngineFactory = (
   engine: EngineId,
@@ -72,8 +106,10 @@ export type UseReciteToFindResult = {
   engineError: PracticeErrorCode | null;
   mic: ReciteMicState;
   micPermission: MicPermission | null;
-  /** 0..1 smoothed input loudness while listening (drives the pulse). */
+  /** 0..1 smoothed input loudness while listening (drives the pulse and level bar). */
   level: SharedValue<number>;
+  /** The engine's word list for an ayah (aligns `state.live.matched` onto the text). */
+  engineWords: (surah: number, ayah: number) => string[];
   /** The listener is installed and this device can capture audio. */
   canListen: boolean;
   toggle: () => Promise<void>;
@@ -184,8 +220,25 @@ export function useReciteToFind(
     micRef.current = next;
     setMicState(next);
   }, []);
-  const isStarting = useCallback(() => micRef.current === "starting", []);
   const [micPermission, setMicPermission] = useState<MicPermission | null>(null);
+
+  /** Id of the newest take (monotonic per mount). */
+  const takeRef = useRef(0);
+  /** The take whose engine events are accepted (`null` between takes: tails are dropped). */
+  const acceptingTakeRef = useRef<number | null>(null);
+  /** In-flight `start()` / `stopTake()` — a stop waits for the start, a start for the stop. */
+  const startPromiseRef = useRef<Promise<void> | null>(null);
+  const stopPromiseRef = useRef<Promise<void> | null>(null);
+  /** A previous take's `engine.stop()` that outlived its flush bound. */
+  const engineStopRef = useRef<Promise<void> | null>(null);
+  /**
+   * Takes whose flush outlived its bound, oldest first. Engine events are
+   * ordered, so until such a take's `completed` (or its flush settling) shows
+   * up, whatever arrives is that take's tail and is dropped.
+   */
+  const staleTakesRef = useRef<number[]>([]);
+  /** Last time (ms) the mic heard more than silence (drives the silence auto-stop). */
+  const lastVoiceAtRef = useRef(0);
 
   useEffect(() => {
     if (!enabled) return;
@@ -200,35 +253,63 @@ export function useReciteToFind(
   const onMicPreempted = useCallback(() => stopRef.current("interrupted"), []);
 
   const stopTake = useCallback(
-    async (_reason: StopReason) => {
+    (_reason: StopReason): Promise<void> => {
+      if (stopPromiseRef.current) return stopPromiseRef.current;
       const current = micRef.current;
-      if (current !== "listening" && current !== "starting") return;
+      if (current !== "listening" && current !== "starting") return Promise.resolve();
+      // Synchronous: a start still awaiting a step sees this and backs out.
       setMic("settling");
       releaseMicrophone(onMicPreempted);
-      try {
-        await captureRef.current.stop();
-      } catch {
-        // already stopped
-      }
-      level.value = 0;
-      await restorePlaybackMode();
-      const engine = engineRef.current;
-      if (engine) {
-        try {
+      const run = (async () => {
+        // Let a half-done start finish its current step first, so nothing it
+        // does (record mode, capture) lands after the teardown below.
+        await settleWithin(startPromiseRef.current, RECITE_STOP_FLUSH_MS);
+        await settleWithin(
+          captureRef.current.stop().catch(() => {}),
+          RECITE_STOP_FLUSH_MS,
+        );
+        level.value = 0;
+        await settleWithin(
+          restorePlaybackMode().catch(() => {}),
+          RECITE_STOP_FLUSH_MS,
+        );
+        const engine = engineRef.current;
+        const take = takeRef.current;
+        if (engine) {
           // Flushes the tail: the last matches and the final sequence arrive here.
-          await engine.stop();
-        } catch (error) {
-          reportPracticeError(error, toPracticeErrorCode(error, "engine-runtime"), "recite-stop");
+          // Bounded — a stuck flush must never leave the mic "finishing up".
+          const flush = engine.stop().catch((error: unknown) => {
+            reportPracticeError(error, toPracticeErrorCode(error, "engine-runtime"), "recite-stop");
+          });
+          const flushed = await settleWithin(flush, RECITE_STOP_FLUSH_MS);
+          if (flushed) {
+            engineStopRef.current = null;
+          } else {
+            engineStopRef.current = flush;
+            staleTakesRef.current.push(take);
+            void flush.finally(() => {
+              if (engineStopRef.current === flush) engineStopRef.current = null;
+              staleTakesRef.current = staleTakesRef.current.filter((id) => id !== take);
+            });
+          }
         }
-      }
-      dispatch({ type: "finish" });
-      setMic("idle");
+        // Anything the engine still sends belongs to a finished take.
+        acceptingTakeRef.current = null;
+        dispatch({ type: "finish" });
+        setMic("idle");
+      })();
+      const tracked = run.finally(() => {
+        if (stopPromiseRef.current === tracked) stopPromiseRef.current = null;
+      });
+      stopPromiseRef.current = tracked;
+      return tracked;
     },
     [level, onMicPreempted, setMic],
   );
   stopRef.current = stopTake;
 
-  // Engine events → reducer. A failure also closes the mic.
+  // Engine events → reducer, tagged with the accepting take (a stale tail drops).
+  // A failure also closes the mic.
   useEffect(() => {
     const engine = engineStatus === "ready" ? engineRef.current : null;
     if (!engine) return;
@@ -238,65 +319,100 @@ export function useReciteToFind(
         void captureRef.current.stop().catch(() => {});
         void restorePlaybackMode();
         level.value = 0;
+        acceptingTakeRef.current = null;
         setMic("idle");
+        dispatch({ type: "event", event });
+        return;
       }
-      dispatch({ type: "event", event });
+      // A timed-out flush's tail is still arriving: it ends with `completed`.
+      if (staleTakesRef.current.length > 0) {
+        if (event.type === "completed") staleTakesRef.current = staleTakesRef.current.slice(1);
+        return;
+      }
+      const take = acceptingTakeRef.current;
+      if (take == null) return;
+      dispatch({ type: "event", event, take });
     });
   }, [engineStatus, level, onMicPreempted, setMic]);
 
-  const start = useCallback(async () => {
-    const engine = engineRef.current;
-    const cap = captureRef.current;
-    if (!engine || engineStatus !== "ready" || !cap.available) return;
-    let permission = await cap.getPermission().catch(() => "undetermined" as const);
-    if (permission !== "granted") permission = await cap.requestPermission();
-    setMicPermission(permission);
-    if (permission !== "granted") {
-      dispatch({ type: "fail", code: "mic-denied" });
-      return;
-    }
-    setMic("starting");
-    dispatch({ type: "start" });
-    await claimMicrophone("recite-to-find", onMicPreempted);
-    await enterRecordMode();
-    try {
-      // Free recitation ignores the passage; the adapter runs a whole-Qur'an lookup.
-      await engine.start({ surah: 1, ayahStart: 1, ayahEnd: 1 }, "tracking");
-      await cap.start(
-        (pcm) => {
-          engine.feed(pcm);
-          level.value = level.value * 0.6 + chunkLevel(pcm) * 0.4;
-        },
-        (status) => {
-          if (status.interrupted) void stopRef.current("interrupted");
-        },
-      );
-      if (!isStarting()) {
-        // Stopped while starting (background, a call, another listener).
-        releaseMicrophone(onMicPreempted);
-        await cap.stop().catch(() => {});
+  const start = useCallback((): Promise<void> => {
+    if (startPromiseRef.current) return startPromiseRef.current;
+    const run = (async () => {
+      // Never overlap the previous take's teardown (iOS audio session race).
+      if (stopPromiseRef.current) await stopPromiseRef.current;
+      await settleWithin(engineStopRef.current, RECITE_STOP_FLUSH_MS);
+      const engine = engineRef.current;
+      const cap = captureRef.current;
+      if (!engine || engineStatus !== "ready" || !cap.available) return;
+      if (micRef.current !== "idle") return;
+      let permission = await cap.getPermission().catch(() => "undetermined" as const);
+      if (permission !== "granted") permission = await cap.requestPermission();
+      setMicPermission(permission);
+      if (permission !== "granted") {
+        dispatch({ type: "fail", code: "mic-denied" });
         return;
       }
-      setMic("listening");
-    } catch (error) {
-      const code = toPracticeErrorCode(error, "capture-failed");
-      if (code === "mic-denied") setMicPermission("denied");
-      reportPracticeError(error, code, "recite-start");
-      releaseMicrophone(onMicPreempted);
-      await cap.stop().catch(() => {});
-      await restorePlaybackMode();
-      level.value = 0;
-      dispatch({ type: "fail", code });
-      setMic("idle");
-    }
-  }, [engineStatus, isStarting, level, onMicPreempted, setMic]);
+      if (micRef.current !== "idle") return;
+      const take = takeRef.current + 1;
+      takeRef.current = take;
+      // Stopped (tap, background, call, unmount) while a step below was awaited.
+      const aborted = () => takeRef.current !== take || micRef.current !== "starting";
+      setMic("starting");
+      dispatch({ type: "start", take });
+      acceptingTakeRef.current = take;
+      lastVoiceAtRef.current = Date.now();
+      await claimMicrophone("recite-to-find", onMicPreempted);
+      if (aborted()) return;
+      await enterRecordMode();
+      if (aborted()) return;
+      try {
+        // Free recitation ignores the passage; the adapter runs a whole-Qur'an lookup.
+        await engine.start({ surah: 1, ayahStart: 1, ayahEnd: 1 }, "tracking");
+        if (aborted()) return;
+        await cap.start(
+          (pcm) => {
+            if (acceptingTakeRef.current !== take) return;
+            engine.feed(pcm);
+            const chunk = chunkLevel(pcm);
+            if (chunk >= RECITE_SILENCE_LEVEL) lastVoiceAtRef.current = Date.now();
+            level.value = level.value * 0.6 + chunk * 0.4;
+          },
+          (status) => {
+            if (status.interrupted) void stopRef.current("interrupted");
+          },
+        );
+        if (aborted()) return;
+        lastVoiceAtRef.current = Date.now();
+        setMic("listening");
+      } catch (error) {
+        // A stop already tears this take down.
+        if (aborted()) return;
+        const code = toPracticeErrorCode(error, "capture-failed");
+        if (code === "mic-denied") setMicPermission("denied");
+        reportPracticeError(error, code, "recite-start");
+        releaseMicrophone(onMicPreempted);
+        acceptingTakeRef.current = null;
+        await cap.stop().catch(() => {});
+        await restorePlaybackMode();
+        level.value = 0;
+        dispatch({ type: "fail", code });
+        setMic("idle");
+      }
+    })();
+    const tracked = run.finally(() => {
+      if (startPromiseRef.current === tracked) startPromiseRef.current = null;
+    });
+    startPromiseRef.current = tracked;
+    return tracked;
+  }, [engineStatus, level, onMicPreempted, setMic]);
 
   const toggle = useCallback(async () => {
-    if (micRef.current === "listening" || micRef.current === "starting") {
+    const current = micRef.current;
+    if (current === "listening" || current === "starting") {
       await stopTake("user");
       return;
     }
-    if (micRef.current === "settling") return;
+    // While finishing up a tap is never dead: the next take starts right after.
     await start();
   }, [start, stopTake]);
 
@@ -314,6 +430,18 @@ export function useReciteToFind(
     const timer = setTimeout(() => void stopRef.current("auto"), RECITE_SETTLE_MS);
     return () => clearTimeout(timer);
   }, [confirmed, mic, state.candidates]);
+
+  // Silence once something was heard ends the take (measured from the mic level).
+  const hasCandidates = state.candidates.length > 0;
+  useEffect(() => {
+    if (mic !== "listening" || !hasCandidates) return;
+    const timer = setInterval(() => {
+      if (Date.now() - lastVoiceAtRef.current >= RECITE_SILENCE_STOP_MS) {
+        void stopRef.current("auto");
+      }
+    }, RECITE_SILENCE_POLL_MS);
+    return () => clearInterval(timer);
+  }, [hasCandidates, mic]);
 
   // Hard cap per take.
   useEffect(() => {
@@ -335,6 +463,8 @@ export function useReciteToFind(
     return () => {
       const wasActive = micRef.current !== "idle";
       micRef.current = "idle";
+      takeRef.current += 1;
+      acceptingTakeRef.current = null;
       releaseMicrophone(onMicPreempted);
       if (!wasActive) return;
       void (async () => {
@@ -349,6 +479,14 @@ export function useReciteToFind(
     };
   }, [onMicPreempted]);
 
+  const engineWords = useCallback((surah: number, ayah: number): string[] => {
+    try {
+      return engineRef.current?.engineWords(surah, ayah) ?? [];
+    } catch {
+      return [];
+    }
+  }, []);
+
   return {
     state,
     engineStatus,
@@ -356,6 +494,7 @@ export function useReciteToFind(
     mic,
     micPermission,
     level,
+    engineWords,
     canListen: usable && capture.available,
     toggle,
     stop,

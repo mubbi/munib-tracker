@@ -18,13 +18,13 @@ export function habitLinkHref(link: SunnahHabitLink): Href {
     case "zikrCategory":
       return { pathname: "/zikr/[category]", params: { category: link.category } } as Href;
     case "quran":
-      return {
-        pathname: "/quran/[surah]",
-        params: {
-          surah: String(link.surah),
-          ...(link.ayah != null && { ayah: String(link.ayah) }),
-        },
-      } as Href;
+      // One ayah (Ayat al-Kursi) opens just that passage, not the whole surah.
+      return link.ayah != null
+        ? ({
+            pathname: "/quran/passage",
+            params: { surah: String(link.surah), from: String(link.ayah), to: String(link.ayah) },
+          } as unknown as Href)
+        : ({ pathname: "/quran/[surah]", params: { surah: String(link.surah) } } as Href);
     case "tasbeeh":
       return { pathname: "/tasbeeh/[zikrId]", params: { zikrId: link.zikrId } } as Href;
     case "dua":
@@ -72,6 +72,17 @@ export function habitSourceLabelKey(source: SunnahHabitSource): string {
   if (source === "sadaqah") return "sunnahHabits.from.sadaqah";
   if (source.startsWith("zikr:")) return "sunnahHabits.from.tasbeeh";
   return "sunnahHabits.from.adhkar";
+}
+
+/** Time-of-day groups of the "Add more" catalog (derived from each habit's flags and links). */
+export type HabitTimeGroup = "morningEvening" | "day" | "bedtime";
+
+export const HABIT_TIME_GROUPS: readonly HabitTimeGroup[] = ["morningEvening", "day", "bedtime"];
+
+export function habitTimeGroup(def: Pick<SunnahHabitDef, "bedtime" | "source">): HabitTimeGroup {
+  if (def.bedtime) return "bedtime";
+  if (def.source === "adhkar:morning" || def.source === "adhkar:evening") return "morningEvening";
+  return "day";
 }
 
 type Icon = SymbolViewProps["name"];

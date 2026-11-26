@@ -12,10 +12,10 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
-import { Button } from "@/components/ui/button";
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
-import { IconButton } from "@/components/ui/icon-button";
+import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { AdhkarActionRow } from "@/components/zikr/adhkar-action-row";
 import { AdhkarCountBeads, showsBeads } from "@/components/zikr/adhkar-count-beads";
 import type { AdhkarCounterControls } from "@/components/zikr/adhkar-counter-panel";
 import { CountNumeral } from "@/components/zikr/count-numeral";
@@ -28,7 +28,6 @@ import {
   Spacing,
   withAlpha,
 } from "@/constants/theme";
-import { TvLayout } from "@/constants/tv-layout";
 import { useAppSafeAreaInsets } from "@/hooks/use-app-safe-area-insets";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
@@ -43,10 +42,13 @@ type AdhkarSessionDockProps = AdhkarCounterControls & {
   onHeightChange?: (height: number) => void;
 };
 
+const MIC = { ios: "mic.fill", android: "mic", web: "mic" } as const;
+
 /**
- * Session counter dock: a wide tap pad within thumb reach (the whole pad
- * counts), flanked by previous / next, with Undo and a quick "Mark complete"
- * for adhkar already recited away from the app.
+ * Session counter dock: one status line ("Next: … ×N" + a small hands-free
+ * badge), a wide tap pad within thumb reach (the whole pad counts) flanked by
+ * previous / next wells, and one row of equal labelled actions — Undo · Play ·
+ * Hands-free · Done (Done turns into Reset once the zikr is complete).
  */
 export function AdhkarSessionDock({
   count,
@@ -61,7 +63,8 @@ export function AdhkarSessionDock({
   canPrev,
   canNext,
   nextLabel,
-  voiceToggle,
+  handsFree,
+  audio,
   voicePanel,
   onHeightChange,
 }: AdhkarSessionDockProps) {
@@ -72,6 +75,9 @@ export function AdhkarSessionDock({
   const chevronBack = useChevronBackward();
   const chevronForward = useChevronForward();
   const tv = isTV();
+  // While a zikr is being taught, the (compact) teach panel takes the count
+  // pad's place instead of pushing the whole dock up over the reading.
+  const teaching = handsFree?.voice.teach.status === "recording";
   const { width } = useWindowDimensions();
   const padHeight = width >= Breakpoints.tablet ? PAD_HEIGHT_TABLET : PAD_HEIGHT;
   const shown = Math.min(count, target);
@@ -120,6 +126,22 @@ export function AdhkarSessionDock({
       ? t("zikrSession.padOnce")
       : t("zikrSession.padCount");
   const roomy = width >= 400;
+  const well = withAlpha(colors.foreground, 0.06);
+  // Small mic state badge beside "Next: …" while hands-free is on (never on TV).
+  const handsFreeBadge =
+    handsFree?.on && !tv ? (
+      <Pill
+        compact
+        icon={MIC}
+        label={
+          handsFree.voice.listening
+            ? t("zikrSession.dock.listening")
+            : t("zikrSession.dock.handsFreeOn")
+        }
+        color={colors.accentText}
+        background={tokens.accentSoft}
+      />
+    ) : null;
 
   return (
     <View
@@ -146,28 +168,39 @@ export function AdhkarSessionDock({
       />
 
       <View style={styles.inner}>
-        {nextLabel ? (
-          <ThemedText
-            type="caption"
-            themeColor="mutedForeground"
-            numberOfLines={1}
-            style={styles.nextLabel}
-          >
-            {nextLabel}
-          </ThemedText>
+        {nextLabel || handsFreeBadge ? (
+          <View style={styles.statusLine}>
+            {nextLabel ? (
+              <ThemedText
+                type="caption"
+                themeColor="mutedForeground"
+                numberOfLines={1}
+                style={styles.nextLabel}
+              >
+                {nextLabel}
+              </ThemedText>
+            ) : null}
+            {handsFreeBadge}
+          </View>
         ) : null}
         {voicePanel}
-        <View style={styles.padRow}>
-          <IconButton
-            name={chevronBack}
-            size={18}
-            hitTarget={tv ? TvLayout.minFocusTargetDp : 44}
-            tintColor={canPrev ? colors.foreground : colors.mutedForeground}
-            background={withAlpha(colors.foreground, 0.06)}
+        <View style={[styles.padRow, teaching && styles.hidden]}>
+          <PressableScale
+            haptic="selection"
+            scaleTo={0.94}
             disabled={!canPrev}
+            accessibilityRole="button"
             accessibilityLabel={t("zikrSession.previous")}
+            accessibilityState={{ disabled: !canPrev }}
             onPress={onPrev}
-          />
+            style={[styles.navWell, { height: padHeight, backgroundColor: well }]}
+          >
+            <SymbolView
+              name={chevronBack}
+              size={18}
+              tintColor={canPrev ? colors.foreground : colors.mutedForeground}
+            />
+          </PressableScale>
 
           <PressableScale
             haptic={false}
@@ -251,48 +284,33 @@ export function AdhkarSessionDock({
             </View>
           </PressableScale>
 
-          <IconButton
-            name={chevronForward}
-            size={18}
-            hitTarget={tv ? TvLayout.minFocusTargetDp : 44}
-            tintColor={canNext ? colors.foreground : colors.mutedForeground}
-            background={withAlpha(colors.foreground, 0.06)}
+          <PressableScale
+            haptic="selection"
+            scaleTo={0.94}
             disabled={!canNext}
+            accessibilityRole="button"
             accessibilityLabel={t("zikrSession.next")}
+            accessibilityState={{ disabled: !canNext }}
             onPress={onNext}
-          />
+            style={[styles.navWell, { height: padHeight, backgroundColor: well }]}
+          >
+            <SymbolView
+              name={chevronForward}
+              size={18}
+              tintColor={canNext ? colors.foreground : colors.mutedForeground}
+            />
+          </PressableScale>
         </View>
 
-        <View style={styles.actions}>
-          <Button
-            label={t("tasbeehUi.undo")}
-            variant="ghost"
-            icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
-            disabled={shown <= 0}
-            onPress={onUndo}
-          />
-
-          {voiceToggle}
-
-          {done ? (
-            <Button
-              label={t("zikrSession.markNotDone")}
-              variant="ghost"
-              icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
-              accessibilityHint={t("zikrSession.resetHint")}
-              onPress={onReset}
-            />
-          ) : (
-            <Button
-              label={t("zikrSession.markComplete")}
-              variant="secondary"
-              haptic="success"
-              icon={{ ios: "checkmark", android: "check", web: "check" }}
-              accessibilityHint={t("zikrSession.markCompleteHint")}
-              onPress={onComplete}
-            />
-          )}
-        </View>
+        <AdhkarActionRow
+          done={done}
+          canUndo={shown > 0}
+          onUndo={onUndo}
+          onComplete={onComplete}
+          onReset={onReset}
+          audio={audio}
+          handsFree={handsFree}
+        />
       </View>
     </View>
   );
@@ -316,7 +334,22 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   padRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  nextLabel: { textAlign: "center", paddingHorizontal: Spacing.five },
+  hidden: { display: "none" },
+  statusLine: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.two,
+    paddingHorizontal: Spacing.two,
+  },
+  nextLabel: { flexShrink: 1, textAlign: "center" },
+  navWell: {
+    width: 44,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   pad: {
     flex: 1,
     borderRadius: Radius.lg,
@@ -335,10 +368,4 @@ const styles = StyleSheet.create({
   countBlock: { flexDirection: "row", alignItems: "baseline", gap: Spacing.half, minWidth: 56 },
   of: { fontVariant: ["tabular-nums"] },
   padCopy: { flex: 1, minWidth: 0, gap: 1 },
-  actions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: Spacing.one,
-  },
 });

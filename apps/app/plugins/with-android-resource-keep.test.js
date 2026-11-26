@@ -30,7 +30,9 @@ describe("writeResourceKeep", () => {
     const covers = (type, name) =>
       KEEP_PATTERNS.some((p) => {
         const [pType, pName] = p.slice(1).split("/");
-        return pType === type && new RegExp(`^${pName.replace("*", ".*")}$`).test(name);
+        // Glob → regex: escape every regex metacharacter, then let each `*` match anything.
+        const pattern = pName.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replaceAll("*", ".*");
+        return pType === type && new RegExp(`^${pattern}$`).test(name);
       });
     for (const file of fs.readdirSync(ICONS_DIR)) {
       expect(covers("drawable", path.basename(file, ".xml"))).toBe(true);

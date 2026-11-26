@@ -1,6 +1,7 @@
 import { type RefObject, useCallback, useEffect, useRef, useState } from "react";
 
 import { ttsElapsedPosition } from "@/lib/audio-player-tts";
+import { captureAppException } from "@/lib/sentry";
 import {
   canPauseTts,
   pauseTts,
@@ -145,7 +146,11 @@ export function useTtsPlayback({
             onFinish();
           },
         });
-      })();
+      })().catch((error: unknown) => {
+        // Never an unhandled rejection (root "Something went wrong") — move on.
+        captureAppException(error, { tags: { area: "audio", phase: "tts-speak" } });
+        if (generation === generationRef.current) onFinish();
+      });
     },
     [rateRef, userPausedRef],
   );

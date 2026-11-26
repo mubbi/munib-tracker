@@ -6,8 +6,10 @@ import { tasbeehVoiceTemplatesStore } from "@/stores/tasbeeh-voice-templates-sto
 import { captureAppStateListener } from "@/test-support/app-state";
 import { syntheticPhrase, withPauses } from "@/test-support/tasbeeh-voice";
 
-import { useVoiceTasbeeh } from "./use-voice-tasbeeh";
+import { RETEACH_NUDGE_AFTER, useVoiceTasbeeh } from "./use-voice-tasbeeh";
+import { useVoiceTasbeehSteps } from "./use-voice-tasbeeh-steps";
 
+jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
 jest.mock("expo-keep-awake", () => ({
   activateKeepAwakeAsync: jest.fn(() => Promise.resolve()),
   deactivateKeepAwake: jest.fn(() => Promise.resolve()),
@@ -316,5 +318,152 @@ describe("useVoiceTasbeeh", () => {
     });
     expect(result.current.teach.status).toBe("idle");
     expect(mockPipeline.stop).toHaveBeenCalled();
+  });
+
+  it("hands the microphone back when Cancel is pressed on a re-teach", async () => {
+    mockUsesModel = false;
+    await teachThreeTakes();
+    const { result } = await setup();
+    await act(async () => {
+      await result.current.start();
+    });
+    expect(pipelineModes).toEqual(["template"]);
+    await act(async () => {
+      await result.current.startTeaching();
+    });
+    expect(pipelineModes).toEqual(["template", "teach"]);
+    await act(async () => {
+      result.current.cancelTeaching({ resume: true });
+    });
+    expect(result.current.teach.status).toBe("idle");
+    expect(pipelineModes).toEqual(["template", "teach", "template"]);
+    expect(result.current.listening).toBe(true);
+  });
+
+  it("offers Re-teach after repeated manual corrections while counting by the pattern", async () => {
+    mockUsesModel = false;
+    await teachThreeTakes();
+    const { result } = await setup();
+    await act(async () => {
+      await result.current.start();
+    });
+    for (let i = 0; i < RETEACH_NUDGE_AFTER - 1; i++) {
+      await act(async () => result.current.noteCorrection());
+    }
+    expect(result.current.suggestReteach).toBe(false);
+    await act(async () => result.current.noteCorrection());
+    expect(result.current.suggestReteach).toBe(true);
+    await act(async () => result.current.dismissReteach());
+    expect(result.current.suggestReteach).toBe(false);
+    await act(async () => result.current.noteCorrection());
+    expect(result.current.suggestReteach).toBe(false);
+  });
+
+  it("persists templates learned from confident matches (features only)", async () => {
+    mockUsesModel = false;
+    await teachThreeTakes();
+    const { result } = await setup();
+    await act(async () => {
+      await result.current.start();
+    });
+    const taught = pipelineOptions?.pattern;
+    expect(taught).toBeTruthy();
+    await act(async () => {
+      pipelineOptions?.onPatternLearned?.({
+        ...(taught as NonNullable<typeof taught>),
+        learned: [(taught as NonNullable<typeof taught>).templates[0]],
+      });
+    });
+    const stored = tasbeehVoiceTemplatesStore.getState().patterns["zikr:after_prayer-tasbih"];
+    expect(stored?.templates).toHaveLength(3);
+    expect(stored?.learned).toHaveLength(1);
+  });
+});
+
+/** Teach SubhanAllah from three takes through the real hook, then release it. */
+async function teachThreeTakes() {
+  const { result, unmount } = await setup();
+  await act(async () => {
+    await result.current.startTeaching();
+  });
+  await act(async () => {
+    pipelineOptions?.onSample?.(take(1));
+    pipelineOptions?.onSample?.(take(0.95));
+    pipelineOptions?.onSample?.(take(1.05));
+  });
+  await act(async () => {
+    unmount();
+  });
+  pipelineModes.length = 0;
+  pipelineOptions = null;
+}
+
+describe("re-teach while counting in a step flow (live race, D69)", () => {
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it("keeps the teach panel open through the resume delay, then resumes once with the new pattern", async () => {
+    mockUsesModel = false;
+    await teachThreeTakes();
+    const before = tasbeehVoiceTemplatesStore.getState().patterns["zikr:after_prayer-tasbih"]?.at;
+    jest.useFakeTimers();
+    const onVoiceCount = jest.fn();
+    const view = await renderHook(() =>
+      useVoiceTasbeehSteps({
+        zikr: SUBHANALLAH,
+        eligible: true,
+        count: 0,
+        target: 33,
+        active: true,
+        onVoiceCount,
+      }),
+    );
+    await act(async () => view.result.current.toggle());
+    await act(async () => {
+      jest.advanceTimersByTime(400);
+    });
+    expect(view.result.current.voice.listening).toBe(true);
+    expect(pipelineModes).toEqual(["template"]);
+
+    // Re-teach while counting: the panel switches at once and nothing resumes counting.
+    await act(async () => view.result.current.teach());
+    expect(view.result.current.voice.teach.status).toBe("recording");
+    for (let i = 0; i < 5; i++) {
+      await act(async () => {
+        jest.advanceTimersByTime(400);
+      });
+    }
+    expect(view.result.current.voice.teach.status).toBe("recording");
+    expect(view.result.current.on).toBe(true);
+    expect(pipelineModes).toEqual(["template", "teach"]);
+    // A stray resume cannot take the microphone from teaching.
+    let late = "";
+    await act(async () => {
+      late = await view.result.current.voice.start();
+    });
+    expect(late).toBe("busy");
+    expect(pipelineModes).toEqual(["template", "teach"]);
+
+    // Three samples: the new pattern is saved and counting resumes exactly once.
+    await act(async () => {
+      pipelineOptions?.onSample?.(take(1.02));
+      pipelineOptions?.onSample?.(take(0.97));
+      pipelineOptions?.onSample?.(take(1.04));
+    });
+    for (let i = 0; i < 3; i++) {
+      await act(async () => {
+        jest.advanceTimersByTime(400);
+      });
+    }
+    expect(view.result.current.voice.teach.status).toBe("idle");
+    expect(view.result.current.voice.listening).toBe(true);
+    expect(pipelineModes).toEqual(["template", "teach", "template"]);
+    expect(pipelineOptions?.pattern?.templates).toHaveLength(3);
+    const after = tasbeehVoiceTemplatesStore.getState().patterns["zikr:after_prayer-tasbih"]?.at;
+    expect(after).not.toBe(before);
+    await act(async () => {
+      view.unmount();
+    });
   });
 });

@@ -108,9 +108,10 @@ export type TrackerDayChecklistProps = {
 };
 
 /**
- * The day's checklist (P5-01): the Obligatory card leads (Excused day folds
- * into its footer), with a single Jumu'ah / White Days banner above it. Day-only
- * sections (rawatib, Friday, White Days, Takbir) and Witr follow, then three
+ * The day's checklist (P5-01): the Obligatory card leads — each Salah card
+ * carries its Sunnah rawatib row (NF-3.1), with a slim rawatib summary and the
+ * Excused day toggle in its footer — with a single Jumu'ah / White Days banner
+ * above it. Day-only sections (Friday, White Days, Takbir) and Witr follow, then three
  * collapsible groups — Remembrance, Make-up & reading, Voluntary — each
  * collapsed once complete. Calendar day views reuse it unchanged.
  */
@@ -151,7 +152,8 @@ export function TrackerDayChecklist({
   const tv = isTV();
 
   const obligatoryDone = useMemo(() => countCompleted(OBLIGATORY_PRAYERS, status), [status]);
-  // NF-3.1 rawatib chips + header card. Today's excused reason lives in the store;
+  // NF-3.1 rawatib: a Sunnah sub-row inside each Salah card + a slim summary footer.
+  // Today's excused reason lives in the store;
   // calendar days pass theirs explicitly.
   const storeExcused = useDayExcused();
   const dayExcused = onExcusedChange ? (excusedReason ?? null) : (excusedReason ?? storeExcused);
@@ -326,31 +328,36 @@ export function TrackerDayChecklist({
             {OBLIGATORY_PRAYERS.map((prayerId, prayerIndex) => {
               const afterSalahProgress = afterSalahProgressForPrayer(prayerId, zikrCounts);
               return (
-                <View key={prayerId} style={styles.rowGroup}>
-                  <PrayerTrackerRow
-                    prayerId={prayerId}
-                    status={status[prayerId] ?? "pending"}
-                    time={prayerTimes[prayerId]}
-                    hasNotes={!!notes[prayerId]}
-                    isJama={jama[prayerId] ?? false}
-                    atMasjid={atMasjid?.[prayerId] ?? false}
-                    combinedWith={combined?.[prayerId]?.with}
-                    preferredHint={preferredHints?.[prayerId]}
-                    afterSalahProgress={afterSalahProgress}
-                    onPressAfterSalah={
-                      isToday && afterSalahProgress.total > 0
-                        ? () => openAfterSalah(prayerId)
-                        : undefined
-                    }
-                    onPress={() => onPrayerPress(prayerId)}
-                    onSelect={quickSelectFor(prayerId)}
-                    preferredFocus={tv && preferredFocusFirstPrayer && prayerIndex === 0}
-                  />
-                  {rawatib.chipsFor(prayerId)}
-                </View>
+                <PrayerTrackerRow
+                  key={prayerId}
+                  prayerId={prayerId}
+                  status={status[prayerId] ?? "pending"}
+                  time={prayerTimes[prayerId]}
+                  hasNotes={!!notes[prayerId]}
+                  isJama={jama[prayerId] ?? false}
+                  atMasjid={atMasjid?.[prayerId] ?? false}
+                  combinedWith={combined?.[prayerId]?.with}
+                  preferredHint={preferredHints?.[prayerId]}
+                  afterSalahProgress={afterSalahProgress}
+                  onPressAfterSalah={
+                    isToday && afterSalahProgress.total > 0
+                      ? () => openAfterSalah(prayerId)
+                      : undefined
+                  }
+                  onPress={() => onPrayerPress(prayerId)}
+                  onSelect={quickSelectFor(prayerId)}
+                  sunnah={rawatib.chipsFor(prayerId)}
+                  preferredFocus={tv && preferredFocusFirstPrayer && prayerIndex === 0}
+                />
               );
             })}
           </View>
+
+          {rawatib.summary ? (
+            <View ref={setRawatibRef} testID="rawatib-card">
+              {rawatib.summary}
+            </View>
+          ) : null}
 
           {dayExcused == null ? (
             <Button
@@ -380,12 +387,6 @@ export function TrackerDayChecklist({
           ) : null}
         </Card>
       </View>
-
-      {rawatib.headerCard ? (
-        <View ref={setRawatibRef} testID="rawatib-card">
-          {rawatib.headerCard}
-        </View>
-      ) : null}
 
       {showFriday ? (
         <FocusHighlight ref={setFridaySectionRef} active={fridayHighlight || fridayFocused}>
@@ -579,9 +580,6 @@ const styles = StyleSheet.create({
   rows: {
     gap: Spacing.two,
     marginTop: Spacing.three,
-  },
-  rowGroup: {
-    gap: Spacing.two,
   },
   excusedToggle: {
     alignSelf: "flex-start",

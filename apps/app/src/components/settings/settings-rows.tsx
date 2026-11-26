@@ -62,6 +62,8 @@ export function SettingsRow({
   titleColor,
   leading,
   selected,
+  trailing,
+  accessibilityHint,
 }: {
   icon?: AppIcon;
   /** Custom leading visual (e.g. the account avatar) in place of the icon well. */
@@ -81,6 +83,13 @@ export function SettingsRow({
   titleColor?: string;
   /** List–detail: the row whose content the detail pane shows (spoken as selected). */
   selected?: boolean;
+  /**
+   * Drawn-only trailing affordance before the chevron (e.g. a danger row's
+   * "Clear" label). The whole row stays the one pressable, so this must not be
+   * interactive itself (web renders the row as a <button>).
+   */
+  trailing?: ReactNode;
+  accessibilityHint?: string;
 }) {
   const { colors } = useThemeTokens();
   const rtl = useIsRTL();
@@ -93,6 +102,7 @@ export function SettingsRow({
       accessibilityRole="button"
       // Screen readers hear the current value with the title ("Time format, 24-hour").
       accessibilityLabel={value ? `${title}, ${value}` : title}
+      accessibilityHint={accessibilityHint}
       accessibilityState={
         disabled || selected
           ? { ...(disabled ? { disabled: true } : {}), ...(selected ? { selected: true } : {}) }
@@ -117,6 +127,7 @@ export function SettingsRow({
           <ThemedText
             type="small"
             style={[
+              styles.title,
               tv ? { fontSize: TvLayout.bodyFontSize } : undefined,
               titleColor ? { color: titleColor } : undefined,
             ]}
@@ -140,6 +151,16 @@ export function SettingsRow({
         >
           {value}
         </ThemedText>
+      ) : null}
+      {trailing != null ? (
+        <View
+          accessible={false}
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
+          style={styles.trailing}
+        >
+          {trailing}
+        </View>
       ) : null}
       {showChevron ? (
         <SymbolView
@@ -243,6 +264,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: Spacing.two,
   },
+  /** Whole words: the accessory wraps under a long title before the title breaks. */
+  title: { flexShrink: 1 },
+  trailing: { flexShrink: 0, pointerEvents: "none" },
   /** Trailing value shrinks and wraps instead of claiming its full text width. */
   value: {
     flexShrink: 1,

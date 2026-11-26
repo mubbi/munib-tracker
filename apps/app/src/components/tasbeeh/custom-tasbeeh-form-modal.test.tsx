@@ -1,4 +1,4 @@
-import { fireEvent, screen } from "@testing-library/react-native";
+import { fireEvent, screen, within } from "@testing-library/react-native";
 
 import {
   CustomTasbeehFormModal,
@@ -139,6 +139,23 @@ describe("CustomTasbeehFormModal", () => {
     await fireEvent.press(screen.getByRole("button", { name: "Cancel" }));
     expect(props.onClose).toHaveBeenCalledTimes(1);
     expect(props.onSubmit).not.toHaveBeenCalled();
+  });
+
+  it("asks before discarding unsaved edits, inline inside the open form sheet (iOS)", async () => {
+    const { props } = await renderForm();
+    await type("Title", "Draft");
+    await fireEvent.press(screen.getByRole("button", { name: "Cancel" }));
+    expect(props.onClose).not.toHaveBeenCalled();
+    // Inside the one form sheet — no second modal, which iOS would refuse to present.
+    expect(screen.getAllByTestId("sheet")).toHaveLength(1);
+    const formSheet = screen.getByTestId("sheet");
+    expect(within(formSheet).getByText("Discard changes?")).toBeTruthy();
+    await fireEvent.press(within(formSheet).getByRole("button", { name: "Keep editing" }));
+    expect(props.onClose).not.toHaveBeenCalled();
+    expect(screen.getByLabelText("Title").props.value).toBe("Draft");
+    await fireEvent.press(screen.getByTestId("sheet-close"));
+    await fireEvent.press(screen.getByRole("button", { name: "Discard" }));
+    expect(props.onClose).toHaveBeenCalledTimes(1);
   });
 
   it.each([

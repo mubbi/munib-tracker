@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { ConfirmDialog } from "@/components/confirm-dialog";
 import { TASBEEH_MODES } from "@/components/tasbeeh/tasbeeh-counter";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,8 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Sheet } from "@/components/ui/sheet";
 import { TextField } from "@/components/ui/text-field";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
-import { Spacing } from "@/constants/theme";
+import { BorderWidth, Radius, Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { CustomTasbeehInput } from "@/stores/custom-tasbeeh-store";
 
 const MAX_TITLE = 60;
@@ -43,6 +43,7 @@ export function CustomTasbeehFormModal({
   onClose,
 }: CustomTasbeehFormModalProps) {
   const { t } = useTranslation();
+  const { tokens } = useThemeTokens();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [preset, setPreset] = useState<TargetPreset>("33");
@@ -102,73 +103,108 @@ export function CustomTasbeehFormModal({
   };
 
   return (
-    <>
-      <Sheet
-        accessibilityLabel={
-          mode === "create" ? t("tasbeeh.customCreateTitle") : t("tasbeeh.customEditTitle")
-        }
-        visible={visible}
-        onClose={requestClose}
-        variant="bottom"
+    <Sheet
+      accessibilityLabel={
+        mode === "create" ? t("tasbeeh.customCreateTitle") : t("tasbeeh.customEditTitle")
+      }
+      visible={visible}
+      onClose={requestClose}
+      variant="bottom"
+    >
+      <ThemedText type="subtitle">
+        {mode === "create" ? t("tasbeeh.customCreateTitle") : t("tasbeeh.customEditTitle")}
+      </ThemedText>
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {t("tasbeeh.customFormHint")}
+      </ThemedText>
+
+      <TvScrollView
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.form}
       >
-        <ThemedText type="subtitle">
-          {mode === "create" ? t("tasbeeh.customCreateTitle") : t("tasbeeh.customEditTitle")}
-        </ThemedText>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("tasbeeh.customFormHint")}
-        </ThemedText>
+        <TextField
+          label={t("tasbeeh.customTitleLabel")}
+          required
+          value={title}
+          onChangeText={(text) => setTitle(text.slice(0, MAX_TITLE))}
+          placeholder={t("tasbeeh.customTitlePlaceholder")}
+          maxLength={MAX_TITLE}
+          returnKeyType="next"
+        />
 
-        <TvScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.form}
-        >
-          <TextField
-            label={t("tasbeeh.customTitleLabel")}
-            required
-            value={title}
-            onChangeText={(text) => setTitle(text.slice(0, MAX_TITLE))}
-            placeholder={t("tasbeeh.customTitlePlaceholder")}
-            maxLength={MAX_TITLE}
-            returnKeyType="next"
+        <TextField
+          label={t("tasbeeh.customDescLabel")}
+          value={description}
+          onChangeText={(text) => setDescription(text.slice(0, MAX_DESCRIPTION))}
+          placeholder={t("tasbeeh.customDescPlaceholder")}
+          maxLength={MAX_DESCRIPTION}
+          multiline
+          minLines={3}
+        />
+
+        <View style={styles.field}>
+          <ThemedText type="smallBold">{t("tasbeeh.customTargetLabel")}</ThemedText>
+          <SegmentedControl
+            tabs
+            options={presets}
+            value={preset}
+            onChange={setPreset}
+            accessibilityLabel={t("tasbeeh.customTargetLabel")}
           />
 
-          <TextField
-            label={t("tasbeeh.customDescLabel")}
-            value={description}
-            onChangeText={(text) => setDescription(text.slice(0, MAX_DESCRIPTION))}
-            placeholder={t("tasbeeh.customDescPlaceholder")}
-            maxLength={MAX_DESCRIPTION}
-            multiline
-            minLines={3}
-          />
-
-          <View style={styles.field}>
-            <ThemedText type="smallBold">{t("tasbeeh.customTargetLabel")}</ThemedText>
-            <SegmentedControl
-              tabs
-              options={presets}
-              value={preset}
-              onChange={setPreset}
-              accessibilityLabel={t("tasbeeh.customTargetLabel")}
+          {preset === "custom" ? (
+            <TextField
+              label={t("tasbeehUi.customPlaceholder")}
+              value={customTarget}
+              onChangeText={(text) =>
+                setCustomTarget(text.replace(/[^0-9]/g, "").slice(0, MAX_TARGET_DIGITS))
+              }
+              keyboardType="number-pad"
+              placeholder={t("tasbeehUi.customPlaceholder")}
+              inputStyle={styles.customTargetInput}
+              style={styles.customTarget}
             />
+          ) : null}
+        </View>
+      </TvScrollView>
 
-            {preset === "custom" ? (
-              <TextField
-                label={t("tasbeehUi.customPlaceholder")}
-                value={customTarget}
-                onChangeText={(text) =>
-                  setCustomTarget(text.replace(/[^0-9]/g, "").slice(0, MAX_TARGET_DIGITS))
-                }
-                keyboardType="number-pad"
-                placeholder={t("tasbeehUi.customPlaceholder")}
-                inputStyle={styles.customTargetInput}
-                style={styles.customTarget}
-              />
-            ) : null}
+      {discardOpen ? (
+        // Inline, inside the open form sheet — never a second modal: iOS will
+        // not present another modal while this sheet is up, so a separate
+        // dialog never appeared and a dirty close silently did nothing.
+        <View
+          accessibilityRole="alert"
+          accessibilityLiveRegion="polite"
+          style={[
+            styles.discard,
+            { backgroundColor: tokens.status.danger.soft, borderColor: tokens.hairline },
+          ]}
+        >
+          <ThemedText type="smallBold" role="heading">
+            {t("common.discardTitle")}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("common.discardMessage")}
+          </ThemedText>
+          <View style={styles.actions}>
+            <Button
+              label={t("common.keepEditing")}
+              variant="ghost"
+              onPress={() => setDiscardOpen(false)}
+              preferredFocus
+            />
+            <Button
+              label={t("common.discard")}
+              variant="destructive"
+              onPress={() => {
+                setDiscardOpen(false);
+                onClose();
+              }}
+            />
           </View>
-        </TvScrollView>
-
+        </View>
+      ) : (
         <View style={styles.actions}>
           <Button label={t("common.cancel")} variant="ghost" onPress={requestClose} />
           <Button
@@ -177,21 +213,8 @@ export function CustomTasbeehFormModal({
             disabled={!canSubmit}
           />
         </View>
-      </Sheet>
-      <ConfirmDialog
-        visible={discardOpen}
-        title={t("common.discardTitle")}
-        message={t("common.discardMessage")}
-        confirmLabel={t("common.discard")}
-        cancelLabel={t("common.keepEditing")}
-        destructive
-        onConfirm={() => {
-          setDiscardOpen(false);
-          onClose();
-        }}
-        onClose={() => setDiscardOpen(false)}
-      />
-    </>
+      )}
+    </Sheet>
   );
 }
 
@@ -210,6 +233,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     textAlign: "center",
+  },
+  discard: {
+    gap: Spacing.one,
+    marginTop: Spacing.two,
+    padding: Spacing.three,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    borderWidth: BorderWidth.hairline,
   },
   actions: {
     flexDirection: "row",

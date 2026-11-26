@@ -4,7 +4,7 @@ import { SymbolView } from "expo-symbols";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { ContentActions } from "@/components/content/content-actions";
+import { ContentActions, REPORT_FLAG_ICON } from "@/components/content/content-actions";
 import { ReadingTtsButton } from "@/components/content/reading-tts-button";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { ContentReportContext } from "@/components/content-report/content-report-context";
@@ -168,7 +168,13 @@ export function ReadingCard({
   // "More" holds what isn't Play · Save · Share (today: report a mistake).
   const moreActions: ContextMenuAction[] = [];
   if (contentRef && contentReport) {
-    moreActions.push({ id: "report", title: t("contentReport.reportIssue"), systemIcon: "flag" });
+    moreActions.push({
+      id: "report",
+      title: t("contentReport.reportIssue"),
+      shortTitle: t("contentReport.short"),
+      systemIcon: "flag",
+      icon: REPORT_FLAG_ICON,
+    });
   }
 
   const menuActions: ContextMenuAction[] = [];

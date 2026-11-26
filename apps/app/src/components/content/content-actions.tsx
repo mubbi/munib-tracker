@@ -31,7 +31,11 @@ type ContentActionsProps = {
     /** Caption while `loading` in `labelled` rows. */
     loadingLabel?: string;
   };
-  /** Everything else (copy, report, tafsir…) — rendered in the "More actions" sheet. */
+  /**
+   * Everything else (copy, report, tafsir…) — rendered in the "More actions"
+   * sheet, or, when there is exactly one, as its own button in the row (its
+   * `icon` + `shortTitle`) so a lone action is never hidden behind "More".
+   */
   more?: { actions: ContextMenuAction[]; onAction: (id: string) => void };
   /** TV: first control takes initial D-pad focus. */
   preferredFocus?: boolean;
@@ -46,11 +50,14 @@ const SAVED_ICON = { ios: "bookmark.fill", android: "bookmark", web: "bookmark" 
 const SAVE_ICON = { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" } as const;
 const SHARE_ICON = { ios: "square.and.arrow.up", android: "share", web: "share" } as const;
 const MORE_ICON = { ios: "ellipsis.circle", android: "more_horiz", web: "more_horiz" } as const;
+/** Flag glyph for a "Report an issue" action (`ContextMenuAction.icon`). */
+export const REPORT_FLAG_ICON = { ios: "flag", android: "flag", web: "flag" } as const;
 
 /**
  * The one action row for scripture items: **Play · Save · Share · More**.
  * Saved state is a filled bookmark in `accentText` (never a status colour).
- * "More" opens the same actions as the long-press `ContextMenu`.
+ * "More" opens the same actions as the long-press `ContextMenu`; a single extra
+ * action is shown directly instead (no one-item sheet).
  */
 export function ContentActions({
   play,
@@ -61,11 +68,14 @@ export function ContentActions({
   labelled,
 }: ContentActionsProps) {
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const tv = isTV();
   const [moreOpen, setMoreOpen] = useState(false);
   const moreButtonRef = useRef<ComponentRef<typeof View>>(null);
   const moreActions = more?.actions ?? [];
+  // One extra action: draw it directly — a "More" sheet with one row is a dead step.
+  const single = moreActions.length === 1 ? moreActions[0] : undefined;
+  const showMoreButton = moreActions.length > 1;
 
   const saveLabel = save?.saved ? t("common.saved") : t("common.save");
 
@@ -104,7 +114,18 @@ export function ContentActions({
           onPress={share.onShare}
         />
       ) : null}
-      {moreActions.length > 0 ? (
+      {single && more ? (
+        <LabeledIconButton
+          name={single.icon ?? MORE_ICON}
+          label={single.shortTitle ?? single.title}
+          tintColor={single.destructive ? tokens.status.danger.text : colors.mutedForeground}
+          labelColor={single.destructive ? tokens.status.danger.text : undefined}
+          accessibilityLabel={single.title}
+          disabled={single.disabled}
+          onPress={() => more.onAction(single.id)}
+        />
+      ) : null}
+      {showMoreButton ? (
         <LabeledIconButton
           name={MORE_ICON}
           label={t("common.more")}
@@ -146,7 +167,17 @@ export function ContentActions({
           onPress={share.onShare}
         />
       ) : null}
-      {moreActions.length > 0 ? (
+      {single && more ? (
+        <IconButton
+          name={single.icon ?? MORE_ICON}
+          size={20}
+          tintColor={single.destructive ? tokens.status.danger.text : colors.mutedForeground}
+          accessibilityLabel={single.title}
+          disabled={single.disabled}
+          onPress={() => more.onAction(single.id)}
+        />
+      ) : null}
+      {showMoreButton ? (
         <IconButton
           ref={moreButtonRef}
           name={MORE_ICON}
@@ -168,7 +199,7 @@ export function ContentActions({
       ) : (
         row
       )}
-      {moreActions.length > 0 && more ? (
+      {showMoreButton && more ? (
         <Sheet
           visible={moreOpen}
           onClose={() => setMoreOpen(false)}

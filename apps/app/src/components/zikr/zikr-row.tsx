@@ -42,7 +42,14 @@ type ZikrRowProps = {
   target?: number;
   /** Weak-chain zikr — shown with an "Optional" badge, never required. */
   optional?: boolean;
+  /** Play / pause its recitation — pass only when the zikr has audio (`zikrHasAudio`). */
+  onPlay?: (id: string) => void;
+  /** Its recitation is playing now (Play shows Pause). */
+  playing?: boolean;
 };
+
+const PLAY = { ios: "play.circle", android: "play_circle", web: "play_circle" } as const;
+const PAUSE = { ios: "pause.circle.fill", android: "pause_circle", web: "pause_circle" } as const;
 
 export const ZikrRow = memo(function ZikrRow({
   item,
@@ -57,6 +64,8 @@ export const ZikrRow = memo(function ZikrRow({
   preferredFocus,
   target: targetOverride,
   optional,
+  onPlay,
+  playing = false,
 }: ZikrRowProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -70,8 +79,21 @@ export const ZikrRow = memo(function ZikrRow({
   );
 
   const handleInfo = useCallback(() => onInfo?.(item.id), [item.id, onInfo]);
-  // Phone / web: trailing controls overlay the row (one 44pt slot each, end-most first).
-  const trailing = tv ? 0 : (onToggleFavorite ? 1 : 0) + (onInfo ? 1 : 0);
+  const handlePlay = useCallback(() => onPlay?.(item.id), [item.id, onPlay]);
+  // Phone / web: trailing controls overlay the row (one 44pt slot each, end-most first:
+  // info, favorite, play) — siblings of the row's pressable, never nested in it.
+  const slotCount = (onInfo ? 1 : 0) + (onToggleFavorite ? 1 : 0) + (onPlay ? 1 : 0);
+  const trailing = tv ? 0 : slotCount;
+  const slotStyle = (slot: number) =>
+    tv
+      ? undefined
+      : [
+          styles.trailingButton,
+          { end: Spacing.three + CHEVRON_SIZE + ROW_GAP + slot * FAVORITE_HIT },
+        ];
+  const infoSlot = 0;
+  const favoriteSlot = onInfo ? 1 : 0;
+  const playSlot = favoriteSlot + (onToggleFavorite ? 1 : 0);
 
   const target = targetOverride ?? zikrTarget(item);
   const statusLabel = completed
@@ -108,25 +130,18 @@ export const ZikrRow = memo(function ZikrRow({
         {index != null ? <ListIndexBadge index={index} completed={completed} /> : null}
 
         <View style={styles.body}>
-          <ThemedText type="small">{item.title}</ThemedText>
+          <ThemedText type="small" numberOfLines={2}>
+            {item.title}
+          </ThemedText>
           {item.transliteration ? (
-            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
+            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
               {item.transliteration}
             </ThemedText>
           ) : null}
 
-          {completed || progressLabel || target || categoryLabel ? (
+          {(!completed && (progressLabel || target || optional)) || categoryLabel ? (
             <View style={styles.badges}>
-              {completed ? (
-                <Pill
-                  compact
-                  label={progressLabel ?? t("zikr.done")}
-                  color={tokens.status.success.color}
-                  background={tokens.status.success.soft}
-                  icon={{ ios: "checkmark", android: "check", web: "check" }}
-                  style={styles.badge}
-                />
-              ) : progressLabel ? (
+              {completed ? null : progressLabel ? (
                 <Pill
                   compact
                   label={progressLabel}
@@ -167,6 +182,17 @@ export const ZikrRow = memo(function ZikrRow({
           ) : null}
         </View>
 
+        {/* "Done" sits at the trailing edge, where the eye lands when scanning a set. */}
+        {completed ? (
+          <Pill
+            compact
+            label={progressLabel ?? t("zikr.done")}
+            color={tokens.status.success.color}
+            background={tokens.status.success.soft}
+            icon={{ ios: "checkmark", android: "check", web: "check" }}
+          />
+        ) : null}
+
         {trailing > 0 ? <View style={{ width: trailing * FAVORITE_HIT }} /> : null}
 
         <SymbolView name={chevronForward} size={CHEVRON_SIZE} tintColor={colors.mutedForeground} />
@@ -182,7 +208,7 @@ export const ZikrRow = memo(function ZikrRow({
           onPress={handleInfo}
           hitTarget={tv ? TvLayout.minFocusTargetDp : FAVORITE_HIT}
           background={tv ? colors.muted : undefined}
-          style={tv ? undefined : [styles.trailingButton, styles.infoButton]}
+          style={slotStyle(infoSlot)}
         />
       ) : null}
 
@@ -201,11 +227,26 @@ export const ZikrRow = memo(function ZikrRow({
           onPress={handleToggleFavorite}
           hitTarget={tv ? TvLayout.minFocusTargetDp : FAVORITE_HIT}
           background={tv ? colors.muted : undefined}
-          style={
-            tv
-              ? undefined
-              : [styles.trailingButton, onInfo ? styles.favoriteWithInfo : styles.infoButton]
+          style={slotStyle(favoriteSlot)}
+        />
+      ) : null}
+
+      {onPlay ? (
+        <IconButton
+          name={playing ? PAUSE : PLAY}
+          size={FAVORITE_SIZE + 2}
+          tintColor={playing ? colors.accent : colors.mutedForeground}
+          accessibilityLabel={
+            playing
+              ? t("zikr.pauseRecitation", { title: item.title })
+              : t("zikr.playRecitation", { title: item.title })
           }
+          accessibilityState={{ selected: playing }}
+          haptic="selection"
+          onPress={handlePlay}
+          hitTarget={tv ? TvLayout.minFocusTargetDp : FAVORITE_HIT}
+          background={tv ? colors.muted : undefined}
+          style={slotStyle(playSlot)}
         />
       ) : null}
     </View>
@@ -227,7 +268,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: ROW_GAP,
-    padding: Spacing.three,
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.twoHalf,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: BorderWidth.thin,
@@ -263,7 +305,4 @@ const styles = StyleSheet.create({
     top: "50%",
     marginTop: -(FAVORITE_HIT / 2),
   },
-  // The end-most 44pt slot sits just start-ward of the chevron; a second one stacks beside it.
-  infoButton: { end: Spacing.three + CHEVRON_SIZE + ROW_GAP },
-  favoriteWithInfo: { end: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_HIT },
 });

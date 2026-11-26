@@ -105,6 +105,8 @@ export default function AdhkarBuilderScreen() {
   // Unsaved edits (dictated Arabic, attachments) are never dropped silently (B-56).
   const [baseline, setBaseline] = useState(() => formFingerprint(EMPTY, []));
   const [discardAction, setDiscardAction] = useState<(() => void) | null>(null);
+  // Delete asks first (destructive), then keeps the Undo toast as a safety net.
+  const [pendingDelete, setPendingDelete] = useState<CustomAdhkar | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const fieldRefs = useRef<Partial<Record<FieldKey, TextInputInstance | null>>>({});
   // Attachment purges wait out the Undo window so "Deleted" can really be undone.
@@ -332,9 +334,12 @@ export default function AdhkarBuilderScreen() {
     purgeTimers.current.set(item.id, { timer, run });
   };
 
+  // Delete asks for confirmation first; the delete itself is optimistic.
+  const handleRemove = (item: CustomAdhkar) => setPendingDelete(item);
+
   // Optimistic delete: the row goes at once, "Deleted" offers Undo, and the
   // attachment purge runs in the background once the Undo window has closed.
-  const handleRemove = (item: CustomAdhkar) => {
+  const performRemove = (item: CustomAdhkar) => {
     if (editingId === item.id) closeForm();
     void undoToast.run({
       do: async () => {
@@ -634,6 +639,24 @@ export default function AdhkarBuilderScreen() {
     </>
   );
 
+  const sheetOpen = formOpen && !wide;
+  const discardDialog = (
+    <ConfirmDialog
+      visible={discardAction !== null}
+      title={t("common.discardTitle")}
+      message={t("common.discardMessage")}
+      confirmLabel={t("common.discard")}
+      cancelLabel={t("common.keepEditing")}
+      destructive
+      onConfirm={() => {
+        const action = discardAction;
+        setDiscardAction(null);
+        action?.();
+      }}
+      onClose={() => setDiscardAction(null)}
+    />
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("customAdhkar.eyebrow")}
@@ -652,7 +675,7 @@ export default function AdhkarBuilderScreen() {
       )}
 
       <Sheet
-        visible={formOpen && !wide}
+        visible={sheetOpen}
         onClose={() => {
           if (saving) return;
           guardDiscard(closeForm);
@@ -678,21 +701,26 @@ export default function AdhkarBuilderScreen() {
           disabled={saving}
           onPress={() => guardDiscard(closeForm)}
         />
+        {/* iOS can't present a second modal over a presented sheet — nest it inside. */}
+        {sheetOpen ? discardDialog : null}
       </Sheet>
 
+      {/* Wide layout has no sheet: the discard dialog stands on its own. */}
+      {sheetOpen ? null : discardDialog}
+
       <ConfirmDialog
-        visible={discardAction !== null}
-        title={t("common.discardTitle")}
-        message={t("common.discardMessage")}
-        confirmLabel={t("common.discard")}
-        cancelLabel={t("common.keepEditing")}
+        visible={pendingDelete !== null}
+        title={t("customAdhkar.confirmDeleteTitle")}
+        message={t("customAdhkar.confirmDeleteMsg", { title: pendingDelete?.title ?? "" })}
+        confirmLabel={t("customAdhkar.delete")}
+        cancelLabel={t("common.cancel")}
         destructive
         onConfirm={() => {
-          const action = discardAction;
-          setDiscardAction(null);
-          action?.();
+          const item = pendingDelete;
+          setPendingDelete(null);
+          if (item) performRemove(item);
         }}
-        onClose={() => setDiscardAction(null)}
+        onClose={() => setPendingDelete(null)}
       />
     </ScreenLayout>
   );

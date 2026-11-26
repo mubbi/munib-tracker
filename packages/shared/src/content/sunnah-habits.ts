@@ -32,6 +32,7 @@ export type SunnahHabitSource =
   | "adhkar:morning"
   | "adhkar:evening"
   | "zikr:anytime-istighfar"
+  | "zikr:after_azan-salawat"
   | "sadaqah";
 
 /** In-app destination a habit row links to (routes are resolved by the app). */
@@ -53,6 +54,11 @@ export interface SunnahHabitDef {
   link?: SunnahHabitLink;
   /** Derived from another store (auto-checked, labelled "from …"). */
   source?: SunnahHabitSource;
+  /**
+   * A linked habit the user may also tick by hand (salawat said away from the
+   * tasbeeh): done when the source reaches the target OR it is ticked.
+   */
+  manualTick?: boolean;
   /** Done at bedtime — folded into the existing before-sleep reminder text (no extra slot). */
   bedtime?: boolean;
   /** Involves reciting the Qur'an — shows the madhhab note on reciting during hayd. */
@@ -117,11 +123,13 @@ export const SUNNAH_HABITS: readonly SunnahHabitDef[] = [
   },
   {
     id: "salawat",
-    kind: "count",
+    kind: "linked",
     target: 10,
     userTarget: true,
     refs: [{ kind: "dataset", dataset: "duroods" }],
-    link: { kind: "route", route: "/duroods" },
+    link: { kind: "tasbeeh", zikrId: "after_azan-salawat" },
+    source: "zikr:after_azan-salawat",
+    manualTick: true,
   },
   {
     id: "salam_home",

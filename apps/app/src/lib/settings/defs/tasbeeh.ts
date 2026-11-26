@@ -473,14 +473,18 @@ export const TASBEEH_SETTINGS: AnySettingDef[] = [
     group: G,
     section: SECTION,
     titleKey: "tasbeehVoice.settings.forgetTaught",
-    subtitleKey: "tasbeehVoice.settings.forgetTaughtSub",
+    // Short line on the row; the "no audio is recorded or sent" reassurance
+    // lives in the confirm dialog, where the decision is made.
+    subtitleKey: "tasbeehVoice.settings.forgetTaughtShort",
     keywordsKey: VOICE_KEYWORDS,
+    icon: { ios: "waveform.slash", android: "voice_over_off", web: "voice_over_off" },
     scope: "device",
     control: {
       kind: "action",
       run: () => tasbeehVoiceTemplatesStore.getState().forget(),
       destructive: true,
-      confirmKey: "tasbeehVoice.settings.forgetTaughtConfirm",
+      confirmKey: "tasbeehVoice.settings.forgetTaughtConfirmPrivacy",
+      actionLabelKey: "tasbeehVoice.settings.forgetAction",
       doneKey: "settings.done.forgetTaught",
     },
     available: notOnTv,

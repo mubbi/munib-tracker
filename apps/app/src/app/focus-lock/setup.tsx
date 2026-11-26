@@ -3,6 +3,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import {
+  FocusAlwaysAvailableCard,
+  FocusIosAppsPicker,
+} from "@/components/focus-lock/focus-apps-step";
 import { FocusLockEvidence } from "@/components/focus-lock/focus-lock-evidence";
 import {
   FocusLockSettingsForm,
@@ -130,7 +134,11 @@ export default function FocusLockSetupScreen() {
           title={t(STEP_TITLE_KEYS[step])}
           stepIndex={index}
           total={steps.length}
-          stepLabel={t("focusLock.setup.step", { current: index + 1, total: steps.length })}
+          stepLabel={t("focusLock.setup.stepNamed", {
+            current: index + 1,
+            total: steps.length,
+            name: t(`focusLock.setup.stepName.${step}`),
+          })}
           progressLabel={t("focusLock.setup.progressLabel")}
           backDisabled={false}
           onBack={() =>
@@ -172,23 +180,26 @@ export default function FocusLockSetupScreen() {
 
           {step === "apps" ? (
             <View style={styles.stack}>
-              <ThemedText type="small">{t("focusLock.setup.apps.body")}</ThemedText>
               {platform === "android" ? (
-                <AndroidAppPicker />
+                <>
+                  <ThemedText type="small">{t("focusLock.setup.apps.body")}</ThemedText>
+                  <AndroidAppPicker />
+                </>
               ) : (
                 <>
-                  <Button
-                    label={t("focusLock.setup.apps.pick")}
-                    onPress={async () => {
-                      const { count } = await pickApps();
-                      await focusLockStore.getState().patch({ appsCount: count });
-                    }}
+                  <FocusIosAppsPicker
+                    count={device.appsCount}
+                    onPick={() =>
+                      void (async () => {
+                        const { count } = await pickApps();
+                        await focusLockStore.getState().patch({ appsCount: count });
+                      })()
+                    }
                   />
-                  <ThemedText type="smallBold">
-                    {t("focusLock.setup.apps.count", { count: device.appsCount })}
-                  </ThemedText>
+                  <ThemedText type="small">{t("focusLock.setup.apps.body")}</ThemedText>
                 </>
               )}
+              <FocusAlwaysAvailableCard />
             </View>
           ) : null}
 
@@ -201,6 +212,9 @@ export default function FocusLockSetupScreen() {
           {step === "test" ? (
             <View style={styles.stack}>
               <ThemedText type="small">{t("focusLock.setup.test.body")}</ThemedText>
+              <ThemedText type="small" themeColor="mutedForeground">
+                {t("focusLock.setup.test.callsNote")}
+              </ThemedText>
               <Button
                 variant="secondary"
                 label={t("focusLock.setup.test.start")}
@@ -394,6 +408,11 @@ function AndroidAppPicker() {
   }
   return (
     <View style={styles.stack}>
+      <ThemedText type="smallBold" accessibilityLiveRegion="polite">
+        {selected.size > 0
+          ? t("focusLock.setup.apps.selectedApps", { count: selected.size })
+          : t("focusLock.setup.apps.noneYet")}
+      </ThemedText>
       {apps.map((app) => (
         <ToggleRow
           key={app.packageName}
@@ -409,9 +428,6 @@ function AndroidAppPicker() {
           }}
         />
       ))}
-      <ThemedText type="smallBold" accessibilityLiveRegion="polite">
-        {t("focusLock.setup.apps.count", { count: selected.size })}
-      </ThemedText>
     </View>
   );
 }

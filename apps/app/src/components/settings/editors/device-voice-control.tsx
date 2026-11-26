@@ -4,8 +4,9 @@ import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
-import { Button } from "@/components/ui/button";
-import { Spacing } from "@/constants/theme";
+import { IconButton } from "@/components/ui/icon-button";
+import { Radius, Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { APP_LOCALES } from "@/lib/locale-display";
 import { setTtsVoice, useTtsVoices } from "@/lib/settings/tts-voice";
 import { useSetting } from "@/lib/settings/use-setting";
@@ -18,11 +19,13 @@ import { ThisDeviceBadge } from "../this-device-badge";
 /**
  * Device voice per language (`ttsVoiceByLang`, a device preference — B4), used
  * by every Listen button. One row per language the user reads in (translation +
- * app language), each with a "Test voice" button that speaks a short sample in
- * that language with the chosen voice.
+ * app language), each with a compact play button inside the row that speaks a
+ * short sample in that language with the chosen voice. The play button is a
+ * sibling of the row's pressable (never nested — web renders both as <button>).
  */
 export function DeviceVoiceControl({ settingId }: { settingId: string }) {
   const { t, i18n } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
   const prefs = usePreferences();
   const { def } = useSetting<number>(settingId);
   const [lang, setLang] = useState<string | null>(null);
@@ -71,22 +74,34 @@ export function DeviceVoiceControl({ settingId }: { settingId: string }) {
       {langs.map((code) => {
         const name = APP_LOCALES.find((l) => l.code === code)?.name ?? code;
         return (
-          <View key={code} style={styles.langRow}>
-            <SettingsRow
-              icon={{ ios: "waveform", android: "record_voice_over", web: "record_voice_over" }}
-              title={name}
-              value={
-                voices[code] ? t("settingsPanel.voiceChosen") : t("quran.playback.ttsVoiceDefault")
+          <View key={code} style={[styles.langRow, { backgroundColor: colors.muted }]}>
+            <View style={styles.langMain}>
+              <SettingsRow
+                icon={{ ios: "waveform", android: "record_voice_over", web: "record_voice_over" }}
+                title={name}
+                value={
+                  voices[code]
+                    ? t("settingsPanel.voiceChosen")
+                    : t("settingsPanel.voiceDefaultShort")
+                }
+                onPress={() => setLang(code)}
+              />
+            </View>
+            <IconButton
+              name={
+                testing === code
+                  ? { ios: "stop.fill", android: "stop", web: "stop" }
+                  : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
               }
-              onPress={() => setLang(code)}
-            />
-            <Button
-              label={
+              accessibilityLabel={
                 testing === code ? t("settingsStep4.voice.stop") : t("settingsStep4.voice.test")
               }
               accessibilityHint={t("settingsStep4.voice.testA11y", { language: name })}
-              variant="ghost"
-              size="sm"
+              accessibilityState={{ selected: testing === code }}
+              tintColor={tokens.accentOnSoft}
+              background={tokens.accentSoft}
+              wellRadius={Radius.pill}
+              style={styles.play}
               onPress={() => testVoice(code)}
             />
           </View>
@@ -108,5 +123,13 @@ export function DeviceVoiceControl({ settingId }: { settingId: string }) {
 const styles = StyleSheet.create({
   block: { gap: Spacing.two },
   titleLine: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: Spacing.two },
-  langRow: { gap: Spacing.one },
+  /** One muted row: the voice picker row (flex) + its play button on the trailing edge. */
+  langRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  langMain: { flex: 1, minWidth: 0 },
+  play: { marginEnd: Spacing.two },
 });

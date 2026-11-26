@@ -87,6 +87,8 @@ describe("SCREEN_DIFFERENCES anchors render their notes", () => {
 
   it("/qaza — WitrQazaInfo", async () => {
     await renderWithTheme(<WitrQazaInfo />);
+    // The Witr hint is its own one-line expander (not a CollapsibleSection) — open it.
+    await fireEvent.press(screen.getByRole("button", { name: "Is Witr Qaza required?" }));
     expectNotes(SCREEN_DIFFERENCES["/qaza"]);
   });
 

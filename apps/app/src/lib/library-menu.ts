@@ -314,9 +314,6 @@ export const LEARN_SUBGROUPS: readonly LearnSubgroup[] = [
   },
 ];
 
-/** Rows a Learn sub-group shows before "See all". */
-export const LEARN_SUBGROUP_PREVIEW = 4;
-
 /**
  * Splits the Learn entries into their sub-groups (menu order kept inside a
  * group). Entries no sub-group claims land in a trailing group so a destination
@@ -352,8 +349,41 @@ export function groupLearnEntries<T extends { id: string }>(
   return out;
 }
 
-/** Sections that start collapsed on the Library tab (Track and Tools). */
-export const LIBRARY_COLLAPSED_SECTIONS: ReadonlySet<LibrarySectionId> = new Set(["track", "more"]);
+/**
+ * Rows a single-column Library section (or the selected Learn group) shows
+ * before its "See all (N)" header action. Every section uses the same pattern —
+ * none is collapsible.
+ */
+export const LIBRARY_SECTION_PREVIEW = 5;
+
+/** Rows shown before "See all" — three grid rows once a section lays out in columns. */
+export function libraryPreviewLimit(columns: number): number {
+  return columns <= 1 ? LIBRARY_SECTION_PREVIEW : columns * 3;
+}
+
+/** Content width at which a section's rows (and Learn chips) go multi-column. */
+const LIBRARY_TWO_COLUMN_WIDTH = 768;
+const LIBRARY_THREE_COLUMN_WIDTH = 1200;
+/** Content width at which the six primary tiles fit on one row. */
+const LIBRARY_TILE_ROW_WIDTH = 600;
+
+/**
+ * Columns of slim rows inside each Library section card, by the content width
+ * (window width minus any native tablet rail; the web thresholds allow for its
+ * rail): one on phones, two on tablets, three on wide desktop. TV: three.
+ */
+export function librarySectionColumns(contentWidth: number, tv = false): number {
+  if (tv) return 3;
+  if (contentWidth >= LIBRARY_THREE_COLUMN_WIDTH) return 3;
+  if (contentWidth >= LIBRARY_TWO_COLUMN_WIDTH) return 2;
+  return 1;
+}
+
+/** Primary destination tiles per row: a 3×2 grid on phones, one row of six when it fits (and TV). */
+export function libraryTileColumns(contentWidth: number, tv = false): number {
+  if (tv || contentWidth >= LIBRARY_TILE_ROW_WIDTH) return LIBRARY_PRIMARY_IDS.length;
+  return 3;
+}
 
 /**
  * Library tab section order (D13, `UserPreferences.libraryMenuOrder`): the

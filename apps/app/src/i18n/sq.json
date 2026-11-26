@@ -433,10 +433,17 @@
       "makeUp": {
         "title": "Ditë për t'u plotësuar",
         "body": "Ditë për t'u plotësuar nga ky Ramazan: {{days}}. Ditët e lëna dhe të përjashtuara, si dhe ditët e hajdit ose nifasit, plotësohen pas Ramazanit.",
-        "question": "T'i shtoni te kazatë e agjërimit? Kapërcejeni nëse i keni shtuar tashmë, ose nëse jepni fidje në vend të tyre.",
         "add": "Shto {{days}} te kazatë e agjërimit",
-        "dismiss": "Jo, faleminderit",
-        "added": "U shtuan te kazatë e agjërimit."
+        "added": "U shtuan te kazatë e agjërimit.",
+        "settle": "Si do t'i shlyeni këto ditë?",
+        "optionQaza": "Kompensojini me agjërim (kaza)",
+        "optionFidyah": "Jepni fidje në vend të tyre",
+        "optionKaffarah": "Keffaret për agjërim të prishur me qëllim",
+        "openFidyah": "Hap ndihmësin e fidjes",
+        "openKaffarah": "Hap ndihmësin e keffaretit",
+        "alreadyHandled": "Tashmë e kryer",
+        "sadaqahLink": "Jepni sadaka vullnetare si vepër e mirë shtesë",
+        "sadaqahHint": "Sadakaja është shpërblim shtesë. Ajo nuk zëvendëson kompensimin e agjërimeve apo fidjen."
       }
     },
     "toast": {
@@ -724,7 +731,11 @@
     "markSalah": "Shëno {{salah}}",
     "moreForToday": "Më shumë për sot ({{count}})",
     "moreForToday_one": "Më shumë për sot ({{count}})",
-    "moreForToday_other": "Më shumë për sot ({{count}})"
+    "moreForToday_other": "Më shumë për sot ({{count}})",
+    "exploreDoneA11y": "Përfundo redaktimin e shkurtoreve",
+    "exploreEditHint": "Tërhiqni për të rirenditur. Prekni − për të fshehur një shkurtore.",
+    "exploreAddBack": "Shto përsëri",
+    "exploreHideTile": "Fshih {{item}}"
   },
   "tracker": {
     "eyebrow": "Ndiqni dhe regjistroni",
@@ -1016,7 +1027,9 @@
     },
     "reorder": {
       "moreFor": "Më shumë opsione për {{item}}",
-      "moveToTop": "Zhvendos në krye"
+      "moveToTop": "Zhvendos në krye",
+      "removed": "{{item}} u hoq",
+      "hidden": "Të fshehura"
     },
     "sendFeedback": "Dërgo koment",
     "sendFeedbackDesc": "Raportoni një problem ose sugjeroni një përmirësim"
@@ -1157,7 +1170,12 @@
     "preview": "Parapamje",
     "sampleAction": "Shembull veprimi",
     "secondary": "Dytësor",
-    "previewMeta": "Modaliteti aktual: {{mode}} · theks: {{accent}}"
+    "previewMeta": "Modaliteti aktual: {{mode}} · theks: {{accent}}",
+    "moreColors": "Më shumë ngjyra",
+    "moreColorsHint": "Hap paletën e plotë dhe zgjedhësin e ngjyrës së personalizuar",
+    "accentAdjusted": "U përshtat për lexueshmëri në këtë temë. Ngjyra juaj ruhet ashtu siç e zgjodhët.",
+    "hexLabel": "Kodi hex",
+    "hexInvalid": "Shkruani një kod hex me 6 shifra, si #1E6B4F"
   },
   "bedtime": {
     "eyebrow": "Cilësimet",
@@ -1479,7 +1497,10 @@
     "browseAdhkar": "Shfleto ezkaret",
     "favoriteRemoved": "U hoq nga të ruajturat",
     "markedNotDone": "U shënua si e pakryer",
-    "countOfTarget": "{{current}} nga {{target}}"
+    "countOfTarget": "{{current}} nga {{target}}",
+    "playRecitation": "Luaj leximin: {{title}}",
+    "pauseRecitation": "Ndal leximin: {{title}}",
+    "closeSearch": "Mbyll kërkimin"
   },
   "zikrCat": {
     "morning": "Ezkaret e mëngjesit",
@@ -1632,7 +1653,25 @@
     "openInTasbeeh": "Hap në Tesbih",
     "favEmptyDescTv": "Zgjidhni ikonën e faqeshënuesit te çdo salavat për ta ruajtur këtu.",
     "removedToast": "U hoq nga të ruajturat",
-    "loading": "Salavatet po ngarkohen…"
+    "loading": "Salavatet po ngarkohen…",
+    "grade": {
+      "sahih": "Sahih",
+      "hasan": "Hasen"
+    },
+    "readHadith": "Lexo hadithin e plotë",
+    "hideHadith": "Fshih hadithin",
+    "position": "{{current}} nga {{total}}",
+    "unsave": "Hiqe nga të ruajturat",
+    "notFoundDesc": "Ky element mund të jetë hequr.",
+    "sectionSalawat": "Salavatet që i mësoi Pejgamberi ﷺ",
+    "sectionVirtues": "Vlerat e dërgimit të salavateve",
+    "play": "Luaj {{title}}",
+    "pause": "Ndalo {{title}}",
+    "sourceInfo": "Burimi dhe shkalla: {{title}}",
+    "sourceTitle": "Hadithi burim",
+    "detailEyebrow": "Salavat",
+    "notFoundTitle": "Salavati nuk u gjet",
+    "browseAll": "Shfleto të gjitha salavatet"
   },
   "names": {
     "eyebrow": "Esmaul-Husna",
@@ -1926,6 +1965,16 @@
       "ayahsAmount_other": "{{count}} ajete",
       "pagesAmount_one": "{{count}} faqe",
       "pagesAmount_other": "{{count}} faqe"
+    },
+    "actionLess": "Më pak",
+    "lessActionsA11y": "Më pak veprime për ajetin {{n}}",
+    "passage": {
+      "ayah": "Ajeti {{n}}",
+      "range": "Ajetet {{from}}–{{to}}",
+      "play": "Luaj pjesën",
+      "playHint": "Luan vetëm {{ref}}",
+      "openFullSurah": "Hape në suren e plotë",
+      "openFullSurahHint": "Hap {{name}} te ajeti {{n}} në lexues"
     }
   },
   "hadith": {
@@ -2214,7 +2263,9 @@
     "toastSet": "{{prayer}} të mbetura: {{value}}",
     "setExactLabel": "Cakto të mbeturat në",
     "rowRemainingA11y": "{{prayer}}, {{value}} të mbetura",
-    "madeUpButton": "E plotësuar"
+    "madeUpButton": "E plotësuar",
+    "madeUpOneA11y": "U kompensua një {{prayer}}",
+    "allMadeUp": "Të gjitha u kompensuan"
   },
   "qazaCalc": {
     "eyebrow": "Kaza",
@@ -4372,7 +4423,9 @@
     "seeAll": "Shiko të gjitha {{total}} te {{group}}",
     "showFewer": "Shfaq më pak te {{group}}",
     "searchEverything": "Kërko “{{query}}” kudo",
-    "searchEverythingHint": "Kur'an, hadithe, dua, ezkare e më shumë"
+    "searchEverythingHint": "Kur'an, hadithe, dua, ezkare e më shumë",
+    "seeAllShort": "Shih të gjitha ({{total}})",
+    "showFewerShort": "Shfaq më pak"
   },
   "offlineData": {
     "title": "Të dhënat jashtë linje",
@@ -6578,7 +6631,15 @@
     "padCount": "Prekni për të numëruar",
     "loggingPreviousDay": "Regjistrohet për {{date}} — nata zgjat deri në sabah.",
     "announceAllDone": "U krye. Ky grup ezkaresh është i plotë.",
-    "announceRecitedNext": "U recitua. Tjetri: {{title}}"
+    "announceRecitedNext": "U recitua. Tjetri: {{title}}",
+    "dock": {
+      "playA11y": "Luaj leximin",
+      "pauseA11y": "Ndal leximin",
+      "reset": "Rivendos",
+      "done": "U krye",
+      "listening": "Po dëgjon",
+      "handsFreeOn": "Numërimi me zë aktiv"
+    }
   },
   "hijriAdjust": {
     "adjust": "Rregullo",
@@ -6784,8 +6845,9 @@
     },
     "hint": {
       "tap": "Prekni kudo mbi numërues për të numëruar",
-      "misbaha": "Prekni ose tërhiqni rruazën tjetër përgjatë fillit",
-      "keyboard": "Klikoni numëruesin ose shtypni Space për të numëruar"
+      "keyboard": "Klikoni numëruesin ose shtypni Space për të numëruar",
+      "misbahaUndo": "Prekni ose tërhiqni rruazën tjetër — tërhiqeni mbrapsht për ta anuluar",
+      "pebbles": "Prekni ose rrëshqitni një guralec në anën tjetër — rrëshqiteni mbrapsht për ta anuluar"
     },
     "a11y": {
       "milestone": "{{number}} u numëruan"
@@ -7569,7 +7631,8 @@
       "voice": "Zëri",
       "readingDisplay": "Përkthimi dhe transliterimi",
       "focusLock": "Fokusi në namaz",
-      "qibla": "Busulla e kibles"
+      "qibla": "Busulla e kibles",
+      "extras": "Moti dhe kibla"
     },
     "setup": {
       "dismiss": "Jo tani",
@@ -7593,7 +7656,9 @@
     "moreInSettingsHint": "I hap këto opsione te Cilësimet",
     "tvFinanceTools": "Shfaq mjetet financiare",
     "tvFinanceToolsSub": "Zekati, sadakaja, fidjeja, trashëgimia dhe financa islame në këtë TV. Joaktive si parazgjedhje që shumat të mbeten private.",
-    "surfaceFinance": "Udhëzuesit e zekatit dhe financave"
+    "surfaceFinance": "Udhëzuesit e zekatit dhe financave",
+    "voiceDefaultShort": "Parazgjedhur",
+    "clearAction": "Pastro"
   },
   "prayerWindow": {
     "preferred": {
@@ -8216,7 +8281,11 @@
       "extra": "Shtesë",
       "late": "Falur me vonesë",
       "chooseRakahs": "2 ose 4",
-      "chooseRakahsA11y": "Zgjidhni 2 ose 4 rekate për {{name}}"
+      "chooseRakahsA11y": "Zgjidhni 2 ose 4 rekate për {{name}}",
+      "rowLabel": "Sunet",
+      "optional": "Opsionale",
+      "optionalWhileUnwell": "Opsionale gjatë sëmundjes",
+      "notYetHint": "Ende nuk ka hyrë koha — prapë mund ta shënoni"
     },
     "rakahsSheet": {
       "prompt": "Sa rekate falët?",
@@ -8226,13 +8295,10 @@
       "title": "Sunetet ravatib",
       "evidence": "Sahih Muslim 728 · {{count}} rekate në ditë",
       "progress": "{{done}} / {{total}} rekate",
-      "hint": "Prekni etiketën nën çdo namaz për ta shënuar. Shtypni gjatë etiketën 2 / 4 për të ndryshuar rekatet.",
       "hintTv": "Zgjidhni etiketën nën çdo namaz për ta shënuar.",
       "sickHint": "Kur jeni të sëmurë nuk pritet asgjë — shënoni atë që mund të falni.",
       "travelHint": "Në udhëtim ruhet suneti para sabahut; të tjerat janë opsionale.",
       "optionalWhileTravelling": "Opsionale në udhëtim",
-      "showAll": "Shfaq të gjitha ravatibet e sotme",
-      "showDue": "Shfaq vetëm ato që janë për tani",
       "openHub": "Argumente dhe cilësime",
       "askBody": "Të ndiqni sunetet e forta para dhe pas farzeve? Zgjidhni 12 rekate (4 para drekës) ose 10 (2 para drekës). Mund ta ndryshoni kurdo.",
       "askTwelve": "12 rekate",
@@ -8254,7 +8320,7 @@
       "title": "Sunetet ravatib",
       "subtitle": "Sunetet e forta para dhe pas farzeve",
       "todayTitle": "Sot",
-      "todayHint": "Shënojini me etiketat nën çdo namaz në gjurmues.",
+      "todayHint": "Shënojini këtu, ose te rreshti Sunet në kartën e çdo namazi në gjurmues.",
       "off": "Ndjekja e ravatibeve është joaktive. Aktivizojeni më poshtë.",
       "openTracker": "Hap gjurmuesin",
       "openStats": "Shiko statistikat",
@@ -9088,7 +9154,7 @@
       },
       "salawat": {
         "title": "Salavat për Profetin ﷺ",
-        "hint": "Numri juaj ditor"
+        "hint": "Numërohet në tesbih, ose shënojeni vetë"
       },
       "salam_home": {
         "title": "Selam kur hyni në shtëpi",
@@ -9119,7 +9185,31 @@
         "hint": "Shënohet nga ezkaret tuaja"
       }
     },
-    "habitRemoved": "{{title}} u hoq"
+    "habitRemoved": "{{title}} u hoq",
+    "todayCount": "Sot · {{done}} nga {{total}}",
+    "todayRingA11y": "Zakonet e Sunnetit për sot",
+    "editList": "Ndrysho listën",
+    "myHabits": "Zakonet e mia ({{number}}/{{max}})",
+    "addMore": "Shto të tjera",
+    "groups": {
+      "morningEvening": "Mëngjes e mbrëmje",
+      "day": "Gjatë ditës",
+      "bedtime": "Para gjumit"
+    },
+    "principleShort": "Veprat më të dashura te Allahu janë ato të vazhdueshme, edhe nëse janë të pakta.",
+    "evidenceLink": "Argumenti",
+    "spotlightLine": "Provoni sot: {{title}}",
+    "week": {
+      "title": "Këtë javë",
+      "dayA11y": "{{day}}: {{done}} nga {{total}}"
+    },
+    "detail": {
+      "history": "30 ditët e fundit",
+      "target": "Synimi ditor",
+      "open": "Hap",
+      "remove": "Hiqe nga zakonet e mia"
+    },
+    "detailA11y": "{{title}}, hollësi"
   },
   "quranRoots": {
     "title": "Kërkim sipas rrënjës arabe",
@@ -9714,8 +9804,9 @@
       "calibrateSub": "Thoni një frazë 5 herë që numërimi t'i përshtatet zërit tuaj. Ruhet vetëm në këtë pajisje.",
       "modelStorageSub": "Dëgjuesi në pajisje ndahet me ushtrimin e Kur'anit",
       "forgetTaught": "Harro zërat e dhikreve të mësuara",
-      "forgetTaughtSub": "Asnjë zë nuk regjistrohet ose dërgohet. Nëse mësoni një dhikër, një model i shkurtër zëri (jo regjistrim) mbetet në këtë pajisje. Kjo i heq të gjitha.",
-      "forgetTaughtConfirm": "Të harrohen të gjitha modelet e zërit të dhikreve të mësuara në këtë pajisje? Mund t'i mësoni përsëri në çdo kohë."
+      "forgetTaughtShort": "Heq modelet zanore të zikrit të mësuara në këtë pajisje",
+      "forgetTaughtConfirmPrivacy": "Të harrohen të gjitha modelet zanore të zikrit të mësuara në këtë pajisje? Asnjë zë nuk regjistrohet e nuk dërgohet kurrë — çdo model është një grup i shkurtër numrash, jo regjistrim. Mund t’i mësoni përsëri në çdo kohë.",
+      "forgetAction": "Harroji"
     },
     "announce": {
       "title": "Njoftimet e numrit të tesbihut",
@@ -9736,8 +9827,8 @@
     },
     "teach": {
       "title": "Thuajeni një herë që të numërohet vetëm ky dhikër",
-      "explain": "Thoni {{phrase}} deri në 3 herë, me pauzë ndërmjet. Një model i shkurtër zëri (jo regjistrim) mbetet në këtë pajisje që të numërohet vetëm ky dhikër.",
-      "explainOther": "Thoni dhikrin tuaj deri në 3 herë, me pauzë ndërmjet. Në këtë seancë do të numërohen vetëm përsëritjet e tij.",
+      "explain": "Thoni {{phrase}} 3 herë, me pauzë ndërmjet. Një model i shkurtër zëri (jo regjistrim) mbetet në këtë pajisje që të numërohet vetëm ky dhikër.",
+      "explainOther": "Thoni dhikrin tuaj 3 herë, me pauzë ndërmjet. Në këtë seancë do të numërohen vetëm përsëritjet e tij.",
       "start": "Mësojeni duke e thënë",
       "skip": "Kapërce — numëro çdo pauzë",
       "sayNow": "Thoni {{phrase}} tani",
@@ -9748,12 +9839,14 @@
       "issueShort": "Ishte shumë e shkurtër. Thoni gjithë dhikrin.",
       "issueLong": "Zgjati shumë. Thoni dhikrin një herë, pastaj ndaluni.",
       "issueDifferent": "Tingëlloi ndryshe. Thoni të njëjtin dhikër përsëri.",
-      "done": "U krye — fillo numërimin",
       "cancel": "Anulo",
       "reteach": "Mëso përsëri",
       "taughtReady": "I mësuar në këtë pajisje.",
       "countsTaught": "Numëron vetëm dhikrin që mësuat — prekni për të korrigjuar çdo numërim të gabuar.",
-      "countsPauses": "Numëron çdo pauzë — më pak e saktë. Prekni për të korrigjuar çdo numërim të gabuar."
+      "countsPauses": "Numëron çdo pauzë — më pak e saktë. Prekni për të korrigjuar çdo numërim të gabuar.",
+      "doneShort": "U krye",
+      "nudge": "Disa numërime u desh të korrigjoheshin. Ta mësoni përsëri për më shumë saktësi?",
+      "nudgeDismiss": "Jo tani"
     }
   },
   "masjids": {
@@ -10001,9 +10094,27 @@
         "title": "Zgjidh aplikacionet",
         "body": "Zgjidhni aplikacionet që ju shpërqendrojnë më shumë.",
         "pick": "Zgjidh aplikacionet",
-        "count": "Aplikacione të zgjedhura: {{count}}",
         "empty": "Nuk u gjet asnjë aplikacion.",
-        "save": "Ruaj zgjedhjen"
+        "save": "Ruaj zgjedhjen",
+        "noneYet": "Ende nuk është zgjedhur asnjë aplikacion.",
+        "selectedItemsHint": "Aplikacionet, kategoritë dhe faqet që zgjodhët. Një kategori e plotë llogaritet si një.",
+        "edit": "Ndrysho",
+        "editHint": "Ndryshoni cilat aplikacione pezullohen",
+        "always": {
+          "title": "Gjithmonë në dispozicion",
+          "phone": "Telefoni",
+          "phoneHint": "Thirrjet vijnë gjithmonë.",
+          "messages": "Mesazhet",
+          "messagesHint": "Mesazhet vazhdojnë të vijnë.",
+          "emergency": "Thirrjet urgjente",
+          "emergencyHint": "Thirrjet urgjente funksionojnë gjithmonë.",
+          "munib": "Munib Tracker",
+          "munibHint": "Që të mund ta shënoni namazin."
+        },
+        "selectedItems_one": "{{count}} element i zgjedhur",
+        "selectedItems_other": "{{count}} elemente të zgjedhura",
+        "selectedApps_one": "{{count}} aplikacion i zgjedhur",
+        "selectedApps_other": "{{count}} aplikacione të zgjedhura"
       },
       "timing": {
         "title": "Namazi, koha dhe modaliteti"
@@ -10012,11 +10123,20 @@
         "title": "Provojeni",
         "body": "Nisni një kohë prove 1-minutëshe për të parë çfarë ndodh.",
         "start": "Nis provën 1-minutëshe",
-        "running": "Prova po zhvillohet: hapni një nga aplikacionet e zgjedhura."
+        "running": "Prova po zhvillohet: hapni një nga aplikacionet e zgjedhura.",
+        "callsNote": "Thirrjet dhe mesazhet vijnë edhe gjatë provës, edhe gjatë çdo kohe namazi."
       },
       "confirmAlert": "Njoftimi „Prekni për të konfirmuar”",
       "confirmAlertHint": "Pasi të prekni „U fala” në ekranin e bllokimit, një njoftim hap Munib Tracker për të shënuar namazin.",
-      "progressLabel": "Ecuria e konfigurimit"
+      "progressLabel": "Ecuria e konfigurimit",
+      "stepNamed": "Hapi {{current}} nga {{total}} · {{name}}",
+      "stepName": {
+        "explain": "Hyrje",
+        "permissions": "Lejet",
+        "apps": "Aplikacionet",
+        "timing": "Koha",
+        "test": "Prova"
+      }
     },
     "evidence": {
       "title": "Argumenti",
@@ -10138,6 +10258,17 @@
       "kwKids": "modaliteti për fëmijë, pajisje fëmije, lidh, qr",
       "familyDigest": "Përmbledhja javore e familjes",
       "familyDigestSub": "Një herë në javë, të premten: sa namaze regjistruan fëmijët tuaj. Vetëm numra, pa emra."
+    },
+    "session": {
+      "title": "Kjo kërkon lidhje",
+      "body": "Rrathët ndajnë përparimin me njerëzit që ftoni, ndaj nevojitet një lidhje e shkurtër me serverin. Për hatmen në grup nuk nevojitet llogari.",
+      "connecting": "Po lidhet…",
+      "error": {
+        "offline": "Jeni jashtë linje. Lidhuni me internetin, pastaj provoni përsëri.",
+        "network": "Serveri nuk u arrit. Kontrolloni lidhjen dhe provoni përsëri.",
+        "server": "Serveri nuk mundi ta nisë seancën tuaj tani. Ju lutemi provoni përsëri pas pak.",
+        "rateLimited": "Shumë përpjekje nga kjo pajisje. Prisni disa minuta, pastaj provoni përsëri."
+      }
     }
   },
   "circleMembership": {
@@ -10264,7 +10395,6 @@
     "loading": "Po ngarkohet…",
     "loadError": "Ky grup nuk u ngarkua dot. Kontrolloni lidhjen dhe provoni përsëri.",
     "retry": "Provoni përsëri",
-    "noSession": "Hapeni aplikacionin një herë kur jeni në linjë për të filluar ose për t'u bashkuar në një hatme në grup.",
     "startGroup": "Filloni një hatme në grup",
     "haveInvite": "Keni kod ftese? Bashkohuni në një grup",
     "list": {
@@ -10431,6 +10561,10 @@
         "title": "Të ndahen pjesët e mbetura?",
         "body": "Pjesët e mbetura u caktohen tani anëtarëve."
       }
+    },
+    "session": {
+      "title": "Hatmja në grup kërkon lidhje",
+      "body": "Hatmja në grup ndan një rrjetë xhuzesh me të gjithë anëtarët e grupit, ndaj kërkon një lidhje të shkurtër me serverin. Nuk ju duhet llogari as hyrje."
     }
   },
   "coach": {
@@ -11537,6 +11671,13 @@
     "shortcut": {
       "title": "Gjej me recitim",
       "subtitle": "Recitoni disa fjalë për të gjetur ajetin, në këtë pajisje"
+    },
+    "live": {
+      "hearing": "Po ju dëgjojmë…",
+      "hearingHint": "Vazhdoni të lexoni. Ajeti shfaqet këtu sapo të njihet.",
+      "bestMatch": "Përputhja më e afërt deri tani",
+      "level": "Niveli i mikrofonit",
+      "ref": "{{name}} · Ajeti {{ayah}}"
     }
   },
   "handsFreeZikr2": {
@@ -11705,7 +11846,8 @@
         "name": "Shigjetë e madhe",
         "desc": "Një shigjetë e madhe në një disk me kontrast të lartë — më e lehta për t'u lexuar me një shikim."
       }
-    }
+    },
+    "styleButton": "Stili"
   },
   "appIcon": {
     "title": "Ikona e aplikacionit",
@@ -11732,5 +11874,12 @@
     "minutes": "{{min}} min",
     "hours": "{{hours}} orë",
     "hoursMinutes": "{{hours}} orë e {{min}} min"
+  },
+  "sortable": {
+    "movedTo": "{{item}} u zhvendos në pozicionin {{position}} nga {{total}}",
+    "moveEarlier": "Zhvendos përpara",
+    "moveLater": "Zhvendos më pas",
+    "handleLabel": "Rirendit {{item}}",
+    "handleHint": "Tërhiqeni për ta zhvendosur, ose shtypni shigjetat lart dhe poshtë"
   }
 }

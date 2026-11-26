@@ -9,21 +9,26 @@ import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ContentState } from "@/components/ui/content-state";
 import { EmptyState } from "@/components/ui/empty-state";
+import { IconButton } from "@/components/ui/icon-button";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { useResponsiveColumns } from "@/components/ui/responsive-grid";
 import { SearchField } from "@/components/ui/search-field";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { AfterSalahPrayerChips } from "@/components/zikr/after-salah-prayer-chips";
+import { CategoryStickyBar, useStickyListHeader } from "@/components/zikr/category-sticky-bar";
+import { useZikrListAudio, zikrHasAudio } from "@/components/zikr/use-zikr-audio";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAdhkarClock } from "@/hooks/use-adhkar-clock";
 import { useAdhkarDayCounts } from "@/hooks/use-adhkar-day-counts";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useUndoToast } from "@/hooks/use-undo-toast";
@@ -38,6 +43,7 @@ import {
   sessionItemTarget,
 } from "@/lib/adhkar-session";
 import { afterSalahApplicablePrayers } from "@/lib/after-salah-adhkar-progress";
+import { chartCoordinateStyle } from "@/lib/chart-rtl";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
 import { createZikrSearch } from "@/lib/search";
@@ -190,6 +196,21 @@ export default function ZikrCategoryScreen() {
   );
 
   const keyExtractor = useCallback((item: ZikrItem) => item.id, []);
+  const contentBottomInset = useContentBottomInset();
+  const sticky = useStickyListHeader();
+  // Rows with a recitation (recorded audio or Qur'an ayahs) get a Play button.
+  const listAudio = useZikrListAudio(`/zikr/${categoryId}`);
+  const itemsById = useMemo(() => new Map(items.map((item) => [item.id, item])), [items]);
+  const toggleListAudio = listAudio.toggle;
+  const onPlay = useCallback(
+    (id: string) => {
+      const entry = itemsById.get(id);
+      if (entry) toggleListAudio(entry);
+    },
+    [itemsById, toggleListAudio],
+  );
+  const playingId = listAudio.playingId;
+  const listExtra = useMemo(() => ({ zikrCounts, playingId }), [playingId, zikrCounts]);
 
   const renderZikrRow = useCallback(
     (item: ZikrItem) => {
@@ -212,10 +233,14 @@ export default function ZikrCategoryScreen() {
           completed={completed}
           progressLabel={progressLabel}
           preferredFocus={item.id === tvFirstFocusId.current}
+          onPlay={zikrHasAudio(item) ? onPlay : undefined}
+          playing={playingId === item.id}
         />
       );
     },
     [
+      onPlay,
+      playingId,
       favoriteIds,
       indexById,
       onOpen,
@@ -271,98 +296,158 @@ export default function ZikrCategoryScreen() {
     ? t("zikrSession.afterPrayerEyebrow", { prayer: t(`prayers.${prayerFilter}`) })
     : t(`zikrCat.${categoryId}`);
 
+  const sessionLabel = allDone
+    ? t("zikrSession.reviewSet")
+    : started
+      ? t("zikrSession.continueSet", { remaining: scopeState.total - scopeState.completed })
+      : t("zikrSession.startSet");
+  const sessionIcon = allDone
+    ? ({ ios: "checkmark.seal.fill", android: "verified", web: "verified" } as const)
+    : ({ ios: "play.fill", android: "play_arrow", web: "play_arrow" } as const);
+  const progressText = t("zikr.afterSalahProgress", {
+    completed: scopeState.completed,
+    total: scopeState.total,
+  });
+
+  const chips =
+    showPrayerFilter && chipStates ? (
+      <AfterSalahPrayerChips
+        selected={prayerFilter}
+        onSelect={setPrayerFilter}
+        states={chipStates}
+        current={clock.currentAfterSalah}
+      />
+    ) : null;
+
+  // Slim session card: one status line, one primary action, and the quieter
+  // Mark all / 33-33-34 sequence actions as a small secondary row.
+  const sessionCard =
+    scopeState.total > 0 ? (
+      <View style={[styles.sessionCard, { backgroundColor: colors.muted }]}>
+        <View style={styles.statusRow}>
+          <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
+          <ThemedText type="smallBold" style={{ color: statusColor }}>
+            {t(`zikrSession.status.${scopeState.status}`)}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
+            {progressText}
+          </ThemedText>
+        </View>
+        <ProgressBar
+          value={scopeState.completed / scopeState.total}
+          accessibilityLabel={t("a11yProgress.adhkarSession")}
+          height={4}
+          color={allDone ? tokens.status.success.color : undefined}
+        />
+        <Button
+          label={sessionLabel}
+          icon={sessionIcon}
+          variant={allDone ? "secondary" : "primary"}
+          onPress={() => openSession()}
+          fullWidth={columns === 1}
+          style={columns > 1 ? styles.primaryActionWide : undefined}
+        />
+        {!allDone || showPrayerFilter ? (
+          <View style={styles.secondaryRow}>
+            {!allDone ? (
+              <Button
+                label={t("zikrSession.markAll")}
+                variant="ghost"
+                size="sm"
+                icon={{ ios: "checkmark.circle", android: "task_alt", web: "task_alt" }}
+                accessibilityHint={t("zikrSession.markAllHint")}
+                onPress={() => setConfirmAll(true)}
+              />
+            ) : null}
+            {showPrayerFilter ? (
+              <Button
+                label={t("handsFreeZikr.sequence.openFromSession")}
+                variant="ghost"
+                size="sm"
+                icon={{
+                  ios: "circle.dotted",
+                  android: "radio_button_checked",
+                  web: "radio_button_checked",
+                }}
+                onPress={() =>
+                  router.push({ pathname: "/tasbeeh/sequence", params: { prayer: prayerFilter } })
+                }
+              />
+            ) : null}
+          </View>
+        ) : null}
+      </View>
+    ) : null;
+
+  // One stable SearchField element (never a component re-created per render), so
+  // typing never remounts it or drops focus.
+  const searchField = (
+    <SearchField
+      value={query}
+      onChangeText={setQuery}
+      placeholder={t("zikr.searchInCategory")}
+      style={[styles.search, columns > 1 && styles.searchWide]}
+    />
+  );
+
   const listChrome = (
     <>
-      {showPrayerFilter && chipStates ? (
-        <View style={styles.chipsRow}>
-          <AfterSalahPrayerChips
-            selected={prayerFilter}
-            onSelect={setPrayerFilter}
-            states={chipStates}
-            current={clock.currentAfterSalah}
+      {chips ? <View style={styles.chipsRow}>{chips}</View> : null}
+      {sessionCard}
+      {searchField}
+    </>
+  );
+
+  const listHeader = (
+    <View onLayout={sticky.onHeaderLayout} style={styles.listHeader} testID="zikr-list-header">
+      {listChrome}
+    </View>
+  );
+
+  // Compact bar once the header has scrolled away: salah chips (or the progress
+  // line), a small ring, Start / Review, and a search icon that expands.
+  const stickyContent = (
+    <>
+      {chips ? (
+        <View style={styles.flex}>{chips}</View>
+      ) : (
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          numberOfLines={1}
+          style={styles.flex}
+        >
+          {progressText}
+        </ThemedText>
+      )}
+      {scopeState.total > 0 ? (
+        <View
+          accessible
+          accessibilityRole="progressbar"
+          accessibilityLabel={t("a11yProgress.adhkarSession")}
+          accessibilityValue={{ min: 0, max: scopeState.total, now: scopeState.completed }}
+          style={chartCoordinateStyle}
+        >
+          <ArcProgressRing
+            size={26}
+            stroke={3}
+            progress={scopeState.completed / scopeState.total}
+            fillColor={allDone ? tokens.status.success.color : colors.accent}
+            trackColor={tokens.track}
+            surfaceColor={colors.background}
           />
         </View>
       ) : null}
       {scopeState.total > 0 ? (
-        <View style={[styles.sessionCard, { backgroundColor: colors.muted }]}>
-          <View style={styles.progressHeader}>
-            <View style={styles.statusRow}>
-              <View style={[styles.statusDot, { backgroundColor: statusColor }]} />
-              <ThemedText type="smallBold" style={{ color: statusColor }}>
-                {t(`zikrSession.status.${scopeState.status}`)}
-              </ThemedText>
-            </View>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("zikr.afterSalahProgress", {
-                completed: scopeState.completed,
-                total: scopeState.total,
-              })}
-            </ThemedText>
-          </View>
-          <ProgressBar
-            value={scopeState.completed / scopeState.total}
-            accessibilityLabel={t("a11yProgress.adhkarSession")}
-            height={4}
-            color={allDone ? tokens.status.success.color : undefined}
-          />
-          {/* Wide: one full-width row (aligned with the progress bar above);
-              phones: stacked. Both buttons share one height so they read as a pair. */}
-          <View style={[styles.sessionActions, columns > 1 && styles.sessionActionsWide]}>
-            <Button
-              style={columns > 1 ? styles.primaryActionWide : undefined}
-              label={
-                allDone
-                  ? t("zikrSession.reviewSet")
-                  : started
-                    ? t("zikrSession.continueSet", {
-                        remaining: scopeState.total - scopeState.completed,
-                      })
-                    : t("zikrSession.startSet")
-              }
-              icon={
-                allDone
-                  ? { ios: "checkmark.seal.fill", android: "verified", web: "verified" }
-                  : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-              }
-              variant={allDone ? "secondary" : "primary"}
-              onPress={() => openSession()}
-              fullWidth={columns === 1}
-            />
-            {!allDone ? (
-              <Button
-                label={t("zikrSession.markAll")}
-                variant="secondary"
-                icon={{ ios: "checkmark.circle", android: "task_alt", web: "task_alt" }}
-                accessibilityHint={t("zikrSession.markAllHint")}
-                onPress={() => setConfirmAll(true)}
-                fullWidth={columns === 1}
-                style={columns > 1 ? styles.secondaryActionWide : undefined}
-              />
-            ) : null}
-          </View>
-          {showPrayerFilter ? (
-            <Button
-              label={t("handsFreeZikr.sequence.openFromSession")}
-              variant="ghost"
-              size="sm"
-              icon={{
-                ios: "circle.dotted",
-                android: "radio_button_checked",
-                web: "radio_button_checked",
-              }}
-              onPress={() =>
-                router.push({ pathname: "/tasbeeh/sequence", params: { prayer: prayerFilter } })
-              }
-            />
-          ) : null}
-        </View>
+        <IconButton
+          name={sessionIcon}
+          size={16}
+          tintColor={allDone ? colors.accentText : colors.accentForeground}
+          background={allDone ? tokens.accentSoft : colors.accent}
+          accessibilityLabel={sessionLabel}
+          onPress={() => openSession()}
+        />
       ) : null}
-      <SearchField
-        value={query}
-        onChangeText={setQuery}
-        placeholder={t("zikr.searchInCategory")}
-        style={styles.search}
-      />
     </>
   );
 
@@ -417,47 +502,61 @@ export default function ZikrCategoryScreen() {
           title={t("zikr.emptyTitle")}
           description={t("zikr.emptyDesc")}
         />
-      ) : (
-        <Card style={tv ? undefined : styles.listCard}>
+      ) : tv ? (
+        <Card>
           {listChrome}
-          {tv ? (
-            <View style={styles.tvList}>
-              {filtered.length === 0
-                ? empty
-                : filtered.map((item, index) => (
-                    <View key={item.id}>
-                      {index > 0 ? <ListSeparator /> : null}
-                      {renderZikrRow(item)}
-                    </View>
-                  ))}
-            </View>
-          ) : (
-            <View style={styles.listHost}>
-              <TvFlatList
-                // Remount when the deep-linked salah tab arrives/changes — otherwise
-                // removeClippedSubviews + a late `?prayer=` update can leave a blank list
-                // until the user manually switches chips.
-                // numColumns also needs a remount when the column count changes.
-                key={`${showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}-${columns}`}
-                numColumns={columns}
-                columnWrapperStyle={columns > 1 ? styles.gridRow : undefined}
-                style={styles.flatList}
-                data={filtered}
-                extraData={zikrCounts}
-                keyExtractor={keyExtractor}
-                renderItem={renderItem}
-                ItemSeparatorComponent={ListSeparator}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-                initialNumToRender={12}
-                maxToRenderPerBatch={8}
-                windowSize={7}
-                removeClippedSubviews={false}
-                ListEmptyComponent={empty ?? undefined}
-              />
-            </View>
-          )}
+          <View style={styles.tvList}>
+            {filtered.length === 0
+              ? empty
+              : filtered.map((item, index) => (
+                  <View key={item.id}>
+                    {index > 0 ? <ListSeparator /> : null}
+                    {renderZikrRow(item)}
+                  </View>
+                ))}
+          </View>
         </Card>
+      ) : (
+        // Full-height list: the session card and search scroll away with the rows
+        // (ListHeaderComponent); a compact bar pins once they are gone.
+        <View style={styles.listHost}>
+          <TvFlatList
+            // Remount when the deep-linked salah tab arrives/changes — otherwise
+            // removeClippedSubviews + a late `?prayer=` update can leave a blank list
+            // until the user manually switches chips.
+            // numColumns also needs a remount when the column count changes.
+            key={`${showPrayerFilter ? `after-salah-${prayerFilter}` : categoryId}-${columns}`}
+            numColumns={columns}
+            columnWrapperStyle={columns > 1 ? styles.gridRow : undefined}
+            testID="zikr-category-list"
+            style={styles.flatList}
+            contentContainerStyle={{ paddingBottom: contentBottomInset + Spacing.three }}
+            data={filtered}
+            extraData={listExtra}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            ListHeaderComponent={listHeader}
+            ItemSeparatorComponent={ListSeparator}
+            onScroll={sticky.onScroll}
+            scrollEventThrottle={32}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            initialNumToRender={12}
+            maxToRenderPerBatch={8}
+            windowSize={7}
+            removeClippedSubviews={false}
+            ListEmptyComponent={empty ?? undefined}
+          />
+          <CategoryStickyBar
+            visible={sticky.stuck}
+            query={query}
+            onChangeQuery={setQuery}
+            placeholder={t("zikr.searchInCategory")}
+          >
+            {stickyContent}
+          </CategoryStickyBar>
+        </View>
       )}
       <ConfirmDialog
         visible={confirmAll}
@@ -480,32 +579,31 @@ function ListSeparator() {
 }
 
 const styles = StyleSheet.create({
-  listCard: { flex: 1, minHeight: 0 },
   listHost: { flex: 1, minHeight: 0 },
   flatList: { flex: 1 },
+  listHeader: { paddingBottom: Spacing.one },
   tvList: { gap: 0 },
   chipsRow: { marginBottom: Spacing.three },
   sessionCard: {
     marginBottom: Spacing.three,
-    gap: Spacing.twoHalf,
+    gap: Spacing.two,
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  // Primary "Start / Continue" on its own line (never squeezed); "Mark all" as a quieter secondary.
-  sessionActions: { gap: Spacing.two },
-  sessionActionsWide: { flexDirection: "row", alignItems: "stretch" },
-  primaryActionWide: { flex: 2, alignSelf: "stretch" },
-  secondaryActionWide: { flex: 1, alignSelf: "stretch" },
+  primaryActionWide: { alignSelf: "flex-start", minWidth: 240 },
+  secondaryRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: Spacing.one,
+    marginStart: -Spacing.two,
+  },
   search: { marginBottom: Spacing.three },
+  searchWide: { maxWidth: 640 },
   statusRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   statusDot: { width: 8, height: 8, borderRadius: 4 },
-  progressHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
+  flex: { flex: 1, minWidth: 0 },
   separator: { height: Spacing.two },
   gridRow: { marginHorizontal: -Spacing.one },
   gridCell: { paddingHorizontal: Spacing.one },

@@ -13,6 +13,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -44,6 +45,10 @@ type Props = {
    * counting label (D51).
    */
   compact?: boolean;
+  /** Several counts needed correcting by hand: offer "Re-teach for better accuracy?". */
+  suggestReteach?: boolean;
+  onReteach?: () => void;
+  onDismissReteach?: () => void;
 };
 
 const STOP_COPY: Partial<Record<VoiceStopReason, string>> = {
@@ -58,8 +63,9 @@ const STOP_COPY: Partial<Record<VoiceStopReason, string>> = {
  * Hands-free status under the counter (NF-3.20): a pulsing mic chip, a small
  * level meter, the zikr being listened for (Arabic from the dataset + its
  * translation; a custom tasbeeh shows its own title), how this session counts
- * (D51: honest labels, "tap to correct"), a soft ✓ flash per count, and the
- * gentle "stuck" hint.
+ * (D51: honest labels, "tap to correct"), a soft ✓ flash and a quick pop of
+ * the mic badge per voice count, the gentle "stuck" hint, and — after several
+ * manual corrections — a gentle "Re-teach for better accuracy?" nudge.
  */
 export function VoiceListeningPanel({
   zikr,
@@ -72,6 +78,9 @@ export function VoiceListeningPanel({
   stopReason,
   showFocusTip,
   compact = false,
+  suggestReteach = false,
+  onReteach,
+  onDismissReteach,
 }: Props) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -92,14 +101,19 @@ export function VoiceListeningPanel({
     );
     return () => cancelAnimation(pulse);
   }, [listening, reduceMotion, pulse]);
-  const pulseStyle = useAnimatedStyle(() => ({ transform: [{ scale: pulse.value }] }));
+  // Each voice count pops the mic badge once, on top of the slow breathing pulse.
+  const pop = useSharedValue(1);
+  const pulseStyle = useAnimatedStyle(() => ({ transform: [{ scale: pulse.value * pop.value }] }));
 
   const flash = useSharedValue(0);
   useEffect(() => {
     if (flashKey === 0) return;
     flash.value = 1;
     flash.value = withTiming(0, { duration: reduceMotion ? 0 : 650 });
-  }, [flashKey, flash, reduceMotion]);
+    if (!reduceMotion) {
+      pop.value = withSequence(withTiming(1.3, { duration: 90 }), withTiming(1, { duration: 220 }));
+    }
+  }, [flashKey, flash, pop, reduceMotion]);
   const flashStyle = useAnimatedStyle(() => ({ opacity: flash.value }));
 
   const active = listening || preparing;
@@ -132,6 +146,7 @@ export function VoiceListeningPanel({
     >
       <View style={styles.chipRow}>
         <Animated.View
+          testID="voice-mic-badge"
           style={[styles.micDot, { backgroundColor: colors.accent }, pulseStyle]}
           accessibilityElementsHidden
           importantForAccessibility="no-hide-descendants"
@@ -215,6 +230,34 @@ export function VoiceListeningPanel({
           {t("tasbeehVoice.stuck")}
         </ThemedText>
       ) : null}
+      {suggestReteach && onReteach ? (
+        <View
+          accessibilityLiveRegion="polite"
+          style={[styles.nudge, { borderColor: withAlpha(colors.accent, 0.3) }]}
+        >
+          <ThemedText type="caption" style={[styles.center, { color: colors.accentText }]}>
+            {t("tasbeehVoice.teach.nudge")}
+          </ThemedText>
+          <View style={styles.nudgeActions}>
+            {onDismissReteach ? (
+              <Button
+                label={t("tasbeehVoice.teach.nudgeDismiss")}
+                size="sm"
+                variant="ghost"
+                onPress={onDismissReteach}
+                style={styles.nudgeAction}
+              />
+            ) : null}
+            <Button
+              label={t("tasbeehVoice.teach.reteach")}
+              size="sm"
+              variant="secondary"
+              onPress={onReteach}
+              style={styles.nudgeAction}
+            />
+          </View>
+        </View>
+      ) : null}
       {showFocusTip && !compact ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.center}>
           {t("tasbeehVoice.focusTip")}
@@ -273,6 +316,18 @@ const styles = StyleSheet.create({
   },
   center: {
     textAlign: "center",
+  },
+  nudge: {
+    gap: Spacing.one,
+    paddingTop: Spacing.two,
+    borderTopWidth: BorderWidth.hairline,
+  },
+  nudgeActions: {
+    flexDirection: "row",
+    gap: Spacing.two,
+  },
+  nudgeAction: {
+    flex: 1,
   },
   arabic: {
     textAlign: "center",

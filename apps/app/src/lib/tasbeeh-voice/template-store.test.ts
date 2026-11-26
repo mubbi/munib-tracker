@@ -68,4 +68,43 @@ describe("taught voice pattern storage (D48)", () => {
     expect(kept["zikr:0"]).toBeUndefined();
     expect(kept[`zikr:${MAX_TAUGHT_ZIKRS + 2}`]).toBeDefined();
   });
+
+  it("keeps learned templates beside the taught ones, and old data reads unchanged", () => {
+    const learned = [matrix(30, 3), matrix(31, 4)];
+    const stored = encodePattern(
+      { templates: [matrix(40)], threshold: 0.6, learned },
+      "2026-11-26T00:00:00.000Z",
+    );
+    expect(stored.templates).toHaveLength(1);
+    expect(stored.learned).toHaveLength(2);
+    const back = decodePattern(stored);
+    expect(back?.learned).toHaveLength(2);
+    expect(back?.templates).toHaveLength(1);
+    // Data written before adaptive templates (no `learned`) is still a valid pattern.
+    const legacy = { templates: stored.templates, threshold: 0.6, at: stored.at };
+    expect(sanitizeStoredPatterns(toStoredFile({ "zikr:a": legacy }))).toEqual({
+      "zikr:a": legacy,
+    });
+    expect(decodePattern(legacy)?.learned).toBeUndefined();
+  });
+
+  it("drops only a malformed learned list, never the taught pattern", () => {
+    const stored = encodePattern(
+      { templates: [matrix(20)], threshold: 0.5 },
+      "2026-11-24T00:00:00Z",
+    );
+    const broken = { ...stored, learned: [{ frames: "x" }] } as never;
+    expect(sanitizeStoredPatterns(toStoredFile({ "zikr:a": broken }))).toEqual({
+      "zikr:a": stored,
+    });
+    const many = encodePattern(
+      {
+        templates: [matrix(20)],
+        threshold: 0.5,
+        learned: Array.from({ length: 9 }, (_, i) => matrix(10, i)),
+      },
+      "2026-11-24T00:00:00Z",
+    );
+    expect(many.learned).toHaveLength(5);
+  });
 });

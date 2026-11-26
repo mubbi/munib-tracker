@@ -128,6 +128,79 @@ describe("RawatibChipRow", () => {
   });
 });
 
+describe("RawatibChipRow inside a Salah card", () => {
+  it("leads with the Sunnah label and announces checkbox state", async () => {
+    await renderWithTheme(
+      <RawatibChipRow
+        ids={["fajr_before"]}
+        status={{}}
+        rakahs={{}}
+        preset={12}
+        label="Sunnah"
+        onToggle={jest.fn()}
+      />,
+    );
+    expect(screen.getByText("Sunnah")).toBeTruthy();
+    const chip = screen.getByRole("checkbox", { name: "Sunnah before Fajr, 2 rakahs" });
+    expect(chip.props.accessibilityState).toMatchObject({ checked: false });
+  });
+
+  it("mutes not-yet-due rows but keeps them loggable", async () => {
+    const onToggle = jest.fn();
+    await renderWithTheme(
+      <RawatibChipRow
+        ids={["isha_after"]}
+        status={{}}
+        rakahs={{}}
+        preset={12}
+        futureIds={new Set(["isha_after"])}
+        onToggle={onToggle}
+      />,
+    );
+    const chip = screen.getByTestId("rawatib-chip-isha_after");
+    expect(chip.props.accessibilityHint).toBe("Not due yet — you can still log it");
+    await fireEvent.press(chip);
+    expect(onToggle).toHaveBeenCalledWith("isha_after", true);
+  });
+
+  it("speaks the before-the-fard hint on an after-row whose fard isn't marked", async () => {
+    await renderWithTheme(
+      <RawatibChipRow
+        ids={["dhuhr_after"]}
+        status={{}}
+        rakahs={{}}
+        preset={12}
+        beforeFardIds={new Set(["dhuhr_after"])}
+        onToggle={jest.fn()}
+      />,
+    );
+    expect(screen.getByTestId("rawatib-chip-dhuhr_after").props.accessibilityHint).toBe(
+      "Usually prayed after the fard — you can still log it",
+    );
+  });
+
+  it.each([
+    ["travel", "Optional while traveling"],
+    ["sick", "Optional while unwell"],
+  ] as const)("labels a %s row optional inline", async (reason, spoken) => {
+    await renderWithTheme(
+      <RawatibChipRow
+        ids={["maghrib_after"]}
+        status={{}}
+        rakahs={{}}
+        preset={12}
+        label="Sunnah"
+        optional={{ ids: new Set(["maghrib_after"]), reason }}
+        onToggle={jest.fn()}
+      />,
+    );
+    expect(screen.getByText("· Optional")).toBeTruthy();
+    expect(screen.getByTestId("rawatib-chip-maghrib_after").props.accessibilityLabel).toBe(
+      `Sunnah after Maghrib, 2 rakahs, ${spoken}`,
+    );
+  });
+});
+
 describe("RawatibChipRow on TV", () => {
   usePlatform({ isTV: true });
 

@@ -1,9 +1,17 @@
 import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
-import { useRouter } from "expo-router";
+import { useIsFocused, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { type ComponentType, lazy, type ReactNode, Suspense, useState } from "react";
+import {
+  type ComponentType,
+  lazy,
+  type ReactNode,
+  Suspense,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { BackHandler, Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import {
   useAcceptanceHourActive,
   useAcceptanceHourGoalReminder,
@@ -45,6 +53,7 @@ import {
   useFamilyTiesDueCount,
   useMuhasabahHomeCard,
 } from "@/components/self-review/home-cards";
+import { mergeVisibleOrder } from "@/components/settings/ordered-list-editor";
 import { SunnahHabitsSection } from "@/components/sunnah-habits/sunnah-habits-section";
 import { ThemedText } from "@/components/themed-text";
 import {
@@ -53,10 +62,11 @@ import {
 } from "@/components/tracker/goal-reminder-banner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Chip } from "@/components/ui/chip";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
-import { QuickActionGrid } from "@/components/ui/quick-action";
+import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { UmrahHomeCard, useShowUmrahHomeCard } from "@/components/umrah/umrah-home-card";
@@ -75,8 +85,10 @@ import { useReviewRouteTrigger } from "@/features/reviews/hooks/useReviewRouteTr
 import { useReviewStreakTrigger } from "@/features/reviews/hooks/useReviewStreakTrigger";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useWebScreenKeyHandler } from "@/hooks/use-web-key-handler";
 import { useWeeklyReport } from "@/hooks/use-weekly-report";
 import { isFriday } from "@/lib/friday";
+import { triggerHaptic } from "@/lib/haptics";
 import { tTv } from "@/lib/i18n/t-tv";
 import { khatmTodayProgress } from "@/lib/khatm";
 import { filterDestinationsForDevice, useDestinationScope } from "@/lib/library-menu";
@@ -89,6 +101,7 @@ import {
 import { getRamadanInfo } from "@/lib/ramadan";
 import { RAWATIB_HOME_MODULE_ID } from "@/lib/rawatib";
 import { useArrowForward } from "@/lib/rtl";
+import { useSetting } from "@/lib/settings/use-setting";
 import { formatScheduleShare } from "@/lib/share";
 import { isWhiteDay } from "@/lib/white-days";
 import { useToast } from "@/providers/toast-provider";
@@ -367,16 +380,6 @@ export function HomeBelowFold({
           : 4
       : 4;
 
-  // Explore opens on the user's top shortcuts (their saved order) and reveals
-  // the rest on demand, so a long grid doesn't bury the cards below it. TV keeps
-  // the full grid — a mid-list toggle would break D-pad focus flow.
-  const exploreCollapsedCount = quickActionColumns * (quickActionColumns >= 5 ? 2 : 3);
-  const exploreCollapsible = !tv && visibleQuickActions.length > exploreCollapsedCount;
-  const exploreShowsAll = !exploreCollapsible || exploreExpanded;
-  const exploreItems = exploreShowsAll
-    ? visibleQuickActions
-    : visibleQuickActions.slice(0, exploreCollapsedCount);
-
   // P5-05: the goal card's one advancing action sits right under the progress
   // row — "Mark {{salah}}" while a Salah is due, else the checklist.
   const markDue = !isExcused && markPrayer != null && onMarkPrayer != null;
@@ -592,55 +595,14 @@ export function HomeBelowFold({
   );
 
   const quickActionsCard = !hiddenModules.has("quickActions") ? (
-    <Card>
-      <SectionHeader
-        title={t("home.explore")}
-        icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-        actionLabel={t("home.manage")}
-        actionAccessibilityLabel={t("home.manageA11y")}
-        actionIcon={{
-          ios: "slider.horizontal.3",
-          android: "tune",
-          web: "tune",
-        }}
-        onActionPress={() => router.push("/settings/home")}
-      />
-      <View style={styles.quickActions}>
-        <QuickActionGrid items={exploreItems} columns={quickActionColumns} />
-      </View>
-      {exploreCollapsible ? (
-        <PressableScale
-          accessibilityRole="button"
-          accessibilityState={{ expanded: exploreExpanded }}
-          onPress={() => setExploreExpanded((value) => !value)}
-          haptic="light"
-          dimOnPress
-          style={[styles.exploreToggle, { backgroundColor: tokens.accentSoft }]}
-        >
-          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-            {exploreExpanded ? t("reading.showLess") : t("reading.showMore")}
-          </ThemedText>
-          <SymbolView
-            name={
-              exploreExpanded
-                ? { ios: "chevron.up", android: "expand_less", web: "expand_less" }
-                : { ios: "chevron.down", android: "expand_more", web: "expand_more" }
-            }
-            size={14}
-            tintColor={colors.accentText}
-          />
-        </PressableScale>
-      ) : null}
-      {/* Shown once the whole grid is visible, so the count matches what's on screen. */}
-      {exploreShowsAll ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.exploreHint}>
-          {tTv(t, "home.exploreHint", "home.exploreHintTv", {
-            shown: visibleQuickActions.length,
-            total: allQuickActions.length,
-          })}
-        </ThemedText>
-      ) : null}
-    </Card>
+    <ExploreCard
+      allItems={allQuickActions}
+      visibleItems={visibleQuickActions}
+      storedOrder={quickActionOrder?.length ? quickActionOrder : DEFAULT_QUICK_ACTION_ORDER}
+      columns={quickActionColumns}
+      expanded={exploreExpanded}
+      onExpandedChange={setExploreExpanded}
+    />
   ) : null;
 
   const seasonalBannerCard = seasonalBanner ? (
@@ -795,6 +757,166 @@ export function HomeBelowFold({
   );
 }
 
+/**
+ * Home › Explore. Opens on the user's top shortcuts (their saved order) and
+ * reveals the rest on demand, so a long grid doesn't bury the cards below it.
+ * Long-press any tile → edit mode: the grid expands to every shortcut, tiles
+ * wiggle gently, drag to reorder, "−" hides one and an "Add back" row lists the
+ * hidden ones; the header action turns from Manage into Done. Done, tapping a
+ * tile, Escape (web), Back (Android) or leaving the screen exits. Every write
+ * goes through the registered `appearance.quickActions` setting. TV keeps the
+ * full grid (a mid-list toggle would break D-pad focus) and Manage → Settings.
+ */
+function ExploreCard({
+  allItems,
+  visibleItems,
+  storedOrder,
+  columns,
+  expanded,
+  onExpandedChange,
+}: {
+  allItems: QuickActionItem[];
+  visibleItems: QuickActionItem[];
+  storedOrder: readonly string[];
+  columns: number;
+  expanded: boolean;
+  onExpandedChange: (next: boolean) => void;
+}) {
+  const router = useRouter();
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const tv = isTV();
+  const isFocused = useIsFocused();
+  const quickActionsSetting = useSetting<string[] | undefined>("appearance.quickActions");
+  const [editingState, setEditing] = useState(false);
+  const editing = editingState && !tv;
+
+  const exitEditing = useCallback(() => setEditing(false), []);
+  // Leaving the screen ends edit mode.
+  useEffect(() => {
+    if (!isFocused) setEditing(false);
+  }, [isFocused]);
+  // Android Back leaves edit mode before it leaves the screen.
+  useEffect(() => {
+    if (!editing || Platform.OS !== "android") return;
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      setEditing(false);
+      return true;
+    });
+    return () => sub.remove();
+  }, [editing]);
+  useWebScreenKeyHandler((event) => {
+    if (event.key !== "Escape") return undefined;
+    setEditing(false);
+    return true;
+  }, editing);
+
+  const availableIds = allItems.map((item) => item.id);
+  const visibleIds = visibleItems.map((item) => item.id);
+  const hiddenItems = allItems.filter((item) => !visibleIds.includes(item.id));
+  const writeVisible = (nextVisible: string[]) =>
+    void quickActionsSetting.setValue(mergeVisibleOrder(storedOrder, nextVisible, availableIds));
+
+  const collapsedCount = columns * (columns >= 5 ? 2 : 3);
+  const collapsible = !tv && !editing && visibleItems.length > collapsedCount;
+  const showsAll = !collapsible || expanded;
+  const items = editing
+    ? // In edit mode a tap ends editing instead of navigating away.
+      visibleItems.map((item) => ({ ...item, onPress: exitEditing }))
+    : showsAll
+      ? visibleItems
+      : visibleItems.slice(0, collapsedCount);
+
+  return (
+    <Card>
+      <SectionHeader
+        title={t("home.explore")}
+        icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+        actionLabel={editing ? t("common.done") : t("home.manage")}
+        actionAccessibilityLabel={editing ? t("home.exploreDoneA11y") : t("home.manageA11y")}
+        actionIcon={
+          editing
+            ? { ios: "checkmark", android: "check", web: "check" }
+            : { ios: "slider.horizontal.3", android: "tune", web: "tune" }
+        }
+        onActionPress={editing ? exitEditing : () => router.push("/settings/home")}
+      />
+      {editing ? (
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          style={styles.exploreEditHint}
+          accessibilityLiveRegion="polite"
+        >
+          {t("home.exploreEditHint")}
+        </ThemedText>
+      ) : null}
+      <View style={styles.quickActions}>
+        <QuickActionGrid
+          items={items}
+          columns={columns}
+          editing={editing}
+          onReorder={writeVisible}
+          onRemove={(id) => writeVisible(visibleIds.filter((x) => x !== id))}
+          onLongPressItem={() => {
+            triggerHaptic("medium");
+            setEditing(true);
+          }}
+        />
+      </View>
+      {editing && hiddenItems.length > 0 ? (
+        <View style={styles.exploreHidden} testID="explore-hidden">
+          <ThemedText type="smallBold">{t("home.exploreAddBack")}</ThemedText>
+          <View style={styles.exploreHiddenChips}>
+            {hiddenItems.map((item) => (
+              <Chip
+                key={item.id}
+                label={item.label}
+                selected={false}
+                icon={{ ios: "plus", android: "add", web: "add" }}
+                accessibilityLabel={`${t("homeCustomize.add")}: ${item.label}`}
+                onPress={() => writeVisible([...visibleIds, item.id])}
+              />
+            ))}
+          </View>
+        </View>
+      ) : null}
+      {collapsible ? (
+        <PressableScale
+          accessibilityRole="button"
+          accessibilityState={{ expanded }}
+          onPress={() => onExpandedChange(!expanded)}
+          haptic="light"
+          dimOnPress
+          style={[styles.exploreToggle, { backgroundColor: tokens.accentSoft }]}
+        >
+          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+            {expanded ? t("reading.showLess") : t("reading.showMore")}
+          </ThemedText>
+          <SymbolView
+            name={
+              expanded
+                ? { ios: "chevron.up", android: "expand_less", web: "expand_less" }
+                : { ios: "chevron.down", android: "expand_more", web: "expand_more" }
+            }
+            size={14}
+            tintColor={colors.accentText}
+          />
+        </PressableScale>
+      ) : null}
+      {/* Shown once the whole grid is visible, so the count matches what's on screen. */}
+      {showsAll && !editing ? (
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.exploreHint}>
+          {tTv(t, "home.exploreHint", "home.exploreHintTv", {
+            shown: visibleItems.length,
+            total: allItems.length,
+          })}
+        </ThemedText>
+      ) : null}
+    </Card>
+  );
+}
+
 const styles = StyleSheet.create({
   // Tuck into the hero curve without covering the prayer-time row.
   body: { paddingHorizontal: Spacing.four, marginTop: -Spacing.five, gap: Spacing.four, zIndex: 1 },
@@ -871,4 +993,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   exploreHint: { marginTop: Spacing.three, textAlign: "center" },
+  exploreEditHint: { marginTop: Spacing.one },
+  exploreHidden: { marginTop: Spacing.three, gap: Spacing.two },
+  exploreHiddenChips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
 });

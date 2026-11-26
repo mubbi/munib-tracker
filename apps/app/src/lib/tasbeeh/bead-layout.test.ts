@@ -2,18 +2,20 @@ import {
   buildStrand,
   DRAG_DETENT,
   dragStep,
-  edgeOpacity,
+  edgeScale,
   itemKind,
   itemOffset,
   itemProgressFor,
   lapOf,
   MAX_VISIBLE_ITEMS,
+  outwardSide,
   pathPoint,
   projectDrag,
   resolveStrand,
   spacerAfter,
   strandCountEvent,
   strandGeometry,
+  swipeStep,
   threadPath,
   visibleItems,
 } from "./bead-layout";
@@ -176,11 +178,51 @@ describe("geometry", () => {
     expect(d.endsWith("Z")).toBe(true);
   });
 
-  it("fades items at the thread ends", () => {
-    expect(edgeOpacity(-1, 100, 20)).toBe(0);
-    expect(edgeOpacity(5, 100, 20)).toBe(0.5);
-    expect(edgeOpacity(50, 100, 20)).toBe(1);
-    expect(edgeOpacity(101, 100, 20)).toBe(0);
+  it("keeps beads solid at the ends of an open strand: they slide out under the clip", () => {
+    for (const layout of ["arc", "horizontal"] as const) {
+      expect(edgeScale(layout, -1, 100, 20)).toBe(1);
+      expect(edgeScale(layout, 5, 100, 20)).toBe(1);
+      expect(edgeScale(layout, 50, 100, 20)).toBe(1);
+      expect(edgeScale(layout, 115, 100, 20)).toBe(1);
+      // A full pitch past the end it is out of view: not drawn.
+      expect(edgeScale(layout, -21, 100, 20)).toBe(0);
+      expect(edgeScale(layout, 121, 100, 20)).toBe(0);
+    }
+  });
+
+  it("runs open threads to the stage edges, where the stage clips them", () => {
+    const arc = strandGeometry("arc", 272, 272, 23);
+    expect(pathPoint("arc", 0, 272, 272, 23, false).y).toBeCloseTo(0, 0);
+    expect(pathPoint("arc", arc.length, 272, 272, 23, false).y).toBeCloseTo(272, 0);
+    const h = strandGeometry("horizontal", 272, 223, 23);
+    expect(pathPoint("horizontal", 0, 272, 223, 23, false).x).toBeCloseTo(0, 0);
+    expect(pathPoint("horizontal", h.length, 272, 223, 23, false).x).toBeCloseTo(272, 0);
+    // Past the end a bead keeps moving off the stage.
+    expect(pathPoint("arc", -arc.pitch, 272, 272, 23, false).y).toBeLessThan(0);
+  });
+
+  it("shrinks loop beads into the knot instead of fading them", () => {
+    expect(edgeScale("loop", -1, 100, 20)).toBe(0);
+    expect(edgeScale("loop", 5, 100, 20)).toBe(0.5);
+    expect(edgeScale("loop", 50, 100, 20)).toBe(1);
+    expect(edgeScale("loop", 101, 100, 20)).toBe(0);
+  });
+
+  it.each([false, true])("hangs the tassel outward, away from the strand (rtl %s)", (rtl) => {
+    /** Screen direction of local +x × side at the middle of the thread. */
+    const outward = (layout: "arc" | "horizontal" | "loop", height: number) => {
+      const g = strandGeometry(layout, 272, height, 23, rtl);
+      const mid = pathPoint(layout, g.length / 2, g.width, g.height, g.bead, g.rtl);
+      const side = outwardSide(g);
+      return { x: Math.sin(mid.angle) * side, y: -Math.cos(mid.angle) * side, mid };
+    };
+    // Arc hangs on the start side with the readout beside it: the tassel points off the stage edge.
+    expect(outward("arc", 272).x).toBeLessThan(-0.9);
+    // Horizontal sags under the readout: the tassel hangs down.
+    expect(outward("horizontal", 223).y).toBeGreaterThan(0.9);
+    // Loop circles the count: the tassel points away from the centre.
+    const loop = outward("loop", 272);
+    expect(loop.x * (loop.mid.x - 136) + loop.y * (loop.mid.y - 136)).toBeGreaterThan(0);
   });
 });
 
@@ -226,11 +268,37 @@ describe("drag", () => {
     expect(dragStep(state, 400, geometry).count).toBe(false);
   });
 
-  it("never counts or moves backwards", () => {
+  it("never counts or moves backwards when there is nothing to undo", () => {
     const state = { counted: false };
     const step = dragStep(state, -80, geometry);
-    expect(step).toEqual({ fraction: 0, count: false });
+    expect(step).toEqual({ fraction: 0, count: false, undo: false });
     expect(state.counted).toBe(false);
+  });
+
+  it("undoes once when dragged back past the same detent", () => {
+    const state = { counted: false };
+    // Short of the detent: the last bead slides back with the finger.
+    const before = dragStep(state, -(DRAG_DETENT * 24 - 1), geometry, true);
+    expect(before.undo).toBe(false);
+    expect(before.fraction).toBeLessThan(0);
+    expect(dragStep(state, -DRAG_DETENT * 24, geometry, true)).toEqual({
+      fraction: 0,
+      count: false,
+      undo: true,
+    });
+    // Further back in the same gesture: still a single undo.
+    expect(dragStep(state, -400, geometry, true).undo).toBe(false);
+    expect(dragStep(state, 400, geometry, true).count).toBe(false);
+  });
+
+  it("swipe detents: forward counts, backward undoes only when allowed, once per gesture", () => {
+    expect(swipeStep({ counted: false }, 39, 40, true)).toBeNull();
+    expect(swipeStep({ counted: false }, 40, 40, true)).toBe("count");
+    expect(swipeStep({ counted: false }, -40, 40, true)).toBe("undo");
+    expect(swipeStep({ counted: false }, -400, 40, false)).toBeNull();
+    const state = { counted: false };
+    expect(swipeStep(state, -50, 40, true)).toBe("undo");
+    expect(swipeStep(state, 90, 40, true)).toBeNull();
   });
 
   it("lets the bead follow the finger before the detent", () => {

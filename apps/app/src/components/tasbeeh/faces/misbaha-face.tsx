@@ -22,11 +22,12 @@ import { isRTL } from "@/lib/rtl";
 import {
   type DragState,
   dragStep,
-  edgeOpacity,
+  edgeScale,
   itemKind,
   itemOffset,
   itemProgress,
   lapOf,
+  outwardSide,
   pathPoint,
   projectDrag,
   type StrandGeometry,
@@ -55,9 +56,11 @@ const BEAD_RATIO = 0.085;
 /**
  * Sliding-bead misbaha: each count slides the next bead down the thread into
  * the counted group. Tap anywhere (the shell) or drag the next bead past the
- * detent — one gesture counts at most one bead and dragging back never
- * subtracts. Positions come from one `progress` shared value through the
- * worklet math in `bead-layout.ts`; at most ~20 beads are drawn.
+ * detent; dragging the last counted bead back past the same detent undoes it
+ * (never below 0). One gesture acts at most once. Positions come from one
+ * `progress` shared value through the worklet math in `bead-layout.ts`; at most
+ * ~20 beads are drawn, and they stay solid — at the open ends they slide out
+ * under the stage clip instead of fading.
  */
 export default function MisbahaFace({
   count,
@@ -68,6 +71,7 @@ export default function MisbahaFace({
   reduceMotion,
   appearance,
   onCount,
+  onUndo,
   onGestureActive,
   tabletop = false,
   preview = false,
@@ -103,8 +107,8 @@ export default function MisbahaFace({
   useEffect(() => {
     const delta = count - prevCount.current;
     prevCount.current = count;
-    // Undo / reset / big jumps snap: only a single forward step slides.
-    if (reduceMotion || delta !== 1) {
+    // Reset / big jumps snap: a single step (a count, or one undone) slides.
+    if (reduceMotion || Math.abs(delta) !== 1) {
       progress.value = count;
       return;
     }
@@ -115,11 +119,14 @@ export default function MisbahaFace({
   const lap = lapOf(model, count);
   const lapCount = model.loop ? count - lap * model.unitsPerLap : count;
 
-  // Drag: the next bead follows the finger; the detent (60% of a pitch) counts once.
+  // Drag: the next bead follows the finger; the detent (60% of a pitch) counts
+  // once. Dragging back slides the last counted bead back and undoes it.
   const dragState = useRef<DragState>({ counted: false });
+  const canUndo = onUndo != null && count > 0;
   const pan = usePanGesture({
     runOnJS: true,
-    enabled: !preview && !tv && !complete,
+    // At the target a drag can still take the last bead back.
+    enabled: !preview && !tv && (!complete || canUndo),
     minDistance: 6,
     onActivate: () => {
       dragState.current = { counted: false };
@@ -127,12 +134,13 @@ export default function MisbahaFace({
     },
     onUpdate: (event) => {
       const distance = projectDrag(layout, event.translationX, event.translationY, rtl);
-      const step = dragStep(dragState.current, distance, geometry);
-      if (step.count) {
+      const step = dragStep(dragState.current, distance, geometry, canUndo);
+      if (step.count || step.undo) {
         // Hand the visual over to the spring that the new count starts.
         progress.value = progress.value + drag.value;
         drag.value = 0;
-        onCount(strandCountEvent(model, count + 1) === "spacer" ? "spacer" : "bead");
+        if (step.undo) onUndo?.();
+        else onCount(strandCountEvent(model, count + 1) === "spacer" ? "spacer" : "bead");
         return;
       }
       drag.value = step.fraction;
@@ -146,6 +154,7 @@ export default function MisbahaFace({
   });
 
   const threadColor = misbaha.thread.color ?? withAlpha(colors.mutedForeground, 0.55);
+  const tasselSide = useMemo(() => outwardSide(geometry), [geometry]);
   const velvet = misbaha.background === "velvet";
 
   const strand = (
@@ -180,6 +189,7 @@ export default function MisbahaFace({
               kind === "spacer" && spacerRecipe ? beadEdgeColor(spacerRecipe, colors.card) : edge
             }
             tassel={kind === "imam" ? misbaha.tassel : undefined}
+            tasselSide={tasselSide}
             sway={complete && !reduceMotion && !preview}
             threadColor={threadColor}
           />
@@ -249,6 +259,8 @@ type StrandItemProps = {
   recipe: MaterialRecipe;
   edge: string;
   tassel?: TasbeehFaceProps["appearance"]["misbaha"]["tassel"];
+  /** Local ±x side facing away from the strand's curve (`outwardSide`). */
+  tasselSide: 1 | -1;
   sway: boolean;
   threadColor: string;
 };
@@ -265,6 +277,7 @@ const StrandItem = memo(function StrandItem({
   recipe,
   edge,
   tassel,
+  tasselSide,
   sway,
   threadColor,
 }: StrandItemProps) {
@@ -285,44 +298,62 @@ const StrandItem = memo(function StrandItem({
     );
     const s = itemOffset(a, Q, gapStart, gapEnd, pitch);
     const p = pathPoint(layout, s, width, height, bead, rtl);
+    // Solid at every position: hidden only once fully out of view.
+    const scale = edgeScale(layout, s, length, pitch);
     return {
-      opacity: edgeOpacity(s, length, pitch),
+      opacity: scale > 0 ? 1 : 0,
       transform: [
         { translateX: p.x - box.width / 2 },
         { translateY: p.y - box.height / 2 },
         { rotate: `${(p.angle * 180) / Math.PI - 90}deg` },
+        { scale },
       ],
     };
   });
 
   return (
     <Animated.View style={[styles.item, { width: box.width, height: box.height }, style]}>
-      <Bead shape={itemShape} recipe={recipe} size={itemSize} edge={edge} />
+      {/* Under the bead, so the fringe comes out of it rather than lying across it. */}
       {tassel && tassel.style !== "none" ? (
         <Tassel
           style={tassel.style}
           color={tassel.color ?? threadColor}
           size={itemSize}
-          offset={box.height}
+          box={box}
+          side={tasselSide}
+          // The loop only has a bead of room between the thread and the stage edge.
+          length={layout === "loop" ? bead * 1.3 : itemSize * 1.6}
           sway={sway}
         />
       ) : null}
+      <Bead shape={itemShape} recipe={recipe} size={itemSize} edge={edge} />
     </Animated.View>
   );
 });
 
-/** Silk fringe or a metal chain hanging from the imam bead; sways once on completion. */
+/**
+ * Silk fringe or a metal chain hanging from the imam bead, at the end of the
+ * strand: it leaves the bead on the side facing away from the strand's curve
+ * (perpendicular to the thread), so it never lies back over the neighbouring
+ * beads or the count. Sways once on completion.
+ */
 function Tassel({
   style,
   color,
   size,
-  offset,
+  box,
+  side,
+  length,
   sway,
 }: {
   style: "silk" | "chain";
   color: string;
   size: number;
-  offset: number;
+  /** The imam bead's box (the item frame the tassel hangs in). */
+  box: { width: number; height: number };
+  side: 1 | -1;
+  /** From the bead's centre to the fringe ends. */
+  length: number;
   sway: boolean;
 }) {
   const rotate = useSharedValue(0);
@@ -335,13 +366,22 @@ function Tassel({
       withTiming(0, { duration: 420 }),
     );
   }, [sway, rotate]);
-  const swayStyle = useAnimatedStyle(() => ({ transform: [{ rotate: `${rotate.value}deg` }] }));
-  const length = size * 1.6;
+  // The tassel's local "down" turned onto the item's outward ±x axis.
+  const base = side === 1 ? -90 : 90;
+  const swayStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${base + rotate.value}deg` }],
+  }));
   const w = size;
   return (
     <Animated.View
       pointerEvents="none"
-      style={[styles.tassel, { top: offset - 1, width: w, height: length }, swayStyle]}
+      testID="misbaha-tassel"
+      style={[
+        styles.tassel,
+        // Hung from the bead's centre (top-centre origin), under the bead.
+        { left: box.width / 2 - w / 2, top: box.height / 2, width: w, height: length },
+        swayStyle,
+      ]}
     >
       <Svg width={w} height={length}>
         {style === "silk"
@@ -396,7 +436,6 @@ const styles = StyleSheet.create({
   },
   tassel: {
     position: "absolute",
-    alignSelf: "center",
     transformOrigin: "top",
   },
   readout: {

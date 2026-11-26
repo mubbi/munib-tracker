@@ -97,7 +97,8 @@ export function VoiceStepPanel({
         level={voice.level}
         speaking={voice.speaking}
         onDone={() => void voice.finishTeaching()}
-        onCancel={voice.cancelTeaching}
+        onCancel={() => voice.cancelTeaching({ resume: true })}
+        compact
       />
     );
   } else if (busy && voice.zikr) {
@@ -114,8 +115,11 @@ export function VoiceStepPanel({
           flashKey={voice.flashKey}
           stopReason={null}
           showFocusTip={false}
+          suggestReteach={voice.suggestReteach}
+          onReteach={steps.teach}
+          onDismissReteach={voice.dismissReteach}
         />
-        {voice.listening ? (
+        {voice.listening && !voice.suggestReteach ? (
           <PressableScale
             haptic="selection"
             accessibilityRole="button"

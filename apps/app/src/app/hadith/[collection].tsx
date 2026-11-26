@@ -16,7 +16,7 @@ import {
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
-import { ContentActions } from "@/components/content/content-actions";
+import { ContentActions, REPORT_FLAG_ICON } from "@/components/content/content-actions";
 import { ControlLabel, PrefToggle } from "@/components/content/pref-toggle";
 import { ContentReportContext } from "@/components/content-report/content-report-context";
 import { useCollectionName } from "@/components/hadith/collection-name";
@@ -1126,7 +1126,13 @@ function HadithCard({
       },
     });
   if (contentReport) {
-    menuActions.push({ id: "report", title: t("contentReport.reportIssue"), systemIcon: "flag" });
+    menuActions.push({
+      id: "report",
+      title: t("contentReport.reportIssue"),
+      shortTitle: t("contentReport.short"),
+      systemIcon: "flag",
+      icon: REPORT_FLAG_ICON,
+    });
   }
 
   const onMenuAction = (id: string) => {
@@ -1181,7 +1187,13 @@ function HadithCard({
                 contentReport
                   ? {
                       actions: [
-                        { id: "report", title: t("contentReport.reportIssue"), systemIcon: "flag" },
+                        {
+                          id: "report",
+                          title: t("contentReport.reportIssue"),
+                          shortTitle: t("contentReport.short"),
+                          systemIcon: "flag",
+                          icon: REPORT_FLAG_ICON,
+                        },
                       ],
                       onAction: onMenuAction,
                     }

@@ -11,6 +11,16 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
 import { getTtsVoices, type TtsVoice } from "@/lib/tts";
 
+/** One row per voice id — some platforms list a voice twice (duplicate React keys). */
+function dedupeVoices(voices: TtsVoice[]): TtsVoice[] {
+  const seen = new Set<string>();
+  return voices.filter((voice) => {
+    if (!voice.identifier || seen.has(voice.identifier)) return false;
+    seen.add(voice.identifier);
+    return true;
+  });
+}
+
 export type TtsVoiceSheetProps = {
   visible: boolean;
   onClose: () => void;
@@ -49,16 +59,20 @@ export function TtsVoiceSheet({
     let cancelled = false;
     setVoices(null);
     void (async () => {
-      const filtered = await getTtsVoices(lang);
-      if (cancelled) return;
-      if (filtered.length > 0) {
-        setVoices(filtered);
-        return;
+      try {
+        const filtered = await getTtsVoices(lang);
+        if (cancelled) return;
+        if (filtered.length > 0) {
+          setVoices(dedupeVoices(filtered));
+          return;
+        }
+        // Web often has no `ar` voice installed — fall back to every installed
+        // voice so the sheet matches learn listen instead of an empty state.
+        const all = await getTtsVoices();
+        if (!cancelled) setVoices(dedupeVoices(all));
+      } catch {
+        if (!cancelled) setVoices([]);
       }
-      // Web often has no `ar` voice installed — fall back to every installed
-      // voice so the sheet matches learn listen instead of an empty state.
-      const all = await getTtsVoices();
-      if (!cancelled) setVoices(all);
     })();
     return () => {
       cancelled = true;
@@ -69,8 +83,10 @@ export function TtsVoiceSheet({
   const selectedBorder = tv ? tokens.accentBorder : colors.accent;
 
   const pick = (voiceId: string | undefined) => {
-    onSelectVoice(voiceId);
+    // Close first, so playback (and the mini-player mounting) starts while this
+    // modal animates out — not while it is still presented.
     onClose();
+    onSelectVoice(voiceId);
   };
 
   return (

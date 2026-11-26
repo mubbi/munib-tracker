@@ -433,10 +433,17 @@
       "makeUp": {
         "title": "Maalmaha la qabsanayo",
         "body": "Maalmaha laga qabsanayo Ramadaankan: {{days}}. Maalmaha la dhaafay iyo kuwa cudurdaarka, iyo maalmaha caadada ama nifaaska, waxaa la qabsadaa Ramadaanka kadib.",
-        "question": "Ma lagu daraa Qazada soonkaaga? Ka gudub haddii aad horey ugu dartay, ama haddii aad fidyo bixinayso.",
         "add": "Ku dar {{days}} Qazada soonka",
-        "dismiss": "Maya, mahadsanid",
-        "added": "Waxaa lagu daray Qazada soonkaaga."
+        "added": "Waxaa lagu daray Qazada soonkaaga.",
+        "settle": "Sidee baad u gudi doontaa maalmahan?",
+        "optionQaza": "Ku qadee soon (Qaza)",
+        "optionFidyah": "Bixi fidyo halkii",
+        "optionKaffarah": "Kafaaro soon si ula kac ah loo jebiyay",
+        "openFidyah": "Fur caawiyaha fidyada",
+        "openKaffarah": "Fur caawiyaha kafaarada",
+        "alreadyHandled": "Horay ayaa loo dhammeeyay",
+        "sadaqahLink": "Bixi sadaqo tabaruc ah oo ah camal wanaagsan oo dheeraad ah",
+        "sadaqahHint": "Sadaqadu waa ajar dheeraad ah. Ma beddesho qadada soonka ama fidyada."
       }
     },
     "toast": {
@@ -724,7 +731,11 @@
     "markSalah": "Calaamadee {{salah}}",
     "moreForToday": "Wax kale oo maanta ah ({{count}})",
     "moreForToday_one": "Wax kale oo maanta ah ({{count}})",
-    "moreForToday_other": "Wax kale oo maanta ah ({{count}})"
+    "moreForToday_other": "Wax kale oo maanta ah ({{count}})",
+    "exploreDoneA11y": "Dhammee wax ka bedelka gaaba-socodyada",
+    "exploreEditHint": "Jiid si aad dib ugu habayso. Taabo − si aad u qariso gaaba-socod.",
+    "exploreAddBack": "Dib ugu dar",
+    "exploreHideTile": "Qari {{item}}"
   },
   "tracker": {
     "eyebrow": "La soco & diiwaangeli",
@@ -1016,7 +1027,9 @@
     },
     "reorder": {
       "moreFor": "Xulashooyin dheeraad ah oo loogu talagalay {{item}}",
-      "moveToTop": "U guuri xagga sare"
+      "moveToTop": "U guuri xagga sare",
+      "removed": "{{item}} waa la saaray",
+      "hidden": "Qarsoon"
     },
     "sendFeedback": "Dir ra'yi",
     "sendFeedbackDesc": "Soo sheeg dhibaato ama soo jeedi horumarin"
@@ -1157,7 +1170,12 @@
     "preview": "Eegid hore",
     "sampleAction": "Ficil tusaale ah",
     "secondary": "Labaad",
-    "previewMeta": "Habka hadda: {{mode}} · xoogga: {{accent}}"
+    "previewMeta": "Habka hadda: {{mode}} · xoogga: {{accent}}",
+    "moreColors": "Midabyo kale",
+    "moreColorsHint": "Wuxuu furaa midabyada oo dhan iyo xulaha midab gaar ah",
+    "accentAdjusted": "Waa la hagaajiyay si loo akhriyo si fudud mawduucan. Midabkaaga sidaad u dooratay ayaa loo kaydiyay.",
+    "hexLabel": "Koodhka hex",
+    "hexInvalid": "Geli koodh hex ah oo 6 xaraf ah, sida #1E6B4F"
   },
   "bedtime": {
     "eyebrow": "Dejinta",
@@ -1479,7 +1497,10 @@
     "browseAdhkar": "Eeg adhkaarta",
     "favoriteRemoved": "Laga saaray kuwa la kaydiyay",
     "markedNotDone": "Waxaa loo calaamadeeyay in aan la samayn",
-    "countOfTarget": "{{current}} ka mid ah {{target}}"
+    "countOfTarget": "{{current}} ka mid ah {{target}}",
+    "playRecitation": "Daar akhriska: {{title}}",
+    "pauseRecitation": "Hakad akhriska: {{title}}",
+    "closeSearch": "Xir raadinta"
   },
   "zikrCat": {
     "morning": "Adkaarta Subaxa",
@@ -1632,7 +1653,25 @@
     "openInTasbeeh": "Fur Tasbiix",
     "favEmptyDescTv": "Dooro astaanta calaamadda ee salawaat kasta si aad halkan ugu kaydiso.",
     "removedToast": "Laga saaray kuwa la kaydiyay",
-    "loading": "Salaawaadka waa la rarayaa…"
+    "loading": "Salaawaadka waa la rarayaa…",
+    "grade": {
+      "sahih": "Saxiix",
+      "hasan": "Xasan"
+    },
+    "readHadith": "Akhri xadiiska oo dhan",
+    "hideHadith": "Qari xadiiska",
+    "position": "{{current}} ka mid ah {{total}}",
+    "unsave": "Ka saar kuwa la kaydiyay",
+    "notFoundDesc": "Shaygan waxa laga yaabaa in meesha laga saaray.",
+    "sectionSalawat": "Salawaadka uu Nabigu ﷺ baray",
+    "sectionVirtues": "Fadliga salawaadka",
+    "play": "Ciyaar {{title}}",
+    "pause": "Jooji {{title}}",
+    "sourceInfo": "Isha iyo darajada: {{title}}",
+    "sourceTitle": "Xadiiska isha",
+    "detailEyebrow": "Salawaat",
+    "notFoundTitle": "Salawaatka lama helin",
+    "browseAll": "Daalaco dhammaan salawaadka"
   },
   "names": {
     "eyebrow": "Asmaa'ul-Xusnaa",
@@ -1926,6 +1965,16 @@
       "ayahsAmount_other": "{{count}} aayadood",
       "pagesAmount_one": "{{count}} bog",
       "pagesAmount_other": "{{count}} bogag"
+    },
+    "actionLess": "Ka yar",
+    "lessActionsA11y": "Falal ka yar oo loogu talagalay aayadda {{n}}",
+    "passage": {
+      "ayah": "Aayadda {{n}}",
+      "range": "Aayadaha {{from}}–{{to}}",
+      "play": "Ciyaar qaybtan",
+      "playHint": "Waxay ciyaarisaa {{ref}} oo keliya",
+      "openFullSurah": "Ku fur suuradda oo dhan",
+      "openFullSurahHint": "Waxay akhriyaha ku furtaa {{name}} aayadda {{n}}"
     }
   },
   "hadith": {
@@ -2214,7 +2263,9 @@
     "toastSet": "{{prayer}} haray: {{value}}",
     "setExactLabel": "Deji inta haray",
     "rowRemainingA11y": "{{prayer}}, waxaa haray {{value}}",
-    "madeUpButton": "La sameeyay"
+    "madeUpButton": "La sameeyay",
+    "madeUpOneA11y": "Hal {{prayer}} ayaa la qadeeyay",
+    "allMadeUp": "Dhammaan waa la qadeeyay"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -4372,7 +4423,9 @@
     "seeAll": "Arag dhammaan {{total}} ka mid ah {{group}}",
     "showFewer": "Muuji wax yar ee {{group}}",
     "searchEverything": "Ka raadi “{{query}}” meel kasta",
-    "searchEverythingHint": "Qur'aan, xadiis, duco, adhkaar iyo wax kale"
+    "searchEverythingHint": "Qur'aan, xadiis, duco, adhkaar iyo wax kale",
+    "seeAllShort": "Arag dhammaan ({{total}})",
+    "showFewerShort": "Muuji wax yar"
   },
   "offlineData": {
     "title": "Xogta internet la'aanta",
@@ -6578,7 +6631,15 @@
     "padCount": "Taabo si aad u tiriso",
     "loggingPreviousDay": "Waxaa loo diiwaangelinayaa {{date}} — habeenku wuxuu socdaa ilaa Subax.",
     "announceAllDone": "Waa dhammaaday. Xirmadan adhkaar waa dhammaystiran tahay.",
-    "announceRecitedNext": "Waa la akhriyay. Xiga: {{title}}"
+    "announceRecitedNext": "Waa la akhriyay. Xiga: {{title}}",
+    "dock": {
+      "playA11y": "Daar akhriska",
+      "pauseA11y": "Hakad akhriska",
+      "reset": "Dib u deji",
+      "done": "Waa la dhammeeyay",
+      "listening": "Waa dhegaysanayaa",
+      "handsFreeOn": "Tirinta codka waa shidan tahay"
+    }
   },
   "hijriAdjust": {
     "adjust": "Hagaaji",
@@ -6784,8 +6845,9 @@
     },
     "hint": {
       "tap": "Taabo meel kasta oo tiriyaha ah si aad u tiriso",
-      "misbaha": "Taabo, ama jiid kuusha xigta xadhigga",
-      "keyboard": "Guji tiriyaha ama riix Space si aad u tiriso"
+      "keyboard": "Guji tiriyaha ama riix Space si aad u tiriso",
+      "misbahaUndo": "Taabo, ama jiid kuusha xigta — dib u jiid si aad u celiso",
+      "pebbles": "Taabo, ama dhagax yar u rog dhinaca kale — dib u rog si aad u celiso"
     },
     "a11y": {
       "milestone": "{{number}} la tiriyay"
@@ -7569,7 +7631,8 @@
       "voice": "Cod",
       "readingDisplay": "Tarjumaad iyo qoraal-dhawaaq",
       "focusLock": "Diiradda salaadda",
-      "qibla": "Kombaska Qibla"
+      "qibla": "Kombaska Qibla",
+      "extras": "Cimilada iyo Qiblada"
     },
     "setup": {
       "dismiss": "Hadda maya",
@@ -7593,7 +7656,9 @@
     "moreInSettingsHint": "Waxay ku furaysaa xulashooyinkan Dejinta",
     "tvFinanceTools": "Muuji qalabka maaliyadda",
     "tvFinanceToolsSub": "Sakada, sadaqada, fidyada, dhaxalka iyo maaliyadda Islaamka ee TV-gan. Si caadi ah waa dansan yahay si lacagaha ay qarsoodi u ahaadaan.",
-    "surfaceFinance": "Hagaha sakada iyo maaliyadda"
+    "surfaceFinance": "Hagaha sakada iyo maaliyadda",
+    "voiceDefaultShort": "Caadi",
+    "clearAction": "Tirtir"
   },
   "prayerWindow": {
     "preferred": {
@@ -8216,7 +8281,11 @@
       "extra": "Dheeraad",
       "late": "Goor dambe ayaa la gutay",
       "chooseRakahs": "2 ama 4",
-      "chooseRakahsA11y": "Dooro 2 ama 4 rakcadood oo loogu talagalay {{name}}"
+      "chooseRakahsA11y": "Dooro 2 ama 4 rakcadood oo loogu talagalay {{name}}",
+      "rowLabel": "Sunno",
+      "optional": "Ikhtiyaari",
+      "optionalWhileUnwell": "Ikhtiyaari markaad xanuunsan tahay",
+      "notYetHint": "Waqtigeedii weli ma iman — weli waad diiwaangelin kartaa"
     },
     "rakahsSheet": {
       "prompt": "Immisa rakcadood ayaad tukatay?",
@@ -8226,13 +8295,10 @@
       "title": "Sunnooyinka rawaatib",
       "evidence": "Saxiix Muslim 728 · {{count}} rakcadood maalintii",
       "progress": "{{done}} / {{total}} rakcadood",
-      "hint": "Taabo badhanka hoostiisa Salaad kasta si aad u diiwaangeliso. Riix muddo badhanka 2 / 4 si aad u beddesho rakcadaha.",
       "hintTv": "Dooro badhanka hoostiisa Salaad kasta si aad u diiwaangeliso.",
       "sickHint": "Markaad xanuunsan tahay waxba lagaama filayo — diiwaangeli waxaad awooddo inaad tukato.",
       "travelHint": "Safarka, sunnada Subax waa la ilaaliyaa; kuwa kale waa ikhtiyaari.",
       "optionalWhileTravelling": "Ikhtiyaari safarka",
-      "showAll": "Muuji dhammaan rawaatibta maanta",
-      "showDue": "Muuji kuwa hadda waqtigoodu yahay oo keliya",
       "openHub": "Caddeyn iyo dejin",
       "askBody": "Ma la socotaa sunnooyinka la xoojiyay ee ka hor iyo ka dib fardiga? Dooro 12 rakcadood (4 ka hor Duhur) ama 10 (2 ka hor Duhur). Waad beddeli kartaa wakhti kasta.",
       "askTwelve": "12 rakcadood",
@@ -8254,7 +8320,7 @@
       "title": "Sunnooyinka rawaatib",
       "subtitle": "Sunnooyinka la xoojiyay ee ka hor iyo ka dib fardiga",
       "todayTitle": "Maanta",
-      "todayHint": "Ku diiwaangeli badhamada hoostooda Salaad kasta ee raadiyaha.",
+      "todayHint": "Halkan ku diiwaangeli, ama safka Sunnada ee kaarka Salaad kasta ee raadiyaha.",
       "off": "La socodka rawaatib waa dansan yahay. Hoos ka shid.",
       "openTracker": "Fur raadiyaha",
       "openStats": "Eeg tirakoobka",
@@ -9088,7 +9154,7 @@
       },
       "salawat": {
         "title": "Salawaat Nabiga ﷺ",
-        "hint": "Tiradaada maalinlaha ah"
+        "hint": "Waxaa lagu tiriyaa tasbeeh-ka, ama adigu calaamadee"
       },
       "salam_home": {
         "title": "Salaan marka aad gurigaaga gasho",
@@ -9119,7 +9185,31 @@
         "hint": "Laga calaamadeeyay adkaartaada"
       }
     },
-    "habitRemoved": "{{title}} waa la saaray"
+    "habitRemoved": "{{title}} waa la saaray",
+    "todayCount": "Maanta · {{done}} ka mid ah {{total}}",
+    "todayRingA11y": "Caadooyinka Sunnada ee maanta",
+    "editList": "Wax ka beddel liiska",
+    "myHabits": "Caadooyinkayga ({{number}}/{{max}})",
+    "addMore": "Ku dar kuwo kale",
+    "groups": {
+      "morningEvening": "Subax iyo fiid",
+      "day": "Maalinta oo dhan",
+      "bedtime": "Hurdada ka hor"
+    },
+    "principleShort": "Camalka Alle ugu jecel yahay waa kan joogtada ah, xitaa haddii uu yar yahay.",
+    "evidenceLink": "Daliil",
+    "spotlightLine": "Maanta isku day: {{title}}",
+    "week": {
+      "title": "Toddobaadkan",
+      "dayA11y": "{{day}}: {{done}} ka mid ah {{total}}"
+    },
+    "detail": {
+      "history": "30-kii maalmood ee u dambeeyay",
+      "target": "Hadafka maalinlaha ah",
+      "open": "Fur",
+      "remove": "Ka saar caadooyinkayga"
+    },
+    "detailA11y": "{{title}}, faahfaahin"
   },
   "quranRoots": {
     "title": "Raadinta xididka Carabiga",
@@ -9714,8 +9804,9 @@
       "calibrateSub": "Weedh 5 jeer dheh si tirintu codkaaga ugu habboonaato. Waxaa lagu kaydiyaa qalabkan oo kaliya.",
       "modelStorageSub": "Dhegeystaha qalabka ku jira waxaa la wadaagaa tababarka Qur'aanka",
       "forgetTaught": "Iska illow codadka dikriyada la baray",
-      "forgetTaughtSub": "Cod lama duubo, lamana diro. Haddii aad qalabka bariso dikri, qaab cod gaaban (ma aha duubis) ayaa ku hadhaya qalabkan. Tani dhammaantood way tirtiraysaa.",
-      "forgetTaughtConfirm": "Ma la illaawayaa qaab kasta oo cod ah oo dikri la baray oo ku jira qalabkan? Waad dib u bari kartaa wakhti kasta."
+      "forgetTaughtShort": "Wuxuu tirtiraa qaababka codka dhikriga ee lagu baray qalabkan",
+      "forgetTaughtConfirmPrivacy": "Ma la illaawaa dhammaan qaababka codka dhikriga ee lagu baray qalabkan? Weligood cod lama duubo lamana diro — qaab kastaa waa koox yar oo tirooyin ah, ma aha duub. Waad dib u bari kartaa wakhti kasta.",
+      "forgetAction": "Illow"
     },
     "announce": {
       "title": "Ogeysiisyada tirinta tasbiixda",
@@ -9736,8 +9827,8 @@
     },
     "teach": {
       "title": "Hal mar dheh si dikrigan oo keliya loo tiriyo",
-      "explain": "Dheh {{phrase}} ilaa 3 jeer, adigoo hakad ku dhex samaynaya. Qaab cod gaaban (ma aha duubis) ayaa ku hadhaya qalabkan si dikrigan oo keliya loo tiriyo.",
-      "explainOther": "Dheh dikrigaaga ilaa 3 jeer, adigoo hakad ku dhex samaynaya. Kal-fadhigan, ku celintiisa oo keliya ayaa la tirin doonaa.",
+      "explain": "Dheh {{phrase}} 3 jeer, adigoo hakad ku dhex samaynaya. Qaab cod gaaban (ma aha duubis) ayaa ku hadhaya qalabkan si dikrigan oo keliya loo tiriyo.",
+      "explainOther": "Dheh dikrigaaga 3 jeer, adigoo hakad ku dhex samaynaya. Kal-fadhigan, ku celintiisa oo keliya ayaa la tirin doonaa.",
       "start": "Bar adigoo dhahaya",
       "skip": "Ka bood — tiri hakad kasta",
       "sayNow": "Hadda dheh {{phrase}}",
@@ -9748,12 +9839,14 @@
       "issueShort": "Taasi aad bay u gaabnayd. Dheh dikriga oo dhan.",
       "issueLong": "Taasi aad bay u dheeraatay. Dheh dikriga hal mar, kadibna haki.",
       "issueDifferent": "Taasi way ka duwanayd. Dheh isla dikrigii mar kale.",
-      "done": "Waa dhammaatay — bilow tirinta",
       "cancel": "Baaji",
       "reteach": "Dib u bar",
       "taughtReady": "Lagu baray qalabkan.",
       "countsTaught": "Wuxuu tiriyaa oo keliya dikriga aad barisay — taabo si aad u saxdo tiro kasta oo khaldan.",
-      "countsPauses": "Wuxuu tiriyaa hakad kasta — saxnaan yar. Taabo si aad u saxdo tiro kasta oo khaldan."
+      "countsPauses": "Wuxuu tiriyaa hakad kasta — saxnaan yar. Taabo si aad u saxdo tiro kasta oo khaldan.",
+      "doneShort": "Dhammaad",
+      "nudge": "Tirinno dhowr ah ayaa u baahday sixid. Dib ma u bartaa si sax ah u noqoto?",
+      "nudgeDismiss": "Hadda maya"
     }
   },
   "masjids": {
@@ -10001,9 +10094,27 @@
         "title": "Dooro app-yada",
         "body": "Dooro app-yada ugu badan ee ku mashquuliya.",
         "pick": "Dooro app-yada",
-        "count": "App-yada la doortay: {{count}}",
         "empty": "App lama helin.",
-        "save": "Kaydi doorashada"
+        "save": "Kaydi doorashada",
+        "noneYet": "Weli lama dooran wax barnaamij ah.",
+        "selectedItemsHint": "Barnaamijyada, qaybaha iyo bogagga aad dooratay. Qayb dhan waxaa loo tiriyaa mid.",
+        "edit": "Wax ka beddel",
+        "editHint": "Beddel barnaamijyada la hakinayo",
+        "always": {
+          "title": "Had iyo jeer la heli karo",
+          "phone": "Taleefan",
+          "phoneHint": "Wicitaannadu had iyo jeer way soo dhacaan.",
+          "messages": "Fariimaha",
+          "messagesHint": "Fariimuhu weli way imanayaan.",
+          "emergency": "Wicitaannada degdegga",
+          "emergencyHint": "Wicitaanka degdeggu had iyo jeer wuu shaqeeyaa.",
+          "munib": "Munib Tracker",
+          "munibHint": "Si aad u calaamadeyso salaaddaada."
+        },
+        "selectedItems_one": "{{count}} shay ayaa la doortay",
+        "selectedItems_other": "{{count}} shay ayaa la doortay",
+        "selectedApps_one": "{{count}} barnaamij ayaa la doortay",
+        "selectedApps_other": "{{count}} barnaamij ayaa la doortay"
       },
       "timing": {
         "title": "Salaadda, waqtiga iyo habka"
@@ -10012,11 +10123,20 @@
         "title": "Isku day",
         "body": "Bilow waqti tijaabo ah oo 1 daqiiqo ah si aad u aragto waxa dhaca.",
         "start": "Bilow tijaabo 1 daqiiqo ah",
-        "running": "Tijaabadu way socotaa: fur mid ka mid ah app-yada aad dooratay."
+        "running": "Tijaabadu way socotaa: fur mid ka mid ah app-yada aad dooratay.",
+        "callsNote": "Inta tijaabadu socoto iyo xilli kasta oo salaadeed, wicitaannada iyo fariimuhu way imanayaan."
       },
       "confirmAlert": "Digniinta “Taabo si aad u xaqiijiso”",
       "confirmAlertHint": "Markaad taabato “Waan tukaday” gaashaanka, ogeysiis ayaa furaya Munib Tracker si aad u calaamadeyso Salaaddaada.",
-      "progressLabel": "Horumarka dejinta"
+      "progressLabel": "Horumarka dejinta",
+      "stepNamed": "Tallaabada {{current}} ee {{total}} · {{name}}",
+      "stepName": {
+        "explain": "Hordhac",
+        "permissions": "Oggolaanshaha",
+        "apps": "Barnaamijyada",
+        "timing": "Waqtiga",
+        "test": "Tijaabo"
+      }
     },
     "evidence": {
       "title": "Maxaa yeelay",
@@ -10138,6 +10258,17 @@
       "kwKids": "habka carruurta, qalabka ilmaha, xiriiri, qr, kids mode",
       "familyDigest": "Soo koobidda qoyska ee toddobaadlaha",
       "familyDigestSub": "Toddobaadkii mar, maalinta Jimcaha: inta Salaad ee carruurtaadu diiwaangeliyeen. Tirooyin oo kaliya, magacyo ma jiraan."
+    },
+    "session": {
+      "title": "Tani waxay u baahan tahay xiriir",
+      "body": "Goobaha waxay horumarka la wadaagaan dadka aad casuunto, sidaa darteed waxaa loo baahan yahay xiriir gaaban oo server-ka ah. Khatmiga kooxda looma baahna akoon.",
+      "connecting": "Waa la xiriirayaa…",
+      "error": {
+        "offline": "Kuma xidhnid internetka. Ku xidh internetka, kadib isku day mar kale.",
+        "network": "Lama gaari karin server-ka. Hubi xiriirkaaga oo isku day mar kale.",
+        "server": "Server-ku hadda ma bilaabi karin fadhigaaga. Fadlan isku day mar kale wax yar kadib.",
+        "rateLimited": "Isku dayo badan ayaa ka yimid qalabkan. Sug dhowr daqiiqo, kadib isku day mar kale."
+      }
     }
   },
   "circleMembership": {
@@ -10264,7 +10395,6 @@
     "loading": "Waa la soo rarayaa…",
     "loadError": "Kooxdan lama soo rari karin. Hubi xiriirkaaga oo isku day mar kale.",
     "retry": "Isku day mar kale",
-    "noSession": "Fur app-ka hal mar adigoo khadka ku jira si aad u bilowdo ama ugu biirto khatmi koox.",
     "startGroup": "Bilow khatmi koox",
     "haveInvite": "Ma haysaa koodh casuumaad? Ku biir koox",
     "list": {
@@ -10431,6 +10561,10 @@
         "title": "Ma qeybisaa qaybaha hadhay?",
         "body": "Qaybaha hadhay hadda waxaa loo xilsaarayaa xubnaha."
       }
+    },
+    "session": {
+      "title": "Khatmiga kooxdu wuxuu u baahan yahay xiriir",
+      "body": "Khatmiga kooxdu wuxuu shabakad juz oo keliya la wadaagaa qof kasta oo kooxda ku jira, sidaa darteed wuxuu u baahan yahay xiriir gaaban oo server-ka ah. Uma baahnid akoon ama gelid."
     }
   },
   "coach": {
@@ -11537,6 +11671,13 @@
     "shortcut": {
       "title": "Ku hel akhris",
       "subtitle": "Akhri dhowr eray si aad aayadda u hesho, qalabkan dushiisa"
+    },
+    "live": {
+      "hearing": "Waan ku maqlaynaa…",
+      "hearingHint": "Sii wad akhriska. Aayadda halkan ayay ka muuqan doontaa marka la aqoonsado.",
+      "bestMatch": "Isku-ekaanta ugu dhow ilaa hadda",
+      "level": "Heerka makarafoonka",
+      "ref": "{{name}} · Aayadda {{ayah}}"
     }
   },
   "handsFreeZikr2": {
@@ -11705,7 +11846,8 @@
         "name": "Fallaar weyn",
         "desc": "Hal fallaar oo weyn oo saaran waji kala-duwanaansho sare leh — kan ugu fudud in hal mar la akhriyo."
       }
-    }
+    },
+    "styleButton": "Qaab"
   },
   "appIcon": {
     "title": "Astaanta app-ka",
@@ -11732,5 +11874,12 @@
     "minutes": "{{min}}d",
     "hours": "{{hours}}s",
     "hoursMinutes": "{{hours}}s {{min}}d"
+  },
+  "sortable": {
+    "movedTo": "{{item}} waxaa loo raray booska {{position}} ee {{total}}",
+    "moveEarlier": "Hore u rar",
+    "moveLater": "Gadaal u rar",
+    "handleLabel": "Dib u habee {{item}}",
+    "handleHint": "Jiid si aad u rarto, ama riix furayaasha fallaarta kor iyo hoos"
   }
 }

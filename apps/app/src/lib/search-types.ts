@@ -24,6 +24,7 @@ export type SearchHref =
   | "/dua/detail/[id]"
   | "/zikr/detail/[id]"
   | "/duroods"
+  | "/duroods/[id]"
   | "/names-of-allah"
   | "/jannah/[topic]"
   | "/jahannam/[topic]"

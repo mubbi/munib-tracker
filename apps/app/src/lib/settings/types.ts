@@ -80,6 +80,11 @@ export type SettingControl<V> =
       confirmKey?: string;
       /** Past-tense result toast (D-38); defaults to the generic "Done". */
       doneKey?: string;
+      /**
+       * Short verb for a destructive row's trailing affordance and its confirm
+       * button ("Clear", "Forget"); a trash glyph + "Confirm" when unset.
+       */
+      actionLabelKey?: string;
     }
   /** Accent picker, location picker, adhan style… rendered full-width in the section. */
   | { kind: "custom"; Component: ComponentType<{ settingId: SettingId }> };

@@ -103,6 +103,7 @@ export const PRIVACY_SETTINGS: AnySettingDef[] = [
       run: clearDeviceHistory,
       destructive: true,
       confirmKey: "settingsPanel.clearHistoryConfirm",
+      actionLabelKey: "settingsPanel.clearAction",
       doneKey: "settings.done.history",
     },
   }),

@@ -202,6 +202,11 @@ export interface HabitDayProgress {
   done: boolean;
   /** Set when the value came from another store ("from Adhkar" label). */
   derivedFrom?: SunnahHabitSource;
+  /**
+   * A linked habit that may also be ticked by hand ({@link SunnahHabitDef.manualTick}):
+   * `true` when the stored tick (not the source) makes it done, so the row can untick it.
+   */
+  ticked?: boolean;
 }
 
 function derivedValue(
@@ -253,6 +258,18 @@ export function habitProgress(
     const done = derived.done || stored >= 1;
     return { value: done ? 1 : 0, target: 1, done, ...(derived.done && { derivedFrom: source }) };
   }
+  if (habit.def?.manualTick) {
+    // Tasbeeh-linked but tickable (salawat away from the tasbeeh). A tick stores the
+    // target; a stored stepper value from before the link (â‰¥ target) still counts.
+    const ticked = stored >= habit.target;
+    return {
+      value: derived.value,
+      target: habit.target,
+      done: ticked || derived.value >= habit.target,
+      derivedFrom: source,
+      ...(ticked && { ticked }),
+    };
+  }
   // Tasbeeh-linked count (istighfar): only the tasbeeh count, never stored here.
   return {
     value: derived.value,
@@ -303,6 +320,35 @@ export function dayProgressSummary(
   const habits = selectedHabits(state);
   const done = habits.filter((h) => habitProgress(state, h, date, ctx).done).length;
   return { done, total: habits.length };
+}
+
+/** Days in the habits screen's "This week" strip. */
+export const WEEK_STRIP_DAYS = 7;
+
+/** Oldest → newest per-day done / total for the last `days` days ending `endDate`. */
+export function weekSummary(
+  state: SunnahHabitsState,
+  endDate: string,
+  ctx: HabitContext,
+  days = WEEK_STRIP_DAYS,
+): { date: string; done: number; total: number }[] {
+  const out: { date: string; done: number; total: number }[] = [];
+  for (let offset = days - 1; offset >= 0; offset -= 1) {
+    const date = addDays(endDate, -offset);
+    out.push({ date, ...dayProgressSummary(state, date, ctx) });
+  }
+  return out;
+}
+
+/** Today's habits with the done ones settled at the bottom (order kept within each part). */
+export function habitsDoneLast(
+  state: SunnahHabitsState,
+  date: string,
+  ctx: HabitContext,
+): ResolvedHabit[] {
+  const habits = selectedHabits(state);
+  const done = habits.map((h) => habitProgress(state, h, date, ctx).done);
+  return [...habits.filter((_, i) => !done[i]), ...habits.filter((_, i) => done[i])];
 }
 
 // ── spotlight ────────────────────────────────────────────────────────────────
@@ -371,6 +417,22 @@ export function moveHabit(
   return touchList({ ...state, selected }, now);
 }
 
+/**
+ * Reorders the list to `ids` — a permutation of `selected` (anything else is
+ * ignored, so a stale editor can't add or drop habits through a reorder).
+ */
+export function reorderHabits(
+  state: SunnahHabitsState,
+  ids: readonly string[],
+  now = new Date(),
+): SunnahHabitsState {
+  if (ids.length !== state.selected.length) return state;
+  const current = new Set(state.selected);
+  if (new Set(ids).size !== ids.length || ids.some((id) => !current.has(id))) return state;
+  if (ids.every((id, i) => state.selected[i] === id)) return state;
+  return touchList({ ...state, selected: [...ids] }, now);
+}
+
 export function addCustomHabit(
   state: SunnahHabitsState,
   input: { id: string; title: string; target?: number },
@@ -407,7 +469,7 @@ export function setHabitValue(
   now = new Date(),
 ): SunnahHabitsState {
   const def = getSunnahHabit(id);
-  if (def?.kind === "linked") return state;
+  if (def?.kind === "linked" && !def.manualTick) return state;
   const clean = Math.max(0, Math.round(value));
   const next = writeStamped(
     { values: state.checks, stamps: state.checkStamps ?? {} },
@@ -425,6 +487,11 @@ export function toggleHabit(
   now = new Date(),
 ): SunnahHabitsState {
   const current = state.checks[habitCheckKey(id, date)] ?? 0;
+  if (getSunnahHabit(id)?.manualTick) {
+    // A tickable linked count habit: a tick stores today's target (done), an untick clears it.
+    const target = resolveHabit(state, id)?.target ?? 1;
+    return setHabitValue(state, id, date, current >= target ? 0 : target, now);
+  }
   return setHabitValue(state, id, date, current >= 1 ? 0 : 1, now);
 }
 

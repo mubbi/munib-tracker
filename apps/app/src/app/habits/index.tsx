@@ -1,48 +1,47 @@
 import {
   DEFAULT_SUNNAH_HABIT_SELECTION,
   getSunnahHabit,
-  SUNNAH_HABITS,
   SUNNAH_HABITS_PRINCIPLE_REF,
 } from "@munib-tracker/shared/content/sunnah-habits";
-import { SUNNAH_HABITS_MAX_SELECTED, type SunnahHabitsState } from "@munib-tracker/shared/types";
+import type { SunnahHabitsState } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
-import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { EvidenceLine } from "@/components/seasonal/evidence-line";
 import { ToggleRow } from "@/components/seasonal/toggle-row";
 import { Seo } from "@/components/seo/seo";
+import { HabitDetailSheet } from "@/components/sunnah-habits/habit-detail-sheet";
 import { HabitRow, habitTitle } from "@/components/sunnah-habits/habit-row";
+import { HabitsWeekStrip } from "@/components/sunnah-habits/habits-week-strip";
+import { ManageHabitsSheet } from "@/components/sunnah-habits/manage-habits-sheet";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
-import { Pill } from "@/components/ui/pill";
+import { PressableScale } from "@/components/ui/pressable-scale";
+import { ProgressRing } from "@/components/ui/progress-ring";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Stepper } from "@/components/ui/stepper";
-import { TextField } from "@/components/ui/text-field";
 import { TvUndoButton } from "@/components/ui/tv-undo-button";
-import { Radius, Spacing } from "@/constants/theme";
+import { Control, Radius, Spacing } from "@/constants/theme";
 import { useHabitContext } from "@/hooks/use-habit-context";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useUndoToast } from "@/hooks/use-undo-toast";
 import { goBackOrReplace } from "@/lib/navigation";
-import { isTV } from "@/lib/platform/is-tv";
 import { routeMetadata } from "@/lib/seo/route-metadata";
 import { useSetting } from "@/lib/settings/use-setting";
 import {
-  CUSTOM_TITLE_MAX,
   canAddHabit,
   dayProgressSummary,
+  habitsDoneLast,
   mostConsistentHabit,
   pickSpotlight,
   resolveHabit,
-  selectedHabits,
+  weekSummary,
 } from "@/lib/sunnah-habits";
 import { habitIcon, SUNNAH_HABITS_ICON } from "@/lib/sunnah-habits-ui";
 import {
@@ -54,14 +53,7 @@ import {
 } from "@/stores/sunnah-habits-store";
 import { useDayExcused, useTrackerDate } from "@/stores/tracker-store";
 
-const UP = { ios: "chevron.up", android: "expand_less", web: "expand_less" } as const;
-const DOWN = { ios: "chevron.down", android: "expand_more", web: "expand_more" } as const;
-const REMOVE = {
-  ios: "minus.circle",
-  android: "remove_circle_outline",
-  web: "remove_circle_outline",
-} as const;
-const ADD = { ios: "plus.circle.fill", android: "add_circle", web: "add_circle" } as const;
+const EDIT = { ios: "slider.horizontal.3", android: "tune", web: "tune" } as const;
 
 /**
  * Undo for a removed habit (P5-08 / B-85): puts it back at its old position and
@@ -86,10 +78,15 @@ function restoreHabit(snapshot: SunnahHabitsState, id: string) {
   };
 }
 
+/**
+ * Sunnah habits (NF-3.5): a calm checklist for today (done habits settle at the
+ * bottom), one "This week" strip, a one-line spotlight, and the list managed in
+ * an "Edit list" sheet. Evidence and 30-day history live in each habit's sheet.
+ */
 export default function SunnahHabitsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
   useEnsureSunnahHabitsLoaded();
   const ready = useSunnahHabitsReady();
   const state = useSunnahHabits();
@@ -98,10 +95,10 @@ export default function SunnahHabitsScreen() {
   const date = useTrackerDate();
   const excused = useDayExcused();
   const habitsReminder = useSetting<boolean>("notifications.sunnah.habits");
-  const [editing, setEditing] = useState(false);
-  const [customTitle, setCustomTitle] = useState("");
+  const [detailId, setDetailId] = useState<string | null>(null);
+  const [manageOpen, setManageOpen] = useState(false);
+  const [showPrincipleEvidence, setShowPrincipleEvidence] = useState(false);
   const undoToast = useUndoToast();
-  const tv = isTV();
 
   /** Single-item removal: act now, offer Undo (no confirm dialog). */
   const removeHabit = (id: string, title: string) => {
@@ -115,13 +112,14 @@ export default function SunnahHabitsScreen() {
     });
   };
 
-  const habits = selectedHabits(state);
+  const habits = habitsDoneLast(state, date, ctx);
   const summary = dayProgressSummary(state, date, ctx);
+  const week = useMemo(() => weekSummary(state, date, ctx), [state, date, ctx]);
   const best = useMemo(() => mostConsistentHabit(state, date, ctx), [state, date, ctx]);
+  const bestHabit = best ? resolveHabit(state, best.id) : null;
   const spotlightId = ready ? pickSpotlight(state, date) : null;
   const spotlight = spotlightId ? getSunnahHabit(spotlightId) : undefined;
   const isNew = ready && habits.length === 0 && !state.listUpdatedAt;
-  const unselected = SUNNAH_HABITS.filter((h) => !state.selected.includes(h.id));
 
   // Record the spotlight once per day so it rotates and respects the 14-day cooldown.
   useEffect(() => {
@@ -129,13 +127,6 @@ export default function SunnahHabitsScreen() {
       void actions.markSpotlightSeen(spotlightId, date);
     }
   }, [actions, date, spotlightId, state.spotlightSeen]);
-
-  const addCustom = () => {
-    const title = customTitle.trim();
-    if (!title) return;
-    void actions.addCustom(title);
-    setCustomTitle("");
-  };
 
   return (
     <ScreenLayout
@@ -148,8 +139,25 @@ export default function SunnahHabitsScreen() {
       <TvUndoButton controller={undoToast} preferredFocus />
       <Seo path="/habits" />
       <Stagger>
-        <JannahCallout tone="accent">{t("sunnahHabits.principle")}</JannahCallout>
-        <EvidenceLine refs={[SUNNAH_HABITS_PRINCIPLE_REF]} />
+        <View style={styles.principle}>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.flex}>
+            {t("sunnahHabits.principleShort")}
+          </ThemedText>
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityState={{ expanded: showPrincipleEvidence }}
+            accessibilityLabel={t("sunnahHabits.evidenceLink")}
+            onPress={() => setShowPrincipleEvidence((v) => !v)}
+            haptic="selection"
+            hitSlop={Spacing.one}
+            style={styles.link}
+          >
+            <ThemedText type="caption" weight="semibold" style={{ color: tokens.accentOnSoft }}>
+              {t("sunnahHabits.evidenceLink")}
+            </ThemedText>
+          </PressableScale>
+        </View>
+        {showPrincipleEvidence ? <EvidenceLine refs={[SUNNAH_HABITS_PRINCIPLE_REF]} /> : null}
 
         {isNew ? (
           <Card>
@@ -169,32 +177,31 @@ export default function SunnahHabitsScreen() {
           </Card>
         ) : null}
 
-        {habits.length > 0 ? (
-          <Card>
-            <SectionHeader
-              title={t("sunnahHabits.today")}
-              icon={SUNNAH_HABITS_ICON}
-              badge={
-                <Pill
-                  label={t("tracker.sectionProgress", {
-                    completed: summary.done,
-                    total: summary.total,
-                  })}
-                  compact
-                />
-              }
-            />
-            {best ? (
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.gapTop}>
-                {t("sunnahHabits.mostConsistent", {
-                  title: habitTitle(
-                    t,
-                    resolveHabit(state, best.id) ?? { id: best.id, target: 1, isCount: false },
-                  ),
-                  days: best.days,
-                })}
-              </ThemedText>
+        <Card>
+          <View style={styles.todayHeader}>
+            {habits.length > 0 ? (
+              <ProgressRing
+                progress={summary.total ? summary.done / summary.total : 0}
+                accessibilityLabel={t("sunnahHabits.todayRingA11y")}
+                size={40}
+                stroke={4}
+                valueFontSize={10}
+              />
             ) : null}
+            <ThemedText type="subtitle" role="heading" style={styles.flex}>
+              {habits.length > 0
+                ? t("sunnahHabits.todayCount", { done: summary.done, total: summary.total })
+                : t("sunnahHabits.today")}
+            </ThemedText>
+            <Button
+              label={t("sunnahHabits.editList")}
+              icon={EDIT}
+              variant="ghost"
+              size="sm"
+              onPress={() => setManageOpen(true)}
+            />
+          </View>
+          {habits.length > 0 ? (
             <View style={styles.rows}>
               {habits.map((habit) => (
                 <HabitRow
@@ -203,163 +210,98 @@ export default function SunnahHabitsScreen() {
                   habit={habit}
                   date={date}
                   ctx={ctx}
-                  showDots
-                  showEvidence
                   excusedReason={excused}
-                  highlight={best?.id === habit.id}
+                  onOpenDetail={() => setDetailId(habit.id)}
                 />
               ))}
             </View>
+          ) : !isNew && ready ? (
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.gapTop}>
-              {t("sunnahHabits.dotsHint")}
+              {t("sunnahHabits.emptyHint")}
             </ThemedText>
-          </Card>
-        ) : null}
-
-        {spotlight ? (
-          <Card>
-            <SectionHeader
-              title={t("sunnahHabits.spotlightTitle")}
-              icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-            />
-            <View style={[styles.spotlight, styles.gapTop]}>
-              <IconWell icon={habitIcon(spotlight.id)} size={18} well={40} radius={Radius.md} />
-              <View style={styles.flex}>
-                <ThemedText type="smallBold">
-                  {t(`sunnahHabits.items.${spotlight.id}.title`)}
-                </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t(`sunnahHabits.items.${spotlight.id}.hint`)}
-                </ThemedText>
-                <EvidenceLine refs={spotlight.refs} />
-              </View>
-            </View>
-            <View style={styles.gapTop}>
-              <Button
-                label={t("sunnahHabits.addToMine")}
-                variant="secondary"
-                disabled={!canAddHabit(state)}
-                onPress={() => void actions.add(spotlight.id)}
-                fullWidth
-              />
-            </View>
-          </Card>
-        ) : null}
-
-        <Card>
-          <SectionHeader
-            title={t("sunnahHabits.manageTitle")}
-            subtitle={t("sunnahHabits.manageSubtitle", { max: SUNNAH_HABITS_MAX_SELECTED })}
-            icon={{ ios: "slider.horizontal.3", android: "tune", web: "tune" }}
-            actionLabel={editing ? t("sunnahHabits.doneEditing") : t("sunnahHabits.edit")}
-            onActionPress={() => setEditing((v) => !v)}
-          />
-          {editing ? (
-            <View style={styles.rows}>
-              {habits.map((habit, index) => (
-                <View key={habit.id} style={styles.editRow}>
-                  <ThemedText type="small" style={styles.flex} numberOfLines={2}>
-                    {habitTitle(t, habit)}
-                  </ThemedText>
-                  {habit.def?.userTarget ? (
-                    <Stepper
-                      value={habit.target}
-                      min={1}
-                      size="sm"
-                      label={t("sunnahHabits.targetA11y", { title: habitTitle(t, habit) })}
-                      onIncrement={() => void actions.setTarget(habit.id, habit.target + 1)}
-                      onDecrement={() =>
-                        void actions.setTarget(habit.id, Math.max(1, habit.target - 1))
-                      }
-                    />
-                  ) : null}
-                  <IconButton
-                    name={UP}
-                    disabled={index === 0}
-                    accessibilityLabel={t("sunnahHabits.moveUp", { title: habitTitle(t, habit) })}
-                    onPress={() => void actions.move(habit.id, -1)}
-                  />
-                  <IconButton
-                    name={DOWN}
-                    disabled={index === habits.length - 1}
-                    accessibilityLabel={t("sunnahHabits.moveDown", { title: habitTitle(t, habit) })}
-                    onPress={() => void actions.move(habit.id, 1)}
-                  />
-                  <IconButton
-                    name={REMOVE}
-                    tintColor={tokens.status.danger.color}
-                    accessibilityLabel={t("sunnahHabits.remove", { title: habitTitle(t, habit) })}
-                    onPress={() => removeHabit(habit.id, habitTitle(t, habit))}
-                  />
-                </View>
-              ))}
-              {unselected.length > 0 ? (
-                <ThemedText type="smallBold" style={styles.gapTop}>
-                  {t("sunnahHabits.catalogTitle")}
-                </ThemedText>
-              ) : null}
-              {unselected.map((habit) => (
-                <View key={habit.id} style={styles.editRow}>
-                  <IconWell icon={habitIcon(habit.id)} size={14} well={28} radius={Radius.sm} />
-                  <ThemedText type="small" style={styles.flex} numberOfLines={2}>
-                    {t(`sunnahHabits.items.${habit.id}.title`)}
-                  </ThemedText>
-                  <IconButton
-                    name={ADD}
-                    tintColor={colors.accent}
-                    disabled={!canAddHabit(state)}
-                    accessibilityLabel={t("sunnahHabits.add", {
-                      title: t(`sunnahHabits.items.${habit.id}.title`),
-                    })}
-                    onPress={() => void actions.add(habit.id)}
-                  />
-                </View>
-              ))}
-              {/* TV: no free-text entry (D-pad keyboards); catalog habits only. */}
-              {!tv ? (
-                <View style={[styles.editRow, styles.customRow, styles.gapTop]}>
-                  <TextField
-                    label={t("sunnahHabits.customLabel")}
-                    value={customTitle}
-                    onChangeText={setCustomTitle}
-                    maxLength={CUSTOM_TITLE_MAX}
-                    placeholder={t("sunnahHabits.customPlaceholder")}
-                    onSubmitEditing={addCustom}
-                    returnKeyType="done"
-                    style={styles.input}
-                  />
-                  <Button
-                    label={t("sunnahHabits.customAdd")}
-                    size="sm"
-                    disabled={!customTitle.trim() || !canAddHabit(state)}
-                    onPress={addCustom}
-                  />
-                </View>
-              ) : null}
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("sunnahHabits.customHint")}
-              </ThemedText>
-            </View>
           ) : null}
         </Card>
 
-        <Card>
-          <SectionHeader
-            title={t("sunnahHabits.reminderSection")}
-            icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+        {habits.length > 0 ? (
+          <HabitsWeekStrip
+            days={week}
+            today={date}
+            footnote={
+              best && bestHabit
+                ? t("sunnahHabits.mostConsistent", {
+                    title: habitTitle(t, bestHabit),
+                    days: best.days,
+                  })
+                : undefined
+            }
           />
-          <View style={styles.gapTop}>
-            <ToggleRow
-              title={t("sunnahHabits.reminderToggle")}
-              subtitle={t("sunnahHabits.reminderToggleHint")}
-              value={habitsReminder.value}
-              onValueChange={(on) => void habitsReminder.setValue(on)}
+        ) : null}
+
+        {spotlight ? (
+          <View
+            style={[
+              styles.spotlight,
+              { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
+            ]}
+          >
+            <PressableScale
+              accessibilityRole="button"
+              accessibilityLabel={t("sunnahHabits.spotlightLine", {
+                title: t(`sunnahHabits.items.${spotlight.id}.title`),
+              })}
+              accessibilityHint={t("sunnahHabits.spotlightTitle")}
+              onPress={() => setDetailId(spotlight.id)}
+              haptic="selection"
+              scaleTo={0.98}
+              style={styles.spotlightBody}
+            >
+              <IconWell icon={habitIcon(spotlight.id)} size={14} well={28} radius={Radius.sm} />
+              <ThemedText type="small" style={styles.flex} numberOfLines={2}>
+                {t("sunnahHabits.spotlightLine", {
+                  title: t(`sunnahHabits.items.${spotlight.id}.title`),
+                })}
+              </ThemedText>
+            </PressableScale>
+            <Button
+              label={t("sunnahHabits.customAdd")}
+              accessibilityHint={t("sunnahHabits.add", {
+                title: t(`sunnahHabits.items.${spotlight.id}.title`),
+              })}
+              size="sm"
+              variant="secondary"
+              disabled={!canAddHabit(state)}
+              onPress={() => void actions.add(spotlight.id)}
             />
           </View>
+        ) : null}
+
+        <Card>
+          <ToggleRow
+            title={t("sunnahHabits.reminderToggle")}
+            subtitle={t("sunnahHabits.reminderToggleHint")}
+            value={habitsReminder.value}
+            onValueChange={(on) => void habitsReminder.setValue(on)}
+          />
         </Card>
 
         <JannahDisclaimer textKey="sunnahHabits.disclaimer" />
       </Stagger>
+
+      <HabitDetailSheet
+        habitId={detailId}
+        state={state}
+        date={date}
+        ctx={ctx}
+        excusedReason={excused}
+        onClose={() => setDetailId(null)}
+        onRemove={removeHabit}
+      />
+      <ManageHabitsSheet
+        visible={manageOpen}
+        onClose={() => setManageOpen(false)}
+        state={state}
+        onRemove={removeHabit}
+      />
     </ScreenLayout>
   );
 }
@@ -367,13 +309,27 @@ export default function SunnahHabitsScreen() {
 const styles = StyleSheet.create({
   gapTop: { marginTop: Spacing.two },
   rows: { gap: Spacing.two, marginTop: Spacing.three },
-  spotlight: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   flex: { flex: 1, minWidth: 0 },
-  editRow: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
-  customRow: { alignItems: "flex-end" },
-  input: {
+  principle: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  link: { minHeight: Control.sm, justifyContent: "center", paddingHorizontal: Spacing.one },
+  todayHeader: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  spotlight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    paddingEnd: Spacing.two,
+  },
+  spotlightBody: {
     flex: 1,
     minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    padding: Spacing.two,
+    minHeight: Control.md,
   },
 });
 

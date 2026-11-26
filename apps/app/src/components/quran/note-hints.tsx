@@ -554,18 +554,26 @@ export function TvNoteFocusPreview({ surah, ayah }: { surah: number; ayah: numbe
   );
 }
 
-/** Underline style for a noted word / ayah run: dotted, in the note's colour (≥3:1) or accent text. */
+/**
+ * Underline style for a noted word / ayah run, in the note's colour (≥3:1) or
+ * accent text. Web draws it dotted; native draws it solid — iOS renders a dotted
+ * decoration under Arabic as a single tiny dot (the run's joined glyphs are one
+ * "dot" wide), so the mark vanished there.
+ */
 export function noteUnderlineStyle(color: string): {
   textDecorationLine: "underline";
-  textDecorationStyle: "dotted";
+  textDecorationStyle: "dotted" | "solid";
   textDecorationColor: string;
 } {
   return {
     textDecorationLine: "underline",
-    textDecorationStyle: "dotted",
+    textDecorationStyle: Platform.OS === "web" ? "dotted" : "solid",
     textDecorationColor: color,
   };
 }
+
+/** Alpha of the faint wash under noted words on native (RN can't thicken an underline). */
+export const NOTE_WORD_TINT_ALPHA = 0.14;
 
 const styles = StyleSheet.create({
   hoverCard: {

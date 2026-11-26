@@ -1,6 +1,6 @@
 import type { TasbeehAppearance } from "@munib-tracker/shared/types";
 import { act, fireEvent, screen } from "@testing-library/react-native";
-import { AccessibilityInfo } from "react-native";
+import { AccessibilityInfo, I18nManager } from "react-native";
 import * as reanimated from "react-native-reanimated";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -17,6 +17,7 @@ import {
 import { usePlatform } from "@/test-support/platform";
 import { resetPreferences, setPreferences } from "@/test-support/preferences";
 import { renderWithTheme } from "@/test-support/render";
+import { flattenStyle } from "@/test-support/style";
 
 jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
@@ -172,6 +173,52 @@ describe("TasbeehCounter designs", () => {
       expect(props.onIncrement).not.toHaveBeenCalled();
     });
 
+    it("undoes one bead when dragged back past the detent (light haptic, one undo per gesture)", async () => {
+      const { props } = await renderCounter("misbaha", { count: 3 });
+      await act(async () => {
+        pan().onActivate?.();
+        pan().onUpdate?.({ translationX: 0, translationY: -6 });
+        pan().onUpdate?.({ translationX: 0, translationY: -60 });
+        pan().onUpdate?.({ translationX: 0, translationY: -400 });
+        (pan().onFinalize as () => void)();
+      });
+      expect(props.onDecrement).toHaveBeenCalledTimes(1);
+      expect(props.onIncrement).not.toHaveBeenCalled();
+      expect(triggerHaptic).toHaveBeenCalledWith("light");
+      // The click the drag may also produce (web) does not count.
+      await fireEvent.press(stage());
+      expect(props.onIncrement).not.toHaveBeenCalled();
+    });
+
+    it("never undoes below zero", async () => {
+      const { props } = await renderCounter("misbaha", { count: 0 });
+      await act(async () => {
+        pan().onActivate?.();
+        pan().onUpdate?.({ translationX: 0, translationY: -400 });
+        (pan().onFinalize as () => void)();
+      });
+      expect(props.onDecrement).not.toHaveBeenCalled();
+    });
+
+    it("can still take the last bead back at the target", async () => {
+      const { props } = await renderCounter("misbaha", { count: 33 });
+      await act(async () => {
+        pan().onActivate?.();
+        pan().onUpdate?.({ translationX: 0, translationY: -400 });
+        (pan().onFinalize as () => void)();
+      });
+      expect(props.onDecrement).toHaveBeenCalledTimes(1);
+    });
+
+    it("hangs the imam tassel outward from the strand end, beneath the bead", async () => {
+      await renderCounter("misbaha", { count: 33, target: 33 });
+      const tassel = screen.getByTestId("misbaha-tassel");
+      // Hung from the bead's centre (the outward quarter turn is the animated style;
+      // the side itself is covered by `outwardSide` in bead-layout.test.ts).
+      const flat = flattenStyle(tassel.props.style) as { top?: number };
+      expect(flat.top).toBeGreaterThan(0);
+    });
+
     it("ignores stage taps while a drag is in progress", async () => {
       const { props } = await renderCounter("misbaha", { count: 3 });
       await act(async () => pan().onActivate?.());
@@ -198,6 +245,45 @@ describe("TasbeehCounter designs", () => {
         expect(props.onIncrement).toHaveBeenCalledTimes(1);
         expect(screen.getByText("Press Select to count")).toBeTruthy();
       });
+    });
+  });
+
+  describe("pebbles swipe", () => {
+    it("counts a forward swipe towards the counted dish and undoes a backward one", async () => {
+      const { props } = await renderCounter("pebbles", { count: 3 });
+      await act(async () => {
+        pan().onActivate?.();
+        pan().onUpdate?.({ translationX: 12, translationY: 0 });
+        pan().onUpdate?.({ translationX: 300, translationY: 0 });
+        (pan().onFinalize as () => void)();
+      });
+      expect(props.onIncrement).toHaveBeenCalledTimes(1);
+      await act(async () => {
+        pan().onActivate?.();
+        pan().onUpdate?.({ translationX: -300, translationY: 0 });
+        (pan().onFinalize as () => void)();
+      });
+      expect(props.onDecrement).toHaveBeenCalledTimes(1);
+      // The tap a swipe may also produce is ignored.
+      await fireEvent.press(stage());
+      expect(props.onIncrement).toHaveBeenCalledTimes(1);
+    });
+
+    it("keeps the pan horizontal so the page still scrolls", async () => {
+      await renderCounter("pebbles", { count: 3 });
+      expect(pan()).toMatchObject({ activeOffsetX: [-10, 10], failOffsetY: [-14, 14] });
+    });
+
+    it("counts towards the reading end in RTL (leftwards)", async () => {
+      jest.replaceProperty(I18nManager, "isRTL", true);
+      const { props } = await renderCounter("pebbles", { count: 3 });
+      await act(async () => {
+        pan().onActivate?.();
+        pan().onUpdate?.({ translationX: -300, translationY: 0 });
+        (pan().onFinalize as () => void)();
+      });
+      expect(props.onIncrement).toHaveBeenCalledTimes(1);
+      expect(props.onDecrement).not.toHaveBeenCalled();
     });
   });
 

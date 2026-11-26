@@ -17,7 +17,9 @@ import { SearchField } from "@/components/ui/search-field";
 import { TvFlatList } from "@/components/ui/tv-flat-list";
 import { TvUndoButton } from "@/components/ui/tv-undo-button";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
+import { CategoryStickyBar, useStickyListHeader } from "@/components/zikr/category-sticky-bar";
 import { BorderWidth, Radius, Spacing } from "@/constants/theme";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useContentCorpus } from "@/hooks/use-content-corpus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { DUA_CORPUS } from "@/lib/content-loaders";
@@ -149,6 +151,8 @@ export default function DuaCategoryScreen() {
     [renderSection],
   );
   const keyExtractor = useCallback((section: DuaSection) => section.key, []);
+  const contentBottomInset = useContentBottomInset();
+  const sticky = useStickyListHeader();
 
   const categoryName = t(`duaCat.${categoryId}`);
   const categoryDescription = `${categoryName} — authentic supplications with Arabic, transliteration, and meaning.`;
@@ -167,6 +171,18 @@ export default function DuaCategoryScreen() {
       />
     ) : null;
 
+  const occasionChips =
+    !searching && chips.length > 1 ? (
+      <DuaOccasionChips
+        chips={chips}
+        selected={occasion}
+        onSelect={setOccasion}
+        totalCount={items.length}
+      />
+    ) : null;
+
+  // One stable SearchField element (never a component re-created per render), so
+  // typing never remounts it or drops focus.
   const controls = (
     <View style={styles.controls}>
       {topic ? (
@@ -191,14 +207,13 @@ export default function DuaCategoryScreen() {
         placeholder={t("dua.searchInCategory")}
         style={columns > 1 ? styles.searchWide : undefined}
       />
-      {!searching && chips.length > 1 ? (
-        <DuaOccasionChips
-          chips={chips}
-          selected={occasion}
-          onSelect={setOccasion}
-          totalCount={items.length}
-        />
-      ) : null}
+      {occasionChips}
+    </View>
+  );
+
+  const listHeader = (
+    <View onLayout={sticky.onHeaderLayout} style={styles.listHeader} testID="dua-list-header">
+      {controls}
     </View>
   );
 
@@ -235,11 +250,9 @@ export default function DuaCategoryScreen() {
           }),
         ]}
       />
-      {/* The Card supplies the list chrome. No Stagger wrapper: its item view has
-          no flex, which would break the FlatList's height chain on phone. */}
-      <Card style={tv ? undefined : styles.listCard}>
-        {controls}
-        {tv ? (
+      {tv ? (
+        <Card>
+          {controls}
           <View style={styles.tvList}>
             {visibleSections.length === 0
               ? empty
@@ -247,24 +260,44 @@ export default function DuaCategoryScreen() {
                   <View key={section.key}>{renderSection(section)}</View>
                 ))}
           </View>
-        ) : (
-          <View style={styles.listHost}>
-            <TvFlatList
-              style={styles.flatList}
-              data={visibleSections}
-              keyExtractor={keyExtractor}
-              renderItem={renderItem}
-              ItemSeparatorComponent={SectionSeparator}
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
-              initialNumToRender={4}
-              maxToRenderPerBatch={4}
-              windowSize={7}
-              ListEmptyComponent={empty ?? undefined}
-            />
-          </View>
-        )}
-      </Card>
+        </Card>
+      ) : (
+        // Full-height list: search + occasion chips scroll away with the duas
+        // (ListHeaderComponent); a compact bar pins once they are gone.
+        <View style={styles.listHost}>
+          <TvFlatList
+            testID="dua-category-list"
+            style={styles.flatList}
+            contentContainerStyle={{ paddingBottom: contentBottomInset + Spacing.three }}
+            data={visibleSections}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+            ListHeaderComponent={listHeader}
+            ItemSeparatorComponent={SectionSeparator}
+            onScroll={sticky.onScroll}
+            scrollEventThrottle={32}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            initialNumToRender={4}
+            maxToRenderPerBatch={4}
+            windowSize={7}
+            ListEmptyComponent={empty ?? undefined}
+          />
+          <CategoryStickyBar
+            visible={sticky.stuck}
+            query={query}
+            onChangeQuery={setQuery}
+            placeholder={t("dua.searchInCategory")}
+          >
+            {occasionChips ?? (
+              <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+                {topic ? t(`dua.topic.${topic}`) : categoryName}
+              </ThemedText>
+            )}
+          </CategoryStickyBar>
+        </View>
+      )}
     </ScreenLayout>
   );
 }
@@ -341,12 +374,12 @@ function OccasionSection({
 }
 
 const styles = StyleSheet.create({
-  listCard: { flex: 1, minHeight: 0 },
   /** Bounded host so FlatList flex:1 resolves against a real viewport height. */
   listHost: { flex: 1, minHeight: 0 },
   flatList: { flex: 1 },
   tvList: { gap: Spacing.four },
   controls: { gap: Spacing.three, marginBottom: Spacing.three },
+  listHeader: { paddingBottom: Spacing.one },
   topicRow: {
     flexDirection: "row",
     flexWrap: "wrap",

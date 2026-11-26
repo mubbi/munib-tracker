@@ -1,17 +1,16 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
-import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
-import { Sheet } from "@/components/ui/sheet";
-import { BorderWidth, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { SortableList } from "@/components/ui/sortable";
+import { BorderWidth, Control, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 import { isTV } from "@/lib/platform/is-tv";
+import { type ToastContextValue, useToast } from "@/providers/toast-provider";
 
 /** Swap `order[index]` with its neighbour (`-1` up, `+1` down). Out-of-range moves are no-ops. */
 export function moveItem<T>(order: readonly T[], index: number, direction: -1 | 1): T[] {
@@ -28,6 +27,34 @@ export function moveItem<T>(order: readonly T[], index: number, direction: -1 | 
 export function toggleItem(order: readonly string[], id: string, on: boolean): string[] {
   if (on) return order.includes(id) ? [...order] : [...order, id];
   return order.filter((x) => x !== id);
+}
+
+/**
+ * Writes a reordered *visible* list back into a stored order that may also hold
+ * ids this device cannot show (TV-hidden tiles, finance tools off): the visible
+ * ids take the new order and the unavailable ones keep their place at the end.
+ */
+export function mergeVisibleOrder(
+  stored: readonly string[],
+  nextVisible: readonly string[],
+  available: readonly string[],
+): string[] {
+  const availableSet = new Set(available);
+  return [...nextVisible, ...stored.filter((id) => !availableSet.has(id))];
+}
+
+/**
+ * The toast host when one is mounted. The editor also renders inside sheets and
+ * tests without a `ToastProvider`; there the remove simply has no Undo toast.
+ * (`useToast` always runs its `useContext` first, so the hook order is stable.)
+ */
+function useToastIfMounted(): ToastContextValue | null {
+  try {
+    // biome-ignore lint/correctness/useHookAtTopLevel: always called, in the same order; only its throw is caught
+    return useToast();
+  } catch {
+    return null;
+  }
 }
 
 function RowIcon({ tint, icon }: { tint: string; icon: AppIconType }) {
@@ -51,8 +78,8 @@ export type OrderedListEditorProps = {
   /** Visible ids, in display order. */
   order: readonly string[];
   /**
-   * Every id that can be shown. Ids not in `order` are listed under
-   * "Available" with an Add button — only when `removable`.
+   * Every id that can be shown. Ids not in `order` are listed under "Hidden"
+   * with an inline add button — only when `removable`.
    */
   allIds: readonly string[];
   labelFor: (id: string) => string;
@@ -63,13 +90,17 @@ export type OrderedListEditorProps = {
   testID?: string;
 };
 
+const MINUS = { ios: "minus.circle.fill", android: "remove_circle", web: "remove_circle" } as const;
+const PLUS = { ios: "plus.circle.fill", android: "add_circle", web: "add_circle" } as const;
+
 /**
- * Up/down list editor shared by the home quick actions and the Library order
- * (D13), generalised from the quick-actions editor. TV keeps one Up / Down
- * button per row (one D-pad Select per move). Phones and web (G-95) show one
- * "More options" button per row that opens a sheet with Move up / Move down /
- * Move to top / Remove, so rows are not crowded with 32pt icon buttons and the
- * label can wrap.
+ * Reorderable list shared by the home Explore shortcuts, the Library order (D13)
+ * and the Sunnah habits list. Phones and web: slim grouped rows (~52pt, hairline
+ * dividers) with a trailing drag handle (≡) — drag to move, or use the row's
+ * "Move up / down" accessibility actions, or focus the handle and press ↑ / ↓ on
+ * web — and, when `removable`, an inline red "−" (with an Undo toast) plus a
+ * "Hidden" group with inline "+". TV keeps one Up / Down / Remove button per row
+ * (one D-pad Select per move).
  */
 export function OrderedListEditor({
   order,
@@ -82,193 +113,227 @@ export function OrderedListEditor({
 }: OrderedListEditorProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const toast = useToastIfMounted();
   const hiddenItems = removable ? allIds.filter((id) => !order.includes(id)) : [];
   const tv = isTV();
-  const [menuFor, setMenuFor] = useState<string | null>(null);
-  const menuIndex = menuFor ? order.indexOf(menuFor) : -1;
-  const menuLabel = menuFor ? labelFor(menuFor) : "";
-  const act = (next: string[]) => {
-    setMenuFor(null);
-    onChange(next);
+
+  const remove = (id: string) => {
+    const previous = [...order];
+    onChange(toggleItem(order, id, false));
+    toast?.show(t("settings.reorder.removed", { item: labelFor(id) }), {
+      type: "info",
+      action: { label: t("common.undo"), onPress: () => onChange(previous) },
+    });
   };
-  /**
-   * TV: never disable the focused Up/Down control at the list edge — a disabled
-   * Pressable drops D-pad focus and the engine jumps elsewhere. Dim it instead;
-   * `moveItem` already ignores out-of-range moves.
-   */
-  const edgeProps = (atEdge: boolean) =>
-    tv
-      ? {
-          accessibilityState: { disabled: atEdge },
-          style: atEdge ? styles.edgeDimmedTv : undefined,
-        }
-      : { disabled: atEdge };
+
+  const hiddenGroup =
+    hiddenItems.length > 0 ? (
+      <>
+        <ThemedText type="smallBold" style={styles.hiddenHeader}>
+          {tv ? t("homeCustomize.available") : t("settings.reorder.hidden")}
+        </ThemedText>
+        <View
+          style={
+            tv ? styles.rowsTv : [styles.group, { backgroundColor: colors.muted }, styles.gapTop]
+          }
+        >
+          {hiddenItems.map((id, index) => {
+            const iconMeta = iconFor?.(id);
+            const label = labelFor(id);
+            return (
+              <View
+                key={id}
+                style={[
+                  tv ? [styles.rowTvCard, { backgroundColor: colors.muted }] : styles.row,
+                  !tv && index > 0 && [styles.divided, { borderTopColor: tokens.hairline }],
+                ]}
+              >
+                {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
+                <ThemedText
+                  type="small"
+                  themeColor="mutedForeground"
+                  style={styles.rowLabel}
+                  numberOfLines={tv ? 1 : undefined}
+                >
+                  {label}
+                </ThemedText>
+                <IconButton
+                  name={PLUS}
+                  size={tv ? 18 : 22}
+                  tintColor={colors.accentText}
+                  accessibilityLabel={`${t("homeCustomize.add")}: ${label}`}
+                  onPress={() => onChange(toggleItem(order, id, true))}
+                />
+              </View>
+            );
+          })}
+        </View>
+      </>
+    ) : null;
+
+  if (tv) {
+    return (
+      <View testID={testID}>
+        <TvRows
+          order={order}
+          labelFor={labelFor}
+          iconFor={iconFor}
+          onChange={onChange}
+          removable={removable}
+        />
+        {hiddenGroup}
+      </View>
+    );
+  }
 
   return (
     <View testID={testID}>
-      <View style={styles.rows}>
-        {order.map((id, index) => {
-          const iconMeta = iconFor?.(id);
-          const label = labelFor(id);
-          return (
-            <View
-              key={id}
-              style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
-            >
-              {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
-              <ThemedText type="small" style={styles.rowLabel} numberOfLines={tv ? 1 : undefined}>
-                {label}
-              </ThemedText>
-              {tv ? (
-                <>
-                  <IconButton
-                    name={{
-                      ios: "chevron.up",
-                      android: "keyboard_arrow_up",
-                      web: "keyboard_arrow_up",
-                    }}
-                    size={18}
-                    tintColor={colors.foreground}
-                    accessibilityLabel={`${t("zikr.moveUp")}: ${label}`}
-                    {...edgeProps(index === 0)}
-                    onPress={() => onChange(moveItem(order, index, -1))}
-                  />
-                  <IconButton
-                    name={{
-                      ios: "chevron.down",
-                      android: "keyboard_arrow_down",
-                      web: "keyboard_arrow_down",
-                    }}
-                    size={18}
-                    tintColor={colors.foreground}
-                    accessibilityLabel={`${t("zikr.moveDown")}: ${label}`}
-                    {...edgeProps(index === order.length - 1)}
-                    onPress={() => onChange(moveItem(order, index, 1))}
-                  />
-                  {removable ? (
-                    <IconButton
-                      name={{
-                        ios: "minus.circle.fill",
-                        android: "remove_circle",
-                        web: "remove_circle",
-                      }}
-                      size={18}
-                      tintColor={tokens.status.danger.color}
-                      accessibilityLabel={`${t("homeCustomize.remove")}: ${label}`}
-                      onPress={() => onChange(toggleItem(order, id, false))}
-                    />
-                  ) : null}
-                </>
-              ) : (
-                <IconButton
-                  name={{ ios: "ellipsis.circle", android: "more_vert", web: "more_vert" }}
-                  tintColor={colors.foreground}
-                  accessibilityLabel={t("settings.reorder.moreFor", { item: label })}
-                  onPress={() => setMenuFor(id)}
-                />
-              )}
-            </View>
-          );
-        })}
-      </View>
-
-      {hiddenItems.length > 0 ? (
-        <>
-          <ThemedText type="smallBold" style={styles.hiddenHeader}>
-            {t("homeCustomize.available")}
-          </ThemedText>
-          <View style={styles.rows}>
-            {hiddenItems.map((id) => {
+      {order.length > 0 ? (
+        <View style={[styles.group, styles.gapTop, { backgroundColor: colors.muted }]}>
+          <SortableList
+            ids={order}
+            onReorder={onChange}
+            itemLabel={labelFor}
+            onRemove={removable ? remove : undefined}
+            renderItem={(id, info) => {
               const iconMeta = iconFor?.(id);
               const label = labelFor(id);
               return (
                 <View
-                  key={id}
-                  style={[styles.row, tv && styles.rowTv, { backgroundColor: colors.muted }]}
+                  // One screen-reader element per row: its name plus the move /
+                  // remove actions (the handle and "−" stay visual on native).
+                  accessible={Platform.OS !== "web"}
+                  accessibilityLabel={label}
+                  {...info.accessibility}
+                  style={[
+                    styles.row,
+                    info.index > 0 && [styles.divided, { borderTopColor: tokens.hairline }],
+                    info.active && [styles.rowActive, { backgroundColor: colors.card }],
+                  ]}
                 >
                   {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
-                  <ThemedText
-                    type="small"
-                    themeColor="mutedForeground"
-                    style={styles.rowLabel}
-                    numberOfLines={1}
-                  >
+                  <ThemedText type="small" style={styles.rowLabel}>
                     {label}
                   </ThemedText>
-                  <IconButton
-                    name={{ ios: "plus.circle.fill", android: "add_circle", web: "add_circle" }}
-                    size={18}
-                    tintColor={colors.accent}
-                    accessibilityLabel={`${t("homeCustomize.add")}: ${label}`}
-                    onPress={() => onChange(toggleItem(order, id, true))}
-                  />
+                  {removable ? (
+                    <IconButton
+                      name={MINUS}
+                      size={22}
+                      tintColor={tokens.status.danger.text}
+                      accessibilityLabel={`${t("homeCustomize.remove")}: ${label}`}
+                      onPress={() => remove(id)}
+                    />
+                  ) : null}
+                  {info.handle}
                 </View>
               );
-            })}
-          </View>
-        </>
-      ) : null}
-
-      <Sheet
-        visible={menuFor != null}
-        onClose={() => setMenuFor(null)}
-        variant="bottom"
-        title={menuLabel}
-      >
-        <View style={styles.menu}>
-          <Button
-            label={t("settings.reorder.moveToTop")}
-            variant="secondary"
-            fullWidth
-            disabled={menuIndex <= 0}
-            onPress={() => {
-              if (!menuFor) return;
-              act([menuFor, ...order.filter((x) => x !== menuFor)]);
             }}
           />
-          <Button
-            label={t("zikr.moveUp")}
-            variant="secondary"
-            fullWidth
-            disabled={menuIndex <= 0}
-            onPress={() => act(moveItem(order, menuIndex, -1))}
-          />
-          <Button
-            label={t("zikr.moveDown")}
-            variant="secondary"
-            fullWidth
-            disabled={menuIndex < 0 || menuIndex >= order.length - 1}
-            onPress={() => act(moveItem(order, menuIndex, 1))}
-          />
-          {removable && menuFor ? (
-            <Button
-              label={t("homeCustomize.remove")}
-              variant="destructive"
-              fullWidth
-              onPress={() => act(toggleItem(order, menuFor, false))}
-            />
-          ) : null}
         </View>
-      </Sheet>
+      ) : null}
+      {hiddenGroup}
+    </View>
+  );
+}
+
+/** TV: today's inline Up / Down / Remove buttons per row (one D-pad Select per move). */
+function TvRows({
+  order,
+  labelFor,
+  iconFor,
+  onChange,
+  removable,
+}: Pick<OrderedListEditorProps, "order" | "labelFor" | "iconFor" | "onChange" | "removable">) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  /**
+   * Never disable the focused Up/Down control at the list edge — a disabled
+   * Pressable drops D-pad focus and the engine jumps elsewhere. Dim it instead;
+   * `moveItem` already ignores out-of-range moves.
+   */
+  const edgeProps = (atEdge: boolean) => ({
+    accessibilityState: { disabled: atEdge },
+    style: atEdge ? styles.edgeDimmedTv : undefined,
+  });
+  return (
+    <View style={styles.rowsTv}>
+      {order.map((id, index) => {
+        const iconMeta = iconFor?.(id);
+        const label = labelFor(id);
+        return (
+          <View key={id} style={[styles.rowTvCard, { backgroundColor: colors.muted }]}>
+            {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
+            <ThemedText type="small" style={styles.rowLabel} numberOfLines={1}>
+              {label}
+            </ThemedText>
+            <IconButton
+              name={{ ios: "chevron.up", android: "keyboard_arrow_up", web: "keyboard_arrow_up" }}
+              size={18}
+              tintColor={colors.foreground}
+              accessibilityLabel={`${t("zikr.moveUp")}: ${label}`}
+              {...edgeProps(index === 0)}
+              onPress={() => onChange(moveItem(order, index, -1))}
+            />
+            <IconButton
+              name={{
+                ios: "chevron.down",
+                android: "keyboard_arrow_down",
+                web: "keyboard_arrow_down",
+              }}
+              size={18}
+              tintColor={colors.foreground}
+              accessibilityLabel={`${t("zikr.moveDown")}: ${label}`}
+              {...edgeProps(index === order.length - 1)}
+              onPress={() => onChange(moveItem(order, index, 1))}
+            />
+            {removable ? (
+              <IconButton
+                name={MINUS}
+                size={18}
+                tintColor={tokens.status.danger.color}
+                accessibilityLabel={`${t("homeCustomize.remove")}: ${label}`}
+                onPress={() => onChange(toggleItem(order, id, false))}
+              />
+            ) : null}
+          </View>
+        );
+      })}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  rows: { gap: Spacing.two, marginTop: Spacing.three },
+  gapTop: { marginTop: Spacing.three },
   hiddenHeader: { marginTop: Spacing.four },
+  /** Grouped list: one muted surface, rows separated by hairlines. */
+  group: {
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    overflow: "hidden",
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one,
+    gap: Spacing.two,
+    minHeight: Control.row,
+    paddingVertical: Spacing.one,
+    paddingStart: Spacing.three,
+    paddingEnd: Spacing.one,
+  },
+  divided: { borderTopWidth: BorderWidth.hairline },
+  rowActive: { borderRadius: Radius.md, borderCurve: "continuous" },
+  rowLabel: { flex: 1, minWidth: 0 },
+  rowsTv: { gap: Spacing.two, marginTop: Spacing.three },
+  rowTvCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    minHeight: TvLayout.minFocusTarget,
     padding: Spacing.twoHalf,
     paddingStart: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  rowLabel: { flex: 1 },
-  menu: { gap: Spacing.two },
-  rowTv: { minHeight: TvLayout.minFocusTarget, gap: Spacing.two },
   edgeDimmedTv: { opacity: 0.35 },
   iconWell: {
     width: 32,

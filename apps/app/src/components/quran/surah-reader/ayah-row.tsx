@@ -3,6 +3,7 @@ import { memo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { AnnotatedAyahText, AyahNoteMarker } from "@/components/quran/ayah-annotations";
+import { type AyahActionHandlers, AyahInlineActions } from "@/components/quran/ayah-inline-actions";
 import { WordByWord } from "@/components/quran/word-by-word";
 import { ThemedText } from "@/components/themed-text";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
@@ -30,9 +31,12 @@ import {
  * transliteration, translation(s) — then one quiet footer row: the ayah's
  * identity ("Ayah N" badge, sajda / hifz / note markers) and, off TV, exactly
  * four actions in a fixed order on every width: **Play · Save · Share · More**.
- * Everything else (hifz, practise, check, note, highlight, tafsir, report)
- * lives in the ayah action sheet behind "More". On TV the whole card is the
- * focus target and Select opens that same sheet.
+ * Everything else (tafsir, note, highlight, hifz, practise, check, report)
+ * expands inline under the footer when "More" is tapped ("More" turns into
+ * "Less"); the screen keeps one ayah expanded at a time (`expanded` +
+ * `onToggleExpanded`). Without `actionHandlers`, "More" opens the ayah action
+ * sheet instead. On TV the whole card is the focus target and Select opens
+ * that sheet.
  */
 export type AyahRowProps = {
   ayah: Ayah;
@@ -62,8 +66,14 @@ export type AyahRowProps = {
   ) => void;
   isSharing: boolean;
   isGesturePending: boolean;
-  /** Opens the ayah action sheet ("More" off TV, Select on the card on TV). */
+  /** Opens the ayah action sheet (Select on the card on TV; "More" without `actionHandlers`). */
   onOpenActions: (index: number) => void;
+  /** Off TV: this row's extra actions are open inline (one ayah at a time, owned by the screen). */
+  expanded?: boolean;
+  /** Off TV: "More" / "Less" for this ayah (stable; called with the ayah number). */
+  onToggleExpanded?: (ayahNumber: number) => void;
+  /** Off TV: the screen's stable per-ayah handlers for the inline row (`useAyahActions`). */
+  actionHandlers?: AyahActionHandlers;
   tvPreferredFocus?: boolean;
 };
 
@@ -94,6 +104,9 @@ export function ayahRowPropsAreEqual(prev: AyahRowProps, next: AyahRowProps): bo
     prev.isSharing === next.isSharing &&
     prev.isGesturePending === next.isGesturePending &&
     prev.onOpenActions === next.onOpenActions &&
+    prev.expanded === next.expanded &&
+    prev.onToggleExpanded === next.onToggleExpanded &&
+    prev.actionHandlers === next.actionHandlers &&
     prev.tvPreferredFocus === next.tvPreferredFocus
   );
 }
@@ -121,6 +134,9 @@ export const AyahRow = memo(function AyahRow({
   isSharing,
   isGesturePending,
   onOpenActions,
+  expanded = false,
+  onToggleExpanded,
+  actionHandlers,
   tvPreferredFocus,
 }: AyahRowProps) {
   const { colors, tokens } = useThemeTokens();
@@ -137,6 +153,12 @@ export const AyahRow = memo(function AyahRow({
     [ayah.arabic, ayah.ayah, onShareAyah, surahNumber, translation, transliteration],
   );
   const handleOpenActions = useCallback(() => onOpenActions(index), [index, onOpenActions]);
+  const inline = !tv && actionHandlers != null && onToggleExpanded != null;
+  const handleMore = useCallback(() => {
+    if (inline && onToggleExpanded) onToggleExpanded(ayah.ayah);
+    else onOpenActions(index);
+  }, [ayah.ayah, index, inline, onOpenActions, onToggleExpanded]);
+  const showInline = inline && expanded;
 
   return (
     <View testID={`ayah-row-${ayah.ayah}`} style={styles.ayahRow}>
@@ -243,18 +265,35 @@ export const AyahRow = memo(function AyahRow({
                 onPress={handleShare}
               />
               {/* Progressive disclosure (HIG / M3): the rest of the ayah's actions
-                  live in one sheet instead of rows of icons above the scripture. */}
+                  expand inline under this row instead of crowding every card. */}
               <LabeledIconButton
-                name={{ ios: "ellipsis.circle", android: "more_horiz", web: "more_horiz" }}
-                label={t("quran.actionMore")}
-                tintColor={colors.mutedForeground}
-                labelColor={colors.mutedForeground}
-                accessibilityLabel={t("quran.moreActionsA11y", { n: ayah.ayah })}
-                onPress={handleOpenActions}
+                name={
+                  showInline
+                    ? { ios: "chevron.up.circle", android: "expand_less", web: "expand_less" }
+                    : { ios: "ellipsis.circle", android: "more_horiz", web: "more_horiz" }
+                }
+                label={showInline ? t("quran.actionLess") : t("quran.actionMore")}
+                tintColor={showInline ? colors.accentText : colors.mutedForeground}
+                labelColor={showInline ? colors.accentText : colors.mutedForeground}
+                accessibilityLabel={
+                  showInline
+                    ? t("quran.lessActionsA11y", { n: ayah.ayah })
+                    : t("quran.moreActionsA11y", { n: ayah.ayah })
+                }
+                onPress={handleMore}
               />
             </View>
           )}
         </View>
+        {showInline && actionHandlers ? (
+          <AyahInlineActions
+            handlers={actionHandlers}
+            ayah={ayah.ayah}
+            arabic={ayah.arabic}
+            translation={translation}
+            hifzStatus={hifzStatus}
+          />
+        ) : null}
       </AyahStudyCard>
       <AyahFocusRingIfNeeded ayahNumber={ayah.ayah} highlighted={highlighted} />
     </View>

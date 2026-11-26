@@ -6,6 +6,7 @@ import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { localeToBcp47 } from "@/lib/locale-bcp47";
 import { isTV } from "@/lib/platform/is-tv";
+import { captureAppException } from "@/lib/sentry";
 import { setTtsVoice, useTtsVoice } from "@/lib/settings/tts-voice";
 import {
   isTtsAvailable,
@@ -87,39 +88,47 @@ export function ReadingTtsButton({
     })();
   };
 
+  const startSpeaking = async (voiceId: string | undefined) => {
+    const available = await isTtsAvailable();
+    if (!available) {
+      toast.info(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
+      return;
+    }
+
+    const resolved =
+      target ??
+      (await resolveReadingTtsTarget({
+        arabic,
+        transliteration,
+        translation,
+        fallbackLang,
+      }));
+    if (!resolved) return;
+
+    setTtsVoice(resolved.lang, voiceId).catch((error: unknown) => {
+      captureAppException(error, { tags: { area: "audio", phase: "tts-voice-save" } });
+    });
+
+    const voice = await resolveTtsVoice(resolved.lang, voiceId);
+    const queue = buildReadingTtsQueue({
+      id,
+      title: title.trim() || t("reading.listenLabel"),
+      subtitle,
+      text: resolved.text,
+      lang: resolved.lang,
+      voice,
+    });
+    if (queue.length === 0) return;
+
+    audio.play(queue, 0, sourceHref ? { sourceHref } : undefined);
+  };
+
   const startWithVoice = (voiceId: string | undefined) => {
-    void (async () => {
-      const available = await isTtsAvailable();
-      if (!available) {
-        toast.info(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
-        return;
-      }
-
-      const resolved =
-        target ??
-        (await resolveReadingTtsTarget({
-          arabic,
-          transliteration,
-          translation,
-          fallbackLang,
-        }));
-      if (!resolved) return;
-
-      void setTtsVoice(resolved.lang, voiceId);
-
-      const voice = await resolveTtsVoice(resolved.lang, voiceId);
-      const queue = buildReadingTtsQueue({
-        id,
-        title: title.trim() || t("reading.listenLabel"),
-        subtitle,
-        text: resolved.text,
-        lang: resolved.lang,
-        voice,
-      });
-      if (queue.length === 0) return;
-
-      audio.play(queue, 0, sourceHref ? { sourceHref } : undefined);
-    })();
+    startSpeaking(voiceId).catch((error: unknown) => {
+      // An escaped rejection reaches the root boundary ("Something went wrong").
+      captureAppException(error, { tags: { area: "audio", phase: "reading-tts-start" } });
+      toast.info(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
+    });
   };
 
   return (

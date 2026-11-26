@@ -14,12 +14,15 @@ import { ThemedText } from "@/components/themed-text";
 import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { AdhkarActionRow } from "@/components/zikr/adhkar-action-row";
 import { AdhkarCountBeads, showsBeads } from "@/components/zikr/adhkar-count-beads";
 import { CountNumeral } from "@/components/zikr/count-numeral";
+import type { ZikrAudioControl } from "@/components/zikr/use-zikr-audio";
 import { Springs } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { VoiceSteps } from "@/hooks/use-voice-tasbeeh-steps";
 import { chartCoordinateStyle } from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
 import { isTV } from "@/lib/platform/is-tv";
@@ -43,8 +46,10 @@ export type AdhkarCounterControls = {
   canNext: boolean;
   /** "Next: Alhamdulillah ×33" — so the reader can anticipate the next zikr. */
   nextLabel?: string;
-  /** Hands-free on / off (D69); absent where the platform cannot listen. */
-  voiceToggle?: ReactNode;
+  /** Hands-free (D69): drives the action row's Hands-free button; never offered on TV. */
+  handsFree?: VoiceSteps;
+  /** The zikr's recitation (recorded audio or its Qur'an ayahs): the action row's Play. */
+  audio?: ZikrAudioControl;
   /** Hands-free status, inline teach / re-teach (D69). */
   voicePanel?: ReactNode;
 };
@@ -67,7 +72,8 @@ export function AdhkarCounterPanel({
   canPrev,
   canNext,
   nextLabel,
-  voiceToggle,
+  handsFree,
+  audio,
   voicePanel,
 }: AdhkarCounterControls) {
   const { t } = useTranslation();
@@ -178,7 +184,6 @@ export function AdhkarCounterPanel({
         {hint}
       </ThemedText>
 
-      {voiceToggle}
       {voicePanel}
 
       <View style={styles.row}>
@@ -200,34 +205,17 @@ export function AdhkarCounterPanel({
         />
       </View>
 
-      <View style={styles.row}>
-        <Button
-          label={t("tasbeehUi.undo")}
-          variant="secondary"
-          icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
-          disabled={shown <= 0}
-          onPress={onUndo}
-          style={styles.flex}
+      {/* TV D-pad order: ring → previous / next → actions. */}
+      <View style={styles.actions}>
+        <AdhkarActionRow
+          done={done}
+          canUndo={shown > 0}
+          onUndo={onUndo}
+          onComplete={onComplete}
+          onReset={onReset}
+          audio={audio}
+          handsFree={handsFree}
         />
-        {done ? (
-          <Button
-            label={t("zikrSession.markNotDone")}
-            variant="secondary"
-            icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
-            accessibilityHint={t("zikrSession.resetHint")}
-            onPress={onReset}
-            style={styles.flex}
-          />
-        ) : (
-          <Button
-            label={t("zikrSession.markComplete")}
-            haptic="success"
-            icon={{ ios: "checkmark", android: "check", web: "check" }}
-            accessibilityHint={t("zikrSession.markCompleteHint")}
-            onPress={onComplete}
-            style={styles.flex}
-          />
-        )}
       </View>
 
       {nextLabel ? (
@@ -250,6 +238,7 @@ const styles = StyleSheet.create({
   hint: { textAlign: "center" },
   row: { flexDirection: "row", gap: Spacing.two, alignSelf: "stretch" },
   flex: { flex: 1 },
+  actions: { alignSelf: "stretch" },
   next: {
     alignSelf: "stretch",
     paddingHorizontal: Spacing.three,

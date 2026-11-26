@@ -12,6 +12,7 @@ import { StyleSheet, View } from "react-native";
 import { CircleAccountGate } from "@/components/circles/account-gate";
 import { CircleCodeEntry } from "@/components/circles/code-entry";
 import { CircleLoading, CircleRetryCard } from "@/components/circles/query-state";
+import { CircleSessionGate } from "@/components/circles/session-gate";
 import { ScreenLayout } from "@/components/screen-layout";
 import { TextField } from "@/components/self-review/text-field";
 import { Seo } from "@/components/seo/seo";
@@ -100,6 +101,8 @@ export default function CircleJoinScreen() {
               }
             />
           </Card>
+        ) : isReady && !auth.hasSession ? (
+          <CircleSessionGate />
         ) : !isReady || preview.isLoading ? (
           <CircleLoading />
         ) : preview.isError || !data ? (

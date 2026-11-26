@@ -157,3 +157,86 @@ export function contrastMatrix(pairs: readonly ContrastPair[]): ContrastFailure[
   }
   return failures;
 }
+
+/** #RRGGBB → HSL (h 0–360, s / l 0–1), or null if invalid. */
+export function hexToHsl(hex: string): { h: number; s: number; l: number } | null {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return null;
+  const r = rgb.r / 255;
+  const g = rgb.g / 255;
+  const b = rgb.b / 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  const d = max - min;
+  if (d === 0) return { h: 0, s: 0, l };
+  const s = d / (1 - Math.abs(2 * l - 1));
+  let h: number;
+  if (max === r) h = ((g - b) / d) % 6;
+  else if (max === g) h = (b - r) / d + 2;
+  else h = (r - g) / d + 4;
+  h *= 60;
+  if (h < 0) h += 360;
+  return { h, s, l };
+}
+
+/** HSL (h 0–360, s / l 0–1) → #rrggbb. */
+export function hslToHex(h: number, s: number, l: number): string {
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  const [r, g, b] =
+    h < 60
+      ? [c, x, 0]
+      : h < 120
+        ? [x, c, 0]
+        : h < 180
+          ? [0, c, x]
+          : h < 240
+            ? [0, x, c]
+            : h < 300
+              ? [x, 0, c]
+              : [c, 0, x];
+  return rgbToHex((r + m) * 255, (g + m) * 255, (b + m) * 255);
+}
+
+/**
+ * Readability guard for a user-chosen accent: when `accent` falls below
+ * `minRatio` contrast on any of `surfaces` (e.g. the page and card of the
+ * current scheme), returns the closest colour of the **same hue and saturation**
+ * that clears it, moving only HSL lightness (lighter on dark surfaces, darker on
+ * light ones). Unlike {@link ensureContrastAgainst}, whose equal-channel steps
+ * grey a deep colour out (a forest `#0C390F` on the dark page became a muddy,
+ * disabled-looking sage), this keeps the colour recognisably the user's. The
+ * stored hex is never changed — callers apply this only for UI use.
+ */
+export function ensureReadableAccent(
+  accent: string,
+  surfaces: readonly string[],
+  minRatio = 3,
+): string {
+  const normalized = normalizeHex(accent);
+  if (!normalized || surfaces.length === 0) return accent;
+  const passes = (hex: string) => surfaces.every((s) => contrastRatio(hex, s) >= minRatio);
+  if (passes(normalized)) return normalized;
+  const hsl = hexToHsl(normalized);
+  if (!hsl) return normalized;
+  const lightSurfaces =
+    surfaces.reduce((sum, s) => sum + relativeLuminance(s), 0) / surfaces.length > 0.5;
+  // Search the lightness range between the colour and black / white for the
+  // smallest move that passes; `pass` always holds a passing lightness.
+  let fail = hsl.l;
+  let pass = lightSurfaces ? 0 : 1;
+  if (!passes(hslToHex(hsl.h, hsl.s, pass))) {
+    return ensureContrastAgainst(
+      normalized,
+      surfaces[0] ?? (lightSurfaces ? "#ffffff" : "#000000"),
+    );
+  }
+  for (let i = 0; i < 20; i += 1) {
+    const mid = (fail + pass) / 2;
+    if (passes(hslToHex(hsl.h, hsl.s, mid))) pass = mid;
+    else fail = mid;
+  }
+  return hslToHex(hsl.h, hsl.s, pass);
+}

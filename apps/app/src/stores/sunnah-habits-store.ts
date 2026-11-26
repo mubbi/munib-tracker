@@ -12,6 +12,7 @@ import {
   moveHabit,
   pruneOldChecks,
   removeHabit,
+  reorderHabits,
   sanitizeSunnahHabits,
   setHabitTarget,
   setHabitValue,
@@ -77,6 +78,7 @@ const sunnahHabitsActions = {
   add: (id: string) => apply((d) => addHabit(d, id)),
   remove: (id: string) => apply((d) => removeHabit(d, id)),
   move: (id: string, delta: -1 | 1) => apply((d) => moveHabit(d, id, delta)),
+  reorder: (ids: readonly string[]) => apply((d) => reorderHabits(d, ids)),
   addCustom: (title: string, target?: number) =>
     apply((d) =>
       addCustomHabit(d, {

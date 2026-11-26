@@ -159,8 +159,11 @@ describe("note hints on phones", () => {
     const run = screen.getByTestId(`noted-words-${id}`);
     const style = flattenStyle(run.props.style);
     expect(style.textDecorationLine).toBe("underline");
-    expect(style.textDecorationStyle).toBe("dotted");
-    expect(style.backgroundColor).toBeUndefined();
+    // Native: solid (iOS draws a dotted underline under Arabic as one tiny dot) plus
+    // a faint wash in the underline colour, since RN can't thicken the line.
+    expect(style.textDecorationStyle).toBe("solid");
+    expect(style.textDecorationColor).toBeTruthy();
+    expect(String(style.backgroundColor)).toMatch(/^#[0-9a-f]{8}$/i);
     await fireEvent.press(run);
     expect(quranNotePeekStore.getState().target).toMatchObject({ noteId: id, via: "press" });
     expect(screen.getByText("On these words")).toBeTruthy();
@@ -270,6 +273,10 @@ describe("keyboard reach on desktop web", () => {
       </>,
     );
     const run = screen.getByTestId(`noted-words-${id}`);
+    // Web keeps the dotted underline (browsers draw it under Arabic) and no wash.
+    const style = flattenStyle(run.props.style);
+    expect(style.textDecorationStyle).toBe("dotted");
+    expect(style.backgroundColor).toBeUndefined();
     expect(run.props.focusable).toBe(true);
     // No role: the run stays an inline span so Arabic letters keep joining.
     expect(run.props.accessibilityRole).toBeUndefined();

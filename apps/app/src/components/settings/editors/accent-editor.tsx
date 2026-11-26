@@ -2,14 +2,17 @@ import { accentColorIds, accentColors } from "@munib-tracker/theme/accents";
 import { bestForeground } from "@munib-tracker/theme/color";
 import type { AccentColorId } from "@munib-tracker/theme/types";
 import { SymbolView } from "expo-symbols";
-import { type ComponentType, lazy, Suspense } from "react";
+import { type ComponentType, lazy, Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
+
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { Sheet } from "@/components/ui/sheet";
 import { SkeletonPlaceholder } from "@/components/ui/skeleton";
+import { TvSwitchTrack } from "@/components/ui/switch-row";
+import { TextField } from "@/components/ui/text-field";
 import { COLOR_PALETTE } from "@/constants/color-palette";
 import { BorderWidth, Control, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { tvDp } from "@/constants/tv-density";
@@ -39,371 +42,390 @@ const InlineCustomColorPicker: ComponentType<InlineCustomColorPickerProps> =
         })),
       );
 
-/** Precompute once — luminance is pure and the palette is static. */
-const HIGH_LUMINANCE_SWATCHES = new Set<string>(
-  COLOR_PALETTE.filter((hex) => relativeLuminance(hex) > 0.85),
-);
+const CHECK = { ios: "checkmark", android: "check", web: "check" } as const;
 
+/** Very light swatches need a hairline so they don't vanish on a light card. */
 function needsSwatchBorder(hex: string): boolean {
-  if (HIGH_LUMINANCE_SWATCHES.has(hex)) return true;
   return relativeLuminance(hex) > 0.85;
 }
 
 /**
- * Accent presets, the full palette, the custom picker and a live preview
- * (Appearance & home › Theme). Light/dark/system is the registry's segmented
- * row above it; both write the synced prefs the theme provider mirrors.
+ * True when the theme had to lift/deepen the user's custom accent for UI use
+ * (`ensureReadableAccent` in the theme resolver). The stored hex is unchanged.
  */
-export function AccentEditor() {
-  const { t } = useTranslation();
-  const {
-    colors,
-    tokens,
-    colorMode,
-    accentColorId,
-    customAccent,
-    scheme,
-    setAccentColor,
-    setCustomAccent,
-  } = useThemeTokens();
+export function isAccentAdjusted(customAccent: string | null, resolvedAccent: string): boolean {
+  if (!customAccent) return false;
+  const stored = normalizeHex(customAccent);
+  const shown = normalizeHex(resolvedAccent);
+  return stored != null && shown != null && stored !== shown;
+}
 
+/** One round swatch in a 44pt target; ring + check when selected. */
+function Swatch({
+  color,
+  label,
+  selected,
+  onPress,
+  testID,
+}: {
+  color: string;
+  label: string;
+  selected: boolean;
+  onPress: () => void;
+  testID?: string;
+}) {
+  const { colors, tokens } = useThemeTokens();
   const tv = isTV();
-  const pickerValue = customAccent ?? colors.accent;
-  const selectedPreset = customAccent ? null : accentColors[accentColorId];
-  const accentLabel = customAccent
-    ? (normalizeHex(customAccent) ?? customAccent).toUpperCase()
-    : (selectedPreset?.label ?? accentColorId);
-
-  const customPicker = (
-    <>
-      <ThemedText type="label" themeColor="mutedForeground" style={styles.sectionLabel}>
-        {t("appearance.customColorPicker")}
-      </ThemedText>
-      <Suspense
-        fallback={
-          // P8-04: the lazy colour picker loads behind a skeleton, not a spinner.
-          <SkeletonPlaceholder preset="card" count={1} style={styles.pickerFallback} />
-        }
-      >
-        <InlineCustomColorPicker value={pickerValue} onChange={(hex) => setCustomAccent(hex)} />
-      </Suspense>
-    </>
-  );
-
-  const accentCard = (
-    <View>
+  return (
+    <PressableScale
+      testID={testID}
+      accessibilityLabel={label}
+      accessibilityRole="button"
+      accessibilityState={{ selected }}
+      onPress={onPress}
+      scaleTo={0.9}
+      haptic="selection"
+      rippleBorderless
+      style={[styles.swatchTarget, tv && styles.swatchTargetTv]}
+    >
       <View
         style={[
-          styles.selectedBanner,
+          styles.swatchRing,
+          tv && styles.swatchRingTv,
           {
-            backgroundColor: tokens.accentSoft,
-            borderColor: tokens.accentBorder,
+            // TV: the accent ring is the D-pad focus visual — selection is the
+            // foreground ring + check instead.
+            borderColor: selected ? (tv ? tokens.hairline : colors.foreground) : "transparent",
           },
         ]}
       >
         <View
           style={[
-            styles.selectedSwatch,
+            styles.swatchDot,
+            tv && styles.swatchDotTv,
             {
-              backgroundColor: colors.accent,
-              borderColor: needsSwatchBorder(colors.accent) ? tokens.hairline : "transparent",
+              backgroundColor: color,
+              borderColor: needsSwatchBorder(color)
+                ? tokens.hairline
+                : withAlpha(colors.foreground, 0.06),
             },
           ]}
-        />
-        <View style={styles.selectedMeta}>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("appearance.selectedAccent")}
-          </ThemedText>
-          <ThemedText type="small">{accentLabel}</ThemedText>
+        >
+          {selected ? (
+            <SymbolView name={CHECK} size={13} tintColor={bestForeground(color)} />
+          ) : null}
         </View>
       </View>
-
-      <ThemedText type="label" themeColor="mutedForeground" style={styles.sectionLabel}>
-        {t("appearance.accentPresets")}
-      </ThemedText>
-      <View style={styles.presetGrid}>
-        {accentColorIds.map((id) => {
-          const accent = accentColors[id];
-          const selected = !customAccent && accentColorId === id;
-          const swatchColor = scheme === "dark" ? accent.dark : accent.light;
-          return (
-            <View key={id} style={[styles.presetCell, tv && styles.presetCellTv]}>
-              <PressableScale
-                accessibilityLabel={accent.label}
-                accessibilityRole="button"
-                accessibilityState={{ selected }}
-                onPress={() => setAccentColor(id as AccentColorId)}
-                scaleTo={0.92}
-                haptic="selection"
-                rippleBorderless
-                style={styles.presetPressable}
-              >
-                <View
-                  style={[
-                    styles.swatchRing,
-                    {
-                      // TV: the accent ring is the D-pad focus visual — mark
-                      // selection with a soft hairline + checkmark instead.
-                      borderColor: selected
-                        ? tv
-                          ? tokens.accentBorder
-                          : colors.accent
-                        : "transparent",
-                      backgroundColor: selected ? tokens.accentSoft : "transparent",
-                    },
-                  ]}
-                >
-                  <View
-                    style={[
-                      styles.swatch,
-                      {
-                        backgroundColor: swatchColor,
-                        borderColor: needsSwatchBorder(swatchColor)
-                          ? tokens.hairline
-                          : withAlpha(colors.foreground, 0.06),
-                      },
-                    ]}
-                  >
-                    {selected ? (
-                      <SymbolView
-                        name={{ ios: "checkmark", android: "check", web: "check" }}
-                        size={15}
-                        tintColor={bestForeground(swatchColor)}
-                      />
-                    ) : null}
-                  </View>
-                </View>
-                <ThemedText
-                  type="caption"
-                  style={[
-                    styles.presetLabel,
-                    {
-                      color: selected ? colors.foreground : colors.mutedForeground,
-                      fontWeight: selected ? "600" : "400",
-                    },
-                  ]}
-                  numberOfLines={1}
-                >
-                  {accent.label}
-                </ThemedText>
-              </PressableScale>
-            </View>
-          );
-        })}
-      </View>
-
-      <ThemedText type="label" themeColor="mutedForeground" style={styles.sectionLabel}>
-        {t("appearance.accentAllColors")}
-      </ThemedText>
-      <View style={[styles.paletteCanvas, { backgroundColor: colors.muted }]}>
-        <View style={styles.paletteGrid}>
-          {COLOR_PALETTE.map((c) => {
-            const normalized = normalizeHex(c);
-            const selected =
-              customAccent !== null &&
-              normalized !== null &&
-              normalizeHex(customAccent) === normalized;
-            return (
-              <PressableScale
-                key={c}
-                accessibilityLabel={c}
-                accessibilityRole="button"
-                accessibilityState={{ selected }}
-                onPress={() => setCustomAccent(c)}
-                scaleTo={0.9}
-                haptic="selection"
-                rippleBorderless
-                style={[styles.palettePressable, tv && styles.paletteTv]}
-              >
-                <View
-                  style={[
-                    styles.paletteRing,
-                    tv && styles.paletteTv,
-                    {
-                      borderColor: selected ? colors.foreground : "transparent",
-                    },
-                  ]}
-                >
-                  <View
-                    style={[
-                      styles.paletteDot,
-                      {
-                        backgroundColor: c,
-                        borderColor: needsSwatchBorder(c) ? tokens.hairline : "transparent",
-                      },
-                    ]}
-                  >
-                    {selected ? (
-                      <SymbolView
-                        name={{ ios: "checkmark", android: "check", web: "check" }}
-                        size={12}
-                        tintColor={bestForeground(c)}
-                      />
-                    ) : null}
-                  </View>
-                </View>
-              </PressableScale>
-            );
-          })}
-        </View>
-      </View>
-
-      {/* The hue panel / slider are drag-only — on TV the palette above covers it.
-          Wide web moves the picker into its own card in the end column. */}
-      {tv ? null : customPicker}
-    </View>
+    </PressableScale>
   );
+}
 
-  const previewCard = (
-    <Card padding="four" variant="muted">
-      <ThemedText type="label" themeColor="mutedForeground">
-        {t("appearance.preview")}
-      </ThemedText>
-      <View style={styles.previewRow}>
-        <Button label={t("appearance.sampleAction")} size="sm" />
-        <Button label={t("appearance.secondary")} size="sm" variant="secondary" />
-      </View>
-      <ThemedText type="caption" themeColor="mutedForeground" style={styles.previewMeta}>
-        {t("appearance.previewMeta", { mode: colorMode, accent: accentLabel })}
-      </ThemedText>
-    </Card>
-  );
+/**
+ * Appearance › Accent: one row of the 12 preset swatches plus a final "More"
+ * swatch that opens a named sheet with the 36-colour palette (D-UX7) and the
+ * custom wheel + hex field, then a small live preview strip (button / toggle /
+ * chip). A custom accent too dark or light for the current theme is shown
+ * lightness-adjusted (same hue) with an "Adjusted for readability" note; the
+ * user's hex is stored unchanged. TV: presets only — no sheet, no picker.
+ */
+export function AccentEditor() {
+  const { t } = useTranslation();
+  const { colors, tokens, accentColorId, customAccent, scheme, setAccentColor, setCustomAccent } =
+    useThemeTokens();
+  const tv = isTV();
+  const [moreOpen, setMoreOpen] = useState(false);
+  const [hexDraft, setHexDraft] = useState<string | null>(null);
+
+  const selectedPreset = customAccent ? null : accentColors[accentColorId];
+  const customHex = customAccent
+    ? (normalizeHex(customAccent) ?? customAccent).toUpperCase()
+    : null;
+  const accentLabel = customHex ?? selectedPreset?.label ?? accentColorId;
+  const adjusted = isAccentAdjusted(customAccent, colors.accent);
+  const pickerValue = customAccent ?? colors.accent;
+
+  const hexValue = hexDraft ?? customHex ?? "";
+  const hexValid = hexDraft == null || normalizeHex(hexDraft) != null;
+  const applyHex = () => {
+    if (hexDraft == null) return;
+    const next = normalizeHex(hexDraft.startsWith("#") ? hexDraft : `#${hexDraft}`);
+    if (next) {
+      setCustomAccent(next);
+      setHexDraft(null);
+    }
+  };
 
   return (
     <View style={styles.stack}>
-      {accentCard}
-      {previewCard}
+      <View style={styles.copy}>
+        <View style={styles.titleLine}>
+          <ThemedText type="small" style={styles.title}>
+            {t("appearance.accentTitle")}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            {accentLabel}
+          </ThemedText>
+        </View>
+      </View>
+
+      <View style={styles.swatches} testID="accent-presets">
+        {accentColorIds.map((id) => {
+          const accent = accentColors[id];
+          return (
+            <Swatch
+              key={id}
+              testID={`accent-preset-${id}`}
+              color={scheme === "dark" ? accent.dark : accent.light}
+              label={accent.label}
+              selected={!customAccent && accentColorId === id}
+              onPress={() => setAccentColor(id as AccentColorId)}
+            />
+          );
+        })}
+        {tv ? null : (
+          <PressableScale
+            testID="accent-more"
+            accessibilityRole="button"
+            accessibilityLabel={t("appearance.moreColors")}
+            accessibilityHint={t("appearance.moreColorsHint")}
+            accessibilityState={{ selected: customAccent != null }}
+            onPress={() => setMoreOpen(true)}
+            scaleTo={0.9}
+            haptic="selection"
+            rippleBorderless
+            style={styles.swatchTarget}
+          >
+            <View
+              style={[
+                styles.swatchRing,
+                { borderColor: customAccent ? colors.foreground : "transparent" },
+              ]}
+            >
+              <View
+                style={[
+                  styles.swatchDot,
+                  styles.moreDot,
+                  {
+                    backgroundColor: customAccent ? colors.accent : colors.muted,
+                    borderColor: colors.border,
+                  },
+                ]}
+              >
+                <SymbolView
+                  name={
+                    customAccent
+                      ? CHECK
+                      : { ios: "ellipsis", android: "more_horiz", web: "more_horiz" }
+                  }
+                  size={14}
+                  tintColor={customAccent ? colors.accentForeground : colors.foreground}
+                />
+              </View>
+            </View>
+          </PressableScale>
+        )}
+      </View>
+
+      {adjusted ? (
+        <View style={styles.note} testID="accent-adjusted-note">
+          <SymbolView
+            name={{ ios: "info.circle", android: "info", web: "info" }}
+            size={14}
+            tintColor={colors.mutedForeground}
+          />
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.noteText}>
+            {t("appearance.accentAdjusted")}
+          </ThemedText>
+        </View>
+      ) : null}
+
+      {/* Live preview strip: drawn only (nothing to press), hidden from assistive tech. */}
+      <View
+        accessible={false}
+        accessibilityElementsHidden
+        importantForAccessibility="no-hide-descendants"
+        style={[styles.preview, { backgroundColor: colors.muted }]}
+        testID="accent-preview"
+      >
+        <View style={[styles.previewButton, { backgroundColor: colors.accent }]}>
+          <ThemedText type="caption" weight="semibold" style={{ color: colors.accentForeground }}>
+            {t("appearance.sampleAction")}
+          </ThemedText>
+        </View>
+        <TvSwitchTrack value />
+        <View
+          style={[
+            styles.previewChip,
+            { backgroundColor: tokens.accentSoft, borderColor: colors.accent },
+          ]}
+        >
+          <ThemedText type="caption" weight="semibold" style={{ color: tokens.accentOnSoft }}>
+            {t("appearance.selectedAccent")}
+          </ThemedText>
+        </View>
+      </View>
+
+      {tv ? null : (
+        <Sheet
+          visible={moreOpen}
+          onClose={() => {
+            setMoreOpen(false);
+            setHexDraft(null);
+          }}
+          variant="bottom"
+          solid
+          title={t("appearance.moreColors")}
+        >
+          <View style={styles.sheetBody}>
+            <ThemedText type="label" themeColor="mutedForeground">
+              {t("appearance.accentAllColors")}
+            </ThemedText>
+            <View style={[styles.palette, { backgroundColor: colors.muted }]}>
+              {COLOR_PALETTE.map((c) => {
+                const normalized = normalizeHex(c);
+                const selected =
+                  customAccent != null &&
+                  normalized != null &&
+                  normalizeHex(customAccent) === normalized;
+                return (
+                  <Swatch
+                    key={c}
+                    color={c}
+                    label={c}
+                    selected={selected}
+                    onPress={() => setCustomAccent(c)}
+                  />
+                );
+              })}
+            </View>
+
+            <ThemedText type="label" themeColor="mutedForeground">
+              {t("appearance.customColorPicker")}
+            </ThemedText>
+            <Suspense
+              fallback={
+                // P8-04: the lazy colour picker loads behind a skeleton, not a spinner.
+                <SkeletonPlaceholder preset="card" count={1} style={styles.pickerFallback} />
+              }
+            >
+              <InlineCustomColorPicker
+                value={pickerValue}
+                onChange={(hex) => setCustomAccent(hex)}
+              />
+            </Suspense>
+            <TextField
+              label={t("appearance.hexLabel")}
+              value={hexValue}
+              onChangeText={setHexDraft}
+              onSubmitEditing={applyHex}
+              onBlur={applyHex}
+              autoCapitalize="characters"
+              autoCorrect={false}
+              maxLength={7}
+              returnKeyType="done"
+              keyboardType={Platform.OS === "ios" ? "ascii-capable" : "default"}
+              error={hexValid ? undefined : t("appearance.hexInvalid")}
+            />
+            {adjusted ? (
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("appearance.accentAdjusted")}
+              </ThemedText>
+            ) : null}
+            <Button
+              label={t("settingsPanel.done")}
+              fullWidth
+              onPress={() => {
+                applyHex();
+                setMoreOpen(false);
+              }}
+            />
+          </View>
+        </Sheet>
+      )}
     </View>
   );
 }
 
+const SWATCH_TV = tvDp(48);
+
 const styles = StyleSheet.create({
-  stack: {
-    gap: Spacing.three,
-  },
-  selectedBanner: {
+  stack: { gap: Spacing.two },
+  copy: { gap: Spacing.half },
+  titleLine: {
     flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    paddingVertical: Spacing.twoHalf,
-    paddingHorizontal: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: BorderWidth.hairline,
-    marginBottom: Spacing.one,
+    alignItems: "baseline",
+    flexWrap: "wrap",
+    columnGap: Spacing.two,
   },
-  selectedSwatch: {
-    width: 36,
-    height: 36,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: BorderWidth.hairline,
-  },
-  selectedMeta: {
-    flex: 1,
-    gap: 1,
-  },
-  sectionLabel: {
-    textTransform: "uppercase",
-    letterSpacing: 0.8,
-    marginTop: Spacing.three,
-    marginBottom: Spacing.two,
-  },
-  pickerFallback: {
-    minHeight: 160,
-  },
-  presetGrid: {
+  title: { flexShrink: 1 },
+  swatches: {
     flexDirection: "row",
     flexWrap: "wrap",
+    columnGap: Spacing.half,
+    rowGap: Spacing.half,
   },
-  // Percentage width lives on a plain View — PressableScale drops width from its
-  // Android ripple host, which collapsed cells into clipped semicircles.
-  presetCell: {
-    width: "25%",
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.half,
-  },
-  presetPressable: {
-    alignSelf: "stretch",
-    alignItems: "center",
-    gap: Spacing.oneHalf,
-  },
-  swatchRing: {
-    width: 52,
-    height: 52,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: BorderWidth.thick,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  swatch: {
-    width: 40,
-    height: 40,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: BorderWidth.hairline,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  presetLabel: {
-    textAlign: "center",
-    alignSelf: "stretch",
-  },
-  paletteCanvas: {
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    padding: Spacing.three,
-  },
-  paletteGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: Spacing.twoHalf,
-    justifyContent: "flex-start",
-  },
-  // Fixed-size chips — reliable under PressableScale (no % width / aspectRatio).
-  palettePressable: {
+  // Fixed-size targets — reliable under PressableScale (no % width / aspectRatio).
+  swatchTarget: {
     width: Control.minTouch,
     height: Control.minTouch,
     alignItems: "center",
     justifyContent: "center",
   },
-  /** TV: 48dp D-pad targets with a round focus ring. */
-  paletteTv: {
-    width: tvDp(48),
-    height: tvDp(48),
-    borderRadius: Radius.pill,
-  },
-  /** TV: one row of presets across the landscape width. */
-  presetCellTv: {
-    width: "12.5%",
-  },
-  paletteRing: {
-    width: 40,
-    height: 40,
+  swatchTargetTv: { width: SWATCH_TV, height: SWATCH_TV, borderRadius: Radius.pill },
+  swatchRing: {
+    width: 38,
+    height: 38,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     borderWidth: BorderWidth.thick,
     alignItems: "center",
     justifyContent: "center",
   },
-  paletteDot: {
-    width: 32,
-    height: 32,
+  swatchRingTv: { width: SWATCH_TV, height: SWATCH_TV },
+  swatchDot: {
+    width: 28,
+    height: 28,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     borderWidth: BorderWidth.hairline,
     alignItems: "center",
     justifyContent: "center",
   },
-  previewRow: {
+  swatchDotTv: { width: tvDp(36), height: tvDp(36) },
+  moreDot: { borderStyle: "dashed", borderWidth: BorderWidth.thin },
+  note: { flexDirection: "row", alignItems: "center", gap: Spacing.oneHalf },
+  noteText: { flexShrink: 1 },
+  preview: {
     flexDirection: "row",
-    gap: Spacing.two,
-    marginTop: Spacing.two,
-    marginBottom: Spacing.three,
+    alignItems: "center",
     flexWrap: "wrap",
+    gap: Spacing.three,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
   },
-  previewMeta: {
-    marginTop: Spacing.one,
+  previewButton: {
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.oneHalf,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
   },
+  previewChip: {
+    paddingHorizontal: Spacing.twoHalf,
+    paddingVertical: Spacing.one,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    borderWidth: BorderWidth.thin,
+  },
+  sheetBody: { gap: Spacing.three },
+  palette: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.half,
+    padding: Spacing.two,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  pickerFallback: { minHeight: 160 },
 });

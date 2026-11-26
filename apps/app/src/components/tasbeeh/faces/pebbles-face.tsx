@@ -1,6 +1,7 @@
 import type { TasbeehPebbleItem } from "@munib-tracker/shared/types";
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
+import { GestureDetector } from "react-native-gesture-handler";
 import Animated, { type SharedValue, useAnimatedStyle } from "react-native-reanimated";
 import Svg, { Defs, Ellipse, RadialGradient, Stop } from "react-native-svg";
 
@@ -25,16 +26,22 @@ import { roundSizeFor, roundState } from "@/lib/tasbeeh/rounds";
 import { RoundReadout } from "./round-readout";
 import type { TasbeehFaceProps } from "./types";
 import { useForwardStep } from "./use-forward-step";
+import { useSwipeCount } from "./use-swipe-count";
 
 /** Each dish gets a different spiral twist so the two never look copied. */
 const SOURCE_SALT = 1;
 const COUNTED_SALT = 2;
 
+/** Swipe this share of the stage width towards the counted dish to count (back to undo). */
+const SWIPE_DETENT_RATIO = 0.12;
+
 /**
  * Date pits / pebbles (D16): each count moves one pit or pebble from the dish
  * at the reading start to the dish at the reading end, in rounds of 33 (or the
- * target, when smaller). Tap only — the shell owns counting. The evidence and
- * the differing gradings show in the always-visible "About this design" note
+ * target, when smaller). Tap anywhere (the shell), or swipe towards the counted
+ * dish to count and back towards the source dish to undo one (along the reading
+ * direction, so right-to-left in RTL; never below 0). The evidence and the
+ * differing gradings show in the always-visible "About this design" note
  * (`TasbeehDesignNote`), outside the tap target.
  */
 export default function PebblesFace({
@@ -44,6 +51,10 @@ export default function PebblesFace({
   size,
   reduceMotion,
   appearance,
+  tv,
+  onCount,
+  onUndo,
+  onGestureActive,
   preview = false,
 }: TasbeehFaceProps) {
   const { colors, tokens } = useThemeTokens();
@@ -64,6 +75,20 @@ export default function PebblesFace({
   // The last item to move travels from the source dish to the counted dish.
   const move = useForwardStep(count, { animate: !reduceMotion, curve: "cubic" });
 
+  // Swipe along the dishes: towards the counted dish counts, back undoes.
+  const canUndo = onUndo != null && count > 0;
+  const project = useCallback((x: number) => (rtl ? -x : x), [rtl]);
+  const swipe = useSwipeCount({
+    enabled: !preview && !tv && (!complete || canUndo),
+    detent: Math.max(28, width * SWIPE_DETENT_RATIO),
+    project,
+    canUndo,
+    onCount: () => onCount("bead"),
+    onUndo,
+    onGestureActive,
+    axis: "x",
+  });
+
   const sourceSlots = useMemo(
     () =>
       Array.from({ length: occupancy.source }, (_, i) =>
@@ -83,11 +108,11 @@ export default function PebblesFace({
     ? pebbleSlot(geometry.source, moving.from, round.size, item, SOURCE_SALT)
     : null;
 
-  return (
+  const body = (
     <View
       testID="tasbeeh-face-pebbles"
       style={[styles.stage, { width, borderRadius: Radius.lg }]}
-      pointerEvents="none"
+      pointerEvents={preview || tv ? "none" : "auto"}
     >
       <View style={[{ width, height }, chartCoordinateStyle]}>
         <Svg width={width} height={height} style={StyleSheet.absoluteFill}>
@@ -158,6 +183,8 @@ export default function PebblesFace({
       )}
     </View>
   );
+  if (preview || tv) return body;
+  return <GestureDetector gesture={swipe}>{body}</GestureDetector>;
 }
 
 function DishShape({ dish, rim, glow }: { dish: Dish; rim: string; glow?: string }) {

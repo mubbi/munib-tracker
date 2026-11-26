@@ -9,6 +9,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { ZIKR_HADITH_SOURCES, ZIKR_TARGET_COUNTS } from "./adhkar-hadith-sources.mjs";
+import { buildDuroods } from "./build-duroods.mjs";
 import { fetchJSON, fetchText } from "./fetch.mjs";
 import {
   APP_ROOT,
@@ -692,44 +693,6 @@ function tagAfterPrayerPrayers(items) {
       }
     }
   }
-}
-
-// Hisnul Muslim chapter 107 = "Excellence of sending prayers upon the Prophet".
-const HISN_DUROOD_GROUP = 107;
-
-/** Extract the ch.107 salawat as DurudItems (transliteration where clean). */
-function buildHisnDuruds(hisnDuas, translitLookup) {
-  const out = [];
-  let n = 1;
-  for (const h of hisnDuas) {
-    if (h.groupId !== HISN_DUROOD_GROUP) continue;
-    const item = {
-      id: `durood-hisn-${h.hisnId}`,
-      title: `Salawat upon the Prophet ﷺ (${n++})`,
-      arabic: h.arabic,
-      translation: h.translation,
-      ...(h.translations ? { translations: h.translations } : {}),
-      reference: h.reference || "Hisn al-Muslim",
-    };
-    const translit = findTranslit(h.arabic, translitLookup);
-    if (translit) item.transliteration = translit;
-    if (h.audioFile) item.audioUri = `${HISN_AUDIO_CDN}/${h.audioFile}`;
-    out.push(item);
-  }
-  return out;
-}
-
-/** Append Hisnul salawat that aren't already in the curated durood base. */
-function mergeDuruds(base, extra) {
-  const seenArabic = new Set(base.map((d) => normalizeArabic(d.arabic)));
-  const merged = [...base];
-  for (const item of extra) {
-    const norm = normalizeArabic(item.arabic);
-    if (!norm || seenArabic.has(norm)) continue;
-    seenArabic.add(norm);
-    merged.push(item);
-  }
-  return merged;
 }
 
 // ── Open-source dua/dhikr dataset (fitrahive/dua-dhikr) ─────────────────────
@@ -1887,49 +1850,7 @@ const DUA_ITEMS = [
   },
 ];
 
-const DUROOD_ITEMS = [
-  {
-    id: "durood-ibrahim",
-    title: "Durood Ibrahim",
-    arabic:
-      "اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ اللَّهُمَّ بَارِكْ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
-    transliteration:
-      "Allahumma salli 'ala Muhammadin wa 'ala aali Muhammad, kama sallayta 'ala Ibrahim wa 'ala aali Ibrahim, innaka Hamidun Majid. Allahumma barik 'ala Muhammadin wa 'ala aali Muhammad, kama barakta 'ala Ibrahim wa 'ala aali Ibrahim, innaka Hamidun Majid",
-    translation:
-      "O Allah, send blessings upon Muhammad and the family of Muhammad, as You sent blessings upon Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious. O Allah, bless Muhammad and the family of Muhammad, as You blessed Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious.",
-    virtues:
-      "Recited in every prayer; the most complete form of sending blessings on the Prophet ﷺ.",
-    reference: "Bukhari & Muslim",
-  },
-  {
-    id: "durood-short",
-    title: "Short Salawat",
-    arabic: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَىٰ نَبِيِّنَا مُحَمَّدٍ",
-    transliteration: "Allahumma salli wa sallim 'ala Nabiyyina Muhammad",
-    translation: "O Allah, send blessings and peace upon our Prophet Muhammad.",
-    virtues: "Whoever sends blessings once, Allah sends ten upon him.",
-    reference: "Muslim",
-  },
-  {
-    id: "durood-salli-ala",
-    title: "Salli 'ala Muhammad",
-    arabic: "صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ",
-    transliteration: "Sallallahu 'alayhi wa sallam",
-    translation: "May Allah send blessings and peace upon him.",
-    virtues: "Said upon hearing the name of the Prophet ﷺ.",
-    reference: "Tirmidhi",
-  },
-  {
-    id: "durood-afdal",
-    title: "Blessings and peace",
-    arabic: "اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ عَبْدِكَ وَرَسُولِكَ وَصَلِّ عَلَى الْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ",
-    transliteration:
-      "Allahumma salli 'ala Muhammadin 'abdika wa rasulika, wa salli 'alal-mu'minina wal-mu'minat",
-    translation:
-      "O Allah, send blessings upon Muhammad, Your servant and messenger, and upon the believing men and women.",
-    reference: "Bukhari",
-  },
-];
+// Duroods are built from the hadith datasets in build-duroods.mjs (D11).
 
 // ── Serialization ──────────────────────────────────────────
 
@@ -2045,9 +1966,10 @@ export function getDuaById(id: string): DuaItem | undefined {
 `;
 }
 
-function renderDuroods(items, audioById) {
+function renderDuroods(items) {
   const order = [
     "id",
+    "kind",
     "title",
     "arabic",
     "transliteration",
@@ -2055,18 +1977,20 @@ function renderDuroods(items, audioById) {
     "translations",
     "virtues",
     "reference",
+    "grade",
     "audioUri",
   ];
-  const body = withAudio(items, audioById)
-    .map((item) => serializeObject(sanitizeItemEnglish(item), order))
-    .join("\n");
+  // Duroods carry only their own HEAD-verified audio (no fuzzy matching).
+  const body = items.map((item) => serializeObject(sanitizeItemEnglish(item), order)).join("\n");
   return `import type { DurudItem } from "../types/index";
 
-export const DUROOD_CONTENT_VERSION = 6;
+export const DUROOD_CONTENT_VERSION = 7;
 
 /**
- * Duroods and salawat upon the Prophet ﷺ. Generated by
- * apps/app/scripts/build-data/build-adhkar.mjs — do not edit by hand.
+ * Duroods and salawat upon the Prophet ﷺ, sourced from hadith datasets with an
+ * exact citation and grade per item. Generated by
+ * apps/app/scripts/build-data/build-duroods.mjs (via build-adhkar.mjs) — do not
+ * edit by hand. Proof log: docs/proofs/duroods.md.
  */
 export const DUROOD_ITEMS: DurudItem[] = [
 ${body}
@@ -2471,10 +2395,10 @@ function normalizeHadithArabic(text) {
 function cleanHadithText(text) {
   return (
     (text ?? "")
-      .replace(/<[^>]+>/g, "")
-      // Drop any bracket a nested or broken tag ("<scr<b>ipt>") leaves behind;
-      // hadith text never contains a literal < or >.
-      .replace(/[<>]/g, "")
+      // One pass that removes whole tags AND every stray bracket, so a nested or
+      // broken tag ("<scr<b>ipt>") can never re-form markup. Hadith text never
+      // contains a literal < or >.
+      .replace(/<[^<>]*>|[<>]/g, "")
       .replace(/\s+/g, " ")
       .trim()
   );
@@ -2572,8 +2496,17 @@ export async function buildAdhkar() {
   const hisnDuas = await fetchHisnDuas();
   const translitLookup = buildTranslitLookup([...dataset.dua, ...dataset.zikr]);
   const duaItems = buildDuaCorpus(hisnDuas, translitLookup);
-  // Duroods: curated base + authentic Hisnul Muslim ch.107 salawat.
-  const duroodItems = mergeDuruds(DUROOD_ITEMS, buildHisnDuruds(hisnDuas, translitLookup));
+  // Duroods: salawat wordings + virtue reports cut verbatim from the hadith
+  // datasets (citation + grade per item) and the Hisnul Muslim rows.
+  const durood = await buildDuroods({
+    hisnDuas,
+    hisnAudioCdn: HISN_AUDIO_CDN,
+    translitLookup,
+    normalizeArabic,
+    cleanHadithText,
+    sanitizeEnglishDisplay,
+  });
+  const duroodItems = durood.items;
 
   const bnCsvMap = buildBnTranslationMap(hisnDuas);
   const bnApiMap = await buildBnTranslationMapFromThelightHub();
@@ -2592,7 +2525,7 @@ export async function buildAdhkar() {
   const audioDb = await fetchAdhkarAudioDb();
   const audioById = {};
   let matched = 0;
-  for (const item of [...zikrItems, ...duaItems, ...duroodItems]) {
+  for (const item of [...zikrItems, ...duaItems]) {
     const uri = audioDb.length ? matchAdhkarAudio(item.arabic, audioDb) : undefined;
     if (uri) {
       audioById[item.id] = uri;
@@ -2608,17 +2541,19 @@ export async function buildAdhkar() {
   const zikrHadithPath = join(ASSETS_DATA_DIR, "hadith", "zikr-sources.json");
   const duasPath = join(SHARED_CONTENT_DIR, "duas.ts");
   const duroodsPath = join(SHARED_CONTENT_DIR, "duroods.ts");
+  const duroodSourcesPath = join(ASSETS_DATA_DIR, "hadith", "durood-sources.json");
 
   await writeFileStable(zikrPath, renderZikr(zikrItems, audioById));
   await writeCompactJSON(zikrHadithPath, sortedZikrHadith(zikrHadith));
   await writeFileStable(duasPath, renderDuas(duaItems, audioById));
-  await writeFileStable(duroodsPath, renderDuroods(duroodItems, audioById));
+  await writeFileStable(duroodsPath, renderDuroods(duroodItems));
+  await writeCompactJSON(duroodSourcesPath, sortedZikrHadith(durood.sources));
   const duasWithTranslit = withAudio(duaItems, audioById).filter((d) =>
     d.transliteration?.trim(),
   ).length;
   const duasWithAudio = withAudio(duaItems, audioById).filter((d) => d.audioUri).length;
   console.log(
-    `  zikr.ts → ${zikrItems.length}, duas.ts → ${duaItems.length} (${duasWithTranslit} transliterated, ${duasWithAudio} with audio), duroods.ts → ${duroodItems.length} (${matched} matched via audio db)`,
+    `  zikr.ts → ${zikrItems.length}, duas.ts → ${duaItems.length} (${duasWithTranslit} transliterated, ${duasWithAudio} with audio), duroods.ts → ${duroodItems.length} (${duroodItems.filter((d) => d.audioUri).length} with audio), ${matched} matched via audio db`,
   );
 
   return [
@@ -2626,9 +2561,9 @@ export async function buildAdhkar() {
       id: "adhkar",
       kind: "content",
       version: 7,
-      absFiles: [zikrPath, zikrHadithPath, duasPath, duroodsPath],
+      absFiles: [zikrPath, zikrHadithPath, duasPath, duroodsPath, duroodSourcesPath],
       license: "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
-      attribution: `Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (${HISN_AUDIO_REPO}); adhkar & transliteration from ${DUADHIKR_REPO} (Arabic, transliteration, translation). Bengali Hisnul translations from ${THELIGHTHUB_REPO} (MIT, ${THELIGHTHUB_DUA_API}). Indonesian subset from fitrahive/dua-dhikr. Source hadith for adhkar from fawazahmed0/hadith-api (verbatim, multi-language). Audio streamed from ${HISN_AUDIO_REPO}.`,
+      attribution: `Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (${HISN_AUDIO_REPO}); adhkar & transliteration from ${DUADHIKR_REPO} (Arabic, transliteration, translation). Bengali Hisnul translations from ${THELIGHTHUB_REPO} (MIT, ${THELIGHTHUB_DUA_API}). Indonesian subset from fitrahive/dua-dhikr. Source hadith for adhkar from fawazahmed0/hadith-api (verbatim, multi-language). ${durood.credits} Audio streamed from ${HISN_AUDIO_REPO}.`,
       sourceUrl: `https://github.com/${THELIGHTHUB_REPO}`,
     }),
   ];

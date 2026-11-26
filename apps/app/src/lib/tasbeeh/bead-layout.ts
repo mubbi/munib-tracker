@@ -10,6 +10,11 @@
  * uncounted items stack back from `gapStart`, counted items stack on from
  * `gapEnd`, and the moving item crosses the gap. Only a window of about 20
  * items around the gap is ever drawn.
+ *
+ * Ends. The open layouts (arc, horizontal) run the thread right to the stage
+ * edges, so beads stay solid and slide out of view under the stage's clip —
+ * they never fade into see-through "ghost" beads. The closed loop has no edge
+ * to hide behind: beads shrink into the knot where its two ends meet.
  */
 
 import type { TasbeehStrandLayout, TasbeehStrandSize } from "@munib-tracker/shared/types";
@@ -218,7 +223,9 @@ function arcGeometry(
   bead: number,
 ): ArcGeometry {
   "worklet";
-  const margin = bead;
+  // Open layouts reach the stage edges (beads slide out under the clip); the
+  // loop keeps a bead of margin so it never touches the edge.
+  const margin = layout === "loop" ? bead : 0;
   if (layout === "loop") {
     const r = Math.max(bead, Math.min(width, height) / 2 - margin);
     return { cx: width / 2, cy: height / 2, r, phi: Math.PI, length: 2 * Math.PI * r };
@@ -347,14 +354,44 @@ export function visibleItems(
   return out;
 }
 
-/** Opacity for an offset: fades items in/out over half a pitch at the thread ends. Worklet. */
-export function edgeOpacity(s: number, length: number, pitch: number): number {
+/**
+ * Size factor (0–1) for an item at offset `s`. Items stay solid — never
+ * see-through. Open layouts: full size while on (or just past) the thread, so a
+ * bead slides out of view under the stage clip; 0 once it is a pitch beyond the
+ * end (fully hidden, not drawn). Loop: shrinks into the knot over half a pitch at
+ * the join. Worklet.
+ */
+export function edgeScale(
+  layout: TasbeehStrandLayout,
+  s: number,
+  length: number,
+  pitch: number,
+): number {
   "worklet";
-  const fade = pitch / 2;
+  if (layout !== "loop") return s < -pitch || s > length + pitch ? 0 : 1;
   if (s < 0 || s > length) return 0;
-  const head = Math.min(1, s / fade);
-  const tail = Math.min(1, (length - s) / fade);
-  return Math.max(0, Math.min(head, tail));
+  const shrink = pitch / 2;
+  return Math.max(0, Math.min(1, Math.min(s, length - s) / shrink));
+}
+
+/**
+ * Which side of the thread faces away from its curve, as the sign of the
+ * item's local +x axis (items are rotated so local +y runs along the thread).
+ * The imam bead's tassel hangs on this side, so it never lies across the
+ * neighbouring beads or the count readout inside the curve.
+ */
+export function outwardSide(geometry: StrandGeometry): 1 | -1 {
+  const { layout, width, height, bead, length, pitch, rtl } = geometry;
+  const s = length / 2;
+  const a = pathPoint(layout, s, width, height, bead, rtl);
+  const b = pathPoint(layout, s + pitch, width, height, bead, rtl);
+  // Deviation of the next point from the straight tangent line = towards the centre.
+  const dx = b.x - (a.x + Math.cos(a.angle) * pitch);
+  const dy = b.y - (a.y + Math.sin(a.angle) * pitch);
+  // Local +x of an item rotated by (angle − 90°), in screen coordinates.
+  const nx = Math.sin(a.angle);
+  const ny = -Math.cos(a.angle);
+  return dx * nx + dy * ny > 0 ? -1 : 1;
 }
 
 /** Detent for a drag, as a fraction of the bead pitch (plan: 60%). */
@@ -377,25 +414,56 @@ export function projectDrag(
   return translationX;
 }
 
+/** One gesture acts (counts or undoes) at most once; `counted` = it already has. */
 export type DragState = { counted: boolean };
 
+export type SwipeAction = "count" | "undo" | null;
+
 /**
- * One pan update. Returns the visual drag fraction (0–1 of one count, never
- * negative — dragging back never subtracts) and whether this update crosses the
- * detent. A gesture counts at most once: after it has counted, further
- * movement is ignored until a new gesture starts.
+ * Detent logic shared by every swipe-to-count face: `distance` is the drag
+ * projected on the counting direction. Forward past `detent` counts, backward
+ * past it undoes (only when `canUndo` — never below 0), once per gesture.
+ */
+export function swipeStep(
+  state: DragState,
+  distance: number,
+  detent: number,
+  canUndo: boolean,
+): SwipeAction {
+  if (state.counted) return null;
+  if (distance >= detent) {
+    state.counted = true;
+    return "count";
+  }
+  if (canUndo && distance <= -detent) {
+    state.counted = true;
+    return "undo";
+  }
+  return null;
+}
+
+/**
+ * One misbaha pan update. Returns the visual drag fraction of one count
+ * (forward: the next bead follows the finger; backward, when an undo is
+ * possible: the last counted bead slides back) and whether this update crosses
+ * the detent (60% of a pitch) forward (`count`) or backward (`undo`). A gesture
+ * acts at most once: after it has, further movement is ignored until a new
+ * gesture starts. With nothing to undo, dragging back does nothing.
  */
 export function dragStep(
   state: DragState,
   distance: number,
   geometry: Pick<StrandGeometry, "pitch" | "gapStart" | "gapEnd">,
-): { fraction: number; count: boolean } {
-  if (state.counted) return { fraction: 0, count: false };
-  const forward = Math.max(0, distance);
+  canUndo = false,
+): { fraction: number; count: boolean; undo: boolean } {
+  if (state.counted) return { fraction: 0, count: false, undo: false };
+  const action = swipeStep(state, distance, DRAG_DETENT * geometry.pitch, canUndo);
+  if (action) return { fraction: 0, count: action === "count", undo: action === "undo" };
   const travel = Math.max(1, geometry.gapEnd - geometry.gapStart);
-  if (forward >= DRAG_DETENT * geometry.pitch) {
-    state.counted = true;
-    return { fraction: 0, count: true };
-  }
-  return { fraction: Math.min(0.95, forward / travel), count: false };
+  const along = canUndo ? distance : Math.max(0, distance);
+  return {
+    fraction: Math.max(-0.95, Math.min(0.95, along / travel)),
+    count: false,
+    undo: false,
+  };
 }

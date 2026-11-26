@@ -691,7 +691,8 @@ function searchDuroods(query: string, limit: number) {
     arabic: item.arabic,
     reference: item.reference,
     badge: item.reference,
-    href: "/duroods",
+    href: "/duroods/[id]",
+    params: { id: item.id },
   }));
 }
 

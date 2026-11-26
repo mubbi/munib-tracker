@@ -5,10 +5,12 @@ import { StyleSheet, View } from "react-native";
 import { MadhhabNote } from "@/components/fiqh/madhhab-note";
 import { HadithExcerptCard } from "@/components/hadith/hadith-excerpt-card";
 import { ThemedText } from "@/components/themed-text";
+import { AppIcon } from "@/components/ui/app-icon";
 import { Card } from "@/components/ui/card";
-import { CollapsibleSection } from "@/components/ui/collapsible-section";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
-import { BorderWidth, Radius, Spacing } from "@/constants/theme";
+import { BorderWidth, Control, IconSize, Radius, Spacing } from "@/constants/theme";
+import { TvLayout } from "@/constants/tv-layout";
 import { useWitrQaza } from "@/hooks/use-rawatib";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isTV } from "@/lib/platform/is-tv";
@@ -25,26 +27,42 @@ export const WITR_MAKEUP_HADITH_ID = "abudawud:1431";
  */
 export function WitrQazaInfo() {
   const { t } = useTranslation();
-  const { tokens, colors } = useThemeTokens();
-  const info = tokens.status.info;
+  const { colors, tokens } = useThemeTokens();
   const [open, setOpen] = useState(false);
   const witrQaza = useWitrQaza();
   const tv = isTV();
 
+  // A quiet one-line hint that expands in place (Qaza hub): neutral surface,
+  // small type — the full madhhab-aware answer is one tap away.
   return (
-    <Card
-      style={{
-        backgroundColor: info.soft,
-        borderColor: info.border,
-        borderWidth: BorderWidth.hairline,
-      }}
-    >
-      <CollapsibleSection
-        open={open}
-        onOpenChange={setOpen}
-        title={t("qaza.witrNote.title")}
-        icon={{ ios: "info.circle.fill", android: "info", web: "info" }}
+    <Card variant="muted" padding="two">
+      <PressableScale
+        haptic="selection"
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
+        accessibilityLabel={t("qaza.witrNote.title")}
+        onPress={() => setOpen((value) => !value)}
+        style={[styles.header, tv && styles.headerTv]}
       >
+        <AppIcon
+          icon={{ ios: "info.circle", android: "info", web: "info" }}
+          size={IconSize.md}
+          tintColor={tokens.accentOnSoft}
+        />
+        <ThemedText type="smallBold" style={styles.headerTitle}>
+          {t("qaza.witrNote.title")}
+        </ThemedText>
+        <AppIcon
+          icon={
+            open
+              ? { ios: "chevron.up", android: "keyboard_arrow_up", web: "keyboard_arrow_up" }
+              : { ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }
+          }
+          size={IconSize.md}
+          tintColor={colors.mutedForeground}
+        />
+      </PressableScale>
+      {open ? (
         <View style={styles.body}>
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("qaza.witrNote.intro")}
@@ -84,23 +102,36 @@ export function WitrQazaInfo() {
           </View>
 
           <ThemedText type="smallBold">{t("qaza.witrNote.evidenceTitle")}</ThemedText>
-          {open ? <HadithExcerptCard hadithId={WITR_MAKEUP_HADITH_ID} /> : null}
+          <HadithExcerptCard hadithId={WITR_MAKEUP_HADITH_ID} />
 
-          <View style={[styles.footer, { borderColor: info.border }]}>
+          <View style={[styles.footer, { borderColor: tokens.hairline }]}>
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("fiqh.disclaimer")}
             </ThemedText>
           </View>
         </View>
-      </CollapsibleSection>
+      ) : null}
     </Card>
   );
 }
 
 const styles = StyleSheet.create({
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    minHeight: Control.md,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  headerTv: { minHeight: TvLayout.minFocusTarget },
+  headerTitle: { flex: 1, minWidth: 0 },
   body: {
     gap: Spacing.twoHalf,
     marginTop: Spacing.two,
+    paddingHorizontal: Spacing.two,
+    paddingBottom: Spacing.two,
   },
   toggleRow: {
     flexDirection: "row",

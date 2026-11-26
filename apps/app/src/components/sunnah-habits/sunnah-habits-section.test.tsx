@@ -83,6 +83,20 @@ describe("SunnahHabitsSection", () => {
     expect(screen.queryByText(i18n.t("reciteAlong.button"))).toBeNull();
   });
 
+  it("ticks salawat by hand on the home card — no stepper, tasbeeh progress in the subtitle", async () => {
+    await seed(["salawat"]);
+    await renderWithTheme(<SunnahHabitsSection date={DAY} />);
+
+    expect(screen.queryByRole("adjustable")).toBeNull();
+    const box = screen.getByRole("checkbox", { name: i18n.t("sunnahHabits.items.salawat.title") });
+    expect(box.props.accessibilityHint).toContain(i18n.t("sunnahHabits.from.tasbeeh"));
+    expect(box.props.accessibilityHint).toContain("0/10");
+    await act(async () => {
+      fireEvent.press(box);
+    });
+    expect(sunnahHabitsStore.getState().data.checks[habitCheckKey("salawat", DAY)]).toBe(10);
+  });
+
   it("shows at most four habits on the home card", async () => {
     await seed(["miswak", "smile", "salam_home", "spread_salam", "eat_right_bismillah"]);
     await renderWithTheme(<SunnahHabitsSection date={DAY} variant="home" />);

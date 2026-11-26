@@ -146,6 +146,8 @@ export const SettingRow = memo(function SettingRow({ def }: { def: AnySettingDef
             subtitle={subtitle}
             confirmMessage={control.confirmKey ? t(control.confirmKey) : undefined}
             destructive={control.destructive === true}
+            actionLabel={control.actionLabelKey ? t(control.actionLabelKey) : undefined}
+            accessory={badge}
             // Async: the confirm stays busy until the action lands; a failure
             // shows inline in the dialog (retryable) instead of a toast.
             onConfirm={async () => {

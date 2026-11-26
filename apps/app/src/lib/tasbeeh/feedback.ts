@@ -21,8 +21,17 @@ import type { TasbeehSoundKind } from "./sound-packs";
  * - `milestone`: every 33 on designs counted without looking (Focus / Night)
  * - `complete`: the target was reached
  * - `limit`: a tap after the target (nothing is counted)
+ * - `undo`: a face gesture took one count back (reverse swipe) — a light
+ *   haptic and the bead click, like the bead sliding back
  */
-export type TasbeehFeedbackEvent = "bead" | "spacer" | "lap" | "milestone" | "complete" | "limit";
+export type TasbeehFeedbackEvent =
+  | "bead"
+  | "spacer"
+  | "lap"
+  | "milestone"
+  | "complete"
+  | "limit"
+  | "undo";
 
 export interface TasbeehFeedback {
   /** Played in order, a short beat apart (`medium` ×2 for laps and milestones). */
@@ -37,6 +46,7 @@ const SUBTLE: Record<TasbeehFeedbackEvent, HapticFeedback[]> = {
   milestone: ["medium", "medium"],
   complete: ["success"],
   limit: ["light"],
+  undo: ["light"],
 };
 
 /** Rich: Android tick / detent primitives where the platform has them (selection / medium elsewhere). */
@@ -47,6 +57,7 @@ const RICH: Record<TasbeehFeedbackEvent, HapticFeedback[]> = {
   milestone: ["detent", "detent"],
   complete: ["success"],
   limit: ["tick"],
+  undo: ["tick"],
 };
 
 const SOUND: Record<TasbeehFeedbackEvent, TasbeehSoundKind | null> = {
@@ -56,6 +67,7 @@ const SOUND: Record<TasbeehFeedbackEvent, TasbeehSoundKind | null> = {
   milestone: "spacer",
   complete: "complete",
   limit: null,
+  undo: "bead",
 };
 
 /** Haptics + sound for an event. `level: "off"` silences tasbeeh haptics only (sound is its own toggle). */
@@ -86,7 +98,7 @@ export function countEventFor(
   nextCount: number,
   strand?: StrandModel,
   round?: { size: number; target: number },
-): Exclude<TasbeehFeedbackEvent, "complete" | "limit"> {
+): Exclude<TasbeehFeedbackEvent, "complete" | "limit" | "undo"> {
   if (getDesign(design).milestones && nextCount > 0 && nextCount % MILESTONE_EVERY === 0) {
     return "milestone";
   }
@@ -104,7 +116,7 @@ export function countEventForAppearance(
   appearance: Pick<ResolvedTasbeehAppearance, "design" | "misbaha" | "fingers">,
   nextCount: number,
   target: number,
-): Exclude<TasbeehFeedbackEvent, "complete" | "limit"> {
+): Exclude<TasbeehFeedbackEvent, "complete" | "limit" | "undo"> {
   const strand =
     appearance.design === "misbaha" ? strandModelFor(appearance.misbaha, target) : undefined;
   const size = roundSizeFor(appearance.design, target, appearance);

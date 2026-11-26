@@ -1,6 +1,12 @@
 import { fireEvent, screen, within } from "@testing-library/react-native";
 
-import { AyahRow, type AyahRowProps } from "@/components/quran/surah-reader/ayah-row";
+import { ContentReportContext } from "@/components/content-report/content-report-context";
+import type { AyahActionHandlers } from "@/components/quran/ayah-inline-actions";
+import {
+  AyahRow,
+  type AyahRowProps,
+  ayahRowPropsAreEqual,
+} from "@/components/quran/surah-reader/ayah-row";
 import { QuranWordStudyProviders } from "@/components/quran/word-by-word";
 import { buildAyah } from "@/test-support/fixtures/quran";
 import { usePlatform } from "@/test-support/platform";
@@ -8,6 +14,7 @@ import { renderWithTheme } from "@/test-support/render";
 
 const ARABIC = "إِذَا ٱلسَّمَآءُ ٱنشَقَّتْ";
 const TRANSLATION = "When the sky has split open";
+const mockOpenReport = jest.fn();
 
 async function renderRow(overrides: Partial<AyahRowProps> = {}) {
   const props: AyahRowProps = {
@@ -29,7 +36,11 @@ async function renderRow(overrides: Partial<AyahRowProps> = {}) {
     onOpenActions: jest.fn(),
     ...overrides,
   };
-  await renderWithTheme(<AyahRow {...props} />);
+  await renderWithTheme(
+    <ContentReportContext.Provider value={{ openReport: mockOpenReport }}>
+      <AyahRow {...props} />
+    </ContentReportContext.Provider>,
+  );
   return props;
 }
 
@@ -135,11 +146,115 @@ describe("AyahRow (P5-28)", () => {
     expect(actions[0]?.props.accessibilityState).toMatchObject({ busy: true });
   });
 
+  describe("inline More (phones / web)", () => {
+    function handlers(): AyahActionHandlers {
+      return {
+        surahNumber: 84,
+        locale: "en",
+        onTafsir: jest.fn(),
+        onHifz: jest.fn(),
+        onPractise: jest.fn(),
+        onCheckRecitation: jest.fn(),
+        onNote: jest.fn(),
+        onHighlight: jest.fn(),
+      };
+    }
+
+    it("More toggles this ayah inline instead of opening the sheet", async () => {
+      const actionHandlers = handlers();
+      const onToggleExpanded = jest.fn();
+      const props = await renderRow({ actionHandlers, onToggleExpanded });
+      expect(screen.queryByTestId("ayah-inline-actions")).toBeNull();
+      await fireEvent.press(screen.getByLabelText("More actions for ayah 21"));
+      expect(onToggleExpanded).toHaveBeenCalledWith(21);
+      expect(props.onOpenActions).not.toHaveBeenCalled();
+    });
+
+    it("expanded: shows the rest of the actions in order and More becomes Less", async () => {
+      const actionHandlers = handlers();
+      const onToggleExpanded = jest.fn();
+      await renderRow({ actionHandlers, onToggleExpanded, expanded: true, hifzStatus: "review" });
+      const row = screen.getByTestId("ayah-inline-actions");
+      const labels = within(row)
+        .getAllByRole("button")
+        .map((node) => node.props.accessibilityLabel);
+      expect(labels).toEqual([
+        "Open tafsir for this ayah",
+        "Write a note on ayah 84:21",
+        "Highlight ayah 84:21",
+        expect.any(String),
+        "Practice ayah 21",
+        "Check my recitation of ayah 21",
+        "Report an issue",
+      ]);
+      expect(screen.getByText("Less")).toBeTruthy();
+      await fireEvent.press(within(row).getByLabelText("Open tafsir for this ayah"));
+      await fireEvent.press(within(row).getByLabelText("Practice ayah 21"));
+      await fireEvent.press(within(row).getByLabelText("Check my recitation of ayah 21"));
+      expect(actionHandlers.onTafsir).toHaveBeenCalledWith(21);
+      expect(actionHandlers.onPractise).toHaveBeenCalledWith(21);
+      expect(actionHandlers.onCheckRecitation).toHaveBeenCalledWith(21);
+      await fireEvent.press(screen.getByLabelText("Fewer actions for ayah 21"));
+      expect(onToggleExpanded).toHaveBeenCalledWith(21);
+    });
+
+    it("hides practise / check where they are unavailable", async () => {
+      const actionHandlers = {
+        ...handlers(),
+        onPractise: undefined,
+        onCheckRecitation: undefined,
+      };
+      await renderRow({ actionHandlers, onToggleExpanded: jest.fn(), expanded: true });
+      expect(screen.queryByLabelText("Practice ayah 21")).toBeNull();
+      expect(screen.queryByLabelText("Check my recitation of ayah 21")).toBeNull();
+      expect(screen.getByLabelText("Open tafsir for this ayah")).toBeTruthy();
+    });
+
+    it("re-renders a memoised row only when its own expanded flag changes", () => {
+      const base = {
+        ayah: buildAyah({ surah: 84, ayah: 21, arabic: ARABIC }),
+        index: 20,
+        surahNumber: 84,
+        translation: TRANSLATION,
+        translationDir: "ltr",
+        isBookmarked: false,
+        arabicSize: 28,
+        translitSize: 14,
+        translationSize: 16,
+        secondTranslationDir: "ltr",
+        onPlayAtIndex: jest.fn(),
+        onBookmarkAyah: jest.fn(),
+        onShareAyah: jest.fn(),
+        isSharing: false,
+        isGesturePending: false,
+        onOpenActions: jest.fn(),
+        onToggleExpanded: jest.fn(),
+        actionHandlers: handlers(),
+        expanded: false,
+      } satisfies AyahRowProps;
+      expect(ayahRowPropsAreEqual(base, { ...base })).toBe(true);
+      expect(ayahRowPropsAreEqual(base, { ...base, expanded: true })).toBe(false);
+      expect(ayahRowPropsAreEqual(base, { ...base, actionHandlers: handlers() })).toBe(false);
+    });
+  });
+
   describe("on TV", () => {
     usePlatform({ isTV: true });
 
     it("has no inline actions; the card speaks the scripture and opens the action sheet", async () => {
-      const props = await renderRow();
+      const props = await renderRow({
+        expanded: true,
+        onToggleExpanded: jest.fn(),
+        actionHandlers: {
+          surahNumber: 84,
+          locale: "en",
+          onTafsir: jest.fn(),
+          onHifz: jest.fn(),
+          onNote: jest.fn(),
+          onHighlight: jest.fn(),
+        },
+      });
+      expect(screen.queryByTestId("ayah-inline-actions")).toBeNull();
       expect(screen.queryByTestId("ayah-row-actions")).toBeNull();
       const card = screen.getByRole("button");
       expect(card.props.accessibilityLabel).toBe(`84:21, ${ARABIC}. ${TRANSLATION}`);

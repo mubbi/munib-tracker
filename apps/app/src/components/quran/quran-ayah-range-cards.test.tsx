@@ -32,6 +32,14 @@ const mockShare = {
 };
 
 jest.mock("expo-router", () => require("@/test-support/mocks/expo-router").expoRouterMock);
+jest.mock(
+  "@/providers/toast-provider",
+  () => require("@/test-support/mocks/toast-provider").toastProviderMock,
+);
+jest.mock("@/components/ui/sheet", () => require("@/test-support/mocks/sheet").sheetMock);
+jest.mock("@/lib/quran-pronunciation/availability", () => ({
+  isPronunciationCheckPlatformAvailable: () => false,
+}));
 
 jest.mock("@/providers/audio-player-provider", () => ({
   useAudioPlayerContext: () => mockAudio,
@@ -171,7 +179,38 @@ describe("QuranAyahRangeCards", () => {
 
   it("marks sajda ayahs", async () => {
     await renderCards();
-    expect(screen.getAllByText("۩")).toHaveLength(1);
+    expect(screen.getAllByTestId("ayah-sajda-pill")).toHaveLength(1);
+  });
+
+  it("draws each ayah with the reader's card (Play · Save · Share · More)", async () => {
+    await renderCards();
+    expect(screen.getByTestId("ayah-row-255")).toBeTruthy();
+    expect(screen.getByTestId("ayah-row-256")).toBeTruthy();
+    expect(screen.getByLabelText("More actions for ayah 255")).toBeTruthy();
+  });
+
+  it("expands the rest of an ayah's actions inline, one ayah at a time", async () => {
+    await renderCards();
+    expect(screen.queryByTestId("ayah-inline-actions")).toBeNull();
+    await fireEvent.press(screen.getByLabelText("More actions for ayah 255"));
+    expect(screen.getAllByTestId("ayah-inline-actions")).toHaveLength(1);
+    expect(screen.getByText("Tafsir")).toBeTruthy();
+    expect(screen.getByLabelText("Highlight ayah 2:255")).toBeTruthy();
+    await fireEvent.press(screen.getByLabelText("More actions for ayah 256"));
+    expect(screen.getAllByTestId("ayah-inline-actions")).toHaveLength(1);
+    expect(screen.getByLabelText("More actions for ayah 255")).toBeTruthy();
+    await fireEvent.press(screen.getByLabelText("Fewer actions for ayah 256"));
+    expect(screen.queryByTestId("ayah-inline-actions")).toBeNull();
+  });
+
+  it("practises one ayah from its inline row", async () => {
+    await renderCards();
+    await fireEvent.press(screen.getByLabelText("More actions for ayah 256"));
+    await fireEvent.press(screen.getByLabelText("Practice ayah 256"));
+    expect(mockRouter.push).toHaveBeenCalledWith({
+      pathname: "/quran/practice/session",
+      params: { surah: "2", from: "256", to: "256", source: "reader" },
+    });
   });
 
   it("hides transliteration and translation when switched off", async () => {
@@ -292,6 +331,14 @@ describe("QuranAyahRangeCards", () => {
     it("hides share", async () => {
       await renderCards();
       expect(screen.queryByLabelText("Share verse")).toBeNull();
+    });
+
+    it("opens the ayah action sheet with Select on a card", async () => {
+      await renderCards();
+      expect(screen.queryByTestId("ayah-inline-actions")).toBeNull();
+      await fireEvent.press(screen.getByLabelText(/^2:255, /));
+      expect(screen.getByTestId("sheet")).toBeTruthy();
+      expect(screen.getByLabelText("Open tafsir for this ayah")).toBeTruthy();
     });
 
     it("hides recite-along (no microphone path)", async () => {

@@ -19,7 +19,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { TasbeehLoadingScreen } from "@/components/tasbeeh/tasbeeh-screen-scaffold";
-import { VoiceStepPanel, VoiceStepToggle } from "@/components/tasbeeh/voice/voice-step-panel";
+import { VoiceStepPanel } from "@/components/tasbeeh/voice/voice-step-panel";
 import { ZikrReciteAlongButtons } from "@/components/tasbeeh/zikr-recite-along";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -38,6 +38,7 @@ import { AdhkarSessionDock } from "@/components/zikr/adhkar-session-dock";
 import { AdhkarStepList } from "@/components/zikr/adhkar-step-list";
 import { type AdhkarStep, AdhkarStepStrip } from "@/components/zikr/adhkar-step-strip";
 import { AfterSalahPrayerChips } from "@/components/zikr/after-salah-prayer-chips";
+import { useZikrAudio } from "@/components/zikr/use-zikr-audio";
 import { ZikrHadithContext } from "@/components/zikr/zikr-hadith-context";
 import { BorderWidth, Spacing } from "@/constants/theme";
 import { TvLayout } from "@/constants/tv-layout";
@@ -76,7 +77,16 @@ import { voiceZikrFromZikr } from "@/lib/tasbeeh-voice/voice-zikr";
 import { ensureZikrCorpus } from "@/lib/zikr";
 import { zikrCountKey } from "@/lib/zikr-count-key";
 import { zikrQuranHref } from "@/lib/zikr-quran";
+import { useToast } from "@/providers/toast-provider";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
+
+/** Hands-free stop reasons → their (transient) toast copy. */
+const VOICE_STOP_TOAST: Partial<Record<string, string>> = {
+  silence: "tasbeehVoice.stopped.silence",
+  background: "tasbeehVoice.stopped.background",
+  interrupted: "tasbeehVoice.stopped.interrupted",
+  error: "tasbeehVoice.stopped.error",
+};
 
 /** Pause after a zikr reaches its target before moving on (lets the haptic land). */
 const ADVANCE_DELAY_MS = 650;
@@ -344,6 +354,10 @@ export default function AdhkarSessionScreen() {
   // takes the same path as a tap (haptic, target, auto-advance), so a tap still
   // corrects any miscount (D51). The mic closes between steps and when done.
   const voiceZikr = useMemo(() => (item ? voiceZikrFromZikr(item) : null), [item]);
+  // Play the zikr's recitation (recorded audio or its Qur'an ayahs). Moving to
+  // another zikr stops it; hands-free listening pauses while it plays so the
+  // microphone never counts the recitation (it resumes once audio stops).
+  const zikrAudio = useZikrAudio(item, `/zikr/session/${categoryId}`);
   const voiceTapRef = useRef(onTap);
   voiceTapRef.current = onTap;
   const voiceCountRef = useRef({ count, target });
@@ -353,13 +367,37 @@ export default function AdhkarSessionScreen() {
     eligible: item ? isHandsFreeStep(item, target) : false,
     count,
     target,
-    active: !advancing && !(celebrate && allDone),
+    active: !advancing && !(celebrate && allDone) && !zikrAudio.playing,
     onVoiceCount: () => {
       const latest = voiceCountRef.current;
       triggerHaptic(latest.count + 1 >= latest.target ? "success" : "light");
       voiceTapRef.current();
     },
   });
+
+  // A manual tap / undo while the mic is counting means the voice count needed
+  // correcting — it feeds the "Re-teach for better accuracy?" nudge. Voice counts
+  // go through `onTap` directly and never count as corrections.
+  const noteVoiceCorrection = useCallback(() => {
+    if (handsFree.voice.listening) handsFree.voice.noteCorrection();
+  }, [handsFree.voice]);
+  const onManualTap = useCallback(() => {
+    noteVoiceCorrection();
+    onTap();
+  }, [noteVoiceCorrection, onTap]);
+
+  // Transient hands-free stops ("listening paused…") are toasts, not a line in the dock.
+  const toast = useToast();
+  const lastStopNotice = useRef<string | null>(null);
+  useEffect(() => {
+    const notice = handsFree.stopNotice;
+    if (notice && notice !== lastStopNotice.current) {
+      const copy = VOICE_STOP_TOAST[notice];
+      if (copy) toast.info(t(copy));
+    }
+    lastStopNotice.current = notice;
+  }, [handsFree.stopNotice, t, toast]);
+  const voicePanelSteps = useMemo(() => ({ ...handsFree, stopNotice: null }), [handsFree]);
 
   const [confirm, setConfirm] = useState<"all" | null>(null);
 
@@ -393,7 +431,7 @@ export default function AdhkarSessionScreen() {
     (event) => {
       if (isWebInteractiveTarget(event.target)) return undefined;
       if (event.key === " " || event.key === "Enter") {
-        if (!event.repeat) onTap();
+        if (!event.repeat) onManualTap();
         return true;
       }
       const forward = isRTL() ? "ArrowLeft" : "ArrowRight";
@@ -477,8 +515,11 @@ export default function AdhkarSessionScreen() {
     count,
     target,
     advancing,
-    onTap,
-    onUndo: () => write(count - 1),
+    onTap: onManualTap,
+    onUndo: () => {
+      noteVoiceCorrection();
+      write(count - 1);
+    },
     onComplete,
     onReset: markNotDone,
     onPrev: () => canPrev && goTo(safeIndex - 1),
@@ -486,9 +527,14 @@ export default function AdhkarSessionScreen() {
     canPrev,
     canNext,
     nextLabel,
-    voiceToggle: <VoiceStepToggle steps={handsFree} />,
+    handsFree,
+    audio: zikrAudio,
     voicePanel: (
-      <VoiceStepPanel steps={handsFree} label={item?.title ?? null} hasNext={nextItem != null} />
+      <VoiceStepPanel
+        steps={voicePanelSteps}
+        label={item?.title ?? null}
+        hasNext={nextItem != null}
+      />
     ),
   };
 

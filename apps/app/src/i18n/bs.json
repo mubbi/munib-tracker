@@ -436,10 +436,17 @@
       "makeUp": {
         "title": "Dani za naknadu",
         "body": "Dana za naknadu iz ovog ramazana: {{days}}. Propušteni i opravdani dani, te dani hajza ili nifasa, naknađuju se poslije ramazana.",
-        "question": "Dodati ih u kazu posta? Preskočite ako ste ih već dodali ili ako umjesto toga dajete fidju.",
         "add": "Dodaj {{days}} u kazu posta",
-        "dismiss": "Ne, hvala",
-        "added": "Dodano u vašu kazu posta."
+        "added": "Dodano u vašu kazu posta.",
+        "settle": "Kako ćete namiriti ove dane?",
+        "optionQaza": "Napostite ih (kaza)",
+        "optionFidyah": "Umjesto toga dajte fidju",
+        "optionKaffarah": "Keffaret za namjerno prekinut post",
+        "openFidyah": "Otvori pomoćnik za fidju",
+        "openKaffarah": "Otvori pomoćnik za keffaret",
+        "alreadyHandled": "Već riješeno",
+        "sadaqahLink": "Dajte dobrovoljnu sadaku kao dodatno dobro djelo",
+        "sadaqahHint": "Sadaka je dodatna nagrada. Ne zamjenjuje naknadu posta niti fidju."
       }
     },
     "toast": {
@@ -733,7 +740,11 @@
     "moreForToday_other": "Još za danas ({{count}})",
     "moreForToday_few": "Još za danas ({{count}})",
     "scheduleShowLater_few": "{{count}} kasnija namaza skrivena",
-    "scheduleShowPast_few": "{{count}} ranija namaza skrivena"
+    "scheduleShowPast_few": "{{count}} ranija namaza skrivena",
+    "exploreDoneA11y": "Završi uređivanje prečica",
+    "exploreEditHint": "Prevucite za promjenu redoslijeda. Dodirnite − da sakrijete prečicu.",
+    "exploreAddBack": "Vrati",
+    "exploreHideTile": "Sakrij {{item}}"
   },
   "tracker": {
     "eyebrow": "Praćenje i bilježenje",
@@ -1028,7 +1039,9 @@
     },
     "reorder": {
       "moreFor": "Više opcija za {{item}}",
-      "moveToTop": "Premjesti na vrh"
+      "moveToTop": "Premjesti na vrh",
+      "removed": "{{item}} uklonjeno",
+      "hidden": "Skriveno"
     },
     "sendFeedback": "Pošalji povratnu informaciju",
     "sendFeedbackDesc": "Prijavite problem ili predložite poboljšanje"
@@ -1169,7 +1182,12 @@
     "preview": "Pregled",
     "sampleAction": "Primjer radnje",
     "secondary": "Sekundarno",
-    "previewMeta": "Trenutni način: {{mode}} · akcent: {{accent}}"
+    "previewMeta": "Trenutni način: {{mode}} · akcent: {{accent}}",
+    "moreColors": "Više boja",
+    "moreColorsHint": "Otvara punu paletu i birač vlastite boje",
+    "accentAdjusted": "Prilagođeno radi čitljivosti u ovoj temi. Vaša boja je sačuvana kako ste je odabrali.",
+    "hexLabel": "Hex kod",
+    "hexInvalid": "Unesite šestocifreni hex kod, npr. #1E6B4F"
   },
   "bedtime": {
     "eyebrow": "Postavke",
@@ -1491,7 +1509,10 @@
     "browseAdhkar": "Pregledaj ezkar",
     "favoriteRemoved": "Uklonjeno iz sačuvanih",
     "markedNotDone": "Označeno kao neurađeno",
-    "countOfTarget": "{{current}} od {{target}}"
+    "countOfTarget": "{{current}} od {{target}}",
+    "playRecitation": "Pusti učenje: {{title}}",
+    "pauseRecitation": "Pauziraj učenje: {{title}}",
+    "closeSearch": "Zatvori pretragu"
   },
   "zikrCat": {
     "morning": "Jutarnji ezkar",
@@ -1644,7 +1665,25 @@
     "openInTasbeeh": "Otvori u Tesbihu",
     "favEmptyDescTv": "Odaberite ikonu oznake na bilo kojem salavatu da ga sačuvate ovdje.",
     "removedToast": "Uklonjeno iz sačuvanih",
-    "loading": "Učitavanje salavata…"
+    "loading": "Učitavanje salavata…",
+    "grade": {
+      "sahih": "Sahih",
+      "hasan": "Hasen"
+    },
+    "readHadith": "Pročitaj cijeli hadis",
+    "hideHadith": "Sakrij hadis",
+    "position": "{{current}} od {{total}}",
+    "unsave": "Ukloni iz sačuvanih",
+    "notFoundDesc": "Ova stavka je možda uklonjena.",
+    "sectionSalawat": "Salavati kojima je podučio Poslanik ﷺ",
+    "sectionVirtues": "Vrijednosti donošenja salavata",
+    "play": "Pokreni {{title}}",
+    "pause": "Pauziraj {{title}}",
+    "sourceInfo": "Izvor i ocjena: {{title}}",
+    "sourceTitle": "Izvorni hadis",
+    "detailEyebrow": "Salavat",
+    "notFoundTitle": "Salavat nije pronađen",
+    "browseAll": "Pregledaj sve salavate"
   },
   "names": {
     "eyebrow": "Esmaul-husna",
@@ -1942,7 +1981,17 @@
       "pagesAmount_few": "{{count}} stranice"
     },
     "tafsirCount_few": "{{count}} tefsira",
-    "translationCount_few": "{{count}} prijevoda"
+    "translationCount_few": "{{count}} prijevoda",
+    "actionLess": "Manje",
+    "lessActionsA11y": "Manje radnji za ajet {{n}}",
+    "passage": {
+      "ayah": "Ajet {{n}}",
+      "range": "Ajeti {{from}}–{{to}}",
+      "play": "Pusti odlomak",
+      "playHint": "Pušta samo {{ref}}",
+      "openFullSurah": "Otvori cijelu suru",
+      "openFullSurahHint": "Otvara {{name}} na ajetu {{n}} u čitaču"
+    }
   },
   "hadith": {
     "eyebrow": "Poslanička predaja",
@@ -2230,7 +2279,9 @@
     "toastSet": "{{prayer}} preostalo: {{value}}",
     "setExactLabel": "Postavi preostalo na",
     "rowRemainingA11y": "{{prayer}}, preostalo {{value}}",
-    "madeUpButton": "Nadoknađeno"
+    "madeUpButton": "Nadoknađeno",
+    "madeUpOneA11y": "Naklanjan jedan kaza {{prayer}}",
+    "allMadeUp": "Sve je naklanjano"
   },
   "qazaCalc": {
     "eyebrow": "Kaza",
@@ -4392,7 +4443,9 @@
     "seeAll": "Prikaži svih {{total}} u: {{group}}",
     "showFewer": "Prikaži manje u: {{group}}",
     "searchEverything": "Traži “{{query}}” svuda",
-    "searchEverythingHint": "Kur'an, hadis, dove, ezkar i više"
+    "searchEverythingHint": "Kur'an, hadis, dove, ezkar i više",
+    "seeAllShort": "Prikaži sve ({{total}})",
+    "showFewerShort": "Prikaži manje"
   },
   "offlineData": {
     "title": "Vanmrežni podaci",
@@ -6612,7 +6665,15 @@
     "padCount": "Dodirnite za brojanje",
     "loggingPreviousDay": "Bilježi se za {{date}} — noć traje do sabaha.",
     "announceAllDone": "Gotovo. Ovaj set ezkara je završen.",
-    "announceRecitedNext": "Proučeno. Sljedeće: {{title}}"
+    "announceRecitedNext": "Proučeno. Sljedeće: {{title}}",
+    "dock": {
+      "playA11y": "Pusti učenje",
+      "pauseA11y": "Pauziraj učenje",
+      "reset": "Poništi",
+      "done": "Gotovo",
+      "listening": "Sluša",
+      "handsFreeOn": "Brojanje glasom uključeno"
+    }
   },
   "hijriAdjust": {
     "adjust": "Prilagodi",
@@ -6820,8 +6881,9 @@
     },
     "hint": {
       "tap": "Dodirnite bilo gdje na brojaču da brojite",
-      "misbaha": "Dodirnite ili povucite sljedeće zrno niz konac",
-      "keyboard": "Kliknite brojač ili pritisnite Space da brojite"
+      "keyboard": "Kliknite brojač ili pritisnite Space da brojite",
+      "misbahaUndo": "Dodirnite ili povucite sljedeće zrno — povucite ga nazad da poništite",
+      "pebbles": "Dodirnite ili prevucite kamenčić na drugu stranu — prevucite nazad da poništite"
     },
     "a11y": {
       "milestone": "Izbrojano: {{number}}"
@@ -7605,7 +7667,8 @@
       "voice": "Glas",
       "readingDisplay": "Prijevod i transliteracija",
       "focusLock": "Fokus na namaz",
-      "qibla": "Kompas za kiblu"
+      "qibla": "Kompas za kiblu",
+      "extras": "Vrijeme i kibla"
     },
     "setup": {
       "dismiss": "Ne sada",
@@ -7629,7 +7692,9 @@
     "moreInSettingsHint": "Otvara ove opcije u Postavkama",
     "tvFinanceTools": "Prikaži finansijske alate",
     "tvFinanceToolsSub": "Zekat, sadaka, fidja, nasljedstvo i islamske finansije na ovom TV-u. Isključeno prema zadanim postavkama radi privatnosti iznosa.",
-    "surfaceFinance": "Vodiči za zekat i finansije"
+    "surfaceFinance": "Vodiči za zekat i finansije",
+    "voiceDefaultShort": "Zadano",
+    "clearAction": "Očisti"
   },
   "prayerWindow": {
     "preferred": {
@@ -8265,7 +8330,11 @@
       "extra": "Dodatni",
       "late": "Naknadno klanjano",
       "chooseRakahs": "2 ili 4",
-      "chooseRakahsA11y": "Odaberite 2 ili 4 rekata za {{name}}"
+      "chooseRakahsA11y": "Odaberite 2 ili 4 rekata za {{name}}",
+      "rowLabel": "Sunnet",
+      "optional": "Po izboru",
+      "optionalWhileUnwell": "Po izboru tokom bolesti",
+      "notYetHint": "Još nije vrijeme — ipak ga možete zabilježiti"
     },
     "rakahsSheet": {
       "prompt": "Koliko ste rekata klanjali?",
@@ -8275,13 +8344,10 @@
       "title": "Revatib sunneti",
       "evidence": "Sahih Muslim 728 · {{count}} rekata dnevno",
       "progress": "{{done}} / {{total}} rekata",
-      "hint": "Dodirnite oznaku ispod svakog namaza da je zabilježite. Dugo pritisnite oznaku 2 / 4 da promijenite rekate.",
       "hintTv": "Odaberite oznaku ispod svakog namaza da je zabilježite.",
       "sickHint": "Dok ste bolesni ništa se ne očekuje — zabilježite ono što možete klanjati.",
       "travelHint": "Na putovanju se čuva sunnet prije sabaha; ostali su po izboru.",
       "optionalWhileTravelling": "Po izboru na putovanju",
-      "showAll": "Prikaži sve današnje revatib",
-      "showDue": "Prikaži samo trenutne",
       "openHub": "Dokazi i postavke",
       "askBody": "Pratiti potvrđene sunnete prije i poslije farzova? Odaberite 12 rekata (4 prije podne) ili 10 (2 prije podne). Možete promijeniti bilo kada.",
       "askTwelve": "12 rekata",
@@ -8303,7 +8369,7 @@
       "title": "Revatib sunneti",
       "subtitle": "Potvrđeni sunneti prije i poslije farzova",
       "todayTitle": "Danas",
-      "todayHint": "Bilježite ih oznakama ispod svakog namaza u praćenju.",
+      "todayHint": "Bilježite ih ovdje ili u redu Sunnet na kartici svakog namaza u praćenju.",
       "off": "Praćenje revatib je isključeno. Uključite ga ispod.",
       "openTracker": "Otvori praćenje",
       "openStats": "Pogledaj statistiku",
@@ -9137,7 +9203,7 @@
       },
       "salawat": {
         "title": "Salavat na Poslanika ﷺ",
-        "hint": "Tvoj dnevni broj"
+        "hint": "Broji se na tespihu ili označite sami"
       },
       "salam_home": {
         "title": "Selam pri ulasku u kuću",
@@ -9168,7 +9234,31 @@
         "hint": "Označeno iz tvog ezkara"
       }
     },
-    "habitRemoved": "{{title}} uklonjeno"
+    "habitRemoved": "{{title}} uklonjeno",
+    "todayCount": "Danas · {{done}} od {{total}}",
+    "todayRingA11y": "Današnje sunnet navike",
+    "editList": "Uredi listu",
+    "myHabits": "Moje navike ({{number}}/{{max}})",
+    "addMore": "Dodaj još",
+    "groups": {
+      "morningEvening": "Jutro i večer",
+      "day": "Tokom dana",
+      "bedtime": "Prije spavanja"
+    },
+    "principleShort": "Allahu su najdraža djela ona koja su redovna, makar bila mala.",
+    "evidenceLink": "Dokaz",
+    "spotlightLine": "Pokušajte danas: {{title}}",
+    "week": {
+      "title": "Ove sedmice",
+      "dayA11y": "{{day}}: {{done}} od {{total}}"
+    },
+    "detail": {
+      "history": "Posljednjih 30 dana",
+      "target": "Dnevni cilj",
+      "open": "Otvori",
+      "remove": "Ukloni iz mojih navika"
+    },
+    "detailA11y": "{{title}}, detalji"
   },
   "quranRoots": {
     "title": "Pretraga po arapskom korijenu",
@@ -9763,8 +9853,9 @@
       "calibrateSub": "Izgovorite frazu 5 puta kako bi se brojanje prilagodilo vašem glasu. Čuva se samo na ovom uređaju.",
       "modelStorageSub": "Slušalac na uređaju dijeli se s vježbom učenja Kur'ana",
       "forgetTaught": "Zaboravi glasove podučenih zikrova",
-      "forgetTaughtSub": "Nijedan zvuk se ne snima niti šalje. Ako podučite zikr, kratak glasovni uzorak (ne snimak) ostaje na ovom uređaju. Ovo ih sve uklanja.",
-      "forgetTaughtConfirm": "Zaboraviti sve glasovne uzorke podučenih zikrova na ovom uređaju? Možete ih ponovo podučiti bilo kada."
+      "forgetTaughtShort": "Uklanja glasovne uzorke zikra naučene na ovom uređaju",
+      "forgetTaughtConfirmPrivacy": "Zaboraviti sve naučene glasovne uzorke zikra na ovom uređaju? Zvuk se nikad ne snima niti šalje — svaki uzorak je kratak niz brojeva, a ne snimak. Možete ih ponovo naučiti bilo kada.",
+      "forgetAction": "Zaboravi"
     },
     "announce": {
       "title": "Najave broja tesbiha",
@@ -9785,8 +9876,8 @@
     },
     "teach": {
       "title": "Izgovorite ga jednom da se broji samo ovaj zikr",
-      "explain": "Izgovorite {{phrase}} do 3 puta, s pauzom između. Kratak glasovni uzorak (ne snimak) ostaje na ovom uređaju kako bi se brojao samo ovaj zikr.",
-      "explainOther": "Izgovorite svoj zikr do 3 puta, s pauzom između. U ovoj sesiji brojat će se samo njegova ponavljanja.",
+      "explain": "Izgovorite {{phrase}} 3 puta, s pauzom između. Kratak glasovni uzorak (ne snimak) ostaje na ovom uređaju kako bi se brojao samo ovaj zikr.",
+      "explainOther": "Izgovorite svoj zikr 3 puta, s pauzom između. U ovoj sesiji brojat će se samo njegova ponavljanja.",
       "start": "Podučite izgovorom",
       "skip": "Preskoči — broji svaku pauzu",
       "sayNow": "Sada izgovorite {{phrase}}",
@@ -9797,12 +9888,14 @@
       "issueShort": "To je bilo prekratko. Izgovorite cijeli zikr.",
       "issueLong": "To je trajalo predugo. Izgovorite zikr jednom, pa zastanite.",
       "issueDifferent": "To je zvučalo drugačije. Ponovo izgovorite isti zikr.",
-      "done": "Gotovo — počni brojati",
       "cancel": "Otkaži",
       "reteach": "Podučite ponovo",
       "taughtReady": "Podučeno na ovom uređaju.",
       "countsTaught": "Broji samo podučeni zikr — dodirnite da ispravite svaku grešku u brojanju.",
-      "countsPauses": "Broji svaku pauzu — manje precizno. Dodirnite da ispravite svaku grešku u brojanju."
+      "countsPauses": "Broji svaku pauzu — manje precizno. Dodirnite da ispravite svaku grešku u brojanju.",
+      "doneShort": "Gotovo",
+      "nudge": "Nekoliko brojanja trebalo je ispraviti. Podučiti ponovo radi veće tačnosti?",
+      "nudgeDismiss": "Ne sada"
     }
   },
   "masjids": {
@@ -10050,9 +10143,29 @@
         "title": "Odaberi aplikacije",
         "body": "Odaberite aplikacije koje vas najviše ometaju.",
         "pick": "Odaberi aplikacije",
-        "count": "Odabrane aplikacije: {{count}}",
         "empty": "Nema pronađenih aplikacija.",
-        "save": "Sačuvaj izbor"
+        "save": "Sačuvaj izbor",
+        "noneYet": "Još nema odabranih aplikacija.",
+        "selectedItemsHint": "Aplikacije, kategorije i web stranice koje ste odabrali. Cijela kategorija se računa kao jedna.",
+        "edit": "Uredi",
+        "editHint": "Promijenite koje se aplikacije pauziraju",
+        "always": {
+          "title": "Uvijek dostupno",
+          "phone": "Telefon",
+          "phoneHint": "Pozivi uvijek stižu.",
+          "messages": "Poruke",
+          "messagesHint": "Poruke i dalje stižu.",
+          "emergency": "Hitni pozivi",
+          "emergencyHint": "Hitni pozivi uvijek rade.",
+          "munib": "Munib Tracker",
+          "munibHint": "Da možete označiti svoj namaz."
+        },
+        "selectedItems_one": "{{count}} stavka odabrana",
+        "selectedItems_few": "{{count}} stavke odabrane",
+        "selectedItems_other": "{{count}} stavki odabrano",
+        "selectedApps_one": "{{count}} aplikacija odabrana",
+        "selectedApps_few": "{{count}} aplikacije odabrane",
+        "selectedApps_other": "{{count}} aplikacija odabrano"
       },
       "timing": {
         "title": "Namaz, vrijeme i način"
@@ -10061,11 +10174,20 @@
         "title": "Isprobajte",
         "body": "Pokrenite probno vrijeme od 1 minute da vidite šta se dešava.",
         "start": "Pokreni test od 1 minute",
-        "running": "Test je u toku: otvorite jednu od odabranih aplikacija."
+        "running": "Test je u toku: otvorite jednu od odabranih aplikacija.",
+        "callsNote": "Pozivi i poruke stižu i tokom probe, i tokom svakog vremena namaza."
       },
       "confirmAlert": "Upozorenje „Dodirnite za potvrdu”",
       "confirmAlertHint": "Kad na ekranu blokade dodirnete „Klanjao sam”, obavještenje otvara Munib Tracker da označite namaz.",
-      "progressLabel": "Napredak postavljanja"
+      "progressLabel": "Napredak postavljanja",
+      "stepNamed": "Korak {{current}} od {{total}} · {{name}}",
+      "stepName": {
+        "explain": "Uvod",
+        "permissions": "Dozvole",
+        "apps": "Aplikacije",
+        "timing": "Vrijeme",
+        "test": "Proba"
+      }
     },
     "evidence": {
       "title": "Dokaz",
@@ -10188,6 +10310,17 @@
       "kwKids": "dječiji način, uređaj djeteta, povezivanje, qr",
       "familyDigest": "Sedmični porodični pregled",
       "familyDigestSub": "Jednom sedmično, petkom: koliko su namaza vaša djeca zabilježila. Samo brojevi, bez imena."
+    },
+    "session": {
+      "title": "Za ovo je potrebna veza",
+      "body": "Krugovi dijele napredak s osobama koje pozovete, pa je potrebna kratka veza sa serverom. Za grupnu hatmu nije potreban račun.",
+      "connecting": "Povezivanje…",
+      "error": {
+        "offline": "Niste na mreži. Povežite se na internet pa pokušajte ponovo.",
+        "network": "Server nije dostupan. Provjerite vezu i pokušajte ponovo.",
+        "server": "Server trenutno ne može pokrenuti vašu sesiju. Pokušajte ponovo za trenutak.",
+        "rateLimited": "Previše pokušaja s ovog uređaja. Pričekajte nekoliko minuta pa pokušajte ponovo."
+      }
     }
   },
   "circleMembership": {
@@ -10315,7 +10448,6 @@
     "loading": "Učitavanje…",
     "loadError": "Ova grupa se nije mogla učitati. Provjerite vezu i pokušajte ponovo.",
     "retry": "Pokušajte ponovo",
-    "noSession": "Otvorite aplikaciju jednom dok ste na mreži da biste pokrenuli grupnu hatmu ili joj se pridružili.",
     "startGroup": "Pokrenite grupnu hatmu",
     "haveInvite": "Imate pozivni kod? Pridružite se grupi",
     "list": {
@@ -10485,6 +10617,10 @@
         "title": "Podijeliti preostale dijelove?",
         "body": "Preostali dijelovi se sada dodjeljuju članovima."
       }
+    },
+    "session": {
+      "title": "Grupnoj hatmi je potrebna veza",
+      "body": "Grupna hatma dijeli jednu tablicu džuzova sa svima u grupi, pa joj je potrebna kratka veza sa serverom. Ne trebate račun niti prijavu."
     }
   },
   "coach": {
@@ -11601,6 +11737,13 @@
     "shortcut": {
       "title": "Pronađi učenjem",
       "subtitle": "Proučite nekoliko riječi da pronađete ajet, na ovom uređaju"
+    },
+    "live": {
+      "hearing": "Čujemo vas…",
+      "hearingHint": "Nastavite učiti. Ajet se pojavljuje ovdje čim bude prepoznat.",
+      "bestMatch": "Najbliže podudaranje do sada",
+      "level": "Nivo mikrofona",
+      "ref": "{{name}} · Ajet {{ayah}}"
     }
   },
   "handsFreeZikr2": {
@@ -11770,7 +11913,8 @@
         "name": "Velika strelica",
         "desc": "Jedna velika strelica na kontrastnom disku — najlakša za čitanje na prvi pogled."
       }
-    }
+    },
+    "styleButton": "Stil"
   },
   "appIcon": {
     "title": "Ikona aplikacije",
@@ -11797,5 +11941,12 @@
     "minutes": "{{min}} min",
     "hours": "{{hours}} h",
     "hoursMinutes": "{{hours}} h {{min}} min"
+  },
+  "sortable": {
+    "movedTo": "{{item}} premješteno na mjesto {{position}} od {{total}}",
+    "moveEarlier": "Pomjeri naprijed",
+    "moveLater": "Pomjeri nazad",
+    "handleLabel": "Promijeni redoslijed: {{item}}",
+    "handleHint": "Prevucite za pomjeranje ili pritisnite strelice gore i dolje"
   }
 }

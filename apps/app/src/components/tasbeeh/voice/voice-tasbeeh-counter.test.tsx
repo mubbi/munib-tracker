@@ -141,8 +141,12 @@ describe("hands-free tasbeeh in the counter", () => {
     expect(screen.getByText("Say SubhanAllah now")).toBeTruthy();
     expect(screen.getByText("Got it 1/3")).toBeTruthy();
     expect(screen.getByText(/That sounded different/)).toBeTruthy();
-    await fireEvent.press(screen.getByRole("button", { name: "Done — start counting" }));
+    // Short "Done" (with a check) so it never wraps beside Cancel.
+    await fireEvent.press(screen.getByRole("button", { name: "Done" }));
     expect(mockVoice.finishTeaching).toHaveBeenCalledTimes(1);
+    // Cancel hands the microphone back to counting when this was a re-teach.
+    await fireEvent.press(screen.getByRole("button", { name: "Cancel" }));
+    expect(mockVoice.cancelTeaching).toHaveBeenCalledWith({ resume: true });
   });
 
   it("offers re-teaching for a taught Zikr", async () => {
@@ -314,5 +318,42 @@ describe("continuous hands-free across steps (after-Salah sequence, D69)", () =>
     );
     await act(async () => jest.advanceTimersByTime(400));
     expect(mockVoice.start).not.toHaveBeenCalled();
+  });
+
+  it("notes a manual correction for every tap or undo while listening", async () => {
+    const noteCorrection = jest.fn();
+    mockVoice = voice({ listening: true, countingMode: "template", noteCorrection });
+    const { onIncrement } = await renderCounter({ count: 4 });
+    await fireEvent.press(screen.getAllByRole("button", { name: "Tasbeeh counter" })[0]);
+    await fireEvent.press(screen.getByRole("button", { name: "Undo" }));
+    expect(onIncrement).toHaveBeenCalledTimes(1);
+    expect(noteCorrection).toHaveBeenCalledTimes(2);
+    // A voice count is not a correction.
+    await act(async () => mockOnVoiceCount?.());
+    expect(noteCorrection).toHaveBeenCalledTimes(2);
+  });
+
+  it("offers a gentle Re-teach after repeated corrections, which opens teaching", async () => {
+    const dismissReteach = jest.fn();
+    mockVoice = voice({
+      listening: true,
+      countingMode: "template",
+      suggestReteach: true,
+      dismissReteach,
+    });
+    await renderCounter({ count: 4 });
+    expect(
+      screen.getByText("A few counts needed correcting. Re-teach for better accuracy?"),
+    ).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Not now" }));
+    expect(dismissReteach).toHaveBeenCalledTimes(1);
+    await fireEvent.press(screen.getByRole("button", { name: "Re-teach" }));
+    expect(mockVoice.startTeaching).toHaveBeenCalledTimes(1);
+  });
+
+  it("pops the mic badge for each voice count", async () => {
+    mockVoice = voice({ listening: true, countingMode: "template" });
+    await renderCounter();
+    expect(screen.getByTestId("voice-mic-badge", { includeHiddenElements: true })).toBeTruthy();
   });
 });

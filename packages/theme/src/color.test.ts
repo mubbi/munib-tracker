@@ -7,7 +7,10 @@ import {
   contrastMatrix,
   contrastRatio,
   ensureContrastAgainst,
+  ensureReadableAccent,
+  hexToHsl,
   hexToRgb,
+  hslToHex,
   isValidHex,
   normalizeHex,
   relativeLuminance,
@@ -190,5 +193,49 @@ describe("contrastMatrix", () => {
     ]);
     expect(failures.map((f) => f.label)).toEqual(["grey on white"]);
     expect(failures[0]?.ratio).toBeLessThan(4.5);
+  });
+});
+
+describe("hexToHsl / hslToHex", () => {
+  it("round-trips primary and mixed colours", () => {
+    for (const hex of ["#ff0000", "#00ff00", "#0000ff", "#0c390f", "#d4a017", "#808080"]) {
+      const hsl = hexToHsl(hex);
+      expect(hsl).not.toBeNull();
+      if (hsl) expect(hslToHex(hsl.h, hsl.s, hsl.l)).toBe(hex);
+    }
+  });
+
+  it("returns null for invalid hex", () => {
+    expect(hexToHsl("nope")).toBeNull();
+  });
+});
+
+describe("ensureReadableAccent", () => {
+  const darkSurfaces = ["#152921", "#1E3830"];
+  const lightSurfaces = ["#F5F0E6", "#FFFDF9"];
+
+  it("returns a passing accent unchanged (normalised)", () => {
+    expect(ensureReadableAccent("#3B82F6", darkSurfaces)).toBe("#3b82f6");
+  });
+
+  it("lightens a deep green on the dark page without greying it out", () => {
+    const out = ensureReadableAccent("#0C390F", darkSurfaces);
+    for (const s of darkSurfaces) expect(contrastRatio(out, s)).toBeGreaterThanOrEqual(3);
+    const before = hexToHsl("#0C390F");
+    const after = hexToHsl(out);
+    expect(after?.h).toBeCloseTo(before?.h ?? 0, 0);
+    expect(after?.s).toBeCloseTo(before?.s ?? 0, 1);
+    expect(after?.l).toBeGreaterThan(before?.l ?? 1);
+  });
+
+  it("darkens a pale accent on the light page", () => {
+    const out = ensureReadableAccent("#FDE68A", lightSurfaces);
+    for (const s of lightSurfaces) expect(contrastRatio(out, s)).toBeGreaterThanOrEqual(3);
+    expect(hexToHsl(out)?.l).toBeLessThan(hexToHsl("#FDE68A")?.l ?? 0);
+  });
+
+  it("passes invalid input and empty surfaces through", () => {
+    expect(ensureReadableAccent("nope", darkSurfaces)).toBe("nope");
+    expect(ensureReadableAccent("#0C390F", [])).toBe("#0C390F");
   });
 });

@@ -12,7 +12,12 @@ import type { FardPrayer, FardStatusValue } from "@munib-tracker/shared/circles"
 import { type QueryKey, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
 
-import { useAuth } from "@/providers/auth-provider";
+import {
+  type EnsureSessionOptions,
+  type GuestSessionError,
+  type SessionStatus,
+  useAuth,
+} from "@/providers/auth-provider";
 import type { CircleSignal, CircleToken } from "./api";
 import * as api from "./api";
 import { EMPTY_FARD_STATUS, fardOn, toggleFard, upsertFardSignal } from "./family";
@@ -60,17 +65,29 @@ export type CircleAuthState = {
   /** Linked account (family / partner circles require one). */
   isAccount: boolean;
   isGuest: boolean;
+  /** Guest sign-in progress while there is no session (see `AuthProvider`). */
+  sessionStatus: SessionStatus;
+  sessionError: GuestSessionError | null;
+  /** Boot has finished resuming / creating a session. */
+  isReady: boolean;
+  /** Creates the missing guest session ("Try again"); resolves `true` once one exists. */
+  ensureSession: (options?: EnsureSessionOptions) => Promise<boolean>;
 };
 
 /** Session facts every circles screen needs. */
 export function useCircleAuth(): CircleAuthState {
-  const { session, isAuthenticated, isGuest } = useAuth();
+  const { session, isAuthenticated, isGuest, sessionStatus, sessionError, isReady, ensureSession } =
+    useAuth();
   return {
     token: session?.accessToken,
     userId: session?.userId,
     hasSession: session != null,
     isAccount: isAuthenticated,
     isGuest,
+    sessionStatus: sessionStatus ?? "idle",
+    sessionError: sessionError ?? null,
+    isReady: isReady ?? true,
+    ensureSession: ensureSession ?? (async () => session != null),
   };
 }
 

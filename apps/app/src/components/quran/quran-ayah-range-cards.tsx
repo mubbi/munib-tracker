@@ -1,22 +1,23 @@
-import type { AppLocale } from "@munib-tracker/shared/types";
+import { isRtlLocale } from "@munib-tracker/shared/i18n";
+import type { Ayah } from "@munib-tracker/shared/types";
 import { useQuery } from "@tanstack/react-query";
-import { useCallback, useMemo } from "react";
+import { lazy, Suspense, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { ConfirmDialog } from "@/components/confirm-dialog";
+import { AyahTafsirSheetHost } from "@/components/quran/ayah-tafsir-sheet-host";
 import { ReciteAlongButton } from "@/components/quran/recite-along-button";
 import { SurahBanner } from "@/components/quran/surah-banner";
+import { AyahMoreActions } from "@/components/quran/surah-reader/ayah-more-actions";
+import { AyahRow } from "@/components/quran/surah-reader/ayah-row";
+import { useAyahActions } from "@/components/quran/surah-reader/use-ayah-actions";
+import { useAyahSheetActions } from "@/components/quran/surah-reader/use-ayah-sheet-actions";
+import { QuranWordStudyProviders } from "@/components/quran/word-by-word";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
-import { Pill } from "@/components/ui/pill";
 import { PAUSE_CIRCLE_ICON, PLAY_CIRCLE_ICON } from "@/constants/media-icons";
-import { BorderWidth, Radius, Spacing } from "@/constants/theme";
+import { Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { buildContentReportRef } from "@/lib/content-report-ref";
-import { tTv } from "@/lib/i18n/t-tv";
 import { isTV } from "@/lib/platform/is-tv";
 import { ayahTracks } from "@/lib/quran-audio";
 import {
@@ -25,11 +26,8 @@ import {
   type QuranAyahCardsPayload,
 } from "@/lib/quran-ayah-range";
 import type { Passage } from "@/lib/quran-companion/types";
-import {
-  arabicReadingLayout,
-  resolveReadingFontSizes,
-  translationReadingStyle,
-} from "@/lib/reading-typography";
+import { getPageForAyah, juzForAyah } from "@/lib/quran-meta";
+import { resolveReadingFontSizes } from "@/lib/reading-typography";
 import { passageFromRef } from "@/lib/recite-along/passages";
 import { useReadingDisplay } from "@/lib/settings/reading-display";
 import { buildAyahSharePayload } from "@/lib/share";
@@ -37,17 +35,22 @@ import { resolveQuranEditionId } from "@/lib/translation-locale";
 import type { ZikrQuranRange } from "@/lib/zikr-quran";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import type { AudioTrack } from "@/providers/audio-player-types";
+import { hifzKey, useEnsureHifzLoaded, useHifzMap } from "@/stores/hifz-store";
 import { usePreferences } from "@/stores/preferences-store";
 import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
 
 const BUNDLED_EN_FALLBACK = "en-pickthall";
 
-type FlatAyah = {
-  surah: number;
-  surahName: string;
-  ayah: QuranAyahCardData;
-  trackIndex: number;
-};
+/**
+ * Note editor / peek sheets, loaded on first render of the cards: the editor
+ * reads the bundled Qur'an text, which must stay out of the Adhkar screens'
+ * first-load graph (docs/PROFILING.md).
+ */
+const LazyQuranNotesSheetHost = lazy(() =>
+  import("@/components/quran/quran-notes-sheet-host").then((m) => ({
+    default: m.QuranNotesSheetHost,
+  })),
+);
 
 type QuranAyahRangeCardsProps = {
   ranges: ZikrQuranRange[];
@@ -57,29 +60,42 @@ type QuranAyahRangeCardsProps = {
   shareCard?: ReturnType<typeof useShareContentCard>;
 };
 
+/** A loaded card as the reader's `Ayah` (bundled metadata, no `@/lib/quran`). */
+function cardAyah(surah: number, card: QuranAyahCardData): Ayah {
+  return {
+    surah,
+    ayah: card.ayah,
+    global: 0,
+    arabic: card.arabic,
+    juz: juzForAyah(surah, card.ayah),
+    sajda: card.sajda,
+    page: getPageForAyah(surah, card.ayah),
+    hizb: 0,
+  };
+}
+
 /**
  * Qur'an ayah cards for one or more short spans (Ayat al-Kursi, last two of
- * Al-Baqarah, the three Quls, …). Matches the surah reader card chrome — play /
- * bookmark / share — without opening the full surah list. Multi-surah bundles
- * render a SurahBanner between sections.
+ * Al-Baqarah, the three Quls, …), drawn with the surah reader's own ayah card —
+ * Play · Save · Share · More, with tafsir, notes, highlights, hifz, practise and
+ * report expanding inline (TV: Select opens the ayah action sheet) — without
+ * opening the full surah list. Multi-surah bundles render a SurahBanner between
+ * sections; one ayah's "More" row is open at a time across all of them.
  */
 export function QuranAyahRangeCards({
   ranges,
   sourceHref,
   shareCard: shareCardProp,
 }: QuranAyahRangeCardsProps) {
-  const { t, i18n } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
   const audio = useAudioPlayerContext();
   const prefs = useQuranPrefs();
-  const bookmarks = useQuranBookmarks();
-  const { toggleBookmark } = useQuranActions();
   const internalShare = useShareContentCard();
   const shareCard = shareCardProp ?? internalShare;
-  const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
-  const { showTransliteration, showTranslation } = useReadingDisplay();
-  const sizes = resolveReadingFontSizes("quran", fontPrefs);
+  const { translationLocale, locale: appLocale } = usePreferences();
   const editionId = resolveQuranEditionId({ translationLocale, locale: appLocale });
+  /** `surah:ayah` whose inline "More" row is open (one at a time). */
+  const [expandedKey, setExpandedKey] = useState<string | null>(null);
 
   const rangesKey = ranges.map((r) => `${r.surah}:${r.ayahFrom}-${r.ayahTo}`).join("|");
   // Recite-along passages (D68), one per span; spans never cross a surah.
@@ -105,85 +121,60 @@ export function QuranAyahRangeCards({
     queryFn: () => loadQuranAyahCardsRanges(ranges, editionId || BUNDLED_EN_FALLBACK),
   });
 
-  const { flatAyahs, tracks } = useMemo(() => {
+  const { sectionOffsets, tracks } = useMemo(() => {
     const sections = data ?? [];
-    const flat: FlatAyah[] = [];
+    const offsets: number[] = [];
     const allTracks: AudioTrack[] = [];
-
     for (const section of sections) {
-      const sectionTracks = ayahTracks(
-        prefs.preferredReciterDir,
-        section.surahName,
-        section.surah,
-        section.ayahs.map((a) => ({
-          surah: section.surah,
-          ayah: a.ayah,
-          global: 0,
-          arabic: a.arabic,
-          juz: 0,
-          sajda: a.sajda,
-          page: 0,
-          hizb: 0,
-        })),
-        {
-          translations: Object.fromEntries(
-            section.ayahs.map((a) => [String(a.ayah), a.translation]),
-          ),
-          lang: translationLocale || "en",
-        },
+      offsets.push(allTracks.length);
+      allTracks.push(
+        ...ayahTracks(
+          prefs.preferredReciterDir,
+          section.surahName,
+          section.surah,
+          section.ayahs.map((a) => cardAyah(section.surah, a)),
+          {
+            translations: Object.fromEntries(
+              section.ayahs.map((a) => [String(a.ayah), a.translation]),
+            ),
+            lang: translationLocale || "en",
+          },
+        ),
       );
-      for (let i = 0; i < section.ayahs.length; i++) {
-        const ayah = section.ayahs[i];
-        if (!ayah) continue;
-        flat.push({
-          surah: section.surah,
-          surahName: section.surahName,
-          ayah,
-          trackIndex: allTracks.length + i,
-        });
-      }
-      allTracks.push(...sectionTracks);
     }
-
-    return { flatAyahs: flat, tracks: allTracks };
+    return { sectionOffsets: offsets, tracks: allTracks };
   }, [data, prefs.preferredReciterDir, translationLocale]);
 
+  const playAudio = audio.play;
+  const toggleAudio = audio.toggle;
+  const currentAudioId = audio.current?.id;
   const playFrom = useCallback(
     (index: number) => {
       if (tracks.length === 0) return;
-      audio.play(tracks, index, { sourceHref });
+      playAudio(tracks, index, { sourceHref });
     },
-    [audio, sourceHref, tracks],
+    [playAudio, sourceHref, tracks],
   );
-
+  /** Per-ayah control: pause / resume the current ayah, else play the range from it. */
   const playOrToggle = useCallback(
-    (trackIndex: number, surah: number, ayah: number) => {
-      if (audio.current?.id === `${surah}:${ayah}`) {
-        audio.toggle();
+    (trackIndex: number) => {
+      if (currentAudioId != null && tracks[trackIndex]?.id === currentAudioId) {
+        toggleAudio();
         return;
       }
       playFrom(trackIndex);
     },
-    [audio, playFrom],
-  );
-
-  const bookmarkedSet = useMemo(
-    () => new Set(bookmarks.map((b) => `${b.surah}:${b.ayah}`)),
-    [bookmarks],
+    [currentAudioId, playFrom, toggleAudio, tracks],
   );
 
   if (isPending || !data?.length) {
     return null;
   }
 
-  const rangeActive =
-    audio.current != null && tracks.some((track) => track.id === audio.current?.id);
+  const rangeActive = currentAudioId != null && tracks.some((track) => track.id === currentAudioId);
   const rangePlaying = rangeActive && audio.isPlaying;
-  const locale = i18n.language?.split("-")[0] ?? "en";
   const showSectionHeaders = data.length > 1;
   const singlePassage = showSectionHeaders ? null : (passages[0] ?? null);
-
-  let flatCursor = 0;
 
   return (
     <View style={styles.root}>
@@ -195,7 +186,7 @@ export function QuranAyahRangeCards({
           style={styles.topAction}
           onPress={() => {
             if (rangeActive) {
-              audio.toggle();
+              toggleAudio();
               return;
             }
             playFrom(0);
@@ -207,83 +198,220 @@ export function QuranAyahRangeCards({
         ) : null}
       </View>
 
-      {data.map((section) => {
-        const sectionStart = flatCursor;
-        const sectionRows = flatAyahs.slice(sectionStart, sectionStart + section.ayahs.length);
-        flatCursor += section.ayahs.length;
-        const sectionPassage = showSectionHeaders ? sectionPassages.get(section.surah) : undefined;
+      {data.map((section, sectionIndex) => (
+        <RangeSection
+          key={section.surah}
+          section={section}
+          trackOffset={sectionOffsets[sectionIndex] ?? 0}
+          showHeader={showSectionHeaders}
+          passage={showSectionHeaders ? sectionPassages.get(section.surah) : undefined}
+          shareCard={shareCard}
+          expandedKey={expandedKey}
+          setExpandedKey={setExpandedKey}
+          onPlayTrack={playOrToggle}
+        />
+      ))}
+      {isTV() ? null : (
+        <Suspense fallback={null}>
+          <LazyQuranNotesSheetHost />
+        </Suspense>
+      )}
+    </View>
+  );
+}
 
-        return (
-          <View key={section.surah} style={styles.section}>
-            {showSectionHeaders ? <SectionHeader section={section} /> : null}
-            {sectionPassage ? (
-              <ReciteAlongButton passage={sectionPassage} size="sm" style={styles.sectionRecite} />
-            ) : null}
-            {sectionRows.map((row) => {
-              const trackId = `${row.surah}:${row.ayah.ayah}`;
-              const isActive = audio.current?.id === trackId;
-              const isPlaying = isActive && audio.isPlaying;
-              const isBookmarked = bookmarkedSet.has(trackId);
+function RangeSection({
+  section,
+  trackOffset,
+  showHeader,
+  passage,
+  shareCard,
+  expandedKey,
+  setExpandedKey,
+  onPlayTrack,
+}: {
+  section: QuranAyahCardsPayload;
+  /** Index of this section's first ayah in the shared audio queue. */
+  trackOffset: number;
+  showHeader: boolean;
+  /** Multi-surah bundles: this section's recite-along passage. */
+  passage?: Passage;
+  shareCard: ReturnType<typeof useShareContentCard>;
+  expandedKey: string | null;
+  setExpandedKey: (update: (current: string | null) => string | null) => void;
+  onPlayTrack: (trackIndex: number) => void;
+}) {
+  const { t } = useTranslation();
+  const tv = isTV();
+  const surahNumber = section.surah;
+  const audio = useAudioPlayerContext();
+  const bookmarks = useQuranBookmarks();
+  const { toggleBookmark } = useQuranActions();
+  const { fontPrefs, translationLocale } = usePreferences();
+  const { showTransliteration, showTranslation } = useReadingDisplay();
+  const sizes = resolveReadingFontSizes("quran", fontPrefs);
+  const translationDir = isRtlLocale(translationLocale) ? "rtl" : "ltr";
+  useEnsureHifzLoaded();
+  const hifzMap = useHifzMap();
 
-              return (
-                <RangeAyahCard
-                  key={trackId}
-                  surah={row.surah}
-                  ayah={row.ayah}
-                  locale={locale}
-                  translationLocale={translationLocale}
-                  isActive={isActive}
-                  isPlaying={isPlaying}
-                  isBookmarked={isBookmarked}
-                  arabicSize={sizes.arabic}
-                  translitSize={sizes.transliteration}
-                  translationSize={sizes.translation}
-                  showTransliteration={showTransliteration}
-                  showTranslation={showTranslation}
-                  accent={colors.accent}
-                  accentSoft={tokens.accentSoft}
-                  mutedForeground={colors.mutedForeground}
-                  warning={tokens.status.warning.color}
-                  onPlay={() => playOrToggle(row.trackIndex, row.surah, row.ayah.ayah)}
-                  onBookmark={() => void toggleBookmark(row.surah, row.ayah.ayah)}
-                  onShare={() => {
-                    void shareCard.share({
-                      ...buildAyahSharePayload(
-                        row.ayah.arabic,
-                        row.ayah.translation,
-                        row.surah,
-                        row.ayah.ayah,
-                        {
-                          surahName: row.surahName,
-                          transliteration: row.ayah.transliteration,
-                          sectionTitle: t("share.sectionQuran"),
-                        },
-                      ),
-                      shareKey: trackId,
-                    });
-                  }}
-                  isSharing={shareCard.isSharing(trackId)}
-                  playLabel={isPlaying ? t("quran.actionPause") : t("quran.actionPlay")}
-                  playA11y={
-                    isPlaying ? t("quran.pauseAyah") : t("quran.playAyah", { n: row.ayah.ayah })
-                  }
-                  bookmarkLabel={
-                    isBookmarked ? t("quran.actionBookmarked") : t("quran.actionBookmark")
-                  }
-                  bookmarkA11y={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
-                  shareLabel={
-                    shareCard.isGesturePending(trackId)
-                      ? tTv(t, "share.tapToShare", "share.selectToShare")
-                      : t("quran.actionShare")
-                  }
-                  shareA11y={t("quran.shareAyah")}
-                  preparingLabel={t("share.preparing")}
-                />
-              );
-            })}
-          </View>
-        );
-      })}
+  const ayahs = useMemo(
+    () => section.ayahs.map((card) => cardAyah(surahNumber, card)),
+    [section.ayahs, surahNumber],
+  );
+  const translations = useMemo(
+    () => Object.fromEntries(section.ayahs.map((a) => [String(a.ayah), a.translation])),
+    [section.ayahs],
+  );
+  const bookmarkedSet = useMemo(
+    () => new Set(bookmarks.map((b) => `${b.surah}:${b.ayah}`)),
+    [bookmarks],
+  );
+
+  const [tafsirAyah, setTafsirAyah] = useState<number | null>(null);
+  const [tvActionIndex, setTvActionIndex] = useState<number | null>(null);
+  const {
+    handlers,
+    hifz: { cancelHifz, confirmHifz, dialog: hifzDialog },
+  } = useAyahActions({
+    surahNumber,
+    surahName: section.surahName,
+    hifzMap,
+    openTafsir: setTafsirAyah,
+  });
+  const closeTvActions = useCallback(() => setTvActionIndex(null), []);
+  const sheetActions = useAyahSheetActions({ handlers, closeSheet: closeTvActions });
+
+  const onToggleExpanded = useCallback(
+    (ayah: number) => {
+      const key = `${surahNumber}:${ayah}`;
+      setExpandedKey((current) => (current === key ? null : key));
+    },
+    [setExpandedKey, surahNumber],
+  );
+  const onPlayAtIndex = useCallback(
+    (index: number) => onPlayTrack(trackOffset + index),
+    [onPlayTrack, trackOffset],
+  );
+  const onBookmarkAyah = useCallback(
+    (surah: number, ayah: number) => void toggleBookmark(surah, ayah),
+    [toggleBookmark],
+  );
+  const shareRef = shareCard.share;
+  const onShareAyah = useCallback(
+    (arabic: string, translation: string, surah: number, ayah: number, translit?: string) => {
+      void shareRef({
+        ...buildAyahSharePayload(arabic, translation, surah, ayah, {
+          surahName: section.surahName,
+          transliteration: translit,
+          sectionTitle: t("share.sectionQuran"),
+        }),
+        shareKey: `${surah}:${ayah}`,
+      });
+    },
+    [section.surahName, shareRef, t],
+  );
+  const onOpenActions = useCallback((index: number) => setTvActionIndex(index), []);
+
+  const currentId = audio.current?.id;
+  const playingAyah =
+    currentId?.startsWith(`${surahNumber}:`) &&
+    ayahs.some((a) => `${surahNumber}:${a.ayah}` === currentId)
+      ? Number(currentId.slice(currentId.indexOf(":") + 1))
+      : null;
+  const actionAyah = tvActionIndex != null ? ayahs[tvActionIndex] : undefined;
+  const actionKey = actionAyah ? `${surahNumber}:${actionAyah.ayah}` : null;
+
+  return (
+    <View style={styles.section}>
+      {showHeader ? <SectionHeader section={section} /> : null}
+      {passage ? (
+        <ReciteAlongButton passage={passage} size="sm" style={styles.sectionRecite} />
+      ) : null}
+      <QuranWordStudyProviders
+        wordAudioEnabled={false}
+        playingAyah={playingAyah}
+        audioIsPlaying={audio.isPlaying}
+        audioIsBuffering={Boolean(audio.isBuffering && !audio.isLoaded)}
+        activeWordIndex={null}
+        surah={surahNumber}
+      >
+        <View style={styles.section}>
+          {section.ayahs.map((card, index) => {
+            const ayah = ayahs[index];
+            if (!ayah) return null;
+            const key = `${surahNumber}:${card.ayah}`;
+            return (
+              <AyahRow
+                key={key}
+                ayah={ayah}
+                index={index}
+                surahNumber={surahNumber}
+                arabicSize={sizes.arabic}
+                translitSize={sizes.transliteration}
+                translationSize={sizes.translation}
+                hifzStatus={hifzMap[hifzKey(surahNumber, card.ayah)]}
+                secondTranslationDir="ltr"
+                transliteration={
+                  showTransliteration ? card.transliteration || undefined : undefined
+                }
+                translation={showTranslation ? card.translation : ""}
+                translationDir={translationDir}
+                isBookmarked={bookmarkedSet.has(key)}
+                onPlayAtIndex={onPlayAtIndex}
+                onBookmarkAyah={onBookmarkAyah}
+                onShareAyah={onShareAyah}
+                isSharing={shareCard.isSharing(key)}
+                isGesturePending={shareCard.isGesturePending(key)}
+                onOpenActions={onOpenActions}
+                expanded={expandedKey === key}
+                onToggleExpanded={onToggleExpanded}
+                actionHandlers={handlers}
+              />
+            );
+          })}
+        </View>
+      </QuranWordStudyProviders>
+
+      <AyahTafsirSheetHost
+        surah={surahNumber}
+        ayah={tafsirAyah}
+        onClose={() => setTafsirAyah(null)}
+      />
+      <ConfirmDialog
+        visible={hifzDialog.visible}
+        title={t("hifz.confirmTitle")}
+        message={hifzDialog.message}
+        confirmLabel={hifzDialog.confirmLabel}
+        cancelLabel={t("common.cancel")}
+        destructive={hifzDialog.destructive}
+        onConfirm={() => void confirmHifz()}
+        onCancel={cancelHifz}
+        onClose={cancelHifz}
+      />
+      {tv ? (
+        // TV: Select on an ayah card (phones / web expand "More" inline instead).
+        <AyahMoreActions
+          ayah={actionAyah}
+          surahNumber={surahNumber}
+          surahName={section.surahName}
+          surahNameEnglish={section.nameEnglish}
+          locale={handlers.locale}
+          translation={translations}
+          isBookmarked={actionKey != null && bookmarkedSet.has(actionKey)}
+          isPlaying={actionKey != null && audio.isPlaying && currentId === actionKey}
+          hifzStatus={actionAyah ? hifzMap[hifzKey(surahNumber, actionAyah.ayah)] : undefined}
+          onClose={closeTvActions}
+          onPlay={() => {
+            if (tvActionIndex == null) return;
+            const index = tvActionIndex;
+            setTvActionIndex(null);
+            onPlayAtIndex(index);
+          }}
+          onBookmark={(ayahNum) => void toggleBookmark(surahNumber, ayahNum)}
+          onHifz={sheetActions.onHifz}
+          onTafsir={sheetActions.onTafsir}
+        />
+      ) : null}
     </View>
   );
 }
@@ -307,164 +435,6 @@ function SectionHeader({ section }: { section: QuranAyahCardsPayload }) {
   );
 }
 
-function RangeAyahCard({
-  surah,
-  ayah,
-  locale,
-  translationLocale,
-  isActive,
-  isPlaying,
-  isBookmarked,
-  arabicSize,
-  translitSize,
-  translationSize,
-  showTransliteration,
-  showTranslation,
-  accent,
-  accentSoft,
-  mutedForeground,
-  warning,
-  onPlay,
-  onBookmark,
-  onShare,
-  isSharing,
-  playLabel,
-  playA11y,
-  bookmarkLabel,
-  bookmarkA11y,
-  shareLabel,
-  shareA11y,
-  preparingLabel,
-}: {
-  surah: number;
-  ayah: QuranAyahCardData;
-  locale: string;
-  translationLocale: AppLocale;
-  isActive: boolean;
-  isPlaying: boolean;
-  isBookmarked: boolean;
-  arabicSize: number;
-  translitSize: number;
-  translationSize: number;
-  showTransliteration: boolean;
-  showTranslation: boolean;
-  accent: string;
-  accentSoft: string;
-  mutedForeground: string;
-  warning: string;
-  onPlay: () => void;
-  onBookmark: () => void;
-  onShare: () => void;
-  isSharing: boolean;
-  playLabel: string;
-  playA11y: string;
-  bookmarkLabel: string;
-  bookmarkA11y: string;
-  shareLabel: string;
-  shareA11y: string;
-  preparingLabel: string;
-}) {
-  const reportRef = buildContentReportRef(
-    "quran_ayah",
-    String(ayah.ayah),
-    `/quran/${surah}?ayah=${ayah.ayah}`,
-    locale,
-    {
-      parentId: String(surah),
-      snapshot: {
-        arabic: ayah.arabic,
-        translation: ayah.translation,
-        reference: `${surah}:${ayah.ayah}`,
-      },
-    },
-  );
-
-  return (
-    <Card
-      padding="four"
-      style={isActive ? { borderColor: accent, borderWidth: BorderWidth.thin } : undefined}
-    >
-      <View style={styles.ayahHeader}>
-        <View style={[styles.ayahBadge, { backgroundColor: accentSoft }]}>
-          <ThemedText
-            type="caption"
-            numberOfLines={1}
-            style={{ color: accent, textAlign: "center" }}
-          >
-            {ayah.ayah}
-          </ThemedText>
-        </View>
-        <View style={styles.ayahActions}>
-          {ayah.sajda ? <Pill label="۩" color={accent} background={accentSoft} /> : null}
-          <LabeledIconButton
-            name={isPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
-            label={playLabel}
-            tintColor={accent}
-            labelColor={accent}
-            background={accentSoft}
-            accessibilityLabel={playA11y}
-            onPress={onPlay}
-          />
-          <LabeledIconButton
-            name={
-              isBookmarked
-                ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
-                : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
-            }
-            label={bookmarkLabel}
-            tintColor={isBookmarked ? warning : mutedForeground}
-            labelColor={isBookmarked ? warning : mutedForeground}
-            accessibilityLabel={bookmarkA11y}
-            accessibilityState={{ selected: isBookmarked }}
-            onPress={onBookmark}
-          />
-          {/* No system share sheet on TV (phone-only capability). */}
-          {!isTV() ? (
-            <LabeledIconButton
-              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              label={shareLabel}
-              tintColor={mutedForeground}
-              accessibilityLabel={shareA11y}
-              loading={isSharing}
-              loadingLabel={preparingLabel}
-              onPress={onShare}
-            />
-          ) : null}
-          <ContentReportButton contentRef={reportRef} />
-        </View>
-      </View>
-
-      {ayah.arabic ? (
-        <ThemedText
-          type="arabic"
-          accessibilityLanguage="ar"
-          style={[styles.arabic, arabicReadingLayout(arabicSize)]}
-        >
-          {ayah.arabic}
-        </ThemedText>
-      ) : null}
-
-      {showTransliteration && ayah.transliteration ? (
-        <ThemedText
-          type="small"
-          style={[styles.translit, { color: accent, fontSize: translitSize }]}
-        >
-          {ayah.transliteration}
-        </ThemedText>
-      ) : null}
-
-      {showTranslation && ayah.translation ? (
-        <ThemedText
-          type="default"
-          style={[styles.translation, translationReadingStyle(translationLocale, translationSize)]}
-        >
-          {ayah.translation}
-        </ThemedText>
-      ) : null}
-    </Card>
-  );
-}
-
 const styles = StyleSheet.create({
   root: {
     gap: Spacing.three,
@@ -485,40 +455,6 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
   },
   fallbackTitle: {
-    marginTop: Spacing.one,
-  },
-  ayahHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: Spacing.two,
-    marginBottom: Spacing.three,
-  },
-  ayahBadge: {
-    minWidth: 36,
-    minHeight: 28,
-    borderRadius: Radius.md,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: Spacing.two,
-    flexShrink: 0,
-  },
-  ayahActions: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    gap: Spacing.one,
-    flex: 1,
-    minWidth: 0,
-  },
-  arabic: {
-    marginBottom: Spacing.two,
-  },
-  translit: {
-    marginBottom: Spacing.two,
-  },
-  translation: {
     marginTop: Spacing.one,
   },
 });

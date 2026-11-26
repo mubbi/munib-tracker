@@ -12,12 +12,14 @@ import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import type { GoalReminderModel } from "@/components/tracker/goal-reminder-banner";
 import { useWhiteDaysGoalReminder } from "@/components/white-days-goal-reminder";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
+import en from "@/i18n/en.json";
 import { isFriday } from "@/lib/friday";
 import { getRamadanInfo } from "@/lib/ramadan";
 import { currentSeasonalBanner } from "@/lib/seasonal-themes";
 import { isWhiteDay } from "@/lib/white-days";
 import { continueStore } from "@/stores/continue-store";
 import { locationStore } from "@/stores/location-store";
+import { preferencesStore } from "@/stores/preferences-store";
 import { __resetSeasonalBannerStore, seasonalBannerStore } from "@/stores/seasonal-banner-store";
 import { defined } from "@/test-support/assert";
 import { buildContinueActivity } from "@/test-support/fixtures/continue";
@@ -399,6 +401,28 @@ describe("HomeBelowFold explore shortcuts", () => {
     await fireEvent.press(screen.getByLabelText("Customize home shortcuts"));
 
     expect(mockRouter.push).toHaveBeenCalledWith("/settings/home");
+  });
+
+  it("long-press enters edit mode: hide writes the setting, Add back lists it, Done exits", async () => {
+    await setPreferences({ quickActionOrder: ["quran", "qibla"] });
+    await renderFold();
+    const quran = en.actions.quran;
+
+    await fireEvent(screen.getByLabelText(new RegExp(`^${quran}(, New)?$`)), "longPress");
+    expect(screen.getByLabelText(en.home.exploreDoneA11y)).toBeTruthy();
+    expect(screen.getByText(en.home.exploreEditHint)).toBeTruthy();
+
+    await fireEvent.press(screen.getByLabelText(`Hide ${quran}`));
+    const order = () => preferencesStore.getState().prefs.quickActionOrder ?? [];
+    expect(order()).not.toContain("quran");
+    expect(order()).toContain("qibla");
+    expect(screen.getByText(en.home.exploreAddBack)).toBeTruthy();
+    await fireEvent.press(screen.getByLabelText(`${en.homeCustomize.add}: ${quran}`));
+    expect(order().at(-1)).toBe("quran");
+
+    await fireEvent.press(screen.getByLabelText(en.home.exploreDoneA11y));
+    expect(screen.queryByText(en.home.exploreEditHint)).toBeNull();
+    expect(screen.getByLabelText("Customize home shortcuts")).toBeTruthy();
   });
 
   it("respects a saved shortcut order", async () => {

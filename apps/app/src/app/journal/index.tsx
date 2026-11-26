@@ -6,7 +6,6 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { VoiceInputButton } from "@/components/stt/voice-input-button";
@@ -417,11 +416,8 @@ export default function JournalScreen() {
     setPending(null);
   };
 
+  /** Cancel the confirm — back to the form (the sheet stays open). */
   const handleConfirmClose = () => {
-    if (pending?.kind === "discard" && formOpen) {
-      setPending(null);
-      return;
-    }
     setPending(null);
   };
 
@@ -596,114 +592,150 @@ export default function JournalScreen() {
         </Stagger>
       )}
 
+      {/*
+        The discard / overwrite confirm renders INSIDE the sheet, replacing the
+        form. A sibling <ConfirmDialog> is a second RN Modal, and iOS can't
+        present it while this sheet's Modal is up — the confirm never appeared
+        and the sheet could not be closed after changing the Salah pill.
+        While it shows, dismissing the sheet (swipe / scrim / Back) just goes
+        back to the form.
+      */}
       <Sheet
-        accessibilityLabel={draft.mode === "edit" ? t("journal.editTitle") : t("journal.newTitle")}
+        accessibilityLabel={
+          confirmCopy
+            ? confirmCopy.title
+            : draft.mode === "edit"
+              ? t("journal.editTitle")
+              : t("journal.newTitle")
+        }
         visible={formOpen}
-        onClose={requestCloseForm}
+        onClose={pending ? handleConfirmClose : requestCloseForm}
         variant="bottom"
       >
-        <ThemedText type="subtitle" style={styles.sheetTitle}>
-          {draft.mode === "edit" ? t("journal.editTitle") : t("journal.newTitle")}
-        </ThemedText>
-        {draft.mode === "edit" ? (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.sheetDate}>
-            {formatDate(draft.date, "long")}
-          </ThemedText>
-        ) : null}
-
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
-          {t("journal.fieldPrayer")}
-        </ThemedText>
-        <View style={styles.prayerChips} accessibilityRole="radiogroup">
-          {pickerPrayers.map((id) => (
-            <Chip
-              key={id}
-              role="radio"
-              variant="solid"
-              icon={PRAYER_ICONS[id]}
-              label={t(`prayers.${id}`)}
-              selected={draft.prayerId === id}
-              onPress={() => setDraft((current) => ({ ...current, prayerId: id }))}
-            />
-          ))}
-        </View>
-
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
-          {t("journal.fieldRating")}
-        </ThemedText>
-        <View style={[styles.ratingPanel, { backgroundColor: colors.muted }]}>
-          <StarRating
-            value={draft.rating}
-            onChange={(rating) => setDraft((current) => ({ ...current, rating }))}
-            size={28}
-          />
-          <ThemedText type="smallBold" style={styles.ratingLabel}>
-            {draft.rating >= KHUSHU_MIN
-              ? t(`journal.level${draft.rating}`)
-              : t("journal.ratingNone")}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {tTv(t, "journal.ratingHint", "journal.ratingHintTv")}
-          </ThemedText>
-        </View>
-
-        <TextField
-          label={t("journal.fieldNote")}
-          value={draft.note}
-          onChangeText={(note) => {
-            if (stt.listening) stt.abort();
-            setDraft((current) => ({ ...current, note }));
-          }}
-          placeholder={t("journal.notePlaceholder")}
-          helperText={stt.listening ? t("journal.stt.listening") : undefined}
-          multiline
-          minLines={3}
-          style={styles.noteField}
-          // No microphone dictation on TV remotes (phone-only capability).
-          trailing={
-            stt.available && !tv ? (
-              <VoiceInputButton
-                size="sm"
-                listening={stt.listening}
-                level={stt.level}
-                accessibilityLabel={
-                  stt.listening ? t("journal.stt.stopDictate") : t("journal.stt.dictate")
-                }
-                accessibilityHint={stt.listening ? t("journal.stt.listening") : undefined}
-                onPress={toggleNoteDictate}
+        {confirmCopy ? (
+          <View style={styles.confirm} testID="journal-inline-confirm">
+            <ThemedText type="subtitle" role="alert" accessibilityLiveRegion="polite">
+              {confirmCopy.title}
+            </ThemedText>
+            {confirmCopy.message ? (
+              <ThemedText type="small" themeColor="mutedForeground">
+                {confirmCopy.message}
+              </ThemedText>
+            ) : null}
+            <View style={styles.formActions}>
+              <Button
+                label={t("common.cancel")}
+                variant="ghost"
+                fullWidth
+                preferredFocus
+                onPress={handleConfirmClose}
+                style={styles.formActionButton}
               />
-            ) : undefined
-          }
-        />
+              <Button
+                label={confirmCopy.confirmLabel}
+                variant={confirmCopy.destructive ? "destructive" : "primary"}
+                fullWidth
+                onPress={handleConfirm}
+                style={styles.formActionButton}
+              />
+            </View>
+          </View>
+        ) : (
+          <>
+            <ThemedText type="subtitle" style={styles.sheetTitle}>
+              {draft.mode === "edit" ? t("journal.editTitle") : t("journal.newTitle")}
+            </ThemedText>
+            {draft.mode === "edit" ? (
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.sheetDate}>
+                {formatDate(draft.date, "long")}
+              </ThemedText>
+            ) : null}
 
-        <View style={styles.formActions}>
-          <Button
-            label={t("common.cancel")}
-            variant="ghost"
-            fullWidth
-            onPress={requestCloseForm}
-            style={styles.formActionButton}
-          />
-          <Button
-            label={t("common.save")}
-            fullWidth
-            disabled={draft.rating < KHUSHU_MIN || draft.rating > KHUSHU_MAX}
-            accessibilityHint={draft.rating < KHUSHU_MIN ? t("journal.ratingNone") : undefined}
-            onPress={attemptSave}
-            style={styles.formActionButton}
-          />
-        </View>
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
+              {t("journal.fieldPrayer")}
+            </ThemedText>
+            <View style={styles.prayerChips} accessibilityRole="radiogroup">
+              {pickerPrayers.map((id) => (
+                <Chip
+                  key={id}
+                  role="radio"
+                  variant="solid"
+                  icon={PRAYER_ICONS[id]}
+                  label={t(`prayers.${id}`)}
+                  selected={draft.prayerId === id}
+                  onPress={() => setDraft((current) => ({ ...current, prayerId: id }))}
+                />
+              ))}
+            </View>
+
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
+              {t("journal.fieldRating")}
+            </ThemedText>
+            <View style={[styles.ratingPanel, { backgroundColor: colors.muted }]}>
+              <StarRating
+                value={draft.rating}
+                onChange={(rating) => setDraft((current) => ({ ...current, rating }))}
+                size={28}
+              />
+              <ThemedText type="smallBold" style={styles.ratingLabel}>
+                {draft.rating >= KHUSHU_MIN
+                  ? t(`journal.level${draft.rating}`)
+                  : t("journal.ratingNone")}
+              </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {tTv(t, "journal.ratingHint", "journal.ratingHintTv")}
+              </ThemedText>
+            </View>
+
+            <TextField
+              label={t("journal.fieldNote")}
+              value={draft.note}
+              onChangeText={(note) => {
+                if (stt.listening) stt.abort();
+                setDraft((current) => ({ ...current, note }));
+              }}
+              placeholder={t("journal.notePlaceholder")}
+              helperText={stt.listening ? t("journal.stt.listening") : undefined}
+              multiline
+              minLines={3}
+              style={styles.noteField}
+              // No microphone dictation on TV remotes (phone-only capability).
+              trailing={
+                stt.available && !tv ? (
+                  <VoiceInputButton
+                    size="sm"
+                    listening={stt.listening}
+                    level={stt.level}
+                    accessibilityLabel={
+                      stt.listening ? t("journal.stt.stopDictate") : t("journal.stt.dictate")
+                    }
+                    accessibilityHint={stt.listening ? t("journal.stt.listening") : undefined}
+                    onPress={toggleNoteDictate}
+                  />
+                ) : undefined
+              }
+            />
+
+            <View style={styles.formActions}>
+              <Button
+                label={t("common.cancel")}
+                variant="ghost"
+                fullWidth
+                onPress={requestCloseForm}
+                style={styles.formActionButton}
+              />
+              <Button
+                label={t("common.save")}
+                fullWidth
+                disabled={draft.rating < KHUSHU_MIN || draft.rating > KHUSHU_MAX}
+                accessibilityHint={draft.rating < KHUSHU_MIN ? t("journal.ratingNone") : undefined}
+                onPress={attemptSave}
+                style={styles.formActionButton}
+              />
+            </View>
+          </>
+        )}
       </Sheet>
-
-      <ConfirmDialog
-        visible={pending != null}
-        title={confirmCopy?.title ?? ""}
-        message={confirmCopy?.message}
-        confirmLabel={confirmCopy?.confirmLabel}
-        destructive={confirmCopy?.destructive}
-        onConfirm={handleConfirm}
-        onClose={handleConfirmClose}
-      />
     </ScreenLayout>
   );
 }
@@ -800,6 +832,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
   },
   formActionButton: { flex: 1 },
+  confirm: { gap: Spacing.two },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

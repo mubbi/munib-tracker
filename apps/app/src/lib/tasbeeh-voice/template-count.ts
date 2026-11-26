@@ -1,4 +1,4 @@
-import { framesToMs } from "./features";
+import { extractVoicedFeatures, framesToMs } from "./features";
 import type { TimedHit } from "./hit-dedupe";
 import type { VoiceListener } from "./listener";
 import {
@@ -7,7 +7,17 @@ import {
   samplesToMs as ms,
   msToSamples as samplesOf,
 } from "./listener-shared";
-import { MAX_SAMPLE_MS, MIN_SAMPLE_MS, matchUtterance, type TaughtPattern } from "./matcher";
+import {
+  DEFAULT_TUNING,
+  LEARN_COST_RATIO,
+  learnFromMatch,
+  MAX_SAMPLE_MS,
+  MIN_SAMPLE_MS,
+  matchFeatures,
+  noiseAdjustedThreshold,
+  patternTemplates,
+  type TaughtPattern,
+} from "./matcher";
 import { createSegmenter } from "./vad";
 
 /**
@@ -16,19 +26,26 @@ import { createSegmenter } from "./vad";
  *
  * - `createTemplateCounter`: the energy VAD cuts the audio into spoken bursts;
  *   each burst is searched for the taught zikr (`matcher.ts`) and every match is
- *   one hit. During long unbroken speech (fast repeats with no pause) the open
- *   burst is searched about once a second and matches that are clearly complete
- *   count straight away, so counting keeps up.
+ *   one hit. While a burst is still open (fast repeats with no pause) it is
+ *   searched every {@link OPEN_BURST_HOP_MS} from the last counted repeat on, and
+ *   a match that ended {@link SETTLE_MS} ago counts straight away — so a count
+ *   lands ~0.3–0.5 s after each zikr even back-to-back. Confident matches teach
+ *   the pattern (adaptive templates, features only) and the threshold follows
+ *   the room's noise within safe bounds (`noiseAdjustedThreshold`).
  * - `createTeachRecorder`: each spoken burst while teaching is handed over as one
  *   sample (its PCM lives only in memory, until it is turned into features).
  */
 
 /** Audio kept before a burst starts (the VAD's pre-roll reaches back this far). */
 const LOOKBACK_MS = 1000;
-/** Search an open burst after this much new speech. */
-const OPEN_BURST_HOP_MS = 1000;
+/** Search an open burst this often (incrementally: from the last counted repeat on). */
+export const OPEN_BURST_HOP_MS = 250;
 /** A match ending closer than this to the live edge may still be growing. */
-const SETTLE_MS = 450;
+export const SETTLE_MS = 280;
+/** Learn at most one template per this much audio (adaptive templates). */
+export const LEARN_INTERVAL_MS = 12_000;
+/** Audio kept around a match when its features are re-extracted to learn from. */
+const LEARN_PAD_MS = 40;
 
 /** Append-only PCM with absolute sample indices; old audio is dropped explicitly. */
 class PcmBuffer {
@@ -88,6 +105,14 @@ export type TemplateCounterOptions = {
   onHit: (hit: TimedHit) => void;
   onSpeech?: (speaking: boolean) => void;
   onLevel?: (db: number) => void;
+  /**
+   * Adaptive templates: called with the whole updated pattern when a confident
+   * match was learned (features only — the caller may persist it). Absent → the
+   * counter still matches with what it learned this session.
+   */
+  onPatternLearned?: (pattern: TaughtPattern) => void;
+  /** False turns learning off (eval baselines). Default on. */
+  learn?: boolean;
 };
 
 export function createTemplateCounter(options: TemplateCounterOptions): VoiceListener {
@@ -95,27 +120,54 @@ export function createTemplateCounter(options: TemplateCounterOptions): VoiceLis
   const buffer = new PcmBuffer();
   const mutes = createMuteWindows();
   const reportLevel = createLevelReporter(options.onLevel);
-  const longestTemplateMs = Math.max(
-    ...options.pattern.templates.map((t) => framesToMs(t.frames)),
-    MIN_SAMPLE_MS,
-  );
+  let pattern = options.pattern;
+  const lengths = () => patternTemplates(pattern).map((t) => framesToMs(t.frames));
+  let longestTemplateMs = Math.max(...lengths(), MIN_SAMPLE_MS);
+  let shortestTemplateMs = Math.max(Math.min(...lengths()), MIN_SAMPLE_MS);
   let burstFrom: number | null = null;
   let lastSearchAt = 0;
+  let lastLearnAt = Number.NEGATIVE_INFINITY;
   let disposed = false;
+
+  /** A confident match teaches the pattern (rate-limited, features only). */
+  const maybeLearn = (pcm: Float32Array, startMs: number, endMs: number, cost: number) => {
+    if (options.learn === false) return;
+    const nowMs = ms(segmenter.samples);
+    if (nowMs - lastLearnAt < LEARN_INTERVAL_MS) return;
+    if (cost > pattern.threshold * LEARN_COST_RATIO) return;
+    const from = Math.max(0, samplesOf(startMs - LEARN_PAD_MS));
+    const to = Math.min(pcm.length, samplesOf(endMs + LEARN_PAD_MS));
+    const next = learnFromMatch(pattern, extractVoicedFeatures(pcm.subarray(from, to)), cost);
+    if (!next) return;
+    lastLearnAt = nowMs;
+    pattern = next;
+    longestTemplateMs = Math.max(...lengths(), MIN_SAMPLE_MS);
+    shortestTemplateMs = Math.max(Math.min(...lengths()), MIN_SAMPLE_MS);
+    options.onPatternLearned?.(next);
+  };
 
   /** Search absolute [from, to); count matches that end before `settledBefore`. Returns where the next search starts. */
   const search = (from: number, to: number, settledBefore: number): number => {
     const pcm = buffer.slice(from, to);
+    const features = extractVoicedFeatures(pcm);
+    if (!features) return from;
+    let peak = -100;
+    for (let f = 0; f < features.frames; f++) peak = Math.max(peak, features.energyDb[f]);
+    const threshold = noiseAdjustedThreshold(pattern.threshold, segmenter.noiseFloorDb, peak);
     let next = from;
-    for (const match of matchUtterance(options.pattern, pcm)) {
+    for (const match of matchFeatures(pattern, features, DEFAULT_TUNING, threshold)) {
+      const startMs = framesToMs(match.start + features.offsetFrames);
+      const endMs = framesToMs(match.end + features.offsetFrames);
       const hit: TimedHit = {
-        startMs: ms(from) + match.startMs,
-        endMs: ms(from) + match.endMs,
+        startMs: ms(from) + startMs,
+        endMs: ms(from) + endMs,
         score: -match.cost,
       };
       if (hit.endMs > ms(settledBefore)) break;
-      next = from + samplesOf(match.endMs);
-      if (!disposed && !mutes.covers(hit)) options.onHit(hit);
+      next = from + samplesOf(endMs);
+      if (disposed || mutes.covers(hit)) continue;
+      options.onHit(hit);
+      maybeLearn(pcm, startMs, endMs, match.cost);
     }
     return next;
   };
@@ -135,12 +187,14 @@ export function createTemplateCounter(options: TemplateCounterOptions): VoiceLis
     }
   };
 
-  /** Long unbroken speech: count the repeats that are already complete. */
+  /** Unbroken speech: count each repeat as soon as it is complete. */
   const searchOpenBurst = () => {
     if (burstFrom == null) return;
     const now = segmenter.samples;
     if (now - lastSearchAt < samplesOf(OPEN_BURST_HOP_MS)) return;
-    if (now - burstFrom < samplesOf(longestTemplateMs * 1.3)) return;
+    // Not even the shortest repeat (at the fastest pace) could have finished yet.
+    const minRepeatMs = shortestTemplateMs * DEFAULT_TUNING.minLengthRatio;
+    if (now - burstFrom < samplesOf(minRepeatMs + SETTLE_MS)) return;
     lastSearchAt = now;
     let next = search(burstFrom, now, now - samplesOf(SETTLE_MS));
     // Nothing matched for a long stretch: keep only enough audio for one more repeat.

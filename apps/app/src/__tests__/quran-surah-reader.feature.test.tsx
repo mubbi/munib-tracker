@@ -77,16 +77,43 @@ beforeEach(async () => {
 });
 
 describe("Surah reader (phone)", () => {
-  it("keeps a compact action row and moves the rest into the More sheet", async () => {
+  it("keeps a compact action row and expands the rest inline under More", async () => {
     await renderWithTheme(<SurahReaderScreen />);
     const more = await screen.findByLabelText("More actions for ayah 1");
-    // Inline: play, bookmark, note, tafsir, More — practise / check / highlight / share live in More.
+    // Inline: Play · Save · Share · More — tafsir / note / highlight / practise live behind More.
     expect(screen.queryAllByText("Practice")).toHaveLength(0);
     expect(screen.queryAllByText("Highlight")).toHaveLength(0);
     await fireEvent.press(more);
-    expect(screen.getByText("Highlight")).toBeTruthy();
-    expect(screen.getByText("Practice")).toBeTruthy();
-    expect(screen.getByLabelText("Highlight ayah 1:1")).toBeTruthy();
+    const row = within(screen.getByTestId("ayah-row-1")).getByTestId("ayah-inline-actions");
+    expect(within(row).getByText("Tafsir")).toBeTruthy();
+    expect(within(row).getByText("Highlight")).toBeTruthy();
+    expect(within(row).getByText("Practice")).toBeTruthy();
+    expect(within(row).getByLabelText("Highlight ayah 1:1")).toBeTruthy();
+    // No bottom sheet: More turns into Less and collapses the row again.
+    expect(screen.queryByTestId("sheet")).toBeNull();
+    await fireEvent.press(screen.getByLabelText("Fewer actions for ayah 1"));
+    expect(screen.queryByTestId("ayah-inline-actions")).toBeNull();
+  });
+
+  it("keeps only one ayah's actions expanded at a time", async () => {
+    await renderWithTheme(<SurahReaderScreen />);
+    await fireEvent.press(await screen.findByLabelText("More actions for ayah 1"));
+    await fireEvent.press(screen.getByLabelText("More actions for ayah 2"));
+    expect(screen.getAllByTestId("ayah-inline-actions")).toHaveLength(1);
+    expect(
+      within(screen.getByTestId("ayah-row-2")).getByTestId("ayah-inline-actions"),
+    ).toBeTruthy();
+    expect(screen.getByLabelText("More actions for ayah 1")).toBeTruthy();
+  });
+
+  it("opens practise for the ayah from the inline row", async () => {
+    await renderWithTheme(<SurahReaderScreen />);
+    await fireEvent.press(await screen.findByLabelText("More actions for ayah 1"));
+    await fireEvent.press(screen.getByLabelText("Practice ayah 1"));
+    expect(mockRouter.push).toHaveBeenCalledWith({
+      pathname: "/quran/practice/session",
+      params: { surah: "1", from: "1", to: "1", source: "reader" },
+    });
   });
 
   it("ends the surah with next-surah navigation (G-02)", async () => {
@@ -119,7 +146,7 @@ describe("Surah reader (wide list–detail)", () => {
     mockListDetail = true;
   });
 
-  it("keeps the same four inline actions in the same order, with More opening the sheet", async () => {
+  it("keeps the same four inline actions in the same order, with More expanding inline", async () => {
     await renderWithTheme(<SurahReaderScreen />);
     const row = await screen.findByTestId("ayah-row-1");
     const labels = within(within(row).getByTestId("ayah-row-actions"))
