@@ -155,6 +155,7 @@
       ],
       "./plugins/with-android-build-hygiene.js",
       "./plugins/with-android-tab-drawables.js",
+      "./plugins/with-android-resource-keep.js",
       "./plugins/withAndroidReleaseSigning.cjs",
       [
         "expo-build-properties",
