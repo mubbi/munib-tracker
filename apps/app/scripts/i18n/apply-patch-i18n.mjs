@@ -37,15 +37,23 @@ const PLURAL_SUFFIX = /_(zero|one|two|few|many|other)$/;
 
 function setByPath(obj, path, value) {
   const parts = path.split(".");
+  // Reject prototype keys up front; the explicit comparisons below are what
+  // static analysis (CodeQL js/prototype-pollution-utility) recognises.
+  for (const p of parts) {
+    if (UNSAFE.has(p)) throw new Error(`Unsafe i18n path segment: ${p}`);
+  }
   let cur = obj;
   for (let i = 0; i < parts.length - 1; i++) {
     const p = parts[i];
-    if (UNSAFE.has(p)) throw new Error(`Unsafe i18n path segment: ${p}`);
-    if (!(p in cur) || typeof cur[p] !== "object") cur[p] = Object.create(null);
+    if (p === "__proto__" || p === "constructor" || p === "prototype") return;
+    // Only descend into own properties, never into inherited ones.
+    if (!Object.hasOwn(cur, p) || typeof cur[p] !== "object" || cur[p] === null) {
+      cur[p] = Object.create(null);
+    }
     cur = cur[p];
   }
   const last = parts[parts.length - 1];
-  if (UNSAFE.has(last)) throw new Error(`Unsafe i18n path segment: ${last}`);
+  if (last === "__proto__" || last === "constructor" || last === "prototype") return;
   cur[last] = value;
 }
 

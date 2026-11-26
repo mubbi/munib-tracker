@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  attributionCreditsGeoapify,
   boundsOfCells,
   buildOverpassBboxQuery,
   buildOverpassElementQuery,
@@ -8,12 +9,14 @@ import {
   decodeGeohashBounds,
   distanceMeters,
   encodeGeohash,
+  GEOAPIFY_ATTRIBUTION_LINE,
   geohashWithNeighbours,
   iqamahTimeFor,
   isOpenAt,
   isValidGeohash,
   jumuahIqamahTimes,
   masjidDisplayName,
+  OSM_ATTRIBUTION,
   parseOverpassDetail,
   parseOverpassSummaries,
   parseServiceTimes,
@@ -21,6 +24,18 @@ import {
   sanitizePrivateMasjidTimes,
   sortByDistance,
 } from "../index";
+
+describe.concurrent("attributionCreditsGeoapify", () => {
+  it("matches only the exact Geoapify attribution line", () => {
+    expect(attributionCreditsGeoapify([OSM_ATTRIBUTION, GEOAPIFY_ATTRIBUTION_LINE])).toBe(true);
+    expect(attributionCreditsGeoapify([OSM_ATTRIBUTION])).toBe(false);
+    expect(attributionCreditsGeoapify(undefined)).toBe(false);
+    // A line that merely contains the URL (e.g. on another host) is not a credit.
+    expect(attributionCreditsGeoapify(["https://evil.example/?https://www.geoapify.com/"])).toBe(
+      false,
+    );
+  });
+});
 
 describe.concurrent("geohash", () => {
   it("encodes known cells", () => {

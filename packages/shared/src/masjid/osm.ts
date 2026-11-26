@@ -105,9 +105,12 @@ export const OSM_COPYRIGHT_URL = "https://www.openstreetmap.org/copyright";
 export const GEOAPIFY_PROVIDER = "Geoapify";
 export const GEOAPIFY_URL = "https://www.geoapify.com/";
 
+/** The exact attribution line the API adds when Geoapify served (or may have served) the data. */
+export const GEOAPIFY_ATTRIBUTION_LINE = `Powered by ${GEOAPIFY_PROVIDER} ${GEOAPIFY_URL}`;
+
 /** True when a response's `attribution` lines say Geoapify served (or may have served) the data. */
 export function attributionCreditsGeoapify(lines: readonly string[] | undefined): boolean {
-  return !!lines?.some((line) => typeof line === "string" && line.includes(GEOAPIFY_URL));
+  return !!lines?.some((line) => line === GEOAPIFY_ATTRIBUTION_LINE);
 }
 
 // ── Geohash ────────────────────────────────────────────────────────────────

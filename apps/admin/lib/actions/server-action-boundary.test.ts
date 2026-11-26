@@ -10,8 +10,18 @@ function actionSources(): { file: string; source: string }[] {
     .map((file) => ({ file, source: readFileSync(path.join(ACTIONS_DIR, file), "utf8") }));
 }
 
+/** True when the first statement (after leading comments) is the "use server" directive. */
 function isUseServerModule(source: string): boolean {
-  return /^\s*(?:\/\/[^\n]*\n|\/\*[\s\S]*?\*\/\s*)*["']use server["']/.test(source);
+  // Skip comments with indexOf rather than a repeated-group regex, which can
+  // backtrack exponentially on inputs like "/*" + "*//*".repeat(n).
+  let rest = source.trimStart();
+  while (rest.startsWith("//") || rest.startsWith("/*")) {
+    const lineComment = rest.startsWith("//");
+    const end = lineComment ? rest.indexOf("\n") : rest.indexOf("*/", 2);
+    if (end === -1) return false;
+    rest = rest.slice(end + (lineComment ? 1 : 2)).trimStart();
+  }
+  return /^["']use server["']/.test(rest);
 }
 
 describe("lib/actions server-action boundary", () => {

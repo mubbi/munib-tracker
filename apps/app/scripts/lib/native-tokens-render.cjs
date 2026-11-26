@@ -74,7 +74,7 @@ function renderWidgetTs(t) {
 }
 
 function renderJson(t) {
-  return `${JSON.stringify({ _generated: `${HEADER.replace("\n", " ")}`, ...t }, null, 2)}\n`;
+  return `${JSON.stringify({ _generated: `${HEADER.replaceAll("\n", " ")}`, ...t }, null, 2)}\n`;
 }
 
 function kt(hex) {

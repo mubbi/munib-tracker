@@ -31,12 +31,34 @@ export function normaliseDigits(text: string): string {
 
 const MERIDIEM_SUFFIX = /(a\.?\s?m\.?|p\.?\s?m\.?|ص|م)$/i;
 const MERIDIEM_ONLY = /^(a\.?\s?m\.?|p\.?\s?m\.?|ص|م|صباحا|مساء|مساءا)$/i;
-const EDGE_PUNCTUATION = /^[\s()[\]{}*|,،"'`“”‘’•·–—_~]+|[\s()[\]{}*|,،"'`“”‘’•·–—_~]+$/g;
+/** Punctuation trimmed from either end of a token (plus any whitespace). */
+const EDGE_CHARS = new Set("()[]{}*|,،\"'`“”‘’•·–—_~");
+const WHITESPACE = /\s/;
+
+function isEdgeChar(ch: string): boolean {
+  return EDGE_CHARS.has(ch) || WHITESPACE.test(ch);
+}
+
+/**
+ * Strips leading/trailing whitespace and edge punctuation. A linear scan, not
+ * `^[…]+|[…]+$`: that regex retries the trailing run from every start position,
+ * which is quadratic on OCR text with long runs of spaces or tabs.
+ */
+export function stripEdgePunctuation(text: string): string {
+  let start = 0;
+  let end = text.length;
+  while (start < end && isEdgeChar(text.charAt(start))) start++;
+  while (end > start && isEdgeChar(text.charAt(end - 1))) end--;
+  return text.slice(start, end);
+}
+
 /**
  * Separators read as `:` — Arabic decimal ٫ (U+066B) and thousands ٬ (U+066C),
  * the Arabic comma ، (U+060C), dot, French "h", OCR'd semicolon / comma.
+ * Whitespace around them is trimmed separately: a `\s*[…]\s*` pattern is
+ * quadratic on long whitespace runs.
  */
-export const TIME_SEPARATORS = /\s*[٫٬،.hH;,]\s*/g;
+export const TIME_SEPARATORS = /[٫٬،.hH;,]/g;
 const TIME_SHAPE = /^([01]?\d|2[0-3]):([0-5]\d)$/;
 
 function meridiemOf(raw: string): Meridiem {
@@ -47,7 +69,7 @@ function meridiemOf(raw: string): Meridiem {
 
 /** A token that is only a meridiem marker ("PM", "a.m.", "م"). */
 export function parseMeridiemToken(text: string): Meridiem | null {
-  const clean = text.replace(EDGE_PUNCTUATION, "").trim();
+  const clean = stripEdgePunctuation(text);
   if (!clean || !MERIDIEM_ONLY.test(clean)) return null;
   return meridiemOf(clean);
 }
@@ -57,7 +79,7 @@ export function parseMeridiemToken(text: string): Meridiem | null {
  * token is a time (after normalisation) — `12` or `1st` are not times.
  */
 export function parseClockText(text: string): ParsedClock | null {
-  let s = normaliseDigits(text).replace(EDGE_PUNCTUATION, "").trim();
+  let s = stripEdgePunctuation(normaliseDigits(text));
   if (!s) return null;
   let meridiem: Meridiem | null = null;
   const suffix = s.match(MERIDIEM_SUFFIX);
@@ -65,7 +87,11 @@ export function parseClockText(text: string): ParsedClock | null {
     meridiem = meridiemOf(suffix[0]);
     s = s.slice(0, suffix.index).trim();
   }
-  s = s.replace(TIME_SEPARATORS, ":").replace(/\s*:\s*/g, ":");
+  s = s
+    .replace(TIME_SEPARATORS, ":")
+    .split(":")
+    .map((part) => part.trim())
+    .join(":");
   // OCR confusions are only fixed when the token is otherwise time-shaped.
   if (/^[\dOoIl|]{1,2}:[\dOoIl|]{2}$/.test(s)) {
     s = s.replace(/[Oo]/g, "0").replace(/[Il|]/g, "1");
@@ -128,8 +154,7 @@ export function parseLooseClockText(text: string): (ParsedClock & { loose: boole
 
 /** Plain integer token (day numbers, years). */
 export function parseIntegerText(text: string): number | null {
-  const s = normaliseDigits(text)
-    .replace(EDGE_PUNCTUATION, "")
+  const s = stripEdgePunctuation(normaliseDigits(text))
     .replace(/(st|nd|rd|th)$/i, "")
     .trim();
   if (!/^\d{1,4}$/.test(s)) return null;

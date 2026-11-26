@@ -2469,10 +2469,15 @@ function normalizeHadithArabic(text) {
 }
 
 function cleanHadithText(text) {
-  return (text ?? "")
-    .replace(/<[^>]+>/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  return (
+    (text ?? "")
+      .replace(/<[^>]+>/g, "")
+      // Drop any bracket a nested or broken tag ("<scr<b>ipt>") leaves behind;
+      // hadith text never contains a literal < or >.
+      .replace(/[<>]/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+  );
 }
 
 /**

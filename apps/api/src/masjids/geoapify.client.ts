@@ -1,6 +1,5 @@
 import {
-  GEOAPIFY_PROVIDER,
-  GEOAPIFY_URL,
+  GEOAPIFY_ATTRIBUTION_LINE,
   type GeohashBounds,
   type MasjidOsmType,
   type OverpassElement,
@@ -34,7 +33,8 @@ const PLACES_LIMIT = 200;
 /** Short, so the Overpass fallback still fits inside the request's overall budget. */
 const REQUEST_TIMEOUT_MS = 8_000;
 
-export const GEOAPIFY_ATTRIBUTION_LINE = `Powered by ${GEOAPIFY_PROVIDER} ${GEOAPIFY_URL}`;
+/** Defined in shared so the app's `attributionCreditsGeoapify` matches it exactly. */
+export { GEOAPIFY_ATTRIBUTION_LINE };
 
 const OSM_TYPE_BY_CODE: Record<string, MasjidOsmType> = {
   n: "node",
