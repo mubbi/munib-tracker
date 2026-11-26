@@ -120,7 +120,16 @@ describe("pushVoluntaryFastingReminders", () => {
       (r) => r.id === `fastIntent:${arafah}`,
     );
     expect(intent).toBeDefined();
-    expect(intent?.fireAt.getHours()).toBeGreaterThanOrEqual(19);
+    // Read the hour in Makkah (LOCATION), not the runner's zone: Isha + 30 is
+    // ~20:30 there, but getHours() on a UTC CI runner would see ~17:30.
+    const makkahHour = Number(
+      new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        hourCycle: "h23",
+        timeZone: "Asia/Riyadh",
+      }).format(intent?.fireAt),
+    );
+    expect(makkahHour).toBeGreaterThanOrEqual(19);
   });
 
   it("suhoor alarm (tier 2) only on intended days, when opted in", () => {
