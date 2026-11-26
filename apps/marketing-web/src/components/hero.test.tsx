@@ -25,7 +25,7 @@ describe("Hero", () => {
     );
   });
 
-  it("shows the real home screen on iPhone, Android, TV and Apple Watch", () => {
+  it("lines up the real home screen on iPhone, iPad, TV and Apple Watch", () => {
     renderWithIntl(<Hero />);
     const iphone = screen.getByRole("img", { name: /countdown to Fajr/i });
     expect(source(iphone)).toBe("/screenshots/iphone/en/dark/home.webp");
@@ -36,11 +36,11 @@ describe("Hero", () => {
       .filter((s) => s.startsWith("/screenshots/"));
     expect(sources).toEqual(
       expect.arrayContaining([
-        "/screenshots/android/en/dark/home.webp",
-        "/screenshots/tv/en/dark/home.webp",
         "/screenshots/watch/en/dark/schedule.webp",
+        "/screenshots/apple-tv/en/dark/home.webp",
+        "/screenshots/ipad/en/dark/home.webp",
       ]),
     );
-    expect(screen.getByRole("img", { name: /on Apple Watch/i })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /on iPad/i })).toBeInTheDocument();
   });
 });

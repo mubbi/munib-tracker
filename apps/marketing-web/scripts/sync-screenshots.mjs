@@ -35,6 +35,8 @@ const DEVICES = [
   { id: "android-tablet", dir: "android-tablet", width: 1600, themes: ["dark"] },
   // Android TV has all three locales (tvOS is English-only); same app UI.
   { id: "tv", dir: "android-tv", width: 1600, themes: ["dark"] },
+  // Apple TV (tvOS) — English-only captures; pages fall back to `tv` elsewhere.
+  { id: "apple-tv", dir: "tvos", width: 1600, themes: ["dark"] },
 ];
 
 /** Single-locale, unthemed captures: `<dir>/en/<file>.png` → `<id>/en/dark/<scene>.webp`. */

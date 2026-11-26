@@ -24,10 +24,11 @@ export const ALL_DEVICES: readonly LineupItem[] = [
 ];
 
 /** Big screens share a row; handhelds and watches sit together under them. */
-const WIDE = new Set<Device>(["tv", "android-tablet"]);
+const WIDE = new Set<Device>(["tv", "apple-tv", "android-tablet"]);
 
 const WIDTH: Record<Device, string> = {
   tv: "w-full max-w-xl",
+  "apple-tv": "w-full max-w-xl",
   "android-tablet": "w-full max-w-xl",
   ipad: "w-[190px] sm:w-[220px]",
   iphone: "w-[128px] sm:w-[150px]",
@@ -38,6 +39,7 @@ const WIDTH: Record<Device, string> = {
 
 const SIZES: Record<Device, string> = {
   tv: "(min-width: 768px) 560px, 92vw",
+  "apple-tv": "(min-width: 768px) 560px, 92vw",
   "android-tablet": "(min-width: 768px) 560px, 92vw",
   ipad: "220px",
   iphone: "150px",

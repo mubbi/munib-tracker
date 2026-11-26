@@ -27,6 +27,7 @@ export const DEVICE_FRAME: Record<Device, Frame> = {
   ipad: "tablet",
   "android-tablet": "tablet-landscape",
   tv: "tv",
+  "apple-tv": "tv",
   watch: "watch",
   wear: "round",
 };

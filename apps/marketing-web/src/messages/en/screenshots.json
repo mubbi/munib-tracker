@@ -25,6 +25,7 @@
     "ipad": "iPad",
     "android-tablet": "Android tablet",
     "tv": "TV",
+    "apple-tv": "Apple TV",
     "watch": "Apple Watch",
     "wear": "Wear OS watch"
   },

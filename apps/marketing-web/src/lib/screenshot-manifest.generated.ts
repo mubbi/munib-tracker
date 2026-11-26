@@ -215,6 +215,18 @@ export const SCREENSHOT_MANIFEST = {
       "ur/dark/zikr",
     ],
   },
+  "apple-tv": {
+    width: 1600,
+    height: 900,
+    files: [
+      "en/dark/home",
+      "en/dark/library",
+      "en/dark/quran",
+      "en/dark/settings",
+      "en/dark/tracker",
+      "en/dark/zikr",
+    ],
+  },
   watch: {
     width: 422,
     height: 514,
