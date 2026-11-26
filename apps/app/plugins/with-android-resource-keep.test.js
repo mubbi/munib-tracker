@@ -9,6 +9,7 @@ jest.mock("@expo/config-plugins", () => ({
 
 const { KEEP_PATTERNS, writeResourceKeep } = require("./with-android-resource-keep");
 const { ICONS_DIR } = require("./with-android-tab-drawables");
+const { QUICK_ACTION_ANDROID_ICONS } = require("./homeScreenSurfaces.cjs");
 const appJson = require("../app.json");
 
 describe("writeResourceKeep", () => {
@@ -18,7 +19,7 @@ describe("writeResourceKeep", () => {
       const xml = fs.readFileSync(writeResourceKeep(dir), "utf8");
       expect(xml).toContain('xmlns:tools="http://schemas.android.com/tools"');
       expect(xml).toContain(
-        'tools:keep="@drawable/ic_tab_*,@raw/adhan_*,@layout/widget_preview_glance"',
+        'tools:keep="@drawable/ic_tab_*,@raw/adhan_*,@layout/widget_preview_glance,@mipmap/quick_*"',
       );
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
@@ -41,6 +42,9 @@ describe("writeResourceKeep", () => {
       expect(covers("raw", path.basename(sound, path.extname(sound)))).toBe(true);
     }
     expect(covers("layout", "widget_preview_glance")).toBe(true);
+    for (const name of Object.keys(QUICK_ACTION_ANDROID_ICONS)) {
+      expect(covers("mipmap", name)).toBe(true);
+    }
     expect(covers("drawable", "adhan_default")).toBe(false);
   });
 

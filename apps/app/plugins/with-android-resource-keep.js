@@ -14,6 +14,8 @@ const { createRunOncePlugin, withDangerousMod } = require("@expo/config-plugins"
  * - `@layout/widget_preview_glance` — `AndroidWidgetPreviewPublisher` (Android 15
  *   generated widget-picker previews) inflates it via `getIdentifier`. The shrinker
  *   drops it even though the name is a string literal in Kotlin.
+ * - `@mipmap/quick_*` — expo-quick-actions shortcut icons (`QUICK_ACTION_ANDROID_ICONS`),
+ *   resolved by name when the long-press shortcuts are published.
  *
  * `tools:keep` in a raw XML file is AGP's documented escape hatch; the file itself
  * is not packaged. Distinct file name so it never replaces a library's `keep.xml`.
@@ -21,7 +23,12 @@ const { createRunOncePlugin, withDangerousMod } = require("@expo/config-plugins"
  * `aapt2 dump resources <apk>` (only this keep file is expected to be missing).
  */
 const KEEP_FILE = "munib_tracker_keep.xml";
-const KEEP_PATTERNS = ["@drawable/ic_tab_*", "@raw/adhan_*", "@layout/widget_preview_glance"];
+const KEEP_PATTERNS = [
+  "@drawable/ic_tab_*",
+  "@raw/adhan_*",
+  "@layout/widget_preview_glance",
+  "@mipmap/quick_*",
+];
 
 /** @param {string} rawDir */
 function writeResourceKeep(rawDir) {
