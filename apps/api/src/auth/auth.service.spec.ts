@@ -324,7 +324,7 @@ describe("AuthService", () => {
           accountType: "user",
           provider: AuthProvider.Google,
           providerAccountId: "closed-1",
-          email: buildTombstoneEmail("closed@example.com", "x"),
+          email: buildTombstoneEmail(),
         }),
       );
       await expect(signIn({ providerAccountId: "closed-1" })).rejects.toThrow(
@@ -785,6 +785,18 @@ describe("AuthService", () => {
       expect(closed.provider).toBeNull();
       expect(closed.providerAccountId).toBeNull();
       expect(closed.displayName).toBeNull();
+      expect(closed.deviceId).toBeNull();
+    });
+
+    it("erases the email: the closed row keeps no personal data", async () => {
+      const { service, repo, signIn } = await setup();
+      const session = await signIn();
+      const before = await repo(UserEntity).findOneByOrFail({ id: session.userId });
+      await service.deleteAccount(session.accessToken, DELETE_BODY);
+
+      const closed = await repo(UserEntity).findOneByOrFail({ id: session.userId });
+      expect(closed.email).toMatch(/^deleted_[a-f0-9]{32}_closed$/);
+      if (before.email) expect(closed.email).not.toContain(before.email);
     });
 
     it.each([
@@ -808,10 +820,7 @@ describe("AuthService", () => {
     it("rejects closing an account that is already closed", async () => {
       const { service, repo, signIn } = await setup();
       const session = await signIn();
-      await repo(UserEntity).update(
-        { id: session.userId },
-        { email: buildTombstoneEmail(null, session.userId) },
-      );
+      await repo(UserEntity).update({ id: session.userId }, { email: buildTombstoneEmail() });
       await expect(service.deleteAccount(session.accessToken, DELETE_BODY)).rejects.toThrow(
         new UnauthorizedException("Account closed"),
       );
@@ -825,12 +834,12 @@ describe("AuthService", () => {
       expect(fresh.userId).not.toBe(session.userId);
     });
 
-    it("tombstones a guest without an email using the user id", async () => {
+    it("tombstones a guest without an email", async () => {
       const { service, repo, guest } = await setup();
       const session = await guest();
       await service.deleteAccount(session.accessToken, DELETE_BODY);
       const user = await repo(UserEntity).findOneByOrFail({ id: session.userId });
-      expect(user.email).toMatch(new RegExp(`^deleted_[a-f0-9]{32}_user_${session.userId}$`));
+      expect(user.email).toMatch(/^deleted_[a-f0-9]{32}_closed$/);
     });
 
     it("purges Cloudinary user-media assets", async () => {

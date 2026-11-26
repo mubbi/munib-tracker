@@ -484,7 +484,8 @@ export class AuthService {
       await purgeUserCircleData(manager, userId);
       await manager.delete(AuthSessionEntity, { userId });
 
-      const tombstoneEmail = buildTombstoneEmail(user.email ?? null, userId);
+      // Erase the email (no personal data is kept on the closed row).
+      const tombstoneEmail = buildTombstoneEmail();
       await manager.update(
         UserEntity,
         { id: userId },
