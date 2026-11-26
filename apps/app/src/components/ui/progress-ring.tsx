@@ -30,6 +30,8 @@ type ProgressRingProps = {
 };
 
 const COUNT_UP_MS = 900;
+/** Grace after the count-up before the value is forced to the target (see below). */
+const SETTLE_GRACE_MS = 200;
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
 
 /**
@@ -88,7 +90,16 @@ export function ProgressRing({
     };
 
     rafRef.current = requestAnimationFrame(tick);
+    // Safety net: frame callbacks can be dropped while the activity resumes (a Salah
+    // marked from the focus-lock overlay landed here with the ring stuck at 0% next
+    // to "1 of 5 logged"). Whatever happens to the frames, settle on the real value.
+    const settle = setTimeout(() => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      displayRef.current = target;
+      setDisplay(target);
+    }, COUNT_UP_MS + SETTLE_GRACE_MS);
     return () => {
+      clearTimeout(settle);
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
   }, [target, reducedMotion]);

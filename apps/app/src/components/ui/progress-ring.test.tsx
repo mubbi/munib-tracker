@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react-native";
+import { act, screen } from "@testing-library/react-native";
 import * as Reanimated from "react-native-reanimated";
 
 import { ProgressRing } from "@/components/ui/progress-ring";
@@ -76,6 +76,23 @@ describe("ProgressRing", () => {
     await unmount();
 
     expect(globalThis.cancelAnimationFrame).toHaveBeenCalled();
+  });
+
+  it("settles on the target even when no animation frame ever runs", async () => {
+    jest.useFakeTimers();
+    try {
+      await renderRing({ progress: 0.2 });
+      expect(screen.getByText("0%")).toBeTruthy();
+
+      // Frames are captured but never flushed — as when the OS drops them on resume.
+      await act(async () => {
+        jest.advanceTimersByTime(1200);
+      });
+
+      expect(screen.getByText("20%")).toBeTruthy();
+    } finally {
+      jest.useRealTimers();
+    }
   });
 
   it("snaps to the target under reduced motion", async () => {

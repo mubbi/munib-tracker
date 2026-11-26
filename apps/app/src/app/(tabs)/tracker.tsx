@@ -53,6 +53,10 @@ import { useHomeHero } from "@/hooks/use-home-hero";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import {
+  claimAchievementAnnouncement,
+  releaseLapsedAchievementAnnouncements,
+} from "@/lib/achievement-announcements";
 import { milestoneTitle } from "@/lib/achievements-i18n";
 import { readPersistedAchievementIds } from "@/lib/achievements-persistence";
 import {
@@ -291,7 +295,11 @@ export default function TrackerScreen() {
         body: notification.body,
         route: "/achievements",
       });
-      void notifyAchievementUnlocked(milestoneTitle(milestone), preferencesStore.getState().prefs);
+      void notifyAchievementUnlocked(
+        achievementId,
+        milestoneTitle(milestone),
+        preferencesStore.getState().prefs,
+      );
     },
     [deliver, t, toast],
   );
@@ -328,9 +336,11 @@ export default function TrackerScreen() {
     const known = knownAchievementsRef.current;
     const { synced, newlyUnlocked: unlocked } = syncAchievementIds(stats, known);
     knownAchievementsRef.current = synced;
+    releaseLapsedAchievementAnnouncements(synced);
 
     const first = unlocked[0];
-    if (first) {
+    // Claimed process-wide: a second mounted tracker must not celebrate it again.
+    if (first && claimAchievementAnnouncement(first)) {
       const milestone = getMilestoneById(first, stats);
       if (milestone) {
         showAchievementCelebration(milestone, first);
