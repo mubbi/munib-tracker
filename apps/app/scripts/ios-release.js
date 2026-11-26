@@ -9,6 +9,7 @@
  *   pnpm ios:archive:release
  *   node scripts/ios-release.js --archive-only
  */
+const { spawnSync } = require("node:child_process");
 const fs = require("node:fs");
 const path = require("node:path");
 const {
@@ -69,6 +70,34 @@ function ensureTeamConfigured() {
     process.exit(1);
   }
   return teamId;
+}
+
+/**
+ * Export the archive to a fresh {@link exportDir}.
+ *
+ * @param {string[]} authArgs ASC API key args, or `[]` for Xcode's signed-in Apple ID
+ * @param {NodeJS.ProcessEnv} env
+ * @returns {boolean} whether xcodebuild exited 0
+ */
+function exportArchive(authArgs, env) {
+  fs.rmSync(exportDir, { recursive: true, force: true });
+  fs.mkdirSync(exportDir, { recursive: true });
+  const result = spawnSync(
+    "xcodebuild",
+    [
+      "-exportArchive",
+      "-archivePath",
+      archivePath,
+      "-exportPath",
+      exportDir,
+      "-exportOptionsPlist",
+      exportOptionsPath,
+      "-allowProvisioningUpdates",
+      ...authArgs,
+    ],
+    { cwd: iosDir, env, stdio: "inherit", shell: false },
+  );
+  return result.status === 0;
 }
 
 function main() {
@@ -142,28 +171,27 @@ function main() {
     return;
   }
 
-  if (fs.existsSync(exportDir)) {
-    fs.rmSync(exportDir, { recursive: true, force: true });
-  }
-  fs.mkdirSync(exportDir, { recursive: true });
-
   console.log(`\nxcodebuild -exportArchive → ${exportDir} …\n`);
 
-  run(
-    "xcodebuild",
-    [
-      "-exportArchive",
-      "-archivePath",
-      archivePath,
-      "-exportPath",
-      exportDir,
-      "-exportOptionsPlist",
-      exportOptionsPath,
-      "-allowProvisioningUpdates",
-      ...ascAuthArgs,
-    ],
-    { cwd: iosDir, env },
-  );
+  if (!exportArchive(ascAuthArgs, env)) {
+    // An API key without "Access to Cloud Managed Distribution Certificate" cannot regenerate
+    // the Xcode-managed App Store profile (Apple invalidates it whenever an App ID capability
+    // changes): export fails with "Cloud signing permission error" / "No profiles for …".
+    // Xcode's signed-in Apple ID account can, so retry the export once without the key.
+    console.warn(
+      "\nExport with the App Store Connect API key failed — retrying with the Apple ID " +
+        "signed in to Xcode (Settings › Accounts)…\n",
+    );
+    if (!exportArchive([], env)) {
+      console.error(
+        "\nExport failed with both the API key and the Xcode Apple ID session.\n" +
+          "  Sign in to Xcode (Settings › Accounts) as an Admin / Account Holder, or give the\n" +
+          "  API key cloud-managed distribution certificate access in App Store Connect\n" +
+          "  (Users and Access › Integrations), then re-run.\n",
+      );
+      process.exit(1);
+    }
+  }
 
   const ipaPath = resolveExportIpaPath();
   if (!ipaPath) {
