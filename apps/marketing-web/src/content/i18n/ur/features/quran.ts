@@ -128,6 +128,16 @@ export const quranUr: FeaturePage = {
       key: "offline-data",
       caption: "ڈاؤن لوڈ کیے گئے تراجم، فونٹس اور آڈیو، ترتیبات میں منظم۔",
     },
+    {
+      key: "quran",
+      device: "ipad",
+      caption: "iPad پر پڑھنا جاری رکھیں، مطالعے کے اوزار اور سورتوں کی فہرست ایک ہی اسکرین پر۔",
+    },
+    {
+      key: "quran",
+      device: "tv",
+      caption: "ٹی وی پر پڑھنا جاری رکھیں، ریموٹ کے لیے ڈیزائن کیا گیا۔",
+    },
   ],
   examples: {
     title: "استعمال کے طریقے",

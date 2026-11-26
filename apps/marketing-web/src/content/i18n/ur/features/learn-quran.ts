@@ -118,6 +118,14 @@ export const learnQuranUr: FeaturePage = {
       text: "تمام اسباق ایپ میں شامل ہیں اور کنکشن کے بغیر کام کرتے ہیں۔",
     },
   ],
+  gallery: [
+    {
+      key: "quran",
+      device: "ipad",
+      caption:
+        "iPad پر مطالعے کے اوزار (قرآن سیکھیں، ختم، حفظ اور مشق) سورتوں کی فہرست کے ساتھ ہیں۔",
+    },
+  ],
   examples: {
     title: "یہ کس کے لیے موزوں ہے",
     items: [

@@ -128,6 +128,11 @@ export const zikrTrackerUr: FeaturePage = {
     },
     { key: "wear-tasbeeh-tile", caption: "Wear OS پر تسبیح ٹائل۔" },
     { key: "names", caption: "اللہ کے 99 نام، معانی اور آڈیو کے ساتھ۔" },
+    {
+      key: "zikr",
+      device: "tv",
+      caption: "ٹی وی پر وہ اذکار جن کا وقت ہو چکا ہے، ریموٹ سے شروع کرنے کے لیے تیار۔",
+    },
   ],
   examples: {
     title: "استعمال کے طریقے",

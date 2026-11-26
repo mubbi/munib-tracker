@@ -32,7 +32,9 @@
   },
   "design": {
     "heading": "Design philosophy",
-    "body": "The app uses warm cream and deep-forest palettes inspired by traditional Islamic aesthetics — with a prayer-times hero that stays deep green regardless of theme. Motion is calm and confident. Cards use continuous rounded corners. Every screen pulls colors from a shared theme system with twelve accent presets and full dark-mode support."
+    "body": "The app uses warm cream and deep-forest palettes inspired by traditional Islamic aesthetics — with a prayer-times hero that stays deep green regardless of theme. Motion is calm and confident. Cards use continuous rounded corners. Every screen pulls colors from a shared theme system with twelve accent presets and full dark-mode support.",
+    "lightCaption": "The home screen in the light theme.",
+    "darkCaption": "The same screen in the dark theme."
   },
   "built": {
     "heading": "What we built",

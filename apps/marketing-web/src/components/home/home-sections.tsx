@@ -3,12 +3,29 @@ import { ArrowRight, Ban, BookCheck, Code2, ShieldCheck, UserRound, WifiOff } fr
 import { useLocale, useTranslations } from "next-intl";
 import { FeatureIcon } from "@/components/content/feature-icon";
 import { LinkCard, PageSection } from "@/components/content/primitives";
+import { ProductTour, type TourShots } from "@/components/home/product-tour";
 import { TrackedLink } from "@/components/tracked-link";
 import { audienceHref, getAudiencePages } from "@/content/audiences";
 import { compareHref, getComparePages } from "@/content/compare";
 import { featureHref, getFeaturePages } from "@/content/features";
 import { articleHref, getArticles } from "@/content/resources";
 import { Link } from "@/i18n/navigation";
+import { capture } from "@/lib/screenshots";
+
+/**
+ * The product tour with its captures resolved here, on the server, in the page
+ * locale: each tab on a different device so the tour also shows the range.
+ */
+export function HomeProductTour() {
+  const locale = useLocale();
+  const shots: TourShots = {
+    salah: capture("iphone", "tracker", locale),
+    qaza: capture("android", "qaza", locale),
+    zikr: capture("android-tablet", "zikr", locale),
+    quran: capture("ipad", "quran", locale),
+  };
+  return <ProductTour shots={shots} />;
+}
 
 /** Every feature landing page, one card each. */
 export function FeatureHub() {

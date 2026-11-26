@@ -4,52 +4,65 @@ import { APP_NAME, DUA_COUNT } from "@munib-tracker/shared/constants";
 import { ArrowRight, Check } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { type KeyboardEvent, useId, useRef, useState } from "react";
-import { DeviceFrame } from "@/components/day-arc/device-frame";
+import { DeviceScreen } from "@/components/content/device-screen";
 import { isLocale, LOCALE_META } from "@/i18n/locales";
 import { Link } from "@/i18n/navigation";
 import { trackCtaClick, trackSelectContent } from "@/lib/analytics";
+import type { Frame, Screenshot } from "@/lib/screenshots";
 import { cn } from "@/lib/utils";
 
+export type TourTabId = "salah" | "qaza" | "zikr" | "quran";
+
+/** The capture each tab shows, resolved on the server in the page locale. */
+export type TourShots = Record<TourTabId, Screenshot>;
+
 type Tab = {
-  id: "salah" | "qaza" | "zikr" | "quran";
+  id: TourTabId;
   /** Keys of `productTour.tabs.<id>.points`, in display order. */
   points: readonly string[];
   href: string;
-  shot: string;
 };
 
 type TourKey = Parameters<ReturnType<typeof useTranslations<"productTour">>>[0];
 
-/** Real screenshots only (public/screenshots, captured from the shipping app). */
 const TABS = [
-  {
-    id: "salah",
-    points: ["statuses", "extras", "progress"],
-    href: "/features/salah-tracker",
-    shot: "/screenshots/tracker.webp",
-  },
-  {
-    id: "qaza",
-    points: ["calculator", "pace", "fasts"],
-    href: "/features/qaza-salah-tracker",
-    shot: "/screenshots/qaza.webp",
-  },
-  {
-    id: "zikr",
-    points: ["adhkar", "tasbeeh", "duas"],
-    href: "/features/zikr-tracker",
-    shot: "/screenshots/zikr.webp",
-  },
-  {
-    id: "quran",
-    points: ["views", "translations", "practice"],
-    href: "/features/quran",
-    shot: "/screenshots/quran.webp",
-  },
+  { id: "salah", points: ["statuses", "extras", "progress"], href: "/features/salah-tracker" },
+  { id: "qaza", points: ["calculator", "pace", "fasts"], href: "/features/qaza-salah-tracker" },
+  { id: "zikr", points: ["adhkar", "tasbeeh", "duas"], href: "/features/zikr-tracker" },
+  { id: "quran", points: ["views", "translations", "practice"], href: "/features/quran" },
 ] as const satisfies readonly Tab[];
 
-/** Tabbed tour of the real app (WAI-ARIA tabs pattern, arrow-key navigation). */
-export function ProductTour() {
+/**
+ * Width + `sizes` per frame. Each fits the fixed-height stage below, so
+ * switching between a phone, a portrait iPad and a landscape tablet never
+ * moves the copy beside it.
+ */
+const STAGE_FIT: Partial<Record<Frame, { className: string; sizes: string }>> = {
+  phone: {
+    className: "w-[200px] sm:w-[230px] lg:w-[240px]",
+    sizes: "(min-width: 1024px) 240px, (min-width: 640px) 230px, 200px",
+  },
+  android: {
+    className: "w-[200px] sm:w-[230px] lg:w-[240px]",
+    sizes: "(min-width: 1024px) 240px, (min-width: 640px) 230px, 200px",
+  },
+  tablet: {
+    className: "w-full max-w-[20rem] sm:max-w-[23rem] lg:max-w-[24rem]",
+    sizes: "(min-width: 1024px) 384px, (min-width: 640px) 368px, 320px",
+  },
+  "tablet-landscape": {
+    className: "w-full max-w-[28rem]",
+    sizes: "(min-width: 768px) 448px, 92vw",
+  },
+};
+
+/**
+ * Tabbed tour of the real app (WAI-ARIA tabs pattern, arrow-key navigation).
+ * Each tab shows a real capture on a different device, in the page language;
+ * the parent server component resolves `shots` so the manifest stays off the
+ * client.
+ */
+export function ProductTour({ shots }: { shots: TourShots }) {
   const t = useTranslations("productTour");
   const locale = useLocale();
   const rtl = isLocale(locale) && LOCALE_META[locale].dir === "rtl";
@@ -58,6 +71,8 @@ export function ProductTour() {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const tab = TABS[active] ?? TABS[0];
   if (!tab) return null;
+  const shot = shots[tab.id];
+  const fit = STAGE_FIT[shot.frame];
 
   const select = (i: number) => {
     setActive(i);
@@ -134,7 +149,7 @@ export function ProductTour() {
           id={`${baseId}-panel`}
           role="tabpanel"
           aria-labelledby={`${baseId}-tab-${tab.id}`}
-          className="mt-12 grid items-center gap-12 md:grid-cols-[1fr_auto] md:gap-16 lg:px-10"
+          className="mt-12 grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:gap-14 lg:px-10"
         >
           <div className="order-2 md:order-1">
             <h3 className="font-display text-2xl font-bold text-white md:text-3xl">
@@ -167,16 +182,19 @@ export function ProductTour() {
               />
             </Link>
           </div>
-          <div className="order-1 flex justify-center md:order-2">
-            <DeviceFrame
-              key={tab.id}
-              src={tab.shot}
-              alt={t(`tabs.${tab.id}.shotAlt`)}
-              width={960}
-              height={2087}
-              className="w-[220px] sm:w-[250px]"
-            />
-          </div>
+          <figure className="order-1 md:order-2">
+            <div className="flex h-[430px] items-center justify-center sm:h-[500px] lg:h-[520px]">
+              <DeviceScreen
+                key={tab.id}
+                shot={{ ...shot, alt: t(`tabs.${tab.id}.shotAlt`) }}
+                className={fit?.className}
+                sizes={fit?.sizes}
+              />
+            </div>
+            <figcaption className="mt-4 text-center text-sm text-white/55">
+              {t("shownOn", { device: t(`devices.${shot.device}` as TourKey) })}
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>

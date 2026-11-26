@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { Blocks } from "@/components/content/blocks";
+import { Screenshot } from "@/components/content/primitives";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { TrackedLink } from "@/components/tracked-link";
 import { Link } from "@/i18n/navigation";
@@ -87,6 +88,18 @@ export default function AboutPage() {
 
       <ContentSection heading={t("design.heading")}>
         <p className="text-muted">{t("design.body")}</p>
+        <div className="mt-6 flex flex-wrap items-start justify-center gap-6 sm:gap-12">
+          <Screenshot
+            slot={{ key: "home-light", caption: t("design.lightCaption") }}
+            className="w-[136px] sm:w-[190px]"
+            sizes="190px"
+          />
+          <Screenshot
+            slot={{ key: "home", caption: t("design.darkCaption") }}
+            className="w-[136px] sm:w-[190px]"
+            sizes="190px"
+          />
+        </div>
       </ContentSection>
 
       <ContentSection heading={t("built.heading")}>

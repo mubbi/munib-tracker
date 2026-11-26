@@ -115,6 +115,14 @@ export const worshipProgress: FeaturePage = {
       text: "Tracks scale from your first Salah to thousands, so there's always a next milestone.",
     },
   ],
+  gallery: [
+    {
+      key: "home",
+      device: "ipad",
+      caption:
+        "Today's Goal, your khatm plan, and your Noor level and achievements on the iPad home screen.",
+    },
+  ],
   examples: {
     title: "Ways to use it",
     items: [

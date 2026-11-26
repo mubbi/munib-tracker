@@ -5,7 +5,7 @@ import { FEATURE_PAGES, featureHref } from "@/content/features";
 import { ARTICLES, articleHref } from "@/content/resources";
 import { categoryHref, RESOURCE_CATEGORIES } from "@/content/resources/categories";
 import type { ScreenshotKey, ScreenshotSlot } from "@/content/types";
-import { LOCALES } from "@/i18n/routing";
+import { LOCALES, type Locale } from "@/i18n/routing";
 import { getScreenshot } from "@/lib/screenshots";
 import { absoluteUrl, languageAlternates, localizedUrl } from "@/lib/seo";
 import { SITE_PATHS } from "@/lib/site";
@@ -51,10 +51,11 @@ function latest(dates: readonly string[]): string {
   return [...dates].sort().at(-1) ?? STATIC_PAGES_UPDATED;
 }
 
-function images(keys: readonly (ScreenshotKey | undefined)[]): string[] {
+/** Each locale's entry lists that locale's own captures (the app UI in that language). */
+function images(keys: readonly (ScreenshotKey | undefined)[], locale: Locale): string[] {
   const urls = keys
     .filter((k): k is ScreenshotKey => Boolean(k))
-    .map((k) => absoluteUrl(getScreenshot(k).src));
+    .map((k) => absoluteUrl(getScreenshot(k, locale).src));
   return [...new Set(urls)];
 }
 
@@ -69,7 +70,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: number,
     imageKeys: readonly ScreenshotKey[] = [],
   ): MetadataRoute.Sitemap => {
-    const imgs = images(imageKeys);
     const languages = languageAlternates(path);
     return LOCALES.map((locale) => ({
       url: localizedUrl(path, locale),
@@ -77,7 +77,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority,
       alternates: { languages },
-      ...(imgs.length ? { images: imgs } : {}),
+      ...(imageKeys.length ? { images: images(imageKeys, locale) } : {}),
     }));
   };
 

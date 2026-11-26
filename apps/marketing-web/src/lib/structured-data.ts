@@ -9,6 +9,7 @@ import type { FaqItem } from "@/content/types";
 import { LOCALE_META } from "@/i18n/locales";
 import type { Locale } from "@/i18n/routing";
 import { PROJECT_LICENSE_URL } from "@/lib/open-source";
+import { capture } from "@/lib/screenshots";
 import { absoluteUrl, localizedUrl } from "@/lib/seo";
 import { GITHUB_REPO_URL, productAppUrl, SITE_URL, storeUrls } from "@/lib/site";
 
@@ -123,7 +124,8 @@ export function softwareApplicationSchema({
     // Store listings and the web app in the page's language.
     downloadUrl: [storeUrls(locale).ios, storeUrls(locale).android],
     installUrl: [storeUrls(locale).ios, storeUrls(locale).android, productAppUrl(locale)],
-    screenshot: absoluteUrl("/screenshots/home.webp"),
+    // The app home screen, in the page language.
+    screenshot: absoluteUrl(capture("iphone", "home", locale).src),
     publisher: { "@id": ORGANIZATION_ID },
     codeRepository: GITHUB_REPO_URL,
     license: PROJECT_LICENSE_URL,

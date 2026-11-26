@@ -14,7 +14,7 @@
         "progress": "Streaks, calendar and statistics"
       },
       "cta": "Explore the Salah tracker",
-      "shotAlt": "Tracker screen: 2 of 5 obligatory Salah logged, a 2-day streak, and rings for Witr, adhkar, Qaza and khatm."
+      "shotAlt": "Tracker on iPhone: 2 of 5 obligatory Salah logged today with a 2-day streak, and Fajr, Dhuhr and Asr with their status and adhkar."
     },
     "qaza": {
       "label": "Qaza",
@@ -26,7 +26,7 @@
         "fasts": "Missed fasts tracked too"
       },
       "cta": "Explore the Qaza tracker",
-      "shotAlt": "Qaza screen: 25 remaining, 62 made up, 71% complete and an estimated finish date."
+      "shotAlt": "Qaza screen on an Android phone: 25 remaining, 62 made up, 71% complete, an estimated finish date and the count for each Salah."
     },
     "zikr": {
       "label": "Zikr",
@@ -38,7 +38,7 @@
         "duas": "{count, plural, one {# dua} other {# duas}} from Hisnul Muslim"
       },
       "cta": "Explore Zikr & tasbeeh",
-      "shotAlt": "Zikr screen with favorites, search, My adhkar and categories like Morning and Evening Adhkar."
+      "shotAlt": "Zikr screen on an Android tablet: adhkar due now after Isha, after Witr and before sleep, and progress for the morning, evening and before-sleep adhkar."
     },
     "quran": {
       "label": "Qur'an",
@@ -50,7 +50,14 @@
         "practice": "AI recitation practice"
       },
       "cta": "Explore the Qur'an reader",
-      "shotAlt": "Qur'an screen with continue reading for Al-Baqarah, shortcuts to search, pages, juz, learn and khatm."
+      "shotAlt": "Qur'an screen on iPad: continue reading Al-Baqarah, the surah list, and study tools such as Learn Qur'an, Khatm, Hifz and Practice."
     }
+  },
+  "shownOn": "Shown on {device}",
+  "devices": {
+    "iphone": "iPhone",
+    "android": "an Android phone",
+    "ipad": "iPad",
+    "android-tablet": "an Android tablet"
   }
 }

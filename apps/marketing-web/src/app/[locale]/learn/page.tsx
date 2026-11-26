@@ -20,16 +20,19 @@ import {
   WifiOff,
 } from "lucide-react";
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
+import { DeviceScreen } from "@/components/content/device-screen";
 import { PageAtmosphere, PageMasthead } from "@/components/content-page";
 import { CtaBand } from "@/components/cta-band";
 import { Section } from "@/components/section";
 import { TrackedButton } from "@/components/tracked-button";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
+import { capture, captureAlt, type Device } from "@/lib/screenshots";
 import { pageMetadata } from "@/lib/seo";
 import { SITE_PATHS } from "@/lib/site";
+import { cn } from "@/lib/utils";
 import type { Messages } from "@/messages";
 
 const PATH = "/learn";
@@ -96,6 +99,54 @@ const HOW: readonly { id: keyof Messages["learn"]["how"]; icon: LucideIcon }[] =
   { id: "offline", icon: WifiOff },
 ];
 
+/** Real screens of the library: TV, iPad and iPhone; captions in `learn.showcase.captions`. */
+const SHOWCASE = [
+  { id: "library", device: "tv", scene: "library" },
+  { id: "quran", device: "ipad", scene: "quran" },
+  { id: "names", device: "iphone", scene: "names" },
+] as const satisfies readonly {
+  id: keyof Messages["learn"]["showcase"]["captions"];
+  device: Device;
+  scene: string;
+}[];
+
+const SHOWCASE_LAYOUT: Record<(typeof SHOWCASE)[number]["id"], { width: string; sizes: string }> = {
+  library: { width: "w-full max-w-2xl", sizes: "(min-width: 1024px) 620px, 92vw" },
+  quran: { width: "w-[168px] sm:w-[230px]", sizes: "230px" },
+  names: { width: "w-[112px] sm:w-[150px]", sizes: "150px" },
+};
+
+/** The library on the TV, beside the Qur'an study tools on iPad and the 99 Names on iPhone. */
+function LibraryShowcase() {
+  const t = useTranslations("learn");
+  const tShots = useTranslations("screenshots");
+  const locale = useLocale();
+  const [tv, ...handhelds] = SHOWCASE.map((item) => ({
+    ...item,
+    shot: {
+      ...capture(item.device, item.scene, locale),
+      alt: captureAlt(tShots, item.device, item.scene),
+    },
+  }));
+  const figure = (item: NonNullable<typeof tv>) => (
+    <figure
+      key={item.id}
+      className={cn("mx-auto flex flex-col items-center", SHOWCASE_LAYOUT[item.id].width)}
+    >
+      <DeviceScreen shot={item.shot} sizes={SHOWCASE_LAYOUT[item.id].sizes} />
+      <figcaption className="mt-4 max-w-xs text-center text-sm leading-relaxed text-white/60">
+        {t(`showcase.captions.${item.id}`)}
+      </figcaption>
+    </figure>
+  );
+  return (
+    <div className="grid items-end gap-12 lg:grid-cols-[1.35fr_1fr] lg:gap-10">
+      {tv ? figure(tv) : null}
+      <div className="flex items-end justify-center gap-6 sm:gap-8">{handhelds.map(figure)}</div>
+    </div>
+  );
+}
+
 function AreaGrid({ areas }: { areas: readonly Area[] }) {
   const t = useTranslations("learn");
   return (
@@ -154,6 +205,17 @@ export default function LearnPage() {
           }
         />
       </div>
+
+      <Section
+        align="left"
+        variant="muted"
+        id="inside-the-app"
+        eyebrow={t("showcase.eyebrow")}
+        title={t("showcase.title")}
+        description={t("showcase.description")}
+      >
+        <LibraryShowcase />
+      </Section>
 
       <Section
         align="left"

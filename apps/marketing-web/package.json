@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
+    "sync:screenshots": "node scripts/sync-screenshots.mjs",
     "transit": "echo transit"
   },
   "dependencies": {
@@ -43,6 +44,7 @@
     "@vitest/coverage-v8": "^5.1.0",
     "jsdom": "^31.0.1",
     "postcss": "^8.5.33",
+    "sharp": "0.35.5",
     "tailwindcss": "4.3.5",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "vite": "^8.3.8",

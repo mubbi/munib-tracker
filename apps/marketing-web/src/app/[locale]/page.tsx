@@ -5,14 +5,15 @@ import { AiPracticeHighlight } from "@/components/ai-practice-highlight";
 import { CtaBand } from "@/components/cta-band";
 import { FaqPreview } from "@/components/faq-preview";
 import { Hero } from "@/components/hero";
+import { DeviceShowcase } from "@/components/home/device-showcase";
 import {
   AudienceTeaser,
   CompareAndGuides,
   FeatureHub,
+  HomeProductTour,
   HowItWorksTeaser,
   PrivacyBand,
 } from "@/components/home/home-sections";
-import { ProductTour } from "@/components/home/product-tour";
 import { SoftwareJsonLd } from "@/components/json-ld";
 import { LearnHighlight } from "@/components/learn-highlight";
 import { StatsSection } from "@/components/stats-section";
@@ -34,9 +35,10 @@ export default function Home() {
       <SoftwareJsonLd />
       <Hero />
       <StatsSection />
-      <ProductTour />
+      <HomeProductTour />
       <FeatureHub />
       <AiPracticeHighlight />
+      <DeviceShowcase />
       <HowItWorksTeaser />
       <PrivacyBand />
       <AudienceTeaser />

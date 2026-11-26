@@ -17,5 +17,31 @@
     "wear-salah-tile": "Wear OS ٹائل جو اگلی نماز دکھاتی ہے۔",
     "wear-tasbeeh-tile": "Wear OS تسبیح ٹائل۔",
     "tv-home": "Apple TV پر {appName}: سائیڈ نیویگیشن، حیض، بیماری اور سفر کے لیے عذر کے دن کے اختیارات، کامیابیاں، اور پڑھنا جاری رکھیں کارڈ۔"
+  },
+  "captureAlt": "{device} پر {appName}: {scene}",
+  "devices": {
+    "iphone": "iPhone",
+    "android": "Android فون",
+    "ipad": "iPad",
+    "android-tablet": "Android ٹیبلیٹ",
+    "tv": "ٹی وی",
+    "watch": "Apple Watch",
+    "wear": "Wear OS گھڑی"
+  },
+  "scenes": {
+    "home": "آج کے نماز کے اوقات اور چیک لسٹ والی ہوم اسکرین",
+    "tracker": "نماز ٹریکر",
+    "qaza": "قضا پلانر",
+    "zikr": "روزانہ اذکار",
+    "tasbeeh": "تسبیح کاؤنٹر",
+    "quran": "قرآن ریڈر",
+    "qibla": "قبلہ کمپاس",
+    "names": "اللہ کے 99 نام",
+    "library": "لائبریری",
+    "settings": "ترتیبات",
+    "schedule": "آج کے نماز کے اوقات",
+    "salah-tile": "اگلی نماز کا ٹائل",
+    "tasbeeh-tile": "تسبیح ٹائل",
+    "next-salah": "اگلی نماز"
   }
 }

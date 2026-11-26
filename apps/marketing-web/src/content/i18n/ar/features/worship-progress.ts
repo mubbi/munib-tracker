@@ -115,6 +115,13 @@ export const worshipProgress: FeaturePage = {
       text: "تمتدّ المسارات من أول صلاة لك إلى الآلاف، فهناك دائمًا محطة تالية.",
     },
   ],
+  gallery: [
+    {
+      key: "home",
+      device: "ipad",
+      caption: "هدف اليوم وخطة الختم ومستوى النور والإنجازات على الشاشة الرئيسية في iPad.",
+    },
+  ],
   examples: {
     title: "طرق لاستخدامه",
     items: [

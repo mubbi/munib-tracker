@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
+import { DeviceLineup } from "@/components/content/device-lineup";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { TrackedLink } from "@/components/tracked-link";
 import { Link } from "@/i18n/navigation";
@@ -150,7 +151,23 @@ export default function PressPage() {
       </ContentSection>
 
       <ContentSection heading={t("screenshots.heading")}>
-        <p className="text-muted">
+        <p className="text-muted">{t("screenshots.gallery", { appName: APP_NAME })}</p>
+        <DeviceLineup
+          className="mt-6"
+          footer={(shot, device) => (
+            <TrackedLink
+              href={shot.src}
+              className={linkClass}
+              track="file_download"
+              fileName={shot.src.split("/").slice(2).join("-")}
+              placement="press"
+              aria-label={t("screenshots.downloadLabel", { device })}
+            >
+              {t("screenshots.download")}
+            </TrackedLink>
+          )}
+        />
+        <p className="mt-6 text-muted">
           {t.rich("screenshots.body", {
             features: internal(SITE_PATHS.features),
             contact: internal(SITE_PATHS.contact),

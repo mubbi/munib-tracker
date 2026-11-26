@@ -51,8 +51,9 @@ export function HeroItem({
 }
 
 /**
- * Subtle rise for the hero phone. Transform only, never opacity: the phone is
- * the hero's main image and must be visible in the server HTML from first paint.
+ * Subtle rise for the hero's device cluster. Transform only, never opacity: the
+ * iPhone is the hero's main (preloaded) image and must be visible in the server
+ * HTML from first paint.
  */
 export function HeroDevice({ children, className }: { children: ReactNode; className?: string }) {
   return (

@@ -127,6 +127,12 @@ export const salahTracker: FeaturePage = {
       caption: "Home: today's Salah times, the Hijri date and a countdown to the next Salah.",
     },
     { key: "tracker-light", caption: "The tracker in the light theme." },
+    { key: "tracker", device: "android", caption: "The same tracker on an Android phone." },
+    {
+      key: "tracker",
+      device: "ipad",
+      caption: "On iPad, today's schedule sits beside your Salah.",
+    },
   ],
   examples: {
     title: "How people use it",

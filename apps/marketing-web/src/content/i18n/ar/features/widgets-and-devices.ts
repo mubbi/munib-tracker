@@ -116,8 +116,24 @@ export const widgetsAndDevices: FeaturePage = {
     },
   ],
   gallery: [
-    { key: "wear-salah-tile", caption: "بلاطة الصلاة القادمة على Wear OS." },
+    {
+      key: "home",
+      caption:
+        "الشاشة الرئيسية على iPhone: مواقيت صلاة اليوم، والعدّ التنازلي للصلاة القادمة، وهدف اليوم.",
+    },
+    { key: "home", device: "android", caption: "الشاشة الرئيسية نفسها على هاتف Android." },
+    {
+      key: "home",
+      device: "ipad",
+      caption: "على iPad، تظهر مواقيت الصلاة وهدف اليوم وجدول اليوم جنبًا إلى جنب.",
+    },
+    {
+      key: "tracker",
+      device: "android-tablet",
+      caption: "المتتبّع على جهاز Android اللوحي، ومعه جدول اليوم.",
+    },
     { key: "tv-home", caption: "Munib Tracker على Apple TV." },
+    { key: "wear-tasbeeh-tile", caption: "بطاقة التسبيح على Wear OS." },
   ],
   examples: {
     title: "طرق للاستفادة منه",

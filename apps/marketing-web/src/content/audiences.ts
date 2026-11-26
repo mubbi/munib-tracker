@@ -30,6 +30,14 @@ export const AUDIENCE_PAGES: readonly AudiencePage[] = [
         "It also helps to have a private space. You can repeat a lesson as often as you need, without anyone watching, and come to the Masjid or your teacher with questions.",
       ],
     },
+    gallery: [
+      { key: "names", caption: "The 99 Names of Allah, with meanings and audio." },
+      {
+        key: "zikr",
+        device: "android",
+        caption: "Adhkar grouped by time of day, on an Android phone.",
+      },
+    ],
     helps: [
       {
         title: "New Muslim guide",
@@ -135,6 +143,14 @@ export const AUDIENCE_PAGES: readonly AudiencePage[] = [
         "Memorizers face a second challenge: revision. New portions push out old ones unless there's a system to bring them back.",
       ],
     },
+    gallery: [
+      { key: "quran", device: "tv", caption: "Pick up where you stopped on the TV." },
+      {
+        key: "quran",
+        device: "ipad",
+        caption: "On iPad, the study tools sit beside the surah list.",
+      },
+    ],
     helps: [
       {
         title: "Learn to read",
@@ -238,6 +254,13 @@ export const AUDIENCE_PAGES: readonly AudiencePage[] = [
         "What works better is the opposite: one Salah you never miss, then two, then all five. And a separate, slow plan for the past.",
       ],
     },
+    gallery: [
+      {
+        key: "home",
+        device: "android",
+        caption: "Today's Salah times and a countdown to the next one, on an Android phone.",
+      },
+    ],
     helps: [
       {
         title: "Start with one Salah",
@@ -329,7 +352,11 @@ export const AUDIENCE_PAGES: readonly AudiencePage[] = [
     eyebrow: "For families",
     intro:
       "Children learn most from what they see at home. Munib Tracker gives your children a simple kids mode for learning to pray, gives you lessons to do together, and keeps your own Salah and Qur'an routine on track as an example.",
-    hero: { key: "tv-home", caption: "Munib Tracker on the TV for family Qur'an time." },
+    hero: {
+      key: "home",
+      device: "ipad",
+      caption: "Today's Salah times and checklist on a family iPad.",
+    },
     situation: {
       title: "What families tell us they need",
       paragraphs: [
@@ -337,6 +364,10 @@ export const AUDIENCE_PAGES: readonly AudiencePage[] = [
         "Parents also need something for themselves. It's hard to teach a routine you're struggling to keep.",
       ],
     },
+    gallery: [
+      { key: "quran", device: "tv", caption: "Qur'an time on the TV, designed for the remote." },
+      { key: "names", caption: "Learn the 99 Names of Allah together, with meanings and audio." },
+    ],
     helps: [
       {
         title: "Kids mode",

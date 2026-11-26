@@ -17,5 +17,31 @@
     "wear-salah-tile": "بطاقة Wear OS تعرض الصلاة التالية.",
     "wear-tasbeeh-tile": "بطاقة التسبيح في Wear OS.",
     "tv-home": "{appName} على Apple TV: تنقّل جانبي، وخيارات أيام العذر للحيض والمرض والسفر، والإنجازات، وبطاقة متابعة القراءة."
+  },
+  "captureAlt": "{appName} على {device}: {scene}",
+  "devices": {
+    "iphone": "iPhone",
+    "android": "هاتف Android",
+    "ipad": "iPad",
+    "android-tablet": "جهاز Android اللوحي",
+    "tv": "التلفاز",
+    "watch": "Apple Watch",
+    "wear": "ساعة Wear OS"
+  },
+  "scenes": {
+    "home": "الشاشة الرئيسية مع مواقيت صلاة اليوم وقائمة المهام",
+    "tracker": "متتبّع الصلاة",
+    "qaza": "مخطّط القضاء",
+    "zikr": "الأذكار اليومية",
+    "tasbeeh": "عدّاد التسبيح",
+    "quran": "قارئ القرآن",
+    "qibla": "بوصلة القبلة",
+    "names": "أسماء الله الحسنى",
+    "library": "المكتبة",
+    "settings": "الإعدادات",
+    "schedule": "مواقيت صلاة اليوم",
+    "salah-tile": "بطاقة الصلاة القادمة",
+    "tasbeeh-tile": "بطاقة التسبيح",
+    "next-salah": "الصلاة القادمة"
   }
 }

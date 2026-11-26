@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { useLocale, useTranslations } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
+import { DeviceLineup, type LineupItem } from "@/components/content/device-lineup";
 import { DownloadCta } from "@/components/content/download-cta";
 import { PageHero } from "@/components/content/page-hero";
 import { JsonLdScript, PageSection, Screenshot } from "@/components/content/primitives";
@@ -29,19 +30,30 @@ export async function generateMetadata(): Promise<Metadata> {
 type StepId = keyof Messages["howItWorks"]["steps"];
 type CaptionId = keyof Messages["howItWorks"]["stepCaptions"];
 
-/** Steps in order; copy is keyed by id in the `howItWorks` catalog. */
+/**
+ * Steps in order; copy is keyed by id in the `howItWorks` catalog. Screens
+ * alternate between iPhone and Android so both phones are shown.
+ */
 const STEPS: readonly (
   | { id: Exclude<StepId, CaptionId> }
-  | { id: CaptionId; shot: ScreenshotSlot["key"] }
+  | { id: CaptionId; shot: ScreenshotSlot["key"]; device?: ScreenshotSlot["device"] }
 )[] = [
   { id: "download" },
   { id: "location", shot: "home" },
-  { id: "log", shot: "tracker" },
+  { id: "log", shot: "tracker", device: "android" },
   { id: "adhkar", shot: "zikr" },
-  { id: "qaza", shot: "qaza" },
+  { id: "qaza", shot: "qaza", device: "android" },
   { id: "quran", shot: "quran" },
   { id: "reminders" },
   { id: "review" },
+];
+
+/** The same tracker on a phone, a tablet and the TV (the "your data" section). */
+const SYNC_DEVICES: readonly LineupItem[] = [
+  { device: "tv", scene: "tracker" },
+  { device: "android-tablet", scene: "tracker" },
+  { device: "iphone", scene: "tracker" },
+  { device: "ipad", scene: "tracker" },
 ];
 
 const DAY = ["fajr", "dhuhr", "asr", "maghrib", "isha"] as const;
@@ -102,7 +114,11 @@ export default function HowItWorksPage() {
               </div>
               {"shot" in step ? (
                 <Screenshot
-                  slot={{ key: step.shot, caption: t(`stepCaptions.${step.id}`) }}
+                  slot={{
+                    key: step.shot,
+                    device: step.device,
+                    caption: t(`stepCaptions.${step.id}`),
+                  }}
                   className="mx-auto w-[150px] md:w-[160px]"
                 />
               ) : null}
@@ -144,7 +160,13 @@ export default function HowItWorksPage() {
             </div>
           ))}
         </div>
-        <p className="mt-6 text-[15px] text-white/65">
+        <figure className="mt-12 md:mt-16">
+          <DeviceLineup items={SYNC_DEVICES} />
+          <figcaption className="mx-auto mt-8 max-w-xl text-center text-sm leading-relaxed text-white/60">
+            {t("data.devicesCaption")}
+          </figcaption>
+        </figure>
+        <p className="mt-10 text-[15px] text-white/65">
           {t.rich("data.more", {
             privacy: textLink(SITE_PATHS.privacy),
             why: textLink(SITE_PATHS.why),

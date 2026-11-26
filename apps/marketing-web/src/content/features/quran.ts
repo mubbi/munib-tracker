@@ -128,6 +128,12 @@ export const quran: FeaturePage = {
       key: "offline-data",
       caption: "Downloaded translations, fonts and audio, managed in Settings.",
     },
+    {
+      key: "quran",
+      device: "ipad",
+      caption: "On iPad, continue reading, the study tools and the surah list share one screen.",
+    },
+    { key: "quran", device: "tv", caption: "Continue reading on the TV, designed for the remote." },
   ],
   examples: {
     title: "Ways to use it",

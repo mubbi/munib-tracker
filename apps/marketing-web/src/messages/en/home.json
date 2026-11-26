@@ -15,7 +15,6 @@
       "noAccount": { "top": "No account", "bottom": "Needed" },
       "offline": { "top": "Works", "bottom": "Offline" }
     },
-    "screenshotAlt": "{appName} home screen: today's prayer times, the Hijri date, and a daily activity checklist.",
     "moonTitle": "Crescent moon"
   },
   "stats": {
@@ -161,5 +160,41 @@
       "fiqh_guides": { "title": "Fiqh guides", "meta": "Salah, zakat, Hajj & Umrah & purification" }
     },
     "explore": "Explore the learning library"
+  },
+  "devices": {
+    "eyebrow": "On every screen",
+    "title": "Your phone, tablet, TV and watch",
+    "intro": "The same calm app wherever you are, with a layout made for each screen. Sign in to keep your phone, tablet and TV in step.",
+    "more": "See every device and widget",
+    "items": {
+      "tv": {
+        "name": "Apple TV & Android TV",
+        "text": "Read the Qur'an together on the big screen"
+      },
+      "androidTablet": {
+        "name": "Android tablets",
+        "text": "The Salah tracker beside today's schedule"
+      },
+      "iphone": {
+        "name": "iPhone",
+        "text": "A Tasbeeh counter with targets"
+      },
+      "android": {
+        "name": "Android phones",
+        "text": "The 99 Names of Allah with meanings"
+      },
+      "ipad": {
+        "name": "iPad",
+        "text": "Today's Salah times and full schedule"
+      },
+      "watch": {
+        "name": "Apple Watch",
+        "text": "The next Salah at a glance"
+      },
+      "wear": {
+        "name": "Wear OS",
+        "text": "A Tasbeeh tile on your wrist"
+      }
+    }
   }
 }

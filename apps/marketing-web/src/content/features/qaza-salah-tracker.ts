@@ -122,6 +122,12 @@ export const qazaSalahTracker: FeaturePage = {
   gallery: [
     { key: "tracker", caption: "The Qaza ring on the tracker shows today's make-up progress." },
     { key: "home", caption: "Qaza joins Salah and zikr in Today's Goal on the home screen." },
+    {
+      key: "qaza",
+      device: "android-tablet",
+      caption:
+        "On an Android tablet: a counter for each Salah beside the calculator, planner, fasting and history.",
+    },
   ],
   examples: {
     title: "Practical examples",

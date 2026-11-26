@@ -9,6 +9,9 @@ import { cn } from "@/lib/utils";
 /** Hero visual width per device frame. */
 const HERO_WIDTH = {
   phone: "w-[230px] sm:w-[260px]",
+  android: "w-[230px] sm:w-[260px]",
+  tablet: "w-full max-w-sm",
+  "tablet-landscape": "w-full max-w-lg",
   watch: "w-[200px] sm:w-[220px]",
   round: "w-[200px] sm:w-[220px]",
   tv: "w-full max-w-lg",
@@ -44,7 +47,7 @@ export function PageHero({
       slot={screenshot}
       preload
       showCaption={false}
-      className={HERO_WIDTH[getScreenshot(screenshot.key).frame]}
+      className={HERO_WIDTH[getScreenshot(screenshot.key, undefined, screenshot.device).frame]}
     />
   ) : (
     visual

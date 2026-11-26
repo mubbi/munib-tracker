@@ -116,8 +116,23 @@ export const widgetsAndDevicesUr: FeaturePage = {
     },
   ],
   gallery: [
-    { key: "wear-salah-tile", caption: "Wear OS پر اگلی نماز کی ٹائل۔" },
+    {
+      key: "home",
+      caption: "iPhone پر ہوم: آج کی نمازوں کے اوقات، اگلی نماز تک الٹی گنتی اور آج کا ہدف۔",
+    },
+    { key: "home", device: "android", caption: "یہی ہوم اسکرین Android فون پر۔" },
+    {
+      key: "home",
+      device: "ipad",
+      caption: "iPad پر نماز کے اوقات، آج کا ہدف اور آج کا شیڈول ساتھ ساتھ۔",
+    },
+    {
+      key: "tracker",
+      device: "android-tablet",
+      caption: "Android ٹیبلیٹ پر ٹریکر، ساتھ میں آج کا شیڈول۔",
+    },
     { key: "tv-home", caption: "Apple TV پر Munib Tracker۔" },
+    { key: "wear-tasbeeh-tile", caption: "Wear OS پر تسبیح ٹائل۔" },
   ],
   examples: {
     title: "استعمال کے طریقے",

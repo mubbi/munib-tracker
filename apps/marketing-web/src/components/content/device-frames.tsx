@@ -199,3 +199,120 @@ export function TvFrame({ src, alt, width, height, className, preload, sizes }: 
     </div>
   );
 }
+
+/** Glass glare shared by every screen. */
+function Glare() {
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.07),transparent_40%)]"
+    />
+  );
+}
+
+/**
+ * Android phone (Pixel-style): flat aluminium sides, even slim bezel and a
+ * centred punch-hole camera. Sizes are container units, like the iPhone frame.
+ */
+export function AndroidPhoneFrame({
+  src,
+  alt,
+  width,
+  height,
+  className,
+  preload,
+  sizes,
+}: FrameProps) {
+  return (
+    <div className={cn("@container relative", className)}>
+      <div
+        className="relative rounded-[11cqw] p-[1.2cqw] shadow-[0_50px_120px_-30px_rgba(0,0,0,0.85),0_18px_40px_-18px_rgba(0,0,0,0.6)]"
+        style={{ background: ALUMINIUM }}
+      >
+        {/* Power + volume on the right edge */}
+        <span
+          aria-hidden
+          className="absolute -right-[0.7cqw] top-[22%] h-[9%] w-[0.9cqw] rounded-r-[0.5cqw] bg-[linear-gradient(90deg,#c3c7cc,#9fa4aa)]"
+        />
+        <span
+          aria-hidden
+          className="absolute -right-[0.7cqw] top-[34%] h-[14%] w-[0.9cqw] rounded-r-[0.5cqw] bg-[linear-gradient(90deg,#c3c7cc,#9fa4aa)]"
+        />
+        <div className="relative rounded-[10cqw] bg-black p-[2.6cqw]">
+          <div className="relative overflow-hidden rounded-[8cqw] bg-black">
+            <Image
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              preload={preload}
+              sizes={sizes ?? "(min-width: 1024px) 300px, 260px"}
+              className="block h-auto w-full"
+            />
+            {/* Punch-hole front camera */}
+            <span
+              aria-hidden
+              className="absolute left-1/2 top-[1.6cqw] size-[4.6cqw] -translate-x-1/2 rounded-full bg-black ring-[0.5cqw] ring-[#0c0f14]"
+            />
+            <Glare />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Tablet: iPad-style uniform bezel (`orientation="portrait"`) or an Android
+ * tablet held landscape. The front camera sits centred in the long-edge bezel.
+ */
+export function TabletFrame({
+  src,
+  alt,
+  width,
+  height,
+  className,
+  preload,
+  sizes,
+  orientation = "portrait",
+}: FrameProps & { orientation?: "portrait" | "landscape" }) {
+  const landscape = orientation === "landscape";
+  return (
+    <div className={cn("@container relative", className)}>
+      <div
+        className="relative rounded-[5.2cqw] p-[0.8cqw] shadow-[0_50px_120px_-34px_rgba(0,0,0,0.85),0_18px_40px_-18px_rgba(0,0,0,0.6)]"
+        style={{ background: ALUMINIUM }}
+      >
+        <div
+          className={cn(
+            "relative rounded-[4.6cqw] bg-black",
+            landscape ? "p-[2.4cqw]" : "p-[3.2cqw]",
+          )}
+        >
+          {/* Front camera in the bezel */}
+          <span
+            aria-hidden
+            className={cn(
+              "absolute size-[1.1cqw] rounded-full bg-[#1b2230] ring-[0.3cqw] ring-black",
+              landscape
+                ? "left-[1cqw] top-1/2 -translate-y-1/2"
+                : "left-1/2 top-[1.2cqw] -translate-x-1/2",
+            )}
+          />
+          <div className="relative overflow-hidden rounded-[2.2cqw] bg-black">
+            <Image
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              preload={preload}
+              sizes={sizes ?? "(min-width: 1024px) 560px, 92vw"}
+              className="block h-auto w-full"
+            />
+            <Glare />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

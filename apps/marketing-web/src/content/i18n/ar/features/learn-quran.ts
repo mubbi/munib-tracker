@@ -118,6 +118,13 @@ export const learnQuran: FeaturePage = {
       text: "كل الدروس مضمّنة في التطبيق وتعمل دون اتصال.",
     },
   ],
+  gallery: [
+    {
+      key: "quran",
+      device: "ipad",
+      caption: "على iPad، تجاور أدوات الدراسة (تعلّم القرآن والختمة والحفظ والتدرّب) قائمة السور.",
+    },
+  ],
   examples: {
     title: "لمن يناسب",
     items: [

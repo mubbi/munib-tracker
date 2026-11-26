@@ -136,6 +136,7 @@ export const quranPractice: FeaturePage = {
   gallery: [
     {
       key: "quran",
+      device: "ipad",
       caption: "Start practice from the Qur'an tab, or from any ayah in the reader.",
     },
   ],

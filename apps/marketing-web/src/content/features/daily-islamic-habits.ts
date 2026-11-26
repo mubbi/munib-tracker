@@ -133,6 +133,11 @@ export const dailyIslamicHabits: FeaturePage = {
   gallery: [
     { key: "tracker", caption: "Today's progress across Salah, Witr, adhkar, Qaza and khatm." },
     { key: "home-light", caption: "The home screen in the light theme." },
+    {
+      key: "home",
+      device: "ipad",
+      caption: "On iPad, Today's Goal sits beside today's schedule and your khatm plan.",
+    },
   ],
   examples: {
     title: "Example routines",

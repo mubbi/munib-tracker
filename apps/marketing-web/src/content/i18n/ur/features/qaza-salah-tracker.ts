@@ -122,6 +122,12 @@ export const qazaSalahTrackerUr: FeaturePage = {
   gallery: [
     { key: "tracker", caption: "ٹریکر پر قضا کا دائرہ آج کی قضا کی پیش رفت دکھاتا ہے۔" },
     { key: "home", caption: "ہوم اسکرین پر آج کے ہدف میں قضا، نماز اور ذکر کے ساتھ شامل ہے۔" },
+    {
+      key: "qaza",
+      device: "android-tablet",
+      caption:
+        "Android ٹیبلیٹ پر: ہر نماز کا الگ کاؤنٹر، ساتھ میں کیلکولیٹر، منصوبہ بند، روزے اور تاریخچہ۔",
+    },
   ],
   examples: {
     title: "عملی مثالیں",

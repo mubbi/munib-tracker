@@ -127,6 +127,11 @@ export const zikrTracker: FeaturePage = {
     },
     { key: "wear-tasbeeh-tile", caption: "بطاقة التسبيح على Wear OS." },
     { key: "names", caption: "أسماء الله الحسنى الـ 99 مع معانيها والصوت." },
+    {
+      key: "zikr",
+      device: "tv",
+      caption: "الأذكار التي حان وقتها على التلفاز، جاهزة للبدء بجهاز التحكم.",
+    },
   ],
   examples: {
     title: "طرق لاستخدامه",

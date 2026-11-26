@@ -17,5 +17,31 @@
     "wear-salah-tile": "Wear OS tile showing the next Salah.",
     "wear-tasbeeh-tile": "Wear OS Tasbeeh tile.",
     "tv-home": "{appName} on Apple TV: side navigation, excused-day options for hayd, illness and travel, achievements, and a continue-reading card."
+  },
+  "captureAlt": "{appName} on {device}: {scene}",
+  "devices": {
+    "iphone": "iPhone",
+    "android": "Android phone",
+    "ipad": "iPad",
+    "android-tablet": "Android tablet",
+    "tv": "TV",
+    "watch": "Apple Watch",
+    "wear": "Wear OS watch"
+  },
+  "scenes": {
+    "home": "home screen with today's Salah times and checklist",
+    "tracker": "Salah tracker",
+    "qaza": "Qaza planner",
+    "zikr": "daily adhkar",
+    "tasbeeh": "tasbeeh counter",
+    "quran": "Qur'an reader",
+    "qibla": "Qibla compass",
+    "names": "the 99 Names of Allah",
+    "library": "library",
+    "settings": "settings",
+    "schedule": "today's Salah schedule",
+    "salah-tile": "next Salah tile",
+    "tasbeeh-tile": "tasbeeh tile",
+    "next-salah": "next Salah"
   }
 }

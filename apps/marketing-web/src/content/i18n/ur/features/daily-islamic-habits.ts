@@ -133,6 +133,11 @@ export const dailyIslamicHabitsUr: FeaturePage = {
   gallery: [
     { key: "tracker", caption: "نماز، وتر، اذکار، قضا اور ختم میں آج کی پیش رفت۔" },
     { key: "home-light", caption: "لائٹ تھیم میں ہوم اسکرین۔" },
+    {
+      key: "home",
+      device: "ipad",
+      caption: "iPad پر آج کا ہدف، آج کے شیڈول اور ختم پلان کے ساتھ نظر آتا ہے۔",
+    },
   ],
   examples: {
     title: "معمولات کی مثالیں",

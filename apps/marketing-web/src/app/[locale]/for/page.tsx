@@ -46,6 +46,7 @@ export default function AudienceHub() {
         eyebrow={t("eyebrow")}
         title={t("title")}
         intro={<p>{t("intro")}</p>}
+        screenshot={{ key: "home", device: "ipad", caption: t("heroCaption") }}
       />
       <PageSection title={t("listTitle")}>
         <div className="grid gap-4 sm:grid-cols-2">

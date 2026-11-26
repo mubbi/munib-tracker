@@ -12,6 +12,7 @@ import {
   RichParagraphs,
 } from "@/components/content/primitives";
 import { RichText } from "@/components/content/rich-text";
+import { ScreenshotGallery } from "@/components/content/screenshot-gallery";
 import { StoreBadges } from "@/components/store-badges";
 import { audienceHref } from "@/content/audiences";
 import { featureHref, getFeature } from "@/content/features";
@@ -52,6 +53,9 @@ export function AudienceTemplate({ page }: { page: AudiencePage }) {
           items={page.situation.paragraphs}
           className="flex max-w-3xl flex-col gap-5 text-[17px] leading-[1.75] text-white/78"
         />
+        {page.gallery?.length ? (
+          <ScreenshotGallery slots={page.gallery} className="mt-12 md:mt-16" />
+        ) : null}
       </PageSection>
 
       <PageSection

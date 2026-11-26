@@ -128,10 +128,16 @@ export const prayerTimesQibla: FeaturePage = {
   ],
   gallery: [
     {
-      key: "qibla",
-      caption: "شاشة القبلة مع الاتجاه والمسافة (معروضة هنا على جهاز بلا مستشعر بوصلة).",
+      key: "home",
+      device: "ipad",
+      caption: "جدول اليوم على iPad، من التهجد والفجر مرورًا بالإشراق حتى العشاء.",
     },
     { key: "watch-schedule", caption: "الصلاة القادمة على Apple Watch." },
+    {
+      key: "home",
+      device: "android",
+      caption: "مواقيت اليوم والعدّ التنازلي للصلاة القادمة على هاتف Android.",
+    },
   ],
   examples: {
     title: "طرق للاستفادة منه",

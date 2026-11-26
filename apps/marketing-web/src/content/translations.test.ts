@@ -38,6 +38,7 @@ const STRUCTURAL_KEYS = new Set([
   "id",
   "verifiedOn",
   "url",
+  "device",
 ]);
 
 /** Arrays whose strings are all structural (app names/developers are brands). */

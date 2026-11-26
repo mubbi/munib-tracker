@@ -127,6 +127,12 @@ export const salahTrackerUr: FeaturePage = {
       caption: "ہوم: آج کی نمازوں کے اوقات، ہجری تاریخ اور اگلی نماز تک الٹی گنتی۔",
     },
     { key: "tracker-light", caption: "لائٹ تھیم میں ٹریکر۔" },
+    { key: "tracker", device: "android", caption: "یہی ٹریکر Android فون پر۔" },
+    {
+      key: "tracker",
+      device: "ipad",
+      caption: "iPad پر آج کا شیڈول آپ کی نمازوں کے ساتھ ہی نظر آتا ہے۔",
+    },
   ],
   examples: {
     title: "لوگ اسے کیسے استعمال کرتے ہیں",

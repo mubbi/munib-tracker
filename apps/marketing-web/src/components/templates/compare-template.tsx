@@ -12,6 +12,7 @@ import {
   LinkCard,
   PageSection,
   RichParagraphs,
+  Screenshot,
 } from "@/components/content/primitives";
 import { RichText } from "@/components/content/rich-text";
 import { ComparisonTable } from "@/components/templates/comparison-table";
@@ -20,12 +21,24 @@ import { compareHref, getComparison } from "@/content/compare";
 import { getFeature } from "@/content/features";
 import { PLANNED_FEATURES, SHIPPED_FEATURE_COUNT } from "@/content/munib-features";
 import { articleByHref } from "@/content/resources";
-import type { ComparePage } from "@/content/types";
+import type { ComparePage, ScreenshotSlot } from "@/content/types";
 import type { Locale } from "@/i18n/routing";
 import { graph, webPageSchema } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 
 type TemplatesT = ReturnType<typeof useTranslations<"templates">>;
+
+/** "At a glance": real screens on iPhone and Android; captions in `templates.compare.glance`. */
+const GLANCE: readonly {
+  id: "home" | "tracker" | "quran" | "zikr";
+  key: ScreenshotSlot["key"];
+  device?: ScreenshotSlot["device"];
+}[] = [
+  { id: "home", key: "home" },
+  { id: "tracker", key: "tracker", device: "android" },
+  { id: "quran", key: "quran" },
+  { id: "zikr", key: "zikr", device: "android" },
+];
 
 /** Resolves a related href to a card (feature, article, comparison or hub). */
 function relatedCard(href: string, locale: Locale, t: TemplatesT) {
@@ -124,6 +137,29 @@ export function CompareTemplate({ page }: { page: ComparePage }) {
         }
       >
         <FeatureInventory />
+      </PageSection>
+
+      <PageSection
+        id="at-a-glance"
+        tone="band"
+        eyebrow={t("compare.glanceEyebrow")}
+        title={t("compare.glanceTitle", { appName: APP_NAME })}
+      >
+        <ul className="grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4">
+          {GLANCE.map((slot) => (
+            <li key={slot.id}>
+              <Screenshot
+                slot={{
+                  key: slot.key,
+                  device: slot.device,
+                  caption: t(`compare.glance.${slot.id}`),
+                }}
+                className="mx-auto w-full max-w-[200px]"
+                sizes="(min-width: 1024px) 200px, 45vw"
+              />
+            </li>
+          ))}
+        </ul>
       </PageSection>
 
       <PageSection

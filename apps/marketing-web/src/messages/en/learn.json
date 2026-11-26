@@ -199,5 +199,15 @@
       "title": "Fully offline",
       "description": "The entire library works without a connection — read anywhere, anytime."
     }
+  },
+  "showcase": {
+    "eyebrow": "Inside the app",
+    "title": "The library, on every screen",
+    "description": "Browse the Library on the TV, study the Qur'an on iPad, and learn the 99 Names of Allah on your phone. These are real screens from the app.",
+    "captions": {
+      "library": "The Library on the TV: search everything and continue where you left off.",
+      "quran": "The Qur'an study tools on iPad.",
+      "names": "The 99 Names of Allah, with meanings and audio."
+    }
   }
 }

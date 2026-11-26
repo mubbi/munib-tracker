@@ -127,6 +127,12 @@ export const quran: FeaturePage = {
       key: "offline-data",
       caption: "الترجمات والخطوط والصوت المنزّلة، تُدار من الإعدادات.",
     },
+    {
+      key: "quran",
+      device: "ipad",
+      caption: "على iPad، تجتمع مواصلة القراءة وأدوات الدراسة وقائمة السور في شاشة واحدة.",
+    },
+    { key: "quran", device: "tv", caption: "تابع القراءة على التلفاز، بتصميم يناسب جهاز التحكم." },
   ],
   examples: {
     title: "طرق لاستخدامه",

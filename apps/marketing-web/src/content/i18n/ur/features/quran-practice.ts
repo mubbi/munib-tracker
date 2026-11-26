@@ -136,6 +136,7 @@ export const quranPracticeUr: FeaturePage = {
   gallery: [
     {
       key: "quran",
+      device: "ipad",
       caption: "قرآن ٹیب سے، یا ریڈر میں کسی بھی آیت سے مشق شروع کریں۔",
     },
   ],

@@ -115,6 +115,13 @@ export const worshipProgressUr: FeaturePage = {
       text: "راستے آپ کی پہلی نماز سے ہزاروں تک بڑھتے ہیں، اس لیے ہمیشہ کوئی اگلا سنگِ میل موجود ہوتا ہے۔",
     },
   ],
+  gallery: [
+    {
+      key: "home",
+      device: "ipad",
+      caption: "iPad کی ہوم اسکرین پر آج کا ہدف، ختم پلان، اور آپ کا نور کا درجہ اور کامیابیاں۔",
+    },
+  ],
   examples: {
     title: "استعمال کے طریقے",
     items: [

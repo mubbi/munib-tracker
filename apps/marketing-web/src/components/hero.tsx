@@ -1,12 +1,12 @@
-import { APP_NAME } from "@munib-tracker/shared/constants";
 import { ArrowRight, Ban, Download, Lock, Sparkle, Sparkles, WifiOff } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { DeviceFrame } from "@/components/day-arc/device-frame";
+import { DeviceScreen } from "@/components/content/device-screen";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
 import { PrayerArc } from "@/components/day-arc/prayer-arc";
 import { HeroDevice, HeroItem, HeroStagger } from "@/components/hero-motion";
 import { StoreBadges } from "@/components/store-badges";
 import { TrackedLink } from "@/components/tracked-link";
+import { useCapture, useScreenshot } from "@/lib/screenshots";
 import { SITE_PATHS } from "@/lib/site";
 
 const TRUST = [
@@ -16,7 +16,7 @@ const TRUST = [
 ] as const;
 
 /** Day Arc hero — fully coded: gradient sky, stars, crescent, mosque skyline,
- *  the color-coded prayer arc, and a steel phone frame with the real screenshot.
+ *  the color-coded prayer arc, and the app's real home screen on every device.
  *  Server-rendered; only the entrance animation (`hero-motion.tsx`) is client code. */
 export function Hero() {
   const t = useTranslations("home.hero");
@@ -163,20 +163,9 @@ export function Hero() {
           </HeroItem>
         </HeroStagger>
 
-        {/* Real screenshot in a straight steel frame */}
-        <HeroDevice className="relative flex justify-center lg:justify-end lg:pe-4">
-          <div
-            aria-hidden
-            className="absolute left-1/2 top-1/2 -z-10 size-[440px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(240,185,104,0.35)_0%,transparent_68%)]"
-          />
-          <div className="animate-float-slow">
-            <DeviceFrame
-              src="/app-home-dark.png"
-              alt={t("screenshotAlt", { appName: APP_NAME })}
-              className="w-[250px] sm:w-[272px] lg:w-[292px]"
-              preload
-            />
-          </div>
+        {/* Real captures of the home screen, in the visitor's language */}
+        <HeroDevice className="relative flex justify-center lg:justify-end">
+          <HeroDevices />
         </HeroDevice>
       </div>
 
@@ -202,5 +191,66 @@ export function Hero() {
         <path d="M68 54a30 30 0 11-26-32 24 24 0 1026 32z" fill="#f2cd7e" />
       </svg>
     </section>
+  );
+}
+
+/**
+ * The home screen on four devices, in depth: a TV at the back, the iPhone in
+ * front (the hero image, preloaded), an Android phone tucked behind it on the
+ * inline-end side and an Apple Watch in front on the inline-start side. Every
+ * size is a percentage of a fixed-aspect stage, so the cluster scales as one;
+ * logical `start`/`end` offsets mirror it in RTL.
+ *
+ * - phones: iPhone + Android peeking + watch (the TV is hidden);
+ * - `sm`+: the full cluster, with the TV rising above the iPhone.
+ */
+function HeroDevices() {
+  const iphone = useScreenshot("home");
+  const android = useCapture("android", "home");
+  const tv = useCapture("tv", "home");
+  const watch = useCapture("watch", "schedule");
+  return (
+    <div className="relative aspect-[5/7] w-full max-w-[340px] sm:aspect-[20/27] sm:max-w-[440px] lg:max-w-[480px]">
+      {/* Warm bloom + soft ground shadow tying the devices together */}
+      <div
+        aria-hidden
+        className="absolute left-1/2 top-[46%] -z-10 aspect-square w-[130%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(240,185,104,0.34)_0%,rgba(240,185,104,0.1)_42%,transparent_68%)]"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-[8%] bottom-[-1%] -z-10 h-[7%] rounded-[50%] bg-[radial-gradient(closest-side,rgba(6,10,20,0.6),transparent)] blur-md"
+      />
+
+      {/* Back: TV, set back with a touch less light */}
+      <div className="absolute start-0 top-0 hidden w-[88%] brightness-[0.88] sm:block">
+        <DeviceScreen shot={tv} className="w-full" sizes="(min-width: 1024px) 420px, 390px" />
+      </div>
+
+      {/* Middle: Android phone behind the iPhone on the inline-end side */}
+      <div className="absolute bottom-[3%] end-0 z-10 w-[44%] sm:bottom-[4%] sm:w-[40%]">
+        <div className="animate-float-slow [animation-delay:-3s]">
+          <DeviceScreen shot={android} className="w-full" sizes="(min-width: 640px) 190px, 44vw" />
+        </div>
+      </div>
+
+      {/* Front: the iPhone — the hero image */}
+      <div className="absolute inset-x-0 top-0 z-20 mx-auto w-[62%] sm:top-[9%] sm:w-[58%]">
+        <div className="animate-float-slow">
+          <DeviceScreen
+            shot={iphone}
+            className="w-full"
+            sizes="(min-width: 640px) 280px, 62vw"
+            preload
+          />
+        </div>
+      </div>
+
+      {/* Closest: Apple Watch overlapping the iPhone's inline-start edge */}
+      <div className="absolute bottom-0 start-[3%] z-30 w-[24%] sm:bottom-[1%] sm:start-[8%] sm:w-[20%]">
+        <div className="animate-float-slow [animation-delay:-6s]">
+          <DeviceScreen shot={watch} className="w-full" sizes="(min-width: 640px) 96px, 24vw" />
+        </div>
+      </div>
+    </div>
   );
 }

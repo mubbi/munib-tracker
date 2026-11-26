@@ -3,6 +3,7 @@ import { Check, Clock } from "lucide-react";
 import type { Metadata } from "next";
 import { useLocale, useTranslations } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
+import { DeviceLineup } from "@/components/content/device-lineup";
 import { DownloadCta } from "@/components/content/download-cta";
 import { FeatureIcon } from "@/components/content/feature-icon";
 import { PageHero } from "@/components/content/page-hero";
@@ -140,6 +141,7 @@ export default function FeaturesPage() {
         title={t("availableOn.title")}
         intro={t("availableOn.intro")}
       >
+        <DeviceLineup className="mb-14" />
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {DEVICE_ROWS.map(({ key, feature }) => {
             const value = MUNIB_DEVICES[key];

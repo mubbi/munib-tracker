@@ -40,7 +40,10 @@
   },
   "screenshots": {
     "heading": "Screenshots",
-    "body": "Screenshots of the app appear on each <features>feature page</features>. For full-resolution files, use the <contact>contact form</contact> with your publication name and deadline."
+    "body": "Screenshots of the app appear on each <features>feature page</features>. For full-resolution files, use the <contact>contact form</contact> with your publication name and deadline.",
+    "gallery": "Every image below is a real capture of {appName} on that device, in this page's language where the app has it. Download any of them for your coverage.",
+    "download": "Download",
+    "downloadLabel": "Download the {device} screenshot"
   },
   "links": {
     "heading": "Links",

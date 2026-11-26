@@ -16,11 +16,13 @@ import {
   Screenshot,
 } from "@/components/content/primitives";
 import { RichText } from "@/components/content/rich-text";
+import { ScreenshotGallery, slotFrame } from "@/components/content/screenshot-gallery";
 import { StoreBadges } from "@/components/store-badges";
 import { featureHref, getFeature } from "@/content/features";
 import { articleByHref, articleHref } from "@/content/resources";
 import type { FeaturePage } from "@/content/types";
 import { graph, webPageSchema } from "@/lib/structured-data";
+import { cn } from "@/lib/utils";
 
 /**
  * Feature landing page: what it does → why → how → benefits → screenshots →
@@ -31,6 +33,8 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
   const locale = useLocale();
   const path = featureHref(feature.slug);
   const [firstShot, ...moreShots] = feature.gallery ?? [];
+  const firstFrame = firstShot ? slotFrame(firstShot) : undefined;
+  const firstIsPhone = firstFrame === "phone" || firstFrame === "android";
   const related = feature.related
     .map((slug) => getFeature(slug, locale))
     .filter((f) => f !== undefined);
@@ -97,13 +101,26 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
       </PageSection>
 
       <PageSection id="why" tone="band" title={feature.why.title}>
-        <div className={firstShot ? "grid items-center gap-12 lg:grid-cols-[1.3fr_0.7fr]" : ""}>
+        <div
+          className={cn(
+            firstShot && "grid items-center gap-12",
+            firstShot && (firstIsPhone ? "lg:grid-cols-[1.3fr_0.7fr]" : "lg:grid-cols-2"),
+          )}
+        >
           <RichParagraphs
             items={feature.why.paragraphs}
             className="flex max-w-2xl flex-col gap-5 text-[17px] leading-[1.75] text-white/78"
           />
           {firstShot ? (
-            <Screenshot slot={firstShot} className="mx-auto w-[220px] sm:w-[240px]" />
+            <Screenshot
+              slot={firstShot}
+              className={cn(
+                "mx-auto",
+                firstIsPhone
+                  ? "w-[220px] sm:w-[240px]"
+                  : frameWidthClass(firstShot.key, firstShot.device),
+              )}
+            />
           ) : null}
         </div>
       </PageSection>
@@ -165,11 +182,7 @@ export function FeatureTemplate({ feature }: { feature: FeaturePage }) {
           eyebrow={t("feature.screenshotsEyebrow")}
           title={t("feature.screenshotsTitle", { appName: APP_NAME })}
         >
-          <div className="flex flex-wrap items-start justify-center gap-10">
-            {moreShots.map((slot) => (
-              <Screenshot key={slot.key} slot={slot} className={frameWidthClass(slot.key)} />
-            ))}
-          </div>
+          <ScreenshotGallery slots={moreShots} />
         </PageSection>
       ) : null}
 

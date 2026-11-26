@@ -169,6 +169,12 @@ export type FeatureIconKey =
 
 export type ScreenshotSlot = {
   key: ScreenshotKey;
+  /**
+   * Device to show the screen on (default: the key's device, iPhone for app
+   * screens). Handheld keys also exist on `android`, `ipad` and
+   * `android-tablet`; the capture always follows the page locale.
+   */
+  device?: import("@/lib/screenshots").Device;
   /** Caption shown under the device; also used as alt text when it describes the screen. */
   caption: string;
 };
@@ -261,6 +267,8 @@ export type AudiencePage = PageMeta & {
   hero: ScreenshotSlot | null;
   /** The situation this reader is in. */
   situation: { title: string; paragraphs: readonly string[] };
+  /** Real screenshots shown under the situation (other devices, related screens). */
+  gallery?: readonly ScreenshotSlot[];
   /** How the app helps — each item links to the feature that does it. */
   helps: readonly { title: string; text: string; feature?: FeatureSlug; href?: string }[];
   /** A suggested first week / routine. */

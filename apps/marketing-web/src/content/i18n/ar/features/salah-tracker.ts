@@ -127,6 +127,8 @@ export const salahTracker: FeaturePage = {
       caption: "الرئيسية: مواقيت صلاة اليوم، والتاريخ الهجري، وعدّ تنازلي للصلاة القادمة.",
     },
     { key: "tracker-light", caption: "المتتبّع في السمة الفاتحة." },
+    { key: "tracker", device: "android", caption: "المتتبّع نفسه على هاتف Android." },
+    { key: "tracker", device: "ipad", caption: "على iPad، يظهر جدول اليوم بجانب صلواتك." },
   ],
   examples: {
     title: "كيف يستخدمه الناس",

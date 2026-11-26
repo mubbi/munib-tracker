@@ -120,6 +120,11 @@ export const qazaSalahTracker: FeaturePage = {
   gallery: [
     { key: "tracker", caption: "حلقة القضاء في المتتبّع تُظهر تقدّم قضاء اليوم." },
     { key: "home", caption: "ينضمّ القضاء إلى الصلاة والذكر في هدف اليوم على الشاشة الرئيسية." },
+    {
+      key: "qaza",
+      device: "android-tablet",
+      caption: "على جهاز Android اللوحي: عدّاد لكل صلاة بجانب الحاسبة والمخطّط والصيام والسجل.",
+    },
   ],
   examples: {
     title: "أمثلة عملية",

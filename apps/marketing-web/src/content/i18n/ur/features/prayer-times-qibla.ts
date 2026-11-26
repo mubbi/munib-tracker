@@ -123,11 +123,16 @@ export const prayerTimesQiblaUr: FeaturePage = {
   ],
   gallery: [
     {
-      key: "qibla",
-      caption:
-        "قبلہ کی اسکرین، سمت اور فاصلے کے ساتھ (یہاں ایسی ڈیوائس پر دکھائی گئی ہے جس میں قطب نما سینسر نہیں)۔",
+      key: "home",
+      device: "ipad",
+      caption: "iPad پر آج کا شیڈول، تہجد اور فجر سے اشراق اور عشاء تک۔",
     },
     { key: "watch-schedule", caption: "Apple Watch پر اگلی نماز۔" },
+    {
+      key: "home",
+      device: "android",
+      caption: "Android فون پر آج کے اوقات اور اگلی نماز تک الٹی گنتی۔",
+    },
   ],
   examples: {
     title: "استعمال کے طریقے",

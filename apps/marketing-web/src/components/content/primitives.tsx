@@ -1,14 +1,18 @@
 import { ChevronRight, Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
-import { AppleWatchFrame, RoundWatchFrame, TvFrame } from "@/components/content/device-frames";
+import { DeviceScreen, FRAME_WIDTH } from "@/components/content/device-screen";
 import { RichText } from "@/components/content/rich-text";
-import { DeviceFrame } from "@/components/day-arc/device-frame";
 import type { FaqItem, ScreenshotSlot } from "@/content/types";
 import { LOCALE_META } from "@/i18n/locales";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { getScreenshot, useScreenshot } from "@/lib/screenshots";
+import {
+  captureAlt,
+  getScreenshot,
+  type LocalizedScreenshot,
+  useScreenshot,
+} from "@/lib/screenshots";
 import { breadcrumbSchema, type Crumb, graph } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 
@@ -59,60 +63,46 @@ export function Breadcrumbs({ items, className }: { items: readonly Crumb[]; cla
 }
 
 /** Width class that suits each frame when a caller doesn't size it. */
-export function frameWidthClass(key: ScreenshotSlot["key"]): string {
-  const frame = getScreenshot(key).frame;
-  if (frame === "tv") return "w-full max-w-xl";
-  if (frame === "phone") return "w-[200px] sm:w-[220px]";
-  return "w-[170px] sm:w-[190px]";
+export function frameWidthClass(
+  key: ScreenshotSlot["key"],
+  device?: ScreenshotSlot["device"],
+): string {
+  return FRAME_WIDTH[getScreenshot(key, undefined, device).frame];
 }
 
-/** A real screenshot inside the right device frame, with an optional caption. */
+/**
+ * The capture for a content slot in the page locale. A slot moved onto another
+ * device (`device: "ipad"`, `"tv"`…) gets the generic "{app} on {device}: {scene}"
+ * alt, because the key's own alt describes the default device's layout.
+ */
+export function useSlotScreenshot(slot: ScreenshotSlot): LocalizedScreenshot {
+  const t = useTranslations("screenshots");
+  const shot = useScreenshot(slot.key, { device: slot.device });
+  if (!slot.device || shot.device === getScreenshot(slot.key).device) return shot;
+  const scene = shot.src.slice(shot.src.lastIndexOf("/") + 1, -".webp".length);
+  return { ...shot, alt: captureAlt(t, shot.device, scene) };
+}
+
+/** A real screenshot (in the page locale) inside the right device frame, with an optional caption. */
 export function Screenshot({
   slot,
   preload = false,
   className,
   showCaption = true,
+  sizes,
 }: {
   slot: ScreenshotSlot;
   /** Preload in `<head>`: only for an above-the-fold (LCP) screenshot. */
   preload?: boolean;
   className?: string;
   showCaption?: boolean;
+  /** `sizes` for the image; each frame has a sensible default. */
+  sizes?: string;
 }) {
-  const shot = useScreenshot(slot.key);
-  let device: ReactNode;
-  if (shot.frame === "phone") {
-    device = (
-      <DeviceFrame
-        src={shot.src}
-        alt={shot.alt}
-        width={shot.width}
-        height={shot.height}
-        preload={preload}
-        className="w-full"
-      />
-    );
-  } else {
-    const props = {
-      src: shot.src,
-      alt: shot.alt,
-      width: shot.width,
-      height: shot.height,
-      preload,
-      className: "w-full",
-    };
-    device =
-      shot.frame === "tv" ? (
-        <TvFrame {...props} />
-      ) : shot.frame === "round" ? (
-        <RoundWatchFrame {...props} />
-      ) : (
-        <AppleWatchFrame {...props} />
-      );
-  }
+  const shot = useSlotScreenshot(slot);
   return (
     <figure className={cn("flex flex-col items-center", className)}>
-      {device}
+      <DeviceScreen shot={shot} preload={preload} sizes={sizes} />
       {showCaption ? (
         <figcaption className="mt-4 max-w-xs text-center text-sm leading-relaxed text-white/60">
           {slot.caption}

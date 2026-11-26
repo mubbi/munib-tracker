@@ -4,6 +4,13 @@ import { describe, expect, it } from "vitest";
 import { renderWithIntl } from "@/test-support/intl";
 import { Hero } from "./hero";
 
+/** next/image rewrites `src` through the optimizer; decode the original path. */
+function source(img: HTMLElement): string {
+  const src = img.getAttribute("src") ?? "";
+  const url = new URL(src, "http://localhost");
+  return url.searchParams.get("url") ?? url.pathname;
+}
+
 describe("Hero", () => {
   it("renders the Day Arc headline and CTAs", () => {
     renderWithIntl(<Hero />);
@@ -16,5 +23,24 @@ describe("Hero", () => {
       "href",
       "/en/features",
     );
+  });
+
+  it("shows the real home screen on iPhone, Android, TV and Apple Watch", () => {
+    renderWithIntl(<Hero />);
+    const iphone = screen.getByRole("img", { name: /countdown to Fajr/i });
+    expect(source(iphone)).toBe("/screenshots/iphone/en/dark/home.webp");
+
+    const sources = screen
+      .getAllByRole("img")
+      .map(source)
+      .filter((s) => s.startsWith("/screenshots/"));
+    expect(sources).toEqual(
+      expect.arrayContaining([
+        "/screenshots/android/en/dark/home.webp",
+        "/screenshots/tv/en/dark/home.webp",
+        "/screenshots/watch/en/dark/schedule.webp",
+      ]),
+    );
+    expect(screen.getByRole("img", { name: /on Apple Watch/i })).toBeInTheDocument();
   });
 });

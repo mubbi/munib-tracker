@@ -28,6 +28,10 @@ export const quranLearnersAr: AudiencePage = {
       "ويواجه الحفّاظ تحديًا ثانيًا: المراجعة. فالمقاطع الجديدة تُزاحم القديمة ما لم يكن هناك نظام يعيدها.",
     ],
   },
+  gallery: [
+    { key: "quran", device: "tv", caption: "تابع من حيث توقفت على التلفاز." },
+    { key: "quran", device: "ipad", caption: "على iPad، تجاور أدوات الدراسة قائمة السور." },
+  ],
   helps: [
     {
       title: "تعلّم القراءة",

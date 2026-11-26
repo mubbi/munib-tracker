@@ -95,7 +95,8 @@
         "text": "Export a backup file from Settings and import it on another device, without an account."
       }
     },
-    "more": "Read the full <privacy>privacy policy</privacy> or see <why>why we built it this way</why>."
+    "more": "Read the full <privacy>privacy policy</privacy> or see <why>why we built it this way</why>.",
+    "devicesCaption": "The same tracker on the TV, an Android tablet, iPhone and iPad. Sign in to keep them in step."
   },
   "cta": {
     "title": "Ready when you are",

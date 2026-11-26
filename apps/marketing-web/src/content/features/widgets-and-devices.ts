@@ -116,8 +116,23 @@ export const widgetsAndDevices: FeaturePage = {
     },
   ],
   gallery: [
-    { key: "wear-salah-tile", caption: "The next-Salah tile on Wear OS." },
+    {
+      key: "home",
+      caption: "Home on iPhone: today's Salah times, the next-Salah countdown and Today's Goal.",
+    },
+    { key: "home", device: "android", caption: "The same home screen on an Android phone." },
+    {
+      key: "home",
+      device: "ipad",
+      caption: "On iPad, prayer times, Today's Goal and today's schedule sit side by side.",
+    },
+    {
+      key: "tracker",
+      device: "android-tablet",
+      caption: "The tracker on an Android tablet, with today's schedule alongside.",
+    },
     { key: "tv-home", caption: "Munib Tracker on Apple TV." },
+    { key: "wear-tasbeeh-tile", caption: "The Tasbeeh tile on Wear OS." },
   ],
   examples: {
     title: "Ways to use it",

@@ -77,7 +77,15 @@
     "allComparisons": "All comparisons",
     "allComparisonsDescription": "Every app comparison in one place.",
     "ctaTitle": "Try {appName} and decide for yourself",
-    "ctaText": "It's free with no ads or account, so there's nothing to lose by trying it alongside the app you use now."
+    "ctaText": "It's free with no ads or account, so there's nothing to lose by trying it alongside the app you use now.",
+    "glanceEyebrow": "In the app",
+    "glanceTitle": "{appName} at a glance",
+    "glance": {
+      "home": "Home: today's Salah times and Today's Goal.",
+      "tracker": "The Salah tracker on Android.",
+      "quran": "The Qur'an: continue reading, search and khatm.",
+      "zikr": "Adhkar for each part of the day, on Android."
+    }
   },
   "comparisonTable": {
     "status": {

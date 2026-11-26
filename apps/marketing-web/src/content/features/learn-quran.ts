@@ -118,6 +118,14 @@ export const learnQuran: FeaturePage = {
       text: "All lessons are bundled with the app and work without a connection.",
     },
   ],
+  gallery: [
+    {
+      key: "quran",
+      device: "ipad",
+      caption:
+        "On iPad, the study tools (Learn Qur'an, khatm, memorization and practice) sit beside the surah list.",
+    },
+  ],
   examples: {
     title: "Who it suits",
     items: [

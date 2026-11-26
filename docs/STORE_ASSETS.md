@@ -214,6 +214,16 @@ _Last reviewed: 2026-11-26 for App Store slots (simulators on iOS / tvOS / watch
 - **Wear OS Next Salah tile** reads the phone's snapshot over the Wearable Data Layer; an unpaired emulator shows the fallback (**Munib Tracker / Mark Salah**). Pair a phone emulator to capture the next-prayer state.
 - **iPhone Duo status bar:** glyph colour in the Duo's vertical bar does not follow each screen's `StatusBar` style (dark clock on the night home hero in light theme — `iphone-duo/portrait/*/01-home`). iPhone 17 Pro on iOS 27.2 is fine. Open app issue — see [`BACKLOG.md`](./BACKLOG.md).
 
+## Marketing website (`apps/marketing-web`)
+
+The marketing site shows the **raw native captures** (not the studio frames) inside its own device frames, in the visitor's language. After a capture run, refresh them:
+
+```bash
+pnpm --filter marketing-web sync:screenshots
+```
+
+This converts `store-assets/captures-native/{ios,android,ipad,android-tablet,android-tv,watch,wear-os}/<locale>/<theme>/*.png` to WebP under `apps/marketing-web/public/screenshots/<device>/<locale>/<theme>/<scene>.webp` (iPhone light + dark, other devices dark) and regenerates `src/lib/screenshot-manifest.generated.ts`. Devices without a locale (Apple Watch, Wear OS) fall back to English.
+
 ## Apple TV / Android TV assets
 
 Living-room builds use the same product binary (`EXPO_TV=1`) — see [`TV.md`](./TV.md).

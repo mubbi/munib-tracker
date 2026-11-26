@@ -4,7 +4,13 @@ import { useLocale, useTranslations } from "next-intl";
 import { Blocks, blockText, Note, tableOfContents } from "@/components/content/blocks";
 import { DownloadCta } from "@/components/content/download-cta";
 import { PageHero } from "@/components/content/page-hero";
-import { DateStamp, FaqList, JsonLdScript, LinkCard } from "@/components/content/primitives";
+import {
+  DateStamp,
+  FaqList,
+  JsonLdScript,
+  LinkCard,
+  Screenshot,
+} from "@/components/content/primitives";
 import { RichText } from "@/components/content/rich-text";
 import { featureHref, getFeature } from "@/content/features";
 import { articleByHref, articleHref } from "@/content/resources";
@@ -12,8 +18,12 @@ import { categoryHref, getCategory } from "@/content/resources/categories";
 import type { Article } from "@/content/types";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
+import { type Frame, getScreenshot } from "@/lib/screenshots";
 import { readingMinutes } from "@/lib/seo";
 import { articleSchema, graph } from "@/lib/structured-data";
+import { cn } from "@/lib/utils";
+
+const PHONE_FRAMES = new Set<Frame>(["phone", "android"]);
 
 type TemplatesT = ReturnType<typeof useTranslations<"templates">>;
 
@@ -40,6 +50,11 @@ export function ArticleTemplate({ article }: { article: Article }) {
   const minutes = readingMinutes(text);
   const toc = tableOfContents(article.body);
   const tieIn = getFeature(article.appTieIn.feature, locale);
+  // The feature's own hero screen illustrates the tie-in — phones only, so it stays small.
+  const tieInShot =
+    tieIn?.hero && PHONE_FRAMES.has(getScreenshot(tieIn.hero.key, locale, tieIn.hero.device).frame)
+      ? tieIn.hero
+      : null;
   const related = article.related
     .map((href) => relatedCard(href, locale, t))
     .filter((c) => c !== null);
@@ -117,7 +132,12 @@ export function ArticleTemplate({ article }: { article: Article }) {
           </div>
 
           {tieIn ? (
-            <div className="mt-10">
+            <div
+              className={cn(
+                "mt-10",
+                tieInShot && "grid items-center gap-8 sm:grid-cols-[minmax(0,1fr)_auto]",
+              )}
+            >
               <Note
                 tone="app"
                 title={t("article.tieInTitle", { feature: tieIn.navLabel })}
@@ -127,6 +147,14 @@ export function ArticleTemplate({ article }: { article: Article }) {
                   href: featureHref(tieIn.slug),
                 })}
               />
+              {tieInShot ? (
+                <Screenshot
+                  slot={tieInShot}
+                  showCaption={false}
+                  className="mx-auto w-[150px] sm:w-[140px]"
+                  sizes="150px"
+                />
+              ) : null}
             </div>
           ) : null}
 

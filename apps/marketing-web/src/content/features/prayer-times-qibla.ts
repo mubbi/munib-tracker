@@ -129,11 +129,16 @@ export const prayerTimesQibla: FeaturePage = {
   ],
   gallery: [
     {
-      key: "qibla",
-      caption:
-        "The Qibla screen with the bearing and distance (shown here on a device without a compass sensor).",
+      key: "home",
+      device: "ipad",
+      caption: "Today's schedule on iPad, from Tahajjud and Fajr through Ishraq to Isha.",
     },
     { key: "watch-schedule", caption: "The next Salah on Apple Watch." },
+    {
+      key: "home",
+      device: "android",
+      caption: "Today's times and the countdown to the next Salah on an Android phone.",
+    },
   ],
   examples: {
     title: "Ways to use it",

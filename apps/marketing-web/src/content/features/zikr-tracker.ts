@@ -127,6 +127,11 @@ export const zikrTracker: FeaturePage = {
     },
     { key: "wear-tasbeeh-tile", caption: "The Tasbeeh tile on Wear OS." },
     { key: "names", caption: "The 99 Names of Allah with meanings and audio." },
+    {
+      key: "zikr",
+      device: "tv",
+      caption: "Adhkar that are due now on the TV, ready to start with the remote.",
+    },
   ],
   examples: {
     title: "Ways to use it",

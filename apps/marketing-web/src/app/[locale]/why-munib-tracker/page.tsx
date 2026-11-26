@@ -94,7 +94,7 @@ export default function WhyPage() {
             ))}
           </ul>
           <Screenshot
-            slot={{ key: "tracker", caption: t("promises.caption") }}
+            slot={{ key: "tracker", device: "android", caption: t("promises.caption") }}
             className="mx-auto w-[200px]"
           />
         </div>

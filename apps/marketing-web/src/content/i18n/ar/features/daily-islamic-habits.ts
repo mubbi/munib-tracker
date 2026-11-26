@@ -132,6 +132,11 @@ export const dailyIslamicHabits: FeaturePage = {
   gallery: [
     { key: "tracker", caption: "تقدّم اليوم في الصلاة والوتر والأذكار والقضاء والختم." },
     { key: "home-light", caption: "الشاشة الرئيسية في السمة الفاتحة." },
+    {
+      key: "home",
+      device: "ipad",
+      caption: "على iPad، يظهر هدف اليوم بجانب جدول اليوم وخطة الختم.",
+    },
   ],
   examples: {
     title: "أمثلة على الروتين",
