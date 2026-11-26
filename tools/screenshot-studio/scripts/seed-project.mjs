@@ -2,6 +2,9 @@
 // Run from repo root:  pnpm seed:screenshot-studio
 // Pipeline: docs/STORE_ASSETS.md
 //
+// Look: scripts/deck-style.mjs (Day Arc template storyline; restyle an existing
+// project without re-seeding via scripts/apply-deck-style.mjs).
+//
 // Copy rules: one idea per headline, 3–5 words per line, intentional line breaks,
 // one **emphasis** word per slide (rendered as the Forest accent gradient).
 // App ships 24 UI locales (en + 23) — never claim "3 languages".
@@ -9,6 +12,7 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { styleDeck } from "./deck-style.mjs";
 import { readSpec, studioRoot as root } from "./paths.mjs";
 
 const spec = readSpec();
@@ -104,13 +108,6 @@ const COPY = {
       ur: "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**",
     },
   },
-  featureGraphic: {
-    headline: {
-      en: "Salah, Zikr, Qaza & learning — offline.\n24 languages. Private by design.",
-      ar: "صلاة وذكر وقضاء وتعلّم — بدون إنترنت.\n24 لغة. خصوصية بالتصميم.",
-      ur: "نماز، ذکر، قضا اور تعلیم — آف لائن۔\n24 زبانیں۔ رازداری بنیادی اصول۔",
-    },
-  },
 };
 
 const SHOT = (platform, name) => `/screenshots/app/${platform}/{locale}/${name}.jpg`;
@@ -121,9 +118,8 @@ const DEVICE_CAPTURE_PLATFORM = {
   "iphone-duo": "ios",
   // Native iPad Pro 13" captures (`pnpm screenshots:ipad`) — 3:4 fills the iPad frame.
   ipad: "ipad",
-  "ios-header": "ios",
+  "ios-universal": "ios",
   "ios-header-wide": "ios",
-  "ios-search": "ios",
   "ios-search-3x2": "ios",
   android: "android",
   "android-7": "android",
@@ -131,28 +127,50 @@ const DEVICE_CAPTURE_PLATFORM = {
   "feature-graphic": "android",
 };
 
+/**
+ * Landscape tablet decks use native Android tablet captures (Tablet_API_35,
+ * 2560×1600 — `CAPTURE_TARGET=android-tablet pnpm screenshots:android`), synced
+ * into public/screenshots/app/android-tablet/. Portrait has no native capture,
+ * so it keeps the phone screens.
+ */
+const DEVICE_LANDSCAPE_PLATFORM = {
+  "android-7": "android-tablet",
+  "android-10": "android-tablet",
+};
+
 // Watch / TV decks read native store captures synced by sync-app-screenshots.mjs
 // into public/screenshots/app/<apple-watch|apple-tv|android-tv>/<locale>/<scene>.png.
 const SURFACE_SHOT = (surface, locale, scene) =>
   `/screenshots/app/${surface}/${locale}/${scene}.png`;
 
+// Badge sits under the hero headline; y leaves room for 2 lines of Urdu Nastaliq.
 const HERO_BADGE = {
-  iphone: { x: 132, y: 520, width: 1056, height: 100, fontSize: 38 },
-  android: { x: 90, y: 320, width: 900, height: 68, fontSize: 27 },
-  ipad: { x: 232, y: 590, width: 1600, height: 100, fontSize: 46 },
+  iphone: { x: 132, y: 600, width: 1056, height: 100, fontSize: 38 },
+  android: { x: 90, y: 384, width: 900, height: 68, fontSize: 27 },
+  ipad: { x: 232, y: 640, width: 1600, height: 70, fontSize: 46 },
 };
 
 function phoneDeck(device) {
   const badge = HERO_BADGE[device];
   const platform = DEVICE_CAPTURE_PLATFORM[device] ?? "android";
   const shot = (name) => SHOT(platform, name);
+  const landPlatform = DEVICE_LANDSCAPE_PLATFORM[device];
+  /** Slide screenshot fields, plus landscape overrides for tablets. */
+  const shots = (name, secondary) => ({
+    screenshot: shot(name),
+    ...(secondary ? { screenshotSecondary: shot(secondary) } : {}),
+    ...(landPlatform ? { screenshotLandscape: SHOT(landPlatform, name) } : {}),
+    ...(landPlatform && secondary
+      ? { screenshotSecondaryLandscape: SHOT(landPlatform, secondary) }
+      : {}),
+  });
   return [
     {
       id: `mt-${device}-01`,
       layout: "hero",
       label: COPY.hero.label,
       headline: COPY.hero.headline,
-      screenshot: shot("home"),
+      ...shots("home"),
       ...(badge
         ? {
             textElements: [
@@ -180,14 +198,14 @@ function phoneDeck(device) {
       layout: "device-bottom",
       label: COPY.salah.label,
       headline: COPY.salah.headline,
-      screenshot: shot("tracker"),
+      ...shots("tracker"),
     },
     {
       id: `mt-${device}-03`,
       layout: "device-top",
       label: COPY.qaza.label,
       headline: COPY.qaza.headline,
-      screenshot: shot("qaza"),
+      ...shots("qaza"),
       inverted: true,
     },
     {
@@ -195,22 +213,21 @@ function phoneDeck(device) {
       layout: "two-devices",
       label: COPY.library.label,
       headline: COPY.library.headline,
-      screenshot: shot("zikr"),
-      screenshotSecondary: shot("quran"),
+      ...shots("zikr", "quran"),
     },
     {
       id: `mt-${device}-05`,
       layout: "device-bottom",
       label: COPY.qibla.label,
       headline: COPY.qibla.headline,
-      screenshot: shot("qibla"),
+      ...shots("qibla"),
     },
     {
       id: `mt-${device}-06`,
       layout: "hero",
       label: COPY.names.label,
       headline: COPY.names.headline,
-      screenshot: shot("names-of-allah"),
+      ...shots("names-of-allah"),
       inverted: true,
     },
     {
@@ -218,7 +235,7 @@ function phoneDeck(device) {
       layout: "device-bottom",
       label: COPY.more.label,
       headline: COPY.more.headline,
-      screenshot: shot("tasbeeh"),
+      ...shots("tasbeeh"),
       inverted: true,
     },
   ];
@@ -277,15 +294,21 @@ function tvDeck(device) {
   });
 }
 
-/** App Store product page header / search results — one asset per locale. */
-function bannerDeck(device) {
+/**
+ * App Store creative assets (product page header / search results) — one per
+ * locale. The studio pins the icon + phrase inside Apple's art safe area; the
+ * two phones (home + Qur'an) sit in the auxiliary area and may be cropped.
+ * No label: the App Store already prints the app name beside the artwork.
+ */
+function creativeDeck(device) {
   return [
     {
       id: `mt-${device}-01`,
-      layout: "split-landscape",
-      label: COPY.hero.label,
+      layout: "creative-asset",
+      label: {},
       headline: COPY.hero.headline,
       screenshot: SHOT("ios", "home"),
+      screenshotSecondary: SHOT("ios", "quran"),
     },
   ];
 }
@@ -301,35 +324,38 @@ const state = {
   orientation: "portrait",
   appIcon: "/app-icon.png",
   slidesByDevice: {
-    iphone: phoneDeck("iphone"),
-    android: phoneDeck("android"),
-    ipad: phoneDeck("ipad"),
-    "android-7": phoneDeck("android-7"),
-    "android-10": phoneDeck("android-10"),
-    "iphone-duo": phoneDeck("iphone-duo"),
+    iphone: styleDeck("iphone", phoneDeck("iphone")),
+    android: styleDeck("android", phoneDeck("android")),
+    ipad: styleDeck("ipad", phoneDeck("ipad")),
+    "android-7": styleDeck("android-7", phoneDeck("android-7")),
+    "android-10": styleDeck("android-10", phoneDeck("android-10")),
+    "iphone-duo": styleDeck("iphone-duo", phoneDeck("iphone-duo")),
     "apple-watch": watchDeck(),
-    "apple-tv": tvDeck("apple-tv"),
-    "ios-header": bannerDeck("ios-header"),
-    "ios-header-wide": bannerDeck("ios-header-wide"),
-    "ios-search": bannerDeck("ios-search"),
-    "ios-search-3x2": bannerDeck("ios-search-3x2"),
+    "apple-tv": styleDeck("apple-tv", tvDeck("apple-tv")),
+    "ios-universal": creativeDeck("ios-universal"),
+    "ios-header-wide": creativeDeck("ios-header-wide"),
+    "ios-search-3x2": creativeDeck("ios-search-3x2"),
     "wear-os": wearDeck(),
-    "android-tv": tvDeck("android-tv"),
+    "android-tv": styleDeck("android-tv", tvDeck("android-tv")),
+    // Android TV banner = the full logo only (icon + app name); Google forbids
+    // extra-info text, so no headline.
     "tv-banner": [
       {
         id: "mt-tv-banner-01",
         layout: "feature-graphic",
         label: {},
-        headline: COPY.hero.badge,
+        headline: {},
         screenshot: "",
       },
     ],
+    // Play feature graphic: app name + one short value phrase, centred (no device
+    // imagery or icon-style branding, per Google's feature graphic guidelines).
     "feature-graphic": [
       {
         id: "mt-feature-graphic-01",
         layout: "feature-graphic",
         label: {},
-        headline: COPY.featureGraphic.headline,
+        headline: COPY.hero.headline,
         screenshot: "",
       },
     ],

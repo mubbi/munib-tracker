@@ -18,13 +18,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { DEVICE_LABEL, DEVICES_BY_PLATFORM, supportsLandscape } from "@/lib/constants";
+import { DEVICE_LABEL, DEVICES_BY_PLATFORM, supportsLandscape, THEMES } from "@/lib/constants";
 import { detectPlatform } from "@/lib/defaults";
 import type { Device, Orientation } from "@/lib/types";
 
 type Props = {
   appName: string;
   setAppName: (v: string) => void;
+  themeId: string;
+  setThemeId: (v: string) => void;
   connectedCanvas: boolean;
   setConnectedCanvas: (v: boolean) => void;
   locale: string;
@@ -72,6 +74,28 @@ export function Toolbar(props: Props) {
         title="App name (click to edit)"
         disabled={props.busy}
       />
+
+      <Select value={props.themeId} onValueChange={props.setThemeId} disabled={props.busy}>
+        <SelectTrigger className="h-8 w-40 text-xs" aria-label="Theme" title="Colour theme">
+          <SelectValue placeholder="Theme" />
+        </SelectTrigger>
+        <SelectContent>
+          {Object.values(THEMES).map((t) => (
+            <SelectItem key={t.id} value={t.id}>
+              <span className="flex items-center gap-2">
+                <span
+                  aria-hidden
+                  className="flex h-3.5 w-5 overflow-hidden rounded-xs border"
+                  style={{ background: t.bg }}
+                >
+                  <span className="ml-auto h-full w-2" style={{ background: t.accent }} />
+                </span>
+                {t.name}
+              </span>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
       <span aria-hidden className="mx-1 h-5 w-px bg-border" />
 

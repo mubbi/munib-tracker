@@ -1,0 +1,62 @@
+/*
+ * Slide canvas typography + headline emphasis variants.
+ * Kept apart from globals.css (editor chrome) — everything here ends up in
+ * exported PNGs.
+ */
+
+/* ── Per-locale font stacks (the canvas root carries lang=…) ───────────── */
+.st-canvas[lang="ar"] {
+  font-family: var(--font-jakarta), var(--font-plex-arabic), system-ui, sans-serif;
+}
+.st-canvas[lang="ur"] {
+  font-family: var(--font-jakarta), var(--font-naskh), system-ui, sans-serif;
+}
+/* Urdu readers expect Nastaliq for display copy (marketing site does the same). */
+.st-canvas[lang="ur"] .st-headline {
+  font-family: var(--font-jakarta), var(--font-nastaliq), var(--font-naskh), serif;
+}
+/* ── **emphasis** variants (Caption sets data-hl + the --hl-* vars) ────── */
+[data-hl="gradient"] .hl-em {
+  background-image: var(--hl-gradient);
+}
+[data-hl="gold"] .hl-em {
+  background: none;
+  -webkit-text-fill-color: var(--hl-color);
+  color: var(--hl-color);
+}
+[data-hl="box"] .hl-em {
+  background: var(--hl-box);
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--hl-box-fg);
+  color: var(--hl-box-fg);
+  padding: 0.02em 0.2em 0.08em;
+  margin: 0 0.04em;
+  border-radius: 0.2em;
+  box-shadow: var(--hl-box-shadow);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+[data-hl="marker"] .hl-em {
+  background: linear-gradient(
+    180deg,
+    transparent 58%,
+    var(--hl-marker) 58%,
+    var(--hl-marker) 90%,
+    transparent 90%
+  );
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: inherit;
+  padding: 0 0.06em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ── Label as a pill chip (open-assets "chapter" pill) ─────────────────── */
+.st-label-pill {
+  display: inline-block;
+  border-radius: 9999px;
+  padding: 0.42em 1em 0.38em;
+}

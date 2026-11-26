@@ -96,18 +96,25 @@ function mergeWithDefaults(parsed: Partial<ProjectState>): ProjectState {
     typeof parsed.themeId === "string" && parsed.themeId.trim()
       ? parsed.themeId
       : DEFAULT_PROJECT.themeId;
+  // Drop decks for devices that no longer exist (e.g. the old 16:9 `ios-header` /
+  // `ios-search` decks, now the single `ios-universal` App Store creative asset).
+  const knownDevice = (d: unknown): d is Device =>
+    typeof d === "string" && d in DEFAULT_PROJECT.slidesByDevice;
   const slidesByDevice = parsed.slidesByDevice
     ? Object.fromEntries(
-        Object.entries(parsed.slidesByDevice).map(([device, slides]) => [
-          device,
-          Array.isArray(slides) ? slides.map((slide) => migrateSlide(slide as Slide)) : [],
-        ]),
+        Object.entries(parsed.slidesByDevice)
+          .filter(([device]) => knownDevice(device))
+          .map(([device, slides]) => [
+            device,
+            Array.isArray(slides) ? slides.map((slide) => migrateSlide(slide as Slide)) : [],
+          ]),
       )
     : {};
   const merged: ProjectState = {
     ...DEFAULT_PROJECT,
     ...parsed,
     schemaVersion: PROJECT_SCHEMA_VERSION,
+    device: knownDevice(parsed.device) ? parsed.device : DEFAULT_PROJECT.device,
     themeId,
     connectedCanvas,
     slidesByDevice: {

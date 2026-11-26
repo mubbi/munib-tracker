@@ -137,6 +137,8 @@ After each capture run (light **and** dark) for a **studio locale** (`packages/s
 
 Native Maestro output is PNG; files land with `.jpg` names for deck compatibility. `sync-app-screenshots.mjs` accepts `.jpg`, `.jpeg`, or `.png` sources (and still falls back to the legacy flat `<locale>/` path without a theme folder). iOS and Android stay in separate trees so captures never overwrite across platforms.
 
+**Android tablets:** `CAPTURE_TARGET=android-tablet pnpm screenshots:android` (Tablet_API_35, 2560×1600) writes `captures-native/android-tablet/` only — no aliases. `sync:screenshot-captures` copies the 8 studio scenes from there into `public/screenshots/app/android-tablet/`, and the 7"/10" decks use them for **landscape** slides (`screenshotLandscape` / `screenshotSecondaryLandscape` in `seed-project.mjs`). Portrait tablet slides keep the phone captures.
+
 ## Screenshot Studio (`tools/screenshot-studio/`)
 
 Standalone **Next.js** editor (npm, not pnpm workspace) that composes headlines + device frames at exact store dimensions.
@@ -163,7 +165,7 @@ Full detail: [`tools/screenshot-studio/README.md`](../tools/screenshot-studio/RE
 | `captures-native/`                          | Full native matrix (platform × locale × theme × scene) + `watch/en/`                                                                                                                                                 |
 | `captures/<android\|ios>/<locale>/<theme>/` | Studio input images per platform × locale × theme                                                                                                                                                                    |
 | `ios/screenshots/`                          | App Store PNGs (`6.9-inch/`, `6.5-inch/`, `6.3-inch/`, `iphone-duo/` native + `iphone-duo-studio/`, `13-inch/` iPad, `watch-ultra-3/` native + `apple-watch/` studio, `apple-tv-1080p/` native + `apple-tv/` studio) |
-| `ios/product-page/`                         | Product page creative assets: `header/<WxH>/<locale>.png`, `search-results/<WxH>/<locale>.png`                                                                                                                       |
+| `ios/product-page/`                         | App Store creative assets: `universal/5244x2950/`, `header/3840x1646/`, `search-results/<WxH>/` → `<locale>.png`                                                                                                     |
 | `android/screenshots/`                      | Play Store PNGs (`phone/`, `tablet-7-inch/`, `tablet-10-inch/` portrait/landscape, `wear-os/`, `android-tv-1080p/` native + `android-tv/` studio)                                                                    |
 | `android/feature-graphic/`                  | Play feature graphic 1024×500 (`<locale>.png`)                                                                                                                                                                       |
 | `android/tv-banner/`                        | Play Android TV banner 1280×720 (`<locale>.png`)                                                                                                                                                                     |
@@ -180,33 +182,36 @@ _Last reviewed: 2026-11-26 for App Store slots (simulators on iOS / tvOS / watch
 
 **App Store**
 
-| Slot                                 | Size(s)                                       | Source                                  | Status                                                                                  |
-| ------------------------------------ | --------------------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------------- |
-| iPhone 6.9"                          | 1320×2868                                     | Studio ← `captures/ios`                 | ✅ 2026-11-26 — iPhone 17 Pro, iOS 27.2 captures                                        |
-| iPhone 6.5"                          | 1242×2688                                     | Studio ← `captures/ios`                 | ✅ 2026-11-26                                                                           |
-| iPhone 6.3"                          | 1206×2622                                     | Studio ← `captures/ios`                 | ✅ 2026-11-26                                                                           |
-| iPhone Duo (4 slots)                 | 2007×2853 · 2853×2007 · 1398×2034 · 2034×1398 | Native `screenshots:duo`                | ✅ 2026-11-19 — all 4 slots × en/ar/ur, reviewed                                        |
-| iPad 13"                             | 2064×2752                                     | Studio ← `captures/ipad` (native)       | ✅ 2026-11-26 — native iPad Pro 13-inch captures (`pnpm screenshots:ipad`)              |
-| Apple Watch Ultra 3                  | 422×514                                       | Native `screenshots:watch`              | ✅ 2026-11-26 — redesigned paged UI (watchOS sim keeps the real clock)                  |
-| Apple Watch (studio deck)            | 422×514 · 410×502                             | Studio                                  | ✅ 2026-11-19 — full-bleed, English UI in every locale (watch strings are English-only) |
-| Apple TV 1080p                       | 1920×1080                                     | Native `RUN_CAPTURE=1 screenshots:tvos` | ✅ 2026-11-26 — light theme                                                             |
-| Apple TV (studio deck)               | 3840×2160 · 1920×1080                         | Studio                                  | ✅ 2026-11-19 — ar/ur headlines over English TV captures (TV capture is en-only)        |
-| Product page header / search results | 5244×2950 · 3840×1646 · 3840×2560 · 1920×1280 | Studio ← `captures/ios`                 | ✅ 2026-11-19                                                                           |
+| Slot                                                  | Size(s)                                       | Source                                  | Status                                                                                  |
+| ----------------------------------------------------- | --------------------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------------- |
+| iPhone 6.9"                                           | 1320×2868                                     | Studio ← `captures/ios`                 | ✅ 2026-11-26 — iPhone 17 Pro, iOS 27.2 captures                                        |
+| iPhone 6.5"                                           | 1242×2688                                     | Studio ← `captures/ios`                 | ✅ 2026-11-26                                                                           |
+| iPhone 6.3"                                           | 1206×2622                                     | Studio ← `captures/ios`                 | ✅ 2026-11-26                                                                           |
+| iPhone Duo (4 slots)                                  | 2007×2853 · 2853×2007 · 1398×2034 · 2034×1398 | Native `screenshots:duo`                | ✅ 2026-11-19 — all 4 slots × en/ar/ur, reviewed                                        |
+| iPad 13"                                              | 2064×2752                                     | Studio ← `captures/ipad` (native)       | ✅ 2026-11-26 — native iPad Pro 13-inch captures (`pnpm screenshots:ipad`)              |
+| Apple Watch Ultra 3                                   | 422×514                                       | Native `screenshots:watch`              | ✅ 2026-11-26 — redesigned paged UI (watchOS sim keeps the real clock)                  |
+| Apple Watch (studio deck)                             | 422×514 · 410×502                             | Studio                                  | ✅ 2026-11-19 — full-bleed, English UI in every locale (watch strings are English-only) |
+| Apple TV 1080p                                        | 1920×1080                                     | Native `RUN_CAPTURE=1 screenshots:tvos` | ✅ 2026-11-26 — light theme                                                             |
+| Apple TV (studio deck)                                | 3840×2160 · 1920×1080                         | Studio                                  | ✅ 2026-11-19 — ar/ur headlines over English TV captures (TV capture is en-only)        |
+| Creative assets (universal / header / search results) | 5244×2950 · 3840×1646 · 3840×2560 · 1920×1280 | Studio ← `captures/ios`                 | ✅ 2026-11-26 — safe-area composition, RGB (no alpha)                                   |
 
 **Google Play**
 
-| Slot                     | Size(s)                                      | Source                                        | Status                                                                      |
-| ------------------------ | -------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------- |
-| Phone                    | 1080×1920                                    | Studio ← `captures/android`                   | ✅ 2026-11-19 — Phone_API_35 (Android 15) captures, en/ar/ur, reviewed      |
-| 7" / 10" tablet          | 1200×1920 · 1600×2560 (portrait + landscape) | Studio ← `captures/android` (phone)           | ✅ 2026-11-19 — phone captures in a tablet frame (no native tablet capture) |
-| Feature graphic          | 1024×500                                     | Studio                                        | ✅ 2026-11-19                                                               |
-| Wear OS                  | 1024×1024 (1:1)                              | Studio ← `captures-native/wear-os`            | ✅ 2026-11-19 — Next Salah + Tasbeeh tiles, English UI in every locale      |
-| Android TV 1080p         | 1920×1080                                    | Native `RUN_CAPTURE=1 screenshots:android-tv` | ✅ In git                                                                   |
-| Android TV (studio deck) | 1920×1080                                    | Studio                                        | ✅ 2026-11-19 — ar/ur headlines over English TV captures                    |
-| Android TV banner        | 1280×720                                     | Studio                                        | ✅ 2026-11-19 (`android/tv-banner/`)                                        |
+| Slot                     | Size(s)                                      | Source                                                                                | Status                                                                                                                      |
+| ------------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Phone                    | 1080×1920                                    | Studio ← `captures/android`                                                           | ✅ 2026-11-19 — Phone_API_35 (Android 15) captures, en/ar/ur, reviewed                                                      |
+| 7" / 10" tablet          | 1200×1920 · 1600×2560 (portrait + landscape) | Studio ← `captures/android` (portrait) + `captures-native/android-tablet` (landscape) | ⚠️ 2026-11-19 exports — landscape now uses native Tablet_API_35 captures in the studio (2026-11-26); re-export + distribute |
+| Feature graphic          | 1024×500                                     | Studio                                                                                | ✅ 2026-11-19                                                                                                               |
+| Wear OS                  | 1024×1024 (1:1)                              | Studio ← `captures-native/wear-os`                                                    | ✅ 2026-11-19 — Next Salah + Tasbeeh tiles, English UI in every locale                                                      |
+| Android TV 1080p         | 1920×1080                                    | Native `RUN_CAPTURE=1 screenshots:android-tv`                                         | ✅ In git                                                                                                                   |
+| Android TV (studio deck) | 1920×1080                                    | Studio                                                                                | ✅ 2026-11-19 — ar/ur headlines over English TV captures                                                                    |
+| Android TV banner        | 1280×720                                     | Studio                                                                                | ✅ 2026-11-26 — icon + name only, RGB (`android/tv-banner/`)                                                                |
+| Feature graphic          | 1024×500                                     | Studio                                                                                | ✅ 2026-11-26 — name + phrase centred, RGB (`android/feature-graphic/`)                                                     |
 
 **Known capture caveats** (all devices):
 
+- **Android phone + tablet `home` (2026-11-26):** shows the first-run "Choose your madhhab for rulings" card in en/ar/ur. The seed fix (`madhhab: "shafii"` in `lib/demo-data.mjs`, 1ef4b6bd) landed mid-run; re-capture `SCENES=home` on Phone_API_35 and Tablet_API_35 (needs a release APK build), then `pnpm sync:screenshot-captures`.
+- **Apple TV `home` / `library` (2026-11-26, en light):** captured scrolled down — home opens on the madhhab card's "Show all views" + Continue card instead of the hero. Re-capture on macOS (`RUN_CAPTURE=1 LOCALES=en THEMES=light pnpm screenshots:tvos`).
 - **Captures span midnight:** the hero clock and Hijri date are live, so a long run can show different dates per locale (the 2026-11-19 iPhone set: en/ar 18 Nov, ur 19 Nov).
 - **Qibla** shows "No compass sensor detected" and **0 km** — simulators have no magnetometer and the demo location is Makkah itself. Consider a demo city elsewhere for marketing shots.
 - **App clock / hero** follow the host's real time (only the status bar is overridden) — night captures get the night hero. Capture in daylight for the day-time look.

@@ -26,7 +26,9 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import {
   allowsLayout,
+  creativeSafeArea,
   isBrandOnlyDevice,
+  isCreativeAssetDevice,
   LAYOUT_HINT,
   LAYOUT_LABEL,
   rendersBrandBanner,
@@ -49,24 +51,33 @@ import type {
   Slide,
   SlideLayout,
   TextElement,
+  Theme,
 } from "@/lib/types";
+import { DesignControls } from "./design-controls";
 import { ScreenshotPicker } from "./screenshot-picker";
 import { getCanvas, getElementTransform } from "./slide-canvas";
+import { TemplateGallery } from "./template-gallery";
 
 type Props = {
   slide: Slide;
   device: Device;
   orientation: Orientation;
   locale: string;
+  theme: Theme;
+  appName?: string;
+  appIcon?: string;
   selectedElementId: ElementId | null;
   onChange: (patch: Partial<Slide>) => void;
   onSelectElement: (id: ElementId | null) => void;
+  onApplyRecipe: (recipeId: string) => void;
 };
 
 const ELEMENT_LABEL: Record<BuiltInElementId, string> = {
   caption: "Headline",
   device: "Device",
   deviceSecondary: "Back device",
+  lens: "Magnifier lens",
+  features: "Feature chips",
 };
 
 export function Inspector({
@@ -74,15 +85,33 @@ export function Inspector({
   device,
   orientation,
   locale,
+  theme,
+  appName,
+  appIcon,
   selectedElementId,
   onChange,
   onSelectElement,
+  onApplyRecipe,
 }: Props) {
   const brandOnly = isBrandOnlyDevice(device);
   const isFeatureGraphic = rendersBrandBanner(device, slide.layout);
+  const isCreative = isCreativeAssetDevice(device);
+  const safeArea = creativeSafeArea(device);
   const isNoDevice = slide.layout === "no-device";
-  const isFullBleed = slide.layout === "full-bleed";
-  const layoutValue: SlideLayout = brandOnly ? "feature-graphic" : slide.layout;
+  // Landscape tablets can carry their own captures (Slide.screenshotLandscape);
+  // edit whichever field the canvas is actually showing.
+  const landscape = orientation === "landscape";
+  const primaryKey = landscape && slide.screenshotLandscape ? "screenshotLandscape" : "screenshot";
+  const secondaryKey =
+    landscape && slide.screenshotSecondaryLandscape
+      ? "screenshotSecondaryLandscape"
+      : "screenshotSecondary";
+  const isFullBleed = !isCreative && slide.layout === "full-bleed";
+  const layoutValue: SlideLayout = brandOnly
+    ? "feature-graphic"
+    : isCreative
+      ? "creative-asset"
+      : slide.layout;
   const layoutOptions = Object.entries(LAYOUT_LABEL).filter(([layout]) =>
     allowsLayout(device, layout as SlideLayout),
   );
@@ -90,7 +119,11 @@ export function Inspector({
   const localeHeadline = slide.headline?.[locale] ?? "";
   // When the active locale is empty, surface the fallback (typically en) as
   // the placeholder so the user sees what they're translating from.
-  const headlineDefault = isFeatureGraphic ? "Your tagline." : "One idea\nper slide.";
+  const headlineDefault = isFeatureGraphic
+    ? "Your tagline."
+    : isCreative
+      ? "One short\nphrase."
+      : "One idea\nper slide.";
   const labelPlaceholder = localeLabel
     ? "FEATURE 01"
     : pickText(slide.label, locale) || "FEATURE 01";
@@ -110,7 +143,11 @@ export function Inspector({
         screenshotSecondary: undefined,
       });
     }
-  }, [brandOnly, onChange, slide.layout]);
+    // App Store creative assets render one fixed, safe-area-aware composition.
+    if (isCreative && slide.layout !== "creative-asset") {
+      onChange({ layout: "creative-asset", transforms: undefined, textElements: undefined });
+    }
+  }, [brandOnly, isCreative, onChange, slide.layout]);
 
   return (
     <div className="flex h-full flex-col">
@@ -125,6 +162,20 @@ export function Inspector({
       </div>
 
       <div className="flex-1 space-y-4 overflow-y-auto p-3">
+        {!isFeatureGraphic && !isCreative && (
+          <TemplateGallery
+            slide={slide}
+            device={device}
+            orientation={orientation}
+            theme={theme}
+            locale={locale}
+            appName={appName}
+            appIcon={appIcon}
+            onApply={onChange}
+            onApplyRecipe={onApplyRecipe}
+          />
+        )}
+
         <div className="space-y-1.5">
           <Label className="text-xs">Layout</Label>
           <Select
@@ -165,10 +216,12 @@ export function Inspector({
           </div>
         )}
 
-        {!isFullBleed && (
+        {!isFullBleed && device !== "tv-banner" && (
           <div className="space-y-1.5">
             <div className="flex items-baseline justify-between">
-              <Label className="text-xs">{isFeatureGraphic ? "Tagline" : "Headline"}</Label>
+              <Label className="text-xs">
+                {isFeatureGraphic ? "Value phrase" : isCreative ? "Short phrase" : "Headline"}
+              </Label>
               <span className="text-[10px] text-muted-foreground">newline = break</span>
             </div>
             <Textarea
@@ -180,33 +233,59 @@ export function Inspector({
           </div>
         )}
 
+        {!isFeatureGraphic && !isCreative && !isFullBleed && (
+          <DesignControls
+            slide={slide}
+            locale={locale}
+            hasDevice={!isNoDevice}
+            onChange={onChange}
+          />
+        )}
+
         {!isFeatureGraphic && !isNoDevice && (
           <div className="space-y-1.5">
             <Label className="text-xs">
-              {slide.layout === "two-devices" ? "Front device screenshot" : "Screenshot"}
+              {isCreative
+                ? "Left phone screenshot"
+                : slide.layout === "two-devices"
+                  ? "Front device screenshot"
+                  : "Screenshot"}
             </Label>
             <ScreenshotPicker
               label="Primary"
-              value={slide.screenshot}
+              value={slide[primaryKey] || ""}
               locale={locale}
-              onChange={(v) => onChange({ screenshot: v })}
+              onChange={(v) => onChange({ [primaryKey]: v })}
             />
           </div>
         )}
 
-        {slide.layout === "two-devices" && (
+        {(isCreative || slide.layout === "two-devices") && (
           <div className="space-y-1.5">
-            <Label className="text-xs">Back device screenshot</Label>
+            <Label className="text-xs">
+              {isCreative ? "Right phone screenshot" : "Back device screenshot"}
+            </Label>
             <ScreenshotPicker
-              label="Secondary (back layer)"
-              value={slide.screenshotSecondary || ""}
+              label={isCreative ? "Secondary (defaults to left)" : "Secondary (back layer)"}
+              value={slide[secondaryKey] || ""}
               locale={locale}
-              onChange={(v) => onChange({ screenshotSecondary: v })}
+              onChange={(v) => onChange({ [secondaryKey]: v })}
             />
           </div>
         )}
 
-        {!isFeatureGraphic && (
+        {isCreative && safeArea && (
+          <p className="rounded-md border bg-muted/40 p-3 text-[11px] leading-relaxed text-muted-foreground">
+            The App Store crops this artwork differently on each device, and only Apple&apos;s art
+            safe area ({safeArea.w}&times;{safeArea.h} at {safeArea.x}, {safeArea.y}) is always
+            visible. The app icon and phrase stay inside it (dashed box in the preview); the phones,
+            sky and skyline are background that may be cropped. Keep the phrase to a few words, with
+            no prices, URLs or awards. Check it in App Store Connect &rarr; Preview before
+            submitting.
+          </p>
+        )}
+
+        {!isFeatureGraphic && !isCreative && (
           <ElementTransformControls
             slide={slide}
             device={device}
@@ -218,13 +297,24 @@ export function Inspector({
           />
         )}
 
-        {isFeatureGraphic && (
+        {device === "feature-graphic" && (
           <p className="rounded-md border bg-muted/40 p-3 text-[11px] leading-relaxed text-muted-foreground">
-            Shows app icon + name + tagline. Drop an icon at{" "}
-            <span className="rounded bg-background px-1 py-0.5 font-mono text-[10px] text-foreground">
+            Google Play: the app name (toolbar) and one short value phrase sit centred in the focal
+            zone (dashed box); pattern, sky and skyline stay at the edges, which Play can crop or
+            cover. Per Google, there&apos;s no device imagery, no icon-style logo and no
+            &ldquo;#1&rdquo; / &ldquo;Free&rdquo; / &ldquo;New&rdquo; / pricing claims. Localize the
+            phrase.
+          </p>
+        )}
+
+        {device === "tv-banner" && (
+          <p className="rounded-md border bg-muted/40 p-3 text-[11px] leading-relaxed text-muted-foreground">
+            Android TV banner: the full logo, meaning the app icon (
+            <span className="rounded-sm bg-background px-1 py-0.5 font-mono text-[10px] text-foreground">
               /public/app-icon.png
-            </span>{" "}
-            (or leave blank — the app initial will be used). Name is set in the toolbar.
+            </span>
+            ) plus the app name from the toolbar, inside the safe area. Google says the banner must
+            not carry extra-info text, a border or a cropped logo, so there&apos;s no phrase field.
           </p>
         )}
       </div>
@@ -252,6 +342,12 @@ function ElementTransformControls({
   const present: ElementId[] = slide.layout === "full-bleed" ? [] : ["caption"];
   if (slide.layout !== "no-device") present.push("device");
   if (slide.layout === "two-devices") present.push("deviceSecondary");
+  if (slide.design?.lens && slide.layout !== "no-device" && slide.layout !== "full-bleed") {
+    present.push("lens");
+  }
+  if (slide.layout === "feature-list" || (slide.layout === "no-device" && slide.design?.features)) {
+    present.push("features");
+  }
   for (const element of slide.textElements || []) present.push(toTextElementId(element.id));
 
   const transforms = slide.transforms || {};
@@ -416,7 +512,7 @@ function ElementTransformControls({
           }}
         />
       ) : (
-        <div className="rounded border border-dashed bg-background/40 p-4 text-center text-[11px] text-muted-foreground">
+        <div className="rounded-sm border border-dashed bg-background/40 p-4 text-center text-[11px] text-muted-foreground">
           No element selected
         </div>
       )}
@@ -449,7 +545,7 @@ function ActiveElementPanel({
   const rotation = transform?.rotation ?? 0;
   const label = elementLabel(activeId);
   return (
-    <div className="space-y-2 rounded border bg-background/60 p-2.5">
+    <div className="space-y-2 rounded-sm border bg-background/60 p-2.5">
       <div className="flex items-center justify-between">
         <span className="flex items-center gap-1 text-xs font-medium">
           {textElement && <Type className="h-3.5 w-3.5" />}
@@ -539,7 +635,7 @@ function TextElementPanel({
 }) {
   const text = element.text?.[locale] ?? pickText(element.text, locale);
   return (
-    <div className="space-y-2 rounded border bg-muted/30 p-2">
+    <div className="space-y-2 rounded-sm border bg-muted/30 p-2">
       <div className="space-y-1">
         <Label className="text-[11px] text-muted-foreground">Text</Label>
         <Textarea

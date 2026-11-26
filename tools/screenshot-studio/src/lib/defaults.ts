@@ -144,14 +144,15 @@ function tvStarter(): Slide[] {
   ];
 }
 
-// Product page header / search results — one asset per locale.
-function bannerStarter(): Slide[] {
+// App Store creative assets (header / search results) — one asset per locale.
+// Keep the phrase short: it must fit Apple's art safe area at every size.
+function creativeStarter(): Slide[] {
   return [
     {
       id: nid(),
-      layout: "split-landscape",
-      label: en("MEET YOUR APP"),
-      headline: en("Sell one\nidea here."),
+      layout: "creative-asset",
+      label: {},
+      headline: en("One short\n**phrase**"),
       screenshot: "",
     },
   ];
@@ -173,10 +174,9 @@ export const DEFAULT_PROJECT: ProjectState = {
     ipad: ipadStarter(),
     "apple-watch": fullBleedStarter(3),
     "apple-tv": tvStarter(),
-    "ios-header": bannerStarter(),
-    "ios-header-wide": bannerStarter(),
-    "ios-search": bannerStarter(),
-    "ios-search-3x2": bannerStarter(),
+    "ios-universal": creativeStarter(),
+    "ios-header-wide": creativeStarter(),
+    "ios-search-3x2": creativeStarter(),
     android: makeStarterSlides(),
     "android-7": tabletStarter("7"),
     "android-10": tabletStarter("10"),

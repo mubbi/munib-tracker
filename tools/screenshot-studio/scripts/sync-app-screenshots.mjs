@@ -53,6 +53,33 @@ for (const platform of PLATFORMS) {
 const expected = PLATFORMS.length * LOCALES.length * FILES.length;
 console.log(`Copied ${copied}/${expected} ${STUDIO_THEME} captures into ${destRoot}`);
 
+// ---------- Native Android tablet captures (landscape tablet decks) ----------
+// `CAPTURE_TARGET=android-tablet pnpm screenshots:android` writes 2560×1600 PNGs
+// to captures-native/android-tablet/ only (no studio aliases), so read them from
+// there. The 7"/10" landscape slides use them; portrait keeps the phone screens.
+{
+  const tabletSrc = path.join(repoRoot, spec.storeAssetsRoot, "captures-native", "android-tablet");
+  let tabletCopied = 0;
+  const tabletMissing = [];
+  for (const locale of LOCALES) {
+    for (const name of FILES) {
+      const src = path.join(tabletSrc, locale, STUDIO_THEME, `${name}.png`);
+      if (!fs.existsSync(src) || fs.statSync(src).size === 0) {
+        tabletMissing.push(`${locale}/${STUDIO_THEME}/${name}.png`);
+        continue;
+      }
+      const dest = path.join(destRoot, "android-tablet", locale);
+      fs.mkdirSync(dest, { recursive: true });
+      fs.copyFileSync(src, path.join(dest, `${name}.jpg`));
+      tabletCopied += 1;
+    }
+  }
+  console.log(
+    `android-tablet: copied ${tabletCopied}/${LOCALES.length * FILES.length}` +
+      (tabletMissing.length ? ` (missing: ${tabletMissing.join(", ")})` : ""),
+  );
+}
+
 // ---------- Watch / TV surfaces (optional) ----------
 // Native `pnpm screenshots:watch|tvos|android-tv` write store-ready PNGs; the
 // studio decks for those surfaces read them from public/screenshots/app/<surface>/.

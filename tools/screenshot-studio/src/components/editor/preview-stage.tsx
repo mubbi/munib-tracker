@@ -166,7 +166,7 @@ export function PreviewStage({
         </div>
       </div>
 
-      <div className="pointer-events-none absolute left-4 top-4 flex items-center gap-1.5 rounded-md bg-background/80 px-2 py-1 text-[11px] text-muted-foreground shadow-sm backdrop-blur">
+      <div className="pointer-events-none absolute left-4 top-4 flex items-center gap-1.5 rounded-md bg-background/80 px-2 py-1 text-[11px] text-muted-foreground shadow-xs backdrop-blur-sm">
         <span className="font-medium text-foreground">{DEVICE_LABEL[device]}</span>
         {activeSlide && (
           <>
@@ -190,7 +190,7 @@ export function PreviewStage({
         )}
       </div>
 
-      <div className="absolute bottom-4 right-4 flex items-center gap-1.5 rounded-md bg-background/85 px-1.5 py-1 text-[10px] tabular-nums text-muted-foreground shadow-sm backdrop-blur">
+      <div className="absolute bottom-4 right-4 flex items-center gap-1.5 rounded-md bg-background/85 px-1.5 py-1 text-[10px] tabular-nums text-muted-foreground shadow-xs backdrop-blur-sm">
         <span className="px-1">
           {slides.length}× {cW}×{cH}
         </span>

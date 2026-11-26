@@ -1,3 +1,5 @@
+import type { SlideDesign } from "./design";
+
 export type Device =
   // App Store
   | "iphone"
@@ -5,10 +7,10 @@ export type Device =
   | "ipad"
   | "apple-watch"
   | "apple-tv"
-  | "ios-header" // product page header 16:9
-  | "ios-header-wide" // product page header ~21:9
-  | "ios-search" // search results asset 16:9
-  | "ios-search-3x2" // search results asset 3:2
+  // App Store creative assets (iOS 27+) — see CREATIVE_SAFE_AREA in constants.ts
+  | "ios-universal" // universal asset 16:9 — header + search results from one image
+  | "ios-header-wide" // product page header 21:9
+  | "ios-search-3x2" // search results 3:2
   // Google Play
   | "android"
   | "android-7"
@@ -31,7 +33,12 @@ export type SlideLayout =
   | "no-device" // big headline + decorative blob, no device
   | "split-landscape" // landscape tablets only: caption left + device right
   | "full-bleed" // raw screenshot fills the canvas (watch / Wear OS / TV store shots)
-  | "feature-graphic"; // brand banner: icon + name + tagline (feature graphic, TV banner)
+  | "feature-graphic" // brand banner: icon + name + tagline (feature graphic, TV banner)
+  | "creative-asset" // App Store header / search art: message in Apple's safe area, phones in the auxiliary area
+  // Template layouts (lib/layout-geometry.ts)
+  | "bleed-bottom" // headline band, device docked to the bottom edge and bleeding off it
+  | "tilted" // headline band, bold 7° tilt bleeding off the corner
+  | "feature-list"; // headline, glass feature chips, docked device
 
 // Per-element rect in canvas pixel space. Optional rotation in degrees and zIndex.
 export type ElementTransform = {
@@ -43,7 +50,7 @@ export type ElementTransform = {
   zIndex?: number;
 };
 
-export type BuiltInElementId = "caption" | "device" | "deviceSecondary";
+export type BuiltInElementId = "caption" | "device" | "deviceSecondary" | "lens" | "features";
 export type TextElementId = `text:${string}`;
 export type ElementId = BuiltInElementId | TextElementId;
 
@@ -74,15 +81,24 @@ export type Slide = {
   label: LocalizedText; // tiny uppercase caption above headline, per locale
   headline: LocalizedText; // multi-line; newlines are intentional, per locale
   screenshot: string; // path under /screenshots/ — may contain {locale}
-  screenshotSecondary?: string; // for two-devices layout — may contain {locale}
+  screenshotSecondary?: string; // two-devices back phone / creative-asset right phone — may contain {locale}
+  // Landscape-orientation overrides (Android tablets: native 16:10 tablet captures
+  // instead of a phone screen cropped into the landscape frame). Fall back to the
+  // portrait fields when absent.
+  screenshotLandscape?: string;
+  screenshotSecondaryLandscape?: string;
   inverted?: boolean; // dark background variant
   // Per-element overrides; when present, replaces layout default placement.
   transforms?: Partial<Record<BuiltInElementId, ElementTransform>>;
   textElements?: TextElement[];
+  // Template look: background, emphasis style, device finish, lens, chips (lib/design.ts).
+  design?: SlideDesign;
 };
 
 export type ThemeId =
   | "munib-tracker"
+  | "munib-night"
+  | "munib-light"
   | "clean-light"
   | "dark-bold"
   | "warm-editorial"

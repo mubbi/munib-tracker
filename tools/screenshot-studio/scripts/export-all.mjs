@@ -22,9 +22,8 @@ const ALL_DECKS = [
   { platform: "ios", device: "ipad", label: "iPad" },
   { platform: "ios", device: "apple-watch", label: "Apple Watch Ultra" },
   { platform: "ios", device: "apple-tv", label: "Apple TV" },
-  { platform: "ios", device: "ios-header", label: "Product Page Header" },
-  { platform: "ios", device: "ios-header-wide", label: "Product Page Header (Wide)" },
-  { platform: "ios", device: "ios-search", label: "Search Results" },
+  { platform: "ios", device: "ios-universal", label: "Universal (Header + Search)" },
+  { platform: "ios", device: "ios-header-wide", label: "Product Page Header (21:9)" },
   { platform: "ios", device: "ios-search-3x2", label: "Search Results (3:2)" },
   { platform: "android", device: "android", label: "Android Phone" },
   {
@@ -97,6 +96,8 @@ async function exportBundle(page) {
         [...document.querySelectorAll("button")].some((b) =>
           /Exporting/i.test(b.textContent || ""),
         ),
+      // waitForFunction(fn, arg, options): options is the THIRD argument.
+      undefined,
       { timeout: 120_000 },
     )
     .catch(() => {});
@@ -108,6 +109,7 @@ async function exportBundle(page) {
       );
       return el && /Export bundle/i.test(el.textContent || "") && !el.disabled;
     },
+    undefined,
     { timeout: 15 * 60_000 },
   );
   await page.waitForTimeout(800);
@@ -115,7 +117,10 @@ async function exportBundle(page) {
 
 async function main() {
   console.log(`Opening ${BASE}…`);
-  const browser = await chromium.launch({ headless: true });
+  // PLAYWRIGHT_CHANNEL=msedge (or chrome) reuses an installed browser instead of
+  // Playwright's downloaded Chromium.
+  const channel = process.env.PLAYWRIGHT_CHANNEL || undefined;
+  const browser = await chromium.launch({ headless: true, channel });
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   page.setDefaultTimeout(60_000);
   await page.goto(BASE, { waitUntil: "networkidle" });

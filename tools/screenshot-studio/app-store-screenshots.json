@@ -6,7 +6,7 @@
   "locales": ["en", "ar", "ur"],
   "locale": "en",
   "device": "ipad",
-  "orientation": "portrait",
+  "orientation": "landscape",
   "appIcon": "/app-icon.png",
   "slidesByDevice": {
     "iphone": [
@@ -34,7 +34,7 @@
             },
             "transform": {
               "x": 132,
-              "y": 520,
+              "y": 600,
               "width": 1056,
               "height": 100,
               "zIndex": 5
@@ -44,11 +44,16 @@
             "color": "#A9C6BB",
             "align": "center"
           }
-        ]
+        ],
+        "design": {
+          "background": "dusk",
+          "highlight": "gold",
+          "labelStyle": "pill"
+        }
       },
       {
         "id": "mt-iphone-02",
-        "layout": "device-bottom",
+        "layout": "bleed-bottom",
         "label": {
           "en": "SALAH TRACKER",
           "ar": "تتبّع الصلاة",
@@ -59,7 +64,12 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gradient",
+          "glow": true
+        }
       },
       {
         "id": "mt-iphone-03",
@@ -75,7 +85,11 @@
           "ur": "**قضا** واضح\nطریقے سے"
         },
         "screenshot": "/screenshots/app/ios/{locale}/qaza.jpg",
-        "inverted": true
+        "inverted": true,
+        "design": {
+          "background": "girih",
+          "highlight": "gold"
+        }
       },
       {
         "id": "mt-iphone-04",
@@ -91,11 +105,15 @@
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
         "screenshot": "/screenshots/app/ios/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg",
+        "design": {
+          "background": "mesh",
+          "highlight": "box"
+        }
       },
       {
         "id": "mt-iphone-05",
-        "layout": "device-bottom",
+        "layout": "tilted",
         "label": {
           "en": "QIBLA",
           "ar": "القبلة",
@@ -106,11 +124,17 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "glow": true,
+          "mirror": true
+        }
       },
       {
         "id": "mt-iphone-06",
-        "layout": "hero",
+        "layout": "bleed-bottom",
         "label": {
           "en": "99 NAMES",
           "ar": "الأسماء الحسنى",
@@ -122,23 +146,41 @@
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
         "screenshot": "/screenshots/app/ios/{locale}/names-of-allah.jpg",
-        "inverted": true
+        "design": {
+          "background": "parchment",
+          "highlight": "marker",
+          "labelStyle": "pill",
+          "finish": "space-black",
+          "lens": {
+            "x": 0.38,
+            "y": 0.68,
+            "zoom": 2.6
+          }
+        }
       },
       {
         "id": "mt-iphone-07",
-        "layout": "device-bottom",
+        "layout": "feature-list",
         "label": {
           "en": "AND MORE",
           "ar": "والمزيد",
           "ur": "اور مزید"
         },
         "headline": {
-          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
+          "en": "Built for your\n**whole day**",
+          "ar": "مصمَّم ليومك\n**كلّه**",
+          "ur": "آپ کے\n**پورے دن** کے لیے"
         },
         "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
-        "inverted": true
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "features": {
+            "en": "Widgets\nPIN lock\nTasbeeh\nJournal\n24 languages",
+            "ar": "ودجات\nقفل PIN\nتسبيح\nيوميات\n24 لغة",
+            "ur": "وجٹس\nPIN لاک\nتسبیح\nجرنل\n24 زبانیں"
+          }
+        }
       }
     ],
     "iphone-duo": [
@@ -155,11 +197,16 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg",
+        "design": {
+          "background": "dusk",
+          "highlight": "gold",
+          "labelStyle": "pill"
+        }
       },
       {
         "id": "mt-iphone-duo-02",
-        "layout": "device-bottom",
+        "layout": "bleed-bottom",
         "label": {
           "en": "SALAH TRACKER",
           "ar": "تتبّع الصلاة",
@@ -170,7 +217,12 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gradient",
+          "glow": true
+        }
       },
       {
         "id": "mt-iphone-duo-03",
@@ -186,7 +238,11 @@
           "ur": "**قضا** واضح\nطریقے سے"
         },
         "screenshot": "/screenshots/app/ios/{locale}/qaza.jpg",
-        "inverted": true
+        "inverted": true,
+        "design": {
+          "background": "girih",
+          "highlight": "gold"
+        }
       },
       {
         "id": "mt-iphone-duo-04",
@@ -202,11 +258,15 @@
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
         "screenshot": "/screenshots/app/ios/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg",
+        "design": {
+          "background": "mesh",
+          "highlight": "box"
+        }
       },
       {
         "id": "mt-iphone-duo-05",
-        "layout": "device-bottom",
+        "layout": "tilted",
         "label": {
           "en": "QIBLA",
           "ar": "القبلة",
@@ -217,11 +277,17 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "glow": true,
+          "mirror": true
+        }
       },
       {
         "id": "mt-iphone-duo-06",
-        "layout": "hero",
+        "layout": "bleed-bottom",
         "label": {
           "en": "99 NAMES",
           "ar": "الأسماء الحسنى",
@@ -233,23 +299,41 @@
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
         "screenshot": "/screenshots/app/ios/{locale}/names-of-allah.jpg",
-        "inverted": true
+        "design": {
+          "background": "parchment",
+          "highlight": "marker",
+          "labelStyle": "pill",
+          "finish": "space-black",
+          "lens": {
+            "x": 0.38,
+            "y": 0.68,
+            "zoom": 2.6
+          }
+        }
       },
       {
         "id": "mt-iphone-duo-07",
-        "layout": "device-bottom",
+        "layout": "feature-list",
         "label": {
           "en": "AND MORE",
           "ar": "والمزيد",
           "ur": "اور مزید"
         },
         "headline": {
-          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
+          "en": "Built for your\n**whole day**",
+          "ar": "مصمَّم ليومك\n**كلّه**",
+          "ur": "آپ کے\n**پورے دن** کے لیے"
         },
         "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
-        "inverted": true
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "features": {
+            "en": "Widgets\nPIN lock\nTasbeeh\nJournal\n24 languages",
+            "ar": "ودجات\nقفل PIN\nتسبيح\nيوميات\n24 لغة",
+            "ur": "وجٹس\nPIN لاک\nتسبیح\nجرنل\n24 زبانیں"
+          }
+        }
       }
     ],
     "ipad": [
@@ -277,9 +361,9 @@
             },
             "transform": {
               "x": 232,
-              "y": 590,
+              "y": 640,
               "width": 1600,
-              "height": 100,
+              "height": 70,
               "zIndex": 5
             },
             "fontSize": 46,
@@ -287,11 +371,16 @@
             "color": "#A9C6BB",
             "align": "center"
           }
-        ]
+        ],
+        "design": {
+          "background": "dusk",
+          "highlight": "gold",
+          "labelStyle": "pill"
+        }
       },
       {
         "id": "mt-ipad-02",
-        "layout": "device-bottom",
+        "layout": "bleed-bottom",
         "label": {
           "en": "SALAH TRACKER",
           "ar": "تتبّع الصلاة",
@@ -302,7 +391,12 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/ipad/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/ipad/{locale}/tracker.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gradient",
+          "glow": true
+        }
       },
       {
         "id": "mt-ipad-03",
@@ -318,7 +412,11 @@
           "ur": "**قضا** واضح\nطریقے سے"
         },
         "screenshot": "/screenshots/app/ipad/{locale}/qaza.jpg",
-        "inverted": true
+        "inverted": true,
+        "design": {
+          "background": "girih",
+          "highlight": "gold"
+        }
       },
       {
         "id": "mt-ipad-04",
@@ -334,11 +432,15 @@
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
         "screenshot": "/screenshots/app/ipad/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/ipad/{locale}/quran.jpg"
+        "screenshotSecondary": "/screenshots/app/ipad/{locale}/quran.jpg",
+        "design": {
+          "background": "mesh",
+          "highlight": "box"
+        }
       },
       {
         "id": "mt-ipad-05",
-        "layout": "device-bottom",
+        "layout": "tilted",
         "label": {
           "en": "QIBLA",
           "ar": "القبلة",
@@ -349,11 +451,17 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/ipad/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/ipad/{locale}/qibla.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "glow": true,
+          "mirror": true
+        }
       },
       {
         "id": "mt-ipad-06",
-        "layout": "hero",
+        "layout": "bleed-bottom",
         "label": {
           "en": "99 NAMES",
           "ar": "الأسماء الحسنى",
@@ -365,23 +473,41 @@
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
         "screenshot": "/screenshots/app/ipad/{locale}/names-of-allah.jpg",
-        "inverted": true
+        "design": {
+          "background": "parchment",
+          "highlight": "marker",
+          "labelStyle": "pill",
+          "finish": "space-black",
+          "lens": {
+            "x": 0.38,
+            "y": 0.68,
+            "zoom": 2.6
+          }
+        }
       },
       {
         "id": "mt-ipad-07",
-        "layout": "device-bottom",
+        "layout": "feature-list",
         "label": {
           "en": "AND MORE",
           "ar": "والمزيد",
           "ur": "اور مزید"
         },
         "headline": {
-          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
+          "en": "Built for your\n**whole day**",
+          "ar": "مصمَّم ليومك\n**كلّه**",
+          "ur": "آپ کے\n**پورے دن** کے لیے"
         },
         "screenshot": "/screenshots/app/ipad/{locale}/tasbeeh.jpg",
-        "inverted": true
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "features": {
+            "en": "Widgets\nPIN lock\nTasbeeh\nJournal\n24 languages",
+            "ar": "ودجات\nقفل PIN\nتسبيح\nيوميات\n24 لغة",
+            "ur": "وجٹس\nPIN لاک\nتسبیح\nجرنل\n24 زبانیں"
+          }
+        }
       }
     ],
     "apple-watch": [
@@ -421,11 +547,16 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/apple-tv/{locale}/01-home.png"
+        "screenshot": "/screenshots/app/apple-tv/{locale}/01-home.png",
+        "design": {
+          "background": "dusk",
+          "highlight": "gold",
+          "labelStyle": "pill"
+        }
       },
       {
         "id": "mt-apple-tv-02-tracker",
-        "layout": "device-bottom",
+        "layout": "bleed-bottom",
         "label": {
           "en": "SALAH TRACKER",
           "ar": "تتبّع الصلاة",
@@ -436,7 +567,12 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/apple-tv/{locale}/02-tracker.png"
+        "screenshot": "/screenshots/app/apple-tv/{locale}/02-tracker.png",
+        "design": {
+          "background": "night",
+          "highlight": "gradient",
+          "glow": true
+        }
       },
       {
         "id": "mt-apple-tv-03-library",
@@ -452,7 +588,11 @@
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
         "screenshot": "/screenshots/app/apple-tv/{locale}/03-library.png",
-        "inverted": true
+        "inverted": true,
+        "design": {
+          "background": "girih",
+          "highlight": "gold"
+        }
       },
       {
         "id": "mt-apple-tv-04-quran",
@@ -476,72 +616,46 @@
         "screenshot": "/screenshots/app/apple-tv/{locale}/06-settings.png"
       }
     ],
-    "ios-header": [
+    "ios-universal": [
       {
-        "id": "mt-ios-header-01",
-        "layout": "split-landscape",
-        "label": {
-          "en": "MUNIB TRACKER",
-          "ar": "MUNIB TRACKER",
-          "ur": "MUNIB TRACKER"
-        },
+        "id": "mt-ios-universal-01",
+        "layout": "creative-asset",
+        "label": {},
         "headline": {
           "en": "Track your journey\n**back to Allah**",
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg",
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
       }
     ],
     "ios-header-wide": [
       {
         "id": "mt-ios-header-wide-01",
-        "layout": "split-landscape",
-        "label": {
-          "en": "MUNIB TRACKER",
-          "ar": "MUNIB TRACKER",
-          "ur": "MUNIB TRACKER"
-        },
+        "layout": "creative-asset",
+        "label": {},
         "headline": {
           "en": "Track your journey\n**back to Allah**",
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
-      }
-    ],
-    "ios-search": [
-      {
-        "id": "mt-ios-search-01",
-        "layout": "split-landscape",
-        "label": {
-          "en": "MUNIB TRACKER",
-          "ar": "MUNIB TRACKER",
-          "ur": "MUNIB TRACKER"
-        },
-        "headline": {
-          "en": "Track your journey\n**back to Allah**",
-          "ar": "تتبّع رحلتك\n**إلى الله**",
-          "ur": "اپنا سفر\n**اللہ کی طرف**"
-        },
-        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg",
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
       }
     ],
     "ios-search-3x2": [
       {
         "id": "mt-ios-search-3x2-01",
-        "layout": "split-landscape",
-        "label": {
-          "en": "MUNIB TRACKER",
-          "ar": "MUNIB TRACKER",
-          "ur": "MUNIB TRACKER"
-        },
+        "layout": "creative-asset",
+        "label": {},
         "headline": {
           "en": "Track your journey\n**back to Allah**",
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/ios/{locale}/home.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg",
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
       }
     ],
     "android": [
@@ -569,7 +683,7 @@
             },
             "transform": {
               "x": 90,
-              "y": 320,
+              "y": 384,
               "width": 900,
               "height": 68,
               "zIndex": 5
@@ -579,11 +693,16 @@
             "color": "#A9C6BB",
             "align": "center"
           }
-        ]
+        ],
+        "design": {
+          "background": "dusk",
+          "highlight": "gold",
+          "labelStyle": "pill"
+        }
       },
       {
         "id": "mt-android-02",
-        "layout": "device-bottom",
+        "layout": "bleed-bottom",
         "label": {
           "en": "SALAH TRACKER",
           "ar": "تتبّع الصلاة",
@@ -594,7 +713,12 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gradient",
+          "glow": true
+        }
       },
       {
         "id": "mt-android-03",
@@ -610,7 +734,11 @@
           "ur": "**قضا** واضح\nطریقے سے"
         },
         "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
-        "inverted": true
+        "inverted": true,
+        "design": {
+          "background": "girih",
+          "highlight": "gold"
+        }
       },
       {
         "id": "mt-android-04",
@@ -626,11 +754,15 @@
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
         "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg",
+        "design": {
+          "background": "mesh",
+          "highlight": "box"
+        }
       },
       {
         "id": "mt-android-05",
-        "layout": "device-bottom",
+        "layout": "tilted",
         "label": {
           "en": "QIBLA",
           "ar": "القبلة",
@@ -641,11 +773,17 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "glow": true,
+          "mirror": true
+        }
       },
       {
         "id": "mt-android-06",
-        "layout": "hero",
+        "layout": "bleed-bottom",
         "label": {
           "en": "99 NAMES",
           "ar": "الأسماء الحسنى",
@@ -657,23 +795,41 @@
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
         "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
-        "inverted": true
+        "design": {
+          "background": "parchment",
+          "highlight": "marker",
+          "labelStyle": "pill",
+          "finish": "space-black",
+          "lens": {
+            "x": 0.38,
+            "y": 0.68,
+            "zoom": 2.6
+          }
+        }
       },
       {
         "id": "mt-android-07",
-        "layout": "device-bottom",
+        "layout": "feature-list",
         "label": {
           "en": "AND MORE",
           "ar": "والمزيد",
           "ur": "اور مزید"
         },
         "headline": {
-          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
+          "en": "Built for your\n**whole day**",
+          "ar": "مصمَّم ليومك\n**كلّه**",
+          "ur": "آپ کے\n**پورے دن** کے لیے"
         },
         "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
-        "inverted": true
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "features": {
+            "en": "Widgets\nPIN lock\nTasbeeh\nJournal\n24 languages",
+            "ar": "ودجات\nقفل PIN\nتسبيح\nيوميات\n24 لغة",
+            "ur": "وجٹس\nPIN لاک\nتسبیح\nجرنل\n24 زبانیں"
+          }
+        }
       }
     ],
     "android-7": [
@@ -690,11 +846,17 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/android/{locale}/home.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/home.jpg",
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/home.jpg",
+        "design": {
+          "background": "dusk",
+          "highlight": "gold",
+          "labelStyle": "pill"
+        }
       },
       {
         "id": "mt-android-7-02",
-        "layout": "device-bottom",
+        "layout": "bleed-bottom",
         "label": {
           "en": "SALAH TRACKER",
           "ar": "تتبّع الصلاة",
@@ -705,7 +867,13 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg",
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/tracker.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gradient",
+          "glow": true
+        }
       },
       {
         "id": "mt-android-7-03",
@@ -721,7 +889,12 @@
           "ur": "**قضا** واضح\nطریقے سے"
         },
         "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
-        "inverted": true
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/qaza.jpg",
+        "inverted": true,
+        "design": {
+          "background": "girih",
+          "highlight": "gold"
+        }
       },
       {
         "id": "mt-android-7-04",
@@ -737,11 +910,17 @@
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
         "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg",
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/zikr.jpg",
+        "screenshotSecondaryLandscape": "/screenshots/app/android-tablet/{locale}/quran.jpg",
+        "design": {
+          "background": "mesh",
+          "highlight": "box"
+        }
       },
       {
         "id": "mt-android-7-05",
-        "layout": "device-bottom",
+        "layout": "tilted",
         "label": {
           "en": "QIBLA",
           "ar": "القبلة",
@@ -752,11 +931,18 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg",
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/qibla.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "glow": true,
+          "mirror": true
+        }
       },
       {
         "id": "mt-android-7-06",
-        "layout": "hero",
+        "layout": "bleed-bottom",
         "label": {
           "en": "99 NAMES",
           "ar": "الأسماء الحسنى",
@@ -768,23 +954,43 @@
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
         "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
-        "inverted": true
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/names-of-allah.jpg",
+        "design": {
+          "background": "parchment",
+          "highlight": "marker",
+          "labelStyle": "pill",
+          "finish": "space-black",
+          "lens": {
+            "x": 0.38,
+            "y": 0.68,
+            "zoom": 2.6
+          }
+        }
       },
       {
         "id": "mt-android-7-07",
-        "layout": "device-bottom",
+        "layout": "feature-list",
         "label": {
           "en": "AND MORE",
           "ar": "والمزيد",
           "ur": "اور مزید"
         },
         "headline": {
-          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
+          "en": "Built for your\n**whole day**",
+          "ar": "مصمَّم ليومك\n**كلّه**",
+          "ur": "آپ کے\n**پورے دن** کے لیے"
         },
         "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
-        "inverted": true
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/tasbeeh.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "features": {
+            "en": "Widgets\nPIN lock\nTasbeeh\nJournal\n24 languages",
+            "ar": "ودجات\nقفل PIN\nتسبيح\nيوميات\n24 لغة",
+            "ur": "وجٹس\nPIN لاک\nتسبیح\nجرنل\n24 زبانیں"
+          }
+        }
       }
     ],
     "android-10": [
@@ -801,11 +1007,17 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/android/{locale}/home.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/home.jpg",
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/home.jpg",
+        "design": {
+          "background": "dusk",
+          "highlight": "gold",
+          "labelStyle": "pill"
+        }
       },
       {
         "id": "mt-android-10-02",
-        "layout": "device-bottom",
+        "layout": "bleed-bottom",
         "label": {
           "en": "SALAH TRACKER",
           "ar": "تتبّع الصلاة",
@@ -816,7 +1028,13 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg",
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/tracker.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gradient",
+          "glow": true
+        }
       },
       {
         "id": "mt-android-10-03",
@@ -832,7 +1050,12 @@
           "ur": "**قضا** واضح\nطریقے سے"
         },
         "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
-        "inverted": true
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/qaza.jpg",
+        "inverted": true,
+        "design": {
+          "background": "girih",
+          "highlight": "gold"
+        }
       },
       {
         "id": "mt-android-10-04",
@@ -848,11 +1071,17 @@
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
         "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg",
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/zikr.jpg",
+        "screenshotSecondaryLandscape": "/screenshots/app/android-tablet/{locale}/quran.jpg",
+        "design": {
+          "background": "mesh",
+          "highlight": "box"
+        }
       },
       {
         "id": "mt-android-10-05",
-        "layout": "device-bottom",
+        "layout": "tilted",
         "label": {
           "en": "QIBLA",
           "ar": "القبلة",
@@ -863,11 +1092,18 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg",
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/qibla.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "glow": true,
+          "mirror": true
+        }
       },
       {
         "id": "mt-android-10-06",
-        "layout": "hero",
+        "layout": "bleed-bottom",
         "label": {
           "en": "99 NAMES",
           "ar": "الأسماء الحسنى",
@@ -879,23 +1115,43 @@
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
         "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
-        "inverted": true
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/names-of-allah.jpg",
+        "design": {
+          "background": "parchment",
+          "highlight": "marker",
+          "labelStyle": "pill",
+          "finish": "space-black",
+          "lens": {
+            "x": 0.38,
+            "y": 0.68,
+            "zoom": 2.6
+          }
+        }
       },
       {
         "id": "mt-android-10-07",
-        "layout": "device-bottom",
+        "layout": "feature-list",
         "label": {
           "en": "AND MORE",
           "ar": "والمزيد",
           "ur": "اور مزید"
         },
         "headline": {
-          "en": "Widgets · PIN lock\nTasbeeh · Journal\n**24 languages**",
-          "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**24 لغة**",
-          "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**24 زبانیں**"
+          "en": "Built for your\n**whole day**",
+          "ar": "مصمَّم ليومك\n**كلّه**",
+          "ur": "آپ کے\n**پورے دن** کے لیے"
         },
         "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
-        "inverted": true
+        "screenshotLandscape": "/screenshots/app/android-tablet/{locale}/tasbeeh.jpg",
+        "design": {
+          "background": "night",
+          "highlight": "gold",
+          "features": {
+            "en": "Widgets\nPIN lock\nTasbeeh\nJournal\n24 languages",
+            "ar": "ودجات\nقفل PIN\nتسبيح\nيوميات\n24 لغة",
+            "ur": "وجٹس\nPIN لاک\nتسبیح\nجرنل\n24 زبانیں"
+          }
+        }
       }
     ],
     "wear-os": [
@@ -928,11 +1184,16 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/android-tv/{locale}/01-home.png"
+        "screenshot": "/screenshots/app/android-tv/{locale}/01-home.png",
+        "design": {
+          "background": "dusk",
+          "highlight": "gold",
+          "labelStyle": "pill"
+        }
       },
       {
         "id": "mt-android-tv-02-tracker",
-        "layout": "device-bottom",
+        "layout": "bleed-bottom",
         "label": {
           "en": "SALAH TRACKER",
           "ar": "تتبّع الصلاة",
@@ -943,7 +1204,12 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/android-tv/{locale}/02-tracker.png"
+        "screenshot": "/screenshots/app/android-tv/{locale}/02-tracker.png",
+        "design": {
+          "background": "night",
+          "highlight": "gradient",
+          "glow": true
+        }
       },
       {
         "id": "mt-android-tv-03-library",
@@ -959,7 +1225,11 @@
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
         "screenshot": "/screenshots/app/android-tv/{locale}/03-library.png",
-        "inverted": true
+        "inverted": true,
+        "design": {
+          "background": "girih",
+          "highlight": "gold"
+        }
       },
       {
         "id": "mt-android-tv-04-quran",
@@ -988,11 +1258,7 @@
         "id": "mt-tv-banner-01",
         "layout": "feature-graphic",
         "label": {},
-        "headline": {
-          "en": "Offline-first · Private · No ads",
-          "ar": "بدون إنترنت · خصوصية · بلا إعلانات",
-          "ur": "آف لائن · نجی · بغیر اشتہارات"
-        },
+        "headline": {},
         "screenshot": ""
       }
     ],
@@ -1002,9 +1268,9 @@
         "layout": "feature-graphic",
         "label": {},
         "headline": {
-          "en": "Salah, Zikr, Qaza & learning — offline.\n24 languages. Private by design.",
-          "ar": "صلاة وذكر وقضاء وتعلّم — بدون إنترنت.\n24 لغة. خصوصية بالتصميم.",
-          "ur": "نماز، ذکر، قضا اور تعلیم — آف لائن۔\n24 زبانیں۔ رازداری بنیادی اصول۔"
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
         "screenshot": ""
       }
