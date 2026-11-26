@@ -8,9 +8,10 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { CircleInviteEntity, CircleMemberEntity } from "../database/entities";
+import { ChildProfileEntity, CircleInviteEntity, CircleMemberEntity } from "../database/entities";
 import {
   BED_TIMEOUT_MS,
+  birthYearForAge,
   type CirclesTestBed,
   circleWithMembers,
   createCirclesTestBed,
@@ -240,5 +241,263 @@ describe("CirclesService", () => {
     // Other invites keep the 7-day default.
     const memberInvite = await bed.circles.createInvite(owner, family.id, { role: "member" });
     expect(hoursLeft(memberInvite.expiresAt)).toBeCloseTo(7 * 24, 1);
+  });
+  describe("guards and edge cases", () => {
+    const CONSENT = { parentalConsent: true as const, consentPolicyVersion: "2026-11" };
+
+    it("only lets khatm groups carry a masjid tag (create and update)", async () => {
+      const owner = await bed.user();
+      await expect(
+        bed.circles.create(owner, { type: "family", name: "Home", masjidOsmRef: "node/1" }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      const family = await bed.circles.create(owner, { type: "family", name: "Home" });
+      await expect(
+        bed.circles.update(owner, family.id, { masjidOsmRef: "node/1" }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+
+      const khatm = await bed.circles.create(owner, {
+        type: "khatm_group",
+        name: "K",
+        masjidOsmRef: "node/1",
+      });
+      expect(khatm.masjidOsmRef).toBe("node/1");
+      // Renaming alone keeps the tag; `null` clears it.
+      await expect(bed.circles.update(owner, khatm.id, { name: "K2" })).resolves.toMatchObject({
+        name: "K2",
+        masjidOsmRef: "node/1",
+      });
+      await expect(
+        bed.circles.update(owner, khatm.id, { masjidOsmRef: null }),
+      ).resolves.toMatchObject({ name: "K2", masjidOsmRef: null });
+    });
+
+    it("lets only managers update and only the owner delete", async () => {
+      const owner = await bed.user();
+      const member = await bed.user();
+      const circle = await circleWithMembers(bed, "khatm_group", owner, [{ actor: member }]);
+      await expect(bed.circles.update(member, circle.id, { name: "x" })).rejects.toBeInstanceOf(
+        ForbiddenException,
+      );
+      await expect(bed.circles.remove(member, circle.id)).rejects.toBeInstanceOf(
+        ForbiddenException,
+      );
+      await bed.circles.remove(owner, circle.id);
+      await expect(bed.circles.detail(member, circle.id)).rejects.toBeInstanceOf(NotFoundException);
+    });
+
+    it("caps active circles per user on create and on join", async () => {
+      const busy = await bed.user();
+      const host = await bed.user();
+      const target = await bed.circles.create(host, { type: "khatm_group", name: "Target" });
+      const invite = await bed.circles.createInvite(host, target.id, {});
+      for (let i = 0; i < 30; i += 1) {
+        await bed.circles.create(busy, { type: "khatm_group", name: `K${i}` });
+      }
+      await expect(
+        bed.circles.create(busy, { type: "khatm_group", name: "one too many" }),
+      ).rejects.toBeInstanceOf(ConflictException);
+      await expect(bed.circles.join(busy, { code: invite.code })).rejects.toBeInstanceOf(
+        ConflictException,
+      );
+    });
+
+    it("joining a circle you are already in claims nothing and keeps the invite", async () => {
+      const owner = await bed.user();
+      const member = await bed.user();
+      const circle = await circleWithMembers(bed, "khatm_group", owner, [{ actor: member }]);
+      const invite = await bed.circles.createInvite(owner, circle.id, { maxUses: 1 });
+      const preview = await bed.circles.previewInvite(member, invite.code);
+      expect(preview.alreadyMember).toBe(true);
+      await expect(bed.circles.join(member, { code: invite.code })).resolves.toMatchObject({
+        memberCount: 2,
+      });
+      const stored = await bed.dataSource
+        .getRepository(CircleInviteEntity)
+        .findOneByOrFail({ id: invite.id });
+      expect(stored.uses).toBe(0);
+      expect(await bed.circles.memberCount(circle.id)).toBe(2);
+    });
+
+    it("rejects malformed codes without a lookup and spent invites as gone", async () => {
+      const owner = await bed.user();
+      const joiner = await bed.user();
+      await expect(bed.circles.previewInvite(joiner, "short")).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
+      const circle = await bed.circles.create(owner, { type: "khatm_group", name: "K" });
+      const invite = await bed.circles.createInvite(owner, circle.id, { maxUses: 1 });
+      await bed.dataSource.getRepository(CircleInviteEntity).update({ id: invite.id }, { uses: 1 });
+      await expect(bed.circles.previewInvite(joiner, invite.code)).rejects.toBeInstanceOf(
+        GoneException,
+      );
+      // A deleted circle's invites disappear with it.
+      const other = await bed.circles.createInvite(owner, circle.id, {});
+      await bed.circles.remove(owner, circle.id);
+      await expect(bed.circles.join(joiner, { code: other.code })).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
+    });
+
+    it("scopes membership switches to the circle types they belong to", async () => {
+      const owner = await bed.user();
+      const adult = await bed.user();
+      const family = await circleWithMembers(bed, "family", owner, [{ actor: adult }]);
+      await expect(
+        bed.circles.updateMyMembership(adult, family.id, { paused: true }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      // Parents' own salah is never shared.
+      await expect(
+        bed.circles.updateMyMembership(owner, family.id, { shareFardStatus: true }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      const shared = await bed.circles.updateMyMembership(adult, family.id, {
+        shareFardStatus: true,
+        displayName: "Teen",
+      });
+      expect(shared.members.find((m) => m.isMe)).toMatchObject({
+        shareFardStatus: true,
+        displayName: "Teen",
+      });
+      // An empty display name clears it.
+      const cleared = await bed.circles.updateMyMembership(adult, family.id, { displayName: "" });
+      expect(cleared.members.find((m) => m.isMe)?.displayName).toBeNull();
+
+      const partner = await circleWithMembers(bed, "partner", owner, [{ actor: adult }]);
+      const paused = await bed.circles.updateMyMembership(adult, partner.id, { paused: true });
+      expect(paused.members.find((m) => m.isMe)?.paused).toBe(true);
+      await expect(
+        bed.circles.updateMyMembership(adult, partner.id, { shareFardStatus: true }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+    });
+
+    it("refuses to remove the owner, a child, yourself, or (as a co-parent) a parent", async () => {
+      const owner = await bed.user();
+      const coParent = await bed.user();
+      const otherParent = await bed.user();
+      const family = await circleWithMembers(bed, "family", owner, [
+        { actor: coParent, role: "parent" },
+        { actor: otherParent, role: "parent" },
+      ]);
+      await bed.children.create(owner, family.id, {
+        nickname: "Ali",
+        birthYear: birthYearForAge(9),
+        ...CONSENT,
+      });
+      const detail = await bed.circles.detail(owner, family.id);
+      const childMemberId = detail.members.find((m) => m.memberKind === "child")
+        ?.memberId as string;
+
+      await expect(
+        bed.circles.removeMember(coParent, family.id, memberIdIn(family.id, owner)),
+      ).rejects.toBeInstanceOf(ForbiddenException);
+      await expect(
+        bed.circles.removeMember(owner, family.id, childMemberId),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      await expect(
+        bed.circles.removeMember(coParent, family.id, memberIdIn(family.id, coParent)),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      await expect(
+        bed.circles.removeMember(coParent, family.id, memberIdIn(family.id, otherParent)),
+      ).rejects.toBeInstanceOf(ForbiddenException);
+      // The owner may remove a parent.
+      await bed.circles.removeMember(owner, family.id, memberIdIn(family.id, otherParent));
+      expect((await bed.circles.detail(owner, family.id)).memberCount).toBe(3);
+    });
+
+    it("only the owner changes roles, within the roles a circle type offers", async () => {
+      const owner = await bed.user();
+      const member = await bed.user();
+      const partner = await circleWithMembers(bed, "partner", owner, [{ actor: member }]);
+      await expect(
+        bed.circles.updateMemberRole(member, partner.id, memberIdIn(partner.id, owner), {
+          role: "member",
+        }),
+      ).rejects.toBeInstanceOf(ForbiddenException);
+      await expect(
+        bed.circles.updateMemberRole(owner, partner.id, memberIdIn(partner.id, owner), {
+          role: "member",
+        }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      await expect(
+        bed.circles.updateMemberRole(owner, partner.id, memberIdIn(partner.id, member), {
+          role: "admin",
+        }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+    });
+
+    it("demoting a co-parent hands the children they consented to back for re-consent (D34)", async () => {
+      const owner = await bed.user();
+      const coParent = await bed.user();
+      const family = await circleWithMembers(bed, "family", owner, [
+        { actor: coParent, role: "parent" },
+      ]);
+      const child = await bed.children.create(coParent, family.id, {
+        nickname: "Sara",
+        birthYear: birthYearForAge(10),
+        ...CONSENT,
+      });
+      const demoted = await bed.circles.updateMemberRole(
+        owner,
+        family.id,
+        memberIdIn(family.id, coParent),
+        { role: "member" },
+      );
+      expect(demoted.members.find((m) => !m.isMe && m.memberKind === "user")?.role).toBe("member");
+      const row = await bed.dataSource
+        .getRepository(ChildProfileEntity)
+        .findOneByOrFail({ id: child.id });
+      expect(row.consentTransferredAt).toBeInstanceOf(Date);
+      expect(demoted.members.find((m) => m.memberKind === "child")?.child?.consentPending).toBe(
+        true,
+      );
+    });
+
+    it("shows managers every live invite and others only their own; revoking checks who may", async () => {
+      const owner = await bed.user();
+      const a = await bed.user();
+      const b = await bed.user();
+      const partner = await circleWithMembers(bed, "partner", owner, [{ actor: a }, { actor: b }]);
+      await bed.circles.createInvite(owner, partner.id, {});
+      const aInvite = await bed.circles.createInvite(a, partner.id, {});
+      // Partner circles: every member is a manager.
+      expect((await bed.circles.listInvites(b, partner.id)).items).toHaveLength(2);
+
+      // An admin who invited, then was demoted, still sees (and may revoke) their own.
+      const khatm = await circleWithMembers(bed, "khatm_group", owner, [
+        { actor: a, role: "admin" },
+      ]);
+      const memberInvite = await bed.circles.createInvite(a, khatm.id, {});
+      const ownerInvite = await bed.circles.createInvite(owner, khatm.id, {});
+      await bed.circles.updateMemberRole(owner, khatm.id, memberIdIn(khatm.id, a), {
+        role: "member",
+      });
+      expect((await bed.circles.listInvites(a, khatm.id)).items.map((i) => i.id)).toEqual([
+        memberInvite.id,
+      ]);
+      // The owner also sees the admin invite `a` joined with (khatm invites are multi-use).
+      expect((await bed.circles.listInvites(owner, khatm.id)).items).toHaveLength(3);
+      await expect(bed.circles.revokeInvite(a, khatm.id, ownerInvite.id)).rejects.toBeInstanceOf(
+        ForbiddenException,
+      );
+      await bed.circles.revokeInvite(a, khatm.id, memberInvite.id);
+      // An invite id from another circle is unknown here.
+      await expect(bed.circles.revokeInvite(owner, khatm.id, aInvite.id)).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
+    });
+
+    it("keeps child sessions out of user-only actions", async () => {
+      const owner = await bed.user();
+      const family = await bed.circles.create(owner, { type: "family", name: "Home" });
+      const childActor = { kind: "child" as const, childId: "c", circleId: family.id };
+      await expect(
+        bed.circles.create(childActor, { type: "khatm_group", name: "x" }),
+      ).rejects.toBeInstanceOf(ForbiddenException);
+      await expect(bed.circles.list(childActor)).resolves.toEqual({ items: [] });
+      // A child session is pinned to its own circle: any other id is 404.
+      const other = await bed.circles.create(owner, { type: "khatm_group", name: "K" });
+      await expect(
+        bed.circles.detail({ ...childActor, circleId: family.id }, other.id),
+      ).rejects.toBeInstanceOf(NotFoundException);
+    });
   });
 });

@@ -4,6 +4,7 @@ import {
   nearbySessionIdFromUuid,
 } from "@munib-tracker/shared/circles/nearby";
 import {
+  BadRequestException,
   ConflictException,
   ForbiddenException,
   GoneException,
@@ -14,6 +15,7 @@ import {
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   ChildProfileEntity,
+  CircleEntity,
   CircleMemberEntity,
   CircleNearbyRequestEntity,
   CircleNearbySessionEntity,
@@ -24,6 +26,7 @@ import {
   type CirclesTestBed,
   circleWithMembers,
   createCirclesTestBed,
+  memberIdIn,
   type UserActor,
 } from "../test-support/circles";
 import { purgeExpiredCircleData, purgeUserCircleData } from "./circle-lifecycle";
@@ -32,6 +35,7 @@ import { sha256Hex } from "./circle-tokens";
 const IP = "192.0.2.10";
 const CONSENT = { parentalConsent: true as const, consentPolicyVersion: "2026-11" };
 const MINUTE_MS = 60_000;
+const NIL_UUID = "00000000-0000-4000-8000-000000000000";
 
 describe("CircleNearbyService (NF-3.25)", () => {
   let bed: CirclesTestBed;
@@ -486,6 +490,119 @@ describe("CircleNearbyService (NF-3.25)", () => {
       await expect(bed.nearby.preview(session.sessionId, IP)).rejects.toBeInstanceOf(
         NotFoundException,
       );
+    });
+  });
+  describe("guards, races and odd states", () => {
+    async function familyWithChild(parent?: UserActor) {
+      const owner = parent ?? (await bed.user());
+      const family = await bed.circles.create(owner, { type: "family", name: "Home" });
+      const child = await bed.children.create(owner, family.id, {
+        nickname: "Ali",
+        birthYear: birthYearForAge(9),
+        ...CONSENT,
+      });
+      return { owner, family, child };
+    }
+
+    it("links child devices only to family circles, and only real children", async () => {
+      const host = await bed.user();
+      const khatm = await bed.circles.create(host, { type: "khatm_group", name: "K" });
+      await expect(
+        bed.nearby.createSession(host, khatm.id, {
+          childId: "00000000-0000-4000-8000-000000000000",
+        }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      const { owner, family } = await familyWithChild();
+      await expect(
+        bed.nearby.createSession(owner, family.id, {
+          childId: "00000000-0000-4000-8000-000000000000",
+        }),
+      ).rejects.toBeInstanceOf(NotFoundException);
+    });
+
+    it("404s malformed session ids and unknown request ids", async () => {
+      const host = await bed.user();
+      const circle = await bed.circles.create(host, { type: "khatm_group", name: "K" });
+      const session = await bed.nearby.createSession(host, circle.id, {});
+      await expect(bed.nearby.listRequests(host, circle.id, "nope")).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
+      await expect(bed.nearby.status("nope", NIL_UUID, "token")).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
+      await expect(
+        bed.nearby.decide(host, circle.id, session.sessionId, NIL_UUID, "accept"),
+      ).rejects.toBeInstanceOf(NotFoundException);
+    });
+
+    it("re-checks parenthood when accepting a child-device link", async () => {
+      const { owner, family, child } = await familyWithChild();
+      const coParent = await bed.user();
+      const invite = await bed.circles.createInvite(owner, family.id, { role: "parent" });
+      await bed.circles.join(coParent, { code: invite.code });
+      const session = await bed.nearby.createSession(coParent, family.id, { childId: child.id });
+      const request = await ask(session.sessionId, undefined);
+      await bed.circles.updateMemberRole(owner, family.id, memberIdIn(family.id, coParent), {
+        role: "member",
+      });
+      await expect(
+        bed.nearby.decide(coParent, family.id, session.sessionId, request.requestId, "accept"),
+      ).rejects.toBeInstanceOf(ForbiddenException);
+    });
+
+    it("expires an accepted child link whose profile was deleted before pickup", async () => {
+      const { owner, family, child } = await familyWithChild();
+      const session = await bed.nearby.createSession(owner, family.id, { childId: child.id });
+      const request = await ask(session.sessionId, undefined);
+      await bed.nearby.decide(owner, family.id, session.sessionId, request.requestId, "accept");
+      await bed.dataSource.getRepository(ChildProfileEntity).delete({ id: child.id });
+      expect(
+        await bed.nearby.status(session.sessionId, request.requestId, request.requestToken),
+      ).toEqual({ status: "expired", circleType: "family", circleId: null });
+    });
+
+    it("reports expired once the circle is gone", async () => {
+      const host = await bed.user();
+      const joiner = await bed.user();
+      const circle = await bed.circles.create(host, { type: "khatm_group", name: "K" });
+      const session = await bed.nearby.createSession(host, circle.id, {});
+      const request = await ask(session.sessionId, joiner);
+      await bed.dataSource
+        .getRepository(CircleEntity)
+        .update({ id: circle.id }, { deletedAt: new Date() });
+      expect(
+        await bed.nearby.status(session.sessionId, request.requestId, request.requestToken),
+      ).toEqual({ status: "expired", circleType: "family", circleId: null });
+    });
+
+    it("refuses to admit a member request that lost its account", async () => {
+      const host = await bed.user();
+      const joiner = await bed.user();
+      const circle = await bed.circles.create(host, { type: "khatm_group", name: "K" });
+      const session = await bed.nearby.createSession(host, circle.id, {});
+      const request = await ask(session.sessionId, joiner);
+      await bed.dataSource
+        .getRepository(CircleNearbyRequestEntity)
+        .update({ id: request.requestId }, { requesterId: null, requesterAccountType: null });
+      await expect(
+        bed.nearby.decide(host, circle.id, session.sessionId, request.requestId, "accept"),
+      ).rejects.toBeInstanceOf(NotFoundException);
+      expect(await memberRow(circle.id, joiner.userId)).toBeNull();
+    });
+
+    it("answers a request once even when accept and decline race", async () => {
+      const host = await bed.user();
+      const joiner = await bed.user();
+      const circle = await bed.circles.create(host, { type: "khatm_group", name: "K" });
+      const session = await bed.nearby.createSession(host, circle.id, {});
+      const request = await ask(session.sessionId, joiner);
+      const results = await Promise.allSettled([
+        bed.nearby.decide(host, circle.id, session.sessionId, request.requestId, "decline"),
+        bed.nearby.decide(host, circle.id, session.sessionId, request.requestId, "decline"),
+      ]);
+      expect(results.filter((r) => r.status === "fulfilled")).toHaveLength(1);
+      const [failure] = results.filter((r) => r.status === "rejected");
+      expect((failure as PromiseRejectedResult).reason).toBeInstanceOf(ConflictException);
     });
   });
 });

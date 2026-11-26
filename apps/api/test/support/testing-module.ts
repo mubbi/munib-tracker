@@ -1,4 +1,4 @@
-import type { Provider } from "@nestjs/common";
+import type { Provider, Type } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import { Test, type TestingModule } from "@nestjs/testing";
@@ -52,8 +52,13 @@ const ENTITIES = [
  * Compiles a Nest testing module wired to a fresh in-memory SQLite database with
  * the real auth stack and a stubbed OAuth provider. Pass any extra providers the
  * suite under test needs (e.g. `SyncService`); they resolve against the same DB.
+ * Pass `controllers` to mount routes for an in-process HTTP spec (supertest on
+ * loopback via `module.createNestApplication()`).
  */
-export function createAuthTestingModule(extraProviders: Provider[] = []): Promise<TestingModule> {
+export function createAuthTestingModule(
+  extraProviders: Provider[] = [],
+  controllers: Type[] = [],
+): Promise<TestingModule> {
   return Test.createTestingModule({
     imports: [
       ConfigModule.forRoot({ isGlobal: true, validate: validateEnvironment }),
@@ -68,5 +73,6 @@ export function createAuthTestingModule(extraProviders: Provider[] = []): Promis
       { provide: OAuthProviderService, useClass: StubOAuthProviderService },
       ...extraProviders,
     ],
+    controllers,
   }).compile();
 }

@@ -70,4 +70,20 @@ describe("SafeExceptionFilter", () => {
     expect(errorClassName("secret string")).toBe("string");
     expect(errorClassName(new TypeError("x"))).toBe("TypeError");
   });
+
+  it("rethrows outside HTTP (RPC / WebSocket hosts handle their own errors)", () => {
+    const host = { getType: () => "rpc" } as unknown as ArgumentsHost;
+    const boom = new Error("boom");
+    expect(() => new SafeExceptionFilter().catch(boom, host)).toThrow(boom);
+  });
+
+  it("falls back to the error name, then 'Error', for anonymous error classes", () => {
+    const named = Object.assign(Object.create(Error.prototype), { name: "CustomName" });
+    Object.defineProperty(named, "constructor", { value: { name: "" } });
+    expect(errorClassName(named)).toBe("CustomName");
+    const bare = Object.create(Error.prototype);
+    Object.defineProperty(bare, "constructor", { value: undefined });
+    Object.defineProperty(bare, "name", { value: "" });
+    expect(errorClassName(bare)).toBe("Error");
+  });
 });

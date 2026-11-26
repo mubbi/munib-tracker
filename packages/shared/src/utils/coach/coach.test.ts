@@ -6,7 +6,7 @@ import {
   makeEmptyCoachWeek,
   makePreviousWeeks,
 } from "../../test-support/coach";
-import type { CoachContext, CoachHistory } from "../../types/index";
+import type { CoachContext, CoachGoalKind, CoachHistory } from "../../types/index";
 import {
   acceptCoachGoal,
   buildCoachReport,
@@ -455,6 +455,27 @@ describe("micro-goals", () => {
     expect(recordCoachReport(accepted, partly).goals[0]?.outcome).toEqual({ value: 3, met: false });
   });
 
+  it("reads each goal kind from the week's own counts", () => {
+    const week = makeCoachWeek(WEEK, { fard: { fajr: { onTime: 4 } } });
+    const ctx = makeCoachContext(week, {
+      qaza: { remaining: 100, madeUpThisWeek: 6, perDay: null, finishDate: null },
+      family: { parentDue: false, dueCount: 0, contactsThisWeek: 2 },
+    });
+    const value = (kind: CoachGoalKind, prayerId?: "fajr") =>
+      coachGoalValue({ kind, target: 1, ...(prayerId ? { prayerId } : {}) }, ctx);
+    expect(value("fard_days")).toBe(week.perfectDays);
+    expect(value("prayer_on_time", "fajr")).toBe(4);
+    // A per-prayer goal without its prayer can't be judged.
+    expect(value("prayer_on_time")).toBeNull();
+    expect(value("quran_days")).toBe(week.quranDays);
+    expect(value("fajr_sunnah_days")).toBe(week.rawatib.fajrDays);
+    expect(value("adhkar_days")).toBe(week.adhkarDays);
+    expect(value("masjid_salah")).toBeGreaterThanOrEqual(0);
+    expect(value("qaza_week")).toBe(6);
+    expect(value("family_contact")).toBe(2);
+    expect(coachGoalValue({ kind: "qaza_week", target: 1 }, makeCoachContext(week))).toBeNull();
+  });
+
   it("can't judge a family goal while the vault is locked", () => {
     const goal = { kind: "family_contact" as const, target: 1 };
     expect(
@@ -515,5 +536,119 @@ describe("coach history", () => {
     expect(restoreCoachRules(empty, NOW)).toBe(empty);
     const quiet = buildCoachWeekReport(makeCoachContext(makeEmptyCoachWeek(WEEK)), empty);
     expect(recordCoachReport(empty, quiet)).toBe(empty);
+  });
+  it("keeps well-formed goals (rounded, capped, with prayer and outcome) and drops bad fields", () => {
+    const goal = (extra: Record<string, unknown>) => ({
+      kind: "quran_days",
+      target: 3,
+      weekStart: WEEK,
+      acceptedAt: NOW,
+      ...extra,
+    });
+    const clean = sanitizeCoachHistory({
+      goals: [
+        goal({ target: 0 }),
+        goal({ target: Number.NaN }),
+        goal({ weekStart: "13/11/2026" }),
+        goal({ acceptedAt: 5 }),
+        goal({ weekStart: "2026-11-06", target: 1e9, prayerId: "fajr" }),
+        goal({ weekStart: "2026-10-30", prayerId: "tahajjud", outcome: { value: 2, met: "yes" } }),
+        goal({ outcome: { value: 4, met: true } }),
+      ],
+      shown: "not a map",
+      snoozedWeek: "next week",
+      updatedAt: 42,
+    });
+    expect(clean.goals).toEqual([
+      { kind: "quran_days", target: 3, weekStart: "2026-10-30", acceptedAt: NOW },
+      {
+        kind: "quran_days",
+        target: 10_000,
+        weekStart: "2026-11-06",
+        acceptedAt: NOW,
+        prayerId: "fajr",
+      },
+      {
+        kind: "quran_days",
+        target: 3,
+        weekStart: WEEK,
+        acceptedAt: NOW,
+        outcome: { value: 4, met: true },
+      },
+    ]);
+    expect(clean.shown).toEqual({});
+    expect(clean.snoozedWeek).toBeUndefined();
+    expect(clean.updatedAt).toBe(emptyCoachHistory().updatedAt);
+  });
+
+  it("keeps only the latest 26 weeks of shown ids and goals", () => {
+    const weeks = Array.from({ length: 30 }, (_, i) =>
+      new Date(Date.UTC(2026, 0, 2 + 7 * i)).toISOString().slice(0, 10),
+    );
+    const clean = sanitizeCoachHistory({
+      shown: Object.fromEntries(weeks.map((week) => [week, ["fajr_gap"]])),
+      goals: weeks.map((weekStart) => ({
+        kind: "quran_days",
+        target: 3,
+        weekStart,
+        acceptedAt: NOW,
+      })),
+    });
+    expect(Object.keys(clean.shown)).toEqual(weeks.slice(-26));
+    expect(clean.goals.map((g) => g.weekStart)).toEqual(weeks.slice(-26));
+  });
+
+  it("merges a week's goals: a recorded outcome wins, else the later acceptance", () => {
+    const base = { kind: "quran_days", target: 3, weekStart: WEEK };
+    const withOutcome = {
+      ...emptyCoachHistory(),
+      goals: [
+        { ...base, acceptedAt: "2026-11-13T00:00:00.000Z", outcome: { value: 1, met: false } },
+      ],
+    };
+    const later = {
+      ...emptyCoachHistory(),
+      goals: [{ ...base, target: 5, acceptedAt: "2026-11-14T00:00:00.000Z" }],
+    };
+    expect(mergeCoachHistory(withOutcome, later).goals[0]?.outcome).toEqual({
+      value: 1,
+      met: false,
+    });
+    expect(mergeCoachHistory(later, withOutcome).goals[0]?.outcome).toEqual({
+      value: 1,
+      met: false,
+    });
+    const earlier = {
+      ...emptyCoachHistory(),
+      goals: [{ ...base, target: 2, acceptedAt: "2026-11-13T00:00:00.000Z" }],
+    };
+    expect(mergeCoachHistory(earlier, later).goals[0]?.target).toBe(5);
+    expect(mergeCoachHistory(later, earlier).goals[0]?.target).toBe(5);
+  });
+
+  it("never hides the rest message or the fallback celebration; snoozing twice is a no-op", () => {
+    const empty = emptyCoachHistory();
+    expect(dismissCoachRule(empty, "excused_week", NOW)).toBe(empty);
+    expect(dismissCoachRule(empty, "showed_up", NOW)).toBe(empty);
+    const snoozed = snoozeCoachWeek(empty, WEEK, NOW);
+    expect(snoozeCoachWeek(snoozed, WEEK, NOW)).toBe(snoozed);
+  });
+
+  it("accepts a prayer-specific goal, replacing that week's earlier choice", () => {
+    const first = acceptCoachGoal(
+      emptyCoachHistory(),
+      { kind: "quran_days", target: 3 },
+      WEEK,
+      NOW,
+    );
+    const second = acceptCoachGoal(
+      first,
+      { kind: "prayer_on_time", target: 5, prayerId: "fajr" },
+      WEEK,
+      NOW,
+    );
+    expect(second.goals).toEqual([
+      { kind: "prayer_on_time", target: 5, weekStart: WEEK, acceptedAt: NOW, prayerId: "fajr" },
+    ]);
   });
 });

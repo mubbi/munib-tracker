@@ -5,6 +5,7 @@ import {
   isHijriMonthKey,
   isHijriOffsetDays,
   isIsoCalendarDate,
+  MAX_HIJRI_MONTH_CORRECTIONS,
   sanitizeHijriAdjustment,
 } from "./hijri-adjustment";
 
@@ -49,5 +50,39 @@ describe.concurrent("hijri adjustment validators", () => {
     expect(sanitizeHijriAdjustment({ offsetDays: 5, updatedAt: UPDATED_AT })).toBeUndefined();
     expect(sanitizeHijriAdjustment({ offsetDays: 0 })).toBeUndefined();
     expect(isHijriAdjustment({ offsetDays: 0, updatedAt: UPDATED_AT })).toBe(true);
+  });
+  it("keeps the latest month corrections in chronological order, capped", () => {
+    const monthStarts: Record<string, string> = {
+      "1448-09": "2027-02-08",
+      "1447-12": "2026-05-18",
+      "1448-01": "2026-06-16",
+    };
+    const sorted = sanitizeHijriAdjustment({ offsetDays: 0, updatedAt: UPDATED_AT, monthStarts });
+    expect(Object.keys(sorted?.monthStarts ?? {})).toEqual(["1447-12", "1448-01", "1448-09"]);
+
+    const many: Record<string, string> = {};
+    for (let i = 0; i < MAX_HIJRI_MONTH_CORRECTIONS + 5; i += 1) {
+      many[`${1300 + Math.floor(i / 12)}-${String((i % 12) + 1).padStart(2, "0")}`] = "2026-01-01";
+    }
+    const capped = sanitizeHijriAdjustment({
+      offsetDays: 1,
+      updatedAt: UPDATED_AT,
+      monthStarts: many,
+    });
+    const keys = Object.keys(capped?.monthStarts ?? {});
+    expect(keys).toHaveLength(MAX_HIJRI_MONTH_CORRECTIONS);
+    // The oldest five are the ones dropped.
+    expect(keys[0]).toBe("1300-06");
+  });
+
+  it("rejects a missing or unparseable updatedAt and drops an all-invalid month map", () => {
+    expect(sanitizeHijriAdjustment({ offsetDays: 0 })).toBeUndefined();
+    expect(sanitizeHijriAdjustment({ offsetDays: 0, updatedAt: "soon" })).toBeUndefined();
+    const dropped = sanitizeHijriAdjustment({
+      offsetDays: 0,
+      updatedAt: UPDATED_AT,
+      monthStarts: { nope: "2026-01-01", "1448-01": "not-a-date" },
+    });
+    expect(dropped).toEqual({ offsetDays: 0, updatedAt: UPDATED_AT });
   });
 });

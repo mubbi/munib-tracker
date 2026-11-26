@@ -1,7 +1,14 @@
-import { BadRequestException, ForbiddenException, HttpException } from "@nestjs/common";
+import {
+  BadRequestException,
+  ForbiddenException,
+  HttpException,
+  Logger,
+  NotFoundException,
+} from "@nestjs/common";
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { Repository } from "typeorm";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { InAppNotificationEntity } from "../database/entities";
 import {
   BED_TIMEOUT_MS,
@@ -12,6 +19,8 @@ import {
   todayIso,
   type UserActor,
 } from "../test-support/circles";
+import { CircleAccessService } from "./circle-access.service";
+import { CirclePushService } from "./circle-push.service";
 import { FardStatusSignalDto, GoalDoneSignalDto } from "./dto/circles.dto";
 
 const STRICT = { whitelist: true, forbidNonWhitelisted: true };
@@ -159,5 +168,70 @@ describe("CircleSignalsService — partner", () => {
     await expect(
       bed.signals.nudge(me, khatm.id, { toMemberId: memberIdIn(circleId, friend), kind: "dua" }),
     ).rejects.toBeInstanceOf(BadRequestException);
+  });
+
+  it("rejects impossible calendar dates in a read range", async () => {
+    await expect(
+      bed.signals.list(me, circleId, { from: "2026-02-30", to: "2026-03-01" }),
+    ).rejects.toBeInstanceOf(BadRequestException);
+    await expect(
+      bed.signals.list(me, circleId, { from: "2026-03-02", to: "2026-03-01" }),
+    ).rejects.toBeInstanceOf(BadRequestException);
+  });
+
+  it("surfaces unexpected nudge write failures as-is (only duplicates become 429)", async () => {
+    const insert = vi
+      .spyOn(Repository.prototype, "insert")
+      .mockRejectedValueOnce(new TypeError("driver exploded"));
+    try {
+      await expect(
+        bed.signals.nudge(me, circleId, { toMemberId: memberIdIn(circleId, friend), kind: "dua" }),
+      ).rejects.toBeInstanceOf(TypeError);
+    } finally {
+      insert.mockRestore();
+    }
+  });
+
+  it("keeps the inbox row when the OS push fails, logging only the error class", async () => {
+    const warn = vi.spyOn(Logger.prototype, "warn").mockImplementation(() => undefined);
+    const deliver = vi
+      .spyOn(bed.module.get(CirclePushService), "deliver")
+      .mockRejectedValueOnce(new RangeError("apns down"));
+    try {
+      await bed.signals.nudge(me, circleId, {
+        toMemberId: memberIdIn(circleId, friend),
+        kind: "dua",
+      });
+      expect(deliver).toHaveBeenCalledTimes(1);
+      expect(warn).toHaveBeenCalledWith("circle event dua_received not delivered: RangeError");
+      expect(
+        await bed.dataSource
+          .getRepository(InAppNotificationEntity)
+          .count({ where: { userId: friend.userId } }),
+      ).toBe(1);
+    } finally {
+      warn.mockRestore();
+      deliver.mockRestore();
+    }
+  });
+
+  it("emits nothing when every recipient is excluded", async () => {
+    await bed.events.emit(
+      { type: "khatm_completed", circleId, khatmId: circleId, round: 1 },
+      [me.userId],
+      me.userId,
+    );
+    expect(await bed.dataSource.getRepository(InAppNotificationEntity).count()).toBe(0);
+  });
+
+  it("resolves an active member by account id, 404 once they leave", async () => {
+    const access = bed.module.get(CircleAccessService);
+    await expect(access.findActiveMember(circleId, friend.userId)).resolves.toMatchObject({
+      memberId: friend.userId,
+    });
+    await bed.circles.leave(friend, circleId);
+    await expect(access.findActiveMember(circleId, friend.userId)).rejects.toBeInstanceOf(
+      NotFoundException,
+    );
   });
 });

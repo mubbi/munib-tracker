@@ -1,5 +1,6 @@
 import { FAMILY_DIGEST_PUSH_COPY } from "@munib-tracker/shared/circles/push";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { Logger } from "@nestjs/common";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   ChildProfileEntity,
   CircleDailySignalEntity,
@@ -221,5 +222,50 @@ describe("FamilyDigestService (D40)", () => {
     expect(await digestRows(coParent)).toHaveLength(1);
     expect(await digestRows(guest)).toHaveLength(0);
     expect(sentTo()).toHaveLength(1); // the owner's token; the guest's is never used
+  });
+  describe("maybeRun (cron tick)", () => {
+    it("runs once per 15 minutes per process, and never twice at the same time", async () => {
+      const run = vi.spyOn(bed.familyDigest, "run");
+      await Promise.all([bed.familyDigest.maybeRun(DUE), bed.familyDigest.maybeRun(DUE)]);
+      expect(run).toHaveBeenCalledTimes(1);
+      await bed.familyDigest.maybeRun(new Date(DUE.getTime() + 14 * 60_000));
+      expect(run).toHaveBeenCalledTimes(1);
+      await bed.familyDigest.maybeRun(new Date(DUE.getTime() + 15 * 60_000));
+      expect(run).toHaveBeenCalledTimes(2);
+    });
+
+    it("writes the digest from a tick", async () => {
+      const ali = await addChild("Ali");
+      await signal(ali, "2026-11-23", ALL);
+      await bed.familyDigest.maybeRun(DUE);
+      // Owner + co-parent (the teen member is not a parent).
+      expect(await digestRows()).toHaveLength(2);
+    });
+
+    it("logs a failed pass by error class only and retries on a later tick", async () => {
+      const warn = vi.spyOn(Logger.prototype, "warn").mockImplementation(() => undefined);
+      const run = vi
+        .spyOn(bed.familyDigest, "run")
+        .mockRejectedValueOnce(new RangeError("secret detail"))
+        .mockRejectedValueOnce("not an error");
+      await expect(bed.familyDigest.maybeRun(DUE)).resolves.toBeUndefined();
+      await expect(
+        bed.familyDigest.maybeRun(new Date(DUE.getTime() + 15 * 60_000)),
+      ).resolves.toBeUndefined();
+      expect(warn.mock.calls.map(([message]) => message)).toEqual([
+        "family digest run failed: RangeError",
+        "family digest run failed: error",
+      ]);
+      expect(run).toHaveBeenCalledTimes(2);
+      warn.mockRestore();
+    });
+  });
+
+  it("stays quiet for a family with no child profiles", async () => {
+    await expect(bed.familyDigest.run(DUE)).resolves.toEqual({
+      weekKey: WEEK,
+      delivered: 0,
+      quiet: 1,
+    });
   });
 });

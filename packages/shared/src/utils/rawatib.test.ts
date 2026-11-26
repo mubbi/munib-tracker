@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-
 import { QAZA_PRAYER_SET, RAWATIB_IDS, RAWATIB_PRAYERS } from "../constants/index";
 import { makePrayerLog as log } from "../test-support/factories";
 import type { MadhhabId, PrayerLog } from "../types/index";
@@ -10,6 +9,7 @@ import {
   defaultRakahs,
   hasRakahChoice,
   isRawatibDayComplete,
+  isRawatibId as isRawatibIdGuard,
   isWitrQazaEnabled,
   type RawatibDayTimes,
   rakahsForLog,
@@ -17,6 +17,7 @@ import {
   rawatibForParent,
   rawatibNudgeCandidates,
   rawatibRowState,
+  rawatibTargetRakahs as rawatibTargetRakahsFor,
   rawatibWindow,
   resolveRawatibConfig,
   sanitizeRawatibPreferences,
@@ -358,5 +359,15 @@ describe.concurrent("obligatory-only computations ignore rawatib (regression)", 
 
   it("no rawatib id is a qaza prayer", () => {
     for (const id of RAWATIB_IDS) expect(QAZA_PRAYER_SET.has(id)).toBe(false);
+  });
+});
+
+describe.concurrent("rawatib id and target helpers", () => {
+  it("recognises rawatib ids and reports the preset as the daily rak'ah target", () => {
+    for (const id of RAWATIB_IDS) expect(isRawatibIdGuard(id)).toBe(true);
+    expect(isRawatibIdGuard("tahajjud_x")).toBe(false);
+    expect(isRawatibIdGuard(12)).toBe(false);
+    expect(rawatibTargetRakahsFor(12)).toBe(12);
+    expect(rawatibTargetRakahsFor(10)).toBe(10);
   });
 });

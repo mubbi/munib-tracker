@@ -1,6 +1,9 @@
+import { createECDH } from "node:crypto";
 import { CIRCLE_PUSH_COPY } from "@munib-tracker/shared/circles/push";
 import type { VisiblePushSender } from "@munib-tracker/surface-push-delivery";
+import type { ConfigService } from "@nestjs/config";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import type { EnvironmentVariables } from "../config/env.schema";
 import { InAppNotificationEntity, PushTokenEntity, SyncRecordEntity } from "../database/entities";
 import {
   BED_TIMEOUT_MS,
@@ -10,6 +13,7 @@ import {
   memberIdIn,
   type UserActor,
 } from "../test-support/circles";
+import { buildCirclePushSenders, CirclePushService } from "./circle-push.service";
 
 const KHATM_ID = "00000000-0000-4000-8000-00000000aaaa";
 
@@ -189,6 +193,42 @@ describe("circle event push (D33)", () => {
     ]);
     expect(bed.pushSends.flatMap((send) => send.items)).toHaveLength(1);
   });
+
+  it("ignores deleted or malformed synced preferences (defaults apply)", async () => {
+    const { owner, member, circle } = await khatmGroup();
+    const memberToken = await addToken(member);
+    const ownerToken = await addToken(owner);
+    // A deleted row that once muted everything no longer counts.
+    await bed.dataSource.getRepository(SyncRecordEntity).save({
+      userId: member.userId,
+      entity: "preferences",
+      recordId: "preferences",
+      data: { locale: "ur", notificationPrefs: { masterEnabled: false } },
+      updatedAt: new Date(),
+      deletedAt: new Date(),
+    });
+    // Non-object prefs / non-string locale are dropped, not trusted.
+    await syncPrefs(owner, { locale: 42, notificationPrefs: "off" });
+
+    await bed.events.emit({
+      type: "khatm_completed",
+      circleId: circle.id,
+      khatmId: KHATM_ID,
+      round: 1,
+    });
+    expect(sentTo().sort()).toEqual([memberToken, ownerToken].sort());
+    for (const item of bed.pushSends.flatMap((send) => send.items)) {
+      expect(item.notification).toMatchObject(CIRCLE_PUSH_COPY.en.khatm_completed);
+    }
+  });
+
+  it("does nothing for an empty audience", async () => {
+    const push = bed.module.get(CirclePushService);
+    await expect(
+      push.deliver({ type: "khatm_completed", circleId: KHATM_ID, khatmId: KHATM_ID }, []),
+    ).resolves.toEqual({ sent: 0, failed: 0, skipped: 0 });
+    expect(bed.pushSends).toEqual([]);
+  });
 });
 
 describe("circle push token hygiene", () => {
@@ -248,4 +288,64 @@ describe("circle push token hygiene", () => {
     },
     BED_TIMEOUT_MS,
   );
+
+  it(
+    "skips web tokens when Web Push isn't configured",
+    async () => {
+      const expoOnly = await createCirclesTestBed({
+        pushSenders: {
+          expo: {
+            channel: "expo",
+            sendMany: async (items) => items.map(() => ({ ok: true as const })),
+          },
+        },
+      });
+      try {
+        const owner = await expoOnly.user();
+        const member = await expoOnly.user();
+        const circle = await circleWithMembers(expoOnly, "khatm_group", owner, [{ actor: member }]);
+        await expoOnly.dataSource.getRepository(PushTokenEntity).save({
+          userId: member.userId,
+          token: JSON.stringify({ endpoint: "https://push.example.com/x", keys: {} }),
+          platform: "web",
+          locale: null,
+        });
+        const outcome = await expoOnly.module
+          .get(CirclePushService)
+          .deliver({ type: "khatm_completed", circleId: circle.id, khatmId: KHATM_ID }, [
+            member.userId,
+          ]);
+        expect(outcome).toEqual({ sent: 0, failed: 0, skipped: 0 });
+      } finally {
+        await expoOnly.close();
+      }
+    },
+    BED_TIMEOUT_MS,
+  );
+});
+
+describe("buildCirclePushSenders", () => {
+  const configWith = (env: Record<string, string | undefined>) =>
+    ({ get: (key: string) => env[key] }) as unknown as ConfigService<EnvironmentVariables, true>;
+
+  it("always sends via Expo, and adds Web Push only when both VAPID keys are set", () => {
+    expect(Object.keys(buildCirclePushSenders(configWith({})))).toEqual(["expo"]);
+    expect(
+      Object.keys(
+        buildCirclePushSenders(configWith({ VAPID_PUBLIC_KEY: "pub", VAPID_PRIVATE_KEY: " " })),
+      ),
+    ).toEqual(["expo"]);
+
+    // A real P-256 key pair (web-push validates the key shapes locally — no network).
+    const ecdh = createECDH("prime256v1");
+    ecdh.generateKeys();
+    const senders = buildCirclePushSenders(
+      configWith({
+        VAPID_PUBLIC_KEY: ` ${ecdh.getPublicKey().toString("base64url")} `,
+        VAPID_PRIVATE_KEY: ecdh.getPrivateKey().toString("base64url"),
+      }),
+    );
+    expect(senders.expo?.channel).toBe("expo");
+    expect(senders.web?.channel).toBe("web_push");
+  });
 });

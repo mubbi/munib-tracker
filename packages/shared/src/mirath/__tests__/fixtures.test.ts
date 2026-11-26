@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
-
 import { CLASSICAL_WORKS } from "../../fiqh/differences";
 import { MADHHAB_IDS } from "../../fiqh/madhhab-rules";
-import { HEIR_TYPES, type HeirType } from "../../types/heirs";
+import { HEIR_TYPES, type HeirType, isHeirType as isHeirTypeGuard } from "../../types/heirs";
 import type { MadhhabId } from "../../types/preferences";
 import awl from "../__fixtures__/awl.json";
 import exclusion from "../__fixtures__/exclusion.json";
@@ -141,5 +140,13 @@ describe.concurrent("Mirath fixture suite (D6 release gate)", () => {
         expected.unallocated,
       );
     } else expect(result.unallocated).toBeUndefined();
+  });
+});
+
+describe("heir type guard", () => {
+  it("accepts every listed heir type and nothing else", () => {
+    for (const heir of HEIR_TYPES) expect(isHeirTypeGuard(heir)).toBe(true);
+    expect(isHeirTypeGuard("cousin_twice_removed")).toBe(false);
+    expect(isHeirTypeGuard(3)).toBe(false);
   });
 });

@@ -39,6 +39,8 @@ describe.concurrent("Dhul-Hijjah content", () => {
   it("maps shares onto the whole-animal age row", () => {
     expect(udhiyahAgeRow("cow_share")).toBe("cow");
     expect(udhiyahAgeRow("camel_share")).toBe("camel");
+    expect(udhiyahAgeRow("sheep")).toBe("sheep");
+    expect(udhiyahAgeRow("goat")).toBe("goat");
     expect(UDHIYAH_MIN_AGE_MONTHS.camel.months).toBe(60);
     expect(UDHIYAH_MIN_AGE_MONTHS.sheep.robustMonths).toBe(6);
   });

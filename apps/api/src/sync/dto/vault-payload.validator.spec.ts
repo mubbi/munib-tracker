@@ -88,4 +88,11 @@ describe("vault sync payload validation", () => {
   it("leaves non-vault entities unaffected", () => {
     expect(push("fasting", { value: { "2026-03-01": "fasted" } })).toHaveLength(0);
   });
+
+  it("rejects non-object values and payloads that can't be serialised", () => {
+    expect(isValidVaultPayload("vault_debts", { value: "ciphertext" })).toBe(false);
+    expect(isValidVaultPayload("vault_debts", { value: [envelope] })).toBe(false);
+    expect(isValidVaultPayload("vault_keyring", { value: 42 })).toBe(false);
+    expect(isValidVaultPayload("vault_debts", { value: { ...envelope, ct: 1n } })).toBe(false);
+  });
 });

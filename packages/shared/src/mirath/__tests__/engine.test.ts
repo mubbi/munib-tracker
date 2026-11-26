@@ -96,6 +96,19 @@ describe.concurrent("estate deductions", () => {
     expect(estate.distributable).toBe(600);
   });
 
+  it("flags negative inputs and ignores a negative bequest", () => {
+    const { estate, issues } = computeNetEstate({
+      gross: 1_000,
+      funeral: 0,
+      debts: 0,
+      bequests: -50,
+      currency: "USD",
+    });
+    expect(issues).toEqual([{ code: "estate_negative" }]);
+    expect(estate.bequestsRequested).toBe(0);
+    expect(estate.distributable).toBe(1_000);
+  });
+
   it("flags debts that exceed the estate", () => {
     const { estate, issues } = computeNetEstate({
       gross: 100,

@@ -1,6 +1,12 @@
-import { BadRequestException, ConflictException, ForbiddenException } from "@nestjs/common";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { InAppNotificationEntity, KhatmPartEntity } from "../database/entities";
+import {
+  BadRequestException,
+  ConflictException,
+  ForbiddenException,
+  Logger,
+  NotFoundException,
+} from "@nestjs/common";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { GroupKhatmEntity, InAppNotificationEntity, KhatmPartEntity } from "../database/entities";
 import {
   BED_TIMEOUT_MS,
   type CirclesTestBed,
@@ -334,6 +340,166 @@ describe("GroupKhatmService (NF-3.18)", () => {
     await expect(
       bed.khatms.update(creator, circleId, khatm.id, { openRemainingParts: true }),
     ).rejects.toBeInstanceOf(BadRequestException);
+  });
+  describe("guards and edge cases", () => {
+    const yesterday = () => new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
+
+    it("lists khatms with their done counts (and an empty list before any)", async () => {
+      const [a] = members as [UserActor];
+      expect((await bed.khatms.list(a, circleId)).items).toEqual([]);
+      const khatm = await start();
+      await bed.khatms.partAction(a, circleId, khatm.id, 1, "claim");
+      await bed.khatms.partAction(a, circleId, khatm.id, 1, "complete");
+      const { items } = await bed.khatms.list(a, circleId);
+      expect(items).toHaveLength(1);
+      expect(items[0]).toMatchObject({
+        id: khatm.id,
+        doneCount: 1,
+        createdBy: memberIdIn(circleId, creator),
+      });
+    });
+
+    it("lives only in khatm groups", async () => {
+      const partner = await circleWithMembers(bed, "partner", creator, [
+        { actor: members[0] as UserActor },
+      ]);
+      await expect(
+        bed.khatms.create(creator, partner.id, { title: "Nope" }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      await expect(bed.khatms.list(creator, partner.id)).rejects.toBeInstanceOf(
+        BadRequestException,
+      );
+    });
+
+    it("edits title / intention / deadline (managers only) and 404s unknown khatms", async () => {
+      const khatm = await start({ intention: "For our parents" });
+      const future = new Date(Date.now() + 5 * 86_400_000).toISOString().slice(0, 10);
+      const edited = await bed.khatms.update(creator, circleId, khatm.id, { deadline: future });
+      // Untouched fields are kept.
+      expect(edited).toMatchObject({
+        title: "Ramadan",
+        intention: "For our parents",
+        deadline: future,
+      });
+      const cleared = await bed.khatms.update(creator, circleId, khatm.id, { intention: "" });
+      expect(cleared.intention).toBeNull();
+      await expect(
+        bed.khatms.update(creator, circleId, khatm.id, { deadline: "2020-01-01" }),
+      ).rejects.toBeInstanceOf(BadRequestException);
+      await expect(
+        bed.khatms.update(members[0] as UserActor, circleId, khatm.id, { title: "Mine" }),
+      ).rejects.toBeInstanceOf(ForbiddenException);
+      await expect(
+        bed.khatms.detail(creator, circleId, "00000000-0000-4000-8000-000000000000"),
+      ).rejects.toBeInstanceOf(NotFoundException);
+    });
+
+    it("opens unfinished parts once the deadline has passed", async () => {
+      const [a] = members as [UserActor];
+      const khatm = await start();
+      await bed.khatms.partAction(a, circleId, khatm.id, 2, "claim");
+      await bed.khatms.partAction(a, circleId, khatm.id, 3, "claim");
+      await bed.khatms.partAction(a, circleId, khatm.id, 3, "complete");
+      await bed.dataSource
+        .getRepository(GroupKhatmEntity)
+        .update({ id: khatm.id }, { deadline: yesterday() });
+      const opened = await bed.khatms.update(creator, circleId, khatm.id, {
+        openRemainingParts: true,
+      });
+      expect(opened.deadlinePassed).toBe(true);
+      expect(opened.parts[1]).toMatchObject({ status: "open", assigneeMemberId: null });
+      expect(opened.parts[2]?.status).toBe("done");
+    });
+
+    it("validates part numbers and who may release a part", async () => {
+      const [a, b] = members as [UserActor, UserActor];
+      const khatm = await start();
+      for (const partNo of [0, 31, 1.5]) {
+        await expect(
+          bed.khatms.partAction(a, circleId, khatm.id, partNo, "claim"),
+        ).rejects.toBeInstanceOf(BadRequestException);
+      }
+      await bed.khatms.partAction(a, circleId, khatm.id, 7, "claim");
+      await expect(
+        bed.khatms.partAction(b, circleId, khatm.id, 7, "release"),
+      ).rejects.toBeInstanceOf(ForbiddenException);
+      // Only the assignee moves a part along.
+      await expect(
+        bed.khatms.partAction(b, circleId, khatm.id, 7, "reading"),
+      ).rejects.toBeInstanceOf(ConflictException);
+      // A manager may hand any part back to the pool.
+      const released = await bed.khatms.partAction(creator, circleId, khatm.id, 7, "release");
+      expect(released.parts[6]).toMatchObject({ status: "open", assigneeMemberId: null });
+      // Releasing an open part changes nothing → 409.
+      await expect(
+        bed.khatms.partAction(creator, circleId, khatm.id, 7, "release"),
+      ).rejects.toBeInstanceOf(ConflictException);
+    });
+
+    it("freezes a completed khatm: no part actions, assignments or deals", async () => {
+      const khatm = await start({ assignmentMode: "round_robin" });
+      await bed.dataSource
+        .getRepository(GroupKhatmEntity)
+        .update({ id: khatm.id }, { status: "completed", completedAt: new Date() });
+      await expect(
+        bed.khatms.partAction(creator, circleId, khatm.id, 1, "claim"),
+      ).rejects.toBeInstanceOf(ConflictException);
+      await expect(
+        bed.khatms.assign(creator, circleId, khatm.id, 1, { memberId: null }),
+      ).rejects.toBeInstanceOf(ConflictException);
+      await expect(bed.khatms.deal(creator, circleId, khatm.id)).rejects.toBeInstanceOf(
+        ConflictException,
+      );
+    });
+
+    it("assigns open parts to members, returns them to the pool, and never moves done parts", async () => {
+      const [a, b] = members as [UserActor, UserActor];
+      const khatm = await start();
+      const given = await bed.khatms.assign(creator, circleId, khatm.id, 9, {
+        memberId: memberIdIn(circleId, b),
+      });
+      expect(given.parts[8]).toMatchObject({
+        status: "assigned",
+        assigneeMemberId: memberIdIn(circleId, b),
+      });
+      // Assigned parts are only reassignable once stale — but `null` on an open
+      // part is a no-op reassignment of the pool.
+      const pooled = await bed.khatms.assign(creator, circleId, khatm.id, 10, { memberId: null });
+      expect(pooled.parts[9]).toMatchObject({ status: "open", assigneeMemberId: null });
+      await expect(
+        bed.khatms.assign(creator, circleId, khatm.id, 10, {
+          memberId: "00000000-0000-4000-8000-000000000000",
+        }),
+      ).rejects.toBeInstanceOf(NotFoundException);
+
+      await bed.khatms.partAction(a, circleId, khatm.id, 11, "claim");
+      await bed.khatms.partAction(a, circleId, khatm.id, 11, "complete");
+      await expect(
+        bed.khatms.assign(creator, circleId, khatm.id, 11, { memberId: memberIdIn(circleId, b) }),
+      ).rejects.toBeInstanceOf(ConflictException);
+      await expect(
+        bed.khatms.assign(a, circleId, khatm.id, 12, { memberId: null }),
+      ).rejects.toBeInstanceOf(ForbiddenException);
+    });
+
+    it("refuses a new round while the current one is still running", async () => {
+      const khatm = await start();
+      await expect(bed.khatms.startNextRound(creator, circleId, khatm.id)).rejects.toBeInstanceOf(
+        ConflictException,
+      );
+    });
+
+    it("keeps a join working when the auto-deal hook fails (logged by class only)", async () => {
+      await start({ assignmentMode: "round_robin" });
+      const warn = vi.spyOn(Logger.prototype, "warn").mockImplementation(() => undefined);
+      const find = vi.spyOn(bed.dataSource, "getRepository").mockImplementationOnce(() => {
+        throw new TypeError("db down");
+      });
+      await expect(bed.khatms.onMemberJoined(circleId)).resolves.toBeUndefined();
+      expect(warn).toHaveBeenCalledWith("khatm auto-deal failed: TypeError");
+      find.mockRestore();
+      warn.mockRestore();
+    });
   });
 });
 

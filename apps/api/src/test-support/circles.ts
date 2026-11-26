@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { VisiblePushItem, VisiblePushSender } from "@munib-tracker/surface-push-delivery";
+import type { Type } from "@nestjs/common";
 import type { TestingModule } from "@nestjs/testing";
 import { DataSource } from "typeorm";
 import { createAuthTestingModule } from "../../test/support/testing-module";
@@ -48,9 +49,12 @@ export function todayIso(): string {
  * a user row and returns the actor the guard would resolve for it.
  *
  * OS push goes to `pushSenders` (default: fakes that record every send and
- * succeed — no network), exposed as `bed.pushSends`.
+ * succeed — no network), exposed as `bed.pushSends`. `controllers` mounts
+ * routes (with the real `CircleAuthGuard`) for in-process HTTP specs.
  */
-export async function createCirclesTestBed(options: { pushSenders?: CirclePushSenders } = {}) {
+export async function createCirclesTestBed(
+  options: { pushSenders?: CirclePushSenders; controllers?: Type[] } = {},
+) {
   resetMemoryRateLimits();
   const pushSends: Array<{ platform: "expo" | "web"; items: VisiblePushItem[] }> = [];
   const recordingSender = (platform: "expo" | "web"): VisiblePushSender => ({
@@ -60,26 +64,29 @@ export async function createCirclesTestBed(options: { pushSenders?: CirclePushSe
       return items.map(() => ({ ok: true as const }));
     },
   });
-  const module: TestingModule = await createAuthTestingModule([
-    CircleActorService,
-    CircleAccessService,
-    CircleEventsService,
-    CirclePushService,
-    {
-      provide: CIRCLE_PUSH_SENDERS,
-      useValue: options.pushSenders ?? {
-        expo: recordingSender("expo"),
-        web: recordingSender("web"),
+  const module: TestingModule = await createAuthTestingModule(
+    [
+      CircleActorService,
+      CircleAccessService,
+      CircleEventsService,
+      CirclePushService,
+      {
+        provide: CIRCLE_PUSH_SENDERS,
+        useValue: options.pushSenders ?? {
+          expo: recordingSender("expo"),
+          web: recordingSender("web"),
+        },
       },
-    },
-    CirclesService,
-    ChildProfilesService,
-    CircleSignalsService,
-    GroupKhatmService,
-    FamilyDigestService,
-    CircleRetentionService,
-    CircleNearbyService,
-  ]);
+      CirclesService,
+      ChildProfilesService,
+      CircleSignalsService,
+      GroupKhatmService,
+      FamilyDigestService,
+      CircleRetentionService,
+      CircleNearbyService,
+    ],
+    options.controllers,
+  );
   const dataSource = module.get(DataSource);
 
   async function user(accountType: "user" | "guest" = "user"): Promise<UserActor> {

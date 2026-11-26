@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-
 import { MADHHAB_RULES } from "../madhhab-rules";
 import {
   applyFiqhCustom,
@@ -7,6 +6,8 @@ import {
   type FiqhPreferences,
   globalSchool,
   hasDomainOverride,
+  isFiqhDomain as isFiqhDomainGuard,
+  isMadhhabId as isMadhhabIdGuard,
   isMadhhabUnset,
   resolveFiqh,
   resolveSchool,
@@ -136,5 +137,16 @@ describe.concurrent("rulesFor / resolveFiqh", () => {
   it("returns the untouched table for a school with no custom values", () => {
     expect(rulesFor({ madhhab: "hanbali" }, "salah")).toBe(MADHHAB_RULES.hanbali);
     expect(rulesForSchool("maliki")).toBe(MADHHAB_RULES.maliki);
+  });
+});
+
+describe.concurrent("fiqh id guards", () => {
+  it("accepts only known madhhab ids and fiqh domains", () => {
+    expect(isMadhhabIdGuard("hanafi")).toBe(true);
+    expect(isMadhhabIdGuard("zahiri-ish")).toBe(false);
+    expect(isMadhhabIdGuard(1)).toBe(false);
+    expect(isFiqhDomainGuard("salah")).toBe(true);
+    expect(isFiqhDomainGuard("cooking")).toBe(false);
+    expect(isFiqhDomainGuard(null)).toBe(false);
   });
 });

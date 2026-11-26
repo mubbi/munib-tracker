@@ -76,6 +76,45 @@ describe("geoapifyToOverpass", () => {
     expect(geoapifyToOverpass(null)).toEqual({ elements: [] });
     expect(geoapifyToOverpass({ features: "x" })).toEqual({ elements: [] });
   });
+
+  it("drops features without an OSM ref and normalises the ones it keeps", () => {
+    const { elements } = geoapifyToOverpass({
+      features: [
+        "not a feature",
+        { properties: "x" },
+        { properties: { datasource: { raw: "x" } } },
+        feature({ osm_type: "x", osm_id: 1 }),
+        feature({ osm_type: "n", osm_id: 0 }),
+        feature({ osm_type: "n", osm_id: "1e400" }),
+        // Signed way id (some datasets), string id, coordinates from geometry only.
+        {
+          geometry: { type: "Point", coordinates: [10.5, 20.25] },
+          properties: {
+            categories: ["tourism.sights.place_of_worship.mosque"],
+            datasource: {
+              raw: { osm_type: "way", osm_id: "-77", religion: "christian", levels: 2, bad: NaN },
+            },
+          },
+        },
+        // No usable geometry and no categories: kept, without coordinates or filled tags.
+        {
+          geometry: { type: "Polygon", coordinates: [] },
+          properties: { lat: "1", datasource: { raw: { osm_type: "r", osm_id: 9 } } },
+        },
+      ],
+    });
+    expect(elements).toEqual([
+      {
+        type: "way",
+        id: 77,
+        lat: 20.25,
+        lon: 10.5,
+        // Categories fill gaps only — a conflicting `religion` is never overridden.
+        tags: { religion: "christian", levels: "2", amenity: "place_of_worship" },
+      },
+      { type: "relation", id: 9, lat: undefined, lon: undefined, tags: {} },
+    ]);
+  });
 });
 
 describe("GeoapifyClient", () => {
@@ -136,6 +175,58 @@ describe("GeoapifyClient", () => {
     const error = await new GeoapifyClient().element("node", "1").catch((e: unknown) => e);
     expect(error).toBeInstanceOf(GeoapifyError);
     expect(String((error as Error).message)).not.toContain("secret-key");
+  });
+
+  it.each([
+    ["a 403", () => new Response("no", { status: 403 }), "Geoapify rejected the API key", 403],
+    ["a 5xx", () => new Response("down", { status: 503 }), "Geoapify responded 503", 503],
+    [
+      "a non-JSON body",
+      () => new Response("<html>", { status: 200 }),
+      "Geoapify returned a non-JSON body",
+      undefined,
+    ],
+  ])("maps %s to a GeoapifyError", async (_label, respond, message, status) => {
+    vi.stubEnv("GEOAPIFY_API_KEY", "k");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => respond()),
+    );
+    const error = await new GeoapifyClient().element("node", "1").catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(GeoapifyError);
+    expect(error).toMatchObject({ message, status });
+  });
+
+  it("reports network failures and timeouts without the URL", async () => {
+    vi.stubEnv("GEOAPIFY_API_KEY", "secret-key");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw new TypeError("fetch failed: https://api.geoapify.com/?apiKey=secret-key");
+      }),
+    );
+    const failed = await new GeoapifyClient().element("node", "1").catch((e: unknown) => e);
+    expect(failed).toMatchObject({ name: "GeoapifyError", message: "Geoapify request failed" });
+
+    vi.useFakeTimers();
+    try {
+      vi.stubGlobal(
+        "fetch",
+        vi.fn(
+          (_url: string, init: RequestInit) =>
+            new Promise((_resolve, reject) => {
+              init.signal?.addEventListener("abort", () =>
+                reject(new DOMException("aborted", "AbortError")),
+              );
+            }),
+        ),
+      );
+      const pending = new GeoapifyClient().element("node", "1").catch((e: unknown) => e);
+      await vi.advanceTimersByTimeAsync(8_000);
+      expect(await pending).toMatchObject({ message: "Geoapify request timed out" });
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 

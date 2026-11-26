@@ -16,9 +16,12 @@ import {
   normalizeNoteTag,
   normalizeNoteTags,
   noteAyahKey,
+  noteCoversAyah,
+  pickNewerNote,
   quranNotesPayloadBytes,
   resolveNoteWordSpan,
   sanitizeAyahNote,
+  sortNotesByReadingOrder,
   suggestNoteTags,
   utf8ByteLength,
 } from "./quran-notes";
@@ -349,5 +352,87 @@ describe.concurrent("formatQuranNotesExport", () => {
     expect(md).toContain("ayah-1-5");
     expect(md).toContain("ayah-1-6");
     expect(md.trimEnd().endsWith(`_${credit}_`)).toBe(true);
+  });
+});
+describe.concurrent("note helpers and edge cases", () => {
+  const at = (day: number) => `2026-11-${String(day).padStart(2, "0")}T00:00:00.000Z`;
+
+  it("keeps a word span's text hash only when it is short enough", () => {
+    const words = { start: 1, end: 3 };
+    expect(sanitizeAyahNote(note("a", { words, textHash: "abc123" }))).toMatchObject({
+      words,
+      textHash: "abc123",
+    });
+    const long = sanitizeAyahNote(note("a", { words, textHash: "h".repeat(65) }));
+    expect(long?.words).toEqual(words);
+    expect(long?.textHash).toBeUndefined();
+  });
+
+  it("knows which ayahs a note (or range note) covers", () => {
+    const range = note("r", { surah: 2, ayah: 255, endAyah: 257 });
+    expect(noteCoversAyah(range, 2, 255)).toBe(true);
+    expect(noteCoversAyah(range, 2, 257)).toBe(true);
+    expect(noteCoversAyah(range, 2, 258)).toBe(false);
+    expect(noteCoversAyah(range, 3, 256)).toBe(false);
+  });
+
+  it("breaks an exact tie the same way on both devices", () => {
+    const a = note("x", { body: "alpha", updatedAt: at(5) });
+    const b = note("x", { body: "beta", updatedAt: at(5) });
+    expect(pickNewerNote(a, b)).toBe(pickNewerNote(b, a));
+    // A same-instant tombstone still beats the edit.
+    const tomb = note("x", { updatedAt: at(5), deletedAt: at(5) });
+    expect(pickNewerNote(a, tomb)).toBe(tomb);
+    expect(pickNewerNote(tomb, a)).toBe(tomb);
+  });
+
+  it("sorts in reading order, newest first within an ayah", () => {
+    const older = note("o", { surah: 2, ayah: 255, updatedAt: at(1) });
+    const newer = note("n", { surah: 2, ayah: 255, updatedAt: at(9) });
+    const same = note("s", { surah: 2, ayah: 255, updatedAt: at(9) });
+    const earlier = note("e", { surah: 2, ayah: 10 });
+    const first = note("f", { surah: 1, ayah: 7 });
+    expect(sortNotesByReadingOrder([older, newer, earlier, first, same]).map((n) => n.id)).toEqual([
+      "f",
+      "e",
+      "n",
+      "s",
+      "o",
+    ]);
+  });
+
+  it("highlights only from a coloured whole-ayah note", () => {
+    expect(highlightColorFor(undefined)).toBeNull();
+    expect(highlightColorFor([note("a")])).toBeNull();
+    expect(
+      highlightColorFor([note("w", { color: "gold", words: { start: 0, end: 1 } })]),
+    ).toBeNull();
+    expect(highlightColorFor([note("a"), note("c", { color: "rose" })])).toBe("rose");
+  });
+
+  it("rejects payloads with too many raw tags or values JSON can't encode", () => {
+    const tags = Array.from({ length: 11 }, (_, i) => `t${i}`);
+    expect(isValidQuranNotesPayload({ value: { a: { ...note("a"), tags } } })).toBe(false);
+    expect(isValidQuranNotesPayload({ value: { a: { ...note("a"), big: 1n } } })).toBe(false);
+    expect(isValidQuranNotesPayload(null)).toBe(false);
+  });
+
+  it("over the cap, re-applies a newer remote edit of a note deleted here (and not an older one)", () => {
+    const body = (n: number) => "x".repeat(n);
+    const mine = {
+      keep: note("keep", { body: body(300), updatedAt: at(5) }),
+      gone: note("gone", { updatedAt: at(10), deletedAt: at(10) }),
+      gone2: note("gone2", { updatedAt: at(10), deletedAt: at(10) }),
+    };
+    const theirs = {
+      gone: note("gone", { body: "edited later", updatedAt: at(12) }),
+      gone2: note("gone2", { body: "edited earlier", updatedAt: at(8) }),
+      huge: note("huge", { body: body(3000), updatedAt: at(11) }),
+    };
+    const cap = quranNotesPayloadBytes({ keep: mine.keep, gone: theirs.gone }) + 20;
+    const result = mergeQuranNotesCapped(mine, theirs, NOW, cap);
+    expect(Object.keys(result.value).sort()).toEqual(["gone", "keep"]);
+    expect(result.value.gone?.body).toBe("edited later");
+    expect(result.pending).toBe(1);
   });
 });

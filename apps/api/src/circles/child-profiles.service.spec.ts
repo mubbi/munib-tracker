@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   ForbiddenException,
   GoneException,
   NotFoundException,
@@ -237,5 +238,56 @@ describe("ChildProfilesService (D7)", () => {
     expect(updated.reward).toEqual({ title: "Park trip", days: 7 });
     const cleared = await bed.children.update(parent, familyId, child.id, { reward: null });
     expect(cleared.reward).toBeNull();
+  });
+  it("caps a family at 12 child profiles", async () => {
+    for (let i = 0; i < 12; i += 1) await addChild(8, `Child${i}`);
+    await expect(addChild(8, "Thirteenth")).rejects.toBeInstanceOf(ConflictException);
+  });
+
+  it("validates birth year and avatar edits; untouched fields are kept", async () => {
+    const child = await addChild(8);
+    await expect(
+      bed.children.update(parent, familyId, child.id, { birthYear: birthYearForAge(15) }),
+    ).rejects.toBeInstanceOf(BadRequestException);
+    const withAvatar = await bed.children.update(parent, familyId, child.id, { avatar: "lion" });
+    expect(withAvatar).toMatchObject({ nickname: "Ali", avatar: "lion" });
+    const renamed = await bed.children.update(parent, familyId, child.id, { nickname: "Ali K" });
+    expect(renamed).toMatchObject({ nickname: "Ali K", avatar: "lion" });
+    const cleared = await bed.children.update(parent, familyId, child.id, { avatar: null });
+    expect(cleared.avatar).toBeNull();
+  });
+
+  it("refuses an unknown or expired link code", async () => {
+    await expect(
+      bed.children.redeemDeviceLink("mtl_unknown-token-0000", "10.0.0.2"),
+    ).rejects.toBeInstanceOf(GoneException);
+    const child = await addChild();
+    const { linkToken } = await bed.children.createDeviceLink(parent, familyId, child.id);
+    await bed.dataSource
+      .getRepository(ChildProfileEntity)
+      .update({ id: child.id }, { linkTokenExpiresAt: new Date(Date.now() - 1000) });
+    await expect(bed.children.redeemDeviceLink(linkToken, "10.0.0.2")).rejects.toBeInstanceOf(
+      GoneException,
+    );
+  });
+
+  it("only answers /me for a child session", async () => {
+    await expect(bed.children.me(parent)).rejects.toBeInstanceOf(ForbiddenException);
+    const child = await addChild();
+    const { actor } = await linkDevice(child.id);
+    await expect(bed.children.me(actor)).resolves.toMatchObject({ id: child.id });
+  });
+
+  it("won't graduate a child into an account that is already in the family", async () => {
+    const child = await addChild(11, "Older");
+    await bed.children.update(parent, familyId, child.id, { graduationUnlocked: true });
+    const { token } = await linkDevice(child.id);
+    await expect(bed.children.graduate(teen, { childToken: token })).rejects.toBeInstanceOf(
+      ConflictException,
+    );
+    // The child profile is untouched.
+    expect(
+      await bed.dataSource.getRepository(ChildProfileEntity).findOneBy({ id: child.id }),
+    ).not.toBeNull();
   });
 });

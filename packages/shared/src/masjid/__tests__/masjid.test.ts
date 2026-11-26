@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-
 import {
   attributionCreditsGeoapify,
   boundsOfCells,
@@ -24,6 +23,7 @@ import {
   sanitizePrivateMasjidTimes,
   sortByDistance,
 } from "../index";
+import { osmUrl as masjidOsmUrl, masjidKey as masjidRefKey } from "../iqamah";
 
 describe.concurrent("attributionCreditsGeoapify", () => {
   it("matches only the exact Geoapify attribution line", () => {
@@ -338,5 +338,14 @@ describe.concurrent("distance + names", () => {
     expect(masjidDisplayName(m, "ar")).toBe("المسجد الشرقي");
     expect(masjidDisplayName(m, "en-GB")).toBe("East Masjid");
     expect(masjidDisplayName({}, "en")).toBeUndefined();
+  });
+});
+
+describe.concurrent("masjid refs", () => {
+  it("keys and links a masjid by its OSM ref", () => {
+    expect(masjidRefKey({ osmType: "way", osmId: "42" })).toBe("way/42");
+    expect(masjidOsmUrl({ osmType: "node", osmId: "7" })).toBe(
+      "https://www.openstreetmap.org/node/7",
+    );
   });
 });

@@ -176,6 +176,23 @@ describe("MasjidsService", () => {
     for (const call of warn.mock.calls) expect(String(call[0])).not.toContain("gcpvj");
   });
 
+  it("uses the peer's fresh copy once the instance holding the lock writes it", async () => {
+    vi.useFakeTimers();
+    try {
+      const { service, query, store } = setup();
+      const key = masjidCellKey("gcpvj");
+      store.set(`${key}:lock`, "1");
+      const pending = service.list("gcpvj");
+      // The other instance finishes its fetch while we wait.
+      setTimeout(() => seed(store, key, 0, [{ osmType: "node", osmId: "77", lat: 1, lon: 1 }]), 1);
+      await vi.runAllTimersAsync();
+      await expect(pending).resolves.toMatchObject({ stale: false, masjids: [{ osmId: "77" }] });
+      expect(query).not.toHaveBeenCalled();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("serves stale data while another instance holds the cold-miss lock", async () => {
     vi.useFakeTimers();
     try {
@@ -233,6 +250,36 @@ describe("MasjidsService", () => {
       const detail = await service.detail("node", "1");
       expect(detail.timetable?.daily).toEqual({ fajr: "05:30" });
       expect(detail.attribution).toContain("Times: Fake feed (CC0)");
+    });
+
+    it("falls through failing or empty timetable sources, and skips unnamed masjids", async () => {
+      const source = (id: string, fetch: TimetableSource["fetch"]): TimetableSource => ({
+        id,
+        name: id,
+        licence: "CC0",
+        attribution: `Times: ${id}`,
+        homepage: "https://example.org",
+        fetch,
+      });
+      const broken = source("broken", vi.fn().mockRejectedValue(new Error("feed down")));
+      const empty = source("empty", vi.fn().mockResolvedValue(null));
+      const { service, query } = setup({ sources: [broken, empty] });
+      query.mockResolvedValueOnce({ elements: [OVERPASS_FIXTURE.elements[0]] });
+      const detail = await service.detail("node", "1");
+      expect(detail.timetable).toBeUndefined();
+      expect(detail.attribution).toEqual([...OSM_ATTRIBUTION_LINES]);
+      expect(broken.fetch).toHaveBeenCalledWith({
+        osmId: "node/1",
+        lat: 51.5,
+        lon: -0.12,
+        name: "East Masjid",
+      });
+      expect(empty.fetch).toHaveBeenCalledTimes(1);
+
+      // An unnamed masjid can never be matched confidently: no source is asked.
+      query.mockResolvedValueOnce({ elements: [OVERPASS_FIXTURE.elements[1]] });
+      await service.detail("way", "2");
+      expect(broken.fetch).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
-
-import { parseCorpusId, refFormatIssue, refKey } from "./content-verification";
+import {
+  isBundledHadithCollection,
+  parseCorpusId,
+  refFormatIssue,
+  refKey,
+} from "./content-verification";
 import { fromFiqhRef, SHARED_EVIDENCE_REGISTRY } from "./evidence-registry";
 
 describe("content verification helpers", () => {
@@ -59,4 +63,12 @@ describe("SHARED_EVIDENCE_REGISTRY", () => {
       expect(refFormatIssue(entry.ref)).toBeNull();
     },
   );
+});
+
+describe("bundled hadith collections", () => {
+  it("knows which collections ship in the app bundle", () => {
+    expect(isBundledHadithCollection("nawawi40")).toBe(true);
+    expect(isBundledHadithCollection("riyad_assalihin")).toBe(true);
+    expect(isBundledHadithCollection("bukhari")).toBe(false);
+  });
 });

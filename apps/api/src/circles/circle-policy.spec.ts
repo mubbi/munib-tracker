@@ -3,6 +3,9 @@ import {
   canInviteRole,
   canReadSignals,
   canWriteSignal,
+  isManager,
+  isParentRole,
+  isSignalKindAllowed,
   type PolicyMember,
   pickSuccessor,
 } from "./circle-policy";
@@ -141,5 +144,50 @@ describe("circle tokens", () => {
   it("marks child-session bearers with their own prefix", () => {
     expect(isChildSessionToken(generateChildSessionToken())).toBe(true);
     expect(isChildSessionToken("eyJhbGciOi")).toBe(false);
+  });
+});
+
+describe("khatm groups and other circle types", () => {
+  const a = member({ memberId: "a", role: "owner" });
+  const b = member({ memberId: "b" });
+
+  it("shares no daily signals inside khatm groups (only your own are readable)", () => {
+    expect(isSignalKindAllowed("khatm_group", "fard_status")).toBe(false);
+    expect(canWriteSignal("khatm_group", "fard_status", a, a)).toBe(false);
+    expect(canReadSignals("khatm_group", a, b)).toBe(false);
+    expect(canReadSignals("khatm_group", a, a)).toBe(true);
+  });
+
+  it("knows each type's managers and parent roles", () => {
+    expect(isManager("khatm_group", "admin")).toBe(true);
+    expect(isManager("khatm_group", "member")).toBe(false);
+    expect(isManager("family", "parent")).toBe(true);
+    expect(isManager("partner", "member")).toBe(true);
+    expect(isParentRole("owner")).toBe(true);
+    expect(isParentRole("parent")).toBe(true);
+    expect(isParentRole("admin")).toBe(false);
+  });
+
+  it("keeps a child session from reading adults even with a parent-like role", () => {
+    const childAsParent = member({ memberId: "x", memberKind: "child", role: "parent" });
+    expect(canReadSignals("family", childAsParent, child)).toBe(false);
+  });
+
+  it("never hands ownership to the outgoing owner or to a child", () => {
+    const at = (minutes: number) => new Date(Date.UTC(2026, 0, 1, 0, minutes));
+    const kid = {
+      ...member({ memberId: "k", memberKind: "child", role: "child" }),
+      joinedAt: at(0),
+    };
+    const self = { ...member({ memberId: "o", role: "owner" }), joinedAt: at(0) };
+    expect(pickSuccessor("partner", [self, kid])).toBeNull();
+    expect(pickSuccessor("khatm_group", [self])).toBeNull();
+    // No admin: the oldest member takes a khatm group.
+    expect(
+      pickSuccessor("khatm_group", [
+        { ...member({ memberId: "late" }), joinedAt: at(5) },
+        { ...member({ memberId: "early" }), joinedAt: at(2) },
+      ])?.memberId,
+    ).toBe("early");
   });
 });

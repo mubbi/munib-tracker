@@ -69,6 +69,20 @@ describe("MasjidsController", () => {
     expect(service.detail).toHaveBeenCalledWith("way", "42", "1.1.1.1");
   });
 
+  it("serves a stale detail uncached and rate-limits details after 120 calls", async () => {
+    const { controller, service, res } = setup(true);
+    const req = buildRequest({ ip: "8.8.8.8" });
+    await controller.detail({ osmType: "node", osmId: "1" }, req, res);
+    expect(res.headers.get("cache-control")).toBe("no-store");
+    for (let i = 1; i < 120; i += 1) {
+      await controller.detail({ osmType: "node", osmId: "1" }, req, res);
+    }
+    await expect(
+      controller.detail({ osmType: "node", osmId: "1" }, req, res),
+    ).rejects.toMatchObject({ status: 429 });
+    expect(service.detail).toHaveBeenCalledTimes(120);
+  });
+
   it.each([["gcpv"], ["gcpvja"], ["GCPVJ"], ["gcpva"], ["51.5,-0.1"]])(
     "rejects a non-geohash-5 cell %s (no precise coordinates accepted)",
     async (cell) => {
@@ -149,6 +163,41 @@ describe("OverpassClient", () => {
     vi.stubGlobal("fetch", fetchMock);
     await expect(new OverpassClient().query("x")).rejects.toThrow("400");
     expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("names the failure without a mirror count when only one URL is configured", async () => {
+    vi.stubEnv("OVERPASS_URL", "https://only.example/api");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response("busy", { status: 504 })),
+    );
+    try {
+      await expect(new OverpassClient().query("x")).rejects.toMatchObject({
+        message: "Overpass responded 504",
+        status: 504,
+      });
+    } finally {
+      vi.unstubAllEnvs();
+    }
+  });
+
+  it("stops trying mirrors once too little of the overall deadline is left", async () => {
+    let now = 1_000_000;
+    const clock = vi.spyOn(Date, "now").mockImplementation(() => now);
+    const fetchMock = vi.fn(async () => {
+      now += 28_000; // a slow, failing first mirror eats the budget
+      throw new TypeError("socket hang up");
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    try {
+      await expect(new OverpassClient().query("x")).rejects.toMatchObject({
+        message: `Overpass request failed (tried 1 of ${DEFAULT_OVERPASS_URLS.length} mirrors)`,
+        status: undefined,
+      });
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    } finally {
+      clock.mockRestore();
+    }
   });
 
   it("reads a comma-separated OVERPASS_URL, https only", () => {

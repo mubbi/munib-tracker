@@ -89,6 +89,47 @@ describe("visible Expo push", () => {
       expect.objectContaining({ ok: false, retryable: true }),
     ]);
   });
+
+  it("treats tickets missing from the response as retryable failures", async () => {
+    const second = "ExponentPushToken[def]";
+    const short = createExpoVisiblePushSender(
+      vi.fn(async () =>
+        jsonResponse({ data: [{ status: "ok", id: "t1" }] }),
+      ) as unknown as typeof fetch,
+    );
+    expect(
+      await short.sendMany([
+        { target: TOKEN, notification: NOTE },
+        { target: second, notification: NOTE },
+      ]),
+    ).toEqual([
+      expect.objectContaining({ ok: true }),
+      { ok: false, reason: "Missing Expo Push ticket", retryable: true, invalidateToken: false },
+    ]);
+    const noData = createExpoVisiblePushSender(
+      vi.fn(async () => jsonResponse({ errors: [] })) as unknown as typeof fetch,
+    );
+    expect(await noData.sendMany([{ target: TOKEN, notification: NOTE }])).toEqual([
+      expect.objectContaining({ ok: false, reason: "Missing Expo Push ticket" }),
+    ]);
+  });
+
+  it("uses the global fetch by default", async () => {
+    const fetchMock = vi.fn(async () => jsonResponse({ data: [{ status: "ok", id: "t1" }] }));
+    vi.stubGlobal("fetch", fetchMock);
+    try {
+      const sender = createExpoVisiblePushSender();
+      expect(await sender.sendMany([{ target: TOKEN, notification: NOTE }])).toEqual([
+        expect.objectContaining({ ok: true }),
+      ]);
+      expect(fetchMock).toHaveBeenCalledWith(
+        "https://exp.host/--/api/v2/push/send",
+        expect.anything(),
+      );
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
 });
 
 describe("visible Web Push", () => {

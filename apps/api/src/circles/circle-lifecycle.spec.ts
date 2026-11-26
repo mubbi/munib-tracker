@@ -1,4 +1,5 @@
 import { CHILD_CONSENT_PENDING_CODE } from "@munib-tracker/shared/circles";
+import { Logger } from "@nestjs/common";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AuthService } from "../auth/auth.service";
 import { AccountClosureReason, AuthProvider } from "../auth/dto/auth.dto";
@@ -21,7 +22,11 @@ import {
   todayIso,
   type UserActor,
 } from "../test-support/circles";
-import { purgeExpiredCircleData, purgeUserCircleData } from "./circle-lifecycle";
+import {
+  purgeExpiredCircleData,
+  purgeUserCircleData,
+  transferOrDeleteChildProfile,
+} from "./circle-lifecycle";
 import { CIRCLE_RETENTION_INTERVAL_MS } from "./circle-retention.service";
 
 const DAY_MS = 86_400_000;
@@ -395,6 +400,51 @@ describe("circle deletion & retention", () => {
     it("never throws from a cron tick", async () => {
       vi.spyOn(bed.retention, "run").mockRejectedValueOnce(new Error("db down"));
       await expect(bed.retention.maybeRun(new Date())).resolves.toBeUndefined();
+    });
+
+    it("logs a failed sweep by error class only (never its message)", async () => {
+      const warn = vi.spyOn(Logger.prototype, "warn").mockImplementation(() => undefined);
+      vi.spyOn(bed.retention, "run")
+        .mockRejectedValueOnce(new RangeError("row 42 of user x"))
+        .mockRejectedValueOnce("not an error");
+      const start = Date.now();
+      await bed.retention.maybeRun(new Date(start));
+      await bed.retention.maybeRun(new Date(start + CIRCLE_RETENTION_INTERVAL_MS));
+      expect(warn.mock.calls.map(([message]) => message)).toEqual([
+        "circle retention sweep failed: RangeError",
+        "circle retention sweep failed: error",
+      ]);
+      warn.mockRestore();
+    });
+  });
+
+  describe("D34: child profiles when the consenting parent goes", () => {
+    it("deletes the profile outright when no other parent remains", async () => {
+      const owner = await bed.user();
+      const family = await bed.circles.create(owner, { type: "family", name: "Home" });
+      const child = await bed.children.create(owner, family.id, {
+        nickname: "Ali",
+        birthYear: birthYearForAge(9),
+        parentalConsent: true,
+        consentPolicyVersion: "2026-11",
+      });
+      const outcome = await bed.dataSource.transaction((manager) =>
+        transferOrDeleteChildProfile(
+          manager,
+          { id: child.id, circleId: family.id, consentTransferredAt: null },
+          owner.userId,
+          new Date(),
+        ),
+      );
+      expect(outcome).toBe("deleted");
+      expect(
+        await bed.dataSource.getRepository(ChildProfileEntity).count({ where: { id: child.id } }),
+      ).toBe(0);
+      expect(
+        await bed.dataSource
+          .getRepository(CircleMemberEntity)
+          .count({ where: { circleId: family.id, memberKind: "child" } }),
+      ).toBe(0);
     });
   });
 });
