@@ -1975,7 +1975,8 @@
       "playHint": "یوازې {{ref}} غږوي",
       "openFullSurah": "بشپړ سورت پرانیزئ",
       "openFullSurahHint": "{{name}} د {{n}} آیت له ځایه په قرآن لوستونکي کې پرانیزي"
-    }
+    },
+    "continueShort": "دوام"
   },
   "hadith": {
     "eyebrow": "نبوي سنت",

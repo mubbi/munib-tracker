@@ -1976,7 +1976,8 @@
       "playHint": "শুধু {{ref}} চালায়",
       "openFullSurah": "পুরো সূরায় খুলুন",
       "openFullSurahHint": "রিডারে {{name}} আয়াত {{n}}-এ খোলে"
-    }
+    },
+    "continueShort": "চালিয়ে যান"
   },
   "hadith": {
     "eyebrow": "নববী সুন্নাহ",

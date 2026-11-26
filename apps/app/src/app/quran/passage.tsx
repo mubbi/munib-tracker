@@ -298,22 +298,29 @@ export default function QuranPassageScreen() {
             revelationPlace={surah.revelationPlace}
             ayahCount={surah.ayahCount}
           />
+          {/* Each button sits in a row cell that shares the width; the button itself
+              just fills its cell. (A flexBasis on the Button lands on its inner
+              column and became a ~140px HEIGHT on web.) */}
           <View style={styles.topActions}>
-            <Button
-              label={passagePlaying ? t("quran.actionPause") : t("quran.passage.play")}
-              icon={passagePlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
-              accessibilityHint={t("quran.passage.playHint", { ref: rangeLabel })}
-              style={styles.topAction}
-              preferredFocus={tv}
-              onPress={() => {
-                if (passageActive) {
-                  toggleAudio();
-                  return;
-                }
-                playFrom(0);
-              }}
-            />
-            <ReciteAlongButton passage={recitePassage} style={styles.topAction} />
+            <View style={styles.topAction}>
+              <Button
+                label={passagePlaying ? t("quran.actionPause") : t("quran.passage.play")}
+                icon={passagePlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
+                accessibilityHint={t("quran.passage.playHint", { ref: rangeLabel })}
+                fullWidth
+                preferredFocus={tv}
+                onPress={() => {
+                  if (passageActive) {
+                    toggleAudio();
+                    return;
+                  }
+                  playFrom(0);
+                }}
+              />
+            </View>
+            <View style={styles.topAction}>
+              <ReciteAlongButton passage={recitePassage} fullWidth />
+            </View>
           </View>
 
           <AyahFocusTrackerContext.Provider value={ayahFocusRef}>
@@ -448,8 +455,17 @@ export default function QuranPassageScreen() {
 
 const styles = StyleSheet.create({
   root: { gap: Spacing.three, width: "100%" },
-  topActions: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
-  topAction: { flexGrow: 1, flexBasis: 140 },
+  topActions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    gap: Spacing.two,
+    // Wide web: a compact pair, not two half-screen slabs.
+    width: "100%",
+    maxWidth: 560,
+    alignSelf: "center",
+  },
+  topAction: { flexGrow: 1, flexBasis: 180, minWidth: 0 },
   fullSurah: { alignSelf: "center" },
 });
 

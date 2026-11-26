@@ -1991,7 +1991,8 @@
       "playHint": "Pušta samo {{ref}}",
       "openFullSurah": "Otvori cijelu suru",
       "openFullSurahHint": "Otvara {{name}} na ajetu {{n}} u čitaču"
-    }
+    },
+    "continueShort": "Nastavi"
   },
   "hadith": {
     "eyebrow": "Poslanička predaja",

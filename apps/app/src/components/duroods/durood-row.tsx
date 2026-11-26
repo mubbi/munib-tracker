@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { duroodGradeClass } from "@/components/duroods/durood-browse";
+import { SurahNumberMedallion } from "@/components/quran/surah-number-medallion";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
-import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { BorderWidth, Radius, Spacing } from "@/constants/theme";
@@ -22,7 +22,9 @@ const ICON_SIZE = 18;
 const SLOT = 44;
 const ROW_GAP = Spacing.twoHalf;
 // Arabic is exempt from ThemedText's TV ramp, so size it for 10-ft viewing here.
-const PREVIEW_ARABIC_SIZE = isTV() ? tvDp(26) : 18;
+// Full card width now (no longer squeezed by the actions), so it can read larger.
+const PREVIEW_ARABIC_SIZE = isTV() ? tvDp(26) : 21;
+const PREVIEW_ARABIC_LINE = Math.round(PREVIEW_ARABIC_SIZE * 1.85);
 
 const PLAY = { ios: "play.circle", android: "play_circle", web: "play_circle" } as const;
 const PAUSE = { ios: "pause.circle.fill", android: "pause_circle", web: "pause_circle" } as const;
@@ -87,15 +89,14 @@ export const DuroodRow = memo(function DuroodRow({
   const handleInfo = useCallback(() => onInfo?.(item.id), [item.id, onInfo]);
   const handlePlay = useCallback(() => onPlay?.(item.id), [item.id, onPlay]);
 
-  // Phone / web: one 44pt slot each, end-most first: info, save, play.
+  // Phone / web: the actions sit in the card's footer row (one 44pt slot each,
+  // end-most first: info, save, play), overlaid on a spacer inside the card.
   const slotCount = (onInfo ? 1 : 0) + (onToggleFavorite ? 1 : 0) + (onPlay ? 1 : 0);
   const infoSlot = 0;
   const favoriteSlot = onInfo ? 1 : 0;
   const playSlot = favoriteSlot + (onToggleFavorite ? 1 : 0);
   const slotStyle = (slot: number) =>
-    tv
-      ? undefined
-      : [styles.trailingButton, { end: Spacing.three + CHEVRON_SIZE + ROW_GAP + slot * SLOT }];
+    tv ? undefined : [styles.footerButton, { end: Spacing.two + slot * SLOT }];
 
   const gradeClass = duroodGradeClass(item.grade);
   const gradeLabel = gradeClass ? t(`duroods.grade.${gradeClass}`) : null;
@@ -121,38 +122,50 @@ export const DuroodRow = memo(function DuroodRow({
           { backgroundColor: colors.muted, borderColor: tokens.hairline },
         ]}
       >
-        {index != null ? <ListIndexBadge index={index} /> : null}
-        <View style={styles.body}>
-          <ThemedText type="smallBold" numberOfLines={2}>
-            {item.title}
-          </ThemedText>
-          <ThemedText
-            type="arabic"
-            accessibilityLanguage="ar"
-            numberOfLines={2}
-            style={styles.arabicPreview}
-            accessibilityElementsHidden
-            importantForAccessibility="no"
-          >
-            {item.arabic}
-          </ThemedText>
-          {preview ? (
-            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
-              {preview}
+        {/* Header: number star · title + grade · chevron. */}
+        <View style={styles.header}>
+          {index != null ? <SurahNumberMedallion number={index} size={36} /> : null}
+          <View style={styles.titleBlock}>
+            <ThemedText type="smallBold" numberOfLines={2} style={styles.title}>
+              {item.title}
             </ThemedText>
-          ) : null}
-          {gradeLabel ? (
-            <Pill
-              compact
-              label={gradeLabel}
-              color={tokens.status.success.color}
-              background={tokens.status.success.soft}
-              style={styles.grade}
-            />
-          ) : null}
+            {gradeLabel ? (
+              <Pill
+                compact
+                label={gradeLabel}
+                color={tokens.status.success.color}
+                background={tokens.status.success.soft}
+              />
+            ) : null}
+          </View>
+          <SymbolView
+            name={chevronForward}
+            size={CHEVRON_SIZE}
+            tintColor={colors.mutedForeground}
+          />
         </View>
-        {!tv && slotCount > 0 ? <View style={{ width: slotCount * SLOT }} /> : null}
-        <SymbolView name={chevronForward} size={CHEVRON_SIZE} tintColor={colors.mutedForeground} />
+
+        {/* The Arabic across the full card width — the reading focus of the card. */}
+        <ThemedText
+          type="arabic"
+          accessibilityLanguage="ar"
+          numberOfLines={2}
+          style={[styles.arabicPreview, { color: colors.foreground }]}
+          accessibilityElementsHidden
+          importantForAccessibility="no"
+        >
+          {item.arabic}
+        </ThemedText>
+        {preview ? (
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            {preview}
+          </ThemedText>
+        ) : null}
+
+        {/* Footer spacer: the action buttons (siblings, see below) overlay it. */}
+        {!tv && slotCount > 0 ? (
+          <View style={[styles.footer, { borderTopColor: tokens.hairline }]} />
+        ) : null}
       </PressableScale>
 
       {onInfo ? (
@@ -212,15 +225,24 @@ const styles = StyleSheet.create({
   fill: { flexGrow: 1 },
   wrapperTv: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   row: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: ROW_GAP,
+    gap: Spacing.two,
     paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.twoHalf,
+    paddingTop: Spacing.three,
+    paddingBottom: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: BorderWidth.thin,
   },
+  header: { flexDirection: "row", alignItems: "center", gap: ROW_GAP },
+  titleBlock: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: Spacing.oneHalf,
+  },
+  title: { flexShrink: 1 },
   rowTv: {
     flex: 1,
     minWidth: 0,
@@ -228,14 +250,20 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.four,
     borderRadius: Radius.lg,
   },
-  body: { flex: 1, minWidth: 0, gap: Spacing.half },
-  arabicPreview: { fontSize: PREVIEW_ARABIC_SIZE, writingDirection: "rtl" },
-  grade: { alignSelf: "flex-start", marginTop: Spacing.half },
-  trailingButton: {
+  arabicPreview: {
+    fontSize: PREVIEW_ARABIC_SIZE,
+    lineHeight: PREVIEW_ARABIC_LINE,
+    writingDirection: "rtl",
+    textAlign: "right",
+  },
+  // Grows so cards in one grid row align their footers at the bottom.
+  footer: {
+    marginTop: "auto",
+    height: SLOT,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  footerButton: {
     position: "absolute",
-    // PressableScale keeps the glyph on an inner view that does not stretch when
-    // top/bottom are set, so pin to mid-height instead.
-    top: "50%",
-    marginTop: -(SLOT / 2),
+    bottom: Spacing.two,
   },
 });

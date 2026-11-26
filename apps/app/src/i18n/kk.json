@@ -1975,7 +1975,8 @@
       "playHint": "Тек {{ref}} ойнатылады",
       "openFullSurah": "Толық сүреде ашу",
       "openFullSurahHint": "{{name}} сүресін оқу құралында {{n}}-аяттан ашады"
-    }
+    },
+    "continueShort": "Жалғастыру"
   },
   "hadith": {
     "eyebrow": "Пайғамбарлық сүннет",

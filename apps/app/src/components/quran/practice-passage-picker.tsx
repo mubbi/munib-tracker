@@ -2,12 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { SurahCalligraphyName } from "@/components/quran/surah-calligraphy-name";
+import { SurahNumberMedallion } from "@/components/quran/surah-number-medallion";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SearchField } from "@/components/ui/search-field";
 import { Sheet } from "@/components/ui/sheet";
 import { Stepper } from "@/components/ui/stepper";
+import { useCategoryHue } from "@/components/ui/use-category-hue";
 import { Control, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { Passage } from "@/lib/quran-companion/types";
@@ -88,40 +91,14 @@ export function PracticePassagePicker({
               accessibilityLabel={t("quranCompanion.picker.searchSurah")}
             />
             <View style={styles.list}>
-              {surahs.map((s) => {
-                const selected = s.number === surah;
-                return (
-                  <PressableScale
-                    key={s.number}
-                    haptic="selection"
-                    accessibilityRole="button"
-                    accessibilityState={{ selected }}
-                    accessibilityLabel={`${s.number}. ${s.nameTransliteration}, ${t("quranCompanion.picker.ayahCount", { count: s.ayahCount })}`}
-                    onPress={() => chooseSurah(s.number)}
-                    style={[
-                      styles.surahRow,
-                      { backgroundColor: selected ? tokens.accentSoft : colors.muted },
-                    ]}
-                  >
-                    <View style={[styles.surahNumber, { backgroundColor: tokens.accentSoft }]}>
-                      <ThemedText type="caption" style={{ color: colors.accentText }}>
-                        {s.number}
-                      </ThemedText>
-                    </View>
-                    <View style={styles.flex}>
-                      <ThemedText type="small" numberOfLines={1}>
-                        {s.nameTransliteration}
-                      </ThemedText>
-                      <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                        {t("quranCompanion.picker.ayahCount", { count: s.ayahCount })}
-                      </ThemedText>
-                    </View>
-                    <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.arabicName}>
-                      {s.nameArabic}
-                    </ThemedText>
-                  </PressableScale>
-                );
-              })}
+              {surahs.map((s) => (
+                <PickerSurahRow
+                  key={s.number}
+                  surah={s}
+                  selected={s.number === surah}
+                  onPress={() => chooseSurah(s.number)}
+                />
+              ))}
             </View>
           </>
         ) : (
@@ -131,22 +108,19 @@ export function PracticePassagePicker({
               accessibilityRole="button"
               accessibilityLabel={t("quranCompanion.picker.changeSurah")}
               onPress={() => setStep("surah")}
-              style={[styles.surahRow, { backgroundColor: colors.muted }]}
+              style={[
+                styles.surahRow,
+                { backgroundColor: tokens.accentSoft, borderColor: tokens.hairline },
+              ]}
             >
-              <View style={[styles.surahNumber, { backgroundColor: tokens.accentSoft }]}>
-                <ThemedText type="caption" style={{ color: colors.accentText }}>
-                  {surah}
-                </ThemedText>
-              </View>
+              <SurahNumberMedallion number={surah} highlighted />
               <View style={styles.flex}>
-                <ThemedText type="small">{name}</ThemedText>
+                <ThemedText type="smallBold">{name}</ThemedText>
                 <ThemedText type="caption" style={{ color: colors.accentText }}>
                   {t("quranCompanion.picker.changeSurah")}
                 </ThemedText>
               </View>
-              <ThemedText type="arabic" accessibilityLanguage="ar" style={styles.arabicName}>
-                {meta?.nameArabic ?? ""}
-              </ThemedText>
+              <SurahCalligraphyName number={surah} nameArabic={meta?.nameArabic ?? ""} />
             </PressableScale>
 
             <ThemedText type="smallBold">{t("quranCompanion.picker.fromAyah")}</ThemedText>
@@ -229,26 +203,82 @@ export function PracticePassagePicker({
   );
 }
 
+type PickerSurah = ReturnType<typeof searchSurahList>[number];
+
+/**
+ * One surah in the picker — the same card as the Qur'an surah list: star
+ * medallion, name / meaning / facts, and the Thuluth calligraphy name.
+ */
+function PickerSurahRow({
+  surah: s,
+  selected,
+  onPress,
+}: {
+  surah: PickerSurah;
+  selected: boolean;
+  onPress: () => void;
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const makki = s.revelationPlace === "makkah";
+  // Makki / Madani is a category, not a status: the browse hues, as on the surah list.
+  const revelation = useCategoryHue(makki ? "sky" : "dawn");
+  const ayahs = t("quranCompanion.picker.ayahCount", { count: s.ayahCount });
+  return (
+    <PressableScale
+      haptic="selection"
+      accessibilityRole="button"
+      accessibilityState={{ selected }}
+      accessibilityLabel={`${s.number}. ${s.nameTransliteration}, ${ayahs}`}
+      onPress={onPress}
+      style={[
+        styles.surahRow,
+        {
+          backgroundColor: selected ? tokens.accentSoft : colors.card,
+          borderColor: tokens.hairline,
+        },
+      ]}
+    >
+      <SurahNumberMedallion number={s.number} highlighted={selected} />
+      <View style={styles.flex}>
+        <ThemedText type="smallBold" numberOfLines={1}>
+          {s.nameTransliteration}
+        </ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+          {s.nameEnglish}
+        </ThemedText>
+        <View style={styles.facts}>
+          <View style={[styles.revelationDot, { backgroundColor: revelation.text }]} />
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            {ayahs}
+            {" · "}
+            <ThemedText type="caption" style={{ color: revelation.text }}>
+              {makki ? t("quran.makki") : t("quran.madani")}
+            </ThemedText>
+          </ThemedText>
+        </View>
+      </View>
+      <SurahCalligraphyName number={s.number} nameArabic={s.nameArabic} />
+    </PressableScale>
+  );
+}
+
 const styles = StyleSheet.create({
   body: { gap: Spacing.three, padding: Spacing.three },
-  list: { gap: Spacing.one },
+  list: { gap: Spacing.two },
+  // Same card as the Qur'an surah list rows.
   surahRow: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    padding: Spacing.two,
+    padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
   },
-  surahNumber: {
-    width: 36,
-    height: 36,
-    borderRadius: Radius.sm,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  facts: { flexDirection: "row", alignItems: "center", gap: Spacing.one, marginTop: Spacing.half },
+  revelationDot: { width: 6, height: 6, borderRadius: 3 },
   flex: { flex: 1, minWidth: 0 },
-  arabicName: { fontSize: 18, writingDirection: "rtl" },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.one },
   ayahCell: {
     minWidth: Control.minTouch,

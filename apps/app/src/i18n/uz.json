@@ -1975,7 +1975,8 @@
       "playHint": "Faqat {{ref}} ijro etiladi",
       "openFullSurah": "To'liq surada ochish",
       "openFullSurahHint": "{{name}} surasini o'quvchida {{n}}-oyatdan ochadi"
-    }
+    },
+    "continueShort": "Davom etish"
   },
   "hadith": {
     "eyebrow": "Payg'ambarlik an'anasi",

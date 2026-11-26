@@ -55,7 +55,19 @@ describe("ContinueCard", () => {
   it("shows the surah number for Qur'an activity", async () => {
     await renderCard({ kind: "quran", href: "/quran/18?ayah=10", title: "Al-Kahf" });
 
-    expect(screen.getByText("18")).toBeTruthy();
+    // The star medallion is decorative (the card's label announces the surah).
+    expect(screen.getByText("18", { includeHiddenElements: true })).toBeTruthy();
+  });
+
+  it("resolves the surah from its Arabic name for page / mushaf positions", async () => {
+    await renderCard({
+      kind: "quran",
+      href: "/quran/page/3",
+      title: "Al-Baqarah",
+      preview: "البقرة",
+    });
+
+    expect(screen.getByText("2", { includeHiddenElements: true })).toBeTruthy();
   });
 
   it("marks audio activity as listening", async () => {

@@ -1,3 +1,4 @@
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect, useState } from "react";
 import { type LayoutChangeEvent, StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
@@ -26,6 +27,8 @@ type SegmentOption<T extends string> = {
   accessibilityLabel?: string;
   /** This segment is dimmed and ignores presses. */
   disabled?: boolean;
+  /** Optional glyph before the label (e.g. reader layouts). Decorative — the label names it. */
+  icon?: SymbolViewProps["name"];
 };
 
 type SegmentedControlProps<T extends string> = {
@@ -149,15 +152,28 @@ export function SegmentedControl<T extends string>({
                 !disabled && option.disabled && styles.optionDisabled,
               ]}
             >
-              <ThemedText
-                type="smallBold"
-                style={{
-                  color: selected ? colors.foreground : colors.mutedForeground,
-                  fontSize: tv ? TvLayout.bodyFontSize : undefined,
-                }}
-              >
-                {option.label}
-              </ThemedText>
+              <View style={styles.segmentContent}>
+                {option.icon ? (
+                  <SymbolView
+                    name={option.icon}
+                    size={tv ? TvLayout.bodyFontSize : 16}
+                    tintColor={selected ? colors.accentText : colors.mutedForeground}
+                  />
+                ) : null}
+                <ThemedText
+                  type="smallBold"
+                  numberOfLines={1}
+                  style={[
+                    styles.segmentLabel,
+                    {
+                      color: selected ? colors.foreground : colors.mutedForeground,
+                      fontSize: tv ? TvLayout.bodyFontSize : undefined,
+                    },
+                  ]}
+                >
+                  {option.label}
+                </ThemedText>
+              </View>
             </PressableScale>
           );
         })}
@@ -193,6 +209,14 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     ...Shadows.sm,
   },
+  segmentContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.oneHalf,
+    maxWidth: "100%",
+  },
+  segmentLabel: { flexShrink: 1 },
   segment: {
     flex: 1,
     // 44pt / 48dp (Android): segments touch, so the size itself is the target.

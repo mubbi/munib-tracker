@@ -1975,7 +1975,8 @@
       "playHint": "Yana kunna {{ref}} kawai",
       "openFullSurah": "Buɗe cikakkiyar sura",
       "openFullSurahHint": "Yana buɗe {{name}} a aya ta {{n}} a shafin karatu"
-    }
+    },
+    "continueShort": "Ci gaba"
   },
   "hadith": {
     "eyebrow": "Hadisin annabci",

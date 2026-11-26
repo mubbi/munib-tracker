@@ -6,14 +6,14 @@ import { memo, type ReactNode, useCallback, useEffect, useMemo, useState } from 
 import { useTranslation } from "react-i18next";
 import { type LayoutChangeEvent, type ListRenderItem, StyleSheet, View } from "react-native";
 import { QuranHubTools } from "@/components/quran/hub/quran-hub-tools";
+import { SurahCalligraphyName } from "@/components/quran/surah-calligraphy-name";
+import { SurahNumberMedallion } from "@/components/quran/surah-number-medallion";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { EmptyState } from "@/components/ui/empty-state";
-import { IconWell } from "@/components/ui/icon-well";
-import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SearchField } from "@/components/ui/search-field";
@@ -25,7 +25,6 @@ import { TvFocusGuide } from "@/components/ui/tv-focus-guide";
 import { TvScrollView } from "@/components/ui/tv-scroll-view";
 import { useCategoryHue } from "@/components/ui/use-category-hue";
 import { BorderWidth, Breakpoints, Radius, Spacing, withAlpha } from "@/constants/theme";
-import { tvDp } from "@/constants/tv-density";
 import { TvLayout } from "@/constants/tv-layout";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useLargeScreenLayout } from "@/hooks/use-large-screen-layout";
@@ -77,6 +76,12 @@ const LAYOUT_OPTIONS: Array<{
 
 const TOTAL_SURAHS = 114;
 
+/** Calligraphy sizes for the hub's featured cards (the surah list uses the shared default). */
+const CONTINUE_NAME_SIZE = 56;
+const CONTINUE_NAME_SIZE_TV = 68;
+const DETAIL_NAME_SIZE = 72;
+const DETAIL_NAME_SIZE_TV = 88;
+
 /** All 114 surahs as crawlable ItemList entries (the visual list isn't <a>-based). */
 const SURAH_ITEMS = getSurahMeta().map((s) => ({
   name: `${s.number}. ${s.nameTransliteration} (${s.nameEnglish})`,
@@ -127,7 +132,6 @@ const SurahRow = memo(function SurahRow({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const chevronForwardIcon = useChevronForward();
   const revelation = useRevelationHue(surah.revelationPlace);
   const makki = surah.revelationPlace === "makkah";
   const highlighted = isSelected || isContinue;
@@ -143,6 +147,8 @@ const SurahRow = memo(function SurahRow({
       style={[
         styles.row,
         tv ? styles.rowTv : styles.rowCompact,
+        // Fill the grid cell so both cards in a row share one height.
+        styles.rowFill,
         {
           // Selection uses soft fill + hairline — accent border is reserved for
           // the D-pad focus ring from PressableScale (avoids dual green highlights).
@@ -152,60 +158,56 @@ const SurahRow = memo(function SurahRow({
         },
       ]}
     >
-      <ListIndexBadge index={surah.number} />
+      <SurahNumberMedallion number={surah.number} size={tv ? 48 : 42} highlighted={highlighted} />
       <View style={styles.rowBody}>
-        <ThemedText
-          type="smallBold"
-          numberOfLines={1}
-          style={[styles.rowName, tv && styles.rowNameTv]}
-        >
-          {surah.nameTransliteration}
-        </ThemedText>
+        {/* "Continue" rides the title line (a compact badge) instead of adding a row,
+            so the continue card is the same height as its neighbours. */}
+        <View style={styles.rowTitleLine}>
+          <ThemedText
+            type="smallBold"
+            numberOfLines={1}
+            style={[styles.rowName, tv && styles.rowNameTv]}
+          >
+            {surah.nameTransliteration}
+          </ThemedText>
+          {showContinuePill && isContinue ? (
+            <Pill
+              compact
+              label={t("quran.continueShort")}
+              color={colors.accentText}
+              background={withAlpha(colors.accent, tokens.isDark ? 0.28 : 0.16)}
+            />
+          ) : null}
+        </View>
         <ThemedText type={tv ? "small" : "caption"} themeColor="mutedForeground" numberOfLines={1}>
           {tv
             ? `${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`
             : surah.nameEnglish}
         </ThemedText>
-        {showContinuePill && isContinue ? (
-          <View style={styles.rowContinue}>
-            <Pill
-              compact
-              label={t("quran.continueReading")}
-              color={colors.accentText}
-              background={withAlpha(colors.accent, tokens.isDark ? 0.28 : 0.16)}
-            />
+        {tv ? null : (
+          // Ayah count + revelation (a small coloured dot + label) under the meaning.
+          <View style={styles.rowFacts}>
+            <View style={[styles.revelationDot, { backgroundColor: revelation.text }]} />
+            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+              {t("quran.ayahCount", { count: surah.ayahCount })}
+              {" · "}
+              <ThemedText type="caption" style={{ color: revelation.text }}>
+                {makki ? t("quran.makki") : t("quran.madani")}
+              </ThemedText>
+            </ThemedText>
           </View>
-        ) : null}
+        )}
       </View>
       <View style={[styles.rowMeta, tv ? styles.rowMetaTv : styles.rowMetaCompact]}>
-        <ThemedText
-          type="arabic"
-          accessibilityLanguage="ar"
-          style={[styles.rowArabic, tv && styles.rowArabicTv]}
-        >
-          {surah.nameArabic}
-        </ThemedText>
+        <SurahCalligraphyName number={surah.number} nameArabic={surah.nameArabic} />
         {tv ? (
           <Pill
             label={makki ? t("quran.makki") : t("quran.madani")}
             color={revelation.text}
             background={revelation.soft}
           />
-        ) : (
-          // Phone / web: ayah count + revelation as one quiet caption under the
-          // Arabic name — two balanced columns instead of a pill on every row.
-          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-            {t("quran.ayahCount", { count: surah.ayahCount })}
-            {" · "}
-            <ThemedText type="caption" style={{ color: revelation.text }}>
-              {makki ? t("quran.makki") : t("quran.madani")}
-            </ThemedText>
-          </ThemedText>
-        )}
+        ) : null}
       </View>
-      {!tv ? (
-        <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
-      ) : null}
     </PressableScale>
   );
 });
@@ -247,6 +249,7 @@ function ReaderLayoutActions({
       LAYOUT_OPTIONS.map((option) => ({
         id: option.id,
         label: t(option.labelKey),
+        icon: option.icon,
         accessibilityLabel: t("quran.hub.openIn", { layout: t(option.labelKey) }),
       })),
     [t],
@@ -417,17 +420,7 @@ function ContinueReadingCard({
       ]}
     >
       <View style={[styles.continueTop, tv && styles.continueTopTv]}>
-        <View
-          style={[
-            styles.continueBadge,
-            tv && styles.continueBadgeTv,
-            { backgroundColor: colors.background },
-          ]}
-        >
-          <ThemedText type="subtitle" style={{ color: colors.accentText }}>
-            {surahNumber}
-          </ThemedText>
-        </View>
+        <SurahNumberMedallion number={surahNumber} size={tv ? 56 : 48} highlighted />
         <View style={styles.continueCopy}>
           <ThemedText type="smallBold" numberOfLines={1}>
             {surah?.nameTransliteration ?? t("quran.continueAt", { surah: surahNumber, ayah })}
@@ -440,30 +433,14 @@ function ContinueReadingCard({
                 : t("quran.continueAt", { surah: surahNumber, ayah })}
           </ThemedText>
         </View>
-        <View style={styles.continueAside}>
-          {surah ? (
-            <ThemedText
-              type="arabic"
-              accessibilityLanguage="ar"
-              style={[
-                styles.continueArabic,
-                tv && styles.continueArabicTv,
-                { color: colors.accentText },
-              ]}
-            >
-              {surah.nameArabic}
-            </ThemedText>
-          ) : null}
-          {!tv ? (
-            <IconWell
-              icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-              tint={colors.accent}
-              background={withAlpha(colors.accent, tokens.isDark ? 0.22 : 0.12)}
-              well={44}
-              size={20}
-            />
-          ) : null}
-        </View>
+        {surah ? (
+          // The surah name as large calligraphy — the card's ornament.
+          <SurahCalligraphyName
+            number={surah.number}
+            nameArabic={surah.nameArabic}
+            size={tv ? CONTINUE_NAME_SIZE_TV : CONTINUE_NAME_SIZE}
+          />
+        ) : null}
       </View>
       <View
         style={[
@@ -555,13 +532,12 @@ function SurahDetailPane({
             </ThemedText>
           ) : null}
         </View>
-        <ThemedText
-          type="arabic"
-          accessibilityLanguage="ar"
-          style={[styles.detailArabic, tv && styles.detailArabicTv, { color: colors.accentText }]}
-        >
-          {surah.nameArabic}
-        </ThemedText>
+        <SurahCalligraphyName
+          number={surah.number}
+          nameArabic={surah.nameArabic}
+          size={tv ? DETAIL_NAME_SIZE_TV : DETAIL_NAME_SIZE}
+          style={styles.detailArabic}
+        />
       </View>
       <View style={styles.detailMeta}>
         <ThemedText type="small" themeColor="mutedForeground">
@@ -993,30 +969,7 @@ const styles = StyleSheet.create({
   continueTopTv: {
     gap: Spacing.four,
   },
-  continueBadge: {
-    width: 48,
-    height: 48,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  continueBadgeTv: {
-    width: tvDp(56),
-    height: tvDp(56),
-  },
   continueCopy: { flex: 1, gap: Spacing.one, minWidth: 0 },
-  continueAside: {
-    alignItems: "flex-end",
-    gap: Spacing.two,
-  },
-  continueArabic: {
-    fontSize: 18,
-    writingDirection: "rtl",
-  },
-  continueArabicTv: {
-    fontSize: 26,
-  },
   continueFooter: {
     marginTop: Spacing.three,
     paddingTop: Spacing.twoHalf,
@@ -1133,13 +1086,19 @@ const styles = StyleSheet.create({
   rowBody: { flex: 1, gap: Spacing.half, minWidth: 0 },
   rowName: { flexShrink: 1, minWidth: 0 },
   rowNameTv: { fontSize: TvLayout.bodyFontSize + 2 },
-  rowContinue: { flexDirection: "row", marginTop: Spacing.half },
+  rowFill: { flexGrow: 1 },
+  rowTitleLine: { flexDirection: "row", alignItems: "center", gap: Spacing.oneHalf },
   dueRow: { flexDirection: "row", flexWrap: "wrap" },
   rowMeta: { alignItems: "flex-end", gap: Spacing.one, maxWidth: "34%" },
   rowMetaCompact: { maxWidth: "55%", gap: 0 },
   rowMetaTv: { maxWidth: "38%", gap: Spacing.two },
-  rowArabic: { fontSize: 20, writingDirection: "rtl" },
-  rowArabicTv: { fontSize: 26 },
+  rowFacts: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+    marginTop: Spacing.half,
+  },
+  revelationDot: { width: 6, height: 6, borderRadius: 3 },
   listDetailRoot: {
     flex: 1,
     flexDirection: "row",
@@ -1211,13 +1170,7 @@ const styles = StyleSheet.create({
     fontSize: TvLayout.titleFontSize,
   },
   detailArabic: {
-    fontSize: 30,
-    writingDirection: "rtl",
     flexShrink: 0,
-    textAlign: "right",
-  },
-  detailArabicTv: {
-    fontSize: 40,
   },
   detailMeta: {
     flexDirection: "row",

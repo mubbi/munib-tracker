@@ -15,7 +15,6 @@ import { getSurahByNumber } from "@/lib/quran";
 import { wholeSurah } from "@/lib/recite-along/passages";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 import { TOTAL_SURAHS } from "./constants";
-import { readerControlStyles } from "./reader-control-styles";
 
 /**
  * Previous / next surah navigation.
@@ -142,52 +141,41 @@ export function SurahNavCard({
       </View>
 
       {onJumpToAyah ? (
-        <View style={styles.navJumpRow}>
-          <NumberField
-            label={t("quran.goToAyahA11y")}
-            value={ayahValue}
-            onChangeValue={(value) => {
-              setAyahValue(value);
-              if (invalid) setInvalid(false);
-            }}
-            onSubmitEditing={submit}
-            returnKeyType="go"
-            maxFractionDigits={0}
-            placeholder={t("quran.goToAyahPlaceholder", { max: ayahCount })}
-            error={invalid ? t("quran.goToAyahInvalid", { max: ayahCount }) : undefined}
-            style={styles.navJumpInput}
-          />
-          <Button
-            label={t("quran.goToPageAction")}
-            variant="secondary"
-            onPress={submit}
-            style={styles.navJumpGo}
-          />
-        </View>
+        // "Go" sits inside the field (trailing edge), so it always lines up with
+        // the input — whatever the label above or an error message below.
+        <NumberField
+          label={t("quran.goToAyahA11y")}
+          value={ayahValue}
+          onChangeValue={(value) => {
+            setAyahValue(value);
+            if (invalid) setInvalid(false);
+          }}
+          onSubmitEditing={submit}
+          returnKeyType="go"
+          maxFractionDigits={0}
+          placeholder={t("quran.goToAyahPlaceholder", { max: ayahCount })}
+          error={invalid ? t("quran.goToAyahInvalid", { max: ayahCount }) : undefined}
+          trailing={
+            <Button
+              label={t("quran.goToPageAction")}
+              variant="secondary"
+              size="sm"
+              onPress={submit}
+              style={styles.navJumpGo}
+            />
+          }
+        />
       ) : null}
 
+      {/* Play + Recite along are the same Button size, so the pair lines up. */}
       {onPlayPause ? (
-        <PressableScale
+        <Button
+          label={playLabel}
+          icon={audioPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
           haptic="light"
-          accessibilityRole="button"
-          accessibilityLabel={playLabel}
-          accessibilityState={{ selected: audioPlaying }}
+          fullWidth
           onPress={onPlayPause}
-          style={[
-            readerControlStyles.playSurah,
-            styles.navPlay,
-            { backgroundColor: colors.accent },
-          ]}
-        >
-          <SymbolView
-            name={audioPlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
-            size={IconSize.md}
-            tintColor={colors.accentForeground}
-          />
-          <ThemedText type="smallBold" style={{ color: colors.accentForeground }}>
-            {playLabel}
-          </ThemedText>
-        </PressableScale>
+        />
       ) : null}
       {/* Recite along with the whole surah (D68); long surahs ask whole or ten ayahs. */}
       {recitePassage ? <ReciteAlongButton passage={recitePassage} fullWidth /> : null}
@@ -214,8 +202,6 @@ const styles = StyleSheet.create({
   navStepNext: { justifyContent: "flex-end" },
   navStepCopy: { flex: 1, minWidth: 0, gap: Spacing.half },
   navStepCopyNext: { alignItems: "flex-end" },
-  navJumpRow: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.two },
-  navJumpInput: { flex: 1, minWidth: 0 },
-  navJumpGo: { marginTop: Spacing.six },
-  navPlay: { marginTop: 0 },
+  // Hug the field's trailing padding so the pill sits snugly inside the input row.
+  navJumpGo: { marginEnd: -Spacing.one },
 });

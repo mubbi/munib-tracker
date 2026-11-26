@@ -1975,7 +1975,8 @@
       "playHint": "Diňe {{ref}} oýnadylýar",
       "openFullSurah": "Doly sürede aç",
       "openFullSurahHint": "{{name}} süresini okaýjyda {{n}}-nji aýatdan açýar"
-    }
+    },
+    "continueShort": "Dowam et"
   },
   "hadith": {
     "eyebrow": "Pygamberiň sünneti",

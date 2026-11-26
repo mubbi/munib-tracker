@@ -1975,7 +1975,8 @@
       "playHint": "Luan vetëm {{ref}}",
       "openFullSurah": "Hape në suren e plotë",
       "openFullSurahHint": "Hap {{name}} te ajeti {{n}} në lexues"
-    }
+    },
+    "continueShort": "Vazhdo"
   },
   "hadith": {
     "eyebrow": "Tradita profetike",

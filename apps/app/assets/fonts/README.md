@@ -49,3 +49,13 @@ Indic scripts use `resolveTranslationFontFamily()` in
 3. Add a matching option to `ARABIC_FONT_OPTIONS` in
    `src/lib/reading-typography.ts` (with a tuned `lineHeightRatio`) and its
    `fonts.arabicFamily.*` label in every `src/i18n/<locale>.json` (24 locales).
+
+## Surah-name calligraphy (`surah-name-v4.ttf`)
+
+Each surah name is a single Thuluth calligraphy glyph, used for the Arabic surah names in surah lists and
+cards. Not a reading font and not in the picker.
+
+- **Code points:** surah _n_ = U+E000 + _n_ (U+E001 Al-Fatihah … U+E072 An-Nas); U+E000 = the word "سورة".
+- **Loading:** `src/lib/surah-name-font.ts` loads it on demand (dynamic import of `surah-name-font-file.ts`)
+  the first time a surah list shows; names fall back to the plain Arabic name in the reading font until then
+  (and if the file is ever removed).

@@ -1975,7 +1975,8 @@
       "playHint": "Hanya memutar {{ref}}",
       "openFullSurah": "Buka surah lengkap",
       "openFullSurahHint": "Membuka {{name}} di ayat {{n}} pada pembaca"
-    }
+    },
+    "continueShort": "Lanjutkan"
   },
   "hadith": {
     "eyebrow": "Sunah Nabi",

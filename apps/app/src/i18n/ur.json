@@ -1945,7 +1945,8 @@
       "playHint": "صرف {{ref}} چلاتا ہے",
       "openFullSurah": "پوری سورہ میں کھولیں",
       "openFullSurahHint": "{{name}} کو آیت {{n}} پر قرآن میں کھولتا ہے"
-    }
+    },
+    "continueShort": "جاری رکھیں"
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",

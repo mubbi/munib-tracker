@@ -2006,7 +2006,8 @@
       "playHint": "Воспроизводит только {{ref}}",
       "openFullSurah": "Открыть всю суру",
       "openFullSurahHint": "Открывает {{name}} на аяте {{n}} в читалке"
-    }
+    },
+    "continueShort": "Продолжить"
   },
   "hadith": {
     "eyebrow": "Пророческая традиция",

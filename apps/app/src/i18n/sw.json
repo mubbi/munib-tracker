@@ -1975,7 +1975,8 @@
       "playHint": "Inacheza {{ref}} pekee",
       "openFullSurah": "Fungua sura nzima",
       "openFullSurahHint": "Inafungua {{name}} kwenye aya {{n}} katika kisomaji"
-    }
+    },
+    "continueShort": "Endelea"
   },
   "hadith": {
     "eyebrow": "Mapokezi ya Mtume ﷺ",

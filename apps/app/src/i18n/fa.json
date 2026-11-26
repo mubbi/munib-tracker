@@ -1975,7 +1975,8 @@
       "playHint": "فقط {{ref}} را پخش می‌کند",
       "openFullSurah": "باز کردن کل سوره",
       "openFullSurahHint": "سورهٔ {{name}} را در آیهٔ {{n}} در قرآن‌خوان باز می‌کند"
-    }
+    },
+    "continueShort": "ادامه"
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",

@@ -1975,7 +1975,8 @@
       "playHint": "Lit uniquement {{ref}}",
       "openFullSurah": "Ouvrir la sourate entière",
       "openFullSurahHint": "Ouvre {{name}} au verset {{n}} dans le lecteur"
-    }
+    },
+    "continueShort": "Continuer"
   },
   "hadith": {
     "eyebrow": "Tradition prophétique",

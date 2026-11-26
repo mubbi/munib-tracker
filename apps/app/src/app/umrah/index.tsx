@@ -21,12 +21,14 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
+import { IconWell } from "@/components/ui/icon-well";
 import { NavRow } from "@/components/ui/nav-row";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { UmrahStepPanel } from "@/components/umrah/umrah-step-panel";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isTV } from "@/lib/platform/is-tv";
@@ -293,21 +295,60 @@ function StepOverview({
               onPress={() => onSelect(step)}
             />
           ) : (
-            <View key={step} style={styles.overviewRow}>
-              <ThemedText type="smallBold">
-                {t("umrahMode.stepRow", {
-                  number: index + 1,
-                  step: t(`umrahMode.step.${step}.title`),
-                })}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t(`umrahMode.step.${step}.body`)}
-              </ThemedText>
-            </View>
+            <StepOverviewRow
+              key={step}
+              step={step}
+              number={index + 1}
+              last={index === steps.length - 1}
+            />
           ),
         )}
       </View>
     </CollapsibleSection>
+  );
+}
+
+/**
+ * One step of the read-only overview: a vertical timeline — the step icon on a
+ * rail joined to the next step, and a soft card with the numbered title and the
+ * short description. Read as one element by screen readers.
+ */
+function StepOverviewRow({
+  step,
+  number,
+  last,
+}: {
+  step: UmrahStep;
+  number: number;
+  last: boolean;
+}) {
+  const { t, i18n } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const title = t(`umrahMode.step.${step}.title`);
+  const body = t(`umrahMode.step.${step}.body`);
+  const label = t("umrahMode.stepRow", { number, step: title });
+  return (
+    <View style={styles.timelineRow} accessible accessibilityLabel={`${label}. ${body}`}>
+      <View style={styles.rail}>
+        <IconWell icon={UMRAH_STEP_ICONS[step]} size={18} well={40} radius={Radius.md} />
+        {last ? null : <View style={[styles.connector, { backgroundColor: tokens.hairline }]} />}
+      </View>
+      <View style={[styles.stepCard, { backgroundColor: colors.muted }]}>
+        <View style={styles.stepHead}>
+          <View style={[styles.stepNumber, { backgroundColor: tokens.accentSoft }]}>
+            <ThemedText type="caption" style={{ color: tokens.accentOnSoft }}>
+              {number.toLocaleString(i18n.language)}
+            </ThemedText>
+          </View>
+          <ThemedText type="smallBold" style={styles.flex}>
+            {title}
+          </ThemedText>
+        </View>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {body}
+        </ThemedText>
+      </View>
+    </View>
   );
 }
 
@@ -317,7 +358,33 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   center: { textAlign: "center" },
   list: { gap: Spacing.two },
-  overviewRow: { gap: Spacing.half },
+  timelineRow: { flexDirection: "row", gap: Spacing.three, alignItems: "stretch" },
+  rail: { alignItems: "center" },
+  // The rail line runs from under the icon to the next step (across the list gap).
+  connector: {
+    width: 2,
+    flex: 1,
+    marginTop: Spacing.one,
+    marginBottom: -Spacing.two,
+    borderRadius: 1,
+  },
+  stepCard: {
+    flex: 1,
+    minWidth: 0,
+    gap: Spacing.one,
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  stepHead: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  stepNumber: {
+    minWidth: 24,
+    height: 24,
+    paddingHorizontal: Spacing.one,
+    borderRadius: Radius.pill,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 /** Static web <head> from the SEO registry (see src/lib/seo/route-metadata.ts). */

@@ -2001,7 +2001,8 @@
       "playHint": "सिर्फ़ {{ref}} चलाता है",
       "openFullSurah": "पूरी सूरह में खोलें",
       "openFullSurahHint": "रीडर में {{name}} को आयत {{n}} पर खोलता है"
-    }
+    },
+    "continueShort": "जारी रखें"
   },
   "hadith": {
     "eyebrow": "नबवी हदीसें",

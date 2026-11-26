@@ -1975,7 +1975,8 @@
       "playHint": "Waxay ciyaarisaa {{ref}} oo keliya",
       "openFullSurah": "Ku fur suuradda oo dhan",
       "openFullSurahHint": "Waxay akhriyaha ku furtaa {{name}} aayadda {{n}}"
-    }
+    },
+    "continueShort": "Sii wad"
   },
   "hadith": {
     "eyebrow": "Dhaqanka nabiga",

@@ -8,6 +8,8 @@ import { ListenerStatusStrip } from "@/components/quran/listener-status-strip";
 import { PracticePassagePicker } from "@/components/quran/practice-passage-picker";
 import { type PracticePillOption, PracticePills } from "@/components/quran/practice-pills";
 import { PracticeRangeEditor } from "@/components/quran/practice-range-editor";
+import { SurahCalligraphyName } from "@/components/quran/surah-calligraphy-name";
+import { SurahNumberMedallion } from "@/components/quran/surah-number-medallion";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { SettingsRow } from "@/components/settings/settings-rows";
@@ -368,20 +370,22 @@ export default function PracticeHubScreen() {
           { backgroundColor: colors.muted, borderColor: tokens.accentBorder },
         ]}
       >
-        <View style={[styles.passageBadge, { backgroundColor: tokens.accentSoft }]}>
-          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-            {passage?.surah ?? start.surah}
-          </ThemedText>
-        </View>
+        {/* Same identity as the surah list: star medallion + Thuluth calligraphy name. */}
+        <SurahNumberMedallion number={passage?.surah ?? start.surah} size={48} highlighted />
         <View style={styles.flex}>
           <ThemedText type="subtitle" numberOfLines={1}>
             {passageLabel}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("quranCompanion.hub.ayahCount", { count: ayahTotal })}
-            {surahMeta?.nameArabic ? ` · ${surahMeta.nameArabic}` : ""}
           </ThemedText>
         </View>
+        {surahMeta?.nameArabic ? (
+          <SurahCalligraphyName
+            number={passage?.surah ?? start.surah}
+            nameArabic={surahMeta.nameArabic}
+          />
+        ) : null}
         <View style={[styles.changeLink, { backgroundColor: tokens.accentSoft }]}>
           <SymbolView
             name={{ ios: "pencil", android: "edit", web: "edit" }}
@@ -663,13 +667,6 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: BorderWidth.hairline,
-  },
-  passageBadge: {
-    width: 44,
-    height: 44,
-    borderRadius: Radius.md,
-    alignItems: "center",
-    justifyContent: "center",
   },
   changeLink: {
     flexDirection: "row",

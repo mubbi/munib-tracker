@@ -179,22 +179,28 @@ export function QuranAyahRangeCards({
   return (
     <View style={styles.root}>
       {shareCardProp ? null : shareCard.SnapshotHost}
+      {/* Row cells share the width; each button fills its cell (a flexBasis on the
+          Button lands on its inner column and became a ~140px height on web). */}
       <View style={styles.topActions}>
-        <Button
-          label={rangePlaying ? t("quran.actionPause") : t("common.play")}
-          icon={rangePlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
-          style={styles.topAction}
-          onPress={() => {
-            if (rangeActive) {
-              toggleAudio();
-              return;
-            }
-            playFrom(0);
-          }}
-        />
+        <View style={styles.topAction}>
+          <Button
+            label={rangePlaying ? t("quran.actionPause") : t("common.play")}
+            icon={rangePlaying ? PAUSE_CIRCLE_ICON : PLAY_CIRCLE_ICON}
+            fullWidth
+            onPress={() => {
+              if (rangeActive) {
+                toggleAudio();
+                return;
+              }
+              playFrom(0);
+            }}
+          />
+        </View>
         {/* One span: recite it along here. Several (the three Quls): one per section. */}
         {singlePassage ? (
-          <ReciteAlongButton passage={singlePassage} style={styles.topAction} />
+          <View style={styles.topAction}>
+            <ReciteAlongButton passage={singlePassage} fullWidth />
+          </View>
         ) : null}
       </View>
 
@@ -442,11 +448,16 @@ const styles = StyleSheet.create({
   topActions: {
     flexDirection: "row",
     flexWrap: "wrap",
+    alignItems: "flex-start",
     gap: Spacing.two,
+    width: "100%",
+    maxWidth: 560,
+    alignSelf: "center",
   },
   topAction: {
     flexGrow: 1,
-    flexBasis: 140,
+    flexBasis: 180,
+    minWidth: 0,
   },
   sectionRecite: {
     alignSelf: "flex-start",

@@ -2002,7 +2002,8 @@
       "playHint": "Plays {{ref}} only",
       "openFullSurah": "Open in full surah",
       "openFullSurahHint": "Opens {{name}} at ayah {{n}} in the reader"
-    }
+    },
+    "continueShort": "Continue"
   },
   "hadith": {
     "eyebrow": "Prophetic tradition",

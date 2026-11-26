@@ -1975,7 +1975,8 @@
       "playHint": "Yalnızca {{ref}} çalınır",
       "openFullSurah": "Surenin tamamında aç",
       "openFullSurahHint": "{{name}} suresini okuyucuda {{n}}. ayetten açar"
-    }
+    },
+    "continueShort": "Sürdür"
   },
   "hadith": {
     "eyebrow": "Nebevi sünnet",

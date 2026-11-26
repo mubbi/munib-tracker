@@ -2001,7 +2001,8 @@
       "playHint": "يشغّل {{ref}} فقط",
       "openFullSurah": "افتح السورة كاملة",
       "openFullSurahHint": "يفتح سورة {{name}} عند الآية {{n}} في المصحف"
-    }
+    },
+    "continueShort": "تابِع"
   },
   "hadith": {
     "eyebrow": "السنة النبوية",

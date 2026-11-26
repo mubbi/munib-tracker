@@ -1975,7 +1975,8 @@
       "playHint": "Yalnız {{ref}} oxudulur",
       "openFullSurah": "Bütün surədə aç",
       "openFullSurahHint": "{{name}} surəsini oxuyucuda {{n}} nömrəli ayədə açır"
-    }
+    },
+    "continueShort": "Davam et"
   },
   "hadith": {
     "eyebrow": "Peyğəmbərlik ənənəsi",

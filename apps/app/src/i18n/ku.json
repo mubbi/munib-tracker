@@ -1975,7 +1975,8 @@
       "playHint": "تەنها {{ref}} لێدەدات",
       "openFullSurah": "کردنەوەی هەموو سوورەتەکە",
       "openFullSurahHint": "{{name}} لە ئایەتی {{n}} لە پەڕەی خوێندنەوە دەکاتەوە"
-    }
+    },
+    "continueShort": "بەردەوامبە"
   },
   "hadith": {
     "eyebrow": "سوننەتی پێغەمبەر",

@@ -1975,7 +1975,8 @@
       "playHint": "Танҳо {{ref}}-ро пахш мекунад",
       "openFullSurah": "Кушодани тамоми сура",
       "openFullSurahHint": "Сураи {{name}}-ро дар ояти {{n}} дар равзанаи хониш мекушояд"
-    }
+    },
+    "continueShort": "Идома"
   },
   "hadith": {
     "eyebrow": "Анъанаи паёмбарӣ",
