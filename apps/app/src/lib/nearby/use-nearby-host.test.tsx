@@ -189,10 +189,18 @@ describe("useNearbyHost", () => {
     jest
       .mocked(api.listNearbyRequests)
       .mockResolvedValue({ items: [], active: false, expiresAt: session.expiresAt });
-    const hook = await startVisible();
+    // The first poll answers "inactive" at once, so "visible" can be gone before
+    // any `waitFor` sees it: assert that it advertised, then stopped as used.
+    const hook = await setup();
+    await act(async () => {
+      await hook.result.current.start();
+    });
     await waitFor(() =>
       expect(hook.result.current.state).toEqual({ kind: "stopped", reason: "used" }),
     );
+    expect(mockNearbyNative.startNearbyAdvertising).toHaveBeenCalled();
+    expect(api.listNearbyRequests).toHaveBeenCalledWith("tok", "c-1", session.sessionId);
+    expect(mockNearbyNative.stopNearbyAdvertising).toHaveBeenCalled();
   });
 
   it("stops advertising and ends the session on unmount", async () => {
