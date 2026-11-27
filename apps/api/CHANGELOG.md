@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.4.0](https://github.com/mubbi/munib-tracker/compare/api-v1.3.0...api-v1.4.0) (2026-11-27)
+
+
+### Features
+
+* add a finance reading surface and jahannam/last-day report kinds ([a80a983](https://github.com/mubbi/munib-tracker/commit/a80a983b5c7a765eb96ea8de220b054f9a6aae01))
+* **api:** add circles, masjid finder and encrypted sync entities ([63a9e32](https://github.com/mubbi/munib-tracker/commit/63a9e326741d866f5659c05e77ffacd2165ae268))
+* **api:** nearby join, private sync hardening and safer errors ([6ea26f4](https://github.com/mubbi/munib-tracker/commit/6ea26f4a960b1a07ccc5a814886be9e26f372b6a))
+* native review sheet only at value moments, private app feedback (D76) ([14f2814](https://github.com/mubbi/munib-tracker/commit/14f28147f9f1084de19794c6dbc3bf6f15890800))
+* search masjids via geoapify with overpass fallback and better timetable import ([7ed15c6](https://github.com/mubbi/munib-tracker/commit/7ed15c6418f1c67dce8540074c1139945fbe17ed))
+
+
+### Bug Fixes
+
+* **api:** block web push ssrf and harden uploads, sync and reports ([b4284af](https://github.com/mubbi/munib-tracker/commit/b4284afd7c420a1e4a337902285ce5631aecb386))
+* **api:** erase the email when an account is deleted ([375ea1d](https://github.com/mubbi/munib-tracker/commit/375ea1d6f071963ba596d0cc21a9c6464c826e72))
+* **api:** hash refresh tokens at rest and harden oauth and logout ([269f2b1](https://github.com/mubbi/munib-tracker/commit/269f2b1c48961b161d0fcdbba6f5ee25af9d7137))
+* **api:** load only timestamped migrations in the TypeORM CLI ([3dc80a2](https://github.com/mubbi/munib-tracker/commit/3dc80a2aed3b04f9560e396070f69eb45fdf795c))
+* resolve CodeQL alerts on the develop to main PR ([fe138e0](https://github.com/mubbi/munib-tracker/commit/fe138e03ff669caba4d60118537b2442eab9d43c))
+
 ## [1.3.0](https://github.com/mubbi/munib-tracker/compare/api-v1.2.1...api-v1.3.0) (2026-11-18)
 
 
