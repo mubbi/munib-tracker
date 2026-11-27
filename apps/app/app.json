@@ -12,18 +12,11 @@
       "supportsTablet": true,
       "usesAppleSignIn": true,
       "icon": "./assets/images/icon.png",
-      "associatedDomains": [
-        "applinks:my.munibtracker.app"
-      ],
+      "associatedDomains": ["applinks:my.munibtracker.app"],
       "infoPlist": {
-        "UIBackgroundModes": [
-          "remote-notification",
-          "audio"
-        ],
+        "UIBackgroundModes": ["remote-notification", "audio"],
         "NSSupportsLiveActivities": true,
-        "LSApplicationQueriesSchemes": [
-          "whatsapp"
-        ],
+        "LSApplicationQueriesSchemes": ["whatsapp"],
         "NSFaceIDUsageDescription": "Munib Tracker uses Face ID so you can unlock the app when App Lock is enabled.",
         "NSCameraUsageDescription": "Munib Tracker uses the camera so you can attach photos to custom adhkar or photograph your masjid timetable. Photos stay on your device.",
         "NSPhotoLibraryUsageDescription": "Munib Tracker uses your photo library so you can attach images to custom adhkar or import your masjid timetable. Photos stay on your device.",
@@ -39,9 +32,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": true,
-      "blockedPermissions": [
-        "android.permission.ACTIVITY_RECOGNITION"
-      ],
+      "blockedPermissions": ["android.permission.ACTIVITY_RECOGNITION"],
       "intentFilters": [
         {
           "action": "VIEW",
@@ -63,15 +54,10 @@
               "pathPrefix": "/kids/link"
             }
           ],
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
+          "category": ["BROWSABLE", "DEFAULT"]
         }
       ],
-      "permissions": [
-        "android.permission.SCHEDULE_EXACT_ALARM"
-      ]
+      "permissions": ["android.permission.SCHEDULE_EXACT_ALARM"]
     },
     "web": {
       "bundler": "metro",
@@ -201,36 +187,28 @@
                   "bundleIdentifier": "app.munibtracker.munibtrackerwidgets",
                   "targetName": "MunibTrackerWidgets",
                   "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.app.munibtracker.widgets"
-                    ]
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
                   }
                 },
                 {
                   "bundleIdentifier": "app.munibtracker.munibtrackerwatch.widgets",
                   "targetName": "MunibTrackerWatchWidgets",
                   "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.app.munibtracker.widgets"
-                    ]
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
                   }
                 },
                 {
                   "bundleIdentifier": "app.munibtracker.munibtrackerwatch",
                   "targetName": "MunibTrackerWatch",
                   "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.app.munibtracker.widgets"
-                    ]
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
                   }
                 },
                 {
                   "bundleIdentifier": "app.munibtracker.munibtrackerintents",
                   "targetName": "MunibTrackerIntents",
                   "entitlements": {
-                    "com.apple.security.application-groups": [
-                      "group.app.munibtracker.widgets"
-                    ]
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
                   }
                 }
               ]
