@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0](https://github.com/mubbi/munib-tracker/compare/admin-v1.2.1...admin-v1.3.0) (2026-11-27)
+
+
+### Features
+
+* native review sheet only at value moments, private app feedback (D76) ([14f2814](https://github.com/mubbi/munib-tracker/commit/14f28147f9f1084de19794c6dbc3bf6f15890800))
+
+
+### Bug Fixes
+
+* **admin:** harden sessions, oauth, csrf, health probe and headers ([648572e](https://github.com/mubbi/munib-tracker/commit/648572edc7882e3092eb7a25148a6895aa19e187))
+* **admin:** stop exposing ctx-trusting helpers as server actions ([6a71fc1](https://github.com/mubbi/munib-tracker/commit/6a71fc1fddbce151b60fc87323ddedef44e66cc0))
+* resolve CodeQL alerts on the develop to main PR ([fe138e0](https://github.com/mubbi/munib-tracker/commit/fe138e03ff669caba4d60118537b2442eab9d43c))
+
 ## [1.2.1](https://github.com/mubbi/munib-tracker/compare/admin-v1.2.0...admin-v1.2.1) (2026-11-19)
 
 
